@@ -1,0 +1,5 @@
+#pragma once
+
+#if !defined(PSTADE_BISCUIT_LIMIT_PARSER_ARITY)
+	#define PSTADE_BISCUIT_LIMIT_PARSER_ARITY 20
+#endif

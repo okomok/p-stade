@@ -1,0 +1,5 @@
+#pragma once
+
+#if !defined(PSTADE_KETCHUP_LIMIT_ALT_MSG_MAP_SIZE)
+	#define PSTADE_KETCHUP_LIMIT_ALT_MSG_MAP_SIZE 30
+#endif
