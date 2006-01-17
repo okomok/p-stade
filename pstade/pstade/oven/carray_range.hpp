@@ -30,12 +30,14 @@ namespace pstade { namespace oven {
 
 namespace carray_range_detail {
 
+
 	template< class T > inline
 	boost::iterator_range< T * >
 	aux(T *arr, std::size_t sz)
 	{
 		return boost::make_iterator_range(arr, arr + sz);
 	}
+
 
 } // namespace carray_range_detail
 
@@ -80,77 +82,67 @@ make_carray_range(ArrayT& arr, std::size_t sz)
 	}
 #endif
 
-#if !defined(PSTADE_OVEN_CARRAY_RANGE_NO_SIZE_DEDUCTION)
-
-	template< class ArrayT > inline
-	carray_range<ArrayT>
-	make_carray_range(ArrayT& arr)
-	{
-		return carray_range<ArrayT>(arr);
-	}
-
-	#if !defined(PSTADE_WORKAROUND_NO_RVALUE_DETECTION)
-		template< class ArrayT > inline
-		carray_range<const ArrayT>
-		make_carray_range(const ArrayT& arr)
-		{
-			return carray_range<const ArrayT>(arr);
-		}
-	#endif
-
-#endif
-
-
-///////////////////////////////////////////////////////////////////////////////
-// carray_range_adaptor
-//
-struct carray_range_adaptor_sized
-{
-	carray_range_adaptor_sized(std::size_t sz) : m_sz(sz) { }
-	std::size_t m_sz;
-};
-
-inline carray_range_adaptor_sized carrayed_(std::size_t sz)
-{
-	return carray_range_adaptor_sized(sz);
-}
 
 #if !defined(PSTADE_OVEN_CARRAY_RANGE_NO_SIZE_DEDUCTION)
 
-	struct carray_range_adaptor
-	{ };
 
-	namespace {
-		static const carray_range_adaptor carrayed = carray_range_adaptor();
-	}
-
-#endif // !defined(PSTADE_OVEN_CARRAY_RANGE_NO_SIZE_DEDUCTION)
-
-
-///////////////////////////////////////////////////////////////////////////////
-// operator|
-//
 template< class ArrayT > inline
 carray_range<ArrayT>
-operator|(ArrayT& arr, carray_range_adaptor_sized ad)
+make_carray_range(ArrayT& arr)
 {
-	return oven::make_carray_range(arr, ad.m_sz);
+	return carray_range<ArrayT>(arr);
 }
 
 #if !defined(PSTADE_WORKAROUND_NO_RVALUE_DETECTION)
 	template< class ArrayT > inline
 	carray_range<const ArrayT>
-	operator|(const ArrayT& arr, carray_range_adaptor_sized ad)
+	make_carray_range(const ArrayT& arr)
 	{
-		return oven::make_carray_range(arr, ad.m_sz);
+		return carray_range<const ArrayT>(arr);
 	}
 #endif
 
-#if !defined(PSTADE_OVEN_CARRAY_RANGE_NO_SIZE_DEDUCTION)
+
+#endif // !defined(PSTADE_OVEN_CARRAY_RANGE_NO_SIZE_DEDUCTION)
+
+
+namespace carray_range_detail {
+
+
+	struct adaptor_sized
+	{
+		adaptor_sized(std::size_t sz) : m_sz(sz) { }
+		std::size_t m_sz;
+	};
+
 
 	template< class ArrayT > inline
 	carray_range<ArrayT>
-	operator|(ArrayT& arr, carray_range_adaptor ad)
+	operator|(ArrayT& arr, adaptor_sized ad)
+	{
+		return oven::make_carray_range(arr, ad.m_sz);
+	}
+
+	#if !defined(PSTADE_WORKAROUND_NO_RVALUE_DETECTION)
+		template< class ArrayT > inline
+		carray_range<const ArrayT>
+		operator|(const ArrayT& arr, adaptor_sized ad)
+		{
+			return oven::make_carray_range(arr, ad.m_sz);
+		}
+	#endif
+
+
+#if !defined(PSTADE_OVEN_CARRAY_RANGE_NO_SIZE_DEDUCTION)
+
+
+	struct adaptor
+	{ };
+
+
+	template< class ArrayT > inline
+	carray_range<ArrayT>
+	operator|(ArrayT& arr, adaptor ad)
 	{
 		pstade::unused(ad);
 		return oven::make_carray_range(arr);
@@ -159,12 +151,42 @@ operator|(ArrayT& arr, carray_range_adaptor_sized ad)
 	#if !defined(PSTADE_WORKAROUND_NO_RVALUE_DETECTION)
 		template< class ArrayT > inline
 		carray_range<const ArrayT>
-		operator|(const ArrayT& arr, carray_range_adaptor ad)
+		operator|(const ArrayT& arr, adaptor ad)
 		{
 			pstade::unused(ad);
 			return oven::make_carray_range(arr);
 		}
 	#endif
+
+
+#endif // !defined(PSTADE_OVEN_CARRAY_RANGE_NO_SIZE_DEDUCTION)
+
+
+} // namespace carray_range_detail
+
+
+///////////////////////////////////////////////////////////////////////////////
+// carrayed_
+//
+inline carray_range_detail::adaptor_sized carrayed_(std::size_t sz)
+{
+	return carray_range_detail::adaptor_sized(sz);
+}
+
+
+#if !defined(PSTADE_OVEN_CARRAY_RANGE_NO_SIZE_DEDUCTION)
+
+
+///////////////////////////////////////////////////////////////////////////////
+// carrayed
+//
+namespace {
+
+static const carray_range_detail::adaptor
+carrayed = carray_range_detail::adaptor();
+
+}
+
 
 #endif // !defined(PSTADE_OVEN_CARRAY_RANGE_NO_SIZE_DEDUCTION)
 

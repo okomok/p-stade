@@ -20,6 +20,7 @@ namespace pstade { namespace oven {
 
 namespace pointer_range_detail {
 
+
 	template< class ContiguousRange >
 	struct pointer :
 		boost::mpl::if_< boost::is_const<ContiguousRange>,
@@ -27,6 +28,7 @@ namespace pointer_range_detail {
 			typename boost::range_value<ContiguousRange>::type *
 		>
 	{ };
+
 
 } // namespace pointer_range_detail
 
@@ -73,35 +75,42 @@ make_pointer_range(ContiguousRange& vec)
 #endif
 
 
-///////////////////////////////////////////////////////////////////////////////
-// pointer_range_adaptor
-//
-struct pointer_range_adaptor
-{ };
-
-namespace {
-	static const pointer_range_adaptor pointed = pointer_range_adaptor();
-}
+namespace pointer_range_detail {
 
 
-///////////////////////////////////////////////////////////////////////////////
-// operator|
-//
-template< class ContiguousRange > inline
-pointer_range<ContiguousRange>
-operator|(ContiguousRange& vec, pointer_range_adaptor)
-{
-	return oven::make_pointer_range(vec);
-}
+	struct adaptor
+	{ };
 
-#if !defined(PSTADE_WORKAROUND_NO_RVALUE_DETECTION)
+
 	template< class ContiguousRange > inline
-	pointer_range<const ContiguousRange>
-	operator|(const ContiguousRange& vec, pointer_range_adaptor)
+	pointer_range<ContiguousRange>
+	operator|(ContiguousRange& vec, adaptor)
 	{
 		return oven::make_pointer_range(vec);
 	}
-#endif
+
+	#if !defined(PSTADE_WORKAROUND_NO_RVALUE_DETECTION)
+		template< class ContiguousRange > inline
+		pointer_range<const ContiguousRange>
+		operator|(const ContiguousRange& vec, adaptor)
+		{
+			return oven::make_pointer_range(vec);
+		}
+	#endif
+
+
+} // namespace pointer_range_detail
+
+
+///////////////////////////////////////////////////////////////////////////////
+// pointed
+//
+namespace {
+
+static const pointer_range_detail::adaptor
+pointed = pointer_range_detail::adaptor();
+
+}
 
 
 } } // namespace pstade::oven

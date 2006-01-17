@@ -23,6 +23,7 @@ namespace pstade { namespace oven {
 
 namespace null_terminate_range_detail {
 
+
 	template< class Range >
 	typename boost::range_result_iterator<Range>::type
 	end(Range& rng, BOOST_PFTO int)
@@ -42,6 +43,7 @@ namespace null_terminate_range_detail {
 		return it;
 	}
 
+
 	// take both array and pointer out of Boost.Range.
 	template< class T > inline
 	T *end(T *s, int)
@@ -51,6 +53,7 @@ namespace null_terminate_range_detail {
 
 		return s;
 	}
+
 
 	// 'char' loves strlen.
 	inline char *end(char *s, int)
@@ -64,6 +67,7 @@ namespace null_terminate_range_detail {
 		using namespace std;
 		return s + strlen(s);
 	}
+
 
 } // namespace null_terminate_range_detail
 
@@ -105,35 +109,42 @@ make_null_terminate_range(Range& rng)
 #endif
 
 
-///////////////////////////////////////////////////////////////////////////////
-// null_terminate_range_adaptor
-//
-struct null_terminate_range_adaptor
-{ };
-
-namespace {
-	static const null_terminate_range_adaptor null_terminated = null_terminate_range_adaptor();
-}
+namespace null_terminate_range_detail {
 
 
-///////////////////////////////////////////////////////////////////////////////
-// operator|
-//
-template< class Range > inline
-null_terminate_range<Range>
-operator|(Range& rng, null_terminate_range_adaptor)
-{
-	return oven::make_null_terminate_range(rng);
-}
+	struct adaptor
+	{ };
 
-#if !defined(PSTADE_WORKAROUND_NO_RVALUE_DETECTION)
+
 	template< class Range > inline
-	null_terminate_range<const Range>
-	operator|(const Range& rng, null_terminate_range_adaptor)
+	null_terminate_range<Range>
+	operator|(Range& rng, adaptor)
 	{
 		return oven::make_null_terminate_range(rng);
 	}
-#endif
+
+	#if !defined(PSTADE_WORKAROUND_NO_RVALUE_DETECTION)
+		template< class Range > inline
+		null_terminate_range<const Range>
+		operator|(const Range& rng, adaptor)
+		{
+			return oven::make_null_terminate_range(rng);
+		}
+	#endif
+
+
+} // namespace null_terminate_range_detail
+
+
+///////////////////////////////////////////////////////////////////////////////
+// null_terminated
+//
+namespace {
+
+static const null_terminate_range_detail::adaptor
+null_terminated = null_terminate_range_detail::adaptor();
+
+}
 
 
 } } // namespace pstade::oven

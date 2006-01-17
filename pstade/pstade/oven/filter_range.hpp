@@ -42,7 +42,7 @@ public:
 	{ }
 
 	// Note:
-	//    make_filter_iterator with explicit parameter version fails under eVC4.
+	//   make_filter_iterator without predicate object fails under eVC4.
 
 	// seems an inconsistent interface to me, though Biscuit loves this style.
 	filter_range(Range& rng) :
@@ -75,92 +75,61 @@ make_filter_range(Predicate pred, Range& rng)
 
 
 ///////////////////////////////////////////////////////////////////////////////
-// filter_range_adaptor
-//
-template< class Predicate >
-struct filter_range_adaptor
-{
-	filter_range_adaptor(Predicate pred) : m_pred(pred) { }
-	Predicate m_pred;
-};
-
-
-///////////////////////////////////////////////////////////////////////////////
-// filtered
-//
-template< class Predicate > inline
-filter_range_adaptor<Predicate>
-filtered(Predicate pred)
-{
-	return filter_range_adaptor<Predicate>(pred);
-}
-
-
-///////////////////////////////////////////////////////////////////////////////
-// operator|
+// make_filter_range - without object
 //
 template< class Predicate, class Range > inline
-filter_range<Predicate, Range>
-operator|(Range& rng, filter_range_adaptor<Predicate> ad)
+typename disable_if_const< Range, filter_range<Predicate, Range> >::type
+make_filter_range(Range& rng BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Predicate))
 {
-	return oven::make_filter_range(ad.m_pred, rng);
+	return filter_range<Predicate, Range>(rng);
 }
 
 #if !defined(PSTADE_WORKAROUND_NO_RVALUE_DETECTION)
-	template< class Predicate, class Range > inline
+	template<class Predicate, class Range > inline
 	filter_range<Predicate, const Range>
-	operator|(const Range& rng, filter_range_adaptor<Predicate> ad)
+	make_filter_range(const Range& rng BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Predicate))
 	{
-		return oven::make_filter_range(ad.m_pred, rng);
+		return filter_range<Predicate, const Range>(rng);
 	}
 #endif
 
 
-	///////////////////////////////////////////////////////////////////////////////
-	// make_filter_range - with explicit predicate type
-	//
-	template< class Predicate, class Range > inline
-	typename disable_if_const< Range, filter_range<Predicate, Range> >::type
-	make_filter_range(Range& rng BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Predicate))
+namespace filter_range_detail {
+
+
+	template< class Predicate >
+	struct adaptor
 	{
-		return filter_range<Predicate, Range>(rng);
+		adaptor(Predicate pred) : m_pred(pred) { }
+		Predicate m_pred;
+	};
+
+
+	template< class Predicate, class Range > inline
+	filter_range<Predicate, Range>
+	operator|(Range& rng, adaptor<Predicate> ad)
+	{
+		return oven::make_filter_range(ad.m_pred, rng);
 	}
 
 	#if !defined(PSTADE_WORKAROUND_NO_RVALUE_DETECTION)
-		template<class Predicate, class Range > inline
+		template< class Predicate, class Range > inline
 		filter_range<Predicate, const Range>
-		make_filter_range(const Range& rng BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Predicate))
+		operator|(const Range& rng, adaptor<Predicate> ad)
 		{
-			return filter_range<Predicate, const Range>(rng);
+			return oven::make_filter_range(ad.m_pred, rng);
 		}
 	#endif
 
 
-	///////////////////////////////////////////////////////////////////////////////
-	// filter_range_adaptor_ - with explicit predicate type
-	//
 	template< class Predicate >
-	struct filter_range_adaptor_
+	struct adaptor_without_object
 	{ };
 
 
-	///////////////////////////////////////////////////////////////////////////////
-	// filtered
-	//
-	template< class Predicate > inline
-	filter_range_adaptor_<Predicate>
-	filtered(BOOST_EXPLICIT_TEMPLATE_TYPE(Predicate))
-	{
-		return filter_range_adaptor_<Predicate>();
-	}
-
-
-	///////////////////////////////////////////////////////////////////////////////
-	// operator|
-	//
 	template< class Predicate, class Range > inline
 	filter_range<Predicate, Range>
-	operator|(Range& rng, filter_range_adaptor_<Predicate>)
+	operator|(Range& rng, adaptor_without_object<Predicate>)
 	{
 		return oven::make_filter_range<Predicate>(rng);
 	}
@@ -168,11 +137,36 @@ operator|(Range& rng, filter_range_adaptor<Predicate> ad)
 	#if !defined(PSTADE_WORKAROUND_NO_RVALUE_DETECTION)
 		template< class Predicate, class Range > inline
 		filter_range<Predicate, const Range>
-		operator|(const Range& rng, filter_range_adaptor_<Predicate>)
+		operator|(const Range& rng, adaptor_without_object<Predicate>)
 		{
 			return oven::make_filter_range<Predicate>(rng);
 		}
 	#endif
+
+
+} // namespace filter_range_detail
+
+
+///////////////////////////////////////////////////////////////////////////////
+// filtered
+//
+template< class Predicate > inline
+filter_range_detail::adaptor<Predicate>
+filtered(Predicate pred)
+{
+	return filter_range_detail::adaptor<Predicate>(pred);
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+// filtered - without object
+//
+template< class Predicate > inline
+filter_range_detail::adaptor_without_object<Predicate>
+filtered(BOOST_EXPLICIT_TEMPLATE_TYPE(Predicate))
+{
+	return filter_range_detail::adaptor_without_object<Predicate>();
+}
 
 
 } } // namespace pstade::oven

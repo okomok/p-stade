@@ -101,63 +101,64 @@ make_transform_range(Range& rng, UnaryFun fun, boost::type<Reference>, boost::ty
 #endif
 
 
-///////////////////////////////////////////////////////////////////////////////
-// transform_range_adaptor
-//
-template<
-	class UnaryFun,
-	class Reference = boost::use_default,
-	class Value = boost::use_default
->
-struct transform_range_adaptor
-{
-	transform_range_adaptor(UnaryFun fun) : m_fun(fun) { }
-	UnaryFun m_fun;
-};
+namespace transform_range_detail {
+
+
+	template<
+		class UnaryFun,
+		class Reference = boost::use_default,
+		class Value = boost::use_default
+	>
+	struct adaptor
+	{
+		adaptor(UnaryFun fun) : m_fun(fun) { }
+		UnaryFun m_fun;
+	};
+
+
+	template< class UnaryFun, class Range, class Reference, class Value > inline
+	transform_range<UnaryFun, Range>
+	operator|(Range& rng, adaptor<UnaryFun, Reference, Value> ad)
+	{
+		return oven::make_transform_range(rng, ad.m_fun, boost::type<Reference>(), boost::type<Value>());
+	}
+
+	#if !defined(PSTADE_WORKAROUND_NO_RVALUE_DETECTION)
+		template< class UnaryFun, class Range, class Reference, class Value > inline
+		transform_range<UnaryFun, const Range>
+		operator|(const Range& rng, adaptor<UnaryFun, Reference, Value> ad)
+		{
+			return oven::make_transform_range(rng, ad.m_fun, boost::type<Reference>(), boost::type<Value>());
+		}
+	#endif
+
+
+} // namespace transform_range_detail
 
 
 ///////////////////////////////////////////////////////////////////////////////
 // transformed
 //
 template< class UnaryFun > inline
-transform_range_adaptor<UnaryFun>
+transform_range_detail::adaptor<UnaryFun>
 transformed(UnaryFun fun)
 {
-	return transform_range_adaptor<UnaryFun>(fun);
+	return transform_range_detail::adaptor<UnaryFun>(fun);
 }
 
 template< class UnaryFun, class Reference > inline
-transform_range_adaptor<UnaryFun, Reference>
+transform_range_detail::adaptor<UnaryFun, Reference>
 transformed(UnaryFun fun, boost::type<Reference>)
 {
-	return transform_range_adaptor<UnaryFun, Reference>(fun);
+	return transform_range_detail::adaptor<UnaryFun, Reference>(fun);
 }
 
 template< class UnaryFun, class Reference, class Value > inline
-transform_range_adaptor<UnaryFun, Reference, Value>
+transform_range_detail::adaptor<UnaryFun, Reference, Value>
 transformed(UnaryFun fun, boost::type<Reference>, boost::type<Value>)
 {
-	return transform_range_adaptor<UnaryFun, Reference, Value>(fun);
+	return transform_range_detail::adaptor<UnaryFun, Reference, Value>(fun);
 }
-
-///////////////////////////////////////////////////////////////////////////////
-// operator|
-//
-template< class UnaryFun, class Range, class Reference, class Value > inline
-transform_range<UnaryFun, Range>
-operator|(Range& rng, transform_range_adaptor<UnaryFun, Reference, Value> ad)
-{
-	return oven::make_transform_range(rng, ad.m_fun, boost::type<Reference>(), boost::type<Value>());
-}
-
-#if !defined(PSTADE_WORKAROUND_NO_RVALUE_DETECTION)
-	template< class UnaryFun, class Range, class Reference, class Value > inline
-	transform_range<UnaryFun, const Range>
-	operator|(const Range& rng, transform_range_adaptor<UnaryFun, Reference, Value> ad)
-	{
-		return oven::make_transform_range(rng, ad.m_fun, boost::type<Reference>(), boost::type<Value>());
-	}
-#endif
 
 
 } } // namespace pstade::oven

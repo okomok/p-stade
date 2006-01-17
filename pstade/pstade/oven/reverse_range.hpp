@@ -59,35 +59,42 @@ make_reverse_range(BidiRange& rng)
 #endif
 
 
-///////////////////////////////////////////////////////////////////////////////
-// reverse_range_adaptor
-//
-struct reverse_range_adaptor
-{ };
-
-namespace {
-	static const reverse_range_adaptor reversed = reverse_range_adaptor();
-}
+namespace reverse_range_detail {
 
 
-///////////////////////////////////////////////////////////////////////////////
-// operator|
-//
-template< class BidiRange > inline
-reverse_range<BidiRange>
-operator|(BidiRange& rng, reverse_range_adaptor)
-{
-	return oven::make_reverse_range(rng);
-}
+	struct adaptor
+	{ };
 
-#if !defined(PSTADE_WORKAROUND_NO_RVALUE_DETECTION)
+
 	template< class BidiRange > inline
-	reverse_range<const BidiRange>
-	operator|(const BidiRange& rng, reverse_range_adaptor)
+	reverse_range<BidiRange>
+	operator|(BidiRange& rng, adaptor)
 	{
 		return oven::make_reverse_range(rng);
 	}
-#endif
+
+	#if !defined(PSTADE_WORKAROUND_NO_RVALUE_DETECTION)
+		template< class BidiRange > inline
+		reverse_range<const BidiRange>
+		operator|(const BidiRange& rng, adaptor)
+		{
+			return oven::make_reverse_range(rng);
+		}
+	#endif
+
+
+} // namespace reverse_range_detail
+
+
+///////////////////////////////////////////////////////////////////////////////
+// reversed
+//
+namespace {
+
+static const reverse_range_detail::adaptor
+reversed = reverse_range_detail::adaptor();
+
+}
 
 
 } } // namespace pstade::oven
