@@ -1,0 +1,15 @@
+#pragma once
+
+#include <boost/config.hpp>
+#include "./seqn.hpp"
+
+
+#if !defined(BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
+
+	#if defined(PSTADE_BISCUIT_CFG_NO_PREPROCESSED_HEADERS)
+		#include "../detail/preprocessing/seq.hpp"
+	#else
+		#include "../detail/preprocessed/seq.hpp"
+	#endif
+
+#endif // BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION

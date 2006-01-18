@@ -1,0 +1,12 @@
+#pragma once
+
+#include <boost/mpl/void.hpp>
+#include "../orn.hpp"
+#include "./char.hpp"
+
+
+#if defined(PSTADE_BISCUIT_CFG_NO_PREPROCESSED_HEADERS)
+	#include "../../detail/preprocessing/chsetn.hpp"
+#else
+	#include "../../detail/preprocessed/chsetn.hpp"
+#endif
