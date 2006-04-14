@@ -1,8 +1,0 @@
-#pragma once
-
-#include <boost/config.hpp> // for BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
-
-
-#if defined(BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
-	#define PSTADE_WORKAROUND_NO_VARIADIC_FORM
-#endif

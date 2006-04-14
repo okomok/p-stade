@@ -1,8 +1,0 @@
-#pragma once
-
-namespace std {
-
-template< class ElemT, class Tr >
-class basic_ostream;
-
-} // namespace std
