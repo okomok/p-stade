@@ -18,7 +18,6 @@
 
 #include "./sausage/access.hpp"
 #include "./sausage/customization.hpp"
-#include "./sausage/enumerate_argument_impl_fwd.hpp"
 
 
 #endif
