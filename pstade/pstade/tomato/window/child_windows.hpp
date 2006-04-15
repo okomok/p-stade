@@ -61,8 +61,6 @@ namespace child_windows_detail {
 
 struct child_windows
 {
-	typedef child_windows pstade_sausage_enumerable;
-
 	explicit child_windows(HWND hWndParent) :
 		m_hWndParent(hWndParent)
 	{
@@ -81,7 +79,7 @@ private:
 public:
 	typedef HWND pstade_sausage_enumerate_argument_type;
 
-	template< class EnumFtor >
+	template< class Argument, class EnumFtor >
 	EnumFtor pstade_sausage_enumerate(EnumFtor fun) const
 	{
 		return child_windows_detail::enumerate(m_hWndParent, fun);
