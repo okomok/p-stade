@@ -15,9 +15,7 @@
 #include <boost/range/iterator_range.hpp>
 #include <boost/range/value_type.hpp>
 #include <boost/range/result_iterator.hpp>
-#include <boost/utility/base_from_member.hpp>
 #include <pstade/egg/function.hpp>
-#include "./detail/config.hpp" // DEBUG_SPACE_CH
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./tab_expand_iterator.hpp"
@@ -29,15 +27,15 @@ namespace pstade { namespace oven {
 namespace tab_expand_range_detail {
 
 
-	template< class ForwardRange >
-	struct super_
-	{
-		typedef boost::iterator_range<
-			tab_expand_iterator<
-				typename boost::range_result_iterator<ForwardRange>::type
-			>
-		> type;
-	};
+    template< class ForwardRange >
+    struct super_
+    {
+        typedef boost::iterator_range<
+            tab_expand_iterator<
+                typename boost::range_result_iterator<ForwardRange>::type
+            >
+        > type;
+    };
 
 
 } // namespace tab_expand_range_detail
@@ -45,42 +43,39 @@ namespace tab_expand_range_detail {
 
 template< class ForwardRange >
 struct tab_expand_range :
-	private boost::base_from_member<typename boost::range_value<ForwardRange>::type>,
-	tab_expand_range_detail::super_<ForwardRange>::type
+    tab_expand_range_detail::super_<ForwardRange>::type
 {
 private:
-	typedef boost::base_from_member<typename boost::range_value<ForwardRange>::type> space_bt;
-	typedef typename tab_expand_range_detail::super_<ForwardRange>::type super_t;
-	typedef typename super_t::iterator iter_t;
+    typedef typename tab_expand_range_detail::super_<ForwardRange>::type super_t;
+    typedef typename super_t::iterator iter_t;
 
 public:
-	explicit tab_expand_range(ForwardRange& rng, int tabsize) :
-		space_bt(PSTADE_OVEN_DEBUG_SPACE_CH),
-		super_t(
-			iter_t(boost::begin(rng), tabsize, space_bt::member),
-			iter_t(boost::end(rng), tabsize, space_bt::member)
-		)
-	{ }
+    explicit tab_expand_range(ForwardRange& rng, int tabsize) :
+        super_t(
+            iter_t(boost::begin(rng), tabsize),
+            iter_t(boost::end(rng), tabsize)
+        )
+    { }
 };
 
 
 namespace tab_expand_range_detail {
 
 
-	struct baby_generator
-	{
-		template< class ForwardRange, class TabSizeT >
-		struct apply
-		{
-			typedef const tab_expand_range<ForwardRange> type;
-		};
+    struct baby_generator
+    {
+        template< class ForwardRange, class TabSizeT >
+        struct apply
+        {
+            typedef const tab_expand_range<ForwardRange> type;
+        };
 
-		template< class Result, class ForwardRange >
-		Result call(ForwardRange& rng, int tabsize)
-		{
-			return Result(rng, tabsize);
-		}
-	};
+        template< class Result, class ForwardRange >
+        Result call(ForwardRange& rng, int tabsize)
+        {
+            return Result(rng, tabsize);
+        }
+    };
 
 
 } // namespace tab_expand_range_detail
