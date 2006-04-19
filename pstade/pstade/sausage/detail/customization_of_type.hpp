@@ -37,7 +37,7 @@ struct customization_tag_is_specialized :
 
 template< class T >
 struct get_intrusive_tag :
-    boost::mpl::identity<typename T::pstade_diet_tag>
+    boost::mpl::identity<typename T::pstade_sausage_tag>
 { };
 
 
