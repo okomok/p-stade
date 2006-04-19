@@ -14,7 +14,6 @@
 #include <boost/iterator/iterator_traits.hpp> // iterator_reference
 #include <boost/mpl/identity.hpp>
 #include <boost/range/result_iterator.hpp>
-#include <boost/type_traits/remove_const.hpp>
 
 
 namespace pstade { namespace sausage {
