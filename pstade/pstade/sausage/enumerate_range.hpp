@@ -1,5 +1,5 @@
-#ifndef PSTADE_SAUSAGE_ENUMRATE_RANGE_HPP
-#define PSTADE_SAUSAGE_ENUMRATE_RANGE_HPP
+#ifndef PSTADE_SAUSAGE_ENUMERATE_RANGE_HPP
+#define PSTADE_SAUSAGE_ENUMERATE_RANGE_HPP
 
 
 // PStade.Sausage
@@ -23,13 +23,13 @@ namespace pstade { namespace sausage {
 namespace enumerate_range_detail {
 
 
-	template< class Enumerable >
-	struct super_
-	{
-		typedef boost::iterator_range<
-			enumerate_iterator<Enumerable>
-		> type;
-	};
+    template< class Enumerable >
+    struct super_
+    {
+        typedef boost::iterator_range<
+            enumerate_iterator<Enumerable>
+        > type;
+    };
 
 
 } // namespace enumerate_range_detail
@@ -37,36 +37,36 @@ namespace enumerate_range_detail {
 
 template< class Enumerable >
 struct enumerate_range :
-	enumerate_range_detail::super_<Enumerable>::type
+    enumerate_range_detail::super_<Enumerable>::type
 {
 private:
-	typedef typename enumerate_range_detail::super_<Enumerable>::type super_t;
-	typedef typename super_t::iterator iter_t;
+    typedef typename enumerate_range_detail::super_<Enumerable>::type super_t;
+    typedef typename super_t::iterator iter_t;
 
 public:
-	explicit enumerate_range(Enumerable& enm) :
-		super_t(iter_t(enm), iter_t())
-	{ }
+    explicit enumerate_range(Enumerable& enm) :
+        super_t(iter_t(enm), iter_t())
+    { }
 };
 
 
 namespace enumerate_range_detail {
 
 
-	struct baby_generator
-	{
-		template< class Enumerable >
-		struct apply
-		{
-			typedef const enumerate_range<Enumerable> type;
-		};
+    struct baby_generator
+    {
+        template< class Enumerable >
+        struct apply
+        {
+            typedef const enumerate_range<Enumerable> type;
+        };
 
-		template< class Result, class Enumerable >
-		Result call(Enumerable& enm)
-		{
-			return Result(enm);
-		}
-	};
+        template< class Result, class Enumerable >
+        Result call(Enumerable& enm)
+        {
+            return Result(enm);
+        }
+    };
 
 
 } // namespace enumerate_range_detail

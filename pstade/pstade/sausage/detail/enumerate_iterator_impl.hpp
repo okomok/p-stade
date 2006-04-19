@@ -1,5 +1,5 @@
-#ifndef PSTADE_SAUSAGE_DETAIL_ENUMRATE_ITERATOR_IMPL_HPP
-#define PSTADE_SAUSAGE_DETAIL_ENUMRATE_ITERATOR_IMPL_HPP
+#ifndef PSTADE_SAUSAGE_DETAIL_ENUMERATE_ITERATOR_IMPL_HPP
+#define PSTADE_SAUSAGE_DETAIL_ENUMERATE_ITERATOR_IMPL_HPP
 
 
 // PStade.Sausage
@@ -37,8 +37,8 @@
 
 
 #if defined(BOOST_MSVC)
-	#pragma warning(push)
-	#pragma warning(disable: 4355) // 'this' : used in base member initializer list
+    #pragma warning(push)
+    #pragma warning(disable: 4355) // 'this' : used in base member initializer list
 #endif
 
 
@@ -48,112 +48,112 @@ namespace pstade { namespace sausage { namespace detail {
 typedef std::bitset<3>
 status_t;
 
-struct is_incrementing	: boost::mpl::size_t<0> { };
-struct is_end			: boost::mpl::size_t<1> { };
-struct is_interrupted	: boost::mpl::size_t<2> { };
+struct is_incrementing  : boost::mpl::size_t<0> { };
+struct is_end           : boost::mpl::size_t<1> { };
+struct is_interrupted   : boost::mpl::size_t<2> { };
 
 
 template< class Enumerable >
 struct enumerate_iterator_impl :
-	private boost::noncopyable
+    private boost::noncopyable
 {
 private:
-	typedef enumerate_iterator_impl self_t;
-	typedef typename enumerate_argument<Enumerable>::type arg_t;
-	typedef typename boost::remove_reference<arg_t>::type val_t;
+    typedef enumerate_iterator_impl self_t;
+    typedef typename enumerate_argument<Enumerable>::type arg_t;
+    typedef typename boost::remove_reference<arg_t>::type val_t;
 
 public:
-	enumerate_iterator_impl(Enumerable& enm) :
-		m_enm(enm),
-		m_parg(PSTADE_NULLPTR),
-		m_sts(1), // is_incrementing
-		m_thread(boost::lambda::bind(&enumerate_iterator_impl::work, this))
-	{ }
+    explicit enumerate_iterator_impl(Enumerable& enm) :
+        m_enm(enm),
+        m_parg(PSTADE_NULLPTR),
+        m_status(1), // is_incrementing
+        m_thread(boost::lambda::bind(&enumerate_iterator_impl::work, this))
+    { }
 
-	~enumerate_iterator_impl()
-	{
-		try {
-			{
-				boost::mutex::scoped_lock lk(m_mtx);
-				m_sts.set(is_interrupted::value);
-				m_cond.notify_one();
-			}
-			m_thread.join();
-		}
-		catch (...) {
-			// cannot throw
-		}
-	}
+    ~enumerate_iterator_impl()
+    {
+        try {
+            {
+                boost::mutex::scoped_lock lock(m_mutex);
+                m_status.set(is_interrupted::value);
+                m_cond.notify_one();
+            }
+            m_thread.join();
+        }
+        catch (...) {
+            // cannot throw
+        }
+    }
 
-	arg_t deref()
-	{
-		boost::mutex::scoped_lock lk(m_mtx);
+    arg_t deref()
+    {
+        boost::mutex::scoped_lock lock(m_mutex);
 
-		BOOST_ASSERT(m_parg != PSTADE_NULLPTR);
-		BOOST_ASSERT(!m_sts.test(is_incrementing::value));
-		BOOST_ASSERT(!m_sts.test(is_end::value) && "pstade::sausage::enumerate_iterator - out of range access");
+        BOOST_ASSERT(m_parg != PSTADE_NULLPTR);
+        BOOST_ASSERT(!m_status.test(is_incrementing::value));
+        BOOST_ASSERT(!m_status.test(is_end::value) && "pstade::sausage::enumerate_iterator - out of range access");
 
-		return *m_parg;
-	}
+        return *m_parg;
+    }
 
-	void next()
-	{
-		boost::mutex::scoped_lock lk(m_mtx);
+    void next()
+    {
+        boost::mutex::scoped_lock lock(m_mutex);
 
-		BOOST_ASSERT(!m_sts.test(is_end::value) && "pstade::sausage::enumerate_iterator - out of range");
+        BOOST_ASSERT(!m_status.test(is_end::value) && "pstade::sausage::enumerate_iterator - out of range");
 
-		m_sts.set(is_incrementing::value);
-		m_cond.notify_one();
+        m_status.set(is_incrementing::value);
+        m_cond.notify_one();
 
-		while (m_sts.test(is_incrementing::value) && !m_sts.test(is_end::value))
-			m_cond.wait(lk);
-	}
+        while (m_status.test(is_incrementing::value) && !m_status.test(is_end::value))
+            m_cond.wait(lock);
+    }
 
-	bool done()
-	{
-		boost::mutex::scoped_lock lk(m_mtx);
+    bool done()
+    {
+        boost::mutex::scoped_lock lock(m_mutex);
 
-		while (m_sts.test(is_incrementing::value) && !m_sts.test(is_end::value))
-			m_cond.wait(lk);
+        while (m_status.test(is_incrementing::value) && !m_status.test(is_end::value))
+            m_cond.wait(lock);
 
-		return m_sts.test(is_end::value);
-	}
+        return m_status.test(is_end::value);
+    }
 
 private:
-	Enumerable& m_enm;
-	val_t *m_parg;
-	boost::mutex m_mtx;
-	boost::condition m_cond;
-	status_t m_sts;
-	boost::thread m_thread; // must be last
+    Enumerable& m_enm;
+    val_t *m_parg;
+    boost::mutex m_mutex;
+    boost::condition m_cond;
+    status_t m_status;
+    boost::thread m_thread; // must be last
 
-	void work()
-	{
-		sausage::enumerate(m_enm, boost::lambda::bind(&self_t::enum_fun, this, boost::lambda::_1));
+    void work()
+    {
+        sausage::enumerate(m_enm, boost::lambda::bind(&self_t::enum_fun, this, boost::lambda::_1));
 
-		boost::mutex::scoped_lock lk(m_mtx);
-		m_sts.set(is_end::value);
-		m_cond.notify_one();
-	}
+        boost::mutex::scoped_lock lock(m_mutex);
+        m_status.set(is_end::value);
+        m_cond.notify_one();
+    }
 
-	bool enum_fun(arg_t arg)
-	{
-		boost::mutex::scoped_lock lk(m_mtx);
+    bool enum_fun(arg_t arg)
+    {
+        boost::mutex::scoped_lock lock(m_mutex);
 
-		// 'arg' is alive until next increment,
-		// as far as 'arg' can go across thread-boundary.
-		m_parg = &arg;
-		m_sts.reset(is_incrementing::value);
-		m_cond.notify_one();
+        // 'arg' is alive until next increment,
+        // as far as 'arg' can go across thread-boundary.
+        m_parg = &arg;
+        m_status.reset(is_incrementing::value);
+        m_cond.notify_one();
 
-		while (!m_sts.test(is_incrementing::value) && !m_sts.test(is_interrupted::value))
-			m_cond.wait(lk);
+        while (!m_status.test(is_incrementing::value) && !m_status.test(is_interrupted::value))
+            m_cond.wait(lock);
 
-		if (m_sts.test(is_interrupted::value))
-			return false;
+        if (m_status.test(is_interrupted::value))
+            return false;
 
-		return true; // continue
-	}
+        return true; // continue
+    }
 };
 
 
@@ -161,7 +161,7 @@ private:
 
 
 #if defined(BOOST_MSVC)
-	#pragma warning(pop)
+    #pragma warning(pop)
 #endif
 
 

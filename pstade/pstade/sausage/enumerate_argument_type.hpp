@@ -10,6 +10,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/type_traits/remove_reference.hpp>
+#include <boost/type_traits/remove_volatile.hpp>
 #include "./customization.hpp"
 #include "./detail/customization_of_type.hpp"
 
@@ -21,11 +23,12 @@ template< class Enumerable >
 struct enumerate_argument
 {
 private:
-	typedef typename detail::customization_of<Enumerable>::type cust_t;
+    typedef typename detail::customization_of<Enumerable>::type cust_t;
+    typedef typename boost::remove_reference<Enumerable>::type no_ref_t;
+    typedef typename boost::remove_volatile<no_ref_t>::type no_vol_t;
 
 public:
-	// pass 'Enumerable' as is!
-	typedef typename cust_t::template enumerate_argument<Enumerable>::type type;
+    typedef typename cust_t::template enumerate_argument<no_vol_t>::type type;
 };
 
 
