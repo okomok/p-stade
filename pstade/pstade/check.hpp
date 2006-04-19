@@ -31,26 +31,26 @@
 
 #if !defined(NDEBUG) || defined(PSTADE_CHECK_DEBUG)
 
-	#define PSTADE_CHECK(Expr) \
-		PSTADE_CHECK_MESSAGE(Expr, "") \
-	/**/
+    #define PSTADE_CHECK(Expr) \
+        PSTADE_CHECK_MESSAGE(Expr, "") \
+    /**/
 
-	#define PSTADE_CHECK_MESSAGE(Expr, Msg) \
-		pstade::check( \
-			Expr, \
-			pstade::check_detail::make_info(BOOST_PP_STRINGIZE(Expr), __FILE__, __LINE__, BOOST_CURRENT_FUNCTION, Msg) \
-		) \
-	/**/
+    #define PSTADE_CHECK_MESSAGE(Expr, Msg) \
+        pstade::check( \
+            Expr, \
+            pstade::check_detail::make_info(BOOST_PP_STRINGIZE(Expr), __FILE__, __LINE__, BOOST_CURRENT_FUNCTION, Msg) \
+        ) \
+    /**/
 
 #else
 
-	#define PSTADE_CHECK(Expr) \
-		(Expr) \
-	/**/
+    #define PSTADE_CHECK(Expr) \
+        (Expr) \
+    /**/
 
-	#define PSTADE_CHECK_MESSAGE(Expr, Msg) \
-		(Expr) \
-	/**/
+    #define PSTADE_CHECK_MESSAGE(Expr, Msg) \
+        (Expr) \
+    /**/
 
 #endif
 
@@ -61,47 +61,47 @@ namespace pstade {
 namespace check_detail {
 
 
-	PSTADE_INSTANCE(napkin::ostream, os)
+    PSTADE_INSTANCE(napkin::ostream, os)
 
 
-	inline
-	void report(std::string info)
-	{
-		os << "<check>" << info << "</check>";
-	}
+    inline
+    void report(std::string info)
+    {
+        os << "<check>" << info << "</check>";
+    }
 
 
-	inline
-	std::string make_info(const char *expr, const char *file, int line, const char *func, const char *msg)
-	{
-		std::stringstream info;
-		info <<
-			"<file>"		<< file << "</file>"		<<
-			"<line>"		<< line << "</line>"		<<
-			"<expression>"	<< expr << "</expression>"	<<
-			"<function>"	<< func << "</function>"	<<
-			"<message>"		<< msg  << "</message>";
+    inline
+    std::string make_info(const char *expr, const char *file, int line, const char *func, const char *msg)
+    {
+        std::stringstream info;
+        info <<
+            "<file>"        << file << "</file>"        <<
+            "<line>"        << line << "</line>"        <<
+            "<expression>"  << expr << "</expression>"  <<
+            "<function>"    << func << "</function>"    <<
+            "<message>"     << msg  << "</message>";
 
-		return info.str();
-	}
+        return info.str();
+    }
 
 
-	struct baby
-	{
-		template< class T, class StringT >
-		struct apply :
-			boost::add_reference<T>
-		{ };
+    struct baby
+    {
+        template< class T, class StringT >
+        struct apply :
+            boost::add_reference<T>
+        { };
 
-		template< class Result, class T, class StringT >
-		Result call(T& x, StringT& info)
-		{
-			if (!x)
-				check_detail::report(info);
+        template< class Result, class T, class StringT >
+        Result call(T& x, StringT& info)
+        {
+            if (!x)
+                check_detail::report(info);
 
-			return x;
-		}
-	};
+            return x;
+        }
+    };
 
 
 } // namespace check_detail
@@ -114,7 +114,7 @@ PSTADE_OVEN_RANGE_ADAPTOR(checked, check_detail::baby)
 template< class StringOutputable > inline
 void check_reset_ostream(StringOutputable& out)
 {
-	check_detail::os.reset(out);
+    check_detail::os.reset(out);
 }
 
 

@@ -19,9 +19,9 @@ namespace pstade {
 
 template< class T >
 struct remove_rcv :
-	boost::remove_reference<
-		typename boost::remove_cv<T>::type
-	>
+    boost::remove_reference<
+        typename boost::remove_cv<T>::type
+    >
 { };
 
 

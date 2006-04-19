@@ -11,7 +11,6 @@
 
 
 #include "./diet/access.hpp"
-#include "./diet/customization.hpp"
 #include "./diet/dump.hpp"
 #include "./diet/is_valid.hpp"
 #include "./diet/reset_ostream.hpp"

@@ -19,9 +19,9 @@ namespace pstade {
 template< class = void >
 struct is_debug :
 #if !defined(NDEBUG)
-	boost::mpl::true_ 
+    boost::mpl::true_ 
 #else
-	boost::mpl::false_
+    boost::mpl::false_
 #endif
 { };
 

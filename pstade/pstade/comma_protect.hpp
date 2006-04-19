@@ -26,12 +26,12 @@
 
 
 #define PSTADE_COMMA_PROTECT(Type) \
-	boost::function_traits<void(Type)>::arg1_type \
+    boost::function_traits<void(Type)>::arg1_type \
 /**/
 
 
 #define PSTADE_COMMA_PROTECT_D(Type) \
-	typename boost::function_traits<void(Type)>::arg1_type \
+    typename boost::function_traits<void(Type)>::arg1_type \
 /**/
 
 

@@ -19,9 +19,9 @@ namespace pstade {
 inline
 int pause()
 {
-	std::cin.ignore();
-	// or std::cin.get();
-	return 0;
+    std::cin.ignore();
+    // or std::cin.get();
+    return 0;
 }
 
 

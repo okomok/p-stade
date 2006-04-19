@@ -12,14 +12,14 @@
 
 #if !defined(NDEBUG) || defined(PSTADE_IF_DEBUG_DEBUG)
 
-	#define PSTADE_IF_DEBUG(X) \
-		X \
-	/**/
+    #define PSTADE_IF_DEBUG(X) \
+        X \
+    /**/
 
 #else
 
-	#define PSTADE_IF_DEBUG(X) \
-	/**/
+    #define PSTADE_IF_DEBUG(X) \
+    /**/
 
 #endif
 

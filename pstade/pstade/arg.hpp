@@ -32,17 +32,17 @@
 namespace pstade {
 
 
-template< class T >
+template< class T > inline
 T& arg(T& x)
 {
-	return x;
+    return x;
 }
 
 
-template< class T >
+template< class T > inline
 const T& arg(const T& x)
 {
-	return x;
+    return x;
 }
 
 

@@ -12,15 +12,12 @@
 
 #include "./oven/algorithms.hpp"
 
-
 #include "./oven/iterators.hpp"
 #include "./oven/ranges.hpp"
-
 
 #include "./oven/begin_end.hpp"
 #include "./oven/sub_range_base_type.hpp"
 #include "./oven/sub_range_result_type.hpp"
-
 
 #include "./oven/sequence_cast.hpp"
 

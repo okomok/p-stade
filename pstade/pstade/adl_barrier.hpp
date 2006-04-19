@@ -21,27 +21,27 @@
 
 #if !defined(BOOST_NO_ARGUMENT_DEPENDENT_LOOKUP)
 
-	#define PSTADE_ADL_BARRIER_NAME(Id) \
-		BOOST_PP_CAT(pstade_adl_barrier_of_, Id) \
-	/**/
+    #define PSTADE_ADL_BARRIER_NAME(Id) \
+        BOOST_PP_CAT(pstade_adl_barrier_of_, Id) \
+    /**/
 
-	#define PSTADE_ADL_BARRIER_OPEN(Id) \
-		namespace PSTADE_ADL_BARRIER_NAME(Id) { } \
-		using namespace PSTADE_ADL_BARRIER_NAME(Id); \
-		namespace PSTADE_ADL_BARRIER_NAME(Id) { \
-	/**/
+    #define PSTADE_ADL_BARRIER_OPEN(Id) \
+        namespace PSTADE_ADL_BARRIER_NAME(Id) { } \
+        using namespace PSTADE_ADL_BARRIER_NAME(Id); \
+        namespace PSTADE_ADL_BARRIER_NAME(Id) { \
+    /**/
 
-	#define PSTADE_ADL_BARRIER_CLOSE(Id) \
-		} \
-	/**/
+    #define PSTADE_ADL_BARRIER_CLOSE(Id) \
+        } \
+    /**/
 
 #else
 
-	#define PSTADE_ADL_BARRIER_OPEN(Id) \
-	/**/
+    #define PSTADE_ADL_BARRIER_OPEN(Id) \
+    /**/
 
-	#define PSTADE_ADL_BARRIER_CLOSE(Id) \
-	/**/
+    #define PSTADE_ADL_BARRIER_CLOSE(Id) \
+    /**/
 
 #endif // !defined(BOOST_NO_ARGUMENT_DEPENDENT_LOOKUP)
 

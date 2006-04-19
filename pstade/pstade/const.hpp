@@ -32,21 +32,21 @@ namespace pstade {
 namespace const_detail {
 
 
-	struct baby
-	{
-		template< class T >
-		struct apply :
-			boost::add_reference<
-				typename boost::add_const<T>::type
-			>
-		{ };
+    struct baby
+    {
+        template< class T >
+        struct apply :
+            boost::add_reference<
+                typename boost::add_const<T>::type
+            >
+        { };
 
-		template< class Result, class T >
-		Result call(T& x)
-		{
-			return x;
-		}
-	};
+        template< class Result, class T >
+        Result call(T& x)
+        {
+            return x;
+        }
+    };
 
 
 } // namespace const_detail

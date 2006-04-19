@@ -28,47 +28,47 @@
 
 
 // Workaround:
-// 'static' is still needed for weird 'stdafx.h'.
+//   The weird 'stdafx.h' needs 'static'.
 //
 #define PSTADE_INSTANCE(Type, Name) \
-	PSTADE_INSTANCE_define_instance_fun(Type, Name, PSTADE_INSTANCE_define_x_0(Type)) \
-	namespace { \
-		static Type& Name = PSTADE_INSTANCE_call_instance_fun(Name); \
-	} \
+    PSTADE_INSTANCE_define_instance_fun(Type, Name, PSTADE_INSTANCE_define_x_0(Type)) \
+    namespace { \
+        static Type& Name = PSTADE_INSTANCE_call_instance_fun(Name); \
+    } \
 /**/
 
 
 #define PSTADE_INSTANCE_ARGS(Type, Name, ArgSeq) \
-	PSTADE_INSTANCE_define_instance_fun(Type, Name, PSTADE_INSTANCE_define_x_a(Type, ArgSeq)) \
-	namespace { \
-		static Type& Name = PSTADE_INSTANCE_call_instance_fun(Name); \
-	} \
+    PSTADE_INSTANCE_define_instance_fun(Type, Name, PSTADE_INSTANCE_define_x_a(Type, ArgSeq)) \
+    namespace { \
+        static Type& Name = PSTADE_INSTANCE_call_instance_fun(Name); \
+    } \
 /**/
 
 
-	#define PSTADE_INSTANCE_define_instance_fun(Type, Name, DefineX) \
-		inline \
-		Type& BOOST_PP_CAT(pstade_instance_of_, Name)() \
-		{ \
-			static DefineX \
-			return x; \
-		} \
-	/**/
+    #define PSTADE_INSTANCE_define_instance_fun(Type, Name, DefineX) \
+        inline \
+        Type& BOOST_PP_CAT(pstade_instance_of_, Name)() \
+        { \
+            static DefineX \
+            return x; \
+        } \
+    /**/
 
 
-	#define PSTADE_INSTANCE_call_instance_fun(Name) \
-		BOOST_PP_CAT(pstade_instance_of_, Name)() \
-	/**/
+    #define PSTADE_INSTANCE_call_instance_fun(Name) \
+        BOOST_PP_CAT(pstade_instance_of_, Name)() \
+    /**/
 
 
-	#define PSTADE_INSTANCE_define_x_0(Type) \
-		boost::value_initialized< Type > x; \
-	/**/
+    #define PSTADE_INSTANCE_define_x_0(Type) \
+        boost::value_initialized< Type > x; \
+    /**/
 
 
-	#define PSTADE_INSTANCE_define_x_a(Type, ArgSeq) \
-		Type x(BOOST_PP_SEQ_ENUM(ArgSeq)); \
-	/**/
+    #define PSTADE_INSTANCE_define_x_a(Type, ArgSeq) \
+        Type x(BOOST_PP_SEQ_ENUM(ArgSeq)); \
+    /**/
 
 
 #endif
