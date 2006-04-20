@@ -19,20 +19,14 @@
 namespace pstade { namespace sausage {
 
 
-struct default_way_tag { };
+struct default_way_tag   { };
 struct intrusive_way_tag { };
-struct boost_range_tag { };
-
-
-template< class T >
-struct identity :
-    boost::mpl::identity<T>
-{ };
+struct boost_range_tag   { };
 
 
 template< class T >
 struct customization_tag :
-    identity<default_way_tag>
+    boost::mpl::identity<default_way_tag>
 { };
 
 
@@ -82,6 +76,12 @@ struct customization<boost_range_tag>
         return fun;
     }
 };
+
+
+template< class T >
+struct identity :
+    boost::mpl::identity<T>
+{ };
 
 
 } } // namespace pstade::sausage
