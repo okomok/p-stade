@@ -29,18 +29,18 @@ namespace pstade { namespace napkin { namespace detail {
 template< class CharT >
 struct basic_placeholder
 {
-	virtual ~basic_placeholder()
-	{ } // In fact, shared_ptr emulates 'virtual'.
+    virtual ~basic_placeholder()
+    { } // In fact, shared_ptr emulates 'virtual'.
 
-	template< class OutputStreamable >
-	void output(const OutputStreamable& x)
-	{
-		std::basic_string<CharT> tmp = pstade::lexical(x);
-		output_impl(tmp.c_str());
-	}
+    template< class OutputStreamable >
+    void output(const OutputStreamable& x)
+    {
+        std::basic_string<CharT> tmp = pstade::lexical(x);
+        output_impl(tmp.c_str());
+    }
 
 protected:
-	virtual void output_impl(const CharT *psz) = 0;
+    virtual void output_impl(const CharT *psz) = 0;
 };
 
 

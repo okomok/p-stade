@@ -20,18 +20,18 @@ namespace pstade { namespace napkin {
 namespace nout_detail {
 
 
-	struct out
-	{
-		void operator<<(const char *psz) const
-		{
-			pstade::unused(psz);
-		}
+    struct out
+    {
+        void operator<<(const char *psz) const
+        {
+            pstade::unused(psz);
+        }
 
-		void operator<<(const wchar_t *psz) const
-		{
-			pstade::unused(psz);
-		}
-	};
+        void operator<<(const wchar_t *psz) const
+        {
+            pstade::unused(psz);
+        }
+    };
 
 
 } // namespace nout_detail

@@ -20,36 +20,36 @@ namespace pstade { namespace napkin {
 
 template< class CharT >
 struct basic_lock_ostream :
-	private boost::noncopyable
+    private boost::noncopyable
 {
-	basic_lock_ostream()
-	{ }
+    basic_lock_ostream()
+    { }
 
-	template< class StringOutputable >
-	explicit basic_lock_ostream(StringOutputable& out) :
-		m_os(out)
-	{ }
+    template< class StringOutputable >
+    explicit basic_lock_ostream(StringOutputable& out) :
+        m_os(out)
+    { }
 
-	template< class OutputStreamable >
-	basic_lock_ostream& operator<<(const OutputStreamable& x)
-	{
-		{
-			boost::mutex::scoped_lock lock(m_mtx);
-			m_os << x;
-		}
+    template< class OutputStreamable >
+    basic_lock_ostream& operator<<(const OutputStreamable& x)
+    {
+        {
+            boost::mutex::scoped_lock lock(m_mtx);
+            m_os << x;
+        }
 
-		return *this;
-	}
+        return *this;
+    }
 
-	template< class StringOutputable >
-	void reset(StringOutputable& out)
-	{
-		m_os.reset(out);
-	}
+    template< class StringOutputable >
+    void reset(StringOutputable& out)
+    {
+        m_os.reset(out);
+    }
 
 private:
-	basic_ostream<CharT> m_os;
-	boost::mutex m_mtx;
+    basic_ostream<CharT> m_os;
+    boost::mutex m_mtx;
 };
 
 

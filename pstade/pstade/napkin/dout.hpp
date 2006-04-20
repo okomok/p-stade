@@ -20,18 +20,18 @@ namespace pstade { namespace napkin {
 namespace dout_detail {
 
 
-	struct out
-	{
-		void operator<<(const char *psz) const
-		{
-			::OutputDebugStringA(psz);
-		}
+    struct out
+    {
+        void operator<<(const char *psz) const
+        {
+            ::OutputDebugStringA(psz);
+        }
 
-		void operator<<(const wchar_t *psz) const
-		{
-			::OutputDebugStringW(psz);
-		}
-	};
+        void operator<<(const wchar_t *psz) const
+        {
+            ::OutputDebugStringW(psz);
+        }
+    };
 
 
 } // dout_detail

@@ -30,21 +30,21 @@ namespace pstade { namespace napkin { namespace detail {
 
 template< class CharT, class StringOutputable >
 struct basic_holder :
-	basic_placeholder<CharT>,
-	private boost::noncopyable
+    basic_placeholder<CharT>,
+    private boost::noncopyable
 {
-	explicit basic_holder(StringOutputable& out) :
-		m_held(out)
-	{ }
+    explicit basic_holder(StringOutputable& out) :
+        m_held(out)
+    { }
 
 protected:
-	virtual void output_impl(const CharT *psz)
-	{
-		pstade_napkin_output(m_held, psz, overload());
-	}
+    virtual void output_impl(const CharT *psz)
+    {
+        pstade_napkin_output(m_held, psz, overload());
+    }
 
 private:
-	StringOutputable& m_held;
+    StringOutputable& m_held;
 };
 
 

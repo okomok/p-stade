@@ -22,31 +22,31 @@ namespace pstade { namespace napkin {
 template< class CharT >
 struct basic_ostream
 {
-	basic_ostream()
-	{
-		reset(nout);
-	}
+    basic_ostream()
+    {
+        reset(nout);
+    }
 
-	template< class StringOutputable >
-	explicit basic_ostream(StringOutputable& out) :
-		m_pout(new detail::basic_holder<CharT, StringOutputable>(out))
-	{ };
+    template< class StringOutputable >
+    explicit basic_ostream(StringOutputable& out) :
+        m_pout(new detail::basic_holder<CharT, StringOutputable>(out))
+    { };
 
-	template< class OutputStreamable >
-	basic_ostream& operator<<(const OutputStreamable& x)
-	{
-		m_pout->output(x);
-		return *this;
-	}
+    template< class OutputStreamable >
+    basic_ostream& operator<<(const OutputStreamable& x)
+    {
+        m_pout->output(x);
+        return *this;
+    }
 
-	template< class StringOutputable >
-	void reset(StringOutputable& out)
-	{
-		m_pout.reset(new detail::basic_holder<CharT, StringOutputable>(out));
-	}
+    template< class StringOutputable >
+    void reset(StringOutputable& out)
+    {
+        m_pout.reset(new detail::basic_holder<CharT, StringOutputable>(out));
+    }
 
 private:
-	boost::shared_ptr< detail::basic_placeholder<CharT> > m_pout;
+    boost::shared_ptr< detail::basic_placeholder<CharT> > m_pout;
 };
 
 

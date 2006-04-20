@@ -23,10 +23,10 @@ PSTADE_HAS_TYPE(is_loading)
 
 template< class T >
 struct is_boost_archive :
-	boost::mpl::and_<
-		has_is_saving<T>,
-		has_is_loading<T>
-	>
+    boost::mpl::and_<
+        has_is_saving<T>,
+        has_is_loading<T>
+    >
 { };
 
 
