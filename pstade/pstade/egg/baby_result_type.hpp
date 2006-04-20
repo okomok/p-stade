@@ -35,11 +35,11 @@ namespace pstade { namespace egg {
 namespace baby_result_type_detail {
 
 
-	template< class BabyFunction >
-	struct nullary
-	{
-		typedef typename BabyFunction::result_type type;
-	};
+    template< class BabyFunction >
+    struct nullary
+    {
+        typedef typename BabyFunction::result_type type;
+    };
 
 
 } // namespace baby_result_type_detail
@@ -47,9 +47,9 @@ namespace baby_result_type_detail {
 
 struct error_no_arguments_supplied
 {
-	template< class T >
-	error_no_arguments_supplied(const T&)
-	{ }
+    template< class T >
+    error_no_arguments_supplied(const T&)
+    { }
 };
 
 
@@ -57,37 +57,37 @@ struct error_no_arguments_supplied
 //
 template< class BabyFunction >
 struct baby_result0 :
-	boost::mpl::eval_if<detail::has_result_type<BabyFunction>,
-		baby_result_type_detail::nullary<BabyFunction>,
-		boost::mpl::identity<error_no_arguments_supplied>
-	>
+    boost::mpl::eval_if<detail::has_result_type<BabyFunction>,
+        baby_result_type_detail::nullary<BabyFunction>,
+        boost::mpl::identity<error_no_arguments_supplied>
+    >
 { };
 
 
 template< class BabyFunction, class A0 >
 struct baby_result1 :
-	boost::mpl::apply1<BabyFunction, 
-		typename boost::remove_reference<A0>::type
-	>
+    boost::mpl::apply1<BabyFunction, 
+        typename boost::remove_reference<A0>::type
+    >
 { };
 
 
 template< class BabyFunction, class A0, class A1 >
 struct baby_result2 :
-	boost::mpl::apply2<BabyFunction,
-		typename boost::remove_reference<A0>::type,
-		typename boost::remove_reference<A1>::type
-	>
+    boost::mpl::apply2<BabyFunction,
+        typename boost::remove_reference<A0>::type,
+        typename boost::remove_reference<A1>::type
+    >
 { };
 
 
 template< class BabyFunction, class A0, class A1, class A2 >
 struct baby_result3 :
-	boost::mpl::apply3<BabyFunction,
-		typename boost::remove_reference<A0>::type,
-		typename boost::remove_reference<A1>::type,
-		typename boost::remove_reference<A2>::type
-	>
+    boost::mpl::apply3<BabyFunction,
+        typename boost::remove_reference<A0>::type,
+        typename boost::remove_reference<A1>::type,
+        typename boost::remove_reference<A2>::type
+    >
 { };
 
 

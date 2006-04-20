@@ -23,26 +23,26 @@ struct results
 #if !defined(PSTADE_EGG_DETAIL_NO_NESTED_RESULT_SPECIALIZATION)
 
 
-	template< class F_Args >
-	struct result;
+    template< class F_Args >
+    struct result;
 
 
-	template< class F_, class A0 >
-	struct result<F_(A0)> :
-		baby_result1<BabyFunction, A0>
-	{ };
+    template< class F_, class A0 >
+    struct result<F_(A0)> :
+        baby_result1<BabyFunction, A0>
+    { };
 
 
-	template< class F_, class A0, class A1 >
-	struct result<F_(A0, A1)> :
-		baby_result2<BabyFunction, A0, A1>
-	{ };
+    template< class F_, class A0, class A1 >
+    struct result<F_(A0, A1)> :
+        baby_result2<BabyFunction, A0, A1>
+    { };
 
 
-	template< class F_, class A0, class A1, class A2 >
-	struct result<F_(A0, A1, A2)> :
-		baby_result3<BabyFunction, A0, A1, A2>
-	{ };
+    template< class F_, class A0, class A1, class A2 >
+    struct result<F_(A0, A1, A2)> :
+        baby_result3<BabyFunction, A0, A1, A2>
+    { };
 
 
 #endif

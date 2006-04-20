@@ -20,52 +20,52 @@ template< class BabyFunction >
 typename egg::baby_result0<BabyFunction>::type
 baby_call()
 {
-	typedef typename egg::baby_result0<BabyFunction
-	>::type result_t;
+    typedef typename egg::baby_result0<BabyFunction
+    >::type result_t;
 
-	return BabyFunction().template call<result_t>();
+    return BabyFunction().template call<result_t>();
 }
 
 
 template< class BabyFunction, class A0 >
 typename egg::baby_result1<BabyFunction,
-	A0
+    A0
 >::type
 baby_call(A0& a0)
 {
-	typedef typename egg::baby_result1<BabyFunction,
-		A0
-	>::type result_t;
+    typedef typename egg::baby_result1<BabyFunction,
+        A0
+    >::type result_t;
 
-	return BabyFunction().template call<result_t>(a0);
+    return BabyFunction().template call<result_t>(a0);
 }
 
 
 template< class BabyFunction, class A0, class A1 >
 typename egg::baby_result2<BabyFunction,
-	A0, A1
+    A0, A1
 >::type
 baby_call(A0& a0, A1& a1)
 {
-	typedef typename egg::baby_result2<BabyFunction,
-		A0, A1
-	>::type result_t;
+    typedef typename egg::baby_result2<BabyFunction,
+        A0, A1
+    >::type result_t;
 
-	return BabyFunction().template call<result_t>(a0, a1);
+    return BabyFunction().template call<result_t>(a0, a1);
 }
 
 
 template< class BabyFunction, class A0, class A1, class A2>
 typename egg::baby_result3<BabyFunction,
-	A0, A1, A2
+    A0, A1, A2
 >::type
 baby_call(A0& a0, A1& a1, A2& a2)
 {
-	typedef typename egg::baby_result3<BabyFunction,
-		A0, A1, A2
-	>::type result_t;
+    typedef typename egg::baby_result3<BabyFunction,
+        A0, A1, A2
+    >::type result_t;
 
-	return BabyFunction().template call<result_t>(a0, a1, a2);
+    return BabyFunction().template call<result_t>(a0, a1, a2);
 }
 
 
