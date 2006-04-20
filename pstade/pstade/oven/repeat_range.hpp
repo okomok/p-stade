@@ -30,8 +30,7 @@ namespace repeat_range_detail {
 	template< class Range, class CountT >
 	struct super_
 	{
-		typedef
-		boost::iterator_range<
+		typedef boost::iterator_range<
 			repeat_iterator<
 				typename boost::range_result_iterator<Range>::type,
 				CountT

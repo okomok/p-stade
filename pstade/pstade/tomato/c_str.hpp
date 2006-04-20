@@ -40,7 +40,7 @@ public:
 namespace c_str_detail {
 
 
-	PSTADE_HAS_XXX(pstade_tomato_cstringizable)
+	PSTADE_HAS_TYPE(pstade_tomato_cstringizable)
 
 
 	struct member_function
@@ -53,12 +53,20 @@ namespace c_str_detail {
 	};
 
 
+	template< class T > inline
+	const TCHAR *
+	pstade_tomato_c_str(const T& str)
+	{
+		return pstade_tomato_c_str(str, overload());
+	}
+
+
 	struct adl_customization
 	{
 		template< class T > static
 		const TCHAR *call(const T& str)
 		{
-			return pstade_tomato_c_str(str, overload());
+			return pstade_tomato_c_str(str);
 		}
 	};
 
@@ -66,9 +74,6 @@ namespace c_str_detail {
 	template< class CStringizable > inline
 	const TCHAR *aux(const CStringizable& str)
 	{
-		using namespace boost;
-		using namespace c_str_detail;
-
 		typedef typename
 		boost::mpl::if_< has_pstade_tomato_cstringizable<CStringizable>,
 			member_function,
@@ -105,32 +110,36 @@ PSTADE_OVEN_RANGE_ADAPTOR(c_stringized, c_str_detail::baby)
 } } // namespace pstade::tomato
 
 
-// customizations
+// predefined customizations
 //
 
 inline
-const TCHAR *pstade_tomato_c_str(const TCHAR *psz, pstade::overload)
+const TCHAR *
+pstade_tomato_c_str(const TCHAR *psz, pstade::overload)
 {
 	return psz;
 }
 
 
 template< class T > inline
-const TCHAR *pstade_tomato_c_str(const WTL::CString& str, pstade::overload)
+const TCHAR *
+pstade_tomato_c_str(const WTL::CString& str, pstade::overload)
 {
 	return str;
 }
 
 
 template< BOOST_MICROSOFT_ATL_CSIMPLESTRINGT_TEMPLATE_PARAMS > inline
-const BaseType *pstade_tomato_c_str(const ATL::CSimpleStringT< BOOST_MICROSOFT_ATL_CSIMPLESTRINGT_TEMPLATE_ARGS >& str, pstade::overload)
+const BaseType *
+pstade_tomato_c_str(const ATL::CSimpleStringT< BOOST_MICROSOFT_ATL_CSIMPLESTRINGT_TEMPLATE_ARGS >& str, pstade::overload)
 {
 	return str;
 }
 
 
 template< class Traits, class Alloc > inline
-const TCHAR *pstade_tomato_c_str(const std::basic_string<TCHAR, Traits, Alloc>& str, pstade::overload)
+const TCHAR *
+pstade_tomato_c_str(const std::basic_string<TCHAR, Traits, Alloc>& str, pstade::overload)
 {
 	return str.c_str();
 }

@@ -10,35 +10,79 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <cstddef> // size_t
+#include <boost/utility/enable_if.hpp>
 #include <boost/foreach.hpp>
-#include "./detail/default_customization.hpp"
-#include "./detail/intrusive_customization.hpp"
+#include <boost/iterator/iterator_traits.hpp> // iterator_reference
+#include <boost/mpl/if.hpp>
+#include <boost/range/result_iterator.hpp>
+#include <pstade/apple/is_boost_range.hpp>
+#include <pstade/overload.hpp>
+#include "./access.hpp"
+#include "./detail/has_pstade_diagnostic.hpp"
 
 
 namespace pstade { namespace diet {
 
 
-template< class Diagnostic > inline
-bool is_valid(Diagnostic& dg)
-{
-	typedef customization::point<
-		typename customization::tag<Diagnostic>::type
-	> point_t;
+namespace is_valid_detail {
 
-	return point_t().is_valid(dg);
+
+	struct member_function
+	{
+		template< class T > static
+		bool call(const T& x)
+		{
+			return access::detail_is_valid(x);
+		}
+	};
+
+
+	template< class T > inline
+	bool pstade_diet_is_valid(const T& x)
+	{
+		return pstade_diet_is_valid(x, pstade::overload());
+	}
+
+	struct adl_customization
+	{
+		template< class T > static
+		bool call(const T& x)
+		{
+			return pstade_diet_is_valid(x);
+		}
+	};
+
+
+} // namespace is_valid_detail
+
+
+template< class Diagnostic > inline
+bool is_valid(const Diagnostic& dg)
+{
+    typedef typename
+    boost::mpl::if_< detail::has_pstade_diet_diagnostic<Diagnostic>,
+        is_valid_detail::member_function,
+        is_valid_detail::adl_customization
+    >::type impl_t;
+
+    return impl_t::call(dg);
 }
 
 
 } } // namespace pstade::diet
 
 
-// predefined ones
+// predefined customizations
 //
-template< class T, std::size_t sz >
-bool pstade_diet_is_valid(const T (&arr)[sz], pstade::overload)
+
+template< class Range > inline
+typename boost::enable_if<pstade::apple::is_boost_range<Range>, bool>::type
+pstade_diet_is_valid(const Range& rng, pstade::overload)
 {
-	BOOST_FOREACH (const T& x, arr) {
+	typedef typename boost::range_const_iterator<Range>::type iter_t;
+	typedef typename boost::iterator_reference<iter_t>::type ref_t;
+
+	BOOST_FOREACH (ref_t x, rng) {
 		if (!pstade::diet::is_valid(x))
 			return false;
 	}

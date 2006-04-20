@@ -25,8 +25,11 @@
 #include <boost/assert.hpp>
 #include <boost/microsoft/sdk/windows.hpp>
 #include <boost/microsoft/wtl/user.hpp> // ::AtlIsOldWindows
+#include <boost/mpl/or.hpp>
 #include <boost/type_traits/add_reference.hpp>
+#include <boost/utility/enable_if.hpp>
 #include <pstade/egg/function.hpp>
+#include <pstade/has_xxx.hpp>
 #include <pstade/oven/range_adaptor.hpp>
 #include <pstade/overload.hpp>
 
@@ -52,6 +55,25 @@ namespace size_initialize_detail {
 	};
 
 
+/*
+	PSTADE_HAS_DATA_NAMED(has_DWORD_cbSize, DWORD, cbSize)
+	PSTADE_HAS_DATA_NAMED(has_int_cbSize, int, cbSize)
+	PSTADE_HAS_DATA_NAMED(has_UINT_cbSize, UINT, cbSize)
+	PSTADE_HAS_DATA_NAMED(has_ULONG_cbSize, ULONG, cbSize)
+
+
+	template< class T >
+	struct has_cbSize :
+		boost::mpl::or_<
+			has_DWORD_cbSize<T>,
+			has_int_cbSize<T>,
+			has_UINT_cbSize<T>,
+			has_ULONG_cbSize<T>
+		>
+	{ };
+*/
+
+
 } // namespace size_initialize_detail
 
 
@@ -59,30 +81,20 @@ PSTADE_EGG_FUNCTION(size_initialize, size_initialize_detail::baby)
 PSTADE_OVEN_RANGE_ADAPTOR(size_initialized, size_initialize_detail::baby)
 
 
-/* older implementation
-template< class T > inline
-T& size_initialize(T& x)
-{
-	return pstade_tomato_size_initialize(x, overload());
-}
-*/
-
-
 } } // namespace pstade::tomato
 
 
-// default
+// predefined customizations
 //
+
 template< class T > inline
-T& pstade_tomato_size_initialize(T& x, ...)
+T& // typename boost::enable_if< pstade::tomato::size_initialize_detail::has_cbSize<T>, T& >::type
+pstade_tomato_size_initialize(T& x, pstade::overload)
 {
 	x.cbSize = sizeof(T);
 	return x;
 }
 
-
-// customizations
-//
 
 inline
 MENUITEMINFO& pstade_tomato_size_initialize(MENUITEMINFO& mii, pstade::overload)

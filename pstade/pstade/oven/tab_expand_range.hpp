@@ -27,15 +27,15 @@ namespace pstade { namespace oven {
 namespace tab_expand_range_detail {
 
 
-    template< class ForwardRange >
-    struct super_
-    {
-        typedef boost::iterator_range<
-            tab_expand_iterator<
-                typename boost::range_result_iterator<ForwardRange>::type
-            >
-        > type;
-    };
+	template< class ForwardRange >
+	struct super_
+	{
+		typedef boost::iterator_range<
+			tab_expand_iterator<
+				typename boost::range_result_iterator<ForwardRange>::type
+			>
+		> type;
+	};
 
 
 } // namespace tab_expand_range_detail
@@ -43,39 +43,39 @@ namespace tab_expand_range_detail {
 
 template< class ForwardRange >
 struct tab_expand_range :
-    tab_expand_range_detail::super_<ForwardRange>::type
+	tab_expand_range_detail::super_<ForwardRange>::type
 {
 private:
-    typedef typename tab_expand_range_detail::super_<ForwardRange>::type super_t;
-    typedef typename super_t::iterator iter_t;
+	typedef typename tab_expand_range_detail::super_<ForwardRange>::type super_t;
+	typedef typename super_t::iterator iter_t;
 
 public:
-    explicit tab_expand_range(ForwardRange& rng, int tabsize) :
-        super_t(
-            iter_t(boost::begin(rng), tabsize),
-            iter_t(boost::end(rng), tabsize)
-        )
-    { }
+	explicit tab_expand_range(ForwardRange& rng, int tabsize) :
+		super_t(
+			iter_t(boost::begin(rng), tabsize),
+			iter_t(boost::end(rng), tabsize)
+		)
+	{ }
 };
 
 
 namespace tab_expand_range_detail {
 
 
-    struct baby_generator
-    {
-        template< class ForwardRange, class TabSizeT >
-        struct apply
-        {
-            typedef const tab_expand_range<ForwardRange> type;
-        };
+	struct baby_generator
+	{
+		template< class ForwardRange, class TabSizeT >
+		struct apply
+		{
+			typedef const tab_expand_range<ForwardRange> type;
+		};
 
-        template< class Result, class ForwardRange >
-        Result call(ForwardRange& rng, int tabsize)
-        {
-            return Result(rng, tabsize);
-        }
-    };
+		template< class Result, class ForwardRange >
+		Result call(ForwardRange& rng, int tabsize)
+		{
+			return Result(rng, tabsize);
+		}
+	};
 
 
 } // namespace tab_expand_range_detail

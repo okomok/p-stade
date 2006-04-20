@@ -34,7 +34,7 @@ struct sub_range_result
 };
 
 
-// In the case of adding explicitly add 'const' to array
+// In the case of explicitly adding 'const' to array
 // (something like 'sub_range_result<const array>'),
 // VC7.1 is confused when ordering. I don't know why, so I define...
 // (you can use also boost::add_const for this workaround.)

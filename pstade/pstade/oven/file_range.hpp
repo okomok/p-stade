@@ -27,6 +27,7 @@ struct file_range :
 	boost::iterator_range< boost::spirit::file_iterator<CharT> >
 {
 private:
+	typedef file_range self_t;
 	typedef boost::spirit::file_iterator<CharT> iter_t;
 	typedef boost::base_from_member<iter_t> iter_bt;
 	typedef boost::iterator_range<iter_t> super_t;

@@ -32,27 +32,37 @@
 namespace pstade { namespace oven {
 
 
+namespace transform_range_detail {
+
+
+	template<
+		class UnaryFun, class Range,
+		class Reference, class Value
+	>
+	struct super_
+	{
+		typedef boost::iterator_range<
+			boost::transform_iterator<
+				UnaryFun, typename boost::range_result_iterator<Range>::type,
+				Reference, Value
+			>
+		> type;
+	};
+
+
+} // namespace transform_range_detail
+
+
 template<
-	class UnaryFun,
-	class Range,
-	class Reference = boost::use_default,
-	class Value = boost::use_default
+	class UnaryFun, class Range,
+	class Reference = boost::use_default, class Value = boost::use_default
 >
 struct transform_range :
-	boost::iterator_range<
-		boost::transform_iterator<
-			UnaryFun,
-			typename boost::range_result_iterator<Range>::type,
-			Reference,
-			Value
-		>
-	>
+	transform_range_detail::super_<UnaryFun, Range, Reference, Value>::type
 {
-	typedef typename boost::range_result_iterator<Range>::type base_iterator;
-
 private:
-	typedef boost::transform_iterator<UnaryFun, base_iterator, Reference, Value> iter_t;
-	typedef boost::iterator_range<iter_t> super_t;
+	typedef typename transform_range_detail::super_<UnaryFun, Range, Reference, Value>::type super_t;
+	typedef typename super_t::iterator iter_t;
 
 public:
 	explicit transform_range(Range& rng, UnaryFun fun) :

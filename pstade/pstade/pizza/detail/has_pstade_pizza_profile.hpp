@@ -16,7 +16,7 @@
 namespace pstade { namespace pizza { namespace detail {
 
 
-PSTADE_HAS_XXX(pstade_pizza_profile)
+PSTADE_HAS_TYPE(pstade_pizza_profile)
 
 
 } } } // namespace pstade::pizza::detail

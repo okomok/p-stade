@@ -59,8 +59,9 @@ namespace joint_iterator_detail {
 	}
 
 
-	template< class ForwardIter1, class ForwardIter2, class Difference >
-	void advance(ForwardIter1& it1, const ForwardIter1& last1, ForwardIter2& it2, Difference d)
+	template< class RandomAccessIter1, class RandomAccessIter2, class Difference >
+	void advance(RandomAccessIter1& it1, const RandomAccessIter1& last1,
+		RandomAccessIter2& it2, Difference d)
 	{
 		BOOST_ASSERT(d >= 0);
 

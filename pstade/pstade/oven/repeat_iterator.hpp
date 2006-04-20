@@ -10,17 +10,14 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// This iterator cannot conform to even ForwardIterator.
+// This iterator cannot conform to even ForwardIterator for now.
 //
 // http://article.gmane.org/gmane.comp.lib.boost.devel/140639
 
 
+#include <iterator>
 #include <boost/assert.hpp>
-#include <boost/format.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
-#include <pstade/instance.hpp>
-#include <pstade/integral_cast.hpp>
-#include <pstade/napkin/ostream.hpp>
 
 
 namespace pstade { namespace oven {
@@ -37,18 +34,12 @@ namespace repeat_iterator_detail {
 	struct super_
 	{
 		typedef boost::iterator_adaptor<
-			repeat_iterator<Iterator, CountT>,	// Derived
-			Iterator							// *Base*
+			repeat_iterator<Iterator, CountT>,
+			Iterator,
+			boost::use_default,
+			std::input_iterator_tag
 		> type;
 	};
-
-
-	#define PSTADE_OVEN_REPEAT_RANGE_IF_DEBUG(X) // X
-
-
-	PSTADE_OVEN_REPEAT_RANGE_IF_DEBUG (
-		PSTADE_INSTANCE(napkin::ostream, os)
-	)
 
 
 } // namespace repeat_iterator_detail
@@ -68,11 +59,7 @@ public:
 	template< class OtherIter, class OtherCountT >
 	explicit repeat_iterator(OtherIter first, OtherIter last, OtherCountT count) :
 		super_t(first), m_first(first), m_last(last), m_count(count)
-	{
-		PSTADE_OVEN_REPEAT_RANGE_IF_DEBUG (
-			repeat_iterator_detail::os.reset(std::cout);
-		)
-	}
+	{ }
 
 	const Iterator source_begin() const
 	{ return m_first; }
@@ -92,76 +79,11 @@ friend class boost::iterator_core_access;
 		return *this->base();
 	}
 
-	void advance(diff_t d)
-	{
-		if (d >= 0) {
-			advance_to_right(d);
-		}
-		else {
-			advance_to_left(-d);
-		}
-	}
-
-	void advance_to_right(diff_t d)
-	{
-		BOOST_ASSERT(d >= 0);
-
-		diff_t src_size = m_last - m_first;
-		diff_t src_diff = this->base() - m_first;
-		diff_t count_diff = src_diff + d;
-		this->base_reference() = m_first + (count_diff % src_size);
-		diff_t count = count_diff / src_size;
-		m_count -= static_cast<CountT>(count);
-	}
-
-	void advance_to_left(diff_t d)
-	{
-		BOOST_ASSERT(d >= 0);
-
-		diff_t src_size = m_last - m_first;
-		diff_t src_diff = m_last - this->base();
-		diff_t count_diff = d + src_diff;
-		diff_t rem = (count_diff % src_size);
-		this->base_reference() = (rem == 0) ? m_first : (m_last - rem);
-		diff_t count = count_diff / src_size;
-		if (rem == 0)
-			m_count += static_cast<CountT>(count) - 1;
-		else
-            m_count += static_cast<CountT>(count);
-	}
-
 	void increment()
 	{
 		BOOST_ASSERT(m_count != 0);
 
-		PSTADE_OVEN_REPEAT_RANGE_IF_DEBUG (
-			self_t itmp(*this);
-		)
-
 		increment_impl();
-
-		PSTADE_OVEN_REPEAT_RANGE_IF_DEBUG (
-			itmp.advance(1);
-			BOOST_ASSERT(itmp == *this);
-		)
-	}
-
-	void decrement()
-	{
-		PSTADE_OVEN_REPEAT_RANGE_IF_DEBUG (
-			self_t itmp(*this);
-			repeat_iterator_detail::os <<
-				boost::format("cur:%1%, m_count:%2%\n") % *this->base() % m_count;
-		)
-
-		decrement_impl();
-
-		PSTADE_OVEN_REPEAT_RANGE_IF_DEBUG (
-			itmp.advance(-1);
-			BOOST_ASSERT(itmp == *this);
-		)
-
-		BOOST_ASSERT(m_count != 0);
 	}
 
 	bool equal(const self_t& other) const
@@ -180,17 +102,6 @@ private:
 			this->base_reference() = m_first;
 			--m_count;
 		}
-	}
-
-	void decrement_impl()
-	{
-		if (this->base() == m_first) {
-			this->base_reference() = m_last;
-			++m_count;
-		}
-		--this->base_reference();
-
-		BOOST_ASSERT(m_count != 0);
 	}
 };
 

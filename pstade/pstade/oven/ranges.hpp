@@ -23,6 +23,7 @@
 #include "./null_terminate_range.hpp"
 #include "./pointer_range.hpp"
 #include "./prepend_range.hpp"
+#include "./repeat_range.hpp"
 #include "./reverse_range.hpp"
 #include "./single_range.hpp"
 #include "./tab_expand_range.hpp"

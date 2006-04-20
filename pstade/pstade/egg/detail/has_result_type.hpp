@@ -16,7 +16,7 @@
 namespace pstade { namespace egg { namespace detail {
 
 
-PSTADE_HAS_XXX(result_type)
+PSTADE_HAS_TYPE(result_type)
 
 
 } } } // namespace pstade::egg::detail

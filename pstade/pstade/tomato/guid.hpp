@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// But template arguments must be extern likage...
+// But template arguments must have extern likage...
 
 
 #include <boost/microsoft/sdk/guiddef.hpp> // IID

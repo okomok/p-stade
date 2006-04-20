@@ -19,8 +19,6 @@ public:
 	template< class T > static
 	bool detail_is_valid(const T& x)
 	{
-		// intrusive layer
-		//
 		return x.pstade_diet_is_valid();
 	}
 

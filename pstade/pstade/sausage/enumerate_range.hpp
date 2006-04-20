@@ -44,8 +44,8 @@ private:
     typedef typename super_t::iterator iter_t;
 
 public:
-    explicit enumerate_range(Enumerable& enm) :
-        super_t(iter_t(enm), iter_t())
+    explicit enumerate_range(Enumerable& e) :
+        super_t(iter_t(e), iter_t())
     { }
 };
 
@@ -62,9 +62,9 @@ namespace enumerate_range_detail {
         };
 
         template< class Result, class Enumerable >
-        Result call(Enumerable& enm)
+        Result call(Enumerable& e)
         {
-            return Result(enm);
+            return Result(e);
         }
     };
 

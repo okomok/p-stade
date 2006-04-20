@@ -17,8 +17,8 @@
 namespace pstade { namespace napkin { namespace detail {
 
 
-PSTADE_HAS_XXX(is_saving)
-PSTADE_HAS_XXX(is_loading)
+PSTADE_HAS_TYPE(is_saving)
+PSTADE_HAS_TYPE(is_loading)
 
 
 template< class T >

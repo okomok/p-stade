@@ -16,7 +16,7 @@ namespace {
 namespace ketchup = pstade::ketchup;
 
 
-} // namespace anonymous
+} // unnamed
 
 
 #endif

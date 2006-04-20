@@ -24,9 +24,9 @@ namespace pstade { namespace apple {
 namespace is_boost_range_detail {
 
 
-	PSTADE_HAS_XXX(iterator)
-	PSTADE_HAS_XXX(const_iterator)
-	PSTADE_HAS_XXX(value_type)
+	PSTADE_HAS_TYPE(iterator)
+	PSTADE_HAS_TYPE(const_iterator)
+	PSTADE_HAS_TYPE(value_type)
 
 
 } // namespace is_boost_range_detail

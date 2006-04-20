@@ -43,7 +43,7 @@ struct star
 			PSTADE_IF_DEBUG (
 				iter_t const cur = s.get_cur();
 				BOOST_ASSERT(marker != cur &&
-					"pstade::biscuit::star - Parser must advance on star-operation; 'end/eol' is a usual suspect,"
+					"pstade::biscuit::star - Parser must advance on star-operation; 'end/eol' are the usual suspects,"
 					"or iterator's comparison operator is broken.");
 			)
 		}

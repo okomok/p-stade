@@ -16,7 +16,7 @@ namespace {
 namespace oven = pstade::oven;
 
 
-} // namespace
+} // unnamed
 
 
 #endif

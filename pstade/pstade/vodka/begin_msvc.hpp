@@ -13,11 +13,9 @@
 #pragma warning(push)
 
 
-#if defined(_MSC_VER)
-	// inline aggressively
-	#pragma inline_recursion(on) // turn on inline recursion
-	#pragma inline_depth(255) // max inline depth
-#endif
+// inline aggressively
+#pragma inline_recursion(on) // turn on inline recursion
+#pragma inline_depth(255) // max inline depth
 
 
 #if (_MSC_VER < 1400)
