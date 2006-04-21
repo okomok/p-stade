@@ -34,7 +34,7 @@
     \
     namespace { \
         PSTADE_INSTANCE_static \
-        PSTADE_COMMA_PROTECT(Type)& Name = PSTADE_INSTANCE_call_instance_fun(Name); \
+        PSTADE_INSTANCE_comma_protect(Type)& Name = PSTADE_INSTANCE_call_instance_fun(Name); \
     } \
 /**/
 
@@ -44,14 +44,14 @@
     \
     namespace { \
         PSTADE_INSTANCE_static \
-        PSTADE_COMMA_PROTECT(Type)& Name = PSTADE_INSTANCE_call_instance_fun(Name); \
+        PSTADE_INSTANCE_comma_protect(Type)& Name = PSTADE_INSTANCE_call_instance_fun(Name); \
     } \
 /**/
 
 
     #define PSTADE_INSTANCE_define_instance_fun(Type, Name, DefineX) \
         inline \
-        PSTADE_COMMA_PROTECT(Type)& BOOST_PP_CAT(pstade_instance_of_, Name)() \
+        PSTADE_INSTANCE_comma_protect(Type)& BOOST_PP_CAT(pstade_instance_of_, Name)() \
         { \
             static DefineX \
             return x; \
@@ -65,12 +65,17 @@
 
 
     #define PSTADE_INSTANCE_define_x_0(Type) \
-        boost::value_initialized< PSTADE_COMMA_PROTECT(Type) > x; \
+        boost::value_initialized< PSTADE_INSTANCE_comma_protect(Type) > x; \
     /**/
 
 
     #define PSTADE_INSTANCE_define_x_a(Type, ArgSeq) \
-        PSTADE_COMMA_PROTECT(Type) x(BOOST_PP_SEQ_ENUM(ArgSeq)); \
+        PSTADE_INSTANCE_comma_protect(Type) x(BOOST_PP_SEQ_ENUM(ArgSeq)); \
+    /**/
+
+
+    #define PSTADE_INSTANCE_comma_protect(Type) \
+        pstade::comma_protect<void(Type)>::type \
     /**/
 
 

@@ -10,29 +10,45 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Usage:
-//
-// PSTADE_IF_DEBUG( PSTADE_COMMA_PROTECT((map<int, char>)) vec; )
-// PSTADE_IF_DEBUG( PSTADE_COMMA_PROTECT_D((map<T, U>)) vec; )
-
-
 // See:
 //
 // http://d.hatena.ne.jp/Cryolite/20050326
 // http://www.kangaroologic.com/interfaces/libs/interfaces/doc/macros/protect.html
 
 
-#include <boost/type_traits/function_traits.hpp>
+// See: <boost/sequence/detail/comma_protect.hpp>
+//
+// Copyright David Abrahams 2005. Distributed under the Boost
+// Software License, Version 1.0. (See accompanying
+// file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 
-#define PSTADE_COMMA_PROTECT(Type) \
-    boost::function_traits<void(Type)>::arg1_type \
-/**/
+namespace pstade {
 
 
-#define PSTADE_COMMA_PROTECT_D(Type) \
-    typename boost::function_traits<void(Type)>::arg1_type \
-/**/
+template< class T >
+struct comma_protect;
+
+
+template< class R, class T >
+struct comma_protect<R(T)>
+{
+    typedef T type;
+};
+
+
+template< class T >
+struct comma_protect_eval;
+
+
+template< class R, class T >
+struct comma_protect_eval<R(T)>
+{
+    typedef typename T::type type;
+};
+
+
+} // namespace pstade
 
 
 #endif
