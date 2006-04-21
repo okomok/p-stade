@@ -17,51 +17,54 @@
 
 #include <boost/microsoft/sdk/windows.hpp>
 #include <boost/microsoft/sdk/wtypes.hpp> // VARIANT_BOOL
-#include <boost/mpl/identity.hpp>
-#include <pstade/egg/function.hpp>
-#include <pstade/oven/range_adaptor.hpp>
 
 
 namespace pstade { namespace tomato {
 
 
-template< class TargetT, class SourceT >
-struct boolean_cast_converter;
+namespace boolean_cast_detail {
 
 
-#define PSTADE_TOMATO_BOOLEAN_CAST_converter(TargetT, SourceT, Expr) \
-    template< > \
-    struct boolean_cast_converter<TargetT, SourceT> \
-    { \
-        static TargetT convert(SourceT b) \
+    template< class TargetT, class SourceT >
+    struct cvter;
+
+
+    #define PSTADE_TOMATO_BOOLEAN_CAST_cvter(TargetT, SourceT, Expr) \
+        template< > \
+        struct cvter<TargetT, SourceT> \
         { \
-            return Expr; \
-        } \
-    }; \
-/**/
+            static TargetT cvt(SourceT b) \
+            { \
+                return Expr; \
+            } \
+        }; \
+    /**/
 
 
-#define PSTADE_TOMATO_BOOLEAN_CAST_converter_set(TargeT, True, False) \
-    PSTADE_TOMATO_BOOLEAN_CAST_converter(TargeT, bool, b ? True : False) \
-    PSTADE_TOMATO_BOOLEAN_CAST_converter(TargeT, BOOL, b ? True : False) \
-    PSTADE_TOMATO_BOOLEAN_CAST_converter(TargeT, VARIANT_BOOL, b ? True : False) \
-    PSTADE_TOMATO_BOOLEAN_CAST_converter(TargeT, BOOLEAN, b ? True : False) \
-    PSTADE_TOMATO_BOOLEAN_CAST_converter(TargeT, LRESULT, b ? True : False) \
-/**/
+    #define PSTADE_TOMATO_BOOLEAN_CAST_cvter_set(TargeT, True, False) \
+        PSTADE_TOMATO_BOOLEAN_CAST_cvter(TargeT, bool, b ? True : False) \
+        PSTADE_TOMATO_BOOLEAN_CAST_cvter(TargeT, BOOL, b ? True : False) \
+        PSTADE_TOMATO_BOOLEAN_CAST_cvter(TargeT, VARIANT_BOOL, b ? True : False) \
+        PSTADE_TOMATO_BOOLEAN_CAST_cvter(TargeT, BOOLEAN, b ? True : False) \
+        PSTADE_TOMATO_BOOLEAN_CAST_cvter(TargeT, LRESULT, b ? True : False) \
+    /**/
 
 
-PSTADE_TOMATO_BOOLEAN_CAST_converter_set(bool, true, false)
-PSTADE_TOMATO_BOOLEAN_CAST_converter_set(BOOL, TRUE, FALSE)
-PSTADE_TOMATO_BOOLEAN_CAST_converter_set(VARIANT_BOOL, VARIANT_TRUE, VARIANT_FALSE)
-PSTADE_TOMATO_BOOLEAN_CAST_converter_set(BOOLEAN, (BOOLEAN)TRUE, (BOOLEAN)FALSE)
-PSTADE_TOMATO_BOOLEAN_CAST_converter_set(LRESULT, 1, 0)
+    PSTADE_TOMATO_BOOLEAN_CAST_cvter_set(bool, true, false)
+    PSTADE_TOMATO_BOOLEAN_CAST_cvter_set(BOOL, TRUE, FALSE)
+    PSTADE_TOMATO_BOOLEAN_CAST_cvter_set(VARIANT_BOOL, VARIANT_TRUE, VARIANT_FALSE)
+    PSTADE_TOMATO_BOOLEAN_CAST_cvter_set(BOOLEAN, (BOOLEAN)TRUE, (BOOLEAN)FALSE)
+    PSTADE_TOMATO_BOOLEAN_CAST_cvter_set(LRESULT, 1, 0)
+
+
+} // namespace boolean_cast_detail
 
 
 template< class TargetT, class SourceT > inline const
 TargetT boolean_cast(SourceT arg)
 {
-    typedef boolean_cast_converter<TargetT, SourceT> converter_t;
-    return converter_t::convert(arg);
+    typedef boolean_cast_detail::cvter<TargetT, SourceT> cvter_t;
+    return cvter_t::cvt(arg);
 }
 
 
@@ -69,9 +72,9 @@ namespace boolean_cast_detail {
 
 
     template< class SourceT >
-    struct temporary
+    struct temp
     {
-        explicit temporary(SourceT b) :
+        explicit temp(SourceT b) :
             m_b(b)
         { }
 
@@ -90,9 +93,9 @@ namespace boolean_cast_detail {
 
 
 template< class SourceT > inline const
-boolean_cast_detail::temporary<SourceT> boolean(SourceT b)
+boolean_cast_detail::temp<SourceT> boolean(SourceT b)
 {
-    return boolean_cast_detail::temporary<SourceT>(b);
+    return boolean_cast_detail::temp<SourceT>(b);
 }
 
 } } // namespace pstade::tomato
