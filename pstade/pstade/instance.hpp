@@ -34,12 +34,12 @@
 #define PSTADE_INSTANCE(Type, Name, MaybeArgSeq) \
     BOOST_PP_IIF(PSTADE_INSTANCE_is_seq(MaybeArgSeq), \
         PSTADE_INSTANCE_args, \
-        PSTADE_INSTANCE_none \
+        PSTADE_INSTANCE_no_args \
     )(MaybeArgSeq, Type, Name) \
 /**/
 
 
-    #define PSTADE_INSTANCE_none(Unused, Type, Name) \
+    #define PSTADE_INSTANCE_no_args(Unused, Type, Name) \
         PSTADE_INSTANCE_define_fun(Type, Name, PSTADE_INSTANCE_define_x_v(Type)) \
         \
         namespace { \
