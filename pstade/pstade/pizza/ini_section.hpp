@@ -47,8 +47,8 @@ namespace pstade { namespace pizza {
 namespace ini_section_detail {
 
 
-    PSTADE_INSTANCE_ARGS(const tomato::tstring,
-        magicStr, (_T("pstade_tomato_ini_section_detail_magic_string"))
+    PSTADE_INSTANCE(const tomato::tstring,
+        magicStr, (_T("pstade_tomato_ini_section_detail_magic_string"), ~)
     )
 
 

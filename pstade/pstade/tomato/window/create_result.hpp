@@ -17,8 +17,8 @@
 namespace pstade { namespace tomato {
 
 
-PSTADE_INSTANCE_ARGS(const LRESULT, create_success, (0))
-PSTADE_INSTANCE_ARGS(const LRESULT, create_failure, (-1))
+PSTADE_INSTANCE(const LRESULT, create_success, (0))
+PSTADE_INSTANCE(const LRESULT, create_failure, (-1))
 
 
 } } // namespace pstade::tomato

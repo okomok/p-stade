@@ -22,7 +22,7 @@ namespace pstade { namespace napkin {
 template< class CharT >
 struct basic_ostream
 {
-    basic_ostream()
+    explicit basic_ostream()
     {
         reset(nout);
     }

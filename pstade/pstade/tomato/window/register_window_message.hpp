@@ -18,7 +18,7 @@
 
 
 #define PSTADE_TOMATO_REGISTER_WINDOW_MESSAGE(Name, Msg) \
-    PSTADE_INSTANCE_ARGS( \
+    PSTADE_INSTANCE( \
         const UINT, \
         Name, \
         (pstade::tomato::register_window_message_detail::check( \

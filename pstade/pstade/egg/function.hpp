@@ -12,6 +12,7 @@
 
 #include <boost/preprocessor/seq/cat.hpp>
 #include <boost/utility/result_of.hpp>
+#include <pstade/comma_protect.hpp>
 #include <pstade/instance.hpp>
 #include "./detail/config.hpp"
 #include "./detail/operators.hpp"
@@ -70,8 +71,14 @@ namespace boost {
 
 
 #define PSTADE_EGG_FUNCTION(Name, Baby) \
-    typedef pstade::egg::function< Baby > BOOST_PP_SEQ_CAT((Name)(_)(function)); \
-    PSTADE_INSTANCE(const pstade::egg::function< Baby >, Name); \
+    typedef pstade::egg::function< \
+        pstade::comma_protect<void(Baby)>::type \
+    > BOOST_PP_SEQ_CAT((Name)(_)(function)); \
+    \
+    PSTADE_INSTANCE( \
+        const pstade::egg::function< pstade::comma_protect<void(Baby)>::type >, \
+        Name, ~ \
+    ) \
 /**/
 
 

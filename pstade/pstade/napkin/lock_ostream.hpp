@@ -22,7 +22,7 @@ template< class CharT >
 struct basic_lock_ostream :
     private boost::noncopyable
 {
-    basic_lock_ostream()
+    explicit basic_lock_ostream()
     { }
 
     template< class StringOutputable >

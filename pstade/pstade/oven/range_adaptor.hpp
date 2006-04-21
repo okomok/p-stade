@@ -25,6 +25,7 @@
 
 #include <boost/type_traits/add_const.hpp>
 #include <pstade/egg/baby_result_type.hpp>
+#include <pstade/comma_protect.hpp>
 #include <pstade/instance.hpp>
 #include <pstade/unused.hpp>
 
@@ -196,7 +197,10 @@ operator|(const Range& rng, const range_adaptor<BabyAdaptor>& ad)
 
 
 #define PSTADE_OVEN_RANGE_ADAPTOR(Name, Baby) \
-    PSTADE_INSTANCE(const pstade::oven::range_adaptor< Baby >, Name) \
+    PSTADE_INSTANCE( \
+        const pstade::oven::range_adaptor< pstade::comma_protect<void(Baby)>::type >, \
+        Name, ~ \
+    ) \
 /**/
 
 

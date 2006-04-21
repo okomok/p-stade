@@ -47,7 +47,7 @@ namespace repeat_iterator_detail {
 
 
     PSTADE_OVEN_REPEAT_RANGE_IF_DEBUG (
-        PSTADE_INSTANCE(napkin::ostream, os)
+        PSTADE_INSTANCE(napkin::ostream, os, ~)
     )
 
 

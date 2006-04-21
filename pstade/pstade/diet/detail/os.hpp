@@ -10,13 +10,14 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/instance.hpp>
 #include <pstade/napkin/ostream.hpp>
 
 
 namespace pstade { namespace diet { namespace detail {
 
 
-PSTADE_INSTANCE(napkin::ostream, os)
+PSTADE_INSTANCE(napkin::ostream, os, ~)
 
 
 } } } // namespace pstade::diet::detail

@@ -37,7 +37,7 @@ namespace nout_detail {
 } // namespace nout_detail
 
 
-PSTADE_INSTANCE(const nout_detail::out, nout)
+PSTADE_INSTANCE(const nout_detail::out, nout, ~)
 
 
 } } // namespace pstade::napkin

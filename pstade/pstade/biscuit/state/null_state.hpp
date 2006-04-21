@@ -20,7 +20,7 @@ struct null_state_type
 { };
 
 
-PSTADE_INSTANCE(null_state_type, null_state)
+PSTADE_INSTANCE(null_state_type, null_state, ~)
 
 
 } } // namespace pstade::biscuit

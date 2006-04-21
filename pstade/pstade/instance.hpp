@@ -24,32 +24,42 @@
 
 #include <boost/config.hpp>
 #include <boost/preprocessor/cat.hpp>
+#include <boost/preprocessor/control/iif.hpp>
+#include <boost/preprocessor/detail/is_unary.hpp>
 #include <boost/preprocessor/seq/enum.hpp>
 #include <boost/utility/value_init.hpp> // value_initialized
 #include <pstade/comma_protect.hpp>
 
 
-#define PSTADE_INSTANCE(Type, Name) \
-    PSTADE_INSTANCE_define_instance_fun(Type, Name, PSTADE_INSTANCE_define_x_0(Type)) \
-    \
-    namespace { \
-        PSTADE_INSTANCE_static \
-        PSTADE_INSTANCE_comma_protect(Type)& Name = PSTADE_INSTANCE_call_instance_fun(Name); \
-    } \
+#define PSTADE_INSTANCE(Type, Name, MaybeArgSeq) \
+    BOOST_PP_IIF(PSTADE_INSTANCE_is_seq(MaybeArgSeq), \
+        PSTADE_INSTANCE_args, \
+        PSTADE_INSTANCE_none \
+    )(MaybeArgSeq, Type, Name) \
 /**/
 
 
-#define PSTADE_INSTANCE_ARGS(Type, Name, ArgSeq) \
-    PSTADE_INSTANCE_define_instance_fun(Type, Name, PSTADE_INSTANCE_define_x_a(Type, ArgSeq)) \
-    \
-    namespace { \
-        PSTADE_INSTANCE_static \
-        PSTADE_INSTANCE_comma_protect(Type)& Name = PSTADE_INSTANCE_call_instance_fun(Name); \
-    } \
-/**/
+    #define PSTADE_INSTANCE_none(Unused, Type, Name) \
+        PSTADE_INSTANCE_define_fun(Type, Name, PSTADE_INSTANCE_define_x_v(Type)) \
+        \
+        namespace { \
+            PSTADE_INSTANCE_static \
+            PSTADE_INSTANCE_comma_protect(Type)& Name = PSTADE_INSTANCE_call_instance_fun(Name); \
+        } \
+    /**/
 
 
-    #define PSTADE_INSTANCE_define_instance_fun(Type, Name, DefineX) \
+    #define PSTADE_INSTANCE_args(ArgSeq, Type, Name) \
+        PSTADE_INSTANCE_define_fun(Type, Name, PSTADE_INSTANCE_define_x_a(Type, ArgSeq)) \
+        \
+        namespace { \
+            PSTADE_INSTANCE_static \
+            PSTADE_INSTANCE_comma_protect(Type)& Name = PSTADE_INSTANCE_call_instance_fun(Name); \
+        } \
+    /**/
+
+
+    #define PSTADE_INSTANCE_define_fun(Type, Name, DefineX) \
         inline \
         PSTADE_INSTANCE_comma_protect(Type)& BOOST_PP_CAT(pstade_instance_of_, Name)() \
         { \
@@ -64,7 +74,12 @@
     /**/
 
 
-    #define PSTADE_INSTANCE_define_x_0(Type) \
+    #define PSTADE_INSTANCE_is_seq \
+        BOOST_PP_IS_UNARY \
+    /**/
+
+
+    #define PSTADE_INSTANCE_define_x_v(Type) \
         boost::value_initialized< PSTADE_INSTANCE_comma_protect(Type) > x; \
     /**/
 
