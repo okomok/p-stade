@@ -48,7 +48,7 @@ namespace ini_section_detail {
 
 
     PSTADE_INSTANCE(const tomato::tstring,
-        magicStr, (_T("pstade_tomato_ini_section_detail_magic_string"), ~)
+        magicStr, (_T("pstade_tomato_ini_section_detail_magic_string"))
     )
 
 
