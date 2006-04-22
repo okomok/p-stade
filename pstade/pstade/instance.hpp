@@ -35,26 +35,26 @@
     BOOST_PP_IIF(PSTADE_INSTANCE_is_seq(MaybeArgSeq), \
         PSTADE_INSTANCE_args, \
         PSTADE_INSTANCE_no_args \
-    )(MaybeArgSeq, Type, Name) \
+    )(Type, Name, MaybeArgSeq) \
 /**/
 
 
-    #define PSTADE_INSTANCE_no_args(Unused, Type, Name) \
+    #define PSTADE_INSTANCE_no_args(Type, Name, Unused) \
         PSTADE_INSTANCE_define_fun(Type, Name, PSTADE_INSTANCE_define_x_v(Type)) \
         \
         namespace { \
             PSTADE_INSTANCE_static \
-            PSTADE_INSTANCE_comma_protect(Type)& Name = PSTADE_INSTANCE_call_instance_fun(Name); \
+            PSTADE_INSTANCE_comma_protect(Type)& Name = PSTADE_INSTANCE_call_fun(Name); \
         } \
     /**/
 
 
-    #define PSTADE_INSTANCE_args(ArgSeq, Type, Name) \
+    #define PSTADE_INSTANCE_args(Type, Name, ArgSeq) \
         PSTADE_INSTANCE_define_fun(Type, Name, PSTADE_INSTANCE_define_x_a(Type, ArgSeq)) \
         \
         namespace { \
             PSTADE_INSTANCE_static \
-            PSTADE_INSTANCE_comma_protect(Type)& Name = PSTADE_INSTANCE_call_instance_fun(Name); \
+            PSTADE_INSTANCE_comma_protect(Type)& Name = PSTADE_INSTANCE_call_fun(Name); \
         } \
     /**/
 
@@ -69,7 +69,7 @@
     /**/
 
 
-    #define PSTADE_INSTANCE_call_instance_fun(Name) \
+    #define PSTADE_INSTANCE_call_fun(Name) \
         BOOST_PP_CAT(pstade_instance_of_, Name)() \
     /**/
 
