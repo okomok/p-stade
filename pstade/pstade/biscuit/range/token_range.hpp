@@ -99,8 +99,11 @@ namespace token_range_detail {
     template< class Parser, class UserState >
     struct adaptor
     {
-        adaptor(UserState& us) : m_us(us) { }
-        UserState& m_us;
+        adaptor(UserState& us) :
+            m_pus(&us)
+        { }
+
+        UserState *m_pus;
     };
 
 
@@ -108,14 +111,14 @@ namespace token_range_detail {
     const token_range<Parser, ForwardRange, UserState>
     operator|(ForwardRange& rng, adaptor<Parser, UserState> ad)
     {
-        return biscuit::make_token_range<Parser>(rng, ad.m_us);
+        return biscuit::make_token_range<Parser>(rng, *ad.m_pus);
     }
 
         template< class Parser, class ForwardRange, class UserState > inline
         const token_range<Parser, typename boost::add_const<ForwardRange>::type, UserState>
         operator|(ForwardRange const& rng, adaptor<Parser, UserState> ad)
         {
-            return biscuit::make_token_range<Parser>(rng, ad.m_us);
+            return biscuit::make_token_range<Parser>(rng, *ad.m_pus);
         }
 
 

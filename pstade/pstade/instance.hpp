@@ -22,21 +22,54 @@
 // The ODR violation buster.
 
 
+// Usage:
+//
+// PSTADE_INSTANCE(int, i, value) // value-initialize
+// PSTADE_INSTANCE(string, s, ("hello"))
+// PSTADE_INSTANCE((map<int,int>), m, value)
+
+
+// Reason why 'ValueOrArgSeq' is strict:
+//
+// Assume you typo 'PSTADE_INSTANCE(bool, b, true)'
+// instead of 'PSTADE_INSTANCE(bool, b, (true))'.
+// 'b' is value-initialized, thus 'b' becomes 'false'.
+
+
 #include <boost/config.hpp>
+#include <boost/mpl/aux_/preprocessor/is_seq.hpp>
+#include <boost/mpl/aux_/preprocessor/token_equal.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/control/iif.hpp>
-#include <boost/preprocessor/detail/is_unary.hpp>
+#include <boost/preprocessor/debug/assert.hpp>
+#include <boost/preprocessor/logical/or.hpp>
 #include <boost/preprocessor/seq/enum.hpp>
+#include <boost/preprocessor/tuple/eat.hpp>
 #include <boost/utility/value_init.hpp> // value_initialized
 #include <pstade/comma_protect.hpp>
 
 
-#define PSTADE_INSTANCE(Type, Name, MaybeArgSeq) \
-    BOOST_PP_IIF(PSTADE_INSTANCE_is_seq(MaybeArgSeq), \
+#define PSTADE_INSTANCE(Type, Name, ValueOrArgSeq) \
+    BOOST_PP_ASSERT(PSTADE_INSTANCE_valid(ValueOrArgSeq)) \
+    \
+    BOOST_PP_IIF (BOOST_MPL_PP_IS_SEQ(ValueOrArgSeq), \
         PSTADE_INSTANCE_args, \
         PSTADE_INSTANCE_no_args \
-    )(Type, Name, MaybeArgSeq) \
+    )(Type, Name, ValueOrArgSeq) \
 /**/
+
+
+    #define PSTADE_INSTANCE_valid(ValueOrArgSeq) \
+        BOOST_PP_IIF (BOOST_MPL_PP_IS_SEQ(ValueOrArgSeq), \
+            1 BOOST_PP_TUPLE_EAT(2), \
+            BOOST_MPL_PP_TOKEN_EQUAL \
+        )(ValueOrArgSeq, value) \
+    /**/
+
+
+    #define BOOST_MPL_PP_TOKEN_EQUAL_value(X) \
+        X \
+    /**/
 
 
     #define PSTADE_INSTANCE_no_args(Type, Name, Unused) \
@@ -71,11 +104,6 @@
 
     #define PSTADE_INSTANCE_call_fun(Name) \
         BOOST_PP_CAT(pstade_instance_of_, Name)() \
-    /**/
-
-
-    #define PSTADE_INSTANCE_is_seq \
-        BOOST_PP_IS_UNARY \
     /**/
 
 

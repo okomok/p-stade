@@ -77,7 +77,7 @@ namespace boost {
     \
     PSTADE_INSTANCE( \
         const pstade::egg::function< pstade::comma_protect<void(Baby)>::type >, \
-        Name, ~ \
+        Name, value \
     ) \
 /**/
 

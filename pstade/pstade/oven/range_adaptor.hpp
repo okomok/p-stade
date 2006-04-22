@@ -64,10 +64,10 @@ namespace range_adaptor_detail {
     struct adaptor1
     {
         explicit adaptor1(A0& a0) :
-            m_a0(a0)
+            m_pa0(&a0)
         { }
 
-        mutable A0& m_a0;
+        A0 *m_pa0;
     };
 
 
@@ -75,14 +75,14 @@ namespace range_adaptor_detail {
     typename egg::baby_result2<BabyAdaptor, Range, A0>::type
     operator|(Range& rng, const adaptor1<BabyAdaptor, A0>& ad)
     {
-        return egg::baby_call<BabyAdaptor>(rng, ad.m_a0);
+        return egg::baby_call<BabyAdaptor>(rng, *ad.m_pa0);
     }
 
     template< class Range, class BabyAdaptor, class A0 > inline
     typename egg::baby_result2<BabyAdaptor, typename boost::add_const<Range>::type, A0>::type
     operator|(const Range& rng, const adaptor1<BabyAdaptor, A0>& ad)
     {
-        return egg::baby_call<BabyAdaptor>(rng, ad.m_a0);
+        return egg::baby_call<BabyAdaptor>(rng, *ad.m_pa0);
     }
 
 
@@ -91,11 +91,11 @@ namespace range_adaptor_detail {
     struct adaptor2
     {
         explicit adaptor2(A0& a0, A1& a1) :
-            m_a0(a0), m_a1(a1)
+            m_pa0(&a0), m_pa1(&a1)
         { }
 
-        mutable A0& m_a0;
-        mutable A1& m_a1;
+        A0 *m_pa0;
+        A1 *m_pa1;
     };
 
 
@@ -103,14 +103,14 @@ namespace range_adaptor_detail {
     typename egg::baby_result3<BabyAdaptor, Range, A0, A1>::type
     operator|(Range& rng, const adaptor2<BabyAdaptor, A0, A1>& ad)
     {
-        return egg::baby_call<BabyAdaptor>(rng, ad.m_a0, ad.m_a1);
+        return egg::baby_call<BabyAdaptor>(rng, *ad.m_pa0, *ad.m_pa1);
     }
 
     template< class Range, class BabyAdaptor, class A0, class A1 > inline
     typename egg::baby_result3<BabyAdaptor, typename boost::add_const<Range>::type, A0, A1>::type
     operator|(const Range& rng, const adaptor2<BabyAdaptor, A0, A1>& ad)
     {
-        return egg::baby_call<BabyAdaptor>(rng, ad.m_a0, ad.m_a1);
+        return egg::baby_call<BabyAdaptor>(rng, *ad.m_pa0, *ad.m_pa1);
     }
 
 
@@ -199,7 +199,7 @@ operator|(const Range& rng, const range_adaptor<BabyAdaptor>& ad)
 #define PSTADE_OVEN_RANGE_ADAPTOR(Name, Baby) \
     PSTADE_INSTANCE( \
         const pstade::oven::range_adaptor< pstade::comma_protect<void(Baby)>::type >, \
-        Name, ~ \
+        Name, value \
     ) \
 /**/
 

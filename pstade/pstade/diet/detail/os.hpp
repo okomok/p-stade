@@ -17,7 +17,7 @@
 namespace pstade { namespace diet { namespace detail {
 
 
-PSTADE_INSTANCE(napkin::ostream, os, ~)
+PSTADE_INSTANCE(napkin::ostream, os, value)
 
 
 } } } // namespace pstade::diet::detail
