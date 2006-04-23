@@ -67,8 +67,8 @@
     /**/
 
 
-    #define BOOST_MPL_PP_TOKEN_EQUAL_value(X) \
-        X \
+    #define BOOST_MPL_PP_TOKEN_EQUAL_value(A) \
+        A \
     /**/
 
 
