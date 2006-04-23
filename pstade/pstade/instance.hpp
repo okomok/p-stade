@@ -42,7 +42,6 @@
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/control/iif.hpp>
 #include <boost/preprocessor/debug/assert.hpp>
-#include <boost/preprocessor/logical/or.hpp>
 #include <boost/preprocessor/seq/enum.hpp>
 #include <boost/preprocessor/tuple/eat.hpp>
 #include <boost/utility/value_init.hpp> // value_initialized
