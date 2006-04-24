@@ -1,0 +1,25 @@
+
+
+subproject libs/microsoft/test ;
+
+
+import testing ;
+
+
+DEPENDS all : test ;
+
+
+rule microsoft-test ( name )
+{
+    return [
+        run $(name).cpp
+        : : :
+        <include>$(BOOST_ROOT)
+        <include>$(PSTADE_ROOT)
+    ] ;
+}
+
+
+test-suite microsoft :
+    [ microsoft-test range_customize ]
+    ;

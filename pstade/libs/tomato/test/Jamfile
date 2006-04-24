@@ -1,0 +1,37 @@
+
+
+subproject libs/tomato/test ;
+
+
+import testing ;
+
+
+DEPENDS all : test ;
+
+
+rule tomato-test ( name )
+{
+    return [
+        run $(name).cpp
+        : : :
+        <include>$(BOOST_ROOT)
+        <include>$(PSTADE_ROOT)
+    ] ;
+}
+
+
+rule tomato-test-fail ( name )
+{
+    return [
+        run-fail $(name).cpp
+        : : :
+        <include>$(BOOST_ROOT)
+        <include>$(PSTADE_ROOT)
+    ] ;
+}
+
+
+test-suite tomato :
+    [ tomato-test boolean_cast ]
+#    [ tomato-test c_str ]
+    ;

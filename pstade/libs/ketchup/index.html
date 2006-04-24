@@ -1,0 +1,607 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.3.10: http://docutils.sourceforge.net/" />
+<title>The Ketchup Message Map Library</title>
+<meta name="author" content="MB" />
+<style type="text/css">
+
+@import "http://p-stade.sourceforge.net/doc/boost.css";
+@import "http://p-stade.sourceforge.net/doc/poost.css";
+
+</style>
+</head>
+<body>
+<div class="document" id="the-ketchup-message-map-library">
+<h1 class="title">The Ketchup Message Map Library</h1>
+<table class="docinfo" frame="void" rules="none">
+<col class="docinfo-name" />
+<col class="docinfo-content" />
+<tbody valign="top">
+<tr><th class="docinfo-name">Author:</th>
+<td>MB</td></tr>
+<tr><th class="docinfo-name">Contact:</th>
+<td><a class="first last reference" href="mailto:mb2act&#64;yahoo.co.jp">mb2act&#64;yahoo.co.jp</a></td></tr>
+<tr class="field"><th class="docinfo-name">License:</th><td class="field-body">Distributed under the <a class="reference" href="http://www.boost.org/LICENSE_1_0.txt">Boost Software License Version 1.0</a></td>
+</tr>
+<tr><th class="docinfo-name">Version:</th>
+<td>1.01.3</td></tr>
+</tbody>
+</table>
+<img alt="Ketchup" src="./doc/logo.png" />
+<blockquote class="epigraph">
+<p>&quot;<em>So, he turns around and squishes Baby Tomato and says, 'Catch up. Ketchup.'</em>&quot;</p>
+<p class="attribution">&mdash;Mia Wallace</p>
+</blockquote>
+<div class="contents topic" id="table-of-contents">
+<p class="topic-title first"><a name="table-of-contents"><strong>Table of Contents</strong></a></p>
+<ul class="auto-toc simple">
+<li><a class="reference" href="#motivation" id="id20" name="id20">1&nbsp;&nbsp;&nbsp;Motivation</a></li>
+<li><a class="reference" href="#introduction" id="id21" name="id21">2&nbsp;&nbsp;&nbsp;Introduction</a></li>
+<li><a class="reference" href="#requirements" id="id22" name="id22">3&nbsp;&nbsp;&nbsp;Requirements</a></li>
+<li><a class="reference" href="#tested-under" id="id23" name="id23">4&nbsp;&nbsp;&nbsp;Tested Under</a></li>
+<li><a class="reference" href="#quick-start" id="id24" name="id24">5&nbsp;&nbsp;&nbsp;Quick Start</a></li>
+<li><a class="reference" href="#basic-concepts" id="id25" name="id25">6&nbsp;&nbsp;&nbsp;Basic Concepts</a><ul class="auto-toc">
+<li><a class="reference" href="#message-map-container" id="id26" name="id26">6.1&nbsp;&nbsp;&nbsp;Message Map Container</a></li>
+<li><a class="reference" href="#chain-class" id="id27" name="id27">6.2&nbsp;&nbsp;&nbsp;Chain Class</a></li>
+<li><a class="reference" href="#derived" id="id28" name="id28">6.3&nbsp;&nbsp;&nbsp;Derived</a></li>
+<li><a class="reference" href="#entry" id="id29" name="id29">6.4&nbsp;&nbsp;&nbsp;Entry</a></li>
+<li><a class="reference" href="#entry-wrapper" id="id30" name="id30">6.5&nbsp;&nbsp;&nbsp;Entry Wrapper</a></li>
+<li><a class="reference" href="#message-processor" id="id31" name="id31">6.6&nbsp;&nbsp;&nbsp;Message Processor</a></li>
+<li><a class="reference" href="#id" id="id32" name="id32">6.7&nbsp;&nbsp;&nbsp;id</a></li>
+<li><a class="reference" href="#func" id="id33" name="id33">6.8&nbsp;&nbsp;&nbsp;func</a></li>
+<li><a class="reference" href="#value-functor-class" id="id34" name="id34">6.9&nbsp;&nbsp;&nbsp;Value Functor Class</a></li>
+</ul>
+</li>
+<li><a class="reference" href="#ketchup-process-window-message" id="id35" name="id35">7&nbsp;&nbsp;&nbsp;ketchup::process_window_message</a></li>
+<li><a class="reference" href="#ketchup-message-processor" id="id36" name="id36">8&nbsp;&nbsp;&nbsp;ketchup::message_processor</a></li>
+<li><a class="reference" href="#predefined-entry-wrappers" id="id37" name="id37">9&nbsp;&nbsp;&nbsp;Predefined Entry Wrappers</a><ul class="auto-toc">
+<li><a class="reference" href="#message-handler" id="id38" name="id38">9.1&nbsp;&nbsp;&nbsp;message_handler</a></li>
+<li><a class="reference" href="#begin-msg-map" id="id39" name="id39">9.2&nbsp;&nbsp;&nbsp;begin_msg_map</a></li>
+<li><a class="reference" href="#alt-msg-map" id="id40" name="id40">9.3&nbsp;&nbsp;&nbsp;alt_msg_map</a></li>
+<li><a class="reference" href="#chain-msg-map" id="id41" name="id41">9.4&nbsp;&nbsp;&nbsp;chain_msg_map</a></li>
+<li><a class="reference" href="#chain-msg-map-member" id="id42" name="id42">9.5&nbsp;&nbsp;&nbsp;chain_msg_map_member</a></li>
+<li><a class="reference" href="#and" id="id43" name="id43">9.6&nbsp;&nbsp;&nbsp;and...</a></li>
+</ul>
+</li>
+<li><a class="reference" href="#cracked-handlers" id="id44" name="id44">10&nbsp;&nbsp;&nbsp;Cracked Handlers</a></li>
+<li><a class="reference" href="#mfc-update-command-ui" id="id45" name="id45">11&nbsp;&nbsp;&nbsp;MFC Update Command UI</a></li>
+<li><a class="reference" href="#compatibility" id="id46" name="id46">12&nbsp;&nbsp;&nbsp;Compatibility</a></li>
+<li><a class="reference" href="#combatting-two-phase-name-lookup" id="id47" name="id47">13&nbsp;&nbsp;&nbsp;Combatting Two-phase Name Lookup</a></li>
+<li><a class="reference" href="#points-of-interest" id="id48" name="id48">14&nbsp;&nbsp;&nbsp;Points of Interest</a></li>
+<li><a class="reference" href="#references" id="id49" name="id49">15&nbsp;&nbsp;&nbsp;References</a></li>
+<li><a class="reference" href="#release-notes" id="id50" name="id50">16&nbsp;&nbsp;&nbsp;Release Notes</a><ul class="auto-toc">
+<li><a class="reference" href="#version-1-01-0" id="id51" name="id51">16.1&nbsp;&nbsp;&nbsp;Version 1.01.0</a></li>
+<li><a class="reference" href="#version-1-01-1" id="id52" name="id52">16.2&nbsp;&nbsp;&nbsp;Version 1.01.1</a></li>
+<li><a class="reference" href="#version-1-01-2" id="id53" name="id53">16.3&nbsp;&nbsp;&nbsp;Version 1.01.2</a></li>
+<li><a class="reference" href="#version-1-01-3" id="id54" name="id54">16.4&nbsp;&nbsp;&nbsp;Version 1.01.3</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="motivation">
+<h1><a class="toc-backref" href="#id20" name="motivation">1&nbsp;&nbsp;&nbsp;Motivation</a></h1>
+<p>Four yeas ago, I made a program.
+Everything <a class="reference" href="http://wtl.sourceforge.net/">WTL</a> originally had other than win32 thin wrappers was almost useless.
+<tt class="docutils literal"><span class="pre">CUpdateUI</span></tt> was the one of them, so I made a replacement by using macros.
+Later, I read the book, <a class="reference" href="http://www.boost-consulting.com/metaprogramming-book.html">C++ Template Metaprogramming</a>
+where I was inspired by a sample code, the finite state machine.
+It could let me remove <tt class="docutils literal"><span class="pre">BEGIN_MSG_MAP</span></tt> macros and then the result was named Ketchup.</p>
+<p>In time, the experience of making <a class="reference" href="../biscuit/index.html">Biscuit</a> gave me the way of avoiding compile-time crashes.
+Now that Ketchup is the type-safe synonym of <tt class="docutils literal"><span class="pre">BEGIN_MSG_MAP</span></tt>
+to help <a class="reference" href="http://wtl.sourceforge.net/">WTL</a> catch up the modern programming.</p>
+</div>
+<div class="section" id="introduction">
+<h1><a class="toc-backref" href="#id21" name="introduction">2&nbsp;&nbsp;&nbsp;Introduction</a></h1>
+<p>Ketchup is a message map generator framework implemented using class templates.
+The templates allow us to write type-safe <tt class="docutils literal"><span class="pre">BEGIN_MSG_MAP</span></tt>.</p>
+<p>A simple <tt class="docutils literal"><span class="pre">BEGIN_MSG_MAP</span></tt> macro snippet:</p>
+<pre class="cpp_source">
+BEGIN_MSG_MAP(CMainFrame)
+    MESSAGE_HANDLER(WM_CREATE, OnCreate)
+    COMMAND_ID_HANDLER(ID_APP_EXIT, OnFileExit)
+    COMMAND_ID_HANDLER(ID_FILE_NEW, OnFileNew)
+    CHAIN_CLIENT_COMMANDS()
+    CHAIN_MSG_MAP(WTL::CFrameWindowImpl&lt;CMainFrame&gt;)
+END_MSG_MAP()
+</pre>
+
+<p>is approximated using Ketchup's facilities as seen in this code snippet:</p>
+<pre class="cpp_source">
+begin_msg_map
+&lt;
+    message_handler&lt;WM_CREATE, &amp;_::OnCreate&gt;,
+    command_id_handler&lt;ID_APP_EXIT, &amp;_::OnFileExit&gt;,
+    command_id_handler&lt;ID_FILE_NEW, &amp;_::OnFileNew&gt;,
+    chain_client_commands&lt;&gt;,
+    chain_msg_map&lt; WTL::CFrameWindowImpl&lt;CMainFrame&gt; &gt;
+&gt;
+end_msg_map;
+</pre>
+
+</div>
+<div class="section" id="requirements">
+<h1><a class="toc-backref" href="#id22" name="requirements">3&nbsp;&nbsp;&nbsp;Requirements</a></h1>
+<ul class="simple">
+<li><a class="reference" href="http://wtl.sourceforge.net/">WTL Version 7.5</a></li>
+<li><a class="reference" href="http://www.boost.org/">Boost C++ Libraries Version 1.33.1</a> or later (no compilation required)</li>
+<li><a class="reference" href="http://sourceforge.net/project/showfiles.php?group_id=141222&amp;package_id=173059">P-Stade C++ Libraries Version 0.98.x</a> or later (no compilation required, give a higher priority than Boost headers)</li>
+</ul>
+</div>
+<div class="section" id="tested-under">
+<h1><a class="toc-backref" href="#id23" name="tested-under">4&nbsp;&nbsp;&nbsp;Tested Under</a></h1>
+<ul class="simple">
+<li>Microsoft Visual C++ 2005 Express Edition</li>
+<li>Microsoft Visual C++ .NET Version 7.1</li>
+</ul>
+</div>
+<div class="section" id="quick-start">
+<h1><a class="toc-backref" href="#id24" name="quick-start">5&nbsp;&nbsp;&nbsp;Quick Start</a></h1>
+<ol class="arabic">
+<li><p class="first">Include Ketchup headers and make <tt class="docutils literal"><span class="pre">CMainFrame</span></tt> a model of <a class="reference" href="#derived">Derived</a>:</p>
+<pre class="cpp_source">
+<span class="cpp_pp_directive">#include </span>&lt;pstade/ketchup.hpp&gt;
+
+<span class="cpp_keyword">class </span>CMainFrame :
+    <span class="cpp_keyword">public </span>pstade::ketchup::message_processor&lt;CMainFrame,
+        WTL::CFrameWindowImpl&lt;CMainFrame&gt;,
+        WTL::CUpdateUI&lt;CMainFrame&gt;
+    &gt;,
+    <span class="cpp_keyword">public </span>WTL::CMessageFilter, <span class="cpp_keyword">public </span>WTL::CIdleHandler
+{</pre>
+
+</li>
+<li><p class="first">Define message handlers:</p>
+<pre class="cpp_source">
+<span class="cpp_keyword">private</span>:
+    LRESULT OnCreate(UINT <span class="cpp_comment">/*uMsg*/</span>, WPARAM <span class="cpp_comment">/*wParam*/</span>, LPARAM <span class="cpp_comment">/*lParam*/</span>, BOOL&amp; <span class="cpp_comment">/*bHandled*/</span>)
+    {
+        <span class="cpp_comment">// create command bar window
+        </span>HWND hWndCmdBar = m_CmdBar.Create(m_hWnd, rcDefault, NULL, ATL_SIMPLE_CMDBAR_PANE_STYLE);
+        <span class="cpp_comment">// attach menu
+        </span>m_CmdBar.AttachMenu(GetMenu());
+        <span class="cpp_comment">// ...
+    </span>}
+    <span class="cpp_comment">// ...
+</span></pre>
+
+</li>
+<li><p class="first">Make <tt class="docutils literal"><span class="pre">CMainFrame</span></tt> a model of <a class="reference" href="#message-processor">Message Processor</a> <a class="footnote-reference" href="#id7" id="id6" name="id6">[1]</a>:</p>
+<pre class="cpp_source">
+<span class="cpp_keyword">public</span>:
+    begin_msg_map
+    &lt;
+        message_handler&lt;WM_CREATE, &amp;_::OnCreate&gt;,
+        command_id_handler&lt;ID_APP_EXIT, &amp;_::OnFileExit&gt;,
+        command_id_handler&lt;ID_FILE_NEW, &amp;_::OnFileNew&gt;,
+        command_id_handler&lt;ID_VIEW_TOOLBAR, &amp;_::OnViewToolBar&gt;,
+        command_id_handler&lt;ID_VIEW_STATUS_BAR, &amp;_::OnViewStatusBar&gt;,
+        command_id_handler&lt;ID_APP_ABOUT, &amp;_::OnAppAbout&gt;,
+        chain_msg_map&lt; WTL::CUpdateUI&lt;CMainFrame&gt; &gt;,
+        chain_msg_map&lt; WTL::CFrameWindowImpl&lt;CMainFrame&gt; &gt;
+    &gt;
+    end_msg_map;
+};</pre>
+
+</li>
+</ol>
+<p>Note that declarations of message handlers must be placed before the <a class="reference" href="#entry">Entry</a>.</p>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id6" name="id7">[1]</a></td><td><a class="reference" href="http://www.open-std.org/jtc1/sc22/wg21/">Standard C++</a> doesn't allow you to abbreviate the syntax of member function pointers.
+(See: 5.3.1 Unary operators -3- of <a class="reference" href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1905.pdf">Standard C++ Draft</a>)</td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="basic-concepts">
+<h1><a class="toc-backref" href="#id25" name="basic-concepts">6&nbsp;&nbsp;&nbsp;Basic Concepts</a></h1>
+<div class="section" id="message-map-container">
+<h2><a class="toc-backref" href="#id26" name="message-map-container">6.1&nbsp;&nbsp;&nbsp;Message Map Container</a></h2>
+<p>A <tt class="docutils literal"><span class="pre">MessageMapContainer</span></tt> <a class="footnote-reference" href="#id12" id="id8" name="id8">[2]</a> is any type that has the member function, whether virtual or not:</p>
+<pre class="cpp_source">
+BOOL ProcessWindowMessage(HWND hWnd, UINT uMsg,
+    WPARAM wParam, LPARAM lParam, LRESULT&amp; lResult, DWORD dwMsgMapID);
+</pre>
+
+<p>The return value is <tt class="docutils literal"><span class="pre">TRUE</span></tt> if the message is fully handled; otherwise, it is <tt class="docutils literal"><span class="pre">FALSE</span></tt>.</p>
+</div>
+<div class="section" id="chain-class">
+<h2><a class="toc-backref" href="#id27" name="chain-class">6.2&nbsp;&nbsp;&nbsp;Chain Class</a></h2>
+<p>A <tt class="docutils literal"><span class="pre">ChainClass</span></tt> <a class="footnote-reference" href="#id13" id="id9" name="id9">[3]</a> is any base class that is a model of <a class="reference" href="#message-map-container">Message Map Container</a>.</p>
+</div>
+<div class="section" id="derived">
+<h2><a class="toc-backref" href="#id28" name="derived">6.3&nbsp;&nbsp;&nbsp;Derived</a></h2>
+<p>A <tt class="docutils literal"><span class="pre">Derived</span></tt> is any type that is derived from ketchup::message_processor&lt;<a class="reference" href="#derived">Derived</a>, <a class="reference" href="#chain-class">Chain Class</a>0, <a class="reference" href="#chain-class">Chain Class</a>1, ... &gt;</p>
+</div>
+<div class="section" id="entry">
+<h2><a class="toc-backref" href="#id29" name="entry">6.4&nbsp;&nbsp;&nbsp;Entry</a></h2>
+<p>An <tt class="docutils literal"><span class="pre">Entry</span></tt> is any type that has the static member function:</p>
+<pre class="cpp_source">
+<span class="cpp_keyword">static </span><span class="cpp_keyword">bool </span>process(Derived&amp; derived, HWND hWnd, UINT uMsg,
+    WPARAM wParam, LPARAM lParam, LRESULT&amp; lResult, DWORD dwMsgMapID);
+</pre>
+
+</div>
+<div class="section" id="entry-wrapper">
+<h2><a class="toc-backref" href="#id30" name="entry-wrapper">6.5&nbsp;&nbsp;&nbsp;Entry Wrapper</a></h2>
+<p>An <tt class="docutils literal"><span class="pre">EntryWrapper</span></tt> is a class template that provides a interface for creating an <a class="reference" href="#entry">Entry</a>.</p>
+</div>
+<div class="section" id="message-processor">
+<h2><a class="toc-backref" href="#id31" name="message-processor">6.6&nbsp;&nbsp;&nbsp;Message Processor</a></h2>
+<p>A <tt class="docutils literal"><span class="pre">MessageProcessor</span></tt> is any type that has the accessible member variable of <a class="reference" href="#entry">Entry</a> named <tt class="docutils literal"><span class="pre">end_msg_map</span></tt>.</p>
+</div>
+<div class="section" id="id">
+<h2><a class="toc-backref" href="#id32" name="id">6.7&nbsp;&nbsp;&nbsp;id</a></h2>
+<p>An <tt class="docutils literal"><span class="pre">id</span></tt> is any static constant of window message id or command id.</p>
+</div>
+<div class="section" id="func">
+<h2><a class="toc-backref" href="#id33" name="func">6.8&nbsp;&nbsp;&nbsp;func</a></h2>
+<p>A <tt class="docutils literal"><span class="pre">func</span></tt> is any member function of <a class="reference" href="#derived">Derived</a>.</p>
+</div>
+<div class="section" id="value-functor-class">
+<h2><a class="toc-backref" href="#id34" name="value-functor-class">6.9&nbsp;&nbsp;&nbsp;Value Functor Class</a></h2>
+<p>A <tt class="docutils literal"><span class="pre">ValueFunctorClass</span></tt> is any <a class="reference" href="http://www.sgi.com/tech/stl/DefaultConstructible.html">Default Constructible</a> <a class="reference" href="http://www.sgi.com/tech/stl/functors.html">Functor</a> type that has the member function:</p>
+<pre class="cpp_source">
+unspecified <span class="cpp_keyword">operator</span>()(Derived&amp; derived);
+</pre>
+
+<p>This is for crossing the compile-time/runtime boundary.</p>
+<table class="docutils footnote" frame="void" id="id12" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id8" name="id12">[2]</a></td><td>This concept comes from ATL. A type that has <tt class="docutils literal"><span class="pre">BEGIN_MSG_MAP</span></tt> conforms to it.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id13" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id9" name="id13">[3]</a></td><td>This concept and name come from ATL.</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="ketchup-process-window-message">
+<h1><a class="toc-backref" href="#id35" name="ketchup-process-window-message">7&nbsp;&nbsp;&nbsp;ketchup::process_window_message</a></h1>
+<p>Ketchup defines the only one function:</p>
+<pre class="cpp_source">
+<span class="cpp_keyword">template</span>&lt; <span class="cpp_keyword">class </span>DerivedMessageProcessor &gt;
+BOOL process_window_message(DerivedMessageProcessor&amp; derived,
+    HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, LRESULT&amp; lResult, DWORD dwMsgMapID = <span class="cpp_number_literal">0</span>);
+</pre>
+
+<p>The return value is <tt class="docutils literal"><span class="pre">TRUE</span></tt> if the message is fully handled by the <a class="reference" href="#message-processor">Message Processor</a>; otherwise, it is <tt class="docutils literal"><span class="pre">FALSE</span></tt>.</p>
+</div>
+<div class="section" id="ketchup-message-processor">
+<h1><a class="toc-backref" href="#id36" name="ketchup-message-processor">8&nbsp;&nbsp;&nbsp;ketchup::message_processor</a></h1>
+<p><tt class="docutils literal"><span class="pre">ketchup::message_processor</span></tt> is the base class template that provides predefined <a class="reference" href="#entry-wrapper">Entry Wrapper</a>s.
+If you don't pass all the <a class="reference" href="#chain-class">Chain Class</a>es to <tt class="docutils literal"><span class="pre">ketchup::message_processor</span></tt>,
+your <a class="reference" href="#derived">Derived</a> class can't conform to <a class="reference" href="#message-map-container">Message Map Container</a> because of the name ambiguity.
+So you must explicitly add the member function:</p>
+<pre class="cpp_source">
+BOOL ProcessWindowMessage(HWND hWnd, UINT uMsg,
+    WPARAM wParam, LPARAM lParam, LRESULT&amp; lResult, DWORD dwMsgMapID = <span class="cpp_number_literal">0</span>)
+{
+    <span class="cpp_keyword">return </span>pstade::ketchup::process_window_message(*<span class="cpp_keyword">this</span>, hWnd, uMsg,
+        wParam, lParam, lResult, dwMsgMapID);
+}</pre>
+
+</div>
+<div class="section" id="predefined-entry-wrappers">
+<h1><a class="toc-backref" href="#id37" name="predefined-entry-wrappers">9&nbsp;&nbsp;&nbsp;Predefined Entry Wrappers</a></h1>
+<p>All the predefined <a class="reference" href="#entry-wrapper">Entry Wrapper</a>s are in the scope of ketchup::message_processor&lt;<a class="reference" href="#derived">Derived</a>&gt;, which 
+defines a nested <tt class="docutils literal"><span class="pre">_</span></tt> type that refers to the <a class="reference" href="#derived">Derived</a>.</p>
+<div class="section" id="message-handler">
+<h2><a class="toc-backref" href="#id38" name="message-handler">9.1&nbsp;&nbsp;&nbsp;message_handler</a></h2>
+<p><tt class="docutils literal"><span class="pre">message_handler</span></tt> creates an <a class="reference" href="#entry">Entry</a> from <a class="reference" href="#id">id</a> and <a class="reference" href="#func">func</a>:</p>
+<pre class="cpp_source">
+<span class="cpp_keyword">template</span>&lt; UINT id, LRESULT (Derived::*func)(UINT, WPARAM, LPARAM, BOOL&amp;) &gt;
+<span class="cpp_keyword">struct </span>message_handler;
+</pre>
+
+</div>
+<div class="section" id="begin-msg-map">
+<h2><a class="toc-backref" href="#id39" name="begin-msg-map">9.2&nbsp;&nbsp;&nbsp;begin_msg_map</a></h2>
+<p><tt class="docutils literal"><span class="pre">begin_msg_map</span></tt> creates a sequential <a class="reference" href="#entry">Entry</a> from multiple <a class="reference" href="#entry">Entries</a>.
+The maximum number of <a class="reference" href="#entry">Entries</a> is thirty.
+If the number of your <a class="reference" href="#entry">Entries</a> comes greater than thirty,
+you can chain the <a class="reference" href="#entry">Entries</a>. Keep in mind that
+the type created by <a class="reference" href="#begin-msg-map">begin_msg_map</a> is also an <a class="reference" href="#entry">Entry</a>:</p>
+<pre class="cpp_source">
+<span class="cpp_keyword">struct </span>cmd_ui_map_sub;  <span class="cpp_comment">// forward declaration also works fine.
+    
+</span><span class="cpp_comment">// which do you like typedef...
+</span><span class="cpp_keyword">typedef </span>begin_msg_map&lt;
+    cmd_ui_handler&lt;ID_BLACK, &amp;_::OnUpdateBlack&gt;,
+    cmd_ui_handler&lt;ID_RED, &amp;_::OnUpdateRed&gt;,
+    cmd_ui_handler&lt;ID_GREEN, &amp;_::OnUpdateGreen&gt;,
+    cmd_ui_map_sub              <span class="cpp_comment">// chain
+</span>&gt; cmd_ui_map;
+
+<span class="cpp_comment">// or struct?
+</span><span class="cpp_keyword">struct </span>cmd_ui_map_sub : begin_msg_map&lt;
+    cmd_ui_handler&lt;ID_BLUE, &amp;_::OnUpdateBlue&gt;,
+    begin_msg_map&lt;              <span class="cpp_comment">// chain
+        </span>cmd_ui_handler&lt;ID_WHITE, &amp;_::OnUpdateWhite&gt;,
+        cmd_ui_handler&lt;ID_CUSTOM, &amp;_::OnUpdateCustom&gt;
+    &gt;
+&gt; { };
+
+begin_msg_map
+&lt;
+    cmd_ui_map,                     <span class="cpp_comment">// chain
+    </span>msg_wm_paint&lt;&amp;_::OnPaint&gt;,
+    command_range_handler&lt;ID_BLACK, ID_WHITE, &amp;_::OnColor&gt;,
+    command_id_handler&lt;ID_CUSTOM, &amp;_::OnCustomColor&gt;
+&gt;
+end_msg_map;
+</pre>
+
+<p>Or you can extract the maximum power from <a class="reference" href="http://www.boost.org/libs/preprocessor/doc/index.html">Boost.Preprocessor</a> in exchange for giving credit to VC++7.1 preprocessor:</p>
+<pre class="cpp_source">
+<span class="cpp_comment">// stdafx.h
+</span><span class="cpp_comment">// ...
+
+</span><span class="cpp_keyword">extern </span>WTL::CAppModule _Module;
+
+<span class="cpp_pp_directive">#include </span>&lt;atlwin.h&gt;
+
+<span class="cpp_pp_directive">#define </span>PSTADE_KETCHUP_CFG_LIMIT_TEMPLATE_PARAMETERS_NUMBER <span class="cpp_number_literal">64
+</span><span class="cpp_pp_directive">#include </span>&lt;pstade/ketchup/config/limit_template_parameters_number.hpp&gt;
+<span class="cpp_pp_directive">#include </span>&lt;pstade/ketchup.hpp&gt;
+</pre>
+
+<p>The available number of template parameters depends on <a class="reference" href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/vccore/html/_core_.2f.zm.asp">/Zm</a> option, aside from compiler limitations on the number of template parameters.</p>
+</div>
+<div class="section" id="alt-msg-map">
+<h2><a class="toc-backref" href="#id40" name="alt-msg-map">9.3&nbsp;&nbsp;&nbsp;alt_msg_map</a></h2>
+<p><tt class="docutils literal"><span class="pre">alt_msg_map</span></tt> creates an indexed <a class="reference" href="#entry">Entry</a>, which is a replacement for <tt class="docutils literal"><span class="pre">ALT_MSG_MAP</span></tt> of ATL:</p>
+<pre class="cpp_source">
+begin_msg_map
+&lt;
+    alt_msg_map&lt;<span class="cpp_number_literal">0</span>,
+        message_handler&lt;WM_CREATE, &amp;_::OnCreate&gt;,
+        message_handler&lt;WM_KEYDOWN, &amp;_::OnKey&gt;,
+        message_handler&lt;WM_KEYUP, &amp;_::OnKey&gt;,
+        message_handler&lt;WM_LBUTTONDOWN, &amp;_::OnKey&gt;
+    &gt;,
+    alt_msg_map&lt;<span class="cpp_number_literal">1</span>,
+        command_id_handler&lt;ID_EDIT_UNDO, &amp;_::OnEditUndo&gt;,
+        command_id_handler&lt;ID_EDIT_CUT, &amp;_::OnEditCut&gt;,
+        command_id_handler&lt;ID_EDIT_COPY, &amp;_::OnEditCopy&gt;,
+        command_id_handler&lt;ID_EDIT_PASTE, &amp;_::OnEditPaste&gt;,
+        command_id_handler&lt;ID_EDIT_CLEAR, &amp;_::OnEditClear&gt;,
+        command_id_handler&lt;ID_EDIT_SELECT_ALL, &amp;_::OnEditSelectAll&gt;
+    &gt;,
+    assert_valid_msg_map_id&lt; ketchup::idset&lt;<span class="cpp_number_literal">0</span>, <span class="cpp_number_literal">1</span>&gt; &gt;
+&gt;
+end_msg_map;
+</pre>
+
+<p>As a default <a class="reference" href="#entry">Entry</a> is not indexed, 0 indexed Entry is always required if <a class="reference" href="#message-map-container">Message Map Container</a> must
+have multiple message map ids.</p>
+</div>
+<div class="section" id="chain-msg-map">
+<h2><a class="toc-backref" href="#id41" name="chain-msg-map">9.4&nbsp;&nbsp;&nbsp;chain_msg_map</a></h2>
+<p><tt class="docutils literal"><span class="pre">chain_msg_map</span></tt> creates an <a class="reference" href="#entry">Entry</a> from a <a class="reference" href="#chain-class">Chain Class</a>.</p>
+</div>
+<div class="section" id="chain-msg-map-member">
+<h2><a class="toc-backref" href="#id42" name="chain-msg-map-member">9.5&nbsp;&nbsp;&nbsp;chain_msg_map_member</a></h2>
+<p><tt class="docutils literal"><span class="pre">chain_msg_map_member</span></tt> creates an <a class="reference" href="#entry">Entry</a> from a <a class="reference" href="#value-functor-class">Value Functor Class</a>:</p>
+<pre class="cpp_source">
+my_chain_mem m_chain;
+
+<span class="cpp_keyword">struct </span>chain_ftor_t {
+    my_chain_mem&amp; <span class="cpp_keyword">operator</span>()(CMainFrame&amp; me) { <span class="cpp_keyword">return </span>me.m_chain; }
+};
+
+begin_msg_map
+&lt;
+    message_handler&lt;WM_CREATE, &amp;_::OnCreate&gt;,
+    command_id_handler&lt;ID_VIEW_TOOLBAR, &amp;_::OnViewToolBar&gt;,
+    command_id_handler&lt;ID_VIEW_STATUS_BAR, &amp;_::OnViewStatusBar&gt;,
+    chain_msg_map_member&lt;chain_ftor_t&gt;,
+    <span class="cpp_comment">// ...
+</span>&gt;
+end_msg_map;
+</pre>
+
+<p>As an <a class="reference" href="#entry-wrapper">Entry wrapper</a> is a class template and an object cannot be passed directly,
+you must write a <a class="reference" href="#value-functor-class">Value Functor Class</a> for every chained member object.</p>
+</div>
+<div class="section" id="and">
+<h2><a class="toc-backref" href="#id43" name="and">9.6&nbsp;&nbsp;&nbsp;and...</a></h2>
+<p>Every synonym of <tt class="docutils literal"><span class="pre">BEGIN_MSG_MAP</span></tt> macro are fully defined.</p>
+</div>
+</div>
+<div class="section" id="cracked-handlers">
+<h1><a class="toc-backref" href="#id44" name="cracked-handlers">10&nbsp;&nbsp;&nbsp;Cracked Handlers</a></h1>
+<p>Ketchup supports cracked handlers of <a class="reference" href="http://wtl.sourceforge.net/">WTL</a>:</p>
+<pre class="cpp_source">
+LRESULT OnCreate(LPCREATESTRUCT)
+{
+    m_pView = <span class="cpp_keyword">new </span>CHelloView();
+    RECT rect = { <span class="cpp_number_literal">0</span>, <span class="cpp_number_literal">0</span>, <span class="cpp_number_literal">1</span>, <span class="cpp_number_literal">1 </span>};
+    m_hWndClient = m_pView-&gt;Create(m_hWnd, rect, NULL, WS_CHILD | WS_VISIBLE, WS_EX_CLIENTEDGE);
+
+    <span class="cpp_comment">// SetMsgHandled(FALSE); is not supported.
+    </span><span class="cpp_keyword">return </span><span class="cpp_number_literal">1</span>;
+}
+
+begin_msg_map
+&lt;
+    msg_wm_create&lt;&amp;_::OnCreate, not_handled&gt;, <span class="cpp_comment">// cracked!
+    </span>chain_client_commands&lt;&gt;,
+    chain_client_cmd_ui&lt;&gt;,
+    chain_msg_map&lt; CMDIChildWindowImpl&lt;CHelloWnd&gt; &gt;
+&gt;
+end_msg_map;
+</pre>
+
+<p><tt class="docutils literal"><span class="pre">SetMsgHandled</span></tt> of <a class="reference" href="http://wtl.sourceforge.net/">WTL</a> was rejected for transparency <a class="footnote-reference" href="#id16" id="id15" name="id15">[4]</a> .
+Instead you can refer using <a class="reference" href="#entry">Entry</a> by passing <tt class="docutils literal"><span class="pre">not_handled</span></tt> as the last argument.
+To determine whether or not to handle the message at compile-time makes your program a little smaller and faster.
+If you want to decide it at runtime, you must use <a class="reference" href="#message-handler">message_handler</a>.</p>
+<table class="docutils footnote" frame="void" id="id16" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id15" name="id16">[4]</a></td><td>Cracked handlers might have had an extra argument <tt class="docutils literal"><span class="pre">bHandled</span></tt> as normal handlers do.
+I recall normal handlers in <tt class="docutils literal"><span class="pre">BEGIN_MSG_MAP_EX</span></tt> made some troubles.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="mfc-update-command-ui">
+<h1><a class="toc-backref" href="#id45" name="mfc-update-command-ui">11&nbsp;&nbsp;&nbsp;MFC Update Command UI</a></h1>
+<p>Ketchup supports Updating Command UI mechanism of MFC and the limited automatic-disabling:</p>
+<pre class="cpp_source">
+<span class="cpp_keyword">void </span>OnUpdateViewStatusBar(ketchup::cmd_ui&amp; ui)
+{
+    ui.set_check(::IsWindowVisible(m_hWndStatusBar));
+}
+
+<span class="cpp_keyword">virtual </span>BOOL OnIdle()
+{
+    ketchup::update_toolbar_cmd_ui(m_hWnd, m_wndToolBar);
+    <span class="cpp_keyword">return </span>FALSE;
+}
+
+<span class="cpp_keyword">typedef </span>ketchup::idset&lt;
+    ID_BLACK, ID_RED, ID_GREEN, ID_BLUE, ID_WHITE,
+    ID_CUSTOM, ID_SPEED_SLOW, ID_SPEED_FAST
+&gt; child_cmd_ids;
+
+begin_msg_map
+&lt;
+    update_menu_cmd_ui&lt;&gt;,
+    cmd_ui_handler&lt;ID_VIEW_TOOLBAR, &amp;_::OnUpdateViewToolBar&gt;,
+    cmd_ui_handler&lt;ID_VIEW_STATUS_BAR, &amp;_::OnUpdateViewStatusBar&gt;,
+    enable_cmd_ui_if_handled&lt;chain_mdi_child_cmd_ui&lt;&gt;, child_cmd_ids&gt;,
+    <span class="cpp_comment">// ...
+</span>&gt;
+end_msg_map;
+</pre>
+
+<p>This is a replacement for <tt class="docutils literal"><span class="pre">CUpdateUI</span></tt> of <a class="reference" href="http://wtl.sourceforge.net/">WTL</a>. 
+<tt class="docutils literal"><span class="pre">update_menu_cmd_ui</span></tt> generates a <tt class="docutils literal"><span class="pre">ketchup::cmd_ui</span></tt> object from <tt class="docutils literal"><span class="pre">WM_INITMENUPOPUP</span></tt>.
+<tt class="docutils literal"><span class="pre">enable_cmd_ui_if_handled</span></tt> enables a <tt class="docutils literal"><span class="pre">ketchup::cmd_ui</span></tt> object if it is handled; otherwise, disables it.</p>
+</div>
+<div class="section" id="compatibility">
+<h1><a class="toc-backref" href="#id46" name="compatibility">12&nbsp;&nbsp;&nbsp;Compatibility</a></h1>
+<p>Ketchup is compatible with <tt class="docutils literal"><span class="pre">BEGIN_MSG_MAP</span></tt>.
+<tt class="docutils literal"><span class="pre">PSTADE_KETCHUP_CHAIN_MSG</span></tt> makes it:</p>
+<pre class="cpp_source">
+begin_msg_map
+&lt;
+    message_handler&lt;WM_CREATE, &amp;_::OnCreate&gt;,
+    chain_client_cmd_ui&lt;&gt;
+&gt;
+end_msg_map;
+
+BEGIN_MSG_MAP(CBounceWnd)
+    <span class="cpp_comment">// MESSAGE_HANDLER(WM_CREATE, OnCreate)
+    </span>PSTADE_KETCHUP_CHAIN_MSG(*<span class="cpp_keyword">this</span>)
+    CHAIN_CLIENT_COMMANDS()
+    CHAIN_MSG_MAP(CMDIChildWindowImpl&lt;CBounceWnd&gt;)
+END_MSG_MAP()
+</pre>
+
+</div>
+<div class="section" id="combatting-two-phase-name-lookup">
+<h1><a class="toc-backref" href="#id47" name="combatting-two-phase-name-lookup">13&nbsp;&nbsp;&nbsp;Combatting Two-phase Name Lookup</a></h1>
+<p>When your <a class="reference" href="#derived">Derived</a> class is a template, a conforming compiler
+cannot find any <a class="reference" href="#entry">Entry</a> from <a class="reference" href="#ketchup-message-processor">ketchup::message_processor</a>
+without user workaround:</p>
+<pre class="cpp_source">
+<span class="cpp_keyword">template</span>&lt; <span class="cpp_keyword">class </span>D &gt;
+<span class="cpp_keyword">struct </span>CMainFrameCommand1 :
+    pstade::ketchup::message_processor&lt; CMainFrameCommand1&lt;D&gt; &gt;
+{
+    <span class="cpp_comment">// ...
+
+</span><span class="cpp_keyword">public</span>:
+    <span class="cpp_keyword">typedef </span>CMainFrameCommand1 _;                           <span class="cpp_keyword">typename </span>_::<span class="cpp_keyword">template </span><span class="cpp_comment">// must be added.
+    </span>begin_msg_map
+    &lt;                                                       <span class="cpp_keyword">typename </span>_::<span class="cpp_keyword">template
+        </span>command_id_handler&lt;ID_APP_EXIT, &amp;_::OnFileExit&gt;,    <span class="cpp_keyword">typename </span>_::<span class="cpp_keyword">template
+        </span>command_id_handler&lt;ID_FILE_NEW, &amp;_::OnFileNew&gt;
+    &gt;
+    end_msg_map;
+};</pre>
+
+<p>VC++ doesn't support two-phase name lookup, but you must add somewhat ugly prefix for <a class="reference" href="http://www.open-std.org/jtc1/sc22/wg21/">Standard C++</a> <a class="footnote-reference" href="#id18" id="id17" name="id17">[5]</a>.</p>
+<table class="docutils footnote" frame="void" id="id18" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id17" name="id18">[5]</a></td><td>It is surprising that almost all of WTL is illegal.
+Note that this workaround cannot work around weird GCC3.4.4.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="points-of-interest">
+<h1><a class="toc-backref" href="#id48" name="points-of-interest">14&nbsp;&nbsp;&nbsp;Points of Interest</a></h1>
+<p>The last point is the performance. The program size seems not to be a problem. VC++7.1 generates
+the same size program as <tt class="docutils literal"><span class="pre">BEGIN_MSG_MAP</span></tt>, because Ketchup's message map is almost same as <tt class="docutils literal"><span class="pre">BEGIN_MSP_MAP</span></tt>.
+But VC++7.1 can't inline message handlers unlike <tt class="docutils literal"><span class="pre">BEGIN_MSG_MAP</span></tt>.
+Could this be a problem of the speed?</p>
+<p>I did not intend to emulate the appearance of <tt class="docutils literal"><span class="pre">BEGIN_MSG_MAP</span></tt>.
+It is not just a syntax sugar but the coincidence as the result of naming consistency with ATL/<a class="reference" href="http://wtl.sourceforge.net/">WTL</a>.
+It was an amazing discovery for me.</p>
+<p>By the way, Ketchup might be the first application using <a class="reference" href="http://boost-sandbox.sourceforge.net/libs/xpressive/doc/html/index.html">Boost.Xpressive</a>,
+which is used as the source code generator.</p>
+</div>
+<div class="section" id="references">
+<h1><a class="toc-backref" href="#id49" name="references">15&nbsp;&nbsp;&nbsp;References</a></h1>
+<ul class="simple">
+<li><a class="reference" href="http://www.codeproject.com/wtl/ketchup.asp">Forum at Code Project</a></li>
+<li><a class="reference" href="http://p-stade.sourceforge.net/">P-Stade</a></li>
+<li><a class="reference" href="http://www.boost-consulting.com/metaprogramming-book.html">C++ Template Metaprogramming</a></li>
+<li><a class="reference" href="http://www.boost.org/">Boost C++ Libraries</a></li>
+<li><a class="reference" href="http://www.boost.org/libs/mpl/doc/">Boost.MPL</a></li>
+<li><a class="reference" href="http://www.boost.org/libs/preprocessor/doc/index.html">Boost.Preprocessor</a></li>
+<li><a class="reference" href="http://www.codeproject.com/cpp/wave_preprocessor.asp">Boost.Wave</a></li>
+<li><a class="reference" href="http://boost-sandbox.sourceforge.net/libs/xpressive/doc/html/index.html">Boost.Xpressive</a></li>
+<li><a class="reference" href="http://www.hasslefreeclipart.com/">Hassle Free Clip Art.com</a></li>
+</ul>
+</div>
+<div class="section" id="release-notes">
+<h1><a class="toc-backref" href="#id50" name="release-notes">16&nbsp;&nbsp;&nbsp;Release Notes</a></h1>
+<div class="section" id="version-1-01-0">
+<h2><a class="toc-backref" href="#id51" name="version-1-01-0">16.1&nbsp;&nbsp;&nbsp;Version 1.01.0</a></h2>
+<ul class="simple">
+<li>Namespace moved to <tt class="docutils literal"><span class="pre">pstade::ketchup</span></tt>.</li>
+<li>Removed requirements for overriding <tt class="docutils literal"><span class="pre">ProcessWindowMessage</span></tt>.</li>
+<li>Added document of Two-phase name lookup workaround.</li>
+<li>Removed eVC4 support.</li>
+</ul>
+</div>
+<div class="section" id="version-1-01-1">
+<h2><a class="toc-backref" href="#id52" name="version-1-01-1">16.2&nbsp;&nbsp;&nbsp;Version 1.01.1</a></h2>
+<ul class="simple">
+<li>Fixed a bug of toolbar <tt class="docutils literal"><span class="pre">cmd_ui</span></tt>.</li>
+</ul>
+</div>
+<div class="section" id="version-1-01-2">
+<h2><a class="toc-backref" href="#id53" name="version-1-01-2">16.3&nbsp;&nbsp;&nbsp;Version 1.01.2</a></h2>
+<ul class="simple">
+<li>Removed nullary <tt class="docutils literal"><span class="pre">begin_msg_map</span></tt> for <a class="reference" href="http://www.open-std.org/jtc1/sc22/wg21/">Standard C++</a>.</li>
+</ul>
+</div>
+<div class="section" id="version-1-01-3">
+<h2><a class="toc-backref" href="#id54" name="version-1-01-3">16.4&nbsp;&nbsp;&nbsp;Version 1.01.3</a></h2>
+<ul class="simple">
+<li>Changed <a class="reference" href="#cracked-handlers">Cracked Handlers</a> templates parameter.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr class="footer" />
+<a class="reference" href="doc/index.rst">View document source</a>.
+Generated on: 2006-04-04 21:18 UTC.
+Generated by <a class="reference" href="http://docutils.sourceforge.net/">Docutils</a> from <a class="reference" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a> source.
+
+</div>
+</body>
+</html>

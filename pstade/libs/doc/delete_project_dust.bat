@@ -1,0 +1,1 @@
+"D:\Importance\Document\p-stade.sourceforge.net\pstade\libs\cupcake\delete_project_dust.wsf" "D:\Importance\Document\p-stade.sourceforge.net\pstade\libs\ketchup\test\vc7" "D:\Importance\Document\p-stade.sourceforge.net\pstade\libs\ketchup\test\vc8" 

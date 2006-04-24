@@ -1,0 +1,33 @@
+
+subproject libs/wine/test ;
+
+import testing ;
+
+DEPENDS all : test ;
+
+rule wine-test ( name )
+{
+    return [
+        run $(name).cpp
+        : : :
+        <include>$(BOOST_ROOT)
+        <include>$(PSTADE_ROOT)
+    ] ;
+}
+
+test-suite wine :
+    [ wine-test arg ]
+    [ wine-test adl_barrier ]
+    [ wine-test check ]
+    [ wine-test comma_protect ]
+    [ wine-test const ]
+    [ wine-test derived_cast ]
+    [ wine-test has_xxx ]
+    [ wine-test instance ]
+    [ wine-test integral_cast ]
+    [ wine-test is_debug ]
+    [ wine-test lexical_cast ]
+    [ wine-test overload ]
+    [ wine-test pause ]
+    [ wine-test require ]
+    ;

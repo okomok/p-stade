@@ -1,0 +1,26 @@
+
+
+subproject libs/microsoft/mfc/test ;
+
+
+import testing ;
+
+
+DEPENDS all : test ;
+
+
+rule microsoft-mfc-test ( name )
+{
+    return [
+        run $(name).cpp
+        : : :
+        <include>$(BOOST_ROOT)
+        <include>$(PSTADE_ROOT)
+    ] ;
+}
+
+
+test-suite microsoft-mfc :
+    [ microsoft-mfc-test header ]
+    [ microsoft-mfc-test range ]
+    ;

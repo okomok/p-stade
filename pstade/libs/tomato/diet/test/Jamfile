@@ -1,0 +1,37 @@
+
+
+subproject libs/tomato/diet/test ;
+
+
+import testing ;
+
+
+DEPENDS all : test ;
+
+
+rule tomato-diet-test ( name )
+{
+    return [
+        run $(name).cpp
+        : : :
+        <include>$(BOOST_ROOT)
+        <include>$(PSTADE_ROOT)
+    ] ;
+}
+
+
+rule tomato-diet-test-fail ( name )
+{
+    return [
+        run-fail $(name).cpp
+        : : :
+        <include>$(BOOST_ROOT)
+        <include>$(PSTADE_ROOT)
+    ] ;
+}
+
+
+test-suite tomato-diet :
+    [ tomato-diet-test basic ]
+    [ tomato-diet-test fail ]
+    ;

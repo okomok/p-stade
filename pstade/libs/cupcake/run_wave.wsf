@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<package>
+<job id="run_wave">
+<?job error="true" debug="no" ?>
+<runtime>
+	<description>run_wave</description>
+</runtime>
+
+<script language="JavaScript" src="./basic.js"/>
+<script language="JavaScript" src="./filesystem.js"/>
+<script language="JavaScript" src="./shell.js"/>
+
+<script language="JavaScript">
+
+<![CDATA[
+///////////////////////////////////////////////////////////////////////////////
+//
+
+var g_debug = false;
+
+var g_boost_path = "D:\\Application\\boost";
+// Get at: http://www.codeproject.com/cpp/wave_preprocessor.asp
+var g_wave_path= "D:\\Application\\wave-1.0.0\\wave.exe";
+var g_out_folder = "D:\\Importance\\Document\\sample source\\boost_shortcut\\workspace";
+
+main();
+
+function main()
+{
+	cupcake_for_each_arg( true, function(arg) { run_wave_impl(arg); } );
+}
+
+function run_wave_impl(arg)
+{
+	var out_path = g_out_folder + "\\" + cupcake_file_name(arg);
+	var dirpath = cupcake_directory_path(arg);
+	
+	var command = g_wave_path + " " +
+		"-S"+ cupcake_wrap_path(g_boost_path) + " " +
+		"-o" + cupcake_wrap_path(out_path) + " " +
+		"-I" + cupcake_wrap_path(dirpath) +
+		cupcake_wrap_path(arg);
+
+	command += "\npause";
+
+	cupcake_trace(command, g_debug);
+	_sh.run(command, 1, true);
+	
+	remove_line_directive(out_path);
+}
+
+function remove_line_directive(path)
+{
+	var lines = new Array();
+	var in_ts  = _fs.OpenTextFile(path, cupcake_ForReading);
+	cupcake_for_each_line_stream( in_ts,  function(line, _) { lines.push(line); } );
+	in_ts.Close();
+	
+	var lines_out = new Array();
+	cupcake_for_each_elem( lines, function(line) { var result = line.replace(/#line.*/, ""); lines_out.push(result); } );
+	
+	var out_ts = _fs.OpenTextFile(path, cupcake_ForWriting);
+	cupcake_for_each_elem( lines_out, function(line) { out_ts.WriteLine(line); } );
+	out_ts.Close();
+}
+
+///////////////////////////////////////////////////////////////////////////////
+]]>
+
+</script>
+</job>
+</package>

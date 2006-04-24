@@ -1,0 +1,22 @@
+
+subproject libs/garlic/test ;
+
+import testing ;
+
+DEPENDS all : test ;
+
+rule garlic-test ( name : includes * )
+{
+    return [
+        run $(name).cpp
+        : : :
+        <include>$(PSTADE_ROOT)        
+        <include>$(BOOST_ROOT)
+
+    ] ;
+}
+
+test-suite garlic :
+    [ garlic-test back_inserter ]
+    [ garlic-test header ]
+    ;

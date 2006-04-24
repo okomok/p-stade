@@ -1,0 +1,44 @@
+
+subproject libs/oven/test ;
+
+import testing ;
+
+DEPENDS all : test ;
+
+rule oven-test ( name )
+{
+    return [
+        run $(name).cpp
+        : : :
+        <include>$(BOOST_ROOT)
+        <include>$(PSTADE_ROOT)
+    ] ;
+}
+
+rule oven-compile ( name )
+{
+    return [
+        compile $(name).cpp
+        :
+        <include>$(BOOST_ROOT)
+        <include>$(PSTADE_ROOT)
+    ] ;
+}
+
+test-suite oven :
+    [ oven-test algorithm ]
+    [ oven-test array_range ]
+    [ oven-test array_protect_range ]
+    [ oven-test counting_range ]
+    [ oven-test filter_range ]
+    [ oven-test indirect_range ]
+    [ oven-test joint_range ]
+    [ oven-test null_terminate_range ]
+    [ oven-test repeat_range ]
+    [ oven-test reverse_range ]
+    [ oven-test sequence_cast ]
+    [ oven-test single_range ]
+    [ oven-test tab_expand_range ]
+    [ oven-test tab_unexpand_range ]
+    [ oven-test transform_range ]
+    ;

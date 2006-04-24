@@ -1,0 +1,31 @@
+
+subproject libs/biscuit/test ;
+
+import testing ;
+
+DEPENDS all : test ;
+
+rule biscuit-test ( name )
+{
+    return [
+        run $(name).cpp
+        : : :
+        <include>$(BOOST_ROOT)
+        <include>$(PSTADE_ROOT)
+        <include>$(MINGW_INCLUDE_DIRECTORY)
+    ] ;
+}
+
+test-suite biscuit :
+    [ biscuit-test as_lower ]
+    [ biscuit-test capture ]
+    [ biscuit-test error ]
+    [ biscuit-test filter_range ]
+    [ biscuit-test ichseq ]
+    [ biscuit-test match ]
+    [ biscuit-test repeat ]
+    [ biscuit-test require ]
+    [ biscuit-test search ]
+    [ biscuit-test shortest_longest ]
+    [ biscuit-test token_range ]
+    ;

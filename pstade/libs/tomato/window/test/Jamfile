@@ -1,0 +1,39 @@
+
+
+subproject libs/tomato/window/test ;
+
+
+import testing ;
+
+
+DEPENDS all : test ;
+
+
+rule tomato-window-test ( name )
+{
+    return [
+        run $(name).cpp
+        : : :
+        <include>$(BOOST_ROOT)
+        <include>$(PSTADE_ROOT)
+    ] ;
+}
+
+
+rule tomato-window-test-fail ( name )
+{
+    return [
+        run-fail $(name).cpp
+        : : :
+        <include>$(BOOST_ROOT)
+        <include>$(PSTADE_ROOT)
+    ] ;
+}
+
+
+test-suite tomato-window :
+    [ tomato-window-test child_windows ]
+    [ tomato-window-test class_name ]
+    [ tomato-window-test register_window_message ]
+    [ tomato-window-test window_text ]
+    ;

@@ -1,0 +1,26 @@
+
+
+subproject libs/microsoft/wtl/test ;
+
+
+import testing ;
+
+
+DEPENDS all : test ;
+
+
+rule microsoft-wtl-test ( name )
+{
+    return [
+        run $(name).cpp
+        : : :
+        <include>$(BOOST_ROOT)
+        <include>$(PSTADE_ROOT)
+    ] ;
+}
+
+
+test-suite microsoft-wtl :
+    [ microsoft-wtl-test header ]
+    [ microsoft-wtl-test range ]
+    ;
