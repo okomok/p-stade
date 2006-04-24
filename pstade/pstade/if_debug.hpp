@@ -12,7 +12,7 @@
 
 // Question: Could have been the following?
 //
-// BOOST_PP_IF(PSTADE_IS_DEBUG, BOOST_PP_IDENTITY(...), BOOST_PP_EMPTY)()
+// BOOST_PP_EXPR_IF(PSTADE_IS_DEBUG(), ...)
 //
 // #if !defined(NDEBUG)
 //     #define PSTADE_IS_DEBUG() 1
