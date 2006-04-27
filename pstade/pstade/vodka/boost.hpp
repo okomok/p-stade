@@ -12,6 +12,7 @@
 
 // This order matters!
 //
+#include "./boost/detail_is_incrementable.hpp"
 #include "./boost/lexical_cast.hpp"
 #include "./boost/numeric_conversion_cast.hpp"
 #include "./boost/range_size.hpp"

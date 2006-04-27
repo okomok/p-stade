@@ -54,6 +54,7 @@ private:
     typedef typename sub_set_detail::super_<Range>::type super_t;
 
 public:
+    // Question: should this ctor be removed?
     explicit sub_set(Range& rng) :
         storage_bt(
             boost::make_counting_iterator(boost::begin(rng)),

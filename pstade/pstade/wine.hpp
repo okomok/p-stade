@@ -22,6 +22,7 @@
 #include "./instance.hpp"
 #include "./integral_cast.hpp"
 #include "./is_debug.hpp"
+#include "./is_same.hpp"
 #include "./lexical_cast.hpp"
 #include "./nullptr.hpp"
 #include "./overload.hpp"

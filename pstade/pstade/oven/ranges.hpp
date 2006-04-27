@@ -14,6 +14,7 @@
 #include "./array_protect_range.hpp"
 #include "./array_range.hpp"
 #include "./counting_range.hpp"
+#include "./direct_range.hpp"
 #include "./empty_range.hpp"
 #include "./file_range.hpp"
 #include "./filter_range.hpp"
@@ -32,6 +33,7 @@
 #include "./utf8_decode_range.hpp"
 
 #include "./range_cast.hpp"
+#include "./sub_set.hpp"
 
 
 #endif
