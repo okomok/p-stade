@@ -22,6 +22,7 @@
 #include <pstade/garlic/back_inserter.hpp>
 #include <pstade/oven/equal.hpp>
 #include <pstade/oven/sequence_cast.hpp>
+#include <pstade/overload.hpp>
 #include "./error.hpp"
 #include "./ustring.hpp"
 
@@ -84,8 +85,8 @@ public:
         BOOST_ASSERT(!boost::empty(m_name));
     }
 
-    explicit node(ustring name, node& parent) :
-        m_name(name), m_parent(parent)
+    explicit node(node& parent, ustring name) :
+        m_parent(parent), m_name(name) 
     {
         BOOST_ASSERT(!boost::empty(m_name));
     }
@@ -97,13 +98,46 @@ public:
     //
     typedef std::map<ustring, ustring>
     attributes_type;
-
-    ustring& operator[](ustring attName)
+ 
+    attributes_type& attributes()
     {
-        return m_atts[attName];
+        return m_atts;
     }
 
-    node& operator()(ustring childName)
+    ustring name() const
+    {
+        return m_name;
+    }
+
+    boost::optional<node&> parent() const
+    {
+        return m_parent;
+    }
+
+    // syntax sugars
+    //
+    node& operator/(ustring childName)
+    {
+        return get_child(childName);
+    }
+
+    ustring& operator%(ustring attName)
+    {
+        return attributes()[attName];
+    }
+
+    node& operator+=(ustring name)
+    {
+        this->push_back( pstade_lemon_new_node(*this, name, overload()) );
+        return *this;
+    }
+
+private:
+    boost::optional<node&> m_parent;
+    ustring m_name;
+    attributes_type m_atts;
+
+    node& get_child(ustring childName)
     {
         boost::ptr_vector<node>& self = *this; // workaround VC++
 
@@ -122,26 +156,6 @@ public:
         node_detail::throw_error(childName);
         return *this; // suppress warning
     }
-
-    attributes_type& attributes()
-    {
-        return m_atts;
-    }
-
-    ustring name() const
-    {
-        return m_name;
-    }
-
-    boost::optional<node&> parent() const
-    {
-        return m_parent;
-    }
-
-private:
-    ustring m_name;
-    boost::optional<node&> m_parent;
-    attributes_type m_atts;
 };
 
 

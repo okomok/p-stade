@@ -20,9 +20,9 @@ namespace pstade { namespace lime {
 
 template< class Interface > inline
 node<Interface> *
-new_node(ustring name, node<Interface>& parent)
+new_node(node<Interface>& parent, ustring name)
 {
-    return pstade_lemon_new_node(name, parent, overload());
+    return pstade_lemon_new_node(parent, name, overload());
 }
 
 
@@ -30,10 +30,10 @@ new_node(ustring name, node<Interface>& parent)
 //
 inline
 node<pstade::lime::default_interface> *
-pstade_lemon_new_node(ustring name, node<pstade::lime::default_interface>& parent, pstade::overload)
+pstade_lemon_new_node(node<pstade::lime::default_interface>& parent, ustring name, pstade::overload)
 {
-	using namespace pstade::lime;
-    return new node<default_interface>(name, parent);
+    using namespace pstade::lime;
+    return new node<default_interface>(parent, name);
 }
 
 

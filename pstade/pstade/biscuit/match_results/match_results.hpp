@@ -10,12 +10,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/config.hpp> // for BOOST_DEDUCED_TYPENAME
+#include <boost/config.hpp> // BOOST_DEDUCED_TYPENAME
 #include <boost/detail/workaround.hpp>
-#include <functional> // for std::less
+#include <functional> // std::less
 #include <map>
-#include <memory> // for std::allocator
-#include <utility> // for std::pair
+#include <memory> // std::allocator
+#include <utility> // std::pair
 
 // Workaround:
 //   'boost::sub_range' is broken under eVC++4 and VC++8. It is not Assignable.

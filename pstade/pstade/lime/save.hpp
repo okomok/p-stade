@@ -33,7 +33,7 @@ namespace save_detail {
         if (oven::equals(parent.name(), i_CharData) ||
             oven::equals(parent.name(), i_Reference))
         {
-            oven::copy(parent[i_attName], out);
+            oven::copy(parent.attributes()[i_attName], out);
             return;
         }
 

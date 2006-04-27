@@ -65,7 +65,7 @@ namespace load_detail {
             ustring name = oven::sequence(rng);
 
             typedef typename Context::interface_type interface_t;
-            node<interface_t> *pnode = lime::new_node<interface_t>(name, cxt.top());
+            node<interface_t> *pnode = lime::new_node<interface_t>(cxt.top(), name);
 
             cxt.top().push_back(pnode);
             cxt.push(pnode);
@@ -81,10 +81,10 @@ namespace load_detail {
             ustring data = oven::sequence(rng);
 
             typedef typename Context::interface_type interface_t;
-            node<interface_t> *pnode = lime::new_node<interface_t>(i_CharData, cxt.top());
+            node<interface_t> *pnode = lime::new_node<interface_t>(cxt.top(), i_CharData);
 
             cxt.top().push_back(pnode);
-            (*pnode)[i_attName] = data;
+            (*pnode).attributes()[i_attName] = data;
         }
     };
 
@@ -97,10 +97,10 @@ namespace load_detail {
             ustring data = oven::sequence(rng);
 
             typedef typename Context::interface_type interface_t;
-            node<interface_t> *pnode = lime::new_node<interface_t>(i_Reference, cxt.top());
+            node<interface_t> *pnode = lime::new_node<interface_t>(cxt.top(), i_Reference);
 
             cxt.top().push_back(pnode);
-            (*pnode)[i_attName] = data;
+            (*pnode).attributes()[i_attName] = data;
         }
     };
 
@@ -124,7 +124,7 @@ namespace load_detail {
             ustring val = oven::sequence(rng);
             BOOST_ASSERT(boost::size(val) >= 2);
 
-            cxt.top()[cxt.m_curAttName] =
+            cxt.top().attributes()[cxt.m_curAttName] =
                 // Todo: back_pop_range, front_pop_range ?
                 ustring( boost::begin(val)+1, boost::end(val)-1 );
         }
