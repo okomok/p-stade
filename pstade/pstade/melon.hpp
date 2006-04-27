@@ -10,10 +10,16 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// See:
+//
+// http://www.w3.org/TR/2004/REC-xml-20040204/
+
+
 #include "./melon/content.hpp"
 #include "./melon/document.hpp"
 #include "./melon/element.hpp"
 #include "./melon/ucs4_t.hpp"
+#include "./melon/utf8cp_t.hpp"
 
 
 #endif
