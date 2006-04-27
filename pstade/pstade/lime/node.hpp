@@ -18,6 +18,7 @@
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <boost/optional.hpp>
 #include <boost/range/empty.hpp>
+#include <boost/throw_exception.hpp>
 #include <pstade/garlic/back_inserter.hpp>
 #include <pstade/oven/equal.hpp>
 #include <pstade/oven/sequence_cast.hpp>

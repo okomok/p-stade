@@ -14,12 +14,10 @@
 #include <string>
 #include <boost/iterator/counting_iterator.hpp>
 #include <boost/iterator/iterator_categories.hpp>
-#include <boost/mpl/eval_if.hpp>
-#include <boost/mpl/identity.hpp>
+#include <boost/mpl/if.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <boost/throw_exception.hpp>
-#include <boost/type.hpp>
-#include <boost/type_traits/is_same.hpp>
+#include <boost/type_traits/is_convertible.hpp>
 #include <pstade/unused.hpp>
 #include "./is_lightweight_proxy.hpp"
 
@@ -32,7 +30,7 @@ namespace counting_range_detail {
 
     template< class Iterator >
     struct is_bounds_checkable :
-        boost::is_same<
+        boost::is_convertible<
             typename boost::iterator_traversal<Iterator>::type,
             boost::random_access_traversal_tag
         >
@@ -55,8 +53,8 @@ namespace counting_range_detail {
         static void call(Incrementable n, Incrementable m)
         {
             if (n > m) {
-                std::string msg("pstade::oven::counting_range - out of bounds");
-                boost::throw_exception(std::range_error(msg));
+                std::range_error err("pstade::oven::counting_range - out of range");
+                boost::throw_exception(err);
             }
         }
     };
@@ -64,11 +62,20 @@ namespace counting_range_detail {
 
     template< class Incrementable, class Iterator >
     struct bounds_checker :
-        boost::mpl::eval_if< is_bounds_checkable<Iterator>,
-            boost::mpl::identity< bounds_check<Incrementable> >,
-            boost::mpl::identity< no_bounds_check<Incrementable> >
+        boost::mpl::if_< is_bounds_checkable<Iterator>,
+            bounds_check<Incrementable>,
+            no_bounds_check<Incrementable>
         >::type
     { };
+
+
+    template< class Incrementable, class CategoryOrTraversal, class Difference >
+    struct super_
+    {
+        typedef boost::iterator_range<
+            boost::counting_iterator<Incrementable, CategoryOrTraversal, Difference>
+        > type;
+    };
 
 
 } // namespace counting_range_detail
@@ -80,13 +87,11 @@ template<
     class Difference = boost::use_default
 >
 struct counting_range :
-    boost::iterator_range<
-        boost::counting_iterator<Incrementable, CategoryOrTraversal, Difference>
-    >
+    counting_range_detail::super_<Incrementable, CategoryOrTraversal, Difference>::type
 {
 private:
-    typedef boost::counting_iterator<Incrementable, CategoryOrTraversal, Difference> iter_t;
-    typedef boost::iterator_range<iter_t> super_t;
+    typedef typename counting_range_detail::super_<Incrementable, CategoryOrTraversal, Difference>::type super_t;
+    typedef typename super_t::iterator iter_t;
 
 public:
     explicit counting_range(Incrementable n, Incrementable m) :
@@ -97,41 +102,27 @@ public:
 };
 
 
-template< class Incrementable, class CategoryOrTraversal, class Difference > inline const
-counting_range<Incrementable, CategoryOrTraversal, Difference>
-make_counting_range(Incrementable n, Incrementable m, boost::type<CategoryOrTraversal>, boost::type<Difference>)
-{
-    return counting_range<Incrementable, CategoryOrTraversal, Difference>(n, m);
-}
-
-template< class Incrementable, class CategoryOrTraversal > inline const
-counting_range<Incrementable, CategoryOrTraversal, boost::use_default>
-make_counting_range(Incrementable n, Incrementable m, boost::type<CategoryOrTraversal>)
-{
-    return counting_range<Incrementable, CategoryOrTraversal, boost::use_default>(n, m);
-}
-
 template< class Incrementable > inline const
-counting_range<Incrementable, boost::use_default, boost::use_default>
+counting_range<Incrementable>
 make_counting_range(Incrementable n, Incrementable m)
 {
-    return counting_range<Incrementable, boost::use_default, boost::use_default>(n, m);
+    return counting_range<Incrementable>(n, m);
 }
 
 
-template< class ZeroableIncrementable > inline const
-counting_range<ZeroableIncrementable, boost::use_default, boost::use_default>
-zero_to(ZeroableIncrementable c)
+template< class Incrementable > inline const
+counting_range<Incrementable>
+zero_to(Incrementable c)
 {
-    return counting_range<ZeroableIncrementable, boost::use_default, boost::use_default>(0, c);
+    return counting_range<Incrementable>(0, c);
 }
 
 
-template< class ZeroableIncrementable > inline const
-counting_range<ZeroableIncrementable, boost::use_default, boost::use_default>
-one_to(ZeroableIncrementable c)
+template< class Incrementable > inline const
+counting_range<Incrementable>
+one_to(Incrementable c)
 {
-    return counting_range<ZeroableIncrementable, boost::use_default, boost::use_default>(1, c);
+    return counting_range<Incrementable>(1, c);
 }
 
 
