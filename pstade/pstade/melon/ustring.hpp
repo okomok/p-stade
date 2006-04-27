@@ -13,6 +13,8 @@
 #include <string> // basic_string
 #include <vector>
 #include <boost/mpl/bool.hpp>
+#include <boost/range/begin.hpp>
+#include <boost/range/end.hpp>
 #include <pstade/apple/basic_ostream_fwd.hpp>
 #include <pstade/apple/is_sequence.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
@@ -66,14 +68,31 @@ public:
     explicit ustring(Iterator f, Iterator l) :
         super_t(f, l)
     { }
+
+    template< class Range >
+    explicit ustring(const Range& rng) :
+        super_t(boost::begin(rng), boost::end(rng))
+    { }
 };
 
 
 // truncated!
+//
+
 template<class CharT, class Traits > inline
 std::basic_ostream<CharT, Traits>& operator<<(std::basic_ostream<CharT, Traits>& os, ustring str)
 {
     os << oven::sequence_cast< std::basic_string<CharT, Traits> >(str);
+    return os;
+}
+
+
+template<class CharT, class Traits > inline
+std::basic_istream<CharT, Traits>& operator>>(std::basic_istream<CharT, Traits>& os, ustring& str)
+{
+    std::basic_string<CharT, Traits> tmp;
+    os >> tmp;
+    str = melon::ustring(tmp);
     return os;
 }
 

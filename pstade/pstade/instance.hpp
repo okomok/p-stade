@@ -29,7 +29,7 @@
 // PSTADE_INSTANCE((map<int,int>), m, value)
 
 
-// Reason why 'ValueOrArgSeq' is strict:
+// Reason why 'ValueOrArgSeq' is checked:
 //
 // Assume you typo 'PSTADE_INSTANCE(bool, b, true)'
 // instead of 'PSTADE_INSTANCE(bool, b, (true))'.

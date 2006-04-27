@@ -13,6 +13,7 @@
 #include <map>
 #include <string>
 #include <boost/foreach.hpp>
+#include <boost/mpl/empty_base.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <boost/optional.hpp>
@@ -58,12 +59,20 @@ namespace node_detail {
 } // namesapce node_detail
 
 
+struct default_interface
+{ };
+
+
+template<
+    class Interface = default_interface
+>
 struct node :
-    node_detail::super_<node>::type,
+    node_detail::super_< node<Interface> >::type,
+    Interface,
     private boost::noncopyable
 {
 private:
-    typedef node_detail::super_<node>::type super_t;
+    typedef typename node_detail::super_< node<Interface> >::type super_t;
 
 public:
     // structors

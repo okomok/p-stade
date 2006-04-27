@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/mpl/empty_base.hpp>
 #include "./node.hpp"
 #include "./ustring.hpp"
 
@@ -17,29 +18,27 @@
 namespace pstade { namespace lime {
 
 
-struct default_tag
-{ };
-
-
 namespace new_node_detail {
 
 
     inline
-    node *pstade_lemon_new_node(ustring name, node& parent, default_tag)
+    node<default_interface> *
+	pstade_lemon_new_node(ustring name, node<default_interface>& parent, default_interface)
     {
-        return new node(name, parent);
+        return new node<default_interface>(name, parent);
     }
 
 
 } // namespace new_node_detail
 
 
-template< class DomainTag > inline
-node *new_node(ustring name, node& parent)
+template< class Interface > inline
+node<Interface> *
+new_node(ustring name, node<Interface>& parent)
 {
     using namespace new_node_detail;
 
-    return pstade_lemon_new_node(name, parent, DomainTag());
+    return pstade_lemon_new_node(name, parent, Interface());
 }
 
 

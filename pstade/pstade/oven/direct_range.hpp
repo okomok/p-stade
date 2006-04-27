@@ -44,8 +44,7 @@ private:
     typedef typename direct_range_detail::super_<Range>::type super_t;
 
 public:
-    template< class Range_ >
-    explicit direct_range(Range_& rng) :
+    explicit direct_range(Range& rng) :
         super_t(boost::begin(rng), boost::end(rng))
     { }
 };

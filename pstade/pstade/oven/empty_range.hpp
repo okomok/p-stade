@@ -26,7 +26,7 @@ private:
     typedef boost::iterator_range<T *> super_t;
 
 public:
-    empty_range() :
+    explicit empty_range() :
         super_t(PSTADE_NULLPTR, PSTADE_NULLPTR)
     { }
 };

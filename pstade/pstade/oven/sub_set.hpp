@@ -31,7 +31,8 @@ namespace sub_set_detail {
         typedef typename boost::range_result_iterator<Range>::type iter_t;
         typedef std::vector<iter_t> type;
     };
-    
+
+
     template< class Range >
     struct super_
     {
@@ -55,6 +56,8 @@ private:
 
 public:
     // Question: should this ctor be removed?
+    //   If so, 'sub_set<> ss(rng|directed);'
+    //
     explicit sub_set(Range& rng) :
         storage_bt(
             boost::make_counting_iterator(boost::begin(rng)),

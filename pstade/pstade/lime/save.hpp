@@ -25,8 +25,8 @@ namespace pstade { namespace lime {
 namespace save_detail {
 
 
-    template< class OutIter >
-    void aux(node& parent, OutIter out)
+    template< class Interface, class OutIter >
+    void aux(node<Interface>& parent, OutIter out)
     {
         using oven::null_terminated;
 
@@ -55,7 +55,7 @@ namespace save_detail {
             oven::copy(">"|null_terminated, out);
         }
 
-        BOOST_FOREACH (node& child, parent) {
+        BOOST_FOREACH (node<Interface>& child, parent) {
             save_detail::aux(child, out);
         }
 
@@ -70,10 +70,10 @@ namespace save_detail {
 } // namespace save_detail
 
 
-template< class OutIter >
-void save(node& root, OutIter out)
+template< class Interface, class OutIter >
+void save(node<Interface>& root, OutIter out)
 {
-    BOOST_FOREACH(node& child, root) {
+    BOOST_FOREACH(node<Interface>& child, root) {
         save_detail::aux(child, out);
     }
 }

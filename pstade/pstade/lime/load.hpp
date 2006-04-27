@@ -35,18 +35,18 @@ namespace load_detail {
     // user state
     //
 
-    template< class DomainTag >
+    template< class Interface >
     struct context
     {
-        typedef DomainTag domain_type;
+        typedef Interface interface_type;
 
-        std::stack<node *> m_stack;
+        std::stack<node<Interface> *> m_stack;
         ustring m_curAttName;
 
-        node& top()
+        node<Interface>& top()
         { return *(m_stack.top()); }
 
-        void push(node *p)
+        void push(node<Interface> *p)
         { m_stack.push(p); }
 
         void pop()
@@ -64,8 +64,8 @@ namespace load_detail {
         {
             ustring name = oven::sequence(rng);
 
-            typedef typename Context::domain_type domain_t;
-            node *pnode = lime::new_node<domain_t>(name, cxt.top());
+            typedef typename Context::interface_type interface_t;
+            node<interface_t> *pnode = lime::new_node<interface_t>(name, cxt.top());
 
             cxt.top().push_back(pnode);
             cxt.push(pnode);
@@ -80,8 +80,8 @@ namespace load_detail {
         {
             ustring data = oven::sequence(rng);
 
-            typedef typename Context::domain_type domain_t;
-            node *pnode = lime::new_node<domain_t>(i_CharData, cxt.top());
+            typedef typename Context::interface_type interface_t;
+            node<interface_t> *pnode = lime::new_node<interface_t>(i_CharData, cxt.top());
 
             cxt.top().push_back(pnode);
             (*pnode)[i_attName] = data;
@@ -96,8 +96,8 @@ namespace load_detail {
         {
             ustring data = oven::sequence(rng);
 
-            typedef typename Context::domain_type domain_t;
-            node *pnode = lime::new_node<domain_t>(i_Reference, cxt.top());
+            typedef typename Context::interface_type interface_t;
+            node<interface_t> *pnode = lime::new_node<interface_t>(i_Reference, cxt.top());
 
             cxt.top().push_back(pnode);
             (*pnode)[i_attName] = data;
@@ -185,10 +185,10 @@ namespace load_detail {
 } // namespace load_detail
 
 
-template< class DomainTag, class ForwardRange >
-void load(node& root, const ForwardRange& rng)
+template< class Interface, class ForwardRange >
+void load(node<Interface>& root, const ForwardRange& rng)
 {
-    load_detail::context<DomainTag> cxt;
+    load_detail::context<Interface> cxt;
     cxt.push(&root);
 
     PSTADE_REQUIRE( biscuit::match<load_detail::start>(rng, cxt) );
