@@ -22,13 +22,13 @@
 // Such style is rejected for now.
 
 
-#include <iterator>
 #include <boost/assert.hpp>
 #include <boost/iterator/zip_iterator.hpp> // detail::minimum_traversal_category_in_iterator_tuple
 #include <boost/lambda/bind.hpp>
 #include <boost/lambda/core.hpp> // _1, _2
 #include <boost/tuple/tuple.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
+#include <boost/iterator/reverse_iterator.hpp>
 #include "./detail/an_iterator.hpp"
 #include "./detail/equal_to.hpp"
 
@@ -61,7 +61,7 @@ namespace unique_iterator_detail {
     struct super_
     {
         typedef boost::iterator_adaptor<
-            unique_iterator<ForwardIter, BinaryPred >,
+            unique_iterator<ForwardIter, BinaryPred>,
             ForwardIter,
             boost::use_default,
             typename traversal<ForwardIter>::type
@@ -166,6 +166,8 @@ friend class boost::iterator_core_access;
 
         boost::reverse_iterator<base_t> rit(this->base());
         boost::reverse_iterator<base_t> rlast(m_first);
+
+        BOOST_ASSERT(rit != rlast && "out of range");
 
         // if you pass 'rit' instead of 'rlast', overflow(1-step) comes.
         this->base_reference() = unique_iterator_detail::next(
