@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include "./adjacent_filter_range.hpp"
 #include "./append_range.hpp"
 #include "./array_protect_range.hpp"
 #include "./array_range.hpp"
@@ -31,7 +32,6 @@
 #include "./tab_expand_range.hpp"
 #include "./tab_unexpand_range.hpp"
 #include "./transform_range.hpp"
-#include "./unique_range.hpp"
 #include "./utf8_decode_range.hpp"
 
 #include "./range_cast.hpp"

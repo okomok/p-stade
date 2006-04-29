@@ -23,145 +23,77 @@
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <boost/range/result_iterator.hpp>
-#include <boost/type_traits/add_const.hpp>
-#include <pstade/const_overloaded.hpp>
+#include <boost/type_traits/remove_cv.hpp>
+#include <pstade/egg/function.hpp>
 #include "./is_lightweight_proxy.hpp"
+#include "./range_adaptor.hpp"
 
 
 namespace pstade { namespace oven {
 
 
-template< class Predicate, class Range >
-struct filter_range :
-    boost::iterator_range<
-        boost::filter_iterator<
-            Predicate,
-            typename boost::range_result_iterator<Range>::type
-        >
-    >
-{
-    typedef typename boost::range_result_iterator<Range>::type base_iterator;
+namespace filter_range_detail {
 
+
+    template< class Range, class Predicate >
+    struct super_
+    {
+        typedef boost::iterator_range<
+            boost::filter_iterator<
+                Predicate,
+                typename boost::range_result_iterator<Range>::type
+            >
+        > type;
+    };
+
+
+} // namespace filter_range_detail
+
+
+template< class Range, class Predicate >
+struct filter_range :
+    filter_range_detail::super_<Range, Predicate>::type
+{
 private:
-    typedef boost::filter_iterator<Predicate, base_iterator> iter_t;
-    typedef boost::iterator_range<iter_t> super_t;
+    typedef typename filter_range_detail::super_<Range, Predicate>::type super_t;
+    typedef typename super_t::iterator iter_t;
 
 public:
-    explicit filter_range(Predicate pred, Range& rng) :
+    explicit filter_range(Range& rng, Predicate pred) :
         super_t(
             iter_t(pred, boost::begin(rng), boost::end(rng)),
             iter_t(pred, boost::end(rng), boost::end(rng))
         )
     { }
 
-    // Note:
-    //   make_filter_iterator without predicate object fails under eVC4.
-
-    // seems an inconsistent interface to me, though Biscuit loves this style.
-    explicit filter_range(Range& rng) :
-        super_t(
-            iter_t(boost::begin(rng), boost::end(rng)),
-            iter_t(boost::end(rng), boost::end(rng))
-        )
-    { }
 };
-
-
-template< class Predicate, class Range > inline
-const filter_range<Predicate, Range>
-make_filter_range(Predicate pred, Range& rng)
-{
-    return filter_range<Predicate, Range>(pred, rng);
-}
-
-    template< class Predicate, class Range > inline
-    const filter_range<Predicate, typename boost::add_const<Range>::type>
-    make_filter_range(Predicate pred, const Range& rng)
-    {
-        return filter_range<Predicate, typename boost::add_const<Range>::type>(pred, rng);
-    }
-
-
-// without object
-template< class Predicate, class Range > inline
-typename const_overloaded<const filter_range<Predicate, Range>, Range>::type
-make_filter_range(Range& rng)
-{
-    return filter_range<Predicate, Range>(rng);
-}
-
-    template< class Predicate, class Range > inline
-    const filter_range<Predicate, typename boost::add_const<Range>::type>
-    make_filter_range(const Range& rng)
-    {
-        return filter_range<Predicate, typename boost::add_const<Range>::type>(rng);
-    }
 
 
 namespace filter_range_detail {
 
 
-    template< class Predicate >
-    struct adaptor
+    struct baby_generator
     {
-        adaptor(Predicate pred) : m_pred(pred) { }
-        Predicate m_pred;
+        template< class Range, class Predicate >
+        struct result
+        {
+            typedef typename boost::remove_cv<Predicate>::type pred_t;
+            typedef const filter_range<Range, pred_t> type;
+        };
+
+        template< class Result, class Range, class Predicate >
+        Result call(Range& rng, Predicate pred)
+        {
+            return Result(rng, pred);
+        }
     };
-
-
-    template< class Predicate, class Range > inline
-    filter_range<Predicate, Range>
-    operator|(Range& rng, adaptor<Predicate> ad)
-    {
-        return oven::make_filter_range(ad.m_pred, rng);
-    }
-
-    template< class Predicate, class Range > inline
-    filter_range<Predicate, typename boost::add_const<Range>::type>
-    operator|(const Range& rng, adaptor<Predicate> ad)
-    {
-        return oven::make_filter_range(ad.m_pred, rng);
-    }
-
-
-    template< class Predicate >
-    struct adaptor_without_object
-    { };
-
-
-    template< class Predicate, class Range > inline
-    const filter_range<Predicate, Range>
-    operator|(Range& rng, adaptor_without_object<Predicate>)
-    {
-        return oven::make_filter_range<Predicate>(rng);
-    }
-
-    template< class Predicate, class Range > inline
-    const filter_range<Predicate, typename boost::add_const<Range>::type>
-    operator|(const Range& rng, adaptor_without_object<Predicate>)
-    {
-        return oven::make_filter_range<Predicate>(rng);
-    }
 
 
 } // namespace filter_range_detail
 
 
-template< class Predicate > inline
-filter_range_detail::adaptor<Predicate>
-filtered(Predicate pred)
-{
-    return filter_range_detail::adaptor<Predicate>(pred);
-}
-
-
-// without object
-template< class Predicate > inline
-filter_range_detail::adaptor_without_object<Predicate>
-filtered()
-{
-    return filter_range_detail::adaptor_without_object<Predicate>();
-}
+PSTADE_EGG_FUNCTION(make_filter_range, filter_range_detail::baby_generator)
+PSTADE_OVEN_RANGE_ADAPTOR(filtered, filter_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven

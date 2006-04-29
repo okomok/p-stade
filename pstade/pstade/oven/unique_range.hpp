@@ -10,16 +10,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/range/begin.hpp>
-#include <boost/range/end.hpp>
-#include <boost/range/iterator_range.hpp>
-#include <boost/range/result_iterator.hpp>
-#include <boost/type_traits/remove_cv.hpp>
 #include <pstade/egg/function.hpp>
-#include "./detail/equal_to.hpp"
+#include "./adjacent_filter_range.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
-#include "./unique_iterator.hpp"
 
 
 namespace pstade { namespace oven {
@@ -28,14 +22,22 @@ namespace pstade { namespace oven {
 namespace unique_range_detail {
 
 
-    template< class ForwardRange, class BinaryPred >
+    struct not_equal_to
+    {
+        template< class A0, class A1 >
+        bool operator()(const A0& a0, const A1& a1) const
+        {
+            return a0 != a1;
+        }
+    };
+
+
+    template< class ForwardRange >
     struct super_
     {
-        typedef boost::iterator_range<
-            unique_iterator<
-                typename boost::range_result_iterator<ForwardRange>::type,
-                BinaryPred
-            >
+        typedef adjacent_filter_range<
+            ForwardRange,
+            unique_range_detail::not_equal_to
         > type;
     };
 
@@ -43,20 +45,16 @@ namespace unique_range_detail {
 } // namespace unique_range_detail
 
 
-template< class ForwardRange, class BinaryPred = detail::equal_to >
+template< class ForwardRange >
 struct unique_range :
-    unique_range_detail::super_<ForwardRange, BinaryPred>::type
+    unique_range_detail::super_<ForwardRange>::type
 {
 private:
-    typedef typename unique_range_detail::super_<ForwardRange, BinaryPred>::type super_t;
-    typedef typename super_t::iterator iter_t;
+    typedef typename unique_range_detail::super_<ForwardRange>::type super_t;
 
 public:
-    explicit unique_range(ForwardRange& rng, BinaryPred pred = detail::equal_to()) :
-        super_t(
-            iter_t(boost::begin(rng), boost::begin(rng), boost::end(rng), pred),
-            iter_t(boost::end(rng), boost::begin(rng), boost::end(rng), pred)
-        )
+    explicit unique_range(ForwardRange& rng) :
+        super_t(rng, unique_range_detail::not_equal_to())
     { }
 };
 
@@ -66,18 +64,11 @@ namespace unique_range_detail {
 
     struct baby_generator
     {
-        template< class ForwardRange, class BinaryPred = detail::equal_to >
+        template< class ForwardRange >
         struct result
         {
-            typedef typename boost::remove_cv<BinaryPred>::type pred_t;
-            typedef const unique_range<ForwardRange, pred_t> type;
+            typedef const unique_range<ForwardRange> type;
         };
-
-        template< class Result, class ForwardRange, class BinaryPred >
-        Result call(ForwardRange& rng, BinaryPred pred)
-        {
-            return Result(rng, pred);
-        }
 
         template< class Result, class ForwardRange >
         Result call(ForwardRange& rng)
@@ -97,7 +88,7 @@ PSTADE_OVEN_RANGE_ADAPTOR(uniqued, unique_range_detail::baby_generator)
 } } // namespace pstade::oven
 
 
-PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE(pstade::oven::unique_range, 2)
+PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE(pstade::oven::unique_range, 1)
 
 
 #endif
