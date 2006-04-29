@@ -74,11 +74,12 @@ namespace unique_iterator_detail {
     {
         // See: std::adjacent_find
 
+        BOOST_ASSERT(first != last);
+
         ForwardIter next = first;
         while (++next != last) {
             if (!pred(*first, *next))
                 return next;
-
             first = next;
         }
 
@@ -161,13 +162,13 @@ friend class boost::iterator_core_access;
 
     void decrement()
     {
+        BOOST_ASSERT(this->base() != m_first && "out of range");
+
         using namespace boost;
         using namespace lambda;
 
         boost::reverse_iterator<base_t> rit(this->base());
         boost::reverse_iterator<base_t> rlast(m_first);
-
-        BOOST_ASSERT(rit != rlast && "out of range");
 
         // if you pass 'rit' instead of 'rlast', overflow(1-step) comes.
         this->base_reference() = unique_iterator_detail::next(
