@@ -108,7 +108,9 @@ public:
         ForwardIter first, ForwardIter last,
         BinaryPred pred = detail::equal_to()
     ) :
-        super_t(it), m_first(first), m_last(last), m_pred(pred)
+        super_t(it),
+        m_first(first), m_last(last),
+        m_pred(pred)
     { }
 
     template< class Iterator_ >
@@ -116,7 +118,9 @@ public:
         unique_iterator<Iterator_, BinaryPred> other,
         typename boost::enable_if_convertible<Iterator_, ForwardIter>::type * = 0
     ) :
-        super_t(other.base()), m_first(other.begin()), m_last(other.end()), m_pred(other.predicate())
+        super_t(other.base()),
+        m_first(other.begin()), m_last(other.end()),
+        m_pred(other.predicate())
     { }
 
     base_t begin() const
@@ -141,16 +145,18 @@ private:
 friend class boost::iterator_core_access;
     ref_t dereference() const
     {
-        BOOST_ASSERT(this->base() != m_last && "pstade::oven::unique_iterator - out of range access");
+        BOOST_ASSERT(this->base() != m_last && "out of range access");
 
         return *this->base();
     }
 
     void increment()
     {
-        BOOST_ASSERT(this->base() != m_last && "pstade::oven::unique_iterator - out of range");
+        BOOST_ASSERT(this->base() != m_last && "out of range");
 
-        this->base_reference() = unique_iterator_detail::next(this->base(), m_last, m_pred);
+        this->base_reference() = unique_iterator_detail::next(
+            this->base(), m_last, m_pred
+        );
     }
 
     void decrement()
@@ -159,8 +165,12 @@ friend class boost::iterator_core_access;
         using namespace lambda;
 
         boost::reverse_iterator<base_t> rit(this->base());
-        boost::reverse_iterator<base_t> rlast(m_first); // if you pass 'rit' instead of 'rlast', overflow(1-step) comes.
-        this->base_reference() = unique_iterator_detail::next(rit, rlast, lambda::bind<bool>(m_pred, _2, _1)).base();
+        boost::reverse_iterator<base_t> rlast(m_first);
+
+        // if you pass 'rit' instead of 'rlast', overflow(1-step) comes.
+        this->base_reference() = unique_iterator_detail::next(
+            rit, rlast, lambda::bind<bool>(m_pred, _2, _1)
+        ).base();
     }
 
     bool equal(unique_iterator other) const
