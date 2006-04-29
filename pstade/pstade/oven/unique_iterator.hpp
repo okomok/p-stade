@@ -113,10 +113,10 @@ public:
         m_pred(pred)
     { }
 
-    template< class Iterator_ >
+    template< class ForwardIter_ >
     unique_iterator(
-        unique_iterator<Iterator_, BinaryPred> other,
-        typename boost::enable_if_convertible<Iterator_, ForwardIter>::type * = 0
+        unique_iterator<ForwardIter_, BinaryPred> other,
+        typename boost::enable_if_convertible<ForwardIter_, ForwardIter>::type * = 0
     ) :
         super_t(other.base()),
         m_first(other.begin()), m_last(other.end()),
