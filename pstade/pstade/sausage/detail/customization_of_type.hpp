@@ -14,7 +14,7 @@
 #include <boost/mpl/identity.hpp>
 #include <boost/mpl/not.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <pstade/apple/is_boost_range.hpp>
+#include <pstade/apple/is_container.hpp>
 #include <pstade/has_xxx.hpp>
 #include <pstade/remove_rcv.hpp>
 #include "../customization.hpp"
@@ -54,7 +54,7 @@ private:
             boost::mpl::identity<intrusive_way_tag>,
             boost::mpl::eval_if< has_pstade_sausage_tag<bare_t>,
                 get_intrusive_tag<bare_t>,
-                boost::mpl::eval_if< apple::is_boost_range<bare_t>,
+                boost::mpl::eval_if< apple::is_container<bare_t>,
                     boost::mpl::identity<boost_range_tag>,
                     boost::mpl::identity<bare_t> // use the type as tag
                 >

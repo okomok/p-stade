@@ -73,7 +73,7 @@ namespace save_detail {
 template< class Interface, class OutIter >
 void save(node<Interface>& root, OutIter out)
 {
-    BOOST_FOREACH(node<Interface>& child, root) {
+    BOOST_FOREACH (node<Interface>& child, root) {
         save_detail::aux(child, out);
     }
 }

@@ -22,10 +22,8 @@
 #include "./apple/is_list.hpp"
 #include "./apple/is_vector.hpp"
 
+#include "./apple/is_container.hpp"
 #include "./apple/is_sequence.hpp"
-
-
-#include "./apple/is_boost_range.hpp"
 
 
 #endif

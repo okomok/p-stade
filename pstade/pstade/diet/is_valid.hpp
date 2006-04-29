@@ -15,7 +15,7 @@
 #include <boost/iterator/iterator_traits.hpp> // iterator_reference
 #include <boost/mpl/if.hpp>
 #include <boost/range/result_iterator.hpp>
-#include <pstade/apple/is_boost_range.hpp>
+#include <pstade/apple/is_container.hpp>
 #include <pstade/overload.hpp>
 #include "./access.hpp"
 #include "./detail/has_pstade_diagnostic.hpp"
@@ -76,7 +76,7 @@ bool is_valid(const Diagnostic& dg)
 //
 
 template< class Range > inline
-typename boost::enable_if<pstade::apple::is_boost_range<Range>, bool>::type
+typename boost::enable_if<pstade::apple::is_container<Range>, bool>::type
 pstade_diet_is_valid(const Range& rng, pstade::overload)
 {
     typedef typename boost::range_const_iterator<Range>::type iter_t;

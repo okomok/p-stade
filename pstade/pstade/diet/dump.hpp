@@ -15,7 +15,7 @@
 #include <boost/iterator/iterator_traits.hpp> // iterator_reference
 #include <boost/mpl/if.hpp>
 #include <boost/range/result_iterator.hpp>
-#include <pstade/apple/is_boost_range.hpp>
+#include <pstade/apple/is_container.hpp>
 #include <pstade/overload.hpp>
 #include "./access.hpp"
 #include "./detail/has_pstade_diagnostic.hpp"
@@ -76,7 +76,7 @@ void dump(const Diagnostic& dg, OStream& os)
 //
 
 template< class Range, class OStream > inline
-typename boost::enable_if<pstade::apple::is_boost_range<Range>, void>::type
+typename boost::enable_if<pstade::apple::is_container<Range>, void>::type
 pstade_diet_dump(const Range& rng, OStream& os, pstade::overload)
 {
     os << "<range>";
