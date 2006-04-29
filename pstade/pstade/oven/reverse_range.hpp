@@ -70,7 +70,7 @@ namespace reverse_range_detail {
     struct baby_generator
     {
         template< class BidiRange >
-        struct apply
+        struct result
         {
             typedef const reverse_range<BidiRange> type;
         };

@@ -45,7 +45,7 @@ namespace prepend_range_detail {
     struct baby_generator
     {
         template< class Range, class T >
-        struct apply
+        struct result
         {
             typedef const prepend_range<Range, T> type;
         };

@@ -133,7 +133,7 @@ namespace null_terminate_range_detail {
     struct baby_generator
     {
         template< class Range >
-        struct apply
+        struct result
         {
             typedef const null_terminate_range<Range> type;
         };

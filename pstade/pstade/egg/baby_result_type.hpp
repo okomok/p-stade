@@ -66,7 +66,7 @@ struct baby_result0 :
 
 template< class BabyFunction, class A0 >
 struct baby_result1 :
-    boost::mpl::apply1<BabyFunction, 
+    BabyFunction::template result<
         typename boost::remove_reference<A0>::type
     >
 { };
@@ -74,7 +74,7 @@ struct baby_result1 :
 
 template< class BabyFunction, class A0, class A1 >
 struct baby_result2 :
-    boost::mpl::apply2<BabyFunction,
+    BabyFunction::template result<
         typename boost::remove_reference<A0>::type,
         typename boost::remove_reference<A1>::type
     >
@@ -83,7 +83,7 @@ struct baby_result2 :
 
 template< class BabyFunction, class A0, class A1, class A2 >
 struct baby_result3 :
-    boost::mpl::apply3<BabyFunction,
+    BabyFunction::template result<
         typename boost::remove_reference<A0>::type,
         typename boost::remove_reference<A1>::type,
         typename boost::remove_reference<A2>::type

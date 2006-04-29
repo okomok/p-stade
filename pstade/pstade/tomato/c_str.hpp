@@ -87,7 +87,7 @@ namespace c_str_detail {
     struct baby
     {
         template< class CStringizable >
-        struct apply : boost::mpl::identity<
+        struct result : boost::mpl::identity<
             const TCHAR *
         >
         { };

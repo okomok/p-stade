@@ -74,7 +74,7 @@ namespace repeat_range_detail {
     struct baby_generator
     {
         template< class Range, class CountT >
-        struct apply
+        struct result
         {
             typedef typename remove_rcv<CountT>::type count_t;
             typedef const repeat_range<Range, count_t> type;

@@ -144,7 +144,7 @@ friend class boost::iterator_core_access;
         BOOST_ASSERT(
             m_last1 == other.m_last1 &&
             m_first2 == other.m_first2 &&
-            "incompatible iterators compared"
+            "incompatible iterators"
         );
 
         return

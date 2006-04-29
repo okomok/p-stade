@@ -83,7 +83,7 @@ namespace require_detail {
     struct baby
     {
         template< class T, class StringT = void >
-        struct apply :
+        struct result :
             boost::add_reference<T>
         { };
 

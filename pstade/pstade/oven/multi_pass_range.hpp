@@ -75,7 +75,7 @@ namespace multi_pass_range_detail {
     struct baby_generator
     {
         template< class Range >
-        struct apply
+        struct result
         {
             typedef const multi_pass_range<Range> type;
         };

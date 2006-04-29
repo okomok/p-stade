@@ -54,7 +54,7 @@ namespace copy_detail {
     struct baby
     {
         template< class Range, class OutIterOrArray >
-        struct apply : // Egg asks for Result by using reference.
+        struct result : // Egg asks for Result by using reference.
             boost::mpl::eval_if< boost::is_array<OutIterOrArray>,
                 array_to_pointer_decay<OutIterOrArray>,
                 boost::mpl::identity<OutIterOrArray>
@@ -72,7 +72,7 @@ namespace copy_detail {
     struct range_baby
     {
         template< class RangeIn, class RangeOut >
-        struct apply :
+        struct result :
             boost::range_result_iterator<RangeOut>
         { };
 

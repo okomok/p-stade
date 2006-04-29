@@ -80,7 +80,7 @@ namespace pointer_range_detail {
     struct baby_generator
     {
         template< class ContiguousRange >
-        struct apply
+        struct result
         {
             typedef const pointer_range<ContiguousRange> type;
         };

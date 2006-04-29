@@ -90,7 +90,7 @@ namespace indirect_range_detail {
     struct baby_generator
     {
         template< class Range >
-        struct apply
+        struct result
         {
             typedef const indirect_range<Range> type;
         };

@@ -65,7 +65,7 @@ namespace tab_expand_range_detail {
     struct baby_generator
     {
         template< class ForwardRange, class TabSizeT >
-        struct apply
+        struct result
         {
             typedef const tab_expand_range<ForwardRange> type;
         };

@@ -79,7 +79,7 @@ namespace transform_range_detail {
     struct baby_generator
     {
         template< class Range, class UnaryFun >
-        struct apply
+        struct result
         {
             typedef typename boost::remove_cv<UnaryFun>::type fun_t;
             typedef const transform_range<fun_t, Range> type;

@@ -35,7 +35,7 @@ namespace const_detail {
     struct baby
     {
         template< class T >
-        struct apply :
+        struct result :
             boost::add_reference<
                 typename boost::add_const<T>::type
             >

@@ -63,7 +63,7 @@ namespace utf8_decode_range_detail {
     struct baby_generator
     {
         template< class BaseRange, class Ucs4T = boost::uint32_t >
-        struct apply
+        struct result
         {
             typedef typename boost::remove_cv<Ucs4T>::type ucs4_t;
             typedef const utf8_decode_range<BaseRange, ucs4_t> type;

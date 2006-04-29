@@ -66,7 +66,7 @@ namespace joint_range_detail {
     struct baby_generator
     {
         template< class Range1, class Range2 >
-        struct apply
+        struct result
         {
             typedef const joint_range<Range1, Range2> type;
         };

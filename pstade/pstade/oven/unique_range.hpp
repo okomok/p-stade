@@ -67,7 +67,7 @@ namespace unique_range_detail {
     struct baby_generator
     {
         template< class ForwardRange, class BinaryPred = detail::equal_to >
-        struct apply
+        struct result
         {
             typedef typename boost::remove_cv<BinaryPred>::type pred_t;
             typedef const unique_range<ForwardRange, pred_t> type;

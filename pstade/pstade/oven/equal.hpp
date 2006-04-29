@@ -43,7 +43,7 @@ namespace equal_detail {
     struct gift
     {
         template< class Range, class InputIterOrRange, class BinaryPred = void >
-        struct apply
+        struct result
         {
             typedef bool type;
         };

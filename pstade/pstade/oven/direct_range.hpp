@@ -56,7 +56,7 @@ namespace direct_range_detail {
     struct baby_generator
     {
         template< class Range >
-        struct apply
+        struct result
         {
             typedef const direct_range<Range> type;
         };

@@ -36,7 +36,7 @@ namespace find_detail {
     struct gift
     {
         template< class Range, class UnaryPredOrValue >
-        struct apply :
+        struct result :
             boost::range_result_iterator<Range>
         { };
     };
