@@ -29,7 +29,7 @@ namespace map_key_range_detail {
     template< class AssocContainer >
     struct get_key
     {
-		typedef typename AssocContainer::key_type result_type;
+        typedef typename AssocContainer::key_type result_type;
 
         template< class PairT >
         result_type operator()(PairT& p) const
@@ -45,7 +45,7 @@ namespace map_key_range_detail {
         typedef boost::iterator_range<
             boost::transform_iterator<
                 get_key<AssocContainer>,
-				typename boost::range_result_iterator<AssocContainer>::type
+                typename boost::range_result_iterator<AssocContainer>::type
             >
         > type;
     };
@@ -60,14 +60,14 @@ struct map_key_range :
 {
 private:
     typedef typename map_key_range_detail::super_<AssocContainer>::type super_t;
-	typedef typename super_t::iterator iter_t;
+    typedef typename super_t::iterator iter_t;
 
 public:
     explicit map_key_range(AssocContainer& ac) :
-	super_t(
-		iter_t(boost::begin(ac), map_key_range_detail::get_key<AssocContainer>()),
-		iter_t(boost::end(ac), map_key_range_detail::get_key<AssocContainer>())
-	)
+    super_t(
+        iter_t(boost::begin(ac), map_key_range_detail::get_key<AssocContainer>()),
+        iter_t(boost::end(ac), map_key_range_detail::get_key<AssocContainer>())
+    )
     { }
 };
 
