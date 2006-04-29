@@ -40,7 +40,7 @@ namespace unique_range_detail {
     };
 
 
-} // namespace tab_expand_range_detail
+} // namespace unique_range_detail
 
 
 template< class ForwardRange, class BinaryPred = detail::equal_to >
