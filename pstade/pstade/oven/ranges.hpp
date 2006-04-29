@@ -30,6 +30,7 @@
 #include "./tab_expand_range.hpp"
 #include "./tab_unexpand_range.hpp"
 #include "./transform_range.hpp"
+#include "./unique_range.hpp"
 #include "./utf8_decode_range.hpp"
 
 #include "./range_cast.hpp"

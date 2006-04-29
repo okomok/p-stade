@@ -47,6 +47,7 @@ namespace node_detail {
     {
         node_not_found err("<node-not-found>" +
             oven::sequence_cast<std::string>(name) + "</node-not-found>");
+
         boost::throw_exception(err);
     }
 
@@ -81,54 +82,66 @@ public:
     //
     explicit node(ustring name) :
         m_name(name)
-    {
-        BOOST_ASSERT(!boost::empty(m_name));
-    }
+    { }
 
     explicit node(node& parent, ustring name) :
         m_parent(parent), m_name(name) 
-    {
-        BOOST_ASSERT(!boost::empty(m_name));
-    }
+    { }
 
     virtual ~node()
     { }
 
     // accessors
     //
-    typedef std::map<ustring, ustring>
-    attributes_type;
- 
-    attributes_type& attributes()
+    boost::optional<node&> parent() const
     {
-        return m_atts;
+        BOOST_ASSERT(valid());
+        return m_parent;
     }
 
     ustring name() const
     {
+        BOOST_ASSERT(valid());
         return m_name;
     }
 
-    boost::optional<node&> parent() const
+    typedef std::map<ustring, ustring>
+    attributes_type;
+
+    attributes_type& attributes()
     {
-        return m_parent;
+        BOOST_ASSERT(valid());
+        return m_atts;
+    }
+
+    node& child(ustring childName)
+    {
+        BOOST_ASSERT(valid());
+        return get_child(childName);
+    }
+
+    ustring& att(ustring attName)
+    {
+        BOOST_ASSERT(valid());
+        return m_atts[attName];
     }
 
     // syntax sugars
     //
     node& operator/(ustring childName)
     {
-        return get_child(childName);
+        return child(childName);
     }
 
     ustring& operator%(ustring attName)
     {
-        return attributes()[attName];
+        return att(attName);
     }
 
-    node& operator+=(ustring name)
+    node& operator+=(ustring childName)
     {
-        this->push_back( pstade_lemon_new_node(*this, name, overload()) );
+        BOOST_ASSERT(valid());
+        this->push_back( pstade_lemon_new_node(*this, childName, overload()) );
         return *this;
     }
 
@@ -139,7 +152,7 @@ private:
 
     node& get_child(ustring childName)
     {
-        boost::ptr_vector<node>& self = *this; // workaround VC++
+        node& self = *this; // workaround VC++
 
         BOOST_FOREACH (node& child, self) {
             if (oven::equals(child.name(), childName))
@@ -155,6 +168,11 @@ private:
 
         node_detail::throw_error(childName);
         return *this; // suppress warning
+    }
+
+    bool valid() const
+    {
+        return !boost::empty(m_name);
     }
 };
 
