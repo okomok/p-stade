@@ -22,6 +22,8 @@
 #include "./indirect_range.hpp"
 #include "./istream_range.hpp"
 #include "./joint_range.hpp"
+#include "./map_key_range.hpp"
+#include "./map_value_range.hpp"
 #include "./null_terminate_range.hpp"
 #include "./pointer_range.hpp"
 #include "./prepend_range.hpp"
@@ -32,6 +34,7 @@
 #include "./tab_expand_range.hpp"
 #include "./tab_unexpand_range.hpp"
 #include "./transform_range.hpp"
+#include "./unique_range.hpp"
 #include "./utf8_decode_range.hpp"
 
 #include "./range_cast.hpp"

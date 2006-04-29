@@ -52,8 +52,6 @@ template< class BidiRange >
 struct reverse_range :
     reverse_range_detail::super_<BidiRange>::type
 {
-    typedef typename boost::range_result_iterator<BidiRange>::type base_iterator;
-
 private:
     typedef typename reverse_range_detail::super_<BidiRange>::type super_t;
 
