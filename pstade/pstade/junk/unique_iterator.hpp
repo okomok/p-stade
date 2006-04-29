@@ -1,5 +1,5 @@
-#ifndef PSTADE_OVEN_ADJACENT_FILTER_ITERATOR_HPP
-#define PSTADE_OVEN_ADJACENT_FILTER_ITERATOR_HPP
+#ifndef PSTADE_OVEN_UNIQUE_ITERATOR_HPP
+#define PSTADE_OVEN_UNIQUE_ITERATOR_HPP
 
 
 // PStade.Oven
@@ -11,6 +11,9 @@
 
 
 // Note:
+//
+// Should it be different name, 'adjacent_filtered' and 'uniqued'?
+// http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1871.html
 //
 // Conforming to bidirectional iterator seems to need 'm_first'.
 // Am I right?
@@ -34,10 +37,10 @@ namespace pstade { namespace oven {
 
 
 template< class ForwardIter, class BinaryPred >
-struct adjacent_filter_iterator;
+struct unique_iterator;
 
 
-namespace adjacent_filter_iterator_detail {
+namespace unique_iterator_detail {
 
 
     template< class ForwardIter >
@@ -58,7 +61,7 @@ namespace adjacent_filter_iterator_detail {
     struct super_
     {
         typedef boost::iterator_adaptor<
-            adjacent_filter_iterator<ForwardIter, BinaryPred>,
+            unique_iterator<ForwardIter, BinaryPred>,
             ForwardIter,
             boost::use_default,
             typename traversal<ForwardIter>::type
@@ -75,7 +78,7 @@ namespace adjacent_filter_iterator_detail {
 
         ForwardIter next = first;
         while (++next != last) {
-            if (pred(*first, *next))
+            if (!pred(*first, *next))
                 return next;
             first = next;
         }
@@ -84,28 +87,27 @@ namespace adjacent_filter_iterator_detail {
     }
 
 
-} // namespace adjacent_filter_iterator_detail
+} // namespace unique_iterator_detail
 
 
-template< class ForwardIter, class BinaryPred >
-struct adjacent_filter_iterator :
-    adjacent_filter_iterator_detail::super_<ForwardIter, BinaryPred>::type
+template< class ForwardIter, class BinaryPred = detail::equal_to >
+struct unique_iterator :
+    unique_iterator_detail::super_<ForwardIter, BinaryPred>::type
 {
 private:
-    typedef adjacent_filter_iterator self_t;
-    typedef typename adjacent_filter_iterator_detail::super_<ForwardIter, BinaryPred>::type super_t;
+    typedef unique_iterator self_t;
+    typedef typename unique_iterator_detail::super_<ForwardIter, BinaryPred>::type super_t;
     typedef typename super_t::base_type base_t;
     typedef typename super_t::reference ref_t;
 
 public:
-    explicit adjacent_filter_iterator()
+    explicit unique_iterator()
     { }
 
-    template< class ForwardIter_ >
-    explicit adjacent_filter_iterator(
-        ForwardIter_ it,
-        ForwardIter_ first, ForwardIter_ last,
-        BinaryPred pred
+    explicit unique_iterator(
+        ForwardIter it,
+        ForwardIter first, ForwardIter last,
+        BinaryPred pred = detail::equal_to()
     ) :
         super_t(it),
         m_first(first), m_last(last),
@@ -113,8 +115,8 @@ public:
     { }
 
     template< class ForwardIter_ >
-    adjacent_filter_iterator(
-        adjacent_filter_iterator<ForwardIter_, BinaryPred> other,
+    unique_iterator(
+        unique_iterator<ForwardIter_, BinaryPred> other,
         typename boost::enable_if_convertible<ForwardIter_, ForwardIter>::type * = 0
     ) :
         super_t(other.base()),
@@ -123,13 +125,19 @@ public:
     { }
 
     base_t begin() const
-    { return m_first; }
+    {
+        return m_first;
+    }
 
     base_t end() const
-    { return m_last; }
+    {
+        return m_last;
+    }
 
     BinaryPred predicate() const
-    { return m_pred; }
+    {
+        return m_pred;
+    }
 
 private:
     base_t m_first, m_last;
@@ -147,7 +155,7 @@ friend class boost::iterator_core_access;
     {
         BOOST_ASSERT(this->base() != m_last && "out of range");
 
-        this->base_reference() = adjacent_filter_iterator_detail::next(
+        this->base_reference() = unique_iterator_detail::next(
             this->base(), m_last, m_pred
         );
     }
@@ -156,18 +164,19 @@ friend class boost::iterator_core_access;
     {
         BOOST_ASSERT(this->base() != m_first && "out of range");
 
-        namespace bll = boost::lambda;
+        using namespace boost;
+        using namespace lambda;
 
         boost::reverse_iterator<base_t> rit(this->base());
         boost::reverse_iterator<base_t> rlast(m_first);
 
         // if you pass 'rit' instead of 'rlast', overflow(1-step) comes.
-        this->base_reference() = adjacent_filter_iterator_detail::next(
-            rit, rlast, bll::bind<bool>(m_pred, bll::_2, bll::_1)
+        this->base_reference() = unique_iterator_detail::next(
+            rit, rlast, lambda::bind<bool>(m_pred, _2, _1)
         ).base();
     }
 
-    bool equal(adjacent_filter_iterator other) const
+    bool equal(unique_iterator other) const
     {
         BOOST_ASSERT(m_first == other.m_first && m_last == other.m_last && "incompatible iterators");
 
@@ -177,10 +186,18 @@ friend class boost::iterator_core_access;
 
 
 template< class ForwardIter, class BinaryPred > inline const
-adjacent_filter_iterator<ForwardIter, BinaryPred>
-make_adjacent_filter_iterator(ForwardIter it, ForwardIter first, ForwardIter last, BinaryPred pred)
+unique_iterator<ForwardIter, BinaryPred>
+make_unique_iterator(ForwardIter it, ForwardIter first, ForwardIter last, BinaryPred pred)
 {
-    return adjacent_filter_iterator<ForwardIter, BinaryPred>(it, first, last, pred);
+    return unique_iterator<ForwardIter, BinaryPred>(it, first, last, pred);
+}
+
+
+template< class ForwardIter > inline const
+unique_iterator<ForwardIter>
+make_unique_iterator(ForwardIter it, ForwardIter first, ForwardIter last)
+{
+    return unique_iterator<ForwardIter>(it, first, last);
 }
 
 
