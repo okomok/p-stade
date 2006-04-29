@@ -130,6 +130,111 @@ struct operators
         return egg::baby_call<BabyFunction>(a0, a1, a2);
     }
 
+    template< class A0, class A1, class A2 >
+    typename baby_result3<BabyFunction,
+        A0,
+        A1,
+        typename boost::add_const<A2>::type
+    >::type
+    operator()(
+        A0& a0,
+        A1& a1,
+        const A2& a2
+    ) const
+    {
+        return egg::baby_call<BabyFunction>(a0, a1, a2);
+    }
+
+    template< class A0, class A1, class A2 >
+    typename baby_result3<BabyFunction,
+        A0,
+        typename boost::add_const<A1>::type,
+        A2
+    >::type
+    operator()(
+        A0& a0,
+        const A1& a1,
+        A2& a2
+    ) const
+    {
+        return egg::baby_call<BabyFunction>(a0, a1, a2);
+    }
+
+    template< class A0, class A1, class A2 >
+    typename baby_result3<BabyFunction,
+        A0,
+        typename boost::add_const<A1>::type,
+        typename boost::add_const<A2>::type
+    >::type
+    operator()(
+        A0& a0,
+        const A1& a1,
+        const A2& a2
+    ) const
+    {
+        return egg::baby_call<BabyFunction>(a0, a1, a2);
+    }
+
+    template< class A0, class A1, class A2 >
+    typename baby_result3<BabyFunction,
+        typename boost::add_const<A0>::type,
+        A1,
+        A2
+    >::type
+    operator()(
+        const A0& a0,
+        A1& a1,
+        A2& a2
+    ) const
+    {
+        return egg::baby_call<BabyFunction>(a0, a1, a2);
+    }
+
+    template< class A0, class A1, class A2 >
+    typename baby_result3<BabyFunction,
+        typename boost::add_const<A0>::type,
+        A1,
+        typename boost::add_const<A2>::type
+    >::type
+    operator()(
+        const A0& a0,
+        A1& a1,
+        const A2& a2
+    ) const
+    {
+        return egg::baby_call<BabyFunction>(a0, a1, a2);
+    }
+
+    template< class A0, class A1, class A2 >
+    typename baby_result3<BabyFunction,
+        typename boost::add_const<A0>::type,
+        typename boost::add_const<A1>::type,
+        A2
+    >::type
+    operator()(
+        const A0& a0,
+        const A1& a1,
+        A2& a2
+    ) const
+    {
+        return egg::baby_call<BabyFunction>(a0, a1, a2);
+    }
+
+    template< class A0, class A1, class A2 >
+    typename baby_result3<BabyFunction,
+        typename boost::add_const<A0>::type,
+        typename boost::add_const<A1>::type,
+        typename boost::add_const<A2>::type
+    >::type
+    operator()(
+        const A0& a0,
+        const A1& a1,
+        const A2& a2
+    ) const
+    {
+        return egg::baby_call<BabyFunction>(a0, a1, a2);
+    }
+
 }; // struct operators
 
 

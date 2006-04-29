@@ -27,6 +27,7 @@
 #include "./repeat_range.hpp"
 #include "./reverse_range.hpp"
 #include "./single_range.hpp"
+#include "./slice_range.hpp"
 #include "./tab_expand_range.hpp"
 #include "./tab_unexpand_range.hpp"
 #include "./transform_range.hpp"

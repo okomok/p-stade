@@ -15,11 +15,13 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
+#include <boost/throw_exception.hpp>
 #include <pstade/biscuit/algorithm/match.hpp>
 #include <pstade/biscuit/parser.hpp>
 #include <pstade/melon.hpp>
 #include <pstade/oven/sequence_cast.hpp>
-#include <pstade/require.hpp>
+#include <pstade/oven/slice_range.hpp>
+#include "./error.hpp"
 #include "./intrinsic.hpp"
 #include "./new_node.hpp"
 #include "./node.hpp"
@@ -44,13 +46,19 @@ namespace load_detail {
         ustring m_curAttName;
 
         node<Interface>& top()
-        { return *(m_stack.top()); }
+        {
+            return *(m_stack.top());
+        }
 
         void push(node<Interface> *p)
-        { m_stack.push(p); }
+        {
+            m_stack.push(p);
+        }
 
         void pop()
-        { m_stack.pop(); }
+        {
+            m_stack.pop();
+        }
     };
 
 
@@ -84,7 +92,7 @@ namespace load_detail {
             node<interface_t> *pnode = lime::new_node<interface_t>(cxt.top(), i_CharData);
 
             cxt.top().push_back(pnode);
-            (*pnode).attributes()[i_attName] = data;
+            (*pnode).att(i_attName) = data;
         }
     };
 
@@ -100,7 +108,7 @@ namespace load_detail {
             node<interface_t> *pnode = lime::new_node<interface_t>(cxt.top(), i_Reference);
 
             cxt.top().push_back(pnode);
-            (*pnode).attributes()[i_attName] = data;
+            (*pnode).att(i_attName) = data;
         }
     };
 
@@ -124,9 +132,9 @@ namespace load_detail {
             ustring val = oven::sequence(rng);
             BOOST_ASSERT(boost::size(val) >= 2);
 
-            cxt.top().attributes()[cxt.m_curAttName] =
-                // Todo: back_pop_range, front_pop_range ?
-                ustring( boost::begin(val)+1, boost::end(val)-1 );
+            cxt.top().att(cxt.m_curAttName) =
+                // remove " "
+                val|oven::sliced(1, -1);
         }
     };
 
@@ -185,13 +193,25 @@ namespace load_detail {
 } // namespace load_detail
 
 
+struct load_error :
+    error
+{
+    explicit load_error() :
+        error("pstade::lime::load - xml parsing failed")
+    { }
+};
+
+
 template< class Interface, class ForwardRange >
 void load(node<Interface>& root, const ForwardRange& rng)
 {
     load_detail::context<Interface> cxt;
     cxt.push(&root);
 
-    PSTADE_REQUIRE( biscuit::match<load_detail::start>(rng, cxt) );
+    if (!biscuit::match<load_detail::start>(rng, cxt)) {
+        load_error err;
+        boost::throw_exception(err);
+    }
 }
 
 

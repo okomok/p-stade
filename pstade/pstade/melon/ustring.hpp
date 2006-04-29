@@ -15,7 +15,9 @@
 #include <boost/mpl/bool.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
+#include <boost/utility/enable_if.hpp>
 #include <pstade/apple/basic_ostream_fwd.hpp>
+#include <pstade/apple/is_boost_range.hpp>
 #include <pstade/apple/is_sequence.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
 #include <pstade/oven/sequence_cast.hpp>
@@ -69,10 +71,22 @@ public:
         super_t(f, l)
     { }
 
+    // range constructors
+    //
     template< class Range >
     explicit ustring(const Range& rng) :
         super_t(boost::begin(rng), boost::end(rng))
     { }
+
+    // Constructor prefers copy constructor and converts argument to ustring.
+    // But operator= doesn't, so be strict.
+    template< class Range > 
+    typename boost::enable_if<apple::is_boost_range<Range>, ustring&>::type
+    operator=(const Range& rng)
+    {
+        assign(boost::begin(rng), boost::end(rng));
+        return *this;
+    }
 };
 
 
