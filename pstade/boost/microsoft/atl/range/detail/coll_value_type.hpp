@@ -16,7 +16,7 @@
 #include <boost/microsoft/atl/base_fwd.hpp> // CAutoPtr
 #include <boost/microsoft/atl/comcli_fwd.hpp> // CComQIPtr
 #include <boost/microsoft/detail/range/coll_value_type_fwd.hpp>
-#include <boost/microsoft/sdk/guiddef.hpp> // IID
+#include <boost/microsoft/sdk/basetyps.hpp> // IID
 #include <boost/mpl/identity.hpp>
 
 

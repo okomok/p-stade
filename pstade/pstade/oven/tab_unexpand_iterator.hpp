@@ -56,11 +56,31 @@ public:
     explicit tab_unexpand_iterator()
     { }
 
-    explicit tab_unexpand_iterator(ForwardIter it, ForwardIter last, int tabsize) :
+    template< class ForwardIter_ >
+    explicit tab_unexpand_iterator(ForwardIter_ it, ForwardIter_ last, int tabsize) :
         super_t(base_t(it, tabsize)),
         m_last(last, tabsize), m_sol(it, tabsize),
         m_tabsize(tabsize), m_tab_ch(PSTADE_OVEN_DEBUG_TAB_CH)
     { }
+
+    template< class ForwardIter_ >
+    tab_unexpand_iterator(
+        tab_unexpand_iterator<ForwardIter_> other,
+        typename boost::enable_if_convertible<ForwardIter_, ForwardIter>::type * = 0
+    ) :
+        super_t(other.base()),
+        m_last(other.end()), m_sol(other.detail_sol()), 
+        m_tabsize(other.tabsize()), m_tab_ch(other.tab_ch())
+    { }
+
+    base_t end() const
+    { return m_last; }
+
+    diff_t tabsize() const
+    { return m_tabsize; }
+
+    val_t tab_ch() const
+    { return m_tab_ch; }
 
 private:
     base_t m_last;
@@ -130,13 +150,17 @@ friend class boost::iterator_core_access;
             m_sol = this->base();
     }
 
-    bool equal(const tab_unexpand_iterator& other) const
+    bool equal(tab_unexpand_iterator other) const
     {
         return
             m_tabsize == other.m_tabsize &&
             this->base() == other.base()
         ;
     }
+
+public: // private:
+    base_t detail_sol() const
+    { return m_sol; }
 };
 
 

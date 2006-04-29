@@ -66,6 +66,16 @@ void test()
 
         vec.clear();
     }
+
+    {
+        try {
+            oven::make_counting_range(100, 2);
+        }
+        catch (std::range_error& ) {
+            return;
+        }
+        BOOST_CHECK(false);
+    }
 }
 
 

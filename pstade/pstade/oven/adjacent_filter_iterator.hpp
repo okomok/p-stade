@@ -101,9 +101,10 @@ public:
     explicit adjacent_filter_iterator()
     { }
 
+    template< class ForwardIter_ >
     explicit adjacent_filter_iterator(
-        ForwardIter it,
-        ForwardIter first, ForwardIter last,
+        ForwardIter_ it,
+        ForwardIter_ first, ForwardIter_ last,
         BinaryPred pred
     ) :
         super_t(it),

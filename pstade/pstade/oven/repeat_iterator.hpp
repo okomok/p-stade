@@ -50,15 +50,29 @@ struct repeat_iterator :
     repeat_iterator_detail::super_<Iterator, CountT>::type
 {
 private:
-    typedef repeat_iterator self_t;
     typedef typename repeat_iterator_detail::super_<Iterator, CountT>::type super_t;
     typedef typename super_t::difference_type diff_t;
     typedef typename super_t::reference ref_t;
 
 public:
-    template< class OtherIter, class OtherCountT >
-    explicit repeat_iterator(OtherIter first, OtherIter last, OtherCountT count) :
-        super_t(first), m_first(first), m_last(last), m_count(count)
+    explicit repeat_iterator()
+    { }
+
+    template< class Iterator_, class CountT_ >
+    explicit repeat_iterator(Iterator_ first, Iterator_ last, CountT_ count) :
+        super_t(first),
+        m_first(first), m_last(last),
+        m_count(count)
+    { }
+
+    template< class Iterator_, class CountT_ >
+    repeat_iterator(
+        repeat_iterator<Iterator_, CountT_> other,
+        typename boost::enable_if_convertible<Iterator_, Iterator>::type * = 0
+    ) :
+        super_t(other.base()),
+        m_first(other.source_begin()), m_last(other.source_end()),
+        m_count(other.count())
     { }
 
     const Iterator source_begin() const
@@ -66,6 +80,9 @@ public:
 
     const Iterator source_end() const
     { return m_last; }
+
+    CountT count() const
+    { return m_count; }
 
 private:
     Iterator m_first, m_last;
@@ -86,7 +103,7 @@ friend class boost::iterator_core_access;
         increment_impl();
     }
 
-    bool equal(const self_t& other) const
+    bool equal(repeat_iterator other) const
     {
         return
             this->base() == other.base() &&

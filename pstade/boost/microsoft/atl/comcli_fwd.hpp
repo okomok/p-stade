@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/microsoft/sdk/guiddef.hpp> // IID
+#include <boost/microsoft/sdk/basetyps.hpp> // IID
 
 
 namespace ATL {

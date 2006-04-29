@@ -156,19 +156,17 @@ A ``func`` is any member function of Derived_.
 
 Value Functor Class
 ^^^^^^^^^^^^^^^^^^^
-A ``ValueFunctorClass`` is any `Default Constructible`__ `Functor`__ type that has the member function::
+A ``ValueFunctorClass`` is any `Default Constructible`_ `Functor`_ type that has the member function::
 
 	D:\Importance\Document\p-stade.sourceforge.net\pstade\libs\ketchup\doc\inline\basic_concepts_value_functor_class.ipp
 
 This is for crossing the compile-time/runtime boundary.
 
-__ http://www.sgi.com/tech/stl/DefaultConstructible.html
-__ http://www.sgi.com/tech/stl/functors.html
-
 
 .. [#] This concept comes from ATL. A type that has ``BEGIN_MSG_MAP`` conforms to it.
 
 .. [#] This concept and name come from ATL. 
+
 
 
 ketchup::process_window_message
@@ -184,8 +182,8 @@ The return value is ``TRUE`` if the message is fully handled by the `Message Pro
 ketchup::message_processor
 --------------------------
 ``ketchup::message_processor`` is the base class template that provides predefined `Entry Wrapper`_\s.
-If you don't pass all the `Chain Class`_\es to ``ketchup::message_processor``,
-your Derived_ class can't conform to `Message Map Container`_ because of the name ambiguity.
+If a `Chain Class`_ is not `Default Constructible`_, you cannot pass it to ``ketchup::message_processor``
+for the constructor call. Then, your Derived_ class can't conform to `Message Map Container`_ because of the name ambiguity.
 So you must explicitly add the member function::
 
 	D:\Importance\Document\p-stade.sourceforge.net\pstade\libs\ketchup\doc\inline\message_processor.ipp

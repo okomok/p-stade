@@ -40,7 +40,7 @@ namespace sequence_cast_detail {
         { }
 
         template< class StlSequence >
-        operator StlSequence () const
+        operator StlSequence() const
         {
             return oven::sequence_cast<StlSequence>(*m_prng);
         }

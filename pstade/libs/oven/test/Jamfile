@@ -26,10 +26,12 @@ rule oven-compile ( name )
 }
 
 test-suite oven :
+    [ oven-test adjacent_filter_range ]
     [ oven-test algorithm ]
     [ oven-test array_range ]
     [ oven-test array_protect_range ]
     [ oven-test counting_range ]
+    [ oven-test direct_range ]
     [ oven-test filter_range ]
     [ oven-test indirect_range ]
     [ oven-test joint_range ]
@@ -38,7 +40,10 @@ test-suite oven :
     [ oven-test reverse_range ]
     [ oven-test sequence_cast ]
     [ oven-test single_range ]
+    [ oven-test slice_range ]
+    [ oven-test sub_set ]
     [ oven-test tab_expand_range ]
     [ oven-test tab_unexpand_range ]
     [ oven-test transform_range ]
+    [ oven-test unique_range ]
     ;

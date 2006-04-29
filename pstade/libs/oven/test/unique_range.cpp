@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/filter_range.hpp>
+#include <pstade/oven/unique_range.hpp>
 
 
 #include <iterator>
@@ -20,18 +20,7 @@
 #include <boost/range.hpp>
 #include <pstade/oven/copy.hpp>
 #include <pstade/oven/equal.hpp>
-
-
-struct is_positive
-{
-    bool operator()(int x) const { return 0 < x; }
-};
-
-
-struct is_even
-{
-    bool operator()(int x) const { return (x % 2) == 0; }
-};
+#include <pstade/oven/reverse_range.hpp>
 
 
 void test()
@@ -39,26 +28,27 @@ void test()
     using namespace pstade;
     using namespace oven;
 
-    int src[] = { 0, -1, 4, -3, 5, 8, -2 };
-    int ans1[] = { 4, 5, 8 };
-    int ans2[] = { 4, 8 };
+    int src[] = { 2, 2, 4, 4, 6, 8, 8, 10, 10, 20, 40, 80, 120 };
+    int ans2[] = { 2, 4, 6, 8, 10, 20, 40, 80, 120 };
 
     {
+
         BOOST_CHECK((
-            oven::equal( oven::make_filter_range(src, is_positive()), ans1)
+            oven::equals( oven::make_unique_range(src), ans2)
         ));
     }
 
+
     {
         BOOST_CHECK((
-            oven::equal(
-                src |
-                    oven::filtered(is_positive()) |
-                    oven::filtered(is_even()),
-                ans2
-            )
+            oven::equals( src|uniqued|reversed|reversed, ans2)
         ));
+
+		BOOST_FOREACH (int i, src|uniqued|reversed)  {
+			std::cout << i << ',';
+		}
     }
+
 }
 
 

@@ -1,11 +1,11 @@
 
-subproject libs/apple/test ;
+subproject libs/lime/test ;
 
 import testing ;
 
 DEPENDS all : test ;
 
-rule apple-test ( name : includes * )
+rule lime-test ( name : includes * )
 {
     return [
         run $(name).cpp
@@ -16,8 +16,7 @@ rule apple-test ( name : includes * )
     ] ;
 }
 
-test-suite apple :
-    [ apple-test is_container ]
-    [ apple-test is_sequence ]
-    [ apple-test header ]
+test-suite lime :
+    [ lime-test basic ]
+    [ lime-test header ]
     ;
