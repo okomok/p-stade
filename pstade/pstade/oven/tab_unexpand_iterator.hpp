@@ -56,8 +56,7 @@ public:
     explicit tab_unexpand_iterator()
     { }
 
-    template< class ForwardIter_ >
-    explicit tab_unexpand_iterator(ForwardIter_ it, ForwardIter_ last, int tabsize) :
+    explicit tab_unexpand_iterator(ForwardIter it, ForwardIter last, int tabsize) :
         super_t(base_t(it, tabsize)),
         m_last(last, tabsize), m_sol(it, tabsize),
         m_tabsize(tabsize), m_tab_ch(PSTADE_OVEN_DEBUG_TAB_CH)

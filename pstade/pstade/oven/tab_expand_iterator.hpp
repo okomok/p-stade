@@ -57,8 +57,7 @@ public:
     explicit tab_expand_iterator()
     { }
 
-    template< class ForwardIter_ >
-    explicit tab_expand_iterator(ForwardIter_ it, int tabsize) :
+    explicit tab_expand_iterator(ForwardIter it, int tabsize) :
         super_t(it), m_tabsize(tabsize),
         m_space_counter(0), m_diff_from_sol(0),
         m_space_ch(PSTADE_OVEN_DEBUG_SPACE_CH)

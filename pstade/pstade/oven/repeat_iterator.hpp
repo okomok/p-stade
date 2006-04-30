@@ -58,8 +58,7 @@ public:
     explicit repeat_iterator()
     { }
 
-    template< class Iterator_, class CountT_ >
-    explicit repeat_iterator(Iterator_ first, Iterator_ last, CountT_ count) :
+    explicit repeat_iterator(Iterator first, Iterator last, CountT count) :
         super_t(first),
         m_first(first), m_last(last),
         m_count(count)

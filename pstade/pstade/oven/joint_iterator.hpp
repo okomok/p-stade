@@ -96,20 +96,24 @@ private:
     typedef typename super_t::base_type base_t;
 
 public:
-    template< class Iterator1_, class Iterator2_ >
-    joint_iterator(
-        Iterator1_ it1, Iterator1_ last1,
-        Iterator2_ first2, Iterator2_ it2
+    explicit joint_iterator()
+    { }
+
+    explicit joint_iterator(
+        Iterator1 it1, Iterator1 last1,
+        Iterator2 first2, Iterator2 it2
     ) :
         super_t(it1), m_last1(last1),
         m_first2(first2), m_it2(it2)
     { }
 
+#if 0 // deprecated, original one used to have no 'Iterator2'
     template< class Iterator2_ > // normal iterator! (always in second range, no bounds)
-    joint_iterator(Iterator2_ it2) :
+    explicit joint_iterator(Iterator2_ it2) :
         super_t(it2), m_last1(it2),
         m_first2(it2), m_it2(it2)
     { }
+#endif
 
     template< class Iterator1_, class Iterator2_ >
     joint_iterator(
@@ -216,16 +220,16 @@ private:
     { return this->base() != m_last1; }
 
 public: // private:
-    const Iterator1 detail_first_cur() const
+    Iterator1 detail_first_cur() const
     { return this->base(); }
 
-    const Iterator1 detail_first_end() const
+    Iterator1 detail_first_end() const
     { return m_last1; }
     
-    const Iterator2 detail_second_begin() const
+    Iterator2 detail_second_begin() const
     { return m_first2; };
 
-    const Iterator2 detail_second_cur() const
+    Iterator2 detail_second_cur() const
     { return m_it2; };
 };
 

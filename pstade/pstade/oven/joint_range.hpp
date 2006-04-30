@@ -50,8 +50,7 @@ private:
     typedef typename super_t::iterator iter_t;
 
 public:
-    template< class Range1_, class Range2_ >
-    explicit joint_range(Range1_& rng1, Range2_& rng2) :
+    explicit joint_range(Range1& rng1, Range2& rng2) :
         super_t(
             oven::make_joint_first_iterator(boost::begin(rng1), boost::end(rng1), boost::begin(rng2)),
             oven::make_joint_second_iterator(boost::end(rng1), boost::begin(rng2), boost::end(rng2))
