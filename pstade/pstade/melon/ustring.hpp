@@ -47,14 +47,6 @@ private:
     typedef ustring_detail::super_<>::type super_t;
 
 public:
-    ustring(char *psz) :
-        super_t(psz, oven::null_terminate_range_detail::end(psz))
-    { }
-
-    ustring(wchar_t *psz) :
-        super_t(psz, oven::null_terminate_range_detail::end(psz))
-    { }
-
     explicit ustring()
     { }
 
@@ -85,13 +77,23 @@ public:
         assign(boost::begin(rng), boost::end(rng));
         return *this;
     }
+
+    // implicit conversions
+    //
+    ustring(char *psz) :
+        super_t(psz, oven::null_terminate_range_detail::end(psz))
+    { }
+
+    ustring(wchar_t *psz) :
+        super_t(psz, oven::null_terminate_range_detail::end(psz))
+    { }
 };
 
 
 // truncated!
 //
 
-template<class CharT, class Traits > inline
+template<class CharT, class Traits >
 std::basic_ostream<CharT, Traits>& operator<<(std::basic_ostream<CharT, Traits>& os, ustring str)
 {
     os << oven::sequence_cast< std::basic_string<CharT, Traits> >(str);
@@ -99,7 +101,7 @@ std::basic_ostream<CharT, Traits>& operator<<(std::basic_ostream<CharT, Traits>&
 }
 
 
-template<class CharT, class Traits > inline
+template<class CharT, class Traits >
 std::basic_istream<CharT, Traits>& operator>>(std::basic_istream<CharT, Traits>& os, ustring& str)
 {
     std::basic_string<CharT, Traits> tmp;
