@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/mpl/bool.hpp> // true_, false_
+#include <boost/mpl/bool.hpp>
 #include <pstade/remove_rcv.hpp>
 #include "./vector_fwd.hpp"
 
@@ -28,7 +28,7 @@ namespace is_vector_detail {
 
 
     template< class T, class Alloc >
-    struct aux< ::std::vector<T, Alloc> > :
+    struct aux< std::vector<T, Alloc> > :
         boost::mpl::true_
     { };
 

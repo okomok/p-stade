@@ -17,7 +17,7 @@
 #include <boost/range/end.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <pstade/apple/basic_ostream_fwd.hpp>
-#include <pstade/apple/is_container.hpp>
+#include <pstade/apple/is_boost_range.hpp>
 #include <pstade/apple/is_sequence.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
 #include <pstade/oven/sequence_cast.hpp>
@@ -47,15 +47,15 @@ private:
     typedef ustring_detail::super_<>::type super_t;
 
 public:
-    ustring()
-    { }
-
     ustring(char *psz) :
         super_t(psz, oven::null_terminate_range_detail::end(psz))
     { }
 
     ustring(wchar_t *psz) :
         super_t(psz, oven::null_terminate_range_detail::end(psz))
+    { }
+
+    explicit ustring()
     { }
 
     explicit ustring(super_t::size_type n) :
@@ -71,8 +71,6 @@ public:
         super_t(f, l)
     { }
 
-    // range constructors
-    //
     template< class Range >
     explicit ustring(const Range& rng) :
         super_t(boost::begin(rng), boost::end(rng))
@@ -81,7 +79,7 @@ public:
     // Constructor prefers copy constructor and converts argument to ustring.
     // But operator= doesn't, so be strict.
     template< class Range > 
-    typename boost::enable_if<apple::is_container<Range>, ustring&>::type
+    typename boost::enable_if<apple::is_boost_range<Range>, ustring&>::type
     operator=(const Range& rng)
     {
         assign(boost::begin(rng), boost::end(rng));

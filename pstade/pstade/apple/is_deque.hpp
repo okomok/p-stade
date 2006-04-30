@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/mpl/bool.hpp> // true_, false_
+#include <boost/mpl/bool.hpp>
 #include <pstade/remove_rcv.hpp>
 #include "./deque_fwd.hpp"
 
@@ -28,7 +28,7 @@ namespace is_deque_detail {
 
 
     template< class T, class Alloc >
-    struct aux< ::std::deque<T, Alloc> > :
+    struct aux< std::deque<T, Alloc> > :
         boost::mpl::true_
     { };
 

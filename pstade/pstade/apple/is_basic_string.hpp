@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/mpl/bool.hpp> // true_, false_
+#include <boost/mpl/bool.hpp>
 #include <pstade/remove_rcv.hpp>
 #include "./basic_string_fwd.hpp"
 
@@ -28,7 +28,7 @@ namespace is_basic_string_detail {
 
 
     template< class CharT, class Traits, class Alloc >
-    struct aux< ::std::basic_string<CharT, Traits, Alloc> > :
+    struct aux< std::basic_string<CharT, Traits, Alloc> > :
         boost::mpl::true_
     { };
 

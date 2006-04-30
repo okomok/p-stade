@@ -32,6 +32,8 @@ namespace is_boost_range_detail {
 } // namespace is_boost_range_detail
 
 
+// specialize for your range
+//
 template< class T >
 struct is_boost_range_impl :
     boost::mpl::or_<
