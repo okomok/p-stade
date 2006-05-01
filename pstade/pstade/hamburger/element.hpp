@@ -10,24 +10,34 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/microsoft/atl/win.hpp> // CMessageMap
 #include <boost/microsoft/sdk/windows.hpp>
+#include <boost/optional.hpp>
 #include <pstade/instance.hpp>
 #include <pstade/lime/node.hpp>
 #include <pstade/lime/ustring.hpp>
 #include <pstade/oven/joint_range.hpp>
+#include <pstade/tomato/boolean_cast.hpp>
 #include "./rect.hpp"
 
 
 namespace pstade { namespace hamburger {
 
 
-struct element_interface
+struct element_interface :
+    ATL::CMessageMap
 {
-    virtual void set_visible(bool v)
-    { set_visible_impl(v); }
+    bool process(HWND hWnd, UINT uMsg,
+        WPARAM wParam, LPARAM lParam, LRESULT& lResult, DWORD dwMsgMapID)
+    {
+        return tomato::boolean(ProcessWindowMessage(hWnd, uMsg,
+            wParam, lParam, lResult, dwMsgMapID));
+    }
 
-protected:
-    virtual void set_visible_impl(bool v) = 0;
+    virtual boost::optional<HWND> hwnd() const
+    {
+        return boost::optional<HWND>();
+    }
 };
 
 
@@ -35,69 +45,68 @@ typedef lime::node<element_interface>
 element_node;
 
 
-PSTADE_INSTANCE(const lime::ustring, n_href,                ("href"))
-PSTADE_INSTANCE(const lime::ustring, n_accName,             ("accName"))
-PSTADE_INSTANCE(const lime::ustring, n_accDescription,      ("accDescription"))
-PSTADE_INSTANCE(const lime::ustring, n_accKeyboardShortcut, ("accKeyboardShortcut"))
-PSTADE_INSTANCE(const lime::ustring, n_alphaBlend,          ("alphaBlend"))
-PSTADE_INSTANCE(const lime::ustring, n_clippingColor,       ("clippingColo"))
-PSTADE_INSTANCE(const lime::ustring, n_clippingImage,       ("clippingImage"))
-PSTADE_INSTANCE(const lime::ustring, n_elementType,         ("elementTyp"))
-PSTADE_INSTANCE(const lime::ustring, n_enabled,             ("enabled"))
-PSTADE_INSTANCE(const lime::ustring, n_height,              ("height"))
-PSTADE_INSTANCE(const lime::ustring, n_horizontalAlignment, ("horizontalAlignment"))
-PSTADE_INSTANCE(const lime::ustring, n_id,                  ("id"))
-PSTADE_INSTANCE(const lime::ustring, n_left,                ("left"))
-PSTADE_INSTANCE(const lime::ustring, n_passThrough,         ("passThrough"))
-PSTADE_INSTANCE(const lime::ustring, n_tabStop,             ("tabStop"))
-PSTADE_INSTANCE(const lime::ustring, n_top,                 ("top"))
-PSTADE_INSTANCE(const lime::ustring, n_verticalAlignment,   ("verticalAlignment"))
-PSTADE_INSTANCE(const lime::ustring, n_visible,             ("visible"))
-PSTADE_INSTANCE(const lime::ustring, n_width,               ("width"))
-PSTADE_INSTANCE(const lime::ustring, n_zIndex,              ("zIndex"))
+PSTADE_INSTANCE(const lime::ustring, Name_href,                 ("href"))
+PSTADE_INSTANCE(const lime::ustring, Name_accName,              ("accName"))
+PSTADE_INSTANCE(const lime::ustring, Name_accDescription,       ("accDescription"))
+PSTADE_INSTANCE(const lime::ustring, Name_accKeyboardShortcut,  ("accKeyboardShortcut"))
+PSTADE_INSTANCE(const lime::ustring, Name_alphaBlend,           ("alphaBlend"))
+PSTADE_INSTANCE(const lime::ustring, Name_clippingColor,        ("clippingColo"))
+PSTADE_INSTANCE(const lime::ustring, Name_clippingImage,        ("clippingImage"))
+PSTADE_INSTANCE(const lime::ustring, Name_elementType,          ("elementTyp"))
+PSTADE_INSTANCE(const lime::ustring, Name_enabled,              ("enabled"))
+PSTADE_INSTANCE(const lime::ustring, Name_height,               ("height"))
+PSTADE_INSTANCE(const lime::ustring, Name_horizontalAlignment,  ("horizontalAlignment"))
+PSTADE_INSTANCE(const lime::ustring, Name_id,                   ("id"))
+PSTADE_INSTANCE(const lime::ustring, Name_left,                 ("left"))
+PSTADE_INSTANCE(const lime::ustring, Name_passThrough,          ("passThrough"))
+PSTADE_INSTANCE(const lime::ustring, Name_tabStop,              ("tabStop"))
+PSTADE_INSTANCE(const lime::ustring, Name_top,                  ("top"))
+PSTADE_INSTANCE(const lime::ustring, Name_verticalAlignment,    ("verticalAlignment"))
+PSTADE_INSTANCE(const lime::ustring, Name_visible,              ("visible"))
+PSTADE_INSTANCE(const lime::ustring, Name_width,                ("width"))
+PSTADE_INSTANCE(const lime::ustring, Name_zIndex,               ("zIndex"))
 
 
-PSTADE_INSTANCE(const lime::ustring, v_true,    ("true"))
-PSTADE_INSTANCE(const lime::ustring, v_false,   ("false"))
-PSTADE_INSTANCE(const lime::ustring, v_auto,    ("auto"))
-PSTADE_INSTANCE(const lime::ustring, v_left,    ("left"))
-PSTADE_INSTANCE(const lime::ustring, v_top,     ("top"))
-PSTADE_INSTANCE(const lime::ustring, v_right,   ("right"))
-PSTADE_INSTANCE(const lime::ustring, v_bottom,  ("bottom"))
-PSTADE_INSTANCE(const lime::ustring, v_center,  ("center"))
-PSTADE_INSTANCE(const lime::ustring, v_stretch, ("stretch"))
-PSTADE_INSTANCE(const lime::ustring, v_zero,    ("0"))
+PSTADE_INSTANCE(const lime::ustring, Value_true,    ("true"))
+PSTADE_INSTANCE(const lime::ustring, Value_false,   ("false"))
+PSTADE_INSTANCE(const lime::ustring, Value_auto,    ("auto"))
+PSTADE_INSTANCE(const lime::ustring, Value_left,    ("left"))
+PSTADE_INSTANCE(const lime::ustring, Value_top,     ("top"))
+PSTADE_INSTANCE(const lime::ustring, Value_right,   ("right"))
+PSTADE_INSTANCE(const lime::ustring, Value_bottom,  ("bottom"))
+PSTADE_INSTANCE(const lime::ustring, Value_center,  ("center"))
+PSTADE_INSTANCE(const lime::ustring, Value_stretch, ("stretch"))
+PSTADE_INSTANCE(const lime::ustring, Value_zero,    ("0"))
 
 
 struct element :
     element_node
 {
-protected:
-    // element_interface
-    //
-    virtual void set_visible_impl(bool )
-    { }
+    explicit element()
+    {
+        set_default_values();
+    }
 
 private:
     void set_default_values()
     {
-        att(n_alphaBlend)           = "255";
-        att(n_clippingColor)        = v_auto;
-        att(n_elementType)          = name();
-        att(n_enabled)              = v_true;
-        att(n_height)               = v_zero;
-        att(n_horizontalAlignment)  = v_left;
-        att(n_left)                 = v_zero;
-        att(n_passThrough)          = v_false;
-        att(n_tabStop)              = v_true;
-        att(n_top)                  = v_zero;
-        att(n_verticalAlignment)    = v_top;
-        att(n_visible)              = v_true;
-        att(n_width)                = v_zero;
-        att(n_zIndex)               = v_zero;
+        att(Name_alphaBlend)            = "255";
+        att(Name_clippingColor)         = Value_auto;
+        //att(Name_elementType)         = name();
+        att(Name_enabled)               = Value_true;
+        att(Name_height)                = Value_zero;
+        att(Name_horizontalAlignment)   = Value_left;
+        att(Name_left)                  = Value_zero;
+        att(Name_passThrough)           = Value_false;
+        att(Name_tabStop)               = Value_true;
+        att(Name_top)                   = Value_zero;
+        att(Name_verticalAlignment)     = Value_top;
+        att(Name_visible)               = Value_true;
+        att(Name_width)                 = Value_zero;
+        att(Name_zIndex)                = Value_zero;
 
-        att(n_id)       = lime::ustring("unnamed_")|oven::jointed(name());
-        att(n_accName)  = att(n_id);
+        //att(Name_id)       = lime::ustring("unnamed_")|oven::jointed(name());
+        //att(Name_accName)  = att(Name_id);
     }
 };
 

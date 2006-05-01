@@ -52,7 +52,7 @@ namespace factory_detail {
             iter_t it = m_methods.find(childName);
             if (it == m_methods.end()) {
                 BOOST_ASSERT(false);
-                return new element();
+                return PSTADE_NULLPTR; // new element();
             }
 
             return it->second(parent);
@@ -69,8 +69,8 @@ namespace factory_detail {
     template< class T > inline
     element_node *new_method(element_node& parent)
     {
-		pstade::unused(parent);
-		return new T();
+        pstade::unused(parent);
+        return new T();
     }
 
 

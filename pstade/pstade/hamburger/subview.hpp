@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/instance.hpp>
+#include <pstade/ketchup.hpp>
 #include "./element.hpp"
 #include "./view.hpp"
 
@@ -19,22 +19,27 @@ namespace pstade { namespace hamburger {
 
 
 struct subview :
-    element
+    ketchup::message_processor<subview, element>
 {
-protected:
-    // element
-    //
-    virtual void set_visible_impl(bool )
-    { }
+    explicit subview()
+    {
+        set_default_values();
+    }
+
+    begin_msg_map
+    <
+        empty_entry<>
+    >
+    end_msg_map;
 
 private:
     void set_default_values()
     {
-        att(n_backgroundColor)              = v_none;
-        att(n_backgroundImageHueShift)      = "0.0";
-        att(n_backgroundImageSaturation)    = "1.0";
-        att(n_backgroundTiled)              = v_false;
-        att(n_resizeBackgroundImage)        = v_false;
+        att(Name_backgroundColor)               = Value_none;
+        att(Name_backgroundImageHueShift)       = "0.0";
+        att(Name_backgroundImageSaturation)     = "1.0";
+        att(Name_backgroundTiled)               = Value_false;
+        att(Name_resizeBackgroundImage)         = Value_false;
     }
 };
 

@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/ketchup.hpp>
 #include <pstade/lime/ustring.hpp>
 #include "./element.hpp"
 #include "./factory.hpp"
@@ -19,13 +20,13 @@ namespace pstade { namespace hamburger {
 
 
 struct button :
-    element
+    ketchup::message_processor<button, element>
 {
-protected:
-    // element
-    //
-    virtual void set_visible_impl(bool )
-    { }
+    begin_msg_map
+    <
+        empty_entry<>
+    >
+    end_msg_map;
 };
 
 
