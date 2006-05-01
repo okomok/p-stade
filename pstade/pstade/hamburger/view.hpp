@@ -54,7 +54,7 @@ namespace view_detail {
 
 
     template< class ViewT >
-    struct super_
+    struct impl
     {
         typedef ATL::CWindowImpl<
             ViewT,
@@ -63,10 +63,6 @@ namespace view_detail {
                 WS_OVERLAPPED|WS_VISIBLE|WS_CLIPCHILDREN|WS_CLIPSIBLINGS,
                 WS_EX_APPWINDOW
             >
-        > wnd_t;
-
-        typedef ketchup::message_processor<ViewT,
-            wnd_t, element
         > type;
     };
 
@@ -75,10 +71,21 @@ namespace view_detail {
 
 
 struct view :
-    view_detail::super_<view>::type,
+    ketchup::message_processor<view,
+        view_detail::impl<view>::type,
+        element
+    >,
     WTL::CMessageFilter, WTL::CIdleHandler
 {
+private:
+    typedef view_detail::impl<view>::type impl_t;
+
 public:
+    explicit view()
+    {
+        set_default_values();
+    }
+
     // WTL
     //
     virtual BOOL OnIdle() {
@@ -91,7 +98,8 @@ public:
 
     begin_msg_map
     <
-        empty_entry<>
+        empty_entry<>,
+        chain_msg_map<impl_t>
     >
     end_msg_map;
 
