@@ -10,7 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/instance.hpp>
 #include <pstade/lime/ustring.hpp>
 #include "./element.hpp"
 #include "./factory.hpp"
@@ -19,19 +18,10 @@
 namespace pstade { namespace hamburger {
 
 
-PSTADE_INSTANCE(const lime::ustring, button_name, ("button"))
-
-
 struct button :
     element
 {
-    // structors
-    //
-    explicit button(element_node& parent) :
-        element(parent, button_name)
-    {
-    }
-
+protected:
     // element
     //
     virtual void set_visible_impl(bool )
@@ -42,7 +32,7 @@ struct button :
 namespace button_detail { namespace {
     
 
-    entry_type entry = hamburger::register_node<button>(button_name);
+    entry_type entry = hamburger::register_node<button>("button");
     
 
 } } // namespace button_detail::unnamed

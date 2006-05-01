@@ -72,16 +72,6 @@ PSTADE_INSTANCE(const lime::ustring, v_zero,    ("0"))
 struct element :
     element_node
 {
-    explicit element(lime::ustring name) :
-        element_node(name)
-    { }
-
-    explicit element(element_node& parent, lime::ustring name) :
-        element_node(parent, name)
-    {
-        set_default_values();
-    }
-
 protected:
     // element_interface
     //

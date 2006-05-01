@@ -10,7 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/instance.hpp>
 #include <pstade/lime/ustring.hpp>
 #include "./element.hpp"
 #include "./factory.hpp"
@@ -19,19 +18,9 @@
 namespace pstade { namespace hamburger {
 
 
-PSTADE_INSTANCE(const lime::ustring, desktop_name, ("desktop"))
-
-
 struct desktop :
     element
 {
-    // structors
-    //
-    explicit desktop(element_node& parent) :
-        element(parent, desktop_name)
-    {
-    }
-
 protected:
     // element_interface
     //
@@ -43,7 +32,7 @@ protected:
 namespace desktop_detail { namespace {
     
 
-    entry_type entry = hamburger::register_node<desktop>(desktop_name);
+    entry_type entry = hamburger::register_node<desktop>("desktop");
     
 
 } } // namespace desktop_detail::unnamed

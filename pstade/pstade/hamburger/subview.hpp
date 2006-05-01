@@ -18,29 +18,9 @@
 namespace pstade { namespace hamburger {
 
 
-PSTADE_INSTANCE(const lime::ustring, subview_name, ("subview"))
-
-
-namespace subview_detail {
-
-
-} // namespace subview_detail
-
-
 struct subview :
     element
 {
-private:
-
-public:
-    // structors
-    //
-    explicit subview(element_node& parent) :
-        element(parent, subview_name)
-    {
-        set_default_values();
-    }
-
 protected:
     // element
     //
@@ -62,7 +42,7 @@ private:
 namespace subview_detail { namespace {
     
 
-    entry_type entry = hamburger::register_node<subview>(subview_name);
+    entry_type entry = hamburger::register_node<subview>("subview");
     
 
 } } // namespace subview_detail::unnamed

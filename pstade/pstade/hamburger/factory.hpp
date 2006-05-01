@@ -17,6 +17,7 @@
 #include <boost/preprocessor/cat.hpp>
 #include <pstade/instance.hpp>
 #include <pstade/lime/ustring.hpp>
+#include <pstade/unused.hpp>
 #include "./element.hpp"
 
 
@@ -25,9 +26,6 @@ namespace pstade { namespace hamburger {
 
 namespace factory_detail {
 
-
-    PSTADE_INSTANCE(const int, dummy, value);
-    
 
     typedef boost::function<element_node *(element_node&)>
     method_t;
@@ -44,6 +42,8 @@ namespace factory_detail {
         const int& register_(lime::ustring name, method_t m)
         {
             m_methods[name] = m;
+
+            static const int dummy;
             return dummy;
         }
 
@@ -52,10 +52,10 @@ namespace factory_detail {
             iter_t it = m_methods.find(childName);
             if (it == m_methods.end()) {
                 BOOST_ASSERT(false);
-                return new element(parent, childName);
+                return new element();
             }
 
-            return ((*it).second)(parent);
+            return it->second(parent);
         }
 
     private:
@@ -69,7 +69,8 @@ namespace factory_detail {
     template< class T > inline
     element_node *new_method(element_node& parent)
     {
-        return new T(parent);
+		pstade::unused(parent);
+		return new T();
     }
 
 

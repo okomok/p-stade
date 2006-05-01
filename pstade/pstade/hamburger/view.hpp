@@ -20,8 +20,6 @@
 namespace pstade { namespace hamburger {
 
 
-PSTADE_INSTANCE(const lime::ustring, view_name, ("view"))
-
 PSTADE_INSTANCE(const lime::ustring, n_backgroundColor,           ("backgroundColor"))
 PSTADE_INSTANCE(const lime::ustring, n_backgroundImage,           ("backgroundImage"))
 PSTADE_INSTANCE(const lime::ustring, n_backgroundImageHueShift,   ("backgroundImageHueShift"))
@@ -82,16 +80,6 @@ struct view :
     WTL::CMessageFilter, WTL::CIdleHandler
 {
 public:
-    // structors
-    //
-    explicit view(element_node& parent) :
-        element(parent, view_name)
-    {
-        set_default_values();
-        WTL::CRect rc(CW_USEDEFAULT, 0, 0, 0);
-        Create(NULL, rc, 0, 0, 0);
-    }
-
     // WTL
     //
     virtual BOOL OnIdle() {
@@ -136,7 +124,7 @@ private:
 namespace view_detail { namespace {
     
 
-    entry_type entry = hamburger::register_node<view>(view_name);
+    entry_type entry = hamburger::register_node<view>("view");
     
 
 } } // namespace view_detail::unnamed
