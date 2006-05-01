@@ -13,6 +13,7 @@
 #include <pstade/instance.hpp>
 #include <pstade/lime/ustring.hpp>
 #include "./element.hpp"
+#include "./factory.hpp"
 
 
 namespace pstade { namespace hamburger {
@@ -22,36 +23,29 @@ PSTADE_INSTANCE(const lime::ustring, button_name, ("button"))
 
 
 struct button :
-	element
+    element
 {
-	// structors
-	//
+    // structors
+    //
     explicit button(element_node& parent) :
         element(parent, button_name)
-	{
-	}
+    {
+    }
 
-	// element
-	//
-	virtual void set_bounds(rect)
-	{
-	}
-
-	virtual rect get_bounds() const
-	{
-		return rect();
-	}
-
-	virtual void set_visible(bool v)
-	{
-		v;
-	}
-
-	virtual bool is_visible() const
-	{
-		return true;
-	}
+    // element
+    //
+    virtual void set_visible_impl(bool )
+    { }
 };
+
+
+namespace button_detail { namespace {
+    
+
+    entry_type entry = hamburger::register_node<button>(button_name);
+    
+
+} } // namespace button_detail::unnamed
 
 
 } } // namespace pstade::hamburger

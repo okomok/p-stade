@@ -10,15 +10,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <memory> // auto_ptr
-#include <boost/assert.hpp>
 #include <pstade/lime/ustring.hpp>
-#include <pstade/oven/equal.hpp>
-#include "./button.hpp"
-#include "./desktop.hpp"
-#include "./element.hpp"
-#include "./subview.hpp"
-#include "./view.hpp"
+#include "./factory.hpp"
 
 
 namespace pstade { namespace hamburger {
@@ -27,30 +20,7 @@ namespace pstade { namespace hamburger {
 inline // lime customization
 element_node *pstade_lime_new_node(element_node& parent, lime::ustring childName)
 {
-	std::auto_ptr<element_node> pe;
-
-	if (oven::equals(childName, subview_name)) {
-		
-		pe.reset(new view(parent));
-	}
-	else if (oven::equals(childName, view_name)) {
-		
-		pe.reset(new subview(parent));
-	}
-	else if (oven::equals(childName, button_name)) {
-		
-		pe.reset(new button(parent));
-	}
-	else if (oven::equals(childName, desktop_name)) {
-		
-		pe.reset(new desktop());
-	}
-	else {
-		BOOST_ASSERT(false);
-		pe.reset(new element("unknown"));
-	}
-
-	return pe.release();
+    return hamburger::create_node(parent, childName);
 }
 
 

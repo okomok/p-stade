@@ -22,35 +22,19 @@ PSTADE_INSTANCE(const lime::ustring, desktop_name, ("desktop"))
 
 
 struct desktop :
-	element
+    element
 {
-	// structors
-	//
+    // structors
+    //
     explicit desktop() :
         element(desktop_name)
-	{
-	}
+    {
+    }
 
-	// element
-	//
-	virtual void set_bounds(rect)
-	{
-	}
-
-	virtual rect get_bounds() const
-	{
-		return rect();
-	}
-
-	virtual void set_visible(bool v)
-	{
-		v;
-	}
-
-	virtual bool is_visible() const
-	{
-		return true;
-	}
+    // element
+    //
+    virtual void set_visible_impl(bool )
+    { }
 };
 
 

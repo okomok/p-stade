@@ -27,38 +27,22 @@ namespace subview_detail {
 
 
 struct subview :
-	element
+    element
 {
 private:
 
 public:
-	// structors
-	//
+    // structors
+    //
     explicit subview(element_node& parent) :
         element(parent, subview_name)
-	{
-	}
+    {
+    }
 
-	// element
-	//
-	virtual void set_bounds(rect)
-	{
-	}
-
-	virtual rect get_bounds() const
-	{
-		return rect();
-	}
-
-	virtual void set_visible(bool v)
-	{
-		v;
-	}
-
-	virtual bool is_visible() const
-	{
-		return true;
-	}
+    // element
+    //
+    virtual void set_visible_impl(bool )
+    { }
 };
 
 
