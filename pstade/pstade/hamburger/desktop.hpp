@@ -13,6 +13,7 @@
 #include <pstade/instance.hpp>
 #include <pstade/lime/ustring.hpp>
 #include "./element.hpp"
+#include "./factory.hpp"
 
 
 namespace pstade { namespace hamburger {
@@ -26,16 +27,26 @@ struct desktop :
 {
     // structors
     //
-    explicit desktop() :
-        element(desktop_name)
+    explicit desktop(element_node& parent) :
+        element(parent, desktop_name)
     {
     }
 
-    // element
+protected:
+    // element_interface
     //
     virtual void set_visible_impl(bool )
     { }
 };
+
+
+namespace desktop_detail { namespace {
+    
+
+    entry_type entry = hamburger::register_node<desktop>(desktop_name);
+    
+
+} } // namespace desktop_detail::unnamed
 
 
 } } // namespace pstade::hamburger

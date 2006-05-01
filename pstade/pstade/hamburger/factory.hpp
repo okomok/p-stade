@@ -33,14 +33,12 @@ namespace factory_detail {
     method_t;
 
 
-    struct type :
+    struct impl_t :
         boost::noncopyable
     {
     private:
         typedef std::map<lime::ustring, method_t> map_t;
         typedef map_t::iterator iter_t;
-
-        map_t m_methods;
 
     public:
         const int& register_(lime::ustring name, method_t m)
@@ -59,10 +57,13 @@ namespace factory_detail {
 
             return ((*it).second)(parent);
         }
+
+    private:
+        map_t m_methods;
     };
 
 
-    PSTADE_INSTANCE(type, instance, value);
+    PSTADE_INSTANCE(impl_t, impl, value);
 
 
     template< class T > inline
@@ -82,7 +83,7 @@ entry_type;
 inline
 entry_type register_node(lime::ustring name, factory_detail::method_t m)
 {
-    return factory_detail::instance.register_(name, m);
+    return factory_detail::impl.register_(name, m);
 }
 
 
@@ -94,9 +95,9 @@ entry_type register_node(lime::ustring name)
 
 
 inline
-element_node *create_node(element_node& parent, lime::ustring childName)
+element_node *create_node(element_node& parent, lime::ustring name)
 {
-    return factory_detail::instance.create(parent, childName);
+    return factory_detail::impl.create(parent, name);
 }
 
 

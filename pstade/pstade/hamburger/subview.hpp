@@ -12,6 +12,7 @@
 
 #include <pstade/instance.hpp>
 #include "./element.hpp"
+#include "./view.hpp"
 
 
 namespace pstade { namespace hamburger {
@@ -37,13 +38,34 @@ public:
     explicit subview(element_node& parent) :
         element(parent, subview_name)
     {
+        set_default_values();
     }
 
+protected:
     // element
     //
     virtual void set_visible_impl(bool )
     { }
+
+private:
+    void set_default_values()
+    {
+        att(n_backgroundColor)              = v_none;
+        att(n_backgroundImageHueShift)      = "0.0";
+        att(n_backgroundImageSaturation)    = "1.0";
+        att(n_backgroundTiled)              = v_false;
+        att(n_resizeBackgroundImage)        = v_false;
+    }
 };
+
+
+namespace subview_detail { namespace {
+    
+
+    entry_type entry = hamburger::register_node<subview>(subview_name);
+    
+
+} } // namespace subview_detail::unnamed
 
 
 } } // namespace pstade::hamburger
