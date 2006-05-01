@@ -12,7 +12,7 @@
 
 #include <pstade/ketchup.hpp>
 #include "./element.hpp"
-#include "./view.hpp"
+#include "./view_attributes.hpp"
 
 
 namespace pstade { namespace hamburger {

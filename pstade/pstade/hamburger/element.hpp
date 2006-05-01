@@ -18,6 +18,7 @@
 #include <pstade/lime/ustring.hpp>
 #include <pstade/oven/joint_range.hpp>
 #include <pstade/tomato/boolean_cast.hpp>
+#include "./element_attributes.hpp"
 #include "./rect.hpp"
 
 
@@ -43,40 +44,6 @@ struct element_interface :
 
 typedef lime::node<element_interface>
 element_node;
-
-
-PSTADE_INSTANCE(const lime::ustring, Name_href,                 ("href"))
-PSTADE_INSTANCE(const lime::ustring, Name_accName,              ("accName"))
-PSTADE_INSTANCE(const lime::ustring, Name_accDescription,       ("accDescription"))
-PSTADE_INSTANCE(const lime::ustring, Name_accKeyboardShortcut,  ("accKeyboardShortcut"))
-PSTADE_INSTANCE(const lime::ustring, Name_alphaBlend,           ("alphaBlend"))
-PSTADE_INSTANCE(const lime::ustring, Name_clippingColor,        ("clippingColo"))
-PSTADE_INSTANCE(const lime::ustring, Name_clippingImage,        ("clippingImage"))
-PSTADE_INSTANCE(const lime::ustring, Name_elementType,          ("elementTyp"))
-PSTADE_INSTANCE(const lime::ustring, Name_enabled,              ("enabled"))
-PSTADE_INSTANCE(const lime::ustring, Name_height,               ("height"))
-PSTADE_INSTANCE(const lime::ustring, Name_horizontalAlignment,  ("horizontalAlignment"))
-PSTADE_INSTANCE(const lime::ustring, Name_id,                   ("id"))
-PSTADE_INSTANCE(const lime::ustring, Name_left,                 ("left"))
-PSTADE_INSTANCE(const lime::ustring, Name_passThrough,          ("passThrough"))
-PSTADE_INSTANCE(const lime::ustring, Name_tabStop,              ("tabStop"))
-PSTADE_INSTANCE(const lime::ustring, Name_top,                  ("top"))
-PSTADE_INSTANCE(const lime::ustring, Name_verticalAlignment,    ("verticalAlignment"))
-PSTADE_INSTANCE(const lime::ustring, Name_visible,              ("visible"))
-PSTADE_INSTANCE(const lime::ustring, Name_width,                ("width"))
-PSTADE_INSTANCE(const lime::ustring, Name_zIndex,               ("zIndex"))
-
-
-PSTADE_INSTANCE(const lime::ustring, Value_true,    ("true"))
-PSTADE_INSTANCE(const lime::ustring, Value_false,   ("false"))
-PSTADE_INSTANCE(const lime::ustring, Value_auto,    ("auto"))
-PSTADE_INSTANCE(const lime::ustring, Value_left,    ("left"))
-PSTADE_INSTANCE(const lime::ustring, Value_top,     ("top"))
-PSTADE_INSTANCE(const lime::ustring, Value_right,   ("right"))
-PSTADE_INSTANCE(const lime::ustring, Value_bottom,  ("bottom"))
-PSTADE_INSTANCE(const lime::ustring, Value_center,  ("center"))
-PSTADE_INSTANCE(const lime::ustring, Value_stretch, ("stretch"))
-PSTADE_INSTANCE(const lime::ustring, Value_zero,    ("0"))
 
 
 struct element :
