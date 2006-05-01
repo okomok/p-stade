@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <memory> // auto_ptr
 #include <stack>
 #include <boost/assert.hpp>
 #include <boost/range/begin.hpp>
@@ -21,6 +22,7 @@
 #include <pstade/melon.hpp>
 #include <pstade/oven/sequence_cast.hpp>
 #include <pstade/oven/slice_range.hpp>
+#include <pstade/unused.hpp>
 #include "./error.hpp"
 #include "./intrinsic.hpp"
 #include "./new_node.hpp"
@@ -40,17 +42,17 @@ namespace load_detail {
     template< class Interface >
     struct context
     {
-        typedef Interface interface_type;
+        typedef node<Interface> node_type;
 
-        std::stack<node<Interface> *> m_stack;
+        std::stack<node_type *> m_stack;
         ustring m_curAttName;
 
-        node<Interface>& top()
+        node_type& top()
         {
             return *(m_stack.top());
         }
 
-        void push(node<Interface> *p)
+        void push(node_type *p)
         {
             m_stack.push(p);
         }
@@ -72,11 +74,11 @@ namespace load_detail {
         {
             ustring name = oven::sequence(rng);
 
-            typedef typename Context::interface_type interface_t;
-            node<interface_t> *pnode = lime::new_node<interface_t>(cxt.top(), name);
+            typedef typename Context::node_type node_t;
+            std::auto_ptr<node_t> pn(lime::new_node(cxt.top(), name));
 
-            cxt.top().push_back(pnode);
-            cxt.push(pnode);
+            cxt.top().push_back(pn.get());
+            cxt.push(pn.release());
         }
     };
 
@@ -88,11 +90,11 @@ namespace load_detail {
         {
             ustring data = oven::sequence(rng);
 
-            typedef typename Context::interface_type interface_t;
-            node<interface_t> *pnode = lime::new_node<interface_t>(cxt.top(), i_CharData);
+            typedef typename Context::node_type node_t;
+            std::auto_ptr<node_t> pn(lime::new_node(cxt.top(), i_CharData));
+            pn->att(i_attName) = data;
 
-            cxt.top().push_back(pnode);
-            (*pnode).att(i_attName) = data;
+            cxt.top().push_back(pn.release());
         }
     };
 
@@ -104,11 +106,11 @@ namespace load_detail {
         {
             ustring data = oven::sequence(rng);
 
-            typedef typename Context::interface_type interface_t;
-            node<interface_t> *pnode = lime::new_node<interface_t>(cxt.top(), i_Reference);
+            typedef typename Context::node_type node_t;
+            std::auto_ptr<node_t> pn(lime::new_node(cxt.top(), i_Reference));
+            pn->att(i_attName) = data;
 
-            cxt.top().push_back(pnode);
-            (*pnode).att(i_attName) = data;
+            cxt.top().push_back(pn.release());
         }
     };
 
@@ -147,7 +149,6 @@ namespace load_detail {
             BOOST_ASSERT(boost::size(cxt.m_stack) > 1);
 
             cxt.pop();
-
             pstade::unused(rng);
         }
     };

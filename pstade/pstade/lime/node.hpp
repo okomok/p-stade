@@ -23,6 +23,7 @@
 #include <pstade/oven/equal.hpp>
 #include <pstade/oven/sequence_cast.hpp>
 #include <pstade/overload.hpp>
+#include <pstade/unused.hpp>
 #include "./error.hpp"
 #include "./new_node.hpp"
 #include "./node_fwd.hpp"
@@ -82,14 +83,6 @@ private:
 public:
     // structors
     //
-    explicit node(ustring name) :
-        m_name(name)
-    { }
-
-    explicit node(node& parent, ustring name) :
-        m_parent(parent), m_name(name) 
-    { }
-
     virtual ~node()
     { }
 
@@ -97,13 +90,11 @@ public:
     //
     boost::optional<node&> parent() const
     {
-        BOOST_ASSERT(valid());
         return m_parent;
     }
 
     ustring name() const
     {
-        BOOST_ASSERT(valid());
         return m_name;
     }
 
@@ -112,19 +103,16 @@ public:
 
     attributes_type& attributes()
     {
-        BOOST_ASSERT(valid());
         return m_atts;
     }
 
     node& child(ustring childName)
     {
-        BOOST_ASSERT(valid());
         return get_child(childName);
     }
 
     ustring& att(ustring attName)
     {
-        BOOST_ASSERT(valid());
         return m_atts[attName];
     }
 
@@ -142,9 +130,15 @@ public:
 
     node& operator+=(ustring childName)
     {
-        BOOST_ASSERT(valid());
         this->push_back(lime::new_node(*this, childName));
         return *this;
+    }
+
+// private:
+    void detail_construct(node& parent, ustring name)
+    {
+        m_parent = parent;
+        m_name = name;
     }
 
 private:
@@ -171,11 +165,6 @@ private:
         node_detail::throw_error(childName);
         return *this; // suppress warning
     }
-
-    bool valid() const
-    {
-        return !boost::empty(m_name);
-    }
 };
 
 
@@ -190,7 +179,9 @@ pstade_lime_new_node(
     pstade::overload)
 {
     using namespace pstade::lime;
-    return new node<default_interface>(parent, childName);
+
+    pstade::unused(parent, childName);
+    return new node<default_interface>();
 }
 
 

@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <memory> // auto_ptr
 #include <boost/assert.hpp>
 #include <pstade/nullptr.hpp>
 #include <pstade/overload.hpp>
@@ -44,10 +45,11 @@ new_node(node<Interface>& parent, ustring childName)
     // but such ADL might be rejected with future C++.
     // http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1893.pdf
     //
-    node<Interface> *pn = pstade_lime_new_node(parent, childName);
+    std::auto_ptr< node<Interface> > pn(pstade_lime_new_node(parent, childName));
+    pn->detail_construct(parent, childName);
 
-    BOOST_ASSERT(pn != PSTADE_NULLPTR);
-    return pn;
+    BOOST_ASSERT(pn.get() != PSTADE_NULLPTR);
+    return pn.release();
 }
 
 
