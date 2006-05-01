@@ -10,30 +10,44 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/assert.hpp>
+#include <pstade/nullptr.hpp>
 #include <pstade/overload.hpp>
-#include "./node.hpp"
+#include "./node_fwd.hpp"
 #include "./ustring.hpp"
 
 
 namespace pstade { namespace lime {
 
 
+namespace new_node_detail {
+
+
+    template< class Interface > inline
+    node<Interface> *
+    pstade_lime_new_node(node<Interface>& parent, ustring childName)
+    {
+         return pstade_lime_new_node(parent, childName, overload());
+    }
+
+
+} // namespace new_node_detail
+
+
 template< class Interface > inline
 node<Interface> *
 new_node(node<Interface>& parent, ustring childName)
 {
-    return pstade_lemon_new_node(parent, childName, overload());
-}
+    using namespace new_node_detail;
 
+    // Trigger ADL into namespace of 'Interface',
+    // but such ADL might be rejected with future C++.
+    // http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1893.pdf
+    //
+    node<Interface> *pn = pstade_lime_new_node(parent, childName);
 
-// default
-//
-inline
-node<pstade::lime::default_interface> *
-pstade_lemon_new_node(node<pstade::lime::default_interface>& parent, ustring childName, pstade::overload)
-{
-    using namespace pstade::lime;
-    return new node<default_interface>(parent, childName);
+    BOOST_ASSERT(pn != PSTADE_NULLPTR);
+    return pn;
 }
 
 

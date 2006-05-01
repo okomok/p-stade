@@ -24,6 +24,8 @@
 #include <pstade/oven/sequence_cast.hpp>
 #include <pstade/overload.hpp>
 #include "./error.hpp"
+#include "./new_node.hpp"
+#include "./node_fwd.hpp"
 #include "./ustring.hpp"
 
 
@@ -141,7 +143,7 @@ public:
     node& operator+=(ustring childName)
     {
         BOOST_ASSERT(valid());
-        this->push_back( pstade_lemon_new_node(*this, childName, overload()) );
+        this->push_back(lime::new_node(*this, childName));
         return *this;
     }
 
@@ -178,6 +180,18 @@ private:
 
 
 } } // namespace pstade::lime
+
+
+inline
+pstade::lime::node<pstade::lime::default_interface> *
+pstade_lime_new_node(
+    pstade::lime::node<pstade::lime::default_interface>& parent,
+    pstade::lime::ustring childName,
+    pstade::overload)
+{
+    using namespace pstade::lime;
+    return new node<default_interface>(parent, childName);
+}
 
 
 #endif

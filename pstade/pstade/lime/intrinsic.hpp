@@ -19,18 +19,10 @@
 namespace pstade { namespace lime {
 
 
-PSTADE_INSTANCE(const ustring, i_CharData,
-    (oven::sequence_cast<ustring>("&CharData"|oven::null_terminated))
-)
+PSTADE_INSTANCE(const ustring, i_attName,   ("value"))
 
-PSTADE_INSTANCE(const ustring, i_Reference,
-    (oven::sequence_cast<ustring>("&Reference"|oven::null_terminated))
-)
-
-
-PSTADE_INSTANCE(const ustring, i_attName,
-    (oven::sequence_cast<ustring>("value"|oven::null_terminated))
-)
+PSTADE_INSTANCE(const ustring, i_CharData,  ("&CharData"))
+PSTADE_INSTANCE(const ustring, i_Reference, ("&Reference"))
 
 
 } } // namespace pstade::lime
