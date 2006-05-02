@@ -18,6 +18,7 @@
 #include <pstade/lime/ustring.hpp>
 #include <pstade/oven/joint_range.hpp>
 #include <pstade/tomato/boolean_cast.hpp>
+#include <pstade/unused.hpp>
 #include "./element_attributes.hpp"
 #include "./rect.hpp"
 
@@ -39,6 +40,14 @@ struct element_interface :
     {
         return boost::optional<HWND>();
     }
+
+	// workaround for BOOST_FOREACH's instantiation
+    virtual BOOL ProcessWindowMessage(HWND hWnd, UINT uMsg,
+        WPARAM wParam, LPARAM lParam, LRESULT& lResult, DWORD dwMsgMapID)
+	{
+		pstade::unused(hWnd, uMsg, wParam, lParam, lResult, dwMsgMapID);
+		return FALSE;
+	}
 };
 
 

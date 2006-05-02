@@ -19,6 +19,7 @@
 #include <pstade/lime/ustring.hpp>
 #include <pstade/unused.hpp>
 #include "./element.hpp"
+#include "./unknown.hpp"
 
 
 namespace pstade { namespace hamburger {
@@ -51,8 +52,9 @@ namespace factory_detail {
         {
             iter_t it = m_methods.find(childName);
             if (it == m_methods.end()) {
-                BOOST_ASSERT(false);
-                return PSTADE_NULLPTR; // new element();
+				//std::string s = oven::sequence(childName);
+                //BOOST_ASSERT(false);
+                return new unknown();
             }
 
             return it->second(parent);
@@ -77,21 +79,18 @@ namespace factory_detail {
 } // namespace factory_detail
 
 
-typedef const int&
-entry_type;
-
-
 inline
-entry_type register_node(lime::ustring name, factory_detail::method_t m)
+const int& register_node(lime::ustring name, factory_detail::method_t m)
 {
     return factory_detail::impl.register_(name, m);
 }
 
 
 template< class T > inline
-entry_type register_node(lime::ustring name)
+const int& register_node(lime::ustring name)
 {
-    return hamburger::register_node(name, factory_detail::new_method<T>);
+    // Without '&', VC8 misses 'new_method' at link time. 
+    return hamburger::register_node(name, &factory_detail::new_method<T>);
 }
 
 
@@ -100,6 +99,10 @@ element_node *create_node(element_node& parent, lime::ustring name)
 {
     return factory_detail::impl.create(parent, name);
 }
+
+
+typedef const int&
+entry_type; // syntax sugar
 
 
 } } // namespace pstade::hamburger
