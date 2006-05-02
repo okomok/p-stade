@@ -10,15 +10,21 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Strictly speaking, there seems no guarantee that
+// the statement is executed before 'main',
+// though no compilers can do such delay.
+
+
 #include <boost/preprocessor/cat.hpp>
 #include <boost/serialization/force_include.hpp> // BOOST_DLLEXPORT
+#include <pstade/instance.hpp>
 
 
 #define PSTADE_STATEMENT(Label, Statement) \
     PSTADE_STATEMENT_define_initializer_type(Label, Statement) \
     \
     PSTADE_INSTANCE(PSTADE_STATEMENT_initializer_type(Label), \
-	    PSTADE_STATEMENT_initializer(Label), value) \
+        PSTADE_STATEMENT_initializer(Label), value) \
     \
     BOOST_DLLEXPORT \
     PSTADE_STATEMENT_initializer_type(Label) * \
