@@ -21,7 +21,7 @@ struct pigs_fly
     template< class ParsingSubRange, class UserState >
     void operator()(ParsingSubRange&, UserState&) const
     {
-        BOOST_ASSERT(false && "pstade::biscuit::pigs_fly - When pigs fly.");
+        BOOST_ASSERT(false && "when pigs fly");
     }
 };
 

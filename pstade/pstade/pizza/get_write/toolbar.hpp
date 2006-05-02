@@ -156,7 +156,7 @@ bool get_toolbar(Profile& pr, HWND hWndToolBar)
             }
 
             if (j == originalCount) { // not found
-                BOOST_ASSERT(false && "pstade::pizza::get_toolbar - an iBidmap not found");
+                BOOST_ASSERT(false && "iBidmap not found");
             }
         }
 

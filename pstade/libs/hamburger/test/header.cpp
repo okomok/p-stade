@@ -2,7 +2,7 @@
 #include <boost/test/minimal.hpp>
 
 
-// PStade.P_Stade;
+// PStade.Hamburger
 //
 // Copyright MB 2005-2006.
 // Distributed under the Boost Software License, Version 1.0.
@@ -10,25 +10,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <vector>
-#include <boost/foreach.hpp>
-
-
-struct xxx : std::vector<int>
-{
-	virtual void foo() = 0;
-};
-
-
-void test(xxx& rng)
-{
-	BOOST_FOREACH (int x, rng) {
-	}
-}
+#include <pstade/hamburger.hpp>
 
 
 int test_main(int, char*[])
 {
-    //::test();
     return 0;
 }

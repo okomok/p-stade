@@ -24,10 +24,10 @@
 #include <pstade/oven/sequence_cast.hpp>
 #include <pstade/overload.hpp>
 #include <pstade/unused.hpp>
+#include <pstade/ustring.hpp>
 #include "./error.hpp"
 #include "./new_node.hpp"
 #include "./node_fwd.hpp"
-#include "./ustring.hpp"
 
 
 namespace pstade { namespace lime {
@@ -55,13 +55,6 @@ namespace node_detail {
     }
 
 
-    template< class NodeT >
-    struct super_
-    {
-        typedef boost::ptr_vector<NodeT> type;
-    };
-
-
 } // namesapce node_detail
 
 
@@ -73,12 +66,11 @@ template<
     class Interface = default_interface
 >
 struct node :
-    node_detail::super_< node<Interface> >::type,
     Interface,
     private boost::noncopyable
 {
-private:
-    typedef typename node_detail::super_< node<Interface> >::type super_t;
+    typedef boost::ptr_vector<node> children_type;
+    typedef std::map<ustring, ustring> attributes_type;
 
 public:
     // structors
@@ -98,12 +90,15 @@ public:
         return m_name;
     }
 
-    typedef std::map<ustring, ustring>
-    attributes_type;
 
     attributes_type& attributes()
     {
         return m_atts;
+    }
+
+    children_type& children()
+    {
+        return m_children;
     }
 
     node& child(ustring childName)
@@ -130,7 +125,7 @@ public:
 
     node& operator+=(ustring childName)
     {
-        this->push_back(lime::new_node(*this, childName));
+        m_children.push_back(lime::new_node(*this, childName));
         return *this;
     }
 
@@ -144,13 +139,12 @@ public:
 private:
     boost::optional<node&> m_parent;
     ustring m_name;
+    boost::ptr_vector<node> m_children;
     attributes_type m_atts;
 
     node& get_child(ustring childName)
     {
-        node& self = *this; // workaround VC++
-
-        BOOST_FOREACH (node& child, self) {
+        BOOST_FOREACH (node& child, m_children) {
             if (oven::equals(child.name(), childName))
                 return child;
         }
@@ -175,7 +169,7 @@ inline
 pstade::lime::node<pstade::lime::default_interface> *
 pstade_lime_new_node(
     pstade::lime::node<pstade::lime::default_interface>& parent,
-    pstade::lime::ustring childName,
+    pstade::ustring childName,
     pstade::overload)
 {
     using namespace pstade::lime;

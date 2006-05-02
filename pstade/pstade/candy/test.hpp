@@ -25,7 +25,7 @@ namespace pstade { namespace candy {
 template< class Flags, class Flag > inline
 bool test(Flags fs, Flag f)
 {
-    BOOST_ASSERT(candy::count(f) == 1 && "pstade::candy::test - multiple flags not allowed");
+    BOOST_ASSERT(candy::count(f) == 1 && "multiple flags not allowed");
 
     return !candy::empty(candy::intersection(fs, f));
 }

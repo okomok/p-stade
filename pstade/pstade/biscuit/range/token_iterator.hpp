@@ -89,16 +89,14 @@ friend class boost::iterator_core_access;
 
     void increment()
     {
-        BOOST_ASSERT(boost::begin(m_submatch) != m_last &&
-            "pstade::biscuit::token_iterator - out of range.");
+        BOOST_ASSERT(boost::begin(m_submatch) != m_last && "out of range");
 
         search_submatch();
     }
 
     bool equal(token_iterator const& other) const
     {
-        BOOST_ASSERT(m_last == other.m_last && m_pus == other.m_pus &&
-            "pstade::biscuit::token_iterator - incompatible iterators are compared");
+        BOOST_ASSERT(m_last == other.m_last && m_pus == other.m_pus && "incompatible iterators");
 
         return escaped_iterator_range_equal(other);
     }

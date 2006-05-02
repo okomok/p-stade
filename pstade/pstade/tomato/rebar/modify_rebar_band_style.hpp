@@ -55,7 +55,7 @@ Functor modify_rebar_band_style(HWND hWndReBar, UINT uBandID, Functor fun)
 
     WTL::CReBarCtrl rebar(hWndReBar);
     int index = rebar.IdToIndex(uBandID);
-    BOOST_ASSERT(index != -1 && "pstade::tomato::modify_rebar_band_style - band id is invalid.");
+    BOOST_ASSERT(index != -1 && "invalid band id");
 
     REBARBANDINFO info; {
         info|size_initialized;

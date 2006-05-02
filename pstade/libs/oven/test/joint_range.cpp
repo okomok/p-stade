@@ -77,7 +77,6 @@ void test()
         std::cout << oven::sequence_cast<std::string>(rng1|jointed(rng2)|jointed(rng3)) << std::endl;
     }
 
-#if 1
     {
         BOOST_CHECK(( oven::equals(ans,
             oven::make_joint_range(
@@ -98,7 +97,6 @@ void test()
             )
         ) ));
     }
-#endif
 
     {
         BOOST_CHECK(( oven::equals(ans,

@@ -23,11 +23,11 @@
 #include <pstade/oven/sequence_cast.hpp>
 #include <pstade/oven/slice_range.hpp>
 #include <pstade/unused.hpp>
+#include <pstade/ustring.hpp>
 #include "./error.hpp"
 #include "./intrinsic.hpp"
 #include "./new_node.hpp"
 #include "./node.hpp"
-#include "./ustring.hpp"
 
 
 namespace pstade { namespace lime {
@@ -77,7 +77,7 @@ namespace load_detail {
             typedef typename Context::node_type node_t;
             std::auto_ptr<node_t> pn(lime::new_node(cxt.top(), name));
 
-            cxt.top().push_back(pn.get());
+            cxt.top().children().push_back(pn.get());
             cxt.push(pn.release());
         }
     };
@@ -94,7 +94,7 @@ namespace load_detail {
             std::auto_ptr<node_t> pn(lime::new_node(cxt.top(), i_CharData));
             pn->att(i_attName) = data;
 
-            cxt.top().push_back(pn.release());
+            cxt.top().children().push_back(pn.release());
         }
     };
 
@@ -110,7 +110,7 @@ namespace load_detail {
             std::auto_ptr<node_t> pn(lime::new_node(cxt.top(), i_Reference));
             pn->att(i_attName) = data;
 
-            cxt.top().push_back(pn.release());
+            cxt.top().children().push_back(pn.release());
         }
     };
 

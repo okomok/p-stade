@@ -16,7 +16,6 @@
 #include "./lime/new_node.hpp"
 #include "./lime/node.hpp"
 #include "./lime/save.hpp"
-#include "./lime/ustring.hpp"
 
 
 #endif

@@ -13,7 +13,7 @@
 #include <boost/microsoft/atl/win.hpp>
 #include <boost/microsoft/wtl/frame.hpp> // CMessageFilter, CIdleHandler
 #include <pstade/ketchup.hpp>
-#include <pstade/lime/ustring.hpp>
+#include <pstade/ustring.hpp>
 #include "./element.hpp"
 #include "./view_attributes.hpp"
 
@@ -94,10 +94,10 @@ private:
 
 
 namespace view_detail { namespace {
-    
+
 
     entry_type entry = hamburger::register_node<view>("view");
-    
+
 
 } } // namespace view_detail::unnamed
 

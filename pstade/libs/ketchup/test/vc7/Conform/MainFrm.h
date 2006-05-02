@@ -7,7 +7,7 @@
 #include <pstade/derived_cast.hpp>
 #include <pstade/ketchup.hpp>
 
-#include <pstade/hamburger/view.hpp>
+#include <pstade/hamburger.hpp>
 
 template< class D >
 struct CMainFrameCommand1 :

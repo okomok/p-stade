@@ -91,7 +91,7 @@ public:
 
         BOOST_ASSERT(m_parg != PSTADE_NULLPTR);
         BOOST_ASSERT(!m_status.test(is_incrementing::value));
-        BOOST_ASSERT(!m_status.test(is_end::value) && "pstade::sausage::enumerate_iterator - out of range access");
+        BOOST_ASSERT(!m_status.test(is_end::value) && "out of range access");
 
         return *m_parg;
     }
@@ -100,7 +100,7 @@ public:
     {
         boost::mutex::scoped_lock lock(m_mutex);
 
-        BOOST_ASSERT(!m_status.test(is_end::value) && "pstade::sausage::enumerate_iterator - out of range");
+        BOOST_ASSERT(!m_status.test(is_end::value) && "out of range");
 
         m_status.set(is_incrementing::value);
         m_cond.notify_one();

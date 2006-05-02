@@ -29,7 +29,7 @@ HWND get_rebar_band_hwnd(HWND hWndReBar, UINT uBandID)
     WTL::CReBarCtrl rebar(hWndReBar);
     int index = rebar.IdToIndex(uBandID);
     // Note: RB_IDTOINDEX doesn't use GetLastError().
-    BOOST_ASSERT(index != -1 && "tomato::get_rebar_band_hwnd - band id is invalid.");
+    BOOST_ASSERT(index != -1 && "invalid band id");
 
     REBARBANDINFO info; {
         info|size_initialized;

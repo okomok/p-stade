@@ -36,7 +36,7 @@ void add_rebar_band(HWND hWndReBar, HWND hWndBand, UINT fStyle, const TCHAR *psz
     BOOST_ASSERT(diet::valid(hWndReBar));
     BOOST_ASSERT(diet::valid(hWndBand));
     BOOST_ASSERT(diet::valid(pszText));
-    BOOST_ASSERT(::GetDlgCtrlID(hWndBand) != 0 && "pstade::tomato::add_rebar_band - child window id is invalid.");
+    BOOST_ASSERT(::GetDlgCtrlID(hWndBand) != 0 && "invalid child window id");
 
 
     // info.lpText is not 'const'. 'const_cast' is dangerous.

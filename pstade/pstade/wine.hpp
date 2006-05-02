@@ -29,6 +29,7 @@
 #include "./pause.hpp"
 #include "./require.hpp"
 #include "./unused.hpp"
+#include "./ustring.hpp"
 
 
 #endif

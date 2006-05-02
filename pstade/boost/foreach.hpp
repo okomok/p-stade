@@ -10,6 +10,9 @@
 //  Anson Tsao        - for the initial inspiration and several good suggestions.
 //  Thorsten Ottosen  - for Boost.Range, and for suggesting a way to detect
 //                      const-qualified rvalues at compile time on VC7.1+
+//  Russell Hind      - For help porting to Borland
+//  Alisdair Meredith - For help porting to Borland
+//  Stefan Slapeta    - For help porting to Intel
 
 #ifndef BOOST_FOREACH
 
@@ -138,6 +141,13 @@ namespace foreach
 
 } // namespace boost
 
+// vc6/7 needs help ordering the following overloads
+#ifdef BOOST_NO_FUNCTION_TEMPLATE_ORDERING
+# define BOOST_FOREACH_TAG_DEFAULT ...
+#else
+# define BOOST_FOREACH_TAG_DEFAULT boost::foreach::tag
+#endif
+
 ///////////////////////////////////////////////////////////////////////////////
 // boost_foreach_is_lightweight_proxy
 //   Another customization point for the is_lightweight_proxy optimization,
@@ -145,7 +155,7 @@ namespace foreach
 //   at the global namespace for your type.
 template<typename T>
 inline boost::foreach::is_lightweight_proxy<T> *
-boost_foreach_is_lightweight_proxy(T *&, ...) { return 0; }
+boost_foreach_is_lightweight_proxy(T *&, BOOST_FOREACH_TAG_DEFAULT) { return 0; }
 
 template<typename T>
 inline boost::mpl::true_ *
@@ -161,11 +171,7 @@ boost_foreach_is_lightweight_proxy(boost::sub_range<T> *&, boost::foreach::tag) 
 
 template<typename T>
 inline boost::mpl::true_ *
-boost_foreach_is_lightweight_proxy(T **, boost::foreach::tag) { return 0; }
-
-template<typename T, std::size_t N>
-inline boost::mpl::false_ *
-boost_foreach_is_lightweight_proxy(T (*)[N], boost::foreach::tag) { return 0; }
+boost_foreach_is_lightweight_proxy(T **&, boost::foreach::tag) { return 0; }
 
 ///////////////////////////////////////////////////////////////////////////////
 // boost_foreach_is_noncopyable
@@ -174,7 +180,7 @@ boost_foreach_is_lightweight_proxy(T (*)[N], boost::foreach::tag) { return 0; }
 //   at the global namespace for your type.
 template<typename T>
 inline boost::foreach::is_noncopyable<T> *
-boost_foreach_is_noncopyable(T *&, ...) { return 0; }
+boost_foreach_is_noncopyable(T *&, BOOST_FOREACH_TAG_DEFAULT) { return 0; }
 
 namespace boost
 {
@@ -315,7 +321,11 @@ inline T *&to_ptr(T const &)
 // Borland needs a little extra help with arrays
 #if BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x564))
 template<typename T,std::size_t N>
-inline T (*to_ptr(T (&t)[N]))[N]  { return 0; }
+inline T (*&to_ptr(T (&)[N]))[N]
+{
+    static T (*t)[N] = 0;
+    return t;
+}
 #endif
 
 ///////////////////////////////////////////////////////////////////////////////

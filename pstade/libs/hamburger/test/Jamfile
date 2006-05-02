@@ -1,11 +1,11 @@
 
-subproject libs/apple/test ;
+subproject libs/hamburger/test ;
 
 import testing ;
 
 DEPENDS all : test ;
 
-rule apple-test ( name : includes * )
+rule hamburger-test ( name : includes * )
 {
     return [
         run $(name).cpp
@@ -16,8 +16,7 @@ rule apple-test ( name : includes * )
     ] ;
 }
 
-test-suite apple :
-    [ apple-test is_boost_range ]
-    [ apple-test is_sequence ]
-    [ apple-test header ]
+test-suite hamburger :
+    [ hamburger-test basic ]
+    [ hamburger-test header ]
     ;

@@ -27,7 +27,7 @@ void show_rebar_band(HWND hWndReBar, UINT uBandID, bool visible)
 
     WTL::CReBarCtrl rebar(hWndReBar);
     int index = rebar.IdToIndex(uBandID);
-    BOOST_ASSERT(index != -1 && "pstade::tomato::show_rebar_band - band id is invalid.");
+    BOOST_ASSERT(index != -1 && "invalid band id");
 
     PSTADE_REQUIRE(rebar.ShowBand(index, visible));
 }

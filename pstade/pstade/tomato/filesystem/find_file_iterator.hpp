@@ -57,7 +57,7 @@ private:
 friend class boost::iterator_core_access;
     void increment()
     {
-        BOOST_ASSERT(m_found && "pstade::tomato::find_file_iterator - out of bounds");
+        BOOST_ASSERT(m_found && "out of range");
 
         find_next_file();
     }
@@ -69,7 +69,7 @@ friend class boost::iterator_core_access;
 
     WIN32_FIND_DATA& dereference() const
     {
-        BOOST_ASSERT(m_found && "pstade::tomato::find_file_iterator - iterator gets an access violation");
+        BOOST_ASSERT(m_found && "out of range access");
 
         return *m_pdata;
     }

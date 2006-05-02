@@ -12,7 +12,7 @@
 
 #include <pstade/biscuit/parser/or.hpp>
 #include <pstade/biscuit/parser/primitive/bchseq.hpp>
-#include "./ucs4_t.hpp"
+#include <pstade/ustring.hpp> // ucs4_t
 
 
 namespace pstade { namespace melon {

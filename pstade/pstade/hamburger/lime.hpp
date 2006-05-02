@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/lime/ustring.hpp>
+#include <pstade/ustring.hpp>
 #include "./factory.hpp"
 
 
@@ -18,7 +18,7 @@ namespace pstade { namespace hamburger {
 
 
 inline // lime customization
-element_node *pstade_lime_new_node(element_node& parent, lime::ustring childName)
+element_node *pstade_lime_new_node(element_node& parent, ustring childName)
 {
     return hamburger::create_node(parent, childName);
 }

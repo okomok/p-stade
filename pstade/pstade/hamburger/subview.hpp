@@ -45,10 +45,10 @@ private:
 
 
 namespace subview_detail { namespace {
-    
+
 
     entry_type entry = hamburger::register_node<subview>("subview");
-    
+
 
 } } // namespace subview_detail::unnamed
 

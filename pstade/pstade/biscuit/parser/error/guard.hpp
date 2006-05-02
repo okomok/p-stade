@@ -45,7 +45,7 @@ struct guard
                 return Parser::parse(s, us);
             }
             catch (parser_error<range_t, InfoT>& e) {
-                BOOST_ASSERT(s.get_cur() == marker && "pstade::biscuit::guard - Not-exception-safe Parser is found.");
+                BOOST_ASSERT(s.get_cur() == marker && "non-exception-safe Parser found");
                 s.set_cur(marker);
 
                 es = HandlerT()(s, us, e.get_range(), e.get_info());
@@ -60,7 +60,7 @@ struct guard
                     case error_retry:
                         continue;
                     default:
-                        BOOST_ASSERT(false && "pstade::biscuit::guard - An undefined code returns from handler.");
+                        BOOST_ASSERT(false && "undefined code");
                 }
             } // catch
         } // while

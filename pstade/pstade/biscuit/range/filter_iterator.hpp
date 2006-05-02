@@ -109,8 +109,7 @@ private:
 friend class boost::iterator_core_access;
     void increment()
     {
-        BOOST_ASSERT(this->base() != m_last &&
-            "pstade::biscuit::filter_iterator - out of range.");
+        BOOST_ASSERT(this->base() != m_last && "out of range");
 
         ++(this->base_reference());
         search_submatch();

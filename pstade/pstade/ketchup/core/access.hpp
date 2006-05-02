@@ -61,7 +61,7 @@ public:
     {
         pstade::unused(dwMsgMapID);
 
-        return tomato::boolean(derived.ChainClass::ProcessWindowMessage(hWnd, uMsg, wParam, lParam, lResult, msgMapID_t::value));
+		return tomato::boolean(derived.Derived::ProcessWindowMessage(hWnd, uMsg, wParam, lParam, lResult, msgMapID_t::value));
     }
 
     // Note:

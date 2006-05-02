@@ -79,7 +79,7 @@ namespace copy_detail {
         template< class Result, class RangeIn, class RangeOut >
         Result call(const RangeIn& in, RangeOut& out)
         {
-            BOOST_ASSERT(boost::size(in) <= boost::size(out) && "pstade::oven::copies - out of range");
+            BOOST_ASSERT(boost::size(in) <= boost::size(out) && "out of range");
             return std::copy(boost::begin(in), boost::end(in), boost::begin(out));
         }
     };

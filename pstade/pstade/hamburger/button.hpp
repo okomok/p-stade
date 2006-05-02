@@ -11,7 +11,6 @@
 
 
 #include <pstade/ketchup.hpp>
-#include <pstade/lime/ustring.hpp>
 #include "./element.hpp"
 #include "./factory.hpp"
 
@@ -31,10 +30,10 @@ struct button :
 
 
 namespace button_detail { namespace {
-    
+
 
     entry_type entry = hamburger::register_node<button>("button");
-    
+
 
 } } // namespace button_detail::unnamed
 

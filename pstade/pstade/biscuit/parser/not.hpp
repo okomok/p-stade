@@ -40,7 +40,7 @@ struct not_ // one character parser
             PSTADE_IF_DEBUG (
                 typedef typename boost::range_result_iterator<State>::type iter_t;
                 iter_t one_step_forward; { one_step_forward = gd.marker(); ++one_step_forward; }
-                BOOST_ASSERT(s.get_cur() == one_step_forward && "pstade::biscuit::not_ - not_ is defined only if one character parser.");
+                BOOST_ASSERT(s.get_cur() == one_step_forward && "not_ is defined only if one character parser.");
             )
 
             return false;

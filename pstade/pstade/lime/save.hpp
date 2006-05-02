@@ -15,6 +15,7 @@
 #include <pstade/oven/copy.hpp>
 #include <pstade/oven/equal.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
+#include <pstade/ustring.hpp>
 #include "./intrinsic.hpp"
 #include "./node.hpp"
 
@@ -55,7 +56,7 @@ namespace save_detail {
             oven::copy(">"|null_terminated, out);
         }
 
-        BOOST_FOREACH (node<Interface>& child, parent) {
+        BOOST_FOREACH (node<Interface>& child, parent.children()) {
             save_detail::aux(child, out);
         }
 
@@ -73,7 +74,7 @@ namespace save_detail {
 template< class Interface, class OutIter >
 void save(node<Interface>& root, OutIter out)
 {
-    BOOST_FOREACH (node<Interface>& child, root) {
+    BOOST_FOREACH (node<Interface>& child, root.children()) {
         save_detail::aux(child, out);
     }
 }

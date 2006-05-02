@@ -13,7 +13,7 @@
 #include <boost/cstdint.hpp> // uint32_t
 #include <pstade/biscuit/parser/primitive/bchrng.hpp>
 #include <pstade/biscuit/parser/primitive/bchseq.hpp>
-#include "./ucs4_t.hpp"
+#include <pstade/ustring.hpp> // ucs4_t
 
 
 namespace pstade { namespace melon {

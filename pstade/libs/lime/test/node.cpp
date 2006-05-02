@@ -22,9 +22,9 @@ void test()
 {
     using namespace pstade;
 
-    lime::ustring src("<?xml version=\"1.0\"?><parent><child>hello</child></parent>");
+    ustring src("<?xml version=\"1.0\"?><parent><child>hello</child></parent>");
 
-    lime::node<> root("Root");
+    lime::node<> root;
     lime::load(root, src);
 
     {
@@ -40,9 +40,9 @@ void test()
         BOOST_CHECK( i == 12 );
     }
 
-    lime::ustring ans("<parent><child>hello<grandchild age=\"12\"></grandchild></child></parent>");
+    ustring ans("<parent><child>hello<grandchild age=\"12\"></grandchild></child></parent>");
 
-    lime::ustring dst;
+    ustring dst;
     lime::save(root, garlic::back_inserter(dst));
     std::cout << dst;
 

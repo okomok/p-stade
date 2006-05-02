@@ -33,7 +33,7 @@ namespace my_melon {
     using namespace pstade;
 
 
-    typedef std::vector<melon::ucs4_t> string_t;
+    typedef std::vector<ucs4_t> string_t;
 
 
     // simple_tree

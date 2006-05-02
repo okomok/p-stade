@@ -10,9 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/lime/node.hpp>
-#include <pstade/lime/load.hpp>
-#include <pstade/lime/save.hpp>
+#include <pstade/hamburger.hpp>
 
 
 #include <fstream>
@@ -21,17 +19,19 @@
 #include <pstade/garlic.hpp>
 #include <pstade/oven.hpp>
 #include <pstade/wine.hpp>
+#include <pstade/melon.hpp>
+#include <pstade/lime.hpp>
 
 
 void test()
 {
 	using namespace pstade;
 
-    std::cout << "<lime_test>";
+    std::cout << "<hamburger_test>";
 
 	try {
 
-		std::string iname("sample.xml");
+		std::string iname("sample_view.xml");
 		std::cout << "<input-file>" << iname << "</input-file>";
 
 		std::string oname = iname + ".out";
@@ -46,7 +46,7 @@ void test()
 			);
 		}
 
-        lime::node<> root;
+        hamburger::unknown root;
         lime::load(root, tmp);
 
 		lime::save(
@@ -59,7 +59,7 @@ void test()
         std::cout << "<error>" << err.what() << "</error>\n";
 	}
 
-    std::cout << "</lime_test>";
+    std::cout << "</hamburger_test>";
 }
 
 

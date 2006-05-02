@@ -18,8 +18,6 @@
 #include "./melon/content.hpp"
 #include "./melon/document.hpp"
 #include "./melon/element.hpp"
-#include "./melon/ucs4_t.hpp"
-#include "./melon/utf8cp_t.hpp"
 
 
 #endif
