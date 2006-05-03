@@ -85,7 +85,7 @@ namespace factory_detail {
 inline
 void register_node(ustring name, factory_detail::method_t m)
 {
-    factory_detail::impl_::instance().register_(name, m);
+    factory_detail::impl_().register_(name, m);
 }
 
 

@@ -16,14 +16,13 @@
 
 
 #include <boost/preprocessor/cat.hpp>
-#include <boost/serialization/force_include.hpp> // BOOST_DLLEXPORT
 #include <pstade/instance.hpp>
 
 
 #define PSTADE_STATEMENT(Label, Statement) \
     PSTADE_STATEMENT_define_initializer_type(Label, Statement) \
     \
-    BOOST_DLLEXPORT PSTADE_INSTANCE(PSTADE_STATEMENT_initializer_type(Label), \
+    PSTADE_INSTANCE(PSTADE_STATEMENT_initializer_type(Label), \
         PSTADE_STATEMENT_initializer(Label), value) \
 /**/
 
