@@ -27,13 +27,13 @@ namespace pstade { namespace oven {
 namespace repeat_range_detail {
 
 
-    template< class Range, class CountT >
+    template< class Range, class SizeT >
     struct super_
     {
         typedef boost::iterator_range<
             repeat_iterator<
                 typename boost::range_result_iterator<Range>::type,
-                CountT
+                SizeT
             >
         > type;
     };
@@ -42,28 +42,25 @@ namespace repeat_range_detail {
 } // namespace repeat_range_detail
 
 
-template< class Range, class CountT = std::size_t >
+template< class Range, class SizeT = std::size_t >
 struct repeat_range :
-    repeat_range_detail::super_<Range, CountT>::type
+    repeat_range_detail::super_<Range, SizeT>::type
 {
 private:
-    typedef typename repeat_range_detail::super_<Range, CountT>::type super_t;
+    typedef typename repeat_range_detail::super_<Range, SizeT>::type super_t;
     typedef typename super_t::iterator iter_t;
 
 public:
-    explicit repeat_range(Range& rng, CountT count) :
+    explicit repeat_range(Range& rng, SizeT sz) :
         super_t(
-            iter_t(boost::begin(rng), boost::end(rng), count),
-            iter_t(boost::begin(rng), boost::end(rng), 0)
+			iter_t(boost::begin(rng), 0,  boost::begin(rng), boost::end(rng)),
+			iter_t(boost::begin(rng), sz, boost::begin(rng), boost::end(rng))
         )
     { }
 
     typename sub_range_result<Range>::type source() const
     {
-        return boost::make_iterator_range(
-            this->begin().source_begin(),
-            this->begin().source_end()
-        );
+        return boost::make_iterator_range(this->begin().sbegin(), this->begin().send());
     }
 };
 
@@ -73,17 +70,17 @@ namespace repeat_range_detail {
 
     struct baby_generator
     {
-        template< class Range, class CountT >
+        template< class Range, class SizeT >
         struct result
         {
-            typedef typename remove_rcv<CountT>::type count_t;
-            typedef const repeat_range<Range, count_t> type;
+            typedef typename remove_rcv<SizeT>::type sz_t;
+            typedef const repeat_range<Range, sz_t> type;
         };
 
-        template< class Result, class Range, class CountT >
-        Result call(Range& rng, CountT count)
+        template< class Result, class Range, class SizeT >
+        Result call(Range& rng, SizeT sz)
         {
-            return Result(rng, count);
+            return Result(rng, sz);
         }
     };
 
