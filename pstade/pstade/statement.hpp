@@ -17,22 +17,14 @@
 
 #include <boost/preprocessor/cat.hpp>
 #include <boost/serialization/force_include.hpp> // BOOST_DLLEXPORT
-#include <boost/utility/addressof.hpp>
 #include <pstade/instance.hpp>
 
 
 #define PSTADE_STATEMENT(Label, Statement) \
     PSTADE_STATEMENT_define_initializer_type(Label, Statement) \
     \
-    PSTADE_INSTANCE(PSTADE_STATEMENT_initializer_type(Label), \
+    BOOST_DLLEXPORT PSTADE_INSTANCE(PSTADE_STATEMENT_initializer_type(Label), \
         PSTADE_STATEMENT_initializer(Label), value) \
-    \
-    inline BOOST_DLLEXPORT \
-    PSTADE_STATEMENT_initializer_type(Label) * \
-    PSTADE_STATEMENT_optimizer_buster(Label)() \
-    { \
-        return boost::addressof( BOOST_PP_CAT(PSTADE_STATEMENT_initializer(Label), _)::instance() ); \
-    } \
 /**/
 
 
@@ -54,11 +46,6 @@
 
 #define PSTADE_STATEMENT_initializer(Label) \
     BOOST_PP_CAT(pstade_statement_initializer_of_, Label) \
-/**/
-
-
-#define PSTADE_STATEMENT_optimizer_buster(Label) \
-    BOOST_PP_CAT(pstade_statement_optimizer_buster_of_, Label) \
 /**/
 
 

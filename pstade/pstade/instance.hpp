@@ -72,45 +72,47 @@
 
 
 #define PSTADE_INSTANCE_no_args(Type, Name, Unused) \
-    PSTADE_INSTANCE_define_struct(Type, Name, PSTADE_INSTANCE_define_v(Type, x)) \
+    PSTADE_INSTANCE_define_fun(Type, Name, PSTADE_INSTANCE_define_x_v(Type)) \
     \
     namespace { \
         PSTADE_INSTANCE_static \
-        PSTADE_INSTANCE_comma_protect(Type)& Name = BOOST_PP_CAT(Name, _)::instance(); \
+        PSTADE_INSTANCE_comma_protect(Type)& Name = PSTADE_INSTANCE_call_fun(Name); \
     } \
 /**/
 
 
 #define PSTADE_INSTANCE_args(Type, Name, ArgSeq) \
-    PSTADE_INSTANCE_define_struct(Type, Name, PSTADE_INSTANCE_define_a(Type, x, ArgSeq)) \
+    PSTADE_INSTANCE_define_fun(Type, Name, PSTADE_INSTANCE_define_x_a(Type, ArgSeq)) \
     \
     namespace { \
         PSTADE_INSTANCE_static \
-        PSTADE_INSTANCE_comma_protect(Type)& Name = BOOST_PP_CAT(Name, _)::instance(); \
+        PSTADE_INSTANCE_comma_protect(Type)& Name = PSTADE_INSTANCE_call_fun(Name); \
     } \
 /**/
 
 
-#define PSTADE_INSTANCE_define_struct(Type, Name, DefineX) \
-    struct BOOST_PP_CAT(Name, _) \
+#define PSTADE_INSTANCE_define_fun(Type, Name, DefineX) \
+    inline \
+    PSTADE_INSTANCE_comma_protect(Type)& BOOST_PP_CAT(Name, _)() \
     { \
-        static \
-        PSTADE_INSTANCE_comma_protect(Type)& instance() \
-        { \
-            static DefineX \
-            return x; \
-        } \
-    }; \
+        static DefineX \
+        return x; \
+    } \
 /**/
 
 
-#define PSTADE_INSTANCE_define_v(Type, Name) \
-    boost::value_initialized< PSTADE_INSTANCE_comma_protect(Type) > Name; \
+#define PSTADE_INSTANCE_call_fun(Name) \
+    BOOST_PP_CAT(Name, _)() \
 /**/
 
 
-#define PSTADE_INSTANCE_define_a(Type, Name, ArgSeq) \
-    PSTADE_INSTANCE_comma_protect(Type) Name(BOOST_PP_SEQ_ENUM(ArgSeq)); \
+#define PSTADE_INSTANCE_define_x_v(Type) \
+    boost::value_initialized< PSTADE_INSTANCE_comma_protect(Type) > x; \
+/**/
+
+
+#define PSTADE_INSTANCE_define_x_a(Type, ArgSeq) \
+    PSTADE_INSTANCE_comma_protect(Type) x(BOOST_PP_SEQ_ENUM(ArgSeq)); \
 /**/
 
 
