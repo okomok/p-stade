@@ -11,8 +11,8 @@
 
 
 // Strictly speaking, there seems no guarantee that
-// the statement is executed before 'main',
-// though no compilers can do such delay.
+// the statement is executed before 'main'...
+// http://groups.google.com/group/comp.lang.c++.moderated/browse_frm/thread/7d2a6bb473c31056/
 
 
 #include <boost/preprocessor/cat.hpp>
@@ -28,7 +28,7 @@
     \
     BOOST_DLLEXPORT \
     PSTADE_STATEMENT_initializer_type(Label) * \
-    PSTADE_STATEMENT_function(Label)() \
+    PSTADE_STATEMENT_optimizer_buster(Label)() \
     { \
         return &PSTADE_STATEMENT_initializer(Label); \
     } \
@@ -56,8 +56,8 @@
 /**/
 
 
-#define PSTADE_STATEMENT_function(Label) \
-    BOOST_PP_CAT(pstade_statement_function_of_, Label) \
+#define PSTADE_STATEMENT_optimizer_buster(Label) \
+    BOOST_PP_CAT(pstade_statement_optimizer_buster_of_, Label) \
 /**/
 
 
