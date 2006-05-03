@@ -11,6 +11,7 @@
 
 
 #include <pstade/ketchup.hpp>
+#include <pstade/statement.hpp>
 #include "./element.hpp"
 #include "./factory.hpp"
 
@@ -29,13 +30,15 @@ struct button :
 };
 
 
-namespace button_detail { namespace {
+namespace button_detail {
 
 
-    entry_type entry = hamburger::register_node<button>("button");
+    PSTADE_STATEMENT(Register,
+        hamburger::register_node<button>("button");
+    )
 
 
-} } // namespace button_detail::unnamed
+} // namespace button_detail
 
 
 } } // namespace pstade::hamburger

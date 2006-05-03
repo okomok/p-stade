@@ -93,13 +93,15 @@ private:
 };
 
 
-namespace view_detail { namespace {
+namespace view_detail {
 
 
-    entry_type entry = hamburger::register_node<view>("view");
+    PSTADE_STATEMENT(Register,
+        hamburger::register_node<view>("view");
+    )
 
 
-} } // namespace view_detail::unnamed
+} // namespace view_detail
 
 
 } } // namespace pstade::hamburger

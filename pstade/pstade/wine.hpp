@@ -28,6 +28,7 @@
 #include "./overload.hpp"
 #include "./pause.hpp"
 #include "./require.hpp"
+#include "./statement.hpp"
 #include "./unused.hpp"
 #include "./ustring.hpp"
 

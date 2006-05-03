@@ -11,6 +11,7 @@
 
 
 #include <pstade/ketchup.hpp>
+#include <pstade/statement.hpp>
 #include "./element.hpp"
 #include "./factory.hpp"
 
@@ -29,13 +30,15 @@ struct desktop :
 };
 
 
-namespace desktop_detail { namespace {
+namespace desktop_detail {
 
 
-    entry_type entry = hamburger::register_node<desktop>("desktop");
+    PSTADE_STATEMENT(Register,
+        hamburger::register_node<desktop>("desktop");
+    )
 
 
-} } // namespace desktop_detail::unnamed
+} // namespace desktop_detail
 
 
 } } // namespace pstade::hamburger

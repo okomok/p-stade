@@ -40,12 +40,9 @@ namespace factory_detail {
         typedef map_t::iterator iter_t;
 
     public:
-        const int& register_(ustring name, method_t m)
+        void register_(ustring name, method_t m)
         {
             m_methods[name] = m;
-
-            static const int dummy;
-            return dummy;
         }
 
         element_node *create(element_node& parent, ustring childName)
@@ -86,17 +83,17 @@ namespace factory_detail {
 
 
 inline
-const int& register_node(ustring name, factory_detail::method_t m)
+void register_node(ustring name, factory_detail::method_t m)
 {
-    return factory_detail::impl.register_(name, m);
+    factory_detail::impl_::instance().register_(name, m);
 }
 
 
 template< class T > inline
-const int& register_node(ustring name)
+void register_node(ustring name)
 {
     // Without '&', VC8 sometimes misses 'new_method' at link time. 
-    return hamburger::register_node(name, &factory_detail::new_method<T>::call);
+    hamburger::register_node(name, &factory_detail::new_method<T>::call);
 }
 
 
@@ -105,10 +102,6 @@ element_node *create_node(element_node& parent, ustring name)
 {
     return factory_detail::impl.create(parent, name);
 }
-
-
-typedef const int&
-entry_type; // syntax sugar
 
 
 } } // namespace pstade::hamburger

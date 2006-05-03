@@ -139,7 +139,7 @@ public:
 private:
     boost::optional<node&> m_parent;
     ustring m_name;
-    boost::ptr_vector<node> m_children;
+    children_type m_children;
     attributes_type m_atts;
 
     node& get_child(ustring childName)

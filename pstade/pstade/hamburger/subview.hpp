@@ -44,13 +44,15 @@ private:
 };
 
 
-namespace subview_detail { namespace {
+namespace subview_detail {
 
 
-    entry_type entry = hamburger::register_node<subview>("subview");
+    PSTADE_STATEMENT(Register,
+        hamburger::register_node<subview>("subview");
+    )
 
 
-} } // namespace subview_detail::unnamed
+} // namespace subview_detail
 
 
 } } // namespace pstade::hamburger
