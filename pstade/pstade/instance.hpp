@@ -58,77 +58,75 @@
 /**/
 
 
-    #define PSTADE_INSTANCE_valid(ValueOrArgSeq) \
-        BOOST_PP_IIF (BOOST_MPL_PP_IS_SEQ(ValueOrArgSeq), \
-            1 BOOST_PP_TUPLE_EAT(2), \
-            BOOST_MPL_PP_TOKEN_EQUAL \
-        )(ValueOrArgSeq, value) \
-    /**/
+#define PSTADE_INSTANCE_valid(ValueOrArgSeq) \
+    BOOST_PP_IIF (BOOST_MPL_PP_IS_SEQ(ValueOrArgSeq), \
+        1 BOOST_PP_TUPLE_EAT(2), \
+        BOOST_MPL_PP_TOKEN_EQUAL \
+    )(ValueOrArgSeq, value) \
+/**/
 
 
-    #define BOOST_MPL_PP_TOKEN_EQUAL_value(A) \
-        A \
-    /**/
+#define BOOST_MPL_PP_TOKEN_EQUAL_value(A) \
+    A \
+/**/
 
 
-    #define PSTADE_INSTANCE_no_args(Type, Name, Unused) \
-        PSTADE_INSTANCE_define_fun(Type, Name, PSTADE_INSTANCE_define_x_v(Type)) \
-        \
-        namespace { \
-            PSTADE_INSTANCE_static \
-            PSTADE_INSTANCE_comma_protect(Type)& Name = PSTADE_INSTANCE_call_fun(Name); \
-        } \
-    /**/
+#define PSTADE_INSTANCE_no_args(Type, Name, Unused) \
+    PSTADE_INSTANCE_define_struct(Type, Name, PSTADE_INSTANCE_define_v(Type, x)) \
+    \
+    namespace { \
+        PSTADE_INSTANCE_static \
+        PSTADE_INSTANCE_comma_protect(Type)& Name = BOOST_PP_CAT(Name, _)::instance(); \
+    } \
+/**/
 
 
-    #define PSTADE_INSTANCE_args(Type, Name, ArgSeq) \
-        PSTADE_INSTANCE_define_fun(Type, Name, PSTADE_INSTANCE_define_x_a(Type, ArgSeq)) \
-        \
-        namespace { \
-            PSTADE_INSTANCE_static \
-            PSTADE_INSTANCE_comma_protect(Type)& Name = PSTADE_INSTANCE_call_fun(Name); \
-        } \
-    /**/
+#define PSTADE_INSTANCE_args(Type, Name, ArgSeq) \
+    PSTADE_INSTANCE_define_struct(Type, Name, PSTADE_INSTANCE_define_a(Type, x, ArgSeq)) \
+    \
+    namespace { \
+        PSTADE_INSTANCE_static \
+        PSTADE_INSTANCE_comma_protect(Type)& Name = BOOST_PP_CAT(Name, _)::instance(); \
+    } \
+/**/
 
 
-    #define PSTADE_INSTANCE_define_fun(Type, Name, DefineX) \
-        inline \
-        PSTADE_INSTANCE_comma_protect(Type)& BOOST_PP_CAT(pstade_instance_of_, Name)() \
+#define PSTADE_INSTANCE_define_struct(Type, Name, DefineX) \
+    struct BOOST_PP_CAT(Name, _) \
+    { \
+        static \
+        PSTADE_INSTANCE_comma_protect(Type)& instance() \
         { \
             static DefineX \
             return x; \
         } \
-    /**/
+    }; \
+/**/
 
 
-    #define PSTADE_INSTANCE_call_fun(Name) \
-        BOOST_PP_CAT(pstade_instance_of_, Name)() \
-    /**/
+#define PSTADE_INSTANCE_define_v(Type, Name) \
+    boost::value_initialized< PSTADE_INSTANCE_comma_protect(Type) > Name; \
+/**/
 
 
-    #define PSTADE_INSTANCE_define_x_v(Type) \
-        boost::value_initialized< PSTADE_INSTANCE_comma_protect(Type) > x; \
-    /**/
+#define PSTADE_INSTANCE_define_a(Type, Name, ArgSeq) \
+    PSTADE_INSTANCE_comma_protect(Type) Name(BOOST_PP_SEQ_ENUM(ArgSeq)); \
+/**/
 
 
-    #define PSTADE_INSTANCE_define_x_a(Type, ArgSeq) \
-        PSTADE_INSTANCE_comma_protect(Type) x(BOOST_PP_SEQ_ENUM(ArgSeq)); \
-    /**/
+#define PSTADE_INSTANCE_comma_protect(Type) \
+    pstade::comma_protect<void(Type)>::type \
+/**/
 
 
-    #define PSTADE_INSTANCE_comma_protect(Type) \
-        pstade::comma_protect<void(Type)>::type \
-    /**/
-
-
-    // Workaround:
-    //   The weird 'stdafx.h' needs 'static'.
-    //
-    #if !defined(BOOST_MSVC)
-        #define PSTADE_INSTANCE_static
-    #else
-        #define PSTADE_INSTANCE_static static
-    #endif
+// Workaround:
+//   The weird 'stdafx.h' needs 'static'.
+//
+#if !defined(BOOST_MSVC)
+    #define PSTADE_INSTANCE_static
+#else
+    #define PSTADE_INSTANCE_static static
+#endif
 
 
 #endif
