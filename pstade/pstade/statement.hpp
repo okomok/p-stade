@@ -26,7 +26,7 @@
     PSTADE_INSTANCE(PSTADE_STATEMENT_initializer_type(Label), \
         PSTADE_STATEMENT_initializer(Label), value) \
     \
-    BOOST_DLLEXPORT \
+    inline BOOST_DLLEXPORT \
     PSTADE_STATEMENT_initializer_type(Label) * \
     PSTADE_STATEMENT_optimizer_buster(Label)() \
     { \
