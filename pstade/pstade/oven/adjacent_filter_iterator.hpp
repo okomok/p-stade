@@ -14,9 +14,6 @@
 //
 // Conforming to bidirectional iterator seems to need 'm_first'.
 // Am I right?
-//
-// boost::filter_iterator takes predicate by explicit template argument.
-// Such style is rejected for now.
 
 
 #include <boost/assert.hpp>
