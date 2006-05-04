@@ -11,8 +11,15 @@
 
 
 #include <iterator> // advance, distance
+#include <boost/config.hpp>
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
+
+
+#if defined(BOOST_MSVC)
+    #pragma warning(push)
+    #pragma warning(disable: 4244) // possible loss of data
+#endif
 
 
 namespace pstade { namespace oven {
@@ -34,31 +41,9 @@ namespace repeat_iterator_detail {
         > type;
     };
 
-/*
-    template< class SizeT >
-    struct reverse_size
-    {
-        explicit reverse_size(SizeT index) :
-            m_index(index)
-        { }
-
-        SizeT operator++()
-        { return --m_index; }
-
-        template< class SizeT_ >
-        void operator+=(SizeT_ index)
-        { m_index -= index; }
-
-        SizeT base() const
-        { return m_index; }
-
-    private:
-        SizeT m_index;
-    };
-*/
 
     template< class Difference, class ForwardIter, class SizeT >
-    Difference pseudo_diff(ForwardIter it, SizeT index, ForwardIter first, ForwardIter last)
+    Difference pseudo_pos(ForwardIter it, SizeT index, ForwardIter first, ForwardIter last)
     {
         Difference srcSize = std::distance(first, last);
         Difference srcDiff = std::distance(first, it);
@@ -145,6 +130,16 @@ friend class boost::iterator_core_access;
         return *this->base();
     }
 
+    bool equal(repeat_iterator other) const
+    {
+        BOOST_ASSERT(m_index >= 0);
+        BOOST_ASSERT(m_first == other.sbegin() && m_last == other.send() &&
+            "incompatible iterators"
+        );
+
+        return this->base() == other.base() && m_index == other.m_index;
+    }
+
     void increment()
     {
         BOOST_ASSERT(m_index >= 0);
@@ -163,21 +158,6 @@ friend class boost::iterator_core_access;
         BOOST_ASSERT(m_index >= 0);
     }
 
-    bool equal(repeat_iterator other) const
-    {
-        BOOST_ASSERT(m_index >= 0);
-        BOOST_ASSERT(
-            m_first == other.sbegin() &&
-            m_last == other.send() &&
-            "incompatible iterators"
-        );
-
-        return
-            this->base() == other.base() &&
-            m_index == other.m_index
-        ;
-    }
-
     // seems stupid implementation...
     //
     void advance(diff_t d)
@@ -192,6 +172,7 @@ friend class boost::iterator_core_access;
         BOOST_ASSERT(m_index >= 0);
     }
 
+private:
     void advance_to_right(diff_t d)
     {
         BOOST_ASSERT(d >= 0);
@@ -230,8 +211,8 @@ friend class boost::iterator_core_access;
     diff_t distance_to(repeat_iterator other) const
     {
         return 
-            repeat_iterator_detail::pseudo_diff<diff_t>(other.base(), other.index(), other.sbegin(), other.send())
-                - repeat_iterator_detail::pseudo_diff<diff_t>(this->base(), m_index, m_first, m_last)
+            repeat_iterator_detail::pseudo_pos<diff_t>(other.base(), other.index(), other.sbegin(), other.send())
+                - repeat_iterator_detail::pseudo_pos<diff_t>(this->base(), m_index, m_first, m_last)
         ;
     }
 };
@@ -246,6 +227,11 @@ make_repeat_iterator(ForwardIter it, SizeT index, ForwardIter first, ForwardIter
 
 
 } } // namespace pstade::oven
+
+
+#if defined(BOOST_MSVC)
+    #pragma warning(pop)
+#endif
 
 
 #endif

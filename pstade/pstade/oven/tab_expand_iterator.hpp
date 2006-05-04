@@ -48,6 +48,7 @@ struct tab_expand_iterator :
     tab_expand_iterator_detail::super_<ForwardIter>::type
 {
 private:
+    typedef tab_expand_iterator self_t;
     typedef typename tab_expand_iterator_detail::super_<ForwardIter>::type super_t;
     typedef typename super_t::difference_type diff_t;
     typedef typename super_t::reference ref_t;
@@ -121,6 +122,15 @@ friend class boost::iterator_core_access;
         return *(this->base());
     }
 
+    bool equal(self_t other) const
+    {
+        return
+            m_tabsize == other.m_tabsize &&
+            this->base() == other.base() &&
+            m_space_counter == other.m_space_counter
+        ;
+    }
+
     void increment()
     {
         if (!space_is_end()) {
@@ -147,21 +157,9 @@ friend class boost::iterator_core_access;
             m_diff_from_sol = 0;
     }
 
-    bool equal(tab_expand_iterator other) const
-    {
-        return
-            m_tabsize == other.m_tabsize &&
-            this->base() == other.base() &&
-            m_space_counter == other.m_space_counter
-        ;
-    }
-
 public: // private:
-    diff_t detail_space_counter() const
-    { return m_space_counter; }
-
-    diff_t detail_diff_from_sol() const
-    { return m_diff_from_sol; }
+    diff_t detail_space_counter() const { return m_space_counter; }
+    diff_t detail_diff_from_sol() const { return m_diff_from_sol; }
 };
 
 

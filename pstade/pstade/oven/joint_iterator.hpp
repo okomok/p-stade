@@ -14,8 +14,8 @@
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/reverse_iterator.hpp>
-#include <boost/iterator/zip_iterator.hpp> // detail::minimum_traversal_category_in_iterator_tuple
 #include <boost/tuple/tuple.hpp>
+#include "./detail/minimum_traversal_type.hpp"
 
 
 namespace pstade { namespace oven {
@@ -32,8 +32,8 @@ namespace joint_iterator_detail {
     struct traversal
     {
         typedef boost::tuple<Iterator1, Iterator2> iters_t;
-        typedef typename boost::detail::
-            minimum_traversal_category_in_iterator_tuple<iters_t>::type
+        typedef typename detail::
+            minimum_traversal<iters_t>::type
         type;
     };
 
@@ -89,6 +89,7 @@ struct joint_iterator :
     joint_iterator_detail::super_<Iterator1, Iterator2>::type
 {
 private:
+    typedef joint_iterator self_t;
     typedef typename joint_iterator_detail::super_<Iterator1, Iterator2>::type super_t;
     typedef typename super_t::reference ref_t;
     typedef typename super_t::difference_type diff_t;
@@ -131,14 +132,11 @@ friend class boost::iterator_core_access;
             return *m_it2;
     }
 
-    bool equal(joint_iterator other) const
+    bool equal(self_t other) const
     {
         BOOST_ASSERT(valid());
         BOOST_ASSERT(other.valid());
-
-        BOOST_ASSERT(
-            m_last1 == other.m_last1 &&
-            m_first2 == other.m_first2 &&
+        BOOST_ASSERT(m_last1 == other.m_last1 && m_first2 == other.m_first2 &&
             "incompatible iterators"
         );
 
@@ -182,7 +180,7 @@ friend class boost::iterator_core_access;
         }
     }
 
-    diff_t distance_to(joint_iterator other) const
+    diff_t distance_to(self_t other) const
     {
         BOOST_ASSERT(valid());
         BOOST_ASSERT(other.valid());
@@ -196,7 +194,7 @@ friend class boost::iterator_core_access;
         else if (!is_in_range1())
             return std::distance(m_it2, m_first2) + std::distance(other.m_last1, other.base());
         else {
-            BOOST_ASSERT(false);
+            BOOST_ASSERT(false && "when pigs fly.");
             return 0;
         }
     }
@@ -209,17 +207,10 @@ private:
     { return this->base() != m_last1; }
 
 public: // private:
-    Iterator1 detail_cur1() const
-    { return this->base(); }
-
-    Iterator1 detail_end1() const
-    { return m_last1; }
-    
-    Iterator2 detail_begin2() const
-    { return m_first2; };
-
-    Iterator2 detail_cur2() const
-    { return m_it2; };
+    Iterator1 detail_cur1() const   { return this->base(); }
+    Iterator1 detail_end1() const   { return m_last1; }
+    Iterator2 detail_begin2() const { return m_first2; }
+    Iterator2 detail_cur2() const   { return m_it2; }
 };
 
 

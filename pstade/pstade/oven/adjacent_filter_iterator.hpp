@@ -17,14 +17,13 @@
 
 
 #include <boost/assert.hpp>
-#include <boost/iterator/zip_iterator.hpp> // detail::minimum_traversal_category_in_iterator_tuple
 #include <boost/lambda/bind.hpp>
 #include <boost/lambda/core.hpp> // _1, _2
 #include <boost/tuple/tuple.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/reverse_iterator.hpp>
 #include "./detail/an_iterator.hpp"
-#include "./detail/equal_to.hpp"
+#include "./detail/minimum_traversal_type.hpp"
 
 
 namespace pstade { namespace oven {
@@ -45,8 +44,8 @@ namespace adjacent_filter_iterator_detail {
             detail::an_iterator<boost::bidirectional_traversal_tag>
         > iters_t;
 
-        typedef typename boost::detail::
-            minimum_traversal_category_in_iterator_tuple<iters_t>::type
+        typedef typename detail::
+            minimum_traversal<iters_t>::type
         type;
     };
 
@@ -65,9 +64,7 @@ namespace adjacent_filter_iterator_detail {
 
     template< class ForwardIter, class BinaryPred >
     ForwardIter next(ForwardIter first, ForwardIter last, BinaryPred pred)
-    {
-        // See: std::adjacent_find
-
+    { // See: std::adjacent_find
         BOOST_ASSERT(first != last);
 
         ForwardIter next = first;
@@ -139,6 +136,15 @@ friend class boost::iterator_core_access;
         return *this->base();
     }
 
+    bool equal(self_t other) const
+    {
+        BOOST_ASSERT(m_first == other.m_first && m_last == other.m_last &&
+            "incompatible iterators"
+        );
+
+        return this->base() == other.base();
+    }
+
     void increment()
     {
         BOOST_ASSERT(this->base() != m_last && "out of range");
@@ -161,13 +167,6 @@ friend class boost::iterator_core_access;
         this->base_reference() = adjacent_filter_iterator_detail::next(
             rit, rlast, bll::bind<bool>(m_pred, bll::_2, bll::_1)
         ).base();
-    }
-
-    bool equal(adjacent_filter_iterator other) const
-    {
-        BOOST_ASSERT(m_first == other.m_first && m_last == other.m_last && "incompatible iterators");
-
-        return this->base() == other.base();
     }
 };
 

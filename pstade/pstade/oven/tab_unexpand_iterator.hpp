@@ -46,6 +46,7 @@ struct tab_unexpand_iterator :
     tab_unexpand_iterator_detail::super_<ForwardIter>::type
 {
 private:
+    typedef tab_unexpand_iterator self_t;
     typedef typename tab_unexpand_iterator_detail::super_<ForwardIter>::type super_t;
     typedef typename super_t::base_type base_t;
     typedef typename super_t::difference_type diff_t;
@@ -89,8 +90,6 @@ private:
 
     bool is_newline() const
     {
-        // TODO: make more strict...
-        //
         return *(this->base()) == '\n';
     }
 
@@ -133,6 +132,11 @@ friend class boost::iterator_core_access;
         return *(this->base());
     }
 
+    bool equal(self_t other) const
+    {
+        return m_tabsize == other.m_tabsize && this->base() == other.base();
+    }
+
     void increment()
     {
         diff_t d = flying_distance();
@@ -149,17 +153,8 @@ friend class boost::iterator_core_access;
             m_sol = this->base();
     }
 
-    bool equal(tab_unexpand_iterator other) const
-    {
-        return
-            m_tabsize == other.m_tabsize &&
-            this->base() == other.base()
-        ;
-    }
-
 public: // private:
-    base_t detail_sol() const
-    { return m_sol; }
+    base_t detail_sol() const { return m_sol; }
 };
 
 
