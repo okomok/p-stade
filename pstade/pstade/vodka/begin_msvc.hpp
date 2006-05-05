@@ -18,11 +18,9 @@
 #pragma inline_depth(255) // max inline depth
 
 
-#if (_MSC_VER < 1400)
-    #pragma warning(disable: 4511) // copy constructor could not be generated
-    #pragma warning(disable: 4512) // assignment operator could not be generated
-    #pragma warning(disable: 4675) // resolved overload was found by argument-dependent lookup
-#endif
+#pragma warning(disable: 4511) // copy constructor could not be generated
+#pragma warning(disable: 4512) // assignment operator could not be generated
+#pragma warning(disable: 4675) // resolved overload was found by argument-dependent lookup
 
 
 #if (_MSC_VER >= 1400)

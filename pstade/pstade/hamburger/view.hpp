@@ -11,8 +11,12 @@
 
 
 #include <boost/microsoft/atl/win.hpp>
+#include <boost/microsoft/sdk/windows.hpp>
 #include <boost/microsoft/wtl/frame.hpp> // CMessageFilter, CIdleHandler
 #include <pstade/ketchup.hpp>
+#include <pstade/tomato/message_loop.hpp>
+#include <pstade/tomato/window/create_result.hpp>
+#include <pstade/unused.hpp>
 #include <pstade/ustring.hpp>
 #include "./element.hpp"
 #include "./view_attributes.hpp"
@@ -59,17 +63,31 @@ public:
 
     // WTL
     //
-    virtual BOOL OnIdle() {
+    virtual BOOL OnIdle()
+    {
         return FALSE;
     }
 
-    virtual BOOL PreTranslateMessage(MSG* /*pMsg*/) {
-        return FALSE;
+    virtual BOOL PreTranslateMessage(MSG *pMsg)
+    {
+        pstade::unused(pMsg);
+        return FALSE; // impl_t::PreTranslateMessage(pMsg);
+    }
+
+    // message handlers
+    //
+    LRESULT OnCreate(LPCREATESTRUCT lpCreateStruct)
+    {
+        tomato::add_message_filter(this);
+        tomato::add_idle_handler(this);
+
+        pstade::unused(lpCreateStruct);
+        return tomato::create_success;
     }
 
     begin_msg_map
     <
-        empty_entry<>,
+        msg_wm_create<&_::OnCreate, not_handled>,
         chain_msg_map<impl_t>
     >
     end_msg_map;

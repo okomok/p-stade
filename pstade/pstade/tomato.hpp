@@ -12,6 +12,7 @@
 
 #include "./tomato/boolean_cast.hpp"
 #include "./tomato/c_str.hpp"
+#include "./tomato/co_initializer.hpp"
 #include "./tomato/diet.hpp"
 #include "./tomato/filesystem.hpp"
 #include "./tomato/garlic.hpp"
@@ -20,6 +21,7 @@
 #include "./tomato/is_wce.hpp"
 #include "./tomato/menu.hpp"
 #include "./tomato/message_loop.hpp"
+#include "./tomato/module_initializer.hpp"
 #include "./tomato/rebar.hpp"
 #include "./tomato/size_initialize.hpp"
 #include "./tomato/toolbar.hpp"

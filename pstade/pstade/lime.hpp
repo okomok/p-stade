@@ -13,6 +13,7 @@
 #include "./lime/error.hpp"
 #include "./lime/intrinsic.hpp"
 #include "./lime/load.hpp"
+#include "./lime/load_file.hpp"
 #include "./lime/new_node.hpp"
 #include "./lime/node.hpp"
 #include "./lime/save.hpp"
