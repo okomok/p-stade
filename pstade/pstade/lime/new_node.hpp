@@ -11,7 +11,6 @@
 
 
 #include <memory> // auto_ptr
-#include <boost/assert.hpp>
 #include <pstade/nullptr.hpp>
 #include <pstade/overload.hpp>
 #include <pstade/ustring.hpp>
@@ -46,9 +45,9 @@ new_node(node<Interface>& parent, ustring childName)
     // http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1893.pdf
     //
     std::auto_ptr< node<Interface> > pn(pstade_lime_new_node(parent, childName));
-    pn->detail_construct(parent, childName);
+    if (pn.get())
+        pn->detail_construct(parent, childName);
 
-    BOOST_ASSERT(pn.get() != PSTADE_NULLPTR);
     return pn.release();
 }
 

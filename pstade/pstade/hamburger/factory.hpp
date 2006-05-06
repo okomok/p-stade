@@ -11,11 +11,10 @@
 
 
 #include <map>
-#include <boost/assert.hpp>
 #include <boost/function.hpp>
 #include <boost/noncopyable.hpp>
-#include <boost/preprocessor/cat.hpp>
 #include <pstade/instance.hpp>
+#include <pstade/nullptr.hpp>
 #include <pstade/unused.hpp>
 #include <pstade/ustring.hpp>
 #include "./element.hpp"
@@ -48,9 +47,8 @@ namespace factory_detail {
         element_node *create(element_node& parent, ustring childName)
         {
             iter_t it = m_methods.find(childName);
-            if (it == m_methods.end()) {
-                return new unknown();
-            }
+            if (it == m_methods.end())
+                return PSTADE_NULLPTR;
 
             return it->second(parent);
         }
