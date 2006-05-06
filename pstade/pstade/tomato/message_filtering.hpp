@@ -30,17 +30,13 @@ namespace message_filtering_detail {
             m_pMessageFilter(pMessageFilter), m_dwThreadID(dwThreadID)
         {
             WTL::CMessageLoop *pLoop = _Module.GetMessageLoop(m_dwThreadID);
-            BOOST_ASSERT(pLoop != PSTADE_NULLPTR);
-
-            PSTADE_REQUIRE(pLoop->AddMessageFilter(m_pMessageFilter));
+            PSTADE_REQUIRE(pLoop && pLoop->AddMessageFilter(m_pMessageFilter));
         }
 
         ~impl()
         {
             WTL::CMessageLoop *pLoop = _Module.GetMessageLoop(m_dwThreadID);
-            BOOST_ASSERT(pLoop != PSTADE_NULLPTR);
-
-            PSTADE_REQUIRE(pLoop->RemoveMessageFilter(m_pMessageFilter));
+            PSTADE_REQUIRE(pLoop && pLoop->RemoveMessageFilter(m_pMessageFilter));
         }
 
     private:

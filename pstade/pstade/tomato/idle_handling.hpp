@@ -29,17 +29,13 @@ namespace idle_handling_detail {
             m_pIdleHandler(pIdleHandler), m_dwThreadID(dwThreadID)
         {
             WTL::CMessageLoop *pLoop = _Module.GetMessageLoop(m_dwThreadID);
-            BOOST_ASSERT(pLoop != PSTADE_NULLPTR);
-
-            PSTADE_REQUIRE(pLoop->AddIdleHandler(m_pIdleHandler));
+            PSTADE_REQUIRE(pLoop && pLoop->AddIdleHandler(m_pIdleHandler));
         }
 
         ~impl()
         {
             WTL::CMessageLoop *pLoop = _Module.GetMessageLoop(m_dwThreadID);
-            BOOST_ASSERT(pLoop != PSTADE_NULLPTR);
-
-            PSTADE_REQUIRE(pLoop->RemoveIdleHandler(m_pIdleHandler));
+            PSTADE_REQUIRE(pLoop && pLoop->RemoveIdleHandler(m_pIdleHandler));
         }
 
     private:
