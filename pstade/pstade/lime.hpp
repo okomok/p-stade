@@ -11,6 +11,7 @@
 
 
 #include "./lime/error.hpp"
+#include "./lime/find.hpp"
 #include "./lime/intrinsic.hpp"
 #include "./lime/load.hpp"
 #include "./lime/load_file.hpp"

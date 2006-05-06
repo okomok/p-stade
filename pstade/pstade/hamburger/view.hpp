@@ -115,7 +115,7 @@ namespace view_detail {
 
 
     PSTADE_STATEMENT(Register,
-        hamburger::register_node<view>("view");
+        hamburger::register_element<view>("view");
     )
 
 

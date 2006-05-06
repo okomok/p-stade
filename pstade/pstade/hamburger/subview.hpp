@@ -48,7 +48,7 @@ namespace subview_detail {
 
 
     PSTADE_STATEMENT(Register,
-        hamburger::register_node<subview>("subview");
+        hamburger::register_element<subview>("subview");
     )
 
 

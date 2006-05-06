@@ -15,7 +15,7 @@
 #include <pstade/nullptr.hpp>
 #include <pstade/overload.hpp>
 #include <pstade/ustring.hpp>
-#include "./node_fwd.hpp"
+#include "./detail/node_fwd.hpp"
 
 
 namespace pstade { namespace lime {

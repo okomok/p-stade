@@ -77,7 +77,7 @@ namespace load_detail {
             typedef typename Context::node_type node_t;
             std::auto_ptr<node_t> pn(lime::new_node(cxt.top(), name));
 
-            cxt.top().children().push_back(pn.get());
+            cxt.top().push_back(pn.get());
             cxt.push(pn.release());
         }
     };
@@ -94,7 +94,7 @@ namespace load_detail {
             std::auto_ptr<node_t> pn(lime::new_node(cxt.top(), i_CharData));
             pn->att(i_attName) = data;
 
-            cxt.top().children().push_back(pn.release());
+            cxt.top().push_back(pn.release());
         }
     };
 
@@ -110,7 +110,7 @@ namespace load_detail {
             std::auto_ptr<node_t> pn(lime::new_node(cxt.top(), i_Reference));
             pn->att(i_attName) = data;
 
-            cxt.top().children().push_back(pn.release());
+            cxt.top().push_back(pn.release());
         }
     };
 
@@ -135,8 +135,7 @@ namespace load_detail {
             BOOST_ASSERT(boost::size(val) >= 2);
 
             cxt.top().att(cxt.m_curAttName) =
-                // remove " "
-                val|oven::sliced(1, -1);
+                val|oven::sliced(1, -1); // remove " "
         }
     };
 

@@ -10,22 +10,26 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <string>
 #include <boost/microsoft/atl/win.hpp> // CMessageMap
 #include <boost/microsoft/sdk/windows.hpp>
 #include <boost/optional.hpp>
 #include <pstade/instance.hpp>
 #include <pstade/lime/node.hpp>
 #include <pstade/oven/joint_range.hpp>
+#include <pstade/oven/sequence_cast.hpp>
 #include <pstade/tomato/boolean_cast.hpp>
 #include <pstade/unused.hpp>
 #include <pstade/ustring.hpp>
 #include "./element_attributes.hpp"
-#include "./rect.hpp"
 
 
 namespace pstade { namespace hamburger {
 
 
+// Workaround:
+// BOOST_FOREACH (for now) doesn't allow abstract types.
+//
 struct element_interface :
     ATL::CMessageMap
 {
@@ -36,7 +40,29 @@ struct element_interface :
             wParam, lParam, lResult, dwMsgMapID));
     }
 
-    virtual boost::optional<HWND> hwnd() const
+    void create()
+    {
+        create_impl();
+    }
+
+    boost::optional<HWND> hwnd() const
+    {
+        return hwnd_impl();
+    }
+
+public:
+    virtual BOOL ProcessWindowMessage(HWND hWnd, UINT uMsg,
+        WPARAM wParam, LPARAM lParam, LRESULT& lResult, DWORD dwMsgMapID)
+    {
+        pstade::unused(hWnd, uMsg, wParam, lParam, lResult, dwMsgMapID);
+        return FALSE;
+    }
+
+protected:
+    virtual void create_impl() const
+    { }
+
+    virtual boost::optional<HWND> hwnd_impl() const
     {
         return boost::optional<HWND>();
     }

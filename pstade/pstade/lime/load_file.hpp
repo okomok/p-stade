@@ -26,13 +26,12 @@ namespace pstade { namespace lime {
 template< class Interface >
 void load_file(node<Interface>& root, std::string fileName)
 {
-    ustring tmp; { // for speed
-        oven::copy(
-            oven::file_range<utf8cp_t>(fileName) |
-                oven::utf8_decoded,
-            garlic::back_inserter(tmp)
-        );
-    }
+    ustring tmp; // for speed
+    oven::copy(
+        oven::file_range<utf8cp_t>(fileName) |
+            oven::utf8_decoded,
+        garlic::back_inserter(tmp)
+    );
 
     lime::load(root, tmp);
 }

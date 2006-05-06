@@ -25,9 +25,10 @@
 #include <pstade/overload.hpp>
 #include <pstade/unused.hpp>
 #include <pstade/ustring.hpp>
+#include <pstade/what.hpp>
+#include "./detail/node_fwd.hpp"
 #include "./error.hpp"
 #include "./new_node.hpp"
-#include "./node_fwd.hpp"
 
 
 namespace pstade { namespace lime {
@@ -48,9 +49,7 @@ namespace node_detail {
     inline
     void throw_error(ustring name)
     {
-        node_not_found err("<node-not-found>" +
-            oven::sequence_cast<std::string>(name) + "</node-not-found>");
-
+        node_not_found err(pstade::what("<node-not-found>", name));
         boost::throw_exception(err);
     }
 
@@ -67,9 +66,9 @@ template<
 >
 struct node :
     Interface,
+    boost::ptr_vector< node<Interface> >,
     private boost::noncopyable
 {
-    typedef boost::ptr_vector<node> children_type;
     typedef std::map<ustring, ustring> attributes_type;
 
 public:
@@ -90,15 +89,9 @@ public:
         return m_name;
     }
 
-
     attributes_type& attributes()
     {
         return m_atts;
-    }
-
-    children_type& children()
-    {
-        return m_children;
     }
 
     node& child(ustring childName)
@@ -125,7 +118,7 @@ public:
 
     node& operator+=(ustring childName)
     {
-        m_children.push_back(lime::new_node(*this, childName));
+        this->push_back(lime::new_node(*this, childName));
         return *this;
     }
 
@@ -139,12 +132,13 @@ public:
 private:
     boost::optional<node&> m_parent;
     ustring m_name;
-    children_type m_children;
     attributes_type m_atts;
 
     node& get_child(ustring childName)
     {
-        BOOST_FOREACH (node& child, m_children) {
+        node& self(*this); // VC++ workaround
+
+        BOOST_FOREACH (node& child, self) {
             if (oven::equals(child.name(), childName))
                 return child;
         }

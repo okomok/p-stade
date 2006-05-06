@@ -63,6 +63,7 @@ namespace factory_detail {
     PSTADE_INSTANCE(impl_t, impl, value);
 
 
+    // Workaround:
     // VC7.1/8 seems still broken with function template with explicit argument.
     // BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE can't work with Boost.Function.
     // So, the good old technique is here.
@@ -83,22 +84,27 @@ namespace factory_detail {
 
 
 inline
-void register_node(ustring name, factory_detail::method_t m)
+void register_element(ustring name, factory_detail::method_t m)
 {
+    // Workaround:
+    // Use 'impl_()' instead of 'impl' for GCC broken dynamic initialization.
+    //
     factory_detail::impl_().register_(name, m);
 }
 
 
 template< class T > inline
-void register_node(ustring name)
+void register_element(ustring name)
 {
-    // Without '&', VC8 sometimes misses 'new_method' at link time. 
-    hamburger::register_node(name, &factory_detail::new_method<T>::call);
+    // Workaround:
+    // Without '&', VC8 sometimes misses 'new_method' at link time.
+    //
+    hamburger::register_element(name, &factory_detail::new_method<T>::call);
 }
 
 
 inline
-element_node *create_node(element_node& parent, ustring name)
+element_node *create_element(element_node& parent, ustring name)
 {
     return factory_detail::impl.create(parent, name);
 }

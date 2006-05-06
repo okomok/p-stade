@@ -34,7 +34,7 @@ namespace button_detail {
 
 
     PSTADE_STATEMENT(Register,
-        hamburger::register_node<button>("button");
+        hamburger::register_element<button>("button");
     )
 
 

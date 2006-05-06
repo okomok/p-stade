@@ -100,14 +100,12 @@ public:
 
 // truncated!
 //
-
 template<class CharT, class Traits >
 std::basic_ostream<CharT, Traits>& operator<<(std::basic_ostream<CharT, Traits>& os, ustring str)
 {
     os << oven::sequence_cast< std::basic_string<CharT, Traits> >(str);
     return os;
 }
-
 
 template<class CharT, class Traits >
 std::basic_istream<CharT, Traits>& operator>>(std::basic_istream<CharT, Traits>& os, ustring& str)

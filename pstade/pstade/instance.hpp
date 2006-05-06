@@ -36,7 +36,7 @@
 // 'b' is value-initialized, thus 'b' becomes 'false'.
 
 
-#include <boost/config.hpp>
+#include <boost/config.hpp> // BOOST_MSVC
 #include <boost/mpl/aux_/preprocessor/is_seq.hpp>
 #include <boost/mpl/aux_/preprocessor/token_equal.hpp>
 #include <boost/preprocessor/cat.hpp>

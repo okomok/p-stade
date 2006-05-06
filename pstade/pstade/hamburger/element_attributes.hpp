@@ -17,7 +17,6 @@
 namespace pstade { namespace hamburger {
 
 
-PSTADE_INSTANCE(const ustring, Name_href,                   ("href"))
 PSTADE_INSTANCE(const ustring, Name_accName,                ("accName"))
 PSTADE_INSTANCE(const ustring, Name_accDescription,         ("accDescription"))
 PSTADE_INSTANCE(const ustring, Name_accKeyboardShortcut,    ("accKeyboardShortcut"))

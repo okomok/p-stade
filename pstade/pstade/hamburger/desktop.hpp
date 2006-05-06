@@ -34,7 +34,7 @@ namespace desktop_detail {
 
 
     PSTADE_STATEMENT(Register,
-        hamburger::register_node<desktop>("desktop");
+        hamburger::register_element<desktop>("desktop");
     )
 
 

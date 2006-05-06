@@ -56,7 +56,7 @@ namespace save_detail {
             oven::copy(">"|null_terminated, out);
         }
 
-        BOOST_FOREACH (node<Interface>& child, parent.children()) {
+        BOOST_FOREACH (node<Interface>& child, parent) {
             save_detail::aux(child, out);
         }
 
@@ -74,7 +74,7 @@ namespace save_detail {
 template< class Interface, class OutIter >
 void save(node<Interface>& root, OutIter out)
 {
-    BOOST_FOREACH (node<Interface>& child, root.children()) {
+    BOOST_FOREACH (node<Interface>& child, root) {
         save_detail::aux(child, out);
     }
 }

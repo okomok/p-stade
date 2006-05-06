@@ -1,5 +1,5 @@
-#ifndef PSTADE_HAMBURGER_LIME_HPP
-#define PSTADE_HAMBURGER_LIME_HPP
+#ifndef PSTADE_HAMBURGER_ERROR_HPP
+#define PSTADE_HAMBURGER_ERROR_HPP
 
 
 // PStade.Hamburger
@@ -10,18 +10,24 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/ustring.hpp>
-#include "./factory.hpp"
+#include <stdexcept> // runtime_error
+#include <string>
 
 
 namespace pstade { namespace hamburger {
 
 
-inline
-element_node *pstade_lime_new_node(element_node& parent, ustring childName)
+struct error :
+    std::runtime_error
 {
-    return hamburger::create_element(parent, childName);
-}
+private:
+    typedef std::runtime_error super_t;
+
+public:
+    explicit error(std::string what) :
+        super_t(what)
+    { }
+};
 
 
 } } // namespace pstade::hamburger
