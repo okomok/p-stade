@@ -33,7 +33,7 @@ int Run(LPTSTR /*lpstrCmdLine*/ = NULL, int nCmdShow = SW_SHOWDEFAULT)
 
     wndMain.ShowWindow(nCmdShow);
 
-    return tomato::run_message_loop(theLoop);
+    return theLoop.run();
 }
 
 int WINAPI _tWinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, LPTSTR lpstrCmdLine, int nCmdShow)

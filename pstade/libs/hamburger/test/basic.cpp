@@ -23,6 +23,9 @@
 #include <pstade/lime.hpp>
 
 
+WTL::CAppModule _Module;
+
+
 void test()
 {
 	using namespace pstade;

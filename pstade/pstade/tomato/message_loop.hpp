@@ -10,11 +10,37 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./message_loop/message_loop.hpp"
-#include "./message_loop/on_idle.hpp"
-#include "./message_loop/pre_translate_message.hpp"
-#include "./message_loop/run_message_loop.hpp"
-#include "./message_loop/wtl_cmessage_loop_functions.hpp"
+#include <boost/microsoft/atl/module.hpp>
+#include <boost/microsoft/wtl/app.hpp> // CMessageLoop
+#include <pstade/require.hpp>
+
+
+namespace pstade { namespace tomato {
+
+
+struct message_loop
+{
+    message_loop()
+    {
+        PSTADE_REQUIRE(_Module.AddMessageLoop(&m_loop));
+    }
+
+    ~message_loop()
+    {
+        _Module.RemoveMessageLoop();
+    }
+
+    int run()
+    {
+        return m_loop.Run();
+    }
+
+private:
+    WTL::CMessageLoop m_loop;
+};
+
+
+} } // namespace pstade::tomato
 
 
 #endif

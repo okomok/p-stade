@@ -51,12 +51,24 @@ Tested Under
 
 ``pstade::arg``
 ---------------
-todo
+
+
+
+``comma_protect``
+-----------------
+Macros regards `,` as argument separator. This makes problem when
+you pass a type to macros. ``comma_protect`` works around it.
 
 
 
 ``pstade::const_``
 ------------------
+todo
+
+
+
+``pstade::const_overloaded``
+----------------------------
 todo
 
 
@@ -73,15 +85,11 @@ It just calls ``static_cast``, but the name makes codes clearer::
 
 
 
-``PSTADE_HAS_XXX``
--------------------
-todo
-
-
 
 ``PSTADE_INSTANCE``
 -------------------
-todo
+C++ has the power to define objects in headers by using 'static' keyword, but
+has some pitfalls, which ``PSTADE_INSTANCE`` works around::
 
 
 
@@ -111,6 +119,12 @@ __ http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2004/n1601.pdf
 
 
 
+``overload``
+------------
+todo
+
+
+
 ``pstade::pause``
 -----------------
 todo
@@ -123,8 +137,8 @@ todo
 
 
 
-``unnamed``
------------
+``PSTADE_STATEMENT``
+--------------------
 todo
 
 

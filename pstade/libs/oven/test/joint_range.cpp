@@ -74,6 +74,10 @@ void test()
             rng1|jointed(rng2)|jointed(rng3)
         ) ));
 
+		BOOST_CHECK(( 8 ==
+			boost::size( rng1|jointed(rng2)|jointed(rng3) )
+		));
+
         std::cout << oven::sequence_cast<std::string>(rng1|jointed(rng2)|jointed(rng3)) << std::endl;
     }
 
@@ -123,6 +127,18 @@ void test()
     {
         BOOST_CHECK(( oven::equals(
             std::string("xy")|jointed(make_single_range('z')), std::string("xyz")
+        ) ));
+    }
+
+
+    {
+		std::string src("xyz");
+        BOOST_CHECK(( oven::equals(
+            src|jointed(src)|jointed(src), std::string("xyzxyzxyz")
+        ) ));
+
+        BOOST_CHECK(( oven::equals(
+            src|jointed(src)|jointed(src)|reversed, std::string("zyxzyxzyx")
         ) ));
     }
 }

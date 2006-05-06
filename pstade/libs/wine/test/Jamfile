@@ -30,4 +30,5 @@ test-suite wine :
     [ wine-test overload ]
     [ wine-test pause ]
     [ wine-test require ]
+    [ wine-test statement ]
     ;

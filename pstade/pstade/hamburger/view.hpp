@@ -78,8 +78,6 @@ public:
     //
     LRESULT OnCreate(LPCREATESTRUCT lpCreateStruct)
     {
-        tomato::add_message_filter(this);
-        tomato::add_idle_handler(this);
 
         pstade::unused(lpCreateStruct);
         return tomato::create_success;
@@ -87,8 +85,7 @@ public:
 
     begin_msg_map
     <
-        msg_wm_create<&_::OnCreate, not_handled>,
-        chain_msg_map<impl_t>
+        msg_wm_create<&_::OnCreate, not_handled>
     >
     end_msg_map;
 

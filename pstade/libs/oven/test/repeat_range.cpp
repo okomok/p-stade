@@ -44,9 +44,47 @@ void test()
 
     {
         BOOST_CHECK( oven::equals(
-            std::string("xyz")|oven::repeated(3),
+            std::string("xyz")|repeated(3),
             std::string("xyzxyzxyz")
         ) );
+
+        BOOST_CHECK( oven::equals(
+            std::string("xyz")|repeated(2)|repeated(3),
+            std::string("xyz")|repeated(3)|repeated(2)
+        ) );
+
+        BOOST_CHECK( oven::equals(
+            std::string("xyz")|repeated(2)|repeated(3)|repeated(5),
+            std::string("xyz")|repeated(3)|repeated(10)
+        ) );
+
+        BOOST_CHECK( 3*30 ==
+            boost::size(std::string("xyz")|repeated(2)|repeated(3)|repeated(5))
+        );
+    }
+
+    {
+/*
+        BOOST_CHECK( oven::equals(
+            std::string("abcd")|repeated(4)|reversed,
+            std::string("dcbadcbadcbadcba")
+        ) );
+*/
+        std::string src("abcd");
+        BOOST_FOREACH (char ch, src|repeated(5)|reversed) {
+			std::cout << ch << std::endl;;
+        }
+
+        BOOST_CHECK( oven::equals(
+            std::string("xyz")|repeated(2)|repeated(3)|reversed,
+            std::string("xyz")|repeated(3)|repeated(2)|reversed
+        ) );
+    }
+
+    {
+        std::string src("abcdefg");
+        BOOST_CHECK( (src|repeated(5))[8] == 'b' );
+        BOOST_CHECK( (src|repeated(5)|reversed)[8] == 'f' );
     }
 }
 

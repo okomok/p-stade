@@ -7,7 +7,7 @@ The Ketchup Message Map Library
 :Author: MB
 :Contact: mb2act@yahoo.co.jp
 :License: Distributed under the `Boost Software License Version 1.0`_
-:Version: 1.01.3
+:Version: 1.01.4
 
 
 
@@ -360,4 +360,9 @@ Version 1.01.2
 Version 1.01.3
 ^^^^^^^^^^^^^^
 - Changed `Cracked Handlers`_ templates parameter.
+
+Version 1.01.4
+^^^^^^^^^^^^^^
+- Fixed the fatal overflow bug.
+
 
