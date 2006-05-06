@@ -14,17 +14,18 @@
 #include <boost/microsoft/atl/module.hpp>
 #include <boost/microsoft/sdk/windows.hpp>
 #include <boost/microsoft/wtl/app.hpp> // CMessageFilter, CMessageLoop
+#include <boost/noncopyable.hpp>
 #include <pstade/require.hpp>
 
 
 namespace pstade { namespace tomato {
 
 
-
 namespace message_filtering_detail {
 
 
-    struct impl
+    struct impl :
+        private boost::noncopyable
     {
         impl(WTL::CMessageFilter *pMessageFilter, DWORD dwThreadID) :
             m_pMessageFilter(pMessageFilter), m_dwThreadID(dwThreadID)
@@ -52,7 +53,7 @@ struct message_filtering
 {
     void start(WTL::CMessageFilter *pMessageFilter, DWORD dwThreadID = ::GetCurrentThreadId())
     {
-		m_pimpl.reset(new message_filtering_detail::impl(pMessageFilter, dwThreadID));
+        m_pimpl.reset(new message_filtering_detail::impl(pMessageFilter, dwThreadID));
     }
 
     void stop()

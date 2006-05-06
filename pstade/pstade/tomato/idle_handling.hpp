@@ -14,6 +14,7 @@
 #include <boost/microsoft/atl/module.hpp>
 #include <boost/microsoft/sdk/windows.hpp>
 #include <boost/microsoft/wtl/app.hpp> // CIdleHandler, CMessageLoop
+#include <boost/noncopyable.hpp>
 #include <pstade/require.hpp>
 
 
@@ -23,7 +24,8 @@ namespace pstade { namespace tomato {
 namespace idle_handling_detail {
 
 
-    struct impl
+    struct impl :
+        private boost::noncopyable
     {
         impl(WTL::CIdleHandler *pIdleHandler, DWORD dwThreadID) :
             m_pIdleHandler(pIdleHandler), m_dwThreadID(dwThreadID)

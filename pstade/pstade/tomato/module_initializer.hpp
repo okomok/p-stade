@@ -13,6 +13,7 @@
 #include <boost/microsoft/atl/module.hpp>
 #include <boost/microsoft/sdk/windows.hpp>
 #include <pstade/require.hpp>
+#include "./succeeded.hpp"
 
 
 namespace pstade { namespace tomato {
@@ -24,8 +25,9 @@ namespace module_initializer_detail {
     inline
     void resolve_thunking_problem()
     {
-        // this resolves ATL window thunking problem
-        // when Microsoft Layer for Unicode (MSLU) is used
+        // Workaround:
+        // This resolves ATL window thunking problem
+        // when Microsoft Layer for Unicode (MSLU) is used.
         ::DefWindowProc(NULL, 0, 0, 0L);    
     }
 
@@ -37,9 +39,7 @@ struct module_initializer
 {
     explicit module_initializer(HINSTANCE hInstance)
     {
-        HRESULT hr = _Module.Init(NULL, hInstance);
-        pstade::require(SUCCEEDED(hr), "_Module.Init");
-
+        PSTADE_REQUIRE(tomato::succeeded(_Module.Init(NULL, hInstance)));
         module_initializer_detail::resolve_thunking_problem();
     }
 

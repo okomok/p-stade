@@ -26,6 +26,7 @@
 #include "./tomato/module_initializer.hpp"
 #include "./tomato/rebar.hpp"
 #include "./tomato/size_initialize.hpp"
+#include "./tomato/succeeded.hpp"
 #include "./tomato/toolbar.hpp"
 #include "./tomato/tstring.hpp"
 #include "./tomato/window.hpp"
