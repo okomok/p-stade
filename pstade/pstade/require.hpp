@@ -27,6 +27,7 @@
 #include <boost/type_traits/add_reference.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/oven/range_adaptor.hpp>
+#include <pstade/what.hpp>
 
 
 #define PSTADE_REQUIRE(Expr) \
@@ -60,7 +61,7 @@ namespace require_detail {
     inline
     void throw_exception(std::string info)
     {
-        require_error err("<require>" + info + "</require>");
+        require_error err(pstade::what("require", info));
         boost::throw_exception(err);
     }
 
@@ -70,11 +71,11 @@ namespace require_detail {
     {
         std::stringstream info;
         info <<
-            "<file>"        << file << "</file>"        <<
-            "<line>"        << line << "</line>"        <<
-            "<expression>"  << expr << "</expression>"  <<
-            "<function>"    << func << "</function>"    <<
-            "<message>"     << msg  << "</message>";
+            pstade::what("file",        file) <<
+            pstade::what("line",        line) <<
+            pstade::what("expression",  expr) <<
+            pstade::what("function",    func) <<
+            pstade::what("message",     msg);
 
         return info.str();
     }

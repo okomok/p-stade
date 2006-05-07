@@ -11,6 +11,8 @@
 
 
 #include <string>
+#include <pstade/lexical_cast.hpp>
+#include <pstade/oven/null_terminate_range.hpp>
 #include <pstade/oven/sequence_cast.hpp>
 
 
@@ -25,6 +27,20 @@ std::string what(std::string tag, const Range& msg)
             oven::sequence_cast<std::string>(msg) +
         "</" + tag + '>'
     ;
+}
+
+
+inline const
+std::string what(std::string tag, const char *psz)
+{
+    return pstade::what(tag, psz|oven::null_terminated);
+}
+
+
+inline const
+std::string what(std::string tag, int n)
+{
+    return pstade::what(tag, pstade::lexical_cast<std::string>(n));
 }
 
 

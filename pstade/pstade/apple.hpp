@@ -14,7 +14,6 @@
 #include "./apple/basic_string_fwd.hpp"
 #include "./apple/deque_fwd.hpp"
 #include "./apple/list_fwd.hpp"
-#include "./apple/deque_fwd.hpp"
 #include "./apple/vector_fwd.hpp"
 
 #include "./apple/is_basic_string.hpp"

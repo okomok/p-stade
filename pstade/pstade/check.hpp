@@ -27,6 +27,7 @@
 #include <pstade/instance.hpp>
 #include <pstade/napkin/ostream.hpp>
 #include <pstade/oven/range_adaptor.hpp>
+#include <pstade/what.hpp>
 
 
 #if !defined(NDEBUG) || defined(PSTADE_CHECK_DEBUG)
@@ -67,7 +68,7 @@ namespace check_detail {
     inline
     void report(std::string info)
     {
-        os << "<check>" << info << "</check>";
+        os << pstade::what("check", info);
     }
 
 
@@ -76,11 +77,11 @@ namespace check_detail {
     {
         std::stringstream info;
         info <<
-            "<file>"        << file << "</file>"        <<
-            "<line>"        << line << "</line>"        <<
-            "<expression>"  << expr << "</expression>"  <<
-            "<function>"    << func << "</function>"    <<
-            "<message>"     << msg  << "</message>";
+            pstade::what("file",        file) <<
+            pstade::what("line",        line) <<
+            pstade::what("expression",  expr) <<
+            pstade::what("function",    func) <<
+            pstade::what("message",     msg);
 
         return info.str();
     }
