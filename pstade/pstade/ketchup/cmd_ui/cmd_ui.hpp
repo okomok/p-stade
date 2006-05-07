@@ -31,31 +31,31 @@ struct cmd_ui :
     { }
 
     UINT get_id() const
-	{ return m_uID; }
+    { return m_uID; }
 
-	void set_handled(bool handled)
-	{ m_handled = handled; }
+    void set_handled(bool handled)
+    { m_handled = handled; }
 
-	bool is_handled() const
-	{ return m_handled; }
+    bool is_handled() const
+    { return m_handled; }
 
     void enable(bool on)
-	{ impl_enable(on); }
+    { impl_enable(on); }
 
-	void set_check(int state)
-	{ impl_set_check(state); }
+    void set_check(int state)
+    { impl_set_check(state); }
 
-	void set_radio(bool on)
-	{ impl_set_radio(on); }
+    void set_radio(bool on)
+    { impl_set_radio(on); }
 
-	void set_text(const TCHAR *psz)
-	{ impl_set_text(psz); }
+    void set_text(const TCHAR *psz)
+    { impl_set_text(psz); }
 
-	void set_default(bool on)
-	{ impl_set_default(on); }
+    void set_default(bool on)
+    { impl_set_default(on); }
 
-	bool is_dependent()
-	{ return impl_is_dependent(); }
+    bool is_dependent()
+    { return impl_is_dependent(); }
 
 protected:
     ~cmd_ui() { }
