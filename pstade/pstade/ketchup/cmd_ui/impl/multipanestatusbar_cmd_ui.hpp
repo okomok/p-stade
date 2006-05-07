@@ -29,7 +29,7 @@ struct multipanestatusbar_cmd_ui : cmd_ui
     }
 
 protected:
-    virtual void set_text_impl(const TCHAR *pszText)
+    virtual void impl_set_text(const TCHAR *pszText)
     {
         m_statusbar.SetPaneText(get_id(), pszText);
     }
