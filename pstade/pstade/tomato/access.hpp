@@ -21,13 +21,13 @@ class access
 {
 public:
     template< class T > static
-    bool detail_pre_translate_message(T& x, MSG* pMsg)
+    BOOL detail_pre_translate_message(T& x, MSG* pMsg)
     {
         return tomato::boolean(x.pre_translate_message(pMsg));
     }
 
     template< class T > static
-    bool detail_on_idle(T& x)
+    BOOL detail_on_idle(T& x)
     {
         return tomato::boolean(x.on_idle());
     }
