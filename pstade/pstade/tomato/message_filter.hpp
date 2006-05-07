@@ -62,13 +62,12 @@ struct message_filter :
         return access::detail_pre_translate_message(d, pMsg);
     }
 
-// private:
-    void detail_start(DWORD dwThreadID)
+    void start_message_filter(DWORD dwThreadID = ::GetCurrentThreadId())
     {
         m_pimpl.reset(new message_filter_detail::impl(this, dwThreadID));
     }
 
-    void detail_stop()
+    void stop_message_filter()
     {
         m_pimpl.reset();
     }
@@ -76,20 +75,6 @@ struct message_filter :
 private:
     std::auto_ptr<message_filter_detail::impl> m_pimpl;
 };
-
-
-template< class DerivedT > inline
-void start_message_filter(message_filter<DerivedT>& mf, DWORD dwThreadID = ::GetCurrentThreadId())
-{
-    mf.detail_start(dwThreadID);
-}
-
-
-template< class DerivedT > inline
-void stop_message_filter(message_filter<DerivedT>& mf)
-{
-    mf.detail_stop();
-}
 
 
 } } // namespace pstade::tomato

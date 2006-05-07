@@ -62,13 +62,12 @@ struct idle_handler :
         return access::detail_on_idle(d);
     }
 
-// private:
-    void detail_start(DWORD dwThreadID)
+    void start_idle_handler(DWORD dwThreadID = ::GetCurrentThreadId())
     {
         m_pimpl.reset(new idle_handler_detail::impl(this, dwThreadID));
     }
 
-    void detail_stop()
+    void stop_idle_handler()
     {
         m_pimpl.reset();
     }
@@ -76,20 +75,6 @@ struct idle_handler :
 private:
     std::auto_ptr<idle_handler_detail::impl> m_pimpl;
 };
-
-
-template< class DerivedT > inline
-void start_idle_handler(idle_handler<DerivedT>& ih, DWORD dwThreadID = ::GetCurrentThreadId())
-{
-    ih.detail_start(dwThreadID);
-}
-
-
-template< class DerivedT > inline
-void stop_idle_handler(idle_handler<DerivedT>& ih)
-{
-    ih.detail_stop();
-}
 
 
 } } // namespace pstade::tomato
