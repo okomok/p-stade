@@ -17,6 +17,7 @@
 #include <boost/noncopyable.hpp>
 #include <pstade/derived_cast.hpp>
 #include <pstade/require.hpp>
+#include "./access.hpp"
 
 
 namespace pstade { namespace tomato {
@@ -58,7 +59,7 @@ struct idle_handler :
     virtual BOOL OnIdle()
     {
         DerivedT& d = pstade::derived(*this);
-        return d.on_idle();
+        return access::detail_on_idle(d);
     }
 
 // private:

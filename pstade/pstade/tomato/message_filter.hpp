@@ -17,6 +17,7 @@
 #include <boost/noncopyable.hpp>
 #include <pstade/derived_cast.hpp>
 #include <pstade/require.hpp>
+#include "./access.hpp"
 
 
 namespace pstade { namespace tomato {
@@ -58,7 +59,7 @@ struct message_filter :
     virtual BOOL PreTranslateMessage(MSG *pMsg)
     {
         DerivedT& d = pstade::derived(*this);
-        return d.pre_translate_message(pMsg);
+        return access::detail_pre_translate_message(d, pMsg);
     }
 
 // private:
