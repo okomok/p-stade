@@ -79,6 +79,7 @@ namespace load_detail {
             if (!pn.get())
                 return;
 
+            //pn->on_tag_start(*pn);
             cxt.top().push_back(pn.get());
             cxt.push(pn.release());
         }
@@ -153,6 +154,7 @@ namespace load_detail {
         {
             BOOST_ASSERT(boost::size(cxt.m_stack) > 1);
 
+            //cxt.top().on_tag_end(cx.top());
             cxt.pop();
             pstade::unused(rng);
         }

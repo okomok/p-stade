@@ -56,7 +56,7 @@ struct message_filter :
     WTL::CMessageFilter,
     private boost::noncopyable
 {
-    virtual BOOL PreTranslateMessage(MSG *pMsg)
+    BOOL PreTranslateMessage(MSG *pMsg) // override
     {
         DerivedT& d = pstade::derived(*this);
         return access::detail_pre_translate_message(d, pMsg);

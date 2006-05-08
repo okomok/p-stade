@@ -56,7 +56,7 @@ struct idle_handler :
     WTL::CIdleHandler,
     private boost::noncopyable
 {
-    virtual BOOL OnIdle()
+    BOOL OnIdle() // override
     {
         DerivedT& d = pstade::derived(*this);
         return access::detail_on_idle(d);

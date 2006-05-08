@@ -18,7 +18,7 @@
 #include "./hamburger/factory.hpp"
 #include "./hamburger/include.hpp"
 #include "./hamburger/lime.hpp"
-#include "./hamburger/rect.hpp"
+#include "./hamburger/rectangle.hpp"
 #include "./hamburger/subview.hpp"
 #include "./hamburger/unknown.hpp"
 #include "./hamburger/view.hpp"

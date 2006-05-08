@@ -40,32 +40,44 @@ struct cmd_ui :
     { return m_handled; }
 
     void enable(bool on)
-    { impl_enable(on); }
+    { return impl_enable(on); }
 
     void set_check(int state)
-    { impl_set_check(state); }
+    { return impl_set_check(state); }
 
     void set_radio(bool on)
-    { impl_set_radio(on); }
+    { return impl_set_radio(on); }
 
     void set_text(const TCHAR *psz)
-    { impl_set_text(psz); }
+    { return impl_set_text(psz); }
 
     void set_default(bool on)
-    { impl_set_default(on); }
+    { return impl_set_default(on); }
 
     bool is_dependent()
     { return impl_is_dependent(); }
 
 protected:
-    ~cmd_ui() { }
+    ~cmd_ui()
+    { }
 
-    virtual void impl_enable(bool) { }
-    virtual void impl_set_check(int) { }
-    virtual void impl_set_radio(bool on) { set_check(on); }
-    virtual void impl_set_text(const TCHAR *) { }
-    virtual void impl_set_default(bool) { }
-    virtual bool impl_is_dependent() { return false; }
+    virtual void impl_enable(bool)
+    { }
+
+    virtual void impl_set_check(int)
+    { }
+
+    virtual void impl_set_radio(bool on)
+    { set_check(on); }
+
+    virtual void impl_set_text(const TCHAR *)
+    { }
+
+    virtual void impl_set_default(bool)
+    { }
+
+    virtual bool impl_is_dependent()
+    { return false; }
 
 private:
     UINT m_uID;

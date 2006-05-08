@@ -102,7 +102,7 @@ struct msg_wm_destroy
 // msg_wm_move
 //
 template<
-    void (Derived::*func)(KETCHUP_wtype_ns::CPoint const&),class BoolT = boost::mpl::true_
+    void (Derived::*func)(KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
 >
 struct msg_wm_move
 {
@@ -113,7 +113,7 @@ struct msg_wm_move
         if (uMsg == WM_MOVE)
         {
             
-            (derived.*func)(CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
+            (derived.*func)(KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
             if(BoolT::value) return true;
@@ -126,7 +126,7 @@ struct msg_wm_move
 // msg_wm_size
 //
 template<
-    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CSize const&),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CSize),class BoolT = boost::mpl::true_
 >
 struct msg_wm_size
 {
@@ -137,7 +137,7 @@ struct msg_wm_size
         if (uMsg == WM_SIZE)
         {
             
-            (derived.*func)((UINT)wParam, CSize(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
+            (derived.*func)((UINT)wParam, KETCHUP_wtype_ns::CSize(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
             if(BoolT::value) return true;
@@ -1117,7 +1117,7 @@ struct msg_wm_nccalcsize
 // msg_wm_nchittest
 //
 template<
-    LRESULT (Derived::*func)(KETCHUP_wtype_ns::CPoint const&),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)(KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
 >
 struct msg_wm_nchittest
 {
@@ -1128,7 +1128,7 @@ struct msg_wm_nchittest
         if (uMsg == WM_NCHITTEST)
         {
             
-            lResult = (LRESULT)(derived.*func)(CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
+            lResult = (LRESULT)(derived.*func)(KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             
             if(BoolT::value) return true;
         }
@@ -1210,7 +1210,7 @@ struct msg_wm_getdlgcode
 // msg_wm_ncmousemove
 //
 template<
-    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint const&),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
 >
 struct msg_wm_ncmousemove
 {
@@ -1221,7 +1221,7 @@ struct msg_wm_ncmousemove
         if (uMsg == WM_NCMOUSEMOVE)
         {
             
-            (derived.*func)((UINT)wParam, CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
+            (derived.*func)((UINT)wParam, KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
             if(BoolT::value) return true;
@@ -1234,7 +1234,7 @@ struct msg_wm_ncmousemove
 // msg_wm_nclbuttondown
 //
 template<
-    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint const&),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
 >
 struct msg_wm_nclbuttondown
 {
@@ -1245,7 +1245,7 @@ struct msg_wm_nclbuttondown
         if (uMsg == WM_NCLBUTTONDOWN)
         {
             
-            (derived.*func)((UINT)wParam, CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
+            (derived.*func)((UINT)wParam, KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
             if(BoolT::value) return true;
@@ -1258,7 +1258,7 @@ struct msg_wm_nclbuttondown
 // msg_wm_nclbuttonup
 //
 template<
-    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint const&),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
 >
 struct msg_wm_nclbuttonup
 {
@@ -1269,7 +1269,7 @@ struct msg_wm_nclbuttonup
         if (uMsg == WM_NCLBUTTONUP)
         {
             
-            (derived.*func)((UINT)wParam, CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
+            (derived.*func)((UINT)wParam, KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
             if(BoolT::value) return true;
@@ -1282,7 +1282,7 @@ struct msg_wm_nclbuttonup
 // msg_wm_nclbuttondblclk
 //
 template<
-    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint const&),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
 >
 struct msg_wm_nclbuttondblclk
 {
@@ -1293,7 +1293,7 @@ struct msg_wm_nclbuttondblclk
         if (uMsg == WM_NCLBUTTONDBLCLK)
         {
             
-            (derived.*func)((UINT)wParam, CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
+            (derived.*func)((UINT)wParam, KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
             if(BoolT::value) return true;
@@ -1306,7 +1306,7 @@ struct msg_wm_nclbuttondblclk
 // msg_wm_ncrbuttondown
 //
 template<
-    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint const&),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
 >
 struct msg_wm_ncrbuttondown
 {
@@ -1317,7 +1317,7 @@ struct msg_wm_ncrbuttondown
         if (uMsg == WM_NCRBUTTONDOWN)
         {
             
-            (derived.*func)((UINT)wParam, CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
+            (derived.*func)((UINT)wParam, KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
             if(BoolT::value) return true;
@@ -1330,7 +1330,7 @@ struct msg_wm_ncrbuttondown
 // msg_wm_ncrbuttonup
 //
 template<
-    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint const&),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
 >
 struct msg_wm_ncrbuttonup
 {
@@ -1341,7 +1341,7 @@ struct msg_wm_ncrbuttonup
         if (uMsg == WM_NCRBUTTONUP)
         {
             
-            (derived.*func)((UINT)wParam, CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
+            (derived.*func)((UINT)wParam, KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
             if(BoolT::value) return true;
@@ -1354,7 +1354,7 @@ struct msg_wm_ncrbuttonup
 // msg_wm_ncrbuttondblclk
 //
 template<
-    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint const&),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
 >
 struct msg_wm_ncrbuttondblclk
 {
@@ -1365,7 +1365,7 @@ struct msg_wm_ncrbuttondblclk
         if (uMsg == WM_NCRBUTTONDBLCLK)
         {
             
-            (derived.*func)((UINT)wParam, CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
+            (derived.*func)((UINT)wParam, KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
             if(BoolT::value) return true;
@@ -1378,7 +1378,7 @@ struct msg_wm_ncrbuttondblclk
 // msg_wm_ncmbuttondown
 //
 template<
-    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint const&),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
 >
 struct msg_wm_ncmbuttondown
 {
@@ -1389,7 +1389,7 @@ struct msg_wm_ncmbuttondown
         if (uMsg == WM_NCMBUTTONDOWN)
         {
             
-            (derived.*func)((UINT)wParam, CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
+            (derived.*func)((UINT)wParam, KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
             if(BoolT::value) return true;
@@ -1402,7 +1402,7 @@ struct msg_wm_ncmbuttondown
 // msg_wm_ncmbuttonup
 //
 template<
-    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint const&),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
 >
 struct msg_wm_ncmbuttonup
 {
@@ -1413,7 +1413,7 @@ struct msg_wm_ncmbuttonup
         if (uMsg == WM_NCMBUTTONUP)
         {
             
-            (derived.*func)((UINT)wParam, CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
+            (derived.*func)((UINT)wParam, KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
             if(BoolT::value) return true;
@@ -1426,7 +1426,7 @@ struct msg_wm_ncmbuttonup
 // msg_wm_ncmbuttondblclk
 //
 template<
-    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint const&),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
 >
 struct msg_wm_ncmbuttondblclk
 {
@@ -1437,7 +1437,7 @@ struct msg_wm_ncmbuttondblclk
         if (uMsg == WM_NCMBUTTONDBLCLK)
         {
             
-            (derived.*func)((UINT)wParam, CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
+            (derived.*func)((UINT)wParam, KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
             if(BoolT::value) return true;
@@ -1642,7 +1642,7 @@ struct msg_wm_sysdeadchar
 // msg_wm_syscommand
 //
 template<
-    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint const&),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
 >
 struct msg_wm_syscommand
 {
@@ -1653,7 +1653,7 @@ struct msg_wm_syscommand
         if (uMsg == WM_SYSCOMMAND)
         {
             
-            (derived.*func)((UINT)wParam, CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
+            (derived.*func)((UINT)wParam, KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
             if(BoolT::value) return true;
@@ -1904,7 +1904,7 @@ struct msg_wm_enteridle
 // msg_wm_mousemove
 //
 template<
-    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint const&),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
 >
 struct msg_wm_mousemove
 {
@@ -1915,7 +1915,7 @@ struct msg_wm_mousemove
         if (uMsg == WM_MOUSEMOVE)
         {
             
-            (derived.*func)((UINT)wParam, CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
+            (derived.*func)((UINT)wParam, KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
             if(BoolT::value) return true;
@@ -1928,7 +1928,7 @@ struct msg_wm_mousemove
 // msg_wm_mousewheel
 //
 template<
-    LRESULT (Derived::*func)(UINT,short,KETCHUP_wtype_ns::CPoint const&),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)(UINT,short,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
 >
 struct msg_wm_mousewheel
 {
@@ -1939,7 +1939,7 @@ struct msg_wm_mousewheel
         if (uMsg == WM_MOUSEWHEEL)
         {
             
-            lResult = (LRESULT)(derived.*func)((UINT)LOWORD(wParam), (short)HIWORD(wParam), CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
+            lResult = (LRESULT)(derived.*func)((UINT)LOWORD(wParam), (short)HIWORD(wParam), KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             
             if(BoolT::value) return true;
         }
@@ -1951,7 +1951,7 @@ struct msg_wm_mousewheel
 // msg_wm_lbuttondown
 //
 template<
-    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint const&),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
 >
 struct msg_wm_lbuttondown
 {
@@ -1962,7 +1962,7 @@ struct msg_wm_lbuttondown
         if (uMsg == WM_LBUTTONDOWN)
         {
             
-            (derived.*func)((UINT)wParam, CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
+            (derived.*func)((UINT)wParam, KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
             if(BoolT::value) return true;
@@ -1975,7 +1975,7 @@ struct msg_wm_lbuttondown
 // msg_wm_lbuttonup
 //
 template<
-    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint const&),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
 >
 struct msg_wm_lbuttonup
 {
@@ -1986,7 +1986,7 @@ struct msg_wm_lbuttonup
         if (uMsg == WM_LBUTTONUP)
         {
             
-            (derived.*func)((UINT)wParam, CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
+            (derived.*func)((UINT)wParam, KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
             if(BoolT::value) return true;
@@ -1999,7 +1999,7 @@ struct msg_wm_lbuttonup
 // msg_wm_lbuttondblclk
 //
 template<
-    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint const&),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
 >
 struct msg_wm_lbuttondblclk
 {
@@ -2010,7 +2010,7 @@ struct msg_wm_lbuttondblclk
         if (uMsg == WM_LBUTTONDBLCLK)
         {
             
-            (derived.*func)((UINT)wParam, CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
+            (derived.*func)((UINT)wParam, KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
             if(BoolT::value) return true;
@@ -2023,7 +2023,7 @@ struct msg_wm_lbuttondblclk
 // msg_wm_rbuttondown
 //
 template<
-    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint const&),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
 >
 struct msg_wm_rbuttondown
 {
@@ -2034,7 +2034,7 @@ struct msg_wm_rbuttondown
         if (uMsg == WM_RBUTTONDOWN)
         {
             
-            (derived.*func)((UINT)wParam, CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
+            (derived.*func)((UINT)wParam, KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
             if(BoolT::value) return true;
@@ -2047,7 +2047,7 @@ struct msg_wm_rbuttondown
 // msg_wm_rbuttonup
 //
 template<
-    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint const&),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
 >
 struct msg_wm_rbuttonup
 {
@@ -2058,7 +2058,7 @@ struct msg_wm_rbuttonup
         if (uMsg == WM_RBUTTONUP)
         {
             
-            (derived.*func)((UINT)wParam, CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
+            (derived.*func)((UINT)wParam, KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
             if(BoolT::value) return true;
@@ -2071,7 +2071,7 @@ struct msg_wm_rbuttonup
 // msg_wm_rbuttondblclk
 //
 template<
-    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint const&),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
 >
 struct msg_wm_rbuttondblclk
 {
@@ -2082,7 +2082,7 @@ struct msg_wm_rbuttondblclk
         if (uMsg == WM_RBUTTONDBLCLK)
         {
             
-            (derived.*func)((UINT)wParam, CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
+            (derived.*func)((UINT)wParam, KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
             if(BoolT::value) return true;
@@ -2095,7 +2095,7 @@ struct msg_wm_rbuttondblclk
 // msg_wm_mbuttondown
 //
 template<
-    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint const&),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
 >
 struct msg_wm_mbuttondown
 {
@@ -2106,7 +2106,7 @@ struct msg_wm_mbuttondown
         if (uMsg == WM_MBUTTONDOWN)
         {
             
-            (derived.*func)((UINT)wParam, CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
+            (derived.*func)((UINT)wParam, KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
             if(BoolT::value) return true;
@@ -2119,7 +2119,7 @@ struct msg_wm_mbuttondown
 // msg_wm_mbuttonup
 //
 template<
-    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint const&),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
 >
 struct msg_wm_mbuttonup
 {
@@ -2130,7 +2130,7 @@ struct msg_wm_mbuttonup
         if (uMsg == WM_MBUTTONUP)
         {
             
-            (derived.*func)((UINT)wParam, CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
+            (derived.*func)((UINT)wParam, KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
             if(BoolT::value) return true;
@@ -2143,7 +2143,7 @@ struct msg_wm_mbuttonup
 // msg_wm_mbuttondblclk
 //
 template<
-    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint const&),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
 >
 struct msg_wm_mbuttondblclk
 {
@@ -2154,7 +2154,7 @@ struct msg_wm_mbuttondblclk
         if (uMsg == WM_MBUTTONDBLCLK)
         {
             
-            (derived.*func)((UINT)wParam, CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
+            (derived.*func)((UINT)wParam, KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
             if(BoolT::value) return true;
@@ -2360,7 +2360,7 @@ struct msg_wm_vscrollclipboard
 // msg_wm_contextmenu
 //
 template<
-    void (Derived::*func)(HWND,KETCHUP_wtype_ns::CPoint const&),class BoolT = boost::mpl::true_
+    void (Derived::*func)(HWND,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
 >
 struct msg_wm_contextmenu
 {
@@ -2371,7 +2371,7 @@ struct msg_wm_contextmenu
         if (uMsg == WM_CONTEXTMENU)
         {
             
-            (derived.*func)((HWND)wParam, CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
+            (derived.*func)((HWND)wParam, KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
             if(BoolT::value) return true;
@@ -2841,7 +2841,7 @@ struct msg_wm_command
 // msg_wm_displaychange
 //
 template<
-    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CSize const&),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CSize),class BoolT = boost::mpl::true_
 >
 struct msg_wm_displaychange
 {
@@ -2852,7 +2852,7 @@ struct msg_wm_displaychange
         if (uMsg == WM_DISPLAYCHANGE)
         {
             
-            (derived.*func)((UINT)wParam, CSize(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
+            (derived.*func)((UINT)wParam, KETCHUP_wtype_ns::CSize(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
             if(BoolT::value) return true;
@@ -3437,7 +3437,7 @@ struct msg_wm_userchanged
 // msg_wm_mousehover
 //
 template<
-    void (Derived::*func)(WPARAM,KETCHUP_wtype_ns::CPoint const&),class BoolT = boost::mpl::true_
+    void (Derived::*func)(WPARAM,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
 >
 struct msg_wm_mousehover
 {
@@ -3448,7 +3448,7 @@ struct msg_wm_mousehover
         if (uMsg == WM_MOUSEHOVER)
         {
             
-            (derived.*func)(wParam, CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
+            (derived.*func)(wParam, KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
             if(BoolT::value) return true;
@@ -3643,7 +3643,7 @@ struct msg_wm_appcommand
 // msg_wm_ncxbuttondown
 //
 template<
-    void (Derived::*func)(WORD,WORD,KETCHUP_wtype_ns::CPoint const&),class BoolT = boost::mpl::true_
+    void (Derived::*func)(WORD,WORD,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
 >
 struct msg_wm_ncxbuttondown
 {
@@ -3654,7 +3654,7 @@ struct msg_wm_ncxbuttondown
         if (uMsg == WM_NCXBUTTONDOWN)
         {
             
-            (derived.*func)(GET_XBUTTON_WPARAM(wParam), GET_NCHITTEST_WPARAM(wParam), CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
+            (derived.*func)(GET_XBUTTON_WPARAM(wParam), GET_NCHITTEST_WPARAM(wParam), KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
             if(BoolT::value) return true;
@@ -3668,7 +3668,7 @@ struct msg_wm_ncxbuttondown
 // msg_wm_ncxbuttonup
 //
 template<
-    void (Derived::*func)(WORD,WORD,KETCHUP_wtype_ns::CPoint const&),class BoolT = boost::mpl::true_
+    void (Derived::*func)(WORD,WORD,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
 >
 struct msg_wm_ncxbuttonup
 {
@@ -3679,7 +3679,7 @@ struct msg_wm_ncxbuttonup
         if (uMsg == WM_NCXBUTTONUP)
         {
             
-            (derived.*func)(GET_XBUTTON_WPARAM(wParam), GET_NCHITTEST_WPARAM(wParam), CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
+            (derived.*func)(GET_XBUTTON_WPARAM(wParam), GET_NCHITTEST_WPARAM(wParam), KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
             if(BoolT::value) return true;
@@ -3693,7 +3693,7 @@ struct msg_wm_ncxbuttonup
 // msg_wm_ncxbuttondblclk
 //
 template<
-    void (Derived::*func)(WORD,WORD,KETCHUP_wtype_ns::CPoint const&),class BoolT = boost::mpl::true_
+    void (Derived::*func)(WORD,WORD,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
 >
 struct msg_wm_ncxbuttondblclk
 {
@@ -3704,7 +3704,7 @@ struct msg_wm_ncxbuttondblclk
         if (uMsg == WM_NCXBUTTONDBLCLK)
         {
             
-            (derived.*func)(GET_XBUTTON_WPARAM(wParam), GET_NCHITTEST_WPARAM(wParam), CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
+            (derived.*func)(GET_XBUTTON_WPARAM(wParam), GET_NCHITTEST_WPARAM(wParam), KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
             if(BoolT::value) return true;
@@ -3718,7 +3718,7 @@ struct msg_wm_ncxbuttondblclk
 // msg_wm_xbuttondown
 //
 template<
-    void (Derived::*func)(WORD,WORD,KETCHUP_wtype_ns::CPoint const&),class BoolT = boost::mpl::true_
+    void (Derived::*func)(WORD,WORD,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
 >
 struct msg_wm_xbuttondown
 {
@@ -3729,7 +3729,7 @@ struct msg_wm_xbuttondown
         if (uMsg == WM_XBUTTONDOWN)
         {
             
-            (derived.*func)(GET_XBUTTON_WPARAM(wParam), GET_KEYSTATE_WPARAM(wParam), CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
+            (derived.*func)(GET_XBUTTON_WPARAM(wParam), GET_KEYSTATE_WPARAM(wParam), KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
             if(BoolT::value) return true;
@@ -3743,7 +3743,7 @@ struct msg_wm_xbuttondown
 // msg_wm_xbuttonup
 //
 template<
-    void (Derived::*func)(WORD,WORD,KETCHUP_wtype_ns::CPoint const&),class BoolT = boost::mpl::true_
+    void (Derived::*func)(WORD,WORD,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
 >
 struct msg_wm_xbuttonup
 {
@@ -3754,7 +3754,7 @@ struct msg_wm_xbuttonup
         if (uMsg == WM_XBUTTONUP)
         {
             
-            (derived.*func)(GET_XBUTTON_WPARAM(wParam), GET_KEYSTATE_WPARAM(wParam), CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
+            (derived.*func)(GET_XBUTTON_WPARAM(wParam), GET_KEYSTATE_WPARAM(wParam), KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
             if(BoolT::value) return true;
@@ -3768,7 +3768,7 @@ struct msg_wm_xbuttonup
 // msg_wm_xbuttondblclk
 //
 template<
-    void (Derived::*func)(WORD,WORD,KETCHUP_wtype_ns::CPoint const&),class BoolT = boost::mpl::true_
+    void (Derived::*func)(WORD,WORD,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
 >
 struct msg_wm_xbuttondblclk
 {
@@ -3779,7 +3779,7 @@ struct msg_wm_xbuttondblclk
         if (uMsg == WM_XBUTTONDBLCLK)
         {
             
-            (derived.*func)(GET_XBUTTON_WPARAM(wParam), GET_KEYSTATE_WPARAM(wParam), CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
+            (derived.*func)(GET_XBUTTON_WPARAM(wParam), GET_KEYSTATE_WPARAM(wParam), KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
             if(BoolT::value) return true;

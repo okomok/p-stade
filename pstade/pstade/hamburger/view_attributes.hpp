@@ -49,6 +49,24 @@ PSTADE_INSTANCE(const ustring, Value_Music, ("Music"))
 PSTADE_INSTANCE(const ustring, Value_Video, ("Video"))
 
 
+template< class Node >
+void set_default_view_attributes(Node& nd)
+{
+    nd.att(Name_backgroundColor)            = Value_white;
+    nd.att(Name_backgroundImageHueShift)    = "0.0";
+    nd.att(Name_backgroundImageSaturation)  = "1.0";
+    nd.att(Name_backgroundTiled)            = Value_false;
+    nd.att(Name_category)                   = Value_All;
+    nd.att(Name_maxHeight)                  = Value_zero;
+    nd.att(Name_maxWidth)                   = Value_zero;
+    nd.att(Name_minHeight)                  = Value_zero;
+    nd.att(Name_minWidth)                   = Value_zero;
+    nd.att(Name_resizeBackgroundImage)      = Value_false;
+    nd.att(Name_timerInterval)              = "1000";
+    nd.att(Name_titleBar)                   = Value_true;
+}
+
+
 } } // namespace pstade::hamburger
 
 

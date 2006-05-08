@@ -11,6 +11,7 @@
 
 
 #include <string>
+#include <boost/assert.hpp>
 #include <boost/microsoft/atl/win.hpp> // CMessageMap
 #include <boost/microsoft/sdk/windows.hpp>
 #include <boost/optional.hpp>
@@ -22,50 +23,81 @@
 #include <pstade/unused.hpp>
 #include <pstade/ustring.hpp>
 #include "./element_attributes.hpp"
+#include "./rectangle.hpp"
 
 
 namespace pstade { namespace hamburger {
 
 
-// Workaround:
-// BOOST_FOREACH (for now) doesn't allow abstract types.
-//
 struct element_interface :
     ATL::CMessageMap
 {
-    bool process(HWND hWnd, UINT uMsg,
-        WPARAM wParam, LPARAM lParam, LRESULT& lResult, DWORD dwMsgMapID)
-    {
-        return tomato::boolean(ProcessWindowMessage(hWnd, uMsg,
-            wParam, lParam, lResult, dwMsgMapID));
-    }
-
     void create()
     {
-        create_impl();
+        impl_detail_pre_create();
+        return impl_create();
     }
 
-    boost::optional<HWND> hwnd() const
+    HWND window() const
     {
-        return hwnd_impl();
+        return impl_window();
     }
 
+    bool is_windowless() const
+    {
+        return impl_is_windowless();
+    }
+
+    void set_bounds(rectangle bounds)
+    {
+        m_bounds = bounds;
+    }
+
+    rectangle get_bounds() const
+    {
+        return m_bounds;
+    }
+
+    bool process_message(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, LRESULT& lResult, DWORD dwMsgMapID = 0)
+    {
+        return tomato::boolean(ProcessWindowMessage(hWnd, uMsg, wParam, lParam, lResult, dwMsgMapID));
+    }
+
+// Workaround:
+// BOOST_FOREACH doesn't allow abstract types.(will be fixed.)
+//
 public:
-    virtual BOOL ProcessWindowMessage(HWND hWnd, UINT uMsg,
-        WPARAM wParam, LPARAM lParam, LRESULT& lResult, DWORD dwMsgMapID)
+    virtual BOOL ProcessWindowMessage(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, LRESULT& lResult, DWORD dwMsgMapID)
     {
+        BOOST_ASSERT(false);
         pstade::unused(hWnd, uMsg, wParam, lParam, lResult, dwMsgMapID);
         return FALSE;
     }
 
 protected:
-    virtual void create_impl() const
-    { }
-
-    virtual boost::optional<HWND> hwnd_impl() const
+    virtual void impl_create() // = 0;
     {
-        return boost::optional<HWND>();
+        BOOST_ASSERT(false);
     }
+
+    virtual HWND impl_window() const
+    {
+        return NULL;
+    }
+
+    virtual bool impl_is_windowless() const
+    {
+        return true;
+    }
+
+// private:
+    virtual void impl_detail_pre_create() // = 0;
+    {
+        BOOST_ASSERT(false);
+    }
+
+private:
+    rectangle m_bounds;
 };
 
 
@@ -78,29 +110,13 @@ struct element :
 {
     explicit element()
     {
-        set_default_values();
+        hamburger::set_default_element_attributes(*this);
     }
 
-private:
-    void set_default_values()
+protected:
+    void impl_detail_pre_create()
     {
-        att(Name_alphaBlend)            = "255";
-        att(Name_clippingColor)         = Value_auto;
-        //att(Name_elementType)         = name();
-        att(Name_enabled)               = Value_true;
-        att(Name_height)                = Value_zero;
-        att(Name_horizontalAlignment)   = Value_left;
-        att(Name_left)                  = Value_zero;
-        att(Name_passThrough)           = Value_false;
-        att(Name_tabStop)               = Value_true;
-        att(Name_top)                   = Value_zero;
-        att(Name_verticalAlignment)     = Value_top;
-        att(Name_visible)               = Value_true;
-        att(Name_width)                 = Value_zero;
-        att(Name_zIndex)                = Value_zero;
-
-        //att(Name_id)       = ustring("unnamed_")|oven::jointed(name());
-        //att(Name_accName)  = att(Name_id);
+        hamburger::set_default_element_dependent_attributes(*this);
     }
 };
 
