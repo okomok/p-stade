@@ -51,6 +51,13 @@ private:
     typedef typename super_t::iterator iter_t;
 
 public:
+    // Question:
+    // Default constructible seems to make some initialization easy
+    // and exception-safe. But is it still proper?
+    //
+    explicit share_range()
+    { }
+
     explicit share_range(Range *prng) :
         ptr_bt(boost::shared_ptr<Range>(prng)),
         super_t(
@@ -62,7 +69,7 @@ public:
     // Workaround:
     // VC++7.1 implicitly generated copy constructor is sometimes broken
     // if the base type has constructor templates (as 'base_from_member' does).
-    // VC++7.1 seems to bring 'other' to the construct template of the base type.
+    // VC++7.1 seems to bring 'other' to the constructor template of the base type.
     // This problem is the same as 'boost::sub_range' nonassignable behavior.
     //
     share_range(const share_range& other) :

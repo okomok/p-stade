@@ -10,9 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/config.hpp>
-
-
 #if !defined(PSTADE_OVEN_DEBUG)
     #define PSTADE_OVEN_DEBUG_SPACE_CH ' '
     #define PSTADE_OVEN_DEBUG_TAB_CH '\t'
