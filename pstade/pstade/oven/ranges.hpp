@@ -29,6 +29,7 @@
 #include "./prepend_range.hpp"
 #include "./repeat_range.hpp"
 #include "./reverse_range.hpp"
+#include "./share_range.hpp"
 #include "./single_range.hpp"
 #include "./slice_range.hpp"
 #include "./tab_expand_range.hpp"
