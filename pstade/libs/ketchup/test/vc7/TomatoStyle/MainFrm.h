@@ -27,10 +27,11 @@ struct tomato_style_profile
 
 
 struct CMainFrame :
-	WTL::CMessageFilter, WTL::CIdleHandler,
 	ketchup::message_processor<CMainFrame,
 		WTL::CFrameWindowImpl<CMainFrame>
-	>
+	>,
+	tomato::message_filter<CMainFrame>,
+	tomato::idle_handler<CMainFrame>
 {
 public:
 	static WTL::CFrameWndClassInfo& GetWndClassInfo() {
@@ -43,8 +44,6 @@ public:
 	WTL::CReBarCtrl m_rebar;
 
 	tomato_style_profile<>::type m_profile;
-	tomato::message_filtering m_filtering;
-	tomato::idle_handling m_idling;
 
 #if (BOOST_MICROSOFT_ATL_VER >= 0x0700)
 	ATL::CString m_profile_name;
@@ -57,21 +56,23 @@ public:
 		pizza::initialize(m_profile, m_profile_name);
 	}
 
-// overrides
-	virtual BOOL PreTranslateMessage(MSG *pMsg)
-	{
-		if (WTL::CFrameWindowImpl<CMainFrame>::PreTranslateMessage(pMsg))
-			return TRUE;
+private: friend class tomato::access;
 
-		return m_view.PreTranslateMessage(pMsg);
+	bool pre_translate_message(MSG& msg)
+	{
+		if (WTL::CFrameWindowImpl<CMainFrame>::PreTranslateMessage(&msg))
+			return true;
+
+		return tomato::boolean(m_view.PreTranslateMessage(&msg));
 	}
 
-	virtual BOOL OnIdle()
+	BOOL on_idle()
 	{
 		ketchup::update_toolbar_cmd_ui(m_hWnd, m_toolbar);
 		return FALSE;
 	}
 
+public:
 // message handlers
 	LRESULT OnCreate(LPCREATESTRUCT lpCreateStruct)
 	{
@@ -102,9 +103,8 @@ public:
 
 		m_hWndClient = m_view.Create(m_hWnd, rcDefault, NULL, WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN, WS_EX_CLIENTEDGE);
 
-		// register object for message filtering and idle updates
-		m_filtering.start(this);
-		m_idling.start(this);
+		start_message_filter();
+		start_idle_handler();
 
 		//WTL::CLogFont lf;
 		//pizza::get_logfont(m_profile, lf);

@@ -6,7 +6,6 @@
 #include <boost/microsoft/wtl/app.hpp>
 
 
-#include <boost/assert.hpp>
 #include <pstade/hamburger.hpp>
 #include <pstade/lime/load_file.hpp>
 #include <pstade/tomato/co_initializer.hpp>
@@ -30,6 +29,7 @@ namespace wtlburger_detail {
         hamburger::unknown root;
         // root.att("path") = ...;
         lime::load_file(root, iname);
+        (root/"view").create();
 
         pstade::unused(lpstrCmdLine, nCmdShow);
         return theLoop.run();
@@ -45,7 +45,7 @@ int WINAPI _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpstrC
 
     try {
         tomato::co_initializer co;
-        tomato::module_initializer module(hInstance);
+        tomato::module_initializer mo(hInstance);
         WTL::AtlInitCommonControls(ICC_BAR_CLASSES); // add flags to support other controls
         return wtlburger_detail::run(lpstrCmdLine, nCmdShow);
     }

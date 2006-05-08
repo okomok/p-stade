@@ -25,8 +25,8 @@
 
 #define PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY(Name) \
     inline \
-    boost::mpl::true_ \
-    *boost_foreach_is_lightweight_proxy(Name *&, boost::foreach::tag) \
+    boost::mpl::true_ * \
+    boost_foreach_is_lightweight_proxy(Name *&, boost::foreach::tag) \
     { return 0; } \
 /**/
 
@@ -52,8 +52,8 @@
 
 #define PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE_impl(Name, ParamSeq) \
     template< PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE_params(ParamSeq) > inline \
-    boost::mpl::true_ \
-    *boost_foreach_is_lightweight_proxy(Name< BOOST_PP_ENUM_PARAMS(BOOST_PP_SEQ_SIZE(ParamSeq), T) > *&, boost::foreach::tag) \
+    boost::mpl::true_ * \
+    boost_foreach_is_lightweight_proxy(Name< BOOST_PP_ENUM_PARAMS(BOOST_PP_SEQ_SIZE(ParamSeq), T) > *&, boost::foreach::tag) \
     { return 0; } \
 /**/
 

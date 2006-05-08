@@ -59,6 +59,20 @@ public:
         )
     { }
 
+	// Workaround:
+	// VC++7.1 implicitly generated copy constructor is sometimes broken
+	// if the base type has constructor templates (as 'base_from_member' does).
+	// VC++7.1 seems to bring 'other' to the construct template of the base type.
+	// This problem is the same as 'boost::sub_range' nonassignable behavior.
+	//
+	share_range(const share_range& other) :
+		ptr_bt(other.member),
+		super_t(other)
+	{ }
+
+	// Question:
+	// good or bad syntax?
+	//
     Range& operator*() const
     {
         return *ptr_bt::member;

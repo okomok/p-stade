@@ -37,10 +37,6 @@ void test()
 
     std::string ans("0123");
 
-	{
-		share_range<xxx> x1(new xxx("abcd"));			
-	}
-
     {
         BOOST_CHECK( oven::equals(oven::make_share_range(new xxx("0123")), ans) );
     }

@@ -39,6 +39,7 @@ test-suite oven :
     [ oven-test repeat_range ]
     [ oven-test reverse_range ]
     [ oven-test sequence_cast ]
+    [ oven-test share_range ]
     [ oven-test single_range ]
     [ oven-test slice_range ]
     [ oven-test sub_set ]
