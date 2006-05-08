@@ -13,6 +13,7 @@
 #include <algorithm> // copy, sort
 #include <memory> // auto_ptr
 #include <vector>
+#include <boost/iterator/iterator_traits.hpp> // iterator_reference
 #include <boost/ptr_container/indirect_fun.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
@@ -20,7 +21,6 @@
 #include <pstade/egg/function.hpp>
 #include <pstade/garlic/back_inserter.hpp>
 #include "./call.hpp"
-#include "./copy.hpp"
 #include "./direct_range.hpp"
 #include "./indirect_range.hpp"
 #include "./is_lightweight_proxy.hpp"
@@ -76,7 +76,7 @@ namespace sort_range_detail {
         typedef bool result_type;
 
         template< class T >
-        bool operator()(T& x, T& y) const
+        bool operator()(const T& x, const T& y) const
         {
             return x < y;
         }
@@ -132,7 +132,7 @@ PSTADE_OVEN_RANGE_ADAPTOR(sorted, sort_range_detail::baby_generator)
 } } // namespace pstade::oven
 
 
-PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE(pstade::oven::sort_range, 1)
+PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE(pstade::oven::sort_range, 2)
 
 
 #endif
