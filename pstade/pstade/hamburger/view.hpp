@@ -24,8 +24,8 @@
 #include <pstade/tomato/window/create_result.hpp>
 #include <pstade/unused.hpp>
 #include <pstade/ustring.hpp>
+#include "./detail/chain_node_mouse_msg.hpp"
 #include "./detail/remove_caption.hpp"
-#include "./detail/send_mouse_message.hpp"
 #include "./detail/update_layout.hpp"
 #include "./dimension.hpp"
 #include "./element.hpp"
@@ -152,16 +152,11 @@ friend class ketchup::access;
         detail::update_layout(*this, sz);
     }
 
-    LRESULT on_mouse_message(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
-    {
-        return detail::send_mouse_message(*this, uMsg, wParam, lParam, bHandled);
-    }
-
     begin_msg_map
     <
         msg_wm_create<&_::on_create, not_handled>,
         msg_wm_size<&_::on_size>,
-        message_handler<WM_MOUSEMOVE, &_::on_mouse_message>
+        detail::chain_node_mouse_msg<>
     >
     end_msg_map;
 };

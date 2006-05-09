@@ -51,6 +51,23 @@ struct is_windowless_function
 PSTADE_INSTANCE(const is_windowless_function, is_windowless, value);
 
 
+struct z_order_function
+{
+    typedef bool result_type;
+
+    template< class Node >
+    bool operator()(Node& nd1, Node& nd2) const
+    {
+        int zIndex1 = pstade::lexical(nd1.att(Name_zIndex));
+        int zIndex2 = pstade::lexical(nd2.att(Name_zIndex));
+        return zIndex1 < zIndex2;
+    }
+};
+
+
+PSTADE_INSTANCE(const z_order_function, z_order, value);
+
+
 } } } // namespace pstade::hamburger::detail
 
 

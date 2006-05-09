@@ -18,6 +18,7 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/shared_ptr.hpp>
+#include <boost/type_traits/remove_cv.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/garlic/back_inserter.hpp>
 #include "./call.hpp"
@@ -50,8 +51,8 @@ namespace sort_range_detail {
         explicit share_range_initializer(Range& rng, BinaryPred pred)
         {
             std::auto_ptr<iters_t> piters(new iters_t());
-            PSTADE_OVEN_CALL1(std::copy, rng|oven::directed, garlic::back_inserter(*piters));
-            PSTADE_OVEN_CALL1(std::sort, *piters, boost::make_indirect_fun(pred));
+            PSTADE_OVEN_CALL(std::copy, rng|oven::directed, (garlic::back_inserter(*piters)));
+            PSTADE_OVEN_CALL(std::sort, *piters, (boost::make_indirect_fun(pred)));
             m_iters = oven::share_range<iters_t>(piters.release());
         }
 
@@ -108,11 +109,18 @@ namespace sort_range_detail {
 
     struct baby_generator
     {
-        template< class Range >
+        template< class Range, class BinaryPred = less_than >
         struct result
         {
-            typedef sort_range<Range> type;
+            typedef typename boost::remove_cv<BinaryPred>::type pred_t;
+            typedef const sort_range<Range, pred_t> type;
         };
+
+        template< class Result, class Range, class BinaryPred >
+        Result call(Range& rng, BinaryPred pred)
+        {
+            return Result(rng, pred);
+        }
 
         template< class Result, class Range >
         Result call(Range& rng)
