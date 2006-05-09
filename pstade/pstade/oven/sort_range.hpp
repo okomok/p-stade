@@ -13,11 +13,7 @@
 #include <algorithm> // copy, sort
 #include <memory> // auto_ptr
 #include <vector>
-#include <boost/iterator/iterator_traits.hpp> // iterator_reference
 #include <boost/ptr_container/indirect_fun.hpp>
-#include <boost/range/begin.hpp>
-#include <boost/range/end.hpp>
-#include <boost/shared_ptr.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/garlic/back_inserter.hpp>
