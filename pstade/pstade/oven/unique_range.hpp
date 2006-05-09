@@ -24,10 +24,10 @@ namespace unique_range_detail {
 
     struct not_equal_to
     {
-        template< class A0, class A1 >
-        bool operator()(const A0& a0, const A1& a1) const
+        template< class X, class Y >
+        bool operator()(const X& x, const Y& y) const
         {
-            return a0 != a1;
+            return x != y;
         }
     };
 

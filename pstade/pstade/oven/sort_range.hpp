@@ -72,8 +72,8 @@ namespace sort_range_detail {
     {
         typedef bool result_type;
 
-        template< class T >
-        bool operator()(const T& x, const T& y) const
+        template< class X, class Y >
+        bool operator()(const X& x, const Y& y) const
         {
             return x < y;
         }

@@ -12,17 +12,34 @@
 
 #include <boost/foreach.hpp>
 #include <boost/mpl/aux_/preprocessor/is_seq.hpp>
+#include <boost/mpl/aux_/preprocessor/token_equal.hpp>
 #include <boost/preprocessor/control/iif.hpp>
+#include <boost/preprocessor/debug/assert.hpp>
 #include <boost/preprocessor/seq/enum.hpp>
 
 
-#define PSTADE_OVEN_CALL(Algo, Range, MaybeArgSeq) \
+#define PSTADE_OVEN_CALL(Algo, Range, EmptyOrArgSeq) \
+    BOOST_PP_ASSERT(PSTADE_OVEN_CALL_valid(EmptyOrArgSeq)) \
+    \
     PSTADE_OVEN_CALL_prelude(Range) \
     \
-    BOOST_PP_IIF (BOOST_MPL_PP_IS_SEQ(MaybeArgSeq), \
+    BOOST_PP_IIF (BOOST_MPL_PP_IS_SEQ(EmptyOrArgSeq), \
         PSTADE_OVEN_CALL_args, \
         PSTADE_OVEN_CALL_no_args \
-    )(Algo, Range, MaybeArgSeq) \
+    )(Algo, Range, EmptyOrArgSeq) \
+/**/
+
+
+#define PSTADE_OVEN_CALL_valid(EmptyOrArgSeq) \
+    BOOST_PP_IIF (BOOST_MPL_PP_IS_SEQ(EmptyOrArgSeq), \
+        1 BOOST_PP_TUPLE_EAT(2), \
+        BOOST_MPL_PP_TOKEN_EQUAL \
+    )(EmptyOrArgSeq, empty) \
+/**/
+
+
+#define BOOST_MPL_PP_TOKEN_EQUAL_empty(A) \
+    A \
 /**/
 
 

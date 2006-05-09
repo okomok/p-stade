@@ -11,7 +11,7 @@
 
 
 #include <boost/foreach.hpp> // tag
-#include <boost/mpl/bool.hpp> // true_
+#include <boost/mpl/bool.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/comma_if.hpp>
 #include <boost/preprocessor/control/iif.hpp>
