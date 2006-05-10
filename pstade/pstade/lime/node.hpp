@@ -15,7 +15,7 @@
 #include <boost/foreach.hpp>
 #include <boost/mpl/empty_base.hpp>
 #include <boost/noncopyable.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
+#include <boost/ptr_container/ptr_list.hpp>
 #include <boost/optional.hpp>
 #include <boost/range/empty.hpp>
 #include <boost/throw_exception.hpp>
@@ -66,7 +66,7 @@ template<
 >
 struct node :
     Interface,
-    boost::ptr_vector< node<Interface> >,
+    boost::ptr_list< node<Interface> >,
     private boost::noncopyable
 {
     typedef std::map<ustring, ustring> attributes_type;

@@ -16,8 +16,8 @@
 #include <pstade/oven/file_range.hpp>
 #include <pstade/oven/utf8_decode_range.hpp>
 #include <pstade/ustring.hpp>
+#include "./detail/node_fwd.hpp"
 #include "./load.hpp"
-#include "./node.hpp"
 
 
 namespace pstade { namespace lime {

@@ -10,17 +10,37 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/mpl/identity.hpp>
 #include <boost/utility/addressof.hpp>
+#include <pstade/egg/function.hpp>
 
 
 namespace pstade {
 
 
-template< class T > inline
-bool is_same(T& x, T& y)
-{
-    return boost::addressof(x) == boost::addressof(y);
-}
+namespace is_same_detail {
+
+
+    struct baby
+    {
+        template< class T1, class T2 >
+        struct result : boost::mpl::identity<
+            bool
+        >
+        { };
+
+        template< class Result, class T >
+        Result call(const T& x, const T& y)
+        {
+            return boost::addressof(x) == boost::addressof(y);
+        }
+    };
+
+
+} // namespace is_same_detail
+
+
+PSTADE_EGG_FUNCTION(is_same, is_same_detail::baby)
 
 
 } // namespace pstade
