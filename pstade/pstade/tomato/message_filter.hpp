@@ -17,6 +17,7 @@
 #include <boost/noncopyable.hpp>
 #include <pstade/derived_cast.hpp>
 #include <pstade/require.hpp>
+#include <pstade/verify.hpp>
 #include "./access.hpp"
 
 
@@ -39,7 +40,7 @@ namespace message_filter_detail {
         ~impl()
         {
             WTL::CMessageLoop *pLoop = _Module.GetMessageLoop(m_dwThreadID);
-            PSTADE_REQUIRE(pLoop && pLoop->RemoveMessageFilter(m_pMessageFilter));
+            PSTADE_VERIFY(pLoop && pLoop->RemoveMessageFilter(m_pMessageFilter));
         }
 
     private:

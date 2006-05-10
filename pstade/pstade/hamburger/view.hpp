@@ -13,14 +13,19 @@
 #include <algorithm> // min, max
 #include <stdexcept> // runtime_error
 #include <boost/assert.hpp>
+#include <boost/lambda/bind.hpp>
+#include <boost/lambda/core.hpp> // _1
 #include <boost/microsoft/atl/win.hpp>
 #include <boost/microsoft/sdk/windows.hpp>
 #include <boost/microsoft/wtl/frame.hpp> // CMessageFilter, CIdleHandler
+#include <boost/thread/thread.hpp>
+#include <pstade/instance.hpp>
 #include <pstade/ketchup.hpp>
 #include <pstade/lexical_cast.hpp>
 #include <pstade/tomato/diet/valid.hpp>
 #include <pstade/tomato/idle_handler.hpp>
 #include <pstade/tomato/message_filter.hpp>
+#include <pstade/tomato/message_loop.hpp>
 #include <pstade/tomato/window/create_result.hpp>
 #include <pstade/tomato/window/post_message.hpp>
 #include <pstade/unused.hpp>
@@ -82,6 +87,9 @@ namespace view_detail {
     }
 
 
+    PSTADE_INSTANCE(boost::thread_group, threads, value)
+
+
 } // namespace view_detail
 
 
@@ -100,6 +108,7 @@ public:
     explicit view()
     {
         hamburger::set_default_view_attributes(*this);
+        view_detail::threads.create_thread(boost::lambda::bind(&view::work, this));
     }
 
 protected:
@@ -112,8 +121,9 @@ protected:
 
         detail::remove_caption(m_hWnd);
 
-        start_message_filter();
-        start_idle_handler();
+        // todo: they are rejected....make it crash!
+        //start_message_filter();
+        //start_idle_handler();
 
         ShowWindow(SW_NORMAL);
     }
@@ -156,6 +166,7 @@ friend class ketchup::access;
     void on_lbutton_down(UINT uFlags, point pt)
     {
         tomato::post_message(m_hWnd, WM_CLOSE);
+        pstade::unused(uFlags, pt);
     }
 
     void on_destroy()
@@ -172,7 +183,28 @@ friend class ketchup::access;
         detail::chain_node_mouse_msg<>
     >
     end_msg_map;
+
+private:
+    boost::thread m_thread; // must be last data.
+
+    void work()
+    {
+        tomato::message_loop loop;
+        // message_filtering filteing(this);
+        // idle_handling idling(this);
+        create();
+        loop.run();
+
+        // <- remove from parent?
+    }
 };
+
+
+inline
+void view_join_all()
+{
+    view_detail::threads.join_all();
+}
 
 
 namespace view_detail {

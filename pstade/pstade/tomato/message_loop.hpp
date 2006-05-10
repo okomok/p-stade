@@ -11,11 +11,27 @@
 
 
 #include <boost/microsoft/atl/module.hpp>
+#include <boost/microsoft/sdk/windows.hpp>
 #include <boost/microsoft/wtl/app.hpp> // CMessageLoop
 #include <pstade/require.hpp>
+#include <pstade/verify.hpp>
 
 
 namespace pstade { namespace tomato {
+
+
+namespace message_loop_detail {
+
+
+    inline
+    void create_message_queue()
+    {
+        MSG msg;
+        ::PeekMessage(&msg, NULL, WM_USER, WM_USER, PM_NOREMOVE);
+    }
+
+
+} // namespace message_loop_detail
 
 
 struct message_loop
@@ -27,11 +43,12 @@ struct message_loop
 
     ~message_loop()
     {
-        _Module.RemoveMessageLoop();
+        PSTADE_VERIFY(_Module.RemoveMessageLoop());
     }
 
     int run()
     {
+        message_loop_detail::create_message_queue();
         return m_loop.Run();
     }
 
