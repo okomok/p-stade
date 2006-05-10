@@ -22,6 +22,7 @@
 #include <pstade/tomato/idle_handler.hpp>
 #include <pstade/tomato/message_filter.hpp>
 #include <pstade/tomato/window/create_result.hpp>
+#include <pstade/tomato/window/post_message.hpp>
 #include <pstade/unused.hpp>
 #include <pstade/ustring.hpp>
 #include "./detail/chain_node_mouse_msg.hpp"
@@ -152,10 +153,22 @@ friend class ketchup::access;
         detail::update_layout(*this, sz);
     }
 
+    void on_lbutton_down(UINT uFlags, point pt)
+    {
+        tomato::post_message(m_hWnd, WM_CLOSE);
+    }
+
+    void on_destroy()
+    {
+        ::PostQuitMessage(1);
+    }
+
     begin_msg_map
     <
         msg_wm_create<&_::on_create, not_handled>,
         msg_wm_size<&_::on_size>,
+        msg_wm_lbuttondown<&_::on_lbutton_down>,
+        msg_wm_destroy<&_::on_destroy, not_handled>,
         detail::chain_node_mouse_msg<>
     >
     end_msg_map;

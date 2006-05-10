@@ -13,9 +13,7 @@
 #include <memory> // auto_ptr
 #include <stack>
 #include <boost/assert.hpp>
-#include <boost/range/begin.hpp>
-#include <boost/range/end.hpp>
-#include <boost/range/iterator_range.hpp>
+#include <boost/range/empty.hpp>
 #include <boost/throw_exception.hpp>
 #include <pstade/biscuit/algorithm/match.hpp>
 #include <pstade/biscuit/parser.hpp>
@@ -38,18 +36,20 @@ namespace load_detail {
 
     // user state
     //
-
     template< class Interface >
     struct context
     {
         typedef node<Interface> node_type;
 
-        std::stack<node_type *> m_stack;
-        ustring m_curAttName;
-
         node_type& top()
         {
+            BOOST_ASSERT(!is_top_null());
             return *(m_stack.top());
+        }
+
+        bool is_top_null() const
+        {
+            return m_stack.top() == PSTADE_NULLPTR;
         }
 
         void push(node_type *p)
@@ -61,6 +61,25 @@ namespace load_detail {
         {
             m_stack.pop();
         }
+
+        void reset_current_AttName(ustring n)
+        {
+            m_curAttName = n;
+        }
+
+        ustring current_AttName() const
+        {
+            return m_curAttName;
+        }
+
+        bool valid() const
+        {
+            return m_stack.size() > 1; // always has root.
+        }
+
+    private:
+        std::stack<node_type *> m_stack;
+        ustring m_curAttName;
     };
 
 
@@ -72,15 +91,19 @@ namespace load_detail {
         template< class SubRange, class Context >
         void operator()(SubRange rng, Context& cxt)
         {
+            if (cxt.is_top_null()) {
+                cxt.push(PSTADE_NULLPTR);
+                return;
+            }
+
             ustring name = oven::sequence(rng);
 
             typedef typename Context::node_type node_t;
             std::auto_ptr<node_t> pn(lime::new_node(cxt.top(), name));
-            if (!pn.get())
-                return;
 
-            //pn->on_tag_start(*pn);
-            cxt.top().push_back(pn.get());
+            if (pn.get())
+                cxt.top().push_back(pn.get());
+    
             cxt.push(pn.release());
         }
     };
@@ -91,6 +114,9 @@ namespace load_detail {
         template< class SubRange, class Context >
         void operator()(SubRange rng, Context& cxt)
         {
+            if (cxt.is_top_null())
+                return;
+
             ustring data = oven::sequence(rng);
 
             typedef typename Context::node_type node_t;
@@ -109,6 +135,9 @@ namespace load_detail {
         template< class SubRange, class Context >
         void operator()(SubRange rng, Context& cxt)
         {
+            if (cxt.is_top_null())
+                return;
+
             ustring data = oven::sequence(rng);
 
             typedef typename Context::node_type node_t;
@@ -127,8 +156,11 @@ namespace load_detail {
         template< class SubRange, class Context >
         void operator()(SubRange rng, Context& cxt)
         {
+            if (cxt.is_top_null())
+                return;
+
             ustring name = oven::sequence(rng);
-            cxt.m_curAttName = name;
+            cxt.reset_current_AttName(name);
         }
     };
 
@@ -138,11 +170,13 @@ namespace load_detail {
         template< class SubRange, class Context >
         void operator()(SubRange rng, Context& cxt)
         {
+            if (cxt.is_top_null())
+                return;
+
             ustring val = oven::sequence(rng);
             BOOST_ASSERT(boost::size(val) >= 2);
 
-            cxt.top().att(cxt.m_curAttName) =
-                val|oven::sliced(1, -1); // remove " "
+            cxt.top().att(cxt.current_AttName()) = val|oven::sliced(1, -1); // remove " "
         }
     };
 
@@ -152,9 +186,8 @@ namespace load_detail {
         template< class SubRange, class Context >
         void operator()(SubRange rng, Context& cxt)
         {
-            BOOST_ASSERT(boost::size(cxt.m_stack) > 1);
+            BOOST_ASSERT(cxt.valid());
 
-            //cxt.top().on_tag_end(cx.top());
             cxt.pop();
             pstade::unused(rng);
         }
