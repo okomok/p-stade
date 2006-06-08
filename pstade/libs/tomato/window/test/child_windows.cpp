@@ -1,4 +1,4 @@
-#include <pstade/vodka/begin.hpp>
+#include <pstade/vodka/drink.hpp>
 #include <boost/test/minimal.hpp>
 
 
@@ -16,7 +16,7 @@
 
 #include <algorithm>
 #include <iostream>
-#include <boost/microsoft/sdk/windows.hpp>
+#include <pstade/apple/sdk/windows.hpp>
 #include <pstade/oven.hpp>
 
 

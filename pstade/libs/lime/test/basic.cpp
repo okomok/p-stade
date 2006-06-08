@@ -1,4 +1,4 @@
-#include <pstade/vodka/begin.hpp>
+#include <pstade/vodka/drink.hpp>
 #include <boost/test/test_tools.hpp>
 
 
@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/lime/node.hpp>
+#include <pstade/lime/node_facade.hpp>
 #include <pstade/lime/load.hpp>
 #include <pstade/lime/save.hpp>
 
@@ -25,39 +25,41 @@
 
 void test()
 {
-	using namespace pstade;
+    using namespace pstade;
+
+    typedef lime::node_facade<int> my_node;
 
     std::cout << "<lime_test>";
 
-	try {
+    try {
 
-		std::string iname("sample.xml");
-		std::cout << "<input-file>" << iname << "</input-file>";
+        std::string iname("sample.xml");
+        std::cout << "<input-file>" << iname << "</input-file>";
 
-		std::string oname = iname + ".out";
-		std::ofstream fout(oname.c_str(), std::ios::binary);
-		pstade::require(fout, "good output file: " + oname);
+        std::string oname = iname + ".out";
+        std::ofstream fout(oname.c_str(), std::ios::binary);
+        pstade::require(fout, "good output file: " + oname);
 
-		ustring tmp; {// for speed
-			oven::copy(
-				oven::file_range<utf8cp_t>(iname) |
-					oven::utf8_decoded,
-				garlic::back_inserter(tmp)
-			);
-		}
+        ustring tmp; {// for speed
+            oven::copy(
+                oven::file_range<utf8cp_t>(iname) |
+                    oven::utf8_decoded,
+                garlic::back_inserter(tmp)
+            );
+        }
 
-        lime::node<> root;
+        my_node root;
         lime::load(root, tmp);
 
-		lime::save(
-			root,
-			oven::utf8_encoder(garlic::back_inserter(fout))
-		);
+        lime::save(
+            root.front(),
+            oven::utf8_encoder(garlic::back_inserter(fout))
+        );
 
-	}
-	catch (std::exception& err) {
+    }
+    catch (std::exception& err) {
         std::cout << "<error>" << err.what() << "</error>\n";
-	}
+    }
 
     std::cout << "</lime_test>";
 }

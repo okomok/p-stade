@@ -18,14 +18,17 @@
 #include <pstade/biscuit/algorithm/match.hpp>
 #include <pstade/biscuit/parser.hpp>
 #include <pstade/melon.hpp>
+#include <pstade/nullptr.hpp>
+#include <pstade/oven/distance.hpp>
 #include <pstade/oven/sequence_cast.hpp>
 #include <pstade/oven/slice_range.hpp>
 #include <pstade/unused.hpp>
 #include <pstade/ustring.hpp>
+#include <pstade/what.hpp>
 #include "./error.hpp"
 #include "./intrinsic.hpp"
 #include "./new_node.hpp"
-#include "./node.hpp"
+#include "./node_value_type.hpp"
 
 
 namespace pstade { namespace lime {
@@ -36,12 +39,12 @@ namespace load_detail {
 
     // user state
     //
-    template< class Interface >
+    template< class NodeValue >
     struct context
     {
-        typedef node<Interface> node_type;
+        typedef NodeValue node_value_type;
 
-        node_type& top()
+        node_value_type& top()
         {
             BOOST_ASSERT(!is_top_null());
             return *(m_stack.top());
@@ -52,9 +55,9 @@ namespace load_detail {
             return m_stack.top() == PSTADE_NULLPTR;
         }
 
-        void push(node_type *p)
+        void push(node_value_type *pn)
         {
-            m_stack.push(p);
+            m_stack.push(pn);
         }
 
         void pop()
@@ -78,7 +81,7 @@ namespace load_detail {
         }
 
     private:
-        std::stack<node_type *> m_stack;
+        std::stack<node_value_type *> m_stack;
         ustring m_curAttName;
     };
 
@@ -98,8 +101,8 @@ namespace load_detail {
 
             ustring name = oven::sequence(rng);
 
-            typedef typename Context::node_type node_t;
-            std::auto_ptr<node_t> pn(lime::new_node(cxt.top(), name));
+            typedef typename Context::node_value_type val_t;
+            std::auto_ptr<val_t> pn(lime::new_node(cxt.top(), name));
 
             if (pn.get())
                 cxt.top().push_back(pn.get());
@@ -119,12 +122,12 @@ namespace load_detail {
 
             ustring data = oven::sequence(rng);
 
-            typedef typename Context::node_type node_t;
-            std::auto_ptr<node_t> pn(lime::new_node(cxt.top(), i_CharData));
+            typedef typename Context::node_value_type val_t;
+            std::auto_ptr<val_t> pn(lime::new_node(cxt.top(), i_CharData));
             if (!pn.get())
                 return;
 
-            pn->att(i_attName) = data;
+            pn->attributes()[i_attName] = data;
             cxt.top().push_back(pn.release());
         }
     };
@@ -140,12 +143,12 @@ namespace load_detail {
 
             ustring data = oven::sequence(rng);
 
-            typedef typename Context::node_type node_t;
-            std::auto_ptr<node_t> pn(lime::new_node(cxt.top(), i_Reference));
+            typedef typename Context::node_value_type val_t;
+            std::auto_ptr<val_t> pn(lime::new_node(cxt.top(), i_Reference));
             if (!pn.get())
                 return;
 
-            pn->att(i_attName) = data;
+            pn->attributes()[i_attName] = data;
             cxt.top().push_back(pn.release());
         }
     };
@@ -174,9 +177,10 @@ namespace load_detail {
                 return;
 
             ustring val = oven::sequence(rng);
-            BOOST_ASSERT(boost::size(val) >= 2);
+            BOOST_ASSERT(oven::distance(val) >= 2);
 
-            cxt.top().att(cxt.current_AttName()) = val|oven::sliced(1, -1); // remove " "
+            cxt.top().attributes()[cxt.current_AttName()]
+                = val|oven::sliced(1, -1); // remove " "
         }
     };
 
@@ -238,15 +242,16 @@ struct load_error :
     error
 {
     explicit load_error() :
-        error("pstade::lime::load - xml parsing failed")
+        error(pstade::what("lime", "load_error"))
     { }
 };
 
 
-template< class Interface, class ForwardRange >
-void load(node<Interface>& root, const ForwardRange& rng)
+template< class Node, class ForwardRange >
+void load(Node& root, const ForwardRange& rng)
 {
-    load_detail::context<Interface> cxt;
+    typedef typename node_value<Node>::type val_t;
+    load_detail::context<val_t> cxt;
     cxt.push(&root);
 
     if (!biscuit::match<load_detail::start>(rng, cxt)) {

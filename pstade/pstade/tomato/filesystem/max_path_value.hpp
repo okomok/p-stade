@@ -10,8 +10,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/microsoft/sdk/windows.hpp>
 #include <boost/mpl/int.hpp>
+#include <pstade/apple/sdk/windows.hpp>
 
 
 namespace pstade { namespace tomato {

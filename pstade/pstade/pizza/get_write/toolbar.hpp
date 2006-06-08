@@ -17,11 +17,11 @@
 
 
 #include <boost/assert.hpp>
-#include <boost/microsoft/sdk/tchar.hpp>
-#include <boost/microsoft/sdk/windows.hpp>
-#include <boost/microsoft/wtl/ctrls.hpp> // CToolBarCtrl
 #include <boost/mpl/int.hpp>
 #include <boost/scoped_array.hpp>
+#include <pstade/apple/sdk/tchar.hpp>
+#include <pstade/apple/sdk/windows.hpp>
+#include <pstade/apple/wtl/ctrls.hpp> // CToolBarCtrl
 #include <pstade/candy/test.hpp>
 #include <pstade/require.hpp>
 #include <pstade/tomato/diet/valid.hpp>

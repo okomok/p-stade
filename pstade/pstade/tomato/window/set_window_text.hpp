@@ -16,12 +16,13 @@
 
 
 #include <boost/array.hpp>
-#include <boost/microsoft/sdk/tchar.hpp>
-#include <boost/microsoft/sdk/windows.hpp>
 #include <boost/mpl/int.hpp>
 #include <boost/range/begin.hpp>
-#include <boost/range/size.hpp>
+#include <pstade/oven/distance.hpp>
+#include <pstade/apple/sdk/tchar.hpp>
+#include <pstade/apple/sdk/windows.hpp>
 #include <pstade/integral_cast.hpp>
+#include <pstade/oven/distance.hpp>
 #include <pstade/oven/equal.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
 #include <pstade/require.hpp>
@@ -38,7 +39,7 @@ void set_window_text(HWND hWnd, const TCHAR *pszNew)
     BOOST_ASSERT(diet::valid(pszNew));
 
     oven::null_terminate_range<const TCHAR *> strNew(pszNew);
-    int newLen = pstade::integral(boost::size(strNew));
+    int newLen = pstade::integral(oven::distance(strNew));
 
     typedef boost::mpl::int_<255> bufLen;
     boost::array<TCHAR, 1 + bufLen::value> bufOld;

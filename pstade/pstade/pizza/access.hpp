@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/microsoft/sdk/tchar.hpp>
+#include <pstade/apple/sdk/tchar.hpp>
 
 
 namespace pstade { namespace pizza {

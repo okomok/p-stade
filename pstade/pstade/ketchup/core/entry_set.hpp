@@ -14,7 +14,6 @@
 #include "../cmd_ui/dependent_value.hpp"
 #include "../cmd_ui/entry_set.hpp"
 #include "../crack/entry_set.hpp"
-#include "../crack/handled_value.hpp"
 #include "../frame/entry_set.hpp"
 #include "../helper/entry_set.hpp"
 #include "../win/entry_set.hpp"
@@ -34,7 +33,6 @@ struct entry_set :
     helper_entry_set<Derived>
 {
     typedef Derived _;
-    typedef ketchup::not_handled not_handled;
     typedef ketchup::cmd_ui cmd_ui;
     typedef ketchup::dependent dependent;
     typedef ketchup::independent independent;

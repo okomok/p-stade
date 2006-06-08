@@ -10,10 +10,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Why:
+// Same as:
 //
-// 'boost::sub_range' has no Assignable
-// because of a VC++ broken behavior.
+// 'sub_range_base' with some workarounds
 
 
 #include <boost/range/const_iterator.hpp>

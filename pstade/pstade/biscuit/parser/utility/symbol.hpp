@@ -31,7 +31,7 @@ namespace pstade { namespace biscuit {
 namespace symbol_detail {
 
 
-template< class CharT, class State >
+template< class State, class CharT >
 bool aux(State& s, CharT const *it_)
 {
     typedef typename boost::range_result_iterator<State>::type iter_t;
@@ -54,7 +54,7 @@ bool aux(State& s, CharT const *it_)
 } // namespace symbol_detail
 
 
-#define PSTADE_BISCUIT_SYMBOL_PARSER(t, psz) \
+#define PSTADE_BISCUIT_SYMBOL(t, psz) \
     PSTADE_BISCUIT_NULLARY_PARSER_STRUCT(t) \
     { \
         template< class State, class UserState > \

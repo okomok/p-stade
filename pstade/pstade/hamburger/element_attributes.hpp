@@ -10,9 +10,18 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Note:
+//
+// These are thread-safe as far as under VC++ STL.
+
+
+#include <boost/range/empty.hpp>
+#include <pstade/apple/atl/win.hpp>
 #include <pstade/instance.hpp>
+#include <pstade/lexical_cast.hpp>
 #include <pstade/oven/joint_range.hpp>
 #include <pstade/ustring.hpp>
+#include "./rectangle.hpp"
 
 
 namespace pstade { namespace hamburger {
@@ -52,30 +61,35 @@ PSTADE_INSTANCE(const ustring, Value_zero,      ("0"))
 
 
 template< class Node >
-void set_default_element_attributes(Node& nd)
+void set_default_element_attributes(Node& node)
 {
-    nd.att(Name_alphaBlend)         = "255";
-    nd.att(Name_clippingColor)      = Value_auto;
-    nd.att(Name_enabled)            = Value_true;
-    nd.att(Name_height)             = Value_zero;
-    nd.att(Name_horizontalAlignment)= Value_left;
-    nd.att(Name_left)               = Value_zero;
-    nd.att(Name_passThrough)        = Value_false;
-    nd.att(Name_tabStop)            = Value_true;
-    nd.att(Name_top)                = Value_zero;
-    nd.att(Name_verticalAlignment)  = Value_top;
-    nd.att(Name_visible)            = Value_true;
-    nd.att(Name_width)              = Value_zero;
-    nd.att(Name_zIndex)             = Value_zero;
+    node%Name_alphaBlend            = "255";
+    node%Name_clippingColor         = Value_auto;
+    node%Name_enabled               = Value_true;
+    node%Name_height                = Value_zero;
+    node%Name_horizontalAlignment   = Value_left;
+    node%Name_left                  = Value_zero;
+    node%Name_passThrough           = Value_false;
+    node%Name_tabStop               = Value_true;
+    node%Name_top                   = Value_zero;
+    node%Name_verticalAlignment     = Value_top;
+    node%Name_visible               = Value_true;
+    node%Name_width                 = Value_zero;
+    node%Name_zIndex                = Value_zero;
 }
 
 
 template< class Node >
-void set_default_element_dependent_attributes(Node& nd)
+void set_default_element_dependent_attributes(Node& node)
 {
-    nd.att(Name_elementType)        = nd.name();
-    nd.att(Name_id)                 = ustring("unnamed_")|oven::jointed(nd.name());
-    nd.att(Name_accName)            = nd.att(Name_id);
+    if (boost::empty(node%Name_elementType))
+        node%Name_elementType = node.name();
+
+    if (boost::empty(node%Name_id))
+        node%Name_id = pstade::ustring("unnamed_")|oven::jointed(node.name());
+
+    if (boost::empty(node%Name_accName))
+        node%Name_accName  = node%Name_id;
 }
 
 

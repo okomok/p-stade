@@ -11,7 +11,7 @@
 #define _WIN32_IE	0x0400
 #define _RICHEDIT_VER	0x0100
 
-#include <pstade/vodka/begin.hpp>
+#include <pstade/vodka/drink.hpp>
 
 #include <atlbase.h>
 #include <atlapp.h>

@@ -106,7 +106,6 @@ namespace indirect_range_detail {
 } // namespace indirect_range_detail
 
 
-
 PSTADE_EGG_FUNCTION(make_indirect_range, indirect_range_detail::baby_generator)
 PSTADE_OVEN_RANGE_ADAPTOR(indirected, indirect_range_detail::baby_generator)
 

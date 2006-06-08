@@ -10,8 +10,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/microsoft/sdk/tchar.hpp>
 #include <boost/mpl/integral_c.hpp>
+#include <pstade/apple/sdk/tchar.hpp>
 
 
 namespace pstade { namespace tomato {

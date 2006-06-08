@@ -19,13 +19,13 @@
 namespace pstade {
 
 
-template< class TargetT, class SourceT > inline const
-TargetT integral_cast(SourceT arg)
+template< class TargetT, class SourceT > inline
+TargetT integral_cast(SourceT src)
 {
     BOOST_STATIC_ASSERT((boost::is_integral<TargetT>::value));
     BOOST_STATIC_ASSERT((boost::is_integral<SourceT>::value));
 
-    return boost::numeric_cast<TargetT>(arg); // :-)
+    return boost::numeric_cast<TargetT>(src); // :-)
 }
 
 

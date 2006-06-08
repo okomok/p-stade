@@ -18,7 +18,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <sstream>
 #include <stdexcept> // runtime_error
 #include <string>
 #include <boost/current_function.hpp>
@@ -35,12 +34,25 @@
 /**/
 
 
-#define PSTADE_REQUIRE_MESSAGE(Expr, Msg) \
-    pstade::require( \
-        Expr, \
-        pstade::require_detail::make_info(BOOST_PP_STRINGIZE(Expr), __FILE__, __LINE__, BOOST_CURRENT_FUNCTION, Msg) \
-    ) \
-/**/
+#if !defined(NDEBUG) || defined(PSTADE_REQUIRE_DEBUG)
+
+    #define PSTADE_REQUIRE_MESSAGE(Expr, Msg) \
+        pstade::require( \
+            Expr, \
+            pstade::require_detail::make_info(BOOST_PP_STRINGIZE(Expr), __FILE__, __LINE__, BOOST_CURRENT_FUNCTION, Msg) \
+        ) \
+    /**/
+
+#else
+
+    #define PSTADE_REQUIRE_MESSAGE(Expr, Msg) \
+        pstade::require( \
+            Expr, \
+            pstade::require_detail::make_info("", __FILE__, __LINE__, "", Msg) \
+        ) \
+    /**/
+
+#endif
 
 
 namespace pstade {
@@ -59,7 +71,7 @@ namespace require_detail {
 
 
     inline
-    void throw_exception(std::string info)
+    void throw_error(std::string info)
     {
         require_error err(pstade::what("require", info));
         boost::throw_exception(err);
@@ -69,15 +81,15 @@ namespace require_detail {
     inline
     std::string make_info(const char *expr, const char *file, int line, const char *func, const char *msg)
     {
-        std::stringstream info;
-        info <<
-            pstade::what("file",        file) <<
-            pstade::what("line",        line) <<
-            pstade::what("expression",  expr) <<
-            pstade::what("function",    func) <<
-            pstade::what("message",     msg);
-
-        return info.str();
+        // avoid stringstream and joint_range for code size
+        //
+        return 
+            pstade::what("file",        file) +
+            pstade::what("line",        line) +
+            pstade::what("expression",  expr) +
+            pstade::what("function",    func) +
+            pstade::what("message",     msg)
+        ;
     }
 
 
@@ -92,7 +104,7 @@ namespace require_detail {
         Result call(T& x)
         {
             if (!x)
-                require_detail::throw_exception("");
+                require_detail::throw_error("");
 
             return x;
         }
@@ -101,7 +113,7 @@ namespace require_detail {
         Result call(T& x, StringT& info)
         {
             if (!x)
-                require_detail::throw_exception(info);
+                require_detail::throw_error(info);
 
             return x;
         }

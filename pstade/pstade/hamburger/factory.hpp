@@ -11,6 +11,7 @@
 
 
 #include <map>
+#include <memory> // auto_ptr
 #include <boost/function.hpp>
 #include <boost/noncopyable.hpp>
 #include <pstade/instance.hpp>
@@ -18,7 +19,6 @@
 #include <pstade/unused.hpp>
 #include <pstade/ustring.hpp>
 #include "./element.hpp"
-#include "./unknown.hpp"
 
 
 namespace pstade { namespace hamburger {
@@ -27,12 +27,12 @@ namespace pstade { namespace hamburger {
 namespace factory_detail {
 
 
-    typedef boost::function<element_node *(element_node&)>
+    typedef boost::function<element *(element&)>
     method_t;
 
 
     struct impl_t :
-        boost::noncopyable
+        private boost::noncopyable
     {
     private:
         typedef std::map<ustring, method_t> map_t;
@@ -44,13 +44,15 @@ namespace factory_detail {
             m_methods[name] = m;
         }
 
-        element_node *create(element_node& parent, ustring childName)
+        element *create(element& parent, ustring childName)
         {
             iter_t it = m_methods.find(childName);
             if (it == m_methods.end())
                 return PSTADE_NULLPTR;
 
-            return it->second(parent);
+            std::auto_ptr<element> p(it->second(parent));
+            p->detail_construct(parent, childName);
+            return p.release();
         }
 
     private:
@@ -70,7 +72,7 @@ namespace factory_detail {
     struct new_method
     {
         static
-        element_node *call(element_node& parent)
+        element *call(element& parent)
         {
             pstade::unused(parent);
             return new T();
@@ -102,7 +104,7 @@ void register_element(ustring name)
 
 
 inline
-element_node *create_element(element_node& parent, ustring name)
+element *create_element(element& parent, ustring name)
 {
     return factory_detail::impl.create(parent, name);
 }

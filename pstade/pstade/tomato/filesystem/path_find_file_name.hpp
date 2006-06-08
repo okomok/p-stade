@@ -11,10 +11,10 @@
 
 
 #include <boost/assert.hpp>
-#include <boost/microsoft/sdk/config.hpp> // SDK_NO_SHLWAPI
-#include <boost/microsoft/sdk/shlwapi.hpp> // PathFindFileName
-#include <boost/microsoft/sdk/tchar.hpp>
-#include <boost/microsoft/sdk/windows.hpp>
+#include <pstade/apple/sdk/config.hpp> // SDK_NO_SHLWAPI
+#include <pstade/apple/sdk/shlwapi.hpp> // PathFindFileName
+#include <pstade/apple/sdk/tchar.hpp>
+#include <pstade/apple/sdk/windows.hpp>
 #include "./dir_sep_value.hpp"
 #include "../diet/valid.hpp"
 
@@ -22,7 +22,7 @@
 namespace pstade { namespace tomato {
 
 
-#if !defined(BOOST_MICROSOFT_SDK_NO_SHLWAPI)
+#if !defined(PSTADE_APPLE_SDK_NO_SHLWAPI)
 
 
     inline
@@ -77,7 +77,7 @@ namespace pstade { namespace tomato {
     }
 
 
-#endif // !defined(BOOST_MICROSOFT_SDK_NO_SHLWAPI)
+#endif // !defined(PSTADE_APPLE_SDK_NO_SHLWAPI)
 
 
 } } // namespace pstade::tomato

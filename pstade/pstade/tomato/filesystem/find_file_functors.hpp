@@ -11,7 +11,7 @@
 
 
 #include <functional> // unary_function
-#include <boost/microsoft/sdk/windows.hpp>
+#include <pstade/apple/sdk/windows.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
 #include <pstade/oven/sequence_cast.hpp>
 

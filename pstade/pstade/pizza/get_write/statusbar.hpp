@@ -11,8 +11,8 @@
 
 
 #include <boost/assert.hpp>
-#include <boost/microsoft/sdk/tchar.hpp>
-#include <boost/microsoft/sdk/windows.hpp>
+#include <pstade/apple/sdk/tchar.hpp>
+#include <pstade/apple/sdk/windows.hpp>
 #include <pstade/tomato/diet/valid.hpp>
 #include "../error.hpp"
 #include "../integer.hpp"

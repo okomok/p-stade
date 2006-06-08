@@ -8,7 +8,7 @@
 
 // Change these values to use different versions
 #define WINVER		0x0400
-//#define _WIN32_WINNT	0x0400
+#define _WIN32_WINNT	0x0500
 #define _WIN32_IE	0x0400
 #define _RICHEDIT_VER	0x0100
 
@@ -17,4 +17,15 @@
 #define _WTL_NO_AUTOMATIC_NAMESPACE
 
 
-#include <pstade/vodka/begin.hpp>
+#include <pstade/vodka/drink.hpp>
+
+
+#define CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
+
+
+#include <pstade/ketchup.hpp>
+#include <pstade/lime.hpp>
+#include <pstade/oven.hpp>
+#include <pstade/tomato.hpp>

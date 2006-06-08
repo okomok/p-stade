@@ -10,9 +10,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/microsoft/sdk/tchar.hpp>
-#include <boost/microsoft/sdk/windows.hpp>
-#include <boost/microsoft/wtl/frame.hpp> // CFrameWndClassInfo
+#include <pstade/apple/sdk/tchar.hpp>
+#include <pstade/apple/sdk/windows.hpp>
+#include <pstade/apple/wtl/frame.hpp> // CFrameWndClassInfo
 
 
 namespace pstade { namespace tomato {

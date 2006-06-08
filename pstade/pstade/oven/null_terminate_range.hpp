@@ -16,6 +16,7 @@
 
 
 #include <algorithm>    // find
+#include <cstddef>      // size_t
 #include <cstring>      // strlen
 #include <stdexcept>    // range_error
 #include <string>
@@ -24,13 +25,13 @@
 #include <boost/range/empty.hpp>
 #include <boost/range/end.hpp>
 #include <boost/range/const_iterator.hpp>
+#include <boost/range/iterator_range.hpp>
 #include <boost/range/result_iterator.hpp>
 #include <boost/range/value_type.hpp>
 #include <boost/throw_exception.hpp>
 #include <pstade/egg/function.hpp>
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
-#include "./sub_range_base_type.hpp"
 
 
 namespace pstade { namespace oven {
@@ -65,6 +66,13 @@ namespace null_terminate_range_detail {
 
     template< class Range >
     typename boost::range_result_iterator<Range>::type
+    begin(Range& rng)
+    {
+        return boost::begin(rng);
+    }
+
+    template< class Range >
+    typename boost::range_result_iterator<Range>::type
     end(Range& rng)
     {
         typedef typename boost::range_result_iterator<Range>::type iter_t;
@@ -84,6 +92,14 @@ namespace null_terminate_range_detail {
 
 
     // take both array and pointer out of Boost.Range.
+    //
+
+    template< class T > inline
+    T *begin(T *s)
+    {
+        return s;
+    }
+
     template< class T > inline
     T *end(T *s)
     {
@@ -93,13 +109,24 @@ namespace null_terminate_range_detail {
         return s;
     }
 
-
     // 'char' loves strlen.
+    inline
+    char *begin(char *s)
+    {
+        return s;
+    }
+
     inline
     char *end(char *s)
     {
         using namespace std;
         return s + strlen(s);
+    }
+
+    inline
+    const char *begin(const char *s)
+    {
+        return s;
     }
 
     inline
@@ -110,19 +137,50 @@ namespace null_terminate_range_detail {
     }
 
 
+    // meta
+    //
+    
+    template< class Range >
+    struct iter
+    {
+        typedef typename boost::range_result_iterator<Range>::type type;
+    };
+
+    template< class T >
+    struct iter<T *>
+    {
+        typedef T *type;
+    };
+
+    template< class T, std::size_t sz >
+    struct iter<T [sz]>
+    {
+        typedef T *type;
+    };
+
+
+    template< class RangeOrCString >
+    struct super_
+    {
+        typedef boost::iterator_range<
+            typename iter<RangeOrCString>::type 
+        > type;
+    };
+
+
 } // namespace null_terminate_range_detail
 
 
-template< class Range >
+template< class RangeOrCString >
 struct null_terminate_range :
-    sub_range_base<Range>::type
+    null_terminate_range_detail::super_<RangeOrCString>::type
 {
 private:
-    typedef typename sub_range_base<Range>::type super_t;
+    typedef typename null_terminate_range_detail::super_<RangeOrCString>::type super_t;
 
 public:
-    explicit null_terminate_range(Range& rng) :
-        super_t(boost::begin(rng), null_terminate_range_detail::end(rng))
+    explicit null_terminate_range(RangeOrCString& x) :
+        super_t(null_terminate_range_detail::begin(x), null_terminate_range_detail::end(x))
     { }
 };
 
@@ -132,16 +190,16 @@ namespace null_terminate_range_detail {
 
     struct baby_generator
     {
-        template< class Range >
+        template< class RangeOrCString >
         struct result
         {
-            typedef const null_terminate_range<Range> type;
+            typedef const null_terminate_range<RangeOrCString> type;
         };
 
-        template< class Result, class Range >
-        Result call(Range& rng)
+        template< class Result, class RangeOrCString >
+        Result call(RangeOrCString& x)
         {
-            return Result(rng);
+            return Result(x);
         }
     };
 

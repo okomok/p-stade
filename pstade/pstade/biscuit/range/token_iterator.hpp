@@ -19,6 +19,7 @@
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <boost/range/result_iterator.hpp>
+#include <boost/utility/addressof.hpp>
 #include "../algorithm/search.hpp"
 
 
@@ -52,8 +53,7 @@ struct token_iterator :
     token_iterator_detail::super_<Parser, ForwardIter, UserState>::type
 {
     // structors
-    explicit token_iterator() :
-        m_pus(0)
+    explicit token_iterator()
     { }
 
     explicit token_iterator(ForwardIter x, ForwardIter last, UserState *pus) :
@@ -64,7 +64,7 @@ struct token_iterator :
 
     template< class ForwardIter2 >
     explicit token_iterator(token_iterator<Parser, ForwardIter2, UserState> const& other) :
-        m_submatch(other.submatch()), m_last(other.end()), m_pus(&other.user_state())
+        m_submatch(other.submatch()), m_last(other.end()), m_pus( boost::addressof(other.user_state()) )
     { }
 
     // accessors

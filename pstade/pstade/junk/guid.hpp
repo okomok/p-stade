@@ -13,8 +13,8 @@
 // But template arguments needs non-reference.
 
 
-#include <boost/microsoft/sdk/basetyps.hpp> // IID
 #include <boost/preprocessor/cat.hpp>
+#include <pstade/apple/sdk/basetyps.hpp> // IID
 
 
 #define PSTADE_TOMATO_GUID(Name, L, W1, W2, B1, B2, B3, B4, B5, B6, B7, B8) \

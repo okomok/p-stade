@@ -10,52 +10,94 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <string>
 #include <boost/assert.hpp>
-#include <boost/microsoft/atl/win.hpp> // CMessageMap
-#include <boost/microsoft/sdk/windows.hpp>
+#include <boost/foreach.hpp>
 #include <boost/optional.hpp>
-#include <pstade/instance.hpp>
-#include <pstade/lime/node.hpp>
-#include <pstade/oven/joint_range.hpp>
-#include <pstade/oven/sequence_cast.hpp>
+#include <pstade/apple/atl/win.hpp> // CMessageMap
+#include <pstade/apple/sdk/windows.hpp>
+#include <pstade/lime/node_facade.hpp>
 #include <pstade/tomato/boolean_cast.hpp>
+#include <pstade/tomato/diet/valid.hpp>
 #include <pstade/unused.hpp>
-#include <pstade/ustring.hpp>
 #include "./element_attributes.hpp"
+#include "./graphics.hpp"
+#include "./is_visible.hpp"
 #include "./rectangle.hpp"
 
 
 namespace pstade { namespace hamburger {
 
 
-struct element_interface :
+namespace element_detail {
+
+
+    template< class Element >
+    void pre_create(Element& elem)
+    {
+        hamburger::set_default_element_dependent_attributes(elem);
+    }
+
+
+} // namespace element_detail
+
+
+struct element :
+    lime::node_facade<element>,
     ATL::CMessageMap
 {
+    explicit element() :
+        m_self(*this), m_created(false)
+    {
+        hamburger::set_default_element_attributes(*this);   
+    }
+
+    // interfaces
+    //
     void create()
     {
-        impl_detail_pre_create();
-        return impl_create();
+        BOOST_ASSERT(!m_created);
+
+        m_created = true;
+        element_detail::pre_create(*this);
+        impl_create();
     }
 
-    HWND window() const
+    void destroy()
     {
-        return impl_window();
+        BOOST_ASSERT(m_created);
+        m_created = false;
+        impl_destroy();
     }
 
-    bool is_windowless() const
+    boost::optional<HWND> window() const
     {
-        return impl_is_windowless();
+        boost::optional<HWND> wnd = impl_window();
+        if (wnd)
+            BOOST_ASSERT(diet::valid(*wnd));
+
+        return wnd;
     }
 
-    void set_bounds(rectangle bounds)
+    void set_bounds(rectangle rc)
     {
-        m_bounds = bounds;
+        return impl_set_bounds(rc);
     }
 
-    rectangle get_bounds() const
+    rectangle bounds() const
     {
-        return m_bounds;
+        return impl_bounds();
+    }
+
+    void paint(graphics g, rectangle rc)
+    {
+        boost::optional<element&> pa = parent();
+        if (pa && !hamburger::is_visible(*pa))
+            return;
+
+        if (!hamburger::is_visible(*this))
+            return;
+
+        impl_paint(g, rc);
     }
 
     bool process_message(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, LRESULT& lResult, DWORD dwMsgMapID = 0)
@@ -63,61 +105,55 @@ struct element_interface :
         return tomato::boolean(ProcessWindowMessage(hWnd, uMsg, wParam, lParam, lResult, dwMsgMapID));
     }
 
-// Workaround:
-// BOOST_FOREACH doesn't allow abstract types.(will be fixed.)
-//
+    // overridables
+    //
 public:
-    virtual BOOL ProcessWindowMessage(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, LRESULT& lResult, DWORD dwMsgMapID)
+    BOOL ProcessWindowMessage(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, LRESULT& lResult, DWORD dwMsgMapID) // override
     {
-        BOOST_ASSERT(false);
         pstade::unused(hWnd, uMsg, wParam, lParam, lResult, dwMsgMapID);
         return FALSE;
     }
 
 protected:
-    virtual void impl_create() // = 0;
+    virtual void impl_create()
     {
-        BOOST_ASSERT(false);
+        BOOST_FOREACH (element& child, m_self) {
+            child.create();
+        }
     }
 
-    virtual HWND impl_window() const
+    virtual void impl_destroy()
     {
-        return NULL;
+        BOOST_FOREACH (element& child, m_self) {
+            child.destroy();
+        }
     }
 
-    virtual bool impl_is_windowless() const
+    virtual boost::optional<HWND> impl_window() const
     {
-        return true;
+        return boost::optional<HWND>();
     }
 
-// private:
-    virtual void impl_detail_pre_create() // = 0;
+    virtual void impl_set_bounds(rectangle rc)
     {
-        BOOST_ASSERT(false);
+        pstade::unused(rc);
     }
+
+    virtual rectangle impl_bounds() const
+    {
+        return rectangle(0, 0, 0, 0);
+    }
+
+    virtual void impl_paint(graphics g, rectangle rc)
+    {
+        pstade::unused(g, rc);
+    }
+
+    // VC++ workaround for BOOST_FOREACH(..., *this)
+    element& m_self;
 
 private:
-    rectangle m_bounds;
-};
-
-
-typedef lime::node<element_interface>
-element_node;
-
-
-struct element :
-    element_node
-{
-    explicit element()
-    {
-        hamburger::set_default_element_attributes(*this);
-    }
-
-protected:
-    void impl_detail_pre_create()
-    {
-        hamburger::set_default_element_dependent_attributes(*this);
-    }
+    bool m_created;
 };
 
 

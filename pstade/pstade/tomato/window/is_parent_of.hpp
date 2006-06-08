@@ -16,7 +16,7 @@
 
 
 #include <boost/assert.hpp>
-#include <boost/microsoft/sdk/windows.hpp>
+#include <pstade/apple/sdk/windows.hpp>
 #include "../diet/valid.hpp"
 
 

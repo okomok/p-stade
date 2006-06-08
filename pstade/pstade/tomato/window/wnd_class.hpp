@@ -10,9 +10,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/microsoft/atl/win.hpp> // CWndClassInfo
-#include <boost/microsoft/sdk/tchar.hpp>
-#include <boost/microsoft/sdk/windows.hpp>
+#include <pstade/apple/atl/win.hpp> // CWndClassInfo
+#include <pstade/apple/sdk/tchar.hpp>
+#include <pstade/apple/sdk/windows.hpp>
 
 
 namespace pstade { namespace tomato {
@@ -35,13 +35,13 @@ ATL::CWndClassInfo& wnd_class(const TCHAR *WndClassName)
 
 
 template< class Wnd > inline
-ATL::CWndClassInfo& wnd_class_ex(const TCHAR *WndClassName, UINT style, UINT bkgnd)
+ATL::CWndClassInfo& wnd_class_ex(const TCHAR *WndClassName, UINT style, UINT bkgnd = -1)
 {
     static ATL::CWndClassInfo wc =
     {
         {
             sizeof(WNDCLASSEX), style, &Wnd::StartWindowProc,
-            0, 0, NULL, NULL, NULL, (HBRUSH)(gkgnd + 1), NULL, WndClassName, NULL
+            0, 0, NULL, NULL, NULL, (HBRUSH)(bkgnd + 1), NULL, WndClassName, NULL
         },
         NULL, NULL, IDC_ARROW, TRUE, 0, _T("")
     };

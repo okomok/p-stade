@@ -313,13 +313,14 @@ public:
 
 		// <mdf> bHandled = FALSE; </mdf>
 		// ketchup::set_msg_handled(*this, false);
+		set_msg_handled(false);
 		return 1;
 	}
 
 	begin_msg_map
 	<
 		// <mdf> message_handler<WM_CREATE, &_::OnCreate>, </mdf>
-		msg_wm_create<&_::OnCreate, not_handled>, // cracked!
+		msg_wm_create<&_::OnCreate>, // cracked!
 		chain_client_commands<>,
 		chain_client_cmd_ui<>,
 		chain_msg_map< CMDIChildWindowImpl<CHelloWnd> >

@@ -11,7 +11,7 @@
 #define _WIN32_IE	0x0501
 #define _RICHEDIT_VER	0x0100
 
-#include <pstade/vodka/begin.hpp>
+#include <pstade/vodka/drink.hpp>
 
 #define CRTDBG_MAP_ALLOC
 #include <stdlib.h>
@@ -26,4 +26,4 @@
 extern WTL::CAppModule _Module;
 
 #include <atlwin.h>
-#include <boost/microsoft/wtl/app.hpp>
+#include <pstade/apple/wtl/app.hpp>

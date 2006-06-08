@@ -11,8 +11,8 @@
 
 
 #include <boost/assert.hpp>
-#include <boost/microsoft/sdk/windows.hpp>
-#include <boost/microsoft/wtl/ctrls.hpp> // CReBarCtrl
+#include <pstade/apple/sdk/windows.hpp>
+#include <pstade/apple/wtl/ctrls.hpp> // CReBarCtrl
 #include <pstade/require.hpp>
 #include "../diet/valid.hpp"
 

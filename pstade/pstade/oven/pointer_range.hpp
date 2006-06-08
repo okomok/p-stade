@@ -21,12 +21,13 @@
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <boost/range/value_type.hpp>
-#include <boost/range/size.hpp>
 #include <boost/type_traits/add_const.hpp>
 #include <boost/type_traits/add_pointer.hpp>
 #include <boost/type_traits/is_const.hpp>
+#include <boost/utility/addressof.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/nullptr.hpp>
+#include <pstade/oven/distance.hpp>
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 
@@ -67,8 +68,8 @@ struct pointer_range :
 
     explicit pointer_range(ContiguousRange& vec) :
         super_t(
-            boost::empty(vec) ? PSTADE_NULLPTR : &*boost::begin(vec), 
-            boost::empty(vec) ? PSTADE_NULLPTR : &*boost::begin(vec) + boost::size(vec)
+            boost::empty(vec) ? PSTADE_NULLPTR : boost::addressof( *boost::begin(vec) ), 
+            boost::empty(vec) ? PSTADE_NULLPTR : boost::addressof( *boost::begin(vec) ) + oven::distance(vec)
         )
     { }
 };

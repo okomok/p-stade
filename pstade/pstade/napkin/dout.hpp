@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/microsoft/sdk/windows.hpp>
+#include <pstade/apple/sdk/windows.hpp>
 #include <pstade/instance.hpp>
 
 
@@ -34,7 +34,7 @@ namespace dout_detail {
     };
 
 
-} // dout_detail
+} // namespace dout_detail
 
 
 PSTADE_INSTANCE(const dout_detail::out, dout, value)

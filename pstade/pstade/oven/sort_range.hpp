@@ -10,14 +10,21 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Note:
+//
+// iterators manage temporary container for BOOST_FOREACH.
+
+
 #include <algorithm> // copy, sort
 #include <memory> // auto_ptr
 #include <vector>
 #include <boost/ptr_container/indirect_fun.hpp>
+#include <boost/range/begin.hpp>
+#include <boost/range/end.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/garlic/back_inserter.hpp>
-#include "./call.hpp"
+#include "./copy.hpp"
 #include "./direct_range.hpp"
 #include "./indirect_range.hpp"
 #include "./is_lightweight_proxy.hpp"
@@ -47,8 +54,8 @@ namespace sort_range_detail {
         explicit share_range_initializer(Range& rng, BinaryPred pred)
         {
             std::auto_ptr<iters_t> piters(new iters_t());
-            PSTADE_OVEN_CALL(std::copy, rng|oven::directed, (garlic::back_inserter(*piters)));
-            PSTADE_OVEN_CALL(std::sort, *piters, (boost::make_indirect_fun(pred)));
+            oven::copy(rng|oven::directed, garlic::back_inserter(*piters));
+            std::sort(boost::begin(*piters), boost::end(*piters), boost::make_indirect_fun(pred));
             m_iters = oven::share_range<iters_t>(piters.release());
         }
 

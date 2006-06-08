@@ -13,8 +13,8 @@
 #if !defined(_WIN32_WCE)
 
 
-#include <boost/microsoft/sdk/tchar.hpp>
-#include <boost/microsoft/sdk/windows.hpp>
+#include <pstade/apple/sdk/tchar.hpp>
+#include <pstade/apple/sdk/windows.hpp>
 #include <pstade/tomato/size_initialize.hpp>
 #include "../integer.hpp"
 #include "../set_integer.hpp"

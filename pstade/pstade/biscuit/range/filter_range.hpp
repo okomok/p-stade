@@ -14,6 +14,7 @@
 #include <boost/noncopyable.hpp>
 #include <boost/range/result_iterator.hpp>
 #include <boost/type_traits/add_const.hpp>
+#include <boost/utility/addressof.hpp>
 #include <pstade/const_overloaded.hpp>
 #include <pstade/oven/is_lightweight_proxy.hpp>
 #include "../state/null_state.hpp"
@@ -56,8 +57,8 @@ private:
 public:
     explicit filter_range(ForwardRange& r, UserState& us = null_state) :
         super_t(
-            biscuit::make_filter_iterator<Parser>(boost::begin(r), boost::end(r), &us),
-            biscuit::make_filter_iterator<Parser>(boost::end(r), boost::end(r), &us)
+            biscuit::make_filter_iterator<Parser>(boost::begin(r), boost::end(r), boost::addressof(us)),
+            biscuit::make_filter_iterator<Parser>(boost::end(r), boost::end(r), boost::addressof(us))
         )
     { }
 };
@@ -101,7 +102,7 @@ namespace filter_range_detail {
     struct adaptor
     {
         adaptor(UserState& us) :
-            m_pus(&us)
+            m_pus(boost::addressof(us))
         { }
 
         UserState *m_pus;

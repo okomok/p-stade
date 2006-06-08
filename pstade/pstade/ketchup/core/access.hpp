@@ -11,8 +11,8 @@
 
 
 #include <boost/config.hpp> // BOOST_NO_MEMBER_TEMPLATE_FRIENDS
-#include <boost/microsoft/sdk/windows.hpp>
 #include <boost/type.hpp>
+#include <pstade/apple/sdk/windows.hpp>
 #include <pstade/tomato/boolean_cast.hpp>
 #include <pstade/unused.hpp>
 #include "./process_window_message_fwd.hpp"

@@ -12,13 +12,13 @@
 
 #include <boost/assert.hpp>
 #include <boost/format.hpp>
-#include <boost/microsoft/atl/config.hpp> // ATL_VER
-#include <boost/microsoft/atl/core.hpp> // ::AtlIsValidString
-#include <boost/microsoft/sdk/tchar.hpp>
-#include <boost/microsoft/sdk/windows.hpp>
-#include <boost/microsoft/wtl/app.hpp> // ::IsMenu for eVC
 #include <boost/mpl/integral_c.hpp>
 #include <cstddef> // ptrdiff_t
+#include <pstade/apple/atl/config.hpp> // ATL_VER
+#include <pstade/apple/atl/core.hpp> // ::AtlIsValidString
+#include <pstade/apple/sdk/tchar.hpp>
+#include <pstade/apple/sdk/windows.hpp>
+#include <pstade/apple/wtl/app.hpp> // ::IsMenu for eVC
 #include <pstade/nullptr.hpp>
 #include <pstade/overload.hpp>
 #include <pstade/unused.hpp>
@@ -79,7 +79,7 @@ bool pstade_diet_is_valid(const TCHAR *psz, pstade::overload)
 {
     using namespace pstade;
 
-#if !(BOOST_MICROSOFT_ATL_VER < 0x0700)
+#if !(PSTADE_APPLE_ATL_VER < 0x0700)
 
     return tomato::boolean(ATL::AtlIsValidString(psz));
 
@@ -120,7 +120,7 @@ bool pstade_diet_is_valid(const TCHAR *psz, pstade::overload)
 
     #endif
 
-#endif // !(BOOST_MICROSOFT_ATL_VER < 0x0700)
+#endif // !(PSTADE_APPLE_ATL_VER < 0x0700)
 }
 
 template< class OStream > inline

@@ -10,13 +10,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/microsoft/sdk/windows.hpp>
 #include <boost/range/begin.hpp>
-#include <boost/range/size.hpp>
 #include <boost/range/value_type.hpp>
+#include <pstade/apple/sdk/windows.hpp>
 #include <pstade/diet/access.hpp>
 #include <pstade/integral_cast.hpp>
 #include <pstade/nullptr.hpp>
+#include <pstade/oven/distance.hpp>
 
 
 namespace pstade { namespace tomato {
@@ -29,7 +29,7 @@ namespace buffer_detail {
     UINT_PTR bytes(const PointerRange& buf)
     {
         typedef typename boost::range_value<PointerRange>::type value_t;
-        return pstade::integral( sizeof(value_t) * boost::size(buf) );
+        return pstade::integral( sizeof(value_t) * oven::distance(buf) );
     }
 
 

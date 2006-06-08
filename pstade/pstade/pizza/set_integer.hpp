@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/microsoft/sdk/tchar.hpp>
+#include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/lexical_cast.hpp>
 #include <pstade/tomato/tstring.hpp>
 #include "./set_string.hpp"

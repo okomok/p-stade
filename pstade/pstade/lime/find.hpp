@@ -11,18 +11,21 @@
 
 
 #include <boost/foreach.hpp>
+#include <boost/implicit_cast.hpp>
 #include <boost/optional.hpp>
-#include "./node.hpp"
+#include "./node_value_type.hpp"
 
 
 namespace pstade { namespace lime {
 
 
-template< class Interface >
-node<Interface>&
-find_root(node<Interface>& child)
+template< class Node >
+typename node_value<Node>::type&
+find_root(Node& child)
 {
-    boost::optional< node<Interface>& > parent = child.parent();
+    typedef typename node_value<Node>::type parent_t;
+
+    boost::optional<parent_t&> parent = child.parent();
 
     if (!parent)
         return child;
@@ -31,13 +34,32 @@ find_root(node<Interface>& child)
 }
 
 
-template< class Interface, class UnaryPred >
-boost::optional< node<Interface>& >
-find_child(node<Interface>& parent, UnaryPred pred)
+template< class Node, class UnaryPred >
+boost::optional<typename node_value<Node>::type&>
+find_up(Node& node, UnaryPred pred)
 {
-    typedef boost::optional< node<Interface>& > opt_t;
+    typedef typename node_value<Node>::type val_t;
+    typedef boost::optional<val_t&> opt_t;
 
-    BOOST_FOREACH (node<Interface>& child, parent) {
+    if (pred(node))
+        return opt_t(boost::implicit_cast<val_t&>(node));
+
+    opt_t pa = node.parent();
+    if (!pa)
+        return opt_t();
+
+    return lime::find_up(*pa, pred);
+}
+
+
+template< class Node, class UnaryPred >
+typename node_value<Node>::type&
+find_child(Node& parent, UnaryPred pred)
+{
+    typedef typename node_value<Node>::type child_t;
+    typedef boost::optional<child_t&> opt_t;
+
+    BOOST_FOREACH (child_t& child, parent) {
         if (pred(child))
             return opt_t(child);
     }

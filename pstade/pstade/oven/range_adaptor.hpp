@@ -23,6 +23,7 @@
 // An array reference doesn't work under weird VC++7.1.
 
 
+#include <boost/utility/addressof.hpp> // for lambda functors
 #include <boost/type_traits/add_const.hpp>
 #include <pstade/egg/baby_result_type.hpp>
 #include <pstade/comma_protect.hpp>
@@ -66,7 +67,7 @@ namespace range_adaptor_detail {
     struct adaptor1
     {
         explicit adaptor1(A0& a0) :
-            m_pa0(&a0)
+            m_pa0(boost::addressof(a0))
         { }
 
         A0 *m_pa0;
@@ -94,7 +95,7 @@ namespace range_adaptor_detail {
     struct adaptor2
     {
         explicit adaptor2(A0& a0, A1& a1) :
-            m_pa0(&a0), m_pa1(&a1)
+            m_pa0(boost::addressof(a0)), m_pa1(boost::addressof(a1))
         { }
 
         A0 *m_pa0;

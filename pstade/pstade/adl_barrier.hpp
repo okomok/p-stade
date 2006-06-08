@@ -14,10 +14,9 @@
 #include <boost/preprocessor/cat.hpp>
 
 
-// Topic:
-//
-// Using-directive is beyond ADL.
-// VC6's using-directive is somewhat broken.
+// Note:
+//   Using-directive is beyond ADL.
+//   VC6's using-directive is somewhat broken.
 
 
 #if !defined(BOOST_NO_ARGUMENT_DEPENDENT_LOOKUP)

@@ -15,7 +15,8 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/empty.hpp>
 #include <boost/range/end.hpp>
-#include <boost/range/size.hpp>
+#include <boost/utility/addressof.hpp>
+#include <pstade/oven/distance.hpp>
 
 
 namespace pstade { namespace oven {
@@ -58,11 +59,11 @@ struct range_holder :
 protected:
     boost::any begin_impl() { return boost::begin(m_held); }
     boost::any end_impl() { return boost::end(m_held); }
-    boost::any size_impl() { return boost::size(m_held); }
+    boost::any size_impl() { return oven::distance(m_held); }
     bool empty_impl() { return boost::empty(m_held); }
 
-    boost::any ptr_begin_impl() { return &*boost::begin(m_held); }
-    boost::any ptr_end_impl() { return &*boost::end(m_held); }
+    boost::any ptr_begin_impl() { return boost::addressof( *boost::begin(m_held) ); }
+    boost::any ptr_end_impl() { return boost::addressof( *boost::end(m_held) ); }
 
 private:
     Range& m_held;

@@ -1,4 +1,4 @@
-#include <pstade/vodka/begin.hpp>
+#include <pstade/vodka/drink.hpp>
 // #include <boost/test/minimal.hpp>
 
 

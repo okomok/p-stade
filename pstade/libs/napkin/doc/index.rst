@@ -28,7 +28,7 @@ Introduction
 ------------
 Napkin is the simple header-only logging library which provides generic reference-like type to output devices::
 
-	D:\Importance\Document\p-stade.sourceforge.net\pstade\libs\napkin\doc\inline\introduction.ipp
+	D:\p-stade.sourceforge.net\pstade\libs\napkin\doc\inline\introduction.ipp
 
 All the types, functions and objects are defined in namespace ``pstade::napkin``.
 
@@ -56,15 +56,15 @@ Quick Start
 -----------
 1. Include the Napkin header::
 
-	D:\Importance\Document\p-stade.sourceforge.net\pstade\libs\napkin\doc\inline\quick_start_0.ipp
+	D:\p-stade.sourceforge.net\pstade\libs\napkin\doc\inline\quick_start_0.ipp
 
 2. Initialize `ostream`_::
 
-	D:\Importance\Document\p-stade.sourceforge.net\pstade\libs\napkin\doc\inline\quick_start_1.ipp
+	D:\p-stade.sourceforge.net\pstade\libs\napkin\doc\inline\quick_start_1.ipp
 
 3. Call ``operator<<``::
 
-	D:\Importance\Document\p-stade.sourceforge.net\pstade\libs\napkin\doc\inline\quick_start_2.ipp
+	D:\p-stade.sourceforge.net\pstade\libs\napkin\doc\inline\quick_start_2.ipp
 
 
 
@@ -81,7 +81,7 @@ String Outputable
 ^^^^^^^^^^^^^^^^^
 A ``StringOutputable`` is any ``out`` that either of the following expression is valid::
 
-	D:\Importance\Document\p-stade.sourceforge.net\pstade\libs\napkin\doc\inline\basic_concepts_string_outputable.ipp
+	D:\p-stade.sourceforge.net\pstade\libs\napkin\doc\inline\basic_concepts_string_outputable.ipp
 
 , where ``psz`` is a `String`_ and ``ov`` is a ``pstade::overload`` object.
 It is unsurprising that many types conform to this simple concept; even ``afxDump``.
@@ -96,7 +96,7 @@ Wide String Outputable
 ^^^^^^^^^^^^^^^^^^^^^^
 A ``WideStringOutputable`` is any ``out`` that either of the following expression is valid::
 
-	D:\Importance\Document\p-stade.sourceforge.net\pstade\libs\napkin\doc\inline\basic_concepts_string_outputable.ipp
+	D:\p-stade.sourceforge.net\pstade\libs\napkin\doc\inline\basic_concepts_string_outputable.ipp
 
 , where ``psz`` is a `Wide String`_ and ``ov`` is a ``pstade::overload`` object.
 
@@ -121,14 +121,14 @@ Classes
 ``ostream`` is the generic reference-like type to `String Outputable`_ objects.
 The valid expressions are::
 
-	D:\Importance\Document\p-stade.sourceforge.net\pstade\libs\napkin\doc\inline\classes_ostream_0.ipp
+	D:\p-stade.sourceforge.net\pstade\libs\napkin\doc\inline\classes_ostream_0.ipp
 
 , where ``os`` is a ``ostream`` object, ``out`` is a `String Outputable`_ object and
 ``stm`` is a `Output Streamable`_ object.
 
 ``ostream`` conforms to also `Default Constructible`_ and `Assignable`_::
 
-	D:\Importance\Document\p-stade.sourceforge.net\pstade\libs\napkin\doc\inline\classes_ostream_1.ipp
+	D:\p-stade.sourceforge.net\pstade\libs\napkin\doc\inline\classes_ostream_1.ipp
 
 Its default `String Outputable`_ is `nout`_.
 Note that ``ostream`` is of course a model of `String Outputable`_,
@@ -141,7 +141,7 @@ because a `String`_ is `Output Streamable`_ by definition.
 ``wostream`` is the generic reference-like type to `Wide String Outputable`_ objects.
 The valid expressions are::
 
-	D:\Importance\Document\p-stade.sourceforge.net\pstade\libs\napkin\doc\inline\classes_ostream_2.ipp
+	D:\p-stade.sourceforge.net\pstade\libs\napkin\doc\inline\classes_ostream_2.ipp
 
 , where ``os`` is a ``ostream`` object, ``out`` is a `String Outputable`_ object and
 ``stm`` is a `Output Streamable`_ object.
@@ -153,7 +153,7 @@ The usage is the same as above.
 ^^^^^^^^^^^^^^^^
 ``lock_ostream`` makes a `String Outputable`_ thread-safe::
 
-	D:\Importance\Document\p-stade.sourceforge.net\pstade\libs\napkin\doc\inline\classes_lock_ostream_0.ipp
+	D:\p-stade.sourceforge.net\pstade\libs\napkin\doc\inline\classes_lock_ostream_0.ipp
 
 Except for not `Assignable`_, the valid expression and usage is same as `ostream`_.
 Note that you must build `Boost.Thread`_ and include explicitly ``<pstade/napkin/lock_ostream.hpp>``.
@@ -197,7 +197,7 @@ Define your own String Outputable
 ---------------------------------
 As an example, let's look into `dout`_ type definition::
 
-	D:\Importance\Document\p-stade.sourceforge.net\pstade\libs\napkin\doc\inline\define_dout.ipp
+	D:\p-stade.sourceforge.net\pstade\libs\napkin\doc\inline\define_dout.ipp
 
 Pretty simple.
 
@@ -208,7 +208,7 @@ Remove Side-effects
 Though Napkin provides `nout`_, you might want to remove all the side-effects under the release compilation.
 An easy solution is maybe something like::
 
-	D:\Importance\Document\p-stade.sourceforge.net\pstade\libs\napkin\doc\inline\remove_side_effects.ipp
+	D:\p-stade.sourceforge.net\pstade\libs\napkin\doc\inline\remove_side_effects.ipp
 
 ``PSTADE_IF_DEBUG`` disappears under the release compilation.
 ``PSTADE_COMMA_PROTECT`` works only if the argument is a type.

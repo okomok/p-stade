@@ -10,36 +10,48 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <algorithm> // min, max
-#include <memory> // auto_ptr
-#include <stdexcept> // runtime_error
 #include <boost/assert.hpp>
 #include <boost/foreach.hpp>
 #include <boost/lambda/bind.hpp>
-#include <boost/lambda/core.hpp> // _1
-#include <boost/microsoft/atl/win.hpp>
-#include <boost/microsoft/sdk/windows.hpp>
-#include <boost/microsoft/wtl/frame.hpp> // CMessageFilter, CIdleHandler
-#include <boost/ref.hpp>
 #include <boost/thread/thread.hpp>
+#include <pstade/apple/atl/win.hpp>
+#include <pstade/apple/sdk/windows.hpp>
+#include <pstade/apple/wtl/gdi.hpp> // CPaintDC
+#include <pstade/apple/wtl/frame.hpp> // CMessageFilter, CIdleHandler
 #include <pstade/instance.hpp>
-#include <pstade/ketchup.hpp>
-#include <pstade/lexical_cast.hpp>
+#include <pstade/ketchup/core.hpp>
+#include <pstade/oven/sort_range.hpp>
 #include <pstade/tomato/diet/valid.hpp>
 #include <pstade/tomato/idle_handling.hpp>
 #include <pstade/tomato/message_filtering.hpp>
 #include <pstade/tomato/message_loop.hpp>
+#include <pstade/tomato/rgb.hpp>
 #include <pstade/tomato/window/create_result.hpp>
-#include <pstade/tomato/window/post_message.hpp>
+#include <pstade/tomato/window/wnd_class.hpp>
 #include <pstade/unused.hpp>
+#include <pstade/require.hpp>
 #include <pstade/ustring.hpp>
-#include "./detail/chain_node_mouse_msg.hpp"
-#include "./detail/remove_caption.hpp"
-#include "./detail/update_layout.hpp"
+#include "./detail/caption.hpp"
+#include "./detail/chain_mouse_message.hpp"
+#include "./detail/background.hpp"
+#include "./detail/handle_wm_erasebkgnd.hpp"
+#include "./detail/initial_view_bounds.hpp"
+#include "./detail/layout.hpp"
+#include "./detail/optional_zero.hpp"
+#include "./detail/quit_on_destroy.hpp"
+#include "./detail/transparency.hpp"
 #include "./dimension.hpp"
 #include "./element.hpp"
+#include "./graphics.hpp"
+#include "./has_transparency_color.hpp"
+#include "./is_visible.hpp"
+#include "./location.hpp"
+#include "./log.hpp"
+#include "./size.hpp"
 #include "./rectangle.hpp"
+#include "./refresh.hpp"
 #include "./view_attributes.hpp"
+#include "./z_order.hpp"
 
 
 namespace pstade { namespace hamburger {
@@ -55,39 +67,12 @@ namespace view_detail {
             ViewT,
             ATL::CWindow,
             ATL::CWinTraits<
-                WS_OVERLAPPED|WS_VISIBLE|WS_CLIPCHILDREN|WS_CLIPSIBLINGS,
+                // same as wmp10
+                WS_OVERLAPPED|WS_CLIPCHILDREN|WS_CLIPSIBLINGS,
                 WS_EX_APPWINDOW
             >
         > type;
     };
-
-
-    inline
-    rectangle initial_rect(element_node& nd)
-    {
-        try {
-            int left      = pstade::lexical(nd.att(Name_left));
-            int width     = pstade::lexical(nd.att(Name_width));
-            int top       = pstade::lexical(nd.att(Name_top));
-            int height    = pstade::lexical(nd.att(Name_height));
-            int maxWidth  = pstade::lexical(nd.att(Name_maxWidth));
-            int maxHeight = pstade::lexical(nd.att(Name_maxHeight));
-
-            rectangle rc(
-                left, top,
-                // Workaround: min/max macro
-                left + (std::min)(width, maxWidth), top + (std::min)(height, maxHeight)
-            );
-
-            if (!rc.IsRectEmpty())
-                return rc;
-        }
-        catch (std::runtime_error& )
-        {
-        }
-
-        return ATL::CWindow::rcDefault;
-    }
 
 
     // 'boost::thread_group' seems unrecommanded.
@@ -109,38 +94,14 @@ private:
     typedef view_detail::impl<view>::type impl_t;
 
 public:
+    static ATL::CWndClassInfo& GetWndClassInfo() {
+        return tomato::wnd_class<view>(_T("pstade::hamburger::view"));
+    }
+
+public:
     explicit view()
     {
         hamburger::set_default_view_attributes(*this);
-        view_detail::threads.add_thread(new boost::thread(boost::lambda::bind(&view::work, this)));
-    }
-
-/*
-    OnFinalMessage(HWND hWnd) // override
-    {
-        (*parent()).erase(this);
-        pstade::unused(hWnd);
-    }
-*/
-
-protected:
-    void impl_create()
-    {
-        BOOST_ASSERT(!diet::valid(m_hWnd));
-
-        rectangle rc(view_detail::initial_rect(*this));
-        Create(NULL, rc);
-
-        detail::remove_caption(m_hWnd);
-
-        ShowWindow(SW_NORMAL);
-    }
-
-    HWND impl_window()
-    {
-        BOOST_ASSERT(diet::valid(m_hWnd));
-
-        return m_hWnd;
     }
 
     BOOL OnIdle() // override
@@ -154,52 +115,201 @@ protected:
         return FALSE;
     }
 
-friend class ketchup::access;
-    LRESULT on_create(LPCREATESTRUCT lpCreateStruct)
+protected:
+    void impl_create()
     {
-        pstade::unused(lpCreateStruct);
+        BOOST_ASSERT(!diet::valid(m_hWnd));
+
+        view_detail::threads.add_thread(new boost::thread(boost::lambda::bind(&view::work, this)));
+    }
+
+    boost::optional<HWND> impl_window() const
+    {
+        BOOST_ASSERT(diet::valid(m_hWnd));
+
+        return boost::optional<HWND>(m_hWnd);
+    }
+
+    void impl_set_bounds(rectangle rc)
+    {
+        rc += hamburger::location(*parent());
+        MoveWindow(rc.left, rc.top, rc.Width(), rc.Height(), TRUE);
+    }
+
+    rectangle impl_bounds() const
+    {
+        rectangle rc;
+        GetWindowRect(rc);
+
+        rc -= hamburger::location(*parent());
+        return rc;
+    }
+
+friend class ketchup::access;
+    LRESULT on_create(CREATESTRUCT *pst)
+    {
+        set_msg_handled(false);
+
+        detail::reset_caption(*this);
+        detail::reset_transparency(*this);
+
+        // must be in this thread.
+        BOOST_FOREACH (element& child, m_self) {
+            child.create();
+        }
+
+        pstade::unused(pst);
         return tomato::create_success;
+    }
+
+    void on_close()
+    {
+        set_msg_handled(false);
+
+        rectangle rc = bounds();
+        *this%Name_left   = pstade::lexical(rc.left);
+        *this%Name_top    = pstade::lexical(rc.top);
+        *this%Name_width  = pstade::lexical(rc.Width());
+        *this%Name_height = pstade::lexical(rc.Height());
+    }
+
+    void on_paint(HDC)
+    {
+        if (hamburger::has_transparency_color(*this))
+            return on_paint_transparency();
+
+        // See: OnPaint, atlhost.h, ATL7
+        //
+        WTL::CPaintDC dc(m_hWnd);
+        if (dc.IsNull())
+            return;
+
+        rectangle rc;
+        GetClientRect(rc);
+
+        WTL::CBitmap bitmap(::CreateCompatibleBitmap(dc, rc.Width(), rc.Height()));
+        if (bitmap.IsNull())
+            return;
+
+        WTL::CDC dcCompatible(::CreateCompatibleDC(dc));
+        if (dcCompatible.IsNull())
+            return;
+
+        WTL::CBitmapHandle bitmapOld(dcCompatible.SelectBitmap(bitmap));
+        if (bitmapOld.IsNull())
+            return;
+
+        detail::paint_background(*this, dcCompatible, rc);
+
+        BOOST_FOREACH (element& child, m_self|oven::sorted(z_order)) {
+            child.paint(dcCompatible, child.bounds());
+        }
+
+        dc.BitBlt(0, 0, rc.right, rc.bottom, dcCompatible, 0, 0, SRCCOPY);
+        dcCompatible.SelectBitmap(bitmapOld);
+    }
+
+    void on_paint_transparency()
+    {
+        WTL::CPaintDC dc(m_hWnd);
+
+        rectangle rc;
+        dc.GetClipBox(&rc);
+        detail::paint_background(*this, dc, rc);
+
+        BOOST_FOREACH (element& child, m_self|oven::sorted(z_order)) {
+            rectangle b = child.bounds();
+            if (!(rc & b).IsRectEmpty())
+                child.paint(dc, b);
+        }
     }
 
     void on_size(UINT uType, dimension sz)
     {
-        if (uType == SIZE_MINIMIZED)
-            return;
+        set_msg_handled(false);
 
-        detail::update_layout(*this, sz);
+        if (uType == SIZE_MINIMIZED) {
+            // Workaround: flicker
+            detail::remove_transparency(*this);
+            return;
+        }
+
+        detail::layout(*this);
+        pstade::unused(sz);
     }
 
-    void on_lbutton_down(UINT uFlags, point pt)
+    void on_getminmaxinfo(MINMAXINFO* pinfo)
     {
-        tomato::post_message(m_hWnd, WM_CLOSE);
+        detail::optional_zero(pinfo->ptMinTrackSize.x, *this, Name_minWidth);
+        detail::optional_zero(pinfo->ptMinTrackSize.y, *this, Name_minHeight);
+        detail::optional_zero(pinfo->ptMaxTrackSize.x, *this, Name_maxWidth);
+        detail::optional_zero(pinfo->ptMaxTrackSize.y, *this, Name_maxHeight);
+    }
+
+    void on_syscommand(UINT uType, point pt)
+    {
+        set_msg_handled(false);
+
+        if (uType == SC_RESTORE) {
+            // Workaround: flicker
+            // There seems no performance difference with or without this.
+            detail::reset_transparency(*this);
+        }
+
+        pstade::unused(pt);
+    }
+
+    void on_lbuttondown(UINT uFlags, point pt)
+    {
+        ShowWindow(SW_SHOWMINIMIZED);
         pstade::unused(uFlags, pt);
     }
 
-    void on_destroy()
+    void on_rbuttondown(UINT uFlags, point pt)
     {
-        ::PostQuitMessage(1);
+        PostMessage(WM_CLOSE);
+        pstade::unused(uFlags, pt);
     }
 
     begin_msg_map
     <
-        msg_wm_create<&_::on_create, not_handled>,
+        msg_wm_create<&_::on_create>,
+        msg_wm_paint<&_::on_paint>,
         msg_wm_size<&_::on_size>,
-        msg_wm_lbuttondown<&_::on_lbutton_down>,
-        msg_wm_destroy<&_::on_destroy, not_handled>,
-        detail::chain_node_mouse_msg<>
+        msg_wm_getminmaxinfo<&_::on_getminmaxinfo>,
+        detail::handle_wm_erasebkgnd<>,
+        detail::chain_mouse_message<>,
+        msg_wm_rbuttondown<&_::on_rbuttondown>,
+        msg_wm_syscommand<&_::on_syscommand>,
+        //msg_wm_close<&_::on_close>,
+        detail::quit_on_destroy<>,
+        empty_entry<>
     >
     end_msg_map;
 
 private:
     void work()
     {
-        tomato::message_loop loop;
+        try {
+            tomato::message_loop loop;
 
-        create();
-        tomato::message_filtering filtering(this);
-        tomato::idle_handling idling(this);
+            if (!hamburger::is_visible(*this))
+                return;
 
-        loop.run();
+            rectangle rc = detail::initial_view_bounds(*this);
+            PSTADE_REQUIRE(Create(NULL, rc));
+
+            tomato::message_filtering filtering(this);
+            tomato::idle_handling idling(this);
+
+            ShowWindow(SW_SHOWNORMAL);
+
+            loop.run();
+        }
+        // catch here cause boost::thread will catch all.
+        catch (std::exception& err) {
+            log << err.what();
+        }
     }
 };
 

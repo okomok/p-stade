@@ -11,8 +11,8 @@
 
 
 #include <boost/assert.hpp>
-#include <boost/microsoft/atl/win.hpp> // CWindow
-#include <boost/microsoft/sdk/windows.hpp>
+#include <pstade/apple/atl/win.hpp> // CWindow
+#include <pstade/apple/sdk/windows.hpp>
 #include "../diet/valid.hpp"
 
 

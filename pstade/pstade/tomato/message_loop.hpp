@@ -10,11 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/microsoft/atl/module.hpp>
-#include <boost/microsoft/sdk/windows.hpp>
-#include <boost/microsoft/wtl/app.hpp> // CMessageLoop
+#include <boost/assert.hpp>
+#include <pstade/apple/atl/module.hpp>
+#include <pstade/apple/sdk/windows.hpp>
+#include <pstade/apple/wtl/app.hpp> // CMessageLoop
 #include <pstade/require.hpp>
-#include <pstade/verify.hpp>
 
 
 namespace pstade { namespace tomato {
@@ -43,7 +43,8 @@ struct message_loop
 
     ~message_loop()
     {
-        PSTADE_VERIFY(_Module.RemoveMessageLoop());
+        if (!_Module.RemoveMessageLoop())
+            BOOST_ASSERT(false);
     }
 
     int run()

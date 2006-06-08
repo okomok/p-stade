@@ -1,4 +1,4 @@
-#include <pstade/vodka/begin.hpp>
+#include <pstade/vodka/drink.hpp>
 #include <boost/test/minimal.hpp>
 
 
@@ -18,6 +18,7 @@
 #include <string>
 #include <boost/foreach.hpp>
 #include <boost/range.hpp>
+#include <boost/range/concepts.hpp>
 #include <pstade/oven/equal.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
 
@@ -49,10 +50,17 @@ struct c_comment_n :
 
 void test()
 {
-#if 0
+#if 1
     std::string ans0("/* c comment no.1 */");
     std::string ans1("/* c comment no.2 */");
     std::string ans2("/* c comment no.3 */");
+
+    // concept check
+    //
+    {
+        typedef token_range<c_comment, std::string> rng_t;
+        boost::function_requires< boost::ForwardRangeConcept<rng_t> >();
+    }
 
     // variadic forms
     //

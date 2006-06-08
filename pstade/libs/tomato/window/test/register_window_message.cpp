@@ -1,4 +1,4 @@
-#include <pstade/vodka/begin.hpp>
+#include <pstade/vodka/drink.hpp>
 #include <boost/test/minimal.hpp>
 
 
@@ -19,7 +19,7 @@ PSTADE_TOMATO_REGISTER_WINDOW_MESSAGE(msg3, pstade_tomato_test_register_window_m
 
 
 #include <iostream>
-#include <boost/microsoft/wtl/app.hpp>
+#include <pstade/apple/wtl/app.hpp>
 WTL::CAppModule _Module;
 
 

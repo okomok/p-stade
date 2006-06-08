@@ -5,9 +5,9 @@
 #pragma once
 
 
-#include <boost/microsoft/atl/config.hpp>
-#include <boost/microsoft/atl/str.hpp>
-#include <boost/microsoft/wtl/misc.hpp>
+#include <pstade/apple/atl/config.hpp>
+#include <pstade/apple/atl/str.hpp>
+#include <pstade/apple/wtl/misc.hpp>
 #include <boost/mpl/void.hpp>
 #include <pstade/ketchup.hpp>
 #include <pstade/ketchup/alias.hpp>
@@ -30,8 +30,7 @@ struct CMainFrame :
 	ketchup::message_processor<CMainFrame,
 		WTL::CFrameWindowImpl<CMainFrame>
 	>,
-	tomato::message_filter<CMainFrame>,
-	tomato::idle_handler<CMainFrame>
+	WTL::CMessageFilter, WTL::CIdleHandler
 {
 public:
 	static WTL::CFrameWndClassInfo& GetWndClassInfo() {
@@ -42,10 +41,12 @@ public:
 	WTL::CCommandBarCtrl m_cmdbar;
 	WTL::CToolBarCtrl m_toolbar;
 	WTL::CReBarCtrl m_rebar;
+	tomato::message_filtering m_filtering;
+	tomato::idle_handling m_idling;
 
 	tomato_style_profile<>::type m_profile;
 
-#if (BOOST_MICROSOFT_ATL_VER >= 0x0700)
+#if (PSTADE_APPLE_ATL_VER >= 0x0700)
 	ATL::CString m_profile_name;
 #else
 	WTL::CString m_profile_name;
@@ -56,17 +57,15 @@ public:
 		pizza::initialize(m_profile, m_profile_name);
 	}
 
-private: friend class tomato::access;
-
-	bool pre_translate_message(MSG& msg)
+	BOOL PreTranslateMessage(MSG *pMsg)
 	{
-		if (WTL::CFrameWindowImpl<CMainFrame>::PreTranslateMessage(&msg))
+		if (WTL::CFrameWindowImpl<CMainFrame>::PreTranslateMessage(pMsg))
 			return true;
 
-		return tomato::boolean(m_view.PreTranslateMessage(&msg));
+		return m_view.PreTranslateMessage(pMsg);
 	}
 
-	BOOL on_idle()
+	BOOL OnIdle()
 	{
 		ketchup::update_toolbar_cmd_ui(m_hWnd, m_toolbar);
 		return FALSE;
@@ -103,13 +102,13 @@ public:
 
 		m_hWndClient = m_view.Create(m_hWnd, rcDefault, NULL, WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN, WS_EX_CLIENTEDGE);
 
-		start_message_filter();
-		start_idle_handler();
-
 		//WTL::CLogFont lf;
 		//pizza::get_logfont(m_profile, lf);
+		m_filtering.start(this);
+		m_idling.start(this);
 
 		pstade::unused(lpCreateStruct);
+		set_msg_handled(false);
 		return tomato::create_success;
 	}
 
@@ -127,6 +126,7 @@ public:
 	void OnClose()
 	{
 		write_profile();
+		set_msg_handled(false);
 	}
 
 	void write_profile()
@@ -186,8 +186,8 @@ public:
 
 	begin_msg_map
 	<
-		msg_wm_create<&_::OnCreate, not_handled>,
-		msg_wm_close<&_::OnClose, not_handled>,
+		msg_wm_create<&_::OnCreate>,
+		msg_wm_close<&_::OnClose>,
 		command_id_handler_simple<ID_APP_EXIT, &_::OnFileExit>,
 		command_id_handler_simple<ID_FILE_NEW, &_::OnFileNew>,
 		command_id_handler_simple<ID_VIEW_TOOLBAR, &_::OnViewToolBar>,

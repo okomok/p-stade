@@ -15,68 +15,97 @@
 #include <pstade/oven/copy.hpp>
 #include <pstade/oven/equal.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
+#include <pstade/overload.hpp>
 #include <pstade/ustring.hpp>
 #include "./intrinsic.hpp"
-#include "./node.hpp"
+#include "./node_value_type.hpp"
 
 
 namespace pstade { namespace lime {
 
 
+template< class Node, class OutIter >
+void save(Node& node, OutIter out);
+
+
+template< class AssocContainer, class OutIter >
+void save_attributes(AssocContainer attributes, OutIter out)
+{
+    using oven::null_terminated;
+
+    BOOST_FOREACH (
+        comma_protect<void(std::pair<ustring, ustring>)>::type att,
+        attributes
+    )
+    {
+        oven::copy(" "|null_terminated, out);
+        oven::copy(att.first, out);
+        oven::copy("=\""|null_terminated, out);
+        oven::copy(att.second, out);
+        oven::copy("\""|null_terminated, out);
+    }
+}
+
+template< class Node, class OutIter >
+void save_default(Node& node, OutIter out)
+{
+    using oven::null_terminated;
+    typedef typename node_value<Node>::type child_t;
+
+    if (oven::equals(node.name(), i_CharData) ||
+        oven::equals(node.name(), i_Reference))
+    {
+        oven::copy(node.attributes()[i_attName], out);
+        return;
+    }
+
+    { // STag
+        oven::copy("<"|null_terminated, out);
+        oven::copy(node.name(), out);
+
+        lime::save_attributes(node.attributes(), out);
+
+        oven::copy(">"|null_terminated, out);
+    }
+
+    BOOST_FOREACH (child_t& child, node) {
+        lime::save(child, out);
+    }
+
+    { // ETag
+        oven::copy("</"|null_terminated, out);
+        oven::copy(node.name(), out);
+        oven::copy(">"|null_terminated, out);
+    }
+}
+
 namespace save_detail {
 
 
-    template< class Interface, class OutIter >
-    void aux(node<Interface>& parent, OutIter out)
+    template< class Node, class OutIter > inline
+    void pstade_lime_save_node(Node& node, OutIter out)
     {
-        using oven::null_terminated;
-
-        if (oven::equals(parent.name(), i_CharData) ||
-            oven::equals(parent.name(), i_Reference))
-        {
-            oven::copy(parent.att(i_attName), out);
-            return;
-        }
-
-        { // STag
-            oven::copy("<"|null_terminated, out);
-            oven::copy(parent.name(), out);
-
-            BOOST_FOREACH (
-                comma_protect<void(std::pair<ustring, ustring>)>::type att,
-                parent.attributes()
-            ) {
-                oven::copy(" "|null_terminated, out);
-                oven::copy(att.first, out);
-                oven::copy("=\""|null_terminated, out);
-                oven::copy(att.second, out);
-                oven::copy("\""|null_terminated, out);
-            }
-
-            oven::copy(">"|null_terminated, out);
-        }
-
-        BOOST_FOREACH (node<Interface>& child, parent) {
-            save_detail::aux(child, out);
-        }
-
-        { // ETag
-            oven::copy("</"|null_terminated, out);
-            oven::copy(parent.name(), out);
-            oven::copy(">"|null_terminated, out);
-        }
+         return pstade_lime_save_node(node, out, overload());
     }
 
 
 } // namespace save_detail
 
 
-template< class Interface, class OutIter >
-void save(node<Interface>& root, OutIter out)
+template< class Node, class OutIter > inline
+void save(Node& node, OutIter out)
 {
-    BOOST_FOREACH (node<Interface>& child, root) {
-        save_detail::aux(child, out);
-    }
+    using namespace save_detail;
+    return pstade_lime_save_node(node, out); 
+}
+
+
+// default
+//
+template< class Node, class OutIter > inline
+void pstade_lime_save_node(Node& node, OutIter out, pstade::overload)
+{
+    return pstade::lime::save_default(node, out);
 }
 
 

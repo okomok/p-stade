@@ -10,23 +10,44 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/microsoft/sdk/windows.hpp>
+#include <pstade/apple/sdk/windows.hpp>
 
 
 namespace pstade { namespace tomato {
 
 
-template < class WordT > inline
-DWORD make_long(WordT wLow, WordT wHigh)
+template< class WordT > inline
+DWORD make_LONG(WordT wLow, WordT wHigh)
 {
     return MAKELONG(wLow, wHigh);
 }
 
 
-inline
-TCHAR *make_intresource(WORD wInteger)
+template< class WordT > inline
+TCHAR *make_INTRESOURCE(WordT wInteger)
 {
     return MAKEINTRESOURCE(wInteger);
+}
+
+
+template< class WordT > inline
+WPARAM make_WPARAM(WordT wLow, WordT wHigh)
+{
+    return MAKEWPARAM(wLow, wHigh);
+}
+
+
+template< class WordT > inline
+LPARAM make_LPARAM(WordT wLow, WordT wHigh)
+{
+    return MAKELPARAM(wLow, wHigh);
+}
+
+
+template< class WordT > inline
+LRESULT make_LRESULT(WordT wLow, WordT wHigh)
+{
+    return MAKELRESULT(wLow, wHigh);
 }
 
 

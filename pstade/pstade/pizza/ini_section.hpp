@@ -20,16 +20,16 @@
 
 #include <cstddef> // size_t
 #include <boost/assert.hpp>
-#include <boost/microsoft/sdk/tchar.hpp>
-#include <boost/microsoft/sdk/windows.hpp>
 #include <boost/mpl/int.hpp>
 #include <boost/range/empty.hpp>
 #include <boost/range/iterator_range.hpp>
-#include <boost/range/size.hpp>
+#include <pstade/apple/sdk/tchar.hpp>
+#include <pstade/apple/sdk/windows.hpp>
 #include <pstade/instance.hpp>
 #include <pstade/integral_cast.hpp>
 #include <pstade/oven/array_range.hpp>
 #include <pstade/oven/copy.hpp>
+#include <pstade/oven/distance.hpp>
 #include <pstade/oven/equal.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
 #include <pstade/require.hpp>
@@ -59,12 +59,12 @@ namespace ini_section_detail {
         {
             // empty-string also is valid value, so we must go...
 
-            oven::array_range<TCHAR> buf(1 + boost::size(magicStr));
+            oven::array_range<TCHAR> buf(1 + oven::distance(magicStr));
 
             ::GetPrivateProfileString(
                 pszSectionName, pszValueName,
                 tomato::c_str(magicStr), // default
-                boost::begin(buf), pstade::integral(boost::size(buf)),
+                boost::begin(buf), pstade::integral(oven::distance(buf)),
                 pszFileName);
 
             if (oven::equals(buf|oven::null_terminated, magicStr))
@@ -99,7 +99,7 @@ struct ini_section
         m_fileName = tomato::c_str(fileName);
         m_sectionName = tomato::c_str(sectionName);
 
-        BOOST_ASSERT(boost::size(m_fileName) < 4095); // can't read in bigger
+        BOOST_ASSERT(oven::distance(m_fileName) < 4095); // can't read in bigger
     }
 
     void close()

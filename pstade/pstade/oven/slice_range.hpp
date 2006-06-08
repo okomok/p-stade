@@ -10,9 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/assert.hpp>
 #include <boost/range/difference_type.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <pstade/egg/function.hpp>
+#include <pstade/oven/distance.hpp>
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./sub_range_base_type.hpp"
@@ -32,7 +34,9 @@ private:
 public:
     explicit slice_range(BidiRange& rng, diff_t n, diff_t m) :
         super_t(boost::make_iterator_range(rng, n, m))
-    { }
+    {
+        BOOST_ASSERT( oven::distance(rng) >= n+m );
+    }
 };
 
 

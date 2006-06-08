@@ -11,7 +11,7 @@
 
 
 #include <boost/assert.hpp>
-#include <boost/microsoft/sdk/windows.hpp>
+#include <pstade/apple/sdk/windows.hpp>
 #include <pstade/tomato/diet/valid.hpp>
 #include <pstade/tomato/menu/get_menu_item_count.hpp>
 #include <pstade/tomato/menu/get_menu_item_id.hpp>

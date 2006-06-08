@@ -16,8 +16,8 @@
 
 
 #include <boost/assert.hpp>
-#include <boost/microsoft/sdk/tchar.hpp>
-#include <boost/microsoft/sdk/windows.hpp>
+#include <pstade/apple/sdk/tchar.hpp>
+#include <pstade/apple/sdk/windows.hpp>
 #include <pstade/candy/set.hpp>
 #include "../boolean_cast.hpp"
 #include "../diet/valid.hpp"

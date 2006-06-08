@@ -11,8 +11,8 @@
 
 
 #include <boost/assert.hpp>
-#include <boost/microsoft/sdk/windows.hpp>
-#include <boost/microsoft/wtl/ctrls.hpp> // CToolBarCtrl
+#include <pstade/apple/sdk/windows.hpp>
+#include <pstade/apple/wtl/ctrls.hpp> // CToolBarCtrl
 #include <pstade/candy/remove.hpp>
 #include <pstade/candy/set.hpp>
 #include <pstade/candy/union.hpp>

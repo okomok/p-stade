@@ -11,12 +11,12 @@
 
 
 #include <boost/assert.hpp>
-#include <boost/microsoft/sdk/windows.hpp>
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
 #include <boost/mpl/void.hpp>
+#include <pstade/apple/sdk/windows.hpp>
 #include <pstade/is_debug.hpp>
 #include <pstade/unused.hpp>
 

@@ -79,7 +79,7 @@ todo
 ``pstade::derived_cast`` is a type-safe cast from a base class to the derived class.
 It just calls ``static_cast``, but the name makes codes clearer::
 
-	D:\Importance\Document\p-stade.sourceforge.net\pstade\libs\wine\doc\inline\derived_cast.ipp
+	D:\p-stade.sourceforge.net\pstade\libs\wine\doc\inline\derived_cast.ipp
 
 ``pstade::derived`` provides the automatic conversion.
 
@@ -103,7 +103,7 @@ todo
 ------------
 ``is_debug`` is a nullary Metafunction_ that returns ``boost::mpl::true_`` if ``NDEBUG`` is not defined; otherwise ``boost::mpl::false_``::
 
-	D:\Importance\Document\p-stade.sourceforge.net\pstade\libs\wine\doc\inline\is_debug_eg.ipp
+	D:\p-stade.sourceforge.net\pstade\libs\wine\doc\inline\is_debug_eg.ipp
 
 Macros and Metafunction_\s are on different layers. You might reject this fusion.
 On the other hand, you must be against macros if "possible".
@@ -148,16 +148,16 @@ todo
 Though an unused variable makes the cumbersome "unused variable" warning, it sometimes helps you.
 The legacy workaround shows::
 
-	D:\Importance\Document\p-stade.sourceforge.net\pstade\libs\wine\doc\inline\unused_bad.ipp
+	D:\p-stade.sourceforge.net\pstade\libs\wine\doc\inline\unused_bad.ipp
 
 ``pstade::unused`` is a function whose body is empty. It suppresses the warning::
 
-	D:\Importance\Document\p-stade.sourceforge.net\pstade\libs\wine\doc\inline\unused_good.ipp
+	D:\p-stade.sourceforge.net\pstade\libs\wine\doc\inline\unused_good.ipp
 
 A smart compiler easily removes such an empty function as ``pstade::unused``.
 Note that ``(void)option`` could still make the warning. One of the useful cases is::
 
-	D:\Importance\Document\p-stade.sourceforge.net\pstade\libs\wine\doc\inline\unused_useful.ipp
+	D:\p-stade.sourceforge.net\pstade\libs\wine\doc\inline\unused_useful.ipp
 
 The error seems conforming one, but ``pstade::unused`` can work around.
 

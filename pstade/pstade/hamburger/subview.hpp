@@ -10,12 +10,39 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/ketchup.hpp>
+#include <pstade/apple/sdk/windows.hpp>
+#include <pstade/ketchup/core.hpp>
+#include <pstade/oven/sort_range.hpp>
+#include <pstade/statement.hpp>
+#include <pstade/tomato/rgb.hpp>
+#include "./detail/background.hpp"
+#include "./detail/chain_mouse_message.hpp"
+#include "./detail/layout.hpp"
 #include "./element.hpp"
+#include "./factory.hpp"
+#include "./location.hpp"
 #include "./view_attributes.hpp"
+#include "./z_order.hpp"
 
 
 namespace pstade { namespace hamburger {
+
+
+namespace subview_detail {
+
+
+    template< class Node >
+    void set_default_values(Node& node)
+    {
+        node%Name_backgroundColor           = Value_none;
+        node%Name_backgroundImageHueShift   = "0.0";
+        node%Name_backgroundImageSaturation = "1.0";
+        node%Name_backgroundTiled           = Value_false;
+        node%Name_resizeBackgroundImage     = Value_false;
+    }
+
+
+} // namespace subview_detail
 
 
 struct subview :
@@ -23,24 +50,38 @@ struct subview :
 {
     explicit subview()
     {
-        set_default_values();
+        subview_detail::set_default_values(*this);
+    }
+
+    void impl_set_bounds(rectangle rc)
+    {
+        m_bounds = rc;
+        detail::layout(*this);
+    }
+
+    rectangle impl_bounds() const
+    {
+        return m_bounds;
+    }
+
+    void impl_paint(graphics g, rectangle rc)
+    {
+        detail::paint_background(*this, g, rc);
+
+        BOOST_FOREACH (element& child, m_self|oven::sorted(z_order)) {
+            child.paint(g, child.bounds() + rc.TopLeft());
+        }
     }
 
     begin_msg_map
     <
+        detail::chain_mouse_message<>,
         empty_entry<>
     >
     end_msg_map;
 
 private:
-    void set_default_values()
-    {
-        att(Name_backgroundColor)               = Value_none;
-        att(Name_backgroundImageHueShift)       = "0.0";
-        att(Name_backgroundImageSaturation)     = "1.0";
-        att(Name_backgroundTiled)               = Value_false;
-        att(Name_resizeBackgroundImage)         = Value_false;
-    }
+    rectangle m_bounds;
 };
 
 

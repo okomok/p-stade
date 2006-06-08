@@ -23,6 +23,7 @@
 #include <boost/range/empty.hpp>
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
+#include <boost/utility/addressof.hpp>
 #include "../algorithm/search.hpp"
 
 
@@ -60,8 +61,7 @@ private:
 
 public:
     // structors
-    explicit filter_iterator() :
-        m_pus(0)
+    explicit filter_iterator()
     { }
 
     explicit filter_iterator(ForwardIter x, ForwardIter last, UserState *pus) :
@@ -72,7 +72,7 @@ public:
 
     template< class ForwardIter2 >
     explicit filter_iterator(filter_iterator<Parser, ForwardIter2, UserState> const& other) :
-        m_submatch_last(other.submatch_end()), m_last(other.end()), m_pus(&other.user_state())
+        m_submatch_last(other.submatch_end()), m_last(other.end()), m_pus( boost::addressof(other.user_state()) )
     { }
 
     // accessors

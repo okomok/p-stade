@@ -16,7 +16,9 @@
 #include "./lime/load.hpp"
 #include "./lime/load_file.hpp"
 #include "./lime/new_node.hpp"
-#include "./lime/node.hpp"
+#include "./lime/node_facade.hpp"
+#include "./lime/node_value_type.hpp"
+#include "./lime/root.hpp"
 #include "./lime/save.hpp"
 #include "./lime/save_file.hpp"
 

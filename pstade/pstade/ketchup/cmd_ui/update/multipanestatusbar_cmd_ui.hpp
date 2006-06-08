@@ -11,7 +11,7 @@
 
 
 #include <boost/assert.hpp>
-#include <boost/microsoft/sdk/windows.hpp>
+#include <pstade/apple/sdk/windows.hpp>
 #include <pstade/tomato/diet/valid.hpp>
 #include "../impl/multipanestatusbar_cmd_ui.hpp"
 #include "./cmd_ui.hpp"

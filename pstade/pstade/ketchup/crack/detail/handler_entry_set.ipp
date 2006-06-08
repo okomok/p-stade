@@ -10,8 +10,7 @@
 //
 template<
     UINT id,
-    void (Derived::*func)(),
-    class BoolT = boost::mpl::true_
+    void (Derived::*func)()
 >
 struct command_id_handler_simple
 {
@@ -21,10 +20,11 @@ struct command_id_handler_simple
 
         if (uMsg == WM_COMMAND && id == LOWORD(wParam))
         {
+            derived.set_msg_handled(true);
             (derived.*func)();
             lResult = 0;
 
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }

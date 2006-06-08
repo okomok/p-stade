@@ -1,4 +1,4 @@
-#include <pstade/vodka/begin.hpp>
+#include <pstade/vodka/drink.hpp>
 #include <boost/test/minimal.hpp>
 
 
@@ -17,6 +17,27 @@
 #include <pstade/wine.hpp>
 #include <pstade/garlic.hpp>
 
+using namespace pstade;
+
+//typedef pstade::lime::node_facade<int> my_node;
+
+struct my_node :
+    lime::node_facade<my_node>
+{
+    typedef lime::node_facade<my_node> super_t;
+
+    explicit my_node()
+    { }
+
+    explicit my_node(ustring name) :
+        super_t(name)
+    { }
+
+    explicit my_node(my_node& parent, ustring name) :
+        super_t(parent, name)
+    { }
+};
+
 
 void test()
 {
@@ -24,7 +45,7 @@ void test()
 
     ustring src("<?xml version=\"1.0\"?><parent><child>hello</child></parent>");
 
-    lime::node<> root;
+    ::my_node root;
     lime::load(root, src);
 
     {
@@ -43,7 +64,7 @@ void test()
     ustring ans("<parent><child>hello<grandchild age=\"12\"></grandchild></child></parent>");
 
     ustring dst;
-    lime::save(root, garlic::back_inserter(dst));
+    lime::save(root.front(), garlic::back_inserter(dst));
     std::cout << dst;
 
     BOOST_CHECK( oven::equals(dst, ans) );

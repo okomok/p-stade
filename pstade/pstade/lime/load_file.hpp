@@ -16,22 +16,24 @@
 #include <pstade/oven/file_range.hpp>
 #include <pstade/oven/utf8_decode_range.hpp>
 #include <pstade/ustring.hpp>
-#include "./detail/node_fwd.hpp"
 #include "./load.hpp"
 
 
 namespace pstade { namespace lime {
 
 
-template< class Interface >
-void load_file(node<Interface>& root, std::string fileName)
+template< class Node >
+void load_file(Node& root, std::string fileName)
 {
-    ustring tmp; // for speed
-    oven::copy(
-        oven::file_range<utf8cp_t>(fileName) |
-            oven::utf8_decoded,
-        garlic::back_inserter(tmp)
-    );
+    // cache for speed
+    ustring tmp; {
+        oven::file_range<utf8cp_t> frng(fileName);
+        oven::copy(
+            frng |
+                oven::utf8_decoded,
+            garlic::back_inserter(tmp)
+        );
+    }
 
     lime::load(root, tmp);
 }

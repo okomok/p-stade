@@ -10,12 +10,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/microsoft/atl/config.hpp> // CSIMPLESTRINGT_TEMPLATE_PARAMS/ARGS
-#include <boost/microsoft/atl/simpstr_fwd.hpp> // CSimpleStringT
-#include <boost/microsoft/sdk/tchar.hpp>
-#include <boost/microsoft/wtl/misc.hpp> // CString
 #include <boost/mpl/identity.hpp>
 #include <boost/mpl/if.hpp>
+#include <pstade/apple/atl/config.hpp> // CSIMPLESTRINGT_TEMPLATE_PARAMS/ARGS
+#include <pstade/apple/atl/simpstr_fwd.hpp> // CSimpleStringT
+#include <pstade/apple/sdk/tchar.hpp>
+#include <pstade/apple/wtl/misc.hpp> // CString
 #include <pstade/apple/basic_string_fwd.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/has_xxx.hpp>
@@ -129,9 +129,9 @@ pstade_tomato_c_str(const WTL::CString& str, pstade::overload)
 }
 
 
-template< BOOST_MICROSOFT_ATL_CSIMPLESTRINGT_TEMPLATE_PARAMS > inline
+template< PSTADE_APPLE_ATL_CSIMPLESTRINGT_TEMPLATE_PARAMS > inline
 const BaseType *
-pstade_tomato_c_str(const ATL::CSimpleStringT< BOOST_MICROSOFT_ATL_CSIMPLESTRINGT_TEMPLATE_ARGS >& str, pstade::overload)
+pstade_tomato_c_str(const ATL::CSimpleStringT< PSTADE_APPLE_ATL_CSIMPLESTRINGT_TEMPLATE_ARGS >& str, pstade::overload)
 {
     return str;
 }

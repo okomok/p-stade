@@ -13,7 +13,7 @@
 // But template arguments needs non-reference.
 
 
-#include <boost/microsoft/sdk/basetyps.hpp> // IID
+#include <pstade/apple/sdk/basetyps.hpp> // IID
 #include <boost/preprocessor/cat.hpp>
 
 template< class T, class Guid >

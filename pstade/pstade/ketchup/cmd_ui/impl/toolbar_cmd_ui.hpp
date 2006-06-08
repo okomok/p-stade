@@ -11,7 +11,7 @@
 
 
 #include <boost/assert.hpp>
-#include <boost/microsoft/sdk/windows.hpp>
+#include <pstade/apple/sdk/windows.hpp>
 #include <pstade/tomato/toolbar/enable_toolbar_button.hpp>
 #include <pstade/tomato/toolbar/check_toolbar_button.hpp>
 #include "../cmd_ui.hpp"

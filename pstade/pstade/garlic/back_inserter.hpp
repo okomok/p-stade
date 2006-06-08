@@ -14,6 +14,7 @@
 #include <boost/assert.hpp>
 #include <boost/range/difference_type.hpp>
 #include <boost/range/value_type.hpp>
+#include <boost/utility/addressof.hpp>
 #include <pstade/if_debug.hpp>
 #include <pstade/nullptr.hpp>
 #include "./push_back.hpp"
@@ -33,7 +34,7 @@ struct back_insert_iterator :
     { }
 
     explicit back_insert_iterator(BackInsertable& bi) :
-        m_pbi(&bi)
+        m_pbi(boost::addressof(bi))
     { }
 
     template< class ValueT > // template is legal

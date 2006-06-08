@@ -15,9 +15,9 @@
 // wce400/STANDARDSDK/Mfc/Src/wceimpl.h
 
 
-#include <boost/microsoft/sdk/windows.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/mpl/integral_c.hpp>
+#include <pstade/apple/sdk/windows.hpp>
 #include "../is_wce.hpp"
 
 

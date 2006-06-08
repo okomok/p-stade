@@ -1,6 +1,6 @@
-#include <pstade/vodka/begin.hpp>
+#include <pstade/vodka/drink.hpp>
 #include <boost/test/minimal.hpp>
-#include <boost/microsoft/wtl/app.hpp>
+#include <pstade/apple/wtl/app.hpp>
 WTL::CAppModule _Module;
 
 
@@ -16,7 +16,7 @@ WTL::CAppModule _Module;
 
 
 #include <iostream>
-#include <boost/microsoft/wtl/misc.hpp> // CString
+#include <pstade/apple/wtl/misc.hpp> // CString
 #include <pstade/tomato/tstring.hpp>
 #include <pstade/tomato/window.hpp>
 #include <pstade/tomato/filesystem.hpp>

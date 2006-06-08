@@ -28,13 +28,12 @@
 
 
 #include <boost/assert.hpp>
-#include <boost/microsoft/sdk/tchar.hpp>
-#include <boost/microsoft/sdk/windows.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/range/begin.hpp>
-#include <boost/range/size.hpp>
-#include <pstade/integral_cast.hpp>
+#include <pstade/apple/sdk/tchar.hpp>
+#include <pstade/apple/sdk/windows.hpp>
 #include <pstade/oven/array_range.hpp>
+#include <pstade/oven/distance.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
 #include "../diet/valid.hpp"
 
@@ -57,7 +56,7 @@ namespace window_text_detail {
             BOOST_ASSERT(diet::valid(hWnd));
 
             ::GetWindowText(hWnd,
-                boost::begin(m_buf), pstade::integral(boost::size(m_buf))
+                boost::begin(m_buf), oven::distance(m_buf)
             );
 
             BOOST_ASSERT(oven::is_null_terminated(m_buf));

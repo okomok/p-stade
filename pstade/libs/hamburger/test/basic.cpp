@@ -1,4 +1,4 @@
-#include <pstade/vodka/begin.hpp>
+#include <pstade/vodka/drink.hpp>
 #include <boost/test/test_tools.hpp>
 
 
@@ -53,7 +53,7 @@ void test()
         lime::load(root, tmp);
 
 		lime::save(
-			root,
+			root.front(),
 			oven::utf8_encoder(garlic::back_inserter(fout))
 		);
 

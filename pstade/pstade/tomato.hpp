@@ -19,21 +19,22 @@
 #include "./tomato/garlic.hpp"
 #include "./tomato/gdi.hpp"
 #include "./tomato/geq_ie4.hpp"
+#include "./tomato/get.hpp"
 #include "./tomato/idle_handling.hpp"
 #include "./tomato/is_wce.hpp"
+#include "./tomato/make.hpp"
 #include "./tomato/menu.hpp"
 #include "./tomato/message_filtering.hpp"
 #include "./tomato/message_loop.hpp"
 #include "./tomato/module_initializer.hpp"
 #include "./tomato/rebar.hpp"
+#include "./tomato/rgb.hpp"
+#include "./tomato/scoped_handle.hpp"
 #include "./tomato/size_initialize.hpp"
 #include "./tomato/succeeded.hpp"
 #include "./tomato/toolbar.hpp"
 #include "./tomato/tstring.hpp"
 #include "./tomato/window.hpp"
-
-#include <boost/microsoft/atl.hpp>
-#include <boost/microsoft/wtl.hpp>
 
 
 #endif

@@ -11,8 +11,8 @@
 
 
 #include <boost/assert.hpp>
-#include <boost/microsoft/sdk/windows.hpp>
 #include <memory> // auto_ptr
+#include <pstade/apple/sdk/windows.hpp>
 #include <pstade/candy/reset.hpp>
 #include <pstade/candy/set.hpp>
 #include <pstade/candy/test.hpp>

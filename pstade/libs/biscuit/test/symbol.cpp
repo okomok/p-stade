@@ -1,4 +1,4 @@
-#include <pstade/vodka/begin.hpp>
+#include <pstade/vodka/drink.hpp>
 #include <boost/test/minimal.hpp>
 
 
@@ -21,8 +21,8 @@ using namespace pstade;
 using namespace biscuit;
 
 
-PSTADE_BISCUIT_SYMBOL_PARSER(hello, "hello")
-PSTADE_BISCUIT_SYMBOL_PARSER(bye, "bye")
+PSTADE_BISCUIT_SYMBOL(hello, "hello")
+PSTADE_BISCUIT_SYMBOL(bye, "bye")
 
 
 void test()

@@ -11,7 +11,7 @@
 
 
 #include <boost/assert.hpp>
-#include <boost/microsoft/sdk/windows.hpp>
+#include <pstade/apple/sdk/windows.hpp>
 #include <pstade/tomato/diet/valid.hpp>
 #include <pstade/tomato/window/check_window.hpp>
 #include <pstade/tomato/window/enable_window.hpp>
@@ -30,7 +30,7 @@ struct childwindow_cmd_ui : cmd_ui
         BOOST_ASSERT(diet::valid(hWndChild));
     }
 
-protected:
+private:
     void impl_enable(bool on)
     {
         tomato::enable_window(m_hWndChild, on);

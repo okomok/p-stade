@@ -15,6 +15,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TomatoStyle", "..\TomatoSty
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wtlburger", "..\wtlburger\wtlburger.vcproj", "{26681ECE-4840-4D66-A3C9-B395BE2064FA}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
 		Debug = Debug
@@ -37,6 +41,10 @@ Global
 		{E3A76AF9-3D14-48E3-8844-4E5A1B6B8CA5}.Debug.Build.0 = Debug|Win32
 		{E3A76AF9-3D14-48E3-8844-4E5A1B6B8CA5}.Release.ActiveCfg = Release|Win32
 		{E3A76AF9-3D14-48E3-8844-4E5A1B6B8CA5}.Release.Build.0 = Release|Win32
+		{26681ECE-4840-4D66-A3C9-B395BE2064FA}.Debug.ActiveCfg = Debug|Win32
+		{26681ECE-4840-4D66-A3C9-B395BE2064FA}.Debug.Build.0 = Debug|Win32
+		{26681ECE-4840-4D66-A3C9-B395BE2064FA}.Release.ActiveCfg = Release|Win32
+		{26681ECE-4840-4D66-A3C9-B395BE2064FA}.Release.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection

@@ -17,6 +17,7 @@ rule lime-test ( name : includes * )
 }
 
 test-suite lime :
-    [ lime-test basic ]
+    #[ lime-test basic ]
     [ lime-test header ]
+    [ lime-test node ]
     ;

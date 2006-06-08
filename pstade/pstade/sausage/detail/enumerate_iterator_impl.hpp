@@ -31,6 +31,7 @@
 #include <boost/thread/mutex.hpp>
 #include <boost/thread/thread.hpp>
 #include <boost/type_traits/remove_reference.hpp>
+#include <boost/utility/addressof.hpp>
 #include <pstade/nullptr.hpp>
 #include "../enumerate.hpp"
 #include "../enumerate_argument_type.hpp"
@@ -81,7 +82,7 @@ public:
             m_thread.join();
         }
         catch (...) {
-            // cannot throw
+            BOOST_ASSERT(false);
         }
     }
 
@@ -142,7 +143,7 @@ private:
 
         // 'arg' is alive until next increment,
         // as far as 'arg' can go across thread-boundary.
-        m_parg = &arg;
+        m_parg = boost::addressof(arg);
         m_status.reset(is_incrementing::value);
         m_cond.notify_one();
 

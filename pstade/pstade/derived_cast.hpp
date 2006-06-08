@@ -14,6 +14,7 @@
 #include <boost/detail/workaround.hpp>
 #include <boost/static_assert.hpp>
 #include <boost/type_traits/is_base_of.hpp>
+#include <boost/utility/addressof.hpp>
 
 
 #if BOOST_WORKAROUND(BOOST_MSVC, == 1310)
@@ -43,7 +44,7 @@ namespace derived_cast_detail {
     struct temporary
     {
         explicit temporary(BaseT& base) :
-            m_pbase(&base)
+            m_pbase(boost::addressof(base))
         { };
 
         template< class DerivedT >
@@ -56,7 +57,7 @@ namespace derived_cast_detail {
         template< class DerivedT >
         operator DerivedT *() const
         {
-            return &pstade::derived_cast<DerivedT>(*m_pbase);
+            return boost::addressof( pstade::derived_cast<DerivedT>(*m_pbase) );
         }
 #endif
 

@@ -12,13 +12,13 @@
 
 // See: <boost/test/minimal.hpp>
 //
-//  (C) Copyright Gennadiy Rozental 2002-2005.
-//  Distributed under the Boost Software License, Version 1.0.
-//  (See accompanying file LICENSE_1_0.txt or copy at 
-//  http://www.boost.org/LICENSE_1_0.txt)
+// (C) Copyright Gennadiy Rozental 2002-2005.
+// Distributed under the Boost Software License, Version 1.0.
+// (See accompanying file LICENSE_1_0.txt or copy at 
+// http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <sstream>
+#include <sstream> // ostringstream
 #include <string>
 #include <boost/current_function.hpp>
 #include <boost/preprocessor/stringize.hpp>
@@ -75,7 +75,7 @@ namespace check_detail {
     inline
     std::string make_info(const char *expr, const char *file, int line, const char *func, const char *msg)
     {
-        std::stringstream info;
+        std::ostringstream info;
         info <<
             pstade::what("file",        file) <<
             pstade::what("line",        line) <<

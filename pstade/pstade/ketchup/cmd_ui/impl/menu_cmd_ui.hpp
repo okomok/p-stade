@@ -11,8 +11,8 @@
 
 
 #include <boost/assert.hpp>
-#include <boost/microsoft/sdk/tchar.hpp>
-#include <boost/microsoft/sdk/windows.hpp>
+#include <pstade/apple/sdk/tchar.hpp>
+#include <pstade/apple/sdk/windows.hpp>
 #include <pstade/require.hpp>
 #include <pstade/tomato/diet/valid.hpp>
 #include <pstade/tomato/menu/set_menu_check_type.hpp>
@@ -36,7 +36,7 @@ struct menu_cmd_ui : cmd_ui
         BOOST_ASSERT(diet::valid(m_hMenu));
     }
 
-protected:
+private:
     void impl_enable(bool on)
     {
         ::EnableMenuItem(m_hMenu, m_uIndex, MF_BYPOSITION |

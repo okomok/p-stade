@@ -7,8 +7,6 @@
 #include <pstade/derived_cast.hpp>
 #include <pstade/ketchup.hpp>
 
-#include <pstade/hamburger.hpp>
-
 template< class D >
 struct CMainFrameCommand1 :
 	pstade::ketchup::message_processor< CMainFrameCommand1<D> >

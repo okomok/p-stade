@@ -12,11 +12,11 @@
 
 #include <vector>
 #include <boost/assert.hpp>
-#include <boost/microsoft/sdk/tchar.hpp>
-#include <boost/microsoft/sdk/windows.hpp>
-#include <boost/microsoft/wtl/ctrls.hpp> // CReBarCtrl
 #include <boost/range/begin.hpp>
 #include <boost/range/empty.hpp>
+#include <pstade/apple/sdk/tchar.hpp>
+#include <pstade/apple/sdk/windows.hpp>
+#include <pstade/apple/wtl/ctrls.hpp> // CReBarCtrl
 #include <pstade/candy/set.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
 #include <pstade/oven/pointer_range.hpp>

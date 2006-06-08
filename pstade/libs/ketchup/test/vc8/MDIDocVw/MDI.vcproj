@@ -173,7 +173,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="odbc32.lib odbccp32.lib comctl32.lib"
+				AdditionalDependencies="comctl32.lib"
 				OutputFile=".\Debug/MDI.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"

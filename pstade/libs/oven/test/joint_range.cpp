@@ -1,4 +1,4 @@
-#include <pstade/vodka/begin.hpp>
+#include <pstade/vodka/drink.hpp>
 #include <boost/test/minimal.hpp>
 
 
@@ -47,6 +47,10 @@ void test()
         ) ));
 
         BOOST_CHECK(( oven::equals(
+            std::string("abc")|jointed(std::string("")), std::string("abc")
+        ) ));
+
+        BOOST_CHECK(( oven::equals(
             rng1|jointed(rng2)|reversed, ansr
         ) ));
 
@@ -74,9 +78,9 @@ void test()
             rng1|jointed(rng2)|jointed(rng3)
         ) ));
 
-		BOOST_CHECK(( 8 ==
-			boost::size( rng1|jointed(rng2)|jointed(rng3) )
-		));
+        BOOST_CHECK(( 8 ==
+            boost::size( rng1|jointed(rng2)|jointed(rng3) )
+        ));
 
         std::cout << oven::sequence_cast<std::string>(rng1|jointed(rng2)|jointed(rng3)) << std::endl;
     }
@@ -132,7 +136,7 @@ void test()
 
 
     {
-		std::string src("xyz");
+        std::string src("xyz");
         BOOST_CHECK(( oven::equals(
             src|jointed(src)|jointed(src), std::string("xyzxyzxyz")
         ) ));

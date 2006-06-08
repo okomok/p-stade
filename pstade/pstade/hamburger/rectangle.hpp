@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/microsoft/wtl/misc.hpp> // CRect
+#include <pstade/apple/wtl/misc.hpp> // CRect
 
 
 namespace pstade { namespace hamburger {
@@ -18,6 +18,13 @@ namespace pstade { namespace hamburger {
 
 typedef WTL::CRect
 rectangle;
+
+
+inline
+rectangle swap_axis(rectangle rc)
+{
+    return hamburger::rectangle(rc.top, rc.left, rc.bottom, rc.right);
+}
 
 
 } } // namespace pstade::hamburger

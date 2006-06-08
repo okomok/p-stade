@@ -11,9 +11,9 @@
 
 
 #include <boost/assert.hpp>
-#include <boost/microsoft/atl/win.hpp> // CWindow
-#include <boost/microsoft/sdk/windows.hpp>
-#include <boost/microsoft/wtl/gdi.hpp> // CLogFont
+#include <pstade/apple/atl/win.hpp> // CWindow
+#include <pstade/apple/sdk/windows.hpp>
+#include <pstade/apple/wtl/gdi.hpp> // CLogFont
 #include <pstade/require.hpp>
 #include <pstade/tomato/diet/valid.hpp>
 #include "./logfont.hpp"

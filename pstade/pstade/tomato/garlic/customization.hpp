@@ -10,19 +10,19 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/microsoft/atl/coll_fwd.hpp> // CAtlArray/List
-#include <boost/microsoft/atl/config.hpp> // TEMPLATE_PARAMS/ARGS
-#include <boost/microsoft/atl/simpstr_fwd.hpp> // CSimpleStringT
-#include <boost/microsoft/wtl/misc.hpp> // CString
+#include <pstade/apple/atl/coll_fwd.hpp> // CAtlArray/List
+#include <pstade/apple/atl/config.hpp> // TEMPLATE_PARAMS/ARGS
+#include <pstade/apple/atl/simpstr_fwd.hpp> // CSimpleStringT
+#include <pstade/apple/wtl/misc.hpp> // CString
 #include <pstade/overload.hpp>
 
 
 // strings
 //
 
-template< BOOST_MICROSOFT_ATL_CSIMPLESTRINGT_TEMPLATE_PARAMS >
+template< PSTADE_APPLE_ATL_CSIMPLESTRINGT_TEMPLATE_PARAMS >
 void pstade_garlic_push_back(
-    ATL::CSimpleStringT< BOOST_MICROSOFT_ATL_CSIMPLESTRINGT_TEMPLATE_ARGS >& str,
+    ATL::CSimpleStringT< PSTADE_APPLE_ATL_CSIMPLESTRINGT_TEMPLATE_ARGS >& str,
     TCHAR ch, pstade::overload)
 {
     str.AppendChar(ch);
@@ -57,12 +57,12 @@ void pstade_garlic_push_back(
 }
 
 
-template< BOOST_MICROSOFT_ATL_CSIMPLEARRAY_TEMPLATE_PARAMS, class ValueT >
+template< PSTADE_APPLE_ATL_CSIMPLEARRAY_TEMPLATE_PARAMS, class ValueT >
 void pstade_garlic_push_back(
-    ATL::CSimpleArray< BOOST_MICROSOFT_ATL_CSIMPLEARRAY_TEMPLATE_ARGS >& arr,
+    ATL::CSimpleArray< PSTADE_APPLE_ATL_CSIMPLEARRAY_TEMPLATE_ARGS >& arr,
     const ValueT& val, pstade::overload)
 {
-#if !defined(BOOST_MICROSOFT_ATL_HAS_OLD_CSIMPLEARRAY)
+#if !defined(PSTADE_APPLE_ATL_HAS_OLD_CSIMPLEARRAY)
     arr.Add(val);
 #else
     ValueT val_(val);

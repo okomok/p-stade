@@ -9,7 +9,7 @@
 // msg_wm_create
 //
 template<
-    LRESULT (Derived::*func)(LPCREATESTRUCT),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)(LPCREATESTRUCT)
 >
 struct msg_wm_create
 {
@@ -19,10 +19,10 @@ struct msg_wm_create
 
         if (uMsg == WM_CREATE)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (LRESULT)(derived.*func)((LPCREATESTRUCT)lParam);
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -32,7 +32,7 @@ struct msg_wm_create
 // msg_wm_initdialog
 //
 template<
-    LRESULT (Derived::*func)(HWND,LPARAM),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)(HWND,LPARAM)
 >
 struct msg_wm_initdialog
 {
@@ -42,10 +42,10 @@ struct msg_wm_initdialog
 
         if (uMsg == WM_INITDIALOG)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (LRESULT)(derived.*func)((HWND)wParam, lParam);
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -55,7 +55,7 @@ struct msg_wm_initdialog
 // msg_wm_copydata
 //
 template<
-    LRESULT (Derived::*func)(HWND,PCOPYDATASTRUCT),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)(HWND,PCOPYDATASTRUCT)
 >
 struct msg_wm_copydata
 {
@@ -65,10 +65,10 @@ struct msg_wm_copydata
 
         if (uMsg == WM_COPYDATA)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (LRESULT)(derived.*func)((HWND)wParam, (PCOPYDATASTRUCT)lParam);
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -78,7 +78,7 @@ struct msg_wm_copydata
 // msg_wm_destroy
 //
 template<
-    void (Derived::*func)(),class BoolT = boost::mpl::true_
+    void (Derived::*func)()
 >
 struct msg_wm_destroy
 {
@@ -88,11 +88,11 @@ struct msg_wm_destroy
 
         if (uMsg == WM_DESTROY)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)();
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -102,7 +102,7 @@ struct msg_wm_destroy
 // msg_wm_move
 //
 template<
-    void (Derived::*func)(KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
+    void (Derived::*func)(KETCHUP_wtype_ns::CPoint)
 >
 struct msg_wm_move
 {
@@ -112,11 +112,11 @@ struct msg_wm_move
 
         if (uMsg == WM_MOVE)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)(KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -126,7 +126,7 @@ struct msg_wm_move
 // msg_wm_size
 //
 template<
-    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CSize),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CSize)
 >
 struct msg_wm_size
 {
@@ -136,11 +136,11 @@ struct msg_wm_size
 
         if (uMsg == WM_SIZE)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)wParam, KETCHUP_wtype_ns::CSize(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -150,7 +150,7 @@ struct msg_wm_size
 // msg_wm_activate
 //
 template<
-    void (Derived::*func)(UINT,BOOL,HWND),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,BOOL,HWND)
 >
 struct msg_wm_activate
 {
@@ -160,11 +160,11 @@ struct msg_wm_activate
 
         if (uMsg == WM_ACTIVATE)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)LOWORD(wParam), (BOOL)HIWORD(wParam), (HWND)lParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -174,7 +174,7 @@ struct msg_wm_activate
 // msg_wm_setfocus
 //
 template<
-    void (Derived::*func)(HWND),class BoolT = boost::mpl::true_
+    void (Derived::*func)(HWND)
 >
 struct msg_wm_setfocus
 {
@@ -184,11 +184,11 @@ struct msg_wm_setfocus
 
         if (uMsg == WM_SETFOCUS)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((HWND)wParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -198,7 +198,7 @@ struct msg_wm_setfocus
 // msg_wm_killfocus
 //
 template<
-    void (Derived::*func)(HWND),class BoolT = boost::mpl::true_
+    void (Derived::*func)(HWND)
 >
 struct msg_wm_killfocus
 {
@@ -208,11 +208,11 @@ struct msg_wm_killfocus
 
         if (uMsg == WM_KILLFOCUS)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((HWND)wParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -222,7 +222,7 @@ struct msg_wm_killfocus
 // msg_wm_enable
 //
 template<
-    void (Derived::*func)(BOOL),class BoolT = boost::mpl::true_
+    void (Derived::*func)(BOOL)
 >
 struct msg_wm_enable
 {
@@ -232,11 +232,11 @@ struct msg_wm_enable
 
         if (uMsg == WM_ENABLE)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((BOOL)wParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -246,7 +246,7 @@ struct msg_wm_enable
 // msg_wm_paint
 //
 template<
-    void (Derived::*func)(HDC),class BoolT = boost::mpl::true_
+    void (Derived::*func)(HDC)
 >
 struct msg_wm_paint
 {
@@ -256,11 +256,11 @@ struct msg_wm_paint
 
         if (uMsg == WM_PAINT)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((HDC)wParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -270,7 +270,7 @@ struct msg_wm_paint
 // msg_wm_close
 //
 template<
-    void (Derived::*func)(),class BoolT = boost::mpl::true_
+    void (Derived::*func)()
 >
 struct msg_wm_close
 {
@@ -280,11 +280,11 @@ struct msg_wm_close
 
         if (uMsg == WM_CLOSE)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)();
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -294,7 +294,7 @@ struct msg_wm_close
 // msg_wm_queryendsession
 //
 template<
-    LRESULT (Derived::*func)(UINT,UINT),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)(UINT,UINT)
 >
 struct msg_wm_queryendsession
 {
@@ -304,10 +304,10 @@ struct msg_wm_queryendsession
 
         if (uMsg == WM_QUERYENDSESSION)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (LRESULT)(derived.*func)((UINT)wParam, (UINT)lParam);
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -317,7 +317,7 @@ struct msg_wm_queryendsession
 // msg_wm_queryopen
 //
 template<
-    LRESULT (Derived::*func)(),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)()
 >
 struct msg_wm_queryopen
 {
@@ -327,10 +327,10 @@ struct msg_wm_queryopen
 
         if (uMsg == WM_QUERYOPEN)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (LRESULT)(derived.*func)();
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -340,7 +340,7 @@ struct msg_wm_queryopen
 // msg_wm_erasebkgnd
 //
 template<
-    LRESULT (Derived::*func)(HDC),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)(HDC)
 >
 struct msg_wm_erasebkgnd
 {
@@ -350,10 +350,10 @@ struct msg_wm_erasebkgnd
 
         if (uMsg == WM_ERASEBKGND)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (LRESULT)(derived.*func)((HDC)wParam);
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -363,7 +363,7 @@ struct msg_wm_erasebkgnd
 // msg_wm_syscolorchange
 //
 template<
-    void (Derived::*func)(),class BoolT = boost::mpl::true_
+    void (Derived::*func)()
 >
 struct msg_wm_syscolorchange
 {
@@ -373,11 +373,11 @@ struct msg_wm_syscolorchange
 
         if (uMsg == WM_SYSCOLORCHANGE)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)();
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -387,7 +387,7 @@ struct msg_wm_syscolorchange
 // msg_wm_endsession
 //
 template<
-    void (Derived::*func)(BOOL,UINT),class BoolT = boost::mpl::true_
+    void (Derived::*func)(BOOL,UINT)
 >
 struct msg_wm_endsession
 {
@@ -397,11 +397,11 @@ struct msg_wm_endsession
 
         if (uMsg == WM_ENDSESSION)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((BOOL)wParam, (UINT)lParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -411,7 +411,7 @@ struct msg_wm_endsession
 // msg_wm_showwindow
 //
 template<
-    void (Derived::*func)(BOOL,int),class BoolT = boost::mpl::true_
+    void (Derived::*func)(BOOL,int)
 >
 struct msg_wm_showwindow
 {
@@ -421,11 +421,11 @@ struct msg_wm_showwindow
 
         if (uMsg == WM_SHOWWINDOW)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((BOOL)wParam, (int)lParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -435,7 +435,7 @@ struct msg_wm_showwindow
 // msg_wm_ctlcoloredit
 //
 template<
-    LRESULT (Derived::*func)(HDC,HWND),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)(HDC,HWND)
 >
 struct msg_wm_ctlcoloredit
 {
@@ -445,10 +445,10 @@ struct msg_wm_ctlcoloredit
 
         if (uMsg == WM_CTLCOLOREDIT)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (LRESULT)(derived.*func)((HDC)wParam, (HWND)lParam);
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -458,7 +458,7 @@ struct msg_wm_ctlcoloredit
 // msg_wm_ctlcolorlistbox
 //
 template<
-    LRESULT (Derived::*func)(HDC,HWND),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)(HDC,HWND)
 >
 struct msg_wm_ctlcolorlistbox
 {
@@ -468,10 +468,10 @@ struct msg_wm_ctlcolorlistbox
 
         if (uMsg == WM_CTLCOLORLISTBOX)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (LRESULT)(derived.*func)((HDC)wParam, (HWND)lParam);
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -481,7 +481,7 @@ struct msg_wm_ctlcolorlistbox
 // msg_wm_ctlcolorbtn
 //
 template<
-    LRESULT (Derived::*func)(HDC,HWND),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)(HDC,HWND)
 >
 struct msg_wm_ctlcolorbtn
 {
@@ -491,10 +491,10 @@ struct msg_wm_ctlcolorbtn
 
         if (uMsg == WM_CTLCOLORBTN)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (LRESULT)(derived.*func)((HDC)wParam, (HWND)lParam);
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -504,7 +504,7 @@ struct msg_wm_ctlcolorbtn
 // msg_wm_ctlcolordlg
 //
 template<
-    LRESULT (Derived::*func)(HDC,HWND),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)(HDC,HWND)
 >
 struct msg_wm_ctlcolordlg
 {
@@ -514,10 +514,10 @@ struct msg_wm_ctlcolordlg
 
         if (uMsg == WM_CTLCOLORDLG)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (LRESULT)(derived.*func)((HDC)wParam, (HWND)lParam);
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -527,7 +527,7 @@ struct msg_wm_ctlcolordlg
 // msg_wm_ctlcolorscrollbar
 //
 template<
-    LRESULT (Derived::*func)(HDC,HWND),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)(HDC,HWND)
 >
 struct msg_wm_ctlcolorscrollbar
 {
@@ -537,10 +537,10 @@ struct msg_wm_ctlcolorscrollbar
 
         if (uMsg == WM_CTLCOLORSCROLLBAR)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (LRESULT)(derived.*func)((HDC)wParam, (HWND)lParam);
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -550,7 +550,7 @@ struct msg_wm_ctlcolorscrollbar
 // msg_wm_ctlcolorstatic
 //
 template<
-    LRESULT (Derived::*func)(HDC,HWND),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)(HDC,HWND)
 >
 struct msg_wm_ctlcolorstatic
 {
@@ -560,10 +560,10 @@ struct msg_wm_ctlcolorstatic
 
         if (uMsg == WM_CTLCOLORSTATIC)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (LRESULT)(derived.*func)((HDC)wParam, (HWND)lParam);
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -573,7 +573,7 @@ struct msg_wm_ctlcolorstatic
 // msg_wm_settingchange
 //
 template<
-    void (Derived::*func)(UINT,LPCTSTR),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,LPCTSTR)
 >
 struct msg_wm_settingchange
 {
@@ -583,11 +583,11 @@ struct msg_wm_settingchange
 
         if (uMsg == WM_SETTINGCHANGE)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)wParam, (LPCTSTR)lParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -597,7 +597,7 @@ struct msg_wm_settingchange
 // msg_wm_devmodechange
 //
 template<
-    void (Derived::*func)(LPCTSTR),class BoolT = boost::mpl::true_
+    void (Derived::*func)(LPCTSTR)
 >
 struct msg_wm_devmodechange
 {
@@ -607,11 +607,11 @@ struct msg_wm_devmodechange
 
         if (uMsg == WM_DEVMODECHANGE)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((LPCTSTR)lParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -621,7 +621,7 @@ struct msg_wm_devmodechange
 // msg_wm_activateapp
 //
 template<
-    void (Derived::*func)(BOOL,DWORD),class BoolT = boost::mpl::true_
+    void (Derived::*func)(BOOL,DWORD)
 >
 struct msg_wm_activateapp
 {
@@ -631,11 +631,11 @@ struct msg_wm_activateapp
 
         if (uMsg == WM_ACTIVATEAPP)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((BOOL)wParam, (DWORD)lParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -645,7 +645,7 @@ struct msg_wm_activateapp
 // msg_wm_fontchange
 //
 template<
-    void (Derived::*func)(),class BoolT = boost::mpl::true_
+    void (Derived::*func)()
 >
 struct msg_wm_fontchange
 {
@@ -655,11 +655,11 @@ struct msg_wm_fontchange
 
         if (uMsg == WM_FONTCHANGE)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)();
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -669,7 +669,7 @@ struct msg_wm_fontchange
 // msg_wm_timechange
 //
 template<
-    void (Derived::*func)(),class BoolT = boost::mpl::true_
+    void (Derived::*func)()
 >
 struct msg_wm_timechange
 {
@@ -679,11 +679,11 @@ struct msg_wm_timechange
 
         if (uMsg == WM_TIMECHANGE)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)();
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -693,7 +693,7 @@ struct msg_wm_timechange
 // msg_wm_cancelmode
 //
 template<
-    void (Derived::*func)(),class BoolT = boost::mpl::true_
+    void (Derived::*func)()
 >
 struct msg_wm_cancelmode
 {
@@ -703,11 +703,11 @@ struct msg_wm_cancelmode
 
         if (uMsg == WM_CANCELMODE)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)();
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -717,7 +717,7 @@ struct msg_wm_cancelmode
 // msg_wm_setcursor
 //
 template<
-    LRESULT (Derived::*func)(HWND,UINT,UINT),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)(HWND,UINT,UINT)
 >
 struct msg_wm_setcursor
 {
@@ -727,10 +727,10 @@ struct msg_wm_setcursor
 
         if (uMsg == WM_SETCURSOR)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (LRESULT)(derived.*func)((HWND)wParam, (UINT)LOWORD(lParam), (UINT)HIWORD(lParam));
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -740,7 +740,7 @@ struct msg_wm_setcursor
 // msg_wm_mouseactivate
 //
 template<
-    LRESULT (Derived::*func)(HWND,UINT,UINT),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)(HWND,UINT,UINT)
 >
 struct msg_wm_mouseactivate
 {
@@ -750,10 +750,10 @@ struct msg_wm_mouseactivate
 
         if (uMsg == WM_MOUSEACTIVATE)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (LRESULT)(derived.*func)((HWND)wParam, (UINT)LOWORD(lParam), (UINT)HIWORD(lParam));
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -763,7 +763,7 @@ struct msg_wm_mouseactivate
 // msg_wm_childactivate
 //
 template<
-    void (Derived::*func)(),class BoolT = boost::mpl::true_
+    void (Derived::*func)()
 >
 struct msg_wm_childactivate
 {
@@ -773,11 +773,11 @@ struct msg_wm_childactivate
 
         if (uMsg == WM_CHILDACTIVATE)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)();
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -787,7 +787,7 @@ struct msg_wm_childactivate
 // msg_wm_getminmaxinfo
 //
 template<
-    void (Derived::*func)(LPMINMAXINFO),class BoolT = boost::mpl::true_
+    void (Derived::*func)(LPMINMAXINFO)
 >
 struct msg_wm_getminmaxinfo
 {
@@ -797,11 +797,11 @@ struct msg_wm_getminmaxinfo
 
         if (uMsg == WM_GETMINMAXINFO)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((LPMINMAXINFO)lParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -811,7 +811,7 @@ struct msg_wm_getminmaxinfo
 // msg_wm_iconerasebkgnd
 //
 template<
-    void (Derived::*func)(HDC),class BoolT = boost::mpl::true_
+    void (Derived::*func)(HDC)
 >
 struct msg_wm_iconerasebkgnd
 {
@@ -821,11 +821,11 @@ struct msg_wm_iconerasebkgnd
 
         if (uMsg == WM_ICONERASEBKGND)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((HDC)wParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -835,7 +835,7 @@ struct msg_wm_iconerasebkgnd
 // msg_wm_spoolerstatus
 //
 template<
-    void (Derived::*func)(UINT,UINT),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,UINT)
 >
 struct msg_wm_spoolerstatus
 {
@@ -845,11 +845,11 @@ struct msg_wm_spoolerstatus
 
         if (uMsg == WM_SPOOLERSTATUS)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)wParam, (UINT)LOWORD(lParam));
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -859,7 +859,7 @@ struct msg_wm_spoolerstatus
 // msg_wm_drawitem
 //
 template<
-    void (Derived::*func)(UINT,LPDRAWITEMSTRUCT),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,LPDRAWITEMSTRUCT)
 >
 struct msg_wm_drawitem
 {
@@ -869,11 +869,11 @@ struct msg_wm_drawitem
 
         if (uMsg == WM_DRAWITEM)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)wParam, (LPDRAWITEMSTRUCT)lParam);
             lResult = TRUE;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -883,7 +883,7 @@ struct msg_wm_drawitem
 // msg_wm_measureitem
 //
 template<
-    void (Derived::*func)(UINT,LPMEASUREITEMSTRUCT),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,LPMEASUREITEMSTRUCT)
 >
 struct msg_wm_measureitem
 {
@@ -893,11 +893,11 @@ struct msg_wm_measureitem
 
         if (uMsg == WM_MEASUREITEM)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)wParam, (LPMEASUREITEMSTRUCT)lParam);
             lResult = TRUE;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -907,7 +907,7 @@ struct msg_wm_measureitem
 // msg_wm_deleteitem
 //
 template<
-    void (Derived::*func)(UINT,LPDELETEITEMSTRUCT),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,LPDELETEITEMSTRUCT)
 >
 struct msg_wm_deleteitem
 {
@@ -917,11 +917,11 @@ struct msg_wm_deleteitem
 
         if (uMsg == WM_DELETEITEM)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)wParam, (LPDELETEITEMSTRUCT)lParam);
             lResult = TRUE;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -931,7 +931,7 @@ struct msg_wm_deleteitem
 // msg_wm_chartoitem
 //
 template<
-    LRESULT (Derived::*func)(UINT,UINT,HWND),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)(UINT,UINT,HWND)
 >
 struct msg_wm_chartoitem
 {
@@ -941,10 +941,10 @@ struct msg_wm_chartoitem
 
         if (uMsg == WM_CHARTOITEM)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (LRESULT)(derived.*func)((UINT)LOWORD(wParam), (UINT)HIWORD(wParam), (HWND)lParam);
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -954,7 +954,7 @@ struct msg_wm_chartoitem
 // msg_wm_vkeytoitem
 //
 template<
-    LRESULT (Derived::*func)(UINT,UINT,HWND),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)(UINT,UINT,HWND)
 >
 struct msg_wm_vkeytoitem
 {
@@ -964,10 +964,10 @@ struct msg_wm_vkeytoitem
 
         if (uMsg == WM_VKEYTOITEM)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (LRESULT)(derived.*func)((UINT)LOWORD(wParam), (UINT)HIWORD(wParam), (HWND)lParam);
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -977,7 +977,7 @@ struct msg_wm_vkeytoitem
 // msg_wm_querydragicon
 //
 template<
-    LRESULT (Derived::*func)(),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)()
 >
 struct msg_wm_querydragicon
 {
@@ -987,10 +987,10 @@ struct msg_wm_querydragicon
 
         if (uMsg == WM_QUERYDRAGICON)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (LRESULT)(derived.*func)();
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -1000,7 +1000,7 @@ struct msg_wm_querydragicon
 // msg_wm_compareitem
 //
 template<
-    LRESULT (Derived::*func)(UINT,LPCOMPAREITEMSTRUCT),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)(UINT,LPCOMPAREITEMSTRUCT)
 >
 struct msg_wm_compareitem
 {
@@ -1010,10 +1010,10 @@ struct msg_wm_compareitem
 
         if (uMsg == WM_COMPAREITEM)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (LRESULT)(derived.*func)((UINT)wParam, (LPCOMPAREITEMSTRUCT)lParam);
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -1023,7 +1023,7 @@ struct msg_wm_compareitem
 // msg_wm_compacting
 //
 template<
-    void (Derived::*func)(UINT),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT)
 >
 struct msg_wm_compacting
 {
@@ -1033,11 +1033,11 @@ struct msg_wm_compacting
 
         if (uMsg == WM_COMPACTING)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)wParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -1047,7 +1047,7 @@ struct msg_wm_compacting
 // msg_wm_nccreate
 //
 template<
-    LRESULT (Derived::*func)(LPCREATESTRUCT),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)(LPCREATESTRUCT)
 >
 struct msg_wm_nccreate
 {
@@ -1057,10 +1057,10 @@ struct msg_wm_nccreate
 
         if (uMsg == WM_NCCREATE)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (LRESULT)(derived.*func)((LPCREATESTRUCT)lParam);
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -1070,7 +1070,7 @@ struct msg_wm_nccreate
 // msg_wm_ncdestroy
 //
 template<
-    void (Derived::*func)(),class BoolT = boost::mpl::true_
+    void (Derived::*func)()
 >
 struct msg_wm_ncdestroy
 {
@@ -1080,11 +1080,11 @@ struct msg_wm_ncdestroy
 
         if (uMsg == WM_NCDESTROY)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)();
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -1094,7 +1094,7 @@ struct msg_wm_ncdestroy
 // msg_wm_nccalcsize
 //
 template<
-    LRESULT (Derived::*func)(BOOL,LPARAM),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)(BOOL,LPARAM)
 >
 struct msg_wm_nccalcsize
 {
@@ -1104,10 +1104,10 @@ struct msg_wm_nccalcsize
 
         if (uMsg == WM_NCCALCSIZE)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (derived.*func)((BOOL)wParam, lParam);
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -1117,7 +1117,7 @@ struct msg_wm_nccalcsize
 // msg_wm_nchittest
 //
 template<
-    LRESULT (Derived::*func)(KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)(KETCHUP_wtype_ns::CPoint)
 >
 struct msg_wm_nchittest
 {
@@ -1127,10 +1127,10 @@ struct msg_wm_nchittest
 
         if (uMsg == WM_NCHITTEST)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (LRESULT)(derived.*func)(KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -1140,7 +1140,7 @@ struct msg_wm_nchittest
 // msg_wm_ncpaint
 //
 template<
-    void (Derived::*func)(HRGN),class BoolT = boost::mpl::true_
+    void (Derived::*func)(HRGN)
 >
 struct msg_wm_ncpaint
 {
@@ -1150,11 +1150,11 @@ struct msg_wm_ncpaint
 
         if (uMsg == WM_NCPAINT)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((HRGN)wParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -1164,7 +1164,7 @@ struct msg_wm_ncpaint
 // msg_wm_ncactivate
 //
 template<
-    LRESULT (Derived::*func)(BOOL),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)(BOOL)
 >
 struct msg_wm_ncactivate
 {
@@ -1174,10 +1174,10 @@ struct msg_wm_ncactivate
 
         if (uMsg == WM_NCACTIVATE)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (LRESULT)(derived.*func)((BOOL)wParam);
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -1187,7 +1187,7 @@ struct msg_wm_ncactivate
 // msg_wm_getdlgcode
 //
 template<
-    LRESULT (Derived::*func)(LPMSG),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)(LPMSG)
 >
 struct msg_wm_getdlgcode
 {
@@ -1197,10 +1197,10 @@ struct msg_wm_getdlgcode
 
         if (uMsg == WM_GETDLGCODE)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (LRESULT)(derived.*func)((LPMSG)lParam);
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -1210,7 +1210,7 @@ struct msg_wm_getdlgcode
 // msg_wm_ncmousemove
 //
 template<
-    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint)
 >
 struct msg_wm_ncmousemove
 {
@@ -1220,11 +1220,11 @@ struct msg_wm_ncmousemove
 
         if (uMsg == WM_NCMOUSEMOVE)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)wParam, KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -1234,7 +1234,7 @@ struct msg_wm_ncmousemove
 // msg_wm_nclbuttondown
 //
 template<
-    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint)
 >
 struct msg_wm_nclbuttondown
 {
@@ -1244,11 +1244,11 @@ struct msg_wm_nclbuttondown
 
         if (uMsg == WM_NCLBUTTONDOWN)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)wParam, KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -1258,7 +1258,7 @@ struct msg_wm_nclbuttondown
 // msg_wm_nclbuttonup
 //
 template<
-    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint)
 >
 struct msg_wm_nclbuttonup
 {
@@ -1268,11 +1268,11 @@ struct msg_wm_nclbuttonup
 
         if (uMsg == WM_NCLBUTTONUP)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)wParam, KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -1282,7 +1282,7 @@ struct msg_wm_nclbuttonup
 // msg_wm_nclbuttondblclk
 //
 template<
-    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint)
 >
 struct msg_wm_nclbuttondblclk
 {
@@ -1292,11 +1292,11 @@ struct msg_wm_nclbuttondblclk
 
         if (uMsg == WM_NCLBUTTONDBLCLK)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)wParam, KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -1306,7 +1306,7 @@ struct msg_wm_nclbuttondblclk
 // msg_wm_ncrbuttondown
 //
 template<
-    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint)
 >
 struct msg_wm_ncrbuttondown
 {
@@ -1316,11 +1316,11 @@ struct msg_wm_ncrbuttondown
 
         if (uMsg == WM_NCRBUTTONDOWN)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)wParam, KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -1330,7 +1330,7 @@ struct msg_wm_ncrbuttondown
 // msg_wm_ncrbuttonup
 //
 template<
-    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint)
 >
 struct msg_wm_ncrbuttonup
 {
@@ -1340,11 +1340,11 @@ struct msg_wm_ncrbuttonup
 
         if (uMsg == WM_NCRBUTTONUP)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)wParam, KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -1354,7 +1354,7 @@ struct msg_wm_ncrbuttonup
 // msg_wm_ncrbuttondblclk
 //
 template<
-    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint)
 >
 struct msg_wm_ncrbuttondblclk
 {
@@ -1364,11 +1364,11 @@ struct msg_wm_ncrbuttondblclk
 
         if (uMsg == WM_NCRBUTTONDBLCLK)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)wParam, KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -1378,7 +1378,7 @@ struct msg_wm_ncrbuttondblclk
 // msg_wm_ncmbuttondown
 //
 template<
-    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint)
 >
 struct msg_wm_ncmbuttondown
 {
@@ -1388,11 +1388,11 @@ struct msg_wm_ncmbuttondown
 
         if (uMsg == WM_NCMBUTTONDOWN)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)wParam, KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -1402,7 +1402,7 @@ struct msg_wm_ncmbuttondown
 // msg_wm_ncmbuttonup
 //
 template<
-    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint)
 >
 struct msg_wm_ncmbuttonup
 {
@@ -1412,11 +1412,11 @@ struct msg_wm_ncmbuttonup
 
         if (uMsg == WM_NCMBUTTONUP)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)wParam, KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -1426,7 +1426,7 @@ struct msg_wm_ncmbuttonup
 // msg_wm_ncmbuttondblclk
 //
 template<
-    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint)
 >
 struct msg_wm_ncmbuttondblclk
 {
@@ -1436,11 +1436,11 @@ struct msg_wm_ncmbuttondblclk
 
         if (uMsg == WM_NCMBUTTONDBLCLK)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)wParam, KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -1450,7 +1450,7 @@ struct msg_wm_ncmbuttondblclk
 // msg_wm_keydown
 //
 template<
-    void (Derived::*func)(TCHAR,UINT,UINT),class BoolT = boost::mpl::true_
+    void (Derived::*func)(TCHAR,UINT,UINT)
 >
 struct msg_wm_keydown
 {
@@ -1460,11 +1460,11 @@ struct msg_wm_keydown
 
         if (uMsg == WM_KEYDOWN)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((TCHAR)wParam, (UINT)lParam & 0xFFFF, (UINT)((lParam & 0xFFFF0000) >> 16));
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -1474,7 +1474,7 @@ struct msg_wm_keydown
 // msg_wm_keyup
 //
 template<
-    void (Derived::*func)(TCHAR,UINT,UINT),class BoolT = boost::mpl::true_
+    void (Derived::*func)(TCHAR,UINT,UINT)
 >
 struct msg_wm_keyup
 {
@@ -1484,11 +1484,11 @@ struct msg_wm_keyup
 
         if (uMsg == WM_KEYUP)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((TCHAR)wParam, (UINT)lParam & 0xFFFF, (UINT)((lParam & 0xFFFF0000) >> 16));
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -1498,7 +1498,7 @@ struct msg_wm_keyup
 // msg_wm_char
 //
 template<
-    void (Derived::*func)(TCHAR,UINT,UINT),class BoolT = boost::mpl::true_
+    void (Derived::*func)(TCHAR,UINT,UINT)
 >
 struct msg_wm_char
 {
@@ -1508,11 +1508,11 @@ struct msg_wm_char
 
         if (uMsg == WM_CHAR)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((TCHAR)wParam, (UINT)lParam & 0xFFFF, (UINT)((lParam & 0xFFFF0000) >> 16));
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -1522,7 +1522,7 @@ struct msg_wm_char
 // msg_wm_deadchar
 //
 template<
-    void (Derived::*func)(TCHAR,UINT,UINT),class BoolT = boost::mpl::true_
+    void (Derived::*func)(TCHAR,UINT,UINT)
 >
 struct msg_wm_deadchar
 {
@@ -1532,11 +1532,11 @@ struct msg_wm_deadchar
 
         if (uMsg == WM_DEADCHAR)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((TCHAR)wParam, (UINT)lParam & 0xFFFF, (UINT)((lParam & 0xFFFF0000) >> 16));
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -1546,7 +1546,7 @@ struct msg_wm_deadchar
 // msg_wm_syskeydown
 //
 template<
-    void (Derived::*func)(TCHAR,UINT,UINT),class BoolT = boost::mpl::true_
+    void (Derived::*func)(TCHAR,UINT,UINT)
 >
 struct msg_wm_syskeydown
 {
@@ -1556,11 +1556,11 @@ struct msg_wm_syskeydown
 
         if (uMsg == WM_SYSKEYDOWN)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((TCHAR)wParam, (UINT)lParam & 0xFFFF, (UINT)((lParam & 0xFFFF0000) >> 16));
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -1570,7 +1570,7 @@ struct msg_wm_syskeydown
 // msg_wm_syskeyup
 //
 template<
-    void (Derived::*func)(TCHAR,UINT,UINT),class BoolT = boost::mpl::true_
+    void (Derived::*func)(TCHAR,UINT,UINT)
 >
 struct msg_wm_syskeyup
 {
@@ -1580,11 +1580,11 @@ struct msg_wm_syskeyup
 
         if (uMsg == WM_SYSKEYUP)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((TCHAR)wParam, (UINT)lParam & 0xFFFF, (UINT)((lParam & 0xFFFF0000) >> 16));
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -1594,7 +1594,7 @@ struct msg_wm_syskeyup
 // msg_wm_syschar
 //
 template<
-    void (Derived::*func)(TCHAR,UINT,UINT),class BoolT = boost::mpl::true_
+    void (Derived::*func)(TCHAR,UINT,UINT)
 >
 struct msg_wm_syschar
 {
@@ -1604,11 +1604,11 @@ struct msg_wm_syschar
 
         if (uMsg == WM_SYSCHAR)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((TCHAR)wParam, (UINT)lParam & 0xFFFF, (UINT)((lParam & 0xFFFF0000) >> 16));
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -1618,7 +1618,7 @@ struct msg_wm_syschar
 // msg_wm_sysdeadchar
 //
 template<
-    void (Derived::*func)(TCHAR,UINT,UINT),class BoolT = boost::mpl::true_
+    void (Derived::*func)(TCHAR,UINT,UINT)
 >
 struct msg_wm_sysdeadchar
 {
@@ -1628,11 +1628,11 @@ struct msg_wm_sysdeadchar
 
         if (uMsg == WM_SYSDEADCHAR)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((TCHAR)wParam, (UINT)lParam & 0xFFFF, (UINT)((lParam & 0xFFFF0000) >> 16));
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -1642,7 +1642,7 @@ struct msg_wm_sysdeadchar
 // msg_wm_syscommand
 //
 template<
-    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint)
 >
 struct msg_wm_syscommand
 {
@@ -1652,11 +1652,11 @@ struct msg_wm_syscommand
 
         if (uMsg == WM_SYSCOMMAND)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)wParam, KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -1666,7 +1666,7 @@ struct msg_wm_syscommand
 // msg_wm_tcard
 //
 template<
-    void (Derived::*func)(UINT,DWORD),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,DWORD)
 >
 struct msg_wm_tcard
 {
@@ -1676,11 +1676,11 @@ struct msg_wm_tcard
 
         if (uMsg == WM_TCARD)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)wParam, (DWORD)lParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -1690,7 +1690,7 @@ struct msg_wm_tcard
 // msg_wm_timer
 //
 template<
-    void (Derived::*func)(UINT,TIMERPROC),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,TIMERPROC)
 >
 struct msg_wm_timer
 {
@@ -1700,11 +1700,11 @@ struct msg_wm_timer
 
         if (uMsg == WM_TIMER)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)wParam, (TIMERPROC)lParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -1714,7 +1714,7 @@ struct msg_wm_timer
 // msg_wm_hscroll
 //
 template<
-    void (Derived::*func)(int,short,HWND),class BoolT = boost::mpl::true_
+    void (Derived::*func)(int,short,HWND)
 >
 struct msg_wm_hscroll
 {
@@ -1724,11 +1724,11 @@ struct msg_wm_hscroll
 
         if (uMsg == WM_HSCROLL)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((int)LOWORD(wParam), (short)HIWORD(wParam), (HWND)lParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -1738,7 +1738,7 @@ struct msg_wm_hscroll
 // msg_wm_vscroll
 //
 template<
-    void (Derived::*func)(int,short,HWND),class BoolT = boost::mpl::true_
+    void (Derived::*func)(int,short,HWND)
 >
 struct msg_wm_vscroll
 {
@@ -1748,11 +1748,11 @@ struct msg_wm_vscroll
 
         if (uMsg == WM_VSCROLL)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((int)LOWORD(wParam), (short)HIWORD(wParam), (HWND)lParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -1762,7 +1762,7 @@ struct msg_wm_vscroll
 // msg_wm_initmenu
 //
 template<
-    void (Derived::*func)(HMENU),class BoolT = boost::mpl::true_
+    void (Derived::*func)(HMENU)
 >
 struct msg_wm_initmenu
 {
@@ -1772,11 +1772,11 @@ struct msg_wm_initmenu
 
         if (uMsg == WM_INITMENU)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((HMENU)wParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -1786,7 +1786,7 @@ struct msg_wm_initmenu
 // msg_wm_initmenupopup
 //
 template<
-    void (Derived::*func)(HMENU,UINT,BOOL),class BoolT = boost::mpl::true_
+    void (Derived::*func)(HMENU,UINT,BOOL)
 >
 struct msg_wm_initmenupopup
 {
@@ -1796,11 +1796,11 @@ struct msg_wm_initmenupopup
 
         if (uMsg == WM_INITMENUPOPUP)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((HMENU)wParam, (UINT)LOWORD(lParam), (BOOL)HIWORD(lParam));
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -1810,7 +1810,7 @@ struct msg_wm_initmenupopup
 // msg_wm_menuselect
 //
 template<
-    void (Derived::*func)(UINT,UINT,HMENU),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,UINT,HMENU)
 >
 struct msg_wm_menuselect
 {
@@ -1820,11 +1820,11 @@ struct msg_wm_menuselect
 
         if (uMsg == WM_MENUSELECT)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)LOWORD(wParam), (UINT)HIWORD(wParam), (HMENU)lParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -1834,7 +1834,7 @@ struct msg_wm_menuselect
 // msg_wm_menuchar
 //
 template<
-    LRESULT (Derived::*func)(TCHAR,UINT,HMENU),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)(TCHAR,UINT,HMENU)
 >
 struct msg_wm_menuchar
 {
@@ -1844,10 +1844,10 @@ struct msg_wm_menuchar
 
         if (uMsg == WM_MENUCHAR)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (derived.*func)((TCHAR)LOWORD(wParam), (UINT)HIWORD(wParam), (HMENU)lParam);
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -1857,7 +1857,7 @@ struct msg_wm_menuchar
 // msg_wm_notify
 //
 template<
-    LRESULT (Derived::*func)(int,LPNMHDR),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)(int,LPNMHDR)
 >
 struct msg_wm_notify
 {
@@ -1867,10 +1867,10 @@ struct msg_wm_notify
 
         if (uMsg == WM_NOTIFY)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (derived.*func)((int)wParam, (LPNMHDR)lParam);
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -1880,7 +1880,7 @@ struct msg_wm_notify
 // msg_wm_enteridle
 //
 template<
-    void (Derived::*func)(UINT,HWND),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,HWND)
 >
 struct msg_wm_enteridle
 {
@@ -1890,11 +1890,11 @@ struct msg_wm_enteridle
 
         if (uMsg == WM_ENTERIDLE)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)wParam, (HWND)lParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -1904,7 +1904,7 @@ struct msg_wm_enteridle
 // msg_wm_mousemove
 //
 template<
-    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint)
 >
 struct msg_wm_mousemove
 {
@@ -1914,11 +1914,11 @@ struct msg_wm_mousemove
 
         if (uMsg == WM_MOUSEMOVE)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)wParam, KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -1928,7 +1928,7 @@ struct msg_wm_mousemove
 // msg_wm_mousewheel
 //
 template<
-    LRESULT (Derived::*func)(UINT,short,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)(UINT,short,KETCHUP_wtype_ns::CPoint)
 >
 struct msg_wm_mousewheel
 {
@@ -1938,10 +1938,10 @@ struct msg_wm_mousewheel
 
         if (uMsg == WM_MOUSEWHEEL)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (LRESULT)(derived.*func)((UINT)LOWORD(wParam), (short)HIWORD(wParam), KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -1951,7 +1951,7 @@ struct msg_wm_mousewheel
 // msg_wm_lbuttondown
 //
 template<
-    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint)
 >
 struct msg_wm_lbuttondown
 {
@@ -1961,11 +1961,11 @@ struct msg_wm_lbuttondown
 
         if (uMsg == WM_LBUTTONDOWN)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)wParam, KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -1975,7 +1975,7 @@ struct msg_wm_lbuttondown
 // msg_wm_lbuttonup
 //
 template<
-    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint)
 >
 struct msg_wm_lbuttonup
 {
@@ -1985,11 +1985,11 @@ struct msg_wm_lbuttonup
 
         if (uMsg == WM_LBUTTONUP)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)wParam, KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -1999,7 +1999,7 @@ struct msg_wm_lbuttonup
 // msg_wm_lbuttondblclk
 //
 template<
-    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint)
 >
 struct msg_wm_lbuttondblclk
 {
@@ -2009,11 +2009,11 @@ struct msg_wm_lbuttondblclk
 
         if (uMsg == WM_LBUTTONDBLCLK)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)wParam, KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -2023,7 +2023,7 @@ struct msg_wm_lbuttondblclk
 // msg_wm_rbuttondown
 //
 template<
-    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint)
 >
 struct msg_wm_rbuttondown
 {
@@ -2033,11 +2033,11 @@ struct msg_wm_rbuttondown
 
         if (uMsg == WM_RBUTTONDOWN)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)wParam, KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -2047,7 +2047,7 @@ struct msg_wm_rbuttondown
 // msg_wm_rbuttonup
 //
 template<
-    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint)
 >
 struct msg_wm_rbuttonup
 {
@@ -2057,11 +2057,11 @@ struct msg_wm_rbuttonup
 
         if (uMsg == WM_RBUTTONUP)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)wParam, KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -2071,7 +2071,7 @@ struct msg_wm_rbuttonup
 // msg_wm_rbuttondblclk
 //
 template<
-    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint)
 >
 struct msg_wm_rbuttondblclk
 {
@@ -2081,11 +2081,11 @@ struct msg_wm_rbuttondblclk
 
         if (uMsg == WM_RBUTTONDBLCLK)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)wParam, KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -2095,7 +2095,7 @@ struct msg_wm_rbuttondblclk
 // msg_wm_mbuttondown
 //
 template<
-    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint)
 >
 struct msg_wm_mbuttondown
 {
@@ -2105,11 +2105,11 @@ struct msg_wm_mbuttondown
 
         if (uMsg == WM_MBUTTONDOWN)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)wParam, KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -2119,7 +2119,7 @@ struct msg_wm_mbuttondown
 // msg_wm_mbuttonup
 //
 template<
-    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint)
 >
 struct msg_wm_mbuttonup
 {
@@ -2129,11 +2129,11 @@ struct msg_wm_mbuttonup
 
         if (uMsg == WM_MBUTTONUP)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)wParam, KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -2143,7 +2143,7 @@ struct msg_wm_mbuttonup
 // msg_wm_mbuttondblclk
 //
 template<
-    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CPoint)
 >
 struct msg_wm_mbuttondblclk
 {
@@ -2153,11 +2153,11 @@ struct msg_wm_mbuttondblclk
 
         if (uMsg == WM_MBUTTONDBLCLK)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)wParam, KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -2167,7 +2167,7 @@ struct msg_wm_mbuttondblclk
 // msg_wm_parentnotify
 //
 template<
-    void (Derived::*func)(UINT,UINT,LPARAM),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,UINT,LPARAM)
 >
 struct msg_wm_parentnotify
 {
@@ -2177,11 +2177,11 @@ struct msg_wm_parentnotify
 
         if (uMsg == WM_PARENTNOTIFY)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)LOWORD(wParam), (UINT)HIWORD(wParam), lParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -2191,7 +2191,7 @@ struct msg_wm_parentnotify
 // msg_wm_mdiactivate
 //
 template<
-    void (Derived::*func)(HWND,HWND),class BoolT = boost::mpl::true_
+    void (Derived::*func)(HWND,HWND)
 >
 struct msg_wm_mdiactivate
 {
@@ -2201,11 +2201,11 @@ struct msg_wm_mdiactivate
 
         if (uMsg == WM_MDIACTIVATE)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((HWND)wParam, (HWND)lParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -2215,7 +2215,7 @@ struct msg_wm_mdiactivate
 // msg_wm_renderformat
 //
 template<
-    void (Derived::*func)(UINT),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT)
 >
 struct msg_wm_renderformat
 {
@@ -2225,11 +2225,11 @@ struct msg_wm_renderformat
 
         if (uMsg == WM_RENDERFORMAT)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)wParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -2239,7 +2239,7 @@ struct msg_wm_renderformat
 // msg_wm_renderallformats
 //
 template<
-    void (Derived::*func)(),class BoolT = boost::mpl::true_
+    void (Derived::*func)()
 >
 struct msg_wm_renderallformats
 {
@@ -2249,11 +2249,11 @@ struct msg_wm_renderallformats
 
         if (uMsg == WM_RENDERALLFORMATS)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)();
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -2263,7 +2263,7 @@ struct msg_wm_renderallformats
 // msg_wm_destroyclipboard
 //
 template<
-    void (Derived::*func)(),class BoolT = boost::mpl::true_
+    void (Derived::*func)()
 >
 struct msg_wm_destroyclipboard
 {
@@ -2273,11 +2273,11 @@ struct msg_wm_destroyclipboard
 
         if (uMsg == WM_DESTROYCLIPBOARD)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)();
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -2287,7 +2287,7 @@ struct msg_wm_destroyclipboard
 // msg_wm_drawclipboard
 //
 template<
-    void (Derived::*func)(),class BoolT = boost::mpl::true_
+    void (Derived::*func)()
 >
 struct msg_wm_drawclipboard
 {
@@ -2297,11 +2297,11 @@ struct msg_wm_drawclipboard
 
         if (uMsg == WM_DRAWCLIPBOARD)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)();
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -2311,7 +2311,7 @@ struct msg_wm_drawclipboard
 // msg_wm_paintclipboard
 //
 template<
-    void (Derived::*func)(HWND,const LPPAINTSTRUCT),class BoolT = boost::mpl::true_
+    void (Derived::*func)(HWND,const LPPAINTSTRUCT)
 >
 struct msg_wm_paintclipboard
 {
@@ -2321,12 +2321,12 @@ struct msg_wm_paintclipboard
 
         if (uMsg == WM_PAINTCLIPBOARD)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((HWND)wParam, (const LPPAINTSTRUCT)::GlobalLock((HGLOBAL)lParam));
             ::GlobalUnlock((HGLOBAL)lParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -2336,7 +2336,7 @@ struct msg_wm_paintclipboard
 // msg_wm_vscrollclipboard
 //
 template<
-    void (Derived::*func)(HWND,UINT,UINT),class BoolT = boost::mpl::true_
+    void (Derived::*func)(HWND,UINT,UINT)
 >
 struct msg_wm_vscrollclipboard
 {
@@ -2346,11 +2346,11 @@ struct msg_wm_vscrollclipboard
 
         if (uMsg == WM_VSCROLLCLIPBOARD)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((HWND)wParam, (UINT)LOWORD(lParam), (UINT)HIWORD(lParam));
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -2360,7 +2360,7 @@ struct msg_wm_vscrollclipboard
 // msg_wm_contextmenu
 //
 template<
-    void (Derived::*func)(HWND,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
+    void (Derived::*func)(HWND,KETCHUP_wtype_ns::CPoint)
 >
 struct msg_wm_contextmenu
 {
@@ -2370,11 +2370,11 @@ struct msg_wm_contextmenu
 
         if (uMsg == WM_CONTEXTMENU)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((HWND)wParam, KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -2384,7 +2384,7 @@ struct msg_wm_contextmenu
 // msg_wm_sizeclipboard
 //
 template<
-    void (Derived::*func)(HWND,const LPRECT),class BoolT = boost::mpl::true_
+    void (Derived::*func)(HWND,const LPRECT)
 >
 struct msg_wm_sizeclipboard
 {
@@ -2394,12 +2394,12 @@ struct msg_wm_sizeclipboard
 
         if (uMsg == WM_SIZECLIPBOARD)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((HWND)wParam, (const LPRECT)::GlobalLock((HGLOBAL)lParam));
             ::GlobalUnlock((HGLOBAL)lParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -2409,7 +2409,7 @@ struct msg_wm_sizeclipboard
 // msg_wm_askcbformatname
 //
 template<
-    void (Derived::*func)(DWORD,LPTSTR),class BoolT = boost::mpl::true_
+    void (Derived::*func)(DWORD,LPTSTR)
 >
 struct msg_wm_askcbformatname
 {
@@ -2419,11 +2419,11 @@ struct msg_wm_askcbformatname
 
         if (uMsg == WM_ASKCBFORMATNAME)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((DWORD)wParam, (LPTSTR)lParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -2433,7 +2433,7 @@ struct msg_wm_askcbformatname
 // msg_wm_changecbchain
 //
 template<
-    void (Derived::*func)(HWND,HWND),class BoolT = boost::mpl::true_
+    void (Derived::*func)(HWND,HWND)
 >
 struct msg_wm_changecbchain
 {
@@ -2443,11 +2443,11 @@ struct msg_wm_changecbchain
 
         if (uMsg == WM_CHANGECBCHAIN)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((HWND)wParam, (HWND)lParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -2457,7 +2457,7 @@ struct msg_wm_changecbchain
 // msg_wm_hscrollclipboard
 //
 template<
-    void (Derived::*func)(HWND,UINT,UINT),class BoolT = boost::mpl::true_
+    void (Derived::*func)(HWND,UINT,UINT)
 >
 struct msg_wm_hscrollclipboard
 {
@@ -2467,11 +2467,11 @@ struct msg_wm_hscrollclipboard
 
         if (uMsg == WM_HSCROLLCLIPBOARD)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((HWND)wParam, (UINT)LOWORD(lParam), (UINT)HIWORD(lParam));
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -2481,7 +2481,7 @@ struct msg_wm_hscrollclipboard
 // msg_wm_querynewpalette
 //
 template<
-    LRESULT (Derived::*func)(),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)()
 >
 struct msg_wm_querynewpalette
 {
@@ -2491,10 +2491,10 @@ struct msg_wm_querynewpalette
 
         if (uMsg == WM_QUERYNEWPALETTE)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (LRESULT)(derived.*func)();
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -2504,7 +2504,7 @@ struct msg_wm_querynewpalette
 // msg_wm_palettechanged
 //
 template<
-    void (Derived::*func)(HWND),class BoolT = boost::mpl::true_
+    void (Derived::*func)(HWND)
 >
 struct msg_wm_palettechanged
 {
@@ -2514,11 +2514,11 @@ struct msg_wm_palettechanged
 
         if (uMsg == WM_PALETTECHANGED)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((HWND)wParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -2528,7 +2528,7 @@ struct msg_wm_palettechanged
 // msg_wm_paletteischanging
 //
 template<
-    void (Derived::*func)(HWND),class BoolT = boost::mpl::true_
+    void (Derived::*func)(HWND)
 >
 struct msg_wm_paletteischanging
 {
@@ -2538,11 +2538,11 @@ struct msg_wm_paletteischanging
 
         if (uMsg == WM_PALETTEISCHANGING)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((HWND)wParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -2552,7 +2552,7 @@ struct msg_wm_paletteischanging
 // msg_wm_dropfiles
 //
 template<
-    void (Derived::*func)(HDROP),class BoolT = boost::mpl::true_
+    void (Derived::*func)(HDROP)
 >
 struct msg_wm_dropfiles
 {
@@ -2562,11 +2562,11 @@ struct msg_wm_dropfiles
 
         if (uMsg == WM_DROPFILES)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((HDROP)wParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -2576,7 +2576,7 @@ struct msg_wm_dropfiles
 // msg_wm_windowposchanging
 //
 template<
-    void (Derived::*func)(LPWINDOWPOS),class BoolT = boost::mpl::true_
+    void (Derived::*func)(LPWINDOWPOS)
 >
 struct msg_wm_windowposchanging
 {
@@ -2586,11 +2586,11 @@ struct msg_wm_windowposchanging
 
         if (uMsg == WM_WINDOWPOSCHANGING)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((LPWINDOWPOS)lParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -2600,7 +2600,7 @@ struct msg_wm_windowposchanging
 // msg_wm_windowposchanged
 //
 template<
-    void (Derived::*func)(LPWINDOWPOS),class BoolT = boost::mpl::true_
+    void (Derived::*func)(LPWINDOWPOS)
 >
 struct msg_wm_windowposchanged
 {
@@ -2610,11 +2610,11 @@ struct msg_wm_windowposchanged
 
         if (uMsg == WM_WINDOWPOSCHANGED)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((LPWINDOWPOS)lParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -2624,7 +2624,7 @@ struct msg_wm_windowposchanged
 // msg_wm_exitmenuloop
 //
 template<
-    void (Derived::*func)(BOOL),class BoolT = boost::mpl::true_
+    void (Derived::*func)(BOOL)
 >
 struct msg_wm_exitmenuloop
 {
@@ -2634,11 +2634,11 @@ struct msg_wm_exitmenuloop
 
         if (uMsg == WM_EXITMENULOOP)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((BOOL)wParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -2648,7 +2648,7 @@ struct msg_wm_exitmenuloop
 // msg_wm_entermenuloop
 //
 template<
-    void (Derived::*func)(BOOL),class BoolT = boost::mpl::true_
+    void (Derived::*func)(BOOL)
 >
 struct msg_wm_entermenuloop
 {
@@ -2658,11 +2658,11 @@ struct msg_wm_entermenuloop
 
         if (uMsg == WM_ENTERMENULOOP)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((BOOL)wParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -2672,7 +2672,7 @@ struct msg_wm_entermenuloop
 // msg_wm_stylechanged
 //
 template<
-    void (Derived::*func)(UINT,LPSTYLESTRUCT),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,LPSTYLESTRUCT)
 >
 struct msg_wm_stylechanged
 {
@@ -2682,11 +2682,11 @@ struct msg_wm_stylechanged
 
         if (uMsg == WM_STYLECHANGED)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)wParam, (LPSTYLESTRUCT)lParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -2696,7 +2696,7 @@ struct msg_wm_stylechanged
 // msg_wm_stylechanging
 //
 template<
-    void (Derived::*func)(UINT,LPSTYLESTRUCT),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,LPSTYLESTRUCT)
 >
 struct msg_wm_stylechanging
 {
@@ -2706,11 +2706,11 @@ struct msg_wm_stylechanging
 
         if (uMsg == WM_STYLECHANGING)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)wParam, (LPSTYLESTRUCT)lParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -2720,7 +2720,7 @@ struct msg_wm_stylechanging
 // msg_wm_sizing
 //
 template<
-    void (Derived::*func)(UINT,LPRECT),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,LPRECT)
 >
 struct msg_wm_sizing
 {
@@ -2730,11 +2730,11 @@ struct msg_wm_sizing
 
         if (uMsg == WM_SIZING)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)wParam, (LPRECT)lParam);
             lResult = TRUE;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -2744,7 +2744,7 @@ struct msg_wm_sizing
 // msg_wm_moving
 //
 template<
-    void (Derived::*func)(UINT,LPRECT),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,LPRECT)
 >
 struct msg_wm_moving
 {
@@ -2754,11 +2754,11 @@ struct msg_wm_moving
 
         if (uMsg == WM_MOVING)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)wParam, (LPRECT)lParam);
             lResult = TRUE;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -2768,7 +2768,7 @@ struct msg_wm_moving
 // msg_wm_capturechanged
 //
 template<
-    void (Derived::*func)(HWND),class BoolT = boost::mpl::true_
+    void (Derived::*func)(HWND)
 >
 struct msg_wm_capturechanged
 {
@@ -2778,11 +2778,11 @@ struct msg_wm_capturechanged
 
         if (uMsg == WM_CAPTURECHANGED)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((HWND)lParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -2792,7 +2792,7 @@ struct msg_wm_capturechanged
 // msg_wm_devicechange
 //
 template<
-    LRESULT (Derived::*func)(UINT,DWORD),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)(UINT,DWORD)
 >
 struct msg_wm_devicechange
 {
@@ -2802,10 +2802,10 @@ struct msg_wm_devicechange
 
         if (uMsg == WM_DEVICECHANGE)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (LRESULT)(derived.*func)((UINT)wParam, (DWORD)lParam);
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
     
         return false;
@@ -2816,7 +2816,7 @@ struct msg_wm_devicechange
 // msg_wm_command
 //
 template<
-    void (Derived::*func)(UINT,int,HWND),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,int,HWND)
 >
 struct msg_wm_command
 {
@@ -2826,11 +2826,11 @@ struct msg_wm_command
 
         if (uMsg == WM_COMMAND)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)HIWORD(wParam), (int)LOWORD(wParam), (HWND)lParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
     
         return false;
@@ -2841,7 +2841,7 @@ struct msg_wm_command
 // msg_wm_displaychange
 //
 template<
-    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CSize),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,KETCHUP_wtype_ns::CSize)
 >
 struct msg_wm_displaychange
 {
@@ -2851,11 +2851,11 @@ struct msg_wm_displaychange
 
         if (uMsg == WM_DISPLAYCHANGE)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)wParam, KETCHUP_wtype_ns::CSize(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -2865,7 +2865,7 @@ struct msg_wm_displaychange
 // msg_wm_entersizemove
 //
 template<
-    void (Derived::*func)(),class BoolT = boost::mpl::true_
+    void (Derived::*func)()
 >
 struct msg_wm_entersizemove
 {
@@ -2875,11 +2875,11 @@ struct msg_wm_entersizemove
 
         if (uMsg == WM_ENTERSIZEMOVE)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)();
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -2889,7 +2889,7 @@ struct msg_wm_entersizemove
 // msg_wm_exitsizemove
 //
 template<
-    void (Derived::*func)(),class BoolT = boost::mpl::true_
+    void (Derived::*func)()
 >
 struct msg_wm_exitsizemove
 {
@@ -2899,11 +2899,11 @@ struct msg_wm_exitsizemove
 
         if (uMsg == WM_EXITSIZEMOVE)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)();
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -2913,7 +2913,7 @@ struct msg_wm_exitsizemove
 // msg_wm_getfont
 //
 template<
-    LRESULT (Derived::*func)(),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)()
 >
 struct msg_wm_getfont
 {
@@ -2923,10 +2923,10 @@ struct msg_wm_getfont
 
         if (uMsg == WM_GETFONT)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (LRESULT)(derived.*func)();
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -2936,7 +2936,7 @@ struct msg_wm_getfont
 // msg_wm_gethotkey
 //
 template<
-    LRESULT (Derived::*func)(),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)()
 >
 struct msg_wm_gethotkey
 {
@@ -2946,10 +2946,10 @@ struct msg_wm_gethotkey
 
         if (uMsg == WM_GETHOTKEY)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (derived.*func)();
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -2959,7 +2959,7 @@ struct msg_wm_gethotkey
 // msg_wm_geticon
 //
 template<
-    LRESULT (Derived::*func)(UINT),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)(UINT)
 >
 struct msg_wm_geticon
 {
@@ -2969,10 +2969,10 @@ struct msg_wm_geticon
 
         if (uMsg == WM_GETICON)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (LRESULT)(derived.*func)((UINT)wParam);
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -2982,7 +2982,7 @@ struct msg_wm_geticon
 // msg_wm_gettext
 //
 template<
-    LRESULT (Derived::*func)(int,LPTSTR),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)(int,LPTSTR)
 >
 struct msg_wm_gettext
 {
@@ -2992,10 +2992,10 @@ struct msg_wm_gettext
 
         if (uMsg == WM_GETTEXT)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (LRESULT)(derived.*func)((int)wParam, (LPTSTR)lParam);
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -3005,7 +3005,7 @@ struct msg_wm_gettext
 // msg_wm_gettextlength
 //
 template<
-    LRESULT (Derived::*func)(),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)()
 >
 struct msg_wm_gettextlength
 {
@@ -3015,10 +3015,10 @@ struct msg_wm_gettextlength
 
         if (uMsg == WM_GETTEXTLENGTH)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (LRESULT)(derived.*func)();
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -3028,7 +3028,7 @@ struct msg_wm_gettextlength
 // msg_wm_help
 //
 template<
-    void (Derived::*func)(LPHELPINFO),class BoolT = boost::mpl::true_
+    void (Derived::*func)(LPHELPINFO)
 >
 struct msg_wm_help
 {
@@ -3038,11 +3038,11 @@ struct msg_wm_help
 
         if (uMsg == WM_HELP)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((LPHELPINFO)lParam);
             lResult = TRUE;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -3052,7 +3052,7 @@ struct msg_wm_help
 // msg_wm_hotkey
 //
 template<
-    void (Derived::*func)(int,UINT,UINT),class BoolT = boost::mpl::true_
+    void (Derived::*func)(int,UINT,UINT)
 >
 struct msg_wm_hotkey
 {
@@ -3062,11 +3062,11 @@ struct msg_wm_hotkey
 
         if (uMsg == WM_HOTKEY)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((int)wParam, (UINT)LOWORD(lParam), (UINT)HIWORD(lParam));
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -3076,7 +3076,7 @@ struct msg_wm_hotkey
 // msg_wm_inputlangchange
 //
 template<
-    void (Derived::*func)(DWORD,HKL),class BoolT = boost::mpl::true_
+    void (Derived::*func)(DWORD,HKL)
 >
 struct msg_wm_inputlangchange
 {
@@ -3086,11 +3086,11 @@ struct msg_wm_inputlangchange
 
         if (uMsg == WM_INPUTLANGCHANGE)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((DWORD)wParam, (HKL)lParam);
             lResult = TRUE;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -3100,7 +3100,7 @@ struct msg_wm_inputlangchange
 // msg_wm_inputlangchangerequest
 //
 template<
-    void (Derived::*func)(BOOL,HKL),class BoolT = boost::mpl::true_
+    void (Derived::*func)(BOOL,HKL)
 >
 struct msg_wm_inputlangchangerequest
 {
@@ -3110,11 +3110,11 @@ struct msg_wm_inputlangchangerequest
 
         if (uMsg == WM_INPUTLANGCHANGEREQUEST)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((BOOL)wParam, (HKL)lParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -3124,7 +3124,7 @@ struct msg_wm_inputlangchangerequest
 // msg_wm_nextdlgctl
 //
 template<
-    void (Derived::*func)(BOOL,WPARAM),class BoolT = boost::mpl::true_
+    void (Derived::*func)(BOOL,WPARAM)
 >
 struct msg_wm_nextdlgctl
 {
@@ -3134,11 +3134,11 @@ struct msg_wm_nextdlgctl
 
         if (uMsg == WM_NEXTDLGCTL)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((BOOL)LOWORD(lParam), wParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -3148,7 +3148,7 @@ struct msg_wm_nextdlgctl
 // msg_wm_nextmenu
 //
 template<
-    void (Derived::*func)(int,LPMDINEXTMENU),class BoolT = boost::mpl::true_
+    void (Derived::*func)(int,LPMDINEXTMENU)
 >
 struct msg_wm_nextmenu
 {
@@ -3158,11 +3158,11 @@ struct msg_wm_nextmenu
 
         if (uMsg == WM_NEXTMENU)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((int)wParam, (LPMDINEXTMENU)lParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -3172,7 +3172,7 @@ struct msg_wm_nextmenu
 // msg_wm_notifyformat
 //
 template<
-    LRESULT (Derived::*func)(HWND,int),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)(HWND,int)
 >
 struct msg_wm_notifyformat
 {
@@ -3182,10 +3182,10 @@ struct msg_wm_notifyformat
 
         if (uMsg == WM_NOTIFYFORMAT)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (LRESULT)(derived.*func)((HWND)wParam, (int)lParam);
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -3195,7 +3195,7 @@ struct msg_wm_notifyformat
 // msg_wm_powerbroadcast
 //
 template<
-    LRESULT (Derived::*func)(DWORD,DWORD),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)(DWORD,DWORD)
 >
 struct msg_wm_powerbroadcast
 {
@@ -3205,10 +3205,10 @@ struct msg_wm_powerbroadcast
 
         if (uMsg == WM_POWERBROADCAST)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (LRESULT)(derived.*func)((DWORD)wParam, (DWORD)lParam);
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -3218,7 +3218,7 @@ struct msg_wm_powerbroadcast
 // msg_wm_print
 //
 template<
-    void (Derived::*func)(HDC,UINT),class BoolT = boost::mpl::true_
+    void (Derived::*func)(HDC,UINT)
 >
 struct msg_wm_print
 {
@@ -3228,11 +3228,11 @@ struct msg_wm_print
 
         if (uMsg == WM_PRINT)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((HDC)wParam, (UINT)lParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -3242,7 +3242,7 @@ struct msg_wm_print
 // msg_wm_printclient
 //
 template<
-    void (Derived::*func)(HDC,UINT),class BoolT = boost::mpl::true_
+    void (Derived::*func)(HDC,UINT)
 >
 struct msg_wm_printclient
 {
@@ -3252,11 +3252,11 @@ struct msg_wm_printclient
 
         if (uMsg == WM_PRINTCLIENT)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((HDC)wParam, (UINT)lParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -3266,7 +3266,7 @@ struct msg_wm_printclient
 // msg_wm_rasdialevent
 //
 template<
-    void (Derived::*func)(RASCONNSTATE,DWORD),class BoolT = boost::mpl::true_
+    void (Derived::*func)(RASCONNSTATE,DWORD)
 >
 struct msg_wm_rasdialevent
 {
@@ -3276,11 +3276,11 @@ struct msg_wm_rasdialevent
 
         if (uMsg == WM_RASDIALEVENT)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((RASCONNSTATE)wParam, (DWORD)lParam);
             lResult = TRUE;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -3290,7 +3290,7 @@ struct msg_wm_rasdialevent
 // msg_wm_setfont
 //
 template<
-    void (Derived::*func)(HFONT,BOOL),class BoolT = boost::mpl::true_
+    void (Derived::*func)(HFONT,BOOL)
 >
 struct msg_wm_setfont
 {
@@ -3300,11 +3300,11 @@ struct msg_wm_setfont
 
         if (uMsg == WM_SETFONT)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((HFONT)wParam, (BOOL)LOWORD(lParam));
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -3314,7 +3314,7 @@ struct msg_wm_setfont
 // msg_wm_sethotkey
 //
 template<
-    LRESULT (Derived::*func)(int,UINT),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)(int,UINT)
 >
 struct msg_wm_sethotkey
 {
@@ -3324,10 +3324,10 @@ struct msg_wm_sethotkey
 
         if (uMsg == WM_SETHOTKEY)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (LRESULT)(derived.*func)((int)LOBYTE(LOWORD(wParam)), (UINT)HIBYTE(LOWORD(wParam)));
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -3337,7 +3337,7 @@ struct msg_wm_sethotkey
 // msg_wm_seticon
 //
 template<
-    LRESULT (Derived::*func)(UINT,HICON),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)(UINT,HICON)
 >
 struct msg_wm_seticon
 {
@@ -3347,10 +3347,10 @@ struct msg_wm_seticon
 
         if (uMsg == WM_SETICON)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (LRESULT)(derived.*func)((UINT)wParam, (HICON)lParam);
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -3360,7 +3360,7 @@ struct msg_wm_seticon
 // msg_wm_setredraw
 //
 template<
-    void (Derived::*func)(BOOL),class BoolT = boost::mpl::true_
+    void (Derived::*func)(BOOL)
 >
 struct msg_wm_setredraw
 {
@@ -3370,11 +3370,11 @@ struct msg_wm_setredraw
 
         if (uMsg == WM_SETREDRAW)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((BOOL)wParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -3384,7 +3384,7 @@ struct msg_wm_setredraw
 // msg_wm_settext
 //
 template<
-    LRESULT (Derived::*func)(LPCTSTR),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)(LPCTSTR)
 >
 struct msg_wm_settext
 {
@@ -3394,10 +3394,10 @@ struct msg_wm_settext
 
         if (uMsg == WM_SETTEXT)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (LRESULT)(derived.*func)((LPCTSTR)lParam);
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -3407,7 +3407,7 @@ struct msg_wm_settext
 // msg_wm_userchanged
 //
 template<
-    void (Derived::*func)(),class BoolT = boost::mpl::true_
+    void (Derived::*func)()
 >
 struct msg_wm_userchanged
 {
@@ -3417,11 +3417,11 @@ struct msg_wm_userchanged
 
         if (uMsg == WM_USERCHANGED)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)();
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
     
         return false;
@@ -3437,7 +3437,7 @@ struct msg_wm_userchanged
 // msg_wm_mousehover
 //
 template<
-    void (Derived::*func)(WPARAM,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
+    void (Derived::*func)(WPARAM,KETCHUP_wtype_ns::CPoint)
 >
 struct msg_wm_mousehover
 {
@@ -3447,11 +3447,11 @@ struct msg_wm_mousehover
 
         if (uMsg == WM_MOUSEHOVER)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)(wParam, KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
     
         return false;
@@ -3462,7 +3462,7 @@ struct msg_wm_mousehover
 // msg_wm_mouseleave
 //
 template<
-    void (Derived::*func)(),class BoolT = boost::mpl::true_
+    void (Derived::*func)()
 >
 struct msg_wm_mouseleave
 {
@@ -3472,11 +3472,11 @@ struct msg_wm_mouseleave
 
         if (uMsg == WM_MOUSELEAVE)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)();
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
     
         return false;
@@ -3491,7 +3491,7 @@ struct msg_wm_mouseleave
 // msg_wm_menurbuttonup
 //
 template<
-    void (Derived::*func)(WPARAM,HMENU),class BoolT = boost::mpl::true_
+    void (Derived::*func)(WPARAM,HMENU)
 >
 struct msg_wm_menurbuttonup
 {
@@ -3501,11 +3501,11 @@ struct msg_wm_menurbuttonup
 
         if (uMsg == WM_MENURBUTTONUP)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)(wParam, (HMENU)lParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
     
         return false;
@@ -3516,7 +3516,7 @@ struct msg_wm_menurbuttonup
 // msg_wm_menudrag
 //
 template<
-    LRESULT (Derived::*func)(WPARAM,HMENU),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)(WPARAM,HMENU)
 >
 struct msg_wm_menudrag
 {
@@ -3526,10 +3526,10 @@ struct msg_wm_menudrag
 
         if (uMsg == WM_MENUDRAG)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (derived.*func)(wParam, (HMENU)lParam);
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
     
         return false;
@@ -3540,7 +3540,7 @@ struct msg_wm_menudrag
 // msg_wm_menugetobject
 //
 template<
-    LRESULT (Derived::*func)(PMENUGETOBJECTINFO),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)(PMENUGETOBJECTINFO)
 >
 struct msg_wm_menugetobject
 {
@@ -3550,10 +3550,10 @@ struct msg_wm_menugetobject
 
         if (uMsg == WM_MENUGETOBJECT)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (derived.*func)((PMENUGETOBJECTINFO)lParam);
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
     
         return false;
@@ -3564,7 +3564,7 @@ struct msg_wm_menugetobject
 // msg_wm_uninitmenupopup
 //
 template<
-    void (Derived::*func)(UINT,HMENU),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,HMENU)
 >
 struct msg_wm_uninitmenupopup
 {
@@ -3574,11 +3574,11 @@ struct msg_wm_uninitmenupopup
 
         if (uMsg == WM_UNINITMENUPOPUP)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)HIWORD(lParam), (HMENU)wParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
     
         return false;
@@ -3589,7 +3589,7 @@ struct msg_wm_uninitmenupopup
 // msg_wm_menucommand
 //
 template<
-    void (Derived::*func)(WPARAM,HMENU),class BoolT = boost::mpl::true_
+    void (Derived::*func)(WPARAM,HMENU)
 >
 struct msg_wm_menucommand
 {
@@ -3599,11 +3599,11 @@ struct msg_wm_menucommand
 
         if (uMsg == WM_MENUCOMMAND)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)(wParam, (HMENU)lParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
     
         return false;
@@ -3618,7 +3618,7 @@ struct msg_wm_menucommand
 // msg_wm_appcommand
 //
 template<
-    void (Derived::*func)(HWND,WORD,WORD,WORD),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)(HWND,WORD,WORD,WORD)
 >
 struct msg_wm_appcommand
 {
@@ -3628,11 +3628,10 @@ struct msg_wm_appcommand
 
         if (uMsg == WM_APPCOMMAND)
         {
+            derived.set_msg_handled(true);
+            lResult = (derived.*func)((HWND)wParam, GET_APPCOMMAND_LPARAM(lParam), GET_DEVICE_LPARAM(lParam), GET_KEYSTATE_LPARAM(lParam));
             
-            (derived.*func)((HWND)wParam, GET_APPCOMMAND_LPARAM(lParam), GET_DEVICE_LPARAM(lParam), GET_KEYSTATE_LPARAM(lParam));
-            lResult = 0;
-            
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
     
         return false;
@@ -3643,7 +3642,7 @@ struct msg_wm_appcommand
 // msg_wm_ncxbuttondown
 //
 template<
-    void (Derived::*func)(WORD,WORD,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
+    void (Derived::*func)(WORD,WORD,KETCHUP_wtype_ns::CPoint)
 >
 struct msg_wm_ncxbuttondown
 {
@@ -3653,11 +3652,11 @@ struct msg_wm_ncxbuttondown
 
         if (uMsg == WM_NCXBUTTONDOWN)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)(GET_XBUTTON_WPARAM(wParam), GET_NCHITTEST_WPARAM(wParam), KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
     
         return false;
@@ -3668,7 +3667,7 @@ struct msg_wm_ncxbuttondown
 // msg_wm_ncxbuttonup
 //
 template<
-    void (Derived::*func)(WORD,WORD,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
+    void (Derived::*func)(WORD,WORD,KETCHUP_wtype_ns::CPoint)
 >
 struct msg_wm_ncxbuttonup
 {
@@ -3678,11 +3677,11 @@ struct msg_wm_ncxbuttonup
 
         if (uMsg == WM_NCXBUTTONUP)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)(GET_XBUTTON_WPARAM(wParam), GET_NCHITTEST_WPARAM(wParam), KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
     
         return false;
@@ -3693,7 +3692,7 @@ struct msg_wm_ncxbuttonup
 // msg_wm_ncxbuttondblclk
 //
 template<
-    void (Derived::*func)(WORD,WORD,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
+    void (Derived::*func)(WORD,WORD,KETCHUP_wtype_ns::CPoint)
 >
 struct msg_wm_ncxbuttondblclk
 {
@@ -3703,11 +3702,11 @@ struct msg_wm_ncxbuttondblclk
 
         if (uMsg == WM_NCXBUTTONDBLCLK)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)(GET_XBUTTON_WPARAM(wParam), GET_NCHITTEST_WPARAM(wParam), KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
     
         return false;
@@ -3718,7 +3717,7 @@ struct msg_wm_ncxbuttondblclk
 // msg_wm_xbuttondown
 //
 template<
-    void (Derived::*func)(WORD,WORD,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
+    void (Derived::*func)(WORD,WORD,KETCHUP_wtype_ns::CPoint)
 >
 struct msg_wm_xbuttondown
 {
@@ -3728,11 +3727,11 @@ struct msg_wm_xbuttondown
 
         if (uMsg == WM_XBUTTONDOWN)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)(GET_XBUTTON_WPARAM(wParam), GET_KEYSTATE_WPARAM(wParam), KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
     
         return false;
@@ -3743,7 +3742,7 @@ struct msg_wm_xbuttondown
 // msg_wm_xbuttonup
 //
 template<
-    void (Derived::*func)(WORD,WORD,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
+    void (Derived::*func)(WORD,WORD,KETCHUP_wtype_ns::CPoint)
 >
 struct msg_wm_xbuttonup
 {
@@ -3753,11 +3752,11 @@ struct msg_wm_xbuttonup
 
         if (uMsg == WM_XBUTTONUP)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)(GET_XBUTTON_WPARAM(wParam), GET_KEYSTATE_WPARAM(wParam), KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
     
         return false;
@@ -3768,7 +3767,7 @@ struct msg_wm_xbuttonup
 // msg_wm_xbuttondblclk
 //
 template<
-    void (Derived::*func)(WORD,WORD,KETCHUP_wtype_ns::CPoint),class BoolT = boost::mpl::true_
+    void (Derived::*func)(WORD,WORD,KETCHUP_wtype_ns::CPoint)
 >
 struct msg_wm_xbuttondblclk
 {
@@ -3778,11 +3777,11 @@ struct msg_wm_xbuttondblclk
 
         if (uMsg == WM_XBUTTONDBLCLK)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)(GET_XBUTTON_WPARAM(wParam), GET_KEYSTATE_WPARAM(wParam), KETCHUP_wtype_ns::CPoint(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam)));
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
     
         return false;
@@ -3793,7 +3792,7 @@ struct msg_wm_xbuttondblclk
 // msg_wm_changeuistate
 //
 template<
-    void (Derived::*func)(WORD,WORD),class BoolT = boost::mpl::true_
+    void (Derived::*func)(WORD,WORD)
 >
 struct msg_wm_changeuistate
 {
@@ -3803,11 +3802,11 @@ struct msg_wm_changeuistate
 
         if (uMsg == WM_CHANGEUISTATE)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)(LOWORD(wParam), HIWORD(wParam));
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
     
         return false;
@@ -3818,7 +3817,7 @@ struct msg_wm_changeuistate
 // msg_wm_updateuistate
 //
 template<
-    void (Derived::*func)(WORD,WORD),class BoolT = boost::mpl::true_
+    void (Derived::*func)(WORD,WORD)
 >
 struct msg_wm_updateuistate
 {
@@ -3828,11 +3827,11 @@ struct msg_wm_updateuistate
 
         if (uMsg == WM_UPDATEUISTATE)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)(LOWORD(wParam), HIWORD(wParam));
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
     
         return false;
@@ -3843,7 +3842,7 @@ struct msg_wm_updateuistate
 // msg_wm_queryuistate
 //
 template<
-    LRESULT (Derived::*func)(),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)()
 >
 struct msg_wm_queryuistate
 {
@@ -3853,10 +3852,10 @@ struct msg_wm_queryuistate
 
         if (uMsg == WM_QUERYUISTATE)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (derived.*func)();
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
     
         return false;
@@ -3871,7 +3870,7 @@ struct msg_wm_queryuistate
 // msg_wm_input
 //
 template<
-    void (Derived::*func)(WORD,HRAWINPUT),class BoolT = boost::mpl::true_
+    void (Derived::*func)(WORD,HRAWINPUT)
 >
 struct msg_wm_input
 {
@@ -3881,11 +3880,11 @@ struct msg_wm_input
 
         if (uMsg == WM_INPUT)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)(GET_RAWINPUT_CODE_WPARAM(wParam), (HRAWINPUT)lParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
     
         return false;
@@ -3896,7 +3895,7 @@ struct msg_wm_input
 // msg_wm_unichar
 //
 template<
-    void (Derived::*func)(TCHAR,UINT,UINT),class BoolT = boost::mpl::true_
+    void (Derived::*func)(TCHAR,UINT,UINT)
 >
 struct msg_wm_unichar
 {
@@ -3906,12 +3905,12 @@ struct msg_wm_unichar
 
         if (uMsg == WM_UNICHAR)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((TCHAR)wParam, (UINT)lParam & 0xFFFF, (UINT)((lParam & 0xFFFF0000) >> 16));
             
             {
-                lResult = (wParam == UNICODE_NOCHAR) ? TRUE : FALSE;
-            if(BoolT::value) return true;
+            derived.set_msg_handled(true);    lResult = (wParam == UNICODE_NOCHAR) ? TRUE : FALSE;
+            if(derived.is_msg_handled()) return true;
             }
         }
     
@@ -3923,7 +3922,7 @@ struct msg_wm_unichar
 // msg_wm_wtssession_change
 //
 template<
-    void (Derived::*func)(WPARAM,PWTSSESSION_NOTIFICATION),class BoolT = boost::mpl::true_
+    void (Derived::*func)(WPARAM,PWTSSESSION_NOTIFICATION)
 >
 struct msg_wm_wtssession_change
 {
@@ -3933,11 +3932,11 @@ struct msg_wm_wtssession_change
 
         if (uMsg == WM_WTSSESSION_CHANGE)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)(wParam, (PWTSSESSION_NOTIFICATION)lParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
     
         return false;
@@ -3948,7 +3947,7 @@ struct msg_wm_wtssession_change
 // msg_wm_themechanged
 //
 template<
-    void (Derived::*func)(),class BoolT = boost::mpl::true_
+    void (Derived::*func)()
 >
 struct msg_wm_themechanged
 {
@@ -3958,11 +3957,11 @@ struct msg_wm_themechanged
 
         if (uMsg == WM_THEMECHANGED)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)();
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
     
         return false;
@@ -3978,7 +3977,7 @@ struct msg_wm_themechanged
 // msg_wm_forwardmsg
 //
 template<
-    LRESULT (Derived::*func)(LPMSG,DWORD),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)(LPMSG,DWORD)
 >
 struct msg_wm_forwardmsg
 {
@@ -3988,10 +3987,10 @@ struct msg_wm_forwardmsg
 
         if (uMsg == WM_FORWARDMSG)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (LRESULT)(derived.*func)((LPMSG)lParam, (DWORD)wParam);
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
     
         return false;
@@ -4005,7 +4004,7 @@ struct msg_wm_forwardmsg
 // msg_dm_getdefid
 //
 template<
-    LRESULT (Derived::*func)(),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)()
 >
 struct msg_dm_getdefid
 {
@@ -4015,10 +4014,10 @@ struct msg_dm_getdefid
 
         if (uMsg == DM_GETDEFID)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (derived.*func)();
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -4028,7 +4027,7 @@ struct msg_dm_getdefid
 // msg_dm_setdefid
 //
 template<
-    void (Derived::*func)(UINT),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT)
 >
 struct msg_dm_setdefid
 {
@@ -4038,11 +4037,11 @@ struct msg_dm_setdefid
 
         if (uMsg == DM_SETDEFID)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)wParam);
             lResult = TRUE;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -4052,7 +4051,7 @@ struct msg_dm_setdefid
 // msg_dm_reposition
 //
 template<
-    void (Derived::*func)(),class BoolT = boost::mpl::true_
+    void (Derived::*func)()
 >
 struct msg_dm_reposition
 {
@@ -4062,11 +4061,11 @@ struct msg_dm_reposition
 
         if (uMsg == DM_REPOSITION)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)();
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
     
         return false;
@@ -4080,7 +4079,7 @@ struct msg_dm_reposition
 // msg_ocm_command
 //
 template<
-    void (Derived::*func)(UINT,int,HWND),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,int,HWND)
 >
 struct msg_ocm_command
 {
@@ -4090,11 +4089,11 @@ struct msg_ocm_command
 
         if (uMsg == OCM_COMMAND)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)HIWORD(wParam), (int)LOWORD(wParam), (HWND)lParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -4104,7 +4103,7 @@ struct msg_ocm_command
 // msg_ocm_notify
 //
 template<
-    LRESULT (Derived::*func)(int,LPNMHDR),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)(int,LPNMHDR)
 >
 struct msg_ocm_notify
 {
@@ -4114,10 +4113,10 @@ struct msg_ocm_notify
 
         if (uMsg == OCM_NOTIFY)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (derived.*func)((int)wParam, (LPNMHDR)lParam);
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -4127,7 +4126,7 @@ struct msg_ocm_notify
 // msg_ocm_parentnotify
 //
 template<
-    void (Derived::*func)(UINT,UINT,LPARAM),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,UINT,LPARAM)
 >
 struct msg_ocm_parentnotify
 {
@@ -4137,11 +4136,11 @@ struct msg_ocm_parentnotify
 
         if (uMsg == OCM_PARENTNOTIFY)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)LOWORD(wParam), (UINT)HIWORD(wParam), lParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -4151,7 +4150,7 @@ struct msg_ocm_parentnotify
 // msg_ocm_drawitem
 //
 template<
-    void (Derived::*func)(UINT,LPDRAWITEMSTRUCT),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,LPDRAWITEMSTRUCT)
 >
 struct msg_ocm_drawitem
 {
@@ -4161,11 +4160,11 @@ struct msg_ocm_drawitem
 
         if (uMsg == OCM_DRAWITEM)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)wParam, (LPDRAWITEMSTRUCT)lParam);
             lResult = TRUE;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -4175,7 +4174,7 @@ struct msg_ocm_drawitem
 // msg_ocm_measureitem
 //
 template<
-    void (Derived::*func)(UINT,LPMEASUREITEMSTRUCT),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,LPMEASUREITEMSTRUCT)
 >
 struct msg_ocm_measureitem
 {
@@ -4185,11 +4184,11 @@ struct msg_ocm_measureitem
 
         if (uMsg == OCM_MEASUREITEM)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)wParam, (LPMEASUREITEMSTRUCT)lParam);
             lResult = TRUE;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -4199,7 +4198,7 @@ struct msg_ocm_measureitem
 // msg_ocm_compareitem
 //
 template<
-    LRESULT (Derived::*func)(UINT,LPCOMPAREITEMSTRUCT),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)(UINT,LPCOMPAREITEMSTRUCT)
 >
 struct msg_ocm_compareitem
 {
@@ -4209,10 +4208,10 @@ struct msg_ocm_compareitem
 
         if (uMsg == OCM_COMPAREITEM)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (LRESULT)(derived.*func)((UINT)wParam, (LPCOMPAREITEMSTRUCT)lParam);
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -4222,7 +4221,7 @@ struct msg_ocm_compareitem
 // msg_ocm_deleteitem
 //
 template<
-    void (Derived::*func)(UINT,LPDELETEITEMSTRUCT),class BoolT = boost::mpl::true_
+    void (Derived::*func)(UINT,LPDELETEITEMSTRUCT)
 >
 struct msg_ocm_deleteitem
 {
@@ -4232,11 +4231,11 @@ struct msg_ocm_deleteitem
 
         if (uMsg == OCM_DELETEITEM)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)wParam, (LPDELETEITEMSTRUCT)lParam);
             lResult = TRUE;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -4246,7 +4245,7 @@ struct msg_ocm_deleteitem
 // msg_ocm_vkeytoitem
 //
 template<
-    LRESULT (Derived::*func)(UINT,UINT,HWND),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)(UINT,UINT,HWND)
 >
 struct msg_ocm_vkeytoitem
 {
@@ -4256,10 +4255,10 @@ struct msg_ocm_vkeytoitem
 
         if (uMsg == OCM_VKEYTOITEM)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (LRESULT)(derived.*func)((UINT)LOWORD(wParam), (UINT)HIWORD(wParam), (HWND)lParam);
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -4269,7 +4268,7 @@ struct msg_ocm_vkeytoitem
 // msg_ocm_chartoitem
 //
 template<
-    LRESULT (Derived::*func)(UINT,UINT,HWND),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)(UINT,UINT,HWND)
 >
 struct msg_ocm_chartoitem
 {
@@ -4279,10 +4278,10 @@ struct msg_ocm_chartoitem
 
         if (uMsg == OCM_CHARTOITEM)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (LRESULT)(derived.*func)((UINT)LOWORD(wParam), (UINT)HIWORD(wParam), (HWND)lParam);
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -4292,7 +4291,7 @@ struct msg_ocm_chartoitem
 // msg_ocm_hscroll
 //
 template<
-    void (Derived::*func)(int,short,HWND),class BoolT = boost::mpl::true_
+    void (Derived::*func)(int,short,HWND)
 >
 struct msg_ocm_hscroll
 {
@@ -4302,11 +4301,11 @@ struct msg_ocm_hscroll
 
         if (uMsg == OCM_HSCROLL)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((int)LOWORD(wParam), (short)HIWORD(wParam), (HWND)lParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -4316,7 +4315,7 @@ struct msg_ocm_hscroll
 // msg_ocm_vscroll
 //
 template<
-    void (Derived::*func)(int,short,HWND),class BoolT = boost::mpl::true_
+    void (Derived::*func)(int,short,HWND)
 >
 struct msg_ocm_vscroll
 {
@@ -4326,11 +4325,11 @@ struct msg_ocm_vscroll
 
         if (uMsg == OCM_VSCROLL)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((int)LOWORD(wParam), (short)HIWORD(wParam), (HWND)lParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -4340,7 +4339,7 @@ struct msg_ocm_vscroll
 // msg_ocm_ctlcoloredit
 //
 template<
-    LRESULT (Derived::*func)(HDC,HWND),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)(HDC,HWND)
 >
 struct msg_ocm_ctlcoloredit
 {
@@ -4350,10 +4349,10 @@ struct msg_ocm_ctlcoloredit
 
         if (uMsg == OCM_CTLCOLOREDIT)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (LRESULT)(derived.*func)((HDC)wParam, (HWND)lParam);
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -4363,7 +4362,7 @@ struct msg_ocm_ctlcoloredit
 // msg_ocm_ctlcolorlistbox
 //
 template<
-    LRESULT (Derived::*func)(HDC,HWND),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)(HDC,HWND)
 >
 struct msg_ocm_ctlcolorlistbox
 {
@@ -4373,10 +4372,10 @@ struct msg_ocm_ctlcolorlistbox
 
         if (uMsg == OCM_CTLCOLORLISTBOX)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (LRESULT)(derived.*func)((HDC)wParam, (HWND)lParam);
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -4386,7 +4385,7 @@ struct msg_ocm_ctlcolorlistbox
 // msg_ocm_ctlcolorbtn
 //
 template<
-    LRESULT (Derived::*func)(HDC,HWND),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)(HDC,HWND)
 >
 struct msg_ocm_ctlcolorbtn
 {
@@ -4396,10 +4395,10 @@ struct msg_ocm_ctlcolorbtn
 
         if (uMsg == OCM_CTLCOLORBTN)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (LRESULT)(derived.*func)((HDC)wParam, (HWND)lParam);
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -4409,7 +4408,7 @@ struct msg_ocm_ctlcolorbtn
 // msg_ocm_ctlcolordlg
 //
 template<
-    LRESULT (Derived::*func)(HDC,HWND),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)(HDC,HWND)
 >
 struct msg_ocm_ctlcolordlg
 {
@@ -4419,10 +4418,10 @@ struct msg_ocm_ctlcolordlg
 
         if (uMsg == OCM_CTLCOLORDLG)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (LRESULT)(derived.*func)((HDC)wParam, (HWND)lParam);
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -4432,7 +4431,7 @@ struct msg_ocm_ctlcolordlg
 // msg_ocm_ctlcolorscrollbar
 //
 template<
-    LRESULT (Derived::*func)(HDC,HWND),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)(HDC,HWND)
 >
 struct msg_ocm_ctlcolorscrollbar
 {
@@ -4442,10 +4441,10 @@ struct msg_ocm_ctlcolorscrollbar
 
         if (uMsg == OCM_CTLCOLORSCROLLBAR)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (LRESULT)(derived.*func)((HDC)wParam, (HWND)lParam);
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -4455,7 +4454,7 @@ struct msg_ocm_ctlcolorscrollbar
 // msg_ocm_ctlcolorstatic
 //
 template<
-    LRESULT (Derived::*func)(HDC,HWND),class BoolT = boost::mpl::true_
+    LRESULT (Derived::*func)(HDC,HWND)
 >
 struct msg_ocm_ctlcolorstatic
 {
@@ -4465,10 +4464,10 @@ struct msg_ocm_ctlcolorstatic
 
         if (uMsg == OCM_CTLCOLORSTATIC)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (LRESULT)(derived.*func)((HDC)wParam, (HWND)lParam);
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
     
         return false;
@@ -4482,7 +4481,7 @@ struct msg_ocm_ctlcolorstatic
 // msg_wm_clear
 //
 template<
-    void (Derived::*func)(),class BoolT = boost::mpl::true_
+    void (Derived::*func)()
 >
 struct msg_wm_clear
 {
@@ -4492,11 +4491,11 @@ struct msg_wm_clear
 
         if (uMsg == WM_CLEAR)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)();
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -4506,7 +4505,7 @@ struct msg_wm_clear
 // msg_wm_copy
 //
 template<
-    void (Derived::*func)(),class BoolT = boost::mpl::true_
+    void (Derived::*func)()
 >
 struct msg_wm_copy
 {
@@ -4516,11 +4515,11 @@ struct msg_wm_copy
 
         if (uMsg == WM_COPY)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)();
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -4530,7 +4529,7 @@ struct msg_wm_copy
 // msg_wm_cut
 //
 template<
-    void (Derived::*func)(),class BoolT = boost::mpl::true_
+    void (Derived::*func)()
 >
 struct msg_wm_cut
 {
@@ -4540,11 +4539,11 @@ struct msg_wm_cut
 
         if (uMsg == WM_CUT)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)();
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -4554,7 +4553,7 @@ struct msg_wm_cut
 // msg_wm_paste
 //
 template<
-    void (Derived::*func)(),class BoolT = boost::mpl::true_
+    void (Derived::*func)()
 >
 struct msg_wm_paste
 {
@@ -4564,11 +4563,11 @@ struct msg_wm_paste
 
         if (uMsg == WM_PASTE)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)();
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -4578,7 +4577,7 @@ struct msg_wm_paste
 // msg_wm_undo
 //
 template<
-    void (Derived::*func)(),class BoolT = boost::mpl::true_
+    void (Derived::*func)()
 >
 struct msg_wm_undo
 {
@@ -4588,11 +4587,11 @@ struct msg_wm_undo
 
         if (uMsg == WM_UNDO)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)();
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
     
         return false;
@@ -4606,7 +4605,7 @@ struct msg_wm_undo
 // message_handler_ex
 //
 template<
-    UINT msg,LRESULT (Derived::*func)(UINT,WPARAM,LPARAM),class BoolT = boost::mpl::true_
+    UINT msg,LRESULT (Derived::*func)(UINT,WPARAM,LPARAM)
 >
 struct message_handler_ex
 {
@@ -4616,10 +4615,10 @@ struct message_handler_ex
 
         if(uMsg == msg)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (derived.*func)(uMsg, wParam, lParam);
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
     
         return false;
@@ -4630,7 +4629,7 @@ struct message_handler_ex
 // message_range_handler_ex
 //
 template<
-    UINT msgFirst,UINT msgLast,LRESULT (Derived::*func)(UINT,WPARAM,LPARAM),class BoolT = boost::mpl::true_
+    UINT msgFirst,UINT msgLast,LRESULT (Derived::*func)(UINT,WPARAM,LPARAM)
 >
 struct message_range_handler_ex
 {
@@ -4640,10 +4639,10 @@ struct message_range_handler_ex
 
         if(uMsg >= msgFirst && uMsg <= msgLast)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (derived.*func)(uMsg, wParam, lParam);
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
     
         return false;
@@ -4657,7 +4656,7 @@ struct message_range_handler_ex
 // command_handler_ex
 //
 template<
-    UINT id,UINT code,void (Derived::*func)(UINT,int,HWND),class BoolT = boost::mpl::true_
+    UINT id,UINT code,void (Derived::*func)(UINT,int,HWND)
 >
 struct command_handler_ex
 {
@@ -4667,11 +4666,11 @@ struct command_handler_ex
 
         if (uMsg == WM_COMMAND && code == HIWORD(wParam) && id == LOWORD(wParam))
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)HIWORD(wParam), (int)LOWORD(wParam), (HWND)lParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -4681,7 +4680,7 @@ struct command_handler_ex
 // command_id_handler_ex
 //
 template<
-    UINT id,void (Derived::*func)(UINT,int,HWND),class BoolT = boost::mpl::true_
+    UINT id,void (Derived::*func)(UINT,int,HWND)
 >
 struct command_id_handler_ex
 {
@@ -4691,11 +4690,11 @@ struct command_id_handler_ex
 
         if (uMsg == WM_COMMAND && id == LOWORD(wParam))
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)HIWORD(wParam), (int)LOWORD(wParam), (HWND)lParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -4705,7 +4704,7 @@ struct command_id_handler_ex
 // command_code_handler_ex
 //
 template<
-    UINT code,void (Derived::*func)(UINT,int,HWND),class BoolT = boost::mpl::true_
+    UINT code,void (Derived::*func)(UINT,int,HWND)
 >
 struct command_code_handler_ex
 {
@@ -4715,11 +4714,11 @@ struct command_code_handler_ex
 
         if (uMsg == WM_COMMAND && code == HIWORD(wParam))
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)HIWORD(wParam), (int)LOWORD(wParam), (HWND)lParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -4729,7 +4728,7 @@ struct command_code_handler_ex
 // notify_handler_ex
 //
 template<
-    UINT id,UINT cd,LRESULT (Derived::*func)(LPNMHDR),class BoolT = boost::mpl::true_
+    UINT id,UINT cd,LRESULT (Derived::*func)(LPNMHDR)
 >
 struct notify_handler_ex
 {
@@ -4739,10 +4738,10 @@ struct notify_handler_ex
 
         if (uMsg == WM_NOTIFY && cd == ((LPNMHDR)lParam)->code && id == ((LPNMHDR)lParam)->idFrom)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (derived.*func)((LPNMHDR)lParam);
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -4752,7 +4751,7 @@ struct notify_handler_ex
 // notify_id_handler_ex
 //
 template<
-    UINT id,LRESULT (Derived::*func)(LPNMHDR),class BoolT = boost::mpl::true_
+    UINT id,LRESULT (Derived::*func)(LPNMHDR)
 >
 struct notify_id_handler_ex
 {
@@ -4762,10 +4761,10 @@ struct notify_id_handler_ex
 
         if (uMsg == WM_NOTIFY && id == ((LPNMHDR)lParam)->idFrom)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (derived.*func)((LPNMHDR)lParam);
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -4775,7 +4774,7 @@ struct notify_id_handler_ex
 // notify_code_handler_ex
 //
 template<
-    UINT cd,LRESULT (Derived::*func)(LPNMHDR),class BoolT = boost::mpl::true_
+    UINT cd,LRESULT (Derived::*func)(LPNMHDR)
 >
 struct notify_code_handler_ex
 {
@@ -4785,10 +4784,10 @@ struct notify_code_handler_ex
 
         if (uMsg == WM_NOTIFY && cd == ((LPNMHDR)lParam)->code)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (derived.*func)((LPNMHDR)lParam);
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
     
         return false;
@@ -4799,7 +4798,7 @@ struct notify_code_handler_ex
 // command_range_handler_ex
 //
 template<
-    UINT idFirst,UINT idLast,void (Derived::*func)(UINT,int,HWND),class BoolT = boost::mpl::true_
+    UINT idFirst,UINT idLast,void (Derived::*func)(UINT,int,HWND)
 >
 struct command_range_handler_ex
 {
@@ -4809,11 +4808,11 @@ struct command_range_handler_ex
 
         if(uMsg == WM_COMMAND && LOWORD(wParam) >= idFirst  && LOWORD(wParam) <= idLast)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)HIWORD(wParam), (int)LOWORD(wParam), (HWND)lParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -4823,7 +4822,7 @@ struct command_range_handler_ex
 // command_range_code_handler_ex
 //
 template<
-    UINT idFirst,UINT idLast,UINT code,void (Derived::*func)(UINT,int,HWND),class BoolT = boost::mpl::true_
+    UINT idFirst,UINT idLast,UINT code,void (Derived::*func)(UINT,int,HWND)
 >
 struct command_range_code_handler_ex
 {
@@ -4833,11 +4832,11 @@ struct command_range_code_handler_ex
 
         if(uMsg == WM_COMMAND && code == HIWORD(wParam) && LOWORD(wParam) >= idFirst  && LOWORD(wParam) <= idLast)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)HIWORD(wParam), (int)LOWORD(wParam), (HWND)lParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -4847,7 +4846,7 @@ struct command_range_code_handler_ex
 // notify_range_handler_ex
 //
 template<
-    UINT idFirst,UINT idLast,LRESULT (Derived::*func)(LPNMHDR),class BoolT = boost::mpl::true_
+    UINT idFirst,UINT idLast,LRESULT (Derived::*func)(LPNMHDR)
 >
 struct notify_range_handler_ex
 {
@@ -4857,10 +4856,10 @@ struct notify_range_handler_ex
 
         if(uMsg == WM_NOTIFY && ((LPNMHDR)lParam)->idFrom >= idFirst && ((LPNMHDR)lParam)->idFrom <= idLast)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (derived.*func)((LPNMHDR)lParam);
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -4870,7 +4869,7 @@ struct notify_range_handler_ex
 // notify_range_code_handler_ex
 //
 template<
-    UINT idFirst,UINT idLast,UINT cd,LRESULT (Derived::*func)(LPNMHDR),class BoolT = boost::mpl::true_
+    UINT idFirst,UINT idLast,UINT cd,LRESULT (Derived::*func)(LPNMHDR)
 >
 struct notify_range_code_handler_ex
 {
@@ -4880,10 +4879,10 @@ struct notify_range_code_handler_ex
 
         if(uMsg == WM_NOTIFY && cd == ((LPNMHDR)lParam)->code && ((LPNMHDR)lParam)->idFrom >= idFirst && ((LPNMHDR)lParam)->idFrom <= idLast)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (derived.*func)((LPNMHDR)lParam);
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
     
         return false;
@@ -4894,7 +4893,7 @@ struct notify_range_code_handler_ex
 // reflected_command_handler_ex
 //
 template<
-    UINT id,UINT code,void (Derived::*func)(UINT,int,HWND),class BoolT = boost::mpl::true_
+    UINT id,UINT code,void (Derived::*func)(UINT,int,HWND)
 >
 struct reflected_command_handler_ex
 {
@@ -4904,11 +4903,11 @@ struct reflected_command_handler_ex
 
         if (uMsg == OCM_COMMAND && code == HIWORD(wParam) && id == LOWORD(wParam))
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)HIWORD(wParam), (int)LOWORD(wParam), (HWND)lParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -4918,7 +4917,7 @@ struct reflected_command_handler_ex
 // reflected_command_id_handler_ex
 //
 template<
-    UINT id,void (Derived::*func)(UINT,int,HWND),class BoolT = boost::mpl::true_
+    UINT id,void (Derived::*func)(UINT,int,HWND)
 >
 struct reflected_command_id_handler_ex
 {
@@ -4928,11 +4927,11 @@ struct reflected_command_id_handler_ex
 
         if (uMsg == OCM_COMMAND && id == LOWORD(wParam))
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)HIWORD(wParam), (int)LOWORD(wParam), (HWND)lParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -4942,7 +4941,7 @@ struct reflected_command_id_handler_ex
 // reflected_command_code_handler_ex
 //
 template<
-    UINT code,void (Derived::*func)(UINT,int,HWND),class BoolT = boost::mpl::true_
+    UINT code,void (Derived::*func)(UINT,int,HWND)
 >
 struct reflected_command_code_handler_ex
 {
@@ -4952,11 +4951,11 @@ struct reflected_command_code_handler_ex
 
         if (uMsg == OCM_COMMAND && code == HIWORD(wParam))
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)HIWORD(wParam), (int)LOWORD(wParam), (HWND)lParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -4966,7 +4965,7 @@ struct reflected_command_code_handler_ex
 // reflected_notify_handler_ex
 //
 template<
-    UINT id,UINT cd,LRESULT (Derived::*func)(LPNMHDR),class BoolT = boost::mpl::true_
+    UINT id,UINT cd,LRESULT (Derived::*func)(LPNMHDR)
 >
 struct reflected_notify_handler_ex
 {
@@ -4976,10 +4975,10 @@ struct reflected_notify_handler_ex
 
         if (uMsg == OCM_NOTIFY && cd == ((LPNMHDR)lParam)->code && id == ((LPNMHDR)lParam)->idFrom)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (derived.*func)((LPNMHDR)lParam);
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -4989,7 +4988,7 @@ struct reflected_notify_handler_ex
 // reflected_notify_id_handler_ex
 //
 template<
-    UINT id,LRESULT (Derived::*func)(LPNMHDR),class BoolT = boost::mpl::true_
+    UINT id,LRESULT (Derived::*func)(LPNMHDR)
 >
 struct reflected_notify_id_handler_ex
 {
@@ -4999,10 +4998,10 @@ struct reflected_notify_id_handler_ex
 
         if (uMsg == OCM_NOTIFY && id == ((LPNMHDR)lParam)->idFrom)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (derived.*func)((LPNMHDR)lParam);
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -5012,7 +5011,7 @@ struct reflected_notify_id_handler_ex
 // reflected_notify_code_handler_ex
 //
 template<
-    UINT cd,LRESULT (Derived::*func)(LPNMHDR),class BoolT = boost::mpl::true_
+    UINT cd,LRESULT (Derived::*func)(LPNMHDR)
 >
 struct reflected_notify_code_handler_ex
 {
@@ -5022,10 +5021,10 @@ struct reflected_notify_code_handler_ex
 
         if (uMsg == OCM_NOTIFY && cd == ((LPNMHDR)lParam)->code)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (derived.*func)((LPNMHDR)lParam);
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
     
         return false;
@@ -5036,7 +5035,7 @@ struct reflected_notify_code_handler_ex
 // reflected_command_range_handler_ex
 //
 template<
-    UINT idFirst,UINT idLast,void (Derived::*func)(UINT,int,HWND),class BoolT = boost::mpl::true_
+    UINT idFirst,UINT idLast,void (Derived::*func)(UINT,int,HWND)
 >
 struct reflected_command_range_handler_ex
 {
@@ -5046,11 +5045,11 @@ struct reflected_command_range_handler_ex
 
         if(uMsg == OCM_COMMAND && LOWORD(wParam) >= idFirst  && LOWORD(wParam) <= idLast)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)HIWORD(wParam), (int)LOWORD(wParam), (HWND)lParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
     
         return false;
@@ -5061,7 +5060,7 @@ struct reflected_command_range_handler_ex
 // reflected_command_range_code_handler_ex
 //
 template<
-    UINT idFirst,UINT idLast,UINT code,void (Derived::*func)(UINT,int,HWND),class BoolT = boost::mpl::true_
+    UINT idFirst,UINT idLast,UINT code,void (Derived::*func)(UINT,int,HWND)
 >
 struct reflected_command_range_code_handler_ex
 {
@@ -5071,11 +5070,11 @@ struct reflected_command_range_code_handler_ex
 
         if(uMsg == OCM_COMMAND && code == HIWORD(wParam) && LOWORD(wParam) >= idFirst  && LOWORD(wParam) <= idLast)
         {
-            
+            derived.set_msg_handled(true);
             (derived.*func)((UINT)HIWORD(wParam), (int)LOWORD(wParam), (HWND)lParam);
             lResult = 0;
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }
@@ -5085,7 +5084,7 @@ struct reflected_command_range_code_handler_ex
 // reflected_notify_range_handler_ex
 //
 template<
-    UINT idFirst,UINT idLast,LRESULT (Derived::*func)(LPNMHDR),class BoolT = boost::mpl::true_
+    UINT idFirst,UINT idLast,LRESULT (Derived::*func)(LPNMHDR)
 >
 struct reflected_notify_range_handler_ex
 {
@@ -5095,10 +5094,10 @@ struct reflected_notify_range_handler_ex
 
         if(uMsg == OCM_NOTIFY && ((LPNMHDR)lParam)->idFrom >= idFirst && ((LPNMHDR)lParam)->idFrom <= idLast)
         {
-            
+            derived.set_msg_handled(true);
             lResult = (derived.*func)((LPNMHDR)lParam);
             
-            if(BoolT::value) return true;
+            if(derived.is_msg_handled()) return true;
         }
         return false;
     }

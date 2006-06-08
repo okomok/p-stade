@@ -16,8 +16,8 @@
 
 
 #include <boost/assert.hpp>
-#include <boost/microsoft/sdk/windows.hpp>
 #include <boost/mpl/integral_c.hpp>
+#include <pstade/apple/sdk/windows.hpp>
 #include "../diet/valid.hpp"
 #include "../require.hpp"
 #include "../size_initialize.hpp"

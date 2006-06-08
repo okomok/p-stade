@@ -10,7 +10,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/microsoft/wtl/misc.hpp> // CPoint
+#include <pstade/apple/wtl/misc.hpp> // CPoint
+#include <pstade/instance.hpp>
 
 
 namespace pstade { namespace hamburger {
@@ -18,6 +19,9 @@ namespace pstade { namespace hamburger {
 
 typedef WTL::CPoint
 point;
+
+
+PSTADE_INSTANCE(const point, origin, (0)(0))
 
 
 } } // namespace pstade::hamburger

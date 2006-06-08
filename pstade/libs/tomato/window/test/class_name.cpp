@@ -1,4 +1,4 @@
-#include <pstade/vodka/begin.hpp>
+#include <pstade/vodka/drink.hpp>
 #include <boost/test/minimal.hpp>
 
 
@@ -18,14 +18,12 @@
 
 
 #include <iostream>
-#include <boost/microsoft/atl/str.hpp>
-#include <boost/microsoft/atl/config.hpp>
-#include <boost/microsoft/sdk/windows.hpp>
-#include <boost/microsoft/wtl/misc.hpp>
-#include <boost/microsoft/wtl/app.hpp>
+#include <pstade/apple/atl/str.hpp>
+#include <pstade/apple/atl/config.hpp>
+#include <pstade/apple/sdk/windows.hpp>
+#include <pstade/apple/wtl/misc.hpp>
+#include <pstade/apple/wtl/app.hpp>
 WTL::CAppModule _Module;
-#include <boost/microsoft/atl/range.hpp>
-#include <boost/microsoft/wtl/range.hpp>
 #include <pstade/oven/copy.hpp>
 
 
@@ -35,7 +33,7 @@ void test()
 
     HWND hWnd = ::GetForegroundWindow();
 
-#if (BOOST_MICROSOFT_ATL_VER >= 0x0700)
+#if (PSTADE_APPLE_ATL_VER >= 0x0700)
     {
         ATL::CString str;
         oven::copy(tomato::class_name(hWnd), garlic::back_inserter(str));

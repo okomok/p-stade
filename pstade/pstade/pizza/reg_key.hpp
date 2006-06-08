@@ -10,10 +10,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/microsoft/atl/base.hpp> // CRegKey
-#include <boost/microsoft/atl/config.hpp> // ATL_VER
-#include <boost/microsoft/sdk/tchar.hpp>
-#include <boost/microsoft/sdk/windows.hpp>
+#include <pstade/apple/atl/base.hpp> // CRegKey
+#include <pstade/apple/atl/config.hpp> // ATL_VER
+#include <pstade/apple/sdk/tchar.hpp>
+#include <pstade/apple/sdk/windows.hpp>
 #include <pstade/integral_cast.hpp>
 #include <pstade/oven/sequence_cast.hpp>
 #include <pstade/overload.hpp>
@@ -38,7 +38,7 @@ void pstade_pizza_initialize(ATL::CRegKey& key, const TCHAR *pszName, pstade::ov
 inline
 void pstade_pizza_set_string(ATL::CRegKey& key, const TCHAR *pszValueName, const TCHAR *pszValue, pstade::overload)
 {
-#if !(BOOST_MICROSOFT_ATL_VER < 0x0700)
+#if !(PSTADE_APPLE_ATL_VER < 0x0700)
     PSTADE_REQUIRE(key.SetStringValue(pszValueName, pszValue) == ERROR_SUCCESS);
 #else
     PSTADE_REQUIRE(key.SetValue(pszValue, pszValueName) == ERROR_SUCCESS);
@@ -49,7 +49,7 @@ void pstade_pizza_set_string(ATL::CRegKey& key, const TCHAR *pszValueName, const
 inline
 bool pstade_pizza_query_string(ATL::CRegKey& key, const TCHAR *pszValueName, TCHAR *pFirst, TCHAR *pLast, pstade::overload)
 {
-#if !(BOOST_MICROSOFT_ATL_VER < 0x0700)
+#if !(PSTADE_APPLE_ATL_VER < 0x0700)
     ULONG ulBufs = pstade::integral(pLast - pFirst);
     return key.QueryStringValue(pszValueName, pFirst, &ulBufs) == ERROR_SUCCESS;
 #else

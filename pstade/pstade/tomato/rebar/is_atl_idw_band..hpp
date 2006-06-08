@@ -11,8 +11,8 @@
 
 
 #include <boost/assert.hpp>
-#include <boost/microsoft/sdk/windows.hpp>
-#include <boost/microsoft/wtl/res.hpp> // ATL_IDW_BAND_FIRST/LAST
+#include <pstade/apple/sdk/windows.hpp>
+#include <pstade/apple/wtl/res.hpp> // ATL_IDW_BAND_FIRST/LAST
 
 
 namespace pstade { namespace tomato {

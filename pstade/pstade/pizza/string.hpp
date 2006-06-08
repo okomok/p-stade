@@ -14,8 +14,6 @@
 #include <sstream>
 #include <string>
 #include <boost/assert.hpp>
-#include <boost/microsoft/sdk/tchar.hpp>
-#include <boost/microsoft/sdk/windows.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/range/begin.hpp>
@@ -23,6 +21,8 @@
 #include <boost/range/end.hpp>
 #include <boost/scoped_ptr.hpp>
 #include <boost/throw_exception.hpp>
+#include <pstade/apple/sdk/tchar.hpp>
+#include <pstade/apple/sdk/windows.hpp>
 #include <pstade/oven/array_range.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
 #include <pstade/tomato/c_str.hpp>

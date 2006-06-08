@@ -11,7 +11,7 @@
 
 
 #include <boost/assert.hpp>
-#include <boost/microsoft/sdk/windows.hpp>
+#include <pstade/apple/sdk/windows.hpp>
 #include <pstade/tomato/diet/valid.hpp>
 #include "../cmd_ui.hpp"
 
@@ -28,7 +28,7 @@ struct multipanestatusbar_cmd_ui : cmd_ui
         BOOST_ASSERT(diet::valid(statusbar.m_hWnd));
     }
 
-protected:
+private:
     virtual void impl_set_text(const TCHAR *pszText)
     {
         m_statusbar.SetPaneText(get_id(), pszText);

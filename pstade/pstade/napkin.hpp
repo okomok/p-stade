@@ -12,6 +12,7 @@
 
 #include "./napkin/nout.hpp"
 #include "./napkin/ostream.hpp"
+#include "./napkin/ostream_char_type.hpp"
 
 
 #endif

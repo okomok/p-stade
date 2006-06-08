@@ -22,6 +22,8 @@ namespace pstade { namespace napkin {
 template< class CharT >
 struct basic_ostream
 {
+    typedef CharT char_type;
+
     explicit basic_ostream()
     {
         reset(nout);

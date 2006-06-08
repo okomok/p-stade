@@ -7,7 +7,7 @@ The Biscuit Parser Library
 :Author: MB and Christopher Diggins(original author)
 :Contact: mb2act@yahoo.co.jp 
 :License: Distributed under the `Boost Software License Version 1.0`_
-:Version: 1.02.5
+:Version: 1.02.6
 
 
 
@@ -53,7 +53,7 @@ A simple EBNF grammar snippet::
 
 is approximated using Biscuit's facilities as seen in this code snippet::
 
-	D:\Importance\Document\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\introduction_0.ipp
+	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\introduction_0.ipp
 
 Through the magic of the lazy template instantiation, these are perfectly valid types.
 The production rule ``expression`` is a type that has a static member function ``parse``.
@@ -61,7 +61,7 @@ As ``parse`` will be instantiated later by Algorithms_, all you have to do is to
 
 Direct recurring types [#]_ also are valid::
 
-	D:\Importance\Document\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\introduction_1.ipp
+	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\introduction_1.ipp
 
 Note that left-recursions are not allowed, though compilers might detect them if templates are easy.
 
@@ -91,15 +91,15 @@ Quick Start
 -----------
 #. Include Biscuit headers::
 
-	D:\Importance\Document\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\quick_start_1.ipp
+	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\quick_start_1.ipp
 
 #. Define your own Parser_ type::
 
-	D:\Importance\Document\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\quick_start_2.ipp
+	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\quick_start_2.ipp
 
 #. Call Algorithms_ [#]_::
 
-	D:\Importance\Document\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\quick_start_3.ipp
+	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\quick_start_3.ipp
 
 
 .. [#] An unqualified call may trigger an unintentional ADL. You must always add ``biscuit::``.
@@ -121,7 +121,7 @@ Parser
 ^^^^^^
 A ``Parser`` is any type that has the static member function [#]_ ::
 
-	D:\Importance\Document\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\basic_concept_parser.ipp
+	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\basic_concept_parser.ipp
 
 
 Parsing Range
@@ -132,7 +132,7 @@ the ``value_type`` of the `Forward Range`_ must be `Equality Comparable`__.
 __ http://www.sgi.com/tech/stl/EqualityComparable.html
 
 
-Parsing Sub Range
+Parsing SubRange
 ^^^^^^^^^^^^^^^^^
 A ``ParsingSubRange`` [#]_ is a ``boost::iterator_range<boost::range_result_iterator<ParsingRange>::type>``.
 
@@ -141,7 +141,7 @@ Semantic Action
 ^^^^^^^^^^^^^^^
 A ``SemanticAction`` [#]_ is a `Default Constructible`_ `Functor`_ and
 the expression ``a(r, us)`` must be valid, where ``a`` is an object of type `Semantic Action`_, 
-``r`` is an object of type `Parsing Sub Range`_ and ``us`` is an object of type `User State`_.
+``r`` is an object of type `Parsing SubRange`_ and ``us`` is an object of type `User State`_.
 
 
 Value Functor
@@ -158,7 +158,7 @@ An ``AdaptableValueFunctor`` is a `Value Functor`_ that conforms to `Adaptable U
 
 .. [#] It could be defined as non-member function if there were no broken compilers.
 
-.. [#] `Parsing Sub Range`_ is not defined as ``boost::sub_range`` for broken compilers,
+.. [#] `Parsing SubRange`_ is not defined as ``boost::sub_range`` for broken compilers,
        but you can catch it using ``boost::sub_range<ParsingRange>``. Note that
        the latest ``boost::sub_range`` has no value semantics under eVC4 and VC8 because of their bugs.
 
@@ -184,7 +184,7 @@ The table below lists EBNF and their equivalents in Biscuit.
 	-------------------- ------------------------------------------------------- --------------------------------------------------
 	``$``                ``end``                                                 end of parsing range
 	-------------------- ------------------------------------------------------- --------------------------------------------------
-	``A | B``            ``or_<A, B>`` [#]_                                      alternation of A and B
+	``A | B``            ``or_<A, B>``                                           alternation of A and B
 	-------------------- ------------------------------------------------------- --------------------------------------------------
 	``A B``              ``seq<A, B>``                                           sequence of A and B
 	-------------------- ------------------------------------------------------- --------------------------------------------------
@@ -204,11 +204,13 @@ The table below lists EBNF and their equivalents in Biscuit.
 	-------------------- ------------------------------------------------------- --------------------------------------------------
 	``A{n,m}``           ``repeat<A, n, m>``                                     between n and m times, greedy
 	-------------------- ------------------------------------------------------- --------------------------------------------------
-	``A*? B``            ``star_until<A, B>``                                    zero or more As and B
+	``A*? B``            ``star_until<A, B>``                                    zero or more As, non-greedy, and B
+	-------------------- ------------------------------------------------------- --------------------------------------------------
+	``A*? (?=B)``        ``star_before<A, B>``                                   same as ``star_until< A, before<B> >``
 	-------------------- ------------------------------------------------------- --------------------------------------------------
 	``(?=A)``            ``before<A>``                                           positive look-ahead assertion
 	-------------------- ------------------------------------------------------- --------------------------------------------------
-	``(?!A)``            ``not_< before<A> >`` [#]_                              negative look-ahead assertion
+	``(?!A)``            ``not_< before<A> >``                                   negative look-ahead assertion
 	-------------------- ------------------------------------------------------- --------------------------------------------------
 	``a``                ``char_<'a'>``                                          a character
 	-------------------- ------------------------------------------------------- --------------------------------------------------
@@ -252,16 +254,31 @@ The table below lists EBNF and their equivalents in Biscuit.
 	==================== ======================================================= ==================================================
 
 YARD_ and Biscuit have no back-tracking on star operations. Instead ``star_until`` or ``star_before`` are available.
+The default template arity is twenty. 
+If you want more arity, define ``PSTADE_BISCUIT_CFG_NO_PREPROCESSED_HEADERS`` and ``PSTADE_BISCUIT_LIMIT_PARSER_ARITY``
+before Biscuit headers. VC++7.1 limits ``PSTADE_BISCUIT_LIMIT_PARSER_ARITY`` to 64.
+Note that the big arity tends to make internal compiler errors.
 
 
-``actor``
-^^^^^^^^^
+Symbol
+^^^^^^
+Unfortunately you cannot pass a string literal to templates.
+``chseq`` template parameter arity is limited. For that workaround, ``PSTADE_BISCUIT_SYMBOL`` macro is provided::
+
+	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\predefined_parsers_symbol.ipp
+
+``PSTADE_BISCUIT_SYMBOL`` defines `Parser`_ whose name is the first argument by using
+the string literal that is passed as the second argument.
+
+
+Actor
+^^^^^
 ``actor`` template creates a Parser_ that triggers a `Semantic Action`_ object::
 
-	D:\Importance\Document\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\predefined_parsers_actor.ipp
+	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\predefined_parsers_actor.ipp
 
-`Parsing Sub Range`_ can be assigned to ``boost::sub_range<ParsingRange>`` idiomatically.
-If a `Parsing Range`_ is mutable, its `Parsing Sub Range`_ also is mutable.
+`Parsing SubRange`_ can be assigned to ``boost::sub_range<ParsingRange>`` idiomatically.
+If a `Parsing Range`_ is mutable, its `Parsing SubRange`_ also is mutable.
 Note that a copy of ``boost::sub_range`` is only copies of two iterators.
 ``oven::sequence_cast`` is same as ``boost::copy_range``.
 
@@ -295,13 +312,6 @@ Directives_ are also Parser_\s which contain some ports of `Boost.Spirit`_'s Dir
 .. [#] There is a debate over whether or not to define Parser_\s as class templates even if no parameters.
        If you want such parsers, define ``PSTADE_BISCUIT_CFG_NULLARY_CLASS_TEMPLATE_PARSER`` before Biscuit headers.
 
-.. [#] The default arity is twenty. 
-       If you want more arity, define ``PSTADE_BISCUIT_CFG_NO_PREPROCESSED_HEADERS`` and ``PSTADE_BISCUIT_LIMIT_PARSER_ARITY``
-       before Biscuit headers. VC++7.1 limits ``PSTADE_BISCUIT_LIMIT_PARSER_ARITY`` to 64.
-       Note that the big arity tends to make internal compiler errors.
-
-.. [#] ``not_before`` is provided for broken compilers.
-
 .. [#] ``not_`` can be applied only to one character Parser_ with a few exceptions.
 
 .. [#] ``Predicate`` must conform to `Semantic Action`_.
@@ -322,7 +332,7 @@ range is comparable with ``char``.
 ^^^^^^^^^^^^^^^^^^
 ``biscuit::match`` returns ``true`` if a Parser_ runs through the range; otherwise ``false``::
 
-	D:\Importance\Document\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\algorithms_match.ipp
+	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\algorithms_match.ipp
 
 Notice that a null-terminated string is no longer a model of Range with Boost 1.34.
 ``oven::null_terminate_range`` is provided for the workaround.
@@ -330,17 +340,17 @@ Notice that a null-terminated string is no longer a model of Range with Boost 1.
 
 ``biscuit::search``
 ^^^^^^^^^^^^^^^^^^^
-``biscuit::search`` returns the first occurence of the matching `Parsing Sub Range`_.
+``biscuit::search`` returns the first occurence of the matching `Parsing SubRange`_.
 If not found, it returns ``boost::make_iterator_range(boost::end(r), boost::end(r))``, 
 where ``r`` is an object of type `Parsing Range`_::
 
-	D:\Importance\Document\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\algorithms_search.ipp
+	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\algorithms_search.ipp
 
 
 ``biscuit::parse``
 ^^^^^^^^^^^^^^^^^^
 While ``biscuit::match`` returns only whether or not to succeed,
-``biscuit::parse`` returns `Parsing Sub Range`_ that a Parser_ runs through.
+``biscuit::parse`` returns `Parsing SubRange`_ that a Parser_ runs through.
 If a parsing fails, it returns ``boost::make_iterator_range(boost::begin(r), boost::begin(r))``, 
 where ``r`` is an object of type `Parsing Range`_.
 
@@ -354,7 +364,7 @@ Therefore, actions are triggered in reverse order.
 A bold play solves this problem. ``biscuit::iterate`` parses twice by using ``no_actions`` the first time,
 and then triggers actions that is passed to the third argument to non-matching ranges::
 
-	D:\Importance\Document\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\algorithms_iterate_0.ipp
+	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\algorithms_iterate_0.ipp
 
 This parse-twice technique is used by also ``lazy_actions``.
 
@@ -368,18 +378,18 @@ Ranges
 ^^^^^^^^^^^^^^^^
 ``filter_range`` is a `Forward Range`_ that is filtered by Parser_::
 
-	D:\Importance\Document\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\ranges_filter_range_0.ipp
+	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\ranges_filter_range_0.ipp
 
 A chain of ``filter_range`` works properly::
 
-	D:\Importance\Document\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\ranges_filter_range_1.ipp
+	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\ranges_filter_range_1.ipp
 
 ``filter_range`` is a model of `Forward Range`_ that can be passed to Algorithms_.
 That's why Biscuit doesn't provide anything like `Boost.Spirit`_'s Scanner__.
 
 `Range adapter`__ syntax also is supported by ``filtered``::
 
-	D:\Importance\Document\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\ranges_filter_range_2.ipp
+	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\ranges_filter_range_2.ipp
 
 __ http://spirit.sourceforge.net/distrib/spirit_1_8_2/libs/spirit/doc/scanner.html
 __ http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1871.html#range-adapters-part-4
@@ -387,9 +397,9 @@ __ http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1871.html#range-adap
 
 ``token_range``
 ^^^^^^^^^^^^^^^
-``token_range`` is a `Forward Range`_ whose ``value_type`` is a matching `Parsing Sub Range`_::
+``token_range`` is a `Forward Range`_ whose ``value_type`` is a matching `Parsing SubRange`_::
 
-	D:\Importance\Document\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\ranges_token_range_0.ipp
+	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\ranges_token_range_0.ipp
 
 Outputs::
 
@@ -404,10 +414,18 @@ As ``token_range`` conforms to `Forward Range`_,
 
 Capturing
 ---------
-``capture`` and ``backref`` provide a capturing. 
+``capture`` and ``backref`` create Parser_ for the capturing. 
 results_xxx [#]_ Algorithms_ are prepared for accessing matching results after parsing::
 
-	D:\Importance\Document\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\capturing_0.ipp
+	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\capturing_0.ipp
+
+``match_results`` conforms to `Pair Associative Container`__ and
+`Unique Associative Container`__ except for their constructor expressions,
+whose key_type is ``int`` and ``mapped_typed`` (aka ``data_type``) is `Parsing SubRange`_ of
+the argument.
+
+__ http://www.sgi.com/tech/stl/PairAssociativeContainer.html
+__ http://www.sgi.com/tech/stl/UniqueAssociativeContainer.html
 
 Biscuit overwrites results everytime Parser_ runs through.
 Accessing to nested matching results that `Boost.Xpressive`_ provides is not supported,
@@ -431,14 +449,14 @@ The only way is to extract values from `User State`_.
 ^^^^^^^^^^
 ``valseq`` makes a sequential Parser_ from `Value Functor`_\s::
 
-	D:\Importance\Document\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\valseq_0.ipp
+	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\valseq_0.ipp
 
 
 ``valset``
 ^^^^^^^^^^
 ``valset`` makes an alternation Parser_ from `Value Functor`_\s::
 
-	D:\Importance\Document\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\valset_0.ipp
+	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\valset_0.ipp
 
 
 ``seq_range``
@@ -447,14 +465,14 @@ The only way is to extract values from `User State`_.
 ``seq_range<V>`` makes a sequential Parser_, where ``V`` is an `Adaptable Value Functor`_ and 
 the ``result_type`` must be, whether reference or not, a `Forward Range`_ whose ``value_type`` is comparable with `Parsing Range`_'s::
 
-	D:\Importance\Document\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\seq_range_0.ipp
+	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\seq_range_0.ipp
 
 
 ``set_range``
 ^^^^^^^^^^^^^
 ``set_range`` is provided in a similar way::
 
-	D:\Importance\Document\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\set_range_0.ipp
+	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\set_range_0.ipp
 
 
 
@@ -462,7 +480,7 @@ Debugging
 ---------
 Biscuit emulates `Boost.Spirit`_'s debugging__::
 
-	D:\Importance\Document\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\debugger_0.ipp
+	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\debugger_0.ipp
 
 __ http://spirit.sourceforge.net/distrib/spirit_1_8_2/libs/spirit/doc/debugging.html
 
@@ -502,7 +520,7 @@ Error Handling
 --------------
 Biscuit emulates `Boost.Spirit`_'s `Error Handling`__::
 
-	D:\Importance\Document\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\error_handling_0.ipp
+	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\error_handling_0.ipp
 
 __ http://spirit.sourceforge.net/distrib/spirit_1_8_3/libs/spirit/doc/error_handling.html
 
@@ -517,7 +535,7 @@ Bake in Oven
 PStade.Oven is the `Boost.Range`_ extension library.
 It provides some predefined ranges for Biscuit::
 
-	D:\Importance\Document\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\bake_biscuit_in_oven_0.ipp
+	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\bake_biscuit_in_oven_0.ipp
 
 
 
@@ -559,32 +577,21 @@ __ http://www.codeproject.com/cpp/yard-xml-parser.asp
 Release Notes
 -------------
 
-Version 1.02.0
-^^^^^^^^^^^^^^
+Version 1.02.0 - 1.02.5
+^^^^^^^^^^^^^^^^^^^^^^^
 - Namespace moved to ``pstade::biscuit``.
 - Updated the document.
-
-Version 1.02.1
-^^^^^^^^^^^^^^
 - Used ``iterator_range`` as ``match_results`` for broken VC8.
 - Added tests.
 - Fixed a bug of ``capture`` when directives_ applied.
-
-Version 1.02.2
-^^^^^^^^^^^^^^
 - Fixed a bug of ``biscuit::match``.
-
-Version 1.02.3
-^^^^^^^^^^^^^^
 - Added Boost.Jam files.
-
-
-Version 1.02.4
-^^^^^^^^^^^^^^
 - Added workaround for the forwarding problem.
-
-
-Version 1.02.5
-^^^^^^^^^^^^^^
 - Fixed fatal bugs of ``token_range``.
+
+Version 1.02.6
+^^^^^^^^^^^^^^
+- Added `Symbol`_.
+
+
 

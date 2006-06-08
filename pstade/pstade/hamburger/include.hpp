@@ -10,43 +10,97 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <algorithm> // find_if
 #include <boost/foreach.hpp>
-#include <pstade/ketchup.hpp>
-#include <pstade/lime/load_file.hpp>
+#include <boost/lambda/bind.hpp>
+#include <boost/lambda/core.hpp> // _1
+#include <boost/range/begin.hpp>
+#include <boost/range/empty.hpp>
+#include <boost/range/end.hpp>
+#include <boost/ref.hpp>
+#include <pstade/instance.hpp>
+#include <pstade/ketchup/core.hpp>
+#include <pstade/is_same.hpp>
+#include <pstade/oven/distance.hpp>
 #include <pstade/oven/sequence_cast.hpp>
 #include <pstade/statement.hpp>
+#include <pstade/tomato/to_multibyte_to.hpp>
 #include <pstade/ustring.hpp>
+#include <pstade/what.hpp>
 #include "./element.hpp"
 #include "./factory.hpp"
 #include "./lime.hpp"
+#include "./load_save.hpp"
+#include "./log.hpp"
 
 
 namespace pstade { namespace hamburger {
 
 
-PSTADE_INSTANCE(const ustring, Name_href, ("href"))
+PSTADE_INSTANCE(const ustring, Name_includedHref,   ("includedHref"))
+PSTADE_INSTANCE(const ustring, Name_serializable,   ("serializable"))
+
+
+namespace include_detail {
+
+
+    PSTADE_INSTANCE(const ustring, Name_href, ("href"))
+
+
+} // namespace include_detail
 
 
 struct include :
-    ketchup::message_processor<include, element>
+    element
 {
-    begin_msg_map
-    <
-        empty_entry<>
-    >
-    end_msg_map;
+public:
+    explicit include()
+    {
+        *this%Name_visible = Value_false;
+    }
 
 protected:
-    void create_impl()
+    void impl_create()
     {
-        std::string path = oven::sequence_cast<std::string>(att(Name_href));
-        // build_path(path, ...)
-        lime::load_file(*this, path);
+        BOOST_ASSERT(boost::empty(*this));
 
-        include& self(*this);
-        BOOST_FOREACH (element_node& child, self) {
-            child.create();
+        ustring path = *this%include_detail::Name_href;
+
+        // Todo:
+        // build_path(path, ...) using 'lime::root(*this)%Name_moduleFileName'
+
+        try {
+            hamburger::load(*this, path);
         }
+        catch (lime::load_error& ) {
+            BOOST_ASSERT(false);
+            // log << pstade::what("include-error", "failed to load:" + oven::sequence_cast<std::string>(path));
+        }
+
+        boost::optional<element&> pa = parent();
+        BOOST_ASSERT(pa);
+
+        namespace bll = boost::lambda;
+
+        // read-only access, thread-safe MAYBE.
+        iterator here = std::find_if(
+            boost::begin(*pa), boost::end(*pa),
+            // m_self for passing the two same types 'element' to 'is_same' 
+            bll::bind<bool>(pstade::is_same, boost::ref(m_self), bll::_1)
+        );
+
+        BOOST_ASSERT(oven::distance(*this) == 1); // only xml root element
+
+        iterator first = begin();
+        element& xmlroot = *first;
+        xmlroot.detail_construct(*pa, xmlroot.name()); // change parent!
+        xmlroot%Name_includedHref = path;
+        xmlroot%Name_serializable = *this%Name_serializable;
+        (*pa).transfer(here, first, *this); // transfer xmlroot to here
+
+        // 'first' is invalid here.
+        xmlroot.create();
+        // don't touch here cause 'create' might make threads.
     }
 };
 

@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "QuickStart", "..\QuickStart
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TomatoStyle", "..\TomatoStyle\TomatoStyle.vcproj", "{E3A76AF9-3D14-48E3-8844-4E5A1B6B8CA5}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "wtlburger", "..\wtlburger\wtlburger.vcproj", "{D9C3D288-82AD-4324-8D07-B24AFF1B0C37}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -31,6 +33,10 @@ Global
 		{E3A76AF9-3D14-48E3-8844-4E5A1B6B8CA5}.Debug|Win32.Build.0 = Debug|Win32
 		{E3A76AF9-3D14-48E3-8844-4E5A1B6B8CA5}.Release|Win32.ActiveCfg = Release|Win32
 		{E3A76AF9-3D14-48E3-8844-4E5A1B6B8CA5}.Release|Win32.Build.0 = Release|Win32
+		{D9C3D288-82AD-4324-8D07-B24AFF1B0C37}.Debug|Win32.ActiveCfg = Debug|Win32
+		{D9C3D288-82AD-4324-8D07-B24AFF1B0C37}.Debug|Win32.Build.0 = Debug|Win32
+		{D9C3D288-82AD-4324-8D07-B24AFF1B0C37}.Release|Win32.ActiveCfg = Release|Win32
+		{D9C3D288-82AD-4324-8D07-B24AFF1B0C37}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

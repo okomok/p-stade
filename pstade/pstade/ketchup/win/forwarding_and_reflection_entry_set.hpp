@@ -10,8 +10,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/microsoft/sdk/windows.hpp>
 #include <boost/mpl/void.hpp>
+#include <pstade/apple/sdk/windows.hpp>
 #include <pstade/tomato/boolean_cast.hpp>
 #include <pstade/unused.hpp>
 

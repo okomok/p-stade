@@ -14,12 +14,12 @@
 
 
 #include <algorithm> // stable_sort
+#include <vector>
 #include <boost/assert.hpp>
 #include <boost/foreach.hpp>
-#include <boost/microsoft/sdk/tchar.hpp>
-#include <boost/microsoft/sdk/windows.hpp>
-#include <boost/microsoft/atl/range/simpcoll.hpp> // CSimpleArray
-#include <boost/microsoft/wtl/ctrls.hpp> // CReBarCtrl
+#include <pstade/apple/sdk/tchar.hpp>
+#include <pstade/apple/sdk/windows.hpp>
+#include <pstade/apple/wtl/ctrls.hpp> // CReBarCtrl
 #include <pstade/candy/add.hpp>
 #include <pstade/candy/mask.hpp>
 #include <pstade/candy/remove.hpp>
@@ -120,7 +120,7 @@ void get_rebar(Profile& pr, HWND hWndReBar, const ReBarBandInfoRange& infos)
     BOOST_ASSERT(diet::valid(hWndReBar));
     BOOST_ASSERT(rebar_detail::is_valid(infos));
 
-    ATL::CSimpleArray<rebar_detail::band_info_impl> info_impls;
+    std::vector<rebar_detail::band_info_impl> info_impls;
 
     BOOST_FOREACH (rebar_band_info info, infos) { // copy info
 
@@ -148,7 +148,7 @@ void get_rebar(Profile& pr, HWND hWndReBar, const ReBarBandInfoRange& infos)
         }
 
         rebar_detail::band_info_impl tmp_for_atl3(info, index, cx);
-        info_impls.Add(tmp_for_atl3);
+        info_impls.push_back(tmp_for_atl3);
 
     } // BOOST_FOREACH
 

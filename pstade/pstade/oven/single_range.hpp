@@ -11,6 +11,7 @@
 
 
 #include <boost/range/iterator_range.hpp>
+#include <boost/utility/addressof.hpp>
 #include "./is_lightweight_proxy.hpp"
 
 
@@ -26,7 +27,7 @@ private:
 
 public:
     explicit single_range(T& x) :
-        super_t(&x, &x + 1)
+        super_t(boost::addressof(x), boost::addressof(x) + 1)
     { }
 };
 

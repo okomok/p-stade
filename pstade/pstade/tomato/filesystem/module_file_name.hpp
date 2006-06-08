@@ -12,15 +12,15 @@
 
 #include <boost/array.hpp>
 #include <boost/assert.hpp>
-#include <boost/microsoft/atl/module.hpp>
-#include <boost/microsoft/sdk/tchar.hpp>
-#include <boost/microsoft/sdk/windows.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/iterator_range.hpp>
-#include <boost/range/size.hpp>
+#include <pstade/apple/atl/module.hpp>
+#include <pstade/apple/sdk/tchar.hpp>
+#include <pstade/apple/sdk/windows.hpp>
 #include <pstade/const.hpp>
 #include <pstade/integral_cast.hpp>
+#include <pstade/oven/distance.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
 #include <pstade/oven/sub_range_result_type.hpp>
 #include <pstade/require.hpp>
@@ -46,7 +46,7 @@ namespace module_file_name_detail {
             BOOST_ASSERT(diet::valid(hInst));
 
             PSTADE_REQUIRE(0 !=
-                ::GetModuleFileName(hInst, boost::begin(m_buf), pstade::integral(boost::size(m_buf)))
+                ::GetModuleFileName(hInst, boost::begin(m_buf), pstade::integral(oven::distance(m_buf)))
             );
 
             BOOST_ASSERT(oven::is_null_terminated(m_buf));

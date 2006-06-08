@@ -11,16 +11,15 @@
 
 
 #include <boost/config.hpp>
-#include <boost/microsoft/sdk/windows.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/enum_params.hpp>
 #include <boost/preprocessor/enum_params_with_defaults.hpp>
 #include <boost/preprocessor/repeat.hpp>
+#include <pstade/apple/sdk/windows.hpp>
 #include <pstade/derived_cast.hpp>
 #include "../cmd_ui/cmd_ui.hpp"
 #include "../cmd_ui/dependent_value.hpp"
 #include "../config/limit_message_processor_base_size.hpp"
-#include "../crack/handled_value.hpp"
 #include "./entry_subset.hpp"
 #include "./process_window_message.hpp"
 
@@ -92,7 +91,6 @@ struct message_processor :
 #endif
 
     typedef Derived _;
-    typedef ketchup::not_handled not_handled;
     typedef ketchup::cmd_ui cmd_ui;
     typedef ketchup::dependent dependent;
     typedef ketchup::independent independent;
@@ -105,6 +103,15 @@ struct message_processor :
         return ketchup::process_window_message(d, hWnd, uMsg,
             wParam, lParam, lResult, dwMsgMapID);
     }
+
+    void set_msg_handled(bool handled)
+    { m_pstade_ketchup_handled = handled; }
+
+    bool is_msg_handled() const
+    { return m_pstade_ketchup_handled; }
+
+private:
+    bool m_pstade_ketchup_handled;
 };
 
 

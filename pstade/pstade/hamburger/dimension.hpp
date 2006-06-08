@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/microsoft/wtl/misc.hpp> // CSize
+#include <pstade/apple/wtl/misc.hpp> // CSize
 
 
 namespace pstade { namespace hamburger {
@@ -18,6 +18,13 @@ namespace pstade { namespace hamburger {
 
 typedef WTL::CSize
 dimension;
+
+
+inline
+dimension swap_axis(dimension sz)
+{
+    return hamburger::dimension(sz.cy, sz.cx);
+}
 
 
 } } // namespace pstade::hamburger

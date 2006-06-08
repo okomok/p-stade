@@ -21,10 +21,10 @@
 
 
 #include <boost/assert.hpp>
-#include <boost/microsoft/sdk/windows.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/range/iterator_range.hpp>
+#include <pstade/apple/sdk/windows.hpp>
 #include <pstade/check.hpp>
 #include "../diet/valid.hpp"
 #include "../require.hpp"

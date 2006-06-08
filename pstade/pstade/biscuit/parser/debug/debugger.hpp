@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <iostream>
 #include <string>
 #include <typeinfo>
 #include <boost/foreach.hpp>
@@ -18,51 +19,58 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/range/result_iterator.hpp>
+#include <pstade/init_ios.hpp>
+#include <pstade/instance.hpp>
 #include <pstade/is_debug.hpp>
-
-#if !defined(PSTADE_BISCUIT_DEBUG_OUT) && !defined(_WIN32_WCE)
-    #include <iostream>
-    #define PSTADE_BISCUIT_DEBUG_OUT std::cout
-#endif
+#include <pstade/napkin/ostream.hpp>
+#include <pstade/napkin/ostream_char_type.hpp>
 
 
 namespace pstade { namespace biscuit {
 
 
-template< class Char = char, class Traits = std::char_traits<Char> >
-struct basic_ostream_type
-{
-    typedef std::basic_ostream<Char, Traits> type;
-};
-
-
 namespace debugger_detail {
 
-    // Note: if inline is missing, the compiler doesn't remove s_count.
-    inline int& class_trace_indent_count()
+
+    PSTADE_INSTANCE(napkin::ostream, os, (std::cout))
+    PSTADE_INSTANCE(napkin::wostream, wos, (std::wcout))
+
+
+    struct get_ostream
     {
-        static int s_count = 0;
-        return s_count;
-    }
+        typedef napkin::ostream type;
+        static napkin::ostream& call() { return os; }
+    };
+
+
+    struct get_wostream
+    {
+        typedef napkin::wostream type;
+        static napkin::wostream& call() { return wos; }
+    };
+
+
+    PSTADE_INSTANCE(int, class_trace_indent_count, value)
+
 
     struct indents
     {
         indents()
         {
-            int spaces = 2 * class_trace_indent_count();
+            int spaces = 2 * class_trace_indent_count;
             m_str = std::string(spaces, ' ');
-            ++class_trace_indent_count();
+            ++class_trace_indent_count;
         }
 
         ~indents()
         {
-            --class_trace_indent_count();
+            --class_trace_indent_count;
         }
 
         template< class OStream >
         OStream& output(OStream& out)
         {
-            int spaces = 2 * class_trace_indent_count();
+            int spaces = 2 * class_trace_indent_count;
             for (int i = 0; i < spaces; ++i)
                 out << ' ';
 
@@ -72,7 +80,8 @@ namespace debugger_detail {
         std::string m_str;
     };
 
-    template< class ParserName, class Parser, class On > //class GetOStream >
+
+    template< class ParserName, class Parser, class On, class GetOStream >
     struct debugger_base
     {
         struct on_release
@@ -91,23 +100,30 @@ namespace debugger_detail {
             template< class State, class UserState >
             static bool parse(State& s, UserState& us)
             {
+                typedef typename GetOStream::type os_t;
+                typedef typename napkin::ostream_char<os_t>::type char_t;
                 typedef typename boost::range_result_iterator<State>::type iter_t;
-                typedef boost::range_result_iterator<std::string>::type siter_t;
 
+                // If L'x' != 'x', output strings might look broken.
+                // But 'type_info' doesn't support 'wstring', *never mind*.
+                //
                 indents inds;
                 std::type_info const& tid = typeid(ParserName);
                 std::string tag = std::string(tid.name());
 
                 {
                     std::string stag = inds.m_str + tag + ": \"";
-                    BOOST_FOREACH (char ch, stag) {
-                        PSTADE_BISCUIT_DEBUG_OUT << ch;
+
+                    BOOST_FOREACH (char_t ch, stag) {
+                        GetOStream::call() << ch;
                     }
+
                     for (iter_t it = s.get_cur(); it != boost::end(s); ++it) {
-                        PSTADE_BISCUIT_DEBUG_OUT << *it;
+                        GetOStream::call() << *it;
                     }
-                    PSTADE_BISCUIT_DEBUG_OUT << '"';
-                    PSTADE_BISCUIT_DEBUG_OUT << '\n';
+
+                    GetOStream::call() << '"';
+                    GetOStream::call() << '\n';
                 }
 
                 bool ok = Parser::parse(s, us);
@@ -115,14 +131,17 @@ namespace debugger_detail {
                 {
                     char em = ok ? '/' : '#';
                     std::string etag = inds.m_str + em + tag + ": \"";
-                    BOOST_FOREACH (char ch, etag) {
-                        PSTADE_BISCUIT_DEBUG_OUT << ch;
+
+                    BOOST_FOREACH (char_t ch, etag) {
+                        GetOStream::call() << ch;
                     }
+
                     for (iter_t it = s.get_cur(); it != boost::end(s); ++it) {
-                        PSTADE_BISCUIT_DEBUG_OUT << *it;
+                        GetOStream::call() << *it;
                     }
-                    PSTADE_BISCUIT_DEBUG_OUT << '"';
-                    PSTADE_BISCUIT_DEBUG_OUT << '\n';
+
+                    GetOStream::call() << '"';
+                    GetOStream::call() << '\n';
                 }
 
                 return ok;
@@ -138,6 +157,7 @@ namespace debugger_detail {
         >::type type;
     };
 
+
 } // namespace debugger_detail
 
 
@@ -147,8 +167,32 @@ template<
     class On = boost::mpl::true_
 >
 struct debugger :
-    debugger_detail::debugger_base<ParserName, Parser, On>::type
+    debugger_detail::debugger_base<ParserName, Parser, On, debugger_detail::get_ostream>::type
 { };
+
+
+template<
+    class ParserName,
+    class Parser,
+    class On = boost::mpl::true_
+>
+struct wdebugger :
+    debugger_detail::debugger_base<ParserName, Parser, On, debugger_detail::get_wostream>::type
+{ };
+
+
+template< class StringOutputable > inline
+void debugger_reset_ostream(StringOutputable& out)
+{
+    debugger_detail::os.reset(out);
+}
+
+
+template< class WideStringOutputable > inline
+void wdebugger_reset_ostream(WideStringOutputable& out)
+{
+    debugger_detail::wos.reset(out);
+}
 
 
 } } // namespace pstade::biscuit

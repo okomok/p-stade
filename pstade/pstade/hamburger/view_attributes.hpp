@@ -38,7 +38,7 @@ PSTADE_INSTANCE(const ustring, Name_transparencyColor,          ("transparencyCo
 
 
 PSTADE_INSTANCE(const ustring, Value_none,  ("none"))
-PSTADE_INSTANCE(const ustring, Value_white, ("white"))
+PSTADE_INSTANCE(const ustring, Value_white, ("#FFFFFF"))
 
 
 PSTADE_INSTANCE(const ustring, Value_All,   ("All"))
@@ -50,20 +50,20 @@ PSTADE_INSTANCE(const ustring, Value_Video, ("Video"))
 
 
 template< class Node >
-void set_default_view_attributes(Node& nd)
+void set_default_view_attributes(Node& node)
 {
-    nd.att(Name_backgroundColor)            = Value_white;
-    nd.att(Name_backgroundImageHueShift)    = "0.0";
-    nd.att(Name_backgroundImageSaturation)  = "1.0";
-    nd.att(Name_backgroundTiled)            = Value_false;
-    nd.att(Name_category)                   = Value_All;
-    nd.att(Name_maxHeight)                  = Value_zero;
-    nd.att(Name_maxWidth)                   = Value_zero;
-    nd.att(Name_minHeight)                  = Value_zero;
-    nd.att(Name_minWidth)                   = Value_zero;
-    nd.att(Name_resizeBackgroundImage)      = Value_false;
-    nd.att(Name_timerInterval)              = "1000";
-    nd.att(Name_titleBar)                   = Value_true;
+    node%Name_backgroundColor           = Value_white;
+    node%Name_backgroundImageHueShift   = "0.0";
+    node%Name_backgroundImageSaturation = "1.0";
+    node%Name_backgroundTiled           = Value_false;
+    node%Name_category                  = Value_All;
+    node%Name_maxHeight                 = Value_zero;
+    node%Name_maxWidth                  = Value_zero;
+    node%Name_minHeight                 = Value_zero;
+    node%Name_minWidth                  = Value_zero;
+    node%Name_resizeBackgroundImage     = Value_false;
+    node%Name_timerInterval             = "1000";
+    node%Name_titleBar                  = Value_true;
 }
 
 

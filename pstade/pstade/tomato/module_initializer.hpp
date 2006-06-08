@@ -10,8 +10,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/microsoft/atl/module.hpp>
-#include <boost/microsoft/sdk/windows.hpp>
+#include <pstade/apple/atl/module.hpp>
+#include <pstade/apple/sdk/windows.hpp>
 #include <pstade/require.hpp>
 #include "./succeeded.hpp"
 

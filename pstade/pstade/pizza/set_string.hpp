@@ -11,8 +11,8 @@
 
 
 #include <boost/assert.hpp>
-#include <boost/microsoft/sdk/tchar.hpp>
 #include <boost/mpl/if.hpp>
+#include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/overload.hpp>
 #include <pstade/tomato/c_str.hpp>
 #include <pstade/tomato/diet/valid.hpp>

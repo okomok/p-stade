@@ -15,8 +15,8 @@
 // boost::numeric_cast
 
 
-#include <boost/microsoft/sdk/windows.hpp>
-#include <boost/microsoft/sdk/wtypes.hpp> // VARIANT_BOOL
+#include <pstade/apple/sdk/windows.hpp>
+#include <pstade/apple/sdk/wtypes.hpp> // VARIANT_BOOL
 
 
 namespace pstade { namespace tomato {

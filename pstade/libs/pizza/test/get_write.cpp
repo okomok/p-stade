@@ -1,8 +1,8 @@
-#include <pstade/vodka/begin.hpp>
+#include <pstade/vodka/drink.hpp>
 #include <boost/test/minimal.hpp>
 
 
-#include <boost/microsoft/wtl/app.hpp>
+#include <pstade/apple/wtl/app.hpp>
 WTL::CAppModule _Module;
 
 
@@ -31,7 +31,7 @@ WTL::CAppModule _Module;
 #include <sstream>
 #include <pstade/oven/copy.hpp>
 #include <pstade/oven/equal.hpp>
-#include <boost/microsoft/wtl/app.hpp>
+#include <pstade/apple/wtl/app.hpp>
 WTL::CAppModule _Module;
 
 

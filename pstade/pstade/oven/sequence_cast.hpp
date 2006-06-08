@@ -17,12 +17,13 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
+#include <boost/utility/addressof.hpp>
 
 
 namespace pstade { namespace oven {
 
 
-template< class StlSequence, class Range > inline const
+template< class StlSequence, class Range > inline
 StlSequence sequence_cast(const Range& rng)
 {
     return StlSequence(boost::begin(rng), boost::end(rng));
@@ -36,7 +37,7 @@ namespace sequence_cast_detail {
     struct temp
     {
         explicit temp(const Range& rng) :
-            m_prng(&rng)
+            m_prng(boost::addressof(rng))
         { }
 
         template< class StlSequence >

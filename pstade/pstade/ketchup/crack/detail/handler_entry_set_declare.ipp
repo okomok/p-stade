@@ -1,8 +1,7 @@
 
 
-#include <boost/microsoft/sdk/windows.hpp>
-#include <boost/microsoft/wtl/misc.hpp> // WTL::CSize, CPoint
-#include <boost/mpl/bool.hpp> // true_
+#include <pstade/apple/sdk/windows.hpp>
+#include <pstade/apple/wtl/misc.hpp> // WTL::CSize, CPoint
 
 
 #if !defined(_WTL_NO_WTYPES)
@@ -11,7 +10,7 @@
     #error undef _WTL_NO_WTYPES for WTL::CSize and CPoint
 #else
     #define KETCHUP_wtype_ns // ATL
-    #include <boost/microsoft/atl/types.hpp>
+    #include <pstade/apple/atl/types.hpp>
 #endif
 
 

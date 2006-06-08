@@ -29,12 +29,12 @@
 #include <boost/mpl/identity.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/range/size.hpp>
 #include <boost/range/result_iterator.hpp>
 #include <boost/type_traits/add_pointer.hpp>
 #include <boost/type_traits/is_array.hpp>
 #include <boost/type_traits/remove_extent.hpp>
 #include <pstade/egg/function.hpp>
+#include <pstade/oven/distance.hpp>
 
 
 namespace pstade { namespace oven {
@@ -79,7 +79,7 @@ namespace copy_detail {
         template< class Result, class RangeIn, class RangeOut >
         Result call(const RangeIn& in, RangeOut& out)
         {
-            BOOST_ASSERT(boost::size(in) <= boost::size(out) && "out of range");
+            BOOST_ASSERT(oven::distance(in) <= oven::distance(out) && "out of range");
             return std::copy(boost::begin(in), boost::end(in), boost::begin(out));
         }
     };
