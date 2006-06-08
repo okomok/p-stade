@@ -1,0 +1,23 @@
+
+subproject libs/range/test ;
+
+import testing ;
+
+
+DEPENDS all : test ;
+
+
+rule range-test ( name )
+{
+    return [
+        run $(name).cpp
+        : : :
+        <include>$(BOOST_ROOT)
+        <include>$(PSTADE_ROOT)
+    ] ;
+}
+
+
+test-suite range :
+    [ range-test detail_microsoft ]
+    ;

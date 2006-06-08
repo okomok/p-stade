@@ -1,0 +1,84 @@
+#ifndef PSTADE_TOMATO_MESSAGE_FILTERING_HPP
+#define PSTADE_TOMATO_MESSAGE_FILTERING_HPP
+
+
+// PStade.Tomato
+//
+// Copyright MB 2005-2006.
+// Distributed under the Boost Software License, Version 1.0.
+// (See accompanying file LICENSE_1_0.txt or copy at
+// http://www.boost.org/LICENSE_1_0.txt)
+
+
+#include <memory> // auto_ptr
+#include <boost/assert.hpp>
+#include <boost/noncopyable.hpp>
+#include <pstade/apple/atl/module.hpp>
+#include <pstade/apple/sdk/windows.hpp>
+#include <pstade/apple/wtl/app.hpp> // CMessageFilter, CMessageLoop
+#include <pstade/require.hpp>
+
+
+namespace pstade { namespace tomato {
+
+
+
+namespace message_filtering_detail {
+
+
+    struct impl
+    {
+        impl(WTL::CMessageFilter *pMessageFilter, DWORD dwThreadID) :
+            m_pMessageFilter(pMessageFilter), m_dwThreadID(dwThreadID)
+        {
+            WTL::CMessageLoop *pLoop = _Module.GetMessageLoop(m_dwThreadID);
+            PSTADE_REQUIRE(pLoop && pLoop->AddMessageFilter(m_pMessageFilter));
+        }
+
+        ~impl()
+        {
+            WTL::CMessageLoop *pLoop = _Module.GetMessageLoop(m_dwThreadID);
+            if (!pLoop || !pLoop->RemoveMessageFilter(m_pMessageFilter))
+                BOOST_ASSERT(false);
+        }
+
+    private:
+        WTL::CMessageFilter *m_pMessageFilter;
+        DWORD m_dwThreadID;
+    };
+
+
+} // namespace message_filtering_detail
+
+
+struct message_filtering :
+    private boost::noncopyable
+{
+    explicit message_filtering()
+    { }
+    
+    explicit message_filtering(WTL::CMessageFilter *pMessageFilter, DWORD dwThreadID = ::GetCurrentThreadId())
+    {
+        start(pMessageFilter, dwThreadID);
+    }
+
+    void start(WTL::CMessageFilter *pMessageFilter, DWORD dwThreadID = ::GetCurrentThreadId())
+    {
+        m_pimpl.reset(new message_filtering_detail::impl(pMessageFilter, dwThreadID));
+    }
+
+    void stop()
+    {
+        m_pimpl.reset();
+    }
+
+private:
+    std::auto_ptr<message_filtering_detail::impl> m_pimpl;
+};
+
+
+} } // namespace pstade::tomato
+
+
+
+#endif

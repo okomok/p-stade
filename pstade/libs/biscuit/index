@@ -1,0 +1,762 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.4: http://docutils.sourceforge.net/" />
+<title>The Biscuit Parser Library</title>
+<meta name="author" content="MB and Christopher Diggins(original author)" />
+<style type="text/css">
+
+@import "http://p-stade.sourceforge.net/doc/boost.css";
+@import "http://p-stade.sourceforge.net/doc/poost.css";
+
+</style>
+</head>
+<body>
+<div class="document" id="the-biscuit-parser-library">
+<h1 class="title">The Biscuit Parser Library</h1>
+<table class="docinfo" frame="void" rules="none">
+<col class="docinfo-name" />
+<col class="docinfo-content" />
+<tbody valign="top">
+<tr><th class="docinfo-name">Author:</th>
+<td>MB and Christopher Diggins(original author)</td></tr>
+<tr><th class="docinfo-name">Contact:</th>
+<td><a class="first last reference" href="mailto:mb2act&#64;yahoo.co.jp">mb2act&#64;yahoo.co.jp</a></td></tr>
+<tr class="field"><th class="docinfo-name">License:</th><td class="field-body">Distributed under the <a class="reference" href="http://www.boost.org/LICENSE_1_0.txt">Boost Software License Version 1.0</a></td>
+</tr>
+<tr><th class="docinfo-name">Version:</th>
+<td>1.02.6</td></tr>
+</tbody>
+</table>
+<img alt="Biscuit" src="./doc/logo.png" />
+<blockquote class="epigraph">
+<p>&quot;<em>If your slave commits a fault, do not smash his teeth with your fists; give him some of the biscuit which famous Rhodes has sent you.</em>&quot;</p>
+<p class="attribution">&mdash;Marcus Valerius Martialis</p>
+</blockquote>
+<div class="contents topic">
+<p class="topic-title first"><a id="table-of-contents" name="table-of-contents"><strong>Table of Contents</strong></a></p>
+<ul class="auto-toc simple">
+<li><a class="reference" href="#motivation" id="id34" name="id34">1&nbsp;&nbsp;&nbsp;Motivation</a></li>
+<li><a class="reference" href="#introduction" id="id35" name="id35">2&nbsp;&nbsp;&nbsp;Introduction</a></li>
+<li><a class="reference" href="#requirements" id="id36" name="id36">3&nbsp;&nbsp;&nbsp;Requirements</a></li>
+<li><a class="reference" href="#tested-under" id="id37" name="id37">4&nbsp;&nbsp;&nbsp;Tested Under</a></li>
+<li><a class="reference" href="#quick-start" id="id38" name="id38">5&nbsp;&nbsp;&nbsp;Quick Start</a></li>
+<li><a class="reference" href="#basic-concepts" id="id39" name="id39">6&nbsp;&nbsp;&nbsp;Basic Concepts</a><ul class="auto-toc">
+<li><a class="reference" href="#user-state" id="id40" name="id40">6.1&nbsp;&nbsp;&nbsp;User State</a></li>
+<li><a class="reference" href="#parser" id="id41" name="id41">6.2&nbsp;&nbsp;&nbsp;Parser</a></li>
+<li><a class="reference" href="#parsing-range" id="id42" name="id42">6.3&nbsp;&nbsp;&nbsp;Parsing Range</a></li>
+<li><a class="reference" href="#parsing-subrange" id="id43" name="id43">6.4&nbsp;&nbsp;&nbsp;Parsing SubRange</a></li>
+<li><a class="reference" href="#semantic-action" id="id44" name="id44">6.5&nbsp;&nbsp;&nbsp;Semantic Action</a></li>
+<li><a class="reference" href="#value-functor" id="id45" name="id45">6.6&nbsp;&nbsp;&nbsp;Value Functor</a></li>
+<li><a class="reference" href="#adaptable-value-functor" id="id46" name="id46">6.7&nbsp;&nbsp;&nbsp;Adaptable Value Functor</a></li>
+</ul>
+</li>
+<li><a class="reference" href="#predefined-parsers" id="id47" name="id47">7&nbsp;&nbsp;&nbsp;Predefined Parsers</a><ul class="auto-toc">
+<li><a class="reference" href="#primitives" id="id48" name="id48">7.1&nbsp;&nbsp;&nbsp;Primitives</a></li>
+<li><a class="reference" href="#symbol" id="id49" name="id49">7.2&nbsp;&nbsp;&nbsp;Symbol</a></li>
+<li><a class="reference" href="#actor" id="id50" name="id50">7.3&nbsp;&nbsp;&nbsp;Actor</a></li>
+<li><a class="reference" href="#directives" id="id51" name="id51">7.4&nbsp;&nbsp;&nbsp;Directives</a></li>
+</ul>
+</li>
+<li><a class="reference" href="#algorithms" id="id52" name="id52">8&nbsp;&nbsp;&nbsp;Algorithms</a><ul class="auto-toc">
+<li><a class="reference" href="#biscuit-match" id="id53" name="id53">8.1&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">biscuit::match</span></tt></a></li>
+<li><a class="reference" href="#biscuit-search" id="id54" name="id54">8.2&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">biscuit::search</span></tt></a></li>
+<li><a class="reference" href="#biscuit-parse" id="id55" name="id55">8.3&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">biscuit::parse</span></tt></a></li>
+<li><a class="reference" href="#biscuit-iterate" id="id56" name="id56">8.4&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">biscuit::iterate</span></tt></a></li>
+</ul>
+</li>
+<li><a class="reference" href="#ranges" id="id57" name="id57">9&nbsp;&nbsp;&nbsp;Ranges</a><ul class="auto-toc">
+<li><a class="reference" href="#filter-range" id="id58" name="id58">9.1&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">filter_range</span></tt></a></li>
+<li><a class="reference" href="#token-range" id="id59" name="id59">9.2&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">token_range</span></tt></a></li>
+</ul>
+</li>
+<li><a class="reference" href="#capturing" id="id60" name="id60">10&nbsp;&nbsp;&nbsp;Capturing</a></li>
+<li><a class="reference" href="#dynamics" id="id61" name="id61">11&nbsp;&nbsp;&nbsp;Dynamics</a><ul class="auto-toc">
+<li><a class="reference" href="#valseq" id="id62" name="id62">11.1&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">valseq</span></tt></a></li>
+<li><a class="reference" href="#valset" id="id63" name="id63">11.2&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">valset</span></tt></a></li>
+<li><a class="reference" href="#seq-range" id="id64" name="id64">11.3&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">seq_range</span></tt></a></li>
+<li><a class="reference" href="#set-range" id="id65" name="id65">11.4&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">set_range</span></tt></a></li>
+</ul>
+</li>
+<li><a class="reference" href="#debugging" id="id66" name="id66">12&nbsp;&nbsp;&nbsp;Debugging</a></li>
+<li><a class="reference" href="#error-handling" id="id67" name="id67">13&nbsp;&nbsp;&nbsp;Error Handling</a></li>
+<li><a class="reference" href="#bake-in-oven" id="id68" name="id68">14&nbsp;&nbsp;&nbsp;Bake in Oven</a></li>
+<li><a class="reference" href="#points-of-interest" id="id69" name="id69">15&nbsp;&nbsp;&nbsp;Points of Interest</a></li>
+<li><a class="reference" href="#references" id="id70" name="id70">16&nbsp;&nbsp;&nbsp;References</a></li>
+<li><a class="reference" href="#release-notes" id="id71" name="id71">17&nbsp;&nbsp;&nbsp;Release Notes</a><ul class="auto-toc">
+<li><a class="reference" href="#version-1-02-0-1-02-5" id="id72" name="id72">17.1&nbsp;&nbsp;&nbsp;Version 1.02.0 - 1.02.5</a></li>
+<li><a class="reference" href="#version-1-02-6" id="id73" name="id73">17.2&nbsp;&nbsp;&nbsp;Version 1.02.6</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section">
+<h1><a class="toc-backref" href="#id34" id="motivation" name="motivation">1&nbsp;&nbsp;&nbsp;Motivation</a></h1>
+<p>I was looking for a small and unstrict xml parser.
+<a class="reference" href="http://spirit.sourceforge.net/">Boost.Spirit</a> and <a class="reference" href="http://boost-sandbox.sourceforge.net/libs/xpressive/doc/html/index.html">Boost.Xpressive</a> showed a lot of functionality but made big executables.
+On the other hand, <a class="reference" href="http://www.ootl.org/yard/">YARD</a> written by <a class="reference" href="http://www.cdiggins.com">Christopher Diggins</a> was simple, small and fast.
+In time, I found that <a class="reference" href="http://www.ootl.org/yard/">YARD</a> and <a class="reference" href="http://www.boost.org/libs/range/">Boost.Range</a> could be binded. It was named Biscuit.</p>
+</div>
+<div class="section">
+<h1><a class="toc-backref" href="#id35" id="introduction" name="introduction">2&nbsp;&nbsp;&nbsp;Introduction</a></h1>
+<p>Biscuit is an object-oriented recursive-descent parser generator framework
+implemented using class templates. The templates allow us to author
+Extended Backus-Normal Form (EBNF) in C++. Additional information is available at <a class="reference" href="http://www.ootl.org/yard/">YARD</a>.</p>
+<p>A simple EBNF grammar snippet:</p>
+<pre class="literal-block">
+group      ::= '(' expression ')'
+factor     ::= integer | group
+term       ::= factor (('*' factor) | ('/' factor))*
+expression ::= term (('+' term) | ('-' term))*
+</pre>
+<p>is approximated using Biscuit's facilities as seen in this code snippet:</p>
+<pre class="literal-block">
+D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\introduction_0.ipp
+</pre>
+<p>Through the magic of the lazy template instantiation, these are perfectly valid types.
+The production rule <tt class="docutils literal"><span class="pre">expression</span></tt> is a type that has a static member function <tt class="docutils literal"><span class="pre">parse</span></tt>.
+As <tt class="docutils literal"><span class="pre">parse</span></tt> will be instantiated later by <a class="reference" href="#algorithms">Algorithms</a>, all you have to do is to declare a type.</p>
+<p>Direct recurring types <a class="footnote-reference" href="#id3" id="id2" name="id2">[1]</a> also are valid:</p>
+<pre class="literal-block">
+D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\introduction_1.ipp
+</pre>
+<p>Note that left-recursions are not allowed, though compilers might detect them if templates are easy.</p>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2" name="id3">[1]</a></td><td><tt class="docutils literal"><span class="pre">typedef</span></tt> is not available for such usage but can define a non-recurring parser inside a function unlike <tt class="docutils literal"><span class="pre">struct</span></tt>.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="section">
+<h1><a class="toc-backref" href="#id36" id="requirements" name="requirements">3&nbsp;&nbsp;&nbsp;Requirements</a></h1>
+<ul class="simple">
+<li><a class="reference" href="http://www.boost.org/">Boost C++ Libraries Version 1.33.1</a> or later (no compilation required)</li>
+<li><a class="reference" href="http://sourceforge.net/project/showfiles.php?group_id=141222&amp;package_id=173059">P-Stade C++ Libraries Version 0.97.x</a> or later (no compilation required, give a higher priority than Boost headers)</li>
+</ul>
+</div>
+<div class="section">
+<h1><a class="toc-backref" href="#id37" id="tested-under" name="tested-under">4&nbsp;&nbsp;&nbsp;Tested Under</a></h1>
+<ul class="simple">
+<li>Microsoft Visual C++ 2005 Express Edition</li>
+<li>Microsoft Visual C++ .NET Version 7.1</li>
+<li>GCC 3.4.4</li>
+</ul>
+</div>
+<div class="section">
+<h1><a class="toc-backref" href="#id38" id="quick-start" name="quick-start">5&nbsp;&nbsp;&nbsp;Quick Start</a></h1>
+<ol class="arabic">
+<li><p class="first">Include Biscuit headers:</p>
+<pre class="literal-block">
+D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\quick_start_1.ipp
+</pre>
+</li>
+<li><p class="first">Define your own <a class="reference" href="#parser">Parser</a> type:</p>
+<pre class="literal-block">
+D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\quick_start_2.ipp
+</pre>
+</li>
+<li><p class="first">Call <a class="reference" href="#algorithms">Algorithms</a> <a class="footnote-reference" href="#id7" id="id6" name="id6">[2]</a>:</p>
+<pre class="literal-block">
+D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\quick_start_3.ipp
+</pre>
+</li>
+</ol>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id6" name="id7">[2]</a></td><td>An unqualified call may trigger an unintentional ADL. You must always add <tt class="docutils literal"><span class="pre">biscuit::</span></tt>.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="section">
+<h1><a class="toc-backref" href="#id39" id="basic-concepts" name="basic-concepts">6&nbsp;&nbsp;&nbsp;Basic Concepts</a></h1>
+<div class="section">
+<h2><a class="toc-backref" href="#id40" id="user-state" name="user-state">6.1&nbsp;&nbsp;&nbsp;User State</a></h2>
+<p>A <tt class="docutils literal"><span class="pre">UserState</span></tt> is any type that is passed to <a class="reference" href="#algorithms">Algorithms</a> or <a class="reference" href="#ranges">Ranges</a> as the second argument.
+Non-const rvalues are disallowed as <tt class="docutils literal"><span class="pre">UserState</span></tt>.
+If no object is passed to <a class="reference" href="#algorithms">Algorithms</a>, this type is <tt class="docutils literal"><span class="pre">null_state_type</span></tt>.</p>
+</div>
+<div class="section">
+<h2><a class="toc-backref" href="#id41" id="parser" name="parser">6.2&nbsp;&nbsp;&nbsp;Parser</a></h2>
+<p>A <tt class="docutils literal"><span class="pre">Parser</span></tt> is any type that has the static member function <a class="footnote-reference" href="#id12" id="id8" name="id8">[3]</a></p>
+<pre class="literal-block">
+D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\basic_concept_parser.ipp
+</pre>
+</div>
+<div class="section">
+<h2><a class="toc-backref" href="#id42" id="parsing-range" name="parsing-range">6.3&nbsp;&nbsp;&nbsp;Parsing Range</a></h2>
+<p>A <tt class="docutils literal"><span class="pre">ParsingRange</span></tt> is a <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#forward_range">Forward Range</a> that is passed to <a class="reference" href="#algorithms">Algorithms</a> or <a class="reference" href="#ranges">Ranges</a> as the first argument and
+the <tt class="docutils literal"><span class="pre">value_type</span></tt> of the <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#forward_range">Forward Range</a> must be <a class="reference" href="http://www.sgi.com/tech/stl/EqualityComparable.html">Equality Comparable</a>.</p>
+</div>
+<div class="section">
+<h2><a class="toc-backref" href="#id43" id="parsing-subrange" name="parsing-subrange">6.4&nbsp;&nbsp;&nbsp;Parsing SubRange</a></h2>
+<p>A <tt class="docutils literal"><span class="pre">ParsingSubRange</span></tt> <a class="footnote-reference" href="#id13" id="id10" name="id10">[4]</a> is a <tt class="docutils literal"><span class="pre">boost::iterator_range&lt;boost::range_result_iterator&lt;ParsingRange&gt;::type&gt;</span></tt>.</p>
+</div>
+<div class="section">
+<h2><a class="toc-backref" href="#id44" id="semantic-action" name="semantic-action">6.5&nbsp;&nbsp;&nbsp;Semantic Action</a></h2>
+<p>A <tt class="docutils literal"><span class="pre">SemanticAction</span></tt> <a class="footnote-reference" href="#id14" id="id11" name="id11">[5]</a> is a <a class="reference" href="http://www.sgi.com/tech/stl/DefaultConstructible.html">Default Constructible</a> <a class="reference" href="http://www.sgi.com/tech/stl/functors.html">Functor</a> and
+the expression <tt class="docutils literal"><span class="pre">a(r,</span> <span class="pre">us)</span></tt> must be valid, where <tt class="docutils literal"><span class="pre">a</span></tt> is an object of type <a class="reference" href="#semantic-action">Semantic Action</a>,
+<tt class="docutils literal"><span class="pre">r</span></tt> is an object of type <a class="reference" href="#parsing-subrange">Parsing SubRange</a> and <tt class="docutils literal"><span class="pre">us</span></tt> is an object of type <a class="reference" href="#user-state">User State</a>.</p>
+</div>
+<div class="section">
+<h2><a class="toc-backref" href="#id45" id="value-functor" name="value-functor">6.6&nbsp;&nbsp;&nbsp;Value Functor</a></h2>
+<p>A <tt class="docutils literal"><span class="pre">ValueFunctor</span></tt> is a <a class="reference" href="http://www.sgi.com/tech/stl/DefaultConstructible.html">Default Constructible</a> <a class="reference" href="http://www.sgi.com/tech/stl/functors.html">Functor</a> and
+the expression <tt class="docutils literal"><span class="pre">v(us)</span></tt> must be valid, where <tt class="docutils literal"><span class="pre">v</span></tt> is an object of type <a class="reference" href="#value-functor">Value Functor</a> and
+<tt class="docutils literal"><span class="pre">us</span></tt> is an object of type <a class="reference" href="#user-state">User State</a>.</p>
+</div>
+<div class="section">
+<h2><a class="toc-backref" href="#id46" id="adaptable-value-functor" name="adaptable-value-functor">6.7&nbsp;&nbsp;&nbsp;Adaptable Value Functor</a></h2>
+<p>An <tt class="docutils literal"><span class="pre">AdaptableValueFunctor</span></tt> is a <a class="reference" href="#value-functor">Value Functor</a> that conforms to <a class="reference" href="http://www.sgi.com/tech/stl/AdaptableUnaryFunction.html">Adaptable Unary Function</a>.</p>
+<table class="docutils footnote" frame="void" id="id12" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id8" name="id12">[3]</a></td><td>It could be defined as non-member function if there were no broken compilers.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id13" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id10" name="id13">[4]</a></td><td><a class="reference" href="#parsing-subrange">Parsing SubRange</a> is not defined as <tt class="docutils literal"><span class="pre">boost::sub_range</span></tt> for broken compilers,
+but you can catch it using <tt class="docutils literal"><span class="pre">boost::sub_range&lt;ParsingRange&gt;</span></tt>. Note that
+the latest <tt class="docutils literal"><span class="pre">boost::sub_range</span></tt> has no value semantics under eVC4 and VC8 because of their bugs.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id14" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id11" name="id14">[5]</a></td><td><a class="reference" href="#semantic-action">Semantic Action</a> and <a class="reference" href="#value-functor">Value Functor</a> could have been defined using a static member function, but
+<a class="reference" href="http://www.sgi.com/tech/stl/functors.html">Functor</a> is so common.</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section">
+<h1><a class="toc-backref" href="#id47" id="predefined-parsers" name="predefined-parsers">7&nbsp;&nbsp;&nbsp;Predefined Parsers</a></h1>
+<p>Some <a class="reference" href="#parser">Parser</a> templates are predefined as a means for <a class="reference" href="#parser">Parser</a> composition and embedding.</p>
+<div class="section">
+<h2><a class="toc-backref" href="#id48" id="primitives" name="primitives">7.1&nbsp;&nbsp;&nbsp;Primitives</a></h2>
+<p>The table below lists EBNF and their equivalents in Biscuit.</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="16%" />
+<col width="44%" />
+<col width="40%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">EBNF (or Perl)</th>
+<th class="head">Biscuit</th>
+<th class="head">Meaning</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><tt class="docutils literal"><span class="pre">.</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">any</span></tt> <a class="footnote-reference" href="#id18" id="id15" name="id15">[6]</a></td>
+<td>any object</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">^</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">begin</span></tt></td>
+<td>beginning of parsing range</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">$</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">end</span></tt></td>
+<td>end of parsing range</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">A</span> <span class="pre">|</span> <span class="pre">B</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">or_&lt;A,</span> <span class="pre">B&gt;</span></tt></td>
+<td>alternation of A and B</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">A</span> <span class="pre">B</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">seq&lt;A,</span> <span class="pre">B&gt;</span></tt></td>
+<td>sequence of A and B</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">A*</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">star&lt;A&gt;</span></tt></td>
+<td>zero or more times, greedy</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">A+</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">plus&lt;A&gt;</span></tt></td>
+<td>one or more times, greedy</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">A?</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">opt&lt;A&gt;</span></tt></td>
+<td>zero or one time, greedy</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">A</span> <span class="pre">&amp;</span> <span class="pre">B</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">and_&lt;A,</span> <span class="pre">B&gt;</span></tt></td>
+<td>match A, and the matching-range matches B</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">A</span> <span class="pre">-</span> <span class="pre">B</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">minus&lt;A,</span> <span class="pre">B&gt;</span></tt></td>
+<td>match A, but the matching-range doesn't match B</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">(A)</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">capture&lt;1,</span> <span class="pre">A&gt;</span></tt></td>
+<td>capture a back-reference</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">\1</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">backref&lt;1&gt;</span></tt></td>
+<td>a previously captured back-reference</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">A{n,m}</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">repeat&lt;A,</span> <span class="pre">n,</span> <span class="pre">m&gt;</span></tt></td>
+<td>between n and m times, greedy</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">A*?</span> <span class="pre">B</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">star_until&lt;A,</span> <span class="pre">B&gt;</span></tt></td>
+<td>zero or more As, non-greedy, and B</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">A*?</span> <span class="pre">(?=B)</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">star_before&lt;A,</span> <span class="pre">B&gt;</span></tt></td>
+<td>same as <tt class="docutils literal"><span class="pre">star_until&lt;</span> <span class="pre">A,</span> <span class="pre">before&lt;B&gt;</span> <span class="pre">&gt;</span></tt></td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">(?=A)</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">before&lt;A&gt;</span></tt></td>
+<td>positive look-ahead assertion</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">(?!A)</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">not_&lt;</span> <span class="pre">before&lt;A&gt;</span> <span class="pre">&gt;</span></tt></td>
+<td>negative look-ahead assertion</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">a</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">char_&lt;'a'&gt;</span></tt></td>
+<td>a character</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">b</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">wchar&lt;L'b'&gt;</span></tt></td>
+<td>a wide-character</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">c</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">bchar&lt;long,0x63&gt;</span></tt></td>
+<td>a type-specified character</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">Diggins</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">chseq&lt;'D','i','g','g','i','n','s'&gt;</span></tt></td>
+<td>a string</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">MB</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">wchseq&lt;L'M',L'B'&gt;</span></tt></td>
+<td>a wide-string</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">MB</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">bchseq&lt;long,0x4d,0x42&gt;</span></tt></td>
+<td>a type-specified string</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">[0-9]</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">chrng&lt;'0','9'&gt;</span></tt></td>
+<td>characters in range '0' through '9'</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">[abc]</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">chset&lt;'a','b','c'&gt;</span></tt></td>
+<td>characters 'a','b' or 'c'</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">[0-9abc]</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">or_&lt;</span> <span class="pre">chrng&lt;'0','9'&gt;,</span> <span class="pre">chset&lt;'a','b','c'&gt;</span> <span class="pre">&gt;</span></tt></td>
+<td>characters 'a','b','c' or in range '0' though '9'</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">[^abc]</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">not_&lt;</span> <span class="pre">chset&lt;'a','b','c'&gt;</span> <span class="pre">&gt;</span></tt> <a class="footnote-reference" href="#id19" id="id16" name="id16">[7]</a></td>
+<td>not characters 'a','b' or 'c'</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">/Diggins/i</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">ichseq&lt;'D','i','g','g','i','n','s'&gt;</span></tt></td>
+<td>a case-insensitive string, locale-insensitive</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">\w</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">alnum</span></tt></td>
+<td>a word</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">\W</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">not_&lt;alnum&gt;</span></tt></td>
+<td>not a word</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">\d</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">digit</span></tt></td>
+<td>a digit</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">\D</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">not_&lt;digit&gt;</span></tt></td>
+<td>not a digit</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">\s</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">space</span></tt></td>
+<td>a space</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">\S</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">not_&lt;space&gt;</span></tt></td>
+<td>not a space</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">$</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">eol</span></tt></td>
+<td>a literal newline or end of parsing range</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">???</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">line</span></tt></td>
+<td>character sequence before <tt class="docutils literal"><span class="pre">eol</span></tt></td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">???</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">identity&lt;A&gt;</span></tt></td>
+<td>same as A, delay definition of A when deriving</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p><a class="reference" href="http://www.ootl.org/yard/">YARD</a> and Biscuit have no back-tracking on star operations. Instead <tt class="docutils literal"><span class="pre">star_until</span></tt> or <tt class="docutils literal"><span class="pre">star_before</span></tt> are available.
+The default template arity is twenty.
+If you want more arity, define <tt class="docutils literal"><span class="pre">PSTADE_BISCUIT_CFG_NO_PREPROCESSED_HEADERS</span></tt> and <tt class="docutils literal"><span class="pre">PSTADE_BISCUIT_LIMIT_PARSER_ARITY</span></tt>
+before Biscuit headers. VC++7.1 limits <tt class="docutils literal"><span class="pre">PSTADE_BISCUIT_LIMIT_PARSER_ARITY</span></tt> to 64.
+Note that the big arity tends to make internal compiler errors.</p>
+</div>
+<div class="section">
+<h2><a class="toc-backref" href="#id49" id="symbol" name="symbol">7.2&nbsp;&nbsp;&nbsp;Symbol</a></h2>
+<p>Unfortunately you cannot pass a string literal to templates.
+<tt class="docutils literal"><span class="pre">chseq</span></tt> template parameter arity is limited. For that workaround, <tt class="docutils literal"><span class="pre">PSTADE_BISCUIT_SYMBOL</span></tt> macro is provided:</p>
+<pre class="literal-block">
+D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\predefined_parsers_symbol.ipp
+</pre>
+<p><tt class="docutils literal"><span class="pre">PSTADE_BISCUIT_SYMBOL</span></tt> defines <a class="reference" href="#parser">Parser</a> whose name is the first argument by using
+the string literal that is passed as the second argument.</p>
+</div>
+<div class="section">
+<h2><a class="toc-backref" href="#id50" id="actor" name="actor">7.3&nbsp;&nbsp;&nbsp;Actor</a></h2>
+<p><tt class="docutils literal"><span class="pre">actor</span></tt> template creates a <a class="reference" href="#parser">Parser</a> that triggers a <a class="reference" href="#semantic-action">Semantic Action</a> object:</p>
+<pre class="literal-block">
+D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\predefined_parsers_actor.ipp
+</pre>
+<p><a class="reference" href="#parsing-subrange">Parsing SubRange</a> can be assigned to <tt class="docutils literal"><span class="pre">boost::sub_range&lt;ParsingRange&gt;</span></tt> idiomatically.
+If a <a class="reference" href="#parsing-range">Parsing Range</a> is mutable, its <a class="reference" href="#parsing-subrange">Parsing SubRange</a> also is mutable.
+Note that a copy of <tt class="docutils literal"><span class="pre">boost::sub_range</span></tt> is only copies of two iterators.
+<tt class="docutils literal"><span class="pre">oven::sequence_cast</span></tt> is same as <tt class="docutils literal"><span class="pre">boost::copy_range</span></tt>.</p>
+</div>
+<div class="section">
+<h2><a class="toc-backref" href="#id51" id="directives" name="directives">7.4&nbsp;&nbsp;&nbsp;Directives</a></h2>
+<p><a class="reference" href="#directives">Directives</a> are also <a class="reference" href="#parser">Parser</a>s which contain some ports of <a class="reference" href="http://spirit.sourceforge.net/">Boost.Spirit</a>'s <a class="reference" href="http://spirit.sourceforge.net/distrib/spirit_1_8_2/libs/spirit/doc/directives.html">Directives</a>.</p>
+<blockquote>
+<table border="1" class="docutils">
+<colgroup>
+<col width="16%" />
+<col width="44%" />
+<col width="40%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Boost.Spirit</th>
+<th class="head">Biscuit</th>
+<th class="head">Meaning</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><tt class="docutils literal"><span class="pre">lexeme_d[A]</span></tt></td>
+<td>impossible</td>
+<td>turn off white space skipping</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">as_lower_d[A]</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">as_lower&lt;A&gt;</span></tt></td>
+<td>parsing range is transformed to lower-case</td>
+</tr>
+<tr><td>???</td>
+<td><tt class="docutils literal"><span class="pre">as_filtered&lt;A,</span> <span class="pre">Parser&gt;</span></tt></td>
+<td>parsing range is filtered using parser</td>
+</tr>
+<tr><td>???</td>
+<td><tt class="docutils literal"><span class="pre">as_transformed&lt;A,</span> <span class="pre">Functor&gt;</span></tt></td>
+<td>parsing range is transformed using functor</td>
+</tr>
+<tr><td>???</td>
+<td><tt class="docutils literal"><span class="pre">lazy_actions&lt;A&gt;</span></tt></td>
+<td>suppress non-intended actions by parsing twice</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">no_actions[A]</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">no_actions&lt;A&gt;</span></tt></td>
+<td>semantic actions not fire</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">longest_d[A|B]</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">longest&lt;A,</span> <span class="pre">B&gt;</span></tt></td>
+<td>choose the longest match</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">shortest_d[A|B]</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">shortest&lt;A,</span> <span class="pre">B&gt;</span></tt></td>
+<td>choose the shortest match</td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">limit_d[A]</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">require&lt;A,</span> <span class="pre">Predicate&gt;</span></tt> <a class="footnote-reference" href="#id20" id="id17" name="id17">[8]</a></td>
+<td>parsing range requires predicate is constrained</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<table class="docutils footnote" frame="void" id="id18" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id15" name="id18">[6]</a></td><td>There is a debate over whether or not to define <a class="reference" href="#parser">Parser</a>s as class templates even if no parameters.
+If you want such parsers, define <tt class="docutils literal"><span class="pre">PSTADE_BISCUIT_CFG_NULLARY_CLASS_TEMPLATE_PARSER</span></tt> before Biscuit headers.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id19" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id16" name="id19">[7]</a></td><td><tt class="docutils literal"><span class="pre">not_</span></tt> can be applied only to one character <a class="reference" href="#parser">Parser</a> with a few exceptions.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id20" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id17" name="id20">[8]</a></td><td><tt class="docutils literal"><span class="pre">Predicate</span></tt> must conform to <a class="reference" href="#semantic-action">Semantic Action</a>.</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section">
+<h1><a class="toc-backref" href="#id52" id="algorithms" name="algorithms">8&nbsp;&nbsp;&nbsp;Algorithms</a></h1>
+<p>Algorithms of Biscuit work on <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#forward_range">Forward Range</a>.
+Note that <a class="reference" href="#parser">Parser</a>s don't know <tt class="docutils literal"><span class="pre">value_type</span></tt> of the range.
+For instance, a <a class="reference" href="#parser">Parser</a> <tt class="docutils literal"><span class="pre">chseq</span></tt> works properly if <tt class="docutils literal"><span class="pre">value_type</span></tt> of the
+range is comparable with <tt class="docutils literal"><span class="pre">char</span></tt>.</p>
+<div class="section">
+<h2><a class="toc-backref" href="#id53" id="biscuit-match" name="biscuit-match">8.1&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">biscuit::match</span></tt></a></h2>
+<p><tt class="docutils literal"><span class="pre">biscuit::match</span></tt> returns <tt class="docutils literal"><span class="pre">true</span></tt> if a <a class="reference" href="#parser">Parser</a> runs through the range; otherwise <tt class="docutils literal"><span class="pre">false</span></tt>:</p>
+<pre class="literal-block">
+D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\algorithms_match.ipp
+</pre>
+<p>Notice that a null-terminated string is no longer a model of Range with Boost 1.34.
+<tt class="docutils literal"><span class="pre">oven::null_terminate_range</span></tt> is provided for the workaround.</p>
+</div>
+<div class="section">
+<h2><a class="toc-backref" href="#id54" id="biscuit-search" name="biscuit-search">8.2&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">biscuit::search</span></tt></a></h2>
+<p><tt class="docutils literal"><span class="pre">biscuit::search</span></tt> returns the first occurence of the matching <a class="reference" href="#parsing-subrange">Parsing SubRange</a>.
+If not found, it returns <tt class="docutils literal"><span class="pre">boost::make_iterator_range(boost::end(r),</span> <span class="pre">boost::end(r))</span></tt>,
+where <tt class="docutils literal"><span class="pre">r</span></tt> is an object of type <a class="reference" href="#parsing-range">Parsing Range</a>:</p>
+<pre class="literal-block">
+D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\algorithms_search.ipp
+</pre>
+</div>
+<div class="section">
+<h2><a class="toc-backref" href="#id55" id="biscuit-parse" name="biscuit-parse">8.3&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">biscuit::parse</span></tt></a></h2>
+<p>While <tt class="docutils literal"><span class="pre">biscuit::match</span></tt> returns only whether or not to succeed,
+<tt class="docutils literal"><span class="pre">biscuit::parse</span></tt> returns <a class="reference" href="#parsing-subrange">Parsing SubRange</a> that a <a class="reference" href="#parser">Parser</a> runs through.
+If a parsing fails, it returns <tt class="docutils literal"><span class="pre">boost::make_iterator_range(boost::begin(r),</span> <span class="pre">boost::begin(r))</span></tt>,
+where <tt class="docutils literal"><span class="pre">r</span></tt> is an object of type <a class="reference" href="#parsing-range">Parsing Range</a>.</p>
+</div>
+<div class="section">
+<h2><a class="toc-backref" href="#id56" id="biscuit-iterate" name="biscuit-iterate">8.4&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">biscuit::iterate</span></tt></a></h2>
+<p>In general, it is difficult to trigger actions to ranges other than matching ranges.
+Actions binded to matching ranges have already been triggered before you find the non-matching ranges.
+Therefore, actions are triggered in reverse order.</p>
+<p>A bold play solves this problem. <tt class="docutils literal"><span class="pre">biscuit::iterate</span></tt> parses twice by using <tt class="docutils literal"><span class="pre">no_actions</span></tt> the first time,
+and then triggers actions that is passed to the third argument to non-matching ranges:</p>
+<pre class="literal-block">
+D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\algorithms_iterate_0.ipp
+</pre>
+<p>This parse-twice technique is used by also <tt class="docutils literal"><span class="pre">lazy_actions</span></tt>.</p>
+</div>
+</div>
+<div class="section">
+<h1><a class="toc-backref" href="#id57" id="ranges" name="ranges">9&nbsp;&nbsp;&nbsp;Ranges</a></h1>
+<div class="section">
+<h2><a class="toc-backref" href="#id58" id="filter-range" name="filter-range">9.1&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">filter_range</span></tt></a></h2>
+<p><tt class="docutils literal"><span class="pre">filter_range</span></tt> is a <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#forward_range">Forward Range</a> that is filtered by <a class="reference" href="#parser">Parser</a>:</p>
+<pre class="literal-block">
+D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\ranges_filter_range_0.ipp
+</pre>
+<p>A chain of <tt class="docutils literal"><span class="pre">filter_range</span></tt> works properly:</p>
+<pre class="literal-block">
+D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\ranges_filter_range_1.ipp
+</pre>
+<p><tt class="docutils literal"><span class="pre">filter_range</span></tt> is a model of <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#forward_range">Forward Range</a> that can be passed to <a class="reference" href="#algorithms">Algorithms</a>.
+That's why Biscuit doesn't provide anything like <a class="reference" href="http://spirit.sourceforge.net/">Boost.Spirit</a>'s <a class="reference" href="http://spirit.sourceforge.net/distrib/spirit_1_8_2/libs/spirit/doc/scanner.html">Scanner</a>.</p>
+<p><a class="reference" href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1871.html#range-adapters-part-4">Range adapter</a> syntax also is supported by <tt class="docutils literal"><span class="pre">filtered</span></tt>:</p>
+<pre class="literal-block">
+D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\ranges_filter_range_2.ipp
+</pre>
+</div>
+<div class="section">
+<h2><a class="toc-backref" href="#id59" id="token-range" name="token-range">9.2&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">token_range</span></tt></a></h2>
+<p><tt class="docutils literal"><span class="pre">token_range</span></tt> is a <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#forward_range">Forward Range</a> whose <tt class="docutils literal"><span class="pre">value_type</span></tt> is a matching <a class="reference" href="#parsing-subrange">Parsing SubRange</a>:</p>
+<pre class="literal-block">
+D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\ranges_token_range_0.ipp
+</pre>
+<p>Outputs:</p>
+<pre class="literal-block">
+/* c comment no.1 */
+/* c comment no.2 */
+/* c comment no.3 */
+</pre>
+<p>As <tt class="docutils literal"><span class="pre">token_range</span></tt> conforms to <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#forward_range">Forward Range</a>,
+<tt class="docutils literal"><span class="pre">BOOST_FOREACH</span></tt> planned to be a member of <a class="reference" href="http://www.boost.org/">Boost</a> works properly.</p>
+</div>
+</div>
+<div class="section">
+<h1><a class="toc-backref" href="#id60" id="capturing" name="capturing">10&nbsp;&nbsp;&nbsp;Capturing</a></h1>
+<p><tt class="docutils literal"><span class="pre">capture</span></tt> and <tt class="docutils literal"><span class="pre">backref</span></tt> create <a class="reference" href="#parser">Parser</a> for the capturing.
+results_xxx <a class="footnote-reference" href="#id27" id="id24" name="id24">[9]</a> <a class="reference" href="#algorithms">Algorithms</a> are prepared for accessing matching results after parsing:</p>
+<pre class="literal-block">
+D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\capturing_0.ipp
+</pre>
+<p><tt class="docutils literal"><span class="pre">match_results</span></tt> conforms to <a class="reference" href="http://www.sgi.com/tech/stl/PairAssociativeContainer.html">Pair Associative Container</a> and
+<a class="reference" href="http://www.sgi.com/tech/stl/UniqueAssociativeContainer.html">Unique Associative Container</a> except for their constructor expressions,
+whose key_type is <tt class="docutils literal"><span class="pre">int</span></tt> and <tt class="docutils literal"><span class="pre">mapped_typed</span></tt> (aka <tt class="docutils literal"><span class="pre">data_type</span></tt>) is <a class="reference" href="#parsing-subrange">Parsing SubRange</a> of
+the argument.</p>
+<p>Biscuit overwrites results everytime <a class="reference" href="#parser">Parser</a> runs through.
+Accessing to nested matching results that <a class="reference" href="http://boost-sandbox.sourceforge.net/libs/xpressive/doc/html/index.html">Boost.Xpressive</a> provides is not supported,
+though Biscuit might be flexible enough to follow it.</p>
+<table class="docutils footnote" frame="void" id="id27" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id24" name="id27">[9]</a></td><td>You may want to use <tt class="docutils literal"><span class="pre">match_results</span></tt> as <a class="reference" href="#user-state">User State</a>, so overloads were rejected.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="section">
+<h1><a class="toc-backref" href="#id61" id="dynamics" name="dynamics">11&nbsp;&nbsp;&nbsp;Dynamics</a></h1>
+<p>Biscuit doesn't make any assumption about <tt class="docutils literal"><span class="pre">value_type</span></tt> of <a class="reference" href="#parsing-range">Parsing Range</a>, but
+non-type template parameters are so limited.
+What if <tt class="docutils literal"><span class="pre">value_type</span></tt> of <a class="reference" href="#parsing-range">Parsing Range</a> is not <tt class="docutils literal"><span class="pre">char</span></tt> but Screamer type of your dungeon game?
+What if matching patterns are loaded on runtime for your mouse-gesture program?
+The only way is to extract values from <a class="reference" href="#user-state">User State</a>.</p>
+<div class="section">
+<h2><a class="toc-backref" href="#id62" id="valseq" name="valseq">11.1&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">valseq</span></tt></a></h2>
+<p><tt class="docutils literal"><span class="pre">valseq</span></tt> makes a sequential <a class="reference" href="#parser">Parser</a> from <a class="reference" href="#value-functor">Value Functor</a>s:</p>
+<pre class="literal-block">
+D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\valseq_0.ipp
+</pre>
+</div>
+<div class="section">
+<h2><a class="toc-backref" href="#id63" id="valset" name="valset">11.2&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">valset</span></tt></a></h2>
+<p><tt class="docutils literal"><span class="pre">valset</span></tt> makes an alternation <a class="reference" href="#parser">Parser</a> from <a class="reference" href="#value-functor">Value Functor</a>s:</p>
+<pre class="literal-block">
+D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\valset_0.ipp
+</pre>
+</div>
+<div class="section">
+<h2><a class="toc-backref" href="#id64" id="seq-range" name="seq-range">11.3&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">seq_range</span></tt></a></h2>
+<p><tt class="docutils literal"><span class="pre">seq_range</span></tt> is more flexible than <a class="reference" href="#valseq">valseq</a>.
+<tt class="docutils literal"><span class="pre">seq_range&lt;V&gt;</span></tt> makes a sequential <a class="reference" href="#parser">Parser</a>, where <tt class="docutils literal"><span class="pre">V</span></tt> is an <a class="reference" href="#adaptable-value-functor">Adaptable Value Functor</a> and
+the <tt class="docutils literal"><span class="pre">result_type</span></tt> must be, whether reference or not, a <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#forward_range">Forward Range</a> whose <tt class="docutils literal"><span class="pre">value_type</span></tt> is comparable with <a class="reference" href="#parsing-range">Parsing Range</a>'s:</p>
+<pre class="literal-block">
+D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\seq_range_0.ipp
+</pre>
+</div>
+<div class="section">
+<h2><a class="toc-backref" href="#id65" id="set-range" name="set-range">11.4&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">set_range</span></tt></a></h2>
+<p><tt class="docutils literal"><span class="pre">set_range</span></tt> is provided in a similar way:</p>
+<pre class="literal-block">
+D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\set_range_0.ipp
+</pre>
+</div>
+</div>
+<div class="section">
+<h1><a class="toc-backref" href="#id66" id="debugging" name="debugging">12&nbsp;&nbsp;&nbsp;Debugging</a></h1>
+<p>Biscuit emulates <a class="reference" href="http://spirit.sourceforge.net/">Boost.Spirit</a>'s <a class="reference" href="http://spirit.sourceforge.net/distrib/spirit_1_8_2/libs/spirit/doc/debugging.html">debugging</a>:</p>
+<pre class="literal-block">
+D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\debugger_0.ipp
+</pre>
+<p><tt class="docutils literal"><span class="pre">debugger</span></tt> <a class="reference" href="#parser">Parser</a> uses the type-name of the first argument for outputs
+which automatically disappear on release-compile.</p>
+<p>Outputs:</p>
+<pre class="literal-block">
+1+2
+struct calculator_debug::start: &quot;1+2&quot;
+  struct calculator_debug::expression: &quot;1+2&quot;
+    struct calculator_debug::term: &quot;1+2&quot;
+      struct calculator_debug::factor: &quot;1+2&quot;
+        struct calculator_debug::integer: &quot;1+2&quot;
+push    1
+        /struct calculator_debug::integer: &quot;+2&quot;
+      /struct calculator_debug::factor: &quot;+2&quot;
+    /struct calculator_debug::term: &quot;+2&quot;
+    struct calculator_debug::term: &quot;2&quot;
+      struct calculator_debug::factor: &quot;2&quot;
+        struct calculator_debug::integer: &quot;2&quot;
+push    2
+        /struct calculator_debug::integer: &quot;&quot;
+      /struct calculator_debug::factor: &quot;&quot;
+    /struct calculator_debug::term: &quot;&quot;
+popped 1 and 2 from the stack. pushing 3 onto the stack.
+  /struct calculator_debug::expression: &quot;&quot;
+/struct calculator_debug::start: &quot;&quot;
+-------------------------
+Parsing succeeded
+result = 3
+-------------------------
+</pre>
+</div>
+<div class="section">
+<h1><a class="toc-backref" href="#id67" id="error-handling" name="error-handling">13&nbsp;&nbsp;&nbsp;Error Handling</a></h1>
+<p>Biscuit emulates <a class="reference" href="http://spirit.sourceforge.net/">Boost.Spirit</a>'s <a class="reference" href="http://spirit.sourceforge.net/distrib/spirit_1_8_3/libs/spirit/doc/error_handling.html">Error Handling</a>:</p>
+<pre class="literal-block">
+D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\error_handling_0.ipp
+</pre>
+<p><a class="reference" href="#semantic-action">Semantic Action</a>s aside, the exception-safety of Biscuit depends on <a class="reference" href="#parsing-range">Parsing Range</a>.
+In turn, if operators of the <a class="reference" href="#parsing-range">Parsing Range</a> provide the basic exception-safety, Biscuit provides it.
+If the operators provide the strong exception-safety, Biscuit provides it.</p>
+</div>
+<div class="section">
+<h1><a class="toc-backref" href="#id68" id="bake-in-oven" name="bake-in-oven">14&nbsp;&nbsp;&nbsp;Bake in Oven</a></h1>
+<p>PStade.Oven is the <a class="reference" href="http://www.boost.org/libs/range/">Boost.Range</a> extension library.
+It provides some predefined ranges for Biscuit:</p>
+<pre class="literal-block">
+D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\bake_biscuit_in_oven_0.ipp
+</pre>
+</div>
+<div class="section">
+<h1><a class="toc-backref" href="#id69" id="points-of-interest" name="points-of-interest">15&nbsp;&nbsp;&nbsp;Points of Interest</a></h1>
+<p><a class="reference" href="http://www.ootl.org/yard/">YARD</a> and Biscuit are the examples of &quot;composing inlined algorithms&quot; that <a class="reference" href="http://www.crystalclearsoftware.com/cgi-bin/boost_wiki/wiki.pl?MPL_TODO_List">Boost.MPL TODO list</a> shows.
+Biscuit parsers are expression templates that are made by hand, which tend to make smaller executables.
+<a class="reference" href="http://spirit.sourceforge.net/">Boost.Spirit</a> and <a class="reference" href="http://boost-sandbox.sourceforge.net/libs/xpressive/doc/html/index.html">Boost.Xpressive</a> automatically create expression templates by using operator overloads.
+In my opinion, such overloads couldn't increase readability as expected.</p>
+</div>
+<div class="section">
+<h1><a class="toc-backref" href="#id70" id="references" name="references">16&nbsp;&nbsp;&nbsp;References</a></h1>
+<ul class="simple">
+<li><a class="reference" href="http://www.codeproject.com/cpp/biscuit.asp">Forum at Code Project</a></li>
+<li><a class="reference" href="http://p-stade.sourceforge.net/">P-Stade</a></li>
+<li><a class="reference" href="http://www.cdiggins.com">Christopher Diggins</a></li>
+<li><a class="reference" href="http://www.ootl.org/yard/">YARD</a></li>
+<li><a class="reference" href="http://www.codeproject.com/cpp/yard-tokenizer.asp">A Regular Expression Tokenizer using the YARD Parser</a></li>
+<li><a class="reference" href="http://www.codeproject.com/cpp/yard-xml-parser.asp">Parsing XML in C++ using the YARD Parser</a></li>
+<li><a class="reference" href="http://www.boost-consulting.com/metaprogramming-book.html">C++ Template Metaprogramming</a></li>
+<li><a class="reference" href="http://www.josuttis.com/tmplbook/">C++ Templates - The Complete Guide</a></li>
+<li><a class="reference" href="http://www.boost.org/">Boost C++ Libraries</a></li>
+<li><a class="reference" href="http://www.boost.org/libs/mpl/doc/">Boost.MPL</a></li>
+<li><a class="reference" href="http://www.boost.org/libs/range/">Boost.Range</a></li>
+<li><a class="reference" href="http://boost-consulting.com/vault/index.php?&amp;directory=Algorithms">Boost.RangeEx</a></li>
+<li><a class="reference" href="http://spirit.sourceforge.net/">Boost.Spirit</a></li>
+<li><a class="reference" href="http://boost-sandbox.sourceforge.net/libs/xpressive/doc/html/index.html">Boost.Xpressive</a></li>
+<li><a class="reference" href="http://www.hasslefreeclipart.com/">Hassle Free Clip Art.com</a></li>
+</ul>
+</div>
+<div class="section">
+<h1><a class="toc-backref" href="#id71" id="release-notes" name="release-notes">17&nbsp;&nbsp;&nbsp;Release Notes</a></h1>
+<div class="section">
+<h2><a class="toc-backref" href="#id72" id="version-1-02-0-1-02-5" name="version-1-02-0-1-02-5">17.1&nbsp;&nbsp;&nbsp;Version 1.02.0 - 1.02.5</a></h2>
+<ul class="simple">
+<li>Namespace moved to <tt class="docutils literal"><span class="pre">pstade::biscuit</span></tt>.</li>
+<li>Updated the document.</li>
+<li>Used <tt class="docutils literal"><span class="pre">iterator_range</span></tt> as <tt class="docutils literal"><span class="pre">match_results</span></tt> for broken VC8.</li>
+<li>Added tests.</li>
+<li>Fixed a bug of <tt class="docutils literal"><span class="pre">capture</span></tt> when <a class="reference" href="#directives">directives</a> applied.</li>
+<li>Fixed a bug of <tt class="docutils literal"><span class="pre">biscuit::match</span></tt>.</li>
+<li>Added Boost.Jam files.</li>
+<li>Added workaround for the forwarding problem.</li>
+<li>Fixed fatal bugs of <tt class="docutils literal"><span class="pre">token_range</span></tt>.</li>
+</ul>
+</div>
+<div class="section">
+<h2><a class="toc-backref" href="#id73" id="version-1-02-6" name="version-1-02-6">17.2&nbsp;&nbsp;&nbsp;Version 1.02.6</a></h2>
+<ul class="simple">
+<li>Added <a class="reference" href="#symbol">Symbol</a>.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="footer">
+<hr class="footer" />
+<a class="reference" href="doc/index.rst">View document source</a>.
+Generated on: 2006-06-06 23:11 UTC.
+Generated by <a class="reference" href="http://docutils.sourceforge.net/">Docutils</a> from <a class="reference" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a> source.
+
+</div>
+</body>
+</html>

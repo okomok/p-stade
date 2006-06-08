@@ -1,0 +1,24 @@
+
+subproject libs/range/test/old ;
+
+import testing ;
+
+
+DEPENDS all : test ;
+
+
+rule range-test ( name )
+{
+    return [
+        run $(name).cpp
+        : : :
+        <include>$(BOOST_ROOT)
+        <include>$(PSTADE_ROOT)
+    ] ;
+}
+
+
+test-suite range :
+    [ range-test atl ]
+    [ range-test mfc_ ]
+    ;
