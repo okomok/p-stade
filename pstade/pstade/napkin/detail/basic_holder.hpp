@@ -38,7 +38,7 @@ struct basic_holder :
     { }
 
 protected:
-    virtual void output_impl(const CharT *psz)
+    void override_output(const CharT *psz)
     {
         pstade_napkin_output(m_held, psz, overload());
     }

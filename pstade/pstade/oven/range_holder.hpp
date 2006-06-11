@@ -26,22 +26,22 @@ struct range_placeholder
 {
     virtual ~range_placeholder() { }
 
-    boost::any begin() { return begin_impl(); }
-    boost::any end() { return end_impl(); }
-    boost::any size() { return size_impl(); }
-    bool empty() { return empty_impl(); }
+    boost::any begin() { return override_begin(); }
+    boost::any end() { return override_end(); }
+    boost::any size() { return override_size(); }
+    bool empty() { return override_empty(); }
 
-    boost::any ptr_begin() { return ptr_begin_impl(); }
-    boost::any ptr_end() { return ptr_end_impl(); }
+    boost::any ptr_begin() { return override_ptr_begin(); }
+    boost::any ptr_end() { return override_ptr_end(); }
 
 protected:
-    virtual boost::any begin_impl() = 0;
-    virtual boost::any end_impl() = 0;
-    virtual boost::any size_impl() = 0;
-    virtual bool empty_impl() = 0;
+    virtual boost::any override_begin() = 0;
+    virtual boost::any override_end() = 0;
+    virtual boost::any override_size() = 0;
+    virtual bool override_empty() = 0;
 
-    virtual boost::any ptr_begin_impl() = 0;
-    virtual boost::any ptr_end_impl() = 0;
+    virtual boost::any override_ptr_begin() = 0;
+    virtual boost::any override_ptr_end() = 0;
 };
 
 
@@ -57,13 +57,13 @@ struct range_holder :
     Range& held() { return m_held; }
 
 protected:
-    boost::any begin_impl() { return boost::begin(m_held); }
-    boost::any end_impl() { return boost::end(m_held); }
-    boost::any size_impl() { return oven::distance(m_held); }
-    bool empty_impl() { return boost::empty(m_held); }
+    boost::any override_begin() { return boost::begin(m_held); }
+    boost::any override_end() { return boost::end(m_held); }
+    boost::any override_size() { return oven::distance(m_held); }
+    bool override_empty() { return boost::empty(m_held); }
 
-    boost::any ptr_begin_impl() { return boost::addressof( *boost::begin(m_held) ); }
-    boost::any ptr_end_impl() { return boost::addressof( *boost::end(m_held) ); }
+    boost::any override_ptr_begin() { return boost::addressof( *boost::begin(m_held) ); }
+    boost::any override_ptr_end() { return boost::addressof( *boost::end(m_held) ); }
 
 private:
     Range& m_held;

@@ -97,18 +97,18 @@ struct mover :
     }
 
 protected:
-    void impl_create()
+    void override_create()
     {
         namespace bll = boost::lambda;
         m_target = lime::find_up(*this, bll::bind(&mover::is_target, this, bll::_1));
     }
 
-    void impl_set_bounds(rectangle rc)
+    void override_set_bounds(rectangle rc)
     {
         m_bounds = rc;
     }
 
-    rectangle impl_bounds() const
+    rectangle override_bounds() const
     {
         return m_bounds;
     }

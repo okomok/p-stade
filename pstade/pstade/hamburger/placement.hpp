@@ -25,7 +25,7 @@ struct button :
     element
 {
 protected:
-    void impl_create()
+    void override_create()
     {
         boost::optional<element&> pa = parent();
         if (!pa)

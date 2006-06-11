@@ -29,7 +29,7 @@ namespace map_key_range_detail {
     template< class AssocContainer >
     struct get_key
     {
-        typedef typename AssocContainer::key_type result_type;
+        typedef typename AssocContainer::key_type const& result_type;
 
         template< class PairT >
         result_type operator()(PairT& p) const

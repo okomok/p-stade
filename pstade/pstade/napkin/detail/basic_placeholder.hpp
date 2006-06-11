@@ -36,11 +36,11 @@ struct basic_placeholder
     void output(const OutputStreamable& x)
     {
         std::basic_string<CharT> tmp = pstade::lexical(x);
-        output_impl(tmp.c_str());
+        override_output(tmp.c_str());
     }
 
 protected:
-    virtual void output_impl(const CharT *psz) = 0;
+    virtual void override_output(const CharT *psz) = 0;
 };
 
 

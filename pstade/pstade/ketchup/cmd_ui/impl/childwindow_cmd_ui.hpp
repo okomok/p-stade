@@ -31,18 +31,18 @@ struct childwindow_cmd_ui : cmd_ui
     }
 
 private:
-    void impl_enable(bool on)
+    void override_enable(bool on)
     {
         tomato::enable_window(m_hWndChild, on);
     }
 
-    void impl_set_check(int state)
+    void override_set_check(int state)
     {
         // we can only check buttons or controls acting like buttons
         tomato::check_window(m_hWndChild, state);
     }
 
-    void impl_set_text(const TCHAR *pszText)
+    void override_set_text(const TCHAR *pszText)
     {
         BOOST_ASSERT(diet::valid(pszText));
 

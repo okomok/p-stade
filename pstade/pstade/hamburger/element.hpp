@@ -59,19 +59,19 @@ struct element :
 
         m_created = true;
         element_detail::pre_create(*this);
-        impl_create();
+        override_create();
     }
 
     void destroy()
     {
         BOOST_ASSERT(m_created);
         m_created = false;
-        impl_destroy();
+        override_destroy();
     }
 
     boost::optional<HWND> window() const
     {
-        boost::optional<HWND> wnd = impl_window();
+        boost::optional<HWND> wnd = override_window();
         if (wnd)
             BOOST_ASSERT(diet::valid(*wnd));
 
@@ -80,12 +80,12 @@ struct element :
 
     void set_bounds(rectangle rc)
     {
-        return impl_set_bounds(rc);
+        return override_set_bounds(rc);
     }
 
     rectangle bounds() const
     {
-        return impl_bounds();
+        return override_bounds();
     }
 
     void paint(graphics g, rectangle rc)
@@ -97,7 +97,7 @@ struct element :
         if (!hamburger::is_visible(*this))
             return;
 
-        impl_paint(g, rc);
+        override_paint(g, rc);
     }
 
     bool process_message(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, LRESULT& lResult, DWORD dwMsgMapID = 0)
@@ -115,36 +115,36 @@ public:
     }
 
 protected:
-    virtual void impl_create()
+    virtual void override_create()
     {
         BOOST_FOREACH (element& child, m_self) {
             child.create();
         }
     }
 
-    virtual void impl_destroy()
+    virtual void override_destroy()
     {
         BOOST_FOREACH (element& child, m_self) {
             child.destroy();
         }
     }
 
-    virtual boost::optional<HWND> impl_window() const
+    virtual boost::optional<HWND> override_window() const
     {
         return boost::optional<HWND>();
     }
 
-    virtual void impl_set_bounds(rectangle rc)
+    virtual void override_set_bounds(rectangle rc)
     {
         pstade::unused(rc);
     }
 
-    virtual rectangle impl_bounds() const
+    virtual rectangle override_bounds() const
     {
         return rectangle(0, 0, 0, 0);
     }
 
-    virtual void impl_paint(graphics g, rectangle rc)
+    virtual void override_paint(graphics g, rectangle rc)
     {
         pstade::unused(g, rc);
     }

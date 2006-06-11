@@ -64,16 +64,18 @@ public:
         m_space_ch(PSTADE_OVEN_DEBUG_SPACE_CH)
     { }
 
+template< class > friend struct tab_expand_iterator;
     template< class ForwardIter_ >
     tab_expand_iterator(
         tab_expand_iterator<ForwardIter_> other,
         typename boost::enable_if_convertible<ForwardIter_, ForwardIter>::type * = 0
     ) :
         super_t(other.base()), m_tabsize(other.tabsize()),
-        m_space_counter(other.detail_space_counter()), m_diff_from_sol(other.detail_diff_from_sol()), 
+        m_space_counter(other.m_space_counter), m_diff_from_sol(other.m_diff_from_sol), 
         m_space_ch(other.space_ch())
     { }
 
+public:
     diff_t tabsize() const
     { return m_tabsize; }
 
@@ -156,10 +158,6 @@ friend class boost::iterator_core_access;
         if (nl)
             m_diff_from_sol = 0;
     }
-
-public: // private:
-    diff_t detail_space_counter() const { return m_space_counter; }
-    diff_t detail_diff_from_sol() const { return m_diff_from_sol; }
 };
 
 

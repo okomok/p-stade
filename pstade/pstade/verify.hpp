@@ -12,7 +12,7 @@
 
 // What:
 //
-// Use in the destructor
+// Use in destructor
 
 
 #include <boost/assert.hpp>
@@ -20,8 +20,8 @@
 
 #if !defined(NDEBUG) || defined(PSTADE_VERIFY_DEBUG)
 
-    #define PSTADE_VERIFY(X) \
-        BOOST_ASSERT(X) \
+    #define PSTADE_VERIFY \
+        BOOST_ASSERT \
     /**/
 
 #else

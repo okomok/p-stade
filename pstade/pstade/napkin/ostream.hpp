@@ -11,6 +11,7 @@
 
 
 #include <boost/shared_ptr.hpp>
+#include "./config.hpp"
 #include "./detail/basic_holder.hpp"
 #include "./detail/basic_placeholder.hpp"
 #include "./nout.hpp"
@@ -56,8 +57,12 @@ typedef basic_ostream<char>
 ostream;
 
 
+#if !defined(PSTADE_NAPKIN_NO_WIDESTRING)
+
 typedef basic_ostream<wchar_t>
 wostream;
+
+#endif
 
 
 } } // namespace pstade::napkin

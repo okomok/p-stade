@@ -60,7 +60,7 @@ public:
     }
 
 protected:
-    void impl_create()
+    void override_create()
     {
         BOOST_ASSERT(boost::empty(*this));
 

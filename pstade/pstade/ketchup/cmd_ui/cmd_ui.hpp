@@ -40,44 +40,44 @@ struct cmd_ui :
     { return m_handled; }
 
     void enable(bool on)
-    { return impl_enable(on); }
+    { return override_enable(on); }
 
     void set_check(int state)
-    { return impl_set_check(state); }
+    { return override_set_check(state); }
 
     void set_radio(bool on)
-    { return impl_set_radio(on); }
+    { return override_set_radio(on); }
 
     void set_text(const TCHAR *psz)
-    { return impl_set_text(psz); }
+    { return override_set_text(psz); }
 
     void set_default(bool on)
-    { return impl_set_default(on); }
+    { return override_set_default(on); }
 
     bool is_dependent()
-    { return impl_is_dependent(); }
+    { return override_is_dependent(); }
 
 protected:
     ~cmd_ui()
     { }
 
 private:
-    virtual void impl_enable(bool)
+    virtual void override_enable(bool)
     { }
 
-    virtual void impl_set_check(int)
+    virtual void override_set_check(int)
     { }
 
-    virtual void impl_set_radio(bool on)
+    virtual void override_set_radio(bool on)
     { set_check(on); }
 
-    virtual void impl_set_text(const TCHAR *)
+    virtual void override_set_text(const TCHAR *)
     { }
 
-    virtual void impl_set_default(bool)
+    virtual void override_set_default(bool)
     { }
 
-    virtual bool impl_is_dependent()
+    virtual bool override_is_dependent()
     { return false; }
 
 private:

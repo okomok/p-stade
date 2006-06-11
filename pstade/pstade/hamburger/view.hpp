@@ -116,27 +116,27 @@ public:
     }
 
 protected:
-    void impl_create()
+    void override_create()
     {
         BOOST_ASSERT(!diet::valid(m_hWnd));
 
         view_detail::threads.add_thread(new boost::thread(boost::lambda::bind(&view::work, this)));
     }
 
-    boost::optional<HWND> impl_window() const
+    boost::optional<HWND> override_window() const
     {
         BOOST_ASSERT(diet::valid(m_hWnd));
 
         return boost::optional<HWND>(m_hWnd);
     }
 
-    void impl_set_bounds(rectangle rc)
+    void override_set_bounds(rectangle rc)
     {
         rc += hamburger::location(*parent());
         MoveWindow(rc.left, rc.top, rc.Width(), rc.Height(), TRUE);
     }
 
-    rectangle impl_bounds() const
+    rectangle override_bounds() const
     {
         rectangle rc;
         GetWindowRect(rc);

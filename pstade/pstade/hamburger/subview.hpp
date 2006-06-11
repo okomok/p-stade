@@ -53,18 +53,18 @@ struct subview :
         subview_detail::set_default_values(*this);
     }
 
-    void impl_set_bounds(rectangle rc)
+    void override_set_bounds(rectangle rc)
     {
         m_bounds = rc;
         detail::layout(*this);
     }
 
-    rectangle impl_bounds() const
+    rectangle override_bounds() const
     {
         return m_bounds;
     }
 
-    void impl_paint(graphics g, rectangle rc)
+    void override_paint(graphics g, rectangle rc)
     {
         detail::paint_background(*this, g, rc);
 

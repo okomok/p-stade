@@ -63,16 +63,18 @@ public:
         m_tabsize(tabsize), m_tab_ch(PSTADE_OVEN_DEBUG_TAB_CH)
     { }
 
+template< class > friend struct tab_unexpand_iterator;
     template< class ForwardIter_ >
     tab_unexpand_iterator(
         tab_unexpand_iterator<ForwardIter_> other,
         typename boost::enable_if_convertible<ForwardIter_, ForwardIter>::type * = 0
     ) :
         super_t(other.base()),
-        m_last(other.end()), m_sol(other.detail_sol()), 
+        m_last(other.end()), m_sol(other.m_sol), 
         m_tabsize(other.tabsize()), m_tab_ch(other.tab_ch())
     { }
 
+public:
     base_t end() const
     { return m_last; }
 
@@ -152,9 +154,6 @@ friend class boost::iterator_core_access;
         if (nl)
             m_sol = this->base();
     }
-
-public: // private:
-    base_t detail_sol() const { return m_sol; }
 };
 
 

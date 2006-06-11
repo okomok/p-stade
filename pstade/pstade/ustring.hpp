@@ -78,7 +78,6 @@ public:
 
     // Constructor prefers copy constructor and converts argument to ustring.
     // But operator= doesn't, so be strict.
-    //
     template< class Range > 
     typename boost::enable_if<apple::is_boost_range<Range>, ustring&>::type
     operator=(const Range& rng)
@@ -89,11 +88,11 @@ public:
 
     // implicit conversions
     //
-    ustring(char *psz) :
+    ustring(const char *psz) :
         super_t(psz, oven::null_terminate_range_detail::end(psz))
     { }
 
-    ustring(wchar_t *psz) :
+    ustring(const wchar_t *psz) :
         super_t(psz, oven::null_terminate_range_detail::end(psz))
     { }
 };

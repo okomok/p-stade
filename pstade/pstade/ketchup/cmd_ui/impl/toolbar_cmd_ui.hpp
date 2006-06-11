@@ -29,12 +29,12 @@ struct toolbar_cmd_ui : cmd_ui
     }
 
 protected:
-    void impl_enable(bool on)
+    void override_enable(bool on)
     {
         tomato::enable_toolbar_button(m_hWndToolBar, get_id(), on);
     }
 
-    void impl_set_check(int state)
+    void override_set_check(int state)
     {
         BOOST_ASSERT(0 <= state && state <= 2); // 0=>off, 1=>on, 2=>indeterminate
 

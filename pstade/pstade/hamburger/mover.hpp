@@ -78,17 +78,17 @@ struct mover :
     >
 {
 protected:
-    void impl_create()
+    void override_create()
     {
         m_ht = mover_detail::ht_value(*this);
     }
 
-    void impl_set_bounds(rectangle rc)
+    void override_set_bounds(rectangle rc)
     {
         m_bounds = rc;
     }
 
-    rectangle impl_bounds() const
+    rectangle override_bounds() const
     {
         return m_bounds;
     }

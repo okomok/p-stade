@@ -12,6 +12,7 @@
 
 #include <boost/noncopyable.hpp>
 #include <boost/thread/mutex.hpp>
+#include "./config.hpp"
 #include "./ostream.hpp"
 
 
@@ -59,8 +60,12 @@ typedef basic_lock_ostream<char>
 lock_ostream;
 
 
+#if !defined(PSTADE_NAPKIN_NO_WIDESTRING)
+
 typedef basic_lock_ostream<wchar_t>
 lock_wostream;
+
+#endif
 
 
 } } // namespace pstade::napkin

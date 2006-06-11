@@ -107,14 +107,15 @@ public:
         m_first2(first2), m_it2(it2)
     { }
 
+template< class, class > friend struct joint_iterator;
     template< class Iterator1_, class Iterator2_ >
     joint_iterator(
         joint_iterator<Iterator1_, Iterator2_> other,
         typename boost::enable_if_convertible<Iterator1_, Iterator1>::type * = 0,
         typename boost::enable_if_convertible<Iterator2_, Iterator2>::type * = 0
     ) :
-        super_t(other.detail_cur1()), m_last1(other.detail_end1()), 
-        m_first2(other.detail_begin2()), m_it2(other.detail_cur2())
+        super_t(other.base()), m_last1(other.m_last1), 
+        m_first2(other.m_first2), m_it2(other.m_it2)
     { }
 
 private:
@@ -205,12 +206,6 @@ private:
 
     bool is_in_range1() const
     { return this->base() != m_last1; }
-
-public: // private:
-    Iterator1 detail_cur1() const   { return this->base(); }
-    Iterator1 detail_end1() const   { return m_last1; }
-    Iterator2 detail_begin2() const { return m_first2; }
-    Iterator2 detail_cur2() const   { return m_it2; }
 };
 
 

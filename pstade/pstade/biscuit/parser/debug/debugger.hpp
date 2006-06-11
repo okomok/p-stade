@@ -13,6 +13,7 @@
 #include <iostream>
 #include <string>
 #include <typeinfo>
+#include <boost/config.hpp> // NO_STD_WSTREAMBUF
 #include <boost/foreach.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/mpl/eval_if.hpp>
@@ -22,6 +23,7 @@
 #include <pstade/init_ios.hpp>
 #include <pstade/instance.hpp>
 #include <pstade/is_debug.hpp>
+#include <pstade/napkin/config.hpp> // NO_WIDESTRING
 #include <pstade/napkin/ostream.hpp>
 #include <pstade/napkin/ostream_char_type.hpp>
 
@@ -33,21 +35,25 @@ namespace debugger_detail {
 
 
     PSTADE_INSTANCE(napkin::ostream, os, (std::cout))
-    PSTADE_INSTANCE(napkin::wostream, wos, (std::wcout))
-
 
     struct get_ostream
     {
         typedef napkin::ostream type;
         static napkin::ostream& call() { return os; }
-    };
+    };    
+    
+    
+#if !defined(PSTADE_NAPKIN_NO_WIDESTRING)
 
+    PSTADE_INSTANCE(napkin::wostream, wos, (std::wcout))
 
     struct get_wostream
     {
         typedef napkin::wostream type;
         static napkin::wostream& call() { return wos; }
     };
+
+#endif
 
 
     PSTADE_INSTANCE(int, class_trace_indent_count, value)
@@ -82,7 +88,7 @@ namespace debugger_detail {
 
 
     template< class ParserName, class Parser, class On, class GetOStream >
-    struct debugger_base
+    struct debugger_super
     {
         struct on_release
         {
@@ -161,23 +167,16 @@ namespace debugger_detail {
 } // namespace debugger_detail
 
 
+// debugger
+//
+
 template<
     class ParserName,
     class Parser,
     class On = boost::mpl::true_
 >
 struct debugger :
-    debugger_detail::debugger_base<ParserName, Parser, On, debugger_detail::get_ostream>::type
-{ };
-
-
-template<
-    class ParserName,
-    class Parser,
-    class On = boost::mpl::true_
->
-struct wdebugger :
-    debugger_detail::debugger_base<ParserName, Parser, On, debugger_detail::get_wostream>::type
+    debugger_detail::debugger_super<ParserName, Parser, On, debugger_detail::get_ostream>::type
 { };
 
 
@@ -188,11 +187,29 @@ void debugger_reset_ostream(StringOutputable& out)
 }
 
 
+#if !defined(PSTADE_NAPKIN_NO_WIDESTRING)
+
+
+// wdebugger
+//
+template<
+    class ParserName,
+    class Parser,
+    class On = boost::mpl::true_
+>
+struct wdebugger :
+    debugger_detail::debugger_super<ParserName, Parser, On, debugger_detail::get_wostream>::type
+{ };
+
+
 template< class WideStringOutputable > inline
 void wdebugger_reset_ostream(WideStringOutputable& out)
 {
     debugger_detail::wos.reset(out);
 }
+
+
+#endif // !defined(BOOST_NO_STD_WSTREAMBUF)
 
 
 } } // namespace pstade::biscuit

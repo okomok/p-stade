@@ -74,11 +74,11 @@ namespace string_detail {
 
         bool query_string(const TCHAR *pszValueName, TCHAR *pFirst, TCHAR *pLast)
         {
-            return query_string_impl(pszValueName, pFirst, pLast);
+            return override_query_string(pszValueName, pFirst, pLast);
         }
     
     protected:
-        virtual bool query_string_impl(const TCHAR *pszValueName, TCHAR *pFirst, TCHAR *pLast) = 0;
+        virtual bool override_query_string(const TCHAR *pszValueName, TCHAR *pFirst, TCHAR *pLast) = 0;
     };
 
 
@@ -91,7 +91,7 @@ namespace string_detail {
         { }
     
     protected:
-        virtual bool query_string_impl(const TCHAR *pszValueName, TCHAR *pFirst, TCHAR *pLast)
+        bool override_query_string(const TCHAR *pszValueName, TCHAR *pFirst, TCHAR *pLast)
         {
             typedef typename
             boost::mpl::if_< detail::has_pstade_pizza_profile<Profile>,

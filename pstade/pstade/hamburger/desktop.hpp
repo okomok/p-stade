@@ -36,7 +36,7 @@ struct desktop :
     element
 {
 protected:
-    rectangle impl_bounds() const
+    rectangle override_bounds() const
     {
         rectangle rc;
         PSTADE_REQUIRE(::SystemParametersInfo(SPI_GETWORKAREA, 0, &rc, 0));

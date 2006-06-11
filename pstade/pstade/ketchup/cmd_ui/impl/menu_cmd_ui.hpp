@@ -37,13 +37,13 @@ struct menu_cmd_ui : cmd_ui
     }
 
 private:
-    void impl_enable(bool on)
+    void override_enable(bool on)
     {
         ::EnableMenuItem(m_hMenu, m_uIndex, MF_BYPOSITION |
             (on ? MF_ENABLED : (tomato::mf_disabled::value | MF_GRAYED)));
     }
 
-    void impl_set_check(int state)
+    void override_set_check(int state)
     {
         tomato::set_menu_check_type(m_hMenu, m_uIndex, false);
 
@@ -52,7 +52,7 @@ private:
     }
 
 #if !defined(_WIN32_WCE)
-    void impl_set_radio(bool on)
+    void override_set_radio(bool on)
     {
         tomato::set_menu_check_type(m_hMenu, m_uIndex, true);
 
@@ -61,21 +61,21 @@ private:
     }
 #endif // !defined(_WIN32_WCE)
 
-    void impl_set_text(const TCHAR *pszText)
+    void override_set_text(const TCHAR *pszText)
     {
         BOOST_ASSERT(diet::valid(pszText));
 
         tomato::set_menu_text(m_hMenu, m_uIndex, pszText);
     }
 
-    void impl_set_default(bool on)
+    void override_set_default(bool on)
     {
         // place checkmark next to menu item
         if (on)
             PSTADE_REQUIRE(tomato::set_menu_default_item(m_hMenu, m_uIndex, TRUE));
     }
 
-    bool impl_is_dependent()
+    bool override_is_dependent()
     {
         return m_dependent;
     }

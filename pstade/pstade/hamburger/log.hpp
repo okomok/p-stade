@@ -19,16 +19,35 @@
 namespace pstade { namespace hamburger {
 
 
-PSTADE_INSTANCE(napkin::lock_ostream, log, value)
+PSTADE_INSTANCE(napkin::lock_ostream, log, (napkin::dout))
+
+
+template< class StringOutputable >
+void log_reset(StringOutputable& out)
+{
+    log.reset(out);
+    log << "<hamburger-log>";
+}
 
 
 namespace log_detail {
 
 
-    PSTADE_STATEMENT(Init,
-        log_().reset(napkin::dout);
-        log_() << "<pstade-hamburger-log>";
-    )
+    struct init
+    {
+        init()
+        {
+            log_() << "<hamburger-log>";
+        }
+
+        ~init()
+        {
+            log_() << "</hamburger-log>";
+        }
+    };
+
+
+    PSTADE_INSTANCE(const init, i, value)
 
 
 } // namespace log_detail
