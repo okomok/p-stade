@@ -32,7 +32,7 @@ namespace scoped_handle_detail {
 
         ~basic_impl()
         {
-            PSTADE_VERIFY(::CloseHandle(m_h));
+            PSTADE_VERIFY( ::CloseHandle(m_h) );
         }
 
         const HANDLE m_h;

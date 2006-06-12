@@ -10,13 +10,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <memory> // auto_ptr
-#include <boost/assert.hpp>
 #include <boost/noncopyable.hpp>
+#include <boost/scoped_ptr.hpp>
 #include <pstade/apple/atl/module.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/apple/wtl/app.hpp> // CIdleHandler, CMessageLoop
 #include <pstade/require.hpp>
+#include <pstade/verify.hpp>
 
 
 namespace pstade { namespace tomato {
@@ -31,14 +31,13 @@ namespace idle_handling_detail {
             m_pIdleHandler(pIdleHandler), m_dwThreadID(dwThreadID)
         {
             WTL::CMessageLoop *pLoop = _Module.GetMessageLoop(m_dwThreadID);
-            PSTADE_REQUIRE(pLoop && pLoop->AddIdleHandler(m_pIdleHandler));
+            PSTADE_REQUIRE( pLoop && pLoop->AddIdleHandler(m_pIdleHandler) );
         }
 
         ~impl()
         {
             WTL::CMessageLoop *pLoop = _Module.GetMessageLoop(m_dwThreadID);
-            if (!pLoop || !pLoop->RemoveIdleHandler(m_pIdleHandler))
-                BOOST_ASSERT(false);
+            PSTADE_VERIFY( pLoop && pLoop->RemoveIdleHandler(m_pIdleHandler) );
         }
 
     private:
@@ -72,12 +71,11 @@ struct idle_handling :
     }
 
 private:
-    std::auto_ptr<idle_handling_detail::impl> m_pimpl;
+    boost::scoped_ptr<idle_handling_detail::impl> m_pimpl;
 };
 
 
 } } // namespace pstade::tomato
-
 
 
 #endif

@@ -11,7 +11,7 @@
 
 
 #include <boost/assert.hpp>
-#include <memory> // auto_ptr
+#include <boost/scoped_ptr.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/candy/reset.hpp>
 #include <pstade/candy/set.hpp>
@@ -43,7 +43,7 @@ void set_menu_check_type(HMENU hMenu, UINT uIndex, bool on)
         return;
 
     // The case of MFT_STRING; MFT_STRING == 0, so...
-    std::auto_ptr<TCHAR> szString;
+    boost::scoped_ptr<TCHAR> szString;
     if (
         !candy::test(mii.fType, MFT_BITMAP) &&
         !candy::test(mii.fType, MFT_SEPARATOR) &&

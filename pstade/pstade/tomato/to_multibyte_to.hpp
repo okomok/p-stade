@@ -57,7 +57,6 @@ DstSeq multibyte_to(const SrcRng& src)
             oven::null_terminated
     );
 #endif
-
 }
 
 

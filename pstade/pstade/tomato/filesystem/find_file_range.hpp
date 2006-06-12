@@ -25,9 +25,8 @@
 #include <boost/noncopyable.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <pstade/apple/sdk/windows.hpp>
-#include <pstade/check.hpp>
+#include <pstade/verify.hpp>
 #include "../diet/valid.hpp"
-#include "../require.hpp"
 #include "./find_file_iterator.hpp"
 
 
@@ -39,23 +38,23 @@ namespace find_file_range_detail {
 
     // See: Boost.BaseFromMember
     //
-    struct initializer
+    struct init
     {
     protected:
         HANDLE m_hFind;
         WIN32_FIND_DATA m_data;
 
-        explicit initializer(const TCHAR *pszName)
+        explicit init(const TCHAR *pszName)
         {
             BOOST_ASSERT(diet::valid(pszName));
 
             m_hFind = ::FindFirstFile(pszName, &m_data);
         }
 
-        ~initializer()
+        ~init()
         {
             if (m_hFind != INVALID_HANDLE_VALUE)
-                PSTADE_CHECK(::FindClose(m_hFind)); // cannot throw
+                PSTADE_VERIFY( ::FindClose(m_hFind) );
         }
     };
 
@@ -65,7 +64,7 @@ namespace find_file_range_detail {
 
 struct find_file_range  :
     private boost::noncopyable,
-    private find_file_range_detail::initializer,
+    private find_file_range_detail::init,
     boost::iterator_range<find_file_iterator>
 {
 private:
@@ -73,7 +72,7 @@ private:
 
 public:
     explicit find_file_range(const TCHAR *pszName) :
-        find_file_range_detail::initializer(pszName),
+        find_file_range_detail::init(pszName),
         super_t(
             find_file_iterator(m_hFind, m_data),
             find_file_iterator()

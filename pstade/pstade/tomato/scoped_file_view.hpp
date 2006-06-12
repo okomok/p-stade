@@ -30,12 +30,12 @@ namespace scoped_file_view_detail {
         explicit impl(LPVOID pView) :
             m_pView(pView)
         {
-            BOOST_ASSERT(m_pView != NULL);
+            BOOST_ASSERT( m_pView != NULL );
         }
 
         ~impl()
         {
-            PSTADE_VERIFY(::UnmapViewOfFile(m_pView));
+            PSTADE_VERIFY( ::UnmapViewOfFile(m_pView) );
         }
 
         const LPVOID m_pView;
