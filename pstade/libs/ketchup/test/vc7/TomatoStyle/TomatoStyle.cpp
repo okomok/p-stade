@@ -42,8 +42,8 @@ int WINAPI _tWinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, LPTSTR lp
 
 	using namespace pstade;
 
-	tomato::co_initializer co;
-	tomato::module_initializer module(hInstance);
+	tomato::co_init ci;
+	tomato::module_init mi(hInstance);
     WTL::AtlInitCommonControls(ICC_COOL_CLASSES | ICC_BAR_CLASSES); // add flags to support other controls
     return Run(lpstrCmdLine, nCmdShow);
 }

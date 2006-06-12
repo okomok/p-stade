@@ -11,7 +11,7 @@
 
 
 #include <boost/assert.hpp>
-#include <boost/scoped_ptr.hpp>
+#include <boost/scoped_array.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/candy/reset.hpp>
 #include <pstade/candy/set.hpp>
@@ -25,7 +25,7 @@
 namespace pstade { namespace tomato {
 
 
-inline // Win32 stinks.
+inline
 void set_menu_check_type(HMENU hMenu, UINT uIndex, bool on)
 {
     BOOST_ASSERT(diet::valid(hMenu));
@@ -42,9 +42,9 @@ void set_menu_check_type(HMENU hMenu, UINT uIndex, bool on)
     if (on == candy::test(mii.fType, MFT_RADIOCHECK))
         return;
 
-    // The case of MFT_STRING; MFT_STRING == 0, so...
-    boost::scoped_ptr<TCHAR> szString;
-    if (
+    boost::scoped_array<TCHAR> szString;
+
+    if (// The case of MFT_STRING; MFT_STRING == 0, so...
         !candy::test(mii.fType, MFT_BITMAP) &&
         !candy::test(mii.fType, MFT_SEPARATOR) &&
         !candy::test(mii.fType, MFT_OWNERDRAW) // Win32 documentation is broken.

@@ -31,10 +31,9 @@ void test()
     vec[3] = "hello";
     vec[4] = "key";
 
-
-	BOOST_FOREACH( int i, vec|map_keys) {
-		std::cout << i;
-	}
+    BOOST_FOREACH( int i, vec|map_keys) {
+        std::cout << i;
+    }
 }
 
 

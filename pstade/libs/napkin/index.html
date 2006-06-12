@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="Docutils 0.3.10: http://docutils.sourceforge.net/" />
+<meta name="generator" content="Docutils 0.4: http://docutils.sourceforge.net/" />
 <title>The Napkin Trace Library</title>
 <meta name="author" content="MB" />
 <style type="text/css">
@@ -34,8 +34,8 @@
 <p>&quot;<em>But I cleaned them with my napkin.</em>&quot;</p>
 <p class="attribution">&mdash;Dr. Nick</p>
 </blockquote>
-<div class="contents topic" id="table-of-contents">
-<p class="topic-title first"><a name="table-of-contents"><strong>Table of Contents</strong></a></p>
+<div class="contents topic">
+<p class="topic-title first"><a id="table-of-contents" name="table-of-contents"><strong>Table of Contents</strong></a></p>
 <ul class="auto-toc simple">
 <li><a class="reference" href="#introduction" id="id6" name="id6">1&nbsp;&nbsp;&nbsp;Introduction</a></li>
 <li><a class="reference" href="#requirements" id="id7" name="id7">2&nbsp;&nbsp;&nbsp;Requirements</a></li>
@@ -44,8 +44,8 @@
 <li><a class="reference" href="#basic-concepts" id="id10" name="id10">5&nbsp;&nbsp;&nbsp;Basic Concepts</a><ul class="auto-toc">
 <li><a class="reference" href="#string" id="id11" name="id11">5.1&nbsp;&nbsp;&nbsp;String</a></li>
 <li><a class="reference" href="#string-outputable" id="id12" name="id12">5.2&nbsp;&nbsp;&nbsp;String Outputable</a></li>
-<li><a class="reference" href="#wide-string" id="id13" name="id13">5.3&nbsp;&nbsp;&nbsp;Wide String</a></li>
-<li><a class="reference" href="#wide-string-outputable" id="id14" name="id14">5.4&nbsp;&nbsp;&nbsp;Wide String Outputable</a></li>
+<li><a class="reference" href="#widestring" id="id13" name="id13">5.3&nbsp;&nbsp;&nbsp;WideString</a></li>
+<li><a class="reference" href="#widestring-outputable" id="id14" name="id14">5.4&nbsp;&nbsp;&nbsp;WideString Outputable</a></li>
 <li><a class="reference" href="#output-streamable" id="id15" name="id15">5.5&nbsp;&nbsp;&nbsp;Output Streamable</a></li>
 </ul>
 </li>
@@ -75,8 +75,8 @@
 </li>
 </ul>
 </div>
-<div class="section" id="introduction">
-<h1><a class="toc-backref" href="#id6" name="introduction">1&nbsp;&nbsp;&nbsp;Introduction</a></h1>
+<div class="section">
+<h1><a class="toc-backref" href="#id6" id="introduction" name="introduction">1&nbsp;&nbsp;&nbsp;Introduction</a></h1>
 <p>Napkin is the simple header-only logging library which provides generic reference-like type to output devices:</p>
 <pre class="cpp_source">
 napkin::ostream os;
@@ -114,23 +114,23 @@ os &lt;&lt; <span class="cpp_string_literal">&quot;to string&quot;</span>;</pre>
 
 <p>All the types, functions and objects are defined in namespace <tt class="docutils literal"><span class="pre">pstade::napkin</span></tt>.</p>
 </div>
-<div class="section" id="requirements">
-<h1><a class="toc-backref" href="#id7" name="requirements">2&nbsp;&nbsp;&nbsp;Requirements</a></h1>
+<div class="section">
+<h1><a class="toc-backref" href="#id7" id="requirements" name="requirements">2&nbsp;&nbsp;&nbsp;Requirements</a></h1>
 <ul class="simple">
 <li><a class="reference" href="http://www.boost.org/">Boost C++ Libraries Version 1.33.1</a> or later (no compilation required)</li>
 <li><a class="reference" href="http://sourceforge.net/project/showfiles.php?group_id=141222&amp;package_id=173059">P-Stade C++ Libraries Version 0.98.0</a> or later (no compilation required, give a higher priority than Boost headers)</li>
 </ul>
 </div>
-<div class="section" id="tested-under">
-<h1><a class="toc-backref" href="#id8" name="tested-under">3&nbsp;&nbsp;&nbsp;Tested Under</a></h1>
+<div class="section">
+<h1><a class="toc-backref" href="#id8" id="tested-under" name="tested-under">3&nbsp;&nbsp;&nbsp;Tested Under</a></h1>
 <ul class="simple">
 <li>Microsoft Visual C++ 2005 Express Edition</li>
 <li>Microsoft Visual C++ .NET Version 7.1</li>
 <li>GCC 3.4.4</li>
 </ul>
 </div>
-<div class="section" id="quick-start">
-<h1><a class="toc-backref" href="#id9" name="quick-start">4&nbsp;&nbsp;&nbsp;Quick Start</a></h1>
+<div class="section">
+<h1><a class="toc-backref" href="#id9" id="quick-start" name="quick-start">4&nbsp;&nbsp;&nbsp;Quick Start</a></h1>
 <ol class="arabic">
 <li><p class="first">Include the Napkin header:</p>
 <pre class="cpp_source">
@@ -155,14 +155,14 @@ os &lt;&lt; <span class="cpp_string_literal">&quot;to string&quot;</span>;</pre>
 </li>
 </ol>
 </div>
-<div class="section" id="basic-concepts">
-<h1><a class="toc-backref" href="#id10" name="basic-concepts">5&nbsp;&nbsp;&nbsp;Basic Concepts</a></h1>
-<div class="section" id="string">
-<h2><a class="toc-backref" href="#id11" name="string">5.1&nbsp;&nbsp;&nbsp;String</a></h2>
+<div class="section">
+<h1><a class="toc-backref" href="#id10" id="basic-concepts" name="basic-concepts">5&nbsp;&nbsp;&nbsp;Basic Concepts</a></h1>
+<div class="section">
+<h2><a class="toc-backref" href="#id11" id="string" name="string">5.1&nbsp;&nbsp;&nbsp;String</a></h2>
 <p>A <tt class="docutils literal"><span class="pre">String</span></tt> is a null-terminated <tt class="docutils literal"><span class="pre">const</span> <span class="pre">char</span> <span class="pre">*</span></tt>.</p>
 </div>
-<div class="section" id="string-outputable">
-<h2><a class="toc-backref" href="#id12" name="string-outputable">5.2&nbsp;&nbsp;&nbsp;String Outputable</a></h2>
+<div class="section">
+<h2><a class="toc-backref" href="#id12" id="string-outputable" name="string-outputable">5.2&nbsp;&nbsp;&nbsp;String Outputable</a></h2>
 <p>A <tt class="docutils literal"><span class="pre">StringOutputable</span></tt> is any <tt class="docutils literal"><span class="pre">out</span></tt> that either of the following expression is valid:</p>
 <pre class="cpp_source">
 out &lt;&lt; psz;
@@ -171,33 +171,33 @@ pstade_napkin_output(out, psz, ov);</pre>
 <p>, where <tt class="docutils literal"><span class="pre">psz</span></tt> is a <a class="reference" href="#string">String</a> and <tt class="docutils literal"><span class="pre">ov</span></tt> is a <tt class="docutils literal"><span class="pre">pstade::overload</span></tt> object.
 It is unsurprising that many types conform to this simple concept; even <tt class="docutils literal"><span class="pre">afxDump</span></tt>.</p>
 </div>
-<div class="section" id="wide-string">
-<h2><a class="toc-backref" href="#id13" name="wide-string">5.3&nbsp;&nbsp;&nbsp;Wide String</a></h2>
+<div class="section">
+<h2><a class="toc-backref" href="#id13" id="widestring" name="widestring">5.3&nbsp;&nbsp;&nbsp;WideString</a></h2>
 <p>A <tt class="docutils literal"><span class="pre">WideString</span></tt> is a null-terminated <tt class="docutils literal"><span class="pre">const</span> <span class="pre">wchar_t</span> <span class="pre">*</span></tt>.</p>
 </div>
-<div class="section" id="wide-string-outputable">
-<h2><a class="toc-backref" href="#id14" name="wide-string-outputable">5.4&nbsp;&nbsp;&nbsp;Wide String Outputable</a></h2>
+<div class="section">
+<h2><a class="toc-backref" href="#id14" id="widestring-outputable" name="widestring-outputable">5.4&nbsp;&nbsp;&nbsp;WideString Outputable</a></h2>
 <p>A <tt class="docutils literal"><span class="pre">WideStringOutputable</span></tt> is any <tt class="docutils literal"><span class="pre">out</span></tt> that either of the following expression is valid:</p>
 <pre class="cpp_source">
 out &lt;&lt; psz;
 pstade_napkin_output(out, psz, ov);</pre>
 
-<p>, where <tt class="docutils literal"><span class="pre">psz</span></tt> is a <a class="reference" href="#wide-string">Wide String</a> and <tt class="docutils literal"><span class="pre">ov</span></tt> is a <tt class="docutils literal"><span class="pre">pstade::overload</span></tt> object.</p>
+<p>, where <tt class="docutils literal"><span class="pre">psz</span></tt> is a <a class="reference" href="#widestring">WideString</a> and <tt class="docutils literal"><span class="pre">ov</span></tt> is a <tt class="docutils literal"><span class="pre">pstade::overload</span></tt> object.</p>
 </div>
-<div class="section" id="output-streamable">
-<h2><a class="toc-backref" href="#id15" name="output-streamable">5.5&nbsp;&nbsp;&nbsp;Output Streamable</a></h2>
+<div class="section">
+<h2><a class="toc-backref" href="#id15" id="output-streamable" name="output-streamable">5.5&nbsp;&nbsp;&nbsp;Output Streamable</a></h2>
 <p>This concept comes from <a class="reference" href="http://www.boost.org/libs/conversion/lexical_cast.htm">Boost.LexicalCast</a>;
 an <tt class="docutils literal"><span class="pre">OutputStreamable</span></tt> is any type that
-<tt class="docutils literal"><span class="pre">operator&lt;&lt;</span></tt> is defined that takes a <tt class="docutils literal"><span class="pre">std::ostream</span></tt> or <tt class="docutils literal"><span class="pre">std::wostream</span></tt> 
+<tt class="docutils literal"><span class="pre">operator&lt;&lt;</span></tt> is defined that takes a <tt class="docutils literal"><span class="pre">std::ostream</span></tt> or <tt class="docutils literal"><span class="pre">std::wostream</span></tt>
 object on the left hand side and an instance of the argument type on the right.
 That means if you have already defined <tt class="docutils literal"><span class="pre">operator&lt;&lt;</span></tt> of your class,
-Napkin can work with it like <a class="reference" href="http://www.boost.org/libs/format/doc/format.html">Boost.Format</a>.</p>
+Napkin can work with it.</p>
 </div>
 </div>
-<div class="section" id="classes">
-<h1><a class="toc-backref" href="#id16" name="classes">6&nbsp;&nbsp;&nbsp;Classes</a></h1>
-<div class="section" id="ostream">
-<h2><a class="toc-backref" href="#id17" name="ostream">6.1&nbsp;&nbsp;&nbsp;<tt class="docutils literal docutils literal"><span class="pre">ostream</span></tt></a></h2>
+<div class="section">
+<h1><a class="toc-backref" href="#id16" id="classes" name="classes">6&nbsp;&nbsp;&nbsp;Classes</a></h1>
+<div class="section">
+<h2><a class="toc-backref" href="#id17" id="ostream" name="ostream">6.1&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">ostream</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">ostream</span></tt> is the generic reference-like type to <a class="reference" href="#string-outputable">String Outputable</a> objects.
 The valid expressions are:</p>
 <pre class="cpp_source">
@@ -231,9 +231,9 @@ os4 &lt;&lt; <span class="cpp_string_literal">&quot;os3 is StringOutputable.\n&q
 Note that <tt class="docutils literal"><span class="pre">ostream</span></tt> is of course a model of <a class="reference" href="#string-outputable">String Outputable</a>,
 because a <a class="reference" href="#string">String</a> is <a class="reference" href="#output-streamable">Output Streamable</a> by definition.</p>
 </div>
-<div class="section" id="wostream">
-<h2><a class="toc-backref" href="#id18" name="wostream">6.2&nbsp;&nbsp;&nbsp;<tt class="docutils literal docutils literal"><span class="pre">wostream</span></tt></a></h2>
-<p><tt class="docutils literal"><span class="pre">wostream</span></tt> is the generic reference-like type to <a class="reference" href="#wide-string-outputable">Wide String Outputable</a> objects.
+<div class="section">
+<h2><a class="toc-backref" href="#id18" id="wostream" name="wostream">6.2&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">wostream</span></tt></a></h2>
+<p><tt class="docutils literal"><span class="pre">wostream</span></tt> is the generic reference-like type to <a class="reference" href="#widestring-outputable">WideString Outputable</a> objects.
 The valid expressions are:</p>
 <pre class="cpp_source">
 wostream os(out);
@@ -246,8 +246,8 @@ os &lt;&lt; stm0 &lt;&lt; stm1 &lt;&lt; ... &lt;&lt; stmN;
 <tt class="docutils literal"><span class="pre">stm</span></tt> is a <a class="reference" href="#output-streamable">Output Streamable</a> object.
 The usage is the same as above.</p>
 </div>
-<div class="section" id="lock-ostream">
-<h2><a class="toc-backref" href="#id19" name="lock-ostream">6.3&nbsp;&nbsp;&nbsp;<tt class="docutils literal docutils literal"><span class="pre">lock_ostream</span></tt></a></h2>
+<div class="section">
+<h2><a class="toc-backref" href="#id19" id="lock-ostream" name="lock-ostream">6.3&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">lock_ostream</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">lock_ostream</span></tt> makes a <a class="reference" href="#string-outputable">String Outputable</a> thread-safe:</p>
 <pre class="cpp_source">
 napkin::lock_ostream los;
@@ -268,35 +268,35 @@ napkin::lock_ostream los;
 <p>Except for not <a class="reference" href="http://www.sgi.com/tech/stl/Assignable.html">Assignable</a>, the valid expression and usage is same as <a class="reference" href="#ostream">ostream</a>.
 Note that you must build <a class="reference" href="http://www.boost.org/doc/html/threads.html">Boost.Thread</a> and include explicitly <tt class="docutils literal"><span class="pre">&lt;pstade/napkin/lock_ostream.hpp&gt;</span></tt>.</p>
 </div>
-<div class="section" id="lock-wostream">
-<h2><a class="toc-backref" href="#id20" name="lock-wostream">6.4&nbsp;&nbsp;&nbsp;<tt class="docutils literal docutils literal"><span class="pre">lock_wostream</span></tt></a></h2>
-<p><tt class="docutils literal"><span class="pre">lock_wostream</span></tt> makes a <a class="reference" href="#wide-string-outputable">Wide String Outputable</a> thread-safe.
+<div class="section">
+<h2><a class="toc-backref" href="#id20" id="lock-wostream" name="lock-wostream">6.4&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">lock_wostream</span></tt></a></h2>
+<p><tt class="docutils literal"><span class="pre">lock_wostream</span></tt> makes a <a class="reference" href="#widestring-outputable">WideString Outputable</a> thread-safe.
 Except for not <a class="reference" href="http://www.sgi.com/tech/stl/Assignable.html">Assignable</a>, the valid expression and usage is same as <a class="reference" href="#wostream">wostream</a>.</p>
 </div>
 </div>
-<div class="section" id="predefined-string-outputables">
-<h1><a class="toc-backref" href="#id21" name="predefined-string-outputables">7&nbsp;&nbsp;&nbsp;Predefined String Outputables</a></h1>
-<div class="section" id="nout">
-<h2><a class="toc-backref" href="#id22" name="nout">7.1&nbsp;&nbsp;&nbsp;<tt class="docutils literal docutils literal"><span class="pre">nout</span></tt></a></h2>
-<p><tt class="docutils literal"><span class="pre">nout</span></tt> is the object that conforms to both <a class="reference" href="#string-outputable">String Outputable</a> and <a class="reference" href="#wide-string-outputable">Wide String Outputable</a>.
+<div class="section">
+<h1><a class="toc-backref" href="#id21" id="predefined-string-outputables" name="predefined-string-outputables">7&nbsp;&nbsp;&nbsp;Predefined String Outputables</a></h1>
+<div class="section">
+<h2><a class="toc-backref" href="#id22" id="nout" name="nout">7.1&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">nout</span></tt></a></h2>
+<p><tt class="docutils literal"><span class="pre">nout</span></tt> is the object that conforms to both <a class="reference" href="#string-outputable">String Outputable</a> and <a class="reference" href="#widestring-outputable">WideString Outputable</a>.
 <tt class="docutils literal"><span class="pre">nout</span></tt> throws out all the inputs, which is usable if you want to temporarily turn off a logging.</p>
 </div>
-<div class="section" id="dout">
-<h2><a class="toc-backref" href="#id23" name="dout">7.2&nbsp;&nbsp;&nbsp;<tt class="docutils literal docutils literal"><span class="pre">dout</span></tt></a></h2>
-<p><tt class="docutils literal"><span class="pre">dout</span></tt> is the object that conforms to both <a class="reference" href="#string-outputable">String Outputable</a> and <a class="reference" href="#wide-string-outputable">Wide String Outputable</a>.
+<div class="section">
+<h2><a class="toc-backref" href="#id23" id="dout" name="dout">7.2&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">dout</span></tt></a></h2>
+<p><tt class="docutils literal"><span class="pre">dout</span></tt> is the object that conforms to both <a class="reference" href="#string-outputable">String Outputable</a> and <a class="reference" href="#widestring-outputable">WideString Outputable</a>.
 <tt class="docutils literal"><span class="pre">dout</span></tt> outputs strings by using <tt class="docutils literal"><span class="pre">::OutputDebugString</span></tt>.
 This works only under Windows, so that you must explicitly include the header <tt class="docutils literal"><span class="pre">&lt;pstade/napkin/dout.hpp&gt;</span></tt>.</p>
 </div>
-<div class="section" id="standard-containers">
-<h2><a class="toc-backref" href="#id24" name="standard-containers">7.3&nbsp;&nbsp;&nbsp;Standard Containers</a></h2>
+<div class="section">
+<h2><a class="toc-backref" href="#id24" id="standard-containers" name="standard-containers">7.3&nbsp;&nbsp;&nbsp;Standard Containers</a></h2>
 <p>Napkin customizes the standard <a class="reference" href="http://www.sgi.com/tech/stl/BackInsertionSequence.html">Back Insertion Sequence</a>s by using the second valid expression of <a class="reference" href="#string-outputable">String Outputable</a> or
-<a class="reference" href="#wide-string-outputable">Wide String Outputable</a> concept. If <tt class="docutils literal"><span class="pre">seq::value_type</span></tt> is convertible to <tt class="docutils literal"><span class="pre">char</span></tt>, the <tt class="docutils literal"><span class="pre">seq</span></tt> is a model of <a class="reference" href="#string-outputable">String Outputable</a>, and
-if <tt class="docutils literal"><span class="pre">seq::value_type</span></tt> is convertible to <tt class="docutils literal"><span class="pre">wchar_t</span></tt>, the <tt class="docutils literal"><span class="pre">seq</span></tt> is a model of <a class="reference" href="#wide-string-outputable">Wide String Outputable</a>,
+<a class="reference" href="#widestring-outputable">WideString Outputable</a> concept. If <tt class="docutils literal"><span class="pre">seq::value_type</span></tt> is convertible to <tt class="docutils literal"><span class="pre">char</span></tt>, the <tt class="docutils literal"><span class="pre">seq</span></tt> is a model of <a class="reference" href="#string-outputable">String Outputable</a>, and
+if <tt class="docutils literal"><span class="pre">seq::value_type</span></tt> is convertible to <tt class="docutils literal"><span class="pre">wchar_t</span></tt>, the <tt class="docutils literal"><span class="pre">seq</span></tt> is a model of <a class="reference" href="#widestring-outputable">WideString Outputable</a>,
 where <tt class="docutils literal"><span class="pre">seq</span></tt> is a type <a class="reference" href="http://www.sgi.com/tech/stl/BackInsertionSequence.html">Back Insertion Sequence</a>.</p>
 </div>
 </div>
-<div class="section" id="define-your-own-string-outputable">
-<h1><a class="toc-backref" href="#id25" name="define-your-own-string-outputable">8&nbsp;&nbsp;&nbsp;Define your own String Outputable</a></h1>
+<div class="section">
+<h1><a class="toc-backref" href="#id25" id="define-your-own-string-outputable" name="define-your-own-string-outputable">8&nbsp;&nbsp;&nbsp;Define your own String Outputable</a></h1>
 <p>As an example, let's look into <a class="reference" href="#dout">dout</a> type definition:</p>
 <pre class="cpp_source">
 <span class="cpp_keyword">struct </span>dout_type
@@ -309,8 +309,8 @@ where <tt class="docutils literal"><span class="pre">seq</span></tt> is a type <
 
 <p>Pretty simple.</p>
 </div>
-<div class="section" id="remove-side-effects">
-<h1><a class="toc-backref" href="#id26" name="remove-side-effects">9&nbsp;&nbsp;&nbsp;Remove Side-effects</a></h1>
+<div class="section">
+<h1><a class="toc-backref" href="#id26" id="remove-side-effects" name="remove-side-effects">9&nbsp;&nbsp;&nbsp;Remove Side-effects</a></h1>
 <p>Though Napkin provides <a class="reference" href="#nout">nout</a>, you might want to remove all the side-effects under the release compilation.
 An easy solution is maybe something like:</p>
 <pre class="cpp_source">
@@ -333,7 +333,8 @@ An easy solution is maybe something like:</p>
 
     <span class="cpp_comment">// When you need comma out of ()
     </span>PSTADE_IF_DEBUG (
-        PSTADE_COMMA_PROTECT((basic_ofstream&lt; <span class="cpp_keyword">char</span>, char_traits&lt;<span class="cpp_keyword">char</span>&gt; &gt;)) fout(<span class="cpp_string_literal">&quot;debug.log&quot;</span>);
+        comma_protect&lt;<span class="cpp_keyword">void</span>(basic_ofstream&lt; <span class="cpp_keyword">char</span>, char_traits&lt;<span class="cpp_keyword">char</span>&gt; &gt;)&gt;::type
+        fout(<span class="cpp_string_literal">&quot;debug.log&quot;</span>);
         os.reset(fout);
         os &lt;&lt; <span class="cpp_string_literal">&quot;'#if !defined(NDEBUG)' is much easier!&quot;</span>;
     )
@@ -342,8 +343,8 @@ An easy solution is maybe something like:</p>
 <p><tt class="docutils literal"><span class="pre">PSTADE_IF_DEBUG</span></tt> disappears under the release compilation.
 <tt class="docutils literal"><span class="pre">PSTADE_COMMA_PROTECT</span></tt> works only if the argument is a type.</p>
 </div>
-<div class="section" id="points-of-interest">
-<h1><a class="toc-backref" href="#id27" name="points-of-interest">10&nbsp;&nbsp;&nbsp;Points of Interest</a></h1>
+<div class="section">
+<h1><a class="toc-backref" href="#id27" id="points-of-interest" name="points-of-interest">10&nbsp;&nbsp;&nbsp;Points of Interest</a></h1>
 <p>As mentioned above, <a class="reference" href="#string-outputable">String Outputable</a> concept is simple.
 You can chain, broadcast or add time information anyway you like.
 Napkin could be a building block of your logging strategy.</p>
@@ -351,8 +352,8 @@ Napkin could be a building block of your logging strategy.</p>
 Napkin only makes use of <a class="reference" href="http://www.boost.org/libs/conversion/lexical_cast.htm">Boost.LexicalCast</a>, which makes use of
 <tt class="docutils literal"><span class="pre">std::stringstream</span></tt>.</p>
 </div>
-<div class="section" id="references">
-<h1><a class="toc-backref" href="#id28" name="references">11&nbsp;&nbsp;&nbsp;References</a></h1>
+<div class="section">
+<h1><a class="toc-backref" href="#id28" id="references" name="references">11&nbsp;&nbsp;&nbsp;References</a></h1>
 <ul class="simple">
 <li><a class="reference" href="http://p-stade.sourceforge.net/">P-Stade</a></li>
 <li><a class="reference" href="http://www.boost.org/">Boost C++ Libraries</a></li>
@@ -361,30 +362,30 @@ Napkin only makes use of <a class="reference" href="http://www.boost.org/libs/co
 <li><a class="reference" href="http://log4cpp.sourceforge.net/">Log for C++</a></li>
 </ul>
 </div>
-<div class="section" id="release-notes">
-<h1><a class="toc-backref" href="#id29" name="release-notes">12&nbsp;&nbsp;&nbsp;Release Notes</a></h1>
-<div class="section" id="version-0-90-0">
-<h2><a class="toc-backref" href="#id30" name="version-0-90-0">12.1&nbsp;&nbsp;&nbsp;Version 0.90.0</a></h2>
+<div class="section">
+<h1><a class="toc-backref" href="#id29" id="release-notes" name="release-notes">12&nbsp;&nbsp;&nbsp;Release Notes</a></h1>
+<div class="section">
+<h2><a class="toc-backref" href="#id30" id="version-0-90-0" name="version-0-90-0">12.1&nbsp;&nbsp;&nbsp;Version 0.90.0</a></h2>
 <ul class="simple">
 <li>Initial version released.</li>
 </ul>
 </div>
-<div class="section" id="version-0-90-1">
-<h2><a class="toc-backref" href="#id31" name="version-0-90-1">12.2&nbsp;&nbsp;&nbsp;Version 0.90.1</a></h2>
+<div class="section">
+<h2><a class="toc-backref" href="#id31" id="version-0-90-1" name="version-0-90-1">12.2&nbsp;&nbsp;&nbsp;Version 0.90.1</a></h2>
 <ul class="simple">
 <li>Supported standard <a class="reference" href="http://www.sgi.com/tech/stl/BackInsertionSequence.html">Back Insertion Sequence</a>s as <a class="reference" href="#string-outputable">String Outputable</a>.</li>
 <li>Extended <a class="reference" href="#string-outputable">String Outputable</a> concept.</li>
 <li>Removed <tt class="docutils literal"><span class="pre">wnew</span></tt>.</li>
 </ul>
 </div>
-<div class="section" id="version-0-90-2">
-<h2><a class="toc-backref" href="#id32" name="version-0-90-2">12.3&nbsp;&nbsp;&nbsp;Version 0.90.2</a></h2>
+<div class="section">
+<h2><a class="toc-backref" href="#id32" id="version-0-90-2" name="version-0-90-2">12.3&nbsp;&nbsp;&nbsp;Version 0.90.2</a></h2>
 <ul class="simple">
 <li>Removed pointer style.</li>
 </ul>
 </div>
-<div class="section" id="version-0-90-3">
-<h2><a class="toc-backref" href="#id33" name="version-0-90-3">12.4&nbsp;&nbsp;&nbsp;Version 0.90.3</a></h2>
+<div class="section">
+<h2><a class="toc-backref" href="#id33" id="version-0-90-3" name="version-0-90-3">12.4&nbsp;&nbsp;&nbsp;Version 0.90.3</a></h2>
 <ul class="simple">
 <li>Updated document.</li>
 <li>Added <a class="reference" href="#lock-ostream">lock_ostream</a> and <a class="reference" href="#lock-wostream">lock_wostream</a>.</li>
@@ -395,7 +396,7 @@ Napkin only makes use of <a class="reference" href="http://www.boost.org/libs/co
 <div class="footer">
 <hr class="footer" />
 <a class="reference" href="doc/index.rst">View document source</a>.
-Generated on: 2006-04-18 08:29 UTC.
+Generated on: 2006-06-08 13:25 UTC.
 Generated by <a class="reference" href="http://docutils.sourceforge.net/">Docutils</a> from <a class="reference" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a> source.
 
 </div>

@@ -18,6 +18,7 @@
 #include <iterator>
 #include <string>
 #include <boost/range.hpp>
+#include <boost/range/concepts.hpp>
 #include <pstade/oven/copy.hpp>
 #include <pstade/oven/equal.hpp>
 #include <pstade/oven/file_range.hpp>
@@ -28,6 +29,11 @@ void test()
     // Under vc7.1, using-directive must be here...why?
     using namespace pstade;
     using namespace oven;
+
+    {
+        typedef tab_expand_range< std::string > rng_t;
+        boost::function_requires< boost::ForwardRangeConcept<rng_t> >();
+    }
 
     std::string src("TABCTDEFTTGHITJ");
     std::string ans("SSSSABCSDEFSSSSSGHISJ");

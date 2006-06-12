@@ -18,6 +18,7 @@
 #include <vector>
 #include <boost/foreach.hpp>
 #include <boost/range.hpp>
+#include <boost/range/concepts.hpp>
 #include <pstade/oven/copy.hpp>
 #include <pstade/oven/equal.hpp>
 #include <pstade/oven/reverse_range.hpp>
@@ -31,7 +32,7 @@ struct is_not_divisor
 
 struct not_equal_to
 {
-	bool operator()(int x, int y) const { return x != y; }
+    bool operator()(int x, int y) const { return x != y; }
 };
 
 
@@ -44,6 +45,11 @@ void test()
     int ans1[] = { 2, 6, 8, 10, 120 };
     int ans2[] = { 2, 4, 6, 8, 10, 20, 40, 80, 120 };
     int ans3[] = { 2, 8, 10 };
+
+    {
+        typedef adjacent_filter_range< std::string, is_not_divisor > rng_t;
+        boost::function_requires< boost::BidirectionalRangeConcept<rng_t> >();
+    }
 
     {
         BOOST_CHECK((
@@ -71,9 +77,9 @@ void test()
             oven::equals( src|adjacent_filtered(is_not_divisor())|reversed|reversed, ans1)
         ));
 
-		BOOST_FOREACH (int i, src|adjacent_filtered(is_not_divisor())|reversed)  {
-			std::cout << i << ',';
-		}
+        BOOST_FOREACH (int i, src|adjacent_filtered(is_not_divisor())|reversed)  {
+            std::cout << i << ',';
+        }
     }
 
 }

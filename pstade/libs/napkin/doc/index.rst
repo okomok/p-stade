@@ -87,18 +87,18 @@ A ``StringOutputable`` is any ``out`` that either of the following expression is
 It is unsurprising that many types conform to this simple concept; even ``afxDump``.
 
 
-Wide String
-^^^^^^^^^^^^
+WideString
+^^^^^^^^^^
 A ``WideString`` is a null-terminated ``const wchar_t *``.
 
 
-Wide String Outputable
-^^^^^^^^^^^^^^^^^^^^^^
+WideString Outputable
+^^^^^^^^^^^^^^^^^^^^^
 A ``WideStringOutputable`` is any ``out`` that either of the following expression is valid::
 
 	D:\p-stade.sourceforge.net\pstade\libs\napkin\doc\inline\basic_concepts_string_outputable.ipp
 
-, where ``psz`` is a `Wide String`_ and ``ov`` is a ``pstade::overload`` object.
+, where ``psz`` is a `WideString`_ and ``ov`` is a ``pstade::overload`` object.
 
 
 Output Streamable
@@ -108,7 +108,7 @@ an ``OutputStreamable`` is any type that
 ``operator<<`` is defined that takes a ``std::ostream`` or ``std::wostream`` 
 object on the left hand side and an instance of the argument type on the right.
 That means if you have already defined ``operator<<`` of your class,
-Napkin can work with it like `Boost.Format`_.
+Napkin can work with it.
 
 
 
@@ -138,7 +138,7 @@ because a `String`_ is `Output Streamable`_ by definition.
 
 ``wostream``
 ^^^^^^^^^^^^
-``wostream`` is the generic reference-like type to `Wide String Outputable`_ objects.
+``wostream`` is the generic reference-like type to `WideString Outputable`_ objects.
 The valid expressions are::
 
 	D:\p-stade.sourceforge.net\pstade\libs\napkin\doc\inline\classes_ostream_2.ipp
@@ -162,7 +162,7 @@ Note that you must build `Boost.Thread`_ and include explicitly ``<pstade/napkin
 
 ``lock_wostream``
 ^^^^^^^^^^^^^^^^^
-``lock_wostream`` makes a `Wide String Outputable`_ thread-safe.
+``lock_wostream`` makes a `WideString Outputable`_ thread-safe.
 Except for not `Assignable`_, the valid expression and usage is same as `wostream`_.
 
 
@@ -173,13 +173,13 @@ Predefined String Outputables
 
 ``nout``
 ^^^^^^^^
-``nout`` is the object that conforms to both `String Outputable`_ and `Wide String Outputable`_.
+``nout`` is the object that conforms to both `String Outputable`_ and `WideString Outputable`_.
 ``nout`` throws out all the inputs, which is usable if you want to temporarily turn off a logging.
 
 
 ``dout``
 ^^^^^^^^
-``dout`` is the object that conforms to both `String Outputable`_ and `Wide String Outputable`_.
+``dout`` is the object that conforms to both `String Outputable`_ and `WideString Outputable`_.
 ``dout`` outputs strings by using ``::OutputDebugString``.
 This works only under Windows, so that you must explicitly include the header ``<pstade/napkin/dout.hpp>``.
 
@@ -187,8 +187,8 @@ This works only under Windows, so that you must explicitly include the header ``
 Standard Containers
 ^^^^^^^^^^^^^^^^^^^
 Napkin customizes the standard `Back Insertion Sequence`_\s by using the second valid expression of `String Outputable`_ or
-`Wide String Outputable`_ concept. If ``seq::value_type`` is convertible to ``char``, the ``seq`` is a model of `String Outputable`_, and
-if ``seq::value_type`` is convertible to ``wchar_t``, the ``seq`` is a model of `Wide String Outputable`_,
+`WideString Outputable`_ concept. If ``seq::value_type`` is convertible to ``char``, the ``seq`` is a model of `String Outputable`_, and
+if ``seq::value_type`` is convertible to ``wchar_t``, the ``seq`` is a model of `WideString Outputable`_,
 where ``seq`` is a type `Back Insertion Sequence`_.
 
 

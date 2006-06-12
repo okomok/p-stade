@@ -17,12 +17,22 @@ rule biscuit-test ( name )
 }
 
 test-suite biscuit :
+    [ biscuit-test actor ]
+    [ biscuit-test and ]
+    [ biscuit-test any ]
     [ biscuit-test as_lower ]
+    [ biscuit-test before ]
+    [ biscuit-test begin_end ]
     [ biscuit-test capture ]
+    [ biscuit-test control ]
+    [ biscuit-test debug ]
+    [ biscuit-test eps ]
     [ biscuit-test error ]
     [ biscuit-test filter_range ]
     [ biscuit-test ichseq ]
+    [ biscuit-test identity ]
     [ biscuit-test match ]
+    [ biscuit-test min_max_repeat ]
     [ biscuit-test repeat ]
     [ biscuit-test require ]
     [ biscuit-test search ]

@@ -14,7 +14,7 @@
 #include <pstade/biscuit/parser/utility/symbol.hpp>
 
 
-#include <pstade/oven/null_terminate_range.hpp>
+#include <string>
 
 
 using namespace pstade;
@@ -22,13 +22,13 @@ using namespace biscuit;
 
 
 PSTADE_BISCUIT_SYMBOL(hello, "hello")
-PSTADE_BISCUIT_SYMBOL(bye, "bye")
+PSTADE_BISCUIT_SYMBOL(bye, L"bye")
 
 
 void test()
 {
-    BOOST_CHECK( biscuit::match<hello>("hello"|oven::null_terminated) );
-    BOOST_CHECK( biscuit::match<bye>("bye"|oven::null_terminated) );
+    BOOST_CHECK( biscuit::match<hello>(std::string("hello")) );
+    BOOST_CHECK( biscuit::match<bye>(std::wstring(L"bye")) );
 }
 
 

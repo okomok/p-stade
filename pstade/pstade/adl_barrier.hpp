@@ -10,13 +10,14 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Note:
+//
+// Using-directive is beyond ADL.
+// VC6's using-directive is somewhat broken.
+
+
 #include <boost/config.hpp> // BOOST_NO_ARGUMENT_DEPENDENT_LOOKUP
 #include <boost/preprocessor/cat.hpp>
-
-
-// Note:
-//   Using-directive is beyond ADL.
-//   VC6's using-directive is somewhat broken.
 
 
 #if !defined(BOOST_NO_ARGUMENT_DEPENDENT_LOOKUP)

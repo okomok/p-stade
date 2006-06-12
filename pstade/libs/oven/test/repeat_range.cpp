@@ -18,6 +18,7 @@
 #include <vector>
 #include <boost/foreach.hpp>
 #include <boost/range.hpp>
+#include <boost/range/concepts.hpp>
 #include <pstade/oven/copy.hpp>
 #include <pstade/oven/equal.hpp>
 #include <pstade/oven/reverse_range.hpp>
@@ -27,6 +28,11 @@ void test()
 {
     using namespace pstade;
     using namespace oven;
+
+    {
+        typedef repeat_range< std::string > rng_t;
+        boost::function_requires< boost::RandomAccessRangeConcept<rng_t> >();
+    }
 
     {
         std::string ans("xyzxyzxyz");
@@ -72,7 +78,7 @@ void test()
 */
         std::string src("abcd");
         BOOST_FOREACH (char ch, src|repeated(5)|reversed) {
-			std::cout << ch << std::endl;;
+            std::cout << ch << std::endl;;
         }
 
         BOOST_CHECK( oven::equals(

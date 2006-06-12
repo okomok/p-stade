@@ -21,4 +21,5 @@ rule range-test ( name )
 test-suite range :
     [ range-test atl ]
     [ range-test mfc_ ]
+    [ range-test wtl ]
     ;

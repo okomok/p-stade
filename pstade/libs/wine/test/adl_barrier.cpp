@@ -40,8 +40,25 @@ namespace yyy {
 }
 
 
+namespace zzz {
+
+    struct ccc { };
+
+    PSTADE_ADL_BARRIER_OPEN(ccc)
+
+        void cur(ccc)
+        {
+            BOOST_CHECK(false);
+        }
+
+    PSTADE_ADL_BARRIER_CLOSE(ccc)
+
+}
+
+
 void begin(xxx::aaa) { }
 void end(yyy::bbb) { }
+void cur(zzz::ccc) { }
 
 
 void test()
@@ -51,6 +68,9 @@ void test()
 
     yyy::bbb b;
     end(b);
+
+    zzz::ccc c;
+    cur(c);
 }
 
 

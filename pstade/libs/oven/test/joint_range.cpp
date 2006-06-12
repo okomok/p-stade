@@ -19,6 +19,7 @@
 #include <vector>
 #include <boost/foreach.hpp>
 #include <boost/range.hpp>
+#include <boost/range/concepts.hpp>
 #include <pstade/oven/copy.hpp>
 #include <pstade/oven/equal.hpp>
 #include <pstade/oven/sequence_cast.hpp>
@@ -31,6 +32,10 @@ void test()
     using namespace pstade;
     using namespace oven;
 
+    {
+        typedef joint_range< std::string, std::string > rng_t;
+        boost::function_requires< boost::RandomAccessRangeConcept<rng_t> >();
+    }
 
     std::string ans ("01234567");
     std::string ansr("76543210");
