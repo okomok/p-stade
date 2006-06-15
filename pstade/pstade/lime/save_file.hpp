@@ -18,27 +18,12 @@
 #include <pstade/oven/null_terminate_range.hpp>
 #include <pstade/oven/utf8_encoder.hpp>
 #include <pstade/what.hpp>
+#include "./copy_XMLDecl.hpp"
 #include "./error.hpp"
 #include "./save.hpp"
 
 
 namespace pstade { namespace lime {
-
-
-    namespace save_detail {
-
-
-        template< class OStream > inline
-        void copy_XMLDecl(OStream& os)
-        {
-            oven::copy(
-                "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"|oven::null_terminated,
-                oven::utf8_encoder(garlic::back_inserter(os))
-            );
-        }
-
-
-    } // namespace save_detail
 
 
 struct save_error :
@@ -59,7 +44,7 @@ void save_file(Node& root, std::string fileName)
         boost::throw_exception(err);
     }
 
-    save_detail::copy_XMLDecl(fout);
+    lime::copy_XMLDecl(garlic::back_inserter(fout));
     lime::save(root, oven::utf8_encoder(garlic::back_inserter(fout)));
 }
 
@@ -73,7 +58,7 @@ void save_file_default(Node& root, std::string fileName)
         boost::throw_exception(err);
     }
 
-    save_detail::copy_XMLDecl(fout);
+    lime::copy_XMLDecl(garlic::back_inserter(fout));
     lime::save_default(root, oven::utf8_encoder(garlic::back_inserter(fout)));
 }
 

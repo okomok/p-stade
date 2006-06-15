@@ -33,12 +33,9 @@ int get_menu_item_count(HMENU hMenu)
 
 #if !defined(_WIN32_WCE)
 
-
     return ::GetMenuItemCount(hMenu);
 
-
 #else
-
 
     typedef boost::mpl::integral_c<UINT, 256> max_item_count;
 
@@ -55,9 +52,7 @@ int get_menu_item_count(HMENU hMenu)
 
     return count;
 
-
 #endif // !defined(_WIN32_WCE)
-
 }
 
 

@@ -10,6 +10,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/assert.hpp>
+#include <boost/config.hpp> // BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE
 #include <boost/static_assert.hpp>
 #include "../state/cur_guard.hpp"
 
@@ -17,13 +19,11 @@
 namespace pstade { namespace biscuit {
 
 
-template< class Parser, unsigned int min, unsigned int max = min >
-struct repeat // greedy
-{
-    BOOST_STATIC_ASSERT(min <= max);
+namespace repeat_detail {
 
-    template< class State, class UserState >
-    static bool parse(State& s, UserState& us)
+
+    template< class Parser, class State, class UserState >
+    bool parse(State& s, UserState& us, unsigned int min, unsigned int max BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
     {
         state_cur_guard<State> gd(s);
 
@@ -36,6 +36,36 @@ struct repeat // greedy
 
         gd.dismiss();
         return true;
+    }
+
+
+} // namespace repeat_detail
+
+
+template< class Parser, unsigned int min, unsigned int max = min >
+struct repeat // greedy
+{
+    BOOST_STATIC_ASSERT(0 <= min && min <= max);
+
+    template< class State, class UserState >
+    static bool parse(State& s, UserState& us)
+    {
+        return repeat_detail::parse<Parser>(s, us, min, max);
+    }
+};
+
+
+template< class Parser, class MinFtor, class MaxFtor = MinFtor >
+struct value_repeat
+{
+    template< class State, class UserState >
+    static bool parse(State& s, UserState& us)
+    {
+        unsigned int min = MinFtor(us);
+        unsigned int max = MaxFtor(us);
+        BOOST_ASSERT(0 <= min && min <= max);
+
+        return repeat_detail::parse<Parser>(s, us, min, max);
     }
 };
 

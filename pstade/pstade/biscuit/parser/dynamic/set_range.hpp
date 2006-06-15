@@ -11,7 +11,7 @@
 
 
 #include <algorithm> // find
-#include <boost/functional.hpp> // unary_traits
+#include <boost/iterator/transform_iterator.hpp> // detail::function_object_result
 #include <boost/range/begin.hpp>
 #include <boost/range/const_iterator.hpp>
 #include <boost/range/end.hpp>
@@ -32,7 +32,7 @@ struct set_range
         if (biscuit::state_is_end(s))
             return false;
 
-        typedef typename boost::unary_traits<RangeFtor>::result_type rng_t;
+        typedef typename boost::detail::function_object_result<RangeFtor>::type rng_t;
         typedef typename boost::remove_reference<rng_t>::type rng_t_;
         typedef typename boost::range_const_iterator<rng_t_>::type rng_citer_t;
 

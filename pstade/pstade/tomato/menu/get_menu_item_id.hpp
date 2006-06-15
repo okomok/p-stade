@@ -32,12 +32,9 @@ UINT get_menu_item_id(HMENU hMenu, int nPos)
 
 #if !defined(_WIN32_WCE)
 
-
     return ::GetMenuItemID(hMenu, nPos);
 
-
 #else
-
 
     MENUITEMINFO mii = { 0 }; {
         mii|size_initialized;
@@ -47,9 +44,7 @@ UINT get_menu_item_id(HMENU hMenu, int nPos)
     PSTADE_REQUIRE(::GetMenuItemInfo(hMenu, nPos, TRUE, &mii));
     return mii.wID; 
 
-
 #endif // !defined(_WIN32_WCE)
-
 }
 
 

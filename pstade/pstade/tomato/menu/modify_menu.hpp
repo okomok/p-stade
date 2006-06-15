@@ -37,12 +37,9 @@ bool modify_menu(HMENU hMenu,
 
 #if !defined(_WIN32_WCE)
 
-
     return tomato::boolean(::ModifyMenu(hMenu, uPosition, uFlags, uIDNewItem, lpNewItem));
 
-
 #else
-
 
     // Handle MF_BYCOMMAND case; MF_BYCOMMAND is 0
     if ((uFlags & MF_BYPOSITION) != MF_BYPOSITION) {
@@ -63,9 +60,7 @@ bool modify_menu(HMENU hMenu,
 
     return tomato::boolean(::InsertMenu(hMenu, uPosition, uFlags, uIDNewItem, lpNewItem));
 
-
 #endif // !defined(_WIN32_WCE)
-
 }
 
 

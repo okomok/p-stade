@@ -22,7 +22,11 @@
 namespace pstade { namespace biscuit {
 
 
-template< class Parser, class UnaryFun >
+template<
+    class Parser,
+    class UnaryFun,
+    class Reference = boost::use_default, class Value = boost::use_default
+>
 struct as_transformed
 {
     template< class State, class UserState >
@@ -31,7 +35,7 @@ struct as_transformed
         typedef typename oven::sub_range_base<State>::type iter_rng_t;
         iter_rng_t rng(s.get_cur(), boost::end(s));
 
-        typedef oven::transform_range<UnaryFun, iter_rng_t> trns_rng_t;
+        typedef oven::transform_range<UnaryFun, iter_rng_t, Reference, Value> trns_rng_t;
         trns_rng_t trns_rng(rng, UnaryFun());
 
         typedef typename state_class<State>::type state_class_t;

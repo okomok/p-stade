@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/mpl/int.hpp>
 #include <pstade/unused.hpp>
 #include "../config/nullary_parser.hpp"
 #include "../state/increment.hpp"
@@ -21,7 +22,8 @@
 namespace pstade { namespace biscuit {
 
 
-PSTADE_BISCUIT_NULLARY_PARSER_STRUCT(any)
+PSTADE_BISCUIT_NULLARY_PARSER_STRUCT(any) :
+    boost::mpl::int_<-1>
 {
     template< class State, class UserState >
     static bool parse(State& s, UserState& us)

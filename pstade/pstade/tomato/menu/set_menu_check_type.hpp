@@ -32,7 +32,6 @@ void set_menu_check_type(HMENU hMenu, UINT uIndex, bool on)
 
 #if !defined(_WIN32_WCE)
 
-
     MENUITEMINFO mii = { 0 }; {
         mii|size_initialized;
         mii.fMask = MIIM_TYPE;
@@ -63,15 +62,11 @@ void set_menu_check_type(HMENU hMenu, UINT uIndex, bool on)
 
     PSTADE_REQUIRE(::SetMenuItemInfo(hMenu, uIndex, TRUE, &mii));
 
-
 #else
-
 
     pstade::unused(hMenu, uIndex, on);
 
-
 #endif // !defined(_WIN32_WCE)
-
 }
 
 

@@ -10,17 +10,20 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/assert.hpp>
+#include <boost/config.hpp> // BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE
+#include <boost/static_assert.hpp>
 #include "../state/cur_guard.hpp"
 
 
 namespace pstade { namespace biscuit {
 
 
-template< class Parser, unsigned int min >
-struct min_repeat
-{
-    template< class State, class UserState >
-    static bool parse(State& s, UserState& us)
+namespace min_repeat_detail {
+
+
+    template< class Parser, class State, class UserState >
+    bool parse(State& s, UserState& us, unsigned int min BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
     {
         state_cur_guard<State> gd(s);
 
@@ -31,6 +34,35 @@ struct min_repeat
 
         gd.dismiss();
         return true;
+    }
+
+
+} // namespace min_repeat_detail
+
+
+template< class Parser, unsigned int min >
+struct min_repeat
+{
+    BOOST_STATIC_ASSERT(min >= 0);
+
+    template< class State, class UserState >
+    static bool parse(State& s, UserState& us)
+    {
+        return min_repeat_detail::parse<Parser>(s, us, min);
+    }
+};
+
+
+template< class Parser, class MinFtor >
+struct min_value_repeat
+{
+    template< class State, class UserState >
+    static bool parse(State& s, UserState& us)
+    {
+        unsigned int min = MinFtor(us);
+        BOOST_ASSERT(min >= 0);
+
+        return min_repeat_detail::parse<Parser>(s, us, min);
     }
 };
 

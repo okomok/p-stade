@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/functional.hpp> // unary_traits
+#include <boost/iterator/transform_iterator.hpp> // detail::function_object_result
 #include <boost/range/begin.hpp>
 #include <boost/range/const_iterator.hpp>
 #include <boost/range/result_iterator.hpp>
@@ -35,7 +35,7 @@ struct seq_range
         iter_t it = s.get_cur();
         iter_t last = boost::end(s);
 
-        typedef typename boost::unary_traits<RangeFtor>::result_type rng_t;
+        typedef typename boost::detail::function_object_result<RangeFtor>::type rng_t;
         typedef typename boost::remove_reference<rng_t>::type rng_t_;
         typedef typename boost::range_const_iterator<rng_t_>::type rng_citer_t;
 

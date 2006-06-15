@@ -33,12 +33,9 @@ UINT get_menu_state(HMENU hMenu, UINT uId, UINT uFlags)
 
 #if !defined(_WIN32_WCE)
 
-
     return ::GetMenuState(hMenu, uId, uFlags);
 
-
 #else
-
 
     MENUITEMINFO mii = { 0 }; {
         mii|size_initialized;
@@ -52,9 +49,7 @@ UINT get_menu_state(HMENU hMenu, UINT uId, UINT uFlags)
 
     return mii.fState;
 
-
 #endif // !defined(_WIN32_WCE)
-
 }
 
 

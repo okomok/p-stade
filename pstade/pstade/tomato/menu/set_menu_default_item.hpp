@@ -29,19 +29,14 @@ bool set_menu_default_item(HMENU hMenu,
 
 #if !defined(_WIN32_WCE)
 
-
     return tomato::boolean( ::SetMenuDefaultItem(hMenu, uItem, pstade::integral(by_position)) );
 
-
 #else
-
 
     pstade::unused(hMenu, uItem, by_position);
     return true;
 
-
 #endif // !defined(_WIN32_WCE)
-
 }
 
 

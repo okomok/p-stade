@@ -26,16 +26,20 @@ DstSeq to_multibyte(const SrcRng& src)
     std::wstring tmp = oven::sequence(src);
 
 #if !(PSTADE_APPLE_ATL_VER < 0x0700)
+
     return oven::sequence(
         ATL::CW2A(tmp.c_str()).operator LPSTR() |
             oven::null_terminated
     );
+
 #else
+
     USES_CONVERSION_EX;
     return oven::sequence(
         W2A_EX(tmp.c_str(), 128) |
            oven::null_terminated
     );
+
 #endif
 }
 
@@ -46,16 +50,20 @@ DstSeq multibyte_to(const SrcRng& src)
     std::string tmp = oven::sequence(src);
 
 #if !(PSTADE_APPLE_ATL_VER < 0x0700)
+
     return oven::sequence(
         ATL::CA2W(tmp.c_str()).operator LPWSTR() |
             oven::null_terminated
     );
+
 #else
+
     USES_CONVERSION_EX;
     return oven::sequence(
         A2W_EX(tmp.c_str(), 128) |
             oven::null_terminated
     );
+
 #endif
 }
 
