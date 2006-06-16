@@ -13,6 +13,7 @@
 #include "./utility/eol.hpp"
 #include "./utility/newline.hpp"
 #include "./utility/line.hpp"
+#include "./utility/string.hpp"
 #include "./utility/symbol.hpp"
 
 #include "./utility/alnum_com.hpp"

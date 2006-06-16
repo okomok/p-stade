@@ -18,42 +18,13 @@
 #include <boost/range/iterator_range.hpp>
 #include <boost/range/result_iterator.hpp>
 #include <pstade/unused.hpp>
-#include "../../config/nullary_parser.hpp"
 #include "../../match_results/find_backref.hpp"
 #include "../../state/match_results_type.hpp"
+#include "../../state/parse.hpp"
+#include "../any.hpp" // any::value(-1)
 
 
 namespace pstade { namespace biscuit {
-
-
-namespace backref_detail {
-
-
-    template< class Range, class SubRange >
-    boost::optional< typename boost::range_result_iterator<Range>::type >
-    find(Range& rng, SubRange& subrng)
-    {
-        typedef typename boost::range_result_iterator<Range>::type iter_t;
-        typedef typename boost::range_result_iterator<SubRange>::type siter_t;
-
-        typedef boost::optional<iter_t> opt_t;
-
-        iter_t it(boost::begin(rng)), last(boost::end(rng));
-        siter_t sit(boost::begin(subrng)), slast(boost::end(subrng));
-
-        for (; it != last && sit != slast; ++it, ++sit) {
-            if (*it != *sit)
-                return opt_t();
-        }
-
-        if (sit != slast) // not matched
-            return opt_t();
-
-        return opt_t(it);
-    }
-
-
-} // namespace backref_detail
 
 
 template< int id >
@@ -65,17 +36,16 @@ struct backref
         typedef typename boost::range_result_iterator<State>::type iter_t;
         typedef boost::iterator_range<iter_t> rng_t;
 
-        rng_t rng(s.get_cur(), boost::end(s));
+        rng_t rng;
+        if (!biscuit::find_backref(s.results(), id, rng))
+            return false;
 
-        rng_t subrng;
-        if (!biscuit::find_backref(s.results(), id, subrng))
-            return true; // common sense?
-
-        boost::optional<iter_t> opit(backref_detail::find(rng, subrng));
+        typename optional_iterator<State>::type opit = biscuit::state_parse(s, rng);
         if (!opit)
             return false;
 
         s.set_cur(*opit);
+
         pstade::unused(us);
         return true;
     }
@@ -96,18 +66,15 @@ struct backref<-1>
         typedef typename results_t::value_type key_and_mapped_t;    
         typedef boost::iterator_range<iter_t> rng_t;
 
-        rng_t rng(s.get_cur(), boost::end(s));
-
         BOOST_FOREACH (key_and_mapped_t const& km, s.results()) {
-            rng_t subrng(km.second);
-            boost::optional<iter_t> opit(backref_detail::find(rng, subrng));
-            if (!opit)
-                continue;
-
-            s.set_cur(*opit);
-            return true;
-        } 
-
+            rng_t rng(km.second);
+            typename optional_iterator<State>::type opit = biscuit::state_parse(s, rng);
+            if (opit) {
+                s.set_cur(*opit);
+                return true;
+            }
+        }
+        
         pstade::unused(us);
         return false;
     }

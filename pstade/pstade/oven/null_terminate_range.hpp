@@ -18,6 +18,7 @@
 #include <algorithm>    // find
 #include <cstddef>      // size_t
 #include <cstring>      // strlen
+#include <cwchar>       // wcslen
 #include <stdexcept>    // range_error
 #include <string>
 #include <boost/assert.hpp>
@@ -109,7 +110,9 @@ namespace null_terminate_range_detail {
         return s;
     }
 
-    // 'char' loves strlen.
+
+    // 'char' loves 'strlen'.
+    //
     inline
     char *begin(char *s)
     {
@@ -134,6 +137,35 @@ namespace null_terminate_range_detail {
     {
         using namespace std;
         return s + strlen(s);
+    }
+
+
+    // 'wchar_t' loves 'wcslen'.
+    //
+    inline
+    wchar_t *begin(wchar_t *s)
+    {
+        return s;
+    }
+
+    inline
+    wchar_t *end(wchar_t *s)
+    {
+        using namespace std;
+        return s + wcslen(s);
+    }
+
+    inline
+    const wchar_t *begin(const wchar_t *s)
+    {
+        return s;
+    }
+
+    inline
+    const wchar_t *end(const wchar_t *s)
+    {
+        using namespace std;
+        return s + wcslen(s);
     }
 
 

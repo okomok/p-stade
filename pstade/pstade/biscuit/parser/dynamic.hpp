@@ -11,8 +11,10 @@
 
 
 #include "./dynamic/control.hpp"
+#include "./dynamic/identity_fun.hpp"
 #include "./dynamic/seq_range.hpp"
 #include "./dynamic/set_range.hpp"
+#include "./dynamic/symbols.hpp"
 #include "./dynamic/valseq.hpp"
 #include "./dynamic/valset.hpp"
 #include "./dynamic/value.hpp"

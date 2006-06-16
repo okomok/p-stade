@@ -11,16 +11,36 @@
 
 
 #include <algorithm> // find
-#include <boost/iterator/transform_iterator.hpp> // detail::function_object_result
 #include <boost/range/begin.hpp>
 #include <boost/range/const_iterator.hpp>
 #include <boost/range/end.hpp>
-#include <boost/type_traits/remove_reference.hpp>
+#include <pstade/arg.hpp>
 #include "../../state/increment.hpp"
 #include "../../state/is_end.hpp"
+#include "../../state/parse.hpp"
 
 
 namespace pstade { namespace biscuit {
+
+
+namespace set_range_detail {
+
+
+    template< class Range, class Value >
+    bool find(Range& rng, Value const& val)
+    {
+        typedef typename boost::range_const_iterator<Range>::type iter_t;
+        iter_t last = boost::const_end(rng);
+        iter_t it = std::find(boost::const_begin(rng), last, val);
+
+        if (it == last)
+            return false;
+
+        return true;
+    }
+
+
+} // namespace set_range_detail
 
 
 template< class RangeFtor >
@@ -32,16 +52,7 @@ struct set_range
         if (biscuit::state_is_end(s))
             return false;
 
-        typedef typename boost::detail::function_object_result<RangeFtor>::type rng_t;
-        typedef typename boost::remove_reference<rng_t>::type rng_t_;
-        typedef typename boost::range_const_iterator<rng_t_>::type rng_citer_t;
-
-        RangeFtor f;
-        rng_t rng = f(us);
-        rng_citer_t last = boost::const_end(rng);
-        rng_citer_t it = std::find(boost::const_begin(rng), last, *s.get_cur());
-
-        if (it == last) // not found
+        if (!set_range_detail::find(pstade::arg(RangeFtor()(us)), *s.get_cur()))
             return false;
 
         biscuit::state_increment(s);

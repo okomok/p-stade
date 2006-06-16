@@ -31,6 +31,8 @@ namespace repeat_detail {
             if (!Parser::parse(s, us)) {
                 if (i < min) // not enough
                     return false;
+                else
+                    break;
             }
         }
 
@@ -43,7 +45,7 @@ namespace repeat_detail {
 
 
 template< class Parser, unsigned int min, unsigned int max = min >
-struct repeat // greedy
+struct repeat
 {
     BOOST_STATIC_ASSERT(0 <= min && min <= max);
 

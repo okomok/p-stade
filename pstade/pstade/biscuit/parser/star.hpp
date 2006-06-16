@@ -11,8 +11,10 @@
 
 
 #include <boost/assert.hpp>
+#include <boost/mpl/bool.hpp>
+#include <boost/mpl/if.hpp>
 #include <boost/range/result_iterator.hpp>
-#include <pstade/if_debug.hpp>
+#include <pstade/is_debug.hpp>
 #include "./begin.hpp"
 #include "./end.hpp"
 #include "./eps.hpp"
@@ -21,48 +23,79 @@
 namespace pstade { namespace biscuit {
 
 
-template< class Parser >
-struct star
-{
-    template< class State, class UserState >
-    static bool parse(State& s, UserState& us)
-    {
-        // Note:
-        //   YARD has state_is_end(s) check at entrance,
-        //   but it seems redundant.
+namespace star_detail {
 
-        for (;;) {
-            PSTADE_IF_DEBUG (
+
+    template< class Parser >
+    struct release
+    {
+        template< class State, class UserState >
+        static bool parse(State& s, UserState& us)
+        {
+            for (;;) {
+                if (!Parser::parse(s, us))
+                    break;
+            }
+
+            return true;
+        }
+    };
+
+
+    template< class Parser >
+    struct debug
+    {
+        template< class State, class UserState >
+        static bool parse(State& s, UserState& us)
+        {
+            for (;;) {
                 typedef typename boost::range_result_iterator<State>::type iter_t;
                 iter_t const marker = s.get_cur();
-            )
 
-            if (!Parser::parse(s, us))
-                break;
+                if (!Parser::parse(s, us))
+                    break;
 
-            PSTADE_IF_DEBUG (
                 iter_t const cur = s.get_cur();
                 BOOST_ASSERT(marker != cur &&
-                    "pstade::biscuit::star - Parser must advance on star-operation; 'end/eol' are the usual suspects,"
+                    "Parser must advance on star-operation; 'end/eol' are the usual suspects,"
                     "or iterator's comparison operator is broken.");
-            )
-        }
+            }
 
-        return true;
-    }
-};
+            return true;
+        }
+    };
+
+
+    template< class Parser, class NoSideEffects >
+    struct super_
+    {
+        typedef typename boost::mpl::if_<
+            boost::mpl::and_< NoSideEffects, is_debug<> >,
+            debug<Parser>,
+            release<Parser>
+        >::type type;
+    };
+
+
+} // namespace star_detail
+
+
+template< class Parser, class NoSideEffects = boost::mpl::true_ >
+struct star :
+    star_detail::super_< Parser, NoSideEffects >::type
+{ };
 
 
 // meaningless
 //
-template<>
-struct star< PSTADE_BISCUIT_NULLARY_PARSER(begin) >;
+template< class NoSideEffects >
+struct star< PSTADE_BISCUIT_NULLARY_PARSER(begin), NoSideEffects >;
 
-template<>
-struct star< PSTADE_BISCUIT_NULLARY_PARSER(end) >;
+template< class NoSideEffects >
+struct star< PSTADE_BISCUIT_NULLARY_PARSER(end), NoSideEffects >;
 
-template<>
-struct star< PSTADE_BISCUIT_NULLARY_PARSER(eps) >;
+template< class NoSideEffects >
+struct star< PSTADE_BISCUIT_NULLARY_PARSER(eps), NoSideEffects >;
 
 
 } } // namespace pstade::biscuit

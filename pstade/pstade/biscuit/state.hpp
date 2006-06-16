@@ -19,6 +19,7 @@
 #include "./state/is_end.hpp"
 #include "./state/match.hpp"
 #include "./state/null_state.hpp"
+#include "./state/parse.hpp"
 #include "./state/parsing_range_state_type.hpp"
 #include "./state/parsing_range_type.hpp"
 #include "./state/the_state_class.hpp"
