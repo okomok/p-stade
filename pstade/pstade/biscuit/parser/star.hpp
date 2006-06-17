@@ -70,7 +70,7 @@ namespace star_detail {
     struct super_
     {
         typedef typename boost::mpl::if_<
-            boost::mpl::and_< NoSideEffects, is_debug<> >,
+            boost::mpl::and_< is_debug<>, NoSideEffects >,
             debug<Parser>,
             release<Parser>
         >::type type;
@@ -80,7 +80,10 @@ namespace star_detail {
 } // namespace star_detail
 
 
-template< class Parser, class NoSideEffects = boost::mpl::true_ >
+template<
+    class Parser,
+    class NoSideEffects = boost::mpl::true_
+>
 struct star :
     star_detail::super_< Parser, NoSideEffects >::type
 { };

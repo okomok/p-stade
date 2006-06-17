@@ -260,6 +260,40 @@ void test()
         BOOST_CHECK( oven::equal(cap[1], "abc") );
 #endif
     }
+
+    // with any::value
+    //
+    {
+        typedef
+            seq<
+                repeat<chseq<'z'>, 3>,
+                repeat<
+                    capture< any::value, star_until< any, char_<'x'> > >,
+                    3
+                >,
+                backref< any::value >
+            >
+        parser_t;
+
+        {
+            std::string str("zzzABCx12xPQRxABCx");
+            BOOST_CHECK((
+                biscuit::match<parser_t>(str)
+            ));
+        }
+        {
+            std::string str("zzzABCx12xPQRx12x");
+            BOOST_CHECK((
+                biscuit::match<parser_t>(str)
+            ));
+        }
+        {
+            std::string str("zzzABCx12xPQRxPQRx");
+            BOOST_CHECK((
+                biscuit::match<parser_t>(str)
+            ));
+        }
+    }
 }
 
 

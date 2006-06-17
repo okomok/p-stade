@@ -43,7 +43,7 @@ PSTADE_INSTANCE(bbb, b, ("hello"))
 
 
 PSTADE_INSTANCE(int, x1, (12))
-PSTADE_INSTANCE(const int, cx1, (12))
+PSTADE_INSTANCE(int const, cx1, (12))
 
 
 PSTADE_INSTANCE(const char *, sz, ("hello"))

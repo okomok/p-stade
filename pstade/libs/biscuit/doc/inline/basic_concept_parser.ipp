@@ -1,2 +1,2 @@
-template< class State, class UserState >
-static bool parse(State& s, UserState& us);
+template< class Unspecified, class UserState >
+static bool parse(Unspecified& , UserState& us);

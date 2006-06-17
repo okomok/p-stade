@@ -53,6 +53,8 @@
 
 
 
+.. _Functor: http://www.sgi.com/tech/stl/functors.html
+.. _Function Object: Functor_
 .. _Adaptable Unary Function: http://www.sgi.com/tech/stl/AdaptableUnaryFunction.html
 .. _Assignable: http://www.sgi.com/tech/stl/Assignable.html
 .. _Back Insertion Sequence: http://www.sgi.com/tech/stl/BackInsertionSequence.html

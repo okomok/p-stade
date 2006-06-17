@@ -10,26 +10,51 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/biscuit/parser.hpp>
-#include <pstade/biscuit/algorithm/match.hpp>
-#include <pstade/biscuit/algorithm/parse.hpp>
+#include <boost/detail/callable.hpp>
 
 
+#include <iostream>
 #include <string>
-#include <pstade/oven.hpp>
+#include <pstade/instance.hpp>
+#include <pstade/unused.hpp>
 
 
-using namespace pstade;
-using namespace biscuit;
+struct fun_t :
+    boost::detail::callable<fun_t>
+{
+    template< class F >
+    struct result;
+
+    template< class F, class A0, class A1, class A2 >
+    struct result<F(A0, A1, A2)>
+    {
+        typedef std::string type;
+    };
+
+    template< class A0, class A1, class A2 >
+    std::string call(A0& a0, A1& a1, A2& a2) const
+    {
+        pstade::unused(a0, a1, a2);
+        return "goodbye, forwarding problem";
+    }
+};
 
 
-PSTADE_BISCUIT_SYMBOL(hello, "hello")
-typedef as_lower< hello > ihello;
+PSTADE_INSTANCE(fun_t const, fun, value)
+
 
 void test()
 {
-    BOOST_CHECK(( biscuit::match< ihello >(std::string("hElLo")) ));
+    int x, y, z;
+    std::cout << fun(1, 2, 3);
+
+    std::cout << fun(x, 2, 3);
+
+    std::cout << fun(1, y, 3);
+
+    std::cout << fun(1, 2, z);
 }
+
 
 int test_main(int, char*[])
 {

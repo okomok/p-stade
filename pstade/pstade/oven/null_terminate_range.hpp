@@ -111,8 +111,6 @@ namespace null_terminate_range_detail {
     }
 
 
-    // 'char' loves 'strlen'.
-    //
     inline
     char *begin(char *s)
     {
@@ -140,8 +138,6 @@ namespace null_terminate_range_detail {
     }
 
 
-    // 'wchar_t' loves 'wcslen'.
-    //
     inline
     wchar_t *begin(wchar_t *s)
     {
@@ -171,7 +167,7 @@ namespace null_terminate_range_detail {
 
     // meta
     //
-    
+
     template< class Range >
     struct iter
     {

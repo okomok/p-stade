@@ -37,6 +37,7 @@ test-suite biscuit :
     [ biscuit-test require ]
     [ biscuit-test search ]
     [ biscuit-test shortest_longest ]
-    [ biscuit-test symbol ]
+    [ biscuit-test string ]
+    [ biscuit-test symbols ]
     [ biscuit-test token_range ]
     ;

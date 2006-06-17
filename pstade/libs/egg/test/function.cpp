@@ -16,13 +16,13 @@ struct foo_impl
     };
 
     template< class Result, class Arg0 >
-    static Result call(Arg0& a0)
+    Result call(Arg0& a0)
     {
         return a0 * a0;
     }
 
     template< class Result, class Arg0, class Arg1 >
-    static Result call(Arg0& a0, Arg1& a1)
+    Result call(Arg0& a0, Arg1& a1)
     {
         return a0 * a1;
     }
@@ -34,7 +34,7 @@ struct bar_impl
     typedef int result_type;
 
     template< class Result >
-    static Result call()
+    Result call()
     {
         return 1;
     }
@@ -52,19 +52,19 @@ struct hoge_impl
     };
 
     template< class Result >
-    static Result call()
+    Result call()
     {
         return "hello";
     }
 
     template< class Result, class Arg0 >
-    static Result call(Arg0& a0)
+    Result call(Arg0& a0)
     {
         return a0 + a0;
     }
 
     template< class Result, class Arg0, class Arg1 >
-    static Result call(Arg0& a0, Arg1& a1)
+    Result call(Arg0& a0, Arg1& a1)
     {
         return a0 + a1;
     }

@@ -1,5 +1,4 @@
-struct pattern_loader :
-    std::unary_function<std::string&, std::string&>
+struct pattern_loader
 {
     std::string& operator()(std::string& pattern)
     {

@@ -7,7 +7,7 @@ The Biscuit Parser Library
 :Author: MB and Christopher Diggins(original author)
 :Contact: mb2act@yahoo.co.jp 
 :License: Distributed under the `Boost Software License Version 1.0`_
-:Version: 1.02.6
+:Version: 1.02.7
 
 
 
@@ -119,7 +119,7 @@ If no object is passed to Algorithms_, this type is ``null_state_type``.
 
 Parser
 ^^^^^^
-A ``Parser`` is any type that has the static member function [#]_ ::
+A ``Parser`` is any type that has the static member function::
 
 	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\basic_concept_parser.ipp
 
@@ -139,7 +139,7 @@ A ``ParsingSubRange`` [#]_ is a ``boost::iterator_range<boost::range_result_iter
 
 Semantic Action
 ^^^^^^^^^^^^^^^
-A ``SemanticAction`` [#]_ is a `Default Constructible`_ `Functor`_ and
+A ``SemanticAction`` is a `Default Constructible`_ `Functor`_ and
 the expression ``a(r, us)`` must be valid, where ``a`` is an object of type `Semantic Action`_, 
 ``r`` is an object of type `Parsing SubRange`_ and ``us`` is an object of type `User State`_.
 
@@ -151,19 +151,10 @@ the expression ``v(us)`` must be valid, where ``v`` is an object of type `Value 
 ``us`` is an object of type `User State`_.
 
 
-Adaptable Value Functor
-^^^^^^^^^^^^^^^^^^^^^^^
-An ``AdaptableValueFunctor`` is a `Value Functor`_ that conforms to `Adaptable Unary Function`_.
-
-
-.. [#] It could be defined as non-member function if there were no broken compilers.
-
 .. [#] `Parsing SubRange`_ is not defined as ``boost::sub_range`` for broken compilers,
        but you can catch it using ``boost::sub_range<ParsingRange>``. Note that
        the latest ``boost::sub_range`` has no value semantics under eVC4 and VC8 because of their bugs.
 
-.. [#] `Semantic Action`_ and `Value Functor`_ could have been defined using a static member function, but
-       `Functor`_ is so common.
 
 
 Predefined Parsers
@@ -251,6 +242,10 @@ The table below lists EBNF and their equivalents in Biscuit.
 	``???``              ``line``                                                character sequence before ``eol``
 	-------------------- ------------------------------------------------------- --------------------------------------------------
 	``???``              ``identity<A>``                                         same as A, delay definition of A when deriving
+	-------------------- ------------------------------------------------------- --------------------------------------------------
+	``???``              ``eps``                                                 match the empty range
+	-------------------- ------------------------------------------------------- --------------------------------------------------
+	``???``              ``nothing``                                             never match anything
 	==================== ======================================================= ==================================================
 
 YARD_ and Biscuit have no back-tracking on star operations. Instead ``star_until`` or ``star_before`` are available.
@@ -296,7 +291,7 @@ Directives_ are also Parser_\s which contain some ports of `Boost.Spirit`_'s Dir
 	-------------------- ------------------------------------------------------- --------------------------------------------------
 	???                  ``as_filtered<A, Parser>``                              parsing range is filtered using parser
 	-------------------- ------------------------------------------------------- --------------------------------------------------
-	???                  ``as_transformed<A, Functor>``                          parsing range is transformed using functor
+	???                  ``as_transformed<A, UnaryFunction>`` [#]_               parsing range is transformed using functor
 	-------------------- ------------------------------------------------------- --------------------------------------------------
 	???                  ``lazy_actions<A>``                                     suppress non-intended actions by parsing twice
 	-------------------- ------------------------------------------------------- --------------------------------------------------
@@ -314,9 +309,13 @@ Directives_ are also Parser_\s which contain some ports of `Boost.Spirit`_'s Dir
 
 .. [#] ``not_`` can be applied only to one character Parser_ with a few exceptions.
 
-.. [#] ``Predicate`` must conform to `Semantic Action`_.
+.. [#] ``UnaryFunction`` requirements are the same as `boost::transform_iterator`__\'s.
+
+.. [#] ``Predicate`` must conform to `Semantic Action`_ and the valid expression must be convertible to ``bool``.
+
 
 __ http://spirit.sourceforge.net/distrib/spirit_1_8_2/libs/spirit/doc/directives.html
+__ http://www.boost.org/libs/iterator/doc/transform_iterator.html
 
 
 
@@ -334,7 +333,7 @@ range is comparable with ``char``.
 
 	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\algorithms_match.ipp
 
-Notice that a null-terminated string is no longer a model of Range with Boost 1.34.
+Notice that a null-terminated string is no longer a model of Range with Boost 1.35.
 ``oven::null_terminate_range`` is provided for the workaround.
 
 
@@ -414,25 +413,21 @@ As ``token_range`` conforms to `Forward Range`_,
 
 Capturing
 ---------
-``capture`` and ``backref`` create Parser_ for the capturing. 
-results_xxx [#]_ Algorithms_ are prepared for accessing matching results after parsing::
+``capture`` and ``backref`` create Parser_ for the capturing.
+results_xxx [#]_ Algorithms_ are provided for accessing matching results after parsing::
 
 	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\capturing_0.ipp
 
-``match_results`` conforms to `Pair Associative Container`__ and
-`Unique Associative Container`__ except for their constructor expressions,
-whose key_type is ``int`` and ``mapped_typed`` (aka ``data_type``) is `Parsing SubRange`_ of
-the argument.
+``match_results<r>``, where ``r`` is a `Parsing Range`_, conforms to
+`Pair Associative Container`__ and `Unique Associative Container`__
+except for their constructor expressions, whose ``key_type`` is ``int`` and
+``mapped_type`` is `Parsing SubRange`_ of ``r``.
 
 __ http://www.sgi.com/tech/stl/PairAssociativeContainer.html
 __ http://www.sgi.com/tech/stl/UniqueAssociativeContainer.html
 
-Biscuit overwrites results everytime Parser_ runs through.
-Accessing to nested matching results that `Boost.Xpressive`_ provides is not supported,
-though Biscuit might be flexible enough to follow it.
 
-
-.. [#] You may want to use ``match_results`` as `User State`_, so overloads were rejected.
+.. [#] You may want to use ``match_results`` as `User State`_, so the overloading was rejected.
 
 
 
@@ -462,8 +457,8 @@ The only way is to extract values from `User State`_.
 ``seq_range``
 ^^^^^^^^^^^^^
 ``seq_range`` is more flexible than `valseq`_.
-``seq_range<V>`` makes a sequential Parser_, where ``V`` is an `Adaptable Value Functor`_ and 
-the ``result_type`` must be, whether reference or not, a `Forward Range`_ whose ``value_type`` is comparable with `Parsing Range`_'s::
+``seq_range<V>`` makes a sequential Parser_, where ``V`` is a `Value Functor`_
+whose function call expression must be, whether reference or not, a `Forward Range`_ whose ``value_type`` is comparable with `Parsing Range`_'s::
 
 	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\seq_range_0.ipp
 
@@ -593,5 +588,8 @@ Version 1.02.6
 ^^^^^^^^^^^^^^
 - Added `Symbol`_.
 
+Version 1.02.7
+^^^^^^^^^^^^^^
+- Rearrange `Basic Concepts`_.
 
 
