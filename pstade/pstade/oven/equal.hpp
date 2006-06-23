@@ -88,7 +88,7 @@ namespace equal_detail {
         template< class Result, class Range1, class Range2 >
         Result call(const Range1& rng1, const Range2& rng2)
         {
-            return call<Result>(rng1, rng2, detail::equal_to());
+            return call<Result>(rng1, rng2, detail::equal_to);
         }
     };
 

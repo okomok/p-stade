@@ -10,12 +10,21 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Note:
+//
+// These are deprecated.
+// Prefer 'PSTADE_BISCUIT_STRING'.
+
+
 #include "./string.hpp"
 
 
-// deprecated
-//
 #define PSTADE_BISCUIT_SYMBOL \
+    PSTADE_BISCUIT_STRING \
+/**/
+
+
+#define PSTADE_BISCUIT_SYMBOL_PARSER \
     PSTADE_BISCUIT_STRING \
 /**/
 

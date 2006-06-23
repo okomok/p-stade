@@ -1,5 +1,5 @@
-#ifndef PSTADE_OVEN_DETAIL_EQUAL_TO_HPP
-#define PSTADE_OVEN_DETAIL_EQUAL_TO_HPP
+#ifndef PSTADE_OVEN_DETAIL_LESS_THAN_HPP
+#define PSTADE_OVEN_DETAIL_LESS_THAN_HPP
 
 
 // PStade.Oven
@@ -10,33 +10,25 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// equal_to
-//
-// Copyright Pavol Droba 2002-2003. Use, modification and
-// distribution is subject to the Boost Software License, Version
-// 1.0. (See accompanying file LICENSE_1_0.txt or copy at
-// http://www.boost.org/LICENSE_1_0.txt)
-
-
 #include <pstade/instance.hpp>
 
 
 namespace pstade { namespace oven { namespace detail {
 
 
-struct equal_to_fun
+struct less_than_fun
 {
     typedef bool result_type;
 
     template< class X, class Y >
     bool operator()(const X& x, const Y& y) const
     {
-        return x == y;
+        return x < y;
     }
 };
 
 
-PSTADE_INSTANCE(const equal_to_fun, equal_to, value)
+PSTADE_INSTANCE(const less_than_fun, less_than, value)
 
 
 } } } // namespace pstade::oven::detail

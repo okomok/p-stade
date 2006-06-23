@@ -12,12 +12,13 @@
 
 #include "../../state/increment.hpp"
 #include "../../state/is_end.hpp"
+#include "./identity_fun.hpp"
 
 
 namespace pstade { namespace biscuit {
 
 
-template< class ValueFtor >
+template< class ValueFtor = identity_fun >
 struct value
 {
     template< class State, class UserState >

@@ -25,6 +25,7 @@
 #include <pstade/egg/function.hpp>
 #include <pstade/garlic/back_inserter.hpp>
 #include "./copy.hpp"
+#include "./detail/less_than.hpp"
 #include "./direct_range.hpp"
 #include "./indirect_range.hpp"
 #include "./is_lightweight_proxy.hpp"
@@ -75,22 +76,10 @@ namespace sort_range_detail {
     };
 
 
-    struct less_than
-    {
-        typedef bool result_type;
-
-        template< class X, class Y >
-        bool operator()(const X& x, const Y& y) const
-        {
-            return x < y;
-        }
-    };
-
-
 } // namespace sort_range_detail
 
 
-template< class Range, class BinaryPred = sort_range_detail::less_than >
+template< class Range, class BinaryPred = detail::less_than_fun >
 struct sort_range :
     private sort_range_detail::share_range_initializer<Range, BinaryPred>,
     sort_range_detail::super_<Range>::type
@@ -100,7 +89,7 @@ private:
     typedef typename sort_range_detail::super_<Range>::type super_t;
 
 public:
-    explicit sort_range(Range& rng, BinaryPred pred = sort_range_detail::less_than()) :
+    explicit sort_range(Range& rng, BinaryPred pred = detail::less_than) :
         sh_rng_bt(rng, pred),
         super_t(sh_rng_bt::m_iters)
     { }
@@ -112,7 +101,7 @@ namespace sort_range_detail {
 
     struct baby_generator
     {
-        template< class Range, class BinaryPred = less_than >
+        template< class Range, class BinaryPred = detail::less_than_fun >
         struct result
         {
             typedef typename boost::remove_cv<BinaryPred>::type pred_t;

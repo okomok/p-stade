@@ -2,7 +2,7 @@
 #include <boost/test/minimal.hpp>
 
 
-// PStade.Biscuit
+// PStade.P_Stade
 //
 // Copyright MB 2005-2006.
 // Distributed under the Boost Software License, Version 1.0.
@@ -10,49 +10,56 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/detail/callable.hpp>
+#include <boost/mpl/integral_c.hpp>
 
 
-#include <iostream>
-#include <string>
-#include <pstade/instance.hpp>
-#include <pstade/unused.hpp>
+#define MACRO_THREE 3
 
 
-struct fun_t :
-    boost::detail::callable<fun_t>
+int const const_three = 3;
+
+
+struct mpl_three :
+    boost::mpl::integral_c<int, 3>
+{ };
+
+
+template< class T, T v >
+struct static_c
 {
-    template< class F >
-    struct result;
-
-    template< class F, class A0, class A1, class A2 >
-    struct result<F(A0, A1, A2)>
-    {
-        typedef std::string type;
-    };
-
-    template< class A0, class A1, class A2 >
-    std::string call(A0& a0, A1& a1, A2& a2) const
-    {
-        pstade::unused(a0, a1, a2);
-        return "goodbye, forwarding problem";
-    }
+    static T const value = v;
 };
 
+template< class T, T v >
+T const
+static_c<T, v>::value;
 
-PSTADE_INSTANCE(fun_t const, fun, value)
+
+struct three :
+    static_c<int, 3>
+{ };
+
+
+inline
+void foo(int const& x)
+{
+    BOOST_CHECK( x == 3 );
+}
+
+
+template< class T >
+void bar()
+{
+    ::foo(MACRO_THREE);  // ok
+    ::foo(const_three);  // possible ODR violation
+    ::foo(mpl_three::value); // link error
+    ::foo(three::value); // ok
+}
 
 
 void test()
 {
-    int x, y, z;
-    std::cout << fun(1, 2, 3);
-
-    std::cout << fun(x, 2, 3);
-
-    std::cout << fun(1, y, 3);
-
-    std::cout << fun(1, 2, z);
+    ::bar<int>();
 }
 
 

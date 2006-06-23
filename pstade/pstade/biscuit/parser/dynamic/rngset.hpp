@@ -1,5 +1,5 @@
-#ifndef PSTADE_BISCUIT_PARSER_DYNAMIC_SYMBOLS_HPP
-#define PSTADE_BISCUIT_PARSER_DYNAMIC_SYMBOLS_HPP
+#ifndef PSTADE_BISCUIT_PARSER_DYNAMIC_RNGSET_HPP
+#define PSTADE_BISCUIT_PARSER_DYNAMIC_RNGSET_HPP
 
 
 // PStade.Biscuit
@@ -13,25 +13,23 @@
 #include <boost/range/result_iterator.hpp>
 #include "../../state/parse.hpp"
 #include "./identity_fun.hpp"
-#include "./null_fun.hpp"
 
 
 namespace pstade { namespace biscuit {
 
 
-namespace symbols_detail {
+namespace rngset_detail {
 
 
-    template< class State, class UserState, class PairAssocContainer, class Functor >
-    bool aux(State& s, UserState& us, PairAssocContainer& rngs, Functor fun)
+    template< class State, class RangeOfRange >
+    bool aux(State& s, RangeOfRange& rngs)
     {
-        typedef typename boost::range_result_iterator<PairAssocContainer>::type iter_t;
+        typedef typename boost::range_result_iterator<RangeOfRange>::type iter_t;
 
         for (iter_t it = boost::begin(rngs), last = boost::end(rngs); it != last; ++it) {
-            typename optional_iterator<State>::type opit = biscuit::state_parse(s, it->first);
+            typename optional_iterator<State>::type opit = biscuit::state_parse(s, *it);
             if (opit) {
                 s.set_cur(*opit);
-                fun(it->second, us);
                 return true;
             }
         }
@@ -40,16 +38,16 @@ namespace symbols_detail {
     }
 
 
-} // namespace symbols_detail
+} // namespace rngset_detail
 
 
-template< class PairAssocContainerFtor = identity_fun, class Functor = null_fun >
-struct symbols
+template< class RangeOfRange = identity_fun >
+struct rngset
 {
     template< class State, class UserState >
     static bool parse(State& s, UserState& us)
     {
-        return symbols_detail::aux(s, us, PairAssocContainerFtor()(us), Functor());
+        return rngset_detail::aux(s, RangeOfRange()(us));
     }
 };
 

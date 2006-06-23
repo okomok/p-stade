@@ -11,12 +11,13 @@
 
 
 #include "../../state/parse.hpp"
+#include "./identity_fun.hpp"
 
 
 namespace pstade { namespace biscuit {
 
 
-template< class RangeFtor >
+template< class RangeFtor = identity_fun >
 struct seq_range
 {
     template< class State, class UserState >

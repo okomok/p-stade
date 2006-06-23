@@ -44,9 +44,9 @@ void test()
             oven::equals( src|uniqued|reversed|reversed, ans2)
         ));
 
-		BOOST_FOREACH (int i, src|uniqued|reversed)  {
-			std::cout << i << ',';
-		}
+        BOOST_FOREACH (int i, src|uniqued|reversed)  {
+            std::cout << i << ',';
+        }
     }
 
 }

@@ -18,6 +18,7 @@
 #include "../../state/increment.hpp"
 #include "../../state/is_end.hpp"
 #include "../../state/parse.hpp"
+#include "./identity_fun.hpp"
 
 
 namespace pstade { namespace biscuit {
@@ -43,7 +44,7 @@ namespace set_range_detail {
 } // namespace set_range_detail
 
 
-template< class RangeFtor >
+template< class RangeFtor = identity_fun >
 struct set_range
 {
     template< class State, class UserState >

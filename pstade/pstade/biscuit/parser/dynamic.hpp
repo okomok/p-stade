@@ -12,6 +12,9 @@
 
 #include "./dynamic/control.hpp"
 #include "./dynamic/identity_fun.hpp"
+#include "./dynamic/null_fun.hpp"
+#include "./dynamic/rngseq.hpp"
+#include "./dynamic/rngset.hpp"
 #include "./dynamic/seq_range.hpp"
 #include "./dynamic/set_range.hpp"
 #include "./dynamic/symbols.hpp"

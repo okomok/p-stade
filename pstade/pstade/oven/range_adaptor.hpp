@@ -125,6 +125,7 @@ template< class BabyAdaptor >
 struct range_adaptor
 {
     // 0ary
+    //
     range_adaptor_detail::adaptor0<BabyAdaptor>
     operator()() const
     {
@@ -133,6 +134,7 @@ struct range_adaptor
 
 
     // 1ary
+    //
     template< class A0 >
     range_adaptor_detail::adaptor1<BabyAdaptor, A0>
     operator()(A0& a0) const
@@ -147,7 +149,9 @@ struct range_adaptor
         return range_adaptor_detail::adaptor1<BabyAdaptor, typename boost::add_const<A0>::type>(a0);
     }
 
+
     // 2ary
+    //
     template< class A0, class A1 >
     range_adaptor_detail::adaptor2<BabyAdaptor, A0, A1>
     operator()(A0& a0, A0& a1) const

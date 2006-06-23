@@ -73,7 +73,7 @@ namespace boost {
 #define PSTADE_EGG_FUNCTION(Name, Baby) \
     typedef pstade::egg::function< \
         pstade::comma_protect<void(Baby)>::type \
-    > BOOST_PP_SEQ_CAT((Name)(_)(function)); \
+    > BOOST_PP_SEQ_CAT((Name)(_)(fun)); \
     \
     PSTADE_INSTANCE( \
         const pstade::egg::function< pstade::comma_protect<void(Baby)>::type >, \

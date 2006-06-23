@@ -33,6 +33,8 @@ test-suite biscuit :
     [ biscuit-test identity ]
     [ biscuit-test match ]
     [ biscuit-test min_max_repeat ]
+    [ biscuit-test rngseq ]
+    [ biscuit-test rngset ]
     [ biscuit-test repeat ]
     [ biscuit-test require ]
     [ biscuit-test search ]

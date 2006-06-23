@@ -12,6 +12,7 @@
 
 #include <pstade/egg/function.hpp>
 #include "./adjacent_filter_range.hpp"
+#include "./detail/not_equal_to.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 
@@ -22,22 +23,12 @@ namespace pstade { namespace oven {
 namespace unique_range_detail {
 
 
-    struct not_equal_to
-    {
-        template< class X, class Y >
-        bool operator()(const X& x, const Y& y) const
-        {
-            return x != y;
-        }
-    };
-
-
     template< class ForwardRange >
     struct super_
     {
         typedef adjacent_filter_range<
             ForwardRange,
-            unique_range_detail::not_equal_to
+            detail::not_equal_to_fun
         > type;
     };
 
@@ -54,7 +45,7 @@ private:
 
 public:
     explicit unique_range(ForwardRange& rng) :
-        super_t(rng, unique_range_detail::not_equal_to())
+        super_t(rng, detail::not_equal_to)
     { }
 };
 

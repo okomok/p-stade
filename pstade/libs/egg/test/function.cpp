@@ -81,20 +81,20 @@ BOOST_MPL_ASSERT(( pstade::egg::detail::has_result_type<bar_impl> ));
 BOOST_MPL_ASSERT(( pstade::egg::detail::has_result_type<hoge_impl> ));
 
 
-BOOST_MPL_ASSERT(( boost::is_same<boost::result_of<foo_function(int)>::type, int> ));
-BOOST_MPL_ASSERT(( boost::is_same<boost::result_of<foo_function(int&)>::type, int> ));
-BOOST_MPL_ASSERT(( boost::is_same<boost::result_of<foo_function(int, int)>::type, int> ));
-BOOST_MPL_ASSERT(( boost::is_same<boost::result_of<foo_function(int&, int)>::type, int> ));
+BOOST_MPL_ASSERT(( boost::is_same<boost::result_of<foo_fun(int)>::type, int> ));
+BOOST_MPL_ASSERT(( boost::is_same<boost::result_of<foo_fun(int&)>::type, int> ));
+BOOST_MPL_ASSERT(( boost::is_same<boost::result_of<foo_fun(int, int)>::type, int> ));
+BOOST_MPL_ASSERT(( boost::is_same<boost::result_of<foo_fun(int&, int)>::type, int> ));
 
-BOOST_MPL_ASSERT(( boost::is_same<boost::result_of<bar_function()>::type, int> ));
+BOOST_MPL_ASSERT(( boost::is_same<boost::result_of<bar_fun()>::type, int> ));
 
-BOOST_MPL_ASSERT(( boost::is_same<boost::result_of<hoge_function()>::type, std::string> ));
-BOOST_MPL_ASSERT(( boost::is_same<boost::result_of<hoge_function(int&)>::type, int> ));
-BOOST_MPL_ASSERT(( boost::is_same<boost::result_of<hoge_function(int, int)>::type, int> ));
-BOOST_MPL_ASSERT(( boost::is_same<boost::result_of<hoge_function(int&, int)>::type, int> ));
+BOOST_MPL_ASSERT(( boost::is_same<boost::result_of<hoge_fun()>::type, std::string> ));
+BOOST_MPL_ASSERT(( boost::is_same<boost::result_of<hoge_fun(int&)>::type, int> ));
+BOOST_MPL_ASSERT(( boost::is_same<boost::result_of<hoge_fun(int, int)>::type, int> ));
+BOOST_MPL_ASSERT(( boost::is_same<boost::result_of<hoge_fun(int&, int)>::type, int> ));
 
 
-void test_function()
+void test_fun()
 {
     BOOST_CHECK( bar() == 1 );
 
@@ -109,6 +109,6 @@ void test_function()
 
 int test_main(int, char*[])
 {
-    test_function();
+    test_fun();
     return 0;
 }
