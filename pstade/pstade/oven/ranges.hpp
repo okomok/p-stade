@@ -25,6 +25,7 @@
 #include "./map_key_range.hpp"
 #include "./map_value_range.hpp"
 #include "./null_terminate_range.hpp"
+#include "./permutation_range.hpp"
 #include "./pointer_range.hpp"
 #include "./position_range.hpp"
 #include "./prepend_range.hpp"

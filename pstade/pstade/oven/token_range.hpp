@@ -84,11 +84,11 @@ public:
         )
     { }
 
-    template< class RndRange >
+    template< class RandRange >
     explicit token_range(
         BidiRange& rng,
         const regex_t& re,
-        const RndRange& submatches,
+        const RandRange& submatches,
         token_range_detail::match_flag_type m = token_range_detail::match_default
     ) :
         super_t(
@@ -116,8 +116,8 @@ namespace token_range_detail {
             return Result(rng, re, submatch, m);
         }
 
-        template< class Result, class BidiRange, class RegexT, class RndRange >
-        Result call(BidiRange& rng, const RegexT& re, const RndRange& submatches, match_flag_type m = match_default)
+        template< class Result, class BidiRange, class RegexT, class RandRange >
+        Result call(BidiRange& rng, const RegexT& re, const RandRange& submatches, match_flag_type m = match_default)
         {
             return Result(rng, re, submatches, m);
         }

@@ -37,6 +37,7 @@ test-suite oven :
     [ oven-test indirect_range ]
     [ oven-test joint_range ]
     [ oven-test null_terminate_range ]
+    [ oven-test permutation_range ]
     [ oven-test position_range ]
     [ oven-test repeat_range ]
     [ oven-test reverse_range ]

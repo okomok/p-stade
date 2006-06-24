@@ -63,7 +63,7 @@ struct error_no_arguments_supplied
 //
 template< class BabyFunction >
 struct baby_result0 :
-    boost::mpl::eval_if<detail::has_result_type<BabyFunction>,
+    boost::mpl::eval_if< detail::has_result_type<BabyFunction>,
         baby_result_type_detail::nullary<BabyFunction>,
         boost::mpl::identity<error_no_arguments_supplied>
     >

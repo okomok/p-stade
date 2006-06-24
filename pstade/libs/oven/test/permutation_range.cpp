@@ -10,8 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/direct_range.hpp>
-#include <pstade/oven/indirect_range.hpp>
+#include <pstade/oven/permutation_range.hpp>
 
 
 #include <string>
@@ -23,14 +22,13 @@ void test()
     using namespace pstade;
     using namespace oven;
 
-    std::string src("abcde");
+    {
+        std::string src("0123456789");
+        std::string ans("8623");
+        int ind[] = { 8, 6, 2, 3 };
 
-    oven::direct_range<std::string> dst(src);
-
-    BOOST_CHECK( oven::equals( dst|indirected, src ) );
-    BOOST_CHECK( oven::equals( src|directed|indirected, src ) );
-    BOOST_CHECK( oven::equals( src|directed|indirected|directed|indirected|directed|indirected, src ) );
-
+        BOOST_CHECK( oven::equals( src|permutated(ind), ans ) );
+    }
 }
 
 
