@@ -24,8 +24,14 @@
 #include <boost/mpl/apply.hpp>
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
+#include <boost/preprocessor/arithmetic/inc.hpp>
+#include <boost/preprocessor/cat.hpp>
+#include <boost/preprocessor/repetition/enum.hpp>
+#include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/preprocessor/repetition/repeat_from_to.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 #include <boost/utility/result_of.hpp>
+#include "./detail/config.hpp"
 #include "./detail/has_result_type.hpp"
 
 
@@ -53,8 +59,6 @@ struct error_no_arguments_supplied
 };
 
 
-// numbered forms
-//
 template< class BabyFunction >
 struct baby_result0 :
     boost::mpl::eval_if<detail::has_result_type<BabyFunction>,
@@ -64,14 +68,7 @@ struct baby_result0 :
 { };
 
 
-template< class BabyFunction, class A0 >
-struct baby_result1 :
-    BabyFunction::template result<
-        typename boost::remove_reference<A0>::type
-    >
-{ };
-
-
+/*
 template< class BabyFunction, class A0, class A1 >
 struct baby_result2 :
     BabyFunction::template result<
@@ -79,21 +76,29 @@ struct baby_result2 :
         typename boost::remove_reference<A1>::type
     >
 { };
+*/
 
 
-template< class BabyFunction, class A0, class A1, class A2 >
-struct baby_result3 :
-    BabyFunction::template result<
-        typename boost::remove_reference<A0>::type,
-        typename boost::remove_reference<A1>::type,
-        typename boost::remove_reference<A2>::type
-    >
-{ };
+#define PSTADE_EGG_baby_result(Z, N, _) \
+    template< class BabyFunction, BOOST_PP_ENUM_PARAMS(N, class A) > \
+    struct BOOST_PP_CAT(baby_result, N) : \
+        BabyFunction::template result< \
+            BOOST_PP_ENUM(N, PSTADE_EGG_remove_ref, ~) \
+        > \
+    { }; \
+/**/
 
 
-// variadic form
-//
-// TODO
+#define PSTADE_EGG_remove_ref(Z, N, _) \
+    typename boost::remove_reference< BOOST_PP_CAT(A, N) >::type \
+/**/
+
+
+BOOST_PP_REPEAT_FROM_TO(1, BOOST_PP_INC(PSTADE_EGG_MAX_ARITY), PSTADE_EGG_baby_result, ~)
+
+
+#undef PSTADE_EGG_remove_ref
+#undef PSTADE_EGG_baby_result
 
 
 } } // namespace pstade::egg

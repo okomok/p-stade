@@ -10,10 +10,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/spirit/iterator/position_iterator.hpp>
-#include <boost/type_traits/remove_cv.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <boost/range/result_iterator.hpp>
+#include <boost/spirit/iterator/position_iterator.hpp>
+#include <boost/type_traits/remove_cv.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/static_c.hpp>
 #include "./is_lightweight_proxy.hpp"

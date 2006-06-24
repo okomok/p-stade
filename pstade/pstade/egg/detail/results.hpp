@@ -10,6 +10,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/preprocessor/arithmetic/inc.hpp>
+#include <boost/preprocessor/cat.hpp>
+#include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/preprocessor/repetition/repeat_from_to.hpp>
 #include "./config.hpp"
 #include "../baby_result_type.hpp"
 
@@ -27,22 +31,26 @@ struct results
     struct result;
 
 
-    template< class F_, class A0 >
-    struct result<F_(A0)> :
-        baby_result1<BabyFunction, A0>
-    { };
-
-
+/*
     template< class F_, class A0, class A1 >
     struct result<F_(A0, A1)> :
         baby_result2<BabyFunction, A0, A1>
     { };
+*/
 
 
-    template< class F_, class A0, class A1, class A2 >
-    struct result<F_(A0, A1, A2)> :
-        baby_result3<BabyFunction, A0, A1, A2>
-    { };
+    #define PSTADE_EGG_result(Z, N, _) \
+        template< class F_, BOOST_PP_ENUM_PARAMS(N, class A) > \
+        struct result< F_( BOOST_PP_ENUM_PARAMS(N, A) ) > : \
+            BOOST_PP_CAT(baby_result, N)< BabyFunction, BOOST_PP_ENUM_PARAMS(N, A) > \
+        { }; \
+    /**/
+
+
+    BOOST_PP_REPEAT_FROM_TO(1, BOOST_PP_INC(PSTADE_EGG_MAX_ARITY), PSTADE_EGG_result, ~)
+
+
+    #undef PSTADE_EGG_result
 
 
 #endif

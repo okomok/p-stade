@@ -31,10 +31,7 @@
 #include <pstade/unused.hpp>
 
 
-namespace pstade { namespace oven {
-
-
-namespace range_adaptor_detail {
+namespace pstade { namespace oven { namespace range_adaptor_detail {
 
 
     // 0ary
@@ -118,9 +115,42 @@ namespace range_adaptor_detail {
         }
 
 
-} // namespace range_adaptor_detail
+    // 3ary
+    //
+    template< class BabyAdaptor, class A0, class A1, class A2 >
+    struct adaptor3
+    {
+        explicit adaptor3(A0& a0, A1& a1, A2& a2) :
+            m_pa0(boost::addressof(a0)), m_pa1(boost::addressof(a1)), m_pa2(boost::addressof(a2))
+        { }
+
+        A0 *m_pa0;
+        A1 *m_pa1;
+        A2 *m_pa2;
+    };
 
 
+    template< class Range, class BabyAdaptor, class A0, class A1, class A2 > inline
+    typename egg::baby_result4<BabyAdaptor, Range, A0, A1, A2>::type
+    operator|(Range& rng, adaptor3<BabyAdaptor, A0, A1, A2> ad)
+    {
+        return egg::baby_call<BabyAdaptor>(rng, *ad.m_pa0, *ad.m_pa1, *ad.m_pa2);
+    }
+
+        template< class Range, class BabyAdaptor, class A0, class A1, class A2 > inline
+        typename egg::baby_result4<BabyAdaptor, typename boost::add_const<Range>::type, A0, A1, A2>::type
+        operator|(const Range& rng, adaptor3<BabyAdaptor, A0, A1, A2> ad)
+        {
+            return egg::baby_call<BabyAdaptor>(rng, *ad.m_pa0, *ad.m_pa1, *ad.m_pa2);
+        }
+
+
+} } } // namespace pstade::oven::range_adaptor_detail
+
+
+#include "./detail/adaptor.hpp"
+
+/*
 template< class BabyAdaptor >
 struct range_adaptor
 {
@@ -129,57 +159,47 @@ struct range_adaptor
     range_adaptor_detail::adaptor0<BabyAdaptor>
     operator()() const
     {
-        return range_adaptor_detail::adaptor0<BabyAdaptor>();
+        return range_adaptor_detail::adaptor0<BabyAdaptor
+        >();
     }
-
 
     // 1ary
     //
     template< class A0 >
-    range_adaptor_detail::adaptor1<BabyAdaptor, A0>
-    operator()(A0& a0) const
+    range_adaptor_detail::adaptor1<BabyAdaptor,
+        A0
+    >
+    operator()(
+        A0& a0
+    ) const
     {
-        return range_adaptor_detail::adaptor1<BabyAdaptor, A0>(a0);
+        return range_adaptor_detail::adaptor1<BabyAdaptor,
+            A0
+        >(a0);
     }
 
     template< class A0 >
-    range_adaptor_detail::adaptor1<BabyAdaptor, typename boost::add_const<A0>::type>
-    operator()(const A0& a0) const
+    range_adaptor_detail::adaptor1<BabyAdaptor,
+        typename boost::add_const<A0>::type
+    >
+    operator()(
+        const A0& a0
+    ) const
     {
-        return range_adaptor_detail::adaptor1<BabyAdaptor, typename boost::add_const<A0>::type>(a0);
+        return range_adaptor_detail::adaptor1<BabyAdaptor,
+            typename boost::add_const<A0>::type
+        >(a0);
     }
-
 
     // 2ary
     //
-    template< class A0, class A1 >
-    range_adaptor_detail::adaptor2<BabyAdaptor, A0, A1>
-    operator()(A0& a0, A0& a1) const
-    {
-        return range_adaptor_detail::adaptor2<BabyAdaptor, A0, A1>(a0, a1);
-    }
 
-    template< class A0, class A1 >
-    range_adaptor_detail::adaptor2<BabyAdaptor, typename boost::add_const<A0>::type, A1>
-    operator()(const A0& a0, A1& a1) const
-    {
-        return range_adaptor_detail::adaptor2<BabyAdaptor, typename boost::add_const<A0>::type, A1>(a0, a1);
-    }
-
-    template< class A0, class A1 >
-    range_adaptor_detail::adaptor2<BabyAdaptor, A0, typename boost::add_const<A1>::type>
-    operator()(A0& a0, const A1& a1) const
-    {
-        return range_adaptor_detail::adaptor2<BabyAdaptor, A0, typename boost::add_const<A1>::type>(a0, a1);
-    }
-
-    template< class A0, class A1 >
-    range_adaptor_detail::adaptor2<BabyAdaptor, typename boost::add_const<A0>::type, typename boost::add_const<A1>::type>
-    operator()(const A0& a0, const A1& a1) const
-    {
-        return range_adaptor_detail::adaptor2<BabyAdaptor, typename boost::add_const<A0>::type, typename boost::add_const<A1>::type>(a0, a1);
-    }
+    // ...
 };
+*/
+
+
+namespace pstade { namespace oven {
 
 
 // passed as is
