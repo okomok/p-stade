@@ -31,14 +31,24 @@ struct results
     struct result;
 
 
-/*
+    // 1ary
+    //
+    template< class F_, class A0 >
+    struct result<F_(A0)> :
+        baby_result1<BabyFunction, A0>
+    { };
+
+
+    // 2ary
+    //
     template< class F_, class A0, class A1 >
     struct result<F_(A0, A1)> :
         baby_result2<BabyFunction, A0, A1>
     { };
-*/
 
 
+    // 3ary -
+    //
     #define PSTADE_EGG_result(Z, N, _) \
         template< class F_, BOOST_PP_ENUM_PARAMS(N, class A) > \
         struct result< F_( BOOST_PP_ENUM_PARAMS(N, A) ) > : \
@@ -46,9 +56,7 @@ struct results
         { }; \
     /**/
 
-
-    BOOST_PP_REPEAT_FROM_TO(1, BOOST_PP_INC(PSTADE_EGG_MAX_ARITY), PSTADE_EGG_result, ~)
-
+    BOOST_PP_REPEAT_FROM_TO(3, BOOST_PP_INC(PSTADE_EGG_MAX_ARITY), PSTADE_EGG_result, ~)
 
     #undef PSTADE_EGG_result
 

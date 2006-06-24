@@ -148,7 +148,7 @@ namespace pstade { namespace oven { namespace range_adaptor_detail {
 } } } // namespace pstade::oven::range_adaptor_detail
 
 
-#include "./detail/adaptor.hpp"
+#include "./detail/adaptor.ipp"
 
 /*
 template< class BabyAdaptor >

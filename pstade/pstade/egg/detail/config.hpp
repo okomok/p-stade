@@ -15,16 +15,12 @@
 
 
 #if defined(BOOST_MSVC)
-
     #define PSTADE_EGG_DETAIL_NO_NESTED_RESULT_SPECIALIZATION
-
 #endif
 
 
 #if !defined(PSTADE_EGG_MAX_ARITY)
-
     #define PSTADE_EGG_MAX_ARITY 5
-
 #endif
 
 

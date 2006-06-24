@@ -22,6 +22,8 @@
 namespace pstade { namespace egg {
 
 
+// 0ary
+//
 template< class BabyFunction > inline
 typename baby_result0<BabyFunction>::type
 baby_call()
@@ -33,22 +35,40 @@ baby_call()
 }
 
 
-/*
-template< class BabyFunction, class A0, class A1 > inline
-typename baby_result2<BabyFunction,
+// 1ary
+//
+template< class BabyFunction, class A0 >
+typename egg::baby_result1<BabyFunction,
+    A0
+>::type
+baby_call(A0& a0)
+{
+    typedef typename egg::baby_result1<BabyFunction,
+        A0
+    >::type result_t;
+
+    return BabyFunction().template call<result_t>(a0);
+}
+
+
+// 2ary
+//
+template< class BabyFunction, class A0, class A1 >
+typename egg::baby_result2<BabyFunction,
     A0, A1
 >::type
 baby_call(A0& a0, A1& a1)
 {
-    typedef typename baby_result2<BabyFunction,
+    typedef typename egg::baby_result2<BabyFunction,
         A0, A1
     >::type result_t;
 
     return BabyFunction().template call<result_t>(a0, a1);
 }
-*/
 
 
+// 3ary -
+//
 #define PSTADE_EGG_baby_call(Z, N, _) \
     template< class BabyFunction, BOOST_PP_ENUM_PARAMS(N, class A) > inline \
     typename BOOST_PP_CAT(baby_result, N)<BabyFunction, \
@@ -64,14 +84,11 @@ baby_call(A0& a0, A1& a1)
     } \
 /**/
 
-
 #define PSTADE_EGG_arg(Z, N, _) \
     BOOST_PP_CAT(A, N) & BOOST_PP_CAT(a, N) \
 /**/
 
-
-BOOST_PP_REPEAT_FROM_TO(1, BOOST_PP_INC(PSTADE_EGG_MAX_ARITY), PSTADE_EGG_baby_call, ~)
-
+BOOST_PP_REPEAT_FROM_TO(3, BOOST_PP_INC(PSTADE_EGG_MAX_ARITY), PSTADE_EGG_baby_call, ~)
 
 #undef PSTADE_EGG_arg
 #undef PSTADE_EGG_baby_call

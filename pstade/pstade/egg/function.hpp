@@ -41,6 +41,8 @@ struct function :
 namespace boost {
 
 
+    // 0ary
+    //
     template< class BabyFunction >
     struct result_of<pstade::egg::function<BabyFunction>(void)> : // CWPro8 requires an argument 'void'
         pstade::egg::baby_result0<BabyFunction>
@@ -50,14 +52,24 @@ namespace boost {
 #if defined(PSTADE_EGG_DETAIL_NO_NESTED_RESULT_SPECIALIZATION)
 
 
-/*
+    // 1ary
+    //
+    template< class BabyFunction, class A0 >
+    struct result_of<pstade::egg::function<BabyFunction>(A0)> :
+        pstade::egg::baby_result1<BabyFunction, A0>
+    { };
+
+
+    // 2ary
+    //
     template< class BabyFunction, class A0, class A1 >
     struct result_of<pstade::egg::function<BabyFunction>(A0, A1)> :
         pstade::egg::baby_result2<BabyFunction, A0, A1>
     { };
-*/
 
 
+    // 3ary -
+    //
     #define PSTADE_EGG_result_of(Z, N, _) \
         template< class BabyFunction, BOOST_PP_ENUM_PARAMS(N, class A) > \
         struct result_of<pstade::egg::function<BabyFunction>( BOOST_PP_ENUM_PARAMS(N, A) )> : \
@@ -65,9 +77,7 @@ namespace boost {
         { }; \
     /**/
 
-
-    BOOST_PP_REPEAT_FROM_TO(1, BOOST_PP_INC(PSTADE_EGG_MAX_ARITY), PSTADE_EGG_result_of, ~)
-
+    BOOST_PP_REPEAT_FROM_TO(3, BOOST_PP_INC(PSTADE_EGG_MAX_ARITY), PSTADE_EGG_result_of, ~)
 
     #undef PSTADE_EGG_result_of
 

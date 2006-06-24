@@ -59,6 +59,8 @@ struct error_no_arguments_supplied
 };
 
 
+// 0ary
+//
 template< class BabyFunction >
 struct baby_result0 :
     boost::mpl::eval_if<detail::has_result_type<BabyFunction>,
@@ -68,7 +70,18 @@ struct baby_result0 :
 { };
 
 
-/*
+// 1ary
+//
+template< class BabyFunction, class A0 >
+struct baby_result1 :
+    BabyFunction::template result<
+        typename boost::remove_reference<A0>::type
+    >
+{ };
+
+
+// 2ary
+//
 template< class BabyFunction, class A0, class A1 >
 struct baby_result2 :
     BabyFunction::template result<
@@ -76,9 +89,10 @@ struct baby_result2 :
         typename boost::remove_reference<A1>::type
     >
 { };
-*/
 
 
+// 3ary -
+//
 #define PSTADE_EGG_baby_result(Z, N, _) \
     template< class BabyFunction, BOOST_PP_ENUM_PARAMS(N, class A) > \
     struct BOOST_PP_CAT(baby_result, N) : \
@@ -88,14 +102,11 @@ struct baby_result2 :
     { }; \
 /**/
 
-
 #define PSTADE_EGG_remove_ref(Z, N, _) \
     typename boost::remove_reference< BOOST_PP_CAT(A, N) >::type \
 /**/
 
-
-BOOST_PP_REPEAT_FROM_TO(1, BOOST_PP_INC(PSTADE_EGG_MAX_ARITY), PSTADE_EGG_baby_result, ~)
-
+BOOST_PP_REPEAT_FROM_TO(3, BOOST_PP_INC(PSTADE_EGG_MAX_ARITY), PSTADE_EGG_baby_result, ~)
 
 #undef PSTADE_EGG_remove_ref
 #undef PSTADE_EGG_baby_result
