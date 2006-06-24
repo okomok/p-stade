@@ -1,9 +1,12 @@
+#include <pstade/vodka/drink.hpp>
 #include <boost/test/minimal.hpp>
 
 #include <string>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/utility/result_of.hpp>
 #include <boost/mpl/assert.hpp>
+
+
 #include <pstade/egg/function.hpp>
 
 

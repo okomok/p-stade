@@ -44,12 +44,11 @@ namespace token_range_detail {
 
 
     template< class BidiRange >
-    struct default_char
-    {
-        typedef typename boost::range_value<
+    struct default_char :
+        boost::range_value<
             typename boost::remove_cv<BidiRange>::type
-        > type;
-    };
+        >
+    { };
 
 
     using boost::regex_constants::match_flag_type;
@@ -61,14 +60,14 @@ namespace token_range_detail {
 
 template<
     class BidiRange,
-    class CharT = token_range_detail::default_char<BidiRange>::type,
+    class CharT = typename token_range_detail::default_char<BidiRange>::type,
     class Traits = boost::regex_traits<CharT>
 >
 struct token_range :
     token_range_detail::super_<BidiRange, CharT, Traits>::type
 {
 private:
-    typedef typename token_range_detail::super_<BidiRange, PositionT>::type super_t;
+    typedef typename token_range_detail::super_<BidiRange, CharT, Traits>::type super_t;
     typedef typename super_t::iterator iter_t;
     typedef typename iter_t::regex_type regex_t;
 
