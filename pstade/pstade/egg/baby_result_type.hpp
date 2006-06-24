@@ -30,7 +30,6 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 #include <boost/type_traits/remove_reference.hpp>
-#include <boost/utility/result_of.hpp>
 #include "./detail/config.hpp"
 #include "./detail/has_result_type.hpp"
 

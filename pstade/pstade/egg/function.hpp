@@ -14,7 +14,6 @@
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
-#include <boost/preprocessor/seq/cat.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/comma_protect.hpp>
 #include <pstade/instance.hpp>
@@ -28,11 +27,11 @@
 namespace pstade { namespace egg {
 
 
-template< class BabyFunction >
-struct function :
-    detail::operators<BabyFunction>,
-    detail::results<BabyFunction>
-{ };
+    template< class BabyFunction >
+    struct function :
+        detail::operators<BabyFunction>,
+        detail::results<BabyFunction>
+    { };
 
 
 } } // namespace pstade::egg
@@ -91,10 +90,10 @@ namespace boost {
 #define PSTADE_EGG_FUNCTION(Name, Baby) \
     typedef pstade::egg::function< \
         pstade::comma_protect<void(Baby)>::type \
-    > BOOST_PP_SEQ_CAT((Name)(_)(fun)); \
+    > BOOST_PP_CAT(Name, _fun); \
     \
     PSTADE_INSTANCE( \
-        const pstade::egg::function< pstade::comma_protect<void(Baby)>::type >, \
+        pstade::egg::function< pstade::comma_protect<void(Baby)>::type > const, \
         Name, value \
     ) \
 /**/
