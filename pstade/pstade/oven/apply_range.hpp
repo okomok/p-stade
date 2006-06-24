@@ -67,7 +67,7 @@ private:
     typedef typename super_t::iterator iter_t;
 
 public:
-    explicit apply_range(Range& rng, BinaryFun1 f1, BinaryFun2 f2) :
+    apply_range(Range& rng, BinaryFun1 f1, BinaryFun2 f2) :
         super_t(
             apply_range_detail::ret(f1, boost::type<iter_t>())( pstade::arg(boost::begin(rng)), pstade::arg(boost::end(rng)) ),
             apply_range_detail::ret(f2, boost::type<iter_t>())( pstade::arg(boost::begin(rng)), pstade::arg(boost::end(rng)) )

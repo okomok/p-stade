@@ -60,22 +60,25 @@ private:
     typedef typename filter_iterator_detail::super_<Parser, ForwardIter, UserState>::type super_t;
 
 public:
-    // structors
-    explicit filter_iterator()
+    filter_iterator()
     { }
 
-    explicit filter_iterator(ForwardIter x, ForwardIter last, UserState *pus) :
-        super_t(x), m_submatch_last(x), m_last(last), m_pus(pus)
+    filter_iterator(ForwardIter x, ForwardIter last, UserState& us) :
+        super_t(x), m_submatch_last(x), m_last(last),
+        m_pus(boost::addressof(us))
     {
         search_submatch(); // trigger!
     }
 
-    template< class ForwardIter2 >
-    explicit filter_iterator(filter_iterator<Parser, ForwardIter2, UserState> const& other) :
-        m_submatch_last(other.submatch_end()), m_last(other.end()), m_pus( boost::addressof(other.user_state()) )
+    template< class ForwardIter_ >
+    filter_iterator(
+        filter_iterator<Parser, ForwardIter_, UserState> const& other,
+        typename boost::enable_if_convertible<ForwardIter_, ForwardIter>::type * = 0
+    ) :
+        super_t(other.base()), m_submatch_last(other.submatch_end()), m_last(other.end()),
+        m_pus( boost::addressof(other.user_state()) )
     { }
 
-    // accessors
     ForwardIter submatch_end() const { return m_submatch_last; }
     ForwardIter end() const { return m_last; }
     UserState& user_state() const { return *m_pus; }
@@ -119,9 +122,9 @@ friend class boost::iterator_core_access;
 
 template< class Parser, class ForwardIter, class UserState > inline
 filter_iterator<Parser, ForwardIter, UserState>
-make_filter_iterator(ForwardIter x, ForwardIter last, UserState *pus BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
+make_filter_iterator(ForwardIter x, ForwardIter last, UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
 {
-    return filter_iterator<Parser, ForwardIter, UserState>(x, last, pus);
+    return filter_iterator<Parser, ForwardIter, UserState>(x, last, us);
 }
 
 

@@ -20,7 +20,7 @@ template< class State >
 struct state_actionable_guard :
     private boost::noncopyable
 {
-    explicit state_actionable_guard(State& s, bool act) :
+    state_actionable_guard(State& s, bool act) :
         m_state(s), m_prev(s.is_actionable())
     { m_state.set_actionable(act); }
 

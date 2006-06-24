@@ -52,7 +52,7 @@ namespace sort_range_detail {
     {
         typedef typename iterator_container<Range>::type iters_t;
 
-        explicit share_range_initializer(Range& rng, BinaryPred pred)
+        share_range_initializer(Range& rng, BinaryPred pred)
         {
             std::auto_ptr<iters_t> piters(new iters_t());
             oven::copy(rng|oven::directed, garlic::back_inserter(*piters));

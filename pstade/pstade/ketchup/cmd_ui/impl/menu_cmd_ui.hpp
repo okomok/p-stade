@@ -30,7 +30,7 @@ struct menu_cmd_ui : cmd_ui
     HMENU get_menu() const { return m_hMenu; }
     UINT get_index() const { return m_uIndex; }
 
-    explicit menu_cmd_ui(UINT uID, HMENU hMenu, UINT uIndex, bool dependent) :
+    menu_cmd_ui(UINT uID, HMENU hMenu, UINT uIndex, bool dependent) :
         cmd_ui(uID), m_hMenu(hMenu), m_uIndex(uIndex), m_dependent(dependent)
     {
         BOOST_ASSERT(diet::valid(m_hMenu));

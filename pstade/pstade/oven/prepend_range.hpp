@@ -32,7 +32,7 @@ private:
     typedef joint_range< single_range<T>, Range > super_t;
 
 public:
-    explicit prepend_range(Range& rng, T& x) :
+    prepend_range(Range& rng, T& x) :
         single_range_bt(boost::ref(x)),
         super_t(single_range_bt::member, rng)
     { }

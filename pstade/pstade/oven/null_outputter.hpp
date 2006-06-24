@@ -21,7 +21,7 @@ namespace pstade { namespace oven {
 struct null_output_iterator :
     std::iterator<std::output_iterator_tag, void, void, void, void>
 {
-    explicit null_output_iterator()
+    null_output_iterator()
     { }
 
     template< class ValueT > // template is legal

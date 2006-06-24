@@ -52,22 +52,29 @@ template< class Parser, class ForwardIter, class UserState >
 struct token_iterator :
     token_iterator_detail::super_<Parser, ForwardIter, UserState>::type
 {
-    // structors
-    explicit token_iterator()
+private:
+    typedef typename token_iterator_detail::super_<Parser, ForwardIter, UserState>::type super_t;
+
+public:
+    token_iterator()
     { }
 
-    explicit token_iterator(ForwardIter x, ForwardIter last, UserState *pus) :
-        m_submatch(x, x), m_last(last), m_pus(pus)
+    token_iterator(ForwardIter x, ForwardIter last, UserState& us) :
+        m_submatch(x, x), m_last(last),
+        m_pus(boost::addressof(us))
     {
         search_submatch(); // trigger!
     }
 
-    template< class ForwardIter2 >
-    explicit token_iterator(token_iterator<Parser, ForwardIter2, UserState> const& other) :
-        m_submatch(other.submatch()), m_last(other.end()), m_pus( boost::addressof(other.user_state()) )
+    template< class ForwardIter_ >
+    token_iterator(
+        token_iterator<Parser, ForwardIter_, UserState> const& other,
+        typename boost::enable_if_convertible<ForwardIter_, ForwardIter>::type * = 0
+    ) :
+        super_t(other.base()), m_submatch(other.submatch()), m_last(other.end()),
+        m_pus( boost::addressof(other.user_state()) )
     { }
 
-    // accessors
     boost::iterator_range<ForwardIter> submatch() const { return m_submatch; }
     ForwardIter end() const { return m_last; }
     UserState& user_state() const { return *m_pus; }
@@ -117,9 +124,9 @@ private:
 
 template< class Parser, class ForwardIter, class UserState > inline
 token_iterator<Parser, ForwardIter, UserState>
-make_token_iterator(ForwardIter x, ForwardIter last, UserState *pus BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
+make_token_iterator(ForwardIter x, ForwardIter last, UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
 {
-    return token_iterator<Parser, ForwardIter, UserState>(x, last, pus);
+    return token_iterator<Parser, ForwardIter, UserState>(x, last, us);
 }
 
 

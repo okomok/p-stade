@@ -22,7 +22,7 @@ namespace pstade { namespace ketchup {
 
 struct toolbar_cmd_ui : cmd_ui
 {
-    explicit toolbar_cmd_ui(UINT uID, HWND hWnd) :
+    toolbar_cmd_ui(UINT uID, HWND hWnd) :
         cmd_ui(uID), m_hWndToolBar(hWnd)
     {
         BOOST_ASSERT(diet::valid(m_hWndToolBar));

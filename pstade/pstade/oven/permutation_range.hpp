@@ -56,7 +56,7 @@ private:
     typedef typename super_t::iterator iter_t;
 
 public:
-    explicit permutation_range(ElementRange& erng, IndexRange& irng) :
+    permutation_range(ElementRange& erng, IndexRange& irng) :
         super_t(
             iter_t(boost::begin(erng), boost::begin(irng)),
             iter_t(boost::end(erng), boost::end(irng))
@@ -88,7 +88,7 @@ namespace permutation_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_permutation_range, permutation_range_detail::baby_generator)
-PSTADE_OVEN_RANGE_ADAPTOR(permutated, permutation_range_detail::baby_generator)
+PSTADE_OVEN_RANGE_ADAPTOR(permuted, permutation_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven

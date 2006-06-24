@@ -32,7 +32,7 @@ private:
     typedef typename boost::range_difference<BidiRange>::type diff_t;
 
 public:
-    explicit slice_range(BidiRange& rng, diff_t n, diff_t m) :
+    slice_range(BidiRange& rng, diff_t n, diff_t m) :
         super_t(boost::make_iterator_range(rng, n, m))
     {
         BOOST_ASSERT( oven::distance(rng) >= n+m );

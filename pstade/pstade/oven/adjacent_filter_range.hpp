@@ -51,7 +51,7 @@ private:
     typedef typename super_t::iterator iter_t;
 
 public:
-    explicit adjacent_filter_range(ForwardRange& rng, BinaryPred pred) :
+    adjacent_filter_range(ForwardRange& rng, BinaryPred pred) :
         super_t(
             iter_t(boost::begin(rng), boost::begin(rng), boost::end(rng), pred),
             iter_t(boost::end(rng), boost::begin(rng), boost::end(rng), pred)

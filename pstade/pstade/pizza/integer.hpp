@@ -71,7 +71,7 @@ namespace integer_detail {
     template< class Profile, class CStringizable >
     struct temp
     {
-        explicit temp(Profile& pr, const CStringizable& valueName) :
+        temp(Profile& pr, const CStringizable& valueName) :
             m_ppr(&pr), m_pvalueName(&valueName)
         { }
 

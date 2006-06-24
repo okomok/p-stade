@@ -94,7 +94,7 @@ private:
     typedef typename super_t::iterator iter_t;
 
 public:
-    explicit counting_range(Incrementable n, Incrementable m) :
+    counting_range(Incrementable n, Incrementable m) :
         super_t(iter_t(n), iter_t(m))
     {
         counting_range_detail::bounds_checker<Incrementable, iter_t>::call(n, m);

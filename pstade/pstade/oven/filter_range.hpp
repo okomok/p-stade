@@ -59,7 +59,7 @@ private:
     typedef typename super_t::iterator iter_t;
 
 public:
-    explicit filter_range(Range& rng, Predicate pred) :
+    filter_range(Range& rng, Predicate pred) :
         super_t(
             iter_t(pred, boost::begin(rng), boost::end(rng)),
             iter_t(pred, boost::end(rng), boost::end(rng))

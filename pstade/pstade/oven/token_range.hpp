@@ -72,7 +72,7 @@ private:
     typedef typename iter_t::regex_type regex_t;
 
 public:
-    explicit token_range(
+    token_range(
         BidiRange& rng,
         const regex_t& re,
         int submatch = 0,
@@ -85,7 +85,7 @@ public:
     { }
 
     template< class RandRange >
-    explicit token_range(
+    token_range(
         BidiRange& rng,
         const regex_t& re,
         const RandRange& submatches,

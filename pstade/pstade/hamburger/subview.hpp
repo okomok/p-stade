@@ -48,7 +48,7 @@ namespace subview_detail {
 struct subview :
     ketchup::message_processor<subview, element>
 {
-    explicit subview()
+    subview()
     {
         subview_detail::set_default_values(*this);
     }

@@ -55,10 +55,10 @@ private:
     typedef typename super_t::value_type val_t;
 
 public:
-    explicit tab_expand_iterator()
+    tab_expand_iterator()
     { }
 
-    explicit tab_expand_iterator(ForwardIter it, int tabsize) :
+    tab_expand_iterator(ForwardIter it, int tabsize) :
         super_t(it), m_tabsize(tabsize),
         m_space_counter(0), m_diff_from_sol(0),
         m_space_ch(PSTADE_OVEN_DEBUG_SPACE_CH)

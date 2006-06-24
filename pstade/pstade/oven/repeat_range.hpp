@@ -51,7 +51,7 @@ private:
     typedef typename super_t::iterator iter_t;
 
 public:
-    explicit repeat_range(ForwardRange& rng, SizeT sz) :
+    repeat_range(ForwardRange& rng, SizeT sz) :
         super_t(
             iter_t(boost::begin(rng), 0,  boost::begin(rng), boost::end(rng)),
             iter_t(boost::begin(rng), sz, boost::begin(rng), boost::end(rng))

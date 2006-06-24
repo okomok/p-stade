@@ -22,7 +22,7 @@ namespace pstade { namespace ketchup {
 template< class MultiPaneStatusBarCtrl >
 struct multipanestatusbar_cmd_ui : cmd_ui
 {
-    explicit multipanestatusbar_cmd_ui(UINT nPaneID, MultiPaneStatusBarCtrl& statusbar, int index) :
+    multipanestatusbar_cmd_ui(UINT nPaneID, MultiPaneStatusBarCtrl& statusbar, int index) :
         cmd_ui(nPaneID), m_statusbar(statusbar), m_index(index)
     {
         BOOST_ASSERT(diet::valid(statusbar.m_hWnd));

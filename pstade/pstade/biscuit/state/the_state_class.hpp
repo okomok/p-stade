@@ -50,7 +50,7 @@ struct the_state_class
         // structors
         //
         template< class ForwardRange2 >
-        explicit state(ForwardRange2& other, MatchResults& results, bool act = true) :
+        state(ForwardRange2& other, MatchResults& results, bool act = true) :
             super_t(oven::begin(other), oven::end(other)),
             m_results(results), m_actionable(act)
         {

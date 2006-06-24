@@ -91,10 +91,10 @@ private:
     typedef typename super_t::reference ref_t;
 
 public:
-    explicit repeat_iterator()
+    repeat_iterator()
     { }
 
-    explicit repeat_iterator(ForwardIter it, SizeT index, ForwardIter first, ForwardIter last) :
+    repeat_iterator(ForwardIter it, SizeT index, ForwardIter first, ForwardIter last) :
         super_t(it), m_index(index),
         m_first(first), m_last(last)        
     { }

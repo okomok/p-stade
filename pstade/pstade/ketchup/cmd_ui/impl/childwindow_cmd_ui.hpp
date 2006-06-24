@@ -24,7 +24,7 @@ namespace pstade { namespace ketchup {
 
 struct childwindow_cmd_ui : cmd_ui
 {
-    explicit childwindow_cmd_ui(UINT uID, HWND hWndChild) :
+    childwindow_cmd_ui(UINT uID, HWND hWndChild) :
         cmd_ui(uID), m_hWndChild(hWndChild)
     {
         BOOST_ASSERT(diet::valid(hWndChild));

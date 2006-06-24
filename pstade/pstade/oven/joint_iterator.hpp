@@ -96,10 +96,10 @@ private:
     typedef typename super_t::base_type base_t;
 
 public:
-    explicit joint_iterator()
+    joint_iterator()
     { }
 
-    explicit joint_iterator(
+    joint_iterator(
         Iterator1 it1, Iterator1 last1,
         Iterator2 first2, Iterator2 it2
     ) :

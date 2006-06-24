@@ -241,7 +241,7 @@ namespace load_detail {
 struct load_error :
     error
 {
-    explicit load_error() :
+    load_error() :
         error(pstade::what("lime", "load_error"))
     { }
 };

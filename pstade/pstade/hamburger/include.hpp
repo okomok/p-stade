@@ -54,7 +54,7 @@ struct include :
     element
 {
 public:
-    explicit include()
+    include()
     {
         *this%Name_visible = Value_false;
     }

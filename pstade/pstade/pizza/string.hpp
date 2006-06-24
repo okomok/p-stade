@@ -160,7 +160,7 @@ private:
 
 public:
     template< class Profile, class CStringizable >
-    explicit string(Profile& pr, const CStringizable& valueName, std::ptrdiff_t bufsz = 256) :
+    string(Profile& pr, const CStringizable& valueName, std::ptrdiff_t bufsz = 256) :
         initer_t(pr, tomato::c_str(valueName), bufsz),
         super_t(m_buf)
     { }

@@ -92,10 +92,10 @@ private:
     typedef typename super_t::reference ref_t;
 
 public:
-    explicit adjacent_filter_iterator()
+    adjacent_filter_iterator()
     { }
 
-    explicit adjacent_filter_iterator(
+    adjacent_filter_iterator(
         ForwardIter it,
         ForwardIter first, ForwardIter last,
         BinaryPred pred

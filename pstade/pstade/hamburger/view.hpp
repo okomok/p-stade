@@ -99,7 +99,7 @@ public:
     }
 
 public:
-    explicit view()
+    view()
     {
         hamburger::set_default_view_attributes(*this);
     }

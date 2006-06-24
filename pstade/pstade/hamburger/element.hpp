@@ -45,7 +45,7 @@ struct element :
     lime::node_facade<element>,
     ATL::CMessageMap
 {
-    explicit element() :
+    element() :
         m_self(*this), m_created(false)
     {
         hamburger::set_default_element_attributes(*this);   

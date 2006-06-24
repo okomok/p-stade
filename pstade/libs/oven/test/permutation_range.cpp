@@ -27,7 +27,7 @@ void test()
         std::string ans("8623");
         int ind[] = { 8, 6, 2, 3 };
 
-        BOOST_CHECK( oven::equals( src|permutated(ind), ans ) );
+        BOOST_CHECK( oven::equals( src|permuted(ind), ans ) );
     }
 }
 

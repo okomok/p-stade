@@ -49,7 +49,7 @@ private:
     typedef typename super_t::iterator iter_t;
 
 public:
-    explicit tab_unexpand_range(ForwardRange& rng, int tabsize) :
+    tab_unexpand_range(ForwardRange& rng, int tabsize) :
         super_t(
             iter_t(boost::begin(rng), boost::end(rng), tabsize),
             iter_t(boost::end(rng), boost::end(rng), tabsize)
