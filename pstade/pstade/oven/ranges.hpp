@@ -40,6 +40,7 @@
 #include "./transform_range.hpp"
 #include "./unique_range.hpp"
 #include "./utf8_decode_range.hpp"
+#include "./zip_range.hpp"
 
 #include "./range_cast.hpp"
 #include "./sub_set.hpp"
