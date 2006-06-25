@@ -51,4 +51,5 @@ test-suite oven :
     [ oven-test tab_unexpand_range ]
     [ oven-test transform_range ]
     [ oven-test unique_range ]
+    [ oven-test zip_range ]
     ;
