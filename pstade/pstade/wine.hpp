@@ -28,6 +28,7 @@
 #include "./overload.hpp"
 #include "./pause.hpp"
 #include "./require.hpp"
+#include "./scoped_locale.hpp"
 #include "./statement.hpp"
 #include "./static_c.hpp"
 #include "./unused.hpp"

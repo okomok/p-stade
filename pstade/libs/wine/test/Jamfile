@@ -30,6 +30,7 @@ test-suite wine :
     [ wine-test overload ]
     [ wine-test pause ]
     [ wine-test require ]
+    # [ wine-test scoped_locale ]
     [ wine-test statement ]
     [ wine-test static_c ]
     [ wine-test verify ]
