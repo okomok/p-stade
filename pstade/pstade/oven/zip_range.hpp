@@ -11,12 +11,10 @@
 
 
 #include <boost/iterator/zip_iterator.hpp>
-#include <boost/mpl/assert.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <boost/range/result_iterator.hpp>
-#include <boost/static_assert.hpp>
-#include <boost/type_traits/is_reference.hpp>
 #include <boost/type_traits/remove_reference.hpp>
+#include <pstade/egg/function.hpp>
 #include "./is_lightweight_proxy.hpp"
 
 
@@ -32,14 +30,12 @@ namespace zip_range_detail {
 
     struct meta_result
     {
-        template< class RangeRef >
+        template< class Range >
         struct apply :
             boost::range_result_iterator<
-                typename boost::remove_reference<RangeRef>::type
+                typename boost::remove_reference<Range>::type
             >
-        {
-            BOOST_MPL_ASSERT(( boost::is_reference<RangeRef> ));
-        };
+        { };
     };
 
 
@@ -65,13 +61,13 @@ namespace zip_range_detail {
     };
 
 
-    template< class RangeRefTuple >
+    template< class RangeTuple >
     struct super_
     {
         typedef boost::iterator_range<
             boost::zip_iterator<
                 typename tuple_meta_transform<
-                    RangeRefTuple, meta_result
+                    RangeTuple, meta_result
                 >::type
             >
         > type;
@@ -81,16 +77,16 @@ namespace zip_range_detail {
 } // namespace zip_range_detail
 
 
-template< class RangeRefTuple >
+template< class RangeTuple >
 struct zip_range :
-    zip_range_detail::super_<RangeRefTuple>::type
+    zip_range_detail::super_<RangeTuple>::type
 {
 private:
-    typedef typename zip_range_detail::super_<RangeRefTuple>::type super_t;
+    typedef typename zip_range_detail::super_<RangeTuple>::type super_t;
     typedef typename super_t::iterator iter_t;
 
 public:
-    explicit zip_range(const RangeRefTuple& rngs) :
+    explicit zip_range(RangeTuple& rngs) :
         super_t(
             iter_t(zip_range_detail::tuple_transform(rngs, zip_range_detail::begin_fun())),
             iter_t(zip_range_detail::tuple_transform(rngs, zip_range_detail::end_fun()))
@@ -99,12 +95,29 @@ public:
 };
 
 
-template< class RangeRefTuple > inline const
-zip_range<RangeRefTuple>
-make_zip_range(const RangeRefTuple& rngs)
-{
-    return zip_range<RangeRefTuple>(rngs);
-}
+namespace zip_range_detail {
+
+
+    struct baby_generator
+    {
+        template< class RangeTuple >
+        struct result
+        {
+            typedef const zip_range<RangeTuple> type;
+        };
+
+        template< class Result, class RangeTuple >
+        Result call(RangeTuple& rngs)
+        {
+            return Result(rngs);
+        }
+    };
+
+
+} // namespace zip_range_detail
+
+
+PSTADE_EGG_FUNCTION(make_zip_range, zip_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven
