@@ -43,7 +43,7 @@ void test()
 
         BOOST_FOREACH (
             comma_protect<void(boost::tuple<char&, int&>)>::type t,
-            oven::make_zip_range(boost::make_tuple(boost::ref(src0), boost::ref(src1)))
+            oven::make_zip_range(boost::tie(src0, src1))
         ) {
             char& ch = boost::get<0>(t);
             if (ch == '4')

@@ -10,56 +10,20 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/mpl/integral_c.hpp>
-
-
-#define MACRO_THREE 3
-
-
-int const const_three = 3;
-
-
-struct mpl_three :
-    boost::mpl::integral_c<int, 3>
-{ };
-
-
-template< class T, T v >
-struct static_c
-{
-    static T const value = v;
-};
-
-template< class T, T v >
-T const
-static_c<T, v>::value;
-
-
-struct three :
-    static_c<int, 3>
-{ };
-
-
-inline
-void foo(int const& x)
-{
-    BOOST_CHECK( x == 3 );
-}
-
-
-template< class T >
-void bar()
-{
-    ::foo(MACRO_THREE);  // ok
-    ::foo(const_three);  // possible ODR violation
-    ::foo(mpl_three::value); // link error
-    ::foo(three::value); // ok
-}
+#include <iostream>
+#include <string>
+#include <boost/lambda/lambda.hpp>
+#include <boost/iterator/zip_iterator.hpp> // tuple_impl_specific
+#include <boost/tuple/tuple.hpp>
 
 
 void test()
 {
-    ::bar<int>();
+    namespace bdt = boost::detail::tuple_impl_specific;
+    namespace bll = boost::lambda;
+
+    boost::tuple<int, std::string, double> t(5, "hello, fusion!", 4.5);
+    bdt::tuple_for_each(t, std::cout << bll::_1 << '\n');
 }
 
 
