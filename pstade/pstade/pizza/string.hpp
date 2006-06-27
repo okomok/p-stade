@@ -121,10 +121,10 @@ namespace string_detail {
     buffer_t;
 
 
-    struct buffer_initer
+    struct buffer_init
     {
         template< class Profile >
-        buffer_initer(Profile& pr, const TCHAR *pszValueName, std::size_t bufsz) :
+        buffer_init(Profile& pr, const TCHAR *pszValueName, std::size_t bufsz) :
             m_ptr(new holder<Profile>(pr)),
             m_buf(1 + bufsz)
         {
@@ -147,7 +147,7 @@ namespace string_detail {
 
 
 struct string :
-    private string_detail::buffer_initer,
+    private string_detail::buffer_init,
     oven::null_terminate_range<string_detail::buffer_t>,
     private boost::noncopyable
 {
@@ -155,13 +155,13 @@ struct string :
     typedef string pstade_tomato_cstringizable; // yes!
 
 private:
-    typedef string_detail::buffer_initer initer_t; 
+    typedef string_detail::buffer_init init_t; 
     typedef oven::null_terminate_range<string_detail::buffer_t> super_t;
 
 public:
     template< class Profile, class CStringizable >
     string(Profile& pr, const CStringizable& valueName, std::ptrdiff_t bufsz = 256) :
-        initer_t(pr, tomato::c_str(valueName), bufsz),
+        init_t(pr, tomato::c_str(valueName), bufsz),
         super_t(m_buf)
     { }
 

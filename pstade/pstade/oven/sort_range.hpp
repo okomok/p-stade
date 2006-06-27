@@ -48,11 +48,11 @@ namespace sort_range_detail {
 
 
     template< class Range, class BinaryPred >
-    struct share_range_initializer
+    struct share_range_init
     {
         typedef typename iterator_container<Range>::type iters_t;
 
-        share_range_initializer(Range& rng, BinaryPred pred)
+        share_range_init(Range& rng, BinaryPred pred)
         {
             std::auto_ptr<iters_t> piters(new iters_t());
             oven::copy(rng|oven::directed, garlic::back_inserter(*piters));
@@ -81,11 +81,11 @@ namespace sort_range_detail {
 
 template< class Range, class BinaryPred = detail::less_than_fun >
 struct sort_range :
-    private sort_range_detail::share_range_initializer<Range, BinaryPred>,
+    private sort_range_detail::share_range_init<Range, BinaryPred>,
     sort_range_detail::super_<Range>::type
 {
 private:
-    typedef sort_range_detail::share_range_initializer<Range, BinaryPred> sh_rng_bt;
+    typedef sort_range_detail::share_range_init<Range, BinaryPred> sh_rng_bt;
     typedef typename sort_range_detail::super_<Range>::type super_t;
 
 public:

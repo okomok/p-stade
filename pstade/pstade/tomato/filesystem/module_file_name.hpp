@@ -39,9 +39,9 @@ namespace module_file_name_detail {
     buffer_t;
 
 
-    struct buffer_initer
+    struct buffer_init
     {
-        buffer_initer(HINSTANCE hInst)
+        buffer_init(HINSTANCE hInst)
         {
             BOOST_ASSERT(diet::valid(hInst));
 
@@ -61,7 +61,7 @@ namespace module_file_name_detail {
 
 
 struct module_file_name :
-    private module_file_name_detail::buffer_initer,
+    private module_file_name_detail::buffer_init,
     oven::null_terminate_range<module_file_name_detail::buffer_t>,
     private boost::noncopyable
 {
@@ -69,13 +69,13 @@ struct module_file_name :
     typedef module_file_name pstade_tomato_cstringizable;
 
 private:
-    typedef module_file_name_detail::buffer_initer initer_t; 
+    typedef module_file_name_detail::buffer_init init_t; 
     typedef oven::null_terminate_range<module_file_name_detail::buffer_t> super_t;
     typedef oven::sub_range_result_const<module_file_name>::type const_sub_range_t;
 
 public:
     explicit module_file_name(HINSTANCE hInst = _Module.GetModuleInstance()) :
-        initer_t(hInst),
+        init_t(hInst),
         super_t(m_buf)
     { }
 

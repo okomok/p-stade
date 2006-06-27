@@ -1,45 +1,62 @@
-#include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
+
+#include "atlstr.h"
 
 
-// PStade.P_Stade
-//
-// Copyright MB 2005-2006.
-// Distributed under the Boost Software License, Version 1.0.
-// (See accompanying file LICENSE_1_0.txt or copy at
-// http://www.boost.org/LICENSE_1_0.txt)
+#define PSTADE_BISCUIT_DEBUG_OUT std::wcout
+// パーサーデバッグ出力
+#include <pstade/biscuit.hpp>
 
+#include <pstade/oven.hpp>
+#include <pstade/oven/istream_range.hpp>
+#include <pstade/oven/multi_pass_range.hpp>
 
+//#include <pstade/oven/equal.hpp>
+
+#include <string>
+#include <fstream>
+#include <sstream>
 #include <iostream>
-#include <boost/algorithm/string.hpp>
-#include <pstade/locale_saver.hpp>
+#include <boost/algorithm/string/case_conv.hpp>
+#include <boost/assign.hpp>
+#include <boost/cstdint.hpp> // for uintXXX_t
+
+#include <vector>
+
+using namespace std;
+using namespace pstade;
+using namespace biscuit;
 
 
-void test()
+PSTADE_BISCUIT_LITERAL_SET(nengo, L"元年月日明治大正昭和平成")
+
+
+struct headpattern :
+    seq<
+        sol,
+        repeat<or_<wchrng<L'０',L'９'>, nengo>, 2>,
+        plus< not_< wchset<L' ',L'　',L'（'> > >
+    >
+{ };
+
+
+struct bb_action
 {
-    using namespace pstade;
-
-    locale_saver ls(std::wcout, "japanese");
-
-    std::wstring str(L"ａ");
-
-    // scoped_locale ls1("japanese"); // breaks vc8 wstreams.
-
+    template< class SubRange >
+        void operator()(SubRange rng, std::wostream& out)
     {
-        locale_saver ls("japanese"); // global
-        boost::to_upper(str);
-        BOOST_CHECK(( boost::equals(str, std::wstring(L"Ａ")) ));
-    }
-
-    std::wcout << str << std::endl;
-    std::wcout << L"kkkkkkkいほ" << std::endl;
-}
+	    out <<"<B>"<<oven::sequence_cast<std::wstring>(rng)<<"</B>";
+	}
+};
 
 
-int test_main(int, char*[])
+int _tmain(int argc, _TCHAR* argv[])
 {
-    ::test();
+    locale::global(locale("japanese"));// windows 日本語 外部S-JIS 内部 wchar_t
+
+    biscuit::iterate< actor<headpattern, bb_action> >(
+        oven::make_istream_range(wcin)|oven::multi_passed,
+        wcout, biscuit::output_action()
+    );
 
     return 0;
 }
-

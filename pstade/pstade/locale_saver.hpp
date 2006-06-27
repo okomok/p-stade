@@ -44,8 +44,7 @@ namespace locale_saver_detail {
     struct iostream_holder :
         iostream_placeholder
     {
-        explicit
-        iostream_holder(IOStream& ios) :
+        explicit iostream_holder(IOStream& ios) :
             m_held(ios)
         { }
 
@@ -111,23 +110,21 @@ private:
     typedef locale_saver_detail::super_<>::type super_t;
 
 public:
-    explicit
-    locale_saver(const std::locale& loc) :
+    explicit locale_saver(const std::locale& loc) :
         super_t(locale_saver_detail::global, loc)
     { }
 
-    explicit
-    locale_saver(const char *name) :
+    explicit locale_saver(const char *name) :
         super_t(locale_saver_detail::global, std::locale(name))
     { }
 
     template< class IOStream >
-    locale_saver(IOStream& ios, const std::locale& loc) :
+    explicit locale_saver(IOStream& ios, const std::locale& loc) :
         super_t(ios, loc)
     { }
 
     template< class IOStream >
-    locale_saver(IOStream& ios, const char *name) :
+    explicit locale_saver(IOStream& ios, const char *name) :
         super_t(ios, std::locale(name))
     { }
 };

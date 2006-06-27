@@ -25,6 +25,7 @@
 #include "./joint_range.hpp"
 #include "./map_key_range.hpp"
 #include "./map_value_range.hpp"
+#include "./multi_pass_range.hpp"
 #include "./null_terminate_range.hpp"
 #include "./permutation_range.hpp"
 #include "./pointer_range.hpp"

@@ -13,6 +13,7 @@
 #include <pstade/oven/find_range.hpp>
 
 
+#include <algorithm>
 #include <boost/algorithm/string.hpp>
 #include <boost/range/sub_range.hpp>
 #include <string>

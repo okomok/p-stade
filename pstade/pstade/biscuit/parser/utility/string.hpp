@@ -10,49 +10,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/null_terminate_range.hpp>
-#include <pstade/unused.hpp>
-#include "../../config/nullary_parser.hpp"
-#include "../../state/parse.hpp"
+#include "./literal.hpp"
 
 
-namespace pstade { namespace biscuit {
-
-
-namespace string_detail {
-
-
-    template< class State, class CharT >
-    bool aux(State& s, CharT const *psz)
-    {
-        typename optional_iterator<State>::type
-            opit = biscuit::state_parse(s, psz|oven::null_terminated);
-
-        if (!opit)
-            return false;
-
-        s.set_cur(*opit);
-        return true;
-    }
-
-
-} // namespace string_detail
-
-
-#define PSTADE_BISCUIT_STRING(t, psz) \
-    PSTADE_BISCUIT_NULLARY_PARSER_STRUCT(t) \
-    { \
-        template< class State, class UserState > \
-        static bool parse(State& s, UserState& us) \
-        { \
-            pstade::unused(us); \
-            return string_detail::aux(s, psz); \
-        } \
-    }; \
+#define PSTADE_BISCUIT_STRING \
+    PSTADE_BISCUIT_LITERAL_SEQ \
 /**/
-
-
-} } // namespace pstade::biscuit
 
 
 #endif

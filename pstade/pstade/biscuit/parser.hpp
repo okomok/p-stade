@@ -11,6 +11,7 @@
 
 
 #include "./parser/actor.hpp"
+#include "./parser/after.hpp"
 #include "./parser/and.hpp"
 #include "./parser/any.hpp"
 #include "./parser/before.hpp"

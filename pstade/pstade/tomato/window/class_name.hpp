@@ -33,9 +33,9 @@ namespace class_name_detail {
     buffer_t;
 
 
-    struct buffer_initer
+    struct buffer_init
     {
-        buffer_initer(HWND hWnd)
+        buffer_init(HWND hWnd)
         {
             BOOST_ASSERT(diet::valid(hWnd));
 
@@ -55,7 +55,7 @@ namespace class_name_detail {
 
 
 struct class_name :
-    private class_name_detail::buffer_initer,
+    private class_name_detail::buffer_init,
     oven::null_terminate_range<class_name_detail::buffer_t>,
     private boost::noncopyable
 {
@@ -63,12 +63,12 @@ struct class_name :
     typedef class_name pstade_tomato_cstringizable;
 
 private:
-    typedef class_name_detail::buffer_initer initer_t; 
+    typedef class_name_detail::buffer_init init_t; 
     typedef oven::null_terminate_range<class_name_detail::buffer_t> super_t;
 
 public:
     explicit class_name(HWND hWnd) :
-        initer_t(hWnd),
+        init_t(hWnd),
         super_t(m_buf)
     { }
 

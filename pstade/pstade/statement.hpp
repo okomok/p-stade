@@ -20,17 +20,17 @@
 
 
 #define PSTADE_STATEMENT(Label, Statement) \
-    PSTADE_STATEMENT_define_initializer_type(Label, Statement) \
+    PSTADE_STATEMENT_define_init_type(Label, Statement) \
     \
-    PSTADE_INSTANCE(PSTADE_STATEMENT_initializer_type(Label), \
-        PSTADE_STATEMENT_initializer(Label), value) \
+    PSTADE_INSTANCE(PSTADE_STATEMENT_init_type(Label), \
+        PSTADE_STATEMENT_init(Label), value) \
 /**/
 
 
-#define PSTADE_STATEMENT_define_initializer_type(Label, Statement) \
-    struct PSTADE_STATEMENT_initializer_type(Label) \
+#define PSTADE_STATEMENT_define_init_type(Label, Statement) \
+    struct PSTADE_STATEMENT_init_type(Label) \
     { \
-        PSTADE_STATEMENT_initializer_type(Label)() \
+        PSTADE_STATEMENT_init_type(Label)() \
         { \
             Statement \
         } \
@@ -38,13 +38,13 @@
 /**/
 
 
-#define PSTADE_STATEMENT_initializer_type(Label) \
-    BOOST_PP_CAT(pstade_statement_initializer_type_of_, Label) \
+#define PSTADE_STATEMENT_init_type(Label) \
+    BOOST_PP_CAT(pstade_statement_init_type_of_, Label) \
 /**/
 
 
-#define PSTADE_STATEMENT_initializer(Label) \
-    BOOST_PP_CAT(pstade_statement_initializer_of_, Label) \
+#define PSTADE_STATEMENT_init(Label) \
+    BOOST_PP_CAT(pstade_statement_init_of_, Label) \
 /**/
 
 

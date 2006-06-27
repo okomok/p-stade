@@ -13,19 +13,19 @@
 // Note:
 //
 // These are deprecated.
-// Prefer 'PSTADE_BISCUIT_STRING'.
+// Prefer 'PSTADE_BISCUIT_CHSEQ'.
 
 
-#include "./string.hpp"
+#include "./literal.hpp"
 
 
 #define PSTADE_BISCUIT_SYMBOL \
-    PSTADE_BISCUIT_STRING \
+    PSTADE_BISCUIT_LITERAL_SEQ \
 /**/
 
 
 #define PSTADE_BISCUIT_SYMBOL_PARSER \
-    PSTADE_BISCUIT_STRING \
+    PSTADE_BISCUIT_LITERAL_SEQ \
 /**/
 
 

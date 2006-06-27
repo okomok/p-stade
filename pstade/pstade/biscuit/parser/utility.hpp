@@ -13,6 +13,8 @@
 #include "./utility/eol.hpp"
 #include "./utility/newline.hpp"
 #include "./utility/line.hpp"
+#include "./utility/literal.hpp"
+#include "./utility/sol.hpp"
 #include "./utility/string.hpp"
 #include "./utility/symbol.hpp"
 

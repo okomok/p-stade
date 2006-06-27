@@ -48,9 +48,9 @@ namespace window_text_detail {
     buffer_t;
 
 
-    struct buffer_initer
+    struct buffer_init
     {
-        buffer_initer(HWND hWnd) :
+        buffer_init(HWND hWnd) :
             m_buf(1 + ::GetWindowTextLength(hWnd))
         {
             BOOST_ASSERT(diet::valid(hWnd));
@@ -71,7 +71,7 @@ namespace window_text_detail {
 
 
 struct window_text :
-    private window_text_detail::buffer_initer,
+    private window_text_detail::buffer_init,
     oven::null_terminate_range<window_text_detail::buffer_t>,
     private boost::noncopyable
 {
@@ -79,12 +79,12 @@ struct window_text :
     typedef window_text pstade_tomato_cstringizable;
 
 private:
-    typedef window_text_detail::buffer_initer initer_t; 
+    typedef window_text_detail::buffer_init init_t; 
     typedef oven::null_terminate_range<window_text_detail::buffer_t> super_t;
 
 public:
     explicit window_text(HWND hWnd) :
-        initer_t(hWnd),
+        init_t(hWnd),
         super_t(m_buf)
     { }
 
