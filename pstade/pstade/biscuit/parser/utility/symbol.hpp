@@ -13,7 +13,7 @@
 // Note:
 //
 // These are deprecated.
-// Prefer 'PSTADE_BISCUIT_CHSEQ'.
+// Prefer 'PSTADE_BISCUIT_LITERAL_SEQ'.
 
 
 #include "./literal.hpp"

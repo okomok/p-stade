@@ -36,6 +36,7 @@ test-suite oven :
     [ oven-test filter_range ]
     [ oven-test find_range ]
     [ oven-test indirect_range ]
+    [ oven-test istream_range ]
     [ oven-test joint_range ]
     [ oven-test null_terminate_range ]
     [ oven-test permutation_range ]
