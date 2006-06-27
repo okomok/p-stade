@@ -11,19 +11,28 @@
 
 
 #include <iostream>
-#include <string>
-#include <boost/lambda/lambda.hpp>
-#include <boost/iterator/zip_iterator.hpp> // tuple_impl_specific
-#include <boost/tuple/tuple.hpp>
+#include <boost/algorithm/string.hpp>
+#include <pstade/locale_saver.hpp>
 
 
 void test()
 {
-    namespace bdt = boost::detail::tuple_impl_specific;
-    namespace bll = boost::lambda;
+    using namespace pstade;
 
-    boost::tuple<int, std::string, double> t(5, "hello, fusion!", 4.5);
-    bdt::tuple_for_each(t, std::cout << bll::_1 << '\n');
+    locale_saver ls(std::wcout, "japanese");
+
+    std::wstring str(L"‚");
+
+    // scoped_locale ls1("japanese"); // breaks vc8 wstreams.
+
+    {
+        locale_saver ls("japanese"); // global
+        boost::to_upper(str);
+        BOOST_CHECK(( boost::equals(str, std::wstring(L"‚`")) ));
+    }
+
+    std::wcout << str << std::endl;
+    std::wcout << L"kkkkkkk‚¢‚Ù" << std::endl;
 }
 
 
