@@ -19,6 +19,7 @@
 #include "./empty_range.hpp"
 #include "./file_range.hpp"
 #include "./filter_range.hpp"
+#include "./find_range.hpp"
 #include "./indirect_range.hpp"
 #include "./istream_range.hpp"
 #include "./joint_range.hpp"

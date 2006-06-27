@@ -34,6 +34,7 @@ test-suite oven :
     [ oven-test counting_range ]
     [ oven-test direct_range ]
     [ oven-test filter_range ]
+    [ oven-test find_range ]
     [ oven-test indirect_range ]
     [ oven-test joint_range ]
     [ oven-test null_terminate_range ]
