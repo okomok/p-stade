@@ -33,5 +33,6 @@ test-suite wine :
     # [ wine-test locale_saver ]
     [ wine-test statement ]
     [ wine-test static_c ]
+    [ wine-test unused ]
     [ wine-test verify ]
     ;

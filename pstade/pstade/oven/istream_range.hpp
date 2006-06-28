@@ -32,7 +32,7 @@ namespace istream_range_detail {
     >
     struct super_
     {
-        typedef  boost::iterator_range<
+        typedef boost::iterator_range<
             std::istream_iterator<Value, CharT, Traits, Difference>
         > type;
     };

@@ -21,7 +21,8 @@ int pause()
 {
     std::cin.ignore();
     // or std::cin.get();
-    return 0;
+
+    return 0; // for 'main'
 }
 
 

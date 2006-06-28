@@ -10,100 +10,58 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Same as: Boost.ConceptCheck 'ignore_unused_variable_warning'
-//
-// (C) Copyright Jeremy Siek 2000.
-// Distributed under the Boost Software License, Version 1.0.
-// (See accompanying file LICENSE_1_0.txt or copy at
-// http://www.boost.org/LICENSE_1_0.txt)
+#include <boost/preprocessor/arithmetic/inc.hpp>
+#include <boost/preprocessor/cat.hpp>
+#include <boost/preprocessor/repetition/enum.hpp>
+#include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/preprocessor/repetition/repeat_from_to.hpp>
+
+
+#if !defined(PSTADE_UNUSED_MAX_ARITY)
+    #define PSTADE_UNUSED_MAX_ARITY 20
+#endif
 
 
 namespace pstade {
 
 
+// 0ary
+//
 inline
 void unused()
 { }
 
-template< class T0 > inline
-void unused(const T0&)
+
+// 1ary
+//
+template< class A0 > inline
+void unused(const A0&)
 { }
 
-template< class T0, class T1 > inline
-void unused(const T0&, const T1&)
+
+// 2ary
+//
+template< class A0, class A1 > inline
+void unused(const A0&, const A1&)
 { }
 
-template< class T0, class T1, class T2 > inline
-void unused(const T0&, const T1&, const T2&)
-{ }
 
-template< class T0, class T1, class T2, class T3 > inline
-void unused(const T0&, const T1&, const T2&, const T3&)
-{ }
+// 3ary -
+//
+#define PSTADE_UNUSED_def(Z, N, _) \
+    template< BOOST_PP_ENUM_PARAMS(N, class A) > inline \
+    void unused( BOOST_PP_ENUM(N, PSTADE_UNUSED_arg, ~) ) \
+    { } \
+/**/
 
-template< class T0, class T1, class T2, class T3, class T4 > inline
-void unused(const T0&, const T1&, const T2&, const T3&, const T4&)
-{ }
+#define PSTADE_UNUSED_arg(Z, N, _) \
+    const BOOST_PP_CAT(A, N) & \
+/**/
 
-template< class T0, class T1, class T2, class T3, class T4, class T5 > inline
-void unused(const T0&, const T1&, const T2&, const T3&, const T4&, const T5&)
-{ }
+BOOST_PP_REPEAT_FROM_TO(3, BOOST_PP_INC(PSTADE_UNUSED_MAX_ARITY), PSTADE_UNUSED_def, ~)
 
-template< class T0, class T1, class T2, class T3, class T4, class T5, class T6 > inline
-void unused(const T0&, const T1&, const T2&, const T3&, const T4&, const T5&, const T6&)
-{ }
-
-template< class T0, class T1, class T2, class T3, class T4, class T5, class T6, class T7 > inline
-void unused(const T0&, const T1&, const T2&, const T3&, const T4&, const T5&, const T6&, const T7&)
-{ }
-
-template< class T0, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8 > inline
-void unused(const T0&, const T1&, const T2&, const T3&, const T4&, const T5&, const T6&, const T7&, const T8&)
-{ }
-
-template< class T0, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8, class T9 > inline
-void unused(const T0&, const T1&, const T2&, const T3&, const T4&, const T5&, const T6&, const T7&, const T8&, const T9&)
-{ }
-
-template< class T0, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8, class T9, class T10 > inline
-void unused(const T0&, const T1&, const T2&, const T3&, const T4&, const T5&, const T6&, const T7&, const T8&, const T9&, const T10&)
-{ }
-
-template< class T0, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8, class T9, class T10, class T11 > inline
-void unused(const T0&, const T1&, const T2&, const T3&, const T4&, const T5&, const T6&, const T7&, const T8&, const T9&, const T10&, const T11&)
-{ }
-
-template< class T0, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8, class T9, class T10, class T11, class T12 > inline
-void unused(const T0&, const T1&, const T2&, const T3&, const T4&, const T5&, const T6&, const T7&, const T8&, const T9&, const T10&, const T11&, const T12&)
-{ }
-
-template< class T0, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8, class T9, class T10, class T11, class T12, class T13 > inline
-void unused(const T0&, const T1&, const T2&, const T3&, const T4&, const T5&, const T6&, const T7&, const T8&, const T9&, const T10&, const T11&, const T12&, const T13&)
-{ }
-
-template< class T0, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8, class T9, class T10, class T11, class T12, class T13, class T14 > inline
-void unused(const T0&, const T1&, const T2&, const T3&, const T4&, const T5&, const T6&, const T7&, const T8&, const T9&, const T10&, const T11&, const T12&, const T13&, const T14&)
-{ }
-
-template< class T0, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8, class T9, class T10, class T11, class T12, class T13, class T14, class T15 > inline
-void unused(const T0&, const T1&, const T2&, const T3&, const T4&, const T5&, const T6&, const T7&, const T8&, const T9&, const T10&, const T11&, const T12&, const T13&, const T14&, const T15&)
-{ }
-
-template< class T0, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8, class T9, class T10, class T11, class T12, class T13, class T14, class T15, class T16 > inline
-void unused(const T0&, const T1&, const T2&, const T3&, const T4&, const T5&, const T6&, const T7&, const T8&, const T9&, const T10&, const T11&, const T12&, const T13&, const T14&, const T15&, const T16&)
-{ }
-
-template< class T0, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8, class T9, class T10, class T11, class T12, class T13, class T14, class T15, class T16, class T17 > inline
-void unused(const T0&, const T1&, const T2&, const T3&, const T4&, const T5&, const T6&, const T7&, const T8&, const T9&, const T10&, const T11&, const T12&, const T13&, const T14&, const T15&, const T16&, const T17&)
-{ }
-
-template< class T0, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8, class T9, class T10, class T11, class T12, class T13, class T14, class T15, class T16, class T17, class T18 > inline
-void unused(const T0&, const T1&, const T2&, const T3&, const T4&, const T5&, const T6&, const T7&, const T8&, const T9&, const T10&, const T11&, const T12&, const T13&, const T14&, const T15&, const T16&, const T17&, const T18&)
-{ }
-
-template< class T0, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8, class T9, class T10, class T11, class T12, class T13, class T14, class T15, class T16, class T17, class T18, class T19 > inline
-void unused(const T0&, const T1&, const T2&, const T3&, const T4&, const T5&, const T6&, const T7&, const T8&, const T9&, const T10&, const T11&, const T12&, const T13&, const T14&, const T15&, const T16&, const T17&, const T18&, const T19&)
-{ }
+#undef PSTADE_UNUSED_arg
+#undef PSTADE_UNUSED_def
 
 
 } // namespace pstade
