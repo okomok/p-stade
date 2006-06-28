@@ -27,7 +27,7 @@ using namespace pstade;
 using namespace biscuit;
 
 
-PSTADE_BISCUIT_LITERAL_SET(nengo, L"Œ³”NŒ“ú–¾¡‘å³º˜a•½¬")
+PSTADE_BISCUIT_SET_LITERAL(nengo, L"Œ³”NŒ“ú–¾¡‘å³º˜a•½¬")
 
 
 struct headpattern :

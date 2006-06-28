@@ -90,7 +90,7 @@ baby_call(A0& a0, A1& a1)
 template< class BabyFunction, BOOST_PP_ENUM_PARAMS(n, class A) > inline
 typename BOOST_PP_CAT(baby_result, n)<BabyFunction,
     BOOST_PP_ENUM_PARAMS(n, A)
->::type \
+>::type
 baby_call( BOOST_PP_ENUM(n, PSTADE_EGG_arg, ~) )
 {
     typedef typename BOOST_PP_CAT(baby_result, n)<BabyFunction,

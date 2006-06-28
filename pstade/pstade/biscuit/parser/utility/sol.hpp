@@ -22,10 +22,17 @@ namespace pstade { namespace biscuit {
 
 
 PSTADE_BISCUIT_NULLARY_PARSER_STRUCT(sol) :
-    or_3<
-        PSTADE_BISCUIT_NULLARY_PARSER(begin),
+    or_2<
         after< PSTADE_BISCUIT_NULLARY_PARSER(newline), 1 >,
-        after< PSTADE_BISCUIT_NULLARY_PARSER(newline), 2 >
+        PSTADE_BISCUIT_NULLARY_PARSER(begin)        
+    >
+{ };
+
+
+PSTADE_BISCUIT_NULLARY_PARSER_STRUCT(wsol) :
+    or_2<
+        after< PSTADE_BISCUIT_NULLARY_PARSER(wnewline), 1 >,
+        PSTADE_BISCUIT_NULLARY_PARSER(begin)        
     >
 { };
 
@@ -34,6 +41,10 @@ PSTADE_BISCUIT_NULLARY_PARSER_STRUCT(sol) :
 //
 template<>
 struct not_< PSTADE_BISCUIT_NULLARY_PARSER(sol) >;
+
+
+template<>
+struct not_< PSTADE_BISCUIT_NULLARY_PARSER(wsol) >;
 
 
 } } // namespace pstade::biscuit

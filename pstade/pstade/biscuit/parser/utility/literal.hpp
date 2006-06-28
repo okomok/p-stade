@@ -55,7 +55,7 @@ namespace literal_detail {
 } // namespace literal_detail
 
 
-#define PSTADE_BISCUIT_LITERAL_SEQ(t, psz) \
+#define PSTADE_BISCUIT_SEQ_LITERAL(t, psz) \
     PSTADE_BISCUIT_NULLARY_PARSER_STRUCT(t) \
     { \
         template< class State, class UserState > \
@@ -68,7 +68,7 @@ namespace literal_detail {
 /**/
 
 
-#define PSTADE_BISCUIT_LITERAL_SET(t, psz) \
+#define PSTADE_BISCUIT_SET_LITERAL(t, psz) \
     PSTADE_BISCUIT_NULLARY_PARSER_STRUCT(t) \
     { \
         template< class State, class UserState > \

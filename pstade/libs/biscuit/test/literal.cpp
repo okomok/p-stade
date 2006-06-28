@@ -21,11 +21,11 @@ using namespace pstade;
 using namespace biscuit;
 
 
-PSTADE_BISCUIT_LITERAL_SEQ(hello, "hello")
-PSTADE_BISCUIT_LITERAL_SEQ(bye, L"bye")
+PSTADE_BISCUIT_SEQ_LITERAL(hello, "hello")
+PSTADE_BISCUIT_SEQ_LITERAL(bye, L"bye")
 
-PSTADE_BISCUIT_LITERAL_SET(hello_, "hello")
-PSTADE_BISCUIT_LITERAL_SET(bye_, L"bye")
+PSTADE_BISCUIT_SET_LITERAL(hello_, "hello")
+PSTADE_BISCUIT_SET_LITERAL(bye_, L"bye")
 
 
 void test()
