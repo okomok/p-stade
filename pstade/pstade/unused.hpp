@@ -1,3 +1,4 @@
+#ifndef BOOST_PP_IS_ITERATING
 #ifndef PSTADE_UNUSED_HPP
 #define PSTADE_UNUSED_HPP
 
@@ -10,11 +11,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/preprocessor/arithmetic/inc.hpp>
 #include <boost/preprocessor/cat.hpp>
+#include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/preprocessor/repetition/repeat_from_to.hpp>
 
 
 #if !defined(PSTADE_UNUSED_MAX_ARITY)
@@ -48,23 +48,26 @@ void unused(const A0&, const A1&)
 
 // 3ary -
 //
-#define PSTADE_UNUSED_def(Z, N, _) \
-    template< BOOST_PP_ENUM_PARAMS(N, class A) > inline \
-    void unused( BOOST_PP_ENUM(N, PSTADE_UNUSED_arg, ~) ) \
-    { } \
-/**/
-
 #define PSTADE_UNUSED_arg(Z, N, _) \
     const BOOST_PP_CAT(A, N) & \
 /**/
 
-BOOST_PP_REPEAT_FROM_TO(3, BOOST_PP_INC(PSTADE_UNUSED_MAX_ARITY), PSTADE_UNUSED_def, ~)
-
-#undef PSTADE_UNUSED_arg
-#undef PSTADE_UNUSED_def
+#define BOOST_PP_ITERATION_PARAMS_1 (3, (3, PSTADE_UNUSED_MAX_ARITY, <pstade/unused.hpp>))
+#include BOOST_PP_ITERATE()
 
 
 } // namespace pstade
 
 
+#endif
+#else
+#define n BOOST_PP_ITERATION()
+
+
+template< BOOST_PP_ENUM_PARAMS(n, class A) > inline
+void unused( BOOST_PP_ENUM(n, PSTADE_UNUSED_arg, ~) )
+{ }
+
+
+#undef n
 #endif

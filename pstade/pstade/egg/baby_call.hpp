@@ -1,3 +1,4 @@
+#ifndef BOOST_PP_IS_ITERATING
 #ifndef PSTADE_EGG_BABY_CALL_HPP
 #define PSTADE_EGG_BABY_CALL_HPP
 
@@ -10,11 +11,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/preprocessor/arithmetic/inc.hpp>
 #include <boost/preprocessor/cat.hpp>
+#include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/preprocessor/repetition/repeat_from_to.hpp>
 #include "./baby_result_type.hpp"
 #include "./detail/config.hpp"
 
@@ -69,32 +69,37 @@ baby_call(A0& a0, A1& a1)
 
 // 3ary -
 //
-#define PSTADE_EGG_baby_call(Z, N, _) \
-    template< class BabyFunction, BOOST_PP_ENUM_PARAMS(N, class A) > inline \
-    typename BOOST_PP_CAT(baby_result, N)<BabyFunction, \
-        BOOST_PP_ENUM_PARAMS(N, A) \
-    >::type \
-    baby_call( BOOST_PP_ENUM(N, PSTADE_EGG_arg, ~) ) \
-    { \
-        typedef typename BOOST_PP_CAT(baby_result, N)<BabyFunction, \
-            BOOST_PP_ENUM_PARAMS(N, A) \
-        >::type result_t; \
-        \
-        return BabyFunction().template call<result_t>( BOOST_PP_ENUM_PARAMS(N, a) ); \
-    } \
-/**/
-
 #define PSTADE_EGG_arg(Z, N, _) \
     BOOST_PP_CAT(A, N) & BOOST_PP_CAT(a, N) \
 /**/
 
-BOOST_PP_REPEAT_FROM_TO(3, BOOST_PP_INC(PSTADE_EGG_MAX_ARITY), PSTADE_EGG_baby_call, ~)
+#define BOOST_PP_ITERATION_PARAMS_1 (3, (3, PSTADE_EGG_MAX_ARITY, <pstade/egg/baby_call.hpp>))
+#include BOOST_PP_ITERATE()
 
 #undef PSTADE_EGG_arg
-#undef PSTADE_EGG_baby_call
 
 
 } } // namespace pstade::egg
 
 
+#endif
+#else
+#define n BOOST_PP_ITERATION()
+
+
+template< class BabyFunction, BOOST_PP_ENUM_PARAMS(n, class A) > inline
+typename BOOST_PP_CAT(baby_result, n)<BabyFunction,
+    BOOST_PP_ENUM_PARAMS(n, A)
+>::type \
+baby_call( BOOST_PP_ENUM(n, PSTADE_EGG_arg, ~) )
+{
+    typedef typename BOOST_PP_CAT(baby_result, n)<BabyFunction,
+        BOOST_PP_ENUM_PARAMS(n, A)
+    >::type result_t;
+
+    return BabyFunction().template call<result_t>( BOOST_PP_ENUM_PARAMS(n, a) );
+}
+
+
+#undef n
 #endif

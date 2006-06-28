@@ -1,3 +1,4 @@
+#ifndef BOOST_PP_IS_ITERATING
 #ifndef PSTADE_EGG_FUNCTION_HPP
 #define PSTADE_EGG_FUNCTION_HPP
 
@@ -10,10 +11,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/preprocessor/arithmetic/inc.hpp>
 #include <boost/preprocessor/cat.hpp>
+#include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/preprocessor/repetition/repeat_from_to.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/comma_protect.hpp>
 #include <pstade/instance.hpp>
@@ -69,16 +69,8 @@ namespace boost {
 
     // 3ary -
     //
-    #define PSTADE_EGG_result_of(Z, N, _) \
-        template< class BabyFunction, BOOST_PP_ENUM_PARAMS(N, class A) > \
-        struct result_of<pstade::egg::function<BabyFunction>( BOOST_PP_ENUM_PARAMS(N, A) )> : \
-            pstade::egg::BOOST_PP_CAT(baby_result, N)< BabyFunction, BOOST_PP_ENUM_PARAMS(N, A) > \
-        { }; \
-    /**/
-
-    BOOST_PP_REPEAT_FROM_TO(3, BOOST_PP_INC(PSTADE_EGG_MAX_ARITY), PSTADE_EGG_result_of, ~)
-
-    #undef PSTADE_EGG_result_of
+    #define BOOST_PP_ITERATION_PARAMS_1 (3, (3, PSTADE_EGG_MAX_ARITY, <pstade/egg/function.hpp>))
+    #include BOOST_PP_ITERATE()
 
 
 #endif
@@ -99,4 +91,16 @@ namespace boost {
 /**/
 
 
+#endif
+#else
+#define n BOOST_PP_ITERATION()
+
+
+template< class BabyFunction, BOOST_PP_ENUM_PARAMS(n, class A) >
+struct result_of<pstade::egg::function<BabyFunction>( BOOST_PP_ENUM_PARAMS(n, A) )> :
+    pstade::egg::BOOST_PP_CAT(baby_result, n)< BabyFunction, BOOST_PP_ENUM_PARAMS(n, A) >
+{ };
+
+
+#undef n
 #endif

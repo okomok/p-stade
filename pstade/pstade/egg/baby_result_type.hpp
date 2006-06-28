@@ -1,3 +1,4 @@
+#ifndef BOOST_PP_IS_ITERATING
 #ifndef PSTADE_EGG_BABY_RESULT_TYPE_HPP
 #define PSTADE_EGG_BABY_RESULT_TYPE_HPP
 
@@ -24,11 +25,10 @@
 #include <boost/mpl/apply.hpp>
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
-#include <boost/preprocessor/arithmetic/inc.hpp>
 #include <boost/preprocessor/cat.hpp>
+#include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/preprocessor/repetition/repeat_from_to.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 #include "./detail/config.hpp"
 #include "./detail/has_result_type.hpp"
@@ -92,26 +92,31 @@ struct baby_result2 :
 
 // 3ary -
 //
-#define PSTADE_EGG_baby_result(Z, N, _) \
-    template< class BabyFunction, BOOST_PP_ENUM_PARAMS(N, class A) > \
-    struct BOOST_PP_CAT(baby_result, N) : \
-        BabyFunction::template result< \
-            BOOST_PP_ENUM(N, PSTADE_EGG_remove_ref, ~) \
-        > \
-    { }; \
-/**/
-
 #define PSTADE_EGG_remove_ref(Z, N, _) \
     typename boost::remove_reference< BOOST_PP_CAT(A, N) >::type \
 /**/
 
-BOOST_PP_REPEAT_FROM_TO(3, BOOST_PP_INC(PSTADE_EGG_MAX_ARITY), PSTADE_EGG_baby_result, ~)
+#define BOOST_PP_ITERATION_PARAMS_1 (3, (3, PSTADE_EGG_MAX_ARITY, <pstade/egg/baby_result_type.hpp>))
+#include BOOST_PP_ITERATE()
 
 #undef PSTADE_EGG_remove_ref
-#undef PSTADE_EGG_baby_result
 
 
 } } // namespace pstade::egg
 
 
+#endif
+#else
+#define n BOOST_PP_ITERATION()
+
+
+template< class BabyFunction, BOOST_PP_ENUM_PARAMS(n, class A) >
+struct BOOST_PP_CAT(baby_result, n) :
+    BabyFunction::template result<
+        BOOST_PP_ENUM(n, PSTADE_EGG_remove_ref, ~)
+    >
+{ };
+
+
+#undef n
 #endif
