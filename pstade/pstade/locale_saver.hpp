@@ -80,6 +80,7 @@ namespace locale_saver_detail {
     {
         typedef super_ type;
 
+    protected:
         template< class IOStream >
         super_(IOStream& ios, const std::locale& loc) :
             m_pios(new iostream_holder<IOStream>(ios)),
@@ -103,7 +104,7 @@ namespace locale_saver_detail {
 
 
 struct locale_saver :
-    locale_saver_detail::super_<>::type,
+    private locale_saver_detail::super_<>::type,
     private boost::noncopyable
 {
 private:

@@ -31,7 +31,7 @@
                     if (state_is_end(s)) \
                         return false; \
                     \
-                    if (!pred(*s.get_cur(), std::locale())) \
+                    if (!pred( *s.get_cur(), std::locale() )) \
                         return false; \
                     \
                     state_increment(s); \

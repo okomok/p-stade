@@ -15,11 +15,6 @@
 // http://d.hatena.ne.jp/y-hamigaki/20060409#1144593955
 
 
-// Todo:
-//
-// Exception-safe
-
-
 #include <bitset>
 #include <boost/assert.hpp>
 #include <boost/config.hpp>

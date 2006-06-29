@@ -28,8 +28,8 @@ namespace buffer_detail {
     template< class PointerRange > inline
     UINT_PTR bytes(const PointerRange& buf)
     {
-        typedef typename boost::range_value<PointerRange>::type value_t;
-        return pstade::integral( sizeof(value_t) * oven::distance(buf) );
+        typedef typename boost::range_value<PointerRange>::type val_t;
+        return pstade::integral( sizeof(val_t) * oven::distance(buf) );
     }
 
 

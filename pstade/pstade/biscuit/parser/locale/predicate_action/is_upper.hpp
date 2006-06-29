@@ -13,7 +13,7 @@
 #include "./detail/define_locale_predicate_action.hpp"
 
 
-BISCUIT_DEFINE_LOCALE_PREDICATE_ACTION(is_upper, std::isupper)
+PSTADE_BISCUIT_DEFINE_LOCALE_PREDICATE_ACTION(is_upper, std::isupper)
 
 
 #endif

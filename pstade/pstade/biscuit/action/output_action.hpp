@@ -11,7 +11,7 @@
 
 
 #include <boost/foreach.hpp>
-#include <boost/range/value_type.hpp>
+#include <boost/range/reference.hpp>
 
 
 namespace pstade { namespace biscuit {
@@ -22,9 +22,9 @@ struct output_action
     template< class ParsingSubRange, class UserState >
     void operator()(ParsingSubRange& rng, UserState& out) const
     {
-        typedef typename boost::range_value<ParsingSubRange>::type value_t;
-        BOOST_FOREACH (value_t const& val, rng) {
-            out << val;
+        typedef typename boost::range_reference<ParsingSubRange>::type ref_t;
+        BOOST_FOREACH (ref_t v, rng) {
+            out << v;
         }
     }
 };

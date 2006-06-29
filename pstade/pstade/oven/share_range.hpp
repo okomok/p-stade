@@ -13,13 +13,13 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
-#include <boost/shared_container_iterator.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/type_traits/remove_pointer.hpp>
 #include <boost/utility/base_from_member.hpp>
 #include <pstade/egg/function.hpp>
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
+#include "./share_iterator.hpp"
 
 
 namespace pstade { namespace oven {
@@ -32,7 +32,7 @@ namespace share_range_detail {
     struct super_
     {
         typedef boost::iterator_range<
-            boost::shared_container_iterator<Range>
+            share_iterator<Range>
         > type;
     };
 
@@ -53,13 +53,13 @@ private:
 public:
     // Question:
     // Default constructible seems to make some initialization easy
-    // and exception-safe. But is it still proper?
+    // But is it still proper?
     //
     explicit share_range()
     { }
 
     explicit share_range(Range *prng) :
-        ptr_bt(boost::shared_ptr<Range>(prng)),
+        ptr_bt(prng),
         super_t(
            iter_t(boost::begin(*ptr_bt::member), ptr_bt::member),
            iter_t(boost::end(*ptr_bt::member), ptr_bt::member)

@@ -2,12 +2,11 @@
 The Biscuit Parser Library
 ++++++++++++++++++++++++++
 
-.. include:: ../../doc/refs.rst
 
 :Author: MB and Christopher Diggins(original author)
 :Contact: mb2act@yahoo.co.jp 
 :License: Distributed under the `Boost Software License Version 1.0`_
-:Version: 1.02.7
+:Version: 1.02.8
 
 
 
@@ -153,7 +152,7 @@ the expression ``v(us)`` must be valid, where ``v`` is an object of type `Value 
 
 .. [#] `Parsing SubRange`_ is not defined as ``boost::sub_range`` for broken compilers,
        but you can catch it using ``boost::sub_range<ParsingRange>``. Note that
-       the latest ``boost::sub_range`` has no value semantics under eVC4 and VC8 because of their bugs.
+       ``boost::sub_range`` is not always assignable under eVC4 and VC8 because of their bugs.
 
 
 
@@ -255,14 +254,14 @@ before Biscuit headers. VC++7.1 limits ``PSTADE_BISCUIT_LIMIT_PARSER_ARITY`` to 
 Note that the big arity tends to make internal compiler errors.
 
 
-Symbol
-^^^^^^
-Unfortunately you cannot pass a string literal to templates.
-``chseq`` template parameter arity is limited. For that workaround, ``PSTADE_BISCUIT_SYMBOL`` macro is provided::
+Literal
+^^^^^^^
+Unfortunately you can't pass a string literal to templates.
+``chseq`` template parameter arity is limited. For that workaround, ``PSTADE_BISCUIT_SEQ_LITERAL`` macro is provided::
 
-	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\predefined_parsers_symbol.ipp
+	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\predefined_parsers_literal.ipp
 
-``PSTADE_BISCUIT_SYMBOL`` defines `Parser`_ whose name is the first argument by using
+``PSTADE_BISCUIT_SEQ_LITERAL`` defines a `Parser`_ whose name is the first argument by using
 the string literal that is passed as the second argument.
 
 
@@ -586,10 +585,18 @@ Version 1.02.0 - 1.02.5
 
 Version 1.02.6
 ^^^^^^^^^^^^^^
-- Added `Symbol`_.
+- Added ``PSTADE_BISCUIT_SYMBOL``.
 
 Version 1.02.7
 ^^^^^^^^^^^^^^
-- Rearrange `Basic Concepts`_.
+- Rearranged `Basic Concepts`_.
 
+Version 1.02.8
+^^^^^^^^^^^^^^
+- Renamed ``PSTADE_BISCUIT_SYMBOL`` to ``PSTADE_BISCUIT_SEQ_LITERAL``.
+- Fixed a few bugs.
+
+
+
+.. include:: ../../doc/refs.rst
 

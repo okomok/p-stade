@@ -27,7 +27,7 @@
 <tr class="field"><th class="docinfo-name">License:</th><td class="field-body">Distributed under the <a class="reference" href="http://www.boost.org/LICENSE_1_0.txt">Boost Software License Version 1.0</a></td>
 </tr>
 <tr><th class="docinfo-name">Version:</th>
-<td>1.02.7</td></tr>
+<td>1.02.8</td></tr>
 </tbody>
 </table>
 <img alt="Biscuit" src="./doc/logo.png" />
@@ -54,7 +54,7 @@
 </li>
 <li><a class="reference" href="#predefined-parsers" id="id46" name="id46">7&nbsp;&nbsp;&nbsp;Predefined Parsers</a><ul class="auto-toc">
 <li><a class="reference" href="#primitives" id="id47" name="id47">7.1&nbsp;&nbsp;&nbsp;Primitives</a></li>
-<li><a class="reference" href="#symbol" id="id48" name="id48">7.2&nbsp;&nbsp;&nbsp;Symbol</a></li>
+<li><a class="reference" href="#literal" id="id48" name="id48">7.2&nbsp;&nbsp;&nbsp;Literal</a></li>
 <li><a class="reference" href="#actor" id="id49" name="id49">7.3&nbsp;&nbsp;&nbsp;Actor</a></li>
 <li><a class="reference" href="#directives" id="id50" name="id50">7.4&nbsp;&nbsp;&nbsp;Directives</a></li>
 </ul>
@@ -88,6 +88,7 @@
 <li><a class="reference" href="#version-1-02-0-1-02-5" id="id71" name="id71">17.1&nbsp;&nbsp;&nbsp;Version 1.02.0 - 1.02.5</a></li>
 <li><a class="reference" href="#version-1-02-6" id="id72" name="id72">17.2&nbsp;&nbsp;&nbsp;Version 1.02.6</a></li>
 <li><a class="reference" href="#version-1-02-7" id="id73" name="id73">17.3&nbsp;&nbsp;&nbsp;Version 1.02.7</a></li>
+<li><a class="reference" href="#version-1-02-8" id="id74" name="id74">17.4&nbsp;&nbsp;&nbsp;Version 1.02.8</a></li>
 </ul>
 </li>
 </ul>
@@ -123,7 +124,7 @@ expression ::= term (('+' term) | ('-' term))*
 <p>Through the magic of the lazy template instantiation, these are perfectly valid types.
 The production rule <tt class="docutils literal"><span class="pre">expression</span></tt> is a type that has a static member function <tt class="docutils literal"><span class="pre">parse</span></tt>.
 As <tt class="docutils literal"><span class="pre">parse</span></tt> will be instantiated later by <a class="reference" href="#algorithms">Algorithms</a>, all you have to do is to declare a type.</p>
-<p>Direct recurring types <a class="footnote-reference" href="#id4" id="id3" name="id3">[1]</a> also are valid:</p>
+<p>Direct recurring types <a class="footnote-reference" href="#id2" id="id1" name="id1">[1]</a> also are valid:</p>
 <pre class="cpp_source">
 <span class="cpp_keyword">struct </span>S :
     or_&lt;
@@ -134,10 +135,10 @@ As <tt class="docutils literal"><span class="pre">parse</span></tt> will be inst
 </pre>
 
 <p>Note that left-recursions are not allowed, though compilers might detect them if templates are easy.</p>
-<table class="docutils footnote" frame="void" id="id4" rules="none">
+<table class="docutils footnote" frame="void" id="id2" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id3" name="id4">[1]</a></td><td><tt class="docutils literal"><span class="pre">typedef</span></tt> is not available for such usage but can define a non-recurring parser inside a function unlike <tt class="docutils literal"><span class="pre">struct</span></tt>.</td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id1" name="id2">[1]</a></td><td><tt class="docutils literal"><span class="pre">typedef</span></tt> is not available for such usage but can define a non-recurring parser inside a function unlike <tt class="docutils literal"><span class="pre">struct</span></tt>.</td></tr>
 </tbody>
 </table>
 </div>
@@ -175,7 +176,7 @@ As <tt class="docutils literal"><span class="pre">parse</span></tt> will be inst
 </pre>
 
 </li>
-<li><p class="first">Call <a class="reference" href="#algorithms">Algorithms</a> <a class="footnote-reference" href="#id8" id="id7" name="id7">[2]</a>:</p>
+<li><p class="first">Call <a class="reference" href="#algorithms">Algorithms</a> <a class="footnote-reference" href="#id6" id="id5" name="id5">[2]</a>:</p>
 <pre class="cpp_source">
 std::string text(<span class="cpp_string_literal">&quot;/* Hello, Biscuit! */&quot;</span>);
 <span class="cpp_keyword">if </span>(biscuit::match&lt;c_comment&gt;(text)) {
@@ -184,10 +185,10 @@ std::string text(<span class="cpp_string_literal">&quot;/* Hello, Biscuit! */&qu
 
 </li>
 </ol>
-<table class="docutils footnote" frame="void" id="id8" rules="none">
+<table class="docutils footnote" frame="void" id="id6" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id7" name="id8">[2]</a></td><td>An unqualified call may trigger an unintentional ADL. You must always add <tt class="docutils literal"><span class="pre">biscuit::</span></tt>.</td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id5" name="id6">[2]</a></td><td>An unqualified call may trigger an unintentional ADL. You must always add <tt class="docutils literal"><span class="pre">biscuit::</span></tt>.</td></tr>
 </tbody>
 </table>
 </div>
@@ -214,7 +215,7 @@ the <tt class="docutils literal"><span class="pre">value_type</span></tt> of the
 </div>
 <div class="section">
 <h2><a class="toc-backref" href="#id43" id="parsing-subrange" name="parsing-subrange">6.4&nbsp;&nbsp;&nbsp;Parsing SubRange</a></h2>
-<p>A <tt class="docutils literal"><span class="pre">ParsingSubRange</span></tt> <a class="footnote-reference" href="#id11" id="id10" name="id10">[3]</a> is a <tt class="docutils literal"><span class="pre">boost::iterator_range&lt;boost::range_result_iterator&lt;ParsingRange&gt;::type&gt;</span></tt>.</p>
+<p>A <tt class="docutils literal"><span class="pre">ParsingSubRange</span></tt> <a class="footnote-reference" href="#id9" id="id8" name="id8">[3]</a> is a <tt class="docutils literal"><span class="pre">boost::iterator_range&lt;boost::range_result_iterator&lt;ParsingRange&gt;::type&gt;</span></tt>.</p>
 </div>
 <div class="section">
 <h2><a class="toc-backref" href="#id44" id="semantic-action" name="semantic-action">6.5&nbsp;&nbsp;&nbsp;Semantic Action</a></h2>
@@ -227,12 +228,12 @@ the expression <tt class="docutils literal"><span class="pre">a(r,</span> <span 
 <p>A <tt class="docutils literal"><span class="pre">ValueFunctor</span></tt> is a <a class="reference" href="http://www.sgi.com/tech/stl/DefaultConstructible.html">Default Constructible</a> <a class="reference" href="http://www.sgi.com/tech/stl/functors.html">Functor</a> and
 the expression <tt class="docutils literal"><span class="pre">v(us)</span></tt> must be valid, where <tt class="docutils literal"><span class="pre">v</span></tt> is an object of type <a class="reference" href="#value-functor">Value Functor</a> and
 <tt class="docutils literal"><span class="pre">us</span></tt> is an object of type <a class="reference" href="#user-state">User State</a>.</p>
-<table class="docutils footnote" frame="void" id="id11" rules="none">
+<table class="docutils footnote" frame="void" id="id9" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id10" name="id11">[3]</a></td><td><a class="reference" href="#parsing-subrange">Parsing SubRange</a> is not defined as <tt class="docutils literal"><span class="pre">boost::sub_range</span></tt> for broken compilers,
+<tr><td class="label"><a class="fn-backref" href="#id8" name="id9">[3]</a></td><td><a class="reference" href="#parsing-subrange">Parsing SubRange</a> is not defined as <tt class="docutils literal"><span class="pre">boost::sub_range</span></tt> for broken compilers,
 but you can catch it using <tt class="docutils literal"><span class="pre">boost::sub_range&lt;ParsingRange&gt;</span></tt>. Note that
-the latest <tt class="docutils literal"><span class="pre">boost::sub_range</span></tt> has no value semantics under eVC4 and VC8 because of their bugs.</td></tr>
+<tt class="docutils literal"><span class="pre">boost::sub_range</span></tt> is not always assignable under eVC4 and VC8 because of their bugs.</td></tr>
 </tbody>
 </table>
 </div>
@@ -258,7 +259,7 @@ the latest <tt class="docutils literal"><span class="pre">boost::sub_range</span
 </thead>
 <tbody valign="top">
 <tr><td><tt class="docutils literal"><span class="pre">.</span></tt></td>
-<td><tt class="docutils literal"><span class="pre">any</span></tt> <a class="footnote-reference" href="#id16" id="id12" name="id12">[4]</a></td>
+<td><tt class="docutils literal"><span class="pre">any</span></tt> <a class="footnote-reference" href="#id14" id="id10" name="id10">[4]</a></td>
 <td>any object</td>
 </tr>
 <tr><td><tt class="docutils literal"><span class="pre">^</span></tt></td>
@@ -362,7 +363,7 @@ the latest <tt class="docutils literal"><span class="pre">boost::sub_range</span
 <td>characters 'a','b','c' or in range '0' though '9'</td>
 </tr>
 <tr><td><tt class="docutils literal"><span class="pre">[^abc]</span></tt></td>
-<td><tt class="docutils literal"><span class="pre">not_&lt;</span> <span class="pre">chset&lt;'a','b','c'&gt;</span> <span class="pre">&gt;</span></tt> <a class="footnote-reference" href="#id17" id="id13" name="id13">[5]</a></td>
+<td><tt class="docutils literal"><span class="pre">not_&lt;</span> <span class="pre">chset&lt;'a','b','c'&gt;</span> <span class="pre">&gt;</span></tt> <a class="footnote-reference" href="#id15" id="id11" name="id11">[5]</a></td>
 <td>not characters 'a','b' or 'c'</td>
 </tr>
 <tr><td><tt class="docutils literal"><span class="pre">/Diggins/i</span></tt></td>
@@ -423,20 +424,20 @@ before Biscuit headers. VC++7.1 limits <tt class="docutils literal"><span class=
 Note that the big arity tends to make internal compiler errors.</p>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id48" id="symbol" name="symbol">7.2&nbsp;&nbsp;&nbsp;Symbol</a></h2>
-<p>Unfortunately you cannot pass a string literal to templates.
-<tt class="docutils literal"><span class="pre">chseq</span></tt> template parameter arity is limited. For that workaround, <tt class="docutils literal"><span class="pre">PSTADE_BISCUIT_SYMBOL</span></tt> macro is provided:</p>
+<h2><a class="toc-backref" href="#id48" id="literal" name="literal">7.2&nbsp;&nbsp;&nbsp;Literal</a></h2>
+<p>Unfortunately you can't pass a string literal to templates.
+<tt class="docutils literal"><span class="pre">chseq</span></tt> template parameter arity is limited. For that workaround, <tt class="docutils literal"><span class="pre">PSTADE_BISCUIT_SEQ_LITERAL</span></tt> macro is provided:</p>
 <pre class="cpp_source">
-PSTADE_BISCUIT_SYMBOL(hello, <span class="cpp_string_literal">&quot;hello&quot;</span>)
-PSTADE_BISCUIT_SYMBOL(bye, L<span class="cpp_string_literal">&quot;bye&quot;</span>)
+PSTADE_BISCUIT_SEQ_LITERAL(hello, <span class="cpp_string_literal">&quot;hello&quot;</span>)
+PSTADE_BISCUIT_SEQ_LITERAL(bye, L<span class="cpp_string_literal">&quot;bye&quot;</span>)
 
-<span class="cpp_keyword">void </span>test_symbol()
+<span class="cpp_keyword">void </span>test_literal()
 {
     BOOST_CHECK( biscuit::match&lt;hello&gt;(std::string(<span class="cpp_string_literal">&quot;hello&quot;</span>)) );
     BOOST_CHECK( biscuit::match&lt;bye&gt;(std::wstring(L<span class="cpp_string_literal">&quot;bye&quot;</span>)) );
 }</pre>
 
-<p><tt class="docutils literal"><span class="pre">PSTADE_BISCUIT_SYMBOL</span></tt> defines <a class="reference" href="#parser">Parser</a> whose name is the first argument by using
+<p><tt class="docutils literal"><span class="pre">PSTADE_BISCUIT_SEQ_LITERAL</span></tt> defines a <a class="reference" href="#parser">Parser</a> whose name is the first argument by using
 the string literal that is passed as the second argument.</p>
 </div>
 <div class="section">
@@ -516,7 +517,7 @@ Note that a copy of <tt class="docutils literal"><span class="pre">boost::sub_ra
 <td>parsing range is filtered using parser</td>
 </tr>
 <tr><td>???</td>
-<td><tt class="docutils literal"><span class="pre">as_transformed&lt;A,</span> <span class="pre">UnaryFunction&gt;</span></tt> <a class="footnote-reference" href="#id18" id="id14" name="id14">[6]</a></td>
+<td><tt class="docutils literal"><span class="pre">as_transformed&lt;A,</span> <span class="pre">UnaryFunction&gt;</span></tt> <a class="footnote-reference" href="#id16" id="id12" name="id12">[6]</a></td>
 <td>parsing range is transformed using functor</td>
 </tr>
 <tr><td>???</td>
@@ -536,35 +537,35 @@ Note that a copy of <tt class="docutils literal"><span class="pre">boost::sub_ra
 <td>choose the shortest match</td>
 </tr>
 <tr><td><tt class="docutils literal"><span class="pre">limit_d[A]</span></tt></td>
-<td><tt class="docutils literal"><span class="pre">require&lt;A,</span> <span class="pre">Predicate&gt;</span></tt> <a class="footnote-reference" href="#id19" id="id15" name="id15">[7]</a></td>
+<td><tt class="docutils literal"><span class="pre">require&lt;A,</span> <span class="pre">Predicate&gt;</span></tt> <a class="footnote-reference" href="#id17" id="id13" name="id13">[7]</a></td>
 <td>parsing range requires predicate is constrained</td>
 </tr>
 </tbody>
 </table>
 </blockquote>
+<table class="docutils footnote" frame="void" id="id14" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id10" name="id14">[4]</a></td><td>There is a debate over whether or not to define <a class="reference" href="#parser">Parser</a>s as class templates even if no parameters.
+If you want such parsers, define <tt class="docutils literal"><span class="pre">PSTADE_BISCUIT_CFG_NULLARY_CLASS_TEMPLATE_PARSER</span></tt> before Biscuit headers.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id15" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id11" name="id15">[5]</a></td><td><tt class="docutils literal"><span class="pre">not_</span></tt> can be applied only to one character <a class="reference" href="#parser">Parser</a> with a few exceptions.</td></tr>
+</tbody>
+</table>
 <table class="docutils footnote" frame="void" id="id16" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id12" name="id16">[4]</a></td><td>There is a debate over whether or not to define <a class="reference" href="#parser">Parser</a>s as class templates even if no parameters.
-If you want such parsers, define <tt class="docutils literal"><span class="pre">PSTADE_BISCUIT_CFG_NULLARY_CLASS_TEMPLATE_PARSER</span></tt> before Biscuit headers.</td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id12" name="id16">[6]</a></td><td><tt class="docutils literal"><span class="pre">UnaryFunction</span></tt> requirements are the same as <a class="reference" href="http://www.boost.org/libs/iterator/doc/transform_iterator.html">boost::transform_iterator</a>'s.</td></tr>
 </tbody>
 </table>
 <table class="docutils footnote" frame="void" id="id17" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id13" name="id17">[5]</a></td><td><tt class="docutils literal"><span class="pre">not_</span></tt> can be applied only to one character <a class="reference" href="#parser">Parser</a> with a few exceptions.</td></tr>
-</tbody>
-</table>
-<table class="docutils footnote" frame="void" id="id18" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id14" name="id18">[6]</a></td><td><tt class="docutils literal"><span class="pre">UnaryFunction</span></tt> requirements are the same as <a class="reference" href="http://www.boost.org/libs/iterator/doc/transform_iterator.html">boost::transform_iterator</a>'s.</td></tr>
-</tbody>
-</table>
-<table class="docutils footnote" frame="void" id="id19" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
-<tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id15" name="id19">[7]</a></td><td><tt class="docutils literal"><span class="pre">Predicate</span></tt> must conform to <a class="reference" href="#semantic-action">Semantic Action</a> and the valid expression must be convertible to <tt class="docutils literal"><span class="pre">bool</span></tt>.</td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id13" name="id17">[7]</a></td><td><tt class="docutils literal"><span class="pre">Predicate</span></tt> must conform to <a class="reference" href="#semantic-action">Semantic Action</a> and the valid expression must be convertible to <tt class="docutils literal"><span class="pre">bool</span></tt>.</td></tr>
 </tbody>
 </table>
 </div>
@@ -694,7 +695,7 @@ BOOST_FOREACH (
 <div class="section">
 <h1><a class="toc-backref" href="#id59" id="capturing" name="capturing">10&nbsp;&nbsp;&nbsp;Capturing</a></h1>
 <p><tt class="docutils literal"><span class="pre">capture</span></tt> and <tt class="docutils literal"><span class="pre">backref</span></tt> create <a class="reference" href="#parser">Parser</a> for the capturing.
-results_xxx <a class="footnote-reference" href="#id27" id="id24" name="id24">[8]</a> <a class="reference" href="#algorithms">Algorithms</a> are provided for accessing matching results after parsing:</p>
+results_xxx <a class="footnote-reference" href="#id25" id="id22" name="id22">[8]</a> <a class="reference" href="#algorithms">Algorithms</a> are provided for accessing matching results after parsing:</p>
 <pre class="cpp_source">
 match_results&lt;std::string&gt; caps;
 std::string text(<span class="cpp_string_literal">&quot;abcxabcx&quot;</span>);
@@ -720,10 +721,10 @@ BOOST_CHECK( oven::equal(text, <span class="cpp_string_literal">&quot;ABCxABCx&q
 <a class="reference" href="http://www.sgi.com/tech/stl/PairAssociativeContainer.html">Pair Associative Container</a> and <a class="reference" href="http://www.sgi.com/tech/stl/UniqueAssociativeContainer.html">Unique Associative Container</a>
 except for their constructor expressions, whose <tt class="docutils literal"><span class="pre">key_type</span></tt> is <tt class="docutils literal"><span class="pre">int</span></tt> and
 <tt class="docutils literal"><span class="pre">mapped_type</span></tt> is <a class="reference" href="#parsing-subrange">Parsing SubRange</a> of <tt class="docutils literal"><span class="pre">r</span></tt>.</p>
-<table class="docutils footnote" frame="void" id="id27" rules="none">
+<table class="docutils footnote" frame="void" id="id25" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id24" name="id27">[8]</a></td><td>You may want to use <tt class="docutils literal"><span class="pre">match_results</span></tt> as <a class="reference" href="#user-state">User State</a>, so the overloading was rejected.</td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id22" name="id25">[8]</a></td><td>You may want to use <tt class="docutils literal"><span class="pre">match_results</span></tt> as <a class="reference" href="#user-state">User State</a>, so the overloading was rejected.</td></tr>
 </tbody>
 </table>
 </div>
@@ -951,13 +952,20 @@ In my opinion, such overloads couldn't increase readability as expected.</p>
 <div class="section">
 <h2><a class="toc-backref" href="#id72" id="version-1-02-6" name="version-1-02-6">17.2&nbsp;&nbsp;&nbsp;Version 1.02.6</a></h2>
 <ul class="simple">
-<li>Added <a class="reference" href="#symbol">Symbol</a>.</li>
+<li>Added <tt class="docutils literal"><span class="pre">PSTADE_BISCUIT_SYMBOL</span></tt>.</li>
 </ul>
 </div>
 <div class="section">
 <h2><a class="toc-backref" href="#id73" id="version-1-02-7" name="version-1-02-7">17.3&nbsp;&nbsp;&nbsp;Version 1.02.7</a></h2>
 <ul class="simple">
-<li>Rearrange <a class="reference" href="#basic-concepts">Basic Concepts</a>.</li>
+<li>Rearranged <a class="reference" href="#basic-concepts">Basic Concepts</a>.</li>
+</ul>
+</div>
+<div class="section">
+<h2><a class="toc-backref" href="#id74" id="version-1-02-8" name="version-1-02-8">17.4&nbsp;&nbsp;&nbsp;Version 1.02.8</a></h2>
+<ul class="simple">
+<li>Renamed <tt class="docutils literal"><span class="pre">PSTADE_BISCUIT_SYMBOL</span></tt> to <tt class="docutils literal"><span class="pre">PSTADE_BISCUIT_SEQ_LITERAL</span></tt>.</li>
+<li>Fixed a few bugs.</li>
 </ul>
 </div>
 </div>
@@ -965,7 +973,7 @@ In my opinion, such overloads couldn't increase readability as expected.</p>
 <div class="footer">
 <hr class="footer" />
 <a class="reference" href="doc/index.rst">View document source</a>.
-Generated on: 2006-06-27 13:15 UTC.
+Generated on: 2006-06-29 02:50 UTC.
 Generated by <a class="reference" href="http://docutils.sourceforge.net/">Docutils</a> from <a class="reference" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a> source.
 
 </div>

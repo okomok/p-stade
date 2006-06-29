@@ -43,8 +43,8 @@ void null_terminate(Range& rng)
 {
     BOOST_ASSERT(!boost::empty(rng));
 
-    typedef typename boost::range_value<Range>::type value_t;
-    *boost::begin(rng) = value_t('\0');
+    typedef typename boost::range_value<Range>::type val_t;
+    *boost::begin(rng) = val_t('\0');
 }
 
 
@@ -52,11 +52,11 @@ template< class Range >
 bool is_null_terminated(const Range& rng)
 {
     typedef typename boost::range_const_iterator<Range>::type iter_t;
-    typedef typename boost::range_value<Range>::type value_t;
+    typedef typename boost::range_value<Range>::type val_t;
 
     iter_t first = boost::begin(rng);
     iter_t last = boost::end(rng);
-    iter_t it = std::find(first, last, value_t('\0'));
+    iter_t it = std::find(first, last, val_t('\0'));
 
     return (it != last);
 }
@@ -77,11 +77,11 @@ namespace null_terminate_range_detail {
     end(Range& rng)
     {
         typedef typename boost::range_result_iterator<Range>::type iter_t;
-        typedef typename boost::range_value<Range>::type value_t;
+        typedef typename boost::range_value<Range>::type val_t;
 
         iter_t first = boost::begin(rng);
         iter_t last = boost::end(rng);
-        iter_t it = std::find(first, last, value_t('\0'));
+        iter_t it = std::find(first, last, val_t('\0'));
 
         if (it == last) {
             std::string msg("pstade::oven - rng must be null-terminated.");

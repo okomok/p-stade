@@ -32,12 +32,12 @@ void test()
     vec[4] = "value";
 
 
-	BOOST_FOREACH( std::string& v, vec|map_values) {
-		v = "a";
-	}
+    BOOST_FOREACH( std::string& v, vec|map_values) {
+        v = "a";
+    }
 
-	BOOST_CHECK( vec[3] == "a" && vec[4] == "a" );
-	BOOST_CHECK( boost::size(vec) == 2 );
+    BOOST_CHECK( vec[3] == "a" && vec[4] == "a" );
+    BOOST_CHECK( boost::size(vec) == 2 );
 }
 
 
