@@ -63,14 +63,14 @@ public:
 
 
 template< class Parser, class ForwardRange, class UserState > inline
-typename const_overloaded<const token_range<Parser, ForwardRange, UserState>, ForwardRange>::type
+typename const_overloaded<token_range<Parser, ForwardRange, UserState> const, ForwardRange>::type
 make_token_range(ForwardRange& r, UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
 {
     return token_range<Parser, ForwardRange, UserState>(r, us);
 }
 
     template< class Parser, class ForwardRange, class UserState > inline
-    const token_range<Parser, typename boost::add_const<ForwardRange>::type, UserState>
+    token_range<Parser, typename boost::add_const<ForwardRange>::type, UserState> const
     make_token_range(ForwardRange const& r, UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
     {
         return token_range<Parser, typename boost::add_const<ForwardRange>::type, UserState>(r, us);
@@ -79,14 +79,14 @@ make_token_range(ForwardRange& r, UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_T
 
 // no user-state
 template< class Parser, class ForwardRange > inline
-typename const_overloaded<const token_range<Parser, ForwardRange>, ForwardRange>::type
+typename const_overloaded<token_range<Parser, ForwardRange> const, ForwardRange>::type
 make_token_range(ForwardRange& r BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
 {
     return token_range<Parser, ForwardRange>(r);
 }
 
     template< class Parser, class ForwardRange > inline
-    const token_range<Parser, typename boost::add_const<ForwardRange>::type>
+    token_range<Parser, typename boost::add_const<ForwardRange>::type> const
     make_token_range(ForwardRange const& r BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
     {
         return token_range<Parser, typename boost::add_const<ForwardRange>::type>(r);
@@ -108,14 +108,14 @@ namespace token_range_detail {
 
 
     template< class Parser, class ForwardRange, class UserState > inline
-    const token_range<Parser, ForwardRange, UserState>
+    token_range<Parser, ForwardRange, UserState> const
     operator|(ForwardRange& rng, adaptor<Parser, UserState> ad)
     {
         return biscuit::make_token_range<Parser>(rng, *ad.m_pus);
     }
 
         template< class Parser, class ForwardRange, class UserState > inline
-        const token_range<Parser, typename boost::add_const<ForwardRange>::type, UserState>
+        token_range<Parser, typename boost::add_const<ForwardRange>::type, UserState> const
         operator|(ForwardRange const& rng, adaptor<Parser, UserState> ad)
         {
             return biscuit::make_token_range<Parser>(rng, *ad.m_pus);

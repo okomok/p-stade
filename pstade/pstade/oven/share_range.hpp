@@ -61,6 +61,9 @@ public:
     explicit share_range(Range *prng) :
         super_t(share_range_detail::make_super(prng))
     { }
+
+    Range& operator*() const
+    { return boost::begin(*this).range(); }
 };
 
 

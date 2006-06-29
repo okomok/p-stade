@@ -47,7 +47,7 @@ namespace position_range_detail {
 
 
     template< class PositionIter, class ForwardRange, class PositionT >
-    PositionIter make_iter(ForwardRange& rng, const PositionT& pos, int tabchars)
+    PositionIter make_first(ForwardRange& rng, const PositionT& pos, int tabchars)
     {
         PositionIter pit(boost::begin(rng), boost::end(rng), pos);
         pit.set_tabchars(tabchars);
@@ -76,7 +76,7 @@ public:
         int tabchars = position_range_detail::default_tabchars::value
     ) :
         super_t(
-            position_range_detail::make_iter<iter_t>(rng, pos, tabchars),
+            position_range_detail::make_first<iter_t>(rng, pos, tabchars),
             iter_t()
         )
     { }

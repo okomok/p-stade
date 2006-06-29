@@ -64,14 +64,14 @@ public:
 
 
 template< class Parser, class ForwardRange, class UserState > inline
-typename const_overloaded<const filter_range<Parser, ForwardRange, UserState>, ForwardRange>::type
+typename const_overloaded<filter_range<Parser, ForwardRange, UserState> const, ForwardRange>::type
 make_filter_range(ForwardRange& r, UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
 {
     return filter_range<Parser, ForwardRange, UserState>(r, us);
 }
 
     template< class Parser, class ForwardRange, class UserState > inline
-    const filter_range<Parser, typename boost::add_const<ForwardRange>::type, UserState>
+    filter_range<Parser, typename boost::add_const<ForwardRange>::type, UserState> const
     make_filter_range(ForwardRange const& r, UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
     {
         return filter_range<Parser, typename boost::add_const<ForwardRange>::type, UserState>(r, us);
@@ -80,14 +80,14 @@ make_filter_range(ForwardRange& r, UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_
 
 // no user-state
 template< class Parser, class ForwardRange > inline
-typename const_overloaded<const filter_range<Parser, ForwardRange>, ForwardRange>::type
+typename const_overloaded<filter_range<Parser, ForwardRange> const, ForwardRange>::type
 make_filter_range(ForwardRange& r BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
 {
     return filter_range<Parser, ForwardRange>(r);
 }
 
     template< class Parser, class ForwardRange > inline
-    const filter_range<Parser, typename boost::add_const<ForwardRange>::type>
+    filter_range<Parser, typename boost::add_const<ForwardRange>::type> const
     make_filter_range(ForwardRange const& r BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
     {
         return filter_range<Parser, typename boost::add_const<ForwardRange>::type>(r);
@@ -109,14 +109,14 @@ namespace filter_range_detail {
 
 
     template< class Parser, class ForwardRange, class UserState > inline
-    const filter_range<Parser, ForwardRange, UserState>
+    filter_range<Parser, ForwardRange, UserState> const
     operator|(ForwardRange& rng, adaptor<Parser, UserState> ad)
     {
         return biscuit::make_filter_range<Parser>(rng, *ad.m_pus);
     }
 
         template< class Parser, class ForwardRange, class UserState > inline
-        const filter_range<Parser, typename boost::add_const<ForwardRange>::type, UserState>
+        filter_range<Parser, typename boost::add_const<ForwardRange>::type, UserState> const
         operator|(ForwardRange const& rng, adaptor<Parser, UserState> ad)
         {
             return biscuit::make_filter_range<Parser>(rng, *ad.m_pus);

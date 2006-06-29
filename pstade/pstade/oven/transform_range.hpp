@@ -36,7 +36,7 @@ namespace transform_range_detail {
 
 
     template<
-        class UnaryFun, class Range,
+        class Range, class UnaryFun,
         class Reference, class Value
     >
     struct super_
@@ -54,14 +54,14 @@ namespace transform_range_detail {
 
 
 template<
-    class UnaryFun, class Range,
+    class Range, class UnaryFun,
     class Reference = boost::use_default, class Value = boost::use_default
 >
 struct transform_range :
-    transform_range_detail::super_<UnaryFun, Range, Reference, Value>::type
+    transform_range_detail::super_<Range, UnaryFun, Reference, Value>::type
 {
 private:
-    typedef typename transform_range_detail::super_<UnaryFun, Range, Reference, Value>::type super_t;
+    typedef typename transform_range_detail::super_<Range, UnaryFun, Reference, Value>::type super_t;
     typedef typename super_t::iterator iter_t;
 
 public:
@@ -82,7 +82,7 @@ namespace transform_range_detail {
         struct result
         {
             typedef typename boost::remove_cv<UnaryFun>::type fun_t;
-            typedef const transform_range<fun_t, Range> type;
+            typedef const transform_range<Range, fun_t> type;
         };
 
         template< class Result, class Range, class UnaryFun >

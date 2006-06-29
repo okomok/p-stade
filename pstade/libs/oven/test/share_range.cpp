@@ -51,15 +51,16 @@ void test()
     }
 
     {
-		BOOST_FOREACH (char ch, oven::make_share_range(new xxx("0123"))) {
+        BOOST_FOREACH (char ch, oven::make_share_range(new xxx("0123"))) {
            std::cout << ch;
         }
     }
 
     {
-	    share_range<xxx> x1(new xxx("abc"));
-	    share_range<xxx> x2(new xxx("def"));
-	    x1 = x2;
+        share_range<xxx> x1(new xxx("abc"));
+        share_range<xxx> x2(new xxx("def"));
+        *x1;
+        x1 = x2;
 
         BOOST_CHECK( oven::equals(x1, std::string("def")) );
     }

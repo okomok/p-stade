@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/oven/unzip_range.hpp>
 #include <pstade/oven/zip_range.hpp>
 
 
@@ -42,19 +43,14 @@ void test()
         }
 
         BOOST_FOREACH (
-            comma_protect<void(boost::tuple<char&, int&>)>::type t,
-            boost::tie(src0, src1)|zipped
+            int& i,
+            boost::tie(src0, src1)|zipped|unzipped<1>()
         ) {
-            char& ch = boost::get<0>(t);
-            if (ch == '4')
-                ch = '5';
-
-            int& i = boost::get<1>(t);
             if (i == 4)
                 i = 5;
         }
     
-        BOOST_CHECK(( oven::equals(src0, ans0) ));
+        BOOST_CHECK(( oven::equals(src0, src0) )); // not changed
         BOOST_CHECK(( oven::equals(src1, ans1) ));
     }
 }

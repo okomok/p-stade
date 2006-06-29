@@ -16,6 +16,7 @@
 #include <boost/type_traits/remove_reference.hpp>
 #include <pstade/egg/function.hpp>
 #include "./is_lightweight_proxy.hpp"
+#include "./range_adaptor.hpp"
 
 
 namespace pstade { namespace oven {
@@ -118,6 +119,7 @@ namespace zip_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_zip_range, zip_range_detail::baby_generator)
+PSTADE_OVEN_RANGE_ADAPTOR(zipped, zip_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven
