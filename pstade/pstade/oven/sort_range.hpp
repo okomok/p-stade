@@ -40,58 +40,49 @@ namespace sort_range_detail {
 
 
     template< class Range >
-    struct iterator_container
+    struct iter_sequence
     {   
         typedef typename boost::range_result_iterator<Range>::type iter_t;
         typedef std::vector<iter_t> type;
     };
 
 
-    template< class Range, class BinaryPred >
-    struct share_range_init
-    {
-        typedef typename iterator_container<Range>::type iters_t;
-
-        share_range_init(Range& rng, BinaryPred pred)
-        {
-            std::auto_ptr<iters_t> piters(new iters_t());
-            oven::copy(rng|oven::directed, garlic::back_inserter(*piters));
-            std::sort(boost::begin(*piters), boost::end(*piters), boost::make_indirect_fun(pred));
-            m_iters = oven::share_range<iters_t>(piters.release());
-        }
-
-    protected:
-         oven::share_range<iters_t> m_iters;
-    };
-
-
     template< class Range >
     struct super_
     {
-        typedef oven::indirect_range<
+        typedef oven::indirect_range< const
             oven::share_range<
-                typename iterator_container<Range>::type
+                typename iter_sequence<Range>::type
             >
         > type;
     };
 
+
+    template< class Sequence, class Range, class BinaryPred > const
+    oven::share_range<Sequence> make_share(Range& rng, BinaryPred pred)
+    {
+        std::auto_ptr<Sequence> pseq(new Sequence()); {
+            oven::copy(rng|oven::directed, garlic::back_inserter(*pseq));
+            std::sort(boost::begin(*pseq), boost::end(*pseq), boost::make_indirect_fun(pred));
+        }
+
+        return share_range<Sequence>(pseq.release());
+    }
 
 } // namespace sort_range_detail
 
 
 template< class Range, class BinaryPred = detail::less_than_fun >
 struct sort_range :
-    private sort_range_detail::share_range_init<Range, BinaryPred>,
     sort_range_detail::super_<Range>::type
 {
 private:
-    typedef sort_range_detail::share_range_init<Range, BinaryPred> sh_rng_bt;
     typedef typename sort_range_detail::super_<Range>::type super_t;
+    typedef typename sort_range_detail::iter_sequence<Range>::type seq_t;
 
 public:
     explicit sort_range(Range& rng, BinaryPred pred = detail::less_than) :
-        sh_rng_bt(rng, pred),
-        super_t(sh_rng_bt::m_iters)
+        super_t(sort_range_detail::make_share<seq_t>(rng, pred))
     { }
 };
 

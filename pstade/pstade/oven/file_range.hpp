@@ -10,36 +10,55 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/range/begin.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <boost/spirit/iterator/file_iterator.hpp>
-#include <boost/utility/base_from_member.hpp>
 #include "./is_lightweight_proxy.hpp"
 
 
 namespace pstade { namespace oven {
 
 
+namespace file_range_detail {
+
+
+    template< class CharT >
+    struct super_
+    {
+        typedef boost::iterator_range<
+            boost::spirit::file_iterator<CharT>
+        > type;
+    };
+
+
+    template< class CharT >
+    typename super_<CharT>::type make_super(std::string path)
+    {
+        boost::spirit::file_iterator<CharT> it(path);
+        if (!it)
+            return boost::make_iterator_range(it, it);
+
+        return boost::make_iterator_range(it, it.make_end());
+    }
+
+
+} // namespace file_range_detail
+
+
 template< class CharT = char >
 struct file_range :
-    private boost::base_from_member< boost::spirit::file_iterator<CharT> >,
-    boost::iterator_range< boost::spirit::file_iterator<CharT> >
+    file_range_detail::super_<CharT>::type
 {
 private:
-    typedef boost::spirit::file_iterator<CharT> iter_t;
-    typedef boost::base_from_member<iter_t> iter_bt;
-    typedef boost::iterator_range<iter_t> super_t;
+    typedef typename file_range_detail::super_<CharT>::type super_t;
 
 public:
     explicit file_range(std::string path) :
-        iter_bt(path),
-        super_t(
-            iter_bt::member,
-            iter_bt::member ? iter_bt::member.make_end() : iter_bt::member
-        )
+        super_t(file_range_detail::make_super<CharT>(path))
     { }
 
     bool is_open() const
-    { return iter_bt::member; }
+    { return boost::begin(*this); }
 };
 
 

@@ -15,7 +15,6 @@
 #include <boost/range/iterator_range.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/type_traits/remove_pointer.hpp>
-#include <boost/utility/base_from_member.hpp>
 #include <pstade/egg/function.hpp>
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
@@ -37,53 +36,31 @@ namespace share_range_detail {
     };
 
 
+    template< class Range >
+    typename super_<Range>::type make_super(Range *prng)
+    {
+        boost::shared_ptr<Range> sprng(prng);
+        return boost::make_iterator_range(
+            oven::make_share_iterator(boost::begin(*sprng), sprng),
+            oven::make_share_iterator(boost::end(*sprng), sprng)
+        );
+    }
+
+
 } // namespace share_range_detail
 
 
 template< class Range >
 struct share_range :
-    private boost::base_from_member< boost::shared_ptr<Range> >,
     share_range_detail::super_<Range>::type
 {
 private:
-    typedef boost::base_from_member< boost::shared_ptr<Range> > ptr_bt;
     typedef typename share_range_detail::super_<Range>::type super_t;
-    typedef typename super_t::iterator iter_t;
 
 public:
-    // Question:
-    // Default constructible seems to make some initialization easy
-    // But is it still proper?
-    //
-    explicit share_range()
-    { }
-
     explicit share_range(Range *prng) :
-        ptr_bt(prng),
-        super_t(
-           iter_t(boost::begin(*ptr_bt::member), ptr_bt::member),
-           iter_t(boost::end(*ptr_bt::member), ptr_bt::member)
-        )
+        super_t(share_range_detail::make_super(prng))
     { }
-
-    // Workaround:
-    // VC++7.1 implicitly generated copy constructor is sometimes broken
-    // if the base type has constructor templates (as 'base_from_member' does).
-    // VC++7.1 seems to bring 'other' to the constructor template of the base type.
-    // This problem is the same as 'boost::sub_range' nonassignable behavior.
-    //
-    share_range(const share_range& other) :
-        ptr_bt(other.member),
-        super_t(other)
-    { }
-
-    // Question:
-    // good or bad syntax?
-    //
-    Range& operator*() const
-    {
-        return *ptr_bt::member;
-    }
 };
 
 

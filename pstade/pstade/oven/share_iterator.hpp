@@ -62,12 +62,15 @@ public:
         super_t(it), m_prng(prng)
     { }
 
+    Range& range() const
+    { return *m_prng; }
+
 private:
     boost::shared_ptr<Range> m_prng;
 };
 
 
-template< class Range >
+template< class Range > inline
 share_iterator<Range>
 make_share_iterator(
     typename boost::range_result_iterator<Range>::type it,

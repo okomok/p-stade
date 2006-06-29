@@ -38,6 +38,11 @@ void test()
     std::string ans("0123");
 
     {
+        boost::shared_ptr<std::string> p(new std::string());
+        make_share_iterator(p->begin(), p);
+    }
+
+    {
         BOOST_CHECK( oven::equals(oven::make_share_range(new xxx("0123")), ans) );
     }
 
@@ -45,16 +50,19 @@ void test()
         BOOST_CHECK( oven::equals(new xxx("0123")|shared, ans) );
     }
 
-
     {
-		BOOST_FOREACH (char ch, oven::make_share_range(new xxx("0123"))) { //(new xxx("0123"))|shared) {
+		BOOST_FOREACH (char ch, oven::make_share_range(new xxx("0123"))) {
            std::cout << ch;
         }
     }
 
-	share_range<xxx> x1(new xxx("abc"));
-	share_range<xxx> x2(new xxx("def"));
-	x1 = x2;
+    {
+	    share_range<xxx> x1(new xxx("abc"));
+	    share_range<xxx> x2(new xxx("def"));
+	    x1 = x2;
+
+        BOOST_CHECK( oven::equals(x1, std::string("def")) );
+    }
 }
 
 

@@ -14,6 +14,7 @@
 #include "./joint_iterator.hpp"
 #include "./null_outputter.hpp"
 #include "./repeat_iterator.hpp"
+#include "./share_iterator.hpp"
 #include "./tab_expand_iterator.hpp"
 #include "./tab_unexpand_iterator.hpp"
 #include "./utf8_encoder.hpp"
