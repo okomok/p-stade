@@ -24,6 +24,7 @@
 #include "./parser/eps.hpp"
 #include "./parser/error.hpp"
 #include "./parser/identity.hpp"
+#include "./parser/impossible.hpp"
 #include "./parser/locale.hpp"
 #include "./parser/max_repeat.hpp"
 #include "./parser/min_repeat.hpp"

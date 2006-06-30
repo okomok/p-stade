@@ -10,11 +10,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/config.hpp> // BOOST_DEDUCED_TYPENAME
+#include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
 #include <functional> // std::less
 #include <map>
-#include <memory> // std::allocator
 #include <utility> // std::pair
 
 // Workaround:

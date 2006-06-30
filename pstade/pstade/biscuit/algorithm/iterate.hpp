@@ -10,6 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Note:
+//
+// Deprecated. Prefer 'biscuit::iteration'.
+
+
 #include <boost/config.hpp> // BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE
 #include <boost/foreach.hpp>
 #include <boost/range/begin.hpp>

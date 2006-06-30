@@ -20,19 +20,19 @@
 namespace pstade { namespace oven {
 
 
-template< class T >
+template< class Value >
 struct array_range :
-    private boost::base_from_member< boost::scoped_array<T> >,
-    boost::iterator_range<T *>,
+    private boost::base_from_member< boost::scoped_array<Value> >,
+    boost::iterator_range<Value *>,
     private boost::noncopyable
 {
 private:
-    typedef boost::base_from_member< boost::scoped_array<T> > scoped_array_bt;
-    typedef boost::iterator_range<T *> super_t;
+    typedef boost::base_from_member< boost::scoped_array<Value> > scoped_array_bt;
+    typedef boost::iterator_range<Value *> super_t;
 
 public:
     explicit array_range(std::size_t sz) :
-        scoped_array_bt(new T[sz]),
+        scoped_array_bt(new Value[sz]),
         super_t(scoped_array_bt::member.get(), scoped_array_bt::member.get() + sz)
     { }
 };

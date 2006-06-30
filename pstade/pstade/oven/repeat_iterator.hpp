@@ -119,8 +119,8 @@ public:
     { return m_index; }
 
 private:
-    ForwardIter m_first, m_last;
     SizeT m_index;
+    ForwardIter m_first, m_last;
 
 friend class boost::iterator_core_access;
     ref_t dereference() const

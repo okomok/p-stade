@@ -41,6 +41,11 @@ struct helper_entry_subset
     };
 
     template< class Dummy = boost::mpl::void_ >
+    struct impossible_entry : assert_entry<boost::mpl::false_>
+    {
+    };
+
+    template< class Dummy = boost::mpl::void_ >
     struct empty_entry : assert_entry<boost::mpl::true_>
     {
     };

@@ -12,6 +12,7 @@
 
 #include <boost/range/iterator_range.hpp>
 #include <boost/range/result_iterator.hpp>
+#include "../action/null_action.hpp"
 #include "../state/cur_guard.hpp"
 
 
@@ -64,6 +65,34 @@ struct state_actor
         return true;
     }
 };
+
+
+// metafunctions
+//
+
+template< class Parser >
+struct action_of
+{
+    typedef null_action type;
+};
+
+template< class Parser, class Action >
+struct action_of< actor<Parser, Action> >
+{
+    typedef Action type;
+};
+
+
+template< class Parser >
+struct remove_action
+{
+    typedef Parser type;
+};
+
+template< class Parser, class Action >
+struct remove_action< actor<Parser, Action> > :
+    remove_action<Parser>
+{ };
 
 
 } } // namespace pstade::biscuit

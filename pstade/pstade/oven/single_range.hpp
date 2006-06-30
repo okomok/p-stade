@@ -18,33 +18,33 @@
 namespace pstade { namespace oven {
 
 
-template< class T >
+template< class Value >
 struct single_range :
-    boost::iterator_range<T *>
+    boost::iterator_range<Value *>
 {
 private:
-    typedef boost::iterator_range<T *> super_t;
+    typedef boost::iterator_range<Value *> super_t;
 
 public:
-    explicit single_range(T& x) :
-        super_t(boost::addressof(x), boost::addressof(x) + 1)
+    explicit single_range(Value& v) :
+        super_t(boost::addressof(v), boost::addressof(v) + 1)
     { }
 };
 
 
-template< class T > inline const
-single_range<T>
-make_single_range(T& x)
+template< class Value > inline const
+single_range<Value>
+make_single_range(Value& v)
 {
-    return single_range<T>(x);
+    return single_range<Value>(v);
 }
 
 
-template< class T > inline const
-single_range<const T>
-make_single_range(const T& x)
+template< class Value > inline const
+single_range<const Value>
+make_single_range(const Value& v)
 {
-    return single_range<const T>(x);
+    return single_range<const Value>(v);
 }
 
 

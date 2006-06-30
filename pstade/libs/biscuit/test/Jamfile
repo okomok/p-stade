@@ -31,6 +31,7 @@ test-suite biscuit :
     [ biscuit-test filter_range ]
     [ biscuit-test ichseq ]
     [ biscuit-test identity ]
+    [ biscuit-test impossible ]
     [ biscuit-test literal ]
     [ biscuit-test match ]
     [ biscuit-test min_max_repeat ]

@@ -22,18 +22,18 @@
 namespace pstade { namespace oven {
 
 
-template< class Range, class T >
+template< class Range, class Value >
 struct prepend_range :
-    private boost::base_from_member< single_range<T> >,
-    joint_range< single_range<T>, Range >
+    private boost::base_from_member< single_range<Value> >,
+    joint_range< single_range<Value>, Range >
 {
 private:
-    typedef boost::base_from_member< single_range<T> > single_range_bt;
-    typedef joint_range< single_range<T>, Range > super_t;
+    typedef boost::base_from_member< single_range<Value> > single_range_bt;
+    typedef joint_range< single_range<Value>, Range > super_t;
 
 public:
-    prepend_range(Range& rng, T& x) :
-        single_range_bt(boost::ref(x)),
+    prepend_range(Range& rng, Value& v) :
+        single_range_bt(boost::ref(v)),
         super_t(single_range_bt::member, rng)
     { }
 };
@@ -44,16 +44,16 @@ namespace prepend_range_detail {
 
     struct baby_generator
     {
-        template< class Range, class T >
+        template< class Range, class Value >
         struct result
         {
-            typedef const prepend_range<Range, T> type;
+            typedef const prepend_range<Range, Value> type;
         };
 
-        template< class Result, class Range, class T >
-        Result call(Range& rng, T& x)
+        template< class Result, class Range, class Value >
+        Result call(Range& rng, Value& v)
         {
-            return Result(rng, x);
+            return Result(rng, v);
         }
     };
 

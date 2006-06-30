@@ -18,12 +18,12 @@
 namespace pstade { namespace oven {
 
 
-template< class T >
+template< class Value >
 struct empty_range :
-    boost::iterator_range<T *>
+    boost::iterator_range<Value *>
 {
 private:
-    typedef boost::iterator_range<T *> super_t;
+    typedef boost::iterator_range<Value *> super_t;
 
 public:
     empty_range() :
