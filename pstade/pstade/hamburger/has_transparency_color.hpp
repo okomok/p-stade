@@ -10,7 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/equal.hpp>
 #include <pstade/tomato/rgb.hpp>
 #include "./element.hpp"
 #include "./element_attributes.hpp"

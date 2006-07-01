@@ -12,7 +12,7 @@
 
 #include <pstade/instance.hpp>
 #include <pstade/ketchup/core.hpp>
-#include <pstade/oven/equal.hpp>
+#include <pstade/oven/equals.hpp>
 #include <pstade/unused.hpp>
 #include <pstade/ustring.hpp>
 #include "./factory.hpp"

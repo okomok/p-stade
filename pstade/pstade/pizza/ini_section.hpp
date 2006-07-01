@@ -27,10 +27,10 @@
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/instance.hpp>
 #include <pstade/integral_cast.hpp>
+#include <pstade/oven/algorithm.hpp> // copy
 #include <pstade/oven/array_range.hpp>
-#include <pstade/oven/copy.hpp>
 #include <pstade/oven/distance.hpp>
-#include <pstade/oven/equal.hpp>
+#include <pstade/oven/equals.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
 #include <pstade/require.hpp>
 #include <pstade/tomato/filesystem/module_file_name.hpp>

@@ -7,10 +7,7 @@
 #include <pstade/biscuit.hpp>
 
 #include <pstade/oven.hpp>
-#include <pstade/oven/istream_range.hpp>
-#include <pstade/oven/multi_pass_range.hpp>
 
-//#include <pstade/oven/equal.hpp>
 
 #include <string>
 #include <fstream>

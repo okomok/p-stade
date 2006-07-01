@@ -13,7 +13,7 @@
 #include <boost/assert.hpp>
 #include <boost/range/empty.hpp>
 #include <pstade/lime/save.hpp> // save_default
-#include <pstade/oven/equal.hpp>
+#include <pstade/oven/equals.hpp>
 #include <pstade/oven/null_outputter.hpp>
 #include <pstade/oven/sequence_cast.hpp>
 #include <pstade/overload.hpp>

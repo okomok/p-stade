@@ -20,14 +20,14 @@
 
 void test()
 {
-	using namespace pstade;
+    using namespace pstade;
 
     BOOST_FOREACH (
-    	comma_protect<void(std::pair<int, int>)>::type p,
-    	comma_protect<void(std::map<int, int>)>::type()
-	) {
-		BOOST_CHECK((p, false));
-	}
+        comma_protect<void(std::pair<int, int>)>::type p,
+        comma_protect<void(std::map<int, int>)>::type()
+    ) {
+        BOOST_CHECK((p, false));
+    }
 }
 
 

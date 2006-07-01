@@ -24,7 +24,7 @@
     if (BOOST_PP_CAT(P, i)::parse(s, us)) \
     { \
         ret = true; \
-        d = std::max(std::distance(marker, s.get_cur()), d); \
+        d = (std::max)(std::distance(marker, s.get_cur()), d); \
     } \
     s.set_cur(marker); \
 /**/

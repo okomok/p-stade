@@ -16,7 +16,7 @@
 #include <string>
 #include <vector>
 #include <boost/range.hpp>
-#include <pstade/oven/equal.hpp>
+#include <pstade/oven/algorithms.hpp>
 
 
 void test()

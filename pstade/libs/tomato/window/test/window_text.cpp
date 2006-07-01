@@ -29,7 +29,7 @@
 #include <boost/algorithm/string.hpp>
 #include <pstade/napkin/dout.hpp>
 #include <pstade/diet/reset_ostream.hpp>
-#include <pstade/oven/copy.hpp>
+#include <pstade/oven/algorithm.hpp> // copy
 #include <pstade/oven/sequence_cast.hpp>
 #include <pstade/tomato/tstring.hpp>
 

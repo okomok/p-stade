@@ -15,7 +15,6 @@
 // iterators manage temporary container for BOOST_FOREACH.
 
 
-#include <algorithm> // copy, sort
 #include <memory> // auto_ptr
 #include <vector>
 #include <boost/ptr_container/indirect_fun.hpp>
@@ -24,7 +23,7 @@
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/garlic/back_inserter.hpp>
-#include "./copy.hpp"
+#include "./algorithm.hpp" // copy, sort
 #include "./detail/less_than.hpp"
 #include "./direct_range.hpp"
 #include "./indirect_range.hpp"
@@ -63,11 +62,12 @@ namespace sort_range_detail {
     {
         std::auto_ptr<Sequence> pseq(new Sequence()); {
             oven::copy(rng|oven::directed, garlic::back_inserter(*pseq));
-            std::sort(boost::begin(*pseq), boost::end(*pseq), boost::make_indirect_fun(pred));
+            oven::sort(*pseq, boost::make_indirect_fun(pred));
         }
 
         return share_range<Sequence>(pseq.release());
     }
+
 
 } // namespace sort_range_detail
 

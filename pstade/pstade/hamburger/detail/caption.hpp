@@ -18,7 +18,7 @@
 #include <boost/assert.hpp>
 #include <pstade/apple/atl/win.hpp> // CWindow
 #include <pstade/apple/sdk/windows.hpp>
-#include <pstade/oven/equal.hpp>
+#include <pstade/oven/equals.hpp>
 #include <pstade/tomato/diet/valid.hpp>
 #include "./element_attributes.hpp"
 

@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/find.hpp>
+#include <pstade/oven/algorithm.hpp> // find
 #include <pstade/oven/null_terminate_range.hpp>
 #include <pstade/unused.hpp>
 #include "../../config/nullary_parser.hpp"

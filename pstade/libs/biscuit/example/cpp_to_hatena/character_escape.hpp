@@ -14,7 +14,7 @@
 #include <vector>
 #include <boost/range.hpp>
 #include <pstade/biscuit/parser.hpp>
-#include <pstade/oven/copy.hpp>
+#include <pstade/oven/algorithm.hpp> // copy
 
 
 namespace cpp_to_hatena {

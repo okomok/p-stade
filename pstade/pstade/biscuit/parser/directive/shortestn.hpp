@@ -10,15 +10,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
 
 #if BOOST_WORKAROUND(BOOST_MSVC, < 1300)
     #pragma warning(push)
     #pragma warning(disable:4663)
 #endif
-
-
-#include "detail/push_macro_max_min.hpp"
 
 
 #include <iterator> // distance
@@ -34,9 +32,6 @@
 #else
     #include "../../detail/preprocessed/shortestn.hpp"
 #endif
-
-
-#include "./detail/pop_macro_max_min.hpp"
 
 
 #if BOOST_WORKAROUND(BOOST_MSVC, < 1300)

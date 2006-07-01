@@ -18,12 +18,11 @@
 #include <boost/array.hpp>
 #include <boost/mpl/int.hpp>
 #include <boost/range/begin.hpp>
-#include <pstade/oven/distance.hpp>
 #include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/integral_cast.hpp>
 #include <pstade/oven/distance.hpp>
-#include <pstade/oven/equal.hpp>
+#include <pstade/oven/equals.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
 #include <pstade/require.hpp>
 #include "../diet/valid.hpp"

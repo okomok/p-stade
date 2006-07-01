@@ -10,9 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "detail/push_macro_max_min.hpp"
-
-
 #include <iterator> // distance
 #include <boost/iterator/iterator_traits.hpp> // iterator_difference
 #include <boost/mpl/void.hpp>
@@ -25,9 +22,6 @@
 #else
     #include "../../detail/preprocessed/longestn.hpp"
 #endif
-
-
-#include "./detail/pop_macro_max_min.hpp"
 
 
 #endif

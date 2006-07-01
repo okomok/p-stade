@@ -10,10 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./copy.hpp"
+#include "./algorithm.hpp"
+
+#include "./copies.hpp"
 #include "./distance.hpp"
-#include "./equal.hpp"
-#include "./find.hpp"
+#include "./equals.hpp"
 
 
 #endif

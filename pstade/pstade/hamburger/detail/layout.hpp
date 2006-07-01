@@ -12,6 +12,7 @@
 
 #include <boost/assert.hpp>
 #include <boost/foreach.hpp>
+#include <pstade/oven/equals.hpp>
 #include "../dimension.hpp"
 #include "../element.hpp"
 #include "../size.hpp"

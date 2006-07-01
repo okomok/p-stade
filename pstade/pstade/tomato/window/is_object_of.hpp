@@ -13,7 +13,7 @@
 #include <boost/assert.hpp>
 #include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/apple/sdk/windows.hpp>
-#include <pstade/oven/equal.hpp>
+#include <pstade/oven/equals.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
 #include "../diet/valid.hpp"
 #include "./class_name.hpp"

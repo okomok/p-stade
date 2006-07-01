@@ -14,7 +14,7 @@
 
 
 #include <string>
-#include <pstade/oven/equal.hpp>
+#include <pstade/oven/algorithms.hpp>
 
 
 void test()

@@ -14,7 +14,6 @@
 #include <string>
 #include <boost/throw_exception.hpp>
 #include <pstade/garlic/back_inserter.hpp>
-#include <pstade/oven/copy.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
 #include <pstade/oven/utf8_encoder.hpp>
 #include <pstade/what.hpp>

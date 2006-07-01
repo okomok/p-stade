@@ -18,8 +18,7 @@
 #include <vector>
 #include <boost/foreach.hpp>
 #include <boost/range.hpp>
-#include <pstade/oven/copy.hpp>
-#include <pstade/oven/equal.hpp>
+#include <pstade/oven/algorithms.hpp>
 #include <boost/lambda/algorithm.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/bind.hpp>

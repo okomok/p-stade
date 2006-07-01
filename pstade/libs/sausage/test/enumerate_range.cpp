@@ -19,7 +19,7 @@
 #include <string>
 #include <boost/foreach.hpp>
 #include <boost/range.hpp>
-#include <pstade/oven/equal.hpp>
+#include <pstade/oven/algorithms.hpp>
 #include <pstade/oven/multi_pass_range.hpp>
 
 

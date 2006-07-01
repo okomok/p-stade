@@ -14,7 +14,7 @@
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/instance.hpp>
 #include <pstade/lime/find.hpp>
-#include <pstade/oven/equal.hpp>
+#include <pstade/oven/equals.hpp>
 #include <pstade/require.hpp>
 #include <pstade/statement.hpp>
 #include "./element.hpp"

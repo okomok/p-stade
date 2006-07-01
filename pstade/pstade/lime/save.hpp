@@ -12,8 +12,8 @@
 
 #include <boost/foreach.hpp>
 #include <pstade/comma_protect.hpp>
-#include <pstade/oven/copy.hpp>
-#include <pstade/oven/equal.hpp>
+#include <pstade/oven/algorithm.hpp> // copy
+#include <pstade/oven/equals.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
 #include <pstade/overload.hpp>
 #include <pstade/ustring.hpp>

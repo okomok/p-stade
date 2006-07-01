@@ -13,7 +13,7 @@
     typedef typename boost::iterator_difference<iter_t>::type diff_t; \
     bool ret = false; \
     iter_t const marker = s.get_cur(); \
-    diff_t d = std::numeric_limits<diff_t>::max(); \
+    diff_t d = (std::numeric_limits<diff_t>::max)(); \
 /**/
 
 #define PSTADE_BISCUIT_NUMBERED_PARSERS_ARG_make_empty_body() \
@@ -24,7 +24,7 @@
     if (BOOST_PP_CAT(P, i)::parse(s, us)) \
     { \
         ret = true; \
-        d = std::min(std::distance(marker, s.get_cur()), d); \
+        d = (std::min)(std::distance(marker, s.get_cur()), d); \
     } \
     s.set_cur(marker); \
 /**/

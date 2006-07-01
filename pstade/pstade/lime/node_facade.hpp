@@ -18,7 +18,7 @@
 #include <boost/optional.hpp>
 #include <boost/throw_exception.hpp>
 #include <pstade/if_debug.hpp>
-#include <pstade/oven/equal.hpp>
+#include <pstade/oven/equals.hpp>
 #include <pstade/overload.hpp>
 #include <pstade/ustring.hpp>
 #include <pstade/what.hpp>

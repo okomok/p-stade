@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/copy.hpp>
+#include <pstade/oven/algorithm.hpp> // copy
 
 
 namespace cpp_to_hatena {

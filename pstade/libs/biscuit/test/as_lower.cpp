@@ -16,7 +16,7 @@
 
 #include <string>
 #include <vector>
-#include <pstade/oven/copy.hpp>
+#include <pstade/oven/algorithm.hpp> // copy
 #include <pstade/oven/null_terminate_range.hpp>
 
 

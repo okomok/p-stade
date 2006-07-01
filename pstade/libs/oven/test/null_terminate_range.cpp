@@ -18,10 +18,9 @@
 #include <vector>
 #include <boost/foreach.hpp>
 #include <boost/range.hpp>
+#include <pstade/oven/algorithms.hpp>
 #include <pstade/oven/begin_end.hpp>
-#include <pstade/oven/copy.hpp>
 #include <pstade/oven/counting_range.hpp>
-#include <pstade/oven/equal.hpp>
 
 
 void test()

@@ -12,7 +12,7 @@
 
 #include <string>
 #include <pstade/garlic/back_inserter.hpp>
-#include <pstade/oven/copy.hpp>
+#include <pstade/oven/algorithm.hpp> // copy
 #include <pstade/oven/file_range.hpp>
 #include <pstade/oven/utf8_decode_range.hpp>
 #include <pstade/ustring.hpp>

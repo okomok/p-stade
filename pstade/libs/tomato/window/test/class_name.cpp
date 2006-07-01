@@ -24,7 +24,7 @@
 #include <pstade/apple/wtl/misc.hpp>
 #include <pstade/apple/wtl/app.hpp>
 WTL::CAppModule _Module;
-#include <pstade/oven/copy.hpp>
+#include <pstade/oven/algorithm.hpp> // copy
 
 
 void test()
