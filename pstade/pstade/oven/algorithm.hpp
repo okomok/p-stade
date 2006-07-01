@@ -52,9 +52,9 @@
 #include <pstade/apple/has_lower_bound.hpp>
 #include <pstade/apple/has_remove.hpp>
 #include <pstade/apple/has_remove_if.hpp>
-#include <pstade/apple/has_unique.hpp>
 #include <pstade/apple/has_reverse.hpp>
 #include <pstade/apple/has_sort.hpp>
+#include <pstade/apple/has_unique.hpp>
 #include <pstade/apple/has_upper_bound.hpp>
 
 

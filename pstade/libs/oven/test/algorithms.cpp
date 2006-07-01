@@ -36,15 +36,14 @@ void test()
         BOOST_CHECK( oven::equals(src1, src2) );
     }
 
-    { // copy
-        std::string tmp(src1);
-        std::string::iterator it = boost::begin(tmp);
-        oven::copy(src1, it);
-        BOOST_CHECK( oven::equals(src1, tmp) );
+    { // distance
+        BOOST_CHECK( oven::distance(src1) == 5 );
     }
 
-    { // find
-        BOOST_CHECK( oven::find_if(src1, is_c()) == oven::find(src1, 'c') );
+    { // copies
+        std::string tmp(src1);
+        oven::copies(src1, tmp);
+        BOOST_CHECK( oven::equals(src1, tmp) );
     }
 }
 

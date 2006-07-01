@@ -48,10 +48,7 @@ void unused(const A0&, const A1&)
 
 // 3ary -
 //
-#define PSTADE_UNUSED_arg(Z, N, _) \
-    const BOOST_PP_CAT(A, N) & \
-/**/
-
+#define PSTADE_UNUSED_arg(Z, N, _) const BOOST_PP_CAT(A, N)&
 #define BOOST_PP_ITERATION_PARAMS_1 (3, (3, PSTADE_UNUSED_MAX_ARITY, <pstade/unused.hpp>))
 #include BOOST_PP_ITERATE()
 

@@ -26,10 +26,11 @@ void test()
 
     {
         boost::regex re("\\s+");
-        if (false) {
+        bool f = false;
+        if (f) {
             std::string("This is a string of tokens.")|tokenized(re);
             std::string("This is a string of tokens.")|tokenized(re, -1);
-            std::string("This is a string of tokens.")|tokenized(re, std::vector<int>());
+            std::string("This is a string of tokens.")|tokenized(re, std::vector<int>(), boost::regex_constants::match_default);
         }
     }
 }

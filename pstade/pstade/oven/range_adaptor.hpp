@@ -1,3 +1,4 @@
+#ifndef BOOST_PP_IS_ITERATING
 #ifndef PSTADE_OVEN_RANGE_ADAPTOR_HPP
 #define PSTADE_OVEN_RANGE_ADAPTOR_HPP
 
@@ -18,188 +19,97 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Why not: 'boost::result_of'
+// Why not use: 'boost::result_of'
 //
 // An array reference doesn't work under weird VC++7.1.
 
 
-#include <boost/utility/addressof.hpp> // for lambda functors
+#include <boost/preprocessor/cat.hpp>
+#include <boost/preprocessor/iteration/iterate.hpp>
+#include <boost/preprocessor/punctuation/comma_if.hpp>
+#include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/preprocessor/repetition/enum_trailing_params.hpp>
+#include <boost/preprocessor/repetition/repeat.hpp>
+#include <boost/preprocessor/seq/for_each_i.hpp>
+#include <boost/preprocessor/seq/for_each_product.hpp>
 #include <boost/type_traits/add_const.hpp>
-#include <pstade/egg/baby_result_type.hpp>
-#include <pstade/comma_protect.hpp>
-#include <pstade/instance.hpp>
-#include <pstade/unused.hpp>
-
-
-namespace pstade { namespace oven { namespace range_adaptor_detail {
-
-
-    // 0ary
-    //
-    template< class BabyAdaptor >
-    struct adaptor0
-    { };
-
-
-    template< class Range, class BabyAdaptor > inline
-    typename egg::baby_result1<BabyAdaptor, Range>::type
-    operator|(Range& rng, adaptor0<BabyAdaptor> ad)
-    {
-        pstade::unused(ad);
-        return egg::baby_call<BabyAdaptor>(rng);
-    }
-
-    template< class Range, class BabyAdaptor > inline
-    typename egg::baby_result1<BabyAdaptor, typename boost::add_const<Range>::type>::type
-    operator|(const Range& rng, adaptor0<BabyAdaptor> ad)
-    {
-        pstade::unused(ad);
-        return egg::baby_call<BabyAdaptor>(rng);
-    }
-
-
-    // 1ary
-    //
-    template< class BabyAdaptor, class A0 >
-    struct adaptor1
-    {
-        explicit adaptor1(A0& a0) :
-            m_pa0(boost::addressof(a0))
-        { }
-
-        A0 *m_pa0;
-    };
-
-
-    template< class Range, class BabyAdaptor, class A0 > inline
-    typename egg::baby_result2<BabyAdaptor, Range, A0>::type
-    operator|(Range& rng, adaptor1<BabyAdaptor, A0> ad)
-    {
-        return egg::baby_call<BabyAdaptor>(rng, *ad.m_pa0);
-    }
-
-        template< class Range, class BabyAdaptor, class A0 > inline
-        typename egg::baby_result2<BabyAdaptor, typename boost::add_const<Range>::type, A0>::type
-        operator|(const Range& rng, adaptor1<BabyAdaptor, A0> ad)
-        {
-            return egg::baby_call<BabyAdaptor>(rng, *ad.m_pa0);
-        }
-
-
-    // 2ary
-    //
-    template< class BabyAdaptor, class A0, class A1 >
-    struct adaptor2
-    {
-        explicit adaptor2(A0& a0, A1& a1) :
-            m_pa0(boost::addressof(a0)), m_pa1(boost::addressof(a1))
-        { }
-
-        A0 *m_pa0;
-        A1 *m_pa1;
-    };
-
-
-    template< class Range, class BabyAdaptor, class A0, class A1 > inline
-    typename egg::baby_result3<BabyAdaptor, Range, A0, A1>::type
-    operator|(Range& rng, adaptor2<BabyAdaptor, A0, A1> ad)
-    {
-        return egg::baby_call<BabyAdaptor>(rng, *ad.m_pa0, *ad.m_pa1);
-    }
-
-        template< class Range, class BabyAdaptor, class A0, class A1 > inline
-        typename egg::baby_result3<BabyAdaptor, typename boost::add_const<Range>::type, A0, A1>::type
-        operator|(const Range& rng, adaptor2<BabyAdaptor, A0, A1> ad)
-        {
-            return egg::baby_call<BabyAdaptor>(rng, *ad.m_pa0, *ad.m_pa1);
-        }
-
-
-    // 3ary
-    //
-    template< class BabyAdaptor, class A0, class A1, class A2 >
-    struct adaptor3
-    {
-        explicit adaptor3(A0& a0, A1& a1, A2& a2) :
-            m_pa0(boost::addressof(a0)), m_pa1(boost::addressof(a1)), m_pa2(boost::addressof(a2))
-        { }
-
-        A0 *m_pa0;
-        A1 *m_pa1;
-        A2 *m_pa2;
-    };
-
-
-    template< class Range, class BabyAdaptor, class A0, class A1, class A2 > inline
-    typename egg::baby_result4<BabyAdaptor, Range, A0, A1, A2>::type
-    operator|(Range& rng, adaptor3<BabyAdaptor, A0, A1, A2> ad)
-    {
-        return egg::baby_call<BabyAdaptor>(rng, *ad.m_pa0, *ad.m_pa1, *ad.m_pa2);
-    }
-
-        template< class Range, class BabyAdaptor, class A0, class A1, class A2 > inline
-        typename egg::baby_result4<BabyAdaptor, typename boost::add_const<Range>::type, A0, A1, A2>::type
-        operator|(const Range& rng, adaptor3<BabyAdaptor, A0, A1, A2> ad)
-        {
-            return egg::baby_call<BabyAdaptor>(rng, *ad.m_pa0, *ad.m_pa1, *ad.m_pa2);
-        }
-
-
-} } } // namespace pstade::oven::range_adaptor_detail
-
-
-#include "./detail/adaptor.ipp"
-
-/*
-template< class BabyAdaptor >
-struct range_adaptor
-{
-    // 0ary
-    //
-    range_adaptor_detail::adaptor0<BabyAdaptor>
-    operator()() const
-    {
-        return range_adaptor_detail::adaptor0<BabyAdaptor
-        >();
-    }
-
-    // 1ary
-    //
-    template< class A0 >
-    range_adaptor_detail::adaptor1<BabyAdaptor,
-        A0
-    >
-    operator()(
-        A0& a0
-    ) const
-    {
-        return range_adaptor_detail::adaptor1<BabyAdaptor,
-            A0
-        >(a0);
-    }
-
-    template< class A0 >
-    range_adaptor_detail::adaptor1<BabyAdaptor,
-        typename boost::add_const<A0>::type
-    >
-    operator()(
-        const A0& a0
-    ) const
-    {
-        return range_adaptor_detail::adaptor1<BabyAdaptor,
-            typename boost::add_const<A0>::type
-        >(a0);
-    }
-
-    // 2ary
-    //
-
-    // ...
-};
-*/
+#include "./detail/adaptors.hpp"
 
 
 namespace pstade { namespace oven {
+
+
+template< class BabyAdaptor >
+struct range_adaptor
+{
+
+    // 0ary
+    //
+    detail_adaptors::adaptor0<BabyAdaptor>
+    operator()() const
+    {
+        return detail_adaptors::adaptor0<BabyAdaptor
+        >();
+    }
+
+
+    // 1ary -
+    //
+    #define PSTADE_OVEN_call_operator(R, BitSeq) \
+        template< BOOST_PP_ENUM_PARAMS(n, class A) > \
+        detail_adaptors::BOOST_PP_CAT(adaptor, n)<BabyAdaptor, \
+            BOOST_PP_SEQ_FOR_EACH_I_R(R, PSTADE_OVEN_arg_type, ~, BitSeq) \
+        > \
+        operator()( \
+            BOOST_PP_SEQ_FOR_EACH_I_R(R, PSTADE_OVEN_param, ~, BitSeq) \
+        ) const \
+        { \
+            return detail_adaptors::BOOST_PP_CAT(adaptor, n)<BabyAdaptor, \
+                BOOST_PP_SEQ_FOR_EACH_I_R(R, PSTADE_OVEN_arg_type, ~, BitSeq) \
+            >( BOOST_PP_ENUM_PARAMS(n, a) ); \
+        } \
+    /**/
+
+
+    #define PSTADE_OVEN_arg_type(R, _, Index, Bit) \
+        BOOST_PP_COMMA_IF(Index) BOOST_PP_CAT(PSTADE_OVEN_ac, Bit)(BOOST_PP_CAT(A, Index)) \
+    /**/
+
+
+    #define PSTADE_OVEN_param(R, _, Index, Bit) \
+        BOOST_PP_COMMA_IF(Index) \
+        BOOST_PP_CAT(A, Index) BOOST_PP_CAT(PSTADE_OVEN_c, Bit) & BOOST_PP_CAT(a, Index) \
+    /**/
+
+                   
+    #define PSTADE_OVEN_c0
+    #define PSTADE_OVEN_c1 const
+
+
+    // Workaround:
+    // VC++7.1 is somewhat broken with array reference.
+    #define PSTADE_OVEN_ac0(X) X
+    #define PSTADE_OVEN_ac1(X) typename boost::add_const< X >::type
+
+
+    #define PSTADE_OVEN_bits(Z, N, _) ((0)(1))
+
+
+    #define BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_OVEN_RANGE_ADAPTOR_MAX_ARITY, <pstade/oven/range_adaptor.hpp>))
+    #include BOOST_PP_ITERATE()
+
+
+    #undef PSTADE_OVEN_bits
+    #undef PSTADE_OVEN_ac1
+    #undef PSTADE_OVEN_ac0
+    #undef PSTADE_OVEN_c1
+    #undef PSTADE_OVEN_c0
+    #undef PSTADE_OVEN_param
+    #undef PSTADE_OVEN_arg_type
+    #undef PSTADE_OVEN_call_operator
+
+
+}; // struct range_adaptor
 
 
 // passed as is
@@ -232,4 +142,16 @@ operator|(const Range& rng, range_adaptor<BabyAdaptor> ad)
 /**/
 
 
+#endif
+#else
+#define n BOOST_PP_ITERATION()
+
+
+BOOST_PP_SEQ_FOR_EACH_PRODUCT(
+    PSTADE_OVEN_call_operator,
+    BOOST_PP_REPEAT(n, PSTADE_OVEN_bits, ~)
+)
+
+
+#undef n
 #endif
