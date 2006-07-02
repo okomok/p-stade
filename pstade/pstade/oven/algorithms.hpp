@@ -12,9 +12,11 @@
 
 #include "./algorithm.hpp"
 
+#include "./construct.hpp"
 #include "./copies.hpp"
 #include "./distance.hpp"
 #include "./equals.hpp"
+#include "./sequence_cast.hpp"
 
 
 #endif

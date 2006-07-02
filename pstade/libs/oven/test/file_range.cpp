@@ -13,6 +13,7 @@
 #include <pstade/oven/file_range.hpp>
 
 
+#include <iterator>
 #include <string>
 #include <vector>
 #include <boost/range.hpp>
@@ -28,6 +29,10 @@ void test()
         file_range<> frng("non-exist.file");
         BOOST_CHECK(( boost::empty(frng) ));
         BOOST_CHECK(( !frng.is_open() ));
+    }
+    {
+        std::vector<char> vec;
+        oven::copy(file_range<char>("data.txt"), std::back_inserter(vec));
     }
 }
 

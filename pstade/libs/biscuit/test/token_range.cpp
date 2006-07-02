@@ -215,7 +215,7 @@ void test()
             text|tokenized< newline_any >()
         )
         {
-            BOOST_CHECK( boost::size(rng) == 1 || boost::size(rng) == 2 );
+            BOOST_CHECK( oven::distance(rng) == 1 || oven::distance(rng) == 2 );
         }
     }
 

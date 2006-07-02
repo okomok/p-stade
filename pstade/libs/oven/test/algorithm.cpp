@@ -11,7 +11,9 @@
 
 
 #include <pstade/oven/algorithm.hpp>
+
 #include <pstade/oven/begin_end.hpp>
+#include <pstade/oven/algorithms.hpp>
 
 
 //  (C) Copyright Eric Niebler 2004.
@@ -203,10 +205,10 @@ void test_algorithms(Rng & rng)
         o = oven::replace_copy_if(rng, oven::begin(out), null_pred(), val);
 
         oven::fill(rng, val);
-        oven::fill_n(rng, boost::size(rng), val);
+        oven::fill_n(rng, oven::distance(rng), val);
 
         oven::generate(rng, &std::rand);
-        oven::generate_n(rng, boost::size(rng), &std::rand);
+        oven::generate_n(rng, oven::distance(rng), &std::rand);
 
         i = oven::remove(rng, val);
         i = oven::remove_if(rng, null_pred());

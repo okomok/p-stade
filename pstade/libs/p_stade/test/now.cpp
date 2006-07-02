@@ -10,22 +10,15 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <iostream>
-#include <pstade/biscuit.hpp>
-#include <sstream>
-
-
-using namespace pstade;
-using namespace biscuit;
+#include <vector>
+#include <boost/spirit/phoenix/algorithm.hpp>
+#include <boost/spirit/phoenix/core.hpp>
 
 
 void test()
 {
-    typedef seq< any, before<eol> > parser;
-    std::stringstream sout;
-    biscuit::iterate< actor< parser, output_action > >(std::string("\nABC\n\nDEF\n"), sout, output_action());
-    //biscuit::match< iteration<actor<parser, output_action>, output_action> >(std::string("ABC\nDEF"), sout);
-    std::cout << sout.str();
+    std::vector<int> vec;
+    boost::phoenix::sort(boost::phoenix::arg1)(vec);
 }
 
 

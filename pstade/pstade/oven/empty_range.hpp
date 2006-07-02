@@ -24,10 +24,11 @@ struct empty_range :
 {
 private:
     typedef boost::iterator_range<Value *> super_t;
+    typedef typename super_t::iterator iter_t;
 
 public:
     empty_range() :
-        super_t(PSTADE_NULLPTR, PSTADE_NULLPTR)
+        super_t(iter_t(PSTADE_NULLPTR), iter_t(PSTADE_NULLPTR))
     { }
 };
 

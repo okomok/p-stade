@@ -20,6 +20,7 @@
 #include <boost/range.hpp>
 #include <boost/range/concepts.hpp>
 #include <pstade/oven/algorithms.hpp>
+#include <pstade/oven/distance.hpp>
 #include <pstade/oven/reverse_range.hpp>
 
 
@@ -64,7 +65,7 @@ void test()
         ) );
 
         BOOST_CHECK( 3*30 ==
-            boost::size(std::string("xyz")|repeated(2)|repeated(3)|repeated(5))
+            oven::distance(std::string("xyz")|repeated(2)|repeated(3)|repeated(5))
         );
     }
 

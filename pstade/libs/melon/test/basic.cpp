@@ -146,7 +146,7 @@ namespace my_melon {
         template< class SubRange >
         void operator()(SubRange rng, context& cxt)
         {
-            BOOST_ASSERT(boost::size(cxt.m_stack) > 1);
+            BOOST_ASSERT(oven::distance(cxt.m_stack) > 1);
             cxt.m_stack.pop();
 
             pstade::unused(rng);

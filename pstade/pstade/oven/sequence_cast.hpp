@@ -10,59 +10,28 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Same as:
+// Note:
 //
-// boost::copy_range
+// Deprecated and renamed to 'constructor/construct'.
 
 
-#include <boost/range/begin.hpp>
-#include <boost/range/end.hpp>
-#include <boost/utility/addressof.hpp>
+#include "./construct.hpp"
 
 
 namespace pstade { namespace oven {
 
 
-template< class StlSequence, class Range > inline
-StlSequence sequence_cast(const Range& rng)
+template< class T, class Range > inline
+T sequence_cast(const Range& rng)
 {
-    return StlSequence(boost::begin(rng), boost::end(rng));
+    return oven::constructor<T>(rng);
 }
 
 
-namespace sequence_cast_detail {
-
-
-    template< class Range >
-    struct temp
-    {
-        explicit temp(const Range& rng) :
-            m_prng(boost::addressof(rng))
-        { }
-
-        template< class StlSequence >
-        operator StlSequence() const
-        {
-            return oven::sequence_cast<StlSequence>(*m_prng);
-        }
-
-    private:
-        const Range *m_prng;
-    };
-
-
-} // namespace sequence_cast_detail
-
-
 template< class Range > inline const
-sequence_cast_detail::temp<Range> sequence(const Range& rng)
+construct_detail::temp<Range> sequence(const Range& rng)
 {
-    // Off Topic:
-    //   When tmp is missing under GCC3.4.4, it ran a foul of strange behaviors
-    //   if conversion template target is reference type.
-
-    sequence_cast_detail::temp<Range> tmp(rng);
-    return tmp;
+    return oven::construct(rng);
 }
 
 

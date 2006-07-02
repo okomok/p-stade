@@ -36,7 +36,7 @@ void test()
     }
 
     BOOST_CHECK( vec[3] == "a" && vec[4] == "a" );
-    BOOST_CHECK( boost::size(vec) == 2 );
+    BOOST_CHECK( oven::distance(vec) == 2 );
 }
 
 

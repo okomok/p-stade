@@ -16,6 +16,7 @@
 #include <iterator>
 #include <string>
 #include <boost/range.hpp>
+#include <pstade/oven/distance.hpp>
 
 
 void test()
@@ -26,8 +27,8 @@ void test()
     {
         char str[] = "hello range";
 
-        BOOST_CHECK( boost::size(oven::make_array_protect_range(str)) == 12 );
-        BOOST_CHECK( boost::size(str|oven::array_protected) == 12 );
+        BOOST_CHECK( oven::distance(oven::make_array_protect_range(str)) == 12 );
+        BOOST_CHECK( oven::distance(str|oven::array_protected) == 12 );
     }
 }
 

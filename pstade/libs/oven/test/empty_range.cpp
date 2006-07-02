@@ -10,12 +10,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/array_range.hpp>
+#include <pstade/oven/empty_range.hpp>
 
 
-#include <string>
-#include <boost/range.hpp>
-#include <pstade/oven/copies.hpp>
+#include <boost/range/empty.hpp>
 #include <pstade/oven/algorithms.hpp>
 
 
@@ -25,10 +23,8 @@ void test()
     using namespace oven;
 
     {
-        std::string str("hello, array_range");
-        array_range<char> arr(oven::distance(str));
-        oven::copies(str, arr);
-        BOOST_CHECK(oven::equals(str, arr));
+        BOOST_CHECK( boost::empty( empty_range<int>() ) );
+        BOOST_CHECK( oven::equals( empty_range<char>(), empty_range<char>() ) );
     }
 }
 

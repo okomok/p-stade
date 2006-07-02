@@ -66,12 +66,14 @@
 /**/
 
 
-#define BOOST_MPL_PP_TOKEN_EQUAL_value(A) \
-    A \
-/**/
+#if !defined(BOOST_MPL_PP_TOKEN_EQUAL_value)
+    #define BOOST_MPL_PP_TOKEN_EQUAL_value(A) \
+        A \
+    /**/
+#endif
 
 
-#define PSTADE_INSTANCE_no_args(Type, Name, Unused) \
+#define PSTADE_INSTANCE_no_args(Type, Name, _) \
     PSTADE_INSTANCE_define_fun(Type, Name, PSTADE_INSTANCE_define_x_v(Type)) \
     \
     namespace { \
@@ -122,7 +124,7 @@
 
 
 // Workaround:
-//   The weird 'stdafx.h' needs 'static'.
+// The weird 'stdafx.h' needs 'static'.
 //
 #if !defined(BOOST_MSVC)
     #define PSTADE_INSTANCE_static

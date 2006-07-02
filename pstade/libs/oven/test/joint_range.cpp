@@ -83,7 +83,7 @@ void test()
         ) ));
 
         BOOST_CHECK(( 8 ==
-            boost::size( rng1|jointed(rng2)|jointed(rng3) )
+            oven::distance( rng1|jointed(rng2)|jointed(rng3) )
         ));
 
         std::cout << oven::sequence_cast<std::string>(rng1|jointed(rng2)|jointed(rng3)) << std::endl;

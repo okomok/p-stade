@@ -25,6 +25,7 @@ extern WTL::CAppModule _Module;
 #include <atlwin.h>
 #include <atlctrls.h>
 #include <atlctrlw.h> // CSimpleStack
+#include <pstade/oven/distance.hpp>
 
 
 WTL::CAppModule _Module;
@@ -38,7 +39,7 @@ bool equals(Range1& rng1, Range2& rng2)
 {
     return
         std::equal(boost::begin(rng1), boost::end(rng1), boost::begin(rng2)) &&
-        boost::size(rng1) == boost::size(rng2)
+        pstade::oven::distance(rng1) == pstade::oven::distance(rng2)
     ;
 }
 

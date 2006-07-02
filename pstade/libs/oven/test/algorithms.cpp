@@ -16,6 +16,13 @@
 #include <boost/range.hpp>
 #include <string>
 
+#include <pstade/oven/filter_range.hpp>
+#include <pstade/oven/reverse_range.hpp>
+#include <pstade/oven/share_range.hpp>
+#include <boost/lambda/core.hpp>
+#include <boost/lambda/lambda.hpp>
+#include <boost/foreach.hpp>
+
 
 struct is_c
 {
@@ -41,9 +48,27 @@ void test()
     }
 
     { // copies
-        std::string tmp(src1);
-        oven::copies(src1, tmp);
-        BOOST_CHECK( oven::equals(src1, tmp) );
+        std::string  in("hello,copies!");
+        std::string out("hello, utils!");
+        oven::copies(in, out);
+        BOOST_CHECK( oven::equals(in, out) );
+    }
+
+    {
+        using namespace boost;
+
+        std::string out;
+
+        BOOST_FOREACH (char ch,
+            new std::string("!exgnxxar ,xolxlexh") |
+                shared |
+                filtered(lambda::_1 != 'x') |
+                reversed
+        ) {
+            out.push_back(ch);
+        }
+
+        BOOST_CHECK( out == "hello, range!" );
     }
 }
 

@@ -66,7 +66,7 @@ struct newline_cvter
             return '\n';
         }
         else {
-            BOOST_ASSERT(boost::size(rng) == 1);
+            BOOST_ASSERT(pstade::oven::distance(rng) == 1);
             return *boost::begin(rng);
         }
     }
