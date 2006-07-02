@@ -20,11 +20,7 @@
 #include <boost/type_traits/add_const.hpp>
 #include <pstade/egg/baby_result_type.hpp>
 #include <pstade/unused.hpp>
-
-
-#if !defined(PSTADE_OVEN_RANGE_ADAPTOR_MAX_ARITY)
-    #define PSTADE_OVEN_RANGE_ADAPTOR_MAX_ARITY 3
-#endif
+#include "./config.hpp" // RANGE_ADAPTOR_MAX_ARITY
 
 
 namespace pstade { namespace oven { namespace detail_adaptors {

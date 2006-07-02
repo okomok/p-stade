@@ -22,19 +22,19 @@ namespace pstade { namespace oven {
 namespace file_range_detail {
 
 
-    template< class Value >
+    template< class CharT >
     struct super_
     {
         typedef boost::iterator_range<
-            boost::spirit::file_iterator<Value>
+            boost::spirit::file_iterator<CharT>
         > type;
     };
 
 
-    template< class Value >
-    typename super_<Value>::type make_super(std::string path)
+    template< class CharT >
+    typename super_<CharT>::type make_super(std::string path)
     {
-        boost::spirit::file_iterator<Value> it(path);
+        boost::spirit::file_iterator<CharT> it(path);
         if (!it)
             return boost::make_iterator_range(it, it);
 
@@ -45,16 +45,16 @@ namespace file_range_detail {
 } // namespace file_range_detail
 
 
-template< class Value = char >
+template< class CharT = char >
 struct file_range :
-    file_range_detail::super_<Value>::type
+    file_range_detail::super_<CharT>::type
 {
 private:
-    typedef typename file_range_detail::super_<Value>::type super_t;
+    typedef typename file_range_detail::super_<CharT>::type super_t;
 
 public:
     explicit file_range(std::string path) :
-        super_t(file_range_detail::make_super<Value>(path))
+        super_t(file_range_detail::make_super<CharT>(path))
     { }
 
     bool is_open() const

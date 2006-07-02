@@ -7,7 +7,7 @@ The Oven Range Library
 :Author: MB
 :Contact: mb2act@yahoo.co.jp 
 :License: Distributed under the `Boost Software License Version 1.0`_
-:Version: 0.90.0
+:Version: 0.90.1
 
 
 
@@ -28,7 +28,7 @@ Introduction
 ------------
 The next `Boost.Range`_ library is under construction.
 Oven provides some ranges and `Range Adaptors`_ for those who cannot wait for the official.
-All the types and functions are defined in ``namespace pstade::oven``.
+All the types and functions are defined in ``namespace pstade::oven`` at ``<pstade/oven.hpp>``.
 
 
 
@@ -66,6 +66,12 @@ counting_range
 - Returns: A range whose iterators behave as if they were the original iterators wrapped in ``boost::counting_iterator``.
 
 
+directory_range
+^^^^^^^^^^^^^^^
+- Valid expression: ``directory_range rng(path);``
+- Returns: A range whose iterators behave as if they were the original iterators wrapped in ``boost::directory_iterator``.
+
+
 empty_range
 ^^^^^^^^^^^
 - Valid expression: ``empty_range<T> rng;``
@@ -78,6 +84,12 @@ file_range
 - Returns: A range whose iterators behave as if they were the original iterators wrapped in ``boost::spirit::file_iterator``.
 
 
+istream_range
+^^^^^^^^^^^^^
+- Valid expression: ``istream_range<Value> rng(stream);``
+- Returns: A range whose iterators behave as if they were the original iterators wrapped in ``std::istream_iterator``.
+
+
 single_range
 ^^^^^^^^^^^^
 - Valid expression: ``single_range<T> rng(v);``
@@ -88,6 +100,9 @@ single_range
 
 Range Adaptors
 --------------
+A Range Adaptor delivers an altered presentation of one or more underlying ranges.
+Range Adaptors are lazy, meaning that their elements are only computed on demand.
+The underlying ranges are not modified.
 
 
 appended
@@ -104,10 +119,26 @@ array_protected
 - Returns: ``[boost::begin(arr), boost::begin(arr)+sz)``, where ``sz`` is the size of ``arr``.
 
 
+adjacent_filtered
+^^^^^^^^^^^^^^^^^
+- See: `Range Adaptors`_.
+
+
 filtered
 ^^^^^^^^
 - See: `Range Adaptors`_.
 
+
+directed
+^^^^^^^^
+- Valid expression: ``rng|directed``
+- Returns: ``make_counting_range(boost::begin(rng), boost::end(rng))``.
+
+
+found
+^^^^^
+- Valid expression: ``rng|found(finder)``
+- Returns: A range whose iterators behave as if they were the original iterators wrapped in ``boost::find_iterator``.
 
 
 indirected
@@ -130,9 +161,16 @@ multi_passed
 
 null_terminated
 ^^^^^^^^^^^^^^^
-- Valid expression: ``rng|null_terminated``
-- Precondition: For all the value ``v`` in the ``rng``, the expression ``v == 0`` must be valid, and some ``v`` that the expression is ``true`` exists in the ``rng``.
+- Valid expression: ``rngOrString|null_terminated``
+- Precondition: ``rngOrString`` is a string literal; Otherwise for all the value ``v`` in the ``rngOrString``, the expression ``v == 0`` must be valid, and some ``v`` that the expression is ``true`` exists in the ``rngOrString``.
 - Returns: ``[boost::begin(rng), y)``, where for all the value ``v`` in the range ``v != 0`` is ``true``, and ``*y == 0`` is ``true``.
+
+
+permuted
+^^^^^^^^
+- Valid expression: ``rng|permuted(irng)``
+- Precondition: ``rng`` is a `Random Access Range`_ and ``irng`` is a range of the indices.
+- Returns: A range whose iterators behave as if they were the original iterators wrapped in ``boost::permutation_iterator``.
 
 
 pointed
@@ -140,6 +178,12 @@ pointed
 - Valid expression: ``vec|pointed``
 - Precondition: ``vec`` is the template instantiation of ``std::vector``.
 - Returns: ``[&*boost::begin(vec), &*boost::begin(vec)+boost::size(vec))``.
+
+
+positioned
+^^^^^^^^^^
+- Valid expression: ``rng|positioned``
+- Returns: A range whose iterators behave as if they were the original iterators wrapped in ``boost::spirit::position_iterator``.
 
 
 prepended
@@ -152,11 +196,33 @@ prepended
 repeated
 ^^^^^^^^
 - Valid expression: ``rng|repeated(i)``
-- Returns: A `Single Pass Range`_ that repeats ``[boost::begin(rng), boost::end(rng))`` ``i`` times.
+- Returns: A range that repeats ``[boost::begin(rng), boost::end(rng))`` ``i`` times.
 
 
 reversed
 ^^^^^^^^
+- See: `Range Adaptors`_.
+
+
+shared
+^^^^^^
+- Valid expression: ``new Range|shared``
+- Returns: A range whose iterators behave as if they were the original iterators wrapped in ``boost::shared_container_iterator``.
+
+
+sliced
+^^^^^^
+- See: `Range Adaptors`_.
+
+
+sorted
+^^^^^^
+- Valid expression: ``rng|sorted`` or ``rng|sorted(pred)``
+- Returns: A sorted view of ``rng``.
+
+
+tokenized
+^^^^^^^^^
 - See: `Range Adaptors`_.
 
 
@@ -165,17 +231,52 @@ transformed
 - See: `Range Adaptors`_.
 
 
+uniqued
+^^^^^^^
+- See: `Range Adaptors`_.
+
+
+unzipped
+^^^^^^^^
+- Valid expression: ``zipped_rng|unzipped<N>()``
+- Returns: A unzipped range.
+
+
 utf8_decoded
 ^^^^^^^^^^^^
 - Returns: A range whose iterators behave as if they were the original iterators wrapped in ``boost::u8_to_u32_iterator``.
 
 
+zipped
+^^^^^^^
+- Valid expression: ``boost::tie(rng0, rng1, ..., rngN)|zipped``
+- Returns: A range whose iterators behave as if they were the original iterators wrapped in ``boost::zip_iterator``.
+
+
+
+Range Algorithms
+----------------
+Oven has all the range-based STL algorithms which are ported from `Boost.RangeEx`_.
+
+- Valid expression: ``algo(rng, f);``
+- Precondition: ``algo(boost::begin(rng), boost::end(rng), f);``, where ``algo`` is one of the STL algorithms.
+
+
+Utilities
+---------
+
+sequence
+^^^^^^^^
+- Valid expression: ``seq = sequence(rng);``
+- Precondition: ``seq`` is a `Sequence`_.
+- Semantics: ``seq = boost::copy_range<Sequence>(rng);``, where ``Sequence`` is the type of ``seq``.
 
 References
 ----------
 - `P-Stade`_
 - `Boost C++ Libraries`_
 - `Boost.Range`_
+- `Boost.RangeEx`_
 - `Range Library Proposal`_
 
 
@@ -187,5 +288,8 @@ Version 0.90.0
 ^^^^^^^^^^^^^^
 - Initial version released.
 
-
+Version 0.90.1
+^^^^^^^^^^^^^^
+- Implemented `Range Algorithms`_.
+- Added some `Ranges`_ and `Range Adaptors`_.
 

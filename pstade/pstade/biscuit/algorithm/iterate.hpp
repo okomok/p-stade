@@ -12,7 +12,7 @@
 
 // Note:
 //
-// Deprecated. Prefer 'biscuit::iteration'.
+// Deprecated. Prefer the 'iteration' parser.
 
 
 #include <boost/config.hpp> // BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE
@@ -59,8 +59,11 @@ namespace iterate_detail {
             iterate_detail::aux_action(last_parsed, boost::begin(sr), us, action);
 
             // Note:
-            //   You cannot use 'match<Parser>(sr, us)'.
-            //   For instance, think about parser 'before<eol>'.
+            // You cannot use 'match<Parser>(sr, us)'.
+            // For instance, think about parser 'before<eol>'.
+            // Note:
+            // The comment above is impossible to understand.
+            // Never write the question as comment.
             biscuit::parse<Parser>(boost::make_iterator_range(boost::begin(sr), last), us);
 
             last_parsed = boost::end(sr);

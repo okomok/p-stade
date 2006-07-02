@@ -30,7 +30,7 @@ namespace pstade { namespace biscuit {
 
 template<
     class Parser,
-    class RestAction = null_action
+    class GapAction = null_action
 >
 struct iteration :
     star<
@@ -41,7 +41,7 @@ struct iteration :
                     any,
                     no_captures< no_actions<Parser> > 
                 >,
-                RestAction
+                GapAction
             >
         >
     >

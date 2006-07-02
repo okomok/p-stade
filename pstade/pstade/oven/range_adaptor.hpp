@@ -34,6 +34,7 @@
 #include <boost/preprocessor/seq/for_each_product.hpp>
 #include <boost/type_traits/add_const.hpp>
 #include "./detail/adaptors.hpp"
+#include "./detail/config.hpp" // RANGE_ADAPTOR_MAX_ARITY
 
 
 namespace pstade { namespace oven {
