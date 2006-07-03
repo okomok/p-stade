@@ -85,7 +85,7 @@ namespace save_detail {
     template< class Node, class OutIter > inline
     void pstade_lime_save_node(Node& node, OutIter out)
     {
-         return pstade_lime_save_node(node, out, overload());
+         return pstade_lime_save_node(node, out, overload<>());
     }
 
 
@@ -103,7 +103,7 @@ void save(Node& node, OutIter out)
 // default
 //
 template< class Node, class OutIter > inline
-void pstade_lime_save_node(Node& node, OutIter out, pstade::overload)
+void pstade_lime_save_node(Node& node, OutIter out, pstade::overload<>)
 {
     return pstade::lime::save_default(node, out);
 }

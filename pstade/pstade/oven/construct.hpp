@@ -10,50 +10,40 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/mpl/identity.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/utility/addressof.hpp>
+#include <pstade/overload.hpp>
 
 
 namespace pstade { namespace oven {
 
 
-// customization point
-//
-
-template< class T >
-struct constructor_customization;
-
-
-struct constructor_default_tag
-{ };
-
-template< class T >
-struct constructor_customization_tag :
-    boost::mpl::identity<constructor_default_tag>
-{ };
-
-
-template< >
-struct constructor_customization<constructor_default_tag>
-{
-    template< class T, class Range >
-    T construct(const Range& rng) const
-    {
-        return T(boost::begin(rng), boost::end(rng));
-    }
-};
-
-
 // constructor
 //
+
+namespace construct_detail {
+
+
+    template< class T, class Range > inline
+    T pstade_oven_construct(Range& rng, overload<T>)
+    {
+        // STL Sequence as default
+        return T(boost::begin(rng), boost::end(rng));
+    }
+
+
+} // namespace construct_detail
+
 
 template< class T, class Range > inline
 T constructor(const Range& rng)
 {
-    typedef typename constructor_customization_tag<T>::type tag_t;
-    return constructor_customization<tag_t>().template construct<T>(rng);
+    // Under: http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1893.pdf
+    // using namespace(T);
+
+    using namespace construct_detail;
+    return pstade_oven_construct(rng, overload<T>());
 }
 
 
@@ -87,8 +77,9 @@ namespace construct_detail {
 template< class Range > inline const
 construct_detail::temp<Range> construct(const Range& rng)
 {
-    // Off Topic:
-    // When tmp is missing under GCC3.4.4, it ran a foul of strange behaviors
+    // Topic:
+    // When tmp is missing under GCC3.4.4,
+    // it sometimes runs a foul of strange behaviors
     // if conversion template target is reference type.
 
     construct_detail::temp<Range> tmp(rng);

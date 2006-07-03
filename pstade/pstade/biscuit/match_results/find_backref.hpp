@@ -19,7 +19,7 @@ namespace pstade { namespace biscuit {
 template< class MatchResults, class ParsingSubRange > inline
 bool find_backref(MatchResults& results, int id, ParsingSubRange& subrng)
 {
-    return pstade_biscuit_find_backref(results, id, subrng, overload());
+    return pstade_biscuit_find_backref(results, id, subrng, overload<>());
 }
 
 
@@ -29,7 +29,7 @@ bool find_backref(MatchResults& results, int id, ParsingSubRange& subrng)
 // default
 //
 template< class MatchResults, class ParsingSubRange > inline
-bool pstade_biscuit_find_backref(MatchResults& results, int id, ParsingSubRange& subrng, ...)
+bool pstade_biscuit_find_backref(MatchResults& results, int id, ParsingSubRange& subrng, pstade::overload<>)
 {
     return results.pstade_biscuit_find_backref(id, subrng);
 }

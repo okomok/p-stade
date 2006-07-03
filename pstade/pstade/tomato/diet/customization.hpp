@@ -28,13 +28,13 @@
 // HDC
 //
 inline
-bool pstade_diet_is_valid(HDC hDC, pstade::overload)
+bool pstade_diet_is_valid(HDC hDC, pstade::overload<>)
 {
     return (hDC != NULL);
 }
 
 template< class OStream > inline
-void pstade_diet_dump(HDC hDC, OStream& os, pstade::overload)
+void pstade_diet_dump(HDC hDC, OStream& os, pstade::overload<>)
 {
     os << boost::format("<HDC><handle>%x</handle></HDC>") % hDC;
 }
@@ -43,14 +43,14 @@ void pstade_diet_dump(HDC hDC, OStream& os, pstade::overload)
 // HMENU
 //
 inline 
-bool pstade_diet_is_valid(HMENU hMenu, pstade::overload)
+bool pstade_diet_is_valid(HMENU hMenu, pstade::overload<>)
 {
     return pstade::tomato::boolean(::IsMenu(hMenu));
 }
 
 
 template< class OStream > inline
-void pstade_diet_dump(HMENU hMenu, OStream& os, pstade::overload)
+void pstade_diet_dump(HMENU hMenu, OStream& os, pstade::overload<>)
 {
     os << boost::format("<HMENU><handle>%x</handle></HMENU>") % hMenu;
 }
@@ -59,13 +59,13 @@ void pstade_diet_dump(HMENU hMenu, OStream& os, pstade::overload)
 // HWND
 //
 inline 
-bool pstade_diet_is_valid(HWND hWnd, pstade::overload)
+bool pstade_diet_is_valid(HWND hWnd, pstade::overload<>)
 {
     return pstade::tomato::boolean(::IsWindow(hWnd));
 }
 
 template< class OStream > inline
-void pstade_diet_dump(HWND hWnd, OStream& os, pstade::overload)
+void pstade_diet_dump(HWND hWnd, OStream& os, pstade::overload<>)
 {
     os << boost::format("<HWND><handle>%x</handle></HWND>") % hWnd;
 }
@@ -75,7 +75,7 @@ void pstade_diet_dump(HWND hWnd, OStream& os, pstade::overload)
 //   seems not to work under WinXP.
 //
 inline
-bool pstade_diet_is_valid(const TCHAR *psz, pstade::overload)
+bool pstade_diet_is_valid(const TCHAR *psz, pstade::overload<>)
 {
     using namespace pstade;
 
@@ -124,7 +124,7 @@ bool pstade_diet_is_valid(const TCHAR *psz, pstade::overload)
 }
 
 template< class OStream > inline
-void pstade_diet_dump(const TCHAR *psz, OStream& os, pstade::overload)
+void pstade_diet_dump(const TCHAR *psz, OStream& os, pstade::overload<>)
 {
     os << boost::format("<cstring><pointer>%x</pointer></cstring>") % static_cast<const void *>(psz);
 
@@ -135,13 +135,13 @@ void pstade_diet_dump(const TCHAR *psz, OStream& os, pstade::overload)
 // HINSTANCE
 //
 inline 
-bool pstade_diet_is_valid(HINSTANCE hInst, pstade::overload)
+bool pstade_diet_is_valid(HINSTANCE hInst, pstade::overload<>)
 {
     return hInst != NULL;
 }
 
 template< class OStream > inline
-void pstade_diet_dump(HINSTANCE hInst, OStream& os, pstade::overload)
+void pstade_diet_dump(HINSTANCE hInst, OStream& os, pstade::overload<>)
 {
     os << boost::format("<HINSTANCE><handle>%x</handle></HINSTANCE>") % hInst;
 }

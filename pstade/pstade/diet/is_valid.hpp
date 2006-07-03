@@ -40,7 +40,7 @@ namespace is_valid_detail {
     template< class T > inline
     bool pstade_diet_is_valid(const T& x)
     {
-        return pstade_diet_is_valid(x, pstade::overload());
+        return pstade_diet_is_valid(x, overload<>());
     }
 
     struct adl_customization
@@ -77,7 +77,7 @@ bool is_valid(const Diagnostic& dg)
 
 template< class Range > inline
 typename boost::enable_if<pstade::apple::is_boost_range<Range>, bool>::type
-pstade_diet_is_valid(const Range& rng, pstade::overload)
+pstade_diet_is_valid(const Range& rng, pstade::overload<>)
 {
     typedef typename boost::range_const_iterator<Range>::type iter_t;
     typedef typename boost::iterator_reference<iter_t>::type ref_t;

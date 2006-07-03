@@ -10,36 +10,20 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-namespace secret {
-
-    struct XXX
-    { };
-
-
-    template< class Ex >
-    void call()
-    {
-        XXX xxx;
-        BOOST_CHECK(false);
-    }
-
-}
+#include <vector>
+#include <boost/spirit/phoenix/algorithm.hpp>
+#include <boost/spirit/phoenix/core.hpp>
 
 
-template< class Ex >
-void call()
-{ }
-
-
-template< class Ex >
 void test()
 {
-    call<Ex>();
+    std::vector<int> vec;
+    boost::phoenix::sort(boost::phoenix::arg1)(vec);
 }
 
 
 int test_main(int, char*[])
 {
-    ::test<secret::XXX>();
+    ::test();
     return 0;
 }

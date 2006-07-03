@@ -84,14 +84,14 @@ construct
 
 - Header: ``<pstade/oven/construct.hpp>``
 - Valid expression: ``seq = sequence(rng);``
-- Precondition: ``seq = boost::copy_range<Seq>(rng);`` is a valid expression.
+- Precondition: ``seq = boost::copy_range<Seq>(rng);`` is a valid expression, and ``Seq`` is not a dependent name.
 - Semantics: ``seq = boost::copy_range<Seq>(rng);``
 
 
 constructor
 ^^^^^^^^^^^
-``constructor`` is the same function as `copy_range`_ that calls range constructor of
-STL Sequences.
+``constructor`` is the same function as `copy_range`_ that calls
+the range constructor of STL Sequences.
 
 
 copies

@@ -62,7 +62,7 @@ namespace string_detail {
         template< class Profile > static
         bool call(Profile& pr, const TCHAR *pszValueName, TCHAR *pFirst, TCHAR *pLast)
         {
-            return pstade_pizza_query_string(pr, pszValueName, pFirst, pLast, overload());
+            return pstade_pizza_query_string(pr, pszValueName, pFirst, pLast, overload<>());
         }
     };
 

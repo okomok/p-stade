@@ -57,8 +57,46 @@ void test()
 }
 
 
+// customization test
+//
+
+namespace xxx {
+
+    struct X{ };
+
+}
+
+template< class Range > inline
+xxx::X pstade_oven_construct(Range& rng, pstade::overload<xxx::X>)
+{
+    return xxx::X();
+}
+
+namespace yyy {
+
+    struct Y { };
+
+    template< class Range > inline
+    Y pstade_oven_construct(Range& rng, pstade::overload<Y>)
+    {
+        return Y();
+    }
+
+}
+
+void test_customization()
+{
+    using namespace pstade;
+    using namespace oven;
+
+    xxx::X x = oven::construct(std::string());
+    yyy::Y y = oven::construct(std::string());
+}
+
+
 int test_main(int, char*[])
 {
     ::test();
+    ::test_customization();
     return 0;
 }

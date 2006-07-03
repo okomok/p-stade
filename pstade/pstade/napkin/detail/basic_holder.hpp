@@ -40,7 +40,7 @@ struct basic_holder :
 protected:
     void override_output(const CharT *psz)
     {
-        pstade_napkin_output(m_held, psz, overload());
+        pstade_napkin_output(m_held, psz, overload<>());
     }
 
 private:

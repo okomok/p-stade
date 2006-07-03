@@ -41,7 +41,7 @@ namespace push_back_detail {
     template< class T, class ValueT > inline
     void pstade_garlic_push_back(T& x, const ValueT& val)
     {
-        pstade_garlic_push_back(x, val, overload());
+        pstade_garlic_push_back(x, val, overload<>());
     }
 
     struct adl_customization
@@ -79,14 +79,14 @@ void push_back(BackInsertable& bi, const ValueT& val)
 
 template< class Sequence, class ValueT > inline
 typename boost::enable_if<pstade::apple::is_sequence<Sequence>, void>::type
-pstade_garlic_push_back(Sequence& seq, const ValueT& val, pstade::overload)
+pstade_garlic_push_back(Sequence& seq, const ValueT& val, pstade::overload<>)
 {
     seq.push_back(val);
 }
 
 
 template< class CharT, class Traits, class ValueT > inline
-void pstade_garlic_push_back(std::basic_ostream<CharT, Traits>& os, const ValueT& val, pstade::overload)
+void pstade_garlic_push_back(std::basic_ostream<CharT, Traits>& os, const ValueT& val, pstade::overload<>)
 {
     os << val;
 }

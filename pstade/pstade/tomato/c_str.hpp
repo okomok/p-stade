@@ -57,7 +57,7 @@ namespace c_str_detail {
     const TCHAR *
     pstade_tomato_c_str(const T& str)
     {
-        return pstade_tomato_c_str(str, overload());
+        return pstade_tomato_c_str(str, overload<>());
     }
 
 
@@ -115,7 +115,7 @@ PSTADE_OVEN_RANGE_ADAPTOR(c_stringized, c_str_detail::baby)
 
 inline
 const TCHAR *
-pstade_tomato_c_str(const TCHAR *psz, pstade::overload)
+pstade_tomato_c_str(const TCHAR *psz, pstade::overload<>)
 {
     return psz;
 }
@@ -123,7 +123,7 @@ pstade_tomato_c_str(const TCHAR *psz, pstade::overload)
 
 template< class T > inline
 const TCHAR *
-pstade_tomato_c_str(const WTL::CString& str, pstade::overload)
+pstade_tomato_c_str(const WTL::CString& str, pstade::overload<>)
 {
     return str;
 }
@@ -131,7 +131,7 @@ pstade_tomato_c_str(const WTL::CString& str, pstade::overload)
 
 template< PSTADE_APPLE_ATL_CSIMPLESTRINGT_TEMPLATE_PARAMS > inline
 const BaseType *
-pstade_tomato_c_str(const ATL::CSimpleStringT< PSTADE_APPLE_ATL_CSIMPLESTRINGT_TEMPLATE_ARGS >& str, pstade::overload)
+pstade_tomato_c_str(const ATL::CSimpleStringT< PSTADE_APPLE_ATL_CSIMPLESTRINGT_TEMPLATE_ARGS >& str, pstade::overload<>)
 {
     return str;
 }
@@ -139,7 +139,7 @@ pstade_tomato_c_str(const ATL::CSimpleStringT< PSTADE_APPLE_ATL_CSIMPLESTRINGT_T
 
 template< class Traits, class Alloc > inline
 const TCHAR *
-pstade_tomato_c_str(const std::basic_string<TCHAR, Traits, Alloc>& str, pstade::overload)
+pstade_tomato_c_str(const std::basic_string<TCHAR, Traits, Alloc>& str, pstade::overload<>)
 {
     return str.c_str();
 }

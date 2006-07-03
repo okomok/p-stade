@@ -40,7 +40,7 @@ namespace initialize_detail {
         template< class Profile > static
         void call(Profile& pr, const TCHAR *pszName)
         {
-            pstade_pizza_initialize(pr, pszName, overload());
+            pstade_pizza_initialize(pr, pszName, overload<>());
         }
     };
 

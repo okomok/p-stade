@@ -25,7 +25,7 @@ namespace new_node_detail {
     typename node_value<Node>::type *
     pstade_lime_new_node(Node& parent, ustring childName)
     {
-         return pstade_lime_new_node(parent, childName, overload());
+         return pstade_lime_new_node(parent, childName, overload<>());
     }
 
 
@@ -47,7 +47,7 @@ new_node(Node& parent, ustring childName)
 // default
 //
 template< class Node > inline
-Node *pstade_lime_new_node(Node& parent, pstade::ustring childName, pstade::overload)
+Node *pstade_lime_new_node(Node& parent, pstade::ustring childName, pstade::overload<>)
 {
     return new Node(parent, childName);
 }

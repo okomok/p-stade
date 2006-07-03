@@ -61,7 +61,7 @@ struct boost_archive_output
 
 
 template< class T, class String > inline
-void pstade_napkin_output(T& out, String psz, pstade::overload)
+void pstade_napkin_output(T& out, String psz, pstade::overload<>)
 {
     using namespace boost;
     using namespace pstade;

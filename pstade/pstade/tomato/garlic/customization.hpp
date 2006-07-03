@@ -23,14 +23,14 @@
 template< PSTADE_APPLE_ATL_CSIMPLESTRINGT_TEMPLATE_PARAMS >
 void pstade_garlic_push_back(
     ATL::CSimpleStringT< PSTADE_APPLE_ATL_CSIMPLESTRINGT_TEMPLATE_ARGS >& str,
-    TCHAR ch, pstade::overload)
+    TCHAR ch, pstade::overload<>)
 {
     str.AppendChar(ch);
 }
 
 
 void pstade_garlic_push_back(WTL::CString& str,
-    TCHAR ch, pstade::overload)
+    TCHAR ch, pstade::overload<>)
 {
     str += ch;
 }
@@ -42,7 +42,7 @@ void pstade_garlic_push_back(WTL::CString& str,
 template< class E, class ETraits, class ValueT >
 void pstade_garlic_push_back(
     ATL::CAtlArray<E, ETraits>& arr,
-    const ValueT& val, pstade::overload)
+    const ValueT& val, pstade::overload<>)
 {
     arr.Add(val);
 }
@@ -51,7 +51,7 @@ void pstade_garlic_push_back(
 template< class E, class ETraits, class ValueT >
 void pstade_garlic_push_back(
     ATL::CAtlList<E, ETraits>& lst,
-    const ValueT& val, pstade::overload)
+    const ValueT& val, pstade::overload<>)
 {
     lst.AddTail(val);
 }
@@ -60,7 +60,7 @@ void pstade_garlic_push_back(
 template< PSTADE_APPLE_ATL_CSIMPLEARRAY_TEMPLATE_PARAMS, class ValueT >
 void pstade_garlic_push_back(
     ATL::CSimpleArray< PSTADE_APPLE_ATL_CSIMPLEARRAY_TEMPLATE_ARGS >& arr,
-    const ValueT& val, pstade::overload)
+    const ValueT& val, pstade::overload<>)
 {
 #if !defined(PSTADE_APPLE_ATL_HAS_OLD_CSIMPLEARRAY)
     arr.Add(val);

@@ -24,7 +24,7 @@
 
 
 inline
-void pstade_pizza_initialize(ATL::CRegKey& key, const TCHAR *pszName, pstade::overload)
+void pstade_pizza_initialize(ATL::CRegKey& key, const TCHAR *pszName, pstade::overload<>)
 {
     using namespace pstade;
 
@@ -36,7 +36,7 @@ void pstade_pizza_initialize(ATL::CRegKey& key, const TCHAR *pszName, pstade::ov
 
 
 inline
-void pstade_pizza_set_string(ATL::CRegKey& key, const TCHAR *pszValueName, const TCHAR *pszValue, pstade::overload)
+void pstade_pizza_set_string(ATL::CRegKey& key, const TCHAR *pszValueName, const TCHAR *pszValue, pstade::overload<>)
 {
 #if !(PSTADE_APPLE_ATL_VER < 0x0700)
     PSTADE_REQUIRE(key.SetStringValue(pszValueName, pszValue) == ERROR_SUCCESS);
@@ -47,7 +47,7 @@ void pstade_pizza_set_string(ATL::CRegKey& key, const TCHAR *pszValueName, const
 
 
 inline
-bool pstade_pizza_query_string(ATL::CRegKey& key, const TCHAR *pszValueName, TCHAR *pFirst, TCHAR *pLast, pstade::overload)
+bool pstade_pizza_query_string(ATL::CRegKey& key, const TCHAR *pszValueName, TCHAR *pFirst, TCHAR *pLast, pstade::overload<>)
 {
 #if !(PSTADE_APPLE_ATL_VER < 0x0700)
     ULONG ulBufs = pstade::integral(pLast - pFirst);
@@ -60,7 +60,7 @@ bool pstade_pizza_query_string(ATL::CRegKey& key, const TCHAR *pszValueName, TCH
 
 
 inline
-void pstade_pizza_delete(ATL::CRegKey& key, const TCHAR *pszValueName, pstade::overload)
+void pstade_pizza_delete(ATL::CRegKey& key, const TCHAR *pszValueName, pstade::overload<>)
 {
     PSTADE_REQUIRE(key.DeleteValue(pszValueName) == ERROR_SUCCESS);
 }

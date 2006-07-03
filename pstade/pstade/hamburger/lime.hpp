@@ -27,7 +27,7 @@
 
 inline
 pstade::hamburger::element *
-pstade_lime_new_node(pstade::hamburger::element& parent, pstade::ustring childName, pstade::overload)
+pstade_lime_new_node(pstade::hamburger::element& parent, pstade::ustring childName, pstade::overload<>)
 {
     return pstade::hamburger::create_element(parent, childName);
 }
@@ -35,7 +35,7 @@ pstade_lime_new_node(pstade::hamburger::element& parent, pstade::ustring childNa
 
 template< class OutIter > inline
 void
-pstade_lime_save_node(pstade::hamburger::element& node, OutIter out, pstade::overload)
+pstade_lime_save_node(pstade::hamburger::element& node, OutIter out, pstade::overload<>)
 {
     using namespace pstade;
     using namespace hamburger;

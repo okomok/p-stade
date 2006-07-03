@@ -23,7 +23,7 @@ namespace pstade { namespace biscuit {
 template< class MatchResults, class ParsingSubRange > inline
 void insert_backref(MatchResults& results, int id, ParsingSubRange& subrng)
 {
-    pstade_biscuit_insert_backref(results, id, subrng, overload());
+    pstade_biscuit_insert_backref(results, id, subrng, overload<>());
 }
 
 
@@ -33,7 +33,7 @@ void insert_backref(MatchResults& results, int id, ParsingSubRange& subrng)
 // default
 //
 template< class MatchResults, class ParsingSubRange > inline
-void pstade_biscuit_insert_backref(MatchResults& results, int id, ParsingSubRange& subrng, ...)
+void pstade_biscuit_insert_backref(MatchResults& results, int id, ParsingSubRange& subrng, pstade::overload<>)
 {
     results.pstade_biscuit_insert_backref(id, subrng);
 }

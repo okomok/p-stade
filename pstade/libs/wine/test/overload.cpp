@@ -33,13 +33,13 @@ namespace graphics {
     template< class ShapeT >
     test_code draw(ShapeT& x)
     {
-        return graphics_draw(x, pstade::overload());
+        return graphics_draw(x, pstade::overload<>());
     }
 
     template< class ShapeT >
     test_code draw(const ShapeT& x)
     {
-        return graphics_draw(x, pstade::overload());
+        return graphics_draw(x, pstade::overload<>());
     }
 
 } // namespace graphics
@@ -49,7 +49,7 @@ namespace graphics {
 //   Note: const-version isn't required.
 //
 template< class ShapeT >
-test_code graphics_draw(ShapeT& x, ...)
+test_code graphics_draw(ShapeT& x, pstade::overload<>)
 {
     return x.graphics_draw();
 }
@@ -77,12 +77,12 @@ public:
 class Line
 { };
 
-inline test_code graphics_draw(Line&, pstade::overload)
+inline test_code graphics_draw(Line&, pstade::overload<>)
 {
     return Line_value;
 }
 
-inline test_code graphics_draw(const Line&, pstade::overload)
+inline test_code graphics_draw(const Line&, pstade::overload<>)
 {
     return const_Line_value;
 }
@@ -98,13 +98,13 @@ namespace crop { namespace mystery {
 } } // namespace crop::mistery
 
 
-namespace crop { namespace mystery { // is not required for pstade::overload.
+namespace crop { namespace mystery { // is not required for pstade::overload<>.
 
-    inline test_code graphics_draw(crop::mystery::Circle&, pstade::overload)
+    inline test_code graphics_draw(crop::mystery::Circle&, pstade::overload<>)
     {
         return Circle_value;
     }
-    inline test_code graphics_draw(const crop::mystery::Circle&, pstade::overload)
+    inline test_code graphics_draw(const crop::mystery::Circle&, pstade::overload<>)
     {
         return const_Circle_value;
     }
@@ -124,14 +124,14 @@ namespace never_open {
 
 
 template< class CharT >
-test_code graphics_draw(never_open::Text<CharT>&, pstade::overload)
+test_code graphics_draw(never_open::Text<CharT>&, pstade::overload<>)
 {
     return Text_value;
 }
 
 
 template< class CharT >
-test_code graphics_draw(const never_open::Text<CharT>&, pstade::overload)
+test_code graphics_draw(const never_open::Text<CharT>&, pstade::overload<>)
 {
     return const_Text_value;
 }
@@ -139,12 +139,12 @@ test_code graphics_draw(const never_open::Text<CharT>&, pstade::overload)
 
 // built-in type test
 //
-inline test_code graphics_draw(float&, pstade::overload)
+inline test_code graphics_draw(float&, pstade::overload<>)
 {
     return float_value;
 }
 
-inline test_code graphics_draw(const float&, pstade::overload)
+inline test_code graphics_draw(const float&, pstade::overload<>)
 {
     return const_float_value;
 }

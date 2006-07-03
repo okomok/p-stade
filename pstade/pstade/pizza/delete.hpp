@@ -40,7 +40,7 @@ namespace delete_detail {
         template< class Profile > static
         void call(Profile& pr, const TCHAR *pszValueName)
         {
-            pstade_pizza_delete(pr, pszValueName, overload());
+            pstade_pizza_delete(pr, pszValueName, overload<>());
         }
     };
 

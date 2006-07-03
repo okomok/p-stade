@@ -41,7 +41,7 @@ namespace set_string_detail {
         template< class Profile > static
         void call(Profile& pr, const TCHAR *pszValueName, const TCHAR *pszValue)
         {
-            pstade_pizza_set_string(pr, pszValueName, pszValue, overload());
+            pstade_pizza_set_string(pr, pszValueName, pszValue, overload<>());
         }
     };
 

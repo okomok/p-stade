@@ -11,7 +11,7 @@
 
 
 // hierarchy test
-//   must use 'pstade::overload'!
+//   must use 'pstade::overload<>'!
 //
 namespace mfc {
 
@@ -31,7 +31,7 @@ namespace mfc {
 
 }
 
-inline bool pstade_diet_is_valid(const mfc::A& a, pstade::overload)
+inline bool pstade_diet_is_valid(const mfc::A& a, pstade::overload<>)
 {
     return a.AssertValid();
 }
@@ -89,7 +89,7 @@ namespace your {
 
 }
 
-inline bool pstade_diet_is_valid(const your::Z& , pstade::overload)
+inline bool pstade_diet_is_valid(const your::Z& , pstade::overload<>)
 {
     return true;
 }
@@ -120,7 +120,7 @@ struct is_STU :
 
 template< class T > inline
 typename boost::enable_if<is_STU<T>, bool>::type
-pstade_diet_is_valid(const T& , pstade::overload)
+pstade_diet_is_valid(const T& , pstade::overload<>)
 {
     return true;
 }

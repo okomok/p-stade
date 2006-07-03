@@ -26,6 +26,24 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Why: template
+//
+// Customization target types are not always "argument",
+// so carry the target type using type2type.
+
+
+#include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/preprocessor/repetition/enum_params_with_a_default.hpp>
+
+
+#if !defined(PSTADE_OVERLOAD_MAX_ARITY)
+    #define PSTADE_OVERLOAD_MAX_ARITY 5
+#endif
+
+
+template<
+    BOOST_PP_ENUM_PARAMS(PSTADE_OVERLOAD_MAX_ARITY, class T)
+>
 struct pstade_overload_detail_adl_into_global_namespace
 { };
 
@@ -33,8 +51,14 @@ struct pstade_overload_detail_adl_into_global_namespace
 namespace pstade {
 
 
-typedef pstade_overload_detail_adl_into_global_namespace
-overload;
+template<
+    BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(PSTADE_OVERLOAD_MAX_ARITY, class T, void)
+>
+struct overload :
+    ::pstade_overload_detail_adl_into_global_namespace<
+        BOOST_PP_ENUM_PARAMS(PSTADE_OVERLOAD_MAX_ARITY, T)
+    >
+{ };
 
 
 } // namespace pstade

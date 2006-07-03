@@ -40,7 +40,7 @@ namespace dump_detail {
     template< class T, class OStream > inline
     void pstade_diet_dump(const T& x, OStream& os)
     {
-        pstade_diet_dump(x, os, pstade::overload());
+        pstade_diet_dump(x, os, overload<>());
     }
 
     struct adl_customization
@@ -77,7 +77,7 @@ void dump(const Diagnostic& dg, OStream& os)
 
 template< class Range, class OStream > inline
 typename boost::enable_if<pstade::apple::is_boost_range<Range>, void>::type
-pstade_diet_dump(const Range& rng, OStream& os, pstade::overload)
+pstade_diet_dump(const Range& rng, OStream& os, pstade::overload<>)
 {
     os << "<range>";
 
