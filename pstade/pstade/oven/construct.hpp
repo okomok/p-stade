@@ -13,6 +13,8 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/utility/addressof.hpp>
+#include <boost/utility/enable_if.hpp>
+#include <pstade/apple/has_range_constructor.hpp>
 #include <pstade/overload.hpp>
 
 
@@ -26,9 +28,9 @@ namespace construct_detail {
 
 
     template< class T, class Range > inline
-    T pstade_oven_construct(Range& rng, overload<T>)
+    typename boost::enable_if< apple::has_range_constructor<T>,
+    T>::type pstade_oven_construct(Range& rng, overload<T>)
     {
-        // STL Sequence as default
         return T(boost::begin(rng), boost::end(rng));
     }
 

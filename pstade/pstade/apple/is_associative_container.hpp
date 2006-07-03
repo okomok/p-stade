@@ -1,5 +1,5 @@
-#ifndef PSTADE_APPLE_HAS_LOWER_BOUND_HPP
-#define PSTADE_APPLE_HAS_LOWER_BOUND_HPP
+#ifndef PSTADE_APPLE_IS_ASSOCIATIVE_CONTAINER_HPP
+#define PSTADE_APPLE_IS_ASSOCIATIVE_CONTAINER_HPP
 
 
 // PStade.Apple
@@ -7,14 +7,6 @@
 // Copyright MB 2005-2006.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
-// http://www.boost.org/LICENSE_1_0.txt)
-
-
-// Port of: Boost.RangeEx
-//
-// Copyright 2004 Eric Niebler.
-// Distributed under the Boost Software License, Version 1.0. (See
-// accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
@@ -30,7 +22,7 @@ namespace pstade { namespace apple {
 
 
 template< class T >
-struct has_lower_bound_impl :
+struct is_associative_container_impl :
     boost::mpl::or_<
         boost::mpl::or_<
             is_map<T>,
@@ -49,8 +41,8 @@ struct has_lower_bound_impl :
 
 
 template< class T >
-struct has_lower_bound :
-    has_lower_bound_impl<
+struct is_associative_container :
+    is_associative_container_impl<
         typename remove_rcv<T>::type
     >
 { };

@@ -77,8 +77,8 @@ namespace iterate_detail {
 
 
 template< class Parser, class ForwardRange, class UserState, class GapAction > inline
-typename const_overloaded<void, ForwardRange>::type
-iterate(ForwardRange& r, UserState& us, GapAction action BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
+typename const_overloaded<ForwardRange,
+void>::type iterate(ForwardRange& r, UserState& us, GapAction action BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
 {
     iterate_detail::aux<Parser>(r, us, action);
 }
@@ -92,8 +92,8 @@ iterate(ForwardRange& r, UserState& us, GapAction action BOOST_APPEND_EXPLICIT_T
 
 // no user-state
 template< class Parser, class ForwardRange, class UserState, class GapAction > inline
-typename const_overloaded<void, ForwardRange>::type
-iterate(ForwardRange& r, GapAction action BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
+typename const_overloaded<ForwardRange,
+void>::type iterate(ForwardRange& r, GapAction action BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
 {
     iterate_detail::aux<Parser>(r, null_state, action);
 }
@@ -124,8 +124,8 @@ namespace iterate_detail {
 
 
 template< class Parser, class ForwardRange, class UserState > inline
-typename const_overloaded<void, ForwardRange>::type
-iterate(ForwardRange& r, UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
+typename const_overloaded<ForwardRange,
+void>::type iterate(ForwardRange& r, UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
 {
     iterate_detail::aux_without_gap_actions<Parser>(r, us);
 }
@@ -139,8 +139,8 @@ iterate(ForwardRange& r, UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parse
 
 // no user-state
 template< class Parser, class ForwardRange > inline
-typename const_overloaded<void, ForwardRange>::type
-iterate(ForwardRange& r BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
+typename const_overloaded<ForwardRange,
+void>::type iterate(ForwardRange& r BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
 {
     iterate_detail::aux_without_gap_actions<Parser>(r, null_state);
 }

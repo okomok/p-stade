@@ -63,7 +63,8 @@ public:
 
 
 template< class Parser, class ForwardRange, class UserState > inline
-typename const_overloaded<token_range<Parser, ForwardRange, UserState> const, ForwardRange>::type
+typename const_overloaded<ForwardRange,
+token_range<Parser, ForwardRange, UserState> const>::type
 make_token_range(ForwardRange& r, UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
 {
     return token_range<Parser, ForwardRange, UserState>(r, us);
@@ -79,7 +80,8 @@ make_token_range(ForwardRange& r, UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_T
 
 // no user-state
 template< class Parser, class ForwardRange > inline
-typename const_overloaded<token_range<Parser, ForwardRange> const, ForwardRange>::type
+typename const_overloaded<ForwardRange,
+token_range<Parser, ForwardRange> const>::type
 make_token_range(ForwardRange& r BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
 {
     return token_range<Parser, ForwardRange>(r);

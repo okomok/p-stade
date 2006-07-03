@@ -39,8 +39,8 @@ namespace match_detail {
 
 
 template< class Parser, class ForwardRange, class UserState > inline
-typename const_overloaded<bool, ForwardRange>::type
-match(ForwardRange& r, UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
+typename const_overloaded<ForwardRange,
+bool>::type match(ForwardRange& r, UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
 {
     typedef typename match_results_default<Parser, ForwardRange>::type results_t;
     results_t rs;
@@ -58,8 +58,8 @@ match(ForwardRange& r, UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser)
 
 // no user-state
 template< class Parser, class ForwardRange > inline
-typename const_overloaded<bool, ForwardRange>::type
-match(ForwardRange& r BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
+typename const_overloaded<ForwardRange,
+bool>::type match(ForwardRange& r BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
 {
     typedef typename match_results_default<Parser, ForwardRange>::type results_t;
     results_t rs;
@@ -76,8 +76,8 @@ match(ForwardRange& r BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
 
 
 template< class Parser, class ForwardRange, class MatchResults, class UserState > inline
-typename const_overloaded<bool, ForwardRange>::type
-results_match(ForwardRange& r, MatchResults& rs, UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
+typename const_overloaded<ForwardRange,
+bool>::type results_match(ForwardRange& r, MatchResults& rs, UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
 {
     return match_detail::aux<Parser>(r, rs, us);
 }
@@ -91,8 +91,8 @@ results_match(ForwardRange& r, MatchResults& rs, UserState& us BOOST_APPEND_EXPL
 
 // no user-state
 template< class Parser, class ForwardRange, class MatchResults > inline
-typename const_overloaded<bool, ForwardRange>::type
-results_match(ForwardRange& r, MatchResults& rs BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
+typename const_overloaded<ForwardRange,
+bool>::type results_match(ForwardRange& r, MatchResults& rs BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
 {
     return match_detail::aux<Parser>(r, rs, null_state);
 }

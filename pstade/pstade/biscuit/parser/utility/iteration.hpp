@@ -16,6 +16,7 @@
 
 
 #include "../../action/null_action.hpp"
+#include "../../config/nullary_parser.hpp"
 #include "../actor.hpp"
 #include "../any.hpp"
 #include "../directive/no_actions.hpp"
@@ -38,7 +39,7 @@ struct iteration :
             Parser,
             actor<
                 star_before<
-                    any,
+                    PSTADE_BISCUIT_NULLARY_PARSER(any),
                     no_captures< no_actions<Parser> > 
                 >,
                 GapAction

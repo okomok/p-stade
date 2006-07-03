@@ -10,11 +10,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/utility/enable_if.hpp>
 #include <boost/foreach.hpp>
 #include <boost/iterator/iterator_traits.hpp> // iterator_reference
-#include <boost/mpl/if.hpp>
 #include <boost/range/result_iterator.hpp>
+#include <boost/utility/enable_if.hpp>
 #include <pstade/apple/is_boost_range.hpp>
 #include <pstade/overload.hpp>
 #include "./access.hpp"
@@ -27,30 +26,30 @@ namespace pstade { namespace diet {
 namespace dump_detail {
 
 
-    struct member_function
+    // member function
+    //
+    template< class T, class OStream > inline
+    typename boost::enable_if<detail::has_pstade_diet_diagnostic<T>,
+    void>::type aux(const T& x, OStream& os)
     {
-        template< class T, class OStream > static
-        void call(const T& x, OStream& os)
-        {
-            access::detail_dump(x, os);
-        }
-    };
+        return access::detail_dump(x, os);
+    }
 
 
+    // ADL
+    //
     template< class T, class OStream > inline
     void pstade_diet_dump(const T& x, OStream& os)
     {
-        pstade_diet_dump(x, os, overload<>());
+        return pstade_diet_dump(x, os, overload<>());
     }
 
-    struct adl_customization
+    template< class T, class OStream > inline
+    typename boost::disable_if<detail::has_pstade_diet_diagnostic<T>,
+    void>::type aux(const T& x, OStream& os)
     {
-        template< class T, class OStream > static
-        void call(const T& x, OStream& os)
-        {
-            pstade_diet_dump(x, os);
-        }
-    };
+        return pstade_diet_dump(x, os);
+    }
 
 
 } // namespace dump_detail
@@ -59,13 +58,7 @@ namespace dump_detail {
 template< class Diagnostic, class OStream > inline
 void dump(const Diagnostic& dg, OStream& os)
 {
-    typedef typename
-    boost::mpl::if_< detail::has_pstade_diet_diagnostic<Diagnostic>,
-        dump_detail::member_function,
-        dump_detail::adl_customization
-    >::type impl_t;
-
-    return impl_t::call(dg, os);
+    return dump_detail::aux(dg, os);
 }
 
 
@@ -76,8 +69,8 @@ void dump(const Diagnostic& dg, OStream& os)
 //
 
 template< class Range, class OStream > inline
-typename boost::enable_if<pstade::apple::is_boost_range<Range>, void>::type
-pstade_diet_dump(const Range& rng, OStream& os, pstade::overload<>)
+typename boost::enable_if<pstade::apple::is_boost_range<Range>,
+void>::type pstade_diet_dump(const Range& rng, OStream& os, pstade::overload<>)
 {
     os << "<range>";
 

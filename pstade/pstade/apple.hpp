@@ -29,12 +29,15 @@
 #include "./apple/is_set.hpp"
 #include "./apple/is_vector.hpp"
 
+#include "./apple/is_associative_container.hpp"
 #include "./apple/is_boost_range.hpp"
+#include "./apple/is_container.hpp"
 #include "./apple/is_sequence.hpp"
 
 #include "./apple/has_equal_range.hpp"
 #include "./apple/has_find.hpp"
 #include "./apple/has_lower_bound.hpp"
+#include "./apple/has_range_constructor.hpp"
 #include "./apple/has_remove.hpp"
 #include "./apple/has_remove_if.hpp"
 #include "./apple/has_reverse.hpp"

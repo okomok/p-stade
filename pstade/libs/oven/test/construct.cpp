@@ -69,6 +69,7 @@ namespace xxx {
 template< class Range > inline
 xxx::X pstade_oven_construct(Range& rng, pstade::overload<xxx::X>)
 {
+    (void)rng;
     return xxx::X();
 }
 
@@ -79,6 +80,7 @@ namespace yyy {
     template< class Range > inline
     Y pstade_oven_construct(Range& rng, pstade::overload<Y>)
     {
+        (void)rng;
         return Y();
     }
 
@@ -90,7 +92,9 @@ void test_customization()
     using namespace oven;
 
     xxx::X x = oven::construct(std::string());
+    (void)x;
     yyy::Y y = oven::construct(std::string());
+    (void)y;
 }
 
 

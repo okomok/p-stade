@@ -83,10 +83,8 @@ public:
 // generators
 //
 template< int N, class TupleRange > inline
-typename const_overloaded<
-    const unzip_range<TupleRange, N>,
-    TupleRange
->::type
+typename const_overloaded<TupleRange,
+const unzip_range<TupleRange, N> >::type
 make_unzip_range(TupleRange& rng)
 {
     return unzip_range<TupleRange, N>(rng);
@@ -94,10 +92,7 @@ make_unzip_range(TupleRange& rng)
 
 
 template< int N, class TupleRange > inline
-typename const_overloaded<
-    const unzip_range<typename boost::add_const<TupleRange>::type, N>,
-    TupleRange
->::type
+const unzip_range<typename boost::add_const<TupleRange>::type, N>
 make_unzip_range(const TupleRange& rng)
 {
     return unzip_range<typename boost::add_const<TupleRange>::type, N>(rng);

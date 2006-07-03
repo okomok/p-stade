@@ -11,7 +11,7 @@
 
 
 #include <boost/mpl/identity.hpp>
-#include <boost/mpl/if.hpp>
+#include <boost/utility/enable_if.hpp>
 #include <pstade/apple/atl/config.hpp> // CSIMPLESTRINGT_TEMPLATE_PARAMS/ARGS
 #include <pstade/apple/atl/simpstr_fwd.hpp> // CSimpleStringT
 #include <pstade/apple/sdk/tchar.hpp>
@@ -43,44 +43,29 @@ namespace c_str_detail {
     PSTADE_HAS_TYPE(pstade_tomato_cstringizable)
 
 
-    struct member_function
-    {
-        template< class T > static
-        const TCHAR *call(const T& str)
-        {
-            return c_str_access::detail_call(str);
-        }
-    };
-
-
+    // member function
+    //
     template< class T > inline
-    const TCHAR *
-    pstade_tomato_c_str(const T& str)
+    typename boost::enable_if<has_pstade_tomato_cstringizable<T>,
+    const TCHAR *>::type aux(const T& str)
+    {
+        return c_str_access::detail_call(str);
+    }
+
+
+    // ADL
+    //
+    template< class T > inline
+    const TCHAR *pstade_tomato_c_str(const T& str)
     {
         return pstade_tomato_c_str(str, overload<>());
     }
 
-
-    struct adl_customization
+    template< class T > inline
+    typename boost::disable_if<has_pstade_tomato_cstringizable<T>,
+    const TCHAR *>::type aux(const T& str)
     {
-        template< class T > static
-        const TCHAR *call(const T& str)
-        {
-            return pstade_tomato_c_str(str);
-        }
-    };
-
-
-    template< class CStringizable > inline
-    const TCHAR *aux(const CStringizable& str)
-    {
-        typedef typename
-        boost::mpl::if_< has_pstade_tomato_cstringizable<CStringizable>,
-            member_function,
-            adl_customization
-        >::type impl_t;
-
-        return impl_t::call(str);
+        return pstade_tomato_c_str(str);
     }
 
 

@@ -1,5 +1,5 @@
-#ifndef PSTADE_APPLE_IS_SEQUENCE_HPP
-#define PSTADE_APPLE_IS_SEQUENCE_HPP
+#ifndef PSTADE_APPLE_HAS_RANGE_CONSTRUCTOR_HPP
+#define PSTADE_APPLE_HAS_RANGE_CONSTRUCTOR_HPP
 
 
 // PStade.Apple
@@ -10,31 +10,32 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Note:
+//
+// SGI documentation is outdated.
+
+
 #include <boost/mpl/or.hpp>
 #include <pstade/remove_rcv.hpp>
-#include "./is_basic_string.hpp"
-#include "./is_deque.hpp"
-#include "./is_list.hpp"
-#include "./is_vector.hpp"
+#include "./is_associative_container.hpp"
+#include "./is_sequence.hpp"
 
 
 namespace pstade { namespace apple {
 
 
 template< class T >
-struct is_sequence_impl :
+struct has_range_constructor_impl :
     boost::mpl::or_<
-        is_vector<T>,
-        is_deque<T>,
-        is_list<T>,
-        is_basic_string<T>
+        is_sequence<T>,
+        is_associative_container<T>
     >
 { };
 
 
 template< class T >
-struct is_sequence :
-    is_sequence_impl<
+struct has_range_constructor :
+    has_range_constructor_impl<
         typename remove_rcv<T>::type
     >
 { };

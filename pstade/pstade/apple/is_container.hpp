@@ -1,5 +1,5 @@
-#ifndef PSTADE_APPLE_IS_CONTAINERE_HPP
-#define PSTADE_APPLE_IS_CONTAINERE_HPP
+#ifndef PSTADE_APPLE_IS_CONTAINER_HPP
+#define PSTADE_APPLE_IS_CONTAINER_HPP
 
 
 // PStade.Apple
@@ -10,38 +10,19 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/mpl/and.hpp>
-#include <boost/mpl/or.hpp>
-#include <boost/type_traits/is_array.hpp>
-#include <pstade/has_xxx.hpp>
 #include <pstade/remove_rcv.hpp>
+#include "./is_associative_container.hpp"
 #include "./is_sequence.hpp"
 
 
 namespace pstade { namespace apple {
 
 
-namespace is_container_detail {
-
-
-    PSTADE_HAS_TYPE(iterator)
-    PSTADE_HAS_TYPE(const_iterator)
-    PSTADE_HAS_TYPE(value_type)
-
-
-} // namespace is_container_detail
-
-
 template< class T >
 struct is_container_impl :
     boost::mpl::or_<
         is_sequence<T>,
-        boost::is_array<T>,
-        boost::mpl::and_<
-            is_container_detail::has_iterator<T>,
-            is_container_detail::has_const_iterator<T>,
-            is_container_detail::has_value_type<T>
-        >
+        is_associative_container<T>
     >
 { };
 

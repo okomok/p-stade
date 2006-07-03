@@ -38,13 +38,13 @@ namespace pstade {
 #if !defined(BOOST_NO_SFINAE)
 
 
-template< class Result, class T >
+template< class T, class Result >
 struct const_overloaded :
     boost::disable_if< boost::is_const<T>, Result >
 { };
 
 
-template< class Result, class T >
+template< class T, class Result >
 struct const_overloaded_eval :
     boost::lazy_disable_if< boost::is_const<T>, Result >
 { };
@@ -53,14 +53,14 @@ struct const_overloaded_eval :
 #else // God bless you.
 
 
-template< class Result, class T >
+template< class T, class Result >
 struct const_overloaded
 {
     typedef Result type;
 };
 
 
-template< class Result, class T >
+template< class T, class Result >
 struct const_overloaded_eval
 {
     typedef typename Result::type type;

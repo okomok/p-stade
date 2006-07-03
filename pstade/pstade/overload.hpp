@@ -10,6 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// What:
+//
+// Triggers intentional ADL that jumps namespaces.
+
+
 // See: 'tag' at <boost/foreach.hpp>
 //
 // Copyright 2004 Eric Niebler.

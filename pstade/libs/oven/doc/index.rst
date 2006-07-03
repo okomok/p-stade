@@ -71,8 +71,6 @@ Oven has all the range-based STL algorithms which are ported from `Boost.RangeEx
 - Returns: ``std::algo(boost::begin(rng),boost::end(rng),a0,a1,...,aN);``
 
 
-
-
 construct
 ^^^^^^^^^
 ``construct`` adds the automatic type deduction to `copy_range`_::
@@ -86,12 +84,6 @@ construct
 - Valid expression: ``seq = sequence(rng);``
 - Precondition: ``seq = boost::copy_range<Seq>(rng);`` is a valid expression, and ``Seq`` is not a dependent name.
 - Semantics: ``seq = boost::copy_range<Seq>(rng);``
-
-
-constructor
-^^^^^^^^^^^
-``constructor`` is the same function as `copy_range`_ that calls
-the range constructor of STL Sequences.
 
 
 copies
@@ -133,7 +125,8 @@ Note that the size of two ranges is also checked out.
 Ranges
 ------
 Oven provides some predefined range types.
-``<pstade/oven/ranges.hpp>`` includes all the following ranges.
+``<pstade/oven/ranges.hpp>`` includes all the following ranges except for
+`directory_range`_ and `tokenized`_.
 
 
 array_range
