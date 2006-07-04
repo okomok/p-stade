@@ -15,6 +15,7 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
+#include <pstade/instance.hpp>
 
 
 #if !defined(PSTADE_UNUSED_MAX_ARITY)
@@ -25,32 +26,43 @@
 namespace pstade {
 
 
-// 0ary
-//
-inline
-void unused()
-{ }
+struct unused_fun
+{
+
+    typedef void result_type;
 
 
-// 1ary
-//
-template< class A0 > inline
-void unused(const A0&)
-{ }
+    // 0ary
+    //
+    void operator()() const
+    { }
 
 
-// 2ary
-//
-template< class A0, class A1 > inline
-void unused(const A0&, const A1&)
-{ }
+    // 1ary
+    //
+    template< class A0 >
+    void operator()(const A0&) const
+    { }
 
 
-// 3ary -
-//
-#define PSTADE_UNUSED_arg(Z, N, _) const BOOST_PP_CAT(A, N)&
-#define BOOST_PP_ITERATION_PARAMS_1 (3, (3, PSTADE_UNUSED_MAX_ARITY, <pstade/unused.hpp>))
-#include BOOST_PP_ITERATE()
+    // 2ary
+    //
+    template< class A0, class A1 >
+    void operator()(const A0&, const A1&) const
+    { }
+
+
+    // 3ary -
+    //
+    #define PSTADE_UNUSED_arg(Z, N, _) const BOOST_PP_CAT(A, N)&
+    #define BOOST_PP_ITERATION_PARAMS_1 (3, (3, PSTADE_UNUSED_MAX_ARITY, <pstade/unused.hpp>))
+    #include BOOST_PP_ITERATE()
+
+
+}; // struct unused_fun
+
+
+PSTADE_INSTANCE(const unused_fun, unused, value)
 
 
 } // namespace pstade
@@ -61,8 +73,8 @@ void unused(const A0&, const A1&)
 #define n BOOST_PP_ITERATION()
 
 
-template< BOOST_PP_ENUM_PARAMS(n, class A) > inline
-void unused( BOOST_PP_ENUM(n, PSTADE_UNUSED_arg, ~) )
+template< BOOST_PP_ENUM_PARAMS(n, class A) >
+void operator()( BOOST_PP_ENUM(n, PSTADE_UNUSED_arg, ~) ) const
 { }
 
 

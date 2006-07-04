@@ -12,10 +12,10 @@
 
 // Note:
 //
-// Deprecated and renamed to 'constructor/construct'.
+// Deprecated.
 
 
-#include "./construct.hpp"
+#include "./copy_range.hpp"
 
 
 namespace pstade { namespace oven {
@@ -24,14 +24,14 @@ namespace pstade { namespace oven {
 template< class T, class Range > inline
 T sequence_cast(const Range& rng)
 {
-    return oven::constructor<T>(rng);
+    return oven::copy_range<T>(rng);
 }
 
 
 template< class Range > inline const
-construct_detail::temp<Range> sequence(const Range& rng)
+copy_range_detail::temp<Range> sequence(const Range& rng)
 {
-    return oven::construct(rng);
+    return rng|copied;
 }
 
 

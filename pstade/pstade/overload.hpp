@@ -37,7 +37,6 @@
 // so carry the target type using type2type.
 
 
-#include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_params_with_a_default.hpp>
 
 
@@ -46,9 +45,6 @@
 #endif
 
 
-template<
-    BOOST_PP_ENUM_PARAMS(PSTADE_OVERLOAD_MAX_ARITY, class T)
->
 struct pstade_overload_detail_adl_into_global_namespace
 { };
 
@@ -60,9 +56,7 @@ template<
     BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(PSTADE_OVERLOAD_MAX_ARITY, class T, void)
 >
 struct overload :
-    ::pstade_overload_detail_adl_into_global_namespace<
-        BOOST_PP_ENUM_PARAMS(PSTADE_OVERLOAD_MAX_ARITY, T)
-    >
+    ::pstade_overload_detail_adl_into_global_namespace
 { };
 
 

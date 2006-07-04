@@ -12,8 +12,7 @@
 
 #include "./algorithm.hpp"
 
-#include "./construct.hpp"
-#include "./copies.hpp"
+#include "./copy_range.hpp"
 #include "./distance.hpp"
 #include "./equals.hpp"
 #include "./sequence_cast.hpp"

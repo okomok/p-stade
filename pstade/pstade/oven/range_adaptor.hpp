@@ -33,6 +33,10 @@
 #include <boost/preprocessor/seq/for_each_i.hpp>
 #include <boost/preprocessor/seq/for_each_product.hpp>
 #include <boost/type_traits/add_const.hpp>
+#include <pstade/comma_protect.hpp>
+#include <pstade/egg/baby_call.hpp>
+#include <pstade/egg/baby_result_type.hpp>
+#include <pstade/instance.hpp>
 #include "./detail/adaptors.hpp"
 #include "./detail/config.hpp" // RANGE_ADAPTOR_MAX_ARITY
 

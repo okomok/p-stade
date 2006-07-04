@@ -11,6 +11,7 @@
 
 
 #include <pstade/biscuit/parser.hpp>
+#include <pstade/biscuit/action.hpp>
 #include <pstade/biscuit/algorithm/parse.hpp>
 
 
@@ -23,17 +24,24 @@ using namespace biscuit;
 
 
 bool called = false;
+bool called2 = false;
 
 
 struct action
 {
-    template< class SubRange, class Unused >
-    void operator()(SubRange rng, Unused )
+    template< class SubRange, class _ >
+    void operator()(SubRange rng, _)
     {
         BOOST_CHECK( oven::equals(rng, std::string("actor")) );
         called = true;
     }
 };
+
+
+PSTADE_BISCUIT_ACTION(action2,
+    BOOST_CHECK( oven::equals(rng, std::string("actor")) );
+    called2 = true;
+)
 
 
 void test()
@@ -48,6 +56,18 @@ void test()
         >(src);
 
         BOOST_CHECK( ::called );
+    }
+
+    {
+        std::string src("hello, actor!");
+        biscuit::parse<
+            seq<
+                chseq<'h','e','l','l','o',',',' '>,
+                actor< star_before< any, chseq<'!'> >, ::action2 >
+            >
+        >(src);
+
+        BOOST_CHECK( ::called2 );
     }
 }
 

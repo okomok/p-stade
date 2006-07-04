@@ -18,6 +18,7 @@
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/utility/addressof.hpp> // for Boost.Lambda functors
 #include <boost/type_traits/add_const.hpp>
+#include <pstade/egg/baby_call.hpp>
 #include <pstade/egg/baby_result_type.hpp>
 #include <pstade/unused.hpp>
 #include "./config.hpp" // RANGE_ADAPTOR_MAX_ARITY

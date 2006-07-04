@@ -56,9 +56,11 @@ namespace star_detail {
                     break;
 
                 iter_t const cur = s.get_cur();
-                BOOST_ASSERT(marker != cur &&
-                    "Parser must advance on star-operation; 'end/eol' are the usual suspects,"
-                    "or iterator's comparison operator is broken.");
+                if (marker == cur) {
+                    BOOST_ASSERT(false &&
+                        "Parser must advance on star-operation; 'end/eol' are the usual suspects,"
+                        "or iterator's comparison operator is broken.");
+                }
             }
 
             return true;

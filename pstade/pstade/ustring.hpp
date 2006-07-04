@@ -79,8 +79,8 @@ public:
     // Constructor prefers copy constructor and converts argument to ustring.
     // But operator= doesn't, so be strict.
     template< class Range > 
-    typename boost::enable_if<apple::is_boost_range<Range>, ustring&>::type
-    operator=(const Range& rng)
+    typename boost::enable_if< apple::is_boost_range<Range>,
+    ustring&>::type operator=(const Range& rng)
     {
         assign(boost::begin(rng), boost::end(rng));
         return *this;

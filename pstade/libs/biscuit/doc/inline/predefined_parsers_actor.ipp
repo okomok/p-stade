@@ -2,7 +2,7 @@ struct decorate_action
 {
     void operator()(boost::sub_range<std::string> rng, std::stringstream& out)
     {
-        out << "[" << oven::sequence_cast<std::string>(rng) << "]";
+        out << "[" << boost::copy_range<std::string>(rng) << "]";
         boost::to_upper(rng);
     }
 };

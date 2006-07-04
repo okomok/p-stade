@@ -256,7 +256,7 @@ Note that the big arity tends to make internal compiler errors.
 
 Literal
 ^^^^^^^
-Unfortunately you can't pass a string literal to templates.
+The C++ Standard doesn't allow you to pass a string literal to templates.
 ``chseq`` template parameter arity is limited. For that workaround, ``PSTADE_BISCUIT_SEQ_LITERAL`` macro is provided::
 
 	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\predefined_parsers_literal.ipp
@@ -274,7 +274,6 @@ Actor
 `Parsing SubRange`_ can be assigned to ``boost::sub_range<ParsingRange>`` idiomatically.
 If a `Parsing Range`_ is mutable, its `Parsing SubRange`_ also is mutable.
 Note that a copy of ``boost::sub_range`` is only copies of two iterators.
-``oven::sequence_cast`` is same as ``boost::copy_range``.
 
 
 Directives
@@ -326,8 +325,8 @@ For instance, a Parser_ ``chseq`` works properly if ``value_type`` of the
 range is comparable with ``char``.
 
 
-``biscuit::match``
-^^^^^^^^^^^^^^^^^^
+``match``
+^^^^^^^^^
 ``biscuit::match`` returns ``true`` if a Parser_ runs through the range; otherwise ``false``::
 
 	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\algorithms_match.ipp
@@ -336,8 +335,8 @@ Notice that a null-terminated string is no longer a model of Range with Boost 1.
 ``oven::null_terminate_range`` is provided for the workaround.
 
 
-``biscuit::search``
-^^^^^^^^^^^^^^^^^^^
+``search``
+^^^^^^^^^^
 ``biscuit::search`` returns the first occurence of the matching `Parsing SubRange`_.
 If not found, it returns ``boost::make_iterator_range(boost::end(r), boost::end(r))``, 
 where ``r`` is an object of type `Parsing Range`_::
@@ -345,26 +344,12 @@ where ``r`` is an object of type `Parsing Range`_::
 	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\algorithms_search.ipp
 
 
-``biscuit::parse``
-^^^^^^^^^^^^^^^^^^
+``parse``
+^^^^^^^^^
 While ``biscuit::match`` returns only whether or not to succeed,
 ``biscuit::parse`` returns `Parsing SubRange`_ that a Parser_ runs through.
 If a parsing fails, it returns ``boost::make_iterator_range(boost::begin(r), boost::begin(r))``, 
 where ``r`` is an object of type `Parsing Range`_.
-
-
-``biscuit::iterate``
-^^^^^^^^^^^^^^^^^^^^
-In general, it is difficult to trigger actions to ranges other than matching ranges.
-Actions binded to matching ranges have already been triggered before you find the non-matching ranges.
-Therefore, actions are triggered in reverse order.
-
-A bold play solves this problem. ``biscuit::iterate`` parses twice by using ``no_actions`` the first time,
-and then triggers actions that is passed to the third argument to non-matching ranges::
-
-	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\algorithms_iterate_0.ipp
-
-This parse-twice technique is used by also ``lazy_actions``.
 
 
 
@@ -526,10 +511,12 @@ If the operators provide the strong exception-safety, Biscuit provides it.
 
 Bake in Oven
 ------------
-PStade.Oven is the `Boost.Range`_ extension library.
+`Oven`__ is the `Boost.Range`_ extension library.
 It provides some predefined ranges for Biscuit::
 
 	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\bake_biscuit_in_oven_0.ipp
+
+__ OvenR_
 
 
 
@@ -595,7 +582,7 @@ Version 1.02.8
 ^^^^^^^^^^^^^^
 - Renamed ``PSTADE_BISCUIT_SYMBOL`` to ``PSTADE_BISCUIT_SEQ_LITERAL``.
 - Fixed a few bugs.
-
+- Deprecated ``biscuit::iterate``.
 
 
 .. include:: ../../doc/refs.rst

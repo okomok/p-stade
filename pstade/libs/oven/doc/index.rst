@@ -27,7 +27,7 @@ The Oven Range Library
 Introduction
 ------------
 The upcoming `Boost.Range`_ library is under construction.
-Oven provides some ranges and `Range Adaptors`_ for those who cannot wait for the official::
+Oven provides some `Ranges`_ and `Range Adaptors`_ for those who cannot wait for the official::
 
 	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\introduction.ipp
 
@@ -58,8 +58,8 @@ Oven provides some range-based algorithms.
 ``<pstade/oven/algorithms.hpp>`` includes all the following functions.
 
 
-STL
-^^^
+STL Algorithms
+^^^^^^^^^^^^^^
 Oven has all the range-based STL algorithms which are ported from `Boost.RangeEx`_ with some compiler workarounds::
 
 	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\algorithms.ipp
@@ -71,35 +71,29 @@ Oven has all the range-based STL algorithms which are ported from `Boost.RangeEx
 - Returns: ``std::algo(boost::begin(rng),boost::end(rng),a0,a1,...,aN);``
 
 
-construct
-^^^^^^^^^
-``construct`` adds the automatic type deduction to `copy_range`_::
+``copied``
+^^^^^^^^^^
+``copied`` adds the automatic type deduction to `copy_range`_ which
+calls the range constructor of the STL Sequences::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\construct.ipp
+	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\copied.ipp
 
 .. _copy_range: http://www.boost.org/libs/range/doc/utility_class.html#copy_range
 
 
-- Header: ``<pstade/oven/construct.hpp>``
-- Valid expression: ``seq = sequence(rng);``
-- Precondition: ``seq = boost::copy_range<Seq>(rng);`` is a valid expression, and ``Seq`` is not a dependent name.
-- Semantics: ``seq = boost::copy_range<Seq>(rng);``
+- Header: ``<pstade/oven/copy_range.hpp>``
+- Valid expression: ``seq = rng|copied;``
+- Precondition: ``seq = boost::copy_range<Seq>(rng);`` is a valid expression.
+- Effect: ``seq = boost::copy_range<Seq>(rng);``
+
+Note that ``Seq seq(rng|copied);`` is not a valid expression.
+``copied`` is also one of the range `adaptors`__.
+
+__ `copied as adaptor`_
 
 
-copies
-^^^^^^
-``copies`` takes two ranges and checks the bounds under debug mode.
-Prefer ``copies`` to ``copy`` everywhere possible::
-
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\copies.ipp
-
-- Header: ``<pstade/oven/copies.hpp>``
-- Valid expression: ``oven::copies(rng1,rng2);``
-- Precondition: ``boost::size(rng1) <= boost::size(rng2)`` is ``true``, and ``oven::copies(rng1,boost::begin(rng2));`` is a valid expression.
-
-
-distance
-^^^^^^^^
+``distance``
+^^^^^^^^^^^^
 The upcoming `Boost.Range`_ will replace ``boost::size`` by ``boost::distance``.
 ``oven::distance`` that is the same as ``boost::distance`` makes your code portable.
 
@@ -110,8 +104,8 @@ The upcoming `Boost.Range`_ will replace ``boost::size`` by ``boost::distance``.
 - Returns: ``std::distance(boost::begin(rng),boost::end(rng))``
 
 
-equals
-^^^^^^
+``equals``
+^^^^^^^^^^
 ``equals`` is the range-based ``std::equal`` that takes two ranges as the arguments.
 Note that the size of two ranges is also checked out.
 
@@ -129,8 +123,8 @@ Oven provides some predefined range types.
 `directory_range`_ and `tokenized`_.
 
 
-array_range
-^^^^^^^^^^^
+``array_range``
+^^^^^^^^^^^^^^^
 ``array_range`` is a model of `Random Access Range`_ which delivers
 a range presentation of dynamically allocated arrays::
 
@@ -142,8 +136,8 @@ a range presentation of dynamically allocated arrays::
 - Precondition: ``new T[sz];`` is a valid expression.
 
 
-counting_range
-^^^^^^^^^^^^^^
+``counting_range``
+^^^^^^^^^^^^^^^^^^
 ``counting_range`` is a range whose iterators behave as if
 they were the original iterators wrapped in `counting_iterator`__::
 
@@ -158,8 +152,8 @@ __ http://www.boost.org/libs/iterator/doc/counting_iterator.html
   ``x`` is ``n`` or ``m``.
 
 
-directory_range
-^^^^^^^^^^^^^^^
+``directory_range``
+^^^^^^^^^^^^^^^^^^^
 ``directory_range`` is a range whose iterators behave as if
 they were the original iterators wrapped in `directory_iterator`__::
 
@@ -174,8 +168,8 @@ __ http://www.boost.org/libs/filesystem/doc/operations.htm#directory_iterator
   the type of ``wp`` is ``boost::filesystem::wpath``.
 
 
-empty_range
-^^^^^^^^^^^
+``empty_range``
+^^^^^^^^^^^^^^^
 ``empty_range`` is a `Random Access Range`_ which is always empty::
 
 	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\empty_range.ipp
@@ -185,10 +179,10 @@ empty_range
 - Valid expression: ``empty_range<T> rng;``
 
 
-file_range
-^^^^^^^^^^
+``file_range``
+^^^^^^^^^^^^^^
 ``file_range`` is a range whose iterators behave as if they were the original iterators wrapped in `file_iterator`__.
-the member ``is_open()`` returns ``true`` if and only if the file opening is succeeded.
+The member ``is_open()`` returns ``true`` if and only if the file opening is succeeded.
 If ``is_open()`` is not ``true``, the range is empty::
 
 	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\file_range.ipp
@@ -201,8 +195,8 @@ __ http://www.boost.org/libs/spirit/doc/file_iterator.html
 - Precondition: ``boost::spirit::file_iterator<C>`` is a valid expression.
 
 
-istream_range
-^^^^^^^^^^^^^
+``istream_range``
+^^^^^^^^^^^^^^^^^
 ``istream_range`` is a range whose iterators behave as if they were the original iterators wrapped in `istream_iterator`__::
 
 	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\istream_range.ipp
@@ -216,8 +210,8 @@ __ http://www.sgi.com/tech/stl/istream_iterator.html
 - Precondition: ``std::istream_iterator<V,C,T,D>(stm)`` is a valid expression.
 
 
-single_range
-^^^^^^^^^^^^
+``single_range``
+^^^^^^^^^^^^^^^^
 ``single_range`` is a `Random Access Range`_ which delivers a range presentation of one object::
 
 	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\single_range.ipp
@@ -238,186 +232,195 @@ Additional information is available at `Range Library Proposal`_.
 ``<pstade/oven/ranges.hpp>`` includes all the following Range Adaptors.
 
 
-appended
-^^^^^^^^
+``adjacent_filtered``
+^^^^^^^^^^^^^^^^^^^^^
+- Header: ``<pstade/oven/adjacent_filter_range.hpp>``
+- See: `Range Library Proposal`_.
+
+
+``appended``
+^^^^^^^^^^^^
 - Header: ``<pstade/oven/append_range.hpp>``
 - Valid expression: ``rng|appended(v)``
 - Precondition: ``v*`` is convertible to the ``iterator`` type of ``rng``.
 - Returns: ``rng|jointed(oven::make_single_range(v))``.
 
 
-array_protected
-^^^^^^^^^^^^^^^
+``array_protected``
+^^^^^^^^^^^^^^^^^^^
 - Header: ``<pstade/oven/array_protect_range.hpp>``
 - Valid expression: ``arr|array_protected``
 - Precondition: ``arr`` is an array.
 - Returns: ``[boost::begin(arr), boost::begin(arr)+sz)``, where ``sz`` is the size of ``arr``.
 
 
-adjacent_filtered
-^^^^^^^^^^^^^^^^^
-- Header: ``<pstade/oven/adjacent_filter_range.hpp>``
-- See: `Range Library Proposal`_.
+``copied`` as adaptor
+^^^^^^^^^^^^^^^^^^^^^
+- Header: ``<pstade/oven/copy_range.hpp>``
+- Valid expression: ``irng|copied(orng)`` or ``irng|copied(oit)``
+- Precondition: ``oven::distance(irng) <= oven::distance(orng)`` (asserted under debug mode)
+- Effect: ``oven::copy(irng,boost::begin(orng))`` or ``oven::copy(irng,oit)``
+- Returns: ``irng``
 
 
-filtered
-^^^^^^^^
+``filtered``
+^^^^^^^^^^^^
 - Header: ``<pstade/oven/filter_range.hpp>``
 - See: `Range Library Proposal`_.
 
 
-directed
-^^^^^^^^
+``directed``
+^^^^^^^^^^^^
 - Header: ``<pstade/oven/direct_range.hpp>``
 - Valid expression: ``rng|directed``
 - Returns: ``oven::make_counting_range(boost::begin(rng), boost::end(rng))``.
 
 
-found
-^^^^^
+``found``
+^^^^^^^^^
 - Header: ``<pstade/oven/find_range.hpp>``
 - Valid expression: ``rng|found(finder)``
 - Returns: A range whose iterators behave as if they were the original iterators wrapped in ``boost::find_iterator``.
 
 
-indirected
-^^^^^^^^^^
+``indirected``
+^^^^^^^^^^^^^^
 - Header: ``<pstade/oven/indirect_range.hpp>``
 - See: `Range Library Proposal`_.
 
 
-jointed
-^^^^^^^
+``jointed``
+^^^^^^^^^^^
 - Header: ``<pstade/oven/joint_range.hpp>``
 - Valid expression: ``rng1|jointed(rng2)``
 - Precondition: The ``iterator`` type of ``rng2`` is convertible to ``rng1``\'s.
 - Returns: A range that joints ``[boost::begin(rng1), boost::end(rng1))`` and ``[boost::begin(rng2), boost::end(rng2))``.
 
 
-map_keys
-^^^^^^^^
+``map_keys``
+^^^^^^^^^^^^
 - Header: ``<pstade/oven/map_key_range.hpp>``
 - See: `Range Library Proposal`_.
 
 
-map_values
-^^^^^^^^^^
+``map_values``
+^^^^^^^^^^^^^^
 - Header: ``<pstade/oven/map_value_range.hpp>``
 - See: `Range Library Proposal`_.
 
 
-multi_passed
-^^^^^^^^^^^^
+``multi_passed``
+^^^^^^^^^^^^^^^^
 - Header: ``<pstade/oven/multi_pass_range.hpp>``
 - Valid expression: ``rng|multi_passed``
 - Returns: A range whose iterators behave as if they were the original iterators wrapped in ``boost::spirit::multi_pass``.
 
 
-null_terminated
-^^^^^^^^^^^^^^^
+``null_terminated``
+^^^^^^^^^^^^^^^^^^^
 - Header: ``<pstade/oven/null_terminate_range.hpp>``
 - Valid expression: ``rngOrString|null_terminated``
 - Precondition: ``rngOrString`` is a string literal; Otherwise for all the value ``v`` in the ``rngOrString``, the expression ``v == 0`` must be valid, and some ``v`` that the expression is ``true`` exists in the ``rngOrString``.
 - Returns: ``[boost::begin(rng), y)``, where for all the value ``v`` in the range ``v != 0`` is ``true``, and ``*y == 0`` is ``true``.
 
 
-permuted
-^^^^^^^^
+``permuted``
+^^^^^^^^^^^^
 - Header: ``<pstade/oven/permutation_range.hpp>``
 - Valid expression: ``rng|permuted(irng)``
 - Precondition: ``rng`` is a `Random Access Range`_ and ``irng`` is a range of the indices.
 - Returns: A range whose iterators behave as if they were the original iterators wrapped in ``boost::permutation_iterator``.
 
 
-pointed
-^^^^^^^
+``pointed``
+^^^^^^^^^^^
 - Header: ``<pstade/oven/pointer_range.hpp>``
 - Valid expression: ``vec|pointed``
 - Precondition: ``vec`` is the template instantiation of ``std::vector``.
 - Returns: ``[&*boost::begin(vec), &*boost::begin(vec)+boost::size(vec))``.
 
 
-positioned
-^^^^^^^^^^
+``positioned``
+^^^^^^^^^^^^^^
 - Header: ``<pstade/oven/position_range.hpp>``
 - Valid expression: ``rng|positioned``
 - Returns: A range whose iterators behave as if they were the original iterators wrapped in ``boost::spirit::position_iterator``.
 
 
-prepended
-^^^^^^^^^
+``prepended``
+^^^^^^^^^^^^^
 - Header: ``<pstade/oven/prepend_range.hpp>``
 - Valid expression: ``rng|prepended(v)``
 - Precondition: The ``iterator`` type of ``rng`` is convertible to ``v*``.
 - Returns: ``oven::make_single_range(v)|jointed(rng)``.
 
 
-repeated
-^^^^^^^^
+``repeated``
+^^^^^^^^^^^^
 - Header: ``<pstade/oven/repeat_range.hpp>``
 - Valid expression: ``rng|repeated(i)``
 - Returns: A range that repeats ``[boost::begin(rng), boost::end(rng))`` ``i`` times.
 
 
-reversed
-^^^^^^^^
+``reversed``
+^^^^^^^^^^^^
 - Header: ``<pstade/oven/reverse_range.hpp>``
 - See: `Range Library Proposal`_.
 
 
-shared
-^^^^^^
+``shared``
+^^^^^^^^^^
 - Header: ``<pstade/oven/share_range.hpp>``
 - Valid expression: ``new Range|shared``
 - Returns: A range whose iterators behave as if they were the original iterators wrapped in ``boost::shared_container_iterator``.
 
 
-sliced
-^^^^^^
+``sliced``
+^^^^^^^^^^
 - Header: ``<pstade/oven/slice_range.hpp>``
 - See: `Range Library Proposal`_.
 
 
-sorted
-^^^^^^
+``sorted``
+^^^^^^^^^^
 - Header: ``<pstade/oven/sort_range.hpp>``
 - Valid expression: ``rng|sorted`` or ``rng|sorted(pred)``
 - Returns: A sorted view of ``rng``.
 
 
-tokenized
-^^^^^^^^^
+``tokenized``
+^^^^^^^^^^^^^
 - Header: ``<pstade/oven/token_range.hpp>``
 - See: `Range Library Proposal`_.
 
 
-transformed
-^^^^^^^^^^^
+``transformed``
+^^^^^^^^^^^^^^^
 - Header: ``<pstade/oven/transorm_range.hpp>``
 - See: `Range Library Proposal`_.
 
 
-uniqued
-^^^^^^^
+``uniqued``
+^^^^^^^^^^^
 - Header: ``<pstade/oven/unique_range.hpp>``
 - See: `Range Library Proposal`_.
 
 
-unzipped
-^^^^^^^^
+``unzipped``
+^^^^^^^^^^^^
 - Header: ``<pstade/oven/unzip_range.hpp>``
 - Valid expression: ``zipped_rng|unzipped<N>()``
-- Returns: A unzipped range.
+- Returns: An unzipped range.
 
 
-utf8_decoded
-^^^^^^^^^^^^
+``utf8_decoded``
+^^^^^^^^^^^^^^^^
 - Header: ``<pstade/oven/utf8_decode_range.hpp>``
 - Returns: A range whose iterators behave as if they were the original iterators wrapped in ``boost::u8_to_u32_iterator``.
 
 
-zipped
-^^^^^^^
+``zipped``
+^^^^^^^^^^
 - Header: ``<pstade/oven/zip_range.hpp>``
 - Valid expression: ``boost::tie(rng0,rng1,...,rngN)|zipped``
 - Returns: A range whose iterators behave as if they were the original iterators wrapped in ``boost::zip_iterator``.
@@ -446,4 +449,3 @@ Version 0.90.1
 - Updated this document.
 - Implemented `Range Algorithms`_.
 - Added some `Ranges`_ and `Range Adaptors`_.
-

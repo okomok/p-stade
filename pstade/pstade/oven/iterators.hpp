@@ -11,6 +11,7 @@
 
 
 #include "./adjacent_filter_iterator.hpp"
+#include "./check_iterator.hpp"
 #include "./joint_iterator.hpp"
 #include "./null_outputter.hpp"
 #include "./repeat_iterator.hpp"

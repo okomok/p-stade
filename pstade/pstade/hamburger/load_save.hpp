@@ -16,7 +16,7 @@
 #include <pstade/lime/load.hpp>
 #include <pstade/lime/save.hpp>
 #include <pstade/oven/algorithm.hpp> // copy
-#include <pstade/oven/copies.hpp>
+#include <pstade/oven/copy_range.hpp>
 #include <pstade/oven/null_outputter.hpp>
 #include <pstade/oven/sequence_cast.hpp>
 #include <pstade/oven/utf8_decode_range.hpp>
@@ -59,7 +59,7 @@ void save(Node& node, ustring path)
     lime::save_default(node, oven::utf8_encoder(garlic::back_inserter(tmp)));
 
     tomato::ofile_range<utf8cp_t> orng(tomato::to_tstring(path), tmp.size());
-    oven::copies(tmp, orng);
+    tmp|oven::copied(orng);
 }
 
 

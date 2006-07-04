@@ -17,12 +17,6 @@
 // 日本語のパスのファイルを開けないようです。
 
 
-// メモリをファイル分しか使わない代わりに
-// ものすごく遅いです。
-// biscuit::iterateの前にキャッシュすると
-// 数十倍速くなります。
-
-
 // キーワードのリンクを有効にするときは
 // 'cpp_to_hatena::set_hatena_mode(false);'
 
@@ -41,6 +35,7 @@
 #include <pstade/biscuit.hpp>
 #include <pstade/garlic.hpp>
 #include <pstade/oven.hpp>
+#include <pstade/oven/memoize_range.hpp>
 #include <pstade/wine.hpp>
 #include "./start.hpp"
 #include "./hatena_mode.hpp"
@@ -66,6 +61,8 @@ struct newline_cvter
             return '\n';
         }
         else {
+            if (pstade::oven::distance(rng) == 0)
+                BOOST_ASSERT(false);
             BOOST_ASSERT(pstade::oven::distance(rng) == 1);
             return *boost::begin(rng);
         }
@@ -104,7 +101,8 @@ int main(int argc, char *argv[])
                     oven::utf8_decoded |                                        // UTF-8をUTF-32に変換
                     biscuit::tokenized< or_<wnewline, any> >() |                // 改行とそうでないものに分ける
                     oven::transformed(::newline_cvter()) |                      // 改行なら'\n'に変換する
-                    oven::tab_expanded(::tabsize<>::value),                     // タブを空白にする
+                    oven::tab_expanded(::tabsize<>::value) |                    // タブを空白にする
+                    oven::memoized,                                             // 速くするためキャッシュする
                 pstade::arg(oven::utf8_encoder(garlic::back_inserter(fout)))    // UTF-8に戻して出力
             );
 
@@ -115,7 +113,7 @@ int main(int argc, char *argv[])
         }
         catch (std::exception& err) {
             std::cout << "<error>" << err.what() << "</error>\n";
-            continue;
+            return 0; // continue;
         }
 
     } // BOOST_FOREACH

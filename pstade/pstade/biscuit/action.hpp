@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include "./action/macro.hpp"
 #include "./action/null_action.hpp"
 #include "./action/output_action.hpp"
 #include "./action/pigs_fly.hpp"
