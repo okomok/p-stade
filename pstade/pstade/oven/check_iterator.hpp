@@ -66,7 +66,7 @@ public:
     { return m_first; }
 
     Iterator end() const
-    { return m_last }
+    { return m_last; }
 
     bool is_begin() const
     { return this->base() == m_first; }
@@ -98,7 +98,7 @@ friend class boost::iterator_core_access;
 
     void advance_to(diff_t d)
     {
-        BOOST_ASSERT(m_first <= this->base() && this->base() + d <= m_last);
+        BOOST_ASSERT(m_first <= this->base() + d && this->base() + d <= m_last);
         this->base_reference() += d;
     }
 };

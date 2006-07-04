@@ -59,7 +59,8 @@ namespace star_detail {
                 if (marker == cur) {
                     BOOST_ASSERT(false &&
                         "Parser must advance on star-operation; 'end/eol' are the usual suspects,"
-                        "or iterator's comparison operator is broken.");
+                        "or iterator's comparison operator is broken."
+                    );
                 }
             }
 

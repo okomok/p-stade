@@ -12,9 +12,7 @@
 
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_traits.hpp>
-#include <boost/range/iterator_range.hpp>
 #include <boost/range/result_iterator.hpp>
-#include <boost/spirit/iterator/multi_pass.hpp>
 #include <pstade/nullptr.hpp>
 #include "./check_range.hpp"
 #include "./is_lightweight_proxy.hpp"
@@ -54,7 +52,7 @@ namespace memoize_range_detail {
            friend struct data_t;
 
         protected:
-            inner() : m_pdata(0)
+            inner() : m_pdata(PSTADE_NULLPTR)
             { }
 
             inner(Iterator it) : m_pdata(new data_t(it))
@@ -80,7 +78,7 @@ namespace memoize_range_detail {
             }
 
         private:
-            void ensure_initialized() const
+            void initialize() const
             {
                 if (m_pdata && !m_pdata->m_initialized) {
                     m_pdata->m_value = *m_pdata->m_it;
@@ -92,7 +90,7 @@ namespace memoize_range_detail {
             reference get_input() const
             {
                 BOOST_ASSERT(m_pdata != PSTADE_NULLPTR);
-                ensure_initialized();
+                initialize();
                 return m_pdata->m_value;
             }
 
@@ -105,13 +103,12 @@ namespace memoize_range_detail {
 
             bool input_at_eof() const
             {
-                return m_pdata->m_it.is_end();
+                return !m_pdata || m_pdata->m_it.is_end();
             }
 
         private:
             data_t *m_pdata;
         }; // inner
-
     }; // input
 
 

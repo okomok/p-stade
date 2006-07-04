@@ -309,11 +309,12 @@ Additional information is available at `Range Library Proposal`_.
 - See: `Range Library Proposal`_.
 
 
-``multi_passed``
-^^^^^^^^^^^^^^^^
-- Header: ``<pstade/oven/multi_pass_range.hpp>``
-- Valid expression: ``rng|multi_passed``
-- Returns: A range whose iterators behave as if they were the original iterators wrapped in ``boost::spirit::multi_pass``.
+``memoized``
+^^^^^^^^^^^^
+- Header: ``<pstade/oven/memoize_range.hpp>``
+- Valid expression: ``rng|memoized``
+- Precondition: ``rng`` is referentially transparent.
+- Returns: A range whose values are memoized.
 
 
 ``null_terminated``

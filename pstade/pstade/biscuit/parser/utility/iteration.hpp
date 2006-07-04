@@ -21,7 +21,9 @@
 #include "../any.hpp"
 #include "../directive/no_actions.hpp"
 #include "../directive/no_captures.hpp"
+#include "../end.hpp"
 #include "../orn.hpp"
+#include "../seqn.hpp"
 #include "../star.hpp"
 #include "../star_before.hpp"
 
@@ -34,16 +36,25 @@ template<
     class GapAction = null_action
 >
 struct iteration :
-    star<
-        or_2<
-            Parser,
-            actor<
-                star_before<
-                    PSTADE_BISCUIT_NULLARY_PARSER(any),
-                    no_captures< no_actions<Parser> > 
-                >,
-                GapAction
+    seq2<
+        star<
+            or_2<
+                Parser,
+                actor<
+                    star_before<
+                        PSTADE_BISCUIT_NULLARY_PARSER(any),
+                        no_captures< no_actions<Parser> > 
+                    >,
+                    GapAction
+                >
             >
+        >,
+        actor<
+            star_before<
+                PSTADE_BISCUIT_NULLARY_PARSER(any),
+                PSTADE_BISCUIT_NULLARY_PARSER(end)
+            >,
+            GapAction
         >
     >
 { };
