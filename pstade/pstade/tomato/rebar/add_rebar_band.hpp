@@ -62,7 +62,7 @@ void add_rebar_band(HWND hWndReBar, HWND hWndBand, UINT fStyle, const TCHAR *psz
             candy::set(info.fMask, RBBIM_TEXT);
         
         info.fStyle = fStyle;
-        info.lpText = boost::begin(text|oven::pointed);
+        info.lpText = boost::begin(text|oven::pointers);
         info.hwndChild = hWndBand;
         info.wID = ::GetDlgCtrlID(hWndBand); // how's that
 

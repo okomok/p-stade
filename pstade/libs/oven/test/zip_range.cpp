@@ -42,7 +42,7 @@ void test()
 
         BOOST_FOREACH (
             comma_protect<void(boost::tuple<char&, int&>)>::type t,
-            boost::tie(src0, src1)|zipped
+            src0|zipped(src1)
         ) {
             char& ch = boost::get<0>(t);
             if (ch == '4')

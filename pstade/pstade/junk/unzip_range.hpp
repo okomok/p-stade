@@ -141,27 +141,52 @@ unzip_range_detail::adaptor_at<N> unzipped_at()
 namespace unzip_range_detail {
 
 
+    using boost::detail::tuple_impl_specific::tuple_meta_transform;
+    using boost::detail::tuple_impl_specific::tuple_transform;
+    using boost::detail::tuple_impl_specific::tuple_meta_accumulate;
+
+
+    struct meta_count
+    {
+        template< class _, class Prev >
+        struct apply
+        {
+            typedef cons< boost::mpl::plus< Prev, boost::mpl::int_<1> >, Prev
+        };
+    };
+
+
+    template< class TupleRange >
+    struct meta_range_at
+    {
+        template< class T >
+        struct apply
+        {
+            typedef unzip_range_at<TupleRange, T::value> type;
+        };
+    };
+
+
     struct baby_unzipped
     {
         template< class TupleRange >
         struct result
         {
-            typedef typename boost::tuples::tuple<
+            typedef typename boost::tuple<
                 unzip_range_at<TupleRange, 0>,
                 unzip_range_at<TupleRange, 1>
-            > type;
+            >::type type;
+            /*
+            typedef typename boost::remove_cv<TupleRange>::type rng_t;
+            typedef typename boost::range_value<rng_t>::type tup_t;
+            typedef typename tuple_meta_accumulate< tup_t, meta_count, boost::mpl::int_<-1> >::type counted_t;
+            typedef typename tuple_meta_transform< counted_t, meta_range_at<TupleRange> >::type type;*/
         };
 
         template< class Result, class TupleRange >
         Result call(TupleRange& rng)
         {
-            return Result(
-                // Todo:
-                // 'Result' tuple type could be obtained even if 'value_type' tuple has any size,
-                // but how can I pass them to the 'Result'?
-                oven::make_unzip_range_at<0>(rng),
-                oven::make_unzip_range_at<1>(rng)
-            );
+            return Result(rng, rng);
         }
     };
 

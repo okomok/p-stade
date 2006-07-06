@@ -43,6 +43,8 @@ namespace copy_range_detail {
 } // namespace copy_range_detail
 
 
+// Wow, function!
+//
 template< class T, class Range > inline
 T copy_range(const Range& rng)
 {

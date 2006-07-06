@@ -7,7 +7,7 @@ The Oven Range Library
 :Author: MB
 :Contact: mb2act@yahoo.co.jp 
 :License: Distributed under the `Boost Software License Version 1.0`_
-:Version: 0.90.1
+:Version: 0.90.2
 
 
 
@@ -246,12 +246,41 @@ Additional information is available at `Range Library Proposal`_.
 - Returns: ``rng|jointed(oven::make_single_range(v))``.
 
 
+``applied``
+^^^^^^^^^^^
+- Header: ``<pstade/oven/apply_range.hpp>``
+- Valid expression: ``rng|applied(f1,f2)``
+- Returns: ``[f1(rng),f2(rng))``.
+
+
 ``array_protected``
 ^^^^^^^^^^^^^^^^^^^
 - Header: ``<pstade/oven/array_protect_range.hpp>``
 - Valid expression: ``arr|array_protected``
 - Precondition: ``arr`` is an array.
-- Returns: ``[boost::begin(arr), boost::begin(arr)+sz)``, where ``sz`` is the size of ``arr``.
+- Returns: ``[boost::begin(arr),boost::begin(arr)+sz)``, where ``sz`` is the size of ``arr``.
+
+
+``checked``
+^^^^^^^^^^^
+- Header: ``<pstade/oven/check_range.hpp>``
+- Valid expression: ``rng|checked``
+- Effect: Adds bounds checking (asserted under debug mode).
+- Returns: ``[boost::begin(rng),boost::end(rng))``.
+
+
+``cleared``
+^^^^^^^^^^^
+- Header: ``<pstade/oven/clear_range.hpp>``
+- Valid expression: ``rng|cleared``
+- Returns: ``[boost::end(rng),boost::end(rng))``.
+
+
+``constants``
+^^^^^^^^^^^^^
+- Header: ``<pstade/oven/constant_range.hpp>``
+- Valid expression: ``unused_rng|constants(rng)``
+- Returns: ``[boost::begin(rng),boost::end(rng))``.
 
 
 ``copied`` as adaptor
@@ -260,7 +289,7 @@ Additional information is available at `Range Library Proposal`_.
 - Valid expression: ``irng|copied(orng)`` or ``irng|copied(oit)``
 - Precondition: ``oven::distance(irng) <= oven::distance(orng)`` (asserted under debug mode)
 - Effect: ``oven::copy(irng,boost::begin(orng))`` or ``oven::copy(irng,oit)``
-- Returns: ``irng``
+- Returns: ``[boost::begin(irng),boost::end(irng))``.
 
 
 ``filtered``
@@ -276,11 +305,25 @@ Additional information is available at `Range Library Proposal`_.
 - Returns: ``oven::make_counting_range(boost::begin(rng), boost::end(rng))``.
 
 
+``dropped``
+^^^^^^^^^^^
+- Header: ``<pstade/oven/drop_range.hpp>``
+- Valid expression: ``rng|dropped(n)``
+- Returns: ``[f,boost::end(rng))``, where ``f = boost::begin(rng); std::advance(f, n);``.
+
+
 ``found``
 ^^^^^^^^^
 - Header: ``<pstade/oven/find_range.hpp>``
 - Valid expression: ``rng|found(finder)``
 - Returns: A range whose iterators behave as if they were the original iterators wrapped in ``boost::find_iterator``.
+
+
+``identities``
+^^^^^^^^^^^^^^
+- Header: ``<pstade/oven/identity_range.hpp>``
+- Valid expression: ``rng|identitis``
+- Returns: ``[boost::begin(rng),boost::end(rng))``.
 
 
 ``indirected``
@@ -294,7 +337,7 @@ Additional information is available at `Range Library Proposal`_.
 - Header: ``<pstade/oven/joint_range.hpp>``
 - Valid expression: ``rng1|jointed(rng2)``
 - Precondition: The ``iterator`` type of ``rng2`` is convertible to ``rng1``\'s.
-- Returns: A range that joints ``[boost::begin(rng1), boost::end(rng1))`` and ``[boost::begin(rng2), boost::end(rng2))``.
+- Returns: A range that joints ``[boost::begin(rng1),boost::end(rng1))`` and ``[boost::begin(rng2),boost::end(rng2))``.
 
 
 ``map_keys``
@@ -314,7 +357,7 @@ Additional information is available at `Range Library Proposal`_.
 - Header: ``<pstade/oven/memoize_range.hpp>``
 - Valid expression: ``rng|memoized``
 - Precondition: ``rng`` is referentially transparent.
-- Returns: A range whose values are memoized.
+- Returns: A `Forward Range`_ whose values are memoized.
 
 
 ``null_terminated``
@@ -322,23 +365,23 @@ Additional information is available at `Range Library Proposal`_.
 - Header: ``<pstade/oven/null_terminate_range.hpp>``
 - Valid expression: ``rngOrString|null_terminated``
 - Precondition: ``rngOrString`` is a string literal; Otherwise for all the value ``v`` in the ``rngOrString``, the expression ``v == 0`` must be valid, and some ``v`` that the expression is ``true`` exists in the ``rngOrString``.
-- Returns: ``[boost::begin(rng), y)``, where for all the value ``v`` in the range ``v != 0`` is ``true``, and ``*y == 0`` is ``true``.
+- Returns: ``[boost::begin(rng),y)``, where for all the value ``v`` in the range ``v != 0`` is ``true``, and ``*y == 0`` is ``true``.
 
 
 ``permuted``
 ^^^^^^^^^^^^
-- Header: ``<pstade/oven/permutation_range.hpp>``
+- Header: ``<pstade/oven/permute_range.hpp>``
 - Valid expression: ``rng|permuted(irng)``
 - Precondition: ``rng`` is a `Random Access Range`_ and ``irng`` is a range of the indices.
 - Returns: A range whose iterators behave as if they were the original iterators wrapped in ``boost::permutation_iterator``.
 
 
-``pointed``
-^^^^^^^^^^^
+``pointers``
+^^^^^^^^^^^^
 - Header: ``<pstade/oven/pointer_range.hpp>``
-- Valid expression: ``vec|pointed``
+- Valid expression: ``vec|pointers``
 - Precondition: ``vec`` is the template instantiation of ``std::vector``.
-- Returns: ``[&*boost::begin(vec), &*boost::begin(vec)+boost::size(vec))``.
+- Returns: ``[&*boost::begin(vec),&*boost::begin(vec)+boost::size(vec))``.
 
 
 ``positioned``
@@ -359,8 +402,8 @@ Additional information is available at `Range Library Proposal`_.
 ``repeated``
 ^^^^^^^^^^^^
 - Header: ``<pstade/oven/repeat_range.hpp>``
-- Valid expression: ``rng|repeated(i)``
-- Returns: A range that repeats ``[boost::begin(rng), boost::end(rng))`` ``i`` times.
+- Valid expression: ``rng|repeated(n)``
+- Returns: A range that repeats ``[boost::begin(rng),boost::end(rng))`` ``n`` times.
 
 
 ``reversed``
@@ -389,6 +432,13 @@ Additional information is available at `Range Library Proposal`_.
 - Returns: A sorted view of ``rng``.
 
 
+``taken``
+^^^^^^^^^
+- Header: ``<pstade/oven/take_range.hpp>``
+- Valid expression: ``rng|taken(n)``
+- Returns: ``[boost::begin(rng),l)``, where ``l = boost::begin(rng); std::advance(l, n);``.
+
+
 ``tokenized``
 ^^^^^^^^^^^^^
 - Header: ``<pstade/oven/token_range.hpp>``
@@ -409,9 +459,12 @@ Additional information is available at `Range Library Proposal`_.
 
 ``unzipped``
 ^^^^^^^^^^^^
+Pending...
+
 - Header: ``<pstade/oven/unzip_range.hpp>``
-- Valid expression: ``zipped_rng|unzipped<N>()``
-- Returns: An unzipped range.
+- Valid expression: ``zipped_rng|unzipped_at<N>`` or ``zipped_range|unzipped``
+- Precondition: ``N`` is a integral constant specifying the index.
+- Returns: A range which is unzipped the `zipped`_ range.
 
 
 ``utf8_decoded``
@@ -423,7 +476,7 @@ Additional information is available at `Range Library Proposal`_.
 ``zipped``
 ^^^^^^^^^^
 - Header: ``<pstade/oven/zip_range.hpp>``
-- Valid expression: ``boost::tie(rng0,rng1,...,rngN)|zipped``
+- Valid expression: ``rng0|zipped(rng1)``
 - Returns: A range whose iterators behave as if they were the original iterators wrapped in ``boost::zip_iterator``.
 
 
@@ -450,3 +503,11 @@ Version 0.90.1
 - Updated this document.
 - Implemented `Range Algorithms`_.
 - Added some `Ranges`_ and `Range Adaptors`_.
+
+Version 0.90.2
+^^^^^^^^^^^^^^
+- Added some `Range Adaptors`_.
+- Changed the header of `permuted`_.
+- Changed a valid expression of `zipped`_.
+- Renamed ``pointed`` to `pointers`_.
+

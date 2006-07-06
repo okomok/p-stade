@@ -13,6 +13,7 @@
 #include <boost/iterator/zip_iterator.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <boost/range/result_iterator.hpp>
+#include <boost/tuple/tuple.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 #include <pstade/egg/function.hpp>
 #include "./is_lightweight_proxy.hpp"
@@ -101,16 +102,18 @@ namespace zip_range_detail {
 
     struct baby_generator
     {
-        template< class RangeTuple >
+        template< class Range0, class Range1 >
         struct result
         {
-            typedef const zip_range<RangeTuple> type;
+            typedef const zip_range<
+                const boost::tuples::tuple<Range0&, Range1&>
+            > type;
         };
 
-        template< class Result, class RangeTuple >
-        Result call(RangeTuple& rngs)
+        template< class Result, class Range0, class Range1 >
+        Result call(Range0& rng0, Range1& rng1)
         {
-            return Result(rngs);
+            return Result(boost::tuples::tie(rng0, rng1));
         }
     };
 

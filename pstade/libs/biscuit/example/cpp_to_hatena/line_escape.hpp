@@ -39,14 +39,14 @@ struct act_wrap_line
     void operator()(Range& rng, Out& out) const
     {
         if (biscuit::match< spaces >(rng)) {
-            biscuit::iterate< character_escape >(rng, out, act_as_is());
+            biscuit::match< iteration<character_escape, act_as_is> >(rng, out);
             return;
         }
 
         if (is_hatena_mode())
             oven::copy("[]", out);
 
-        biscuit::iterate< character_escape >(rng, out, act_as_is());
+        biscuit::match< iteration<character_escape, act_as_is> >(rng, out);
 
         if (is_hatena_mode())
             oven::copy("[]", out);
@@ -57,9 +57,9 @@ struct act_wrap_line
 // line_escape
 //
 struct line_escape_ :
-    star_until<
-        seq< actor< line, act_wrap_line >, actor< eol, act_as_is > >,
-        end
+    seq<
+        actor<line, act_wrap_line>,
+        actor<eol, act_as_is >
     >
 { };
 
@@ -75,7 +75,7 @@ struct act_line_escape
     template< class Range, class Out >
     void operator()(Range& rng, Out& out) const
     {
-        biscuit::iterate<line_escape>(rng, out, biscuit::pigs_fly());
+        biscuit::match< iteration<line_escape, pigs_fly> >(rng, out);
     }
 };
 

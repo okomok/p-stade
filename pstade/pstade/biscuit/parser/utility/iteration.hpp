@@ -15,6 +15,7 @@
 // ITOU-T15
 
 
+#include <boost/range/empty.hpp>
 #include "../../action/null_action.hpp"
 #include "../../config/nullary_parser.hpp"
 #include "../actor.hpp"
@@ -29,6 +30,26 @@
 
 
 namespace pstade { namespace biscuit {
+
+
+namespace iteration_detail {
+
+
+    template< class GapAction >
+    struct if_not_empty
+    {
+        template< class SubRange, class UserState >
+        void operator()(SubRange& rng, UserState& us) const
+        {
+            if (boost::empty(rng))
+                return;
+
+            GapAction()(rng, us);
+        }
+    };
+
+
+} // namespace iteration_detail
 
 
 template<
@@ -54,7 +75,7 @@ struct iteration :
                 PSTADE_BISCUIT_NULLARY_PARSER(any),
                 PSTADE_BISCUIT_NULLARY_PARSER(end)
             >,
-            GapAction
+            iteration_detail::if_not_empty<GapAction>
         >
     >
 { };

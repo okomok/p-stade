@@ -43,7 +43,7 @@ void test()
 
         BOOST_FOREACH (
             int& i,
-            boost::tie(src0, src1)|zipped|unzipped<1>()
+            src0|zipped(src1)|unzipped_at<1>()
         ) {
             if (i == 4)
                 i = 5;
@@ -51,6 +51,28 @@ void test()
     
         BOOST_CHECK(( oven::equals(src0, src0) )); // not changed
         BOOST_CHECK(( oven::equals(src1, ans1) ));
+    }
+
+    {
+        std::string src0("0123456");
+        std::vector<int> src1; {
+            int tmp[] = { 0,1,2,3,4,5,6 };
+            oven::copy(tmp, garlic::back_inserter(src1));
+        }
+
+        BOOST_CHECK((
+            oven::equals(
+                boost::get<0>(src0|zipped(src1)|unzipped),
+                src0
+            )
+        ));
+
+        BOOST_CHECK((
+            oven::equals(
+                boost::get<1>(src0|zipped(src1)|unzipped),
+                src1
+            )
+        ));
     }
 }
 

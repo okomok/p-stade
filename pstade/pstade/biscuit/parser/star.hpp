@@ -33,6 +33,9 @@ namespace star_detail {
         static bool parse(State& s, UserState& us)
         {
             for (;;) {
+                if (biscuit::state_is_end(s))
+                    break;
+
                 if (!Parser::parse(s, us))
                     break;
             }
@@ -49,6 +52,9 @@ namespace star_detail {
         static bool parse(State& s, UserState& us)
         {
             for (;;) {
+                if (biscuit::state_is_end(s))
+                    break;
+
                 typedef typename boost::range_result_iterator<State>::type iter_t;
                 iter_t const marker = s.get_cur();
 
@@ -57,7 +63,7 @@ namespace star_detail {
 
                 iter_t const cur = s.get_cur();
                 if (marker == cur) {
-                    BOOST_ASSERT(false &&
+                    BOOST_ASSERT(biscuit::state_is_end(s) &&
                         "Parser must advance on star-operation; 'end/eol' are the usual suspects,"
                         "or iterator's comparison operator is broken."
                     );

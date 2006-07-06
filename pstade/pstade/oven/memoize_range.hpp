@@ -13,10 +13,12 @@
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/range/result_iterator.hpp>
+#include <pstade/egg/function.hpp>
 #include <pstade/nullptr.hpp>
 #include "./check_range.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./multi_pass_range.hpp"
+#include "./range_adaptor.hpp"
 
 
 namespace pstade { namespace oven {

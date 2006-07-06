@@ -12,6 +12,7 @@
 
 #include "./algorithm.hpp"
 
+#include "./begin_end.hpp"
 #include "./copy_range.hpp"
 #include "./distance.hpp"
 #include "./equals.hpp"

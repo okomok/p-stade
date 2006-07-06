@@ -19,23 +19,71 @@
 #include <boost/foreach.hpp>
 #include <boost/range.hpp>
 #include <pstade/oven/algorithms.hpp>
-#include <boost/lambda/algorithm.hpp>
-#include <boost/lambda/lambda.hpp>
-#include <boost/lambda/bind.hpp>
+
+#if 0
+    #include <boost/spirit/phoenix/core/argument.hpp>
+    #include <boost/spirit/phoenix/algorithm.hpp>
+#endif
+
+struct id_fun
+{
+    template< class T >
+    T& operator()(T& x) const
+    {
+        return x;
+    }
+};
 
 
 void test()
 {
     using namespace pstade;
     using namespace oven;
+
+    std::string src("abcdefghijk");
+
+    {
+        BOOST_CHECK((
+            oven::equals(
+                src,
+                src|applied(oven::begin, oven::end)
+            )
+        ));
+
+        BOOST_CHECK((
+            oven::equals(
+                src,
+                src|applied(oven::begin)
+            )
+        ));
+    }
+
+#if 0 // future
+    namespace ph = boost::phoenix;
+    {
+        std::string s1("efg");
+        BOOST_CHECK((
+            oven::equals(
+                std::string("efghijk"),
+                src|applied(ph::search(ph::arg1, s1), oven::end)
+            )
+        ));
+    }
+#endif
+
+#if 0 // deprecated interface
     namespace bll = boost::lambda;
     using namespace bll;
     namespace ll = bll::ll;
 
-    std::string src("abcdefghijk");
-    typedef std::string::iterator iter_t;
-    iter_t it;
-    bll::ret<iter_t>(bll::_1);
+    {
+        BOOST_CHECK((
+            oven::equals(
+                src,
+                src|applied(::id_fun())
+            )
+        ));
+    }
 
     {
         BOOST_CHECK((
@@ -75,7 +123,7 @@ void test()
             )
         ));
     }
-    
+#endif
 }
 
 
