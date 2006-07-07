@@ -62,7 +62,7 @@ public:
         super_t(n)
     { }
 
-    explicit ustring(super_t::size_type n, const super_t::value_type& t) :
+    explicit ustring(super_t::size_type n, super_t::value_type const& t) :
         super_t(n, t)
     { }
 
@@ -72,7 +72,7 @@ public:
     { }
 
     template< class Range >
-    explicit ustring(const Range& rng) :
+    explicit ustring(Range const& rng) :
         super_t(boost::begin(rng), boost::end(rng))
     { }
 
@@ -80,7 +80,7 @@ public:
     // But operator= doesn't, so be strict.
     template< class Range > 
     typename boost::enable_if< apple::is_boost_range<Range>,
-    ustring&>::type operator=(const Range& rng)
+    ustring&>::type operator=(Range const& rng)
     {
         assign(boost::begin(rng), boost::end(rng));
         return *this;
@@ -88,11 +88,11 @@ public:
 
     // implicit conversions
     //
-    ustring(const char *psz) :
+    ustring(char const *psz) :
         super_t(psz, oven::null_terminate_range_detail::end(psz))
     { }
 
-    ustring(const wchar_t *psz) :
+    ustring(wchar_t const *psz) :
         super_t(psz, oven::null_terminate_range_detail::end(psz))
     { }
 };

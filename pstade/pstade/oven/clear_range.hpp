@@ -43,7 +43,7 @@ namespace clear_range_detail {
         template< class Range >
         struct result
         {
-            typedef const clear_range<Range> type;
+            typedef clear_range<Range> const type;
         };
 
         template< class Result, class Range>

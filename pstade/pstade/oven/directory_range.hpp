@@ -51,11 +51,11 @@
             typedef typename super_t::iterator iter_t;
 
         public:
-            explicit basic_directory_range(const Path& dir) :
+            explicit basic_directory_range(Path const& dir) :
                 super_t(iter_t(dir), iter_t())
             { }
 
-            explicit basic_directory_range(const Path& dir, boost::filesystem::system_error_type& ec) :
+            explicit basic_directory_range(Path const& dir, boost::filesystem::system_error_type& ec) :
                 super_t(iter_t(dir, ec), iter_t())
             { }
         };
@@ -104,7 +104,7 @@
             typedef super_t::iterator iter_t;
 
         public:
-            explicit directory_range(const boost::filesystem::path& dir) :
+            explicit directory_range(boost::filesystem::path const& dir) :
                 super_t(iter_t(dir), iter_t())
             { }
         };

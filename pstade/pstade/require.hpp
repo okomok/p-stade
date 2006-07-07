@@ -79,7 +79,7 @@ namespace require_detail {
 
 
     inline
-    std::string make_info(const char *expr, const char *file, int line, const char *func, const char *msg)
+    std::string make_info(char const *expr, char const *file, int line, char const *func, char const *msg)
     {
         // avoid stringstream and joint_range for code size
         //

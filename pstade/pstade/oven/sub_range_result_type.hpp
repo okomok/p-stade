@@ -27,9 +27,9 @@ template< class Range >
 struct sub_range_result
 {
     // 'const' works around "Forwarding Problem".
-    typedef const boost::iterator_range<
+    typedef boost::iterator_range<
         typename boost::range_result_iterator<Range>::type
-    > type;
+    > const type;
 };
 
 
@@ -41,9 +41,9 @@ struct sub_range_result
 template< class Range >
 struct sub_range_result_const
 {
-    typedef const boost::iterator_range<
+    typedef boost::iterator_range<
         typename boost::range_const_iterator<Range>::type
-    > type;
+    > const type;
 };
 
 

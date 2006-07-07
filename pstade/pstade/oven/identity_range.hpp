@@ -42,7 +42,7 @@ namespace identity_range_detail {
         template< class Range >
         struct result
         {
-            typedef const identity_range<Range> type;
+            typedef identity_range<Range> const type;
         };
 
         template< class Result, class Range >

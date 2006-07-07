@@ -58,7 +58,7 @@ namespace unique_range_detail {
         template< class ForwardRange >
         struct result
         {
-            typedef const unique_range<ForwardRange> type;
+            typedef unique_range<ForwardRange> const type;
         };
 
         template< class Result, class ForwardRange >

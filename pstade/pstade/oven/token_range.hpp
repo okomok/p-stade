@@ -74,7 +74,7 @@ private:
 public:
     token_range(
         BidiRange& rng,
-        const regex_t& re,
+        regex_t const& re,
         int submatch = 0,
         token_range_detail::match_flag_type m = token_range_detail::match_default
     ) :
@@ -87,8 +87,8 @@ public:
     template< class RandRange >
     token_range(
         BidiRange& rng,
-        const regex_t& re,
-        const RandRange& submatches,
+        regex_t const& re,
+        RandRange const& submatches,
         token_range_detail::match_flag_type m = token_range_detail::match_default
     ) :
         super_t(
@@ -107,17 +107,17 @@ namespace token_range_detail {
         template< class BidiRange, class RegexT = void, class IntOrRndRange = void, class FlagT = void >
         struct result
         {
-            typedef const token_range<BidiRange> type;
+            typedef token_range<BidiRange> const type;
         };
 
         template< class Result, class BidiRange, class RegexT >
-        Result call(BidiRange& rng, const RegexT& re, int submatch = 0, match_flag_type m = match_default)
+        Result call(BidiRange& rng, RegexT const& re, int submatch = 0, match_flag_type m = match_default)
         {
             return Result(rng, re, submatch, m);
         }
 
         template< class Result, class BidiRange, class RegexT, class RandRange >
-        Result call(BidiRange& rng, const RegexT& re, const RandRange& submatches, match_flag_type m = match_default)
+        Result call(BidiRange& rng, RegexT const& re, RandRange const& submatches, match_flag_type m = match_default)
         {
             return Result(rng, re, submatches, m);
         }

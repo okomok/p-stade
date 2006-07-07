@@ -78,7 +78,7 @@ namespace filter_range_detail {
         struct result
         {
             typedef typename boost::remove_cv<Predicate>::type pred_t;
-            typedef const filter_range<Range, pred_t> type;
+            typedef filter_range<Range, pred_t> const type;
         };
 
         template< class Result, class Range, class Predicate >

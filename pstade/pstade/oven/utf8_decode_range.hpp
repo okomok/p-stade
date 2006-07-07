@@ -11,11 +11,9 @@
 
 
 #include <boost/cstdint.hpp> // uint32_t
-#include <boost/range/begin.hpp>
-#include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <boost/range/result_iterator.hpp>
-#include <boost/regex/pending/unicode_iterator.hpp>
+#include <boost/regex/pending/unicode_iterator.hpp> // u8_to_u32_iterator
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/egg/function.hpp>
 #include "./is_lightweight_proxy.hpp"
@@ -28,12 +26,12 @@ namespace pstade { namespace oven {
 namespace utf8_decode_range_detail {
 
 
-    template< class BaseRange, class Ucs4T >
+    template< class BidiRange, class Ucs4T >
     struct super_
     {
         typedef boost::iterator_range<
             boost::u8_to_u32_iterator<
-                typename boost::range_result_iterator<BaseRange>::type,
+                typename boost::range_result_iterator<BidiRange>::type,
                 Ucs4T
             >
         > type;
@@ -43,16 +41,16 @@ namespace utf8_decode_range_detail {
 } // namespace utf8_decode_range_detail
 
 
-template< class BaseRange, class Ucs4T = boost::uint32_t >
+template< class BidiRange, class Ucs4T = boost::uint32_t >
 struct utf8_decode_range :
-    utf8_decode_range_detail::super_<BaseRange, Ucs4T>::type
+    utf8_decode_range_detail::super_<BidiRange, Ucs4T>::type
 {
 private:
-    typedef typename utf8_decode_range_detail::super_<BaseRange, Ucs4T>::type super_t;
+    typedef typename utf8_decode_range_detail::super_<BidiRange, Ucs4T>::type super_t;
 
 public:
-    explicit utf8_decode_range(BaseRange& rng) :
-        super_t(boost::begin(rng), boost::end(rng))
+    explicit utf8_decode_range(BidiRange& rng) :
+        super_t(rng)
     { }
 };
 
@@ -62,21 +60,21 @@ namespace utf8_decode_range_detail {
 
     struct baby_generator
     {
-        template< class BaseRange, class Ucs4T = boost::uint32_t >
+        template< class BidiRange, class Ucs4T = boost::uint32_t >
         struct result
         {
             typedef typename boost::remove_cv<Ucs4T>::type ucs4_t;
-            typedef const utf8_decode_range<BaseRange, ucs4_t> type;
+            typedef utf8_decode_range<BidiRange, ucs4_t> const type;
         };
 
-        template< class Result, class BaseRange, class Ucs4T >
-        Result call(BaseRange& rng, Ucs4T)
+        template< class Result, class BidiRange, class Ucs4T >
+        Result call(BidiRange& rng, Ucs4T)
         {
             return Result(rng);
         }
 
-        template< class Result, class BaseRange >
-        Result call(BaseRange& rng)
+        template< class Result, class BidiRange >
+        Result call(BidiRange& rng)
         {
             return Result(rng);
         }

@@ -15,11 +15,6 @@
 // Will be cute with the upcoming Boost.Phoenix-v2.
 
 
-// Question:
-//
-// Should be defined 'rng1' or something that is the same as '_1' or 'arg1'?
-
-
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/egg/function.hpp>
 #include "./begin_end.hpp"
@@ -44,6 +39,8 @@ private:
     typedef typename super_t::iterator iter_t;
 
 public:
+    // Workaround:
+    // The weird VC++ needs 'oven::'.
     apply_range(Range& rng, BeginFun bfun, EndFun efun = oven::end) :
         super_t(bfun(rng), efun(rng))
     { }
@@ -55,12 +52,12 @@ namespace apply_range_detail {
 
     struct baby_generator
     {
-        template< class Range, class BeginFun, class EndFun = oven::end_fun >
+        template< class Range, class BeginFun, class EndFun = end_fun >
         struct result
         {
             typedef typename boost::remove_cv<BeginFun>::type bfun_t;
             typedef typename boost::remove_cv<EndFun>::type efun_t;
-            typedef const apply_range<Range, bfun_t, efun_t> type;
+            typedef apply_range<Range, bfun_t, efun_t> const type;
         };
 
         template< class Result, class Range, class BeginFun, class EndFun >
@@ -88,6 +85,22 @@ PSTADE_OVEN_RANGE_ADAPTOR(applied, apply_range_detail::baby_generator)
 
 
 PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE(pstade::oven::apply_range, 3)
+
+
+// for Boost.Phoenix-v2
+//
+#if defined(PSTADE_OVEN_USING_PHOENIX_V2)
+
+    #include <boost/spirit/phoenix/core/argument.hpp>
+    #include <pstade/instance.hpp>
+
+    namespace pstade { namespace oven {
+
+    PSTADE_INSTANCE(boost::phoenix::actor< boost::phoenix::argument<0> > const, rng1, value)
+
+    } } // namespace pstade::oven
+
+#endif
 
 
 #endif

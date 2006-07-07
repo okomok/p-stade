@@ -69,19 +69,13 @@ namespace adjacent_filter_range_detail {
         struct result
         {
             typedef typename boost::remove_cv<BinaryPred>::type pred_t;
-            typedef const adjacent_filter_range<ForwardRange, pred_t> type;
+            typedef adjacent_filter_range<ForwardRange, pred_t> const type;
         };
 
         template< class Result, class ForwardRange, class BinaryPred >
         Result call(ForwardRange& rng, BinaryPred pred)
         {
             return Result(rng, pred);
-        }
-
-        template< class Result, class ForwardRange >
-        Result call(ForwardRange& rng)
-        {
-            return Result(rng);
         }
     };
 

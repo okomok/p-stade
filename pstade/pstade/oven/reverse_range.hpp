@@ -57,7 +57,7 @@ private:
 
 public:
     explicit reverse_range(BidiRange& rng) :
-        super_t(boost::end(rng), boost::begin(rng))
+        super_t(boost::end(rng), boost::begin(rng)) // take care the order.
     { }
 };
 
@@ -70,7 +70,7 @@ namespace reverse_range_detail {
         template< class BidiRange >
         struct result
         {
-            typedef const reverse_range<BidiRange> type;
+            typedef reverse_range<BidiRange> const type;
         };
 
         template< class Result, class BidiRange >

@@ -68,7 +68,7 @@ namespace array_protect_range_detail {
         struct result
         {
             // 'const' works around "Forwarding Problem".
-            typedef const array_protect_range<ArrayT> type;
+            typedef array_protect_range<ArrayT> const type;
         };
 
         template< class Result, class ArrayT >

@@ -27,6 +27,23 @@ void test()
         std::string str("hello, check_range");
         BOOST_CHECK(oven::equals(str, str|checked));
     }
+
+    {
+        std::string in("012345");
+        std::string out("01234");
+
+        bool thrown = false;
+
+        try {
+            oven::equal( in, boost::begin(out|checked) );
+        }
+        catch (check_error const& )
+        {
+            thrown = true;
+        }
+
+        BOOST_CHECK(thrown);
+    }
 }
 
 

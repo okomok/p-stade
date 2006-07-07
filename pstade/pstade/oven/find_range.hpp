@@ -62,7 +62,7 @@ namespace find_range_detail {
         template< class Range, class FinderT >
         struct result
         {
-            typedef const find_range<Range> type;
+            typedef find_range<Range> const type;
         };
 
         template< class Result, class Range, class FinderT >

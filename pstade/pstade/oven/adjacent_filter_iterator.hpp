@@ -171,8 +171,8 @@ friend class boost::iterator_core_access;
 };
 
 
-template< class ForwardIter, class BinaryPred > inline const
-adjacent_filter_iterator<ForwardIter, BinaryPred>
+template< class ForwardIter, class BinaryPred > inline
+adjacent_filter_iterator<ForwardIter, BinaryPred> const
 make_adjacent_filter_iterator(ForwardIter it, ForwardIter first, ForwardIter last, BinaryPred pred)
 {
     return adjacent_filter_iterator<ForwardIter, BinaryPred>(it, first, last, pred);

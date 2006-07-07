@@ -49,7 +49,7 @@ void null_terminate(Range& rng)
 
 
 template< class Range >
-bool is_null_terminated(const Range& rng)
+bool is_null_terminated(Range const& rng)
 {
     typedef typename boost::range_const_iterator<Range>::type iter_t;
     typedef typename boost::range_value<Range>::type val_t;
@@ -125,13 +125,13 @@ namespace null_terminate_range_detail {
     }
 
     inline
-    const char *begin(const char *s)
+    char const *begin(const char *s)
     {
         return s;
     }
 
     inline
-    const char *end(const char *s)
+    char const *end(const char *s)
     {
         using namespace std;
         return s + strlen(s);
@@ -152,13 +152,13 @@ namespace null_terminate_range_detail {
     }
 
     inline
-    const wchar_t *begin(const wchar_t *s)
+    wchar_t const *begin(const wchar_t *s)
     {
         return s;
     }
 
     inline
-    const wchar_t *end(const wchar_t *s)
+    wchar_t const *end(const wchar_t *s)
     {
         using namespace std;
         return s + wcslen(s);
@@ -187,11 +187,11 @@ namespace null_terminate_range_detail {
     };
 
 
-    template< class RangeOrCString >
+    template< class ForwardRangeOrCString >
     struct super_
     {
         typedef boost::iterator_range<
-            typename iter<RangeOrCString>::type 
+            typename iter<ForwardRangeOrCString>::type 
         > type;
     };
 
@@ -199,15 +199,15 @@ namespace null_terminate_range_detail {
 } // namespace null_terminate_range_detail
 
 
-template< class RangeOrCString >
+template< class ForwardRangeOrCString >
 struct null_terminate_range :
-    null_terminate_range_detail::super_<RangeOrCString>::type
+    null_terminate_range_detail::super_<ForwardRangeOrCString>::type
 {
 private:
-    typedef typename null_terminate_range_detail::super_<RangeOrCString>::type super_t;
+    typedef typename null_terminate_range_detail::super_<ForwardRangeOrCString>::type super_t;
 
 public:
-    explicit null_terminate_range(RangeOrCString& x) :
+    explicit null_terminate_range(ForwardRangeOrCString& x) :
         super_t(null_terminate_range_detail::begin(x), null_terminate_range_detail::end(x))
     { }
 };
@@ -218,14 +218,14 @@ namespace null_terminate_range_detail {
 
     struct baby_generator
     {
-        template< class RangeOrCString >
+        template< class ForwardRangeOrCString >
         struct result
         {
-            typedef const null_terminate_range<RangeOrCString> type;
+            typedef null_terminate_range<ForwardRangeOrCString> const type;
         };
 
-        template< class Result, class RangeOrCString >
-        Result call(RangeOrCString& x)
+        template< class Result, class ForwardRangeOrCString >
+        Result call(ForwardRangeOrCString& x)
         {
             return Result(x);
         }

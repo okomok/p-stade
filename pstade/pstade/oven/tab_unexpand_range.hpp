@@ -66,7 +66,7 @@ namespace tab_unexpand_range_detail {
         template< class ForwardRange, class TabSizeT >
         struct result
         {
-            typedef const tab_unexpand_range<ForwardRange> type;
+            typedef tab_unexpand_range<ForwardRange> const type;
         };
 
         template< class Result, class ForwardRange >

@@ -30,7 +30,7 @@ namespace is_same_detail {
         { };
 
         template< class Result, class T >
-        Result call(const T& x, const T& y)
+        Result call(T const& x, T const& y)
         {
             return boost::addressof(x) == boost::addressof(y);
         }

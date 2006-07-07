@@ -21,7 +21,7 @@ namespace pstade { namespace oven {
 
 template< class Range > inline
 typename boost::range_difference<Range>::type 
-distance(const Range& rng)
+distance(Range const& rng)
 {
     return std::distance(boost::begin(rng), boost::end(rng));
 }

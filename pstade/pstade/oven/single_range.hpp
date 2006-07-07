@@ -32,19 +32,19 @@ public:
 };
 
 
-template< class Value > inline const
-single_range<Value>
+template< class Value > inline
+single_range<Value> const
 make_single_range(Value& v)
 {
     return single_range<Value>(v);
 }
 
 
-template< class Value > inline const
-single_range<const Value>
-make_single_range(const Value& v)
+template< class Value > inline
+single_range<Value const> const
+make_single_range(Value const& v)
 {
-    return single_range<const Value>(v);
+    return single_range<Value const>(v);
 }
 
 

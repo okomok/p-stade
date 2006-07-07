@@ -35,7 +35,7 @@ namespace tab_expand_iterator_detail {
             ForwardIter,
             val_t,
             boost::forward_traversal_tag, // sorry
-            const val_t
+            val_t const
         > type;
     };
 
@@ -161,8 +161,8 @@ friend class boost::iterator_core_access;
 };
 
 
-template< class ForwardIter > inline const
-tab_expand_iterator<ForwardIter>
+template< class ForwardIter > inline
+tab_expand_iterator<ForwardIter> const
 make_tab_expand_iterator(ForwardIter it, int tabsize)
 {
     return tab_expand_iterator<ForwardIter>(it, tabsize);

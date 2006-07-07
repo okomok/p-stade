@@ -69,8 +69,9 @@ namespace derived_cast_detail {
 } // namespace derived_cast_detail
 
 
-template< class BaseT > inline const
-derived_cast_detail::temporary<BaseT> derived(BaseT& base)
+template< class BaseT > inline
+derived_cast_detail::temporary<BaseT> const
+derived(BaseT& base)
 {
     // return derived_cast_detail::temporary<BaseT>(base);
 

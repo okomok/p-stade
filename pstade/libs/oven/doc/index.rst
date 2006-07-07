@@ -26,8 +26,7 @@ The Oven Range Library
 
 Introduction
 ------------
-The upcoming `Boost.Range`_ library is under construction.
-Oven provides some `Ranges`_ and `Range Adaptors`_ for those who cannot wait for the official::
+Oven provides the experimental Range Adaptors implementation of `Range Library Proposal`_::
 
 	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\introduction.ipp
 
@@ -37,7 +36,7 @@ All the types and functions are defined in ``namespace pstade::oven`` at ``<psta
 Requirements
 ------------
 - `Boost C++ Libraries Version 1.33.1`__ or later (no compilation required)
-- `P-Stade C++ Libraries Version 0.99.7`__ or later (no compilation required, give a higher priority than Boost headers)
+- `P-Stade C++ Libraries Version 0.99.8`__ or later (no compilation required, give a higher priority than Boost headers)
 
 __ Boost_
 __ http://sourceforge.net/project/showfiles.php?group_id=141222&package_id=173059
@@ -62,7 +61,7 @@ STL Algorithms
 ^^^^^^^^^^^^^^
 Oven has all the range-based STL algorithms which are ported from `Boost.RangeEx`_ with some compiler workarounds::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\algorithms.ipp
+	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\stl_algorithms.ipp
 
 
 - Header: ``<pstade/oven/algorithm.hpp>``
@@ -95,7 +94,9 @@ __ `copied as adaptor`_
 ``distance``
 ^^^^^^^^^^^^
 The upcoming `Boost.Range`_ will replace ``boost::size`` by ``boost::distance``.
-``oven::distance`` that is the same as ``boost::distance`` makes your code portable.
+``oven::distance`` that is the same as ``boost::distance`` makes your code portable::
+
+	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\distance.ipp
 
 
 - Header: ``<pstade/oven/distance.hpp>``
@@ -107,7 +108,10 @@ The upcoming `Boost.Range`_ will replace ``boost::size`` by ``boost::distance``.
 ``equals``
 ^^^^^^^^^^
 ``equals`` is the range-based ``std::equal`` that takes two ranges as the arguments.
-Note that the size of two ranges is also checked out.
+Note that the size of two ranges is also checked out::
+
+	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\equals.ipp
+
 
 - Header: ``<pstade/oven/equals.hpp>``
 - Valid expression: ``oven::equals(rng1,rng2);``
@@ -232,14 +236,32 @@ Additional information is available at `Range Library Proposal`_.
 ``<pstade/oven/ranges.hpp>`` includes all the following Range Adaptors.
 
 
+Specification
+^^^^^^^^^^^^^
+- ``rng``: any range
+- ``fwdRng``: any `Forward Range`_
+- ``biRng``: any `Bidirectional Range`_
+- ``rndRng``: any `Random Access Range`_
+
+
 ``adjacent_filtered``
 ^^^^^^^^^^^^^^^^^^^^^
+Example::
+
+	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\adjacent_filtered.ipp
+
+
 - Header: ``<pstade/oven/adjacent_filter_range.hpp>``
 - See: `Range Library Proposal`_.
 
 
 ``appended``
 ^^^^^^^^^^^^
+Example::
+
+	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\appended.ipp
+
+
 - Header: ``<pstade/oven/append_range.hpp>``
 - Valid expression: ``rng|appended(v)``
 - Precondition: ``v*`` is convertible to the ``iterator`` type of ``rng``.
@@ -250,6 +272,7 @@ Additional information is available at `Range Library Proposal`_.
 ^^^^^^^^^^^
 - Header: ``<pstade/oven/apply_range.hpp>``
 - Valid expression: ``rng|applied(f1,f2)``
+- Precondition: ``f1(rng)`` and ``f2(rng)`` return iterators that are convertible to ``rng``\'s.
 - Returns: ``[f1(rng),f2(rng))``.
 
 
@@ -263,14 +286,24 @@ Additional information is available at `Range Library Proposal`_.
 
 ``checked``
 ^^^^^^^^^^^
+Example::
+
+	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\checked.ipp
+
+
 - Header: ``<pstade/oven/check_range.hpp>``
 - Valid expression: ``rng|checked``
-- Effect: Adds bounds checking (asserted under debug mode).
+- Effect: Throws ``check_error`` derived from ``std::range_error`` if iterators go out of ``rng``.
 - Returns: ``[boost::begin(rng),boost::end(rng))``.
 
 
 ``cleared``
 ^^^^^^^^^^^
+Example::
+
+	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\cleared.ipp
+
+
 - Header: ``<pstade/oven/clear_range.hpp>``
 - Valid expression: ``rng|cleared``
 - Returns: ``[boost::end(rng),boost::end(rng))``.
@@ -278,18 +311,28 @@ Additional information is available at `Range Library Proposal`_.
 
 ``constants``
 ^^^^^^^^^^^^^
+Example::
+
+	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\constants.ipp
+
+
 - Header: ``<pstade/oven/constant_range.hpp>``
-- Valid expression: ``unused_rng|constants(rng)``
+- Valid expression: ``unusedRng|constants(rng)``
 - Returns: ``[boost::begin(rng),boost::end(rng))``.
 
 
 ``copied`` as adaptor
 ^^^^^^^^^^^^^^^^^^^^^
+Example::
+
+	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\copied_as_adaptor.ipp
+
+
 - Header: ``<pstade/oven/copy_range.hpp>``
-- Valid expression: ``irng|copied(orng)`` or ``irng|copied(oit)``
-- Precondition: ``oven::distance(irng) <= oven::distance(orng)`` (asserted under debug mode)
-- Effect: ``oven::copy(irng,boost::begin(orng))`` or ``oven::copy(irng,oit)``
-- Returns: ``[boost::begin(irng),boost::end(irng))``.
+- Valid expression: ``rng|copied(it)``
+- Precondition: ``oven::copy(rng,it)`` is a valid expression.
+- Effect: ``oven::copy(rng,it)``
+- Returns: ``[boost::begin(rng),boost::end(rng))``.
 
 
 ``filtered``
@@ -308,8 +351,8 @@ Additional information is available at `Range Library Proposal`_.
 ``dropped``
 ^^^^^^^^^^^
 - Header: ``<pstade/oven/drop_range.hpp>``
-- Valid expression: ``rng|dropped(n)``
-- Returns: ``[f,boost::end(rng))``, where ``f = boost::begin(rng); std::advance(f, n);``.
+- Valid expression: ``fwdRng|dropped(n)``
+- Returns: ``[f,boost::end(fwdRng))``, where ``f = boost::begin(fwdRng); std::advance(f, n);``.
 
 
 ``found``
@@ -334,6 +377,11 @@ Additional information is available at `Range Library Proposal`_.
 
 ``jointed``
 ^^^^^^^^^^^
+Example::
+
+	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\jointed.ipp
+
+
 - Header: ``<pstade/oven/joint_range.hpp>``
 - Valid expression: ``rng1|jointed(rng2)``
 - Precondition: The ``iterator`` type of ``rng2`` is convertible to ``rng1``\'s.
@@ -364,24 +412,24 @@ Additional information is available at `Range Library Proposal`_.
 ^^^^^^^^^^^^^^^^^^^
 - Header: ``<pstade/oven/null_terminate_range.hpp>``
 - Valid expression: ``rngOrString|null_terminated``
-- Precondition: ``rngOrString`` is a string literal; Otherwise for all the value ``v`` in the ``rngOrString``, the expression ``v == 0`` must be valid, and some ``v`` that the expression is ``true`` exists in the ``rngOrString``.
+- Precondition: ``rngOrString`` is a string literal; otherwise, for all the value ``v`` in the ``rngOrString``, the expression ``v == 0`` must be valid, and some ``v`` that the expression is ``true`` exists in the ``rngOrString``.
 - Returns: ``[boost::begin(rng),y)``, where for all the value ``v`` in the range ``v != 0`` is ``true``, and ``*y == 0`` is ``true``.
 
 
 ``permuted``
 ^^^^^^^^^^^^
 - Header: ``<pstade/oven/permute_range.hpp>``
-- Valid expression: ``rng|permuted(irng)``
-- Precondition: ``rng`` is a `Random Access Range`_ and ``irng`` is a range of the indices.
+- Valid expression: ``rndRng|permuted(irng)``
+- Precondition: ``irng`` is a range of the indices of ``rngRng``.
 - Returns: A range whose iterators behave as if they were the original iterators wrapped in ``boost::permutation_iterator``.
 
 
-``pointers``
-^^^^^^^^^^^^
-- Header: ``<pstade/oven/pointer_range.hpp>``
-- Valid expression: ``vec|pointers``
+``pointed``
+^^^^^^^^^^^
+- Header: ``<pstade/oven/point_range.hpp>``
+- Valid expression: ``vec|pointed``
 - Precondition: ``vec`` is the template instantiation of ``std::vector``.
-- Returns: ``[&*boost::begin(vec),&*boost::begin(vec)+boost::size(vec))``.
+- Returns:  ``[&*boost::begin(vec),&*boost::begin(vec)+boost::size(vec))`` if ``vec`` is not empty; otherwise, ``[0,0)``.
 
 
 ``positioned``
@@ -435,8 +483,8 @@ Additional information is available at `Range Library Proposal`_.
 ``taken``
 ^^^^^^^^^
 - Header: ``<pstade/oven/take_range.hpp>``
-- Valid expression: ``rng|taken(n)``
-- Returns: ``[boost::begin(rng),l)``, where ``l = boost::begin(rng); std::advance(l, n);``.
+- Valid expression: ``fwdRng|taken(n)``
+- Returns: ``[boost::begin(fwdRng),l)``, where ``l = boost::begin(fwdRng); std::advance(l, n);``.
 
 
 ``tokenized``
@@ -470,7 +518,8 @@ Pending...
 ``utf8_decoded``
 ^^^^^^^^^^^^^^^^
 - Header: ``<pstade/oven/utf8_decode_range.hpp>``
-- Returns: A range whose iterators behave as if they were the original iterators wrapped in ``boost::u8_to_u32_iterator``.
+- Valid expression: ``biRng|utf8_decoded``
+- Returns: A `Bidirectional Range`_ whose iterators behave as if they were the original iterators wrapped in ``boost::u8_to_u32_iterator``.
 
 
 ``zipped``
@@ -508,6 +557,8 @@ Version 0.90.2
 ^^^^^^^^^^^^^^
 - Added some `Range Adaptors`_.
 - Changed the header of `permuted`_.
+- Changed the header of `pointed`_.
 - Changed a valid expression of `zipped`_.
-- Renamed ``pointed`` to `pointers`_.
+- Changed `checked`_ to throw exception.
+
 

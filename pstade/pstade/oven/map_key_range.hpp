@@ -80,7 +80,7 @@ namespace map_key_range_detail {
         template< class AssocContainer >
         struct result
         {
-            typedef const map_key_range<AssocContainer> type;
+            typedef map_key_range<AssocContainer> const type;
         };
 
         template< class Result, class AssocContainer >

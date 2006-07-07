@@ -74,7 +74,7 @@ namespace repeat_range_detail {
         struct result
         {
             typedef typename remove_rcv<SizeT>::type sz_t;
-            typedef const repeat_range<ForwardRange, sz_t> type;
+            typedef repeat_range<ForwardRange, sz_t> const type;
         };
 
         template< class Result, class ForwardRange, class SizeT >

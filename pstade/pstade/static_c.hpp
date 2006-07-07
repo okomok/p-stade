@@ -28,12 +28,12 @@ namespace pstade {
 template< class T, T v >
 struct static_c
 {
-    static const T value = v;
+    static T const value = v;
 };
 
 
 template< class T, T v >
-const T
+T const
 static_c<T, v>::value;
 
 

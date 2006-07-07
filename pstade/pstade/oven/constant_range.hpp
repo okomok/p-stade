@@ -42,7 +42,7 @@ namespace constant_range_detail {
         template< class UnusedRange, class Range >
         struct result
         {
-            typedef const constant_range<UnusedRange, Range> type;
+            typedef constant_range<UnusedRange, Range> const type;
         };
 
         template< class Result, class UnusedRange, class Range>

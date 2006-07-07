@@ -29,14 +29,14 @@ struct equal_to_fun
     typedef bool result_type;
 
     template< class X, class Y >
-    bool operator()(const X& x, const Y& y) const
+    bool operator()(X const& x, Y const& y) const
     {
         return x == y;
     }
 };
 
 
-PSTADE_INSTANCE(const equal_to_fun, equal_to, value)
+PSTADE_INSTANCE(equal_to_fun const, equal_to, value)
 
 
 } } } // namespace pstade::oven::detail

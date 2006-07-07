@@ -12,9 +12,8 @@
 
 #include <boost/assert.hpp>
 #include <boost/range/difference_type.hpp>
-#include <boost/range/iterator_range.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/oven/distance.hpp>
+#include "./distance.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./sub_range_base_type.hpp"
@@ -48,7 +47,7 @@ namespace slice_range_detail {
         template< class BidiRange, class DifferenceN, class DifferenceM >
         struct result
         {
-            typedef const slice_range<BidiRange> type;
+            typedef slice_range<BidiRange> const type;
         };
 
         template< class Result, class BidiRange, class Difference >

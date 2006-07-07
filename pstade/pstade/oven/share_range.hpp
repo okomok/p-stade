@@ -76,7 +76,7 @@ namespace share_range_detail {
         struct result
         {
             typedef typename boost::remove_pointer<RangePtrT>::type rng_t;
-            typedef const share_range<rng_t> type;
+            typedef share_range<rng_t> const type;
         };
 
         template< class Result, class RangePtrT >

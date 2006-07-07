@@ -36,7 +36,7 @@ namespace locale_saver_detail {
     {
         virtual ~iostream_placeholder() { }
         virtual std::locale getloc_() const = 0;
-        virtual void imbue_(const std::locale& ) = 0;
+        virtual void imbue_(std::locale const& ) = 0;
     };
 
 
@@ -51,7 +51,7 @@ namespace locale_saver_detail {
         virtual std::locale getloc_() const
         { return m_held.getloc(); }
 
-        virtual void imbue_(const std::locale& loc)
+        virtual void imbue_(std::locale const& loc)
         { m_held.imbue(loc); }
 
     private:
@@ -82,7 +82,7 @@ namespace locale_saver_detail {
 
     protected:
         template< class IOStream >
-        super_(IOStream& ios, const std::locale& loc) :
+        super_(IOStream& ios, std::locale const& loc) :
             m_pios(new iostream_holder<IOStream>(ios)),
             m_saved(m_pios->getloc_())
         {
@@ -111,21 +111,21 @@ private:
     typedef locale_saver_detail::super_<>::type super_t;
 
 public:
-    explicit locale_saver(const std::locale& loc) :
+    explicit locale_saver(std::locale const& loc) :
         super_t(locale_saver_detail::global, loc)
     { }
 
-    explicit locale_saver(const char *name) :
+    explicit locale_saver(char const *name) :
         super_t(locale_saver_detail::global, std::locale(name))
     { }
 
     template< class IOStream >
-    explicit locale_saver(IOStream& ios, const std::locale& loc) :
+    explicit locale_saver(IOStream& ios, std::locale const& loc) :
         super_t(ios, loc)
     { }
 
     template< class IOStream >
-    explicit locale_saver(IOStream& ios, const char *name) :
+    explicit locale_saver(IOStream& ios, char const *name) :
         super_t(ios, std::locale(name))
     { }
 };

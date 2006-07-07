@@ -61,8 +61,8 @@ public:
 };
 
 
-template< class Value, class CharT, class Traits > inline const
-istream_range<Value, CharT, Traits>
+template< class Value, class CharT, class Traits > inline
+istream_range<Value, CharT, Traits> const
 make_istream_range(std::basic_istream<CharT, Traits>& is)
 {
     return istream_range<Value, CharT, Traits>(is);

@@ -47,7 +47,6 @@ struct joint_range :
 {
 private:
     typedef typename joint_range_detail::super_<Range1, Range2>::type super_t;
-    typedef typename super_t::iterator iter_t;
 
 public:
     joint_range(Range1& rng1, Range2& rng2) :
@@ -67,7 +66,7 @@ namespace joint_range_detail {
         template< class Range1, class Range2 >
         struct result
         {
-            typedef const joint_range<Range1, Range2> type;
+            typedef joint_range<Range1, Range2> const type;
         };
 
         template< class Result, class Range1, class Range2 >

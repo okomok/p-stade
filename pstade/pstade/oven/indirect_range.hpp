@@ -79,7 +79,7 @@ private:
 
 public:
     explicit indirect_range(Range& rng) :
-        super_t(boost::begin(rng), boost::end(rng))
+        super_t(rng)
     { }
 };
 
@@ -92,7 +92,7 @@ namespace indirect_range_detail {
         template< class Range >
         struct result
         {
-            typedef const indirect_range<Range> type;
+            typedef indirect_range<Range> const type;
         };
 
         template< class Result, class Range >

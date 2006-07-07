@@ -40,7 +40,7 @@ T& arg(T& x)
 
 
 template< class T > inline
-const T& arg(const T& x)
+T const& arg(T const& x)
 {
     return x;
 }

@@ -18,7 +18,7 @@ namespace pstade {
 
 
 template< class TargetT, class SourceT > inline
-TargetT lexical_cast(const SourceT& src)
+TargetT lexical_cast(SourceT const& src)
 {
     return boost::lexical_cast<TargetT>(src);
 }
@@ -30,7 +30,7 @@ namespace lexical_detail {
     template< class SourceT >
     struct temp
     {
-        explicit temp(const SourceT& src) :
+        explicit temp(SourceT const& src) :
             m_psrc(boost::addressof(src))
         { }
 
@@ -41,15 +41,16 @@ namespace lexical_detail {
         }
 
     private:
-        const SourceT *m_psrc;
+        SourceT const *m_psrc;
     };
 
 
 } // namespace lexical_detail
 
 
-template< class SourceT > inline const
-lexical_detail::temp<SourceT> lexical(const SourceT& src)
+template< class SourceT > inline
+lexical_detail::temp<SourceT> const
+lexical(SourceT const& src)
 {
     return lexical_detail::temp<SourceT>(src);
 }

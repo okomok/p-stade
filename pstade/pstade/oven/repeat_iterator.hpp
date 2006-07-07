@@ -218,8 +218,8 @@ private:
 };
 
 
-template< class ForwardIter, class SizeT > inline const
-repeat_iterator<ForwardIter, SizeT>
+template< class ForwardIter, class SizeT > inline
+repeat_iterator<ForwardIter, SizeT> const
 make_repeat_iterator(ForwardIter it, SizeT index, ForwardIter first, ForwardIter last)
 {
     return repeat_iterator<ForwardIter, SizeT>(it, index, first, last);

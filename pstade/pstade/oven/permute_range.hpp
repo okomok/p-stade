@@ -73,7 +73,7 @@ namespace permute_range_detail {
         template< class ElementRange, class IndexRange >
         struct result
         {
-            typedef const permute_range<ElementRange, IndexRange> type;
+            typedef permute_range<ElementRange, IndexRange> const type;
         };
 
         template< class Result, class ElementRange, class IndexRange >

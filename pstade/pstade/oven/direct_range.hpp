@@ -58,7 +58,7 @@ namespace direct_range_detail {
         template< class Range >
         struct result
         {
-            typedef const direct_range<Range> type;
+            typedef direct_range<Range> const type;
         };
 
         template< class Result, class Range >

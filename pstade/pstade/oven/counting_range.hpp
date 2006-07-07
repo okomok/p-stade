@@ -102,24 +102,24 @@ public:
 };
 
 
-template< class Incrementable > inline const
-counting_range<Incrementable>
+template< class Incrementable > inline
+counting_range<Incrementable> const
 make_counting_range(Incrementable n, Incrementable m)
 {
     return counting_range<Incrementable>(n, m);
 }
 
 
-template< class Incrementable > inline const
-counting_range<Incrementable>
+template< class Incrementable > inline
+counting_range<Incrementable> const
 zero_to(Incrementable c)
 {
     return counting_range<Incrementable>(0, c);
 }
 
 
-template< class Incrementable > inline const
-counting_range<Incrementable>
+template< class Incrementable > inline
+counting_range<Incrementable> const
 one_to(Incrementable c)
 {
     return counting_range<Incrementable>(1, c);

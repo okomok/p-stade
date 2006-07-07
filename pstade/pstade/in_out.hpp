@@ -26,7 +26,7 @@ namespace pstade {
 struct in_fun
 {
     template< class T >
-    const T& operator()(const T& x) const
+    T const& operator()(const T& x) const
     {
         return x;
     }
@@ -44,8 +44,8 @@ struct out_fun
 };
 
 
-PSTADE_INSTANCE(const in_fun, in, value)
-PSTADE_INSTANCE(const out_fun, out, value)
+PSTADE_INSTANCE(in_fun const, in, value)
+PSTADE_INSTANCE(out_fun const, out, value)
 
 
 } // namespace pstade

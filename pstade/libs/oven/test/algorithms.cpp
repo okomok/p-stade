@@ -10,17 +10,16 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/algorithms.hpp>
+#include <pstade/oven.hpp>
 
 
+#include <locale>
 #include <boost/range.hpp>
+#include <boost/type_traits/remove_const.hpp>
 #include <string>
-
-#include <pstade/oven/filter_range.hpp>
-#include <pstade/oven/reverse_range.hpp>
-#include <pstade/oven/share_range.hpp>
 #include <boost/lambda/core.hpp>
 #include <boost/lambda/lambda.hpp>
+#include <pstade/egg/function.hpp>
 #include <boost/foreach.hpp>
 
 
@@ -29,6 +28,23 @@ struct is_c
     bool operator()(char ch) const
     { return ch == 'c'; }
 };
+
+
+struct baby_to_lower
+{
+    template< class CharT >
+    struct result : boost::remove_const<CharT>
+    { };
+
+    template< class Result, class CharT >
+    Result call(CharT ch)
+    {
+        return std::tolower(ch, std::locale());
+    }
+};
+
+
+PSTADE_EGG_FUNCTION(to_lower, baby_to_lower)
 
 
 void test()
@@ -53,15 +69,17 @@ void test()
         std::string out;
 
         BOOST_FOREACH (char ch,
-            new std::string("!exgnxxar ,xolxlexh") |
+            new std::string("!EXGNXXAR ,XOLXLEXH") |
                 shared |
-                filtered(lambda::_1 != 'x') |
-                reversed
+                filtered(lambda::_1 != 'X') |
+                reversed |
+                transformed(::to_lower)
         ) {
             out.push_back(ch);
         }
 
-        BOOST_CHECK( out == "hello, range!" );
+        std::cout << out;
+        BOOST_CHECK( oven::equals(out, "hello, range!"|null_terminated) );
     }
 }
 

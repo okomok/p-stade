@@ -21,14 +21,14 @@ struct less_than_fun
     typedef bool result_type;
 
     template< class X, class Y >
-    bool operator()(const X& x, const Y& y) const
+    bool operator()(X const& x, Y const& y) const
     {
         return x < y;
     }
 };
 
 
-PSTADE_INSTANCE(const less_than_fun, less_than, value)
+PSTADE_INSTANCE(less_than_fun const, less_than, value)
 
 
 } } } // namespace pstade::oven::detail

@@ -47,7 +47,7 @@ namespace position_range_detail {
 
 
     template< class PositionIter, class ForwardRange, class PositionT >
-    PositionIter make_first(ForwardRange& rng, const PositionT& pos, int tabchars)
+    PositionIter make_first(ForwardRange& rng, PositionT const& pos, int tabchars)
     {
         PositionIter pit(boost::begin(rng), boost::end(rng), pos);
         pit.set_tabchars(tabchars);
@@ -72,7 +72,7 @@ private:
 public:
     explicit position_range(
         ForwardRange& rng,
-        const PositionT& pos = PositionT(),
+        PositionT const& pos = PositionT(),
         int tabchars = position_range_detail::default_tabchars::value
     ) :
         super_t(
@@ -94,7 +94,7 @@ namespace position_range_detail {
         struct result
         {
             typedef typename boost::remove_cv<PositionT>::type pos_t;
-            typedef const position_range<ForwardRange, pos_t> type;
+            typedef position_range<ForwardRange, pos_t> const type;
         };
 
         template< class Result, class ForwardRange >
@@ -104,7 +104,7 @@ namespace position_range_detail {
         }
 
         template< class Result, class ForwardRange, class PositionT >
-        Result call(ForwardRange& rng, const PositionT& pos, int tabchars = default_tabchars::value)
+        Result call(ForwardRange& rng, PositionT const& pos, int tabchars = default_tabchars::value)
         {
             return Result(rng, pos, tabchars);
         }

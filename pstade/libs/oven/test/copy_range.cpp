@@ -15,10 +15,12 @@
 
 
 #include <iterator>
+#include <sstream>
 #include <string>
 #include <vector>
 #include <pstade/oven/algorithms.hpp>
 #include <pstade/oven/counting_range.hpp>
+#include <pstade/oven/istream_range.hpp>
 
 
 void test()
@@ -84,6 +86,16 @@ void test()
         std::string in("hello, copied!");
         std::string out = in|copied;
         BOOST_CHECK( oven::equals(in, out) );
+    }
+
+    {
+        std::stringstream ss;
+        std::string ans("abcdefg");
+        ss << ans;
+
+        std::vector<char> out = ans|copied;
+        oven::make_istream_range<char>(ss)|copied(out);
+        BOOST_CHECK( oven::equals(out, ans) );
     }
 
 #if 0

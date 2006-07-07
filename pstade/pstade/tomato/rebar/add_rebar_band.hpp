@@ -19,7 +19,7 @@
 #include <pstade/apple/wtl/ctrls.hpp> // CReBarCtrl
 #include <pstade/candy/set.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
-#include <pstade/oven/pointer_range.hpp>
+#include <pstade/oven/point_range.hpp>
 #include <pstade/oven/sequence_cast.hpp>
 #include <pstade/require.hpp>
 #include "../diet/valid.hpp"

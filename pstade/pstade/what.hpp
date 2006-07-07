@@ -19,8 +19,8 @@
 namespace pstade {
 
 
-template< class Range > inline const
-std::string what(std::string tag, const Range& msg)
+template< class Range > inline
+std::string what(std::string tag, Range const& msg)
 {
     return
         '<' + tag + '>' +
@@ -30,14 +30,14 @@ std::string what(std::string tag, const Range& msg)
 }
 
 
-inline const
-std::string what(std::string tag, const char *psz)
+inline
+std::string what(std::string tag, char const *psz)
 {
     return pstade::what(tag, psz|oven::null_terminated);
 }
 
 
-inline const
+inline
 std::string what(std::string tag, int n)
 {
     return pstade::what(tag, pstade::lexical_cast<std::string>(n));

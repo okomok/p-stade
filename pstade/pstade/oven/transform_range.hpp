@@ -18,12 +18,14 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/iterator/iterator_traits.hpp>
 #include <boost/iterator/transform_iterator.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <boost/range/result_iterator.hpp>
 #include <boost/type_traits/remove_cv.hpp>
+#include <boost/utility/result_of.hpp>
 #include <pstade/egg/function.hpp>
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
@@ -41,10 +43,20 @@ namespace transform_range_detail {
     >
     struct super_
     {
+        typedef typename boost::range_result_iterator<Range>::type iter_t;
+
+        // Note:
+        // Boost.Iterator doesn't do the following.
+        // 'boost::result_of' seems to have many problems
+        // even under modern compilers.
+        //
+        typedef typename boost::iterator_reference<iter_t>::type iter_ref_t;
+        typedef typename boost::result_of<UnaryFun(iter_ref_t)>::type ref_t;
+        
         typedef boost::iterator_range<
             boost::transform_iterator<
-                UnaryFun, typename boost::range_result_iterator<Range>::type,
-                Reference, Value
+                UnaryFun, iter_t,
+                ref_t, Value
             >
         > type;
     };
@@ -82,7 +94,7 @@ namespace transform_range_detail {
         struct result
         {
             typedef typename boost::remove_cv<UnaryFun>::type fun_t;
-            typedef const transform_range<Range, fun_t> type;
+            typedef transform_range<Range, fun_t> const type;
         };
 
         template< class Result, class Range, class UnaryFun >

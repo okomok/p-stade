@@ -67,7 +67,7 @@ namespace pstade { namespace has_xxx_detail {
             static \
             pstade::has_xxx_detail::non test(...); \
             \
-            static const bool value = \
+            static bool const value = \
                 sizeof(test((::boost::mpl::identity<T> *)0)) == sizeof(pstade::has_xxx_detail::yes); \
             \
             typedef boost::mpl::bool_<value> type; \
@@ -127,7 +127,7 @@ namespace pstade { namespace has_xxx_detail {
             static \
             pstade::has_xxx_detail::non test(...); \
             \
-            static const bool value = \
+            static bool const value = \
                 sizeof(test((::boost::mpl::identity<T> *)0)) == sizeof(pstade::has_xxx_detail::yes); \
             \
             typedef boost::mpl::bool_<value> type; \
@@ -187,7 +187,7 @@ namespace pstade { namespace has_xxx_detail {
             static \
             pstade::has_xxx_detail::non test(...); \
             \
-            static const bool value = \
+            static bool const value = \
             sizeof(test((::boost::mpl::identity<T> *)0)) == sizeof(pstade::has_xxx_detail::yes); \
             \
             typedef boost::mpl::bool_<value> type; \

@@ -47,7 +47,7 @@ namespace pstade { namespace oven { namespace detail_adaptors {
     typename egg::baby_result1<BabyAdaptor,
         typename boost::add_const<Range>::type
     >::type
-    operator|(const Range& rng, adaptor0<BabyAdaptor> ad)
+    operator|(Range const& rng, adaptor0<BabyAdaptor> ad)
     {
         pstade::unused(ad);
         return egg::baby_call<BabyAdaptor>(rng);
@@ -81,7 +81,7 @@ namespace pstade { namespace oven { namespace detail_adaptors {
         typename boost::add_const<Range>::type,
         A0
     >::type
-    operator|(const Range& rng, adaptor1<BabyAdaptor, A0> ad)
+    operator|(Range const& rng, adaptor1<BabyAdaptor, A0> ad)
     {
         return egg::baby_call<BabyAdaptor>(rng, *ad.m_pa0);
     }
@@ -169,7 +169,7 @@ typename egg::BOOST_PP_CAT(baby_result, BOOST_PP_INC(n))<BabyAdaptor,
     typename boost::add_const<Range>::type,
     BOOST_PP_ENUM_PARAMS(n, A)
 >::type
-operator|(const Range& rng, BOOST_PP_CAT(adaptor, n)< BabyAdaptor, BOOST_PP_ENUM_PARAMS(n, A) > ad)
+operator|(Range const& rng, BOOST_PP_CAT(adaptor, n)< BabyAdaptor, BOOST_PP_ENUM_PARAMS(n, A) > ad)
 {
     return egg::baby_call<BabyAdaptor>( rng, BOOST_PP_ENUM(n, PSTADE_OVEN_call_arg, ~) );
 }

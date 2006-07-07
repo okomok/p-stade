@@ -53,8 +53,9 @@ namespace integral_cast_detail {
 } // namespace integral_cast_detail
 
 
-template< class SourceT > inline const
-integral_cast_detail::temp<SourceT> integral(SourceT src)
+template< class SourceT > inline
+integral_cast_detail::temp<SourceT> const
+integral(SourceT src)
 {
     return integral_cast_detail::temp<SourceT>(src);
 }

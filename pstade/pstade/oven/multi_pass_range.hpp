@@ -64,7 +64,7 @@ private:
 
 public:
     explicit multi_pass_range(SinglePassRange& rng) :
-        super_t(boost::begin(rng), boost::end(rng))
+        super_t(rng)
     { }
 };
 
@@ -77,7 +77,7 @@ namespace multi_pass_range_detail {
         template< class Range >
         struct result
         {
-            typedef const multi_pass_range<Range> type;
+            typedef multi_pass_range<Range> const type;
         };
 
         template< class Result, class Range >

@@ -22,14 +22,14 @@ namespace pstade { namespace oven {
 
 
 template< class T, class Range > inline
-T sequence_cast(const Range& rng)
+T sequence_cast(Range const& rng)
 {
     return oven::copy_range<T>(rng);
 }
 
 
-template< class Range > inline const
-copy_range_detail::temp<Range> sequence(const Range& rng)
+template< class Range > inline
+copy_range_detail::temp<Range> const sequence(Range const& rng)
 {
     return rng|copied;
 }

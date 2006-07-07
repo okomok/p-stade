@@ -129,7 +129,7 @@ operator|(Range& rng, range_adaptor<BabyAdaptor> ad)
 
 template< class Range, class BabyAdaptor > inline
 typename egg::baby_result1<BabyAdaptor, typename boost::add_const<Range>::type>::type
-operator|(const Range& rng, range_adaptor<BabyAdaptor> ad)
+operator|(Range const& rng, range_adaptor<BabyAdaptor> ad)
 {
     pstade::unused(ad);
     return egg::baby_call<BabyAdaptor>(rng);
@@ -141,7 +141,7 @@ operator|(const Range& rng, range_adaptor<BabyAdaptor> ad)
 
 #define PSTADE_OVEN_RANGE_ADAPTOR(Name, Baby) \
     PSTADE_INSTANCE( \
-        const pstade::oven::range_adaptor< pstade::comma_protect<void(Baby)>::type >, \
+        pstade::oven::range_adaptor< pstade::comma_protect<void(Baby)>::type > const, \
         Name, value \
     ) \
 /**/

@@ -47,7 +47,7 @@ namespace prepend_range_detail {
         template< class Range, class Value >
         struct result
         {
-            typedef const prepend_range<Range, Value> type;
+            typedef prepend_range<Range, Value> const type;
         };
 
         template< class Result, class Range, class Value >

@@ -13,6 +13,7 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
+#include <boost/type_traits/add_const.hpp>
 #include <pstade/const_overloaded.hpp>
 #include "./iterator_cast.hpp"
 #include "./sub_range_base_type.hpp"
@@ -28,7 +29,7 @@ namespace pstade { namespace oven {
 
 template< class BaseIter, class Range > inline
 typename const_overloaded<Range,
-const boost::iterator_range<BaseIter> >::type
+boost::iterator_range<BaseIter> >::type const
 range_cast(Range& rng)
 {
     return boost::iterator_range<BaseIter>(
@@ -38,7 +39,7 @@ range_cast(Range& rng)
 }
 
     template< class BaseIter, class Range > inline
-    const boost::iterator_range<BaseIter> range_cast(const Range& rng)
+    boost::iterator_range<BaseIter> const range_cast(const Range& rng)
     {
         return boost::iterator_range<BaseIter>(
             oven::iterator_cast<BaseIter>(boost::begin(rng)),
@@ -92,9 +93,9 @@ range_cast_detail::auto_range_type<Range> auto_range(Range& rng)
 }
 
     template< class Range > inline
-    range_cast_detail::auto_range_type<const Range> auto_range(const Range& rng)
+    range_cast_detail::auto_range_type<typename boost::add_const<Range>::type> auto_range(Range const& rng)
     {
-        return range_cast_detail::auto_range_type<const Range>(rng);
+        return range_cast_detail::auto_range_type<typename boost::add_const<Range>::type>(rng);
     }
 
 

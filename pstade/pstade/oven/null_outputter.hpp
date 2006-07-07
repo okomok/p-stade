@@ -25,19 +25,19 @@ struct null_output_iterator :
     { }
 
     template< class ValueT > // template is legal
-    const null_output_iterator& operator=(const ValueT& val) const
+    null_output_iterator const& operator=(ValueT const& val) const
     {
         pstade::unused(val);
         return *this;
     }
 
-    const null_output_iterator& operator*() const { return *this; }
-    const null_output_iterator& operator++() const { return *this; }
-    const null_output_iterator operator++(int) const { return *this; }
+    null_output_iterator const& operator*() const { return *this; }
+    null_output_iterator const& operator++() const { return *this; }
+    null_output_iterator const  operator++(int) const { return *this; }
 };
 
 
-PSTADE_INSTANCE(const null_output_iterator, null_outputter, value)
+PSTADE_INSTANCE(null_output_iterator const, null_outputter, value)
 
 
 } } // namespace pstade::oven

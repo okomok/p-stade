@@ -33,10 +33,10 @@ namespace star_detail {
         static bool parse(State& s, UserState& us)
         {
             for (;;) {
-                if (biscuit::state_is_end(s))
+                if (!Parser::parse(s, us))
                     break;
 
-                if (!Parser::parse(s, us))
+                if (biscuit::state_is_end(s))
                     break;
             }
 
@@ -51,11 +51,9 @@ namespace star_detail {
         template< class State, class UserState >
         static bool parse(State& s, UserState& us)
         {
-            for (;;) {
-                if (biscuit::state_is_end(s))
-                    break;
+            typedef typename boost::range_result_iterator<State>::type iter_t;
 
-                typedef typename boost::range_result_iterator<State>::type iter_t;
+            for (;;) {
                 iter_t const marker = s.get_cur();
 
                 if (!Parser::parse(s, us))
@@ -68,6 +66,9 @@ namespace star_detail {
                         "or iterator's comparison operator is broken."
                     );
                 }
+
+                if (biscuit::state_is_end(s))
+                    break;
             }
 
             return true;

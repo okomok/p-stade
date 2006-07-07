@@ -157,8 +157,8 @@ friend class boost::iterator_core_access;
 };
 
 
-template< class ForwardIter > inline const
-tab_unexpand_iterator<ForwardIter>
+template< class ForwardIter > inline
+tab_unexpand_iterator<ForwardIter> const
 make_tab_unexpand_iterator(ForwardIter it, ForwardIter last, int tabsize)
 {
     return tab_unexpand_iterator<ForwardIter>(it, last, tabsize);

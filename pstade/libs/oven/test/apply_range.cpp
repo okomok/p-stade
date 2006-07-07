@@ -10,8 +10,16 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/apply_range.hpp>
+// #define PSTADE_OVEN_USING_PHOENIX_V2
 
+
+#if defined(PSTADE_OVEN_USING_PHOENIX_V2)
+    #include <boost/spirit/phoenix/core/argument.hpp>
+    #include <boost/spirit/phoenix/algorithm.hpp>
+#endif
+
+
+#include <pstade/oven/apply_range.hpp>
 
 #include <iterator>
 #include <string>
@@ -20,10 +28,6 @@
 #include <boost/range.hpp>
 #include <pstade/oven/algorithms.hpp>
 
-#if 0
-    #include <boost/spirit/phoenix/core/argument.hpp>
-    #include <boost/spirit/phoenix/algorithm.hpp>
-#endif
 
 struct id_fun
 {
@@ -58,14 +62,14 @@ void test()
         ));
     }
 
-#if 0 // future
+#if defined(PSTADE_OVEN_USING_PHOENIX_V2)
     namespace ph = boost::phoenix;
     {
         std::string s1("efg");
         BOOST_CHECK((
             oven::equals(
                 std::string("efghijk"),
-                src|applied(ph::search(ph::arg1, s1), oven::end)
+                src|applied(ph::search(rng1, s1), oven::end)
             )
         ));
     }

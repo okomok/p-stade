@@ -65,7 +65,7 @@ namespace check_range_detail {
         template< class Range  >
         struct result
         {
-            typedef const check_range<Range> type;
+            typedef check_range<Range> const type;
         };
 
         template< class Result, class Range >

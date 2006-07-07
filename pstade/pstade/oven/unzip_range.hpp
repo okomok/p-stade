@@ -48,7 +48,7 @@ namespace unzip_range_detail {
         result_type;
 
         template< class Tuple >
-        result_type operator()(const Tuple& t) const
+        result_type operator()(Tuple const& t) const
         {
             return boost::tuples::get<N>(t);
         }
@@ -87,7 +87,7 @@ public:
 
 template< int N, class TupleRange > inline
 typename const_overloaded<TupleRange,
-const unzip_range_at<TupleRange, N> >::type
+unzip_range_at<TupleRange, N> >::type const
 make_unzip_range_at(TupleRange& rng)
 {
     return unzip_range_at<TupleRange, N>(rng);
@@ -95,8 +95,8 @@ make_unzip_range_at(TupleRange& rng)
 
 
 template< int N, class TupleRange > inline
-const unzip_range_at<typename boost::add_const<TupleRange>::type, N>
-make_unzip_range_at(const TupleRange& rng)
+unzip_range_at<typename boost::add_const<TupleRange>::type, N> const
+make_unzip_range_at(TupleRange const& rng)
 {
     return unzip_range_at<typename boost::add_const<TupleRange>::type, N>(rng);
 }
@@ -110,7 +110,7 @@ namespace unzip_range_detail {
 
 
     template< class TupleRange, int N > inline
-    const unzip_range_at<TupleRange, N>
+    unzip_range_at<TupleRange, N> const
     operator|(TupleRange& rng, adaptor_at<N>)
     {
         return oven::make_unzip_range_at<N>(rng);
@@ -118,8 +118,8 @@ namespace unzip_range_detail {
 
 
     template< class TupleRange, int N> inline
-    const unzip_range_at<typename boost::add_const<TupleRange>::type, N>
-    operator|(const TupleRange& rng, adaptor_at<N>)
+    unzip_range_at<typename boost::add_const<TupleRange>::type, N> const
+    operator|(TupleRange const& rng, adaptor_at<N>)
     {
         return oven::make_unzip_range_at<N>(rng);
     }

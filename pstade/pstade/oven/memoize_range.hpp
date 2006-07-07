@@ -43,7 +43,8 @@ namespace memoize_range_detail {
         private:
             struct data_t
             {
-                data_t(Iterator it) : m_it(it), m_initialized(false)
+                data_t(Iterator it) :
+                    m_it(it), m_initialized(false)
                 { }
 
                 Iterator m_it;
@@ -54,13 +55,12 @@ namespace memoize_range_detail {
            friend struct data_t;
 
         protected:
-            inner() : m_pdata(PSTADE_NULLPTR)
+            explicit inner() :
+                m_pdata(PSTADE_NULLPTR)
             { }
 
-            inner(Iterator it) : m_pdata(new data_t(it))
-            { }
-
-            inner(const inner& other) : m_pdata(other.m_pdata)
+            explicit inner(Iterator it) :
+                m_pdata(new data_t(it))
             { }
 
             void destroy()
@@ -69,7 +69,7 @@ namespace memoize_range_detail {
                 m_pdata = PSTADE_NULLPTR;
             }
 
-            bool same_input(const inner& other) const
+            bool same_input(inner const& other) const
             {
                 return m_pdata == other.m_pdata;
             }
@@ -118,7 +118,7 @@ namespace memoize_range_detail {
     struct super_
     {
         typedef multi_pass_range<
-            const check_range<Range>,
+            check_range<Range> const,
             input
         > type;
     };
@@ -136,7 +136,7 @@ private:
 
 public:
     explicit memoize_range(Range& rng) :
-        super_t(oven::make_check_range(rng))
+        super_t(check_range<Range>(rng))
     { }
 };
 
@@ -149,7 +149,7 @@ namespace memoize_range_detail {
         template< class Range >
         struct result
         {
-            typedef const memoize_range<Range> type;
+            typedef memoize_range<Range> const type;
         };
 
         template< class Result, class Range >

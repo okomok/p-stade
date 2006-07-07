@@ -21,14 +21,14 @@ struct not_equal_to_fun
     typedef bool result_type;
 
     template< class X, class Y >
-    bool operator()(const X& x, const Y& y) const
+    bool operator()(X const& x, Y const& y) const
     {
         return x != y;
     }
 };
 
 
-PSTADE_INSTANCE(const not_equal_to_fun, not_equal_to, value)
+PSTADE_INSTANCE(not_equal_to_fun const, not_equal_to, value)
 
 
 } } } // namespace pstade::oven::detail

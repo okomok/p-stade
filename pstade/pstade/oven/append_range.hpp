@@ -47,7 +47,7 @@ namespace append_range_detail {
         template< class Range, class Value >
         struct result
         {
-            typedef const append_range<Range, Value> type;
+            typedef append_range<Range, Value> const type;
         };
 
         template< class Result, class Range, class Value >

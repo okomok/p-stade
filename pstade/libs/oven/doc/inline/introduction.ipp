@@ -1,12 +1,14 @@
-std::string out;
+std::vector<char> out;
 
 BOOST_FOREACH (char ch,
-    new std::string("!exgnxxar ,xolxlexh") |
-        shared |
-        filtered(lambda::_1 != 'x') |
-        reversed
+    new std::string("!ExGNxxAR ,xOLxLExH")
+        | shared
+        | filtered(lambda::_1 != 'x')
+        | reversed
+        | transformed(::to_lower)
+        | memoized
 ) {
     out.push_back(ch);
 }
 
-BOOST_CHECK( out == "hello, range!" );
+BOOST_CHECK( oven::equals(out, "hello, range!"|null_terminated) );

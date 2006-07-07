@@ -209,16 +209,16 @@ private:
 };
 
 
-template< class Iterator1, class Iterator2 > inline const
-joint_iterator<Iterator1, Iterator2>
+template< class Iterator1, class Iterator2 > inline
+joint_iterator<Iterator1, Iterator2> const
 make_joint_first_iterator(Iterator1 it1, Iterator1 last1, Iterator2 first2)
 {
     return joint_iterator<Iterator1, Iterator2>(it1, last1, first2, first2);
 }
 
 
-template< class Iterator1, class Iterator2 > inline const
-joint_iterator<Iterator1, Iterator2>
+template< class Iterator1, class Iterator2 > inline
+joint_iterator<Iterator1, Iterator2> const
 make_joint_second_iterator(Iterator1 last1, Iterator2 first2, Iterator2 it2)
 {
     return joint_iterator<Iterator1, Iterator2>(last1, last1, first2, it2);

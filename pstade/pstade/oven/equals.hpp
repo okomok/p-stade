@@ -28,7 +28,7 @@ namespace pstade { namespace oven {
 
 
 template< class Range1, class Range2, class BinaryPred >
-bool equals(const Range1& rng1, const Range2& rng2, BinaryPred pred)
+bool equals(Range1 const& rng1, Range2 const& rng2, BinaryPred pred)
 {
     typedef typename boost::range_const_iterator<Range1>::type iter1_t;
     typedef typename boost::range_const_iterator<Range2>::type iter2_t;
@@ -46,7 +46,7 @@ bool equals(const Range1& rng1, const Range2& rng2, BinaryPred pred)
 
 
 template< class Range1, class Range2 > inline
-bool equals(const Range1& rng1, const Range2& rng2)
+bool equals(Range1 const& rng1, Range2 const& rng2)
 {
     return oven::equals(rng1, rng2, detail::equal_to);
 }

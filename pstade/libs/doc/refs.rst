@@ -67,6 +67,7 @@
 
 .. _Single Pass Range: http://www.boost.org/libs/range/doc/range.html#single_pass_range
 .. _Forward Range: http://www.boost.org/libs/range/doc/range.html#forward_range
+.. _Bidirectional Range: http://www.boost.org/libs/range/doc/range.html#bidirectional_range
 .. _Random Access Range: http://www.boost.org/libs/range/doc/range.html#random_access_range
 .. _Range Library Proposal: http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1871.html
 

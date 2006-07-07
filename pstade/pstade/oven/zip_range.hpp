@@ -105,9 +105,9 @@ namespace zip_range_detail {
         template< class Range0, class Range1 >
         struct result
         {
-            typedef const zip_range<
-                const boost::tuples::tuple<Range0&, Range1&>
-            > type;
+            typedef zip_range<
+                boost::tuples::tuple<Range0&, Range1&> const
+            > const type;
         };
 
         template< class Result, class Range0, class Range1 >
