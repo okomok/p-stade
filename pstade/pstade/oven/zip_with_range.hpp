@@ -1,0 +1,117 @@
+#ifndef PSTADE_OVEN_ZIP_WITH_RANGE_HPP
+#define PSTADE_OVEN_ZIP_WITH_RANGE_HPP
+
+
+// PStade.Oven
+//
+// Copyright MB 2005-2006.
+// Distributed under the Boost Software License, Version 1.0.
+// (See accompanying file LICENSE_1_0.txt or copy at
+// http://www.boost.org/LICENSE_1_0.txt)
+
+
+#include <boost/range/reference.hpp>
+#include <boost/tuple/tuple.hpp>
+#include <boost/type_traits/remove_cv.hpp>
+#include <boost/utility/result_of.hpp>
+#include <pstade/egg/function.hpp>
+#include "./is_lightweight_proxy.hpp"
+#include "./range_adaptor.hpp"
+#include "./transform_range.hpp"
+#include "./zip_range.hpp"
+
+
+namespace pstade { namespace oven {
+
+
+namespace zip_with_range_detail {
+
+
+    template< class Range0, class Range1, class UnaryFun >
+    struct transformer
+    {
+        typedef typename boost::range_reference<Range0>::type ref0_t;
+        typedef typename boost::range_reference<Range1>::type ref1_t;
+
+        typedef typename boost::result_of<UnaryFun(ref0_t, ref1_t)>::type
+        result_type;
+
+        explicit transformer(UnaryFun fun) :
+            m_fun(fun)
+        { }
+
+        result_type operator()(boost::tuples::tuple<ref0_t, ref1_t> const& tup) const
+        {
+            using namespace boost;
+            return m_fun(tuples::get<0>(tup), tuples::get<1>(tup));
+        }
+
+    private:
+        UnaryFun m_fun;
+    };
+
+
+    template< class Range0, class Range1, class UnaryFun >
+    struct super_
+    {
+        typedef transform_range<
+            zip_range<Range0, Range1> const,
+            transformer<Range0, Range1, UnaryFun>
+        > type;
+    };
+
+
+} // namespace zip_with_range_detail
+
+
+template< class Range0, class Range1, class UnaryFun >
+struct zip_with_range :
+    zip_with_range_detail::super_<Range0, Range1, UnaryFun>::type
+{
+private:
+    typedef typename zip_with_range_detail::super_<Range0, Range1, UnaryFun>::type super_t;
+
+public:
+    zip_with_range(Range0& rng0, Range1& rng1, UnaryFun fun) :
+        super_t(
+            zip_range<Range0, Range1>(rng0, rng1),
+            zip_with_range_detail::transformer<Range0, Range1, UnaryFun>(fun)
+        )
+    { }
+};
+
+
+namespace zip_with_range_detail {
+
+
+    struct baby_generator
+    {
+        template< class Range0, class Range1, class UnaryFun >
+        struct result
+        {
+            typedef typename boost::remove_cv<UnaryFun>::type fun_t;
+            typedef zip_with_range<Range0, Range1, fun_t> const type;
+        };
+
+        template< class Result, class Range0, class Range1, class UnaryFun >
+        Result call(Range0& rng0, Range1& rng1, UnaryFun fun)
+        {
+            return Result(rng0, rng1, fun);
+        }
+    };
+
+
+} // namespace zip_with_range_detail
+
+
+PSTADE_EGG_FUNCTION(make_zip_with_range, zip_with_range_detail::baby_generator)
+PSTADE_OVEN_RANGE_ADAPTOR(zipped_with, zip_with_range_detail::baby_generator)
+
+
+} } // namespace pstade::oven
+
+
+PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE(pstade::oven::zip_with_range, 3)
+
+
+#endif

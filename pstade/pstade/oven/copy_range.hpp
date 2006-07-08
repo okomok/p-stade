@@ -38,7 +38,7 @@ namespace copy_range_detail {
 
 
     template< class T, class Range > inline
-    typename boost::enable_if<apple::has_range_constructor<T>,
+    typename boost::enable_if< apple::has_range_constructor<T>,
     T>::type pstade_oven_copy_range(Range& rng, overload<T>)
     {
         return T(boost::begin(rng), boost::end(rng));

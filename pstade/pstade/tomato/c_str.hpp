@@ -46,7 +46,7 @@ namespace c_str_detail {
     // member function
     //
     template< class T > inline
-    typename boost::enable_if<has_pstade_tomato_cstringizable<T>,
+    typename boost::enable_if< has_pstade_tomato_cstringizable<T>,
     const TCHAR *>::type aux(const T& str)
     {
         return c_str_access::detail_call(str);

@@ -42,7 +42,7 @@ namespace take_range_detail {
 
     struct baby_generator
     {
-        template< class ForwardRange, class Difference = void >
+        template< class ForwardRange, class Difference >
         struct result
         {
             typedef take_range<ForwardRange> const type;

@@ -29,7 +29,7 @@ namespace is_valid_detail {
     // member function
     //
     template< class T > inline
-    typename boost::enable_if<detail::has_pstade_diet_diagnostic<T>,
+    typename boost::enable_if< detail::has_pstade_diet_diagnostic<T>,
     bool>::type aux(const T& x)
     {
         return access::detail_is_valid(x);
@@ -45,7 +45,7 @@ namespace is_valid_detail {
     }
 
     template< class T > inline
-    typename boost::disable_if<detail::has_pstade_diet_diagnostic<T>,
+    typename boost::disable_if< detail::has_pstade_diet_diagnostic<T>,
     bool>::type aux(const T& x)
     {
         return pstade_diet_is_valid(x);
@@ -69,7 +69,7 @@ bool is_valid(const Diagnostic& dg)
 //
 
 template< class Range > inline
-typename boost::enable_if<pstade::apple::is_boost_range<Range>,
+typename boost::enable_if< pstade::apple::is_boost_range<Range>,
 bool>::type pstade_diet_is_valid(const Range& rng, pstade::overload<>)
 {
     typedef typename boost::range_const_iterator<Range>::type iter_t;

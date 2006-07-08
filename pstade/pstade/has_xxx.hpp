@@ -39,7 +39,7 @@ namespace pstade { namespace has_xxx_detail {
     struct non { char a[2]; };
 
 
-    #if BOOST_WORKAROUND(BOOST_MSVC, == 1310) // vc7.1
+    #if BOOST_WORKAROUND(BOOST_MSVC, == 1310) // VC7.1
         #define PSTADE_HAS_XXX_TYPE_AND_DATA_NAME_CONFUSION
     #endif
 

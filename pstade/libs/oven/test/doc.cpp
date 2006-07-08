@@ -247,22 +247,6 @@ void test_cleared()
 }
 
 
-#include <vector>
-#include <list>
-
-void test_jointed()
-{
-    std::string str0("every range");
-    std::vector<char> str1 = std::string(" is")|copied;
-    std::list<char> str2 = std::string(" string!?")|copied;
-
-    BOOST_CHECK( oven::equals(
-        str0|jointed(str1)|jointed(str2),
-        std::string("every range is string!?")
-    ) );
-}
-
-
 void test_constants()
 {
     BOOST_CHECK( oven::equals(
@@ -294,6 +278,178 @@ void test_copied_as_adaptor()
 }
 
 
+struct less_than
+{
+    typedef bool result_type;
+
+    template< class T >
+    bool operator()(T& x, T& y) const
+    {
+        return x < y;
+    }
+};
+
+
+void test_directed()
+{
+    using namespace boost;
+
+    std::string const str("gefadcb");
+    std::string const answer("abcdefg");
+
+    std::vector<std::string::const_iterator> iters;
+    oven::copy(str|directed, std::back_inserter(iters));
+    oven::sort( iters, boost::make_indirect_fun(::less_than()) );
+
+    BOOST_CHECK( oven::equals(iters|indirected, answer) );
+}
+
+
+void test_dropped()
+{
+    BOOST_CHECK( oven::equals(
+        std::string("hello, dropped!")|dropped(7),
+        std::string("dropped!")
+    ) );
+}
+
+
+void test_filtered()
+{
+    using namespace boost;
+
+    int src[]    = { 2,5,2,6,1,3,2 };
+    int answer[] = { 0,5,0,6,1,3,0 };
+
+    BOOST_FOREACH (int& i, src|filtered(lambda::_1 == 2)) {
+        i = 0;
+    }
+
+    BOOST_CHECK( oven::equals(answer, src) );
+}
+
+
+void test_identities()
+{
+    BOOST_CHECK( oven::equals(
+        std::string("hello, identities!")|identities,
+        std::string("hello, identities!")
+    ) );
+}
+
+
+void test_indirected()
+{
+    int src[]    = { 1,2,0,4,5 };
+    int answer[] = { 1,2,3,4,5 };
+    int *ptrs[]  = {&src[0],&src[1],&src[2],&src[3],&src[4]};
+
+    BOOST_FOREACH (int& i, ptrs|indirected) {
+        if (i == 0)
+            i = 3;
+    }
+
+    BOOST_CHECK( oven::equals(src, answer) );
+}
+
+
+#include <map>
+
+void test_map_keys()
+{
+    std::map<int, std::string> m;
+    m[12] = "hello";
+    m[4]  = "map";
+    m[99] = "keys";
+
+    BOOST_FOREACH (int k, m|map_keys) {
+        BOOST_CHECK( k != 12 || m[k] == "hello" );
+        BOOST_CHECK( k != 4  || m[k] == "map" );
+        BOOST_CHECK( k != 99 || m[k] == "keys" );
+    }
+}
+
+
+void test_map_values()
+{
+    std::map<int, std::string> m;
+    m[12] = "hello";
+    m[4]  = "map";
+    m[99] = "keys";
+
+    BOOST_FOREACH (std::string& v, m|map_values) {
+        if (v == "keys")
+            v = "values";
+    }
+
+    BOOST_CHECK( m[12] == "hello" );
+    BOOST_CHECK( m[4]  == "map" );
+    BOOST_CHECK( m[99] == "values" );
+}
+
+
+template< class Range >
+void very_complicated_algorithm(Range const&)
+{ }
+
+void test_memoized()
+{
+    std::stringstream ss;
+    ss << "hello, memoized!";
+
+    ::very_complicated_algorithm(
+        oven::make_istream_range<char>(ss)
+            | memoized
+            | directed
+            | indirected
+            | sorted
+            | memoized
+    );
+}
+
+
+#include <boost/algorithm/string.hpp>
+
+void test_string_found()
+{
+#if !defined(BOOST_MSVC) // ICE under VC7.1/8
+    std::string src("abc-*-ABC-*-aBc");
+    namespace algo = boost::algorithm;
+
+    int i = 0;
+    BOOST_FOREACH (
+        boost::sub_range<std::string> rng,
+        src|string_found(algo::first_finder(std::string("abc"), algo::is_iequal())) )
+    {
+        if (i == 0)
+            BOOST_CHECK( oven::equals(rng, std::string("abc")) );
+        else if (i == 1)
+            BOOST_CHECK( oven::equals(rng, std::string("ABC")) );
+        else if (i == 2)
+            BOOST_CHECK( oven::equals(rng, std::string("aBc")) );
+
+        ++i;
+    }
+#endif
+}
+
+
+#include <vector>
+#include <list>
+
+void test_jointed()
+{
+    std::string str0("every range");
+    std::vector<char> str1 = std::string(" is")|copied;
+    std::list<char> str2 = std::string(" string!?")|copied;
+
+    BOOST_CHECK( oven::equals(
+        str0|jointed(str1)|jointed(str2),
+        std::string("every range is string!?")
+    ) );
+}
+
+
 int test_main(int, char*[])
 {
     ::test_introduction();
@@ -318,8 +474,17 @@ int test_main(int, char*[])
     ::test_cleared();
     ::test_constants();
     ::test_copied_as_adaptor();
+    ::test_directed();
+    ::test_dropped();
+    ::test_filtered();
+    ::test_identities();
+    ::test_indirected();
+    ::test_map_keys();
+    ::test_map_values();
+    ::test_memoized();
 
     ::test_jointed();
+    ::test_string_found();
 
     return 0;
 }

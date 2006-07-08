@@ -37,12 +37,34 @@ void test()
         try {
             oven::equal( in, boost::begin(out|checked) );
         }
-        catch (check_error const& )
-        {
+        catch (check_error const& ) {
             thrown = true;
         }
 
         BOOST_CHECK(thrown);
+        thrown = false;
+
+        (boost::begin(out|checked) + 5) - 5;
+
+        try {
+            boost::begin(out|checked) + 6;
+        }
+        catch (check_error const& ) {
+            thrown = true;
+        }
+
+        BOOST_CHECK(thrown);
+        thrown = false;
+
+        try {
+            (boost::begin(out|checked) + 5) - 6;
+        }
+        catch (check_error const& ) {
+            thrown = true;
+        }
+
+        BOOST_CHECK(thrown);
+        thrown = false;
     }
 }
 

@@ -10,10 +10,14 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <iterator> // advance, distance
 #include <stdexcept> // range_error
 #include <string>
 #include <boost/iterator/iterator_adaptor.hpp>
+#include <boost/iterator/iterator_categories.hpp> // bidirectional_traversal_tag
 #include <boost/throw_exception.hpp>
+#include "./detail/an_iterator.hpp"
+#include "./detail/minimum_traversal_type.hpp"
 
 
 namespace pstade { namespace oven {
@@ -33,6 +37,15 @@ struct check_error :
 
 
 namespace check_iterator_detail {
+
+
+    template< class Iterator >
+    struct traversal
+    {
+        typedef detail::an_iterator<boost::bidirectional_traversal_tag> biter_t;
+        typedef boost::tuples::tuple<Iterator, biter_t> iters_t;
+        typedef typename detail::minimum_traversal<iters_t>::type type;
+    };
 
 
     template< class Iterator >
@@ -71,6 +84,7 @@ struct check_iterator :
     check_iterator_detail::super_<Iterator>::type
 {
 private:
+    typedef check_iterator self_t;
     typedef typename check_iterator_detail::super_<Iterator>::type super_t;
     typedef typename super_t::reference ref_t;
     typedef typename super_t::difference_type diff_t;
@@ -160,14 +174,26 @@ friend class boost::iterator_core_access;
         --this->base_reference();
     }
 
-    void advance_to(diff_t d)
+    void advance(diff_t d)
     {
         check_iterator_detail::check_singularity(*this);
 
-        if (m_first > this->base() + d || this->base() + d > m_last)
+        if (
+            (d >= 0 && d > std::distance(this->base(), m_last)) ||
+            (d < 0 && -d > std::distance(m_first, this->base()))
+        ) {
             check_iterator_detail::throw_error();
+        }
 
-        this->base_reference() += d;
+        std::advance(this->base_reference(), d);
+    }
+
+    diff_t distance_to(self_t other) const
+    {
+        check_iterator_detail::check_singularity(*this);
+        check_iterator_detail::check_singularity(other);
+
+        return std::distance(this->base(), other.base());
     }
 };
 

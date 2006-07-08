@@ -246,7 +246,7 @@ Specification
 
 ``adjacent_filtered``
 ^^^^^^^^^^^^^^^^^^^^^
-Example::
+``adjacent_filtered`` returns a range whose adjacent pairs are filtered by using a predicate::
 
 	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\adjacent_filtered.ipp
 
@@ -257,7 +257,7 @@ Example::
 
 ``appended``
 ^^^^^^^^^^^^
-Example::
+``appended`` returns a range which is appended with its argument::
 
 	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\appended.ipp
 
@@ -270,6 +270,9 @@ Example::
 
 ``applied``
 ^^^^^^^^^^^
+``applied`` returns a range which is adapting by using functors.
+``applied`` is intended to be used with Boost.Phoenix version2.
+
 - Header: ``<pstade/oven/apply_range.hpp>``
 - Valid expression: ``rng|applied(f1,f2)``
 - Precondition: ``f1(rng)`` and ``f2(rng)`` return iterators that are convertible to ``rng``\'s.
@@ -286,7 +289,7 @@ Example::
 
 ``checked``
 ^^^^^^^^^^^
-Example::
+``checked`` adds the bounds checking ability to its adapting range::
 
 	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\checked.ipp
 
@@ -294,12 +297,12 @@ Example::
 - Header: ``<pstade/oven/check_range.hpp>``
 - Valid expression: ``rng|checked``
 - Effect: Throws ``check_error`` derived from ``std::range_error`` if iterators go out of ``rng``.
-- Returns: ``[boost::begin(rng),boost::end(rng))``.
+- Returns: ``[boost::begin(rng),boost::end(rng))``
 
 
 ``cleared``
 ^^^^^^^^^^^
-Example::
+``cleared`` returns a range which is always empty::
 
 	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\cleared.ipp
 
@@ -311,7 +314,7 @@ Example::
 
 ``constants``
 ^^^^^^^^^^^^^
-Example::
+``constants`` returns a range which does not change as its adapting range vary::
 
 	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\constants.ipp
 
@@ -323,7 +326,7 @@ Example::
 
 ``copied`` as adaptor
 ^^^^^^^^^^^^^^^^^^^^^
-Example::
+``copied`` makes a side-effect that copies its adapting range to its argument::
 
 	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\copied_as_adaptor.ipp
 
@@ -332,17 +335,16 @@ Example::
 - Valid expression: ``rng|copied(it)``
 - Precondition: ``oven::copy(rng,it)`` is a valid expression.
 - Effect: ``oven::copy(rng,it)``
-- Returns: ``[boost::begin(rng),boost::end(rng))``.
-
-
-``filtered``
-^^^^^^^^^^^^
-- Header: ``<pstade/oven/filter_range.hpp>``
-- See: `Range Library Proposal`_.
+- Returns: ``[boost::begin(rng),boost::end(rng))`` if ``rng`` is a `Forward Range`_; otherwise, ``void``.
 
 
 ``directed``
 ^^^^^^^^^^^^
+``directed`` returns a range whose values are iterators of its adapting range::
+
+	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\directed.ipp
+
+
 - Header: ``<pstade/oven/direct_range.hpp>``
 - Valid expression: ``rng|directed``
 - Returns: ``oven::make_counting_range(boost::begin(rng), boost::end(rng))``.
@@ -350,34 +352,58 @@ Example::
 
 ``dropped``
 ^^^^^^^^^^^
+``dropped`` returns the suffix of its adapting range after the first ``n`` elements::
+
+	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\dropped.ipp
+
+
 - Header: ``<pstade/oven/drop_range.hpp>``
 - Valid expression: ``fwdRng|dropped(n)``
 - Returns: ``[f,boost::end(fwdRng))``, where ``f = boost::begin(fwdRng); std::advance(f, n);``.
 
 
-``found``
-^^^^^^^^^
-- Header: ``<pstade/oven/find_range.hpp>``
-- Valid expression: ``rng|found(finder)``
-- Returns: A range whose iterators behave as if they were the original iterators wrapped in ``boost::find_iterator``.
+``dropped_while``
+^^^^^^^^^^^^^^^^^
+Todo
+
+
+``filtered``
+^^^^^^^^^^^^
+``filtered`` returns a range which is filtered by using a predicate::
+
+	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\filtered.ipp
+
+
+- Header: ``<pstade/oven/filter_range.hpp>``
+- See: `Range Library Proposal`_.
 
 
 ``identities``
 ^^^^^^^^^^^^^^
+``identities`` returns a range which is identical to its adapting range::
+
+	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\identities.ipp
+
+
 - Header: ``<pstade/oven/identity_range.hpp>``
-- Valid expression: ``rng|identitis``
+- Valid expression: ``rng|identities``
 - Returns: ``[boost::begin(rng),boost::end(rng))``.
 
 
 ``indirected``
 ^^^^^^^^^^^^^^
+``indirected`` adapts its adapting range by applying an extra dereference inside of ``operator*()``::
+
+	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\indirected.ipp
+
+
 - Header: ``<pstade/oven/indirect_range.hpp>``
 - See: `Range Library Proposal`_.
 
 
 ``jointed``
 ^^^^^^^^^^^
-Example::
+``jointed`` returns a range which is jointed with its argument::
 
 	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\jointed.ipp
 
@@ -390,18 +416,34 @@ Example::
 
 ``map_keys``
 ^^^^^^^^^^^^
+``map_keys`` returns a range whose value is a key of its adapting associative container::
+
+	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\map_keys.ipp
+
+
 - Header: ``<pstade/oven/map_key_range.hpp>``
 - See: `Range Library Proposal`_.
 
 
 ``map_values``
 ^^^^^^^^^^^^^^
+``map_values`` returns a range whose value is a mapped value of its adapting associative container::
+
+	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\map_values.ipp
+
+
 - Header: ``<pstade/oven/map_value_range.hpp>``
 - See: `Range Library Proposal`_.
 
 
 ``memoized``
 ^^^^^^^^^^^^
+``memoized`` returns a range whose values are cached for speed, preparing repeated dereferences.
+Note that ``memoized`` can return a `Forward Range`_ even if its adapting range is a `Single Pass Range`_::
+
+	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\memoized.ipp
+
+
 - Header: ``<pstade/oven/memoize_range.hpp>``
 - Valid expression: ``rng|memoized``
 - Precondition: ``rng`` is referentially transparent.
@@ -475,9 +517,23 @@ Example::
 
 ``sorted``
 ^^^^^^^^^^
+``sorted`` provides the out-place sorting.
+
 - Header: ``<pstade/oven/sort_range.hpp>``
 - Valid expression: ``rng|sorted`` or ``rng|sorted(pred)``
 - Returns: A sorted view of ``rng``.
+
+
+``string_found``
+^^^^^^^^^^^^^^^^
+- Header: ``<pstade/oven/string_find_range.hpp>``
+- Valid expression: ``rng|string_found(finder)``
+- Returns: A range whose iterators behave as if they were the original iterators wrapped in ``boost::algorithm::find_iterator``.
+
+
+``string_split``
+^^^^^^^^^^^^^^^^^^^
+Todo
 
 
 ``taken``
@@ -485,6 +541,11 @@ Example::
 - Header: ``<pstade/oven/take_range.hpp>``
 - Valid expression: ``fwdRng|taken(n)``
 - Returns: ``[boost::begin(fwdRng),l)``, where ``l = boost::begin(fwdRng); std::advance(l, n);``.
+
+
+``taken_while``
+^^^^^^^^^^^^^^^
+Todo
 
 
 ``tokenized``
@@ -560,5 +621,5 @@ Version 0.90.2
 - Changed the header of `pointed`_.
 - Changed a valid expression of `zipped`_.
 - Changed `checked`_ to throw exception.
-
+- Renamed ``found`` to `string_found`_.
 

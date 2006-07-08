@@ -31,10 +31,8 @@ namespace joint_iterator_detail {
     template< class Iterator1, class Iterator2 >
     struct traversal
     {
-        typedef boost::tuple<Iterator1, Iterator2> iters_t;
-        typedef typename detail::
-            minimum_traversal<iters_t>::type
-        type;
+        typedef boost::tuples::tuple<Iterator1, Iterator2> iters_t;
+        typedef typename detail::minimum_traversal<iters_t>::type type;
     };
 
 

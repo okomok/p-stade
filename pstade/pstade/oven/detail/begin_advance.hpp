@@ -20,11 +20,11 @@
 namespace pstade { namespace oven { namespace detail {
 
 
-template< class Range, class Difference >
-typename boost::range_result_iterator<Range>::type
-begin_advance(Range& rng, Difference d)
+template< class ForwardRange, class Difference >
+typename boost::range_result_iterator<ForwardRange>::type
+begin_advance(ForwardRange& rng, Difference d)
 {
-    typedef typename boost::range_result_iterator<Range>::type iter_t;
+    typedef typename boost::range_result_iterator<ForwardRange>::type iter_t;
     BOOST_ASSERT( 0 <= d && d <= oven::distance(rng) );
     iter_t it = boost::begin(rng);
     std::advance(it, d);

@@ -15,21 +15,15 @@
 // iterators manage temporary container for BOOST_FOREACH.
 
 
-#include <memory> // auto_ptr
-#include <vector>
 #include <boost/ptr_container/indirect_fun.hpp>
-#include <boost/range/begin.hpp>
-#include <boost/range/end.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/garlic/back_inserter.hpp>
-#include "./algorithm.hpp" // copy, sort
+#include "./algorithm.hpp" // sort
 #include "./detail/less_than.hpp"
-#include "./direct_range.hpp"
-#include "./indirect_range.hpp"
 #include "./is_lightweight_proxy.hpp"
+#include "./out_place_range.hpp"
 #include "./range_adaptor.hpp"
-#include "./share_range.hpp"
+
 
 
 namespace pstade { namespace oven {
@@ -38,36 +32,31 @@ namespace pstade { namespace oven {
 namespace sort_range_detail {
 
 
-    template< class ForwardRange >
-    struct iter_sequence
-    {   
-        typedef typename boost::range_result_iterator<ForwardRange>::type iter_t;
-        typedef std::vector<iter_t> type;
-    };
-
-
-    template< class ForwardRange >
-    struct super_
+    template< class BinaryPred >
+    struct sort_fun
     {
-        typedef oven::indirect_range<
-            oven::share_range<
-                typename iter_sequence<ForwardRange>::type
-            > const
-        > type;
-    };
+        explicit sort_fun(BinaryPred pred) :
+            m_pred(pred)
+        { }
 
-
-    template< class Sequence, class ForwardRange, class BinaryPred >
-    oven::share_range<Sequence> const
-    make_share(ForwardRange& rng, BinaryPred pred)
-    {
-        std::auto_ptr<Sequence> pseq(new Sequence()); {
-            oven::copy(rng|oven::directed, garlic::back_inserter(*pseq));
-            oven::sort(*pseq, boost::make_indirect_fun(pred));
+        template< class Range >
+        void operator()(Range& its) const
+        {
+            oven::sort(its, boost::make_indirect_fun(m_pred));
         }
 
-        return share_range<Sequence>(pseq.release());
-    }
+    private:
+        BinaryPred m_pred;
+    };
+
+
+    template< class ForwardRange, class BinaryPred >
+    struct super_
+    {
+        typedef oven::out_place_range<
+            ForwardRange, sort_fun<BinaryPred>
+        > type;
+    };
 
 
 } // namespace sort_range_detail
@@ -75,15 +64,14 @@ namespace sort_range_detail {
 
 template< class ForwardRange, class BinaryPred = detail::less_than_fun >
 struct sort_range :
-    sort_range_detail::super_<ForwardRange>::type
+    sort_range_detail::super_<ForwardRange, BinaryPred>::type
 {
 private:
-    typedef typename sort_range_detail::super_<ForwardRange>::type super_t;
-    typedef typename sort_range_detail::iter_sequence<ForwardRange>::type seq_t;
+    typedef typename sort_range_detail::super_<ForwardRange, BinaryPred>::type super_t;
 
 public:
     explicit sort_range(ForwardRange& rng, BinaryPred pred = detail::less_than) :
-        super_t(sort_range_detail::make_share<seq_t>(rng, pred))
+        super_t(rng, sort_range_detail::sort_fun<BinaryPred>(pred))
     { }
 };
 

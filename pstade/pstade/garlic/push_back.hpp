@@ -30,7 +30,7 @@ namespace push_back_detail {
     // member function
     //
     template< class T, class ValueT > inline
-    typename boost::enable_if<has_pstade_garlic_back_insertable<T>,
+    typename boost::enable_if< has_pstade_garlic_back_insertable<T>,
     void>::type aux(T& x, const ValueT& val)
     {
         return access::detail_push_back(x, val);
@@ -46,7 +46,7 @@ namespace push_back_detail {
     }
 
     template< class T, class ValueT > inline
-    typename boost::disable_if<has_pstade_garlic_back_insertable<T>,
+    typename boost::disable_if< has_pstade_garlic_back_insertable<T>,
     void>::type aux(T& x, const ValueT& val)
     {
         return pstade_garlic_push_back(x, val);
@@ -70,8 +70,14 @@ void push_back(BackInsertable& bi, const ValueT& val)
 //
 
 template< class Sequence, class ValueT > inline
-typename boost::enable_if<pstade::apple::is_sequence<Sequence>,
+typename boost::enable_if< pstade::apple::is_sequence<Sequence>,
 void>::type pstade_garlic_push_back(Sequence& seq, const ValueT& val, pstade::overload<>)
+{
+    seq.push_back(val);
+}
+
+template< class T, class Alloc, class ValueT > inline
+void pstade_garlic_push_back(std::vector<T, Alloc>& seq, const ValueT& val, pstade::overload<>)
 {
     seq.push_back(val);
 }

@@ -14,7 +14,6 @@
 #include <boost/range/iterator_range.hpp>
 #include <boost/range/result_iterator.hpp>
 #include <boost/tuple/tuple.hpp>
-#include <boost/type_traits/remove_reference.hpp>
 #include <pstade/egg/function.hpp>
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
@@ -26,51 +25,21 @@ namespace pstade { namespace oven {
 namespace zip_range_detail {
 
 
-    using boost::detail::tuple_impl_specific::tuple_meta_transform;
-    using boost::detail::tuple_impl_specific::tuple_transform;
-
-
-    struct meta_result
+    template< class Range0, class Range1 >
+    struct iterator_tuple
     {
-        template< class Range >
-        struct apply :
-            boost::range_result_iterator<
-                typename boost::remove_reference<Range>::type
-            >
-        { };
+        typedef typename boost::range_result_iterator<Range0>::type iter0_t;
+        typedef typename boost::range_result_iterator<Range1>::type iter1_t;
+        typedef boost::tuples::tuple<iter0_t, iter1_t> type;
     };
 
 
-    struct begin_fun : meta_result
-    {
-        template< class Range >
-        typename apply<Range&>::type
-        operator()(Range& rng) const
-        {
-            return boost::begin(rng);
-        }
-    };
-
-
-    struct end_fun : meta_result
-    {
-        template< class Range >
-        typename apply<Range&>::type
-        operator()(Range& rng) const
-        {
-            return boost::end(rng);
-        }
-    };
-
-
-    template< class RangeTuple >
+    template< class Range0, class Range1 >
     struct super_
     {
         typedef boost::iterator_range<
             boost::zip_iterator<
-                typename tuple_meta_transform<
-                    RangeTuple, meta_result
-                >::type
+                typename iterator_tuple<Range0, Range1>::type
             >
         > type;
     };
@@ -79,19 +48,18 @@ namespace zip_range_detail {
 } // namespace zip_range_detail
 
 
-template< class RangeTuple >
+template< class Range0, class Range1 >
 struct zip_range :
-    zip_range_detail::super_<RangeTuple>::type
+    zip_range_detail::super_<Range0, Range1>::type
 {
 private:
-    typedef typename zip_range_detail::super_<RangeTuple>::type super_t;
-    typedef typename super_t::iterator iter_t;
+    typedef typename zip_range_detail::super_<Range0, Range1>::type super_t;
 
 public:
-    explicit zip_range(RangeTuple& rngs) :
+    explicit zip_range(Range0& rng0, Range1& rng1) :
         super_t(
-            iter_t(zip_range_detail::tuple_transform(rngs, zip_range_detail::begin_fun())),
-            iter_t(zip_range_detail::tuple_transform(rngs, zip_range_detail::end_fun()))
+            boost::tuples::make_tuple(boost::begin(rng0), boost::begin(rng1)),
+            boost::tuples::make_tuple(boost::end(rng0), boost::end(rng1))
         )
     { }
 };
@@ -105,15 +73,13 @@ namespace zip_range_detail {
         template< class Range0, class Range1 >
         struct result
         {
-            typedef zip_range<
-                boost::tuples::tuple<Range0&, Range1&> const
-            > const type;
+            typedef zip_range<Range0, Range1> const type;
         };
 
         template< class Result, class Range0, class Range1 >
         Result call(Range0& rng0, Range1& rng1)
         {
-            return Result(boost::tuples::tie(rng0, rng1));
+            return Result(rng0, rng1);
         }
     };
 
@@ -128,7 +94,7 @@ PSTADE_OVEN_RANGE_ADAPTOR(zipped, zip_range_detail::baby_generator)
 } } // namespace pstade::oven
 
 
-PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE(pstade::oven::zip_range, 1)
+PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE(pstade::oven::zip_range, 2)
 
 
 #endif
