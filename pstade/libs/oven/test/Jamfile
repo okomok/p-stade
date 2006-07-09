@@ -51,6 +51,7 @@ test-suite oven :
     # [ oven-test mb_encode_range ]
     [ oven-test memoize_range ]
     [ oven-test null_terminate_range ]
+    [ oven-test out_place_range ]
     [ oven-test permute_range ]
     [ oven-test point_range ]
     [ oven-test position_range ]

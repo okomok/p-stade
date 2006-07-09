@@ -62,6 +62,7 @@
 .. _Functor: http://www.sgi.com/tech/stl/functors.html
 .. _Metafunction: http://www.boost.org/libs/mpl/doc/refmanual/metafunction.html
 .. _Metafunction at Boost.MPL: Metafunction_
+.. _Predicate: http://www.sgi.com/tech/stl/Predicate.html
 
 
 

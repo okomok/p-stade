@@ -71,10 +71,6 @@ void test()
             HWND hWnd,
             wnds|
                 sausage::enumerated|sausage::enumerated|sausage::enumerated|sausage::enumerated|
-                sausage::enumerated|sausage::enumerated|sausage::enumerated|sausage::enumerated|
-                sausage::enumerated|sausage::enumerated|sausage::enumerated|sausage::enumerated|
-                sausage::enumerated|sausage::enumerated|sausage::enumerated|sausage::enumerated|
-                sausage::enumerated|sausage::enumerated|sausage::enumerated|sausage::enumerated|
                 sausage::enumerated|sausage::enumerated|sausage::enumerated|sausage::enumerated
         ) {
             ::output(hWnd);

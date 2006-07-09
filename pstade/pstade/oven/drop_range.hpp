@@ -22,16 +22,16 @@
 namespace pstade { namespace oven {
 
 
-template< class ForwardRange >
+template< class Range >
 struct drop_range :
-    sub_range_base<ForwardRange>::type
+    sub_range_base<Range>::type
 {
 private:
-    typedef typename sub_range_base<ForwardRange>::type super_t;
-    typedef typename boost::range_difference<ForwardRange>::type diff_t;
+    typedef typename sub_range_base<Range>::type super_t;
+    typedef typename boost::range_difference<Range>::type diff_t;
 
 public:
-    drop_range(ForwardRange& rng, diff_t d) :
+    drop_range(Range& rng, diff_t d) :
         super_t(detail::begin_advance(rng, d), boost::end(rng))
     { }
 };
@@ -42,14 +42,14 @@ namespace drop_range_detail {
 
     struct baby_generator
     {
-        template< class ForwardRange, class Difference = void >
+        template< class Range, class Difference = void >
         struct result
         {
-            typedef drop_range<ForwardRange> const type;
+            typedef drop_range<Range> const type;
         };
 
-        template< class Result, class ForwardRange, class Difference >
-        Result call(ForwardRange& rng, Difference d)
+        template< class Result, class Range, class Difference >
+        Result call(Range& rng, Difference d)
         {
             return Result(rng, d);
         }

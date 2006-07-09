@@ -27,16 +27,16 @@ namespace pstade { namespace oven {
 namespace zip_with_range_detail {
 
 
-    template< class Range0, class Range1, class UnaryFun >
+    template< class Range0, class Range1, class BinaryFun >
     struct transformer
     {
         typedef typename boost::range_reference<Range0>::type ref0_t;
         typedef typename boost::range_reference<Range1>::type ref1_t;
 
-        typedef typename boost::result_of<UnaryFun(ref0_t, ref1_t)>::type
+        typedef typename boost::result_of<BinaryFun(ref0_t, ref1_t)>::type
         result_type;
 
-        explicit transformer(UnaryFun fun) :
+        explicit transformer(BinaryFun fun) :
             m_fun(fun)
         { }
 
@@ -47,16 +47,16 @@ namespace zip_with_range_detail {
         }
 
     private:
-        UnaryFun m_fun;
+        BinaryFun m_fun;
     };
 
 
-    template< class Range0, class Range1, class UnaryFun >
+    template< class Range0, class Range1, class BinaryFun >
     struct super_
     {
         typedef transform_range<
             zip_range<Range0, Range1> const,
-            transformer<Range0, Range1, UnaryFun>
+            transformer<Range0, Range1, BinaryFun>
         > type;
     };
 
@@ -64,18 +64,18 @@ namespace zip_with_range_detail {
 } // namespace zip_with_range_detail
 
 
-template< class Range0, class Range1, class UnaryFun >
+template< class Range0, class Range1, class BinaryFun >
 struct zip_with_range :
-    zip_with_range_detail::super_<Range0, Range1, UnaryFun>::type
+    zip_with_range_detail::super_<Range0, Range1, BinaryFun>::type
 {
 private:
-    typedef typename zip_with_range_detail::super_<Range0, Range1, UnaryFun>::type super_t;
+    typedef typename zip_with_range_detail::super_<Range0, Range1, BinaryFun>::type super_t;
 
 public:
-    zip_with_range(Range0& rng0, Range1& rng1, UnaryFun fun) :
+    zip_with_range(Range0& rng0, Range1& rng1, BinaryFun fun) :
         super_t(
             zip_range<Range0, Range1>(rng0, rng1),
-            zip_with_range_detail::transformer<Range0, Range1, UnaryFun>(fun)
+            zip_with_range_detail::transformer<Range0, Range1, BinaryFun>(fun)
         )
     { }
 };
@@ -86,15 +86,15 @@ namespace zip_with_range_detail {
 
     struct baby_generator
     {
-        template< class Range0, class Range1, class UnaryFun >
+        template< class Range0, class Range1, class BinaryFun >
         struct result
         {
-            typedef typename boost::remove_cv<UnaryFun>::type fun_t;
+            typedef typename boost::remove_cv<BinaryFun>::type fun_t;
             typedef zip_with_range<Range0, Range1, fun_t> const type;
         };
 
-        template< class Result, class Range0, class Range1, class UnaryFun >
-        Result call(Range0& rng0, Range1& rng1, UnaryFun fun)
+        template< class Result, class Range0, class Range1, class BinaryFun >
+        Result call(Range0& rng0, Range1& rng1, BinaryFun fun)
         {
             return Result(rng0, rng1, fun);
         }

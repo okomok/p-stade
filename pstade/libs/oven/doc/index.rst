@@ -242,11 +242,13 @@ Specification
 - ``fwdRng``: any `Forward Range`_
 - ``biRng``: any `Bidirectional Range`_
 - ``rndRng``: any `Random Access Range`_
+- ``pred``: any `Predicate`_
+- ``rfun``: any `Functor`_ which can be used with ``boost::result_of``
 
 
 ``adjacent_filtered``
 ^^^^^^^^^^^^^^^^^^^^^
-``adjacent_filtered`` returns a range whose adjacent pairs are filtered by using a predicate::
+``adjacent_filtered`` returns a range whose adjacent pairs are filtered by using a `Predicate`_::
 
 	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\adjacent_filtered.ipp
 
@@ -358,18 +360,26 @@ Specification
 
 
 - Header: ``<pstade/oven/drop_range.hpp>``
-- Valid expression: ``fwdRng|dropped(n)``
-- Returns: ``[f,boost::end(fwdRng))``, where ``f = boost::begin(fwdRng); std::advance(f, n);``.
+- Valid expression: ``rng|dropped(n)``
+- Precondition: ``0 <= n && n <= oven::distance(rng)``
+- Returns: ``[f,boost::end(rng))``, where ``f = boost::begin(rng); std::advance(f,n);``.
 
 
 ``dropped_while``
 ^^^^^^^^^^^^^^^^^
-Todo
+``dropped`` returns the remaining suffix of its adapting range of elements that satisfy `Predicate`_::
+
+	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\dropped_while.ipp
+
+
+- Header: ``<pstade/oven/drop_while_range.hpp>``
+- Valid expression: ``rng|dropped_while(pred)``
+- Returns: ``[f,boost::end(rng))``, where ``f = oven::find_if(f,not_(pred));``
 
 
 ``filtered``
 ^^^^^^^^^^^^
-``filtered`` returns a range which is filtered by using a predicate::
+``filtered`` returns a range which is filtered by using a `Predicate`_::
 
 	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\filtered.ipp
 
@@ -416,7 +426,7 @@ Todo
 
 ``map_keys``
 ^^^^^^^^^^^^
-``map_keys`` returns a range whose value is a key of its adapting associative container::
+``map_keys`` returns a range whose values are the keys of its adapting associative container::
 
 	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\map_keys.ipp
 
@@ -427,7 +437,7 @@ Todo
 
 ``map_values``
 ^^^^^^^^^^^^^^
-``map_values`` returns a range whose value is a mapped value of its adapting associative container::
+``map_values`` returns a range whose values are the mapped values of its adapting associative container::
 
 	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\map_values.ipp
 
@@ -453,16 +463,28 @@ Note that ``memoized`` can return a `Forward Range`_ even if its adapting range 
 ``null_terminated``
 ^^^^^^^^^^^^^^^^^^^
 - Header: ``<pstade/oven/null_terminate_range.hpp>``
-- Valid expression: ``rngOrString|null_terminated``
-- Precondition: ``rngOrString`` is a string literal; otherwise, for all the value ``v`` in the ``rngOrString``, the expression ``v == 0`` must be valid, and some ``v`` that the expression is ``true`` exists in the ``rngOrString``.
-- Returns: ``[boost::begin(rng),y)``, where for all the value ``v`` in the range ``v != 0`` is ``true``, and ``*y == 0`` is ``true``.
+- Valid expression: ``fwdRngOrString|null_terminated``
+- Precondition: ``rngOrString`` is a string literal; otherwise, for all the value ``v`` in the ``fwdRngOrString``, the expression ``v == 0`` must be valid, and some ``v`` that the expression is ``true`` exists in the ``fwdRngOrString``.
+- Returns: ``[boost::begin(fwdRngOrString),y)``, where for all the value ``v`` in the range ``v != 0`` is ``true``, and ``*y == 0`` is ``true``.
+
+
+``out_placed``
+^^^^^^^^^^^^^^
+``out_placed`` converts its adapting range to a `Random Access Range`_ by using temporary iterator container::
+
+	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\out_placed.ipp
+
+
+- Header: ``<pstade/oven/out_place_range.hpp>``
+- Valid expression: ``fwdRng|out_placed``
+- Returns: A `Random Access Range`_ representing ``[boost::begin(fwdRng),boost::end(fwdRng))``.
 
 
 ``permuted``
 ^^^^^^^^^^^^
 - Header: ``<pstade/oven/permute_range.hpp>``
 - Valid expression: ``rndRng|permuted(irng)``
-- Precondition: ``irng`` is a range of the indices of ``rngRng``.
+- Precondition: ``irng`` is a range of the indices of ``rndRng``.
 - Returns: A range whose iterators behave as if they were the original iterators wrapped in ``boost::permutation_iterator``.
 
 
@@ -517,11 +539,11 @@ Note that ``memoized`` can return a `Forward Range`_ even if its adapting range 
 
 ``sorted``
 ^^^^^^^^^^
-``sorted`` provides the out-place sorting.
+``sorted`` provides the out-place sorting. Note that ``sorted`` doesn't modify its adapting range.
 
 - Header: ``<pstade/oven/sort_range.hpp>``
-- Valid expression: ``rng|sorted`` or ``rng|sorted(pred)``
-- Returns: A sorted view of ``rng``.
+- Valid expression: ``fwdRng|sorted`` or ``fwdRng|sorted(pred)``
+- Returns: A sorted view of ``fwdRng``.
 
 
 ``string_found``
@@ -532,20 +554,36 @@ Note that ``memoized`` can return a `Forward Range`_ even if its adapting range 
 
 
 ``string_split``
-^^^^^^^^^^^^^^^^^^^
-Todo
+^^^^^^^^^^^^^^^^
+- Header: ``<pstade/oven/string_split_range.hpp>``
+- Valid expression: ``rng|string_split(finder)``
+- Returns: A range whose iterators behave as if they were the original iterators wrapped in ``boost::algorithm::split_iterator``.
 
 
 ``taken``
 ^^^^^^^^^
+``taken``, applied to its adapting range, returns the prefix of the range of length ``n``::
+
+	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\taken.ipp
+
+
 - Header: ``<pstade/oven/take_range.hpp>``
 - Valid expression: ``fwdRng|taken(n)``
-- Returns: ``[boost::begin(fwdRng),l)``, where ``l = boost::begin(fwdRng); std::advance(l, n);``.
+- Precondition: ``0 <= n && n <= oven::distance(rng)``
+- Returns: ``[boost::begin(fwdRng),l)``, where ``l = boost::begin(fwdRng); std::advance(l,n);``.
 
 
 ``taken_while``
 ^^^^^^^^^^^^^^^
-Todo
+``taken_while``, applied to a `Predicate`_ and its adapting range, returns the longest
+prefix (possibly empty) of the range of elements that satisfy `Predicate`_::
+
+	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\taken_while.ipp
+
+
+- Header: ``<pstade/oven/take_while_range.hpp>``
+- Valid expression: ``fwdRng|taken_while(pred)``
+- Returns: ``[boost::begin(fwdRng),oven::find_if(fwdRng,not_(pred)))``
 
 
 ``tokenized``
@@ -557,6 +595,7 @@ Todo
 ``transformed``
 ^^^^^^^^^^^^^^^
 - Header: ``<pstade/oven/transorm_range.hpp>``
+- Valid expression: ``rng|transformed(rfun)``
 - See: `Range Library Proposal`_.
 
 
@@ -585,9 +624,25 @@ Pending...
 
 ``zipped``
 ^^^^^^^^^^
+``zipped`` takes two range and returns a range of corresponding tuples.
+If one input range is short, excess elements of the longer range are discarded.
+
 - Header: ``<pstade/oven/zip_range.hpp>``
 - Valid expression: ``rng0|zipped(rng1)``
 - Returns: A range whose iterators behave as if they were the original iterators wrapped in ``boost::zip_iterator``.
+
+
+``zipped_with``
+^^^^^^^^^^^^^^^
+``zipped_with`` generalises ``zipped`` by zipping with the functor,
+given as the first argument, instead of a tupling::
+
+	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\zipped_with.ipp
+
+
+- Header: ``<pstade/oven/zip_with_range.hpp>``
+- Valid expression: ``rng0|zipped_with(rng1, rfun)``
+- Returns: A range whose values are zipped by using ``rfun``.
 
 
 

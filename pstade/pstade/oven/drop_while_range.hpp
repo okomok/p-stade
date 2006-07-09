@@ -23,15 +23,15 @@
 namespace pstade { namespace oven {
 
 
-template< class ForwardRange, class Predicate >
+template< class Range, class Predicate >
 struct drop_while_range :
-    sub_range_base<ForwardRange>::type
+    sub_range_base<Range>::type
 {
 private:
-    typedef typename sub_range_base<ForwardRange>::type super_t;
+    typedef typename sub_range_base<Range>::type super_t;
 
 public:
-    drop_while_range(ForwardRange& rng, Predicate pred) :
+    drop_while_range(Range& rng, Predicate pred) :
         super_t(oven::find_if(rng, detail::not_(pred)), boost::end(rng))
     { }
 };
@@ -42,15 +42,15 @@ namespace drop_while_range_detail {
 
     struct baby_generator
     {
-        template< class ForwardRange, class Predicate >
+        template< class Range, class Predicate >
         struct result
         {
             typedef typename boost::remove_cv<Predicate>::type pred_t;
-            typedef drop_while_range<ForwardRange, pred_t> const type;
+            typedef drop_while_range<Range, pred_t> const type;
         };
 
-        template< class Result, class ForwardRange, class Predicate >
-        Result call(ForwardRange& rng, Predicate pred)
+        template< class Result, class Range, class Predicate >
+        Result call(Range& rng, Predicate pred)
         {
             return Result(rng, pred);
         }
