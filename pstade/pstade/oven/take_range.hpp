@@ -14,6 +14,7 @@
 #include <boost/range/difference_type.hpp>
 #include <pstade/egg/function.hpp>
 #include "./detail/begin_advance.hpp"
+#include "./detail/concept_check.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./sub_range_base_type.hpp"
@@ -27,6 +28,7 @@ struct take_range :
     sub_range_base<ForwardRange>::type
 {
 private:
+    PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeConcept);
     typedef typename sub_range_base<ForwardRange>::type super_t;
     typedef typename boost::range_difference<ForwardRange>::type diff_t;
 
@@ -42,7 +44,7 @@ namespace take_range_detail {
 
     struct baby_generator
     {
-        template< class ForwardRange, class Difference >
+        template< class Unused, class ForwardRange, class Difference >
         struct result
         {
             typedef take_range<ForwardRange> const type;

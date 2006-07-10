@@ -38,6 +38,14 @@ namespace pstade { namespace egg { namespace detail {
 template< class BabyFunction >
 struct operators
 {
+private:
+    BabyFunction m_baby;
+
+public:
+    explicit operators(BabyFunction baby) :
+        m_baby(baby)
+    { }
+
 
     // 0ary
     //
@@ -46,7 +54,8 @@ struct operators
     operator()(
     ) const
     {
-        return egg::baby_call<BabyFunction>();
+        return egg::baby_call(m_baby
+        );
     }
 
 
@@ -61,7 +70,7 @@ struct operators
             BOOST_PP_SEQ_FOR_EACH_I_R(R, PSTADE_EGG_param, ~, BitSeq) \
         ) const \
         { \
-            return egg::baby_call<BabyFunction>( \
+            return egg::baby_call(m_baby, \
                 BOOST_PP_ENUM_PARAMS(n, a) \
             ); \
         } \

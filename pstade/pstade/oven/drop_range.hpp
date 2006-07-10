@@ -14,6 +14,7 @@
 #include <boost/range/end.hpp>
 #include <pstade/egg/function.hpp>
 #include "./detail/begin_advance.hpp"
+#include "./detail/concept_check.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./sub_range_base_type.hpp"
@@ -27,6 +28,7 @@ struct drop_range :
     sub_range_base<Range>::type
 {
 private:
+    PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
     typedef typename sub_range_base<Range>::type super_t;
     typedef typename boost::range_difference<Range>::type diff_t;
 
@@ -42,7 +44,7 @@ namespace drop_range_detail {
 
     struct baby_generator
     {
-        template< class Range, class Difference = void >
+        template< class Unused, class Range, class Difference = void >
         struct result
         {
             typedef drop_range<Range> const type;

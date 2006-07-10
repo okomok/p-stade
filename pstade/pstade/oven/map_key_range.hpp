@@ -77,7 +77,7 @@ namespace map_key_range_detail {
 
     struct baby_generator
     {
-        template< class AssocContainer >
+        template< class Unused, class AssocContainer >
         struct result
         {
             typedef map_key_range<AssocContainer> const type;

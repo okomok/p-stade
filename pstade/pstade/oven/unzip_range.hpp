@@ -19,6 +19,7 @@
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/const_overloaded.hpp>
 #include <pstade/egg/function.hpp>
+#include "./detail/concept_check.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./transform_range.hpp"
@@ -73,6 +74,7 @@ struct unzip_range_at :
     unzip_range_detail::super_at<TupleRange, N>::type
 {
 private:
+    PSTADE_OVEN_DETAIL_REQUIRES(TupleRange, SinglePassRangeConcept);
     typedef typename unzip_range_detail::super_at<TupleRange, N>::type super_t;
 
 public:
@@ -143,7 +145,7 @@ namespace unzip_range_detail {
 
     struct baby_unzipped
     {
-        template< class TupleRange >
+        template< class Unused, class TupleRange >
         struct result
         {
             typedef typename boost::tuples::tuple<

@@ -12,7 +12,7 @@
 
 struct foo_impl
 {
-    template< class Arg0, class Arg1 = void >
+    template< class Unused, class Arg0, class Arg1 = void >
     struct result
     {
         typedef Arg0 type;
@@ -48,7 +48,7 @@ struct hoge_impl
 {
     typedef std::string result_type;
 
-    template< class Arg0, class Arg1 = void >
+    template< class Unused, class Arg0, class Arg1 = void >
     struct result
     {
         typedef Arg0 type;

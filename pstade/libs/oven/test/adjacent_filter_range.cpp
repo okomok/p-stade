@@ -21,6 +21,7 @@
 #include <boost/range/concepts.hpp>
 #include <pstade/oven/algorithms.hpp>
 #include <pstade/oven/reverse_range.hpp>
+#include <pstade/oven/istream_range.hpp>
 
 
 struct is_not_divisor
@@ -81,6 +82,8 @@ void test()
         }
     }
 
+    //std::stringstream ss;
+    //oven::make_istream_range<int>(ss)|adjacent_filtered(is_not_divisor());
 }
 
 

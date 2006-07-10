@@ -20,6 +20,10 @@ struct null_state_type
 { };
 
 
+typedef null_state_type
+null_state_t;
+
+
 PSTADE_INSTANCE(null_state_type, null_state, value)
 
 

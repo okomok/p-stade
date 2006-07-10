@@ -26,12 +26,12 @@ namespace pstade { namespace egg {
 //
 template< class BabyFunction > inline
 typename baby_result0<BabyFunction>::type
-baby_call()
+baby_call(BabyFunction baby)
 {
     typedef typename baby_result0<BabyFunction
     >::type result_t;
 
-    return BabyFunction().template call<result_t>();
+    return baby.template call<result_t>();
 }
 
 
@@ -41,13 +41,13 @@ template< class BabyFunction, class A0 >
 typename egg::baby_result1<BabyFunction,
     A0
 >::type
-baby_call(A0& a0)
+baby_call(BabyFunction baby, A0& a0)
 {
     typedef typename egg::baby_result1<BabyFunction,
         A0
     >::type result_t;
 
-    return BabyFunction().template call<result_t>(a0);
+    return baby.template call<result_t>(a0);
 }
 
 
@@ -57,13 +57,13 @@ template< class BabyFunction, class A0, class A1 >
 typename egg::baby_result2<BabyFunction,
     A0, A1
 >::type
-baby_call(A0& a0, A1& a1)
+baby_call(BabyFunction baby, A0& a0, A1& a1)
 {
     typedef typename egg::baby_result2<BabyFunction,
         A0, A1
     >::type result_t;
 
-    return BabyFunction().template call<result_t>(a0, a1);
+    return baby.template call<result_t>(a0, a1);
 }
 
 
@@ -91,13 +91,13 @@ template< class BabyFunction, BOOST_PP_ENUM_PARAMS(n, class A) > inline
 typename BOOST_PP_CAT(baby_result, n)<BabyFunction,
     BOOST_PP_ENUM_PARAMS(n, A)
 >::type
-baby_call( BOOST_PP_ENUM(n, PSTADE_EGG_arg, ~) )
+baby_call( BabyFunction baby, BOOST_PP_ENUM(n, PSTADE_EGG_arg, ~) )
 {
     typedef typename BOOST_PP_CAT(baby_result, n)<BabyFunction,
         BOOST_PP_ENUM_PARAMS(n, A)
     >::type result_t;
 
-    return BabyFunction().template call<result_t>( BOOST_PP_ENUM_PARAMS(n, a) );
+    return baby.template call<result_t>( BOOST_PP_ENUM_PARAMS(n, a) );
 }
 
 

@@ -16,6 +16,7 @@
 #include <boost/regex/pending/unicode_iterator.hpp> // u8_to_u32_iterator
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/egg/function.hpp>
+#include "./detail/concept_check.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 
@@ -46,6 +47,7 @@ struct utf8_decode_range :
     utf8_decode_range_detail::super_<BidiRange, Ucs4T>::type
 {
 private:
+    PSTADE_OVEN_DETAIL_REQUIRES(BidiRange, BidirectionalRangeConcept);
     typedef typename utf8_decode_range_detail::super_<BidiRange, Ucs4T>::type super_t;
 
 public:
@@ -60,7 +62,7 @@ namespace utf8_decode_range_detail {
 
     struct baby_generator
     {
-        template< class BidiRange, class Ucs4T = boost::uint32_t >
+        template< class Unused, class BidiRange, class Ucs4T = boost::uint32_t >
         struct result
         {
             typedef typename boost::remove_cv<Ucs4T>::type ucs4_t;

@@ -48,13 +48,22 @@ template< class BabyAdaptor >
 struct range_adaptor
 {
 
+    // structor
+    //
+    BabyAdaptor m_baby;
+
+    explicit range_adaptor(BabyAdaptor baby) :
+        m_baby(baby)
+    { }
+
+
     // 0ary
     //
     detail_adaptors::adaptor0<BabyAdaptor>
     operator()() const
     {
         return detail_adaptors::adaptor0<BabyAdaptor
-        >();
+        >(m_baby);
     }
 
 
@@ -71,7 +80,7 @@ struct range_adaptor
         { \
             return detail_adaptors::BOOST_PP_CAT(adaptor, n)<BabyAdaptor, \
                 BOOST_PP_SEQ_FOR_EACH_I_R(R, PSTADE_OVEN_arg_type, ~, BitSeq) \
-            >( BOOST_PP_ENUM_PARAMS(n, a) ); \
+            >( m_baby, BOOST_PP_ENUM_PARAMS(n, a) ); \
         } \
     /**/
 
@@ -124,7 +133,7 @@ typename egg::baby_result1<BabyAdaptor, Range>::type
 operator|(Range& rng, range_adaptor<BabyAdaptor> ad)
 {
     pstade::unused(ad);
-    return egg::baby_call<BabyAdaptor>(rng);
+    return egg::baby_call(ad.m_baby, rng);
 }
 
 template< class Range, class BabyAdaptor > inline
@@ -132,7 +141,7 @@ typename egg::baby_result1<BabyAdaptor, typename boost::add_const<Range>::type>:
 operator|(Range const& rng, range_adaptor<BabyAdaptor> ad)
 {
     pstade::unused(ad);
-    return egg::baby_call<BabyAdaptor>(rng);
+    return egg::baby_call(ad.m_baby, rng);
 }
 
 
@@ -142,7 +151,7 @@ operator|(Range const& rng, range_adaptor<BabyAdaptor> ad)
 #define PSTADE_OVEN_RANGE_ADAPTOR(Name, Baby) \
     PSTADE_INSTANCE( \
         pstade::oven::range_adaptor< pstade::comma_protect<void(Baby)>::type > const, \
-        Name, value \
+        Name, ((pstade::comma_protect<void(Baby)>::type())) \
     ) \
 /**/
 

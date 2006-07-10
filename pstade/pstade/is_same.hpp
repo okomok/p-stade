@@ -23,7 +23,7 @@ namespace is_same_detail {
 
     struct baby
     {
-        template< class T1, class T2 >
+        template< class Unused, class T1, class T2 >
         struct result : boost::mpl::identity<
             bool
         >

@@ -11,6 +11,7 @@
 
 
 #include <pstade/egg/function.hpp>
+#include "./detail/concept_check.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./sub_range_base_type.hpp"
@@ -24,6 +25,7 @@ struct identity_range :
     sub_range_base<Range>::type
 {
 private:
+    PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
     typedef typename sub_range_base<Range>::type super_t;
     typedef typename super_t::iterator iter_t;
 
@@ -39,7 +41,7 @@ namespace identity_range_detail {
 
     struct baby_generator
     {
-        template< class Range >
+        template< class Unused, class Range >
         struct result
         {
             typedef identity_range<Range> const type;

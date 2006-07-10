@@ -16,6 +16,7 @@
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/static_c.hpp>
+#include "./detail/concept_check.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 
@@ -66,6 +67,7 @@ struct position_range :
     position_range_detail::super_<ForwardRange, PositionT>::type
 {
 private:
+    PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeConcept);
     typedef typename position_range_detail::super_<ForwardRange, PositionT>::type super_t;
     typedef typename super_t::iterator iter_t;
 
@@ -90,7 +92,7 @@ namespace position_range_detail {
     {
         typedef boost::spirit::file_position default_pos_t;
 
-        template< class ForwardRange, class PositionT = default_pos_t, class Int = void >
+        template< class Unused, class ForwardRange, class PositionT = default_pos_t, class Int = void >
         struct result
         {
             typedef typename boost::remove_cv<PositionT>::type pos_t;

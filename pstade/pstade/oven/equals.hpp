@@ -21,6 +21,7 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/range/const_iterator.hpp>
+#include "./detail/concept_check.hpp"
 #include "./detail/equal_to.hpp"
 
 
@@ -30,6 +31,9 @@ namespace pstade { namespace oven {
 template< class Range1, class Range2, class BinaryPred >
 bool equals(Range1 const& rng1, Range2 const& rng2, BinaryPred pred)
 {
+    detail::requires< boost::SinglePassRangeConcept<Range1> >();
+    detail::requires< boost::SinglePassRangeConcept<Range2> >();
+
     typedef typename boost::range_const_iterator<Range1>::type iter1_t;
     typedef typename boost::range_const_iterator<Range2>::type iter2_t;
 

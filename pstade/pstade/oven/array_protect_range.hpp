@@ -64,7 +64,7 @@ namespace array_protect_range_detail {
 
     struct baby_generator
     {
-        template< class ArrayT >
+        template< class Unused, class ArrayT >
         struct result
         {
             // 'const' works around "Forwarding Problem".

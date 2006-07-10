@@ -17,6 +17,7 @@
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/egg/function.hpp>
 #include "./adjacent_filter_iterator.hpp"
+#include "./detail/concept_check.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 
@@ -47,6 +48,7 @@ struct adjacent_filter_range :
     adjacent_filter_range_detail::super_<ForwardRange, BinaryPred>::type
 {
 private:
+    PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeConcept);
     typedef typename adjacent_filter_range_detail::super_<ForwardRange, BinaryPred>::type super_t;
     typedef typename super_t::iterator iter_t;
 
@@ -65,7 +67,7 @@ namespace adjacent_filter_range_detail {
 
     struct baby_generator
     {
-        template< class ForwardRange, class BinaryPred >
+        template< class Unused, class ForwardRange, class BinaryPred >
         struct result
         {
             typedef typename boost::remove_cv<BinaryPred>::type pred_t;

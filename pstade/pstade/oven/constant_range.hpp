@@ -11,6 +11,7 @@
 
 
 #include <pstade/egg/function.hpp>
+#include "./detail/concept_check.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./sub_range_base_type.hpp"
@@ -19,16 +20,18 @@
 namespace pstade { namespace oven {
 
 
-template< class UnusedRange, class Range >
+template< class IgnoredRange, class Range >
 struct constant_range :
     sub_range_base<Range>::type
 {
 private:
+    PSTADE_OVEN_DETAIL_REQUIRES(IgnoredRange, SinglePassRangeConcept);
+    PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
     typedef typename sub_range_base<Range>::type super_t;
     typedef typename super_t::iterator iter_t;
 
 public:
-    constant_range(UnusedRange& , Range& rng) :
+    constant_range(IgnoredRange& , Range& rng) :
         super_t(rng)
     { }
 };
@@ -39,14 +42,14 @@ namespace constant_range_detail {
 
     struct baby_generator
     {
-        template< class UnusedRange, class Range >
+        template< class Unused, class IgnoredRange, class Range >
         struct result
         {
-            typedef constant_range<UnusedRange, Range> const type;
+            typedef constant_range<IgnoredRange, Range> const type;
         };
 
-        template< class Result, class UnusedRange, class Range>
-        Result call(UnusedRange& _, Range& rng)
+        template< class Result, class IgnoredRange, class Range>
+        Result call(IgnoredRange& _, Range& rng)
         {
             return Result(_, rng);
         }

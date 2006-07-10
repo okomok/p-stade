@@ -25,6 +25,7 @@
 #include <boost/mpl/apply.hpp>
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
+#include <boost/mpl/void.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
@@ -45,6 +46,10 @@ namespace baby_result_type_detail {
     {
         typedef typename BabyFunction::result_type type;
     };
+
+
+    typedef boost::mpl::void_
+    dummy_type;
 
 
 } // namespace baby_result_type_detail
@@ -74,6 +79,7 @@ struct baby_result0 :
 template< class BabyFunction, class A0 >
 struct baby_result1 :
     BabyFunction::template result<
+        baby_result_type_detail::dummy_type,
         typename boost::remove_reference<A0>::type
     >
 { };
@@ -84,6 +90,7 @@ struct baby_result1 :
 template< class BabyFunction, class A0, class A1 >
 struct baby_result2 :
     BabyFunction::template result<
+        baby_result_type_detail::dummy_type,
         typename boost::remove_reference<A0>::type,
         typename boost::remove_reference<A1>::type
     >
@@ -113,6 +120,7 @@ struct baby_result2 :
 template< class BabyFunction, BOOST_PP_ENUM_PARAMS(n, class A) >
 struct BOOST_PP_CAT(baby_result, n) :
     BabyFunction::template result<
+        baby_result_type_detail::dummy_type,
         BOOST_PP_ENUM(n, PSTADE_EGG_remove_ref, ~)
     >
 { };

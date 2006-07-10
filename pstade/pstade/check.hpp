@@ -89,7 +89,7 @@ namespace check_detail {
 
     struct baby
     {
-        template< class T, class StringT >
+        template< class Unused, class T, class StringT >
         struct result :
             boost::add_reference<T>
         { };

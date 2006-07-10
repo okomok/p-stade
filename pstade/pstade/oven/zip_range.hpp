@@ -15,6 +15,7 @@
 #include <boost/range/result_iterator.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <pstade/egg/function.hpp>
+#include "./detail/concept_check.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 
@@ -53,6 +54,8 @@ struct zip_range :
     zip_range_detail::super_<Range0, Range1>::type
 {
 private:
+    PSTADE_OVEN_DETAIL_REQUIRES(Range0, SinglePassRangeConcept);
+    PSTADE_OVEN_DETAIL_REQUIRES(Range1, SinglePassRangeConcept);
     typedef typename zip_range_detail::super_<Range0, Range1>::type super_t;
 
 public:
@@ -70,7 +73,7 @@ namespace zip_range_detail {
 
     struct baby_generator
     {
-        template< class Range0, class Range1 >
+        template< class Unused, class Range0, class Range1 >
         struct result
         {
             typedef zip_range<Range0, Range1> const type;

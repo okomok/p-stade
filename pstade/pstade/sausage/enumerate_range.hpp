@@ -55,7 +55,7 @@ namespace enumerate_range_detail {
 
     struct baby_generator
     {
-        template< class Enumerable >
+        template< class Unused, class Enumerable >
         struct result
         {
             typedef const enumerate_range<Enumerable> type;

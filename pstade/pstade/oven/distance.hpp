@@ -14,6 +14,7 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/difference_type.hpp>
 #include <boost/range/end.hpp>
+#include "./detail/concept_check.hpp"
 
 
 namespace pstade { namespace oven {
@@ -23,6 +24,7 @@ template< class Range > inline
 typename boost::range_difference<Range>::type 
 distance(Range const& rng)
 {
+    detail::requires< boost::SinglePassRangeConcept<Range> >();
     return std::distance(boost::begin(rng), boost::end(rng));
 }
 

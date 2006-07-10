@@ -15,6 +15,7 @@
 #include <boost/type_traits/remove_cv.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/egg/function.hpp>
+#include "./detail/concept_check.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./transform_range.hpp"
@@ -69,6 +70,8 @@ struct zip_with_range :
     zip_with_range_detail::super_<Range0, Range1, BinaryFun>::type
 {
 private:
+    PSTADE_OVEN_DETAIL_REQUIRES(Range0, SinglePassRangeConcept);
+    PSTADE_OVEN_DETAIL_REQUIRES(Range1, SinglePassRangeConcept);
     typedef typename zip_with_range_detail::super_<Range0, Range1, BinaryFun>::type super_t;
 
 public:
@@ -86,7 +89,7 @@ namespace zip_with_range_detail {
 
     struct baby_generator
     {
-        template< class Range0, class Range1, class BinaryFun >
+        template< class Unused, class Range0, class Range1, class BinaryFun >
         struct result
         {
             typedef typename boost::remove_cv<BinaryFun>::type fun_t;

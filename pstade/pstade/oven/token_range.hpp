@@ -16,6 +16,7 @@
 #include <boost/regex.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/egg/function.hpp>
+#include "./detail/concept_check.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 
@@ -67,6 +68,7 @@ struct token_range :
     token_range_detail::super_<BidiRange, CharT, Traits>::type
 {
 private:
+    PSTADE_OVEN_DETAIL_REQUIRES(BidiRange, BidirectionalRangeConcept);
     typedef typename token_range_detail::super_<BidiRange, CharT, Traits>::type super_t;
     typedef typename super_t::iterator iter_t;
     typedef typename iter_t::regex_type regex_t;
@@ -104,7 +106,7 @@ namespace token_range_detail {
 
     struct baby_generator
     {
-        template< class BidiRange, class RegexT = void, class IntOrRndRange = void, class FlagT = void >
+        template< class Unused, class BidiRange, class RegexT = void, class IntOrRndRange = void, class FlagT = void >
         struct result
         {
             typedef token_range<BidiRange> const type;

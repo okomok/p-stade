@@ -25,6 +25,7 @@
 #include <boost/range/result_iterator.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/egg/function.hpp>
+#include "./detail/concept_check.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 
@@ -55,6 +56,7 @@ struct filter_range :
     filter_range_detail::super_<Range, Predicate>::type
 {
 private:
+    PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
     typedef typename filter_range_detail::super_<Range, Predicate>::type super_t;
     typedef typename super_t::iterator iter_t;
 
@@ -74,7 +76,7 @@ namespace filter_range_detail {
 
     struct baby_generator
     {
-        template< class Range, class Predicate >
+        template< class Unused, class Range, class Predicate >
         struct result
         {
             typedef typename boost::remove_cv<Predicate>::type pred_t;

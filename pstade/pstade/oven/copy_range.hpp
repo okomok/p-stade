@@ -26,6 +26,7 @@
 #include <pstade/unused.hpp>
 #include "./algorithm.hpp" // copy
 #include "./copy_range.hpp"
+#include "./detail/concept_check.hpp"
 #include "./detail/debug_distance.hpp"
 #include "./range_adaptor.hpp"
 #include "./traversal_type.hpp"
@@ -53,6 +54,8 @@ namespace copy_range_detail {
 template< class T, class Range > inline
 T copy_range(Range const& rng)
 {
+    detail::requires< boost::SinglePassRangeConcept<Range> >();
+
     // Under: http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1893.pdf
     // using namespace(T);
 
@@ -113,7 +116,7 @@ namespace copy_range_detail {
     {
         // as range-adaptor
         //
-        template< class InRange, class OutRangeOrIter = void >
+        template< class Unused, class InRange, class OutRangeOrIter = void >
         struct result :
             meta_copy<InRange>
         { };
@@ -128,6 +131,9 @@ namespace copy_range_detail {
             return copy_range_detail::check_valid(in, trv_t());
         }
 
+        // Note:
+        // "Range or Iterator" detection is incomplete,
+        // so be careful.
         template< class Result, class InRange, class OutRange >
         typename boost::enable_if< apple::is_boost_range<OutRange>,
         Result>::type call(InRange& in, OutRange& out)
@@ -142,8 +148,8 @@ namespace copy_range_detail {
 
         // as shortcut for 'copy_range<Sequence>'
         //
-        template< class InRange >
-        struct result<InRange>
+        template< class Unused, class InRange >
+        struct result<Unused, InRange>
         {
             typedef typename boost::remove_cv<InRange>::type rng_t;
             typedef temp<rng_t> const type;

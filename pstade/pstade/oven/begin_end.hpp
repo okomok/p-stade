@@ -26,7 +26,7 @@ namespace begin_end_detail {
 
     struct gift
     {
-        template< class Range >
+        template< class Unused, class Range >
         struct result :
             boost::range_result_iterator<Range>
         { };

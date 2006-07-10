@@ -19,6 +19,7 @@
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/egg/function.hpp>
 #include "./algorithm.hpp" // sort
+#include "./detail/concept_check.hpp"
 #include "./detail/less_than.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./out_place_range.hpp"
@@ -67,6 +68,7 @@ struct sort_range :
     sort_range_detail::super_<ForwardRange, BinaryPred>::type
 {
 private:
+    PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeConcept);
     typedef typename sort_range_detail::super_<ForwardRange, BinaryPred>::type super_t;
 
 public:
@@ -81,7 +83,7 @@ namespace sort_range_detail {
 
     struct baby_generator
     {
-        template< class ForwardRange, class BinaryPred = detail::less_than_fun >
+        template< class Unused, class ForwardRange, class BinaryPred = detail::less_than_fun >
         struct result
         {
             typedef typename boost::remove_cv<BinaryPred>::type pred_t;

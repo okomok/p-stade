@@ -66,6 +66,7 @@ void test()
         vec.clear();
     }
 
+#if 0
     {
         try {
             oven::make_counting_range(100, 2);
@@ -75,6 +76,7 @@ void test()
         }
         BOOST_CHECK(false);
     }
+#endif
 }
 
 

@@ -10,14 +10,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <stdexcept> // range_error
-#include <string>
+#include <boost/assert.hpp>
 #include <boost/iterator/counting_iterator.hpp>
 #include <boost/iterator/iterator_categories.hpp>
-#include <boost/mpl/if.hpp>
 #include <boost/range/iterator_range.hpp>
-#include <boost/throw_exception.hpp>
-#include <boost/type_traits/is_convertible.hpp>
 #include <pstade/unused.hpp>
 #include "./is_lightweight_proxy.hpp"
 
@@ -28,45 +24,19 @@ namespace pstade { namespace oven {
 namespace counting_range_detail {
 
 
-    template< class Iterator >
-    struct is_bounds_checkable :
-        boost::is_convertible<
-            typename boost::iterator_traversal<Iterator>::type,
-            boost::random_access_traversal_tag
-        >
-    { };
-
-
-    template< class Incrementable >
-    struct no_bounds_check
+    template< class Incrementable > inline
+    void check_range(Incrementable n, Incrementable m, boost::single_pass_traversal_tag)
     {
-        static void call(Incrementable n, Incrementable m)
-        {
-            pstade::unused(n, m);
-        }
-    };
+        pstade::unused(n, m);
+    }
 
 
-    template< class Incrementable >
-    struct bounds_check
+    template< class Incrementable > inline
+    void check_range(Incrementable n, Incrementable m, boost::random_access_traversal_tag)
     {
-        static void call(Incrementable n, Incrementable m)
-        {
-            if (n > m) {
-                std::range_error err("pstade::oven::counting_range - out of range");
-                boost::throw_exception(err);
-            }
-        }
-    };
-
-
-    template< class Incrementable, class Iterator >
-    struct bounds_checker :
-        boost::mpl::if_< is_bounds_checkable<Iterator>,
-            bounds_check<Incrementable>,
-            no_bounds_check<Incrementable>
-        >::type
-    { };
+        BOOST_ASSERT(n <= m);
+        pstade::unused(n, m);
+    }
 
 
     template< class Incrementable, class CategoryOrTraversal, class Difference >
@@ -97,7 +67,8 @@ public:
     counting_range(Incrementable n, Incrementable m) :
         super_t(iter_t(n), iter_t(m))
     {
-        counting_range_detail::bounds_checker<Incrementable, iter_t>::call(n, m);
+        typedef typename boost::iterator_traversal<iter_t>::type trv_t;
+        counting_range_detail::check_range(n, m, trv_t());
     }
 };
 

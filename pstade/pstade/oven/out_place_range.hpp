@@ -29,6 +29,7 @@
 #include <pstade/egg/function.hpp>
 #include <pstade/garlic/back_inserter.hpp>
 #include "./algorithm.hpp" // copy
+#include "./detail/concept_check.hpp"
 #include "./detail/null.hpp"
 #include "./direct_range.hpp"
 #include "./indirect_range.hpp"
@@ -92,6 +93,7 @@ struct out_place_range :
     out_place_range_detail::super_<ForwardRange>::type
 {
 private:
+    PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeConcept);
     typedef typename out_place_range_detail::super_<ForwardRange>::type super_t;
     typedef typename out_place_range_detail::iter_sequence<ForwardRange>::type seq_t;
 
@@ -107,7 +109,7 @@ namespace out_place_range_detail {
 
     struct baby_generator
     {
-        template< class ForwardRange, class Functor = detail::null_fun >
+        template< class Unused, class ForwardRange, class Functor = detail::null_fun >
         struct result
         {
             typedef typename boost::remove_cv<Functor>::type fun_t;

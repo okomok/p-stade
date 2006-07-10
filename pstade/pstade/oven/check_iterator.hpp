@@ -13,11 +13,9 @@
 #include <iterator> // advance, distance
 #include <stdexcept> // range_error
 #include <string>
+#include <boost/assert.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
-#include <boost/iterator/iterator_categories.hpp> // bidirectional_traversal_tag
 #include <boost/throw_exception.hpp>
-#include "./detail/an_iterator.hpp"
-#include "./detail/minimum_traversal_type.hpp"
 
 
 namespace pstade { namespace oven {
@@ -37,15 +35,6 @@ struct check_error :
 
 
 namespace check_iterator_detail {
-
-
-    template< class Iterator >
-    struct traversal
-    {
-        typedef detail::an_iterator<boost::bidirectional_traversal_tag> biter_t;
-        typedef boost::tuples::tuple<Iterator, biter_t> iters_t;
-        typedef typename detail::minimum_traversal<iters_t>::type type;
-    };
 
 
     template< class Iterator >
@@ -107,8 +96,10 @@ public:
     ) :
         super_t(other.base()),
         m_first(other.begin()), m_last(other.end()),
-        m_singular(false)
-    { }
+        m_singular(other.is_singular())
+    {
+        check_iterator_detail::check_singularity(other);
+    }
 
     Iterator begin() const
     {

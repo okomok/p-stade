@@ -15,6 +15,7 @@
 #include <boost/range/result_iterator.hpp>
 #include <pstade/egg/function.hpp>
 #include "./counting_range.hpp"
+#include "./detail/concept_check.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 
@@ -41,6 +42,7 @@ struct direct_range :
     direct_range_detail::super_<Range>::type
 {
 private:
+    PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
     typedef typename direct_range_detail::super_<Range>::type super_t;
 
 public:
@@ -55,7 +57,7 @@ namespace direct_range_detail {
 
     struct baby_generator
     {
-        template< class Range >
+        template< class Unused, class Range >
         struct result
         {
             typedef direct_range<Range> const type;

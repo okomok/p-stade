@@ -24,6 +24,7 @@
 #include <boost/range/iterator_range.hpp>
 #include <boost/range/result_iterator.hpp>
 #include <pstade/egg/function.hpp>
+#include "./detail/concept_check.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 
@@ -73,6 +74,7 @@ struct indirect_range :
     typedef typename boost::range_result_iterator<Range>::type base_iterator;
 
 private:
+    PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
     typedef typename indirect_range_detail::super_<
         Range, Value, CategoryOrTraversal, Reference, Difference
     >::type super_t;
@@ -89,7 +91,7 @@ namespace indirect_range_detail {
 
     struct baby_generator
     {
-        template< class Range >
+        template< class Unused, class Range >
         struct result
         {
             typedef indirect_range<Range> const type;

@@ -59,7 +59,7 @@ namespace string_find_range_detail {
 
     struct baby_generator
     {
-        template< class Range, class FinderT >
+        template< class Unused, class Range, class FinderT >
         struct result
         {
             typedef string_find_range<Range> const type;

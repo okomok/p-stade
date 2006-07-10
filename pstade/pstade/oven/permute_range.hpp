@@ -16,6 +16,7 @@
 #include <boost/range/iterator_range.hpp>
 #include <boost/range/result_iterator.hpp>
 #include <pstade/egg/function.hpp>
+#include "./detail/concept_check.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 
@@ -52,6 +53,8 @@ struct permute_range :
     permute_range_detail::super_<ElementRange, IndexRange>::type
 {
 private:
+    PSTADE_OVEN_DETAIL_REQUIRES(ElementRange, RandomAccessRangeConcept);
+    PSTADE_OVEN_DETAIL_REQUIRES(IndexRange, SinglePassRangeConcept);
     typedef typename permute_range_detail::super_<ElementRange, IndexRange>::type super_t;
     typedef typename super_t::iterator iter_t;
 
@@ -70,7 +73,7 @@ namespace permute_range_detail {
 
     struct baby_generator
     {
-        template< class ElementRange, class IndexRange >
+        template< class Unused, class ElementRange, class IndexRange >
         struct result
         {
             typedef permute_range<ElementRange, IndexRange> const type;

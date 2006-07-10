@@ -16,6 +16,7 @@
 #include <boost/range/value_type.hpp>
 #include <boost/range/result_iterator.hpp>
 #include <pstade/egg/function.hpp>
+#include "./detail/concept_check.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./tab_expand_iterator.hpp"
@@ -46,6 +47,7 @@ struct tab_expand_range :
     tab_expand_range_detail::super_<ForwardRange>::type
 {
 private:
+    PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeConcept);
     typedef typename tab_expand_range_detail::super_<ForwardRange>::type super_t;
     typedef typename super_t::iterator iter_t;
 
@@ -64,7 +66,7 @@ namespace tab_expand_range_detail {
 
     struct baby_generator
     {
-        template< class ForwardRange, class TabSizeT >
+        template< class Unused, class ForwardRange, class TabSizeT >
         struct result
         {
             typedef tab_expand_range<ForwardRange> const type;

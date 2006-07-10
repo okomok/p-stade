@@ -13,6 +13,7 @@
 #include <boost/ref.hpp>
 #include <boost/utility/base_from_member.hpp>
 #include <pstade/egg/function.hpp>
+#include "./detail/concept_check.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./joint_range.hpp"
 #include "./range_adaptor.hpp"
@@ -28,6 +29,7 @@ struct prepend_range :
     joint_range< single_range<Value>, Range >
 {
 private:
+    PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
     typedef boost::base_from_member< single_range<Value> > single_range_bt;
     typedef joint_range< single_range<Value>, Range > super_t;
 
@@ -44,7 +46,7 @@ namespace prepend_range_detail {
 
     struct baby_generator
     {
-        template< class Range, class Value >
+        template< class Unused, class Range, class Value >
         struct result
         {
             typedef prepend_range<Range, Value> const type;

@@ -16,6 +16,7 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/type_traits/remove_pointer.hpp>
 #include <pstade/egg/function.hpp>
+#include "./detail/concept_check.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./share_iterator.hpp"
@@ -55,6 +56,7 @@ struct share_range :
     share_range_detail::super_<Range>::type
 {
 private:
+    PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
     typedef typename share_range_detail::super_<Range>::type super_t;
 
 public:
@@ -72,7 +74,7 @@ namespace share_range_detail {
 
     struct baby_generator
     {
-        template< class RangePtrT >
+        template< class Unused, class RangePtrT >
         struct result
         {
             typedef typename boost::remove_pointer<RangePtrT>::type rng_t;

@@ -52,10 +52,9 @@ struct the_state_class
         template< class ForwardRange2 >
         state(ForwardRange2& other, MatchResults& results, bool act = true) :
             super_t(oven::begin(other), oven::end(other)),
+            m_cur(oven::begin(other)),
             m_results(results), m_actionable(act)
-        {
-            m_cur = oven::begin(*this);
-        }
+        { }
 
     private:
         iter_t m_cur;

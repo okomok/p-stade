@@ -12,7 +12,7 @@
 
 // What:
 //
-// makes Pointer Range from std::vector.
+// Makes Pointer Range from std::vector.
 
 
 #include <boost/iterator/iterator_traits.hpp>
@@ -27,6 +27,7 @@
 #include <pstade/egg/function.hpp>
 #include <pstade/nullptr.hpp>
 #include <pstade/oven/distance.hpp>
+#include "./detail/concept_check.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 
@@ -79,8 +80,11 @@ template< class ContiguousRange >
 struct point_range :
     point_range_detail::super_<ContiguousRange>::type
 {
+private:
+    PSTADE_OVEN_DETAIL_REQUIRES(ContiguousRange, RandomAccessRangeConcept);
     typedef typename point_range_detail::super_<ContiguousRange>::type super_t;
 
+public:
     explicit point_range(ContiguousRange& vec) :
         super_t(point_range_detail::make_super(vec))
     { }
@@ -92,7 +96,7 @@ namespace point_range_detail {
 
     struct baby_generator
     {
-        template< class ContiguousRange >
+        template< class Unused, class ContiguousRange >
         struct result
         {
             typedef point_range<ContiguousRange> const type;

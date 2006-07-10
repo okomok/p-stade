@@ -15,6 +15,7 @@
 #include <boost/range/result_iterator.hpp>
 #include <pstade/remove_rcv.hpp>
 #include <pstade/egg/function.hpp>
+#include "./detail/concept_check.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./repeat_iterator.hpp"
@@ -47,6 +48,7 @@ struct repeat_range :
     repeat_range_detail::super_<ForwardRange, SizeT>::type
 {
 private:
+    PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeConcept);
     typedef typename repeat_range_detail::super_<ForwardRange, SizeT>::type super_t;
     typedef typename super_t::iterator iter_t;
 
@@ -70,7 +72,7 @@ namespace repeat_range_detail {
 
     struct baby_generator
     {
-        template< class ForwardRange, class SizeT >
+        template< class Unused, class ForwardRange, class SizeT >
         struct result
         {
             typedef typename remove_rcv<SizeT>::type sz_t;

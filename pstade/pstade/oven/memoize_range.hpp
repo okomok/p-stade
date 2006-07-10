@@ -16,6 +16,7 @@
 #include <pstade/egg/function.hpp>
 #include <pstade/nullptr.hpp>
 #include "./check_range.hpp"
+#include "./detail/concept_check.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./multi_pass_range.hpp"
 #include "./range_adaptor.hpp"
@@ -132,6 +133,7 @@ struct memoize_range :
     memoize_range_detail::super_<Range>::type
 {
 private:
+    PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
     typedef typename memoize_range_detail::super_<Range>::type super_t;
 
 public:
@@ -146,7 +148,7 @@ namespace memoize_range_detail {
 
     struct baby_generator
     {
-        template< class Range >
+        template< class Unused, class Range >
         struct result
         {
             typedef memoize_range<Range> const type;

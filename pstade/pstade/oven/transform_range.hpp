@@ -27,6 +27,7 @@
 #include <boost/type_traits/remove_cv.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/egg/function.hpp>
+#include "./detail/concept_check.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 
@@ -73,6 +74,7 @@ struct transform_range :
     transform_range_detail::super_<Range, UnaryFun, Reference, Value>::type
 {
 private:
+    PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
     typedef typename transform_range_detail::super_<Range, UnaryFun, Reference, Value>::type super_t;
     typedef typename super_t::iterator iter_t;
 
@@ -90,7 +92,7 @@ namespace transform_range_detail {
 
     struct baby_generator
     {
-        template< class Range, class UnaryFun >
+        template< class Unused, class Range, class UnaryFun >
         struct result
         {
             typedef typename boost::remove_cv<UnaryFun>::type fun_t;

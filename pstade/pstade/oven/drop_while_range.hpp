@@ -14,6 +14,7 @@
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/egg/function.hpp>
 #include "./algorithm.hpp" // find_if
+#include "./detail/concept_check.hpp"
 #include "./detail/not.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
@@ -28,6 +29,7 @@ struct drop_while_range :
     sub_range_base<Range>::type
 {
 private:
+    PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
     typedef typename sub_range_base<Range>::type super_t;
 
 public:
@@ -42,7 +44,7 @@ namespace drop_while_range_detail {
 
     struct baby_generator
     {
-        template< class Range, class Predicate >
+        template< class Unused, class Range, class Predicate >
         struct result
         {
             typedef typename boost::remove_cv<Predicate>::type pred_t;

@@ -34,7 +34,7 @@ namespace const_detail {
 
     struct baby
     {
-        template< class T >
+        template< class Unused, class T >
         struct result :
             boost::add_reference<
                 typename boost::add_const<T>::type

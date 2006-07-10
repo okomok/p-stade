@@ -37,7 +37,7 @@ namespace size_initialize_detail {
 
     struct baby
     {
-        template< class T >
+        template< class Unused, class T >
         struct result :
             boost::add_reference<T>
         { };

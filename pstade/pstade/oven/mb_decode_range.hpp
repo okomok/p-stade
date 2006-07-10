@@ -58,7 +58,7 @@ namespace mb_decode_range_detail {
 
     struct baby_generator
     {
-        template< class Range >
+        template< class Unused, class Range >
         struct result
         {
             typedef mb_decode_range<Range> const type;

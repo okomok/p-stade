@@ -483,8 +483,8 @@ Note that ``memoized`` can return a `Forward Range`_ even if its adapting range 
 ``permuted``
 ^^^^^^^^^^^^
 - Header: ``<pstade/oven/permute_range.hpp>``
-- Valid expression: ``rndRng|permuted(irng)``
-- Precondition: ``irng`` is a range of the indices of ``rndRng``.
+- Valid expression: ``rndRng|permuted(rng)``
+- Precondition: ``rng`` is a range of the indices of ``rndRng``.
 - Returns: A range whose iterators behave as if they were the original iterators wrapped in ``boost::permutation_iterator``.
 
 

@@ -13,6 +13,7 @@
 #include <pstade/oven/istream_range.hpp>
 
 
+#include <iterator>
 #include <sstream>
 #include <string>
 #include <pstade/garlic/back_inserter.hpp>
@@ -28,7 +29,11 @@ void test()
         std::string result;
         std::stringstream ss;
         ss << "hello,istream_range!";
+    #if !BOOST_WORKAROUND(BOOST_MSVC, == 1310)
         oven::copy(oven::make_istream_range<char>(ss), garlic::back_inserter(result));
+    #else
+        oven::copy(oven::make_istream_range<char>(ss), std::back_inserter(result));
+    #endif
         BOOST_CHECK(( oven::equals(result, std::string("hello,istream_range!")) ));
     }
 }

@@ -31,7 +31,13 @@ namespace pstade { namespace oven { namespace detail_adaptors {
     //
     template< class BabyAdaptor >
     struct adaptor0
-    { };
+    {
+        BabyAdaptor m_baby;
+
+        explicit adaptor0(BabyAdaptor baby) :
+            m_baby(baby)
+        { } 
+    };
 
     template< class Range, class BabyAdaptor > inline
     typename egg::baby_result1<BabyAdaptor,
@@ -40,7 +46,7 @@ namespace pstade { namespace oven { namespace detail_adaptors {
     operator|(Range& rng, adaptor0<BabyAdaptor> ad)
     {
         pstade::unused(ad);
-        return egg::baby_call<BabyAdaptor>(rng);
+        return egg::baby_call(ad.m_baby, rng);
     }
 
     template< class Range, class BabyAdaptor > inline
@@ -50,7 +56,7 @@ namespace pstade { namespace oven { namespace detail_adaptors {
     operator|(Range const& rng, adaptor0<BabyAdaptor> ad)
     {
         pstade::unused(ad);
-        return egg::baby_call<BabyAdaptor>(rng);
+        return egg::baby_call(ad.m_baby, rng);
     }
 
 
@@ -59,7 +65,10 @@ namespace pstade { namespace oven { namespace detail_adaptors {
     template< class BabyAdaptor, class A0 >
     struct adaptor1
     {
-        explicit adaptor1(A0& a0) :
+        BabyAdaptor m_baby;
+
+        explicit adaptor1(BabyAdaptor baby, A0& a0) :
+            m_baby(baby),
             m_pa0(boost::addressof(a0))
         { }
 
@@ -73,7 +82,7 @@ namespace pstade { namespace oven { namespace detail_adaptors {
     >::type
     operator|(Range& rng, adaptor1<BabyAdaptor, A0> ad)
     {
-        return egg::baby_call<BabyAdaptor>(rng, *ad.m_pa0);
+        return egg::baby_call(ad.m_baby, rng, *ad.m_pa0);
     }
 
     template< class Range, class BabyAdaptor, class A0 > inline
@@ -83,7 +92,7 @@ namespace pstade { namespace oven { namespace detail_adaptors {
     >::type
     operator|(Range const& rng, adaptor1<BabyAdaptor, A0> ad)
     {
-        return egg::baby_call<BabyAdaptor>(rng, *ad.m_pa0);
+        return egg::baby_call(ad.m_baby, rng, *ad.m_pa0);
     }
 
 
@@ -92,7 +101,10 @@ namespace pstade { namespace oven { namespace detail_adaptors {
     template< class BabyAdaptor, class A0, class A1 >
     struct adaptor2
     {
-        explicit adaptor2(A0& a0, A1& a1) :
+        BabyAdaptor m_baby;
+
+        explicit adaptor2(BabyAdaptor baby, A0& a0, A1& a1) :
+            m_baby(baby),
             m_pa0(boost::addressof(a0)), m_pa1(boost::addressof(a1))
         { }
 
@@ -106,7 +118,7 @@ namespace pstade { namespace oven { namespace detail_adaptors {
     >::type
     operator|(Range& rng, adaptor2<BabyAdaptor, A0, A1> ad)
     {
-        return egg::baby_call<BabyAdaptor>(rng, *ad.m_pa0, *ad.m_pa1);
+        return egg::baby_call(ad.m_baby, rng, *ad.m_pa0, *ad.m_pa1);
     }
 
     template< class Range, class BabyAdaptor, class A0, class A1 > inline
@@ -116,7 +128,7 @@ namespace pstade { namespace oven { namespace detail_adaptors {
     >::type
     operator|(const Range& rng, adaptor2<BabyAdaptor, A0, A1> ad)
     {
-        return egg::baby_call<BabyAdaptor>(rng, *ad.m_pa0, *ad.m_pa1);
+        return egg::baby_call(ad.m_baby, rng, *ad.m_pa0, *ad.m_pa1);
     }
 
 
@@ -147,7 +159,10 @@ namespace pstade { namespace oven { namespace detail_adaptors {
 template< class BabyAdaptor, BOOST_PP_ENUM_PARAMS(n, class A) >
 struct BOOST_PP_CAT(adaptor, n)
 {
-    explicit BOOST_PP_CAT(adaptor, n)( BOOST_PP_ENUM(n, PSTADE_OVEN_ctor_arg, ~) ) :
+    BabyAdaptor m_baby;
+
+    explicit BOOST_PP_CAT(adaptor, n)( BabyAdaptor baby, BOOST_PP_ENUM(n, PSTADE_OVEN_ctor_arg, ~) ) :
+        m_baby(baby),
         BOOST_PP_ENUM(n, PSTADE_OVEN_ctor_init, ~)
     { }
 
@@ -161,7 +176,7 @@ typename egg::BOOST_PP_CAT(baby_result, BOOST_PP_INC(n))<BabyAdaptor,
 >::type
 operator|(Range& rng, BOOST_PP_CAT(adaptor, n)< BabyAdaptor, BOOST_PP_ENUM_PARAMS(n, A) > ad)
 {
-    return egg::baby_call<BabyAdaptor>( rng, BOOST_PP_ENUM(n, PSTADE_OVEN_call_arg, ~) );
+    return egg::baby_call( ad.m_baby,  rng, BOOST_PP_ENUM(n, PSTADE_OVEN_call_arg, ~) );
 }
 
 template< class Range, class BabyAdaptor, BOOST_PP_ENUM_PARAMS(n, class A) > inline
@@ -171,7 +186,7 @@ typename egg::BOOST_PP_CAT(baby_result, BOOST_PP_INC(n))<BabyAdaptor,
 >::type
 operator|(Range const& rng, BOOST_PP_CAT(adaptor, n)< BabyAdaptor, BOOST_PP_ENUM_PARAMS(n, A) > ad)
 {
-    return egg::baby_call<BabyAdaptor>( rng, BOOST_PP_ENUM(n, PSTADE_OVEN_call_arg, ~) );
+    return egg::baby_call( ad.m_baby, rng, BOOST_PP_ENUM(n, PSTADE_OVEN_call_arg, ~) );
 }
 
 

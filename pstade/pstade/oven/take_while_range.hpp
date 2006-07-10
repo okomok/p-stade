@@ -19,6 +19,7 @@
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/egg/function.hpp>
 #include "./algorithm.hpp" // find_if
+#include "./detail/concept_check.hpp"
 #include "./detail/not.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
@@ -33,6 +34,7 @@ struct take_while_range :
     sub_range_base<ForwardRange>::type
 {
 private:
+    PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeConcept);
     typedef typename sub_range_base<ForwardRange>::type super_t;
 
 public:
@@ -47,7 +49,7 @@ namespace take_while_range_detail {
 
     struct baby_generator
     {
-        template< class ForwardRange, class Predicate >
+        template< class Unused, class ForwardRange, class Predicate >
         struct result
         {
             typedef typename boost::remove_cv<Predicate>::type pred_t;

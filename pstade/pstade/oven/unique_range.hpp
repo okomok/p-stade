@@ -12,6 +12,7 @@
 
 #include <pstade/egg/function.hpp>
 #include "./adjacent_filter_range.hpp"
+#include "./detail/concept_check.hpp"
 #include "./detail/not_equal_to.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
@@ -41,6 +42,7 @@ struct unique_range :
     unique_range_detail::super_<ForwardRange>::type
 {
 private:
+    PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeConcept);
     typedef typename unique_range_detail::super_<ForwardRange>::type super_t;
 
 public:
@@ -55,7 +57,7 @@ namespace unique_range_detail {
 
     struct baby_generator
     {
-        template< class ForwardRange >
+        template< class Unused, class ForwardRange >
         struct result
         {
             typedef unique_range<ForwardRange> const type;
