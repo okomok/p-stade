@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include "./accumulate_iterator.hpp"
 #include "./adjacent_filter_iterator.hpp"
 #include "./check_iterator.hpp"
 #include "./joint_iterator.hpp"

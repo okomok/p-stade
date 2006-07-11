@@ -150,7 +150,7 @@ friend class boost::iterator_core_access;
         check_iterator_detail::check_singularity(*this);
 
         if (is_end())
-            check_iterator_detail::throw_error();        
+            check_iterator_detail::throw_error();
 
         ++this->base_reference();
     }

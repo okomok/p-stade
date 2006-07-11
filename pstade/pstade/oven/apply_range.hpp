@@ -15,10 +15,10 @@
 // Will be cute with the upcoming Boost.Phoenix-v2.
 
 
-#include <boost/type_traits/remove_cv.hpp>
 #include <pstade/egg/function.hpp>
 #include "./begin_end.hpp"
 #include "./detail/concept_check.hpp"
+#include "./detail/decay_functor.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./sub_range_base_type.hpp"
@@ -57,8 +57,8 @@ namespace apply_range_detail {
         template< class Unused, class Range, class BeginFun, class EndFun = end_fun >
         struct result
         {
-            typedef typename boost::remove_cv<BeginFun>::type bfun_t;
-            typedef typename boost::remove_cv<EndFun>::type efun_t;
+            typedef typename detail::decay_functor<BeginFun>::type bfun_t;
+            typedef typename detail::decay_functor<EndFun>::type efun_t;
             typedef apply_range<Range, bfun_t, efun_t> const type;
         };
 

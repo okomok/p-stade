@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include "./accumulate_range.hpp"
 #include "./adjacent_filter_range.hpp"
 #include "./append_range.hpp"
 #include "./apply_range.hpp"

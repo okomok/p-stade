@@ -14,10 +14,10 @@
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <boost/range/result_iterator.hpp>
-#include <boost/type_traits/remove_cv.hpp>
 #include <pstade/egg/function.hpp>
 #include "./adjacent_filter_iterator.hpp"
 #include "./detail/concept_check.hpp"
+#include "./detail/decay_functor.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 
@@ -70,7 +70,7 @@ namespace adjacent_filter_range_detail {
         template< class Unused, class ForwardRange, class BinaryPred >
         struct result
         {
-            typedef typename boost::remove_cv<BinaryPred>::type pred_t;
+            typedef typename detail::decay_functor<BinaryPred>::type pred_t;
             typedef adjacent_filter_range<ForwardRange, pred_t> const type;
         };
 

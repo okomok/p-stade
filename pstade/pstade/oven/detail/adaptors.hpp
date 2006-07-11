@@ -11,12 +11,16 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Note:
+//
+// Prefer reference as member! for normal functions.
+
+
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
-#include <boost/utility/addressof.hpp> // for Boost.Lambda functors
 #include <boost/type_traits/add_const.hpp>
 #include <pstade/egg/baby_call.hpp>
 #include <pstade/egg/baby_result_type.hpp>
@@ -69,10 +73,10 @@ namespace pstade { namespace oven { namespace detail_adaptors {
 
         explicit adaptor1(BabyAdaptor baby, A0& a0) :
             m_baby(baby),
-            m_pa0(boost::addressof(a0))
+            m_a0(a0)
         { }
 
-        A0 *m_pa0;
+        A0& m_a0;
     };
 
     template< class Range, class BabyAdaptor, class A0 > inline
@@ -82,7 +86,7 @@ namespace pstade { namespace oven { namespace detail_adaptors {
     >::type
     operator|(Range& rng, adaptor1<BabyAdaptor, A0> ad)
     {
-        return egg::baby_call(ad.m_baby, rng, *ad.m_pa0);
+        return egg::baby_call(ad.m_baby, rng, ad.m_a0);
     }
 
     template< class Range, class BabyAdaptor, class A0 > inline
@@ -92,7 +96,7 @@ namespace pstade { namespace oven { namespace detail_adaptors {
     >::type
     operator|(Range const& rng, adaptor1<BabyAdaptor, A0> ad)
     {
-        return egg::baby_call(ad.m_baby, rng, *ad.m_pa0);
+        return egg::baby_call(ad.m_baby, rng, ad.m_a0);
     }
 
 
@@ -105,10 +109,10 @@ namespace pstade { namespace oven { namespace detail_adaptors {
 
         explicit adaptor2(BabyAdaptor baby, A0& a0, A1& a1) :
             m_baby(baby),
-            m_pa0(boost::addressof(a0)), m_pa1(boost::addressof(a1))
+            m_a0(a0), m_a1(a1)
         { }
 
-        A0 *m_pa0; A1 *m_pa1;
+        A0& m_a0; A1& m_a1;
     };
 
     template< class Range, class BabyAdaptor, class A0, class A1 > inline
@@ -118,7 +122,7 @@ namespace pstade { namespace oven { namespace detail_adaptors {
     >::type
     operator|(Range& rng, adaptor2<BabyAdaptor, A0, A1> ad)
     {
-        return egg::baby_call(ad.m_baby, rng, *ad.m_pa0, *ad.m_pa1);
+        return egg::baby_call(ad.m_baby, rng, ad.m_a0, ad.m_a1);
     }
 
     template< class Range, class BabyAdaptor, class A0, class A1 > inline
@@ -128,16 +132,16 @@ namespace pstade { namespace oven { namespace detail_adaptors {
     >::type
     operator|(const Range& rng, adaptor2<BabyAdaptor, A0, A1> ad)
     {
-        return egg::baby_call(ad.m_baby, rng, *ad.m_pa0, *ad.m_pa1);
+        return egg::baby_call(ad.m_baby, rng, ad.m_a0, ad.m_a1);
     }
 
 
     // 3ary -
     //
     #define PSTADE_OVEN_ctor_arg(Z, N, _)   BOOST_PP_CAT(A, N)& BOOST_PP_CAT(a, N)
-    #define PSTADE_OVEN_ctor_init(Z, N, _)  BOOST_PP_CAT(m_pa, N)(boost::addressof(BOOST_PP_CAT(a, N)))
-    #define PSTADE_OVEN_member(Z, N, _)     BOOST_PP_CAT(A, N) *BOOST_PP_CAT(m_pa, N);
-    #define PSTADE_OVEN_call_arg(Z, N, _)   *ad.BOOST_PP_CAT(m_pa, N)
+    #define PSTADE_OVEN_ctor_init(Z, N, _)  BOOST_PP_CAT(m_a, N)(BOOST_PP_CAT(a, N))
+    #define PSTADE_OVEN_member(Z, N, _)     BOOST_PP_CAT(A, N)& BOOST_PP_CAT(m_a, N);
+    #define PSTADE_OVEN_call_arg(Z, N, _)   ad.BOOST_PP_CAT(m_a, N)
 
     #define BOOST_PP_ITERATION_PARAMS_1 (3, (3, PSTADE_OVEN_RANGE_ADAPTOR_MAX_ARITY, <pstade/oven/detail/adaptors.hpp>))
     #include BOOST_PP_ITERATE()

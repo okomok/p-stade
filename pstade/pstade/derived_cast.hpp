@@ -44,25 +44,25 @@ namespace derived_cast_detail {
     struct temporary
     {
         explicit temporary(BaseT& base) :
-            m_pbase(boost::addressof(base))
+            m_base(base)
         { };
 
         template< class DerivedT >
         operator DerivedT& () const
         {
-            return pstade::derived_cast<DerivedT>(*m_pbase);
+            return pstade::derived_cast<DerivedT>(m_base);
         }
 
 #if !defined(PSTADE_DERIVED_CAST_NO_POINTER_DERIVED)
         template< class DerivedT >
         operator DerivedT *() const
         {
-            return boost::addressof( pstade::derived_cast<DerivedT>(*m_pbase) );
+            return boost::addressof( pstade::derived_cast<DerivedT>(m_base) );
         }
 #endif
 
     private:
-        BaseT *m_pbase;
+        BaseT& m_base;
     };
 
 

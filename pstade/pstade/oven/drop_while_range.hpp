@@ -11,10 +11,10 @@
 
 
 #include <boost/range/end.hpp>
-#include <boost/type_traits/remove_cv.hpp>
 #include <pstade/egg/function.hpp>
 #include "./algorithm.hpp" // find_if
 #include "./detail/concept_check.hpp"
+#include "./detail/decay_functor.hpp"
 #include "./detail/not.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
@@ -47,7 +47,7 @@ namespace drop_while_range_detail {
         template< class Unused, class Range, class Predicate >
         struct result
         {
-            typedef typename boost::remove_cv<Predicate>::type pred_t;
+            typedef typename detail::decay_functor<Predicate>::type pred_t;
             typedef drop_while_range<Range, pred_t> const type;
         };
 

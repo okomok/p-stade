@@ -39,7 +39,7 @@ namespace adjacent_filter_iterator_detail {
     template< class ForwardIter >
     struct traversal
     {
-        typedef boost::tuple<
+        typedef boost::tuples::tuple<
             ForwardIter,
             detail::an_iterator<boost::bidirectional_traversal_tag>
         > iters_t;

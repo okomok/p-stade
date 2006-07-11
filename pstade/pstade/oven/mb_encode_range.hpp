@@ -13,7 +13,6 @@
 #include <boost/archive/iterators/mb_from_wchar.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <boost/range/result_iterator.hpp>
-#include <boost/type_traits/remove_cv.hpp>
 #include <pstade/egg/function.hpp>
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"

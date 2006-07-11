@@ -18,8 +18,8 @@
 #include <boost/static_assert.hpp>
 #include <boost/type_traits/is_const.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <boost/utility/addressof.hpp>
 #include <boost/utility/enable_if.hpp>
+#include <boost/utility/addressof.hpp>
 #include <pstade/apple/has_range_constructor.hpp>
 #include <pstade/apple/is_boost_range.hpp>
 #include <pstade/overload.hpp>

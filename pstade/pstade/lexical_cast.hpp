@@ -11,7 +11,6 @@
 
 
 #include <boost/lexical_cast.hpp>
-#include <boost/utility/addressof.hpp>
 
 
 namespace pstade {
@@ -31,17 +30,17 @@ namespace lexical_detail {
     struct temp
     {
         explicit temp(SourceT const& src) :
-            m_psrc(boost::addressof(src))
+            m_src(src)
         { }
 
         template< class TargetT >
         operator TargetT() const
         {
-            return pstade::lexical_cast<TargetT>(*m_psrc);
+            return pstade::lexical_cast<TargetT>(m_src);
         }
 
     private:
-        SourceT const *m_psrc;
+        SourceT const& m_src;
     };
 
 

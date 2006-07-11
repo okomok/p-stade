@@ -14,6 +14,7 @@
 #include <boost/noncopyable.hpp>
 #include <boost/range/result_iterator.hpp>
 #include <boost/type_traits/add_const.hpp>
+#include <boost/utility/addressof.hpp>
 #include <pstade/const_overloaded.hpp>
 #include <pstade/oven/is_lightweight_proxy.hpp>
 #include "../state/null_state.hpp"

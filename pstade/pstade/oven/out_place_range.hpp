@@ -25,11 +25,11 @@
 #include <vector>
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
-#include <boost/type_traits/remove_cv.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/garlic/back_inserter.hpp>
 #include "./algorithm.hpp" // copy
 #include "./detail/concept_check.hpp"
+#include "./detail/decay_functor.hpp"
 #include "./detail/null.hpp"
 #include "./direct_range.hpp"
 #include "./indirect_range.hpp"
@@ -112,7 +112,7 @@ namespace out_place_range_detail {
         template< class Unused, class ForwardRange, class Functor = detail::null_fun >
         struct result
         {
-            typedef typename boost::remove_cv<Functor>::type fun_t;
+            typedef typename detail::decay_functor<Functor>::type fun_t;
             typedef out_place_range<ForwardRange, fun_t> const type;
         };
 

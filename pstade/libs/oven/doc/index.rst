@@ -367,7 +367,7 @@ Specification
 
 ``dropped_while``
 ^^^^^^^^^^^^^^^^^
-``dropped`` returns the remaining suffix of its adapting range of elements that satisfy `Predicate`_::
+``dropped_while`` returns the remaining suffix of its adapting range of elements that satisfy `Predicate`_::
 
 	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\dropped_while.ipp
 
