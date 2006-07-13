@@ -15,7 +15,7 @@
 #include <boost/utility/result_of.hpp>
 #include <pstade/egg/function.hpp>
 #include "./detail/concept_check.hpp"
-#include "./detail/decay_functor.hpp"
+#include "./detail/decay_function.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./transform_range.hpp"
@@ -92,7 +92,7 @@ namespace zip_with_range_detail {
         template< class Unused, class Range0, class Range1, class BinaryFun >
         struct result
         {
-            typedef typename detail::decay_functor<BinaryFun>::type fun_t;
+            typedef typename detail::decay_function<BinaryFun>::type fun_t;
             typedef zip_with_range<Range0, Range1, fun_t> const type;
         };
 

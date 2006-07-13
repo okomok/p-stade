@@ -48,9 +48,12 @@ template< class BabyAdaptor >
 struct range_adaptor
 {
 
-    // structor
+    // structors
     //
     BabyAdaptor m_baby;
+
+    explicit range_adaptor()
+    { }
 
     explicit range_adaptor(BabyAdaptor baby) :
         m_baby(baby)
@@ -151,7 +154,7 @@ operator|(Range const& rng, range_adaptor<BabyAdaptor> ad)
 #define PSTADE_OVEN_RANGE_ADAPTOR(Name, Baby) \
     PSTADE_INSTANCE( \
         pstade::oven::range_adaptor< pstade::comma_protect<void(Baby)>::type > const, \
-        Name, ((pstade::comma_protect<void(Baby)>::type())) \
+        Name, value \
     ) \
 /**/
 

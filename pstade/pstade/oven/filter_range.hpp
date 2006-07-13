@@ -25,7 +25,7 @@
 #include <boost/range/result_iterator.hpp>
 #include <pstade/egg/function.hpp>
 #include "./detail/concept_check.hpp"
-#include "./detail/decay_functor.hpp"
+#include "./detail/decay_function.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 
@@ -79,7 +79,7 @@ namespace filter_range_detail {
         template< class Unused, class Range, class Predicate >
         struct result
         {
-            typedef typename detail::decay_functor<Predicate>::type pred_t;
+            typedef typename detail::decay_function<Predicate>::type pred_t;
             typedef filter_range<Range, pred_t> const type;
         };
 

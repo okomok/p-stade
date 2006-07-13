@@ -27,7 +27,7 @@
 #include <boost/utility/result_of.hpp>
 #include <pstade/egg/function.hpp>
 #include "./detail/concept_check.hpp"
-#include "./detail/decay_functor.hpp"
+#include "./detail/decay_function.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 
@@ -95,7 +95,7 @@ namespace transform_range_detail {
         template< class Unused, class Range, class UnaryFun >
         struct result
         {
-            typedef typename detail::decay_functor<UnaryFun>::type fun_t;
+            typedef typename detail::decay_function<UnaryFun>::type fun_t;
             typedef transform_range<Range, fun_t> const type;
         };
 

@@ -19,7 +19,7 @@
 #include <pstade/egg/function.hpp>
 #include "./algorithm.hpp" // find_if
 #include "./detail/concept_check.hpp"
-#include "./detail/decay_functor.hpp"
+#include "./detail/decay_function.hpp"
 #include "./detail/not.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
@@ -52,7 +52,7 @@ namespace take_while_range_detail {
         template< class Unused, class ForwardRange, class Predicate >
         struct result
         {
-            typedef typename detail::decay_functor<Predicate>::type pred_t;
+            typedef typename detail::decay_function<Predicate>::type pred_t;
             typedef take_while_range<ForwardRange, pred_t> const type;
         };
 

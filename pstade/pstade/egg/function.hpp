@@ -36,6 +36,9 @@ namespace pstade { namespace egg {
         typedef detail::operators<BabyFunction> super_t;
 
     public:
+        explicit function()
+        { }
+
         explicit function(BabyFunction fun) :
             super_t(fun)
         { }
@@ -87,9 +90,6 @@ namespace boost {
 } // namespace boost
 
 
-// See:
-// Effective STL Item.6
-//
 #define PSTADE_EGG_FUNCTION(Name, Baby) \
     typedef pstade::egg::function< \
         pstade::comma_protect<void(Baby)>::type \
@@ -97,7 +97,7 @@ namespace boost {
     \
     PSTADE_INSTANCE( \
         pstade::egg::function< pstade::comma_protect<void(Baby)>::type > const, \
-        Name, ((pstade::comma_protect<void(Baby)>::type())) \
+        Name, value \
     ) \
 /**/
 

@@ -42,6 +42,9 @@ private:
     BabyFunction m_baby;
 
 public:
+    explicit operators()
+    { }
+
     explicit operators(BabyFunction baby) :
         m_baby(baby)
     { }

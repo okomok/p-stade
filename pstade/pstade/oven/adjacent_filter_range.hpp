@@ -17,7 +17,7 @@
 #include <pstade/egg/function.hpp>
 #include "./adjacent_filter_iterator.hpp"
 #include "./detail/concept_check.hpp"
-#include "./detail/decay_functor.hpp"
+#include "./detail/decay_function.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 
@@ -70,7 +70,7 @@ namespace adjacent_filter_range_detail {
         template< class Unused, class ForwardRange, class BinaryPred >
         struct result
         {
-            typedef typename detail::decay_functor<BinaryPred>::type pred_t;
+            typedef typename detail::decay_function<BinaryPred>::type pred_t;
             typedef adjacent_filter_range<ForwardRange, pred_t> const type;
         };
 

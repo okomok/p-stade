@@ -29,7 +29,7 @@
 #include <pstade/garlic/back_inserter.hpp>
 #include "./algorithm.hpp" // copy
 #include "./detail/concept_check.hpp"
-#include "./detail/decay_functor.hpp"
+#include "./detail/decay_function.hpp"
 #include "./detail/null.hpp"
 #include "./direct_range.hpp"
 #include "./indirect_range.hpp"
@@ -69,7 +69,8 @@ namespace out_place_range_detail {
     {
         std::auto_ptr<Sequence> pseq(new Sequence()); {
             // Workaround:
-            // The weird VC7.1 fails to find the garlic's overload for STL Sequences.
+            // The weird VC7.1 fails to find the garlic's overload for STL Sequences
+            // in the case of 'sort_range' which is derived from 'out_place_range'.
         #if !BOOST_WORKAROUND(BOOST_MSVC, == 1310)
             oven::copy(rng|directed, garlic::back_inserter(*pseq));
         #else
@@ -112,7 +113,7 @@ namespace out_place_range_detail {
         template< class Unused, class ForwardRange, class Functor = detail::null_fun >
         struct result
         {
-            typedef typename detail::decay_functor<Functor>::type fun_t;
+            typedef typename detail::decay_function<Functor>::type fun_t;
             typedef out_place_range<ForwardRange, fun_t> const type;
         };
 

@@ -18,7 +18,7 @@
 #include <pstade/egg/function.hpp>
 #include "./accumulate_iterator.hpp"
 #include "./detail/concept_check.hpp"
-#include "./detail/decay_functor.hpp"
+#include "./detail/decay_function.hpp"
 #include "./detail/plus.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
@@ -70,10 +70,10 @@ namespace accumulate_range_detail {
 
     struct baby_generator
     {
-        template< class Unused, class Range, class Value = void, class BinaryFun = detail::plus_fun >
+        template< class Unused, class Range, class Value, class BinaryFun = detail::plus_fun >
         struct result
         {
-            typedef typename detail::decay_functor<BinaryFun>::type fun_t;
+            typedef typename detail::decay_function<BinaryFun>::type fun_t;
             typedef accumulate_range<Range, fun_t> const type;
         };
 
