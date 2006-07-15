@@ -25,6 +25,7 @@
 
 #include <algorithm> // swap
 #include <iosfwd> // basic_ostream
+#include <boost/operators.hpp> // totally_ordered
 #include <boost/ptr_container/clone_allocator.hpp>
 #include <boost/utility/addressof.hpp>
 #include <pstade/overload.hpp>
@@ -68,7 +69,8 @@ namespace assignable_detail {
 
 
 template< class Clonable >
-struct assignable
+struct assignable :
+    private boost::totally_ordered< assignable<Clonable> >
 {
     // structors
     //
@@ -116,55 +118,25 @@ struct assignable
 
     typedef Clonable element_type; // for 'boost::pointee'
 
+    // relationals
+    //
+    bool operator< (assignable const& other) const
+    {
+        return *m_ptr < *other;
+    }
+
+    bool operator==(assignable const& other) const
+    {
+        return *m_ptr == *other;
+    }
+
 private:
     Clonable *m_ptr;
 };
 
 
-// relational operators
-//
-template< class Clonable1, class Clonable2 > inline
-bool operator==(assignable<Clonable1> const& a1, assignable<Clonable2> const& a2)
-{
-    return *a1 == *a2;
-}
-
-template< class Clonable1, class Clonable2 > inline
-bool operator!=(assignable<Clonable1> const& a1, assignable<Clonable2> const& a2)
-{
-    return !(a1 == a2);
-}
-
-template< class Clonable1, class Clonable2 > inline
-bool operator< (assignable<Clonable1> const& a1, assignable<Clonable2> const& a2)
-{
-    return *a1 < *a2;
-}
-
-template< class Clonable1, class Clonable2 > inline
-bool operator> (assignable<Clonable1> const& a1, assignable<Clonable2> const& a2)
-{
-    return a2 < a1;
-}
-
-template< class Clonable1, class Clonable2 > inline
-bool operator<=(assignable<Clonable1> const& a1, assignable<Clonable2> const& a2)
-{
-    return !(a2 < a1);
-}
-
-template< class Clonable1, class Clonable2 > inline
-bool operator>=(assignable<Clonable1> const& a1, assignable<Clonable2> const& a2)
-{
-    return !(a1 < a2);
-}
-
-
-// misc
-//
-
-template< class Clonable1, class Clonable2 > inline
-void swap(assignable<Clonable1>& a1, assignable<Clonable2>& a2)
+template< class Clonable > inline
+void swap(assignable<Clonable>& a1, assignable<Clonable>& a2)
 {
     a1.swap(a2);
 }
