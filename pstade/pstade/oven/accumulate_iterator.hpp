@@ -102,7 +102,7 @@ private:
 friend class boost::iterator_core_access;
     ref_t dereference() const
     {
-        return m_fun(m_state, *this->base_reference());
+        return m_fun(m_state, *this->base());
     }
 
     void increment()

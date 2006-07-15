@@ -246,6 +246,14 @@ Specification
 - ``rfun``: any `Functor`_ which can be used with ``boost::result_of``
 
 
+``accumulated``
+^^^^^^^^^^^^^^^
+- Header: ``<pstade/oven/accumulate_range.hpp>``
+- Valid expression: ``rng|accumulated(fun)``
+- Precondition: ``fun`` is a `Functor`_.
+- Returns: A range which is accumulated by using ``fun``.
+
+
 ``adjacent_filtered``
 ^^^^^^^^^^^^^^^^^^^^^
 ``adjacent_filtered`` returns a range whose adjacent pairs are filtered by using a `Predicate`_::
@@ -509,6 +517,13 @@ Note that ``memoized`` can return a `Forward Range`_ even if its adapting range 
 - Valid expression: ``rng|prepended(v)``
 - Precondition: The ``iterator`` type of ``rng`` is convertible to ``v*``.
 - Returns: ``oven::make_single_range(v)|jointed(rng)``.
+
+
+``regularized``
+^^^^^^^^^^^^^^^
+- Header: ``<pstade/oven/regularize_range.hpp>``
+- Valid expression: ``rng|regularized``
+- Returns: ``[boost::begin(rng),boost::end(rng))``, which is a conforming range, even if iterators of ``rng`` are not assignable.
 
 
 ``repeated``

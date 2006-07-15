@@ -18,6 +18,7 @@ rule wine-test ( name )
 test-suite wine :
     [ wine-test adl_barrier ]
     [ wine-test arg ]
+    [ wine-test assignable ]
     [ wine-test check ]
     [ wine-test comma_protect ]
     [ wine-test const ]

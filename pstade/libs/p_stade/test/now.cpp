@@ -10,12 +10,25 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/assign/list_of.hpp>
-#include <boost/assign/ptr_list_of.hpp>
+#include <boost/range/concepts.hpp>
+#include <boost/lambda/lambda.hpp>
+#include <boost/lambda/core.hpp>
+
+
+#include <vector>
+
+
+template< class Fun >
+void foo(Fun f)
+{
+    Fun g(f);
+    g = f;
+}
 
 
 void test()
 {
+    ::foo(boost::lambda::_1 != 'x');
 }
 
 

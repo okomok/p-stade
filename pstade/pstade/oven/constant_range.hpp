@@ -28,7 +28,6 @@ private:
     PSTADE_OVEN_DETAIL_REQUIRES(IgnoredRange, SinglePassRangeConcept);
     PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
     typedef typename sub_range_base<Range>::type super_t;
-    typedef typename super_t::iterator iter_t;
 
 public:
     constant_range(IgnoredRange& , Range& rng) :

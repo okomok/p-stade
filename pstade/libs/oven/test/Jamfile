@@ -56,6 +56,7 @@ test-suite oven :
     [ oven-test permute_range ]
     [ oven-test point_range ]
     [ oven-test position_range ]
+    [ oven-test regularize_range ]
     [ oven-test repeat_range ]
     [ oven-test reverse_range ]
     [ oven-test share_range ]

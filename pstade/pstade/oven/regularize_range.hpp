@@ -1,5 +1,5 @@
-#ifndef PSTADE_OVEN_CHECK_RANGE_HPP
-#define PSTADE_OVEN_CHECK_RANGE_HPP
+#ifndef PSTADE_OVEN_REGULARIZE_RANGE_HPP
+#define PSTADE_OVEN_REGULARIZE_RANGE_HPP
 
 
 // PStade.Oven
@@ -10,57 +10,59 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/range/begin.hpp>
-#include <boost/range/end.hpp>
+// Workaround for:
+//
+// Boost.Lambda functors are copy-constructible, but
+// are neither default-constructible nor assignable.
+// Thus, strictly speaking, 'filter_iterator' using them
+// is not a conforming iterator.
+
+
 #include <boost/range/iterator_range.hpp>
 #include <boost/range/result_iterator.hpp>
 #include <pstade/egg/function.hpp>
-#include "./check_iterator.hpp"
 #include "./detail/concept_check.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
+#include "./regularize_iterator.hpp"
 
 
 namespace pstade { namespace oven {
 
 
-namespace check_range_detail {
+namespace regularize_range_detail {
 
 
     template< class Range >
     struct super_
     {
         typedef boost::iterator_range<
-            check_iterator<
+            regularize_iterator<
                 typename boost::range_result_iterator<Range>::type
             >
         > type;
     };
 
 
-} // namespace check_range_detail
+} // namespace regularize_range_detail
 
 
 template< class Range >
-struct check_range :
-    check_range_detail::super_<Range>::type
+struct regularize_range :
+    regularize_range_detail::super_<Range>::type
 {
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
-    typedef typename check_range_detail::super_<Range>::type super_t;
-    typedef typename super_t::iterator iter_t;
+    typedef typename regularize_range_detail::super_<Range>::type super_t;
 
 public:
-    explicit check_range(Range& rng) :
-        super_t(
-            iter_t(boost::begin(rng), boost::begin(rng), boost::end(rng)),
-            iter_t(boost::end(rng), boost::begin(rng), boost::end(rng))
-        )
+    explicit regularize_range(Range& rng) :
+        super_t(rng)
     { }
 };
 
 
-namespace check_range_detail {
+namespace regularize_range_detail {
 
 
     struct baby_generator
@@ -68,7 +70,7 @@ namespace check_range_detail {
         template< class Unused, class Range  >
         struct result
         {
-            typedef check_range<Range> const type;
+            typedef regularize_range<Range> const type;
         };
 
         template< class Result, class Range >
@@ -79,17 +81,17 @@ namespace check_range_detail {
     };
 
 
-} // namespace check_range_detail
+} // namespace regularize_range_detail
 
 
-PSTADE_EGG_FUNCTION(make_check_range, check_range_detail::baby_generator)
-PSTADE_OVEN_RANGE_ADAPTOR(checked, check_range_detail::baby_generator)
+PSTADE_EGG_FUNCTION(make_regularize_range, regularize_range_detail::baby_generator)
+PSTADE_OVEN_RANGE_ADAPTOR(regularized, regularize_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven
 
 
-PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE(pstade::oven::check_range, 1)
+PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE(pstade::oven::regularize_range, 1)
 
 
 #endif

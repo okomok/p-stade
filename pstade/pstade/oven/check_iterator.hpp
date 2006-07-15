@@ -142,7 +142,7 @@ friend class boost::iterator_core_access;
         if (is_end())
             check_iterator_detail::throw_error();
 
-        return *this->base_reference();
+        return *this->base();
     }
 
     void increment()

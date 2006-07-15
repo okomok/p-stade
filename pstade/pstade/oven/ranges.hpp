@@ -44,6 +44,7 @@
 #include "./point_range.hpp"
 #include "./position_range.hpp"
 #include "./prepend_range.hpp"
+#include "./regularize_range.hpp"
 #include "./repeat_range.hpp"
 #include "./reverse_range.hpp"
 #include "./share_range.hpp"

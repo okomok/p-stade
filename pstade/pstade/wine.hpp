@@ -12,6 +12,7 @@
 
 #include "./adl_barrier.hpp"
 #include "./arg.hpp"
+#include "./assignable.hpp"
 #include "./check.hpp"
 #include "./comma_protect.hpp"
 #include "./const.hpp"

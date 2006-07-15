@@ -23,7 +23,7 @@
 namespace pstade { namespace oven { namespace detail {
 
 
-namespace default_constructible_detail {
+namespace regularize_detail {
 
 
     template< class Functor >
@@ -86,28 +86,28 @@ namespace default_constructible_detail {
     };
 
 
-} // namespace default_constructible_detail
+} // namespace regularize_detail
 
 
 template< class Functor >
-struct default_constructible_fun :
-    default_constructible_detail::super_<Functor>::type
+struct regularize_fun :
+    regularize_detail::super_<Functor>::type
 {
 private:
-    typedef typename default_constructible_detail::super_<Functor>::type super_t;
+    typedef typename regularize_detail::super_<Functor>::type super_t;
 
 public:
-    explicit default_constructible_fun(Functor fun) :
-        super_t(default_constructible_detail::baby<Functor>(fun))
+    explicit regularize_fun(Functor fun) :
+        super_t(regularize_detail::baby<Functor>(fun))
     { }
 }; 
 
 
 template< class Functor >
-default_constructible_fun<Functor> const
-default_constructible(Functor fun)
+regularize_fun<Functor> const
+regularize(Functor fun)
 {
-    return default_constructible_fun<Functor>(fun);
+    return regularize_fun<Functor>(fun);
 }
 
 

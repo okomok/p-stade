@@ -15,17 +15,13 @@
 #include <boost/mpl/if.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/static_assert.hpp>
-#include <boost/type_traits/is_const.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/utility/enable_if.hpp>
-#include <boost/utility/addressof.hpp>
 #include <pstade/apple/has_range_constructor.hpp>
 #include <pstade/apple/is_boost_range.hpp>
 #include <pstade/overload.hpp>
 #include <pstade/unused.hpp>
 #include "./algorithm.hpp" // copy
-#include "./copy_range.hpp"
 #include "./detail/concept_check.hpp"
 #include "./detail/debug_distance.hpp"
 #include "./range_adaptor.hpp"
@@ -71,17 +67,17 @@ namespace copy_range_detail {
     struct temp
     {
         explicit temp(Range const& rng) :
-            m_prng(boost::addressof(rng))
+            m_rng(rng)
         { }
 
         template< class T >
         operator T() const
         {
-            return oven::copy_range<T>(*m_prng);
+            return oven::copy_range<T>(m_rng);
         }
 
     private:
-        Range const *m_prng;
+        Range const& m_rng;
     };
 
 
