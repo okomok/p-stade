@@ -38,14 +38,14 @@ namespace assignable_detail {
 
 
     template< class T >
-    T *pstade_new_clone(T const& x, overload<>)
+    T *pstade_assignable_new_clone(T const& x, overload<>)
     {
         return boost::heap_clone_allocator::allocate_clone(x);
     }
 
 
     template< class T > inline
-    void pstade_delete_clone(T *ptr, overload<>)
+    void pstade_assignable_delete_clone(T *ptr, overload<>)
     {
         return boost::heap_clone_allocator::deallocate_clone(ptr);
     }
@@ -54,14 +54,14 @@ namespace assignable_detail {
     template< class T > inline
     T *new_clone(T const& x)
     {
-        return pstade_new_clone(x, overload<>());
+        return pstade_assignable_new_clone(x, overload<>());
     }
 
 
     template< class T > inline
     void delete_clone(T *ptr)
     {
-        return pstade_delete_clone(ptr, overload<>());
+        return pstade_assignable_delete_clone(ptr, overload<>());
     }
 
 
@@ -106,7 +106,7 @@ struct assignable :
 
     // accessors
     //
-    Clonable& operator*() const
+    Clonable& operator *() const
     {
         return *m_ptr;
     }
@@ -118,7 +118,7 @@ struct assignable :
 
     typedef Clonable element_type; // for 'boost::pointee'
 
-    // relationals
+    // relations
     //
     bool operator< (assignable const& other) const
     {

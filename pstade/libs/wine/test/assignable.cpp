@@ -53,6 +53,14 @@ struct yyy : xxx
 };
 
 
+// has no relational operators.
+struct zzz
+{
+    explicit zzz(int )
+    { }
+};
+
+
 inline
 bool operator<(::xxx const& x1, ::xxx const& x2)
 {
@@ -115,6 +123,10 @@ void test()
         ::check_assignable(ax);
         boost::optional< assignable< ::xxx > > ox;
         ::check_regular(ox);
+    }
+
+    {
+        assignable< ::zzz > az(::zzz(3));
     }
 }
 
