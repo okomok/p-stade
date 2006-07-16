@@ -37,7 +37,7 @@ namespace pstade {
 namespace assignable_detail {
 
 
-    template< class T >
+    template< class T > inline
     T *pstade_assignable_new_clone(T const& x, overload<>)
     {
         return boost::heap_clone_allocator::allocate_clone(x);
