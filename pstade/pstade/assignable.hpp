@@ -24,11 +24,12 @@
 
 
 #include <algorithm> // swap
-#include <iosfwd> // basic_ostream
 #include <boost/operators.hpp> // totally_ordered
 #include <boost/ptr_container/clone_allocator.hpp>
-#include <boost/utility/addressof.hpp>
 #include <pstade/overload.hpp>
+#include <pstade/radish/outputable.hpp>
+#include <pstade/radish/pointer.hpp>
+#include <pstade/radish/swappable.hpp>
 
 
 namespace pstade {
@@ -70,7 +71,10 @@ namespace assignable_detail {
 
 template< class Clonable >
 struct assignable :
-    private boost::totally_ordered< assignable<Clonable> >
+    radish::outputable< assignable<Clonable> >,
+    radish::pointer< assignable<Clonable>, Clonable >,
+    radish::swappable< assignable<Clonable> >,
+    boost::totally_ordered< assignable<Clonable> >
 {
     // structors
     //
@@ -91,34 +95,31 @@ struct assignable :
         assignable_detail::delete_clone(m_ptr);
     }
 
-    // modifiers
-    //
     assignable& operator=(assignable const& other)
     {
         assignable(other).swap(*this);
         return *this;
     }
 
-    void swap(assignable& other)
-    {
-        std::swap(m_ptr, other.m_ptr);
-    }
-
-    // accessors
+    // radish
     //
-    Clonable& operator *() const
+    template< class OStream >
+    void pstade_radish_output(OStream& os) const
     {
-        return *m_ptr;
+        os << *m_ptr;
     }
 
-    Clonable *operator->() const
+    Clonable *pstade_radish_pointer() const
     {
         return m_ptr;
     }
 
-    typedef Clonable element_type; // for 'boost::pointee'
+    void pstade_radish_swap(assignable& other)
+    {
+        std::swap(m_ptr, other.m_ptr);
+    }
 
-    // relations
+    // totally_ordered
     //
     bool operator< (assignable const& other) const
     {
@@ -133,29 +134,6 @@ struct assignable :
 private:
     Clonable *m_ptr;
 };
-
-
-template< class Clonable > inline
-void swap(assignable<Clonable>& a1, assignable<Clonable>& a2)
-{
-    a1.swap(a2);
-}
-
-
-template< class Clonable > inline
-Clonable *get_pointer(assignable<Clonable> const& a)
-{
-    return boost::addressof(*a);
-}
-
-
-template< class CharT, class Traits, class Clonable >
-std::basic_ostream<CharT, Traits>&
-operator<<(std::basic_ostream<CharT, Traits>& os, assignable<Clonable> const& a)
-{
-    os << *a;
-    return os;
-}
 
 
 template< class Clonable > inline

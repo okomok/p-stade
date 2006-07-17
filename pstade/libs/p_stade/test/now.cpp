@@ -15,20 +15,43 @@
 #include <boost/lambda/core.hpp>
 
 
+#include <boost/iterator/new_iterator_tests.hpp>
+#include <boost/iterator/filter_iterator.hpp>
+#include <pstade/oven/regularize_iterator.hpp>
+
+
 #include <vector>
 
 
-template< class Fun >
-void foo(Fun f)
+template< class Iterator >
+void foo(Iterator x)
 {
-    Fun g(f);
-    g = f;
+    Iterator y;
+    y = x;
 }
 
 
 void test()
 {
-    ::foo(boost::lambda::_1 != 'x');
+    std::string rng("axax");
+
+/* error:
+    ::foo(
+        boost::make_filter_iterator(
+            boost::lambda::_1 != 'x',
+            boost::begin(rng),
+            boost::end(rng)
+        )
+    );
+*/
+
+    ::foo( pstade::oven::make_regularize_iterator(
+        boost::make_filter_iterator(
+            boost::lambda::_1 != 'x',
+            boost::begin(rng),
+            boost::end(rng)
+        )
+    ) );
 }
 
 

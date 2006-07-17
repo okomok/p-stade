@@ -27,6 +27,7 @@
 
 #include <algorithm>
 #include <memory>
+#include <sstream>
 #include <vector>
 #include <boost/foreach.hpp>
 #include <boost/lambda/lambda.hpp>
@@ -127,6 +128,14 @@ void test()
 
     {
         assignable< ::zzz > az(::zzz(3));
+    }
+
+    {
+        assignable< char > ac, bc;
+        std::stringstream ss;
+        ss << ac;
+        get_pointer(ac);
+        swap(ac, bc);
     }
 }
 

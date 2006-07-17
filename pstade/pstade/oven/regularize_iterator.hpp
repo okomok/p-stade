@@ -21,22 +21,22 @@
 namespace pstade { namespace oven {
 
 
-template< class CopyConstructibleIter >
+template< class Iterator >
 struct regularize_iterator;
 
 
 namespace regularize_iterator_detail {
 
 
-    template< class CopyConstructibleIter >
+    template< class Iterator >
     struct super_
     {
         typedef boost::iterator_facade<
-            regularize_iterator<CopyConstructibleIter>,
-            typename boost::iterator_value<CopyConstructibleIter>::type,
-            typename boost::iterator_traversal<CopyConstructibleIter>::type,
-            typename boost::iterator_reference<CopyConstructibleIter>::type,
-            typename boost::iterator_difference<CopyConstructibleIter>::type
+            regularize_iterator<Iterator>,
+            typename boost::iterator_value<Iterator>::type,
+            typename boost::iterator_traversal<Iterator>::type,
+            typename boost::iterator_reference<Iterator>::type,
+            typename boost::iterator_difference<Iterator>::type
         > type;
     };
 
@@ -44,13 +44,13 @@ namespace regularize_iterator_detail {
 } // namespace regularize_iterator_detail
 
 
-template< class CopyConstructibleIter >
+template< class Iterator >
 struct regularize_iterator :
-    regularize_iterator_detail::super_<CopyConstructibleIter>::type
+    regularize_iterator_detail::super_<Iterator>::type
 {
 private:
     typedef regularize_iterator self_t;
-    typedef typename regularize_iterator_detail::super_<CopyConstructibleIter>::type super_t;
+    typedef typename regularize_iterator_detail::super_<Iterator>::type super_t;
     typedef typename super_t::reference ref_t;
     typedef typename super_t::difference_type diff_t;
 
@@ -58,7 +58,7 @@ public:
     explicit regularize_iterator()
     { }
 
-    explicit regularize_iterator(CopyConstructibleIter it) :
+    explicit regularize_iterator(Iterator it) :
         m_pimpl(it)
     { }
 
@@ -66,23 +66,23 @@ template< class > friend struct regularize_iterator;
     template< class Iterator_ >
     regularize_iterator(
         regularize_iterator<Iterator_> other,
-        typename boost::enable_if_convertible<Iterator_, CopyConstructibleIter>::type * = 0
+        typename boost::enable_if_convertible<Iterator_, Iterator>::type * = 0
     ) :
         m_pimpl(other.m_pimpl)
     { }
 
 public:
-    typedef CopyConstructibleIter base_iterator;
+    typedef Iterator base_iterator;
 
-    CopyConstructibleIter base() const
+    Iterator base() const
     {
         return **m_pimpl;
     }
 
 private:
-    boost::optional< assignable<CopyConstructibleIter> > m_pimpl;
+    boost::optional< assignable<Iterator> > m_pimpl;
 
-    CopyConstructibleIter& base_reference()
+    Iterator& base_reference()
     {
         return **m_pimpl;
     }
@@ -120,11 +120,11 @@ friend class boost::iterator_core_access;
 };
 
 
-template< class CopyConstructibleIter > inline
-regularize_iterator<CopyConstructibleIter> const
-make_regularize_iterator(CopyConstructibleIter it)
+template< class Iterator > inline
+regularize_iterator<Iterator> const
+make_regularize_iterator(Iterator it)
 {
-    return regularize_iterator<CopyConstructibleIter>(it);
+    return regularize_iterator<Iterator>(it);
 }
 
 

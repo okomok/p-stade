@@ -15,6 +15,7 @@
 #include <boost/preprocessor/enum_params.hpp>
 #include <boost/preprocessor/enum_params_with_defaults.hpp>
 #include <boost/preprocessor/repeat.hpp>
+#include <pstade/adl_barrier.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/derived_cast.hpp>
 #include "../cmd_ui/cmd_ui.hpp"
@@ -76,48 +77,56 @@ namespace message_processor_detail {
 } // namespace message_processor_detail
 
 
-template<
-    class Derived,
-    BOOST_PP_ENUM_PARAMS_WITH_DEFAULTS(PSTADE_KETCHUP_LIMIT_MESSAGE_PROCESSOR_BASE_SIZE, class BaseT, message_processor_detail::unique_base)
->
-struct message_processor :
-    message_processor_detail::meta_unique_base<entry_subset>::type,
-    BOOST_PP_ENUM_PARAMS(PSTADE_KETCHUP_LIMIT_MESSAGE_PROCESSOR_BASE_SIZE, BaseT)
-{
-#if !defined(BOOST_NO_POINTER_TO_MEMBER_TEMPLATE_PARAMETERS)
-    #include "../win/detail/handler_entry_set.ipp"
-    #include "../crack/detail/handler_entry_set.ipp"
-    #include "../cmd_ui/detail/handler_entry_set.ipp"
-#endif
+PSTADE_ADL_BARRIER_OPEN(message_processor)
 
-    typedef Derived _;
-    typedef ketchup::cmd_ui cmd_ui;
-    typedef ketchup::dependent dependent;
-    typedef ketchup::independent independent;
 
-    BOOL ProcessWindowMessage(HWND hWnd, UINT uMsg,
-        WPARAM wParam, LPARAM lParam, LRESULT& lResult, DWORD dwMsgMapID = 0)
+    template<
+        class Derived,
+        BOOST_PP_ENUM_PARAMS_WITH_DEFAULTS(PSTADE_KETCHUP_LIMIT_MESSAGE_PROCESSOR_BASE_SIZE, class BaseT, message_processor_detail::unique_base)
+    >
+    struct message_processor :
+        message_processor_detail::meta_unique_base<entry_subset>::type,
+        BOOST_PP_ENUM_PARAMS(PSTADE_KETCHUP_LIMIT_MESSAGE_PROCESSOR_BASE_SIZE, BaseT)
     {
-        Derived& d = pstade::derived(*this);
+    #if !defined(BOOST_NO_POINTER_TO_MEMBER_TEMPLATE_PARAMETERS)
+        #include "../win/detail/handler_entry_set.ipp"
+        #include "../crack/detail/handler_entry_set.ipp"
+        #include "../cmd_ui/detail/handler_entry_set.ipp"
+    #endif
 
-        return ketchup::process_window_message(d, hWnd, uMsg,
-            wParam, lParam, lResult, dwMsgMapID);
-    }
+        typedef Derived _;
+        typedef ketchup::cmd_ui cmd_ui;
+        typedef ketchup::dependent dependent;
+        typedef ketchup::independent independent;
 
-    void set_msg_handled(bool handled)
-    { m_pstade_ketchup_handled = handled; }
+        BOOL ProcessWindowMessage(HWND hWnd, UINT uMsg,
+            WPARAM wParam, LPARAM lParam, LRESULT& lResult, DWORD dwMsgMapID = 0)
+        {
+            Derived& d = pstade::derived(*this);
 
-    bool is_msg_handled() const
-    { return m_pstade_ketchup_handled; }
+            return ketchup::process_window_message(d, hWnd, uMsg,
+                wParam, lParam, lResult, dwMsgMapID);
+        }
 
-private:
-    bool m_pstade_ketchup_handled;
-};
+        void set_msg_handled(bool handled)
+        { m_pstade_ketchup_handled = handled; }
+
+        bool is_msg_handled() const
+        { return m_pstade_ketchup_handled; }
+
+    private:
+        bool m_pstade_ketchup_handled;
+    };
+
+
+PSTADE_ADL_BARRIER_CLOSE(message_processor)
 
 
 } } // namespace pstade::ketchup
 
+
 #pragma warning(pop)
+
 
 #include "../crack/detail/handler_entry_set_undef.ipp"
 
