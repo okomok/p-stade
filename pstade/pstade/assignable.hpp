@@ -71,10 +71,10 @@ namespace assignable_detail {
 
 template< class Clonable >
 struct assignable :
+    boost::totally_ordered< assignable<Clonable> >,
     radish::outputable< assignable<Clonable> >,
     radish::pointer< assignable<Clonable>, Clonable >,
-    radish::swappable< assignable<Clonable> >,
-    boost::totally_ordered< assignable<Clonable> >
+    radish::swappable< assignable<Clonable> >
 {
     // structors
     //
@@ -101,8 +101,22 @@ struct assignable :
         return *this;
     }
 
-    // radish
+    // totally_ordered
     //
+    bool operator< (assignable const& other) const
+    {
+        return *m_ptr < *other;
+    }
+
+    bool operator==(assignable const& other) const
+    {
+        return *m_ptr == *other;
+    }
+
+private:
+    Clonable *m_ptr;
+
+friend class radish::access;
     template< class OStream >
     void pstade_radish_output(OStream& os) const
     {
@@ -118,21 +132,6 @@ struct assignable :
     {
         std::swap(m_ptr, other.m_ptr);
     }
-
-    // totally_ordered
-    //
-    bool operator< (assignable const& other) const
-    {
-        return *m_ptr < *other;
-    }
-
-    bool operator==(assignable const& other) const
-    {
-        return *m_ptr == *other;
-    }
-
-private:
-    Clonable *m_ptr;
 };
 
 

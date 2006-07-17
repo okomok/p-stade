@@ -12,6 +12,7 @@
 
 #include <pstade/adl_barrier.hpp>
 #include <pstade/derived_cast.hpp>
+#include "./access.hpp"
 
 
 namespace pstade { namespace radish {
@@ -26,13 +27,13 @@ struct swappable
     void swap(T& other)
     {
         T& d = pstade::derived(*this);
-        d.pstade_radish_swap(other);
+        access::detail_swap(d, other);
     }
 
     friend
     void swap(T& x, T& y)
     {
-        x.pstade_radish_swap(y);
+        access::detail_swap(x, y);
     }
 };
 
