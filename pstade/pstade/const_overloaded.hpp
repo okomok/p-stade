@@ -13,7 +13,7 @@
 // Usage:
 //
 // template< class T >
-// typename const_overloaded<void, T>::type foo(T&);
+// typename const_overloaded<T, void>::type foo(T&);
 //
 // template< class T >
 // void foo(const T&);
@@ -38,33 +38,33 @@ namespace pstade {
 #if !defined(BOOST_NO_SFINAE)
 
 
-template< class T, class Result >
-struct const_overloaded :
-    boost::disable_if< boost::is_const<T>, Result >
-{ };
+    template< class T, class Result >
+    struct const_overloaded :
+        boost::disable_if< boost::is_const<T>, Result >
+    { };
 
 
-template< class T, class Result >
-struct const_overloaded_eval :
-    boost::lazy_disable_if< boost::is_const<T>, Result >
-{ };
+    template< class T, class Result >
+    struct const_overloaded_eval :
+        boost::lazy_disable_if< boost::is_const<T>, Result >
+    { };
 
 
 #else // God bless you.
 
 
-template< class T, class Result >
-struct const_overloaded
-{
-    typedef Result type;
-};
+    template< class T, class Result >
+    struct const_overloaded
+    {
+        typedef Result type;
+    };
 
 
-template< class T, class Result >
-struct const_overloaded_eval
-{
-    typedef typename Result::type type;
-};
+    template< class T, class Result >
+    struct const_overloaded_eval
+    {
+        typedef typename Result::type type;
+    };
 
 
 #endif // !defined(BOOST_NO_SFINAE)

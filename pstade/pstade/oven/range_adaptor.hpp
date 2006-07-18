@@ -153,7 +153,7 @@ operator|(Range const& rng, range_adaptor<BabyAdaptor> ad)
 
 #define PSTADE_OVEN_RANGE_ADAPTOR(Name, Baby) \
     PSTADE_INSTANCE( \
-        pstade::oven::range_adaptor< pstade::comma_protect<void(Baby)>::type > const, \
+        pstade::oven::range_adaptor< PSTADE_COMMA_PROTECT(Baby) > const, \
         Name, value \
     ) \
 /**/

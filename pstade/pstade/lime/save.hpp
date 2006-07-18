@@ -34,7 +34,7 @@ void save_attributes(AssocContainer attributes, OutIter out)
     using oven::null_terminated;
 
     BOOST_FOREACH (
-        comma_protect<void(std::pair<ustring, ustring>)>::type att,
+        PSTADE_COMMA_PROTECT((std::pair<ustring, ustring>)) att,
         attributes
     )
     {

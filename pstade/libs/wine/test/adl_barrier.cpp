@@ -25,6 +25,9 @@ namespace xxx {
     {
         BOOST_CHECK(false);
     }
+
+    PSTADE_ADL_BARRIER_OPEN(aaa)
+    PSTADE_ADL_BARRIER_CLOSE(aaa)
 }
 
 namespace yyy {

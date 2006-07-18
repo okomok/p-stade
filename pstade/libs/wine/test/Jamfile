@@ -28,6 +28,7 @@ test-suite wine :
     [ wine-test integral_cast ]
     [ wine-test in_out ]
     [ wine-test is_debug ]
+    [ wine-test is_same ]
     [ wine-test lexical_cast ]
     [ wine-test overload ]
     [ wine-test pause ]

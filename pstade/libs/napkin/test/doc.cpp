@@ -102,7 +102,7 @@ void remove_side_effects()
 
     // When you need comma out of ()
     PSTADE_IF_DEBUG (
-        comma_protect<void(basic_ofstream< char, char_traits<char> >)>::type fout("debug.log");
+        PSTADE_COMMA_PROTECT((basic_ofstream< char, char_traits<char> >)) fout("debug.log");
         os.reset(fout);
         os << "'#if !defined(NDEBUG)' is much easier!";
     )

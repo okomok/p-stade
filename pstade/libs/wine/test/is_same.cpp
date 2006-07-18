@@ -10,23 +10,14 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/statement.hpp>
-
-
-#include <pstade/instance.hpp>
-
-
-PSTADE_INSTANCE(int, x, value)
-
-PSTADE_STATEMENT(Update,
-	pstade_instance_of_x() = 3;
-	pstade_instance_of_x() += 1;
-)
+#include <pstade/is_same.hpp>
 
 
 void test()
 {
-    BOOST_CHECK(x == 4);
+    int x = 0;
+    int& y = x;
+    BOOST_CHECK( pstade::is_same(x, y) );
 }
 
 

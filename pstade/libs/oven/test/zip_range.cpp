@@ -41,7 +41,7 @@ void test()
         }
 
         BOOST_FOREACH (
-            comma_protect<void(boost::tuple<char&, int&>)>::type t,
+            PSTADE_COMMA_PROTECT((boost::tuple<char&, int&>)) t,
             src0|zipped(src1)
         ) {
             char& ch = boost::get<0>(t);

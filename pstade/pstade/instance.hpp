@@ -26,7 +26,6 @@
 //
 // PSTADE_INSTANCE(int, i, value) // value-initialize
 // PSTADE_INSTANCE(string, s, ("hello"))
-// PSTADE_INSTANCE((map<int,int>), m, value)
 
 
 // Reason why 'ValueOrArgSeq' is checked:
@@ -45,7 +44,6 @@
 #include <boost/preprocessor/seq/enum.hpp>
 #include <boost/preprocessor/tuple/eat.hpp>
 #include <boost/utility/value_init.hpp> // value_initialized
-#include <pstade/comma_protect.hpp>
 
 
 #define PSTADE_INSTANCE(Type, Name, ValueOrArgSeq) \
@@ -78,7 +76,7 @@
     \
     namespace { \
         PSTADE_INSTANCE_static \
-        PSTADE_INSTANCE_comma_protect(Type)& Name = PSTADE_INSTANCE_call_fun(Name); \
+        Type& Name = PSTADE_INSTANCE_call_fun(Name); \
     } \
 /**/
 
@@ -88,14 +86,19 @@
     \
     namespace { \
         PSTADE_INSTANCE_static \
-        PSTADE_INSTANCE_comma_protect(Type)& Name = PSTADE_INSTANCE_call_fun(Name); \
+        Type& Name = PSTADE_INSTANCE_call_fun(Name); \
     } \
+/**/
+
+
+#define PSTADE_INSTANCE_fun_name(Name) \
+    BOOST_PP_CAT(pstade_instance_of_, Name) \
 /**/
 
 
 #define PSTADE_INSTANCE_define_fun(Type, Name, DefineX) \
     inline \
-    PSTADE_INSTANCE_comma_protect(Type)& BOOST_PP_CAT(Name, _)() \
+    Type& PSTADE_INSTANCE_fun_name(Name)() \
     { \
         static DefineX \
         return x; \
@@ -104,22 +107,17 @@
 
 
 #define PSTADE_INSTANCE_call_fun(Name) \
-    BOOST_PP_CAT(Name, _)() \
+    PSTADE_INSTANCE_fun_name(Name)() \
 /**/
 
 
 #define PSTADE_INSTANCE_define_x_v(Type) \
-    boost::value_initialized< PSTADE_INSTANCE_comma_protect(Type) > x; \
+    boost::value_initialized< Type > x; \
 /**/
 
 
 #define PSTADE_INSTANCE_define_x_a(Type, ArgSeq) \
-    PSTADE_INSTANCE_comma_protect(Type) x(BOOST_PP_SEQ_ENUM(ArgSeq)); \
-/**/
-
-
-#define PSTADE_INSTANCE_comma_protect(Type) \
-    pstade::comma_protect<void(Type)>::type \
+    Type x(BOOST_PP_SEQ_ENUM(ArgSeq)); \
 /**/
 
 

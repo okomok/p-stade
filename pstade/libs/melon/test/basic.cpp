@@ -62,7 +62,7 @@ namespace my_melon {
         std::wcout << oven::sequence_cast<std::wstring>(t.m_name) << std::endl;
 
         BOOST_FOREACH(
-            pstade::comma_protect<void(std::pair<const string_t, string_t>)>::type& a,
+            PSTADE_COMMA_PROTECT((std::pair<const string_t, string_t>))& a,
             t.m_atts
         ) {
             std::wcout << "..." << oven::sequence_cast<std::wstring>(a.first) << "=" <<

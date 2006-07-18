@@ -49,9 +49,20 @@ PSTADE_INSTANCE(int const, cx1, (12))
 PSTADE_INSTANCE(const char *, sz, ("hello"))
 PSTADE_INSTANCE(std::string, str, (sz))
 PSTADE_INSTANCE(const std::string, cstr, (str))
-PSTADE_INSTANCE(const std::string, cstr_, value)
-PSTADE_INSTANCE(pstade::comma_protect<void(std::map<int, int>)>::type, map1_, value)
-PSTADE_INSTANCE((std::map<int, int>), map2_, value)
+PSTADE_INSTANCE(std::string const, cstr2, value)
+PSTADE_INSTANCE(PSTADE_COMMA_PROTECT((std::map<int, int>)), map1_, value)
+PSTADE_INSTANCE(PSTADE_COMMA_PROTECT((std::map<int, int>)) const, map2_, value)
+
+
+template< class T >
+void const_check(T const&)
+{ }
+
+template< class T >
+void const_check(T&)
+{
+    BOOST_CHECK(false);
+}
 
 
 void test()
@@ -66,7 +77,15 @@ void test()
     BOOST_CHECK(str == sz);
     BOOST_CHECK(cstr == sz);
     map1_[12] = 13;
-    map2_[12] = 13;
+
+    ::const_check(cx);
+    ::const_check(cx1);
+    ::const_check(cstr);
+    ::const_check(cstr2);
+    ::const_check(map2_);
+
+    BOOST_CHECK(pstade_instance_of_str() == sz);
+    BOOST_CHECK(pstade_instance_of_cstr() == sz);
 }
 
 

@@ -92,11 +92,11 @@ namespace boost {
 
 #define PSTADE_EGG_FUNCTION(Name, Baby) \
     typedef pstade::egg::function< \
-        pstade::comma_protect<void(Baby)>::type \
+        PSTADE_COMMA_PROTECT(Baby) \
     > BOOST_PP_CAT(Name, _fun); \
     \
     PSTADE_INSTANCE( \
-        pstade::egg::function< pstade::comma_protect<void(Baby)>::type > const, \
+        pstade::egg::function< PSTADE_COMMA_PROTECT(Baby) > const, \
         Name, value \
     ) \
 /**/

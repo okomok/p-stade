@@ -23,32 +23,56 @@
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 
-namespace pstade {
+// Note:
+//
+// 'PSTADE_COMMA_PROTECT((T const))' is not supported.
+// Instead, use 'PSTADE_COMMA_PROTECT((T)) const'.
 
 
-template< class T >
-struct comma_protect;
+#define PSTADE_COMMA_PROTECT(T) \
+    pstade::comma_protect_detail::unwrap<void(T)>::type \
+/**/
 
 
-template< class R, class T >
-struct comma_protect<R(T)>
-{
-    typedef T type;
-};
+#define PSTADE_COMMA_PROTECT_D(T) \
+    typename pstade::comma_protect_detail::unwrap<void(T)>::type \
+/**/
 
 
-template< class T >
-struct comma_protect_eval;
+#define PSTADE_COMMA_PROTECT_EVAL(T) \
+    pstade::comma_protect_detail::unwrap_eval<void(T)>::type \
+/**/
 
 
-template< class R, class T >
-struct comma_protect_eval<R(T)>
-{
-    typedef typename T::type type;
-};
+#define PSTADE_COMMA_PROTECT_EVAL_D(T) \
+    typename pstade::comma_protect_detail::unwrap_eval<void(T)>::type \
+/**/
 
 
-} // namespace pstade
+namespace pstade { namespace comma_protect_detail {
+
+
+    template< class T >
+    struct unwrap;
+
+    template< class T >
+    struct unwrap<void(T)>
+    {
+        typedef T type;
+    };
+
+
+    template< class T >
+    struct unwrap_eval;
+
+    template< class T >
+    struct unwrap_eval<void(T)>
+    {
+        typedef typename T::type type;
+    };
+
+
+} } // namespace pstade::comma_protect_detail
 
 
 #endif

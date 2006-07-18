@@ -23,8 +23,8 @@ void test()
     using namespace pstade;
 
     BOOST_FOREACH (
-        comma_protect<void(std::pair<int, int>)>::type p,
-        comma_protect<void(std::map<int, int>)>::type()
+        PSTADE_COMMA_PROTECT((std::pair<int, int>)) p,
+        PSTADE_COMMA_PROTECT((std::map<int, int>))()
     ) {
         BOOST_CHECK((p, false));
     }
