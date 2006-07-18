@@ -18,8 +18,7 @@
 namespace pstade { namespace radish {
 
 
-PSTADE_ADL_BARRIER_OPEN(pointer)
-
+PSTADE_ADL_BARRIER(pointer) {
 
 template< class T, class Element >
 struct pointer
@@ -44,8 +43,7 @@ struct pointer
     }
 };
 
-
-PSTADE_ADL_BARRIER_CLOSE(pointer)
+} // ADL barrier
 
 
 } } // namespace pstade::radish

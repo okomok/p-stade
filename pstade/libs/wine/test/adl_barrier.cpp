@@ -13,32 +13,53 @@
 #include <pstade/adl_barrier.hpp>
 
 
+// See:
+// http://sourceforge.net/mailarchive/message.php?msg_id=14648776
+struct using_directive_not_broken
+{ };
+
+
 namespace xxx {
 
-    PSTADE_ADL_BARRIER_OPEN(aaa)
+    PSTADE_ADL_BARRIER(aaa) {
 
         struct aaa { };
 
-    PSTADE_ADL_BARRIER_CLOSE(aaa)
+    }
 
     void begin(aaa)
     {
         BOOST_CHECK(false);
     }
 
-    PSTADE_ADL_BARRIER_OPEN(aaa)
-    PSTADE_ADL_BARRIER_CLOSE(aaa)
+    PSTADE_ADL_BARRIER(aaa) {
+    }
+
+    struct using_directive_not_broken
+    { };
+
+    template< class T >
+    struct using_directive_test
+    { };
+
 }
 
 namespace yyy {
 
-    PSTADE_ADL_BARRIER_OPEN(bbb)
+    PSTADE_ADL_BARRIER(bbb) {
 
         struct bbb { };
 
-    PSTADE_ADL_BARRIER_CLOSE(bbb)
+    }
 
     struct end { };
+
+    struct using_directive_not_broken
+    { };
+
+    template< class T >
+    struct using_directive_test
+    { };
 
 }
 
@@ -55,6 +76,21 @@ namespace zzz {
         }
 
     PSTADE_ADL_BARRIER_CLOSE(ccc)
+
+
+    struct using_directive_not_broken
+    { };
+
+    template< class T >
+    struct using_directive_test
+    { };
+
+}
+
+
+PSTADE_ADL_BARRIER(www) {
+
+    struct www { };
 
 }
 
@@ -74,12 +110,17 @@ void test()
 
     zzz::ccc c;
     cur(c);
+
+    using_directive_not_broken ok;
+    (void)ok;
+
+    ::www w;
+    (void)w;
 }
 
 
 int test_main(int, char*[])
 {
     ::test();
-
     return 0;
 }

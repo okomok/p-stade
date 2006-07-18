@@ -18,8 +18,7 @@
 namespace pstade { namespace radish {
 
 
-PSTADE_ADL_BARRIER_OPEN(outputable)
-
+PSTADE_ADL_BARRIER(outputable) {
 
 template< class T >
 struct outputable
@@ -34,8 +33,7 @@ struct outputable
     }
 };
 
-
-PSTADE_ADL_BARRIER_CLOSE(outputable)
+} // ADL barrier
 
 
 } } // namespace pstade::radish

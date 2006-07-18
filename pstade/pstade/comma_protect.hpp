@@ -29,46 +29,46 @@
 // Instead, use 'PSTADE_COMMA_PROTECT((T)) const'.
 
 
-#define PSTADE_COMMA_PROTECT(T) \
-    pstade::comma_protect_detail::unwrap<void(T)>::type \
+#define PSTADE_COMMA_PROTECT(Decayed) \
+    pstade::comma_protect_detail::unwrap<void(Decayed)>::type \
 /**/
 
 
-#define PSTADE_COMMA_PROTECT_D(T) \
-    typename pstade::comma_protect_detail::unwrap<void(T)>::type \
+#define PSTADE_COMMA_PROTECT_D(Decayed) \
+    typename pstade::comma_protect_detail::unwrap<void(Decayed)>::type \
 /**/
 
 
-#define PSTADE_COMMA_PROTECT_EVAL(T) \
-    pstade::comma_protect_detail::unwrap_eval<void(T)>::type \
+#define PSTADE_COMMA_PROTECT_EVAL(Decayed) \
+    pstade::comma_protect_detail::unwrap_eval<void(Decayed)>::type \
 /**/
 
 
-#define PSTADE_COMMA_PROTECT_EVAL_D(T) \
-    typename pstade::comma_protect_detail::unwrap_eval<void(T)>::type \
+#define PSTADE_COMMA_PROTECT_EVAL_D(Decayed) \
+    typename pstade::comma_protect_detail::unwrap_eval<void(Decayed)>::type \
 /**/
 
 
 namespace pstade { namespace comma_protect_detail {
 
 
-    template< class T >
+    template< class Decayed >
     struct unwrap;
 
-    template< class T >
-    struct unwrap<void(T)>
+    template< class Decayed >
+    struct unwrap<void(Decayed)>
     {
-        typedef T type;
+        typedef Decayed type;
     };
 
 
-    template< class T >
+    template< class Decayed >
     struct unwrap_eval;
 
-    template< class T >
-    struct unwrap_eval<void(T)>
+    template< class Decayed >
+    struct unwrap_eval<void(Decayed)>
     {
-        typedef typename T::type type;
+        typedef typename Decayed::type type;
     };
 
 

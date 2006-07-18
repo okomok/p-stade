@@ -61,7 +61,7 @@
 namespace pstade { namespace oven {
 
 
-PSTADE_ADL_BARRIER_OPEN(algorithm)
+PSTADE_ADL_BARRIER(algorithm) {
 
 
     namespace range_ex_detail
@@ -1871,7 +1871,7 @@ PSTADE_ADL_BARRIER_OPEN(algorithm)
     }
 
 
-PSTADE_ADL_BARRIER_CLOSE(algorithm)
+} // ADL barrier
 
 
 } } // namespace pstade::oven

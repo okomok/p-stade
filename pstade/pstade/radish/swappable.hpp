@@ -18,8 +18,7 @@
 namespace pstade { namespace radish {
 
 
-PSTADE_ADL_BARRIER_OPEN(swappable)
-
+PSTADE_ADL_BARRIER(swappable) {
 
 template< class T >
 struct swappable
@@ -37,8 +36,7 @@ struct swappable
     }
 };
 
-
-PSTADE_ADL_BARRIER_CLOSE(swappable)
+} // ADL barrier
 
 
 } } // namespace pstade::radish

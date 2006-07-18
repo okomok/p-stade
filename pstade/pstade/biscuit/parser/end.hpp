@@ -20,21 +20,19 @@
 namespace pstade { namespace biscuit {
 
 
-PSTADE_ADL_BARRIER_OPEN(end) // for boost::const_end
+PSTADE_ADL_BARRIER(end) { // for boost::const_end
 
-
-    PSTADE_BISCUIT_NULLARY_PARSER_STRUCT(end)
+PSTADE_BISCUIT_NULLARY_PARSER_STRUCT(end)
+{
+    template< class State, class UserState >
+    static bool parse(State& s, UserState& us)
     {
-        template< class State, class UserState >
-        static bool parse(State& s, UserState& us)
-        {
-            pstade::unused(us);
-            return biscuit::state_is_end(s);
-        }
-    };
+        pstade::unused(us);
+        return biscuit::state_is_end(s);
+    }
+};
 
-
-PSTADE_ADL_BARRIER_CLOSE(end)
+} // ADL barrier
 
 
 template<>

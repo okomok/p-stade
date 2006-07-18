@@ -56,12 +56,12 @@ namespace begin_end_detail {
 } // namespace begin_end_detail
 
 
-PSTADE_ADL_BARRIER_OPEN(begin_end) // for boost::const_begin/end
+PSTADE_ADL_BARRIER(begin_end) { // for boost::const_begin/end
 
-    PSTADE_EGG_FUNCTION(begin, begin_end_detail::baby_begin)
-    PSTADE_EGG_FUNCTION(end, begin_end_detail::baby_end)
+PSTADE_EGG_FUNCTION(begin, begin_end_detail::baby_begin)
+PSTADE_EGG_FUNCTION(end, begin_end_detail::baby_end)
 
-PSTADE_ADL_BARRIER_CLOSE(begin_end)
+} // ADL barrier
 
 
 PSTADE_OVEN_RANGE_ADAPTOR(begun, begin_end_detail::baby_begin)
