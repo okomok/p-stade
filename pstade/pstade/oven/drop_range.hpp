@@ -10,13 +10,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/range/difference_type.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/egg/function.hpp>
 #include "./detail/begin_advance.hpp"
 #include "./detail/concept_check.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
+#include "./range_difference_type.hpp"
 #include "./sub_range_base_type.hpp"
 
 
@@ -30,7 +30,7 @@ struct drop_range :
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
     typedef typename sub_range_base<Range>::type super_t;
-    typedef typename boost::range_difference<Range>::type diff_t;
+    typedef typename range_difference<Range>::type diff_t;
 
 public:
     drop_range(Range& rng, diff_t d) :

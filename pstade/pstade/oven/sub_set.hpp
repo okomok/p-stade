@@ -14,9 +14,9 @@
 #include <boost/iterator/counting_iterator.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/range/result_iterator.hpp>
 #include <boost/utility/base_from_member.hpp>
 #include "./indirect_range.hpp"
+#include "./range_iterator_type.hpp"
 
 
 namespace pstade { namespace oven {
@@ -28,7 +28,7 @@ namespace sub_set_detail {
     template< class Range >
     struct storage
     {
-        typedef typename boost::range_result_iterator<Range>::type iter_t;
+        typedef typename range_iterator<Range>::type iter_t;
         typedef std::vector<iter_t> type;
     };
 

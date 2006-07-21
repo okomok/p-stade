@@ -23,13 +23,13 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
-#include <boost/range/result_iterator.hpp>
 #include <boost/utility/result_of.hpp>
+#include <pstade/egg/decay_function_type.hpp>
 #include <pstade/egg/function.hpp>
 #include "./detail/concept_check.hpp"
-#include "./detail/decay_function.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
+#include "./range_iterator_type.hpp"
 
 
 namespace pstade { namespace oven {
@@ -44,7 +44,7 @@ namespace transform_range_detail {
     >
     struct super_
     {
-        typedef typename boost::range_result_iterator<Range>::type iter_t;
+        typedef typename range_iterator<Range>::type iter_t;
 
         // Note:
         // Boost.Iterator doesn't do the following.
@@ -95,7 +95,7 @@ namespace transform_range_detail {
         template< class Unused, class Range, class UnaryFun >
         struct result
         {
-            typedef typename detail::decay_function<UnaryFun>::type fun_t;
+            typedef typename egg::decay_function<UnaryFun>::type fun_t;
             typedef transform_range<Range, fun_t> const type;
         };
 

@@ -11,12 +11,12 @@
 
 
 #include <boost/range/begin.hpp>
-#include <boost/range/difference_type.hpp>
 #include <pstade/egg/function.hpp>
 #include "./detail/begin_advance.hpp"
 #include "./detail/concept_check.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
+#include "./range_difference_type.hpp"
 #include "./sub_range_base_type.hpp"
 
 
@@ -30,7 +30,7 @@ struct take_range :
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeConcept);
     typedef typename sub_range_base<ForwardRange>::type super_t;
-    typedef typename boost::range_difference<ForwardRange>::type diff_t;
+    typedef typename range_difference<ForwardRange>::type diff_t;
 
 public:
     take_range(ForwardRange& rng, diff_t d) :

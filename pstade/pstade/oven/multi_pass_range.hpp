@@ -11,9 +11,9 @@
 
 
 #include <boost/range/iterator_range.hpp>
-#include <boost/range/result_iterator.hpp>
 #include <boost/spirit/iterator/multi_pass.hpp>
 #include "./is_lightweight_proxy.hpp"
+#include "./range_iterator_type.hpp"
 
 
 namespace pstade { namespace oven {
@@ -33,7 +33,7 @@ namespace multi_pass_range_detail {
     {
         typedef boost::iterator_range<
             boost::spirit::multi_pass<
-                typename boost::range_result_iterator<SinglePassRange>::type,
+                typename range_iterator<SinglePassRange>::type,
                 InputPolicy, OwnershipPolicy, CheckingPolicy, StoragePolicy
             >
         > type;

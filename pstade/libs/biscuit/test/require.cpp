@@ -15,7 +15,7 @@
 
 
 #include <boost/config.hpp>
-#include <pstade/oven/algorithms.hpp>
+#include <pstade/oven/functions.hpp>
 #include <string>
 
 

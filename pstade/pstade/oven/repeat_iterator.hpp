@@ -43,7 +43,7 @@ namespace repeat_iterator_detail {
 
 
     template< class Difference, class ForwardIter, class SizeT >
-    Difference pseudo_pos(ForwardIter it, SizeT index, ForwardIter first, ForwardIter last)
+    Difference pseudo_pos(ForwardIter const& it, SizeT index, ForwardIter const& first, ForwardIter const& last)
     {
         Difference srcSize = std::distance(first, last);
         Difference srcDiff = std::distance(first, it);
@@ -52,7 +52,7 @@ namespace repeat_iterator_detail {
 
 
     template< class ForwardIter, class SizeT >
-    void increment(ForwardIter& it, SizeT& index, ForwardIter first, ForwardIter last)
+    void increment(ForwardIter& it, SizeT& index, ForwardIter const& first, ForwardIter const& last)
     {
         BOOST_ASSERT(std::distance(first, last) >= 0);
 
@@ -64,7 +64,7 @@ namespace repeat_iterator_detail {
 
 
     template< class ForwardIter, class SizeT >
-    void decrement(ForwardIter& it, SizeT& index, ForwardIter first, ForwardIter last)
+    void decrement(ForwardIter& it, SizeT& index, ForwardIter const& first, ForwardIter last)
     {
         BOOST_ASSERT(std::distance(first, last) >= 0);
 
@@ -94,14 +94,14 @@ public:
     repeat_iterator()
     { }
 
-    repeat_iterator(ForwardIter it, SizeT index, ForwardIter first, ForwardIter last) :
+    repeat_iterator(ForwardIter const& it, SizeT index, ForwardIter const& first, ForwardIter const& last) :
         super_t(it), m_index(index),
         m_first(first), m_last(last)        
     { }
 
     template< class ForwardIter_, class SizeT_ >
     repeat_iterator(
-        repeat_iterator<ForwardIter_, SizeT_> other,
+        repeat_iterator<ForwardIter_, SizeT_> const& other,
         typename boost::enable_if_convertible<ForwardIter_, ForwardIter>::type * = 0,
         typename boost::enable_if_convertible<SizeT_, SizeT>::type * = 0
     ) :
@@ -130,7 +130,7 @@ friend class boost::iterator_core_access;
         return *this->base();
     }
 
-    bool equal(repeat_iterator other) const
+    bool equal(repeat_iterator const& other) const
     {
         BOOST_ASSERT(m_index >= 0);
         BOOST_ASSERT(m_first == other.sbegin() && m_last == other.send() &&
@@ -208,7 +208,7 @@ private:
             m_index -= count;
     }
 
-    diff_t distance_to(repeat_iterator other) const
+    diff_t distance_to(repeat_iterator const& other) const
     {
         return 
             repeat_iterator_detail::pseudo_pos<diff_t>(other.base(), other.index(), other.sbegin(), other.send())
@@ -220,7 +220,7 @@ private:
 
 template< class ForwardIter, class SizeT > inline
 repeat_iterator<ForwardIter, SizeT> const
-make_repeat_iterator(ForwardIter it, SizeT index, ForwardIter first, ForwardIter last)
+make_repeat_iterator(ForwardIter const& it, SizeT index, ForwardIter const& first, ForwardIter const& last)
 {
     return repeat_iterator<ForwardIter, SizeT>(it, index, first, last);
 }

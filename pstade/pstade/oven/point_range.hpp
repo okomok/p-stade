@@ -15,12 +15,10 @@
 // Makes Pointer Range from std::vector.
 
 
-#include <boost/iterator/iterator_traits.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/empty.hpp>
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
-#include <boost/range/result_iterator.hpp>
 #include <boost/static_assert.hpp>
 #include <boost/type_traits/is_pointer.hpp>
 #include <boost/utility/addressof.hpp>
@@ -30,20 +28,13 @@
 #include "./detail/concept_check.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
+#include "./range_pointer_type.hpp"
 
 
 namespace pstade { namespace oven {
 
 
 namespace point_range_detail {
-
-
-    template< class ContiguousRange >
-    struct range_pointer
-    {
-        typedef typename boost::range_result_iterator<ContiguousRange>::type iter_t;
-        typedef typename boost::iterator_pointer<iter_t>::type type;
-    };
 
 
     template< class ContiguousRange >

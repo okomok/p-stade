@@ -54,7 +54,7 @@ Tested Under
 Range Algorithms
 ----------------
 Oven provides some range-based algorithms.
-``<pstade/oven/algorithms.hpp>`` includes all the following functions.
+``<pstade/oven/functions.hpp>`` includes all the following functions.
 
 
 STL Algorithms

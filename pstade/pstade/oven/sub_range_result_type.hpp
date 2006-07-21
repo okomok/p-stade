@@ -17,7 +17,7 @@
 
 #include <boost/range/const_iterator.hpp>
 #include <boost/range/iterator_range.hpp>
-#include <boost/range/result_iterator.hpp>
+#include "./range_iterator_type.hpp"
 
 
 namespace pstade { namespace oven {
@@ -28,11 +28,12 @@ struct sub_range_result
 {
     // 'const' works around "Forwarding Problem".
     typedef boost::iterator_range<
-        typename boost::range_result_iterator<Range>::type
+        typename range_iterator<Range>::type
     > const type;
 };
 
 
+// Workaround:
 // In the case of explicitly adding 'const' to array
 // (something like 'sub_range_result<const array>'),
 // VC7.1 is confused when ordering. I don't know why, so I define...

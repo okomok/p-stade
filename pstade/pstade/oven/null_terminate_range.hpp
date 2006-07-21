@@ -27,13 +27,13 @@
 #include <boost/range/end.hpp>
 #include <boost/range/const_iterator.hpp>
 #include <boost/range/iterator_range.hpp>
-#include <boost/range/result_iterator.hpp>
-#include <boost/range/value_type.hpp>
 #include <boost/throw_exception.hpp>
 #include <pstade/egg/function.hpp>
 #include "./detail/concept_check.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
+#include "./range_iterator_type.hpp"
+#include "./range_value_type.hpp"
 
 
 namespace pstade { namespace oven {
@@ -44,7 +44,7 @@ void null_terminate(ForwardRange& rng)
 {
     BOOST_ASSERT(!boost::empty(rng));
 
-    typedef typename boost::range_value<ForwardRange>::type val_t;
+    typedef typename range_value<ForwardRange>::type val_t;
     *boost::begin(rng) = val_t('\0');
 }
 
@@ -55,7 +55,7 @@ bool is_null_terminated(ForwardRange const& rng)
     detail::requires< boost::ForwardRangeConcept<ForwardRange> >();
 
     typedef typename boost::range_const_iterator<ForwardRange>::type iter_t;
-    typedef typename boost::range_value<ForwardRange>::type val_t;
+    typedef typename range_value<ForwardRange>::type val_t;
 
     iter_t first = boost::begin(rng);
     iter_t last = boost::end(rng);
@@ -69,7 +69,7 @@ namespace null_terminate_range_detail {
 
 
     template< class ForwardRange >
-    typename boost::range_result_iterator<ForwardRange>::type
+    typename range_iterator<ForwardRange>::type
     begin(ForwardRange& rng)
     {
         detail::requires< boost::ForwardRangeConcept<ForwardRange> >();
@@ -77,13 +77,13 @@ namespace null_terminate_range_detail {
     }
 
     template< class ForwardRange >
-    typename boost::range_result_iterator<ForwardRange>::type
+    typename range_iterator<ForwardRange>::type
     end(ForwardRange& rng)
     {
         detail::requires< boost::ForwardRangeConcept<ForwardRange> >();
 
-        typedef typename boost::range_result_iterator<ForwardRange>::type iter_t;
-        typedef typename boost::range_value<ForwardRange>::type val_t;
+        typedef typename range_iterator<ForwardRange>::type iter_t;
+        typedef typename range_value<ForwardRange>::type val_t;
 
         iter_t first = boost::begin(rng);
         iter_t last = boost::end(rng);
@@ -177,7 +177,7 @@ namespace null_terminate_range_detail {
     template< class ForwardRange >
     struct iter
     {
-        typedef typename boost::range_result_iterator<ForwardRange>::type type;
+        typedef typename range_iterator<ForwardRange>::type type;
     };
 
     template< class T >

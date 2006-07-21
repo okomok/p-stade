@@ -19,8 +19,8 @@
 
 
 #include <boost/iterator_adaptors.hpp>
-#include <boost/range/result_iterator.hpp>
 #include <boost/shared_ptr.hpp>
+#include "./range_iterator_type.hpp"
 
 
 namespace pstade { namespace oven {
@@ -38,7 +38,7 @@ namespace share_iterator_detail {
     {
         typedef boost::iterator_adaptor<
             share_iterator<Range>,
-            typename boost::range_result_iterator<Range>::type
+            typename range_iterator<Range>::type
         > type;
     };
 
@@ -58,7 +58,7 @@ public:
     share_iterator()
     { }
 
-    share_iterator(iter_t it, boost::shared_ptr<Range> const& prng) :
+    share_iterator(iter_t const& it, boost::shared_ptr<Range> const& prng) :
         super_t(it), m_prng(prng)
     { }
 
@@ -73,7 +73,7 @@ private:
 template< class Range > inline
 share_iterator<Range>
 make_share_iterator(
-    typename boost::range_result_iterator<Range>::type it,
+    typename range_iterator<Range>::type const& it,
     boost::shared_ptr<Range> const& prng
 )
 {

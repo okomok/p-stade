@@ -12,10 +12,10 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/range/result_iterator.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/egg/function.hpp>
 #include "./range_adaptor.hpp"
+#include "./range_iterator_type.hpp"
 
 
 namespace pstade { namespace oven {
@@ -28,7 +28,7 @@ namespace begin_end_detail {
     {
         template< class Unused, class Range >
         struct result :
-            boost::range_result_iterator<Range>
+            range_iterator<Range>
         { };
     };
 

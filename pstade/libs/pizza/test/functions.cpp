@@ -27,7 +27,7 @@ WTL::CAppModule _Module;
 #include <vector>
 #include <string>
 #include <sstream>
-#include <pstade/oven/algorithms.hpp>
+#include <pstade/oven/functions.hpp>
 #include <pstade/tomato/tstring.hpp>
 
 

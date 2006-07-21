@@ -19,7 +19,7 @@
 #include <string>
 #include <vector>
 #include <boost/foreach.hpp>
-#include <pstade/oven/algorithms.hpp>
+#include <pstade/oven/functions.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
 #include <pstade/oven/sequence_cast.hpp>
 

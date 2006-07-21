@@ -11,14 +11,13 @@
 
 
 #include <boost/range/iterator_range.hpp>
-#include <boost/range/result_iterator.hpp>
-#include <boost/range/value_type.hpp>
 #include <boost/regex.hpp>
-#include <boost/type_traits/remove_cv.hpp>
 #include <pstade/egg/function.hpp>
 #include "./detail/concept_check.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
+#include "./range_iterator_type.hpp"
+#include "./range_value_type.hpp"
 
 
 namespace pstade { namespace oven {
@@ -36,7 +35,7 @@ namespace token_range_detail {
     {
         typedef boost::iterator_range<
             boost::regex_token_iterator<
-                typename boost::range_result_iterator<BidiRange>::type,
+                typename range_iterator<BidiRange>::type,
                 CharT,
                 Traits
             >
@@ -46,9 +45,7 @@ namespace token_range_detail {
 
     template< class BidiRange >
     struct default_char :
-        boost::range_value<
-            typename boost::remove_cv<BidiRange>::type
-        >
+        range_value<BidiRange>
     { };
 
 

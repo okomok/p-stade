@@ -29,7 +29,7 @@ WTL::CAppModule _Module;
 #include <vector>
 #include <string>
 #include <sstream>
-#include <pstade/oven/algorithms.hpp>
+#include <pstade/oven/functions.hpp>
 #include <pstade/apple/wtl/app.hpp>
 WTL::CAppModule _Module;
 

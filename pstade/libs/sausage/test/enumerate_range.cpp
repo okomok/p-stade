@@ -17,13 +17,14 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <boost/mpl/bool.hpp>
 #include <boost/foreach.hpp>
 #include <boost/range.hpp>
-#include <pstade/oven/algorithms.hpp>
+#include <pstade/oven/functions.hpp>
 #include <pstade/oven/multi_pass_range.hpp>
 
 
-// tag dispatch
+// normal way
 //
 template< class T >
 struct my_enumerable
@@ -52,21 +53,27 @@ namespace pstade { namespace sausage {
 } } // namespace pstade::sausage
 
 
-// tag dispatch (intrusive tag)
+// using 'which'
 //
-struct my_enumerable2_tag
-{ };
-
 struct my_enumerable2
 {
-    typedef my_enumerable2_tag pstade_sausage_tag; 
 };
+
+template< class T >
+struct is_my_enumerable2 :
+    boost::mpl::false_
+{ };
+
+template< >
+struct is_my_enumerable2<my_enumerable2> :
+    boost::mpl::true_
+{ };
 
 namespace pstade { namespace sausage {
 
 
-    template< >
-    struct customization< my_enumerable2_tag >
+    template< class T >
+    struct customization<T, typename which< is_my_enumerable2<T> >::type>
     {
         template< class My >
         struct enumerate_argument
@@ -117,7 +124,6 @@ void test()
             std::cout << ch;
         }
 
-#if 1
         BOOST_CHECK(
             oven::equals(
                 src |
@@ -153,7 +159,6 @@ void test()
                 src
             )
         );
-#endif // 0
     }
 
 

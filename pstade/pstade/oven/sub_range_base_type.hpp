@@ -21,13 +21,8 @@
 // because they can be temporaries. So, 'iterator_range' is used.
 
 
-#include <boost/config.hpp>
-#include <boost/detail/workaround.hpp>
-#include <boost/mpl/assert.hpp>
-#include <boost/range/const_iterator.hpp>
 #include <boost/range/iterator_range.hpp>
-#include <boost/range/result_iterator.hpp>
-#include <boost/type_traits/is_array.hpp>
+#include "./range_iterator_type.hpp"
 
 
 namespace pstade { namespace oven {
@@ -37,7 +32,7 @@ template< class Range >
 struct sub_range_base
 {
     typedef boost::iterator_range<
-        typename boost::range_result_iterator<Range>::type
+        typename range_iterator<Range>::type
     > type;
 };
 

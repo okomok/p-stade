@@ -12,10 +12,10 @@
 
 #include <boost/algorithm/string/find_iterator.hpp>
 #include <boost/range/iterator_range.hpp>
-#include <boost/range/result_iterator.hpp>
 #include <pstade/egg/function.hpp>
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
+#include "./range_iterator_type.hpp"
 
 
 namespace pstade { namespace oven {
@@ -29,7 +29,7 @@ namespace string_find_range_detail {
     {
         typedef boost::iterator_range<
             boost::algorithm::find_iterator<
-                typename boost::range_result_iterator<Range>::type
+                typename range_iterator<Range>::type
             >
         > type;
     };
@@ -66,7 +66,7 @@ namespace string_find_range_detail {
         };
 
         template< class Result, class Range, class FinderT >
-        Result call(Range& rng, FinderT f)
+        Result call(Range& rng, FinderT& f)
         {
             return Result(rng, f);
         }

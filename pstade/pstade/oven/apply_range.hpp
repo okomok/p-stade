@@ -15,10 +15,10 @@
 // Will be cute with the upcoming Boost.Phoenix-v2.
 
 
+#include <pstade/egg/decay_function_type.hpp>
 #include <pstade/egg/function.hpp>
 #include "./begin_end.hpp"
 #include "./detail/concept_check.hpp"
-#include "./detail/decay_function.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./sub_range_base_type.hpp"
@@ -57,19 +57,19 @@ namespace apply_range_detail {
         template< class Unused, class Range, class BeginFun, class EndFun = end_fun >
         struct result
         {
-            typedef typename detail::decay_function<BeginFun>::type bfun_t;
-            typedef typename detail::decay_function<EndFun>::type efun_t;
+            typedef typename egg::decay_function<BeginFun>::type bfun_t;
+            typedef typename egg::decay_function<EndFun>::type efun_t;
             typedef apply_range<Range, bfun_t, efun_t> const type;
         };
 
         template< class Result, class Range, class BeginFun, class EndFun >
-        Result call(Range& rng, BeginFun bfun, EndFun efun)
+        Result call(Range& rng, BeginFun& bfun, EndFun& efun)
         {
             return Result(rng, bfun, efun);
         }
 
         template< class Result, class Range, class BeginFun >
-        Result call(Range& rng, BeginFun bfun)
+        Result call(Range& rng, BeginFun& bfun)
         {
             return Result(rng, bfun);
         }

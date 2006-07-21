@@ -16,7 +16,7 @@
 #include <sstream>
 #include <string>
 #include <vector>
-#include <pstade/oven/algorithms.hpp>
+#include <pstade/oven/functions.hpp>
 #include <boost/format.hpp>
 
 

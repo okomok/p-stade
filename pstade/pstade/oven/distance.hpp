@@ -12,16 +12,16 @@
 
 #include <iterator> // distance
 #include <boost/range/begin.hpp>
-#include <boost/range/difference_type.hpp>
 #include <boost/range/end.hpp>
 #include "./detail/concept_check.hpp"
+#include "./range_difference_type.hpp"
 
 
 namespace pstade { namespace oven {
 
 
 template< class Range > inline
-typename boost::range_difference<Range>::type 
+typename range_difference<Range>::type 
 distance(Range const& rng)
 {
     detail::requires< boost::SinglePassRangeConcept<Range> >();

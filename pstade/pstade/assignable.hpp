@@ -76,8 +76,7 @@ struct assignable :
     radish::pointer< assignable<Clonable>, Clonable >,
     radish::swappable< assignable<Clonable> >
 {
-    // structors
-    //
+// structors
     assignable() :
         m_ptr(assignable_detail::new_clone(Clonable()))
     { }
@@ -101,8 +100,7 @@ struct assignable :
         return *this;
     }
 
-    // totally_ordered
-    //
+// totally_ordered
     bool operator< (assignable const& other) const
     {
         return *m_ptr < *other;

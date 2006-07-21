@@ -16,10 +16,10 @@
 
 
 #include <boost/ptr_container/indirect_fun.hpp>
+#include <pstade/egg/decay_function_type.hpp>
 #include <pstade/egg/function.hpp>
 #include "./algorithm.hpp" // sort
 #include "./detail/concept_check.hpp"
-#include "./detail/decay_function.hpp"
 #include "./detail/less_than.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./out_place_range.hpp"
@@ -86,12 +86,12 @@ namespace sort_range_detail {
         template< class Unused, class ForwardRange, class BinaryPred = detail::less_than_fun >
         struct result
         {
-            typedef typename detail::decay_function<BinaryPred>::type pred_t;
+            typedef typename egg::decay_function<BinaryPred>::type pred_t;
             typedef sort_range<ForwardRange, pred_t> const type;
         };
 
         template< class Result, class ForwardRange, class BinaryPred >
-        Result call(ForwardRange& rng, BinaryPred pred)
+        Result call(ForwardRange& rng, BinaryPred& pred)
         {
             return Result(rng, pred);
         }

@@ -13,12 +13,12 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
-#include <boost/range/result_iterator.hpp>
 #include <pstade/egg/function.hpp>
 #include "./detail/concept_check.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./joint_iterator.hpp"
 #include "./range_adaptor.hpp"
+#include "./range_iterator_type.hpp"
 
 
 namespace pstade { namespace oven {
@@ -32,8 +32,8 @@ namespace joint_range_detail {
     {
         typedef boost::iterator_range<
             joint_iterator<
-                typename boost::range_result_iterator<Range1>::type,
-                typename boost::range_result_iterator<Range2>::type
+                typename range_iterator<Range1>::type,
+                typename range_iterator<Range2>::type
             >
         > type;
     };

@@ -12,7 +12,6 @@
 
 #include <pstade/biscuit/parser/plus.hpp>
 #include <pstade/biscuit/parser/primitive/chset.hpp>
-#include "./Char.hpp"
 
 
 namespace pstade { namespace melon {

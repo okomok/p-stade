@@ -88,27 +88,27 @@ friend class boost::iterator_core_access;
             m_pimpl.reset();
     }
 
-    bool equal(const enumerate_iterator& other) const
+    bool equal(enumerate_iterator const& other) const
     {
         return m_pimpl == other.m_pimpl;
     }
 };
 
 
-template< class Enumerable > inline const
-enumerate_iterator<Enumerable>
+template< class Enumerable > inline
+enumerate_iterator<Enumerable> const
 make_enumerate_first_iterator(Enumerable& e)
 {
     return enumerate_iterator<Enumerable>(e);
 }
 
 
-    template< class Enumerable > inline const
+    template< class Enumerable > inline
     enumerate_iterator<
         // Writing 'const Enumerable' breaks VC++ if Enumerable is array.
         typename boost::add_const<Enumerable>::type 
-    >
-    make_enumerate_first_iterator(const Enumerable& e)
+    > const
+    make_enumerate_first_iterator(Enumerable const& e)
     {
         return enumerate_iterator<
             typename boost::add_const<Enumerable>::type
@@ -116,8 +116,9 @@ make_enumerate_first_iterator(Enumerable& e)
     }
 
 
-template< class Enumerable > inline const
-enumerate_iterator<Enumerable> make_enumerate_last_iterator(Enumerable& e)
+template< class Enumerable > inline
+enumerate_iterator<Enumerable> const
+make_enumerate_last_iterator(Enumerable& e)
 {
     pstade::unused(e);
 
@@ -125,11 +126,11 @@ enumerate_iterator<Enumerable> make_enumerate_last_iterator(Enumerable& e)
 }
 
 
-    template< class Enumerable > inline const
+    template< class Enumerable > inline
     enumerate_iterator<
         typename boost::add_const<Enumerable>::type
-    >
-    make_enumerate_last_iterator(const Enumerable& e)
+    > const
+    make_enumerate_last_iterator(Enumerable const& e)
     {
         pstade::unused(e);
 

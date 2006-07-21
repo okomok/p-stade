@@ -14,11 +14,11 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
-#include <boost/range/result_iterator.hpp>
 #include <pstade/egg/function.hpp>
 #include "./detail/concept_check.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
+#include "./range_iterator_type.hpp"
 
 
 namespace pstade { namespace oven {
@@ -35,8 +35,8 @@ namespace permute_range_detail {
     {
         typedef boost::iterator_range<
             boost::permutation_iterator<
-                typename boost::range_result_iterator<ElementRange>::type,
-                typename boost::range_result_iterator<IndexRange>::type
+                typename range_iterator<ElementRange>::type,
+                typename range_iterator<IndexRange>::type
             >
         > type;
     };

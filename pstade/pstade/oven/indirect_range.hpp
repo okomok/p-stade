@@ -22,11 +22,11 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
-#include <boost/range/result_iterator.hpp>
 #include <pstade/egg/function.hpp>
 #include "./detail/concept_check.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
+#include "./range_iterator_type.hpp"
 
 
 namespace pstade { namespace oven {
@@ -46,7 +46,7 @@ namespace indirect_range_detail {
     {
         typedef boost::iterator_range<
             boost::indirect_iterator<
-                typename boost::range_result_iterator<Range>::type,
+                typename range_iterator<Range>::type,
                 Value,
                 CategoryOrTraversal,
                 Reference,
@@ -71,8 +71,6 @@ struct indirect_range :
         Range, Value, CategoryOrTraversal, Reference, Difference
     >::type
 {
-    typedef typename boost::range_result_iterator<Range>::type base_iterator;
-
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
     typedef typename indirect_range_detail::super_<

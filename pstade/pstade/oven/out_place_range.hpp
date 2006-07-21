@@ -25,16 +25,17 @@
 #include <vector>
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
+#include <pstade/egg/decay_function_type.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/garlic/back_inserter.hpp>
 #include "./algorithm.hpp" // copy
 #include "./detail/concept_check.hpp"
-#include "./detail/decay_function.hpp"
 #include "./detail/null.hpp"
 #include "./direct_range.hpp"
 #include "./indirect_range.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
+#include "./range_iterator_type.hpp"
 #include "./share_range.hpp"
 
 
@@ -47,7 +48,7 @@ namespace out_place_range_detail {
     template< class ForwardRange >
     struct iter_sequence
     {   
-        typedef typename boost::range_result_iterator<ForwardRange>::type iter_t;
+        typedef typename range_iterator<ForwardRange>::type iter_t;
         typedef std::vector<iter_t> type;
     };
 
@@ -113,12 +114,12 @@ namespace out_place_range_detail {
         template< class Unused, class ForwardRange, class Functor = detail::null_fun >
         struct result
         {
-            typedef typename detail::decay_function<Functor>::type fun_t;
+            typedef typename egg::decay_function<Functor>::type fun_t;
             typedef out_place_range<ForwardRange, fun_t> const type;
         };
 
         template< class Result, class ForwardRange, class Functor >
-        Result call(ForwardRange& rng, Functor pred)
+        Result call(ForwardRange& rng, Functor& pred)
         {
             return Result(rng, pred);
         }

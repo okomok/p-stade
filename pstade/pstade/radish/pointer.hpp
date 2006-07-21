@@ -15,10 +15,8 @@
 #include "./access.hpp"
 
 
-namespace pstade { namespace radish {
+namespace pstade { namespace radish { PSTADE_ADL_BARRIER(pointer) {
 
-
-PSTADE_ADL_BARRIER(pointer) {
 
 template< class T, class Element >
 struct pointer
@@ -31,22 +29,21 @@ struct pointer
         return access::template detail_pointer<element_type>(d);
     }
 
-    element_type& operator *() const
+    friend
+    element_type& operator *(T const& x)
     {
-        return *(operator->());
+        return *(x.operator->());
     }
 
     friend
-    element_type *get_pointer(T const& x)
+    element_type *get_pointer(T const& x) // for Boost.Bind
     {
         return x.operator->();
     }
 };
 
-} // ADL barrier
 
-
-} } // namespace pstade::radish
+} } } // namespace pstade::radish::ADL_BARRIER
 
 
 #endif

@@ -16,7 +16,7 @@
 #include <boost/range/result_iterator.hpp>
 #include <pstade/unused.hpp>
 #include "../distance.hpp"
-#include "../traversal_type.hpp"
+#include "../range_traversal_type.hpp"
 
 
 namespace pstade { namespace oven { namespace detail {
@@ -49,7 +49,7 @@ typename boost::range_result_iterator<Range>::type
 begin_advance(Range& rng, Difference d)
 {
     typedef typename boost::range_result_iterator<Range>::type iter_t;
-    typedef typename traversal<Range>::type trv_t;
+    typedef typename range_traversal<Range>::type trv_t;
     
     begin_advance_detail::check_range(rng, d, trv_t());
     

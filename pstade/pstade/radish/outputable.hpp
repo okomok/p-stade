@@ -15,10 +15,8 @@
 #include "./access.hpp"
 
 
-namespace pstade { namespace radish {
+namespace pstade { namespace radish { PSTADE_ADL_BARRIER(outputable) {
 
-
-PSTADE_ADL_BARRIER(outputable) {
 
 template< class T >
 struct outputable
@@ -33,10 +31,8 @@ struct outputable
     }
 };
 
-} // ADL barrier
 
-
-} } // namespace pstade::radish
+} } } // namespace pstade::radish::ADL_BARRIER
 
 
 #endif

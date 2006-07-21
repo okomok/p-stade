@@ -12,12 +12,12 @@
 
 #include <boost/iterator/zip_iterator.hpp>
 #include <boost/range/iterator_range.hpp>
-#include <boost/range/result_iterator.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <pstade/egg/function.hpp>
 #include "./detail/concept_check.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
+#include "./range_iterator_type.hpp"
 
 
 namespace pstade { namespace oven {
@@ -29,8 +29,8 @@ namespace zip_range_detail {
     template< class Range0, class Range1 >
     struct iterator_tuple
     {
-        typedef typename boost::range_result_iterator<Range0>::type iter0_t;
-        typedef typename boost::range_result_iterator<Range1>::type iter1_t;
+        typedef typename range_iterator<Range0>::type iter0_t;
+        typedef typename range_iterator<Range1>::type iter1_t;
         typedef boost::tuples::tuple<iter0_t, iter1_t> type;
     };
 

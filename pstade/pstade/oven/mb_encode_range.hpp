@@ -12,10 +12,10 @@
 
 #include <boost/archive/iterators/mb_from_wchar.hpp>
 #include <boost/range/iterator_range.hpp>
-#include <boost/range/result_iterator.hpp>
 #include <pstade/egg/function.hpp>
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
+#include "./range_iterator_type.hpp"
 
 
 namespace pstade { namespace oven {
@@ -29,7 +29,7 @@ namespace mb_encode_range_detail {
     {
         typedef boost::iterator_range<
             boost::archive::iterators::mb_from_wchar<
-                typename boost::range_result_iterator<Range>::type
+                typename range_iterator<Range>::type
             >
         > type;
     };

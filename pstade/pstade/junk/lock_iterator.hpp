@@ -13,11 +13,9 @@
 #include <iterator> // advance, distance
 #include <stdexcept> // range_error
 #include <string>
+#include <boost/assert.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
-#include <boost/iterator/iterator_categories.hpp> // bidirectional_traversal_tag
 #include <boost/throw_exception.hpp>
-#include "./detail/an_iterator.hpp"
-#include "./detail/minimum_traversal_type.hpp"
 
 
 namespace pstade { namespace oven {
@@ -27,61 +25,46 @@ template< class Iterator >
 struct lock_iterator;
 
 
-struct lock_error :
-    std::range_error
-{
-    explicit lock_error(std::string msg) :
-        std::range_error(msg)
-    { }
-};
-
-
 namespace lock_iterator_detail {
 
 
-    template< class Iterator >
-    struct traversal
+    template< class Reference >
+    struct reference_proxy
     {
-        typedef detail::an_iterator<boost::bidirectional_traversal_tag> biter_t;
-        typedef boost::tuples::tuple<Iterator, biter_t> iters_t;
-        typedef typename detail::minimum_traversal<iters_t>::type type;
+        reference_proxy(Reference ref) : m_ref(ref) {}
+
+        Reference operator=(Value const& val)
+        {
+            m_ref = val
+        }
+
+        const T* operator->() const { return &m_value; }
+        operator const T*() const { return &m_value; }
+        Reference m_ref;
     };
 
 
     template< class Iterator >
     struct super_
     {
+        typedef typename boost::iterator_reference<Iterator>::type ref_t;
+
         typedef boost::iterator_adaptor<
             lock_iterator<Iterator>,
-            Iterator
+            Iterator,
+            boost::use_default,
+            boost::use_default, // strictly speaking, non-conforming
+            reference_proxy<ref_t>
         > type;
     };
-
-
-    inline
-    void throw_error()
-    {
-        lock_error err("out of 'lock_iterator' range");
-        boost::throw_exception(err);
-    }
-
-
-    template< class Iterator >
-    void lock_singularity(lock_iterator<Iterator> it)
-    {
-        if (it.is_singular()) {
-            lock_error err("operation on default-constructed 'lock_iterator'");
-            boost::throw_exception(err);
-        }
-    }
 
 
 } // namespace lock_iterator_detail
 
 
 template< class Iterator >
-struct lock_iterator_impl :
-    lock_iterator_detail::impl_super<Iterator>::type
+struct lock_iterator :
+    lock_iterator_detail::super_<Iterator>::type
 {
 private:
     typedef lock_iterator self_t;
@@ -90,11 +73,14 @@ private:
     typedef typename super_t::difference_type diff_t;
 
 public:
-    lock_iterator()
+    lock_iterator() :
+        m_singular(true)
     { }
 
-    lock_iterator(Iterator it, boost::mutex& mtx) :
-        super_t(it), m_pmtx(boost::addressof(mtx))
+    lock_iterator(Iterator it, Iterator first, Iterator last) :
+        super_t(it),
+        m_first(first), m_last(last),
+        m_singular(false)
     { }
 
     template< class Iterator_ >
@@ -102,8 +88,41 @@ public:
         lock_iterator<Iterator_> other,
         typename boost::enable_if_convertible<Iterator_, Iterator>::type * = 0
     ) :
-        super_t(other.base()), m_pmtx(other.m_pmtx)
-    { }
+        super_t(other.base()),
+        m_first(other.begin()), m_last(other.end()),
+        m_singular(other.is_singular())
+    {
+        lock_iterator_detail::lock_singularity(other);
+    }
+
+    Iterator begin() const
+    {
+        lock_iterator_detail::lock_singularity(*this);
+        return m_first;
+    }
+
+    Iterator end() const
+    {
+        lock_iterator_detail::lock_singularity(*this);
+        return m_last;
+    }
+
+    bool is_begin() const
+    {
+        lock_iterator_detail::lock_singularity(*this);
+        return this->base() == m_first;
+    }
+
+    bool is_end() const
+    {
+        lock_iterator_detail::lock_singularity(*this);
+        return this->base() == m_last;
+    }
+
+    bool is_singular() const
+    {
+        return m_singular;
+    }
 
 private:
     Iterator m_first, m_last;
@@ -117,7 +136,7 @@ friend class boost::iterator_core_access;
         if (is_end())
             lock_iterator_detail::throw_error();
 
-        return *this->base_reference();
+        return *this->base();
     }
 
     void increment()
@@ -125,7 +144,7 @@ friend class boost::iterator_core_access;
         lock_iterator_detail::lock_singularity(*this);
 
         if (is_end())
-            lock_iterator_detail::throw_error();        
+            lock_iterator_detail::throw_error();
 
         ++this->base_reference();
     }

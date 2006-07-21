@@ -12,13 +12,13 @@
 
 #include <boost/cstdint.hpp> // uint32_t
 #include <boost/range/iterator_range.hpp>
-#include <boost/range/result_iterator.hpp>
 #include <boost/regex/pending/unicode_iterator.hpp> // u8_to_u32_iterator
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/egg/function.hpp>
 #include "./detail/concept_check.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
+#include "./range_iterator_type.hpp"
 
 
 namespace pstade { namespace oven {
@@ -32,7 +32,7 @@ namespace utf8_decode_range_detail {
     {
         typedef boost::iterator_range<
             boost::u8_to_u32_iterator<
-                typename boost::range_result_iterator<BidiRange>::type,
+                typename range_iterator<BidiRange>::type,
                 Ucs4T
             >
         > type;

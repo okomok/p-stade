@@ -10,6 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Note:
+//
+// Pending...
+
+
 #include <boost/iterator/zip_iterator.hpp> // tuple_impl_specific
 #include <boost/mpl/int.hpp>
 #include <boost/mpl/plus.hpp>

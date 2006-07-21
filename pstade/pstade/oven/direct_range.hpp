@@ -12,12 +12,12 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/range/result_iterator.hpp>
 #include <pstade/egg/function.hpp>
 #include "./counting_range.hpp"
 #include "./detail/concept_check.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
+#include "./range_iterator_type.hpp"
 
 
 namespace pstade { namespace oven {
@@ -29,7 +29,7 @@ namespace direct_range_detail {
     template< class Range >
     struct super_
     {
-        typedef typename boost::range_result_iterator<Range>::type iter_t;
+        typedef typename range_iterator<Range>::type iter_t;
         typedef counting_range<iter_t> type;
     };
 

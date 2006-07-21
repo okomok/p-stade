@@ -13,13 +13,13 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
-#include <boost/range/result_iterator.hpp>
+#include <pstade/egg/decay_function_type.hpp>
 #include <pstade/egg/function.hpp>
 #include "./adjacent_filter_iterator.hpp"
 #include "./detail/concept_check.hpp"
-#include "./detail/decay_function.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
+#include "./range_iterator_type.hpp"
 
 
 namespace pstade { namespace oven {
@@ -33,7 +33,7 @@ namespace adjacent_filter_range_detail {
     {
         typedef boost::iterator_range<
             adjacent_filter_iterator<
-                typename boost::range_result_iterator<ForwardRange>::type,
+                typename range_iterator<ForwardRange>::type,
                 BinaryPred
             >
         > type;
@@ -70,12 +70,12 @@ namespace adjacent_filter_range_detail {
         template< class Unused, class ForwardRange, class BinaryPred >
         struct result
         {
-            typedef typename detail::decay_function<BinaryPred>::type pred_t;
+            typedef typename egg::decay_function<BinaryPred>::type pred_t;
             typedef adjacent_filter_range<ForwardRange, pred_t> const type;
         };
 
         template< class Result, class ForwardRange, class BinaryPred >
-        Result call(ForwardRange& rng, BinaryPred pred)
+        Result call(ForwardRange& rng, BinaryPred& pred)
         {
             return Result(rng, pred);
         }

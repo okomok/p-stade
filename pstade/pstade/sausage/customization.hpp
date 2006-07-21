@@ -11,59 +11,60 @@
 
 
 #include <boost/foreach.hpp>
-#include <boost/iterator/iterator_traits.hpp> // iterator_reference
-#include <boost/mpl/identity.hpp>
-#include <boost/range/result_iterator.hpp>
+#include <boost/utility/enable_if.hpp>
+#include <pstade/apple/is_boost_range.hpp>
+#include <pstade/has_xxx.hpp>
+#include <pstade/oven/range_reference_type.hpp>
 
 
 namespace pstade { namespace sausage {
 
 
-struct default_way_tag   { };
-struct intrusive_way_tag { };
-struct boost_range_tag   { };
+template< class T, class = void >
+struct customization;
 
 
 template< class T >
-struct customization_tag :
-    boost::mpl::identity<default_way_tag>
+struct which :
+    boost::enable_if<T>
 { };
-
-
-template< class TagT >
-struct customization;
 
 
 // predefined customizations
 //
 
-template< >
-struct customization<intrusive_way_tag>
+PSTADE_HAS_TYPE(pstade_sausage_enumerate_argument_type)
+
+template< class T >
+struct customization<T, typename which< has_pstade_sausage_enumerate_argument_type<T> >::type>
 {
-    template< class T >
+    template< class HasType >
     struct enumerate_argument
     {
         // insensitive to const-qualification
-        typedef typename T::pstade_sausage_enumerate_argument_type type;
+        typedef typename HasType::pstade_sausage_enumerate_argument_type type;
     };
 
-    template< class Argument, class T, class EnumFtor >
-    EnumFtor enumerate(T& x, EnumFtor fun)
+    template< class Argument, class HasType, class EnumFtor >
+    EnumFtor enumerate(HasType& x, EnumFtor fun)
     {
         return x.template pstade_sausage_enumerate<Argument>(fun);
     }
 };
 
 
-template< >
-struct customization<boost_range_tag>
+template< class T >
+struct is_boost_range : // for overlapping enabler conditions
+    apple::is_boost_range<T>
+{ };
+
+template< class T >
+struct customization<T, typename which< is_boost_range<T> >::type>
 {
     template< class Range >
-    struct enumerate_argument
-    {
-        typedef typename boost::range_result_iterator<Range>::type iter_t;
-        typedef typename boost::iterator_reference<iter_t>::type type;
-    };
+    struct enumerate_argument :
+        oven::range_reference<Range>
+    { };
 
     template< class Argument, class Range, class EnumFtor >
     EnumFtor enumerate(Range& rng, EnumFtor fun)
@@ -76,12 +77,6 @@ struct customization<boost_range_tag>
         return fun;
     }
 };
-
-
-template< class T >
-struct identity :
-    boost::mpl::identity<T>
-{ };
 
 
 } } // namespace pstade::sausage

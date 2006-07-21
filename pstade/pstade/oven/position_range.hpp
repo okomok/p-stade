@@ -11,7 +11,6 @@
 
 
 #include <boost/range/iterator_range.hpp>
-#include <boost/range/result_iterator.hpp>
 #include <boost/spirit/iterator/position_iterator.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/egg/function.hpp>
@@ -19,6 +18,7 @@
 #include "./detail/concept_check.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
+#include "./range_iterator_type.hpp"
 
 
 namespace pstade { namespace oven {
@@ -40,7 +40,7 @@ namespace position_range_detail {
     {
         typedef boost::iterator_range<
             boost::spirit::position_iterator2< // 2!
-                typename boost::range_result_iterator<ForwardRange>::type,
+                typename range_iterator<ForwardRange>::type,
                 PositionT
             >
         > type;

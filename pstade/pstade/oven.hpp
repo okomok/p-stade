@@ -10,7 +10,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./oven/algorithms.hpp"
+#include "./oven/functions.hpp"
+#include "./oven/metafunctions.hpp"
 
 #include "./oven/iterators.hpp"
 #include "./oven/ranges.hpp"

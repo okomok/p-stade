@@ -2,56 +2,64 @@
 #include <boost/test/minimal.hpp>
 
 
-// PStade.Oven
+// PStade.P_Stade;
 //
-// Copyright MB 2005-2006.
+// Copyright MB 2006.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/range/concepts.hpp>
-#include <boost/lambda/lambda.hpp>
-#include <boost/lambda/core.hpp>
+#include <string>
 
 
-#include <boost/iterator/new_iterator_tests.hpp>
-#include <boost/iterator/filter_iterator.hpp>
-#include <pstade/oven/regularize_iterator.hpp>
-
-
-#include <vector>
-
-
-template< class Iterator >
-void foo(Iterator x)
+int func(int a)
 {
-    Iterator y;
-    y = x;
+    return a+2;
+}
+
+
+struct func_t
+{
+    int operator()(int a) const
+    {
+        return a+2;
+    }
+};
+
+
+template<typename TFunc>
+int sum_aux(TFunc& f, unsigned int a)
+{
+    int acum=0;
+    for(unsigned int i=0; i<a; i++)
+    {
+        acum+=f(i);
+    }
+    
+    return acum;
+}
+
+
+template<typename TFunc>
+int sum(TFunc const& f, unsigned int a)
+{
+    return ::sum_aux(f, a);
+}
+
+
+template<typename TFunc>
+int sum(TFunc& f, unsigned int a)
+{
+    return ::sum_aux(f, a);
 }
 
 
 void test()
 {
-    std::string rng("axax");
-
-/* error:
-    ::foo(
-        boost::make_filter_iterator(
-            boost::lambda::_1 != 'x',
-            boost::begin(rng),
-            boost::end(rng)
-        )
-    );
-*/
-
-    ::foo( pstade::oven::make_regularize_iterator(
-        boost::make_filter_iterator(
-            boost::lambda::_1 != 'x',
-            boost::begin(rng),
-            boost::end(rng)
-        )
-    ) );
+    ::sum(::func, 1000);
+    ::sum(&::func, 1000);
+    ::sum(::func_t(), 1000);
 }
 
 

@@ -73,13 +73,13 @@ public:
     accumulate_iterator()
     { }
 
-    accumulate_iterator(Iterator it, value_t const& init, BinaryFun fun) :
+    accumulate_iterator(Iterator const& it, value_t const& init, BinaryFun fun) :
         super_t(it), m_state(init), m_fun(fun)
     { }
 
     template< class Iterator_, class BinaryFun_ >
     accumulate_iterator(
-        accumulate_iterator<Iterator_, BinaryFun_> other,
+        accumulate_iterator<Iterator_, BinaryFun_> const& other,
         typename boost::enable_if_convertible<Iterator_, Iterator>::type * = 0
     ) :
         super_t(other.base()), m_state(other.state()), m_fun(other.functor())
@@ -115,7 +115,7 @@ friend class boost::iterator_core_access;
 
 template< class Iterator, class BinaryFun, class Value > inline
 accumulate_iterator<Iterator, BinaryFun> const
-make_accumulate_iterator(Iterator it, Value const& init, BinaryFun fun)
+make_accumulate_iterator(Iterator const& it, Value const& init, BinaryFun fun)
 {
     return accumulate_iterator<Iterator, BinaryFun>(it, init, fun);
 }

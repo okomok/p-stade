@@ -63,7 +63,7 @@ public:
     filter_iterator()
     { }
 
-    filter_iterator(ForwardIter x, ForwardIter last, UserState& us) :
+    filter_iterator(ForwardIter const& x, ForwardIter const& last, UserState& us) :
         super_t(x), m_submatch_last(x), m_last(last),
         m_pus(boost::addressof(us))
     {
@@ -122,7 +122,7 @@ friend class boost::iterator_core_access;
 
 template< class Parser, class ForwardIter, class UserState > inline
 filter_iterator<Parser, ForwardIter, UserState>
-make_filter_iterator(ForwardIter x, ForwardIter last, UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
+make_filter_iterator(ForwardIter const& x, ForwardIter const& last, UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
 {
     return filter_iterator<Parser, ForwardIter, UserState>(x, last, us);
 }

@@ -121,6 +121,8 @@ void test()
 
     {
         assignable< ::xxx > ax(::xxx(5));
+        *ax;
+        ax->m_i;
         ::check_assignable(ax);
         boost::optional< assignable< ::xxx > > ox;
         ::check_regular(ox);

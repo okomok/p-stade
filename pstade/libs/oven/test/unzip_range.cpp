@@ -20,7 +20,7 @@
 #include <boost/range.hpp>
 #include <pstade/comma_protect.hpp>
 #include <pstade/garlic/back_inserter.hpp>
-#include <pstade/oven/algorithms.hpp>
+#include <pstade/oven/functions.hpp>
 
 
 void test()

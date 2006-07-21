@@ -11,12 +11,12 @@
 
 
 #include <boost/assert.hpp>
-#include <boost/range/difference_type.hpp>
 #include <pstade/egg/function.hpp>
 #include "./detail/concept_check.hpp"
 #include "./distance.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
+#include "./range_difference_type.hpp"
 #include "./sub_range_base_type.hpp"
 
 
@@ -30,7 +30,7 @@ struct slice_range :
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(BidiRange, BidirectionalRangeConcept);
     typedef typename sub_range_base<BidiRange>::type super_t;
-    typedef typename boost::range_difference<BidiRange>::type diff_t;
+    typedef typename range_difference<BidiRange>::type diff_t;
 
 public:
     slice_range(BidiRange& rng, diff_t n, diff_t m) :

@@ -18,7 +18,7 @@
 #include <vector>
 #include <list>
 #include <boost/range.hpp>
-#include <pstade/oven/algorithms.hpp>
+#include <pstade/oven/functions.hpp>
 #include <pstade/oven/identity_range.hpp>
 
 

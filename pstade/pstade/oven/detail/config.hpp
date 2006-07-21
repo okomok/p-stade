@@ -10,6 +10,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/range/iterator.hpp>
+#if !defined(BOOST_RANGE_MUTABLE_ITERATOR_HPP)
+    #define PSTADE_OVEN_BOOST_RANGE_VERSION_1
+#endif
+
+
 #if !defined(PSTADE_OVEN_RANGE_ADAPTOR_MAX_ARITY)
     #define PSTADE_OVEN_RANGE_ADAPTOR_MAX_ARITY 3
 #endif

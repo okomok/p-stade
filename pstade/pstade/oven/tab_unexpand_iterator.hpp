@@ -12,8 +12,6 @@
 
 #include <algorithm> // advance, distance
 #include <boost/iterator/iterator_adaptor.hpp>
-#include <boost/iterator/iterator_traits.hpp> // iterator_value
-#include <boost/type_traits/add_const.hpp>
 #include "./detail/config.hpp" // DEBUG_SPACE_CH
 #include "./tab_expand_iterator.hpp"
 
@@ -57,7 +55,7 @@ public:
     tab_unexpand_iterator()
     { }
 
-    tab_unexpand_iterator(ForwardIter it, ForwardIter last, int tabsize) :
+    tab_unexpand_iterator(ForwardIter const& it, ForwardIter const& last, int tabsize) :
         super_t(base_t(it, tabsize)),
         m_last(last, tabsize), m_sol(it, tabsize),
         m_tabsize(tabsize), m_tab_ch(PSTADE_OVEN_DEBUG_TAB_CH)
@@ -66,7 +64,7 @@ public:
 template< class > friend struct tab_unexpand_iterator;
     template< class ForwardIter_ >
     tab_unexpand_iterator(
-        tab_unexpand_iterator<ForwardIter_> other,
+        tab_unexpand_iterator<ForwardIter_> const& other,
         typename boost::enable_if_convertible<ForwardIter_, ForwardIter>::type * = 0
     ) :
         super_t(other.base()),
@@ -134,7 +132,7 @@ friend class boost::iterator_core_access;
         return *(this->base());
     }
 
-    bool equal(self_t other) const
+    bool equal(self_t const& other) const
     {
         return m_tabsize == other.m_tabsize && this->base() == other.base();
     }
@@ -159,7 +157,7 @@ friend class boost::iterator_core_access;
 
 template< class ForwardIter > inline
 tab_unexpand_iterator<ForwardIter> const
-make_tab_unexpand_iterator(ForwardIter it, ForwardIter last, int tabsize)
+make_tab_unexpand_iterator(ForwardIter const& it, ForwardIter const& last, int tabsize)
 {
     return tab_unexpand_iterator<ForwardIter>(it, last, tabsize);
 }

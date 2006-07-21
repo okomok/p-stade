@@ -49,7 +49,7 @@ namespace joint_iterator_detail {
 
 
     template< class Iterator1, class Iterator2 >
-    void increment(Iterator1& it1, Iterator2& it2, Iterator1 last1)
+    void increment(Iterator1& it1, Iterator2& it2, Iterator1 const& last1)
     {
         if (it1 != last1)
             ++it1;
@@ -59,7 +59,7 @@ namespace joint_iterator_detail {
 
 
     template< class Difference, class Iterator1, class Iterator2 >
-    void advance(Iterator1& it1, Iterator2& it2, Difference diff, Iterator1 last1)
+    void advance(Iterator1& it1, Iterator2& it2, Difference diff, Iterator1 const& last1)
     {
         BOOST_ASSERT(diff >= 0);
 
@@ -98,8 +98,8 @@ public:
     { }
 
     joint_iterator(
-        Iterator1 it1, Iterator1 last1,
-        Iterator2 first2, Iterator2 it2
+        Iterator1 const& it1, Iterator1 const& last1,
+        Iterator2 const& first2, Iterator2 const& it2
     ) :
         super_t(it1), m_last1(last1),
         m_first2(first2), m_it2(it2)
@@ -108,7 +108,7 @@ public:
 template< class, class > friend struct joint_iterator;
     template< class Iterator1_, class Iterator2_ >
     joint_iterator(
-        joint_iterator<Iterator1_, Iterator2_> other,
+        joint_iterator<Iterator1_, Iterator2_> const& other,
         typename boost::enable_if_convertible<Iterator1_, Iterator1>::type * = 0,
         typename boost::enable_if_convertible<Iterator2_, Iterator2>::type * = 0
     ) :
@@ -179,7 +179,7 @@ friend class boost::iterator_core_access;
         }
     }
 
-    diff_t distance_to(self_t other) const
+    diff_t distance_to(self_t const& other) const
     {
         BOOST_ASSERT(valid());
         BOOST_ASSERT(other.valid());
@@ -209,7 +209,7 @@ private:
 
 template< class Iterator1, class Iterator2 > inline
 joint_iterator<Iterator1, Iterator2> const
-make_joint_first_iterator(Iterator1 it1, Iterator1 last1, Iterator2 first2)
+make_joint_first_iterator(Iterator1 const& it1, Iterator1 const& last1, Iterator2 const& first2)
 {
     return joint_iterator<Iterator1, Iterator2>(it1, last1, first2, first2);
 }
@@ -217,7 +217,7 @@ make_joint_first_iterator(Iterator1 it1, Iterator1 last1, Iterator2 first2)
 
 template< class Iterator1, class Iterator2 > inline
 joint_iterator<Iterator1, Iterator2> const
-make_joint_second_iterator(Iterator1 last1, Iterator2 first2, Iterator2 it2)
+make_joint_second_iterator(Iterator1 const& last1, Iterator2 const& first2, Iterator2 const& it2)
 {
     return joint_iterator<Iterator1, Iterator2>(last1, last1, first2, it2);
 }

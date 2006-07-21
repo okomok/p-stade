@@ -19,7 +19,7 @@
 #include <boost/foreach.hpp>
 #include <boost/range.hpp>
 #include <boost/range/concepts.hpp>
-#include <pstade/oven/algorithms.hpp>
+#include <pstade/oven/functions.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
 
 

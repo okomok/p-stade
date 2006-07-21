@@ -13,7 +13,7 @@
 #include <pstade/oven/algorithm.hpp>
 
 #include <pstade/oven/begin_end.hpp>
-#include <pstade/oven/algorithms.hpp>
+#include <pstade/oven/functions.hpp>
 
 
 //  (C) Copyright Eric Niebler 2004.

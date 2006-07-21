@@ -52,7 +52,7 @@ namespace iterator_cast_detail {
 
 
 template< class BaseIter, class Iterator > inline
-BaseIter iterator_cast(Iterator it BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(BaseIter))
+BaseIter iterator_cast(Iterator const& it BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(BaseIter))
 {
     typedef typename iterator_cast_detail::dispatcher<BaseIter, Iterator>::type dispatcher_t;
     return dispatcher_t::call(it);
@@ -79,7 +79,7 @@ namespace iterator_cast_detail {
     template< class BaseIter, class Iterator >
     struct as_is
     {
-        static BaseIter call(Iterator it)
+        static BaseIter call(Iterator const& it)
         {
             return it;
         }
@@ -91,7 +91,7 @@ namespace iterator_cast_detail {
     template< class BaseIter, class Iterator >
     struct base_ // base
     {
-        static BaseIter call(Iterator it)
+        static BaseIter call(Iterator const& it)
         {
             // recursive calls
             return oven::iterator_cast<BaseIter>(it.base());
@@ -120,7 +120,7 @@ namespace iterator_cast_detail {
     template< class Iterator >
     struct temporary
     {
-        explicit temporary(Iterator it) :
+        explicit temporary(Iterator const& it) :
             m_it(it)
         { }
 
@@ -139,7 +139,7 @@ namespace iterator_cast_detail {
 
 
 template< class Iterator > inline
-iterator_cast_detail::temporary<Iterator> base_iterator(Iterator it)
+iterator_cast_detail::temporary<Iterator> base_iterator(Iterator const& it)
 {
     return iterator_cast_detail::temporary<Iterator>(it);
 }

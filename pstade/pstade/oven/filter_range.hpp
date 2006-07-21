@@ -22,12 +22,12 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
-#include <boost/range/result_iterator.hpp>
+#include <pstade/egg/decay_function_type.hpp>
 #include <pstade/egg/function.hpp>
 #include "./detail/concept_check.hpp"
-#include "./detail/decay_function.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
+#include "./range_iterator_type.hpp"
 
 
 namespace pstade { namespace oven {
@@ -42,7 +42,7 @@ namespace filter_range_detail {
         typedef boost::iterator_range<
             boost::filter_iterator<
                 Predicate,
-                typename boost::range_result_iterator<Range>::type
+                typename range_iterator<Range>::type
             >
         > type;
     };
@@ -79,12 +79,12 @@ namespace filter_range_detail {
         template< class Unused, class Range, class Predicate >
         struct result
         {
-            typedef typename detail::decay_function<Predicate>::type pred_t;
+            typedef typename egg::decay_function<Predicate>::type pred_t;
             typedef filter_range<Range, pred_t> const type;
         };
 
         template< class Result, class Range, class Predicate >
-        Result call(Range& rng, Predicate pred)
+        Result call(Range& rng, Predicate& pred)
         {
             return Result(rng, pred);
         }

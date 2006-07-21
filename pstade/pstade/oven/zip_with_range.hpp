@@ -10,14 +10,14 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/range/reference.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <boost/utility/result_of.hpp>
+#include <pstade/egg/decay_function_type.hpp>
 #include <pstade/egg/function.hpp>
 #include "./detail/concept_check.hpp"
-#include "./detail/decay_function.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
+#include "./range_reference_type.hpp"
 #include "./transform_range.hpp"
 #include "./zip_range.hpp"
 
@@ -31,8 +31,8 @@ namespace zip_with_range_detail {
     template< class Range0, class Range1, class BinaryFun >
     struct transformer
     {
-        typedef typename boost::range_reference<Range0>::type ref0_t;
-        typedef typename boost::range_reference<Range1>::type ref1_t;
+        typedef typename range_reference<Range0>::type ref0_t;
+        typedef typename range_reference<Range1>::type ref1_t;
 
         typedef typename boost::result_of<BinaryFun(ref0_t, ref1_t)>::type
         result_type;
@@ -92,7 +92,7 @@ namespace zip_with_range_detail {
         template< class Unused, class Range0, class Range1, class BinaryFun >
         struct result
         {
-            typedef typename detail::decay_function<BinaryFun>::type fun_t;
+            typedef typename egg::decay_function<BinaryFun>::type fun_t;
             typedef zip_with_range<Range0, Range1, fun_t> const type;
         };
 

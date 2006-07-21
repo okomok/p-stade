@@ -14,10 +14,10 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
-#include <boost/range/result_iterator.hpp>
 #include <pstade/egg/function.hpp>
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
+#include "./range_iterator_type.hpp"
 
 
 namespace pstade { namespace oven {
@@ -45,7 +45,7 @@ namespace map_key_range_detail {
         typedef boost::iterator_range<
             boost::transform_iterator<
                 get_key<AssocContainer>,
-                typename boost::range_result_iterator<AssocContainer>::type
+                typename range_iterator<AssocContainer>::type
             >
         > type;
     };

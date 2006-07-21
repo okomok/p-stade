@@ -96,8 +96,8 @@ public:
     { }
 
     adjacent_filter_iterator(
-        ForwardIter it,
-        ForwardIter first, ForwardIter last,
+        ForwardIter const& it,
+        ForwardIter const& first, ForwardIter const& last,
         BinaryPred pred
     ) :
         super_t(it),
@@ -107,7 +107,7 @@ public:
 
     template< class ForwardIter_ >
     adjacent_filter_iterator(
-        adjacent_filter_iterator<ForwardIter_, BinaryPred> other,
+        adjacent_filter_iterator<ForwardIter_, BinaryPred> const& other,
         typename boost::enable_if_convertible<ForwardIter_, ForwardIter>::type * = 0
     ) :
         super_t(other.base()),
@@ -136,7 +136,7 @@ friend class boost::iterator_core_access;
         return *this->base();
     }
 
-    bool equal(self_t other) const
+    bool equal(self_t const& other) const
     {
         BOOST_ASSERT(m_first == other.m_first && m_last == other.m_last &&
             "incompatible iterators"
@@ -173,7 +173,8 @@ friend class boost::iterator_core_access;
 
 template< class ForwardIter, class BinaryPred > inline
 adjacent_filter_iterator<ForwardIter, BinaryPred> const
-make_adjacent_filter_iterator(ForwardIter it, ForwardIter first, ForwardIter last, BinaryPred pred)
+make_adjacent_filter_iterator(ForwardIter const& it,
+    ForwardIter const& first, ForwardIter const& last, BinaryPred pred)
 {
     return adjacent_filter_iterator<ForwardIter, BinaryPred>(it, first, last, pred);
 }

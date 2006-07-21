@@ -12,7 +12,6 @@
 
 #include <boost/type_traits/remove_reference.hpp>
 #include <boost/type_traits/remove_volatile.hpp>
-#include "./customization.hpp"
 #include "./detail/customization_of_type.hpp"
 
 

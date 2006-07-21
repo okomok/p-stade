@@ -14,7 +14,7 @@
 #include <boost/range/difference_type.hpp>
 #include <pstade/unused.hpp>
 #include "../distance.hpp"
-#include "../traversal_type.hpp"
+#include "../range_traversal_type.hpp"
 
 
 namespace pstade { namespace oven { namespace detail {
@@ -47,7 +47,7 @@ template< class Range > inline
 typename boost::range_difference<Range>::type
 debug_distance(Range const& rng)
 {
-    typedef typename traversal<Range>::type trv_t;
+    typedef typename range_traversal<Range>::type trv_t;
     return debug_distance_detail::aux(rng, trv_t());
 }
 

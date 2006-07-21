@@ -17,7 +17,7 @@
 #include <sstream>
 #include <string>
 #include <pstade/garlic/back_inserter.hpp>
-#include <pstade/oven/algorithms.hpp>
+#include <pstade/oven/functions.hpp>
 
 
 void test()

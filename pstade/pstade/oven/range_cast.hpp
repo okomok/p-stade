@@ -50,7 +50,7 @@ range_cast(Range& rng)
 
 // iterator pair
 template< class BaseIter, class Iterator > inline
-boost::iterator_range<BaseIter> range_cast(Iterator first, Iterator last)
+boost::iterator_range<BaseIter> range_cast(Iterator const& first, Iterator const& last)
 {
     return boost::iterator_range<BaseIter>(
         oven::iterator_cast<BaseIter>(first),
@@ -102,7 +102,7 @@ range_cast_detail::auto_range_type<Range> auto_range(Range& rng)
 // iterator pair
 template< class Iterator > inline
 range_cast_detail::auto_range_type< boost::iterator_range<Iterator> >
-auto_range(Iterator first, Iterator last)
+auto_range(Iterator const& first, Iterator const& last)
 {
     boost::iterator_range<Iterator> rng(first, last);
     return range_cast_detail::auto_range_type< boost::iterator_range<Iterator> >(rng);

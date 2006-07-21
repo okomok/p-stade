@@ -59,7 +59,7 @@ public:
     token_iterator()
     { }
 
-    token_iterator(ForwardIter x, ForwardIter last, UserState& us) :
+    token_iterator(ForwardIter const& x, ForwardIter const& last, UserState& us) :
         m_submatch(x, x), m_last(last),
         m_pus(boost::addressof(us))
     {
@@ -116,7 +116,7 @@ friend class boost::iterator_core_access;
 private:
     bool escaped_iterator_range_equal(token_iterator const& other) const
     {
-        // operator== is std::equal...
+        // 'operator==' of 'iterator_range' calls 'std::equal'!
         return m_submatch.equal(other.m_submatch);
     }
 };
@@ -124,7 +124,7 @@ private:
 
 template< class Parser, class ForwardIter, class UserState > inline
 token_iterator<Parser, ForwardIter, UserState>
-make_token_iterator(ForwardIter x, ForwardIter last, UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
+make_token_iterator(ForwardIter const& x, ForwardIter const& last, UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
 {
     return token_iterator<Parser, ForwardIter, UserState>(x, last, us);
 }

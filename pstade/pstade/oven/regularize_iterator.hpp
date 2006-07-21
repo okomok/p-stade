@@ -58,14 +58,14 @@ public:
     explicit regularize_iterator()
     { }
 
-    explicit regularize_iterator(Iterator it) :
+    explicit regularize_iterator(Iterator const& it) :
         m_pimpl(it)
     { }
 
 template< class > friend struct regularize_iterator;
     template< class Iterator_ >
     regularize_iterator(
-        regularize_iterator<Iterator_> other,
+        regularize_iterator<Iterator_> const& other,
         typename boost::enable_if_convertible<Iterator_, Iterator>::type * = 0
     ) :
         m_pimpl(other.m_pimpl)
@@ -93,7 +93,7 @@ friend class boost::iterator_core_access;
         return *base();
     }
 
-    bool equal(self_t other) const
+    bool equal(self_t const& other) const
     {
         return base() == other.base();
     }
@@ -113,7 +113,7 @@ friend class boost::iterator_core_access;
         std::advance(base_reference(), d);
     }
 
-    diff_t distance_to(self_t other) const
+    diff_t distance_to(self_t const& other) const
     {
         return std::distance(base(), other.base());
     }
@@ -122,7 +122,7 @@ friend class boost::iterator_core_access;
 
 template< class Iterator > inline
 regularize_iterator<Iterator> const
-make_regularize_iterator(Iterator it)
+make_regularize_iterator(Iterator const& it)
 {
     return regularize_iterator<Iterator>(it);
 }

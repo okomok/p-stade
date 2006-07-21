@@ -10,7 +10,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./customization.hpp"
+#include <pstade/egg/decay_function_type.hpp>
+#include <pstade/egg/function.hpp>
 #include "./detail/customization_of_type.hpp"
 #include "./enumerate_argument_type.hpp"
 
@@ -21,31 +22,28 @@ namespace pstade { namespace sausage {
 namespace enumerate_detail {
 
 
-    template< class Enumerable, class EnumFtor > inline
-    EnumFtor aux(Enumerable& e, EnumFtor fun)
+    struct baby
     {
-        typedef typename detail::customization_of<Enumerable>::type cust_t;
-        typedef typename enumerate_argument<Enumerable>::type arg_t;
+        template< class Unused, class Enumerable, class EnumFtor >
+        struct result :
+            egg::decay_function<EnumFtor>
+        { };
 
-        return cust_t().template enumerate<arg_t>(e, fun);
+        template< class Result, class Enumerable, class EnumFtor >
+        Result call(Enumerable& e, EnumFtor& fun)
+        {
+            typedef typename detail::customization_of<Enumerable>::type cust_t;
+            typedef typename enumerate_argument<Enumerable>::type arg_t;
+
+            return cust_t().template enumerate<arg_t>(e, fun);
+        }
     };
 
 
 } // namespace enumerate_detail
 
 
-template< class Enumerable, class EnumFtor > inline
-EnumFtor enumerate(Enumerable& e, EnumFtor fun)
-{
-    return enumerate_detail::aux(e, fun);
-};
-
-
-template< class Enumerable, class EnumFtor > inline
-EnumFtor enumerate(const Enumerable& e, EnumFtor fun)
-{
-    return enumerate_detail::aux(e, fun);
-};
+PSTADE_EGG_FUNCTION(enumerate, enumerate_detail::baby)
 
 
 } } // namespace pstade::sausage

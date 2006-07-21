@@ -12,12 +12,12 @@
 
 #include <cstddef> // size_t
 #include <boost/range/iterator_range.hpp>
-#include <boost/range/result_iterator.hpp>
 #include <pstade/remove_rcv.hpp>
 #include <pstade/egg/function.hpp>
 #include "./detail/concept_check.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
+#include "./range_iterator_type.hpp"
 #include "./repeat_iterator.hpp"
 #include "./sub_range_result_type.hpp"
 
@@ -33,7 +33,7 @@ namespace repeat_range_detail {
     {
         typedef boost::iterator_range<
             repeat_iterator<
-                typename boost::range_result_iterator<ForwardRange>::type,
+                typename range_iterator<ForwardRange>::type,
                 SizeT
             >
         > type;

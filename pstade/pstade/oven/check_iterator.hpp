@@ -28,7 +28,7 @@ struct check_iterator;
 struct check_error :
     std::range_error
 {
-    explicit check_error(std::string msg) :
+    explicit check_error(std::string const& msg) :
         std::range_error(msg)
     { }
 };
@@ -56,7 +56,7 @@ namespace check_iterator_detail {
 
 
     template< class Iterator >
-    void check_singularity(check_iterator<Iterator> it)
+    void check_singularity(check_iterator<Iterator> const& it)
     {
         if (it.is_singular()) {
             check_error err("operation on default-constructed 'check_iterator'");
@@ -83,7 +83,7 @@ public:
         m_singular(true)
     { }
 
-    check_iterator(Iterator it, Iterator first, Iterator last) :
+    check_iterator(Iterator const& it, Iterator const& first, Iterator const& last) :
         super_t(it),
         m_first(first), m_last(last),
         m_singular(false)
@@ -91,7 +91,7 @@ public:
 
     template< class Iterator_ >
     check_iterator(
-        check_iterator<Iterator_> other,
+        check_iterator<Iterator_> const& other,
         typename boost::enable_if_convertible<Iterator_, Iterator>::type * = 0
     ) :
         super_t(other.base()),
@@ -191,7 +191,7 @@ friend class boost::iterator_core_access;
 
 template< class Iterator > inline
 check_iterator<Iterator> const
-make_check_iterator(Iterator it, Iterator first, Iterator last)
+make_check_iterator(Iterator const& it, Iterator const& first, Iterator const& last)
 {
     return check_iterator<Iterator>(it, first, last);
 }

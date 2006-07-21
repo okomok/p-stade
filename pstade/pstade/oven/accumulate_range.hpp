@@ -10,18 +10,18 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/iterator/iterator_traits.hpp> // iterator_value
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
-#include <boost/range/result_iterator.hpp>
+#include <pstade/egg/decay_function_type.hpp>
 #include <pstade/egg/function.hpp>
 #include "./accumulate_iterator.hpp"
 #include "./detail/concept_check.hpp"
-#include "./detail/decay_function.hpp"
 #include "./detail/plus.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
+#include "./range_iterator_type.hpp"
+#include "./range_value_type.hpp"
 
 
 namespace pstade { namespace oven {
@@ -35,7 +35,7 @@ namespace accumulate_range_detail {
     {
         typedef boost::iterator_range<
             accumulate_iterator<
-                typename boost::range_result_iterator<Range>::type,
+                typename range_iterator<Range>::type,
                 BinaryFun
             >
         > type;
@@ -53,7 +53,7 @@ private:
     PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
     typedef typename accumulate_range_detail::super_<Range, BinaryFun>::type super_t;
     typedef typename super_t::iterator iter_t;
-    typedef typename boost::iterator_value<iter_t>::type value_t;
+    typedef typename range_value<Range>::type value_t;
 
 public:
     accumulate_range(Range& rng, value_t const& init, BinaryFun fun = detail::plus) :
@@ -73,12 +73,12 @@ namespace accumulate_range_detail {
         template< class Unused, class Range, class Value, class BinaryFun = detail::plus_fun >
         struct result
         {
-            typedef typename detail::decay_function<BinaryFun>::type fun_t;
+            typedef typename egg::decay_function<BinaryFun>::type fun_t;
             typedef accumulate_range<Range, fun_t> const type;
         };
 
         template< class Result, class Range, class Value, class BinaryFun >
-        Result call(Range& rng, Value const& init, BinaryFun fun)
+        Result call(Range& rng, Value const& init, BinaryFun& fun)
         {
             return Result(rng, init, fun);
         }

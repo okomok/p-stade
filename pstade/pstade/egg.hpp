@@ -12,6 +12,7 @@
 
 #include "./egg/baby_call.hpp"
 #include "./egg/baby_result_type.hpp"
+#include "./egg/decay_function_type.hpp"
 #include "./egg/function.hpp"
 #include "./egg/function_fwd.hpp"
 

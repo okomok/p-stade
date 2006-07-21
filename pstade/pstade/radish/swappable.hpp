@@ -15,10 +15,8 @@
 #include "./access.hpp"
 
 
-namespace pstade { namespace radish {
+namespace pstade { namespace radish { PSTADE_ADL_BARRIER(swappable) {
 
-
-PSTADE_ADL_BARRIER(swappable) {
 
 template< class T >
 struct swappable
@@ -32,14 +30,12 @@ struct swappable
     friend
     void swap(T& x, T& y)
     {
-        access::detail_swap(x, y);
+        x.swap(y);
     }
 };
 
-} // ADL barrier
 
-
-} } // namespace pstade::radish
+} } } // namespace pstade::radish::ADL_BARRIER
 
 
 #endif

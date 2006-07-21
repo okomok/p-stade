@@ -58,7 +58,7 @@ public:
     tab_expand_iterator()
     { }
 
-    tab_expand_iterator(ForwardIter it, int tabsize) :
+    tab_expand_iterator(ForwardIter const& it, int tabsize) :
         super_t(it), m_tabsize(tabsize),
         m_space_counter(0), m_diff_from_sol(0),
         m_space_ch(PSTADE_OVEN_DEBUG_SPACE_CH)
@@ -67,7 +67,7 @@ public:
 template< class > friend struct tab_expand_iterator;
     template< class ForwardIter_ >
     tab_expand_iterator(
-        tab_expand_iterator<ForwardIter_> other,
+        tab_expand_iterator<ForwardIter_> const& other,
         typename boost::enable_if_convertible<ForwardIter_, ForwardIter>::type * = 0
     ) :
         super_t(other.base()), m_tabsize(other.tabsize()),
@@ -124,7 +124,7 @@ friend class boost::iterator_core_access;
         return *(this->base());
     }
 
-    bool equal(self_t other) const
+    bool equal(self_t const& other) const
     {
         return
             m_tabsize == other.m_tabsize &&
@@ -163,7 +163,7 @@ friend class boost::iterator_core_access;
 
 template< class ForwardIter > inline
 tab_expand_iterator<ForwardIter> const
-make_tab_expand_iterator(ForwardIter it, int tabsize)
+make_tab_expand_iterator(ForwardIter const& it, int tabsize)
 {
     return tab_expand_iterator<ForwardIter>(it, tabsize);
 }

@@ -25,7 +25,7 @@
 #include "./detail/concept_check.hpp"
 #include "./detail/debug_distance.hpp"
 #include "./range_adaptor.hpp"
-#include "./traversal_type.hpp"
+#include "./range_traversal_type.hpp"
 
 
 namespace pstade { namespace oven {
@@ -85,7 +85,7 @@ namespace copy_range_detail {
     struct meta_copy :
         boost::mpl::if_<
             boost::is_same<
-                typename traversal<Range>::type,
+                typename range_traversal<Range>::type,
                 boost::single_pass_traversal_tag
             >,
             void,
@@ -119,11 +119,12 @@ namespace copy_range_detail {
 
         template< class Result, class InRange, class OutIter >
         typename boost::disable_if< apple::is_boost_range<OutIter>,
+        // Workaround: GCC never allow 'OutIter&' that has the same signature as below.
         Result>::type call(InRange& in, OutIter out)
         {
             oven::copy(in, out);
 
-            typedef typename traversal<InRange>::type trv_t;
+            typedef typename range_traversal<InRange>::type trv_t;
             return copy_range_detail::check_valid(in, trv_t());
         }
 
@@ -138,7 +139,7 @@ namespace copy_range_detail {
 
             oven::copy(in, boost::begin(out));
 
-            typedef typename traversal<InRange>::type trv_t;
+            typedef typename range_traversal<InRange>::type trv_t;
             return copy_range_detail::check_valid(in, trv_t());
         }
 

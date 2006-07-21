@@ -19,11 +19,11 @@
 
 
 #include <boost/range/iterator_range.hpp>
-#include <boost/range/result_iterator.hpp>
 #include <pstade/egg/function.hpp>
 #include "./detail/concept_check.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
+#include "./range_iterator_type.hpp"
 #include "./regularize_iterator.hpp"
 
 
@@ -38,7 +38,7 @@ namespace regularize_range_detail {
     {
         typedef boost::iterator_range<
             regularize_iterator<
-                typename boost::range_result_iterator<Range>::type
+                typename range_iterator<Range>::type
             >
         > type;
     };

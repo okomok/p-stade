@@ -12,7 +12,6 @@
 
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_traits.hpp>
-#include <boost/range/result_iterator.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/nullptr.hpp>
 #include "./check_range.hpp"
