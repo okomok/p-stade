@@ -22,12 +22,12 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
-#include <pstade/egg/decay_function_type.hpp>
+#include <pstade/egg/decay_function.hpp>
 #include <pstade/egg/function.hpp>
 #include "./detail/concept_check.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
-#include "./range_iterator_type.hpp"
+#include "./range_iterator.hpp"
 
 
 namespace pstade { namespace oven {

@@ -15,7 +15,7 @@
 #include "./detail/concept_check.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
-#include "./sub_range_base_type.hpp"
+#include "./sub_range_base.hpp"
 
 
 namespace pstade { namespace oven {

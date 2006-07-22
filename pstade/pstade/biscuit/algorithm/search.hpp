@@ -17,7 +17,7 @@
 #include <boost/range/result_iterator.hpp>
 #include <boost/type_traits/add_const.hpp>
 #include <pstade/const_overloaded.hpp>
-#include <pstade/oven/sub_range_result_type.hpp>
+#include <pstade/oven/sub_range_result.hpp>
 #include "../match_results/default_type.hpp"
 #include "../state/increment.hpp"
 #include "../state/is_end.hpp"

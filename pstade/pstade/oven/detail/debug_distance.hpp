@@ -11,10 +11,10 @@
 
 
 #include <boost/iterator/iterator_categories.hpp> // traversal_tag's
-#include <boost/range/difference_type.hpp>
 #include <pstade/unused.hpp>
 #include "../distance.hpp"
-#include "../range_traversal_type.hpp"
+#include "../range_difference.hpp"
+#include "../range_traversal.hpp"
 
 
 namespace pstade { namespace oven { namespace detail {
@@ -24,7 +24,7 @@ namespace debug_distance_detail {
 
 
     template< class Range > inline
-    typename boost::range_difference<Range>::type
+    typename range_difference<Range>::type
     aux(Range const& rng, boost::forward_traversal_tag)
     {
         return oven::distance(rng);
@@ -32,7 +32,7 @@ namespace debug_distance_detail {
 
 
     template< class Range > inline
-    typename boost::range_difference<Range>::type
+    typename range_difference<Range>::type
     aux(Range const& rng, boost::single_pass_traversal_tag)
     {
         pstade::unused(rng);

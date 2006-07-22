@@ -25,7 +25,7 @@
 #include <vector>
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
-#include <pstade/egg/decay_function_type.hpp>
+#include <pstade/egg/decay_function.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/garlic/back_inserter.hpp>
 #include "./algorithm.hpp" // copy
@@ -35,7 +35,7 @@
 #include "./indirect_range.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
-#include "./range_iterator_type.hpp"
+#include "./range_iterator.hpp"
 #include "./share_range.hpp"
 
 

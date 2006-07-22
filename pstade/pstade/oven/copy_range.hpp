@@ -25,7 +25,7 @@
 #include "./detail/concept_check.hpp"
 #include "./detail/debug_distance.hpp"
 #include "./range_adaptor.hpp"
-#include "./range_traversal_type.hpp"
+#include "./range_traversal.hpp"
 
 
 namespace pstade { namespace oven {

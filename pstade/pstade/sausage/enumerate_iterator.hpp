@@ -21,7 +21,7 @@
 #include <boost/type_traits/remove_reference.hpp>
 #include <pstade/unused.hpp>
 #include "./detail/enumerate_iterator_impl.hpp"
-#include "./enumerate_argument_type.hpp"
+#include "./enumerate_argument.hpp"
 
 
 namespace pstade { namespace sausage {

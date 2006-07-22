@@ -16,7 +16,7 @@
 
 
 #include <boost/ptr_container/indirect_fun.hpp>
-#include <pstade/egg/decay_function_type.hpp>
+#include <pstade/egg/decay_function.hpp>
 #include <pstade/egg/function.hpp>
 #include "./algorithm.hpp" // sort
 #include "./detail/concept_check.hpp"

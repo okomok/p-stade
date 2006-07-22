@@ -29,7 +29,7 @@
 #include <boost/utility/addressof.hpp>
 #include <pstade/nullptr.hpp>
 #include "../enumerate.hpp"
-#include "../enumerate_argument_type.hpp"
+#include "../enumerate_argument.hpp"
 
 
 #if defined(BOOST_MSVC)

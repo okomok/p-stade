@@ -24,7 +24,7 @@
 #include <pstade/what.hpp>
 #include "./error.hpp"
 #include "./new_node.hpp"
-#include "./node_value_type.hpp"
+#include "./node_value.hpp"
 
 
 namespace pstade { namespace lime {

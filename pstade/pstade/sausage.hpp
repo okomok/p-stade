@@ -11,7 +11,7 @@
 
 
 #include "./sausage/enumerate.hpp"
-#include "./sausage/enumerate_argument_type.hpp"
+#include "./sausage/enumerate_argument.hpp"
 
 #include "./sausage/enumerate_iterator.hpp"
 #include "./sausage/enumerate_range.hpp"

@@ -35,7 +35,7 @@
 #include <boost/type_traits/add_const.hpp>
 #include <pstade/comma_protect.hpp>
 #include <pstade/egg/baby_call.hpp>
-#include <pstade/egg/baby_result_type.hpp>
+#include <pstade/egg/baby_result.hpp>
 #include <pstade/instance.hpp>
 #include "./detail/adaptors.hpp"
 #include "./detail/config.hpp" // RANGE_ADAPTOR_MAX_ARITY

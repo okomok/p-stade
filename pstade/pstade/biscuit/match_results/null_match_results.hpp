@@ -15,7 +15,7 @@
 #include <boost/assert.hpp>
 #include <boost/range/empty.hpp>
 #include <boost/range/sub_range.hpp>
-#include <pstade/oven/sub_range_base_type.hpp>
+#include <pstade/oven/sub_range_base.hpp>
 #include <pstade/unused.hpp>
 
 

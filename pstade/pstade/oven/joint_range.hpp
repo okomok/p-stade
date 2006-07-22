@@ -18,7 +18,7 @@
 #include "./is_lightweight_proxy.hpp"
 #include "./joint_iterator.hpp"
 #include "./range_adaptor.hpp"
-#include "./range_iterator_type.hpp"
+#include "./range_iterator.hpp"
 
 
 namespace pstade { namespace oven {

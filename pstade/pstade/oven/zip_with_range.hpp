@@ -12,12 +12,12 @@
 
 #include <boost/tuple/tuple.hpp>
 #include <boost/utility/result_of.hpp>
-#include <pstade/egg/decay_function_type.hpp>
+#include <pstade/egg/decay_function.hpp>
 #include <pstade/egg/function.hpp>
 #include "./detail/concept_check.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
-#include "./range_reference_type.hpp"
+#include "./range_reference.hpp"
 #include "./transform_range.hpp"
 #include "./zip_range.hpp"
 

@@ -10,11 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./range_iterator_type.hpp"
-#include "./range_difference_type.hpp"
-#include "./range_pointer_type.hpp"
-#include "./range_traversal_type.hpp"
-#include "./range_value_type.hpp"
+#include "./range_iterator.hpp"
+#include "./range_difference.hpp"
+#include "./range_pointer.hpp"
+#include "./range_traversal.hpp"
+#include "./range_value.hpp"
 
 
 #endif

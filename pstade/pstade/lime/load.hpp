@@ -28,7 +28,7 @@
 #include "./error.hpp"
 #include "./intrinsic.hpp"
 #include "./new_node.hpp"
-#include "./node_value_type.hpp"
+#include "./node_value.hpp"
 
 
 namespace pstade { namespace lime {
@@ -42,9 +42,9 @@ namespace load_detail {
     template< class NodeValue >
     struct context
     {
-        typedef NodeValue node_value_type;
+        typedef NodeValue node_value;
 
-        node_value_type& top()
+        node_value& top()
         {
             BOOST_ASSERT(!is_top_null());
             return *(m_stack.top());
@@ -55,7 +55,7 @@ namespace load_detail {
             return m_stack.top() == PSTADE_NULLPTR;
         }
 
-        void push(node_value_type *pn)
+        void push(node_value *pn)
         {
             m_stack.push(pn);
         }
@@ -81,7 +81,7 @@ namespace load_detail {
         }
 
     private:
-        std::stack<node_value_type *> m_stack;
+        std::stack<node_value *> m_stack;
         ustring m_curAttName;
     };
 
@@ -101,7 +101,7 @@ namespace load_detail {
 
             ustring name = oven::sequence(rng);
 
-            typedef typename Context::node_value_type val_t;
+            typedef typename Context::node_value val_t;
             std::auto_ptr<val_t> pn(lime::new_node(cxt.top(), name));
 
             if (pn.get())
@@ -122,7 +122,7 @@ namespace load_detail {
 
             ustring data = oven::sequence(rng);
 
-            typedef typename Context::node_value_type val_t;
+            typedef typename Context::node_value val_t;
             std::auto_ptr<val_t> pn(lime::new_node(cxt.top(), i_CharData));
             if (!pn.get())
                 return;
@@ -143,7 +143,7 @@ namespace load_detail {
 
             ustring data = oven::sequence(rng);
 
-            typedef typename Context::node_value_type val_t;
+            typedef typename Context::node_value val_t;
             std::auto_ptr<val_t> pn(lime::new_node(cxt.top(), i_Reference));
             if (!pn.get())
                 return;

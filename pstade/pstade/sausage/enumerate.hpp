@@ -10,10 +10,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/decay_function_type.hpp>
+#include <pstade/egg/decay_function.hpp>
 #include <pstade/egg/function.hpp>
-#include "./detail/customization_of_type.hpp"
-#include "./enumerate_argument_type.hpp"
+#include "./detail/customization_of.hpp"
+#include "./enumerate_argument.hpp"
 
 
 namespace pstade { namespace sausage {

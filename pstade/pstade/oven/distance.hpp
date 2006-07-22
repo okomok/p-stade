@@ -14,7 +14,7 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include "./detail/concept_check.hpp"
-#include "./range_difference_type.hpp"
+#include "./range_difference.hpp"
 
 
 namespace pstade { namespace oven {

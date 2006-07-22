@@ -18,7 +18,7 @@
 #include <pstade/overload.hpp>
 #include <pstade/ustring.hpp>
 #include "./intrinsic.hpp"
-#include "./node_value_type.hpp"
+#include "./node_value.hpp"
 
 
 namespace pstade { namespace lime {

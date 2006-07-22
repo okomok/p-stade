@@ -13,7 +13,7 @@
 #include <boost/noncopyable.hpp>
 #include <boost/range/result_iterator.hpp>
 #include <pstade/oven/begin_end.hpp>
-#include <pstade/oven/sub_range_base_type.hpp>
+#include <pstade/oven/sub_range_base.hpp>
 
 
 namespace pstade { namespace biscuit {

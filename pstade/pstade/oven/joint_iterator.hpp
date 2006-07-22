@@ -15,7 +15,7 @@
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/reverse_iterator.hpp>
 #include <boost/tuple/tuple.hpp>
-#include "./detail/minimum_traversal_type.hpp"
+#include "./detail/minimum_traversal.hpp"
 
 
 namespace pstade { namespace oven {

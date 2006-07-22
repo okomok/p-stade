@@ -13,7 +13,7 @@
 #include <boost/range/iterator_range.hpp>
 #include <boost/spirit/iterator/multi_pass.hpp>
 #include "./is_lightweight_proxy.hpp"
-#include "./range_iterator_type.hpp"
+#include "./range_iterator.hpp"
 
 
 namespace pstade { namespace oven {

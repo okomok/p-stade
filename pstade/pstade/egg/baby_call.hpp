@@ -15,7 +15,7 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include "./baby_result_type.hpp"
+#include "./baby_result.hpp"
 #include "./detail/config.hpp"
 
 

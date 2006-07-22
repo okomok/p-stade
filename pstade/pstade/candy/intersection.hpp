@@ -11,7 +11,7 @@
 
 
 #include <pstade/integral_cast.hpp>
-#include "./detail/greater_size_type.hpp"
+#include "./detail/greater_size.hpp"
 
 
 namespace pstade { namespace candy {

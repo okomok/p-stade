@@ -11,7 +11,7 @@
 
 
 #include <boost/optional.hpp>
-#include "./node_value_type.hpp"
+#include "./node_value.hpp"
 
 
 namespace pstade { namespace lime {

@@ -16,7 +16,7 @@
 #include <boost/range/result_iterator.hpp>
 #include <pstade/unused.hpp>
 #include "../distance.hpp"
-#include "../range_traversal_type.hpp"
+#include "../range_traversal.hpp"
 
 
 namespace pstade { namespace oven { namespace detail {

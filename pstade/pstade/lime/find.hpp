@@ -13,7 +13,7 @@
 #include <boost/foreach.hpp>
 #include <boost/implicit_cast.hpp>
 #include <boost/optional.hpp>
-#include "./node_value_type.hpp"
+#include "./node_value.hpp"
 
 
 namespace pstade { namespace lime {

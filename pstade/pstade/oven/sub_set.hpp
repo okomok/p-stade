@@ -16,7 +16,7 @@
 #include <boost/range/end.hpp>
 #include <boost/utility/base_from_member.hpp>
 #include "./indirect_range.hpp"
-#include "./range_iterator_type.hpp"
+#include "./range_iterator.hpp"
 
 
 namespace pstade { namespace oven {

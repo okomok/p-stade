@@ -12,7 +12,7 @@
 
 #include <boost/mpl/apply.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/oven/sub_range_base_type.hpp>
+#include <pstade/oven/sub_range_base.hpp>
 #include "../../match_results/null_match_results.hpp"
 #include "../../match_results/parsing_range_type.hpp"
 #include "../../state/class_type.hpp"

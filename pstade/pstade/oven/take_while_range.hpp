@@ -16,14 +16,14 @@
 
 
 #include <boost/range/begin.hpp>
-#include <pstade/egg/decay_function_type.hpp>
+#include <pstade/egg/decay_function.hpp>
 #include <pstade/egg/function.hpp>
 #include "./algorithm.hpp" // find_if
 #include "./detail/concept_check.hpp"
 #include "./detail/not.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
-#include "./sub_range_base_type.hpp"
+#include "./sub_range_base.hpp"
 
 
 namespace pstade { namespace oven {

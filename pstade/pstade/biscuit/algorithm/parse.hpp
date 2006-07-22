@@ -15,7 +15,7 @@
 #include <boost/range/iterator_range.hpp>
 #include <boost/type_traits/add_const.hpp>
 #include <pstade/const_overloaded.hpp>
-#include <pstade/oven/sub_range_result_type.hpp>
+#include <pstade/oven/sub_range_result.hpp>
 #include "../match_results/default_type.hpp"
 #include "../state/null_state.hpp"
 #include "../state/parsing_range_state_type.hpp"

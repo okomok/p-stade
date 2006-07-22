@@ -25,7 +25,7 @@
 #include <pstade/is_debug.hpp>
 #include <pstade/napkin/config.hpp> // NO_WIDESTRING
 #include <pstade/napkin/ostream.hpp>
-#include <pstade/napkin/ostream_char_type.hpp>
+#include <pstade/napkin/ostream_char.hpp>
 
 
 namespace pstade { namespace biscuit {

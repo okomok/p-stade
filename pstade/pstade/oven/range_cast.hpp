@@ -16,7 +16,7 @@
 #include <boost/type_traits/add_const.hpp>
 #include <pstade/const_overloaded.hpp>
 #include "./iterator_cast.hpp"
-#include "./sub_range_base_type.hpp"
+#include "./sub_range_base.hpp"
 
 
 namespace pstade { namespace oven {

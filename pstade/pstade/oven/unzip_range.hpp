@@ -15,18 +15,14 @@
 // Pending...
 
 
-#include <boost/iterator/zip_iterator.hpp> // tuple_impl_specific
-#include <boost/mpl/int.hpp>
-#include <boost/mpl/plus.hpp>
-#include <boost/range/value_type.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <boost/type_traits/add_const.hpp>
-#include <boost/type_traits/remove_cv.hpp>
 #include <pstade/const_overloaded.hpp>
 #include <pstade/egg/function.hpp>
 #include "./detail/concept_check.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
+#include "./range_value.hpp"
 #include "./transform_range.hpp"
 
 
@@ -39,8 +35,7 @@ namespace unzip_range_detail {
     template< class TupleRange, int N >
     struct meta_get_at
     {
-        typedef typename boost::remove_cv<TupleRange>::type rng_t;
-        typedef typename boost::range_value<rng_t>::type tup_t;
+        typedef typename range_value<TupleRange>::type tup_t;
         typedef typename boost::tuples::access_traits<
             typename boost::tuples::element<N, tup_t>::type
         >::const_type type;

@@ -15,13 +15,13 @@
 // Will be cute with the upcoming Boost.Phoenix-v2.
 
 
-#include <pstade/egg/decay_function_type.hpp>
+#include <pstade/egg/decay_function.hpp>
 #include <pstade/egg/function.hpp>
 #include "./begin_end.hpp"
 #include "./detail/concept_check.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
-#include "./sub_range_base_type.hpp"
+#include "./sub_range_base.hpp"
 
 
 namespace pstade { namespace oven {

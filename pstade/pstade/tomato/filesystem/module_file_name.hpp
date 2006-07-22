@@ -22,7 +22,7 @@
 #include <pstade/integral_cast.hpp>
 #include <pstade/oven/distance.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
-#include <pstade/oven/sub_range_result_type.hpp>
+#include <pstade/oven/sub_range_result.hpp>
 #include <pstade/require.hpp>
 #include "./max_path_value.hpp"
 #include "./path_find_extension.hpp"

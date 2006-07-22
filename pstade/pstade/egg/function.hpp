@@ -17,7 +17,7 @@
 #include <boost/utility/result_of.hpp>
 #include <pstade/comma_protect.hpp>
 #include <pstade/instance.hpp>
-#include "./baby_result_type.hpp"
+#include "./baby_result.hpp"
 #include "./detail/config.hpp"
 #include "./detail/operators.hpp"
 #include "./detail/results.hpp"

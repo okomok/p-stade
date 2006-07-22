@@ -18,7 +18,7 @@
 
 // Workaround:
 //   'boost::sub_range' is broken under eVC++4 and VC++8. It is not Assignable.
-#include <pstade/oven/sub_range_base_type.hpp>
+#include <pstade/oven/sub_range_base.hpp>
 
 
 namespace pstade { namespace biscuit {

@@ -23,7 +23,7 @@
 #include "./detail/concept_check.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
-#include "./range_iterator_type.hpp"
+#include "./range_iterator.hpp"
 #include "./regularize_iterator.hpp"
 
 

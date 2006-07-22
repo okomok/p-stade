@@ -14,7 +14,7 @@
 #include <boost/utility/enable_if.hpp>
 #include <pstade/apple/is_boost_range.hpp>
 #include <pstade/has_xxx.hpp>
-#include <pstade/oven/range_reference_type.hpp>
+#include <pstade/oven/range_reference.hpp>
 
 
 namespace pstade { namespace sausage {

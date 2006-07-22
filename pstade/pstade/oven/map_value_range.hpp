@@ -17,7 +17,7 @@
 #include <pstade/egg/function.hpp>
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
-#include "./range_iterator_type.hpp"
+#include "./range_iterator.hpp"
 
 
 namespace pstade { namespace oven {

@@ -13,7 +13,7 @@
 #include <iterator> // distance
 #include <boost/mpl/apply.hpp>
 #include <boost/range/result_iterator.hpp>
-#include <pstade/oven/sub_range_base_type.hpp>
+#include <pstade/oven/sub_range_base.hpp>
 #include <pstade/oven/transform_range.hpp>
 #include "../../state/class_type.hpp"
 #include "../../state/match_results_type.hpp"

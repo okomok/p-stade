@@ -15,7 +15,7 @@
 #include <boost/iterator/iterator_traits.hpp> // iterator_value
 #include <boost/tuple/tuple.hpp>
 #include "./detail/an_iterator.hpp"
-#include "./detail/minimum_traversal_type.hpp"
+#include "./detail/minimum_traversal.hpp"
 
 
 namespace pstade { namespace oven {

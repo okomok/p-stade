@@ -29,7 +29,7 @@
 #include <boost/type_traits/add_const.hpp>
 #include "./config.hpp" // MAX_ARITY
 #include "../baby_call.hpp"
-#include "../baby_result_type.hpp"
+#include "../baby_result.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {

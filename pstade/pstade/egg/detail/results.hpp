@@ -15,7 +15,7 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include "./config.hpp"
-#include "../baby_result_type.hpp"
+#include "../baby_result.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {
