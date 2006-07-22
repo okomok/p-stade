@@ -86,6 +86,7 @@ struct repeat_iterator :
     repeat_iterator_detail::super_<ForwardIter, SizeT>::type
 {
 private:
+    typedef repeat_iterator self_t;
     typedef typename repeat_iterator_detail::super_<ForwardIter, SizeT>::type super_t;
     typedef typename super_t::difference_type diff_t;
     typedef typename super_t::reference ref_t;
@@ -130,7 +131,7 @@ friend class boost::iterator_core_access;
         return *this->base();
     }
 
-    bool equal(repeat_iterator const& other) const
+    bool equal(self_t const& other) const
     {
         BOOST_ASSERT(m_index >= 0);
         BOOST_ASSERT(m_first == other.sbegin() && m_last == other.send() &&
@@ -208,7 +209,7 @@ private:
             m_index -= count;
     }
 
-    diff_t distance_to(repeat_iterator const& other) const
+    diff_t distance_to(self_t const& other) const
     {
         return 
             repeat_iterator_detail::pseudo_pos<diff_t>(other.base(), other.index(), other.sbegin(), other.send())

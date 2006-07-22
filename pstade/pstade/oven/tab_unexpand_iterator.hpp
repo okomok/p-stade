@@ -90,7 +90,7 @@ private:
 
     bool is_newline() const
     {
-        return *(this->base()) == '\n';
+        return *this->base() == '\n';
     }
 
     diff_t flying_distance() const
@@ -129,7 +129,7 @@ friend class boost::iterator_core_access;
         if (flying_distance() != 0)
             return m_tab_ch;
 
-        return *(this->base());
+        return *this->base();
     }
 
     bool equal(self_t const& other) const
@@ -147,7 +147,7 @@ friend class boost::iterator_core_access;
 
         bool nl = is_newline();
 
-        ++(this->base_reference());
+        ++this->base_reference();
 
         if (nl)
             m_sol = this->base();

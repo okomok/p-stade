@@ -31,20 +31,23 @@
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/type_traits/remove_reference.hpp>
+#include <pstade/has_xxx.hpp>
 #include "./detail/config.hpp"
-#include "./detail/has_result_type.hpp"
 
 
 namespace pstade { namespace egg {
 
 
-namespace baby_result_type_detail {
+namespace baby_result_detail {
+
+
+    PSTADE_HAS_TYPE(nullary_result_type)
 
 
     template< class BabyFunction >
     struct nullary
     {
-        typedef typename BabyFunction::result_type type;
+        typedef typename BabyFunction::nullary_result_type type;
     };
 
 
@@ -52,7 +55,7 @@ namespace baby_result_type_detail {
     dummy_type;
 
 
-} // namespace baby_result_type_detail
+} // namespace baby_result_detail
 
 
 struct error_no_arguments_supplied
@@ -67,8 +70,8 @@ struct error_no_arguments_supplied
 //
 template< class BabyFunction >
 struct baby_result0 :
-    boost::mpl::eval_if< detail::has_result_type<BabyFunction>,
-        baby_result_type_detail::nullary<BabyFunction>,
+    boost::mpl::eval_if< baby_result_detail::has_nullary_result_type<BabyFunction>,
+        baby_result_detail::nullary<BabyFunction>,
         boost::mpl::identity<error_no_arguments_supplied>
     >
 { };
@@ -79,7 +82,7 @@ struct baby_result0 :
 template< class BabyFunction, class A0 >
 struct baby_result1 :
     BabyFunction::template result<
-        baby_result_type_detail::dummy_type,
+        baby_result_detail::dummy_type,
         typename boost::remove_reference<A0>::type
     >
 { };
@@ -90,7 +93,7 @@ struct baby_result1 :
 template< class BabyFunction, class A0, class A1 >
 struct baby_result2 :
     BabyFunction::template result<
-        baby_result_type_detail::dummy_type,
+        baby_result_detail::dummy_type,
         typename boost::remove_reference<A0>::type,
         typename boost::remove_reference<A1>::type
     >
@@ -120,7 +123,7 @@ struct baby_result2 :
 template< class BabyFunction, BOOST_PP_ENUM_PARAMS(n, class A) >
 struct BOOST_PP_CAT(baby_result, n) :
     BabyFunction::template result<
-        baby_result_type_detail::dummy_type,
+        baby_result_detail::dummy_type,
         BOOST_PP_ENUM(n, PSTADE_EGG_remove_ref, ~)
     >
 { };

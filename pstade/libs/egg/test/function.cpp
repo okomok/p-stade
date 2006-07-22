@@ -34,7 +34,8 @@ struct foo_impl
 
 struct bar_impl
 {
-    typedef int result_type;
+    typedef int
+    nullary_result_type;
 
     template< class Result >
     Result call()
@@ -46,7 +47,8 @@ struct bar_impl
 
 struct hoge_impl
 {
-    typedef std::string result_type;
+    typedef std::string
+    nullary_result_type;
 
     template< class Unused, class Arg0, class Arg1 = void >
     struct result
@@ -79,9 +81,9 @@ PSTADE_EGG_FUNCTION(bar, bar_impl)
 PSTADE_EGG_FUNCTION(hoge, hoge_impl)
 
 
-BOOST_MPL_ASSERT_NOT(( pstade::egg::detail::has_result_type<foo_impl> ));
-BOOST_MPL_ASSERT(( pstade::egg::detail::has_result_type<bar_impl> ));
-BOOST_MPL_ASSERT(( pstade::egg::detail::has_result_type<hoge_impl> ));
+BOOST_MPL_ASSERT_NOT(( pstade::egg::baby_result_detail::has_nullary_result_type<foo_impl> ));
+BOOST_MPL_ASSERT(( pstade::egg::baby_result_detail::has_nullary_result_type<bar_impl> ));
+BOOST_MPL_ASSERT(( pstade::egg::baby_result_detail::has_nullary_result_type<hoge_impl> ));
 
 
 BOOST_MPL_ASSERT(( boost::is_same<boost::result_of<foo_fun(int)>::type, int> ));

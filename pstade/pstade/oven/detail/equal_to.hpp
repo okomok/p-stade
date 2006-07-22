@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// equal_to
+// See: equal_to at Boost.StringAlgorithm
 //
 // Copyright Pavol Droba 2002-2003. Use, modification and
 // distribution is subject to the Boost Software License, Version
@@ -18,25 +18,29 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/instance.hpp>
+#include <pstade/egg/function.hpp>
 
 
 namespace pstade { namespace oven { namespace detail {
 
 
-struct equal_to_fun
+struct baby_equal_to
 {
-    typedef bool result_type;
+    template< class Unused, class X, class Y >
+    struct result
+    {
+        typedef bool type;
+    };
 
-    template< class X, class Y >
-    bool operator()(X const& x, Y const& y) const
+    template< class Result, class X, class Y >
+    Result call(X const& x, Y const& y)
     {
         return x == y;
     }
 };
 
 
-PSTADE_INSTANCE(equal_to_fun const, equal_to, value)
+PSTADE_EGG_FUNCTION(equal_to, baby_equal_to)
 
 
 } } } // namespace pstade::oven::detail

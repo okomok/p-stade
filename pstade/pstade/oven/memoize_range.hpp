@@ -43,7 +43,7 @@ namespace memoize_range_detail {
         private:
             struct data_t
             {
-                data_t(Iterator it) :
+                data_t(Iterator const& it) :
                     m_it(it), m_initialized(false)
                 { }
 
@@ -59,7 +59,7 @@ namespace memoize_range_detail {
                 m_pdata(PSTADE_NULLPTR)
             { }
 
-            explicit inner(Iterator it) :
+            explicit inner(Iterator const& it) :
                 m_pdata(new data_t(it))
             { }
 

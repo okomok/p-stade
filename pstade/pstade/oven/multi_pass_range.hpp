@@ -23,7 +23,7 @@ namespace multi_pass_range_detail {
 
 
     template<
-        class SinglePassRange,
+        class InputIterRange,
         class InputPolicy,
         class OwnershipPolicy,
         class CheckingPolicy,
@@ -33,7 +33,7 @@ namespace multi_pass_range_detail {
     {
         typedef boost::iterator_range<
             boost::spirit::multi_pass<
-                typename range_iterator<SinglePassRange>::type,
+                typename range_iterator<InputIterRange>::type,
                 InputPolicy, OwnershipPolicy, CheckingPolicy, StoragePolicy
             >
         > type;
@@ -44,7 +44,7 @@ namespace multi_pass_range_detail {
 
 
 template<
-    class SinglePassRange,
+    class InputIterRange, // undocumented concept by Boost.Spirit
     class InputPolicy = boost::spirit::multi_pass_policies::input_iterator,
     class OwnershipPolicy = boost::spirit::multi_pass_policies::ref_counted,
     class CheckingPolicy = boost::spirit::multi_pass_policies::buf_id_check,
@@ -52,18 +52,18 @@ template<
 >
 struct multi_pass_range :
     multi_pass_range_detail::super_<
-        SinglePassRange,
+        InputIterRange,
         InputPolicy, OwnershipPolicy, CheckingPolicy, StoragePolicy
     >::type
 {
 private:
     typedef typename multi_pass_range_detail::super_<
-        SinglePassRange,
+        InputIterRange,
         InputPolicy, OwnershipPolicy, CheckingPolicy, StoragePolicy
     >::type super_t;
 
 public:
-    explicit multi_pass_range(SinglePassRange& rng) :
+    explicit multi_pass_range(InputIterRange& rng) :
         super_t(rng)
     { }
 };

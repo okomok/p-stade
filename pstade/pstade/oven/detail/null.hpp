@@ -10,26 +10,30 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/instance.hpp>
+#include <pstade/egg/function.hpp>
 #include <pstade/unused.hpp>
 
 
 namespace pstade { namespace oven { namespace detail {
 
 
-struct null_fun
+struct baby_null
 {
-    typedef void result_type;
+    template< class Unused, class X >
+    struct result
+    {
+        typedef void type;
+    };
 
-    template< class X >
-    void operator()(X const& x) const
+    template< class Result, class X >
+    Result call(X const& x)
     {
         pstade::unused(x);
     }
 };
 
 
-PSTADE_INSTANCE(null_fun const, null_, value)
+PSTADE_EGG_FUNCTION_(null_, baby_null)
 
 
 } } } // namespace pstade::oven::detail

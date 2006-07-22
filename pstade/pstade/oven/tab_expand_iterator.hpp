@@ -90,12 +90,12 @@ private:
 
     bool is_tab() const
     {
-        return *(this->base()) == PSTADE_OVEN_DEBUG_TAB_CH;
+        return *this->base() == PSTADE_OVEN_DEBUG_TAB_CH;
     }
 
     bool is_newline() const
     {
-        return *(this->base()) == '\n';
+        return *this->base() == '\n';
     }
 
     // "pseudo space range" functions
@@ -121,7 +121,7 @@ friend class boost::iterator_core_access;
         if (!space_is_end() || is_tab())
             return m_space_ch;
 
-        return *(this->base());
+        return *this->base();
     }
 
     bool equal(self_t const& other) const
@@ -142,7 +142,7 @@ friend class boost::iterator_core_access;
         }
 
         if (is_tab()) {
-            ++(this->base_reference()); // see you later
+            ++this->base_reference(); // see you later
 
             space_initialize();
             space_increment();
@@ -152,7 +152,7 @@ friend class boost::iterator_core_access;
 
         bool nl = is_newline();
 
-        ++(this->base_reference());
+        ++this->base_reference();
         ++m_diff_from_sol;
 
         if (nl)

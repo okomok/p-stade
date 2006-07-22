@@ -71,7 +71,7 @@ private:
 
 
 template< class Range > inline
-share_iterator<Range>
+share_iterator<Range> const
 make_share_iterator(
     typename range_iterator<Range>::type const& it,
     boost::shared_ptr<Range> const& prng
