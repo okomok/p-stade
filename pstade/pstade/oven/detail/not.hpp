@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/egg/decay_function.hpp>
 #include <pstade/egg/function.hpp>
 
 
@@ -17,9 +18,9 @@ namespace pstade { namespace oven { namespace detail {
 
 
 template< class Predicate >
-struct baby_not
+struct baby_not_fun
 {
-    explicit baby_not(Predicate const& pred) :
+    explicit baby_not_fun(Predicate const& pred) :
         m_pred(pred)
     { }
 
@@ -46,24 +47,25 @@ private:
 };
 
 
-template< class Predicate >
-struct not_fun
+struct baby_not
 {
-    typedef egg::function<
-        baby_not<Predicate>
-    > type;
+    template< class Unused, class Predicate >
+    struct result
+    {
+        typedef typename egg::decay_function<Predicate>::type pred_t;
+        typedef egg::function< baby_not_fun<pred_t> > type;
+    };
+
+    template< class Result, class Predicate >
+    Result call(Predicate& pred)
+    {
+        typedef typename Result::type baby_t;
+        return Result(baby_t(pred));
+    }
 };
 
 
-template< class Predicate > inline
-typename not_fun<Predicate>::type
-not_(Predicate pred)
-{
-    typedef typename not_fun<Predicate>::type fun_t;
-    return fun_t(
-        baby_not<Predicate>(pred)
-    );
-}
+PSTADE_EGG_FUNCTION_(not_, baby_not)
 
 
 } } } // namespace pstade::oven::detail

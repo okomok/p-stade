@@ -55,7 +55,7 @@ struct range_adaptor
     explicit range_adaptor()
     { }
 
-    explicit range_adaptor(BabyAdaptor baby) :
+    explicit range_adaptor(BabyAdaptor const& baby) :
         m_baby(baby)
     { }
 
@@ -133,7 +133,7 @@ struct range_adaptor
 //
 template< class Range, class BabyAdaptor > inline
 typename egg::baby_result1<BabyAdaptor, Range>::type
-operator|(Range& rng, range_adaptor<BabyAdaptor> ad)
+operator|(Range& rng, range_adaptor<BabyAdaptor> const& ad)
 {
     pstade::unused(ad);
     return egg::baby_call(ad.m_baby, rng);
@@ -141,7 +141,7 @@ operator|(Range& rng, range_adaptor<BabyAdaptor> ad)
 
 template< class Range, class BabyAdaptor > inline
 typename egg::baby_result1<BabyAdaptor, typename boost::add_const<Range>::type>::type
-operator|(Range const& rng, range_adaptor<BabyAdaptor> ad)
+operator|(Range const& rng, range_adaptor<BabyAdaptor> const& ad)
 {
     pstade::unused(ad);
     return egg::baby_call(ad.m_baby, rng);

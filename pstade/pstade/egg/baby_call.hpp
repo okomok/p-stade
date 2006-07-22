@@ -37,7 +37,7 @@ baby_call(BabyFunction baby)
 
 // 1ary
 //
-template< class BabyFunction, class A0 >
+template< class BabyFunction, class A0 > inline
 typename egg::baby_result1<BabyFunction,
     A0
 >::type
@@ -53,7 +53,7 @@ baby_call(BabyFunction baby, A0& a0)
 
 // 2ary
 //
-template< class BabyFunction, class A0, class A1 >
+template< class BabyFunction, class A0, class A1 > inline
 typename egg::baby_result2<BabyFunction,
     A0, A1
 >::type

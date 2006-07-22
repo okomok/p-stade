@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/utility/result_of.hpp>
 #include <pstade/egg/function.hpp>
 #include "./adjacent_filter_range.hpp"
 #include "./detail/concept_check.hpp"
@@ -30,7 +31,7 @@ namespace unique_range_detail {
     {
         typedef adjacent_filter_range<
             ForwardRange,
-            typename detail::not_fun<detail::equal_to_fun>::type
+            typename boost::result_of<detail::not_fun(detail::equal_to_fun)>::type
         > type;
     };
 

@@ -36,10 +36,12 @@ namespace pstade { namespace egg {
         typedef detail::operators<BabyFunction> super_t;
 
     public:
+        typedef BabyFunction type;
+
         explicit function()
         { }
 
-        explicit function(BabyFunction fun) :
+        explicit function(BabyFunction const& fun) :
             super_t(fun)
         { }
     };
@@ -91,9 +93,19 @@ namespace boost {
 
 
 #define PSTADE_EGG_FUNCTION(Name, Baby) \
+    PSTADE_EGG_FUNCTION_define(BOOST_PP_CAT(Name, _fun), Name, Baby) \
+/**/
+
+
+#define PSTADE_EGG_FUNCTION_(Name, Baby) \
+    PSTADE_EGG_FUNCTION_define(BOOST_PP_CAT(Name, fun), Name, Baby) \
+/**/
+
+
+#define PSTADE_EGG_FUNCTION_define(TypeName, Name, Baby) \
     typedef pstade::egg::function< \
         PSTADE_COMMA_PROTECT(Baby) \
-    > BOOST_PP_CAT(Name, _fun); \
+    > TypeName; \
     \
     PSTADE_INSTANCE( \
         pstade::egg::function< PSTADE_COMMA_PROTECT(Baby) > const, \
