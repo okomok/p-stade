@@ -12,7 +12,7 @@
 
 // What:
 //
-// Use in destructor
+// Use in destructors
 
 
 #include <boost/assert.hpp>

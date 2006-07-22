@@ -45,7 +45,7 @@ public:
     explicit operators()
     { }
 
-    explicit operators(BabyFunction baby) :
+    explicit operators(BabyFunction const& baby) :
         m_baby(baby)
     { }
 

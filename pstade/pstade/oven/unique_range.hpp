@@ -13,7 +13,8 @@
 #include <pstade/egg/function.hpp>
 #include "./adjacent_filter_range.hpp"
 #include "./detail/concept_check.hpp"
-#include "./detail/not_equal_to.hpp"
+#include "./detail/equal_to.hpp"
+#include "./detail/not.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 
@@ -29,7 +30,7 @@ namespace unique_range_detail {
     {
         typedef adjacent_filter_range<
             ForwardRange,
-            detail::not_equal_to_fun
+            typename detail::not_fun<detail::equal_to_fun>::type
         > type;
     };
 
@@ -47,7 +48,7 @@ private:
 
 public:
     explicit unique_range(ForwardRange& rng) :
-        super_t(rng, detail::not_equal_to)
+        super_t(rng, detail::not_(detail::equal_to))
     { }
 };
 

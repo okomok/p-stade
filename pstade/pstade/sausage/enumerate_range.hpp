@@ -58,7 +58,7 @@ namespace enumerate_range_detail {
         template< class Unused, class Enumerable >
         struct result
         {
-            typedef const enumerate_range<Enumerable> type;
+            typedef enumerate_range<Enumerable> const type;
         };
 
         template< class Result, class Enumerable >

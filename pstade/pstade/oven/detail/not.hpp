@@ -10,28 +10,35 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/egg/function.hpp>
+
+
 namespace pstade { namespace oven { namespace detail {
 
 
 template< class Predicate >
-struct not_fun
+struct baby_not
 {
-    typedef bool result_type;
-
-    explicit not_fun(Predicate pred) :
+    explicit baby_not(Predicate const& pred) :
         m_pred(pred)
     { }
 
-    template< class T >
-    bool operator()(T& x) const
+    template< class Unused, class T0, class T1 = void >
+    struct result
     {
-        return !m_pred(x);
+        typedef bool type;
+    };
+
+    template< class Result, class T0 >
+    Result call(T0& a0)
+    {
+        return !m_pred(a0);
     }
 
-    template< class T >
-    bool operator()(T const& x) const
+    template< class Result, class T0, class T1 >
+    Result call(T0& a0, T1& a1)
     {
-        return !m_pred(x);
+        return !m_pred(a0, a1);
     }
 
 private:
@@ -39,10 +46,23 @@ private:
 };
 
 
-template< class Predicate > inline
-not_fun<Predicate> not_(Predicate pred)
+template< class Predicate >
+struct not_fun
 {
-    return not_fun<Predicate>(pred);
+    typedef egg::function<
+        baby_not<Predicate>
+    > type;
+};
+
+
+template< class Predicate > inline
+typename not_fun<Predicate>::type
+not_(Predicate pred)
+{
+    typedef typename not_fun<Predicate>::type fun_t;
+    return fun_t(
+        baby_not<Predicate>(pred)
+    );
 }
 
 
