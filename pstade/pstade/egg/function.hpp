@@ -21,7 +21,6 @@
 #include "./detail/config.hpp"
 #include "./detail/operators.hpp"
 #include "./detail/results.hpp"
-#include "./function_fwd.hpp"
 
 
 namespace pstade { namespace egg {
@@ -41,8 +40,8 @@ namespace pstade { namespace egg {
         explicit function()
         { }
 
-        explicit function(BabyFunction const& fun) :
-            super_t(fun)
+        explicit function(BabyFunction const& baby) :
+            super_t(baby)
         { }
     };
 

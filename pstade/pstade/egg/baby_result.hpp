@@ -45,7 +45,7 @@ namespace baby_result_detail {
 
 
     template< class BabyFunction >
-    struct nullary
+    struct nullary_result
     {
         typedef typename BabyFunction::nullary_result_type type;
     };
@@ -71,7 +71,7 @@ struct error_no_arguments_supplied
 template< class BabyFunction >
 struct baby_result0 :
     boost::mpl::eval_if< baby_result_detail::has_nullary_result_type<BabyFunction>,
-        baby_result_detail::nullary<BabyFunction>,
+        baby_result_detail::nullary_result<BabyFunction>,
         boost::mpl::identity<error_no_arguments_supplied>
     >
 { };

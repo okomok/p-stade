@@ -84,13 +84,40 @@ void test()
     ::const_check(cstr2);
     ::const_check(map2_);
 
-    BOOST_CHECK(pstade_instance_of_str() == sz);
-    BOOST_CHECK(pstade_instance_of_cstr() == sz);
+    BOOST_CHECK(PSTADE_INSTANCE_OF(str) == sz);
+    BOOST_CHECK(PSTADE_INSTANCE_OF(cstr) == sz);
+}
+
+
+// easy singleton
+//
+struct device_type :
+    private boost::noncopyable
+{
+private:
+    device_type()
+    { }
+
+    friend class pstade_instance_of_device;
+
+public:
+    int get_printer()
+    {
+        return 0;
+    }
+};
+
+PSTADE_INSTANCE(device_type, device, value)
+
+void test_singleton()
+{
+    BOOST_CHECK( ::device.get_printer() == 0 );
 }
 
 
 int test_main(int, char*[])
 {
     ::test();
+    ::test_singleton();
     return 0;
 }

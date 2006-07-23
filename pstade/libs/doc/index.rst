@@ -7,7 +7,7 @@ P-Stade C++ Libraries
 :Author: MB
 :Contact: mb2act@yahoo.co.jp
 :License: Distributed under the `Boost Software License Version 1.0`_
-:Version: 0.99.x
+:Version: 1.00.x
 
 
 
@@ -34,6 +34,10 @@ Biscuit_
 --------
 The Port of YARD_ to Boost_
 
+
+Egg_
+-----
+The functor maker
 
 
 Ketchup_

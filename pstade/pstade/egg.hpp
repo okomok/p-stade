@@ -14,7 +14,6 @@
 #include "./egg/baby_result.hpp"
 #include "./egg/decay_function.hpp"
 #include "./egg/function.hpp"
-#include "./egg/function_fwd.hpp"
 
 
 #endif

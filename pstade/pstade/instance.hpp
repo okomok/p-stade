@@ -43,7 +43,7 @@
 #include <boost/preprocessor/debug/assert.hpp>
 #include <boost/preprocessor/seq/enum.hpp>
 #include <boost/preprocessor/tuple/eat.hpp>
-#include <boost/utility/value_init.hpp> // value_initialized
+#include <boost/type_traits/remove_const.hpp>
 
 
 #define PSTADE_INSTANCE(Type, Name, ValueOrArgSeq) \
@@ -76,7 +76,7 @@
     \
     namespace { \
         PSTADE_INSTANCE_static \
-        Type& Name = PSTADE_INSTANCE_call_fun(Name); \
+        Type& Name = PSTADE_INSTANCE_OF(Name); \
     } \
 /**/
 
@@ -86,33 +86,39 @@
     \
     namespace { \
         PSTADE_INSTANCE_static \
-        Type& Name = PSTADE_INSTANCE_call_fun(Name); \
+        Type& Name = PSTADE_INSTANCE_OF(Name); \
     } \
 /**/
 
 
-#define PSTADE_INSTANCE_fun_name(Name) \
+#define PSTADE_INSTANCE_class(Name) \
     BOOST_PP_CAT(pstade_instance_of_, Name) \
 /**/
 
 
+// using not function but class, for 'friend'
 #define PSTADE_INSTANCE_define_fun(Type, Name, DefineX) \
-    inline \
-    Type& PSTADE_INSTANCE_fun_name(Name)() \
+    class PSTADE_INSTANCE_class(Name) \
     { \
-        static DefineX \
-        return x; \
-    } \
+    public: \
+        static Type& get() \
+        { \
+            static DefineX \
+            return x; \
+        } \
+    };
 /**/
 
 
-#define PSTADE_INSTANCE_call_fun(Name) \
-    PSTADE_INSTANCE_fun_name(Name)() \
+// Workaround:
+// GCC dynamic initialization rarely needs this.
+#define PSTADE_INSTANCE_OF(Name) \
+    PSTADE_INSTANCE_class(Name)::get() \
 /**/
 
 
 #define PSTADE_INSTANCE_define_x_v(Type) \
-    boost::value_initialized< Type > x; \
+    boost::remove_const< Type >::type x; \
 /**/
 
 
@@ -123,7 +129,6 @@
 
 // Workaround:
 // The weird 'stdafx.h' needs 'static'.
-//
 #if !defined(BOOST_MSVC)
     #define PSTADE_INSTANCE_static
 #else

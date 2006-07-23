@@ -87,9 +87,9 @@ inline
 void register_element(ustring name, factory_detail::method_t m)
 {
     // Workaround:
-    // Use 'impl_()' instead of 'impl' for GCC broken dynamic initialization.
+    // Use 'PSTADE_INSTANCE_OF' for GCC broken dynamic initialization.
     //
-    factory_detail::impl_().register_(name, m);
+    factory_detail::PSTADE_INSTANCE_OF(impl).register_(name, m);
 }
 
 

@@ -15,6 +15,7 @@
 
 
 .. _Biscuit: ./biscuit/index.html
+.. _Egg:     ./egg/index.html
 .. _Ketchup: ./ketchup/index.html
 .. _Napkin:  ./napkin/index.html
 .. _Oven:    ./oven/index.html
@@ -22,6 +23,7 @@
 .. _Wine:    ./wine/index.html
 
 .. _BiscuitR: http://p-stade.sourceforge.net/biscuit/index.html
+.. _EggR:     http://p-stade.sourceforge.net/egg/index.html
 .. _KetchupR: http://p-stade.sourceforge.net/ketchup/index.html
 .. _NapkinR:  http://p-stade.sourceforge.net/napkin/index.html
 .. _OvenR:    http://p-stade.sourceforge.net/oven/index.html
@@ -45,6 +47,7 @@
 .. _Boost.Preprocessor: http://www.boost.org/libs/preprocessor/doc/index.html
 .. _Boost.Range: http://www.boost.org/libs/range/
 .. _Boost.RangeEx: http://boost-consulting.com/vault/index.php?&directory=Algorithms
+.. _Boost.ResultOf: http://www.boost.org/libs/utility/utility.htm#result_of
 .. _Boost.Spirit: http://spirit.sourceforge.net/
 .. _Boost.Test: http://www.boost.org/libs/test/doc/
 .. _Boost.Thread: http://www.boost.org/doc/html/threads.html

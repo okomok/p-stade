@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// See: equal_to at Boost.StringAlgorithm
+// See: 'equal_to' at Boost.StringAlgorithm
 //
 // Copyright Pavol Droba 2002-2003. Use, modification and
 // distribution is subject to the Boost Software License, Version

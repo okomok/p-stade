@@ -37,12 +37,12 @@ namespace log_detail {
     {
         init()
         {
-            log_() << "<hamburger-log>";
+            PSTADE_INSTANCE_OF(log) << "<hamburger-log>";
         }
 
         ~init()
         {
-            log_() << "</hamburger-log>";
+            PSTADE_INSTANCE_OF(log) << "</hamburger-log>";
         }
     };
 
