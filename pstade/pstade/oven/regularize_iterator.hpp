@@ -71,10 +71,10 @@ template< class > friend struct regularize_iterator;
         m_pimpl(other.m_pimpl)
     { }
 
-public:
-    typedef Iterator base_iterator;
+public: // as adaptor
+    typedef Iterator base_type;
 
-    Iterator base() const
+    Iterator const& base() const
     {
         return **m_pimpl;
     }

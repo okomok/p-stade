@@ -91,23 +91,25 @@ void test()
 
 // easy singleton
 //
-struct device_type :
-    private boost::noncopyable
-{
-private:
-    device_type()
-    { }
 
-    friend class pstade_instance_of_device;
+namespace detail {
 
-public:
-    int get_printer()
+    struct device_type :
+        private boost::noncopyable
     {
-        return 0;
-    }
-};
+        device_type()
+        { }
 
-PSTADE_INSTANCE(device_type, device, value)
+        int get_printer()
+        {
+            return 0;
+        }
+    };
+
+}
+
+PSTADE_INSTANCE(detail::device_type, device, value)
+
 
 void test_singleton()
 {

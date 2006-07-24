@@ -16,6 +16,7 @@
 #include "./copy_range.hpp"
 #include "./distance.hpp"
 #include "./equals.hpp"
+#include "./iterator_cast.hpp"
 #include "./sequence_cast.hpp"
 
 

@@ -7,7 +7,7 @@ The Oven Range Library
 :Author: MB
 :Contact: mb2act@yahoo.co.jp 
 :License: Distributed under the `Boost Software License Version 1.0`_
-:Version: 0.90.2
+:Version: 0.90.3
 
 
 
@@ -36,7 +36,7 @@ All the types and functions are defined in ``namespace pstade::oven`` at ``<psta
 Requirements
 ------------
 - `Boost C++ Libraries Version 1.33.1`__ or later (no compilation required)
-- `P-Stade C++ Libraries Version 0.99.8`__ or later (no compilation required, give a higher priority than Boost headers)
+- `P-Stade C++ Libraries Version 1.00.1`__ or later (no compilation required, give a higher priority than Boost headers)
 
 __ Boost_
 __ http://sourceforge.net/project/showfiles.php?group_id=141222&package_id=173059
@@ -68,6 +68,17 @@ Oven has all the range-based STL algorithms which are ported from `Boost.RangeEx
 - Valid expression: ``oven::algo(rng,a0,a1,...,aN);``
 - Precondition: ``std::algo(boost::begin(rng),boost::end(rng),a0,a1,...,aN);`` is a valid expression, where ``algo`` is one of the STL algorithms.
 - Returns: ``std::algo(boost::begin(rng),boost::end(rng),a0,a1,...,aN);``
+
+
+``base_iterator``
+^^^^^^^^^^^^^^^^^
+``base_iterator`` automatically gets the ``base_type`` iterator of adapted ranges::
+
+	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\base_iterator.ipp
+
+
+- Header: ``<pstade/oven/iterator_cast.hpp>``
+- Valid expression: ``base = oven::base_iterator(rng);``
 
 
 ``copied``
@@ -692,4 +703,10 @@ Version 0.90.2
 - Changed a valid expression of `zipped`_.
 - Changed `checked`_ to throw exception.
 - Renamed ``found`` to `string_found`_.
+
+Version 0.90.3
+^^^^^^^^^^^^^^
+- Changed the header of `Range Algorithms`_.
+- Added `base_iterator`_.
+
 

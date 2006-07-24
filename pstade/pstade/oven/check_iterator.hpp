@@ -101,13 +101,13 @@ public:
         check_iterator_detail::check_singularity(other);
     }
 
-    Iterator begin() const
+    Iterator const& begin() const
     {
         check_iterator_detail::check_singularity(*this);
         return m_first;
     }
 
-    Iterator end() const
+    Iterator const& end() const
     {
         check_iterator_detail::check_singularity(*this);
         return m_last;
@@ -179,7 +179,7 @@ friend class boost::iterator_core_access;
         std::advance(this->base_reference(), d);
     }
 
-    diff_t distance_to(self_t other) const
+    diff_t distance_to(self_t const& other) const
     {
         check_iterator_detail::check_singularity(*this);
         check_iterator_detail::check_singularity(other);

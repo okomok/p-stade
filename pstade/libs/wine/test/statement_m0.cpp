@@ -13,7 +13,10 @@
 #include "./statement.hpp"
 
 
-void test()
+void test_m1();
+
+
+void test_m0()
 {
     BOOST_CHECK(x == 4);
 }
@@ -21,6 +24,7 @@ void test()
 
 int test_main(int, char*[])
 {
-    ::test();
+    ::test_m0();
+    ::test_m1();
     return 0;
 }

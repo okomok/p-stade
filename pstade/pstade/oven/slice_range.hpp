@@ -23,17 +23,17 @@
 namespace pstade { namespace oven {
 
 
-template< class BidiRange >
+template< class ForwardRange >
 struct slice_range :
-    sub_range_base<BidiRange>::type
+    sub_range_base<ForwardRange>::type
 {
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(BidiRange, BidirectionalRangeConcept);
-    typedef typename sub_range_base<BidiRange>::type super_t;
-    typedef typename range_difference<BidiRange>::type diff_t;
+    PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeConcept);
+    typedef typename sub_range_base<ForwardRange>::type super_t;
+    typedef typename range_difference<ForwardRange>::type diff_t;
 
 public:
-    slice_range(BidiRange& rng, diff_t n, diff_t m) :
+    slice_range(ForwardRange& rng, diff_t n, diff_t m) :
         super_t(boost::make_iterator_range(rng, n, m))
     {
         BOOST_ASSERT( oven::distance(rng) >= n+m );
@@ -46,14 +46,14 @@ namespace slice_range_detail {
 
     struct baby_generator
     {
-        template< class Unused, class BidiRange, class DifferenceN, class DifferenceM >
+        template< class Unused, class ForwardRange, class DifferenceN, class DifferenceM >
         struct result
         {
-            typedef slice_range<BidiRange> const type;
+            typedef slice_range<ForwardRange> const type;
         };
 
-        template< class Result, class BidiRange, class Difference >
-        Result call(BidiRange& rng, Difference n, Difference m)
+        template< class Result, class ForwardRange, class Difference >
+        Result call(ForwardRange& rng, Difference n, Difference m)
         {
             return Result(rng, n, m);
         }

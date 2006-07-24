@@ -10,56 +10,63 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <string>
+#include <algorithm>
+#include <map>
+#include <boost/assign.hpp>
+#include <boost/bind.hpp>
+#include <boost/iterator/transform_iterator.hpp>
+#include <boost/range.hpp>
 
 
-int func(int a)
+template<class Range, class Predicate> inline
+typename boost::range_iterator<Range>::type
+max_element(Range& rng, Predicate pred)
 {
-    return a+2;
+    return std::max_element(boost::begin(rng), boost::end(rng), pred);
 }
 
-
-struct func_t
+template< class AssocContainer >
+struct get_key
 {
-    int operator()(int a) const
+    typedef typename AssocContainer::key_type const& result_type;
+
+    template< class PairT >
+    result_type operator()(PairT& p) const
     {
-        return a+2;
+        return p.first;
     }
 };
 
-
-template<typename TFunc>
-int sum_aux(TFunc& f, unsigned int a)
+template< class AssocContainer >
+boost::iterator_range<
+    boost::transform_iterator<
+        ::get_key<AssocContainer>,
+        typename boost::range_iterator<AssocContainer>::type
+    >
+> const
+make_map_keys(AssocContainer& ac)
 {
-    int acum=0;
-    for(unsigned int i=0; i<a; i++)
-    {
-        acum+=f(i);
-    }
-    
-    return acum;
+    return boost::make_iterator_range(
+        boost::make_transform_iterator(boost::begin(ac), ::get_key<AssocContainer>()),
+        boost::make_transform_iterator(boost::end(ac), ::get_key<AssocContainer>())
+    );
 }
-
-
-template<typename TFunc>
-int sum(TFunc const& f, unsigned int a)
-{
-    return ::sum_aux(f, a);
-}
-
-
-template<typename TFunc>
-int sum(TFunc& f, unsigned int a)
-{
-    return ::sum_aux(f, a);
-}
-
 
 void test()
 {
-    ::sum(::func, 1000);
-    ::sum(&::func, 1000);
-    ::sum(::func_t(), 1000);
+    typedef std::map<std::string, double> StringDoubleMap; 
+    StringDoubleMap mp = boost::assign::map_list_of("George", 0.0)
+                                               ("Bill",   0.0)
+                                               ("Ronald", 0.0)
+                                               ("Jimmy",  0.0); 
+
+    StringDoubleMap::iterator it = ::max_element(
+        ::make_map_keys(mp),
+        boost::bind(&std::string::length, _1) < boost::bind(&std::string::length, _2)
+    ).base();
+    if (it != boost::end(mp)) {
+        std::cout << it->first.c_str() << ' ' << it->first.length() << std::endl;
+    }
 }
 
 

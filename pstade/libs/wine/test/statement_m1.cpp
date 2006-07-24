@@ -1,5 +1,4 @@
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
 
 
 // PStade.Wine
@@ -10,17 +9,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/assert.hpp>
 #include "./statement.hpp"
 
 
-void test()
+void test_m1()
 {
-    BOOST_CHECK(x == 4);
-}
-
-
-int test_main(int, char*[])
-{
-    ::test();
-    return 0;
+    BOOST_ASSERT(x == 4);
 }

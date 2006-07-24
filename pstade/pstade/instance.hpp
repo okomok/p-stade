@@ -43,12 +43,11 @@
 #include <boost/preprocessor/debug/assert.hpp>
 #include <boost/preprocessor/seq/enum.hpp>
 #include <boost/preprocessor/tuple/eat.hpp>
-#include <boost/type_traits/remove_const.hpp>
+#include <boost/utility/value_init.hpp> // value_initialized
 
 
 #define PSTADE_INSTANCE(Type, Name, ValueOrArgSeq) \
     BOOST_PP_ASSERT(PSTADE_INSTANCE_is_valid(ValueOrArgSeq)) \
-    \
     BOOST_PP_IIF (BOOST_MPL_PP_IS_SEQ(ValueOrArgSeq), \
         PSTADE_INSTANCE_args, \
         PSTADE_INSTANCE_no_args \
@@ -56,84 +55,78 @@
 /**/
 
 
-#define PSTADE_INSTANCE_is_valid(ValueOrArgSeq) \
-    BOOST_PP_IIF (BOOST_MPL_PP_IS_SEQ(ValueOrArgSeq), \
-        1 BOOST_PP_TUPLE_EAT(2), \
-        BOOST_MPL_PP_TOKEN_EQUAL \
-    )(ValueOrArgSeq, value) \
-/**/
-
-
-#if !defined(BOOST_MPL_PP_TOKEN_EQUAL_value)
-    #define BOOST_MPL_PP_TOKEN_EQUAL_value(A) \
-        A \
+    #define PSTADE_INSTANCE_is_valid(ValueOrArgSeq) \
+        BOOST_PP_IIF (BOOST_MPL_PP_IS_SEQ(ValueOrArgSeq), \
+            1 BOOST_PP_TUPLE_EAT(2), \
+            BOOST_MPL_PP_TOKEN_EQUAL \
+        )(ValueOrArgSeq, value) \
     /**/
-#endif
 
 
-#define PSTADE_INSTANCE_no_args(Type, Name, _) \
-    PSTADE_INSTANCE_define_fun(Type, Name, PSTADE_INSTANCE_define_x_v(Type)) \
-    \
-    namespace { \
-        PSTADE_INSTANCE_static \
-        Type& Name = PSTADE_INSTANCE_OF(Name); \
-    } \
-/**/
+    #if !defined(BOOST_MPL_PP_TOKEN_EQUAL_value)
+        #define BOOST_MPL_PP_TOKEN_EQUAL_value(A) \
+            A \
+        /**/
+    #endif
 
 
-#define PSTADE_INSTANCE_args(Type, Name, ArgSeq) \
-    PSTADE_INSTANCE_define_fun(Type, Name, PSTADE_INSTANCE_define_x_a(Type, ArgSeq)) \
-    \
-    namespace { \
-        PSTADE_INSTANCE_static \
-        Type& Name = PSTADE_INSTANCE_OF(Name); \
-    } \
-/**/
-
-
-#define PSTADE_INSTANCE_class(Name) \
-    BOOST_PP_CAT(pstade_instance_of_, Name) \
-/**/
-
-
-// using not function but class, for 'friend'
-#define PSTADE_INSTANCE_define_fun(Type, Name, DefineX) \
-    class PSTADE_INSTANCE_class(Name) \
-    { \
-    public: \
-        static Type& get() \
-        { \
-            static DefineX \
-            return x; \
+    #define PSTADE_INSTANCE_no_args(Type, Name, _) \
+        PSTADE_INSTANCE_define_box(Type, Name, PSTADE_INSTANCE_define_v(Type)) \
+        namespace { \
+            PSTADE_INSTANCE_static \
+            Type& Name = PSTADE_INSTANCE_OF(Name); \
         } \
-    };
-/**/
+    /**/
+
+
+    #define PSTADE_INSTANCE_args(Type, Name, ArgSeq) \
+        PSTADE_INSTANCE_define_box(Type, Name, PSTADE_INSTANCE_define_a(Type, ArgSeq)) \
+        namespace { \
+            PSTADE_INSTANCE_static \
+            Type& Name = PSTADE_INSTANCE_OF(Name); \
+        } \
+    /**/
+
+
+    #define PSTADE_INSTANCE_box_name(Name) \
+        BOOST_PP_CAT(pstade_of_, Name) \
+    /**/
+
+
+    #define PSTADE_INSTANCE_define_box(Type, Name, DefineInstance) \
+        inline \
+        Type& PSTADE_INSTANCE_box_name(Name)() \
+        { \
+            static DefineInstance \
+            return instance; \
+        } \
+    /**/
 
 
 // Workaround:
-// GCC dynamic initialization rarely needs this.
+// GCC dynamic initialization sometimes needs the function call syntax.
 #define PSTADE_INSTANCE_OF(Name) \
-    PSTADE_INSTANCE_class(Name)::get() \
+    PSTADE_INSTANCE_box_name(Name)() \
 /**/
 
 
-#define PSTADE_INSTANCE_define_x_v(Type) \
-    boost::remove_const< Type >::type x; \
-/**/
+    #define PSTADE_INSTANCE_define_v(Type) \
+        boost::value_initialized< Type > instance; \
+    /**/
 
 
-#define PSTADE_INSTANCE_define_x_a(Type, ArgSeq) \
-    Type x(BOOST_PP_SEQ_ENUM(ArgSeq)); \
-/**/
+    #define PSTADE_INSTANCE_define_a(Type, ArgSeq) \
+        Type instance(BOOST_PP_SEQ_ENUM(ArgSeq)); \
+    /**/
 
 
-// Workaround:
-// The weird 'stdafx.h' needs 'static'.
-#if !defined(BOOST_MSVC)
-    #define PSTADE_INSTANCE_static
-#else
-    #define PSTADE_INSTANCE_static static
-#endif
+    // Workaround:
+    // The weird 'stdafx.h' needs 'static'.
+    #if !defined(BOOST_MSVC)
+        #define PSTADE_INSTANCE_static
+    #else
+        #define PSTADE_INSTANCE_static static
+    #endif
 
 
 #endif

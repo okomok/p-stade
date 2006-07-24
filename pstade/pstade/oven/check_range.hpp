@@ -65,7 +65,7 @@ namespace check_range_detail {
 
     struct baby_generator
     {
-        template< class Unused, class Range  >
+        template< class Unused, class Range >
         struct result
         {
             typedef check_range<Range> const type;

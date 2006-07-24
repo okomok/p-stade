@@ -15,20 +15,21 @@
 // http://groups.google.com/group/comp.lang.c++.moderated/browse_frm/thread/7d2a6bb473c31056/
 
 
+#include <boost/noncopyable.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <pstade/instance.hpp>
 
 
 #define PSTADE_STATEMENT(Label, Statement) \
     PSTADE_STATEMENT_define_init_type(Label, Statement) \
-    \
-    PSTADE_INSTANCE(PSTADE_STATEMENT_init_type(Label), \
+    PSTADE_INSTANCE(PSTADE_STATEMENT_init_type(Label) const volatile, \
         PSTADE_STATEMENT_init(Label), value) \
 /**/
 
 
 #define PSTADE_STATEMENT_define_init_type(Label, Statement) \
-    struct PSTADE_STATEMENT_init_type(Label) \
+    struct PSTADE_STATEMENT_init_type(Label) : \
+        private boost::noncopyable \
     { \
         PSTADE_STATEMENT_init_type(Label)() \
         { \
