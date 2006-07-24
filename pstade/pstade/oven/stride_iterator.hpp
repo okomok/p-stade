@@ -18,6 +18,7 @@
 #include <iterator> // advance, distance
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
+#include <boost/range/iterator_range.hpp>
 #include "./detail/debug_distance.hpp"
 
 
@@ -86,13 +87,6 @@ public:
 private:
     diff_t m_stride;
 
-    bool is_compatible(self_t const& other) const
-    {
-        return 
-            m_stride == other.stride()
-            && stride_iterator_detail::is_valid_base(this->base(), other.base(), m_stride);
-    }
-
 friend class boost::iterator_core_access;
     void increment()
     {
@@ -101,7 +95,7 @@ friend class boost::iterator_core_access;
 
     bool equal(self_t const& other) const
     {
-        BOOST_ASSERT(is_compatible(other) && "incompatible iterators");
+        BOOST_ASSERT("incompatible iterators" && m_stride == other.stride());
         return this->base() == other.base();
     }
 
@@ -117,7 +111,7 @@ friend class boost::iterator_core_access;
 
     diff_t distance_to(self_t const& other) const
     {
-        BOOST_ASSERT(is_compatible(other) && "incompatible iterators");
+        BOOST_ASSERT("incompatible iterators" && stride_iterator_detail::is_valid_base(this->base(), other.base(), m_stride));
         return std::distance(this->base(), other.base()) / m_stride;
     }
 };
