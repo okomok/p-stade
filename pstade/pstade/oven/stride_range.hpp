@@ -17,7 +17,6 @@
 #include <pstade/egg/function.hpp>
 #include "./stride_iterator.hpp"
 #include "./detail/concept_check.hpp"
-#include "./detail/debug_distance.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./range_iterator.hpp"
@@ -41,9 +40,9 @@ namespace stride_range_detail {
 
 
     template< class Range, class Difference > inline
-    bool is_valid_base(Range& rng, Difference stride)
+    bool is_valid_base(Range& rng, Difference length)
     {
-        return stride_iterator_detail::is_valid_base(boost::begin(rng), boost::end(rng), stride);
+        return stride_iterator_detail::is_valid_base(boost::begin(rng), boost::end(rng), length);
     }
 
 
@@ -61,13 +60,18 @@ private:
     typedef typename super_t::difference_type diff_t;
 
 public:
-    stride_range(Range& rng, diff_t stride) :
+    stride_range(Range& rng, diff_t length) :
         super_t(
-            iter_t(boost::begin(rng), stride),
-            iter_t(boost::end(rng), stride)
+            iter_t(boost::begin(rng), length),
+            iter_t(boost::end(rng), length)
         )
     {
-        BOOST_ASSERT(stride_range_detail::is_valid_base(rng, stride));
+        BOOST_ASSERT(stride_range_detail::is_valid_base(rng, length));
+    }
+
+    diff_t length() const
+    {
+        return boost::begin(*this).length();
     }
 };
 
@@ -84,9 +88,9 @@ namespace stride_range_detail {
         };
 
         template< class Result, class Range, class Difference >
-        Result call(Range& rng, Difference stride)
+        Result call(Range& rng, Difference length)
         {
-            return Result(rng, stride);
+            return Result(rng, length);
         }
     };
 
@@ -95,7 +99,7 @@ namespace stride_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_stride_range, stride_range_detail::baby_generator)
-PSTADE_OVEN_RANGE_ADAPTOR(strided, stride_range_detail::baby_generator)
+PSTADE_OVEN_RANGE_ADAPTOR(stridden, stride_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven

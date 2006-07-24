@@ -63,7 +63,7 @@ namespace adjacent_filter_iterator_detail {
 
 
     template< class ForwardIter, class BinaryPred >
-    ForwardIter next(ForwardIter first, ForwardIter last, BinaryPred pred)
+    ForwardIter next(ForwardIter first, ForwardIter const& last, BinaryPred pred)
     { // See: std::adjacent_find
         BOOST_ASSERT(first != last);
 
@@ -88,7 +88,6 @@ struct adjacent_filter_iterator :
 private:
     typedef adjacent_filter_iterator self_t;
     typedef typename adjacent_filter_iterator_detail::super_<ForwardIter, BinaryPred>::type super_t;
-    typedef typename super_t::base_type base_t;
     typedef typename super_t::reference ref_t;
 
 public:
@@ -96,13 +95,11 @@ public:
     { }
 
     adjacent_filter_iterator(
-        ForwardIter const& it,
-        ForwardIter const& first, ForwardIter const& last,
-        BinaryPred pred
+        ForwardIter const& it, BinaryPred pred,
+        ForwardIter const& first, ForwardIter const& last
     ) :
-        super_t(it),
-        m_first(first), m_last(last),
-        m_pred(pred)
+        super_t(it), m_pred(pred),
+        m_first(first), m_last(last)
     { }
 
     template< class ForwardIter_ >
@@ -110,44 +107,39 @@ public:
         adjacent_filter_iterator<ForwardIter_, BinaryPred> const& other,
         typename boost::enable_if_convertible<ForwardIter_, ForwardIter>::type * = 0
     ) :
-        super_t(other.base()),
-        m_first(other.begin()), m_last(other.end()),
-        m_pred(other.predicate())
+        super_t(other.base()), m_pred(other.predicate()),
+        m_first(other.begin()), m_last(other.end())
     { }
-
-    base_t begin() const
-    { return m_first; }
-
-    base_t end() const
-    { return m_last; }
 
     BinaryPred predicate() const
     { return m_pred; }
 
+    ForwardIter const& begin() const
+    { return m_first; }
+
+    ForwardIter const& end() const
+    { return m_last; }
+
 private:
-    base_t m_first, m_last;
     BinaryPred m_pred;
+    ForwardIter m_first, m_last;
 
 friend class boost::iterator_core_access;
     ref_t dereference() const
     {
-        BOOST_ASSERT(this->base() != m_last && "out of range access");
-
+        BOOST_ASSERT("out of range access" && this->base() != m_last);
         return *this->base();
     }
 
     bool equal(self_t const& other) const
     {
-        BOOST_ASSERT(m_first == other.m_first && m_last == other.m_last &&
-            "incompatible iterators"
-        );
-
+        BOOST_ASSERT("incompatible iterators" && m_first == other.m_first && m_last == other.m_last);
         return this->base() == other.base();
     }
 
     void increment()
     {
-        BOOST_ASSERT(this->base() != m_last && "out of range");
+        BOOST_ASSERT("out of range" && this->base() != m_last);
 
         this->base_reference() = adjacent_filter_iterator_detail::next(
             this->base(), m_last, m_pred
@@ -156,12 +148,12 @@ friend class boost::iterator_core_access;
 
     void decrement()
     {
-        BOOST_ASSERT(this->base() != m_first && "out of range");
+        BOOST_ASSERT("out of range" && this->base() != m_first);
 
         namespace bll = boost::lambda;
 
-        boost::reverse_iterator<base_t> rit(this->base());
-        boost::reverse_iterator<base_t> rlast(m_first);
+        boost::reverse_iterator<ForwardIter> rit(this->base());
+        boost::reverse_iterator<ForwardIter> rlast(m_first);
 
         // if you pass 'rit' instead of 'rlast', overflow(1-step) comes.
         this->base_reference() = adjacent_filter_iterator_detail::next(
@@ -173,10 +165,11 @@ friend class boost::iterator_core_access;
 
 template< class ForwardIter, class BinaryPred > inline
 adjacent_filter_iterator<ForwardIter, BinaryPred> const
-make_adjacent_filter_iterator(ForwardIter const& it,
-    ForwardIter const& first, ForwardIter const& last, BinaryPred pred)
+make_adjacent_filter_iterator(
+    ForwardIter const& it, BinaryPred pred,
+    ForwardIter const& first, ForwardIter const& last)
 {
-    return adjacent_filter_iterator<ForwardIter, BinaryPred>(it, first, last, pred);
+    return adjacent_filter_iterator<ForwardIter, BinaryPred>(it, pred, first, last);
 }
 
 

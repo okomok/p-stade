@@ -43,10 +43,10 @@ namespace stride_iterator_detail {
 
 
     template< class Iterator, class Difference >
-    bool is_valid_base(Iterator const& first, Iterator const& last, Difference stride)
+    bool is_valid_base(Iterator const& first, Iterator const& last, Difference length)
     {
         Difference dist = detail::debug_distance(boost::make_iterator_range(first, last));
-        return (dist == 0) || (dist % stride == 0);
+        return (dist == 0) || (dist % length == 0);
     }
 
 
@@ -60,15 +60,14 @@ struct stride_iterator :
 private:
     typedef stride_iterator self_t;
     typedef typename stride_iterator_detail::super_<Iterator>::type super_t;
-    typedef typename super_t::reference ref_t;
     typedef typename super_t::difference_type diff_t;
 
 public:
     stride_iterator()
     { }
 
-    stride_iterator(Iterator const& it, diff_t stride) :
-        super_t(it), m_stride(stride)
+    stride_iterator(Iterator const& it, diff_t length) :
+        super_t(it), m_length(length)
     { }
 
     template< class Iterator_ >
@@ -76,52 +75,53 @@ public:
         stride_iterator<Iterator_> const& other,
         typename boost::enable_if_convertible<Iterator_, Iterator>::type * = 0
     ) :
-        super_t(other.base()), m_stride(other.stride())
+        super_t(other.base()), m_length(other.length())
     { }
 
-    diff_t stride() const
+    diff_t length() const
     {
-        return m_stride;
+        return m_length;
     }
 
 private:
-    diff_t m_stride;
+    diff_t m_length;
 
 friend class boost::iterator_core_access;
     void increment()
     {
-        std::advance(this->base_reference(), m_stride);
+        std::advance(this->base_reference(), m_length);
     }
 
     bool equal(self_t const& other) const
     {
-        BOOST_ASSERT("incompatible iterators" && m_stride == other.stride());
+        BOOST_ASSERT("incompatible iterators" && m_length == other.length());
         return this->base() == other.base();
     }
 
     void decrement()
     {
-        std::advance(this->base_reference(), -m_stride);
+        std::advance(this->base_reference(), -m_length);
     }
 
     void advance(diff_t d)
     {
-        std::advance(this->base_reference(), d * m_stride);
+        std::advance(this->base_reference(), d * m_length);
     }
 
     diff_t distance_to(self_t const& other) const
     {
-        BOOST_ASSERT("incompatible iterators" && stride_iterator_detail::is_valid_base(this->base(), other.base(), m_stride));
-        return std::distance(this->base(), other.base()) / m_stride;
+        BOOST_ASSERT("incompatible iterators" &&
+            stride_iterator_detail::is_valid_base(this->base(), other.base(), m_length));
+        return std::distance(this->base(), other.base()) / m_length;
     }
 };
 
 
 template< class Iterator, class Difference > inline
 stride_iterator<Iterator> const
-make_stride_iterator(Iterator const& it, Difference stride)
+make_stride_iterator(Iterator const& it, Difference length)
 {
-    return stride_iterator<Iterator>(it, stride);
+    return stride_iterator<Iterator>(it, length);
 }
 
 

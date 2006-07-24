@@ -134,9 +134,7 @@ friend class boost::iterator_core_access;
     bool equal(self_t const& other) const
     {
         BOOST_ASSERT(m_index >= 0);
-        BOOST_ASSERT(m_first == other.sbegin() && m_last == other.send() &&
-            "incompatible iterators"
-        );
+        BOOST_ASSERT("incompatible iterators" && m_first == other.sbegin() && m_last == other.send());
 
         return this->base() == other.base() && m_index == other.m_index;
     }
@@ -211,10 +209,9 @@ private:
 
     diff_t distance_to(self_t const& other) const
     {
-        return 
+        return
             repeat_iterator_detail::pseudo_pos<diff_t>(other.base(), other.index(), other.sbegin(), other.send())
-                - repeat_iterator_detail::pseudo_pos<diff_t>(this->base(), m_index, m_first, m_last)
-        ;
+            - repeat_iterator_detail::pseudo_pos<diff_t>(this->base(), m_index, m_first, m_last);
     }
 };
 

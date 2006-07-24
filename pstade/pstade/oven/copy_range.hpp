@@ -135,7 +135,7 @@ namespace copy_range_detail {
         typename boost::enable_if< apple::is_boost_range<OutRange>,
         Result>::type call(InRange& in, OutRange& out)
         {
-            BOOST_ASSERT(detail::debug_distance(in) <= detail::debug_distance(out) && "out of range");
+            BOOST_ASSERT("out of range" && detail::debug_distance(in) <= detail::debug_distance(out));
 
             oven::copy(in, boost::begin(out));
 

@@ -135,9 +135,7 @@ friend class boost::iterator_core_access;
     {
         BOOST_ASSERT(valid());
         BOOST_ASSERT(other.valid());
-        BOOST_ASSERT(m_last1 == other.m_last1 && m_first2 == other.m_first2 &&
-            "incompatible iterators"
-        );
+        BOOST_ASSERT("incompatible iterators" && m_last1 == other.m_last1 && m_first2 == other.m_first2);
 
         return
             this->base() == other.base() &&
@@ -193,7 +191,7 @@ friend class boost::iterator_core_access;
         else if (!is_in_range1())
             return std::distance(m_it2, m_first2) + std::distance(other.m_last1, other.base());
         else {
-            BOOST_ASSERT(false && "when pigs fly.");
+            BOOST_ASSERT("when pigs fly." && false);
             return 0;
         }
     }

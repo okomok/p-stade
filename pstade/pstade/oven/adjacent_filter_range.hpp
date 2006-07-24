@@ -55,8 +55,8 @@ private:
 public:
     adjacent_filter_range(ForwardRange& rng, BinaryPred pred) :
         super_t(
-            iter_t(boost::begin(rng), boost::begin(rng), boost::end(rng), pred),
-            iter_t(boost::end(rng), boost::begin(rng), boost::end(rng), pred)
+            iter_t(boost::begin(rng), pred, boost::begin(rng), boost::end(rng)),
+            iter_t(boost::end(rng), pred, boost::begin(rng), boost::end(rng))
         )
     { }
 };

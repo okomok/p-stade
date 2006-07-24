@@ -85,7 +85,7 @@ public:
         super_t(other.base()), m_state(other.state()), m_fun(other.functor())
     { }
 
-    value_t state() const
+    value_t const& state() const
     {
         return m_state;
     }

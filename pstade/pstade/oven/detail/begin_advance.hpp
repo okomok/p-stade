@@ -28,7 +28,7 @@ namespace begin_advance_detail {
     template< class Range, class Difference > inline
     void check_range(Range& rng, Difference d, boost::single_pass_traversal_tag)
     {
-        BOOST_ASSERT( 0 <= d );
+        BOOST_ASSERT(0 <= d);
         pstade::unused(rng, d);
     }
 
@@ -36,7 +36,7 @@ namespace begin_advance_detail {
     template< class Range, class Difference > inline
     void check_range(Range& rng, Difference d, boost::forward_traversal_tag)
     {
-        BOOST_ASSERT( 0 <= d && d <= oven::distance(rng));
+        BOOST_ASSERT(0 <= d && d <= oven::distance(rng));
         pstade::unused(rng, d);
     }
 
