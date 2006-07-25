@@ -22,26 +22,20 @@
 namespace pstade { namespace oven { namespace detail {
 
 
-namespace begin_advance_detail {
+template< class Range, class Difference > inline
+void check_range(Range& rng, Difference d, boost::single_pass_traversal_tag)
+{
+    BOOST_ASSERT(0 <= d);
+    pstade::unused(rng, d);
+}
 
 
-    template< class Range, class Difference > inline
-    void check_range(Range& rng, Difference d, boost::single_pass_traversal_tag)
-    {
-        BOOST_ASSERT(0 <= d);
-        pstade::unused(rng, d);
-    }
-
-
-    template< class Range, class Difference > inline
-    void check_range(Range& rng, Difference d, boost::forward_traversal_tag)
-    {
-        BOOST_ASSERT(0 <= d && d <= oven::distance(rng));
-        pstade::unused(rng, d);
-    }
-
-
-} // namespace begin_advance_detail
+template< class Range, class Difference > inline
+void check_range(Range& rng, Difference d, boost::forward_traversal_tag)
+{
+    BOOST_ASSERT(0 <= d && d <= oven::distance(rng));
+    pstade::unused(rng, d);
+}
 
 
 template< class Range, class Difference >
@@ -51,7 +45,7 @@ begin_advance(Range& rng, Difference d)
     typedef typename boost::range_result_iterator<Range>::type iter_t;
     typedef typename range_traversal<Range>::type trv_t;
     
-    begin_advance_detail::check_range(rng, d, trv_t());
+    detail::check_range(rng, d, trv_t());
     
     iter_t it = boost::begin(rng);
     std::advance(it, d);

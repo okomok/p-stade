@@ -28,19 +28,19 @@ namespace pstade { namespace oven {
 namespace stride_range_detail {
 
 
-    template< class Range >
+    template< class ForwardRange >
     struct super_
     {
         typedef boost::iterator_range<
             stride_iterator<
-                typename range_iterator<Range>::type
+                typename range_iterator<ForwardRange>::type
             >
         > type;
     };
 
 
-    template< class Range, class Difference > inline
-    bool is_valid_base(Range& rng, Difference length)
+    template< class ForwardRange, class Difference > inline
+    bool is_valid_base(ForwardRange& rng, Difference length)
     {
         return stride_iterator_detail::is_valid_base(boost::begin(rng), boost::end(rng), length);
     }
@@ -49,29 +49,35 @@ namespace stride_range_detail {
 } // namespace stride_range_detail
 
 
-template< class Range >
+template< class ForwardRange >
 struct stride_range :
-    stride_range_detail::super_<Range>::type
+    stride_range_detail::super_<ForwardRange>::type
 {
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
-    typedef typename stride_range_detail::super_<Range>::type super_t;
+    PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeConcept);
+    typedef typename stride_range_detail::super_<ForwardRange>::type super_t;
     typedef typename super_t::iterator iter_t;
     typedef typename super_t::difference_type diff_t;
 
 public:
-    stride_range(Range& rng, diff_t length) :
+    stride_range(ForwardRange& rng, diff_t length, diff_t offset = 0) :
         super_t(
-            iter_t(boost::begin(rng), length),
-            iter_t(boost::end(rng), length)
+            iter_t(boost::begin(rng), length, offset),
+            iter_t(boost::end(rng), length, offset)
         )
     {
         BOOST_ASSERT(stride_range_detail::is_valid_base(rng, length));
+        BOOST_ASSERT(offset < length);
     }
 
     diff_t length() const
     {
         return boost::begin(*this).length();
+    }
+
+    diff_t offset() const
+    {
+        return boost::begin(*this).offset();
     }
 };
 
@@ -81,14 +87,20 @@ namespace stride_range_detail {
 
     struct baby_generator
     {
-        template< class Unused, class Range, class Difference >
+        template< class Unused, class ForwardRange, class Difference, class = void >
         struct result
         {
-            typedef stride_range<Range> const type;
+            typedef stride_range<ForwardRange> const type;
         };
 
-        template< class Result, class Range, class Difference >
-        Result call(Range& rng, Difference length)
+        template< class Result, class ForwardRange, class Difference >
+        Result call(ForwardRange& rng, Difference length, Difference offset)
+        {
+            return Result(rng, length, offset);
+        }
+
+        template< class Result, class ForwardRange, class Difference >
+        Result call(ForwardRange& rng, Difference length)
         {
             return Result(rng, length);
         }

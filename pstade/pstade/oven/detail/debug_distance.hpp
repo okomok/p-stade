@@ -20,27 +20,21 @@
 namespace pstade { namespace oven { namespace detail {
 
 
-namespace debug_distance_detail {
+template< class Range > inline
+typename range_difference<Range>::type
+debug_distance_aux(Range const& rng, boost::forward_traversal_tag)
+{
+    return oven::distance(rng);
+}
 
 
-    template< class Range > inline
-    typename range_difference<Range>::type
-    aux(Range const& rng, boost::forward_traversal_tag)
-    {
-        return oven::distance(rng);
-    }
-
-
-    template< class Range > inline
-    typename range_difference<Range>::type
-    aux(Range const& rng, boost::single_pass_traversal_tag)
-    {
-        pstade::unused(rng);
-        return 0;
-    }
-
-
-} // namespace debug_distance_detail
+template< class Range > inline
+typename range_difference<Range>::type
+debug_distance_aux(Range const& rng, boost::single_pass_traversal_tag)
+{
+    pstade::unused(rng);
+    return 0;
+}
 
 
 template< class Range > inline
@@ -48,7 +42,7 @@ typename boost::range_difference<Range>::type
 debug_distance(Range const& rng)
 {
     typedef typename range_traversal<Range>::type trv_t;
-    return debug_distance_detail::aux(rng, trv_t());
+    return detail::debug_distance_aux(rng, trv_t());
 }
 
 

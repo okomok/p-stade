@@ -10,14 +10,16 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/iterator/transform_iterator.hpp>
-#include <boost/range/begin.hpp>
-#include <boost/range/end.hpp>
-#include <boost/range/iterator_range.hpp>
+// Synonym of:
+//
+// 'second_range'
+
+
 #include <pstade/egg/function.hpp>
+#include "./detail/concept_check.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
-#include "./range_iterator.hpp"
+#include "./second_range.hpp"
 
 
 namespace pstade { namespace oven {
@@ -27,26 +29,10 @@ namespace map_value_range_detail {
 
 
     template< class AssocContainer >
-    struct get_value
-    {
-        typedef typename AssocContainer::mapped_type& result_type;
-
-        template< class PairT >
-        result_type operator()(PairT& p) const
-        {
-            return p.second;
-        }
-    };
-
-
-    template< class AssocContainer >
     struct super_
     {
-        typedef boost::iterator_range<
-            boost::transform_iterator<
-                get_value<AssocContainer>,
-                typename range_iterator<AssocContainer>::type
-            >
+        typedef second_range<
+            AssocContainer
         > type;
     };
 
@@ -59,15 +45,12 @@ struct map_value_range :
     map_value_range_detail::super_<AssocContainer>::type
 {
 private:
+    PSTADE_OVEN_DETAIL_REQUIRES(AssocContainer, SinglePassRangeConcept);
     typedef typename map_value_range_detail::super_<AssocContainer>::type super_t;
-    typedef typename super_t::iterator iter_t;
 
 public:
     explicit map_value_range(AssocContainer& ac) :
-    super_t(
-        iter_t(boost::begin(ac), map_value_range_detail::get_value<AssocContainer>()),
-        iter_t(boost::end(ac), map_value_range_detail::get_value<AssocContainer>())
-    )
+        super_t(ac)
     { }
 };
 

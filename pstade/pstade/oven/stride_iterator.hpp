@@ -25,25 +25,25 @@
 namespace pstade { namespace oven {
 
 
-template< class Iterator >
+template< class ForwardIter >
 struct stride_iterator;
 
 
 namespace stride_iterator_detail {
 
 
-    template< class Iterator >
+    template< class ForwardIter >
     struct super_
     {
         typedef boost::iterator_adaptor<
-            stride_iterator<Iterator>,
-            Iterator
+            stride_iterator<ForwardIter>,
+            ForwardIter
         > type;
     };
 
 
-    template< class Iterator, class Difference >
-    bool is_valid_base(Iterator const& first, Iterator const& last, Difference length)
+    template< class ForwardIter, class Difference >
+    bool is_valid_base(ForwardIter const& first, ForwardIter const& last, Difference length)
     {
         Difference dist = detail::debug_distance(boost::make_iterator_range(first, last));
         return (dist == 0) || (dist % length == 0);
@@ -53,40 +53,62 @@ namespace stride_iterator_detail {
 } // namespace stride_iterator_detail
 
 
-template< class Iterator >
+template< class ForwardIter >
 struct stride_iterator :
-    stride_iterator_detail::super_<Iterator>::type
+    stride_iterator_detail::super_<ForwardIter>::type
 {
 private:
     typedef stride_iterator self_t;
-    typedef typename stride_iterator_detail::super_<Iterator>::type super_t;
+    typedef typename stride_iterator_detail::super_<ForwardIter>::type super_t;
     typedef typename super_t::difference_type diff_t;
+    typedef typename super_t::reference ref_t;
 
 public:
     stride_iterator()
     { }
 
-    stride_iterator(Iterator const& it, diff_t length) :
-        super_t(it), m_length(length)
-    { }
+    stride_iterator(ForwardIter const& it, diff_t length, diff_t offset) :
+        super_t(it), m_length(length), m_offset(offset)
+    {
+        BOOST_ASSERT(m_offset < m_length);
+    }
 
     template< class Iterator_ >
     stride_iterator(
         stride_iterator<Iterator_> const& other,
-        typename boost::enable_if_convertible<Iterator_, Iterator>::type * = 0
+        typename boost::enable_if_convertible<Iterator_, ForwardIter>::type * = 0
     ) :
-        super_t(other.base()), m_length(other.length())
-    { }
+        super_t(other.base()), m_length(other.length()), m_offset(other.offset())
+    {
+        BOOST_ASSERT(m_offset < m_length);
+    }
 
     diff_t length() const
     {
         return m_length;
     }
 
+    diff_t offset() const
+    {
+        return m_offset;
+    }
+
 private:
-    diff_t m_length;
+    diff_t m_length, m_offset;
+
+    bool is_compatible(self_t const& other) const
+    {
+        return m_length == other.length() && m_offset == other.offset();
+    }
 
 friend class boost::iterator_core_access;
+    ref_t dereference() const
+    {
+        ForwardIter it(this->base());
+        std::advance(it, m_offset);
+        return *it;
+    }
+
     void increment()
     {
         std::advance(this->base_reference(), m_length);
@@ -94,7 +116,7 @@ friend class boost::iterator_core_access;
 
     bool equal(self_t const& other) const
     {
-        BOOST_ASSERT("incompatible iterators" && m_length == other.length());
+        BOOST_ASSERT("incompatible iterators" && is_compatible(other));
         return this->base() == other.base();
     }
 
@@ -110,18 +132,19 @@ friend class boost::iterator_core_access;
 
     diff_t distance_to(self_t const& other) const
     {
-        BOOST_ASSERT("incompatible iterators" &&
+        BOOST_ASSERT("incompatible iterators" && is_compatible(other) &&
             stride_iterator_detail::is_valid_base(this->base(), other.base(), m_length));
+
         return std::distance(this->base(), other.base()) / m_length;
     }
 };
 
 
-template< class Iterator, class Difference > inline
-stride_iterator<Iterator> const
-make_stride_iterator(Iterator const& it, Difference length)
+template< class ForwardIter, class Difference > inline
+stride_iterator<ForwardIter> const
+make_stride_iterator(ForwardIter const& it, Difference length, Difference offset)
 {
-    return stride_iterator<Iterator>(it, length);
+    return stride_iterator<ForwardIter>(it, length, offset);
 }
 
 

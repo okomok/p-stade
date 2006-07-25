@@ -13,8 +13,8 @@
 #include <pstade/oven/stride_range.hpp>
 
 
-#include <string>
-#include <vector>
+#include <iostream>
+#include <boost/foreach.hpp>
 #include <pstade/oven/counting_range.hpp>
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/shift_range.hpp>
@@ -30,6 +30,10 @@ void test()
         BOOST_CHECK( oven::equals(ans,
             oven::zero_to(16)|stridden(4)
         ) );
+
+        BOOST_FOREACH (int x, oven::zero_to(16)|stridden(4)) {
+            std::cout << x << std::endl;
+        }
 
         BOOST_CHECK( 4 ==
             (oven::zero_to(16)|stridden(4)).length()

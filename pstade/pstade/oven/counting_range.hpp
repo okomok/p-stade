@@ -11,10 +11,10 @@
 
 
 #include <boost/assert.hpp>
-#include <boost/iterator/counting_iterator.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <pstade/unused.hpp>
+#include "./counting_iterator.hpp"
 #include "./is_lightweight_proxy.hpp"
 
 
@@ -43,7 +43,7 @@ namespace counting_range_detail {
     struct super_
     {
         typedef boost::iterator_range<
-            boost::counting_iterator<Incrementable, CategoryOrTraversal, Difference>
+            counting_iterator<Incrementable, CategoryOrTraversal, Difference>
         > type;
     };
 
