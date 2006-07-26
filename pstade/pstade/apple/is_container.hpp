@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/remove_rcv.hpp>
+#include <pstade/remove_cvr.hpp>
 #include "./is_associative_container.hpp"
 #include "./is_sequence.hpp"
 
@@ -30,7 +30,7 @@ struct is_container_impl :
 template< class T >
 struct is_container :
     is_container_impl<
-        typename remove_rcv<T>::type
+        typename remove_cvr<T>::type
     >
 { };
 

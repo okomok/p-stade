@@ -10,63 +10,96 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <algorithm>
-#include <map>
-#include <boost/assign.hpp>
-#include <boost/bind.hpp>
-#include <boost/iterator/transform_iterator.hpp>
-#include <boost/range.hpp>
+#include <string>
+#include <boost/lexical_cast.hpp>
+#include <boost/type_traits/is_base_of.hpp>
+#include <boost/utility/enable_if.hpp>
 
 
-template<class Range, class Predicate> inline
-typename boost::range_iterator<Range>::type
-max_element(Range& rng, Predicate pred)
+struct A
 {
-    return std::max_element(boost::begin(rng), boost::end(rng), pred);
-}
+    typedef char char_type;
+};
 
-template< class AssocContainer >
-struct get_key
+struct B : A
 {
-    typedef typename AssocContainer::key_type const& result_type;
-
-    template< class PairT >
-    result_type operator()(PairT& p) const
+    char get_string()
     {
-        return p.first;
+        return 'B';
     }
 };
 
-template< class AssocContainer >
-boost::iterator_range<
-    boost::transform_iterator<
-        ::get_key<AssocContainer>,
-        typename boost::range_iterator<AssocContainer>::type
-    >
-> const
-make_map_keys(AssocContainer& ac)
+struct C : A
 {
-    return boost::make_iterator_range(
-        boost::make_transform_iterator(boost::begin(ac), ::get_key<AssocContainer>()),
-        boost::make_transform_iterator(boost::end(ac), ::get_key<AssocContainer>())
-    );
+    char get_string()
+    {
+        return 'C';
+    }
+};
+
+
+template< class T >
+struct which :
+    boost::enable_if<T>
+{ };
+
+
+template< class T, class = void >
+struct customization;
+
+
+template< >
+struct customization<int>
+{
+    template< class Int >
+    struct foo_result
+    {
+        typedef std::string type;
+    };
+
+    template< class Result >
+    Result foo(int i)
+    {
+        return boost::lexical_cast<Result>(i);
+    }
+};
+
+
+template< class T >
+struct customization<T, typename which< boost::is_base_of< ::A, T > >::type>
+{
+    template< class A_ >
+    struct foo_result
+    {
+        typedef typename A_::char_type type;
+    };
+
+    template< class Result, class A_ >
+    Result foo(A_& a)
+    {
+        return a.get_string();
+    }
+};
+
+
+template< class T >
+typename ::customization<T>::template foo_result<T>::type
+foo(T& x)
+{
+    typedef typename ::customization<T>::template foo_result<T>::type result_t;
+    return ::customization<T>().template foo<result_t>(x);
 }
+
 
 void test()
 {
-    typedef std::map<std::string, double> StringDoubleMap; 
-    StringDoubleMap mp = boost::assign::map_list_of("George", 0.0)
-                                               ("Bill",   0.0)
-                                               ("Ronald", 0.0)
-                                               ("Jimmy",  0.0); 
+    int i = 30;
+    BOOST_CHECK( ::foo(i) == "30" );
 
-    StringDoubleMap::iterator it = ::max_element(
-        ::make_map_keys(mp),
-        boost::bind(&std::string::length, _1) < boost::bind(&std::string::length, _2)
-    ).base();
-    if (it != boost::end(mp)) {
-        std::cout << it->first.c_str() << ' ' << it->first.length() << std::endl;
-    }
+    ::B b;
+    ::C c;
+    BOOST_CHECK( ::foo(b) == 'B' );
+    BOOST_CHECK( ::foo(c) == 'C' );
 }
 
 

@@ -10,11 +10,17 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// See:
+//
+// http://d.hatena.ne.jp/y-hamigaki/20060726
+
+
 #include <boost/iterator/transform_iterator.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <pstade/egg/function.hpp>
+#include <pstade/remove_cvr.hpp>
 #include "./detail/argument.hpp"
 #include "./detail/concept_check.hpp"
 #include "./detail/propagate.hpp"
@@ -22,7 +28,6 @@
 #include "./range_adaptor.hpp"
 #include "./range_iterator.hpp"
 #include "./range_reference.hpp"
-#include "./range_value.hpp"
 
 
 namespace pstade { namespace oven {
@@ -35,7 +40,7 @@ namespace first_range_detail {
     struct get_first
     {
         typedef typename range_reference<PairRange>::type pair_ref_t;
-        typedef typename range_value<PairRange>::type pair_t;
+        typedef typename remove_cvr<pair_ref_t>::type pair_t;
 
         typedef typename detail::propagate<
             pair_ref_t,
@@ -76,10 +81,10 @@ private:
 
 public:
     explicit first_range(PairRange& rng) :
-    super_t(
-        iter_t(boost::begin(rng), first_range_detail::get_first<PairRange>()),
-        iter_t(boost::end(rng), first_range_detail::get_first<PairRange>())
-    )
+        super_t(
+            iter_t(boost::begin(rng), first_range_detail::get_first<PairRange>()),
+            iter_t(boost::end(rng), first_range_detail::get_first<PairRange>())
+        )
     { }
 };
 

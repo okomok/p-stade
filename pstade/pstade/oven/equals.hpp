@@ -20,9 +20,9 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/range/const_iterator.hpp>
 #include "./detail/concept_check.hpp"
 #include "./detail/equal_to.hpp"
+#include "./range_iterator.hpp"
 
 
 namespace pstade { namespace oven {
@@ -34,13 +34,11 @@ bool equals(Range1 const& rng1, Range2 const& rng2, BinaryPred pred)
     detail::requires< boost::SinglePassRangeConcept<Range1> >();
     detail::requires< boost::SinglePassRangeConcept<Range2> >();
 
-    // Workaround:
-    // 'range_iterator<Range1 const>' breaks down VC7.1. 
-    typedef typename boost::range_const_iterator<Range1>::type iter1_t;
-    typedef typename boost::range_const_iterator<Range2>::type iter2_t;
+    typedef typename range_iterator_const<Range1>::type iter1_t;
+    typedef typename range_iterator_const<Range2>::type iter2_t;
 
-    iter1_t it1 = boost::const_begin(rng1), last1 = boost::const_end(rng1);
-    iter2_t it2 = boost::const_begin(rng2), last2 = boost::const_end(rng2);
+    iter1_t it1 = boost::begin(rng1), last1 = boost::end(rng1);
+    iter2_t it2 = boost::begin(rng2), last2 = boost::end(rng2);
 
     for (; it1 != last1 && it2 != last2; ++it1, ++it2) {
         if (!pred(*it1, *it2))

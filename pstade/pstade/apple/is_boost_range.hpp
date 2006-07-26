@@ -14,7 +14,7 @@
 #include <boost/mpl/or.hpp>
 #include <boost/type_traits/is_array.hpp>
 #include <pstade/has_xxx.hpp>
-#include <pstade/remove_rcv.hpp>
+#include <pstade/remove_cvr.hpp>
 #include "./is_sequence.hpp"
 
 
@@ -51,7 +51,7 @@ struct is_boost_range_impl :
 template< class T >
 struct is_boost_range :
     is_boost_range_impl<
-        typename remove_rcv<T>::type
+        typename remove_cvr<T>::type
     >
 { };
 

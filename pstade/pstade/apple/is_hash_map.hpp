@@ -19,7 +19,7 @@
 
 
 #include <boost/mpl/bool.hpp>
-#include <pstade/remove_rcv.hpp>
+#include <pstade/remove_cvr.hpp>
 #include "./hash_map_fwd.hpp"
 
 
@@ -59,7 +59,7 @@ namespace is_hash_map_detail {
 template< class T >
 struct is_hash_map :
     is_hash_map_detail::aux<
-        typename remove_rcv<T>::type
+        typename remove_cvr<T>::type
     >
 { };
 
@@ -67,7 +67,7 @@ struct is_hash_map :
 template< class T >
 struct is_hash_multimap :
     is_hash_map_detail::aux_multi<
-        typename remove_rcv<T>::type
+        typename remove_cvr<T>::type
     >
 { };
 

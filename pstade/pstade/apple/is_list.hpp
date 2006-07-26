@@ -11,7 +11,7 @@
 
 
 #include <boost/mpl/bool.hpp>
-#include <pstade/remove_rcv.hpp>
+#include <pstade/remove_cvr.hpp>
 #include "./list_fwd.hpp"
 
 
@@ -39,7 +39,7 @@ namespace is_list_detail {
 template< class T >
 struct is_list :
     is_list_detail::aux<
-        typename remove_rcv<T>::type
+        typename remove_cvr<T>::type
     >
 { };
 

@@ -12,7 +12,7 @@
 
 // See:
 //
-// http://d.hatena.ne.jp/yotto-k/20060724
+// http://d.hatena.ne.jp/yotto-k/20060725
 
 
 #include <iterator> // advance, distance

@@ -15,6 +15,7 @@
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <pstade/egg/function.hpp>
+#include <pstade/remove_cvr.hpp>
 #include "./detail/argument.hpp"
 #include "./detail/propagate.hpp"
 #include "./is_lightweight_proxy.hpp"
@@ -34,7 +35,7 @@ namespace second_range_detail {
     struct get_second
     {
         typedef typename range_reference<PairRange>::type pair_ref_t;
-        typedef typename range_value<PairRange>::type pair_t;
+        typedef typename remove_cvr<pair_ref_t>::type pair_t;
 
         typedef typename detail::propagate<
             pair_ref_t,
@@ -74,10 +75,10 @@ private:
 
 public:
     explicit second_range(PairRange& rng) :
-    super_t(
-        iter_t(boost::begin(rng), second_range_detail::get_second<PairRange>()),
-        iter_t(boost::end(rng), second_range_detail::get_second<PairRange>())
-    )
+        super_t(
+            iter_t(boost::begin(rng), second_range_detail::get_second<PairRange>()),
+            iter_t(boost::end(rng), second_range_detail::get_second<PairRange>())
+        )
     { }
 };
 

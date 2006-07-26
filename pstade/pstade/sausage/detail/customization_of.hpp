@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/remove_rcv.hpp>
+#include <pstade/remove_cvr.hpp>
 #include "../customization.hpp"
 
 
@@ -21,7 +21,7 @@ template< class T >
 struct customization_of
 {
     typedef customization<
-        typename remove_rcv<T>::type
+        typename remove_cvr<T>::type
     > type;
 };
 

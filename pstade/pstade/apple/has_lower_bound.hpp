@@ -19,7 +19,7 @@
 
 
 #include <boost/mpl/or.hpp>
-#include <pstade/remove_rcv.hpp>
+#include <pstade/remove_cvr.hpp>
 #include "./is_hash_map.hpp"
 #include "./is_hash_set.hpp"
 #include "./is_map.hpp"
@@ -51,7 +51,7 @@ struct has_lower_bound_impl :
 template< class T >
 struct has_lower_bound :
     has_lower_bound_impl<
-        typename remove_rcv<T>::type
+        typename remove_cvr<T>::type
     >
 { };
 

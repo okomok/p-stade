@@ -10,10 +10,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/range/const_iterator.hpp>
 #include <boost/range/iterator.hpp>
 #include <boost/range/result_iterator.hpp>
 #include <boost/type_traits/remove_reference.hpp>
-#include "./detail/config.hpp"
+#include <boost/type_traits/remove_volatile.hpp>
+#include <pstade/remove_cvr.hpp>
+#include "./detail/config.hpp" // PSTADE_OVEN_BOOST_RANGE_VERSION_1
 
 
 namespace pstade { namespace oven {
@@ -26,7 +29,20 @@ struct range_iterator :
 #else
     boost::range_result_iterator<
 #endif
-        typename boost::remove_reference<Range>::type
+        typename boost::remove_volatile<
+            typename boost::remove_reference<Range>::type
+        >::type
+    >
+{ };
+
+
+// Workaround:
+// See 'sub_range_result_const'.
+//
+template< class Range >
+struct range_iterator_const :
+    boost::range_const_iterator<
+        typename remove_cvr<Range>::type
     >
 { };
 

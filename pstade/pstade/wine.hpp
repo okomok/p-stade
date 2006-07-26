@@ -29,6 +29,7 @@
 #include "./nullptr.hpp"
 #include "./overload.hpp"
 #include "./pause.hpp"
+#include "./remove_cvr.hpp"
 #include "./require.hpp"
 #include "./statement.hpp"
 #include "./static_c.hpp"

@@ -34,7 +34,7 @@ struct propagate
 {
     typedef typename boost::is_reference<
         From
-    >::type is_ref;
+    >::type is_reference;
 
     typedef typename boost::is_const<
         typename boost::remove_reference<From>::type
@@ -54,7 +54,7 @@ struct propagate
         boost::mpl::identity<c_to_t>
     >::type v_to_t;
 
-    typedef typename boost::mpl::eval_if< is_ref,
+    typedef typename boost::mpl::eval_if< is_reference,
         boost::add_reference<v_to_t>,
         boost::mpl::identity<v_to_t>
     >::type type;

@@ -11,7 +11,7 @@
 
 
 #include <boost/mpl/or.hpp>
-#include <pstade/remove_rcv.hpp>
+#include <pstade/remove_cvr.hpp>
 #include "./is_basic_string.hpp"
 #include "./is_deque.hpp"
 #include "./is_list.hpp"
@@ -35,7 +35,7 @@ struct is_sequence_impl :
 template< class T >
 struct is_sequence :
     is_sequence_impl<
-        typename remove_rcv<T>::type
+        typename remove_cvr<T>::type
     >
 { };
 

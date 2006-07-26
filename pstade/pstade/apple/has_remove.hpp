@@ -18,7 +18,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/remove_rcv.hpp>
+#include <pstade/remove_cvr.hpp>
 #include "./is_list.hpp"
 
 
@@ -34,7 +34,7 @@ struct has_remove_impl :
 template< class T >
 struct has_remove :
     has_remove_impl<
-        typename remove_rcv<T>::type
+        typename remove_cvr<T>::type
     >
 { };
 

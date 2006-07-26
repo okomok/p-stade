@@ -19,7 +19,7 @@
 
 
 #include <boost/mpl/bool.hpp>
-#include <pstade/remove_rcv.hpp>
+#include <pstade/remove_cvr.hpp>
 #include "./hash_set_fwd.hpp"
 
 
@@ -59,7 +59,7 @@ namespace is_hash_set_detail {
 template< class T >
 struct is_hash_set :
     is_hash_set_detail::aux<
-        typename remove_rcv<T>::type
+        typename remove_cvr<T>::type
     >
 { };
 
@@ -67,7 +67,7 @@ struct is_hash_set :
 template< class T >
 struct is_hash_multiset :
     is_hash_set_detail::aux_multi<
-        typename remove_rcv<T>::type
+        typename remove_cvr<T>::type
     >
 { };
 
