@@ -10,40 +10,53 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/mpl/apply.hpp>
+// See:
+//
+// http://d.hatena.ne.jp/y-hamigaki/20060726
+
+
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
 #include <boost/type_traits/add_const.hpp>
 #include <boost/type_traits/add_reference.hpp>
+#include <boost/type_traits/add_volatile.hpp>
 #include <boost/type_traits/is_const.hpp>
 #include <boost/type_traits/is_reference.hpp>
+#include <boost/type_traits/is_volatile.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 
 
 namespace pstade { namespace oven { namespace detail {
 
 
-template< class OuterValue, class GetInner >
-struct inner_value
-{
-    typedef typename boost::mpl::apply<GetInner, OuterValue>::type inner_t;
-    
-    typedef typename boost::mpl::eval_if< boost::is_const<OuterValue>,
-        boost::add_const<inner_t>,
-        boost::mpl::identity<inner_t>
-    >::type type;
-};
-
-
-template< class Outer, class GetInner >
+template< class From, class To >
 struct propagate
 {
-    typedef typename boost::remove_reference<Outer>::type out_val_t;
-    typedef typename inner_value<out_val_t, GetInner>::type in_val_t;
+    typedef typename boost::is_reference<
+        From
+    >::type is_ref;
 
-    typedef typename boost::mpl::eval_if< boost::is_reference<Outer>,
-        boost::add_reference<in_val_t>,
-        boost::mpl::identity<in_val_t>
+    typedef typename boost::is_const<
+        typename boost::remove_reference<From>::type
+    >::type is_const;
+
+    typedef typename boost::is_volatile<
+        typename boost::remove_reference<From>::type
+    >::type is_volatile;
+
+    typedef typename boost::mpl::eval_if< is_const,
+        boost::add_const<To>,
+        boost::mpl::identity<To>
+    >::type c_to_t;
+
+    typedef typename boost::mpl::eval_if< is_volatile,
+        boost::add_volatile<c_to_t>,
+        boost::mpl::identity<c_to_t>
+    >::type v_to_t;
+
+    typedef typename boost::mpl::eval_if< is_ref,
+        boost::add_reference<v_to_t>,
+        boost::mpl::identity<v_to_t>
     >::type type;
 };
 

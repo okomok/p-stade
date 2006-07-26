@@ -56,6 +56,7 @@ void test_introduction()
             new std::string("!ExGNxxAR ,xOLxLExH")
                 | shared
                 | filtered(lambda::_1 != 'x')
+                | regularized
                 | reversed
                 | transformed(::to_lower)
                 | memoized
@@ -269,8 +270,10 @@ void test_copied_as_adaptor()
     BOOST_CHECK( oven::equals(
         src
             | filtered(lambda::_1 != 'x')
+            | regularized
             | copied(std::back_inserter(snapshot))
-            | filtered(lambda::_1 != 'a'),
+            | filtered(lambda::_1 != 'a')
+            | regularized,
         answer
     ) );
 
@@ -321,7 +324,7 @@ void test_filtered()
     int src[]    = { 2,5,2,6,1,3,2 };
     int answer[] = { 0,5,0,6,1,3,0 };
 
-    BOOST_FOREACH (int& i, src|filtered(lambda::_1 == 2)) {
+    BOOST_FOREACH (int& i, src|filtered(lambda::_1 == 2)|regularized) {
         i = 0;
     }
 

@@ -4,6 +4,7 @@ BOOST_FOREACH (char ch,
     new std::string("!ExGNxxAR ,xOLxLExH")
         | shared
         | filtered(lambda::_1 != 'x')
+        | regularized
         | reversed
         | transformed(::to_lower)
         | memoized

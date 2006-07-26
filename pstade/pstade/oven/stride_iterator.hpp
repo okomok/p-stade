@@ -73,10 +73,10 @@ public:
         BOOST_ASSERT(m_offset < m_length);
     }
 
-    template< class Iterator_ >
+    template< class ForwardIter_ >
     stride_iterator(
-        stride_iterator<Iterator_> const& other,
-        typename boost::enable_if_convertible<Iterator_, ForwardIter>::type * = 0
+        stride_iterator<ForwardIter_> const& other,
+        typename boost::enable_if_convertible<ForwardIter_, ForwardIter>::type * = 0
     ) :
         super_t(other.base()), m_length(other.length()), m_offset(other.offset())
     {

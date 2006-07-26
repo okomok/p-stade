@@ -10,21 +10,20 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Why not: 'boost::counting_iterator'
+// VS: 'boost::counting_iterator'
 //
-// It returns a reference to a value object that is part
+// Boost's returns a reference to a value object that is part
 // of the iterator object itself, and has the same lifetime as the iterator.
-// http://lists.boost.org/Archives/boost/2001/03/9789.php
-
-
-// Note:
-//
-// Strictly speaking, this doesn't conform to Forward Iterator Concept.
+// (http://lists.boost.org/Archives/boost/2001/03/9789.php)
+// Thus, it is legal, but cannot work with 'reverse_iterator' etc.
+// On the other hand, Oven's doesn't conform to the *legacy* forward iterator concept,
+// but can work well with them.
 
 
 #include <boost/iterator/counting_iterator.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/type_traits/remove_reference.hpp>
+#include <pstade/adl_barrier.hpp>
 
 
 namespace pstade { namespace oven {
@@ -88,12 +87,18 @@ friend class boost::iterator_core_access;
 };
 
 
-template< class Incrementable > inline
-counting_iterator<Incrementable> const
-make_counting_iterator(Incrementable x)
-{
-  return counting_iterator<Incrementable>(x);
-}
+PSTADE_ADL_BARRIER(counting_iterator) { // for Boost
+
+
+    template< class Incrementable > inline
+    counting_iterator<Incrementable> const
+    make_counting_iterator(Incrementable x)
+    {
+      return counting_iterator<Incrementable>(x);
+    }
+
+
+} // ADL barrier
 
 
 } } // namespace pstade::oven

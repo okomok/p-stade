@@ -402,6 +402,9 @@ Specification
 
 	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\filtered.ipp
 
+Note that a non-assignable lambda functor makes ``filtered`` non-conforming, so
+it needs `regularized`_ that makes it assignable and then conforming.
+
 
 - Header: ``<pstade/oven/filter_range.hpp>``
 - See: `Range Library Proposal`_.

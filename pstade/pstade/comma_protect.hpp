@@ -25,8 +25,8 @@
 
 // Note:
 //
-// 'PSTADE_COMMA_PROTECT((T const))' is not supported.
-// Instead, use 'PSTADE_COMMA_PROTECT((T)) const'.
+// 'PSTADE_COMMA_PROTECT((Decayed const))' is not supported.
+// Instead, use 'PSTADE_COMMA_PROTECT((Decayed)) const'.
 
 
 #define PSTADE_COMMA_PROTECT(Decayed) \

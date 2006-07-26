@@ -5,8 +5,10 @@ std::string answer("bbb");
 BOOST_CHECK( oven::equals(
     src
         | filtered(lambda::_1 != 'x')
+        | regularized
         | copied(std::back_inserter(snapshot))
-        | filtered(lambda::_1 != 'a'),
+        | filtered(lambda::_1 != 'a')
+        | regularized,
     answer
 ) );
 

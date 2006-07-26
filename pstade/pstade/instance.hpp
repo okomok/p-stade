@@ -89,7 +89,7 @@
 
 
     #define PSTADE_INSTANCE_box_name(Name) \
-        BOOST_PP_CAT(pstade_of_, Name) \
+        BOOST_PP_CAT(pstade_instance_of_, Name) \
     /**/
 
 

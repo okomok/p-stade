@@ -21,6 +21,7 @@
 #include "./range_adaptor.hpp"
 #include "./range_iterator.hpp"
 #include "./range_reference.hpp"
+#include "./range_value.hpp"
 
 
 namespace pstade { namespace oven {
@@ -29,21 +30,16 @@ namespace pstade { namespace oven {
 namespace second_range_detail {
 
 
-    struct second_of
-    {
-        template< class Pair >
-        struct apply
-        {
-            typedef typename Pair::second_type type;
-        };
-    };
-
-
     template< class PairRange >
     struct get_second
     {
         typedef typename range_reference<PairRange>::type pair_ref_t;
-        typedef typename detail::propagate<pair_ref_t, second_of>::type result_type;
+        typedef typename range_value<PairRange>::type pair_t;
+
+        typedef typename detail::propagate<
+            pair_ref_t,
+            typename pair_t::second_type
+        >::type result_type;
 
         typedef typename detail::argument<pair_ref_t>::type arg_t;
         result_type operator()(arg_t p) const
