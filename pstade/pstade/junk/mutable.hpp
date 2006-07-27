@@ -1,5 +1,5 @@
-#ifndef PSTADE_ARG_HPP
-#define PSTADE_ARG_HPP
+#ifndef PSTADE_MUTABLE_HPP
+#define PSTADE_MUTABLE_HPP
 
 
 // PStade.Wine
@@ -10,17 +10,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// What:
-//
-// The "Forwarding Problem" workaround
-
-
-// Same as: 'help_rvalue_deduction'
-//
-// at <boost/spirit/phoenix/function/detail/function_eval.hpp>
-
-
+#include <boost/static_assert.hpp>
 #include <boost/type_traits/add_reference.hpp>
+#include <boost/type_traits/is_const.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/oven/range_adaptor.hpp>
 
@@ -28,10 +20,10 @@
 namespace pstade {
 
 
-namespace arg_detail {
+namespace mutable_detail {
 
 
-    struct baby_arg
+    struct baby
     {
         template< class Unused, class T >
         struct result :
@@ -41,16 +33,17 @@ namespace arg_detail {
         template< class Result, class T >
         Result call(T& x)
         {
+            BOOST_STATIC_ASSERT(!boost::is_const<T>::value);
             return x;
         }
     };
 
 
-} // namespace arg_detail
+} // namespace mutable_detail
 
 
-PSTADE_EGG_FUNCTION(arg, arg_detail::baby_arg)
-PSTADE_OVEN_RANGE_ADAPTOR(argued, arg_detail::baby_arg)
+PSTADE_EGG_FUNCTION(mutable_, mutable_detail::baby)
+PSTADE_OVEN_RANGE_ADAPTOR(mutable_qualified, mutable_detail::baby)
 
 
 } // namespace pstade

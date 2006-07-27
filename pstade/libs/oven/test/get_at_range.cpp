@@ -10,28 +10,20 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/out_place_range.hpp>
+#include <pstade/oven/get_at_range.hpp>
 
 
 #include <iterator>
 #include <string>
-#include <vector>
-#include <list>
+#include <map>
+#include <boost/foreach.hpp>
 #include <boost/range.hpp>
 #include <pstade/oven/functions.hpp>
-#include <pstade/oven/identity_range.hpp>
+#include <boost/mpl/int.hpp>
 
 
 void test()
 {
-    using namespace pstade;
-    using namespace oven;
-
-    std::list<char> lst;
-    oven::copy(std::string("cfbadehg"), garlic::back_inserter(lst));
-
-    oven::sort(lst|identities|out_placed);
-    BOOST_CHECK( oven::equals(lst, std::string("abcdefgh")) );
 }
 
 

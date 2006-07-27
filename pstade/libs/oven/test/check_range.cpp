@@ -16,6 +16,9 @@
 #include <string>
 #include <boost/range.hpp>
 #include <pstade/oven/functions.hpp>
+#include <pstade/arg.hpp>
+#include <pstade/unused.hpp>
+#include <pstade/if_debug.hpp>
 
 
 void test()
@@ -65,6 +68,15 @@ void test()
 
         BOOST_CHECK(thrown);
         thrown = false;
+    }
+
+    {
+        pstade::unused(
+            std::string()
+PSTADE_IF_DEBUG(| checked)
+                | argued,
+            12
+        );
     }
 }
 

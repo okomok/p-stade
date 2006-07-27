@@ -19,10 +19,10 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
+#include <boost/type_traits/remove_reference.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/remove_cvr.hpp>
-#include "./detail/argument.hpp"
 #include "./detail/concept_check.hpp"
+#include "./detail/parameter.hpp"
 #include "./detail/propagate.hpp"
 #include "./is_lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
@@ -37,18 +37,18 @@ namespace first_range_detail {
 
 
     template< class PairRange >
-    struct get_first
+    struct get_fun
     {
         typedef typename range_reference<PairRange>::type pair_ref_t;
-        typedef typename remove_cvr<pair_ref_t>::type pair_t;
+        typedef typename boost::remove_reference<pair_ref_t>::type pair_t;
 
         typedef typename detail::propagate<
             pair_ref_t,
             typename pair_t::first_type
         >::type result_type;
 
-        typedef typename detail::argument<pair_ref_t>::type arg_t;
-        result_type operator()(arg_t p) const
+        result_type
+        operator()(typename detail::parameter<pair_ref_t>::type p) const
         {
             return p.first;
         }
@@ -60,7 +60,7 @@ namespace first_range_detail {
     {
         typedef boost::iterator_range<
             boost::transform_iterator<
-                get_first<PairRange>,
+                get_fun<PairRange>,
                 typename range_iterator<PairRange>::type
             >
         > type;
@@ -82,8 +82,8 @@ private:
 public:
     explicit first_range(PairRange& rng) :
         super_t(
-            iter_t(boost::begin(rng), first_range_detail::get_first<PairRange>()),
-            iter_t(boost::end(rng), first_range_detail::get_first<PairRange>())
+            iter_t(boost::begin(rng), first_range_detail::get_fun<PairRange>()),
+            iter_t(boost::end(rng), first_range_detail::get_fun<PairRange>())
         )
     { }
 };

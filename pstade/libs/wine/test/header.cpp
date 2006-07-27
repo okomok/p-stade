@@ -10,25 +10,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/arg.hpp>
-
-
-template< class T >
-void foo(T& )
-{ }
-
-
-void test()
-{
-    using namespace pstade;
-
-    ::foo(pstade::arg(1));
-    ::foo(1|argued);
-}
+#include <pstade/wine.hpp>
 
 
 int test_main(int, char*[])
 {
-    ::test();
     return 0;
 }

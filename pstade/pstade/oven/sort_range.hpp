@@ -10,11 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Note:
-//
-// iterators manage temporary container for BOOST_FOREACH.
-
-
 #include <boost/ptr_container/indirect_fun.hpp>
 #include <pstade/egg/decay_function.hpp>
 #include <pstade/egg/function.hpp>
@@ -24,7 +19,6 @@
 #include "./is_lightweight_proxy.hpp"
 #include "./out_place_range.hpp"
 #include "./range_adaptor.hpp"
-
 
 
 namespace pstade { namespace oven {

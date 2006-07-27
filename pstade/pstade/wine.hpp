@@ -26,6 +26,7 @@
 #include "./is_same.hpp"
 #include "./lexical_cast.hpp"
 #include "./locale_saver.hpp"
+#include "./new.hpp"
 #include "./nullptr.hpp"
 #include "./overload.hpp"
 #include "./pause.hpp"

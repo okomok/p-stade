@@ -48,18 +48,28 @@ namespace check_iterator_detail {
 
 
     inline
-    void throw_error()
+    void throw_out_of_range()
     {
         check_error err("out of 'check_iterator' range");
         boost::throw_exception(err);
     }
 
 
-    template< class Iterator >
-    void check_singularity(check_iterator<Iterator> const& it)
+    template< class CheckIterator >
+    void check_singularity(CheckIterator const& it)
     {
         if (it.is_singular()) {
             check_error err("operation on default-constructed 'check_iterator'");
+            boost::throw_exception(err);
+        }
+    }
+
+
+    template< class CheckIterator >
+    void check_compatibility(CheckIterator const& it1, CheckIterator const& it2)
+    {
+        if (it1.begin() != it2.begin() || it1.end() != it2.end()) {
+            check_error err("incompatible iterators of 'check_iterator'");
             boost::throw_exception(err);
         }
     }
@@ -98,7 +108,7 @@ public:
         m_first(other.begin()), m_last(other.end()),
         m_singular(other.is_singular())
     {
-        check_iterator_detail::check_singularity(other);
+        check_iterator_detail::check_singularity(*this);
     }
 
     Iterator const& begin() const
@@ -140,9 +150,18 @@ friend class boost::iterator_core_access;
         check_iterator_detail::check_singularity(*this);
 
         if (is_end())
-            check_iterator_detail::throw_error();
+            check_iterator_detail::throw_out_of_range();
 
         return *this->base();
+    }
+
+    bool equal(self_t const& other) const
+    {
+        check_iterator_detail::check_singularity(*this);
+        check_iterator_detail::check_singularity(other);
+        check_iterator_detail::check_compatibility(*this, other);
+
+        return this->base() == other.base();
     }
 
     void increment()
@@ -150,7 +169,7 @@ friend class boost::iterator_core_access;
         check_iterator_detail::check_singularity(*this);
 
         if (is_end())
-            check_iterator_detail::throw_error();
+            check_iterator_detail::throw_out_of_range();
 
         ++this->base_reference();
     }
@@ -160,7 +179,7 @@ friend class boost::iterator_core_access;
         check_iterator_detail::check_singularity(*this);
 
         if (is_begin())
-            check_iterator_detail::throw_error();
+            check_iterator_detail::throw_out_of_range();
 
         --this->base_reference();
     }
@@ -173,7 +192,7 @@ friend class boost::iterator_core_access;
             (d >= 0 && d > std::distance(this->base(), m_last)) ||
             (d < 0 && -d > std::distance(m_first, this->base()))
         ) {
-            check_iterator_detail::throw_error();
+            check_iterator_detail::throw_out_of_range();
         }
 
         std::advance(this->base_reference(), d);
@@ -183,6 +202,7 @@ friend class boost::iterator_core_access;
     {
         check_iterator_detail::check_singularity(*this);
         check_iterator_detail::check_singularity(other);
+        check_iterator_detail::check_compatibility(*this, other);
 
         return std::distance(this->base(), other.base());
     }
