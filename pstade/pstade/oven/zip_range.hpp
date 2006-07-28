@@ -15,7 +15,7 @@
 #include <boost/tuple/tuple.hpp>
 #include <pstade/egg/function.hpp>
 #include "./detail/concept_check.hpp"
-#include "./is_lightweight_proxy.hpp"
+#include "./lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./range_iterator.hpp"
 
@@ -51,7 +51,8 @@ namespace zip_range_detail {
 
 template< class Range0, class Range1 >
 struct zip_range :
-    zip_range_detail::super_<Range0, Range1>::type
+    zip_range_detail::super_<Range0, Range1>::type,
+    private lightweight_proxy< zip_range<Range0, Range1> >
 {
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(Range0, SinglePassRangeConcept);
@@ -95,9 +96,6 @@ PSTADE_OVEN_RANGE_ADAPTOR(zipped, zip_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven
-
-
-PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE(pstade::oven::zip_range, 2)
 
 
 #endif

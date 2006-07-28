@@ -14,7 +14,7 @@
 #include <pstade/egg/function.hpp>
 #include "./detail/begin_advance.hpp"
 #include "./detail/concept_check.hpp"
-#include "./is_lightweight_proxy.hpp"
+#include "./lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./range_difference.hpp"
 #include "./sub_range_base.hpp"
@@ -25,7 +25,8 @@ namespace pstade { namespace oven {
 
 template< class ForwardRange >
 struct take_range :
-    sub_range_base<ForwardRange>::type
+    sub_range_base<ForwardRange>::type,
+    private lightweight_proxy< take_range<ForwardRange> >
 {
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeConcept);
@@ -66,9 +67,6 @@ PSTADE_OVEN_RANGE_ADAPTOR(taken, take_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven
-
-
-PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE(pstade::oven::take_range, 1)
 
 
 #endif

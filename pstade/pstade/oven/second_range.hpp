@@ -18,7 +18,7 @@
 #include <pstade/egg/function.hpp>
 #include "./detail/parameter.hpp"
 #include "./detail/propagate.hpp"
-#include "./is_lightweight_proxy.hpp"
+#include "./lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./range_iterator.hpp"
 #include "./range_reference.hpp"
@@ -67,7 +67,8 @@ namespace second_range_detail {
 
 template< class PairRange >
 struct second_range :
-    second_range_detail::super_<PairRange>::type
+    second_range_detail::super_<PairRange>::type,
+    private lightweight_proxy< second_range<PairRange> >
 {
 private:
     typedef typename second_range_detail::super_<PairRange>::type super_t;
@@ -110,9 +111,6 @@ PSTADE_OVEN_RANGE_ADAPTOR(seconds, second_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven
-
-
-PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE(pstade::oven::second_range, 1)
 
 
 #endif

@@ -17,7 +17,7 @@
 #include <boost/type_traits/remove_pointer.hpp>
 #include <pstade/egg/function.hpp>
 #include "./detail/concept_check.hpp"
-#include "./is_lightweight_proxy.hpp"
+#include "./lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./share_iterator.hpp"
 
@@ -53,7 +53,8 @@ namespace share_range_detail {
 
 template< class Range >
 struct share_range :
-    share_range_detail::super_<Range>::type
+    share_range_detail::super_<Range>::type,
+    private lightweight_proxy< share_range<Range> >
 {
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
@@ -97,9 +98,6 @@ PSTADE_OVEN_RANGE_ADAPTOR(shared, share_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven
-
-
-PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE(pstade::oven::share_range, 1)
 
 
 #endif

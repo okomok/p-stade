@@ -17,7 +17,7 @@
 #include <pstade/egg/function.hpp>
 #include "./adjacent_filter_iterator.hpp"
 #include "./detail/concept_check.hpp"
-#include "./is_lightweight_proxy.hpp"
+#include "./lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./range_iterator.hpp"
 
@@ -45,7 +45,8 @@ namespace adjacent_filter_range_detail {
 
 template< class ForwardRange, class BinaryPred >
 struct adjacent_filter_range :
-    adjacent_filter_range_detail::super_<ForwardRange, BinaryPred>::type
+    adjacent_filter_range_detail::super_<ForwardRange, BinaryPred>::type,
+    private lightweight_proxy< adjacent_filter_range<ForwardRange, BinaryPred> >
 {
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeConcept);
@@ -90,9 +91,6 @@ PSTADE_OVEN_RANGE_ADAPTOR(adjacent_filtered, adjacent_filter_range_detail::baby_
 
 
 } } // namespace pstade::oven
-
-
-PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE(pstade::oven::adjacent_filter_range, 2)
 
 
 #endif

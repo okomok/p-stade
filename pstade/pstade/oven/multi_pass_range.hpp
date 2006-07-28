@@ -12,7 +12,7 @@
 
 #include <boost/range/iterator_range.hpp>
 #include <boost/spirit/iterator/multi_pass.hpp>
-#include "./is_lightweight_proxy.hpp"
+#include "./lightweight_proxy.hpp"
 #include "./range_iterator.hpp"
 
 
@@ -54,7 +54,11 @@ struct multi_pass_range :
     multi_pass_range_detail::super_<
         InputIterRange,
         InputPolicy, OwnershipPolicy, CheckingPolicy, StoragePolicy
-    >::type
+    >::type,
+    private lightweight_proxy< multi_pass_range<
+        InputIterRange,
+        InputPolicy, OwnershipPolicy, CheckingPolicy, StoragePolicy
+    > >
 {
 private:
     typedef typename multi_pass_range_detail::super_<
@@ -96,9 +100,6 @@ PSTADE_OVEN_RANGE_ADAPTOR(multi_passed, multi_pass_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven
-
-
-PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE(pstade::oven::multi_pass_range, 5)
 
 
 #endif

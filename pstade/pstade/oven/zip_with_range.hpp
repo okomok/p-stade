@@ -15,7 +15,7 @@
 #include <pstade/egg/decay_function.hpp>
 #include <pstade/egg/function.hpp>
 #include "./detail/concept_check.hpp"
-#include "./is_lightweight_proxy.hpp"
+#include "./lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./range_reference.hpp"
 #include "./transform_range.hpp"
@@ -67,7 +67,8 @@ namespace zip_with_range_detail {
 
 template< class Range0, class Range1, class BinaryFun >
 struct zip_with_range :
-    zip_with_range_detail::super_<Range0, Range1, BinaryFun>::type
+    zip_with_range_detail::super_<Range0, Range1, BinaryFun>::type,
+    private lightweight_proxy< zip_with_range<Range0, Range1, BinaryFun> >
 {
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(Range0, SinglePassRangeConcept);
@@ -112,9 +113,6 @@ PSTADE_OVEN_RANGE_ADAPTOR(zipped_with, zip_with_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven
-
-
-PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE(pstade::oven::zip_with_range, 3)
 
 
 #endif

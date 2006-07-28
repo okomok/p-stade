@@ -14,7 +14,7 @@
 #include <boost/regex.hpp>
 #include <pstade/egg/function.hpp>
 #include "./detail/concept_check.hpp"
-#include "./is_lightweight_proxy.hpp"
+#include "./lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./range_iterator.hpp"
 #include "./range_value.hpp"
@@ -62,7 +62,8 @@ template<
     class Traits = boost::regex_traits<CharT>
 >
 struct token_range :
-    token_range_detail::super_<BidiRange, CharT, Traits>::type
+    token_range_detail::super_<BidiRange, CharT, Traits>::type,
+    private lightweight_proxy< token_range<BidiRange, CharT, Traits> >
 {
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(BidiRange, BidirectionalRangeConcept);
@@ -131,9 +132,6 @@ PSTADE_OVEN_RANGE_ADAPTOR(tokenized, token_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven
-
-
-PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE(pstade::oven::token_range, 3)
 
 
 #endif

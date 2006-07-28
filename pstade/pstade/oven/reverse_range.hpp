@@ -24,7 +24,7 @@
 #include <boost/range/iterator_range.hpp>
 #include <pstade/egg/function.hpp>
 #include "./detail/concept_check.hpp"
-#include "./is_lightweight_proxy.hpp"
+#include "./lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./range_iterator.hpp"
 
@@ -51,7 +51,8 @@ namespace reverse_range_detail {
 
 template< class BidiRange >
 struct reverse_range :
-    reverse_range_detail::super_<BidiRange>::type
+    reverse_range_detail::super_<BidiRange>::type,
+    private lightweight_proxy< reverse_range<BidiRange> >
 {
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(BidiRange, BidirectionalRangeConcept);
@@ -91,9 +92,6 @@ PSTADE_OVEN_RANGE_ADAPTOR(reversed, reverse_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven
-
-
-PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE(pstade::oven::reverse_range, 1)
 
 
 #endif

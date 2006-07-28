@@ -25,7 +25,7 @@
 #include <pstade/egg/decay_function.hpp>
 #include <pstade/egg/function.hpp>
 #include "./detail/concept_check.hpp"
-#include "./is_lightweight_proxy.hpp"
+#include "./lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./range_iterator.hpp"
 
@@ -53,7 +53,8 @@ namespace filter_range_detail {
 
 template< class Range, class Predicate >
 struct filter_range :
-    filter_range_detail::super_<Range, Predicate>::type
+    filter_range_detail::super_<Range, Predicate>::type,
+    private lightweight_proxy< filter_range<Range, Predicate> >
 {
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
@@ -67,7 +68,6 @@ public:
             iter_t(pred, boost::end(rng), boost::end(rng))
         )
     { }
-
 };
 
 
@@ -99,9 +99,6 @@ PSTADE_OVEN_RANGE_ADAPTOR(filtered, filter_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven
-
-
-PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE(pstade::oven::filter_range, 2)
 
 
 #endif

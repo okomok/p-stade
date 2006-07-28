@@ -12,7 +12,7 @@
 
 #include <boost/range/iterator_range.hpp>
 #include "./dummy_iterator.hpp"
-#include "./is_lightweight_proxy.hpp"
+#include "./lightweight_proxy.hpp"
 
 
 namespace pstade { namespace oven {
@@ -35,7 +35,8 @@ namespace dummy_range_detail {
 
 template< class Incrementable, class Value >
 struct dummy_range :
-    dummy_range_detail::super_<Incrementable, Value>::type
+    dummy_range_detail::super_<Incrementable, Value>::type,
+    private lightweight_proxy< dummy_range<Incrementable, Value> >
 {
 private:
     typedef typename dummy_range_detail::super_<Incrementable, Value>::type super_t;
@@ -57,9 +58,6 @@ make_dummy_range(Incrementable n, Incrementable m)
 
 
 } } // namespace pstade::oven
-
-
-PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE(pstade::oven::dummy_range, 2)
 
 
 #endif

@@ -21,7 +21,7 @@
 #include <boost/type_traits/extent.hpp>
 #include <boost/type_traits/is_array.hpp>
 #include <pstade/egg/function.hpp>
-#include "./is_lightweight_proxy.hpp"
+#include "./lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./sub_range_base.hpp"
 
@@ -45,7 +45,8 @@ namespace array_protect_range_detail {
 
 template< class ArrayT >
 struct array_protect_range :
-    sub_range_base<ArrayT>::type
+    sub_range_base<ArrayT>::type,
+    private lightweight_proxy< array_protect_range<ArrayT> >
 {
     BOOST_MPL_ASSERT((boost::is_array<ArrayT>));
 
@@ -86,9 +87,6 @@ PSTADE_OVEN_RANGE_ADAPTOR(array_protected, array_protect_range_detail::baby_gene
 
 
 } } // namespace pstade::oven
-
-
-PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE(pstade::oven::array_protect_range, 1)
 
 
 #endif

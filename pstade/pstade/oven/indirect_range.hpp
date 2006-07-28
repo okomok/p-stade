@@ -24,7 +24,7 @@
 #include <boost/range/iterator_range.hpp>
 #include <pstade/egg/function.hpp>
 #include "./detail/concept_check.hpp"
-#include "./is_lightweight_proxy.hpp"
+#include "./lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./range_iterator.hpp"
 
@@ -69,7 +69,10 @@ template<
 struct indirect_range :
     indirect_range_detail::super_<
         Range, Value, CategoryOrTraversal, Reference, Difference
-    >::type
+    >::type,
+    private lightweight_proxy< indirect_range<
+        Range, Value, CategoryOrTraversal, Reference, Difference
+    > >
 {
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
@@ -111,9 +114,6 @@ PSTADE_OVEN_RANGE_ADAPTOR(indirected, indirect_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven
-
-
-PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE(pstade::oven::indirect_range, 5)
 
 
 #endif

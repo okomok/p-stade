@@ -14,8 +14,8 @@
 #include <boost/utility/base_from_member.hpp>
 #include <pstade/egg/function.hpp>
 #include "./detail/concept_check.hpp"
-#include "./is_lightweight_proxy.hpp"
 #include "./joint_range.hpp"
+#include "./lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./single_range.hpp"
 
@@ -26,7 +26,8 @@ namespace pstade { namespace oven {
 template< class Range, class Value >
 struct prepend_range :
     private boost::base_from_member< single_range<Value> >,
-    joint_range< single_range<Value>, Range >
+    joint_range< single_range<Value>, Range >,
+    private lightweight_proxy< prepend_range<Range, Value> >
 {
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
@@ -68,9 +69,6 @@ PSTADE_OVEN_RANGE_ADAPTOR(prepended, prepend_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven
-
-
-PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE(pstade::oven::prepend_range, 2)
 
 
 #endif

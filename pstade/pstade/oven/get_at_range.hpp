@@ -21,7 +21,7 @@
 #include "./detail/concept_check.hpp"
 #include "./detail/parameter.hpp"
 #include "./detail/propagate.hpp"
-#include "./is_lightweight_proxy.hpp"
+#include "./lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./range_iterator.hpp"
 #include "./range_reference.hpp"
@@ -69,7 +69,8 @@ namespace get_at_range_detail {
 
 template< class FusionSeqRange, class N >
 struct get_at_range :
-    get_at_range_detail::super_<FusionSeqRange, N>::type
+    get_at_range_detail::super_<FusionSeqRange, N>::type,
+    private lightweight_proxy< get_at_range<FusionSeq, N> >
 {
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(FusionSeqRange, SinglePassRangeConcept);
@@ -114,9 +115,6 @@ PSTADE_OVEN_RANGE_ADAPTOR(got_at, get_at_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven
-
-
-PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE(pstade::oven::get_at_range, 2)
 
 
 #endif

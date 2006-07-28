@@ -21,7 +21,7 @@
 #include "./algorithm.hpp" // find_if
 #include "./detail/concept_check.hpp"
 #include "./detail/not.hpp"
-#include "./is_lightweight_proxy.hpp"
+#include "./lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./sub_range_base.hpp"
 
@@ -31,7 +31,8 @@ namespace pstade { namespace oven {
 
 template< class ForwardRange, class Predicate >
 struct take_while_range :
-    sub_range_base<ForwardRange>::type
+    sub_range_base<ForwardRange>::type,
+    private lightweight_proxy< take_while_range<ForwardRange, Predicate> >
 {
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeConcept);
@@ -72,9 +73,6 @@ PSTADE_OVEN_RANGE_ADAPTOR(taken_while, take_while_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven
-
-
-PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE(pstade::oven::take_while_range, 2)
 
 
 #endif

@@ -16,7 +16,7 @@
 #include "./detail/concept_check.hpp"
 #include "./detail/equal_to.hpp"
 #include "./detail/not.hpp"
-#include "./is_lightweight_proxy.hpp"
+#include "./lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 
 
@@ -41,7 +41,8 @@ namespace unique_range_detail {
 
 template< class ForwardRange >
 struct unique_range :
-    unique_range_detail::super_<ForwardRange>::type
+    unique_range_detail::super_<ForwardRange>::type,
+    private lightweight_proxy< unique_range<ForwardRange> >
 {
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeConcept);
@@ -81,9 +82,6 @@ PSTADE_OVEN_RANGE_ADAPTOR(uniqued, unique_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven
-
-
-PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE(pstade::oven::unique_range, 1)
 
 
 #endif

@@ -15,7 +15,7 @@
 #include <boost/range/iterator_range.hpp>
 #include <pstade/unused.hpp>
 #include "./counting_iterator.hpp"
-#include "./is_lightweight_proxy.hpp"
+#include "./lightweight_proxy.hpp"
 
 
 namespace pstade { namespace oven {
@@ -57,7 +57,8 @@ template<
     class Difference = boost::use_default
 >
 struct counting_range :
-    counting_range_detail::super_<Incrementable, CategoryOrTraversal, Difference>::type
+    counting_range_detail::super_<Incrementable, CategoryOrTraversal, Difference>::type,
+    private lightweight_proxy< counting_range<Incrementable, CategoryOrTraversal, Difference> >
 {
 private:
     typedef typename counting_range_detail::super_<Incrementable, CategoryOrTraversal, Difference>::type super_t;
@@ -98,9 +99,6 @@ one_to(Incrementable c)
 
 
 } } // namespace pstade::oven
-
-
-PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE(pstade::oven::counting_range, 3)
 
 
 #endif

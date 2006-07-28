@@ -16,7 +16,7 @@
 #include <pstade/egg/function.hpp>
 #include <pstade/static_c.hpp>
 #include "./detail/concept_check.hpp"
-#include "./is_lightweight_proxy.hpp"
+#include "./lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./range_iterator.hpp"
 
@@ -64,7 +64,8 @@ template<
     class PositionT = boost::spirit::file_position
 >
 struct position_range :
-    position_range_detail::super_<ForwardRange, PositionT>::type
+    position_range_detail::super_<ForwardRange, PositionT>::type,
+    private lightweight_proxy< position_range<ForwardRange, PositionT> >
 {
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeConcept);
@@ -121,9 +122,6 @@ PSTADE_OVEN_RANGE_ADAPTOR(positioned, position_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven
-
-
-PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE(pstade::oven::position_range, 2)
 
 
 #endif

@@ -20,7 +20,7 @@
 #include <pstade/const_overloaded.hpp>
 #include <pstade/egg/function.hpp>
 #include "./detail/concept_check.hpp"
-#include "./is_lightweight_proxy.hpp"
+#include "./lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./range_value.hpp"
 #include "./transform_range.hpp"
@@ -71,7 +71,8 @@ namespace unzip_range_detail {
 
 template< class TupleRange, int N >
 struct unzip_range_at :
-    unzip_range_detail::super_at<TupleRange, N>::type
+    unzip_range_detail::super_at<TupleRange, N>::type,
+    private lightweight_proxy< unzip_range_at<TupleRange, N> >
 {
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(TupleRange, SinglePassRangeConcept);
@@ -175,9 +176,6 @@ PSTADE_OVEN_RANGE_ADAPTOR(unzipped, unzip_range_detail::baby_unzipped)
 
 
 } } // namespace pstade::oven
-
-
-PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE(pstade::oven::unzip_range_at, (class)(int))
 
 
 #endif

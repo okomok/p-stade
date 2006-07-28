@@ -41,7 +41,7 @@ namespace token_iterator_detail {
             token_iterator<Parser, ForwardIter, UserState>,
             boost::iterator_range<ForwardIter>,
             std::forward_iterator_tag, // forceful category
-            boost::iterator_range<ForwardIter> const // value
+            boost::iterator_range<ForwardIter> const
         > type;
     };
 

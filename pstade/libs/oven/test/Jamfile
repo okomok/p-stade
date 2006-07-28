@@ -49,6 +49,7 @@ test-suite oven :
     [ oven-test istream_range ]
     [ oven-test iterator_cast ]
     [ oven-test joint_range ]
+    [ oven-test lightweight_proxy ]
     # [ oven-test mb_decode_range ]
     # [ oven-test mb_encode_range ]
     [ oven-test memoize_range ]

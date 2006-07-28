@@ -21,7 +21,7 @@
 #include <boost/range/iterator_range.hpp>
 #include <pstade/egg/function.hpp>
 #include "./detail/concept_check.hpp"
-#include "./is_lightweight_proxy.hpp"
+#include "./lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./range_iterator.hpp"
 #include "./regularize_iterator.hpp"
@@ -49,7 +49,8 @@ namespace regularize_range_detail {
 
 template< class Range >
 struct regularize_range :
-    regularize_range_detail::super_<Range>::type
+    regularize_range_detail::super_<Range>::type,
+    private lightweight_proxy< regularize_range<Range> >
 {
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
@@ -89,9 +90,6 @@ PSTADE_OVEN_RANGE_ADAPTOR(regularized, regularize_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven
-
-
-PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE(pstade::oven::regularize_range, 1)
 
 
 #endif

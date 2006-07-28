@@ -15,6 +15,7 @@
 
 #include <boost/config.hpp> // BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE
 #include <boost/assert.hpp>
+#include <boost/iterator/detail/minimum_category.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/mpl/if.hpp>
@@ -37,6 +38,15 @@ struct filter_iterator;
 namespace filter_iterator_detail {
 
 
+    template< class ForwardIter >
+    struct traversal :
+        boost::detail::minimum_category<
+            typename boost::iterator_traversal<ForwardIter>::type,
+            boost::forward_traversal_tag
+        >
+    { };
+
+
     template< class Parser, class ForwardIter, class UserState >
     struct super_
     {
@@ -44,7 +54,7 @@ namespace filter_iterator_detail {
             filter_iterator<Parser, ForwardIter, UserState>,
             ForwardIter,
             boost::use_default,
-            boost::forward_traversal_tag
+            typename traversal<ForwardIter>::type
         > type;
     };
 

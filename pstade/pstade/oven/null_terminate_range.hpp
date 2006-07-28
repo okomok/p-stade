@@ -30,7 +30,7 @@
 #include <boost/throw_exception.hpp>
 #include <pstade/egg/function.hpp>
 #include "./detail/concept_check.hpp"
-#include "./is_lightweight_proxy.hpp"
+#include "./lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./range_iterator.hpp"
 #include "./range_value.hpp"
@@ -207,7 +207,8 @@ namespace null_terminate_range_detail {
 
 template< class ForwardRangeOrCString >
 struct null_terminate_range :
-    null_terminate_range_detail::super_<ForwardRangeOrCString>::type
+    null_terminate_range_detail::super_<ForwardRangeOrCString>::type,
+    private lightweight_proxy< null_terminate_range<ForwardRangeOrCString> >
 {
 private:
     typedef typename null_terminate_range_detail::super_<ForwardRangeOrCString>::type super_t;
@@ -247,9 +248,6 @@ PSTADE_OVEN_RANGE_ADAPTOR(null_terminated, null_terminate_range_detail::baby_gen
 
 
 } } // namespace pstade::oven
-
-
-PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE(pstade::oven::null_terminate_range, 1)
 
 
 #endif

@@ -13,7 +13,7 @@
 #include <boost/algorithm/string/find_iterator.hpp> // split_iterator
 #include <boost/range/iterator_range.hpp>
 #include <pstade/egg/function.hpp>
-#include "./is_lightweight_proxy.hpp"
+#include "./lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./range_iterator.hpp"
 
@@ -40,7 +40,8 @@ namespace string_split_range_detail {
 
 template< class Range >
 struct string_split_range :
-    string_split_range_detail::super_<Range>::type
+    string_split_range_detail::super_<Range>::type,
+    private lightweight_proxy< string_split_range<Range> >
 {
 private:
     typedef typename string_split_range_detail::super_<Range>::type super_t;
@@ -81,9 +82,6 @@ PSTADE_OVEN_RANGE_ADAPTOR(string_split, string_split_range_detail::baby_generato
 
 
 } } // namespace pstade::oven
-
-
-PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE(pstade::oven::string_split_range, 1)
 
 
 #endif

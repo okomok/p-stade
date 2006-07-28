@@ -27,7 +27,7 @@
 #include <pstade/egg/decay_function.hpp>
 #include <pstade/egg/function.hpp>
 #include "./detail/concept_check.hpp"
-#include "./is_lightweight_proxy.hpp"
+#include "./lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./range_iterator.hpp"
 
@@ -71,7 +71,8 @@ template<
     class Reference = boost::use_default, class Value = boost::use_default
 >
 struct transform_range :
-    transform_range_detail::super_<Range, UnaryFun, Reference, Value>::type
+    transform_range_detail::super_<Range, UnaryFun, Reference, Value>::type,
+    private lightweight_proxy< transform_range<Range, UnaryFun, Reference, Value> >
 {
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
@@ -116,9 +117,6 @@ PSTADE_OVEN_RANGE_ADAPTOR(transformed, transform_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven
-
-
-PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE(pstade::oven::transform_range, 4)
 
 
 #endif

@@ -33,7 +33,7 @@
 #include "./detail/null.hpp"
 #include "./direct_range.hpp"
 #include "./indirect_range.hpp"
-#include "./is_lightweight_proxy.hpp"
+#include "./lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./range_iterator.hpp"
 #include "./share_range.hpp"
@@ -92,7 +92,8 @@ namespace out_place_range_detail {
 
 template< class ForwardRange, class Functor = detail::null_fun >
 struct out_place_range :
-    out_place_range_detail::super_<ForwardRange>::type
+    out_place_range_detail::super_<ForwardRange>::type,
+    private lightweight_proxy< out_place_range<ForwardRange, Functor> >
 {
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeConcept);
@@ -140,9 +141,6 @@ PSTADE_OVEN_RANGE_ADAPTOR(out_placed, out_place_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven
-
-
-PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE(pstade::oven::out_place_range, 2)
 
 
 #endif

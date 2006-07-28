@@ -16,7 +16,7 @@
 #include <boost/range/iterator_range.hpp>
 #include <pstade/egg/function.hpp>
 #include "./detail/concept_check.hpp"
-#include "./is_lightweight_proxy.hpp"
+#include "./lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./range_iterator.hpp"
 
@@ -50,7 +50,8 @@ template<
     class IndexRange
 >
 struct permute_range :
-    permute_range_detail::super_<ElementRange, IndexRange>::type
+    permute_range_detail::super_<ElementRange, IndexRange>::type,
+    private lightweight_proxy< permute_range<ElementRange, IndexRange> >
 {
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(ElementRange, RandomAccessRangeConcept);
@@ -95,9 +96,6 @@ PSTADE_OVEN_RANGE_ADAPTOR(permuted, permute_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven
-
-
-PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE(pstade::oven::permute_range, 2)
 
 
 #endif

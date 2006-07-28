@@ -16,7 +16,7 @@
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/egg/function.hpp>
 #include "./detail/concept_check.hpp"
-#include "./is_lightweight_proxy.hpp"
+#include "./lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./range_iterator.hpp"
 
@@ -44,7 +44,8 @@ namespace utf8_encode_range_detail {
 
 template< class BidiRange, class U8T = boost::uint8_t >
 struct utf8_encode_range :
-    utf8_encode_range_detail::super_<BidiRange, U8T>::type
+    utf8_encode_range_detail::super_<BidiRange, U8T>::type,
+    private lightweight_proxy< utf8_encode_range<BidiRange, U8T> >
 {
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(BidiRange, BidirectionalRangeConcept);
@@ -91,9 +92,6 @@ PSTADE_OVEN_RANGE_ADAPTOR(utf8_encoded, utf8_encode_range_detail::baby_generator
 
 
 } } // namespace pstade::oven
-
-
-PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE(pstade::oven::utf8_encode_range, 2)
 
 
 #endif

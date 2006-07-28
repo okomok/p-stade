@@ -12,7 +12,7 @@
 
 #include <boost/range/iterator_range.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/oven/is_lightweight_proxy.hpp>
+#include <pstade/oven/lightweight_proxy.hpp>
 #include <pstade/oven/range_adaptor.hpp>
 #include "./enumerate_iterator.hpp"
 
@@ -37,7 +37,8 @@ namespace enumerate_range_detail {
 
 template< class Enumerable >
 struct enumerate_range :
-    enumerate_range_detail::super_<Enumerable>::type
+    enumerate_range_detail::super_<Enumerable>::type,
+    private oven::lightweight_proxy< enumerate_range<Enumerable> >
 {
 private:
     typedef typename enumerate_range_detail::super_<Enumerable>::type super_t;
@@ -77,9 +78,6 @@ PSTADE_OVEN_RANGE_ADAPTOR(enumerated, enumerate_range_detail::baby_generator)
 
 
 } } // namespace pstade::sausage
-
-
-PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE(pstade::sausage::enumerate_range, 1)
 
 
 #endif

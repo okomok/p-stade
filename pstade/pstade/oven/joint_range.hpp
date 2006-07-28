@@ -15,8 +15,8 @@
 #include <boost/range/iterator_range.hpp>
 #include <pstade/egg/function.hpp>
 #include "./detail/concept_check.hpp"
-#include "./is_lightweight_proxy.hpp"
 #include "./joint_iterator.hpp"
+#include "./lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./range_iterator.hpp"
 
@@ -44,7 +44,8 @@ namespace joint_range_detail {
 
 template< class Range1, class Range2 >
 struct joint_range :
-    joint_range_detail::super_<Range1, Range2>::type
+    joint_range_detail::super_<Range1, Range2>::type,
+    private lightweight_proxy< joint_range<Range1, Range2> >
 {
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(Range1, SinglePassRangeConcept);
@@ -88,9 +89,6 @@ PSTADE_OVEN_RANGE_ADAPTOR(jointed, joint_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven
-
-
-PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE(pstade::oven::joint_range, 2)
 
 
 #endif

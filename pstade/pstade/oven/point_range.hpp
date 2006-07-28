@@ -26,7 +26,7 @@
 #include <pstade/nullptr.hpp>
 #include <pstade/oven/distance.hpp>
 #include "./detail/concept_check.hpp"
-#include "./is_lightweight_proxy.hpp"
+#include "./lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./range_pointer.hpp"
 
@@ -69,7 +69,8 @@ namespace point_range_detail {
 
 template< class ContiguousRange >
 struct point_range :
-    point_range_detail::super_<ContiguousRange>::type
+    point_range_detail::super_<ContiguousRange>::type,
+    private lightweight_proxy< point_range<ContiguousRange> >
 {
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(ContiguousRange, RandomAccessRangeConcept);
@@ -110,9 +111,6 @@ PSTADE_OVEN_RANGE_ADAPTOR(pointed, point_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven
-
-
-PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE(pstade::oven::point_range, 1)
 
 
 #endif

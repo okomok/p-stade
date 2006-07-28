@@ -12,7 +12,7 @@
 
 #include <pstade/egg/function.hpp>
 #include "./detail/concept_check.hpp"
-#include "./is_lightweight_proxy.hpp"
+#include "./lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./sub_range_base.hpp"
 
@@ -22,7 +22,8 @@ namespace pstade { namespace oven {
 
 template< class IgnoredRange, class Range >
 struct constant_range :
-    sub_range_base<Range>::type
+    sub_range_base<Range>::type,
+    private lightweight_proxy< constant_range<IgnoredRange, Range> >
 {
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(IgnoredRange, SinglePassRangeConcept);
@@ -63,9 +64,6 @@ PSTADE_OVEN_RANGE_ADAPTOR(constants, constant_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven
-
-
-PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE(pstade::oven::constant_range, 2)
 
 
 #endif

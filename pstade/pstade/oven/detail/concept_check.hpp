@@ -22,10 +22,7 @@
 #include <boost/type_traits/remove_cv.hpp>
 
 
-#define PSTADE_OVEN_CFG_NO_CONCEPT_CHECK
-
-
-#if !defined(PSTADE_OVEN_CFG_NO_CONCEPT_CHECK)
+#if defined(PSTADE_OVEN_CFG_ENABLE_CONCEPT_CHECK)
 
     #define PSTADE_OVEN_DETAIL_REQUIRES(Range, Concept) \
         typedef void (boost::Concept< typename boost::remove_cv<Range>::type >::* func##Range##Concept)(); \
@@ -50,7 +47,7 @@ namespace pstade { namespace oven { namespace detail {
 template< class Concept > inline
 void requires()
 {
-#if !defined(PSTADE_OVEN_CFG_NO_CONCEPT_CHECK)
+#if defined(PSTADE_OVEN_CFG_ENABLE_CONCEPT_CHECK)
 
 #if !defined(NDEBUG)
     typedef typename boost::remove_cv<Concept>::type con_t;

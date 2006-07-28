@@ -18,7 +18,7 @@
 #include <pstade/egg/function.hpp>
 #include "./detail/concept_check.hpp"
 #include "./first_range.hpp"
-#include "./is_lightweight_proxy.hpp"
+#include "./lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 
 
@@ -42,7 +42,8 @@ namespace map_key_range_detail {
 
 template< class AssocContainer >
 struct map_key_range :
-    map_key_range_detail::super_<AssocContainer>::type
+    map_key_range_detail::super_<AssocContainer>::type,
+    private lightweight_proxy< map_key_range<AssocContainer> >
 {
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(AssocContainer, SinglePassRangeConcept);
@@ -82,9 +83,6 @@ PSTADE_OVEN_RANGE_ADAPTOR(map_keys, map_key_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven
-
-
-PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE(pstade::oven::map_key_range, 1)
 
 
 #endif

@@ -19,7 +19,7 @@
 #include <pstade/egg/function.hpp>
 #include "./begin_end.hpp"
 #include "./detail/concept_check.hpp"
-#include "./is_lightweight_proxy.hpp"
+#include "./lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./sub_range_base.hpp"
 
@@ -33,7 +33,8 @@ template<
     class EndFun = end_fun
 >
 struct apply_range :
-    sub_range_base<Range>::type
+    sub_range_base<Range>::type,
+    private lightweight_proxy< apply_range<Range, BeginFun, EndFun> >
 {
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
@@ -84,9 +85,6 @@ PSTADE_OVEN_RANGE_ADAPTOR(applied, apply_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven
-
-
-PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE(pstade::oven::apply_range, 3)
 
 
 // for Boost.Phoenix-v2

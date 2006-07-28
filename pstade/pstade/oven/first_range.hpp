@@ -24,7 +24,7 @@
 #include "./detail/concept_check.hpp"
 #include "./detail/parameter.hpp"
 #include "./detail/propagate.hpp"
-#include "./is_lightweight_proxy.hpp"
+#include "./lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./range_iterator.hpp"
 #include "./range_reference.hpp"
@@ -72,7 +72,8 @@ namespace first_range_detail {
 
 template< class PairRange >
 struct first_range :
-    first_range_detail::super_<PairRange>::type
+    first_range_detail::super_<PairRange>::type,
+    private lightweight_proxy< first_range<PairRange> >
 {
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(PairRange, SinglePassRangeConcept);
@@ -116,9 +117,6 @@ PSTADE_OVEN_RANGE_ADAPTOR(firsts, first_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven
-
-
-PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE(pstade::oven::first_range, 1)
 
 
 #endif

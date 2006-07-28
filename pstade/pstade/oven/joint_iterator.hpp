@@ -92,7 +92,6 @@ private:
     typedef typename joint_iterator_detail::super_<Iterator1, Iterator2>::type super_t;
     typedef typename super_t::reference ref_t;
     typedef typename super_t::difference_type diff_t;
-    typedef typename super_t::base_type base_t;
 
 public:
     joint_iterator()
@@ -118,13 +117,13 @@ template< class, class > friend struct joint_iterator;
     { }
 
 private:
-    base_t m_last1; Iterator2 m_first2; // the joint point
+    Iterator1 m_last1; Iterator2 m_first2; // the joint point
     Iterator2 m_it2;
 
 friend class boost::iterator_core_access;
     ref_t dereference() const
     {
-        BOOST_ASSERT(valid());
+        BOOST_ASSERT(is_valid());
 
         if (this->base() != m_last1)
             return *this->base();
@@ -134,8 +133,8 @@ friend class boost::iterator_core_access;
 
     bool equal(self_t other) const
     {
-        BOOST_ASSERT(valid());
-        BOOST_ASSERT(other.valid());
+        BOOST_ASSERT(is_valid());
+        BOOST_ASSERT(other.is_valid());
         BOOST_ASSERT("incompatible iterators" && m_last1 == other.m_last1 && m_first2 == other.m_first2);
 
         return
@@ -146,17 +145,17 @@ friend class boost::iterator_core_access;
 
     void increment()
     {
-        BOOST_ASSERT(valid());
+        BOOST_ASSERT(is_valid());
 
         joint_iterator_detail::increment(this->base_reference(), m_it2, m_last1);
     }
 
     void decrement()
     {
-        BOOST_ASSERT(valid());
+        BOOST_ASSERT(is_valid());
 
         boost::reverse_iterator<Iterator2> it1(m_it2), last1(m_first2);
-        boost::reverse_iterator<base_t> it2(this->base());
+        boost::reverse_iterator<Iterator1> it2(this->base());
         joint_iterator_detail::increment(it1, it2, last1);
         this->base_reference() = it2.base();
         m_it2 = it1.base();
@@ -164,14 +163,14 @@ friend class boost::iterator_core_access;
 
     void advance(diff_t d)
     {
-        BOOST_ASSERT(valid());
+        BOOST_ASSERT(is_valid());
 
         if (d >= 0) {
             joint_iterator_detail::advance(this->base_reference(), m_it2, d, m_last1);
         }
         else {
             boost::reverse_iterator<Iterator2> rit1(m_it2), rlast1(m_first2);
-            boost::reverse_iterator<base_t> rit2(this->base());
+            boost::reverse_iterator<Iterator1> rit2(this->base());
             joint_iterator_detail::advance(rit1, rit2, -d, rlast1);
             this->base_reference() = rit2.base();
             m_it2 = rit1.base();
@@ -180,8 +179,8 @@ friend class boost::iterator_core_access;
 
     diff_t distance_to(self_t const& other) const
     {
-        BOOST_ASSERT(valid());
-        BOOST_ASSERT(other.valid());
+        BOOST_ASSERT(is_valid());
+        BOOST_ASSERT(other.is_valid());
 
         if (is_in_range1() && other.is_in_range1())
             return std::distance(this->base(), other.base());
@@ -198,7 +197,7 @@ friend class boost::iterator_core_access;
     }
 
 private:
-    bool valid() const
+    bool is_valid() const
     { return (!is_in_range1() || m_it2 == m_first2); }
 
     bool is_in_range1() const

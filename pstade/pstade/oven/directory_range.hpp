@@ -13,7 +13,7 @@
 #include <boost/filesystem/operations.hpp> // basic_directory_iterator
 #include <boost/range/iterator_range.hpp>
 #include <boost/version.hpp>
-#include "./is_lightweight_proxy.hpp"
+#include "./lightweight_proxy.hpp"
 
 
 #if (BOOST_VERSION < 103400)
@@ -44,7 +44,8 @@
 
         template< class Path >
         struct basic_directory_range :
-            directory_range_detail::super_<Path>::type
+            directory_range_detail::super_<Path>::type,
+            private lightweight_proxy< basic_directory_range<Path> >
         {
         private:
             typedef typename directory_range_detail::super_<Path>::type super_t;
@@ -72,9 +73,6 @@
     } } // namespace pstade::oven
 
 
-    PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE(pstade::oven::basic_directory_range, 1)
-
-
 #else
 
 
@@ -97,7 +95,8 @@
 
 
         struct directory_range :
-            directory_range_detail::super_<>::type
+            directory_range_detail::super_<>::type,
+            private lightweight_proxy<directory_range>
         {
         private:
             typedef directory_range_detail::super_<>::type super_t;
@@ -111,9 +110,6 @@
 
 
     } } // namespace pstade::oven
-
-
-    PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY(pstade::oven::directory_range)
 
 
 #endif // !defined(PSTADE_OVEN_NO_BASIC_DIRECTORY_RANGE)

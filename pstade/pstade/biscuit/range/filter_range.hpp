@@ -16,7 +16,7 @@
 #include <boost/type_traits/add_const.hpp>
 #include <boost/utility/addressof.hpp>
 #include <pstade/const_overloaded.hpp>
-#include <pstade/oven/is_lightweight_proxy.hpp>
+#include <pstade/oven/lightweight_proxy.hpp>
 #include "../state/null_state.hpp"
 #include "./filter_iterator.hpp"
 
@@ -49,7 +49,8 @@ namespace filter_range_detail {
 
 template< class Parser, class ForwardRange, class UserState = null_state_type >
 struct filter_range :
-    filter_range_detail::super_<Parser, ForwardRange, UserState>::type
+    filter_range_detail::super_<Parser, ForwardRange, UserState>::type,
+    private oven::lightweight_proxy< filter_range<Parser, ForwardRange, UserState> >
 {
 private:
     typedef typename filter_range_detail::super_<Parser, ForwardRange, UserState>::type super_t;
@@ -146,9 +147,6 @@ filtered(BOOST_EXPLICIT_TEMPLATE_TYPE(Parser))
 
 
 } } // namespace pstade::biscuit
-
-
-PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE(pstade::biscuit::filter_range, 3)
 
 
 #endif

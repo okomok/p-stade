@@ -13,7 +13,7 @@
 #include <boost/range/end.hpp>
 #include <pstade/egg/function.hpp>
 #include "./detail/concept_check.hpp"
-#include "./is_lightweight_proxy.hpp"
+#include "./lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./sub_range_base.hpp"
 
@@ -23,7 +23,8 @@ namespace pstade { namespace oven {
 
 template< class Range >
 struct clear_range :
-    sub_range_base<Range>::type
+    sub_range_base<Range>::type,
+    private lightweight_proxy< clear_range<Range> >
 {
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
@@ -63,9 +64,6 @@ PSTADE_OVEN_RANGE_ADAPTOR(cleared, clear_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven
-
-
-PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE(pstade::oven::clear_range, 1)
 
 
 #endif

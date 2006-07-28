@@ -17,7 +17,7 @@
 #include <pstade/egg/function.hpp>
 #include "./stride_iterator.hpp"
 #include "./detail/concept_check.hpp"
-#include "./is_lightweight_proxy.hpp"
+#include "./lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./range_iterator.hpp"
 
@@ -51,7 +51,8 @@ namespace stride_range_detail {
 
 template< class ForwardRange >
 struct stride_range :
-    stride_range_detail::super_<ForwardRange>::type
+    stride_range_detail::super_<ForwardRange>::type,
+    private lightweight_proxy< stride_range<ForwardRange> >
 {
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeConcept);
@@ -115,9 +116,6 @@ PSTADE_OVEN_RANGE_ADAPTOR(stridden, stride_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven
-
-
-PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE(pstade::oven::stride_range, 1)
 
 
 #endif

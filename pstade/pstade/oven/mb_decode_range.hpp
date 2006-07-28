@@ -13,7 +13,7 @@
 #include <boost/archive/iterators/wchar_from_mb.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <pstade/egg/function.hpp>
-#include "./is_lightweight_proxy.hpp"
+#include "./lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./range_iterator.hpp"
 
@@ -40,7 +40,8 @@ namespace mb_decode_range_detail {
 
 template< class Range >
 struct mb_decode_range :
-    mb_decode_range_detail::super_<Range>::type
+    mb_decode_range_detail::super_<Range>::type,
+    private lightweight_proxy< mb_decode_range<Range> >
 {
 private:
     typedef typename mb_decode_range_detail::super_<Range>::type super_t;
@@ -79,9 +80,6 @@ PSTADE_OVEN_RANGE_ADAPTOR(mb_decoded, mb_decode_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven
-
-
-PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE(pstade::oven::mb_decode_range, 1)
 
 
 #endif

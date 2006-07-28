@@ -15,7 +15,7 @@
 #include <boost/type_traits/add_const.hpp>
 #include <boost/utility/addressof.hpp>
 #include <pstade/const_overloaded.hpp>
-#include <pstade/oven/is_lightweight_proxy.hpp>
+#include <pstade/oven/lightweight_proxy.hpp>
 #include "../state/null_state.hpp"
 #include "./token_iterator.hpp"
 
@@ -48,7 +48,8 @@ namespace token_range_detail {
 
 template< class Parser, class ForwardRange, class UserState = null_state_type >
 struct token_range :
-    token_range_detail::super_<Parser, ForwardRange, UserState>::type
+    token_range_detail::super_<Parser, ForwardRange, UserState>::type,
+    private oven::lightweight_proxy< token_range<Parser, ForwardRange, UserState> >
 {
 private:
     typedef typename token_range_detail::super_<Parser, ForwardRange, UserState>::type super_t;
@@ -145,9 +146,6 @@ tokenized(BOOST_EXPLICIT_TEMPLATE_TYPE(Parser))
 
 
 } } // namespace pstade::biscuit
-
-
-PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE(pstade::biscuit::token_range, 3)
 
 
 #endif
