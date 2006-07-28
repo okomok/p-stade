@@ -19,11 +19,10 @@
 #include <boost/assert.hpp>
 #include <boost/lambda/bind.hpp>
 #include <boost/lambda/core.hpp> // _1, _2
-#include <boost/tuple/tuple.hpp>
+#include <boost/iterator/detail/minimum_category.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
+#include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/reverse_iterator.hpp>
-#include "./detail/an_iterator.hpp"
-#include "./detail/minimum_traversal.hpp"
 
 
 namespace pstade { namespace oven {
@@ -37,17 +36,12 @@ namespace adjacent_filter_iterator_detail {
 
 
     template< class ForwardIter >
-    struct traversal
-    {
-        typedef boost::tuples::tuple<
-            ForwardIter,
-            detail::an_iterator<boost::bidirectional_traversal_tag>
-        > iters_t;
-
-        typedef typename detail::
-            minimum_traversal<iters_t>::type
-        type;
-    };
+    struct traversal :
+        boost::detail::minimum_category<
+            typename boost::iterator_traversal<ForwardIter>::type,
+            boost::bidirectional_traversal_tag
+        >
+    { };
 
 
     template< class ForwardIter, class BinaryPred >

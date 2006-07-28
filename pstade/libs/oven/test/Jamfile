@@ -26,7 +26,6 @@ rule oven-compile ( name )
 }
 
 test-suite oven :
-    [ oven-test accumulate_range ]
     [ oven-test adjacent_filter_range ]
     [ oven-test algorithm ]
     [ oven-test apply_range ]
@@ -61,6 +60,7 @@ test-suite oven :
     [ oven-test regularize_range ]
     [ oven-test repeat_range ]
     [ oven-test reverse_range ]
+    [ oven-test scan_range ]
     [ oven-test share_range ]
     [ oven-test single_range ]
     [ oven-test slice_range ]

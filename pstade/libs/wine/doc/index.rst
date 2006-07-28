@@ -7,7 +7,7 @@ The Wine Utility Library
 :Author: MB
 :Contact: mb2act@yahoo.co.jp 
 :License: Distributed under the `Boost Software License Version 1.0`_
-:Version: 0.90.3
+:Version: 0.90.4
 
 
 
@@ -34,7 +34,7 @@ All the names belong to ``namespace pstade``.
 Requirements
 ------------
 - `Boost C++ Libraries Version 1.33.1`__ or later (no compilation required)
-- `P-Stade C++ Libraries Version 0.97.5`__ or later (no compilation required, give a higher priority than Boost headers)
+- `P-Stade C++ Libraries Version 1.00.2`__ or later (no compilation required, give a higher priority than Boost headers)
 
 __ Boost_
 __ http://sourceforge.net/project/showfiles.php?group_id=141222&package_id=173059
@@ -49,32 +49,32 @@ Tested Under
 
 
 
-``pstade::arg``
----------------
+``PSTADE_ADL_BARRIER``
+----------------------
 
 
 
-``comma_protect``
------------------
-Macros regards `,` as argument separator. This makes problem when
-you pass a type to macros. ``comma_protect`` works around it.
+``arg``
+-------
+Pending...
 
 
 
-``pstade::const_``
-------------------
-todo
-
-
-
-``pstade::const_overloaded``
-----------------------------
-todo
-
-
-
-``pstade::derived_cast``
+``PSTADE_COMMA_PROTECT``
 ------------------------
+Macros regards `,` as argument separator. This makes problem when
+you pass a type to macros. ``PSTADE_COMMA_PROTECT`` works around it.
+
+
+
+``const_``
+----------
+Pending...
+
+
+
+``derived``
+-----------
 
 ``pstade::derived_cast`` is a type-safe cast from a base class to the derived class.
 It just calls ``static_cast``, but the name makes codes clearer::
@@ -85,17 +85,15 @@ It just calls ``static_cast``, but the name makes codes clearer::
 
 
 
+``new_``
+--------
+
+
 
 ``PSTADE_INSTANCE``
 -------------------
 C++ has the power to define objects in headers by using 'static' keyword, but
 has some pitfalls, which ``PSTADE_INSTANCE`` works around::
-
-
-
-``pstade::intergral_cast``
---------------------------
-todo
 
 
 
@@ -119,32 +117,21 @@ __ http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2004/n1601.pdf
 
 
 
-``overload``
-------------
+``pause``
+--------
 todo
 
-
-
-``pstade::pause``
------------------
-todo
-
-
-
-``PSTADE_PROTECT``
-------------------
-todo
 
 
 
 ``PSTADE_STATEMENT``
 --------------------
-todo
+Pending...
 
 
 
-``pstade::unused``
-------------------
+``unused``
+----------
 Though an unused variable makes the cumbersome "unused variable" warning, it sometimes helps you.
 The legacy workaround shows::
 
@@ -163,8 +150,8 @@ The error seems conforming one, but ``pstade::unused`` can work around.
 
 
 
-References
-----------
+Acknowledgments
+---------------
 - `P-Stade`_
 - `C++ Template Metaprogramming`_
 - `C++ Templates - The Complete Guide`_
@@ -185,12 +172,11 @@ Release Notes
 
 Version 0.90.0
 ^^^^^^^^^^^^^^
-- Initial version released.
+- Released initial version.
 
 Version 0.90.1
 ^^^^^^^^^^^^^^
 - Updated the document.
-
 
 Version 0.90.2
 ^^^^^^^^^^^^^^
@@ -201,3 +187,7 @@ Version 0.90.3
 ^^^^^^^^^^^^^^
 - ``const_`` came back.
 - Renamed ``crtp_cast`` to ``derived_cast``.
+
+Version 0.90.4
+^^^^^^^^^^^^^^^
+

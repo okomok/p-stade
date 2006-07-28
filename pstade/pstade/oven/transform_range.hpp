@@ -81,7 +81,8 @@ private:
 public:
     transform_range(Range& rng, UnaryFun fun) :
         super_t(
-            iter_t(boost::begin(rng), fun), iter_t(boost::end(rng), fun)
+            iter_t(boost::begin(rng), fun),
+            iter_t(boost::end(rng), fun)
         )
     { }
 };

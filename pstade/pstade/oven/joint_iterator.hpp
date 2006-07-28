@@ -12,10 +12,10 @@
 
 #include <iterator> // advance, distance
 #include <boost/assert.hpp>
+#include <boost/iterator/detail/minimum_category.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
+#include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/reverse_iterator.hpp>
-#include <boost/tuple/tuple.hpp>
-#include "./detail/minimum_traversal.hpp"
 
 
 namespace pstade { namespace oven {
@@ -29,11 +29,12 @@ namespace joint_iterator_detail {
 
 
     template< class Iterator1, class Iterator2 >
-    struct traversal
-    {
-        typedef boost::tuples::tuple<Iterator1, Iterator2> iters_t;
-        typedef typename detail::minimum_traversal<iters_t>::type type;
-    };
+    struct traversal :
+        boost::detail::minimum_category<
+            typename boost::iterator_traversal<Iterator1>::type,
+            typename boost::iterator_traversal<Iterator2>::type
+        >
+    { };
 
 
     template< class Iterator1, class Iterator2 >

@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <iterator> // forward_iterator_tag
 #include <boost/assert.hpp>
 #include <boost/config.hpp> // BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE
 #include <boost/detail/workaround.hpp>
@@ -39,7 +40,7 @@ namespace token_iterator_detail {
         typedef boost::iterator_facade<
             token_iterator<Parser, ForwardIter, UserState>,
             boost::iterator_range<ForwardIter>,
-            boost::forward_traversal_tag,
+            std::forward_iterator_tag, // forceful category
             boost::iterator_range<ForwardIter> const // value
         > type;
     };

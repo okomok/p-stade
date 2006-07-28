@@ -1,0 +1,118 @@
+#ifndef PSTADE_OVEN_SCAN_ITERATOR_HPP
+#define PSTADE_OVEN_SCAN_ITERATOR_HPP
+
+
+// PStade.Oven
+//
+// Copyright MB 2005-2006.
+// Distributed under the Boost Software License, Version 1.0.
+// (See accompanying file LICENSE_1_0.txt or copy at
+// http://www.boost.org/LICENSE_1_0.txt)
+
+
+#include <iterator> // forward_iterator_tag
+#include <boost/iterator/detail/minimum_category.hpp>
+#include <boost/iterator/iterator_adaptor.hpp>
+#include <boost/iterator/iterator_categories.hpp>
+#include <boost/iterator/iterator_traits.hpp> // iterator_category
+
+
+namespace pstade { namespace oven {
+
+
+template< class Iterator, class State, class BinaryFun >
+struct scan_iterator;
+
+
+namespace scan_iterator_detail {
+
+
+    template< class Iterator >
+    struct forceful_category :
+        boost::detail::minimum_category<
+            typename boost::iterator_category<Iterator>::type,
+            std::forward_iterator_tag
+        >
+    { };
+
+
+    template< class Iterator, class State, class BinaryFun >
+    struct super_
+    {
+        typedef boost::iterator_adaptor<
+            scan_iterator<Iterator, State, BinaryFun>,
+            Iterator,
+            State,
+            typename forceful_category<Iterator>::type,
+            State const
+        > type;
+    };
+
+
+} // namespace scan_iterator_detail
+
+
+template< class Iterator, class State, class BinaryFun >
+struct scan_iterator :
+    scan_iterator_detail::super_<Iterator, State, BinaryFun>::type
+{
+private:
+    typedef typename scan_iterator_detail::super_<Iterator, State, BinaryFun>::type super_t;
+    typedef typename super_t::reference ref_t;
+
+public:
+    scan_iterator()
+    { }
+
+    scan_iterator(Iterator const& it, State const& init, BinaryFun fun) :
+        super_t(it), m_state(init), m_fun(fun)
+    { }
+
+    template< class Iterator_, class State_, class BinaryFun_ >
+    scan_iterator(
+        scan_iterator<Iterator_, State_, BinaryFun_> const& other,
+        typename boost::enable_if_convertible<Iterator_, Iterator>::type * = 0
+    ) :
+        super_t(other.base()), m_state(other.state()), m_fun(other.functor())
+    { }
+
+    State const& state() const
+    {
+        return m_state;
+    }
+
+    BinaryFun functor() const
+    {
+        return m_fun;
+    }
+
+private:
+    State m_state;
+    BinaryFun m_fun;
+
+friend class boost::iterator_core_access;
+    ref_t dereference() const
+    {
+        return m_fun(m_state, *this->base());
+    }
+
+    void increment()
+    {
+        m_state = dereference();
+        ++this->base_reference();
+    }
+};
+
+
+template< class Iterator, class BinaryFun, class State > inline
+scan_iterator<Iterator, State, BinaryFun> const
+make_scan_iterator(Iterator const& it, State const& init, BinaryFun fun)
+{
+    return scan_iterator<Iterator, State, BinaryFun>(it, init, fun);
+}
+
+
+} } // namespace pstade::oven
+
+
+#endif

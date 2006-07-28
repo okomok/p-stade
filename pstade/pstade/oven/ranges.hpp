@@ -10,7 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./accumulate_range.hpp"
 #include "./adjacent_filter_range.hpp"
 #include "./append_range.hpp"
 #include "./apply_range.hpp"
@@ -48,6 +47,7 @@
 #include "./regularize_range.hpp"
 #include "./repeat_range.hpp"
 #include "./reverse_range.hpp"
+#include "./scan_range.hpp"
 #include "./second_range.hpp"
 #include "./share_range.hpp"
 #include "./shift_range.hpp"

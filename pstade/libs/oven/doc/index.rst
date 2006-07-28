@@ -7,7 +7,7 @@ The Oven Range Library
 :Author: MB
 :Contact: mb2act@yahoo.co.jp 
 :License: Distributed under the `Boost Software License Version 1.0`_
-:Version: 0.90.3
+:Version: 0.90.4
 
 
 
@@ -26,7 +26,7 @@ The Oven Range Library
 
 Introduction
 ------------
-Oven provides the experimental Range Adaptors implementation of `Range Library Proposal`_::
+Oven provides an experimental Range Adaptor implementation of `Range Library Proposal`_::
 
 	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\introduction.ipp
 
@@ -166,6 +166,9 @@ __ http://www.boost.org/libs/iterator/doc/counting_iterator.html
 - Precondition: ``boost::couting_iterator<I,T,D>(x);`` is a valid expression, where
   ``x`` is ``n`` or ``m``.
 
+Note that the iterator of ``counting_range`` is not a Lvalue iterator, so that, strictly speaking,
+it doesn't conform to the forward iterator.
+
 
 ``directory_range``
 ^^^^^^^^^^^^^^^^^^^
@@ -255,14 +258,6 @@ Specification
 - ``rndRng``: any `Random Access Range`_
 - ``pred``: any `Predicate`_
 - ``rfun``: any `Functor`_ which can be used with ``boost::result_of``
-
-
-``accumulated``
-^^^^^^^^^^^^^^^
-- Header: ``<pstade/oven/accumulate_range.hpp>``
-- Valid expression: ``rng|accumulated(fun)``
-- Precondition: ``fun`` is a `Functor`_.
-- Returns: A range which is accumulated by using ``fun``.
 
 
 ``adjacent_filtered``
@@ -410,6 +405,21 @@ it needs `regularized`_ that makes it assignable and then conforming.
 - See: `Range Library Proposal`_.
 
 
+``firsts``
+^^^^^^^^^^
+- Header: ``<pstade/oven/first_range.hpp>``
+- Valid expression: ``rng|firsts``
+- Returns: ``rng|map_keys``.
+
+
+``got_at``
+^^^^^^^^^^
+Pending...
+
+- Header: ``<pstade/oven/get_at_range.hpp>``
+- Valid expression: ``rng|got_at<N>()``, where ``value_type`` of ``rng`` is a ``Fusion Sequence``
+
+
 ``identities``
 ^^^^^^^^^^^^^^
 ``identities`` returns a range which is identical to its adapting range::
@@ -442,7 +452,7 @@ it needs `regularized`_ that makes it assignable and then conforming.
 
 - Header: ``<pstade/oven/joint_range.hpp>``
 - Valid expression: ``rng1|jointed(rng2)``
-- Precondition: The ``iterator`` type of ``rng2`` is convertible to ``rng1``\'s.
+- Precondition: The ``iterator`` ``reference`` type of ``rng2`` is convertible to ``rng1``\'s.
 - Returns: A range that joints ``[boost::begin(rng1),boost::end(rng1))`` and ``[boost::begin(rng2),boost::end(rng2))``.
 
 
@@ -553,11 +563,37 @@ Note that ``memoized`` can return a `Forward Range`_ even if its adapting range 
 - See: `Range Library Proposal`_.
 
 
+``scanned``
+^^^^^^^^^^^
+``scanned`` is similar to ``oven::accumulate``, but returns a range of successive reduced values from its adapting range::
+
+	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\scanned.ipp
+
+
+- Header: ``<pstade/oven/scan_range.hpp>``
+- Valid expression: ``rng|scanned(init,fun)``
+- Precondition: ``fun(s,r)`` is a valid expression, where the type of ``s`` is the same as ``init`` and ``r`` is the iterator dereference of ``rng``.
+
+
+``seconds``
+^^^^^^^^^^^
+- Header: ``<pstade/oven/second_range.hpp>``
+- Valid expression: ``rng|seconds``
+- Returns: ``rng|map_values``.
+
+
 ``shared``
 ^^^^^^^^^^
 - Header: ``<pstade/oven/share_range.hpp>``
 - Valid expression: ``new Range|shared``
 - Returns: A range whose iterators behave as if they were the original iterators wrapped in ``boost::shared_container_iterator``.
+
+
+``shifted``
+^^^^^^^^^^^
+- Header: ``<pstade/oven/shift_range.hpp>``
+- Valid expression: ``fwdRng|shifted(d)``
+- Returns: ``fwdRng|sliced(d)``.
 
 
 ``sliced``
@@ -573,6 +609,17 @@ Note that ``memoized`` can return a `Forward Range`_ even if its adapting range 
 - Header: ``<pstade/oven/sort_range.hpp>``
 - Valid expression: ``fwdRng|sorted`` or ``fwdRng|sorted(pred)``
 - Returns: A sorted view of ``fwdRng``.
+
+
+``stridden``
+^^^^^^^^^^^^
+``stridden`` provides the column view of its adapting range::
+
+	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\stridden.ipp
+
+- Header: ``<pstade/oven/stride_range.hpp>``
+- Valid expression: ``fwdRng|stridden(l,o)``
+- Precondition: ``d % l == 0 || d % l == l`` and ``o < l``, where ``d = oven::distance(fwdRng);``
 
 
 ``string_found``
@@ -675,8 +722,8 @@ given as the first argument, instead of a tupling::
 
 
 
-References
-----------
+Acknowledgments
+---------------
 - `P-Stade`_
 - `Boost C++ Libraries`_
 - `Boost.Range`_
@@ -690,7 +737,7 @@ Release Notes
 
 Version 0.90.0
 ^^^^^^^^^^^^^^
-- Initial version released.
+- Released initial version.
 
 Version 0.90.1
 ^^^^^^^^^^^^^^
@@ -711,5 +758,10 @@ Version 0.90.3
 ^^^^^^^^^^^^^^
 - Changed the header of `Range Algorithms`_.
 - Added `base_iterator`_.
+
+Version 0.90.4
+^^^^^^^^^^^^^^
+- Added some `Range Adaptors`_.
+- Renamed ``accumulated`` to `scanned`_.
 
 

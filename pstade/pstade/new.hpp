@@ -51,7 +51,7 @@
 // Workaround:
 // GCC cannot order overloads which needs explicit template parameter
 // if the function argument is const-qualified. 
-// Not that VC++7.1's 'is_const' to array was fixed with Boost v1.34,
+// Note that VC++7.1's 'is_const' to array was fixed with Boost v1.34,
 // but it looks still broken under weird situation around 'disable_if'.
 //
 #if defined(__GNUC__)

@@ -22,6 +22,7 @@
 
 #include <boost/iterator/counting_iterator.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
+#include <boost/iterator/iterator_traits.hpp> // iterator_category
 #include <boost/type_traits/remove_reference.hpp>
 #include <pstade/adl_barrier.hpp>
 
@@ -53,8 +54,8 @@ namespace counting_iterator_detail {
             counting_iterator<Incrementable, CategoryOrTraversal, Difference>,
             base_t,
             boost::use_default,
-            boost::use_default,
-            typename boost::remove_reference<typename base_t::reference>::type // turn off the bummer!
+            typename boost::iterator_category<base_t>::type, // forceful category
+            typename boost::remove_reference<typename base_t::reference>::type
         > type;
     };
 
