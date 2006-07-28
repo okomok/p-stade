@@ -18,7 +18,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/iterator/reverse_iterator.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
@@ -27,6 +26,7 @@
 #include "./lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./range_iterator.hpp"
+#include "./reverse_iterator.hpp"
 
 
 namespace pstade { namespace oven {
@@ -39,7 +39,7 @@ namespace reverse_range_detail {
     struct super_
     {
         typedef boost::iterator_range<
-            boost::reverse_iterator<
+            reverse_iterator<
                 typename range_iterator<BidiRange>::type
             >
         > type;

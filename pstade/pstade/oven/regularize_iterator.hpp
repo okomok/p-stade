@@ -113,7 +113,8 @@ friend class boost::iterator_core_access;
         std::advance(base_reference(), d);
     }
 
-    diff_t distance_to(self_t const& other) const
+    template< class Iterator_ >
+    diff_t distance_to(regularize_iterator<Iterator_> const& other) const
     {
         return std::distance(base(), other.base());
     }

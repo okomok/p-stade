@@ -12,11 +12,11 @@
 
 #include "./adjacent_filter_iterator.hpp"
 #include "./check_iterator.hpp"
-#include "./counting_iterator.hpp"
 #include "./joint_iterator.hpp"
 #include "./null_outputter.hpp"
 #include "./regularize_iterator.hpp"
 #include "./repeat_iterator.hpp"
+#include "./reverse_iterator.hpp"
 #include "./scan_iterator.hpp"
 #include "./share_iterator.hpp"
 #include "./stride_iterator.hpp"

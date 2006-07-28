@@ -10,8 +10,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <iterator> // forward_iterator_tag
 #include <boost/iterator/iterator_adaptor.hpp>
+#include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_traits.hpp> // iterator_value
 #include "./detail/config.hpp" // DEBUG_SPACE_CH
 
@@ -35,8 +35,8 @@ namespace tab_expand_iterator_detail {
             tab_expand_iterator<ForwardIter>,
             ForwardIter,
             val_t,
-            std::forward_iterator_tag, // forceful category
-            val_t const
+            boost::forward_traversal_tag,
+            val_t const&
         > type;
     };
 

@@ -18,6 +18,7 @@
 #include <vector>
 #include <boost/foreach.hpp>
 #include <boost/range.hpp>
+#include <pstade/oven/counting_range.hpp>
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/sequence_cast.hpp>
 
@@ -61,6 +62,16 @@ void test()
                     oven::reversed |
                     oven::reversed,
                 rev
+            )
+        ));
+    }
+
+    {
+        int const ans[] = { 5,4,3,2,1,0 };
+        BOOST_CHECK((
+            oven::equals(
+                oven::zero_to(6)|reversed,
+                ans
             )
         ));
     }

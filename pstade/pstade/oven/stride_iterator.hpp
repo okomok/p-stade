@@ -13,11 +13,13 @@
 // See:
 //
 // http://d.hatena.ne.jp/yotto-k/20060725
+// http://std.dkuug.dk/jtc1/sc22/wg21/docs/lwg-defects.html#198
 
 
 #include <iterator> // advance, distance
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
+#include <boost/optional.hpp>
 #include <boost/range/iterator_range.hpp>
 #include "./detail/debug_distance.hpp"
 
@@ -95,8 +97,10 @@ public:
 
 private:
     diff_t m_length, m_offset;
+    boost::optional<ForwardIter> mutable m_oit;
 
-    bool is_compatible(self_t const& other) const
+    template< class ForwardIter_ >
+    bool is_compatible(stride_iterator<ForwardIter_> const& other) const
     {
         return m_length == other.length() && m_offset == other.offset();
     }
@@ -104,9 +108,9 @@ private:
 friend class boost::iterator_core_access;
     ref_t dereference() const
     {
-        ForwardIter it(this->base());
-        std::advance(it, m_offset);
-        return *it;
+        m_oit = this->base();
+        std::advance(*m_oit, m_offset);
+        return **m_oit;
     }
 
     void increment()
@@ -130,7 +134,8 @@ friend class boost::iterator_core_access;
         std::advance(this->base_reference(), d * m_length);
     }
 
-    diff_t distance_to(self_t const& other) const
+    template< class ForwardIter_ >
+    diff_t distance_to(stride_iterator<ForwardIter_> const& other) const
     {
         BOOST_ASSERT("incompatible iterators" && is_compatible(other) &&
             stride_iterator_detail::is_valid_base(this->base(), other.base(), m_length));

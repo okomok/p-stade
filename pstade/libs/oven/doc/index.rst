@@ -7,7 +7,7 @@ The Oven Range Library
 :Author: MB
 :Contact: mb2act@yahoo.co.jp 
 :License: Distributed under the `Boost Software License Version 1.0`_
-:Version: 0.90.4
+:Version: 0.90.5
 
 
 
@@ -36,7 +36,7 @@ All the types and functions are defined in ``namespace pstade::oven`` at ``<psta
 Requirements
 ------------
 - `Boost C++ Libraries Version 1.33.1`__ or later (no compilation required)
-- `P-Stade C++ Libraries Version 1.00.1`__ or later (no compilation required, give a higher priority than Boost headers)
+- `P-Stade C++ Libraries Version 1.00.3`__ or later (no compilation required, give a higher priority than Boost headers)
 
 __ Boost_
 __ http://sourceforge.net/project/showfiles.php?group_id=141222&package_id=173059
@@ -165,9 +165,6 @@ __ http://www.boost.org/libs/iterator/doc/counting_iterator.html
 - Valid expression: ``counting_range<I,T,D> rng(n,m);`` and ``oven::make_counting_range(n,m);``
 - Precondition: ``boost::couting_iterator<I,T,D>(x);`` is a valid expression, where
   ``x`` is ``n`` or ``m``.
-
-Note that the iterator of ``counting_range`` is not a Lvalue iterator, so that, strictly speaking,
-it doesn't conform to the forward iterator.
 
 
 ``directory_range``
@@ -764,4 +761,9 @@ Version 0.90.4
 - Added some `Range Adaptors`_.
 - Renamed ``accumulated`` to `scanned`_.
 
+Version 0.90.5
+^^^^^^^^^^^^^^
+- Added workaround for `Standard Library Defect #198`__.
+
+__ http://std.dkuug.dk/jtc1/sc22/wg21/docs/lwg-defects.html#198
 

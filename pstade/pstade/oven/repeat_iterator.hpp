@@ -207,7 +207,8 @@ private:
             m_index -= count;
     }
 
-    diff_t distance_to(self_t const& other) const
+    template< class ForwardIter_, class SizeT_ >
+    diff_t distance_to(repeat_iterator<ForwardIter_, SizeT_> const& other) const
     {
         return
             repeat_iterator_detail::pseudo_pos<diff_t>(other.base(), other.index(), other.sbegin(), other.send())

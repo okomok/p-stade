@@ -10,11 +10,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <iterator> // forward_iterator_tag
 #include <boost/iterator/detail/minimum_category.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_categories.hpp>
-#include <boost/iterator/iterator_traits.hpp> // iterator_category
+#include <boost/optional.hpp>
 
 
 namespace pstade { namespace oven {
@@ -28,10 +27,10 @@ namespace scan_iterator_detail {
 
 
     template< class Iterator >
-    struct forceful_category :
+    struct traversal :
         boost::detail::minimum_category<
-            typename boost::iterator_category<Iterator>::type,
-            std::forward_iterator_tag
+            typename boost::iterator_traversal<Iterator>::type,
+            boost::forward_traversal_tag
         >
     { };
 
@@ -43,8 +42,8 @@ namespace scan_iterator_detail {
             scan_iterator<Iterator, State, BinaryFun>,
             Iterator,
             State,
-            typename forceful_category<Iterator>::type,
-            State const
+            typename traversal<Iterator>::type,
+            State const&
         > type;
     };
 
@@ -89,11 +88,13 @@ public:
 private:
     State m_state;
     BinaryFun m_fun;
+    boost::optional<State> mutable m_ost;
 
 friend class boost::iterator_core_access;
     ref_t dereference() const
     {
-        return m_fun(m_state, *this->base());
+        m_ost = m_fun(m_state, *this->base());
+        return *m_ost;
     }
 
     void increment()

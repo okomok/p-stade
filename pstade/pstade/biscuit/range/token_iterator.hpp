@@ -10,9 +10,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <iterator> // forward_iterator_tag
 #include <boost/assert.hpp>
 #include <boost/config.hpp> // BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE
+#include <boost/iterator/iterator_categories.hpp> // forward_traversal_tag
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
@@ -37,8 +37,8 @@ namespace token_iterator_detail {
         typedef boost::iterator_facade<
             token_iterator<Parser, ForwardIter, UserState>,
             boost::iterator_range<ForwardIter>,
-            std::forward_iterator_tag, // forceful category
-            boost::iterator_range<ForwardIter> const
+            boost::forward_traversal_tag,
+            boost::iterator_range<ForwardIter> const&
         > type;
     };
 
@@ -51,7 +51,9 @@ struct token_iterator :
     token_iterator_detail::super_<Parser, ForwardIter, UserState>::type
 {
 private:
+    typedef token_iterator self_t;
     typedef typename token_iterator_detail::super_<Parser, ForwardIter, UserState>::type super_t;
+    typedef typename super_t::reference ref_t;
 
 public:
     token_iterator()
@@ -73,9 +75,20 @@ public:
         m_pus( boost::addressof(other.user_state()) )
     { }
 
-    boost::iterator_range<ForwardIter> submatch() const { return m_submatch; }
-    ForwardIter end() const { return m_last; }
-    UserState& user_state() const { return *m_pus; }
+    boost::iterator_range<ForwardIter> const& submatch() const
+    {
+        return m_submatch;
+    }
+
+    ForwardIter const& end() const
+    {
+        return m_last;
+    }
+
+    UserState& user_state() const
+    {
+        return *m_pus;
+    }
 
 private:
     boost::iterator_range<ForwardIter> m_submatch;
@@ -90,29 +103,25 @@ private:
     }
 
 friend class boost::iterator_core_access;
-    typedef typename token_iterator_detail::super_<Parser, ForwardIter, UserState>::type super_t;
-
     void increment()
     {
-        BOOST_ASSERT(boost::begin(m_submatch) != m_last && "out of range");
-
+        BOOST_ASSERT("out of range" && boost::begin(m_submatch) != m_last);
         search_submatch();
     }
 
-    bool equal(token_iterator const& other) const
+    bool equal(self_t const& other) const
     {
-        BOOST_ASSERT(m_last == other.m_last && m_pus == other.m_pus && "incompatible iterators");
-
+        BOOST_ASSERT("incompatible iterators" && m_last == other.m_last && m_pus == other.m_pus);
         return escaped_iterator_range_equal(other);
     }
 
-    typename super_t::reference dereference() const
+    ref_t dereference() const
     {
         return m_submatch;
     }
 
 private:
-    bool escaped_iterator_range_equal(token_iterator const& other) const
+    bool escaped_iterator_range_equal(self_t const& other) const
     {
         // 'operator==' of 'iterator_range' calls 'std::equal'!
         return m_submatch.equal(other.m_submatch);
@@ -121,7 +130,7 @@ private:
 
 
 template< class Parser, class ForwardIter, class UserState > inline
-token_iterator<Parser, ForwardIter, UserState>
+token_iterator<Parser, ForwardIter, UserState> const
 make_token_iterator(ForwardIter const& x, ForwardIter const& last, UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
 {
     return token_iterator<Parser, ForwardIter, UserState>(x, last, us);

@@ -76,8 +76,8 @@ public:
         m_pus( boost::addressof(other.user_state()) )
     { }
 
-    ForwardIter submatch_end() const { return m_submatch_last; }
-    ForwardIter end() const { return m_last; }
+    ForwardIter const& submatch_end() const { return m_submatch_last; }
+    ForwardIter const& end() const { return m_last; }
     UserState& user_state() const { return *m_pus; }
 
 private:
@@ -118,7 +118,7 @@ friend class boost::iterator_core_access;
 
 
 template< class Parser, class ForwardIter, class UserState > inline
-filter_iterator<Parser, ForwardIter, UserState>
+filter_iterator<Parser, ForwardIter, UserState> const
 make_filter_iterator(ForwardIter const& x, ForwardIter const& last, UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
 {
     return filter_iterator<Parser, ForwardIter, UserState>(x, last, us);

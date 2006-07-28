@@ -177,7 +177,8 @@ friend class boost::iterator_core_access;
         }
     }
 
-    diff_t distance_to(self_t const& other) const
+    template< class Iterator1_, class Iterator2_ >
+    diff_t distance_to(joint_iterator<Iterator1_, Iterator2_> const& other) const
     {
         BOOST_ASSERT(is_valid());
         BOOST_ASSERT(other.is_valid());

@@ -65,8 +65,8 @@ namespace check_iterator_detail {
     }
 
 
-    template< class CheckIterator >
-    void check_compatibility(CheckIterator const& it1, CheckIterator const& it2)
+    template< class CheckIterator1, class CheckIterator2 >
+    void check_compatibility(CheckIterator1 const& it1, CheckIterator2 const& it2)
     {
         if (it1.begin() != it2.begin() || it1.end() != it2.end()) {
             check_error err("incompatible iterators of 'check_iterator'");
@@ -198,7 +198,8 @@ friend class boost::iterator_core_access;
         std::advance(this->base_reference(), d);
     }
 
-    diff_t distance_to(self_t const& other) const
+    template< class Iterator_ >
+    diff_t distance_to(check_iterator<Iterator_> const& other) const
     {
         check_iterator_detail::check_singularity(*this);
         check_iterator_detail::check_singularity(other);
