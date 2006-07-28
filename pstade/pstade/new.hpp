@@ -93,7 +93,9 @@ namespace pstade {
     std::auto_ptr<T>
 #else
     typename boost::disable_if<
-        boost::mpl::or_< boost::is_const<A0> >, // always "false", don't care.
+        // Always "false", don't care.
+        // Note that this code breaks down VC++7.1 if 'A0' is an array.
+        boost::mpl::or_< boost::is_const<A0> >,
         std::auto_ptr<T>
     >::type
 #endif

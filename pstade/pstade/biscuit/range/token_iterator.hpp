@@ -13,13 +13,10 @@
 #include <iterator> // forward_iterator_tag
 #include <boost/assert.hpp>
 #include <boost/config.hpp> // BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE
-#include <boost/detail/workaround.hpp>
 #include <boost/iterator/iterator_facade.hpp>
-#include <boost/mpl/apply.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
-#include <boost/range/result_iterator.hpp>
 #include <boost/utility/addressof.hpp>
 #include "../algorithm/search.hpp"
 

@@ -11,7 +11,6 @@
 
 
 #include <boost/config.hpp> // BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE, BOOST_EXPLICIT_TEMPLATE_TYPE
-#include <boost/noncopyable.hpp>
 #include <boost/range/result_iterator.hpp>
 #include <boost/type_traits/add_const.hpp>
 #include <boost/utility/addressof.hpp>
