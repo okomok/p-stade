@@ -15,7 +15,7 @@
 #include <boost/iterator/detail/minimum_category.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_categories.hpp>
-#include <boost/iterator/reverse_iterator.hpp>
+#include "./reverse_iterator.hpp"
 
 
 namespace pstade { namespace oven {
@@ -167,8 +167,8 @@ friend class boost::iterator_core_access;
     {
         BOOST_ASSERT(is_valid());
 
-        boost::reverse_iterator<IteratorR> itL(m_itR), lastL(m_firstR);
-        boost::reverse_iterator<IteratorL> itR(this->base());
+        oven::reverse_iterator<IteratorR> itL(m_itR), lastL(m_firstR);
+        oven::reverse_iterator<IteratorL> itR(this->base());
         joint_iterator_detail::increment(itL, itR, lastL);
         this->base_reference() = itR.base();
         m_itR = itL.base();
@@ -182,8 +182,8 @@ friend class boost::iterator_core_access;
             joint_iterator_detail::advance(this->base_reference(), m_itR, d, m_lastL);
         }
         else {
-            boost::reverse_iterator<IteratorR> ritL(m_itR), rlastL(m_firstR);
-            boost::reverse_iterator<IteratorL> ritR(this->base());
+            oven::reverse_iterator<IteratorR> ritL(m_itR), rlastL(m_firstR);
+            oven::reverse_iterator<IteratorL> ritR(this->base());
             joint_iterator_detail::advance(ritL, ritR, -d, rlastL);
             this->base_reference() = ritR.base();
             m_itR = ritL.base();

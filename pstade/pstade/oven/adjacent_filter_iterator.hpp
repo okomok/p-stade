@@ -22,7 +22,7 @@
 #include <boost/iterator/detail/minimum_category.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_categories.hpp>
-#include <boost/iterator/reverse_iterator.hpp>
+#include "./reverse_iterator.hpp"
 
 
 namespace pstade { namespace oven {
@@ -158,12 +158,11 @@ friend class boost::iterator_core_access;
 
         namespace bll = boost::lambda;
 
-        boost::reverse_iterator<ForwardIter> rit(this->base());
-        boost::reverse_iterator<ForwardIter> rlast(m_first);
-
-        // if you pass 'rit' instead of 'rlast', overflow(1-step) comes.
+        // if you pass 'this->base()' instead of 'm_first', overflow(1-step) comes.
         this->base_reference() = adjacent_filter_iterator_detail::next(
-            rit, rlast, bll::bind<bool>(m_pred, bll::_2, bll::_1)
+            oven::make_reverse_iterator(this->base()),
+            oven::make_reverse_iterator(m_first),
+            bll::bind<bool>(m_pred, bll::_2, bll::_1)
         ).base();
     }
 };

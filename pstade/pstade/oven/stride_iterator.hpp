@@ -91,7 +91,7 @@ private:
 
     bool is_valid_offset() const
     {
-        return (0 <= m_offset) && (m_offset < m_length);
+        return 0 <= m_offset && m_offset < m_length;
     }
 
     template< class Other >
