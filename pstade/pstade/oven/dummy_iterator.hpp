@@ -59,7 +59,7 @@ public:
 friend class boost::iterator_core_access;
     ref_t dereference() const
     {
-        BOOST_ASSERT("dummy_iterator dereferenced" && false);
+        BOOST_ASSERT(false);
 
         Value *pval = PSTADE_NULLPTR;
         return *pval;

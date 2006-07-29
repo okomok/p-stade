@@ -15,7 +15,6 @@
 // http://std.dkuug.dk/jtc1/sc22/wg21/docs/lwg-defects.html#198
 
 
-#include <algorithm> // advance, distance
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/optional.hpp>
 #include <pstade/adl_barrier.hpp>
@@ -92,13 +91,13 @@ friend class boost::iterator_core_access;
 
     void advance(diff_t d)
     {
-        std::advance(this->base_reference(), -d);
+        this->base_reference() += -d;
     }
 
-    template< class BidiIter_ >
-    diff_t distance_to(reverse_iterator<BidiIter_> const& other) const
+    template< class Other >
+    diff_t distance_to(Other const& other) const
     {
-        return std::distance(other.base(), this->base_reference());
+        return this->base() - other.base();
     }
 };
 

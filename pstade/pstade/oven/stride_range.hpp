@@ -17,6 +17,7 @@
 #include <pstade/egg/function.hpp>
 #include "./stride_iterator.hpp"
 #include "./detail/concept_check.hpp"
+#include "./detail/debug_distance.hpp"
 #include "./lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./range_iterator.hpp"
@@ -42,7 +43,8 @@ namespace stride_range_detail {
     template< class ForwardRange, class Difference > inline
     bool is_valid_base(ForwardRange& rng, Difference length)
     {
-        return stride_iterator_detail::is_valid_base(boost::begin(rng), boost::end(rng), length);
+        Difference dist = detail::debug_distance(rng);
+        return dist == 0 || dist % length == 0;
     }
 
 
@@ -68,7 +70,6 @@ public:
         )
     {
         BOOST_ASSERT(stride_range_detail::is_valid_base(rng, length));
-        BOOST_ASSERT(offset < length);
     }
 
     diff_t length() const

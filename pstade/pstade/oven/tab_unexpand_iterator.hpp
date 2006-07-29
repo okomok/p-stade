@@ -44,7 +44,6 @@ struct tab_unexpand_iterator :
     tab_unexpand_iterator_detail::super_<ForwardIter>::type
 {
 private:
-    typedef tab_unexpand_iterator self_t;
     typedef typename tab_unexpand_iterator_detail::super_<ForwardIter>::type super_t;
     typedef typename super_t::base_type base_t;
     typedef typename super_t::difference_type diff_t;
@@ -132,7 +131,8 @@ friend class boost::iterator_core_access;
         return *this->base();
     }
 
-    bool equal(self_t const& other) const
+    template< class Other >
+    bool equal(Other const& other) const
     {
         return m_tabsize == other.m_tabsize && this->base() == other.base();
     }

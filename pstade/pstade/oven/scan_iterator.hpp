@@ -67,9 +67,9 @@ public:
         super_t(it), m_state(init), m_fun(fun)
     { }
 
-    template< class Iterator_, class State_, class BinaryFun_ >
+    template< class Iterator_ >
     scan_iterator(
-        scan_iterator<Iterator_, State_, BinaryFun_> const& other,
+        scan_iterator<Iterator_, State, BinaryFun> const& other,
         typename boost::enable_if_convertible<Iterator_, Iterator>::type * = 0
     ) :
         super_t(other.base()), m_state(other.state()), m_fun(other.functor())
@@ -90,16 +90,21 @@ private:
     BinaryFun m_fun;
     boost::optional<State> mutable m_ost;
 
+    State call_fun() const
+    {
+        return m_fun(m_state, *this->base());
+    }
+
 friend class boost::iterator_core_access;
     ref_t dereference() const
     {
-        m_ost = m_fun(m_state, *this->base());
+        m_ost = call_fun();
         return *m_ost;
     }
 
     void increment()
     {
-        m_state = dereference();
+        m_state = call_fun();
         ++this->base_reference();
     }
 };

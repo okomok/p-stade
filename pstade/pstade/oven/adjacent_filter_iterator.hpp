@@ -80,7 +80,6 @@ struct adjacent_filter_iterator :
     adjacent_filter_iterator_detail::super_<ForwardIter, BinaryPred>::type
 {
 private:
-    typedef adjacent_filter_iterator self_t;
     typedef typename adjacent_filter_iterator_detail::super_<ForwardIter, BinaryPred>::type super_t;
     typedef typename super_t::reference ref_t;
 
@@ -106,28 +105,41 @@ public:
     { }
 
     BinaryPred predicate() const
-    { return m_pred; }
+    {
+        return m_pred;
+    }
 
     ForwardIter const& begin() const
-    { return m_first; }
+    {
+        return m_first;
+    }
 
     ForwardIter const& end() const
-    { return m_last; }
+    {
+        return m_last;
+    }
 
 private:
     BinaryPred m_pred;
     ForwardIter m_first, m_last;
 
+    template< class Other >
+    bool is_compatible(Other const& other) const
+    {
+        return m_first == other.m_first && m_last == other.m_last;
+    }
+
 friend class boost::iterator_core_access;
     ref_t dereference() const
     {
-        BOOST_ASSERT("out of range access" && this->base() != m_last);
+        BOOST_ASSERT("out of range" && this->base() != m_last);
         return *this->base();
     }
 
-    bool equal(self_t const& other) const
+    template< class Other >
+    bool equal(Other const& other) const
     {
-        BOOST_ASSERT("incompatible iterators" && m_first == other.m_first && m_last == other.m_last);
+        BOOST_ASSERT(is_compatible(other));
         return this->base() == other.base();
     }
 

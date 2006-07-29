@@ -10,7 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <iterator> // advance, distance
 #include <boost/iterator/iterator_categories.hpp> // iterator_traversal
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/iterator/iterator_traits.hpp>
@@ -49,7 +48,6 @@ struct regularize_iterator :
     regularize_iterator_detail::super_<Iterator>::type
 {
 private:
-    typedef regularize_iterator self_t;
     typedef typename regularize_iterator_detail::super_<Iterator>::type super_t;
     typedef typename super_t::reference ref_t;
     typedef typename super_t::difference_type diff_t;
@@ -71,7 +69,7 @@ template< class > friend struct regularize_iterator;
         m_pimpl(other.m_pimpl)
     { }
 
-public: // as adaptor
+// as adaptor
     typedef Iterator base_type;
 
     Iterator const& base() const
@@ -93,7 +91,8 @@ friend class boost::iterator_core_access;
         return *base();
     }
 
-    bool equal(self_t const& other) const
+    template< class Other >
+    bool equal(Other const& other) const
     {
         return base() == other.base();
     }
@@ -110,13 +109,13 @@ friend class boost::iterator_core_access;
 
     void advance(diff_t d)
     {
-        std::advance(base_reference(), d);
+        base_reference() += d;
     }
 
-    template< class Iterator_ >
-    diff_t distance_to(regularize_iterator<Iterator_> const& other) const
+    template< class Other >
+    diff_t distance_to(Other const& other) const
     {
-        return std::distance(base(), other.base());
+        return other.base() - base();
     }
 };
 

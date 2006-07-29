@@ -59,7 +59,9 @@ public:
     { }
 
     bool is_open() const
-    { return boost::begin(*this); }
+    {
+        return boost::begin(*this);
+    }
 };
 
 

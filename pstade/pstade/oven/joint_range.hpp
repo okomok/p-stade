@@ -27,13 +27,13 @@ namespace pstade { namespace oven {
 namespace joint_range_detail {
 
 
-    template< class Range1, class Range2 >
+    template< class RangeL, class RangeR >
     struct super_
     {
         typedef boost::iterator_range<
             joint_iterator<
-                typename range_iterator<Range1>::type,
-                typename range_iterator<Range2>::type
+                typename range_iterator<RangeL>::type,
+                typename range_iterator<RangeR>::type
             >
         > type;
     };
@@ -42,21 +42,21 @@ namespace joint_range_detail {
 } // namespace joint_range_detail
 
 
-template< class Range1, class Range2 >
+template< class RangeL, class RangeR >
 struct joint_range :
-    joint_range_detail::super_<Range1, Range2>::type,
-    private lightweight_proxy< joint_range<Range1, Range2> >
+    joint_range_detail::super_<RangeL, RangeR>::type,
+    private lightweight_proxy< joint_range<RangeL, RangeR> >
 {
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(Range1, SinglePassRangeConcept);
-    PSTADE_OVEN_DETAIL_REQUIRES(Range2, SinglePassRangeConcept);
-    typedef typename joint_range_detail::super_<Range1, Range2>::type super_t;
+    PSTADE_OVEN_DETAIL_REQUIRES(RangeL, SinglePassRangeConcept);
+    PSTADE_OVEN_DETAIL_REQUIRES(RangeR, SinglePassRangeConcept);
+    typedef typename joint_range_detail::super_<RangeL, RangeR>::type super_t;
 
 public:
-    joint_range(Range1& rng1, Range2& rng2) :
+    joint_range(RangeL& rngL, RangeR& rngR) :
         super_t(
-            oven::make_joint_first_iterator(boost::begin(rng1), boost::end(rng1), boost::begin(rng2)),
-            oven::make_joint_second_iterator(boost::end(rng1), boost::begin(rng2), boost::end(rng2))
+            oven::make_joint_left_iterator(boost::begin(rngL), boost::end(rngL), boost::begin(rngR)),
+            oven::make_joint_right_iterator(boost::end(rngL), boost::begin(rngR), boost::end(rngR))
         )
     { }
 };
@@ -67,16 +67,16 @@ namespace joint_range_detail {
 
     struct baby_generator
     {
-        template< class Unused, class Range1, class Range2 >
+        template< class Unused, class RangeL, class RangeR >
         struct result
         {
-            typedef joint_range<Range1, Range2> const type;
+            typedef joint_range<RangeL, RangeR> const type;
         };
 
-        template< class Result, class Range1, class Range2 >
-        Result call(Range1& rng1, Range2& rng2)
+        template< class Result, class RangeL, class RangeR >
+        Result call(RangeL& rngL, RangeR& rngR)
         {
-            return Result(rng1, rng2);
+            return Result(rngL, rngR);
         }
     };
 

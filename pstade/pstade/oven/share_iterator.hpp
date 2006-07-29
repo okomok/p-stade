@@ -63,7 +63,9 @@ public:
     { }
 
     Range& range() const
-    { return *m_prng; }
+    {
+        return *m_prng;
+    }
 
 private:
     boost::shared_ptr<Range> m_prng;

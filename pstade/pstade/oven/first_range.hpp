@@ -84,7 +84,7 @@ public:
     explicit first_range(PairRange& rng) :
         super_t(
             iter_t(boost::begin(rng), first_range_detail::get_fun<PairRange>()),
-            iter_t(boost::end(rng), first_range_detail::get_fun<PairRange>())
+            iter_t(boost::end(rng),   first_range_detail::get_fun<PairRange>())
         )
     { }
 };

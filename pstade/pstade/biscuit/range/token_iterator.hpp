@@ -102,26 +102,34 @@ private:
         // if not found, m_submatch becomes [m_last, m_last)
     }
 
+    template< class OtherIter >
+    bool is_compatible(OtherIter const& other) const
+    {
+        return m_last == other.m_last && m_pus == other.m_pus;
+    }
+
 friend class boost::iterator_core_access;
+    ref_t dereference() const
+    {
+        return m_submatch;
+    }
+
+    template< class OtherIter >
+    bool equal(OtherIter const& other) const
+    {
+        BOOST_ASSERT(is_compatible(other));
+        return escaped_iterator_range_equal(other);
+    }
+
     void increment()
     {
         BOOST_ASSERT("out of range" && boost::begin(m_submatch) != m_last);
         search_submatch();
     }
 
-    bool equal(self_t const& other) const
-    {
-        BOOST_ASSERT("incompatible iterators" && m_last == other.m_last && m_pus == other.m_pus);
-        return escaped_iterator_range_equal(other);
-    }
-
-    ref_t dereference() const
-    {
-        return m_submatch;
-    }
-
 private:
-    bool escaped_iterator_range_equal(self_t const& other) const
+    template< class OtherIter >
+    bool escaped_iterator_range_equal(OtherIter const& other) const
     {
         // 'operator==' of 'iterator_range' calls 'std::equal'!
         return m_submatch.equal(other.m_submatch);

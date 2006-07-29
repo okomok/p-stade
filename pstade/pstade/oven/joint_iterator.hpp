@@ -21,61 +21,61 @@
 namespace pstade { namespace oven {
 
 
-template< class Iterator1, class Iterator2 >
+template< class IteratorL, class IteratorR >
 struct joint_iterator;
 
 
 namespace joint_iterator_detail {
 
 
-    template< class Iterator1, class Iterator2 >
+    template< class IteratorL, class IteratorR >
     struct traversal :
         boost::detail::minimum_category<
-            typename boost::iterator_traversal<Iterator1>::type,
-            typename boost::iterator_traversal<Iterator2>::type
+            typename boost::iterator_traversal<IteratorL>::type,
+            typename boost::iterator_traversal<IteratorR>::type
         >
     { };
 
 
-    template< class Iterator1, class Iterator2 >
+    template< class IteratorL, class IteratorR >
     struct super_
     {
         typedef boost::iterator_adaptor<
-            joint_iterator<Iterator1, Iterator2>,
-            Iterator1,
+            joint_iterator<IteratorL, IteratorR>,
+            IteratorL,
             boost::use_default,
-            typename traversal<Iterator1, Iterator2>::type
+            typename traversal<IteratorL, IteratorR>::type
         > type;
     };
 
 
-    template< class Iterator1, class Iterator2 >
-    void increment(Iterator1& it1, Iterator2& it2, Iterator1 const& last1)
+    template< class IteratorL, class IteratorR >
+    void increment(IteratorL& itL, IteratorR& itR, IteratorL const& lastL)
     {
-        if (it1 != last1)
-            ++it1;
+        if (itL != lastL)
+            ++itL;
         else
-            ++it2;
+            ++itR;
     }
 
 
-    template< class Difference, class Iterator1, class Iterator2 >
-    void advance(Iterator1& it1, Iterator2& it2, Difference diff, Iterator1 const& last1)
+    template< class Difference, class IteratorL, class IteratorR >
+    void advance(IteratorL& itL, IteratorR& itR, Difference diff, IteratorL const& lastL)
     {
         BOOST_ASSERT(diff >= 0);
 
-        if (it1 != last1) {
-            Difference d1 = std::distance(it1, last1);
-            if (diff > d1) {
-                it1 = last1;
-                std::advance(it2, diff - d1);
+        if (itL != lastL) {
+            Difference dL = std::distance(itL, lastL);
+            if (diff > dL) {
+                itL = lastL;
+                std::advance(itR, diff - dL);
             }
             else {
-                std::advance(it1, diff);
+                std::advance(itL, diff);
             }
         }
         else {
-            std::advance(it2, diff);
+            std::advance(itR, diff);
         }
     }
 
@@ -83,13 +83,12 @@ namespace joint_iterator_detail {
 } // namespace joint_iterator_detail
 
 
-template< class Iterator1, class Iterator2  >
+template< class IteratorL, class IteratorR  >
 struct joint_iterator :
-    joint_iterator_detail::super_<Iterator1, Iterator2>::type
+    joint_iterator_detail::super_<IteratorL, IteratorR>::type
 {
 private:
-    typedef joint_iterator self_t;
-    typedef typename joint_iterator_detail::super_<Iterator1, Iterator2>::type super_t;
+    typedef typename joint_iterator_detail::super_<IteratorL, IteratorR>::type super_t;
     typedef typename super_t::reference ref_t;
     typedef typename super_t::difference_type diff_t;
 
@@ -98,67 +97,81 @@ public:
     { }
 
     joint_iterator(
-        Iterator1 const& it1, Iterator1 const& last1,
-        Iterator2 const& first2, Iterator2 const& it2
+        IteratorL const& itL, IteratorL const& lastL,
+        IteratorR const& firstR, IteratorR const& itR
     ) :
-        super_t(it1), m_last1(last1),
-        m_first2(first2), m_it2(it2)
+        super_t(itL), m_lastL(lastL),
+        m_firstR(firstR), m_itR(itR)
     { }
 
 template< class, class > friend struct joint_iterator;
-    template< class Iterator1_, class Iterator2_ >
+    template< class IteratorL_, class IteratorR_ >
     joint_iterator(
-        joint_iterator<Iterator1_, Iterator2_> const& other,
-        typename boost::enable_if_convertible<Iterator1_, Iterator1>::type * = 0,
-        typename boost::enable_if_convertible<Iterator2_, Iterator2>::type * = 0
+        joint_iterator<IteratorL_, IteratorR_> const& other,
+        typename boost::enable_if_convertible<IteratorL_, IteratorL>::type * = 0,
+        typename boost::enable_if_convertible<IteratorR_, IteratorR>::type * = 0
     ) :
-        super_t(other.base()), m_last1(other.m_last1), 
-        m_first2(other.m_first2), m_it2(other.m_it2)
+        super_t(other.base()), m_lastL(other.m_lastL), 
+        m_firstR(other.m_firstR), m_itR(other.m_itR)
     { }
 
 private:
-    Iterator1 m_last1; Iterator2 m_first2; // the joint point
-    Iterator2 m_it2;
+    IteratorL m_lastL; IteratorR m_firstR; // the joint point
+    IteratorR m_itR;
+
+    bool is_valid() const
+    {
+        return (!is_in_rangeL() || m_itR == m_firstR);
+    }
+
+    bool is_in_rangeL() const
+    {
+        return this->base() != m_lastL;
+    }
+
+    template< class Other >
+    bool is_compatible(Other const& other) const
+    {
+        return m_lastL == other.m_lastL && m_firstR == other.m_firstR;
+    }
 
 friend class boost::iterator_core_access;
     ref_t dereference() const
     {
         BOOST_ASSERT(is_valid());
 
-        if (this->base() != m_last1)
+        if (this->base() != m_lastL)
             return *this->base();
         else
-            return *m_it2;
+            return *m_itR;
     }
 
-    bool equal(self_t other) const
+    template< class Other >
+    bool equal(Other const& other) const
     {
         BOOST_ASSERT(is_valid());
         BOOST_ASSERT(other.is_valid());
-        BOOST_ASSERT("incompatible iterators" && m_last1 == other.m_last1 && m_first2 == other.m_first2);
+        BOOST_ASSERT(is_compatible(other));
 
-        return
-            this->base() == other.base() &&
-            m_it2 == other.m_it2
-        ;
+        return this->base() == other.base() && m_itR == other.m_itR;
     }
 
     void increment()
     {
         BOOST_ASSERT(is_valid());
 
-        joint_iterator_detail::increment(this->base_reference(), m_it2, m_last1);
+        joint_iterator_detail::increment(this->base_reference(), m_itR, m_lastL);
     }
 
     void decrement()
     {
         BOOST_ASSERT(is_valid());
 
-        boost::reverse_iterator<Iterator2> it1(m_it2), last1(m_first2);
-        boost::reverse_iterator<Iterator1> it2(this->base());
-        joint_iterator_detail::increment(it1, it2, last1);
-        this->base_reference() = it2.base();
-        m_it2 = it1.base();
+        boost::reverse_iterator<IteratorR> itL(m_itR), lastL(m_firstR);
+        boost::reverse_iterator<IteratorL> itR(this->base());
+        joint_iterator_detail::increment(itL, itR, lastL);
+        this->base_reference() = itR.base();
+        m_itR = itL.base();
     }
 
     void advance(diff_t d)
@@ -166,59 +179,53 @@ friend class boost::iterator_core_access;
         BOOST_ASSERT(is_valid());
 
         if (d >= 0) {
-            joint_iterator_detail::advance(this->base_reference(), m_it2, d, m_last1);
+            joint_iterator_detail::advance(this->base_reference(), m_itR, d, m_lastL);
         }
         else {
-            boost::reverse_iterator<Iterator2> rit1(m_it2), rlast1(m_first2);
-            boost::reverse_iterator<Iterator1> rit2(this->base());
-            joint_iterator_detail::advance(rit1, rit2, -d, rlast1);
-            this->base_reference() = rit2.base();
-            m_it2 = rit1.base();
+            boost::reverse_iterator<IteratorR> ritL(m_itR), rlastL(m_firstR);
+            boost::reverse_iterator<IteratorL> ritR(this->base());
+            joint_iterator_detail::advance(ritL, ritR, -d, rlastL);
+            this->base_reference() = ritR.base();
+            m_itR = ritL.base();
         }
     }
 
-    template< class Iterator1_, class Iterator2_ >
-    diff_t distance_to(joint_iterator<Iterator1_, Iterator2_> const& other) const
+    template< class Other >
+    diff_t distance_to(Other const& other) const
     {
         BOOST_ASSERT(is_valid());
         BOOST_ASSERT(other.is_valid());
+        BOOST_ASSERT(is_compatible(other));
 
-        if (is_in_range1() && other.is_in_range1())
-            return std::distance(this->base(), other.base());
-        else if (!is_in_range1() && !other.is_in_range1())
-            return std::distance(m_it2, other.m_it2);
-        else if (is_in_range1())
-            return std::distance(this->base(), m_last1) + std::distance(other.m_first2, other.m_it2);
-        else if (!is_in_range1())
-            return std::distance(m_it2, m_first2) + std::distance(other.m_last1, other.base());
+        if (is_in_rangeL() && other.is_in_rangeL())
+            return other.base() - this->base();
+        else if (!is_in_rangeL() && !other.is_in_rangeL())
+            return other.m_itR - m_itR;
+        else if (is_in_rangeL())
+            return (m_lastL - this->base()) + (other.m_itR - other.m_firstR);
+        else if (!is_in_rangeL())
+            return (m_firstR - m_itR) + (other.base() - other.m_lastL);
         else {
-            BOOST_ASSERT("when pigs fly." && false);
+            BOOST_ASSERT(false);
             return 0;
         }
     }
-
-private:
-    bool is_valid() const
-    { return (!is_in_range1() || m_it2 == m_first2); }
-
-    bool is_in_range1() const
-    { return this->base() != m_last1; }
 };
 
 
-template< class Iterator1, class Iterator2 > inline
-joint_iterator<Iterator1, Iterator2> const
-make_joint_first_iterator(Iterator1 const& it1, Iterator1 const& last1, Iterator2 const& first2)
+template< class IteratorL, class IteratorR > inline
+joint_iterator<IteratorL, IteratorR> const
+make_joint_left_iterator(IteratorL const& itL, IteratorL const& lastL, IteratorR const& firstR)
 {
-    return joint_iterator<Iterator1, Iterator2>(it1, last1, first2, first2);
+    return joint_iterator<IteratorL, IteratorR>(itL, lastL, firstR, firstR);
 }
 
 
-template< class Iterator1, class Iterator2 > inline
-joint_iterator<Iterator1, Iterator2> const
-make_joint_second_iterator(Iterator1 const& last1, Iterator2 const& first2, Iterator2 const& it2)
+template< class IteratorL, class IteratorR > inline
+joint_iterator<IteratorL, IteratorR> const
+make_joint_right_iterator(IteratorL const& lastL, IteratorR const& firstR, IteratorR const& itR)
 {
-    return joint_iterator<Iterator1, Iterator2>(last1, last1, first2, it2);
+    return joint_iterator<IteratorL, IteratorR>(lastL, lastL, firstR, itR);
 }
 
 

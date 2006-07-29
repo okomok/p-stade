@@ -10,8 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <iterator> // advance, distance
-#include <boost/config.hpp>
+#include <boost/config.hpp> // BOOST_MSVC
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 
@@ -42,20 +41,9 @@ namespace repeat_iterator_detail {
     };
 
 
-    template< class Difference, class ForwardIter, class SizeT >
-    Difference pseudo_pos(ForwardIter const& it, SizeT index, ForwardIter const& first, ForwardIter const& last)
-    {
-        Difference srcSize = std::distance(first, last);
-        Difference srcDiff = std::distance(first, it);
-        return (srcSize * index) + srcDiff;
-    }
-
-
     template< class ForwardIter, class SizeT >
     void increment(ForwardIter& it, SizeT& index, ForwardIter const& first, ForwardIter const& last)
     {
-        BOOST_ASSERT(std::distance(first, last) >= 0);
-
         if (++it == last) {
             it = first;
             ++index;
@@ -66,8 +54,6 @@ namespace repeat_iterator_detail {
     template< class ForwardIter, class SizeT >
     void decrement(ForwardIter& it, SizeT& index, ForwardIter const& first, ForwardIter last)
     {
-        BOOST_ASSERT(std::distance(first, last) >= 0);
-
         if (it != first) {
             --it;
         }
@@ -75,6 +61,15 @@ namespace repeat_iterator_detail {
             it = --last;
             --index;
         }
+    }
+
+
+    template< class Difference, class RandIter, class SizeT >
+    Difference pseudo_pos(RandIter const& it, SizeT index, RandIter const& first, RandIter const& last)
+    {
+        Difference srcSize = last - first;
+        Difference srcDiff = it - first;
+        return (srcSize * index) + srcDiff;
     }
 
 
@@ -86,7 +81,6 @@ struct repeat_iterator :
     repeat_iterator_detail::super_<ForwardIter, SizeT>::type
 {
 private:
-    typedef repeat_iterator self_t;
     typedef typename repeat_iterator_detail::super_<ForwardIter, SizeT>::type super_t;
     typedef typename super_t::difference_type diff_t;
     typedef typename super_t::reference ref_t;
@@ -100,41 +94,52 @@ public:
         m_first(first), m_last(last)        
     { }
 
-    template< class ForwardIter_, class SizeT_ >
+    template< class ForwardIter_ >
     repeat_iterator(
-        repeat_iterator<ForwardIter_, SizeT_> const& other,
-        typename boost::enable_if_convertible<ForwardIter_, ForwardIter>::type * = 0,
-        typename boost::enable_if_convertible<SizeT_, SizeT>::type * = 0
+        repeat_iterator<ForwardIter_, SizeT> const& other,
+        typename boost::enable_if_convertible<ForwardIter_, ForwardIter>::type * = 0
     ) :
         super_t(other.base()), m_index(other.index()),
         m_first(other.sbegin()), m_last(other.send())       
     { }
 
-    const ForwardIter sbegin() const
-    { return m_first; }
+    const ForwardIter& sbegin() const
+    {
+        return m_first;
+    }
 
-    const ForwardIter send() const
-    { return m_last; }
+    const ForwardIter& send() const
+    {
+        return m_last;
+    }
 
-    const SizeT index() const
-    { return m_index; }
+    SizeT index() const
+    {
+        return m_index;
+    }
 
 private:
     SizeT m_index;
     ForwardIter m_first, m_last;
 
+    template< class Other >
+    bool is_compatible(Other const& other) const
+    {
+        return m_first == other.sbegin() && m_last == other.send();
+    }
+
 friend class boost::iterator_core_access;
     ref_t dereference() const
     {
         BOOST_ASSERT(m_index >= 0);
-
         return *this->base();
     }
 
-    bool equal(self_t const& other) const
+    template< class Other >
+    bool equal(Other const& other) const
     {
         BOOST_ASSERT(m_index >= 0);
-        BOOST_ASSERT("incompatible iterators" && m_first == other.sbegin() && m_last == other.send());
+        BOOST_ASSERT(is_compatible(other));
 
         return this->base() == other.base() && m_index == other.m_index;
     }
@@ -171,16 +176,26 @@ friend class boost::iterator_core_access;
         BOOST_ASSERT(m_index >= 0);
     }
 
+    template< class Other >
+    diff_t distance_to(Other const& other) const
+    {
+        BOOST_ASSERT(is_compatible(other));
+
+        return
+            repeat_iterator_detail::pseudo_pos<diff_t>(other.base(), other.index(), other.sbegin(), other.send())
+            - repeat_iterator_detail::pseudo_pos<diff_t>(this->base(), m_index, m_first, m_last);
+    }
+
 private:
     void advance_to_right(diff_t d)
     {
         BOOST_ASSERT(d >= 0);
 
-        diff_t srcSize = std::distance(m_first, m_last);
-        diff_t srcDiff = std::distance(m_first, this->base());
+        diff_t srcSize = m_last - m_first;
+        diff_t srcDiff = this->base() - m_first;
         diff_t tmpDiff = srcDiff + d;
         this->base_reference() = m_first;
-        std::advance(this->base_reference(), tmpDiff % srcSize);
+        this->base_reference() += tmpDiff % srcSize;
         diff_t count = tmpDiff / srcSize;
         m_index += count;
     }
@@ -189,8 +204,8 @@ private:
     {
         BOOST_ASSERT(d >= 0);
 
-        diff_t srcSize = std::distance(m_first, m_last);
-        diff_t srcDiff = std::distance(this->base(), m_last);
+        diff_t srcSize = m_last - m_first;
+        diff_t srcDiff = m_last - this->base();
         diff_t tmpDiff = d + srcDiff;
         diff_t rem = (tmpDiff % srcSize);
         if (rem == 0) {
@@ -198,21 +213,13 @@ private:
         }
         else {
             this->base_reference() = m_last;
-            std::advance(this->base_reference(), -rem);
+            this->base_reference() += -rem;
         }
         diff_t count = tmpDiff / srcSize;
         if (rem == 0)
             m_index -= (count - 1);
         else
             m_index -= count;
-    }
-
-    template< class ForwardIter_, class SizeT_ >
-    diff_t distance_to(repeat_iterator<ForwardIter_, SizeT_> const& other) const
-    {
-        return
-            repeat_iterator_detail::pseudo_pos<diff_t>(other.base(), other.index(), other.sbegin(), other.send())
-            - repeat_iterator_detail::pseudo_pos<diff_t>(this->base(), m_index, m_first, m_last);
     }
 };
 

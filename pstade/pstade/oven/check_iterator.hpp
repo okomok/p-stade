@@ -10,7 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <iterator> // advance, distance
 #include <stdexcept> // range_error
 #include <string>
 #include <boost/assert.hpp>
@@ -65,10 +64,10 @@ namespace check_iterator_detail {
     }
 
 
-    template< class CheckIterator1, class CheckIterator2 >
-    void check_compatibility(CheckIterator1 const& it1, CheckIterator2 const& it2)
+    template< class CheckIterator, class CheckIterator_ >
+    void check_compatibility(CheckIterator const& it, CheckIterator_ const& it_)
     {
-        if (it1.begin() != it2.begin() || it1.end() != it2.end()) {
+        if (it.begin() != it_.begin() || it.end() != it_.end()) {
             check_error err("incompatible iterators of 'check_iterator'");
             boost::throw_exception(err);
         }
@@ -83,7 +82,6 @@ struct check_iterator :
     check_iterator_detail::super_<Iterator>::type
 {
 private:
-    typedef check_iterator self_t;
     typedef typename check_iterator_detail::super_<Iterator>::type super_t;
     typedef typename super_t::reference ref_t;
     typedef typename super_t::difference_type diff_t;
@@ -155,7 +153,8 @@ friend class boost::iterator_core_access;
         return *this->base();
     }
 
-    bool equal(self_t const& other) const
+    template< class Other >
+    bool equal(Other const& other) const
     {
         check_iterator_detail::check_singularity(*this);
         check_iterator_detail::check_singularity(other);
@@ -189,23 +188,23 @@ friend class boost::iterator_core_access;
         check_iterator_detail::check_singularity(*this);
 
         if (
-            (d >= 0 && d > std::distance(this->base(), m_last)) ||
-            (d < 0 && -d > std::distance(m_first, this->base()))
+            ( d >= 0 &&  d > ( m_last - this->base()  ) ) ||
+            ( d <  0 && -d > ( this->base() - m_first ) )
         ) {
             check_iterator_detail::throw_out_of_range();
         }
 
-        std::advance(this->base_reference(), d);
+        this->base_reference() += d;
     }
 
-    template< class Iterator_ >
-    diff_t distance_to(check_iterator<Iterator_> const& other) const
+    template< class Other >
+    diff_t distance_to(Other const& other) const
     {
         check_iterator_detail::check_singularity(*this);
         check_iterator_detail::check_singularity(other);
         check_iterator_detail::check_compatibility(*this, other);
 
-        return std::distance(this->base(), other.base());
+        return other.base() - this->base();
     }
 };
 

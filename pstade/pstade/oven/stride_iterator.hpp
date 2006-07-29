@@ -16,12 +16,11 @@
 // http://std.dkuug.dk/jtc1/sc22/wg21/docs/lwg-defects.html#198
 
 
-#include <iterator> // advance, distance
+#include <iterator> // advance
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/optional.hpp>
 #include <boost/range/iterator_range.hpp>
-#include "./detail/debug_distance.hpp"
 
 
 namespace pstade { namespace oven {
@@ -44,14 +43,6 @@ namespace stride_iterator_detail {
     };
 
 
-    template< class ForwardIter, class Difference >
-    bool is_valid_base(ForwardIter const& first, ForwardIter const& last, Difference length)
-    {
-        Difference dist = detail::debug_distance(boost::make_iterator_range(first, last));
-        return (dist == 0) || (dist % length == 0);
-    }
-
-
 } // namespace stride_iterator_detail
 
 
@@ -60,7 +51,6 @@ struct stride_iterator :
     stride_iterator_detail::super_<ForwardIter>::type
 {
 private:
-    typedef stride_iterator self_t;
     typedef typename stride_iterator_detail::super_<ForwardIter>::type super_t;
     typedef typename super_t::difference_type diff_t;
     typedef typename super_t::reference ref_t;
@@ -72,7 +62,7 @@ public:
     stride_iterator(ForwardIter const& it, diff_t length, diff_t offset) :
         super_t(it), m_length(length), m_offset(offset)
     {
-        BOOST_ASSERT(m_offset < m_length);
+        BOOST_ASSERT(is_valid_offset());
     }
 
     template< class ForwardIter_ >
@@ -82,7 +72,7 @@ public:
     ) :
         super_t(other.base()), m_length(other.length()), m_offset(other.offset())
     {
-        BOOST_ASSERT(m_offset < m_length);
+        BOOST_ASSERT(is_valid_offset());
     }
 
     diff_t length() const
@@ -99,8 +89,13 @@ private:
     diff_t m_length, m_offset;
     boost::optional<ForwardIter> mutable m_oit;
 
-    template< class ForwardIter_ >
-    bool is_compatible(stride_iterator<ForwardIter_> const& other) const
+    bool is_valid_offset() const
+    {
+        return (0 <= m_offset) && (m_offset < m_length);
+    }
+
+    template< class Other >
+    bool is_compatible(Other const& other) const
     {
         return m_length == other.length() && m_offset == other.offset();
     }
@@ -113,15 +108,16 @@ friend class boost::iterator_core_access;
         return **m_oit;
     }
 
+    template< class Other >
+    bool equal(Other const& other) const
+    {
+        BOOST_ASSERT(is_compatible(other));
+        return this->base() == other.base();
+    }
+
     void increment()
     {
         std::advance(this->base_reference(), m_length);
-    }
-
-    bool equal(self_t const& other) const
-    {
-        BOOST_ASSERT("incompatible iterators" && is_compatible(other));
-        return this->base() == other.base();
     }
 
     void decrement()
@@ -131,16 +127,14 @@ friend class boost::iterator_core_access;
 
     void advance(diff_t d)
     {
-        std::advance(this->base_reference(), d * m_length);
+        this->base_reference() += d * m_length;
     }
 
-    template< class ForwardIter_ >
-    diff_t distance_to(stride_iterator<ForwardIter_> const& other) const
+    template< class Other >
+    diff_t distance_to(Other const& other) const
     {
-        BOOST_ASSERT("incompatible iterators" && is_compatible(other) &&
-            stride_iterator_detail::is_valid_base(this->base(), other.base(), m_length));
-
-        return std::distance(this->base(), other.base()) / m_length;
+        BOOST_ASSERT(is_compatible(other));
+        return (other.base() - this->base()) / m_length;
     }
 };
 

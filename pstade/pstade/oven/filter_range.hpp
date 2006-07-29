@@ -65,7 +65,7 @@ public:
     filter_range(Range& rng, Predicate pred) :
         super_t(
             iter_t(pred, boost::begin(rng), boost::end(rng)),
-            iter_t(pred, boost::end(rng), boost::end(rng))
+            iter_t(pred, boost::end(rng),   boost::end(rng))
         )
     { }
 };

@@ -55,7 +55,7 @@ public:
     explicit check_range(Range& rng) :
         super_t(
             iter_t(boost::begin(rng), boost::begin(rng), boost::end(rng)),
-            iter_t(boost::end(rng), boost::begin(rng), boost::end(rng))
+            iter_t(boost::end(rng),   boost::begin(rng), boost::end(rng))
         )
     { }
 };

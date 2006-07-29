@@ -81,7 +81,7 @@ public:
     explicit get_at_range(FusionSeqRange& rng) :
         super_t(
             iter_t(boost::begin(rng), get_at_range_detail::get_at_fun<FusionSeqRange, N>()),
-            iter_t(boost::end(rng), get_at_range_detail::get_at_fun<FusionSeqRange, N>())
+            iter_t(boost::end(rng),   get_at_range_detail::get_at_fun<FusionSeqRange, N>())
         )
     { }
 };
