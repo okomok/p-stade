@@ -17,6 +17,7 @@
 #include <boost/foreach.hpp>
 #include <pstade/oven/counting_range.hpp>
 #include <pstade/oven/functions.hpp>
+#include <pstade/oven/memoize_range.hpp>
 #include <pstade/oven/shift_range.hpp>
 
 
@@ -44,6 +45,13 @@ void test()
         int const ans[] = { 2,6,10,14 };
         BOOST_CHECK( oven::equals(ans,
             oven::zero_to(16)|shifted(2)|stridden(4)
+        ) );
+    }
+
+    {
+        int const answer[] = { 2,6,10,14 };
+        BOOST_CHECK( oven::equals(answer,
+            oven::make_counting_range(0, 16)|stridden(4, 2)
         ) );
     }
 

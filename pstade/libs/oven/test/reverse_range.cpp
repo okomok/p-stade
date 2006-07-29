@@ -20,7 +20,22 @@
 #include <boost/range.hpp>
 #include <pstade/oven/counting_range.hpp>
 #include <pstade/oven/functions.hpp>
+#include <pstade/oven/memoize_range.hpp>
 #include <pstade/oven/sequence_cast.hpp>
+#include <boost/iterator/reverse_iterator.hpp>
+
+
+template< class Range >
+boost::iterator_range< boost::reverse_iterator<
+    typename boost::range_result_iterator<Range>::type
+> > const
+make_boost_reverse(Range& rng)
+{
+    return boost::make_iterator_range(
+        boost::make_reverse_iterator(boost::end(rng)),
+        boost::make_reverse_iterator(boost::begin(rng))
+    );
+}
 
 
 void test()
@@ -37,6 +52,12 @@ void test()
         BOOST_CHECK((
             oven::equals( oven::make_reverse_range(src), rev)
         ));
+    }
+
+    {
+        BOOST_CHECK(( 5 == oven::distance(
+            std::string("01234")|reversed
+        ) ));
     }
 
     {

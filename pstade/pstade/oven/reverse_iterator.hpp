@@ -52,7 +52,7 @@ private:
     typedef typename reverse_iterator_detail::super_<BidiIter>::type super_t;
     typedef typename super_t::reference ref_t;
     typedef typename super_t::difference_type diff_t;
-    
+
 public:
     reverse_iterator()
     { }
@@ -84,7 +84,7 @@ friend class boost::iterator_core_access;
     {
         --this->base_reference();
     }
-    
+
     void decrement()
     {
         ++this->base_reference();
@@ -94,7 +94,7 @@ friend class boost::iterator_core_access;
     {
         std::advance(this->base_reference(), -d);
     }
-   
+
     template< class BidiIter_ >
     diff_t distance_to(reverse_iterator<BidiIter_> const& other) const
     {
@@ -108,7 +108,7 @@ PSTADE_ADL_BARRIER(reverse_iterator) { // for Boost
 
     template< class BidiIter > inline
     reverse_iterator<BidiIter> const
-    make_reverse_iterator(BidiIter it)
+    make_reverse_iterator(BidiIter const& it)
     {
         return reverse_iterator<BidiIter>(it);
     }

@@ -60,7 +60,7 @@ private:
 
 public:
     explicit reverse_range(BidiRange& rng) :
-        super_t(boost::end(rng), boost::begin(rng)) // take care the order.
+        super_t(boost::end(rng), boost::begin(rng)) // take care the order!
     { }
 };
 

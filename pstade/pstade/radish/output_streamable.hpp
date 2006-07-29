@@ -11,7 +11,6 @@
 
 
 #include <iosfwd> // basic_ostream
-#include <boost/detail/templated_streams.hpp>
 #include <pstade/adl_barrier.hpp>
 #include "./access.hpp"
 
@@ -24,12 +23,10 @@ PSTADE_ADL_BARRIER(output_streamable) {
 template< class T >
 struct output_streamable
 {
-    template< BOOST_TEMPLATED_STREAM_ARGS(CharT, Traits) >
+    template< class CharT, class Traits >
     friend
-    BOOST_TEMPLATED_STREAM(ostream, CharT, Traits)&
-    operator<<(
-        BOOST_TEMPLATED_STREAM(ostream, CharT, Traits)& os,
-        T const& x)
+    std::basic_ostream<CharT, Traits>&
+    operator<<(std::basic_ostream<CharT, Traits>& os, T const& x)
     {
         access::detail_output(x, os);
         return os;
