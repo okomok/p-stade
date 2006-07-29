@@ -27,8 +27,8 @@
 #include <boost/operators.hpp> // totally_ordered
 #include <boost/ptr_container/clone_allocator.hpp>
 #include <pstade/overload.hpp>
-#include <pstade/radish/outputable.hpp>
-#include <pstade/radish/pointer.hpp>
+#include <pstade/radish/output_streamable.hpp>
+#include <pstade/radish/pointable.hpp>
 #include <pstade/radish/swappable.hpp>
 
 
@@ -72,8 +72,8 @@ namespace assignable_detail {
 template< class Clonable >
 struct assignable :
     boost::totally_ordered< assignable<Clonable> >,
-    radish::outputable< assignable<Clonable> >,
-    radish::pointer< assignable<Clonable>, Clonable >,
+    radish::output_streamable< assignable<Clonable> >,
+    radish::pointable< assignable<Clonable>, Clonable >,
     radish::swappable< assignable<Clonable> >
 {
 // structors

@@ -15,7 +15,9 @@
 #include "./access.hpp"
 
 
-namespace pstade { namespace radish { PSTADE_ADL_BARRIER(swappable) {
+namespace pstade { namespace radish {
+
+PSTADE_ADL_BARRIER(swappable) {
 
 
 template< class T >
@@ -35,7 +37,9 @@ struct swappable
 };
 
 
-} } } // namespace pstade::radish::ADL_BARRIER
+} // ADL barrier
+
+} } // namespace pstade::radish
 
 
 #endif

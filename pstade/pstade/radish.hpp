@@ -11,8 +11,8 @@
 
 
 #include "./radish/access.hpp"
-#include "./radish/outputable.hpp"
-#include "./radish/pointer.hpp"
+#include "./radish/output_streamable.hpp"
+#include "./radish/pointable.hpp"
 #include "./radish/swappable.hpp"
 
 
