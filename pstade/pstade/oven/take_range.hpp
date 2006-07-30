@@ -28,6 +28,8 @@ struct take_range :
     sub_range_base<ForwardRange>::type,
     private lightweight_proxy< take_range<ForwardRange> >
 {
+    typedef ForwardRange pstade_oven_range_base_type;
+
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeConcept);
     typedef typename sub_range_base<ForwardRange>::type super_t;

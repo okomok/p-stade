@@ -95,6 +95,8 @@ struct out_place_range :
     out_place_range_detail::super_<ForwardRange>::type,
     private lightweight_proxy< out_place_range<ForwardRange, Functor> >
 {
+    typedef ForwardRange pstade_oven_range_base_type;
+
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeConcept);
     typedef typename out_place_range_detail::super_<ForwardRange>::type super_t;

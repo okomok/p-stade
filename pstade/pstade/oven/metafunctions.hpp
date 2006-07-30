@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include "./range_base.hpp"
 #include "./range_iterator.hpp"
 #include "./range_difference.hpp"
 #include "./range_pointer.hpp"

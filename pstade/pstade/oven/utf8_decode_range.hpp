@@ -47,6 +47,8 @@ struct utf8_decode_range :
     utf8_decode_range_detail::super_<BidiRange, Ucs4T>::type,
     private lightweight_proxy< utf8_decode_range<BidiRange, Ucs4T> >
 {
+    typedef BidiRange pstade_oven_range_base_type;
+
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(BidiRange, BidirectionalRangeConcept);
     typedef typename utf8_decode_range_detail::super_<BidiRange, Ucs4T>::type super_t;

@@ -56,6 +56,8 @@ struct filter_range :
     filter_range_detail::super_<Range, Predicate>::type,
     private lightweight_proxy< filter_range<Range, Predicate> >
 {
+    typedef Range pstade_oven_range_base_type;
+
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
     typedef typename filter_range_detail::super_<Range, Predicate>::type super_t;

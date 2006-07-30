@@ -53,6 +53,8 @@ struct permute_range :
     permute_range_detail::super_<ElementRange, IndexRange>::type,
     private lightweight_proxy< permute_range<ElementRange, IndexRange> >
 {
+    typedef ElementRange pstade_oven_range_base_type;
+
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(ElementRange, RandomAccessRangeConcept);
     PSTADE_OVEN_DETAIL_REQUIRES(IndexRange, SinglePassRangeConcept);

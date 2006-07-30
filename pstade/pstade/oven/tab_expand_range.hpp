@@ -46,6 +46,8 @@ struct tab_expand_range :
     tab_expand_range_detail::super_<ForwardRange>::type,
     private lightweight_proxy< tab_expand_range<ForwardRange> >
 {
+    typedef ForwardRange pstade_oven_range_base_type;
+
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeConcept);
     typedef typename tab_expand_range_detail::super_<ForwardRange>::type super_t;

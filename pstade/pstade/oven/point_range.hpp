@@ -10,11 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// What:
-//
-// Makes Pointer Range from std::vector.
-
-
 #include <boost/range/begin.hpp>
 #include <boost/range/empty.hpp>
 #include <boost/range/end.hpp>
@@ -24,8 +19,8 @@
 #include <boost/utility/addressof.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/nullptr.hpp>
-#include <pstade/oven/distance.hpp>
 #include "./detail/concept_check.hpp"
+#include "./distance.hpp"
 #include "./lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./range_pointer.hpp"
@@ -46,18 +41,16 @@ namespace point_range_detail {
     };
 
 
-    template< class ContiguousRange >
-    typename super_<ContiguousRange>::type
-    make_super(ContiguousRange& vec)
+    template< class Super, class ContiguousRange >
+    Super make(ContiguousRange& vec)
     {
-        typedef typename super_<ContiguousRange>::type super_t;
-        typedef typename super_t::iterator iter_t;
-        BOOST_STATIC_ASSERT( boost::is_pointer<iter_t>::value );
+        typedef typename Super::iterator iter_t;
+        BOOST_STATIC_ASSERT(boost::is_pointer<iter_t>::value);
 
         if (boost::empty(vec))
-            return super_t(iter_t(PSTADE_NULLPTR), iter_t(PSTADE_NULLPTR));
+            return Super(iter_t(PSTADE_NULLPTR), iter_t(PSTADE_NULLPTR));
 
-        return super_t(
+        return Super(
             boost::addressof( *boost::begin(vec) ),
             boost::addressof( *boost::begin(vec) ) + oven::distance(vec)
         );
@@ -72,13 +65,15 @@ struct point_range :
     point_range_detail::super_<ContiguousRange>::type,
     private lightweight_proxy< point_range<ContiguousRange> >
 {
+    typedef ContiguousRange pstade_oven_range_base_type;
+
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(ContiguousRange, RandomAccessRangeConcept);
     typedef typename point_range_detail::super_<ContiguousRange>::type super_t;
 
 public:
     explicit point_range(ContiguousRange& vec) :
-        super_t(point_range_detail::make_super(vec))
+        super_t(point_range_detail::make<super_t>(vec))
     { }
 };
 

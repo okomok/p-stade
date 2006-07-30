@@ -54,6 +54,8 @@ struct reverse_range :
     reverse_range_detail::super_<BidiRange>::type,
     private lightweight_proxy< reverse_range<BidiRange> >
 {
+    typedef BidiRange pstade_oven_range_base_type;
+
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(BidiRange, BidirectionalRangeConcept);
     typedef typename reverse_range_detail::super_<BidiRange>::type super_t;

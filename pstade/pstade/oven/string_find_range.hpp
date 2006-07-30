@@ -43,6 +43,8 @@ struct string_find_range :
     string_find_range_detail::super_<Range>::type,
     private lightweight_proxy< string_find_range<Range> >
 {
+    typedef Range pstade_oven_range_base_type;
+
 private:
     typedef typename string_find_range_detail::super_<Range>::type super_t;
     typedef typename super_t::iterator iter_t;

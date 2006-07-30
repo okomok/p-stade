@@ -48,6 +48,8 @@ struct adjacent_filter_range :
     adjacent_filter_range_detail::super_<ForwardRange, BinaryPred>::type,
     private lightweight_proxy< adjacent_filter_range<ForwardRange, BinaryPred> >
 {
+    typedef ForwardRange pstade_oven_range_base_type;
+
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeConcept);
     typedef typename adjacent_filter_range_detail::super_<ForwardRange, BinaryPred>::type super_t;

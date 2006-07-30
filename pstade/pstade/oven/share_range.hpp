@@ -37,13 +37,13 @@ namespace share_range_detail {
     };
 
 
-    template< class Range >
-    typename super_<Range>::type make_super(Range *prng)
+    template< class Super, class Range >
+    Super make(Range *prng)
     {
         boost::shared_ptr<Range> sprng(prng);
-        return boost::make_iterator_range(
+        return Super(
             oven::make_share_iterator(boost::begin(*sprng), sprng),
-            oven::make_share_iterator(boost::end(*sprng), sprng)
+            oven::make_share_iterator(boost::end(*sprng),   sprng)
         );
     }
 
@@ -56,13 +56,15 @@ struct share_range :
     share_range_detail::super_<Range>::type,
     private lightweight_proxy< share_range<Range> >
 {
+    typedef Range pstade_oven_range_base_type;
+
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
     typedef typename share_range_detail::super_<Range>::type super_t;
 
 public:
     explicit share_range(Range *prng) :
-        super_t(share_range_detail::make_super(prng))
+        super_t(share_range_detail::make<super_t>(prng))
     { }
 
     Range& operator*() const

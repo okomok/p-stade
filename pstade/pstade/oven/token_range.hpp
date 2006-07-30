@@ -65,6 +65,8 @@ struct token_range :
     token_range_detail::super_<BidiRange, CharT, Traits>::type,
     private lightweight_proxy< token_range<BidiRange, CharT, Traits> >
 {
+    typedef BidiRange pstade_oven_range_base_type;
+
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(BidiRange, BidirectionalRangeConcept);
     typedef typename token_range_detail::super_<BidiRange, CharT, Traits>::type super_t;

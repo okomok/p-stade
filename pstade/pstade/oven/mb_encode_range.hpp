@@ -43,6 +43,8 @@ struct mb_encode_range :
     mb_encode_range_detail::super_<Range>::type,
     private lightweight_proxy< mb_encode_range<Range> >
 {
+    typedef Range pstade_oven_range_base_type;
+
 private:
     typedef typename mb_encode_range_detail::super_<Range>::type super_t;
 

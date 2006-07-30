@@ -21,7 +21,7 @@
 namespace pstade { namespace apple {
 
 
-template< class T >
+template< class T, class = void >
 struct is_sequence_impl :
     boost::mpl::or_<
         is_vector<T>,

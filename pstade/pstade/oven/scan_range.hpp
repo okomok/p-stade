@@ -18,11 +18,9 @@
 #include <pstade/egg/function.hpp>
 #include "./detail/concept_check.hpp"
 #include "./detail/plus.hpp"
-#include "./joint_range.hpp"
 #include "./lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./range_iterator.hpp"
-#include "./range_value.hpp"
 #include "./scan_iterator.hpp"
 
 
@@ -53,6 +51,8 @@ struct scan_range :
     scan_range_detail::super_<Range, State, BinaryFun>::type,
     private lightweight_proxy< scan_range<Range, State, BinaryFun> >
 {
+    typedef Range pstade_oven_range_base_type;
+
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
     typedef typename scan_range_detail::super_<Range, State, BinaryFun>::type super_t;
@@ -62,7 +62,7 @@ public:
     scan_range(Range& rng, State const& init, BinaryFun fun = detail::plus) :
         super_t(
             iter_t(boost::begin(rng), init, fun),
-            iter_t(boost::end(rng), init, fun)
+            iter_t(boost::end(rng),   init, fun)
         )
     { }
 };
@@ -77,8 +77,8 @@ namespace scan_range_detail {
         struct result
         {
             typedef typename egg::decay_function<BinaryFun>::type fun_t;
-            typedef typename boost::remove_cv<State>::type state_t;
-            typedef scan_range<Range, state_t, fun_t> const type;
+            typedef typename boost::remove_cv<State>::type sta_t;
+            typedef scan_range<Range, sta_t, fun_t> const type;
         };
 
         template< class Result, class Range, class State, class BinaryFun >

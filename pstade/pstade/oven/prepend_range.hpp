@@ -29,6 +29,8 @@ struct prepend_range :
     joint_range< single_range<Value>, Range >,
     private lightweight_proxy< prepend_range<Range, Value> >
 {
+    typedef Range pstade_oven_range_base_type;
+
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
     typedef boost::base_from_member< single_range<Value> > single_range_bt;

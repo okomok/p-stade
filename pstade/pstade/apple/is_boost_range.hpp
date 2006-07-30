@@ -34,7 +34,7 @@ namespace is_boost_range_detail {
 
 // specialize for your range
 //
-template< class T >
+template< class T, class = void >
 struct is_boost_range_impl :
     boost::mpl::or_<
         is_sequence<T>,

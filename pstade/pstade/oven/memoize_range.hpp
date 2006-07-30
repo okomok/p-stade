@@ -132,6 +132,8 @@ struct memoize_range :
     memoize_range_detail::super_<Range>::type,
     private lightweight_proxy< memoize_range<Range> >
 {
+    typedef Range pstade_oven_range_base_type;
+
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
     typedef typename memoize_range_detail::super_<Range>::type super_t;

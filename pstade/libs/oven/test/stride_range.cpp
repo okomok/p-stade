@@ -14,9 +14,13 @@
 
 
 #include <iostream>
+#include <string>
 #include <boost/foreach.hpp>
+#include <boost/mpl/assert.hpp>
+#include <boost/type_traits/is_same.hpp>
 #include <pstade/oven/counting_range.hpp>
 #include <pstade/oven/functions.hpp>
+#include <pstade/oven/metafunctions.hpp>
 #include <pstade/oven/memoize_range.hpp>
 #include <pstade/oven/shift_range.hpp>
 
@@ -62,6 +66,10 @@ void test()
         ) );
     }
 }
+
+
+typedef pstade::oven::stride_range<std::string> stride_rng_t;
+BOOST_MPL_ASSERT((boost::is_same< pstade::oven::range_base<stride_rng_t>::type, std::string >));
 
 
 int test_main(int, char*[])

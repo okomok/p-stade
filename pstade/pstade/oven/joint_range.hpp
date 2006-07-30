@@ -47,6 +47,8 @@ struct joint_range :
     joint_range_detail::super_<RangeL, RangeR>::type,
     private lightweight_proxy< joint_range<RangeL, RangeR> >
 {
+    typedef RangeL pstade_oven_range_base_type;
+
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(RangeL, SinglePassRangeConcept);
     PSTADE_OVEN_DETAIL_REQUIRES(RangeR, SinglePassRangeConcept);

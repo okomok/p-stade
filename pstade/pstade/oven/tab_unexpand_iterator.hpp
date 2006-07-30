@@ -11,6 +11,7 @@
 
 
 #include <algorithm> // advance, distance
+#include <boost/assert.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include "./detail/config.hpp" // DEBUG_SPACE_CH
 #include "./tab_expand_iterator.hpp"
@@ -31,7 +32,7 @@ namespace tab_unexpand_iterator_detail {
     {
         typedef boost::iterator_adaptor<
             tab_unexpand_iterator<ForwardIter>,
-            tab_expand_iterator<ForwardIter> // look! :-)
+            tab_expand_iterator<ForwardIter> // look!
         > type;
     };
 
@@ -73,13 +74,19 @@ template< class > friend struct tab_unexpand_iterator;
 
 public:
     base_t end() const
-    { return m_last; }
+    {
+        return m_last;
+    }
 
     diff_t tabsize() const
-    { return m_tabsize; }
+    {
+        return m_tabsize;
+    }
 
     val_t tab_ch() const
-    { return m_tab_ch; }
+    {
+        return m_tab_ch;
+    }
 
 private:
     base_t m_last;
@@ -90,6 +97,12 @@ private:
     bool is_newline() const
     {
         return *this->base() == '\n';
+    }
+
+    template< class Other >
+    bool is_compatible(Other const& other) const
+    {
+        return m_tabsize == other.m_tabsize && m_tab_ch == other.m_tab_ch;
     }
 
     diff_t flying_distance() const
@@ -134,7 +147,8 @@ friend class boost::iterator_core_access;
     template< class Other >
     bool equal(Other const& other) const
     {
-        return m_tabsize == other.m_tabsize && this->base() == other.base();
+        BOOST_ASSERT(is_compatible(other));
+        return this->base() == other.base();
     }
 
     void increment()

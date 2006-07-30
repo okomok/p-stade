@@ -74,6 +74,8 @@ struct transform_range :
     transform_range_detail::super_<Range, UnaryFun, Reference, Value>::type,
     private lightweight_proxy< transform_range<Range, UnaryFun, Reference, Value> >
 {
+    typedef Range pstade_oven_range_base_type;
+
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
     typedef typename transform_range_detail::super_<Range, UnaryFun, Reference, Value>::type super_t;

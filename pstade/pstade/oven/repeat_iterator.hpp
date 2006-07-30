@@ -24,25 +24,25 @@
 namespace pstade { namespace oven {
 
 
-template< class ForwardIter, class SizeT >
+template< class ForwardIter, class Size >
 struct repeat_iterator;
 
 
 namespace repeat_iterator_detail {
 
 
-    template< class ForwardIter, class SizeT >
+    template< class ForwardIter, class Size >
     struct super_
     {
         typedef boost::iterator_adaptor<
-            repeat_iterator<ForwardIter, SizeT>,
+            repeat_iterator<ForwardIter, Size>,
             ForwardIter
         > type;
     };
 
 
-    template< class ForwardIter, class SizeT >
-    void increment(ForwardIter& it, SizeT& index, ForwardIter const& first, ForwardIter const& last)
+    template< class ForwardIter, class Size >
+    void increment(ForwardIter& it, Size& index, ForwardIter const& first, ForwardIter const& last)
     {
         if (++it == last) {
             it = first;
@@ -51,8 +51,8 @@ namespace repeat_iterator_detail {
     }
 
 
-    template< class ForwardIter, class SizeT >
-    void decrement(ForwardIter& it, SizeT& index, ForwardIter const& first, ForwardIter last)
+    template< class ForwardIter, class Size >
+    void decrement(ForwardIter& it, Size& index, ForwardIter const& first, ForwardIter last)
     {
         if (it != first) {
             --it;
@@ -64,8 +64,8 @@ namespace repeat_iterator_detail {
     }
 
 
-    template< class Difference, class RandIter, class SizeT >
-    Difference pseudo_pos(RandIter const& it, SizeT index, RandIter const& first, RandIter const& last)
+    template< class Difference, class RandIter, class Size >
+    Difference pseudo_pos(RandIter const& it, Size index, RandIter const& first, RandIter const& last)
     {
         Difference srcSize = last - first;
         Difference srcDiff = it - first;
@@ -76,12 +76,12 @@ namespace repeat_iterator_detail {
 } // namespace repeat_iterator_detail
 
 
-template< class ForwardIter, class SizeT >
+template< class ForwardIter, class Size >
 struct repeat_iterator :
-    repeat_iterator_detail::super_<ForwardIter, SizeT>::type
+    repeat_iterator_detail::super_<ForwardIter, Size>::type
 {
 private:
-    typedef typename repeat_iterator_detail::super_<ForwardIter, SizeT>::type super_t;
+    typedef typename repeat_iterator_detail::super_<ForwardIter, Size>::type super_t;
     typedef typename super_t::difference_type diff_t;
     typedef typename super_t::reference ref_t;
 
@@ -89,14 +89,14 @@ public:
     repeat_iterator()
     { }
 
-    repeat_iterator(ForwardIter const& it, SizeT index, ForwardIter const& first, ForwardIter const& last) :
+    repeat_iterator(ForwardIter const& it, Size index, ForwardIter const& first, ForwardIter const& last) :
         super_t(it), m_index(index),
         m_first(first), m_last(last)        
     { }
 
     template< class ForwardIter_ >
     repeat_iterator(
-        repeat_iterator<ForwardIter_, SizeT> const& other,
+        repeat_iterator<ForwardIter_, Size> const& other,
         typename boost::enable_if_convertible<ForwardIter_, ForwardIter>::type * = 0
     ) :
         super_t(other.base()), m_index(other.index()),
@@ -113,13 +113,13 @@ public:
         return m_last;
     }
 
-    SizeT index() const
+    Size index() const
     {
         return m_index;
     }
 
 private:
-    SizeT m_index;
+    Size m_index;
     ForwardIter m_first, m_last;
 
     template< class Other >
@@ -224,11 +224,11 @@ private:
 };
 
 
-template< class ForwardIter, class SizeT > inline
-repeat_iterator<ForwardIter, SizeT> const
-make_repeat_iterator(ForwardIter const& it, SizeT index, ForwardIter const& first, ForwardIter const& last)
+template< class ForwardIter, class Size > inline
+repeat_iterator<ForwardIter, Size> const
+make_repeat_iterator(ForwardIter const& it, Size index, ForwardIter const& first, ForwardIter const& last)
 {
-    return repeat_iterator<ForwardIter, SizeT>(it, index, first, last);
+    return repeat_iterator<ForwardIter, Size>(it, index, first, last);
 }
 
 

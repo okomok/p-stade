@@ -67,6 +67,8 @@ struct position_range :
     position_range_detail::super_<ForwardRange, PositionT>::type,
     private lightweight_proxy< position_range<ForwardRange, PositionT> >
 {
+    typedef ForwardRange pstade_oven_range_base_type;
+
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeConcept);
     typedef typename position_range_detail::super_<ForwardRange, PositionT>::type super_t;

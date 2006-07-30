@@ -25,6 +25,8 @@ struct identity_range :
     sub_range_base<Range>::type,
     private lightweight_proxy< identity_range<Range> >
 {
+    typedef Range pstade_oven_range_base_type;
+
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
     typedef typename sub_range_base<Range>::type super_t;

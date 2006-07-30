@@ -74,6 +74,8 @@ struct unzip_range_at :
     unzip_range_detail::super_at<TupleRange, N>::type,
     private lightweight_proxy< unzip_range_at<TupleRange, N> >
 {
+    typedef TupleRange pstade_oven_range_base_type;
+
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(TupleRange, SinglePassRangeConcept);
     typedef typename unzip_range_detail::super_at<TupleRange, N>::type super_t;

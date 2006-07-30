@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/assert.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_categories.hpp> // forward_traversal_tag
 #include "./detail/config.hpp" // DEBUG_SPACE_CH
@@ -73,10 +74,14 @@ template< class > friend struct tab_expand_iterator;
 
 public:
     diff_t tabsize() const
-    { return m_tabsize; }
+    {
+        return m_tabsize;
+    }
 
     diff_t space_ch() const
-    { return m_space_ch; }
+    {
+        return m_space_ch;
+    }
 
 private:
     diff_t m_tabsize;
@@ -92,6 +97,12 @@ private:
     bool is_newline() const
     {
         return *this->base() == '\n';
+    }
+
+    template< class Other >
+    bool is_compatible(Other const& other) const
+    {
+        return m_tabsize == other.m_tabsize && m_space_ch == other.m_space_ch;
     }
 
     // "pseudo space range" functions
@@ -111,6 +122,7 @@ private:
         --m_space_counter;
     }
 
+
 friend class boost::iterator_core_access;
     ref_t dereference() const
     {
@@ -123,11 +135,9 @@ friend class boost::iterator_core_access;
     template< class Other >
     bool equal(Other const& other) const
     {
-        return
-            m_tabsize == other.m_tabsize &&
-            this->base() == other.base() &&
-            m_space_counter == other.m_space_counter
-        ;
+        BOOST_ASSERT(is_compatible(other));
+
+        return this->base() == other.base() && m_space_counter == other.m_space_counter;
     }
 
     void increment()

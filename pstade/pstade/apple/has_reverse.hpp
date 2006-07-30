@@ -25,7 +25,7 @@
 namespace pstade { namespace apple {
 
 
-template< class T >
+template< class T, class = void >
 struct has_reverse_impl :
     is_list<T>
 { };

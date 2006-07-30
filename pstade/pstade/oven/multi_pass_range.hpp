@@ -60,6 +60,8 @@ struct multi_pass_range :
         InputPolicy, OwnershipPolicy, CheckingPolicy, StoragePolicy
     > >
 {
+    typedef InputIterRange pstade_oven_range_base_type;
+
 private:
     typedef typename multi_pass_range_detail::super_<
         InputIterRange,

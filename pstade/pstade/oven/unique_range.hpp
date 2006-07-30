@@ -44,6 +44,8 @@ struct unique_range :
     unique_range_detail::super_<ForwardRange>::type,
     private lightweight_proxy< unique_range<ForwardRange> >
 {
+    typedef ForwardRange pstade_oven_range_base_type;
+
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeConcept);
     typedef typename unique_range_detail::super_<ForwardRange>::type super_t;

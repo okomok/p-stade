@@ -21,7 +21,7 @@
 namespace pstade { namespace apple {
 
 
-template< class T >
+template< class T, class = void >
 struct is_associative_container_impl :
     boost::mpl::or_<
         boost::mpl::or_<

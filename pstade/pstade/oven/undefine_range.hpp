@@ -1,5 +1,5 @@
-#ifndef PSTADE_OVEN_MB_DECODE_RANGE_HPP
-#define PSTADE_OVEN_MB_DECODE_RANGE_HPP
+#ifndef PSTADE_OVEN_UNDEFINE_RANGE_HPP
+#define PSTADE_OVEN_UNDEFINE_RANGE_HPP
 
 
 // PStade.Oven
@@ -10,52 +10,54 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/archive/iterators/wchar_from_mb.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <pstade/egg/function.hpp>
+#include "./detail/concept_check.hpp"
 #include "./lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./range_iterator.hpp"
+#include "./undefine_iterator.hpp"
 
 
 namespace pstade { namespace oven {
 
 
-namespace mb_decode_range_detail {
+namespace undefine_range_detail {
 
 
     template< class Range >
     struct super_
     {
         typedef boost::iterator_range<
-            boost::archive::iterators::wchar_from_mb<
+            undefine_iterator<
                 typename range_iterator<Range>::type
             >
         > type;
     };
 
 
-} // namespace mb_decode_range_detail
+} // namespace undefine_range_detail
 
 
 template< class Range >
-struct mb_decode_range :
-    mb_decode_range_detail::super_<Range>::type,
-    private lightweight_proxy< mb_decode_range<Range> >
+struct undefine_range :
+    undefine_range_detail::super_<Range>::type,
+    private lightweight_proxy< undefine_range<Range> >
 {
     typedef Range pstade_oven_range_base_type;
 
 private:
-    typedef typename mb_decode_range_detail::super_<Range>::type super_t;
+    PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
+    typedef typename undefine_range_detail::super_<Range>::type super_t;
 
 public:
-    explicit mb_decode_range(Range& rng) :
+    explicit undefine_range(Range& rng) :
         super_t(rng)
     { }
 };
 
 
-namespace mb_decode_range_detail {
+namespace undefine_range_detail {
 
 
     struct baby_generator
@@ -63,7 +65,7 @@ namespace mb_decode_range_detail {
         template< class Unused, class Range >
         struct result
         {
-            typedef mb_decode_range<Range> const type;
+            typedef undefine_range<Range> const type;
         };
 
         template< class Result, class Range >
@@ -74,11 +76,11 @@ namespace mb_decode_range_detail {
     };
 
 
-} // namespace mb_decode_range_detail
+} // namespace undefine_range_detail
 
 
-PSTADE_EGG_FUNCTION(make_mb_decode_range, mb_decode_range_detail::baby_generator)
-PSTADE_OVEN_RANGE_ADAPTOR(mb_decoded, mb_decode_range_detail::baby_generator)
+PSTADE_EGG_FUNCTION(make_undefine_range, undefine_range_detail::baby_generator)
+PSTADE_OVEN_RANGE_ADAPTOR(undefined, undefine_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven

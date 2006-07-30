@@ -52,6 +52,8 @@ struct regularize_range :
     regularize_range_detail::super_<Range>::type,
     private lightweight_proxy< regularize_range<Range> >
 {
+    typedef Range pstade_oven_range_base_type;
+
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
     typedef typename regularize_range_detail::super_<Range>::type super_t;

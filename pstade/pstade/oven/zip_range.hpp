@@ -54,6 +54,8 @@ struct zip_range :
     zip_range_detail::super_<Range0, Range1>::type,
     private lightweight_proxy< zip_range<Range0, Range1> >
 {
+    typedef Range0 pstade_oven_range_base_type;
+
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(Range0, SinglePassRangeConcept);
     PSTADE_OVEN_DETAIL_REQUIRES(Range1, SinglePassRangeConcept);

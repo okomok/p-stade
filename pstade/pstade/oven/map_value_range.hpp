@@ -45,6 +45,8 @@ struct map_value_range :
     map_value_range_detail::super_<AssocContainer>::type,
     private lightweight_proxy< map_value_range<AssocContainer> >
 {
+    typedef AssocContainer pstade_oven_range_base_type;
+
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(AssocContainer, SinglePassRangeConcept);
     typedef typename map_value_range_detail::super_<AssocContainer>::type super_t;

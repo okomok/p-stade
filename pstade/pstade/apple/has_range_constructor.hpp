@@ -24,7 +24,7 @@
 namespace pstade { namespace apple {
 
 
-template< class T >
+template< class T, class = void >
 struct has_range_constructor_impl :
     boost::mpl::or_<
         is_sequence<T>,

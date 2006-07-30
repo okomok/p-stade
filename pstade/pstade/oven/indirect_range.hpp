@@ -74,6 +74,8 @@ struct indirect_range :
         Range, Value, CategoryOrTraversal, Reference, Difference
     > >
 {
+    typedef Range pstade_oven_range_base_type;
+
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
     typedef typename indirect_range_detail::super_<

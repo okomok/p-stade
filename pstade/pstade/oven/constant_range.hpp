@@ -25,6 +25,8 @@ struct constant_range :
     sub_range_base<Range>::type,
     private lightweight_proxy< constant_range<IgnoredRange, Range> >
 {
+    typedef Range pstade_oven_range_base_type;
+
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(IgnoredRange, SinglePassRangeConcept);
     PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);

@@ -62,6 +62,8 @@ struct sort_range :
     sort_range_detail::super_<ForwardRange, BinaryPred>::type,
     private lightweight_proxy< sort_range<ForwardRange, BinaryPred> >
 {
+    typedef ForwardRange pstade_oven_range_base_type;
+
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeConcept);
     typedef typename sort_range_detail::super_<ForwardRange, BinaryPred>::type super_t;

@@ -46,6 +46,8 @@ struct check_range :
     check_range_detail::super_<Range>::type,
     private lightweight_proxy< check_range<Range> >
 {
+    typedef Range pstade_oven_range_base_type;
+
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
     typedef typename check_range_detail::super_<Range>::type super_t;

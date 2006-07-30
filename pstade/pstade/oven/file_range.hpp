@@ -31,14 +31,14 @@ namespace file_range_detail {
     };
 
 
-    template< class CharT >
-    typename super_<CharT>::type make_super(std::string const& path)
+    template< class Super, class CharT >
+    Super make(std::string const& path)
     {
         boost::spirit::file_iterator<CharT> it(path);
         if (!it)
-            return boost::make_iterator_range(it, it);
+            return Super(it, it);
 
-        return boost::make_iterator_range(it, it.make_end());
+        return Super(it, it.make_end());
     }
 
 
@@ -55,7 +55,7 @@ private:
 
 public:
     explicit file_range(std::string const& path) :
-        super_t(file_range_detail::make_super<CharT>(path))
+        super_t(file_range_detail::make<super_t, CharT>(path))
     { }
 
     bool is_open() const

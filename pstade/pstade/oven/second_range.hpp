@@ -70,6 +70,8 @@ struct second_range :
     second_range_detail::super_<PairRange>::type,
     private lightweight_proxy< second_range<PairRange> >
 {
+    typedef PairRange pstade_oven_range_base_type;
+
 private:
     typedef typename second_range_detail::super_<PairRange>::type super_t;
     typedef typename super_t::iterator iter_t;

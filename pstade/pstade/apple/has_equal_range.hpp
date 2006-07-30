@@ -29,7 +29,7 @@
 namespace pstade { namespace apple {
 
 
-template< class T >
+template< class T, class = void >
 struct has_equal_range_impl :
     boost::mpl::or_<
         boost::mpl::or_<

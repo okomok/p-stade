@@ -53,13 +53,13 @@ struct customization<T, typename which< has_pstade_sausage_enumerate_argument_ty
 };
 
 
-template< class T >
-struct is_boost_range : // for overlapping enabler conditions
+template< class T, class = void >
+struct as_boost_range : // for overlapping enabler conditions
     apple::is_boost_range<T>
 { };
 
 template< class T >
-struct customization<T, typename which< is_boost_range<T> >::type>
+struct customization<T, typename which< as_boost_range<T> >::type>
 {
     template< class Range >
     struct enumerate_argument :

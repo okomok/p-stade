@@ -11,12 +11,13 @@
 
 
 // Workaround for:
-//   Under below Boost 1.34, char array is regarded as null-terminated.
+//
+// Under below Boost 1.34, char array is regarded as null-terminated.
 
 
 #include <cstddef> // size_t
 #include <boost/mpl/assert.hpp>
-#include <boost/mpl/bool.hpp> // true_
+#include <boost/mpl/bool.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <boost/type_traits/extent.hpp>
 #include <boost/type_traits/is_array.hpp>
@@ -33,7 +34,7 @@ namespace array_protect_range_detail {
 
 
     template< class T > inline
-    boost::iterator_range< T * >
+    boost::iterator_range<T *>
     aux(T *arr, std::size_t sz)
     {
         return boost::make_iterator_range(arr, arr + sz);
@@ -48,9 +49,10 @@ struct array_protect_range :
     sub_range_base<ArrayT>::type,
     private lightweight_proxy< array_protect_range<ArrayT> >
 {
-    BOOST_MPL_ASSERT((boost::is_array<ArrayT>));
+    typedef ArrayT pstade_oven_range_base_type;
 
 private:
+    BOOST_MPL_ASSERT((boost::is_array<ArrayT>));
     typedef typename sub_range_base<ArrayT>::type super_t;
 
 public:

@@ -28,13 +28,13 @@ namespace pstade { namespace oven {
 namespace repeat_range_detail {
 
 
-    template< class ForwardRange, class SizeT >
+    template< class ForwardRange, class Size >
     struct super_
     {
         typedef boost::iterator_range<
             repeat_iterator<
                 typename range_iterator<ForwardRange>::type,
-                SizeT
+                Size
             >
         > type;
     };
@@ -43,18 +43,20 @@ namespace repeat_range_detail {
 } // namespace repeat_range_detail
 
 
-template< class ForwardRange, class SizeT = std::size_t >
+template< class ForwardRange, class Size = std::size_t >
 struct repeat_range :
-    repeat_range_detail::super_<ForwardRange, SizeT>::type,
-    private lightweight_proxy< repeat_range<ForwardRange, SizeT> >
+    repeat_range_detail::super_<ForwardRange, Size>::type,
+    private lightweight_proxy< repeat_range<ForwardRange, Size> >
 {
+    typedef ForwardRange pstade_oven_range_base_type;
+
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeConcept);
-    typedef typename repeat_range_detail::super_<ForwardRange, SizeT>::type super_t;
+    typedef typename repeat_range_detail::super_<ForwardRange, Size>::type super_t;
     typedef typename super_t::iterator iter_t;
 
 public:
-    repeat_range(ForwardRange& rng, SizeT sz) :
+    repeat_range(ForwardRange& rng, Size sz) :
         super_t(
             iter_t(boost::begin(rng), 0,  boost::begin(rng), boost::end(rng)),
             iter_t(boost::begin(rng), sz, boost::begin(rng), boost::end(rng))
@@ -73,15 +75,15 @@ namespace repeat_range_detail {
 
     struct baby_generator
     {
-        template< class Unused, class ForwardRange, class SizeT >
+        template< class Unused, class ForwardRange, class Size >
         struct result
         {
-            typedef typename remove_cvr<SizeT>::type sz_t;
+            typedef typename remove_cvr<Size>::type sz_t;
             typedef repeat_range<ForwardRange, sz_t> const type;
         };
 
-        template< class Result, class ForwardRange, class SizeT >
-        Result call(ForwardRange& rng, SizeT sz)
+        template< class Result, class ForwardRange, class Size >
+        Result call(ForwardRange& rng, Size sz)
         {
             return Result(rng, sz);
         }
