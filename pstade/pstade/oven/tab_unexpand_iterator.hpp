@@ -85,7 +85,7 @@ private:
     base_t m_last;
     base_t m_sol; // start of line
     diff_t m_tabsize;
-    val_t  m_tab_ch;
+    val_t mutable m_tab_ch;
 
     bool is_newline() const
     {

@@ -414,7 +414,7 @@ it needs `regularized`_ that makes it assignable and then conforming.
 Pending...
 
 - Header: ``<pstade/oven/get_at_range.hpp>``
-- Valid expression: ``rng|got_at<N>()``, where ``value_type`` of ``rng`` is a ``Fusion Sequence``
+- Valid expression: ``rng|got_at<N>()``, where ``value_type`` of ``rng`` is a Fusion Sequence.
 
 
 ``identities``
@@ -519,10 +519,15 @@ Note that ``memoized`` can return a `Forward Range`_ even if its adapting range 
 
 ``pointed``
 ^^^^^^^^^^^
+``pointed`` provides an interface to have a conversation with legacy APIs::
+
+	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\pointed.ipp
+
+
 - Header: ``<pstade/oven/point_range.hpp>``
 - Valid expression: ``vec|pointed``
-- Precondition: ``vec`` is the template instantiation of ``std::vector``.
-- Returns:  ``[&*boost::begin(vec),&*boost::begin(vec)+boost::size(vec))`` if ``vec`` is not empty; otherwise, ``[0,0)``.
+- Precondition: ``vec`` is a template instantiation of ``std::vector``.
+- Returns:  ``[&*boost::begin(vec),&*boost::begin(vec)+oven::distance(vec))`` if ``vec`` is not empty; otherwise, ``[0,0)``.
 
 
 ``positioned``
@@ -590,7 +595,7 @@ Note that ``memoized`` can return a `Forward Range`_ even if its adapting range 
 ^^^^^^^^^^^
 - Header: ``<pstade/oven/shift_range.hpp>``
 - Valid expression: ``fwdRng|shifted(d)``
-- Returns: ``fwdRng|sliced(d)``.
+- Returns: ``fwdRng|sliced(d,d)``.
 
 
 ``sliced``

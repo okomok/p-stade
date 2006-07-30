@@ -606,16 +606,19 @@ namespace boost { namespace range_detail_microsoft {
         typedef typename super_t::reference ref_t;
 
     public:
-        explicit list_iterator()
+        list_iterator()
         { }
 
-        explicit list_iterator(ListT& lst, POSITION pos) :
+        list_iterator(ListT& lst, POSITION pos) :
             m_plst(boost::addressof(lst)), m_pos(pos)
         { }
 
     template< class, class, class, class > friend struct list_iterator;
         template< class ListT_, class Value_, class Reference_, class Traversal_>
-        list_iterator(list_iterator<ListT_, Value_, Reference_, Traversal_> const& other) :
+        list_iterator(
+            list_iterator<ListT_, Value_, Reference_, Traversal_> const& other,
+            typename enable_if_convertible<Value_ *, Value *>::type * = 0
+        ) :
             m_plst(other.m_plst), m_pos(other.m_pos)
         { }
 
@@ -649,7 +652,8 @@ namespace boost { namespace range_detail_microsoft {
             m_plst->GetPrev(m_pos);
         }
 
-        bool equal(self_t const& other) const
+        template< class Other >
+        bool equal(Other const& other) const
         {
             BOOST_ASSERT(m_plst == other.m_plst && "iterators incompatible");
             return m_pos == other.m_pos;

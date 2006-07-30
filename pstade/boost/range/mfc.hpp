@@ -131,16 +131,19 @@ namespace boost { namespace range_detail_microsoft {
         typedef typename super_t::reference ref_t;
 
     public:
-        explicit mfc_ptr_array_iterator()
+        mfc_ptr_array_iterator()
         { }
 
-        explicit mfc_ptr_array_iterator(ArrayT& arr, INT_PTR index) :
+        mfc_ptr_array_iterator(ArrayT& arr, INT_PTR index) :
             super_t(index), m_parr(boost::addressof(arr))
         { }
 
     template< class, class > friend struct mfc_ptr_array_iterator;
         template< class ArrayT_, class PtrType_ >
-        mfc_ptr_array_iterator(mfc_ptr_array_iterator<ArrayT_, PtrType_> const& other) :
+        mfc_ptr_array_iterator(
+            mfc_ptr_array_iterator<ArrayT_, PtrType_> const& other,
+            typename enable_if_convertible<PtrType_, PtrType>::type * = 0
+        ) :
             super_t(other.base()), m_parr(other.m_parr)
         { }
 
@@ -154,7 +157,8 @@ namespace boost { namespace range_detail_microsoft {
             return *( m_parr->GetData() + this->base() );
         }
 
-        bool equal(self_t const& other) const
+        template< class Other >
+        bool equal(Other const& other) const
         {
             BOOST_ASSERT(m_parr == other.m_parr && "iterators incompatible");
             return this->base() == other.base();
@@ -377,14 +381,6 @@ namespace boost { namespace range_detail_microsoft {
             m_pmap(&map), m_pos(0) // end iterator
         { }
 
-    template< class, class, class > friend struct mfc_map_iterator;
-        template< class MapT_, class KeyT_, class MappedT_>
-        mfc_map_iterator(mfc_map_iterator<MapT_, KeyT_, MappedT_> const& other) :
-            m_pmap(other.m_pmap),
-            m_pos(other.m_pos), m_posNext(other.m_posNext),
-            m_key(other.m_key), m_mapped(other.m_mapped)
-        { }
-
     private:
         MapT const *m_pmap;
         POSITION m_pos, m_posNext;
@@ -464,16 +460,19 @@ namespace boost { namespace range_detail_microsoft {
         typedef typename super_t::reference ref_t;
 
     public:
-        explicit mfc_cpair_map_iterator()
+        mfc_cpair_map_iterator()
         { }
 
-        explicit mfc_cpair_map_iterator(MapT& map, PairT *pp) :
+        mfc_cpair_map_iterator(MapT& map, PairT *pp) :
             m_pmap(boost::addressof(map)), m_pp(pp)
         { }
 
     template< class, class > friend struct mfc_cpair_map_iterator;
         template< class MapT_, class PairT_>
-        mfc_cpair_map_iterator(mfc_cpair_map_iterator<MapT_, PairT_> const& other) :
+        mfc_cpair_map_iterator(
+            mfc_cpair_map_iterator<MapT_, PairT_> const& other,
+            typename enable_if_convertible<PairT_ *, PairT *>::type * = 0
+        ) :
             m_pmap(other.m_pmap), m_pp(other.m_pp)
         { }
 
@@ -494,7 +493,8 @@ namespace boost { namespace range_detail_microsoft {
             m_pp = m_pmap->PGetNextAssoc(m_pp);
         }
 
-        bool equal(self_t const& other) const
+        template< class Other >
+        bool equal(Other const& other) const
         {
             BOOST_ASSERT(m_pmap == other.m_pmap && "iterators incompatible");
             return m_pp == other.m_pp;

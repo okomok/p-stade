@@ -16,11 +16,11 @@
 
 
 #include <bitset>
+#include <cstddef> // size_t
 #include <boost/assert.hpp>
 #include <boost/config.hpp>
 #include <boost/lambda/bind.hpp>
 #include <boost/lambda/core.hpp> // _1
-#include <boost/mpl/size_t.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/thread/condition.hpp>
 #include <boost/thread/mutex.hpp>
@@ -28,6 +28,7 @@
 #include <boost/type_traits/remove_reference.hpp>
 #include <boost/utility/addressof.hpp>
 #include <pstade/nullptr.hpp>
+#include <pstade/static_c.hpp>
 #include "../enumerate.hpp"
 #include "../enumerate_argument.hpp"
 
@@ -44,9 +45,9 @@ namespace pstade { namespace sausage { namespace detail {
 typedef std::bitset<3>
 status_t;
 
-struct is_incrementing  : boost::mpl::size_t<0> { };
-struct is_end           : boost::mpl::size_t<1> { };
-struct is_interrupted   : boost::mpl::size_t<2> { };
+struct is_incrementing  : pstade::static_c<std::size_t, 0> { };
+struct is_end           : pstade::static_c<std::size_t, 1> { };
+struct is_interrupted   : pstade::static_c<std::size_t, 2> { };
 
 
 template< class Enumerable >
