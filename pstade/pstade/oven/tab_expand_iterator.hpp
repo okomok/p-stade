@@ -10,6 +10,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Note:
+//
+// This iterator keeps the mutability of its adapting iterator.
+// Thus, if you wrongly touch 'm_space_ch', undefined behavior may come.
+
+
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_categories.hpp> // forward_traversal_tag

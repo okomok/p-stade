@@ -43,7 +43,7 @@ namespace scan_iterator_detail {
             Iterator,
             State,
             typename traversal<Iterator>::type,
-            State const&
+            State const& // can be reference thanks to 'm_cache'.
         > type;
     };
 
@@ -88,7 +88,7 @@ public:
 private:
     State m_state;
     BinaryFun m_fun;
-    boost::optional<State> mutable m_ost;
+    boost::optional<State> mutable m_cache;
 
     State call_fun() const
     {
@@ -98,14 +98,17 @@ private:
 friend class boost::iterator_core_access;
     ref_t dereference() const
     {
-        m_ost = call_fun();
-        return *m_ost;
+        if (!m_cache)
+            m_cache = call_fun();
+
+        return *m_cache;
     }
 
     void increment()
     {
         m_state = call_fun();
         ++this->base_reference();
+        m_cache.reset();
     }
 };
 

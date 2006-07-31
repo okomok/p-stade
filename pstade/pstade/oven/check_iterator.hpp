@@ -10,6 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// See: 'stdext::checked_iterator'
+//
+// http://msdn2.microsoft.com/en-us/library/at797xz3.aspx
+
+
 #include <stdexcept> // range_error
 #include <string>
 #include <boost/assert.hpp>

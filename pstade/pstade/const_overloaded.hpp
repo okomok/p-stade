@@ -41,25 +41,25 @@ namespace pstade {
 
     template<
         class Result,
-        class T0 = void, class T1 = void, class T2 = void, class T3 = void, class T4 = void,
-        class T5 = void, class T6 = void, class T7 = void, class T8 = void, class T9 = void
+        class A0 = void, class A1 = void, class A2 = void, class A3 = void, class A4 = void,
+        class A5 = void, class A6 = void, class A7 = void, class A8 = void, class A9 = void
     >
     struct const_overloaded :
         boost::disable_if<
             boost::mpl::or_<
                 boost::mpl::or_<
-                    boost::is_const<T0>,
-                    boost::is_const<T1>,
-                    boost::is_const<T2>,
-                    boost::is_const<T3>,
-                    boost::is_const<T4>
+                    boost::is_const<A0>,
+                    boost::is_const<A1>,
+                    boost::is_const<A2>,
+                    boost::is_const<A3>,
+                    boost::is_const<A4>
                 >,
                 boost::mpl::or_<
-                    boost::is_const<T5>,
-                    boost::is_const<T6>,
-                    boost::is_const<T7>,
-                    boost::is_const<T8>,
-                    boost::is_const<T9>
+                    boost::is_const<A5>,
+                    boost::is_const<A6>,
+                    boost::is_const<A7>,
+                    boost::is_const<A8>,
+                    boost::is_const<A9>
                 >
             >,
             Result
@@ -69,25 +69,25 @@ namespace pstade {
 
     template<
         class Result,
-        class T0 = void, class T1 = void, class T2 = void, class T3 = void, class T4 = void,
-        class T5 = void, class T6 = void, class T7 = void, class T8 = void, class T9 = void
+        class A0 = void, class A1 = void, class A2 = void, class A3 = void, class A4 = void,
+        class A5 = void, class A6 = void, class A7 = void, class A8 = void, class A9 = void
     >
     struct const_overloaded_eval :
         boost::lazy_disable_if<
             boost::mpl::or_<
                 boost::mpl::or_<
-                    boost::is_const<T0>,
-                    boost::is_const<T1>,
-                    boost::is_const<T2>,
-                    boost::is_const<T3>,
-                    boost::is_const<T4>
+                    boost::is_const<A0>,
+                    boost::is_const<A1>,
+                    boost::is_const<A2>,
+                    boost::is_const<A3>,
+                    boost::is_const<A4>
                 >,
                 boost::mpl::or_<
-                    boost::is_const<T5>,
-                    boost::is_const<T6>,
-                    boost::is_const<T7>,
-                    boost::is_const<T8>,
-                    boost::is_const<T9>
+                    boost::is_const<A5>,
+                    boost::is_const<A6>,
+                    boost::is_const<A7>,
+                    boost::is_const<A8>,
+                    boost::is_const<A9>
                 >
             >,
             Result
@@ -100,8 +100,8 @@ namespace pstade {
 
     template<
         class Result,
-        class T0 = void, class T1 = void, class T2 = void, class T3 = void, class T4 = void,
-        class T5 = void, class T6 = void, class T7 = void, class T8 = void, class T9 = void
+        class A0 = void, class A1 = void, class A2 = void, class A3 = void, class A4 = void,
+        class A5 = void, class A6 = void, class A7 = void, class A8 = void, class A9 = void
     >
     struct const_overloaded :
         boost::mpl::identity<Result>
@@ -110,8 +110,8 @@ namespace pstade {
 
     template<
         class Result,
-        class T0 = void, class T1 = void, class T2 = void, class T3 = void, class T4 = void,
-        class T5 = void, class T6 = void, class T7 = void, class T8 = void, class T9 = void
+        class A0 = void, class A1 = void, class A2 = void, class A3 = void, class A4 = void,
+        class A5 = void, class A6 = void, class A7 = void, class A8 = void, class A9 = void
     >
     struct const_overloaded_eval :
         Result

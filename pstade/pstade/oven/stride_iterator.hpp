@@ -87,7 +87,7 @@ public:
 
 private:
     diff_t m_length, m_offset;
-    boost::optional<ForwardIter> mutable m_oit;
+    boost::optional<ForwardIter> mutable m_cache;
 
     bool is_valid_offset() const
     {
@@ -103,9 +103,12 @@ private:
 friend class boost::iterator_core_access;
     ref_t dereference() const
     {
-        m_oit = this->base();
-        std::advance(*m_oit, m_offset);
-        return **m_oit;
+        if (!m_cache) {
+            m_cache = this->base();
+            std::advance(*m_cache, m_offset);
+        }
+
+        return **m_cache;
     }
 
     template< class Other >
@@ -118,16 +121,19 @@ friend class boost::iterator_core_access;
     void increment()
     {
         std::advance(this->base_reference(), m_length);
+        m_cache.reset();
     }
 
     void decrement()
     {
         std::advance(this->base_reference(), -m_length);
+        m_cache.reset();
     }
 
     void advance(diff_t d)
     {
         this->base_reference() += d * m_length;
+        m_cache.reset();
     }
 
     template< class Other >

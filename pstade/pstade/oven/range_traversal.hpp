@@ -25,6 +25,15 @@ struct range_traversal :
 { };
 
 
+template< class Range >
+struct range_pure_traversal :
+    boost::detail::pure_traversal_tag<
+        typename range_iterator<Range>::type
+    >
+{ };
+
+
+
 } } // namespace pstade::oven
 
 

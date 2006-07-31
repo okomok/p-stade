@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Why not: 'boost::reverse_iterator'
+// Workaround:
 //
 // http://std.dkuug.dk/jtc1/sc22/wg21/docs/lwg-defects.html#198
 
@@ -69,29 +69,35 @@ public:
     { }
 
 private:
-    boost::optional<BidiIter> mutable m_oit;
+    boost::optional<BidiIter> mutable m_cache;
 
 friend class boost::iterator_core_access;
     ref_t dereference() const
     {
-        m_oit = this->base();
-        --*m_oit;
-        return **m_oit;
+        if (!m_cache) {
+            m_cache = this->base();
+            --*m_cache;
+        }
+
+        return **m_cache;
     }
 
     void increment()
     {
         --this->base_reference();
+        m_cache.reset();
     }
 
     void decrement()
     {
         ++this->base_reference();
+        m_cache.reset();
     }
 
     void advance(diff_t d)
     {
         this->base_reference() += -d;
+        m_cache.reset();
     }
 
     template< class Other >

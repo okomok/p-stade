@@ -12,8 +12,10 @@
 
 #include "./adjacent_filter_iterator.hpp"
 #include "./check_iterator.hpp"
+#include "./const_lvalue_iterator.hpp"
 #include "./joint_iterator.hpp"
 #include "./null_outputter.hpp"
+#include "./reference_iterator.hpp"
 #include "./regularize_iterator.hpp"
 #include "./repeat_iterator.hpp"
 #include "./reverse_iterator.hpp"
@@ -22,7 +24,6 @@
 #include "./stride_iterator.hpp"
 #include "./tab_expand_iterator.hpp"
 #include "./tab_unexpand_iterator.hpp"
-#include "./undefine_iterator.hpp"
 #include "./utf8_encoder.hpp"
 
 #include "./iterator_cast.hpp"
