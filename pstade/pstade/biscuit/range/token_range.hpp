@@ -65,8 +65,7 @@ public:
 
 
 template< class Parser, class ForwardRange, class UserState > inline
-typename const_overloaded<ForwardRange,
-token_range<Parser, ForwardRange, UserState> const>::type
+typename const_overloaded<token_range<Parser, ForwardRange, UserState>, ForwardRange>::type const
 make_token_range(ForwardRange& r, UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
 {
     return token_range<Parser, ForwardRange, UserState>(r, us);
@@ -82,8 +81,7 @@ make_token_range(ForwardRange& r, UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_T
 
 // no user-state
 template< class Parser, class ForwardRange > inline
-typename const_overloaded<ForwardRange,
-token_range<Parser, ForwardRange> const>::type
+typename const_overloaded<token_range<Parser, ForwardRange>, ForwardRange>::type const
 make_token_range(ForwardRange& r BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
 {
     return token_range<Parser, ForwardRange>(r);
@@ -113,14 +111,14 @@ namespace token_range_detail {
 
     template< class Parser, class ForwardRange, class UserState > inline
     token_range<Parser, ForwardRange, UserState> const
-    operator|(ForwardRange& rng, adaptor<Parser, UserState> ad)
+    operator|(ForwardRange& rng, adaptor<Parser, UserState> const& ad)
     {
         return biscuit::make_token_range<Parser>(rng, *ad.m_pus);
     }
 
         template< class Parser, class ForwardRange, class UserState > inline
         token_range<Parser, typename boost::add_const<ForwardRange>::type, UserState> const
-        operator|(ForwardRange const& rng, adaptor<Parser, UserState> ad)
+        operator|(ForwardRange const& rng, adaptor<Parser, UserState> const& ad)
         {
             return biscuit::make_token_range<Parser>(rng, *ad.m_pus);
         }
@@ -130,7 +128,7 @@ namespace token_range_detail {
 
 
 template< class Parser, class UserState > inline
-token_range_detail::adaptor<Parser, UserState>
+token_range_detail::adaptor<Parser, UserState> const
 tokenized(UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
 {
     return token_range_detail::adaptor<Parser, UserState>(us);
@@ -138,7 +136,7 @@ tokenized(UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
 
 // no user-state
 template< class Parser > inline
-token_range_detail::adaptor<Parser, null_state_type>
+token_range_detail::adaptor<Parser, null_state_type> const
 tokenized(BOOST_EXPLICIT_TEMPLATE_TYPE(Parser))
 {
     return token_range_detail::adaptor<Parser, null_state_type>(null_state);

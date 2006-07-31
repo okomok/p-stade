@@ -28,8 +28,7 @@ namespace pstade { namespace oven {
 
 
 template< class BaseIter, class Range > inline
-typename const_overloaded<Range,
-boost::iterator_range<BaseIter> >::type const
+typename const_overloaded<boost::iterator_range<BaseIter>, Range>::type const
 range_cast(Range& rng)
 {
     return boost::iterator_range<BaseIter>(

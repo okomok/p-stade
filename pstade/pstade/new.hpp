@@ -28,34 +28,18 @@
 
 
 #include <memory> // auto_ptr
-#include <boost/config.hpp>
-#include <boost/mpl/bool.hpp>
-#include <boost/mpl/or.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/punctuation/comma_if.hpp>
-#include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/seq/for_each_i.hpp>
 #include <boost/preprocessor/seq/for_each_product.hpp>
-#include <boost/type_traits/is_const.hpp>
-#include <boost/utility/enable_if.hpp> // disable_if
+#include <pstade/const_overloaded.hpp>
 
 
 #if !defined(PSTADE_NEW_MAX_ARITY)
     #define PSTADE_NEW_MAX_ARITY 5
-#endif
-
-
-// Workaround:
-// GCC cannot order overloads which needs explicit template parameter
-// if the function argument is const-qualified. 
-// Note that VC++7.1's 'is_const' to array was fixed with Boost v1.34,
-// but it looks still broken under weird situation around 'disable_if'.
-//
-#if defined(__GNUC__)
-    #define PSTADE_NEW_NO_PARTIAL_ORDERING_WITH_EXPLICIT_TEMPLATE_PARAMETER
 #endif
 
 
@@ -75,30 +59,14 @@ namespace pstade {
     // 1ary
     //
     template< class T, class A0 > inline
-#if !defined(PSTADE_NEW_NO_PARTIAL_ORDERING_WITH_EXPLICIT_TEMPLATE_PARAMETER)
-    std::auto_ptr<T>
-#else
-    typename boost::disable_if<
-        boost::mpl::or_< boost::is_const<A0> >, // avoid ambiguity
-        std::auto_ptr<T>
-    >::type
-#endif
+    typename const_overloaded< std::auto_ptr<T>, A0 >::type
     new_(A0& a0)
     {
         return std::auto_ptr<T>( new T(a0) );
     } 
 
     template< class T, class A0 > inline
-#if !defined(PSTADE_NEW_NO_PARTIAL_ORDERING_WITH_EXPLICIT_TEMPLATE_PARAMETER)
-    std::auto_ptr<T>
-#else
-    typename boost::disable_if<
-        // Always "false", don't care.
-        // Note that this code breaks down VC++7.1 if 'A0' is an array.
-        boost::mpl::or_< boost::is_const<A0> >,
-        std::auto_ptr<T>
-    >::type
-#endif
+    typename const_overloaded< std::auto_ptr<T>, A0 >::type // no effect, don't care.
     new_(A0 const& a0)
     {
         return std::auto_ptr<T>( new T(a0) );
@@ -109,28 +77,11 @@ namespace pstade {
     //
 #define PSTADE_NEW_new(R, BitSeq) \
     template< class T, BOOST_PP_ENUM_PARAMS(n, class A) > inline \
-    PSTADE_NEW_result() \
+    typename const_overloaded< std::auto_ptr<T>, BOOST_PP_ENUM_PARAMS(n, A) >::type \
     new_( BOOST_PP_SEQ_FOR_EACH_I_R(R, PSTADE_NEW_param, ~, BitSeq) ) \
     { \
         return std::auto_ptr<T>( new T( BOOST_PP_ENUM_PARAMS(n, a) ) ); \
     } \
-/**/
-
-#if !defined(PSTADE_NEW_NO_PARTIAL_ORDERING_WITH_EXPLICIT_TEMPLATE_PARAMETER)
-    #define PSTADE_NEW_result() \
-        std::auto_ptr<T> \
-    /**/
-#else
-    #define PSTADE_NEW_result() \
-        typename boost::disable_if< \
-            boost::mpl::or_< BOOST_PP_ENUM(n, PSTADE_NEW_or_arg, ~) >, \
-            std::auto_ptr<T> \
-        >::type \
-    /**/
-#endif
-
-#define PSTADE_NEW_or_arg(Z, Index, _) \
-    boost::is_const< BOOST_PP_CAT(A, Index) > \
 /**/
 
 #define PSTADE_NEW_param(R, _, Index, Bit) \
@@ -151,8 +102,6 @@ namespace pstade {
 #undef PSTADE_NEW_c1
 #undef PSTADE_NEW_c0
 #undef PSTADE_NEW_param
-#undef PSTADE_NEW_or_arg
-#undef PSTADE_NEW_result
 #undef PSTADE_NEW_new
 
 

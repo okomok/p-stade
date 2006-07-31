@@ -65,8 +65,7 @@ public:
 
 
 template< class Parser, class ForwardRange, class UserState > inline
-typename const_overloaded<ForwardRange,
-filter_range<Parser, ForwardRange, UserState> const>::type
+typename const_overloaded<filter_range<Parser, ForwardRange, UserState>, ForwardRange>::type const
 make_filter_range(ForwardRange& r, UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
 {
     return filter_range<Parser, ForwardRange, UserState>(r, us);
@@ -82,8 +81,7 @@ make_filter_range(ForwardRange& r, UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_
 
 // no user-state
 template< class Parser, class ForwardRange > inline
-typename const_overloaded<ForwardRange,
-filter_range<Parser, ForwardRange> const>::type
+typename const_overloaded<filter_range<Parser, ForwardRange>, ForwardRange>::type const
 make_filter_range(ForwardRange& r BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
 {
     return filter_range<Parser, ForwardRange>(r);
@@ -113,14 +111,14 @@ namespace filter_range_detail {
 
     template< class Parser, class ForwardRange, class UserState > inline
     filter_range<Parser, ForwardRange, UserState> const
-    operator|(ForwardRange& rng, adaptor<Parser, UserState> ad)
+    operator|(ForwardRange& rng, adaptor<Parser, UserState> const& ad)
     {
         return biscuit::make_filter_range<Parser>(rng, *ad.m_pus);
     }
 
         template< class Parser, class ForwardRange, class UserState > inline
         filter_range<Parser, typename boost::add_const<ForwardRange>::type, UserState> const
-        operator|(ForwardRange const& rng, adaptor<Parser, UserState> ad)
+        operator|(ForwardRange const& rng, adaptor<Parser, UserState> const& ad)
         {
             return biscuit::make_filter_range<Parser>(rng, *ad.m_pus);
         }
@@ -130,7 +128,7 @@ namespace filter_range_detail {
 
 
 template< class Parser, class UserState > inline
-filter_range_detail::adaptor<Parser, UserState>
+filter_range_detail::adaptor<Parser, UserState> const
 filtered(UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
 {
     return filter_range_detail::adaptor<Parser, UserState>(us);
@@ -138,7 +136,7 @@ filtered(UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
 
 // no user-state
 template< class Parser > inline
-filter_range_detail::adaptor<Parser, null_state_type>
+filter_range_detail::adaptor<Parser, null_state_type> const
 filtered(BOOST_EXPLICIT_TEMPLATE_TYPE(Parser))
 {
     return filter_range_detail::adaptor<Parser, null_state_type>(null_state);
