@@ -21,7 +21,7 @@
 .. _Oven:    ./oven/index.html
 .. _Tomato:  ./tomato/index.html
 .. _Wine:    ./wine/index.html
-.. _Source Code: ./pstade
+.. _Source:  ./pstade
 
 .. _BiscuitR: http://p-stade.sourceforge.net/biscuit/index.html
 .. _EggR:     http://p-stade.sourceforge.net/egg/index.html

@@ -345,7 +345,8 @@ Specification
 
 
 - Header: ``<pstade/oven/constant_range.hpp>``
-- Valid expression: ``rng|constants(rng)``
+- Valid expression: ``rng|constants``
+- Returns: ``[boost::end(rng),boost::end(rng))`` whose iterators are constant.
 
 
 ``copied`` as adaptor

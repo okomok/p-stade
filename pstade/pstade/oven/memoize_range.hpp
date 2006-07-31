@@ -11,6 +11,7 @@
 
 
 #include <boost/assert.hpp>
+#include <boost/checked_delete.hpp>
 #include <boost/iterator/iterator_traits.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/nullptr.hpp>
@@ -65,7 +66,7 @@ namespace memoize_range_detail {
 
             void destroy()
             {
-                delete m_pdata;
+                boost::checked_delete(m_pdata);
                 m_pdata = PSTADE_NULLPTR;
             }
 
