@@ -36,7 +36,7 @@ All the types and functions are defined in ``namespace pstade::oven`` at ``<psta
 Requirements
 ------------
 - `Boost C++ Libraries Version 1.33.1`__ or later (no compilation required)
-- `P-Stade C++ Libraries Version 1.00.3`__ or later (no compilation required, give a higher priority than Boost headers)
+- `P-Stade C++ Libraries Version 1.00.5`__ or later (no compilation required, give a higher priority than Boost headers)
 
 __ Boost_
 __ http://sourceforge.net/project/showfiles.php?group_id=141222&package_id=173059
@@ -268,6 +268,18 @@ Specification
 - See: `Range Library Proposal`_.
 
 
+``always``
+^^^^^^^^^^^^^
+``always`` returns a range which does not change as its adapting range vary::
+
+	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\always.ipp
+
+
+- Header: ``<pstade/oven/always_range.hpp>``
+- Valid expression: ``unusedRng|always(rng)``
+- Returns: ``[boost::begin(rng),boost::end(rng))``.
+
+
 ``appended``
 ^^^^^^^^^^^^
 ``appended`` returns a range which is appended with its argument::
@@ -327,14 +339,13 @@ Specification
 
 ``constants``
 ^^^^^^^^^^^^^
-``constants`` returns a range which does not change as its adapting range vary::
+``constants`` returns a range whose iterators dereference cannot be modified::
 
 	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\constants.ipp
 
 
 - Header: ``<pstade/oven/constant_range.hpp>``
-- Valid expression: ``unusedRng|constants(rng)``
-- Returns: ``[boost::begin(rng),boost::end(rng))``.
+- Valid expression: ``rng|constants(rng)``
 
 
 ``copied`` as adaptor
@@ -769,6 +780,7 @@ Version 0.90.4
 Version 0.90.5
 ^^^^^^^^^^^^^^
 - Added workaround for `Standard Library Defect #198`__.
+- Changed `constants`_ semantics, and added `always`_ instead.
 
 __ http://std.dkuug.dk/jtc1/sc22/wg21/docs/lwg-defects.html#198
 

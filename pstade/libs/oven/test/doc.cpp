@@ -248,12 +248,12 @@ void test_cleared()
 }
 
 
-void test_constants()
+void test_always()
 {
     BOOST_CHECK( oven::equals(
         std::string("labor")
             | jointed(std::string("will be"))
-            | constants("lost"),
+            | always("lost"),
         std::string("lost")
     ) );
 }
@@ -475,7 +475,7 @@ int test_main(int, char*[])
     ::test_array_protected();
     ::test_checked();
     ::test_cleared();
-    ::test_constants();
+    ::test_always();
     ::test_copied_as_adaptor();
     ::test_directed();
     ::test_dropped();

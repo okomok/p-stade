@@ -10,19 +10,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/constant_range.hpp>
+#include <pstade/oven/dummy_range.hpp>
 
 
 #include <string>
-#include <boost/range.hpp>
+#include <vector>
 #include <pstade/oven/functions.hpp>
-
-
-template< class Range >
-void foo(Range& rng)
-{
-    *boost::begin(rng) = 'x';
-}
 
 
 void test()
@@ -31,9 +24,7 @@ void test()
     using namespace oven;
 
     {
-        std::string str1("hello, constant_range!");
-        BOOST_CHECK(oven::equals(str1, str1|constants));
-        // ::foo(str1|constants);
+        BOOST_CHECK( oven::distance(oven::make_dummy_range<int>(0, 6)) == 6 );
     }
 }
 

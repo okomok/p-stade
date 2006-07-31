@@ -28,6 +28,7 @@ rule oven-compile ( name )
 test-suite oven :
     [ oven-test adjacent_filter_range ]
     [ oven-test algorithm ]
+    [ oven-test always_range ]
     [ oven-test apply_range ]
     [ oven-test array_range ]
     [ oven-test array_protect_range ]

@@ -15,7 +15,6 @@
 #include "./const_lvalue_iterator.hpp"
 #include "./joint_iterator.hpp"
 #include "./null_outputter.hpp"
-#include "./reference_iterator.hpp"
 #include "./regularize_iterator.hpp"
 #include "./repeat_iterator.hpp"
 #include "./reverse_iterator.hpp"

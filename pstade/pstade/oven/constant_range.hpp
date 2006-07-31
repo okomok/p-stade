@@ -10,31 +10,80 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/iterator/transform_iterator.hpp>
+#include <boost/range/begin.hpp>
+#include <boost/range/end.hpp>
+#include <boost/range/iterator_range.hpp>
+#include <boost/type_traits/add_const.hpp>
 #include <pstade/egg/function.hpp>
 #include "./detail/concept_check.hpp"
+#include "./detail/parameter.hpp"
+#include "./detail/propagate.hpp"
 #include "./lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
-#include "./sub_range_base.hpp"
+#include "./range_iterator.hpp"
+#include "./range_reference.hpp"
+#include "./range_value.hpp"
 
 
 namespace pstade { namespace oven {
 
 
-template< class IgnoredRange, class Range >
+namespace constant_range_detail {
+
+
+    template< class Range >
+    struct constantify_fun
+    {
+        typedef typename range_reference<Range>::type ref_t;
+        typedef typename range_value<Range>::type val_t;
+
+        typedef typename detail::propagate<
+            ref_t,
+            typename boost::add_const<val_t>::type
+        >::type result_type;
+
+        result_type
+        operator()(typename detail::parameter<ref_t>::type x) const
+        {
+            return x;
+        }
+    };
+
+
+    template< class Range >
+    struct super_
+    {
+        typedef boost::iterator_range<
+            boost::transform_iterator<
+                constantify_fun<Range>,
+                typename range_iterator<Range>::type
+            >
+        > type;
+    };
+
+
+} // namespace constant_range_detail
+
+
+template< class Range >
 struct constant_range :
-    sub_range_base<Range>::type,
-    private lightweight_proxy< constant_range<IgnoredRange, Range> >
+    constant_range_detail::super_<Range>::type,
+    private lightweight_proxy< constant_range<Range> >
 {
     typedef Range pstade_oven_range_base_type;
 
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(IgnoredRange, SinglePassRangeConcept);
     PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
-    typedef typename sub_range_base<Range>::type super_t;
+    typedef typename constant_range_detail::super_<Range>::type super_t;
+    typedef typename super_t::iterator iter_t;
 
 public:
-    constant_range(IgnoredRange& , Range& rng) :
-        super_t(rng)
+    explicit constant_range(Range& rng) :
+        super_t(
+            iter_t(boost::begin(rng), constant_range_detail::constantify_fun<Range>()),
+            iter_t(boost::end(rng),   constant_range_detail::constantify_fun<Range>())
+        )
     { }
 };
 
@@ -44,16 +93,16 @@ namespace constant_range_detail {
 
     struct baby_generator
     {
-        template< class Unused, class IgnoredRange, class Range >
+        template< class Unused, class Range >
         struct result
         {
-            typedef constant_range<IgnoredRange, Range> const type;
+            typedef constant_range<Range> const type;
         };
 
-        template< class Result, class IgnoredRange, class Range>
-        Result call(IgnoredRange& _, Range& rng)
+        template< class Result, class Range >
+        Result call(Range& rng)
         {
-            return Result(_, rng);
+            return Result(rng);
         }
     };
 

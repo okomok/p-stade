@@ -11,6 +11,7 @@
 
 
 #include "./adjacent_filter_range.hpp"
+#include "./always_range.hpp"
 #include "./append_range.hpp"
 #include "./apply_range.hpp"
 #include "./array_protect_range.hpp"

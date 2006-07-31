@@ -1,6 +1,11 @@
-BOOST_CHECK( oven::equals(
-    std::string("labor")
-        | jointed(std::string("will be"))
-        | constants("lost"),
-    std::string("lost")
-) );
+template< class Range >
+void modify(Range& rng)
+{
+    *boost::begin(rng) = 'y'; // error!
+}
+
+void test()
+{
+    std::string str1("hello, constant_range!");
+    ::modify(str1|constants);
+}
