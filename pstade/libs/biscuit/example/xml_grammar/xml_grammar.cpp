@@ -344,7 +344,7 @@ int main(int argc, char *argv[])
         PSTADE_REQUIRE((
             biscuit::match<xml_grammar::start>(
                 oven::file_range<boost::uint8_t>(argv[i]) |
-                    oven::utf8_decoded
+                    oven::utf8_decoded<>()
             )
         ));
 

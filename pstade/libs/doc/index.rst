@@ -38,7 +38,7 @@ The Port of YARD_ to Boost_
 
 Egg_
 -------
-The functor maker
+The Functor Maker
 
 
 
@@ -60,14 +60,16 @@ A `Boost.Range`_ Extension Library
 
 
 
-`Tomato`
----------
+Tomato
+------
 An ATL/WTL_ Extension Library
+
 
 
 `Wine`_
 -------
 Language Utilities
+
 
 
 `Sauce`_

@@ -10,11 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// What:
-//
-// Provides the container of iterators for random access.
-
-
 // Note:
 //
 // Iterators manage temporary container for BOOST_FOREACH.
@@ -28,9 +23,9 @@
 #include <pstade/egg/decay_function.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/garlic/back_inserter.hpp>
+#include <pstade/unused.hpp>
 #include "./algorithm.hpp" // copy
 #include "./detail/concept_check.hpp"
-#include "./detail/null.hpp"
 #include "./direct_range.hpp"
 #include "./indirect_range.hpp"
 #include "./lightweight_proxy.hpp"
@@ -90,7 +85,7 @@ namespace out_place_range_detail {
 } // namespace out_place_range_detail
 
 
-template< class ForwardRange, class Functor = detail::null_fun >
+template< class ForwardRange, class Functor = unused_fun >
 struct out_place_range :
     out_place_range_detail::super_<ForwardRange>::type,
     private lightweight_proxy< out_place_range<ForwardRange, Functor> >
@@ -103,7 +98,7 @@ private:
     typedef typename out_place_range_detail::iter_sequence<ForwardRange>::type seq_t;
 
 public:
-    explicit out_place_range(ForwardRange& rng, Functor fun = detail::null_) :
+    explicit out_place_range(ForwardRange& rng, Functor fun = unused) :
         super_t(out_place_range_detail::make_share<seq_t>(rng, fun))
     { }
 };
@@ -114,7 +109,7 @@ namespace out_place_range_detail {
 
     struct baby_generator
     {
-        template< class Unused, class ForwardRange, class Functor = detail::null_fun >
+        template< class Unused, class ForwardRange, class Functor = unused_fun >
         struct result
         {
             typedef typename egg::decay_function<Functor>::type fun_t;

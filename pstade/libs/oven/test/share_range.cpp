@@ -17,6 +17,7 @@
 #include <vector>
 #include <boost/foreach.hpp>
 #include <boost/noncopyable.hpp>
+#include <pstade/new.hpp>
 #include <pstade/oven/functions.hpp>
 
 
@@ -24,7 +25,7 @@ struct xxx :
     std::string,
     private boost::noncopyable
 {
-    explicit xxx(char *psz) :
+    explicit xxx(char const *psz) :
         std::string(psz)
     { }
 };
@@ -48,6 +49,10 @@ void test()
 
     {
         BOOST_CHECK( oven::equals(new xxx("0123")|shared, ans) );
+    }
+
+    {
+        BOOST_CHECK( oven::equals(pstade::new_<xxx>("0123")|shared, ans) );
     }
 
     {

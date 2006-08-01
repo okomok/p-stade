@@ -13,12 +13,12 @@
 #include <boost/cstdint.hpp> // uint8_t
 #include <boost/range/iterator_range.hpp>
 #include <boost/regex/pending/unicode_iterator.hpp> // u32_to_u8_iterator
-#include <boost/type_traits/remove_cv.hpp>
-#include <pstade/egg/function.hpp>
+#include <boost/type_traits/add_const.hpp>
+#include <pstade/const_overloaded.hpp>
 #include "./detail/concept_check.hpp"
 #include "./lightweight_proxy.hpp"
-#include "./range_adaptor.hpp"
 #include "./range_iterator.hpp"
+
 
 
 namespace pstade { namespace oven {
@@ -60,37 +60,59 @@ public:
 };
 
 
+// generators
+//
+
+template< class U8T, class BidiRange > inline
+typename const_overloaded<utf8_encode_range<BidiRange, U8T>, BidiRange>::type const
+make_utf8_encode_range(BidiRange& rng)
+{
+    return utf8_encode_range<BidiRange, U8T>(rng);
+}
+
+
+template< class U8T, class BidiRange > inline
+utf8_encode_range<typename boost::add_const<BidiRange>::type, U8T> const
+make_utf8_encode_range(BidiRange const& rng)
+{
+    return utf8_encode_range<typename boost::add_const<BidiRange>::type, U8T>(rng);
+}
+
+
+template< class U8T >
+struct utf8_encoded;
+
+
 namespace utf8_encode_range_detail {
 
 
-    struct baby_generator
+    struct adl_marker
+    { };
+
+
+    template< class BidiRange, class U8T > inline
+    utf8_encode_range<BidiRange, U8T> const
+    operator|(BidiRange& rng, utf8_encoded<U8T> const&)
     {
-        template< class Unused, class BidiRange, class U8T = boost::uint8_t >
-        struct result
-        {
-            typedef typename boost::remove_cv<U8T>::type u8_t;
-            typedef utf8_encode_range<BidiRange, u8_t> const type;
-        };
+        return utf8_encode_range<BidiRange, U8T>(rng);
+    }
 
-        template< class Result, class BidiRange, class U8T >
-        Result call(BidiRange& rng, U8T)
-        {
-            return Result(rng);
-        }
 
-        template< class Result, class BidiRange >
-        Result call(BidiRange& rng)
-        {
-            return Result(rng);
-        }
-    };
+    template< class BidiRange, class U8T > inline
+    utf8_encode_range<typename boost::add_const<BidiRange>::type, U8T> const
+    operator|(BidiRange const& rng, utf8_encoded<U8T> const&)
+    {
+        return utf8_encode_range<typename boost::add_const<BidiRange>::type, U8T>(rng);
+    }
 
 
 } // namespace utf8_encode_range_detail
 
 
-PSTADE_EGG_FUNCTION(make_utf8_encode_range, utf8_encode_range_detail::baby_generator)
-PSTADE_OVEN_RANGE_ADAPTOR(utf8_encoded, utf8_encode_range_detail::baby_generator)
+template< class U8T = boost::uint8_t >
+struct utf8_encoded :
+    utf8_encode_range_detail::adl_marker
+{ };
 
 
 } } // namespace pstade::oven

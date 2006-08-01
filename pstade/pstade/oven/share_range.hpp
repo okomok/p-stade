@@ -10,15 +10,15 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <memory> // auto_ptr
+#include <boost/pointee.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <boost/shared_ptr.hpp>
-#include <boost/type_traits/remove_pointer.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/instance.hpp>
 #include "./detail/concept_check.hpp"
 #include "./lightweight_proxy.hpp"
-#include "./range_adaptor.hpp"
 #include "./share_iterator.hpp"
 
 
@@ -67,36 +67,49 @@ public:
         super_t(share_range_detail::make<super_t>(prng))
     { }
 
+    explicit share_range(std::auto_ptr<Range> prng) :
+        super_t(share_range_detail::make<super_t>(prng.release()))
+    { }
+
     Range& operator*() const
-    { return boost::begin(*this).range(); }
+    {
+        return boost::begin(*this).range();
+    }
 };
+
+
+// Workaround:
+// Egg is useless, because a temporary 'auto_ptr' is const-qualified,
+// then, the ownership cannot be moved.
+//
+
+template< class Pointer > inline
+share_range<typename boost::pointee<Pointer>::type> const
+make_share_range(Pointer prng)
+{
+    return share_range<typename boost::pointee<Pointer>::type>(prng);
+}
 
 
 namespace share_range_detail {
 
 
-    struct baby_generator
-    {
-        template< class Unused, class RangePtrT >
-        struct result
-        {
-            typedef typename boost::remove_pointer<RangePtrT>::type rng_t;
-            typedef share_range<rng_t> const type;
-        };
+    struct adaptor
+    { };
 
-        template< class Result, class RangePtrT >
-        Result call(RangePtrT prng)
-        {
-            return Result(prng);
-        }
-    };
+
+    template< class Pointer > inline
+    share_range<typename boost::pointee<Pointer>::type> const
+    operator|(Pointer prng, adaptor const&)
+    {
+        return share_range<typename boost::pointee<Pointer>::type>(prng);
+    }
 
 
 } // namespace share_range_detail
 
 
-PSTADE_EGG_FUNCTION(make_share_range, share_range_detail::baby_generator)
-PSTADE_OVEN_RANGE_ADAPTOR(shared, share_range_detail::baby_generator)
+PSTADE_INSTANCE(share_range_detail::adaptor const, shared, value)
 
 
 } } // namespace pstade::oven

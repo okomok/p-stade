@@ -98,7 +98,7 @@ int main(int argc, char *argv[])
             >(
                 oven::file_range<boost::uint8_t>(iname) |                       // spirit::file_iteratorのペア
                     pstade::required("non-empty input file: " + iname) |        // 空のRangeは例外に
-                    oven::utf8_decoded |                                        // UTF-8をUTF-32に変換
+                    oven::utf8_decoded<>() |                                    // UTF-8をUTF-32に変換
                     biscuit::tokenized< or_<wnewline, any> >() |                // 改行とそうでないものに分ける
                     oven::transformed(::newline_cvter()) |                      // 改行なら'\n'に変換する
                     oven::tab_expanded(::tabsize<>::value) |                    // タブを空白にする

@@ -101,7 +101,7 @@ namespace filter_range_detail {
     template< class Parser, class UserState >
     struct adaptor
     {
-        adaptor(UserState& us) :
+        explicit adaptor(UserState& us) :
             m_pus(boost::addressof(us))
         { }
 

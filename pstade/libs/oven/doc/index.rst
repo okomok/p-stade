@@ -7,7 +7,7 @@ The Oven Range Library
 :Author: MB
 :Contact: mb2act@yahoo.co.jp 
 :License: Distributed under the `Boost Software License Version 1.0`_
-:Version: 0.90.5
+:Version: 0.90.6
 
 
 
@@ -36,7 +36,7 @@ All the types and functions are defined in ``namespace pstade::oven`` at ``<psta
 Requirements
 ------------
 - `Boost C++ Libraries Version 1.33.1`__ or later (no compilation required)
-- `P-Stade C++ Libraries Version 1.00.3`__ or later (no compilation required, give a higher priority than Boost headers)
+- `P-Stade C++ Libraries Version 1.00.5`__ or later (no compilation required, give a higher priority than Boost headers)
 
 __ Boost_
 __ http://sourceforge.net/project/showfiles.php?group_id=141222&package_id=173059
@@ -731,7 +731,7 @@ Pending...
 ``utf8_decoded``
 ^^^^^^^^^^^^^^^^
 - Header: ``<pstade/oven/utf8_decode_range.hpp>``
-- Valid expression: ``biRng|utf8_decoded``
+- Valid expression: ``biRng|utf8_decoded<>()``
 - Returns: A `Bidirectional Range`_ whose iterators behave as if they were the original iterators wrapped in ``boost::u8_to_u32_iterator``.
 
 
@@ -807,4 +807,9 @@ Version 0.90.5
 - Changed `constants`_ semantics, and added `always`_ instead.
 
 __ http://std.dkuug.dk/jtc1/sc22/wg21/docs/lwg-defects.html#198
+
+Version 0.90.6
+^^^^^^^^^^^^^^
+- Changed `utf8_decoded`_ valid expression.
+- `shared`_ accepts ``auto_ptr``.
 
