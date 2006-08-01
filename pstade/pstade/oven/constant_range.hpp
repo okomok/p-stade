@@ -15,10 +15,10 @@
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <boost/type_traits/add_const.hpp>
+#include <pstade/affect.hpp>
 #include <pstade/egg/function.hpp>
 #include "./detail/concept_check.hpp"
 #include "./detail/parameter.hpp"
-#include "./detail/propagate.hpp"
 #include "./lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./range_iterator.hpp"
@@ -38,7 +38,7 @@ namespace constant_range_detail {
         typedef typename range_reference<Range>::type ref_t;
         typedef typename range_value<Range>::type val_t;
 
-        typedef typename detail::propagate<
+        typedef typename affect_cvr<
             ref_t,
             typename boost::add_const<val_t>::type
         >::type result_type;

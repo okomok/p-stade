@@ -63,7 +63,7 @@ private:
     typedef typename super_t::difference_type diff_t;
 
 public:
-    const_lvalue_iterator()
+    explicit const_lvalue_iterator()
     { }
 
     explicit const_lvalue_iterator(Iterator const& it) :

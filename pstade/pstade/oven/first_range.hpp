@@ -20,10 +20,10 @@
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <boost/type_traits/remove_reference.hpp>
+#include <pstade/affect.hpp>
 #include <pstade/egg/function.hpp>
 #include "./detail/concept_check.hpp"
 #include "./detail/parameter.hpp"
-#include "./detail/propagate.hpp"
 #include "./lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./range_iterator.hpp"
@@ -42,7 +42,7 @@ namespace first_range_detail {
         typedef typename range_reference<PairRange>::type pair_ref_t;
         typedef typename boost::remove_reference<pair_ref_t>::type pair_t;
 
-        typedef typename detail::propagate<
+        typedef typename affect_cvr<
             pair_ref_t,
             typename pair_t::first_type
         >::type result_type;

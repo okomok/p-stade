@@ -17,10 +17,10 @@
 #include <boost/range/iterator_range.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <boost/type_traits/remove_reference.hpp>
+#include <pstade/affect.hpp>
 #include <pstade/egg/function.hpp>
 #include "./detail/concept_check.hpp"
 #include "./detail/parameter.hpp"
-#include "./detail/propagate.hpp"
 #include "./lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./range_iterator.hpp"
@@ -39,7 +39,7 @@ namespace get_at_range_detail {
         typedef typename range_reference<FusionSeqRange>::type seq_ref_t;
         typedef typename boost::remove_reference<seq_ref_t>::type seq_t;
 
-        typedef typename detail::propagate<
+        typedef typename affect_cvr<
             seq_ref_t,
             typename boost::fusion::result_of::at<seq_t, N>::type
         >::type result_type;

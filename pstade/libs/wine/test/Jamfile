@@ -17,6 +17,7 @@ rule wine-test ( name )
 
 test-suite wine :
     [ wine-test adl_barrier ]
+    [ wine-test affect ]
     [ wine-test arg ]
     [ wine-test assignable ]
     [ wine-test check ]
