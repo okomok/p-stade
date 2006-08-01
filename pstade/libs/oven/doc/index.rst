@@ -312,6 +312,18 @@ Specification
 - Returns: ``[boost::begin(arr),boost::begin(arr)+sz)``, where ``sz`` is the size of ``arr``.
 
 
+``broken_into``
+^^^^^^^^^^^^^^^
+``broken_into`` is the adaptor version of ``boost::tokenizer``::
+
+	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\broken_into.ipp
+
+
+- Header: ``<pstade/oven/break_into_range.hpp>``
+- Valid expression: ``rng|broken_into<t>(f)``, where ``f`` is a ``TokenizerFunction``.
+- Returns: A range whose iterators behave as if they were the original iterators wrapped in ``boost::token_iterator``.
+
+
 ``checked``
 ^^^^^^^^^^^
 ``checked`` adds the bounds checking ability to its adapting range::

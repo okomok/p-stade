@@ -80,8 +80,8 @@ struct affect_reference :
 
 template< class From, class To >
 struct affect_cv :
-    affect_const<From,
-        typename affect_volatile<From,
+    affect_volatile<From,
+        typename affect_const<From,
             To
         >::type
     >
@@ -91,8 +91,8 @@ struct affect_cv :
 template< class From, class To >
 struct affect_cvr :
     affect_reference<From,
-        typename affect_const<From,
-            typename affect_volatile<From,
+        typename affect_volatile<From,
+            typename affect_const<From,
                 To
             >::type
         >::type

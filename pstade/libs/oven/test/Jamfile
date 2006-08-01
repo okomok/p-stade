@@ -32,6 +32,7 @@ test-suite oven :
     [ oven-test apply_range ]
     [ oven-test array_range ]
     [ oven-test array_protect_range ]
+    [ oven-test break_into_range ]
     [ oven-test check_range ]
     [ oven-test clear_range ]
     [ oven-test constant_range ]
