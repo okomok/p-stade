@@ -70,6 +70,7 @@ void test()
         ::apply(::resee, pstade::const_(d));
     }
 
+#if 0
     {
         double d = 3;
         d = d*d;
@@ -77,6 +78,7 @@ void test()
         // ::apply(::reset, d|pstade::const_qualified); // error!
         ::apply(::resee, d|pstade::const_qualified);
     }
+#endif
 }
 
 

@@ -36,7 +36,7 @@ All the types and functions are defined in ``namespace pstade::oven`` at ``<psta
 Requirements
 ------------
 - `Boost C++ Libraries Version 1.33.1`__ or later (no compilation required)
-- `P-Stade C++ Libraries Version 1.00.5`__ or later (no compilation required, give a higher priority than Boost headers)
+- `P-Stade C++ Libraries Version 1.00.3`__ or later (no compilation required, give a higher priority than Boost headers)
 
 __ Boost_
 __ http://sourceforge.net/project/showfiles.php?group_id=141222&package_id=173059
@@ -361,6 +361,17 @@ Specification
 - Returns: ``[boost::end(rng),boost::end(rng))`` whose iterators are constant.
 
 
+``const_lvalues``
+^^^^^^^^^^^^^^^^^
+``const_lvalues`` makes iterators of `Forward Range`_ conform to Forward Iterator, which
+makes STL that doesn't know traversal concepts choose effective algorithms.
+
+
+- Header: ``<pstade/oven/const_lvalue_range.hpp>``
+- Valid expression: ``rng|const_lvalues``
+- Returns: ``[boost::begin(rng),boost::end(rng))`` whose iterators are constant.
+
+
 ``copied`` as adaptor
 ^^^^^^^^^^^^^^^^^^^^^
 ``copied`` makes a side-effect that copies its adapting range to its argument::
@@ -384,7 +395,7 @@ Specification
 
 - Header: ``<pstade/oven/direct_range.hpp>``
 - Valid expression: ``rng|directed``
-- Returns: ``oven::make_counting_range(boost::begin(rng), boost::end(rng))``.
+- Returns: ``oven::make_counting_range(boost::begin(rng),boost::end(rng))``.
 
 
 ``dropped``

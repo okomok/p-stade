@@ -23,10 +23,8 @@
 #include <boost/type_traits/add_const.hpp>
 #include <boost/utility/addressof.hpp>
 #include <pstade/const_overloaded.hpp>
-#include <pstade/egg/function.hpp>
 #include "./detail/concept_check.hpp"
 #include "./lightweight_proxy.hpp"
-#include "./range_adaptor.hpp"
 #include "./range_iterator.hpp"
 #include "./range_value.hpp"
 
@@ -119,8 +117,7 @@ namespace break_into_range_detail {
 
     template< class Range, class TokenizerFun, class Type > inline
     break_into_range<Range, TokenizerFun, Type> const
-    operator|(Range& rng,
-        adaptor<Type, TokenizerFun> const& ad)
+    operator|(Range& rng, adaptor<Type, TokenizerFun> const& ad)
     {
         return break_into_range<Range, TokenizerFun, Type>(rng, *ad.m_pfun);
     }
@@ -128,8 +125,7 @@ namespace break_into_range_detail {
 
     template< class Range, class TokenizerFun, class Type > inline
     break_into_range<typename boost::add_const<Range>::type, TokenizerFun, Type> const
-    operator|(Range const& rng,
-        adaptor<Type, TokenizerFun> const& ad)
+    operator|(Range const& rng, adaptor<Type, TokenizerFun> const& ad)
     {
         return break_into_range<typename boost::add_const<Range>::type, TokenizerFun, Type>(rng, *ad.m_pfun);
     }
@@ -144,7 +140,6 @@ broken_into(TokenizerFun const& fun)
 {
     return break_into_range_detail::adaptor<Type, TokenizerFun>(fun);
 }
-
 
 
 } } // namespace pstade::oven

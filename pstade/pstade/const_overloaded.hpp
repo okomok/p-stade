@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Workaround for:
+// Workaround:
 //
 // GCC3.4.4 cannot order overloadings of non-const-reference and const-reference
 // if it has explicit template arguments.

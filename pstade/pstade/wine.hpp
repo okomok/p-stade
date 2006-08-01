@@ -11,6 +11,7 @@
 
 
 #include "./adl_barrier.hpp"
+#include "./affect.hpp"
 #include "./arg.hpp"
 #include "./assignable.hpp"
 #include "./check.hpp"
@@ -29,6 +30,7 @@
 #include "./new.hpp"
 #include "./nullptr.hpp"
 #include "./overload.hpp"
+#include "./param.hpp"
 #include "./pause.hpp"
 #include "./remove_cvr.hpp"
 #include "./require.hpp"

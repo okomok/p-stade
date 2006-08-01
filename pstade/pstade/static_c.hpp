@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Workaround for:
+// Workaround:
 //
 // Strictly speaking, the standard doesn't say
 // when the definition of 'value' is needed.

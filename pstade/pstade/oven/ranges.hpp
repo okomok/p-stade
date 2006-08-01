@@ -16,6 +16,7 @@
 #include "./apply_range.hpp"
 #include "./array_protect_range.hpp"
 #include "./array_range.hpp"
+#include "./break_into_range.hpp"
 #include "./check_range.hpp"
 #include "./clear_range.hpp"
 #include "./counting_range.hpp"

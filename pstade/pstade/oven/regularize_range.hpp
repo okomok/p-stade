@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Workaround for:
+// Workaround:
 //
 // Boost.Lambda functors are copy-constructible, but
 // are neither default-constructible nor assignable.

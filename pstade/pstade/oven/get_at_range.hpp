@@ -19,8 +19,8 @@
 #include <boost/type_traits/remove_reference.hpp>
 #include <pstade/affect.hpp>
 #include <pstade/egg/function.hpp>
+#include <pstade/param.hpp>
 #include "./detail/concept_check.hpp"
-#include "./detail/parameter.hpp"
 #include "./lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./range_iterator.hpp"
@@ -44,8 +44,7 @@ namespace get_at_range_detail {
             typename boost::fusion::result_of::at<seq_t, N>::type
         >::type result_type;
 
-        result_type
-        operator()(typename detail::parameter<seq_ref_t>::type seq) const
+        result_type operator()(typename param<seq_ref_t>::type seq) const
         {
             return boost::fusion::at<N>(seq);
         }

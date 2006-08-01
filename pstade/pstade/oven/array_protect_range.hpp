@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Workaround for:
+// Workaround:
 //
 // Under below Boost 1.34, char array is regarded as null-terminated.
 

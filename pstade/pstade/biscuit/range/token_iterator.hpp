@@ -36,9 +36,8 @@ namespace token_iterator_detail {
     {
         typedef boost::iterator_facade<
             token_iterator<Parser, ForwardIter, UserState>,
-            boost::iterator_range<ForwardIter>,
-            boost::forward_traversal_tag,
-            boost::iterator_range<ForwardIter> const&
+            boost::iterator_range<ForwardIter> const,
+            boost::forward_traversal_tag
         > type;
     };
 
@@ -51,7 +50,6 @@ struct token_iterator :
     token_iterator_detail::super_<Parser, ForwardIter, UserState>::type
 {
 private:
-    typedef token_iterator self_t;
     typedef typename token_iterator_detail::super_<Parser, ForwardIter, UserState>::type super_t;
     typedef typename super_t::reference ref_t;
 

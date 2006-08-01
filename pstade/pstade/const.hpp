@@ -15,45 +15,24 @@
 // http://www.boost.org/doc/html/lambda/le_in_details.html#lambda.rvalues_as_actual_arguments
 
 
+// See: oven::constants
+//
+// http://www.open-std.org/JTC1/SC22/WG21/docs/papers/2004/n1674.pdf
+
+
 // See: cbegin/cend proposal
 //
 // http://www.open-std.org/JTC1/SC22/WG21/docs/papers/2004/n1674.pdf
 
 
-#include <boost/type_traits/add_const.hpp>
-#include <boost/type_traits/add_reference.hpp>
-#include <pstade/egg/function.hpp>
-#include <pstade/oven/range_adaptor.hpp>
-
-
 namespace pstade {
 
 
-namespace const_detail {
-
-
-    struct baby
-    {
-        template< class Unused, class T >
-        struct result :
-            boost::add_reference<
-                typename boost::add_const<T>::type
-            >
-        { };
-
-        template< class Result, class T >
-        Result call(T& x)
-        {
-            return x;
-        }
-    };
-
-
-} // namespace const_detail
-
-
-PSTADE_EGG_FUNCTION(const_, const_detail::baby)
-PSTADE_OVEN_RANGE_ADAPTOR(const_qualified, const_detail::baby)
+template< class T > inline
+T const& const_(T const& x)
+{
+    return x;
+}
 
 
 } // namespace pstade

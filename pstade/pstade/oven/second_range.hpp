@@ -17,7 +17,7 @@
 #include <boost/type_traits/remove_reference.hpp>
 #include <pstade/affect.hpp>
 #include <pstade/egg/function.hpp>
-#include "./detail/parameter.hpp"
+#include <pstade/param.hpp>
 #include "./lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
 #include "./range_iterator.hpp"
@@ -42,8 +42,7 @@ namespace second_range_detail {
             typename pair_t::second_type
         >::type result_type;
 
-        result_type
-        operator()(typename detail::parameter<pair_ref_t>::type p) const
+        result_type operator()(typename param<pair_ref_t>::type p) const
         {
             return p.second;
         }

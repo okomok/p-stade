@@ -70,13 +70,12 @@ public:
         super_t(it)
     { }
 
-template< class > friend struct const_lvalue_iterator;
     template< class Iterator_ >
     const_lvalue_iterator(
         const_lvalue_iterator<Iterator_> const& other,
         typename boost::enable_if_convertible<Iterator_, Iterator>::type * = 0
     ) :
-        super_t(other.base()), m_value(other.m_value)
+        super_t(other.base())
     { }
 
 private:
@@ -107,12 +106,6 @@ friend class boost::iterator_core_access;
     {
         this->base_reference() += d;
         m_value.reset();
-    }
-
-    template< class Other >
-    diff_t distance_to(Other const& other) const
-    {
-        return other.base() - this->base();
     }
 };
 
