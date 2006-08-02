@@ -34,6 +34,7 @@
 #include <boost/lambda/core.hpp>
 #include <boost/optional.hpp>
 #include <pstade/oven/indirect_range.hpp>
+#include <pstade/nonassignable.hpp>
 
 
 struct xxx
@@ -60,6 +61,11 @@ struct zzz
     explicit zzz(int )
     { }
 };
+
+
+struct non_as :
+    private pstade::nonassignable
+{ };
 
 
 inline
@@ -138,6 +144,11 @@ void test()
         ss << ac;
         get_pointer(ac);
         swap(ac, bc);
+    }
+
+    {
+        assignable< ::non_as > a;
+        ::check_assignable(a);
     }
 }
 

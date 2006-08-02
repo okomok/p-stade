@@ -11,6 +11,7 @@
 
 
 #include <boost/cstdint.hpp> // uint32_t
+#include <boost/noncopyable.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <boost/regex/pending/unicode_iterator.hpp> // u8_to_u32_iterator
 #include <boost/type_traits/add_const.hpp>
@@ -110,7 +111,8 @@ namespace utf8_decode_range_detail {
 
 template< class Usc4T = boost::uint32_t >
 struct utf8_decoded :
-    utf8_decode_range_detail::adl_marker
+    utf8_decode_range_detail::adl_marker,
+    private boost::noncopyable
 { };
 
 

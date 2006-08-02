@@ -11,6 +11,7 @@
 
 
 #include <memory> // auto_ptr
+#include <boost/noncopyable.hpp>
 #include <boost/pointee.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
@@ -94,7 +95,8 @@ make_share_range(Pointer prng)
 namespace share_range_detail {
 
 
-    struct adaptor
+    struct adaptor :
+        private boost::noncopyable
     { };
 
 

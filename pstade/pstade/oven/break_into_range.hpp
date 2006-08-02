@@ -21,8 +21,8 @@
 #include <boost/range/iterator_range.hpp>
 #include <boost/token_iterator.hpp>
 #include <boost/type_traits/add_const.hpp>
-#include <boost/utility/addressof.hpp>
 #include <pstade/const_overloaded.hpp>
+#include <pstade/nonassignable.hpp>
 #include "./detail/concept_check.hpp"
 #include "./lightweight_proxy.hpp"
 #include "./range_iterator.hpp"
@@ -105,13 +105,14 @@ namespace break_into_range_detail {
 
 
     template< class Type, class TokenizerFun >
-    struct adaptor
+    struct adaptor :
+        private nonassignable
     {
         explicit adaptor(TokenizerFun const& fun) :
-            m_pfun(boost::addressof(fun))
+            m_fun(fun)
         { }
 
-        TokenizerFun const *m_pfun;
+        TokenizerFun const& m_fun;
     };
 
 
@@ -119,7 +120,7 @@ namespace break_into_range_detail {
     break_into_range<Range, TokenizerFun, Type> const
     operator|(Range& rng, adaptor<Type, TokenizerFun> const& ad)
     {
-        return break_into_range<Range, TokenizerFun, Type>(rng, *ad.m_pfun);
+        return break_into_range<Range, TokenizerFun, Type>(rng, ad.m_fun);
     }
 
 
@@ -127,7 +128,7 @@ namespace break_into_range_detail {
     break_into_range<typename boost::add_const<Range>::type, TokenizerFun, Type> const
     operator|(Range const& rng, adaptor<Type, TokenizerFun> const& ad)
     {
-        return break_into_range<typename boost::add_const<Range>::type, TokenizerFun, Type>(rng, *ad.m_pfun);
+        return break_into_range<typename boost::add_const<Range>::type, TokenizerFun, Type>(rng, ad.m_fun);
     }
 
 

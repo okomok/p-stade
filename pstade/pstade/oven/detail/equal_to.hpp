@@ -18,29 +18,25 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/function.hpp>
+#include <pstade/instance.hpp>
 
 
 namespace pstade { namespace oven { namespace detail {
 
 
-struct baby_equal_to
+struct equal_to_fun
 {
-    template< class Unused, class X, class Y >
-    struct result
-    {
-        typedef bool type;
-    };
+    typedef bool result_type;
 
-    template< class Result, class X, class Y >
-    Result call(X const& x, Y const& y)
+    template< class X, class Y >
+    bool operator()(X const& x, Y const& y) const
     {
         return x == y;
     }
 };
 
 
-PSTADE_EGG_FUNCTION(equal_to, baby_equal_to)
+PSTADE_INSTANCE(equal_to_fun const, equal_to, value)
 
 
 } } } // namespace pstade::oven::detail

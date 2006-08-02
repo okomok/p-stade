@@ -13,8 +13,8 @@
 #include <boost/config.hpp> // BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE, BOOST_EXPLICIT_TEMPLATE_TYPE
 #include <boost/range/result_iterator.hpp>
 #include <boost/type_traits/add_const.hpp>
-#include <boost/utility/addressof.hpp>
 #include <pstade/const_overloaded.hpp>
+#include <pstade/nonassignable.hpp>
 #include <pstade/oven/lightweight_proxy.hpp>
 #include "../state/null_state.hpp"
 #include "./token_iterator.hpp"
@@ -58,7 +58,7 @@ public:
     explicit token_range(ForwardRange& r, UserState& us = null_state) :
         super_t(
             biscuit::make_token_iterator<Parser>(boost::begin(r), boost::end(r), us),
-            biscuit::make_token_iterator<Parser>(boost::end(r), boost::end(r), us)
+            biscuit::make_token_iterator<Parser>(boost::end(r),   boost::end(r), us)
         )
     { }
 };
@@ -99,13 +99,14 @@ namespace token_range_detail {
 
 
     template< class Parser, class UserState >
-    struct adaptor
+    struct adaptor :
+        private nonassignable
     {
         explicit adaptor(UserState& us) :
-            m_pus(boost::addressof(us))
+            m_us(us)
         { }
 
-        UserState *m_pus;
+        UserState& m_us;
     };
 
 
@@ -113,14 +114,14 @@ namespace token_range_detail {
     token_range<Parser, ForwardRange, UserState> const
     operator|(ForwardRange& rng, adaptor<Parser, UserState> const& ad)
     {
-        return biscuit::make_token_range<Parser>(rng, *ad.m_pus);
+        return biscuit::make_token_range<Parser>(rng, ad.m_us);
     }
 
         template< class Parser, class ForwardRange, class UserState > inline
         token_range<Parser, typename boost::add_const<ForwardRange>::type, UserState> const
         operator|(ForwardRange const& rng, adaptor<Parser, UserState> const& ad)
         {
-            return biscuit::make_token_range<Parser>(rng, *ad.m_pus);
+            return biscuit::make_token_range<Parser>(rng, ad.m_us);
         }
 
 

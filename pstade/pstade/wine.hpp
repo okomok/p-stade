@@ -28,6 +28,7 @@
 #include "./lexical_cast.hpp"
 #include "./locale_saver.hpp"
 #include "./new.hpp"
+#include "./nonassignable.hpp"
 #include "./nullptr.hpp"
 #include "./overload.hpp"
 #include "./param.hpp"

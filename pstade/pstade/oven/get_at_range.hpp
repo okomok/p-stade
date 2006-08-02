@@ -12,17 +12,18 @@
 
 #include <boost/fusion/sequence/intrinsic/at.hpp>
 #include <boost/iterator/transform_iterator.hpp>
+#include <boost/mpl/int.hpp>
+#include <boost/noncopyable.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
-#include <boost/type_traits/remove_cv.hpp>
+#include <boost/type_traits/add_const.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 #include <pstade/affect.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/const_overloaded.hpp>
 #include <pstade/param.hpp>
 #include "./detail/concept_check.hpp"
 #include "./lightweight_proxy.hpp"
-#include "./range_adaptor.hpp"
 #include "./range_iterator.hpp"
 #include "./range_reference.hpp"
 
@@ -88,31 +89,66 @@ public:
 };
 
 
+// generators
+//
+
+template< class N, class FusionSeqRange > inline
+typename const_overloaded<get_at_range<FusionSeqRange, N>, FusionSeqRange>::type const
+make_get_at_range(FusionSeqRange& rng)
+{
+    return get_at_range<FusionSeqRange, N>(rng);
+}
+
+
+template< class N, class FusionSeqRange > inline
+get_at_range<typename boost::add_const<FusionSeqRange>::type, N> const
+make_get_at_range(FusionSeqRange const& rng)
+{
+    return get_at_range<typename boost::add_const<FusionSeqRange>::type, N>(rng);
+}
+
+
+template< class N >
+struct got_at;
+
+
 namespace get_at_range_detail {
 
 
-    struct baby_generator
-    {
-        template< class Unused, class FusionSeqRange, class N >
-        struct result
-        {
-            typedef typename boost::remove_cv<N>::type n_t;
-            typedef get_at_range<FusionSeqRange, n_t> const type;
-        };
+    struct adl_marker
+    { };
 
-        template< class Result, class FusionSeqRange, class N >
-        Result call(FusionSeqRange& rng, N& )
-        {
-            return Result(rng);
-        }
-    };
+
+    template< class FusionSeqRange, class N > inline
+    get_at_range<FusionSeqRange, N> const
+    operator|(FusionSeqRange& rng, got_at<N> const&)
+    {
+        return get_at_range<FusionSeqRange, N>(rng);
+    }
+
+
+    template< class FusionSeqRange, class N > inline
+    get_at_range<typename boost::add_const<FusionSeqRange>::type, N> const
+    operator|(FusionSeqRange const& rng, got_at<N> const&)
+    {
+        return get_at_range<typename boost::add_const<FusionSeqRange>::type, N>(rng);
+    }
 
 
 } // namespace get_at_range_detail
 
 
-PSTADE_EGG_FUNCTION(make_get_at_range, get_at_range_detail::baby_generator)
-PSTADE_OVEN_RANGE_ADAPTOR(got_at, get_at_range_detail::baby_generator)
+template< class N >
+struct got_at :
+    get_at_range_detail::adl_marker,
+    private boost::noncopyable
+{ };
+
+
+template< int N >
+struct got_at_c :
+    got_at< boost::mpl::int_<N> >
+{ };
 
 
 } } // namespace pstade::oven

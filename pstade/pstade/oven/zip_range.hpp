@@ -62,7 +62,7 @@ private:
     typedef typename zip_range_detail::super_<Range0, Range1>::type super_t;
 
 public:
-    explicit zip_range(Range0& rng0, Range1& rng1) :
+    zip_range(Range0& rng0, Range1& rng1) :
         super_t(
             boost::tuples::make_tuple(boost::begin(rng0), boost::begin(rng1)),
             boost::tuples::make_tuple(boost::end(rng0), boost::end(rng1))

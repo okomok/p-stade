@@ -61,7 +61,7 @@ namespace locale_saver_detail {
 
     struct global_t
     {
-        void imbue(const std::locale& loc)
+        void imbue(const std::locale& loc) const
         {
             std::locale::global(loc);
         }
@@ -72,7 +72,7 @@ namespace locale_saver_detail {
         }
     };
 
-    PSTADE_INSTANCE(global_t, global, value)
+    PSTADE_INSTANCE(global_t const, global, value)
 
 
     template< class = void >

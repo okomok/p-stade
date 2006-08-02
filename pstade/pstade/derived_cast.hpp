@@ -15,6 +15,7 @@
 #include <boost/static_assert.hpp>
 #include <boost/type_traits/is_base_of.hpp>
 #include <boost/utility/addressof.hpp>
+#include <pstade/nonassignable.hpp>
 
 
 #if BOOST_WORKAROUND(BOOST_MSVC, == 1310)
@@ -41,9 +42,10 @@ namespace derived_cast_detail {
 
 
     template< class BaseT >
-    struct temporary
+    struct temp :
+        private nonassignable
     {
-        explicit temporary(BaseT& base) :
+        explicit temp(BaseT& base) :
             m_base(base)
         { };
 
@@ -70,17 +72,16 @@ namespace derived_cast_detail {
 
 
 template< class BaseT > inline
-derived_cast_detail::temporary<BaseT> const
+derived_cast_detail::temp<BaseT> const
 derived(BaseT& base)
 {
-    // return derived_cast_detail::temporary<BaseT>(base);
+    // return derived_cast_detail::temp<BaseT>(base);
 
     // Workaround:
-    //   If 'tmp' is missing like above, GCC3.4.4 tries to convert 'temporary' to
-    //   itself using the first conversion operator template.
-    //   For its constructor? I don't know why.
-
-    derived_cast_detail::temporary<BaseT> tmp(base);
+    // If 'tmp' is missing like above, GCC3.4.4 tries to convert 'temp' to
+    // itself using the first conversion operator template.
+    // For its constructor? I don't know why.
+    derived_cast_detail::temp<BaseT> tmp(base);
     return tmp;
 }
 

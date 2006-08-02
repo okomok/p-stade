@@ -14,6 +14,7 @@
 #include <boost/numeric/conversion/cast.hpp> // numeric_cast
 #include <boost/static_assert.hpp>
 #include <boost/type_traits/is_integral.hpp>
+#include <pstade/nonassignable.hpp>
 
 
 namespace pstade {
@@ -33,7 +34,8 @@ namespace integral_cast_detail {
 
 
     template< class SourceT >
-    struct temp
+    struct temp :
+        private nonassignable
     {
         explicit temp(SourceT src) :
             m_src(src)

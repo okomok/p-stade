@@ -18,6 +18,7 @@
 
 void test()
 {
+#if !defined(__MINGW32__) // can't read multi-byte literal
     using namespace pstade;
 
     // locale_saver ls("japanese"); // breaks VC8 wstreams.
@@ -41,6 +42,7 @@ void test()
         pstade::locale_saver ls(std::wcout, "japanese");
         std::wcout << L"kkkkkkk‚¢‚Ù\n";
     }
+#endif
 }
 
 

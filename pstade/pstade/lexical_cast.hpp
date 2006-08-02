@@ -11,6 +11,7 @@
 
 
 #include <boost/lexical_cast.hpp>
+#include <pstade/nonassignable.hpp>
 
 
 namespace pstade {
@@ -27,7 +28,8 @@ namespace lexical_detail {
 
 
     template< class SourceT >
-    struct temp
+    struct temp :
+        private nonassignable
     {
         explicit temp(SourceT const& src) :
             m_src(src)

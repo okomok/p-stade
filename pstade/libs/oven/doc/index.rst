@@ -449,7 +449,7 @@ it needs `regularized`_ that makes it assignable and then conforming.
 Pending...
 
 - Header: ``<pstade/oven/get_at_range.hpp>``
-- Valid expression: ``rng|got_at<N>()``, where ``value_type`` of ``rng`` is a Fusion Sequence.
+- Valid expression: ``rng|got_at<N>()`` or ``rng|got_at_c<N>()``, where ``value_type`` of ``rng`` is a Fusion Sequence.
 
 
 ``identities``
