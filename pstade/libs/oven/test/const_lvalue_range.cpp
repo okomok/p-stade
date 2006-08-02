@@ -46,7 +46,7 @@ struct id
 {
     typedef int& result_type;
 
-    int& operator()(int& x)
+    int& operator()(int& x) const
     {
         return x;
     }
@@ -57,7 +57,7 @@ struct inc
 {
     typedef int result_type;
 
-    int operator()(int x)
+    int operator()(int x) const
     {
         return x + 1;
     }
@@ -169,6 +169,17 @@ void test()
         BOOST_CHECK( 3 == oven::distance(src|transformed(::inc())) );
         BOOST_CHECK( 3 == oven::distance(src|transformed(::inc())|const_lvalues) );
     }
+
+#if 0 // impossible!
+    {
+        std::vector<int> vec;
+        vec.push_back(3);
+        lvalue_iter_t it1 = oven::make_const_lvalue_iterator(boost::make_transform_iterator(vec.begin(), ::inc()));
+        lvalue_iter_t it2(it1);
+        BOOST_CHECK( &*it1 == &*it2 );
+        BOOST_CHECK( (it1 == it2) == (&*it1 == &*it2) );
+    }
+#endif
 }
 
 
