@@ -94,8 +94,13 @@ void test()
     }
 
     {
-        std::auto_ptr<D> apD(new D());
-        std::auto_ptr<B> apB = apD;
+        std::auto_ptr< ::D > apD(new ::D());
+        std::auto_ptr< ::B > apB(apD);
+
+    #if !BOOST_WORKAROUND(BOOST_MSVC, == 1310)
+        // eternal recursive calls, funny VC++7.1
+        std::auto_ptr< ::B > apB_(pstade::new_< ::D >()); // runtime failure under VC++7.1
+    #endif
     }
 }
 

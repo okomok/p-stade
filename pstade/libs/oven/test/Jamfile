@@ -46,6 +46,7 @@ test-suite oven :
     [ oven-test empty_range ]
     [ oven-test file_range ]
     [ oven-test filter_range ]
+    # [ oven-test get_at_range ]
     [ oven-test headers ]
     [ oven-test identity_range ]
     [ oven-test indirect_range ]

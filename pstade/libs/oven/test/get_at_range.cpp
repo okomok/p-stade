@@ -13,17 +13,34 @@
 #include <pstade/oven/get_at_range.hpp>
 
 
-#include <iterator>
-#include <string>
-#include <map>
-#include <boost/foreach.hpp>
-#include <boost/range.hpp>
-#include <pstade/oven/functions.hpp>
+#include <vector>
+#include <boost/fusion/tuple/tuple.hpp>
+#include <boost/fusion/tuple/make_tuple.hpp>
 #include <boost/mpl/int.hpp>
+#include <boost/foreach.hpp>
+
+
+typedef boost::fusion::tuple<int, char> tup_t;
+typedef std::vector<tup_t> rng_t;
 
 
 void test()
 {
+    using namespace pstade;
+    using namespace oven;
+
+    ::rng_t rng;
+    rng.push_back( boost::fusion::make_tuple(3, 'a') );
+    rng.push_back( boost::fusion::make_tuple(5, 'b') );
+
+    rng|got_at< boost::mpl::int_<0> >();
+    BOOST_FOREACH (char& ch, rng|got_at< boost::mpl::int_<1> >()) {
+        ch = 'c';
+    }
+
+    BOOST_FOREACH (char const& ch, rng|got_at_c<1>()) {
+        BOOST_CHECK(ch == 'c');
+    }
 }
 
 
