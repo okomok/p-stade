@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/mpl/empty_base.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/derived_cast.hpp>
 #include "./access.hpp"
@@ -20,8 +21,12 @@ namespace pstade { namespace radish {
 PSTADE_ADL_BARRIER(swappable) {
 
 
-template< class T >
-struct swappable
+template<
+    class T,
+    class Base = boost::mpl::empty_base
+>
+struct swappable :
+    Base
 {
     void swap(T& other)
     {

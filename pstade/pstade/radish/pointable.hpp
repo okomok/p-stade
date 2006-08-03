@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/mpl/empty_base.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/derived_cast.hpp>
 #include "./access.hpp"
@@ -20,8 +21,12 @@ namespace pstade { namespace radish {
 PSTADE_ADL_BARRIER(pointable) {
 
 
-template< class T, class Element >
-struct pointable
+template<
+    class T, class Element,
+    class Base = boost::mpl::empty_base
+>
+struct pointable :
+    Base
 {
     typedef Element element_type; // for 'boost::pointee'.
 

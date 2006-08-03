@@ -63,7 +63,7 @@ struct zzz
 };
 
 
-struct non_as :
+struct no_ass :
     private pstade::nonassignable
 { };
 
@@ -147,7 +147,7 @@ void test()
     }
 
     {
-        assignable< ::non_as > a;
+        assignable< ::no_ass > a;
         ::check_assignable(a);
     }
 }

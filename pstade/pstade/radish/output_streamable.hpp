@@ -11,6 +11,7 @@
 
 
 #include <iosfwd> // basic_ostream
+#include <boost/mpl/empty_base.hpp>
 #include <pstade/adl_barrier.hpp>
 #include "./access.hpp"
 
@@ -20,8 +21,12 @@ namespace pstade { namespace radish {
 PSTADE_ADL_BARRIER(output_streamable) {
 
 
-template< class T >
-struct output_streamable
+template<
+    class T,
+    class Base = boost::mpl::empty_base
+>
+struct output_streamable :
+    Base
 {
     template< class CharT, class Traits >
     friend
