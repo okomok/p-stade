@@ -43,6 +43,10 @@ void foo(std::auto_ptr<T>, std::auto_ptr<T>)
 { }
 
 
+struct B { };
+struct D : B { };
+
+
 void test()
 {
     int i = 0;
@@ -87,6 +91,11 @@ void test()
             pstade::new_<S>("exception", i, "safe!"),
             pstade::new_<S>("exception", i, "safe!")
         );
+    }
+
+    {
+        std::auto_ptr<D> apD(new D());
+        std::auto_ptr<B> apB = apD;
     }
 }
 

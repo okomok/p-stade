@@ -23,6 +23,7 @@
 #include <pstade/egg/decay_function.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/garlic/back_inserter.hpp>
+#include <pstade/new.hpp>
 #include <pstade/unused.hpp>
 #include "./algorithm.hpp" // copy
 #include "./detail/concept_check.hpp"
@@ -63,7 +64,7 @@ namespace out_place_range_detail {
     oven::share_range<Sequence> const
     make_share(ForwardRange& rng, Functor fun)
     {
-        std::auto_ptr<Sequence> pseq(new Sequence()); {
+        std::auto_ptr<Sequence> pseq(pstade::new_<Sequence>()); {
             // Workaround:
             // The weird VC7.1 fails to find the garlic's overload for STL Sequences
             // in the case of 'sort_range' which is derived from 'out_place_range'.

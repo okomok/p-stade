@@ -88,7 +88,8 @@ friend class boost::iterator_core_access;
             m_pimpl.reset();
     }
 
-    bool equal(enumerate_iterator const& other) const
+    template< class Other >
+    bool equal(Other const& other) const
     {
         return m_pimpl == other.m_pimpl;
     }

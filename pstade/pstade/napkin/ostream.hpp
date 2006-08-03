@@ -33,7 +33,7 @@ struct basic_ostream
     template< class StringOutputable >
     explicit basic_ostream(StringOutputable& out) :
         m_pout(new detail::basic_holder<CharT, StringOutputable>(out))
-    { };
+    { }
 
     template< class OutputStreamable >
     basic_ostream& operator<<(const OutputStreamable& x)

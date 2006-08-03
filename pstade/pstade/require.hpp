@@ -61,7 +61,7 @@ namespace pstade {
 struct require_error :
     std::runtime_error
 {
-    explicit require_error(std::string what) :
+    explicit require_error(std::string const& what) :
         std::runtime_error(what)
     { }
 };

@@ -21,8 +21,8 @@
 
 
 #include <locale>
+#include <memory> // auto_ptr
 #include <boost/noncopyable.hpp>
-#include <boost/scoped_ptr.hpp>
 #include <pstade/instance.hpp>
 
 
@@ -49,10 +49,14 @@ namespace locale_saver_detail {
         { }
 
         virtual std::locale getloc_() const
-        { return m_held.getloc(); }
+        {
+            return m_held.getloc();
+        }
 
         virtual void imbue_(std::locale const& loc)
-        { m_held.imbue(loc); }
+        {
+            m_held.imbue(loc);
+        }
 
     private:
         IOStream& m_held;
@@ -83,7 +87,7 @@ namespace locale_saver_detail {
     protected:
         template< class IOStream >
         super_(IOStream& ios, std::locale const& loc) :
-            m_pios(new iostream_holder<IOStream>(ios)),
+            m_pios(pstade::new_< iostream_holder<IOStream> >(ios)),
             m_saved(m_pios->getloc_())
         {
             m_pios->imbue_(loc);
@@ -95,7 +99,10 @@ namespace locale_saver_detail {
         }
 
     private:
-        boost::scoped_ptr<iostream_placeholder> m_pios;
+        // Workaround:
+        // I prefer 'new_' to built-in 'new', but
+        // 'scoped_ptr' doesn't support type conversion.
+        std::auto_ptr<iostream_placeholder> m_pios;
         std::locale m_saved;
     };
 
