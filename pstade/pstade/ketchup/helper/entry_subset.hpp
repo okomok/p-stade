@@ -11,13 +11,14 @@
 
 
 #include <boost/assert.hpp>
-#include <boost/mpl/and.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
+#include <boost/mpl/not.hpp>
+#include <boost/mpl/or.hpp>
 #include <boost/mpl/void.hpp>
 #include <pstade/apple/sdk/windows.hpp>
-#include <pstade/is_debug.hpp>
+#include <pstade/is_ndebug.hpp>
 #include <pstade/unused.hpp>
 
 
@@ -59,9 +60,10 @@ struct helper_entry_subset
             pstade::unused(derived, hWnd, uMsg, wParam, lParam, lResult, dwMsgMapID);
 
             typedef typename
-            boost::mpl::eval_if< boost::mpl::and_< pstade::is_debug<>, On >,
-                boost::mpl::identity< Entry >,
-                boost::mpl::identity< empty_entry<> >
+            boost::mpl::eval_if<
+                boost::mpl::or_< pstade::is_ndebug<>, boost::mpl::not_<On> >,
+                boost::mpl::identity< empty_entry<> >,
+                boost::mpl::identity< Entry >
             >::type entry_t;
 
             return entry_t::process(derived, hWnd, uMsg, wParam, lParam, lResult, dwMsgMapID);

@@ -17,12 +17,14 @@
 #include <boost/foreach.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/mpl/eval_if.hpp>
+#include <boost/mpl/not.hpp>
+#include <boost/mpl/or.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/range/result_iterator.hpp>
 #include <pstade/init_ios.hpp>
 #include <pstade/instance.hpp>
-#include <pstade/is_debug.hpp>
+#include <pstade/is_ndebug.hpp>
 #include <pstade/napkin/config.hpp> // NO_WIDESTRING
 #include <pstade/napkin/ostream.hpp>
 #include <pstade/napkin/ostream_char.hpp>
@@ -156,9 +158,9 @@ namespace debugger_detail {
         };
 
         typedef typename boost::mpl::eval_if<
-            boost::mpl::and_< is_debug<>, On >,
-            on_debug,
-            on_release
+            boost::mpl::or_< is_ndebug<>, boost::mpl::not_<On> >,
+            on_release,
+            on_debug
         >::type type;
     };
 

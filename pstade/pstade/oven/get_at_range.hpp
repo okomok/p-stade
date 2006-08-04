@@ -13,7 +13,6 @@
 #include <boost/fusion/sequence/intrinsic/at.hpp>
 #include <boost/iterator/transform_iterator.hpp>
 #include <boost/mpl/int.hpp>
-#include <boost/noncopyable.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
@@ -21,6 +20,7 @@
 #include <boost/type_traits/remove_reference.hpp>
 #include <pstade/affect.hpp>
 #include <pstade/const_overloaded.hpp>
+#include <pstade/nonassignable.hpp>
 #include <pstade/param.hpp>
 #include "./detail/concept_check.hpp"
 #include "./lightweight_proxy.hpp"
@@ -141,7 +141,11 @@ namespace get_at_range_detail {
 template< class N >
 struct got_at :
     get_at_range_detail::adl_marker,
-    private boost::noncopyable
+    private nonassignable
+    // Note:
+    // 'noncopyable' is allowed here by the latest standard draft,
+    // but GCC doesn't follow it.
+    // http://www.codecomments.com/archive324-2006-4-888159.html
 { };
 
 

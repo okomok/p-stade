@@ -13,8 +13,9 @@
 #include <boost/assert.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/mpl/if.hpp>
+#include <boost/mpl/or.hpp>
 #include <boost/range/result_iterator.hpp>
-#include <pstade/is_debug.hpp>
+#include <pstade/is_ndebug.hpp>
 #include "./begin.hpp"
 #include "./end.hpp"
 #include "./eps.hpp"
@@ -76,13 +77,13 @@ namespace star_detail {
     };
 
 
-    template< class Parser, class NoSideEffects >
+    template< class Parser, class HasSideEffects >
     struct super_
     {
         typedef typename boost::mpl::if_<
-            boost::mpl::and_< is_debug<>, NoSideEffects >,
-            debug<Parser>,
-            release<Parser>
+            boost::mpl::or_< is_ndebug<>, HasSideEffects >,
+            release<Parser>,
+            debug<Parser>
         >::type type;
     };
 
@@ -92,23 +93,23 @@ namespace star_detail {
 
 template<
     class Parser,
-    class NoSideEffects = boost::mpl::true_
+    class HasSideEffects = boost::mpl::false_
 >
 struct star :
-    star_detail::super_< Parser, NoSideEffects >::type
+    star_detail::super_< Parser, HasSideEffects >::type
 { };
 
 
 // meaningless
 //
-template< class NoSideEffects >
-struct star< PSTADE_BISCUIT_NULLARY_PARSER(begin), NoSideEffects >;
+template< class HasSideEffects >
+struct star< PSTADE_BISCUIT_NULLARY_PARSER(begin), HasSideEffects >;
 
-template< class NoSideEffects >
-struct star< PSTADE_BISCUIT_NULLARY_PARSER(end), NoSideEffects >;
+template< class HasSideEffects >
+struct star< PSTADE_BISCUIT_NULLARY_PARSER(end), HasSideEffects >;
 
-template< class NoSideEffects >
-struct star< PSTADE_BISCUIT_NULLARY_PARSER(eps), NoSideEffects >;
+template< class HasSideEffects >
+struct star< PSTADE_BISCUIT_NULLARY_PARSER(eps), HasSideEffects >;
 
 
 } } // namespace pstade::biscuit

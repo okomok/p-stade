@@ -34,18 +34,8 @@
 /**/
 
 
-#define PSTADE_COMMA_PROTECT_D(Decayed) \
-    typename pstade::comma_protect_detail::unwrap<void(Decayed)>::type \
-/**/
-
-
 #define PSTADE_COMMA_PROTECT_EVAL(Decayed) \
     pstade::comma_protect_detail::unwrap_eval<void(Decayed)>::type \
-/**/
-
-
-#define PSTADE_COMMA_PROTECT_EVAL_D(Decayed) \
-    typename pstade::comma_protect_detail::unwrap_eval<void(Decayed)>::type \
 /**/
 
 

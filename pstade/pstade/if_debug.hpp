@@ -10,17 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Question: Could have been the following?
-//
-// BOOST_PP_EXPR_IF(PSTADE_IS_DEBUG(), ...)
-//
-// #if !defined(NDEBUG)
-//     #define PSTADE_IS_DEBUG() 1
-// #else
-//     #define PSTADE_IS_DEBUG() 0
-// #endif
-
-
 #if !defined(NDEBUG) || defined(PSTADE_IF_DEBUG_DEBUG)
 
     #define PSTADE_IF_DEBUG(X) \

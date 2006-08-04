@@ -17,7 +17,7 @@ namespace pstade { namespace oven {
 
 
 template< class BaseIter > inline
-boost::utf8_output_iterator<BaseIter>
+boost::utf8_output_iterator<BaseIter> const
 utf8_encoder(BaseIter const& it)
 {
     return boost::utf8_output_iterator<BaseIter>(it);

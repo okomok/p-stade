@@ -33,7 +33,6 @@ void test()
     rng.push_back( boost::fusion::make_tuple(3, 'a') );
     rng.push_back( boost::fusion::make_tuple(5, 'b') );
 
-    rng|got_at< boost::mpl::int_<0> >();
     BOOST_FOREACH (char& ch, rng|got_at< boost::mpl::int_<1> >()) {
         ch = 'c';
     }

@@ -18,6 +18,28 @@
 #include <boost/foreach.hpp>
 
 
+// Workaround:
+// I don't know what happens...
+#if !defined(BOOST_MSVC)
+#define PSTADE_WINE_TEST_TYPENAME typename
+#else
+#define PSTADE_WINE_TEST_TYPENAME
+#endif
+
+
+template< class T >
+void test_dependent()
+{
+    BOOST_FOREACH (
+        typename PSTADE_COMMA_PROTECT((std::pair<int, T>)) p,
+        PSTADE_WINE_TEST_TYPENAME PSTADE_COMMA_PROTECT((std::map<int, T>))()
+    ) {
+        (void)p;
+        BOOST_CHECK(false);
+    }
+}
+
+
 void test()
 {
     using namespace pstade;
@@ -26,8 +48,11 @@ void test()
         PSTADE_COMMA_PROTECT((std::pair<int, int>)) p,
         PSTADE_COMMA_PROTECT((std::map<int, int>))()
     ) {
-        BOOST_CHECK((p, false));
+        (void)p;
+        BOOST_CHECK(false);
     }
+
+    ::test_dependent<int>();
 }
 
 
