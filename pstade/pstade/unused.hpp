@@ -46,8 +46,11 @@ struct unused_fun
 
     // 3ary -
     #define PSTADE_UNUSED_arg(Z, N, _) BOOST_PP_CAT(A, N) const&
+
     #define BOOST_PP_ITERATION_PARAMS_1 (3, (3, PSTADE_UNUSED_MAX_ARITY, <pstade/unused.hpp>))
     #include BOOST_PP_ITERATE()
+
+    #undef PSTADE_UNUSED_arg
 };
 
 

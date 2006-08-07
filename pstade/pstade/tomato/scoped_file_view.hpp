@@ -35,7 +35,7 @@ namespace scoped_file_view_detail {
 
         ~impl()
         {
-            PSTADE_VERIFY( ::UnmapViewOfFile(m_pView) );
+            pstade::verify( ::UnmapViewOfFile(m_pView) );
         }
 
         const LPVOID m_pView;

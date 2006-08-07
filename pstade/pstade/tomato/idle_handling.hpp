@@ -37,7 +37,7 @@ namespace idle_handling_detail {
         ~impl()
         {
             WTL::CMessageLoop *pLoop = _Module.GetMessageLoop(m_dwThreadID);
-            PSTADE_VERIFY( pLoop && pLoop->RemoveIdleHandler(m_pIdleHandler) );
+            pstade::verify( pLoop && pLoop->RemoveIdleHandler(m_pIdleHandler) );
         }
 
     private:

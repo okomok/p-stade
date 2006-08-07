@@ -13,11 +13,17 @@
 #include <pstade/verify.hpp>
 
 
+#include <pstade/is_same.hpp>
+
+
 void test()
 {
     int i = 0;
-    PSTADE_VERIFY( (++i, true) );
+    pstade::verify( (++i, true) );
     BOOST_CHECK(i == 1);
+    BOOST_CHECK( (i|pstade::verified) == 1 );
+    BOOST_CHECK( pstade::is_same(i, pstade::verify(i)) );
+    BOOST_CHECK( pstade::is_same(i, i|pstade::verified) );
 }
 
 

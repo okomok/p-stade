@@ -30,10 +30,10 @@ struct pointable :
 {
     typedef Element element_type; // for 'boost::pointee'.
 
-    element_type *operator->() const
+    Element *operator->() const
     {
         T const& d = pstade::derived(*this);
-        return access::template detail_pointer<element_type>(d);
+        return access::template detail_pointer<Element>(d);
     }
 
     friend

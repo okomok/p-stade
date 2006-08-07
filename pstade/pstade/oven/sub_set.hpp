@@ -28,8 +28,18 @@ namespace sub_set_detail {
     template< class Range >
     struct storage
     {
-        typedef typename range_iterator<Range>::type iter_t;
-        typedef std::vector<iter_t> type;
+        typedef std::vector<
+            typename range_iterator<Range>::type
+        > type;
+    };
+
+
+    template< class Range >
+    struct init
+    {
+        typedef boost::base_from_member<
+            typename storage<Range>::type
+        > type;
     };
 
 
@@ -47,11 +57,11 @@ namespace sub_set_detail {
 
 template< class Range >
 struct sub_set :
-    private boost::base_from_member< typename sub_set_detail::storage<Range>::type >,
+    private sub_set_detail::init<Range>::type,
     sub_set_detail::super_<Range>::type
 {
 private:
-    typedef boost::base_from_member< typename sub_set_detail::storage<Range>::type > storage_bt;
+    typedef typename sub_set_detail::init<Range>::type init_t;
     typedef typename sub_set_detail::super_<Range>::type super_t;
 
 public:
@@ -59,17 +69,17 @@ public:
     //   If so, 'sub_set<> ss(rng|directed);'
     //
     explicit sub_set(Range& rng) :
-        storage_bt(
+        init_t(
             boost::make_counting_iterator(boost::begin(rng)),
             boost::make_counting_iterator(boost::end(rng))
         ),
-        super_t(storage_bt::member)
+        super_t(init_t::member)
     { }
 
     template< class Iterators >
     explicit sub_set(Iterators& its) :
-        storage_bt(boost::begin(its), boost::end(its)),
-        super_t(storage_bt::member)
+        init_t(boost::begin(its), boost::end(its)),
+        super_t(init_t::member)
     { }
 };
 

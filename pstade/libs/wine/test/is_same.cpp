@@ -16,8 +16,13 @@
 void test()
 {
     int x = 0;
+    BOOST_CHECK( pstade::is_same(x, x) );
     int& y = x;
     BOOST_CHECK( pstade::is_same(x, y) );
+
+    int z = 0;
+    BOOST_CHECK( !pstade::is_same(x, z) );
+    BOOST_CHECK( !pstade::is_same(y, z) );
 }
 
 

@@ -54,7 +54,7 @@ namespace find_file_range_detail {
         ~init()
         {
             if (m_hFind != INVALID_HANDLE_VALUE)
-                PSTADE_VERIFY( ::FindClose(m_hFind) );
+                pstade::verify( ::FindClose(m_hFind) );
         }
     };
 

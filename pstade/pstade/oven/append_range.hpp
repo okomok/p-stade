@@ -23,23 +23,43 @@
 namespace pstade { namespace oven {
 
 
+namespace append_range_detail {
+
+
+    template< class Value >
+    struct init
+    {
+        typedef boost::base_from_member< single_range<Value> > type;
+    };
+
+
+    template< class Range, class Value >
+    struct super_
+    {
+        typedef joint_range< Range, single_range<Value> > type;
+    };
+
+
+} // namespace append_range_detail
+
+
 template< class Range, class Value >
 struct append_range :
-    private boost::base_from_member< single_range<Value> >,
-    joint_range< Range, single_range<Value> >,
+    private append_range_detail::init<Value>::type,
+    append_range_detail::super_<Range, Value>::type,
     private lightweight_proxy< append_range<Range, Value> >
 {
     typedef Range pstade_oven_range_base_type;
 
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
-    typedef boost::base_from_member< single_range<Value> > single_range_bt;
-    typedef joint_range< Range, single_range<Value> > super_t;
+    typedef typename append_range_detail::init<Value>::type init_t;
+    typedef typename append_range_detail::super_<Range, Value>::type super_t;
 
 public:
     append_range(Range& rng, Value& v) :
-        single_range_bt(boost::ref(v)),
-        super_t(rng, single_range_bt::member)
+        init_t(boost::ref(v)),
+        super_t(rng, init_t::member)
     { }
 };
 

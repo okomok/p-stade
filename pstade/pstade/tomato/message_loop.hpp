@@ -43,7 +43,7 @@ struct message_loop
 
     ~message_loop()
     {
-        PSTADE_VERIFY( _Module.RemoveMessageLoop() );
+        pstade::verify( _Module.RemoveMessageLoop() );
     }
 
     int run()

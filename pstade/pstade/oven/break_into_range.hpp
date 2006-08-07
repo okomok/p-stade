@@ -29,7 +29,6 @@
 #include "./range_value.hpp"
 
 
-
 namespace pstade { namespace oven {
 
 

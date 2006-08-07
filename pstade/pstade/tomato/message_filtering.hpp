@@ -37,7 +37,7 @@ namespace message_filtering_detail {
         ~impl()
         {
             WTL::CMessageLoop *pLoop = _Module.GetMessageLoop(m_dwThreadID);
-            PSTADE_VERIFY( pLoop && pLoop->RemoveMessageFilter(m_pMessageFilter) );
+            pstade::verify( pLoop && pLoop->RemoveMessageFilter(m_pMessageFilter) );
         }
 
     private:

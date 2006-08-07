@@ -12,25 +12,45 @@
 
 // What:
 //
-// Use in destructors
+// Never throws, use in destructors.
 
 
 #include <boost/assert.hpp>
+#include <boost/type_traits/add_reference.hpp>
+#include <pstade/egg/function.hpp>
+#include <pstade/oven/range_adaptor.hpp>
 
 
-#if !defined(NDEBUG) || defined(PSTADE_VERIFY_DEBUG)
+namespace pstade {
 
-    #define PSTADE_VERIFY \
-        BOOST_ASSERT \
-    /**/
 
-#else
+namespace verify_detail {
 
-    #define PSTADE_VERIFY(X) \
-        (X)
-    /**/
 
-#endif
+    struct baby
+    {
+        template< class Unused, class T >
+        struct result :
+            boost::add_reference<T>
+        { };
+
+        template< class Result, class T >
+        Result call(T& x)
+        {
+            BOOST_ASSERT(x);
+            return x;
+        }
+    };
+
+
+} // namespace verify_detail
+
+
+PSTADE_EGG_FUNCTION(verify, verify_detail::baby)
+PSTADE_OVEN_RANGE_ADAPTOR(verified, verify_detail::baby)
+
+
+} // namespace pstade
 
 
 #endif
