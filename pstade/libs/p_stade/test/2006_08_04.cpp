@@ -10,18 +10,21 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <memory> // auto_ptr
+#include <boost/noncopyable.hpp>
 
 
-std::auto_ptr<int> new_int()
-{
-    return std::auto_ptr<int>(new int());
-}
+struct xxx :
+    private boost::noncopyable
+{ };
+
+
+void foo(xxx const&)
+{ }
 
 
 void test()
 {
-    std::auto_ptr<int const> ap(::new_int());
+    ::foo(xxx());
 }
 
 
