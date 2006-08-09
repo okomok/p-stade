@@ -38,6 +38,7 @@ test-suite wine :
     [ wine-test pause ]
     [ wine-test remove_cvr ]
     [ wine-test require ]
+    [ wine-test sarray ]
     [ wine-test statement ]
     [ wine-test static_c ]
     [ wine-test unused ]

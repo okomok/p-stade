@@ -20,9 +20,14 @@
 #include <boost/type_traits/remove_cv.hpp>
 #include <boost/utility/enable_if.hpp> // disable_if
 #include <pstade/egg/function.hpp>
+#include <pstade/oui_non.hpp>
 
 
 namespace pstade { namespace oven { namespace detail {
+
+
+struct cannot_deduce_result_type_of_plus
+{ };
 
 
 template< class X, class Y >
@@ -32,12 +37,8 @@ private:
     typedef typename boost::remove_cv<X>::type x_t;
     typedef typename boost::remove_cv<Y>::type y_t;
 
-    struct yes { char a[1]; };
-    struct non { char a[2]; };
-    struct cannot_deduce_result_type_of_plus { };
-
     template< class X_, class Y_ > static
-    yes test(X_ const&);
+    oui test(X_ const&);
 
     template< class X_, class Y_ > static
     typename boost::disable_if< boost::is_same<X_, Y_>,
@@ -50,7 +51,7 @@ private:
     static y_t y;
 
     static bool const is_x =
-        sizeof(yes) == sizeof(test<x_t, y_t>(x + y));
+        sizeof( test<x_t, y_t>(x + y) ) == sizeof(oui);
 
 public:
     typedef typename boost::mpl::if_c< is_x,

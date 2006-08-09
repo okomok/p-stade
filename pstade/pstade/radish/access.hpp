@@ -16,6 +16,12 @@ namespace pstade { namespace radish {
 class access
 {
 public:
+    template< class T > static
+    bool detail_bool(T const& x)
+    {
+        return x.pstade_radish_bool(x);
+    }
+
     template< class T, class OStream > static
     void detail_output(T const& x, OStream& os)
     {

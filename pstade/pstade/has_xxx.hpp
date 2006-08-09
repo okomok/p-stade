@@ -27,24 +27,15 @@
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
 #include <boost/mpl/bool.hpp>
-#include <boost/mpl/identity.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/seq/enum.hpp>
+#include <pstade/nullptr.hpp>
+#include <pstade/oui_non.hpp>
 
 
-namespace pstade { namespace has_xxx_detail {
-
-
-    struct yes { char a[1]; };
-    struct non { char a[2]; };
-
-
-    #if BOOST_WORKAROUND(BOOST_MSVC, == 1310) // VC7.1
-        #define PSTADE_HAS_XXX_TYPE_AND_DATA_NAME_CONFUSION
-    #endif
-
-
-} } // namespace pstade::has_xxx_detail
+#if BOOST_WORKAROUND(BOOST_MSVC, == 1310) // VC7.1
+    #define PSTADE_HAS_XXX_TYPE_AND_DATA_NAME_CONFUSION
+#endif
 
 
 #define PSTADE_HAS_TYPE(Type) \
@@ -58,20 +49,28 @@ namespace pstade { namespace has_xxx_detail {
 
 
     #define PSTADE_HAS_type(Name, Type) \
+        namespace PSTADE_HAS_helper_ns_of(Name) { \
+            \
+            template< class T > \
+            pstade::oui test(typename T::Type (*)()); \
+            \
+            template< class T > \
+            pstade::non test(...); \
+            \
+        } \
+        \
         template< class T > \
-        struct Name \
-        { \
-            template< class U > static \
-            pstade::has_xxx_detail::yes test(boost::mpl::identity<U> *, typename U::Type (*)() = 0); \
-            \
-            static \
-            pstade::has_xxx_detail::non test(...); \
-            \
-            static bool const value = \
-                sizeof(test((::boost::mpl::identity<T> *)0)) == sizeof(pstade::has_xxx_detail::yes); \
-            \
-            typedef boost::mpl::bool_<value> type; \
-        }; \
+        struct Name : \
+            boost::mpl::bool_< \
+                sizeof( PSTADE_HAS_helper_ns_of(Name)::test<T>(PSTADE_NULLPTR) ) \
+                    == sizeof(pstade::oui) \
+            > \
+        { }; \
+    /**/
+
+
+    #define PSTADE_HAS_helper_ns_of(Name) \
+        BOOST_PP_CAT(pstade_has_xxx_helper_, Name) \
     /**/
 
 
@@ -114,24 +113,27 @@ namespace pstade { namespace has_xxx_detail {
 
 
     #define PSTADE_HAS_data(Name, Type, Var) \
-        template< class T > \
-        struct Name \
-        { \
-            template< class U, Type U::* > \
+        namespace PSTADE_HAS_helper_ns_of(Name) { \
+            \
+            template< class T, Type T::* > \
             struct holder \
             { }; \
             \
-            template< class U > static \
-            pstade::has_xxx_detail::yes test(boost::mpl::identity<U> *, holder<U, &U::Var> * = 0); \
+            template< class T > \
+            pstade::oui test(holder<T, &T::Var> *); \
             \
-            static \
-            pstade::has_xxx_detail::non test(...); \
+            template< class T > \
+            pstade::non test(...); \
             \
-            static bool const value = \
-                sizeof(test((::boost::mpl::identity<T> *)0)) == sizeof(pstade::has_xxx_detail::yes); \
-            \
-            typedef boost::mpl::bool_<value> type; \
-        }; \
+        } \
+        \
+        template< class T > \
+        struct Name : \
+            boost::mpl::bool_< \
+                sizeof( PSTADE_HAS_helper_ns_of(Name)::test<T>(PSTADE_NULLPTR) ) \
+                    == sizeof(pstade::oui) \
+            > \
+        { }; \
     /**/
 
 
@@ -174,24 +176,27 @@ namespace pstade { namespace has_xxx_detail {
 
 
     #define PSTADE_HAS_function(Name, Result, Fun, ParamSeq) \
-        template< class T > \
-        struct Name \
-        { \
-            template< class U, Result (U::*)(BOOST_PP_SEQ_ENUM(ParamSeq)) > \
+        namespace PSTADE_HAS_helper_ns_of(Name) { \
+            \
+            template< class T, Result (T::*)(BOOST_PP_SEQ_ENUM(ParamSeq)) > \
             struct holder \
             { }; \
             \
-            template< class U > static \
-            pstade::has_xxx_detail::yes test(boost::mpl::identity<U> *, holder<U, &U::Fun> * = 0); \
+            template< class T > \
+            pstade::oui test(holder<T, &T::Fun> *); \
             \
-            static \
-            pstade::has_xxx_detail::non test(...); \
+            template< class T > \
+            pstade::non test(...); \
             \
-            static bool const value = \
-            sizeof(test((::boost::mpl::identity<T> *)0)) == sizeof(pstade::has_xxx_detail::yes); \
-            \
-            typedef boost::mpl::bool_<value> type; \
-        }; \
+        } \
+        \
+        template< class T > \
+        struct Name : \
+            boost::mpl::bool_< \
+                sizeof( PSTADE_HAS_helper_ns_of(Name)::test<T>(PSTADE_NULLPTR) ) \
+                    == sizeof(pstade::oui) \
+            > \
+        { }; \
     /**/
 
 

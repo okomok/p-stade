@@ -11,6 +11,7 @@
 
 
 #include "./radish/access.hpp"
+#include "./radish/boolean.hpp"
 #include "./radish/output_streamable.hpp"
 #include "./radish/pointable.hpp"
 #include "./radish/swappable.hpp"
