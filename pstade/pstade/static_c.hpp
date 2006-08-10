@@ -25,16 +25,21 @@
 namespace pstade {
 
 
-template< class T, T v >
+template< class T, T N >
 struct static_c
 {
-    static T const value = v;
+    typedef T value_type;
+    static T const value = N;
+    typedef static_c type;
+    typedef static_c<T, N+1> next;
+    typedef static_c<T, N-1> prior;
+    operator T() const { return this->value; }
 };
 
 
-template< class T, T v >
+template< class T, T N >
 T const
-static_c<T, v>::value;
+static_c<T, N>::value;
 
 
 } // namespace pstade

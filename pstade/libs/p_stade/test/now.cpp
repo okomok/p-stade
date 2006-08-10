@@ -10,18 +10,57 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <memory> // auto_ptr
+#include <boost/preprocessor/cat.hpp>
+#include <boost/preprocessor/seq/enum.hpp>
 
 
-std::auto_ptr<int> new_int()
+#define PP_OBJECT(Type, Var, ArgSeq, Statement) \
+    Type Var; \
+    BOOST_PP_CAT(construct_, Type)(&Var, BOOST_PP_SEQ_ENUM(ArgSeq)); \
+    Statement \
+    BOOST_PP_CAT(destruct_, Type)(&Var); \
+/**/
+
+
+
+typedef memory *void;
+
+void construct_memory(void ** pp, std::size_t sz)
 {
-    return std::auto_ptr<int>(new int());
+    *pp = std::malloc(sz);
+}
+
+void destruct_memory(void **p)
+{
+    std::free(p);
+}
+
+
+struct string
+{
+    char *p;
+};
+
+
+void construct_string(string *p, char *psz)
+{
+}
+
+void destruct_string(string *p)
+{
 }
 
 
 void test()
 {
-    std::auto_ptr<int const> ap(::new_int());
+    PP_OBJECT(memory, x, (35),
+    PP_OBJECT(string, y, ("xyz"),
+    PP_OBJECT(string, z, ("xyz"),
+        int a;
+        hello();
+        goodbye();
+
+    )))
 }
 
 
