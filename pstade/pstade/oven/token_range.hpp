@@ -43,12 +43,6 @@ namespace token_range_detail {
     };
 
 
-    template< class BidiRange >
-    struct default_char :
-        range_value<BidiRange>
-    { };
-
-
     using boost::regex_constants::match_flag_type;
     using boost::regex_constants::match_default;
 
@@ -58,7 +52,7 @@ namespace token_range_detail {
 
 template<
     class BidiRange,
-    class CharT = typename token_range_detail::default_char<BidiRange>::type,
+    class CharT = typename range_value<BidiRange>::type,
     class Traits = boost::regex_traits<CharT>
 >
 struct token_range :
@@ -78,10 +72,10 @@ public:
         BidiRange& rng,
         regex_t const& re,
         int submatch = 0,
-        token_range_detail::match_flag_type m = token_range_detail::match_default
+        token_range_detail::match_flag_type flag = token_range_detail::match_default
     ) :
         super_t(
-            iter_t(boost::begin(rng), boost::end(rng), re, submatch, m),
+            iter_t(boost::begin(rng), boost::end(rng), re, submatch, flag),
             iter_t()
         )
     { }
@@ -91,10 +85,10 @@ public:
         BidiRange& rng,
         regex_t const& re,
         RandRange const& submatches,
-        token_range_detail::match_flag_type m = token_range_detail::match_default
+        token_range_detail::match_flag_type flag = token_range_detail::match_default
     ) :
         super_t(
-            iter_t(boost::begin(rng), boost::end(rng), re, submatches, m),
+            iter_t(boost::begin(rng), boost::end(rng), re, submatches, flag),
             iter_t()
         )
     { }
@@ -106,22 +100,22 @@ namespace token_range_detail {
 
     struct baby_generator
     {
-        template< class Unused, class BidiRange, class RegexT = void, class IntOrRndRange = void, class FlagT = void >
+        template< class Unused, class BidiRange, class RegexT, class IntOrRndRange = void, class FlagT = void >
         struct result
         {
             typedef token_range<BidiRange> const type;
         };
 
         template< class Result, class BidiRange, class RegexT >
-        Result call(BidiRange& rng, RegexT const& re, int submatch = 0, match_flag_type m = match_default)
+        Result call(BidiRange& rng, RegexT const& re, int submatch = 0, match_flag_type flag = match_default)
         {
-            return Result(rng, re, submatch, m);
+            return Result(rng, re, submatch, flag);
         }
 
         template< class Result, class BidiRange, class RegexT, class RandRange >
-        Result call(BidiRange& rng, RegexT const& re, RandRange const& submatches, match_flag_type m = match_default)
+        Result call(BidiRange& rng, RegexT const& re, RandRange const& submatches, match_flag_type flag = match_default)
         {
-            return Result(rng, re, submatches, m);
+            return Result(rng, re, submatches, flag);
         }
     };
 

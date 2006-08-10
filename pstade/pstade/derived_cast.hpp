@@ -12,7 +12,7 @@
 
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
-#include <boost/static_assert.hpp>
+#include <boost/mpl/assert.hpp>
 #include <boost/type_traits/is_base_of.hpp>
 #include <boost/utility/addressof.hpp>
 #include <pstade/nonassignable.hpp>
@@ -32,8 +32,7 @@ namespace pstade {
 template< class DerivedT, class BaseT > inline
 DerivedT& derived_cast(BaseT& base)
 {
-    BOOST_STATIC_ASSERT((boost::is_base_of<BaseT, DerivedT>::value));
-
+    BOOST_MPL_ASSERT((boost::is_base_of<BaseT, DerivedT>));
     return static_cast<DerivedT&>(base);
 }
 

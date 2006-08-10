@@ -10,9 +10,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/mpl/assert.hpp>
 #include <boost/mpl/identity.hpp>
 #include <boost/numeric/conversion/cast.hpp> // numeric_cast
-#include <boost/static_assert.hpp>
 #include <boost/type_traits/is_integral.hpp>
 #include <pstade/nonassignable.hpp>
 
@@ -23,8 +23,8 @@ namespace pstade {
 template< class TargetT, class SourceT > inline
 TargetT integral_cast(SourceT src)
 {
-    BOOST_STATIC_ASSERT((boost::is_integral<TargetT>::value));
-    BOOST_STATIC_ASSERT((boost::is_integral<SourceT>::value));
+    BOOST_MPL_ASSERT((boost::is_integral<TargetT>));
+    BOOST_MPL_ASSERT((boost::is_integral<SourceT>));
 
     return boost::numeric_cast<TargetT>(src); // :-)
 }

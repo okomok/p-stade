@@ -10,11 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/mpl/assert.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/empty.hpp>
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
-#include <boost/static_assert.hpp>
 #include <boost/type_traits/is_pointer.hpp>
 #include <boost/utility/addressof.hpp>
 #include <pstade/egg/function.hpp>
@@ -45,7 +45,7 @@ namespace point_range_detail {
     Super make(ContiguousRange& vec)
     {
         typedef typename Super::iterator iter_t;
-        BOOST_STATIC_ASSERT(boost::is_pointer<iter_t>::value);
+        BOOST_MPL_ASSERT((boost::is_pointer<iter_t>));
 
         if (boost::empty(vec))
             return Super(iter_t(PSTADE_NULLPTR), iter_t(PSTADE_NULLPTR));

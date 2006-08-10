@@ -109,7 +109,7 @@ private:
 friend class boost::iterator_core_access;
     void increment()
     {
-        BOOST_ASSERT(this->base() != m_last && "out of range");
+        BOOST_ASSERT("out of range" && this->base() != m_last);
 
         ++(this->base_reference());
         search_submatch();

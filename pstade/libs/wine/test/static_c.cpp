@@ -34,6 +34,10 @@ void test()
 {
     ::foo(::two::value);
     ::bar(&::two::value);
+
+    typedef pstade::static_c< int, 50 > a_n;
+    a_n::value_type const c = a_n();
+    BOOST_CHECK( c == a_n::value );
 }
 
 

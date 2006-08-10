@@ -33,7 +33,7 @@ struct static_c
     typedef static_c type;
     typedef static_c<T, N+1> next;
     typedef static_c<T, N-1> prior;
-    operator T() const { return this->value; }
+    operator T() const { return value; }
 };
 
 
