@@ -10,6 +10,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/range/begin.hpp>
+#include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <boost/regex.hpp>
 #include <pstade/egg/function.hpp>

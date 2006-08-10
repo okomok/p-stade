@@ -10,6 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// What:
+//
+// Intended to replace the infamous 'alloca'.
+
+
 #include <cstddef> // size_t, ptrdiff_t
 #include <boost/assert.hpp>
 #include <boost/checked_delete.hpp>
