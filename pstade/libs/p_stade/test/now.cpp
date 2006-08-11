@@ -1,71 +1,60 @@
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
 
 
-// PStade.P_Stade;
+#if defined(__MINGW32__)
+    #define PSTADE_WINE_TEST_MINIMAL
+#endif
+
+#if !defined(PSTADE_WINE_TEST_MINIMAL)
+    #include <boost/test/test_tools.hpp>
+    #define BOOST_LIB_NAME boost_test_exec_monitor
+    #include <boost/config/auto_link.hpp>
+#else
+    #include <boost/test/minimal.hpp>
+#endif
+
+
+// PStade.Wine
 //
-// Copyright MB 2006.
+// Copyright MB 2005-2006.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/preprocessor/cat.hpp>
-#include <boost/preprocessor/seq/enum.hpp>
-
-
-#define PP_OBJECT(Type, Var, ArgSeq, Statement) \
-    Type Var; \
-    BOOST_PP_CAT(construct_, Type)(&Var, BOOST_PP_SEQ_ENUM(ArgSeq)); \
-    Statement \
-    BOOST_PP_CAT(destruct_, Type)(&Var); \
-/**/
-
-
-
-typedef memory *void;
-
-void construct_memory(void ** pp, std::size_t sz)
-{
-    *pp = std::malloc(sz);
-}
-
-void destruct_memory(void **p)
-{
-    std::free(p);
-}
-
-
-struct string
-{
-    char *p;
-};
-
-
-void construct_string(string *p, char *psz)
-{
-}
-
-void destruct_string(string *p)
-{
-}
+#include <pstade/junk/alloca.hpp>
 
 
 void test()
 {
-    PP_OBJECT(memory, x, (35),
-    PP_OBJECT(string, y, ("xyz"),
-    PP_OBJECT(string, z, ("xyz"),
-        int a;
-        hello();
-        goodbye();
-
-    )))
+    PSTADE_ALLOCA(int, p1, 50);
+    *p1 = 10;
+    PSTADE_ALLOCA(int, p2, 5000);
+    *p2 = 20;
 }
 
 
-int test_main(int, char*[])
-{
-    ::test();
-    return 0;
-}
+#if !defined(PSTADE_WINE_TEST_MINIMAL)
+
+    #include <boost/test/unit_test.hpp>
+    using boost::unit_test::test_suite;
+
+    test_suite *
+    init_unit_test_suite(int argc, char *argv[])
+    {
+        test_suite *test = BOOST_TEST_SUITE("Oven Test Suite");
+        test->add(BOOST_TEST_CASE(&::test));
+
+        (void)argc, (void)argv; // unused
+        return test;
+    }
+
+#else
+
+    int test_main(int, char*[])
+    {
+        ::test();
+        return 0;
+    }
+
+#endif

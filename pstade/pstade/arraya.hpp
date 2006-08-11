@@ -25,8 +25,8 @@
 #include <boost/scoped_array.hpp>
 
 
-#if !defined(PSTADE_ARRAYA_DEFAULT_THRESHOLD_BYTES)
-    #define PSTADE_ARRAYA_DEFAULT_THRESHOLD_BYTES 256
+#if !defined(PSTADE_ARRAYA_THRESHOLD_BYTES)
+    #define PSTADE_ARRAYA_THRESHOLD_BYTES 256 // follows ATL.
 #endif
 
 
@@ -37,9 +37,9 @@ namespace arraya_detail {
 
 
     template< class T >
-    struct default_threshold :
+    struct threshold :
         boost::mpl::divides<
-            boost::mpl::size_t<PSTADE_ARRAYA_DEFAULT_THRESHOLD_BYTES>,
+            boost::mpl::size_t< PSTADE_ARRAYA_THRESHOLD_BYTES >,
             boost::mpl::sizeof_<T>
         >
     { };
@@ -50,7 +50,7 @@ namespace arraya_detail {
 
 template<
     class T,
-    std::size_t N = arraya_detail::default_threshold<T>::value
+    std::size_t N = arraya_detail::threshold<T>::value
 >
 struct arraya :
     private boost::noncopyable
