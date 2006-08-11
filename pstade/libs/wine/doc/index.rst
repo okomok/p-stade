@@ -74,6 +74,16 @@ A non-const rvalue cannot bind to the deduced non-const reference.
 
 
 
+``arraya``
+----------
+``arraya`` is a replacement for the infamous ``alloca``.
+
+- Header: ``<pstade/arraya.hpp>``
+- Valid expression: ``arraya<t> a(sz);`` and ``a.get()``, where ``t`` is a typename.
+- Semantics: ``a.get()`` returns a pointer whose type is ``t*``.
+
+
+
 ``PSTADE_COMMA_PROTECT``
 ------------------------
 Macros regard `,` as an argument separator. This makes problem when
@@ -99,6 +109,12 @@ If the argument type is a dependent name, add ``typename`` before.
 
 
 
+``const_overloaded``
+--------------------
+Pending...
+
+
+
 ``derived_cast``
 ----------------
 
@@ -113,17 +129,6 @@ It just calls ``static_cast``, but the name makes codes clearer::
 - Header: ``<pstade/const.hpp>``
 - Valid expression: ``D& d = derived(b)``
 - Precondition: ``D`` is derived from the type of ``b``.
-
-
-
-``nonassignable``
------------------
-Class ``nonassignable`` is a base class.
-Derive your own class from ``nonassignable`` when you want to prohibit copy assignment.
-
-- Header: ``<pstade/nonassignable.hpp>``
-- Valid expression: ``class A : nonassignable { ... };``
-- Postcondition: ``a1 = a2`` is invalid, where ``a1`` and ``a2`` are types of ``A``.
 
 
 
@@ -154,13 +159,27 @@ otherwise, convertible to ``boost::mpl::false_``::
 
 ``is_same``
 -----------
-Pending...
+
+- Header: ``<pstade/is_same.hpp>``
+- Valid expression: ``is_same(x, y)``
+- Returns: ``true`` if ``x`` and ``y`` are the same object; otherwise, ``false``.
 
 
 
 ``new_``
 --------
 Pending...
+
+
+
+``nonassignable``
+-----------------
+Class ``nonassignable`` is a base class.
+Derive your own class from ``nonassignable`` when you want to prohibit copy assignment.
+
+- Header: ``<pstade/nonassignable.hpp>``
+- Valid expression: ``class A : nonassignable { ... };``
+- Postcondition: ``a1 = a2`` is invalid, where ``a1`` and ``a2`` are types of ``A``.
 
 
 
@@ -182,6 +201,12 @@ Pending...
 
 ``PSTADE_STATEMENT``
 --------------------
+Pending...
+
+
+
+``static_c``
+------------
 Pending...
 
 

@@ -34,6 +34,7 @@ void test()
     arraya<std::string> const arr1(400);
     arr1[399] = "cde";
     arraya<std::string, 0> arr2(10);
+    arr2[9] = "fgh";
 }
 
 

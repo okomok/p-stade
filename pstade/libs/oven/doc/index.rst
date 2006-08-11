@@ -7,7 +7,7 @@ The Oven Range Library
 :Author: MB
 :Contact: mb2act@yahoo.co.jp 
 :License: Distributed under the `Boost Software License Version 1.0`_
-:Version: 0.90.6
+:Version: 0.90.7
 
 
 
@@ -134,8 +134,7 @@ Note that the size of two ranges is also checked out::
 Ranges
 ------
 Oven provides some predefined range types.
-``<pstade/oven/ranges.hpp>`` includes all the following ranges except for
-`directory_range`_ and `tokenized`_.
+``<pstade/oven/ranges.hpp>`` includes every range header if not exceptionally noted.
 
 
 ``array_range``
@@ -177,7 +176,7 @@ they were the original iterators wrapped in `directory_iterator`__::
 __ http://www.boost.org/libs/filesystem/doc/operations.htm#directory_iterator
 
 
-- Header: ``<pstade/oven/directory_range.hpp>``
+- Header: ``<pstade/oven/directory_range.hpp>``; not included by ``<pstade/oven/ranges.hpp>``
 - Valid expression: ``directory_range rng(p);`` and ``wdirectory_range wrng(wp);``
 - Precondition: The type of ``p`` is ``boost::filesystem::path`` and
   the type of ``wp`` is ``boost::filesystem::wpath``.
@@ -510,6 +509,13 @@ Pending...
 - See: `Range Library Proposal`_.
 
 
+``matched``
+^^^^^^^^^^^
+- Header: ``<pstade/oven/match_range.hpp>``; not included by ``<pstade/oven/ranges.hpp>``
+- Valid expression: ``biRng|matched(re)`` or ``biRng|matched(re,flag)``
+- Returns: A range whose iterators behave as if they were the original iterators wrapped in ``boost::regex_iterator``.
+
+
 ``memoized``
 ^^^^^^^^^^^^
 ``memoized`` returns a range whose values are cached for speed, preparing repeated dereferences.
@@ -701,7 +707,7 @@ prefix (possibly empty) of the range of elements that satisfy `Predicate`_::
 
 ``tokenized``
 ^^^^^^^^^^^^^
-- Header: ``<pstade/oven/token_range.hpp>``
+- Header: ``<pstade/oven/token_range.hpp>``; not included by ``<pstade/oven/ranges.hpp>``
 - See: `Range Library Proposal`_.
 
 
@@ -733,6 +739,20 @@ Pending...
 - Header: ``<pstade/oven/utf8_decode_range.hpp>``
 - Valid expression: ``biRng|utf8_decoded<>()``
 - Returns: A `Bidirectional Range`_ whose iterators behave as if they were the original iterators wrapped in ``boost::u8_to_u32_iterator``.
+
+
+``xpressive_matched``
+^^^^^^^^^^^^^^^^^^^^^
+- Header: ``<pstade/oven/xpressive_match_range.hpp>``; not included by ``<pstade/oven/ranges.hpp>``
+- Valid expression: ``biRng|xpressive_matched(re)`` or ``biRng|xpressive_matched(re,flag)``
+- Returns: A range whose iterators behave as if they were the original iterators wrapped in ``boost::xpressive::regex_iterator``.
+
+
+``xpressive_tokenized``
+^^^^^^^^^^^^^^^^^^^^^^^
+- Header: ``<pstade/oven/xpressive_token_range.hpp>``; not included by ``<pstade/oven/ranges.hpp>``
+- Valid expression: ``biRng|xpressive_tokenized(re)`` or ``biRng|xpressive_tokenized(re,subMatches,flag)``
+- Returns: A range whose iterators behave as if they were the original iterators wrapped in ``boost::xpressive::regex_token_iterator``.
 
 
 ``zipped``
@@ -791,25 +811,21 @@ Version 0.90.2
 - Changed `checked`_ to throw exception.
 - Renamed ``found`` to `string_found`_.
 
-Version 0.90.3
-^^^^^^^^^^^^^^
+Version 0.90.3 - 0.90.6
+^^^^^^^^^^^^^^^^^^^^^^^
 - Changed the header of `Range Algorithms`_.
 - Added `base_iterator`_.
-
-Version 0.90.4
-^^^^^^^^^^^^^^
 - Added some `Range Adaptors`_.
 - Renamed ``accumulated`` to `scanned`_.
-
-Version 0.90.5
-^^^^^^^^^^^^^^
 - Added workaround for `Standard Library Defect #198`__.
 - Changed `constants`_ semantics, and added `always`_ instead.
+- Changed `utf8_decoded`_ valid expression.
+- `shared`_ accepts ``auto_ptr``.
 
 __ http://std.dkuug.dk/jtc1/sc22/wg21/docs/lwg-defects.html#198
 
-Version 0.90.6
+Version 0.90.7
 ^^^^^^^^^^^^^^
-- Changed `utf8_decoded`_ valid expression.
-- `shared`_ accepts ``auto_ptr``.
+- Added `matched`_, `xpressive_matched`_ and `xpressive_tokenized`_.
+
 
