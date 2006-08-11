@@ -113,7 +113,7 @@ friend class boost::iterator_core_access;
 };
 
 
-template< class Iterator, class BinaryFun, class State > inline
+template< class Iterator, class State, class BinaryFun > inline
 scan_iterator<Iterator, State, BinaryFun> const
 make_scan_iterator(Iterator const& it, State const& init, BinaryFun fun)
 {

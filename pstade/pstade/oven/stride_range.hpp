@@ -68,7 +68,7 @@ public:
     stride_range(ForwardRange& rng, diff_t length, diff_t offset = 0) :
         super_t(
             iter_t(boost::begin(rng), length, offset),
-            iter_t(boost::end(rng), length, offset)
+            iter_t(boost::end(rng),   length, offset)
         )
     {
         BOOST_ASSERT(stride_range_detail::is_valid_base(rng, length));

@@ -19,7 +19,7 @@ public:
     template< class T > static
     bool detail_bool(T const& x)
     {
-        return x.pstade_radish_bool(x);
+        return x.pstade_radish_bool();
     }
 
     template< class T, class OStream > static

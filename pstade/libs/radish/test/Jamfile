@@ -1,0 +1,22 @@
+
+subproject libs/radish/test ;
+
+import testing ;
+
+DEPENDS all : test ;
+
+rule pizza-test ( name : includes * )
+{
+    return [
+        run $(name).cpp
+        : : :
+        <include>$(PSTADE_ROOT)        
+        <include>$(BOOST_ROOT)
+
+    ] ;
+}
+
+test-suite pizza :
+    [ pizza-test boolean ]
+    [ pizza-test header ]
+    ;

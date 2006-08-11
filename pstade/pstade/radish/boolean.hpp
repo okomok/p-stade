@@ -13,6 +13,7 @@
 #include <boost/mpl/empty_base.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/derived_cast.hpp>
+#include <pstade/nullptr.hpp>
 #include "./access.hpp"
 
 
@@ -28,15 +29,22 @@ template<
 struct boolean :
     Base
 {
-    operator bool() const
+private:
+    typedef void (boolean::*pstade_radish_safe_bool_t)() const;
+    void pstade_radish_safe_bool_fun() const { }
+
+public:
+    operator pstade_radish_safe_bool_t() const
     {
-        T& d = pstade::derived(*this);
-        return access::detail_bool(d);
+        T const& d = pstade::derived(*this);
+        return access::detail_bool(d) ?
+            &boolean::pstade_radish_safe_bool_fun : PSTADE_NULLPTR;
     }
 
     bool operator !() const
     {
-        return !(operator bool());
+        return (operator pstade_radish_safe_bool_t()) ?
+            false : true; 
     }
 };
 

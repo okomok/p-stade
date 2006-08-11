@@ -134,7 +134,7 @@ Note that the size of two ranges is also checked out::
 Ranges
 ------
 Oven provides some predefined range types.
-``<pstade/oven/ranges.hpp>`` includes every range header if not exceptionally noted.
+``<pstade/oven/ranges.hpp>`` includes every range header unless otherwise specified.
 
 
 ``array_range``
@@ -243,7 +243,7 @@ A Range Adaptor delivers an altered presentation of one or more underlying range
 Range Adaptors are lazy, meaning that their elements are only computed on demand.
 The underlying ranges are not modified.
 Additional information is available at `Range Library Proposal`_.
-``<pstade/oven/ranges.hpp>`` includes all the following Range Adaptors.
+``<pstade/oven/ranges.hpp>`` includes all the following Range Adaptors unless otherwise specified.
 
 
 Specification

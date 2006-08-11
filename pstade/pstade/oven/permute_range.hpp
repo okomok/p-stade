@@ -27,10 +27,7 @@ namespace pstade { namespace oven {
 namespace permute_range_detail {
 
 
-    template<
-        class ElementRange,
-        class IndexRange
-    >
+    template< class ElementRange, class IndexRange >
     struct super_
     {
         typedef boost::iterator_range<
@@ -45,10 +42,7 @@ namespace permute_range_detail {
 } // namespace permute_range_detail
 
 
-template<
-    class ElementRange,
-    class IndexRange
->
+template< class ElementRange, class IndexRange >
 struct permute_range :
     permute_range_detail::super_<ElementRange, IndexRange>::type,
     private lightweight_proxy< permute_range<ElementRange, IndexRange> >

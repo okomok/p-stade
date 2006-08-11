@@ -13,7 +13,6 @@
 #include <boost/mpl/assert.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/empty.hpp>
-#include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <boost/type_traits/is_pointer.hpp>
 #include <boost/utility/addressof.hpp>

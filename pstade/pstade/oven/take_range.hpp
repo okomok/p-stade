@@ -12,7 +12,7 @@
 
 #include <boost/range/begin.hpp>
 #include <pstade/egg/function.hpp>
-#include "./detail/begin_advance.hpp"
+#include "./detail/advance_begin.hpp"
 #include "./detail/concept_check.hpp"
 #include "./lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
@@ -37,7 +37,7 @@ private:
 
 public:
     take_range(ForwardRange& rng, diff_t d) :
-        super_t(boost::begin(rng), detail::begin_advance(rng, d))
+        super_t(boost::begin(rng), detail::advance_begin(rng, d))
     { }
 };
 

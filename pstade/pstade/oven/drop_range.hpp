@@ -12,7 +12,7 @@
 
 #include <boost/range/end.hpp>
 #include <pstade/egg/function.hpp>
-#include "./detail/begin_advance.hpp"
+#include "./detail/advance_begin.hpp"
 #include "./detail/concept_check.hpp"
 #include "./lightweight_proxy.hpp"
 #include "./range_adaptor.hpp"
@@ -37,7 +37,7 @@ private:
 
 public:
     drop_range(Range& rng, diff_t d) :
-        super_t(detail::begin_advance(rng, d), boost::end(rng))
+        super_t(detail::advance_begin(rng, d), boost::end(rng))
     { }
 };
 
