@@ -17,7 +17,7 @@ rule radish-test ( name : includes * )
 }
 
 test-suite radish :
-    [ radish-test boolean ]
+    [ radish-test bool_testable ]
     [ radish-test header ]
     [ radish-test input_output_streamable ]
     ;
