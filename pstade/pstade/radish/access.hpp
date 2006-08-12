@@ -22,6 +22,12 @@ public:
         return x.pstade_radish_bool();
     }
 
+    template< class T, class IStream > static
+    void detail_input(T& x, IStream& is)
+    {
+        x.pstade_radish_input(is);
+    }
+
     template< class T, class OStream > static
     void detail_output(T const& x, OStream& os)
     {

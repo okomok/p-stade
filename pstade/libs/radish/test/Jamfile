@@ -5,7 +5,7 @@ import testing ;
 
 DEPENDS all : test ;
 
-rule pizza-test ( name : includes * )
+rule radish-test ( name : includes * )
 {
     return [
         run $(name).cpp
@@ -16,7 +16,8 @@ rule pizza-test ( name : includes * )
     ] ;
 }
 
-test-suite pizza :
-    [ pizza-test boolean ]
-    [ pizza-test header ]
+test-suite radish :
+    [ radish-test boolean ]
+    [ radish-test header ]
+    [ radish-test input_output_streamable ]
     ;

@@ -31,14 +31,66 @@ friend class pstade::radish::access;
 };
 
 
+struct my_doolean_t :
+    pstade::radish::boolean< my_doolean_t >,
+    ::my_boolean_t
+{
+    my_doolean_t(bool b) :
+        ::my_boolean_t(false), m_b(b)
+    { }
+
+private:
+    bool m_b;
+
+friend class pstade::radish::access;
+    bool pstade_radish_bool() const
+    {
+        return m_b;
+    }
+};
+
+
 void test()
 {
-    ::my_boolean_t b1(true);
-    BOOST_ASSERT(b1);
-    BOOST_ASSERT(!!b1);
-    ::my_boolean_t b2(false);
-    BOOST_ASSERT(!b2);
+    {
+        ::my_boolean_t b1(true);
+        if (b1) {
+            ;
+        }
+        else {
+            BOOST_ASSERT(false);
+        }
+
+        ::my_boolean_t b2(false);
+        if (!b2) {
+            ;
+        }
+        else {
+            BOOST_ASSERT(false);
+        }
+    }
+
+#if 0 // What can I do?
+    {
+        ::my_doolean_t d1(true);
+        if (d1) {
+            ;
+        }
+        else {
+            BOOST_ASSERT(false);
+        }
+
+        ::my_doolean_t d2(false);
+        if (!d2) {
+            ;
+        }
+        else {
+            BOOST_ASSERT(false);
+        }
+    }
+#endif
 }
+
 
 int test_main(int, char*[])
 {

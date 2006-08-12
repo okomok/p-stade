@@ -43,7 +43,7 @@ public:
     {
         T const& d = pstade::derived(*this);
         return access::detail_bool(d) ?
-            &pstade_radish_safe_bool : PSTADE_NULLPTR;
+            &boolean::pstade_radish_safe_bool : PSTADE_NULLPTR;
     }
 };
 
