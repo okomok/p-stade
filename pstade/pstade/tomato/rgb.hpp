@@ -15,7 +15,7 @@
 #include <boost/cstdint.hpp> // uint32_t
 #include <boost/optional.hpp>
 #include <pstade/apple/sdk/windows.hpp>
-#include <pstade/oven/sequence_cast.hpp>
+#include <pstade/oven/copy_range.hpp>
 #include <pstade/oven/slice_range.hpp>
 
 
@@ -51,7 +51,7 @@ BYTE get_b_value(DWORD rgb)
 
 
 template< class Range >
-boost::optional<COLORREF> rgb(const Range& rng)
+boost::optional< COLORREF > rgb(Range const& rng)
 {
     if (boost::empty(rng))
         return boost::optional<COLORREF>();
@@ -59,7 +59,7 @@ boost::optional<COLORREF> rgb(const Range& rng)
     // See:
     // http://groups.google.com/group/comp.lang.c++.moderated/msg/3a2bbe7be45a9d80
     //
-    std::string tmp = oven::sequence(rng|oven::sliced(1, 0));
+    std::string tmp = rng|oven::sliced(1, 0)|oven::copied;
     std::istringstream is(tmp);
 
     boost::uint32_t n;

@@ -19,8 +19,8 @@ namespace pstade { namespace tomato {
 
 struct geq_ie4 :
     boost::mpl::greater_equal<
-        boost::mpl::long_<_WIN32_IE>,
-        boost::mpl::long_<0x0400>
+        boost::mpl::long_< _WIN32_IE >,
+        boost::mpl::long_< 0x0400 >
     >
 { };
 

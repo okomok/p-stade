@@ -14,6 +14,7 @@
 #include <boost/scoped_ptr.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/nullptr.hpp>
+#include <pstade/radish/bool_testable.hpp>
 #include <pstade/verify.hpp>
 
 
@@ -35,12 +36,13 @@ namespace scoped_handle_detail {
             pstade::verify( ::CloseHandle(m_h) );
         }
 
-        const HANDLE m_h;
+        HANDLE const m_h;
     };
 
 
     template< class NullHandle >
     struct basic :
+        radish::bool_testable< basic<NullHandle> >,
         private boost::noncopyable
     {
         explicit basic(HANDLE h = NullHandle::value())
@@ -53,7 +55,7 @@ namespace scoped_handle_detail {
             m_pimpl.reset(h != NullHandle::value() ? new basic_impl(h) : PSTADE_NULLPTR);
         }
 
-        HANDLE operator*() const
+        HANDLE operator *() const
         {
             return m_pimpl->m_h;
         }
@@ -63,13 +65,14 @@ namespace scoped_handle_detail {
             return m_pimpl ? m_pimpl->m_h : NullHandle::value();
         }
 
-        operator bool() const
+    private:
+        boost::scoped_ptr<basic_impl> m_pimpl;
+
+    friend class radish::access;
+        bool pstade_radish_bool() const
         {
             return m_pimpl;
         }
-
-    private:
-        boost::scoped_ptr<basic_impl> m_pimpl;
     };
 
 

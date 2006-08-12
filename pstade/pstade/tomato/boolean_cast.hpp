@@ -17,6 +17,7 @@
 
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/apple/sdk/wtypes.hpp> // VARIANT_BOOL
+#include <pstade/nonassignable.hpp>
 
 
 namespace pstade { namespace tomato {
@@ -25,15 +26,15 @@ namespace pstade { namespace tomato {
 namespace boolean_cast_detail {
 
 
-    template< class TargetT, class SourceT >
+    template< class To, class From >
     struct cvter;
 
 
-    #define PSTADE_TOMATO_BOOLEAN_CAST_cvter(TargetT, SourceT, Expr) \
+    #define PSTADE_TOMATO_BOOLEAN_CAST_cvter(To, From, Expr) \
         template< > \
-        struct cvter<TargetT, SourceT> \
+        struct cvter<To, From> \
         { \
-            static TargetT cvt(SourceT b) \
+            static To cvt(From b) \
             { \
                 return Expr; \
             } \
@@ -41,12 +42,12 @@ namespace boolean_cast_detail {
     /**/
 
 
-    #define PSTADE_TOMATO_BOOLEAN_CAST_cvter_set(TargeT, True, False) \
-        PSTADE_TOMATO_BOOLEAN_CAST_cvter(TargeT, bool, b ? True : False) \
-        PSTADE_TOMATO_BOOLEAN_CAST_cvter(TargeT, BOOL, b ? True : False) \
-        PSTADE_TOMATO_BOOLEAN_CAST_cvter(TargeT, VARIANT_BOOL, b ? True : False) \
-        PSTADE_TOMATO_BOOLEAN_CAST_cvter(TargeT, BOOLEAN, b ? True : False) \
-        PSTADE_TOMATO_BOOLEAN_CAST_cvter(TargeT, LRESULT, b ? True : False) \
+    #define PSTADE_TOMATO_BOOLEAN_CAST_cvter_set(To, True, False) \
+        PSTADE_TOMATO_BOOLEAN_CAST_cvter(To, bool, b ? True : False) \
+        PSTADE_TOMATO_BOOLEAN_CAST_cvter(To, BOOL, b ? True : False) \
+        PSTADE_TOMATO_BOOLEAN_CAST_cvter(To, VARIANT_BOOL, b ? True : False) \
+        PSTADE_TOMATO_BOOLEAN_CAST_cvter(To, BOOLEAN, b ? True : False) \
+        PSTADE_TOMATO_BOOLEAN_CAST_cvter(To, LRESULT, b ? True : False) \
     /**/
 
 
@@ -57,13 +58,17 @@ namespace boolean_cast_detail {
     PSTADE_TOMATO_BOOLEAN_CAST_cvter_set(LRESULT, 1, 0)
 
 
+    #undef PSTADE_TOMATO_BOOLEAN_CAST_cvter_set
+    #undef PSTADE_TOMATO_BOOLEAN_CAST_cvter
+
+
 } // namespace boolean_cast_detail
 
 
-template< class TargetT, class SourceT > inline const
-TargetT boolean_cast(SourceT arg)
+template< class To, class From > inline
+To boolean_cast(From arg)
 {
-    typedef boolean_cast_detail::cvter<TargetT, SourceT> cvter_t;
+    typedef boolean_cast_detail::cvter<To, From> cvter_t;
     return cvter_t::cvt(arg);
 }
 
@@ -71,31 +76,33 @@ TargetT boolean_cast(SourceT arg)
 namespace boolean_cast_detail {
 
 
-    template< class SourceT >
-    struct temp
+    template< class From >
+    struct temp :
+        private nonassignable
     {
-        explicit temp(SourceT b) :
+        explicit temp(From b) :
             m_b(b)
         { }
 
-        template< class TargetT >
-        operator TargetT() const
+        template< class To >
+        operator To() const
         {
-            return tomato::boolean_cast<TargetT>(m_b);
+            return tomato::boolean_cast<To>(m_b);
         }
 
     private:
-        SourceT m_b;
+        From m_b;
     };
 
 
 } // namespace boolean_cast_detail
 
 
-template< class SourceT > inline const
-boolean_cast_detail::temp<SourceT> boolean(SourceT b)
+template< class From > inline
+boolean_cast_detail::temp<From> const
+boolean(From b)
 {
-    return boolean_cast_detail::temp<SourceT>(b);
+    return boolean_cast_detail::temp<From>(b);
 }
 
 } } // namespace pstade::tomato

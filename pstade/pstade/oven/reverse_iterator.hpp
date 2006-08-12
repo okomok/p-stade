@@ -53,7 +53,7 @@ private:
     typedef typename super_t::difference_type diff_t;
 
 public:
-    reverse_iterator()
+    explicit reverse_iterator()
     { }
 
     explicit reverse_iterator(BidiIter const& it) :

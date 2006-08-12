@@ -17,9 +17,9 @@
 // It is better to forget such wrappers and remember this function.
 
 
-#include <boost/assert.hpp>
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
+#include <boost/mpl/assert.hpp>
 #include <boost/type_traits/add_reference.hpp>
 #include <boost/type_traits/is_pod.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -46,7 +46,7 @@ namespace size_initialize_detail {
         Result call(T& x)
         {
         #if !BOOST_WORKAROUND(BOOST_MSVC, < 1400)  
-            BOOST_STATIC_ASSERT(boost::is_pod<T>::value);
+            BOOST_MPL_ASSERT((boost::is_pod<T>));
         #endif
 
             return pstade_tomato_size_initialize(x);

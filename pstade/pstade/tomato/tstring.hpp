@@ -12,11 +12,10 @@
 
 #include <sstream> // basic_stringstream
 #include <string>  // basic_string
-#include <boost/static_assert.hpp>
+#include <boost/mpl/assert.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <pstade/apple/sdk/tchar.hpp>
-#include <pstade/oven/sequence_cast.hpp>
-#include <pstade/ustring.hpp>
+#include <pstade/oven/copy_range.hpp>
 #include "./to_multibyte_to.hpp"
 
 
@@ -31,28 +30,30 @@ typedef std::basic_stringstream<TCHAR>
 tstringstream;
 
 
-template< class DstSeq > inline
-DstSeq tstring_to(tstring str)
+template< class Sequence > inline
+Sequence const
+tstring_to(tstring const& from)
 {
-    BOOST_STATIC_ASSERT(( !boost::is_same<DstSeq, tstring>::value ));
+    BOOST_MPL_ASSERT_NOT((boost::is_same<Sequence, tstring>));
 
 #if defined(_UNICODE)
-    return oven::sequence(str);
+    return from|oven::copied;
 #else
-    return tomato::multibyte_to<DstSeq>(str);
+    return tomato::multibyte_to<Sequence>(from);
 #endif
 }
 
 
-template< class SrcRng > inline
-tstring to_tstring(const SrcRng& str)
+template< class Range > inline
+tstring const
+to_tstring(Range const& from)
 {
-    BOOST_STATIC_ASSERT(( !boost::is_same<SrcRng, tstring>::value ));
+    BOOST_MPL_ASSERT_NOT((boost::is_same<Range, tstring>));
 
 #if defined(_UNICODE)
-    return oven::sequence(str);
+    return from|oven::copied;
 #else
-    return tomato::to_multibyte<tstring>(str);
+    return tomato::to_multibyte<tstring>(from);
 #endif
 }
 

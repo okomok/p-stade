@@ -15,6 +15,7 @@
 #include <boost/scoped_ptr.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/nullptr.hpp>
+#include <pstade/radish/bool_testable.hpp>
 #include <pstade/verify.hpp>
 
 
@@ -38,7 +39,7 @@ namespace scoped_file_view_detail {
             pstade::verify( ::UnmapViewOfFile(m_pView) );
         }
 
-        const LPVOID m_pView;
+        LPVOID const m_pView;
     };
 
 
@@ -46,6 +47,7 @@ namespace scoped_file_view_detail {
 
 
 struct scoped_file_view :
+    radish::bool_testable<scoped_file_view>,
     private boost::noncopyable
 {
     explicit scoped_file_view(LPVOID pView = NULL)
@@ -58,7 +60,7 @@ struct scoped_file_view :
         m_pimpl.reset(pView != NULL ? new scoped_file_view_detail::impl(pView) : PSTADE_NULLPTR);
     }
 
-    LPVOID operator*() const
+    LPVOID operator *() const
     {
         return m_pimpl->m_pView;
     }
@@ -68,13 +70,14 @@ struct scoped_file_view :
         return m_pimpl ? m_pimpl->m_pView : NULL;
     }
 
-    operator bool() const
+private:
+    boost::scoped_ptr<scoped_file_view_detail::impl> m_pimpl;
+
+friend class radish::access;
+    bool pstade_radish_bool() const
     {
         return m_pimpl;
     }
-
-private:
-    boost::scoped_ptr<scoped_file_view_detail::impl> m_pimpl;
 };
 
 

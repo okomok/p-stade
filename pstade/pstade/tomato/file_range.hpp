@@ -53,12 +53,12 @@ namespace file_range_detail {
             m_diff = ::GetFileSize(*hFile, NULL) / sizeof(Value);
         }
 
-        const Value *first() const
+        Value const *first() const
         {
-            return m_view ? static_cast<const Value *>(*m_view) : PSTADE_NULLPTR;
+            return m_view ? static_cast<Value const *>(*m_view) : PSTADE_NULLPTR;
         }
 
-        const Value *last() const
+        Value const *last() const
         {
             return first() + m_diff;
         }
@@ -72,7 +72,7 @@ namespace file_range_detail {
     template< class Value >
     struct oview
     {
-        explicit oview(tstring path, std::ptrdiff_t diff) :
+        explicit oview(tstring const& path, std::ptrdiff_t diff) :
             m_diff(0)
         {
             scoped_ihandle hFile(::CreateFile(
@@ -121,15 +121,15 @@ namespace file_range_detail {
 template< class Value = boost::uint8_t >
 struct ifile_range :
     file_range_detail::iview<Value>,
-    boost::iterator_range<const Value *>,
+    boost::iterator_range<Value const *>,
     private boost::noncopyable
 {
 private:
     typedef file_range_detail::iview<Value> view_t;
-    typedef boost::iterator_range<const Value *> super_t;
+    typedef boost::iterator_range<Value const *> super_t;
 
 public:
-    explicit ifile_range(tstring path) :
+    explicit ifile_range(tstring const& path) :
         view_t(path),
         super_t(view_t::first(), view_t::last())
     { }
@@ -147,7 +147,7 @@ private:
     typedef boost::iterator_range<Value *> super_t;
 
 public:
-    explicit ofile_range(tstring path, std::ptrdiff_t diff) :
+    explicit ofile_range(tstring const& path, std::ptrdiff_t diff) :
         view_t(path, diff),
         super_t(view_t::first(), view_t::last())
     { }
