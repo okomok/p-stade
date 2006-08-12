@@ -26,6 +26,7 @@
 #include <boost/config.hpp> // BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE, BOOST_NO_MEMBER_TEMPLATES
 #include <boost/mpl/if.hpp>
 #include <boost/type_traits/is_convertible.hpp>
+#include <pstade/nonassignable.hpp>
 
 
 #if defined(BOOST_NO_MEMBER_TEMPLATES)
@@ -102,7 +103,8 @@ namespace iterator_cast_detail {
 
 
     template< class Iterator >
-    struct temp
+    struct temp :
+        private nonassignable
     {
         explicit temp(Iterator const& it) :
             m_it(it)
@@ -115,7 +117,7 @@ namespace iterator_cast_detail {
         }
 
     private:
-        Iterator m_it;
+        Iterator const& m_it;
     };
 
 

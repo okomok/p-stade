@@ -35,6 +35,7 @@ void test()
 {
     ::my_boolean_t b1(true);
     BOOST_ASSERT(b1);
+    BOOST_ASSERT(!!b1);
     ::my_boolean_t b2(false);
     BOOST_ASSERT(!b2);
 }

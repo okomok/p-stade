@@ -10,6 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// See: 'unspecified_bool_type'
+//
+// at <boost/shared_ptr.hpp>
+
+
 #include <boost/mpl/empty_base.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/derived_cast.hpp>
@@ -30,21 +35,15 @@ struct boolean :
     Base
 {
 private:
-    typedef void (boolean::*pstade_radish_safe_bool_t)() const;
-    void pstade_radish_safe_bool_fun() const { }
+    typedef void (*pstade_radish_safe_bool_t)(boolean ***);
+    static void pstade_radish_safe_bool(boolean ***) { }
 
 public:
     operator pstade_radish_safe_bool_t() const
     {
         T const& d = pstade::derived(*this);
         return access::detail_bool(d) ?
-            &boolean::pstade_radish_safe_bool_fun : PSTADE_NULLPTR;
-    }
-
-    bool operator !() const
-    {
-        return (operator pstade_radish_safe_bool_t()) ?
-            false : true; 
+            &boolean::pstade_radish_safe_bool : PSTADE_NULLPTR;
     }
 };
 

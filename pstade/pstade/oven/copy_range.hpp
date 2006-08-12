@@ -82,7 +82,7 @@ namespace copy_range_detail {
 
 
     template< class Range >
-    struct meta_copy :
+    struct result_of_copy :
         boost::mpl::if_<
             boost::is_same<
                 typename range_traversal<Range>::type,
@@ -114,7 +114,7 @@ namespace copy_range_detail {
         //
         template< class Unused, class InRange, class OutRangeOrIter = void >
         struct result :
-            meta_copy<InRange>
+            result_of_copy<InRange>
         { };
 
         template< class Result, class InRange, class OutIter >
