@@ -37,15 +37,15 @@ struct pointable :
     }
 
     friend
-    element_type& operator *(T const& x)
+    Element& operator *(T const& x)
     {
-        return *(x.operator->());
+        return *access::template detail_pointer<Element>(x);
     }
 
     friend
-    element_type *get_pointer(T const& x) // for Boost.Bind
+    Element *get_pointer(T const& x) // for Boost.Bind
     {
-        return x.operator->();
+        return access::template detail_pointer<Element>(x);
     }
 };
 

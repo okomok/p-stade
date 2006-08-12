@@ -70,10 +70,17 @@ void test()
         }
     }
 
-#if 0 // What can I do?
     {
         ::my_doolean_t d1(true);
-        if (d1) {
+#if 0
+        if (d1) { // ambiguous!
+            ;
+        }
+        else {
+            BOOST_ASSERT(false);
+        }
+#endif
+        if (!!d1) {
             ;
         }
         else {
@@ -88,7 +95,6 @@ void test()
             BOOST_ASSERT(false);
         }
     }
-#endif
 }
 
 

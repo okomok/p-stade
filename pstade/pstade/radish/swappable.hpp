@@ -37,7 +37,7 @@ struct swappable :
     friend
     void swap(T& x, T& y)
     {
-        x.swap(y);
+        access::detail_swap(x, y);
     }
 };
 

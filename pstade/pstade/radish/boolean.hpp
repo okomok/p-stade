@@ -45,6 +45,16 @@ public:
         return access::detail_bool(d) ?
             &boolean::pstade_radish_safe_bool : PSTADE_NULLPTR;
     }
+
+    // Note:
+    // You should prefer 'friend' to member,
+    // because a nullary member function causes ambiguity
+    // if base classes have their own member 'operator!()'.
+    friend
+    bool operator !(T const& x)
+    {
+        return !access::detail_bool(x);
+    }
 };
 
 
