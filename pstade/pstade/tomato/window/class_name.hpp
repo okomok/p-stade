@@ -16,6 +16,7 @@
 // that represents a window class name.
 
 
+#include <cstddef> // size_t
 #include <boost/array.hpp>
 #include <boost/assert.hpp>
 #include <boost/noncopyable.hpp>

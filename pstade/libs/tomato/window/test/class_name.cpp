@@ -32,6 +32,7 @@ WTL::CAppModule _Module;
 void test()
 {
     using namespace pstade;
+    using namespace tomato;
 
     HWND hWnd = ::GetForegroundWindow();
 
@@ -39,28 +40,28 @@ void test()
     {
         ATL::CString str;
         oven::copy(tomato::class_name(hWnd), garlic::back_inserter(str));
-        PSTADE_TOMATO_TCOUT << tomato::c_str(str) << std::endl;
+        tcout << tomato::c_str(str) << std::endl;
     }
 #endif
 
     {
         WTL::CString str;
         oven::copy(tomato::class_name(hWnd), garlic::back_inserter(str));
-        PSTADE_TOMATO_TCOUT << tomato::c_str(str) << std::endl;
+        tcout << tomato::c_str(str) << std::endl;
     }
 
     {
         WTL::CString str;
         tomato::class_name name(hWnd);
         oven::copy(name, garlic::back_inserter(str));
-        PSTADE_TOMATO_TCOUT << tomato::c_str(str) << std::endl;
+        tcout << tomato::c_str(str) << std::endl;
     }
 
     {
         WTL::CString str;
         tomato::class_name const name(hWnd);
         oven::copy(name, garlic::back_inserter(str));
-        PSTADE_TOMATO_TCOUT << tomato::c_str(str) << std::endl;
+        tcout << tomato::c_str(str) << std::endl;
     }
 
     {

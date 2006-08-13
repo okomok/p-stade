@@ -50,7 +50,7 @@ namespace window_text_detail {
     {
         typedef init type;
 
-        init(HWND hWnd) :
+        explicit init(HWND hWnd) :
             m_buf(1 + ::GetWindowTextLength(hWnd))
         {
             BOOST_ASSERT(diet::valid(hWnd));

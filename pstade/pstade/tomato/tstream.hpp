@@ -11,19 +11,29 @@
 
 
 #include <iostream>
+#include <pstade/init_ios.hpp>
+
+
+namespace pstade { namespace tomato {
+
+namespace {
 
 
 #if !defined(_UNICODE)
-    #define PSTADE_TOMATO_TCIN  std::cin
-    #define PSTADE_TOMATO_TCOUT std::cout
-    #define PSTADE_TOMATO_TCERR std::cerr
-    #define PSTADE_TOMATO_TCLOG std::clog
+    std::istream& tcin  = std::cin;
+    std::ostream& tcout = std::cout;
+    std::ostream& tcerr = std::cerr;
+    std::ostream& tclog = std::clog;
 #else
-    #define PSTADE_TOMATO_TCIN  std::wcin
-    #define PSTADE_TOMATO_TCOUT std::wcout
-    #define PSTADE_TOMATO_TCERR std::wcerr
-    #define PSTADE_TOMATO_TCLOG std::wclog
+    std::wistream& tcin  = std::wcin;
+    std::wostream& tcout = std::wcout;
+    std::wostream& tcerr = std::wcerr;
+    std::wostream& tclog = std::wclog;
 #endif
 
+
+} // unnamed
+
+} } // namespace pstade::tomato
 
 #endif

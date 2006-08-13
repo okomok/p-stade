@@ -76,6 +76,10 @@ namespace scoped_handle_detail {
     };
 
 
+    // Note:
+    // These cannot be static constants,
+    // because these may be defined as pointers.
+    //
     struct NULL_handle
     {
         static HANDLE value() { return NULL; }

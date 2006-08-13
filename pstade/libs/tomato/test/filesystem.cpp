@@ -19,6 +19,7 @@ WTL::CAppModule _Module;
 #include <boost/foreach.hpp>
 #include <pstade/garlic.hpp>
 #include <pstade/oven.hpp>
+#include <pstade/tomato/tstream.hpp>
 
 
 void test()
@@ -27,18 +28,18 @@ void test()
     using namespace tomato;
     
     {
-        std::wcout << "[all the files...]\n";
+        tcout << "[all the files...]\n";
         find_file_range fnd(_T("*.*"));
         BOOST_FOREACH (WIN32_FIND_DATA const& dat, fnd) {
-            std::wcout << dat.cFileName << std::endl;
+            tcout << dat.cFileName << std::endl;
         }
     }
 
     {
-        std::wcout << "[directories...]\n";
+        tcout << "[directories...]\n";
         find_file_range fnd(_T("*.*"));
         BOOST_FOREACH (WIN32_FIND_DATA const& dat, fnd|oven::filtered(find_file_is_directory)) {
-            std::wcout << dat.cFileName << std::endl;
+            tcout << dat.cFileName << std::endl;
         }
     }
 }

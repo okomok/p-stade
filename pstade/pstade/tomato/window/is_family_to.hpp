@@ -23,7 +23,7 @@ inline
 bool is_family_to(HWND hWnd0, HWND hWnd1)
 {
     BOOST_ASSERT(diet::valid(hWnd0));
-    BOOST_ASSERT(diet::valid(hWnd0));
+    BOOST_ASSERT(diet::valid(hWnd1));
 
     if (hWnd0 == hWnd1)
         return true;

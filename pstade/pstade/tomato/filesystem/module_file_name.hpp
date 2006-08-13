@@ -49,7 +49,7 @@ namespace module_file_name_detail {
     {
         typedef init type;
 
-        init(HINSTANCE hInst)
+        explicit init(HINSTANCE hInst)
         {
             BOOST_ASSERT(diet::valid(hInst));
 
@@ -93,12 +93,12 @@ public:
     explicit module_file_name(HINSTANCE hInst = _Module.GetModuleInstance()) :
         init_t(hInst),
         super_t(m_buf)
-    { }
+    {
+        BOOST_ASSERT(oven::is_null_terminated(m_buf));
+    }
 
     const_sub_range_t folder() const
     {
-        BOOST_ASSERT(oven::is_null_terminated(m_buf));
-
         return boost::make_iterator_range(
             boost::begin(m_buf),
             tomato::path_find_file_name(boost::begin(m_buf))
@@ -107,8 +107,6 @@ public:
 
     const_sub_range_t identifier() const
     {
-        BOOST_ASSERT(oven::is_null_terminated(m_buf));
-
         return boost::make_iterator_range(
             boost::begin(m_buf),
             tomato::path_find_extension(boost::begin(m_buf))
@@ -117,8 +115,6 @@ public:
 
     const_sub_range_t name() const
     {
-        BOOST_ASSERT(oven::is_null_terminated(m_buf));
-
         TCHAR const *pszFile = tomato::path_find_file_name(boost::begin(m_buf));
         return boost::make_iterator_range(
             pszFile,
