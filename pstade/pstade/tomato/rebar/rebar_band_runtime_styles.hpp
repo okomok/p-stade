@@ -11,14 +11,14 @@
 
 
 #include <pstade/apple/sdk/windows.hpp>
-#include <boost/mpl/integral_c.hpp>
+#include <pstade/static_c.hpp>
 
 
 namespace pstade { namespace tomato {
 
 
 struct rebar_band_runtime_styles :
-    boost::mpl::integral_c<UINT, RBBS_BREAK | RBBS_HIDDEN | RBBS_NOGRIPPER>
+    static_c<UINT, RBBS_BREAK | RBBS_HIDDEN | RBBS_NOGRIPPER>
 { };
 
 

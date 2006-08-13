@@ -10,14 +10,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Model of:
+// What:
 //
-// RandomAccessRange of TCHAR
-
-
-// See:
-//
-// boost::base_from_member
+// A Random Access Traversal Readable Lvalue Range
+// that represents a window text.
 
 
 // Design:
@@ -35,6 +31,7 @@
 #include <pstade/oven/array_range.hpp>
 #include <pstade/oven/distance.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
+#include "../access.hpp"
 #include "../diet/valid.hpp"
 
 
@@ -48,15 +45,18 @@ namespace window_text_detail {
     buffer_t;
 
 
-    struct buffer_init
+    template< class = void >
+    struct init
     {
-        buffer_init(HWND hWnd) :
+        typedef init type;
+
+        init(HWND hWnd) :
             m_buf(1 + ::GetWindowTextLength(hWnd))
         {
             BOOST_ASSERT(diet::valid(hWnd));
 
             ::GetWindowText(hWnd,
-                boost::begin(m_buf), oven::distance(m_buf)
+                boost::begin(m_buf), static_cast<int>(oven::distance(m_buf))
             );
 
             BOOST_ASSERT(oven::is_null_terminated(m_buf));
@@ -67,20 +67,28 @@ namespace window_text_detail {
     };
 
 
+    template< class = void >
+    struct super_
+    {
+        typedef oven::null_terminate_range<
+            window_text_detail::buffer_t const // constant range!
+        > type;
+    };
+
+
 } // namespace window_text_detail
 
 
 struct window_text :
-    private window_text_detail::buffer_init,
-    oven::null_terminate_range<window_text_detail::buffer_t>,
+    private window_text_detail::init<>::type,
+    window_text_detail::super_<>::type,
     private boost::noncopyable
 {
-    typedef const TCHAR *const_iterator; // :-)
     typedef window_text pstade_tomato_cstringizable;
 
 private:
-    typedef window_text_detail::buffer_init init_t; 
-    typedef oven::null_terminate_range<window_text_detail::buffer_t> super_t;
+    typedef window_text_detail::init<>::type init_t; 
+    typedef window_text_detail::super_<>::type super_t;
 
 public:
     explicit window_text(HWND hWnd) :
@@ -88,11 +96,12 @@ public:
         super_t(m_buf)
     { }
 
-    const TCHAR *c_str() const
-    { return boost::begin(m_buf); }
-
-    const TCHAR *pstade_tomato_c_str() const
-    { return c_str(); }
+private:
+friend class access;
+    TCHAR const *pstade_tomato_c_str() const
+    {
+        return boost::begin(m_buf);
+    }
 };
 
 

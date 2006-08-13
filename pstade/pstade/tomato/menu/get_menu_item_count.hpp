@@ -16,8 +16,8 @@
 
 
 #include <boost/assert.hpp>
-#include <boost/mpl/integral_c.hpp>
 #include <pstade/apple/sdk/windows.hpp>
+#include <pstade/static_c.hpp>
 #include "../diet/valid.hpp"
 #include "../require.hpp"
 #include "../size_initialize.hpp"
@@ -37,7 +37,7 @@ int get_menu_item_count(HMENU hMenu)
 
 #else
 
-    typedef boost::mpl::integral_c<UINT, 256> max_item_count;
+    typedef static_c<UINT, 256> max_item_count;
 
     MENUITEMINFO mii = { 0 };
     mii|size_initialize;

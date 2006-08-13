@@ -22,7 +22,6 @@
 #include <boost/mpl/assert.hpp>
 #include <boost/type_traits/add_reference.hpp>
 #include <boost/type_traits/is_pod.hpp>
-#include <boost/utility/enable_if.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/apple/wtl/user.hpp> // ::AtlIsOldWindows
 #include <pstade/egg/function.hpp>

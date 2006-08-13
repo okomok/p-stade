@@ -34,4 +34,5 @@ rule tomato-test-fail ( name )
 test-suite tomato :
     [ tomato-test boolean_cast ]
     [ tomato-test c_str ]
+    [ tomato-test filesystem ]
     ;

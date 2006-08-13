@@ -10,16 +10,22 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// What:
+//
+// A Random Access Traversal Readable Lvalue Range
+// that represents a window class name.
+
+
 #include <boost/array.hpp>
 #include <boost/assert.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/range/begin.hpp>
 #include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/apple/sdk/windows.hpp>
-#include <pstade/integral_cast.hpp>
-#include <pstade/oven/distance.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
 #include <pstade/require.hpp>
+#include <pstade/static_c.hpp>
+#include "../access.hpp"
 #include "../diet/valid.hpp"
 
 
@@ -29,18 +35,24 @@ namespace pstade { namespace tomato {
 namespace class_name_detail {
 
 
-    typedef boost::array<TCHAR, 256>
+    typedef static_c<std::size_t, 256>
+    buffer_size;
+
+    typedef boost::array<TCHAR, buffer_size::value>
     buffer_t;
 
 
-    struct buffer_init
+    template< class = void >
+    struct init
     {
-        buffer_init(HWND hWnd)
+        typedef init type;
+
+        explicit init(HWND hWnd)
         {
             BOOST_ASSERT(diet::valid(hWnd));
 
             PSTADE_REQUIRE(0 !=
-                ::GetClassName( hWnd, boost::begin(m_buf), pstade::integral(oven::distance(m_buf)) )
+                ::GetClassName(hWnd, boost::begin(m_buf), buffer_size::value)
             );
 
             BOOST_ASSERT(oven::is_null_terminated(m_buf));
@@ -51,20 +63,28 @@ namespace class_name_detail {
     };
 
 
+    template< class = void >
+    struct super_
+    {
+        typedef oven::null_terminate_range<
+            class_name_detail::buffer_t const // constant range!
+        > type;
+    };
+
+
 } // namespace class_name_detail
 
 
 struct class_name :
-    private class_name_detail::buffer_init,
-    oven::null_terminate_range<class_name_detail::buffer_t>,
+    private class_name_detail::init<>::type,
+    class_name_detail::super_<>::type,
     private boost::noncopyable
 {
-    typedef const TCHAR *const_iterator;
     typedef class_name pstade_tomato_cstringizable;
 
 private:
-    typedef class_name_detail::buffer_init init_t; 
-    typedef oven::null_terminate_range<class_name_detail::buffer_t> super_t;
+    typedef class_name_detail::init<>::type init_t; 
+    typedef class_name_detail::super_<>::type super_t;
 
 public:
     explicit class_name(HWND hWnd) :
@@ -72,11 +92,12 @@ public:
         super_t(m_buf)
     { }
 
-    const TCHAR *c_str() const
-    { return boost::begin(m_buf); }
-
-    const TCHAR *pstade_tomato_c_str() const
-    { return c_str(); }
+private:
+friend class access;
+    TCHAR const *pstade_tomato_c_str() const
+    {
+        return boost::begin(m_buf);
+    }
 };
 
 

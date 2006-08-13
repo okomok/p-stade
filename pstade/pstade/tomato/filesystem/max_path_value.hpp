@@ -10,15 +10,15 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/mpl/int.hpp>
 #include <pstade/apple/sdk/windows.hpp>
+#include <pstade/static_c.hpp>
 
 
 namespace pstade { namespace tomato {
 
 
 struct max_path :
-    boost::mpl::int_<MAX_PATH>
+    static_c<int, MAX_PATH>
 { };
 
 

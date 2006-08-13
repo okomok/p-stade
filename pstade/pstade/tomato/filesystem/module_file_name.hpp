@@ -10,6 +10,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// What:
+//
+// A Random Access Traversal Readable Lvalue Range
+// that represents the module file name.
+
+
 #include <boost/array.hpp>
 #include <boost/assert.hpp>
 #include <boost/noncopyable.hpp>
@@ -19,11 +25,10 @@
 #include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/const.hpp>
-#include <pstade/integral_cast.hpp>
-#include <pstade/oven/distance.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
 #include <pstade/oven/sub_range_result.hpp>
 #include <pstade/require.hpp>
+#include "../access.hpp"
 #include "./max_path_value.hpp"
 #include "./path_find_extension.hpp"
 #include "./path_find_file_name.hpp"
@@ -39,14 +44,17 @@ namespace module_file_name_detail {
     buffer_t;
 
 
-    struct buffer_init
+    template< class = void >
+    struct init
     {
-        buffer_init(HINSTANCE hInst)
+        typedef init type;
+
+        init(HINSTANCE hInst)
         {
             BOOST_ASSERT(diet::valid(hInst));
 
             PSTADE_REQUIRE(0 !=
-                ::GetModuleFileName(hInst, boost::begin(m_buf), pstade::integral(oven::distance(m_buf)))
+                ::GetModuleFileName(hInst, boost::begin(m_buf), max_path::value)
             );
 
             BOOST_ASSERT(oven::is_null_terminated(m_buf));
@@ -57,20 +65,28 @@ namespace module_file_name_detail {
     };
 
 
+    template< class = void >
+    struct super_
+    {
+        typedef oven::null_terminate_range<
+            module_file_name_detail::buffer_t const // constant range!
+        > type;
+    };
+
+
 } // namespace module_file_name_detail
 
 
 struct module_file_name :
-    private module_file_name_detail::buffer_init,
-    oven::null_terminate_range<module_file_name_detail::buffer_t>,
+    private module_file_name_detail::init<>::type,
+    module_file_name_detail::super_<>::type,
     private boost::noncopyable
 {
-    typedef const TCHAR *const_iterator;
     typedef module_file_name pstade_tomato_cstringizable;
 
 private:
-    typedef module_file_name_detail::buffer_init init_t; 
-    typedef oven::null_terminate_range<module_file_name_detail::buffer_t> super_t;
+    typedef module_file_name_detail::init<>::type init_t; 
+    typedef module_file_name_detail::super_<>::type super_t;
     typedef oven::sub_range_result_const<module_file_name>::type const_sub_range_t;
 
 public:
@@ -78,12 +94,6 @@ public:
         init_t(hInst),
         super_t(m_buf)
     { }
-
-    const TCHAR *c_str() const
-    { return boost::begin(m_buf); }
-
-    const TCHAR *pstade_tomato_c_str() const
-    { return c_str(); }
 
     const_sub_range_t folder() const
     {
@@ -109,11 +119,18 @@ public:
     {
         BOOST_ASSERT(oven::is_null_terminated(m_buf));
 
-        const TCHAR *pszFile = tomato::path_find_file_name(boost::begin(m_buf));
+        TCHAR const *pszFile = tomato::path_find_file_name(boost::begin(m_buf));
         return boost::make_iterator_range(
             pszFile,
             tomato::path_find_extension(pszFile)
         );
+    }
+
+private:
+friend class access;
+    TCHAR const *pstade_tomato_c_str() const
+    {
+        return boost::begin(m_buf);
     }
 };
 

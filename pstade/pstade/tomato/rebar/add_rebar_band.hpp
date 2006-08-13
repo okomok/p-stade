@@ -18,9 +18,9 @@
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/apple/wtl/ctrls.hpp> // CReBarCtrl
 #include <pstade/candy/set.hpp>
+#include <pstade/oven/copy_range.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
 #include <pstade/oven/point_range.hpp>
-#include <pstade/oven/sequence_cast.hpp>
 #include <pstade/require.hpp>
 #include "../diet/valid.hpp"
 #include "../size_initialize.hpp"
@@ -31,17 +31,17 @@ namespace pstade { namespace tomato {
 
 
 inline // 'cx' can be 0.
-void add_rebar_band(HWND hWndReBar, HWND hWndBand, UINT fStyle, const TCHAR *pszText, UINT cx)
+void add_rebar_band(HWND hWndReBar, HWND hWndBand, UINT fStyle, TCHAR const *pszText, UINT cx)
 {
     BOOST_ASSERT(diet::valid(hWndReBar));
     BOOST_ASSERT(diet::valid(hWndBand));
     BOOST_ASSERT(diet::valid(pszText));
-    BOOST_ASSERT(::GetDlgCtrlID(hWndBand) != 0 && "invalid child window id");
+    BOOST_ASSERT("invalid child window id" && ::GetDlgCtrlID(hWndBand) != 0);
 
 
     // info.lpText is not 'const'. 'const_cast' is dangerous.
     std::vector<TCHAR> text; {
-        text = oven::sequence(pszText|oven::null_terminated);
+        text = pszText|oven::null_terminated|oven::copied;
         text.push_back('\0');
         BOOST_ASSERT(oven::is_null_terminated(text));
     }

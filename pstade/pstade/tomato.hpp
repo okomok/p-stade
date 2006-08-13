@@ -34,6 +34,7 @@
 #include "./tomato/size_initialize.hpp"
 #include "./tomato/succeeded.hpp"
 #include "./tomato/toolbar.hpp"
+#include "./tomato/tstream.hpp"
 #include "./tomato/tstring.hpp"
 #include "./tomato/window.hpp"
 

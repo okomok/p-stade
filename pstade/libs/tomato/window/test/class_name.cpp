@@ -25,6 +25,8 @@
 #include <pstade/apple/wtl/app.hpp>
 WTL::CAppModule _Module;
 #include <pstade/oven/algorithm.hpp> // copy
+#include <pstade/tomato/c_str.hpp>
+#include <pstade/tomato/tstream.hpp>
 
 
 void test()
@@ -37,14 +39,33 @@ void test()
     {
         ATL::CString str;
         oven::copy(tomato::class_name(hWnd), garlic::back_inserter(str));
-        std::cout << str << std::endl;
+        PSTADE_TOMATO_TCOUT << tomato::c_str(str) << std::endl;
     }
 #endif
 
     {
         WTL::CString str;
         oven::copy(tomato::class_name(hWnd), garlic::back_inserter(str));
-        std::cout << str << std::endl;
+        PSTADE_TOMATO_TCOUT << tomato::c_str(str) << std::endl;
+    }
+
+    {
+        WTL::CString str;
+        tomato::class_name name(hWnd);
+        oven::copy(name, garlic::back_inserter(str));
+        PSTADE_TOMATO_TCOUT << tomato::c_str(str) << std::endl;
+    }
+
+    {
+        WTL::CString str;
+        tomato::class_name const name(hWnd);
+        oven::copy(name, garlic::back_inserter(str));
+        PSTADE_TOMATO_TCOUT << tomato::c_str(str) << std::endl;
+    }
+
+    {
+        tomato::class_name cn(hWnd);
+        // *boost::begin(cn) = _T('a'); // error
     }
 }
 

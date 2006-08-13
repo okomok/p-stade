@@ -30,8 +30,10 @@
 #include <pstade/napkin/dout.hpp>
 #include <pstade/diet/reset_ostream.hpp>
 #include <pstade/oven/algorithm.hpp> // copy
-#include <pstade/oven/sequence_cast.hpp>
+#include <pstade/oven/copy_range.hpp>
+#include <pstade/tomato/c_str.hpp>
 #include <pstade/tomato/tstring.hpp>
+#include <pstade/tomato/tstream.hpp>
 
 
 WTL::CAppModule _Module;
@@ -40,6 +42,7 @@ WTL::CAppModule _Module;
 void test()
 {
     using namespace pstade;
+    using namespace tomato;
 
     HWND hWnd = ::GetForegroundWindow();
 
@@ -47,38 +50,38 @@ void test()
     {
         ATL::CString str;
         oven::copy(tomato::window_text(hWnd), garlic::back_inserter(str));
-        std::cout << str << std::endl;
+        PSTADE_TOMATO_TCOUT << str << std::endl;
     }
 #endif
 
     {
         WTL::CString str;
         oven::copy(tomato::window_text(hWnd), garlic::back_inserter(str));
-        std::cout << str << std::endl;
+        PSTADE_TOMATO_TCOUT << str << std::endl;
     }
 
     {
         tomato::window_text text(hWnd);
         std::basic_string<TCHAR> str;
         std::copy(boost::begin(text), boost::end(text), std::back_inserter(str));
-        std::cout << str << std::endl;
+        PSTADE_TOMATO_TCOUT << str << std::endl;
     }
 
     {
         tomato::window_text text(hWnd);
-        boost::to_upper(text);
-        std::cout << text.c_str() << std::endl;
+        // boost::to_upper(text); // no longer mutable range
+        PSTADE_TOMATO_TCOUT << (text|c_stringized) << std::endl;
     }
 
     {
         typedef std::basic_string<TCHAR> tstring;
         // oven::sequenceは昨日のテクニックをboost::copy_rangeに適用したもの
-        tstring str = oven::sequence(tomato::window_text(hWnd));
-        std::cout << str << std::endl;
+        tstring str = tomato::window_text(hWnd)|oven::copied;
+        PSTADE_TOMATO_TCOUT << str << std::endl;
     }
 
     {
-        std::cout << tomato::window_text(hWnd).c_str() << std::endl;
+        PSTADE_TOMATO_TCOUT << (tomato::window_text(hWnd)|c_stringized) << std::endl;
     }
 }
 

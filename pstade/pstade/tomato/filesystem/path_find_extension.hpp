@@ -35,7 +35,7 @@ namespace pstade { namespace tomato {
 
 
     inline
-    const TCHAR *path_find_extension(const TCHAR *pszPath)
+    TCHAR const *path_find_extension(TCHAR const *pszPath)
     {
         BOOST_ASSERT(diet::valid(pszPath));
 
@@ -56,11 +56,11 @@ namespace pstade { namespace tomato {
 
 
     inline
-    const TCHAR *path_find_extension(const TCHAR *pszPath)
+    TCHAR const *path_find_extension(TCHAR const *pszPath)
     {
         BOOST_ASSERT(diet::valid(pszPath));
 
-        const TCHAR *psz = pszPath;
+        TCHAR const *psz = pszPath;
         for ( ; *psz != _T('\0'); psz = ::CharNext(psz)) {
             if (*psz == _T('.'))
                 break;
@@ -75,7 +75,7 @@ namespace pstade { namespace tomato {
     {
         BOOST_ASSERT(diet::valid(pszPath));
 
-        const TCHAR *psz = pszPath;
+        TCHAR const *psz = pszPath;
         return const_cast<TCHAR *>(tomato::path_find_extension(psz));
     }
 

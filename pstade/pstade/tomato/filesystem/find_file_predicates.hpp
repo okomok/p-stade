@@ -10,73 +10,66 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <functional>
+#include <boost/preprocessor/cat.hpp>
 #include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/candy/test_any.hpp>
+#include <pstade/instance.hpp>
 
 
 namespace pstade { namespace tomato {
 
 
 template< DWORD attr >
-struct find_file_matches_mask :
-    std::unary_function<WIN32_FIND_DATA, bool>
+struct find_file_matches_mask
 {
-    bool operator()(const WIN32_FIND_DATA& data) const
+    typedef bool result_type;
+
+    bool operator()(WIN32_FIND_DATA const& data) const
     {
         return candy::test_any(data.dwFileAttributes, attr);
     }
 };
 
 
-struct find_file_is_read_only :
-    find_file_matches_mask<FILE_ATTRIBUTE_READONLY>
-{ };
+#define PSTADE_TOMATO_define_pred(suffix, SUFFIX) \
+    typedef find_file_matches_mask< BOOST_PP_CAT(FILE_ATTRIBUTE_, SUFFIX) > \
+    PSTADE_TOMATO_pred_t(suffix); \
+    PSTADE_INSTANCE(PSTADE_TOMATO_pred_t(suffix) const, PSTADE_TOMATO_pred(suffix), value) \
+/**/
+
+    #define PSTADE_TOMATO_pred(suffix) \
+        BOOST_PP_CAT(find_file_is_, suffix) \
+    /**/
+
+    #define PSTADE_TOMATO_pred_t(suffix) \
+        BOOST_PP_CAT(PSTADE_TOMATO_pred(suffix), _fun) \
+    /**/
 
 
-struct find_file_is_directory :
-    find_file_matches_mask<FILE_ATTRIBUTE_DIRECTORY>
-{ };
+PSTADE_TOMATO_define_pred(readonly,   READONLY)
+PSTADE_TOMATO_define_pred(directory,  DIRECTORY)
+PSTADE_TOMATO_define_pred(compressed, COMPRESSED)
+PSTADE_TOMATO_define_pred(system,     SYSTEM)
+PSTADE_TOMATO_define_pred(hidden,     HIDDEN)
+PSTADE_TOMATO_define_pred(temporary,  TEMPORARY)
+PSTADE_TOMATO_define_pred(normal,     NORMAL)
+PSTADE_TOMATO_define_pred(archive,    ARCHIVE)
 
 
-struct find_file_is_compressed :
-    find_file_matches_mask<FILE_ATTRIBUTE_COMPRESSED>
-{ };
+    #undef PSTADE_TOMATO_pred_t
+    #undef PSTADE_TOMATO_pred
+#undef PSTADE_TOMATO_define_pred
 
 
-struct find_file_is_system :
-    find_file_matches_mask<FILE_ATTRIBUTE_SYSTEM>
-{ };
-
-
-struct find_file_is_hidden :
-    find_file_matches_mask<FILE_ATTRIBUTE_HIDDEN>
-{ };
-
-
-struct find_file_is_temporary :
-    find_file_matches_mask<FILE_ATTRIBUTE_TEMPORARY>
-{ };
-
-
-struct find_file_is_normal :
-    find_file_matches_mask<FILE_ATTRIBUTE_NORMAL>
-{ };
-
-
-struct find_file_is_archived :
-    find_file_matches_mask<FILE_ATTRIBUTE_ARCHIVE>
-{ };
-
-
-struct find_file_is_dots :
-    std::unary_function<WIN32_FIND_DATA, bool>
+struct find_file_is_dots_fun
 {
-    bool operator()(const WIN32_FIND_DATA& data) const
+    typedef bool result_type;
+
+    bool operator()(WIN32_FIND_DATA const& data) const
     {
         return
-            find_file_is_directory()(data) &&
+            find_file_is_directory(data) &&
             data.cFileName[0] == _T('.') &&
             (
                 data.cFileName[1] == _T('\0') ||
@@ -88,6 +81,8 @@ struct find_file_is_dots :
         ;
     }
 };
+
+PSTADE_INSTANCE(find_file_is_dots_fun const, find_file_is_dots, value)
 
 
 } } // namespace pstade::tomato

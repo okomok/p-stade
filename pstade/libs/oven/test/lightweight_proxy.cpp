@@ -31,6 +31,12 @@ struct a_range_non_lightweight : a_range<T>
 { };
 
 
+template< class T >
+struct a_range_lightweight : a_range<T>
+    , private pstade::oven::lightweight_proxy< a_range_lightweight<T> >
+{ };
+
+
 namespace tempo {
 
     template< class T >
@@ -69,6 +75,10 @@ void test()
 
         BOOST_CHECK( !::is_lightweight_proxy(
             BOOST_FOREACH_IS_LIGHTWEIGHT_PROXY( ::a_range_non_lightweight<int>() )
+        ) );
+
+        BOOST_CHECK( ::is_lightweight_proxy(
+            BOOST_FOREACH_IS_LIGHTWEIGHT_PROXY( ::a_range_lightweight<int>() )
         ) );
 
         BOOST_CHECK( ::is_lightweight_proxy(

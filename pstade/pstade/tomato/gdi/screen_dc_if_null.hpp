@@ -14,6 +14,7 @@
 #include <boost/noncopyable.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/require.hpp>
+#include <pstade/verify.hpp>
 #include "../diet/valid.hpp"
 
 
@@ -40,11 +41,13 @@ struct screen_dc_if_null :
         BOOST_ASSERT(diet::valid(m_hDC));
 
         if (m_managed)
-            ::DeleteDC(m_hDC);
+            ::DeleteDC(m_hDC)|verified;
     }
 
     HDC get_handle() const
-    { return m_hDC; }
+    {
+        return m_hDC;
+    }
 
 private:
     HDC m_hDC;

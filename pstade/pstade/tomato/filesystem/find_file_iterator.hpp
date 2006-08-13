@@ -49,29 +49,27 @@ private:
             BOOST_ASSERT(::GetLastError() == ERROR_NO_MORE_FILES);
     }
 
-    bool equal_aux(const find_file_iterator& other) const
+    bool equal_aux(find_file_iterator const& other) const
     {
         return m_hFind == other.m_hFind && m_pdata == other.m_pdata;
     }
 
 friend class boost::iterator_core_access;
-    void increment()
+    WIN32_FIND_DATA& dereference() const
     {
-        BOOST_ASSERT(m_found && "out of range");
-
-        find_next_file();
+        BOOST_ASSERT("out of range" && m_found);
+        return *m_pdata;
     }
 
-    bool equal(const find_file_iterator& other) const
+    bool equal(find_file_iterator const& other) const
     {
         return (m_found == other.m_found) && (!m_found || equal_aux(other));
     }
 
-    WIN32_FIND_DATA& dereference() const
+    void increment()
     {
-        BOOST_ASSERT(m_found && "out of range access");
-
-        return *m_pdata;
+        BOOST_ASSERT("out of range" && m_found);
+        find_next_file();
     }
 };
 

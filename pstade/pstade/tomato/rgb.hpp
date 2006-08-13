@@ -13,6 +13,7 @@
 #include <iomanip> // hex
 #include <sstream> // istringstream
 #include <boost/cstdint.hpp> // uint32_t
+#include <boost/none.hpp>
 #include <boost/optional.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/oven/copy_range.hpp>
@@ -51,10 +52,10 @@ BYTE get_b_value(DWORD rgb)
 
 
 template< class Range >
-boost::optional< COLORREF > rgb(Range const& rng)
+boost::optional<COLORREF> rgb(Range const& rng)
 {
     if (boost::empty(rng))
-        return boost::optional<COLORREF>();
+        return boost::none;
 
     // See:
     // http://groups.google.com/group/comp.lang.c++.moderated/msg/3a2bbe7be45a9d80
@@ -64,7 +65,7 @@ boost::optional< COLORREF > rgb(Range const& rng)
 
     boost::uint32_t n;
     if (!(is >> std::hex >> n))
-        return boost::optional<COLORREF>();
+        return boost::none;
 
     boost::uint32_t r = (n & 0xFF0000) >> 16;
     boost::uint32_t g = (n & 0xFF00) >> 8;

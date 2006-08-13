@@ -20,7 +20,7 @@
 namespace pstade { namespace tomato {
 
 
-template< class Functor > inline
+template< class Functor >
 Functor for_each_rebar_band(HWND hWndReBar, Functor fun)
 {
     BOOST_ASSERT(diet::valid(hWndReBar));

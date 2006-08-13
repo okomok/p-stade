@@ -75,7 +75,7 @@ void pstade_diet_dump(HWND hWnd, OStream& os, pstade::overload<>)
 //   seems not to work under WinXP.
 //
 inline
-bool pstade_diet_is_valid(const TCHAR *psz, pstade::overload<>)
+bool pstade_diet_is_valid(TCHAR const *psz, pstade::overload<>)
 {
     using namespace pstade;
 
@@ -99,8 +99,8 @@ bool pstade_diet_is_valid(const TCHAR *psz, pstade::overload<>)
         typedef boost::mpl::integral_c<std::ptrdiff_t, 1398269> faraway;
 
         __try {
-            const TCHAR *pch = psz;
-            const TCHAR *pchEnd = psz + faraway::value - 1;
+            TCHAR const *pch = psz;
+            TCHAR const *pchEnd = psz + faraway::value - 1;
             TCHAR ch = *(volatile TCHAR *)pch;
             while ((ch != _T('\0')) && (pch != pchEnd)) {
                 ++pch;
@@ -124,9 +124,9 @@ bool pstade_diet_is_valid(const TCHAR *psz, pstade::overload<>)
 }
 
 template< class OStream > inline
-void pstade_diet_dump(const TCHAR *psz, OStream& os, pstade::overload<>)
+void pstade_diet_dump(TCHAR const *psz, OStream& os, pstade::overload<>)
 {
-    os << boost::format("<cstring><pointer>%x</pointer></cstring>") % static_cast<const void *>(psz);
+    os << boost::format("<cstring><pointer>%x</pointer></cstring>") % static_cast<void const *>(psz);
 
     pstade::unused(psz);
 }

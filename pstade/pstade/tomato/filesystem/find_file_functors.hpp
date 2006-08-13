@@ -10,31 +10,32 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <functional> // unary_function
 #include <pstade/apple/sdk/windows.hpp>
+#include <pstade/oven/copy_range.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
-#include <pstade/oven/sequence_cast.hpp>
 
 
 namespace pstade { namespace tomato {
 
 
 template< class Sequence >
-struct find_file_construct :
-    std::unary_function<WIN32_FIND_DATA, Sequence>
+struct find_file_construct
 {
-    Sequence operator()(const WIN32_FIND_DATA& data) const
+    typedef Sequence result_type;
+
+    Sequence operator()(WIN32_FIND_DATA const& data) const
     {
-        return oven::sequence(data.cFileName|oven::null_terminated);
+        return data.cFileName|oven::null_terminated|oven::copied;
     }
 };
 
 
 template< class StringT >
-struct find_file_stringize :
-    std::unary_function<WIN32_FIND_DATA, StringT>
+struct find_file_stringize
 {
-    StringT operator()(const WIN32_FIND_DATA& data) const
+    typedef StringT result_type;
+
+    StringT operator()(WIN32_FIND_DATA const& data) const
     {
         return StringT(data.cFileName);
     }

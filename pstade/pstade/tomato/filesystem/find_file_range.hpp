@@ -21,11 +21,11 @@
 
 
 #include <boost/assert.hpp>
-#include <boost/mpl/bool.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/verify.hpp>
+#include "../c_str.hpp"
 #include "../diet/valid.hpp"
 #include "./find_file_iterator.hpp"
 
@@ -36,26 +36,35 @@ namespace pstade { namespace tomato {
 namespace find_file_range_detail {
 
 
-    // See: Boost.BaseFromMember
-    //
+    template< class = void >
     struct init
     {
+        typedef init type;
+
     protected:
         HANDLE m_hFind;
         WIN32_FIND_DATA m_data;
 
-        explicit init(const TCHAR *pszName)
+        explicit init(TCHAR const *pszName)
         {
             BOOST_ASSERT(diet::valid(pszName));
-
             m_hFind = ::FindFirstFile(pszName, &m_data);
         }
 
         ~init()
         {
             if (m_hFind != INVALID_HANDLE_VALUE)
-                pstade::verify( ::FindClose(m_hFind) );
+                ::FindClose(m_hFind)|verified;
         }
+    };
+
+
+    template< class = void >
+    struct super_
+    {
+        typedef boost::iterator_range<
+            find_file_iterator
+        > type;
     };
 
 
@@ -63,20 +72,20 @@ namespace find_file_range_detail {
 
 
 struct find_file_range  :
-    private boost::noncopyable,
-    private find_file_range_detail::init,
-    boost::iterator_range<find_file_iterator>
+    private find_file_range_detail::init<>::type,
+    find_file_range_detail::super_<>::type,
+    private boost::noncopyable
 {
 private:
-    typedef boost::iterator_range<find_file_iterator> super_t;
+    typedef find_file_range_detail::init<>::type init_t;
+    typedef find_file_range_detail::super_<>::type super_t;
+    typedef super_t::iterator iter_t;
 
 public:
-    explicit find_file_range(const TCHAR *pszName) :
-        find_file_range_detail::init(pszName),
-        super_t(
-            find_file_iterator(m_hFind, m_data),
-            find_file_iterator()
-        )
+    template< class CStringizable >
+    explicit find_file_range(CStringizable const& str) :
+        init_t(str|c_stringized),
+        super_t(iter_t(m_hFind, m_data), iter_t())
     { }
 };
 

@@ -22,7 +22,7 @@ namespace get_stock_brush_detail {
 
 
     inline
-    void valid_type(int fnObject)
+    void is_valid(int fnObject)
     {
         return
             fnObject == BLACK_BRUSH     ||
@@ -43,7 +43,7 @@ namespace get_stock_brush_detail {
 inline
 HBRUSH get_stock_brush(int fnObject)
 {
-    BOOST_ASSERT(get_stock_brush_detail::valid_type(fnObject));
+    BOOST_ASSERT(get_stock_brush_detail::is_valid(fnObject));
 
     return reinterpret_cast<HBRUSH>(::GetStockObject(fnObject));
 }

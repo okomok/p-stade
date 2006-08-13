@@ -29,7 +29,7 @@ bool is_rebar_band_visible(HWND hWndReBar, UINT uBandID)
 
     WTL::CReBarCtrl rebar(hWndReBar);
     int index = rebar.IdToIndex(uBandID);
-    BOOST_ASSERT(index != -1 && "invalid band id");
+    BOOST_ASSERT("invalid band id" && index != -1);
 
     REBARBANDINFO info; {
         info|size_initialized;

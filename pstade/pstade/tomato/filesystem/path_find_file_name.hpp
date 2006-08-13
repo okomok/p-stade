@@ -26,7 +26,7 @@ namespace pstade { namespace tomato {
 
 
     inline
-    const TCHAR *path_find_file_name(const TCHAR *pszPath)
+    TCHAR const *path_find_file_name(TCHAR const *pszPath)
     {
         BOOST_ASSERT(diet::valid(pszPath));
 
@@ -47,13 +47,13 @@ namespace pstade { namespace tomato {
 
 
     inline
-    const TCHAR *path_find_file_name(const TCHAR *pszPath)
+    TCHAR const *path_find_file_name(TCHAR const *pszPath)
     {
         BOOST_ASSERT(diet::valid(pszPath));
 
-        const TCHAR *pszFileName = pszPath; // beginning of the path if failed
+        TCHAR const *pszFileName = pszPath; // beginning of the path if failed
 
-        for (const TCHAR *psz = pszPath; *psz != _T('\0'); psz = ::CharNext(psz)) {
+        for (TCHAR const *psz = pszPath; *psz != _T('\0'); psz = ::CharNext(psz)) {
             if (*psz == dir_tsep::value) {
                 psz = ::CharNext(psz);
                 if (*psz != _T('\0')) {
@@ -72,7 +72,7 @@ namespace pstade { namespace tomato {
     {
         BOOST_ASSERT(diet::valid(pszPath));
 
-        const TCHAR *psz = pszPath;
+        TCHAR const *psz = pszPath;
         return const_cast<TCHAR *>(tomato::path_find_file_name(psz));
     }
 

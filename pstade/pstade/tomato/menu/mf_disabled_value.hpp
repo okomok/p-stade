@@ -10,9 +10,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/apple/sdk/windows.hpp>
+
 #include <boost/mpl/if.hpp>
-#include <boost/mpl/integral_c.hpp>
+#include <pstade/apple/sdk/windows.hpp>
+#include <pstade/static_c.hpp>
 #include "../is_wce.hpp"
 
 
@@ -21,8 +22,8 @@ namespace pstade { namespace tomato {
 
 struct mf_disabled :
     boost::mpl::if_< is_wce<>,
-        boost::mpl::integral_c<UINT, MF_DISABLED>,
-        boost::mpl::integral_c<UINT, 0>
+        static_c<UINT, MF_DISABLED>,
+        static_c<UINT, 0>
     >::type
 { };
 

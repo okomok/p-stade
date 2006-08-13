@@ -13,6 +13,7 @@
 #include <boost/range/iterator_range.hpp>
 #include <pstade/nullptr.hpp>
 #include "./lightweight_proxy.hpp"
+#include "./range_constantable.hpp"
 
 
 namespace pstade { namespace oven {
@@ -21,8 +22,11 @@ namespace pstade { namespace oven {
 template< class Value >
 struct empty_range :
     boost::iterator_range<Value *>,
+    private range_constantable<empty_range<Value>, Value const *>,
     private lightweight_proxy< empty_range<Value> >
 {
+    typedef Value const *const_iterator;
+
 private:
     typedef boost::iterator_range<Value *> super_t;
     typedef typename super_t::iterator iter_t;

@@ -31,7 +31,7 @@ namespace pstade { namespace tomato {
 inline
 bool modify_menu(HMENU hMenu,
     UINT uPosition, UINT uFlags,
-    UINT uIDNewItem = 0, const TCHAR *lpNewItem = NULL)
+    UINT uIDNewItem = 0, TCHAR const *lpNewItem = NULL)
 {
     BOOST_ASSERT(diet::valid(hMenu));
 

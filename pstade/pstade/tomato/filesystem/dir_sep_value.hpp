@@ -10,25 +10,25 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/mpl/integral_c.hpp>
 #include <pstade/apple/sdk/tchar.hpp>
+#include <pstade/static_c.hpp>
 
 
 namespace pstade { namespace tomato {
 
 
 struct dir_sep :
-    boost::mpl::integral_c<char, '\\'>
+    static_c<char, '\\'>
 { };
 
 
 struct dir_wsep :
-    boost::mpl::integral_c<wchar_t, L'\\'>
+    static_c<wchar_t, L'\\'>
 { };
 
 
 struct dir_tsep :
-    boost::mpl::integral_c<TCHAR, _T('\\')>
+    static_c<TCHAR, _T('\\')>
 { };
 
 

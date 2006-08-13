@@ -16,8 +16,8 @@
 
 
 #include <boost/mpl/if.hpp>
-#include <boost/mpl/integral_c.hpp>
 #include <pstade/apple/sdk/windows.hpp>
+#include <pstade/static_c.hpp>
 #include "../is_wce.hpp"
 
 
@@ -26,8 +26,8 @@ namespace pstade { namespace tomato {
 
 struct mf_bitmap :
     boost::mpl::if_< is_wce<>,
-        boost::mpl::integral_c<UINT, MF_BITMAP>,
-        boost::mpl::integral_c<UINT, 0x00000004L>
+        static_c<UINT, MF_BITMAP>,
+        static_c<UINT, 0x00000004L>
     >::type
 { };
 

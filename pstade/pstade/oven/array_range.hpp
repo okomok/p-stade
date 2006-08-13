@@ -15,6 +15,7 @@
 #include <boost/range/iterator_range.hpp>
 #include <boost/scoped_array.hpp>
 #include <boost/utility/base_from_member.hpp>
+#include "./range_constantable.hpp"
 
 
 namespace pstade { namespace oven {
@@ -26,14 +27,9 @@ namespace array_range_detail {
     template< class Value >
     struct init
     {
-        typedef boost::base_from_member< boost::scoped_array<Value> > type;
-    };
-
-
-    template< class Value >
-    struct super_
-    {
-        typedef boost::iterator_range<Value *> type;
+        typedef boost::base_from_member<
+            boost::scoped_array<Value>
+        > type;
     };
 
 
@@ -43,12 +39,15 @@ namespace array_range_detail {
 template< class Value >
 struct array_range :
     private array_range_detail::init<Value>::type,
-    array_range_detail::super_<Value>::type,
+    boost::iterator_range<Value *>,
+    private range_constantable<array_range<Value>, Value const *>,
     private boost::noncopyable
 {
+    typedef Value const *const_iterator;
+
 private:
     typedef typename array_range_detail::init<Value>::type init_t;
-    typedef typename array_range_detail::super_<Value>::type super_t;
+    typedef boost::iterator_range<Value *> super_t;
 
 public:
     explicit array_range(std::size_t sz) :

@@ -35,7 +35,7 @@ namespace c_str_detail {
     // member function
     //
     template< class T > inline
-    typename boost::enable_if< has_pstade_tomato_cstringizable<T>,
+    typename boost::enable_if<has_pstade_tomato_cstringizable<T>,
     TCHAR const *>::type aux(T const& str)
     {
         return access::detail_c_str(str);
@@ -51,7 +51,7 @@ namespace c_str_detail {
     }
 
     template< class T > inline
-    typename boost::disable_if< has_pstade_tomato_cstringizable<T>,
+    typename boost::disable_if<has_pstade_tomato_cstringizable<T>,
     TCHAR const *>::type aux(T const& str)
     {
         return pstade_tomato_c_str(str);
@@ -105,7 +105,7 @@ pstade_tomato_c_str(WTL::CString const& str, pstade::overload<>)
 
 template< PSTADE_APPLE_ATL_CSIMPLESTRINGT_TEMPLATE_PARAMS > inline
 BaseType const *
-pstade_tomato_c_str(const ATL::CSimpleStringT< PSTADE_APPLE_ATL_CSIMPLESTRINGT_TEMPLATE_ARGS >& str, pstade::overload<>)
+pstade_tomato_c_str(ATL::CSimpleStringT< PSTADE_APPLE_ATL_CSIMPLESTRINGT_TEMPLATE_ARGS > const& str, pstade::overload<>)
 {
     return str;
 }

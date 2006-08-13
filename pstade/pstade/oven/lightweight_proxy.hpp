@@ -12,13 +12,15 @@
 
 #include <boost/foreach.hpp> // foreach::tag
 #include <boost/mpl/bool.hpp>
+#include <boost/mpl/empty_base.hpp>
 
 
 namespace pstade { namespace oven {
 
 
-template< class Range >
-struct lightweight_proxy
+template< class Range, class Base = boost::mpl::empty_base >
+struct lightweight_proxy :
+    Base
 {
     friend
     boost::mpl::true_ *
