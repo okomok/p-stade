@@ -23,7 +23,6 @@ inline
 void post_command(HWND hWnd, WORD wID)
 {
     BOOST_ASSERT(diet::valid(hWnd));
-
     tomato::post_message(hWnd, WM_COMMAND, MAKEWPARAM(wID, 0));
 }
 

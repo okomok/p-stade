@@ -28,7 +28,7 @@ bool is_parent_of(HWND hWndParent, HWND hWndChild)
 {
     BOOST_ASSERT(diet::valid(hWndParent));
     BOOST_ASSERT(diet::valid(hWndChild));
-    
+
     return hWndParent == ::GetParent(hWndChild);
 }
 

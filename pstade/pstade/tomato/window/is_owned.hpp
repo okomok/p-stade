@@ -22,7 +22,6 @@ inline
 bool is_owned(HWND hWnd)
 {
     BOOST_ASSERT(diet::valid(hWnd));
-
     return NULL != ::GetWindow(hWnd, GW_OWNER);
 }
 

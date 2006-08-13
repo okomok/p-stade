@@ -25,7 +25,7 @@ namespace pstade { namespace tomato {
 
 
 inline
-void set_menu_text(HMENU hMenu, UINT uIndex, const TCHAR *pszText)
+void set_menu_text(HMENU hMenu, UINT uIndex, TCHAR const *pszText)
 {
     BOOST_ASSERT(diet::valid(hMenu));
     BOOST_ASSERT(diet::valid(pszText));

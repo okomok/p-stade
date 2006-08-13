@@ -20,10 +20,10 @@ namespace {
 
 
 #if !defined(_UNICODE)
-    std::istream& tcin  = std::cin;
-    std::ostream& tcout = std::cout;
-    std::ostream& tcerr = std::cerr;
-    std::ostream& tclog = std::clog;
+    std::istream&  tcin  = std::cin;
+    std::ostream&  tcout = std::cout;
+    std::ostream&  tcerr = std::cerr;
+    std::ostream&  tclog = std::clog;
 #else
     std::wistream& tcin  = std::wcin;
     std::wostream& tcout = std::wcout;

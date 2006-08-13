@@ -48,7 +48,8 @@ namespace size_initialize_detail {
             BOOST_MPL_ASSERT((boost::is_pod<T>));
         #endif
 
-            return pstade_tomato_size_initialize(x);
+            pstade_tomato_size_initialize(x);
+            return x;
         }
     };
 
@@ -67,15 +68,14 @@ PSTADE_OVEN_RANGE_ADAPTOR(size_initialized, size_initialize_detail::baby)
 //
 
 template< class T > inline
-T& pstade_tomato_size_initialize(T& x)
+void pstade_tomato_size_initialize(T& x)
 {
     x.cbSize = sizeof(T);
-    return x;
 }
 
 
 inline
-MENUITEMINFO& pstade_tomato_size_initialize(MENUITEMINFO& mii)
+void pstade_tomato_size_initialize(MENUITEMINFO& mii)
 {
     // See: WTL7.5::CMenuItemInfo
 
@@ -90,18 +90,15 @@ MENUITEMINFO& pstade_tomato_size_initialize(MENUITEMINFO& mii)
     }
 
 #endif
-
-    return mii;
 }
 
 
 #if !defined(_WIN32_WCE)
 
     inline
-    WINDOWPLACEMENT& pstade_tomato_size_initialize(WINDOWPLACEMENT& wndpl)
+    void pstade_tomato_size_initialize(WINDOWPLACEMENT& wndpl)
     {
         wndpl.length = sizeof(WINDOWPLACEMENT);
-        return wndpl;
     }
 
 #endif // !defined(_WIN32_WCE)

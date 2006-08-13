@@ -22,7 +22,6 @@ inline
 LRESULT send_message(HWND hWnd, UINT msg, WPARAM wParam = 0, LPARAM lParam = 0)
 {
     BOOST_ASSERT(diet::valid(hWnd));
-
     return ::SendMessage(hWnd, msg, wParam, lParam);
 }
 

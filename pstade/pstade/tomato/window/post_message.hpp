@@ -23,7 +23,6 @@ inline
 void post_message(HWND hWnd, UINT msg, WPARAM wParam = 0, LPARAM lParam = 0)
 {
     BOOST_ASSERT(diet::valid(hWnd));
-
     PSTADE_REQUIRE(::PostMessage(hWnd, msg, wParam, lParam));
 }
 

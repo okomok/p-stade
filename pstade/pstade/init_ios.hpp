@@ -10,9 +10,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Workaround:
+// What:
 //
-// The standard doesn't guarantee
+// Without this, the standard doesn't guarantee
 // 'std::cout' etc is initialized before 'main'.
 
 

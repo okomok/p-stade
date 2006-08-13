@@ -20,46 +20,46 @@
 namespace pstade {
 
 
-template< class TargetT, class SourceT > inline
-TargetT integral_cast(SourceT src)
+template< class To, class From > inline
+To integral_cast(From from)
 {
-    BOOST_MPL_ASSERT((boost::is_integral<TargetT>));
-    BOOST_MPL_ASSERT((boost::is_integral<SourceT>));
+    BOOST_MPL_ASSERT((boost::is_integral<To>));
+    BOOST_MPL_ASSERT((boost::is_integral<From>));
 
-    return boost::numeric_cast<TargetT>(src); // :-)
+    return boost::numeric_cast<To>(from); // :-)
 }
 
 
 namespace integral_cast_detail {
 
 
-    template< class SourceT >
+    template< class From >
     struct temp :
         private nonassignable
     {
-        explicit temp(SourceT src) :
-            m_src(src)
+        explicit temp(From from) :
+            m_from(from)
         { }
 
-        template< class TargetT >
-        operator TargetT() const
+        template< class To >
+        operator To() const
         {
-            return pstade::integral_cast<TargetT>(m_src);
+            return pstade::integral_cast<To>(m_from);
         }
 
     private:
-        SourceT m_src;
+        From m_from;
     };
 
 
 } // namespace integral_cast_detail
 
 
-template< class SourceT > inline
-integral_cast_detail::temp<SourceT> const
-integral(SourceT src)
+template< class From > inline
+integral_cast_detail::temp<From> const
+integral(From from)
 {
-    return integral_cast_detail::temp<SourceT>(src);
+    return integral_cast_detail::temp<From>(from);
 }
 
 

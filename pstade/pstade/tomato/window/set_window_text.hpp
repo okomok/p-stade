@@ -16,7 +16,6 @@
 
 
 #include <boost/array.hpp>
-#include <boost/mpl/int.hpp>
 #include <boost/range/begin.hpp>
 #include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/apple/sdk/windows.hpp>
@@ -25,6 +24,7 @@
 #include <pstade/oven/equals.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
 #include <pstade/require.hpp>
+#include <pstade/static_c.hpp>
 #include "../diet/valid.hpp"
 
 
@@ -32,15 +32,15 @@ namespace pstade { namespace tomato {
 
 
 inline
-void set_window_text(HWND hWnd, const TCHAR *pszNew)
+void set_window_text(HWND hWnd, TCHAR const *pszNew)
 {
     BOOST_ASSERT(diet::valid(hWnd));
     BOOST_ASSERT(diet::valid(pszNew));
 
-    oven::null_terminate_range<const TCHAR *> strNew(pszNew);
+    oven::null_terminate_range<TCHAR const *> strNew(pszNew);
     int newLen = pstade::integral(oven::distance(strNew));
 
-    typedef boost::mpl::int_<255> bufLen;
+    typedef static_c<int, 255> bufLen;
     boost::array<TCHAR, 1 + bufLen::value> bufOld;
 
     // fast check to see if text really changes (reduces flash in controls)
