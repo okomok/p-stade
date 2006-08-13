@@ -35,6 +35,15 @@
 #include "./share_range.hpp"
 
 
+#if BOOST_WORKAROUND(BOOST_MSVC, == 1310)
+    // The weird VC7.1 fails to find the garlic's overload for STL Sequences
+    // in the case of 'sort_range' which is derived from 'out_place_range'.
+    // And 'private' multiple inheritance of 'lightweight_proxy' makes VC7.1 anger.
+    // I don't know why. Who knows.
+    #define PSTADE_OVEN_OUT_PLACE_RANGE_WEIRD_ERROR_WITH_SORT_RANGE
+#endif
+
+
 namespace pstade { namespace oven {
 
 
@@ -64,11 +73,13 @@ namespace out_place_range_detail {
     oven::share_range<Sequence> const
     make_share(ForwardRange& rng, Functor fun)
     {
+        // Note:
+        // 'share_range' size never be affected by its holding sequence
+        // once constructed. So, first of all, you must initialize the sequence
+        // before passing it to 'share_range'.
         std::auto_ptr<Sequence> pseq(pstade::new_<Sequence>()); {
-            // Workaround:
-            // The weird VC7.1 fails to find the garlic's overload for STL Sequences
-            // in the case of 'sort_range' which is derived from 'out_place_range'.
-        #if !BOOST_WORKAROUND(BOOST_MSVC, == 1310)
+
+        #if !defined(PSTADE_OVEN_OUT_PLACE_RANGE_WEIRD_ERROR_WITH_SORT_RANGE)
             oven::copy(rng|directed, garlic::back_inserter(*pseq));
         #else
             oven::copy(rng|directed, std::back_inserter(*pseq));
@@ -89,7 +100,10 @@ namespace out_place_range_detail {
 template< class ForwardRange, class Functor = unused_fun >
 struct out_place_range :
     out_place_range_detail::super_<ForwardRange>::type,
-    private lightweight_proxy< out_place_range<ForwardRange, Functor> >
+#if !defined(PSTADE_OVEN_OUT_PLACE_RANGE_WEIRD_ERROR_WITH_SORT_RANGE)
+    private
+#endif
+    lightweight_proxy< out_place_range<ForwardRange, Functor> >
 {
     typedef ForwardRange pstade_oven_range_base_type;
 

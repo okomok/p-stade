@@ -11,7 +11,7 @@
 
 
 #include <iostream>
-#include <pstade/init_ios.hpp>
+#include <pstade/ios_init.hpp>
 
 
 namespace pstade { namespace tomato {

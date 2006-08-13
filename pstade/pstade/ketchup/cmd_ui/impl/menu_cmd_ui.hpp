@@ -18,7 +18,7 @@
 #include <pstade/tomato/menu/set_menu_check_type.hpp>
 #include <pstade/tomato/menu/set_menu_default_item.hpp>
 #include <pstade/tomato/menu/set_menu_text.hpp>
-#include <pstade/tomato/menu/mf_disabled_value.hpp>
+#include <pstade/tomato/menu/mf_disabled.hpp>
 #include "../cmd_ui.hpp"
 
 

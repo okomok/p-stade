@@ -15,9 +15,12 @@
 // boost::numeric_cast
 
 
+#include <boost/type_traits/remove_cv.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/apple/sdk/wtypes.hpp> // VARIANT_BOOL
+#include <pstade/egg/function.hpp>
 #include <pstade/nonassignable.hpp>
+#include <pstade/oven/range_adaptor.hpp>
 
 
 namespace pstade { namespace tomato {
@@ -34,7 +37,7 @@ namespace boolean_cast_detail {
         template< > \
         struct cvter<To, From> \
         { \
-            static To cvt(From b) \
+            static To cvt(From from) \
             { \
                 return Expr; \
             } \
@@ -43,11 +46,11 @@ namespace boolean_cast_detail {
 
 
     #define PSTADE_TOMATO_BOOLEAN_CAST_cvter_set(To, True, False) \
-        PSTADE_TOMATO_BOOLEAN_CAST_cvter(To, bool, b ? True : False) \
-        PSTADE_TOMATO_BOOLEAN_CAST_cvter(To, BOOL, b ? True : False) \
-        PSTADE_TOMATO_BOOLEAN_CAST_cvter(To, VARIANT_BOOL, b ? True : False) \
-        PSTADE_TOMATO_BOOLEAN_CAST_cvter(To, BOOLEAN, b ? True : False) \
-        PSTADE_TOMATO_BOOLEAN_CAST_cvter(To, LRESULT, b ? True : False) \
+        PSTADE_TOMATO_BOOLEAN_CAST_cvter(To, bool, from ? True : False) \
+        PSTADE_TOMATO_BOOLEAN_CAST_cvter(To, BOOL, from ? True : False) \
+        PSTADE_TOMATO_BOOLEAN_CAST_cvter(To, VARIANT_BOOL, from ? True : False) \
+        PSTADE_TOMATO_BOOLEAN_CAST_cvter(To, BOOLEAN, from ? True : False) \
+        PSTADE_TOMATO_BOOLEAN_CAST_cvter(To, LRESULT, from ? True : False) \
     /**/
 
 
@@ -80,30 +83,44 @@ namespace boolean_cast_detail {
     struct temp :
         private nonassignable
     {
-        explicit temp(From b) :
-            m_b(b)
+        explicit temp(From from) :
+            m_from(from)
         { }
 
         template< class To >
         operator To() const
         {
-            return tomato::boolean_cast<To>(m_b);
+            return tomato::boolean_cast<To>(m_from);
         }
 
     private:
-        From m_b;
+        From m_from;
+    };
+
+
+    struct baby_boolean
+    {
+        template< class Unused, class From >
+        struct result
+        {
+            typedef typename boost::remove_cv<From>::type from_t;
+            typedef boolean_cast_detail::temp<from_t> const type;
+        };
+
+        template< class Result, class From >
+        Result call(From from)
+        {
+            return Result(from);
+        }
     };
 
 
 } // namespace boolean_cast_detail
 
 
-template< class From > inline
-boolean_cast_detail::temp<From> const
-boolean(From b)
-{
-    return boolean_cast_detail::temp<From>(b);
-}
+PSTADE_EGG_FUNCTION(boolean, boolean_cast_detail::baby_boolean)
+PSTADE_OVEN_RANGE_ADAPTOR(booleanized, boolean_cast_detail::baby_boolean)
+
 
 } } // namespace pstade::tomato
 

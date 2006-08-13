@@ -13,7 +13,7 @@
 
 // Note:
 //
-// Prefer reference as member! for normal functions.
+// Prefer reference to pointer for function types.
 
 
 #include <boost/preprocessor/cat.hpp>

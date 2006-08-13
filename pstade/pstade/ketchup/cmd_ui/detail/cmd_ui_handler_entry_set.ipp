@@ -2,7 +2,7 @@
 template<
     UINT id,
     void (Derived::*func)(ketchup::cmd_ui&),
-    class DependentT = pstade::ketchup::default_
+    class DependentT = ketchup::default_
 >
 struct cmd_ui_handler
 {
@@ -16,9 +16,9 @@ struct cmd_ui_handler
             if (ui.get_id() == id)
             {
                 if (
-                    (DependentT::value == pstade::ketchup::default_::value) ||
-                    (DependentT::value == pstade::ketchup::dependent::value && ui.is_dependent()) ||
-                    (DependentT::value == pstade::ketchup::independent::value && !ui.is_dependent())
+                    (DependentT::value == ketchup::default_::value) ||
+                    (DependentT::value == ketchup::dependent::value && ui.is_dependent()) ||
+                    (DependentT::value == ketchup::independent::value && !ui.is_dependent())
                 )
                 {
                     ui.set_handled(true);

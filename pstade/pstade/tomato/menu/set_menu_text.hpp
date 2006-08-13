@@ -17,7 +17,7 @@
 #include "../diet/valid.hpp"
 #include "../size_initialize.hpp"
 #include "./get_menu_state.hpp"
-#include "./mf_bitmap_value.hpp"
+#include "./mf_bitmap.hpp"
 #include "./modify_menu.hpp"
 
 

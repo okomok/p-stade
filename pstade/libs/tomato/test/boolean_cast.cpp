@@ -1,3 +1,4 @@
+#include <pstade/vodka/drink.hpp>
 #include <boost/test/minimal.hpp>
 
 
@@ -10,6 +11,9 @@
 
 
 #include <pstade/tomato/boolean_cast.hpp>
+
+
+#include <iostream>
 
 
 void test_boolean_cast()
@@ -122,7 +126,6 @@ void test_boolean()
 
 void test_booleanized()
 {
-/*
     using namespace pstade;
     using namespace tomato;
 
@@ -189,7 +192,22 @@ void test_booleanized()
         BOOST_CHECK( t == TRUE );
         BOOST_CHECK( f == FALSE );
     }
-*/
+}
+
+
+void test_compare()
+{
+    using namespace pstade;
+    using namespace tomato;
+
+    BOOL volatile b = TRUE;
+    bool t0 = b ? true : false;
+
+    bool t1 = tomato::boolean_cast<bool>(b); // faster than 't0' code.
+    bool t2 = tomato::boolean(b); // has function call.
+    bool t3 = b|booleanized; // nearly same as above.
+
+    std::cout << t0 << t1 << t2 << t3;
 }
 
 
@@ -198,5 +216,6 @@ int test_main(int, char*[])
     ::test_boolean_cast();
     ::test_boolean();
     ::test_booleanized();
+    ::test_compare();
     return 0;
 }

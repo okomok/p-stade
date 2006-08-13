@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./filesystem/dir_sep_value.hpp"
+#include "./filesystem/dir_sep.hpp"
 #include "./filesystem/find_file_functors.hpp"
 #include "./filesystem/find_file_iterator.hpp"
 #include "./filesystem/find_file_predicates.hpp"
@@ -18,7 +18,7 @@
 #include "./filesystem/module_file_name.hpp"
 
 
-#include "./filesystem/max_path_value.hpp"
+#include "./filesystem/max_path.hpp"
 #include "./filesystem/path_find_extension.hpp"
 #include "./filesystem/path_find_file_name.hpp"
 

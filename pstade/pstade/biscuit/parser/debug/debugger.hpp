@@ -22,8 +22,8 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/range/result_iterator.hpp>
-#include <pstade/init_ios.hpp>
 #include <pstade/instance.hpp>
+#include <pstade/ios_init.hpp>
 #include <pstade/is_ndebug.hpp>
 #include <pstade/napkin/config.hpp> // NO_WIDESTRING
 #include <pstade/napkin/ostream.hpp>

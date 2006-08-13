@@ -15,7 +15,7 @@
 #include <pstade/apple/sdk/shlwapi.hpp> // PathFindFileName
 #include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/apple/sdk/windows.hpp>
-#include "./dir_sep_value.hpp"
+#include "./dir_sep.hpp"
 #include "../diet/valid.hpp"
 
 

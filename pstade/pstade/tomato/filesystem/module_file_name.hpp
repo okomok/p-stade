@@ -29,7 +29,7 @@
 #include <pstade/oven/sub_range_result.hpp>
 #include <pstade/require.hpp>
 #include "../access.hpp"
-#include "./max_path_value.hpp"
+#include "./max_path.hpp"
 #include "./path_find_extension.hpp"
 #include "./path_find_file_name.hpp"
 

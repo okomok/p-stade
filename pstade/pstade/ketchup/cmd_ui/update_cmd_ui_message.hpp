@@ -50,7 +50,7 @@ void set_cmd_ui_handled(LRESULT& lResult, bool handled)
 inline
 cmd_ui& wParam_to_cmd_ui(WPARAM wParam)
 {
-    cmd_ui *p_ui = reinterpret_cast<cmd_ui*>(wParam);
+    cmd_ui *p_ui = reinterpret_cast<cmd_ui *>(wParam);
     return *p_ui;
 }
 
