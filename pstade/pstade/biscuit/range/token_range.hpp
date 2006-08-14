@@ -99,10 +99,10 @@ namespace token_range_detail {
 
 
     template< class Parser, class UserState >
-    struct adaptor :
+    struct pipeline :
         private nonassignable
     {
-        explicit adaptor(UserState& us) :
+        explicit pipeline(UserState& us) :
             m_us(us)
         { }
 
@@ -112,16 +112,16 @@ namespace token_range_detail {
 
     template< class Parser, class ForwardRange, class UserState > inline
     token_range<Parser, ForwardRange, UserState> const
-    operator|(ForwardRange& rng, adaptor<Parser, UserState> const& ad)
+    operator|(ForwardRange& rng, pipeline<Parser, UserState> const& pl)
     {
-        return biscuit::make_token_range<Parser>(rng, ad.m_us);
+        return biscuit::make_token_range<Parser>(rng, pl.m_us);
     }
 
         template< class Parser, class ForwardRange, class UserState > inline
         token_range<Parser, typename boost::add_const<ForwardRange>::type, UserState> const
-        operator|(ForwardRange const& rng, adaptor<Parser, UserState> const& ad)
+        operator|(ForwardRange const& rng, pipeline<Parser, UserState> const& pl)
         {
-            return biscuit::make_token_range<Parser>(rng, ad.m_us);
+            return biscuit::make_token_range<Parser>(rng, pl.m_us);
         }
 
 
@@ -129,18 +129,18 @@ namespace token_range_detail {
 
 
 template< class Parser, class UserState > inline
-token_range_detail::adaptor<Parser, UserState> const
+token_range_detail::pipeline<Parser, UserState> const
 tokenized(UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
 {
-    return token_range_detail::adaptor<Parser, UserState>(us);
+    return token_range_detail::pipeline<Parser, UserState>(us);
 }
 
 // no user-state
 template< class Parser > inline
-token_range_detail::adaptor<Parser, null_state_type> const
+token_range_detail::pipeline<Parser, null_state_type> const
 tokenized(BOOST_EXPLICIT_TEMPLATE_TYPE(Parser))
 {
-    return token_range_detail::adaptor<Parser, null_state_type>(null_state);
+    return token_range_detail::pipeline<Parser, null_state_type>(null_state);
 }
 
 

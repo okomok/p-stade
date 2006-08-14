@@ -52,7 +52,7 @@ private:
 public:
     operator pstade_radish_detail_safe_bool_t() const
     {
-        T const& d = pstade::derived(*this);
+        T const& d = *this|to_derived;
         return access::detail_bool(d) ?
             &pstade_radish_detail_safe_bool_box::safe_bool : PSTADE_NULLPTR;
     }

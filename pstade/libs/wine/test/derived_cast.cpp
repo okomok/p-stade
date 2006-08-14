@@ -13,6 +13,7 @@
 #include <pstade/derived_cast.hpp>
 
 
+#include <iostream>
 #include <boost/noncopyable.hpp>
 #include <pstade/unused.hpp>
 
@@ -106,6 +107,22 @@ struct Base { };
 struct Derived : Base { };
 
 
+void test_cast()
+{
+    Base b;
+    Derived& d = pstade::derived_cast<Derived>(b);
+    std::cout << &d;
+}
+
+
+void test_auto()
+{
+    Base b;
+    Derived& d = pstade::derived(b);
+    std::cout << &d;
+}
+
+
 void test()
 {
     Window wnd;
@@ -119,14 +136,15 @@ void test()
     dlg.move();
 
     Base b;
-    Derived& d1 = pstade::derived_cast<Derived>(b);
-    Derived& d2 = pstade::derived(b);
-    pstade::unused(d1, d2);
+    Derived& d = b|pstade::to_derived;
+    (void)d;
 }
 
 
 int test_main(int, char*[])
 {
     ::test();
+    ::test_cast();
+    ::test_auto();
     return 0;
 }

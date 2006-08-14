@@ -87,7 +87,7 @@ struct utf8_encoded;
 namespace utf8_encode_range_detail {
 
 
-    struct adl_marker
+    struct pipeline
     { };
 
 
@@ -112,7 +112,7 @@ namespace utf8_encode_range_detail {
 
 template< class U8T = boost::uint8_t >
 struct utf8_encoded :
-    utf8_encode_range_detail::adl_marker,
+    utf8_encode_range_detail::pipeline,
     private nonassignable
 { };
 

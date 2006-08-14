@@ -15,6 +15,7 @@
 #include <boost/mpl/assert.hpp>
 #include <boost/type_traits/is_base_of.hpp>
 #include <boost/utility/addressof.hpp>
+#include <pstade/instance.hpp>
 #include <pstade/nonassignable.hpp>
 
 
@@ -23,6 +24,14 @@
     // VC7.1 maybe saves the conversion operator of the first call,
     // and then makes the ambiguity error by the second call.
     #define PSTADE_DERIVED_CAST_NO_POINTER_DERIVED
+#endif
+
+
+#if defined(__GNUC__)
+    // Without a named object, GCC3.4.4 tries to convert 'BaseT' to
+    // 'derived_cast_detail::temp' using the conversion operator template.
+    // I don't know why.
+    #define PSTADE_DERIVED_CAST_NEEDS_NAMED_RETURN_VALUE
 #endif
 
 
@@ -70,19 +79,48 @@ namespace derived_cast_detail {
 } // namespace derived_cast_detail
 
 
+// Note:
+// 'PSTADE_DERIVED_CAST_NEEDS_NAMED_RETURN_VALUE' makes Egg useless.
+//
+
 template< class BaseT > inline
 derived_cast_detail::temp<BaseT> const
 derived(BaseT& base)
 {
-    // return derived_cast_detail::temp<BaseT>(base);
-
-    // Workaround:
-    // If 'tmp' is missing like above, GCC3.4.4 tries to convert 'temp' to
-    // itself using the first conversion operator template.
-    // For its constructor? I don't know why.
+#if !defined(PSTADE_DERIVED_CAST_NEEDS_NAMED_RETURN_VALUE)
+    return derived_cast_detail::temp<BaseT>(base);
+#else
     derived_cast_detail::temp<BaseT> tmp(base);
     return tmp;
+#endif
 }
+
+
+namespace derived_cast_detail {
+
+
+    struct pipeline :
+        private nonassignable
+    { };
+
+
+    template< class BaseT > inline
+    derived_cast_detail::temp<BaseT> const
+    operator|(BaseT& base, pipeline const&)
+    {
+    #if !defined(PSTADE_DERIVED_CAST_NEEDS_NAMED_RETURN_VALUE)
+        return pstade::derived(base);
+    #else
+        derived_cast_detail::temp<BaseT> tmp(base);
+        return tmp;
+    #endif
+    }
+
+
+} // namespace derived_cast_detail
+
+
+PSTADE_INSTANCE(derived_cast_detail::pipeline const, to_derived, value)
 
 
 } // namespace pstade
