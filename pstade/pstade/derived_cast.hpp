@@ -13,6 +13,7 @@
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
 #include <boost/mpl/assert.hpp>
+#include <boost/noncopyable.hpp>
 #include <boost/type_traits/is_base_of.hpp>
 #include <boost/utility/addressof.hpp>
 #include <pstade/instance.hpp>
@@ -100,7 +101,7 @@ namespace derived_cast_detail {
 
 
     struct pipeline :
-        private nonassignable
+        private boost::noncopyable
     { };
 
 

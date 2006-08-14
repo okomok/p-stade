@@ -24,6 +24,7 @@
 #include <pstade/derived_cast.hpp>
 #include <pstade/nullptr.hpp>
 #include "./access.hpp"
+#include "./safe_bool.hpp"
 
 
 namespace pstade { namespace radish {
@@ -43,18 +44,13 @@ private:
     BOOST_MPL_ASSERT_NOT((boost::is_convertible<T, char>));
     BOOST_MPL_ASSERT_NOT((boost::is_convertible<T, short>));
 
-    // Prefer data member pointer for smaller code.
-    struct pstade_radish_detail_safe_bool_box { int safe_bool; };
-    typedef int pstade_radish_detail_safe_bool_box::*pstade_radish_detail_safe_bool_t;
-
     void does_not_support_comparisons() const;
 
 public:
-    operator pstade_radish_detail_safe_bool_t() const
+    operator safe_bool() const
     {
-        T const& d = *this|to_derived;
-        return access::detail_bool(d) ?
-            &pstade_radish_detail_safe_bool_box::safe_bool : PSTADE_NULLPTR;
+        T const& d = pstade::derived_cast<T const>(*this);
+        return access::detail_bool(d) ? safe_true : safe_false;
     }
 
     // Prefer 'friend' to member for disambiguity.
