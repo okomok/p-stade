@@ -39,20 +39,17 @@ struct bool_testable :
     Base
 {
 private:
-    void does_not_support_comparisons() const;
+    // Your type is already bool-testable and dangerous.
+    BOOST_MPL_ASSERT_NOT((boost::is_convertible<T, char>));
+    BOOST_MPL_ASSERT_NOT((boost::is_convertible<T, short>));
 
     // Prefer data member pointer for smaller code.
     struct pstade_radish_detail_safe_bool_box { int safe_bool; };
     typedef int pstade_radish_detail_safe_bool_box::*pstade_radish_detail_safe_bool_t;
 
-public:
-    bool_testable()
-    {
-        // Your type is already bool-testable and dangerous.
-        BOOST_MPL_ASSERT_NOT((boost::is_convertible<T, char>));
-        BOOST_MPL_ASSERT_NOT((boost::is_convertible<T, short>));
-    }
+    void does_not_support_comparisons() const;
 
+public:
     operator pstade_radish_detail_safe_bool_t() const
     {
         T const& d = pstade::derived(*this);

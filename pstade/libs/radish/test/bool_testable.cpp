@@ -89,6 +89,20 @@ void test()
         else {
             BOOST_ASSERT(false);
         }
+
+        if (b1 && b2) {
+            BOOST_ASSERT(false);
+        }
+        else {
+            ;
+        }
+
+        if (b1 && !b2) {
+            ;
+        }
+        else {
+            BOOST_ASSERT(false);
+        }
     }
 
     {
