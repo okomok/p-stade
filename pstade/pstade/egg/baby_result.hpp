@@ -55,6 +55,12 @@ namespace baby_result_detail {
     dummy_type;
 
 
+    template< class A >
+    struct meta_arg :
+        boost::remove_reference<A>
+    { };
+
+
 } // namespace baby_result_detail
 
 
@@ -83,7 +89,7 @@ template< class BabyFunction, class A0 >
 struct baby_result1 :
     BabyFunction::template result<
         baby_result_detail::dummy_type,
-        typename boost::remove_reference<A0>::type
+        typename baby_result_detail::meta_arg<A0>::type
     >
 { };
 
@@ -94,22 +100,22 @@ template< class BabyFunction, class A0, class A1 >
 struct baby_result2 :
     BabyFunction::template result<
         baby_result_detail::dummy_type,
-        typename boost::remove_reference<A0>::type,
-        typename boost::remove_reference<A1>::type
+        typename baby_result_detail::meta_arg<A0>::type,
+        typename baby_result_detail::meta_arg<A1>::type
     >
 { };
 
 
 // 3ary -
 //
-#define PSTADE_EGG_remove_ref(Z, N, _) \
-    typename boost::remove_reference< BOOST_PP_CAT(A, N) >::type \
+#define PSTADE_EGG_meta_arg(Z, N, _) \
+    typename baby_result_detail::meta_arg< BOOST_PP_CAT(A, N) >::type \
 /**/
 
 #define BOOST_PP_ITERATION_PARAMS_1 (3, (3, PSTADE_EGG_MAX_ARITY, <pstade/egg/baby_result.hpp>))
 #include BOOST_PP_ITERATE()
 
-#undef PSTADE_EGG_remove_ref
+#undef PSTADE_EGG_meta_arg
 
 
 } } // namespace pstade::egg
@@ -124,7 +130,7 @@ template< class BabyFunction, BOOST_PP_ENUM_PARAMS(n, class A) >
 struct BOOST_PP_CAT(baby_result, n) :
     BabyFunction::template result<
         baby_result_detail::dummy_type,
-        BOOST_PP_ENUM(n, PSTADE_EGG_remove_ref, ~)
+        BOOST_PP_ENUM(n, PSTADE_EGG_meta_arg, ~)
     >
 { };
 
