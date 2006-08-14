@@ -14,9 +14,12 @@
 //
 // http://www.artima.com/cppsource/safebool.html
 // http://www.pdc.kth.se/training/Talks/C++/boost/libs/utility/operators.htm#safe_bool_note
+// http://lists.boost.org/Archives/boost/2003/11/56857.php
 
 
+#include <boost/mpl/assert.hpp>
 #include <boost/mpl/empty_base.hpp>
+#include <boost/type_traits/is_convertible.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/derived_cast.hpp>
 #include <pstade/nullptr.hpp>
@@ -36,22 +39,29 @@ struct bool_testable :
     Base
 {
 private:
-    typedef void (bool_testable::*pstade_radish_safe_bool_t)();
-    void pstade_radish_safe_bool() { }
     void does_not_support_comparisons() const;
 
+    // Prefer data member pointer for smaller code.
+    struct pstade_radish_detail_safe_bool_box { int safe_bool; };
+    typedef int pstade_radish_detail_safe_bool_box::*pstade_radish_detail_safe_bool_t;
+
 public:
-    operator pstade_radish_safe_bool_t() const
+    bool_testable()
+    {
+        // Your type is already bool-testable and dangerous.
+        BOOST_MPL_ASSERT_NOT((boost::is_convertible<T, char>));
+        BOOST_MPL_ASSERT_NOT((boost::is_convertible<T, short>));
+    }
+
+    operator pstade_radish_detail_safe_bool_t() const
     {
         T const& d = pstade::derived(*this);
         return access::detail_bool(d) ?
-            &bool_testable::pstade_radish_safe_bool : PSTADE_NULLPTR;
+            &pstade_radish_detail_safe_bool_box::safe_bool : PSTADE_NULLPTR;
     }
 
-    // Note:
-    // You should prefer 'friend' to member,
-    // because a nullary member function causes ambiguity
-    // if base classes have their own member 'operator!()'.
+    // Prefer 'friend' to member for disambiguity.
+    // One of base classes may have its own member 'operator!()'.
     friend
     bool operator !(T const& x)
     {
@@ -60,7 +70,6 @@ public:
 };
 
 
-// Note:
 // You must win the overloading race against...
 //
 template< class T, class U > inline

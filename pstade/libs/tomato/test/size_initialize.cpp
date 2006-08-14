@@ -35,6 +35,7 @@ void test_legacy()
 
     WNDCLASSEX s;
     s.cbSize = sizeof(MENUITEMINFO);
+    (void)s;
 
     std::cout << s.cbClsExtra;
 }

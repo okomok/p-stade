@@ -46,7 +46,7 @@ namespace pstade { namespace egg { namespace detail {
     };
 
     template< class Input, class BabyFunction > inline
-    typename egg::baby_result1<BabyFunction,
+    typename baby_result1<BabyFunction,
         Input
     >::type
     operator|(Input& in, pipeliner0<BabyFunction> const& pl)
@@ -56,7 +56,7 @@ namespace pstade { namespace egg { namespace detail {
     }
 
     template< class Input, class BabyFunction > inline
-    typename egg::baby_result1<BabyFunction,
+    typename baby_result1<BabyFunction,
         typename boost::add_const<Input>::type
     >::type
     operator|(Input const& in, pipeliner0<BabyFunction> const& pl)
@@ -83,7 +83,7 @@ namespace pstade { namespace egg { namespace detail {
     };
 
     template< class Input, class BabyFunction, class A0 > inline
-    typename egg::baby_result2<BabyFunction,
+    typename baby_result2<BabyFunction,
         Input,
         A0
     >::type
@@ -93,7 +93,7 @@ namespace pstade { namespace egg { namespace detail {
     }
 
     template< class Input, class BabyFunction, class A0 > inline
-    typename egg::baby_result2<BabyFunction,
+    typename baby_result2<BabyFunction,
         typename boost::add_const<Input>::type,
         A0
     >::type
@@ -120,7 +120,7 @@ namespace pstade { namespace egg { namespace detail {
     };
 
     template< class Input, class BabyFunction, class A0, class A1 > inline
-    typename egg::baby_result3<BabyFunction,
+    typename baby_result3<BabyFunction,
         Input,
         A0, A1
     >::type
@@ -130,7 +130,7 @@ namespace pstade { namespace egg { namespace detail {
     }
 
     template< class Input, class BabyFunction, class A0, class A1 > inline
-    typename egg::baby_result3<BabyFunction,
+    typename baby_result3<BabyFunction,
         typename boost::add_const<Input>::type,
         A0, A1
     >::type
@@ -179,7 +179,7 @@ struct BOOST_PP_CAT(pipeliner, n) :
 };
 
 template< class Input, class BabyFunction, BOOST_PP_ENUM_PARAMS(n, class A) > inline
-typename egg::BOOST_PP_CAT(baby_result, BOOST_PP_INC(n))<BabyFunction,
+typename BOOST_PP_CAT(baby_result, BOOST_PP_INC(n))<BabyFunction,
     Input,
     BOOST_PP_ENUM_PARAMS(n, A)
 >::type
@@ -189,7 +189,7 @@ operator|(Input& in, BOOST_PP_CAT(pipeliner, n)< BabyFunction, BOOST_PP_ENUM_PAR
 }
 
 template< class Input, class BabyFunction, BOOST_PP_ENUM_PARAMS(n, class A) > inline
-typename egg::BOOST_PP_CAT(baby_result, BOOST_PP_INC(n))<BabyFunction,
+typename BOOST_PP_CAT(baby_result, BOOST_PP_INC(n))<BabyFunction,
     typename boost::add_const<Input>::type,
     BOOST_PP_ENUM_PARAMS(n, A)
 >::type

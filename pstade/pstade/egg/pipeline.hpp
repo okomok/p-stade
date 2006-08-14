@@ -133,7 +133,7 @@ struct pipeline :
 // passed as is
 //
 template< class Input, class BabyFunction > inline
-typename egg::baby_result1<BabyFunction, Input>::type
+typename baby_result1<BabyFunction, Input>::type
 operator|(Input& in, pipeline<BabyFunction> const& pl)
 {
     pstade::unused(pl);
@@ -141,7 +141,7 @@ operator|(Input& in, pipeline<BabyFunction> const& pl)
 }
 
 template< class Input, class BabyFunction > inline
-typename egg::baby_result1<BabyFunction, typename boost::add_const<Input>::type>::type
+typename baby_result1<BabyFunction, typename boost::add_const<Input>::type>::type
 operator|(Input const& in, pipeline<BabyFunction> const& pl)
 {
     pstade::unused(pl);
