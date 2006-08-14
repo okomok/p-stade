@@ -34,7 +34,7 @@ namespace child_windows_detail {
         BOOST_ASSERT(diet::valid(hWnd));
 
         EnumFtor *pfun = reinterpret_cast<EnumFtor *>(lParam);
-        return tomato::boolean((*pfun)(hWnd));
+        return (*pfun)(hWnd)|booleanized;
     }
 
 

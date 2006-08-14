@@ -28,7 +28,7 @@ bool is_in_workarea(point pt)
     if (!::SystemParametersInfo(SPI_GETWORKAREA, 0, &rc, 0))
         return true;
 
-    return tomato::boolean(rc.PtInRect(pt));
+    return rc.PtInRect(pt)|tomato::booleanized;
 }
 
 
@@ -39,7 +39,7 @@ bool is_cross_workarea(rectangle rc)
     if (!::SystemParametersInfo(SPI_GETWORKAREA, 0, &w, 0))
         return true;
 
-    return tomato::boolean(!(rc & w).IsRectEmpty());
+    return !(rc & w).IsRectEmpty()|tomato::booleanized;
 }
 
 

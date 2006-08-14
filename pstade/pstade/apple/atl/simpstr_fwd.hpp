@@ -18,7 +18,7 @@ namespace ATL {
 
 #if !defined(PSTADE_APPLE_ATL_HAS_OLD_CSIMPLESTRING)
 
-    template< class BaseType, bool mfcdll >
+    template< class BaseType, bool t_bMFCDLL >
     class CSimpleStringT;
 
 #else

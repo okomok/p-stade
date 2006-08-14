@@ -102,7 +102,7 @@ struct element :
 
     bool process_message(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, LRESULT& lResult, DWORD dwMsgMapID = 0)
     {
-        return tomato::boolean(ProcessWindowMessage(hWnd, uMsg, wParam, lParam, lResult, dwMsgMapID));
+        return ProcessWindowMessage(hWnd, uMsg, wParam, lParam, lResult, dwMsgMapID)|tomato::booleanized;
     }
 
     // overridables

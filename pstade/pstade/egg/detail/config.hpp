@@ -12,6 +12,7 @@
 
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
+#include <boost/preprocessor/arithmetic/dec.hpp>
 
 
 #if defined(BOOST_MSVC)
@@ -22,6 +23,11 @@
 #if !defined(PSTADE_EGG_MAX_ARITY)
     #define PSTADE_EGG_MAX_ARITY 5
 #endif
+
+
+#define PSTADE_EGG_PIPELINE_MAX_ARITY \
+    BOOST_PP_DEC(PSTADE_EGG_MAX_ARITY) \
+/**/
 
 
 #endif

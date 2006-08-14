@@ -19,8 +19,8 @@
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/apple/sdk/wtypes.hpp> // VARIANT_BOOL
 #include <pstade/egg/function.hpp>
+#include <pstade/egg/pipeline.hpp>
 #include <pstade/nonassignable.hpp>
-#include <pstade/oven/range_adaptor.hpp>
 
 
 namespace pstade { namespace tomato {
@@ -69,10 +69,10 @@ namespace boolean_cast_detail {
 
 
 template< class To, class From > inline
-To boolean_cast(From arg)
+To boolean_cast(From from)
 {
     typedef boolean_cast_detail::cvter<To, From> cvter_t;
-    return cvter_t::cvt(arg);
+    return cvter_t::cvt(from);
 }
 
 
@@ -118,8 +118,8 @@ namespace boolean_cast_detail {
 } // namespace boolean_cast_detail
 
 
-PSTADE_EGG_FUNCTION(boolean, boolean_cast_detail::baby_boolean)
-PSTADE_OVEN_RANGE_ADAPTOR(booleanized, boolean_cast_detail::baby_boolean)
+PSTADE_EGG_FUNCTION(boolean,     boolean_cast_detail::baby_boolean)
+PSTADE_EGG_PIPELINE(booleanized, boolean_cast_detail::baby_boolean)
 
 
 } } // namespace pstade::tomato

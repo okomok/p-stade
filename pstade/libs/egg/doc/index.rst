@@ -7,7 +7,7 @@ The Egg Function Library
 :Author: MB
 :Contact: mb2act@yahoo.co.jp 
 :License: Distributed under the `Boost Software License Version 1.0`_
-:Version: 0.90.0
+:Version: 0.90.1
 
 
 
@@ -126,6 +126,13 @@ So you should prefer this macro.
 - Effects: ``typedef function<BabyFunction> Name##_fun; function<BabyFunction> const Name(BabyFunction());``
 
 
+``PSTADE_EGG_PIPELINE``
+^^^^^^^^^^^^^^^^^^^^^^^
+- Header: ``<pstade/egg/pipeline.hpp>``
+- Valid expression: ``PSTADE_EGG_PIPELINE(Name, BabyFunction)``
+- Effects: Makes ``in|Name(a0,a1,...aN)`` call ``function<BabyFunction>()(in,a0,a1,...aN)``.
+
+
 ``PSTADE_EGG_MAX_ARITY``
 ^^^^^^^^^^^^^^^^^^^^^^^^
 The default maximum arity of functors Egg makes is five. If you want more arity, define ``PSTADE_EGG_MAX_ARITY`` before
@@ -143,8 +150,12 @@ Acknowledgments
 
 Release Notes
 -------------
+
 Version 0.90.0
 ^^^^^^^^^^^^^^
 - Released initial version.
 
+Version 0.90.1
+^^^^^^^^^^^^^^
+- Added ``PSTADE_EGG_PIPELINE``.
 

@@ -22,7 +22,7 @@
 
 #include <boost/type_traits/add_reference.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/oven/range_adaptor.hpp>
+#include <pstade/egg/pipeline.hpp>
 
 
 namespace pstade {
@@ -49,8 +49,8 @@ namespace arg_detail {
 } // namespace arg_detail
 
 
-PSTADE_EGG_FUNCTION(arg, arg_detail::baby_arg)
-PSTADE_OVEN_RANGE_ADAPTOR(argued, arg_detail::baby_arg)
+PSTADE_EGG_FUNCTION(arg,    arg_detail::baby_arg)
+PSTADE_EGG_PIPELINE(argued, arg_detail::baby_arg)
 
 
 } // namespace pstade

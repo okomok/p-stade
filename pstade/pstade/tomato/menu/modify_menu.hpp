@@ -37,7 +37,7 @@ bool modify_menu(HMENU hMenu,
 
 #if !defined(_WIN32_WCE)
 
-    return tomato::boolean(::ModifyMenu(hMenu, uPosition, uFlags, uIDNewItem, lpNewItem));
+    return ::ModifyMenu(hMenu, uPosition, uFlags, uIDNewItem, lpNewItem)|booleanized;
 
 #else
 
@@ -58,7 +58,7 @@ bool modify_menu(HMENU hMenu,
     if (!::DeleteMenu(hMenu, uPosition, uFlags))
         return false;
 
-    return tomato::boolean(::InsertMenu(hMenu, uPosition, uFlags, uIDNewItem, lpNewItem));
+    return ::InsertMenu(hMenu, uPosition, uFlags, uIDNewItem, lpNewItem)|booleanized;
 
 #endif // !defined(_WIN32_WCE)
 }

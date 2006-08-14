@@ -12,7 +12,6 @@
 
 #include <boost/assert.hpp>
 #include <boost/format.hpp>
-#include <boost/mpl/integral_c.hpp>
 #include <cstddef> // ptrdiff_t
 #include <pstade/apple/atl/config.hpp> // ATL_VER
 #include <pstade/apple/atl/core.hpp> // ::AtlIsValidString
@@ -21,6 +20,7 @@
 #include <pstade/apple/wtl/app.hpp> // ::IsMenu for eVC
 #include <pstade/nullptr.hpp>
 #include <pstade/overload.hpp>
+#include <pstade/static_c.hpp>
 #include <pstade/unused.hpp>
 #include "../boolean_cast.hpp"
 
@@ -45,7 +45,7 @@ void pstade_diet_dump(HDC hDC, OStream& os, pstade::overload<>)
 inline 
 bool pstade_diet_is_valid(HMENU hMenu, pstade::overload<>)
 {
-    return pstade::tomato::boolean(::IsMenu(hMenu));
+    return ::IsMenu(hMenu)|pstade::tomato::booleanized;
 }
 
 
@@ -61,7 +61,7 @@ void pstade_diet_dump(HMENU hMenu, OStream& os, pstade::overload<>)
 inline 
 bool pstade_diet_is_valid(HWND hWnd, pstade::overload<>)
 {
-    return pstade::tomato::boolean(::IsWindow(hWnd));
+    return ::IsWindow(hWnd)|pstade::tomato::booleanized;
 }
 
 template< class OStream > inline
@@ -81,7 +81,7 @@ bool pstade_diet_is_valid(TCHAR const *psz, pstade::overload<>)
 
 #if !(PSTADE_APPLE_ATL_VER < 0x0700)
 
-    return tomato::boolean(ATL::AtlIsValidString(psz));
+    return ATL::AtlIsValidString(psz)|pstade::tomato::booleanized;
 
 #else
 
@@ -96,7 +96,7 @@ bool pstade_diet_is_valid(TCHAR const *psz, pstade::overload<>)
         if (psz == PSTADE_NULLPTR)
             return false;
 
-        typedef boost::mpl::integral_c<std::ptrdiff_t, 1398269> faraway;
+        typedef pstade::static_c<std::ptrdiff_t, 1398269> faraway;
 
         __try {
             TCHAR const *pch = psz;
@@ -107,8 +107,7 @@ bool pstade_diet_is_valid(TCHAR const *psz, pstade::overload<>)
                 ch = *(volatile TCHAR *)pch;
 
                 if (pch == pchEnd) {
-                    BOOST_ASSERT(false &&
-                        "null-terminated string candidate is too long to diagnose.");
+                    BOOST_ASSERT("null-terminated string candidate is too long to diagnose." && false);
                 }
             }
         }

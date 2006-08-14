@@ -67,7 +67,7 @@ struct chain_msg_map_entry_set
         {
             pstade::unused(derived, hWnd, uMsg, wParam, lParam, lResult, dwMsgMapID);
 
-            return tomato::boolean(F_ChainClass()(derived).ProcessWindowMessage(hWnd, uMsg, wParam, lParam, lResult, msgMapID));
+            return F_ChainClass()(derived).ProcessWindowMessage(hWnd, uMsg, wParam, lParam, lResult, msgMapID)|tomato::booleanized;
         }
     };
 

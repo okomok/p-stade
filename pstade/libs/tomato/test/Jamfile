@@ -35,4 +35,5 @@ test-suite tomato :
     [ tomato-test boolean_cast ]
     [ tomato-test c_str ]
     [ tomato-test filesystem ]
+    [ tomato-test size_initialize ]
     ;

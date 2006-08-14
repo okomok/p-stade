@@ -22,8 +22,8 @@ WTL::CAppModule _Module;
 #include <pstade/tomato/filesystem.hpp>
 
 
-// should be?
-#define ADAPTOR_SYNTAX_ACCEPTED(Expr) Expr
+struct a_string : std::string
+{ };
 
 
 void test()
@@ -44,19 +44,24 @@ void test()
     {
         TCHAR str[] = _T("abcde");
         BOOST_CHECK( ans == tomato::c_str(str) );
-        ADAPTOR_SYNTAX_ACCEPTED( BOOST_CHECK( ans == (str|c_stringized) ); )
+        BOOST_CHECK( ans == (str|c_stringized) );
     }
 
     {
         WTL::CString str(_T("abcde"));
         BOOST_CHECK( ans == tomato::c_str(str) );
-        ADAPTOR_SYNTAX_ACCEPTED( BOOST_CHECK( ans == (str|c_stringized) ); )
+        BOOST_CHECK( ans == (str|c_stringized) );
     }
 
     {
         HWND hWnd = ::GetForegroundWindow();
         std::cout << tomato::c_str(tomato::window_text(hWnd)) << std::endl;
-        ADAPTOR_SYNTAX_ACCEPTED( std::cout << (tomato::window_text(hWnd)|c_stringized) << std::endl; )
+        std::cout << (tomato::window_text(hWnd)|c_stringized) << std::endl;
+    }
+
+    {
+        ::a_string str;
+        tomato::c_str(str);
     }
 }
 

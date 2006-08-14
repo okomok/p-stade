@@ -19,26 +19,27 @@
 #include <boost/range/begin.hpp>
 #include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/apple/sdk/windows.hpp>
-#include <pstade/integral_cast.hpp>
 #include <pstade/oven/distance.hpp>
 #include <pstade/oven/equals.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
 #include <pstade/require.hpp>
 #include <pstade/static_c.hpp>
+#include "../c_str.hpp"
 #include "../diet/valid.hpp"
 
 
 namespace pstade { namespace tomato {
 
 
-inline
-void set_window_text(HWND hWnd, TCHAR const *pszNew)
+template< class CStringizable >
+void set_window_text(HWND hWnd, CStringizable const& str)
 {
     BOOST_ASSERT(diet::valid(hWnd));
-    BOOST_ASSERT(diet::valid(pszNew));
+    BOOST_ASSERT(diet::valid(tomato::c_str(str)));
 
+    TCHAR const *pszNew = tomato::c_str(str);
     oven::null_terminate_range<TCHAR const *> strNew(pszNew);
-    int newLen = pstade::integral(oven::distance(strNew));
+    int newLen = static_cast<int>(oven::distance(strNew));
 
     typedef static_c<int, 255> bufLen;
     boost::array<TCHAR, 1 + bufLen::value> bufOld;

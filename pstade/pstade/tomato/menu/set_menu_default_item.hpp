@@ -12,7 +12,6 @@
 
 #include <boost/assert.hpp>
 #include <pstade/apple/sdk/windows.hpp>
-#include <pstade/integral_cast.hpp>
 #include <pstade/unused.hpp>
 #include "../boolean_cast.hpp"
 #include "../diet/valid.hpp"
@@ -29,7 +28,7 @@ bool set_menu_default_item(HMENU hMenu,
 
 #if !defined(_WIN32_WCE)
 
-    return tomato::boolean( ::SetMenuDefaultItem(hMenu, uItem, pstade::integral(by_position)) );
+    return ::SetMenuDefaultItem(hMenu, uItem, static_cast<UINT>(by_position))|booleanized;
 
 #else
 

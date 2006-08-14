@@ -146,7 +146,7 @@ struct chain_mouse_message
         }
 
         pstade::unused(hWnd, dwMsgMapID);
-        return tomato::boolean(bHandled);
+        return bHandled|tomato::booleanized;
     }
 };
 

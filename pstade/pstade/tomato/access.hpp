@@ -23,13 +23,13 @@ public:
     template< class T > static
     BOOL detail_on_idle(T& x)
     {
-        return tomato::boolean(x.on_idle());
+        return x.on_idle()|booleanized;
     }
 
     template< class T > static
     BOOL detail_pre_translate_message(T& x, MSG *pMsg)
     {
-        return tomato::boolean(x.pre_translate_message(*pMsg));
+        return x.pre_translate_message(*pMsg)|booleanized;
     }
 
     template< class T > static

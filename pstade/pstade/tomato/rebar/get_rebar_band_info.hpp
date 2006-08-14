@@ -22,7 +22,6 @@
 
 #include <boost/assert.hpp>
 #include <pstade/apple/sdk/windows.hpp>
-#include <pstade/integral_cast.hpp>
 #include <pstade/require.hpp>
 #include "../diet/valid.hpp"
 
@@ -36,7 +35,7 @@ namespace get_rebar_band_info_detail {
     inline
     int get_button_count(HWND hWnd)
     {
-        return pstade::integral(::SendMessage(hWnd, TB_BUTTONCOUNT, 0, 0L));
+        return static_cast<int>(::SendMessage(hWnd, TB_BUTTONCOUNT, 0, 0L));
     }
 
 

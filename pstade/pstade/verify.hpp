@@ -18,7 +18,7 @@
 #include <boost/assert.hpp>
 #include <boost/type_traits/add_reference.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/oven/range_adaptor.hpp>
+#include <pstade/egg/pipeline.hpp>
 
 
 namespace pstade {
@@ -46,8 +46,8 @@ namespace verify_detail {
 } // namespace verify_detail
 
 
-PSTADE_EGG_FUNCTION(verify, verify_detail::baby)
-PSTADE_OVEN_RANGE_ADAPTOR(verified, verify_detail::baby)
+PSTADE_EGG_FUNCTION(verify,   verify_detail::baby)
+PSTADE_EGG_PIPELINE(verified, verify_detail::baby)
 
 
 } // namespace pstade

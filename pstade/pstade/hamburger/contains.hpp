@@ -24,7 +24,7 @@ inline
 bool contains(const element& elem, point in_elem)
 {
     rectangle rc(origin, hamburger::size(elem));
-    return tomato::boolean(rc.PtInRect(in_elem));
+    return rc.PtInRect(in_elem)|tomato::booleanized;
 }
 
 

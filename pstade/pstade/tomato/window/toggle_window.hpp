@@ -27,7 +27,7 @@ bool toggle_window(HWND hWnd)
     BOOL bVisible = !::IsWindowVisible(hWnd);
     ::ShowWindow(hWnd, bVisible ? SW_SHOWNOACTIVATE : SW_HIDE);
 
-    return tomato::boolean(bVisible);
+    return bVisible|booleanized;
 }
 
 
