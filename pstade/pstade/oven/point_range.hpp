@@ -17,11 +17,11 @@
 #include <boost/type_traits/is_pointer.hpp>
 #include <boost/utility/addressof.hpp>
 #include <pstade/egg/function.hpp>
+#include <pstade/egg/pipeline.hpp>
 #include <pstade/nullptr.hpp>
 #include "./detail/concept_check.hpp"
 #include "./distance.hpp"
 #include "./lightweight_proxy.hpp"
-#include "./range_adaptor.hpp"
 #include "./range_pointer.hpp"
 
 
@@ -101,7 +101,7 @@ namespace point_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_point_range, point_range_detail::baby_generator)
-PSTADE_OVEN_RANGE_ADAPTOR(pointed, point_range_detail::baby_generator)
+PSTADE_EGG_PIPELINE(pointed,          point_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven

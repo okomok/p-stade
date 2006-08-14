@@ -14,9 +14,9 @@
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <pstade/egg/function.hpp>
+#include <pstade/egg/pipeline.hpp>
 #include "./detail/concept_check.hpp"
 #include "./lightweight_proxy.hpp"
-#include "./range_adaptor.hpp"
 #include "./range_iterator.hpp"
 #include "./tab_expand_iterator.hpp"
 
@@ -86,7 +86,7 @@ namespace tab_expand_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_tab_expand_range, tab_expand_range_detail::baby_generator)
-PSTADE_OVEN_RANGE_ADAPTOR(tab_expanded, tab_expand_range_detail::baby_generator)
+PSTADE_EGG_PIPELINE(tab_expanded,          tab_expand_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven

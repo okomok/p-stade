@@ -15,9 +15,9 @@
 #include <boost/range/iterator_range.hpp>
 #include <boost/regex.hpp>
 #include <pstade/egg/function.hpp>
+#include <pstade/egg/pipeline.hpp>
 #include "./detail/concept_check.hpp"
 #include "./lightweight_proxy.hpp"
-#include "./range_adaptor.hpp"
 #include "./range_iterator.hpp"
 #include "./range_value.hpp"
 
@@ -106,7 +106,7 @@ namespace match_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_match_range, match_range_detail::baby_generator)
-PSTADE_OVEN_RANGE_ADAPTOR(matched, match_range_detail::baby_generator)
+PSTADE_EGG_PIPELINE(matched,          match_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven

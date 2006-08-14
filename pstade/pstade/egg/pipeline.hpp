@@ -34,6 +34,7 @@
 #include <boost/type_traits/add_const.hpp>
 #include <pstade/comma_protect.hpp>
 #include <pstade/instance.hpp>
+#include <pstade/nonassignable.hpp>
 #include "./baby_call.hpp"
 #include "./baby_result.hpp"
 #include "./detail/config.hpp" // PSTADE_EGG_PIPELINE_MAX_ARITY
@@ -44,7 +45,8 @@ namespace pstade { namespace egg {
 
 
 template< class BabyFunction >
-struct pipeline
+struct pipeline :
+    private nonassignable
 {
 
     // structors

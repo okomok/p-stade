@@ -13,8 +13,8 @@
 #include <boost/archive/iterators/wchar_from_mb.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <pstade/egg/function.hpp>
+#include <pstade/egg/pipeline.hpp>
 #include "./lightweight_proxy.hpp"
-#include "./range_adaptor.hpp"
 #include "./range_iterator.hpp"
 
 
@@ -78,7 +78,7 @@ namespace mb_decode_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_mb_decode_range, mb_decode_range_detail::baby_generator)
-PSTADE_OVEN_RANGE_ADAPTOR(mb_decoded, mb_decode_range_detail::baby_generator)
+PSTADE_EGG_PIPELINE(mb_decoded,           mb_decode_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven

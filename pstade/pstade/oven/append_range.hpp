@@ -13,10 +13,10 @@
 #include <boost/ref.hpp>
 #include <boost/utility/base_from_member.hpp>
 #include <pstade/egg/function.hpp>
+#include <pstade/egg/pipeline.hpp>
 #include "./detail/concept_check.hpp"
 #include "./joint_range.hpp"
 #include "./lightweight_proxy.hpp"
-#include "./range_adaptor.hpp"
 #include "./single_range.hpp"
 
 
@@ -87,7 +87,7 @@ namespace append_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_append_range, append_range_detail::baby_generator)
-PSTADE_OVEN_RANGE_ADAPTOR(appended, append_range_detail::baby_generator)
+PSTADE_EGG_PIPELINE(appended,          append_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven

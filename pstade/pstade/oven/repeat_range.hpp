@@ -14,9 +14,9 @@
 #include <boost/range/iterator_range.hpp>
 #include <pstade/remove_cvr.hpp>
 #include <pstade/egg/function.hpp>
+#include <pstade/egg/pipeline.hpp>
 #include "./detail/concept_check.hpp"
 #include "./lightweight_proxy.hpp"
-#include "./range_adaptor.hpp"
 #include "./range_iterator.hpp"
 #include "./repeat_iterator.hpp"
 #include "./sub_range_result.hpp"
@@ -94,7 +94,7 @@ namespace repeat_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_repeat_range, repeat_range_detail::baby_generator)
-PSTADE_OVEN_RANGE_ADAPTOR(repeated, repeat_range_detail::baby_generator)
+PSTADE_EGG_PIPELINE(repeated,          repeat_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven

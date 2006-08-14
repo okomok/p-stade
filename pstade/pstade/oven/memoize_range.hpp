@@ -14,12 +14,12 @@
 #include <boost/checked_delete.hpp>
 #include <boost/iterator/iterator_traits.hpp>
 #include <pstade/egg/function.hpp>
+#include <pstade/egg/pipeline.hpp>
 #include <pstade/nullptr.hpp>
 #include "./check_range.hpp"
 #include "./detail/concept_check.hpp"
 #include "./lightweight_proxy.hpp"
 #include "./multi_pass_range.hpp"
-#include "./range_adaptor.hpp"
 
 
 namespace pstade { namespace oven {
@@ -169,7 +169,7 @@ namespace memoize_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_memoize_range, memoize_range_detail::baby_generator)
-PSTADE_OVEN_RANGE_ADAPTOR(memoized, memoize_range_detail::baby_generator)
+PSTADE_EGG_PIPELINE(memoized,           memoize_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven

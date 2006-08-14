@@ -12,8 +12,8 @@
 
 #include <boost/range/iterator_range.hpp>
 #include <pstade/egg/function.hpp>
+#include <pstade/egg/pipeline.hpp>
 #include <pstade/oven/lightweight_proxy.hpp>
-#include <pstade/oven/range_adaptor.hpp>
 #include "./enumerate_iterator.hpp"
 
 
@@ -74,7 +74,7 @@ namespace enumerate_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_enumerate_range, enumerate_range_detail::baby_generator)
-PSTADE_OVEN_RANGE_ADAPTOR(enumerated, enumerate_range_detail::baby_generator)
+PSTADE_EGG_PIPELINE(enumerated,           enumerate_range_detail::baby_generator)
 
 
 } } // namespace pstade::sausage

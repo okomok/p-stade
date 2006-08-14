@@ -14,7 +14,7 @@
 #include <boost/range/end.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/egg/function.hpp>
-#include "./range_adaptor.hpp"
+#include <pstade/egg/pipeline.hpp>
 #include "./range_iterator.hpp"
 
 
@@ -59,13 +59,13 @@ namespace begin_end_detail {
 PSTADE_ADL_BARRIER(begin_end) { // for boost::const_begin/end
 
 PSTADE_EGG_FUNCTION(begin, begin_end_detail::baby_begin)
-PSTADE_EGG_FUNCTION(end, begin_end_detail::baby_end)
+PSTADE_EGG_FUNCTION(end,   begin_end_detail::baby_end)
 
 } // ADL barrier
 
 
-PSTADE_OVEN_RANGE_ADAPTOR(begun, begin_end_detail::baby_begin)
-PSTADE_OVEN_RANGE_ADAPTOR(ended, begin_end_detail::baby_end)
+PSTADE_EGG_PIPELINE(begun, begin_end_detail::baby_begin)
+PSTADE_EGG_PIPELINE(ended, begin_end_detail::baby_end)
 
 
 } } // namespace pstade::oven

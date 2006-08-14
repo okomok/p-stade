@@ -12,10 +12,10 @@
 
 #include <boost/range/end.hpp>
 #include <pstade/egg/function.hpp>
+#include <pstade/egg/pipeline.hpp>
 #include "./detail/advance_begin.hpp"
 #include "./detail/concept_check.hpp"
 #include "./lightweight_proxy.hpp"
-#include "./range_adaptor.hpp"
 #include "./range_difference.hpp"
 #include "./sub_range_base.hpp"
 
@@ -65,7 +65,7 @@ namespace drop_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_drop_range, drop_range_detail::baby_generator)
-PSTADE_OVEN_RANGE_ADAPTOR(dropped, drop_range_detail::baby_generator)
+PSTADE_EGG_PIPELINE(dropped,         drop_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven

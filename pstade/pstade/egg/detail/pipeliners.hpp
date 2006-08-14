@@ -22,6 +22,7 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/type_traits/add_const.hpp>
+#include <pstade/nonassignable.hpp>
 #include <pstade/unused.hpp>
 #include "../baby_call.hpp"
 #include "../baby_result.hpp"
@@ -34,7 +35,8 @@ namespace pstade { namespace egg { namespace detail {
     // 0ary
     //
     template< class BabyFunction >
-    struct pipeliner0
+    struct pipeliner0 :
+        private nonassignable
     {
         BabyFunction m_baby;
 
@@ -67,7 +69,8 @@ namespace pstade { namespace egg { namespace detail {
     // 1ary
     //
     template< class BabyFunction, class A0 >
-    struct pipeliner1
+    struct pipeliner1 :
+        private nonassignable
     {
         BabyFunction m_baby;
 
@@ -103,7 +106,8 @@ namespace pstade { namespace egg { namespace detail {
     // 2ary
     //
     template< class BabyFunction, class A0, class A1 >
-    struct pipeliner2
+    struct pipeliner2 :
+        private nonassignable
     {
         BabyFunction m_baby;
 
@@ -161,7 +165,8 @@ namespace pstade { namespace egg { namespace detail {
 
 
 template< class BabyFunction, BOOST_PP_ENUM_PARAMS(n, class A) >
-struct BOOST_PP_CAT(pipeliner, n)
+struct BOOST_PP_CAT(pipeliner, n) :
+    private nonassignable
 {
     BabyFunction m_baby;
 

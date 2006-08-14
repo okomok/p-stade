@@ -11,9 +11,9 @@
 
 
 #include <pstade/egg/function.hpp>
+#include <pstade/egg/pipeline.hpp>
 #include "./detail/concept_check.hpp"
 #include "./lightweight_proxy.hpp"
-#include "./range_adaptor.hpp"
 #include "./sub_range_base.hpp"
 
 
@@ -62,7 +62,7 @@ namespace identity_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_identity_range, identity_range_detail::baby_generator)
-PSTADE_OVEN_RANGE_ADAPTOR(identities, identity_range_detail::baby_generator)
+PSTADE_EGG_PIPELINE(identities,          identity_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven
