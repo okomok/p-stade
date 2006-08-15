@@ -15,7 +15,6 @@
 #include "./radish/input_streamable.hpp"
 #include "./radish/output_streamable.hpp"
 #include "./radish/pointable.hpp"
-#include "./radish/safe_bool.hpp"
 #include "./radish/swappable.hpp"
 
 

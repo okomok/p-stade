@@ -24,7 +24,7 @@
 #include <pstade/derived_cast.hpp>
 #include <pstade/nullptr.hpp>
 #include "./access.hpp"
-#include "./safe_bool.hpp"
+#include "./detail/safe_bool.hpp"
 
 
 namespace pstade { namespace radish {
@@ -47,10 +47,10 @@ private:
     void does_not_support_comparisons() const;
 
 public:
-    operator safe_bool() const
+    operator detail::safe_bool() const
     {
         T const& d = pstade::derived_cast<T const>(*this);
-        return access::detail_bool(d) ? safe_true : safe_false;
+        return access::detail_bool(d) ? detail::safe_true() : detail::safe_false();
     }
 
     // Prefer 'friend' to member for disambiguity.

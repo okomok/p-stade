@@ -13,7 +13,9 @@
 #include <pstade/radish/bool_testable.hpp>
 
 
+#include <iostream>
 #include <boost/operators.hpp> // equality_comparable
+#include <pstade/used.hpp>
 
 
 struct my_bool_testable_t :
@@ -22,6 +24,18 @@ struct my_bool_testable_t :
     my_bool_testable_t(bool b) :
         m_b(b)
     { }
+
+    struct safe_bool_helper { int x; };
+    typedef int safe_bool_helper::* safe_bool;
+    safe_bool is_good_safe_bool() const
+    {
+        return m_b ? &safe_bool_helper::x : 0;
+    }
+
+    bool is_good() const
+    {
+        return m_b;
+    }
 
 private:
     bool m_b;
@@ -158,8 +172,33 @@ void test()
 }
 
 
+void test_normal()
+{
+    my_bool_testable_t b(true);
+    if (b.is_good())
+        pstade::used(b);
+}
+
+void test_idiom()
+{
+    my_bool_testable_t b(true);
+    if (b.is_good_safe_bool())
+        pstade::used(b);
+}
+
+void test_testable()
+{
+    my_bool_testable_t b(true);
+    if (b)
+        pstade::used(b);
+}
+
+
 int test_main(int, char*[])
 {
     ::test();
+    ::test_normal();
+    ::test_idiom();
+    ::test_testable();
     return 0;
 }
