@@ -77,37 +77,40 @@ struct assignable :
     boost::totally_ordered< assignable<Clonable>
     > > > >
 {
-// structors
-    assignable() :
-        m_ptr(assignable_detail::new_clone(Clonable()))
-    { }
+private:
+    typedef assignable self_t;
 
-    assignable(assignable const& other) :
-        m_ptr(assignable_detail::new_clone(*other))
+public:
+    explicit assignable() :
+        m_ptr(assignable_detail::new_clone(Clonable()))
     { }
 
     explicit assignable(Clonable const& x) :
         m_ptr(assignable_detail::new_clone(x))
     { }
 
+    assignable(self_t const& other) :
+        m_ptr(assignable_detail::new_clone(*other))
+    { }
+
+    self_t& operator=(self_t const& other)
+    {
+        self_t(other).swap(*this);
+        return *this;
+    }
+
     ~assignable()
     {
         assignable_detail::delete_clone(m_ptr);
     }
 
-    assignable& operator=(assignable const& other)
-    {
-        assignable(other).swap(*this);
-        return *this;
-    }
-
 // totally_ordered
-    bool operator< (assignable const& other) const
+    bool operator< (self_t const& other) const
     {
         return *m_ptr < *other;
     }
 
-    bool operator==(assignable const& other) const
+    bool operator==(self_t const& other) const
     {
         return *m_ptr == *other;
     }
@@ -119,7 +122,7 @@ struct assignable :
     }
 
 // swappable
-    void swap(assignable& other)
+    void swap(self_t& other)
     {
         std::swap(m_ptr, other.m_ptr);
     }

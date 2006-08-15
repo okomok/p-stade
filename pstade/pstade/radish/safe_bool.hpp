@@ -18,21 +18,20 @@ namespace pstade { namespace radish {
 
 namespace safe_bool_detail {
 
-
     // Prefer member data pointer for faster code.
-    struct box
-    {
-        int true_;
-    };
+    struct box { int true_; };
 
-
-} // namespace safe_bool_detail
+}
 
 
 typedef int safe_bool_detail::box:: *
 safe_bool;
 
 
+// Note:
+// Providing 'safe_true' and 'safe_false' object might be cute, 
+// but VC7.1 would generate slower code.
+//
 inline
 safe_bool make_safe_bool(bool b)
 {
