@@ -112,6 +112,18 @@ struct assignable :
         return *m_ptr == *other;
     }
 
+// pointable
+    Clonable *operator->() const
+    {
+        return m_ptr;
+    }
+
+// swappable
+    void swap(assignable& other)
+    {
+        std::swap(m_ptr, other.m_ptr);
+    }
+
 private:
     Clonable *m_ptr;
 
@@ -120,16 +132,6 @@ friend class radish::access;
     void pstade_radish_output(OStream& os) const
     {
         os << *m_ptr;
-    }
-
-    Clonable *pstade_radish_pointer() const
-    {
-        return m_ptr;
-    }
-
-    void pstade_radish_swap(assignable& other)
-    {
-        std::swap(m_ptr, other.m_ptr);
     }
 };
 

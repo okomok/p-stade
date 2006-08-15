@@ -41,6 +41,7 @@
 #include "./statement.hpp"
 #include "./static_c.hpp"
 #include "./unused.hpp"
+#include "./used.hpp"
 #include "./ustring.hpp"
 #include "./what.hpp"
 

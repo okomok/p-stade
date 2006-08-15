@@ -10,11 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// See: 'safe_bool'
-//
-// at <boost/spirit/core/safe_bool.hpp>
-
-
 #include <pstade/nullptr.hpp>
 
 
@@ -22,7 +17,10 @@ namespace pstade { namespace radish { namespace detail {
 
 
 // Prefer member data pointer for faster code.
-struct safe_bool_box { int true_; };
+struct safe_bool_box
+{
+    int true_;
+};
 
 
 typedef int safe_bool_box:: *

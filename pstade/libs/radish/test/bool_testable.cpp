@@ -18,8 +18,11 @@
 #include <pstade/used.hpp>
 
 
+using namespace pstade;
+
+
 struct my_bool_testable_t :
-    pstade::radish::bool_testable< my_bool_testable_t >
+    radish::bool_testable< my_bool_testable_t >
 {
     my_bool_testable_t(bool b) :
         m_b(b)
@@ -37,14 +40,13 @@ struct my_bool_testable_t :
         return m_b;
     }
 
+    operator radish::safe_bool() const
+    {
+        return radish::make_safe_bool(m_b);
+    }
+
 private:
     bool m_b;
-
-friend class pstade::radish::access;
-    bool pstade_radish_bool() const
-    {
-        return m_b;
-    }
 };
 
 
@@ -56,14 +58,13 @@ struct my_dool_testable_t :
         ::my_bool_testable_t(false), m_b(b)
     { }
 
+    operator radish::safe_bool() const
+    {
+        return radish::make_safe_bool(m_b);
+    }
+
 private:
     bool m_b;
-
-friend class pstade::radish::access;
-    bool pstade_radish_bool() const
-    {
-        return m_b;
-    }
 };
 
 
@@ -77,10 +78,9 @@ struct my_equality_t :
         return true;
     }
 
-friend class pstade::radish::access;
-    bool pstade_radish_bool() const
+    operator radish::safe_bool() const
     {
-        return true;
+        return radish::make_safe_bool(true);
     }
 };
 
@@ -121,8 +121,8 @@ void test()
 
     {
         ::my_dool_testable_t d1(true);
-#if 0
-        if (d1) { // ambiguous!
+#if 1
+        if (d1) { // *no longer* ambiguous!
             ;
         }
         else {

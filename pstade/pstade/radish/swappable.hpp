@@ -12,8 +12,6 @@
 
 #include <boost/mpl/empty_base.hpp>
 #include <pstade/adl_barrier.hpp>
-#include <pstade/derived_cast.hpp>
-#include "./access.hpp"
 
 
 namespace pstade { namespace radish {
@@ -28,16 +26,10 @@ template<
 struct swappable :
     Base
 {
-    void swap(T& other)
-    {
-        T& d = pstade::derived(*this);
-        access::detail_swap(d, other);
-    }
-
     friend
     void swap(T& x, T& y)
     {
-        access::detail_swap(x, y);
+        x.swap(y);
     }
 };
 

@@ -15,16 +15,14 @@
 // http://www.artima.com/cppsource/safebool.html
 // http://www.pdc.kth.se/training/Talks/C++/boost/libs/utility/operators.htm#safe_bool_note
 // http://lists.boost.org/Archives/boost/2003/11/56857.php
+// <boost/spirit/core/safe_bool.hpp>
 
 
 #include <boost/mpl/assert.hpp>
 #include <boost/mpl/empty_base.hpp>
 #include <boost/type_traits/is_convertible.hpp>
 #include <pstade/adl_barrier.hpp>
-#include <pstade/derived_cast.hpp>
-#include <pstade/nullptr.hpp>
-#include "./access.hpp"
-#include "./detail/safe_bool.hpp"
+#include "./safe_bool.hpp"
 
 
 namespace pstade { namespace radish {
@@ -40,25 +38,20 @@ struct bool_testable :
     Base
 {
 private:
-    // Your type is already bool-testable and dangerous.
+    // Your type is already bool-testable.
+    // In fact, this seems not to work.
     BOOST_MPL_ASSERT_NOT((boost::is_convertible<T, char>));
-    BOOST_MPL_ASSERT_NOT((boost::is_convertible<T, short>));
+    BOOST_MPL_ASSERT_NOT((boost::is_convertible<T, int short>));
 
     void does_not_support_comparisons() const;
 
 public:
-    operator detail::safe_bool() const
-    {
-        T const& d = pstade::derived_cast<T const>(*this);
-        return access::detail_bool(d) ? detail::safe_true() : detail::safe_false();
-    }
-
     // Prefer 'friend' to member for disambiguity.
     // One of base classes may have its own member 'operator!()'.
     friend
     bool operator !(T const& x)
     {
-        return !access::detail_bool(x);
+        return !(x.operator safe_bool());
     }
 };
 
