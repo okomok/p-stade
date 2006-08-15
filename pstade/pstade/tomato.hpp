@@ -27,6 +27,7 @@
 #include "./tomato/message_filtering.hpp"
 #include "./tomato/message_loop.hpp"
 #include "./tomato/module_init.hpp"
+#include "./tomato/multibyte_to_widechar.hpp"
 #include "./tomato/ole_init.hpp"
 #include "./tomato/rebar.hpp"
 #include "./tomato/rgb.hpp"
@@ -36,6 +37,7 @@
 #include "./tomato/toolbar.hpp"
 #include "./tomato/tstream.hpp"
 #include "./tomato/tstring.hpp"
+#include "./tomato/widechar_to_multibyte.hpp"
 #include "./tomato/window.hpp"
 
 

@@ -65,20 +65,19 @@ namespace scoped_handle_detail {
             return m_pimpl ? m_pimpl->m_h : NullHandle::value();
         }
 
+        operator radish::safe_bool() const
+        {
+            return radish::make_safe_bool(m_pimpl);
+        }
+
     private:
         boost::scoped_ptr<basic_impl> m_pimpl;
-
-    friend class radish::access;
-        bool pstade_radish_bool() const
-        {
-            return m_pimpl;
-        }
     };
 
 
     // Note:
     // These cannot be static constants,
-    // because these may be defined as pointers.
+    // because these are defined as pointers.
     //
     struct NULL_handle
     {

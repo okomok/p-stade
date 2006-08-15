@@ -11,50 +11,66 @@
 
 
 #include <boost/lexical_cast.hpp>
+#include <boost/type_traits/remove_cv.hpp>
+#include <pstade/egg/function.hpp>
+#include <pstade/egg/pipeline.hpp>
 #include <pstade/nonassignable.hpp>
 
 
 namespace pstade {
 
 
-template< class TargetT, class SourceT > inline
-TargetT lexical_cast(SourceT const& src)
+template< class To, class From > inline
+To lexical_cast(From const& from)
 {
-    return boost::lexical_cast<TargetT>(src);
+    return boost::lexical_cast<To>(from);
 }
 
 
-namespace lexical_detail {
+namespace lexical_cast_detail {
 
 
-    template< class SourceT >
+    template< class From >
     struct temp :
         private nonassignable
     {
-        explicit temp(SourceT const& src) :
-            m_src(src)
+        explicit temp(From const& from) :
+            m_from(from)
         { }
 
-        template< class TargetT >
-        operator TargetT() const
+        template< class To >
+        operator To() const
         {
-            return pstade::lexical_cast<TargetT>(m_src);
+            return pstade::lexical_cast<To>(m_from);
         }
 
     private:
-        SourceT const& m_src;
+        From const& m_from;
     };
 
 
-} // namespace lexical_detail
+    struct baby_auto
+    {
+        template< class Unused, class From >
+        struct result
+        {
+            typedef typename boost::remove_cv<From>::type from_t;
+            typedef temp<from_t> const type;
+        };
+
+        template< class Result, class From >
+        Result call(From const& from)
+        {
+            return Result(from);
+        }
+    };
 
 
-template< class SourceT > inline
-lexical_detail::temp<SourceT> const
-lexical(SourceT const& src)
-{
-    return lexical_detail::temp<SourceT>(src);
-}
+} // namespace lexical_cast_detail
+
+
+PSTADE_EGG_FUNCTION(lexical,    lexical_cast_detail::baby_auto)
+PSTADE_EGG_PIPELINE(to_lexicon, lexical_cast_detail::baby_auto)
 
 
 } // namespace pstade

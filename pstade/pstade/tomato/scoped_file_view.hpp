@@ -70,14 +70,13 @@ struct scoped_file_view :
         return m_pimpl ? m_pimpl->m_pView : NULL;
     }
 
+    operator radish::safe_bool() const
+    {
+        return radish::make_safe_bool(m_pimpl);
+    }
+
 private:
     boost::scoped_ptr<scoped_file_view_detail::impl> m_pimpl;
-
-friend class radish::access;
-    bool pstade_radish_bool() const
-    {
-        return m_pimpl;
-    }
 };
 
 

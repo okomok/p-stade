@@ -26,6 +26,9 @@
 #include <boost/config.hpp> // BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE, BOOST_NO_MEMBER_TEMPLATES
 #include <boost/mpl/if.hpp>
 #include <boost/type_traits/is_convertible.hpp>
+#include <boost/type_traits/remove_cv.hpp>
+#include <pstade/egg/function.hpp>
+#include <pstade/egg/pipeline.hpp>
 #include <pstade/nonassignable.hpp>
 
 
@@ -121,15 +124,28 @@ namespace iterator_cast_detail {
     };
 
 
+    struct baby_auto
+    {
+        template< class Unused, class Iterator >
+        struct result
+        {
+            typedef typename boost::remove_cv<Iterator>::type iter_t;
+            typedef temp<iter_t> const type;
+        };
+
+        template< class Result, class Iterator >
+        Result call(Iterator const& it)
+        {
+            return Result(it);
+        }
+    };
+
+
 } // namespace iterator_cast_detail
 
 
-template< class Iterator > inline
-iterator_cast_detail::temp<Iterator> const
-base_iterator(Iterator const& it)
-{
-    return iterator_cast_detail::temp<Iterator>(it);
-}
+PSTADE_EGG_FUNCTION(base_iterator,    iterator_cast_detail::baby_auto)
+// PSTADE_EGG_PIPELINE(to_base_iterator, iterator_cast_detail::baby_auto)
 
 
 #endif // !defined(PSTADE_OVEN_ITERATOR_CAST_NO_BASE_ITERATOR)

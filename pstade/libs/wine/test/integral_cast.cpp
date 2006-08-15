@@ -24,6 +24,8 @@ void test()
 
     ui = pstade::integral(i);
     ui = pstade::integral(3);
+
+    ui = i|to_integer;
 }
 
 

@@ -10,6 +10,14 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// See:
+//
+// http://www.artima.com/cppsource/safebool.html
+// http://www.pdc.kth.se/training/Talks/C++/boost/libs/utility/operators.htm#safe_bool_note
+// http://lists.boost.org/Archives/boost/2003/11/56857.php
+// <boost/spirit/core/safe_bool.hpp>
+
+
 #include <pstade/nullptr.hpp>
 
 
@@ -18,7 +26,6 @@ namespace pstade { namespace radish {
 
 namespace safe_bool_detail {
 
-    // Prefer member data pointer for faster code.
     struct box { int true_; };
 
 }

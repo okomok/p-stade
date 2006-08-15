@@ -78,7 +78,7 @@ Oven has all the range-based STL algorithms which are ported from `Boost.RangeEx
 
 
 - Header: ``<pstade/oven/iterator_cast.hpp>``
-- Valid expression: ``base = oven::base_iterator(rng);``
+- Valid expression: ``Iterator base = oven::base_iterator(rng);``
 
 
 ``copied``
@@ -92,9 +92,9 @@ calls the range constructor of the STL Sequences::
 
 
 - Header: ``<pstade/oven/copy_range.hpp>``
-- Valid expression: ``seq = rng|copied;``
-- Precondition: ``seq = boost::copy_range<Seq>(rng);`` is a valid expression.
-- Effect: ``seq = boost::copy_range<Seq>(rng);``
+- Valid expression: ``Seq seq = rng|copied;``
+- Precondition: ``Seq seq = boost::copy_range<Seq>(rng);`` is a valid expression.
+- Effect: ``Seq seq = boost::copy_range<Seq>(rng);``
 
 Note that ``Seq seq(rng|copied);`` is not a valid expression.
 ``copied`` is also one of the range `adaptors`__.

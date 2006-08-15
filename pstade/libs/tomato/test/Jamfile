@@ -35,5 +35,8 @@ test-suite tomato :
     [ tomato-test boolean_cast ]
     [ tomato-test c_str ]
     [ tomato-test filesystem ]
+    [ tomato-test multibyte_to_widechar ]
     [ tomato-test size_initialize ]
+    [ tomato-test tstring ]
+    [ tomato-test widechar_to_multibyte ]
     ;

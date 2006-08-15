@@ -11,9 +11,11 @@
 
 
 #include <boost/mpl/assert.hpp>
-#include <boost/mpl/identity.hpp>
 #include <boost/numeric/conversion/cast.hpp> // numeric_cast
 #include <boost/type_traits/is_integral.hpp>
+#include <boost/type_traits/remove_cv.hpp>
+#include <pstade/egg/function.hpp>
+#include <pstade/egg/pipeline.hpp>
 #include <pstade/nonassignable.hpp>
 
 
@@ -26,7 +28,7 @@ To integral_cast(From from)
     BOOST_MPL_ASSERT((boost::is_integral<To>));
     BOOST_MPL_ASSERT((boost::is_integral<From>));
 
-    return boost::numeric_cast<To>(from); // :-)
+    return boost::numeric_cast<To>(from);
 }
 
 
@@ -52,15 +54,28 @@ namespace integral_cast_detail {
     };
 
 
+    struct baby_auto
+    {
+        template< class Unused, class From >
+        struct result
+        {
+            typedef typename boost::remove_cv<From>::type from_t;
+            typedef temp<from_t> const type;
+        };
+
+        template< class Result, class From >
+        Result call(From from)
+        {
+            return Result(from);
+        }
+    };
+
+
 } // namespace integral_cast_detail
 
 
-template< class From > inline
-integral_cast_detail::temp<From> const
-integral(From from)
-{
-    return integral_cast_detail::temp<From>(from);
-}
+PSTADE_EGG_FUNCTION(integral,   integral_cast_detail::baby_auto)
+PSTADE_EGG_PIPELINE(to_integer, integral_cast_detail::baby_auto)
 
 
 } // namespace pstade

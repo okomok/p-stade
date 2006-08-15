@@ -12,46 +12,34 @@ WTL::CAppModule _Module;
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/tomato/size_initialize.hpp>
+#include <pstade/tomato/widechar_to_multibyte.hpp>
 
 
-#include <pstade/apple/sdk/windows.hpp>
-#include <pstade/used.hpp>
+#include <string>
+#include <pstade/oven/equals.hpp>
 
 
 void test()
 {
     using namespace pstade;
     using namespace tomato;
-}
 
+    std::wstring ws(L"abcdefg");
 
-void test_legacy()
-{
-    using namespace pstade;
-    using namespace tomato;
+    {
+        std::string s = tomato::widechar_to<std::string>(ws);
+        BOOST_CHECK( oven::equals(s, ws) );
+    }
 
-    WNDCLASSEX s;
-    s.cbSize = sizeof(MENUITEMINFO);
-    pstade::used(s);
-}
-
-
-void test_modern()
-{
-    using namespace pstade;
-    using namespace tomato;
-
-    WNDCLASSEX s;
-    s|size_initialized;
-    pstade::used(s);
+    {
+        std::string s = ws|to_multibyte;
+        BOOST_CHECK( oven::equals(s, ws) );
+    }
 }
 
 
 int test_main(int, char*[])
 {
     ::test();
-    ::test_legacy();
-    ::test_modern();
     return 0;
 }

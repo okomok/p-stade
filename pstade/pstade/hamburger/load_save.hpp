@@ -33,7 +33,7 @@ void load(Node& node, ustring path)
 {
     // cache for speed
     std::vector<ucs4_t> tmp;
-    tomato::ifile_range<utf8cp_t> irng(tomato::to_tstring(path));
+    tomato::ifile_range<utf8cp_t> irng(path|tomato::to_tstring);
     oven::copy(
         irng |
             oven::utf8_decoded<>(),
@@ -58,7 +58,7 @@ void save(Node& node, ustring path)
     lime::copy_XMLDecl(garlic::back_inserter(tmp));
     lime::save_default(node, oven::utf8_encoder(garlic::back_inserter(tmp)));
 
-    tomato::ofile_range<utf8cp_t> orng(tomato::to_tstring(path), tmp.size());
+    tomato::ofile_range<utf8cp_t> orng(path|tomato::to_tstring, tmp.size());
     tmp|oven::copied(orng);
 }
 

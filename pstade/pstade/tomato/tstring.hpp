@@ -12,11 +12,11 @@
 
 #include <sstream> // basic_stringstream
 #include <string>  // basic_string
-#include <boost/mpl/assert.hpp>
-#include <boost/type_traits/is_same.hpp>
 #include <pstade/apple/sdk/tchar.hpp>
+#include <pstade/egg/pipeline.hpp>
 #include <pstade/oven/copy_range.hpp>
-#include "./to_multibyte_to.hpp"
+#include "./multibyte_to_widechar.hpp"
+#include "./widechar_to_multibyte.hpp"
 
 
 namespace pstade { namespace tomato {
@@ -30,32 +30,45 @@ typedef std::basic_stringstream<TCHAR>
 tstringstream;
 
 
-template< class Sequence > inline
-Sequence const
+template< class WideCharSeq > inline
+WideCharSeq const
 tstring_to(tstring const& from)
 {
-    BOOST_MPL_ASSERT_NOT((boost::is_same<Sequence, tstring>));
-
 #if defined(_UNICODE)
     return from|oven::copied;
 #else
-    return tomato::multibyte_to<Sequence>(from);
+    return tomato::multibyte_to<WideCharSeq>(from);
 #endif
 }
 
 
-template< class Range > inline
-tstring const
-to_tstring(Range const& from)
-{
-    BOOST_MPL_ASSERT_NOT((boost::is_same<Range, tstring>));
+namespace to_tstring_detail {
 
-#if defined(_UNICODE)
-    return from|oven::copied;
-#else
-    return tomato::to_multibyte<tstring>(from);
-#endif
-}
+
+    struct baby
+    {
+        template< class Unused, class WideCharSeq >
+        struct result
+        {
+            typedef tstring const type;
+        };
+
+        template< class Result, class WideCharSeq >
+        Result call(WideCharSeq const& from)
+        {
+        #if defined(_UNICODE)
+            return from|oven::copied;
+        #else
+            return tomato::widechar_to<tstring>(from);
+        #endif
+        }
+    };
+
+
+} // namespace to_tstring_detail
+
+
+PSTADE_EGG_PIPELINE(to_tstring, to_tstring_detail::baby)
 
 
 } } // namespace pstade::tomato
