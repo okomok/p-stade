@@ -13,7 +13,7 @@
 #include <boost/algorithm/string/find_iterator.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipeline.hpp>
+#include <pstade/egg/pipable.hpp>
 #include "./lightweight_proxy.hpp"
 #include "./range_iterator.hpp"
 
@@ -80,7 +80,7 @@ namespace string_find_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_string_find_range, string_find_range_detail::baby_generator)
-PSTADE_EGG_PIPELINE(string_found,           string_find_range_detail::baby_generator)
+PSTADE_EGG_PIPABLE(string_found, string_find_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven

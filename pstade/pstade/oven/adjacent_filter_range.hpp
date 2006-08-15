@@ -15,7 +15,7 @@
 #include <boost/range/iterator_range.hpp>
 #include <pstade/egg/decay_function.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipeline.hpp>
+#include <pstade/egg/pipable.hpp>
 #include "./adjacent_filter_iterator.hpp"
 #include "./detail/concept_check.hpp"
 #include "./lightweight_proxy.hpp"
@@ -89,7 +89,7 @@ namespace adjacent_filter_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_adjacent_filter_range, adjacent_filter_range_detail::baby_generator)
-PSTADE_EGG_PIPELINE(adjacent_filtered,          adjacent_filter_range_detail::baby_generator)
+PSTADE_EGG_PIPABLE(adjacent_filtered, adjacent_filter_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven

@@ -19,7 +19,7 @@
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/apple/sdk/wtypes.hpp> // VARIANT_BOOL
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipeline.hpp>
+#include <pstade/egg/pipable.hpp>
 #include <pstade/nonassignable.hpp>
 
 
@@ -118,8 +118,8 @@ namespace boolean_cast_detail {
 } // namespace boolean_cast_detail
 
 
-PSTADE_EGG_FUNCTION(boolean,     boolean_cast_detail::baby_boolean)
-PSTADE_EGG_PIPELINE(booleanized, boolean_cast_detail::baby_boolean)
+PSTADE_EGG_FUNCTION(boolean, boolean_cast_detail::baby_boolean)
+PSTADE_EGG_PIPABLE(booleanized, boolean_cast_detail::baby_boolean)
 
 
 } } // namespace pstade::tomato

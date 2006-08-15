@@ -13,7 +13,7 @@
 #include <boost/range/end.hpp>
 #include <pstade/egg/decay_function.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipeline.hpp>
+#include <pstade/egg/pipable.hpp>
 #include "./algorithm.hpp" // find_if
 #include "./detail/concept_check.hpp"
 #include "./detail/not.hpp"
@@ -66,7 +66,7 @@ namespace drop_while_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_drop_while_range, drop_while_range_detail::baby_generator)
-PSTADE_EGG_PIPELINE(dropped_while,         drop_while_range_detail::baby_generator)
+PSTADE_EGG_PIPABLE(dropped_while, drop_while_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven

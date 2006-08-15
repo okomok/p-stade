@@ -17,7 +17,7 @@
 #include <boost/type_traits/remove_reference.hpp>
 #include <pstade/affect.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipeline.hpp>
+#include <pstade/egg/pipable.hpp>
 #include <pstade/param.hpp>
 #include "./lightweight_proxy.hpp"
 #include "./range_iterator.hpp"
@@ -108,7 +108,7 @@ namespace second_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_second_range, second_range_detail::baby_generator)
-PSTADE_EGG_PIPELINE(seconds,           second_range_detail::baby_generator)
+PSTADE_EGG_PIPABLE(seconds, second_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven

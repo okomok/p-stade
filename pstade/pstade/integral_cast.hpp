@@ -15,7 +15,7 @@
 #include <boost/type_traits/is_integral.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipeline.hpp>
+#include <pstade/egg/pipable.hpp>
 #include <pstade/nonassignable.hpp>
 
 
@@ -74,8 +74,8 @@ namespace integral_cast_detail {
 } // namespace integral_cast_detail
 
 
-PSTADE_EGG_FUNCTION(integral,   integral_cast_detail::baby_auto)
-PSTADE_EGG_PIPELINE(to_integer, integral_cast_detail::baby_auto)
+PSTADE_EGG_FUNCTION(integral, integral_cast_detail::baby_auto)
+PSTADE_EGG_PIPABLE(to_integer, integral_cast_detail::baby_auto)
 
 
 } // namespace pstade

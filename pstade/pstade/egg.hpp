@@ -14,7 +14,8 @@
 #include "./egg/baby_result.hpp"
 #include "./egg/decay_function.hpp"
 #include "./egg/function.hpp"
-#include "./egg/pipeline.hpp"
+#include "./egg/is_pipe.hpp"
+#include "./egg/pipable.hpp"
 
 
 #endif

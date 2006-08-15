@@ -19,7 +19,7 @@
 #include <boost/type_traits/add_const.hpp>
 #include <pstade/const_overloaded.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipeline.hpp>
+#include <pstade/egg/pipable.hpp>
 #include "./detail/concept_check.hpp"
 #include "./lightweight_proxy.hpp"
 #include "./range_value.hpp"
@@ -173,7 +173,7 @@ namespace unzip_range_detail {
 } // namespace unzip_range_detail
 
 
-PSTADE_EGG_PIPELINE(unzipped, unzip_range_detail::baby_unzipped)
+PSTADE_EGG_PIPABLE(unzipped, unzip_range_detail::baby_unzipped)
 
 
 } } // namespace pstade::oven

@@ -12,7 +12,7 @@
 
 #include <boost/range/end.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipeline.hpp>
+#include <pstade/egg/pipable.hpp>
 #include "./detail/concept_check.hpp"
 #include "./lightweight_proxy.hpp"
 #include "./sub_range_base.hpp"
@@ -62,7 +62,7 @@ namespace clear_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_clear_range, clear_range_detail::baby_generator)
-PSTADE_EGG_PIPELINE(cleared,          clear_range_detail::baby_generator)
+PSTADE_EGG_PIPABLE(cleared, clear_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven

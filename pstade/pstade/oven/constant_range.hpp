@@ -17,7 +17,7 @@
 #include <boost/type_traits/add_const.hpp>
 #include <pstade/affect.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipeline.hpp>
+#include <pstade/egg/pipable.hpp>
 #include <pstade/param.hpp>
 #include "./detail/concept_check.hpp"
 #include "./lightweight_proxy.hpp"
@@ -110,7 +110,7 @@ namespace constant_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_constant_range, constant_range_detail::baby_generator)
-PSTADE_EGG_PIPELINE(constants,           constant_range_detail::baby_generator)
+PSTADE_EGG_PIPABLE(constants, constant_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven

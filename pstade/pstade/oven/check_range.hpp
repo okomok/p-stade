@@ -14,7 +14,7 @@
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipeline.hpp>
+#include <pstade/egg/pipable.hpp>
 #include "./check_iterator.hpp"
 #include "./detail/concept_check.hpp"
 #include "./lightweight_proxy.hpp"
@@ -86,7 +86,7 @@ namespace check_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_check_range, check_range_detail::baby_generator)
-PSTADE_EGG_PIPELINE(checked,          check_range_detail::baby_generator)
+PSTADE_EGG_PIPABLE(checked, check_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven

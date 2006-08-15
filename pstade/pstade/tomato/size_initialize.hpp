@@ -31,7 +31,7 @@
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/apple/wtl/user.hpp> // ::AtlIsOldWindows
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipeline.hpp>
+#include <pstade/egg/pipable.hpp>
 
 
 namespace pstade { namespace tomato {
@@ -63,8 +63,8 @@ namespace size_initialize_detail {
 } // namespace size_initialize_detail
 
 
-PSTADE_EGG_FUNCTION(size_initialize,  size_initialize_detail::baby)
-PSTADE_EGG_PIPELINE(size_initialized, size_initialize_detail::baby)
+PSTADE_EGG_FUNCTION(size_initialize, size_initialize_detail::baby)
+PSTADE_EGG_PIPABLE(size_initialized, size_initialize_detail::baby)
 
 
 } } // namespace pstade::tomato

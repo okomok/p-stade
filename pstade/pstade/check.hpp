@@ -24,7 +24,7 @@
 #include <boost/preprocessor/stringize.hpp>
 #include <boost/type_traits/add_reference.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipeline.hpp>
+#include <pstade/egg/pipable.hpp>
 #include <pstade/instance.hpp>
 #include <pstade/napkin/ostream.hpp>
 #include <pstade/what.hpp>
@@ -108,8 +108,8 @@ namespace check_detail {
 } // namespace check_detail
 
 
-PSTADE_EGG_FUNCTION(check,   check_detail::baby)
-PSTADE_EGG_PIPELINE(checked, check_detail::baby)
+PSTADE_EGG_FUNCTION(check, check_detail::baby)
+PSTADE_EGG_PIPABLE(checked, check_detail::baby)
 
 
 template< class StringOutputable > inline

@@ -12,7 +12,7 @@
 
 #include <boost/range/begin.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipeline.hpp>
+#include <pstade/egg/pipable.hpp>
 #include "./detail/advance_begin.hpp"
 #include "./detail/concept_check.hpp"
 #include "./lightweight_proxy.hpp"
@@ -65,7 +65,7 @@ namespace take_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_take_range, take_range_detail::baby_generator)
-PSTADE_EGG_PIPELINE(taken,           take_range_detail::baby_generator)
+PSTADE_EGG_PIPABLE(taken, take_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven

@@ -15,7 +15,7 @@
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipeline.hpp>
+#include <pstade/egg/pipable.hpp>
 #include "./stride_iterator.hpp"
 #include "./detail/concept_check.hpp"
 #include "./detail/debug_distance.hpp"
@@ -115,7 +115,7 @@ namespace stride_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_stride_range, stride_range_detail::baby_generator)
-PSTADE_EGG_PIPELINE(stridden,          stride_range_detail::baby_generator)
+PSTADE_EGG_PIPABLE(stridden, stride_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven

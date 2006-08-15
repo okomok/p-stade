@@ -17,7 +17,7 @@
 #include <pstade/apple/wtl/misc.hpp> // CString
 #include <pstade/apple/basic_string_fwd.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipeline.hpp>
+#include <pstade/egg/pipable.hpp>
 #include <pstade/has_xxx.hpp>
 #include <pstade/overload.hpp>
 #include "./access.hpp"
@@ -77,8 +77,8 @@ namespace c_str_detail {
 } // namespace c_str_detail
 
 
-PSTADE_EGG_FUNCTION(c_str,        c_str_detail::baby)
-PSTADE_EGG_PIPELINE(c_stringized, c_str_detail::baby)
+PSTADE_EGG_FUNCTION(c_str, c_str_detail::baby)
+PSTADE_EGG_PIPABLE(c_stringized, c_str_detail::baby)
 
 
 } } // namespace pstade::tomato

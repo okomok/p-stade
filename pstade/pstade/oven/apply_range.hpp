@@ -17,7 +17,7 @@
 
 #include <pstade/egg/decay_function.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipeline.hpp>
+#include <pstade/egg/pipable.hpp>
 #include "./begin_end.hpp"
 #include "./detail/concept_check.hpp"
 #include "./lightweight_proxy.hpp"
@@ -83,7 +83,7 @@ namespace apply_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_apply_range, apply_range_detail::baby_generator)
-PSTADE_EGG_PIPELINE(applied,          apply_range_detail::baby_generator)
+PSTADE_EGG_PIPABLE(applied, apply_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven

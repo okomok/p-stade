@@ -38,7 +38,7 @@ Requirements
 ------------
 
 - `Boost C++ Libraries Version 1.33.1`__ or later (no compilation required)
-- `P-Stade C++ Libraries Version 1.00.1`__ or later (no compilation required, give a higher priority than Boost headers)
+- `P-Stade C++ Libraries Version 1.00.8`__ or later (no compilation required, give a higher priority than Boost headers)
 
 __ Boost_
 __ http://sourceforge.net/project/showfiles.php?group_id=141222&package_id=173059
@@ -126,10 +126,10 @@ So you should prefer this macro.
 - Effects: ``typedef function<BabyFunction> Name##_fun; function<BabyFunction> const Name(BabyFunction());``
 
 
-``PSTADE_EGG_PIPELINE``
-^^^^^^^^^^^^^^^^^^^^^^^
-- Header: ``<pstade/egg/pipeline.hpp>``
-- Valid expression: ``PSTADE_EGG_PIPELINE(Name, BabyFunction)``
+``PSTADE_EGG_PIPABLE``
+^^^^^^^^^^^^^^^^^^^^^^
+- Header: ``<pstade/egg/pipable.hpp>``
+- Valid expression: ``PSTADE_EGG_PIPBLE(Name, BabyFunction)``
 - Effects: Makes ``in|Name(a0,a1,...aN)`` call ``function<BabyFunction>()(in,a0,a1,...aN)``.
 
 
@@ -157,5 +157,5 @@ Version 0.90.0
 
 Version 0.90.1
 ^^^^^^^^^^^^^^
-- Added ``PSTADE_EGG_PIPELINE``.
+- Added ``PSTADE_EGG_PIPBLE``.
 

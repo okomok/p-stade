@@ -14,7 +14,7 @@
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/apple/atl/config.hpp> // ATL_VER
 #include <pstade/apple/atl/conv.hpp>
-#include <pstade/egg/pipeline.hpp>
+#include <pstade/egg/pipable.hpp>
 #include <pstade/nonassignable.hpp>
 #include <pstade/oven/copy_range.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
@@ -77,9 +77,9 @@ namespace to_multibyte_detail {
         };
 
         template< class Result, class WideCharRange >
-        Result call(WideCharRange const& rng)
+        Result call(WideCharRange const& from)
         {
-            return Result(rng);
+            return Result(from);
         }
     };
 
@@ -87,7 +87,7 @@ namespace to_multibyte_detail {
 } // namespace to_multibyte_detail
 
 
-PSTADE_EGG_PIPELINE(to_multibyte, to_multibyte_detail::baby)
+PSTADE_EGG_PIPABLE(to_multibyte, to_multibyte_detail::baby)
 
 
 } } // namespace pstade::tomato

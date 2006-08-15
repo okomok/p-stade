@@ -22,7 +22,7 @@
 #include <boost/detail/workaround.hpp>
 #include <pstade/egg/decay_function.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipeline.hpp>
+#include <pstade/egg/pipable.hpp>
 #include <pstade/garlic/back_inserter.hpp>
 #include <pstade/new.hpp>
 #include <pstade/unused.hpp>
@@ -149,7 +149,7 @@ namespace out_place_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_out_place_range, out_place_range_detail::baby_generator)
-PSTADE_EGG_PIPELINE(out_placed,           out_place_range_detail::baby_generator)
+PSTADE_EGG_PIPABLE(out_placed, out_place_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven

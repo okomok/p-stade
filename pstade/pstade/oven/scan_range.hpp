@@ -16,7 +16,7 @@
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/egg/decay_function.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipeline.hpp>
+#include <pstade/egg/pipable.hpp>
 #include "./detail/concept_check.hpp"
 #include "./detail/plus.hpp"
 #include "./lightweight_proxy.hpp"
@@ -99,7 +99,7 @@ namespace scan_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_scan_range, scan_range_detail::baby_generator)
-PSTADE_EGG_PIPELINE(scanned,         scan_range_detail::baby_generator)
+PSTADE_EGG_PIPABLE(scanned, scan_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven

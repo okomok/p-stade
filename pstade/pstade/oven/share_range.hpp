@@ -95,14 +95,14 @@ make_share_range(Pointer prng)
 namespace share_range_detail {
 
 
-    struct pipeline :
+    struct pipe :
         private boost::noncopyable
     { };
 
 
     template< class Pointer > inline
     share_range<typename boost::pointee<Pointer>::type> const
-    operator|(Pointer prng, pipeline const&)
+    operator|(Pointer prng, pipe const&)
     {
         return share_range<typename boost::pointee<Pointer>::type>(prng);
     }
@@ -111,7 +111,7 @@ namespace share_range_detail {
 } // namespace share_range_detail
 
 
-PSTADE_INSTANCE(share_range_detail::pipeline const, shared, value)
+PSTADE_INSTANCE(share_range_detail::pipe const, shared, value)
 
 
 } } // namespace pstade::oven

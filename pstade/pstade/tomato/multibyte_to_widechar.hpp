@@ -14,7 +14,7 @@
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/apple/atl/config.hpp> // ATL_VER
 #include <pstade/apple/atl/conv.hpp>
-#include <pstade/egg/pipeline.hpp>
+#include <pstade/egg/pipable.hpp>
 #include <pstade/nonassignable.hpp>
 #include <pstade/oven/copy_range.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
@@ -87,7 +87,7 @@ namespace to_widechar_detail {
 } // namespace to_widechar_detail
 
 
-PSTADE_EGG_PIPELINE(to_widechar, to_widechar_detail::baby)
+PSTADE_EGG_PIPABLE(to_widechar, to_widechar_detail::baby)
 
 
 } } // namespace pstade::tomato

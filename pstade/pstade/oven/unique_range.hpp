@@ -12,7 +12,7 @@
 
 #include <boost/utility/result_of.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipeline.hpp>
+#include <pstade/egg/pipable.hpp>
 #include "./adjacent_filter_range.hpp"
 #include "./detail/concept_check.hpp"
 #include "./detail/equal_to.hpp"
@@ -80,7 +80,7 @@ namespace unique_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_unique_range, unique_range_detail::baby_generator)
-PSTADE_EGG_PIPELINE(uniqued,           unique_range_detail::baby_generator)
+PSTADE_EGG_PIPABLE(uniqued, unique_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven

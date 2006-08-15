@@ -22,7 +22,7 @@
 #include <boost/type_traits/extent.hpp>
 #include <boost/type_traits/is_array.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipeline.hpp>
+#include <pstade/egg/pipable.hpp>
 #include "./lightweight_proxy.hpp"
 #include "./sub_range_base.hpp"
 
@@ -85,7 +85,7 @@ namespace array_protect_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_array_protect_range, array_protect_range_detail::baby_generator)
-PSTADE_EGG_PIPELINE(array_protected,          array_protect_range_detail::baby_generator)
+PSTADE_EGG_PIPABLE(array_protected, array_protect_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven

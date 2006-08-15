@@ -115,7 +115,7 @@ struct got_at;
 namespace get_at_range_detail {
 
 
-    struct pipeline
+    struct adl_marker
     { };
 
 
@@ -140,7 +140,7 @@ namespace get_at_range_detail {
 
 template< class N >
 struct got_at :
-    get_at_range_detail::pipeline,
+    get_at_range_detail::adl_marker,
     private nonassignable
     // Note:
     // 'noncopyable' is allowed here by the latest standard draft,

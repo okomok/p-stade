@@ -28,7 +28,7 @@
 #include <boost/type_traits/is_convertible.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipeline.hpp>
+#include <pstade/egg/pipable.hpp>
 #include <pstade/nonassignable.hpp>
 
 
@@ -144,8 +144,8 @@ namespace iterator_cast_detail {
 } // namespace iterator_cast_detail
 
 
-PSTADE_EGG_FUNCTION(base_iterator,    iterator_cast_detail::baby_auto)
-// PSTADE_EGG_PIPELINE(to_base_iterator, iterator_cast_detail::baby_auto)
+PSTADE_EGG_FUNCTION(base_iterator, iterator_cast_detail::baby_auto)
+// PSTADE_EGG_PIPABLE(to_base_iterator, iterator_cast_detail::baby_auto)
 
 
 #endif // !defined(PSTADE_OVEN_ITERATOR_CAST_NO_BASE_ITERATOR)

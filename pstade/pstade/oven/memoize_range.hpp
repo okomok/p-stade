@@ -14,7 +14,7 @@
 #include <boost/checked_delete.hpp>
 #include <boost/iterator/iterator_traits.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipeline.hpp>
+#include <pstade/egg/pipable.hpp>
 #include <pstade/nullptr.hpp>
 #include "./check_range.hpp"
 #include "./detail/concept_check.hpp"
@@ -169,7 +169,7 @@ namespace memoize_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_memoize_range, memoize_range_detail::baby_generator)
-PSTADE_EGG_PIPELINE(memoized,           memoize_range_detail::baby_generator)
+PSTADE_EGG_PIPABLE(memoized, memoize_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven

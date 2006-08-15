@@ -13,7 +13,7 @@
 #include <boost/ptr_container/indirect_fun.hpp>
 #include <pstade/egg/decay_function.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipeline.hpp>
+#include <pstade/egg/pipable.hpp>
 #include "./algorithm.hpp" // sort
 #include "./detail/concept_check.hpp"
 #include "./detail/less_than.hpp"
@@ -105,7 +105,7 @@ namespace sort_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_sort_range, sort_range_detail::baby_generator)
-PSTADE_EGG_PIPELINE(sorted,          sort_range_detail::baby_generator)
+PSTADE_EGG_PIPABLE(sorted, sort_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven

@@ -81,14 +81,14 @@ namespace to_derived_detail {
     };
 
 
-    struct pipeline :
+    struct pipe :
         private boost::noncopyable
     { };
 
 
     template< class Base > inline
     temp<Base> const
-    operator|(Base& base, pipeline const&)
+    operator|(Base& base, pipe const&)
     {
     #if !defined(PSTADE_TO_DERIVED_NEEDS_NAMED_RETURN_VALUE)
         return temp<Base>(base);
@@ -102,7 +102,7 @@ namespace to_derived_detail {
 } // namespace to_derived_detail
 
 
-PSTADE_INSTANCE(to_derived_detail::pipeline const, to_derived, value)
+PSTADE_INSTANCE(to_derived_detail::pipe const, to_derived, value)
 
 
 } // namespace pstade

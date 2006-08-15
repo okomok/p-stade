@@ -25,7 +25,7 @@
 #include <boost/throw_exception.hpp>
 #include <boost/type_traits/add_reference.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipeline.hpp>
+#include <pstade/egg/pipable.hpp>
 #include <pstade/what.hpp>
 
 
@@ -123,8 +123,8 @@ namespace require_detail {
 } // namespace require_detail
 
 
-PSTADE_EGG_FUNCTION(require,  require_detail::baby)
-PSTADE_EGG_PIPELINE(required, require_detail::baby)
+PSTADE_EGG_FUNCTION(require, require_detail::baby)
+PSTADE_EGG_PIPABLE(required, require_detail::baby)
 
 
 } // namespace pstade

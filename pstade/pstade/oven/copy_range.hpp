@@ -19,7 +19,7 @@
 #include <boost/utility/enable_if.hpp>
 #include <pstade/apple/has_range_constructor.hpp>
 #include <pstade/apple/is_boost_range.hpp>
-#include <pstade/egg/pipeline.hpp>
+#include <pstade/egg/pipable.hpp>
 #include <pstade/overload.hpp>
 #include <pstade/unused.hpp>
 #include "./algorithm.hpp" // copy
@@ -169,7 +169,7 @@ namespace copy_range_detail {
 } // namespace copy_range_detail
 
 
-PSTADE_EGG_PIPELINE(copied, copy_range_detail::baby)
+PSTADE_EGG_PIPABLE(copied, copy_range_detail::baby)
 
 
 } } // namespace pstade::oven

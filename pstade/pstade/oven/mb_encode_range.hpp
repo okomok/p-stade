@@ -13,7 +13,7 @@
 #include <boost/archive/iterators/mb_from_wchar.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipeline.hpp>
+#include <pstade/egg/pipable.hpp>
 #include "./lightweight_proxy.hpp"
 #include "./range_iterator.hpp"
 
@@ -78,7 +78,7 @@ namespace mb_encode_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_mb_encode_range, mb_encode_range_detail::baby_generator)
-PSTADE_EGG_PIPELINE(mb_encoded,           mb_encode_range_detail::baby_generator)
+PSTADE_EGG_PIPABLE(mb_encoded, mb_encode_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven
