@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/decay_function.hpp>
+#include <pstade/egg/by_value.hpp>
 #include <pstade/egg/function.hpp>
 #include "./detail/customization_of.hpp"
 #include "./enumerate_argument.hpp"
@@ -26,7 +26,7 @@ namespace enumerate_detail {
     {
         template< class Unused, class Enumerable, class EnumFtor >
         struct result :
-            egg::decay_function<EnumFtor>
+            egg::by_value<EnumFtor>
         { };
 
         template< class Result, class Enumerable, class EnumFtor >

@@ -12,7 +12,7 @@
 
 #include <boost/tuple/tuple.hpp>
 #include <boost/utility/result_of.hpp>
-#include <pstade/egg/decay_function.hpp>
+#include <pstade/egg/by_value.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
@@ -95,7 +95,7 @@ namespace zip_with_range_detail {
         template< class Unused, class Range0, class Range1, class BinaryFun >
         struct result
         {
-            typedef typename egg::decay_function<BinaryFun>::type fun_t;
+            typedef typename egg::by_value<BinaryFun>::type fun_t;
             typedef zip_with_range<Range0, Range1, fun_t> const type;
         };
 

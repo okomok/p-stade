@@ -11,7 +11,7 @@
 
 
 #include <boost/lexical_cast.hpp>
-#include <boost/type_traits/remove_cv.hpp>
+#include <pstade/egg/by_value.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <pstade/nonassignable.hpp>
@@ -54,7 +54,7 @@ namespace lexical_cast_detail {
         template< class Unused, class From >
         struct result
         {
-            typedef typename boost::remove_cv<From>::type from_t;
+            typedef typename egg::by_value<From>::type from_t;
             typedef temp<from_t> const type;
         };
 

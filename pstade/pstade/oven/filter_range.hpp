@@ -22,7 +22,7 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
-#include <pstade/egg/decay_function.hpp>
+#include <pstade/egg/by_value.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
@@ -81,7 +81,7 @@ namespace filter_range_detail {
         template< class Unused, class Range, class Predicate >
         struct result
         {
-            typedef typename egg::decay_function<Predicate>::type pred_t;
+            typedef typename egg::by_value<Predicate>::type pred_t;
             typedef filter_range<Range, pred_t> const type;
         };
 

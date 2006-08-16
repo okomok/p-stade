@@ -26,7 +26,7 @@
 #include <boost/config.hpp> // BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE, BOOST_NO_MEMBER_TEMPLATES
 #include <boost/mpl/if.hpp>
 #include <boost/type_traits/is_convertible.hpp>
-#include <boost/type_traits/remove_cv.hpp>
+#include <pstade/egg/by_value.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <pstade/nonassignable.hpp>
@@ -129,7 +129,7 @@ namespace iterator_cast_detail {
         template< class Unused, class Iterator >
         struct result
         {
-            typedef typename boost::remove_cv<Iterator>::type iter_t;
+            typedef typename egg::by_value<Iterator>::type iter_t;
             typedef temp<iter_t> const type;
         };
 

@@ -15,9 +15,9 @@
 // boost::numeric_cast
 
 
-#include <boost/type_traits/remove_cv.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/apple/sdk/wtypes.hpp> // VARIANT_BOOL
+#include <pstade/egg/by_value.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <pstade/nonassignable.hpp>
@@ -103,7 +103,7 @@ namespace boolean_cast_detail {
         template< class Unused, class From >
         struct result
         {
-            typedef typename boost::remove_cv<From>::type from_t;
+            typedef typename egg::by_value<From>::type from_t;
             typedef boolean_cast_detail::temp<from_t> const type;
         };
 

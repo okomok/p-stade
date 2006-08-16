@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/decay_function.hpp>
+#include <pstade/egg/by_value.hpp>
 #include <pstade/egg/function.hpp>
 
 
@@ -52,7 +52,7 @@ struct baby_not
     template< class Unused, class Predicate >
     struct result
     {
-        typedef typename egg::decay_function<Predicate>::type pred_t;
+        typedef typename egg::by_value<Predicate>::type pred_t;
         typedef egg::function< baby_not_fun<pred_t> > type;
     };
 

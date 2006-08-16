@@ -19,6 +19,7 @@
 #include <boost/utility/enable_if.hpp>
 #include <pstade/apple/has_range_constructor.hpp>
 #include <pstade/apple/is_boost_range.hpp>
+#include <pstade/egg/by_value.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <pstade/overload.hpp>
 #include <pstade/unused.hpp>
@@ -148,7 +149,7 @@ namespace copy_range_detail {
         template< class Unused, class InRange >
         struct result<Unused, InRange>
         {
-            typedef typename boost::remove_cv<InRange>::type rng_t;
+            typedef typename egg::by_value<InRange>::type rng_t;
             typedef temp<rng_t> const type;
         };
 

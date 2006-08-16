@@ -11,7 +11,7 @@
 
 
 #include <boost/ptr_container/indirect_fun.hpp>
-#include <pstade/egg/decay_function.hpp>
+#include <pstade/egg/by_value.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./algorithm.hpp" // sort
@@ -83,7 +83,7 @@ namespace sort_range_detail {
         template< class Unused, class ForwardRange, class BinaryPred = detail::less_than_fun >
         struct result
         {
-            typedef typename egg::decay_function<BinaryPred>::type pred_t;
+            typedef typename egg::by_value<BinaryPred>::type pred_t;
             typedef sort_range<ForwardRange, pred_t> const type;
         };
 

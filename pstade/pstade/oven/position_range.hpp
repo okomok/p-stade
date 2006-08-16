@@ -12,7 +12,7 @@
 
 #include <boost/range/iterator_range.hpp>
 #include <boost/spirit/iterator/position_iterator.hpp>
-#include <boost/type_traits/remove_cv.hpp>
+#include <pstade/egg/by_value.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <pstade/static_c.hpp>
@@ -98,7 +98,7 @@ namespace position_range_detail {
         template< class Unused, class ForwardRange, class PositionT = default_pos_t, class Int = void >
         struct result
         {
-            typedef typename boost::remove_cv<PositionT>::type pos_t;
+            typedef typename egg::by_value<PositionT>::type pos_t;
             typedef position_range<ForwardRange, pos_t> const type;
         };
 

@@ -11,9 +11,9 @@
 
 
 #include <string>
-#include <boost/type_traits/remove_cv.hpp>
 #include <pstade/apple/atl/config.hpp> // ATL_VER
 #include <pstade/apple/atl/conv.hpp>
+#include <pstade/egg/by_value.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <pstade/nonassignable.hpp>
 #include <pstade/oven/copy_range.hpp>
@@ -72,7 +72,7 @@ namespace to_widechar_detail {
         template< class Unused, class MultiByteRange >
         struct result
         {
-            typedef typename boost::remove_cv<MultiByteRange>::type rng_t;
+            typedef typename egg::by_value<MultiByteRange>::type rng_t;
             typedef temp<rng_t> const type;
         };
 

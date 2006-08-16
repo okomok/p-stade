@@ -52,7 +52,6 @@ struct as_pipe
     {
         return oui();
     }
-    
 };
 
 

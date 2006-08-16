@@ -20,6 +20,7 @@
 #include <boost/type_traits/add_const.hpp>
 #include <boost/type_traits/add_reference.hpp>
 #include <pstade/egg/function.hpp>
+#include <pstade/egg/pipable.hpp>
 
 
 namespace pstade {
@@ -49,6 +50,7 @@ namespace const_detail {
 
 
 PSTADE_EGG_FUNCTION_(const_, const_detail::baby)
+PSTADE_EGG_PIPABLE(const_qualified, const_detail::baby)
 
 
 } // namespace pstade

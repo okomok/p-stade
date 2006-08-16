@@ -13,8 +13,7 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
-#include <boost/type_traits/remove_cv.hpp>
-#include <pstade/egg/decay_function.hpp>
+#include <pstade/egg/by_value.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
@@ -76,8 +75,8 @@ namespace scan_range_detail {
         template< class Unused, class Range, class State, class BinaryFun = detail::plus_fun >
         struct result
         {
-            typedef typename egg::decay_function<BinaryFun>::type fun_t;
-            typedef typename boost::remove_cv<State>::type sta_t;
+            typedef typename egg::by_value<BinaryFun>::type fun_t;
+            typedef typename egg::by_value<State>::type sta_t;
             typedef scan_range<Range, sta_t, fun_t> const type;
         };
 

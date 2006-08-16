@@ -16,7 +16,7 @@
 
 
 #include <boost/range/begin.hpp>
-#include <pstade/egg/decay_function.hpp>
+#include <pstade/egg/by_value.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./algorithm.hpp" // find_if
@@ -55,7 +55,7 @@ namespace take_while_range_detail {
         template< class Unused, class ForwardRange, class Predicate >
         struct result
         {
-            typedef typename egg::decay_function<Predicate>::type pred_t;
+            typedef typename egg::by_value<Predicate>::type pred_t;
             typedef take_while_range<ForwardRange, pred_t> const type;
         };
 

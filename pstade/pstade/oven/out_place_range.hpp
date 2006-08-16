@@ -20,7 +20,7 @@
 #include <vector>
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
-#include <pstade/egg/decay_function.hpp>
+#include <pstade/egg/by_value.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <pstade/garlic/back_inserter.hpp>
@@ -127,7 +127,7 @@ namespace out_place_range_detail {
         template< class Unused, class ForwardRange, class Functor = unused_fun >
         struct result
         {
-            typedef typename egg::decay_function<Functor>::type fun_t;
+            typedef typename egg::by_value<Functor>::type fun_t;
             typedef out_place_range<ForwardRange, fun_t> const type;
         };
 

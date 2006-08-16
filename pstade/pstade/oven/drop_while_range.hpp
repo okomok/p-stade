@@ -11,7 +11,7 @@
 
 
 #include <boost/range/end.hpp>
-#include <pstade/egg/decay_function.hpp>
+#include <pstade/egg/by_value.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./algorithm.hpp" // find_if
@@ -50,7 +50,7 @@ namespace drop_while_range_detail {
         template< class Unused, class Range, class Predicate >
         struct result
         {
-            typedef typename egg::decay_function<Predicate>::type pred_t;
+            typedef typename egg::by_value<Predicate>::type pred_t;
             typedef drop_while_range<Range, pred_t> const type;
         };
 
