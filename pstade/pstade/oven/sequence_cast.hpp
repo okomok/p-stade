@@ -29,7 +29,7 @@ T sequence_cast(Range const& rng)
 
 
 template< class Range > inline
-copy_range_detail::temp<Range> const sequence(Range const& rng)
+copy_range_detail::temp<Range const> const sequence(Range const& rng)
 {
     return rng|copied;
 }

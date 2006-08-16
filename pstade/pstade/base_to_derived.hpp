@@ -93,8 +93,8 @@ namespace to_derived_detail {
     #if !defined(PSTADE_TO_DERIVED_NEEDS_NAMED_RETURN_VALUE)
         return temp<Base>(base);
     #else
-        temp<Base> tmp(base);
-        return tmp;
+        temp<Base> nrv(base);
+        return nrv;
     #endif
     }
 

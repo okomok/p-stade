@@ -26,7 +26,6 @@
 #include <boost/config.hpp> // BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE, BOOST_NO_MEMBER_TEMPLATES
 #include <boost/mpl/if.hpp>
 #include <boost/type_traits/is_convertible.hpp>
-#include <pstade/egg/by_value.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <pstade/nonassignable.hpp>
@@ -109,7 +108,7 @@ namespace iterator_cast_detail {
     struct temp :
         private nonassignable
     {
-        explicit temp(Iterator const& it) :
+        explicit temp(Iterator& it) :
             m_it(it)
         { }
 
@@ -120,7 +119,7 @@ namespace iterator_cast_detail {
         }
 
     private:
-        Iterator const& m_it;
+        Iterator& m_it;
     };
 
 
@@ -129,12 +128,11 @@ namespace iterator_cast_detail {
         template< class Unused, class Iterator >
         struct result
         {
-            typedef typename egg::by_value<Iterator>::type iter_t;
-            typedef temp<iter_t> const type;
+            typedef temp<Iterator> const type;
         };
 
         template< class Result, class Iterator >
-        Result call(Iterator const& it)
+        Result call(Iterator& it)
         {
             return Result(it);
         }

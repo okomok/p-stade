@@ -41,7 +41,7 @@ private:
     oui test(X_ const&);
 
     template< class X_, class Y_ > static
-    typename boost::disable_if< boost::is_same<X_, Y_>,
+    typename boost::disable_if<boost::is_same<X_, Y_>,
     non>::type test(Y_ const&);
 
     template< class X_, class Y_ > static

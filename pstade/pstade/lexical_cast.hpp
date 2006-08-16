@@ -11,7 +11,6 @@
 
 
 #include <boost/lexical_cast.hpp>
-#include <pstade/egg/by_value.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <pstade/nonassignable.hpp>
@@ -34,7 +33,7 @@ namespace lexical_cast_detail {
     struct temp :
         private nonassignable
     {
-        explicit temp(From const& from) :
+        explicit temp(From& from) :
             m_from(from)
         { }
 
@@ -45,7 +44,7 @@ namespace lexical_cast_detail {
         }
 
     private:
-        From const& m_from;
+        From& m_from;
     };
 
 
@@ -54,12 +53,11 @@ namespace lexical_cast_detail {
         template< class Unused, class From >
         struct result
         {
-            typedef typename egg::by_value<From>::type from_t;
-            typedef temp<from_t> const type;
+            typedef temp<From> const type;
         };
 
         template< class Result, class From >
-        Result call(From const& from)
+        Result call(From& from)
         {
             return Result(from);
         }

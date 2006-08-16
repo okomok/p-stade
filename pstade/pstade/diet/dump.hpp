@@ -29,7 +29,7 @@ namespace dump_detail {
     // member function
     //
     template< class T, class OStream > inline
-    typename boost::enable_if< detail::has_pstade_diet_diagnostic<T>,
+    typename boost::enable_if<detail::has_pstade_diet_diagnostic<T>,
     void>::type aux(const T& x, OStream& os)
     {
         return access::detail_dump(x, os);
@@ -45,7 +45,7 @@ namespace dump_detail {
     }
 
     template< class T, class OStream > inline
-    typename boost::disable_if< detail::has_pstade_diet_diagnostic<T>,
+    typename boost::disable_if<detail::has_pstade_diet_diagnostic<T>,
     void>::type aux(const T& x, OStream& os)
     {
         return pstade_diet_dump(x, os);

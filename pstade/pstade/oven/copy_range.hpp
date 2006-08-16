@@ -19,7 +19,6 @@
 #include <boost/utility/enable_if.hpp>
 #include <pstade/apple/has_range_constructor.hpp>
 #include <pstade/apple/is_boost_range.hpp>
-#include <pstade/egg/by_value.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <pstade/overload.hpp>
 #include <pstade/unused.hpp>
@@ -36,7 +35,7 @@ namespace copy_range_detail {
 
 
     template< class T, class Range > inline
-    typename boost::enable_if< apple::has_range_constructor<T>,
+    typename boost::enable_if<apple::has_range_constructor<T>,
     T>::type pstade_oven_copy_range(Range& rng, overload<T>)
     {
         return T(boost::begin(rng), boost::end(rng));
@@ -67,7 +66,7 @@ namespace copy_range_detail {
     template< class Range >
     struct temp
     {
-        explicit temp(Range const& rng) :
+        explicit temp(Range& rng) :
             m_rng(rng)
         { }
 
@@ -78,7 +77,7 @@ namespace copy_range_detail {
         }
 
     private:
-        Range const& m_rng;
+        Range& m_rng;
     };
 
 
@@ -119,7 +118,7 @@ namespace copy_range_detail {
         { };
 
         template< class Result, class InRange, class OutIter >
-        typename boost::disable_if< apple::is_boost_range<OutIter>,
+        typename boost::disable_if<apple::is_boost_range<OutIter>,
         // Workaround: GCC never allow 'OutIter&' that has the same signature as below.
         Result>::type call(InRange& in, OutIter out)
         {
@@ -133,7 +132,7 @@ namespace copy_range_detail {
         // "Range or Iterator" detection is incomplete,
         // so be careful.
         template< class Result, class InRange, class OutRange >
-        typename boost::enable_if< apple::is_boost_range<OutRange>,
+        typename boost::enable_if<apple::is_boost_range<OutRange>,
         Result>::type call(InRange& in, OutRange& out)
         {
             BOOST_ASSERT("out of range" && detail::debug_distance(in) <= detail::debug_distance(out));
@@ -149,20 +148,13 @@ namespace copy_range_detail {
         template< class Unused, class InRange >
         struct result<Unused, InRange>
         {
-            typedef typename egg::by_value<InRange>::type rng_t;
-            typedef temp<rng_t> const type;
+            typedef temp<InRange> const type;
         };
 
         template< class Result, class InRange >
-        Result call(InRange const& in)
+        Result call(InRange& in)
         {
-            // Topic:
-            // When tmp is missing under GCC3.4.4,
-            // it sometimes runs a foul of strange behaviors
-            // if conversion template target is reference type.
-
-            Result tmp(in);
-            return tmp;
+            return Result(in);
         }
     };
 

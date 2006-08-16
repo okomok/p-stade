@@ -14,6 +14,8 @@
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <boost/regex.hpp>
+#include <boost/type_traits/is_same.hpp>
+#include <boost/utility/enable_if.hpp> // enable_if
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
@@ -115,7 +117,8 @@ namespace token_range_detail {
         }
 
         template< class Result, class BidiRange, class RegexT, class RandRange >
-        Result call(BidiRange& rng, RegexT const& re, RandRange const& submatches, match_flag_type flag = match_default)
+        typename boost::disable_if<boost::is_same<RandRange, int>, // for GCC
+        Result>::type call(BidiRange& rng, RegexT const& re, RandRange const& submatches, match_flag_type flag = match_default)
         {
             return Result(rng, re, submatches, flag);
         }

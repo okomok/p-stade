@@ -61,7 +61,7 @@ namespace apply_range_detail {
         struct result
         {
             typedef typename egg::by_value<BeginFun>::type bfun_t;
-            typedef typename egg::by_value<EndFun>::type efun_t;
+            typedef typename egg::by_value<EndFun>::type   efun_t;
             typedef apply_range<Range, bfun_t, efun_t> const type;
         };
 
