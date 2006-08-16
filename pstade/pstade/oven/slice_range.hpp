@@ -13,9 +13,9 @@
 #include <boost/assert.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
+#include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
 #include "./distance.hpp"
-#include "./lightweight_proxy.hpp"
 #include "./range_difference.hpp"
 #include "./sub_range_base.hpp"
 
@@ -26,7 +26,7 @@ namespace pstade { namespace oven {
 template< class ForwardRange >
 struct slice_range :
     sub_range_base<ForwardRange>::type,
-    private lightweight_proxy< slice_range<ForwardRange> >
+    private as_lightweight_proxy< slice_range<ForwardRange> >
 {
     typedef ForwardRange pstade_oven_range_base_type;
 

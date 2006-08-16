@@ -15,9 +15,9 @@
 #include <boost/range/iterator_range.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
+#include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
 #include "./joint_iterator.hpp"
-#include "./lightweight_proxy.hpp"
 #include "./range_iterator.hpp"
 
 
@@ -45,7 +45,7 @@ namespace joint_range_detail {
 template< class RangeL, class RangeR >
 struct joint_range :
     joint_range_detail::super_<RangeL, RangeR>::type,
-    private lightweight_proxy< joint_range<RangeL, RangeR> >
+    private as_lightweight_proxy< joint_range<RangeL, RangeR> >
 {
     typedef RangeL pstade_oven_range_base_type;
 

@@ -22,8 +22,8 @@
 #include <pstade/const_overloaded.hpp>
 #include <pstade/nonassignable.hpp>
 #include <pstade/param.hpp>
+#include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
-#include "./lightweight_proxy.hpp"
 #include "./range_iterator.hpp"
 #include "./range_reference.hpp"
 
@@ -70,7 +70,7 @@ namespace get_at_range_detail {
 template< class FusionSeqRange, class N >
 struct get_at_range :
     get_at_range_detail::super_<FusionSeqRange, N>::type,
-    private lightweight_proxy< get_at_range<FusionSeqRange, N> >
+    private as_lightweight_proxy< get_at_range<FusionSeqRange, N> >
 {
     typedef FusionSeqRange pstade_oven_range_base_type;
 

@@ -24,8 +24,8 @@
 #include <boost/range/iterator_range.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
+#include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
-#include "./lightweight_proxy.hpp"
 #include "./range_iterator.hpp"
 
 
@@ -70,7 +70,7 @@ struct indirect_range :
     indirect_range_detail::super_<
         Range, Value, CategoryOrTraversal, Reference, Difference
     >::type,
-    private lightweight_proxy< indirect_range<
+    private as_lightweight_proxy< indirect_range<
         Range, Value, CategoryOrTraversal, Reference, Difference
     > >
 {

@@ -18,8 +18,8 @@
 #include <boost/range/iterator_range.hpp>
 #include <boost/shared_ptr.hpp>
 #include <pstade/instance.hpp>
+#include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
-#include "./lightweight_proxy.hpp"
 #include "./share_iterator.hpp"
 
 
@@ -55,7 +55,7 @@ namespace share_range_detail {
 template< class Range >
 struct share_range :
     share_range_detail::super_<Range>::type,
-    private lightweight_proxy< share_range<Range> >
+    private as_lightweight_proxy< share_range<Range> >
 {
     typedef Range pstade_oven_range_base_type;
 

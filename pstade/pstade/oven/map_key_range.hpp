@@ -17,9 +17,9 @@
 
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
+#include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
 #include "./first_range.hpp"
-#include "./lightweight_proxy.hpp"
 
 
 namespace pstade { namespace oven {
@@ -43,7 +43,7 @@ namespace map_key_range_detail {
 template< class AssocContainer >
 struct map_key_range :
     map_key_range_detail::super_<AssocContainer>::type,
-    private lightweight_proxy< map_key_range<AssocContainer> >
+    private as_lightweight_proxy< map_key_range<AssocContainer> >
 {
     typedef AssocContainer pstade_oven_range_base_type;
 

@@ -17,8 +17,8 @@
 
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
+#include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
-#include "./lightweight_proxy.hpp"
 #include "./second_range.hpp"
 
 
@@ -43,7 +43,7 @@ namespace map_value_range_detail {
 template< class AssocContainer >
 struct map_value_range :
     map_value_range_detail::super_<AssocContainer>::type,
-    private lightweight_proxy< map_value_range<AssocContainer> >
+    private as_lightweight_proxy< map_value_range<AssocContainer> >
 {
     typedef AssocContainer pstade_oven_range_base_type;
 

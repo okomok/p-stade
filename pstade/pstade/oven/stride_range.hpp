@@ -16,11 +16,11 @@
 #include <boost/range/iterator_range.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
-#include "./stride_iterator.hpp"
+#include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
 #include "./detail/debug_distance.hpp"
-#include "./lightweight_proxy.hpp"
 #include "./range_iterator.hpp"
+#include "./stride_iterator.hpp"
 
 
 namespace pstade { namespace oven {
@@ -54,7 +54,7 @@ namespace stride_range_detail {
 template< class ForwardRange >
 struct stride_range :
     stride_range_detail::super_<ForwardRange>::type,
-    private lightweight_proxy< stride_range<ForwardRange> >
+    private as_lightweight_proxy< stride_range<ForwardRange> >
 {
     typedef ForwardRange pstade_oven_range_base_type;
 

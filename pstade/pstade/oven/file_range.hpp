@@ -13,7 +13,7 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <boost/spirit/iterator/file_iterator.hpp>
-#include "./lightweight_proxy.hpp"
+#include "./as_lightweight_proxy.hpp"
 
 
 namespace pstade { namespace oven {
@@ -48,7 +48,7 @@ namespace file_range_detail {
 template< class CharT = char >
 struct file_range :
     file_range_detail::super_<CharT>::type,
-    private lightweight_proxy< file_range<CharT> >
+    private as_lightweight_proxy< file_range<CharT> >
 {
 private:
     typedef typename file_range_detail::super_<CharT>::type super_t;

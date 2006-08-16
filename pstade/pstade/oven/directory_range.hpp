@@ -13,7 +13,7 @@
 #include <boost/filesystem/operations.hpp> // basic_directory_iterator
 #include <boost/range/iterator_range.hpp>
 #include <boost/version.hpp>
-#include "./lightweight_proxy.hpp"
+#include "./as_lightweight_proxy.hpp"
 
 
 #if (BOOST_VERSION < 103400)
@@ -45,7 +45,7 @@
         template< class Path >
         struct basic_directory_range :
             directory_range_detail::super_<Path>::type,
-            private lightweight_proxy< basic_directory_range<Path> >
+            private as_lightweight_proxy< basic_directory_range<Path> >
         {
         private:
             typedef typename directory_range_detail::super_<Path>::type super_t;
@@ -96,7 +96,7 @@
 
         struct directory_range :
             directory_range_detail::super_<>::type,
-            private lightweight_proxy<directory_range>
+            private as_lightweight_proxy<directory_range>
         {
         private:
             typedef directory_range_detail::super_<>::type super_t;

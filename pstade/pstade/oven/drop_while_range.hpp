@@ -15,9 +15,9 @@
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./algorithm.hpp" // find_if
+#include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
 #include "./detail/not.hpp"
-#include "./lightweight_proxy.hpp"
 #include "./sub_range_base.hpp"
 
 
@@ -27,7 +27,7 @@ namespace pstade { namespace oven {
 template< class Range, class Predicate >
 struct drop_while_range :
     sub_range_base<Range>::type,
-    private lightweight_proxy< drop_while_range<Range, Predicate> >
+    private as_lightweight_proxy< drop_while_range<Range, Predicate> >
 {
     typedef Range pstade_oven_range_base_type;
 

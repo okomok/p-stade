@@ -26,8 +26,8 @@
 #include <pstade/unused.hpp>
 #include "../baby_call.hpp"
 #include "../baby_result.hpp"
+#include "../is_pipe.hpp" // as_pipe
 #include "./config.hpp" // PSTADE_EGG_PIPABLE_MAX_ARITY
-#include "./pipe_base.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {
@@ -37,7 +37,7 @@ namespace pstade { namespace egg { namespace detail {
     //
     template< class BabyFunction >
     struct pipe0 :
-        pipe_base,
+        private as_pipe< pipe0<BabyFunction> >,
         private nonassignable
     {
         BabyFunction m_baby;
@@ -72,7 +72,7 @@ namespace pstade { namespace egg { namespace detail {
     //
     template< class BabyFunction, class A0 >
     struct pipe1 :
-        pipe_base,
+        private as_pipe< pipe1<BabyFunction, A0> >,
         private nonassignable
     {
         BabyFunction m_baby;
@@ -110,7 +110,7 @@ namespace pstade { namespace egg { namespace detail {
     //
     template< class BabyFunction, class A0, class A1 >
     struct pipe2 :
-        pipe_base,
+        private as_pipe< pipe2<BabyFunction, A0, A1> >,
         private nonassignable
     {
         BabyFunction m_baby;
@@ -170,7 +170,7 @@ namespace pstade { namespace egg { namespace detail {
 
 template< class BabyFunction, BOOST_PP_ENUM_PARAMS(n, class A) >
 struct BOOST_PP_CAT(pipe, n) :
-    pipe_base,
+    private as_pipe< BOOST_PP_CAT(pipe, n)<BabyFunction, BOOST_PP_ENUM_PARAMS(n, A)> >,
     private nonassignable
 {
     BabyFunction m_baby;

@@ -15,7 +15,7 @@
 #include <iterator> // istream_iterator
 #include <string>   // char_traits
 #include <boost/range/iterator_range.hpp>
-#include "./lightweight_proxy.hpp"
+#include "./as_lightweight_proxy.hpp"
 
 
 namespace pstade { namespace oven {
@@ -49,7 +49,7 @@ template<
 >
 struct istream_range :
     istream_range_detail::super_<Value, CharT, Traits, Difference>::type,
-    private lightweight_proxy< istream_range<Value, CharT, Traits, Difference> >
+    private as_lightweight_proxy< istream_range<Value, CharT, Traits, Difference> >
 {
 private:
     typedef typename istream_range_detail::super_<Value, CharT, Traits, Difference>::type super_t;

@@ -27,10 +27,10 @@
 #include <pstade/new.hpp>
 #include <pstade/unused.hpp>
 #include "./algorithm.hpp" // copy
+#include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
 #include "./direct_range.hpp"
 #include "./indirect_range.hpp"
-#include "./lightweight_proxy.hpp"
 #include "./range_iterator.hpp"
 #include "./share_range.hpp"
 
@@ -38,7 +38,7 @@
 #if BOOST_WORKAROUND(BOOST_MSVC, == 1310)
     // The weird VC7.1 fails to find the garlic's overload for STL Sequences
     // in the case of 'sort_range' which is derived from 'out_place_range'.
-    // And 'private' multiple inheritance of 'lightweight_proxy' makes VC7.1 anger.
+    // And 'private' multiple inheritance of 'as_lightweight_proxy' makes VC7.1 anger.
     // I don't know why. Who knows.
     #define PSTADE_OVEN_OUT_PLACE_RANGE_WEIRD_ERROR_WITH_SORT_RANGE
 #endif
@@ -103,7 +103,7 @@ struct out_place_range :
 #if !defined(PSTADE_OVEN_OUT_PLACE_RANGE_WEIRD_ERROR_WITH_SORT_RANGE)
     private
 #endif
-    lightweight_proxy< out_place_range<ForwardRange, Functor> >
+    as_lightweight_proxy< out_place_range<ForwardRange, Functor> >
 {
     typedef ForwardRange pstade_oven_range_base_type;
 

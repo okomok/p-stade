@@ -19,8 +19,8 @@
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <pstade/param.hpp>
+#include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
-#include "./lightweight_proxy.hpp"
 #include "./range_iterator.hpp"
 #include "./range_reference.hpp"
 #include "./range_value.hpp"
@@ -68,7 +68,7 @@ namespace constant_range_detail {
 template< class Range >
 struct constant_range :
     constant_range_detail::super_<Range>::type,
-    private lightweight_proxy< constant_range<Range> >
+    private as_lightweight_proxy< constant_range<Range> >
 {
     typedef Range pstade_oven_range_base_type;
 

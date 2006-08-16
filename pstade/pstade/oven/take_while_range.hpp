@@ -20,9 +20,9 @@
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./algorithm.hpp" // find_if
+#include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
 #include "./detail/not.hpp"
-#include "./lightweight_proxy.hpp"
 #include "./sub_range_base.hpp"
 
 
@@ -32,7 +32,7 @@ namespace pstade { namespace oven {
 template< class ForwardRange, class Predicate >
 struct take_while_range :
     sub_range_base<ForwardRange>::type,
-    private lightweight_proxy< take_while_range<ForwardRange, Predicate> >
+    private as_lightweight_proxy< take_while_range<ForwardRange, Predicate> >
 {
     typedef ForwardRange pstade_oven_range_base_type;
 

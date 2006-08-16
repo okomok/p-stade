@@ -13,9 +13,9 @@
 #include <boost/range/iterator_range.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
+#include "./as_lightweight_proxy.hpp"
 #include "./const_lvalue_iterator.hpp"
 #include "./detail/concept_check.hpp"
-#include "./lightweight_proxy.hpp"
 #include "./range_iterator.hpp"
 
 
@@ -42,7 +42,7 @@ namespace const_lvalue_range_detail {
 template< class Range >
 struct const_lvalue_range :
     const_lvalue_range_detail::super_<Range>::type,
-    private lightweight_proxy< const_lvalue_range<Range> >
+    private as_lightweight_proxy< const_lvalue_range<Range> >
 {
     typedef Range pstade_oven_range_base_type;
 

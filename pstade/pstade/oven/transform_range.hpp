@@ -27,8 +27,8 @@
 #include <pstade/egg/decay_function.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
+#include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
-#include "./lightweight_proxy.hpp"
 #include "./range_iterator.hpp"
 
 
@@ -72,7 +72,7 @@ template<
 >
 struct transform_range :
     transform_range_detail::super_<Range, UnaryFun, Reference, Value>::type,
-    private lightweight_proxy< transform_range<Range, UnaryFun, Reference, Value> >
+    private as_lightweight_proxy< transform_range<Range, UnaryFun, Reference, Value> >
 {
     typedef Range pstade_oven_range_base_type;
 

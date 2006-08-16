@@ -14,9 +14,9 @@
 #include <boost/range/end.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
+#include "./as_lightweight_proxy.hpp"
 #include "./counting_range.hpp"
 #include "./detail/concept_check.hpp"
-#include "./lightweight_proxy.hpp"
 #include "./range_iterator.hpp"
 
 
@@ -40,7 +40,7 @@ namespace direct_range_detail {
 template< class Range >
 struct direct_range :
     direct_range_detail::super_<Range>::type,
-    private lightweight_proxy< direct_range<Range> >
+    private as_lightweight_proxy< direct_range<Range> >
 {
     typedef Range pstade_oven_range_base_type;
 

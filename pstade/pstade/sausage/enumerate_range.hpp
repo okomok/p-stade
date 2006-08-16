@@ -13,7 +13,7 @@
 #include <boost/range/iterator_range.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
-#include <pstade/oven/lightweight_proxy.hpp>
+#include <pstade/oven/as_lightweight_proxy.hpp>
 #include "./enumerate_iterator.hpp"
 
 
@@ -38,7 +38,7 @@ namespace enumerate_range_detail {
 template< class Enumerable >
 struct enumerate_range :
     enumerate_range_detail::super_<Enumerable>::type,
-    private oven::lightweight_proxy< enumerate_range<Enumerable> >
+    private oven::as_lightweight_proxy< enumerate_range<Enumerable> >
 {
 private:
     typedef typename enumerate_range_detail::super_<Enumerable>::type super_t;

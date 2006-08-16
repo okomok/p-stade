@@ -16,8 +16,8 @@
 #include <boost/regex.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
+#include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
-#include "./lightweight_proxy.hpp"
 #include "./range_iterator.hpp"
 #include "./range_value.hpp"
 
@@ -59,7 +59,7 @@ template<
 >
 struct match_range :
     match_range_detail::super_<BidiRange, CharT, Traits>::type,
-    private lightweight_proxy< match_range<BidiRange, CharT, Traits> >
+    private as_lightweight_proxy< match_range<BidiRange, CharT, Traits> >
 {
     typedef BidiRange pstade_oven_range_base_type;
 

@@ -45,4 +45,5 @@ rule egg-test ( name : includes * )
 test-suite egg :
     [ egg-test doc ]
     [ egg-test function ]
+    [ egg-test pipable ]
     ;

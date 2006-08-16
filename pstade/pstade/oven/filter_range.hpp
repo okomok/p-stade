@@ -25,8 +25,8 @@
 #include <pstade/egg/decay_function.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
+#include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
-#include "./lightweight_proxy.hpp"
 #include "./range_iterator.hpp"
 
 
@@ -54,7 +54,7 @@ namespace filter_range_detail {
 template< class Range, class Predicate >
 struct filter_range :
     filter_range_detail::super_<Range, Predicate>::type,
-    private lightweight_proxy< filter_range<Range, Predicate> >
+    private as_lightweight_proxy< filter_range<Range, Predicate> >
 {
     typedef Range pstade_oven_range_base_type;
 

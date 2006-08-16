@@ -30,8 +30,8 @@
 #include <boost/throw_exception.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
+#include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
-#include "./lightweight_proxy.hpp"
 #include "./range_iterator.hpp"
 #include "./range_value.hpp"
 
@@ -208,7 +208,7 @@ namespace null_terminate_range_detail {
 template< class ForwardRangeOrCString >
 struct null_terminate_range :
     null_terminate_range_detail::super_<ForwardRangeOrCString>::type,
-    private lightweight_proxy< null_terminate_range<ForwardRangeOrCString> >
+    private as_lightweight_proxy< null_terminate_range<ForwardRangeOrCString> >
 {
     typedef ForwardRangeOrCString pstade_oven_range_base_type;
 

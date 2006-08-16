@@ -14,10 +14,10 @@
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./adjacent_filter_range.hpp"
+#include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
 #include "./detail/equal_to.hpp"
 #include "./detail/not.hpp"
-#include "./lightweight_proxy.hpp"
 
 
 namespace pstade { namespace oven {
@@ -42,7 +42,7 @@ namespace unique_range_detail {
 template< class ForwardRange >
 struct unique_range :
     unique_range_detail::super_<ForwardRange>::type,
-    private lightweight_proxy< unique_range<ForwardRange> >
+    private as_lightweight_proxy< unique_range<ForwardRange> >
 {
     typedef ForwardRange pstade_oven_range_base_type;
 

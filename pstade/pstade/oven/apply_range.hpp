@@ -18,9 +18,9 @@
 #include <pstade/egg/decay_function.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
+#include "./as_lightweight_proxy.hpp"
 #include "./begin_end.hpp"
 #include "./detail/concept_check.hpp"
-#include "./lightweight_proxy.hpp"
 #include "./sub_range_base.hpp"
 
 
@@ -34,7 +34,7 @@ template<
 >
 struct apply_range :
     sub_range_base<Range>::type,
-    private lightweight_proxy< apply_range<Range, BeginFun, EndFun> >
+    private as_lightweight_proxy< apply_range<Range, BeginFun, EndFun> >
 {
     typedef Range pstade_oven_range_base_type;
 

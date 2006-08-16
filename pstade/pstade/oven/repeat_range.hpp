@@ -15,8 +15,8 @@
 #include <pstade/remove_cvr.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
+#include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
-#include "./lightweight_proxy.hpp"
 #include "./range_iterator.hpp"
 #include "./repeat_iterator.hpp"
 #include "./sub_range_result.hpp"
@@ -46,7 +46,7 @@ namespace repeat_range_detail {
 template< class ForwardRange, class Size = std::size_t >
 struct repeat_range :
     repeat_range_detail::super_<ForwardRange, Size>::type,
-    private lightweight_proxy< repeat_range<ForwardRange, Size> >
+    private as_lightweight_proxy< repeat_range<ForwardRange, Size> >
 {
     typedef ForwardRange pstade_oven_range_base_type;
 

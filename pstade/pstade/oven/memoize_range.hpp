@@ -16,9 +16,9 @@
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <pstade/nullptr.hpp>
+#include "./as_lightweight_proxy.hpp"
 #include "./check_range.hpp"
 #include "./detail/concept_check.hpp"
-#include "./lightweight_proxy.hpp"
 #include "./multi_pass_range.hpp"
 
 
@@ -131,7 +131,7 @@ namespace memoize_range_detail {
 template< class Range >
 struct memoize_range :
     memoize_range_detail::super_<Range>::type,
-    private lightweight_proxy< memoize_range<Range> >
+    private as_lightweight_proxy< memoize_range<Range> >
 {
     typedef Range pstade_oven_range_base_type;
 

@@ -14,9 +14,9 @@
 #include <boost/utility/base_from_member.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
+#include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
 #include "./joint_range.hpp"
-#include "./lightweight_proxy.hpp"
 #include "./single_range.hpp"
 
 
@@ -47,7 +47,7 @@ template< class Range, class Value >
 struct prepend_range :
     private prepend_range_detail::init<Value>::type,
     prepend_range_detail::super_<Range, Value>::type,
-    private lightweight_proxy< prepend_range<Range, Value> >
+    private as_lightweight_proxy< prepend_range<Range, Value> >
 {
     typedef Range pstade_oven_range_base_type;
 

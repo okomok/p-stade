@@ -14,7 +14,7 @@
 #include <boost/spirit/iterator/multi_pass.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
-#include "./lightweight_proxy.hpp"
+#include "./as_lightweight_proxy.hpp"
 #include "./range_iterator.hpp"
 
 
@@ -57,7 +57,7 @@ struct multi_pass_range :
         InputIterRange,
         InputPolicy, OwnershipPolicy, CheckingPolicy, StoragePolicy
     >::type,
-    private lightweight_proxy< multi_pass_range<
+    private as_lightweight_proxy< multi_pass_range<
         InputIterRange,
         InputPolicy, OwnershipPolicy, CheckingPolicy, StoragePolicy
     > >

@@ -16,8 +16,8 @@
 #include <boost/type_traits/add_const.hpp>
 #include <pstade/const_overloaded.hpp>
 #include <pstade/nonassignable.hpp>
+#include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
-#include "./lightweight_proxy.hpp"
 #include "./range_iterator.hpp"
 
 
@@ -46,7 +46,7 @@ namespace utf8_encode_range_detail {
 template< class BidiRange, class U8T = boost::uint8_t >
 struct utf8_encode_range :
     utf8_encode_range_detail::super_<BidiRange, U8T>::type,
-    private lightweight_proxy< utf8_encode_range<BidiRange, U8T> >
+    private as_lightweight_proxy< utf8_encode_range<BidiRange, U8T> >
 {
     typedef BidiRange pstade_oven_range_base_type;
 

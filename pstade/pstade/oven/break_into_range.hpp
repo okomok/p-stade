@@ -23,8 +23,8 @@
 #include <boost/type_traits/add_const.hpp>
 #include <pstade/const_overloaded.hpp>
 #include <pstade/nonassignable.hpp>
+#include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
-#include "./lightweight_proxy.hpp"
 #include "./range_iterator.hpp"
 #include "./range_value.hpp"
 
@@ -62,7 +62,7 @@ template<
 >
 struct break_into_range :
     break_into_range_detail::super_<Range, TokenizerFun, Type>::type,
-    private lightweight_proxy< break_into_range<Range, TokenizerFun, Type> >
+    private as_lightweight_proxy< break_into_range<Range, TokenizerFun, Type> >
 {
     typedef Range pstade_oven_range_base_type;
 

@@ -15,9 +15,9 @@
 #include <boost/range/iterator_range.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
+#include "./as_lightweight_proxy.hpp"
 #include "./check_iterator.hpp"
 #include "./detail/concept_check.hpp"
-#include "./lightweight_proxy.hpp"
 #include "./range_iterator.hpp"
 
 
@@ -44,7 +44,7 @@ namespace check_range_detail {
 template< class Range >
 struct check_range :
     check_range_detail::super_<Range>::type,
-    private lightweight_proxy< check_range<Range> >
+    private as_lightweight_proxy< check_range<Range> >
 {
     typedef Range pstade_oven_range_base_type;
 

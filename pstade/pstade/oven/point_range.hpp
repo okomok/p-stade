@@ -19,9 +19,9 @@
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <pstade/nullptr.hpp>
+#include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
 #include "./distance.hpp"
-#include "./lightweight_proxy.hpp"
 #include "./range_pointer.hpp"
 
 
@@ -62,7 +62,7 @@ namespace point_range_detail {
 template< class ContiguousRange >
 struct point_range :
     point_range_detail::super_<ContiguousRange>::type,
-    private lightweight_proxy< point_range<ContiguousRange> >
+    private as_lightweight_proxy< point_range<ContiguousRange> >
 {
     typedef ContiguousRange pstade_oven_range_base_type;
 

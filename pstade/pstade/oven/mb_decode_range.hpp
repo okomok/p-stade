@@ -14,7 +14,7 @@
 #include <boost/range/iterator_range.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
-#include "./lightweight_proxy.hpp"
+#include "./as_lightweight_proxy.hpp"
 #include "./range_iterator.hpp"
 
 
@@ -41,7 +41,7 @@ namespace mb_decode_range_detail {
 template< class Range >
 struct mb_decode_range :
     mb_decode_range_detail::super_<Range>::type,
-    private lightweight_proxy< mb_decode_range<Range> >
+    private as_lightweight_proxy< mb_decode_range<Range> >
 {
     typedef Range pstade_oven_range_base_type;
 

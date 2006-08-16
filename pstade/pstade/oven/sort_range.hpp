@@ -15,9 +15,9 @@
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./algorithm.hpp" // sort
+#include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
 #include "./detail/less_than.hpp"
-#include "./lightweight_proxy.hpp"
 #include "./out_place_range.hpp"
 
 
@@ -60,7 +60,7 @@ namespace sort_range_detail {
 template< class ForwardRange, class BinaryPred = detail::less_than_fun >
 struct sort_range :
     sort_range_detail::super_<ForwardRange, BinaryPred>::type,
-    private lightweight_proxy< sort_range<ForwardRange, BinaryPred> >
+    private as_lightweight_proxy< sort_range<ForwardRange, BinaryPred> >
 {
     typedef ForwardRange pstade_oven_range_base_type;
 

@@ -16,8 +16,8 @@
 #include <boost/xpressive/regex_iterator.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
+#include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
-#include "./lightweight_proxy.hpp"
 #include "./range_iterator.hpp"
 #include "./range_value.hpp"
 
@@ -49,7 +49,7 @@ namespace xpressive_match_range_detail {
 template< class BidiRange >
 struct xpressive_match_range :
     xpressive_match_range_detail::super_<BidiRange>::type,
-    private lightweight_proxy< xpressive_match_range<BidiRange> >
+    private as_lightweight_proxy< xpressive_match_range<BidiRange> >
 {
     typedef BidiRange pstade_oven_range_base_type;
 

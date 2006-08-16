@@ -23,7 +23,7 @@
 #include <boost/type_traits/is_array.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
-#include "./lightweight_proxy.hpp"
+#include "./as_lightweight_proxy.hpp"
 #include "./sub_range_base.hpp"
 
 
@@ -47,7 +47,7 @@ namespace array_protect_range_detail {
 template< class ArrayT >
 struct array_protect_range :
     sub_range_base<ArrayT>::type,
-    private lightweight_proxy< array_protect_range<ArrayT> >
+    private as_lightweight_proxy< array_protect_range<ArrayT> >
 {
     typedef ArrayT pstade_oven_range_base_type;
 

@@ -12,7 +12,7 @@
 
 #include <boost/range/iterator_range.hpp>
 #include <pstade/nullptr.hpp>
-#include "./lightweight_proxy.hpp"
+#include "./as_lightweight_proxy.hpp"
 #include "./range_constantable.hpp"
 
 
@@ -23,7 +23,7 @@ template< class Value >
 struct empty_range :
     boost::iterator_range<Value *>,
     private range_constantable<empty_range<Value>, Value const *>,
-    private lightweight_proxy< empty_range<Value> >
+    private as_lightweight_proxy< empty_range<Value> >
 {
     typedef Value const *const_iterator;
 

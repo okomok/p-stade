@@ -17,9 +17,9 @@
 #include <pstade/egg/decay_function.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
+#include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
 #include "./detail/plus.hpp"
-#include "./lightweight_proxy.hpp"
 #include "./range_iterator.hpp"
 #include "./scan_iterator.hpp"
 
@@ -49,7 +49,7 @@ namespace scan_range_detail {
 template< class Range, class State, class BinaryFun = detail::plus_fun >
 struct scan_range :
     scan_range_detail::super_<Range, State, BinaryFun>::type,
-    private lightweight_proxy< scan_range<Range, State, BinaryFun> >
+    private as_lightweight_proxy< scan_range<Range, State, BinaryFun> >
 {
     typedef Range pstade_oven_range_base_type;
 

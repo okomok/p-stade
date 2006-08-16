@@ -13,9 +13,9 @@
 #include <boost/range/end.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
+#include "./as_lightweight_proxy.hpp"
 #include "./detail/advance_begin.hpp"
 #include "./detail/concept_check.hpp"
-#include "./lightweight_proxy.hpp"
 #include "./range_difference.hpp"
 #include "./sub_range_base.hpp"
 
@@ -26,7 +26,7 @@ namespace pstade { namespace oven {
 template< class Range >
 struct drop_range :
     sub_range_base<Range>::type,
-    private lightweight_proxy< drop_range<Range> >
+    private as_lightweight_proxy< drop_range<Range> >
 {
     typedef Range pstade_oven_range_base_type;
 

@@ -16,8 +16,8 @@
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <pstade/static_c.hpp>
+#include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
-#include "./lightweight_proxy.hpp"
 #include "./range_iterator.hpp"
 
 
@@ -65,7 +65,7 @@ template<
 >
 struct position_range :
     position_range_detail::super_<ForwardRange, PositionT>::type,
-    private lightweight_proxy< position_range<ForwardRange, PositionT> >
+    private as_lightweight_proxy< position_range<ForwardRange, PositionT> >
 {
     typedef ForwardRange pstade_oven_range_base_type;
 

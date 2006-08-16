@@ -39,7 +39,7 @@
 #include "./baby_result.hpp"
 #include "./detail/config.hpp" // PSTADE_EGG_PIPABLE_MAX_ARITY
 #include "./detail/pipes.hpp"
-#include "./detail/pipe_base.hpp"
+#include "./is_pipe.hpp" // as_pipe
 
 
 namespace pstade { namespace egg {
@@ -47,7 +47,7 @@ namespace pstade { namespace egg {
 
 template< class BabyFunction >
 struct pipe :
-    detail::pipe_base,
+    private as_pipe< pipe<BabyFunction> >,
     private nonassignable
 {
 

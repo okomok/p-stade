@@ -19,7 +19,7 @@
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <pstade/param.hpp>
-#include "./lightweight_proxy.hpp"
+#include "./as_lightweight_proxy.hpp"
 #include "./range_iterator.hpp"
 #include "./range_reference.hpp"
 #include "./range_value.hpp"
@@ -67,7 +67,7 @@ namespace second_range_detail {
 template< class PairRange >
 struct second_range :
     second_range_detail::super_<PairRange>::type,
-    private lightweight_proxy< second_range<PairRange> >
+    private as_lightweight_proxy< second_range<PairRange> >
 {
     typedef PairRange pstade_oven_range_base_type;
 

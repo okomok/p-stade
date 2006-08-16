@@ -12,8 +12,8 @@
 
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
+#include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
-#include "./lightweight_proxy.hpp"
 #include "./range_difference.hpp"
 #include "./slice_range.hpp"
 
@@ -39,7 +39,7 @@ namespace shift_range_detail {
 template< class ForwardRange >
 struct shift_range :
     shift_range_detail::super_<ForwardRange>::type,
-    private lightweight_proxy< shift_range<ForwardRange> >
+    private as_lightweight_proxy< shift_range<ForwardRange> >
 {
     typedef ForwardRange pstade_oven_range_base_type;
 

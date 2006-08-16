@@ -12,7 +12,7 @@
 
 #include <boost/range/iterator_range.hpp>
 #include <boost/utility/addressof.hpp>
-#include "./lightweight_proxy.hpp"
+#include "./as_lightweight_proxy.hpp"
 
 
 namespace pstade { namespace oven {
@@ -21,7 +21,7 @@ namespace pstade { namespace oven {
 template< class Value >
 struct single_range :
     boost::iterator_range<Value *>,
-    private lightweight_proxy< single_range<Value> >
+    private as_lightweight_proxy< single_range<Value> >
 {
 private:
     typedef boost::iterator_range<Value *> super_t;

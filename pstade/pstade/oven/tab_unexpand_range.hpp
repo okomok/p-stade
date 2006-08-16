@@ -15,8 +15,8 @@
 #include <boost/range/iterator_range.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
+#include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
-#include "./lightweight_proxy.hpp"
 #include "./range_iterator.hpp"
 #include "./tab_unexpand_iterator.hpp"
 
@@ -44,7 +44,7 @@ namespace tab_unexpand_range_detail {
 template< class ForwardRange >
 struct tab_unexpand_range :
     tab_unexpand_range_detail::super_<ForwardRange>::type,
-    private lightweight_proxy< tab_unexpand_range<ForwardRange> >
+    private as_lightweight_proxy< tab_unexpand_range<ForwardRange> >
 {
     typedef ForwardRange pstade_oven_range_base_type;
 

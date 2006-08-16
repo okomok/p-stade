@@ -15,8 +15,8 @@
 #include <boost/tuple/tuple.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
+#include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
-#include "./lightweight_proxy.hpp"
 #include "./range_iterator.hpp"
 
 
@@ -52,7 +52,7 @@ namespace zip_range_detail {
 template< class Range0, class Range1 >
 struct zip_range :
     zip_range_detail::super_<Range0, Range1>::type,
-    private lightweight_proxy< zip_range<Range0, Range1> >
+    private as_lightweight_proxy< zip_range<Range0, Range1> >
 {
     typedef Range0 pstade_oven_range_base_type;
 
