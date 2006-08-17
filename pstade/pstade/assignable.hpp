@@ -140,7 +140,8 @@ friend class radish::access;
 
 
 template< class Clonable > inline
-assignable<Clonable> make_assignable(Clonable const& x)
+assignable<Clonable> const
+make_assignable(Clonable const& x)
 {
     return assignable<Clonable>(x);
 }

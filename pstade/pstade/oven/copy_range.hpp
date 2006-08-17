@@ -17,6 +17,7 @@
 #include <boost/range/end.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/utility/enable_if.hpp>
+#include <pstade/adl_barrier.hpp>
 #include <pstade/apple/has_range_constructor.hpp>
 #include <pstade/apple/is_boost_range.hpp>
 #include <pstade/egg/pipable.hpp>
@@ -45,19 +46,25 @@ namespace copy_range_detail {
 } // namespace copy_range_detail
 
 
-// Wow, function!
-//
-template< class T, class Range > inline
-T copy_range(Range const& rng)
-{
-    detail::requires< boost::SinglePassRangeConcept<Range> >();
+PSTADE_ADL_BARRIER(copy_range) { // for Boost
 
-    // Under: http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1893.pdf
-    // using namespace(T);
 
-    using namespace copy_range_detail;
-    return pstade_oven_copy_range(rng, overload<T>());
-}
+    // Wow, function!
+    //
+    template< class T, class Range > inline
+    T copy_range(Range const& rng)
+    {
+        detail::requires< boost::SinglePassRangeConcept<Range> >();
+
+        // Under: http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1893.pdf
+        // using namespace(T);
+
+        using namespace copy_range_detail;
+        return pstade_oven_copy_range(rng, overload<T>());
+    }
+
+
+} // ADL barrier
 
 
 namespace copy_range_detail {
@@ -129,8 +136,7 @@ namespace copy_range_detail {
         }
 
         // Note:
-        // "Range or Iterator" detection is incomplete,
-        // so be careful.
+        // "Range or Iterator" detection is incomplete, so be careful.
         template< class Result, class InRange, class OutRange >
         typename boost::enable_if<apple::is_boost_range<OutRange>,
         Result>::type call(InRange& in, OutRange& out)

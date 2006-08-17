@@ -38,14 +38,17 @@ struct bool_testable :
     Base
 {
 private:
-    // Your type is already bool-testable.
-    // In fact, this seems not to work.
-    BOOST_MPL_ASSERT_NOT((boost::is_convertible<T, char>));
-    BOOST_MPL_ASSERT_NOT((boost::is_convertible<T, int short>));
-
     void does_not_support_comparisons() const;
 
 public:
+    bool_testable()
+    {
+        // Your type is already bool-testable.
+        // In fact, this seems not to work.
+        BOOST_MPL_ASSERT_NOT((boost::is_convertible<T, char>));
+        BOOST_MPL_ASSERT_NOT((boost::is_convertible<T, int short>));
+    }
+
     // Prefer 'friend' to member for disambiguity.
     // One of base classes may have its own member 'operator!()'.
     friend
