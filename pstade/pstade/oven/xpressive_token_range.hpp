@@ -89,20 +89,20 @@ namespace xpressive_token_range_detail {
 
     struct baby_generator
     {
-        template< class Unused, class BidiRange, class RegexT, class SubMatches = void, class FlagT = void >
+        template< class Unused, class BidiRange, class Regex, class SubMatches = void, class Flag = void >
         struct result
         {
             typedef xpressive_token_range<BidiRange> const type;
         };
 
-        template< class Result, class BidiRange, class RegexT >
-        Result call(BidiRange& rng, RegexT const& re)
+        template< class Result, class BidiRange, class Regex >
+        Result call(BidiRange& rng, Regex const& re)
         {
             return Result(rng, re);
         }
 
-        template< class Result, class BidiRange, class RegexT, class SubMatches >
-        Result call(BidiRange& rng, RegexT const& re, SubMatches const& submatches, match_flag_type flag = match_default)
+        template< class Result, class BidiRange, class Regex, class SubMatches >
+        Result call(BidiRange& rng, Regex const& re, SubMatches const& submatches, match_flag_type flag = match_default)
         {
             return Result(rng, re, submatches, flag);
         }

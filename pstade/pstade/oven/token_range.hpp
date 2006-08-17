@@ -15,7 +15,7 @@
 #include <boost/range/iterator_range.hpp>
 #include <boost/regex.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <boost/utility/enable_if.hpp> // enable_if
+#include <boost/utility/enable_if.hpp> // disable_if
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
@@ -104,21 +104,21 @@ namespace token_range_detail {
 
     struct baby_generator
     {
-        template< class Unused, class BidiRange, class RegexT, class IntOrRndRange = void, class FlagT = void >
+        template< class Unused, class BidiRange, class Regex, class IntOrRndRange = void, class Flag = void >
         struct result
         {
             typedef token_range<BidiRange> const type;
         };
 
-        template< class Result, class BidiRange, class RegexT >
-        Result call(BidiRange& rng, RegexT const& re, int submatch = 0, match_flag_type flag = match_default)
+        template< class Result, class BidiRange, class Regex >
+        Result call(BidiRange& rng, Regex const& re, int submatch = 0, match_flag_type flag = match_default)
         {
             return Result(rng, re, submatch, flag);
         }
 
-        template< class Result, class BidiRange, class RegexT, class RandRange >
+        template< class Result, class BidiRange, class Regex, class RandRange >
         typename boost::disable_if<boost::is_same<RandRange, int>, // for GCC
-        Result>::type call(BidiRange& rng, RegexT const& re, RandRange const& submatches, match_flag_type flag = match_default)
+        Result>::type call(BidiRange& rng, Regex const& re, RandRange const& submatches, match_flag_type flag = match_default)
         {
             return Result(rng, re, submatches, flag);
         }

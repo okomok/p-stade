@@ -157,5 +157,5 @@ Version 0.90.0
 
 Version 0.90.1
 ^^^^^^^^^^^^^^
-- Added ``PSTADE_EGG_PIPBLE``.
+- Added ``PSTADE_EGG_PIPABLE``.
 

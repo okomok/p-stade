@@ -78,14 +78,14 @@ namespace xpressive_match_range_detail {
 
     struct baby_generator
     {
-        template< class Unused, class BidiRange, class RegexT, class FlagT = void >
+        template< class Unused, class BidiRange, class Regex, class Flag = void >
         struct result
         {
             typedef xpressive_match_range<BidiRange> const type;
         };
 
-        template< class Result, class BidiRange, class RegexT >
-        Result call(BidiRange& rng, RegexT const& re, match_flag_type flag = match_default)
+        template< class Result, class BidiRange, class Regex >
+        Result call(BidiRange& rng, Regex const& re, match_flag_type flag = match_default)
         {
             return Result(rng, re, flag);
         }
