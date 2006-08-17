@@ -35,6 +35,12 @@
 // 'b' is value-initialized, thus 'b' becomes 'false'.
 
 
+// Note:
+//
+// For keeping const-ness, we cannot apply 'PSTADE_UNPARENTHESIZE'
+// inside of this macro implementation.
+
+
 #include <boost/config.hpp> // BOOST_MSVC
 #include <boost/mpl/aux_/preprocessor/is_seq.hpp>
 #include <boost/mpl/aux_/preprocessor/token_equal.hpp>

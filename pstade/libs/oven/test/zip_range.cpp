@@ -17,7 +17,7 @@
 #include <vector>
 #include <boost/foreach.hpp>
 #include <boost/range.hpp>
-#include <pstade/comma_protect.hpp>
+#include <pstade/unparenthesize.hpp>
 #include <pstade/garlic/back_inserter.hpp>
 #include <pstade/oven/functions.hpp>
 
@@ -41,7 +41,7 @@ void test()
         }
 
         BOOST_FOREACH (
-            PSTADE_COMMA_PROTECT((boost::tuple<char&, int&>)) t,
+            PSTADE_UNPARENTHESIZE((boost::tuple<char&, int&>)) t,
             src0|zipped(src1)
         ) {
             char& ch = boost::get<0>(t);

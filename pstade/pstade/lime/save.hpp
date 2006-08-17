@@ -11,11 +11,11 @@
 
 
 #include <boost/foreach.hpp>
-#include <pstade/comma_protect.hpp>
 #include <pstade/oven/algorithm.hpp> // copy
 #include <pstade/oven/equals.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
 #include <pstade/overload.hpp>
+#include <pstade/unparenthesize.hpp>
 #include <pstade/ustring.hpp>
 #include "./intrinsic.hpp"
 #include "./node_value.hpp"
@@ -34,7 +34,7 @@ void save_attributes(AssocContainer attributes, OutIter out)
     using oven::null_terminated;
 
     BOOST_FOREACH (
-        PSTADE_COMMA_PROTECT((std::pair<ustring, ustring>)) att,
+        PSTADE_UNPARENTHESIZE((std::pair<ustring, ustring>)) att,
         attributes
     )
     {

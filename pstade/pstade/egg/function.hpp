@@ -15,8 +15,8 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/utility/result_of.hpp>
-#include <pstade/comma_protect.hpp>
 #include <pstade/instance.hpp>
+#include <pstade/unparenthesize.hpp>
 #include "./baby_result.hpp"
 #include "./detail/config.hpp"
 #include "./detail/operators.hpp"
@@ -103,11 +103,11 @@ namespace boost {
 
 #define PSTADE_EGG_FUNCTION_define(TypeName, Name, Baby) \
     typedef pstade::egg::function< \
-        PSTADE_COMMA_PROTECT(Baby) \
+        PSTADE_UNPARENTHESIZE(Baby) \
     > TypeName; \
     \
     PSTADE_INSTANCE( \
-        pstade::egg::function< PSTADE_COMMA_PROTECT(Baby) > const, \
+        pstade::egg::function< PSTADE_UNPARENTHESIZE(Baby) > const, \
         Name, value \
     ) \
 /**/

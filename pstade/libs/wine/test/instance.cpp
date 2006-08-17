@@ -16,7 +16,7 @@
 #include <string>
 #include <map>
 #include <boost/noncopyable.hpp>
-#include <pstade/comma_protect.hpp>
+#include <pstade/unparenthesize.hpp>
 
 
 struct aaa
@@ -50,8 +50,8 @@ PSTADE_INSTANCE(const char *, sz, ("hello"))
 PSTADE_INSTANCE(std::string, str, (sz))
 PSTADE_INSTANCE(const std::string, cstr, (str))
 PSTADE_INSTANCE(std::string const, cstr2, value)
-PSTADE_INSTANCE(PSTADE_COMMA_PROTECT((std::map<int, int>)), map1_, value)
-PSTADE_INSTANCE(PSTADE_COMMA_PROTECT((std::map<int, int>)) const, map2_, value)
+PSTADE_INSTANCE(PSTADE_UNPARENTHESIZE((std::map<int, int>)), map1_, value)
+PSTADE_INSTANCE(PSTADE_UNPARENTHESIZE((std::map<int, int>)) const, map2_, value)
 
 
 template< class T >

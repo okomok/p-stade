@@ -84,22 +84,6 @@ A non-const rvalue cannot bind to the deduced non-const reference.
 
 
 
-``PSTADE_COMMA_PROTECT``
-------------------------
-Macros regard `,` as an argument separator. This makes problem when
-you pass a type to macros. ``PSTADE_COMMA_PROTECT`` works around it::
-
-	D:\p-stade.sourceforge.net\pstade\libs\wine\doc\inline\comma_protect.ipp
-
-If the argument type is a dependent name, add ``typename`` before.
-
-
-- Header: ``<pstade/comma_protect.hpp>``
-- Valid expression: ``PSTADE_COMMA_PROTECT((t))``
-- Precondition: ``t`` is a type name.
-
-
-
 ``const_``
 ----------
 ``const_`` just const-qualifies its argument.
@@ -211,6 +195,22 @@ Pending...
 
 
 
+``PSTADE_UNPARENTHESIZE``
+-------------------------
+Macros regard `,` as an argument separator. This makes problem when
+you pass a type to macros. ``PSTADE_UNPARENTHESIZE`` works around it::
+
+	D:\p-stade.sourceforge.net\pstade\libs\wine\doc\inline\unparenthesize.ipp
+
+If the argument type is a dependent name, add ``typename`` before.
+
+
+- Header: ``<pstade/unparenthesize.hpp>``
+- Valid expression: ``PSTADE_UNPARENTHESIZE((t))``
+- Precondition: ``t`` is a type name.
+
+
+
 ``unused``
 ----------
 Though an unused variable makes the cumbersome "unused variable" warning, it sometimes helps you.
@@ -272,5 +272,5 @@ Version 0.90.3
 Version 0.90.4
 ^^^^^^^^^^^^^^^
 - Updated the document.
-
+- Renamed ``PSTADE_COMMA_PROTECT`` to ``PSTADE_UNPARENTHESIZE``
 

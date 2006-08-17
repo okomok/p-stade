@@ -23,7 +23,6 @@ test-suite wine :
     [ wine-test assignable ]
     [ wine-test base_to_derived ]
     [ wine-test check ]
-    [ wine-test comma_protect ]
     [ wine-test const ]
     [ wine-test has_xxx ]
     [ wine-test header ]
@@ -41,6 +40,7 @@ test-suite wine :
     [ wine-test require ]
     [ wine-test statement ]
     [ wine-test static_c ]
+    [ wine-test unparenthesize ]
     [ wine-test unused ]
     [ wine-test verify ]
     ;

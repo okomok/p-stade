@@ -32,9 +32,9 @@
 #include <boost/preprocessor/seq/for_each_i.hpp>
 #include <boost/preprocessor/seq/for_each_product.hpp>
 #include <boost/type_traits/add_const.hpp>
-#include <pstade/comma_protect.hpp>
 #include <pstade/instance.hpp>
 #include <pstade/nonassignable.hpp>
+#include <pstade/unparenthesize.hpp>
 #include "./baby_call.hpp"
 #include "./baby_result.hpp"
 #include "./detail/config.hpp" // PSTADE_EGG_PIPABLE_MAX_ARITY
@@ -156,7 +156,7 @@ operator|(Input const& in, pipe<BabyFunction> const& pi)
 
 #define PSTADE_EGG_PIPABLE(Name, Baby) \
     PSTADE_INSTANCE( \
-        pstade::egg::pipe< PSTADE_COMMA_PROTECT(Baby) > const, \
+        pstade::egg::pipe< PSTADE_UNPARENTHESIZE(Baby) > const, \
         Name, value \
     ) \
 /**/
