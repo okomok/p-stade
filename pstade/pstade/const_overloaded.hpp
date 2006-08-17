@@ -36,6 +36,44 @@
 namespace pstade {
 
 
+namespace const_overloaded_detail {
+
+
+template<
+    class T0, class T1, class T2, class T3, class T4,
+    class T5, class T6, class T7, class T8, class T9
+>
+struct or10 :
+    boost::mpl::or_<
+        boost::mpl::or_<T0, T1, T2, T3, T4>,
+        boost::mpl::or_<T5, T6, T7, T8, T9>
+    >
+{ };
+
+
+template<
+    class A0, class A1, class A2, class A3, class A4,
+    class A5, class A6, class A7, class A8, class A9
+>
+struct contains_const :
+    or10<
+        boost::is_const<A0>,
+        boost::is_const<A1>,
+        boost::is_const<A2>,
+        boost::is_const<A3>,
+        boost::is_const<A4>,
+        boost::is_const<A5>,
+        boost::is_const<A6>,
+        boost::is_const<A7>,
+        boost::is_const<A8>,
+        boost::is_const<A9>
+    >
+{ };
+
+
+} // namespace const_overloaded_detail
+
+
 #if !defined(PSTADE_CONST_OVERLOADED_NOT_REQUIRED)
 
 
@@ -46,21 +84,9 @@ namespace pstade {
     >
     struct const_overloaded :
         boost::disable_if<
-            boost::mpl::or_<
-                boost::mpl::or_<
-                    boost::is_const<A0>,
-                    boost::is_const<A1>,
-                    boost::is_const<A2>,
-                    boost::is_const<A3>,
-                    boost::is_const<A4>
-                >,
-                boost::mpl::or_<
-                    boost::is_const<A5>,
-                    boost::is_const<A6>,
-                    boost::is_const<A7>,
-                    boost::is_const<A8>,
-                    boost::is_const<A9>
-                >
+            const_overloaded_detail::contains_const<
+                A0, A1, A2, A3, A4,
+                A5, A6, A7, A8, A9
             >,
             Result
         >
@@ -74,21 +100,9 @@ namespace pstade {
     >
     struct const_overloaded_eval :
         boost::lazy_disable_if<
-            boost::mpl::or_<
-                boost::mpl::or_<
-                    boost::is_const<A0>,
-                    boost::is_const<A1>,
-                    boost::is_const<A2>,
-                    boost::is_const<A3>,
-                    boost::is_const<A4>
-                >,
-                boost::mpl::or_<
-                    boost::is_const<A5>,
-                    boost::is_const<A6>,
-                    boost::is_const<A7>,
-                    boost::is_const<A8>,
-                    boost::is_const<A9>
-                >
+            const_overloaded_detail::contains_const<
+                A0, A1, A2, A3, A4,
+                A5, A6, A7, A8, A9
             >,
             Result
         >

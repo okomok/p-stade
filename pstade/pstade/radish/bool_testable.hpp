@@ -44,7 +44,7 @@ public:
     bool_testable()
     {
         // Your type is already bool-testable.
-        // In fact, this seems not to work.
+        // In fact, these assertions seem not to work.
         BOOST_MPL_ASSERT_NOT((boost::is_convertible<T, char>));
         BOOST_MPL_ASSERT_NOT((boost::is_convertible<T, int short>));
     }

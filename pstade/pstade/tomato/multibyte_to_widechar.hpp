@@ -23,7 +23,8 @@ namespace pstade { namespace tomato {
 
 
 template< class WideCharSeq, class  MultiByteRange >
-WideCharSeq multibyte_to(MultiByteRange const& from)
+WideCharSeq const
+multibyte_to(MultiByteRange const& from)
 {
     std::string tmp = from|oven::copied;
 

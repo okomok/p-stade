@@ -52,7 +52,8 @@ BYTE get_b_value(DWORD rgb)
 
 
 template< class Range >
-boost::optional<COLORREF> rgb(Range const& rng)
+boost::optional<COLORREF> const
+rgb(Range const& rng)
 {
     if (boost::empty(rng))
         return boost::none;
