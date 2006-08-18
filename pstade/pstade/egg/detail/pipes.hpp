@@ -106,52 +106,14 @@ namespace pstade { namespace egg { namespace detail {
     }
 
 
-    // 2ary
-    //
-    template< class BabyFunction, class A0, class A1 >
-    struct pipe2 :
-        private as_pipe< pipe2<BabyFunction, A0, A1> >,
-        private nonassignable
-    {
-        BabyFunction m_baby;
-
-        explicit pipe2(BabyFunction const& baby, A0& a0, A1& a1) :
-            m_baby(baby),
-            m_a0(a0), m_a1(a1)
-        { }
-
-        A0& m_a0; A1& m_a1;
-    };
-
-    template< class Input, class BabyFunction, class A0, class A1 > inline
-    typename baby_result3<BabyFunction,
-        Input,
-        A0, A1
-    >::type
-    operator|(Input& in, pipe2<BabyFunction, A0, A1> const& pi)
-    {
-        return egg::baby_call(pi.m_baby, in, pi.m_a0, pi.m_a1);
-    }
-
-    template< class Input, class BabyFunction, class A0, class A1 > inline
-    typename baby_result3<BabyFunction,
-        typename boost::add_const<Input>::type,
-        A0, A1
-    >::type
-    operator|(const Input& in, pipe2<BabyFunction, A0, A1> const& pi)
-    {
-        return egg::baby_call(pi.m_baby, in, pi.m_a0, pi.m_a1);
-    }
-
-
-    // 3ary -
+    // 2ary -
     //
     #define PSTADE_EGG_ctor_arg(Z, N, _)   BOOST_PP_CAT(A, N)& BOOST_PP_CAT(a, N)
     #define PSTADE_EGG_ctor_init(Z, N, _)  BOOST_PP_CAT(m_a, N)(BOOST_PP_CAT(a, N))
     #define PSTADE_EGG_member(Z, N, _)     BOOST_PP_CAT(A, N)& BOOST_PP_CAT(m_a, N);
     #define PSTADE_EGG_call_arg(Z, N, _)   pi.BOOST_PP_CAT(m_a, N)
 
-    #define BOOST_PP_ITERATION_PARAMS_1 (3, (3, PSTADE_EGG_PIPABLE_MAX_ARITY, <pstade/egg/detail/pipes.hpp>))
+    #define BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_EGG_PIPABLE_MAX_ARITY, <pstade/egg/detail/pipes.hpp>))
     #include BOOST_PP_ITERATE()
 
     #undef PSTADE_EGG_call_arg

@@ -20,8 +20,8 @@
 #include <pstade/apple/basic_ostream_fwd.hpp>
 #include <pstade/apple/is_boost_range.hpp>
 #include <pstade/apple/is_sequence.hpp>
+#include <pstade/oven/copy_range.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
-#include <pstade/oven/sequence_cast.hpp>
 
 
 namespace pstade {
@@ -76,7 +76,7 @@ public:
         super_t(boost::begin(rng), boost::end(rng))
     { }
 
-    // Constructor prefers copy constructor and converts argument to ustring.
+    // The copy-initialization prefers copy constructor and converts argument to ustring.
     // But operator= doesn't, so be strict.
     template< class Range > 
     typename boost::enable_if<apple::is_boost_range<Range>,
@@ -103,7 +103,7 @@ public:
 template<class CharT, class Traits >
 std::basic_ostream<CharT, Traits>& operator<<(std::basic_ostream<CharT, Traits>& os, ustring str)
 {
-    os << oven::sequence_cast< std::basic_string<CharT, Traits> >(str);
+    os << oven::copy_range< std::basic_string<CharT, Traits> >(str);
     return os;
 }
 

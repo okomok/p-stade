@@ -12,8 +12,8 @@
 
 #include <string>
 #include <pstade/lexical_cast.hpp>
+#include <pstade/oven/copy_range.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
-#include <pstade/oven/sequence_cast.hpp>
 
 
 namespace pstade {
@@ -24,7 +24,7 @@ std::string what(std::string tag, Range const& msg)
 {
     return
         '<' + tag + '>' +
-            oven::sequence_cast<std::string>(msg) +
+            oven::copy_range<std::string>(msg) +
         "</" + tag + '>'
     ;
 }

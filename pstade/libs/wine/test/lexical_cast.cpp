@@ -50,7 +50,7 @@ void test()
 
     ::foo(pstade::lexical(12));
     ::bar(pstade::lexical(12));
-    ::bar(12|to_lexicon);
+    ::bar(12|lexicalized);
 }
 
 

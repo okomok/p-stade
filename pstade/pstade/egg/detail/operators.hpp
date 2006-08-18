@@ -61,7 +61,36 @@ public:
     }
 
 
-    // 1ary -
+    // 1ary
+    //
+    template< class A0 >
+    typename baby_result1<BabyFunction,
+        A0
+    >::type
+    operator()(
+        A0& a0
+    ) const
+    {
+        return egg::baby_call(m_baby,
+            a0
+        );
+    }
+
+    template< class A0 >
+    typename baby_result1<BabyFunction,
+        typename boost::add_const<A0>::type
+    >::type
+    operator()(
+        A0 const& a0
+    ) const
+    {
+        return egg::baby_call(m_baby,
+            a0
+        );
+    }
+
+
+    // 2ary -
     //
     #define PSTADE_EGG_call_operator(R, BitSeq) \
         template< BOOST_PP_ENUM_PARAMS(n, class A) > \
@@ -103,7 +132,7 @@ public:
     #define PSTADE_EGG_bits(Z, N, _) ((0)(1))
 
 
-    #define BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_ARITY, <pstade/egg/detail/operators.hpp>))
+    #define BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_EGG_MAX_ARITY, <pstade/egg/detail/operators.hpp>))
     #include BOOST_PP_ITERATE()
 
 

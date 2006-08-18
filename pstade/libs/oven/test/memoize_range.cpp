@@ -41,10 +41,10 @@ void test()
                 src |
                     filtered(bll::_1 != 'x') |
                     memoized |
-                    copied(std::back_inserter(s1)) |
+                    copied_to(std::back_inserter(s1)) |
                     filtered(bll::_1 != 'a') |
                     memoized |
-                    copied(std::back_inserter(s2))
+                    copied_to(std::back_inserter(s2))
             )
         ));
 

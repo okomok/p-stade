@@ -21,7 +21,7 @@
 #include <boost/foreach.hpp>
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
-#include <pstade/oven/sequence_cast.hpp>
+#include <pstade/oven/copy_range.hpp>
 
 
 using namespace pstade;
@@ -36,7 +36,7 @@ struct fun
 
     void operator()(boost::sub_range<std::string> m) const
     {
-        m_pout->push_back(oven::sequence(m));
+        m_pout->push_back(m|oven::copied);
     }
 
     std::vector<std::string> *m_pout;
@@ -61,7 +61,7 @@ void test()
             boost::sub_range<std::string> m,
             src|string_split( boost::algorithm::first_finder("-*-"|null_terminated, boost::algorithm::is_iequal()) )
         ) {
-            out.push_back(oven::sequence(m));
+            out.push_back(m|oven::copied);
         }
 #endif
 

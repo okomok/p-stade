@@ -39,15 +39,10 @@ struct unused_fun
     void operator()(A0 const&) const
     { }
 
-    // 2ary
-    template< class A0, class A1 >
-    void operator()(A0 const&, A1 const&) const
-    { }
-
-    // 3ary -
+    // 2ary -
     #define PSTADE_UNUSED_arg(Z, N, _) BOOST_PP_CAT(A, N) const&
 
-    #define BOOST_PP_ITERATION_PARAMS_1 (3, (3, PSTADE_UNUSED_MAX_ARITY, <pstade/unused.hpp>))
+    #define BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_UNUSED_MAX_ARITY, <pstade/unused.hpp>))
     #include BOOST_PP_ITERATE()
 
     #undef PSTADE_UNUSED_arg

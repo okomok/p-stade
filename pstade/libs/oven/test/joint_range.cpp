@@ -21,7 +21,7 @@
 #include <boost/range.hpp>
 #include <boost/range/concepts.hpp>
 #include <pstade/oven/functions.hpp>
-#include <pstade/oven/sequence_cast.hpp>
+#include <pstade/oven/copy_range.hpp>
 #include <pstade/oven/single_range.hpp>
 #include <pstade/oven/reverse_range.hpp>
 
@@ -58,13 +58,13 @@ void test()
             rng1|jointed(rng2)|reversed, ansr
         ) ));
 
-        std::vector<char> vec = oven::sequence_cast< std::vector<char> >(rng1|jointed(rng2));
+        std::vector<char> vec = oven::copy_range< std::vector<char> >(rng1|jointed(rng2));
         BOOST_CHECK(( oven::equals(
             vec, ans
         ) ));
 
-        std::cout << oven::sequence_cast<std::string>(rng1|jointed(rng2)) << std::endl;
-        std::cout << oven::sequence_cast<std::string>(rng1|jointed(rng2)|reversed) << std::endl;
+        std::cout << oven::copy_range<std::string>(rng1|jointed(rng2)) << std::endl;
+        std::cout << oven::copy_range<std::string>(rng1|jointed(rng2)|reversed) << std::endl;
     }
 
 
@@ -86,7 +86,7 @@ void test()
             oven::distance( rng1|jointed(rng2)|jointed(rng3) )
         ));
 
-        std::cout << oven::sequence_cast<std::string>(rng1|jointed(rng2)|jointed(rng3)) << std::endl;
+        std::cout << oven::copy_range<std::string>(rng1|jointed(rng2)|jointed(rng3)) << std::endl;
     }
 
     {

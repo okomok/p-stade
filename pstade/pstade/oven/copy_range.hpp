@@ -11,11 +11,11 @@
 
 
 #include <boost/assert.hpp>
-#include <boost/iterator/iterator_categories.hpp> // single_pass_traversal_tag
+#include <boost/iterator/iterator_categories.hpp> // traversal_tag's
 #include <boost/mpl/if.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/type_traits/is_same.hpp>
+#include <boost/type_traits/is_convertible.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/apple/has_range_constructor.hpp>
@@ -37,7 +37,8 @@ namespace copy_range_detail {
 
     template< class T, class Range > inline
     typename boost::enable_if<apple::has_range_constructor<T>,
-    T>::type pstade_oven_copy_range(Range& rng, overload<T>)
+    T const>::type
+    pstade_oven_copy_range(Range& rng, overload<T>)
     {
         return T(boost::begin(rng), boost::end(rng));
     }
@@ -49,10 +50,9 @@ namespace copy_range_detail {
 PSTADE_ADL_BARRIER(copy_range) { // for Boost
 
 
-    // Wow, function!
-    //
     template< class T, class Range > inline
-    T copy_range(Range const& rng)
+    T const
+    copy_range(Range const& rng)
     {
         detail::requires< boost::SinglePassRangeConcept<Range> >();
 
@@ -67,7 +67,7 @@ PSTADE_ADL_BARRIER(copy_range) { // for Boost
 } // ADL barrier
 
 
-namespace copy_range_detail {
+namespace copied_detail {
 
 
     template< class Range >
@@ -88,17 +88,29 @@ namespace copy_range_detail {
     };
 
 
-    template< class Range >
-    struct result_of_copy :
-        boost::mpl::if_<
-            boost::is_same<
-                typename range_traversal<Range>::type,
-                boost::single_pass_traversal_tag
-            >,
-            void,
-            Range&
-        >
-    { };
+    struct baby
+    {
+        template< class Unused, class InRange >
+        struct result
+        {
+            typedef temp<InRange> const type;
+        };
+
+        template< class Result, class InRange >
+        Result call(InRange& in)
+        {
+            return Result(in);
+        }
+    };
+
+
+} // namespace copied_detail
+
+
+PSTADE_EGG_PIPABLE(copied, copied_detail::baby)
+
+
+namespace copied_to_detail {
 
 
     template< class Range > inline
@@ -119,9 +131,16 @@ namespace copy_range_detail {
     {
         // as range-adaptor
         //
-        template< class Unused, class InRange, class OutRangeOrIter = void >
+        template< class Unused, class InRange, class OutRangeOrIter >
         struct result :
-            result_of_copy<InRange>
+            boost::mpl::if_<
+                boost::is_convertible<
+                    typename range_traversal<InRange>::type,
+                    boost::forward_traversal_tag
+                >,
+                InRange&,
+                void // not multi-pass
+            >
         { };
 
         template< class Result, class InRange, class OutIter >
@@ -132,7 +151,7 @@ namespace copy_range_detail {
             oven::copy(in, out);
 
             typedef typename range_traversal<InRange>::type trv_t;
-            return copy_range_detail::check_valid(in, trv_t());
+            return copied_to_detail::check_valid(in, trv_t());
         }
 
         // Note:
@@ -146,29 +165,15 @@ namespace copy_range_detail {
             oven::copy(in, boost::begin(out));
 
             typedef typename range_traversal<InRange>::type trv_t;
-            return copy_range_detail::check_valid(in, trv_t());
-        }
-
-        // as shortcut for 'copy_range<Sequence>'
-        //
-        template< class Unused, class InRange >
-        struct result<Unused, InRange>
-        {
-            typedef temp<InRange> const type;
-        };
-
-        template< class Result, class InRange >
-        Result call(InRange& in)
-        {
-            return Result(in);
+            return copied_to_detail::check_valid(in, trv_t());
         }
     };
 
 
-} // namespace copy_range_detail
+} // namespace copied_to_detail
 
 
-PSTADE_EGG_PIPABLE(copied, copy_range_detail::baby)
+PSTADE_EGG_PIPABLE(copied_to, copied_to_detail::baby)
 
 
 } } // namespace pstade::oven

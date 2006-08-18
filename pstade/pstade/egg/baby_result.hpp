@@ -94,25 +94,13 @@ struct baby_result1 :
 { };
 
 
-// 2ary
-//
-template< class BabyFunction, class A0, class A1 >
-struct baby_result2 :
-    BabyFunction::template result<
-        baby_result_detail::dummy_type,
-        typename baby_result_detail::meta_arg<A0>::type,
-        typename baby_result_detail::meta_arg<A1>::type
-    >
-{ };
-
-
-// 3ary -
+// 2ary -
 //
 #define PSTADE_EGG_meta_arg(Z, N, _) \
     typename baby_result_detail::meta_arg< BOOST_PP_CAT(A, N) >::type \
 /**/
 
-#define BOOST_PP_ITERATION_PARAMS_1 (3, (3, PSTADE_EGG_MAX_ARITY, <pstade/egg/baby_result.hpp>))
+#define BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_EGG_MAX_ARITY, <pstade/egg/baby_result.hpp>))
 #include BOOST_PP_ITERATE()
 
 #undef PSTADE_EGG_meta_arg

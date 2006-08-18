@@ -94,6 +94,15 @@
     /**/
 
 
+    // Workaround:
+    // The weird 'stdafx.h' needs 'static'.
+    #if !defined(BOOST_MSVC)
+        #define PSTADE_INSTANCE_static
+    #else
+        #define PSTADE_INSTANCE_static static
+    #endif
+
+
     #define PSTADE_INSTANCE_box_name(Name) \
         BOOST_PP_CAT(pstade_instance_of_, Name) \
     /**/
@@ -110,7 +119,7 @@
 
 
 // Workaround:
-// GCC dynamic initialization sometimes needs the function call syntax.
+// GCC dynamic-initialization sometimes needs a function call syntax.
 #define PSTADE_INSTANCE_OF(Name) \
     PSTADE_INSTANCE_box_name(Name)() \
 /**/
@@ -124,15 +133,6 @@
     #define PSTADE_INSTANCE_define_a(Type, ArgSeq) \
         Type instance(BOOST_PP_SEQ_ENUM(ArgSeq)); \
     /**/
-
-
-    // Workaround:
-    // The weird 'stdafx.h' needs 'static'.
-    #if !defined(BOOST_MSVC)
-        #define PSTADE_INSTANCE_static
-    #else
-        #define PSTADE_INSTANCE_static static
-    #endif
 
 
 #endif

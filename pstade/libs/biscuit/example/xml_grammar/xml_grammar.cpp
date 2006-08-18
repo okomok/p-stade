@@ -63,7 +63,7 @@ namespace xml_grammar
 #if !defined(BOOST_NO_STD_WSTRING)
             std::wcout
                 << "XML Comment: "
-                << oven::sequence_cast<std::wstring>(rng)
+                << oven::copy_range<std::wstring>(rng)
                 << std::endl;
 #else
             pstade::unused(rng);

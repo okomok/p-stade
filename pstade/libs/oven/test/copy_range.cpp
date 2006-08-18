@@ -11,7 +11,6 @@
 
 
 #include <pstade/oven/copy_range.hpp>
-#include <pstade/oven/sequence_cast.hpp>
 
 
 #include <iterator>
@@ -27,18 +26,6 @@ void test()
 {
     using namespace pstade;
     using namespace oven;
-
-    {
-        std::string rng("abcdefg");
-        std::vector<char> vec = oven::sequence_cast< std::vector<char> >(rng);
-        BOOST_CHECK( oven::equals(vec, rng) );
-    }
-
-    {
-        std::string rng("abcdefg");
-        std::vector<char> vec = oven::sequence(rng);
-        BOOST_CHECK( oven::equals(vec, rng) );
-    }
 
     {
         std::vector<int> vec = oven::make_counting_range(3, 9)|copied;
@@ -63,8 +50,8 @@ void test()
         std::string out1("hello, ranges!");
         std::string out2("hello, ranges!");
         std::string out3("hello, ranges!");
-        in|copied(out1);
-        in|copied(out2)|copied(out3);
+        in|copied_to(out1);
+        in|copied_to(out2)|copied_to(out3);
         BOOST_CHECK( oven::equals(in, out1) );
         BOOST_CHECK( oven::equals(in, out2) );
         BOOST_CHECK( oven::equals(in, out3) );
@@ -75,15 +62,15 @@ void test()
         std::string out1;
         std::string out2;
         std::string out3;
-        in|copied(std::back_inserter(out1));
-        in|copied(std::back_inserter(out2))|copied(std::back_inserter(out3));
+        in|copied_to(std::back_inserter(out1));
+        in|copied_to(std::back_inserter(out2))|copied_to(std::back_inserter(out3));
         BOOST_CHECK( oven::equals(in, out1) );
         BOOST_CHECK( oven::equals(in, out2) );
         BOOST_CHECK( oven::equals(in, out3) );
     }
 
     {
-        std::string in("hello, copied!");
+        std::string in("hello, copied_to!");
         std::string out = in|copied;
         BOOST_CHECK( oven::equals(in, out) );
     }
@@ -94,7 +81,7 @@ void test()
         ss << ans;
 
         std::vector<char> out = ans|copied;
-        oven::make_istream_range<char>(ss)|copied(out);
+        oven::make_istream_range<char>(ss)|copied_to(out);
         BOOST_CHECK( oven::equals(out, ans) );
     }
 

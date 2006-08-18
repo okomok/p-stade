@@ -27,7 +27,7 @@ void test()
     {
         std::string str("hello, array_range");
         array_range<char> arr(oven::distance(str));
-        str|copied(arr);
+        str|copied_to(arr);
         BOOST_CHECK(oven::equals(str, arr));
     }
 }

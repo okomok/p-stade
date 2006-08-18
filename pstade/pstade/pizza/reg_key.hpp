@@ -15,7 +15,7 @@
 #include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/integral_cast.hpp>
-#include <pstade/oven/sequence_cast.hpp>
+#include <pstade/oven/copy_range.hpp>
 #include <pstade/overload.hpp>
 #include <pstade/tomato/c_str.hpp>
 #include <pstade/tomato/filesystem/module_file_name.hpp>
@@ -28,7 +28,7 @@ void pstade_pizza_initialize(ATL::CRegKey& key, const TCHAR *pszName, pstade::ov
 {
     using namespace pstade;
 
-    tomato::tstring moduleName = oven::sequence(tomato::module_file_name().name());
+    tomato::tstring moduleName = tomato::module_file_name().name()|oven::copied;
     tomato::tstring path = _T("Software\\") + moduleName + _T('\\') + pszName;
     
     PSTADE_REQUIRE(key.Create(HKEY_CURRENT_USER, tomato::c_str(path)) == ERROR_SUCCESS);

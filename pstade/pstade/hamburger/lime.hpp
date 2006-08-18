@@ -13,9 +13,9 @@
 #include <boost/assert.hpp>
 #include <boost/range/empty.hpp>
 #include <pstade/lime/save.hpp> // save_default
+#include <pstade/oven/copy_range.hpp>
 #include <pstade/oven/equals.hpp>
 #include <pstade/oven/null_outputter.hpp>
-#include <pstade/oven/sequence_cast.hpp>
 #include <pstade/overload.hpp>
 #include <pstade/ustring.hpp>
 #include "./element.hpp"
@@ -48,7 +48,7 @@ pstade_lime_save_node(pstade::hamburger::element& node, OutIter out, pstade::ove
 
     try {
         hamburger::save(node, node%Name_includedHref);
-        // return lime::save_file_default(node, oven::sequence_cast<std::string>(node%Name_includedHref));
+        // return lime::save_file_default(node, oven::copy_range<std::string>(node%Name_includedHref));
     }
     catch (lime::save_error& err) {
         BOOST_ASSERT(false);

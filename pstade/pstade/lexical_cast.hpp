@@ -68,7 +68,7 @@ namespace lexical_cast_detail {
 
 
 PSTADE_EGG_FUNCTION(lexical, lexical_cast_detail::baby_auto)
-PSTADE_EGG_PIPABLE(to_lexicon, lexical_cast_detail::baby_auto)
+PSTADE_EGG_PIPABLE(lexicalized, lexical_cast_detail::baby_auto)
 
 
 } // namespace pstade

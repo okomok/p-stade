@@ -96,7 +96,7 @@ struct decorate_action
 {
   void operator()(boost::sub_range<std::string> rng, std::stringstream& out)
   {
-    out << "[" << oven::sequence_cast<std::string>(rng) << "]";
+    out << "[" << oven::copy_range<std::string>(rng) << "]";
     boost::to_upper(rng);
   }
 };
@@ -212,7 +212,7 @@ void test_token_range()
     std::string text("  /* c comment no.1 */int i; /* c comment no.2 */i = 1; /* c comment no.3 */ ++i;  ");
     token_range<c_comment, std::string> comments(text);
     BOOST_FOREACH (boost::sub_range<std::string> rng, comments) {
-        std::cout << oven::sequence_cast<std::string>(rng) << std::endl;
+        std::cout << oven::copy_range<std::string>(rng) << std::endl;
     }
 
     BOOST_FOREACH (
@@ -221,7 +221,7 @@ void test_token_range()
             oven::null_terminated |
             biscuit::tokenized<c_comment>()
     ) {
-        std::cout << oven::sequence_cast<std::string>(rng) << std::endl;
+        std::cout << oven::copy_range<std::string>(rng) << std::endl;
     }
 }
 

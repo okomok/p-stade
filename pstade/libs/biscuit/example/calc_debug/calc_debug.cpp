@@ -15,7 +15,7 @@
 #include <stack>
 #include <pstade/lexical_cast.hpp>
 #include <pstade/biscuit.hpp>
-#include <pstade/oven/sequence_cast.hpp>
+#include <pstade/oven/copy_range.hpp>
 
 
 // See: http://www.boost.org/libs/spirit/example/fundamental/calc_debug.cpp
@@ -32,8 +32,8 @@ namespace calculator_debug
         template< class Range >
         void operator()(Range& rng, std::stack<long>& eval)
         {
-            std::string s = oven::sequence(rng);
-            long n = pstade::lexical(s); // or std::strtol(chseq, 0, 10);
+            std::string s = rng|oven::copied;
+            long n = s|lexicalized; // or std::strtol(chseq, 0, 10);
             eval.push(n);
             std::cout << "push\t" << long(n) << std::endl;
         }

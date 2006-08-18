@@ -27,13 +27,20 @@ namespace pstade { namespace ketchup {
 
 struct menu_cmd_ui : cmd_ui
 {
-    HMENU get_menu() const { return m_hMenu; }
-    UINT get_index() const { return m_uIndex; }
-
     menu_cmd_ui(UINT uID, HMENU hMenu, UINT uIndex, bool dependent) :
         cmd_ui(uID), m_hMenu(hMenu), m_uIndex(uIndex), m_dependent(dependent)
     {
         BOOST_ASSERT(diet::valid(m_hMenu));
+    }
+
+    HMENU get_menu() const
+    {
+        return m_hMenu;
+    }
+
+    UINT get_index() const
+    {
+        return m_uIndex;
     }
 
 private:
@@ -75,7 +82,7 @@ private:
             PSTADE_REQUIRE(tomato::set_menu_default_item(m_hMenu, m_uIndex, TRUE));
     }
 
-    bool override_is_dependent()
+    bool override_is_dependent() const
     {
         return m_dependent;
     }

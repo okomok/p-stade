@@ -37,7 +37,7 @@ namespace verify_detail {
         template< class Result, class T >
         Result call(T& x)
         {
-            BOOST_ASSERT(!!x); // I prefer 'operator!'.
+            BOOST_ASSERT(!!x); // 'operator!' is safer.
             return x;
         }
     };

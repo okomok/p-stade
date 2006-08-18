@@ -59,14 +59,14 @@ namespace my_melon {
     inline
     void show_tree(simple_tree& t)
     {
-        std::wcout << oven::sequence_cast<std::wstring>(t.m_name) << std::endl;
+        std::wcout << oven::copy_range<std::wstring>(t.m_name) << std::endl;
 
         BOOST_FOREACH(
             PSTADE_UNPARENTHESIZE((std::pair<const string_t, string_t>))& a,
             t.m_atts
         ) {
-            std::wcout << "..." << oven::sequence_cast<std::wstring>(a.first) << "=" <<
-                oven::sequence_cast<std::wstring>(a.second) << std::endl;
+            std::wcout << "..." << oven::copy_range<std::wstring>(a.first) << "=" <<
+                oven::copy_range<std::wstring>(a.second) << std::endl;
         }
 
         BOOST_FOREACH(simple_tree& n, t.m_nodes) {
@@ -96,7 +96,7 @@ namespace my_melon {
         template< class SubRange >
         void operator()(SubRange rng, context& cxt)
         {
-            string_t name = oven::sequence(rng);
+            string_t name = rng|oven::copied;
             simple_tree *ptree = new simple_tree(name);
             cxt.m_stack.top()->m_nodes.push_back(ptree);
             cxt.m_stack.push(ptree);
@@ -106,14 +106,14 @@ namespace my_melon {
 
 
     PSTADE_INSTANCE(const string_t, charDataAttName,
-        (oven::sequence_cast<string_t>(std::string("<CharData>"))))
+        (oven::copy_range<string_t>(std::string("<CharData>"))))
 
     struct charData_action
     {
         template< class SubRange >
         void operator()(SubRange rng, context& cxt)
         {
-            string_t data = oven::sequence(rng);
+            string_t data = rng|oven::copied;
             cxt.m_stack.top()->m_atts[charDataAttName] = data;
         }
     };
@@ -124,7 +124,7 @@ namespace my_melon {
         template< class SubRange >
         void operator()(SubRange rng, context& cxt)
         {
-            string_t name = oven::sequence(rng);
+            string_t name = rng|oven::copied;
             cxt.m_attName = name;
         }
     };
@@ -135,7 +135,7 @@ namespace my_melon {
         template< class SubRange >
         void operator()(SubRange rng, context& cxt)
         {
-            string_t value = oven::sequence(rng);
+            string_t value = rng|oven::copied;
             cxt.m_stack.top()->m_atts[cxt.m_attName] = value;
         }
     };
@@ -239,7 +239,7 @@ int main(int argc, char *argv[])
 
         try {
             my_melon::context cxt;
-            my_melon::simple_tree root(oven::sequence_cast<my_melon::string_t>(std::string("Root")));
+            my_melon::simple_tree root(oven::copy_range<my_melon::string_t>(std::string("Root")));
             cxt.m_stack.push(&root);
 
             PSTADE_REQUIRE((

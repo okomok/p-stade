@@ -12,7 +12,6 @@
 
 #include <pstade/instance.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
-#include <pstade/oven/sequence_cast.hpp>
 #include <pstade/ustring.hpp>
 
 

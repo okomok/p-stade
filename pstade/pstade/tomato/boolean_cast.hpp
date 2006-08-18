@@ -33,7 +33,7 @@ namespace boolean_cast_detail {
     struct cvter;
 
 
-    #define PSTADE_TOMATO_BOOLEAN_CAST_cvter(To, From, Expr) \
+    #define PSTADE_TOMATO_cvter(To, From, Expr) \
         template< > \
         struct cvter<To, From> \
         { \
@@ -45,24 +45,24 @@ namespace boolean_cast_detail {
     /**/
 
 
-    #define PSTADE_TOMATO_BOOLEAN_CAST_cvter_set(To, True, False) \
-        PSTADE_TOMATO_BOOLEAN_CAST_cvter(To, bool, from ? True : False) \
-        PSTADE_TOMATO_BOOLEAN_CAST_cvter(To, BOOL, from ? True : False) \
-        PSTADE_TOMATO_BOOLEAN_CAST_cvter(To, VARIANT_BOOL, from ? True : False) \
-        PSTADE_TOMATO_BOOLEAN_CAST_cvter(To, BOOLEAN, from ? True : False) \
-        PSTADE_TOMATO_BOOLEAN_CAST_cvter(To, LRESULT, from ? True : False) \
+    #define PSTADE_TOMATO_cvter_set(To, True, False) \
+        PSTADE_TOMATO_cvter(To, bool, from ? True : False) \
+        PSTADE_TOMATO_cvter(To, BOOL, from ? True : False) \
+        PSTADE_TOMATO_cvter(To, VARIANT_BOOL, from ? True : False) \
+        PSTADE_TOMATO_cvter(To, BOOLEAN, from ? True : False) \
+        PSTADE_TOMATO_cvter(To, LRESULT, from ? True : False) \
     /**/
 
 
-    PSTADE_TOMATO_BOOLEAN_CAST_cvter_set(bool, true, false)
-    PSTADE_TOMATO_BOOLEAN_CAST_cvter_set(BOOL, TRUE, FALSE)
-    PSTADE_TOMATO_BOOLEAN_CAST_cvter_set(VARIANT_BOOL, VARIANT_TRUE, VARIANT_FALSE)
-    PSTADE_TOMATO_BOOLEAN_CAST_cvter_set(BOOLEAN, (BOOLEAN)TRUE, (BOOLEAN)FALSE)
-    PSTADE_TOMATO_BOOLEAN_CAST_cvter_set(LRESULT, 1, 0)
+    PSTADE_TOMATO_cvter_set(bool, true, false)
+    PSTADE_TOMATO_cvter_set(BOOL, TRUE, FALSE)
+    PSTADE_TOMATO_cvter_set(VARIANT_BOOL, VARIANT_TRUE, VARIANT_FALSE)
+    PSTADE_TOMATO_cvter_set(BOOLEAN, (BOOLEAN)TRUE, (BOOLEAN)FALSE)
+    PSTADE_TOMATO_cvter_set(LRESULT, 1, 0)
 
 
-    #undef PSTADE_TOMATO_BOOLEAN_CAST_cvter_set
-    #undef PSTADE_TOMATO_BOOLEAN_CAST_cvter
+    #undef PSTADE_TOMATO_cvter_set
+    #undef PSTADE_TOMATO_cvter
 
 
 } // namespace boolean_cast_detail
@@ -98,7 +98,7 @@ namespace boolean_cast_detail {
     };
 
 
-    struct baby_boolean
+    struct baby_auto
     {
         template< class Unused, class From >
         struct result
@@ -118,8 +118,8 @@ namespace boolean_cast_detail {
 } // namespace boolean_cast_detail
 
 
-PSTADE_EGG_FUNCTION(boolean, boolean_cast_detail::baby_boolean)
-PSTADE_EGG_PIPABLE(booleanized, boolean_cast_detail::baby_boolean)
+PSTADE_EGG_FUNCTION(boolean, boolean_cast_detail::baby_auto)
+PSTADE_EGG_PIPABLE(booleanized, boolean_cast_detail::baby_auto)
 
 
 } } // namespace pstade::tomato

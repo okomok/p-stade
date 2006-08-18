@@ -12,12 +12,11 @@
 
 #include "./algorithm.hpp"
 
+#include "./adaptor_to_base.hpp"
 #include "./begin_end.hpp"
 #include "./copy_range.hpp"
 #include "./distance.hpp"
 #include "./equals.hpp"
-#include "./iterator_cast.hpp"
-#include "./sequence_cast.hpp"
 
 
 #endif

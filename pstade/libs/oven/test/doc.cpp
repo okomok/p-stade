@@ -114,9 +114,9 @@ void test_array_range()
 {
     std::string str("hello, array_range!");
     boost::array<char, 19> sarr;
-    str|copied(sarr);
+    str|copied_to(sarr);
     oven::array_range<char> darr(19);
-    str|copied(darr);
+    str|copied_to(darr);
 
     BOOST_CHECK( oven::equals(sarr, darr) );
 }
@@ -271,7 +271,7 @@ void test_copied_as_adaptor()
         src
             | filtered(lambda::_1 != 'x')
             | regularized
-            | copied(std::back_inserter(snapshot))
+            | copied_to(std::back_inserter(snapshot))
             | filtered(lambda::_1 != 'a')
             | regularized,
         answer

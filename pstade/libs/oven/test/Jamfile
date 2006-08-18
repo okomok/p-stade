@@ -27,6 +27,7 @@ rule oven-compile ( name )
 
 test-suite oven :
     [ oven-test adjacent_filter_range ]
+    [ oven-test adaptor_to_base ]
     [ oven-test algorithm ]
     [ oven-test always_range ]
     [ oven-test apply_range ]
@@ -52,7 +53,6 @@ test-suite oven :
     [ oven-test identity_range ]
     [ oven-test indirect_range ]
     [ oven-test istream_range ]
-    [ oven-test iterator_cast ]
     [ oven-test joint_range ]
     [ oven-compile match_range ]
     # [ oven-test mb_decode_range ]

@@ -19,8 +19,8 @@
 #include <pstade/biscuit/parser.hpp>
 #include <pstade/melon.hpp>
 #include <pstade/nullptr.hpp>
+#include <pstade/oven/copy_range.hpp>
 #include <pstade/oven/distance.hpp>
-#include <pstade/oven/sequence_cast.hpp>
 #include <pstade/oven/slice_range.hpp>
 #include <pstade/unused.hpp>
 #include <pstade/ustring.hpp>
@@ -99,7 +99,7 @@ namespace load_detail {
                 return;
             }
 
-            ustring name = oven::sequence(rng);
+            ustring name = rng|oven::copied;
 
             typedef typename Context::node_value val_t;
             std::auto_ptr<val_t> pn(lime::new_node(cxt.top(), name));
@@ -120,7 +120,7 @@ namespace load_detail {
             if (cxt.is_top_null())
                 return;
 
-            ustring data = oven::sequence(rng);
+            ustring data = rng|oven::copied;
 
             typedef typename Context::node_value val_t;
             std::auto_ptr<val_t> pn(lime::new_node(cxt.top(), i_CharData));
@@ -141,7 +141,7 @@ namespace load_detail {
             if (cxt.is_top_null())
                 return;
 
-            ustring data = oven::sequence(rng);
+            ustring data = rng|oven::copied;
 
             typedef typename Context::node_value val_t;
             std::auto_ptr<val_t> pn(lime::new_node(cxt.top(), i_Reference));
@@ -162,7 +162,7 @@ namespace load_detail {
             if (cxt.is_top_null())
                 return;
 
-            ustring name = oven::sequence(rng);
+            ustring name = rng|oven::copied;
             cxt.reset_current_AttName(name);
         }
     };
@@ -176,7 +176,7 @@ namespace load_detail {
             if (cxt.is_top_null())
                 return;
 
-            ustring val = oven::sequence(rng);
+            ustring val = rng|oven::copied;
             BOOST_ASSERT(oven::distance(val) >= 2);
 
             cxt.top().attributes()[cxt.current_AttName()]

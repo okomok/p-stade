@@ -7,7 +7,7 @@
 
 #include <pstade/hamburger.hpp>
 
-#include <pstade/oven/sequence_cast.hpp>
+#include <pstade/oven/copy_range.hpp>
 #include <pstade/tomato/co_init.hpp>
 #include <pstade/tomato/filesystem/module_file_name.hpp>
 #include <pstade/tomato/message_loop.hpp>
@@ -28,14 +28,14 @@ namespace wtlburger_detail {
         using namespace pstade;
         using namespace hamburger;
 
-        tomato::tstring path = oven::sequence(tomato::module_file_name().folder());
+        tomato::tstring path = tomato::module_file_name().folder()|oven::copied;
         path += _T("sample.xml");
 
         hamburger::element root;
         root%Name_includedHref = tomato::tstring_to<ustring>(path);
-        hamburger::load(root, oven::sequence(path));
+        hamburger::load(root, path|oven::copied);
 
-		(root/"desktop").create();
+        (root/"desktop").create();
 
         hamburger::view_join_all(); // goodbye threads
 

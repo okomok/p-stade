@@ -12,6 +12,7 @@
 
 #include <boost/foreach.hpp>
 #include <pstade/apple/sdk/windows.hpp>
+#include <pstade/oven/copy_range.hpp>
 #include <pstade/oven/reverse_range.hpp>
 #include <pstade/oven/sort_range.hpp>
 #include <pstade/tomato/boolean_cast.hpp>
@@ -48,8 +49,8 @@ PSTADE_IF_DEBUG (
         point pt(0, 0);
         pt = to_screen(elem, pt);
         mos << "mouse: " << mouse.x << ',' << mouse.y;
-        mos << ", name: " << oven::sequence_cast<std::string>(elem.name());
-        mos << ", id: " << oven::sequence_cast<std::string>(elem%Name_id);
+        mos << ", name: " << oven::copy_range<std::string>(elem.name());
+        mos << ", id: " << oven::copy_range<std::string>(elem%Name_id);
         mos << ", location: " << location(elem).x << ',' << location(elem).y;
         mos << ", screen: " << pt.x << ',' << pt.y;
 
@@ -76,7 +77,7 @@ LRESULT send_mouse_message(bool in_screen,
         // avoid 'oven::filtered' for code size
         if (!hamburger::is_windowless(child))
             continue;
-        
+
         if (!in_screen) {
             if (!child.bounds().PtInRect(pt))
                 continue;

@@ -54,7 +54,7 @@ struct cmd_ui :
     void set_default(bool on)
     { return override_set_default(on); }
 
-    bool is_dependent()
+    bool is_dependent() const
     { return override_is_dependent(); }
 
 protected:
@@ -77,7 +77,7 @@ private:
     virtual void override_set_default(bool)
     { }
 
-    virtual bool override_is_dependent()
+    virtual bool override_is_dependent() const
     { return false; }
 
 private:

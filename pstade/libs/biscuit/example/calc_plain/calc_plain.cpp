@@ -10,7 +10,7 @@
 
 
 #include <pstade/biscuit.hpp>
-#include <pstade/oven/sequence_cast.hpp>
+#include <pstade/oven/copy_range.hpp>
 #include <iostream>
 #include <string>
 
@@ -26,7 +26,7 @@ namespace calculator
         {
             std::cout
                 << "PUSH("
-                << oven::sequence_cast<std::string>(rng)
+                << oven::copy_range<std::string>(rng)
                 << ')' << std::endl;
         }
     };

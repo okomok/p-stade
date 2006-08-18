@@ -1,6 +1,6 @@
 #include <pstade/vodka/drink.hpp>
 #include <pstade/biscuit.hpp>
-#include <pstade/oven/sequence_cast.hpp>
+#include <pstade/oven/copy_range.hpp>
 //#include <sstream>
 //#include <boost/test/unit_test.hpp>
 #include <string>
@@ -17,7 +17,7 @@ using namespace biscuit;
         {
              std::wcout
                  << "PUSH("
-                 << oven::sequence_cast<std::wstring>(rng)
+                 << oven::copy_range<std::wstring>(rng)
 // string ¨ wstring ‘‚«Š·‚¦‚ª •s’²‚Å‚·B
 /* c:\Boost\include\boost-1_33_1\boost\range\iterator_range.hpp(68): error  
 C2440:
@@ -137,7 +137,7 @@ struct decorate_action
 {
      void operator()(boost::sub_range<wstring> rng, ...)
      {
-         wcout << "[" << oven::sequence_cast<wstring>(rng) << "]";
+         wcout << "[" << oven::copy_range<wstring>(rng) << "]";
        //  boost::to_upper(rng);
      }
 };

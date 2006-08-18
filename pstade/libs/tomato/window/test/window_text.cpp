@@ -75,7 +75,6 @@ void test()
 
     {
         typedef std::basic_string<TCHAR> tstring;
-        // oven::sequenceは昨日のテクニックをboost::copy_rangeに適用したもの
         tstring str = tomato::window_text(hWnd)|oven::copied;
         tcout << str << std::endl;
     }

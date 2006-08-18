@@ -143,10 +143,10 @@ void test()
                 src |
                     filtered(bll::_1 != 'x') |
                     regularized |
-                    copied(std::back_inserter(s1)) |
+                    copied_to(std::back_inserter(s1)) |
                     filtered(bll::_1 != 'a') |
                     regularized |
-                    copied(std::back_inserter(s2)) |
+                    copied_to(std::back_inserter(s2)) |
                     const_lvalues
             )
         ));

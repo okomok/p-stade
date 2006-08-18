@@ -51,29 +51,13 @@ baby_call(BabyFunction baby, A0& a0)
 }
 
 
-// 2ary
-//
-template< class BabyFunction, class A0, class A1 > inline
-typename egg::baby_result2<BabyFunction,
-    A0, A1
->::type
-baby_call(BabyFunction baby, A0& a0, A1& a1)
-{
-    typedef typename egg::baby_result2<BabyFunction,
-        A0, A1
-    >::type result_t;
-
-    return baby.template call<result_t>(a0, a1);
-}
-
-
-// 3ary -
+// 2ary -
 //
 #define PSTADE_EGG_arg(Z, N, _) \
     BOOST_PP_CAT(A, N) & BOOST_PP_CAT(a, N) \
 /**/
 
-#define BOOST_PP_ITERATION_PARAMS_1 (3, (3, PSTADE_EGG_MAX_ARITY, <pstade/egg/baby_call.hpp>))
+#define BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_EGG_MAX_ARITY, <pstade/egg/baby_call.hpp>))
 #include BOOST_PP_ITERATE()
 
 #undef PSTADE_EGG_arg

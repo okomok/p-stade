@@ -41,7 +41,7 @@ struct bb_action
     template< class SubRange >
         void operator()(SubRange rng, std::wostream& out)
     {
-	    out <<"<B>"<<oven::sequence_cast<std::wstring>(rng)<<"</B>";
+	    out <<"<B>"<<oven::copy_range<std::wstring>(rng)<<"</B>";
 	}
 };
 

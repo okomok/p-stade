@@ -21,8 +21,8 @@
 #include <pstade/instance.hpp>
 #include <pstade/ketchup/core.hpp>
 #include <pstade/is_same.hpp>
+#include <pstade/oven/copy_range.hpp>
 #include <pstade/oven/distance.hpp>
-#include <pstade/oven/sequence_cast.hpp>
 #include <pstade/statement.hpp>
 #include <pstade/ustring.hpp>
 #include <pstade/what.hpp>
@@ -73,7 +73,7 @@ protected:
         }
         catch (lime::load_error& ) {
             BOOST_ASSERT(false);
-            // log << pstade::what("include-error", "failed to load:" + oven::sequence_cast<std::string>(path));
+            // log << pstade::what("include-error", "failed to load:" + oven::copy_range<std::string>(path));
         }
 
         boost::optional<element&> pa = parent();

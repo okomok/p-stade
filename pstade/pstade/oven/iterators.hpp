@@ -25,7 +25,5 @@
 #include "./tab_unexpand_iterator.hpp"
 #include "./utf8_encoder.hpp"
 
-#include "./iterator_cast.hpp"
-
 
 #endif

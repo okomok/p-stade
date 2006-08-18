@@ -65,21 +65,52 @@ struct pipe :
 
     // 0ary
     //
-    detail::pipe0<BabyFunction>
-    operator()() const
+    detail::pipe0<BabyFunction
+    > const
+    operator()(
+    ) const
     {
         return detail::pipe0<BabyFunction
         >(m_baby);
     }
 
 
-    // 1ary -
+    // 1ary
+    //
+    template< class A0 >
+    detail::pipe1<BabyFunction,
+        A0
+    > const
+    operator()(
+        A0& a0
+    ) const
+    {
+        return detail::pipe1<BabyFunction,
+            A0
+        >(m_baby, a0);
+    }
+
+    template< class A0 >
+    detail::pipe1<BabyFunction,
+        typename boost::add_const<A0>::type
+    > const
+    operator()(
+        A0 const& a0
+    ) const
+    {
+        return detail::pipe1<BabyFunction,
+            typename boost::add_const<A0>::type
+        >(m_baby, a0);
+    }
+
+
+    // 2ary -
     //
     #define PSTADE_EGG_call_operator(R, BitSeq) \
         template< BOOST_PP_ENUM_PARAMS(n, class A) > \
         detail::BOOST_PP_CAT(pipe, n)<BabyFunction, \
             BOOST_PP_SEQ_FOR_EACH_I_R(R, PSTADE_EGG_arg_type, ~, BitSeq) \
-        > \
+        > const \
         operator()( \
             BOOST_PP_SEQ_FOR_EACH_I_R(R, PSTADE_EGG_param, ~, BitSeq) \
         ) const \
@@ -115,7 +146,7 @@ struct pipe :
     #define PSTADE_EGG_bits(Z, N, _) ((0)(1))
 
 
-    #define BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_PIPABLE_MAX_ARITY, <pstade/egg/pipable.hpp>))
+    #define BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_EGG_PIPABLE_MAX_ARITY, <pstade/egg/pipable.hpp>))
     #include BOOST_PP_ITERATE()
 
 
@@ -135,7 +166,9 @@ struct pipe :
 // passed as is
 //
 template< class Input, class BabyFunction > inline
-typename baby_result1<BabyFunction, Input>::type
+typename baby_result1<BabyFunction,
+    Input
+>::type
 operator|(Input& in, pipe<BabyFunction> const& pi)
 {
     pstade::unused(pi);
@@ -143,7 +176,9 @@ operator|(Input& in, pipe<BabyFunction> const& pi)
 }
 
 template< class Input, class BabyFunction > inline
-typename baby_result1<BabyFunction, typename boost::add_const<Input>::type>::type
+typename baby_result1<BabyFunction,
+    typename boost::add_const<Input>::type
+>::type
 operator|(Input const& in, pipe<BabyFunction> const& pi)
 {
     pstade::unused(pi);

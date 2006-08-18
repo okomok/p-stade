@@ -7,7 +7,7 @@ The Oven Range Library
 :Author: MB
 :Contact: mb2act@yahoo.co.jp 
 :License: Distributed under the `Boost Software License Version 1.0`_
-:Version: 0.90.7
+:Version: 0.90.8
 
 
 
@@ -54,7 +54,7 @@ Tested Under
 Range Algorithms
 ----------------
 Oven provides some range-based algorithms.
-``<pstade/oven/functions.hpp>`` includes all the following functions.
+``<pstade/oven/functions.hpp>`` includes all the following functions unless otherwise specified.
 
 
 STL Algorithms
@@ -70,15 +70,18 @@ Oven has all the range-based STL algorithms which are ported from `Boost.RangeEx
 - Returns: ``std::algo(boost::begin(rng),boost::end(rng),a0,a1,...,aN);``
 
 
-``base_iterator``
-^^^^^^^^^^^^^^^^^
-``base_iterator`` automatically gets the ``base_type`` iterator of adapted ranges::
+``adaptor_to``
+^^^^^^^^^^^^^^
+``adaptor_to`` gets the ``base_type`` iterator of iterator adaptors::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\base_iterator.ipp
+	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\adaptor_to.ipp
 
 
-- Header: ``<pstade/oven/iterator_cast.hpp>``
-- Valid expression: ``Iterator base = oven::base_iterator(rng);``
+- Header: ``<pstade/oven/adaptor_to_base.hpp>``
+- Valid expression: ``base = oven::adaptor_to<BaseIter>(it);`` or ``BaseIter base = it|to_base;``
+- Precondition: The type of ``base`` is ``BaseIter``, and ``it`` is an iterator adaptor.
+
+``to_base`` adds the automatic type deduction to ``adaptor_to``.
 
 
 ``copied``
@@ -97,9 +100,6 @@ calls the range constructor of the STL Sequences::
 - Effect: ``Seq seq = boost::copy_range<Seq>(rng);``
 
 Note that ``Seq seq(rng|copied);`` is not a valid expression.
-``copied`` is also one of the range `adaptors`__.
-
-__ `copied as adaptor`_
 
 
 ``distance``
@@ -371,15 +371,15 @@ makes STL that doesn't know traversal concepts choose effective algorithms.
 - Returns: ``[boost::begin(rng),boost::end(rng))`` whose iterators are constant.
 
 
-``copied`` as adaptor
-^^^^^^^^^^^^^^^^^^^^^
-``copied`` makes a side-effect that copies its adapting range to its argument::
+``copied_to``
+^^^^^^^^^^^^^
+``copied_to`` makes a side-effect that copies its adapting range to its argument::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\copied_as_adaptor.ipp
+	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\copied_to.ipp
 
 
 - Header: ``<pstade/oven/copy_range.hpp>``
-- Valid expression: ``rng|copied(it)``
+- Valid expression: ``rng|copied_to(it)``
 - Precondition: ``oven::copy(rng,it)`` is a valid expression.
 - Effect: ``oven::copy(rng,it)``
 - Returns: ``[boost::begin(rng),boost::end(rng))`` if ``rng`` is a `Forward Range`_; otherwise, ``void``.
@@ -814,7 +814,7 @@ Version 0.90.2
 Version 0.90.3 - 0.90.6
 ^^^^^^^^^^^^^^^^^^^^^^^
 - Changed the header of `Range Algorithms`_.
-- Added `base_iterator`_.
+- Added ``base_iterator``.
 - Added some `Range Adaptors`_.
 - Renamed ``accumulated`` to `scanned`_.
 - Added workaround for `Standard Library Defect #198`__.
@@ -828,4 +828,7 @@ Version 0.90.7
 ^^^^^^^^^^^^^^
 - Added `matched`_, `xpressive_matched`_ and `xpressive_tokenized`_.
 
-
+Version 0.90.8
+^^^^^^^^^^^^^^
+- Renamed ``base_iterator`` to ``to_base``.
+- Renamed ``copied`` adaptor to ``copied_to``.

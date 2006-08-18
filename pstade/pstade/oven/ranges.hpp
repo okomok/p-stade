@@ -62,6 +62,7 @@
 #include "./stride_range.hpp"
 #include "./string_find_range.hpp"
 #include "./string_split_range.hpp"
+#include "./sub_set.hpp"
 #include "./tab_expand_range.hpp"
 #include "./tab_unexpand_range.hpp"
 #include "./take_range.hpp"
@@ -76,9 +77,6 @@
 // #include "./xpressive_token_range.hpp"
 #include "./zip_range.hpp"
 #include "./zip_with_range.hpp"
-
-#include "./range_cast.hpp"
-#include "./sub_set.hpp"
 
 
 #endif

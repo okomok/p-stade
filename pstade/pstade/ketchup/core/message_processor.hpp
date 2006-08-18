@@ -108,10 +108,14 @@ struct message_processor :
     }
 
     void set_msg_handled(bool handled)
-    { m_pstade_ketchup_handled = handled; }
+    {
+        m_pstade_ketchup_handled = handled;
+    }
 
     bool is_msg_handled() const
-    { return m_pstade_ketchup_handled; }
+    {
+        return m_pstade_ketchup_handled;
+    }
 
 private:
     bool m_pstade_ketchup_handled;

@@ -21,7 +21,6 @@
 #include <pstade/oven/counting_range.hpp>
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/memoize_range.hpp>
-#include <pstade/oven/sequence_cast.hpp>
 #include <boost/iterator/reverse_iterator.hpp>
 
 
@@ -44,9 +43,7 @@ void test()
     using namespace oven;
 
     int src[] = { 0, 1, 2, 3, 4, 5 };
-    //std::vector<int> src = oven::sequence(src_);
     int rev[] = { 5, 4, 3, 2, 1, 0 };
-    //std::vector<int> rev = oven::sequence(rev_);
 
     {
         BOOST_CHECK((
