@@ -17,10 +17,9 @@
 
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/apple/sdk/wtypes.hpp> // VARIANT_BOOL
-#include <pstade/egg/by_value.hpp>
+#include <pstade/egg/baby_auto.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
-#include <pstade/nonassignable.hpp>
 
 
 namespace pstade { namespace tomato {
@@ -79,38 +78,12 @@ To boolean_cast(From from)
 namespace boolean_cast_detail {
 
 
-    template< class From >
-    struct temp :
-        private nonassignable
+    struct class_
     {
-        explicit temp(From from) :
-            m_from(from)
-        { }
-
-        template< class To >
-        operator To() const
+        template< class To, class From >
+        To call(From& from)
         {
-            return tomato::boolean_cast<To>(m_from);
-        }
-
-    private:
-        From m_from;
-    };
-
-
-    struct baby_auto
-    {
-        template< class Unused, class From >
-        struct result
-        {
-            typedef typename egg::by_value<From>::type from_t;
-            typedef boolean_cast_detail::temp<from_t> const type;
-        };
-
-        template< class Result, class From >
-        Result call(From from)
-        {
-            return Result(from);
+            return tomato::boolean_cast<To>(from);
         }
     };
 
@@ -118,8 +91,8 @@ namespace boolean_cast_detail {
 } // namespace boolean_cast_detail
 
 
-PSTADE_EGG_FUNCTION(boolean, boolean_cast_detail::baby_auto)
-PSTADE_EGG_PIPABLE(booleanized, boolean_cast_detail::baby_auto)
+PSTADE_EGG_FUNCTION(boolean, egg::baby_auto<boolean_cast_detail::class_>)
+PSTADE_EGG_PIPABLE(booleanized, egg::baby_auto<boolean_cast_detail::class_>)
 
 
 } } // namespace pstade::tomato

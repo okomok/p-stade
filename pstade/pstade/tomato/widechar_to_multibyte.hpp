@@ -13,8 +13,8 @@
 #include <string>
 #include <pstade/apple/atl/config.hpp> // ATL_VER
 #include <pstade/apple/atl/conv.hpp>
+#include <pstade/egg/baby_auto.hpp>
 #include <pstade/egg/pipable.hpp>
-#include <pstade/nonassignable.hpp>
 #include <pstade/oven/copy_range.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
 
@@ -45,48 +45,23 @@ widechar_to(WideCharRange const& from)
 }
 
 
-namespace to_multibyte_detail {
+namespace widechar_to_detail {
 
 
-    template< class WideCharRange >
-    struct temp :
-        private nonassignable
+    struct class_
     {
-        explicit temp(WideCharRange& from) :
-            m_from(from)
-        { }
-
-        template< class MultiByteSeq >
-        operator MultiByteSeq() const
+        template< class To, class From >
+        To call(From& from)
         {
-            return tomato::widechar_to<MultiByteSeq>(m_from);
-        }
-
-    private:
-        WideCharRange& m_from;
-    };
-
-
-    struct baby
-    {
-        template< class Unused, class WideCharRange >
-        struct result
-        {
-            typedef temp<WideCharRange> const type;
-        };
-
-        template< class Result, class WideCharRange >
-        Result call(WideCharRange& from)
-        {
-            return Result(from);
+            return tomato::widechar_to<To>(from);
         }
     };
 
 
-} // namespace to_multibyte_detail
+} // namespace widechar_to_detail
 
 
-PSTADE_EGG_PIPABLE(to_multibyte, to_multibyte_detail::baby)
+PSTADE_EGG_PIPABLE(to_multibyte, egg::baby_auto<widechar_to_detail::class_>)
 
 
 } } // namespace pstade::tomato

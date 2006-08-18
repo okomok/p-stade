@@ -20,6 +20,7 @@
 #include <pstade/adl_barrier.hpp>
 #include <pstade/apple/has_range_constructor.hpp>
 #include <pstade/apple/is_boost_range.hpp>
+#include <pstade/egg/baby_auto.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <pstade/overload.hpp>
 #include <pstade/unused.hpp>
@@ -67,47 +68,23 @@ PSTADE_ADL_BARRIER(copy_range) { // for Boost
 } // ADL barrier
 
 
-namespace copied_detail {
+namespace copy_range_detail {
 
 
-    template< class Range >
-    struct temp
+    struct class_
     {
-        explicit temp(Range& rng) :
-            m_rng(rng)
-        { }
-
-        template< class T >
-        operator T() const
+        template< class To, class From >
+        To call(From& from)
         {
-            return oven::copy_range<T>(m_rng);
-        }
-
-    private:
-        Range& m_rng;
-    };
-
-
-    struct baby
-    {
-        template< class Unused, class InRange >
-        struct result
-        {
-            typedef temp<InRange> const type;
-        };
-
-        template< class Result, class InRange >
-        Result call(InRange& in)
-        {
-            return Result(in);
+            return oven::copy_range<To>(from);
         }
     };
 
 
-} // namespace copied_detail
+} // namespace copy_range_detail
 
 
-PSTADE_EGG_PIPABLE(copied, copied_detail::baby)
+PSTADE_EGG_PIPABLE(copied, egg::baby_auto<copy_range_detail::class_>)
 
 
 namespace copied_to_detail {

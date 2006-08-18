@@ -20,8 +20,8 @@
 
 #include <boost/type_traits/is_convertible.hpp>
 #include <boost/utility/enable_if.hpp>
+#include <pstade/egg/baby_auto.hpp>
 #include <pstade/egg/pipable.hpp>
-#include <pstade/nonassignable.hpp>
 
 
 namespace pstade { namespace oven {
@@ -45,48 +45,23 @@ adaptor_to(Adaptor const& it)
 }
 
 
-namespace to_base_detail {
+namespace adaptor_to_detail {
 
 
-    template< class Adaptor >
-    struct temp :
-        private nonassignable
+    struct class_
     {
-        explicit temp(Adaptor& it) :
-            m_it(it)
-        { }
-
-        template< class Base >
-        operator Base() const
+        template< class To, class From >
+        To call(From& from)
         {
-            return oven::adaptor_to<Base>(m_it);
-        }
-
-    private:
-        Adaptor& m_it;
-    };
-
-
-    struct baby
-    {
-        template< class Unused, class Adaptor >
-        struct result
-        {
-            typedef temp<Adaptor> const type;
-        };
-
-        template< class Result, class Adaptor >
-        Result call(Adaptor& it)
-        {
-            return Result(it);
+            return oven::adaptor_to<To>(from);
         }
     };
 
 
-} // namespace to_base_detail
+} // namespace adaptor_to_detail
 
 
-PSTADE_EGG_PIPABLE(to_base, to_base_detail::baby)
+PSTADE_EGG_PIPABLE(to_base, egg::baby_auto<adaptor_to_detail::class_>)
 
 
 } } // namespace pstade::oven

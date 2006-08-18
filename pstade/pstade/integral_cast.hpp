@@ -13,10 +13,9 @@
 #include <boost/mpl/assert.hpp>
 #include <boost/numeric/conversion/cast.hpp> // numeric_cast
 #include <boost/type_traits/is_integral.hpp>
-#include <pstade/egg/by_value.hpp>
+#include <pstade/egg/baby_auto.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
-#include <pstade/nonassignable.hpp>
 
 
 namespace pstade {
@@ -35,38 +34,12 @@ To integral_cast(From from)
 namespace integral_cast_detail {
 
 
-    template< class From >
-    struct temp :
-        private nonassignable
+    struct class_
     {
-        explicit temp(From from) :
-            m_from(from)
-        { }
-
-        template< class To >
-        operator To() const
+        template< class To, class From >
+        To call(From& from)
         {
-            return pstade::integral_cast<To>(m_from);
-        }
-
-    private:
-        From m_from;
-    };
-
-
-    struct baby_auto
-    {
-        template< class Unused, class From >
-        struct result
-        {
-            typedef typename egg::by_value<From>::type from_t;
-            typedef temp<from_t> const type;
-        };
-
-        template< class Result, class From >
-        Result call(From from)
-        {
-            return Result(from);
+            return pstade::integral_cast<To>(from);
         }
     };
 
@@ -74,8 +47,8 @@ namespace integral_cast_detail {
 } // namespace integral_cast_detail
 
 
-PSTADE_EGG_FUNCTION(integral, integral_cast_detail::baby_auto)
-PSTADE_EGG_PIPABLE(to_integer, integral_cast_detail::baby_auto)
+PSTADE_EGG_FUNCTION(integral, egg::baby_auto<integral_cast_detail::class_>)
+PSTADE_EGG_PIPABLE(to_integer, egg::baby_auto<integral_cast_detail::class_>)
 
 
 } // namespace pstade

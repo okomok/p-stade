@@ -11,9 +11,9 @@
 
 
 #include <boost/lexical_cast.hpp>
+#include <pstade/egg/baby_auto.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
-#include <pstade/nonassignable.hpp>
 
 
 namespace pstade {
@@ -29,37 +29,12 @@ To lexical_cast(From const& from)
 namespace lexical_cast_detail {
 
 
-    template< class From >
-    struct temp :
-        private nonassignable
+    struct class_
     {
-        explicit temp(From& from) :
-            m_from(from)
-        { }
-
-        template< class To >
-        operator To() const
+        template< class To, class From >
+        To call(From& from)
         {
-            return pstade::lexical_cast<To>(m_from);
-        }
-
-    private:
-        From& m_from;
-    };
-
-
-    struct baby_auto
-    {
-        template< class Unused, class From >
-        struct result
-        {
-            typedef temp<From> const type;
-        };
-
-        template< class Result, class From >
-        Result call(From& from)
-        {
-            return Result(from);
+            return pstade::lexical_cast<To>(from);
         }
     };
 
@@ -67,8 +42,8 @@ namespace lexical_cast_detail {
 } // namespace lexical_cast_detail
 
 
-PSTADE_EGG_FUNCTION(lexical, lexical_cast_detail::baby_auto)
-PSTADE_EGG_PIPABLE(lexicalized, lexical_cast_detail::baby_auto)
+PSTADE_EGG_FUNCTION(lexical, egg::baby_auto<lexical_cast_detail::class_>)
+PSTADE_EGG_PIPABLE(lexicalized, egg::baby_auto<lexical_cast_detail::class_>)
 
 
 } // namespace pstade

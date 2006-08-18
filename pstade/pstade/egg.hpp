@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include "./egg/baby_auto.hpp"
 #include "./egg/baby_call.hpp"
 #include "./egg/baby_result.hpp"
 #include "./egg/by_value.hpp"
