@@ -10,13 +10,18 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Question:
+//
+// 'mpl::identity<To>' is better?
+
+
 #include <pstade/nonassignable.hpp>
 
 
 namespace pstade { namespace egg {
 
 
-template< class FunctionClass >
+template< class CastFunClass >
 struct baby_auto
 {
     template< class From >
@@ -30,7 +35,7 @@ struct baby_auto
         template< class To >
         operator To() const
         {
-            return FunctionClass().template call<To>(m_from);
+            return CastFunClass::template call<To>(m_from);
         }
 
     private:

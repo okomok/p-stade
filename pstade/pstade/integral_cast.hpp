@@ -31,24 +31,18 @@ To integral_cast(From from)
 }
 
 
-namespace integral_cast_detail {
-
-
-    struct class_
+struct integral_cast_class
+{
+    template< class To, class From >
+    static To call(From from)
     {
-        template< class To, class From >
-        To call(From& from)
-        {
-            return pstade::integral_cast<To>(from);
-        }
-    };
+        return pstade::integral_cast<To>(from);
+    }
+};
 
 
-} // namespace integral_cast_detail
-
-
-PSTADE_EGG_FUNCTION(integral, egg::baby_auto<integral_cast_detail::class_>)
-PSTADE_EGG_PIPABLE(to_integer, egg::baby_auto<integral_cast_detail::class_>)
+PSTADE_EGG_FUNCTION(integral, egg::baby_auto<integral_cast_class>)
+PSTADE_EGG_PIPABLE(to_integer, egg::baby_auto<integral_cast_class>)
 
 
 } // namespace pstade

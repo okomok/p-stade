@@ -22,7 +22,7 @@
 namespace pstade { namespace tomato {
 
 
-template< class WideCharSeq, class  MultiByteRange >
+template< class WideCharSeq, class MultiByteRange >
 WideCharSeq const
 multibyte_to(MultiByteRange const& from)
 {
@@ -45,23 +45,17 @@ multibyte_to(MultiByteRange const& from)
 }
 
 
-namespace multibyte_to_detail {
-
-
-    struct class_
+struct multibyte_to_class
+{
+    template< class WideCharSeq, class MultiByteRange >
+    static WideCharSeq call(MultiByteRange const& from)
     {
-        template< class To, class From >
-        To call(From& from)
-        {
-            return tomato::multibyte_to<To>(from);
-        }
-    };
+        return tomato::multibyte_to<WideCharSeq>(from);
+    }
+};
 
 
-} // namespace multibyte_to_detail
-
-
-PSTADE_EGG_PIPABLE(to_widechar, egg::baby_auto<multibyte_to_detail::class_>)
+PSTADE_EGG_PIPABLE(to_widechar, egg::baby_auto<multibyte_to_class>)
 
 
 } } // namespace pstade::tomato

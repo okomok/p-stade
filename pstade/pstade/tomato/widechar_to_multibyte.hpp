@@ -45,23 +45,17 @@ widechar_to(WideCharRange const& from)
 }
 
 
-namespace widechar_to_detail {
-
-
-    struct class_
+struct widechar_to_class
+{
+    template< class MultiByteSeq, class WideCharRange >
+    static MultiByteSeq call(WideCharRange const& from)
     {
-        template< class To, class From >
-        To call(From& from)
-        {
-            return tomato::widechar_to<To>(from);
-        }
-    };
+        return tomato::widechar_to<MultiByteSeq>(from);
+    }
+};
 
 
-} // namespace widechar_to_detail
-
-
-PSTADE_EGG_PIPABLE(to_multibyte, egg::baby_auto<widechar_to_detail::class_>)
+PSTADE_EGG_PIPABLE(to_multibyte, egg::baby_auto<widechar_to_class>)
 
 
 } } // namespace pstade::tomato

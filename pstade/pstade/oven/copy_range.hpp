@@ -68,23 +68,17 @@ PSTADE_ADL_BARRIER(copy_range) { // for Boost
 } // ADL barrier
 
 
-namespace copy_range_detail {
-
-
-    struct class_
+struct copy_range_class
+{
+    template< class T, class Range >
+    static T call(Range const& rng)
     {
-        template< class To, class From >
-        To call(From& from)
-        {
-            return oven::copy_range<To>(from);
-        }
-    };
+        return oven::copy_range<T>(rng);
+    }
+};
 
 
-} // namespace copy_range_detail
-
-
-PSTADE_EGG_PIPABLE(copied, egg::baby_auto<copy_range_detail::class_>)
+PSTADE_EGG_PIPABLE(copied, egg::baby_auto<copy_range_class>)
 
 
 namespace copied_to_detail {

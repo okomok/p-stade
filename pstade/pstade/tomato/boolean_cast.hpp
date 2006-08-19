@@ -75,24 +75,18 @@ To boolean_cast(From from)
 }
 
 
-namespace boolean_cast_detail {
-
-
-    struct class_
+struct boolean_cast_class
+{
+    template< class To, class From >
+    static To call(From from)
     {
-        template< class To, class From >
-        To call(From& from)
-        {
-            return tomato::boolean_cast<To>(from);
-        }
-    };
+        return tomato::boolean_cast<To>(from);
+    }
+};
 
 
-} // namespace boolean_cast_detail
-
-
-PSTADE_EGG_FUNCTION(boolean, egg::baby_auto<boolean_cast_detail::class_>)
-PSTADE_EGG_PIPABLE(booleanized, egg::baby_auto<boolean_cast_detail::class_>)
+PSTADE_EGG_FUNCTION(boolean, egg::baby_auto<boolean_cast_class>)
+PSTADE_EGG_PIPABLE(booleanized, egg::baby_auto<boolean_cast_class>)
 
 
 } } // namespace pstade::tomato

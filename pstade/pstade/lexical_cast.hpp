@@ -26,24 +26,18 @@ To lexical_cast(From const& from)
 }
 
 
-namespace lexical_cast_detail {
-
-
-    struct class_
+struct lexical_cast_class
+{
+    template< class To, class From >
+    static To call(From const& from)
     {
-        template< class To, class From >
-        To call(From& from)
-        {
-            return pstade::lexical_cast<To>(from);
-        }
-    };
+        return pstade::lexical_cast<To>(from);
+    }
+};
 
 
-} // namespace lexical_cast_detail
-
-
-PSTADE_EGG_FUNCTION(lexical, egg::baby_auto<lexical_cast_detail::class_>)
-PSTADE_EGG_PIPABLE(lexicalized, egg::baby_auto<lexical_cast_detail::class_>)
+PSTADE_EGG_FUNCTION(lexical, egg::baby_auto<lexical_cast_class>)
+PSTADE_EGG_PIPABLE(lexicalized, egg::baby_auto<lexical_cast_class>)
 
 
 } // namespace pstade

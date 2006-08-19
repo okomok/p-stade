@@ -45,23 +45,17 @@ adaptor_to(Adaptor const& it)
 }
 
 
-namespace adaptor_to_detail {
-
-
-    struct class_
+struct adaptor_to_class
+{
+    template< class Base, class Adaptor >
+    static Base call(Adaptor const& it)
     {
-        template< class To, class From >
-        To call(From& from)
-        {
-            return oven::adaptor_to<To>(from);
-        }
-    };
+        return oven::adaptor_to<Base>(it);
+    }
+};
 
 
-} // namespace adaptor_to_detail
-
-
-PSTADE_EGG_PIPABLE(to_base, egg::baby_auto<adaptor_to_detail::class_>)
+PSTADE_EGG_PIPABLE(to_base, egg::baby_auto<adaptor_to_class>)
 
 
 } } // namespace pstade::oven
