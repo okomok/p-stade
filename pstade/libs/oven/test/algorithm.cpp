@@ -12,7 +12,6 @@
 
 #include <pstade/oven/algorithm.hpp>
 
-#include <pstade/oven/begin_end.hpp>
 #include <pstade/oven/functions.hpp>
 
 
@@ -112,11 +111,11 @@ void test_random_algorithms(Rng & rng, std::random_access_iterator_tag)
         oven::stable_sort(rng);
         oven::stable_sort(rng, std::less<value_type>());
 
-        oven::partial_sort(rng, oven::begin(rng));
-        oven::partial_sort(rng, oven::begin(rng), std::less<value_type>());
+        oven::partial_sort(rng, boost::begin(rng));
+        oven::partial_sort(rng, boost::begin(rng), std::less<value_type>());
 
-        oven::nth_element(rng, oven::begin(rng));
-        oven::nth_element(rng, oven::begin(rng), std::less<value_type>());
+        oven::nth_element(rng, boost::begin(rng));
+        oven::nth_element(rng, boost::begin(rng), std::less<value_type>());
 
         oven::push_heap(rng);
         oven::push_heap(rng, std::less<value_type>());
@@ -183,26 +182,26 @@ void test_algorithms(Rng & rng)
         s = oven::count_if(rng, null_pred());
 
         std::pair<iterator,iterator2> p1;
-        p1 = oven::mismatch(rng, oven::begin(rng2));
-        p1 = oven::mismatch(rng, oven::begin(rng2),std::equal_to<value_type>());
+        p1 = oven::mismatch(rng, boost::begin(rng2));
+        p1 = oven::mismatch(rng, boost::begin(rng2),std::equal_to<value_type>());
 
-        b = oven::equal(rng, oven::begin(rng2));
-        b = oven::equal(rng, oven::begin(rng2),std::equal_to<value_type>());
+        b = oven::equal(rng, boost::begin(rng2));
+        b = oven::equal(rng, boost::begin(rng2),std::equal_to<value_type>());
 
         i = oven::search(rng, rng2);
         i = oven::search(rng, rng2, std::equal_to<value_type>());
 
-        o = oven::copy(rng, oven::begin(out));
-        o = oven::copy_backward(rng, oven::end(out));
+        o = oven::copy(rng, boost::begin(out));
+        o = oven::copy_backward(rng, boost::end(out));
 
-        o = oven::transform(rng, oven::begin(out), null_op1());
-        o = oven::transform(rng, oven::begin(rng2), oven::begin(out), null_op2());
+        o = oven::transform(rng, boost::begin(out), null_op1());
+        o = oven::transform(rng, boost::begin(rng2), boost::begin(out), null_op2());
 
         oven::replace(rng, val, val);
         oven::replace_if(rng, null_pred(), val);
 
-        o = oven::replace_copy(rng, oven::begin(out), val, val);
-        o = oven::replace_copy_if(rng, oven::begin(out), null_pred(), val);
+        o = oven::replace_copy(rng, boost::begin(out), val, val);
+        o = oven::replace_copy_if(rng, boost::begin(out), null_pred(), val);
 
         oven::fill(rng, val);
         oven::fill_n(rng, oven::distance(rng), val);
@@ -213,22 +212,22 @@ void test_algorithms(Rng & rng)
         i = oven::remove(rng, val);
         i = oven::remove_if(rng, null_pred());
 
-        o = oven::remove_copy(rng, oven::begin(out), val);
-        o = oven::remove_copy_if(rng, oven::begin(out), null_pred());
+        o = oven::remove_copy(rng, boost::begin(out), val);
+        o = oven::remove_copy_if(rng, boost::begin(out), null_pred());
 
         i = oven::unique(rng);
         i = oven::unique(rng, std::equal_to<value_type>());
 
-        o = oven::unique_copy(rng, oven::begin(out));
-        o = oven::unique_copy(rng, oven::begin(out), std::equal_to<value_type>());
+        o = oven::unique_copy(rng, boost::begin(out));
+        o = oven::unique_copy(rng, boost::begin(out), std::equal_to<value_type>());
 
         oven::reverse(rng);
 
-        o = oven::reverse_copy(rng, oven::begin(out));
+        o = oven::reverse_copy(rng, boost::begin(out));
 
-        oven::rotate(rng, oven::begin(rng));
+        oven::rotate(rng, boost::begin(rng));
 
-        o = oven::rotate_copy(rng, oven::begin(rng), oven::begin(out));
+        o = oven::rotate_copy(rng, boost::begin(rng), boost::begin(out));
 
         i = oven::partition(rng, null_pred());
         i = oven::stable_partition(rng, null_pred());
@@ -249,23 +248,23 @@ void test_algorithms(Rng & rng)
         b = oven::binary_search(rng, val);
         b = oven::binary_search(rng, val, std::less<value_type>());
 
-        oven::inplace_merge(rng, oven::begin(rng));
-        oven::inplace_merge(rng, oven::begin(rng), std::less<value_type>());
+        oven::inplace_merge(rng, boost::begin(rng));
+        oven::inplace_merge(rng, boost::begin(rng), std::less<value_type>());
 
         b = oven::includes(rng, rng2);
         b = oven::includes(rng, rng2, std::equal_to<value_type>());
 
-        o = oven::set_union(rng, rng2, oven::begin(out));
-        o = oven::set_union(rng, rng2, oven::begin(out), std::equal_to<value_type>());
+        o = oven::set_union(rng, rng2, boost::begin(out));
+        o = oven::set_union(rng, rng2, boost::begin(out), std::equal_to<value_type>());
 
-        o = oven::set_intersection(rng, rng2, oven::begin(out));
-        o = oven::set_intersection(rng, rng2, oven::begin(out), std::equal_to<value_type>());
+        o = oven::set_intersection(rng, rng2, boost::begin(out));
+        o = oven::set_intersection(rng, rng2, boost::begin(out), std::equal_to<value_type>());
 
-        o = oven::set_difference(rng, rng2, oven::begin(out));
-        o = oven::set_difference(rng, rng2, oven::begin(out), std::equal_to<value_type>());
+        o = oven::set_difference(rng, rng2, boost::begin(out));
+        o = oven::set_difference(rng, rng2, boost::begin(out), std::equal_to<value_type>());
 
-        o = oven::set_symmetric_difference(rng, rng2, oven::begin(out));
-        o = oven::set_symmetric_difference(rng, rng2, oven::begin(out), std::equal_to<value_type>());
+        o = oven::set_symmetric_difference(rng, rng2, boost::begin(out));
+        o = oven::set_symmetric_difference(rng, rng2, boost::begin(out), std::equal_to<value_type>());
 
         i = oven::min_element(rng);
         i = oven::min_element(rng, std::less<value_type>());

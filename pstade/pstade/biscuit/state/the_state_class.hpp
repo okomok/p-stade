@@ -11,8 +11,9 @@
 
 
 #include <boost/noncopyable.hpp>
+#include <boost/range/begin.hpp>
+#include <boost/range/end.hpp>
 #include <boost/range/result_iterator.hpp>
-#include <pstade/oven/begin_end.hpp>
 #include <pstade/oven/sub_range_base.hpp>
 
 
@@ -51,8 +52,8 @@ struct the_state_class
         //
         template< class ForwardRange2 >
         state(ForwardRange2& other, MatchResults& results, bool act = true) :
-            super_t(oven::begin(other), oven::end(other)),
-            m_cur(oven::begin(other)),
+            super_t(boost::begin(other), boost::end(other)),
+            m_cur(boost::begin(other)),
             m_results(results), m_actionable(act)
         { }
 
@@ -64,7 +65,7 @@ struct the_state_class
 
     // Note:
     //   apply itself must be a lightweight type,
-    //   because 'apply' could be a base class for Boost.MPL.
+    //   because 'apply' might be a base class for Boost.MPL.
     template< class ParsingRange, class MatchResults >
     struct apply
     {

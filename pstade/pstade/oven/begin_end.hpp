@@ -10,6 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// What:
+//
+// Provides functor version and pipable interface.
+
+
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/adl_barrier.hpp>
@@ -56,7 +61,7 @@ namespace begin_end_detail {
 } // namespace begin_end_detail
 
 
-PSTADE_ADL_BARRIER(begin_end) { // for boost::const_begin/end
+PSTADE_ADL_BARRIER(begin_end) { // for Boost v1.33 'boost::const_begin/end'
 
 PSTADE_EGG_FUNCTION(begin, begin_end_detail::baby_begin)
 PSTADE_EGG_FUNCTION(end,   begin_end_detail::baby_end)
@@ -64,8 +69,8 @@ PSTADE_EGG_FUNCTION(end,   begin_end_detail::baby_end)
 } // ADL barrier
 
 
-PSTADE_EGG_PIPABLE(begun, begin_end_detail::baby_begin)
-PSTADE_EGG_PIPABLE(ended, begin_end_detail::baby_end)
+PSTADE_EGG_PIPABLE(begins, begin_end_detail::baby_begin)
+PSTADE_EGG_PIPABLE(ends,   begin_end_detail::baby_end)
 
 
 } } // namespace pstade::oven

@@ -10,11 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/single_range.hpp>
+#include <pstade/oven/istreambuf_range.hpp>
 
 
+#include <sstream>
 #include <string>
-#include <vector>
 #include <pstade/oven/functions.hpp>
 
 
@@ -23,15 +23,20 @@ void test()
     using namespace pstade;
     using namespace oven;
 
-    std::string ans("a");
+    std::string answer("hello,istreambuf_range!");
 
     {
-        BOOST_CHECK( oven::equals(oven::make_single_range('a'), ans) );
+        std::stringstream ss;
+        ss << answer;
+        std::string result = oven::make_istreambuf_range(ss)|copied;
+        BOOST_CHECK( oven::equals(result, answer) );
     }
 
     {
-        char ch = 'a';
-        BOOST_CHECK( oven::equals(oven::make_single_range(ch), ans) );
+        std::stringstream ss;
+        ss << answer;
+        std::string result = oven::make_istreambuf_range(ss.rdbuf())|copied;
+        BOOST_CHECK( oven::equals(result, answer) );
     }
 }
 

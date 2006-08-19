@@ -218,10 +218,12 @@ __ http://www.boost.org/libs/spirit/doc/file_iterator.html
 __ http://www.sgi.com/tech/stl/istream_iterator.html
 
 
-
-- Header: ``<pstade/oven/istream_range.hpp>``
-- Valid expression: ``istream_range<V,C,T,D> rng(stm);`` and  ``oven::make_istream_range<V>(stm);``
-- Precondition: ``std::istream_iterator<V,C,T,D>(stm)`` is a valid expression.
+``istreambuf_range``
+^^^^^^^^^^^^^^^^^^^^
+- Header: ``<pstade/oven/istreambuf_range.hpp>``
+- Valid expression: ``istreambuf_range<C,T> rng(stm);`` and  ``oven::make_istreambuf_range(stm);``
+- Precondition: ``std::istreambuf_iterator<C,T>(stm)`` is a valid expression.
+- Returns: A range whose iterators behave as if they were the original iterators wrapped in ``istreambuf_iterator``
 
 
 ``single_range``

@@ -20,6 +20,7 @@ namespace pstade {
 template < class T > inline
 void used(T const& x)
 {
+    // Give me the portable implementation!
     void const * volatile p = boost::addressof(x);
     pstade::unused(p);
 }

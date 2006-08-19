@@ -10,11 +10,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/single_range.hpp>
+#include <pstade/oven/begin_end.hpp>
 
 
+#include <algorithm>
 #include <string>
-#include <vector>
+#include <boost/range.hpp>
 #include <pstade/oven/functions.hpp>
 
 
@@ -23,15 +24,10 @@ void test()
     using namespace pstade;
     using namespace oven;
 
-    std::string ans("a");
-
     {
-        BOOST_CHECK( oven::equals(oven::make_single_range('a'), ans) );
-    }
-
-    {
-        char ch = 'a';
-        BOOST_CHECK( oven::equals(oven::make_single_range(ch), ans) );
+        std::string rng1("hello, begin_end");
+        std::string rng2(rng1);
+        BOOST_CHECK( std::equal(rng1|begins, rng1|ends, rng2|begins) );
     }
 }
 

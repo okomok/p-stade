@@ -18,5 +18,8 @@
 #include "./range_traversal.hpp"
 #include "./range_value.hpp"
 
+#include "./sub_range_base.hpp"
+#include "./sub_range_result.hpp"
+
 
 #endif

@@ -26,7 +26,7 @@
 
 
 // Workaround:
-// Turn it off, VC++ has problems around array types
+// Turn it off; VC++ has problems around array types
 // under weird situation even with Boost v1.34 or later.
 #if defined(BOOST_MSVC) || defined(BOOST_NO_SFINAE)
     #define PSTADE_CONST_OVERLOADED_NOT_REQUIRED

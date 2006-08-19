@@ -38,7 +38,7 @@ void test()
     {
         const int str[] = { 1, 2, 3, 0, 4, 5 };
         BOOST_CHECK( oven::equal(oven::make_null_terminate_range(str), boost::begin(oven::make_counting_range(1, 4))) );
-        BOOST_CHECK( oven::equal(str|oven::null_terminated, oven::make_counting_range(1, 4)|oven::begun) );
+        BOOST_CHECK( oven::equal(str|oven::null_terminated, oven::make_counting_range(1, 4)|begins) );
     }
 
     {
