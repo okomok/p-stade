@@ -38,6 +38,7 @@ test-suite oven :
     [ oven-test break_into_range ]
     [ oven-test check_range ]
     [ oven-test clear_range ]
+    [ oven-test concatenate_range ]
     [ oven-test constant_range ]
     [ oven-test const_lvalue_range ]
     [ oven-test copy_range ]

@@ -20,7 +20,6 @@
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/optional.hpp>
-#include <boost/range/iterator_range.hpp>
 
 
 namespace pstade { namespace oven {
