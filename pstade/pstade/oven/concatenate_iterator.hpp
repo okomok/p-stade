@@ -18,7 +18,7 @@
 #include <boost/assert.hpp>
 #include <boost/iterator/detail/minimum_category.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
-#include <boost/iterator/iterator_categories.hpp> // bidirectional_traversal_tag
+#include <boost/iterator/iterator_categories.hpp> // iterator_traversal 
 #include <boost/iterator/iterator_traits.hpp> // iterator_reference
 #include <boost/range/empty.hpp>
 #include "./range_difference.hpp"
@@ -38,11 +38,14 @@ struct concatenate_iterator;
 namespace concatenate_iterator_detail {
 
 
-    template< class Range >
+    template< class TopIterator, class BottomRange >
     struct traversal :
         boost::detail::minimum_category<
-            typename range_traversal<Range>::type,
-            boost::bidirectional_traversal_tag
+            typename boost::detail::minimum_category<
+                typename range_traversal<BottomRange>::type,
+                boost::bidirectional_traversal_tag
+            >::type,
+            typename boost::iterator_traversal<TopIterator>::type
         >
     { };
 
@@ -56,15 +59,15 @@ namespace concatenate_iterator_detail {
     template< class TopIterator >
     struct super_
     {
-        typedef typename bottom_range<TopIterator>::type rng_t;
+        typedef typename bottom_range<TopIterator>::type brng_t;
 
         typedef boost::iterator_adaptor<
             concatenate_iterator<TopIterator>,
             TopIterator,
-            typename range_value<rng_t>::type,
-            typename traversal<rng_t>::type,
-            typename range_reference<rng_t>::type,
-            typename range_difference<rng_t>::type
+            typename range_value<brng_t>::type,
+            typename traversal<TopIterator, brng_t>::type,
+            typename range_reference<brng_t>::type,
+            typename range_difference<brng_t>::type
         > type;
     };
 
@@ -93,12 +96,14 @@ public:
         reset_bottom_forward();
     }
 
+
+template< class > friend struct concatenate_iterator;
     template< class TopIterator_ >
     concatenate_iterator(
         concatenate_iterator<TopIterator_> const& other,
         typename boost::enable_if_convertible<TopIterator_, TopIterator>::type * = 0
     ) :
-        super_t(other.base()), m_last(other.end()), m_bottom(other.bottom())
+        super_t(other.base()), m_last(other.m_last), m_bottom(other.m_bottom)
     { }
 
     TopIterator const& end() const
@@ -111,19 +116,15 @@ public:
         return this->base() == m_last;
     }
 
-    bottom_iterator const& bottom() const
-    {
-        return m_bottom;
-    }
-
-    bottom_range_type bottom_range() const
-    {
-        return *this->base();
-    }
-
 private:
     TopIterator m_last;
     bottom_iterator m_bottom;
+
+    bottom_range_type bottom_range() const
+    {
+        BOOST_ASSERT(!is_end());
+        return *this->base();
+    }
 
     void reset_bottom_forward()
     {
@@ -160,7 +161,7 @@ friend class boost::iterator_core_access;
         BOOST_ASSERT(is_compatible(other));
 
         return (is_end() && other.is_end())
-            || (this->base() == other.base() && m_bottom == other.bottom());
+            || (this->base() == other.base() && m_bottom == other.m_bottom);
     }
 
     void increment()

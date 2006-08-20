@@ -18,6 +18,7 @@
 #include <string>
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/reverse_range.hpp>
+#include <pstade/oven/tests.hpp>
 
 
 void test()
@@ -43,15 +44,7 @@ void test()
     }
 
     {
-        BOOST_FOREACH (char& ch, vec|concatenated) {
-            std::cout << ch;
-        }
-    }
-
-    {
-        BOOST_FOREACH (char& ch, vec|concatenated|reversed) {
-            std::cout << ch;
-        }
+        BOOST_CHECK( oven::test_bidirectional(vec|concatenated) );
     }
 }
 

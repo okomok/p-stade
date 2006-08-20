@@ -350,6 +350,17 @@ Specification
 - Returns: ``[boost::end(rng),boost::end(rng))``.
 
 
+
+``concatenated``
+^^^^^^^^^^^^^^^^
+``concatenated`` accepts a range whose ``value_type`` is a range and concatenates them.
+
+
+- Header: ``<pstade/oven/concatenate_range.hpp>``
+- Valid expression: ``rngs|concatenated``
+
+
+
 ``constants``
 ^^^^^^^^^^^^^
 ``constants`` returns a range whose iterators dereference cannot be modified::
