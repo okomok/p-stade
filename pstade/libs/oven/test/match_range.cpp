@@ -25,11 +25,12 @@ void test()
     using namespace oven;
 
     {
+        std::string input("This is his face");
         boost::regex re("\\s+");
         bool f = false;
         if (f) {
-            std::string("This is a string of tokens.")|matched(re);
-            std::string("This is a string of tokens.")|matched(re, boost::regex_constants::match_default);
+            input|matched(re);
+            input|matched(re, boost::regex_constants::match_default);
         }
     }
 }

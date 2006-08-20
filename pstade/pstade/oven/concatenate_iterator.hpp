@@ -12,6 +12,13 @@
 
 // Note:
 //
+// The dereference of bottom_iter_t must be valid
+// after copying of TopIterator.
+// Thus, 'boost::token_iterator' cannot be supported.
+
+
+// Note:
+//
 // Makes 'biscuit::filter_range' deprecated!
 
 
@@ -20,7 +27,11 @@
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_categories.hpp> // iterator_traversal 
 #include <boost/iterator/iterator_traits.hpp> // iterator_reference
+#include <boost/range/begin.hpp>
 #include <boost/range/empty.hpp>
+#include <boost/range/end.hpp>
+#include <pstade/invariant.hpp>
+#include "./detail/debug_contains.hpp"
 #include "./range_difference.hpp"
 #include "./range_iterator.hpp"
 #include "./range_reference.hpp"
@@ -82,11 +93,10 @@ struct concatenate_iterator :
 private:
     typedef typename concatenate_iterator_detail::super_<TopIterator>::type super_t;
     typedef typename super_t::reference ref_t;
+    typedef typename concatenate_iterator_detail::bottom_range<TopIterator>::type bottom_rng_t;
+    typedef typename range_iterator<bottom_rng_t>::type bottom_iter_t;
 
 public:
-    typedef typename concatenate_iterator_detail::bottom_range<TopIterator>::type bottom_range_type;
-    typedef typename range_iterator<bottom_range_type>::type bottom_iterator;
-
     concatenate_iterator()
     { }
 
@@ -94,6 +104,7 @@ public:
         super_t(it), m_last(last)
     {
         reset_bottom_forward();
+        invariant holds(*this);
     }
 
 
@@ -103,35 +114,33 @@ template< class > friend struct concatenate_iterator;
         concatenate_iterator<TopIterator_> const& other,
         typename boost::enable_if_convertible<TopIterator_, TopIterator>::type * = 0
     ) :
-        super_t(other.base()), m_last(other.m_last), m_bottom(other.m_bottom)
-    { }
-
-    TopIterator const& end() const
+        super_t(other.base()), m_last(other.m_last),
+        m_bottom(other.m_bottom)
     {
-        return m_last;
-    }
-
-    bool is_end() const
-    {
-        return this->base() == m_last;
+        invariant holds(*this);
     }
 
 private:
     TopIterator m_last;
-    bottom_iterator m_bottom;
+    bottom_iter_t m_bottom;
 
-    bottom_range_type bottom_range() const
+    bool top_is_end() const
     {
-        BOOST_ASSERT(!is_end());
+        return this->base() == m_last;
+    }
+
+    bottom_rng_t bottom_range() const
+    {
+        BOOST_ASSERT(!top_is_end());
         return *this->base();
     }
 
     void reset_bottom_forward()
     {
-        while (!is_end() && boost::empty(bottom_range()))
+        while (!top_is_end() && boost::empty(bottom_range()))
             ++this->base_reference();
 
-        if (!is_end())
+        if (!top_is_end())
             m_bottom = boost::begin(bottom_range());
     }
 
@@ -146,12 +155,20 @@ private:
     template< class Other >
     bool is_compatible(Other const& other) const
     {
-        return m_last == other.end();
+        return m_last == other.m_last;
+    }
+
+friend class invariant::access;
+    bool pstade_invariant() const
+    {
+        // 'm_bottom' is undefined if 'top_is_end'.
+        return top_is_end() || detail::debug_contains(bottom_range(), m_bottom);
     }
 
 friend class boost::iterator_core_access;
     ref_t dereference() const
     {
+        BOOST_ASSERT(!top_is_end());
         return *m_bottom;
     }
 
@@ -160,13 +177,15 @@ friend class boost::iterator_core_access;
     {
         BOOST_ASSERT(is_compatible(other));
 
-        return (is_end() && other.is_end())
-            || (this->base() == other.base() && m_bottom == other.m_bottom);
+        return this->base() == other.base() // basic premise
+            && (top_is_end() || m_bottom == other.m_bottom);
     }
 
     void increment()
     {
-        BOOST_ASSERT(!is_end());
+        invariant holds(*this);
+
+        BOOST_ASSERT(!top_is_end());
         BOOST_ASSERT(m_bottom != boost::end(bottom_range()));
 
         ++m_bottom;
@@ -179,7 +198,9 @@ friend class boost::iterator_core_access;
 
     void decrement()
     {
-        if (is_end() || m_bottom == boost::begin(bottom_range())) {
+        invariant holds(*this);
+
+        if (top_is_end() || m_bottom == boost::begin(bottom_range())) {
             --this->base_reference();
             reset_bottom_reverse();
         }

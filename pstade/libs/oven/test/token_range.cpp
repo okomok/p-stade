@@ -17,6 +17,8 @@
 #include <vector>
 #include <boost/range.hpp>
 #include <pstade/oven/functions.hpp>
+#include <pstade/oven/concatenate_range.hpp>
+#include <pstade/oven/tests.hpp>
 
 
 void test()
@@ -25,13 +27,17 @@ void test()
     using namespace oven;
 
     {
-        boost::regex re("\\s+");
+        std::string input("This is his face");
+        boost::regex re("\\w+");
         bool f = false;
         if (f) {
-            std::string("This is a string of tokens.")|tokenized(re);
-            std::string("This is a string of tokens.")|tokenized(re, -1);
-            std::string("This is a string of tokens.")|tokenized(re, std::vector<int>(), boost::regex_constants::match_default);
+            input|tokenized(re);
+            input|tokenized(re, -1);
+            input|tokenized(re, std::vector<int>(), boost::regex_constants::match_default);
         }
+
+        BOOST_CHECK( oven::equals(input|tokenized(re)|concatenated, std::string("Thisishisface") ) );
+        BOOST_CHECK( oven::test_forward(input|tokenized(re)|concatenated) );
     }
 }
 

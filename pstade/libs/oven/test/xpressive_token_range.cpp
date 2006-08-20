@@ -18,6 +18,7 @@
 #include <boost/xpressive/xpressive.hpp>
 #include <boost/range.hpp>
 #include <pstade/oven/functions.hpp>
+#include <pstade/oven/concatenate_range.hpp>
 
 
 void test()
@@ -26,13 +27,17 @@ void test()
     using namespace oven;
 
     {
-        boost::xpressive::sregex re = '$';
+        std::string input("This is his face");
+        boost::xpressive::sregex re = +boost::xpressive::_w; // a word
+
         bool f = false;
         if (f) {
-            std::string("This is a string of tokens.")|xpressive_tokenized(re);
-            std::string("This is a string of tokens.")|xpressive_tokenized(re, -1);
-            std::string("This is a string of tokens.")|xpressive_tokenized(re, std::vector<int>(), boost::xpressive::regex_constants::match_default);
+            input|xpressive_tokenized(re);
+            input|xpressive_tokenized(re, -1);
+            input|xpressive_tokenized(re, std::vector<int>(), boost::xpressive::regex_constants::match_default);
         }
+
+        BOOST_CHECK( oven::equals(input|xpressive_tokenized(re)|concatenated, std::string("Thisishisface") ) );
     }
 }
 

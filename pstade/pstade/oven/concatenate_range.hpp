@@ -27,12 +27,12 @@ namespace pstade { namespace oven {
 namespace concatenate_range_detail {
 
 
-    template< class RangeRange >
+    template< class TopRange >
     struct super_
     {
         typedef boost::iterator_range<
             concatenate_iterator<
-                typename range_iterator<RangeRange>::type
+                typename range_iterator<TopRange>::type
             >
         > type;
     };
@@ -41,20 +41,20 @@ namespace concatenate_range_detail {
 } // namespace concatenate_range_detail
 
 
-template< class RangeRange >
+template< class TopRange >
 struct concatenate_range :
-    concatenate_range_detail::super_<RangeRange>::type,
-    private as_lightweight_proxy< concatenate_range<RangeRange> >
+    concatenate_range_detail::super_<TopRange>::type,
+    private as_lightweight_proxy< concatenate_range<TopRange> >
 {
-    typedef RangeRange pstade_oven_range_base_type;
+    typedef TopRange pstade_oven_range_base_type;
 
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(RangeRange, SinglePassRangeConcept);
-    typedef typename concatenate_range_detail::super_<RangeRange>::type super_t;
+    PSTADE_OVEN_DETAIL_REQUIRES(TopRange, SinglePassRangeConcept);
+    typedef typename concatenate_range_detail::super_<TopRange>::type super_t;
     typedef typename super_t::iterator iter_t;
 
 public:
-    explicit concatenate_range(RangeRange& rngs) :
+    explicit concatenate_range(TopRange& rngs) :
         super_t(
             iter_t(boost::begin(rngs), boost::end(rngs)),
             iter_t(boost::end(rngs),   boost::end(rngs))
@@ -68,14 +68,14 @@ namespace concatenate_range_detail {
 
     struct baby_generator
     {
-        template< class Unused, class RangeRange >
+        template< class Unused, class TopRange >
         struct result
         {
-            typedef concatenate_range<RangeRange> const type;
+            typedef concatenate_range<TopRange> const type;
         };
 
-        template< class Result, class RangeRange >
-        Result call(RangeRange& rngs)
+        template< class Result, class TopRange >
+        Result call(TopRange& rngs)
         {
             return Result(rngs);
         }

@@ -13,6 +13,7 @@
 #include <pstade/oven/break_into_range.hpp>
 
 
+#include <iostream>
 #include <string>
 #include <vector>
 #include <boost/range.hpp>

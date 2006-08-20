@@ -26,11 +26,13 @@ void test()
     using namespace oven;
 
     {
-        boost::xpressive::sregex re = '$';
+        std::string input("This is his face");
+        boost::xpressive::sregex re = +boost::xpressive::_w; // a word
+
         bool f = false;
         if (f) {
-            std::string("This is a string of tokens.")|xpressive_matched(re);
-            std::string("This is a string of tokens.")|xpressive_matched(re, boost::xpressive::regex_constants::match_default);
+            input|xpressive_matched(re);
+            input|xpressive_matched(re, boost::xpressive::regex_constants::match_default);
         }
     }
 }

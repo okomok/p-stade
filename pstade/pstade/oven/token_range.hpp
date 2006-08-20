@@ -10,9 +10,16 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Todo:
+//
+// Makes 'sub_match' the range or just calls 'str()'?
+
+
+#include <cstddef> // size_t
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
+#include <boost/range/size_type.hpp>
 #include <boost/regex.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/utility/enable_if.hpp> // disable_if
@@ -20,6 +27,7 @@
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
+#include "./detail/config.hpp"
 #include "./range_iterator.hpp"
 #include "./range_value.hpp"
 
@@ -133,6 +141,67 @@ PSTADE_EGG_PIPABLE(tokenized, token_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven
+
+
+// 'boost::sub_match' as range
+//
+
+#if !defined(PSTADE_OVEN_NO_BOOST_SUB_MATCH_CUSTOMIZATION)
+
+
+namespace boost {
+
+
+    // Note:
+    // "primary template" eats 'sub_match' even if
+    // 'sub_match' is derived from 'std::pair'.
+    // So we define...
+    //
+
+    template< class BidiIter >
+    BidiIter PSTADE_OVEN_boost_range_begin(sub_match<BidiIter>& sm)
+    {
+        return sm.first;
+    }
+
+        template< class BidiIter >
+        BidiIter PSTADE_OVEN_boost_range_begin(sub_match<BidiIter> const& sm)
+        {
+            return sm.first;
+        }
+
+
+    template< class BidiIter >
+    BidiIter PSTADE_OVEN_boost_range_end(sub_match<BidiIter>& sm)
+    {
+        return sm.second;
+    }
+
+        template< class BidiIter >
+        BidiIter PSTADE_OVEN_boost_range_end(sub_match<BidiIter> const& sm)
+        {
+            return sm.second;
+        }
+
+
+    template< class BidiIter >
+    std::size_t boost_range_size(sub_match<BidiIter> const& sm)
+    {
+        return std::distance(sm.first, sm.second);
+    }
+
+
+    template< class BidiIter >
+    struct range_size< sub_match<BidiIter> >
+    {
+        typedef std::size_t type;
+    };
+
+
+} // namespace boost
+
+
+#endif // !defined(PSTADE_OVEN_NO_BOOST_SUB_MATCH_CUSTOMIZATION)
 
 
 #endif

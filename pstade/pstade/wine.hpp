@@ -23,6 +23,7 @@
 #include "./if_debug.hpp"
 #include "./instance.hpp"
 #include "./integral_cast.hpp"
+#include "./invariant.hpp"
 // #include "./ios_init.hpp"
 #include "./is_ndebug.hpp"
 #include "./is_same.hpp"

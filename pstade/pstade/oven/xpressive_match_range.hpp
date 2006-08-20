@@ -33,7 +33,8 @@ namespace xpressive_match_range_detail {
     {
         typedef boost::iterator_range<
             boost::xpressive::regex_iterator<
-                typename range_iterator<BidiRange>::type
+                // Xpressive seems not to support a mutable iterator.
+                typename range_iterator_const<BidiRange>::type
             >
         > type;
     };

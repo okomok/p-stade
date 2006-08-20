@@ -16,6 +16,17 @@
 #endif
 
 
+#if !defined(PSTADE_OVEN_BOOST_RANGE_VERSION_1)
+    #define PSTADE_OVEN_boost_range_mutable_iterator range_mutable_iterator
+    #define PSTADE_OVEN_boost_range_begin            range_begin
+    #define PSTADE_OVEN_boost_range_end              range_end
+#else
+    #define PSTADE_OVEN_boost_range_mutable_iterator range_iterator
+    #define PSTADE_OVEN_boost_range_begin            boost_range_begin
+    #define PSTADE_OVEN_boost_range_end              boost_range_end
+#endif
+
+
 #if !defined(PSTADE_OVEN_RANGE_ADAPTOR_MAX_ARITY)
     #define PSTADE_OVEN_RANGE_ADAPTOR_MAX_ARITY 3
 #endif

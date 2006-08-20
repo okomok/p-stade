@@ -28,6 +28,7 @@ test-suite wine :
     [ wine-test header ]
     [ wine-test instance ]
     [ wine-test integral_cast ]
+    [ wine-test invariant ]
     [ wine-test is_ndebug ]
     [ wine-test is_same ]
     [ wine-test lexical_cast ]

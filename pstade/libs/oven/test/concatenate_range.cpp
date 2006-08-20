@@ -14,7 +14,7 @@
 
 
 #include <vector>
-#include <boost/foreach.hpp>
+#include <boost/range.hpp>
 #include <string>
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/reverse_range.hpp>
@@ -34,6 +34,7 @@ void test()
     vec.push_back("ij");
     vec.push_back("");
     vec.push_back("klmn");
+    vec.push_back("");
 
     {
         BOOST_CHECK( oven::equals( vec|concatenated, std::string("abcdefghijklmn") ) );
@@ -46,6 +47,19 @@ void test()
     {
         BOOST_CHECK( oven::test_bidirectional(vec|concatenated) );
     }
+
+    {
+        std::vector<std::string> vec;
+        vec.push_back("");
+        vec.push_back("");
+        vec.push_back("");
+        BOOST_CHECK( boost::empty(vec|concatenated) );
+        vec.push_back("ab");
+        BOOST_CHECK( oven::equals(vec|concatenated, std::string("ab")) );
+        vec.push_back("");
+        vec.push_back("");
+        BOOST_CHECK( oven::equals(vec|concatenated, std::string("ab")) );
+    }   
 }
 
 
