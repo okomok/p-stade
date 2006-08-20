@@ -13,20 +13,51 @@
 #include <pstade/invariant.hpp>
 
 
+#include <iostream>
+#include <boost/assert.hpp>
+
+
+using namespace pstade;
+
+
 struct A
 {
     void foo()
     {
-        pstade::invariant holds(*this);
+        invariant holds(*this);
+        
+        // do something
     }
 
 private:
 
-    friend class pstade::invariant::access;
+    friend class invariant::access;
 
     bool pstade_invariant()
     {
+        std::cout << "A holds\n";
         return true;
+    }
+};
+
+
+struct B : A
+{
+    void bar()
+    {
+        invariant holds(*this);
+        
+        // do something
+    }
+
+private:
+
+    friend class invariant::access;
+
+    bool pstade_invariant()
+    {
+        std::cout << "B holds\n";
+        return invariant::holds<A>(*this) && true;
     }
 };
 
@@ -36,6 +67,10 @@ void test()
     A a;
     a.foo();
     (void)a;
+
+    B b;
+    b.bar();
+    (void)b;
 }
 
 

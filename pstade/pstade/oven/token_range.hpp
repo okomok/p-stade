@@ -16,6 +16,7 @@
 
 
 #include <cstddef> // size_t
+#include <iterator> // distance
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
@@ -143,18 +144,15 @@ PSTADE_EGG_PIPABLE(tokenized, token_range_detail::baby_generator)
 } } // namespace pstade::oven
 
 
-// 'boost::sub_match' as range
-//
-
-#if !defined(PSTADE_OVEN_NO_BOOST_SUB_MATCH_CUSTOMIZATION)
+#if !defined(PSTADE_OVEN_NO_BOOST_SUB_MATCH_RANGE_CUSTOMIZATION)
 
 
 namespace boost {
 
 
     // Note:
-    // "primary template" eats 'sub_match' even if
-    // 'sub_match' is derived from 'std::pair'.
+    // The "primary" function templates eat 'sub_match',
+    // though 'sub_match' is derived from 'std::pair'.
     // So we define...
     //
 
@@ -184,6 +182,9 @@ namespace boost {
         }
 
 
+#if defined(PSTADE_OVEN_BOOST_RANGE_VERSION_1)
+
+
     template< class BidiIter >
     std::size_t boost_range_size(sub_match<BidiIter> const& sm)
     {
@@ -198,10 +199,13 @@ namespace boost {
     };
 
 
+#endif
+
+
 } // namespace boost
 
 
-#endif // !defined(PSTADE_OVEN_NO_BOOST_SUB_MATCH_CUSTOMIZATION)
+#endif // !defined(PSTADE_OVEN_NO_BOOST_SUB_MATCH_RANGE_CUSTOMIZATION)
 
 
 #endif

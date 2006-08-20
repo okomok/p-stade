@@ -29,18 +29,25 @@ struct invariant :
     class access
     {
     public:
-        template< class T > static
-        bool detail_holds(T& x)
+        template< class T >
+        static bool detail_check(T& x)
         {
             return x.pstade_invariant();
         }
     };
 
+    template< class T >
+    static bool holds(T& x)
+    {
+        return access::detail_check(x);
+    }
+
+private:
     // type erasure
     //
     struct placeholder
     {
-        virtual bool holds() const = 0;
+        virtual bool check() const = 0;
         virtual ~placeholder() { }
     };
 
@@ -52,26 +59,27 @@ struct invariant :
             m_x(x)
         { }
 
-        virtual bool holds() const
+        virtual bool check() const
         {
-            return access::detail_holds(m_x);
+            return access::detail_check(m_x);
         }
 
         T& m_x;
     };
 
+public:
     // ctor/dtor
     //
     template< class T >
     explicit invariant(T& x) :
         m_px(new holder<T>(x))
     {
-        BOOST_ASSERT(m_px->holds());
+        BOOST_ASSERT(m_px->check());
     }
 
     ~invariant()
     {
-        BOOST_ASSERT(m_px->holds());
+        BOOST_ASSERT(m_px->check());
     }
 
 private:
@@ -87,6 +95,12 @@ struct invariant :
 {
     class access
     { };
+
+    template< class T >
+    static bool holds(T& )
+    {
+        return true;
+    }
 
     template< class T >
     explicit invariant(T& )
