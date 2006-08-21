@@ -10,6 +10,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Pending...
+// A new library candidate.
+
+
 #include <boost/assert.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/scoped_ptr.hpp>
@@ -18,14 +22,26 @@
 namespace pstade {
 
 
+class invariant_access
+{
+public:
+    template< class T >
+    static bool detail_check(T& x)
+    {
+        return x.pstade_invariant();
+    }
+};
+
+
 #if !defined(NDEBUG)
 
 
 struct invariant :
     private boost::noncopyable
 {
-    // friend
-    //
+#if 0
+    // If T is class template, GCC3.4 fails to friendify this.
+    // Comeau and VC works, though.
     class access
     {
     public:
@@ -35,11 +51,18 @@ struct invariant :
             return x.pstade_invariant();
         }
     };
+#endif
 
     template< class T >
     static bool holds(T& x)
     {
-        return access::detail_check(x);
+        return invariant_access::detail_check(x);
+    }
+
+    template< class T >
+    static bool holds(T const& x)
+    {
+        return invariant_access::detail_check(x);
     }
 
 private:
@@ -61,7 +84,7 @@ private:
 
         virtual bool check() const
         {
-            return access::detail_check(m_x);
+            return invariant_access::detail_check(m_x);
         }
 
         T& m_x;
@@ -93,8 +116,10 @@ private:
 struct invariant :
     private boost::noncopyable
 {
+#if 0
     class access
     { };
+#endif
 
     template< class T >
     static bool holds(T& )

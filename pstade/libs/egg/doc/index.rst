@@ -130,6 +130,7 @@ So you should prefer this macro.
 ^^^^^^^^^^^^^^^^^^^^^^
 - Header: ``<pstade/egg/pipable.hpp>``
 - Valid expression: ``PSTADE_EGG_PIPBLE(Name, BabyFunction)``
+- Precondition: same as ``PSTADE_EGG_FUNCTION``'s
 - Effects: Makes ``in|Name(a0,a1,...aN)`` call ``function<BabyFunction>()(in,a0,a1,...aN)``.
 
 

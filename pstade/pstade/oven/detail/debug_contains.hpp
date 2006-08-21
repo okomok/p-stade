@@ -10,19 +10,28 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/iterator/iterator_categories.hpp> // traversal_tag's
+#include <iterator> // iterator_tag's
 #include <boost/range/end.hpp>
 #include <pstade/unused.hpp>
 #include "../algorithm.hpp" // find
 #include "../direct_range.hpp"
-#include "../range_traversal.hpp"
+#include "../range_category.hpp"
+#include "./debug_function.hpp"
 
 
 namespace pstade { namespace oven { namespace detail {
 
 
+// Note:
+// A Forward Iterator conforms to (24.1.3/1) "is_same(*it1, *it2) => it1 == it2",
+// so we can check the containment (am I right?).
+// Also note that many Forward Iterators (counting_iterator etc.)
+// cannot conform to "is_same(*it1, *it2) <= it1 == it2",
+// which is a requirement of Forward Iterator, too.
+//
+
 template< class Range, class Iterator >
-bool debug_contains_aux(Range& rng, Iterator const& it, boost::forward_traversal_tag)
+bool debug_contains_aux(Range& rng, Iterator const& it, std::forward_iterator_tag)
 {
     if (it == boost::end(rng))
         return true;
@@ -33,18 +42,20 @@ bool debug_contains_aux(Range& rng, Iterator const& it, boost::forward_traversal
 
 
 template< class Range, class Iterator > inline
-bool debug_contains_aux(Range& rng, Iterator const& it, boost::single_pass_traversal_tag)
+bool debug_contains_aux(Range& rng, Iterator const& it, std::input_iterator_tag)
 {
-    pstade::unused(rng);
-    return 0;
+    pstade::unused(rng, it);
+    return true;
 }
 
 
 template< class Range, class Iterator > inline
 bool debug_contains(Range& rng, Iterator const& it)
 {
-    typedef typename range_traversal<Range>::type trv_t;
-    return detail::debug_contains_aux(rng, it, trv_t());
+    detail::debug_function();
+
+    typedef typename range_category<Range>::type cat_t;
+    return detail::debug_contains_aux(rng, it, cat_t());
 }
 
 

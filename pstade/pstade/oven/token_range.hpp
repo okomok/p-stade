@@ -10,11 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Todo:
-//
-// Makes 'sub_match' the range or just calls 'str()'?
-
-
 #include <cstddef> // size_t
 #include <iterator> // distance
 #include <boost/range/begin.hpp>
@@ -157,29 +152,17 @@ namespace boost {
     //
 
     template< class BidiIter >
-    BidiIter PSTADE_OVEN_boost_range_begin(sub_match<BidiIter>& sm)
+    BidiIter PSTADE_OVEN_BOOST_RANGE_BEGIN(sub_match<BidiIter> const& sm)
     {
         return sm.first;
     }
 
-        template< class BidiIter >
-        BidiIter PSTADE_OVEN_boost_range_begin(sub_match<BidiIter> const& sm)
-        {
-            return sm.first;
-        }
-
 
     template< class BidiIter >
-    BidiIter PSTADE_OVEN_boost_range_end(sub_match<BidiIter>& sm)
+    BidiIter PSTADE_OVEN_BOOST_RANGE_END(sub_match<BidiIter> const& sm)
     {
         return sm.second;
     }
-
-        template< class BidiIter >
-        BidiIter PSTADE_OVEN_boost_range_end(sub_match<BidiIter> const& sm)
-        {
-            return sm.second;
-        }
 
 
 #if defined(PSTADE_OVEN_BOOST_RANGE_VERSION_1)

@@ -12,8 +12,7 @@
 
 // Note:
 //
-// The dereference of bottom_iter_t must be valid
-// after copying of TopIterator.
+// The BottomIterator must be valid after copying of TopIterator.
 // Thus, 'boost::token_iterator' cannot be supported.
 
 
@@ -158,7 +157,7 @@ private:
         return m_last == other.m_last;
     }
 
-friend class invariant::access;
+friend class invariant_access;
     bool pstade_invariant() const
     {
         // 'm_bottom' is undefined if 'top_is_end'.

@@ -17,13 +17,13 @@
 
 
 #if !defined(PSTADE_OVEN_BOOST_RANGE_VERSION_1)
-    #define PSTADE_OVEN_boost_range_mutable_iterator range_mutable_iterator
-    #define PSTADE_OVEN_boost_range_begin            range_begin
-    #define PSTADE_OVEN_boost_range_end              range_end
+    #define PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR range_mutable_iterator
+    #define PSTADE_OVEN_BOOST_RANGE_BEGIN            range_begin
+    #define PSTADE_OVEN_BOOST_RANGE_END              range_end
 #else
-    #define PSTADE_OVEN_boost_range_mutable_iterator range_iterator
-    #define PSTADE_OVEN_boost_range_begin            boost_range_begin
-    #define PSTADE_OVEN_boost_range_end              boost_range_end
+    #define PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR range_iterator
+    #define PSTADE_OVEN_BOOST_RANGE_BEGIN            boost_range_begin
+    #define PSTADE_OVEN_BOOST_RANGE_END              boost_range_end
 #endif
 
 

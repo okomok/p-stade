@@ -20,6 +20,7 @@
 using namespace pstade;
 
 
+template< class T >
 struct A
 {
     void foo()
@@ -31,9 +32,9 @@ struct A
 
 private:
 
-    friend class invariant::access;
+    friend class invariant_access;
 
-    bool pstade_invariant()
+    bool pstade_invariant() const
     {
         std::cout << "A holds\n";
         return true;
@@ -41,7 +42,7 @@ private:
 };
 
 
-struct B : A
+struct B : A<int>
 {
     void bar()
     {
@@ -52,19 +53,19 @@ struct B : A
 
 private:
 
-    friend class invariant::access;
+    friend class invariant_access;
 
-    bool pstade_invariant()
+    bool pstade_invariant() const
     {
         std::cout << "B holds\n";
-        return invariant::holds<A>(*this) && true;
+        return invariant::holds<A<int> >(*this) && true;
     }
 };
 
 
 void test()
 {
-    A a;
+    A<int> a;
     a.foo();
     (void)a;
 

@@ -353,11 +353,14 @@ Specification
 
 ``concatenated``
 ^^^^^^^^^^^^^^^^
-``concatenated`` accepts a range whose ``value_type`` is a range and concatenates them.
+``concatenated`` accepts a range whose ``value_type`` is a range and concatenates them::
 
+	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\concatenated.ipp
 
 - Header: ``<pstade/oven/concatenate_range.hpp>``
 - Valid expression: ``rngs|concatenated``
+- Specification: ``TopIterator`` is an iterator of ``rngs``, and ``BottomIterator`` is an iterator of the range which the dereference of ``TopIterator`` returns.
+- Precondition: The ``BottomIterator`` must be valid after copying of ``TopIterator``.
 
 
 
@@ -845,3 +848,5 @@ Version 0.90.8
 ^^^^^^^^^^^^^^
 - Renamed ``base_iterator`` to ``to_base``.
 - Renamed ``copied`` adaptor to ``copied_to``.
+- Added `concatenated`_.
+
