@@ -43,36 +43,12 @@ struct Output
 void test()
 {
     using namespace pstade;
+    using namespace sausage;
 
     tomato::child_windows wnds(::GetDesktopWindow());
 
     {
-        sausage::enumerate(wnds, Output());
-    }
-
-    {
-        BOOST_FOREACH (HWND hWnd, wnds|sausage::enumerated) {
-            ::output(hWnd);
-        }
-    }
-
-    {
-        // RangeもEnumerable
-        // (ただし、メンバ関数を使ってカスタマイズしたRangeのみ)
-        std::string str("abcde");
-        BOOST_FOREACH (char ch, str|sausage::enumerated) {
-            std::cout << ch;
-        }
-    }
-
-    {
-        // むちゃをしてみる (24個のスレッド)
-        BOOST_FOREACH (
-            HWND hWnd,
-            wnds|
-                sausage::enumerated|sausage::enumerated|sausage::enumerated|sausage::enumerated|
-                sausage::enumerated|sausage::enumerated|sausage::enumerated|sausage::enumerated
-        ) {
+        BOOST_FOREACH (HWND hWnd, wnds|generated) {
             ::output(hWnd);
         }
     }

@@ -10,15 +10,14 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Why not Range:
+// What:
 //
-// It is impossible without additional resources.
+// Sausage.Generator of child windows.
 
 
 #include <boost/assert.hpp>
 #include <boost/utility/addressof.hpp>
 #include <pstade/apple/sdk/windows.hpp>
-#include "../boolean_cast.hpp"
 #include "../diet/valid.hpp"
 
 
@@ -28,31 +27,35 @@ namespace pstade { namespace tomato {
 namespace child_windows_detail {
 
 
-    template< class EnumFtor >
+    template< class Yield >
     BOOL CALLBACK proc(HWND hWnd, LPARAM lParam)
     {
         BOOST_ASSERT(diet::valid(hWnd));
 
-        EnumFtor *pfun = reinterpret_cast<EnumFtor *>(lParam);
-        return (*pfun)(hWnd)|booleanized;
+        try {
+            Yield& yield = *reinterpret_cast<Yield *>(lParam);
+            yield(hWnd);
+            return TRUE;
+        }
+        catch (...) { // eat all
+            return FALSE;
+        }
     }
 
 
-    template< class EnumFtor > inline
-    EnumFtor enumerate(HWND hWndParent, EnumFtor fun)
+    template< class Yield > inline
+    void generate(HWND hWndParent, Yield yield)
     {
         // Note:
-        //   if no child, EnumChildWindows "fails"
-        //   and the GetLastError value is undocumented.
-        //   So there seems no way to know whether or not
-        //   api failed.
+        // if no child, EnumChildWindows "fails"
+        // and the GetLastError value is undocumented.
+        // So there seems no way to know whether or not
+        // api failed.
         ::EnumChildWindows(
             hWndParent,
-            &proc<EnumFtor>,
-            reinterpret_cast<LPARAM>(boost::addressof(fun))
+            &proc<Yield>,
+            reinterpret_cast<LPARAM>(boost::addressof(yield))
         );
-
-        return fun;
     }
 
 
@@ -68,6 +71,14 @@ struct child_windows
         BOOST_ASSERT(hWndParent == NULL || diet::valid(hWndParent));
     }
 
+    typedef HWND result_type;
+
+    template< class Yield >
+    void operator()(Yield yield) const
+    {
+        child_windows_detail::generate(m_hWndParent, yield);
+    }
+
     HWND parent() const
     {
         return m_hWndParent;
@@ -75,15 +86,6 @@ struct child_windows
 
 private:
     HWND m_hWndParent;
-
-public:
-    typedef HWND pstade_sausage_enumerate_argument_type;
-
-    template< class Argument, class EnumFtor >
-    EnumFtor pstade_sausage_enumerate(EnumFtor fun) const
-    {
-        return child_windows_detail::enumerate(m_hWndParent, fun);
-    }
 };
 
 

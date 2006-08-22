@@ -17,6 +17,5 @@ rule sausage-test ( name : includes * )
 }
 
 test-suite sausage :
-    [ sausage-test enumerate_range ]
-    [ sausage-test header ]
+    [ sausage-test basic ]
     ;
