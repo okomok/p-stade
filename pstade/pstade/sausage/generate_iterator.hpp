@@ -38,7 +38,7 @@ namespace generate_iterator_detail {
     struct super_
     {
         // Note:
-        // 'result_t' is not reference, it should not be modified.
+        // If 'result_t' is not reference, it should not be modified.
         typedef typename Generator::result_type result_t;
         typedef typename remove_cvr<result_t>::type val_t;
         typedef typename param<result_t>::type ref_t;

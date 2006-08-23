@@ -21,7 +21,6 @@
 // Makes 'biscuit::filter_range' deprecated!
 
 
-#include <boost/assert.hpp>
 #include <boost/iterator/detail/minimum_category.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_categories.hpp> // iterator_traversal 
@@ -29,7 +28,7 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/empty.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/invariant.hpp>
+#include <pstade/contract.hpp>
 #include "./detail/debug_contains.hpp"
 #include "./range_difference.hpp"
 #include "./range_iterator.hpp"
@@ -103,7 +102,7 @@ public:
         super_t(it), m_last(last)
     {
         reset_bottom_forward();
-        invariant holds(*this);
+        PSTADE_CLASS_INVARIANT;
     }
 
 
@@ -116,7 +115,7 @@ template< class > friend struct concatenate_iterator;
         super_t(other.base()), m_last(other.m_last),
         m_bottom(other.m_bottom)
     {
-        invariant holds(*this);
+        PSTADE_CLASS_INVARIANT;
     }
 
 private:
@@ -130,7 +129,7 @@ private:
 
     bottom_rng_t bottom_range() const
     {
-        BOOST_ASSERT(!top_is_end());
+        PSTADE_PRECONDITION(!top_is_end());
         return *this->base();
     }
 
@@ -157,7 +156,7 @@ private:
         return m_last == other.m_last;
     }
 
-friend class invariant_access;
+friend class contract_access;
     bool pstade_invariant() const
     {
         // 'm_bottom' is undefined if 'top_is_end'.
@@ -167,14 +166,14 @@ friend class invariant_access;
 friend class boost::iterator_core_access;
     ref_t dereference() const
     {
-        BOOST_ASSERT(!top_is_end());
+        PSTADE_PRECONDITION(!top_is_end());
         return *m_bottom;
     }
 
     template< class Other >
     bool equal(Other const& other) const
     {
-        BOOST_ASSERT(is_compatible(other));
+        PSTADE_PRECONDITION(is_compatible(other));
 
         return this->base() == other.base() // basic premise
             && (top_is_end() || m_bottom == other.m_bottom);
@@ -182,10 +181,9 @@ friend class boost::iterator_core_access;
 
     void increment()
     {
-        invariant holds(*this);
-
-        BOOST_ASSERT(!top_is_end());
-        BOOST_ASSERT(m_bottom != boost::end(bottom_range()));
+        PSTADE_CLASS_INVARIANT;
+        PSTADE_PRECONDITION(!top_is_end());
+        PSTADE_PRECONDITION(m_bottom != boost::end(bottom_range()));
 
         ++m_bottom;
 
@@ -197,7 +195,7 @@ friend class boost::iterator_core_access;
 
     void decrement()
     {
-        invariant holds(*this);
+        PSTADE_CLASS_INVARIANT;
 
         if (top_is_end() || m_bottom == boost::begin(bottom_range())) {
             --this->base_reference();

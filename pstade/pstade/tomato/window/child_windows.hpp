@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// What:
+// Model of:
 //
 // Sausage.Generator of child windows.
 
@@ -37,7 +37,7 @@ namespace child_windows_detail {
             yield(hWnd);
             return TRUE;
         }
-        catch (...) { // eat all
+        catch (...) { // never propagate.
             return FALSE;
         }
     }
