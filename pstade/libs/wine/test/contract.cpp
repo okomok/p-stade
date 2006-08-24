@@ -21,82 +21,98 @@
 using namespace pstade;
 
 
+void bar(int i)
+{
+    PSTADE_PRECONDITION (
+        if (i == 100)
+            assert(i < 200);
+    )
+
+    ++i;
+
+    PSTADE_POSTCONDITION (
+        assert(i != 200);
+    )
+}
+
+
 template< class T >
 struct A
 {
-    void foo()
-    {
-        PSTADE_CLASS_INVARIANT;
-        PSTADE_PRECONDITION(true);
-
-        // do something
-        PSTADE_POSTCONDITION(true);
-    }
-
 private:
 
-    friend class contract_access;
-
-    bool pstade_invariant() const
+    PSTADE_INVARIANT
     {
-        BOOST_MPL_ASSERT((boost::is_integral<T>));
-
-        std::cout << "A holds\n";
-        return true;
+        BOOST_MPL_ASSERT((boost::is_integral<T>)); // bad style?
     }
 };
 
 
 struct B : A<int>
 {
-    B (int)
-    { }
-    
-    void bar() const
+    B(int f, int l) :
+        m_f(f), m_l(l)
     {
-        pstade::class_invariant holds(*this);
-        pstade::precondition(true);
-        
-        // do something
+        PSTADE_PRECONDITION (
+            assert(f <= l);
+        )
 
-        pstade::postcondition(true);
+        // set up here
+
+        PSTADE_ASSERT_INVARIANT;
+    }
+
+    ~B()
+    {
+        PSTADE_ASSERT_INVARIANT;
+
+        // clean up here
+    }
+    
+    void set_f(int f)
+    {
+        PSTADE_PUBLIC_PRECONDITION (
+            assert(f <= m_l);
+        )
+
+        m_f = f;
+    }
+
+    void barbar()
+    {
+        PSTADE_PUBLIC_PRECONDITION (;)
+
+
     }
 
 private:
+    int m_f, m_l;
 
-    friend class contract_access;
-
-    bool pstade_invariant() const
+    PSTADE_INVARIANT
     {
-        std::cout << "B holds\n";
-
-        return
-            class_invariant::holds< A<int> >(*this) &&
-            true
-        ;
+        assert_invariant< A<int> >(*this);
+        assert(m_f != 500);
+        if (m_f == 10492)
+            assert(m_l != 999);
     }
 };
 
 
 void test()
 {
-    A<int> a;
-    a.foo();
-    (void)a;
-
-    BOOST_ASSERT( class_invariant::holds(a) );
-
-    B const b(3);
-    b.bar();
-    (void)b;
-
-    BOOST_ASSERT( class_invariant::holds(b) );
-
+    ::bar(9);
+    
+    B b(3, 5000);
+    b.set_f(80);
+    
     for (int i = 0;;) {
-        PSTADE_BLOCK_INVARIANT( i < 10 );
+        PSTADE_BLOCK_INVARIANT ( assert(i < 10); )
+
         if (++i == 10)
             break;
     }
+
+    (void)b;
 }
 
 

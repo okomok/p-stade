@@ -25,6 +25,7 @@ test-suite wine :
     [ wine-test check ]
     [ wine-test const ]
     [ wine-test contract ]
+    [ wine-test debugging ]
     [ wine-test has_xxx ]
     [ wine-test header ]
     [ wine-test instance ]

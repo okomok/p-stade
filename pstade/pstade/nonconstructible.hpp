@@ -10,6 +10,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// See:
+//
+// http://lists.boost.org/Archives/boost/2000/05/3135.php
+// http://lists.boost.org/Archives/boost/2006/07/108310.php
+
+
 #include <pstade/adl_barrier.hpp>
 
 

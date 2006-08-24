@@ -15,85 +15,16 @@
 // http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n1962.html
 
 
-// Note:
-//
-// 'precondition' cannot check class invariants, for
-// there is no way to know whether it is public or not,
-// or even function or class.
-
-
-#include <stdexcept> // runtime_error
+#include <cassert> // revival!
 #include <boost/assert.hpp>
 #include <boost/noncopyable.hpp>
+#include <boost/preprocessor/seq/for_each.hpp>  
 #include <boost/scoped_ptr.hpp>
-#include <boost/throw_exception.hpp>
+#include <pstade/debugging.hpp>
 #include <pstade/nonconstructible.hpp>
 
 
 namespace pstade {
-
-
-// exceptions
-//
-
-struct contract_broken :
-    std::runtime_error
-{
-    contract_broken() :
-        std::runtime_error("")
-    { }
-};
-
-struct precondition_broken :
-    contract_broken
-{ };
-
-struct postcondition_broken :
-    contract_broken
-{ };
-
-struct class_invariant_broken :
-    contract_broken
-{ };
-
-struct block_invariant_broken :
-    contract_broken
-{ };
-
-
-// function pre- and postconditions
-//
-
-inline
-void precondition(bool c)
-{
-    if (!c) {
-        precondition_broken ex;
-        boost::throw_exception(ex);
-    }
-}
-
-inline
-void postcondition(bool c)
-{
-    if (!c) {
-        postcondition_broken ex;
-        boost::throw_exception(ex);
-    }
-}
-
-
-// block invariants
-//
-
-inline
-void block_invariant(bool c)
-{
-    if (!c) {
-        block_invariant_broken ex;
-        boost::throw_exception(ex);
-    }
-}
 
 
 // class invariants
@@ -104,27 +35,33 @@ class contract_access :
 {
 public:
     template< class T > static
-    bool detail_check_class_invariant(T const& x)
+    void detail_assert_invariant(T const& x)
     {
-        return x.pstade_invariant();
+        pstade::debugging();
+        x.pstade_invariant();
     }
 };
 
-struct class_invariant :
+
+template< class T > inline
+void assert_invariant(T const& x)
+{
+    try {
+        contract_access::detail_assert_invariant(x);
+    }
+    catch (...) {
+        BOOST_ASSERT("class invariant is broken." && false);
+    }
+}
+
+
+struct scoped_assert_invariant :
     private boost::noncopyable
 {
-    template< class T >
-    static bool holds(T const& x)
-    {
-        return contract_access::detail_check_class_invariant(x);
-    }
-
 private:
-    // type erasure
-    //
     struct placeholder
     {
-        virtual bool check() const = 0;
+        virtual void pstade_invariant() const = 0;
         virtual ~placeholder() { }
     };
 
@@ -136,34 +73,25 @@ private:
             m_x(x)
         { }
 
-        virtual bool check() const
+        virtual void pstade_invariant() const
         {
-            return contract_access::detail_check_class_invariant(m_x);
+            pstade::assert_invariant(m_x);
         }
 
         T const& m_x;
     };
 
 public:
-    // ctor/dtor
-    //
     template< class T >
-    explicit class_invariant(T const& x) :
+    explicit scoped_assert_invariant(T const& x) :
         m_px(new holder<T>(x))
     {
-        if (!m_px->check()) {
-            BOOST_ASSERT("class invariant broken" && false);
-            class_invariant_broken ex;
-            boost::throw_exception(ex);
-        }
+        pstade::assert_invariant(*m_px);
     }
 
-    ~class_invariant()
+    ~scoped_assert_invariant()
     {
-        if (!m_px->check()) {
-            BOOST_ASSERT("class invariant broken" && false);
-            // cannot throw.
-        }
+        pstade::assert_invariant(*m_px);
     }
 
 private:
@@ -177,21 +105,37 @@ private:
 // macros
 //
 
-#if defined(NDEBUG) && defined(PSTADE_CONTRACT_DEBUG)
-    #define PSTADE_PRECONDITION(C)    pstade::precondition(C)
-    #define PSTADE_POSTCONDITION(C)   pstade::postcondition(C)
-    #define PSTADE_BLOCK_INVARIANT(C) pstade::block_invariant(C)
-#else // prefer 'assert' for easy debugging.
-    #define PSTADE_PRECONDITION    BOOST_ASSERT
-    #define PSTADE_POSTCONDITION   BOOST_ASSERT
-    #define PSTADE_BLOCK_INVARIANT BOOST_ASSERT
+#if !defined(NDEBUG)
+
+    #define PSTADE_PRECONDITION(As)    As
+    #define PSTADE_POSTCONDITION(As)   As
+    #define PSTADE_BLOCK_INVARIANT(As) As
+
+    // This order follows n1962.
+    #define PSTADE_PUBLIC_PRECONDITION(As) \
+        As \
+        pstade::scoped_assert_invariant pstade_contract_detail_scoped_assert_invariant_of(*this); \
+    /**/
+
+    #define PSTADE_ASSERT_INVARIANT \
+        pstade::assert_invariant(*this) \
+    /**/
+
+#else
+
+    #define PSTADE_PRECONDITION(As)
+    #define PSTADE_POSTCONDITION(As)
+    #define PSTADE_BLOCK_INVARIANT(As)
+    #define PSTADE_PUBLIC_PRECONDITION(As)
+    #define PSTADE_ASSERT_INVARIANT
+
 #endif
 
-#if !defined(NDEBUG) || defined(PSTADE_CONTRACT_DEBUG)
-    #define PSTADE_CLASS_INVARIANT pstade::class_invariant pstade_contract_detail_class_invariant_of(*this)
-#else
-    #define PSTADE_CLASS_INVARIANT
-#endif
+
+#define PSTADE_INVARIANT \
+    friend class pstade::contract_access; \
+    void pstade_invariant() const \
+/**/
 
 
 #endif
