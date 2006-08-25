@@ -128,11 +128,11 @@ private:
     }
 
     bottom_rng_t bottom_range() const
-    {
-        PSTADE_PRECONDITION (
+        PSTADE_PRECONDITION
+        (
             assert(!top_is_end());
         )
-
+    {
         return *this->base();
     }
 
@@ -167,32 +167,32 @@ private:
 
 friend class boost::iterator_core_access;
     ref_t dereference() const
-    {
-        PSTADE_PRECONDITION (
+        PSTADE_PRECONDITION
+        (
             assert(!top_is_end());
         )
-
+    {
         return *m_bottom;
     }
 
     template< class Other >
     bool equal(Other const& other) const
-    {
-        PSTADE_PRECONDITION (
+        PSTADE_PRECONDITION_
+        (
             assert(is_compatible(other));
         )
-
+    {
         return this->base() == other.base() // basic premise
             && (top_is_end() || m_bottom == other.m_bottom);
     }
 
     void increment()
-    {
-        PSTADE_PUBLIC_PRECONDITION (
+        PSTADE_PUBLIC_PRECONDITION
+        (
             assert(!top_is_end());
             assert(m_bottom != boost::end(bottom_range()));
         )
-
+    {
         ++m_bottom;
 
         if (m_bottom == boost::end(bottom_range())) {
@@ -202,11 +202,8 @@ friend class boost::iterator_core_access;
     }
 
     void decrement()
+        PSTADE_PUBLIC_PRECONDITION (;)
     {
-        PSTADE_PUBLIC_PRECONDITION (
-            ;
-        )
-
         if (top_is_end() || m_bottom == boost::begin(bottom_range())) {
             --this->base_reference();
             reset_bottom_reverse();
