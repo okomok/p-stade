@@ -101,7 +101,9 @@ public:
     concatenate_iterator(TopIterator const& it, TopIterator const& last) :
         super_t(it), m_last(last)
     {
-        PSTADE_CONSTRUCTOR_PRECONDITION (;)
+        PSTADE_CONSTRUCTOR_PRECONDITION
+        { }
+
         reset_bottom_forward();
     }
 
@@ -115,7 +117,8 @@ template< class > friend struct concatenate_iterator;
         super_t(other.base()), m_last(other.m_last),
         m_bottom(other.m_bottom)
     {
-        PSTADE_CONSTRUCTOR_PRECONDITION (;)
+        PSTADE_CONSTRUCTOR_PRECONDITION
+        { }
     }
 
 private:
@@ -128,11 +131,12 @@ private:
     }
 
     bottom_rng_t bottom_range() const
-        PSTADE_PRECONDITION
-        (
-            assert(!top_is_end());
-        )
     {
+        PSTADE_PRECONDITION
+        {
+            assert(!top_is_end());
+        }
+
         return *this->base();
     }
 
@@ -159,40 +163,44 @@ private:
         return m_last == other.m_last;
     }
 
-    PSTADE_INVARIANT
+    PSTADE_CLASS_INVARIANT
     {
-        if (!top_is_end()) // 'm_bottom' is undefined if 'top_is_end'.
-            assert(detail::debug_contains(bottom_range(), m_bottom));
+        // 'm_bottom' is undefined if 'top_is_end'.
+        assert(PSTADE_IMPLIES(!top_is_end(),
+            detail::debug_contains(bottom_range(), m_bottom)));
     }
 
 friend class boost::iterator_core_access;
     ref_t dereference() const
-        PSTADE_PRECONDITION
-        (
-            assert(!top_is_end());
-        )
     {
+        PSTADE_PRECONDITION
+        {
+            assert(!top_is_end());
+        }
+
         return *m_bottom;
     }
 
     template< class Other >
     bool equal(Other const& other) const
-        PSTADE_PRECONDITION_
-        (
-            assert(is_compatible(other));
-        )
     {
+        PSTADE_PRECONDITION
+        {
+            assert(is_compatible(other));
+        }
+
         return this->base() == other.base() // basic premise
             && (top_is_end() || m_bottom == other.m_bottom);
     }
 
     void increment()
+    {
         PSTADE_PUBLIC_PRECONDITION
-        (
+        {
             assert(!top_is_end());
             assert(m_bottom != boost::end(bottom_range()));
-        )
-    {
+        }
+
         ++m_bottom;
 
         if (m_bottom == boost::end(bottom_range())) {
@@ -202,8 +210,10 @@ friend class boost::iterator_core_access;
     }
 
     void decrement()
-        PSTADE_PUBLIC_PRECONDITION (;)
     {
+        PSTADE_PUBLIC_PRECONDITION
+        { }
+
         if (top_is_end() || m_bottom == boost::begin(bottom_range())) {
             --this->base_reference();
             reset_bottom_reverse();
