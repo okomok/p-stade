@@ -22,8 +22,9 @@
 #include <boost/noncopyable.hpp>
 #include <boost/scoped_ptr.hpp>
 #include <boost/shared_ptr.hpp>
-#include <pstade/debugging.hpp>
+#include <pstade/for_debug.hpp>
 #include <pstade/nonconstructible.hpp>
+#include <pstade/unused.hpp>
 
 
 // Workarounds
@@ -32,21 +33,6 @@
 #if BOOST_WORKAROUND(BOOST_MSVC, == 1310)
     // VC7.1 function-try-block doesn't support function templates.
     #define PSTADE_CONTRACT_NO_FUNCTION_TEMPLATE_TRY_BLOCK
-#endif
-
-
-#if BOOST_WORKAROUND(BOOST_MSVC, == 1400)
-    // VC8 should have them, but it seems not to work...
-    #define PSTADE_CONTRACT_DISABLE_WARNING_UNREACHABLE_CODE_BEGIN() \
-        __pragma(warning(push)); \
-        __pragma(warning(disable: 4702)); \
-    /**/
-    #define PSTADE_CONTRACT_DISABLE_WARNING_UNREACHABLE_CODE_END() \
-        __pragma(warning(pop)); \
-    /**/
-#else
-    #define PSTADE_CONTRACT_DISABLE_WARNING_UNREACHABLE_CODE_BEGIN()
-    #define PSTADE_CONTRACT_DISABLE_WARNING_UNREACHABLE_CODE_END()
 #endif
 
 
@@ -63,7 +49,7 @@ public:
     template< class T > static
     void detail_invariant(T const& x)
     {
-        pstade::debugging();
+        pstade::for_debug();
         x.pstade_invariant();
     }
 };
@@ -112,20 +98,22 @@ namespace invariant_checker_detail {
         private boost::noncopyable
     {
         template< class T >
-        explicit impl(T const& x, bool now) :
-            m_px(new holder<T>(x))
+        explicit impl(T const& x, bool ctor, bool dtor) :
+            m_px(new holder<T>(x)), m_dtor(dtor)
         {
-            if (now)
+            if (ctor)
                 pstade::invariant(*m_px);
         }
 
         ~impl()
         {
-            pstade::invariant(*m_px);
+            if (m_dtor)
+                pstade::invariant(*m_px);
         }
 
     private:
         boost::scoped_ptr<placeholder> m_px;
+        bool m_dtor;
     };
 
 
@@ -137,8 +125,8 @@ struct invariant_checker
     // See Standard 15.1/5 or 15.3/16.
 {
     template< class T >
-    explicit invariant_checker(T const& x, bool now = true) :
-        m_pimpl(new invariant_checker_detail::impl(x, now))
+    explicit invariant_checker(T const& x, bool ctor, bool dtor) :
+        m_pimpl(new invariant_checker_detail::impl(x, ctor, dtor))
     { };
 
 private:
@@ -154,6 +142,11 @@ namespace contract_detail {
     // otherwise VC7.1/8 complains.
     struct goto_handler
     { };
+
+
+    inline
+    void suppress_unreachable_code_warning()
+    { }
 
 
 } // namespace contract_detail
@@ -175,40 +168,33 @@ namespace contract_detail {
         catch (pstade::contract_detail::goto_handler const&) \
     /**/
 
-    #define PSTADE_INVARIANT(As) \
-        friend class pstade::contract_access; \
-        void pstade_invariant() const \
-        { \
-            As \
-        } \
-    /**/
-
     // See Standard 15.1/4.
     #define PSTADE_PUBLIC_PRECONDITION(As) \
         try { \
             As \
-            throw pstade::invariant_checker(*this); \
+            throw pstade::invariant_checker(*this, true, true); \
         } \
         catch (pstade::invariant_checker const&) \
     /**/
 
     #define PSTADE_BLOCK_INVARIANT(As) \
-        PSTADE_CONTRACT_DISABLE_WARNING_UNREACHABLE_CODE_BEGIN() \
         try { \
             As \
+            pstade::contract_detail::suppress_unreachable_code_warning(); \
         } \
         catch (...) { \
             BOOST_ASSERT("block invariant is broken." && false); \
         } \
-        PSTADE_CONTRACT_DISABLE_WARNING_UNREACHABLE_CODE_END() \
     /**/
 
-    #define PSTADE_CONSTRUCTOR_INVARIANT() \
-        pstade::invariant_checker pstade_contract_detail_ctor_invariant_checker_of(*this, false); \
+    #define PSTADE_CONSTRUCTOR_PRECONDITION(As) \
+        As \
+        pstade::invariant_checker pstade_contract_detail_ctor_invariant_checker_of(*this, false, true); \
     /**/
 
-    #define PSTADE_DESTRUCTOR_INVARIANT() \
-        pstade::invariant(*this); \
+    #define PSTADE_DESTRUCTOR_PRECONDITION(As) \
+        As \
+        pstade::invariant_checker pstade_contract_detail_dtor_invariant_checker_of(*this, true, false); \
     /**/
 
     // Workaround
@@ -223,12 +209,11 @@ namespace contract_detail {
 #else
 
     #define PSTADE_PRECONDITION(As)
-    #define PSTADE_INVARIANT(As)
     #define PSTADE_PUBLIC_PRECONDITION(As)
     #define PSTADE_BLOCK_INVARIANT(As)
 
-    #define PSTADE_CONSTRUCTOR_INVARIANT()
-    #define PSTADE_DESTRUCTOR_INVARIANT()
+    #define PSTADE_CONSTRUCTOR_PRECONDITION(As)
+    #define PSTADE_DESTRUCTOR_PRECONDITION(As)
 
     #define PSTADE_PRECONDITION_(As)
     #define PSTADE_PUBLIC_PRECONDITION_(As)
@@ -236,7 +221,10 @@ namespace contract_detail {
 #endif // !defined(NDEBUG)
 
 
-
+#define PSTADE_INVARIANT \
+    friend class pstade::contract_access; \
+    void pstade_invariant() const \
+/**/
 
 
 #endif

@@ -20,7 +20,7 @@
 #include "./const.hpp"
 #include "./const_overloaded.hpp"
 #include "./contract.hpp"
-#include "./debugging.hpp"
+#include "./for_debug.hpp"
 #include "./has_xxx.hpp"
 #include "./if_debug.hpp"
 #include "./instance.hpp"

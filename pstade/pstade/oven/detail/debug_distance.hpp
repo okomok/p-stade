@@ -11,7 +11,7 @@
 
 
 #include <boost/iterator/iterator_categories.hpp> // traversal_tag's
-#include <pstade/debugging.hpp>
+#include <pstade/for_debug.hpp>
 #include <pstade/unused.hpp>
 #include "../distance.hpp"
 #include "../range_difference.hpp"
@@ -42,7 +42,7 @@ template< class Range > inline
 typename boost::range_difference<Range>::type
 debug_distance(Range const& rng)
 {
-    pstade::debugging();
+    pstade::for_debug();
 
     typedef typename range_traversal<Range>::type trv_t;
     return detail::debug_distance_aux(rng, trv_t());

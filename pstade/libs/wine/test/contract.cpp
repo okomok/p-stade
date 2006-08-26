@@ -45,7 +45,8 @@ void bar(T i)
 {
     ++i;
 
-    PSTADE_BLOCK_INVARIANT (
+    PSTADE_BLOCK_INVARIANT
+    (
         if (i != 200)
             assert(i != 200);
     )
@@ -54,13 +55,15 @@ void bar(T i)
 
 inline
 float square_root(float x)
-    PSTADE_PRECONDITION (
+    PSTADE_PRECONDITION
+    (
         assert(x >= 0);
     )
 {
     float result = std::sqrt(x);
 
-    PSTADE_BLOCK_INVARIANT (
+    PSTADE_BLOCK_INVARIANT
+    (
         assert((result * result) == x);
     )
 
@@ -73,11 +76,12 @@ struct date
     date(int day, int hour) :
         m_day(day), m_hour(hour)
     {
-        PSTADE_CONSTRUCTOR_INVARIANT()
+        PSTADE_CONSTRUCTOR_PRECONDITION (;)
     }
 
     void set_day(int day)
-        PSTADE_PUBLIC_PRECONDITION (
+        PSTADE_PUBLIC_PRECONDITION
+        (
             assert(1 <= day && day <= 31);
         )
     {
@@ -86,10 +90,10 @@ struct date
 
 private:
     PSTADE_INVARIANT
-    (
+    {
         assert(1 <= m_day && m_day <= 31);
         assert(0 <= m_hour && m_hour < 24);
-    )
+    }
 
     int m_day, m_hour;
 };
@@ -101,9 +105,9 @@ struct A
 private:
 
     PSTADE_INVARIANT
-    (
+    {
         BOOST_MPL_ASSERT((boost::is_integral<T>)); // bad style?
-    )
+    }
 };
 
 
@@ -112,8 +116,7 @@ struct B : A<int>
     B(int f, int l) :
         m_f(f)
     {
-        PSTADE_CONSTRUCTOR_INVARIANT()
-        PSTADE_BLOCK_INVARIANT
+        PSTADE_CONSTRUCTOR_PRECONDITION
         (
             assert(f <= l);
         )
@@ -124,9 +127,10 @@ struct B : A<int>
 
     ~B()
     {
-        PSTADE_DESTRUCTOR_INVARIANT()
-
+        PSTADE_DESTRUCTOR_PRECONDITION (;)
         // clean up here
+
+        m_f = 500; // violate it here, but ok.
     }
     
     void set_f(int f)
@@ -140,10 +144,7 @@ struct B : A<int>
     }
 
     void barbar()
-        PSTADE_PUBLIC_PRECONDITION
-        (
-            ;
-        )
+        PSTADE_PUBLIC_PRECONDITION (;)
     {
 
     }
@@ -161,13 +162,13 @@ private:
     int m_f, m_l;
 
     PSTADE_INVARIANT
-    (
+    {
         pstade::invariant< A<int> >(*this); // you should call
 
         assert(m_f != 500);
         if (m_f == 10492)
             assert(m_l != 999);
-    )
+    }
 };
 
 
@@ -175,6 +176,25 @@ std::stringstream g_ss;
 
 struct test_man
 {
+    test_man()
+    {
+        PSTADE_CONSTRUCTOR_PRECONDITION
+        (
+            g_ss << "pc";
+        )
+
+        g_ss << "bc";
+    }
+
+    ~test_man()
+    {
+        PSTADE_DESTRUCTOR_PRECONDITION
+        (
+            g_ss << "pd";
+        )
+
+        g_ss << "bd";
+    }
 
     void do_it1()
         PSTADE_PUBLIC_PRECONDITION
@@ -196,9 +216,9 @@ struct test_man
 
 private:
     PSTADE_INVARIANT
-    (
+    {
         g_ss << "I";
-    )
+    }
 };
 
 
@@ -222,17 +242,23 @@ void test()
 
     ::date d(30, 13);
 
-    PSTADE_BLOCK_INVARIANT 
-    (
-        ::test_man man;
-        man.do_it1();
-        BOOST_CHECK( g_ss.str() == "p1Ib1I" );
-        std::cout << g_ss.str() << std::endl;
-        g_ss.str("");
-        man.do_it2();
-        std::cout << g_ss.str() << std::endl;
-        BOOST_CHECK( g_ss.str() == "p2b2" );
-    )
+    {
+        PSTADE_BLOCK_INVARIANT 
+        (
+            ::test_man man;
+            BOOST_CHECK( g_ss.str() == "pcbcI" );
+            g_ss.str("");
+            man.do_it1();
+            BOOST_CHECK( g_ss.str() == "p1Ib1I" );
+            std::cout << g_ss.str() << std::endl;
+            g_ss.str("");
+            man.do_it2();
+            std::cout << g_ss.str() << std::endl;
+            BOOST_CHECK( g_ss.str() == "p2b2" );
+            g_ss.str("");
+        )
+    }
+    BOOST_CHECK( g_ss.str() == "pdIbd" );
 }
 
 

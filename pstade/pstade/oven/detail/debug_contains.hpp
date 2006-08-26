@@ -12,7 +12,7 @@
 
 #include <iterator> // iterator_tag's
 #include <boost/range/end.hpp>
-#include <pstade/debugging.hpp>
+#include <pstade/for_debug.hpp>
 #include <pstade/unused.hpp>
 #include "../algorithm.hpp" // find
 #include "../direct_range.hpp"
@@ -52,7 +52,7 @@ bool debug_contains_aux(Range& rng, Iterator const& it, std::input_iterator_tag)
 template< class Range, class Iterator > inline
 bool debug_contains(Range& rng, Iterator const& it)
 {
-    pstade::debugging();
+    pstade::for_debug();
 
     typedef typename range_category<Range>::type cat_t;
     return detail::debug_contains_aux(rng, it, cat_t());
