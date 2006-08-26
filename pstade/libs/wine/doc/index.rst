@@ -115,6 +115,24 @@ It just calls ``static_cast``, but the name makes codes clearer::
 - Precondition: ``D`` is derived from the type of ``b``.
 
 
+Design by Contract
+------------------
+
+Pending...
+
+- Header: ``<pstade/contract.hpp>``
+
+
+``PSTADE_PRECONDITION``
+^^^^^^^^^^^^^^^^^^^^^^^
+
+``PSTADE_PUBLIC_PRECONDITION``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+``PSTADE_BLOCK_INVARIANT``
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
 
 ``PSTADE_INSTANCE``
 -------------------

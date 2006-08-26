@@ -101,8 +101,8 @@ public:
     concatenate_iterator(TopIterator const& it, TopIterator const& last) :
         super_t(it), m_last(last)
     {
+        PSTADE_CONSTRUCTOR_INVARIANT;
         reset_bottom_forward();
-        PSTADE_ASSERT_INVARIANT;
     }
 
 
@@ -115,7 +115,7 @@ template< class > friend struct concatenate_iterator;
         super_t(other.base()), m_last(other.m_last),
         m_bottom(other.m_bottom)
     {
-        PSTADE_ASSERT_INVARIANT;
+        PSTADE_CONSTRUCTOR_INVARIANT;
     }
 
 private:

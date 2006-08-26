@@ -27,6 +27,15 @@ void debugging()
 }
 
 
+/* Linkers sometimes need the definition even if unused.
+#if !defined(NDEBUG)
+    inline void debugging() { }
+#else
+    void debugging();
+#endif
+*/
+
+
 } // namespace pstade
 
 

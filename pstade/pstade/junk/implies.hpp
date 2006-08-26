@@ -10,17 +10,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-namespace pstade {
-
-
-inline
-bool implies(bool p, bool q)
-{
-    return !p || q;
-}
-
-
-} // namespace pstade
+#define PSTADE_IMPLIES(P, Q) \
+    (!(P) || (Q)) \
+/**/
 
 
 #endif
