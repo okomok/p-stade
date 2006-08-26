@@ -73,7 +73,7 @@ struct date
     date(int day, int hour) :
         m_day(day), m_hour(hour)
     {
-        PSTADE_CONSTRUCTOR_INVARIANT;
+        PSTADE_CONSTRUCTOR_INVARIANT()
     }
 
     void set_day(int day)
@@ -86,10 +86,10 @@ struct date
 
 private:
     PSTADE_INVARIANT
-    {
+    (
         assert(1 <= m_day && m_day <= 31);
         assert(0 <= m_hour && m_hour < 24);
-    }
+    )
 
     int m_day, m_hour;
 };
@@ -101,9 +101,9 @@ struct A
 private:
 
     PSTADE_INVARIANT
-    {
+    (
         BOOST_MPL_ASSERT((boost::is_integral<T>)); // bad style?
-    }
+    )
 };
 
 
@@ -112,8 +112,9 @@ struct B : A<int>
     B(int f, int l) :
         m_f(f)
     {
-        PSTADE_CONSTRUCTOR_INVARIANT;
-        PSTADE_BLOCK_INVARIANT (
+        PSTADE_CONSTRUCTOR_INVARIANT()
+        PSTADE_BLOCK_INVARIANT
+        (
             assert(f <= l);
         )
 
@@ -123,7 +124,7 @@ struct B : A<int>
 
     ~B()
     {
-        PSTADE_DESTRUCTOR_INVARIANT;
+        PSTADE_DESTRUCTOR_INVARIANT()
 
         // clean up here
     }
@@ -160,13 +161,13 @@ private:
     int m_f, m_l;
 
     PSTADE_INVARIANT
-    {
+    (
         pstade::invariant< A<int> >(*this); // you should call
 
         assert(m_f != 500);
         if (m_f == 10492)
             assert(m_l != 999);
-    }
+    )
 };
 
 
@@ -195,9 +196,9 @@ struct test_man
 
 private:
     PSTADE_INVARIANT
-    {
+    (
         g_ss << "I";
-    }
+    )
 };
 
 

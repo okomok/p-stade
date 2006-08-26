@@ -175,6 +175,14 @@ namespace contract_detail {
         catch (pstade::contract_detail::goto_handler const&) \
     /**/
 
+    #define PSTADE_INVARIANT(As) \
+        friend class pstade::contract_access; \
+        void pstade_invariant() const \
+        { \
+            As \
+        } \
+    /**/
+
     // See Standard 15.1/4.
     #define PSTADE_PUBLIC_PRECONDITION(As) \
         try { \
@@ -195,12 +203,12 @@ namespace contract_detail {
         PSTADE_CONTRACT_DISABLE_WARNING_UNREACHABLE_CODE_END() \
     /**/
 
-    #define PSTADE_CONSTRUCTOR_INVARIANT \
-        pstade::invariant_checker pstade_contract_detail_ctor_invariant_checker_of(*this, false) \
+    #define PSTADE_CONSTRUCTOR_INVARIANT() \
+        pstade::invariant_checker pstade_contract_detail_ctor_invariant_checker_of(*this, false); \
     /**/
 
-    #define PSTADE_DESTRUCTOR_INVARIANT \
-        pstade::invariant(*this) \
+    #define PSTADE_DESTRUCTOR_INVARIANT() \
+        pstade::invariant(*this); \
     /**/
 
     // Workaround
@@ -215,11 +223,12 @@ namespace contract_detail {
 #else
 
     #define PSTADE_PRECONDITION(As)
+    #define PSTADE_INVARIANT(As)
     #define PSTADE_PUBLIC_PRECONDITION(As)
     #define PSTADE_BLOCK_INVARIANT(As)
 
-    #define PSTADE_CONSTRUCTOR_INVARIANT
-    #define PSTADE_DESTRUCTOR_INVARIANT
+    #define PSTADE_CONSTRUCTOR_INVARIANT()
+    #define PSTADE_DESTRUCTOR_INVARIANT()
 
     #define PSTADE_PRECONDITION_(As)
     #define PSTADE_PUBLIC_PRECONDITION_(As)
@@ -227,10 +236,7 @@ namespace contract_detail {
 #endif // !defined(NDEBUG)
 
 
-#define PSTADE_INVARIANT \
-    friend class pstade::contract_access; \
-    void pstade_invariant() const \
-/**/
+
 
 
 #endif
