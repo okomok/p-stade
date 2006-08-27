@@ -38,34 +38,31 @@ using namespace pstade;
 template< class T >
 void bar(T i)
 {
-    PSTADE_PRECONDITION
-    {
-        assert(i != 100 || i < 200);
-    }
+    PSTADE_PRECONDITION (
+        (i != 100 || i < 200)
+    )
 
     ++i;
 
-    PSTADE_POSTCONDITION
-    {
-        assert(i == 100 || i != 100);
-    }
+    PSTADE_POSTCONDITION (
+        (i == 100 || i != 100)
+    )
 }
 
 
 inline
 float square_root(float x)
 {
-    PSTADE_PRECONDITION
-    {
-        assert(x >= 0);
-    }
+    PSTADE_PRECONDITION (
+        (x >= 0)
+    )
 
     float result = std::sqrt(x);
 
-    PSTADE_POSTCONDITION
-    {
-        assert((result * result) == x);
-    }
+    PSTADE_POSTCONDITION (
+        ((result * result) == x)
+    )
+
     return result;
 }
 
@@ -75,26 +72,26 @@ struct date
     date(int day, int hour) :
         m_day(day), m_hour(hour)
     {
-        PSTADE_CONSTRUCTOR_PRECONDITION
-        { }
+        PSTADE_CONSTRUCTOR_PRECONDITION (
+            empty
+        )
     }
 
     void set_day(int day)
     {
-        PSTADE_PUBLIC_PRECONDITION
-        {
-            assert(1 <= day && day <= 31);
-        }
+        PSTADE_PUBLIC_PRECONDITION (
+            (1 <= day && day <= 31)
+        )
 
         m_day = day;
     }
 
 private:
     PSTADE_CLASS_INVARIANT
-    {
-        assert(1 <= m_day && m_day <= 31);
-        assert(0 <= m_hour && m_hour < 24);
-    }
+    (
+        (1 <= m_day && m_day <= 31)
+        (0 <= m_hour && m_hour < 24)
+    )
 
     int m_day, m_hour;
 };
@@ -105,9 +102,9 @@ struct A
 {
 private:
     PSTADE_CLASS_INVARIANT
-    {
-        BOOST_MPL_ASSERT((boost::is_integral<T>)); // bad style?
-    }
+    (
+        empty // BOOST_MPL_ASSERT((boost::is_integral<T>)); // bad style?
+    )
 };
 
 
@@ -116,10 +113,9 @@ struct B : A<int>
     B(int f, int l) :
         m_f(f)
     {
-        PSTADE_CONSTRUCTOR_PRECONDITION
-        {
-            assert(f <= l);
-        }
+        PSTADE_CONSTRUCTOR_PRECONDITION (
+            (f <= l)
+        )
 
         // set up here
         m_l = l;
@@ -127,8 +123,9 @@ struct B : A<int>
 
     ~B()
     {
-        PSTADE_DESTRUCTOR_PRECONDITION
-        { }
+        PSTADE_DESTRUCTOR_PRECONDITION (
+            empty
+        )
 
         // clean up here
 
@@ -137,28 +134,26 @@ struct B : A<int>
     
     void set_f(int f)
     {
-        PSTADE_PUBLIC_PRECONDITION
-        {
-            if (f != 9898)
-                assert(f <= m_l);
-        }
+        PSTADE_PUBLIC_PRECONDITION (
+            (f == 9898 || f <= m_l)
+        )
 
         m_f = f;
     }
 
     void barbar()
     {
-        PSTADE_PUBLIC_PRECONDITION
-        { }
+        PSTADE_PUBLIC_PRECONDITION (
+            empty
+        )
     }
 
     void foofoo(int i)
 
     {
-        PSTADE_PRECONDITION
-        {
-            assert(i == 10);
-        }
+        PSTADE_PRECONDITION (
+            (i == 10)
+        )
 
         m_f = i;
     }
@@ -167,12 +162,11 @@ private:
     int m_f, m_l;
 
     PSTADE_CLASS_INVARIANT
-    {
-        pstade::invariant< A<int> >(*this); // you should call
-
-        assert(m_f != 500);
-        assert(m_f != 10492 || m_l != 999);
-    }
+    (
+        (pstade::invariant< A<int> >(*this)) // you should call
+        (m_f != 500)
+        (m_f != 10492 || m_l != 999)
+    )
 };
 
 
@@ -182,49 +176,45 @@ struct test_man
 {
     test_man()
     {
-        PSTADE_CONSTRUCTOR_PRECONDITION
-        {
-            g_ss << "_pc_";
-        }
+        PSTADE_CONSTRUCTOR_PRECONDITION (
+            (g_ss << "_pc_")
+        )
 
         g_ss << "_bc_";
     }
 
     ~test_man()
     {
-        PSTADE_DESTRUCTOR_PRECONDITION
-        {
-            g_ss << "_pd_";
-        }
+        PSTADE_DESTRUCTOR_PRECONDITION (
+            (g_ss << "_pd_")
+        )
 
         g_ss << "_bd_";
     }
 
     void do_it1()
     {
-        PSTADE_PUBLIC_PRECONDITION
-        {
-            g_ss << "_p1_";
-        }
+        PSTADE_PUBLIC_PRECONDITION (
+            (g_ss << "_p1_")
+        )
 
         g_ss << "_b1_";
     }
 
     void do_it2()
     {
-        PSTADE_PRECONDITION
-        {
-            g_ss << "_p2_";
-        }
+        PSTADE_PRECONDITION (
+            (g_ss << "_p2_")
+        )
 
         g_ss << "_b2_";
     }
 
 private:
     PSTADE_CLASS_INVARIANT
-    {
-        g_ss << "_I_";
-    }
+    (
+        (g_ss << "_I_")
+    )
 };
 
 
@@ -236,7 +226,7 @@ void test()
     b.set_f(80);
     
     for (int i = 0;;) {
-        PSTADE_INVARIANT { assert(i < 10); }
+        PSTADE_INVARIANT ( (i < 10) )
 
         if (++i == 10)
             break;
@@ -248,23 +238,21 @@ void test()
 
     ::date d(30, 13);
 
-    PSTADE_INVARIANT
+#if !defined(NDEBUG)
     {
         std::cout << "test_man test\n";
         ::test_man man;
-        assert( g_ss.str() == "_pc__bc__I_" );
+        BOOST_CHECK( g_ss.str() == "_pc__bc__I_" );
         g_ss.str("");
         man.do_it1();
-        assert( g_ss.str() == "_I__p1__b1__I_" );
+        BOOST_CHECK( g_ss.str() == "_p1__I__b1__I_" );
         g_ss.str("");
         man.do_it2();
-        assert( g_ss.str() == "_p2__b2_" );
+        BOOST_CHECK( g_ss.str() == "_p2__b2_" );
         g_ss.str("");
     }
-    PSTADE_INVARIANT
-    {
-        assert( g_ss.str() == "_I__pd__bd_" );
-    }
+    BOOST_CHECK( g_ss.str() == "_pd__I__bd_" );
+#endif
 }
 
 

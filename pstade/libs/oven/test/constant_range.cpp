@@ -16,14 +16,29 @@
 #include <string>
 #include <boost/range.hpp>
 #include <pstade/oven/functions.hpp>
+#include <pstade/oven/identity_range.hpp>
 
+
+using namespace pstade;
+using namespace oven;
+
+
+// Assume you want to keep 'rng' from
+// unintentional modifications.
 
 template< class Range >
-void foo(Range& rng)
+void legacy_way(Range const& rng)
 {
     *boost::begin(rng) = 'x';
+    *boost::const_begin(rng) = 'x';
 }
 
+template< class Range >
+void modern_way(Range& rng)
+{
+    constant_range<Range> safe_rng(rng);
+    *boost::begin(safe_rng) = 'x';
+}
 
 void test()
 {
@@ -31,9 +46,11 @@ void test()
     using namespace oven;
 
     {
-        std::string str1("hello, constant_range!");
-        BOOST_CHECK(oven::equals(str1, str1|constants));
-        // ::foo(str1|constants);
+        std::string str("hello, constant_range!");
+        BOOST_CHECK(oven::equals(str, str|constants));
+        ::legacy_way(str|identities); // oops, compiles.
+        // ::modern_way(str|identities); // error
+        // ::legacy_way(str|identities|constants); // error
     }
 }
 

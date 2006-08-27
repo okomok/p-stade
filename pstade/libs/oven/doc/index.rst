@@ -366,7 +366,9 @@ Specification
 
 ``constants``
 ^^^^^^^^^^^^^
-``constants`` returns a range whose iterators dereference cannot be modified::
+In spite of STL designers effort, the ``const_iterator`` is not so useful as expected.
+An adapted range loses the difference between the mutable and constant.
+That's why ``constants`` returns a range whose iterators dereference cannot be modified::
 
 	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\constants.ipp
 

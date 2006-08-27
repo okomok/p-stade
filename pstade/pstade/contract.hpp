@@ -15,9 +15,12 @@
 // http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n1962.html
 
 
-#include <cassert> // revival!
 #include <boost/assert.hpp>
+#include <boost/mpl/aux_/preprocessor/is_seq.hpp>
 #include <boost/noncopyable.hpp>
+#include <boost/preprocessor/control/iif.hpp>
+#include <boost/preprocessor/seq/for_each.hpp>
+#include <boost/preprocessor/tuple/eat.hpp>
 #include <boost/scoped_ptr.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <pstade/for_debug.hpp>
@@ -127,7 +130,7 @@ struct invariant_assertion :
     private boost::noncopyable
 {
     template< class InvariantAssertable >
-    explicit invariant_assertion(InvariantAssertable const& ia, bool ctor, bool dtor) :
+    invariant_assertion(InvariantAssertable const& ia, bool ctor, bool dtor) :
         m_pia(new invariant_assertion_detail::holder<InvariantAssertable>(ia)),
         m_dtor(dtor)
     {
@@ -147,45 +150,105 @@ private:
 };
 
 
+namespace contract_detail {
+
+
+    inline
+    void suppress_unreachable_code_warning()
+    { }
+
+
+} // namespace contract_detail
+
+
 } // namespace pstade
 
 
 // macros
 //
 
-#define PSTADE_CLASS_INVARIANT \
-    typedef int pstade_invariant_assertable; \
-    friend class pstade::contract_access; \
-    void pstade_invariant() const \
-/**/
-
-
 #if !defined(NDEBUG)
 
-    #define PSTADE_PUBLIC_PRECONDITION \
-        pstade::invariant_assertion pstade_contract_detail_invariant_assertion_of(*this, true, true); \
+    // pre- and postcondition
+    //
+    #define PSTADE_PRECONDITION(As) \
+        PSTADE_CONTRACT_try_catch(As, "precondition is broken.") \
     /**/
 
-    #define PSTADE_CONSTRUCTOR_PRECONDITION \
+    #define PSTADE_POSTCONDITION(As) \
+        PSTADE_CONTRACT_try_catch(As, "postcondition is broken.") \
+    /**/
+
+    // class invariant
+    //
+    #define PSTADE_CLASS_INVARIANT(As) \
+        typedef int pstade_invariant_assertable; \
+        friend class pstade::contract_access; \
+        void pstade_invariant() const \
+        { \
+            PSTADE_CONTRACT_expand(As) \
+        } \
+    /**/
+
+    #define PSTADE_PUBLIC_PRECONDITION(As) \
+        PSTADE_CONTRACT_try_catch(As, "public precondition is broken.") \
+        pstade::invariant_assertion pstade_contract_detail_invariant_assertion_of(*this, true,  true); \
+    /**/
+
+    #define PSTADE_CONSTRUCTOR_PRECONDITION(As) \
+        PSTADE_CONTRACT_try_catch(As, "constructor precondition is broken.") \
         pstade::invariant_assertion pstade_contract_detail_invariant_assertion_of(*this, false, true); \
     /**/
 
-    #define PSTADE_DESTRUCTOR_PRECONDITION \
+    #define PSTADE_DESTRUCTOR_PRECONDITION(As) \
+        PSTADE_CONTRACT_try_catch(As, "destructor precondition is broken.") \
         pstade::invariant_assertion pstade_contract_detail_invariant_assertion_of(*this, true, false); \
     /**/
 
+    // block invariant
+    //
+    #define PSTADE_INVARIANT(As) \
+        PSTADE_CONTRACT_try_catch(As, "block invariant is broken.") \
+    /**/
+
+    // helper
+    //
+    #define PSTADE_CONTRACT_try_catch(As, Msg) \
+        try { \
+            PSTADE_CONTRACT_expand(As) \
+            pstade::contract_detail::suppress_unreachable_code_warning(); \
+        } \
+        catch (...) { \
+            BOOST_ASSERT(Msg && false); \
+        } \
+    /**/
+
+    #define PSTADE_CONTRACT_expand \
+        PSTADE_CONTRACT_expand_if_seq \
+    /**/
+
+        #define PSTADE_CONTRACT_expand_if_seq(As) \
+            BOOST_PP_IIF (BOOST_MPL_PP_IS_SEQ(As), \
+                BOOST_PP_SEQ_FOR_EACH, \
+                BOOST_PP_TUPLE_EAT(3) \
+            )(PSTADE_CONTRACT_expander, ~, As) \
+        /**/
+
+        #define PSTADE_CONTRACT_expander(R, _, A) \
+            BOOST_ASSERT(A); \
+        /**/
+
 #else
 
-    #define PSTADE_PUBLIC_PRECONDITION
-    #define PSTADE_CONSTRUCTOR_PRECONDITION
-    #define PSTADE_DESTRUCTOR_PRECONDITION
+    #define PSTADE_PRECONDITION(As)
+    #define PSTADE_POSTCONDITION(As)
+    #define PSTADE_CLASS_INVARIANT(As)
+    #define PSTADE_PUBLIC_PRECONDITION(As)
+    #define PSTADE_CONSTRUCTOR_PRECONDITION(As)
+    #define PSTADE_DESTRUCTOR_PRECONDITION(As)
+    #define PSTADE_INVARIANT(As)
 
 #endif // !defined(NDEBUG)
-
-
-#define PSTADE_PRECONDITION
-#define PSTADE_POSTCONDITION
-#define PSTADE_INVARIANT
 
 
 #endif
