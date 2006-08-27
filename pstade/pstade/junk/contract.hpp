@@ -18,9 +18,11 @@
 #include <boost/assert.hpp>
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
-#include <boost/mpl/aux_/preprocessor/token_equal.hpp>
+#include <boost/mpl/aux_/preprocessor/is_seq.hpp>
+// #include <boost/mpl/aux_/preprocessor/token_equal.hpp>
 #include <boost/noncopyable.hpp>
-#include <boost/preprocessor/control/if.hpp>
+// #include <boost/preprocessor/control/if.hpp>
+#include <boost/preprocessor/control/iif.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
 #include <boost/preprocessor/tuple/eat.hpp>
 #include <boost/noncopyable.hpp>
@@ -29,6 +31,7 @@
 #include <boost/utility/enable_if.hpp>
 #include <pstade/for_debug.hpp>
 #include <pstade/has_xxx.hpp>
+#include <pstade/implies.hpp>
 #include <pstade/nonconstructible.hpp>
 #include <pstade/overload.hpp>
 
@@ -201,18 +204,22 @@ namespace contract_detail {
 
 
     #define PSTADE_CONTRACT_expand \
-        PSTADE_CONTRACT_expand_emptiable \
+        PSTADE_CONTRACT_expand_ \
     /**/
 
-        #define PSTADE_CONTRACT_expand_normal(As) \
+        #define PSTADE_CONTRACT_expand_(As) \
             BOOST_PP_SEQ_FOR_EACH(PSTADE_CONTRACT_expander, ~, As) \
         /**/
 
-        #define PSTADE_CONTRACT_expand_emptiable(As) \
-            BOOST_PP_IIF (BOOST_MPL_PP_TOKEN_EQUAL(As, empty), \
+        #define PSTADE_CONTRACT_expand_rejected(As) \
+            BOOST_PP_IF (BOOST_MPL_PP_TOKEN_EQUAL(As, empty), \
                 BOOST_PP_TUPLE_EAT(3), \
                 BOOST_PP_SEQ_FOR_EACH \
             )(PSTADE_CONTRACT_expander, ~, As) \
+        /**/
+
+        #define PSTADE_CONTRACT_expander(R, _, A) \
+            BOOST_ASSERT(A); \
         /**/
 
         #if !defined(BOOST_MPL_PP_TOKEN_EQUAL_empty)
@@ -220,10 +227,6 @@ namespace contract_detail {
                 X \
             /**/
         #endif
-
-        #define PSTADE_CONTRACT_expander(R, _, A) \
-            BOOST_ASSERT(A); \
-        /**/
 
     #define PSTADE_CLASS_INVARIANT(As) \
         typedef int pstade_invariant_checkable; \
@@ -235,12 +238,31 @@ namespace contract_detail {
     /**/
 
     #define PSTADE_PRECONDITION(As) \
-        try { \
-            PSTADE_CONTRACT_expand(As) \
-            throw pstade::contract_detail::goto_handler(); \
-        } \
-        catch (pstade::contract_detail::goto_handler const&) \
+        BOOST_PP_IIF (BOOST_MPL_PP_IS_SEQ(As), \
+            PSTADE_PRECONDITION_free, \
+            PSTADE_PRECONDITION_public_member_ BOOST_PP_TUPLE_EAT(1) \
+        )(As) \
     /**/
+
+        #define PSTADE_PRECONDITION_free(As) \
+            try { \
+                PSTADE_CONTRACT_expand(As) \
+                throw pstade::contract_detail::goto_handler(); \
+            } \
+            catch (pstade::contract_detail::goto_handler const&) \
+        /**/
+
+        #define PSTADE_PRECONDITION_public_member(As) \
+            try { \
+                PSTADE_CONTRACT_expand(As) \
+                throw pstade::contract_detail::goto_handler(); \
+            } \
+            catch (pstade::contract_detail::goto_handler const&) \
+        /**/
+
+        #define PSTADE_PRECONDITION_public_member_(As) \
+            PSTADE_PRECONDITION_public_member(As) \
+        /**/
 
     #define PSTADE_PUBLIC_PRECONDITION(As) \
         try { \
