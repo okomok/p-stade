@@ -166,8 +166,8 @@ private:
     PSTADE_CLASS_INVARIANT
     {
         // 'm_bottom' is undefined if 'top_is_end'.
-        assert(PSTADE_IMPLIES(!top_is_end(),
-            detail::debug_contains(bottom_range(), m_bottom)));
+        if (!top_is_end())
+            assert(detail::debug_contains(bottom_range(), m_bottom));
     }
 
 friend class boost::iterator_core_access;
