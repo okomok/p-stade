@@ -79,6 +79,28 @@ struct Date
         }
     }
 
+    int get_day() const
+    {
+        PSTADE_PUBLIC_PRECONDITION
+        (~)
+
+        return m_day;
+    }
+
+    void inc_day()
+    {
+        PSTADE_PUBLIC_PRECONDITION
+        (~)
+        PSTADE_COPY_OLDOF(get_day(), old)
+        PSTADE_POSTCONDITION(void)
+        (
+            (m_day == old.of(get_day()) + 1)
+        )
+
+        m_day += 1;
+        PSTADE_RETURN(void);
+    }
+
 private:
     int m_month;
     int m_day;
@@ -99,9 +121,11 @@ void test()
     Date d(4, 10);
     d.set_xmas();
     int a_day = d.set_day(25);
-    PSTADE_INVARIANT ( (a_day == 25) )
-    a_day = d.set_day(31);
-    PSTADE_INVARIANT ( (a_day == 31) )
+    PSTADE_INVARIANT( (a_day == 25) )
+    a_day = d.set_day(1);
+    PSTADE_INVARIANT( (a_day == 1) )
+    d.inc_day();
+    PSTADE_INVARIANT( (d.get_day() == 2) )
 }
 
 
