@@ -70,7 +70,7 @@ float square_root(float x)
 template< class T >
 T identity_func(T x)
 {
-    PSTADE_POSTCONDITION_D(T) (
+    PSTADE_POSTCONDITION(T) (
         (result == x)
     )
 

@@ -19,20 +19,17 @@
 #include <boost/mpl/aux_/preprocessor/is_seq.hpp>
 #include <boost/mpl/aux_/preprocessor/token_equal.hpp>
 #include <boost/mpl/eval_if.hpp>
-#include <boost/mpl/identity.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/preprocessor/control/iif.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
 #include <boost/preprocessor/tuple/eat.hpp>
 #include <boost/scoped_ptr.hpp>
-#include <boost/type_traits/add_pointer.hpp>
-#include <boost/type_traits/is_reference.hpp>
-#include <boost/type_traits/remove_reference.hpp>
 #include <boost/utility/addressof.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <pstade/for_debug.hpp>
 #include <pstade/has_xxx.hpp>
 #include <pstade/nonconstructible.hpp>
+#include <pstade/nullptr.hpp>
 #include <pstade/overload.hpp>
 
 
@@ -165,46 +162,71 @@ namespace contract_detail {
     { }
 
 
+    template< class T > inline
+    void suppress_unused_variable_warning(T const&)
+    { }
+
+
 } // namespace contract_detail
 
 
 namespace postcondition_detail {
 
 
+    // Prefer specialization to metafunction
+    // that needs 'typename' for dependent-name.
+    //
+
+    // for value
     template< class T >
-    struct ref_to_ptr :
-        boost::add_pointer<
-            typename boost::remove_reference<T>::type
-        >
-    { };
+    struct result_ptr
+    {
+        void reset(T const& x)
+        {
+            m_ptr.reset(new T(x));
+        }
 
+        bool is_null() const
+        {
+            return !m_ptr;
+        }
 
+        T& operator *() const
+        {
+            BOOST_ASSERT(!is_null());
+            return *m_ptr;
+        }
+
+    private:
+        boost::scoped_ptr<T> m_ptr;
+    };
+
+    // for reference
     template< class T >
-    struct result_ptr :
-        boost::mpl::eval_if< boost::is_reference<T>,
-            ref_to_ptr<T>,
-            boost::mpl::identity< boost::scoped_ptr<T> >
-        >
-    { };
-
-    template< >
-    struct result_ptr<void> :
-        boost::mpl::identity<void *>
-    { };
-
-
-    template< class T > inline
-    void reset(T *& ptr, T& src)
+    struct result_ptr<T&>
     {
-        ptr = boost::addressof(src);
-    }
+        result_ptr() :
+            m_ptr(PSTADE_NULLPTR)
+        { }
 
+        void reset(T& x)
+        {
+            m_ptr = boost::addressof(x);
+        }
 
-    template< class T > inline
-    void reset(boost::scoped_ptr<T>& ptr, T const& src)
-    {
-        ptr.reset(new T(src));
-    }
+        bool is_null() const
+        {
+            return !m_ptr;
+        }
+
+        T& operator *() const
+        {
+            BOOST_ASSERT(!is_null());
+            return *m_ptr;
+        }
+
+        T *m_ptr;
+    };
 
 
 } // namespace postcondition_detail
@@ -239,10 +261,6 @@ namespace postcondition_detail {
         )(T) \
     /**/
 
-    #define PSTADE_POSTCONDITION_D \
-        typename PSTADE_POSTCONDITION \
-    /**/
-
     #define PSTADE_RETURN(Result) \
         BOOST_PP_IIF (BOOST_MPL_PP_TOKEN_EQUAL(Result, void), \
             PSTADE_POSTCONDITION_void_begin, \
@@ -253,10 +271,11 @@ namespace postcondition_detail {
         // non void
         //
         #define PSTADE_POSTCONDITION_non_void(T) \
-                pstade::postcondition_detail::result_ptr< T >::type pstade_postcondition_detail_result_ptr(0); \
+                pstade::postcondition_detail::result_ptr< T > pstade_postcondition_detail_result_ptr; \
             pstade_postcondition_detail_label: \
-                if (pstade_postcondition_detail_result_ptr) { \
+                if (!pstade_postcondition_detail_result_ptr.is_null()) { \
                     T result = *pstade_postcondition_detail_result_ptr; \
+                    pstade::contract_detail::suppress_unused_variable_warning(result); \
                     PSTADE_POSTCONDITION_non_void_end \
         /**/
 
@@ -268,7 +287,7 @@ namespace postcondition_detail {
 
         #define PSTADE_POSTCONDITION_non_void_begin(Result) \
             { \
-                pstade::postcondition_detail::reset(pstade_postcondition_detail_result_ptr, Result); \
+                pstade_postcondition_detail_result_ptr.reset(Result); \
                 goto pstade_postcondition_detail_label; \
             } \
         /**/
@@ -358,7 +377,6 @@ namespace postcondition_detail {
 
     #define PSTADE_PRECONDITION(As)
     #define PSTADE_POSTCONDITION(T) BOOST_PP_TUPLE_EAT(1)
-    #define PSTADE_POSTCONDITION_D PSTADE_POSTCONDITION
 
     #define PSTADE_RETURN(Result) \
         BOOST_PP_IIF (BOOST_MPL_PP_TOKEN_EQUAL(Result, void), \
