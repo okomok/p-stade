@@ -25,6 +25,7 @@
 #include <pstade/contract.hpp>
 
 
+#include <map>
 #include <cmath>
 #include <iostream>
 #include <sstream>
@@ -38,15 +39,18 @@ using namespace pstade;
 template< class T >
 void bar(T i)
 {
+    T oldof_i = i;
+
     PSTADE_PRECONDITION (
-        (i != 100 || i < 200)
+        (i > 0)
+        (i != 999)
+    )
+    PSTADE_POSTCONDITION(void) (
+        (i == oldof_i + 1)
     )
 
     ++i;
-
-    PSTADE_POSTCONDITION (
-        (i == 100 || i != 100)
-    )
+    PSTADE_RETURN(void);
 }
 
 
@@ -56,14 +60,21 @@ float square_root(float x)
     PSTADE_PRECONDITION (
         (x >= 0)
     )
-
-    float result = std::sqrt(x);
-
-    PSTADE_POSTCONDITION (
+    PSTADE_POSTCONDITION(float) (
         ((result * result) == x)
     )
 
-    return result;
+    PSTADE_RETURN(std::sqrt(x));
+}
+
+template< class T >
+T identity_func(T x)
+{
+    PSTADE_POSTCONDITION_D(T) (
+        (result == x)
+    )
+
+    PSTADE_RETURN(x);
 }
 
 
@@ -164,6 +175,7 @@ private:
     PSTADE_CLASS_INVARIANT
     (
         (pstade::invariant< A<int> >(*this)) // you should call
+        ((std::map<int,int>().empty()))
         (m_f != 500)
         (m_f != 10492 || m_l != 999)
     )
@@ -217,10 +229,72 @@ private:
     )
 };
 
+//
+//
+
+int g_x;
+
+int& g_test1()
+{
+    PSTADE_POSTCONDITION(int&)
+    (
+        (result == 4)
+    )
+
+    g_x = 4;
+    PSTADE_RETURN(g_x);
+}
+
+
+int g_test2(int i)
+{
+    PSTADE_POSTCONDITION(int)
+    (
+        (i == 4)
+        (result == 4)
+    )
+
+    if (i == 3) {
+        ++i;
+        PSTADE_RETURN(i);
+    }
+    else
+        PSTADE_RETURN(4);
+}
+
+void g_test3()
+{
+    PSTADE_POSTCONDITION(void)
+    (
+        (g_x == 5)
+    )
+
+    ++g_x;
+    PSTADE_RETURN(void);
+}
+
+
+int const g_cx(3);
+
+int const& g_test4()
+{
+    PSTADE_POSTCONDITION(int const&)
+    (
+        (g_cx == 3)
+    )
+
+    PSTADE_RETURN(g_cx);
+}
 
 void test()
 {
+    ::g_test1();
+    ::g_test2(4);
+    ::g_test3();
+    ::g_test4();
+
     ::bar(9);
+    ::identity_func(10);
     
     B b(80, 5000);
     b.set_f(80);
@@ -253,6 +327,10 @@ void test()
     }
     BOOST_CHECK( g_ss.str() == "_pd__I__bd_" );
 #endif
+
+    PSTADE_INVARIANT (-)
+    PSTADE_INVARIANT (+)
+
 }
 
 

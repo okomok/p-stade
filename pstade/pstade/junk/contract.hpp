@@ -16,30 +16,17 @@
 
 
 #include <boost/assert.hpp>
-#include <boost/config.hpp>
-#include <boost/detail/workaround.hpp>
 #include <boost/mpl/aux_/preprocessor/is_seq.hpp>
-// #include <boost/mpl/aux_/preprocessor/token_equal.hpp>
 #include <boost/noncopyable.hpp>
-// #include <boost/preprocessor/control/if.hpp>
 #include <boost/preprocessor/control/iif.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
 #include <boost/preprocessor/tuple/eat.hpp>
-#include <boost/noncopyable.hpp>
 #include <boost/scoped_ptr.hpp>
-#include <boost/shared_ptr.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <pstade/for_debug.hpp>
 #include <pstade/has_xxx.hpp>
-#include <pstade/implies.hpp>
 #include <pstade/nonconstructible.hpp>
 #include <pstade/overload.hpp>
-
-
-#if BOOST_WORKAROUND(BOOST_MSVC, == 1310)
-    // VC7.1 function-try-block doesn't support function templates.
-    #define PSTADE_CONTRACT_NO_FUNCTION_TEMPLATE_TRY_BLOCK
-#endif
 
 
 namespace pstade {
@@ -60,13 +47,13 @@ public:
 namespace invariant_detail {
 
 
-    PSTADE_HAS_TYPE(pstade_invariant_checkable)
+    PSTADE_HAS_TYPE(pstade_invariant_assertable)
 
 
     // member function
     //
     template< class T > inline
-    typename boost::enable_if<has_pstade_invariant_checkable<T>,
+    typename boost::enable_if<has_pstade_invariant_assertable<T>,
     void>::type aux(T const& x)
     {
         contract_access::detail_invariant(x);
@@ -82,7 +69,7 @@ namespace invariant_detail {
     }
 
     template< class T > inline
-    typename boost::disable_if<has_pstade_invariant_checkable<T>,
+    typename boost::disable_if<has_pstade_invariant_assertable<T>,
     void>::type aux(T const& x)
     {
         pstade_invariant(x);
@@ -92,13 +79,13 @@ namespace invariant_detail {
 } // namespace invariant_detail
 
 
-template< class T > inline
-bool invariant(T const& x)
+template< class InvariantAssertable > inline
+bool invariant(InvariantAssertable const& ia)
 {
     pstade::for_debug();
 
     try {
-        invariant_detail::aux(x);
+        invariant_detail::aux(ia);
     }
     catch (...) {
         BOOST_ASSERT("class invariant is broken." && false);
@@ -108,12 +95,12 @@ bool invariant(T const& x)
 }
 
 
-namespace invariant_checker_detail {
+namespace invariant_assertion_detail {
 
 
     struct placeholder
     {
-        typedef int pstade_invariant_checkable; // don't forget!
+        typedef int pstade_invariant_assertable;
         virtual void pstade_invariant() const = 0;
         virtual ~placeholder() { }
     };
@@ -136,54 +123,34 @@ namespace invariant_checker_detail {
     };
 
 
-    struct impl :
-        private boost::noncopyable
-    {
-        template< class T >
-        explicit impl(T const& x, bool ctor, bool dtor) :
-            m_px(new holder<T>(x)), m_dtor(dtor)
-        {
-            if (ctor)
-                pstade::invariant(*m_px);
-        }
-
-        ~impl()
-        {
-            if (m_dtor)
-                pstade::invariant(*m_px);
-        }
-
-    private:
-        boost::scoped_ptr<placeholder> m_px;
-        bool m_dtor;
-    };
+} // namespace invariant_assertion_detail
 
 
-} // namespace invariant_checker_detail
-
-
-struct invariant_checker
-    // must be copyable for 'catch'.
-    // See Standard 15.1/5 or 15.3/16.
+struct invariant_assertion :
+    private boost::noncopyable
 {
-    template< class T >
-    explicit invariant_checker(T const& x, bool ctor, bool dtor) :
-        m_pimpl(new invariant_checker_detail::impl(x, ctor, dtor))
-    { };
+    template< class InvariantAssertable >
+    invariant_assertion(InvariantAssertable const& ia, bool ctor, bool dtor) :
+        m_pia(new invariant_assertion_detail::holder<InvariantAssertable>(ia)),
+        m_dtor(dtor)
+    {
+        if (ctor)
+            pstade::invariant(*m_pia);
+    }
+
+    ~invariant_assertion()
+    {
+        if (m_dtor)
+            pstade::invariant(*m_pia);
+    }
 
 private:
-    boost::shared_ptr<invariant_checker_detail::impl> m_pimpl;
+    boost::scoped_ptr<invariant_assertion_detail::placeholder> m_pia;
+    bool m_dtor;
 };
 
 
 namespace contract_detail {
-
-
-    // Note:
-    // cannot be derived from 'std::exception',
-    // otherwise VC7.1/8 complains.
-    struct goto_handler
-    { };
 
 
     inline
@@ -202,34 +169,20 @@ namespace contract_detail {
 
 #if !defined(NDEBUG)
 
-
-    #define PSTADE_CONTRACT_expand \
-        PSTADE_CONTRACT_expand_ \
+    // pre- and postcondition
+    //
+    #define PSTADE_PRECONDITION(As) \
+        PSTADE_CONTRACT_try_catch(As, "precondition is broken.") \
     /**/
 
-        #define PSTADE_CONTRACT_expand_(As) \
-            BOOST_PP_SEQ_FOR_EACH(PSTADE_CONTRACT_expander, ~, As) \
-        /**/
+    #define PSTADE_POSTCONDITION(As) \
+        PSTADE_CONTRACT_try_catch(As, "postcondition is broken.") \
+    /**/
 
-        #define PSTADE_CONTRACT_expand_rejected(As) \
-            BOOST_PP_IF (BOOST_MPL_PP_TOKEN_EQUAL(As, empty), \
-                BOOST_PP_TUPLE_EAT(3), \
-                BOOST_PP_SEQ_FOR_EACH \
-            )(PSTADE_CONTRACT_expander, ~, As) \
-        /**/
-
-        #define PSTADE_CONTRACT_expander(R, _, A) \
-            BOOST_ASSERT(A); \
-        /**/
-
-        #if !defined(BOOST_MPL_PP_TOKEN_EQUAL_empty)
-            #define BOOST_MPL_PP_TOKEN_EQUAL_empty(X) \
-                X \
-            /**/
-        #endif
-
+    // class invariant
+    //
     #define PSTADE_CLASS_INVARIANT(As) \
-        typedef int pstade_invariant_checkable; \
+        typedef int pstade_invariant_assertable; \
         friend class pstade::contract_access; \
         void pstade_invariant() const \
         { \
@@ -237,84 +190,65 @@ namespace contract_detail {
         } \
     /**/
 
-    #define PSTADE_PRECONDITION(As) \
-        BOOST_PP_IIF (BOOST_MPL_PP_IS_SEQ(As), \
-            PSTADE_PRECONDITION_free, \
-            PSTADE_PRECONDITION_public_member_ BOOST_PP_TUPLE_EAT(1) \
-        )(As) \
-    /**/
-
-        #define PSTADE_PRECONDITION_free(As) \
-            try { \
-                PSTADE_CONTRACT_expand(As) \
-                throw pstade::contract_detail::goto_handler(); \
-            } \
-            catch (pstade::contract_detail::goto_handler const&) \
-        /**/
-
-        #define PSTADE_PRECONDITION_public_member(As) \
-            try { \
-                PSTADE_CONTRACT_expand(As) \
-                throw pstade::contract_detail::goto_handler(); \
-            } \
-            catch (pstade::contract_detail::goto_handler const&) \
-        /**/
-
-        #define PSTADE_PRECONDITION_public_member_(As) \
-            PSTADE_PRECONDITION_public_member(As) \
-        /**/
-
     #define PSTADE_PUBLIC_PRECONDITION(As) \
-        try { \
-            PSTADE_CONTRACT_expand(As) \
-            throw pstade::invariant_checker(*this, true, true); \
-        } \
-        catch (pstade::invariant_checker const&) \
+        PSTADE_CONTRACT_try_catch(As, "public precondition is broken.") \
+        pstade::invariant_assertion pstade_contract_detail_invariant_assertion_of(*this, true,  true); \
     /**/
 
-    #define PSTADE_PUBLIC_CONSTRUCTOR \
-        pstade::invariant_checker pstade_contract_detail_ctor_invariant_checker_of(*this, false, true) \
+    #define PSTADE_CONSTRUCTOR_PRECONDITION(As) \
+        PSTADE_CONTRACT_try_catch(As, "constructor precondition is broken.") \
+        pstade::invariant_assertion pstade_contract_detail_invariant_assertion_of(*this, false, true); \
     /**/
 
-    #define PSTADE_PUBLIC_DESTRUCTOR \
-        pstade::invariant_checker pstade_contract_detail_dtor_invariant_checker_of(*this, true, false) \
+    #define PSTADE_DESTRUCTOR_PRECONDITION(As) \
+        PSTADE_CONTRACT_try_catch(As, "destructor precondition is broken.") \
+        pstade::invariant_assertion pstade_contract_detail_invariant_assertion_of(*this, true, false); \
     /**/
 
+    // block invariant
+    //
     #define PSTADE_INVARIANT(As) \
+        PSTADE_CONTRACT_try_catch(As, "block invariant is broken.") \
+    /**/
+
+    // helper
+    //
+    #define PSTADE_CONTRACT_try_catch(As, Msg) \
         try { \
             PSTADE_CONTRACT_expand(As) \
             pstade::contract_detail::suppress_unreachable_code_warning(); \
         } \
         catch (...) { \
-            BOOST_ASSERT("block invariant is broken." && false); \
+            BOOST_ASSERT(Msg && false); \
         } \
     /**/
 
-    // Workaround
-    #if !defined(PSTADE_CONTRACT_NO_FUNCTION_TEMPLATE_TRY_BLOCK)
-        #define PSTADE_PRECONDITION_        PSTADE_PRECONDITION
-        #define PSTADE_PUBLIC_PRECONDITION_ PSTADE_PUBLIC_PRECONDITION
-    #else
-        #define PSTADE_PRECONDITION_(As)
-        #define PSTADE_PUBLIC_PRECONDITION_(As)
-    #endif
+    #define PSTADE_CONTRACT_expand \
+        PSTADE_CONTRACT_expand_if_seq \
+    /**/
+
+        #define PSTADE_CONTRACT_expand_if_seq(As) \
+            BOOST_PP_IIF (BOOST_MPL_PP_IS_SEQ(As), \
+                BOOST_PP_SEQ_FOR_EACH, \
+                BOOST_PP_TUPLE_EAT(3) \
+            )(PSTADE_CONTRACT_expander, ~, As) \
+        /**/
+
+        #define PSTADE_CONTRACT_expander(R, _, A) \
+            BOOST_ASSERT(A); \
+        /**/
 
 #else
 
-    #define PSTADE_CLASS_INVARIANT(As)
     #define PSTADE_PRECONDITION(As)
+    #define PSTADE_POSTCONDITION(As)
+    #define PSTADE_CLASS_INVARIANT(As)
     #define PSTADE_PUBLIC_PRECONDITION(As)
-    #define PSTADE_PUBLIC_CONSTRUCTOR
-    #define PSTADE_PUBLIC_DESTRUCTOR
+    #define PSTADE_CONSTRUCTOR_PRECONDITION(As)
+    #define PSTADE_DESTRUCTOR_PRECONDITION(As)
     #define PSTADE_INVARIANT(As)
 
-    #define PSTADE_PRECONDITION_(As)
-    #define PSTADE_PUBLIC_PRECONDITION_(As)
-
 #endif // !defined(NDEBUG)
-
-
-
 
 
 #endif

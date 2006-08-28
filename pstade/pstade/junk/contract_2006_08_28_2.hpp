@@ -239,8 +239,12 @@ namespace postcondition_detail {
         )(T) \
     /**/
 
-    #define PSTADE_POSTCONDITION_D \
-        typename PSTADE_POSTCONDITION \
+    #define PSTADE_POSTCONDITION_D(T) \
+        typename \
+        BOOST_PP_IIF (BOOST_MPL_PP_TOKEN_EQUAL(T, void), \
+            PSTADE_POSTCONDITION_void, \
+            PSTADE_POSTCONDITION_non_void \
+        )(T) \
     /**/
 
     #define PSTADE_RETURN(Result) \

@@ -21,11 +21,15 @@
 // See: Clonable
 //
 // http://www.boost.org/libs/ptr_container/doc/reference.html#the-clonable-concept
+// T:CopyConstructible implies T:Clonable for any type T.
+// A reference type is not Clonable.
 
 
 #include <algorithm> // swap
+#include <boost/mpl/assert.hpp>
 #include <boost/operators.hpp> // totally_ordered
 #include <boost/ptr_container/clone_allocator.hpp>
+#include <boost/type_traits/is_reference.hpp>
 #include <pstade/overload.hpp>
 #include <pstade/radish/output_streamable.hpp>
 #include <pstade/radish/pointable.hpp>
@@ -33,6 +37,10 @@
 
 
 namespace pstade {
+
+
+template< class Clonable >
+struct assignable;
 
 
 namespace assignable_detail {
@@ -66,16 +74,27 @@ namespace assignable_detail {
     }
 
 
+    template< class Clonable >
+    struct super_
+    {
+        BOOST_MPL_ASSERT_NOT((boost::is_reference<Clonable>));
+
+        typedef
+            radish::output_streamable< assignable<Clonable>,
+            radish::pointable< assignable<Clonable>, Clonable,
+            radish::swappable< assignable<Clonable>,
+            boost::totally_ordered< assignable<Clonable>
+            > > > >
+        type;
+    };
+
+
 } // namespace assignable_detail
 
 
 template< class Clonable >
 struct assignable :
-    radish::output_streamable< assignable<Clonable>,
-    radish::pointable< assignable<Clonable>, Clonable,
-    radish::swappable< assignable<Clonable>,
-    boost::totally_ordered< assignable<Clonable>
-    > > > >
+    assignable_detail::super_<Clonable>::type
 {
 private:
     typedef assignable self_t;

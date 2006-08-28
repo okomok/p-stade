@@ -17,7 +17,6 @@
 
 #include <boost/assert.hpp>
 #include <boost/mpl/aux_/preprocessor/is_seq.hpp>
-#include <boost/mpl/aux_/preprocessor/token_equal.hpp>
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
 #include <boost/noncopyable.hpp>
@@ -216,12 +215,6 @@ namespace postcondition_detail {
 // macros
 //
 
-#if !defined(BOOST_MPL_PP_TOKEN_EQUAL_void)
-    #define BOOST_MPL_PP_TOKEN_EQUAL_void(A) \
-        A \
-    /**/
-#endif
-
 #if !defined(NDEBUG)
 
     // precondition
@@ -232,68 +225,54 @@ namespace postcondition_detail {
 
     // postcondition
     //
-    #define PSTADE_POSTCONDITION(T) \
-        BOOST_PP_IIF (BOOST_MPL_PP_TOKEN_EQUAL(T, void), \
-            PSTADE_POSTCONDITION_void, \
-            PSTADE_POSTCONDITION_non_void \
-        )(T) \
+    #define PSTADE_POSTCONDITION \
+        PSTADE_POSTCONDITION_non_void \
     /**/
 
-    #define PSTADE_POSTCONDITION_D \
-        typename PSTADE_POSTCONDITION \
-    /**/
+        #define PSTADE_POSTCONDITION_non_void(T) \
+            pstade::postcondition_detail::result_ptr< T >::type pstade_postcondition_detail_result_ptr(0); \
+        pstade_postcondition_detail_label: \
+            if (pstade_postcondition_detail_result_ptr) { \
+                T result = *pstade_postcondition_detail_result_ptr; \
+                PSTADE_POSTCONDITION_non_void_return \
+        /**/
+
+        #define PSTADE_POSTCONDITION_non_void_return(As) \
+                PSTADE_CONTRACT_try_catch(As, "postcondition is broken.") \
+                return result; \
+            } \
+        /**/
 
     #define PSTADE_RETURN(Result) \
-        BOOST_PP_IIF (BOOST_MPL_PP_TOKEN_EQUAL(Result, void), \
-            PSTADE_POSTCONDITION_void_begin, \
-            PSTADE_POSTCONDITION_non_void_begin \
-        )(Result) \
+        { \
+            pstade::postcondition_detail::reset(pstade_postcondition_detail_result_ptr, Result); \
+            goto pstade_postcondition_detail_label; \
+        } \
     /**/
 
-        // non void
-        //
-        #define PSTADE_POSTCONDITION_non_void(T) \
-                pstade::postcondition_detail::result_ptr< T >::type pstade_postcondition_detail_result_ptr(0); \
-            pstade_postcondition_detail_label: \
-                if (pstade_postcondition_detail_result_ptr) { \
-                    T result = *pstade_postcondition_detail_result_ptr; \
-                    PSTADE_POSTCONDITION_non_void_end \
+#define PSTADE_POSTCONDITION_VOID \
+        PSTADE_POSTCONDITION_void
+    /**/
+
+        #define PSTADE_POSTCONDITION_void \
+            bool pstade_postcondition_detail_returned = false; \
+        pstade_postcondition_detail_label: \
+            if (pstade_postcondition_detail_returned) { \
+                PSTADE_POSTCONDITION_void_return \
         /**/
 
-            #define PSTADE_POSTCONDITION_non_void_end(As) \
-                    PSTADE_CONTRACT_try_catch(As, "postcondition is broken.") \
-                    return result; \
-                } \
-            /**/
-
-        #define PSTADE_POSTCONDITION_non_void_begin(Result) \
-            { \
-                pstade::postcondition_detail::reset(pstade_postcondition_detail_result_ptr, Result); \
-                goto pstade_postcondition_detail_label; \
+        #define PSTADE_POSTCONDITION_void_return(As) \
+                PSTADE_CONTRACT_try_catch(As, "postcondition is broken.") \
+                return; \
             } \
         /**/
 
-        // void
-        //
-        #define PSTADE_POSTCONDITION_void(T) \
-                bool pstade_postcondition_detail_begins = false; \
-            pstade_postcondition_detail_label: \
-                if (pstade_postcondition_detail_begins) { \
-                    PSTADE_POSTCONDITION_void_end \
-        /**/
-
-            #define PSTADE_POSTCONDITION_void_end(As) \
-                    PSTADE_CONTRACT_try_catch(As, "postcondition is broken.") \
-                    return; \
-                } \
-            /**/
-
-        #define PSTADE_POSTCONDITION_void_begin(_) \
-            { \
-                pstade_postcondition_detail_begins = true; \
-                goto pstade_postcondition_detail_label; \
-            } \
-        /**/
+    #define PSTADE_RETURN_VOID \
+        { \
+            pstade_postcondition_detail_returned = true; \
+            goto pstade_postcondition_detail_label; \
+        } \
+    /**/
 
     // class invariant
     //
@@ -358,15 +337,9 @@ namespace postcondition_detail {
 
     #define PSTADE_PRECONDITION(As)
     #define PSTADE_POSTCONDITION(T) BOOST_PP_TUPLE_EAT(1)
-    #define PSTADE_POSTCONDITION_D PSTADE_POSTCONDITION
-
-    #define PSTADE_RETURN(Result) \
-        BOOST_PP_IIF (BOOST_MPL_PP_TOKEN_EQUAL(Result, void), \
-            return, \
-            return (Result) \
-        ) \
-    /**/
-
+    #define PSTADE_RETURN(Result) return (Result)
+    #define PSTADE_POSTCONDITION_VOID(As)
+    #define PSTADE_RETURN_VOID return
     #define PSTADE_CLASS_INVARIANT(As)
     #define PSTADE_PUBLIC_PRECONDITION(As)
     #define PSTADE_CONSTRUCTOR_PRECONDITION(As)
