@@ -88,7 +88,7 @@ public:
 private:
     State m_state;
     BinaryFun m_fun;
-    boost::optional<State> mutable m_cache;
+    mutable boost::optional<State> m_cache;
 
     State call_fun() const
     {

@@ -79,7 +79,7 @@ public:
     { }
 
 private:
-    boost::optional<val_t> mutable m_value;
+    mutable boost::optional<val_t> m_value;
 
 friend class boost::iterator_core_access;
     ref_t dereference() const

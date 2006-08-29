@@ -108,6 +108,7 @@ namespace contract_detail {
     //
 
     struct invariant_assertable_placeholder
+        // is also InvariantAssertable.
     {
         typedef int pstade_invariant_assertable;
         virtual void pstade_invariant() const = 0;
@@ -115,20 +116,20 @@ namespace contract_detail {
     };
 
 
-    template< class T >
+    template< class InvariantAssertable >
     struct invariant_assertable_holder :
         invariant_assertable_placeholder
     {
-        explicit invariant_assertable_holder(T const& x) :
-            m_x(x)
+        explicit invariant_assertable_holder(InvariantAssertable const& ia) :
+            m_ia(ia)
         { }
 
         virtual void pstade_invariant() const
         {
-            pstade::invariant(m_x);
+            pstade::invariant(m_ia);
         }
 
-        T const& m_x;
+        InvariantAssertable const& m_ia;
     };
 
 
@@ -163,12 +164,12 @@ namespace contract_detail {
     //
 
     // for value
-    template< class T >
+    template< class Result >
     struct postcondition_result_ptr
     {
-        void reset(T const& x)
+        void reset(Result const& x)
         {
-            m_ptr.reset(new T(x));
+            m_ptr.reset(new Result(x));
         }
 
         bool is_null() const
@@ -176,25 +177,25 @@ namespace contract_detail {
             return !m_ptr;
         }
 
-        T& operator *() const
+        Result& operator *() const
         {
             BOOST_ASSERT(!is_null());
             return *m_ptr;
         }
 
     private:
-        boost::scoped_ptr<T> m_ptr;
+        boost::scoped_ptr<Result> m_ptr;
     };
 
     // for reference
-    template< class T >
-    struct postcondition_result_ptr<T&>
+    template< class Result >
+    struct postcondition_result_ptr<Result&>
     {
         postcondition_result_ptr() :
             m_ptr(PSTADE_NULLPTR)
         { }
 
-        void reset(T& x)
+        void reset(Result& x)
         {
             m_ptr = boost::addressof(x);
         }
@@ -204,13 +205,13 @@ namespace contract_detail {
             return !m_ptr;
         }
 
-        T& operator *() const
+        Result& operator *() const
         {
             BOOST_ASSERT(!is_null());
             return *m_ptr;
         }
 
-        T *m_ptr;
+        Result *m_ptr;
     };
 
 
@@ -270,38 +271,38 @@ namespace contract_detail {
 
     // postcondition
     //
-    #define PSTADE_POSTCONDITION(T) \
-        BOOST_PP_IIF (BOOST_MPL_PP_TOKEN_EQUAL(T, void), \
+    #define PSTADE_POSTCONDITION(ResultT) \
+        BOOST_PP_IIF (BOOST_MPL_PP_TOKEN_EQUAL(ResultT, void), \
             PSTADE_POSTCONDITION_void, \
             PSTADE_POSTCONDITION_non_void \
-        )(T) \
+        )(ResultT) \
     /**/
 
     #define PSTADE_RETURN(Result) \
         BOOST_PP_IIF (BOOST_MPL_PP_TOKEN_EQUAL(Result, void), \
-            PSTADE_POSTCONDITION_void_begin, \
-            PSTADE_POSTCONDITION_non_void_begin \
+            PSTADE_POSTCONDITION_evaluation_begin_void, \
+            PSTADE_POSTCONDITION_evaluation_begin_non_void \
         )(Result) \
     /**/
 
         // non void
         //
-        #define PSTADE_POSTCONDITION_non_void(T) \
-                pstade::contract_detail::postcondition_result_ptr< T > pstade_contract_detail_result_ptr; \
+        #define PSTADE_POSTCONDITION_non_void(ResultT) \
+                pstade::contract_detail::postcondition_result_ptr< ResultT > pstade_contract_detail_result_ptr; \
             pstade_contract_detail_postcondition_label: \
                 if (!pstade_contract_detail_result_ptr.is_null()) { \
-                    T result = *pstade_contract_detail_result_ptr; \
+                    ResultT result = *pstade_contract_detail_result_ptr; \
                     pstade::contract_detail::suppress_unused_variable_warning(result); \
-                    PSTADE_POSTCONDITION_non_void_end \
+                    PSTADE_POSTCONDITION_evaluation_end_non_void \
         /**/
 
-            #define PSTADE_POSTCONDITION_non_void_end(As) \
+            #define PSTADE_POSTCONDITION_evaluation_end_non_void(As) \
                     PSTADE_CONTRACT_try_catch(As, "postcondition is broken.") \
                     return result; \
                 } \
             /**/
 
-        #define PSTADE_POSTCONDITION_non_void_begin(Result) \
+        #define PSTADE_POSTCONDITION_evaluation_begin_non_void(Result) \
             { \
                 pstade_contract_detail_result_ptr.reset(Result); \
                 goto pstade_contract_detail_postcondition_label; \
@@ -310,22 +311,22 @@ namespace contract_detail {
 
         // void
         //
-        #define PSTADE_POSTCONDITION_void(T) \
-                bool pstade_postcondition_detail_begins = false; \
+        #define PSTADE_POSTCONDITION_void(ResultT) \
+                bool pstade_contract_detail_postcondition_evaluation_begins = false; \
             pstade_contract_detail_postcondition_label: \
-                if (pstade_postcondition_detail_begins) { \
-                    PSTADE_POSTCONDITION_void_end \
+                if (pstade_contract_detail_postcondition_evaluation_begins) { \
+                    PSTADE_POSTCONDITION_evaluation_end_void \
         /**/
 
-            #define PSTADE_POSTCONDITION_void_end(As) \
+            #define PSTADE_POSTCONDITION_evaluation_end_void(As) \
                     PSTADE_CONTRACT_try_catch(As, "postcondition is broken.") \
                     return; \
                 } \
             /**/
 
-        #define PSTADE_POSTCONDITION_void_begin(_) \
+        #define PSTADE_POSTCONDITION_evaluation_begin_void(_) \
             { \
-                pstade_postcondition_detail_begins = true; \
+                pstade_contract_detail_postcondition_evaluation_begins = true; \
                 goto pstade_contract_detail_postcondition_label; \
             } \
         /**/

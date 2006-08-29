@@ -93,7 +93,7 @@ private:
     diff_t m_tabsize;
     diff_t m_space_counter;
     diff_t m_diff_from_sol; // from 'start of line'
-    val_t mutable m_space_ch;
+    mutable val_t m_space_ch;
 
     bool is_tab() const
     {

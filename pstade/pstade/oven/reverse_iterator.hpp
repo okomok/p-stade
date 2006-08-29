@@ -69,7 +69,7 @@ public:
     { }
 
 private:
-    boost::optional<BidiIter> mutable m_cache;
+    mutable boost::optional<BidiIter> m_cache;
 
 friend class boost::iterator_core_access;
     ref_t dereference() const

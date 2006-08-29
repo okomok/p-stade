@@ -86,7 +86,7 @@ public:
 
 private:
     diff_t m_length, m_offset;
-    boost::optional<ForwardIter> mutable m_cache;
+    mutable boost::optional<ForwardIter> m_cache;
 
     bool is_valid_offset() const
     {
