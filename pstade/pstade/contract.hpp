@@ -159,8 +159,8 @@ namespace contract_detail {
 
     // postcondition
     //
-    // Prefer specialization to metafunction
-    // that needs 'typename' for dependent-name.
+    // Prefer specialization to metafunction,
+    // which needs 'typename' for dependent-name.
     //
 
     // for value
@@ -293,10 +293,10 @@ namespace contract_detail {
                 if (!pstade_contract_detail_result_ptr.is_null()) { \
                     ResultT result = *pstade_contract_detail_result_ptr; \
                     pstade::contract_detail::suppress_unused_variable_warning(result); \
-                    PSTADE_POSTCONDITION_evaluation_end_non_void \
+                    PSTADE_POSTCONDITION_evaluation_non_void \
         /**/
 
-            #define PSTADE_POSTCONDITION_evaluation_end_non_void(As) \
+            #define PSTADE_POSTCONDITION_evaluation_non_void(As) \
                     PSTADE_CONTRACT_try_catch(As, "postcondition is broken.") \
                     return result; \
                 } \
@@ -311,14 +311,14 @@ namespace contract_detail {
 
         // void
         //
-        #define PSTADE_POSTCONDITION_void(ResultT) \
+        #define PSTADE_POSTCONDITION_void(_) \
                 bool pstade_contract_detail_postcondition_evaluation_begins = false; \
             pstade_contract_detail_postcondition_label: \
                 if (pstade_contract_detail_postcondition_evaluation_begins) { \
-                    PSTADE_POSTCONDITION_evaluation_end_void \
+                    PSTADE_POSTCONDITION_evaluation_void \
         /**/
 
-            #define PSTADE_POSTCONDITION_evaluation_end_void(As) \
+            #define PSTADE_POSTCONDITION_evaluation_void(As) \
                     PSTADE_CONTRACT_try_catch(As, "postcondition is broken.") \
                     return; \
                 } \

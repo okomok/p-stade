@@ -80,7 +80,7 @@ struct my_equality_t :
 
     operator radish::safe_bool() const
     {
-        return radish::make_safe_bool(true);
+        return radish::safe_true;
     }
 };
 
@@ -167,7 +167,21 @@ void test()
         ::my_equality_t e1, e2;
         e1 == e2;
         e1 != e2;
+        BOOST_CHECK( e1 ? true : false );
+        BOOST_CHECK( e2 ? true : false );
         // e1 < e2; // error
+    }
+
+    {
+        if (radish::safe_true)
+            BOOST_CHECK(true);
+        else
+            BOOST_CHECK(false);
+
+        if (radish::safe_false)
+            BOOST_CHECK(false);
+        else
+            BOOST_CHECK(true);
     }
 }
 

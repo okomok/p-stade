@@ -18,6 +18,7 @@
 // <boost/spirit/core/safe_bool.hpp>
 
 
+#include <pstade/instance.hpp>
 #include <pstade/nullptr.hpp>
 
 
@@ -35,15 +36,16 @@ typedef int safe_bool_detail::box:: *
 safe_bool;
 
 
-// Note:
-// Providing 'safe_true' and 'safe_false' object might be cute, 
-// but VC7.1 would generate slower code.
-//
 inline
 safe_bool make_safe_bool(bool b)
 {
     return b ? &safe_bool_detail::box::true_ : PSTADE_NULLPTR;
 }
+
+
+// slightly slower.
+PSTADE_INSTANCE(safe_bool const, safe_true,  (&safe_bool_detail::box::true_))
+PSTADE_INSTANCE(safe_bool const, safe_false, (PSTADE_NULLPTR))
 
 
 } } // namespace pstade::radish

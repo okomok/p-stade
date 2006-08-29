@@ -15,7 +15,6 @@
 // Iterators manage temporary container for BOOST_FOREACH.
 
 
-#include <iterator> // back_inserter
 #include <memory> // auto_ptr
 #include <vector>
 #include <boost/config.hpp>
@@ -23,11 +22,10 @@
 #include <pstade/egg/by_value.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
-#include <pstade/garlic/back_inserter.hpp>
 #include <pstade/new.hpp>
 #include <pstade/unused.hpp>
-#include "./algorithm.hpp" // copy
 #include "./as_lightweight_proxy.hpp"
+#include "./copy_range.hpp"
 #include "./detail/concept_check.hpp"
 #include "./direct_range.hpp"
 #include "./indirect_range.hpp"
@@ -38,7 +36,7 @@
 #if BOOST_WORKAROUND(BOOST_MSVC, == 1310)
     // The weird VC7.1 fails to find the garlic's overload for STL Sequences
     // in the case of 'sort_range' which is derived from 'out_place_range'.
-    // And 'private' multiple inheritance of 'as_lightweight_proxy' makes VC7.1 anger.
+    // Moreover, 'private' multiple inheritance of 'as_lightweight_proxy' makes VC7.1 anger.
     // I don't know why. Who knows.
     #define PSTADE_OVEN_OUT_PLACE_RANGE_WEIRD_ERROR_WITH_SORT_RANGE
 #endif
@@ -69,28 +67,22 @@ namespace out_place_range_detail {
     };
 
 
-    template< class Sequence, class ForwardRange, class Functor >
-    oven::share_range<Sequence> const
+    template< class IterSeq, class ForwardRange, class Functor >
+    oven::share_range<IterSeq> const
     make_share(ForwardRange& rng, Functor fun)
     {
         // Note:
         // 'share_range' size never be affected by its holding sequence
         // once constructed. So, first of all, you must initialize the sequence
         // before passing it to 'share_range'.
-        std::auto_ptr<Sequence> pseq(pstade::new_<Sequence>()); {
+        std::auto_ptr<IterSeq> pseq(pstade::new_<IterSeq>());
+        *pseq = oven::copy_range<IterSeq>(rng|directed);
 
-        #if !defined(PSTADE_OVEN_OUT_PLACE_RANGE_WEIRD_ERROR_WITH_SORT_RANGE)
-            oven::copy(rng|directed, garlic::back_inserter(*pseq));
-        #else
-            oven::copy(rng|directed, std::back_inserter(*pseq));
-        #endif
+        // Question:
+        // What should be passed to?
+        fun(*pseq);        
 
-            // Question:
-            // What should be passed to?
-            fun(*pseq);
-        }
-
-        return share_range<Sequence>(pseq.release());
+        return share_range<IterSeq>(pseq.release());
     }
 
 

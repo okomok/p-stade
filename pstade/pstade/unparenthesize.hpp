@@ -21,6 +21,7 @@
 //
 // 'PSTADE_UNPARENTHESIZE((T const))' is not supported.
 // Instead, use 'PSTADE_UNPARENTHESIZE((T)) const'.
+// If 'T' is a dependent-name, add 'typename'.
 
 
 #define PSTADE_UNPARENTHESIZE(Decayed) \
