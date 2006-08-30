@@ -11,12 +11,14 @@
 
 
 #include <pstade/apple/sdk/tchar.hpp>
+#include <pstade/nonconstructible.hpp>
 
 
 namespace pstade { namespace pizza {
 
 
-class access
+class access :
+    private nonconstructible
 {
 public:
     template< class Profile > static

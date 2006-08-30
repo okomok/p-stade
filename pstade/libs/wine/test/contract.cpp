@@ -57,9 +57,6 @@ void bar(T i)
 inline
 float square_root(float x)
 {
-    PSTADE_PRECONDITION (
-        (x >= 0)
-    )
     PSTADE_POSTCONDITION(float) (
         ((result * result) == x)
     )

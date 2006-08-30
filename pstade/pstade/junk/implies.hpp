@@ -10,8 +10,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#define PSTADE_IMPLIES(P, Q) \
-    (!(P) || (Q)) \
+#define PSTADE_IMPLIES(Q) \
+    ? (Q) : true \
 /**/
 
 

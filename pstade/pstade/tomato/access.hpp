@@ -11,13 +11,15 @@
 
 
 #include <pstade/apple/sdk/windows.hpp>
+#include <pstade/nonconstructible.hpp>
 #include "./boolean_cast.hpp"
 
 
 namespace pstade { namespace tomato {
 
 
-class access
+class access :
+    private nonconstructible
 {
 public:
     template< class T > static

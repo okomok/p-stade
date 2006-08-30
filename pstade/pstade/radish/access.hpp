@@ -10,10 +10,14 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/nonconstructible.hpp>
+
+
 namespace pstade { namespace radish {
 
 
-class access
+class access :
+    private nonconstructible
 {
 public:
     template< class T, class IStream > static

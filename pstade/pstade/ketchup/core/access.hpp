@@ -13,6 +13,7 @@
 #include <boost/config.hpp> // BOOST_NO_MEMBER_TEMPLATE_FRIENDS
 #include <boost/type.hpp>
 #include <pstade/apple/sdk/windows.hpp>
+#include <pstade/nonconstructible.hpp>
 #include <pstade/tomato/boolean_cast.hpp>
 #include <pstade/unused.hpp>
 #include "./process_window_message_fwd.hpp"
@@ -24,7 +25,8 @@ namespace pstade { namespace ketchup {
 struct chain_msg_map_entry_set;
 
 
-class access
+class access :
+    private nonconstructible
 {
 
 #if 1 // defined(BOOST_NO_MEMBER_TEMPLATE_FRIENDS)

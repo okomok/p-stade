@@ -163,8 +163,8 @@ private:
     PSTADE_CLASS_INVARIANT
     (
         // 'm_bottom' is undefined if 'top_is_end'.
-        (top_is_end() ||
-            detail::debug_contains(bottom_range(), m_bottom))
+        (!top_is_end() ?
+            (detail::debug_contains(bottom_range(), m_bottom) : true)
     )
 
 friend class boost::iterator_core_access;

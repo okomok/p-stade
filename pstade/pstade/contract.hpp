@@ -33,6 +33,7 @@
 #include <pstade/nonconstructible.hpp>
 #include <pstade/nullptr.hpp>
 #include <pstade/overload.hpp>
+#include <pstade/unused.hpp>
 
 
 namespace pstade {
@@ -172,14 +173,14 @@ namespace contract_detail {
             m_ptr.reset(new Result(x));
         }
 
-        bool is_null() const
+        bool operator !() const
         {
             return !m_ptr;
         }
 
         Result& operator *() const
         {
-            BOOST_ASSERT(!is_null());
+            BOOST_ASSERT(m_ptr);
             return *m_ptr;
         }
 
@@ -200,14 +201,14 @@ namespace contract_detail {
             m_ptr = boost::addressof(x);
         }
 
-        bool is_null() const
+        bool operator !() const
         {
             return !m_ptr;
         }
 
         Result& operator *() const
         {
-            BOOST_ASSERT(!is_null());
+            BOOST_ASSERT(m_ptr);
             return *m_ptr;
         }
 
@@ -241,11 +242,6 @@ namespace contract_detail {
     { }
 
 
-    template< class T > inline
-    void suppress_unused_variable_warning(T const&)
-    { }
-
-
 } // namespace contract_detail
 
 
@@ -255,11 +251,28 @@ namespace contract_detail {
 // macros
 //
 
+
+#if 0  // Rejected
+
+// 'PSTADE_ELSE' is impossible.
+
+#define PSTADE_IF(C) \
+    (!(C) || PSTADE_IF_x
+/**/
+
+    #define  PSTADE_IF_x(X) \
+        (X) ) \
+    /**/
+
+#endif // Rejected
+
+
 #if !defined(BOOST_MPL_PP_TOKEN_EQUAL_void)
     #define BOOST_MPL_PP_TOKEN_EQUAL_void(A) \
         A \
     /**/
 #endif
+
 
 #if !defined(NDEBUG)
 
@@ -290,9 +303,9 @@ namespace contract_detail {
         #define PSTADE_POSTCONDITION_non_void(ResultT) \
                 pstade::contract_detail::postcondition_result_ptr< ResultT > pstade_contract_detail_result_ptr; \
             pstade_contract_detail_postcondition_label: \
-                if (!pstade_contract_detail_result_ptr.is_null()) { \
+                if (!!pstade_contract_detail_result_ptr) { \
                     ResultT result = *pstade_contract_detail_result_ptr; \
-                    pstade::contract_detail::suppress_unused_variable_warning(result); \
+                    pstade::unused(result); \
                     PSTADE_POSTCONDITION_evaluation_non_void \
         /**/
 
