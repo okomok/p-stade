@@ -20,13 +20,11 @@
 // boost::directory_iterator to non-shared_ptr version
 
 
-#include <boost/assert.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/verify.hpp>
 #include "../c_str.hpp"
-#include "../diet/valid.hpp"
 #include "./find_file_iterator.hpp"
 
 
@@ -47,7 +45,6 @@ namespace find_file_range_detail {
 
         explicit init(TCHAR const *pszName)
         {
-            BOOST_ASSERT(diet::valid(pszName));
             m_hFind = ::FindFirstFile(pszName, &m_data);
         }
 

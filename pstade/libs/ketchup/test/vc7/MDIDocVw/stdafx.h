@@ -6,3 +6,4 @@
 extern CAppModule _Module;
 
 #include <atlwin.h>
+#include <pstade/apple/wtl/app.hpp>

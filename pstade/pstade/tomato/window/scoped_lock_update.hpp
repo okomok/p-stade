@@ -11,7 +11,7 @@
 
 
 #include <pstade/apple/sdk/windows.hpp>
-#include "../diet/valid.hpp"
+#include "./window_ref.hpp"
 
 
 namespace pstade { namespace tomato {
@@ -19,10 +19,9 @@ namespace pstade { namespace tomato {
 
 struct scoped_lock_update
 {
-    explicit scoped_lock_update(HWND hWnd)
+    explicit scoped_lock_update(window_ref wnd)
     {
-        BOOST_ASSERT(diet::valid(hWnd));
-        ::LockWindowUpdate(hWnd);
+        ::LockWindowUpdate(wnd);
     }
 
     ~scoped_lock_update()

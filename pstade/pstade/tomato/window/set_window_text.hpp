@@ -25,19 +25,16 @@
 #include <pstade/require.hpp>
 #include <pstade/static_c.hpp>
 #include "../c_str.hpp"
-#include "../diet/valid.hpp"
+#include "./window_ref.hpp"
 
 
 namespace pstade { namespace tomato {
 
 
 template< class CStringizable >
-void set_window_text(HWND hWnd, CStringizable const& str)
+void set_window_text(window_ref wnd, CStringizable const& str)
 {
-    BOOST_ASSERT(diet::valid(hWnd));
-    BOOST_ASSERT(diet::valid(tomato::c_str(str)));
-
-    TCHAR const *pszNew = tomato::c_str(str);
+    TCHAR const *pszNew = str|c_stringized;
     oven::null_terminate_range<TCHAR const *> strNew(pszNew);
     int newLen = static_cast<int>(oven::distance(strNew));
 
@@ -46,10 +43,10 @@ void set_window_text(HWND hWnd, CStringizable const& str)
 
     // fast check to see if text really changes (reduces flash in controls)
     if (newLen > bufLen::value ||
-        ::GetWindowText(hWnd, boost::begin(bufOld), bufOld.static_size) != newLen ||
+        ::GetWindowText(wnd, boost::begin(bufOld), bufOld.static_size) != newLen ||
         !oven::equals(bufOld|oven::null_terminated, strNew))
     {
-        PSTADE_REQUIRE(::SetWindowText(hWnd, pszNew));
+        PSTADE_REQUIRE(::SetWindowText(wnd, pszNew));
     }
 }
 

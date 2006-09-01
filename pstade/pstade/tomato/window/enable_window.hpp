@@ -17,27 +17,26 @@
 
 #include <boost/assert.hpp>
 #include <pstade/apple/sdk/windows.hpp>
-#include "../diet/valid.hpp"
 #include "./send_message.hpp"
+#include "./window_ref.hpp"
+#include "./window_handle.hpp"
 
 
 namespace pstade { namespace tomato {
 
 
 inline
-void enable_window(HWND hWnd, bool on)
+void enable_window(window_ref wnd, bool on)
 {
-    BOOST_ASSERT(diet::valid(hWnd));
-
     // if control has the focus, move the focus before disabling
-    if (!on && (::GetFocus() == hWnd)) {
-        HWND hWndParent = ::GetParent(hWnd);
-        if (hWndParent != NULL)
-            tomato::send_message(hWndParent, WM_NEXTDLGCTL, 0, FALSE);
+    if (!on && (::GetFocus() == wnd)) {
+        window_handle parent = ::GetParent(wnd);
+        if (parent)
+            tomato::send_message(*parent, WM_NEXTDLGCTL, 0, FALSE);
     }
 
     // never fails
-    ::EnableWindow(hWnd, on);
+    ::EnableWindow(wnd, on);
 }
 
 

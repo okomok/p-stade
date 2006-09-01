@@ -20,12 +20,11 @@
 // _tsplitpath requires CRT
 
 
-#include <boost/assert.hpp>
 #include <pstade/apple/sdk/config.hpp> // SDK_NO_SHLWAPI
 #include <pstade/apple/sdk/shlwapi.hpp> // PathFindExtension
 #include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/apple/sdk/windows.hpp>
-#include "../diet/valid.hpp"
+#include "../c_str.hpp"
 
 
 namespace pstade { namespace tomato {
@@ -34,33 +33,20 @@ namespace pstade { namespace tomato {
 #if !defined(PSTADE_APPLE_SDK_NO_SHLWAPI)
 
 
-    inline
-    TCHAR const *path_find_extension(TCHAR const *pszPath)
+    template< class CStringizable > inline
+    TCHAR const *path_find_extension(CStringizable const& path)
     {
-        BOOST_ASSERT(diet::valid(pszPath));
-
-        return ::PathFindExtension(pszPath);
-    }
-
-
-    inline
-    TCHAR *path_find_extension(TCHAR *pszPath)
-    {
-        BOOST_ASSERT(diet::valid(pszPath));
-
-        return ::PathFindExtension(pszPath);
+        return ::PathFindExtension(path|c_stringized);
     }
 
 
 #else
 
 
-    inline
-    TCHAR const *path_find_extension(TCHAR const *pszPath)
+    template< class CStringizable > inline
+    TCHAR const *path_find_extension(CStringizable const& path)
     {
-        BOOST_ASSERT(diet::valid(pszPath));
-
-        TCHAR const *psz = pszPath;
+        TCHAR const *psz = path|c_stringized;
         for ( ; *psz != _T('\0'); psz = ::CharNext(psz)) {
             if (*psz == _T('.'))
                 break;
@@ -70,17 +56,15 @@ namespace pstade { namespace tomato {
     }
 
 
-    inline
-    TCHAR *path_find_extension(TCHAR *pszPath)
-    {
-        BOOST_ASSERT(diet::valid(pszPath));
-
-        TCHAR const *psz = pszPath;
-        return const_cast<TCHAR *>(tomato::path_find_extension(psz));
-    }
-
-
 #endif // !defined(PSTADE_APPLE_SDK_NO_SHLWAPI)
+
+
+inline
+TCHAR *path_find_extension(TCHAR *pszPath)
+{
+    TCHAR const *psz = pszPath;
+    return const_cast<TCHAR *>(tomato::path_find_extension(psz));
+}
 
 
 } } // namespace pstade::tomato

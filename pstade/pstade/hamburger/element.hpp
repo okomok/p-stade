@@ -17,7 +17,6 @@
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/lime/node_facade.hpp>
 #include <pstade/tomato/boolean_cast.hpp>
-#include <pstade/tomato/diet/valid.hpp>
 #include <pstade/unused.hpp>
 #include "./element_attributes.hpp"
 #include "./graphics.hpp"
@@ -72,8 +71,7 @@ struct element :
     boost::optional<HWND> window() const
     {
         boost::optional<HWND> wnd = override_window();
-        if (wnd)
-            BOOST_ASSERT(diet::valid(*wnd));
+        BOOST_ASSERT(wnd ? ::IsWindow(*wnd) : true);
 
         return wnd;
     }

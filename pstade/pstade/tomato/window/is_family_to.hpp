@@ -10,28 +10,22 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/assert.hpp>
 #include <pstade/apple/atl/win.hpp> // CWindow
 #include <pstade/apple/sdk/windows.hpp>
-#include "../diet/valid.hpp"
+#include "./window_ref.hpp"
 
 
 namespace pstade { namespace tomato {
 
 
 inline
-bool is_family_to(HWND hWnd0, HWND hWnd1)
+bool is_family_to(window_ref wnd1, window_ref wnd2)
 {
-    BOOST_ASSERT(diet::valid(hWnd0));
-    BOOST_ASSERT(diet::valid(hWnd1));
-
-    if (hWnd0 == hWnd1)
+    if (wnd1.get() == wnd2.get())
         return true;
 
-    ATL::CWindow wnd0(hWnd0);
-    ATL::CWindow wnd1(hWnd1);
-
-    return wnd0.GetTopLevelParent() == wnd1.GetTopLevelParent();
+    return ATL::CWindow(wnd1).GetTopLevelParent()
+        == ATL::CWindow(wnd2).GetTopLevelParent();
 }
 
 

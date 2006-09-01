@@ -10,29 +10,25 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/assert.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/unused.hpp>
 #include "../boolean_cast.hpp"
-#include "../diet/valid.hpp"
 
 
 namespace pstade { namespace tomato {
 
 
 inline
-bool set_menu_default_item(HMENU hMenu,
+bool set_menu_default_item(menu_ref menu,
     UINT uItem = static_cast<UINT>(-1),  bool by_position = false)
 {
-    BOOST_ASSERT(diet::valid(hMenu));
-
 #if !defined(_WIN32_WCE)
 
-    return ::SetMenuDefaultItem(hMenu, uItem, static_cast<UINT>(by_position))|booleanized;
+    return ::SetMenuDefaultItem(menu, uItem, static_cast<UINT>(by_position))|booleanized;
 
 #else
 
-    pstade::unused(hMenu, uItem, by_position);
+    pstade::unused(menu, uItem, by_position);
     return true;
 
 #endif // !defined(_WIN32_WCE)

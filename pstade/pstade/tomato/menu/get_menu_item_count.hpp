@@ -15,25 +15,22 @@
 // wec400/STANDARDSDK/Mfc/Src/wcealt.cpp
 
 
-#include <boost/assert.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/static_c.hpp>
-#include "../diet/valid.hpp"
 #include "../require.hpp"
 #include "../size_initialize.hpp"
+#include "./menu_ref.hpp"
 
 
 namespace pstade { namespace tomato {
 
 
 inline
-int get_menu_item_count(HMENU hMenu)
+int get_menu_item_count(menu_ref menu)
 {
-    BOOST_ASSERT(diet::valid(hMenu));
-
 #if !defined(_WIN32_WCE)
 
-    return ::GetMenuItemCount(hMenu);
+    return ::GetMenuItemCount(menu);
 
 #else
 
@@ -44,7 +41,7 @@ int get_menu_item_count(HMENU hMenu)
 
     int count = 0;
     for (UINT i = 0; i < max_item_count::value; ++i) {
-        if (!::GetMenuItemInfo(hMenu, i, TRUE, &mii))
+        if (!::GetMenuItemInfo(menu, i, TRUE, &mii))
             break;
 
         ++count;

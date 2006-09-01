@@ -12,7 +12,6 @@
 
 #include <boost/assert.hpp>
 #include <pstade/apple/sdk/windows.hpp>
-#include <pstade/tomato/diet/valid.hpp>
 #include "../cmd_ui.hpp"
 
 
@@ -25,7 +24,7 @@ struct multipanestatusbar_cmd_ui : cmd_ui
     multipanestatusbar_cmd_ui(UINT nPaneID, MultiPaneStatusBarCtrl& statusbar, int index) :
         cmd_ui(nPaneID), m_statusbar(statusbar), m_index(index)
     {
-        BOOST_ASSERT(diet::valid(statusbar.m_hWnd));
+        BOOST_ASSERT(::IsWindow(statusbar.m_hWnd));
     }
 
 private:

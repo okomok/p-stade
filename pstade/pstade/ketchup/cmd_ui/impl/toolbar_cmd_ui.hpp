@@ -14,6 +14,7 @@
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/tomato/toolbar/enable_toolbar_button.hpp>
 #include <pstade/tomato/toolbar/check_toolbar_button.hpp>
+#include <pstade/tomato/window/window_ref.hpp>
 #include "../cmd_ui.hpp"
 
 
@@ -22,27 +23,24 @@ namespace pstade { namespace ketchup {
 
 struct toolbar_cmd_ui : cmd_ui
 {
-    toolbar_cmd_ui(UINT uID, HWND hWnd) :
-        cmd_ui(uID), m_hWndToolBar(hWnd)
-    {
-        BOOST_ASSERT(diet::valid(m_hWndToolBar));
-    }
+    toolbar_cmd_ui(UINT uID, tomato::window_ref toolbar) :
+        cmd_ui(uID), m_toolbar(toolbar)
+    { }
 
 protected:
     void override_enable(bool on)
     {
-        tomato::enable_toolbar_button(m_hWndToolBar, get_id(), on);
+        tomato::enable_toolbar_button(m_toolbar, get_id(), on);
     }
 
     void override_set_check(int state)
     {
         BOOST_ASSERT(0 <= state && state <= 2); // 0=>off, 1=>on, 2=>indeterminate
-
-        tomato::check_toolbar_button(m_hWndToolBar, get_id(), state);
+        tomato::check_toolbar_button(m_toolbar, get_id(), state);
     }
 
 private:
-    HWND m_hWndToolBar;
+    tomato::window_ref m_toolbar;
 };
 
 

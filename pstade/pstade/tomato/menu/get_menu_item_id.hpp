@@ -15,24 +15,22 @@
 // wec400/STANDARDSDK/Mfc/Src/wcealt.cpp
 
 
-#include <boost/assert.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/require.hpp>
 #include "../diet/valid.hpp"
 #include "../size_initialize.hpp"
+#include "./menu_ref.hpp"
 
 
 namespace pstade { namespace tomato {
 
 
 inline
-UINT get_menu_item_id(HMENU hMenu, int nPos)
+UINT get_menu_item_id(menu_ref menu, int nPos)
 {
-    BOOST_ASSERT(diet::valid(hMenu));
-
 #if !defined(_WIN32_WCE)
 
-    return ::GetMenuItemID(hMenu, nPos);
+    return ::GetMenuItemID(menu, nPos);
 
 #else
 
@@ -41,7 +39,7 @@ UINT get_menu_item_id(HMENU hMenu, int nPos)
         mii.fMask  = MIIM_ID;
     }
 
-    PSTADE_REQUIRE(::GetMenuItemInfo(hMenu, nPos, TRUE, &mii));
+    PSTADE_REQUIRE(::GetMenuItemInfo(menu, nPos, TRUE, &mii));
     return mii.wID; 
 
 #endif // !defined(_WIN32_WCE)

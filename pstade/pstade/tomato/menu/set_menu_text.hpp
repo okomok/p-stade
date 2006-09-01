@@ -10,13 +10,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/assert.hpp>
 #include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/require.hpp>
-#include "../diet/valid.hpp"
+#include "../c_str.hpp"
 #include "../size_initialize.hpp"
 #include "./get_menu_state.hpp"
+#include "./menu_ref.hpp"
 #include "./mf_bitmap.hpp"
 #include "./modify_menu.hpp"
 
@@ -24,25 +24,23 @@
 namespace pstade { namespace tomato {
 
 
-inline
-void set_menu_text(HMENU hMenu, UINT uIndex, TCHAR const *pszText)
+template< class CStringizable > inline
+void set_menu_text(menu_ref menu, UINT uIndex, CStringizable const& text)
 {
-    BOOST_ASSERT(diet::valid(hMenu));
-    BOOST_ASSERT(diet::valid(pszText));
-
-    // get current menu state so it doesn't change
-    UINT uState = tomato::get_menu_state(hMenu, uIndex, MF_BYPOSITION);
+    // get current menu_ref state so it doesn't change
+    UINT uState = tomato::get_menu_state(menu, uIndex, MF_BYPOSITION);
     candy::remove(uState, mf_bitmap::value | MF_OWNERDRAW | MF_SEPARATOR);
 
-    // set menu text
+    // set menu_ref text
     MENUITEMINFO mii = { 0 }; {
         mii|size_initialized;
         mii.fMask = MIIM_ID;
-        PSTADE_REQUIRE(::GetMenuItemInfo(hMenu, uIndex, TRUE, &mii));
+        PSTADE_REQUIRE(::GetMenuItemInfo(menu, uIndex, TRUE, &mii));
     }
 
-    PSTADE_REQUIRE(tomato::modify_menu(hMenu, uIndex, MF_BYPOSITION |
-        MF_STRING | uState, mii.wID, pszText));
+    PSTADE_REQUIRE(tomato::modify_menu(menu, uIndex, MF_BYPOSITION |
+        MF_STRING | uState, mii.wID, tomato::c_str(text))
+    );
 }
 
 

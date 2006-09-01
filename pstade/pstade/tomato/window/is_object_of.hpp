@@ -10,25 +10,18 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/assert.hpp>
-#include <pstade/apple/sdk/tchar.hpp>
-#include <pstade/apple/sdk/windows.hpp>
 #include <pstade/oven/equals.hpp>
-#include <pstade/oven/null_terminate_range.hpp>
-#include "../diet/valid.hpp"
+#include "../c_str.hpp"
 #include "./class_name.hpp"
 
 
 namespace pstade { namespace tomato {
 
 
-inline
-bool is_object_of(HWND hWnd, const TCHAR *pszClassName)
+template< class CStringizable > inline
+bool is_object_of(window_ref wnd, CStringizable const& className)
 {
-    BOOST_ASSERT(diet::valid(hWnd));
-    BOOST_ASSERT(diet::valid(pszClassName));
-
-    return oven::equals(tomato::class_name(hWnd), pszClassName|oven::null_terminated);
+    return oven::equals(tomato::class_name(wnd), tomato::c_str(className));
 }
 
 

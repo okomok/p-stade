@@ -10,7 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/assert.hpp>
 #include <boost/scoped_array.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/candy/reset.hpp>
@@ -18,24 +17,22 @@
 #include <pstade/candy/test.hpp>
 #include <pstade/require.hpp>
 #include <pstade/unused.hpp>
-#include "../diet/valid.hpp"
 #include "../size_initialize.hpp"
+#include "./menu_ref.hpp"
 
 
 namespace pstade { namespace tomato {
 
 
 inline
-void set_menu_check_type(HMENU hMenu, UINT uIndex, bool on)
+void set_menu_check_type(menu_ref menu, UINT uIndex, bool on)
 {
-    BOOST_ASSERT(diet::valid(hMenu));
-
 #if !defined(_WIN32_WCE)
 
     MENUITEMINFO mii = { 0 }; {
         mii|size_initialized;
         mii.fMask = MIIM_TYPE;
-        PSTADE_REQUIRE(::GetMenuItemInfo(hMenu, uIndex, TRUE, &mii));
+        PSTADE_REQUIRE(::GetMenuItemInfo(menu, uIndex, TRUE, &mii));
     }
 
     if (on == candy::test(mii.fType, MFT_RADIOCHECK))
@@ -48,11 +45,11 @@ void set_menu_check_type(HMENU hMenu, UINT uIndex, bool on)
         !candy::test(mii.fType, MFT_SEPARATOR) &&
         !candy::test(mii.fType, MFT_OWNERDRAW) // Win32 documentation is broken.
     ) {
-        // get the menu string
+        // get the menu_ref string
         szString.reset(new TCHAR[mii.cch + 1]);
         mii.dwTypeData = szString.get();
         ++mii.cch; 
-        PSTADE_REQUIRE(::GetMenuItemInfo(hMenu, uIndex, TRUE, &mii));
+        PSTADE_REQUIRE(::GetMenuItemInfo(menu, uIndex, TRUE, &mii));
     }
 
     if (on)
@@ -60,11 +57,11 @@ void set_menu_check_type(HMENU hMenu, UINT uIndex, bool on)
     else
         candy::reset(mii.fType, MFT_RADIOCHECK);
 
-    PSTADE_REQUIRE(::SetMenuItemInfo(hMenu, uIndex, TRUE, &mii));
+    PSTADE_REQUIRE(::SetMenuItemInfo(menu, uIndex, TRUE, &mii));
 
 #else
 
-    pstade::unused(hMenu, uIndex, on);
+    pstade::unused(menu, uIndex, on);
 
 #endif // !defined(_WIN32_WCE)
 }

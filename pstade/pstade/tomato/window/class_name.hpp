@@ -13,12 +13,11 @@
 // What:
 //
 // A Random Access Traversal Readable Lvalue Range
-// that represents a window class name.
+// that represents a window_ref class name.
 
 
 #include <cstddef> // size_t
 #include <boost/array.hpp>
-#include <boost/assert.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/range/begin.hpp>
 #include <pstade/apple/sdk/tchar.hpp>
@@ -27,7 +26,7 @@
 #include <pstade/require.hpp>
 #include <pstade/static_c.hpp>
 #include "../access.hpp"
-#include "../diet/valid.hpp"
+#include "./window_ref.hpp"
 
 
 namespace pstade { namespace tomato {
@@ -48,12 +47,10 @@ namespace class_name_detail {
     {
         typedef init type;
 
-        explicit init(HWND hWnd)
+        explicit init(window_ref wnd)
         {
-            BOOST_ASSERT(diet::valid(hWnd));
-
             PSTADE_REQUIRE(0 !=
-                ::GetClassName(hWnd, boost::begin(m_buf), buffer_size::value)
+                ::GetClassName(wnd, boost::begin(m_buf), buffer_size::value)
             );
 
             BOOST_ASSERT(oven::is_null_terminated(m_buf));
@@ -88,8 +85,8 @@ private:
     typedef class_name_detail::super_<>::type super_t;
 
 public:
-    explicit class_name(HWND hWnd) :
-        init_t(hWnd),
+    explicit class_name(window_ref wnd) :
+        init_t(wnd),
         super_t(m_buf)
     { }
 

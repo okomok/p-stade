@@ -14,7 +14,7 @@
 #include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/require.hpp>
-#include <pstade/tomato/diet/valid.hpp>
+#include <pstade/tomato/menu/menu_ref.hpp>
 #include <pstade/tomato/menu/set_menu_check_type.hpp>
 #include <pstade/tomato/menu/set_menu_default_item.hpp>
 #include <pstade/tomato/menu/set_menu_text.hpp>
@@ -27,15 +27,13 @@ namespace pstade { namespace ketchup {
 
 struct menu_cmd_ui : cmd_ui
 {
-    menu_cmd_ui(UINT uID, HMENU hMenu, UINT uIndex, bool dependent) :
-        cmd_ui(uID), m_hMenu(hMenu), m_uIndex(uIndex), m_dependent(dependent)
-    {
-        BOOST_ASSERT(diet::valid(m_hMenu));
-    }
+    menu_cmd_ui(UINT uID, tomato::menu_ref menu, UINT uIndex, bool dependent) :
+        cmd_ui(uID), m_menu(menu), m_uIndex(uIndex), m_dependent(dependent)
+    { }
 
-    HMENU get_menu() const
+    tomato::menu_ref get_menu() const
     {
-        return m_hMenu;
+        return m_menu;
     }
 
     UINT get_index() const
@@ -46,24 +44,24 @@ struct menu_cmd_ui : cmd_ui
 private:
     void override_enable(bool on)
     {
-        ::EnableMenuItem(m_hMenu, m_uIndex, MF_BYPOSITION |
+        ::EnableMenuItem(m_menu, m_uIndex, MF_BYPOSITION |
             (on ? MF_ENABLED : (tomato::mf_disabled::value | MF_GRAYED)));
     }
 
     void override_set_check(int state)
     {
-        tomato::set_menu_check_type(m_hMenu, m_uIndex, false);
+        tomato::set_menu_check_type(m_menu, m_uIndex, false);
 
-        ::CheckMenuItem(m_hMenu, m_uIndex, MF_BYPOSITION |
+        ::CheckMenuItem(m_menu, m_uIndex, MF_BYPOSITION |
             (state ? MF_CHECKED : MF_UNCHECKED));
     }
 
 #if !defined(_WIN32_WCE)
     void override_set_radio(bool on)
     {
-        tomato::set_menu_check_type(m_hMenu, m_uIndex, true);
+        tomato::set_menu_check_type(m_menu, m_uIndex, true);
 
-        ::CheckMenuItem(m_hMenu, m_uIndex, MF_BYPOSITION |
+        ::CheckMenuItem(m_menu, m_uIndex, MF_BYPOSITION |
             (on ? MF_CHECKED : MF_UNCHECKED));
     }
 #endif // !defined(_WIN32_WCE)
@@ -72,14 +70,14 @@ private:
     {
         BOOST_ASSERT(diet::valid(pszText));
 
-        tomato::set_menu_text(m_hMenu, m_uIndex, pszText);
+        tomato::set_menu_text(m_menu, m_uIndex, pszText);
     }
 
     void override_set_default(bool on)
     {
         // place checkmark next to menu item
         if (on)
-            PSTADE_REQUIRE(tomato::set_menu_default_item(m_hMenu, m_uIndex, TRUE));
+            PSTADE_REQUIRE(tomato::set_menu_default_item(m_menu, m_uIndex, TRUE));
     }
 
     bool override_is_dependent() const
@@ -88,7 +86,7 @@ private:
     }
 
 private:
-    HMENU m_hMenu;
+    tomato::menu_ref m_menu;
     UINT m_uIndex;
     bool m_dependent;
 };

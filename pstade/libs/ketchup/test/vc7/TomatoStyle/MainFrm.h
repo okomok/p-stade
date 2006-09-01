@@ -67,7 +67,7 @@ public:
 
 	BOOL OnIdle()
 	{
-		ketchup::update_toolbar_cmd_ui(m_hWnd, m_toolbar);
+		ketchup::update_toolbar_cmd_ui(m_hWnd, m_toolbar.m_hWnd);
 		return FALSE;
 	}
 

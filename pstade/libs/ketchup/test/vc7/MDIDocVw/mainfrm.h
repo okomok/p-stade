@@ -885,7 +885,7 @@ public:
 
 	virtual BOOL OnIdle()
 	{
-		ketchup::update_toolbar_cmd_ui(m_hWnd, m_wndToolBar);
+		ketchup::update_toolbar_cmd_ui(m_hWnd, m_wndToolBar.m_hWnd);
 		return FALSE;
 	}
 	// </mdf>

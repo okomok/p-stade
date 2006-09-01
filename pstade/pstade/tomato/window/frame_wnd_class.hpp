@@ -22,7 +22,7 @@ namespace pstade { namespace tomato {
 
 
 template< class FrameWnd > inline
-WTL::CFrameWndClassInfo& frame_wnd_class(const TCHAR *WndClassName, UINT uCommonResourceID)
+WTL::CFrameWndClassInfo& frame_wnd_class(TCHAR const *WndClassName, UINT uCommonResourceID)
 {
     static WTL::CFrameWndClassInfo wc =
     {
@@ -37,7 +37,7 @@ WTL::CFrameWndClassInfo& frame_wnd_class(const TCHAR *WndClassName, UINT uCommon
 
 
 template< class FrameWnd > inline
-WTL::CFrameWndClassInfo& frame_wnd_class_ex(const TCHAR *WndClassName, UINT uCommonResourceID, UINT style, UINT bkgnd)
+WTL::CFrameWndClassInfo& frame_wnd_class_ex(TCHAR const *WndClassName, UINT uCommonResourceID, UINT style, UINT bkgnd)
 {
     static WTL::CFrameWndClassInfo wc =
     {
@@ -52,7 +52,7 @@ WTL::CFrameWndClassInfo& frame_wnd_class_ex(const TCHAR *WndClassName, UINT uCom
 
 
 template< class FrameWnd > inline
-WTL::CFrameWndClassInfo& frame_wnd_superclass(const TCHAR *WndClassName, const TCHAR *OrigWndClassName, UINT uCommonResourceID)
+WTL::CFrameWndClassInfo& frame_wnd_superclass(TCHAR const *WndClassName, TCHAR const *OrigWndClassName, UINT uCommonResourceID)
 {
     static WTL::CFrameWndClassInfo wc =
     {
@@ -70,7 +70,7 @@ WTL::CFrameWndClassInfo& frame_wnd_superclass(const TCHAR *WndClassName, const T
 
 
 template< class FrameWnd > inline
-WTL::CFrameWndClassInfo& frame_wnd_class(const TCHAR *WndClassName, UINT uCommonResourceID)
+WTL::CFrameWndClassInfo& frame_wnd_class(TCHAR const *WndClassName, UINT uCommonResourceID)
 {
     static CFrameWndClassInfo wc =
     {
@@ -85,7 +85,7 @@ WTL::CFrameWndClassInfo& frame_wnd_class(const TCHAR *WndClassName, UINT uCommon
 
 
 template< class FrameWnd > inline
-WTL::CFrameWndClassInfo& frame_wnd_class_ex(const TCHAR *WndClassName, UINT uCommonResourceID, UINT style, UINT bkgnd)
+WTL::CFrameWndClassInfo& frame_wnd_class_ex(TCHAR const *WndClassName, UINT uCommonResourceID, UINT style, UINT bkgnd)
 {
     static CFrameWndClassInfo wc =
     {
@@ -100,7 +100,7 @@ WTL::CFrameWndClassInfo& frame_wnd_class_ex(const TCHAR *WndClassName, UINT uCom
 
 
 template< class FrameWnd > inline
-WTL::CFrameWndClassInfo& frame_wnd_superclass(const TCHAR *WndClassName, const TCHAR *OrigWndClassName, UINT uCommonResourceID)
+WTL::CFrameWndClassInfo& frame_wnd_superclass(TCHAR const *WndClassName, TCHAR const *OrigWndClassName, UINT uCommonResourceID)
 {
     static CFrameWndClassInfo wc =
     {

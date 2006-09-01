@@ -11,9 +11,8 @@
 
 
 #include <boost/assert.hpp>
-#include <pstade/apple/sdk/windows.hpp>
-#include <pstade/tomato/diet/valid.hpp>
 #include <pstade/tomato/window/send_message.hpp>
+#include <pstade/tomato/window/window_ref.hpp>
 #include "../update_cmd_ui_message.hpp"
 
 
@@ -21,11 +20,11 @@ namespace pstade { namespace ketchup {
 
 
 inline
-bool update_cmd_ui(HWND hWndUpdater, cmd_ui& ui)
+bool update_cmd_ui(tomato::window_ref updater, cmd_ui& ui)
 {
-    BOOST_ASSERT(diet::valid(hWndUpdater));
+    LRESULT lResult = tomato::send_message(updater,
+        ketchup::id_update_cmd_ui_message(), ketchup::cmd_ui_to_wParam(ui));
 
-    LRESULT lResult = tomato::send_message(hWndUpdater, ketchup::id_update_cmd_ui_message(), ketchup::cmd_ui_to_wParam(ui));
     return ketchup::is_cmd_ui_handled(lResult);
 }
 

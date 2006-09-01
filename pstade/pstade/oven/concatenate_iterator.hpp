@@ -101,7 +101,8 @@ public:
     concatenate_iterator(TopIterator const& it, TopIterator const& last) :
         super_t(it), m_last(last)
     {
-        PSTADE_CONSTRUCTOR_PRECONDITION (empty)
+        PSTADE_CONSTRUCTOR_PRECONDITION (
+        ~)
 
         reset_bottom_forward();
     }
@@ -116,7 +117,8 @@ template< class > friend struct concatenate_iterator;
         super_t(other.base()), m_last(other.m_last),
         m_bottom(other.m_bottom)
     {
-        PSTADE_CONSTRUCTOR_PRECONDITION (empty)
+        PSTADE_CONSTRUCTOR_PRECONDITION (
+        ~)
     }
 
 private:
@@ -164,7 +166,7 @@ private:
     (
         // 'm_bottom' is undefined if 'top_is_end'.
         (!top_is_end() ?
-            (detail::debug_contains(bottom_range(), m_bottom) : true)
+            detail::debug_contains(bottom_range(), m_bottom) : true)
     )
 
 friend class boost::iterator_core_access;
@@ -208,7 +210,8 @@ friend class boost::iterator_core_access;
 
     void decrement()
     {
-        PSTADE_PUBLIC_PRECONDITION (empty)
+        PSTADE_PUBLIC_PRECONDITION (
+        ~)
 
         if (top_is_end() || m_bottom == boost::begin(bottom_range())) {
             --this->base_reference();

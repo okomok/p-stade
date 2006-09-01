@@ -10,26 +10,23 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/assert.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/candy/test.hpp>
 #include <pstade/check.hpp>
-#include "../diet/valid.hpp"
 #include "./send_message.hpp"
+#include "./window_ref.hpp"
 
 
 namespace pstade { namespace tomato {
 
 
 inline
-void check_window(HWND hWnd, int state)
+void check_window(window_ref wnd, int state)
 {
-    BOOST_ASSERT(diet::valid(hWnd));
-
     // we can only check buttons or controls acting like buttons
-    LRESULT code = tomato::send_message(hWnd, WM_GETDLGCODE);
+    LRESULT code = tomato::send_message(wnd, WM_GETDLGCODE);
     if (candy::test(code, DLGC_BUTTON))
-        PSTADE_CHECK(tomato::send_message(hWnd, BM_SETCHECK, state) == 0);
+        PSTADE_CHECK(tomato::send_message(wnd, BM_SETCHECK, state) == 0);
 }
 
 

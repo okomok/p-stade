@@ -23,6 +23,8 @@
 #include "./window/send_message.hpp"
 #include "./window/set_window_text.hpp"
 #include "./window/toggle_window.hpp"
+#include "./window/window_ref.hpp"
+#include "./window/window_handle.hpp"
 #include "./window/window_text.hpp"
 
 #include "./window/wnd_class.hpp"

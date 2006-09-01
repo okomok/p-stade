@@ -51,7 +51,7 @@ namespace module_file_name_detail {
 
         explicit init(HINSTANCE hInst)
         {
-            BOOST_ASSERT(diet::valid(hInst));
+            BOOST_ASSERT(hInst != NULL);
 
             PSTADE_REQUIRE(0 !=
                 ::GetModuleFileName(hInst, boost::begin(m_buf), max_path::value)

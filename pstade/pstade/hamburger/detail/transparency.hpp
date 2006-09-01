@@ -20,12 +20,11 @@
 // http://www.codeproject.com/dialog/smoothalpha.asp
 
 
-#include <boost/assert.hpp>
 #include <pstade/apple/atl/win.hpp> // CWindow
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/require.hpp>
-#include <pstade/tomato/diet/valid.hpp>
 #include <pstade/tomato/rgb.hpp>
+#include <pstade/tomato/window/window_ref.hpp>
 #include "./view_attributes.hpp"
 
 
@@ -36,23 +35,17 @@ namespace transparency_detail {
 
 
     inline
-    void add(HWND hWnd, COLORREF clr)
+    void add(tomato::window_ref wnd, COLORREF clr)
     {
-        BOOST_ASSERT(diet::valid(hWnd));
-
-        ATL::CWindow wnd(hWnd);
-        wnd.ModifyStyleEx(0, WS_EX_LAYERED);
+        ATL::CWindow(wnd).ModifyStyleEx(0, WS_EX_LAYERED);
         PSTADE_REQUIRE(::SetLayeredWindowAttributes(wnd, clr, 1, LWA_COLORKEY));
     }
 
 
     inline
-    void remove(HWND hWnd)
+    void remove(tomato::window_ref wnd)
     {
-        BOOST_ASSERT(diet::valid(hWnd));
-
-        ATL::CWindow wnd(hWnd);
-        wnd.ModifyStyleEx(WS_EX_LAYERED, 0);
+        ATL::CWindow(wnd).ModifyStyleEx(WS_EX_LAYERED, 0);
     }
 
 

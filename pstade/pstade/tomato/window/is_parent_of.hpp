@@ -15,21 +15,17 @@
 // ::IsChild
 
 
-#include <boost/assert.hpp>
 #include <pstade/apple/sdk/windows.hpp>
-#include "../diet/valid.hpp"
+#include "./window_ref.hpp"
 
 
 namespace pstade { namespace tomato {
 
 
 inline
-bool is_parent_of(HWND hWndParent, HWND hWndChild)
+bool is_parent_of(window_ref parent, window_ref child)
 {
-    BOOST_ASSERT(diet::valid(hWndParent));
-    BOOST_ASSERT(diet::valid(hWndChild));
-
-    return hWndParent == ::GetParent(hWndChild);
+    return parent.get() == ::GetParent(child);
 }
 
 

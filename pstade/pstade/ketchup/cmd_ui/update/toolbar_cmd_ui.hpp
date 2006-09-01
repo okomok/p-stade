@@ -14,8 +14,8 @@
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/apple/wtl/ctrls.hpp> // CToolBarCtrl
 #include <pstade/candy/test.hpp>
+#include <pstade/tomato/window/window_ref.hpp>
 #include <pstade/require.hpp>
-#include <pstade/tomato/diet/valid.hpp>
 #include "../impl/toolbar_cmd_ui.hpp"
 #include "./cmd_ui.hpp"
 
@@ -24,24 +24,20 @@ namespace pstade { namespace ketchup {
 
 
 inline
-void update_toolbar_cmd_ui(HWND hWndUpdater, HWND hWndToolBar)
+void update_toolbar_cmd_ui(tomato::window_ref updater, tomato::window_ref toolbar)
 {
     // See: MFC7::CToolBar::OnUpdateCmdUI
 
-    BOOST_ASSERT(diet::valid(hWndUpdater));
-    BOOST_ASSERT(diet::valid(hWndToolBar));
-
-    WTL::CToolBarCtrl toolbar(hWndToolBar);
-    for (int i = 0, count = toolbar.GetButtonCount(); i < count; ++i)
+    for (int i = 0, count = WTL::CToolBarCtrl(toolbar).GetButtonCount(); i < count; ++i)
     {
         TBBUTTON button;
-        PSTADE_REQUIRE(toolbar.GetButton(i, &button));
+        PSTADE_REQUIRE(WTL::CToolBarCtrl(toolbar).GetButton(i, &button));
         UINT uID = button.idCommand;
         toolbar_cmd_ui ui(uID, toolbar);
 
         // ignore separators
         if (!candy::test(button.fsStyle, TBSTYLE_SEP))
-            ketchup::update_cmd_ui(hWndUpdater, ui);
+            ketchup::update_cmd_ui(updater, ui);
     }
 }
 

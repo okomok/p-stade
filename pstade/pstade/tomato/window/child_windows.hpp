@@ -18,7 +18,7 @@
 #include <boost/assert.hpp>
 #include <boost/utility/addressof.hpp>
 #include <pstade/apple/sdk/windows.hpp>
-#include "../diet/valid.hpp"
+#include "./window_handle.hpp"
 
 
 namespace pstade { namespace tomato {
@@ -30,7 +30,7 @@ namespace child_windows_detail {
     template< class Yield >
     BOOL CALLBACK proc(HWND hWnd, LPARAM lParam)
     {
-        BOOST_ASSERT(diet::valid(hWnd));
+        BOOST_ASSERT(::IsWindow(hWnd));
 
         try {
             Yield& yield = *reinterpret_cast<Yield *>(lParam);
@@ -44,7 +44,7 @@ namespace child_windows_detail {
 
 
     template< class Yield > inline
-    void generate(HWND hWndParent, Yield yield)
+    void generate(window_handle parent, Yield yield)
     {
         // Note:
         // if no child, EnumChildWindows "fails"
@@ -52,7 +52,7 @@ namespace child_windows_detail {
         // So there seems no way to know whether or not
         // api failed.
         ::EnumChildWindows(
-            hWndParent,
+            parent.get(), // NULL means the root window_ref, so 'get' it.
             &proc<Yield>,
             reinterpret_cast<LPARAM>(boost::addressof(yield))
         );
@@ -64,28 +64,25 @@ namespace child_windows_detail {
 
 struct child_windows
 {
-    explicit child_windows(HWND hWndParent) :
-        m_hWndParent(hWndParent)
-    {
-        // NULL means the root window.
-        BOOST_ASSERT(hWndParent == NULL || diet::valid(hWndParent));
-    }
+    explicit child_windows(window_handle parent) :
+        m_parent(parent)
+    { }
 
     typedef HWND result_type;
 
     template< class Yield >
     void operator()(Yield yield) const
     {
-        child_windows_detail::generate(m_hWndParent, yield);
+        child_windows_detail::generate(m_parent, yield);
     }
 
     HWND parent() const
     {
-        return m_hWndParent;
+        return m_parent.get();
     }
 
 private:
-    HWND m_hWndParent;
+    window_handle m_parent;
 };
 
 

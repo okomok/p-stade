@@ -15,8 +15,8 @@
 #include <pstade/apple/sdk/shlwapi.hpp> // PathFindFileName
 #include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/apple/sdk/windows.hpp>
+#include "../c_str.hpp"
 #include "./dir_sep.hpp"
-#include "../diet/valid.hpp"
 
 
 namespace pstade { namespace tomato {
@@ -25,32 +25,20 @@ namespace pstade { namespace tomato {
 #if !defined(PSTADE_APPLE_SDK_NO_SHLWAPI)
 
 
-    inline
-    TCHAR const *path_find_file_name(TCHAR const *pszPath)
+    template< class CStringizable > inline
+    TCHAR const *path_find_file_name(CStringizable const& path)
     {
-        BOOST_ASSERT(diet::valid(pszPath));
-
-        return ::PathFindFileName(pszPath);
-    }
-
-
-    inline
-    TCHAR *path_find_file_name(TCHAR *pszPath)
-    {
-        BOOST_ASSERT(diet::valid(pszPath));
-
-        return ::PathFindFileName(pszPath);
+        return ::PathFindFileName(path|c_stringized);
     }
 
 
 #else
 
 
-    inline
-    TCHAR const *path_find_file_name(TCHAR const *pszPath)
+    template< class CStringizable > inline
+    TCHAR const *path_find_file_name(CStringizable const& path)
     {
-        BOOST_ASSERT(diet::valid(pszPath));
-
+        TCHAR const *pszPath = path|c_stringized;
         TCHAR const *pszFileName = pszPath; // beginning of the path if failed
 
         for (TCHAR const *psz = pszPath; *psz != _T('\0'); psz = ::CharNext(psz)) {
@@ -67,17 +55,15 @@ namespace pstade { namespace tomato {
     }
 
 
-    inline
-    TCHAR *path_find_file_name(TCHAR *pszPath)
-    {
-        BOOST_ASSERT(diet::valid(pszPath));
-
-        TCHAR const *psz = pszPath;
-        return const_cast<TCHAR *>(tomato::path_find_file_name(psz));
-    }
-
-
 #endif // !defined(PSTADE_APPLE_SDK_NO_SHLWAPI)
+
+
+inline
+TCHAR *path_find_file_name(TCHAR *pszPath)
+{
+    TCHAR const *psz = pszPath;
+    return const_cast<TCHAR *>(tomato::path_find_file_name(psz));
+}
 
 
 } } // namespace pstade::tomato

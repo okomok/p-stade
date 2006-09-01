@@ -1,5 +1,7 @@
 #include <pstade/vodka/drink.hpp>
 #include <boost/test/minimal.hpp>
+#include <pstade/apple/wtl/app.hpp>
+WTL::CAppModule _Module;
 
 
 // PStade.Tomato
@@ -34,9 +36,6 @@
 #include <pstade/tomato/c_str.hpp>
 #include <pstade/tomato/tstring.hpp>
 #include <pstade/tomato/tstream.hpp>
-
-
-WTL::CAppModule _Module;
 
 
 void test()

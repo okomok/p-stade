@@ -13,7 +13,7 @@
 // What:
 //
 // A Random Access Traversal Readable Lvalue Range
-// that represents a window text.
+// that represents a window_ref text.
 
 
 // Design:
@@ -32,7 +32,7 @@
 #include <pstade/oven/distance.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
 #include "../access.hpp"
-#include "../diet/valid.hpp"
+#include "./window_ref.hpp"
 
 
 namespace pstade { namespace tomato {
@@ -50,12 +50,10 @@ namespace window_text_detail {
     {
         typedef init type;
 
-        explicit init(HWND hWnd) :
-            m_buf(1 + ::GetWindowTextLength(hWnd))
+        explicit init(window_ref wnd) :
+            m_buf(1 + ::GetWindowTextLength(wnd))
         {
-            BOOST_ASSERT(diet::valid(hWnd));
-
-            ::GetWindowText(hWnd,
+            ::GetWindowText(wnd,
                 boost::begin(m_buf), static_cast<int>(oven::distance(m_buf))
             );
 
@@ -91,8 +89,8 @@ private:
     typedef window_text_detail::super_<>::type super_t;
 
 public:
-    explicit window_text(HWND hWnd) :
-        init_t(hWnd),
+    explicit window_text(window_ref wnd) :
+        init_t(wnd),
         super_t(m_buf)
     { }
 

@@ -10,9 +10,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/assert.hpp>
 #include <pstade/apple/sdk/windows.hpp>
-#include <pstade/tomato/diet/valid.hpp>
+#include <pstade/tomato/window/window_ref.hpp>
 #include "../impl/childwindow_cmd_ui.hpp"
 #include "./cmd_ui.hpp"
 
@@ -21,16 +20,12 @@ namespace pstade { namespace ketchup {
 
 
 inline
-void update_childwindow_cmd_ui(HWND hWndUpdater, HWND hWndParent, UINT uID)
+void update_childwindow_cmd_ui(tomato::window_ref updater, tomato::window_ref parent, UINT uID)
 {
-    BOOST_ASSERT(diet::valid(hWndUpdater));
-    BOOST_ASSERT(diet::valid(hWndParent));
+    tomato::window_ref child = ::GetDlgItem(parent, uID);
 
-    HWND hWndChild = ::GetDlgItem(hWndParent, uID);
-    BOOST_ASSERT(diet::valid(hWndChild));
-
-    childwindow_cmd_ui ui(uID, hWndChild);
-    ketchup::update_cmd_ui(hWndUpdater, ui);
+    childwindow_cmd_ui ui(uID, child);
+    ketchup::update_cmd_ui(updater, ui);
 }
 
 

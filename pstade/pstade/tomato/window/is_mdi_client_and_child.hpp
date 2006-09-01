@@ -10,25 +10,21 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/assert.hpp>
 #include <pstade/apple/sdk/windows.hpp>
-#include "../diet/valid.hpp"
 #include "./is_owned.hpp"
 #include "./is_parent_of.hpp"
+#include "./window_ref.hpp"
 
 
 namespace pstade { namespace tomato {
 
 
 inline
-bool is_mdi_client_and_child(HWND hWndMDIClient, HWND hWndChild)
+bool is_mdi_client_and_child(window_ref mdiClient, window_ref child)
 {
-    BOOST_ASSERT(diet::valid(hWndMDIClient));
-    BOOST_ASSERT(diet::valid(hWndChild));
-
     return
-        !tomato::is_owned(hWndChild) &&
-        tomato::is_parent_of(hWndMDIClient, hWndChild);
+        !tomato::is_owned(child) &&
+        tomato::is_parent_of(mdiClient, child);
 }
 
 

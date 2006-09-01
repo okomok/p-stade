@@ -15,25 +15,22 @@
 // wec400/STANDARDSDK/Mfc/Src/wcealt.cpp
 
 
-#include <boost/assert.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/candy/test.hpp>
 #include <pstade/require.hpp>
-#include "../diet/valid.hpp"
 #include "../size_initialize.hpp"
+#include "./menu_ref.hpp"
 
 
 namespace pstade { namespace tomato {
 
 
 inline
-UINT get_menu_state(HMENU hMenu, UINT uId, UINT uFlags)
+UINT get_menu_state(menu_ref menu, UINT uId, UINT uFlags)
 {
-    BOOST_ASSERT(diet::valid(hMenu));
-
 #if !defined(_WIN32_WCE)
 
-    return ::GetMenuState(hMenu, uId, uFlags);
+    return ::GetMenuState(menu, uId, uFlags);
 
 #else
 
@@ -43,9 +40,9 @@ UINT get_menu_state(HMENU hMenu, UINT uId, UINT uFlags)
     }
 
     if (candy::test(uFlags, MF_BYPOSITION))
-        PSTADE_REQUIRE(::GetMenuItemInfo(hMenu, uId, TRUE, &mii));
+        PSTADE_REQUIRE(::GetMenuItemInfo(menu, uId, TRUE, &mii));
     else
-        PSTADE_REQUIRE(::GetMenuItemInfo(hMenu, uId, FALSE, &mii));
+        PSTADE_REQUIRE(::GetMenuItemInfo(menu, uId, FALSE, &mii));
 
     return mii.fState;
 

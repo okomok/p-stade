@@ -16,20 +16,19 @@
 #include <pstade/candy/reset.hpp>
 #include <pstade/candy/set.hpp>
 #include <pstade/require.hpp>
-#include "../diet/valid.hpp"
+#include "../window/window_ref.hpp"
 
 
 namespace pstade { namespace tomato {
 
 
-inline // See: MFC7::CToolCmdUI::Enable
-void enable_toolbar_button(HWND hWndToolBar, UINT uID, bool on)
+inline
+void enable_toolbar_button(window_ref toolbar, UINT uID, bool on)
 {
-    BOOST_ASSERT(diet::valid(hWndToolBar));
+    // See:
+    // MFC7::CToolCmdUI::Enable
 
-    WTL::CToolBarCtrl toolbar(hWndToolBar);
-
-    UINT uOldState = toolbar.GetState(uID);
+    UINT uOldState = WTL::CToolBarCtrl(toolbar).GetState(uID);
     UINT uNewState = uOldState;
 
     BOOST_ASSERT(uNewState != -1);
@@ -49,7 +48,7 @@ void enable_toolbar_button(HWND hWndToolBar, UINT uID, bool on)
     if (uNewState == uOldState)
         return;
 
-    PSTADE_REQUIRE(toolbar.SetState(uID, uNewState));
+    PSTADE_REQUIRE(WTL::CToolBarCtrl(toolbar).SetState(uID, uNewState));
 }
 
 

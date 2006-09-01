@@ -15,11 +15,16 @@
 // http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n1962.html
 
 
+// Note:
+// ADL customization seems not to be needed.
+// Note that 'private' nested 'typedef' cannot be used with SFINAE.
+// http://groups.google.com/group/comp.lang.c++.moderated/msg/84fe1563ccc65846
+
+
 #include <boost/any.hpp>
 #include <boost/assert.hpp>
 #include <boost/mpl/aux_/preprocessor/is_seq.hpp>
 #include <boost/mpl/aux_/preprocessor/token_equal.hpp>
-#include <boost/mpl/eval_if.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/control/iif.hpp>
@@ -29,7 +34,6 @@
 #include <boost/utility/addressof.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <pstade/for_debug.hpp>
-#include <pstade/has_xxx.hpp>
 #include <pstade/nonconstructible.hpp>
 #include <pstade/nullptr.hpp>
 #include <pstade/overload.hpp>
@@ -51,48 +55,13 @@ public:
 };
 
 
-namespace contract_detail {
-
-
-    PSTADE_HAS_TYPE(pstade_invariant_assertable)
-
-
-    // member function
-    //
-    template< class T > inline
-    typename boost::enable_if<has_pstade_invariant_assertable<T>,
-    void>::type invariant_aux(T const& x)
-    {
-        contract_access::detail_invariant(x);
-    }
-
-
-    // ADL
-    //
-    template< class T > inline
-    void pstade_invariant(T const& x)
-    {
-        pstade_invariant(x, overload<>());
-    }
-
-    template< class T > inline
-    typename boost::disable_if<has_pstade_invariant_assertable<T>,
-    void>::type invariant_aux(T const& x)
-    {
-        pstade_invariant(x);
-    }
-
-
-} // namespace contract_detail
-
-
-template< class InvariantAssertable > inline
+template< class InvariantAssertable >
 bool invariant(InvariantAssertable const& ia)
 {
     pstade::for_debug();
 
     try {
-        contract_detail::invariant_aux(ia);
+        contract_access::detail_invariant(ia);
     }
     catch (...) {
         BOOST_ASSERT("class invariant is broken." && false);
@@ -111,7 +80,6 @@ namespace contract_detail {
     struct invariant_assertable_placeholder
         // is also InvariantAssertable.
     {
-        typedef int pstade_invariant_assertable;
         virtual void pstade_invariant() const = 0;
         virtual ~invariant_assertable_placeholder() { }
     };
@@ -252,21 +220,6 @@ namespace contract_detail {
 //
 
 
-#if 0  // Rejected
-
-// 'PSTADE_ELSE' is impossible.
-
-#define PSTADE_IF(C) \
-    (!(C) || PSTADE_IF_x
-/**/
-
-    #define  PSTADE_IF_x(X) \
-        (X) ) \
-    /**/
-
-#endif // Rejected
-
-
 #if !defined(BOOST_MPL_PP_TOKEN_EQUAL_void)
     #define BOOST_MPL_PP_TOKEN_EQUAL_void(A) \
         A \
@@ -347,7 +300,6 @@ namespace contract_detail {
     // class invariant
     //
     #define PSTADE_CLASS_INVARIANT(As) \
-        typedef int pstade_invariant_assertable; \
         friend class pstade::contract_access; \
         void pstade_invariant() const \
         { \

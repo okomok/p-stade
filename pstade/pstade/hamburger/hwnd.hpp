@@ -13,7 +13,7 @@
 #include <boost/assert.hpp>
 #include <boost/optional.hpp>
 #include <pstade/apple/sdk/windows.hpp>
-#include <pstade/tomato/diet/valid.hpp>
+#include <pstade/tomato/window.hpp>
 #include "./element.hpp"
 
 
@@ -41,11 +41,9 @@ namespace hwnd_detail {
 
 
 inline
-HWND hwnd(element& elem)
+tomato::window hwnd(element& elem)
 {
     boost::optional<HWND> wnd = hwnd_detail::aux(elem);
-    BOOST_ASSERT(wnd);
-    BOOST_ASSERT(diet::valid(*wnd));
     return *wnd;
 }
 

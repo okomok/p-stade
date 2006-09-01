@@ -10,22 +10,19 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/assert.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include "../boolean_cast.hpp"
-#include "../diet/valid.hpp"
+#include "./window_ref.hpp"
 
 
 namespace pstade { namespace tomato {
 
 
 inline
-bool toggle_window(HWND hWnd)
+bool toggle_window(window_ref wnd)
 {
-    BOOST_ASSERT(diet::valid(hWnd));
-
-    BOOL bVisible = !::IsWindowVisible(hWnd);
-    ::ShowWindow(hWnd, bVisible ? SW_SHOWNOACTIVATE : SW_HIDE);
+    BOOL bVisible = !::IsWindowVisible(wnd);
+    ::ShowWindow(wnd, bVisible ? SW_SHOWNOACTIVATE : SW_HIDE);
 
     return bVisible|booleanized;
 }

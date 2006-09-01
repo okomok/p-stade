@@ -11,7 +11,7 @@
 
 
 #if !defined(PSTADE_APPLE_ATL_MODULE_TYPE)
-    #error PSTADE_APPLE_ATL_MODULE_TYPE must be defined first
+    #error 'PSTADE_APPLE_ATL_MODULE_TYPE' must be defined first
 #endif
 
 

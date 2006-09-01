@@ -10,8 +10,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/assert.hpp>
 #include <boost/utility/enable_if.hpp>
-#include <pstade/apple/atl/config.hpp> // CSIMPLESTRINGT_TEMPLATE_PARAMS/ARGS
+#include <pstade/apple/atl/config.hpp> // ATL_vER, CSIMPLESTRINGT_TEMPLATE_PARAMS/ARGS
+#include <pstade/apple/atl/core.hpp> // ::AtlIsValidString
 #include <pstade/apple/atl/simpstr_fwd.hpp> // CSimpleStringT
 #include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/apple/wtl/misc.hpp> // CString
@@ -19,14 +21,65 @@
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <pstade/has_xxx.hpp>
+#include <pstade/nullptr.hpp>
 #include <pstade/overload.hpp>
+#include <pstade/static_c.hpp>
 #include "./access.hpp"
+#include "./boolean_cast.hpp"
 
 
 namespace pstade { namespace tomato {
 
 
 namespace c_str_detail {
+
+
+    inline
+    bool is_valid(TCHAR const *psz)
+    {
+    #if !(PSTADE_APPLE_ATL_VER < 0x0700)
+
+        return ATL::AtlIsValidString(psz)|booleanized;
+
+    #else
+
+        // See:
+        // ATL7::AtlIsValidString
+
+        #if defined(NDEBUG)
+
+            return (psz != PSTADE_NULLPTR);
+
+        #else
+
+            if (psz == PSTADE_NULLPTR)
+                return false;
+
+            typedef static_c<std::ptrdiff_t, 1398269> faraway;
+
+            __try {
+                TCHAR const *pch = psz;
+                TCHAR const *pchEnd = psz + faraway::value - 1;
+                TCHAR ch = *(volatile TCHAR *)pch;
+                while ((ch != _T('\0')) && (pch != pchEnd)) {
+                    ++pch;
+                    ch = *(volatile TCHAR *)pch;
+
+                    if (pch == pchEnd) {
+                        BOOST_ASSERT("null-terminated string candidate is too long to diagnose." && false);
+                    }
+                }
+            }
+            __except (EXCEPTION_EXECUTE_HANDLER) {
+                return false;
+            }
+
+            return true;
+
+        #endif
+
+    #endif // !(PSTADE_APPLE_ATL_VER < 0x0700)
+    }
 
 
     PSTADE_HAS_TYPE(pstade_tomato_cstringizable)
@@ -69,7 +122,9 @@ namespace c_str_detail {
         template< class Result, class CStringizable >
         Result call(CStringizable const& str)
         {
-            return c_str_detail::aux(str);
+            Result result = c_str_detail::aux(str);
+            BOOST_ASSERT(c_str_detail::is_valid(result));
+            return result;
         }
     };
 

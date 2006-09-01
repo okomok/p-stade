@@ -12,9 +12,10 @@
 
 #include <boost/assert.hpp>
 #include <pstade/apple/sdk/windows.hpp>
-#include <pstade/tomato/diet/valid.hpp>
 #include <pstade/tomato/menu/get_menu_item_count.hpp>
 #include <pstade/tomato/menu/get_menu_item_id.hpp>
+#include <pstade/tomato/menu/menu_ref.hpp>
+#include <pstade/tomato/window/window_ref.hpp>
 #include "../impl/menu_cmd_ui.hpp"
 #include "./cmd_ui.hpp"
 
@@ -43,23 +44,21 @@ namespace cmd_ui_detail {
 
 
 inline
-void update_menu_cmd_ui(HWND hWndUpdater, HMENU hMenu)
+void update_menu_cmd_ui(tomato::window_ref updater, tomato::menu_ref menu)
 {
-    // See: MFC7::CFrameWnd::OnInitMenuPopup
+    // See:
+    // MFC7::CFrameWnd::OnInitMenuPopup
 
-    BOOST_ASSERT(diet::valid(hWndUpdater));
-    BOOST_ASSERT(diet::valid(hMenu));
-
-    for (int i = 0, count = tomato::get_menu_item_count(hMenu); i < count; ++i)
+    for (int i = 0, count = tomato::get_menu_item_count(menu); i < count; ++i)
     {
-        UINT uID = tomato::get_menu_item_id(hMenu, i);
+        UINT uID = tomato::get_menu_item_id(menu, i);
         if (cmd_ui_detail::is_separator_or_invalid_id(uID))
             continue;
 
         if (cmd_ui_detail::is_possibly_popup_menu_id(uID))
         {
             // route to first item of that popup
-            HMENU hSubMenu = ::GetSubMenu(hMenu, i);
+            HMENU hSubMenu = ::GetSubMenu(menu, i);
             if (
                 hSubMenu == NULL ||
                 cmd_ui_detail::is_separator_or_invalid_id(uID = tomato::get_menu_item_id(hSubMenu, 0)) ||
@@ -70,22 +69,22 @@ void update_menu_cmd_ui(HWND hWndUpdater, HMENU hMenu)
             }
 
             // popup menu item
-            menu_cmd_ui ui(uID, hMenu, i, true);
-            ketchup::update_cmd_ui(hWndUpdater, ui);
+            menu_cmd_ui ui(uID, menu, i, true);
+            ketchup::update_cmd_ui(updater, ui);
         }
         else
         {
             // normal menu item
-            menu_cmd_ui ui(uID, hMenu, i, false);
-            ketchup::update_cmd_ui(hWndUpdater, ui);
+            menu_cmd_ui ui(uID, menu, i, false);
+            ketchup::update_cmd_ui(updater, ui);
         }
 
         // adjust for menu deletions and additions
-        int new_count = tomato::get_menu_item_count(hMenu);
+        int new_count = tomato::get_menu_item_count(menu);
         if (new_count < count)
         {
             i -= (count - new_count);
-            while (i < new_count && tomato::get_menu_item_id(hMenu, i) == uID)
+            while (i < new_count && tomato::get_menu_item_id(menu, i) == uID)
                 ++i;
         }
         count = new_count;

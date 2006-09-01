@@ -10,20 +10,19 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/assert.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/require.hpp>
-#include "../diet/valid.hpp"
+#include "./window_ref.hpp"
 
 
 namespace pstade { namespace tomato {
 
 
 inline
-void post_message(HWND hWnd, UINT msg, WPARAM wParam = 0, LPARAM lParam = 0)
+void post_message(window_ref wnd,
+    UINT msg, WPARAM wParam = 0, LPARAM lParam = 0)
 {
-    BOOST_ASSERT(diet::valid(hWnd));
-    PSTADE_REQUIRE(::PostMessage(hWnd, msg, wParam, lParam));
+    PSTADE_REQUIRE(::PostMessage(wnd, msg, wParam, lParam));
 }
 
 

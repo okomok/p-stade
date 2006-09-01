@@ -1,5 +1,7 @@
 #include <pstade/vodka/drink.hpp>
 #include <boost/test/minimal.hpp>
+#include <pstade/apple/wtl/app.hpp>
+WTL::CAppModule _Module;
 
 
 // PStade.Tomato
@@ -23,7 +25,6 @@
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/apple/wtl/misc.hpp>
 #include <pstade/apple/wtl/app.hpp>
-WTL::CAppModule _Module;
 #include <pstade/oven/algorithm.hpp> // copy
 #include <pstade/tomato/c_str.hpp>
 #include <pstade/tomato/tstream.hpp>

@@ -12,17 +12,17 @@
 
 #include <boost/assert.hpp>
 #include <pstade/apple/sdk/windows.hpp>
-#include "../diet/valid.hpp"
+#include "./window_ref.hpp"
 
 
 namespace pstade { namespace tomato {
 
 
 inline
-LRESULT send_message(HWND hWnd, UINT msg, WPARAM wParam = 0, LPARAM lParam = 0)
+LRESULT send_message(window_ref wnd,
+    UINT msg, WPARAM wParam = 0, LPARAM lParam = 0)
 {
-    BOOST_ASSERT(diet::valid(hWnd));
-    return ::SendMessage(hWnd, msg, wParam, lParam);
+    return ::SendMessage(wnd, msg, wParam, lParam);
 }
 
 

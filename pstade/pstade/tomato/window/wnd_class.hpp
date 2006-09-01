@@ -19,7 +19,7 @@ namespace pstade { namespace tomato {
 
 
 template< class Wnd > inline
-ATL::CWndClassInfo& wnd_class(const TCHAR *WndClassName)
+ATL::CWndClassInfo& wnd_class(TCHAR const *WndClassName)
 {
     static ATL::CWndClassInfo wc =
     {
@@ -35,7 +35,7 @@ ATL::CWndClassInfo& wnd_class(const TCHAR *WndClassName)
 
 
 template< class Wnd > inline
-ATL::CWndClassInfo& wnd_class_ex(const TCHAR *WndClassName, UINT style, UINT bkgnd = -1)
+ATL::CWndClassInfo& wnd_class_ex(TCHAR const *WndClassName, UINT style, UINT bkgnd = -1)
 {
     static ATL::CWndClassInfo wc =
     {
@@ -51,7 +51,7 @@ ATL::CWndClassInfo& wnd_class_ex(const TCHAR *WndClassName, UINT style, UINT bkg
 
 
 template< class Wnd > inline
-ATL::CWndClassInfo& wnd_superclass(const TCHAR *WndClassName, const TCHAR *OrgWndClassName)
+ATL::CWndClassInfo& wnd_superclass(TCHAR const *WndClassName, TCHAR const *OrgWndClassName)
 {
     static ATL::CWndClassInfo wc =
     {

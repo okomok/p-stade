@@ -10,19 +10,17 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/assert.hpp>
 #include <pstade/apple/sdk/windows.hpp>
-#include "../diet/valid.hpp"
+#include "./window_ref.hpp"
 
 
 namespace pstade { namespace tomato {
 
 
 inline
-bool is_owned(HWND hWnd)
+bool is_owned(window_ref wnd)
 {
-    BOOST_ASSERT(diet::valid(hWnd));
-    return NULL != ::GetWindow(hWnd, GW_OWNER);
+    return NULL != ::GetWindow(wnd, GW_OWNER);
 }
 
 

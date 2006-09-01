@@ -17,25 +17,22 @@
 #include <pstade/candy/set.hpp>
 #include <pstade/candy/union.hpp>
 #include <pstade/require.hpp>
-#include "../diet/valid.hpp"
 #include "../size_initialize.hpp"
+#include "../window/window_ref.hpp"
 
 
 namespace pstade { namespace tomato {
 
 
 inline
-void check_toolbar_button(HWND hWndToolBar, UINT uID, int state)
+void check_toolbar_button(window_ref toolbar, UINT uID, int state)
 {
-    BOOST_ASSERT(diet::valid(hWndToolBar));
     BOOST_ASSERT(0 <= state && state <= 2); // 0=>off, 1=>on, 2=>indeterminate
-
-    WTL::CToolBarCtrl toolbar(hWndToolBar);
 
     TBBUTTONINFO tbb; {
         tbb|size_initialized;
         tbb.dwMask = TBIF_STATE | TBIF_STYLE;
-        PSTADE_REQUIRE(toolbar.GetButtonInfo(uID, &tbb) != -1);
+        PSTADE_REQUIRE(WTL::CToolBarCtrl(toolbar).GetButtonInfo(uID, &tbb) != -1);
     }
 
     BYTE bOldStyle = tbb.fsStyle;
@@ -60,7 +57,7 @@ void check_toolbar_button(HWND hWndToolBar, UINT uID, int state)
     if (bOldStyle == tbb.fsStyle && bOldState == tbb.fsState)
         return;
 
-    PSTADE_REQUIRE(toolbar.SetButtonInfo(uID, &tbb));
+    PSTADE_REQUIRE(WTL::CToolBarCtrl(toolbar).SetButtonInfo(uID, &tbb));
 }
 
 
