@@ -18,7 +18,7 @@
 #include <boost/assert.hpp>
 #include <boost/utility/addressof.hpp>
 #include <pstade/apple/sdk/windows.hpp>
-#include "./window_handle.hpp"
+#include "./window_ptr.hpp"
 
 
 namespace pstade { namespace tomato {
@@ -44,7 +44,7 @@ namespace child_windows_detail {
 
 
     template< class Yield > inline
-    void generate(window_handle parent, Yield yield)
+    void generate(window_ptr parent, Yield yield)
     {
         // Note:
         // if no child, EnumChildWindows "fails"
@@ -52,7 +52,7 @@ namespace child_windows_detail {
         // So there seems no way to know whether or not
         // api failed.
         ::EnumChildWindows(
-            parent.get(), // NULL means the root window_ref, so 'get' it.
+            parent.get(),
             &proc<Yield>,
             reinterpret_cast<LPARAM>(boost::addressof(yield))
         );
@@ -64,7 +64,8 @@ namespace child_windows_detail {
 
 struct child_windows
 {
-    explicit child_windows(window_handle parent) :
+    // 'NULL' means the root window.
+    explicit child_windows(window_ptr parent) :
         m_parent(parent)
     { }
 
@@ -82,7 +83,7 @@ struct child_windows
     }
 
 private:
-    window_handle m_parent;
+    window_ptr m_parent;
 };
 
 

@@ -1,5 +1,5 @@
-#ifndef PSTADE_TOMATO_MENU_MENU_REF_HPP
-#define PSTADE_TOMATO_MENU_MENU_REF_HPP
+#ifndef PSTADE_TOMATO_WINDOW_IS_WINDOW_HPP
+#define PSTADE_TOMATO_WINDOW_IS_WINDOW_HPP
 
 
 // PStade.Tomato
@@ -11,15 +11,23 @@
 
 
 #include <pstade/apple/sdk/windows.hpp>
-#include "../detail/handle_ref.hpp"
-#include "./is_menu.hpp"
+#include <pstade/instance.hpp>
+#include "../boolean_cast.hpp"
 
 
 namespace pstade { namespace tomato {
 
 
-typedef detail::handle_ref<HMENU, is_menu_fun>
-menu_ref;
+struct is_window_fun
+{
+    bool operator()(HWND hWnd) const
+    {
+        return ::IsWindow(hWnd)|booleanized;
+    }
+};
+
+
+PSTADE_INSTANCE(is_window_fun const, is_window, value)
 
 
 } } // namespace pstade::tomato

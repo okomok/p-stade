@@ -28,7 +28,7 @@ void test()
     using namespace oven;
 
     std::list<char> lst;
-    oven::copy(std::string("cfbadehg"), garlic::back_inserter(lst));
+    oven::copy(std::string("cfbadehg"), std::back_inserter(lst));
 
     oven::sort(lst|identities|out_placed);
     BOOST_CHECK( oven::equals(lst, std::string("abcdefgh")) );

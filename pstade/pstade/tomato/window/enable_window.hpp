@@ -15,11 +15,10 @@
 // 'CCmdUI::Enable' of MFC7
 
 
-#include <boost/assert.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include "./send_message.hpp"
+#include "./window_ptr.hpp"
 #include "./window_ref.hpp"
-#include "./window_handle.hpp"
 
 
 namespace pstade { namespace tomato {
@@ -30,7 +29,7 @@ void enable_window(window_ref wnd, bool on)
 {
     // if control has the focus, move the focus before disabling
     if (!on && (::GetFocus() == wnd)) {
-        window_handle parent = ::GetParent(wnd);
+        window_ptr parent = ::GetParent(wnd);
         if (parent)
             tomato::send_message(*parent, WM_NEXTDLGCTL, 0, FALSE);
     }

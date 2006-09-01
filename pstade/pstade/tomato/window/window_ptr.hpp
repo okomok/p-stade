@@ -1,5 +1,5 @@
-#ifndef PSTADE_TOMATO_MENU_MENU_REF_HPP
-#define PSTADE_TOMATO_MENU_MENU_REF_HPP
+#ifndef PSTADE_TOMATO_WINDOW_WINDOW_PTR_HPP
+#define PSTADE_TOMATO_WINDOW_WINDOW_PTR_HPP
 
 
 // PStade.Tomato
@@ -11,15 +11,15 @@
 
 
 #include <pstade/apple/sdk/windows.hpp>
-#include "../detail/handle_ref.hpp"
-#include "./is_menu.hpp"
+#include "../detail/handle_ptr.hpp"
+#include "./is_window.hpp"
 
 
 namespace pstade { namespace tomato {
 
 
-typedef detail::handle_ref<HMENU, is_menu_fun>
-menu_ref;
+typedef detail::handle_ptr<HWND, is_window_fun>
+window_ptr;
 
 
 } } // namespace pstade::tomato

@@ -13,6 +13,7 @@
 #include "./menu/get_menu_item_count.hpp"
 #include "./menu/get_menu_item_id.hpp"
 #include "./menu/get_menu_state.hpp"
+#include "./menu/is_menu.hpp"
 #include "./menu/menu_ref.hpp"
 #include "./menu/mf_bitmap.hpp"
 #include "./menu/mf_disabled.hpp"

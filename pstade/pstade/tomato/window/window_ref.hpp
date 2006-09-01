@@ -10,38 +10,16 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/assert.hpp>
 #include <pstade/apple/sdk/windows.hpp>
-#include <pstade/nonassignable.hpp>
+#include "../detail/handle_ref.hpp"
+#include "./is_window.hpp"
 
 
 namespace pstade { namespace tomato {
 
 
-struct window_ref :
-    private nonassignable
-{
-    /*implicit*/ window_ref(HWND hWnd) :
-        m_hWnd(hWnd)
-    {
-        BOOST_ASSERT(::IsWindow(m_hWnd));
-    }
-
-    operator HWND() const
-    {
-        BOOST_ASSERT(::IsWindow(m_hWnd));
-        return m_hWnd;
-    }
-
-    HWND get() const
-    {
-        BOOST_ASSERT(::IsWindow(m_hWnd));
-        return m_hWnd;
-    }
-
-private:
-    HWND m_hWnd;
-};
+typedef detail::handle_ref<HWND, is_window_fun>
+window_ref;
 
 
 } } // namespace pstade::tomato

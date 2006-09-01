@@ -81,9 +81,9 @@ namespace assignable_detail {
 
         typedef
             radish::output_streamable< assignable<Clonable>,
-            radish::pointable< assignable<Clonable>, Clonable,
-            radish::swappable< assignable<Clonable>,
-            boost::totally_ordered< assignable<Clonable>
+            radish::pointable        < assignable<Clonable>, Clonable,
+            radish::swappable        < assignable<Clonable>,
+            boost::totally_ordered   < assignable<Clonable>
             > > > >
         type;
     };

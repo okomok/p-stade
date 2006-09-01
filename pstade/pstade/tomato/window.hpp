@@ -15,6 +15,7 @@
 #include "./window/class_name.hpp"
 #include "./window/create_result.hpp"
 #include "./window/enable_window.hpp"
+#include "./window/is_window.hpp"
 #include "./window/post_command.hpp"
 #include "./window/post_message.hpp"
 #include "./window/predicates.hpp"
@@ -23,8 +24,8 @@
 #include "./window/send_message.hpp"
 #include "./window/set_window_text.hpp"
 #include "./window/toggle_window.hpp"
+#include "./window/window_ptr.hpp"
 #include "./window/window_ref.hpp"
-#include "./window/window_handle.hpp"
 #include "./window/window_text.hpp"
 
 #include "./window/wnd_class.hpp"
