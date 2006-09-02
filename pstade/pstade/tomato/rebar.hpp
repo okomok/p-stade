@@ -11,11 +11,12 @@
 
 
 #include "./rebar/add_rebar_band.hpp"
-#include "./rebar/get_rebar_band_hwnd.hpp"
+#include "./rebar/for_each_rebar_band.hpp"
+#include "./rebar/get_rebar_band_id.hpp"
 #include "./rebar/get_rebar_band_info.hpp"
-#include "./rebar/is_rebar_band_visible.hpp"
+#include "./rebar/is_atl_idw_band.hpp"
+#include "./rebar/rebar_band.hpp"
 #include "./rebar/rebar_band_runtime_styles.hpp"
-#include "./rebar/show_rebar_band.hpp"
 #include "./rebar/toggle_rebar_band.hpp"
 
 

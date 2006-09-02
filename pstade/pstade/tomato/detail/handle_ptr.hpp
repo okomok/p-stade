@@ -98,7 +98,7 @@ private:
 
     PSTADE_CLASS_INVARIANT
     (
-        (m_handle ? Assertion()(m_handle) : true)
+        (m_handle != NULL ? Assertion()(m_handle) : true)
     )
 };
 

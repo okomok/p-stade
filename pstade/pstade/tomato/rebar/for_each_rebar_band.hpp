@@ -10,10 +10,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/assert.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/apple/wtl/ctrls.hpp> // CReBarCtrl
-#include "../diet/valid.hpp"
+#include "../window/window_ref.hpp"
 #include "./get_rebar_band_id.hpp"
 
 
@@ -21,13 +20,12 @@ namespace pstade { namespace tomato {
 
 
 template< class Functor >
-Functor for_each_rebar_band(HWND hWndReBar, Functor fun)
+Functor for_each_rebar_band(window_ref rebar, Functor fun)
 {
-    BOOST_ASSERT(diet::valid(hWndReBar));
+    WTL::CReBarCtrl rebars(rebar);
 
-    WTL::CReBarCtrl rebar(hWndReBar);
-    for (int i = 0, count = rebar.GetBandCount(); i < count; ++i)
-        fun(hWndReBar, tomato::get_rebar_band_id(hWndReBar, i));
+    for (int i = 0, count = rebars.GetBandCount(); i < count; ++i)
+        fun(hWndReBar, tomato::get_rebar_band_id(rebar, i));
 
     return fun;
 }

@@ -26,8 +26,6 @@
 #include <pstade/require.hpp>
 #include <pstade/tomato/diet/valid.hpp>
 #include <pstade/tomato/rebar/add_rebar_band.hpp>
-#include <pstade/tomato/rebar/modify_rebar_band_style.hpp>
-#include <pstade/tomato/rebar/show_rebar_band.hpp>
 #include <pstade/tomato/rebar/rebar_band_runtime_styles.hpp>
 #include <pstade/tomato/size_initialize.hpp>
 #include <pstade/tomato/tstring.hpp>
@@ -165,9 +163,8 @@ void get_rebar(Profile& pr, HWND hWndReBar, const ReBarBandInfoRange& infos)
     //   Hidden band can be seen through the gap in the gripper
     //   and I guess Win32 doesn't support RBBS_GRIPPERALWAYS correctly.
     BOOST_FOREACH (const rebar_detail::band_info_impl& info, info_impls) {
-        tomato::show_rebar_band(hWndReBar,
-            ::GetDlgCtrlID(info.hwndChild), !candy::test(info.fStyle, RBBS_HIDDEN)
-        );
+        tomato::rebar_band(hWndReBar, ::GetDlgCtrlID(info.hwndChild)).
+            show(!candy::test(info.fStyle, RBBS_HIDDEN));
     }
 }
 

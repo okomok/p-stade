@@ -13,8 +13,9 @@
 #include <boost/assert.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/apple/wtl/ctrls.hpp> // CReBarCtrl
+#include <pstade/contract.hpp>
 #include <pstade/require.hpp>
-#include "../diet/valid.hpp"
+#include "../window/window_ref.hpp"
 #include "../size_initialize.hpp"
 
 
@@ -22,17 +23,19 @@ namespace pstade { namespace tomato {
 
 
 inline
-UINT get_rebar_band_id(HWND hWndReBar, int index)
+UINT get_rebar_band_id(window_ref rebar, int index)
 {
-    BOOST_ASSERT(diet::valid(hWndReBar));
+    WTL::CReBarCtrl rebars(rebar);
 
-    WTL::CReBarCtrl rebar(hWndReBar);
-    BOOST_ASSERT(0 <= index && index < rebar.GetBandCount());
+    PSTADE_PRECONDITION (
+        (0 <= index)
+        (static_cast<UINT>(index) < rebars.GetBandCount())
+    )
 
     REBARBANDINFO info; {
         info|size_initialized;
         info.fMask = RBBIM_ID;
-        PSTADE_REQUIRE(rebar.GetBandInfo(index, &info));
+        PSTADE_REQUIRE(rebars.GetBandInfo(index, &info));
     }
 
     return info.wID;

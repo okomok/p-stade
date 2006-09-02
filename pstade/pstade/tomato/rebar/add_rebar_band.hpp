@@ -12,37 +12,37 @@
 
 #include <vector>
 #include <boost/assert.hpp>
-#include <boost/range/begin.hpp>
 #include <boost/range/empty.hpp>
 #include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/apple/wtl/ctrls.hpp> // CReBarCtrl
 #include <pstade/candy/set.hpp>
+#include <pstade/oven/append_range.hpp>
+#include <pstade/oven/begin_end.hpp>
 #include <pstade/oven/copy_range.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
 #include <pstade/oven/point_range.hpp>
 #include <pstade/require.hpp>
-#include "../diet/valid.hpp"
+#include "../c_str.hpp"
 #include "../size_initialize.hpp"
+#include "../window/window_ref.hpp"
 #include "./get_rebar_band_info.hpp"
 
 
 namespace pstade { namespace tomato {
 
 
-inline // 'cx' can be 0.
-void add_rebar_band(HWND hWndReBar, HWND hWndBand, UINT fStyle, TCHAR const *pszText, UINT cx)
+template< class CStringizable > // 'cx' can be 0.
+void add_rebar_band(window_ref rebar, window_ref child, UINT fStyle, CStringizable const& str, UINT cx)
 {
-    BOOST_ASSERT(diet::valid(hWndReBar));
-    BOOST_ASSERT(diet::valid(hWndBand));
-    BOOST_ASSERT(diet::valid(pszText));
-    BOOST_ASSERT("invalid child window id" && ::GetDlgCtrlID(hWndBand) != 0);
+    BOOST_ASSERT("child window id must be valid." && ::GetDlgCtrlID(child) != 0);
 
 
-    // info.lpText is not 'const'. 'const_cast' is dangerous.
+    // info.lpText is not 'const'. 'const_cast' is dangerous,
+    // so that, copy it.
     std::vector<TCHAR> text; {
-        text = pszText|oven::null_terminated|oven::copied;
-        text.push_back('\0');
+        text = str|c_stringized|oven::null_terminated
+            |oven::appended(_T('\0'))|oven::copied;
         BOOST_ASSERT(oven::is_null_terminated(text));
     }
 
@@ -62,34 +62,33 @@ void add_rebar_band(HWND hWndReBar, HWND hWndBand, UINT fStyle, TCHAR const *psz
             candy::set(info.fMask, RBBIM_TEXT);
         
         info.fStyle = fStyle;
-        info.lpText = boost::begin(text|oven::pointed);
-        info.hwndChild = hWndBand;
-        info.wID = ::GetDlgCtrlID(hWndBand); // how's that
+        info.lpText = text|oven::pointed|oven::begins;
+        info.hwndChild = child;
+        info.wID = ::GetDlgCtrlID(child); // how's that
 
-        info.cxMinChild = tomato::get_rebar_band_info_cxMinChild(hWndBand, hasTitle);
-        info.cyMinChild = tomato::get_rebar_band_info_cyMinChild(hWndBand);
+        info.cxMinChild = tomato::get_rebar_band_info_cxMinChild(child, hasTitle);
+        info.cyMinChild = tomato::get_rebar_band_info_cyMinChild(child);
         
         // cx is the "current" width.
         if (cx == 0)
-            info.cx = tomato::get_rebar_band_info_cxIdeal(hWndBand);
+            info.cx = tomato::get_rebar_band_info_cxIdeal(child);
         else
             info.cx = cx;
 
 #if (_WIN32_IE >= 0x0400)
         // Note: cxIdeal is used for CHEVRON. If MDI, cxIdeal is changed dynamically.
-        info.cxIdeal = tomato::get_rebar_band_info_cxIdeal(hWndBand); // info.cx is not good.
+        info.cxIdeal = tomato::get_rebar_band_info_cxIdeal(child); // info.cx is not good.
 #endif
     } // info
 
 
-    WTL::CReBarCtrl rebar(hWndReBar);
-    PSTADE_REQUIRE(rebar.InsertBand(-1, &info));
+    PSTADE_REQUIRE(WTL::CReBarCtrl(rebar).InsertBand(-1, &info));
 
 
 /* should be?
 #if (_WIN32_IE >= 0x0501)
-        DWORD dwExStyle = (DWORD)::SendMessage(hWndBand, TB_GETEXTENDEDSTYLE, 0, 0L);
-        ::SendMessage(hWndBand, TB_SETEXTENDEDSTYLE, 0, dwExStyle | TBSTYLE_EX_HIDECLIPPEDBUTTONS);
+        DWORD dwExStyle = (DWORD)::SendMessage(child, TB_GETEXTENDEDSTYLE, 0, 0L);
+        ::SendMessage(child, TB_SETEXTENDEDSTYLE, 0, dwExStyle | TBSTYLE_EX_HIDECLIPPEDBUTTONS);
 #endif // (_WIN32_IE >= 0x0501)
 */
 

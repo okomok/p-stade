@@ -10,24 +10,18 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/assert.hpp>
-#include <pstade/apple/sdk/windows.hpp>
-#include "../diet/valid.hpp"
-#include "./is_rebar_band_visible.hpp"
-#include "./show_rebar_band.hpp"
+#include "./rebar_band.hpp"
 
 
 namespace pstade { namespace tomato {
 
 
 inline
-bool toggle_rebar_band(HWND hWndReBar, UINT uBandID)
+bool toggle_rebar_band(rebar_band const& band)
 {
-    BOOST_ASSERT(diet::valid(hWndReBar));
-
-    bool new_vis = !tomato::is_rebar_band_visible(hWndReBar, uBandID);
-    tomato::show_rebar_band(hWndReBar, uBandID, new_vis);
-    return new_vis;
+    bool next = !band.is_visible();
+    band.show(next);
+    return next;
 }
 
 

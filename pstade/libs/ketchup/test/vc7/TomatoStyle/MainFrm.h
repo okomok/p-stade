@@ -151,7 +151,7 @@ public:
 
 	void OnViewToolBar()
 	{
-		tomato::toggle_rebar_band(m_rebar, ATL_IDW_TOOLBAR);
+        tomato::toggle_rebar_band(tomato::rebar_band(m_rebar.m_hWnd, ATL_IDW_TOOLBAR));
 		this->UpdateLayout();
 	}
 
@@ -171,7 +171,7 @@ public:
 	void OnUpdateViewToolBar(cmd_ui& ui)
 	{
 		if (!ui.is_dependent())
-			ui.set_radio(tomato::is_rebar_band_visible(m_rebar, ATL_IDW_TOOLBAR));
+			ui.set_radio(tomato::rebar_band(m_rebar.m_hWnd, ATL_IDW_TOOLBAR).is_visible());
 	}
 
 	void OnUpdateViewStatusBar(cmd_ui& ui)

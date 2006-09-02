@@ -20,10 +20,9 @@
 // Any window can pretend to be a toolbar :-)
 
 
-#include <boost/assert.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/require.hpp>
-#include "../diet/valid.hpp"
+#include "../window/window_ref.hpp"
 
 
 namespace pstade { namespace tomato {
@@ -33,18 +32,18 @@ namespace get_rebar_band_info_detail {
 
 
     inline
-    int get_button_count(HWND hWnd)
+    int get_button_count(window_ref wnd)
     {
-        return static_cast<int>(::SendMessage(hWnd, TB_BUTTONCOUNT, 0, 0L));
+        return static_cast<int>(::SendMessage(wnd, TB_BUTTONCOUNT, 0, 0L));
     }
 
 
     inline
-    bool get_first_item_rect(HWND hWnd, RECT& rc)
+    bool get_first_item_rect(window_ref wnd, RECT& rc)
     {
-        int nBtnCount = get_rebar_band_info_detail::get_button_count(hWnd);
+        int nBtnCount = get_rebar_band_info_detail::get_button_count(wnd);
         if (nBtnCount > 0) {
-            PSTADE_REQUIRE(::SendMessage(hWnd, TB_GETITEMRECT, 0, reinterpret_cast<LPARAM>(&rc)));
+            PSTADE_REQUIRE(::SendMessage(wnd, TB_GETITEMRECT, 0, reinterpret_cast<LPARAM>(&rc)));
             return true;
         }
 
@@ -53,11 +52,11 @@ namespace get_rebar_band_info_detail {
 
 
     inline
-    bool get_last_item_rect(HWND hWnd, RECT& rc)
+    bool get_last_item_rect(window_ref wnd, RECT& rc)
     {
-        int nBtnCount = get_rebar_band_info_detail::get_button_count(hWnd);
+        int nBtnCount = get_rebar_band_info_detail::get_button_count(wnd);
         if (nBtnCount > 0) {
-            PSTADE_REQUIRE(::SendMessage(hWnd, TB_GETITEMRECT, nBtnCount-1, reinterpret_cast<LPARAM>(&rc)));
+            PSTADE_REQUIRE(::SendMessage(wnd, TB_GETITEMRECT, nBtnCount-1, reinterpret_cast<LPARAM>(&rc)));
             return true;
         }
 
@@ -69,15 +68,13 @@ namespace get_rebar_band_info_detail {
 
 
 inline
-UINT get_rebar_band_info_cxMinChild(HWND hWnd, bool hasTitle)
-{
-    BOOST_ASSERT(diet::valid(hWnd));
-    
+UINT get_rebar_band_info_cxMinChild(window_ref wnd, bool hasTitle)
+{    
     if (hasTitle)
         return 0;
 
     RECT rc;
-    if (get_rebar_band_info_detail::get_first_item_rect(hWnd, rc))
+    if (get_rebar_band_info_detail::get_first_item_rect(wnd, rc))
         return rc.right;
 
     return 0;
@@ -85,12 +82,10 @@ UINT get_rebar_band_info_cxMinChild(HWND hWnd, bool hasTitle)
 
 
 inline
-UINT get_rebar_band_info_cyMinChild(HWND hWnd)
-{
-    BOOST_ASSERT(diet::valid(hWnd));
-    
+UINT get_rebar_band_info_cyMinChild(window_ref wnd)
+{    
     RECT rc;
-    if (get_rebar_band_info_detail::get_first_item_rect(hWnd, rc))
+    if (get_rebar_band_info_detail::get_first_item_rect(wnd, rc))
         return rc.bottom - rc.top;
 
     return 16;
@@ -98,12 +93,10 @@ UINT get_rebar_band_info_cyMinChild(HWND hWnd)
 
 
 inline
-UINT get_rebar_band_info_cxIdeal(HWND hWnd)
+UINT get_rebar_band_info_cxIdeal(window_ref wnd)
 {
-    BOOST_ASSERT(diet::valid(hWnd));
-    
     RECT rc;
-    if (get_rebar_band_info_detail::get_last_item_rect(hWnd, rc))
+    if (get_rebar_band_info_detail::get_last_item_rect(wnd, rc))
         return rc.right;
 
     return 0;
