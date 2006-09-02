@@ -16,7 +16,6 @@
 
 
 #include <pstade/apple/sdk/windows.hpp>
-#include "./send_message.hpp"
 #include "./window_ptr.hpp"
 #include "./window_ref.hpp"
 
@@ -31,7 +30,7 @@ void enable_window(window_ref wnd, bool on)
     if (!on && (::GetFocus() == wnd)) {
         window_ptr parent = ::GetParent(wnd);
         if (parent)
-            tomato::send_message(*parent, WM_NEXTDLGCTL, 0, FALSE);
+            ::SendMessage(*parent, WM_NEXTDLGCTL, 0, FALSE);
     }
 
     // never fails

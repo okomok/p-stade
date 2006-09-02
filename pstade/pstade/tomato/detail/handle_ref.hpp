@@ -33,7 +33,7 @@ struct handle_ref :
         return m_handle;
     }
 
-    Handle get() const
+    Handle handle() const
     {
         BOOST_ASSERT(invariant());
         return m_handle;

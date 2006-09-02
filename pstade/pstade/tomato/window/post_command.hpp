@@ -11,6 +11,7 @@
 
 
 #include <pstade/apple/sdk/windows.hpp>
+#include "../make.hpp"
 #include "./post_message.hpp"
 #include "./window_ref.hpp"
 
@@ -21,7 +22,7 @@ namespace pstade { namespace tomato {
 inline
 void post_command(window_ref wnd, WORD wID)
 {
-    tomato::post_message(wnd, WM_COMMAND, MAKEWPARAM(wID, 0));
+    tomato::post_message(wnd, WM_COMMAND, tomato::make_WPARAM(wID, 0));
 }
 
 

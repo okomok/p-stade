@@ -16,36 +16,36 @@
 namespace pstade { namespace tomato {
 
 
-template< class WordT > inline
-DWORD make_LONG(WordT wLow, WordT wHigh)
+template< class Word1, class Word2 > inline
+DWORD make_LONG(Word1 wLow, Word2 wHigh)
 {
     return MAKELONG(wLow, wHigh);
 }
 
 
-template< class WordT > inline
-TCHAR *make_INTRESOURCE(WordT wInteger)
+template< class Word > inline
+TCHAR *make_INTRESOURCE(Word wInteger)
 {
     return MAKEINTRESOURCE(wInteger);
 }
 
 
-template< class WordT > inline
-WPARAM make_WPARAM(WordT wLow, WordT wHigh)
+template< class Word1, class Word2 > inline
+WPARAM make_WPARAM(Word1 wLow, Word2 wHigh)
 {
     return MAKEWPARAM(wLow, wHigh);
 }
 
 
-template< class WordT > inline
-LPARAM make_LPARAM(WordT wLow, WordT wHigh)
+template< class Word1, class Word2 > inline
+LPARAM make_LPARAM(Word1 wLow, Word2 wHigh)
 {
     return MAKELPARAM(wLow, wHigh);
 }
 
 
-template< class WordT > inline
-LRESULT make_LRESULT(WordT wLow, WordT wHigh)
+template< class Word1, class Word2 > inline
+LRESULT make_LRESULT(Word1 wLow, Word2 wHigh)
 {
     return MAKELRESULT(wLow, wHigh);
 }

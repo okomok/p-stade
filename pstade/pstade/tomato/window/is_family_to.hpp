@@ -21,7 +21,7 @@ namespace pstade { namespace tomato {
 inline
 bool is_family_to(window_ref wnd1, window_ref wnd2)
 {
-    if (wnd1.get() == wnd2.get())
+    if (wnd1 == wnd2)
         return true;
 
     return ATL::CWindow(wnd1).GetTopLevelParent()

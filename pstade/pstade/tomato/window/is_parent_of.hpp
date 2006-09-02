@@ -25,7 +25,7 @@ namespace pstade { namespace tomato {
 inline
 bool is_parent_of(window_ref parent, window_ref child)
 {
-    return parent.get() == ::GetParent(child);
+    return parent == ::GetParent(child);
 }
 
 
