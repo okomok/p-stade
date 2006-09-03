@@ -17,7 +17,6 @@
 #include "./rebar/is_atl_idw_band.hpp"
 #include "./rebar/rebar_band.hpp"
 #include "./rebar/rebar_band_runtime_styles.hpp"
-#include "./rebar/toggle_rebar_band.hpp"
 
 
 #endif

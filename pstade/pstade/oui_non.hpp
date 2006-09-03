@@ -16,7 +16,7 @@
 namespace pstade {
 
 
-struct oui { char a[1]; };
+struct oui { char a[1]; oui(bool ) { } };
 struct non { char a[2]; };
 
 

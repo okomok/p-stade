@@ -151,7 +151,8 @@ public:
 
 	void OnViewToolBar()
 	{
-        tomato::toggle_rebar_band(tomato::rebar_band(m_rebar.m_hWnd, ATL_IDW_TOOLBAR));
+        tomato::rebar_band band(m_rebar.m_hWnd, ATL_IDW_TOOLBAR);
+        band.show(!band.is_visible());
 		this->UpdateLayout();
 	}
 
