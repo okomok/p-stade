@@ -52,14 +52,22 @@ namespace xxx {
 }
 
 
-struct light
+struct light1 : yyy::heavy1
+{ };
+
+struct light2 : yyy::heavy2
+{ };
+
+struct light3 : heavy3
 { };
 
 
 BOOST_MPL_ASSERT(( xxx::is_heavy<yyy::heavy1> ));
 BOOST_MPL_ASSERT(( xxx::is_heavy<yyy::heavy2> ));
 BOOST_MPL_ASSERT(( xxx::is_heavy<heavy3> ));
-BOOST_MPL_ASSERT_NOT(( xxx::is_heavy<light> ));
+BOOST_MPL_ASSERT_NOT(( xxx::is_heavy<light1> ));
+BOOST_MPL_ASSERT_NOT(( xxx::is_heavy<light2> ));
+BOOST_MPL_ASSERT_NOT(( xxx::is_heavy<light3> ));
 
 
 void test()
