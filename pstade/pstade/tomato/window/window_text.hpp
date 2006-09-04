@@ -32,6 +32,7 @@
 #include <pstade/oven/distance.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
 #include "../access.hpp"
+#include "../c_str.hpp"
 #include "./window_ref.hpp"
 
 
@@ -80,10 +81,9 @@ namespace window_text_detail {
 struct window_text :
     private window_text_detail::init<>::type,
     window_text_detail::super_<>::type,
+    private as_intrusive_cstringizable<window_text>,
     private boost::noncopyable
 {
-    typedef window_text pstade_tomato_cstringizable;
-
 private:
     typedef window_text_detail::init<>::type init_t; 
     typedef window_text_detail::super_<>::type super_t;

@@ -11,7 +11,7 @@
 
 
 #include "./window/check_window.hpp"
-#include "./window/child_windows.hpp"
+#include "./window/child_window_generator.hpp"
 #include "./window/class_name.hpp"
 #include "./window/create_result.hpp"
 #include "./window/enable_window.hpp"

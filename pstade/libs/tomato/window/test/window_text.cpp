@@ -29,10 +29,10 @@ WTL::CAppModule _Module;
 #include <pstade/apple/wtl/app.hpp>
 #include <boost/algorithm/string.hpp>
 #include <pstade/napkin/dout.hpp>
-#include <pstade/diet/reset_ostream.hpp>
 #include <pstade/tomato/c_str.hpp>
 #include <pstade/tomato/tstring.hpp>
 #include <pstade/tomato/tstream.hpp>
+#include <pstade/oven.hpp>
 
 
 void test()
@@ -45,13 +45,13 @@ void test()
 #if (PSTADE_APPLE_ATL_VER >= 0x0700)
     {
         ATL::CString str = tomato::window_text(hWnd)|oven::copied;
-        tcout << str << std::endl;
+        tcout << (str|c_stringized) << std::endl;
     }
 #endif
 
     {
         WTL::CString str = tomato::window_text(hWnd)|oven::copied;
-        tcout << str << std::endl;
+        tcout << (str|c_stringized) << std::endl;
     }
 
     {
@@ -74,13 +74,13 @@ void test()
 
     {
         tcout << (tomato::window_text(hWnd)|c_stringized) << std::endl;
+        oven::copy(tomato::window_text(hWnd), oven::stream_outputter(tcout));
     }
 }
 
 
 int test_main(int, char *[])
 {
-    pstade::diet::reset_ostream(std::cout);
     ::test();
     return 0;
 }

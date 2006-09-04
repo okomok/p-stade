@@ -35,8 +35,8 @@ template< class CStringizable >
 void set_window_text(window_ref wnd, CStringizable const& str)
 {
     TCHAR const *pszNew = str|c_stringized;
-    oven::null_terminate_range<TCHAR const *> strNew(pszNew);
-    int newLen = static_cast<int>(oven::distance(strNew));
+    oven::null_terminate_range<TCHAR const *> rngNew(pszNew);
+    int newLen = static_cast<int>(oven::distance(rngNew));
 
     typedef static_c<int, 255> bufLen;
     boost::array<TCHAR, 1 + bufLen::value> bufOld;
@@ -44,7 +44,7 @@ void set_window_text(window_ref wnd, CStringizable const& str)
     // fast check to see if text really changes (reduces flash in controls)
     if (newLen > bufLen::value ||
         ::GetWindowText(wnd, boost::begin(bufOld), bufOld.static_size) != newLen ||
-        !oven::equals(bufOld|oven::null_terminated, strNew))
+        !oven::equals(bufOld|oven::null_terminated, rngNew))
     {
         PSTADE_REQUIRE(::SetWindowText(wnd, pszNew));
     }

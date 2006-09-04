@@ -32,7 +32,7 @@ rule tomato-window-test-fail ( name )
 
 
 test-suite tomato-window :
-    [ tomato-window-test child_windows ]
+    [ tomato-window-test child_window_generator ]
     [ tomato-window-test class_name ]
     [ tomato-window-test register_window_message ]
     [ tomato-window-test window_text ]

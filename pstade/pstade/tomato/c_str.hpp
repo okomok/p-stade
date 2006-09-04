@@ -20,7 +20,7 @@
 #include <pstade/apple/basic_string_fwd.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
-#include <pstade/has_xxx.hpp>
+#include <pstade/metapredicate.hpp>
 #include <pstade/nullptr.hpp>
 #include <pstade/overload.hpp>
 #include <pstade/static_c.hpp>
@@ -29,6 +29,9 @@
 
 
 namespace pstade { namespace tomato {
+
+
+PSTADE_METAPREDICATE(intrusive_cstringizable, pstade_tomato)
 
 
 namespace c_str_detail {
@@ -82,13 +85,10 @@ namespace c_str_detail {
     }
 
 
-    PSTADE_HAS_TYPE(pstade_tomato_cstringizable)
-
-
     // member function
     //
     template< class T > inline
-    typename boost::enable_if<has_pstade_tomato_cstringizable<T>,
+    typename boost::enable_if<is_intrusive_cstringizable<T>,
     TCHAR const *>::type aux(T const& str)
     {
         return access::detail_c_str(str);
@@ -104,7 +104,7 @@ namespace c_str_detail {
     }
 
     template< class T > inline
-    typename boost::disable_if<has_pstade_tomato_cstringizable<T>,
+    typename boost::disable_if<is_intrusive_cstringizable<T>,
     TCHAR const *>::type aux(T const& str)
     {
         return pstade_tomato_c_str(str);

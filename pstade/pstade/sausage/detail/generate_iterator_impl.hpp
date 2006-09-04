@@ -32,8 +32,9 @@
 #include <pstade/param.hpp>
 #include <pstade/static_c.hpp>
 #include "../exception.hpp" // exit_exception
+#include "./forward_yield.hpp"
+#include "./yielded.hpp"
 #include "./ref_to_ptr.hpp"
-#include "./yield_forward.hpp"
 
 
 #if defined(BOOST_MSVC)
@@ -59,13 +60,14 @@ struct generate_iterator_impl :
 {
 private:
     typedef generate_iterator_impl self_t;
-    typedef typename param<typename Generator::result_type>::type result_ref_t;
-    typedef typename detail::ref_to_ptr<result_ref_t>::type result_ptr_t;
+    typedef typename detail::yielded<Generator>::type yielded_t;
+    typedef typename param<yielded_t>::type yielded_ref_t;
+    typedef typename detail::ref_to_ptr<yielded_ref_t>::type yielded_ptr_t;
 
 public:
     explicit generate_iterator_impl(Generator gen) :
         m_gen(gen),
-        m_presult(PSTADE_NULLPTR),
+        m_pyielded(PSTADE_NULLPTR),
         m_status(1), // is_incrementing
         m_thread(boost::lambda::bind(&generate_iterator_impl::work, this))
     { }
@@ -85,15 +87,15 @@ public:
         }
     }
 
-    result_ref_t deref()
+    yielded_ref_t deref()
     {
         boost::mutex::scoped_lock lock(m_mutex);
 
-        BOOST_ASSERT(m_presult != PSTADE_NULLPTR);
+        BOOST_ASSERT(m_pyielded != PSTADE_NULLPTR);
         BOOST_ASSERT(!m_status.test(is_incrementing::value));
         BOOST_ASSERT(!m_status.test(is_end::value) && "out of range access");
 
-        return *m_presult;
+        return *m_pyielded;
     }
 
     void next()
@@ -121,16 +123,16 @@ public:
 
 private:
     Generator m_gen;
-    result_ptr_t m_presult;
+    yielded_ptr_t m_pyielded;
     boost::mutex m_mutex;
     boost::condition m_cond;
     status_t m_status;
-    boost::thread m_thread; // must be last
+    boost::thread m_thread; // must be the last member.
 
     void work()
     {
         try {
-            m_gen(detail::make_yield_forward(
+            m_gen(detail::make_forward_yield(
                 boost::lambda::bind(&self_t::yield, this, boost::lambda::_1)
             ));
         }
@@ -142,13 +144,13 @@ private:
         m_cond.notify_one();
     }
 
-    void yield(result_ref_t result) // is same thread as 'work()'.
+    void yield(yielded_ref_t yielded) // is same thread as 'work()'.
     {
         boost::mutex::scoped_lock lock(m_mutex);
 
-        // 'result' is alive until next increment,
+        // 'yielded' is alive until next increment,
         // as far as 'value' can go across thread-boundary.
-        m_presult = boost::addressof(result);
+        m_pyielded = boost::addressof(yielded);
         m_status.reset(is_incrementing::value);
         m_cond.notify_one();
 
