@@ -10,12 +10,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/assert.hpp>
 #include <boost/mpl/if.hpp>
 #include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/overload.hpp>
 #include <pstade/tomato/c_str.hpp>
-#include <pstade/tomato/diet/valid.hpp>
 #include "./access.hpp"
 #include "./detail/has_pstade_pizza_profile.hpp"
 
@@ -29,7 +27,7 @@ namespace set_string_detail {
     struct member_function
     {
         template< class Profile > static
-        void call(Profile& pr, const TCHAR *pszValueName, const TCHAR *pszValue)
+        void call(Profile& pr, TCHAR const *pszValueName, TCHAR const *pszValue)
         {
             access::detail_set_string(pr, pszValueName, pszValue);
         }
@@ -39,7 +37,7 @@ namespace set_string_detail {
     struct adl_customization
     {
         template< class Profile > static
-        void call(Profile& pr, const TCHAR *pszValueName, const TCHAR *pszValue)
+        void call(Profile& pr, TCHAR const *pszValueName, TCHAR const *pszValue)
         {
             pstade_pizza_set_string(pr, pszValueName, pszValue, overload<>());
         }
@@ -50,13 +48,10 @@ namespace set_string_detail {
 
 
 template< class Profile, class CStringizeable0, class CStringizeable1 > inline
-void set_string(Profile& pr, const CStringizeable0& valueName, const CStringizeable1& value)
+void set_string(Profile& pr, CStringizeable0 const& valueName, CStringizeable1 const& value)
 {
-    const TCHAR *pszValueName = tomato::c_str(valueName);
-    const TCHAR *pszValue = tomato::c_str(value);
-    BOOST_ASSERT(diet::valid(pszValueName));
-    BOOST_ASSERT(diet::valid(pszValue));
-
+    TCHAR const *pszValueName = tomato::c_str(valueName);
+    TCHAR const *pszValue = tomato::c_str(value);
 
     using namespace set_string_detail;
 

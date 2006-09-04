@@ -15,7 +15,7 @@
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/require.hpp>
 #include <pstade/verify.hpp>
-#include "../diet/valid.hpp"
+#include "./is_dc.hpp"
 
 
 namespace pstade { namespace tomato {
@@ -33,18 +33,18 @@ struct screen_dc_if_null :
             m_managed = true;
         }
 
-        BOOST_ASSERT(diet::valid(m_hDC));
+        BOOST_ASSERT(tomato::is_dc(m_hDC));
     }
 
     ~screen_dc_if_null()
     {
-        BOOST_ASSERT(diet::valid(m_hDC));
+        BOOST_ASSERT(tomato::is_dc(m_hDC));
 
         if (m_managed)
             ::DeleteDC(m_hDC)|verified;
     }
 
-    HDC get_handle() const
+    HDC handle() const
     {
         return m_hDC;
     }

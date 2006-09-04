@@ -17,7 +17,6 @@
 #include <vector>
 #include <boost/foreach.hpp>
 #include <boost/range.hpp>
-#include <pstade/garlic/back_inserter.hpp>
 #include <pstade/oven/functions.hpp>
 
 

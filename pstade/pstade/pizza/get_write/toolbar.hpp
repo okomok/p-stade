@@ -24,7 +24,7 @@
 #include <pstade/apple/wtl/ctrls.hpp> // CToolBarCtrl
 #include <pstade/candy/test.hpp>
 #include <pstade/require.hpp>
-#include <pstade/tomato/diet/valid.hpp>
+#include <pstade/tomato/window/window_ref.hpp>
 #include "../integer.hpp"
 #include "../set_integer.hpp"
 
@@ -62,12 +62,10 @@ namespace toolbar_detail {
 
 
     inline
-    void clean_up_buttons(HWND hWndToolBar)
-    {
-        BOOST_ASSERT(diet::valid(hWndToolBar));
-        
-        WTL::CToolBarCtrl toolbar(hWndToolBar);
-        while (toolbar.DeleteButton(0))
+    void clean_up_buttons(tomato::window_ref toolbar)
+    {        
+        WTL::CToolBarCtrl toolbars(toolbar);
+        while (toolbars.DeleteButton(0))
             ;
     }
 
@@ -76,18 +74,16 @@ namespace toolbar_detail {
 
 
 template< class Profile >
-void write_toolbar(Profile& pr, HWND hWndToolBar)
+void write_toolbar(Profile& pr, tomato::window_ref toolbar)
 {
-    BOOST_ASSERT(diet::valid(hWndToolBar));
-    
-    WTL::CToolBarCtrl toolbar(hWndToolBar);
+    WTL::CToolBarCtrl toolbars(toolbar);
 
-    int count = toolbar.GetButtonCount();
+    int count = toolbars.GetButtonCount();
     set_integer(pr, _T("toolbar.buttonCount"), count);
 
     for (int i = 0; i < count; ++i) {
         TBBUTTON tbBtn;
-        PSTADE_REQUIRE(toolbar.GetButton(i, &tbBtn));
+        PSTADE_REQUIRE(toolbars.GetButton(i, &tbBtn));
 
         tomato::tstring valName = toolbar_detail::format_button_value_name(i);
         int index = candy::test(tbBtn.fsStyle, TBSTYLE_SEP) ? separator_iBitmap::value : tbBtn.iBitmap;
@@ -99,11 +95,9 @@ void write_toolbar(Profile& pr, HWND hWndToolBar)
 // hWndToolbar must have all the buttons before calling.
 //
 template< class Profile >
-bool get_toolbar(Profile& pr, HWND hWndToolBar)
+bool get_toolbar(Profile& pr, tomato::window_ref toolbar)
 {
-    BOOST_ASSERT(diet::valid(hWndToolBar));
-
-    WTL::CToolBarCtrl toolbar(hWndToolBar);
+    WTL::CToolBarCtrl toolbars(toolbar);
 
     int prCount;
     try {
@@ -113,17 +107,17 @@ bool get_toolbar(Profile& pr, HWND hWndToolBar)
         return false;
     }
 
-    int originalCount = toolbar.GetButtonCount();
+    int originalCount = toolbars.GetButtonCount();
     boost::scoped_array<TBBUTTON> pTBBtn(new TBBUTTON[originalCount]);
 
     // save original tbbuttons
     for (int i = 0; i < originalCount; ++i) {
         TBBUTTON tbBtn;
-        PSTADE_REQUIRE(toolbar.GetButton(i, &tbBtn));
+        PSTADE_REQUIRE(toolbars.GetButton(i, &tbBtn));
         pTBBtn[i] = tbBtn;
     }
 
-    toolbar_detail::clean_up_buttons(hWndToolBar);
+    toolbar_detail::clean_up_buttons(toolbar);
 
     // insert buttons
     for (int index = 0; index < prCount; ++index) {
@@ -142,7 +136,7 @@ bool get_toolbar(Profile& pr, HWND hWndToolBar)
         if (iBitmap == separator_iBitmap::value) {
             TBBUTTON tbBtn;
             toolbar_detail::tbBtn_separator_initialize(tbBtn);
-            PSTADE_REQUIRE(toolbar.InsertButton(toolbar.GetButtonCount(), &tbBtn));
+            PSTADE_REQUIRE(toolbars.InsertButton(toolbars.GetButtonCount(), &tbBtn));
         }
         else {
             int j = 0;
@@ -150,13 +144,13 @@ bool get_toolbar(Profile& pr, HWND hWndToolBar)
                 if (!candy::test(pTBBtn[j].fsStyle, TBSTYLE_SEP) &&
                     pTBBtn[j].iBitmap == iBitmap)
                 {
-                    PSTADE_REQUIRE(toolbar.InsertButton(toolbar.GetButtonCount(), &pTBBtn[j]));
+                    PSTADE_REQUIRE(toolbars.InsertButton(toolbars.GetButtonCount(), &pTBBtn[j]));
                     break;
                 }
             }
 
             if (j == originalCount) { // not found
-                BOOST_ASSERT(false && "iBidmap not found");
+                BOOST_ASSERT("iBidmap must be found" && false);
             }
         }
 
@@ -189,7 +183,7 @@ bool copy_toolbar(Profile& pr, OutputIter out)
             *out = iBitmap;
             ++out;
         }
-        catch (error&) {
+        catch (error& ) {
             break;
         }
     }

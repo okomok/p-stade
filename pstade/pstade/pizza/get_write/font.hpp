@@ -10,12 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/assert.hpp>
 #include <pstade/apple/atl/win.hpp> // CWindow
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/apple/wtl/gdi.hpp> // CLogFont
 #include <pstade/require.hpp>
-#include <pstade/tomato/diet/valid.hpp>
+#include <pstade/tomato/window/window_ref.hpp>
 #include "./logfont.hpp"
 
 
@@ -23,11 +22,9 @@ namespace pstade { namespace pizza {
 
 
 template< class Profile >
-void write_font(Profile& pr, HWND hWnd)
+void write_font(Profile& pr, tomato::window_ref wnd)
 {
-    BOOST_ASSERT(diet::valid(hWnd));
-
-    HFONT hFont = ATL::CWindow(hWnd).GetFont();
+    HFONT hFont = ATL::CWindow(wnd).GetFont();
     if (hFont == NULL)
         return;
 
@@ -36,7 +33,7 @@ void write_font(Profile& pr, HWND hWnd)
 
 
 // 'get_font' is impossible
-// font handles must be managed by you.
+// font handles must be managed by yourself.
 
 
 } } // namespace pstade::pizza

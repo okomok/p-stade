@@ -15,11 +15,10 @@
 // Win32 adds caption forcefully when creating window.
 
 
-#include <boost/assert.hpp>
 #include <pstade/apple/atl/win.hpp> // CWindow
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/oven/equals.hpp>
-#include <pstade/tomato/diet/valid.hpp>
+#include <pstade/tomato/window/window_ref.hpp>
 #include "./element_attributes.hpp"
 
 
@@ -30,13 +29,11 @@ namespace caption_detail {
 
 
     inline
-    void remove(HWND hWnd)
+    void remove(tomato::window_ref wnd)
     {
-        BOOST_ASSERT(diet::valid(hWnd));
-
-        ATL::CWindow wnd(hWnd);
-        wnd.ModifyStyle(WS_CAPTION, 0);
-        wnd.SetWindowPos(NULL, 0, 0, 0, 0, SWP_NOMOVE|SWP_NOSIZE|SWP_NOACTIVATE|SWP_NOZORDER|SWP_FRAMECHANGED);
+        ATL::CWindow wnds(wnd);
+        wnds.ModifyStyle(WS_CAPTION, 0);
+        wnds.SetWindowPos(NULL, 0, 0, 0, 0, SWP_NOMOVE|SWP_NOSIZE|SWP_NOACTIVATE|SWP_NOZORDER|SWP_FRAMECHANGED);
     }
 
 

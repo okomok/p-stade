@@ -14,7 +14,6 @@
 #include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/overload.hpp>
 #include <pstade/tomato/c_str.hpp>
-#include <pstade/tomato/diet/valid.hpp>
 #include "./access.hpp"
 #include "./detail/has_pstade_pizza_profile.hpp"
 
@@ -28,7 +27,7 @@ namespace delete_detail {
     struct member_function
     {
         template< class Profile > static
-        void call(Profile& pr, const TCHAR *pszValueName)
+        void call(Profile& pr, TCHAR const *pszValueName)
         {
             access::detail_delete(pr, pszValueName);
         }
@@ -38,7 +37,7 @@ namespace delete_detail {
     struct adl_customization
     {
         template< class Profile > static
-        void call(Profile& pr, const TCHAR *pszValueName)
+        void call(Profile& pr, TCHAR const *pszValueName)
         {
             pstade_pizza_delete(pr, pszValueName, overload<>());
         }
@@ -49,11 +48,9 @@ namespace delete_detail {
 
 
 template< class Profile, class CStringizable >
-void delete_(Profile& pr, const CStringizable& valueName)
+void delete_(Profile& pr, CStringizable const& valueName)
 {
-    const TCHAR *pszValueName = tomato::c_str(valueName);
-    BOOST_ASSERT(diet::valid(pszValueName));
-
+    TCHAR const *pszValueName = tomato::c_str(valueName);
 
     using namespace delete_detail;
 

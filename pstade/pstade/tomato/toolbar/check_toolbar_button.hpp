@@ -29,10 +29,12 @@ void check_toolbar_button(window_ref toolbar, UINT uID, int state)
 {
     BOOST_ASSERT(0 <= state && state <= 2); // 0=>off, 1=>on, 2=>indeterminate
 
+    WTL::CToolBarCtrl toolbars(toolbar);
+
     TBBUTTONINFO tbb; {
         tbb|size_initialized;
         tbb.dwMask = TBIF_STATE | TBIF_STYLE;
-        PSTADE_REQUIRE(WTL::CToolBarCtrl(toolbar).GetButtonInfo(uID, &tbb) != -1);
+        PSTADE_REQUIRE(toolbars.GetButtonInfo(uID, &tbb) != -1);
     }
 
     BYTE bOldStyle = tbb.fsStyle;
@@ -57,7 +59,7 @@ void check_toolbar_button(window_ref toolbar, UINT uID, int state)
     if (bOldStyle == tbb.fsStyle && bOldState == tbb.fsState)
         return;
 
-    PSTADE_REQUIRE(WTL::CToolBarCtrl(toolbar).SetButtonInfo(uID, &tbb));
+    PSTADE_REQUIRE(toolbars.SetButtonInfo(uID, &tbb));
 }
 
 

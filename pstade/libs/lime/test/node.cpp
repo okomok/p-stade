@@ -12,10 +12,9 @@
 
 #include <pstade/lime.hpp>
 
-
+#include <iterator>
 #include <pstade/oven.hpp>
 #include <pstade/wine.hpp>
-#include <pstade/garlic.hpp>
 
 using namespace pstade;
 
@@ -64,7 +63,7 @@ void test()
     ustring ans("<parent><child>hello<grandchild age=\"12\"></grandchild></child></parent>");
 
     ustring dst;
-    lime::save(root.front(), garlic::back_inserter(dst));
+    lime::save(root.front(), std::back_inserter(dst));
     std::cout << dst;
 
     BOOST_CHECK( oven::equals(dst, ans) );

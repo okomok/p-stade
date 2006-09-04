@@ -17,7 +17,6 @@ WTL::CAppModule _Module;
 
 #include <iostream>
 #include <boost/foreach.hpp>
-#include <pstade/garlic.hpp>
 #include <pstade/oven.hpp>
 
 
@@ -29,8 +28,7 @@ void test()
     {
         ifile_range<> frng(_T("test.txt"));
 
-        std::vector<char> vec;
-        oven::copy(frng, garlic::back_inserter(vec));
+        std::vector<char> vec = frng|oven::copied;
         BOOST_CHECK( oven::equals(frng, vec) );
 
         BOOST_FOREACH (char ch, frng) {

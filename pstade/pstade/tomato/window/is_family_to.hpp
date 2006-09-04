@@ -11,7 +11,6 @@
 
 
 #include <pstade/apple/atl/win.hpp> // CWindow
-#include <pstade/apple/sdk/windows.hpp>
 #include "./window_ref.hpp"
 
 

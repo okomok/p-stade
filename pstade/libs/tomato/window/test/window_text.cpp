@@ -15,9 +15,8 @@ WTL::CAppModule _Module;
 #include <pstade/tomato/window/window_text.hpp>
 
 
-#include <pstade/garlic/back_inserter.hpp>
-#include <pstade/tomato/garlic/customization.hpp>
-
+#include <pstade/oven/copy_range.hpp>
+#include <pstade/tomato/oven.hpp>
 
 #include <iostream>
 #include <iterator>
@@ -31,8 +30,6 @@ WTL::CAppModule _Module;
 #include <boost/algorithm/string.hpp>
 #include <pstade/napkin/dout.hpp>
 #include <pstade/diet/reset_ostream.hpp>
-#include <pstade/oven/algorithm.hpp> // copy
-#include <pstade/oven/copy_range.hpp>
 #include <pstade/tomato/c_str.hpp>
 #include <pstade/tomato/tstring.hpp>
 #include <pstade/tomato/tstream.hpp>
@@ -47,22 +44,19 @@ void test()
 
 #if (PSTADE_APPLE_ATL_VER >= 0x0700)
     {
-        ATL::CString str;
-        oven::copy(tomato::window_text(hWnd), garlic::back_inserter(str));
+        ATL::CString str = tomato::window_text(hWnd)|oven::copied;
         tcout << str << std::endl;
     }
 #endif
 
     {
-        WTL::CString str;
-        oven::copy(tomato::window_text(hWnd), garlic::back_inserter(str));
+        WTL::CString str = tomato::window_text(hWnd)|oven::copied;
         tcout << str << std::endl;
     }
 
     {
         tomato::window_text text(hWnd);
-        std::basic_string<TCHAR> str;
-        std::copy(boost::begin(text), boost::end(text), std::back_inserter(str));
+        std::basic_string<TCHAR> str = text|oven::copied;
         tcout << str << std::endl;
     }
 

@@ -26,7 +26,6 @@
 #include <pstade/oven/array_range.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
 #include <pstade/tomato/c_str.hpp>
-#include <pstade/tomato/diet/valid.hpp>
 #include "./access.hpp"
 #include "./detail/has_pstade_pizza_profile.hpp"
 #include "./error.hpp"
@@ -50,7 +49,7 @@ namespace string_detail {
     struct member_function
     {
         template< class Profile > static
-        bool call(Profile& pr, const TCHAR *pszValueName, TCHAR *pFirst, TCHAR *pLast)
+        bool call(Profile& pr, TCHAR const *pszValueName, TCHAR *pFirst, TCHAR *pLast)
         {
             return access::detail_query_string(pr, pszValueName, pFirst, pLast);
         }
@@ -60,7 +59,7 @@ namespace string_detail {
     struct adl_customization
     {
         template< class Profile > static
-        bool call(Profile& pr, const TCHAR *pszValueName, TCHAR *pFirst, TCHAR *pLast)
+        bool call(Profile& pr, TCHAR const *pszValueName, TCHAR *pFirst, TCHAR *pLast)
         {
             return pstade_pizza_query_string(pr, pszValueName, pFirst, pLast, overload<>());
         }
@@ -72,13 +71,13 @@ namespace string_detail {
         virtual ~placeholder()
         { }
 
-        bool query_string(const TCHAR *pszValueName, TCHAR *pFirst, TCHAR *pLast)
+        bool query_string(TCHAR const *pszValueName, TCHAR *pFirst, TCHAR *pLast)
         {
             return override_query_string(pszValueName, pFirst, pLast);
         }
     
     protected:
-        virtual bool override_query_string(const TCHAR *pszValueName, TCHAR *pFirst, TCHAR *pLast) = 0;
+        virtual bool override_query_string(TCHAR const *pszValueName, TCHAR *pFirst, TCHAR *pLast) = 0;
     };
 
 
@@ -91,7 +90,7 @@ namespace string_detail {
         { }
     
     protected:
-        bool override_query_string(const TCHAR *pszValueName, TCHAR *pFirst, TCHAR *pLast)
+        bool override_query_string(TCHAR const *pszValueName, TCHAR *pFirst, TCHAR *pLast)
         {
             typedef typename
             boost::mpl::if_< detail::has_pstade_pizza_profile<Profile>,
@@ -108,7 +107,7 @@ namespace string_detail {
 
 
     inline
-    void throw_error(const TCHAR *pszValueName)
+    void throw_error(TCHAR const *pszValueName)
     {
         std::stringstream msg;
         msg << "<value-name>" << pszValueName << "</value-name>";
@@ -124,11 +123,10 @@ namespace string_detail {
     struct buffer_init
     {
         template< class Profile >
-        buffer_init(Profile& pr, const TCHAR *pszValueName, std::size_t bufsz) :
+        buffer_init(Profile& pr, TCHAR const *pszValueName, std::size_t bufsz) :
             m_ptr(new holder<Profile>(pr)),
             m_buf(1 + bufsz)
         {
-            BOOST_ASSERT(diet::valid(pszValueName));
             BOOST_ASSERT(!boost::empty(m_buf));
 
             if (!m_ptr->query_string(pszValueName, boost::begin(m_buf), boost::end(m_buf)))
@@ -151,7 +149,7 @@ struct string :
     oven::null_terminate_range<string_detail::buffer_t>,
     private boost::noncopyable
 {
-    typedef const TCHAR *const_iterator;
+    typedef TCHAR const *const_iterator;
     typedef string pstade_tomato_cstringizable; // yes!
 
 private:
@@ -160,15 +158,15 @@ private:
 
 public:
     template< class Profile, class CStringizable >
-    string(Profile& pr, const CStringizable& valueName, std::ptrdiff_t bufsz = 256) :
+    string(Profile& pr, CStringizable const& valueName, std::ptrdiff_t bufsz = 256) :
         init_t(pr, tomato::c_str(valueName), bufsz),
         super_t(m_buf)
     { }
 
-    const TCHAR *c_str() const
+    TCHAR const *c_str() const
     { return boost::begin(m_buf); }
 
-    const TCHAR *pstade_tomato_c_str() const
+    TCHAR const *pstade_tomato_c_str() const
     { return c_str(); }
 };
 

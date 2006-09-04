@@ -11,10 +11,12 @@
 
 
 #include <fstream>
+#include <iterator> // ostream_iterator
 #include <string>
+#include <boost/cstdint.hpp> // uint8_t
 #include <boost/throw_exception.hpp>
-#include <pstade/garlic/back_inserter.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
+#include <pstade/oven/stream_output_iterator.hpp>
 #include <pstade/oven/utf8_encoder.hpp>
 #include <pstade/what.hpp>
 #include "./copy_XMLDecl.hpp"
@@ -43,8 +45,8 @@ void save_file(Node& root, std::string fileName)
         boost::throw_exception(err);
     }
 
-    lime::copy_XMLDecl(garlic::back_inserter(fout));
-    lime::save(root, oven::utf8_encoder(garlic::back_inserter(fout)));
+    lime::copy_XMLDecl(oven::stream_outputter(fout));
+    lime::save(root, oven::utf8_encoder(oven::stream_outputter(fout)));
 }
 
 
@@ -57,8 +59,8 @@ void save_file_default(Node& root, std::string fileName)
         boost::throw_exception(err);
     }
 
-    lime::copy_XMLDecl(garlic::back_inserter(fout));
-    lime::save_default(root, oven::utf8_encoder(garlic::back_inserter(fout)));
+    lime::copy_XMLDecl(oven::stream_outputter(fout));
+    lime::save_default(root, oven::utf8_encoder(oven::stream_outputter(fout)));
 }
 
 

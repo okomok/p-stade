@@ -15,7 +15,7 @@
 #include <pstade/lime/save.hpp> // save_default
 #include <pstade/oven/copy_range.hpp>
 #include <pstade/oven/equals.hpp>
-#include <pstade/oven/null_outputter.hpp>
+#include <pstade/oven/dummy_output_iterator.hpp>
 #include <pstade/overload.hpp>
 #include <pstade/ustring.hpp>
 #include "./element.hpp"
@@ -44,7 +44,7 @@ pstade_lime_save_node(pstade::hamburger::element& node, OutIter out, pstade::ove
         return lime::save_default(node, out);
 
     if (!oven::equals(node%Name_serializable, Value_true))
-        return lime::save_default(node, oven::null_outputter);
+        return lime::save_default(node, oven::dummy_outputter);
 
     try {
         hamburger::save(node, node%Name_includedHref);

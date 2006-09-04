@@ -24,7 +24,7 @@
 #include <vector>
 #include <boost/cstdint.hpp>
 #include <boost/foreach.hpp>
-#include <pstade/garlic.hpp>
+#include <pstade/oven.hpp>
 #include <pstade/wine.hpp>
 
 
@@ -33,18 +33,15 @@ using namespace pstade;
 
 void unexpand_tab(std::string fileName)
 {
-    std::vector<boost::uint8_t> buf; {
-        oven::copy(
-            oven::file_range<boost::uint8_t>(fileName) |
-                pstade::required("non-empty input file: " + fileName) |
-                oven::tab_unexpanded(4),
-            garlic::back_inserter(buf)
-        );
-    }
+    std::vector<boost::uint8_t> buf =
+        oven::file_range<boost::uint8_t>(fileName)
+            | pstade::required("non-empty input file: " + fileName)
+            | oven::tab_unexpanded(4)
+            | oven::copied;
 
     std::ofstream fout(fileName.c_str(), std::ios::binary);
     pstade::require(fout, "good output file: " + fileName);
-    oven::copy(buf, garlic::back_inserter(fout));
+    oven::copy(buf, oven::stream_outputter(fout));
 };
 
 

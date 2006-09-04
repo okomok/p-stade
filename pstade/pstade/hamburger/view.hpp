@@ -21,7 +21,6 @@
 #include <pstade/instance.hpp>
 #include <pstade/ketchup/core.hpp>
 #include <pstade/oven/sort_range.hpp>
-#include <pstade/tomato/diet/valid.hpp>
 #include <pstade/tomato/idle_handling.hpp>
 #include <pstade/tomato/message_filtering.hpp>
 #include <pstade/tomato/message_loop.hpp>
@@ -118,14 +117,14 @@ public:
 protected:
     void override_create()
     {
-        BOOST_ASSERT(!diet::valid(m_hWnd));
+        BOOST_ASSERT(!::IsWindow(m_hWnd));
 
         view_detail::threads.add_thread(new boost::thread(boost::lambda::bind(&view::work, this)));
     }
 
     boost::optional<HWND> override_window() const
     {
-        BOOST_ASSERT(diet::valid(m_hWnd));
+        BOOST_ASSERT(::IsWindow(m_hWnd));
 
         return boost::optional<HWND>(m_hWnd);
     }

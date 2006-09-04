@@ -1,5 +1,5 @@
-#ifndef PSTADE_TOMATO_MENU_IS_MENU_HPP
-#define PSTADE_TOMATO_MENU_IS_MENU_HPP
+#ifndef PSTADE_TOMATO_GDI_IS_DC_HPP
+#define PSTADE_TOMATO_GDI_IS_DC_HPP
 
 
 // PStade.Tomato
@@ -19,17 +19,19 @@
 namespace pstade { namespace tomato {
 
 
-struct is_menu_fun
+struct is_dc_fun
 {
-    bool operator()(HMENU hMenu) const
+    bool operator()(HDC hDC) const
     {
         pstade::for_debug();
-        return ::IsMenu(hMenu)|booleanized;
+
+        POINT pt = { 0 };
+        return ::DPtoLP(hDC, &pt, 1)|booleanized;
     }
 };
 
 
-PSTADE_INSTANCE(is_menu_fun const, is_menu, value)
+PSTADE_INSTANCE(is_dc_fun const, is_dc, value)
 
 
 } } // namespace pstade::tomato

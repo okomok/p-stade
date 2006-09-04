@@ -17,7 +17,6 @@
 
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/require.hpp>
-#include "../diet/valid.hpp"
 #include "../size_initialize.hpp"
 #include "./menu_ref.hpp"
 

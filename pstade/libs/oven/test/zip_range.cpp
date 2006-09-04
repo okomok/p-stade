@@ -13,12 +13,12 @@
 #include <pstade/oven/zip_range.hpp>
 
 
+#include <iterator>
 #include <string>
 #include <vector>
 #include <boost/foreach.hpp>
 #include <boost/range.hpp>
 #include <pstade/unparenthesize.hpp>
-#include <pstade/garlic/back_inserter.hpp>
 #include <pstade/oven/functions.hpp>
 
 
@@ -33,11 +33,11 @@ void test()
 
         std::vector<int> src1; {
             int tmp[] = { 0,1,2,3,4,5,6 };
-            oven::copy(tmp, garlic::back_inserter(src1));
+            oven::copy(tmp, std::back_inserter(src1));
         }
         std::vector<int> ans1; {
             int tmp[] = { 0,1,2,3,5,5,6 };
-            oven::copy(tmp, garlic::back_inserter(ans1));
+            oven::copy(tmp, std::back_inserter(ans1));
         }
 
         BOOST_FOREACH (

@@ -17,7 +17,6 @@ WTL::CAppModule _Module;
 
 #include <iostream>
 #include <boost/foreach.hpp>
-#include <pstade/garlic.hpp>
 #include <pstade/oven.hpp>
 #include <pstade/tomato/tstream.hpp>
 

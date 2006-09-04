@@ -10,10 +10,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/assert.hpp>
 #include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/require.hpp>
+#include <pstade/tomato/c_str.hpp>
 #include <pstade/tomato/menu/menu_ref.hpp>
 #include <pstade/tomato/menu/set_menu_check_type.hpp>
 #include <pstade/tomato/menu/set_menu_default_item.hpp>
@@ -66,11 +66,9 @@ private:
     }
 #endif // !defined(_WIN32_WCE)
 
-    void override_set_text(const TCHAR *pszText)
+    void override_set_text(TCHAR const *pszText)
     {
-        BOOST_ASSERT(diet::valid(pszText));
-
-        tomato::set_menu_text(m_menu, m_uIndex, pszText);
+        tomato::set_menu_text(m_menu, m_uIndex, tomato::c_str(pszText));
     }
 
     void override_set_default(bool on)

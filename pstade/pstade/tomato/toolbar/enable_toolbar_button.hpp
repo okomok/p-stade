@@ -28,7 +28,9 @@ void enable_toolbar_button(window_ref toolbar, UINT uID, bool on)
     // See:
     // MFC7::CToolCmdUI::Enable
 
-    UINT uOldState = WTL::CToolBarCtrl(toolbar).GetState(uID);
+    WTL::CToolBarCtrl toolbars(toolbar);
+
+    UINT uOldState = toolbars.GetState(uID);
     UINT uNewState = uOldState;
 
     BOOST_ASSERT(uNewState != -1);
@@ -48,7 +50,7 @@ void enable_toolbar_button(window_ref toolbar, UINT uID, bool on)
     if (uNewState == uOldState)
         return;
 
-    PSTADE_REQUIRE(WTL::CToolBarCtrl(toolbar).SetState(uID, uNewState));
+    PSTADE_REQUIRE(toolbars.SetState(uID, uNewState));
 }
 
 

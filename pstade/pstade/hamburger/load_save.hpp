@@ -10,14 +10,14 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <iterator> // back_inserter
 #include <vector>
-#include <pstade/garlic/back_inserter.hpp>
 #include <pstade/lime/copy_XMLDecl.hpp>
 #include <pstade/lime/load.hpp>
 #include <pstade/lime/save.hpp>
 #include <pstade/oven/algorithm.hpp> // copy
 #include <pstade/oven/copy_range.hpp>
-#include <pstade/oven/null_outputter.hpp>
+#include <pstade/oven/dummy_output_iterator.hpp>
 #include <pstade/oven/utf8_decode_range.hpp>
 #include <pstade/tomato/file_range.hpp>
 #include <pstade/tomato/tstring.hpp>
@@ -36,7 +36,7 @@ void load(Node& node, ustring path)
     oven::copy(
         irng |
             oven::utf8_decoded<>(),
-        garlic::back_inserter(tmp)
+        std::back_inserter(tmp)
     );
 
     lime::load(node, tmp);
@@ -46,7 +46,7 @@ void load(Node& node, ustring path)
 template< class Node > inline
 void save(Node& node)
 {
-    lime::save(node, oven::null_outputter);
+    lime::save(node, oven::dummy_outputter);
 }
 
 
@@ -54,8 +54,8 @@ template< class Node >
 void save(Node& node, ustring path)
 {
     std::vector<utf8cp_t> tmp;
-    lime::copy_XMLDecl(garlic::back_inserter(tmp));
-    lime::save_default(node, oven::utf8_encoder(garlic::back_inserter(tmp)));
+    lime::copy_XMLDecl(std::back_inserter(tmp));
+    lime::save_default(node, oven::utf8_encoder(std::back_inserter(tmp)));
 
     tomato::ofile_range<utf8cp_t> orng(path|tomato::to_tstring, tmp.size());
     tmp|oven::copied_to(orng);

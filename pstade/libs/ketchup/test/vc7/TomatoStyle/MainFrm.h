@@ -85,7 +85,7 @@ public:
 		::SetMenu(m_hWnd, NULL);
 
 		m_toolbar = this->CreateSimpleToolBarCtrl(m_hWnd, IDR_MAINFRAME, FALSE, ATL_SIMPLE_TOOLBAR_PANE_STYLE, ATL_IDW_TOOLBAR);
-		pizza::get_toolbar(m_profile, m_toolbar);
+		pizza::get_toolbar(m_profile, m_toolbar.m_hWnd);
 
 		pizza::rebar_band_info const bands[] =
 		{
@@ -95,7 +95,7 @@ public:
 
 		this->CreateSimpleReBar(ATL_SIMPLE_REBAR_NOBORDER_STYLE);
 		m_rebar = m_hWndToolBar;
-		pizza::get_rebar(m_profile, m_rebar, bands);
+		pizza::get_rebar(m_profile, m_rebar.m_hWnd, bands);
 
 		this->CreateSimpleStatusBar();
 		pizza::get_statusbar(m_profile, m_hWndStatusBar);
@@ -132,10 +132,10 @@ public:
 	void write_profile()
 	{
 		pizza::write_placement(m_profile, m_hWnd);
-		pizza::write_rebar(m_profile, m_rebar);
-		pizza::write_toolbar(m_profile, m_toolbar);
+		pizza::write_rebar(m_profile, m_rebar.m_hWnd);
+		pizza::write_toolbar(m_profile, m_toolbar.m_hWnd);
 		pizza::write_statusbar(m_profile, m_hWndStatusBar);
-		pizza::write_font(m_profile, m_cmdbar);
+		pizza::write_font(m_profile, m_cmdbar.m_hWnd);
 	}
 
 	void OnFileExit()

@@ -119,6 +119,14 @@ namespace c_str_detail {
             typedef TCHAR const *type;
         };
 
+        // Note:
+        // 'has_xxx' works only with "class".
+        template< class Result >
+        Result call(TCHAR const *psz)
+        {
+            return psz;
+        }
+
         template< class Result, class CStringizable >
         Result call(CStringizable const& str)
         {
@@ -142,15 +150,7 @@ PSTADE_EGG_PIPABLE(c_stringized, c_str_detail::baby)
 // predefined customizations
 //
 
-inline
-TCHAR const *
-pstade_tomato_c_str(TCHAR const *psz, pstade::overload<>)
-{
-    return psz;
-}
 
-
-template< class T > inline
 TCHAR const *
 pstade_tomato_c_str(WTL::CString const& str, pstade::overload<>)
 {

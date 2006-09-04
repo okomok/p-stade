@@ -13,11 +13,10 @@
 #if !defined(_WIN32_WCE)
 
 
-#include <boost/assert.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/require.hpp>
-#include <pstade/tomato/diet/valid.hpp>
 #include <pstade/tomato/size_initialize.hpp>
+#include <pstade/tomato/window/window_ref.hpp>
 #include "./window_placement.hpp"
 
 
@@ -25,25 +24,21 @@ namespace pstade { namespace pizza {
 
 
 template< class Profile >
-void write_placement(Profile& pr, HWND hWnd)
+void write_placement(Profile& pr, tomato::window_ref wnd)
 {
-    BOOST_ASSERT(diet::valid(hWnd));
-
     WINDOWPLACEMENT wndpl;
     tomato::size_initialize(wndpl);
-    PSTADE_REQUIRE(::GetWindowPlacement(hWnd, &wndpl));
+    PSTADE_REQUIRE(::GetWindowPlacement(wnd, &wndpl));
 
     pizza::write_window_placement(pr, wndpl);
 }
 
 
 template< class Profile >
-void get_placement(Profile& pr, HWND hWnd)
+void get_placement(Profile& pr, tomato::window_ref wnd)
 {
-    BOOST_ASSERT(diet::valid(hWnd));
-
     WINDOWPLACEMENT wndpl = pizza::get_window_placement(pr);
-    PSTADE_REQUIRE(::SetWindowPlacement(hWnd, &wndpl));
+    PSTADE_REQUIRE(::SetWindowPlacement(wnd, &wndpl));
 }
 
 

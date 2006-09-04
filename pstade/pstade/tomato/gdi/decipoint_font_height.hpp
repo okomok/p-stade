@@ -15,9 +15,8 @@
 // WTL::CLogFont::GetDeciPointHeight and WTL::CFont::CreatePointFontIndirect
 
 
-#include <boost/assert.hpp>
 #include <pstade/apple/sdk/windows.hpp>
-#include "../diet/valid.hpp"
+#include "./dc_ref.hpp"
 #include "./screen_dc_if_null.hpp"
 
 
@@ -28,19 +27,17 @@ namespace decipoint_font_height_detail {
 
 
     inline
-    LONG aux(LONG lfHeight, HDC hDC)
+    LONG aux(LONG lfHeight, dc_ref dc)
     {
-        BOOST_ASSERT(diet::valid(hDC));
-
     #if !defined(_WIN32_WCE)
         POINT ptOrg = { 0, 0 };
-        ::DPtoLP(hDC, &ptOrg, 1);
+        ::DPtoLP(dc, &ptOrg, 1);
         POINT pt = { 0, 0 };
         pt.y = abs(lfHeight) + ptOrg.y;
-        ::LPtoDP(hDC,&pt,1);
-        return ::MulDiv(pt.y, 720, ::GetDeviceCaps(hDC, LOGPIXELSY));
+        ::LPtoDP(dc, &pt, 1);
+        return ::MulDiv(pt.y, 720, ::GetDeviceCaps(dc, LOGPIXELSY));
     #else
-        return ::MulDiv(abs(lfHeight), 720, ::GetDeviceCaps(hDC, LOGPIXELSY));
+        return ::MulDiv(abs(lfHeight), 720, ::GetDeviceCaps(dc, LOGPIXELSY));
     #endif
     }
 
@@ -52,7 +49,7 @@ inline
 LONG decipoint_font_height(LONG lfHeight, HDC hDC)
 {
     screen_dc_if_null dc(hDC);
-    return decipoint_font_height_detail::aux(lfHeight, dc.get_handle());
+    return decipoint_font_height_detail::aux(lfHeight, dc.handle());
 }
 
 

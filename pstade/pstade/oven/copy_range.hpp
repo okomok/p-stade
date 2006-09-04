@@ -51,17 +51,17 @@ namespace copy_range_detail {
 PSTADE_ADL_BARRIER(copy_range) { // for Boost
 
 
-    template< class T, class Range > inline
-    T const
+    template< class CopyableRange, class Range > inline
+    CopyableRange const
     copy_range(Range const& rng)
     {
         detail::requires< boost::SinglePassRangeConcept<Range> >();
 
         // Under: http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1893.pdf
-        // using namespace(T);
+        // using namespace(CopyableRange);
 
         using namespace copy_range_detail;
-        return pstade_oven_copy_range(rng, overload<T>());
+        return pstade_oven_copy_range(rng, overload<CopyableRange>());
     }
 
 

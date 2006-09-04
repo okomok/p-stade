@@ -15,9 +15,8 @@
 // WTL::CLogFont::SetHeightFromDeciPoint
 
 
-#include <boost/assert.hpp>
 #include <pstade/apple/sdk/windows.hpp>
-#include "../diet/valid.hpp"
+#include "./dc_ref.hpp"
 #include "./screen_dc_if_null.hpp"
 
 
@@ -28,20 +27,17 @@ namespace font_height_from_decipoint_detail {
 
 
     inline
-    LONG aux(LONG lDeciPtHeight, HDC hDC)
+    LONG aux(LONG lDeciPtHeight, dc_ref dc)
     {
-
-        BOOST_ASSERT(diet::valid(hDC));
-
     #if !defined(_WIN32_WCE)
         POINT pt = { 0, 0 };
-        pt.y = ::MulDiv(::GetDeviceCaps(hDC, LOGPIXELSY), lDeciPtHeight, 720);
-        ::DPtoLP(hDC, &pt, 1);
+        pt.y = ::MulDiv(::GetDeviceCaps(dc, LOGPIXELSY), lDeciPtHeight, 720);
+        ::DPtoLP(dc, &pt, 1);
         POINT ptOrg = { 0, 0 };
-        ::DPtoLP(hDC, &ptOrg, 1);
+        ::DPtoLP(dc, &ptOrg, 1);
         return -abs(pt.y - ptOrg.y);
     #else
-        return -abs(::MulDiv(::GetDeviceCaps(hDC, LOGPIXELSY), lDeciPtHeight, 720));
+        return -abs(::MulDiv(::GetDeviceCaps(dc, LOGPIXELSY), lDeciPtHeight, 720));
     #endif // !defined(_WIN32_WCE)
     }
 
@@ -53,7 +49,7 @@ inline
 LONG font_height_from_decipoint(LONG lDeciPtHeight, HDC hDC)
 {
     screen_dc_if_null dc(hDC);
-    return font_height_from_decipoint_detail::aux(lDeciPtHeight, dc.get_handle());
+    return font_height_from_decipoint_detail::aux(lDeciPtHeight, dc.handle());
 }
 
 

@@ -24,11 +24,11 @@
 #include <pstade/candy/mask.hpp>
 #include <pstade/candy/remove.hpp>
 #include <pstade/require.hpp>
-#include <pstade/tomato/diet/valid.hpp>
 #include <pstade/tomato/rebar/add_rebar_band.hpp>
 #include <pstade/tomato/rebar/rebar_band_runtime_styles.hpp>
 #include <pstade/tomato/size_initialize.hpp>
 #include <pstade/tomato/tstring.hpp>
+#include <pstade/tomato/window/window_ref.hpp>
 #include "../error.hpp"
 #include "../integer.hpp"
 #include "../set_integer.hpp"
@@ -38,17 +38,15 @@ namespace pstade { namespace pizza {
 
 
 template< class Profile >
-void write_rebar(Profile& pr, HWND hWndReBar)
+void write_rebar(Profile& pr, tomato::window_ref rebar)
 {
-    BOOST_ASSERT(diet::valid(hWndReBar));
+    WTL::CReBarCtrl rebars(rebar);
 
-    WTL::CReBarCtrl rebar(hWndReBar);
-
-    for (UINT uIndex = 0, uCount = rebar.GetBandCount(); uIndex < uCount; ++uIndex) {
+    for (UINT uIndex = 0, uCount = rebars.GetBandCount(); uIndex < uCount; ++uIndex) {
         REBARBANDINFO info; {
             info|tomato::size_initialized;
             info.fMask = RBBIM_SIZE | RBBIM_STYLE | RBBIM_CHILD;
-            PSTADE_REQUIRE(rebar.GetBandInfo(uIndex, &info));
+            PSTADE_REQUIRE(rebars.GetBandInfo(uIndex, &info));
         }
 
         tomato::tstring buf; {
@@ -72,7 +70,7 @@ struct rebar_band_info
 {
     HWND hwndChild;         // cannot be NULL
     UINT fStyle;            // can be 0
-    const TCHAR *lpText;    // cannot be 0
+    TCHAR const *lpText;    // cannot be 0
 };
 
 
@@ -82,10 +80,10 @@ namespace rebar_detail {
     template< class ReBarBandInfoRange >
     bool is_valid(ReBarBandInfoRange& infos)
     {
-        BOOST_FOREACH (const rebar_band_info& info, infos) {
-            if (!diet::valid(info.hwndChild))
+        BOOST_FOREACH (rebar_band_info const& info, infos) {
+            if (!::IsWindow(info.hwndChild))
                 return false;
-            if (!diet::valid(info.lpText))
+            if (info.lpText == NULL)
                 return false;
         }
 
@@ -97,13 +95,13 @@ namespace rebar_detail {
     {
         int m_index;
         UINT m_cx;
-        band_info_impl(const rebar_band_info& info, int index, UINT cx) :
+        band_info_impl(rebar_band_info const& info, int index, UINT cx) :
             rebar_band_info(info), m_index(index), m_cx(cx)
         { }
     };
 
 
-    inline bool band_info_impl_lt(const band_info_impl& info1, const band_info_impl& info2)
+    inline bool band_info_impl_lt(band_info_impl const& info1, band_info_impl const& info2)
     {
         return info1.m_index < info2.m_index;
     }
@@ -113,9 +111,8 @@ namespace rebar_detail {
 
 
 template< class Profile, class ReBarBandInfoRange >
-void get_rebar(Profile& pr, HWND hWndReBar, const ReBarBandInfoRange& infos)
+void get_rebar(Profile& pr, tomato::window_ref rebar, ReBarBandInfoRange const& infos)
 {
-    BOOST_ASSERT(diet::valid(hWndReBar));
     BOOST_ASSERT(rebar_detail::is_valid(infos));
 
     std::vector<rebar_detail::band_info_impl> info_impls;
@@ -156,14 +153,14 @@ void get_rebar(Profile& pr, HWND hWndReBar, const ReBarBandInfoRange& infos)
     );
 
     BOOST_FOREACH (const rebar_detail::band_info_impl& info, info_impls) {
-        tomato::add_rebar_band(hWndReBar, info.hwndChild, info.fStyle, info.lpText, info.m_cx);
+        tomato::add_rebar_band(rebar, info.hwndChild, info.fStyle, info.lpText, info.m_cx);
     }
 
     // Workaround WINBUG?:
     //   Hidden band can be seen through the gap in the gripper
     //   and I guess Win32 doesn't support RBBS_GRIPPERALWAYS correctly.
     BOOST_FOREACH (const rebar_detail::band_info_impl& info, info_impls) {
-        tomato::rebar_band(hWndReBar, ::GetDlgCtrlID(info.hwndChild)).
+        tomato::rebar_band(rebar, ::GetDlgCtrlID(info.hwndChild)).
             show(!candy::test(info.fStyle, RBBS_HIDDEN));
     }
 }

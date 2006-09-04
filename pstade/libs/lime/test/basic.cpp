@@ -18,7 +18,6 @@
 #include <fstream>
 #include <iostream>
 #include <string>
-#include <pstade/garlic.hpp>
 #include <pstade/oven.hpp>
 #include <pstade/wine.hpp>
 
@@ -40,20 +39,17 @@ void test()
         std::ofstream fout(oname.c_str(), std::ios::binary);
         pstade::require(fout, "good output file: " + oname);
 
-        ustring tmp; {// for speed
-            oven::copy(
-                oven::file_range<utf8cp_t>(iname) |
-                    oven::utf8_decoded,
-                garlic::back_inserter(tmp)
-            );
-        }
+        ustring tmp = // copy for speed
+            oven::file_range<utf8cp_t>(iname)
+                | oven::utf8_decoded
+                | oven::copied;
 
         my_node root;
         lime::load(root, tmp);
 
         lime::save(
             root.front(),
-            oven::utf8_encoder(garlic::back_inserter(fout))
+            oven::utf8_encoder(oven::stream_outputter(fout))
         );
 
     }

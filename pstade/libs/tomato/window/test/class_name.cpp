@@ -15,9 +15,8 @@ WTL::CAppModule _Module;
 #include <pstade/tomato/window/class_name.hpp>
 
 
-#include <pstade/garlic/back_inserter.hpp>
-#include <pstade/tomato/garlic/customization.hpp>
-
+#include <pstade/tomato/oven.hpp>
+#include <pstade/oven/copy_range.hpp>
 
 #include <iostream>
 #include <pstade/apple/atl/str.hpp>
@@ -25,7 +24,6 @@ WTL::CAppModule _Module;
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/apple/wtl/misc.hpp>
 #include <pstade/apple/wtl/app.hpp>
-#include <pstade/oven/algorithm.hpp> // copy
 #include <pstade/tomato/c_str.hpp>
 #include <pstade/tomato/tstream.hpp>
 
@@ -39,29 +37,25 @@ void test()
 
 #if (PSTADE_APPLE_ATL_VER >= 0x0700)
     {
-        ATL::CString str;
-        oven::copy(tomato::class_name(hWnd), garlic::back_inserter(str));
+        ATL::CString str = tomato::class_name(hWnd)|oven::copied;
         tcout << tomato::c_str(str) << std::endl;
     }
 #endif
 
     {
-        WTL::CString str;
-        oven::copy(tomato::class_name(hWnd), garlic::back_inserter(str));
+        WTL::CString str = tomato::class_name(hWnd)|oven::copied;
         tcout << tomato::c_str(str) << std::endl;
     }
 
     {
-        WTL::CString str;
         tomato::class_name name(hWnd);
-        oven::copy(name, garlic::back_inserter(str));
+        WTL::CString str = name|oven::copied;
         tcout << tomato::c_str(str) << std::endl;
     }
 
     {
-        WTL::CString str;
         tomato::class_name const name(hWnd);
-        oven::copy(name, garlic::back_inserter(str));
+        WTL::CString str = name|oven::copied;
         tcout << tomato::c_str(str) << std::endl;
     }
 

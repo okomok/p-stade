@@ -11,6 +11,7 @@
 
 
 #include <pstade/apple/sdk/windows.hpp>
+#include <pstade/for_debug.hpp>
 #include <pstade/instance.hpp>
 #include "../boolean_cast.hpp"
 
@@ -22,6 +23,7 @@ struct is_window_fun
 {
     bool operator()(HWND hWnd) const
     {
+        pstade::for_debug();
         return ::IsWindow(hWnd)|booleanized;
     }
 };

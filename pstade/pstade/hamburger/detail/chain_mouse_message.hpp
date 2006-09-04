@@ -83,7 +83,7 @@ LRESULT send_mouse_message(bool in_screen,
                 continue;
         }
         else {
-            PSTADE_IF_DEBUG( show_info(child, pt); )
+            // PSTADE_IF_DEBUG( show_info(child, pt); )
             if (!hamburger::contains_in_screen(child, pt))
                 continue;
         }

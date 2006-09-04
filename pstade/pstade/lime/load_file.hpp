@@ -10,8 +10,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <iterator> // back_inserter
 #include <string>
-#include <pstade/garlic/back_inserter.hpp>
 #include <pstade/oven/algorithm.hpp> // copy
 #include <pstade/oven/file_range.hpp>
 #include <pstade/oven/utf8_decode_range.hpp>
@@ -31,7 +31,7 @@ void load_file(Node& root, std::string fileName)
         oven::copy(
             frng |
                 oven::utf8_decoded<>(),
-            garlic::back_inserter(tmp)
+            std::back_inserter(tmp)
         );
     }
 

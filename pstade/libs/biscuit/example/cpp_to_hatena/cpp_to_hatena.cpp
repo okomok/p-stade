@@ -33,9 +33,7 @@
 #include <boost/mpl/void.hpp>
 
 #include <pstade/biscuit.hpp>
-#include <pstade/garlic.hpp>
 #include <pstade/oven.hpp>
-#include <pstade/oven/memoize_range.hpp>
 #include <pstade/wine.hpp>
 #include "./start.hpp"
 #include "./hatena_mode.hpp"
@@ -91,7 +89,7 @@ int main(int argc, char *argv[])
             pstade::require(fout, "good output file: " + oname);
 
             oven::copy("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\" ?>"
-                "<pre class=\"cpp_source\">"|oven::null_terminated, garlic::back_inserter(fout));
+                "<pre class=\"cpp_source\">"|oven::null_terminated, oven::stream_outputter(fout));
 
              biscuit::match<
                 iteration<cpp_to_hatena::start, cpp_to_hatena::act_line_escape>
@@ -103,10 +101,10 @@ int main(int argc, char *argv[])
                     oven::transformed(::newline_cvter()) |                      // 改行なら'\n'に変換する
                     oven::tab_expanded(::tabsize<>::value) |                    // タブを空白にする
                     oven::memoized,                                             // 速くするためキャッシュする
-                pstade::arg(oven::utf8_encoder(garlic::back_inserter(fout)))    // UTF-8に戻して出力
+                pstade::arg(oven::utf8_encoder(oven::stream_outputter(fout)))   // UTF-8に戻して出力
             );
 
-            oven::copy("</pre>"|oven::null_terminated, garlic::back_inserter(fout));
+            oven::copy("</pre>"|oven::null_terminated, oven::stream_outputter(fout));
 
             std::cout << "<output-file>" << oname << "</output-file>";
 

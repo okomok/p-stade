@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include "./gdi/dc_ref.hpp"
 #include "./gdi/decipoint_font_height.hpp"
 #include "./gdi/font_height_from_decipoint.hpp"
 #include "./gdi/screen_dc_if_null.hpp"

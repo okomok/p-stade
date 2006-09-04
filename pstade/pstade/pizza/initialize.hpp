@@ -14,7 +14,6 @@
 #include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/overload.hpp>
 #include <pstade/tomato/c_str.hpp>
-#include <pstade/tomato/diet/valid.hpp>
 #include "./access.hpp"
 #include "./detail/has_pstade_pizza_profile.hpp"
 
@@ -28,7 +27,7 @@ namespace initialize_detail {
     struct member_function
     {
         template< class Profile > static
-        void call(Profile& pr, const TCHAR *pszName)
+        void call(Profile& pr, TCHAR const *pszName)
         {
             access::detail_initialize(pr, pszName);
         }
@@ -38,7 +37,7 @@ namespace initialize_detail {
     struct adl_customization
     {
         template< class Profile > static
-        void call(Profile& pr, const TCHAR *pszName)
+        void call(Profile& pr, TCHAR const *pszName)
         {
             pstade_pizza_initialize(pr, pszName, overload<>());
         }
@@ -49,11 +48,9 @@ namespace initialize_detail {
 
 
 template< class Profile, class CStringizable >
-void initialize(Profile& pr, const CStringizable& name)
+void initialize(Profile& pr, CStringizable const& name)
 {
-    const TCHAR *pszName = tomato::c_str(name);
-    BOOST_ASSERT(diet::valid(pszName));
-
+    TCHAR const *pszName = tomato::c_str(name);
 
     using namespace initialize_detail;
 

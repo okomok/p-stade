@@ -10,10 +10,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/assert.hpp>
 #include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/apple/sdk/windows.hpp>
-#include <pstade/tomato/diet/valid.hpp>
+#include <pstade/tomato/window/window_ref.hpp>
 #include "../error.hpp"
 #include "../integer.hpp"
 #include "../set_integer.hpp"
@@ -23,24 +22,20 @@ namespace pstade { namespace pizza {
 
 
 template< class Profile > inline
-void write_statusbar(Profile& pr, HWND hWndStatusBar)
+void write_statusbar(Profile& pr, tomato::window_ref statusbar)
 {
-    BOOST_ASSERT(diet::valid(hWndStatusBar));
-
-    pizza::set_integer(pr, _T("statusbar.visible"), ::IsWindowVisible(hWndStatusBar) ? 1 : 0);
+    pizza::set_integer(pr, _T("statusbar.visible"), ::IsWindowVisible(statusbar) ? 1 : 0);
 }
 
 
 template< class Profile >
-bool get_statusbar(Profile& pr, HWND hWndStatusBar)
+bool get_statusbar(Profile& pr, tomato::window_ref statusbar)
 {
-    BOOST_ASSERT(diet::valid(hWndStatusBar));
-
     try {
         int val = pizza::integer(pr, _T("statusbar.visible"));
-        ::ShowWindow(hWndStatusBar, val == 1 ? SW_SHOWNOACTIVATE : SW_HIDE);
+        ::ShowWindow(statusbar, val == 1 ? SW_SHOWNOACTIVATE : SW_HIDE);
     }
-    catch (error&) {
+    catch (error& ) {
         return false;
     }
 

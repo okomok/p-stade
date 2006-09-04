@@ -27,17 +27,14 @@
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/instance.hpp>
 #include <pstade/integral_cast.hpp>
-#include <pstade/oven/algorithm.hpp> // copy
 #include <pstade/oven/array_range.hpp>
 #include <pstade/oven/distance.hpp>
+#include <pstade/oven/copy_range.hpp>
 #include <pstade/oven/equals.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
 #include <pstade/require.hpp>
 #include <pstade/tomato/filesystem/module_file_name.hpp>
-#include <pstade/tomato/garlic/back_inserter.hpp>
 #include <pstade/tomato/c_str.hpp>
-#include <pstade/tomato/diet/buffer.hpp>
-#include <pstade/tomato/diet/valid.hpp>
 #include <pstade/tomato/tstring.hpp>
 
 
@@ -54,7 +51,7 @@ namespace ini_section_detail {
 
     inline
     bool query_string(const TCHAR* pszFileName, const TCHAR* pszSectionName,
-        const TCHAR *pszValueName, TCHAR *pFirst, TCHAR *pLast)
+        TCHAR const *pszValueName, TCHAR *pFirst, TCHAR *pLast)
     {
         {
             // empty-string also is valid value, so we must go...
@@ -120,19 +117,17 @@ struct ini_section
 
 
 typedef ini_section pstade_pizza_profile;
-    void pstade_pizza_initialize(const TCHAR *pszName)
+    void pstade_pizza_initialize(TCHAR const *pszName)
     {
-        tomato::tstring ini;
-        oven::copy(tomato::module_file_name().identifier(), garlic::back_inserter(ini));
+        tomato::tstring ini = tomato::module_file_name().identifier()|oven::copied;
         ini += _T(".ini");
         open(ini, pszName);
     }
 
-    void pstade_pizza_set_string(const TCHAR *pszValueName, const TCHAR *pszValue)
+    void pstade_pizza_set_string(TCHAR const *pszValueName, TCHAR const *pszValue)
     {
+        // Note: if pszValue is NULL, section is deleted.
         BOOST_ASSERT(is_open());
-        BOOST_ASSERT(diet::valid(pszValueName)); // Note: if pszValue is NULL, section is deleted.
-        BOOST_ASSERT(diet::valid(pszValue));
         BOOST_ASSERT(!oven::equals(pszValue|oven::null_terminated, ini_section_detail::magicStr));
 
         PSTADE_REQUIRE(
@@ -142,21 +137,19 @@ typedef ini_section pstade_pizza_profile;
         );
     }
 
-    bool pstade_pizza_query_string(const TCHAR *pszValueName, TCHAR *pFirst, TCHAR *pLast)
+    bool pstade_pizza_query_string(TCHAR const *pszValueName, TCHAR *pFirst, TCHAR *pLast)
     {
         BOOST_ASSERT(is_open());
-        BOOST_ASSERT(diet::valid(pszValueName));
-        BOOST_ASSERT(diet::valid(tomato::buffer(boost::make_iterator_range(pFirst, pLast))));
+        // BOOST_ASSERT(diet::valid(tomato::buffer(boost::make_iterator_range(pFirst, pLast))));
 
         return ini_section_detail::query_string(
             tomato::c_str(m_fileName), tomato::c_str(m_sectionName),
             pszValueName, pFirst, pLast);
     }
 
-    bool pstade_pizza_delete(const TCHAR *pszValueName)
+    bool pstade_pizza_delete(TCHAR const *pszValueName)
     {
         BOOST_ASSERT(is_open());
-        BOOST_ASSERT(diet::valid(pszValueName));
 
         PSTADE_REQUIRE(
             ::WritePrivateProfileString(

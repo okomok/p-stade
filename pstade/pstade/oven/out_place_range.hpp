@@ -34,9 +34,7 @@
 
 
 #if BOOST_WORKAROUND(BOOST_MSVC, == 1310)
-    // The weird VC7.1 fails to find the garlic's overload for STL Sequences
-    // in the case of 'sort_range' which is derived from 'out_place_range'.
-    // Moreover, 'private' multiple inheritance of 'as_lightweight_proxy' makes VC7.1 anger.
+    // 'private' multiple inheritance of 'as_lightweight_proxy' makes VC7.1 anger.
     // I don't know why. Who knows.
     #define PSTADE_OVEN_OUT_PLACE_RANGE_WEIRD_ERROR_WITH_SORT_RANGE
 #endif

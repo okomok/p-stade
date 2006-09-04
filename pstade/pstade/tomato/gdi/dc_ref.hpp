@@ -1,5 +1,5 @@
-#ifndef PSTADE_TOMATO_WINDOW_WINDOW_REF_HPP
-#define PSTADE_TOMATO_WINDOW_WINDOW_REF_HPP
+#ifndef PSTADE_TOMATO_GDI_DC_REF_HPP
+#define PSTADE_TOMATO_GDI_DC_REF_HPP
 
 
 // PStade.Tomato
@@ -12,14 +12,14 @@
 
 #include <pstade/apple/sdk/windows.hpp>
 #include "../detail/handle_ref.hpp"
-#include "./is_window.hpp"
+#include "./is_dc.hpp"
 
 
 namespace pstade { namespace tomato {
 
 
-typedef detail::handle_ref<HWND, is_window_fun>
-window_ref;
+typedef detail::handle_ref<HDC, is_dc_fun>
+dc_ref;
 
 
 } } // namespace pstade::tomato

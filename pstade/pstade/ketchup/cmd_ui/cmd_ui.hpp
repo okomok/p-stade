@@ -48,7 +48,7 @@ struct cmd_ui :
     void set_radio(bool on)
     { return override_set_radio(on); }
 
-    void set_text(const TCHAR *psz)
+    void set_text(TCHAR const *psz)
     { return override_set_text(psz); }
 
     void set_default(bool on)
@@ -71,7 +71,7 @@ private:
     virtual void override_set_radio(bool on)
     { set_check(on); }
 
-    virtual void override_set_text(const TCHAR *)
+    virtual void override_set_text(TCHAR const *)
     { }
 
     virtual void override_set_default(bool)
