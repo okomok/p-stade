@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Idea from: 'boost_foreach_is_lightweight_proxy'
+// See: 'boost_foreach_is_lightweight_proxy'
 //
 // at <boost/foreach.hpp>
 
@@ -57,16 +57,16 @@
 
 
     #define PSTADE_METAPREDICATE_as(Name, Prefix) \
-    template< class T, class Base = boost::mpl::empty_base > \
-    struct BOOST_PP_CAT(as_, Name) \
-    { \
-        friend /* needs definition to suppress GCC waring. */ \
-        pstade::oui PSTADE_METAPREDICATE_cat3(Prefix, _is_, Name)(T *&, pstade::overload<>) \
+        template< class T, class Base = boost::mpl::empty_base > \
+        struct BOOST_PP_CAT(as_, Name) \
         { \
-            return pstade::oui(); \
-        } \
-    }; \
-    /**/
+            friend /* needs definition to suppress GCC waring. */ \
+            pstade::oui PSTADE_METAPREDICATE_cat3(Prefix, _is_, Name)(T *&, pstade::overload<>) \
+            { \
+                return pstade::oui(); \
+            } \
+        }; \
+        /**/
 
 
     #define PSTADE_METAPREDICATE_cat3(A, B, C) \

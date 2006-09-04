@@ -24,6 +24,12 @@ PSTADE_METAPREDICATE(heavy, xxx)
 }
 
 
+template< class T >
+struct is_heavy_no_order_dependency :
+    xxx::is_heavy<T>
+{ };
+
+
 namespace yyy {
 
     struct heavy1 :
@@ -68,6 +74,14 @@ BOOST_MPL_ASSERT(( xxx::is_heavy<heavy3> ));
 BOOST_MPL_ASSERT_NOT(( xxx::is_heavy<light1> ));
 BOOST_MPL_ASSERT_NOT(( xxx::is_heavy<light2> ));
 BOOST_MPL_ASSERT_NOT(( xxx::is_heavy<light3> ));
+
+
+BOOST_MPL_ASSERT(( is_heavy_no_order_dependency<yyy::heavy1> ));
+BOOST_MPL_ASSERT(( is_heavy_no_order_dependency<yyy::heavy2> ));
+BOOST_MPL_ASSERT(( is_heavy_no_order_dependency<heavy3> ));
+BOOST_MPL_ASSERT_NOT(( is_heavy_no_order_dependency<light1> ));
+BOOST_MPL_ASSERT_NOT(( is_heavy_no_order_dependency<light2> ));
+BOOST_MPL_ASSERT_NOT(( is_heavy_no_order_dependency<light3> ));
 
 
 void test()

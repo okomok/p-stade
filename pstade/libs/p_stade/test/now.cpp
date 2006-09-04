@@ -1,1 +1,1 @@
-#include <pstade/../libs/wine/test/contract.cpp>
+#include <pstade/vodka/drink.hpp>
