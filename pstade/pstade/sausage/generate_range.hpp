@@ -24,11 +24,11 @@ namespace pstade { namespace sausage {
 namespace generate_range_detail {
 
 
-    template< class Generator >
+    template< class Routine >
     struct super_
     {
         typedef boost::iterator_range<
-            generate_iterator<Generator>
+            generate_iterator<Routine>
         > type;
     };
 
@@ -36,17 +36,17 @@ namespace generate_range_detail {
 } // namespace generate_range_detail
 
 
-template< class Generator >
+template< class Routine >
 struct generate_range :
-    generate_range_detail::super_<Generator>::type,
-    private oven::as_lightweight_proxy< generate_range<Generator> >
+    generate_range_detail::super_<Routine>::type,
+    private oven::as_lightweight_proxy< generate_range<Routine> >
 {
 private:
-    typedef typename generate_range_detail::super_<Generator>::type super_t;
+    typedef typename generate_range_detail::super_<Routine>::type super_t;
     typedef typename super_t::iterator iter_t;
 
 public:
-    explicit generate_range(Generator gen) :
+    explicit generate_range(Routine gen) :
         super_t(iter_t(gen), iter_t())
     { }
 };
@@ -57,15 +57,15 @@ namespace generate_range_detail {
 
     struct baby_generator
     {
-        template< class Unused, class Generator >
+        template< class Unused, class Routine >
         struct result
         {
-            typedef typename egg::by_value<Generator>::type gen_t;
+            typedef typename egg::by_value<Routine>::type gen_t;
             typedef generate_range<gen_t> const type;
         };
 
-        template< class Result, class Generator >
-        Result call(Generator gen)
+        template< class Result, class Routine >
+        Result call(Routine gen)
         {
             return Result(gen);
         }

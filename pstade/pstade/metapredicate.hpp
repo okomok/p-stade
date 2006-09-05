@@ -10,9 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// See: 'boost_foreach_is_lightweight_proxy'
+// What:
 //
-// at <boost/foreach.hpp>
+// Provides a customization point which is something like
+// 'boost::foreach::is_lightweight_proxy' and
+// 'oven::as_lightweight_proxy' together.
 
 
 #include <boost/mpl/empty_base.hpp>

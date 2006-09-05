@@ -11,84 +11,165 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// See: <boost/detail/callable.hpp>
+//
+// Copyright David Abrahams 2006. Distributed under the Boost
+// Software License, Version 1.0. (See accompanying
+// file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+
+
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
+#include <boost/preprocessor/punctuation/comma_if.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/utility/result_of.hpp>
+#include <boost/preprocessor/repetition/repeat.hpp>
+#include <boost/preprocessor/seq/for_each_i.hpp>
+#include <boost/preprocessor/seq/for_each_product.hpp>
+#include <boost/type_traits/add_const.hpp>
 #include <pstade/instance.hpp>
 #include <pstade/unparenthesize.hpp>
+#include "./baby_call.hpp"
 #include "./baby_result.hpp"
-#include "./detail/config.hpp"
-#include "./detail/operators.hpp"
-#include "./detail/results.hpp"
+#include "./detail/config.hpp" // MAX_ARITY
+#include "./detail/result_ofs.hpp"
+#include "./function_fwd.hpp"
 
 
 namespace pstade { namespace egg {
 
 
-    template< class BabyFunction >
-    struct function :
-        detail::operators<BabyFunction>,
-        detail::results<BabyFunction>
-    {
-    private:
-        typedef detail::operators<BabyFunction> super_t;
-
-    public:
-        typedef BabyFunction type;
-
-        explicit function()
-        { }
-
-        explicit function(BabyFunction const& baby) :
-            super_t(baby)
-        { }
-    };
-
-
-} } // namespace pstade::egg
-
-
-namespace boost {
-
+template< class BabyFunction >
+struct function : BabyFunction
+{
+    typedef BabyFunction type;
 
     // 0ary
     //
-    template< class BabyFunction >
-    struct result_of<pstade::egg::function<BabyFunction>(void)> : // CWPro8 requires an argument 'void'
-        pstade::egg::baby_result0<BabyFunction>
-    { };
+
+    explicit function()
+    { }
 
 
-#if defined(PSTADE_EGG_DETAIL_NO_NESTED_RESULT_SPECIALIZATION)
+    typename baby_result0<BabyFunction
+    >::type
+    operator()(
+    ) const
+    {
+        return egg::baby_call<BabyFunction>(*this
+        );
+    }
 
 
     // 1ary
     //
-    template< class BabyFunction, class A0 >
-    struct result_of<pstade::egg::function<BabyFunction>(A0)> :
-        pstade::egg::baby_result1<BabyFunction, A0>
-    { };
+
+    template< class A0 >
+    explicit function(A0& a0) :
+        BabyFunction(a0)
+    { }
+
+    template< class A0 >
+    explicit function(A0 const& a0) :
+        BabyFunction(a0)
+    { }
 
 
-    // 2ary
+    template< class A0 >
+    typename baby_result1<BabyFunction,
+        A0
+    >::type
+    operator()(
+        A0& a0
+    ) const
+    {
+        return egg::baby_call<BabyFunction>(*this,
+            a0
+        );
+    }
+
+    template< class A0 >
+    typename baby_result1<BabyFunction,
+        typename boost::add_const<A0>::type
+    >::type
+    operator()(
+        A0 const& a0
+    ) const
+    {
+        return egg::baby_call<BabyFunction>(*this,
+            a0
+        );
+    }
+
+
+    // 2ary -
     //
-    template< class BabyFunction, class A0, class A1 >
-    struct result_of<pstade::egg::function<BabyFunction>(A0, A1)> :
-        pstade::egg::baby_result2<BabyFunction, A0, A1>
-    { };
+    #define PSTADE_EGG_members(R, BitSeq) \
+        \
+        template< BOOST_PP_ENUM_PARAMS(n, class A) > \
+        explicit function( \
+            BOOST_PP_SEQ_FOR_EACH_I_R(R, PSTADE_EGG_param, ~, BitSeq) \
+        ) : \
+            BabyFunction(BOOST_PP_ENUM_PARAMS(n, a)) \
+        { } \
+        \
+        \
+        template< BOOST_PP_ENUM_PARAMS(n, class A) > \
+        typename BOOST_PP_CAT(baby_result, n)<BabyFunction, \
+            BOOST_PP_SEQ_FOR_EACH_I_R(R, PSTADE_EGG_arg_type, ~, BitSeq) \
+        >::type \
+        operator()( \
+            BOOST_PP_SEQ_FOR_EACH_I_R(R, PSTADE_EGG_param, ~, BitSeq) \
+        ) const \
+        { \
+            return egg::baby_call<BabyFunction>(*this, \
+                BOOST_PP_ENUM_PARAMS(n, a) \
+            ); \
+        } \
+    /**/
 
 
-    // 3ary -
-    //
-    #define BOOST_PP_ITERATION_PARAMS_1 (3, (3, PSTADE_EGG_MAX_ARITY, <pstade/egg/function.hpp>))
+    #define PSTADE_EGG_arg_type(R, _, Index, Bit) \
+        BOOST_PP_COMMA_IF(Index) BOOST_PP_CAT(PSTADE_EGG_ac, Bit)(BOOST_PP_CAT(A, Index)) \
+    /**/
+
+
+    #define PSTADE_EGG_param(R, _, Index, Bit) \
+        BOOST_PP_COMMA_IF(Index) \
+        BOOST_PP_CAT(A, Index) BOOST_PP_CAT(PSTADE_EGG_c, Bit) & BOOST_PP_CAT(a, Index) \
+    /**/
+
+
+    #define PSTADE_EGG_c0
+    #define PSTADE_EGG_c1 const
+
+
+    // Workaround:
+    // VC++7.1 is somewhat broken with array reference.
+    #define PSTADE_EGG_ac0(X) X
+    #define PSTADE_EGG_ac1(X) typename boost::add_const< X >::type
+
+
+    #define PSTADE_EGG_bits(Z, N, _) ((0)(1))
+
+
+    #define BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_EGG_MAX_ARITY, <pstade/egg/function.hpp>))
     #include BOOST_PP_ITERATE()
 
 
-#endif
+    #undef PSTADE_EGG_bits
+    #undef PSTADE_EGG_ac1
+    #undef PSTADE_EGG_ac0
+    #undef PSTADE_EGG_c1
+    #undef PSTADE_EGG_c0
+    #undef PSTADE_EGG_param
+    #undef PSTADE_EGG_arg_type
+    #undef PSTADE_EGG_members
 
 
-} // namespace boost
+}; // struct function
+
+
+} } // namespace pstade::egg
 
 
 #define PSTADE_EGG_FUNCTION(Name, Baby) \
@@ -118,10 +199,10 @@ namespace boost {
 #define n BOOST_PP_ITERATION()
 
 
-template< class BabyFunction, BOOST_PP_ENUM_PARAMS(n, class A) >
-struct result_of<pstade::egg::function<BabyFunction>( BOOST_PP_ENUM_PARAMS(n, A) )> :
-    pstade::egg::BOOST_PP_CAT(baby_result, n)< BabyFunction, BOOST_PP_ENUM_PARAMS(n, A) >
-{ };
+BOOST_PP_SEQ_FOR_EACH_PRODUCT(
+    PSTADE_EGG_members,
+    BOOST_PP_REPEAT(n, PSTADE_EGG_bits, ~)
+)
 
 
 #undef n

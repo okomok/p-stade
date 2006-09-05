@@ -43,7 +43,7 @@ struct array_range :
     private range_constantable<array_range<Value>, Value const *>,
     private boost::noncopyable
 {
-    typedef Value const *const_iterator;
+    typedef Value const *const_iterator; // "override" it!
 
 private:
     typedef typename array_range_detail::init<Value>::type init_t;

@@ -14,6 +14,7 @@
 //
 // Resurrects the constant-ness of 'const_iterator'
 // in the range whose 'const_iterator' is mutable.
+// See 'array_range' for the usage.
 
 
 #include <boost/mpl/empty_base.hpp>
@@ -30,8 +31,11 @@ template<
 struct range_constantable :
     Base
 {
-    // In fact, you must usually define this in 'T'
-    // in order to avoid ambiguity.
+    // Note:
+    // You must define this in 'T' in order to avoid ambiguity.
+    // It is of little use to pass a range to 'Base',
+    // because 'Base' constructors become unavailable.
+    //
     // typedef ConstIterator const_iterator;
 
     // Eat const-qualified range

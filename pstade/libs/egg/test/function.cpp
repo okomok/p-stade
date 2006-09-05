@@ -76,6 +76,25 @@ struct hoge_impl
 };
 
 
+struct qoo_impl
+{
+    qoo_impl(int, double) { }
+
+    template< class Unused, class Arg0, class Arg1 >
+    struct result
+    {
+        typedef Arg0 type;
+    };
+
+    template< class Result, class Arg0, class Arg1 >
+    Result call(Arg0& a0, Arg1& a1)
+    {
+        return a0 * a1;
+    }
+};
+
+typedef pstade::egg::function<qoo_impl> qoo_fun;
+
 PSTADE_EGG_FUNCTION(foo, foo_impl)
 PSTADE_EGG_FUNCTION(bar, bar_impl)
 PSTADE_EGG_FUNCTION(hoge, hoge_impl)
@@ -109,6 +128,8 @@ void test_fun()
     BOOST_CHECK( hoge() == "hello" );
     BOOST_CHECK( hoge(4) == 4+4 );
     BOOST_CHECK( hoge(5, 6) == 5+6 );
+
+    qoo_fun(1,2)(3,4);
 }
 
 

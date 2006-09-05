@@ -59,8 +59,7 @@ struct baby_not
     template< class Result, class Predicate >
     Result call(Predicate& pred)
     {
-        typedef typename Result::type baby_t;
-        return Result(baby_t(pred));
+        return Result(pred);
     }
 };
 

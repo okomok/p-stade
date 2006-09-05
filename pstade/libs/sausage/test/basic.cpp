@@ -19,7 +19,7 @@
 
 struct my_generator
 {
-    typedef int result_type;
+    typedef int routine_result_type;
 
     template< class Yield >
     int operator()(Yield yield)

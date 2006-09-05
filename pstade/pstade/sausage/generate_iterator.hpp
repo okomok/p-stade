@@ -22,28 +22,28 @@
 #include <pstade/remove_cvr.hpp>
 #include <pstade/unused.hpp>
 #include "./detail/generate_iterator_impl.hpp"
-#include "./detail/yielded.hpp"
+#include "./detail/routine_result.hpp"
 
 
 namespace pstade { namespace sausage {
 
 
-template< class Generator >
+template< class Routine >
 struct generate_iterator;
 
 
 namespace generate_iterator_detail {
 
 
-    template< class Generator >
+    template< class Routine >
     struct super_
     {
-        typedef typename detail::yielded<Generator>::type yielded_t;
-        typedef typename remove_cvr<yielded_t>::type val_t;
-        typedef typename param<yielded_t>::type ref_t; // 'param' is useful :-)
+        typedef typename detail::routine_result<Routine>::type result_t;
+        typedef typename remove_cvr<result_t>::type val_t;
+        typedef typename param<result_t>::type ref_t; // 'param' is useful :-)
 
         typedef boost::iterator_facade<
-            generate_iterator<Generator>,
+            generate_iterator<Routine>,
             val_t,
             boost::single_pass_traversal_tag,
             ref_t
@@ -54,20 +54,20 @@ namespace generate_iterator_detail {
 } // namespace generate_iterator_detail
 
 
-template< class Generator >
+template< class Routine >
 struct generate_iterator :
-    generate_iterator_detail::super_<Generator>::type
+    generate_iterator_detail::super_<Routine>::type
 {
 private:
-    typedef typename generate_iterator_detail::super_<Generator>::type super_t;
+    typedef typename generate_iterator_detail::super_<Routine>::type super_t;
     typedef typename super_t::reference ref_t;
-    typedef detail::generate_iterator_impl<Generator> impl_t;
+    typedef detail::generate_iterator_impl<Routine> impl_t;
 
 public:
     explicit generate_iterator() // end iter
     { }
 
-    explicit generate_iterator(Generator gen) :
+    explicit generate_iterator(Routine gen) :
         m_pimpl(new impl_t(gen))
     {
         if (m_pimpl->done())
@@ -98,20 +98,20 @@ friend class boost::iterator_core_access;
 };
 
 
-template< class Generator > inline
-generate_iterator<Generator> const
-make_generate_begin_iterator(Generator gen)
+template< class Routine > inline
+generate_iterator<Routine> const
+make_generate_begin_iterator(Routine gen)
 {
-    return generate_iterator<Generator>(gen);
+    return generate_iterator<Routine>(gen);
 }
 
 
-template< class Generator > inline
-generate_iterator<Generator> const
-make_generate_end_iterator(Generator gen)
+template< class Routine > inline
+generate_iterator<Routine> const
+make_generate_end_iterator(Routine gen)
 {
     pstade::unused(gen);
-    return generate_iterator<Generator>();
+    return generate_iterator<Routine>();
 }
 
 

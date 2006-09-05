@@ -11,10 +11,10 @@
 
 
 #include "./window/check_window.hpp"
-#include "./window/child_window_generator.hpp"
 #include "./window/class_name.hpp"
 #include "./window/create_result.hpp"
 #include "./window/enable_window.hpp"
+#include "./window/for_each_child_window.hpp"
 #include "./window/is_window.hpp"
 #include "./window/post_command.hpp"
 #include "./window/post_message.hpp"

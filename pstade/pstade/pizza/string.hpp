@@ -25,6 +25,7 @@
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/oven/array_range.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
+#include <pstade/oven/range_constantable.hpp>
 #include <pstade/tomato/c_str.hpp>
 #include "./access.hpp"
 #include "./detail/has_pstade_pizza_profile.hpp"
@@ -147,10 +148,11 @@ namespace string_detail {
 struct string :
     private string_detail::buffer_init,
     oven::null_terminate_range<string_detail::buffer_t>,
+    private oven::range_constantable<string, TCHAR const *>,
+    private tomato::as_intrusive_cstringizable<string>,
     private boost::noncopyable
 {
     typedef TCHAR const *const_iterator;
-    typedef string pstade_tomato_cstringizable; // yes!
 
 private:
     typedef string_detail::buffer_init init_t; 

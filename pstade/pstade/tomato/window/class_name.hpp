@@ -26,6 +26,7 @@
 #include <pstade/require.hpp>
 #include <pstade/static_c.hpp>
 #include "../access.hpp"
+#include "../c_str.hpp"
 #include "./window_ref.hpp"
 
 
@@ -76,10 +77,9 @@ namespace class_name_detail {
 struct class_name :
     private class_name_detail::init<>::type,
     class_name_detail::super_<>::type,
+    private as_intrusive_cstringizable<class_name>,
     private boost::noncopyable
 {
-    typedef class_name pstade_tomato_cstringizable;
-
 private:
     typedef class_name_detail::init<>::type init_t; 
     typedef class_name_detail::super_<>::type super_t;

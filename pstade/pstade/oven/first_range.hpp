@@ -15,6 +15,11 @@
 // http://d.hatena.ne.jp/y-hamigaki/20060726
 
 
+// Note:
+//
+// Boost.Fusion2 will make this deprecated.
+
+
 #include <boost/iterator/transform_iterator.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>

@@ -29,6 +29,7 @@
 #include <pstade/oven/sub_range_result.hpp>
 #include <pstade/require.hpp>
 #include "../access.hpp"
+#include "../c_str.hpp"
 #include "./max_path.hpp"
 #include "./path_find_extension.hpp"
 #include "./path_find_file_name.hpp"
@@ -80,10 +81,9 @@ namespace module_file_name_detail {
 struct module_file_name :
     private module_file_name_detail::init<>::type,
     module_file_name_detail::super_<>::type,
+    private as_intrusive_cstringizable<module_file_name>,
     private boost::noncopyable
 {
-    typedef module_file_name pstade_tomato_cstringizable;
-
 private:
     typedef module_file_name_detail::init<>::type init_t; 
     typedef module_file_name_detail::super_<>::type super_t;

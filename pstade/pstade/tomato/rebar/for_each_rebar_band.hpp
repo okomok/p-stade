@@ -10,25 +10,40 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/apple/sdk/windows.hpp>
 #include <pstade/apple/wtl/ctrls.hpp> // CReBarCtrl
 #include "../window/window_ref.hpp"
 #include "./get_rebar_band_id.hpp"
+#include "./rebar_band.hpp"
 
 
 namespace pstade { namespace tomato {
 
 
-template< class Functor >
-Functor for_each_rebar_band(window_ref rebar, Functor fun)
+struct for_each_rebar_band
 {
-    WTL::CReBarCtrl rebars(rebar);
+    explicit for_each_rebar_band(window_ref rebar) :
+        m_rebar(rebar)
+    { }
 
-    for (int i = 0, count = rebars.GetBandCount(); i < count; ++i)
-        fun(hWndReBar, tomato::get_rebar_band_id(rebar, i));
+    typedef rebar_band routine_result_type;
 
-    return fun;
-}
+    template< class Yield >
+    Yield operator()(Yield yield) const
+    {
+        for (int i = 0, count = m_rebar.GetBandCount(); i < count; ++i)
+            yield( rebar_band(hWndReBar, tomato::get_rebar_band_id(m_rebar, i)) );
+
+        return yield;
+    }
+
+    window_ref rebar() const
+    {
+        return m_rebar.m_hWnd;
+    }
+
+private:
+    mutable WTL::CReBarCtrl m_rebar;
+};
 
 
 } } // namespace pstade::tomato
