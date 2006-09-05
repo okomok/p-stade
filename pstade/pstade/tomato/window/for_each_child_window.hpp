@@ -73,8 +73,7 @@ namespace for_each_child_window_detail {
             return m_parent.get();
         }
 
-        typedef HWND
-        routine_result_type;
+        typedef HWND routine_result_type;
 
         template< class Unused, class Yield >
         struct result :
@@ -86,11 +85,9 @@ namespace for_each_child_window_detail {
         {
             // Workaround:
             // VC++7.1/8 fails to decay function-reference.
-            // Without this, 'Yield' of 'aux<Yield>(...)'
+            // Without the explicit parameter, 'Yield' of 'aux<Yield>(...)'
             // would be deduced as a *reference* type. Lovely!
-            Result yield_ = yield; // decay it!
-
-            for_each_child_window_detail::aux(m_parent, yield_);
+            for_each_child_window_detail::aux<Result>(m_parent, yield);
             return yield;
         }
 

@@ -41,7 +41,8 @@ namespace pstade { namespace egg {
 template< class BabyFunction >
 struct function : BabyFunction
 {
-    typedef BabyFunction type;
+    typedef BabyFunction baby_type;
+
 
     // 0ary
     //
@@ -103,7 +104,7 @@ struct function : BabyFunction
 
     // 2ary -
     //
-    #define PSTADE_EGG_members(R, BitSeq) \
+    #define PSTADE_EGG_member(R, BitSeq) \
         \
         template< BOOST_PP_ENUM_PARAMS(n, class A) > \
         explicit function( \
@@ -163,7 +164,7 @@ struct function : BabyFunction
     #undef PSTADE_EGG_c0
     #undef PSTADE_EGG_param
     #undef PSTADE_EGG_arg_type
-    #undef PSTADE_EGG_members
+    #undef PSTADE_EGG_member
 
 
 }; // struct function
@@ -182,16 +183,16 @@ struct function : BabyFunction
 /**/
 
 
-#define PSTADE_EGG_FUNCTION_define(TypeName, Name, Baby) \
-    typedef pstade::egg::function< \
-        PSTADE_UNPARENTHESIZE(Baby) \
-    > TypeName; \
-    \
-    PSTADE_INSTANCE( \
-        pstade::egg::function< PSTADE_UNPARENTHESIZE(Baby) > const, \
-        Name, value \
-    ) \
-/**/
+    #define PSTADE_EGG_FUNCTION_define(TypeName, Name, Baby) \
+        typedef pstade::egg::function< \
+            PSTADE_UNPARENTHESIZE(Baby) \
+        > TypeName; \
+        \
+        PSTADE_INSTANCE( \
+            pstade::egg::function< PSTADE_UNPARENTHESIZE(Baby) > const, \
+            Name, value \
+        ) \
+    /**/
 
 
 #endif
@@ -200,7 +201,7 @@ struct function : BabyFunction
 
 
 BOOST_PP_SEQ_FOR_EACH_PRODUCT(
-    PSTADE_EGG_members,
+    PSTADE_EGG_member,
     BOOST_PP_REPEAT(n, PSTADE_EGG_bits, ~)
 )
 
