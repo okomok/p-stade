@@ -10,9 +10,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/range/iterator_range.hpp>
 #include "./as_lightweight_proxy.hpp"
-#include "./index_iterator.hpp"
+#include "./counting_range.hpp"
+#include "./transform_range.hpp"
 
 
 namespace pstade { namespace oven {
@@ -21,14 +21,12 @@ namespace pstade { namespace oven {
 namespace index_range_detail {
 
 
-    template<
-        class UnaryFun,  class Index,
-        class Reference, class Value, class Difference
-    >
+    template< class UnaryFun, class Incrementable >
     struct super_
     {
-        typedef boost::iterator_range<
-            index_iterator<UnaryFun, Index, Reference, Value, Difference>
+        typedef transform_range<
+            counting_range<Incrementable> const,
+            UnaryFun
         > type;
     };
 
@@ -38,31 +36,28 @@ namespace index_range_detail {
 
 template<
     class UnaryFun,
-    class Index      = std::size_t,
-    class Reference  = boost::use_default,
-    class Value      = boost::use_default,
-    class Difference = std::ptrdiff_t
+    class Incrementable = std::size_t
 >
 struct index_range :
-    index_range_detail::super_<UnaryFun, Index, Reference, Value, Difference>::type,
-    private as_lightweight_proxy< index_range<UnaryFun, Index, Reference, Value, Difference> >
+    index_range_detail::super_<UnaryFun, Incrementable>::type,
+    private as_lightweight_proxy< index_range<UnaryFun, Incrementable> >
 {
 private:
-    typedef typename index_range_detail::super_<UnaryFun, Index, Reference, Value, Difference>::type super_t;
+    typedef typename index_range_detail::super_<UnaryFun, Incrementable>::type super_t;
     typedef typename super_t::iterator iter_t;
 
 public:
-    index_range(UnaryFun fun, Index i, Index j) :
-        super_t(iter_t(fun, i), iter_t(fun, j))
+    index_range(UnaryFun fun, Incrementable i, Incrementable j) :
+        super_t(counting_range<Incrementable>(i, j), fun)
     { }
 };
 
 
-template< class Index, class UnaryFun > inline
-index_range<UnaryFun, Index> const
-make_index_range(UnaryFun fun, Index i, Index j)
+template< class Incrementable, class UnaryFun > inline
+index_range<UnaryFun, Incrementable> const
+make_index_range(UnaryFun fun, Incrementable i, Incrementable j)
 {
-    return index_range<UnaryFun, Index>(fun, i, j);
+    return index_range<UnaryFun, Incrementable>(fun, i, j);
 }
 
 

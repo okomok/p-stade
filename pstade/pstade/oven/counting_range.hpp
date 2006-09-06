@@ -25,17 +25,17 @@ namespace counting_range_detail {
 
 
     template< class Incrementable > inline
-    void check_range(Incrementable n, Incrementable m, boost::single_pass_traversal_tag)
+    void check_range(Incrementable i, Incrementable j, boost::single_pass_traversal_tag)
     {
-        pstade::unused(n, m);
+        pstade::unused(i, j);
     }
 
 
     template< class Incrementable > inline
-    void check_range(Incrementable n, Incrementable m, boost::random_access_traversal_tag)
+    void check_range(Incrementable i, Incrementable j, boost::random_access_traversal_tag)
     {
-        BOOST_ASSERT(n <= m);
-        pstade::unused(n, m);
+        BOOST_ASSERT(i <= j);
+        pstade::unused(i, j);
     }
 
 
@@ -65,20 +65,20 @@ private:
     typedef typename super_t::iterator iter_t;
 
 public:
-    counting_range(Incrementable n, Incrementable m) :
-        super_t(iter_t(n), iter_t(m))
+    counting_range(Incrementable i, Incrementable j) :
+        super_t(iter_t(i), iter_t(j))
     {
         typedef typename boost::iterator_traversal<iter_t>::type trv_t;
-        counting_range_detail::check_range(n, m, trv_t());
+        counting_range_detail::check_range(i, j, trv_t());
     }
 };
 
 
 template< class Incrementable > inline
 counting_range<Incrementable> const
-make_counting_range(Incrementable n, Incrementable m)
+make_counting_range(Incrementable i, Incrementable j)
 {
-    return counting_range<Incrementable>(n, m);
+    return counting_range<Incrementable>(i, j);
 }
 
 
