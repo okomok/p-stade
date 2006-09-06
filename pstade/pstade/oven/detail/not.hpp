@@ -20,7 +20,7 @@ namespace pstade { namespace oven { namespace detail {
 template< class Predicate >
 struct baby_not_fun
 {
-    explicit baby_not_fun(Predicate pred) :
+    explicit baby_not_fun(Predicate const& pred) :
         m_pred(pred)
     { }
 

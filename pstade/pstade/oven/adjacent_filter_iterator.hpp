@@ -88,7 +88,7 @@ public:
     { }
 
     adjacent_filter_iterator(
-        ForwardIter const& it, BinaryPred pred,
+        ForwardIter const& it, BinaryPred const& pred,
         ForwardIter const& first, ForwardIter const& last
     ) :
         super_t(it), m_pred(pred),
@@ -104,7 +104,7 @@ public:
         m_first(other.begin()), m_last(other.end())
     { }
 
-    BinaryPred predicate() const
+    BinaryPred const& predicate() const
     {
         return m_pred;
     }

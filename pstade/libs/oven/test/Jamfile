@@ -76,6 +76,7 @@ test-suite oven :
     [ oven-test single_range ]
     [ oven-test slice_range ]
     [ oven-test sort_range ]
+    [ oven-test stream_output_iterator ]
     [ oven-test stride_range ]
     [ oven-test string_find_range ]
     [ oven-test string_split_range ]

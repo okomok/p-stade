@@ -93,7 +93,7 @@ private:
     typedef typename super_t::iterator iter_t;
 
 public:
-    transform_range(Range& rng, UnaryFun fun) :
+    transform_range(Range& rng, UnaryFun const& fun) :
         super_t(
             iter_t(boost::begin(rng), fun),
             iter_t(boost::end(rng), fun)

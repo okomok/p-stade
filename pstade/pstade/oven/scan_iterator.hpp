@@ -63,7 +63,7 @@ public:
     scan_iterator()
     { }
 
-    scan_iterator(Iterator const& it, State const& init, BinaryFun fun) :
+    scan_iterator(Iterator const& it, State const& init, BinaryFun const& fun) :
         super_t(it), m_state(init), m_fun(fun)
     { }
 

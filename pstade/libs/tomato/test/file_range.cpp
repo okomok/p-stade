@@ -35,7 +35,7 @@ void test()
             std::cout << ch;
         }
 
-        frng|copied_to( ofile_range<>(_T("test_out.txt"), oven::distance(frng)) );
+        frng|copied_out( ofile_range<>(_T("test_out.txt"), oven::distance(frng)) );
     }
 
     BOOST_CHECK( oven::equals( ifile_range<>("test.txt"), ifile_range<>("test_out.txt")) );

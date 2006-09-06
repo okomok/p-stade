@@ -103,7 +103,7 @@ private:
     typedef typename out_place_range_detail::iter_sequence<ForwardRange>::type seq_t;
 
 public:
-    explicit out_place_range(ForwardRange& rng, Functor fun = unused) :
+    explicit out_place_range(ForwardRange& rng, Functor const& fun = unused) :
         super_t(out_place_range_detail::make_share<seq_t>(rng, fun))
     { }
 };
@@ -122,9 +122,9 @@ namespace out_place_range_detail {
         };
 
         template< class Result, class ForwardRange, class Functor >
-        Result call(ForwardRange& rng, Functor& pred)
+        Result call(ForwardRange& rng, Functor& fun)
         {
-            return Result(rng, pred);
+            return Result(rng, fun);
         }
 
         template< class Result, class ForwardRange >

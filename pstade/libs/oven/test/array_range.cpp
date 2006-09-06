@@ -16,7 +16,7 @@
 #include <string>
 #include <boost/range.hpp>
 #include <pstade/oven/functions.hpp>
-#include <pstade/oven/copy_range.hpp>
+#include <pstade/oven/begin_end.hpp>
 
 
 void test()
@@ -27,7 +27,7 @@ void test()
     {
         std::string str("hello, array_range");
         array_range<char> arr(oven::distance(str));
-        str|copied_to(arr);
+        oven::copy(str, arr|begins);
         BOOST_CHECK(oven::equals(str, arr));
     }
 }

@@ -74,7 +74,7 @@ void test()
 
     {
         tcout << (tomato::window_text(hWnd)|c_stringized) << std::endl;
-        oven::copy(tomato::window_text(hWnd), oven::stream_outputter(tcout));
+        oven::copy(tomato::window_text(hWnd), oven::to_stream(tcout));
     }
 }
 

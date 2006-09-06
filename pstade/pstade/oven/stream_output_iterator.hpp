@@ -64,7 +64,7 @@ private:
 
 template< class CharT, class Traits > inline
 stream_output_iterator<CharT, Traits> const
-stream_outputter(std::basic_ostream<CharT, Traits>& os)
+to_stream(std::basic_ostream<CharT, Traits>& os)
 {
     return stream_output_iterator<CharT, Traits>(os);
 }

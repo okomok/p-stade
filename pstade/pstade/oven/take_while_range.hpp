@@ -41,7 +41,7 @@ private:
     typedef typename sub_range_base<ForwardRange>::type super_t;
 
 public:
-    take_while_range(ForwardRange& rng, Predicate pred) :
+    take_while_range(ForwardRange& rng, Predicate const& pred) :
         super_t(boost::begin(rng), oven::find_if(rng, detail::not_(pred)))
     { }
 };

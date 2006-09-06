@@ -44,10 +44,9 @@ struct index_range :
 {
 private:
     typedef typename index_range_detail::super_<UnaryFun, Incrementable>::type super_t;
-    typedef typename super_t::iterator iter_t;
 
 public:
-    index_range(UnaryFun fun, Incrementable i, Incrementable j) :
+    index_range(UnaryFun const& fun, Incrementable i, Incrementable j) :
         super_t(counting_range<Incrementable>(i, j), fun)
     { }
 };

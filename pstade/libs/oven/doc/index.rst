@@ -7,7 +7,7 @@ The Oven Range Library
 :Author: MB
 :Contact: mb2act@yahoo.co.jp 
 :License: Distributed under the `Boost Software License Version 1.0`_
-:Version: 0.90.8
+:Version: 0.90.9
 
 
 
@@ -389,15 +389,15 @@ makes STL that doesn't know traversal concepts choose effective algorithms.
 - Returns: ``[boost::begin(rng),boost::end(rng))`` whose iterators are constant.
 
 
-``copied_to``
-^^^^^^^^^^^^^
-``copied_to`` makes a side-effect that copies its adapting range to its argument::
+``copied_out``
+^^^^^^^^^^^^^^
+``copied_out`` makes a side-effect that copies its adapting range to its argument::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\copied_to.ipp
+	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\copied_out.ipp
 
 
 - Header: ``<pstade/oven/copy_range.hpp>``
-- Valid expression: ``rng|copied_to(it)``
+- Valid expression: ``rng|copied_out(it)``
 - Precondition: ``oven::copy(rng,it)`` is a valid expression.
 - Effect: ``oven::copy(rng,it)``
 - Returns: ``[boost::begin(rng),boost::end(rng))`` if ``rng`` is a `Forward Range`_; otherwise, ``void``.
@@ -849,6 +849,11 @@ Version 0.90.7
 Version 0.90.8
 ^^^^^^^^^^^^^^
 - Renamed ``base_iterator`` to ``to_base``.
-- Renamed ``copied`` adaptor to ``copied_to``.
+- Renamed ``copied`` adaptor to ``copied_out``.
 - Added `concatenated`_.
+
+Version 0.90.9
+^^^^^^^^^^^^^^
+- Renamed ``copied_to`` to ``copied_out``.
+- Fixed a bug of ``transformed`` and ``concatenated``.
 

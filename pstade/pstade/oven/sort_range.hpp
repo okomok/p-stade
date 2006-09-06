@@ -30,7 +30,7 @@ namespace sort_range_detail {
     template< class BinaryPred >
     struct sort_fun
     {
-        explicit sort_fun(BinaryPred pred) :
+        explicit sort_fun(BinaryPred const& pred) :
             m_pred(pred)
         { }
 
@@ -69,7 +69,7 @@ private:
     typedef typename sort_range_detail::super_<ForwardRange, BinaryPred>::type super_t;
 
 public:
-    explicit sort_range(ForwardRange& rng, BinaryPred pred = detail::less_than) :
+    explicit sort_range(ForwardRange& rng, BinaryPred const& pred = detail::less_than) :
         super_t(rng, sort_range_detail::sort_fun<BinaryPred>(pred))
     { }
 };

@@ -37,7 +37,7 @@ namespace zip_with_range_detail {
         typedef typename boost::result_of<BinaryFun(ref0_t, ref1_t)>::type
         result_type;
 
-        explicit transformer(BinaryFun fun) :
+        explicit transformer(BinaryFun const& fun) :
             m_fun(fun)
         { }
 
@@ -78,7 +78,7 @@ private:
     typedef typename zip_with_range_detail::super_<Range0, Range1, BinaryFun>::type super_t;
 
 public:
-    zip_with_range(Range0& rng0, Range1& rng1, BinaryFun fun) :
+    zip_with_range(Range0& rng0, Range1& rng1, BinaryFun const& fun) :
         super_t(
             zip_range<Range0, Range1>(rng0, rng1),
             zip_with_range_detail::transformer<Range0, Range1, BinaryFun>(fun)
@@ -100,7 +100,7 @@ namespace zip_with_range_detail {
         };
 
         template< class Result, class Range0, class Range1, class BinaryFun >
-        Result call(Range0& rng0, Range1& rng1, BinaryFun fun)
+        Result call(Range0& rng0, Range1& rng1, BinaryFun& fun)
         {
             return Result(rng0, rng1, fun);
         }

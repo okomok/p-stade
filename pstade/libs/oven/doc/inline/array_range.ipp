@@ -1,7 +1,7 @@
 std::string str("hello, array_range!");
 boost::array<char, 19> sarr;
-str|copied_to(sarr);
+oven::copy(str, sarr|begins);
 oven::array_range<char> darr(19);
-str|copied_to(darr);
+oven::copy(str, darr|begins);
 
 BOOST_CHECK( oven::equals(sarr, darr) );

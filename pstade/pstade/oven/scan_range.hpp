@@ -58,7 +58,7 @@ private:
     typedef typename super_t::iterator iter_t;
 
 public:
-    scan_range(Range& rng, State const& init, BinaryFun fun = detail::plus) :
+    scan_range(Range& rng, State const& init, BinaryFun const& fun = detail::plus) :
         super_t(
             iter_t(boost::begin(rng), init, fun),
             iter_t(boost::end(rng),   init, fun)

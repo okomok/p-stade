@@ -54,13 +54,13 @@ namespace concatenate_iterator_detail {
     template< class TopIterator, class BottomRange >
     struct traversal
     {
-        typedef typename range_traversal<BottomRange>::type bot_trv_t;
         typedef typename boost::iterator_traversal<TopIterator>::type top_trv_t;
+        typedef typename range_traversal<BottomRange>::type bot_trv_t;
 
         typedef typename boost::mpl::eval_if<
             boost::mpl::and_<
-                boost::is_convertible<bot_trv_t, boost::bidirectional_traversal_tag>,
-                boost::is_convertible<top_trv_t, boost::bidirectional_traversal_tag>
+                boost::is_convertible<top_trv_t, boost::bidirectional_traversal_tag>,
+                boost::is_convertible<bot_trv_t, boost::bidirectional_traversal_tag>
             >,
             boost::mpl::identity<boost::bidirectional_traversal_tag>,
             boost::mpl::eval_if<

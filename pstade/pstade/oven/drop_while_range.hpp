@@ -36,7 +36,7 @@ private:
     typedef typename sub_range_base<Range>::type super_t;
 
 public:
-    drop_while_range(Range& rng, Predicate pred) :
+    drop_while_range(Range& rng, Predicate const& pred) :
         super_t(oven::find_if(rng, detail::not_(pred)), boost::end(rng))
     { }
 };

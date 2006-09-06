@@ -10,23 +10,16 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/function_output_iterator.hpp>
+#include <pstade/oven/stream_output_iterator.hpp>
 
 
 #include <sstream>
 #include <string>
 #include <boost/range.hpp>
-#include <pstade/oven/regularize_iterator.hpp>
 #include <pstade/oven/functions.hpp>
 
 
 std::stringstream g_ss;
-
-
-void to_ss(char ch)
-{
-    g_ss << ch;
-}
 
 
 void test()
@@ -34,20 +27,10 @@ void test()
     using namespace pstade;
     using namespace oven;
 
-    std::string src("hello,function_output_iterator");
+    std::string src("hello,stream_output_iterator");
     {
         g_ss.str("");
-        oven::copy(src, oven::to_function(to_ss));
-        BOOST_CHECK( oven::equals(g_ss.str(), src) );
-    }
-    {
-        g_ss.str("");
-        oven::copy(src, oven::make_regularize_iterator(oven::to_function(to_ss)));
-        BOOST_CHECK( oven::equals(g_ss.str(), src) );
-    }
-    {
-        g_ss.str("");
-        oven::copy(src, oven::to_regularized_function(to_ss));
+        oven::copy(src, to_stream(g_ss));
         BOOST_CHECK( oven::equals(g_ss.str(), src) );
     }
 }

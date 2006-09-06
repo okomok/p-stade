@@ -12,12 +12,12 @@
 
 // Why not: 'boost::function_output_iterator'
 //
-// He cannot take a function type, because
-// a const-qualified function type is illegal.
+// 'make_function_output_iterator' cannot take a function type,
+// because a const-qualified function type is illegal.
 // Also, Boost.Lambda functors are not assignable,
-// then 'regularize_iterator' can help, but it
-// wants 'difference_type' not to be 'void'
-// which makes the declaration of 'operator[]' invalid.
+// then 'regularize_iterator' can help.
+// But it wants 'difference_type' not to be 'void'
+// which makes the declaration of 'operator[]' illegal.
 
 
 // Note:
@@ -43,7 +43,7 @@ struct function_output_iterator
 
     struct reference
     {
-        reference(UnaryFun fun) :
+        reference(UnaryFun const& fun) :
             m_fun(fun)
         { }
 
@@ -65,7 +65,7 @@ struct function_output_iterator
     explicit function_output_iterator()
     { }
 
-    explicit function_output_iterator(UnaryFun fun) :
+    explicit function_output_iterator(UnaryFun const& fun) :
         m_fun(fun)
     { }
 
@@ -81,7 +81,7 @@ private:
 
 template< class UnaryFun > inline
 function_output_iterator<UnaryFun> const
-function_outputter(UnaryFun fun = UnaryFun())
+to_function(UnaryFun fun = UnaryFun())
 {
     return function_output_iterator<UnaryFun>(fun);
 }
@@ -89,9 +89,9 @@ function_outputter(UnaryFun fun = UnaryFun())
 
 template< class UnaryFun > inline
 regularize_iterator< function_output_iterator<UnaryFun> > const
-function_outputter_regularized(UnaryFun fun = UnaryFun())
+to_regularized_function(UnaryFun fun = UnaryFun())
 {
-    return oven::make_regularize_iterator(oven::function_outputter(fun));
+    return oven::make_regularize_iterator(oven::to_function(fun));
 }
 
 

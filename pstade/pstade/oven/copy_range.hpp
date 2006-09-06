@@ -144,7 +144,7 @@ namespace copied_to_detail {
 } // namespace copied_to_detail
 
 
-PSTADE_EGG_PIPABLE(copied_to, copied_to_detail::baby)
+PSTADE_EGG_PIPABLE(copied_out, copied_to_detail::baby)
 
 
 } } // namespace pstade::oven
