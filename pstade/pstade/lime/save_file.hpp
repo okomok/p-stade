@@ -15,8 +15,9 @@
 #include <string>
 #include <boost/cstdint.hpp> // uint8_t
 #include <boost/throw_exception.hpp>
+#include <pstade/oven/function_output_iterator.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
-#include <pstade/oven/stream_output_iterator.hpp>
+#include <pstade/oven/output_functions.hpp>
 #include <pstade/oven/to_utf8.hpp>
 #include <pstade/what.hpp>
 #include "./copy_XMLDecl.hpp"
@@ -30,14 +31,14 @@ namespace pstade { namespace lime {
 struct save_error :
     error
 {
-    explicit save_error(std::string fileName) :
+    explicit save_error(std::string const& fileName) :
         error(pstade::what("lime-save-error", fileName))
     { }
 };
 
 
 template< class Node >
-void save_file(Node& root, std::string fileName)
+void save_file(Node& root, std::string const& fileName)
 {
     std::ofstream to_file(fileName.c_str(), std::ios::binary);
     if (!to_file) {
@@ -45,13 +46,13 @@ void save_file(Node& root, std::string fileName)
         boost::throw_exception(err);
     }
 
-    lime::copy_XMLDecl(oven::to_stream(to_file));
-    lime::save(root, oven::to_utf8(oven::to_stream(to_file)));
+    lime::copy_XMLDecl(oven::to_function(oven::stream_output(to_file)));
+    lime::save(root, oven::to_utf8(oven::to_function(oven::stream_output(to_file))));
 }
 
 
 template< class Node >
-void save_file_default(Node& root, std::string fileName)
+void save_file_default(Node& root, std::string const& fileName)
 {
     std::ofstream to_file(fileName.c_str(), std::ios::binary);
     if (!to_file) {
@@ -59,8 +60,8 @@ void save_file_default(Node& root, std::string fileName)
         boost::throw_exception(err);
     }
 
-    lime::copy_XMLDecl(oven::to_stream(to_file));
-    lime::save_default(root, oven::to_utf8(oven::to_stream(to_file)));
+    lime::copy_XMLDecl(oven::to_function(oven::stream_output(to_file)));
+    lime::save_default(root, oven::to_utf8(oven::to_function(oven::stream_output(to_file))));
 }
 
 

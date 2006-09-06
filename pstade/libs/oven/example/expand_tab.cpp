@@ -41,7 +41,7 @@ void expand_tab(std::string fileName)
 
     std::ofstream fout(fileName.c_str(), std::ios::binary);
     pstade::require(fout, "good output file: " + fileName);
-    oven::copy(buf, oven::to_stream(fout));
+    oven::copy(buf, oven::to_function(oven::stream_output(fout)));
 };
 
 

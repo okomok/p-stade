@@ -89,7 +89,7 @@ int main(int argc, char *argv[])
             pstade::require(to_file, "good output file: " + oname);
 
             oven::copy("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\" ?>"
-                "<pre class=\"cpp_source\">"|oven::null_terminated, oven::to_stream(to_file));
+                "<pre class=\"cpp_source\">"|oven::null_terminated, oven::to_function(oven::stream_output(to_file)));
 
              biscuit::match<
                 iteration<cpp_to_hatena::start, cpp_to_hatena::act_line_escape>
@@ -101,10 +101,10 @@ int main(int argc, char *argv[])
                     | oven::transformed(::newline_cvter())               // 改行なら'\n'に変換する
                     | oven::tab_expanded(::tabsize<>::value)             // タブを空白にする
                     | oven::memoized,                                    // 速くするためキャッシュする
-                oven::to_utf8(oven::to_stream(to_file))|argued           // UTF-8に戻して出力
+                oven::to_utf8(oven::to_function(oven::stream_output(to_file)))|argued // UTF-8に戻して出力
             );
 
-            oven::copy("</pre>"|oven::null_terminated, oven::to_stream(to_file));
+            oven::copy("</pre>"|oven::null_terminated, oven::to_function(oven::stream_output(to_file)));
 
             std::cout << "<output-file>" << oname << "</output-file>";
 

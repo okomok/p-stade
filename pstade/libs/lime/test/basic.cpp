@@ -49,7 +49,7 @@ void test()
 
         lime::save(
             root.front(),
-            oven::to_utf8(oven::to_stream(to_file))
+            oven::to_utf8(oven::to_function(oven::stream_output(to_file)))
         );
 
     }

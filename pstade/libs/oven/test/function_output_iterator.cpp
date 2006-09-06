@@ -11,13 +11,16 @@
 
 
 #include <pstade/oven/function_output_iterator.hpp>
+#include <pstade/oven/output_functions.hpp>
 
 
 #include <sstream>
 #include <string>
+#include <vector>
 #include <boost/range.hpp>
 #include <pstade/oven/regularize_iterator.hpp>
 #include <pstade/oven/functions.hpp>
+#include <pstade/unused.hpp>
 
 
 std::stringstream g_ss;
@@ -34,7 +37,7 @@ void test()
     using namespace pstade;
     using namespace oven;
 
-    std::string src("hello,function_output_iterator");
+    std::string const src("hello,function_output_iterator");
     {
         g_ss.str("");
         oven::copy(src, oven::to_function(to_ss));
@@ -49,6 +52,26 @@ void test()
         g_ss.str("");
         oven::copy(src, oven::to_regularized_function(to_ss));
         BOOST_CHECK( oven::equals(g_ss.str(), src) );
+    }
+    {
+        std::vector<char> vec;
+        oven::copy(src, oven::to_function(oven::push_back(vec)));
+        BOOST_CHECK( oven::equals(vec, src) );
+    }
+    {
+        g_ss.str("");
+        oven::copy(src, oven::to_function(oven::stream_output(g_ss)));
+        BOOST_CHECK( oven::equals(g_ss.str(), src) );
+    }
+    {
+        g_ss.str("");
+        oven::copy(src, oven::to_function(oven::sputc(g_ss)));
+        BOOST_CHECK( oven::equals(g_ss.str(), src) );
+    }
+    {
+        g_ss.str("");
+        oven::copy(src, oven::to_function(unused));
+        BOOST_CHECK( boost::empty(g_ss.str()) );
     }
 }
 

@@ -17,10 +17,11 @@
 #include <pstade/lime/save.hpp>
 #include <pstade/oven/algorithm.hpp> // copy
 #include <pstade/oven/copy_range.hpp>
-#include <pstade/oven/dummy_output_iterator.hpp>
+#include <pstade/oven/function_output_iterator.hpp>
 #include <pstade/oven/utf8_decode_range.hpp>
 #include <pstade/tomato/file_range.hpp>
 #include <pstade/tomato/tstring.hpp>
+#include <pstade/unused.hpp>
 #include <pstade/ustring.hpp>
 
 
@@ -46,7 +47,7 @@ void load(Node& node, ustring path)
 template< class Node > inline
 void save(Node& node)
 {
-    lime::save(node, oven::dummy_outputter);
+    lime::save(node, oven::to_function(unused));
 }
 
 

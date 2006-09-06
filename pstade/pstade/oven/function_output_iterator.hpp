@@ -20,12 +20,6 @@
 // which makes the declaration of 'operator[]' illegal.
 
 
-// Note:
-//
-// This iterator seems underestimated.
-// It could replace 'back_inserter' etc with lambda.
-
-
 #include <iterator> // output_iterator_tag
 #include "./regularize_iterator.hpp"
 
