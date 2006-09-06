@@ -4,7 +4,7 @@
 
 // PStade.Tomato
 //
-// Copyright MB 2005-2006.
+// Copyright Shunsuke Sogame 2005-2006.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -51,9 +51,13 @@ BYTE get_b_value(DWORD rgb)
 }
 
 
-template< class Range >
+// What:
+// Converts something like '#11AAFF' to 'COLORREF'.
+// A 'wchar_t' is casted to 'char'. Take care.
+//
+template< class CharRange >
 boost::optional<COLORREF> const
-rgb(Range const& rng)
+rgb(CharRange const& rng)
 {
     if (boost::empty(rng))
         return boost::none;

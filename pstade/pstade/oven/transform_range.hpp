@@ -4,7 +4,7 @@
 
 // PStade.Oven
 //
-// Copyright MB 2005-2006.
+// Copyright Shunsuke Sogame 2005-2006.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -23,6 +23,9 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
+#include <boost/mpl/eval_if.hpp>
+#include <boost/mpl/identity.hpp>
+#include <boost/type_traits/is_same.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/egg/by_value.hpp>
 #include <pstade/egg/function.hpp>
@@ -38,6 +41,14 @@ namespace pstade { namespace oven {
 namespace transform_range_detail {
 
 
+    template< class Iterator, class UnaryFun >
+    struct default_reference
+    {
+        typedef typename boost::iterator_reference<Iterator>::type ref_t;
+        typedef typename boost::result_of<UnaryFun(ref_t)>::type type;
+    };
+
+
     template<
         class Range, class UnaryFun,
         class Reference, class Value
@@ -47,21 +58,21 @@ namespace transform_range_detail {
         typedef typename range_iterator<Range>::type iter_t;
 
         // Note:
-        // Boost.Iterator doesn't do the following.
-        // 'boost::result_of' seems to have many problems
+        // Boost.Iterator doesn't use 'result_of'.
+        // 'result_of' seems to have many problems
         // even under modern compilers.
-        //
-        typedef typename boost::iterator_reference<iter_t>::type iter_ref_t;
-        typedef typename boost::result_of<UnaryFun(iter_ref_t)>::type ref_t;
-        
+        typedef typename boost::mpl::eval_if<
+            boost::is_same<Reference, boost::use_default>,
+            default_reference<iter_t, UnaryFun>,
+            boost::mpl::identity<Reference>
+        >::type ref_t;
+
         typedef boost::iterator_range<
             boost::transform_iterator<
-                UnaryFun, iter_t,
-                ref_t, Value
+                UnaryFun, iter_t, ref_t, Value
             >
         > type;
     };
-
 
 } // namespace transform_range_detail
 

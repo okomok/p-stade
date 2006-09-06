@@ -4,7 +4,7 @@
 
 // PStade.Oven
 //
-// Copyright MB 2005-2006.
+// Copyright Shunsuke Sogame 2005-2006.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -15,6 +15,8 @@
 #include "./concatenate_iterator.hpp"
 #include "./const_lvalue_iterator.hpp"
 #include "./dummy_output_iterator.hpp"
+#include "./function_output_iterator.hpp"
+#include "./index_iterator.hpp"
 #include "./joint_iterator.hpp"
 #include "./regularize_iterator.hpp"
 #include "./repeat_iterator.hpp"

@@ -4,7 +4,7 @@
 
 // PStade.Oven
 //
-// Copyright MB 2005-2006.
+// Copyright Shunsuke Sogame 2005-2006.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -34,6 +34,7 @@
 #include "./first_range.hpp"
 // #include "./get_at_range.hpp"
 #include "./identity_range.hpp"
+#include "./index_range.hpp"
 #include "./indirect_range.hpp"
 #include "./istream_range.hpp"
 #include "./istreambuf_range.hpp"

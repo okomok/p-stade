@@ -4,7 +4,7 @@
 
 // PStade.Oven
 //
-// Copyright MB 2005-2006.
+// Copyright Shunsuke Sogame 2005-2006.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -27,7 +27,7 @@ struct dummy_output_iterator
     typedef std::output_iterator_tag iterator_category;
     typedef void value_type;
     typedef void pointer;
-    typedef void difference_type;
+    typedef int  difference_type;
 
     struct reference
     {

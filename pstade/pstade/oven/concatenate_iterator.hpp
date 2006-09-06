@@ -4,7 +4,7 @@
 
 // PStade.Oven
 //
-// Copyright MB 2005-2006.
+// Copyright Shunsuke Sogame 2005-2006.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -21,10 +21,12 @@
 // Makes 'biscuit::filter_range' deprecated!
 
 
-#include <boost/iterator/detail/minimum_category.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
-#include <boost/iterator/iterator_categories.hpp> // iterator_traversal 
+#include <boost/iterator/iterator_categories.hpp> // iterator_traversal, tag's
 #include <boost/iterator/iterator_traits.hpp> // iterator_reference
+#include <boost/mpl/and.hpp>
+#include <boost/mpl/eval_if.hpp>
+#include <boost/mpl/identity.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/empty.hpp>
 #include <boost/range/end.hpp>
@@ -47,16 +49,27 @@ struct concatenate_iterator;
 namespace concatenate_iterator_detail {
 
 
+    // See:
+    // http://opensource.adobe.com/iterator_8hpp-source.html#l00087
     template< class TopIterator, class BottomRange >
-    struct traversal :
-        boost::detail::minimum_category<
-            typename boost::detail::minimum_category<
-                typename range_traversal<BottomRange>::type,
-                boost::bidirectional_traversal_tag
-            >::type,
-            typename boost::iterator_traversal<TopIterator>::type
-        >
-    { };
+    struct traversal
+    {
+        typedef typename range_traversal<BottomRange>::type bot_trv_t;
+        typedef typename boost::iterator_traversal<TopIterator>::type top_trv_t;
+
+        typedef typename boost::mpl::eval_if<
+            boost::mpl::and_<
+                boost::is_convertible<bot_trv_t, boost::bidirectional_traversal_tag>,
+                boost::is_convertible<top_trv_t, boost::bidirectional_traversal_tag>
+            >,
+            boost::mpl::identity<boost::bidirectional_traversal_tag>,
+            boost::mpl::eval_if<
+                boost::is_convertible<bot_trv_t, boost::forward_traversal_tag>,
+                boost::mpl::identity<boost::forward_traversal_tag>,
+                boost::mpl::identity<bot_trv_t>
+            >
+        >::type type;
+    };
 
 
     template< class TopIterator >
@@ -101,8 +114,8 @@ public:
     concatenate_iterator(TopIterator const& it, TopIterator const& last) :
         super_t(it), m_last(last)
     {
-        PSTADE_CONSTRUCTOR_PRECONDITION (
-        ~)
+        PSTADE_CONSTRUCTOR_PRECONDITION (~
+        )
 
         reset_bottom_forward();
     }
@@ -117,8 +130,8 @@ template< class > friend struct concatenate_iterator;
         super_t(other.base()), m_last(other.m_last),
         m_bottom(other.m_bottom)
     {
-        PSTADE_CONSTRUCTOR_PRECONDITION (
-        ~)
+        PSTADE_CONSTRUCTOR_PRECONDITION (~
+        )
     }
 
 private:
@@ -210,8 +223,8 @@ friend class boost::iterator_core_access;
 
     void decrement()
     {
-        PSTADE_PUBLIC_PRECONDITION (
-        ~)
+        PSTADE_PUBLIC_PRECONDITION (~
+        )
 
         if (top_is_end() || m_bottom == boost::begin(bottom_range())) {
             --this->base_reference();
