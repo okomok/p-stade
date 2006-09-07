@@ -10,10 +10,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Note:
+// What:
 //
+// Intended to be used with 'to_function'.
 // Ideally, you should prefer Boost.Phoenix2 or Lambda.
-// 'dummy_output_iterator' can be written with 'unused' and this.
+// Note that 'dummy_output_iterator' can be written with
+// 'unused' and this.
 
 
 #include <iosfwd> // basic_ostream/streambuf

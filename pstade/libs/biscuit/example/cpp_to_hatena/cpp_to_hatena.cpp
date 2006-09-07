@@ -77,7 +77,7 @@ int main(int argc, char *argv[])
 
     std::cout << "<cpp_to_hatena>";
 
-    BOOST_FOREACH (int i, oven::one_to(argc)) {
+    BOOST_FOREACH (int i, oven::int_range(1, argc)) {
 
         try {
 
@@ -94,13 +94,13 @@ int main(int argc, char *argv[])
              biscuit::match<
                 iteration<cpp_to_hatena::start, cpp_to_hatena::act_line_escape>
             >(
-                oven::file_range<boost::uint8_t>(iname)                  // spirit::file_iteratorのペア
-                    | pstade::required("non-empty input file: " + iname) // 空のRangeは例外に
-                    | oven::utf8_decoded<>()                             // UTF-8をUTF-32に変換
-                    | biscuit::tokenized< or_<wnewline, any> >()         // 改行とそうでないものに分ける
-                    | oven::transformed(::newline_cvter())               // 改行なら'\n'に変換する
-                    | oven::tab_expanded(::tabsize<>::value)             // タブを空白にする
-                    | oven::memoized,                                    // 速くするためキャッシュする
+                oven::file_range<boost::uint8_t>(iname)                     // spirit::file_iteratorのペア
+                    | pstade::required("non-empty input file: " + iname)    // 空のRangeは例外に
+                    | oven::utf8_decoded                                    // UTF-8をUTF-32に変換
+                    | biscuit::tokenized< or_<wnewline, any> >()            // 改行とそうでないものに分ける
+                    | oven::transformed(::newline_cvter())                  // 改行なら'\n'に変換する
+                    | oven::tab_expanded(::tabsize<>::value)                // タブを空白にする
+                    | oven::memoized,                                       // 速くするためキャッシュする
                 oven::to_utf8(oven::to_function(oven::stream_output(to_file)))|argued // UTF-8に戻して出力
             );
 

@@ -10,31 +10,56 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/range/begin.hpp>
+#include <boost/range/end.hpp>
+#include <boost/range/iterator_range.hpp>
+#include <pstade/egg/by_value.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
-#include "./sub_range_base.hpp"
+#include "./identity_iterator.hpp"
+#include "./range_iterator.hpp"
 
 
 namespace pstade { namespace oven {
 
 
-template< class Range >
+namespace identity_range_detail {
+
+
+    template< class Range, class CategoryOrTraversal >
+    struct super_
+    {
+        typedef boost::iterator_range<
+            identity_iterator<
+                typename range_iterator<Range>::type,
+                CategoryOrTraversal
+            >
+        > type;
+    };
+
+
+} // namespace identity_range_detail
+
+
+template<
+    class Range,
+    class CategoryOrTraversal = boost::use_default
+>
 struct identity_range :
-    sub_range_base<Range>::type,
-    private as_lightweight_proxy< identity_range<Range> >
+    identity_range_detail::super_<Range, CategoryOrTraversal>::type,
+    private as_lightweight_proxy< identity_range<Range, CategoryOrTraversal> >
 {
     typedef Range pstade_oven_range_base_type;
 
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
-    typedef typename sub_range_base<Range>::type super_t;
-    typedef typename super_t::iterator iter_t;
+    typedef typename identity_range_detail::super_<Range, CategoryOrTraversal>::type super_t;
 
 public:
     explicit identity_range(Range& rng) :
-        super_t(rng)
+        super_t(boost::begin(rng), boost::end(rng))
     { }
 };
 
@@ -44,11 +69,18 @@ namespace identity_range_detail {
 
     struct baby_generator
     {
-        template< class Unused, class Range >
+        template< class Unused, class Range, class CategoryOrTraversal = boost::use_default >
         struct result
         {
-            typedef identity_range<Range> const type;
+            typedef typename egg::by_value<CategoryOrTraversal>::type trv_t;
+            typedef identity_range<Range, trv_t> const type;
         };
+
+        template< class Result, class Range, class CategoryOrTraversal >
+        Result call(Range& rng, CategoryOrTraversal& )
+        {
+            return Result(rng);
+        }
 
         template< class Result, class Range >
         Result call(Range& rng)

@@ -30,7 +30,7 @@ void load_file(Node& root, std::string fileName)
         oven::file_range<utf8cp_t> frng(fileName);
         oven::copy(
             frng |
-                oven::utf8_decoded<>(),
+                oven::utf8_decoded,
             std::back_inserter(tmp)
         );
     }

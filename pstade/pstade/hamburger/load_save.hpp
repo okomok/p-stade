@@ -36,7 +36,7 @@ void load(Node& node, ustring path)
     tomato::ifile_range<utf8cp_t> irng(path|tomato::to_tstring);
     oven::copy(
         irng |
-            oven::utf8_decoded<>(),
+            oven::utf8_decoded,
         std::back_inserter(tmp)
     );
 

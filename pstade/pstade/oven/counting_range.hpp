@@ -83,32 +83,25 @@ make_counting_range(Incrementable i, Incrementable j)
 }
 
 
-template< class Incrementable > inline
-counting_range<Incrementable> const
-zero_to(Incrementable c)
-{
-    return counting_range<Incrementable>(0, c);
-}
 
-
-template< class Incrementable > inline
-counting_range<Incrementable> const
-one_to(Incrementable c)
-{
-    return counting_range<Incrementable>(1, c);
-}
-
-
-// Pending...
-//
-
-template< class Incrementable > inline
+template< class Incrementable1, class Incrementable2 >
 counting_range<int> const
-int_range(Incrementable i, Incrementable j)
+int_range(Incrementable1 i, Incrementable2 j)
 {
-    // casts suppress warnings.
     return counting_range<int>(static_cast<int>(i), static_cast<int>(j));
-}
+};
+
+
+/*
+struct int_range :
+    counting_range<int>
+{
+    template< class Incrementable1, class Incrementable2 >
+    counting_range<int>(Incrementable1 i, Incrementable2 j) :
+        super_t(static_cast<int>(i), static_cast<int>(j))
+    { }
+};
+*/
 
 
 } } // namespace pstade::oven

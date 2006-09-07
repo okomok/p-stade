@@ -13,9 +13,9 @@
 #include <boost/cstdint.hpp> // uint32_t
 #include <boost/range/iterator_range.hpp>
 #include <boost/regex/pending/unicode_iterator.hpp> // u8_to_u32_iterator
-#include <boost/type_traits/add_const.hpp>
-#include <pstade/const_overloaded.hpp>
-#include <pstade/nonassignable.hpp>
+#include <pstade/egg/by_value.hpp>
+#include <pstade/egg/function.hpp>
+#include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
 #include "./range_iterator.hpp"
@@ -60,60 +60,37 @@ public:
 };
 
 
-// generators
-//
-
-template< class Ucs4T, class BidiRange > inline
-typename const_overloaded<utf8_decode_range<BidiRange, Ucs4T>, BidiRange>::type const
-make_utf8_decode_range(BidiRange& rng)
-{
-    return utf8_decode_range<BidiRange, Ucs4T>(rng);
-}
-
-
-template< class Ucs4T, class BidiRange > inline
-utf8_decode_range<typename boost::add_const<BidiRange>::type, Ucs4T> const
-make_utf8_decode_range(BidiRange const& rng)
-{
-    return utf8_decode_range<typename boost::add_const<BidiRange>::type, Ucs4T>(rng);
-}
-
-
-template< class Usc4T >
-struct utf8_decoded;
-
-
 namespace utf8_decode_range_detail {
 
 
-    struct adl_marker
-    { };
-
-
-    template< class BidiRange, class Ucs4T > inline
-    utf8_decode_range<BidiRange, Ucs4T> const
-    operator|(BidiRange& rng, utf8_decoded<Ucs4T> const&)
+    struct baby_generator
     {
-        return utf8_decode_range<BidiRange, Ucs4T>(rng);
-    }
+        template< class Unused, class BidiRange, class Ucs4T = boost::uint32_t >
+        struct result
+        {
+            typedef typename egg::by_value<Ucs4T>::type ucs4_t;
+            typedef utf8_decode_range<BidiRange, ucs4_t> const type;
+        };
 
+        template< class Result, class BidiRange, class Ucs4T >
+        Result call(BidiRange& rng, Ucs4T& )
+        {
+            return Result(rng);
+        }
 
-    template< class BidiRange, class Ucs4T > inline
-    utf8_decode_range<typename boost::add_const<BidiRange>::type, Ucs4T> const
-    operator|(BidiRange const& rng, utf8_decoded<Ucs4T> const&)
-    {
-        return utf8_decode_range<typename boost::add_const<BidiRange>::type, Ucs4T>(rng);
-    }
+        template< class Result, class BidiRange >
+        Result call(BidiRange& rng)
+        {
+            return Result(rng);
+        }
+    };
 
 
 } // namespace utf8_decode_range_detail
 
 
-template< class Usc4T = boost::uint32_t >
-struct utf8_decoded :
-    utf8_decode_range_detail::adl_marker,
-    private nonassignable
-{ };
+PSTADE_EGG_FUNCTION(make_utf8_decode_range, utf8_decode_range_detail::baby_generator)
+PSTADE_EGG_PIPABLE(utf8_decoded, utf8_decode_range_detail::baby_generator)
 
 
 } } // namespace pstade::oven

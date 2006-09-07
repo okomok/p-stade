@@ -339,12 +339,12 @@ int main(int argc, char *argv[])
 {
     using namespace pstade;
 
-    BOOST_FOREACH (int i, oven::one_to(argc)) {
+    BOOST_FOREACH (int i, oven::int_range(1, argc)) {
 
         PSTADE_REQUIRE((
             biscuit::match<xml_grammar::start>(
                 oven::file_range<boost::uint8_t>(argv[i]) |
-                    oven::utf8_decoded<>()
+                    oven::utf8_decoded
             )
         ));
 

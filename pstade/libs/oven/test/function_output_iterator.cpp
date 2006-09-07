@@ -18,6 +18,7 @@
 #include <string>
 #include <vector>
 #include <boost/range.hpp>
+#include <pstade/oven/identity_range.hpp>
 #include <pstade/oven/regularize_iterator.hpp>
 #include <pstade/oven/functions.hpp>
 #include <pstade/unused.hpp>
@@ -29,6 +30,12 @@ std::stringstream g_ss;
 void to_ss(char ch)
 {
     g_ss << ch;
+}
+
+
+void modify(char& ch)
+{
+    ch = 'x';
 }
 
 
@@ -55,8 +62,11 @@ void test()
     }
     {
         std::vector<char> vec;
-        oven::copy(src, oven::to_function(oven::push_back(vec)));
-        BOOST_CHECK( oven::equals(vec, src) );
+        oven::copy(std::string("abc"), oven::to_function(oven::push_back(vec)));
+        BOOST_CHECK( oven::equals(std::string("abc"), vec) );
+        // identities keeps vec mutable.
+        oven::copy(vec|identities, oven::to_function(&::modify));
+        BOOST_CHECK( oven::equals(std::string("xxx"), vec) );
     }
     {
         g_ss.str("");

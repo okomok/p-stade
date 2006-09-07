@@ -10,17 +10,14 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Question:
-//
-// 'Range' traversal category can be changed to SinglePass ?
-
-
+#include <boost/iterator/iterator_categories.hpp> // single_pass_traversal_tag
 #include <boost/utility/result_of.hpp>
 #include <pstade/egg/by_value.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
+#include "./identity_range.hpp"
 #include "./transform_range.hpp"
 
 
@@ -55,7 +52,8 @@ namespace generate_range_detail {
     struct super_
     {
         typedef transform_range<
-            Range, ignore_fun<Generator>
+            identity_range<Range, boost::single_pass_traversal_tag> const,
+            ignore_fun<Generator>
         > type;
     };
 
@@ -76,7 +74,10 @@ private:
 
 public:
     generate_range(Range& rng, Generator const& gen) :
-        super_t(rng, generate_range_detail::ignore_fun<Generator>(gen))
+        super_t(
+            identity_range<Range, boost::single_pass_traversal_tag>(rng),
+            generate_range_detail::ignore_fun<Generator>(gen)
+        )
     { }
 };
 

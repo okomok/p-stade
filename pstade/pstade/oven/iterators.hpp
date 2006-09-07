@@ -15,6 +15,7 @@
 #include "./concatenate_iterator.hpp"
 #include "./const_lvalue_iterator.hpp"
 #include "./function_output_iterator.hpp"
+#include "./identity_iterator.hpp"
 #include "./joint_iterator.hpp"
 #include "./regularize_iterator.hpp"
 #include "./repeat_iterator.hpp"

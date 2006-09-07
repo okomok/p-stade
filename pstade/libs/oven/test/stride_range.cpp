@@ -33,22 +33,22 @@ void test()
     {
         int const ans[] = { 0,4,8,12 };
         BOOST_CHECK( oven::equals(ans,
-            oven::zero_to(16)|stridden(4)
+            oven::int_range(0, 16)|stridden(4)
         ) );
 
-        BOOST_FOREACH (int x, oven::zero_to(16)|stridden(4)) {
+        BOOST_FOREACH (int x, oven::int_range(0, 16)|stridden(4)) {
             std::cout << x << std::endl;
         }
 
         BOOST_CHECK( 4 ==
-            (oven::zero_to(16)|stridden(4)).length()
+            (oven::int_range(0, 16)|stridden(4)).length()
         );
     }
 
     {
         int const ans[] = { 2,6,10,14 };
         BOOST_CHECK( oven::equals(ans,
-            oven::zero_to(16)|shifted(2)|stridden(4)
+            oven::int_range(0, 16)|shifted(2)|stridden(4)
         ) );
     }
 
