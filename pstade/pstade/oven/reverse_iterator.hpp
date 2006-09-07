@@ -10,8 +10,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Why not: 'boost::reverse_iterator'
+// What:
 //
+// Replaces 'boost::reverse_iterator' for the workaround of
 // http://std.dkuug.dk/jtc1/sc22/wg21/docs/lwg-defects.html#198
 
 

@@ -25,7 +25,7 @@ void optional_zero(Target& x, Node& node, ustring Name)
         if (opt != 0)
             x = opt;
     }
-    catch (boost::bad_lexical_cast& ) {
+    catch (boost::bad_lexical_cast const&) {
     }
 }
 

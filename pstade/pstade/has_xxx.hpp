@@ -19,8 +19,9 @@
 // http://groups.google.com/group/comp.lang.c++.moderated/msg/4824b231db71ad08
 
 
-// Why not: BOOST_MPL_HAS_XXX_TRAIT_DEF
+// What:
 //
+// Replaces 'BOOST_MPL_HAS_XXX_TRAIT_DEF' for the workaround of
 // http://lists.boost.org/Archives/boost/2005/10/95809.php
 
 

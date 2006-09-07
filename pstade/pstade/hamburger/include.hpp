@@ -71,7 +71,7 @@ protected:
         try {
             hamburger::load(*this, path);
         }
-        catch (lime::load_error& ) {
+        catch (lime::load_error const&) {
             BOOST_ASSERT(false);
             // log << pstade::what("include-error", "failed to load:" + oven::copy_range<std::string>(path));
         }

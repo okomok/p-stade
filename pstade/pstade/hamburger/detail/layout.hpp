@@ -34,7 +34,7 @@ namespace layout_detail {
             int h = pstade::lexical(elem%Name_height);
             return rectangle(l, t, l+w, t+h);
         }
-        catch (boost::bad_lexical_cast& ) {
+        catch (boost::bad_lexical_cast const&) {
             return rectangle(0, 0, 0, 0);
         }
     }

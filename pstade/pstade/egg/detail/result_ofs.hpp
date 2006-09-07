@@ -11,10 +11,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Why not: nested 'result'
+// Note:
 //
 // The nested 'result' makes name-collision with BabyFunction's 'result'.
 // Moreover, nested type specializations seem not to work under VC++.
+// So, these are directly defined in namespace 'boost'.
 
 
 #include <boost/preprocessor/cat.hpp>

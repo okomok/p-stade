@@ -51,7 +51,7 @@ pstade_lime_save_node(pstade::hamburger::element& node, OutIter out, pstade::ove
         hamburger::save(node, node%Name_includedHref);
         // return lime::save_file_default(node, oven::copy_range<std::string>(node%Name_includedHref));
     }
-    catch (lime::save_error& err) {
+    catch (lime::save_error const& err) {
         BOOST_ASSERT(false);
         hamburger::log << err.what();
     }

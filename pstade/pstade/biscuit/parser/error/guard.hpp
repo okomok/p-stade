@@ -44,7 +44,7 @@ struct guard
             try {
                 return Parser::parse(s, us);
             }
-            catch (parser_error<range_t, InfoT>& e) {
+            catch (parser_error<range_t, InfoT> const& e) {
                 BOOST_ASSERT(s.get_cur() == marker && "non-exception-safe Parser found");
                 s.set_cur(marker);
 

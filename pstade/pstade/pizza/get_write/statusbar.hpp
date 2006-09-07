@@ -35,7 +35,7 @@ bool get_statusbar(Profile& pr, tomato::window_ref statusbar)
         int val = pizza::integer(pr, _T("statusbar.visible"));
         ::ShowWindow(statusbar, val == 1 ? SW_SHOWNOACTIVATE : SW_HIDE);
     }
-    catch (error& ) {
+    catch (error const&) {
         return false;
     }
 

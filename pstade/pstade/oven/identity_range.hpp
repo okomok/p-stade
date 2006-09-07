@@ -75,7 +75,7 @@ namespace identity_range_detail {
         };
 
         template< class Result, class Range, class CategoryOrTraversal >
-        Result call(Range& rng, CategoryOrTraversal)
+        Result call(Range& rng, CategoryOrTraversal&)
         {
             return Result(rng);
         }

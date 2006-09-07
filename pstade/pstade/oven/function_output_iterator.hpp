@@ -10,9 +10,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Why not: 'boost::function_output_iterator'
+// What:
 //
-// 'make_function_output_iterator' cannot take a function type,
+// Replaces 'boost::function_output_iterator'.
+// 'boost::make_function_output_iterator' cannot take a function type,
 // because a const-qualified function type is illegal.
 // Also, Boost.Lambda functors are not assignable,
 // then 'regularize_iterator' can help.

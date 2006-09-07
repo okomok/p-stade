@@ -17,6 +17,7 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include <list>
 #include <boost/range.hpp>
 #include <pstade/oven/identity_range.hpp>
 #include <pstade/oven/regularize_iterator.hpp>
@@ -82,6 +83,19 @@ void test()
         g_ss.str("");
         oven::copy(src, oven::to_function(unused));
         BOOST_CHECK( boost::empty(g_ss.str()) );
+    }
+
+    {
+        std::list<char> seq;
+        oven::copy(std::string("abc"), oven::to_function(oven::push_front(seq)));
+        oven::copy(std::string("xyz"), oven::to_function(oven::push_back(seq)));
+        BOOST_CHECK( oven::equals(std::string("cbaxyz"), seq) );
+    }
+    {
+        std::list<char> seq; seq.push_back('_');
+        oven::copy(std::string("abc"), oven::to_function(oven::insert(seq, boost::begin(seq))));
+        oven::copy(std::string("xyz"), oven::to_function(oven::insert(seq, boost::end(seq))));
+        BOOST_CHECK( oven::equals(std::string("abc_xyz"), seq) );
     }
 }
 

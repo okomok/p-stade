@@ -33,7 +33,7 @@ struct z_order_function
             int zIndex2 = pstade::lexical(node2%Name_zIndex);
             return zIndex1 < zIndex2;
         }
-        catch (boost::bad_lexical_cast& PSTADE_IF_DEBUG(err)) {
+        catch (boost::bad_lexical_cast const& PSTADE_IF_DEBUG(err)) {
             PSTADE_IF_DEBUG (
                 log << err.what();
             )

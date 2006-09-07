@@ -12,18 +12,54 @@
 
 // What:
 //
-// Intended to be used with 'to_function'.
-// Ideally, you should prefer Boost.Phoenix2 or Lambda.
+// Intended to be used with 'oven::to_function'.
+// Ideally, you should prefer Boost.Phoenix2/Lambda,
+// but these are not Assignable.
 // Note that 'dummy_output_iterator' can be written with
 // 'unused' and this.
 
 
 #include <iosfwd> // basic_ostream/streambuf
+#include <boost/range/begin.hpp>
+#include <boost/range/end.hpp>
 #include <boost/utility/addressof.hpp>
+#include "./range_iterator.hpp"
 #include "./range_value.hpp"
 
 
 namespace pstade { namespace oven {
+
+
+// insert
+//
+
+template< class Sequence >
+struct insert_fun
+{
+    typedef void result_type;
+    typedef typename range_value<Sequence>::type value_type;
+    typedef typename range_iterator<Sequence>::type iterator;
+
+    explicit insert_fun(Sequence& seq, iterator it) :
+        m_pseq(boost::addressof(seq)), m_it(it)
+    { }
+
+    void operator()(value_type const& val) const
+    {
+        m_pseq->insert(m_it, val);
+    }
+
+private:
+    Sequence *m_pseq; // must be a pointer for Assignability.
+    iterator m_it;
+};
+
+template< class Sequence, class Iterator > inline
+insert_fun<Sequence> const
+insert(Sequence& seq, Iterator const& it)
+{
+    return insert_fun<Sequence>(seq, it);
+}
 
 
 // push_back
@@ -41,11 +77,13 @@ struct push_back_fun
 
     void operator()(value_type const& val) const
     {
+        // can't be implemented using 'insert'
+        // for empty Sequence.
         m_pseq->push_back(val);
     }
 
 private:
-    Sequence *m_pseq; // must be a pointer for assignability.
+    Sequence *m_pseq;
 };
 
 template< class Sequence > inline

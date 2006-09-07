@@ -62,14 +62,14 @@ public:
 // You must win the overloading race against...
 //
 template< class T, class U > inline
-bool operator==(bool_testable<T> const& x, bool_testable<U> const& )
+bool operator==(bool_testable<T> const& x, bool_testable<U> const&)
 {
     x.does_not_support_comparisons();
     return false;
 }
 
 template< class T, class U > inline
-bool operator!=(bool_testable<T> const& x, bool_testable<U> const& )
+bool operator!=(bool_testable<T> const& x, bool_testable<U> const&)
 {
     x.does_not_support_comparisons();
     return false;

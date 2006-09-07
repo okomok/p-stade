@@ -306,7 +306,7 @@ private:
             loop.run();
         }
         // catch here cause boost::thread will catch all.
-        catch (std::exception& err) {
+        catch (std::exception const& err) {
             log << err.what();
         }
     }

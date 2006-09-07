@@ -74,7 +74,7 @@ namespace utf8_encode_range_detail {
         };
 
         template< class Result, class BidiRange, class U8T >
-        Result call(BidiRange& rng, U8T& )
+        Result call(BidiRange& rng, U8T)
         {
             return Result(rng);
         }

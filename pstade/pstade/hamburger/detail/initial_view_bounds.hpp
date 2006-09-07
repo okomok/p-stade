@@ -36,7 +36,7 @@ rectangle initial_view_bounds(Node& node)
         if (!rc.IsRectEmpty())
             return rc;
     }
-    catch (boost::bad_lexical_cast& ) {
+    catch (boost::bad_lexical_cast const&) {
     }
 
     return ATL::CWindow::rcDefault;

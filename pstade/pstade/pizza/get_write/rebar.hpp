@@ -138,7 +138,7 @@ void get_rebar(Profile& pr, tomato::window_ref rebar, ReBarBandInfoRange const& 
             candy::remove(info.fStyle, tomato::rebar_band_runtime_styles::value);
             candy::add(info.fStyle, fStyle);
         }
-        catch (error&) {
+        catch (error const&) {
             // not found
         }
 

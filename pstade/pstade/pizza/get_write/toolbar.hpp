@@ -103,7 +103,7 @@ bool get_toolbar(Profile& pr, tomato::window_ref toolbar)
     try {
         prCount = pizza::integer(pr, _T("toolbar.buttonCount"));
     }
-    catch (error&) {
+    catch (error const&) {
         return false;
     }
 
@@ -129,7 +129,7 @@ bool get_toolbar(Profile& pr, tomato::window_ref toolbar)
         try {
             iBitmap = pizza::integer(pr, valName); // never trust prCount
         }
-        catch (error&) {
+        catch (error const&) {
             break;
         }
 
@@ -170,7 +170,7 @@ bool copy_toolbar(Profile& pr, OutputIter out)
     try {
         count = pizza::integer(pr, _T("toolbar.buttonCount"));
     }
-    catch (error&) {
+    catch (error const&) {
         return false;
     }
 
@@ -183,7 +183,7 @@ bool copy_toolbar(Profile& pr, OutputIter out)
             *out = iBitmap;
             ++out;
         }
-        catch (error& ) {
+        catch (error const&) {
             break;
         }
     }

@@ -19,9 +19,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Why not use: 'boost::result_of'
+// Note:
 //
-// An array reference doesn't work under weird VC++7.1.
+// 'boost::result_of' doesn't work with an array reference
+// under weird VC++7.1.
 
 
 #include <boost/preprocessor/cat.hpp>

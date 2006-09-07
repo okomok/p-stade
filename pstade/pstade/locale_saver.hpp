@@ -36,7 +36,7 @@ namespace locale_saver_detail {
     {
         virtual ~iostream_placeholder() { }
         virtual std::locale getloc_() const = 0;
-        virtual void imbue_(std::locale const& ) = 0;
+        virtual void imbue_(std::locale const&) = 0;
     };
 
 
