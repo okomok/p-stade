@@ -14,17 +14,14 @@
 //
 // Intended to be used with 'oven::to_function'.
 // Ideally, you should prefer Boost.Phoenix2/Lambda,
-// but these are not Assignable.
+// but they are not Assignable.
 // Note that 'dummy_output_iterator' can be written with
 // 'unused' and this.
 
 
 #include <iosfwd> // basic_ostream/streambuf
-#include <boost/range/begin.hpp>
-#include <boost/range/end.hpp>
 #include <boost/utility/addressof.hpp>
 #include "./range_iterator.hpp"
-#include "./range_value.hpp"
 
 
 namespace pstade { namespace oven {
@@ -37,20 +34,20 @@ template< class Sequence >
 struct insert_fun
 {
     typedef void result_type;
-    typedef typename range_value<Sequence>::type value_type;
     typedef typename range_iterator<Sequence>::type iterator;
 
     explicit insert_fun(Sequence& seq, iterator it) :
         m_pseq(boost::addressof(seq)), m_it(it)
     { }
 
-    void operator()(value_type const& val) const
+    template< class Value >
+    void operator()(Value const& val) const
     {
         m_pseq->insert(m_it, val);
     }
 
 private:
-    Sequence *m_pseq; // must be a pointer for Assignability.
+    Sequence *m_pseq; // be a pointer for Assignable.
     iterator m_it;
 };
 
@@ -69,16 +66,16 @@ template< class Sequence >
 struct push_back_fun
 {
     typedef void result_type;
-    typedef typename range_value<Sequence>::type value_type;
 
     explicit push_back_fun(Sequence& seq) :
         m_pseq(boost::addressof(seq))
     { }
 
-    void operator()(value_type const& val) const
+    template< class Value >
+    void operator()(Value const& val) const
     {
-        // can't be implemented using 'insert'
-        // for empty Sequence.
+        // can't be implemented using 'insert',
+        // taking care of empty Sequence.
         m_pseq->push_back(val);
     }
 
@@ -101,13 +98,13 @@ template< class Sequence >
 struct push_front_fun
 {
     typedef void result_type;
-    typedef typename range_value<Sequence>::type value_type;
 
     explicit push_front_fun(Sequence& seq) :
         m_pseq(boost::addressof(seq))
     { }
 
-    void operator()(value_type const& val) const
+    template< class Value >
+    void operator()(Value const& val) const
     {
         m_pseq->push_front(val);
     }

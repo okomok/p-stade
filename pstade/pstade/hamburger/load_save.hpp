@@ -56,7 +56,7 @@ void save(Node& node, ustring path)
 {
     std::vector<utf8cp_t> tmp;
     lime::copy_XMLDecl(std::back_inserter(tmp));
-    lime::save_default(node, oven::to_utf8(std::back_inserter(tmp)));
+    lime::save_default(node, oven::to_utf8_encoder(std::back_inserter(tmp)));
 
     tomato::ofile_range<utf8cp_t> orng(path|tomato::to_tstring, tmp.size());
     tmp|oven::copied_out(orng);

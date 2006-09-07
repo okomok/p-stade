@@ -10,16 +10,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Question:
-//
-// 'Generator' can be a reference type?
-
-
 #include <boost/iterator/iterator_categories.hpp> // single_pass_traversal_tag
 #include <boost/mpl/eval_if.hpp>
 #include <boost/ref.hpp>
 #include <boost/type_traits/add_reference.hpp>
 #include <boost/type_traits/remove_cv.hpp>
+#include <boost/utility/addressof.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/egg/by_value.hpp>
 #include <pstade/egg/function.hpp>

@@ -17,17 +17,19 @@
 #include <iostream>
 #include <boost/foreach.hpp>
 #include <boost/range.hpp>
+#include <boost/noncopyable.hpp>
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/function_output_iterator.hpp>
 #include <pstade/oven/counting_range.hpp>
 
-class my_generator
+class my_generator :
+    private boost::noncopyable
 {
 public:
     typedef int result_type;
     my_generator() : m_state(0) { }
-    int operator()() const { return ++m_state; }
-    mutable int m_state;
+    int operator()() { return ++m_state; }
+    int m_state;
 };
 
 
@@ -52,14 +54,10 @@ void test()
     {
         ::my_generator gen;
 
-        BOOST_FOREACH (int x, oven::int_range(3, 10)|generated(gen)) {
-            (void)x;
-        }
-        BOOST_CHECK(gen.m_state == 0);
-
         BOOST_FOREACH (int x, oven::int_range(3, 10)|generated(boost::ref(gen))) {
             (void)x;
         }
+
         BOOST_CHECK(gen.m_state == 7);
     }
 }

@@ -18,7 +18,7 @@
 #include <pstade/oven/function_output_iterator.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
 #include <pstade/oven/output_functions.hpp>
-#include <pstade/oven/to_utf8.hpp>
+#include <pstade/oven/to_utf8_encoder.hpp>
 #include <pstade/what.hpp>
 #include "./copy_XMLDecl.hpp"
 #include "./error.hpp"
@@ -47,7 +47,7 @@ void save_file(Node& root, std::string const& fileName)
     }
 
     lime::copy_XMLDecl(oven::to_function(oven::stream_output(to_file)));
-    lime::save(root, oven::to_utf8(oven::to_function(oven::stream_output(to_file))));
+    lime::save(root, oven::to_utf8_encoder(oven::to_function(oven::stream_output(to_file))));
 }
 
 
@@ -61,7 +61,7 @@ void save_file_default(Node& root, std::string const& fileName)
     }
 
     lime::copy_XMLDecl(oven::to_function(oven::stream_output(to_file)));
-    lime::save_default(root, oven::to_utf8(oven::to_function(oven::stream_output(to_file))));
+    lime::save_default(root, oven::to_utf8_encoder(oven::to_function(oven::stream_output(to_file))));
 }
 
 
