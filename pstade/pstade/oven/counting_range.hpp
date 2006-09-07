@@ -83,25 +83,13 @@ make_counting_range(Incrementable i, Incrementable j)
 }
 
 
-
 template< class Incrementable1, class Incrementable2 >
 counting_range<int> const
 int_range(Incrementable1 i, Incrementable2 j)
 {
+    // casts suppress warnings.
     return counting_range<int>(static_cast<int>(i), static_cast<int>(j));
 };
-
-
-/*
-struct int_range :
-    counting_range<int>
-{
-    template< class Incrementable1, class Incrementable2 >
-    counting_range<int>(Incrementable1 i, Incrementable2 j) :
-        super_t(static_cast<int>(i), static_cast<int>(j))
-    { }
-};
-*/
 
 
 } } // namespace pstade::oven

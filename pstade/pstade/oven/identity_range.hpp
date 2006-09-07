@@ -10,8 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/range/begin.hpp>
-#include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <pstade/egg/by_value.hpp>
 #include <pstade/egg/function.hpp>
@@ -59,7 +57,7 @@ private:
 
 public:
     explicit identity_range(Range& rng) :
-        super_t(boost::begin(rng), boost::end(rng))
+        super_t(rng)
     { }
 };
 
@@ -77,7 +75,7 @@ namespace identity_range_detail {
         };
 
         template< class Result, class Range, class CategoryOrTraversal >
-        Result call(Range& rng, CategoryOrTraversal& )
+        Result call(Range& rng, CategoryOrTraversal)
         {
             return Result(rng);
         }

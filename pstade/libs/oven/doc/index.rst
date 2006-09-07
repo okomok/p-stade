@@ -476,7 +476,7 @@ doesn't modify its adapting range, which is used only as **range**::
 
 - Header: ``<pstade/oven/generate_range.hpp>``
 - Valid expression: ``rng|generated(rfun)``, where ``rfun`` is nullary.
-- Returns: A range whose values are the results of invoking ``rfun``.
+- Returns: A `Single Pass Range`_ whose values are the results of invoking ``rfun``.
 
 
 
@@ -774,7 +774,7 @@ Pending...
 ``utf8_decoded``
 ^^^^^^^^^^^^^^^^
 - Header: ``<pstade/oven/utf8_decode_range.hpp>``
-- Valid expression: ``biRng|utf8_decoded<>()``
+- Valid expression: ``biRng|utf8_decoded()`` or ``biRng|utf8_decoded(u32)``
 - Returns: A `Bidirectional Range`_ whose iterators behave as if they were the original iterators wrapped in ``boost::u8_to_u32_iterator``.
 
 
@@ -877,4 +877,4 @@ Version 0.90.9
 - Fixed a bug of ``transformed`` and ``concatenated``.
 - Added `generated`_.
 - No longer supports function types as ``rfun``.
-
+- Changed `utf8_decoded`_ valid expression.
