@@ -12,7 +12,7 @@
 
 // Question:
 //
-// 'Range' traversal category can change to SinglePass ?
+// 'Range' traversal category can be changed to SinglePass ?
 
 
 #include <boost/utility/result_of.hpp>
@@ -31,7 +31,7 @@ namespace generate_range_detail {
 
 
     template< class Generator >
-    struct ignore_arg
+    struct ignore_fun
     {
         typedef typename boost::result_of<Generator()>::type
         result_type;
@@ -42,7 +42,7 @@ namespace generate_range_detail {
             return m_gen();
         }
 
-        explicit ignore_arg(Generator const& gen) :
+        explicit ignore_fun(Generator const& gen) :
             m_gen(gen)
         { }
 
@@ -55,7 +55,7 @@ namespace generate_range_detail {
     struct super_
     {
         typedef transform_range<
-            Range, ignore_arg<Generator>
+            Range, ignore_fun<Generator>
         > type;
     };
 
@@ -75,8 +75,8 @@ private:
     typedef typename generate_range_detail::super_<Range, Generator>::type super_t;
 
 public:
-    explicit generate_range(Range& rng, Generator const& gen) :
-        super_t(rng, generate_range_detail::ignore_arg<Generator>(gen))
+    generate_range(Range& rng, Generator const& gen) :
+        super_t(rng, generate_range_detail::ignore_fun<Generator>(gen))
     { }
 };
 
