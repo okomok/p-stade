@@ -51,6 +51,7 @@ test-suite oven :
     [ oven-test file_range ]
     [ oven-test filter_range ]
     [ oven-test function_output_iterator ]
+    [ oven-test generate_range ]
     # [ oven-test get_at_range ]
     [ oven-test headers ]
     [ oven-test identity_range ]

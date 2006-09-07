@@ -32,6 +32,7 @@
 #include "./file_range.hpp"
 #include "./filter_range.hpp"
 #include "./first_range.hpp"
+#include "./generate_range.hpp"
 // #include "./get_at_range.hpp"
 #include "./identity_range.hpp"
 #include "./index_range.hpp"

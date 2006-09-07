@@ -33,13 +33,20 @@ struct function_output_iterator
     typedef std::output_iterator_tag iterator_category;
     typedef void value_type;
     typedef void pointer;
-    typedef int  difference_type; 
+    typedef int  difference_type;
 
     struct reference
     {
         reference(UnaryFun const& fun) :
             m_fun(fun)
         { }
+
+        template< class Value >
+        reference& operator=(Value& val) // can replace 'for_each'?
+        {
+            m_fun(val);
+            return *this;
+        }
 
         template< class Value >
         reference& operator=(Value const& val)

@@ -14,6 +14,7 @@
 #include <boost/iterator/counting_iterator.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/range/iterator_range.hpp>
+#include <pstade/instance.hpp>
 #include <pstade/unused.hpp>
 #include "./as_lightweight_proxy.hpp"
 
@@ -95,6 +96,18 @@ counting_range<Incrementable> const
 one_to(Incrementable c)
 {
     return counting_range<Incrementable>(1, c);
+}
+
+
+// Pending...
+//
+
+template< class Incrementable > inline
+counting_range<int> const
+int_range(Incrementable i, Incrementable j)
+{
+    // casts suppress warnings.
+    return counting_range<int>(static_cast<int>(i), static_cast<int>(j));
 }
 
 

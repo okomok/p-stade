@@ -255,7 +255,10 @@ Specification
 - ``biRng``: any `Bidirectional Range`_
 - ``rndRng``: any `Random Access Range`_
 - ``pred``: any `Predicate`_
-- ``rfun``: any `Functor`_ which can be used with ``boost::result_of``
+- ``rfun``: any `Functor`_ which can be used with ``boost::result_of``.
+
+The function type is not supported as ``rfun``.
+Instead, add ``&`` to make it a function **pointer**.
 
 
 ``adjacent_filtered``
@@ -459,6 +462,22 @@ it needs `regularized`_ that makes it assignable and then conforming.
 - Header: ``<pstade/oven/first_range.hpp>``
 - Valid expression: ``rng|firsts``
 - Returns: ``rng|map_keys``.
+
+
+
+``generated``
+^^^^^^^^^^^^^
+``generated`` generates a range whose values are the results of invoking
+a function object that takes no arguments. Note that ``generated``
+doesn't modify its adapting range, which is used only as **range**::
+
+	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\generated.ipp
+
+
+- Header: ``<pstade/oven/generate_range.hpp>``
+- Valid expression: ``rng|generated(rfun)``, where ``rfun`` is nullary.
+- Returns: A range whose values are the results of invoking ``rfun``.
+
 
 
 ``got_at``
@@ -856,4 +875,6 @@ Version 0.90.9
 ^^^^^^^^^^^^^^
 - Renamed ``copied_to`` to ``copied_out``.
 - Fixed a bug of ``transformed`` and ``concatenated``.
+- Added `generated`_.
+- No longer supports function types as ``rfun``.
 

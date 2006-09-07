@@ -18,5 +18,7 @@
 #include "./distance.hpp"
 #include "./equals.hpp"
 
+#include "./output_functions.hpp"
+
 
 #endif

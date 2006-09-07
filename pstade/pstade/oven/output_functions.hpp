@@ -73,7 +73,7 @@ struct push_front_fun
     }
 
 private:
-    Sequence *m_pseq; // must be a pointer for assignability.
+    Sequence *m_pseq;
 };
 
 template< class Sequence > inline
