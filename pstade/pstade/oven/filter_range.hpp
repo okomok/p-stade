@@ -76,7 +76,7 @@ public:
 namespace filter_range_detail {
 
 
-    struct baby_generator
+    struct baby_make
     {
         template< class Unused, class Range, class Predicate >
         struct result
@@ -96,8 +96,8 @@ namespace filter_range_detail {
 } // namespace filter_range_detail
 
 
-PSTADE_EGG_FUNCTION(make_filter_range, filter_range_detail::baby_generator)
-PSTADE_EGG_PIPABLE(filtered, filter_range_detail::baby_generator)
+PSTADE_EGG_FUNCTION(make_filter_range, filter_range_detail::baby_make)
+PSTADE_EGG_PIPABLE(filtered, filter_range_detail::baby_make)
 
 
 } } // namespace pstade::oven

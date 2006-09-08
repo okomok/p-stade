@@ -88,7 +88,7 @@ public:
 namespace second_range_detail {
 
 
-    struct baby_generator
+    struct baby_make
     {
         template< class Unused, class PairRange >
         struct result
@@ -107,8 +107,8 @@ namespace second_range_detail {
 } // namespace second_range_detail
 
 
-PSTADE_EGG_FUNCTION(make_second_range, second_range_detail::baby_generator)
-PSTADE_EGG_PIPABLE(seconds, second_range_detail::baby_generator)
+PSTADE_EGG_FUNCTION(make_second_range, second_range_detail::baby_make)
+PSTADE_EGG_PIPABLE(seconds, second_range_detail::baby_make)
 
 
 } } // namespace pstade::oven

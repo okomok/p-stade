@@ -66,7 +66,7 @@ public:
 namespace concatenate_range_detail {
 
 
-    struct baby_generator
+    struct baby_make
     {
         template< class Unused, class TopRange >
         struct result
@@ -85,8 +85,8 @@ namespace concatenate_range_detail {
 } // namespace concatenate_range_detail
 
 
-PSTADE_EGG_FUNCTION(make_concatenate_range, concatenate_range_detail::baby_generator)
-PSTADE_EGG_PIPABLE(concatenated, concatenate_range_detail::baby_generator)
+PSTADE_EGG_FUNCTION(make_concatenate_range, concatenate_range_detail::baby_make)
+PSTADE_EGG_PIPABLE(concatenated, concatenate_range_detail::baby_make)
 
 
 } } // namespace pstade::oven

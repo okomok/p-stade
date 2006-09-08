@@ -16,11 +16,11 @@
 // 'boost::make_function_output_iterator' cannot take a function type,
 // because a const-qualified function type is illegal.
 // Also, Boost.Lambda functors are not assignable,
-// then 'regularize_iterator' can help.
-// But it wants 'difference_type' not to be 'void'
-// which makes the declaration of 'operator[]' illegal.
+// then the 'regularize_iterator' adaptor can help.
+// But the adaptor requires some nested 'typedef's not to be 'void'.
 
 
+#include <boost/mpl/void.hpp>
 #include <iterator> // output_iterator_tag
 #include "./regularize_iterator.hpp"
 
@@ -32,9 +32,9 @@ template< class UnaryFun >
 struct function_output_iterator
 {
     typedef std::output_iterator_tag iterator_category;
-    typedef void value_type;
-    typedef void pointer;
-    typedef int  difference_type;
+    typedef boost::mpl::void_ value_type; // for 'postfix_increment_result'
+    typedef boost::mpl::void_ pointer; // for a rainy day
+    typedef int difference_type; // for 'iterator_facade::operator[]'
 
     struct reference
     {

@@ -112,7 +112,7 @@ public:
 namespace out_place_range_detail {
 
 
-    struct baby_generator
+    struct baby_make
     {
         template< class Unused, class ForwardRange, class Functor = unused_fun >
         struct result
@@ -138,8 +138,8 @@ namespace out_place_range_detail {
 } // namespace out_place_range_detail
 
 
-PSTADE_EGG_FUNCTION(make_out_place_range, out_place_range_detail::baby_generator)
-PSTADE_EGG_PIPABLE(out_placed, out_place_range_detail::baby_generator)
+PSTADE_EGG_FUNCTION(make_out_place_range, out_place_range_detail::baby_make)
+PSTADE_EGG_PIPABLE(out_placed, out_place_range_detail::baby_make)
 
 
 } } // namespace pstade::oven

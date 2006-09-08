@@ -37,7 +37,7 @@ public:
 namespace single_range_detail {
 
 
-    struct baby_generator
+    struct baby_make
     {
         template< class Unused, class Value >
         struct result
@@ -56,7 +56,7 @@ namespace single_range_detail {
 } // namespace single_range_detail
 
 
-PSTADE_EGG_FUNCTION(make_single_range, single_range_detail::baby_generator)
+PSTADE_EGG_FUNCTION(make_single_range, single_range_detail::baby_make)
 
 
 } } // namespace pstade::oven

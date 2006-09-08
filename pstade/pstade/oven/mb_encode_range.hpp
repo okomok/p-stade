@@ -58,7 +58,7 @@ public:
 namespace mb_encode_range_detail {
 
 
-    struct baby_generator
+    struct baby_make
     {
         template< class Unused, class Range >
         struct result
@@ -77,8 +77,8 @@ namespace mb_encode_range_detail {
 } // namespace mb_encode_range_detail
 
 
-PSTADE_EGG_FUNCTION(make_mb_encode_range, mb_encode_range_detail::baby_generator)
-PSTADE_EGG_PIPABLE(mb_encoded, mb_encode_range_detail::baby_generator)
+PSTADE_EGG_FUNCTION(make_mb_encode_range, mb_encode_range_detail::baby_make)
+PSTADE_EGG_PIPABLE(mb_encoded, mb_encode_range_detail::baby_make)
 
 
 } } // namespace pstade::oven

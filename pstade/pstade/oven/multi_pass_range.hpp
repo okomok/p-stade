@@ -80,7 +80,7 @@ public:
 namespace multi_pass_range_detail {
 
 
-    struct baby_generator
+    struct baby_make
     {
         template< class Unused, class Range >
         struct result
@@ -99,8 +99,8 @@ namespace multi_pass_range_detail {
 } // namespace multi_pass_range_detail
 
 
-PSTADE_EGG_FUNCTION(make_multi_pass_range, multi_pass_range_detail::baby_generator)
-PSTADE_EGG_PIPABLE(multi_passed, multi_pass_range_detail::baby_generator)
+PSTADE_EGG_FUNCTION(make_multi_pass_range, multi_pass_range_detail::baby_make)
+PSTADE_EGG_PIPABLE(multi_passed, multi_pass_range_detail::baby_make)
 
 
 } } // namespace pstade::oven

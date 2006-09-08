@@ -50,7 +50,7 @@ public:
 namespace take_while_range_detail {
 
 
-    struct baby_generator
+    struct baby_make
     {
         template< class Unused, class ForwardRange, class Predicate >
         struct result
@@ -70,8 +70,8 @@ namespace take_while_range_detail {
 } // namespace take_while_range_detail
 
 
-PSTADE_EGG_FUNCTION(make_take_while_range, take_while_range_detail::baby_generator)
-PSTADE_EGG_PIPABLE(taken_while, take_while_range_detail::baby_generator)
+PSTADE_EGG_FUNCTION(make_take_while_range, take_while_range_detail::baby_make)
+PSTADE_EGG_PIPABLE(taken_while, take_while_range_detail::baby_make)
 
 
 } } // namespace pstade::oven

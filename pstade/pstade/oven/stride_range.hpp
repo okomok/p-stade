@@ -89,7 +89,7 @@ public:
 namespace stride_range_detail {
 
 
-    struct baby_generator
+    struct baby_make
     {
         template< class Unused, class ForwardRange, class Difference, class = void >
         struct result
@@ -114,8 +114,8 @@ namespace stride_range_detail {
 } // namespace stride_range_detail
 
 
-PSTADE_EGG_FUNCTION(make_stride_range, stride_range_detail::baby_generator)
-PSTADE_EGG_PIPABLE(stridden, stride_range_detail::baby_generator)
+PSTADE_EGG_FUNCTION(make_stride_range, stride_range_detail::baby_make)
+PSTADE_EGG_PIPABLE(stridden, stride_range_detail::baby_make)
 
 
 } } // namespace pstade::oven

@@ -90,7 +90,7 @@ public:
 namespace zip_with_range_detail {
 
 
-    struct baby_generator
+    struct baby_make
     {
         template< class Unused, class Range0, class Range1, class BinaryFun >
         struct result
@@ -110,8 +110,8 @@ namespace zip_with_range_detail {
 } // namespace zip_with_range_detail
 
 
-PSTADE_EGG_FUNCTION(make_zip_with_range, zip_with_range_detail::baby_generator)
-PSTADE_EGG_PIPABLE(zipped_with, zip_with_range_detail::baby_generator)
+PSTADE_EGG_FUNCTION(make_zip_with_range, zip_with_range_detail::baby_make)
+PSTADE_EGG_PIPABLE(zipped_with, zip_with_range_detail::baby_make)
 
 
 } } // namespace pstade::oven

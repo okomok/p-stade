@@ -60,7 +60,7 @@ public:
 namespace string_split_range_detail {
 
 
-    struct baby_generator
+    struct baby_make
     {
         template< class Unused, class Range, class FinderT >
         struct result
@@ -79,8 +79,8 @@ namespace string_split_range_detail {
 } // namespace string_split_range_detail
 
 
-PSTADE_EGG_FUNCTION(make_string_split_range, string_split_range_detail::baby_generator)
-PSTADE_EGG_PIPABLE(string_split, string_split_range_detail::baby_generator)
+PSTADE_EGG_FUNCTION(make_string_split_range, string_split_range_detail::baby_make)
+PSTADE_EGG_PIPABLE(string_split, string_split_range_detail::baby_make)
 
 
 } } // namespace pstade::oven

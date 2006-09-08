@@ -70,7 +70,7 @@ public:
 namespace reverse_range_detail {
 
 
-    struct baby_generator
+    struct baby_make
     {
         template< class Unused, class BidiRange >
         struct result
@@ -89,8 +89,8 @@ namespace reverse_range_detail {
 } // namespace reverse_range_detail
 
 
-PSTADE_EGG_FUNCTION(make_reverse_range, reverse_range_detail::baby_generator)
-PSTADE_EGG_PIPABLE(reversed, reverse_range_detail::baby_generator)
+PSTADE_EGG_FUNCTION(make_reverse_range, reverse_range_detail::baby_make)
+PSTADE_EGG_PIPABLE(reversed, reverse_range_detail::baby_make)
 
 
 } } // namespace pstade::oven

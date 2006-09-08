@@ -99,7 +99,7 @@ public:
 namespace first_range_detail {
 
 
-    struct baby_generator
+    struct baby_make
     {
         template< class Unused, class PairRange >
         struct result
@@ -118,8 +118,8 @@ namespace first_range_detail {
 } // namespace first_range_detail
 
 
-PSTADE_EGG_FUNCTION(make_first_range, first_range_detail::baby_generator)
-PSTADE_EGG_PIPABLE(firsts, first_range_detail::baby_generator)
+PSTADE_EGG_FUNCTION(make_first_range, first_range_detail::baby_make)
+PSTADE_EGG_PIPABLE(firsts, first_range_detail::baby_make)
 
 
 } } // namespace pstade::oven

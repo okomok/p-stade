@@ -86,7 +86,7 @@ public:
 namespace match_range_detail {
 
 
-    struct baby_generator
+    struct baby_make
     {
         template< class Unused, class BidiRange, class Regex, class Flag = void >
         struct result
@@ -105,8 +105,8 @@ namespace match_range_detail {
 } // namespace match_range_detail
 
 
-PSTADE_EGG_FUNCTION(make_match_range, match_range_detail::baby_generator)
-PSTADE_EGG_PIPABLE(matched, match_range_detail::baby_generator)
+PSTADE_EGG_FUNCTION(make_match_range, match_range_detail::baby_make)
+PSTADE_EGG_PIPABLE(matched, match_range_detail::baby_make)
 
 
 } } // namespace pstade::oven

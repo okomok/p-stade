@@ -60,7 +60,7 @@ public:
 namespace unique_range_detail {
 
 
-    struct baby_generator
+    struct baby_make
     {
         template< class Unused, class ForwardRange >
         struct result
@@ -79,8 +79,8 @@ namespace unique_range_detail {
 } // namespace unique_range_detail
 
 
-PSTADE_EGG_FUNCTION(make_unique_range, unique_range_detail::baby_generator)
-PSTADE_EGG_PIPABLE(uniqued, unique_range_detail::baby_generator)
+PSTADE_EGG_FUNCTION(make_unique_range, unique_range_detail::baby_make)
+PSTADE_EGG_PIPABLE(uniqued, unique_range_detail::baby_make)
 
 
 } } // namespace pstade::oven

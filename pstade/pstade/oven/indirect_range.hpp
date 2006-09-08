@@ -92,7 +92,7 @@ public:
 namespace indirect_range_detail {
 
 
-    struct baby_generator
+    struct baby_make
     {
         template< class Unused, class Range >
         struct result
@@ -111,8 +111,8 @@ namespace indirect_range_detail {
 } // namespace indirect_range_detail
 
 
-PSTADE_EGG_FUNCTION(make_indirect_range, indirect_range_detail::baby_generator)
-PSTADE_EGG_PIPABLE(indirected, indirect_range_detail::baby_generator)
+PSTADE_EGG_FUNCTION(make_indirect_range, indirect_range_detail::baby_make)
+PSTADE_EGG_PIPABLE(indirected, indirect_range_detail::baby_make)
 
 
 } } // namespace pstade::oven

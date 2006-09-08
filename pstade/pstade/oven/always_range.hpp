@@ -42,7 +42,7 @@ public:
 namespace always_range_detail {
 
 
-    struct baby_generator
+    struct baby_make
     {
         template< class Unused, class IgnoredRange, class Range >
         struct result
@@ -61,8 +61,8 @@ namespace always_range_detail {
 } // namespace always_range_detail
 
 
-PSTADE_EGG_FUNCTION(make_always_range, always_range_detail::baby_generator)
-PSTADE_EGG_PIPABLE(always, always_range_detail::baby_generator)
+PSTADE_EGG_FUNCTION(make_always_range, always_range_detail::baby_make)
+PSTADE_EGG_PIPABLE(always, always_range_detail::baby_make)
 
 
 } } // namespace pstade::oven

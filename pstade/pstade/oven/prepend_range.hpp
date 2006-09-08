@@ -67,7 +67,7 @@ public:
 namespace prepend_range_detail {
 
 
-    struct baby_generator
+    struct baby_make
     {
         template< class Unused, class Range, class Value >
         struct result
@@ -86,8 +86,8 @@ namespace prepend_range_detail {
 } // namespace prepend_range_detail
 
 
-PSTADE_EGG_FUNCTION(make_prepend_range, prepend_range_detail::baby_generator)
-PSTADE_EGG_PIPABLE(prepended, prepend_range_detail::baby_generator)
+PSTADE_EGG_FUNCTION(make_prepend_range, prepend_range_detail::baby_make)
+PSTADE_EGG_PIPABLE(prepended, prepend_range_detail::baby_make)
 
 
 } } // namespace pstade::oven

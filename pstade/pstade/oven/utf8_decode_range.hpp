@@ -63,7 +63,7 @@ public:
 namespace utf8_decode_range_detail {
 
 
-    struct baby_generator
+    struct baby_make
     {
         template< class Unused, class BidiRange, class Ucs4T = boost::uint32_t >
         struct result
@@ -89,8 +89,8 @@ namespace utf8_decode_range_detail {
 } // namespace utf8_decode_range_detail
 
 
-PSTADE_EGG_FUNCTION(make_utf8_decode_range, utf8_decode_range_detail::baby_generator)
-PSTADE_EGG_PIPABLE(utf8_decoded, utf8_decode_range_detail::baby_generator)
+PSTADE_EGG_FUNCTION(make_utf8_decode_range, utf8_decode_range_detail::baby_make)
+PSTADE_EGG_PIPABLE(utf8_decoded, utf8_decode_range_detail::baby_make)
 
 
 } } // namespace pstade::oven

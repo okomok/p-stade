@@ -65,7 +65,7 @@ public:
 namespace identity_range_detail {
 
 
-    struct baby_generator
+    struct baby_make
     {
         template< class Unused, class Range, class CategoryOrTraversal = boost::use_default >
         struct result
@@ -91,8 +91,8 @@ namespace identity_range_detail {
 } // namespace identity_range_detail
 
 
-PSTADE_EGG_FUNCTION(make_identity_range, identity_range_detail::baby_generator)
-PSTADE_EGG_PIPABLE(identities, identity_range_detail::baby_generator)
+PSTADE_EGG_FUNCTION(make_identity_range, identity_range_detail::baby_make)
+PSTADE_EGG_PIPABLE(identities, identity_range_detail::baby_make)
 
 
 } } // namespace pstade::oven

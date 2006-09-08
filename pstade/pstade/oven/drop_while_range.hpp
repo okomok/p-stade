@@ -45,7 +45,7 @@ public:
 namespace drop_while_range_detail {
 
 
-    struct baby_generator
+    struct baby_make
     {
         template< class Unused, class Range, class Predicate >
         struct result
@@ -65,8 +65,8 @@ namespace drop_while_range_detail {
 } // namespace drop_while_range_detail
 
 
-PSTADE_EGG_FUNCTION(make_drop_while_range, drop_while_range_detail::baby_generator)
-PSTADE_EGG_PIPABLE(dropped_while, drop_while_range_detail::baby_generator)
+PSTADE_EGG_FUNCTION(make_drop_while_range, drop_while_range_detail::baby_make)
+PSTADE_EGG_PIPABLE(dropped_while, drop_while_range_detail::baby_make)
 
 
 } } // namespace pstade::oven

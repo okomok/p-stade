@@ -55,7 +55,7 @@ public:
 namespace generate_range_detail {
 
 
-    struct baby_generator
+    struct baby_make
     {
         template< class Unused, class Routine >
         struct result
@@ -75,8 +75,8 @@ namespace generate_range_detail {
 } // namespace generate_range_detail
 
 
-PSTADE_EGG_FUNCTION(make_generate_range, generate_range_detail::baby_generator)
-PSTADE_EGG_PIPABLE(generated, generate_range_detail::baby_generator)
+PSTADE_EGG_FUNCTION(make_generate_range, generate_range_detail::baby_make)
+PSTADE_EGG_PIPABLE(generated, generate_range_detail::baby_make)
 
 
 } } // namespace pstade::sausage

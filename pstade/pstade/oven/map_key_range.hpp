@@ -16,8 +16,8 @@
 namespace pstade { namespace oven {
 
 
-PSTADE_EGG_FUNCTION(make_map_key_range, first_range_detail::baby_generator)
-PSTADE_EGG_PIPABLE(map_keys, first_range_detail::baby_generator)
+PSTADE_EGG_FUNCTION(make_map_key_range, first_range_detail::baby_make)
+PSTADE_EGG_PIPABLE(map_keys, first_range_detail::baby_make)
 
 
 } } // namespace pstade::oven

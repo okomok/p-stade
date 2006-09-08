@@ -64,7 +64,7 @@ public:
 namespace utf8_encode_range_detail {
 
 
-    struct baby_generator
+    struct baby_make
     {
         template< class Unused, class BidiRange, class U8T = boost::uint8_t >
         struct result
@@ -90,8 +90,8 @@ namespace utf8_encode_range_detail {
 } // namespace utf8_encode_range_detail
 
 
-PSTADE_EGG_FUNCTION(make_utf8_encode_range, utf8_encode_range_detail::baby_generator)
-PSTADE_EGG_PIPABLE(utf8_encoded, utf8_encode_range_detail::baby_generator)
+PSTADE_EGG_FUNCTION(make_utf8_encode_range, utf8_encode_range_detail::baby_make)
+PSTADE_EGG_PIPABLE(utf8_encoded, utf8_encode_range_detail::baby_make)
 
 
 } } // namespace pstade::oven

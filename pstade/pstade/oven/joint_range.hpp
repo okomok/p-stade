@@ -67,7 +67,7 @@ public:
 namespace joint_range_detail {
 
 
-    struct baby_generator
+    struct baby_make
     {
         template< class Unused, class RangeL, class RangeR >
         struct result
@@ -86,8 +86,8 @@ namespace joint_range_detail {
 } // namespace joint_range_detail
 
 
-PSTADE_EGG_FUNCTION(make_joint_range, joint_range_detail::baby_generator)
-PSTADE_EGG_PIPABLE(jointed, joint_range_detail::baby_generator)
+PSTADE_EGG_FUNCTION(make_joint_range, joint_range_detail::baby_make)
+PSTADE_EGG_PIPABLE(jointed, joint_range_detail::baby_make)
 
 
 } } // namespace pstade::oven

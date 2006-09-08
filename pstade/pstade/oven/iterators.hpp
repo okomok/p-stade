@@ -25,7 +25,9 @@
 #include "./stride_iterator.hpp"
 #include "./tab_expand_iterator.hpp"
 #include "./tab_unexpand_iterator.hpp"
-#include "./to_utf8_encoder.hpp"
 
+#include "./to_inserter.hpp"
+#include "./to_stream.hpp"
+#include "./to_utf8_encoder.hpp"
 
 #endif

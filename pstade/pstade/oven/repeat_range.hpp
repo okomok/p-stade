@@ -73,7 +73,7 @@ public:
 namespace repeat_range_detail {
 
 
-    struct baby_generator
+    struct baby_make
     {
         template< class Unused, class ForwardRange, class Size >
         struct result
@@ -93,8 +93,8 @@ namespace repeat_range_detail {
 } // namespace repeat_range_detail
 
 
-PSTADE_EGG_FUNCTION(make_repeat_range, repeat_range_detail::baby_generator)
-PSTADE_EGG_PIPABLE(repeated, repeat_range_detail::baby_generator)
+PSTADE_EGG_FUNCTION(make_repeat_range, repeat_range_detail::baby_make)
+PSTADE_EGG_PIPABLE(repeated, repeat_range_detail::baby_make)
 
 
 } } // namespace pstade::oven

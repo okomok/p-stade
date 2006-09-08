@@ -58,7 +58,7 @@ public:
 namespace direct_range_detail {
 
 
-    struct baby_generator
+    struct baby_make
     {
         template< class Unused, class Range >
         struct result
@@ -78,8 +78,8 @@ namespace direct_range_detail {
 
 
 
-PSTADE_EGG_FUNCTION(make_direct_range, direct_range_detail::baby_generator)
-PSTADE_EGG_PIPABLE(directed, direct_range_detail::baby_generator)
+PSTADE_EGG_FUNCTION(make_direct_range, direct_range_detail::baby_make)
+PSTADE_EGG_PIPABLE(directed, direct_range_detail::baby_make)
 
 
 } } // namespace pstade::oven

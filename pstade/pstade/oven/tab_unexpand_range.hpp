@@ -66,7 +66,7 @@ public:
 namespace tab_unexpand_range_detail {
 
 
-    struct baby_generator
+    struct baby_make
     {
         template< class Unused, class ForwardRange, class TabSizeT >
         struct result
@@ -85,8 +85,8 @@ namespace tab_unexpand_range_detail {
 } // namespace tab_unexpand_range_detail
 
 
-PSTADE_EGG_FUNCTION(make_tab_unexpand_range, tab_unexpand_range_detail::baby_generator)
-PSTADE_EGG_PIPABLE(tab_unexpanded, tab_unexpand_range_detail::baby_generator)
+PSTADE_EGG_FUNCTION(make_tab_unexpand_range, tab_unexpand_range_detail::baby_make)
+PSTADE_EGG_PIPABLE(tab_unexpanded, tab_unexpand_range_detail::baby_make)
 
 
 } } // namespace pstade::oven

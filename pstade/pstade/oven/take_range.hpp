@@ -45,7 +45,7 @@ public:
 namespace take_range_detail {
 
 
-    struct baby_generator
+    struct baby_make
     {
         template< class Unused, class ForwardRange, class Difference >
         struct result
@@ -64,8 +64,8 @@ namespace take_range_detail {
 } // namespace take_range_detail
 
 
-PSTADE_EGG_FUNCTION(make_take_range, take_range_detail::baby_generator)
-PSTADE_EGG_PIPABLE(taken, take_range_detail::baby_generator)
+PSTADE_EGG_FUNCTION(make_take_range, take_range_detail::baby_make)
+PSTADE_EGG_PIPABLE(taken, take_range_detail::baby_make)
 
 
 } } // namespace pstade::oven

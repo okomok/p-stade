@@ -225,7 +225,7 @@ public:
 namespace null_terminate_range_detail {
 
 
-    struct baby_generator
+    struct baby_make
     {
         template< class Unused, class ForwardRangeOrCString >
         struct result
@@ -245,8 +245,8 @@ namespace null_terminate_range_detail {
 
 
 
-PSTADE_EGG_FUNCTION(make_null_terminate_range, null_terminate_range_detail::baby_generator)
-PSTADE_EGG_PIPABLE(null_terminated, null_terminate_range_detail::baby_generator)
+PSTADE_EGG_FUNCTION(make_null_terminate_range, null_terminate_range_detail::baby_make)
+PSTADE_EGG_PIPABLE(null_terminated, null_terminate_range_detail::baby_make)
 
 
 } } // namespace pstade::oven

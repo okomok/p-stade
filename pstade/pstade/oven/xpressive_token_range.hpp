@@ -88,7 +88,7 @@ public:
 namespace xpressive_token_range_detail {
 
 
-    struct baby_generator
+    struct baby_make
     {
         template< class Unused, class BidiRange, class Regex, class SubMatches = void, class Flag = void >
         struct result
@@ -113,8 +113,8 @@ namespace xpressive_token_range_detail {
 } // namespace xpressive_token_range_detail
 
 
-PSTADE_EGG_FUNCTION(make_xpressive_token_range, xpressive_token_range_detail::baby_generator)
-PSTADE_EGG_PIPABLE(xpressive_tokenized, xpressive_token_range_detail::baby_generator)
+PSTADE_EGG_FUNCTION(make_xpressive_token_range, xpressive_token_range_detail::baby_make)
+PSTADE_EGG_PIPABLE(xpressive_tokenized, xpressive_token_range_detail::baby_make)
 
 
 } } // namespace pstade::oven

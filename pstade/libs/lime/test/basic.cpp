@@ -36,8 +36,8 @@ void test()
         std::cout << "<input-file>" << iname << "</input-file>";
 
         std::string oname = iname + ".out";
-        std::ofstream to_file(oname.c_str(), std::ios::binary);
-        pstade::require(to_file, "good output file: " + oname);
+        std::ofstream fout(oname.c_str(), std::ios::binary);
+        pstade::require(fout, "good output file: " + oname);
 
         ustring tmp = // copy for speed
             oven::file_range<utf8cp_t>(iname)
@@ -49,7 +49,7 @@ void test()
 
         lime::save(
             root.front(),
-            oven::to_utf8_encoder(oven::to_function(oven::stream_output(to_file)))
+            oven::to_utf8_encoder(oven::to_stream(fout))
         );
 
     }

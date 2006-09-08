@@ -70,7 +70,7 @@ public:
 namespace scan_range_detail {
 
 
-    struct baby_generator
+    struct baby_make
     {
         template< class Unused, class Range, class State, class BinaryFun = detail::plus_fun >
         struct result
@@ -97,8 +97,8 @@ namespace scan_range_detail {
 } // namespace scan_range_detail
 
 
-PSTADE_EGG_FUNCTION(make_scan_range, scan_range_detail::baby_generator)
-PSTADE_EGG_PIPABLE(scanned, scan_range_detail::baby_generator)
+PSTADE_EGG_FUNCTION(make_scan_range, scan_range_detail::baby_make)
+PSTADE_EGG_PIPABLE(scanned, scan_range_detail::baby_make)
 
 
 } } // namespace pstade::oven

@@ -85,27 +85,26 @@ int main(int argc, char *argv[])
             std::cout << "<input-file>" << iname << "</input-file>";
 
             std::string oname = iname + ".xml";
-            std::ofstream to_file(oname.c_str(), std::ios::binary);
-            pstade::require(to_file, "good output file: " + oname);
+            std::ofstream fout(oname.c_str(), std::ios::binary);
+            pstade::require(fout, "good output file: " + oname);
 
             oven::copy("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\" ?>"
-                "<pre class=\"cpp_source\">"|oven::null_terminated, oven::to_function(oven::stream_output(to_file)));
+                "<pre class=\"cpp_source\">"|oven::null_terminated, oven::to_stream(fout));
 
              biscuit::match<
                 iteration<cpp_to_hatena::start, cpp_to_hatena::act_line_escape>
             >(
-                oven::file_range<boost::uint8_t>(iname)                     // spirit::file_iteratorのペア
-                    | pstade::required("non-empty input file: " + iname)    // 空のRangeは例外に
-                    | oven::utf8_decoded                                    // UTF-8をUTF-32に変換
-                    | biscuit::tokenized< or_<wnewline, any> >()            // 改行とそうでないものに分ける
-                    | oven::transformed(::newline_cvter())                  // 改行なら'\n'に変換する
-                    | oven::tab_expanded(::tabsize<>::value)                // タブを空白にする
-                    | oven::memoized,                                       // 速くするためキャッシュする
-                oven::to_utf8_encoder(
-                    oven::to_function(oven::stream_output(to_file)))|argued // UTF-8に戻して出力
+                oven::file_range<boost::uint8_t>(iname)                  // spirit::file_iteratorのペア
+                    | pstade::required("non-empty input file: " + iname) // 空のRangeは例外に
+                    | oven::utf8_decoded                                 // UTF-8をUTF-32に変換
+                    | biscuit::tokenized< or_<wnewline, any> >()         // 改行とそうでないものに分ける
+                    | oven::transformed(::newline_cvter())               // 改行なら'\n'に変換する
+                    | oven::tab_expanded(::tabsize<>::value)             // タブを空白にする
+                    | oven::memoized,                                    // 速くするためキャッシュする
+                oven::to_utf8_encoder(oven::to_stream(fout))|argued      // UTF-8に戻して出力
             );
 
-            oven::copy("</pre>"|oven::null_terminated, oven::to_function(oven::stream_output(to_file)));
+            oven::copy("</pre>"|oven::null_terminated, oven::to_stream(fout));
 
             std::cout << "<output-file>" << oname << "</output-file>";
 

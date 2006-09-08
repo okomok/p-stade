@@ -68,7 +68,7 @@ public:
 namespace adjacent_filter_range_detail {
 
 
-    struct baby_generator
+    struct baby_make
     {
         template< class Unused, class ForwardRange, class BinaryPred >
         struct result
@@ -88,8 +88,8 @@ namespace adjacent_filter_range_detail {
 } // namespace adjacent_filter_range_detail
 
 
-PSTADE_EGG_FUNCTION(make_adjacent_filter_range, adjacent_filter_range_detail::baby_generator)
-PSTADE_EGG_PIPABLE(adjacent_filtered, adjacent_filter_range_detail::baby_generator)
+PSTADE_EGG_FUNCTION(make_adjacent_filter_range, adjacent_filter_range_detail::baby_make)
+PSTADE_EGG_PIPABLE(adjacent_filtered, adjacent_filter_range_detail::baby_make)
 
 
 } } // namespace pstade::oven

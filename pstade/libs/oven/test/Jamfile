@@ -89,6 +89,7 @@ test-suite oven :
     [ oven-test transform_range ]
     [ oven-test unique_range ]
     [ oven-test unzip_range ]
+    [ oven-test utf8_range ]
     # [ oven-test xpressive_match_range ]
     # [ oven-test xpressive_token_range ]
     [ oven-test zip_range ]

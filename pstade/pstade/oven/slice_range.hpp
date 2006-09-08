@@ -47,7 +47,7 @@ public:
 namespace slice_range_detail {
 
 
-    struct baby_generator
+    struct baby_make
     {
         template< class Unused, class ForwardRange, class DifferenceN, class DifferenceM >
         struct result
@@ -66,8 +66,8 @@ namespace slice_range_detail {
 } // namespace slice_range_detail
 
 
-PSTADE_EGG_FUNCTION(make_slice_range, slice_range_detail::baby_generator)
-PSTADE_EGG_PIPABLE(sliced, slice_range_detail::baby_generator)
+PSTADE_EGG_FUNCTION(make_slice_range, slice_range_detail::baby_make)
+PSTADE_EGG_PIPABLE(sliced, slice_range_detail::baby_make)
 
 
 } } // namespace pstade::oven

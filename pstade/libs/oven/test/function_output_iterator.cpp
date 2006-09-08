@@ -11,7 +11,6 @@
 
 
 #include <pstade/oven/function_output_iterator.hpp>
-#include <pstade/oven/output_functions.hpp>
 
 
 #include <sstream>
@@ -23,6 +22,7 @@
 #include <pstade/oven/regularize_iterator.hpp>
 #include <pstade/oven/functions.hpp>
 #include <pstade/unused.hpp>
+#include <pstade/oven/iterators.hpp>
 
 
 std::stringstream g_ss;
@@ -63,7 +63,7 @@ void test()
     }
     {
         std::vector<char> vec;
-        oven::copy(std::string("abc"), oven::to_function(oven::push_back(vec)));
+        oven::copy(std::string("abc"), oven::to_back_inserter(vec));
         BOOST_CHECK( oven::equals(std::string("abc"), vec) );
         // identities keeps vec mutable.
         oven::copy(vec|identities, oven::to_function(&::modify));
@@ -71,12 +71,12 @@ void test()
     }
     {
         g_ss.str("");
-        oven::copy(src, oven::to_function(oven::stream_output(g_ss)));
+        oven::copy(src, oven::to_stream(g_ss));
         BOOST_CHECK( oven::equals(g_ss.str(), src) );
     }
     {
         g_ss.str("");
-        oven::copy(src, oven::to_function(oven::sputc(g_ss)));
+        oven::copy(src, oven::to_ostreambuf(g_ss));
         BOOST_CHECK( oven::equals(g_ss.str(), src) );
     }
     {
@@ -87,14 +87,14 @@ void test()
 
     {
         std::list<char> seq;
-        oven::copy(std::string("abc"), oven::to_function(oven::push_front(seq)));
-        oven::copy(std::string("xyz"), oven::to_function(oven::push_back(seq)));
+        oven::copy(std::string("abc"), oven::to_front_inserter(seq));
+        oven::copy(std::string("xyz"), oven::to_back_inserter(seq));
         BOOST_CHECK( oven::equals(std::string("cbaxyz"), seq) );
     }
     {
         std::list<char> seq; seq.push_back('_');
-        oven::copy(std::string("abc"), oven::to_function(oven::insert(seq, boost::begin(seq))));
-        oven::copy(std::string("xyz"), oven::to_function(oven::insert(seq, boost::end(seq))));
+        oven::copy(std::string("abc"), oven::to_inserter(seq, boost::begin(seq)));
+        oven::copy(std::string("xyz"), oven::to_inserter(seq, boost::end(seq)));
         BOOST_CHECK( oven::equals(std::string("abc_xyz"), seq) );
     }
 }

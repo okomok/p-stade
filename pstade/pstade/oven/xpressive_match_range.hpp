@@ -77,7 +77,7 @@ public:
 namespace xpressive_match_range_detail {
 
 
-    struct baby_generator
+    struct baby_make
     {
         template< class Unused, class BidiRange, class Regex, class Flag = void >
         struct result
@@ -96,8 +96,8 @@ namespace xpressive_match_range_detail {
 } // namespace xpressive_match_range_detail
 
 
-PSTADE_EGG_FUNCTION(make_xpressive_match_range, xpressive_match_range_detail::baby_generator)
-PSTADE_EGG_PIPABLE(xpressive_matched, xpressive_match_range_detail::baby_generator)
+PSTADE_EGG_FUNCTION(make_xpressive_match_range, xpressive_match_range_detail::baby_make)
+PSTADE_EGG_PIPABLE(xpressive_matched, xpressive_match_range_detail::baby_make)
 
 
 } } // namespace pstade::oven

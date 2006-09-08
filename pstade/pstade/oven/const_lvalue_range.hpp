@@ -60,7 +60,7 @@ public:
 namespace const_lvalue_range_detail {
 
 
-    struct baby_generator
+    struct baby_make
     {
         template< class Unused, class Range >
         struct result
@@ -79,8 +79,8 @@ namespace const_lvalue_range_detail {
 } // namespace const_lvalue_range_detail
 
 
-PSTADE_EGG_FUNCTION(make_const_lvalue_range, const_lvalue_range_detail::baby_generator)
-PSTADE_EGG_PIPABLE(const_lvalues, const_lvalue_range_detail::baby_generator)
+PSTADE_EGG_FUNCTION(make_const_lvalue_range, const_lvalue_range_detail::baby_make)
+PSTADE_EGG_PIPABLE(const_lvalues, const_lvalue_range_detail::baby_make)
 
 
 } } // namespace pstade::oven
