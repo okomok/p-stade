@@ -164,6 +164,12 @@ public:
 
 	void OnAppAbout()
 	{
+#if 1
+        BOOST_FOREACH (tomato::rebar_band band, tomato::rebar_band_range(m_rebar.m_hWnd)) {
+            int id = band.id();
+            (void)id;
+        }
+#endif
 		CAboutDlg dlg;
 		dlg.DoModal();
 	}

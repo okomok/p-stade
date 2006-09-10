@@ -13,15 +13,12 @@
 // What:
 //
 // Replaces 'boost::function_output_iterator'.
-// 'boost::make_function_output_iterator' cannot take a function type,
-// because a const-qualified function type is illegal.
-// Also, Boost.Lambda functors are not assignable,
-// then the 'regularize_iterator' adaptor can help.
-// But the adaptor requires some nested 'typedef's not to be 'void'.
+// This iterator must be "adaptable" for 'regularize_iterator'.
 
 
-#include <boost/mpl/void.hpp>
 #include <iterator> // output_iterator_tag
+#include <boost/iterator/iterator_facade.hpp>
+#include <boost/mpl/void.hpp>
 #include "./regularize_iterator.hpp"
 
 
@@ -29,41 +26,63 @@ namespace pstade { namespace oven {
 
 
 template< class UnaryFun >
-struct function_output_iterator
-{
-    typedef std::output_iterator_tag iterator_category;
-    typedef boost::mpl::void_ value_type; // for 'postfix_increment_result'
-    typedef boost::mpl::void_ pointer; // for a rainy day
-    typedef int difference_type; // for 'iterator_facade::operator[]'
+struct function_output_iterator;
 
-    struct reference
+
+namespace function_output_iterator_detail {
+
+
+    template< class UnaryFun >
+    struct reference_proxy
     {
-        reference(UnaryFun const& fun) :
+        reference_proxy(UnaryFun& fun) :
             m_fun(fun)
         { }
 
+        // can replace 'for_each'?
         template< class Value >
-        reference& operator=(Value& val) // can replace 'for_each'?
+        reference_proxy& operator=(Value& val)
         {
             m_fun(val);
             return *this;
         }
 
         template< class Value >
-        reference& operator=(Value const& val)
+        reference_proxy& operator=(Value const& val)
         {
             m_fun(val);
             return *this;
         }
 
     private:
-        UnaryFun m_fun;
+        UnaryFun& m_fun;
     };
 
-    reference operator *() const { return reference(m_fun); }
-    function_output_iterator& operator++() { return *this; }
-    function_output_iterator operator++(int) { return *this; }
 
+    template< class UnaryFun >
+    struct super_
+    {
+        typedef boost::iterator_facade<
+            function_output_iterator<UnaryFun>,
+            boost::mpl::void_, // 'postfix_increment_result' dislikes 'void'.
+            std::output_iterator_tag,
+            reference_proxy<UnaryFun>
+        > type;
+    };
+
+
+} // namespace function_output_iterator_detail
+
+
+template< class UnaryFun >
+struct function_output_iterator :
+    function_output_iterator_detail::super_<UnaryFun>::type
+{
+private:
+    typedef typename function_output_iterator_detail::super_<UnaryFun>::type super_t;
+    typedef typename super_t::reference ref_t;
+
+public:
     explicit function_output_iterator()
     { }
 
@@ -71,13 +90,17 @@ struct function_output_iterator
         m_fun(fun)
     { }
 
-    UnaryFun functor() const
+private:
+    mutable UnaryFun m_fun;
+
+friend class boost::iterator_core_access;
+    ref_t dereference() const
     {
-        return m_fun;
+        return ref_t(m_fun);
     }
 
-private:
-    UnaryFun m_fun;
+    void increment()
+    { }
 };
 
 

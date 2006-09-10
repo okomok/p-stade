@@ -17,7 +17,7 @@
 #include <boost/lambda/bind.hpp>
 
 
-struct my_generator
+struct my_routine
 {
     typedef int routine_result_type;
 
@@ -39,7 +39,7 @@ void test()
     using namespace boost;
     using namespace sausage;
 
-    BOOST_FOREACH (int i, ::my_generator()|generated) {
+    BOOST_FOREACH (int i, ::my_routine()|yielded) {
         std::cout << i;
         if (i == 15)
             break;

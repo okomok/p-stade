@@ -21,7 +21,7 @@ namespace pstade { namespace oven {
 namespace index_range_detail {
 
 
-    template< class UnaryFun, class Incrementable >
+    template< class Incrementable, class UnaryFun >
     struct super_
     {
         typedef transform_range<
@@ -34,29 +34,26 @@ namespace index_range_detail {
 } // namespace index_range_detail
 
 
-template<
-    class UnaryFun,
-    class Incrementable = std::size_t
->
+template< class Incrementable, class UnaryFun >
 struct index_range :
-    index_range_detail::super_<UnaryFun, Incrementable>::type,
-    private as_lightweight_proxy< index_range<UnaryFun, Incrementable> >
+    index_range_detail::super_<Incrementable, UnaryFun>::type,
+    private as_lightweight_proxy< index_range<Incrementable, UnaryFun> >
 {
 private:
-    typedef typename index_range_detail::super_<UnaryFun, Incrementable>::type super_t;
+    typedef typename index_range_detail::super_<Incrementable, UnaryFun>::type super_t;
 
 public:
-    index_range(UnaryFun const& fun, Incrementable i, Incrementable j) :
+    index_range(Incrementable i, Incrementable j, UnaryFun const& fun) :
         super_t(counting_range<Incrementable>(i, j), fun)
     { }
 };
 
 
 template< class Incrementable, class UnaryFun > inline
-index_range<UnaryFun, Incrementable> const
-make_index_range(UnaryFun fun, Incrementable i, Incrementable j)
+index_range<Incrementable, UnaryFun> const
+make_index_range(Incrementable i, Incrementable j, UnaryFun fun)
 {
-    return index_range<UnaryFun, Incrementable>(fun, i, j);
+    return index_range<Incrementable, UnaryFun>(i, j, fun);
 }
 
 

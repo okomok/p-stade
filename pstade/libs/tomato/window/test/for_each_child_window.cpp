@@ -11,7 +11,7 @@
 
 
 #include <pstade/tomato/window/for_each_child_window.hpp>
-#include <pstade/sausage.hpp>
+#include <pstade/sausage/yield_range.hpp>
 
 
 #include <algorithm>
@@ -48,7 +48,7 @@ void test()
     tomato::for_each_child_window wnds(::GetDesktopWindow());
 
     {
-        BOOST_FOREACH (HWND hWnd, wnds|generated) {
+        BOOST_FOREACH (HWND hWnd, wnds|yielded) {
             //::output(hWnd);
             (void)hWnd;
         }

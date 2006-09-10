@@ -45,7 +45,7 @@ void test()
     using namespace pstade;
     using namespace oven;
 
-    std::string const src("hello,function_output_iterator");
+    std::string const src("hello,to_function");
     {
         g_ss.str("");
         oven::copy(src, oven::to_function(to_ss));

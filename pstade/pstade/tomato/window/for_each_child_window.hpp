@@ -10,11 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Model of:
-//
-// Functor and Sausage.Routine
-
-
 #include <boost/utility/addressof.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/egg/by_value.hpp>
@@ -29,11 +24,11 @@ namespace pstade { namespace tomato {
 namespace for_each_child_window_detail {
 
 
-    template< class Yield >
+    template< class UnaryFun >
     BOOL CALLBACK proc(HWND hWnd, LPARAM lParam)
     {
         try {
-            Yield& yield = *reinterpret_cast<Yield *>(lParam);
+            UnaryFun& yield = *reinterpret_cast<UnaryFun *>(lParam);
             window_ref wnd(hWnd);
 
             yield(wnd.handle());
@@ -45,8 +40,8 @@ namespace for_each_child_window_detail {
     }
 
 
-    template< class Yield > inline
-    void aux(window_ptr parent, Yield yield)
+    template< class UnaryFun > inline
+    void aux(window_ptr parent, UnaryFun yield)
     {
         // Note:
         // if no child, EnumChildWindows "fails"
@@ -55,7 +50,7 @@ namespace for_each_child_window_detail {
         // api failed.
         ::EnumChildWindows(
             parent.get(),
-            &proc<Yield>,
+            &proc<UnaryFun>,
             reinterpret_cast<LPARAM>(boost::addressof(yield))
         );
     }
@@ -75,17 +70,17 @@ namespace for_each_child_window_detail {
 
         typedef HWND routine_result_type;
 
-        template< class Unused, class Yield >
+        template< class Unused, class UnaryFun >
         struct result :
-            egg::by_value<Yield>
+            egg::by_value<UnaryFun>
         { };
 
-        template< class Result, class Yield >
-        Result call(Yield& yield)
+        template< class Result, class UnaryFun >
+        Result call(UnaryFun& yield)
         {
             // Workaround:
             // VC++7.1/8 fails to decay function-reference.
-            // Without the explicit parameter, 'Yield' of 'aux<Yield>(...)'
+            // Without the explicit parameter, 'UnaryFun' of 'aux<UnaryFun>(...)'
             // would be deduced as a *reference* type. Lovely!
             for_each_child_window_detail::aux<Result>(m_parent, yield);
             return yield;

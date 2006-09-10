@@ -20,7 +20,7 @@ struct exit_exception :
     std::runtime_error
 {
     exit_exception() :
-        std::runtime_error("enumeration exit")
+        std::runtime_error("routine exit")
     { };
 };
 

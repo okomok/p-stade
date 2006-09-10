@@ -2,7 +2,7 @@
 #define PSTADE_SAUSAGE_HPP
 
 
-// PStade.Sausage Enumeration Library
+// PStade.Sausage Coroutine Range Library
 //
 // Copyright Shunsuke Sogame 2005-2006.
 // Distributed under the Boost Software License, Version 1.0.
@@ -11,8 +11,8 @@
 
 
 #include "./sausage/exception.hpp"
-#include "./sausage/generate_iterator.hpp"
-#include "./sausage/generate_range.hpp"
+#include "./sausage/yield_iterator.hpp"
+#include "./sausage/yield_range.hpp"
 
 
 #endif

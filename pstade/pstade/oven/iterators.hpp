@@ -14,7 +14,6 @@
 #include "./check_iterator.hpp"
 #include "./concatenate_iterator.hpp"
 #include "./const_lvalue_iterator.hpp"
-#include "./function_output_iterator.hpp"
 #include "./identity_iterator.hpp"
 #include "./joint_iterator.hpp"
 #include "./regularize_iterator.hpp"
@@ -26,6 +25,7 @@
 #include "./tab_expand_iterator.hpp"
 #include "./tab_unexpand_iterator.hpp"
 
+#include "./function_output_iterator.hpp"
 #include "./to_inserter.hpp"
 #include "./to_stream.hpp"
 #include "./to_utf8_encoder.hpp"

@@ -44,8 +44,8 @@ void test()
         std::string src("11111234516313!");
         g_vec = src|copied;
 
-        BOOST_CHECK( oven::equals(src, oven::make_index_range(vec_get(), 0, (int)src.size())) );
-        BOOST_CHECK( oven::equals(src|reversed, oven::make_index_range(vec_get(), 0, (int)src.size())|reversed) );
+        BOOST_CHECK( oven::equals(src, oven::make_index_range(0, (int)src.size(), vec_get())) );
+        BOOST_CHECK( oven::equals(src|reversed, oven::make_index_range(0, (int)src.size(), vec_get())|reversed) );
     }
 }
 

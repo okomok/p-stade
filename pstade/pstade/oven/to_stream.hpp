@@ -13,7 +13,7 @@
 #include <iosfwd> // basic_ostream/streambuf
 #include <iterator>
 #include <boost/utility/addressof.hpp>
-#include "./function_output_iterator.hpp" // to_function
+#include "./function_output_iterator.hpp"
 
 
 namespace pstade { namespace oven {
