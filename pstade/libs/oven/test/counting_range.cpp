@@ -34,12 +34,10 @@ void test()
         std::vector<int> vec;
         oven::copy(oven::make_counting_range(2, 7), std::back_inserter(vec));
         BOOST_CHECK( oven::equal(vec, ans) );
-
-        BOOST_CHECK( oven::equal(oven::int_range(2, 7), ans) );
     }
     {
         int ans[] = { 0, 1, 2, 3, 4 };
-        BOOST_CHECK( oven::equal(oven::int_range(0, 5), ans) );
+        BOOST_CHECK( oven::equal(oven::from_0_to(5), ans) );
     }
 
     {
@@ -53,14 +51,14 @@ void test()
         BOOST_CHECK( oven::equal(vec, ans) );
         vec.clear();
 
-        BOOST_FOREACH (int i, oven::int_range(0, 5)) {
+        BOOST_FOREACH (int i, oven::from_0_to(5)) {
             vec.push_back(i);
         }
 
         BOOST_CHECK( oven::equal(vec, ans) );
 
         std::vector<int>::size_type i = 0;
-        BOOST_FOREACH (i, oven::int_range(0, vec.size())) {
+        BOOST_FOREACH (i, oven::from_0_to(vec.size())) {
             ++i;
         }
         BOOST_CHECK( i == 5 );

@@ -83,13 +83,28 @@ make_counting_range(Incrementable i, Incrementable j)
 }
 
 
-template< class Incrementable1, class Incrementable2 >
-counting_range<int> const
-int_range(Incrementable1 i, Incrementable2 j)
+// Note:
+// 'make_counting_range(0, non_int_t(i))' doesn't compile.
+// 'make_counting_range(non_int_t(0), non_int_t(i))' compiles,
+// but seems cumbersome, especially if 'non_int_t' is 
+// not easy to know. Also note that something like 'int_range'
+// would get stuck into a hell of cast. So we define...
+//
+
+template< class Incrementable > inline
+counting_range<Incrementable> const
+from_0_to(Incrementable c)
 {
-    // casts suppress warnings.
-    return counting_range<int>(static_cast<int>(i), static_cast<int>(j));
-};
+    return counting_range<Incrementable>(0, c);
+}
+
+
+template< class Incrementable > inline
+counting_range<Incrementable> const
+from_1_to(Incrementable c)
+{
+    return counting_range<Incrementable>(1, c);
+}
 
 
 } } // namespace pstade::oven

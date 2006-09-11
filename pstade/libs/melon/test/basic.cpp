@@ -235,7 +235,7 @@ int main(int argc, char *argv[])
     using namespace pstade;
 
     argc = 2;
-    BOOST_FOREACH (int i, oven::int_range(1, argc)) {
+    BOOST_FOREACH (int i, oven::from_1_to(argc)) {
 
         try {
             my_melon::context cxt;

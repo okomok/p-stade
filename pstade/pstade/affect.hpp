@@ -10,9 +10,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// See:
+// Note:
 //
-// C++ Standard 9.3.1/4
+// The name 'affect' comes from C++ Standard 9.3.1/4.
 
 
 #include <boost/mpl/eval_if.hpp>

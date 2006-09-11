@@ -10,14 +10,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Workaround:
+// What:
 //
-// Changing the global locale breaks down VC8 wide-streams.
-
-
-// See:
-//
-// boost::basic_ios_locale_saver
+// Works around the VC8 bug that changing the global locale
+// breaks down wide-streams.
+// Note that 'boost::basic_ios_locale_saver' has no support
+// to save the global locale.
 
 
 #include <locale>

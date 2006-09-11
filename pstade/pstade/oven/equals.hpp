@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// See: 'equals' at Boost.StringAlgorithm
+// Port of: 'equals' at Boost.StringAlgorithm
 //
 // Copyright Pavol Droba 2002-2003. Use, modification and
 // distribution is subject to the Boost Software License, Version

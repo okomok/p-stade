@@ -77,7 +77,7 @@ int main(int argc, char *argv[])
 
     std::cout << "<cpp_to_hatena>";
 
-    BOOST_FOREACH (int i, oven::int_range(1, argc)) {
+    BOOST_FOREACH (int i, oven::from_1_to(argc)) {
 
         try {
 

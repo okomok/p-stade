@@ -47,7 +47,7 @@ void expand_tab(std::string fileName)
 
 int main(int argc, char *argv[])
 {
-    BOOST_FOREACH (int i, oven::int_range(1, argc)) {
+    BOOST_FOREACH (int i, oven::from_1_to(argc)) {
 
         try {
             ::expand_tab(argv[i]);

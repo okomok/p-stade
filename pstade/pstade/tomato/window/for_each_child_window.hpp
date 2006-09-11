@@ -31,7 +31,7 @@ namespace for_each_child_window_detail {
             UnaryFun& yield = *reinterpret_cast<UnaryFun *>(lParam);
             window_ref wnd(hWnd);
 
-            yield(wnd.handle());
+            yield(wnd);
             return TRUE;
         }
         catch (...) { // never propagate.
@@ -68,7 +68,7 @@ namespace for_each_child_window_detail {
             return m_parent.get();
         }
 
-        typedef HWND routine_result_type;
+        typedef window_ref routine_result_type;
 
         template< class Unused, class UnaryFun >
         struct result :

@@ -339,7 +339,7 @@ int main(int argc, char *argv[])
 {
     using namespace pstade;
 
-    BOOST_FOREACH (int i, oven::int_range(1, argc)) {
+    BOOST_FOREACH (int i, oven::from_1_to(argc)) {
 
         PSTADE_REQUIRE((
             biscuit::match<xml_grammar::start>(

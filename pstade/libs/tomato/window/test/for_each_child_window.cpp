@@ -48,9 +48,9 @@ void test()
     tomato::for_each_child_window wnds(::GetDesktopWindow());
 
     {
-        BOOST_FOREACH (HWND hWnd, wnds|yielded) {
-            //::output(hWnd);
-            (void)hWnd;
+        BOOST_FOREACH (tomato::window_ref wnd, wnds|yielded) {
+            //::output(wnd);
+            (void)wnd;
         }
     }
 

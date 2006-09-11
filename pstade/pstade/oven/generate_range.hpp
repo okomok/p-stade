@@ -12,6 +12,7 @@
 
 #include <boost/iterator/iterator_categories.hpp> // single_pass_traversal_tag
 #include <boost/mpl/eval_if.hpp>
+#include <boost/mpl/identity.hpp>
 #include <boost/ref.hpp>
 #include <boost/type_traits/add_reference.hpp>
 #include <boost/type_traits/remove_cv.hpp>
@@ -114,7 +115,7 @@ namespace generate_range_detail {
     struct unwrap :
         boost::mpl::eval_if< boost::is_reference_wrapper<Generator>,
             boost::add_reference<typename boost::unwrap_reference<Generator>::type>,
-            egg::by_value<Generator>
+            boost::mpl::identity<Generator>
         >
     { };
 
@@ -124,7 +125,7 @@ namespace generate_range_detail {
         template< class Unused, class Range, class Generator >
         struct result
         {
-            typedef typename unwrap<Generator>::type gen_t;
+            typedef typename unwrap<typename egg::by_value<Generator>::type>::type gen_t;
             typedef generate_range<Range, gen_t> const type;
         };
 
