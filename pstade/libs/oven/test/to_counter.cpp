@@ -18,6 +18,7 @@
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/to_utf8_encoder.hpp>
 #include <pstade/oven/adaptor_to_base.hpp>
+#include <pstade/unused.hpp>
 
 
 using namespace pstade;
@@ -32,12 +33,24 @@ void test()
         BOOST_CHECK( i == 6 );
         BOOST_CHECK( 7 == oven::counter_base(oven::unique_copy(rng, oven::to_counter(1))) );
     }
+    {
+        std::wstring rng(L"aabbbcccdddeffg");
+        int i = oven::unique_copy(rng, oven::to_utf8_encoder(oven::to_counter(0)))|to_base|to_counter_base;
+        BOOST_CHECK( i == 7 );
+    }
 
     {
         std::wstring rng(L"aabbbcccdddeffg");
-        int i = oven::unique_copy(rng, oven::to_utf8_encoder(oven::to_counter(0)))|to_base;
+        int i = oven::unique_copy(rng, oven::to_utf8_encoder(oven::to_counter(0)))|to_base; // still work.
         BOOST_CHECK( i == 7 );
     }
+#if 0
+    {
+        std::wstring rng(L"aabbbcccdddeffg");
+        int i = oven::unique_copy(rng, oven::to_utf8_encoder(oven::to_counter(0)))|to_counter_base; // doesn't work, of course.
+        BOOST_CHECK( i == 7 );
+    }
+#endif
 }
 
 

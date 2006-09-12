@@ -10,6 +10,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/egg/baby_auto.hpp>
+#include <pstade/egg/pipable.hpp>
 #include "./function_output_iterator.hpp"
 
 
@@ -52,12 +54,31 @@ to_counter(Incrementable const& i)
 }
 
 
+// Note:
+// In fact, you can use 'oven::adator_to<Incrementable>(it)'
+// and 'oven::to_base'. Anyway an explicit call is a good practice.
+//
+
 template< class Incrementable > inline
 Incrementable const
 counter_base(function_output_iterator< increment_fun<Incrementable> > const& it)
 {
     return it.base().base();
 }
+
+
+struct counter_base_class
+{
+    template< class Incrementable, class FunOutIter >
+    static Incrementable call(FunOutIter const& it)
+    {
+        // 'FunOutIter' can be 'egg::baby_auto::temp'.
+        // This non-deduced form makes a good job.
+        return oven::counter_base<Incrementable>(it);
+    }
+};
+
+PSTADE_EGG_PIPABLE(to_counter_base, egg::baby_auto<counter_base_class>)
 
 
 } } // namespace pstade::oven
