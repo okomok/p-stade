@@ -40,6 +40,44 @@ void modify(char& ch)
 }
 
 
+template< class Incrementable >
+struct increment :
+    pstade::nonassignable
+{
+    typedef void result_type;
+
+    explicit increment(Incrementable i) :
+        m_i(i)
+    { }
+
+    template< class Value >
+    void operator()(Value const&) // 'const' isn't needed.
+    {
+        ++m_i;
+    }
+
+    Incrementable base_inc() const
+    {
+        return m_i;
+    }
+
+private:
+    Incrementable m_i;
+};
+
+
+template< class Range, class Incrementable >
+Incrementable unique_count(Range const& rng, Incrementable i)
+{
+    using namespace pstade;
+
+    return oven::unique_copy(
+        rng,
+        oven::to_function(::increment<Incrementable>(i))
+    ).base_fun().base_inc();
+}
+
+
 void test()
 {
     using namespace pstade;
@@ -96,6 +134,11 @@ void test()
         oven::copy(std::string("abc"), oven::to_inserter(seq, boost::begin(seq)));
         oven::copy(std::string("xyz"), oven::to_inserter(seq, boost::end(seq)));
         BOOST_CHECK( oven::equals(std::string("abc_xyz"), seq) );
+    }
+
+    {
+        int const rng[] = { 0,0,1,1,2,3,3,3,4,4,4,4,4,5,5 };
+        BOOST_CHECK( 7 == ::unique_count(rng, 1) );
     }
 }
 

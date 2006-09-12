@@ -58,6 +58,13 @@ to_ostream(std::basic_ostream<CharT, Traits>& os)
     return std::ostream_iterator<Value, CharT, Traits>(os);
 }
 
+template< class Value, class CharT, class Traits > inline
+std::ostream_iterator<CharT, Traits> const
+to_ostream(std::basic_ostream<CharT, Traits>& os, CharT const *delim)
+{
+    return std::ostream_iterator<Value, CharT, Traits>(os, delim);
+}
+
 
 template< class CharT, class Traits > inline
 std::ostreambuf_iterator<CharT, Traits> const
