@@ -31,8 +31,6 @@ namespace pstade { namespace oven {
 template< class UnaryFun >
 struct function_output_iterator
 {
-    typedef UnaryFun function_type;
-
     explicit function_output_iterator()
     { }
 
@@ -40,7 +38,10 @@ struct function_output_iterator
         m_fun(fun)
     { }
 
-    UnaryFun const& function() const
+// as "adaptor", 'oven::to_base' can kick in!
+    typedef UnaryFun base_type;
+
+    UnaryFun const& base() const
     {
         return m_fun;
     }
