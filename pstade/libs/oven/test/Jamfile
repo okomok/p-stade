@@ -85,6 +85,7 @@ test-suite oven :
     [ oven-test tab_unexpand_range ]
     [ oven-test take_range ]
     [ oven-test take_while_range ]
+    [ oven-test to_counter ]
     [ oven-compile token_range ]
     [ oven-test transform_range ]
     [ oven-test unique_range ]

@@ -13,6 +13,8 @@
 #include <iosfwd> // basic_ostream/streambuf
 #include <iterator>
 #include <boost/utility/addressof.hpp>
+#include <pstade/egg/function.hpp>
+#include <pstade/egg/pipable.hpp>
 #include "./function_output_iterator.hpp"
 
 
@@ -22,6 +24,7 @@ namespace pstade { namespace oven {
 template< class OStream >
 struct stream_output_fun
 {
+    typedef OStream stream_type;
     typedef void result_type;
 
     explicit stream_output_fun(OStream& os) :
@@ -38,6 +41,11 @@ struct stream_output_fun
         *m_pos << val;
     }
 
+    OStream& stream() const
+    {
+        return *m_pos;
+    }
+
 private:
     OStream *m_pos; // be a pointer for Assignable.
 };
@@ -49,6 +57,26 @@ to_stream(OStream& os)
 {
     return oven::to_function(stream_output_fun<OStream>(os));
 }
+
+
+struct baby_stream_base
+{
+    template< class Unused, class FunOutIter >
+    struct result
+    {
+        typedef typename FunOutIter::function_type::stream_type const type;
+    };
+
+    template< class Result, class FunOutIter >
+    Result call(FunOutIter const& it)
+    {
+        return it.function().stream();
+    }
+};
+
+
+PSTADE_EGG_FUNCTION(stream_base, baby_stream_base)
+PSTADE_EGG_PIPABLE(to_stream_base, baby_stream_base)
 
 
 template< class Value, class CharT, class Traits > inline

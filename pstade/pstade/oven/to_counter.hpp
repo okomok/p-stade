@@ -21,8 +21,7 @@ namespace pstade { namespace oven {
 template< class Incrementable >
 struct increment_fun
 {
-    typedef Incrementable base_inc_type;
-
+    typedef Incrementable incrementable_type;
     typedef void result_type;
 
     explicit increment_fun(Incrementable const& i) :
@@ -35,7 +34,7 @@ struct increment_fun
         ++m_i;
     }
 
-    Incrementable base_inc() const
+    Incrementable incrementable() const
     {
         return m_i;
     }
@@ -58,13 +57,13 @@ struct baby_counter_base
     template< class Unused, class FunOutIter >
     struct result
     {
-        typedef typename FunOutIter::base_fun_type::base_inc_type type;
+        typedef typename FunOutIter::function_type::incrementable_type const type;
     };
 
     template< class Result, class FunOutIter >
     Result call(FunOutIter const& it)
     {
-        return it.base_fun().base_inc();
+        return it.function().incrementable();
     }
 };
 

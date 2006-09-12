@@ -31,7 +31,7 @@ namespace pstade { namespace oven {
 template< class UnaryFun >
 struct function_output_iterator
 {
-    typedef UnaryFun base_fun_type;
+    typedef UnaryFun function_type;
 
     explicit function_output_iterator()
     { }
@@ -40,7 +40,7 @@ struct function_output_iterator
         m_fun(fun)
     { }
 
-    UnaryFun base_fun() const
+    UnaryFun function() const
     {
         return m_fun;
     }
