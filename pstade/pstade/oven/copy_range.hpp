@@ -71,7 +71,7 @@ PSTADE_ADL_BARRIER(copy_range) { // for Boost
 struct copy_range_class
 {
     template< class T, class Range >
-    static T cast(Range const& rng)
+    static T call(Range const& rng)
     {
         return oven::copy_range<T>(rng);
     }

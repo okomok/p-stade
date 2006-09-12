@@ -10,34 +10,39 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/to_counter.hpp>
+#include <pstade/oven/to_stream.hpp>
 
 
+#include <sstream>
 #include <string>
 #include <boost/range.hpp>
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/to_utf8_encoder.hpp>
-#include <pstade/oven/adaptor_to_base.hpp>
-#include <pstade/unused.hpp>
+#include <pstade/is_same.hpp>
 
 
 using namespace pstade;
 using namespace oven;
 
 
+std::stringstream g_ss;
+
+
 void test()
 {
+    std::string const src("hello,to_function");
+
     {
-        int const rng[] = { 0,0,1,1,2,3,3,3,4,4,4,4,4,5,5 };
-        int i = oven::unique_copy(rng, oven::to_counter(0))|to_base;
-        BOOST_CHECK( i == 6 );
-        BOOST_CHECK( 7 == oven::adaptor_to<int>(oven::unique_copy(rng, oven::to_counter(1))) );
+        g_ss.str("");
+        std::stringstream& ss = *oven::adaptor_to<std::stringstream*>( oven::copy(src, oven::to_stream(g_ss)) );
+        BOOST_CHECK( oven::equals(g_ss.str(), src) );
+        BOOST_CHECK( pstade::is_same(ss, g_ss) );
     }
+
     {
         std::wstring rng(L"aabbbcccdddeffg");
-        int i = oven::adaptor_to<int>(oven::unique_copy(rng, oven::to_utf8_encoder(oven::to_counter(0))));
-        int j = oven::unique_copy(rng, oven::to_utf8_encoder(oven::to_counter(0)))|to_base;
-        BOOST_CHECK( i == j && i == 7 );
+        std::stringstream *pss = oven::unique_copy(rng, oven::to_utf8_encoder(oven::to_stream(g_ss)))|to_base;
+        BOOST_CHECK( pstade::is_same(*pss, g_ss) );
     }
 }
 

@@ -62,66 +62,48 @@ to_ostreambuf(std::basic_streambuf<CharT, Traits> *pb)
 // In such case, 'to_ostream' above is preferable.
 //
 
-template< class OStream >
+template< class Stream >
 struct stream_output_fun
 {
-
+    typedef Stream stream_type;
     typedef void result_type;
 
-    explicit stream_output_fun(OStream& os) :
-        m_pos(boost::addressof(os))
+    // Note:
+    // DefaultConstructible is not required
+    // as OutputIterator is not.
+
+    explicit stream_output_fun(Stream& s) :
+        m_ps(boost::addressof(s))
     { }
 
     template< class Value >
     void operator()(Value const& val) const
     {
-
-        *m_pos << val;
+        *m_ps << val;
     }
 
-// as "adaptor", 'oven::to_base' can kick in!
-    typedef OStream base_type;
-
-    OStream& base() const
+    Stream& stream() const
     {
-        return *m_pos;
+        return *m_ps;
+    }
+
+// as "adaptor", 'oven::adaptor_to' kicks in!
+    Stream *base() const // it prefers pointer to reference.
+    {
+        return m_ps;
     }
 
 private:
-    OStream *m_pos; // be a pointer for Assignable.
+    Stream *m_ps; // be a pointer for Assignable.
 };
 
 
-template< class OStream > inline
-function_output_iterator< stream_output_fun<OStream> > const
-to_stream(OStream& os)
+template< class Stream > inline
+function_output_iterator< stream_output_fun<Stream> > const
+to_stream(Stream& s)
 {
-    return oven::to_function(stream_output_fun<OStream>(os));
+    return oven::to_function(stream_output_fun<Stream>(s));
 }
-
-
-// See:
-// 'oven::to_counter_base' as for the design rationale.
-//
-
-template< class OStream > inline
-OStream&
-stream_base(function_output_iterator< stream_output_fun<OStream> > const& it)
-{
-    return it.base().base();
-}
-
-
-struct stream_base_class
-{
-    template< class OStream, class FunOutIter >
-    static OStream& call(FunOutIter const& it)
-    {
-        return oven::stream_base<OStream>(it);
-    }
-};
-
-PSTADE_EGG_PIPABLE(to_stream_base, egg::baby_auto<stream_base_class>)
 
 
 } } // namespace pstade::oven
