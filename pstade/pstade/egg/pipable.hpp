@@ -47,37 +47,44 @@ namespace pstade { namespace egg {
 
 
 template< class BabyFunction >
-struct pipe :
+struct pipe : BabyFunction, // must be a base, for ADL.
     private as_pipe< pipe<BabyFunction> >,
     private nonassignable
 {
-
-    // structors
-    //
-    BabyFunction m_baby;
-
-    explicit pipe()
-    { }
-
-    explicit pipe(BabyFunction const& baby) :
-        m_baby(baby)
-    { }
+    typedef BabyFunction baby_type;
 
 
     // 0ary
     //
+
+    explicit pipe()
+    { }
+
+
     detail::pipe0<BabyFunction
     > const
     operator()(
     ) const
     {
         return detail::pipe0<BabyFunction
-        >(m_baby);
+        >(*this);
     }
 
 
     // 1ary
     //
+
+    template< class A0 >
+    explicit pipe(A0& a0) :
+        BabyFunction(a0)
+    { }
+
+    template< class A0 >
+    explicit pipe(A0 const& a0) :
+        BabyFunction(a0)
+    { }
+
+
     template< class A0 >
     detail::pipe1<BabyFunction,
         A0
@@ -88,7 +95,7 @@ struct pipe :
     {
         return detail::pipe1<BabyFunction,
             A0
-        >(m_baby, a0);
+        >(*this, a0);
     }
 
     template< class A0 >
@@ -101,13 +108,22 @@ struct pipe :
     {
         return detail::pipe1<BabyFunction,
             typename boost::add_const<A0>::type
-        >(m_baby, a0);
+        >(*this, a0);
     }
 
 
     // 2ary -
     //
-    #define PSTADE_EGG_call_operator(R, BitSeq) \
+    #define PSTADE_EGG_member(R, BitSeq) \
+        \
+        template< BOOST_PP_ENUM_PARAMS(n, class A) > \
+        explicit pipe( \
+            BOOST_PP_SEQ_FOR_EACH_I_R(R, PSTADE_EGG_param, ~, BitSeq) \
+        ) : \
+            BabyFunction(BOOST_PP_ENUM_PARAMS(n, a)) \
+        { } \
+        \
+        \
         template< BOOST_PP_ENUM_PARAMS(n, class A) > \
         detail::BOOST_PP_CAT(pipe, n)<BabyFunction, \
             BOOST_PP_SEQ_FOR_EACH_I_R(R, PSTADE_EGG_arg_type, ~, BitSeq) \
@@ -118,7 +134,7 @@ struct pipe :
         { \
             return detail::BOOST_PP_CAT(pipe, n)<BabyFunction, \
                 BOOST_PP_SEQ_FOR_EACH_I_R(R, PSTADE_EGG_arg_type, ~, BitSeq) \
-            >( m_baby, BOOST_PP_ENUM_PARAMS(n, a) ); \
+            >( *this, BOOST_PP_ENUM_PARAMS(n, a) ); \
         } \
     /**/
 
@@ -158,7 +174,7 @@ struct pipe :
     #undef PSTADE_EGG_c0
     #undef PSTADE_EGG_param
     #undef PSTADE_EGG_arg_type
-    #undef PSTADE_EGG_call_operator
+    #undef PSTADE_EGG_member
 
 
 }; // struct pipe
@@ -173,7 +189,7 @@ typename baby_result1<BabyFunction,
 operator|(Input& in, pipe<BabyFunction> const& pi)
 {
     pstade::unused(pi);
-    return egg::baby_call(pi.m_baby, in);
+    return egg::baby_call<BabyFunction>(pi, in);
 }
 
 template< class Input, class BabyFunction > inline
@@ -183,7 +199,7 @@ typename baby_result1<BabyFunction,
 operator|(Input const& in, pipe<BabyFunction> const& pi)
 {
     pstade::unused(pi);
-    return egg::baby_call(pi.m_baby, in);
+    return egg::baby_call<BabyFunction>(pi, in);
 }
 
 
@@ -204,7 +220,7 @@ operator|(Input const& in, pipe<BabyFunction> const& pi)
 
 
 BOOST_PP_SEQ_FOR_EACH_PRODUCT(
-    PSTADE_EGG_call_operator,
+    PSTADE_EGG_member,
     BOOST_PP_REPEAT(n, PSTADE_EGG_bits, ~)
 )
 

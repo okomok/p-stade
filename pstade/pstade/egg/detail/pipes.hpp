@@ -36,14 +36,14 @@ namespace pstade { namespace egg { namespace detail {
     // 0ary
     //
     template< class BabyFunction >
-    struct pipe0 :
+    struct pipe0 : BabyFunction,
         private as_pipe< pipe0<BabyFunction> >,
         private nonassignable
     {
-        BabyFunction m_baby;
+        typedef BabyFunction baby_type;
 
         explicit pipe0(BabyFunction const& baby) :
-            m_baby(baby)
+            BabyFunction(baby)
         { } 
     };
 
@@ -54,7 +54,7 @@ namespace pstade { namespace egg { namespace detail {
     operator|(Input& in, pipe0<BabyFunction> const& pi)
     {
         pstade::unused(pi);
-        return egg::baby_call(pi.m_baby, in);
+        return egg::baby_call<BabyFunction>(pi, in);
     }
 
     template< class Input, class BabyFunction > inline
@@ -64,21 +64,21 @@ namespace pstade { namespace egg { namespace detail {
     operator|(Input const& in, pipe0<BabyFunction> const& pi)
     {
         pstade::unused(pi);
-        return egg::baby_call(pi.m_baby, in);
+        return egg::baby_call<BabyFunction>(pi, in);
     }
 
 
     // 1ary
     //
     template< class BabyFunction, class A0 >
-    struct pipe1 :
+    struct pipe1 : BabyFunction,
         private as_pipe< pipe1<BabyFunction, A0> >,
         private nonassignable
     {
-        BabyFunction m_baby;
+        typedef BabyFunction baby_type;
 
         explicit pipe1(BabyFunction const& baby, A0& a0) :
-            m_baby(baby),
+            BabyFunction(baby),
             m_a0(a0)
         { }
 
@@ -92,7 +92,7 @@ namespace pstade { namespace egg { namespace detail {
     >::type
     operator|(Input& in, pipe1<BabyFunction, A0> const& pi)
     {
-        return egg::baby_call(pi.m_baby, in, pi.m_a0);
+        return egg::baby_call<BabyFunction>(pi, in, pi.m_a0);
     }
 
     template< class Input, class BabyFunction, class A0 > inline
@@ -102,7 +102,7 @@ namespace pstade { namespace egg { namespace detail {
     >::type
     operator|(Input const& in, pipe1<BabyFunction, A0> const& pi)
     {
-        return egg::baby_call(pi.m_baby, in, pi.m_a0);
+        return egg::baby_call<BabyFunction>(pi, in, pi.m_a0);
     }
 
 
@@ -131,14 +131,12 @@ namespace pstade { namespace egg { namespace detail {
 
 
 template< class BabyFunction, BOOST_PP_ENUM_PARAMS(n, class A) >
-struct BOOST_PP_CAT(pipe, n) :
+struct BOOST_PP_CAT(pipe, n) : BabyFunction,
     private as_pipe< BOOST_PP_CAT(pipe, n)<BabyFunction, BOOST_PP_ENUM_PARAMS(n, A)> >,
     private nonassignable
 {
-    BabyFunction m_baby;
-
     explicit BOOST_PP_CAT(pipe, n)( BabyFunction const& baby, BOOST_PP_ENUM(n, PSTADE_EGG_ctor_arg, ~) ) :
-        m_baby(baby),
+        BabyFunction(baby),
         BOOST_PP_ENUM(n, PSTADE_EGG_ctor_init, ~)
     { }
 
@@ -152,7 +150,7 @@ typename BOOST_PP_CAT(baby_result, BOOST_PP_INC(n))<BabyFunction,
 >::type
 operator|(Input& in, BOOST_PP_CAT(pipe, n)< BabyFunction, BOOST_PP_ENUM_PARAMS(n, A) > const& pi)
 {
-    return egg::baby_call( pi.m_baby,  in, BOOST_PP_ENUM(n, PSTADE_EGG_call_arg, ~) );
+    return egg::baby_call<BabyFunction>( pi, in, BOOST_PP_ENUM(n, PSTADE_EGG_call_arg, ~) );
 }
 
 template< class Input, class BabyFunction, BOOST_PP_ENUM_PARAMS(n, class A) > inline
@@ -162,7 +160,7 @@ typename BOOST_PP_CAT(baby_result, BOOST_PP_INC(n))<BabyFunction,
 >::type
 operator|(Input const& in, BOOST_PP_CAT(pipe, n)< BabyFunction, BOOST_PP_ENUM_PARAMS(n, A) > const& pi)
 {
-    return egg::baby_call( pi.m_baby, in, BOOST_PP_ENUM(n, PSTADE_EGG_call_arg, ~) );
+    return egg::baby_call<BabyFunction>( pi, in, BOOST_PP_ENUM(n, PSTADE_EGG_call_arg, ~) );
 }
 
 

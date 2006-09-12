@@ -10,8 +10,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/function.hpp>
+#include <pstade/egg/baby_auto.hpp>
 #include <pstade/egg/pipable.hpp>
+#include <pstade/instance.hpp>
 #include "./function_output_iterator.hpp"
 
 
@@ -52,24 +53,35 @@ to_counter(Incrementable const& i)
 }
 
 
-struct baby_counter_base
+template< class Incrementable > inline
+Incrementable const
+counter_base(function_output_iterator< increment_fun<Incrementable> > const& it)
 {
-    template< class Unused, class FunOutIter >
-    struct result
-    {
-        typedef typename FunOutIter::function_type::incrementable_type const type;
-    };
+    return it.function().incrementable();
+}
 
-    template< class Result, class FunOutIter >
-    Result call(FunOutIter const& it)
+
+// Note:
+//
+// Assume 'FunOutIter' is not the iterator but
+// a 'egg::baby_auto' object which is returned by 'oven::to_base'.
+// In such case, 'Incrementable' of
+// 'operator|(function_output_iterator< increment_fun<Incrementable> >, to_counter_base)'
+// is not deducable.
+// That's why we must use 'egg::baby_auto' again.
+//
+
+struct counter_base_class
+{
+    template< class Incrementable, class FunOutIter >
+    static Incrementable call(FunOutIter const& it)
     {
-        return it.function().incrementable();
+        return oven::counter_base<Incrementable>(it);
     }
 };
 
 
-PSTADE_EGG_FUNCTION(counter_base, baby_counter_base)
-PSTADE_EGG_PIPABLE(to_counter_base, baby_counter_base)
+PSTADE_EGG_PIPABLE(to_counter_base, egg::baby_auto<counter_base_class>)
 
 
 } } // namespace pstade::oven

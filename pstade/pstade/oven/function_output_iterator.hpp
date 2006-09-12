@@ -40,7 +40,7 @@ struct function_output_iterator
         m_fun(fun)
     { }
 
-    UnaryFun function() const
+    UnaryFun const& function() const
     {
         return m_fun;
     }

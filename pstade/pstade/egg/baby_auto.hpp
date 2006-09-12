@@ -20,6 +20,8 @@
 
 namespace pstade { namespace egg {
 
+PSTADE_ADL_BARRIER(baby_auto) {
+
 
 template< class CastFunClass >
 struct baby_auto
@@ -55,6 +57,8 @@ struct baby_auto
     }
 };
 
+
+} // ADL barrier
 
 } } // namespace pstade::egg
 
