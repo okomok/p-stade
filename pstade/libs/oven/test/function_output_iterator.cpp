@@ -41,8 +41,7 @@ void modify(char& ch)
 
 
 template< class Incrementable >
-struct increment :
-    pstade::nonassignable
+struct increment
 {
     typedef void result_type;
 

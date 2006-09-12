@@ -14,6 +14,7 @@
 #include <boost/iterator/counting_iterator.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/range/iterator_range.hpp>
+#include <pstade/if_debug.hpp>
 #include <pstade/instance.hpp>
 #include <pstade/unused.hpp>
 #include "./as_lightweight_proxy.hpp"
@@ -26,14 +27,14 @@ namespace counting_range_detail {
 
 
     template< class Incrementable > inline
-    void check_range(Incrementable i, Incrementable j, boost::single_pass_traversal_tag)
+    void check_range(Incrementable const& i, Incrementable const& j, boost::single_pass_traversal_tag)
     {
         pstade::unused(i, j);
     }
 
 
     template< class Incrementable > inline
-    void check_range(Incrementable i, Incrementable j, boost::random_access_traversal_tag)
+    void check_range(Incrementable const& i, Incrementable const& j, boost::random_access_traversal_tag)
     {
         BOOST_ASSERT(i <= j);
         pstade::unused(i, j);
@@ -66,18 +67,18 @@ private:
     typedef typename super_t::iterator iter_t;
 
 public:
-    counting_range(Incrementable i, Incrementable j) :
+    counting_range(Incrementable const& i, Incrementable const& j) :
         super_t(iter_t(i), iter_t(j))
     {
         typedef typename boost::iterator_traversal<iter_t>::type trv_t;
-        counting_range_detail::check_range(i, j, trv_t());
+        PSTADE_IF_DEBUG( counting_range_detail::check_range(i, j, trv_t()); )
     }
 };
 
 
 template< class Incrementable > inline
 counting_range<Incrementable> const
-make_counting_range(Incrementable i, Incrementable j)
+make_counting_range(Incrementable const& i, Incrementable const& j)
 {
     return counting_range<Incrementable>(i, j);
 }
@@ -93,7 +94,7 @@ make_counting_range(Incrementable i, Incrementable j)
 
 template< class Incrementable > inline
 counting_range<Incrementable> const
-from_0_to(Incrementable c)
+from_0_to(Incrementable const& c)
 {
     return counting_range<Incrementable>(0, c);
 }
@@ -101,7 +102,7 @@ from_0_to(Incrementable c)
 
 template< class Incrementable > inline
 counting_range<Incrementable> const
-from_1_to(Incrementable c)
+from_1_to(Incrementable const& c)
 {
     return counting_range<Incrementable>(1, c);
 }

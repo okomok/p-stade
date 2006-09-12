@@ -26,6 +26,7 @@
 #include "./tab_unexpand_iterator.hpp"
 
 #include "./function_output_iterator.hpp"
+#include "./to_counter.hpp"
 #include "./to_inserter.hpp"
 #include "./to_stream.hpp"
 #include "./to_utf8_encoder.hpp"

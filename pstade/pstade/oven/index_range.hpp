@@ -43,7 +43,7 @@ private:
     typedef typename index_range_detail::super_<Incrementable, UnaryFun>::type super_t;
 
 public:
-    index_range(Incrementable i, Incrementable j, UnaryFun const& fun) :
+    index_range(Incrementable const& i, Incrementable const& j, UnaryFun const& fun) :
         super_t(counting_range<Incrementable>(i, j), fun)
     { }
 };
@@ -51,7 +51,7 @@ public:
 
 template< class Incrementable, class UnaryFun > inline
 index_range<Incrementable, UnaryFun> const
-make_index_range(Incrementable i, Incrementable j, UnaryFun fun)
+make_index_range(Incrementable const& i, Incrementable const& j, UnaryFun fun)
 {
     return index_range<Incrementable, UnaryFun>(i, j, fun);
 }
