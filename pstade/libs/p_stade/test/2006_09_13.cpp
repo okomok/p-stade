@@ -9,7 +9,6 @@ void foo(F&)
 {
     BOOST_MPL_ASSERT_NOT((boost::is_pointer<F>));
     BOOST_MPL_ASSERT((boost::is_function<F>));
-    std::cout << "non-const";
 }
 
 template< class F >
@@ -17,13 +16,12 @@ void foo(F const&)
 {
     BOOST_MPL_ASSERT_NOT((boost::is_pointer<F>));
     BOOST_MPL_ASSERT((boost::is_function<F>));
-    std::cout << "const";
 }
 
 void bar() { }
 
 int main()
 {
-     //foo(bar);
-     foo(&bar); //error
+    foo(bar);  // ok
+    // foo(&bar); // error
 }

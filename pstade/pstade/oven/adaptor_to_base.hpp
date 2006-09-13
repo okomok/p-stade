@@ -10,12 +10,18 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// See: 'iterator_cast' of Boost.RangeEx
+// Port of: 'iterator_cast' of Boost.RangeEx
 //
 // Copyright 2004 Eric Niebler.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
+
+
+// Question:
+//
+// 'is_convertible' is too permissive?
+// Meanwhile, 'iterator_cast' uses 'is_same'.
 
 
 #include <boost/type_traits/is_convertible.hpp>

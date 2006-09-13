@@ -16,7 +16,9 @@
 // 'regularize_iterator' for Boost.Lambda functors
 // requires this iterator be *adaptable*.
 // That is, the nested typedef's may not be 'void'.
-// Note that this iterator cannot be implemented by using
+// Also, 'boost::function_output_iterator' doesn't provide a way
+// to access its functor.
+// Note that OutputIterator cannot always be implemented by using
 // 'iterator_facade', because of the postfix-increment implementation.
 
 
