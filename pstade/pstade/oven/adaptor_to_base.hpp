@@ -85,7 +85,7 @@ Base>::type adaptor_to(Adaptor const& ad)
 struct adaptor_to_class
 {
     template< class Base, class Adaptor >
-    static Base call(Adaptor const& ad)
+    static Base call(Adaptor& ad)
     {
         return oven::adaptor_to<Base>(ad);
     }

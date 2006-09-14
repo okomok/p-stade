@@ -10,11 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Question:
-//
-// 'mpl::identity<To>' is better?
-
-
 #include <pstade/nonassignable.hpp>
 
 

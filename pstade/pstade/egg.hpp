@@ -12,8 +12,8 @@
 
 #include "./egg/baby_auto.hpp"
 #include "./egg/baby_call.hpp"
+#include "./egg/baby_of.hpp"
 #include "./egg/baby_result.hpp"
-#include "./egg/baby_type.hpp"
 #include "./egg/by_value.hpp"
 #include "./egg/function.hpp"
 #include "./egg/is_pipe.hpp"

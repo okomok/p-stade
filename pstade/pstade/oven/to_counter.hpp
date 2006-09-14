@@ -10,49 +10,69 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/egg/by_value.hpp>
+#include <pstade/egg/function.hpp>
 #include "./function_output_iterator.hpp"
 
 
 namespace pstade { namespace oven {
 
 
-template< class Incrementable >
-struct increment_fun
-{
-    typedef void result_type;
+namespace to_counter_detail {
 
-    explicit increment_fun(Incrementable const& i) :
-        m_i(i)
-    { }
 
-    template< class Value >
-    void operator()(Value const&)
+    template< class Incrementable >
+    struct increment_fun
     {
-        ++m_i;
-    }
+        typedef void result_type;
 
-    Incrementable const& incrementable() const
+        explicit increment_fun(Incrementable const& i) :
+            m_i(i)
+        { }
+
+        template< class Value >
+        void operator()(Value const&)
+        {
+            ++m_i;
+        }
+
+        Incrementable const& incrementable() const
+        {
+            return m_i;
+        }
+
+    // as "adaptor", 'oven::adaptor_to' kicks in!
+        Incrementable const& base() const
+        {
+            return m_i;
+        }
+
+    private:
+        Incrementable m_i;
+    };
+
+
+    struct baby
     {
-        return m_i;
-    }
+        template< class Unused, class Incrementable >
+        struct result
+        {
+            typedef typename egg::by_value<Incrementable>::type inc_t;
+            typedef function_output_iterator< increment_fun<inc_t> > const type;
+        };
 
-// as "adaptor", 'oven::adaptor_to' kicks in!
-    Incrementable const& base() const
-    {
-        return m_i;
-    }
-
-private:
-    Incrementable m_i;
-};
+        template< class Result, class Incrementable >
+        Result call(Incrementable const& i)
+        {
+            return Result(increment_fun<Incrementable>(i));
+        }
+    };
 
 
-template< class Incrementable > inline
-function_output_iterator< increment_fun<Incrementable> > const
-to_counter(Incrementable const& i)
-{
-    return oven::to_function(increment_fun<Incrementable>(i));
-}
+} // namespace to_counter_detail
+
+
+PSTADE_EGG_FUNCTION(to_counter, to_counter_detail::baby)
 
 
 } } // namespace pstade::oven
