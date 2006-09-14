@@ -41,7 +41,7 @@ namespace pstade { namespace egg {
 template< class BabyFunction >
 struct function : BabyFunction
 {
-    typedef BabyFunction baby_type;
+    typedef BabyFunction pstade_egg_baby_type;
 
 
     // 0ary

@@ -47,11 +47,11 @@ namespace pstade { namespace egg {
 
 
 template< class BabyFunction >
-struct pipe : BabyFunction, // must be a base, for ADL.
+struct pipe : BabyFunction,
     private as_pipe< pipe<BabyFunction> >,
     private nonassignable
 {
-    typedef BabyFunction baby_type;
+    typedef BabyFunction pstade_egg_baby_type;
 
 
     // 0ary

@@ -10,8 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/baby_auto.hpp>
-#include <pstade/egg/pipable.hpp>
 #include "./function_output_iterator.hpp"
 
 

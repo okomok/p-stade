@@ -40,6 +40,14 @@ struct baby_auto
             return CastFunClass::template call<To>(m_from);
         }
 
+#if 0 // too subtle! I don't know what should happen. GCC doesn't work anyway.
+        template< class To >
+        operator To& () const
+        {
+            return CastFunClass::template call<To&>(m_from);
+        }
+#endif
+
     private:
         From& m_from;
     };

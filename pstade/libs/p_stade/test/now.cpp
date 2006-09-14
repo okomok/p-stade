@@ -1,3 +1,14 @@
+#if 1
+
+//#include <pstade/../libs/oven/test/adaptor_to_base.cpp>
+//#include <pstade/../libs/oven/test/to_stream.cpp>
+#include <pstade/../libs/biscuit/test/capture.cpp>
+
+#else
+
+
+
+
 #include <iostream>
 #include <boost/type_traits/is_pointer.hpp>
 #include <boost/type_traits/is_function.hpp>
@@ -27,3 +38,6 @@ int main()
      //foo(bar);
      foo(&bar); //error
 }
+
+
+#endif

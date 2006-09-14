@@ -13,8 +13,6 @@
 #include <iosfwd> // basic_ostream/streambuf
 #include <iterator>
 #include <boost/utility/addressof.hpp>
-#include <pstade/egg/baby_auto.hpp>
-#include <pstade/egg/pipable.hpp>
 #include "./function_output_iterator.hpp"
 
 
@@ -88,9 +86,9 @@ struct stream_output_fun
     }
 
 // as "adaptor", 'oven::adaptor_to' kicks in!
-    Stream *base() const // it prefers pointer to reference.
+    Stream& base() const
     {
-        return m_ps;
+        return *m_ps;
     }
 
 private:

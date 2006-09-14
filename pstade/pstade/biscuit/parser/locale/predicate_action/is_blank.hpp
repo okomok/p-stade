@@ -15,7 +15,7 @@
 
 #include <locale>
 #include <boost/foreach.hpp>
-#include <boost/range/reference.hpp>
+#include <pstade/oven/range_reference.hpp>
 #include <pstade/unused.hpp>
 
 
@@ -28,7 +28,7 @@ struct is_blank
     bool operator()(ParsingSubRange& rng, UserState& us) const
     {
         std::locale loc;
-        typedef typename boost::range_reference<ParsingSubRange>::type ref_t;
+        typedef typename oven::range_reference<ParsingSubRange>::type ref_t;
         BOOST_FOREACH (ref_t v, rng) {
             if (!(std::isspace(v, loc) || v == '\t'))
                 return false;
