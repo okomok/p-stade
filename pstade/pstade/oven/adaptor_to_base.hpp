@@ -33,7 +33,6 @@
 
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/not.hpp>
-#include <boost/mpl/or.hpp>
 #include <boost/type_traits/is_const.hpp>
 #include <boost/type_traits/is_convertible.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -46,10 +45,10 @@ namespace pstade { namespace oven {
 
 // Note:
 // <pstade/const_overloaded.hpp> shows the reason
-// why 'is_const' check is required.
+// why 'is_const' check is necessary.
 // Also note that the 'const_overloaded' couldn't
 // be used here, because 'const_overloaded' itself
-// uses 'enable_if/disable_if'?
+// uses 'disable_if'.
 //
 
 template< class Base, class Adaptor > inline
@@ -58,30 +57,21 @@ typename boost::enable_if<
         boost::is_convertible<Adaptor&, Base>,
         boost::mpl::not_< boost::is_const<Adaptor> >
     >,
-    Base
->::type
-adaptor_to(Adaptor& ad)
+Base>::type adaptor_to(Adaptor& ad)
 {
     return ad;
 }
 
-    template< class Base, class Adaptor > inline
-    typename boost::enable_if<
-        boost::is_convertible<Adaptor const&, Base>,
-        Base
-    >::type
-    adaptor_to(Adaptor const& ad)
-    {
-        return ad;
-    }
-
+template< class Base, class Adaptor > inline
+typename boost::enable_if<boost::is_convertible<Adaptor const&, Base>,
+Base>::type adaptor_to(Adaptor const& ad)
+{
+    return ad;
+}
 
 template< class Base, class Adaptor > inline
-typename boost::disable_if<
-    boost::is_convertible<Adaptor const&, Base>,
-    Base
->::type
-adaptor_to(Adaptor const& ad)
+typename boost::disable_if<boost::is_convertible<Adaptor const&, Base>,
+Base>::type adaptor_to(Adaptor const& ad)
 {
     return oven::adaptor_to<Base>(ad.base());
 }
