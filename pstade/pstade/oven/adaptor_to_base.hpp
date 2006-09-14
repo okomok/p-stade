@@ -44,18 +44,6 @@
 namespace pstade { namespace oven {
 
 
-namespace adaptor_to_detail {
-
-
-    template< class Base, class Adaptor >
-    Base base_of(Adaptor const& ad)
-    {
-        
-    }
-
-
-} // namespace adaptor_to_detail
-
 // Note:
 // <pstade/const_overloaded.hpp> shows the reason
 // why 'is_const' check is required.
@@ -88,38 +76,15 @@ adaptor_to(Adaptor& ad)
     }
 
 
-// The forward declaration of 'const' version
-// seems necessary for conforming code.
 template< class Base, class Adaptor > inline
 typename boost::disable_if<
     boost::is_convertible<Adaptor const&, Base>,
     Base
 >::type
-adaptor_to(Adaptor const& ad);
-
-
-template< class Base, class Adaptor > inline
-typename boost::disable_if<
-    boost::mpl::or_<
-        boost::is_convertible<Adaptor&, Base>,
-        boost::is_const<Adaptor>
-    >,
-    Base
->::type
-adaptor_to(Adaptor& ad)
+adaptor_to(Adaptor const& ad)
 {
     return oven::adaptor_to<Base>(ad.base());
 }
-
-    template< class Base, class Adaptor > inline
-    typename boost::disable_if<
-        boost::is_convertible<Adaptor const&, Base>,
-        Base
-    >::type
-    adaptor_to(Adaptor const& ad)
-    {
-        return oven::adaptor_to<Base>(ad.base());
-    }
 
 
 // Note:
