@@ -10,8 +10,8 @@ rule biscuit-test ( name )
     return [
         run $(name).cpp
         : : :
-        <include>$(BOOST_ROOT)
         <include>$(PSTADE_ROOT)
+        <include>$(BOOST_ROOT)
         <include>$(MINGW_INCLUDE_DIRECTORY)
     ] ;
 }

@@ -24,7 +24,7 @@
 // Meanwhile, 'iterator_cast' uses 'is_same'.
 //
 // Can this function be used for more generic usage?
-// If ad can, give ad a better name?
+// If it can, give it a better name?
 //
 // This implementation is slightly complicated than
 // 'iterator_cast' in order to support a reference

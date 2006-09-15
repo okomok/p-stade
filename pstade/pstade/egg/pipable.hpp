@@ -38,7 +38,7 @@
 #include <pstade/unparenthesize.hpp>
 #include "./baby_call.hpp"
 #include "./baby_result.hpp"
-#include "./detail/config.hpp" // PSTADE_EGG_PIPABLE_MAX_ARITY
+#include "./detail/config.hpp"
 #include "./detail/pipes.hpp"
 #include "./is_pipe.hpp" // as_pipe
 
@@ -52,6 +52,9 @@ struct pipe : BabyFunction,
     private nonassignable
 {
     typedef BabyFunction pstade_egg_baby_type;
+
+
+    PSTADE_EGG_IMPLICITLY_GENERATED_MEMBERS(pipe, BabyFunction)
 
 
     // 0ary

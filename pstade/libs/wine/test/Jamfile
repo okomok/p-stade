@@ -10,8 +10,8 @@ rule wine-test ( name )
     return [
         run $(name).cpp
         : : :
-        <include>$(BOOST_ROOT)
         <include>$(PSTADE_ROOT)
+        <include>$(BOOST_ROOT)
     ] ;
 }
 

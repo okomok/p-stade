@@ -10,8 +10,8 @@ rule oven-test ( name )
     return [
         run $(name).cpp
         : : :
-        <include>$(BOOST_ROOT)
         <include>$(PSTADE_ROOT)
+        <include>$(BOOST_ROOT)
     ] ;
 }
 
@@ -20,8 +20,8 @@ rule oven-compile ( name )
     return [
         compile $(name).cpp
         :
-        <include>$(BOOST_ROOT)
         <include>$(PSTADE_ROOT)
+        <include>$(BOOST_ROOT)
     ] ;
 }
 

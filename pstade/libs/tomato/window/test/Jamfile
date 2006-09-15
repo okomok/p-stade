@@ -14,8 +14,8 @@ rule tomato-window-test ( name )
     return [
         run $(name).cpp
         : : :
-        <include>$(BOOST_ROOT)
         <include>$(PSTADE_ROOT)
+        <include>$(BOOST_ROOT)
     ] ;
 }
 
@@ -25,8 +25,8 @@ rule tomato-window-test-fail ( name )
     return [
         run-fail $(name).cpp
         : : :
-        <include>$(BOOST_ROOT)
         <include>$(PSTADE_ROOT)
+        <include>$(BOOST_ROOT)
     ] ;
 }
 

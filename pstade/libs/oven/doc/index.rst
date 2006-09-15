@@ -819,8 +819,8 @@ given as the first argument, instead of a tupling::
 Output Iterator Adaptors
 ------------------------
 
-to_counter
-^^^^^^^^^^
+``to_counter``
+^^^^^^^^^^^^^^
 ``to_counter`` takes an initial count and increments it every output.
 `adaptor_to`_ or ``to_base`` can extract the result of the counting::
 
@@ -829,11 +829,11 @@ to_counter
 
 - Header: ``<pstade/oven/to_counter.hpp>``
 - Valid expression: ``to_counter(i)``, where ``i`` is an ``Incrementable``.
-- Returns: An ``OuputIterator`` which counts the output.
+- Returns: An ``OutputIterator`` which counts the output.
 
 
-to_stream
-^^^^^^^^^
+``to_stream``
+^^^^^^^^^^^^^
 ``to_stream`` returns an ``OutputItertor`` which is a shorthand version of ``std::ostream_iterator``.
 It needs no an explicit template parameter to specify the ``value_type`` to output,
 but one precondition below must be kept. Generally, the ``reference`` of ``InputIterator`` must be
@@ -842,15 +842,15 @@ the same as ``value_type`` of it.
 
 - Header: ``<pstade/oven/to_stream.hpp>``
 - Valid expression: ``to_stream(os)``.
-- Precondition: The type to output must be an ``OutputStreamable``.
-- Returns: An ``OuputIterator`` which behave as if it were ``std::ostream_iterator``.
+- Precondition: The type to be assigned to dereference of an iterator which ``to_stream`` returns must be an ``OutputStreamable``.
+- Returns: An ``OutputIterator`` which behave as if it were ``std::ostream_iterator``.
 
 
-to_utf8_encoder
-^^^^^^^^^^^^^^^
+``to_utf8_encoder``
+^^^^^^^^^^^^^^^^^^^
 - Header: ``<pstade/oven/to_utf8_encoder.hpp>``
 - Valid expression: ``to_utf8_encoder(oit)``, where ``oit`` is an ``OutputIterator``.
-- Returns: An ``OuputIterator`` which behave as if it were ``boost::utf8_output_iterator``.
+- Returns: An ``OutputIterator`` which behave as if it were ``boost::utf8_output_iterator``.
 
 
 

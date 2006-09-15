@@ -18,6 +18,8 @@
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/config.hpp>
+#include <boost/detail/workaround.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/punctuation/comma_if.hpp>
@@ -30,7 +32,7 @@
 #include <pstade/unparenthesize.hpp>
 #include "./baby_call.hpp"
 #include "./baby_result.hpp"
-#include "./detail/config.hpp" // MAX_ARITY
+#include "./detail/config.hpp"
 #include "./detail/result_ofs.hpp"
 #include "./function_fwd.hpp"
 
@@ -42,6 +44,9 @@ template< class BabyFunction >
 struct function : BabyFunction
 {
     typedef BabyFunction pstade_egg_baby_type;
+
+
+    PSTADE_EGG_IMPLICITLY_GENERATED_MEMBERS(function, BabyFunction)
 
 
     // 0ary

@@ -10,7 +10,7 @@ rule napkin-test ( name : includes * )
     return [
         run $(name).cpp
         : : :
-        <include>$(PSTADE_ROOT)        
+        <include>$(PSTADE_ROOT)
         <include>$(BOOST_ROOT)
 
     ] ;

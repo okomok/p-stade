@@ -25,4 +25,34 @@
 /**/
 
 
+// Workaround:
+// This is maybe a bug of VC++.
+// The condition to occur is unknown, though.
+// If 'Base' has a templated constructor,
+// sometimes a 'Derived' object is passed to it.
+// So Make 'Derived' be 'Base' type by 'static_cast'.
+//
+
+#if !defined(BOOST_MSVC)
+
+    #define PSTADE_EGG_IMPLICITLY_GENERATED_MEMBERS(Derived, Base) \
+    /**/
+
+#else
+
+    #define PSTADE_EGG_IMPLICITLY_GENERATED_MEMBERS(Derived, Base) \
+        Derived(Derived const& other) : \
+            Base(static_cast<Base const&>(other)) \
+        { } \
+        \
+        Derived& operator=(Derived const& other) /* VC8(debug mode) and VC7.1 need this. */ \
+        { \
+            static_cast<Base&>(*this) = static_cast<Base const&>(other); \
+            return *this; \
+        } \
+    /**/
+
+#endif
+
+
 #endif
