@@ -7,7 +7,7 @@ The Egg Function Library
 :Author: MB
 :Contact: mb2act@yahoo.co.jp 
 :License: Distributed under the `Boost Software License Version 1.0`_
-:Version: 0.90.1
+:Version: 0.90.2
 
 
 
@@ -159,4 +159,9 @@ Version 0.90.0
 Version 0.90.1
 ^^^^^^^^^^^^^^
 - Added ``PSTADE_EGG_PIPABLE``.
+
+Version 0.90.2
+^^^^^^^^^^^^^^
+- Now `Baby Function`_ can have members.
+
 

@@ -49,6 +49,7 @@ Derived& base_to(Base& base)
 
 // Note:
 // 'PSTADE_TO_DERIVED_NEEDS_NAMED_RETURN_VALUE' makes Egg useless.
+// So we must define from scratch...
 //
 
 namespace to_derived_detail {

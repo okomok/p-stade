@@ -27,7 +27,7 @@
 <tr class="field"><th class="docinfo-name">License:</th><td class="field-body">Distributed under the <a class="reference" href="http://www.boost.org/LICENSE_1_0.txt">Boost Software License Version 1.0</a></td>
 </tr>
 <tr><th class="docinfo-name">Version:</th>
-<td>0.90.9</td></tr>
+<td>0.91.0</td></tr>
 </tbody>
 </table>
 <blockquote class="epigraph">
@@ -118,15 +118,22 @@
 <li><a class="reference" href="#zipped-with" id="id84" name="id84">6.56&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">zipped_with</span></tt></a></li>
 </ul>
 </li>
-<li><a class="reference" href="#acknowledgments" id="id85" name="id85">7&nbsp;&nbsp;&nbsp;Acknowledgments</a></li>
-<li><a class="reference" href="#release-notes" id="id86" name="id86">8&nbsp;&nbsp;&nbsp;Release Notes</a><ul class="auto-toc">
-<li><a class="reference" href="#version-0-90-0" id="id87" name="id87">8.1&nbsp;&nbsp;&nbsp;Version 0.90.0</a></li>
-<li><a class="reference" href="#version-0-90-1" id="id88" name="id88">8.2&nbsp;&nbsp;&nbsp;Version 0.90.1</a></li>
-<li><a class="reference" href="#version-0-90-2" id="id89" name="id89">8.3&nbsp;&nbsp;&nbsp;Version 0.90.2</a></li>
-<li><a class="reference" href="#version-0-90-3-0-90-6" id="id90" name="id90">8.4&nbsp;&nbsp;&nbsp;Version 0.90.3 - 0.90.6</a></li>
-<li><a class="reference" href="#version-0-90-7" id="id91" name="id91">8.5&nbsp;&nbsp;&nbsp;Version 0.90.7</a></li>
-<li><a class="reference" href="#version-0-90-8" id="id92" name="id92">8.6&nbsp;&nbsp;&nbsp;Version 0.90.8</a></li>
-<li><a class="reference" href="#version-0-90-9" id="id93" name="id93">8.7&nbsp;&nbsp;&nbsp;Version 0.90.9</a></li>
+<li><a class="reference" href="#output-iterator-adaptors" id="id85" name="id85">7&nbsp;&nbsp;&nbsp;Output Iterator Adaptors</a><ul class="auto-toc">
+<li><a class="reference" href="#to-counter" id="id86" name="id86">7.1&nbsp;&nbsp;&nbsp;to_counter</a></li>
+<li><a class="reference" href="#to-stream" id="id87" name="id87">7.2&nbsp;&nbsp;&nbsp;to_stream</a></li>
+<li><a class="reference" href="#to-utf8-encoder" id="id88" name="id88">7.3&nbsp;&nbsp;&nbsp;to_utf8_encoder</a></li>
+</ul>
+</li>
+<li><a class="reference" href="#acknowledgments" id="id89" name="id89">8&nbsp;&nbsp;&nbsp;Acknowledgments</a></li>
+<li><a class="reference" href="#release-notes" id="id90" name="id90">9&nbsp;&nbsp;&nbsp;Release Notes</a><ul class="auto-toc">
+<li><a class="reference" href="#version-0-90-0" id="id91" name="id91">9.1&nbsp;&nbsp;&nbsp;Version 0.90.0</a></li>
+<li><a class="reference" href="#version-0-90-1" id="id92" name="id92">9.2&nbsp;&nbsp;&nbsp;Version 0.90.1</a></li>
+<li><a class="reference" href="#version-0-90-2" id="id93" name="id93">9.3&nbsp;&nbsp;&nbsp;Version 0.90.2</a></li>
+<li><a class="reference" href="#version-0-90-3-0-90-6" id="id94" name="id94">9.4&nbsp;&nbsp;&nbsp;Version 0.90.3 - 0.90.6</a></li>
+<li><a class="reference" href="#version-0-90-7" id="id95" name="id95">9.5&nbsp;&nbsp;&nbsp;Version 0.90.7</a></li>
+<li><a class="reference" href="#version-0-90-8" id="id96" name="id96">9.6&nbsp;&nbsp;&nbsp;Version 0.90.8</a></li>
+<li><a class="reference" href="#version-0-90-9" id="id97" name="id97">9.7&nbsp;&nbsp;&nbsp;Version 0.90.9</a></li>
+<li><a class="reference" href="#version-0-91-0" id="id98" name="id98">9.8&nbsp;&nbsp;&nbsp;Version 0.91.0</a></li>
 </ul>
 </li>
 </ul>
@@ -722,7 +729,7 @@ it needs <a class="reference" href="#regularized">regularized</a> that makes it 
 a function object that takes no arguments. Note that <tt class="docutils literal"><span class="pre">generated</span></tt>
 doesn't modify its adapting range, which is used only as <strong>range</strong>:</p>
 <pre class="cpp_source">
-BOOST_FOREACH (<span class="cpp_keyword">long </span>x, oven::int_range(<span class="cpp_number_literal">0</span>, <span class="cpp_number_literal">100</span>)|generated(&amp;rand)) {
+BOOST_FOREACH (<span class="cpp_keyword">long </span>x, oven::from_0_to(<span class="cpp_number_literal">100</span>)|generated(&amp;rand)) {
     std::cout &lt;&lt; x &lt;&lt; std::endl;
 }</pre>
 
@@ -1179,7 +1186,47 @@ BOOST_CHECK( oven::equals(
 </div>
 </div>
 <div class="section">
-<h1><a class="toc-backref" href="#id85" id="acknowledgments" name="acknowledgments">7&nbsp;&nbsp;&nbsp;Acknowledgments</a></h1>
+<h1><a class="toc-backref" href="#id85" id="output-iterator-adaptors" name="output-iterator-adaptors">7&nbsp;&nbsp;&nbsp;Output Iterator Adaptors</a></h1>
+<div class="section">
+<h2><a class="toc-backref" href="#id86" id="to-counter" name="to-counter">7.1&nbsp;&nbsp;&nbsp;to_counter</a></h2>
+<p><tt class="docutils literal"><span class="pre">to_counter</span></tt> takes an initial count and increments it every output.
+<a class="reference" href="#adaptor-to">adaptor_to</a> or <tt class="docutils literal"><span class="pre">to_base</span></tt> can extract the result of the counting:</p>
+<pre class="cpp_source">
+<span class="cpp_keyword">int </span><span class="cpp_keyword">const </span>rng[] = { <span class="cpp_number_literal">0</span>,<span class="cpp_number_literal">0</span>,<span class="cpp_number_literal">1</span>,<span class="cpp_number_literal">1</span>,<span class="cpp_number_literal">2</span>,<span class="cpp_number_literal">3</span>,<span class="cpp_number_literal">3</span>,<span class="cpp_number_literal">3</span>,<span class="cpp_number_literal">4</span>,<span class="cpp_number_literal">4</span>,<span class="cpp_number_literal">4</span>,<span class="cpp_number_literal">4</span>,<span class="cpp_number_literal">4</span>,<span class="cpp_number_literal">5</span>,<span class="cpp_number_literal">5 </span>};
+<span class="cpp_keyword">int </span>i = oven::unique_copy(rng, oven::to_counter(<span class="cpp_number_literal">0</span>))|to_base;
+BOOST_CHECK( i == <span class="cpp_number_literal">6 </span>);
+BOOST_CHECK( <span class="cpp_number_literal">7 </span>== oven::adaptor_to&lt;<span class="cpp_keyword">int</span>&gt;(oven::unique_copy(rng, oven::to_counter(<span class="cpp_number_literal">1</span>))) );</pre>
+
+<ul class="simple">
+<li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/to_counter.hpp&gt;</span></tt></li>
+<li>Valid expression: <tt class="docutils literal"><span class="pre">to_counter(i)</span></tt>, where <tt class="docutils literal"><span class="pre">i</span></tt> is an <tt class="docutils literal"><span class="pre">Incrementable</span></tt>.</li>
+<li>Returns: An <tt class="docutils literal"><span class="pre">OuputIterator</span></tt> which counts the output.</li>
+</ul>
+</div>
+<div class="section">
+<h2><a class="toc-backref" href="#id87" id="to-stream" name="to-stream">7.2&nbsp;&nbsp;&nbsp;to_stream</a></h2>
+<p><tt class="docutils literal"><span class="pre">to_stream</span></tt> returns an <tt class="docutils literal"><span class="pre">OutputItertor</span></tt> which is a shorthand version of <tt class="docutils literal"><span class="pre">std::ostream_iterator</span></tt>.
+It needs no an explicit template parameter to specify the <tt class="docutils literal"><span class="pre">value_type</span></tt> to output,
+but one precondition below must be kept. Generally, the <tt class="docutils literal"><span class="pre">reference</span></tt> of <tt class="docutils literal"><span class="pre">InputIterator</span></tt> must be
+the same as <tt class="docutils literal"><span class="pre">value_type</span></tt> of it.</p>
+<ul class="simple">
+<li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/to_stream.hpp&gt;</span></tt></li>
+<li>Valid expression: <tt class="docutils literal"><span class="pre">to_stream(os)</span></tt>.</li>
+<li>Precondition: The type to output must be an <tt class="docutils literal"><span class="pre">OutputStreamable</span></tt>.</li>
+<li>Returns: An <tt class="docutils literal"><span class="pre">OuputIterator</span></tt> which behave as if it were <tt class="docutils literal"><span class="pre">std::ostream_iterator</span></tt>.</li>
+</ul>
+</div>
+<div class="section">
+<h2><a class="toc-backref" href="#id88" id="to-utf8-encoder" name="to-utf8-encoder">7.3&nbsp;&nbsp;&nbsp;to_utf8_encoder</a></h2>
+<ul class="simple">
+<li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/to_utf8_encoder.hpp&gt;</span></tt></li>
+<li>Valid expression: <tt class="docutils literal"><span class="pre">to_utf8_encoder(oit)</span></tt>, where <tt class="docutils literal"><span class="pre">oit</span></tt> is an <tt class="docutils literal"><span class="pre">OutputIterator</span></tt>.</li>
+<li>Returns: An <tt class="docutils literal"><span class="pre">OuputIterator</span></tt> which behave as if it were <tt class="docutils literal"><span class="pre">boost::utf8_output_iterator</span></tt>.</li>
+</ul>
+</div>
+</div>
+<div class="section">
+<h1><a class="toc-backref" href="#id89" id="acknowledgments" name="acknowledgments">8&nbsp;&nbsp;&nbsp;Acknowledgments</a></h1>
 <ul class="simple">
 <li><a class="reference" href="http://p-stade.sourceforge.net/">P-Stade</a></li>
 <li><a class="reference" href="http://www.boost.org/">Boost C++ Libraries</a></li>
@@ -1189,15 +1236,15 @@ BOOST_CHECK( oven::equals(
 </ul>
 </div>
 <div class="section">
-<h1><a class="toc-backref" href="#id86" id="release-notes" name="release-notes">8&nbsp;&nbsp;&nbsp;Release Notes</a></h1>
+<h1><a class="toc-backref" href="#id90" id="release-notes" name="release-notes">9&nbsp;&nbsp;&nbsp;Release Notes</a></h1>
 <div class="section">
-<h2><a class="toc-backref" href="#id87" id="version-0-90-0" name="version-0-90-0">8.1&nbsp;&nbsp;&nbsp;Version 0.90.0</a></h2>
+<h2><a class="toc-backref" href="#id91" id="version-0-90-0" name="version-0-90-0">9.1&nbsp;&nbsp;&nbsp;Version 0.90.0</a></h2>
 <ul class="simple">
 <li>Released initial version.</li>
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id88" id="version-0-90-1" name="version-0-90-1">8.2&nbsp;&nbsp;&nbsp;Version 0.90.1</a></h2>
+<h2><a class="toc-backref" href="#id92" id="version-0-90-1" name="version-0-90-1">9.2&nbsp;&nbsp;&nbsp;Version 0.90.1</a></h2>
 <ul class="simple">
 <li>Updated this document.</li>
 <li>Implemented <a class="reference" href="#range-algorithms">Range Algorithms</a>.</li>
@@ -1205,7 +1252,7 @@ BOOST_CHECK( oven::equals(
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id89" id="version-0-90-2" name="version-0-90-2">8.3&nbsp;&nbsp;&nbsp;Version 0.90.2</a></h2>
+<h2><a class="toc-backref" href="#id93" id="version-0-90-2" name="version-0-90-2">9.3&nbsp;&nbsp;&nbsp;Version 0.90.2</a></h2>
 <ul class="simple">
 <li>Added some <a class="reference" href="#range-adaptors">Range Adaptors</a>.</li>
 <li>Changed the header of <a class="reference" href="#permuted">permuted</a>.</li>
@@ -1216,7 +1263,7 @@ BOOST_CHECK( oven::equals(
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id90" id="version-0-90-3-0-90-6" name="version-0-90-3-0-90-6">8.4&nbsp;&nbsp;&nbsp;Version 0.90.3 - 0.90.6</a></h2>
+<h2><a class="toc-backref" href="#id94" id="version-0-90-3-0-90-6" name="version-0-90-3-0-90-6">9.4&nbsp;&nbsp;&nbsp;Version 0.90.3 - 0.90.6</a></h2>
 <ul class="simple">
 <li>Changed the header of <a class="reference" href="#range-algorithms">Range Algorithms</a>.</li>
 <li>Added <tt class="docutils literal"><span class="pre">base_iterator</span></tt>.</li>
@@ -1229,21 +1276,21 @@ BOOST_CHECK( oven::equals(
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id91" id="version-0-90-7" name="version-0-90-7">8.5&nbsp;&nbsp;&nbsp;Version 0.90.7</a></h2>
+<h2><a class="toc-backref" href="#id95" id="version-0-90-7" name="version-0-90-7">9.5&nbsp;&nbsp;&nbsp;Version 0.90.7</a></h2>
 <ul class="simple">
 <li>Added <a class="reference" href="#matched">matched</a>, <a class="reference" href="#xpressive-matched">xpressive_matched</a> and <a class="reference" href="#xpressive-tokenized">xpressive_tokenized</a>.</li>
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id92" id="version-0-90-8" name="version-0-90-8">8.6&nbsp;&nbsp;&nbsp;Version 0.90.8</a></h2>
+<h2><a class="toc-backref" href="#id96" id="version-0-90-8" name="version-0-90-8">9.6&nbsp;&nbsp;&nbsp;Version 0.90.8</a></h2>
 <ul class="simple">
 <li>Renamed <tt class="docutils literal"><span class="pre">base_iterator</span></tt> to <tt class="docutils literal"><span class="pre">to_base</span></tt>.</li>
-<li>Renamed <tt class="docutils literal"><span class="pre">copied</span></tt> adaptor to <tt class="docutils literal"><span class="pre">copied_out</span></tt>.</li>
+<li>Renamed <tt class="docutils literal"><span class="pre">copied</span></tt> adaptor to <tt class="docutils literal"><span class="pre">copied_to</span></tt>.</li>
 <li>Added <a class="reference" href="#concatenated">concatenated</a>.</li>
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id93" id="version-0-90-9" name="version-0-90-9">8.7&nbsp;&nbsp;&nbsp;Version 0.90.9</a></h2>
+<h2><a class="toc-backref" href="#id97" id="version-0-90-9" name="version-0-90-9">9.7&nbsp;&nbsp;&nbsp;Version 0.90.9</a></h2>
 <ul class="simple">
 <li>Renamed <tt class="docutils literal"><span class="pre">copied_to</span></tt> to <tt class="docutils literal"><span class="pre">copied_out</span></tt>.</li>
 <li>Fixed a bug of <tt class="docutils literal"><span class="pre">transformed</span></tt> and <tt class="docutils literal"><span class="pre">concatenated</span></tt>.</li>
@@ -1252,12 +1299,18 @@ BOOST_CHECK( oven::equals(
 <li>Changed <a class="reference" href="#utf8-decoded">utf8_decoded</a> valid expression.</li>
 </ul>
 </div>
+<div class="section">
+<h2><a class="toc-backref" href="#id98" id="version-0-91-0" name="version-0-91-0">9.8&nbsp;&nbsp;&nbsp;Version 0.91.0</a></h2>
+<ul class="simple">
+<li>Added <a class="reference" href="#output-iterator-adaptors">Output Iterator Adaptors</a>.</li>
+</ul>
+</div>
 </div>
 </div>
 <div class="footer">
 <hr class="footer" />
 <a class="reference" href="doc/index.rst">View document source</a>.
-Generated on: 2006-09-07 05:26 UTC.
+Generated on: 2006-09-14 22:04 UTC.
 Generated by <a class="reference" href="http://docutils.sourceforge.net/">Docutils</a> from <a class="reference" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a> source.
 
 </div>

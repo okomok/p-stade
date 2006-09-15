@@ -7,7 +7,7 @@ The Oven Range Library
 :Author: MB
 :Contact: mb2act@yahoo.co.jp 
 :License: Distributed under the `Boost Software License Version 1.0`_
-:Version: 0.90.9
+:Version: 0.91.0
 
 
 
@@ -816,6 +816,44 @@ given as the first argument, instead of a tupling::
 
 
 
+Output Iterator Adaptors
+------------------------
+
+to_counter
+^^^^^^^^^^
+``to_counter`` takes an initial count and increments it every output.
+`adaptor_to`_ or ``to_base`` can extract the result of the counting::
+
+	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\to_counter.ipp
+
+
+- Header: ``<pstade/oven/to_counter.hpp>``
+- Valid expression: ``to_counter(i)``, where ``i`` is an ``Incrementable``.
+- Returns: An ``OuputIterator`` which counts the output.
+
+
+to_stream
+^^^^^^^^^
+``to_stream`` returns an ``OutputItertor`` which is a shorthand version of ``std::ostream_iterator``.
+It needs no an explicit template parameter to specify the ``value_type`` to output,
+but one precondition below must be kept. Generally, the ``reference`` of ``InputIterator`` must be
+the same as ``value_type`` of it.
+
+
+- Header: ``<pstade/oven/to_stream.hpp>``
+- Valid expression: ``to_stream(os)``.
+- Precondition: The type to output must be an ``OutputStreamable``.
+- Returns: An ``OuputIterator`` which behave as if it were ``std::ostream_iterator``.
+
+
+to_utf8_encoder
+^^^^^^^^^^^^^^^
+- Header: ``<pstade/oven/to_utf8_encoder.hpp>``
+- Valid expression: ``to_utf8_encoder(oit)``, where ``oit`` is an ``OutputIterator``.
+- Returns: An ``OuputIterator`` which behave as if it were ``boost::utf8_output_iterator``.
+
+
+
 Acknowledgments
 ---------------
 - `P-Stade`_
@@ -868,7 +906,7 @@ Version 0.90.7
 Version 0.90.8
 ^^^^^^^^^^^^^^
 - Renamed ``base_iterator`` to ``to_base``.
-- Renamed ``copied`` adaptor to ``copied_out``.
+- Renamed ``copied`` adaptor to ``copied_to``.
 - Added `concatenated`_.
 
 Version 0.90.9
@@ -878,3 +916,9 @@ Version 0.90.9
 - Added `generated`_.
 - No longer supports function types as ``rfun``.
 - Changed `utf8_decoded`_ valid expression.
+
+
+Version 0.91.0
+^^^^^^^^^^^^^^
+- Added `Output Iterator Adaptors`_.
+

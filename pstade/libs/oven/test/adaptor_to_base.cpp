@@ -17,6 +17,7 @@
 #include <boost/range.hpp>
 #include <boost/lambda/core.hpp>
 #include <boost/lambda/lambda.hpp>
+#include <pstade/is_same.hpp>
 #include <pstade/oven/filter_range.hpp>
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/regularize_range.hpp>
@@ -72,8 +73,97 @@ void test()
 }
 
 
+
+template< class T >
+struct ret_ref
+{
+    explicit ret_ref(T& x) :
+        m_x(x)
+    { }
+
+    T& base() const
+    {
+        return m_x;
+    }
+
+private:
+    T& m_x;
+};
+
+template< class T >
+ret_ref<T> make_ret_ref(T& x)
+{
+    return ret_ref<T>(x);
+}
+
+
+template< class T >
+struct ret_cref
+{
+    explicit ret_cref(T const& x) :
+        m_x(x)
+    { }
+
+    T const& base() const
+    {
+        return m_x;
+    }
+
+private:
+    T const& m_x;
+};
+
+template< class T >
+ret_cref<T> make_ret_cref(T const& x)
+{
+    return ret_cref<T>(x);
+}
+
+
+template< class T >
+struct ret_val
+{
+    explicit ret_val(T const& x) :
+        m_x(x)
+    { }
+
+    T base() const
+    {
+        return m_x;
+    }
+
+private:
+    T m_x;
+};
+
+template< class T >
+ret_val<T> make_ret_val(T const& x)
+{
+    return ret_val<T>(x);
+}
+
+
+void test_general()
+{
+    using namespace pstade;   
+    using namespace oven;
+
+    {
+        int j = 2;
+        int i = oven::adaptor_to<int>( ::make_ret_cref(::make_ret_ref(j)) );
+        int k = ::make_ret_cref(::make_ret_ref(j))|to_base;
+        BOOST_CHECK( i == j && i == 2 && i == k );
+    }
+    { // as is.
+        int j = 2;
+        int& i = oven::adaptor_to<int&>(j);
+        BOOST_CHECK( pstade::is_same(i, j) );
+    }
+}
+
 int test_main(int, char*[])
 {
     ::test();
+    ::test_general();
     return 0;
 }

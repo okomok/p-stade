@@ -15,6 +15,7 @@
 
 #include <string>
 #include <boost/range.hpp>
+#include <boost/utility/result_of.hpp>
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/to_utf8_encoder.hpp>
 #include <pstade/oven/adaptor_to_base.hpp>
@@ -32,6 +33,19 @@ void test()
         int i = oven::unique_copy(rng, oven::to_counter(0))|to_base;
         BOOST_CHECK( i == 6 );
         BOOST_CHECK( 7 == oven::adaptor_to<int>(oven::unique_copy(rng, oven::to_counter(1))) );
+        BOOST_CHECK( 7 == oven::adaptor_to<int>( oven::adaptor_to<int>(oven::unique_copy(rng, oven::to_counter(1))) ) );
+
+#if 0 // result_of seems useless...
+
+        boost::result_of<to_counter_fun(int)>::type k = oven::unique_copy(rng, oven::to_counter(1));
+        BOOST_CHECK( k.function().incrementable() == 7 );
+#endif
+
+#if 0 // Lovely VC++7.1 fails to link, funny!
+        int i = oven::unique_copy(rng, oven::to_counter(0))|to_base|to_base;
+        BOOST_CHECK( i == 6 );
+#endif
+
     }
     {
         std::wstring rng(L"aabbbcccdddeffg");
