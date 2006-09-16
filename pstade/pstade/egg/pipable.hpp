@@ -39,6 +39,7 @@
 #include "./baby_call.hpp"
 #include "./baby_result.hpp"
 #include "./detail/config.hpp"
+#include "./detail/disable_if_same.hpp"
 #include "./detail/pipes.hpp"
 #include "./is_pipe.hpp" // as_pipe
 
@@ -51,8 +52,6 @@ struct pipe : BabyFunction,
     private as_pipe< pipe<BabyFunction> >,
     private nonassignable
 {
-    PSTADE_EGG_NONCOPYABLE_TO_BASE(pipe, BabyFunction)
-
     typedef BabyFunction pstade_egg_baby_type;
 
 
@@ -77,7 +76,7 @@ struct pipe : BabyFunction,
     //
 
     template< class A0 >
-    explicit pipe(A0& a0) :
+    explicit pipe(A0& a0, typename detail::disable_if_same<A0, pipe>::type * = 0) :
         BabyFunction(a0)
     { }
 

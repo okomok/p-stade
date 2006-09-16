@@ -33,6 +33,7 @@
 #include "./baby_call.hpp"
 #include "./baby_result.hpp"
 #include "./detail/config.hpp"
+#include "./detail/disable_if_same.hpp"
 #include "./detail/result_ofs.hpp"
 #include "./function_fwd.hpp"
 
@@ -43,8 +44,6 @@ namespace pstade { namespace egg {
 template< class BabyFunction >
 struct function : BabyFunction
 {
-    PSTADE_EGG_NONCOPYABLE_TO_BASE(function, BabyFunction)
-
     typedef BabyFunction pstade_egg_baby_type;
 
 
@@ -69,7 +68,7 @@ struct function : BabyFunction
     //
 
     template< class A0 >
-    explicit function(A0& a0) :
+    explicit function(A0& a0, typename detail::disable_if_same<A0, function>::type * = 0) :
         BabyFunction(a0)
     { }
 

@@ -46,5 +46,5 @@ test-suite egg :
     [ egg-test doc ]
     [ egg-test function ]
     [ egg-test pipable ]
-    [ egg-test noncopyable_to_base ]
+    [ egg-test disable_if_same ]
     ;
