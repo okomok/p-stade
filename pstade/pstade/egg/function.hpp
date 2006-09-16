@@ -43,10 +43,9 @@ namespace pstade { namespace egg {
 template< class BabyFunction >
 struct function : BabyFunction
 {
+    PSTADE_EGG_NONCOPYABLE_TO_BASE(function, BabyFunction)
+
     typedef BabyFunction pstade_egg_baby_type;
-
-
-    PSTADE_EGG_IMPLICITLY_GENERATED_MEMBERS(function, BabyFunction)
 
 
     // 0ary

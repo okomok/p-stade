@@ -1,6 +1,6 @@
 #if 0
 
-#include <pstade/../libs/oven/test/to_counter.cpp>
+#include <pstade/../libs/egg/test/workaround.cpp>
 //#include <pstade/../libs/oven/test/to_stream.cpp>
 //#include <pstade/../libs/biscuit/test/capture.cpp>
 
@@ -47,14 +47,15 @@ struct Derived : Base
 
 };
 
+
 template< class T_ >
 struct B
 {
     B() { }
-
+/*
     template< class T >
     B(T& x) { x.error; }
-
+*/
     template< class T >
     B(T const& x) { x.error; }
 
@@ -86,16 +87,19 @@ struct D : B<T_>
     D& operator=(T const& x) { B<T_>::operator=(x); return *this; }
 };
 
+
 int main()
 {
-    D<int> const d;
-    D<int> dd(d);
-    dd = d;
+
+    B<int> const b1;
+    B<int> b2(b1);
+
     /*
     std::string rng;
     boost::sub_range<std::string> const sub1(rng);
     boost::sub_range<std::string> sub2(sub1);
-    sub2 = sub1;*/
+    sub2 = sub1;
+    */
 }
 
 

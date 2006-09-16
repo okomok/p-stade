@@ -51,10 +51,9 @@ struct pipe : BabyFunction,
     private as_pipe< pipe<BabyFunction> >,
     private nonassignable
 {
+    PSTADE_EGG_NONCOPYABLE_TO_BASE(pipe, BabyFunction)
+
     typedef BabyFunction pstade_egg_baby_type;
-
-
-    PSTADE_EGG_IMPLICITLY_GENERATED_MEMBERS(pipe, BabyFunction)
 
 
     // 0ary
