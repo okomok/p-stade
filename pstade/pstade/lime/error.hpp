@@ -24,7 +24,7 @@ private:
     typedef std::runtime_error super_t;
 
 public:
-    explicit error(std::string what) :
+    explicit error(std::string const& what) :
         super_t(what)
     { }
 };

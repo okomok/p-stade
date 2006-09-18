@@ -10,12 +10,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <iterator> // back_inserter
 #include <string>
 #include <pstade/oven/algorithm.hpp> // copy
 #include <pstade/oven/file_range.hpp>
+#include <pstade/oven/to_sequence.hpp> // to_back_of
 #include <pstade/oven/utf8_decode_range.hpp>
-#include <pstade/ustring.hpp>
+#include <pstade/ustring.hpp> // utf8cp_t
 #include "./load.hpp"
 
 
@@ -23,16 +23,11 @@ namespace pstade { namespace lime {
 
 
 template< class Node >
-void load_file(Node& root, std::string fileName)
+void load_file(Node& root, std::string const& fileName)
 {
-    // cache for speed
-    ustring tmp; {
+    ustring tmp; { // cache for speed
         oven::file_range<utf8cp_t> frng(fileName);
-        oven::copy(
-            frng |
-                oven::utf8_decoded,
-            std::back_inserter(tmp)
-        );
+        oven::copy(frng|oven::utf8_decoded, oven::to_back_of(tmp));
     }
 
     lime::load(root, tmp);

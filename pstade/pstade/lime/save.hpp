@@ -14,22 +14,22 @@
 #include <pstade/oven/algorithm.hpp> // copy
 #include <pstade/oven/equals.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
+#include <pstade/oven/range_reference.hpp>
 #include <pstade/overload.hpp>
 #include <pstade/unparenthesize.hpp>
 #include <pstade/ustring.hpp>
 #include "./intrinsic.hpp"
-#include "./node_value.hpp"
 
 
 namespace pstade { namespace lime {
 
 
 template< class Node, class OutIter >
-void save(Node& node, OutIter out);
+void save(Node& node, OutIter const& out);
 
 
 template< class AssocContainer, class OutIter >
-void save_attributes(AssocContainer attributes, OutIter out)
+void save_attributes(AssocContainer const& attributes, OutIter const& out)
 {
     using oven::null_terminated;
 
@@ -47,10 +47,10 @@ void save_attributes(AssocContainer attributes, OutIter out)
 }
 
 template< class Node, class OutIter >
-void save_default(Node& node, OutIter out)
+void save_default(Node& node, OutIter const& out)
 {
     using oven::null_terminated;
-    typedef typename node_value<Node>::type child_t;
+    typedef typename oven::range_reference<Node>::type child_t;
 
     if (oven::equals(node.name(), i_CharData) ||
         oven::equals(node.name(), i_Reference))
@@ -68,7 +68,7 @@ void save_default(Node& node, OutIter out)
         oven::copy(">"|null_terminated, out);
     }
 
-    BOOST_FOREACH (child_t& child, node) {
+    BOOST_FOREACH (child_t child, node) {
         lime::save(child, out);
     }
 
@@ -83,7 +83,7 @@ namespace save_detail {
 
 
     template< class Node, class OutIter > inline
-    void pstade_lime_save_node(Node& node, OutIter out)
+    void pstade_lime_save_node(Node& node, OutIter const& out)
     {
          return pstade_lime_save_node(node, out, overload<>());
     }
@@ -93,7 +93,7 @@ namespace save_detail {
 
 
 template< class Node, class OutIter > inline
-void save(Node& node, OutIter out)
+void save(Node& node, OutIter const& out)
 {
     using namespace save_detail;
     return pstade_lime_save_node(node, out); 
@@ -103,7 +103,7 @@ void save(Node& node, OutIter out)
 // default
 //
 template< class Node, class OutIter > inline
-void pstade_lime_save_node(Node& node, OutIter out, pstade::overload<>)
+void pstade_lime_save_node(Node& node, OutIter const& out, pstade::overload<>)
 {
     return pstade::lime::save_default(node, out);
 }

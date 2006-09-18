@@ -17,10 +17,10 @@
 #include <boost/throw_exception.hpp>
 #include <pstade/biscuit/algorithm/match.hpp>
 #include <pstade/biscuit/parser.hpp>
-#include <pstade/melon.hpp>
 #include <pstade/nullptr.hpp>
 #include <pstade/oven/copy_range.hpp>
 #include <pstade/oven/distance.hpp>
+#include <pstade/oven/range_value.hpp>
 #include <pstade/oven/slice_range.hpp>
 #include <pstade/unused.hpp>
 #include <pstade/ustring.hpp>
@@ -28,7 +28,7 @@
 #include "./error.hpp"
 #include "./intrinsic.hpp"
 #include "./new_node.hpp"
-#include "./node_value.hpp"
+#include "./xml.hpp"
 
 
 namespace pstade { namespace lime {
@@ -65,12 +65,12 @@ namespace load_detail {
             m_stack.pop();
         }
 
-        void reset_current_AttName(ustring n)
+        void reset_current_AttName(ustring const& n)
         {
             m_curAttName = n;
         }
 
-        ustring current_AttName() const
+        ustring const& current_AttName() const
         {
             return m_curAttName;
         }
@@ -89,10 +89,10 @@ namespace load_detail {
     // actions
     //
 
-    struct name_action
+    struct On_TagName
     {
         template< class SubRange, class Context >
-        void operator()(SubRange rng, Context& cxt)
+        void operator()(SubRange const& rng, Context& cxt)
         {
             if (cxt.is_top_null()) {
                 cxt.push(PSTADE_NULLPTR);
@@ -112,10 +112,10 @@ namespace load_detail {
     };
 
 
-    struct charData_action
+    struct on_CharData
     {
         template< class SubRange, class Context >
-        void operator()(SubRange rng, Context& cxt)
+        void operator()(SubRange const& rng, Context& cxt)
         {
             if (cxt.is_top_null())
                 return;
@@ -133,10 +133,10 @@ namespace load_detail {
     };
 
 
-    struct reference_action
+    struct on_Reference
     {
         template< class SubRange, class Context >
-        void operator()(SubRange rng, Context& cxt)
+        void operator()(SubRange const& rng, Context& cxt)
         {
             if (cxt.is_top_null())
                 return;
@@ -154,10 +154,10 @@ namespace load_detail {
     };
 
 
-    struct attName_action
+    struct on_AttName
     {
         template< class SubRange, class Context >
-        void operator()(SubRange rng, Context& cxt)
+        void operator()(SubRange const& rng, Context& cxt)
         {
             if (cxt.is_top_null())
                 return;
@@ -168,10 +168,10 @@ namespace load_detail {
     };
 
 
-    struct attValue_action
+    struct on_AttValue
     {
         template< class SubRange, class Context >
-        void operator()(SubRange rng, Context& cxt)
+        void operator()(SubRange const& rng, Context& cxt)
         {
             if (cxt.is_top_null())
                 return;
@@ -185,10 +185,10 @@ namespace load_detail {
     };
 
 
-    struct eTag_action
+    struct on_ETag
     {
         template< class SubRange, class Context >
-        void operator()(SubRange rng, Context& cxt)
+        void operator()(SubRange const& rng, Context& cxt)
         {
             BOOST_ASSERT(cxt.valid());
 
@@ -198,41 +198,10 @@ namespace load_detail {
     };
 
 
-    // parsers
-    //
-
-    struct name     : biscuit::actor< melon::Name<>,        name_action >       { };
-    struct attName  : biscuit::actor< melon::Name<>,        attName_action >    { };
-    struct attValue : biscuit::actor< melon::AttValue<>,    attValue_action >   { };
-    struct charData : biscuit::actor< melon::CharData<>,    charData_action >   { };
-    struct reference: biscuit::actor< melon::Reference<>,   reference_action >  { };
-    struct eTag     : biscuit::actor< melon::ETag<>,        eTag_action >       { };
-
-
-    struct attribute: melon::Attribute<attName, attValue>   { };
-    struct sTag     : melon::STag<name, attribute>          { };
-
-
-    struct emptyElemTag : biscuit::lazy_actions<
-        biscuit::seq<
-            melon::EmptyElemTag<name, attribute>,
-            biscuit::actor< biscuit::eps, eTag_action >
-        >
-    >
-    { };
-
-
-    struct element : melon::element<
-        melon::content< element, charData, reference >,
-        emptyElemTag, sTag, eTag
-    >
-    { };
-
-
-    struct start : melon::document<
-        element
-    >
-    { };
+    typedef xml::parser<
+        On_TagName, on_AttName, on_AttValue, on_ETag,
+        on_CharData, on_Reference
+    >::type xml_parser;
 
 
 } // namespace load_detail
@@ -248,13 +217,13 @@ struct load_error :
 
 
 template< class Node, class ForwardRange >
-void load(Node& root, const ForwardRange& rng)
+void load(Node& root, ForwardRange const& rng)
 {
-    typedef typename node_value<Node>::type val_t;
+    typedef typename oven::range_value<Node>::type val_t;
     load_detail::context<val_t> cxt;
     cxt.push(&root);
 
-    if (!biscuit::match<load_detail::start>(rng, cxt)) {
+    if (!biscuit::match<load_detail::xml_parser>(rng, cxt)) {
         load_error err;
         boost::throw_exception(err);
     }

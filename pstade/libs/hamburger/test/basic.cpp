@@ -45,7 +45,7 @@ void test()
 			oven::copy(
 				oven::file_range<utf8cp_t>(iname) |
 					oven::utf8_decoded,
-				oven::to_back_inserter(tmp)
+				oven::to_back_of(tmp)
 			);
 		}
 

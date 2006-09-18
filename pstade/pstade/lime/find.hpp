@@ -13,19 +13,19 @@
 #include <boost/foreach.hpp>
 #include <boost/implicit_cast.hpp>
 #include <boost/optional.hpp>
-#include "./node_value.hpp"
+#include <pstade/oven/range_reference.hpp>
 
 
 namespace pstade { namespace lime {
 
 
 template< class Node >
-typename node_value<Node>::type&
+typename oven::range_reference<Node>::type
 find_root(Node& child)
 {
-    typedef typename node_value<Node>::type parent_t;
+    typedef typename oven::range_reference<Node>::type parent_t;
 
-    boost::optional<parent_t&> parent = child.parent();
+    boost::optional<parent_t> parent = child.parent();
 
     if (!parent)
         return child;
@@ -35,14 +35,14 @@ find_root(Node& child)
 
 
 template< class Node, class UnaryPred >
-boost::optional<typename node_value<Node>::type&>
+boost::optional<typename oven::range_reference<Node>::type>
 find_up(Node& node, UnaryPred pred)
 {
-    typedef typename node_value<Node>::type val_t;
-    typedef boost::optional<val_t&> opt_t;
+    typedef typename oven::range_reference<Node>::type ref_t;
+    typedef boost::optional<ref_t> opt_t;
 
     if (pred(node))
-        return opt_t(boost::implicit_cast<val_t&>(node));
+        return opt_t(boost::implicit_cast<ref_t>(node));
 
     opt_t pa = node.parent();
     if (!pa)
@@ -53,13 +53,13 @@ find_up(Node& node, UnaryPred pred)
 
 
 template< class Node, class UnaryPred >
-typename node_value<Node>::type&
+typename oven::range_reference<Node>::type
 find_child(Node& parent, UnaryPred pred)
 {
-    typedef typename node_value<Node>::type child_t;
-    typedef boost::optional<child_t&> opt_t;
+    typedef typename oven::range_reference<Node>::type child_t;
+    typedef boost::optional<child_t> opt_t;
 
-    BOOST_FOREACH (child_t& child, parent) {
+    BOOST_FOREACH (child_t child, parent) {
         if (pred(child))
             return opt_t(child);
     }

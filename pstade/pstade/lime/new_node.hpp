@@ -10,9 +10,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/oven/range_pointer.hpp>
 #include <pstade/overload.hpp>
 #include <pstade/ustring.hpp>
-#include "./node_value.hpp"
 
 
 namespace pstade { namespace lime {
@@ -22,8 +22,8 @@ namespace new_node_detail {
 
 
     template< class Node > inline
-    typename node_value<Node>::type *
-    pstade_lime_new_node(Node& parent, ustring childName)
+    typename oven::range_pointer<Node>::type
+    pstade_lime_new_node(Node& parent, ustring const& childName)
     {
          return pstade_lime_new_node(parent, childName, overload<>());
     }
@@ -33,8 +33,8 @@ namespace new_node_detail {
 
 
 template< class Node > inline
-typename node_value<Node>::type *
-new_node(Node& parent, ustring childName)
+typename oven::range_pointer<Node>::type
+new_node(Node& parent, ustring const& childName)
 {
     using namespace new_node_detail;
     return pstade_lime_new_node(parent, childName);
@@ -47,7 +47,8 @@ new_node(Node& parent, ustring childName)
 // default
 //
 template< class Node > inline
-Node *pstade_lime_new_node(Node& parent, pstade::ustring childName, pstade::overload<>)
+Node *
+pstade_lime_new_node(Node& parent, pstade::ustring const& childName, pstade::overload<>)
 {
     return new Node(parent, childName);
 }

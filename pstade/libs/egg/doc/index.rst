@@ -7,7 +7,7 @@ The Egg Function Library
 :Author: MB
 :Contact: mb2act@yahoo.co.jp 
 :License: Distributed under the `Boost Software License Version 1.0`_
-:Version: 0.90.2
+:Version: 0.90.3
 
 
 
@@ -163,5 +163,9 @@ Version 0.90.1
 Version 0.90.2
 ^^^^^^^^^^^^^^
 - Now `Baby Function`_ can have members.
+
+Version 0.90.3
+^^^^^^^^^^^^^^
+- Fixed a bug that passes a function object to baby's constructor.
 
 

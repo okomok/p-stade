@@ -63,7 +63,7 @@ void test()
     }
     {
         std::vector<char> vec;
-        oven::copy(std::string("abc"), oven::to_back_inserter(vec));
+        oven::copy(std::string("abc"), oven::to_back_of(vec));
         BOOST_CHECK( oven::equals(std::string("abc"), vec) );
         // identities keeps vec mutable.
         oven::copy(vec|identities, oven::to_function(&::modify));
@@ -87,8 +87,8 @@ void test()
 
     {
         std::list<char> seq;
-        oven::copy(std::string("abc"), oven::to_front_inserter(seq));
-        oven::copy(std::string("xyz"), oven::to_back_inserter(seq));
+        oven::copy(std::string("abc"), oven::to_front_of(seq));
+        oven::copy(std::string("xyz"), oven::to_back_of(seq));
         BOOST_CHECK( oven::equals(std::string("cbaxyz"), seq) );
     }
     {

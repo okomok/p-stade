@@ -11,18 +11,18 @@
 
 
 #include <boost/optional.hpp>
-#include "./node_value.hpp"
+#include <pstade/oven/range_reference.hpp>
 
 
 namespace pstade { namespace lime {
 
 
 template< class Node >
-typename node_value<Node>::type&
+typename oven::range_reference<Node>::type
 root(Node& node)
 {
-    typedef typename node_value<Node>::type val_t;
-    boost::optional<val_t&> pa = node.parent();
+    typedef typename oven::range_reference<Node>::type ref_t;
+    boost::optional<ref_t> pa = node.parent();
     if (!pa)
         return node;
 

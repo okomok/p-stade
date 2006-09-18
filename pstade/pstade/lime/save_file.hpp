@@ -10,12 +10,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <fstream>
-#include <iterator> // ostream_iterator
+#include <fstream> // ofstream
 #include <string>
-#include <boost/cstdint.hpp> // uint8_t
 #include <boost/throw_exception.hpp>
-#include <pstade/oven/function_output_iterator.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
 #include <pstade/oven/to_stream.hpp>
 #include <pstade/oven/to_utf8_encoder.hpp>
@@ -44,6 +41,7 @@ void save_file(Node& root, std::string const& fileName)
     if (!fout) {
         save_error err(fileName);
         boost::throw_exception(err);
+        return;
     }
 
     lime::copy_XMLDecl(oven::to_stream(fout));
@@ -58,6 +56,7 @@ void save_file_default(Node& root, std::string const& fileName)
     if (!fout) {
         save_error err(fileName);
         boost::throw_exception(err);
+        return;
     }
 
     lime::copy_XMLDecl(oven::to_stream(fout));
