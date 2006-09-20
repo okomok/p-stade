@@ -108,11 +108,11 @@ Reference
 - Returns: A `Functor`_ that supports `Boost.ResultOf`_.
 
 
-``decay_function``
-^^^^^^^^^^^^^^^^^^^
-- Header: ``<pstade/egg/decay_function.hpp>``
-- Valid expression: ``decay_function<Functor>``
-- Returns: ``boost::decay<boost::remove_cv<Functor>::type>``
+``by_value``
+^^^^^^^^^^^^
+- Header: ``<pstade/egg/by_value.hpp>``
+- Valid expression: ``by_value<T>``
+- Returns: ``boost::remove_cv<typename boost::decay<T>::type>``
 
 
 ``PSTADE_EGG_FUNCTION``
@@ -123,7 +123,7 @@ So you should prefer this macro.
 - Header: ``<pstade/egg/function.hpp>``
 - Valid expression: ``PSTADE_EGG_FUNCTION(Name, BabyFunction)``
 - Precondition: placed under namespace scope and ``BabyFunction`` is `Default Constructible`_.
-- Effects: ``typedef function<BabyFunction> Name##_fun; function<BabyFunction> const Name(BabyFunction());``
+- Effects: ``typedef function<BabyFunction> Name##_fun; function<BabyFunction> const Name;``
 
 
 ``PSTADE_EGG_PIPABLE``
@@ -166,6 +166,6 @@ Version 0.90.2
 
 Version 0.90.3
 ^^^^^^^^^^^^^^
-- Fixed a bug that passes a function object to baby's constructor.
-
+- Fixed a bug that passes a ``egg::function`` object to ``BabyFunction``\'s constructor.
+- Renamed ``decay_function`` to ``by_value``.
 

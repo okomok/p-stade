@@ -1,5 +1,5 @@
-#ifndef PSTADE_CANDY_EMPTY_HPP
-#define PSTADE_CANDY_EMPTY_HPP
+#include <pstade/vodka/drink.hpp>
+#include <boost/test/minimal.hpp>
 
 
 // PStade.Candy
@@ -10,17 +10,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-namespace pstade { namespace candy {
+#include <pstade/candy.hpp>
 
 
-template< class Flags > inline
-bool empty(Flags const& fs)
+int test_main(int, char*[])
 {
-    return (fs == 0);
+    return 0;
 }
-
-
-} } // namespace pstade::candy
-
-
-#endif

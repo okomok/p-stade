@@ -12,7 +12,7 @@
 
 #include <cstddef> // size_t
 #include <boost/range/iterator_range.hpp>
-#include <pstade/remove_cvr.hpp>
+#include <pstade/egg/by_value.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
@@ -78,7 +78,7 @@ namespace repeat_range_detail {
         template< class Unused, class ForwardRange, class Size >
         struct result
         {
-            typedef typename remove_cvr<Size>::type sz_t;
+            typedef typename egg::by_value<Size>::type sz_t;
             typedef repeat_range<ForwardRange, sz_t> const type;
         };
 

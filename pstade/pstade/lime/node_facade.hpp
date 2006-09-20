@@ -14,13 +14,12 @@
 #include <string>
 #include <boost/foreach.hpp>
 #include <boost/noncopyable.hpp>
-#include <boost/ptr_container/ptr_list.hpp>
 #include <boost/optional.hpp>
+#include <boost/ptr_container/ptr_list.hpp>
 #include <boost/throw_exception.hpp>
 #include <pstade/if_debug.hpp>
 #include <pstade/oven/equals.hpp>
 #include <pstade/oven/range_reference.hpp>
-#include <pstade/overload.hpp>
 #include <pstade/ustring.hpp>
 #include <pstade/what.hpp>
 #include "./error.hpp"
@@ -74,10 +73,8 @@ struct node_facade :
     boost::ptr_list<Derived>,
     private boost::noncopyable
 {
-private:
-    typedef std::map<ustring, ustring> attributes_t;
+    typedef std::map<ustring, ustring> attributes_type;
 
-public:
 // structors
     explicit node_facade()
     { }
@@ -104,12 +101,12 @@ public:
         return m_name;
     }
 
-    attributes_t& attributes()
+    attributes_type& attributes()
     {
         return m_atts;
     }
 
-// operators, prefer 'friend injection' for strict parameter type.
+// operators
     friend
     Derived& operator/(Derived& node, ustring const& childName)
     {
@@ -129,7 +126,7 @@ public:
         return node;
     }
 
-public:
+// internals
     void detail_construct(Derived& parent, ustring const& name)
     {
         m_parent = parent;
@@ -139,7 +136,7 @@ public:
 private:
     boost::optional<Derived&> m_parent;
     ustring m_name;
-    attributes_t m_atts;
+    attributes_type m_atts;
 };
 
 

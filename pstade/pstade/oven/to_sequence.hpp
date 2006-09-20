@@ -13,12 +13,10 @@
 // Note:
 //
 // 'function_output_iterator' with lambda is more generalized,
-// but its syntax looks cumbersome.
+// but its syntax looks cumbersome. So we define...
 
 
 #include <iterator>
-#include <boost/mpl/assert.hpp>
-#include <boost/type_traits/is_const.hpp>
 
 
 namespace pstade { namespace oven {
@@ -28,7 +26,6 @@ template< class Sequence, class Iterator > inline
 std::insert_iterator<Sequence> const
 to_sequence(Sequence& seq, Iterator const& it)
 {
-    BOOST_MPL_ASSERT_NOT((boost::is_const<Sequence>));
     return std::insert_iterator<Sequence>(seq, it);
 }
 
@@ -37,7 +34,6 @@ template< class Sequence > inline
 std::front_insert_iterator<Sequence> const
 to_front_of(Sequence& seq)
 {
-    BOOST_MPL_ASSERT_NOT((boost::is_const<Sequence>));
     return std::front_insert_iterator<Sequence>(seq);
 }
 
@@ -46,7 +42,6 @@ template< class Sequence > inline
 std::back_insert_iterator<Sequence> const
 to_back_of(Sequence& seq)
 {
-    BOOST_MPL_ASSERT_NOT((boost::is_const<Sequence>));
     return std::back_insert_iterator<Sequence>(seq);
 }
 

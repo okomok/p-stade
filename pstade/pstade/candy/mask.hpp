@@ -10,17 +10,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/integral_cast.hpp>
-#include "./intersection.hpp"
-
-
 namespace pstade { namespace candy {
 
 
 template< class Flags0, class Flags1 > inline
-Flags0& mask(Flags0& fs0, Flags1 fs1)
+Flags0& mask(Flags0& fs0, Flags1 const& fs1)
 {
-    fs0 = pstade::integral(candy::intersection(fs0, fs1));
+    fs0 &= fs1;
     return fs0;
 }
 

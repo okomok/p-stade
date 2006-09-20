@@ -21,8 +21,7 @@ namespace pstade { namespace candy {
 template< class Flags, class Flag > inline
 Flags& set(Flags& fs, Flag f)
 {
-    BOOST_ASSERT(candy::count(f) == 1 && "multiple flags not allowed");
-
+    BOOST_ASSERT("multiple flags not allowed" && candy::count(f) == 1);
     return candy::add(fs, f);
 }
 

@@ -15,7 +15,10 @@
 // Boost.Lambda functors are copy-constructible, but
 // are neither default-constructible nor assignable.
 // Thus, strictly speaking, 'filter_iterator' etc
-// using them is not a conforming iterator.
+// using them is never a conforming iterator.
+// Ideally, a functor itself should be "regularized",
+// but a general functor is difficult to wrap around
+// because of the forwarding problem.
 
 
 #include <boost/iterator/iterator_adaptor.hpp> // enable_if_convertible

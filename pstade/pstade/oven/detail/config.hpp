@@ -32,13 +32,4 @@
 #endif
 
 
-#if !defined(PSTADE_OVEN_DEBUG)
-    #define PSTADE_OVEN_DEBUG_SPACE_CH ' '
-    #define PSTADE_OVEN_DEBUG_TAB_CH '\t'
-#else
-    #define PSTADE_OVEN_DEBUG_SPACE_CH 'S'
-    #define PSTADE_OVEN_DEBUG_TAB_CH 'T'
-#endif
-
-
 #endif

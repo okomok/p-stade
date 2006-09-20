@@ -120,7 +120,7 @@ namespace position_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_position_range, position_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(positioned, position_range_detail::baby_make)
+PSTADE_EGG_PIPABLE(with_position, position_range_detail::baby_make)
 
 
 } } // namespace pstade::oven

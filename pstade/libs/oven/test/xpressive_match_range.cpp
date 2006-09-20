@@ -31,8 +31,8 @@ void test()
 
         bool f = false;
         if (f) {
-            input|xpressive_matched(re);
-            input|xpressive_matched(re, boost::xpressive::regex_constants::match_default);
+            input|xpressive_matches(re);
+            input|xpressive_matches(re, boost::xpressive::regex_constants::match_default);
         }
     }
 }

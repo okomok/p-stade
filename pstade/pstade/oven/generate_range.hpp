@@ -141,7 +141,7 @@ namespace generate_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_generate_range, generate_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(generated, generate_range_detail::baby_make)
+PSTADE_EGG_PIPABLE(generations, generate_range_detail::baby_make)
 
 
 } } // namespace pstade::oven

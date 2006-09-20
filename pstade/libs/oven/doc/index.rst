@@ -7,7 +7,7 @@ The Oven Range Library
 :Author: MB
 :Contact: mb2act@yahoo.co.jp 
 :License: Distributed under the `Boost Software License Version 1.0`_
-:Version: 0.91.0
+:Version: 0.91.1
 
 
 
@@ -207,6 +207,17 @@ __ http://www.boost.org/libs/spirit/doc/file_iterator.html
 - Header: ``<pstade/oven/file_range.hpp>``
 - Valid expression: ``file_range<C> rng;`` and ``rng.is_open();``
 - Precondition: ``boost::spirit::file_iterator<C>`` is a valid expression.
+
+
+``index_range``
+^^^^^^^^^^^^^^^
+Pending...
+
+A legacy API may provide a way to access objects by using an index.
+``index_range`` can be a building block for something like a ``ToolBarButtonRange``.
+
+- Header: ``<pstade/oven/index_range.hpp>``
+- Valid expression: ``index_range<Incrementable,rfunT>``, where ``rfunT`` is a type of ``rfun``.
 
 
 ``istream_range``
@@ -465,17 +476,17 @@ it needs `regularized`_ that makes it assignable and then conforming.
 
 
 
-``generated``
-^^^^^^^^^^^^^
-``generated`` generates a range whose values are the results of invoking
-a function object that takes no arguments. Note that ``generated``
+``generations``
+^^^^^^^^^^^^^^^
+``generations`` generates a range whose values are the results of invoking
+a function object that takes no arguments. Note that ``generations``
 doesn't modify its adapting range, which is used only as **range**::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\generated.ipp
+	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\generations.ipp
 
 
 - Header: ``<pstade/oven/generate_range.hpp>``
-- Valid expression: ``rng|generated(rfun)``, where ``rfun`` is nullary.
+- Valid expression: ``rng|generations(rfun)``, where ``rfun`` is nullary.
 - Returns: A `Single Pass Range`_ whose values are the results of invoking ``rfun``.
 
 
@@ -546,10 +557,10 @@ Pending...
 - See: `Range Library Proposal`_.
 
 
-``matched``
+``matches``
 ^^^^^^^^^^^
 - Header: ``<pstade/oven/match_range.hpp>``; not included by ``<pstade/oven/ranges.hpp>``
-- Valid expression: ``biRng|matched(re)`` or ``biRng|matched(re,flag)``
+- Valid expression: ``biRng|matches(re)`` or ``biRng|matches(re,flag)``
 - Returns: A range whose iterators behave as if they were the original iterators wrapped in ``boost::regex_iterator``.
 
 
@@ -606,13 +617,6 @@ Note that ``memoized`` can return a `Forward Range`_ even if its adapting range 
 - Valid expression: ``vec|pointed``
 - Precondition: ``vec`` is a template instantiation of ``std::vector``.
 - Returns:  ``[&*boost::begin(vec),&*boost::begin(vec)+oven::distance(vec))`` if ``vec`` is not empty; otherwise, ``[0,0)``.
-
-
-``positioned``
-^^^^^^^^^^^^^^
-- Header: ``<pstade/oven/position_range.hpp>``
-- Valid expression: ``rng|positioned``
-- Returns: A range whose iterators behave as if they were the original iterators wrapped in ``boost::spirit::position_iterator``.
 
 
 ``prepended``
@@ -778,10 +782,17 @@ Pending...
 - Returns: A `Bidirectional Range`_ whose iterators behave as if they were the original iterators wrapped in ``boost::u8_to_u32_iterator``.
 
 
-``xpressive_matched``
+``with_position``
+^^^^^^^^^^^^^^^^^
+- Header: ``<pstade/oven/position_range.hpp>``
+- Valid expression: ``rng|with_position``
+- Returns: A range whose iterators behave as if they were the original iterators wrapped in ``boost::spirit::position_iterator``.
+
+
+``xpressive_matches``
 ^^^^^^^^^^^^^^^^^^^^^
 - Header: ``<pstade/oven/xpressive_match_range.hpp>``; not included by ``<pstade/oven/ranges.hpp>``
-- Valid expression: ``biRng|xpressive_matched(re)`` or ``biRng|xpressive_matched(re,flag)``
+- Valid expression: ``biRng|xpressive_matches(re)`` or ``biRng|xpressive_matches(re,flag)``
 - Returns: A range whose iterators behave as if they were the original iterators wrapped in ``boost::xpressive::regex_iterator``.
 
 
@@ -901,7 +912,7 @@ __ http://std.dkuug.dk/jtc1/sc22/wg21/docs/lwg-defects.html#198
 
 Version 0.90.7
 ^^^^^^^^^^^^^^
-- Added `matched`_, `xpressive_matched`_ and `xpressive_tokenized`_.
+- Added ``matched``, ``xpressive_matched`` and ``xpressive_tokenized``.
 
 Version 0.90.8
 ^^^^^^^^^^^^^^
@@ -913,12 +924,17 @@ Version 0.90.9
 ^^^^^^^^^^^^^^
 - Renamed ``copied_to`` to ``copied_out``.
 - Fixed a bug of ``transformed`` and ``concatenated``.
-- Added `generated`_.
+- Added ``generated``.
 - No longer supports function types as ``rfun``.
 - Changed `utf8_decoded`_ valid expression.
-
 
 Version 0.91.0
 ^^^^^^^^^^^^^^
 - Added `Output Iterator Adaptors`_.
 
+Version 0.91.1
+^^^^^^^^^^^^^^
+- Renamed ``generated`` to ``generations``.
+- Renamed ``positioned`` to ``with_position``.
+- Renamed ``matched`` to ``matches``.
+- Renamed ``xpressive_matched`` to ``xpressive_matches``.

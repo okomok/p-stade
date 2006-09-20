@@ -22,6 +22,7 @@
 #include <pstade/oven/function_output_iterator.hpp>
 #include <pstade/oven/counting_range.hpp>
 
+
 class my_generator :
     private boost::noncopyable
 {
@@ -46,7 +47,7 @@ void test()
         // Now it seems impossible to support a function reference...
         using std::rand;
 
-        BOOST_FOREACH (long x, oven::from_0_to(10)|generated(rand)) {
+        BOOST_FOREACH (long x, oven::from_0_to(10)|generations(rand)) {
             std::cout << x << std::endl;
         }
     }
@@ -54,7 +55,7 @@ void test()
     {
         ::my_generator gen;
 
-        BOOST_FOREACH (int x, oven::from_1_to(10)|generated(boost::ref(gen))) {
+        BOOST_FOREACH (int x, oven::from_1_to(10)|generations(boost::ref(gen))) {
             (void)x;
         }
 

@@ -1,44 +1,19 @@
-#if 1
-
-#include <pstade/../libs/egg/test/disable_if_same.cpp>
-//#include <pstade/../libs/oven/test/to_stream.cpp>
-//#include <pstade/../libs/biscuit/test/capture.cpp>
-
-#else
 
 
-#include <iostream>
-#include <string>
-#include <boost/mpl/assert.hpp>
-#include <boost/type_traits/is_same.hpp>
-#include <boost/range.hpp>
+#include <map>
 #include <boost/foreach.hpp>
 
-
-struct klass
-{
-    klass()
-    { }
-
-    klass(klass const&) // (1)
-    { }
-
-    template< class T > // (2)
-    explicit klass(T& x, typename boost::disable_if< boost::is_same<T, klass> >::type * = 0)
-    { assert(false); }
-
-#if 0
-    klass(klass&) // (3)
-    { }
-#endif
-};
+#include <boost/parameter/aux_/parenthesized_type.hpp>
+#define UNPARENTHESIZE BOOST_PARAMETER_PARENTHESIZED_TYPE
 
 
 int main()
 {
-    klass k;
-    klass k_(k);
+    std::map<int, int> m;
+    BOOST_FOREACH (
+        UNPARENTHESIZE((std::pair<int, int>)) p,
+        m )
+    {
+    }
 }
 
-
-#endif

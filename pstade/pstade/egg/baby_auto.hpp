@@ -10,6 +10,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// See: 'rvalue_probe'
+//
+// at http://www.artima.com/cppsource/foreachP.html
+// I don't certainly know the relation, though.
+
+
 #include <pstade/nonassignable.hpp>
 
 
@@ -30,12 +36,12 @@ struct baby_auto
         { }
 
         template< class To >
-        operator To() const
+        operator To() /*const*/ // 'const' makes impact?
         {
             return CastFunClass::template call<To>(m_from);
         }
 
-#if 0 // too subtle! I don't know what should happen. GCC doesn't work anyway.
+#if 0 // I don't know what should happen.
         template< class To >
         operator To& () const
         {
@@ -50,7 +56,7 @@ struct baby_auto
     template< class Unused, class From >
     struct result
     {
-        typedef temp<From> const type;
+        typedef temp<From> /*const*/ type;
     };
 
     template< class Result, class From >

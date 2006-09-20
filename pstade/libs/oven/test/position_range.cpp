@@ -51,7 +51,7 @@ void test()
         std::string src("AAAAA\nAAAAA\nAAAAA");
 
         BOOST_CHECK((
-            biscuit::match< plus< or_< chset<'A','\n'>, checker > > >(src|positioned)
+            biscuit::match< plus< or_< chset<'A','\n'>, checker > > >(src|with_position)
         ));
     }
 
@@ -59,7 +59,7 @@ void test()
         std::string src("AAAAA\nAAAAA\nAA#AA");
 
         BOOST_CHECK(( !
-            biscuit::match< plus< or_< chset<'A','\n'>, checker > > >(src|positioned)
+            biscuit::match< plus< or_< chset<'A','\n'>, checker > > >(src|with_position)
         ));
     }
 }

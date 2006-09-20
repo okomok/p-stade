@@ -106,7 +106,7 @@ namespace match_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_match_range, match_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(matched, match_range_detail::baby_make)
+PSTADE_EGG_PIPABLE(matches, match_range_detail::baby_make)
 
 
 } } // namespace pstade::oven

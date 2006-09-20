@@ -29,8 +29,8 @@ void test()
         boost::regex re("\\s+");
         bool f = false;
         if (f) {
-            input|matched(re);
-            input|matched(re, boost::regex_constants::match_default);
+            input|matches(re);
+            input|matches(re, boost::regex_constants::match_default);
         }
     }
 }

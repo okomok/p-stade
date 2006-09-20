@@ -19,7 +19,15 @@
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_categories.hpp> // forward_traversal_tag
-#include "./detail/config.hpp" // DEBUG_SPACE_CH
+
+
+#if !defined(PSTADE_OVEN_DEBUG)
+    #define PSTADE_OVEN_DEBUG_SPACE_CH ' '
+    #define PSTADE_OVEN_DEBUG_TAB_CH '\t'
+#else
+    #define PSTADE_OVEN_DEBUG_SPACE_CH 'S'
+    #define PSTADE_OVEN_DEBUG_TAB_CH 'T'
+#endif
 
 
 namespace pstade { namespace oven {

@@ -95,7 +95,7 @@ public:
 
 template< class UnaryFun > inline
 function_output_iterator<UnaryFun> const
-to_function(UnaryFun fun = UnaryFun())
+to_function(UnaryFun fun)
 {
     return function_output_iterator<UnaryFun>(fun);
 }
@@ -103,7 +103,7 @@ to_function(UnaryFun fun = UnaryFun())
 
 template< class UnaryFun > inline
 regularize_iterator< function_output_iterator<UnaryFun> > const
-to_regularized_function(UnaryFun fun = UnaryFun())
+to_regularized_function(UnaryFun fun)
 {
     return oven::make_regularize_iterator(oven::to_function(fun));
 }

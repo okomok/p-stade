@@ -10,6 +10,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Note:
+//
+// Strictly speaking, this iterator is never be RandomAccessIterator,
+// but RandomAccessTraversal. So is 'boost::counting_iterator'.
+
+
 #include <boost/config.hpp> // BOOST_MSVC
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
@@ -65,7 +71,7 @@ namespace repeat_iterator_detail {
 
 
     template< class Difference, class RandIter, class Size >
-    Difference pseudo_pos(RandIter const& it, Size index, RandIter const& first, RandIter const& last)
+    Difference pseudo_pos(RandIter const& it, Size const& index, RandIter const& first, RandIter const& last)
     {
         Difference srcSize = last - first;
         Difference srcDiff = it - first;
@@ -162,7 +168,7 @@ friend class boost::iterator_core_access;
         BOOST_ASSERT(m_index >= 0);
     }
 
-    // seems stupid implementation...
+    // seems a stupid implementation...
     //
     void advance(diff_t d)
     {

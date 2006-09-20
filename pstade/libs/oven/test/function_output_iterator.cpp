@@ -93,8 +93,8 @@ void test()
     }
     {
         std::list<char> seq; seq.push_back('_');
-        oven::copy(std::string("abc"), oven::to_inserter(seq, boost::begin(seq)));
-        oven::copy(std::string("xyz"), oven::to_inserter(seq, boost::end(seq)));
+        oven::copy(std::string("abc"), oven::to_sequence(seq, boost::begin(seq)));
+        oven::copy(std::string("xyz"), oven::to_sequence(seq, boost::end(seq)));
         BOOST_CHECK( oven::equals(std::string("abc_xyz"), seq) );
     }
 }

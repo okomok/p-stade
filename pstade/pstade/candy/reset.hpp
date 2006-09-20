@@ -19,10 +19,9 @@ namespace pstade { namespace candy {
 
 
 template< class Flags, class Flag > inline
-Flags& reset(Flags& fs, Flag f)
+Flags& reset(Flags& fs, Flag const& f)
 {
-    BOOST_ASSERT(candy::count(f) == 1 && "multiple flags not allowed");
-
+    BOOST_ASSERT("multiple flags not allowed" && candy::count(f) == 1);
     return candy::remove(fs, f);
 }
 

@@ -89,7 +89,7 @@ namespace load_detail {
     // actions
     //
 
-    struct On_TagName
+    struct on_TagName
     {
         template< class SubRange, class Context >
         void operator()(SubRange const& rng, Context& cxt)
@@ -199,7 +199,7 @@ namespace load_detail {
 
 
     typedef xml::parser<
-        On_TagName, on_AttName, on_AttValue, on_ETag,
+        on_TagName, on_AttName, on_AttValue, on_ETag,
         on_CharData, on_Reference
     >::type xml_parser;
 

@@ -15,19 +15,17 @@
 
 #include <boost/assert.hpp>
 #include "./count.hpp"
-#include "./empty.hpp"
-#include "./intersection.hpp"
+#include "./test_any.hpp"
 
 
 namespace pstade { namespace candy {
 
 
 template< class Flags, class Flag > inline
-bool test(Flags fs, Flag f)
+bool test(Flags const& fs, Flag const& f)
 {
-    BOOST_ASSERT(candy::count(f) == 1 && "multiple flags not allowed");
-
-    return !candy::empty(candy::intersection(fs, f));
+    BOOST_ASSERT("multiple flags not allowed" && candy::count(f) == 1);
+    return candy::test_any(fs, f);
 }
 
 

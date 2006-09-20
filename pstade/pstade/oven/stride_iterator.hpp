@@ -10,10 +10,16 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// See:
+// Note:
 //
-// http://d.hatena.ne.jp/yotto-k/20060725
-// http://std.dkuug.dk/jtc1/sc22/wg21/docs/lwg-defects.html#198
+// This iterator is originally written by [1].
+// 'm_cache' is necessary for [2], which also works
+// around repeated dereferences. Neat!
+// It might be interesting to look into [3].
+//
+// [1] http://d.hatena.ne.jp/yotto-k/20060725
+// [2] http://std.dkuug.dk/jtc1/sc22/wg21/docs/lwg-defects.html#198
+// [3] boost-sandbox/boost/view/step_iterator.hpp
 
 
 #include <iterator> // advance

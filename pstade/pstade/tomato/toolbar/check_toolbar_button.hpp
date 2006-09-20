@@ -15,7 +15,6 @@
 #include <pstade/apple/wtl/ctrls.hpp> // CToolBarCtrl
 #include <pstade/candy/remove.hpp>
 #include <pstade/candy/set.hpp>
-#include <pstade/candy/union.hpp>
 #include <pstade/require.hpp>
 #include "../size_initialize.hpp"
 #include "../window/window_ref.hpp"
@@ -46,10 +45,7 @@ void check_toolbar_button(window_ref toolbar, UINT uID, int state)
     candy::set(tbb.fsStyle, TBSTYLE_CHECK);
 
     // reset state and...
-    candy::remove(tbb.fsState,
-        // Topic: built-in operator| converts BYTE to int
-        candy::union_(TBSTATE_CHECKED, TBSTATE_INDETERMINATE)
-    );
+    candy::remove(tbb.fsState, TBSTATE_CHECKED | TBSTATE_INDETERMINATE);
 
     if (state == 1)
         candy::set(tbb.fsState, TBSTATE_CHECKED);

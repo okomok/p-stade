@@ -14,11 +14,9 @@ namespace pstade { namespace candy {
 
 
 template< class Flags > inline
-Flags complement(Flags fs)
+Flags const
+complement(Flags const& fs)
 {
-    // See: candy::intersection
-
-    // Note: you cannot use integral_cast.
     return static_cast<Flags>(~fs);
 }
 

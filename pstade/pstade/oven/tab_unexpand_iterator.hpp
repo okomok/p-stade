@@ -13,7 +13,6 @@
 #include <algorithm> // advance, distance
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
-#include "./detail/config.hpp" // DEBUG_SPACE_CH
 #include "./tab_expand_iterator.hpp"
 
 

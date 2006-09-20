@@ -60,7 +60,7 @@ namespace transform_range_detail {
         // Note:
         // Boost.Iterator doesn't use 'result_of'.
         // 'result_of' seems to have many problems
-        // even under modern compilers.
+        // even under modern compilers. But we must go!
         typedef typename boost::mpl::eval_if<
             boost::is_same<Reference, boost::use_default>,
             default_reference<iter_t, UnaryFun>,
