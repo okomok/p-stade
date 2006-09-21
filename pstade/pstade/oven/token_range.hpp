@@ -68,6 +68,8 @@ struct token_range :
     private as_lightweight_proxy< token_range<BidiRange, CharT, Traits> >
 {
     typedef BidiRange pstade_oven_range_base_type;
+    typedef CharT char_type;
+    typedef Traits traits_type;
 
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(BidiRange, BidirectionalRangeConcept);
@@ -109,7 +111,7 @@ namespace token_range_detail {
     struct baby_make
     {
         template< class Unused, class BidiRange, class Regex, class IntOrRndRange = void, class Flag = void >
-        struct result
+        struct smile
         {
             typedef token_range<BidiRange> const type;
         };

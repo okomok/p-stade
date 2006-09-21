@@ -48,6 +48,7 @@ struct permute_range :
     private as_lightweight_proxy< permute_range<ElementRange, IndexRange> >
 {
     typedef ElementRange pstade_oven_range_base_type;
+    typedef IndexRange index_range_type;
 
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(ElementRange, RandomAccessRangeConcept);
@@ -71,7 +72,7 @@ namespace permute_range_detail {
     struct baby_make
     {
         template< class Unused, class ElementRange, class IndexRange >
-        struct result
+        struct smile
         {
             typedef permute_range<ElementRange, IndexRange> const type;
         };

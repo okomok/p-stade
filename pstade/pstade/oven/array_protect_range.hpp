@@ -68,7 +68,7 @@ namespace array_protect_range_detail {
     struct baby_make
     {
         template< class Unused, class ArrayT >
-        struct result
+        struct smile
         {
             typedef array_protect_range<ArrayT> const type;
         };

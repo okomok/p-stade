@@ -87,7 +87,7 @@ struct baby_result0 :
 //
 template< class BabyFunction, class A0 >
 struct baby_result1 :
-    BabyFunction::template result<
+    BabyFunction::template smile<
         baby_result_detail::dummy_type,
         typename baby_result_detail::meta_arg<A0>::type
     >
@@ -116,7 +116,7 @@ struct baby_result1 :
 
 template< class BabyFunction, BOOST_PP_ENUM_PARAMS(n, class A) >
 struct BOOST_PP_CAT(baby_result, n) :
-    BabyFunction::template result<
+    BabyFunction::template smile<
         baby_result_detail::dummy_type,
         BOOST_PP_ENUM(n, PSTADE_EGG_meta_arg, ~)
     >

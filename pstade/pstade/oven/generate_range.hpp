@@ -24,6 +24,7 @@
 #include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
 #include "./identity_range.hpp"
+#include "./range_base.hpp"
 #include "./transform_range.hpp"
 
 
@@ -93,17 +94,17 @@ struct generate_range :
     private as_lightweight_proxy< generate_range<Range, Generator> >
 {
     typedef Range pstade_oven_range_base_type;
+    typedef Generator generator_type;
 
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
     typedef typename generate_range_detail::super_<Range, Generator>::type super_t;
+    typedef typename range_base<super_t>::type base_t;
+    typedef typename super_t::function_type fun_t;
 
 public:
     generate_range(Range& rng, Generator gen) :
-        super_t(
-            identity_range<Range, boost::single_pass_traversal_tag>(rng),
-            generate_range_detail::ignore_fun<Generator>(gen)
-        )
+        super_t(base_t(rng), fun_t(gen))
     { }
 };
 
@@ -123,7 +124,7 @@ namespace generate_range_detail {
     struct baby_make
     {
         template< class Unused, class Range, class Generator >
-        struct result
+        struct smile
         {
             typedef typename unwrap<typename pass_by_value<Generator>::type>::type gen_t;
             typedef generate_range<Range, gen_t> const type;

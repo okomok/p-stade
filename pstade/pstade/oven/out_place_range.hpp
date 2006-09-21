@@ -115,7 +115,7 @@ namespace out_place_range_detail {
     struct baby_make
     {
         template< class Unused, class ForwardRange, class Functor = unused_fun >
-        struct result
+        struct smile
         {
             typedef typename pass_by_value<Functor>::type fun_t;
             typedef out_place_range<ForwardRange, fun_t> const type;

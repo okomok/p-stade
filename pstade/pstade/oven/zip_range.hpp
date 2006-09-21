@@ -77,7 +77,7 @@ namespace zip_range_detail {
     struct baby_make
     {
         template< class Unused, class Range0, class Range1 >
-        struct result
+        struct smile
         {
             typedef zip_range<Range0, Range1> const type;
         };

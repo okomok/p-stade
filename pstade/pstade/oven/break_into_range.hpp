@@ -65,6 +65,7 @@ struct break_into_range :
     private as_lightweight_proxy< break_into_range<Range, TokenizerFun, Type> >
 {
     typedef Range pstade_oven_range_base_type;
+    typedef TokenizerFun tokenizer_function_type;
 
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);

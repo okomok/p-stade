@@ -63,7 +63,7 @@ namespace string_split_range_detail {
     struct baby_make
     {
         template< class Unused, class Range, class FinderT >
-        struct result
+        struct smile
         {
             typedef string_split_range<Range> const type;
         };

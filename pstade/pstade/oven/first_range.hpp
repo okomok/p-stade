@@ -10,29 +10,23 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// See:
-//
-// http://d.hatena.ne.jp/y-hamigaki/20060726
-
-
 // Note:
 //
-// Boost.Fusion2 will make this deprecated.
+// This range is originally written by [1].
+// Boost.Fusion2 will make this deprecated anyway.
+//
+// [1] http://d.hatena.ne.jp/y-hamigaki/20060726
 
 
-#include <boost/iterator/transform_iterator.hpp>
-#include <boost/range/begin.hpp>
-#include <boost/range/end.hpp>
-#include <boost/range/iterator_range.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 #include <pstade/affect.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
-#include <pstade/pass_by.hpp>
+#include <pstade/functional.hpp> // at_first
 #include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
-#include "./range_iterator.hpp"
 #include "./range_reference.hpp"
+#include "./transform_range.hpp"
 
 
 namespace pstade { namespace oven {
@@ -42,7 +36,7 @@ namespace first_range_detail {
 
 
     template< class PairRange >
-    struct get_fun
+    struct reference
     {
         typedef typename range_reference<PairRange>::type pair_ref_t;
         typedef typename boost::remove_reference<pair_ref_t>::type pair_t;
@@ -50,23 +44,15 @@ namespace first_range_detail {
         typedef typename affect_cvr<
             pair_ref_t,
             typename pair_t::first_type
-        >::type result_type;
-
-        result_type operator()(typename pass_by_reference<pair_ref_t>::type p) const
-        {
-            return p.first;
-        }
+        >::type type;
     };
 
 
     template< class PairRange >
     struct super_
     {
-        typedef boost::iterator_range<
-            boost::transform_iterator<
-                get_fun<PairRange>,
-                typename range_iterator<PairRange>::type
-            >
+        typedef transform_range<
+            PairRange, at_first_fun, typename reference<PairRange>::type
         > type;
     };
 
@@ -84,14 +70,10 @@ struct first_range :
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(PairRange, SinglePassRangeConcept);
     typedef typename first_range_detail::super_<PairRange>::type super_t;
-    typedef typename super_t::iterator iter_t;
 
 public:
     explicit first_range(PairRange& rng) :
-        super_t(
-            iter_t(boost::begin(rng), first_range_detail::get_fun<PairRange>()),
-            iter_t(boost::end(rng),   first_range_detail::get_fun<PairRange>())
-        )
+        super_t(rng, at_first)
     { }
 };
 
@@ -102,7 +84,7 @@ namespace first_range_detail {
     struct baby_make
     {
         template< class Unused, class PairRange >
-        struct result
+        struct smile
         {
             typedef first_range<PairRange> const type;
         };

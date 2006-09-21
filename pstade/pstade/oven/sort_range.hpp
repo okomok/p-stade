@@ -63,6 +63,7 @@ struct sort_range :
     private as_lightweight_proxy< sort_range<ForwardRange, BinaryPred> >
 {
     typedef ForwardRange pstade_oven_range_base_type;
+    typedef BinaryPred predicate_type;
 
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeConcept);
@@ -81,7 +82,7 @@ namespace sort_range_detail {
     struct baby_make
     {
         template< class Unused, class ForwardRange, class BinaryPred = less_fun >
-        struct result
+        struct smile
         {
             typedef typename pass_by_value<BinaryPred>::type pred_t;
             typedef sort_range<ForwardRange, pred_t> const type;

@@ -17,6 +17,7 @@
 #include <pstade/pass_by.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
+#include "./range_base.hpp"
 #include "./range_reference.hpp"
 #include "./transform_range.hpp"
 #include "./zip_range.hpp"
@@ -29,7 +30,7 @@ namespace zip_with_range_detail {
 
 
     template< class Range0, class Range1, class BinaryFun >
-    struct transformer
+    struct zip_fun
     {
         typedef typename range_reference<Range0>::type ref0_t;
         typedef typename range_reference<Range1>::type ref1_t;
@@ -37,7 +38,7 @@ namespace zip_with_range_detail {
         typedef typename boost::result_of<BinaryFun(ref0_t, ref1_t)>::type
         result_type;
 
-        explicit transformer(BinaryFun const& fun) :
+        explicit zip_fun(BinaryFun const& fun) :
             m_fun(fun)
         { }
 
@@ -57,7 +58,7 @@ namespace zip_with_range_detail {
     {
         typedef transform_range<
             zip_range<Range0, Range1> const,
-            transformer<Range0, Range1, BinaryFun>
+            zip_fun<Range0, Range1, BinaryFun>
         > type;
     };
 
@@ -71,18 +72,18 @@ struct zip_with_range :
     private as_lightweight_proxy< zip_with_range<Range0, Range1, BinaryFun> >
 {
     typedef Range0 pstade_oven_range_base_type;
+    typedef BinaryFun function_type;
 
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(Range0, SinglePassRangeConcept);
     PSTADE_OVEN_DETAIL_REQUIRES(Range1, SinglePassRangeConcept);
     typedef typename zip_with_range_detail::super_<Range0, Range1, BinaryFun>::type super_t;
+    typedef typename range_base<super_t>::type base_t;
+    typedef typename super_t::function_type fun_t;
 
 public:
     zip_with_range(Range0& rng0, Range1& rng1, BinaryFun const& fun) :
-        super_t(
-            zip_range<Range0, Range1>(rng0, rng1),
-            zip_with_range_detail::transformer<Range0, Range1, BinaryFun>(fun)
-        )
+        super_t(base_t(rng0, rng1), fun_t(fun))
     { }
 };
 
@@ -93,7 +94,7 @@ namespace zip_with_range_detail {
     struct baby_make
     {
         template< class Unused, class Range0, class Range1, class BinaryFun >
-        struct result
+        struct smile
         {
             typedef typename pass_by_value<BinaryFun>::type fun_t;
             typedef zip_with_range<Range0, Range1, fun_t> const type;

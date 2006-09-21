@@ -41,6 +41,7 @@ struct index_range :
 {
 private:
     typedef typename index_range_detail::super_<Incrementable, UnaryFun>::type super_t;
+    typedef UnaryFun function_type;
 
 public:
     index_range(Incrementable const& i, Incrementable const& j, UnaryFun const& fun) :

@@ -71,7 +71,7 @@ namespace for_each_child_window_detail {
         typedef window_ref routine_result_type;
 
         template< class Unused, class UnaryFun >
-        struct result :
+        struct smile :
             pass_by_value<UnaryFun>
         { };
 

@@ -50,7 +50,7 @@ namespace slice_range_detail {
     struct baby_make
     {
         template< class Unused, class ForwardRange, class DifferenceN, class DifferenceM >
-        struct result
+        struct smile
         {
             typedef slice_range<ForwardRange> const type;
         };

@@ -58,7 +58,7 @@ namespace yield_range_detail {
     struct baby_make
     {
         template< class Unused, class Routine >
-        struct result
+        struct smile
         {
             typedef typename pass_by_value<Routine>::type rou_t;
             typedef yield_range<rou_t> const type;

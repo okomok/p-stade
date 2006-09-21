@@ -13,7 +13,7 @@
 struct foo_impl
 {
     template< class Unused, class Arg0, class Arg1 = void >
-    struct result
+    struct smile
     {
         typedef Arg0 type;
     };
@@ -51,7 +51,7 @@ struct hoge_impl
     nullary_result_type;
 
     template< class Unused, class Arg0, class Arg1 = void >
-    struct result
+    struct smile
     {
         typedef Arg0 type;
     };
@@ -81,7 +81,7 @@ struct qoo_impl
     qoo_impl(int, double) { }
 
     template< class Unused, class Arg0, class Arg1 >
-    struct result
+    struct smile
     {
         typedef Arg0 type;
     };

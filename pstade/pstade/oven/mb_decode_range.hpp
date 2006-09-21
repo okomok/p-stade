@@ -61,7 +61,7 @@ namespace mb_decode_range_detail {
     struct baby_make
     {
         template< class Unused, class Range >
-        struct result
+        struct smile
         {
             typedef mb_decode_range<Range> const type;
         };

@@ -40,7 +40,7 @@ namespace single_range_detail {
     struct baby_make
     {
         template< class Unused, class Value >
-        struct result
+        struct smile
         {
             typedef single_range<Value> const type;
         };

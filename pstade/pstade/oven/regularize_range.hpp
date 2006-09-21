@@ -63,7 +63,7 @@ namespace regularize_range_detail {
     struct baby_make
     {
         template< class Unused, class Range  >
-        struct result
+        struct smile
         {
             typedef regularize_range<Range> const type;
         };

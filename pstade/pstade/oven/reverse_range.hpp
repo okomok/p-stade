@@ -73,7 +73,7 @@ namespace reverse_range_detail {
     struct baby_make
     {
         template< class Unused, class BidiRange >
-        struct result
+        struct smile
         {
             typedef reverse_range<BidiRange> const type;
         };

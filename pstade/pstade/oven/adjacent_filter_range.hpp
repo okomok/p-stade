@@ -49,6 +49,7 @@ struct adjacent_filter_range :
     private as_lightweight_proxy< adjacent_filter_range<ForwardRange, BinaryPred> >
 {
     typedef ForwardRange pstade_oven_range_base_type;
+    typedef BinaryPred predicate_type;
 
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeConcept);
@@ -71,7 +72,7 @@ namespace adjacent_filter_range_detail {
     struct baby_make
     {
         template< class Unused, class ForwardRange, class BinaryPred >
-        struct result
+        struct smile
         {
             typedef typename pass_by_value<BinaryPred>::type pred_t;
             typedef adjacent_filter_range<ForwardRange, pred_t> const type;

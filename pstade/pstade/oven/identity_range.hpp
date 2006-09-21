@@ -68,7 +68,7 @@ namespace identity_range_detail {
     struct baby_make
     {
         template< class Unused, class Range, class CategoryOrTraversal = boost::use_default >
-        struct result
+        struct smile
         {
             typedef typename pass_by_value<CategoryOrTraversal>::type trv_t;
             typedef identity_range<Range, trv_t> const type;

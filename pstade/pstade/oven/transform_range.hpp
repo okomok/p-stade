@@ -10,12 +10,36 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// See: Boost.RangeEx
+// Port of: Boost.RangeEx
 //
 // Copyright 2004 Eric Niebler.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
+
+
+// Note:
+//
+// Boost.Iterator doesn't use 'result_of'.
+// 'result_of' seems to have many problems
+// even under modern compilers. But we must go!
+
+
+// Note:
+//
+// Consider the following simple functor.
+//
+// struct id
+// {
+//     typedef int const& result_type;
+//     result_type operator()(int const& x) const
+//     { return x; }
+// };
+//
+// A transformed range whose 'reference' is 'int'(non-reference)
+// cannot work this functor because of dangling reference.
+// A transformed range's 'reference' type is sometimes
+// orthogonal to functor's 'result_type'.
 
 
 #include <boost/iterator/iterator_traits.hpp>
@@ -57,10 +81,6 @@ namespace transform_range_detail {
     {
         typedef typename range_iterator<Range>::type iter_t;
 
-        // Note:
-        // Boost.Iterator doesn't use 'result_of'.
-        // 'result_of' seems to have many problems
-        // even under modern compilers. But we must go!
         typedef typename boost::mpl::eval_if<
             boost::is_same<Reference, boost::use_default>,
             default_reference<iter_t, UnaryFun>,
@@ -74,6 +94,7 @@ namespace transform_range_detail {
         > type;
     };
 
+
 } // namespace transform_range_detail
 
 
@@ -86,6 +107,7 @@ struct transform_range :
     private as_lightweight_proxy< transform_range<Range, UnaryFun, Reference, Value> >
 {
     typedef Range pstade_oven_range_base_type;
+    typedef UnaryFun function_type;
 
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
@@ -108,7 +130,7 @@ namespace transform_range_detail {
     struct baby_make
     {
         template< class Unused, class Range, class UnaryFun >
-        struct result
+        struct smile
         {
             typedef typename pass_by_value<UnaryFun>::type fun_t;
             typedef transform_range<Range, fun_t> const type;

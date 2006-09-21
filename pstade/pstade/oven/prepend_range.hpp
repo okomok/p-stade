@@ -50,6 +50,7 @@ struct prepend_range :
     private as_lightweight_proxy< prepend_range<Range, Value> >
 {
     typedef Range pstade_oven_range_base_type;
+    typedef Value prepended_value_type;
 
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
@@ -70,7 +71,7 @@ namespace prepend_range_detail {
     struct baby_make
     {
         template< class Unused, class Range, class Value >
-        struct result
+        struct smile
         {
             typedef prepend_range<Range, Value> const type;
         };

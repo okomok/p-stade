@@ -79,10 +79,11 @@ struct unzip_range_at :
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(TupleRange, SinglePassRangeConcept);
     typedef typename unzip_range_detail::super_at<TupleRange, N>::type super_t;
+    typedef typename super_t::function_type fun_t;
 
 public:
     explicit unzip_range_at(TupleRange& rng) :
-        super_t(rng, unzip_range_detail::get_at<TupleRange, N>())
+        super_t(rng, fun_t())
     { }
 };
 
@@ -148,7 +149,7 @@ namespace unzip_range_detail {
     struct baby_unzipped
     {
         template< class Unused, class TupleRange >
-        struct result
+        struct smile
         {
             typedef typename boost::tuples::tuple<
                 unzip_range_at<TupleRange, 0>,

@@ -114,7 +114,7 @@ namespace c_str_detail {
     struct baby
     {
         template< class Unused, class CStringizable >
-        struct result
+        struct smile
         {
             typedef TCHAR const *type;
         };

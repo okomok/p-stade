@@ -48,7 +48,7 @@ namespace drop_range_detail {
     struct baby_make
     {
         template< class Unused, class Range, class Difference = void >
-        struct result
+        struct smile
         {
             typedef drop_range<Range> const type;
         };

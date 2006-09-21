@@ -48,7 +48,7 @@ namespace to_tstring_detail {
     struct baby
     {
         template< class Unused, class WideCharSeq >
-        struct result
+        struct smile
         {
             typedef tstring const type;
         };

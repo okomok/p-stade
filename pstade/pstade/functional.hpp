@@ -20,10 +20,12 @@
 
 
 #include <boost/mpl/if.hpp> // if_c
+#include <boost/type_traits/add_reference.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <boost/utility/enable_if.hpp> // disable_if
 #include <pstade/adl_barrier.hpp>
+#include <pstade/affect.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/instance.hpp>
 #include <pstade/oui_non.hpp>
@@ -35,8 +37,34 @@ namespace pstade {
 PSTADE_ADL_BARRIER(functional) {
 
 
-namespace not_detail {
+// identity
+//
 
+namespace identity_detail {
+
+    struct baby
+    {
+        template< class Unused, class T >
+        struct smile :
+            boost::add_reference<T>
+        { };
+
+        template< class Result, class T >
+        Result call(T& x)
+        {
+            return x;
+        }
+    };
+
+} // namespace identity_detail
+
+PSTADE_EGG_FUNCTION(identity, identity_detail::baby)
+
+
+// not_
+//
+
+namespace not_detail {
 
     template< class Predicate >
     struct baby_fun
@@ -46,7 +74,7 @@ namespace not_detail {
         { }
 
         template< class Unused, class T0, class T1 = void >
-        struct result
+        struct smile
         {
             typedef bool type;
         };
@@ -67,11 +95,10 @@ namespace not_detail {
         Predicate m_pred;
     };
 
-
     struct baby
     {
         template< class Unused, class Predicate >
-        struct result
+        struct smile
         {
             typedef typename pass_by_value<Predicate>::type pred_t;
             typedef egg::function< baby_fun<pred_t> > type;
@@ -84,12 +111,13 @@ namespace not_detail {
         }
     };
 
-
 } // namespace not_detail
-
 
 PSTADE_EGG_FUNCTION_(not_, not_detail::baby)
 
+
+// equal_to
+//
 
 struct equal_to_fun
 {
@@ -102,9 +130,11 @@ struct equal_to_fun
     }
 };
 
-
 PSTADE_INSTANCE(equal_to_fun const, equal_to, value)
 
+
+// less
+//
 
 struct less_fun
 {
@@ -117,16 +147,16 @@ struct less_fun
     }
 };
 
-
 PSTADE_INSTANCE(less_fun const, less, value)
 
+
+// plus
+//
 
 struct plus_failed_to_deduce_result_type
 { };
 
-
 namespace plus_detail {
-
 
     template< class X, class Y >
     struct deduce_result
@@ -157,11 +187,10 @@ namespace plus_detail {
         >::type type;
     };
 
-
     struct baby
     {
         template< class Unused, class X, class Y >
-        struct result :
+        struct smile :
             deduce_result<X, Y>
         { };
 
@@ -172,11 +201,65 @@ namespace plus_detail {
         }
     };
 
-
 } // namespace plus_detail
 
-
 PSTADE_EGG_FUNCTION(plus, plus_detail::baby)
+
+
+// at_first
+//
+
+namespace at_first_detail {
+
+    struct baby
+    {
+        template< class Unused, class Pair >
+        struct smile :
+            boost::add_reference<
+                typename affect_const<
+                    Pair, typename Pair::first_type
+                >::type
+            >
+        { };
+
+        template< class Result, class Pair >
+        Result call(Pair& x)
+        {
+            return x.first;
+        }
+    };
+
+} // namespace identity_detail
+
+PSTADE_EGG_FUNCTION(at_first, at_first_detail::baby)
+
+
+// at_second
+//
+
+namespace at_second_detail {
+
+    struct baby
+    {
+        template< class Unused, class Pair >
+        struct smile :
+            boost::add_reference<
+                typename affect_const<
+                    Pair, typename Pair::second_type
+                >::type
+            >
+        { };
+
+        template< class Result, class Pair >
+        Result call(Pair& x)
+        {
+            return x.second;
+        }
+    };
+
+} // namespace identity_detail
+
+PSTADE_EGG_FUNCTION(at_second, at_second_detail::baby)
 
 
 } // ADL barrier

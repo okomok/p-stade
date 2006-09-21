@@ -102,7 +102,7 @@ namespace copied_to_detail {
         // as range-adaptor
         //
         template< class Unused, class InRange, class OutRangeOrIter >
-        struct result :
+        struct smile :
             boost::mpl::if_<
                 boost::is_convertible<
                     typename range_traversal<InRange>::type,

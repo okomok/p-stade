@@ -51,6 +51,8 @@ struct scan_range :
     private as_lightweight_proxy< scan_range<Range, State, BinaryFun> >
 {
     typedef Range pstade_oven_range_base_type;
+    typedef State state_type;
+    typedef BinaryFun function_type;
 
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
@@ -73,7 +75,7 @@ namespace scan_range_detail {
     struct baby_make
     {
         template< class Unused, class Range, class State, class BinaryFun = plus_fun >
-        struct result
+        struct smile
         {
             typedef typename pass_by_value<BinaryFun>::type fun_t;
             typedef typename pass_by_value<State>::type sta_t;

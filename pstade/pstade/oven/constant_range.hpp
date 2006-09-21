@@ -10,18 +10,14 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/iterator/transform_iterator.hpp>
-#include <boost/range/begin.hpp>
-#include <boost/range/end.hpp>
-#include <boost/range/iterator_range.hpp>
 #include <boost/type_traits/add_const.hpp>
 #include <pstade/affect.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
-#include <pstade/pass_by.hpp>
+#include <pstade/functional.hpp> // identity
 #include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
-#include "./range_iterator.hpp"
+#include "./transform_range.hpp"
 #include "./range_reference.hpp"
 #include "./range_value.hpp"
 
@@ -33,7 +29,7 @@ namespace constant_range_detail {
 
 
     template< class Range >
-    struct constantify_fun
+    struct reference
     {
         typedef typename range_reference<Range>::type ref_t;
         typedef typename range_value<Range>::type val_t;
@@ -41,23 +37,15 @@ namespace constant_range_detail {
         typedef typename affect_cvr<
             ref_t,
             typename boost::add_const<val_t>::type
-        >::type result_type;
-
-        result_type operator()(typename pass_by_reference<ref_t>::type x) const
-        {
-            return x;
-        }
+        >::type type;
     };
 
 
     template< class Range >
     struct super_
     {
-        typedef boost::iterator_range<
-            boost::transform_iterator<
-                constantify_fun<Range>,
-                typename range_iterator<Range>::type
-            >
+        typedef transform_range<
+            Range, identity_fun, typename reference<Range>::type
         > type;
     };
 
@@ -75,14 +63,10 @@ struct constant_range :
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
     typedef typename constant_range_detail::super_<Range>::type super_t;
-    typedef typename super_t::iterator iter_t;
 
 public:
     explicit constant_range(Range& rng) :
-        super_t(
-            iter_t(boost::begin(rng), constant_range_detail::constantify_fun<Range>()),
-            iter_t(boost::end(rng),   constant_range_detail::constantify_fun<Range>())
-        )
+        super_t(rng, identity)
     { }
 };
 
@@ -93,7 +77,7 @@ namespace constant_range_detail {
     struct baby_make
     {
         template< class Unused, class Range >
-        struct result
+        struct smile
         {
             typedef constant_range<Range> const type;
         };

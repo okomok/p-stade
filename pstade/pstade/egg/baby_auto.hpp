@@ -54,7 +54,7 @@ struct baby_auto
     };
 
     template< class Unused, class From >
-    struct result
+    struct smile
     {
         typedef temp<From> const type;
     };

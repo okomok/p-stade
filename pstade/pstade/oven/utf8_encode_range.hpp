@@ -21,7 +21,6 @@
 #include "./range_iterator.hpp"
 
 
-
 namespace pstade { namespace oven {
 
 
@@ -67,7 +66,7 @@ namespace utf8_encode_range_detail {
     struct baby_make
     {
         template< class Unused, class BidiRange, class U8T = boost::uint8_t >
-        struct result
+        struct smile
         {
             typedef typename pass_by_value<U8T>::type u8_t;
             typedef utf8_encode_range<BidiRange, u8_t> const type;

@@ -8,7 +8,7 @@
 struct a_baby
 {
     template< class Unused, class X, class Y >
-    struct result
+    struct smile
     {
         typedef void type;
     };

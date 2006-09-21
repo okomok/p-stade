@@ -35,6 +35,7 @@ struct take_while_range :
     private as_lightweight_proxy< take_while_range<ForwardRange, Predicate> >
 {
     typedef ForwardRange pstade_oven_range_base_type;
+    typedef Predicate predicate_type;
 
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeConcept);
@@ -53,7 +54,7 @@ namespace take_while_range_detail {
     struct baby_make
     {
         template< class Unused, class ForwardRange, class Predicate >
-        struct result
+        struct smile
         {
             typedef typename pass_by_value<Predicate>::type pred_t;
             typedef take_while_range<ForwardRange, pred_t> const type;

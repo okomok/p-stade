@@ -61,7 +61,7 @@ namespace direct_range_detail {
     struct baby_make
     {
         template< class Unused, class Range >
-        struct result
+        struct smile
         {
             typedef direct_range<Range> const type;
         };

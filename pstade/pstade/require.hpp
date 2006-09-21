@@ -96,7 +96,7 @@ namespace require_detail {
     struct baby
     {
         template< class Unused, class T, class StringT = void >
-        struct result :
+        struct smile :
             boost::add_reference<T>
         { };
 

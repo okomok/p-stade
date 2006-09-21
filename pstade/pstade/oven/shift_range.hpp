@@ -61,7 +61,7 @@ namespace shift_range_detail {
     struct baby_make
     {
         template< class Unused, class ForwardRange, class Difference >
-        struct result
+        struct smile
         {
             typedef shift_range<ForwardRange> const type;
         };

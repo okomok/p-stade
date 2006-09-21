@@ -27,7 +27,7 @@
 struct baby_to_lower
 {
     template< class Unused, class CharT >
-    struct result : boost::remove_const<CharT>
+    struct smile : boost::remove_const<CharT>
     { };
 
     template< class Result, class CharT >

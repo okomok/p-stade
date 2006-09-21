@@ -69,7 +69,7 @@ namespace tab_expand_range_detail {
     struct baby_make
     {
         template< class Unused, class ForwardRange, class TabSizeT >
-        struct result
+        struct smile
         {
             typedef tab_expand_range<ForwardRange> const type;
         };

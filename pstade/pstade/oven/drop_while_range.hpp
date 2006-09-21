@@ -30,6 +30,7 @@ struct drop_while_range :
     private as_lightweight_proxy< drop_while_range<Range, Predicate> >
 {
     typedef Range pstade_oven_range_base_type;
+    typedef Predicate predicate_type;
 
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
@@ -48,7 +49,7 @@ namespace drop_while_range_detail {
     struct baby_make
     {
         template< class Unused, class Range, class Predicate >
-        struct result
+        struct smile
         {
             typedef typename pass_by_value<Predicate>::type pred_t;
             typedef drop_while_range<Range, pred_t> const type;

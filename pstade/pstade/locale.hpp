@@ -62,7 +62,7 @@ namespace locale_detail {
     struct to_upper_gift
     {
         template< class Unused, class CharT, class Locale = void >
-        struct result :
+        struct smile :
             pass_by_value<CharT>
         { };
     };

@@ -10,19 +10,15 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/iterator/transform_iterator.hpp>
-#include <boost/range/begin.hpp>
-#include <boost/range/end.hpp>
-#include <boost/range/iterator_range.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 #include <pstade/affect.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
-#include <pstade/pass_by.hpp>
+#include <pstade/functional.hpp> // at_second
 #include "./as_lightweight_proxy.hpp"
-#include "./range_iterator.hpp"
+#include "./detail/concept_check.hpp"
 #include "./range_reference.hpp"
-#include "./range_value.hpp"
+#include "./transform_range.hpp"
 
 
 namespace pstade { namespace oven {
@@ -32,7 +28,7 @@ namespace second_range_detail {
 
 
     template< class PairRange >
-    struct get_fun
+    struct reference
     {
         typedef typename range_reference<PairRange>::type pair_ref_t;
         typedef typename boost::remove_reference<pair_ref_t>::type pair_t;
@@ -40,23 +36,15 @@ namespace second_range_detail {
         typedef typename affect_cvr<
             pair_ref_t,
             typename pair_t::second_type
-        >::type result_type;
-
-        result_type operator()(typename pass_by_reference<pair_ref_t>::type p) const
-        {
-            return p.second;
-        }
+        >::type type;
     };
 
 
     template< class PairRange >
     struct super_
     {
-        typedef boost::iterator_range<
-            boost::transform_iterator<
-                get_fun<PairRange>,
-                typename range_iterator<PairRange>::type
-            >
+        typedef transform_range<
+            PairRange, at_second_fun, typename reference<PairRange>::type
         > type;
     };
 
@@ -72,15 +60,12 @@ struct second_range :
     typedef PairRange pstade_oven_range_base_type;
 
 private:
+    PSTADE_OVEN_DETAIL_REQUIRES(PairRange, SinglePassRangeConcept);
     typedef typename second_range_detail::super_<PairRange>::type super_t;
-    typedef typename super_t::iterator iter_t;
 
 public:
     explicit second_range(PairRange& rng) :
-        super_t(
-            iter_t(boost::begin(rng), second_range_detail::get_fun<PairRange>()),
-            iter_t(boost::end(rng), second_range_detail::get_fun<PairRange>())
-        )
+        super_t(rng, at_second)
     { }
 };
 
@@ -91,7 +76,7 @@ namespace second_range_detail {
     struct baby_make
     {
         template< class Unused, class PairRange >
-        struct result
+        struct smile
         {
             typedef second_range<PairRange> const type;
         };
