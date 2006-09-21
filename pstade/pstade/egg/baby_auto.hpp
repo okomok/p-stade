@@ -36,7 +36,7 @@ struct baby_auto
         { }
 
         template< class To >
-        operator To() /*const*/ // 'const' makes impact?
+        operator To() const // needs 'const' for now.
         {
             return CastFunClass::template call<To>(m_from);
         }
@@ -56,7 +56,7 @@ struct baby_auto
     template< class Unused, class From >
     struct result
     {
-        typedef temp<From> /*const*/ type;
+        typedef temp<From> const type;
     };
 
     template< class Result, class From >

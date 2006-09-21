@@ -99,7 +99,6 @@ from_0_to(Incrementable const& c)
     return counting_range<Incrementable>(0, c);
 }
 
-
 template< class Incrementable > inline
 counting_range<Incrementable> const
 from_1_to(Incrementable const& c)

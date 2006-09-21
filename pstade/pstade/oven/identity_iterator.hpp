@@ -68,7 +68,7 @@ friend class boost::iterator_core_access;
 
 template< class Iterator, class CategoryOrTraversal > inline
 identity_iterator<Iterator, CategoryOrTraversal> const
-make_identity_iterator(Iterator const& it, CategoryOrTraversal const&)
+make_identity_iterator(Iterator const& it, CategoryOrTraversal)
 {
     return identity_iterator<Iterator, CategoryOrTraversal>(it);
 }

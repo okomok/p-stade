@@ -77,7 +77,6 @@ struct copy_range_class
     }
 };
 
-
 PSTADE_EGG_PIPABLE(copied, egg::baby_auto<copy_range_class>)
 
 

@@ -44,9 +44,9 @@ advance_begin(Range& rng, Difference d)
 {
     typedef typename boost::range_result_iterator<Range>::type iter_t;
     typedef typename range_traversal<Range>::type trv_t;
-    
+
     detail::check_range(rng, d, trv_t());
-    
+
     iter_t it = boost::begin(rng);
     std::advance(it, d);
     return it;

@@ -14,10 +14,10 @@
 #include <pstade/egg/by_value.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
+#include <pstade/functional.hpp> // not
 #include "./algorithm.hpp" // find_if
 #include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
-#include "./detail/not.hpp"
 #include "./sub_range_base.hpp"
 
 
@@ -37,7 +37,7 @@ private:
 
 public:
     drop_while_range(Range& rng, Predicate const& pred) :
-        super_t(oven::find_if(rng, detail::not_(pred)), boost::end(rng))
+        super_t(oven::find_if(rng, pstade::not_(pred)), boost::end(rng))
     { }
 };
 

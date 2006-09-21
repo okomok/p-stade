@@ -14,10 +14,10 @@
 #include <pstade/egg/by_value.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
+#include <pstade/functional.hpp> // less
 #include "./algorithm.hpp" // sort
 #include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
-#include "./detail/less_than.hpp"
 #include "./out_place_range.hpp"
 
 
@@ -57,7 +57,7 @@ namespace sort_range_detail {
 } // namespace sort_range_detail
 
 
-template< class ForwardRange, class BinaryPred = detail::less_than_fun >
+template< class ForwardRange, class BinaryPred = less_fun >
 struct sort_range :
     sort_range_detail::super_<ForwardRange, BinaryPred>::type,
     private as_lightweight_proxy< sort_range<ForwardRange, BinaryPred> >
@@ -69,7 +69,7 @@ private:
     typedef typename sort_range_detail::super_<ForwardRange, BinaryPred>::type super_t;
 
 public:
-    explicit sort_range(ForwardRange& rng, BinaryPred const& pred = detail::less_than) :
+    explicit sort_range(ForwardRange& rng, BinaryPred const& pred = pstade::less) :
         super_t(rng, sort_range_detail::sort_fun<BinaryPred>(pred))
     { }
 };
@@ -80,7 +80,7 @@ namespace sort_range_detail {
 
     struct baby_make
     {
-        template< class Unused, class ForwardRange, class BinaryPred = detail::less_than_fun >
+        template< class Unused, class ForwardRange, class BinaryPred = less_fun >
         struct result
         {
             typedef typename egg::by_value<BinaryPred>::type pred_t;

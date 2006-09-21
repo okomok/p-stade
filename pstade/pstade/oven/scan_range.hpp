@@ -16,9 +16,9 @@
 #include <pstade/egg/by_value.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
+#include <pstade/functional.hpp> // plus
 #include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
-#include "./detail/plus.hpp"
 #include "./range_iterator.hpp"
 #include "./scan_iterator.hpp"
 
@@ -45,7 +45,7 @@ namespace scan_range_detail {
 } // namespace scan_range_detail
 
 
-template< class Range, class State, class BinaryFun = detail::plus_fun >
+template< class Range, class State, class BinaryFun = plus_fun >
 struct scan_range :
     scan_range_detail::super_<Range, State, BinaryFun>::type,
     private as_lightweight_proxy< scan_range<Range, State, BinaryFun> >
@@ -58,7 +58,7 @@ private:
     typedef typename super_t::iterator iter_t;
 
 public:
-    scan_range(Range& rng, State const& init, BinaryFun const& fun = detail::plus) :
+    scan_range(Range& rng, State const& init, BinaryFun const& fun = pstade::plus) :
         super_t(
             iter_t(boost::begin(rng), init, fun),
             iter_t(boost::end(rng),   init, fun)
@@ -72,7 +72,7 @@ namespace scan_range_detail {
 
     struct baby_make
     {
-        template< class Unused, class Range, class State, class BinaryFun = detail::plus_fun >
+        template< class Unused, class Range, class State, class BinaryFun = plus_fun >
         struct result
         {
             typedef typename egg::by_value<BinaryFun>::type fun_t;

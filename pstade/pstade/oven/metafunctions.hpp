@@ -10,6 +10,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include "./iterator_base.hpp"
+
 #include "./range_base.hpp"
 #include "./range_category.hpp"
 #include "./range_iterator.hpp"
@@ -20,8 +22,6 @@
 
 #include "./sub_range_base.hpp"
 #include "./sub_range_result.hpp"
-
-#include "./iterator_base.hpp"
 
 
 #endif

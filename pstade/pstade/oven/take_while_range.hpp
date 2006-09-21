@@ -19,10 +19,10 @@
 #include <pstade/egg/by_value.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
+#include <pstade/functional.hpp> // not
 #include "./algorithm.hpp" // find_if
 #include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
-#include "./detail/not.hpp"
 #include "./sub_range_base.hpp"
 
 
@@ -42,7 +42,7 @@ private:
 
 public:
     take_while_range(ForwardRange& rng, Predicate const& pred) :
-        super_t(boost::begin(rng), oven::find_if(rng, detail::not_(pred)))
+        super_t(boost::begin(rng), oven::find_if(rng, pstade::not_(pred)))
     { }
 };
 

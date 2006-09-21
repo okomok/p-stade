@@ -13,11 +13,10 @@
 #include <boost/utility/result_of.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
+#include <pstade/functional.hpp> // equal_to, not_
 #include "./adjacent_filter_range.hpp"
 #include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
-#include "./detail/equal_to.hpp"
-#include "./detail/not.hpp"
 
 
 namespace pstade { namespace oven {
@@ -31,7 +30,7 @@ namespace unique_range_detail {
     {
         typedef adjacent_filter_range<
             ForwardRange,
-            typename boost::result_of<detail::not_fun(detail::equal_to_fun)>::type
+            typename boost::result_of<not_fun(equal_to_fun)>::type
         > type;
     };
 
@@ -52,7 +51,7 @@ private:
 
 public:
     explicit unique_range(ForwardRange& rng) :
-        super_t(rng, detail::not_(detail::equal_to))
+        super_t(rng, pstade::not_(equal_to))
     { }
 };
 
