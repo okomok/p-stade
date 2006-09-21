@@ -18,9 +18,9 @@
 #include <boost/type_traits/remove_cv.hpp>
 #include <boost/utility/addressof.hpp>
 #include <boost/utility/result_of.hpp>
-#include <pstade/egg/by_value.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
+#include <pstade/pass_by.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
 #include "./identity_range.hpp"
@@ -125,7 +125,7 @@ namespace generate_range_detail {
         template< class Unused, class Range, class Generator >
         struct result
         {
-            typedef typename unwrap<typename egg::by_value<Generator>::type>::type gen_t;
+            typedef typename unwrap<typename pass_by_value<Generator>::type>::type gen_t;
             typedef generate_range<Range, gen_t> const type;
         };
 

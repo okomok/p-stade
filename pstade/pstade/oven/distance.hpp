@@ -11,7 +11,7 @@
 
 
 #include <iterator> // distance
-#include <boost/iterator/iterator_categories.hpp> // travesal_tag's
+#include <boost/iterator/iterator_categories.hpp> // traversal_tag's
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/adl_barrier.hpp>
@@ -34,15 +34,13 @@ namespace distance_detail {
     //
 
     template< class Result, class Range > inline
-    Result aux(boost::random_access_traversal_tag,
-        Range const& rng)
+    Result aux(Range const& rng, boost::random_access_traversal_tag)
     {
         return boost::end(rng) - boost::begin(rng);
     }
 
     template< class Result, class Range > inline
-    Result aux(boost::single_pass_traversal_tag,
-        Range const& rng)
+    Result aux(Range const& rng, boost::single_pass_traversal_tag)
     {
         return std::distance(boost::begin(rng), boost::end(rng));
     }
@@ -61,7 +59,7 @@ namespace distance_detail {
             detail::requires< boost::SinglePassRangeConcept<Range> >();
 
             typedef typename range_traversal<Range>::type trv_t;
-            return distance_detail::aux<Result>(trv_t(), rng);
+            return distance_detail::aux<Result>(rng, trv_t());
         }
     };
 

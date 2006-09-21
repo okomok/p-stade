@@ -16,10 +16,10 @@
 
 
 #include <boost/range/begin.hpp>
-#include <pstade/egg/by_value.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <pstade/functional.hpp> // not
+#include <pstade/pass_by.hpp>
 #include "./algorithm.hpp" // find_if
 #include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
@@ -55,7 +55,7 @@ namespace take_while_range_detail {
         template< class Unused, class ForwardRange, class Predicate >
         struct result
         {
-            typedef typename egg::by_value<Predicate>::type pred_t;
+            typedef typename pass_by_value<Predicate>::type pred_t;
             typedef take_while_range<ForwardRange, pred_t> const type;
         };
 

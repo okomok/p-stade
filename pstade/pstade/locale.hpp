@@ -14,9 +14,9 @@
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
 #include <pstade/adl_barrier.hpp>
-#include <pstade/egg/by_value.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/instance.hpp>
+#include <pstade/pass_by.hpp>
 
 
 namespace pstade {
@@ -63,7 +63,7 @@ namespace locale_detail {
     {
         template< class Unused, class CharT, class Locale = void >
         struct result :
-            egg::by_value<CharT>
+            pass_by_value<CharT>
         { };
     };
 

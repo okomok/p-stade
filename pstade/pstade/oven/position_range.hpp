@@ -12,9 +12,9 @@
 
 #include <boost/range/iterator_range.hpp>
 #include <boost/spirit/iterator/position_iterator.hpp>
-#include <pstade/egg/by_value.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
+#include <pstade/pass_by.hpp>
 #include <pstade/static_c.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
@@ -98,7 +98,7 @@ namespace position_range_detail {
         template< class Unused, class ForwardRange, class PositionT = default_pos_t, class Int = void >
         struct result
         {
-            typedef typename egg::by_value<PositionT>::type pos_t;
+            typedef typename pass_by_value<PositionT>::type pos_t;
             typedef position_range<ForwardRange, pos_t> const type;
         };
 

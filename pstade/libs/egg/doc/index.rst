@@ -108,13 +108,6 @@ Reference
 - Returns: A `Functor`_ that supports `Boost.ResultOf`_.
 
 
-``by_value``
-^^^^^^^^^^^^
-- Header: ``<pstade/egg/by_value.hpp>``
-- Valid expression: ``by_value<T>``
-- Returns: ``boost::remove_cv<typename boost::decay<T>::type>``
-
-
 ``PSTADE_EGG_FUNCTION``
 ^^^^^^^^^^^^^^^^^^^^^^^
 There are some pitfalls when you define a `function`_ under namespace scope.
@@ -166,6 +159,6 @@ Version 0.90.2
 
 Version 0.90.3
 ^^^^^^^^^^^^^^
-- Fixed a bug that passes a ``egg::function`` object to ``BabyFunction``\'s constructor.
-- Renamed ``decay_function`` to ``by_value``.
+- Fixed a bug that passes an ``egg::function`` object to ``BabyFunction``\'s constructor.
+- Renamed ``decay_function`` to ``pstade::pass_by_value``.
 

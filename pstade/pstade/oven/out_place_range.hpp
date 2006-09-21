@@ -19,10 +19,10 @@
 #include <vector>
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
-#include <pstade/egg/by_value.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <pstade/new.hpp>
+#include <pstade/pass_by.hpp>
 #include <pstade/unused.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./copy_range.hpp"
@@ -117,7 +117,7 @@ namespace out_place_range_detail {
         template< class Unused, class ForwardRange, class Functor = unused_fun >
         struct result
         {
-            typedef typename egg::by_value<Functor>::type fun_t;
+            typedef typename pass_by_value<Functor>::type fun_t;
             typedef out_place_range<ForwardRange, fun_t> const type;
         };
 

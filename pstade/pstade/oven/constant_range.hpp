@@ -18,7 +18,7 @@
 #include <pstade/affect.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
-#include <pstade/param.hpp>
+#include <pstade/pass_by.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
 #include "./range_iterator.hpp"
@@ -43,7 +43,7 @@ namespace constant_range_detail {
             typename boost::add_const<val_t>::type
         >::type result_type;
 
-        result_type operator()(typename param<ref_t>::type x) const
+        result_type operator()(typename pass_by_reference<ref_t>::type x) const
         {
             return x;
         }

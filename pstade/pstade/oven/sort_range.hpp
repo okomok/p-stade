@@ -11,10 +11,10 @@
 
 
 #include <boost/ptr_container/indirect_fun.hpp>
-#include <pstade/egg/by_value.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <pstade/functional.hpp> // less
+#include <pstade/pass_by.hpp>
 #include "./algorithm.hpp" // sort
 #include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
@@ -83,7 +83,7 @@ namespace sort_range_detail {
         template< class Unused, class ForwardRange, class BinaryPred = less_fun >
         struct result
         {
-            typedef typename egg::by_value<BinaryPred>::type pred_t;
+            typedef typename pass_by_value<BinaryPred>::type pred_t;
             typedef sort_range<ForwardRange, pred_t> const type;
         };
 

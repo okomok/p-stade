@@ -21,7 +21,7 @@
 #include <pstade/affect.hpp>
 #include <pstade/const_overloaded.hpp>
 #include <pstade/nonassignable.hpp>
-#include <pstade/param.hpp>
+#include <pstade/pass_by.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
 #include "./range_iterator.hpp"
@@ -45,7 +45,7 @@ namespace get_at_range_detail {
             typename boost::fusion::result_of::at<seq_t, N>::type
         >::type result_type;
 
-        result_type operator()(typename param<seq_ref_t>::type seq) const
+        result_type operator()(typename pass_by_reference<seq_ref_t>::type seq) const
         {
             return boost::fusion::at<N>(seq);
         }

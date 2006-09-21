@@ -15,9 +15,9 @@
 // Will be cute with the upcoming Boost.Phoenix-v2.
 
 
-#include <pstade/egg/by_value.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
+#include <pstade/pass_by.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./begin_end.hpp"
 #include "./detail/concept_check.hpp"
@@ -60,8 +60,8 @@ namespace apply_range_detail {
         template< class Unused, class Range, class BeginFun, class EndFun = end_fun >
         struct result
         {
-            typedef typename egg::by_value<BeginFun>::type bfun_t;
-            typedef typename egg::by_value<EndFun>::type   efun_t;
+            typedef typename pass_by_value<BeginFun>::type bfun_t;
+            typedef typename pass_by_value<EndFun>::type   efun_t;
             typedef apply_range<Range, bfun_t, efun_t> const type;
         };
 

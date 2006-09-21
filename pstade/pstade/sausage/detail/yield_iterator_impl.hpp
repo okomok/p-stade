@@ -29,7 +29,7 @@
 #include <boost/type_traits/remove_reference.hpp>
 #include <boost/utility/addressof.hpp>
 #include <pstade/nullptr.hpp>
-#include <pstade/param.hpp>
+#include <pstade/pass_by.hpp>
 #include <pstade/static_c.hpp>
 #include "../exception.hpp" // exit_exception
 #include "./forward_yield.hpp"
@@ -61,7 +61,7 @@ struct yield_iterator_impl :
 private:
     typedef yield_iterator_impl self_t;
     typedef typename detail::routine_result<Routine>::type result_t;
-    typedef typename param<result_t>::type result_ref_t;
+    typedef typename pass_by_reference<result_t>::type result_ref_t;
     typedef typename detail::ref_to_ptr<result_ref_t>::type result_ptr_t;
 
 public:
@@ -144,7 +144,7 @@ private:
         m_cond.notify_one();
     }
 
-    void yield(result_ref_t result) // is same thread as 'work()'.
+    void yield(result_ref_t result) // in the same thread as 'work()'.
     {
         boost::mutex::scoped_lock lock(m_mutex);
 

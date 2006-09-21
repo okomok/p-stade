@@ -19,7 +19,7 @@
 
 
 #include <boost/iterator/detail/minimum_category.hpp>
-#include <boost/iterator/iterator_categories.hpp> // travesal_tag's
+#include <boost/iterator/iterator_categories.hpp> // traversal_tag's
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/adl_barrier.hpp>
@@ -38,6 +38,8 @@ namespace pstade { namespace oven {
 namespace equals_detail {
 
 
+    // Question:
+    // Boost doesn't have this overload. Faster or slower?
     template< class Range1, class Range2, class BinaryPred >
     bool aux(Range1 const& rng1, Range2 const& rng2, BinaryPred pred,
         boost::random_access_traversal_tag)

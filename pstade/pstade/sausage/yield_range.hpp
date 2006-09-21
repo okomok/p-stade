@@ -11,10 +11,10 @@
 
 
 #include <boost/range/iterator_range.hpp>
-#include <pstade/egg/by_value.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <pstade/oven/as_lightweight_proxy.hpp>
+#include <pstade/pass_by.hpp>
 #include "./yield_iterator.hpp"
 
 
@@ -60,7 +60,7 @@ namespace yield_range_detail {
         template< class Unused, class Routine >
         struct result
         {
-            typedef typename egg::by_value<Routine>::type rou_t;
+            typedef typename pass_by_value<Routine>::type rou_t;
             typedef yield_range<rou_t> const type;
         };
 

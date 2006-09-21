@@ -13,10 +13,10 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
-#include <pstade/egg/by_value.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <pstade/functional.hpp> // plus
+#include <pstade/pass_by.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
 #include "./range_iterator.hpp"
@@ -75,8 +75,8 @@ namespace scan_range_detail {
         template< class Unused, class Range, class State, class BinaryFun = plus_fun >
         struct result
         {
-            typedef typename egg::by_value<BinaryFun>::type fun_t;
-            typedef typename egg::by_value<State>::type sta_t;
+            typedef typename pass_by_value<BinaryFun>::type fun_t;
+            typedef typename pass_by_value<State>::type sta_t;
             typedef scan_range<Range, sta_t, fun_t> const type;
         };
 

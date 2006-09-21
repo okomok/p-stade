@@ -11,9 +11,9 @@
 
 
 #include <boost/range/iterator_range.hpp>
-#include <pstade/egg/by_value.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
+#include <pstade/pass_by.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
 #include "./identity_iterator.hpp"
@@ -70,7 +70,7 @@ namespace identity_range_detail {
         template< class Unused, class Range, class CategoryOrTraversal = boost::use_default >
         struct result
         {
-            typedef typename egg::by_value<CategoryOrTraversal>::type trv_t;
+            typedef typename pass_by_value<CategoryOrTraversal>::type trv_t;
             typedef identity_range<Range, trv_t> const type;
         };
 

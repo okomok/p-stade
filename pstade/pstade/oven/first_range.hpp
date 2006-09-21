@@ -28,7 +28,7 @@
 #include <pstade/affect.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
-#include <pstade/param.hpp>
+#include <pstade/pass_by.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
 #include "./range_iterator.hpp"
@@ -52,7 +52,7 @@ namespace first_range_detail {
             typename pair_t::first_type
         >::type result_type;
 
-        result_type operator()(typename param<pair_ref_t>::type p) const
+        result_type operator()(typename pass_by_reference<pair_ref_t>::type p) const
         {
             return p.first;
         }

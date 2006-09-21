@@ -13,9 +13,9 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
-#include <pstade/egg/by_value.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
+#include <pstade/pass_by.hpp>
 #include "./adjacent_filter_iterator.hpp"
 #include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
@@ -73,7 +73,7 @@ namespace adjacent_filter_range_detail {
         template< class Unused, class ForwardRange, class BinaryPred >
         struct result
         {
-            typedef typename egg::by_value<BinaryPred>::type pred_t;
+            typedef typename pass_by_value<BinaryPred>::type pred_t;
             typedef adjacent_filter_range<ForwardRange, pred_t> const type;
         };
 

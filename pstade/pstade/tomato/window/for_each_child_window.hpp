@@ -12,8 +12,8 @@
 
 #include <boost/utility/addressof.hpp>
 #include <pstade/apple/sdk/windows.hpp>
-#include <pstade/egg/by_value.hpp>
 #include <pstade/egg/function.hpp>
+#include <pstade/pass_by.hpp>
 #include "./window_ptr.hpp"
 #include "./window_ref.hpp"
 
@@ -72,7 +72,7 @@ namespace for_each_child_window_detail {
 
         template< class Unused, class UnaryFun >
         struct result :
-            egg::by_value<UnaryFun>
+            pass_by_value<UnaryFun>
         { };
 
         template< class Result, class UnaryFun >

@@ -11,10 +11,10 @@
 
 
 #include <boost/range/end.hpp>
-#include <pstade/egg/by_value.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <pstade/functional.hpp> // not
+#include <pstade/pass_by.hpp>
 #include "./algorithm.hpp" // find_if
 #include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
@@ -50,7 +50,7 @@ namespace drop_while_range_detail {
         template< class Unused, class Range, class Predicate >
         struct result
         {
-            typedef typename egg::by_value<Predicate>::type pred_t;
+            typedef typename pass_by_value<Predicate>::type pred_t;
             typedef drop_while_range<Range, pred_t> const type;
         };
 

@@ -22,7 +22,7 @@
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/mpl/eval_if.hpp>
 #include <boost/shared_ptr.hpp>
-#include <pstade/param.hpp>
+#include <pstade/pass_by.hpp>
 #include <pstade/remove_cvr.hpp>
 #include <pstade/unused.hpp>
 #include "./detail/routine_result.hpp"
@@ -44,7 +44,7 @@ namespace yield_iterator_detail {
     {
         typedef typename detail::routine_result<Routine>::type result_t;
         typedef typename remove_cvr<result_t>::type val_t;
-        typedef typename param<result_t>::type ref_t; // 'param' is useful :-)
+        typedef typename pass_by_reference<result_t>::type ref_t; // 'pass_by_reference' is useful :-)
 
         typedef boost::iterator_facade<
             yield_iterator<Routine>,

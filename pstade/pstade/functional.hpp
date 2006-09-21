@@ -25,9 +25,9 @@
 #include <boost/utility/enable_if.hpp> // disable_if
 #include <pstade/adl_barrier.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/by_value.hpp>
 #include <pstade/instance.hpp>
 #include <pstade/oui_non.hpp>
+#include <pstade/pass_by.hpp>
 
 
 namespace pstade {
@@ -73,7 +73,7 @@ namespace not_detail {
         template< class Unused, class Predicate >
         struct result
         {
-            typedef typename egg::by_value<Predicate>::type pred_t;
+            typedef typename pass_by_value<Predicate>::type pred_t;
             typedef egg::function< baby_fun<pred_t> > type;
         };
 

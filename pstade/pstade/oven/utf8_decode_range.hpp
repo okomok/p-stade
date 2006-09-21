@@ -13,9 +13,9 @@
 #include <boost/cstdint.hpp> // uint32_t
 #include <boost/range/iterator_range.hpp>
 #include <boost/regex/pending/unicode_iterator.hpp> // u8_to_u32_iterator
-#include <pstade/egg/by_value.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
+#include <pstade/pass_by.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
 #include "./range_iterator.hpp"
@@ -68,7 +68,7 @@ namespace utf8_decode_range_detail {
         template< class Unused, class BidiRange, class Ucs4T = boost::uint32_t >
         struct result
         {
-            typedef typename egg::by_value<Ucs4T>::type ucs4_t;
+            typedef typename pass_by_value<Ucs4T>::type ucs4_t;
             typedef utf8_decode_range<BidiRange, ucs4_t> const type;
         };
 
