@@ -61,10 +61,10 @@ namespace indirect_range_detail {
 
 template<
     class Range,
-    class Value = boost::use_default,
+    class Value               = boost::use_default,
     class CategoryOrTraversal = boost::use_default,
-    class Reference = boost::use_default,
-    class Difference = boost::use_default
+    class Reference           = boost::use_default,
+    class Difference          = boost::use_default
 >
 struct indirect_range :
     indirect_range_detail::super_<

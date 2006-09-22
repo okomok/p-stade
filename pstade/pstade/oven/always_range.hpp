@@ -33,7 +33,7 @@ private:
     typedef typename sub_range_base<Range>::type super_t;
 
 public:
-    always_range(IgnoredRange& , Range& rng) :
+    always_range(IgnoredRange&, Range& rng) :
         super_t(rng)
     { }
 };

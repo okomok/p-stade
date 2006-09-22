@@ -30,7 +30,8 @@ namespace zip_with_range_detail {
 
 
     template<
-        class Range0, class Range1, class BinaryFun
+        class Range0, class Range1,
+        class BinaryFun
     >
     struct with_fun
     {
@@ -56,15 +57,18 @@ namespace zip_with_range_detail {
 
 
     template<
-        class Range0, class Range1, class BinaryFun,
-        class Reference, class Value
+        class Range0, class Range1,
+        class BinaryFun,
+        class Reference,
+        class Value
     >
     struct super_
     {
         typedef transform_range<
             zip_range<Range0, Range1> const,
             with_fun<Range0, Range1, BinaryFun>,
-            Reference, Value
+            Reference,
+            Value
         > type;
     };
 
@@ -73,8 +77,10 @@ namespace zip_with_range_detail {
 
 
 template<
-    class Range0, class Range1, class BinaryFun,
-    class Reference = boost::use_default, class Value = boost::use_default
+    class Range0, class Range1,
+    class BinaryFun,
+    class Reference = boost::use_default,
+    class Value     = boost::use_default
 >
 struct zip_with_range :
     zip_with_range_detail::super_<Range0, Range1, BinaryFun, Reference, Value>::type,

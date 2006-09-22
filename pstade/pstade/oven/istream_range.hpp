@@ -43,8 +43,8 @@ namespace istream_range_detail {
 
 template<
     class Value,
-    class CharT = char,
-    class Traits = std::char_traits<CharT>,
+    class CharT      = char,
+    class Traits     = std::char_traits<CharT>,
     class Difference = std::ptrdiff_t
 >
 struct istream_range :

@@ -41,7 +41,11 @@ namespace counting_range_detail {
     }
 
 
-    template< class Incrementable, class CategoryOrTraversal, class Difference >
+    template<
+        class Incrementable,
+        class CategoryOrTraversal,
+        class Difference
+    >
     struct super_
     {
         typedef boost::iterator_range<
@@ -56,7 +60,7 @@ namespace counting_range_detail {
 template<
     class Incrementable,
     class CategoryOrTraversal = boost::use_default,
-    class Difference = boost::use_default
+    class Difference          = boost::use_default
 >
 struct counting_range :
     counting_range_detail::super_<Incrementable, CategoryOrTraversal, Difference>::type,

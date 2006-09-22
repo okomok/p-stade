@@ -74,8 +74,10 @@ namespace transform_range_detail {
 
 
     template<
-        class Range, class UnaryFun,
-        class Reference, class Value
+        class Range,
+        class UnaryFun,
+        class Reference,
+        class Value
     >
     struct super_
     {
@@ -99,8 +101,10 @@ namespace transform_range_detail {
 
 
 template<
-    class Range, class UnaryFun,
-    class Reference = boost::use_default, class Value = boost::use_default
+    class Range,
+    class UnaryFun,
+    class Reference = boost::use_default,
+    class Value = boost::use_default
 >
 struct transform_range :
     transform_range_detail::super_<Range, UnaryFun, Reference, Value>::type,

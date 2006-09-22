@@ -50,6 +50,8 @@ struct file_range :
     file_range_detail::super_<CharT>::type,
     private as_lightweight_proxy< file_range<CharT> >
 {
+    typedef CharT char_type;
+
 private:
     typedef typename file_range_detail::super_<CharT>::type super_t;
 

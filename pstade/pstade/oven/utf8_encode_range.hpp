@@ -27,7 +27,10 @@ namespace pstade { namespace oven {
 namespace utf8_encode_range_detail {
 
 
-    template< class BidiRange, class U8T >
+    template<
+        class BidiRange,
+        class U8T
+    >
     struct super_
     {
         typedef boost::iterator_range<
@@ -42,7 +45,10 @@ namespace utf8_encode_range_detail {
 } // namespace utf8_encode_range_detail
 
 
-template< class BidiRange, class U8T = boost::uint8_t >
+template<
+    class BidiRange,
+    class U8T = boost::uint8_t
+>
 struct utf8_encode_range :
     utf8_encode_range_detail::super_<BidiRange, U8T>::type,
     private as_lightweight_proxy< utf8_encode_range<BidiRange, U8T> >

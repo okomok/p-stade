@@ -23,8 +23,10 @@ namespace index_range_detail {
 
 
     template<
-        class Incrementable, class UnaryFun,
-        class Reference, class Value
+        class Incrementable,
+        class UnaryFun,
+        class Reference,
+        class Value
     >
     struct super_
     {
@@ -40,17 +42,20 @@ namespace index_range_detail {
 
 
 template<
-    class Incrementable, class UnaryFun,
-    class Reference = boost::use_default, class Value = boost::use_default
+    class Incrementable,
+    class UnaryFun,
+    class Reference = boost::use_default,
+    class Value     = boost::use_default
 >
 struct index_range :
     index_range_detail::super_<Incrementable, UnaryFun, Reference, Value>::type,
     private as_lightweight_proxy< index_range<Incrementable, UnaryFun, Reference, Value> >
 {
+    typedef UnaryFun function_type;
+
 private:
     typedef typename index_range_detail::super_<Incrementable, UnaryFun, Reference, Value>::type super_t;
     typedef typename range_base<super_t>::type base_t;
-    typedef UnaryFun function_type;
 
 public:
     index_range(Incrementable const& i, Incrementable const& j, UnaryFun const& fun) :

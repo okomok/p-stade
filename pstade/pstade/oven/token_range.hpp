@@ -60,7 +60,7 @@ namespace token_range_detail {
 
 template<
     class BidiRange,
-    class CharT = typename range_value<BidiRange>::type,
+    class CharT  = typename range_value<BidiRange>::type,
     class Traits = boost::regex_traits<CharT>
 >
 struct token_range :

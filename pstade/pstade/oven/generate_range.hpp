@@ -10,6 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Note:
+//
+// 'Generator' can be a reference type.
+
+
 #include <boost/iterator/iterator_categories.hpp> // single_pass_traversal_tag
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
@@ -76,15 +81,18 @@ namespace generate_range_detail {
 
 
     template<
-        class Range, class Generator,
-        class Reference, class Value
+        class Range,
+        class Generator,
+        class Reference,
+        class Value
     >
     struct super_
     {
         typedef transform_range<
             identity_range<Range, boost::single_pass_traversal_tag> const,
             gen_fun<Generator>,
-            Reference, Value
+            Reference,
+            Value
         > type;
     };
 
@@ -93,8 +101,10 @@ namespace generate_range_detail {
 
 
 template<
-    class Range, class Generator,
-    class Reference = boost::use_default, class Value = boost::use_default
+    class Range,
+    class Generator,
+    class Reference = boost::use_default,
+    class Value     = boost::use_default
 >
 struct generate_range :
     generate_range_detail::super_<Range, Generator, Reference, Value>::type,
@@ -149,7 +159,7 @@ namespace generate_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_generate_range, generate_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(generations, generate_range_detail::baby_make)
+PSTADE_EGG_PIPABLE(generation, generate_range_detail::baby_make)
 
 
 } } // namespace pstade::oven

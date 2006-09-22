@@ -58,7 +58,7 @@ namespace break_into_range_detail {
 template<
     class Range,
     class TokenizerFun = boost::char_delimiters_separator<char>,
-    class Type = std::string
+    class Type         = std::string
 >
 struct break_into_range :
     break_into_range_detail::super_<Range, TokenizerFun, Type>::type,

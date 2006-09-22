@@ -13,9 +13,8 @@
 
 // Note:
 //
-// The nested 'result' makes name-collision with BabyFunction's 'result'.
-// Moreover, nested type specializations seem not to work under VC++.
-// So, these are directly defined in namespace 'boost'.
+// VC++ seems not to work well with nested specializations.
+// So, for now, 'boost::result_of' are directly specialized.
 
 
 #include <boost/preprocessor/cat.hpp>

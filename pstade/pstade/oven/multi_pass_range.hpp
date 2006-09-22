@@ -47,10 +47,10 @@ namespace multi_pass_range_detail {
 
 template<
     class InputIterRange, // undocumented concept by Boost.Spirit
-    class InputPolicy = boost::spirit::multi_pass_policies::input_iterator,
+    class InputPolicy     = boost::spirit::multi_pass_policies::input_iterator,
     class OwnershipPolicy = boost::spirit::multi_pass_policies::ref_counted,
-    class CheckingPolicy = boost::spirit::multi_pass_policies::buf_id_check,
-    class StoragePolicy = boost::spirit::multi_pass_policies::std_deque
+    class CheckingPolicy  = boost::spirit::multi_pass_policies::buf_id_check,
+    class StoragePolicy   = boost::spirit::multi_pass_policies::std_deque
 >
 struct multi_pass_range :
     multi_pass_range_detail::super_<

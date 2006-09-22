@@ -29,7 +29,11 @@ namespace pstade { namespace oven {
 namespace scan_range_detail {
 
 
-    template< class Range, class State, class BinaryFun >
+    template<
+        class Range,
+        class State,
+        class BinaryFun
+    >
     struct super_
     {
         typedef boost::iterator_range<
@@ -45,7 +49,11 @@ namespace scan_range_detail {
 } // namespace scan_range_detail
 
 
-template< class Range, class State, class BinaryFun = plus_fun >
+template<
+    class Range,
+    class State,
+    class BinaryFun = plus_fun
+>
 struct scan_range :
     scan_range_detail::super_<Range, State, BinaryFun>::type,
     private as_lightweight_proxy< scan_range<Range, State, BinaryFun> >

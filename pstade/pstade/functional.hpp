@@ -229,7 +229,7 @@ namespace at_first_detail {
         }
     };
 
-} // namespace identity_detail
+} // namespace at_first_detail
 
 PSTADE_EGG_FUNCTION(at_first, at_first_detail::baby)
 
@@ -257,7 +257,7 @@ namespace at_second_detail {
         }
     };
 
-} // namespace identity_detail
+} // namespace at_second_detail
 
 PSTADE_EGG_FUNCTION(at_second, at_second_detail::baby)
 

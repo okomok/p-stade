@@ -47,7 +47,8 @@ private:
 
 public:
     // Workaround:
-    // The weird VC++ needs 'oven::', combatting 'boost::end'.
+    // VC++ name-lookup around default arguments is broken.
+    // 'oven::' resolves the ambiguity between ours and boost's.
     apply_range(Range& rng, BeginFun bfun, EndFun efun = oven::end) :
         super_t(bfun(rng), efun(rng))
     { }

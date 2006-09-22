@@ -26,7 +26,10 @@ namespace pstade { namespace oven {
 namespace identity_range_detail {
 
 
-    template< class Range, class CategoryOrTraversal >
+    template<
+        class Range,
+        class CategoryOrTraversal
+    >
     struct super_
     {
         typedef boost::iterator_range<

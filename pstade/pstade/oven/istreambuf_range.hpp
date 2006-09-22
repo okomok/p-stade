@@ -35,7 +35,10 @@ namespace istreambuf_range_detail {
 } // namespace istreambuf_range_detail
 
 
-template< class CharT, class Traits = std::char_traits<CharT> >
+template<
+    class CharT,
+    class Traits = std::char_traits<CharT>
+>
 struct istreambuf_range :
     istreambuf_range_detail::super_<CharT, Traits>::type,
     private as_lightweight_proxy< istreambuf_range<CharT, Traits> >

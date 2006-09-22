@@ -87,7 +87,10 @@ namespace out_place_range_detail {
 } // namespace out_place_range_detail
 
 
-template< class ForwardRange, class UnaryFun = unused_fun >
+template<
+    class ForwardRange,
+    class UnaryFun = unused_fun
+>
 struct out_place_range :
     out_place_range_detail::super_<ForwardRange>::type,
 #if !defined(PSTADE_OVEN_OUT_PLACE_RANGE_WEIRD_ERROR_WITH_SORT_RANGE)

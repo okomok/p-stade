@@ -28,7 +28,10 @@ namespace pstade { namespace oven {
 namespace repeat_range_detail {
 
 
-    template< class ForwardRange, class Size >
+    template<
+        class ForwardRange,
+        class Size
+    >
     struct super_
     {
         typedef boost::iterator_range<
@@ -43,7 +46,10 @@ namespace repeat_range_detail {
 } // namespace repeat_range_detail
 
 
-template< class ForwardRange, class Size = std::size_t >
+template<
+    class ForwardRange,
+    class Size = std::size_t
+>
 struct repeat_range :
     repeat_range_detail::super_<ForwardRange, Size>::type,
     private as_lightweight_proxy< repeat_range<ForwardRange, Size> >

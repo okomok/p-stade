@@ -45,7 +45,10 @@ namespace sort_range_detail {
     };
 
 
-    template< class ForwardRange, class BinaryPred >
+    template<
+        class ForwardRange,
+        class BinaryPred
+    >
     struct super_
     {
         typedef out_place_range<
@@ -57,7 +60,10 @@ namespace sort_range_detail {
 } // namespace sort_range_detail
 
 
-template< class ForwardRange, class BinaryPred = less_fun >
+template<
+    class ForwardRange,
+    class BinaryPred = less_fun
+>
 struct sort_range :
     sort_range_detail::super_<ForwardRange, BinaryPred>::type,
     private as_lightweight_proxy< sort_range<ForwardRange, BinaryPred> >

@@ -476,17 +476,17 @@ it needs `regularized`_ that makes it assignable and then conforming.
 
 
 
-``generations``
-^^^^^^^^^^^^^^^
-``generations`` generates a range whose values are the results of invoking
-a function object that takes no arguments. Note that ``generations``
+``generation``
+^^^^^^^^^^^^^^
+``generation`` generates a range whose values are the results of invoking
+a function object that takes no arguments. Note that ``generation``
 doesn't modify its adapting range, which is used only as **range**::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\generations.ipp
+	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\generation.ipp
 
 
 - Header: ``<pstade/oven/generate_range.hpp>``
-- Valid expression: ``rng|generations(rfun)``, where ``rfun`` is nullary.
+- Valid expression: ``rng|generation(rfun)``, where ``rfun`` is nullary.
 - Returns: A `Single Pass Range`_ whose values are the results of invoking ``rfun``.
 
 
@@ -934,7 +934,7 @@ Version 0.91.0
 
 Version 0.91.1
 ^^^^^^^^^^^^^^
-- Renamed ``generated`` to ``generations``.
+- Renamed ``generated`` to ``generation``.
 - Renamed ``positioned`` to ``with_position``.
 - Renamed ``matched`` to ``matches``.
 - Renamed ``xpressive_matched`` to ``xpressive_matches``.

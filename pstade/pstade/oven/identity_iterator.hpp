@@ -23,7 +23,10 @@ struct identity_iterator;
 namespace identity_iterator_detail {
 
 
-    template< class Iterator, class CategoryOrTraversal >
+    template<
+        class Iterator,
+        class CategoryOrTraversal
+    >
     struct super_
     {
         typedef boost::iterator_adaptor<
