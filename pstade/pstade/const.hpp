@@ -32,7 +32,7 @@ namespace const_detail {
     struct baby
     {
         template< class Unused, class T >
-        struct smile :
+        struct apply :
             boost::add_reference<
                 typename boost::add_const<T>::type
             >

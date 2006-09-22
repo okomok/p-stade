@@ -46,10 +46,10 @@ namespace xml_grammar
 
     struct CharData :
         minus<
-            star< not_< chset<'<','&'> > >,
+            star< biscuit::not_< chset<'<','&'> > >,
             seq<
-                star_until< not_< chset<'<','&'> >, chseq<']',']','>'> >,
-                star< not_< chset<'<','&'> > >
+                star_until< biscuit::not_< chset<'<','&'> >, chseq<']',']','>'> >,
+                star< biscuit::not_< chset<'<','&'> > >
             >
         >
     { };
@@ -243,7 +243,7 @@ namespace xml_grammar
                 chseq<'"'>,
                 star<
                     or_<
-                        not_< chset<'<','&','"'> >,
+                        biscuit::not_< chset<'<','&','"'> >,
                         Reference
                     >
                 >,
@@ -253,7 +253,7 @@ namespace xml_grammar
                 chseq<'\''>,
                 star<
                     or_<
-                        not_< chset<'<','&','\''> >,
+                        biscuit::not_< chset<'<','&','\''> >,
                         Reference
                     >
                 >,

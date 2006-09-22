@@ -48,7 +48,7 @@ namespace take_range_detail {
     struct baby_make
     {
         template< class Unused, class ForwardRange, class Difference >
-        struct smile
+        struct apply
         {
             typedef take_range<ForwardRange> const type;
         };

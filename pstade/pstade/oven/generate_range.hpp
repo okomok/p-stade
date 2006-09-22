@@ -35,7 +35,7 @@ namespace generate_range_detail {
 
 
     template< class Generator >
-    struct ignore_fun
+    struct gen_fun
     {
         typedef typename boost::result_of<Generator()>::type result_type;
 
@@ -45,7 +45,7 @@ namespace generate_range_detail {
             return m_gen();
         }
 
-        explicit ignore_fun(Generator const& gen) :
+        explicit gen_fun(Generator const& gen) :
             m_gen(gen)
         { }
 
@@ -55,7 +55,7 @@ namespace generate_range_detail {
 
 
     template< class Generator >
-    struct ignore_fun<Generator&>
+    struct gen_fun<Generator&>
     {
         typedef typename boost::remove_cv<Generator>::type plain_gen_t;
         typedef typename boost::result_of<plain_gen_t()>::type result_type;
@@ -66,7 +66,7 @@ namespace generate_range_detail {
             return (*m_pgen)();
         }
 
-        explicit ignore_fun(Generator& gen) :
+        explicit gen_fun(Generator& gen) :
             m_pgen(boost::addressof(gen))
         { }
 
@@ -75,12 +75,16 @@ namespace generate_range_detail {
     };
 
 
-    template< class Range, class Generator >
+    template<
+        class Range, class Generator,
+        class Reference, class Value
+    >
     struct super_
     {
         typedef transform_range<
             identity_range<Range, boost::single_pass_traversal_tag> const,
-            ignore_fun<Generator>
+            gen_fun<Generator>,
+            Reference, Value
         > type;
     };
 
@@ -88,17 +92,20 @@ namespace generate_range_detail {
 } // namespace generate_range_detail
 
 
-template< class Range, class Generator >
+template<
+    class Range, class Generator,
+    class Reference = boost::use_default, class Value = boost::use_default
+>
 struct generate_range :
-    generate_range_detail::super_<Range, Generator>::type,
-    private as_lightweight_proxy< generate_range<Range, Generator> >
+    generate_range_detail::super_<Range, Generator, Reference, Value>::type,
+    private as_lightweight_proxy< generate_range<Range, Generator, Reference, Value> >
 {
     typedef Range pstade_oven_range_base_type;
     typedef Generator generator_type;
 
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
-    typedef typename generate_range_detail::super_<Range, Generator>::type super_t;
+    typedef typename generate_range_detail::super_<Range, Generator, Reference, Value>::type super_t;
     typedef typename range_base<super_t>::type base_t;
     typedef typename super_t::function_type fun_t;
 
@@ -124,7 +131,7 @@ namespace generate_range_detail {
     struct baby_make
     {
         template< class Unused, class Range, class Generator >
-        struct smile
+        struct apply
         {
             typedef typename unwrap<typename pass_by_value<Generator>::type>::type gen_t;
             typedef generate_range<Range, gen_t> const type;

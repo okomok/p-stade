@@ -228,7 +228,7 @@ namespace cpp_to_xhtml
     struct keyword :
         seq<
             cpp_keyword,
-            not_< before< or_< alnum, chseq<'_'> > > >,
+            biscuit::not_< before< or_< alnum, chseq<'_'> > > >,
             spaces
         >
     { };
@@ -252,7 +252,7 @@ namespace cpp_to_xhtml
                 star<
                     or_<
                         seq< chseq<'\\'>, any >,
-                        not_< chseq<'"'> >
+                        biscuit::not_< chseq<'"'> >
                     >
                 >
             >,
@@ -268,7 +268,7 @@ namespace cpp_to_xhtml
                 star<
                     or_<
                         seq< chseq<'\\'>, any >,
-                        not_< chseq<'\''> >
+                        biscuit::not_< chseq<'\''> >
                     >
                 >,
                 chseq<'\''>

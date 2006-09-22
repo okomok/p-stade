@@ -33,7 +33,7 @@ namespace unzip_range_detail {
 
 
     template< class TupleRange, int N >
-    struct meta_get_at
+    struct result_of_get_at
     {
         typedef typename range_value<TupleRange>::type tup_t;
         typedef typename boost::tuples::access_traits<
@@ -45,7 +45,7 @@ namespace unzip_range_detail {
     template< class TupleRange, int N >
     struct get_at
     {
-        typedef typename meta_get_at<TupleRange, N>::type
+        typedef typename result_of_get_at<TupleRange, N>::type
         result_type;
 
         template< class Tuple >
@@ -88,7 +88,7 @@ public:
 };
 
 
-// generators
+// makers
 //
 
 template< int N, class TupleRange > inline
@@ -149,7 +149,7 @@ namespace unzip_range_detail {
     struct baby_unzipped
     {
         template< class Unused, class TupleRange >
-        struct smile
+        struct apply
         {
             typedef typename boost::tuples::tuple<
                 unzip_range_at<TupleRange, 0>,

@@ -66,7 +66,7 @@ struct on_pre_etag
 
 
 struct rst_pre_content :
-    star_until< not_< chseq<'<'> >, chseq<'.','i','p','p'> >
+    star_until< biscuit::not_< chseq<'<'> >, chseq<'.','i','p','p'> >
 { };
 
 

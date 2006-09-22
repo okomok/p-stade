@@ -60,7 +60,7 @@ namespace apply_range_detail {
     struct baby_make
     {
         template< class Unused, class Range, class BeginFun, class EndFun = end_fun >
-        struct smile
+        struct apply
         {
             typedef typename pass_by_value<BeginFun>::type bfun_t;
             typedef typename pass_by_value<EndFun>::type   efun_t;

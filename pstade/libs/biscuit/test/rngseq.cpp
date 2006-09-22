@@ -34,7 +34,7 @@ void test()
     ));
 
     BOOST_CHECK((
-        biscuit::match< seq< chseq<'*'>, rngseq<identity_fun>, chseq<'*'> > >(std::string("*hellocuterngseq*"), dictionary)
+        biscuit::match< seq< chseq<'*'>, rngseq<biscuit::identity_fun>, chseq<'*'> > >(std::string("*hellocuterngseq*"), dictionary)
     ));
 
     BOOST_CHECK((

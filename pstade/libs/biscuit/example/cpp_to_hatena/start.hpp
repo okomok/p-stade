@@ -112,7 +112,7 @@ struct act_pp_include_path
 using namespace pstade::biscuit;
 
 struct non_blanks : // suppress buffer overrun of VC7.1 compiler
-    star< not_<blank_com> >
+    star< biscuit::not_<blank_com> >
 { };
 
 struct preprocessor :

@@ -1,3 +1,5 @@
+#include <pstade/vodka/drink.hpp>
+
 #include <boost/test/minimal.hpp>
 #define _WTL_NO_AUTOMATIC_NAMESPACE
 #include <atlbase.h>
@@ -72,6 +74,8 @@ void random_access(Range1& rng, const Range2& ans)
     BOOST_CHECK( test::equals(rng, ans) );
 }
 
+
+  
 
 inline
 void collection()

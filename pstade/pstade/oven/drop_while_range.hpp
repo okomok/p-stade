@@ -49,7 +49,7 @@ namespace drop_while_range_detail {
     struct baby_make
     {
         template< class Unused, class Range, class Predicate >
-        struct smile
+        struct apply
         {
             typedef typename pass_by_value<Predicate>::type pred_t;
             typedef drop_while_range<Range, pred_t> const type;

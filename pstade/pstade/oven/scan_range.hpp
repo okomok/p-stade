@@ -75,7 +75,7 @@ namespace scan_range_detail {
     struct baby_make
     {
         template< class Unused, class Range, class State, class BinaryFun = plus_fun >
-        struct smile
+        struct apply
         {
             typedef typename pass_by_value<BinaryFun>::type fun_t;
             typedef typename pass_by_value<State>::type sta_t;

@@ -67,7 +67,7 @@ namespace calculator
     struct factor;
 
     struct start :
-        identity<expression>
+        biscuit::identity<expression>
     { };
 
     struct expression :

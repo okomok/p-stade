@@ -29,8 +29,10 @@ namespace pstade { namespace oven {
 namespace zip_with_range_detail {
 
 
-    template< class Range0, class Range1, class BinaryFun >
-    struct zip_fun
+    template<
+        class Range0, class Range1, class BinaryFun
+    >
+    struct with_fun
     {
         typedef typename range_reference<Range0>::type ref0_t;
         typedef typename range_reference<Range1>::type ref1_t;
@@ -38,7 +40,7 @@ namespace zip_with_range_detail {
         typedef typename boost::result_of<BinaryFun(ref0_t, ref1_t)>::type
         result_type;
 
-        explicit zip_fun(BinaryFun const& fun) :
+        explicit with_fun(BinaryFun const& fun) :
             m_fun(fun)
         { }
 
@@ -53,12 +55,16 @@ namespace zip_with_range_detail {
     };
 
 
-    template< class Range0, class Range1, class BinaryFun >
+    template<
+        class Range0, class Range1, class BinaryFun,
+        class Reference, class Value
+    >
     struct super_
     {
         typedef transform_range<
             zip_range<Range0, Range1> const,
-            zip_fun<Range0, Range1, BinaryFun>
+            with_fun<Range0, Range1, BinaryFun>,
+            Reference, Value
         > type;
     };
 
@@ -66,10 +72,13 @@ namespace zip_with_range_detail {
 } // namespace zip_with_range_detail
 
 
-template< class Range0, class Range1, class BinaryFun >
+template<
+    class Range0, class Range1, class BinaryFun,
+    class Reference = boost::use_default, class Value = boost::use_default
+>
 struct zip_with_range :
-    zip_with_range_detail::super_<Range0, Range1, BinaryFun>::type,
-    private as_lightweight_proxy< zip_with_range<Range0, Range1, BinaryFun> >
+    zip_with_range_detail::super_<Range0, Range1, BinaryFun, Reference, Value>::type,
+    private as_lightweight_proxy< zip_with_range<Range0, Range1, BinaryFun, Reference, Value> >
 {
     typedef Range0 pstade_oven_range_base_type;
     typedef BinaryFun function_type;
@@ -77,7 +86,7 @@ struct zip_with_range :
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(Range0, SinglePassRangeConcept);
     PSTADE_OVEN_DETAIL_REQUIRES(Range1, SinglePassRangeConcept);
-    typedef typename zip_with_range_detail::super_<Range0, Range1, BinaryFun>::type super_t;
+    typedef typename zip_with_range_detail::super_<Range0, Range1, BinaryFun, Reference, Value>::type super_t;
     typedef typename range_base<super_t>::type base_t;
     typedef typename super_t::function_type fun_t;
 
@@ -94,7 +103,7 @@ namespace zip_with_range_detail {
     struct baby_make
     {
         template< class Unused, class Range0, class Range1, class BinaryFun >
-        struct smile
+        struct apply
         {
             typedef typename pass_by_value<BinaryFun>::type fun_t;
             typedef zip_with_range<Range0, Range1, fun_t> const type;

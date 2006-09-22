@@ -228,7 +228,7 @@ namespace null_terminate_range_detail {
     struct baby_make
     {
         template< class Unused, class ForwardRangeOrCString >
-        struct smile
+        struct apply
         {
             typedef null_terminate_range<ForwardRangeOrCString> const type;
         };

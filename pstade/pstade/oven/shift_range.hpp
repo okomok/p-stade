@@ -27,9 +27,7 @@ namespace shift_range_detail {
     template< class ForwardRange >
     struct super_
     {
-        typedef slice_range<
-            ForwardRange
-        > type;
+        typedef slice_range<ForwardRange> type;
     };
 
 
@@ -61,7 +59,7 @@ namespace shift_range_detail {
     struct baby_make
     {
         template< class Unused, class ForwardRange, class Difference >
-        struct smile
+        struct apply
         {
             typedef shift_range<ForwardRange> const type;
         };

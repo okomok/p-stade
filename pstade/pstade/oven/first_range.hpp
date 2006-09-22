@@ -12,7 +12,7 @@
 
 // Note:
 //
-// This range is originally written by [1].
+// This range was originally written by [1].
 // Boost.Fusion2 will make this deprecated anyway.
 //
 // [1] http://d.hatena.ne.jp/y-hamigaki/20060726
@@ -52,7 +52,9 @@ namespace first_range_detail {
     struct super_
     {
         typedef transform_range<
-            PairRange, at_first_fun, typename reference<PairRange>::type
+            PairRange,
+            at_first_fun,
+            typename reference<PairRange>::type
         > type;
     };
 
@@ -84,7 +86,7 @@ namespace first_range_detail {
     struct baby_make
     {
         template< class Unused, class PairRange >
-        struct smile
+        struct apply
         {
             typedef first_range<PairRange> const type;
         };

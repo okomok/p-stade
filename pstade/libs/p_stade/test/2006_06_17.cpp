@@ -23,10 +23,10 @@ struct fun_t :
     boost::detail::callable<fun_t>
 {
     template< class F >
-    struct smile;
+    struct apply;
 
     template< class F, class A0, class A1, class A2 >
-    struct smile<F(A0, A1, A2)>
+    struct apply<F(A0, A1, A2)>
     {
         typedef std::string type;
     };

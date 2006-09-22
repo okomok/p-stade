@@ -45,7 +45,9 @@ namespace constant_range_detail {
     struct super_
     {
         typedef transform_range<
-            Range, identity_fun, typename reference<Range>::type
+            Range,
+            identity_fun,
+            typename reference<Range>::type
         > type;
     };
 
@@ -77,7 +79,7 @@ namespace constant_range_detail {
     struct baby_make
     {
         template< class Unused, class Range >
-        struct smile
+        struct apply
         {
             typedef constant_range<Range> const type;
         };

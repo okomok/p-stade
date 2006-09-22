@@ -150,7 +150,7 @@ namespace contract_detail {
     struct baby_return
     {
         template< class Unused, class T >
-        struct smile
+        struct apply
         {
         #if !defined(NDEBUG)
             

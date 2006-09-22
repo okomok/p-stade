@@ -10,7 +10,7 @@
 struct baby_multiply
 {
     template< class Unused, class X, class Y >
-    struct smile :
+    struct apply :
         boost::remove_const<X>
     { };
 

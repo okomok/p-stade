@@ -12,6 +12,7 @@
 
 #include "./as_lightweight_proxy.hpp"
 #include "./counting_range.hpp"
+#include "./range_base.hpp"
 #include "./transform_range.hpp"
 
 
@@ -21,12 +22,16 @@ namespace pstade { namespace oven {
 namespace index_range_detail {
 
 
-    template< class Incrementable, class UnaryFun >
+    template<
+        class Incrementable, class UnaryFun,
+        class Reference, class Value
+    >
     struct super_
     {
         typedef transform_range<
             counting_range<Incrementable> const,
-            UnaryFun
+            UnaryFun,
+            Reference, Value
         > type;
     };
 
@@ -34,18 +39,22 @@ namespace index_range_detail {
 } // namespace index_range_detail
 
 
-template< class Incrementable, class UnaryFun >
+template<
+    class Incrementable, class UnaryFun,
+    class Reference = boost::use_default, class Value = boost::use_default
+>
 struct index_range :
-    index_range_detail::super_<Incrementable, UnaryFun>::type,
-    private as_lightweight_proxy< index_range<Incrementable, UnaryFun> >
+    index_range_detail::super_<Incrementable, UnaryFun, Reference, Value>::type,
+    private as_lightweight_proxy< index_range<Incrementable, UnaryFun, Reference, Value> >
 {
 private:
-    typedef typename index_range_detail::super_<Incrementable, UnaryFun>::type super_t;
+    typedef typename index_range_detail::super_<Incrementable, UnaryFun, Reference, Value>::type super_t;
+    typedef typename range_base<super_t>::type base_t;
     typedef UnaryFun function_type;
 
 public:
     index_range(Incrementable const& i, Incrementable const& j, UnaryFun const& fun) :
-        super_t(counting_range<Incrementable>(i, j), fun)
+        super_t(base_t(i, j), fun)
     { }
 };
 

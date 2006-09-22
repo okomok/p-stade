@@ -271,6 +271,10 @@ namespace boost { namespace range_detail_microsoft {
         struct BOOST_RANGE_DETAIL_MICROSOFT_range_mutable_iterator< Fullname > : \
             range_detail_microsoft::mutable_iterator_of< Fullname > \
         { }; \
+        template< > \
+        struct BOOST_RANGE_DETAIL_MICROSOFT_range_mutable_iterator< Fullname const > : \
+            range_detail_microsoft::mutable_iterator_of< Fullname > \
+        { }; \
     /**/
 
 
@@ -279,12 +283,21 @@ namespace boost { namespace range_detail_microsoft {
         struct range_const_iterator< Fullname > : \
             range_detail_microsoft::const_iterator_of< Fullname > \
         { }; \
+        \
+        template< > \
+        struct range_const_iterator< Fullname const > : \
+            range_detail_microsoft::const_iterator_of< Fullname > \
+        { }; \
     /**/
 
 
     #define BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TYPE_size_type(Fullname) \
         template< > \
         struct range_size< Fullname > : \
+            range_detail_microsoft::size_type_of< Fullname > \
+        { }; \
+        template< > \
+        struct range_size< Fullname const > : \
             range_detail_microsoft::size_type_of< Fullname > \
         { }; \
     /**/
@@ -452,6 +465,10 @@ namespace boost { namespace range_detail_microsoft {
         struct BOOST_RANGE_DETAIL_MICROSOFT_range_mutable_iterator< Fullname > : \
             range_detail_microsoft::mutable_iterator_of< Fullname > \
         { }; \
+        template< Params > \
+        struct BOOST_RANGE_DETAIL_MICROSOFT_range_mutable_iterator< Fullname const > : \
+            range_detail_microsoft::mutable_iterator_of< Fullname > \
+        { }; \
     /**/
 
 
@@ -460,12 +477,20 @@ namespace boost { namespace range_detail_microsoft {
         struct range_const_iterator< Fullname > : \
             range_detail_microsoft::const_iterator_of< Fullname > \
         { }; \
+        template< Params > \
+        struct range_const_iterator< Fullname const > : \
+            range_detail_microsoft::const_iterator_of< Fullname > \
+        { }; \
     /**/
 
 
     #define BOOST_RANGE_DETAIL_MICROSOFT_CUSTOMIZATION_TEMPLATE_size_type(Params, Fullname) \
         template< Params > \
         struct range_size< Fullname > : \
+            range_detail_microsoft::size_type_of< Fullname > \
+        { }; \
+        template< Params > \
+        struct range_size< Fullname const > : \
             range_detail_microsoft::size_type_of< Fullname > \
         { }; \
     /**/

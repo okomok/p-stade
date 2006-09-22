@@ -33,7 +33,7 @@ struct factor     : or_< integer, group > { };
 struct term       : seq< factor, star< or_< seq< char_<'*'>, factor >, seq< char_<'/'>, factor > > > > { };
 struct expression : seq< term, star< or_< seq< char_<'+'>, term >, seq< char_<'-'>, term > > > > { };
 
-struct skip_space : not_<space> { };
+struct skip_space : biscuit::not_<space> { };
 
 struct S :
     or_<
@@ -180,9 +180,9 @@ void test_filter_range()
 
     PSTADE_CHECK((
         biscuit::match< chseq<'x','y','z'> >(
-            biscuit::make_filter_range< not_< chset<'&','.','%'> > >(
-                biscuit::make_filter_range< not_<space> >(
-                    biscuit::make_filter_range< not_<digit> >(
+            biscuit::make_filter_range< biscuit::not_< chset<'&','.','%'> > >(
+                biscuit::make_filter_range< biscuit::not_<space> >(
+                    biscuit::make_filter_range< biscuit::not_<digit> >(
                         oven::make_null_terminate_range("x & 4 y . 125 %  z")
                     )
                 )
@@ -194,9 +194,9 @@ void test_filter_range()
         biscuit::match< repeat< char_<'D'>, 3 > >(
             "abcdabcdabcd" |
                 oven::null_terminated |
-                biscuit::filtered< not_< char_<'a'> > >() |
-                biscuit::filtered< not_< char_<'b'> > >() |
-                biscuit::filtered< not_< char_<'c'> > >() |
+                biscuit::filtered< biscuit::not_< char_<'a'> > >() |
+                biscuit::filtered< biscuit::not_< char_<'b'> > >() |
+                biscuit::filtered< biscuit::not_< char_<'c'> > >() |
                 oven::transformed(toupper_fun())
         )
     ));
@@ -363,7 +363,7 @@ void test_appendix()
     ));
 }
 
-struct eternal : identity<eternal>
+struct eternal : biscuit::identity<eternal>
 { };
 
 

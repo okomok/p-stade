@@ -41,10 +41,10 @@ template< >
 struct customization<my_hello>
 {
     template< class >
-    struct smile;
+    struct apply;
 
     template< class MyHello >
-    struct smile<MyHello(hello_tag)>
+    struct apply<MyHello(hello_tag)>
     {
         typedef std::string type;
     };

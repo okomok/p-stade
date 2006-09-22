@@ -49,7 +49,7 @@ namespace distance_detail {
     struct baby
     {
         template< class Unused, class Range >
-        struct smile :
+        struct apply :
             range_difference<Range>
         { };
 

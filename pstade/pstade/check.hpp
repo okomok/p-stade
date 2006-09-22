@@ -90,7 +90,7 @@ namespace check_detail {
     struct baby
     {
         template< class Unused, class T, class StringT >
-        struct smile :
+        struct apply :
             boost::add_reference<T>
         { };
 

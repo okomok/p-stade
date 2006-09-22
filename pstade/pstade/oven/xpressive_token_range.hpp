@@ -91,7 +91,7 @@ namespace xpressive_token_range_detail {
     struct baby_make
     {
         template< class Unused, class BidiRange, class Regex, class SubMatches = void, class Flag = void >
-        struct smile
+        struct apply
         {
             typedef xpressive_token_range<BidiRange> const type;
         };

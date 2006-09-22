@@ -70,7 +70,7 @@ namespace joint_range_detail {
     struct baby_make
     {
         template< class Unused, class RangeL, class RangeR >
-        struct smile
+        struct apply
         {
             typedef joint_range<RangeL, RangeR> const type;
         };

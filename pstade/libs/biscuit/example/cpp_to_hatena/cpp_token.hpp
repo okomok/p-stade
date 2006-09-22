@@ -133,9 +133,9 @@ namespace detail {
 
 struct keyword :
     seq<
-        // after< not_< alnum_ > > // 'after' parser is impossible for Biscuit, so 'identifier' is required.
+        // after< biscuit::not_< alnum_ > > // 'after' parser is impossible for Biscuit, so 'identifier' is required.
         detail::keyword_aux,
-        before< not_< detail::alnum_ > >
+        before< biscuit::not_< detail::alnum_ > >
     >
 { };
 
@@ -158,7 +158,7 @@ struct string_literal :
             star<
                 or_<
                     seq< chseq<'\\'>, any >,
-                    not_< chseq<'"'> >
+                    biscuit::not_< chseq<'"'> >
                 >
             >
         >,
@@ -173,7 +173,7 @@ struct character_literal :
             star<
                 or_<
                     seq< chseq<'\\'>, any >,
-                    not_< chseq<'\''> >
+                    biscuit::not_< chseq<'\''> >
                 >
             >,
             chseq<'\''>

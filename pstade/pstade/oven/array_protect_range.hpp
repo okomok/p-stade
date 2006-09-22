@@ -44,20 +44,20 @@ namespace array_protect_range_detail {
 } // namespace array_protect_range_detail
 
 
-template< class ArrayT >
+template< class Array >
 struct array_protect_range :
-    sub_range_base<ArrayT>::type,
-    private as_lightweight_proxy< array_protect_range<ArrayT> >
+    sub_range_base<Array>::type,
+    private as_lightweight_proxy< array_protect_range<Array> >
 {
-    typedef ArrayT pstade_oven_range_base_type;
+    typedef Array pstade_oven_range_base_type;
 
 private:
-    BOOST_MPL_ASSERT((boost::is_array<ArrayT>));
-    typedef typename sub_range_base<ArrayT>::type super_t;
+    BOOST_MPL_ASSERT((boost::is_array<Array>));
+    typedef typename sub_range_base<Array>::type super_t;
 
 public:
-    explicit array_protect_range(ArrayT& arr) :
-        super_t(array_protect_range_detail::aux(arr, boost::extent<ArrayT>::value))
+    explicit array_protect_range(Array& arr) :
+        super_t(array_protect_range_detail::aux(arr, boost::extent<Array>::value))
     { }
 };
 
@@ -67,14 +67,14 @@ namespace array_protect_range_detail {
 
     struct baby_make
     {
-        template< class Unused, class ArrayT >
-        struct smile
+        template< class Unused, class Array >
+        struct apply
         {
-            typedef array_protect_range<ArrayT> const type;
+            typedef array_protect_range<Array> const type;
         };
 
-        template< class Result, class ArrayT >
-        Result call(ArrayT& arr)
+        template< class Result, class Array >
+        Result call(Array& arr)
         {
             return Result(arr);
         }

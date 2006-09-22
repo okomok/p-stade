@@ -62,6 +62,8 @@ struct match_range :
     private as_lightweight_proxy< match_range<BidiRange, CharT, Traits> >
 {
     typedef BidiRange pstade_oven_range_base_type;
+    typedef CharT char_type;
+    typedef Traits traits_type;
 
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(BidiRange, BidirectionalRangeConcept);
@@ -89,7 +91,7 @@ namespace match_range_detail {
     struct baby_make
     {
         template< class Unused, class BidiRange, class Regex, class Flag = void >
-        struct smile
+        struct apply
         {
             typedef match_range<BidiRange> const type;
         };

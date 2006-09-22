@@ -29,16 +29,16 @@ namespace pstade { namespace oven {
 namespace begin_end_detail {
 
 
-    struct with_smile
+    struct with_apply
     {
         template< class Unused, class Range >
-        struct smile :
+        struct apply :
             range_iterator<Range>
         { };
     };
 
 
-    struct baby_begin : with_smile
+    struct baby_begin : with_apply
     {
         template< class Result, class Range >
         Result call(Range& rng)
@@ -48,7 +48,7 @@ namespace begin_end_detail {
     };
 
 
-    struct baby_end   : with_smile
+    struct baby_end   : with_apply
     {
         template< class Result, class Range >
         Result call(Range& rng)

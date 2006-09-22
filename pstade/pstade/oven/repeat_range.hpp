@@ -76,7 +76,7 @@ namespace repeat_range_detail {
     struct baby_make
     {
         template< class Unused, class ForwardRange, class Size >
-        struct smile
+        struct apply
         {
             typedef typename pass_by_value<Size>::type sz_t;
             typedef repeat_range<ForwardRange, sz_t> const type;

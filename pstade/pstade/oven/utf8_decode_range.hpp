@@ -66,7 +66,7 @@ namespace utf8_decode_range_detail {
     struct baby_make
     {
         template< class Unused, class BidiRange, class Ucs4T = boost::uint32_t >
-        struct smile
+        struct apply
         {
             typedef typename pass_by_value<Ucs4T>::type ucs4_t;
             typedef utf8_decode_range<BidiRange, ucs4_t> const type;

@@ -24,7 +24,7 @@ using namespace biscuit;
 
 
 struct infinite :
-    identity<infinite>
+    biscuit::identity<infinite>
 { };
 
 

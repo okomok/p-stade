@@ -18,7 +18,7 @@
 #include <boost/range/begin.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
-#include <pstade/functional.hpp> // not
+#include <pstade/functional.hpp> // not_
 #include <pstade/pass_by.hpp>
 #include "./algorithm.hpp" // find_if
 #include "./as_lightweight_proxy.hpp"
@@ -54,7 +54,7 @@ namespace take_while_range_detail {
     struct baby_make
     {
         template< class Unused, class ForwardRange, class Predicate >
-        struct smile
+        struct apply
         {
             typedef typename pass_by_value<Predicate>::type pred_t;
             typedef take_while_range<ForwardRange, pred_t> const type;

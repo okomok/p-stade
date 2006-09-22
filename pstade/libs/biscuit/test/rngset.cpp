@@ -34,7 +34,7 @@ void test()
     ));
 
     BOOST_CHECK((
-        biscuit::match< seq< chseq<'*'>, rngset<identity_fun>, chseq<'*'> > >(std::string("*rngset*"), dictionary)
+        biscuit::match< seq< chseq<'*'>, rngset<biscuit::identity_fun>, chseq<'*'> > >(std::string("*rngset*"), dictionary)
     ));
 
     BOOST_CHECK((

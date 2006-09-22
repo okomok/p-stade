@@ -69,7 +69,7 @@ namespace concatenate_range_detail {
     struct baby_make
     {
         template< class Unused, class TopRange >
-        struct smile
+        struct apply
         {
             typedef concatenate_range<TopRange> const type;
         };

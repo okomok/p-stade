@@ -63,7 +63,7 @@ namespace string_find_range_detail {
     struct baby_make
     {
         template< class Unused, class Range, class FinderT >
-        struct smile
+        struct apply
         {
             typedef string_find_range<Range> const type;
         };

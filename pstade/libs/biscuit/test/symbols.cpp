@@ -45,11 +45,11 @@ void test()
     ));
 
     BOOST_CHECK((
-        biscuit::match< seq< chseq<'*'>, symbols<identity_fun>, chseq<'*'> > >(std::string("*symbols*"), syms)
+        biscuit::match< seq< chseq<'*'>, symbols<biscuit::identity_fun>, chseq<'*'> > >(std::string("*symbols*"), syms)
     ));
 
     BOOST_CHECK((
-        biscuit::match< seq< symbols<identity_fun, ::my_ftor>, chseq<'!'> > >(std::string("hello!"), syms)
+        biscuit::match< seq< symbols<biscuit::identity_fun, ::my_ftor>, chseq<'!'> > >(std::string("hello!"), syms)
     ));
     BOOST_CHECK(( syms["hello"] == 11 ));
     BOOST_CHECK(( syms["cheap"] == 2 ));

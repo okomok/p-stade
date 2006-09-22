@@ -45,7 +45,7 @@ namespace identity_detail {
     struct baby
     {
         template< class Unused, class T >
-        struct smile :
+        struct apply :
             boost::add_reference<T>
         { };
 
@@ -74,7 +74,7 @@ namespace not_detail {
         { }
 
         template< class Unused, class T0, class T1 = void >
-        struct smile
+        struct apply
         {
             typedef bool type;
         };
@@ -98,7 +98,7 @@ namespace not_detail {
     struct baby
     {
         template< class Unused, class Predicate >
-        struct smile
+        struct apply
         {
             typedef typename pass_by_value<Predicate>::type pred_t;
             typedef egg::function< baby_fun<pred_t> > type;
@@ -190,7 +190,7 @@ namespace plus_detail {
     struct baby
     {
         template< class Unused, class X, class Y >
-        struct smile :
+        struct apply :
             deduce_result<X, Y>
         { };
 
@@ -214,7 +214,7 @@ namespace at_first_detail {
     struct baby
     {
         template< class Unused, class Pair >
-        struct smile :
+        struct apply :
             boost::add_reference<
                 typename affect_const<
                     Pair, typename Pair::first_type
@@ -242,7 +242,7 @@ namespace at_second_detail {
     struct baby
     {
         template< class Unused, class Pair >
-        struct smile :
+        struct apply :
             boost::add_reference<
                 typename affect_const<
                     Pair, typename Pair::second_type

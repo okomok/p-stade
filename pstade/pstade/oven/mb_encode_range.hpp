@@ -61,7 +61,7 @@ namespace mb_encode_range_detail {
     struct baby_make
     {
         template< class Unused, class Range >
-        struct smile
+        struct apply
         {
             typedef mb_encode_range<Range> const type;
         };

@@ -44,7 +44,9 @@ namespace second_range_detail {
     struct super_
     {
         typedef transform_range<
-            PairRange, at_second_fun, typename reference<PairRange>::type
+            PairRange,
+            at_second_fun,
+            typename reference<PairRange>::type
         > type;
     };
 
@@ -76,7 +78,7 @@ namespace second_range_detail {
     struct baby_make
     {
         template< class Unused, class PairRange >
-        struct smile
+        struct apply
         {
             typedef second_range<PairRange> const type;
         };

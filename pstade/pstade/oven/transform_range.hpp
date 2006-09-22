@@ -130,7 +130,7 @@ namespace transform_range_detail {
     struct baby_make
     {
         template< class Unused, class Range, class UnaryFun >
-        struct smile
+        struct apply
         {
             typedef typename pass_by_value<UnaryFun>::type fun_t;
             typedef transform_range<Range, fun_t> const type;

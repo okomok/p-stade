@@ -80,7 +80,7 @@ namespace xpressive_match_range_detail {
     struct baby_make
     {
         template< class Unused, class BidiRange, class Regex, class Flag = void >
-        struct smile
+        struct apply
         {
             typedef xpressive_match_range<BidiRange> const type;
         };

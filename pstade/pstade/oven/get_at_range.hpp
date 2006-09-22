@@ -34,7 +34,7 @@ namespace get_at_range_detail {
     struct baby_at
     {
         template< class Unused, class FusionSeq >
-        struct smile :
+        struct apply :
             boost::fusion::result_of::at<FusionSeq, N>
         { };
 

@@ -92,7 +92,7 @@ namespace stride_range_detail {
     struct baby_make
     {
         template< class Unused, class ForwardRange, class Difference, class = void >
-        struct smile
+        struct apply
         {
             typedef stride_range<ForwardRange> const type;
         };

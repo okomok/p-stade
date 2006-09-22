@@ -13,7 +13,7 @@
 struct foo_impl
 {
     template< class Unused, class Arg0, class Arg1 = void >
-    struct smile
+    struct apply
     {
         typedef Arg0 type;
     };
@@ -51,7 +51,7 @@ struct hoge_impl
     nullary_result_type;
 
     template< class Unused, class Arg0, class Arg1 = void >
-    struct smile
+    struct apply
     {
         typedef Arg0 type;
     };
@@ -81,7 +81,7 @@ struct qoo_impl
     qoo_impl(int, double) { }
 
     template< class Unused, class Arg0, class Arg1 >
-    struct smile
+    struct apply
     {
         typedef Arg0 type;
     };
@@ -91,6 +91,9 @@ struct qoo_impl
     {
         return a0 * a1;
     }
+
+    void hello() const
+    { }
 };
 
 typedef pstade::egg::function<qoo_impl> qoo_fun;
@@ -130,6 +133,7 @@ void test_fun()
     BOOST_CHECK( hoge(5, 6) == 5+6 );
 
     qoo_fun(1,2)(3,4);
+    qoo_fun(3,5).hello();
 }
 
 

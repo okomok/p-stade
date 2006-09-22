@@ -22,53 +22,57 @@
 namespace pstade {
 
 
-    #define PSTADE_ctypes \
-        (space)(print)(cntrl)(upper)(lower)(alpha)(digit)(punct)(xdigit)(alnum)(graph) \
-    /**/
+// is_space etc.
+//
 
-    #define PSTADE_def_pred(R, _, CType) \
-        struct BOOST_PP_CAT(BOOST_PP_CAT(is_, CType), _fun) \
-        { \
-            typedef bool result_type; \
-            \
-            template< class CharT > \
-            bool operator()(CharT ch, std::locale const& loc) const \
-            { \
-                return std:: BOOST_PP_CAT(is, CType) (ch, loc); \
-            } \
-            \
-            template< class CharT > \
-            bool operator()(CharT ch) const \
-            { \
-                return (*this)(ch, std::locale()); \
-            } \
-        }; \
+#define PSTADE_ctypes \
+    (space)(print)(cntrl)(upper)(lower)(alpha)(digit)(punct)(xdigit)(alnum)(graph) \
+/**/
+
+#define PSTADE_def_pred(R, _, CType) \
+    struct BOOST_PP_CAT(BOOST_PP_CAT(is_, CType), _fun) \
+    { \
+        typedef bool result_type; \
         \
-        PSTADE_INSTANCE( \
-            BOOST_PP_CAT(BOOST_PP_CAT(is_, CType), _fun) const, \
-            BOOST_PP_CAT(is_, CType), value \
-        ) \
-    /**/
+        template< class CharT > \
+        bool operator()(CharT ch, std::locale const& loc) const \
+        { \
+            return std:: BOOST_PP_CAT(is, CType) (ch, loc); \
+        } \
+        \
+        template< class CharT > \
+        bool operator()(CharT ch) const \
+        { \
+            return (*this)(ch, std::locale()); \
+        } \
+    }; \
+    \
+    PSTADE_INSTANCE( \
+        BOOST_PP_CAT(BOOST_PP_CAT(is_, CType), _fun) const, \
+        BOOST_PP_CAT(is_, CType), value \
+    ) \
+/**/
 
 BOOST_PP_SEQ_FOR_EACH(PSTADE_def_pred, ~, PSTADE_ctypes)
 
-    #undef PSTADE_def_pred
-    #undef PSTADE_ctypes
+#undef PSTADE_def_pred
+#undef PSTADE_ctypes
 
 
-namespace locale_detail {
+// to_upper/to_lower
+//
 
+namespace to_upper_lower_detail {
 
-    struct to_upper_gift
+    struct with_apply
     {
         template< class Unused, class CharT, class Locale = void >
-        struct smile :
+        struct apply :
             pass_by_value<CharT>
         { };
     };
 
-
-    struct baby_to_upper : to_upper_gift
+    struct baby_up : with_apply
     {
         template< class Result, class CharT >
         Result call(CharT ch, std::locale const& loc)
@@ -83,8 +87,7 @@ namespace locale_detail {
         }
     };
 
-
-    struct baby_to_lower : to_upper_gift
+    struct baby_lo : with_apply
     {
         template< class Result, class CharT >
         Result call(CharT ch, std::locale const& loc)
@@ -99,14 +102,12 @@ namespace locale_detail {
         }
     };
 
-
-} // namespace locale_detail
-
+} // namespace to_upper_lower_detail
 
 PSTADE_ADL_BARRIER(locale) { // for Boost
 
-PSTADE_EGG_FUNCTION(to_upper, locale_detail::baby_to_upper)
-PSTADE_EGG_FUNCTION(to_lower, locale_detail::baby_to_lower)
+PSTADE_EGG_FUNCTION(to_upper, to_upper_lower_detail::baby_up)
+PSTADE_EGG_FUNCTION(to_lower, to_upper_lower_detail::baby_lo)
 
 } // ADL barrier
 

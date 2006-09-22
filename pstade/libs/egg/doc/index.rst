@@ -90,7 +90,7 @@ Baby Function
 A ``BabyFunction`` is any type that is copy-constructible and the following expression must be valid.
 
 - Case of no arguments; ``BabyFunction::nullary_result_type`` and ``baby.call<R>();``, where ``R`` is the same as ``BabyFunction::nullary_result_type``
-- Case of ``N >= 1`` arguments; ``BabyFunction::result<unspecified,A1,A2,...,AN>::type``  and ``baby.call<R>(a1,a2,...aN);``, where ``R`` is the same as ``BabyFunction::result<unspecified,A1,A2,...,AN>::type``
+- Case of ``N >= 1`` arguments; ``BabyFunction::apply<unspecified,A1,A2,...,AN>::type``  and ``baby.call<R>(a1,a2,...aN);``, where ``R`` is the same as ``BabyFunction::apply<unspecified,A1,A2,...,AN>::type``
 - Semantics: The nested ``nullary_result_type`` and ``result`` return the result type of the functor.
 
 Note that the result type of nullary functors is always specified by using nested ``nullary_result_type`` typedef instead of nested ``result`` templates.
@@ -161,4 +161,5 @@ Version 0.90.3
 ^^^^^^^^^^^^^^
 - Fixed a bug that passes an ``egg::function`` object to ``BabyFunction``\'s constructor.
 - Renamed ``decay_function`` to ``pstade::pass_by_value``.
+- Changed ``BabyFunction``\'s nested ``result`` to ``apply``.
 

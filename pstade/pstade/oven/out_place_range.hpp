@@ -65,9 +65,9 @@ namespace out_place_range_detail {
     };
 
 
-    template< class IterSeq, class ForwardRange, class Functor >
+    template< class IterSeq, class ForwardRange, class UnaryFun >
     oven::share_range<IterSeq> const
-    make_share(ForwardRange& rng, Functor fun)
+    make_share(ForwardRange& rng, UnaryFun fun)
     {
         // Note:
         // 'share_range' size never be affected by its holding sequence
@@ -77,7 +77,7 @@ namespace out_place_range_detail {
         *pseq = oven::copy_range<IterSeq>(rng|directed);
 
         // Question:
-        // What should be passed to?
+        // What should be passed to 'fun'?
         fun(*pseq);        
 
         return share_range<IterSeq>(pseq.release());
@@ -87,15 +87,16 @@ namespace out_place_range_detail {
 } // namespace out_place_range_detail
 
 
-template< class ForwardRange, class Functor = unused_fun >
+template< class ForwardRange, class UnaryFun = unused_fun >
 struct out_place_range :
     out_place_range_detail::super_<ForwardRange>::type,
 #if !defined(PSTADE_OVEN_OUT_PLACE_RANGE_WEIRD_ERROR_WITH_SORT_RANGE)
     private
 #endif
-    as_lightweight_proxy< out_place_range<ForwardRange, Functor> >
+    as_lightweight_proxy< out_place_range<ForwardRange, UnaryFun> >
 {
     typedef ForwardRange pstade_oven_range_base_type;
+    typedef UnaryFun function_type;
 
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeConcept);
@@ -103,7 +104,7 @@ private:
     typedef typename out_place_range_detail::iter_sequence<ForwardRange>::type seq_t;
 
 public:
-    explicit out_place_range(ForwardRange& rng, Functor const& fun = unused) :
+    explicit out_place_range(ForwardRange& rng, UnaryFun const& fun = unused) :
         super_t(out_place_range_detail::make_share<seq_t>(rng, fun))
     { }
 };
@@ -114,15 +115,15 @@ namespace out_place_range_detail {
 
     struct baby_make
     {
-        template< class Unused, class ForwardRange, class Functor = unused_fun >
-        struct smile
+        template< class Unused, class ForwardRange, class UnaryFun = unused_fun >
+        struct apply
         {
-            typedef typename pass_by_value<Functor>::type fun_t;
+            typedef typename pass_by_value<UnaryFun>::type fun_t;
             typedef out_place_range<ForwardRange, fun_t> const type;
         };
 
-        template< class Result, class ForwardRange, class Functor >
-        Result call(ForwardRange& rng, Functor& fun)
+        template< class Result, class ForwardRange, class UnaryFun >
+        Result call(ForwardRange& rng, UnaryFun& fun)
         {
             return Result(rng, fun);
         }

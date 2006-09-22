@@ -45,7 +45,7 @@ namespace clear_range_detail {
     struct baby_make
     {
         template< class Unused, class Range >
-        struct smile
+        struct apply
         {
             typedef clear_range<Range> const type;
         };

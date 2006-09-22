@@ -111,7 +111,7 @@ namespace token_range_detail {
     struct baby_make
     {
         template< class Unused, class BidiRange, class Regex, class IntOrRndRange = void, class Flag = void >
-        struct smile
+        struct apply
         {
             typedef token_range<BidiRange> const type;
         };
