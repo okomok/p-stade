@@ -202,7 +202,6 @@ namespace extension_detail {
         struct Fun< PSTADE_OVEN_EXTENSION_TYPE_fullname(NameSeq) & > : \
             Fun< PSTADE_OVEN_EXTENSION_TYPE_fullname(NameSeq) > \
         { }; \
-        \
         template< > \
         struct Fun< PSTADE_OVEN_EXTENSION_TYPE_fullname(NameSeq) const > : \
             Fun< PSTADE_OVEN_EXTENSION_TYPE_fullname(NameSeq) > \
@@ -278,10 +277,14 @@ namespace extension_detail {
 
     #define PSTADE_OVEN_EXTENSION_TEMPLATE_forward_meta(NameSeq, ParamSeq, Fun) \
         template< PSTADE_OVEN_EXTENSION_TEMPLATE_params(ParamSeq) > \
-        struct Fun< PSTADE_OVEN_EXTENSION_TEMPLATE_fullname(NameSeq, ParamSeq)& > : \
-            Fun< PSTADE_OVEN_EXTENSION_TEMPLATE_fullname(NameSeq, ParamSeq) > \
+        struct Fun< PSTADE_OVEN_EXTENSION_TEMPLATE_fullname(NameSeq, ParamSeq) > : \
+            pstade::oven::extension_detail::Fun< PSTADE_OVEN_EXTENSION_TEMPLATE_fullname(NameSeq, ParamSeq) > \
         { }; \
         \
+        template< PSTADE_OVEN_EXTENSION_TEMPLATE_params(ParamSeq) > \
+        struct Fun< PSTADE_OVEN_EXTENSION_TEMPLATE_fullname(NameSeq, ParamSeq) & > : \
+            Fun< PSTADE_OVEN_EXTENSION_TEMPLATE_fullname(NameSeq, ParamSeq) > \
+        { }; \
         template< PSTADE_OVEN_EXTENSION_TEMPLATE_params(ParamSeq) > \
         struct Fun< PSTADE_OVEN_EXTENSION_TEMPLATE_fullname(NameSeq, ParamSeq) const > : \
             Fun< PSTADE_OVEN_EXTENSION_TEMPLATE_fullname(NameSeq, ParamSeq) > \

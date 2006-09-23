@@ -23,17 +23,23 @@
 #include <pstade/oven/tests.hpp>
 
 
+#include <boost/range.hpp> // include first; test no order-dependency.
+
+
 namespace mine {
 
-    struct container1 :
-        std::vector<int>
-    { };
+    struct container1
+    {
+        typedef std::vector<int> impl_t;
+        impl_t m_impl;
+    };
 
     template< class A, class B >
-    struct container2 :
-        private boost::noncopyable,
-        std::vector<A>
-    { };
+    struct container2 : private boost::noncopyable
+    {
+        typedef std::vector<A> impl_t;
+        impl_t m_impl;
+    };
 
         template< class T >
         struct is_container2 : boost::mpl::false_ { };
@@ -44,9 +50,11 @@ namespace mine {
 
     namespace inside {
 
-        struct container3 :
-            std::vector<char>
-        { };
+        struct container3
+        {
+            typedef std::vector<char> impl_t;
+            impl_t m_impl;
+        };
 
     }
 
@@ -63,9 +71,10 @@ namespace mine {
 
 
 struct your_sequence :
-    private boost::noncopyable,
-    std::string
-{ };
+    private boost::noncopyable
+{
+    std::string m_str;
+};
 
 
 
@@ -78,20 +87,20 @@ namespace pstade { namespace oven {
         template< class X >
         struct meta
         {
-            typedef typename X::iterator mutable_iterator;
-            typedef typename X::const_iterator constant_iterator;
+            typedef typename X::impl_t::iterator mutable_iterator;
+            typedef typename X::impl_t::const_iterator constant_iterator;
         };
 
         template< class Iterator, class X >
         Iterator begin(X& x)
         {
-            return x.begin();
+            return x.m_impl.begin();
         }
 
         template< class Iterator, class X >
         Iterator end(X& x)
         {
-            return x.end();
+            return x.m_impl.end();
         }
     };
 
@@ -101,20 +110,20 @@ namespace pstade { namespace oven {
         template< class X >
         struct meta
         {
-            typedef typename X::iterator mutable_iterator;
-            typedef typename X::const_iterator constant_iterator;
+            typedef std::string::iterator mutable_iterator;
+            typedef std::string::const_iterator constant_iterator;
         };
 
         template< class Iterator, class X >
         Iterator begin(X& x)
         {
-            return x.begin();
+            return x.m_str.begin();
         }
 
         template< class Iterator, class X >
         Iterator end(X& x)
         {
-            return x.end();
+            return x.m_str.end();
         }
     };
 
