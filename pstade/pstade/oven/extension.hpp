@@ -167,7 +167,7 @@ namespace extension_detail {
         /**/
 
 
-    #define PSTADE_OVEN_EXTENSION_add_2colons(R, _, Elem) \
+    #define PSTADE_OVEN_EXTENSION_scope_op(R, _, Elem) \
         ::Elem \
     /**/
 
@@ -188,7 +188,7 @@ namespace extension_detail {
 
 
     #define PSTADE_OVEN_EXTENSION_TYPE_fullname(NameSeq) \
-        BOOST_PP_SEQ_FOR_EACH(PSTADE_OVEN_EXTENSION_add_2colons, ~, NameSeq) \
+        BOOST_PP_SEQ_FOR_EACH(PSTADE_OVEN_EXTENSION_scope_op, ~, NameSeq) \
     /**/
 
 
@@ -271,7 +271,7 @@ namespace extension_detail {
 
 
     #define PSTADE_OVEN_EXTENSION_TEMPLATE_fullname(NameSeq, ParamSeq) \
-        BOOST_PP_SEQ_FOR_EACH(PSTADE_OVEN_EXTENSION_add_2colons, ~, NameSeq) \
+        BOOST_PP_SEQ_FOR_EACH(PSTADE_OVEN_EXTENSION_scope_op, ~, NameSeq) \
         < BOOST_PP_ENUM_PARAMS(BOOST_PP_SEQ_SIZE(ParamSeq), T) > \
     /**/
 
