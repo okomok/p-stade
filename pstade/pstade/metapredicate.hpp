@@ -17,6 +17,7 @@
 // 'oven::as_lightweight_proxy' together.
 
 
+#include <boost/mpl/bool.hpp>
 #include <boost/mpl/empty_base.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <pstade/oui_non.hpp>
@@ -41,9 +42,9 @@
     #define PSTADE_METAPREDICATE_meta_primary(Name, Prefix) \
         template< class T, class = void > \
         struct PSTADE_METAPREDICATE_cat3(is_, Name, _impl) : \
-            PSTADE_IS_OUI( \
+            boost::mpl::bool_< sizeof(pstade::oui) == sizeof( \
                 PSTADE_METAPREDICATE_cat3(Prefix, _is_, Name)( pstade::make_ptr_ref<T>(), pstade::overload<>() ) \
-            ) \
+            ) > \
         { }; \
     /**/
 

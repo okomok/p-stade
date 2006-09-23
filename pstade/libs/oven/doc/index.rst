@@ -7,7 +7,7 @@ The Oven Range Library
 :Author: MB
 :Contact: mb2act@yahoo.co.jp 
 :License: Distributed under the `Boost Software License Version 1.0`_
-:Version: 0.91.1
+:Version: 0.91.2
 
 
 
@@ -865,6 +865,30 @@ the same as ``value_type`` of it.
 
 
 
+Extending Boost.Range
+---------------------
+`The extension way of Boost.Range`__ seems to assume future C++ abilities.
+For now, it is not practical to apply the way to the large library something like MFC.
+Oven provides yet another extension way to simplify the Boost.Range's::
+
+	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\extension.ipp
+
+
+1. Specialize ``::pstade_oven_extension::range``, which has the second template parameter for ``boost::enable_if``.
+2. Define template ``meta``, ``begin`` and ``end`` like above. The const overloads sometimes can be omitted. ``boost::size`` is automatically extended by Oven.
+3. Call the macro for extension in global namespace.
+
+__ http://www.boost.org/libs/range/doc/boost_range.html#minimal_interface
+
+
+- Header: ``<pstade/oven/extension.hpp>``
+- Valid expression1: ``PSTADE_OVEN_EXTENSION_TYPE(X)``
+- Valid expression2: ``PSTADE_OVEN_EXTENSION_TEMPLATE(X,N)``, where ``N`` is the number of template arguments. Only valid if all template arguments are typenames.
+- Valid expression3: ``PSTADE_OVEN_EXTENSION_TEMPLATE(X,S)``, where ``S`` is a sequence of template arguments. Must be used when integral or template template parameters are present.
+- Precondition: ``X`` is a Boost.Preprocessor Sequence of type name.
+
+
+
 Acknowledgments
 ---------------
 - `P-Stade`_
@@ -938,3 +962,8 @@ Version 0.91.1
 - Renamed ``positioned`` to ``with_position``.
 - Renamed ``matched`` to ``matches``.
 - Renamed ``xpressive_matched`` to ``xpressive_matches``.
+
+Version 0.91.2
+^^^^^^^^^^^^^^
+- Added `Extending Boost.Range`_.
+

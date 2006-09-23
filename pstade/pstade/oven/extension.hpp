@@ -20,6 +20,7 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
+#include <boost/preprocessor/seq/pop_back.hpp>
 #include <boost/preprocessor/seq/size.hpp>
 #include <boost/preprocessor/tuple/eat.hpp>
 #include <boost/range/const_iterator.hpp>
@@ -28,27 +29,37 @@
 #include <boost/type_traits/is_const.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <boost/type_traits/remove_reference.hpp>
+#include <boost/utility/enable_if.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/remove_cvr.hpp>
 #include "./detail/config.hpp" // PSTADE_OVEN_BOOST_RANGE_BEGIN etc.
 #include "./distance.hpp"
 
 
-namespace pstade { namespace oven {
+namespace pstade_oven_extension {
 
 
-template< class T, class Active = void >
-struct extension;
+    template< class T, class Active = void >
+    struct range;
 
 
-namespace extension_detail {
+    template< class T >
+    struct which :
+        boost::enable_if<T>
+    { };
+
+
+} // namespace pstade_oven_extension
+
+
+namespace pstade { namespace oven { namespace extension_detail {
 
 
     template< class T >
     struct PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR
     {
         typedef typename remove_cvr<T>::type plain_t;
-        typedef typename extension<plain_t>::template meta<plain_t>::mutable_iterator type;
+        typedef typename pstade_oven_extension::range<plain_t>::template meta<plain_t>::mutable_iterator type;
     };
 
 
@@ -56,7 +67,7 @@ namespace extension_detail {
     struct range_const_iterator
     {
         typedef typename remove_cvr<T>::type plain_t;
-        typedef typename extension<plain_t>::template meta<plain_t>::constant_iterator type;
+        typedef typename pstade_oven_extension::range<plain_t>::template meta<plain_t>::constant_iterator type;
     };
 
 
@@ -80,7 +91,7 @@ namespace extension_detail {
         Result call(T& x)
         {
             typedef typename boost::remove_cv<T>::type plain_t;
-            return extension<plain_t>().template begin<Result>(x);
+            return pstade_oven_extension::range<plain_t>().template begin<Result>(x);
         }
     };
 
@@ -98,7 +109,7 @@ namespace extension_detail {
         Result call(T& x)
         {
             typedef typename boost::remove_cv<T>::type plain_t;
-            return extension<plain_t>().template end<Result>(x);
+            return pstade_oven_extension::range<plain_t>().template end<Result>(x);
         }
     };
 
@@ -129,10 +140,7 @@ namespace extension_detail {
     PSTADE_EGG_FUNCTION(boost_range_size, baby_size)
 
 
-} // namespace extension_detail
-
-
-} } // namespace pstade::oven
+} } } // namespace pstade::oven::extension_detail
 
 
 // Bridge macros between Oven and Boost.Range Extension
@@ -202,6 +210,7 @@ namespace extension_detail {
         struct Fun< PSTADE_OVEN_EXTENSION_TYPE_fullname(NameSeq) & > : \
             Fun< PSTADE_OVEN_EXTENSION_TYPE_fullname(NameSeq) > \
         { }; \
+        \
         template< > \
         struct Fun< PSTADE_OVEN_EXTENSION_TYPE_fullname(NameSeq) const > : \
             Fun< PSTADE_OVEN_EXTENSION_TYPE_fullname(NameSeq) > \
@@ -285,6 +294,7 @@ namespace extension_detail {
         struct Fun< PSTADE_OVEN_EXTENSION_TEMPLATE_fullname(NameSeq, ParamSeq) & > : \
             Fun< PSTADE_OVEN_EXTENSION_TEMPLATE_fullname(NameSeq, ParamSeq) > \
         { }; \
+        \
         template< PSTADE_OVEN_EXTENSION_TEMPLATE_params(ParamSeq) > \
         struct Fun< PSTADE_OVEN_EXTENSION_TEMPLATE_fullname(NameSeq, ParamSeq) const > : \
             Fun< PSTADE_OVEN_EXTENSION_TEMPLATE_fullname(NameSeq, ParamSeq) > \

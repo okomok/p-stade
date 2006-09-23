@@ -22,7 +22,7 @@ WTL::CAppModule _Module;
 #include <pstade/tomato/filesystem.hpp>
 
 
-struct a_string : std::string
+struct a_string : pstade::tomato::tstring
 { };
 
 

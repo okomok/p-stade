@@ -22,7 +22,7 @@
 #include <pstade/apple/is_boost_range.hpp>
 #include <pstade/egg/baby_auto.hpp>
 #include <pstade/egg/pipable.hpp>
-#include <pstade/overload.hpp>
+#include <pstade/nullptr.hpp>
 #include <pstade/unused.hpp>
 #include "./algorithm.hpp" // copy
 #include "./detail/concept_check.hpp"
@@ -30,18 +30,44 @@
 #include "./range_traversal.hpp"
 
 
+namespace pstade_oven_copy_range_set {
+
+
+    template< class T >
+    struct copy_range // ADL marker
+    { };
+
+
+    template< class T >
+    struct which :
+        boost::enable_if<T>
+    { };
+
+
+    template< class T, class Range > inline
+    T pstade_oven_(copy_range<T>,
+        Range& rng, typename which< pstade::apple::has_range_constructor<T> >::type * = 0)
+    {
+        return T(boost::begin(rng), boost::end(rng));
+    }
+
+
+} // namespace pstade_oven_copy_range_set
+
+
 namespace pstade { namespace oven {
 
+
+// copy_range
+//
 
 namespace copy_range_detail {
 
 
     template< class T, class Range > inline
-    typename boost::enable_if<apple::has_range_constructor<T>,
-    T const>::type
-    pstade_oven_copy_range(Range& rng, overload<T>)
+    T pstade_oven_copy_range(T *&, Range& rng)
     {
-        return T(boost::begin(rng), boost::end(rng));
+        return pstade_oven_(pstade_oven_copy_range_set::copy_range<T>(), rng);
     }
 
 
@@ -60,13 +86,17 @@ PSTADE_ADL_BARRIER(copy_range) { // for Boost
         // Under: http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1893.pdf
         // using namespace(CopyableRange);
 
+        CopyableRange *p = PSTADE_NULLPTR;
         using namespace copy_range_detail;
-        return pstade_oven_copy_range(rng, overload<CopyableRange>());
+        return pstade_oven_copy_range(p, rng);
     }
 
 
 } // ADL barrier
 
+
+// copied
+//
 
 struct copy_range_class
 {
@@ -80,7 +110,10 @@ struct copy_range_class
 PSTADE_EGG_PIPABLE(copied, egg::baby_auto<copy_range_class>)
 
 
-namespace copied_to_detail {
+// copied_out
+//
+
+namespace copied_out_detail {
 
 
     template< class Range > inline
@@ -121,7 +154,7 @@ namespace copied_to_detail {
             oven::copy(in, out);
 
             typedef typename range_traversal<InRange>::type trv_t;
-            return copied_to_detail::check_valid(in, trv_t());
+            return copied_out_detail::check_valid(in, trv_t());
         }
 
         // Note:
@@ -135,17 +168,17 @@ namespace copied_to_detail {
             oven::copy(in, boost::begin(out));
 
             typedef typename range_traversal<InRange>::type trv_t;
-            return copied_to_detail::check_valid(in, trv_t());
+            return copied_out_detail::check_valid(in, trv_t());
         }
     };
 
 
-} // namespace copied_to_detail
+} // namespace copied_out_detail
 
 
 // Which is better name?
-PSTADE_EGG_PIPABLE(copied_out, copied_to_detail::baby)
-PSTADE_EGG_PIPABLE(copied_to,  copied_to_detail::baby)
+PSTADE_EGG_PIPABLE(copied_out, copied_out_detail::baby)
+PSTADE_EGG_PIPABLE(copied_to,  copied_out_detail::baby)
 
 
 } } // namespace pstade::oven

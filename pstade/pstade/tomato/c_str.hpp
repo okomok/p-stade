@@ -12,7 +12,7 @@
 
 #include <boost/assert.hpp>
 #include <boost/utility/enable_if.hpp>
-#include <pstade/apple/atl/config.hpp> // ATL_vER, CSIMPLESTRINGT_TEMPLATE_PARAMS/ARGS
+#include <pstade/apple/atl/config.hpp> // ATL_VER, CSIMPLESTRINGT_TEMPLATE_PARAMS/ARGS
 #include <pstade/apple/atl/core.hpp> // ::AtlIsValidString
 #include <pstade/apple/atl/simpstr_fwd.hpp> // CSimpleStringT
 #include <pstade/apple/sdk/tchar.hpp>
@@ -22,10 +22,19 @@
 #include <pstade/egg/pipable.hpp>
 #include <pstade/metapredicate.hpp>
 #include <pstade/nullptr.hpp>
-#include <pstade/overload.hpp>
 #include <pstade/static_c.hpp>
 #include "./access.hpp"
 #include "./boolean_cast.hpp"
+
+
+namespace pstade_tomato_c_str_set {
+
+
+    struct c_str // ADL marker
+    { };
+
+
+} // namespace pstade_tomato_c_str_set
 
 
 namespace pstade { namespace tomato {
@@ -68,9 +77,7 @@ namespace c_str_detail {
                     ++pch;
                     ch = *(volatile TCHAR *)pch;
 
-                    if (pch == pchEnd) {
-                        BOOST_ASSERT("null-terminated string candidate is too long to diagnose." && false);
-                    }
+                    BOOST_ASSERT("null-terminated string candidate is too long to diagnose." && pch != pchEnd);
                 }
             }
             __except (EXCEPTION_EXECUTE_HANDLER) {
@@ -88,8 +95,7 @@ namespace c_str_detail {
     // member function
     //
     template< class T > inline
-    typename boost::enable_if<is_intrusive_cstringizable<T>,
-    TCHAR const *>::type aux(T const& str)
+    TCHAR const *aux(T const& str, typename boost::enable_if< is_intrusive_cstringizable<T> >::type * = 0)
     {
         return access::detail_c_str(str);
     }
@@ -100,12 +106,11 @@ namespace c_str_detail {
     template< class T > inline
     TCHAR const *pstade_tomato_c_str(T const& str)
     {
-        return pstade_tomato_c_str(str, overload<>());
+        return pstade_tomato_(pstade_tomato_c_str_set::c_str(), str);
     }
 
     template< class T > inline
-    typename boost::disable_if<is_intrusive_cstringizable<T>,
-    TCHAR const *>::type aux(T const& str)
+    TCHAR const *aux(T const& str, typename boost::disable_if< is_intrusive_cstringizable<T> >::type * = 0)
     {
         return pstade_tomato_c_str(str);
     }
@@ -147,33 +152,38 @@ PSTADE_EGG_PIPABLE(c_stringized, c_str_detail::baby)
 } } // namespace pstade::tomato
 
 
-// predefined customizations
+// predefined extensions
 //
 
-
-TCHAR const *
-pstade_tomato_c_str(WTL::CString const& str, pstade::overload<>)
-{
-    return str;
-}
+namespace pstade_tomato_c_str_set {
 
 
-// Note:
-// 'enable_if<is_ATL_CSimpleStringT,...>' is useless here, which ignores class hierarchy.
-template< PSTADE_APPLE_ATL_CSIMPLESTRINGT_TEMPLATE_PARAMS > inline
-BaseType const *
-pstade_tomato_c_str(ATL::CSimpleStringT< PSTADE_APPLE_ATL_CSIMPLESTRINGT_TEMPLATE_ARGS > const& str, pstade::overload<>)
-{
-    return str;
-}
+    TCHAR const *
+    pstade_tomato_(c_str, WTL::CString const& str)
+    {
+        return str;
+    }
 
 
-template< class Traits, class Alloc > inline
-TCHAR const *
-pstade_tomato_c_str(std::basic_string<TCHAR, Traits, Alloc> const& str, pstade::overload<>)
-{
-    return str.c_str();
-}
+    // Note:
+    // 'enable_if<is_ATL_CSimpleStringT,...>' is useless here, which ignores class hierarchy.
+    template< PSTADE_APPLE_ATL_CSIMPLESTRINGT_TEMPLATE_PARAMS > inline
+    BaseType const *
+    pstade_tomato_(c_str, ATL::CSimpleStringT< PSTADE_APPLE_ATL_CSIMPLESTRINGT_TEMPLATE_ARGS > const& str)
+    {
+        return str;
+    }
+
+
+    template< class Traits, class Alloc > inline
+    TCHAR const *
+    pstade_tomato_(c_str, std::basic_string<TCHAR, Traits, Alloc> const& str)
+    {
+        return str.c_str();
+    }
+
+
+} // namespace pstade_tomato_c_str_set
 
 
 #endif

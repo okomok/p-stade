@@ -78,11 +78,11 @@ struct your_sequence :
 
 
 
-namespace pstade { namespace oven {
+namespace pstade_oven_extension {
 
     template< class T >
-    struct extension<T,
-        typename boost::enable_if< mine::is_container<T> >::type >
+    struct range<T,
+        typename which< mine::is_container<T> >::type >
     {
         template< class X >
         struct meta
@@ -105,7 +105,7 @@ namespace pstade { namespace oven {
     };
 
     template< >
-    struct extension< ::your_sequence >
+    struct range< ::your_sequence >
     {
         template< class X >
         struct meta
@@ -127,7 +127,7 @@ namespace pstade { namespace oven {
         }
     };
 
-} }
+}
 
 
 PSTADE_OVEN_EXTENSION_TYPE((mine)(container1))
@@ -135,6 +135,50 @@ PSTADE_OVEN_EXTENSION_TEMPLATE((mine)(container2), 2)
 PSTADE_OVEN_EXTENSION_TYPE((mine)(inside)(container3))
 
 PSTADE_OVEN_EXTENSION_TYPE((your_sequence))
+
+
+namespace Foo {
+
+    template< class T >
+    struct Pair
+    {
+        T first, last;
+    };
+
+} // namespace Foo
+
+namespace pstade_oven_extension {
+
+    template< class T >
+    struct range< Foo::Pair<T> >
+    {
+        // X == Foo::Pair<T>
+        template< class X >
+        struct meta
+        {
+            typedef T mutable_iterator;
+            typedef T constant_iterator;
+        };
+
+        // if X is not const, Iterator == mutable_iterator;
+        // otherwise, Iterator == constant_iterator.
+        template< class Iterator, class X >
+        Iterator begin(X& x)
+        {
+            return x.first;
+        }
+
+        template< class Iterator, class X >
+        Iterator end(X& x)
+        {
+            return x.last;
+        }
+    };
+
+} // namespace pstade_oven_extension
+
+PSTADE_OVEN_EXTENSION_TEMPLATE((Foo)(Pair), (class))
+// PSTADE_OVEN_EXTENSION_TEMPLATE((Foo)(Pair), 1) // also ok.
 
 
 void test()
@@ -145,6 +189,7 @@ void test()
     mine::container2<int, char> cont2;
     mine::inside::container3 cont3;
     ::your_sequence seq1;
+    Foo::Pair<int *> pr;
 
     bool never = false;
     if (never) {
@@ -152,6 +197,7 @@ void test()
         oven::test_random_access(cont2);
         oven::test_random_access(cont3);
         oven::test_random_access(seq1);
+        oven::test_random_access(pr);
     }
 }
 

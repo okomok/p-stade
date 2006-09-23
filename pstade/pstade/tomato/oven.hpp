@@ -14,13 +14,15 @@
 #include <boost/utility/enable_if.hpp>
 #include <pstade/apple/atl/is_ATL_string.hpp>
 #include <pstade/apple/wtl/misc.hpp> // CString
+#include <pstade/oven/copy_range.hpp>
 #include <pstade/oven/range_reference.hpp>
-#include <pstade/overload.hpp>
+
+
+namespace pstade_oven_copy_range_set {
 
 
 template< class T, class Range >
-typename boost::enable_if<pstade::apple::is_ATL_string<T>,
-T>::type pstade_oven_copy_range(Range& rng, pstade::overload<T>)
+T pstade_oven_(copy_range<T>, Range& rng, typename which< pstade::apple::is_ATL_string<T> >::type * = 0)
 {
     T str;
 
@@ -34,7 +36,7 @@ T>::type pstade_oven_copy_range(Range& rng, pstade::overload<T>)
 
 
 template< class Range >
-WTL::CString pstade_oven_copy_range(Range& rng, pstade::overload<WTL::CString>)
+WTL::CString pstade_oven_(copy_range<WTL::CString>, Range& rng)
 {
     WTL::CString str;
 
@@ -45,6 +47,9 @@ WTL::CString pstade_oven_copy_range(Range& rng, pstade::overload<WTL::CString>)
 
     return str;
 }
+
+
+} // namespace pstade_oven_copy_range_set
 
 
 #endif
