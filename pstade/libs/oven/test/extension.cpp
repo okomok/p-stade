@@ -19,6 +19,7 @@
 #include <boost/mpl/or.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/type_traits/is_same.hpp>
+#include <boost/noncopyable.hpp>
 #include <pstade/oven/tests.hpp>
 
 
@@ -30,6 +31,7 @@ namespace mine {
 
     template< class A, class B >
     struct container2 :
+        private boost::noncopyable,
         std::vector<A>
     { };
 
@@ -40,16 +42,20 @@ namespace mine {
         struct is_container2< container2<A, B> > : boost::mpl::true_ { };
 
 
-    struct container3 :
-        std::vector<char>
-    { };
+    namespace inside {
+
+        struct container3 :
+            std::vector<char>
+        { };
+
+    }
 
     template< class T >
     struct is_container :
         boost::mpl::or_<
             boost::is_same<T, container1>,
             is_container2<T>,
-            boost::is_same<T, container3>
+            boost::is_same<T, inside::container3>
         >
     { };
 
@@ -57,6 +63,7 @@ namespace mine {
 
 
 struct your_sequence :
+    private boost::noncopyable,
     std::string
 { };
 
@@ -114,11 +121,11 @@ namespace pstade { namespace oven {
 } }
 
 
-PSTADE_OVEN_EXTENSION_TYPE((mine, BOOST_PP_NIL), container1)
-PSTADE_OVEN_EXTENSION_TEMPLATE((mine, BOOST_PP_NIL), container2, 2)
-PSTADE_OVEN_EXTENSION_TYPE((mine, BOOST_PP_NIL), container3)
+PSTADE_OVEN_EXTENSION_TYPE((mine)(container1))
+PSTADE_OVEN_EXTENSION_TEMPLATE((mine)(container2), 2)
+PSTADE_OVEN_EXTENSION_TYPE((mine)(inside)(container3))
 
-PSTADE_OVEN_EXTENSION_TYPE(BOOST_PP_NIL, your_sequence)
+PSTADE_OVEN_EXTENSION_TYPE((your_sequence))
 
 
 void test()
@@ -127,7 +134,7 @@ void test()
 
     mine::container1 cont1;
     mine::container2<int, char> cont2;
-    mine::container3 cont3;
+    mine::inside::container3 cont3;
     ::your_sequence seq1;
 
     bool never = false;
