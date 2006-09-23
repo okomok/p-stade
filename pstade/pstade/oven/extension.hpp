@@ -84,7 +84,7 @@ namespace extension_detail {
         }
     };
 
-    PSTADE_EGG_FUNCTION(begin, baby_begin)
+    PSTADE_EGG_FUNCTION(PSTADE_OVEN_BOOST_RANGE_BEGIN, baby_begin)
 
 
     struct baby_end
@@ -102,7 +102,7 @@ namespace extension_detail {
         }
     };
 
-    PSTADE_EGG_FUNCTION(end, baby_end)
+    PSTADE_EGG_FUNCTION(PSTADE_OVEN_BOOST_RANGE_END, baby_end)
 
 
     template< class T >
@@ -126,7 +126,7 @@ namespace extension_detail {
         }
     };
 
-    PSTADE_EGG_FUNCTION(size, baby_size)
+    PSTADE_EGG_FUNCTION(boost_range_size, baby_size)
 
 
 } // namespace extension_detail
@@ -169,9 +169,9 @@ namespace extension_detail {
     } \
     \
     PSTADE_OVEN_EXTENSION_namespace_open(NamespaceList) \
-        PSTADE_OVEN_EXTENSION_TYPE_forward(NamespaceList, Name, begin, range_result_iterator) \
-        PSTADE_OVEN_EXTENSION_TYPE_forward(NamespaceList, Name, end,   range_result_iterator) \
-        PSTADE_OVEN_EXTENSION_TYPE_forward(NamespaceList, Name, size , range_size) \
+        PSTADE_OVEN_EXTENSION_TYPE_forward(NamespaceList, Name, PSTADE_OVEN_BOOST_RANGE_BEGIN, range_result_iterator) \
+        PSTADE_OVEN_EXTENSION_TYPE_forward(NamespaceList, Name, PSTADE_OVEN_BOOST_RANGE_END,   range_result_iterator) \
+        PSTADE_OVEN_EXTENSION_TYPE_forward(NamespaceList, Name, boost_range_size,              range_size) \
     PSTADE_OVEN_EXTENSION_namespace_close(NamespaceList) \
 /**/
 
@@ -253,9 +253,9 @@ namespace extension_detail {
     } \
     \
     PSTADE_OVEN_EXTENSION_namespace_open(NamespaceList) \
-        PSTADE_OVEN_EXTENSION_TEMPLATE_forward(NamespaceList, Name, ParamSeq, begin, range_result_iterator) \
-        PSTADE_OVEN_EXTENSION_TEMPLATE_forward(NamespaceList, Name, ParamSeq, end,   range_result_iterator) \
-        PSTADE_OVEN_EXTENSION_TEMPLATE_forward(NamespaceList, Name, ParamSeq, size , range_size) \
+        PSTADE_OVEN_EXTENSION_TEMPLATE_forward(NamespaceList, Name, ParamSeq, PSTADE_OVEN_BOOST_RANGE_BEGIN, range_result_iterator) \
+        PSTADE_OVEN_EXTENSION_TEMPLATE_forward(NamespaceList, Name, ParamSeq, PSTADE_OVEN_BOOST_RANGE_END,   range_result_iterator) \
+        PSTADE_OVEN_EXTENSION_TEMPLATE_forward(NamespaceList, Name, ParamSeq, boost_range_size,              range_size) \
     PSTADE_OVEN_EXTENSION_namespace_close(NamespaceList) \
 /**/
 
