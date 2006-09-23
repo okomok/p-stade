@@ -45,7 +45,7 @@ namespace extension_detail {
 
 
     template< class T >
-    struct mutable_iterator
+    struct PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR
     {
         typedef typename remove_cvr<T>::type plain_t;
         typedef typename extension<plain_t>::template meta<plain_t>::mutable_iterator type;
@@ -53,7 +53,7 @@ namespace extension_detail {
 
 
     template< class T >
-    struct constant_iterator
+    struct range_const_iterator
     {
         typedef typename remove_cvr<T>::type plain_t;
         typedef typename extension<plain_t>::template meta<plain_t>::constant_iterator type;
@@ -61,10 +61,10 @@ namespace extension_detail {
 
 
     template< class T >
-    struct result_iterator :
+    struct range_result_iterator :
         boost::mpl::eval_if< boost::is_const<typename boost::remove_reference<T>::type>,
-            constant_iterator<T>,
-            mutable_iterator<T>
+            range_const_iterator<T>,
+            PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<T>
         >
     { };
 
@@ -73,7 +73,7 @@ namespace extension_detail {
     {
         template< class Unused, class T >
         struct apply :
-            result_iterator<T>
+            range_result_iterator<T>
         { };
 
         template< class Result, class T >
@@ -91,7 +91,7 @@ namespace extension_detail {
     {
         template< class Unused, class T >
         struct apply :
-            result_iterator<T>
+            range_result_iterator<T>
         { };
 
         template< class Result, class T >
@@ -106,9 +106,9 @@ namespace extension_detail {
 
 
     template< class T >
-    struct result_of_size
+    struct range_size
     {
-        typedef typename mutable_iterator<T>::type miter_t;
+        typedef typename range_result_iterator<T>::type miter_t;
         typedef typename boost::iterator_difference<miter_t>::type type;
     };
 
@@ -116,7 +116,7 @@ namespace extension_detail {
     {
         template< class Unused, class T >
         struct apply :
-            result_of_size<T>
+            range_size<T>
         { };
 
         template< class Result, class T >
@@ -163,17 +163,15 @@ namespace extension_detail {
 
 #define PSTADE_OVEN_EXTENSION_TYPE(NamespaceList, Name) \
     namespace boost { \
-        PSTADE_OVEN_EXTENSION_TYPE_mutable_iterator(PSTADE_OVEN_EXTENSION_TYPE_fullname(NamespaceList, Name)) \
-        PSTADE_OVEN_EXTENSION_TYPE_const_iterator(PSTADE_OVEN_EXTENSION_TYPE_fullname(NamespaceList, Name)) \
-        PSTADE_OVEN_EXTENSION_TYPE_size_type(PSTADE_OVEN_EXTENSION_TYPE_fullname(NamespaceList, Name)) \
+        PSTADE_OVEN_EXTENSION_TYPE_forward_meta(NamespaceList, Name, PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR) \
+        PSTADE_OVEN_EXTENSION_TYPE_forward_meta(NamespaceList, Name, range_const_iterator) \
+        PSTADE_OVEN_EXTENSION_TYPE_forward_meta(NamespaceList, Name, range_size) \
     } \
     \
     PSTADE_OVEN_EXTENSION_namespace_open(NamespaceList) \
-        PSTADE_OVEN_EXTENSION_TYPE_begin(PSTADE_OVEN_EXTENSION_TYPE_fullname(NamespaceList, Name)) \
-        PSTADE_OVEN_EXTENSION_TYPE_begin_const(PSTADE_OVEN_EXTENSION_TYPE_fullname(NamespaceList, Name)) \
-        PSTADE_OVEN_EXTENSION_TYPE_end(PSTADE_OVEN_EXTENSION_TYPE_fullname(NamespaceList, Name)) \
-        PSTADE_OVEN_EXTENSION_TYPE_end_const(PSTADE_OVEN_EXTENSION_TYPE_fullname(NamespaceList, Name)) \
-        PSTADE_OVEN_EXTENSION_TYPE_size(PSTADE_OVEN_EXTENSION_TYPE_fullname(NamespaceList, Name)) \
+        PSTADE_OVEN_EXTENSION_TYPE_forward(NamespaceList, Name, begin, range_result_iterator) \
+        PSTADE_OVEN_EXTENSION_TYPE_forward(NamespaceList, Name, end,   range_result_iterator) \
+        PSTADE_OVEN_EXTENSION_TYPE_forward(NamespaceList, Name, size , range_size) \
     PSTADE_OVEN_EXTENSION_namespace_close(NamespaceList) \
 /**/
 
@@ -183,95 +181,47 @@ namespace extension_detail {
     /**/
 
 
-    // metafunctions
-    //
-
-    #define PSTADE_OVEN_EXTENSION_TYPE_mutable_iterator(Fullname) \
+    #define PSTADE_OVEN_EXTENSION_TYPE_forward_meta(NamespaceList, Name, Fun) \
         template< > \
-        struct PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR< Fullname > : \
-            pstade::oven::extension_detail::mutable_iterator< Fullname > \
-        { }; \
-        template< > \
-        struct PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR< Fullname const > : \
-            PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR< Fullname > \
-        { }; \
-    /**/
-
-
-    #define PSTADE_OVEN_EXTENSION_TYPE_const_iterator(Fullname) \
-        template< > \
-        struct range_const_iterator< Fullname > : \
-            pstade::oven::extension_detail::constant_iterator< Fullname > \
+        struct Fun< PSTADE_OVEN_EXTENSION_TYPE_fullname(NamespaceList, Name) > : \
+            pstade::oven::extension_detail::Fun< PSTADE_OVEN_EXTENSION_TYPE_fullname(NamespaceList, Name) > \
         { }; \
         \
         template< > \
-        struct range_const_iterator< Fullname const > : \
-            range_const_iterator< Fullname > \
+        struct Fun< PSTADE_OVEN_EXTENSION_TYPE_fullname(NamespaceList, Name) & > : \
+            Fun< PSTADE_OVEN_EXTENSION_TYPE_fullname(NamespaceList, Name) > \
         { }; \
-    /**/
-
-
-    #define PSTADE_OVEN_EXTENSION_TYPE_size_type(Fullname) \
+        \
         template< > \
-        struct range_size< Fullname > : \
-            pstade::oven::extension_detail::result_of_size< Fullname > \
+        struct Fun< PSTADE_OVEN_EXTENSION_TYPE_fullname(NamespaceList, Name) const > : \
+            Fun< PSTADE_OVEN_EXTENSION_TYPE_fullname(NamespaceList, Name) > \
         { }; \
+        \
         template< > \
-        struct range_size< Fullname const > : \
-            range_size< Fullname > \
+        struct Fun< PSTADE_OVEN_EXTENSION_TYPE_fullname(NamespaceList, Name) volatile > : \
+            Fun< PSTADE_OVEN_EXTENSION_TYPE_fullname(NamespaceList, Name) > \
+        { }; \
+        \
+        template< > \
+        struct Fun< PSTADE_OVEN_EXTENSION_TYPE_fullname(NamespaceList, Name) const volatile > : \
+            Fun< PSTADE_OVEN_EXTENSION_TYPE_fullname(NamespaceList, Name) > \
         { }; \
     /**/
 
 
-    // functions
-    //
-
-    #define PSTADE_OVEN_EXTENSION_TYPE_begin(Fullname) \
+    #define PSTADE_OVEN_EXTENSION_TYPE_forward(NamespaceList, Name, Fun, Result) \
         inline \
-        pstade::oven::extension_detail::result_iterator< Fullname >::type \
-        PSTADE_OVEN_BOOST_RANGE_BEGIN(Fullname& x) \
+        pstade::oven::extension_detail::Result< PSTADE_OVEN_EXTENSION_TYPE_fullname(NamespaceList, Name) >::type \
+        Fun(PSTADE_OVEN_EXTENSION_TYPE_fullname(NamespaceList, Name)& x) \
         { \
-            return pstade::oven::extension_detail::begin(x); \
+            return pstade::oven::extension_detail::Fun(x); \
         } \
-    /**/
-
-
-    #define PSTADE_OVEN_EXTENSION_TYPE_begin_const(Fullname) \
+        \
         inline \
-        pstade::oven::extension_detail::result_iterator< Fullname const >::type \
-        PSTADE_OVEN_BOOST_RANGE_BEGIN(Fullname const& x) \
+        pstade::oven::extension_detail::Result< PSTADE_OVEN_EXTENSION_TYPE_fullname(NamespaceList, Name) const >::type \
+        Fun(PSTADE_OVEN_EXTENSION_TYPE_fullname(NamespaceList, Name) const& x) \
         { \
-            return pstade::oven::extension_detail::begin(x); \
-        } \
-    /**/
-
-
-    #define PSTADE_OVEN_EXTENSION_TYPE_end(Fullname) \
-        inline \
-        pstade::oven::extension_detail::result_iterator< Fullname >::type \
-        PSTADE_OVEN_BOOST_RANGE_END(Fullname& x) \
-        { \
-            return pstade::oven::extension_detail::end(x); \
-        } \
-    /**/
-
-
-    #define PSTADE_OVEN_EXTENSION_TYPE_end_const(Fullname) \
-        inline \
-        pstade::oven::extension_detail::result_iterator< Fullname const >::type \
-        PSTADE_OVEN_BOOST_RANGE_END(Fullname const& x) \
-        { \
-            return pstade::oven::extension_detail::end(x); \
-        } \
-    /**/
-
-
-    #define PSTADE_OVEN_EXTENSION_TYPE_size(Fullname) \
-        inline \
-        pstade::oven::extension_detail::result_of_size< Fullname >::type \
-        boost_range_size(Fullname const& x) \
-        { \
-            return pstade::oven::extension_detail::size(x); \
+            return pstade::oven::extension_detail::Fun(x); \
         } \
     /**/
 
@@ -297,42 +247,15 @@ namespace extension_detail {
 
 #define PSTADE_OVEN_EXTENSION_TEMPLATE_impl(NamespaceList, Name, ParamSeq) \
     namespace boost { \
-        PSTADE_OVEN_EXTENSION_TEMPLATE_mutable_iterator( \
-            PSTADE_OVEN_EXTENSION_TEMPLATE_params(ParamSeq), \
-            PSTADE_OVEN_EXTENSION_TEMPLATE_fullname(NamespaceList, Name, ParamSeq) \
-        ) \
-        PSTADE_OVEN_EXTENSION_TEMPLATE_const_iterator( \
-            PSTADE_OVEN_EXTENSION_TEMPLATE_params(ParamSeq), \
-            PSTADE_OVEN_EXTENSION_TEMPLATE_fullname(NamespaceList, Name, ParamSeq) \
-        ) \
-        \
-        PSTADE_OVEN_EXTENSION_TEMPLATE_size_type( \
-            PSTADE_OVEN_EXTENSION_TEMPLATE_params(ParamSeq), \
-            PSTADE_OVEN_EXTENSION_TEMPLATE_fullname(NamespaceList, Name, ParamSeq) \
-        ) \
+        PSTADE_OVEN_EXTENSION_TEMPLATE_forward_meta(NamespaceList, Name, ParamSeq, PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR) \
+        PSTADE_OVEN_EXTENSION_TEMPLATE_forward_meta(NamespaceList, Name, ParamSeq, range_const_iterator) \
+        PSTADE_OVEN_EXTENSION_TEMPLATE_forward_meta(NamespaceList, Name, ParamSeq, range_size) \
     } \
     \
     PSTADE_OVEN_EXTENSION_namespace_open(NamespaceList) \
-        PSTADE_OVEN_EXTENSION_TEMPLATE_begin( \
-            PSTADE_OVEN_EXTENSION_TEMPLATE_params(ParamSeq), \
-            PSTADE_OVEN_EXTENSION_TEMPLATE_fullname(NamespaceList, Name, ParamSeq) \
-        ) \
-        PSTADE_OVEN_EXTENSION_TEMPLATE_begin_const( \
-            PSTADE_OVEN_EXTENSION_TEMPLATE_params(ParamSeq), \
-            PSTADE_OVEN_EXTENSION_TEMPLATE_fullname(NamespaceList, Name, ParamSeq) \
-        ) \
-        PSTADE_OVEN_EXTENSION_TEMPLATE_end( \
-            PSTADE_OVEN_EXTENSION_TEMPLATE_params(ParamSeq), \
-            PSTADE_OVEN_EXTENSION_TEMPLATE_fullname(NamespaceList, Name, ParamSeq) \
-        ) \
-        PSTADE_OVEN_EXTENSION_TEMPLATE_end_const( \
-            PSTADE_OVEN_EXTENSION_TEMPLATE_params(ParamSeq), \
-            PSTADE_OVEN_EXTENSION_TEMPLATE_fullname(NamespaceList, Name, ParamSeq) \
-        ) \
-        PSTADE_OVEN_EXTENSION_TEMPLATE_size( \
-            PSTADE_OVEN_EXTENSION_TEMPLATE_params(ParamSeq), \
-            PSTADE_OVEN_EXTENSION_TEMPLATE_fullname(NamespaceList, Name, ParamSeq) \
-        ) \
+        PSTADE_OVEN_EXTENSION_TEMPLATE_forward(NamespaceList, Name, ParamSeq, begin, range_result_iterator) \
+        PSTADE_OVEN_EXTENSION_TEMPLATE_forward(NamespaceList, Name, ParamSeq, end,   range_result_iterator) \
+        PSTADE_OVEN_EXTENSION_TEMPLATE_forward(NamespaceList, Name, ParamSeq, size , range_size) \
     PSTADE_OVEN_EXTENSION_namespace_close(NamespaceList) \
 /**/
 
@@ -352,94 +275,42 @@ namespace extension_detail {
     /**/
 
 
-    // metafunctions
-    //
-
-    #define PSTADE_OVEN_EXTENSION_TEMPLATE_mutable_iterator(Params, Fullname) \
-        template< Params > \
-        struct PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR< Fullname > : \
-            pstade::oven::extension_detail::mutable_iterator< Fullname > \
+    #define PSTADE_OVEN_EXTENSION_TEMPLATE_forward_meta(NamespaceList, Name, ParamSeq, Fun) \
+        template< PSTADE_OVEN_EXTENSION_TEMPLATE_params(ParamSeq) > \
+        struct Fun< PSTADE_OVEN_EXTENSION_TEMPLATE_fullname(NamespaceList, Name, ParamSeq)& > : \
+            Fun< PSTADE_OVEN_EXTENSION_TEMPLATE_fullname(NamespaceList, Name, ParamSeq) > \
         { }; \
-        template< Params > \
-        struct PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR< Fullname const > : \
-            pstade::oven::extension_detail::mutable_iterator< Fullname > \
+        \
+        template< PSTADE_OVEN_EXTENSION_TEMPLATE_params(ParamSeq) > \
+        struct Fun< PSTADE_OVEN_EXTENSION_TEMPLATE_fullname(NamespaceList, Name, ParamSeq) const > : \
+            Fun< PSTADE_OVEN_EXTENSION_TEMPLATE_fullname(NamespaceList, Name, ParamSeq) > \
         { }; \
-    /**/
-
-
-    #define PSTADE_OVEN_EXTENSION_TEMPLATE_const_iterator(Params, Fullname) \
-        template< Params > \
-        struct range_const_iterator< Fullname > : \
-            pstade::oven::extension_detail::constant_iterator< Fullname > \
+        \
+        template< PSTADE_OVEN_EXTENSION_TEMPLATE_params(ParamSeq) > \
+        struct Fun< PSTADE_OVEN_EXTENSION_TEMPLATE_fullname(NamespaceList, Name, ParamSeq) volatile > : \
+            Fun< PSTADE_OVEN_EXTENSION_TEMPLATE_fullname(NamespaceList, Name, ParamSeq) > \
         { }; \
-        template< Params > \
-        struct range_const_iterator< Fullname const > : \
-            range_const_iterator< Fullname > \
+        \
+        template< PSTADE_OVEN_EXTENSION_TEMPLATE_params(ParamSeq) > \
+        struct Fun< PSTADE_OVEN_EXTENSION_TEMPLATE_fullname(NamespaceList, Name, ParamSeq) const volatile > : \
+            Fun< PSTADE_OVEN_EXTENSION_TEMPLATE_fullname(NamespaceList, Name, ParamSeq) > \
         { }; \
     /**/
 
 
-    #define PSTADE_OVEN_EXTENSION_TEMPLATE_size_type(Params, Fullname) \
-        template< Params > \
-        struct range_size< Fullname > : \
-            pstade::oven::extension_detail::result_of_size< Fullname > \
-        { }; \
-        template< Params > \
-        struct range_size< Fullname const > : \
-            range_size< Fullname > \
-        { }; \
-    /**/
-
-
-    // functions
-    //
-
-    #define PSTADE_OVEN_EXTENSION_TEMPLATE_begin(Params, Fullname) \
-        template< Params > inline \
-        typename pstade::oven::extension_detail::result_iterator< Fullname >::type \
-        PSTADE_OVEN_BOOST_RANGE_BEGIN(Fullname& x) \
+    #define PSTADE_OVEN_EXTENSION_TEMPLATE_forward(NamespaceList, Name, ParamSeq, Fun, Result) \
+        template< PSTADE_OVEN_EXTENSION_TEMPLATE_params(ParamSeq) > inline \
+        typename pstade::oven::extension_detail::Result< PSTADE_OVEN_EXTENSION_TEMPLATE_fullname(NamespaceList, Name, ParamSeq) >::type \
+        Fun(PSTADE_OVEN_EXTENSION_TEMPLATE_fullname(NamespaceList, Name, ParamSeq)& x) \
         { \
-            return pstade::oven::extension_detail::begin(x); \
+            return pstade::oven::extension_detail::Fun(x); \
         } \
-    /**/
-
-
-    #define PSTADE_OVEN_EXTENSION_TEMPLATE_begin_const(Params, Fullname) \
-        template< Params > inline \
-        typename pstade::oven::extension_detail::result_iterator< Fullname const >::type \
-        PSTADE_OVEN_BOOST_RANGE_BEGIN(Fullname const& x) \
+        \
+        template< PSTADE_OVEN_EXTENSION_TEMPLATE_params(ParamSeq) > inline \
+        typename pstade::oven::extension_detail::Result< PSTADE_OVEN_EXTENSION_TEMPLATE_fullname(NamespaceList, Name, ParamSeq) const >::type \
+        Fun(PSTADE_OVEN_EXTENSION_TEMPLATE_fullname(NamespaceList, Name, ParamSeq) const& x) \
         { \
-            return pstade::oven::extension_detail::begin(x); \
-        } \
-    /**/
-
-
-    #define PSTADE_OVEN_EXTENSION_TEMPLATE_end(Params, Fullname) \
-        template< Params > inline \
-        typename pstade::oven::extension_detail::result_iterator< Fullname >::type \
-        PSTADE_OVEN_BOOST_RANGE_END(Fullname& x) \
-        { \
-            return pstade::oven::extension_detail::end(x); \
-        } \
-    /**/
-
-
-    #define PSTADE_OVEN_EXTENSION_TEMPLATE_end_const(Params, Fullname) \
-        template< Params > inline \
-        typename pstade::oven::extension_detail::result_iterator< Fullname const >::type \
-        PSTADE_OVEN_BOOST_RANGE_END(Fullname const& x) \
-        { \
-            return pstade::oven::extension_detail::end(x); \
-        } \
-    /**/
-
-
-    #define PSTADE_OVEN_EXTENSION_TEMPLATE_size(Params, Fullname) \
-        template< Params > inline \
-        typename pstade::oven::extension_detail::result_of_size< Fullname >::type \
-        boost_range_size(Fullname const& x) \
-        { \
-            return pstade::oven::extension_detail::size(x); \
+            return pstade::oven::extension_detail::Fun(x); \
         } \
     /**/
 
