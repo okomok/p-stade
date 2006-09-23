@@ -48,6 +48,7 @@ test-suite oven :
     [ oven-test drop_range ]
     [ oven-test drop_while_range ]
     [ oven-test empty_range ]
+    [ oven-test extension ]
     [ oven-test file_range ]
     [ oven-test filter_range ]
     [ oven-test function_output_iterator ]

@@ -25,6 +25,7 @@
 #include <boost/range/rbegin.hpp>
 #include <boost/range/rend.hpp>
 #include "./detail/concept_check.hpp"
+#include "./equals.hpp"
 #include "./range_iterator.hpp"
 #include "./range_value.hpp"
 
