@@ -38,35 +38,7 @@ namespace pstade { namespace oven {
 
 
 template< class T, class Active = void >
-struct extension; /*
-{
-    // example
-
-    template< class X >
-    struct meta
-    {
-        typedef int *mutable_iterator;
-        typedef int const *constant_iterator;
-    };
-
-    template< class Iterator, class X >
-    const_overloaded<Iterator, X>::type begin(X& x)
-    {
-        return x.first;
-    }
-
-    template< class Iterator, class X >
-    Iterator begin(X const& x)
-    {
-        return x.cfirst;
-    }
-
-    template< class Iterator, class X >
-    Iterator end(X& x)
-    {
-        return x.last;
-    }
-}; */
+struct extension;
 
 
 namespace extension_detail {
@@ -170,8 +142,8 @@ namespace extension_detail {
         BOOST_PP_LIST_FOR_EACH(PSTADE_OVEN_EXTENSION_namespace_open_op, ~, NamespaceList) \
     /**/
 
-        #define PSTADE_OVEN_EXTENSION_namespace_open_op(r, data, elem) \
-            namespace elem { \
+        #define PSTADE_OVEN_EXTENSION_namespace_open_op(R, _, Elem) \
+            namespace Elem { \
         /**/
 
 
@@ -179,13 +151,13 @@ namespace extension_detail {
         BOOST_PP_LIST_FOR_EACH(PSTADE_OVEN_EXTENSION_namespace_close_op, ~, NamespaceList) \
     /**/
 
-        #define PSTADE_OVEN_EXTENSION_namespace_close_op(r, data, elem) \
+        #define PSTADE_OVEN_EXTENSION_namespace_close_op(R, _, Elem) \
             } \
         /**/
 
 
-    #define PSTADE_OVEN_EXTENSION_namespace_expand_op(r, data, elem) \
-        :: elem \
+    #define PSTADE_OVEN_EXTENSION_namespace_expand_op(R, _, Elem) \
+        :: Elem \
     /**/
 
 
@@ -204,6 +176,7 @@ namespace extension_detail {
         PSTADE_OVEN_EXTENSION_TYPE_size(PSTADE_OVEN_EXTENSION_TYPE_fullname(NamespaceList, Name)) \
     PSTADE_OVEN_EXTENSION_namespace_close(NamespaceList) \
 /**/
+
 
     #define PSTADE_OVEN_EXTENSION_TYPE_fullname(NamespaceList, Name) \
         BOOST_PP_LIST_FOR_EACH(PSTADE_OVEN_EXTENSION_namespace_expand_op, ~, NamespaceList) :: Name \
@@ -368,8 +341,8 @@ namespace extension_detail {
         BOOST_PP_SEQ_FOR_EACH_I(PSTADE_OVEN_EXTENSION_TEMPLATE_params_op, ~, ParamSeq) \
     /**/
 
-        #define PSTADE_OVEN_EXTENSION_TEMPLATE_params_op(r, data, i, elem) \
-            BOOST_PP_COMMA_IF(i) elem BOOST_PP_CAT(T, i) \
+        #define PSTADE_OVEN_EXTENSION_TEMPLATE_params_op(R, _, I, Elem) \
+            BOOST_PP_COMMA_IF(I) Elem BOOST_PP_CAT(T, I) \
         /**/
 
 

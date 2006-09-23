@@ -23,7 +23,7 @@
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
-#include "./detail/config.hpp"
+#include "./extension.hpp"
 #include "./range_iterator.hpp"
 #include "./range_value.hpp"
 
@@ -141,56 +141,53 @@ PSTADE_EGG_PIPABLE(tokenized, token_range_detail::baby_make)
 } } // namespace pstade::oven
 
 
-#if !defined(PSTADE_OVEN_NO_BOOST_SUB_MATCH_RANGE_CUSTOMIZATION)
+#if !defined(PSTADE_OVEN_NO_BOOST_SUB_MATCH_RANGE_EXTENSION)
 
 
-namespace boost {
+// Note:
+// 'sub_match' is derived from 'std::pair', but
+// the "primary" function templates eat 'sub_match'.
+// So we define...
+//
 
 
-    // Note:
-    // The "primary" function templates eat 'sub_match',
-    // though 'sub_match' is derived from 'std::pair'.
-    // So we define...
-    //
+#include "./extension.hpp"
 
-    template< class BidiIter >
-    BidiIter PSTADE_OVEN_BOOST_RANGE_BEGIN(sub_match<BidiIter> const& sm)
-    {
-        return sm.first;
-    }
+
+namespace pstade { namespace oven {
 
 
     template< class BidiIter >
-    BidiIter PSTADE_OVEN_BOOST_RANGE_END(sub_match<BidiIter> const& sm)
+    struct extension< boost::sub_match<BidiIter> >
     {
-        return sm.second;
-    }
+        template< class X >
+        struct meta
+        {
+            typedef typename X::iterator mutable_iterator;
+            typedef typename X::const_iterator constant_iterator;
+        };
 
+        template< class Iterator, class X >
+        Iterator begin(X& x)
+        {
+            return x.first;
+        }
 
-#if defined(PSTADE_OVEN_BOOST_RANGE_VERSION_1)
-
-
-    template< class BidiIter >
-    std::size_t boost_range_size(sub_match<BidiIter> const& sm)
-    {
-        return std::distance(sm.first, sm.second);
-    }
-
-
-    template< class BidiIter >
-    struct range_size< sub_match<BidiIter> >
-    {
-        typedef std::size_t type;
+        template< class Iterator, class X >
+        Iterator end(X& x)
+        {
+            return x.second;
+        }
     };
 
 
-#endif
+} } // namespace pstade::oven
 
 
-} // namespace boost
+PSTADE_OVEN_EXTENSION_TEMPLATE((boost, BOOST_PP_NIL), sub_match, 1)
 
 
-#endif // !defined(PSTADE_OVEN_NO_BOOST_SUB_MATCH_RANGE_CUSTOMIZATION)
+#endif // !defined(PSTADE_OVEN_NO_BOOST_SUB_MATCH_RANGE_EXTENSION)
 
 
 #endif
