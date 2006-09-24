@@ -13,7 +13,6 @@
 #include <iosfwd> // basic_istream
 #include <boost/mpl/empty_base.hpp>
 #include <pstade/adl_barrier.hpp>
-#include "./access.hpp"
 
 
 namespace pstade { namespace radish {
@@ -33,7 +32,7 @@ struct input_streamable :
     std::basic_istream<CharT, Traits>&
     operator>>(std::basic_istream<CharT, Traits>& is, T& x)
     {
-        access::detail_input(x, is);
+        pstade_radish_input(x, is);
         return is;
     }
 };

@@ -22,16 +22,16 @@
 namespace pstade { namespace lime {
 
 
-template< class Node >
-void load_file(Node& root, std::string const& fileName)
-{
-    ustring tmp; { // cache for speed
-        oven::file_range<utf8cp_t> frng(fileName);
-        oven::copy(frng|oven::utf8_decoded, oven::to_back_of(tmp));
-    }
+    template< class Node >
+    void load_file(Node& root, std::string const& fileName)
+    {
+        ustring tmp; { // cache for speed
+            oven::file_range<utf8cp_t> frng(fileName);
+            oven::copy(frng|oven::utf8_decoded, oven::to_back_of(tmp));
+        }
 
-    lime::load(root, tmp);
-}
+        lime::load(root, tmp);
+    }
 
 
 } } // namespace pstade::lime

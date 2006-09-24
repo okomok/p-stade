@@ -1,5 +1,5 @@
-#ifndef PSTADE_LIME_ALIAS_HPP
-#define PSTADE_LIME_ALIAS_HPP
+#ifndef PSTADE_LIME_EXTENSION_HPP
+#define PSTADE_LIME_EXTENSION_HPP
 
 
 // PStade.Lime
@@ -10,13 +10,18 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-namespace {
+namespace pstade_lime_extension {
 
 
-    namespace lime = pstade::lime;
+    struct new_node
+    { };
 
 
-} // unnamed
+    struct save_node
+    { };
+
+
+} // namespace pstade_lime_extension
 
 
 #endif

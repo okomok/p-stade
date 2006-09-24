@@ -26,7 +26,6 @@
 #include <pstade/oven/array_range.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
 #include <pstade/oven/range_constantable.hpp>
-#include <pstade/tomato/c_str.hpp>
 #include "./access.hpp"
 #include "./detail/has_pstade_pizza_profile.hpp"
 #include "./error.hpp"
@@ -149,7 +148,6 @@ struct string :
     private string_detail::buffer_init,
     oven::null_terminate_range<string_detail::buffer_t>,
     private oven::range_constantable<string, TCHAR const *>,
-    private tomato::as_intrusive_cstringizable<string>,
     private boost::noncopyable
 {
     typedef TCHAR const *const_iterator;
@@ -165,11 +163,11 @@ public:
         super_t(m_buf)
     { }
 
-    TCHAR const *c_str() const
-    { return boost::begin(m_buf); }
-
-    TCHAR const *pstade_tomato_c_str() const
-    { return c_str(); }
+    friend
+    TCHAR const *pstade_tomato_c_str(string const& self)
+    {
+        return boost::begin(self.m_buf);
+    }
 };
 
 

@@ -25,43 +25,43 @@
 namespace pstade { namespace lime {
 
 
-struct save_error :
-    error
-{
-    explicit save_error(std::string const& fileName) :
-        error(pstade::what("lime-save-error", fileName))
-    { }
-};
+    struct save_error :
+        error
+    {
+        explicit save_error(std::string const& fileName) :
+            error(pstade::what("lime-save-error", fileName))
+        { }
+    };
 
 
-template< class Node >
-void save_file(Node& root, std::string const& fileName)
-{
-    std::ofstream fout(fileName.c_str(), std::ios::binary);
-    if (!fout) {
-        save_error err(fileName);
-        boost::throw_exception(err);
-        return;
+    template< class Node >
+    void save_file(Node& root, std::string const& fileName)
+    {
+        std::ofstream fout(fileName.c_str(), std::ios::binary);
+        if (!fout) {
+            save_error err(fileName);
+            boost::throw_exception(err);
+            return;
+        }
+
+        lime::copy_XMLDecl(oven::to_stream(fout));
+        lime::save(root, oven::to_utf8_encoder(oven::to_stream(fout)));
     }
 
-    lime::copy_XMLDecl(oven::to_stream(fout));
-    lime::save(root, oven::to_utf8_encoder(oven::to_stream(fout)));
-}
 
+    template< class Node >
+    void save_file_default(Node& root, std::string const& fileName)
+    {
+        std::ofstream fout(fileName.c_str(), std::ios::binary);
+        if (!fout) {
+            save_error err(fileName);
+            boost::throw_exception(err);
+            return;
+        }
 
-template< class Node >
-void save_file_default(Node& root, std::string const& fileName)
-{
-    std::ofstream fout(fileName.c_str(), std::ios::binary);
-    if (!fout) {
-        save_error err(fileName);
-        boost::throw_exception(err);
-        return;
+        lime::copy_XMLDecl(oven::to_stream(fout));
+        lime::save_default(root, oven::to_utf8_encoder(oven::to_stream(fout)));
     }
-
-    lime::copy_XMLDecl(oven::to_stream(fout));
-    lime::save_default(root, oven::to_utf8_encoder(oven::to_stream(fout)));
-}
 
 
 } } // namespace pstade::lime

@@ -64,17 +64,11 @@ namespace pstade { namespace oven {
 // copy_range
 //
 
-namespace copy_range_detail {
-
-
-    template< class T, class Range > inline
-    T pstade_oven_copy_range(boost::type<T>, Range& rng)
-    {
-        return pstade_oven_(pstade_oven_extension::copy_range<T>(), rng);
-    }
-
-
-} // namespace copy_range_detail
+template< class T, class Range > inline
+T pstade_oven_copy_range(boost::type<T>, Range& rng)
+{
+    return pstade_oven_(pstade_oven_extension::copy_range<T>(), rng);
+}
 
 
 PSTADE_ADL_BARRIER(copy_range) { // for Boost
@@ -89,7 +83,6 @@ PSTADE_ADL_BARRIER(copy_range) { // for Boost
         // Under: http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1893.pdf
         // using namespace(Copyable);
 
-        using namespace copy_range_detail;
         return pstade_oven_copy_range(boost::type<Copyable>(), rng);
     }
 
@@ -116,7 +109,6 @@ PSTADE_EGG_PIPABLE(copied, egg::baby_auto<copy_range_class>)
 //
 
 namespace copied_out_detail {
-
 
     template< class Range > inline
     Range& check_valid(Range& rng, boost::forward_traversal_tag)

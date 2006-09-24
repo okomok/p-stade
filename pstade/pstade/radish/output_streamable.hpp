@@ -13,7 +13,6 @@
 #include <iosfwd> // basic_ostream
 #include <boost/mpl/empty_base.hpp>
 #include <pstade/adl_barrier.hpp>
-#include "./access.hpp"
 
 
 namespace pstade { namespace radish {
@@ -33,7 +32,7 @@ struct output_streamable :
     std::basic_ostream<CharT, Traits>&
     operator<<(std::basic_ostream<CharT, Traits>& os, T const& x)
     {
-        access::detail_output(x, os);
+        pstade_radish_output(x, os);
         return os;
     }
 };

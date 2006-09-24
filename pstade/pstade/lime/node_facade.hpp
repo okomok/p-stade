@@ -29,115 +29,115 @@
 namespace pstade { namespace lime {
 
 
-struct node_not_found :
-    error
-{
-    explicit node_not_found(std::string const& what) :
-        error(what)
-    { }
-};
-
-
-namespace node_facade_detail {
-
-
-    inline
-    void throw_error(ustring const& name)
+    struct node_not_found :
+        error
     {
-        node_not_found err(pstade::what("<node-not-found>", name));
-        boost::throw_exception(err);
-    }
+        explicit node_not_found(std::string const& what) :
+            error(what)
+        { }
+    };
 
 
-    template< class Node >
-    typename oven::range_reference<Node>::type
-    get_child(Node& parent, ustring const& childName)
-    {
-        typedef typename oven::range_reference<Node>::type child_t;
+    namespace node_facade_detail {
 
-        BOOST_FOREACH (child_t child, parent) {
-            if (oven::equals(child.name(), childName))
-                return child;
+
+        inline
+        void throw_error(ustring const& name)
+        {
+            node_not_found err(pstade::what("<node-not-found>", name));
+            boost::throw_exception(err);
         }
 
-        node_facade_detail::throw_error(childName);
-        PSTADE_IF_DEBUG( throw 0; ) // suppress warning
-    }
+
+        template< class Node >
+        typename oven::range_reference<Node>::type
+        get_child(Node& parent, ustring const& childName)
+        {
+            typedef typename oven::range_reference<Node>::type child_t;
+
+            BOOST_FOREACH (child_t child, parent) {
+                if (oven::equals(child.name(), childName))
+                    return child;
+            }
+
+            node_facade_detail::throw_error(childName);
+            PSTADE_IF_DEBUG( throw 0; ) // suppress warning
+        }
 
 
-} // namesapce node_facade_detail
+    } // namesapce node_facade_detail
 
 
-template< class Derived >
-struct node_facade :
-    boost::ptr_list<Derived>,
-    private boost::noncopyable
-{
-    typedef std::map<ustring, ustring> attributes_type;
-
-// structors
-    explicit node_facade()
-    { }
-
-    explicit node_facade(ustring const& name) :
-        m_name(name)
-    { }
-
-    explicit node_facade(Derived& parent, ustring const& name) :
-        m_parent(parent), m_name(name)
-    { }
-
-    virtual ~node_facade()
-    { }
-
-// accessors
-    boost::optional<Derived&> const& parent() const
+    template< class Derived >
+    struct node_facade :
+        boost::ptr_list<Derived>,
+        private boost::noncopyable
     {
-        return m_parent;
-    }
+        typedef std::map<ustring, ustring> attributes_type;
 
-    ustring const& name() const
-    {
-        return m_name;
-    }
+    // structors
+        explicit node_facade()
+        { }
 
-    attributes_type& attributes()
-    {
-        return m_atts;
-    }
+        explicit node_facade(ustring const& name) :
+            m_name(name)
+        { }
 
-// operators
-    friend
-    Derived& operator/(Derived& node, ustring const& childName)
-    {
-        return node_facade_detail::get_child(node, childName);
-    }
+        explicit node_facade(Derived& parent, ustring const& name) :
+            m_parent(parent), m_name(name)
+        { }
 
-    friend
-    ustring& operator%(Derived& node, ustring const& attName)
-    {
-        return node.attributes()[attName];
-    }
+        virtual ~node_facade()
+        { }
 
-    friend
-    Derived& operator+=(Derived& node, ustring const& childName)
-    {
-        node.push_back(lime::new_node(node, childName));
-        return node;
-    }
+    // accessors
+        boost::optional<Derived&> const& parent() const
+        {
+            return m_parent;
+        }
 
-// internals
-    void detail_construct(Derived& parent, ustring const& name)
-    {
-        m_parent = parent;
-        m_name = name;
-    }
+        ustring const& name() const
+        {
+            return m_name;
+        }
 
-private:
-    boost::optional<Derived&> m_parent;
-    ustring m_name;
-    attributes_type m_atts;
-};
+        attributes_type& attributes()
+        {
+            return m_atts;
+        }
+
+    // operators
+        friend
+        Derived& operator/(Derived& node, ustring const& childName)
+        {
+            return node_facade_detail::get_child(node, childName);
+        }
+
+        friend
+        ustring& operator%(Derived& node, ustring const& attName)
+        {
+            return node.attributes()[attName];
+        }
+
+        friend
+        Derived& operator+=(Derived& node, ustring const& childName)
+        {
+            node.push_back(lime::new_node(node, childName));
+            return node;
+        }
+
+    // internals
+        void detail_construct(Derived& parent, ustring const& name)
+        {
+            m_parent = parent;
+            m_name = name;
+        }
+
+    private:
+        boost::optional<Derived&> m_parent;
+        ustring m_name;
+        attributes_type m_atts;
+    };
 
 
 } } // namespace pstade::lime

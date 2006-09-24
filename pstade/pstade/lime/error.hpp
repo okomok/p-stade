@@ -17,17 +17,17 @@
 namespace pstade { namespace lime {
 
 
-struct error :
-    std::runtime_error
-{
-private:
-    typedef std::runtime_error super_t;
+    struct error :
+        std::runtime_error
+    {
+    private:
+        typedef std::runtime_error super_t;
 
-public:
-    explicit error(std::string const& what) :
-        super_t(what)
-    { }
-};
+    public:
+        explicit error(std::string const& what) :
+            super_t(what)
+        { }
+    };
 
 
 } } // namespace pstade::lime

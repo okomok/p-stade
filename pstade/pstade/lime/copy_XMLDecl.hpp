@@ -17,14 +17,14 @@
 namespace pstade { namespace lime {
 
 
-template< class OutIter > inline
-void copy_XMLDecl(OutIter const& out)
-{
-    oven::copy(
-        "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"|oven::null_terminated,
-        out
-    );
-}
+    template< class OutIter > inline
+    void copy_XMLDecl(OutIter const& out)
+    {
+        oven::copy(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"|oven::null_terminated,
+            out
+        );
+    }
 
 
 } } // namespace pstade::lime

@@ -30,7 +30,6 @@
 #include <boost/operators.hpp> // totally_ordered
 #include <boost/ptr_container/clone_allocator.hpp>
 #include <boost/type_traits/is_reference.hpp>
-#include <pstade/overload.hpp>
 #include <pstade/radish/output_streamable.hpp>
 #include <pstade/radish/pointable.hpp>
 #include <pstade/radish/swappable.hpp>
@@ -47,30 +46,16 @@ namespace assignable_detail {
 
 
     template< class T > inline
-    T *pstade_assignable_new_clone(T const& x, overload<>)
+    T *new_clone(T const& x)
     {
         return boost::heap_clone_allocator::allocate_clone(x);
     }
 
 
     template< class T > inline
-    void pstade_assignable_delete_clone(T *ptr, overload<>)
-    {
-        return boost::heap_clone_allocator::deallocate_clone(ptr);
-    }
-
-
-    template< class T > inline
-    T *new_clone(T const& x)
-    {
-        return pstade_assignable_new_clone(x, overload<>());
-    }
-
-
-    template< class T > inline
     void delete_clone(T *ptr)
     {
-        return pstade_assignable_delete_clone(ptr, overload<>());
+        return boost::heap_clone_allocator::deallocate_clone(ptr);
     }
 
 
@@ -149,11 +134,10 @@ public:
 private:
     Clonable *m_ptr;
 
-friend class radish::access;
-    template< class OStream >
-    void pstade_radish_output(OStream& os) const
+    template< class OStream > friend
+    void pstade_radish_output(self_t const& self, OStream& os)
     {
-        os << *m_ptr;
+        os << *self.m_ptr;
     }
 };
 

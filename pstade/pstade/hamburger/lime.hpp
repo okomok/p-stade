@@ -12,11 +12,11 @@
 
 #include <boost/assert.hpp>
 #include <boost/range/empty.hpp>
+#include <pstade/lime/extension.hpp>
 #include <pstade/lime/save.hpp> // save_default
 #include <pstade/oven/copy_range.hpp>
 #include <pstade/oven/equals.hpp>
 #include <pstade/oven/function_output_iterator.hpp>
-#include <pstade/overload.hpp>
 #include <pstade/unused.hpp>
 #include <pstade/ustring.hpp>
 #include "./element.hpp"
@@ -26,36 +26,44 @@
 #include "./log.hpp"
 
 
-inline
-pstade::hamburger::element *
-pstade_lime_new_node(pstade::hamburger::element& parent, pstade::ustring childName, pstade::overload<>)
-{
-    return pstade::hamburger::create_element(parent, childName);
-}
+namespace pstade_lime_extension {
 
 
-template< class OutIter > inline
-void
-pstade_lime_save_node(pstade::hamburger::element& node, OutIter out, pstade::overload<>)
-{
-    using namespace pstade;
-    using namespace hamburger;
-
-    if (boost::empty(node%Name_includedHref))
-        return lime::save_default(node, out);
-
-    if (!oven::equals(node%Name_serializable, Value_true))
-        return lime::save_default(node, oven::to_function(unused));
-
-    try {
-        hamburger::save(node, node%Name_includedHref);
-        // return lime::save_file_default(node, oven::copy_range<std::string>(node%Name_includedHref));
+    inline
+    pstade::hamburger::element *
+    pstade_lime_(new_node, pstade::hamburger::element& parent, pstade::ustring const& childName)
+    {
+        return pstade::hamburger::create_element(parent, childName);
     }
-    catch (lime::save_error const& err) {
-        BOOST_ASSERT(false);
-        hamburger::log << err.what();
+
+
+    template< class OutIter > inline
+    void
+    pstade_lime_(save_node, pstade::hamburger::element& node, OutIter const& out)
+    {
+        namespace lime = pstade::lime;
+        namespace oven = pstade::oven;
+        namespace hamburger = pstade::hamburger;
+        using namespace pstade::hamburger;
+
+        if (boost::empty(node%Name_includedHref))
+            return lime::save_default(node, out);
+
+        if (!oven::equals(node%Name_serializable, Value_true))
+            return lime::save_default(node, oven::to_function(pstade::unused));
+
+        try {
+            hamburger::save(node, node%Name_includedHref);
+            // return lime::save_file_default(node, oven::copy_range<std::string>(node%Name_includedHref));
+        }
+        catch (lime::save_error const& err) {
+            BOOST_ASSERT(false);
+            hamburger::log << err.what();
+        }
     }
-}
+
+
+} // namespace pstade_lime_extension
 
 
 #endif

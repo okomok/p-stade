@@ -54,7 +54,7 @@ IntegerT get_integer(Profile& pr, const CStringizable& valueName)
 {
     try {
         pizza::string str(pr, valueName);
-        return pstade::lexical(str.c_str());
+        return pstade::lexical(tomato::c_str(str));
     }
     catch (boost::bad_lexical_cast const&) {
         invalid_integer err(integer_detail::error_msg(valueName));

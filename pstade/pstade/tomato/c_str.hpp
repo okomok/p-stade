@@ -11,7 +11,6 @@
 
 
 #include <boost/assert.hpp>
-#include <boost/utility/enable_if.hpp>
 #include <pstade/apple/atl/config.hpp> // ATL_VER, CSIMPLESTRINGT_TEMPLATE_PARAMS/ARGS
 #include <pstade/apple/atl/core.hpp> // ::AtlIsValidString
 #include <pstade/apple/atl/simpstr_fwd.hpp> // CSimpleStringT
@@ -22,7 +21,6 @@
 #include <pstade/egg/pipable.hpp>
 #include <pstade/nullptr.hpp>
 #include <pstade/static_c.hpp>
-#include "./access.hpp"
 #include "./boolean_cast.hpp"
 
 
@@ -48,7 +46,7 @@ namespace c_str_detail {
 
 
     inline
-    bool is_valid(TCHAR const *psz)
+    bool invariant(TCHAR const *psz)
     {
     #if !(PSTADE_APPLE_ATL_VER < 0x0700)
 
@@ -125,7 +123,7 @@ namespace c_str_detail {
         Result call(CStringizable const& str)
         {
             Result result = c_str_detail::aux(str);
-            BOOST_ASSERT(c_str_detail::is_valid(result));
+            BOOST_ASSERT(c_str_detail::invariant(result));
             return result;
         }
     };

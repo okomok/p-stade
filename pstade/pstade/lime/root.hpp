@@ -17,17 +17,17 @@
 namespace pstade { namespace lime {
 
 
-template< class Node >
-typename oven::range_reference<Node>::type
-root(Node& node)
-{
-    typedef typename oven::range_reference<Node>::type ref_t;
-    boost::optional<ref_t> pa = node.parent();
-    if (!pa)
-        return node;
+    template< class Node >
+    typename oven::range_reference<Node>::type
+    root(Node& node)
+    {
+        typedef typename oven::range_reference<Node>::type ref_t;
+        boost::optional<ref_t> pa = node.parent();
+        if (!pa)
+            return node;
 
-    return lime::root(*pa);
-}
+        return lime::root(*pa);
+    }
 
 
 } } // namespace pstade::lime
