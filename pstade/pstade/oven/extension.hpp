@@ -30,6 +30,7 @@
 #include <boost/type_traits/remove_cv.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 #include <boost/utility/enable_if.hpp>
+#include <pstade/const_overloaded.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/remove_cvr.hpp>
 #include "./detail/config.hpp" // PSTADE_OVEN_BOOST_RANGE_BEGIN etc.
@@ -41,12 +42,6 @@ namespace pstade_oven_extension {
 
     template< class T, class Active = void >
     struct range;
-
-
-    template< class T >
-    struct which :
-        boost::enable_if<T>
-    { };
 
 
 } // namespace pstade_oven_extension

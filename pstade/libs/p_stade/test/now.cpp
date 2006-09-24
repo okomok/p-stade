@@ -1,4 +1,4 @@
-#include <pstade/../libs/tomato/window/test/class_name.cpp>
+#include <pstade/../libs/tomato/test/c_str.cpp>
 
 /*
 #include <vector>

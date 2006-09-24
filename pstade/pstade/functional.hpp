@@ -28,8 +28,8 @@
 #include <pstade/affect.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/instance.hpp>
-#include <pstade/oui_non.hpp>
 #include <pstade/pass_by.hpp>
+#include <pstade/yes_no.hpp>
 
 
 namespace pstade {
@@ -166,11 +166,10 @@ namespace plus_detail {
         typedef typename boost::remove_cv<Y>::type y_t;
 
         template< class X_, class Y_ > static
-        oui test(X_ const&);
+        yes test(X_ const&);
 
         template< class X_, class Y_ > static
-        typename boost::disable_if<boost::is_same<X_, Y_>,
-        non>::type test(Y_ const&);
+        no  test(Y_ const&, typename boost::disable_if< boost::is_same<X_, Y_> >::type * = 0);
 
         template< class X_, class Y_ > static
         plus_failed_to_deduce_result_type test(...);
@@ -179,7 +178,7 @@ namespace plus_detail {
         static y_t y;
 
         static bool const is_x =
-            sizeof( test<x_t, y_t>(x + y) ) == sizeof(oui);
+            sizeof( test<x_t, y_t>(x + y) ) == sizeof(yes);
 
     public:
         typedef typename boost::mpl::if_c< is_x,

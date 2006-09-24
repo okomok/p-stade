@@ -20,28 +20,32 @@
 #include <pstade/apple/basic_string_fwd.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
-#include <pstade/metapredicate.hpp>
 #include <pstade/nullptr.hpp>
 #include <pstade/static_c.hpp>
 #include "./access.hpp"
 #include "./boolean_cast.hpp"
 
 
-namespace pstade_tomato_c_str_set {
+// c_str extension space
+//
+
+namespace pstade_tomato_extension {
 
 
-    struct c_str // ADL marker
-    { };
+    struct c_str { };
 
 
-} // namespace pstade_tomato_c_str_set
+    PSTADE_METAPREDICATE(intrusive_cstringizable, pstade_tomato)
+
+
+} // namespace pstade_tomato_extension
 
 
 namespace pstade { namespace tomato {
 
 
-PSTADE_METAPREDICATE(intrusive_cstringizable, pstade_tomato)
-
+// c_str
+//
 
 namespace c_str_detail {
 
@@ -92,6 +96,9 @@ namespace c_str_detail {
     }
 
 
+    using pstade_tomato_extension::is_intrusive_cstringizable;
+
+
     // member function
     //
     template< class T > inline
@@ -106,7 +113,7 @@ namespace c_str_detail {
     template< class T > inline
     TCHAR const *pstade_tomato_c_str(T const& str)
     {
-        return pstade_tomato_(pstade_tomato_c_str_set::c_str(), str);
+        return pstade_tomato_(pstade_tomato_extension::c_str(), str);
     }
 
     template< class T > inline
@@ -124,7 +131,6 @@ namespace c_str_detail {
             typedef TCHAR const *type;
         };
 
-        // Note:
         // 'has_xxx' works only with "class".
         template< class Result >
         Result call(TCHAR const *psz)
@@ -149,13 +155,19 @@ PSTADE_EGG_FUNCTION(c_str, c_str_detail::baby)
 PSTADE_EGG_PIPABLE(c_stringized, c_str_detail::baby)
 
 
+template< class T, class Base = boost::mpl::empty_base >
+struct as_intrusive_cstringizable :
+    pstade_tomato_extension::as_intrusive_cstringizable<T, Base>
+{ };
+
+
 } } // namespace pstade::tomato
 
 
 // predefined extensions
 //
 
-namespace pstade_tomato_c_str_set {
+namespace pstade_tomato_extension {
 
 
     TCHAR const *
@@ -165,7 +177,6 @@ namespace pstade_tomato_c_str_set {
     }
 
 
-    // Note:
     // 'enable_if<is_ATL_CSimpleStringT,...>' is useless here, which ignores class hierarchy.
     template< PSTADE_APPLE_ATL_CSIMPLESTRINGT_TEMPLATE_PARAMS > inline
     BaseType const *
@@ -183,7 +194,7 @@ namespace pstade_tomato_c_str_set {
     }
 
 
-} // namespace pstade_tomato_c_str_set
+} // namespace pstade_tomato_extension
 
 
 #endif

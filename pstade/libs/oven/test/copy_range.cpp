@@ -113,7 +113,7 @@ namespace xxx {
 
 }
 
-namespace pstade_oven_copy_range_set {
+namespace pstade_oven_extension {
 
     template< class Range > inline
     xxx::X pstade_oven_(copy_range<xxx::X>, Range& rng)
@@ -130,6 +130,13 @@ namespace yyy {
 
     template< class Range > inline
     Y pstade_oven_copy_range(Y *&, Range& rng)
+    {
+        (void)rng;
+        return Y();
+    }
+
+    template< class Range > inline
+    Y pstade_oven_(pstade_oven_extension::copy_range<Y>, Range& rng)
     {
         (void)rng;
         return Y();

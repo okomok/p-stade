@@ -39,10 +39,10 @@ namespace yyy {
     struct heavy2
     { };
 
-}
+    pstade::yes xxx_is_(xxx::heavy, boost::type<heavy2>)
+    { return pstade::yes(); }
 
-pstade::oui xxx_is_heavy(yyy::heavy2 *&, pstade::overload<>)
-{ return true; }
+}
 
 
 struct heavy3
@@ -51,7 +51,7 @@ struct heavy3
 namespace xxx {
 
     template< >
-    struct is_heavy_impl<heavy3> :
+    struct is_heavy<heavy3> :
         boost::mpl::true_
     { };
 

@@ -18,13 +18,14 @@
 #include <pstade/oven/range_reference.hpp>
 
 
-namespace pstade_oven_copy_range_set {
+namespace pstade_oven_extension {
 
 
-template< class T, class Range >
-T pstade_oven_(copy_range<T>, Range& rng, typename which< pstade::apple::is_ATL_string<T> >::type * = 0)
+template< class AtlString, class Range >
+AtlString pstade_oven_(copy_range<AtlString>, Range& rng,
+    typename boost::enable_if< pstade::apple::is_ATL_string<AtlString> >::type * = 0)
 {
-    T str;
+    AtlString str;
 
     typedef typename pstade::oven::range_reference<Range>::type ref_t;
     BOOST_FOREACH (ref_t v, rng) {
@@ -49,7 +50,7 @@ WTL::CString pstade_oven_(copy_range<WTL::CString>, Range& rng)
 }
 
 
-} // namespace pstade_oven_copy_range_set
+} // namespace pstade_oven_extension
 
 
 #endif

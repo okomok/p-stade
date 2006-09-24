@@ -10,6 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Question:
+//
+// 'Copyable' should be a Range?
+
+
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_categories.hpp> // traversal_tag's
 #include <boost/mpl/if.hpp>
@@ -30,7 +35,10 @@
 #include "./range_traversal.hpp"
 
 
-namespace pstade_oven_copy_range_set {
+// copy_range extension space
+//
+
+namespace pstade_oven_extension {
 
 
     template< class T >
@@ -38,21 +46,15 @@ namespace pstade_oven_copy_range_set {
     { };
 
 
-    template< class T >
-    struct which :
-        boost::enable_if<T>
-    { };
-
-
     template< class T, class Range > inline
-    T pstade_oven_(copy_range<T>,
-        Range& rng, typename which< pstade::apple::has_range_constructor<T> >::type * = 0)
+    T pstade_oven_(copy_range<T>, Range& rng,
+        typename boost::enable_if< pstade::apple::has_range_constructor<T> >::type * = 0)
     {
         return T(boost::begin(rng), boost::end(rng));
     }
 
 
-} // namespace pstade_oven_copy_range_set
+} // namespace pstade_oven_extension
 
 
 namespace pstade { namespace oven {
@@ -61,34 +63,19 @@ namespace pstade { namespace oven {
 // copy_range
 //
 
-namespace copy_range_detail {
-
-
-    template< class T, class Range > inline
-    T pstade_oven_copy_range(T *&, Range& rng)
-    {
-        return pstade_oven_(pstade_oven_copy_range_set::copy_range<T>(), rng);
-    }
-
-
-} // namespace copy_range_detail
-
-
 PSTADE_ADL_BARRIER(copy_range) { // for Boost
 
 
-    template< class CopyableRange, class Range > inline
-    CopyableRange const
+    template< class Copyable, class Range > inline
+    Copyable const
     copy_range(Range const& rng)
     {
         detail::requires< boost::SinglePassRangeConcept<Range> >();
 
         // Under: http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1893.pdf
-        // using namespace(CopyableRange);
+        // using namespace(Copyable);
 
-        CopyableRange *p = PSTADE_NULLPTR;
-        using namespace copy_range_detail;
-        return pstade_oven_copy_range(p, rng);
+        return pstade_oven_(pstade_oven_extension::copy_range<Copyable>(), rng);
     }
 
 
@@ -132,8 +119,6 @@ namespace copied_out_detail {
 
     struct baby
     {
-        // as range-adaptor
-        //
         template< class Unused, class InRange, class OutRangeOrIter >
         struct apply :
             boost::mpl::if_<

@@ -31,7 +31,7 @@
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/seq/enum.hpp>
 #include <pstade/nullptr.hpp>
-#include <pstade/oui_non.hpp>
+#include <pstade/yes_no.hpp>
 
 
 #if BOOST_WORKAROUND(BOOST_MSVC, == 1310) // VC7.1
@@ -53,10 +53,10 @@
         namespace PSTADE_HAS_helper_ns_of(Name) { \
             \
             template< class T > \
-            pstade::oui test(typename T::Type (*)()); \
+            pstade::yes test(typename T::Type (*)()); \
             \
             template< class T > \
-            pstade::non test(...); \
+            pstade::no  test(...); \
             \
         } \
         \
@@ -64,7 +64,7 @@
         struct Name : \
             boost::mpl::bool_< \
                 sizeof( PSTADE_HAS_helper_ns_of(Name)::test<T>(PSTADE_NULLPTR) ) \
-                    == sizeof(pstade::oui) \
+                    == sizeof(pstade::yes) \
             > \
         { }; \
     /**/
@@ -121,10 +121,10 @@
             { }; \
             \
             template< class T > \
-            pstade::oui test(holder<T, &T::Var> *); \
+            pstade::yes test(holder<T, &T::Var> *); \
             \
             template< class T > \
-            pstade::non test(...); \
+            pstade::no  test(...); \
             \
         } \
         \
@@ -132,7 +132,7 @@
         struct Name : \
             boost::mpl::bool_< \
                 sizeof( PSTADE_HAS_helper_ns_of(Name)::test<T>(PSTADE_NULLPTR) ) \
-                    == sizeof(pstade::oui) \
+                    == sizeof(pstade::yes) \
             > \
         { }; \
     /**/
@@ -184,10 +184,10 @@
             { }; \
             \
             template< class T > \
-            pstade::oui test(holder<T, &T::Fun> *); \
+            pstade::yes test(holder<T, &T::Fun> *); \
             \
             template< class T > \
-            pstade::non test(...); \
+            pstade::no  test(...); \
             \
         } \
         \
@@ -195,7 +195,7 @@
         struct Name : \
             boost::mpl::bool_< \
                 sizeof( PSTADE_HAS_helper_ns_of(Name)::test<T>(PSTADE_NULLPTR) ) \
-                    == sizeof(pstade::oui) \
+                    == sizeof(pstade::yes) \
             > \
         { }; \
     /**/

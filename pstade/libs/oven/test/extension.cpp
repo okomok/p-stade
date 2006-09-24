@@ -19,6 +19,7 @@
 #include <boost/mpl/or.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/type_traits/is_same.hpp>
+#include <boost/utility/enable_if.hpp>
 #include <boost/noncopyable.hpp>
 #include <pstade/oven/tests.hpp>
 
@@ -82,7 +83,7 @@ namespace pstade_oven_extension {
 
     template< class T >
     struct range<T,
-        typename which< mine::is_container<T> >::type >
+        typename boost::enable_if< mine::is_container<T> >::type >
     {
         template< class X >
         struct meta

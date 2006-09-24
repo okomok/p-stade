@@ -20,11 +20,13 @@ WTL::CAppModule _Module;
 #include <pstade/tomato/tstring.hpp>
 #include <pstade/tomato/window.hpp>
 #include <pstade/tomato/filesystem.hpp>
+#include <boost/mpl/assert.hpp>
 
 
 struct a_string : pstade::tomato::tstring
 { };
 
+BOOST_MPL_ASSERT((pstade::tomato::c_str_detail::is_intrusive_cstringizable<pstade::tomato::window_text>));
 
 void test()
 {

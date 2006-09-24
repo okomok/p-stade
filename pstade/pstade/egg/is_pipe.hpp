@@ -11,12 +11,30 @@
 
 
 #include <pstade/metapredicate.hpp>
+#include <pstade/remove_cvr.hpp>
+
+
+namespace pstade_egg_extension {
+
+
+    PSTADE_METAPREDICATE(pipe, pstade_egg)
+
+
+} // namespace pstade_egg_extension
 
 
 namespace pstade { namespace egg {
 
 
-PSTADE_METAPREDICATE(pipe, pstade_egg)
+    template< class T >
+    struct is_pipe :
+        pstade_egg_extension::is_pipe<
+            typename remove_cvr<T>::type
+        >
+    { };
+
+
+    using pstade_egg_extension::as_pipe;
 
 
 } } // namespace pstade::egg
