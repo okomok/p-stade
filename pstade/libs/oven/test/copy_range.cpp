@@ -129,19 +129,23 @@ namespace yyy {
     struct Y { };
 
     template< class Range > inline
-    Y pstade_oven_copy_range(Y *&, Range& rng)
+    Y pstade_oven_copy_range(boost::type<Y>, Range& rng)
     {
         (void)rng;
         return Y();
     }
 
-    template< class Range > inline
-    Y pstade_oven_(pstade_oven_extension::copy_range<Y>, Range& rng)
-    {
-        (void)rng;
-        return Y();
-    }
 
+    struct Z
+    {
+        template< class Range >
+        friend
+        Z pstade_oven_copy_range(boost::type<Z>, Range& rng)
+        {
+            (void)rng;
+            return Z();
+        }
+    };
 }
 
 void test_customization()
@@ -153,6 +157,8 @@ void test_customization()
     (void)x;
     yyy::Y y = std::string()|copied;
     (void)y;
+    yyy::Z z = std::string()|copied;
+    (void)z;
 }
 
 

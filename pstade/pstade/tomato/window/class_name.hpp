@@ -77,7 +77,6 @@ namespace class_name_detail {
 struct class_name :
     private class_name_detail::init<>::type,
     class_name_detail::super_<>::type,
-    private as_intrusive_cstringizable<class_name>,
     private boost::noncopyable
 {
 private:
@@ -90,11 +89,10 @@ public:
         super_t(m_buf)
     { }
 
-private:
-friend class access;
-    TCHAR const *pstade_tomato_c_str() const
+    friend
+    TCHAR const *pstade_tomato_c_str(class_name const& self)
     {
-        return boost::begin(m_buf);
+        return boost::begin(self.m_buf);
     }
 };
 

@@ -35,9 +35,6 @@ namespace pstade_tomato_extension {
     struct c_str { };
 
 
-    PSTADE_METAPREDICATE(intrusive_cstringizable, pstade_tomato)
-
-
 } // namespace pstade_tomato_extension
 
 
@@ -96,20 +93,6 @@ namespace c_str_detail {
     }
 
 
-    using pstade_tomato_extension::is_intrusive_cstringizable;
-
-
-    // member function
-    //
-    template< class T > inline
-    TCHAR const *aux(T const& str, typename boost::enable_if< is_intrusive_cstringizable<T> >::type * = 0)
-    {
-        return access::detail_c_str(str);
-    }
-
-
-    // ADL
-    //
     template< class T > inline
     TCHAR const *pstade_tomato_c_str(T const& str)
     {
@@ -117,7 +100,7 @@ namespace c_str_detail {
     }
 
     template< class T > inline
-    TCHAR const *aux(T const& str, typename boost::disable_if< is_intrusive_cstringizable<T> >::type * = 0)
+    TCHAR const *aux(T const& str)
     {
         return pstade_tomato_c_str(str);
     }
@@ -153,12 +136,6 @@ namespace c_str_detail {
 
 PSTADE_EGG_FUNCTION(c_str, c_str_detail::baby)
 PSTADE_EGG_PIPABLE(c_stringized, c_str_detail::baby)
-
-
-template< class T, class Base = boost::mpl::empty_base >
-struct as_intrusive_cstringizable :
-    pstade_tomato_extension::as_intrusive_cstringizable<T, Base>
-{ };
 
 
 } } // namespace pstade::tomato

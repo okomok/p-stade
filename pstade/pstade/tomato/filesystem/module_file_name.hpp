@@ -28,8 +28,6 @@
 #include <pstade/oven/null_terminate_range.hpp>
 #include <pstade/oven/sub_range_result.hpp>
 #include <pstade/require.hpp>
-#include "../access.hpp"
-#include "../c_str.hpp"
 #include "./max_path.hpp"
 #include "./path_find_extension.hpp"
 #include "./path_find_file_name.hpp"
@@ -81,7 +79,6 @@ namespace module_file_name_detail {
 struct module_file_name :
     private module_file_name_detail::init<>::type,
     module_file_name_detail::super_<>::type,
-    private as_intrusive_cstringizable<module_file_name>,
     private boost::noncopyable
 {
 private:
@@ -122,11 +119,10 @@ public:
         );
     }
 
-private:
-friend class access;
-    TCHAR const *pstade_tomato_c_str() const
+    friend
+    TCHAR const *pstade_tomato_c_str(module_file_name const& self)
     {
-        return boost::begin(m_buf);
+        return boost::begin(self.m_buf);
     }
 };
 

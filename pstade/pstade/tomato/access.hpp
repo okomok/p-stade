@@ -33,12 +33,6 @@ public:
     {
         return x.pre_translate_message(*pMsg)|booleanized;
     }
-
-    template< class T > static
-    TCHAR const *detail_c_str(T const& str)
-    {
-        return str.pstade_tomato_c_str();
-    }
 };
 
 

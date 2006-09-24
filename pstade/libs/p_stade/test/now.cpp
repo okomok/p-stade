@@ -1,28 +1,105 @@
-#include <pstade/../libs/tomato/test/c_str.cpp>
 
-/*
-#include <vector>
 
-struct any_t
-{
+namespace poost_extension {
+
+    struct hello { };
+
+}
+
+namespace poost {
+
+    namespace detail {
+
+        template< class T >
+        int poost_hello(T const& x)
+        {
+            return poost_(poost_extension::hello(), x);
+        }
+
+    }
+
     template< class T >
-    operator T() const
+    int hello(T const& x)
     {
-        return T();
-    };
+        using namespace detail;
+        return poost_hello(x);
+    }
+
+}
+
+
+// user code
+//
+
+struct bar_base
+{
+    int m_i;
 };
 
-any_t any;
 
-void foo(std::vector<int> v = any)
-{ }
+namespace my {
+
+    struct foo
+    {
+    private:
+        int i;
+
+        friend int poost_hello(foo const& self)
+        {
+            return self.i;
+        }
+    };
+
+    struct foo_
+    {
+        int i;
+    };
+
+        inline
+        int poost_hello(foo_ const& f_)
+        {
+            return f_.i;
+        }
+
+    struct bar : bar_base
+    { };
+}
+
+
+namespace your {
+
+    template< class Int >
+    struct foo
+    {
+    private:
+        Int i;
+
+        friend int poost_hello(foo const& self)
+        {
+            return self.i;
+        }
+    };
+
+    struct bar : bar_base
+    { };
+}
+
+
+namespace poost_extension {
+
+    int poost_(hello, bar_base const& b)
+    {
+        return b.m_i;
+    }
+
+}
 
 
 int main()
 {
-    std::vector<int> v1 = any;
-
-    std::vector<int> v2(any); // (1) should not compile.
-    //foo(); // (2) should compile.
+    poost::hello(my::foo());
+    poost::hello(my::foo_());
+    poost::hello(your::foo<int>());
+    poost::hello(my::bar());
+    poost::hello(your::bar());
 }
-*/

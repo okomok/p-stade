@@ -31,8 +31,6 @@
 #include <pstade/oven/array_range.hpp>
 #include <pstade/oven/distance.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
-#include "../access.hpp"
-#include "../c_str.hpp"
 #include "./window_ref.hpp"
 
 
@@ -81,7 +79,6 @@ namespace window_text_detail {
 struct window_text :
     private window_text_detail::init<>::type,
     window_text_detail::super_<>::type,
-    private as_intrusive_cstringizable<window_text>,
     private boost::noncopyable
 {
 private:
@@ -94,11 +91,10 @@ public:
         super_t(m_buf)
     { }
 
-private:
-friend class access;
-    TCHAR const *pstade_tomato_c_str() const
+    friend
+    TCHAR const *pstade_tomato_c_str(window_text const& self)
     {
-        return boost::begin(m_buf);
+        return boost::begin(self.m_buf);
     }
 };
 

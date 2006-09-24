@@ -26,7 +26,6 @@ WTL::CAppModule _Module;
 struct a_string : pstade::tomato::tstring
 { };
 
-BOOST_MPL_ASSERT((pstade::tomato::c_str_detail::is_intrusive_cstringizable<pstade::tomato::window_text>));
 
 void test()
 {

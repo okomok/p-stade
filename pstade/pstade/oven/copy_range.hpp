@@ -20,6 +20,7 @@
 #include <boost/mpl/if.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
+#include <boost/type.hpp>
 #include <boost/type_traits/is_convertible.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <pstade/adl_barrier.hpp>
@@ -63,6 +64,19 @@ namespace pstade { namespace oven {
 // copy_range
 //
 
+namespace copy_range_detail {
+
+
+    template< class T, class Range > inline
+    T pstade_oven_copy_range(boost::type<T>, Range& rng)
+    {
+        return pstade_oven_(pstade_oven_extension::copy_range<T>(), rng);
+    }
+
+
+} // namespace copy_range_detail
+
+
 PSTADE_ADL_BARRIER(copy_range) { // for Boost
 
 
@@ -75,7 +89,8 @@ PSTADE_ADL_BARRIER(copy_range) { // for Boost
         // Under: http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1893.pdf
         // using namespace(Copyable);
 
-        return pstade_oven_(pstade_oven_extension::copy_range<Copyable>(), rng);
+        using namespace copy_range_detail;
+        return pstade_oven_copy_range(boost::type<Copyable>(), rng);
     }
 
 
