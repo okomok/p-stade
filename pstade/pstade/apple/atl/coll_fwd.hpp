@@ -32,8 +32,24 @@ class CAtlList;
 template< class E >
 class CAutoPtrList;
 
+template< class E, class Allocator >
+class CHeapPtrList;
+
 template< class I, const IID *piid >
 class CInterfaceList;
+
+
+template< class K, class V, class KTraits, class VTraits >
+class CAtlMap;
+
+template< class K, class V, class KTraits, class VTraits >
+class CRBTree;
+
+template< class K, class V, class KTraits, class VTraits >
+class CRBMap;
+
+template< class K, class V, class KTraits, class VTraits >
+class CRBMultiMap;
 
 
 } // namespace ATL

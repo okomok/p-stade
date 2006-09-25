@@ -14,6 +14,7 @@
 #include <pstade/radish/output_streamable.hpp>
 
 
+#include <string>
 #include <sstream>
 
 
@@ -23,13 +24,17 @@ using namespace pstade;
 struct xxx :
     private radish::output_streamable<xxx>
 {
-private:
-friend class radish::access;
+    xxx() :
+        m_str("xxx")
+    { }
 
-    template< class OStream >
-    void pstade_radish_output(OStream& os) const
+private:
+    std::string m_str;
+
+    template< class OStream > friend
+    void pstade_radish_output(xxx const& self, OStream& os)
     {
-        os << "xxx";
+        os << self.m_str;
     }
 };
 
@@ -39,10 +44,8 @@ struct yyy :
     xxx
 {
 private:
-friend class radish::access;
-
-    template< class OStream >
-    void pstade_radish_output(OStream& os) const
+    template< class OStream > friend
+    void pstade_radish_output(yyy const&, OStream& os)
     {
         os << "yyy";
     }
@@ -54,12 +57,10 @@ struct aaa :
 {
     char m_value;
 private:
-friend class radish::access;
-
-    template< class IStream >
-    void pstade_radish_input(IStream& is)
+    template< class IStream > friend
+    void pstade_radish_input(aaa& self, IStream& is)
     {
-        is >> m_value;
+        is >> self.m_value;
     }
 };
 
@@ -70,12 +71,10 @@ struct bbb :
 {
     int m_value;
 private:
-friend class radish::access;
-
-    template< class IStream >
-    void pstade_radish_input(IStream& is)
+    template< class IStream > friend
+    void pstade_radish_input(bbb& self, IStream& is)
     {
-        is >> m_value;
+        is >> self.m_value;
     }
 };
 

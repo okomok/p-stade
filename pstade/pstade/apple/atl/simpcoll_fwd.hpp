@@ -10,16 +10,19 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./config.hpp" // ATL_HAS_OLD_CSIMPLEARRAY
+#include "./config.hpp" // APPLE_ATL_HAS_OLD_CSIMPLECOLL
 
 
 namespace ATL {
 
 
-#if !defined(PSTADE_APPLE_ATL_HAS_OLD_CSIMPLEARRAY)
+#if !defined(PSTADE_APPLE_ATL_HAS_OLD_CSIMPLECOLL)
 
     template< class T, class TEqual >
     class CSimpleArray;
+
+    template< class TKey, class TVal, class TEqual >
+    class CSimpleMap;
 
 #else
 
@@ -28,6 +31,9 @@ namespace ATL {
 
     template< class T >
     class CSimpleValArray;
+
+    template< class TKey, class TVal >
+    class CSimpleMap;
 
 #endif
 

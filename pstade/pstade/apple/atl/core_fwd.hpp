@@ -1,5 +1,5 @@
-#ifndef PSTADE_APPLE_ATL_BASE_FWD_HPP
-#define PSTADE_APPLE_ATL_BASE_FWD_HPP
+#ifndef PSTADE_APPLE_ATL_CORE_FWD_HPP
+#define PSTADE_APPLE_ATL_CORE_FWD_HPP
 
 
 // PStade.Apple
@@ -13,15 +13,11 @@
 namespace ATL {
 
 
-template< class E >
-class CAutoPtr;
+template< class E, class Allocator >
+class CHeapPtr;
 
 
-template< class T >
-class CComPtr;
-
-
-} // nemspace ATL
+} // namespace ATL
 
 
 #endif
