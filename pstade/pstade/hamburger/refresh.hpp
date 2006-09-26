@@ -18,12 +18,12 @@
 namespace pstade { namespace hamburger {
 
 
-template< class Element > inline
-void refresh(Element& elem)
-{
-    hamburger::invalidate(elem);
-    hamburger::update(elem);
-}
+    template< class Element > inline
+    void refresh(Element& elem)
+    {
+        hamburger::invalidate(elem);
+        hamburger::update(elem);
+    }
 
 
 } } // namespace pstade::hamburger

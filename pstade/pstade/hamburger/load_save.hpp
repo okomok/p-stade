@@ -28,39 +28,39 @@
 namespace pstade { namespace hamburger {
 
 
-template< class Node >
-void load(Node& node, ustring path)
-{
-    // cache for speed
-    std::vector<ucs4_t> tmp;
-    tomato::ifile_range<utf8cp_t> irng(path|tomato::to_tstring);
-    oven::copy(
-        irng |
-            oven::utf8_decoded,
-        std::back_inserter(tmp)
-    );
+    template< class Node >
+    void load(Node& node, ustring const& path)
+    {
+        // cache for speed
+        std::vector<ucs4_t> tmp;
+        tomato::ifile_range<utf8cp_t> irng(path|tomato::to_tstring);
+        oven::copy(
+            irng |
+                oven::utf8_decoded,
+            std::back_inserter(tmp)
+        );
 
-    lime::load(node, tmp);
-}
-
-
-template< class Node > inline
-void save(Node& node)
-{
-    lime::save(node, oven::to_function(unused));
-}
+        lime::load(node, tmp);
+    }
 
 
-template< class Node >
-void save(Node& node, ustring path)
-{
-    std::vector<utf8cp_t> tmp;
-    lime::copy_XMLDecl(std::back_inserter(tmp));
-    lime::save_default(node, oven::to_utf8_encoder(std::back_inserter(tmp)));
+    template< class Node > inline
+    void save(Node& node)
+    {
+        lime::save(node, oven::to_function(unused));
+    }
 
-    tomato::ofile_range<utf8cp_t> orng(path|tomato::to_tstring, tmp.size());
-    tmp|oven::copied_out(orng);
-}
+
+    template< class Node >
+    void save(Node& node, ustring const& path)
+    {
+        std::vector<utf8cp_t> tmp;
+        lime::copy_XMLDecl(std::back_inserter(tmp));
+        lime::save_default(node, oven::to_utf8_encoder(std::back_inserter(tmp)));
+
+        tomato::ofile_range<utf8cp_t> orng(path|tomato::to_tstring, tmp.size());
+        tmp|oven::copied_out(orng);
+    }
 
 
 } } // namespace pstade::hamburger

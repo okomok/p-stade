@@ -20,32 +20,32 @@
 namespace pstade { namespace hamburger {
 
 
-namespace hwnd_detail {
+    namespace hwnd_detail {
+
+
+        inline
+        boost::optional<HWND> aux(element& elem)
+        {
+            boost::optional<HWND> wnd = elem.window();
+            if (wnd)
+                return *wnd;
+
+            boost::optional<element&> pa = elem.parent();
+            BOOST_ASSERT(pa);
+
+            return hwnd_detail::aux(*pa);
+        }
+
+
+    } // namespace hwnd_detail
 
 
     inline
-    boost::optional<HWND> aux(element& elem)
+    tomato::window hwnd(element& elem)
     {
-        boost::optional<HWND> wnd = elem.window();
-        if (wnd)
-            return *wnd;
-
-        boost::optional<element&> pa = elem.parent();
-        BOOST_ASSERT(pa);
-
-        return hwnd_detail::aux(*pa);
+        boost::optional<HWND> wnd = hwnd_detail::aux(elem);
+        return *wnd;
     }
-
-
-} // namespace hwnd_detail
-
-
-inline
-tomato::window hwnd(element& elem)
-{
-    boost::optional<HWND> wnd = hwnd_detail::aux(elem);
-    return *wnd;
-}
 
 
 } } // namespace pstade::hamburger

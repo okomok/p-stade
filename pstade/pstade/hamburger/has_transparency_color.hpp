@@ -18,11 +18,11 @@
 namespace pstade { namespace hamburger {
 
 
-inline
-bool has_transparency_color(element& elem)
-{
-    return tomato::rgb(elem%Name_transparencyColor);
-}
+    inline
+    bool has_transparency_color(element& elem)
+    {
+        return tomato::rgb(elem%Name_transparencyColor);
+    }
 
 
 } } // namespace pstade::hamburger

@@ -17,11 +17,12 @@
 namespace pstade { namespace hamburger {
 
 
-inline const
-dimension size(const element& elem)
-{
-    return elem.bounds().Size();
-}
+    inline
+    dimension const
+    size(element const& elem)
+    {
+        return elem.bounds().Size();
+    }
 
 
 } } // namespace pstade::hamburger

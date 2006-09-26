@@ -17,20 +17,20 @@
 namespace pstade { namespace hamburger { namespace detail {
 
 
-template< class = void >
-struct handle_wm_erasebkgnd
-{
-    template< class Derived > static
-    bool process(Derived& derived, HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, LRESULT& lResult, DWORD dwMsgMapID)
+    template< class = void >
+    struct handle_wm_erasebkgnd
     {
-        if (uMsg != WM_ERASEBKGND)
-            return false;
+        template< class Derived > static
+        bool process(Derived& derived, HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, LRESULT& lResult, DWORD dwMsgMapID)
+        {
+            if (uMsg != WM_ERASEBKGND)
+                return false;
 
-        lResult = 1;
-        pstade::unused(derived, hWnd, wParam, lParam, dwMsgMapID);
-        return true;     
-    }
-};
+            lResult = 1;
+            pstade::unused(derived, hWnd, wParam, lParam, dwMsgMapID);
+            return true;     
+        }
+    };
 
 
 } } } // namespace pstade::hamburger::detail

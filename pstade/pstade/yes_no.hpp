@@ -10,14 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/mpl/bool.hpp>
-
-
 namespace pstade {
 
 
-struct yes { char a[1]; };
-struct no  { char a[2]; };
+typedef char yes;
+struct no { char a[2]; };
 
 
 } // namespace pstade

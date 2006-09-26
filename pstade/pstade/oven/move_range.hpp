@@ -1,0 +1,106 @@
+#ifndef PSTADE_OVEN_MOVE_RANGE_HPP
+#define PSTADE_OVEN_MOVE_RANGE_HPP
+
+
+// PStade.Oven
+//
+// Copyright Shunsuke Sogame 2005-2006.
+// Distributed under the Boost Software License, Version 1.0.
+// (See accompanying file LICENSE_1_0.txt or copy at
+// http://www.boost.org/LICENSE_1_0.txt)
+
+
+#include <boost/move.hpp>
+#include <boost/mpl/if.hpp>
+#include <pstade/egg/function.hpp>
+#include <pstade/egg/pipable.hpp>
+#include "./as_lightweight_proxy.hpp"
+#include "./detail/concept_check.hpp"
+#include "./range_value.hpp"
+#include "./transform_range.hpp"
+
+
+namespace pstade { namespace oven {
+
+
+namespace move_range_detail {
+
+
+    template< class Value >
+    struct move_fun
+    {
+        typedef typename boost::mpl::if_<
+            boost::is_movable<Value>,
+            Value, Value&
+        >::type result_type;
+
+        template< class T >
+        result_type operator()(T& x) const
+        {
+            return boost::move(x);
+        }
+    };
+
+
+    template< class Range >
+    struct super_
+    {
+        typedef transform_range<
+            Range,
+            move_fun<typename range_value<Range>::type>
+        > type;
+    };
+
+
+} // namespace move_range_detail
+
+
+template< class Range >
+struct move_range :
+    move_range_detail::super_<Range>::type,
+    private as_lightweight_proxy< move_range<Range> >
+{
+    typedef Range pstade_oven_range_base_type;
+
+private:
+    PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
+    typedef typename move_range_detail::super_<Range>::type super_t;
+    typedef typename super_t::function_type fun_t;
+
+public:
+    explicit move_range(Range& rng) :
+        super_t(rng, fun_t())
+    { }
+};
+
+
+namespace move_range_detail {
+
+
+    struct baby_make
+    {
+        template< class Unused, class Range >
+        struct apply
+        {
+            typedef move_range<Range> const type;
+        };
+
+        template< class Result, class Range >
+        Result call(Range& rng)
+        {
+            return Result(rng);
+        }
+    };
+
+
+} // namespace move_range_detail
+
+
+PSTADE_EGG_FUNCTION(make_move_range, move_range_detail::baby_make)
+PSTADE_EGG_PIPABLE(moved, move_range_detail::baby_make)
+
+
+} } // namespace pstade::oven
+
+
+#endif

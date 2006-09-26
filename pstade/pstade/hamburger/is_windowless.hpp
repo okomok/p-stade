@@ -16,11 +16,11 @@
 namespace pstade { namespace hamburger {
 
 
-inline
-bool is_windowless(const element& elem)
-{
-    return !elem.window();
-}
+    inline
+    bool is_windowless(element const& elem)
+    {
+        return !elem.window();
+    }
 
 
 } } // namespace pstade::hamburger

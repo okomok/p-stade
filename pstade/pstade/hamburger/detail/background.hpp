@@ -22,16 +22,16 @@
 namespace pstade { namespace hamburger { namespace detail {
 
 
-template< class Node >
-void paint_background(Node& node, graphics g, rectangle rc)
-{
-    boost::optional<COLORREF> clr = tomato::rgb(node%Name_backgroundColor);
-    if (!clr)
-        return;
+    template< class Node >
+    void paint_background(Node& node, graphics g, rectangle const& rc)
+    {
+        boost::optional<COLORREF> clr = tomato::rgb(node%Name_backgroundColor);
+        if (!clr)
+            return;
 
-    WTL::CBrush br(::CreateSolidBrush(*clr));
-    ::FillRect(g, rc, br);
-}
+        WTL::CBrush br(::CreateSolidBrush(*clr));
+        ::FillRect(g, rc, br);
+    }
 
 
 } } } // namespace pstade::hamburger::detail

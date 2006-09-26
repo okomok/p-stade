@@ -17,11 +17,11 @@
 namespace pstade { namespace hamburger {
 
 
-typedef WTL::CPoint
-point;
+    typedef WTL::CPoint
+    point;
 
 
-PSTADE_INSTANCE(const point, origin, (0)(0))
+    PSTADE_INSTANCE(point const, origin, (0)(0))
 
 
 } } // namespace pstade::hamburger

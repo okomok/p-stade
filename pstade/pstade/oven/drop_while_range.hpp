@@ -10,6 +10,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Question:
+//
+// Should be implemented by 'head_iterator' or something,
+// which makes this really lazy.
+
+
 #include <boost/range/end.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>

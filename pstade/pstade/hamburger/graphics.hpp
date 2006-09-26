@@ -16,8 +16,8 @@
 namespace pstade { namespace hamburger {
 
 
-typedef HDC
-graphics;
+    typedef HDC
+    graphics;
 
 
 } } // namespace pstade::hamburger

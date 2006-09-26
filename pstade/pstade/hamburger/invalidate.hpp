@@ -23,29 +23,28 @@
 namespace pstade { namespace hamburger {
 
 
-inline
-void invalidate(element& elem, rectangle rc)
-{
-    boost::optional<HWND> wnd = elem.window();
-    if (wnd) {
-        ::InvalidateRect(*wnd, rc, FALSE);
-        return;
+    inline
+    void invalidate(element& elem, rectangle const& rc)
+    {
+        boost::optional<HWND> wnd = elem.window();
+        if (wnd) {
+            ::InvalidateRect(*wnd, rc, FALSE);
+            return;
+        }
+
+        boost::optional<element&> pa = elem.parent();
+        BOOST_ASSERT(pa);
+
+        hamburger::invalidate(*pa, rc + hamburger::location(elem));
     }
 
-    boost::optional<element&> pa = elem.parent();
-    BOOST_ASSERT(pa);
 
-    rc += hamburger::location(elem);
-    hamburger::invalidate(*pa, rc);
-}
-
-
-inline
-void invalidate(element& elem)
-{
-    rectangle rc(origin, hamburger::size(elem));
-    hamburger::invalidate(elem, rc);
-}
+    inline
+    void invalidate(element& elem)
+    {
+        rectangle rc(origin, hamburger::size(elem));
+        hamburger::invalidate(elem, rc);
+    }
 
 
 } } // namespace pstade::hamburger

@@ -19,23 +19,23 @@
 namespace pstade { namespace hamburger {
 
 
-inline
-void update(element& elem)
-{
-    boost::optional<HWND> wnd = elem.window();
-    if (wnd) {
-        ::UpdateWindow(*wnd);
-        return;
-    }
+    inline
+    void update(element& elem)
+    {
+        boost::optional<HWND> wnd = elem.window();
+        if (wnd) {
+            ::UpdateWindow(*wnd);
+            return;
+        }
 
-    boost::optional<element&> pa = elem.parent();
-    if (!pa) {
-        BOOST_ASSERT(false); // todo
-        return;
-    }
+        boost::optional<element&> pa = elem.parent();
+        if (!pa) {
+            BOOST_ASSERT(false); // todo
+            return;
+        }
 
-    hamburger::update(*pa);
-}
+        hamburger::update(*pa);
+    }
 
 
 } } // namespace pstade::hamburger

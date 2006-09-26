@@ -31,41 +31,41 @@
 namespace pstade { namespace hamburger { namespace detail {
 
 
-namespace transparency_detail {
+    namespace transparency_detail {
 
 
-    inline
-    void add(tomato::window_ref wnd, COLORREF clr)
+        inline
+        void add(tomato::window_ref wnd, COLORREF clr)
+        {
+            ATL::CWindow(wnd).ModifyStyleEx(0, WS_EX_LAYERED);
+            PSTADE_REQUIRE(::SetLayeredWindowAttributes(wnd, clr, 1, LWA_COLORKEY));
+        }
+
+
+        inline
+        void remove(tomato::window_ref wnd)
+        {
+            ATL::CWindow(wnd).ModifyStyleEx(WS_EX_LAYERED, 0);
+        }
+
+
+    } // namespace transparency_detail
+
+
+    template< class Element >
+    void reset_transparency(Element& elem)
     {
-        ATL::CWindow(wnd).ModifyStyleEx(0, WS_EX_LAYERED);
-        PSTADE_REQUIRE(::SetLayeredWindowAttributes(wnd, clr, 1, LWA_COLORKEY));
+        boost::optional<COLORREF> clr = tomato::rgb(elem%Name_transparencyColor);
+        if (clr)
+            transparency_detail::add(*elem.window(), *clr);
     }
 
 
-    inline
-    void remove(tomato::window_ref wnd)
+    template< class Element >
+    void remove_transparency(Element& elem)
     {
-        ATL::CWindow(wnd).ModifyStyleEx(WS_EX_LAYERED, 0);
+        transparency_detail::remove(*elem.window());
     }
-
-
-} // namespace transparency_detail
-
-
-template< class Element >
-void reset_transparency(Element& elem)
-{
-    boost::optional<COLORREF> clr = tomato::rgb(elem%Name_transparencyColor);
-    if (clr)
-        transparency_detail::add(*elem.window(), *clr);
-}
-
-
-template< class Element >
-void remove_transparency(Element& elem)
-{
-    transparency_detail::remove(*elem.window());
-}
 
 
 } } } // namespace pstade::hamburger::detail

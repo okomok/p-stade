@@ -18,18 +18,18 @@
 namespace pstade { namespace hamburger {
 
 
-inline
-point to_parent(const element& elem, point in_elem)
-{
-    return in_elem + hamburger::location(elem);
-}
+    inline
+    point to_parent(const element& elem, point const& in_elem)
+    {
+        return in_elem + hamburger::location(elem);
+    }
 
 
-inline
-point parent_to(const element& elem, point in_parent)
-{
-    return in_parent - hamburger::location(elem);
-}
+    inline
+    point parent_to(const element& elem, point const& in_parent)
+    {
+        return in_parent - hamburger::location(elem);
+    }
 
 
 } } // namespace pstade::hamburger

@@ -1,105 +1,32 @@
+#include <memory> // auto_ptr
+#include <boost/interprocess/smart_ptr/unique_ptr_emulation.hpp>
 
+using namespace boost;
 
-namespace poost_extension {
-
-    struct hello { };
-
-}
-
-namespace poost {
-
-    namespace detail {
-
-        template< class T >
-        int poost_hello(T const& x)
-        {
-            return poost_(poost_extension::hello(), x);
-        }
-
-    }
-
-    template< class T >
-    int hello(T const& x)
-    {
-        using namespace detail;
-        return poost_hello(x);
-    }
-
-}
-
-
-// user code
-//
-
-struct bar_base
+std::auto_ptr<int> make_auto_ptr()
 {
-    int m_i;
-};
-
-
-namespace my {
-
-    struct foo
-    {
-    private:
-        int i;
-
-        friend int poost_hello(foo const& self)
-        {
-            return self.i;
-        }
-    };
-
-    struct foo_
-    {
-        int i;
-    };
-
-        inline
-        int poost_hello(foo_ const& f_)
-        {
-            return f_.i;
-        }
-
-    struct bar : bar_base
-    { };
+    // ok.
+    return std::auto_ptr<int>(new int(10));
 }
 
-
-namespace your {
-
-    template< class Int >
-    struct foo
-    {
-    private:
-        Int i;
-
-        friend int poost_hello(foo const& self)
-        {
-            return self.i;
-        }
-    };
-
-    struct bar : bar_base
-    { };
+boost_ext::unique_ptr<int> make_unique_ptr1()
+{
+    boost_ext::unique_ptr<int> up(new int(10));
+    // return up; // error
+    return boost_ext::move(up);
 }
 
-
-namespace poost_extension {
-
-    int poost_(hello, bar_base const& b)
-    {
-        return b.m_i;
-    }
-
+boost_ext::unique_ptr<int> make_unique_ptr2()
+{
+	return boost_ext::unique_ptr<int>(new int(10));
 }
-
 
 int main()
 {
-    poost::hello(my::foo());
-    poost::hello(my::foo_());
-    poost::hello(your::foo<int>());
-    poost::hello(my::bar());
-    poost::hello(your::bar());
+    std::auto_ptr<int> ap1(new int(1));
+    std::auto_ptr<int> ap2(ap1);
+
+    boost_ext::unique_ptr<int> up1(new int(1));
+    // boost_ext::unique_ptr<int> up2(up1); // error
+    boost_ext::unique_ptr<int> up3(boost_ext::move(up1));
 }

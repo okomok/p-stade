@@ -22,28 +22,28 @@
 namespace pstade { namespace hamburger {
 
 
-inline
-point to_screen(const element& elem, point in_elem)
-{
-    boost::optional<HWND> wnd = elem.window();
-    if (wnd) {
-        ::ClientToScreen(*wnd, &in_elem);
-        return in_elem;
+    inline
+    point to_screen(element const& elem, point in_elem)
+    {
+        boost::optional<HWND> wnd = elem.window();
+        if (wnd) {
+            ::ClientToScreen(*wnd, &in_elem);
+            return in_elem;
+        }
+
+        boost::optional<element&> pa = elem.parent();
+        BOOST_ASSERT(pa);
+
+        return hamburger::to_screen(*pa, hamburger::to_parent(elem, in_elem));
     }
 
-    boost::optional<element&> pa = elem.parent();
-    BOOST_ASSERT(pa);
 
-    return hamburger::to_screen(*pa, hamburger::to_parent(elem, in_elem));
-}
-
-
-inline
-point screen_to(const element& elem, point in_screen)
-{
-    point origin_in_screen = hamburger::to_screen(elem, origin);
-    return in_screen - origin_in_screen;
-}
+    inline
+    point screen_to(element const& elem, point const& in_screen)
+    {
+        point origin_in_screen = hamburger::to_screen(elem, origin);
+        return in_screen - origin_in_screen;
+    }
 
 
 } } // namespace pstade::hamburger

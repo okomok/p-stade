@@ -46,6 +46,7 @@
 // #include "./mb_decode_range.hpp"
 // #include "./mb_encode_range.hpp"
 #include "./memoize_range.hpp"
+// #include "./move_range.hpp"
 #include "./multi_pass_range.hpp"
 #include "./null_terminate_range.hpp"
 #include "./out_place_range.hpp"

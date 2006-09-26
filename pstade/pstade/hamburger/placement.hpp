@@ -21,36 +21,36 @@
 namespace pstade { namespace hamburger {
 
 
-struct button :
-    element
-{
-protected:
-    void override_create()
+    struct button :
+        element
     {
-        boost::optional<element&> pa = parent();
-        if (!pa)
-            return;
+    protected:
+        void override_create()
+        {
+            boost::optional<element&> pa = parent();
+            if (!pa)
+                return;
 
-        int left   = pstade::lexical(*this%Name_left);
-        int top    = pstade::lexical(*this%Name_top);
-        int width  = pstade::lexical(*this%Name_width);
-        int height = pstade::lexical(*this%Name_height);
+            int left   = pstade::lexical(*this%Name_left);
+            int top    = pstade::lexical(*this%Name_top);
+            int width  = pstade::lexical(*this%Name_width);
+            int height = pstade::lexical(*this%Name_height);
 
-        rectangle rc(left, top, left+width, top+height);
-        pa.set_bounds(rc);
-    }
-};
-
-
-namespace button_detail {
-
-
-    PSTADE_STATEMENT(Register,
-        hamburger::register_element<placement>("placement");
-    )
+            rectangle rc(left, top, left+width, top+height);
+            pa.set_bounds(rc);
+        }
+    };
 
 
-} // namespace button_detail
+    namespace button_detail {
+
+
+        PSTADE_STATEMENT(Register,
+            hamburger::register_element<placement>("placement");
+        )
+
+
+    } // namespace button_detail
 
 
 } } // namespace pstade::hamburger

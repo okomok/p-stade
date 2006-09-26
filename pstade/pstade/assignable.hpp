@@ -13,9 +13,12 @@
 // What:
 //
 // Makes a copy-constructible type to be assignable.
+// This class is also known as "clone_ptr".
 // Note that 'default_constructible' is 'boost::optional',
 // which requires assignability. Thus,
 // 'boost::optional< assignable<T> > x;' does what you want.
+// Note that this class is maybe nothing but workaround.
+// The performance is bad. Boost.Movable can fix it?
 
 
 // See: Clonable

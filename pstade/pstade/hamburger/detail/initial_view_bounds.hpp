@@ -19,28 +19,28 @@
 namespace pstade { namespace hamburger { namespace detail {
 
 
-template< class Node >
-rectangle initial_view_bounds(Node& node)
-{
-    try {
-        int left    = pstade::lexical(node%Name_left);
-        int width   = pstade::lexical(node%Name_width);
-        int top     = pstade::lexical(node%Name_top);
-        int height  = pstade::lexical(node%Name_height);
+    template< class Node >
+    rectangle initial_view_bounds(Node& node)
+    {
+        try {
+            int left    = pstade::lexical(node%Name_left);
+            int width   = pstade::lexical(node%Name_width);
+            int top     = pstade::lexical(node%Name_top);
+            int height  = pstade::lexical(node%Name_height);
 
-        rectangle rc(
-            left, top,
-            left + width, top + height
-        );
+            rectangle rc(
+                left, top,
+                left + width, top + height
+            );
 
-        if (!rc.IsRectEmpty())
-            return rc;
+            if (!rc.IsRectEmpty())
+                return rc;
+        }
+        catch (boost::bad_lexical_cast const&) {
+        }
+
+        return ATL::CWindow::rcDefault;
     }
-    catch (boost::bad_lexical_cast const&) {
-    }
-
-    return ATL::CWindow::rcDefault;
-}
 
 
 } } } // namespace pstade::hamburger::detail

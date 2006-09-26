@@ -24,53 +24,53 @@
 namespace pstade { namespace hamburger {
 
 
-PSTADE_INSTANCE(const ustring, desktop_name, ("desktop"))
+    PSTADE_INSTANCE(ustring const, desktop_name, ("desktop"))
 
 
-// Question:
-// workarea is better name?
-//
-// no writable to keep thread-safety
-//
-struct desktop :
-    element
-{
-protected:
-    rectangle override_bounds() const
+    // Question:
+    // workarea is better name?
+    //
+    // no writable to keep thread-safety
+    //
+    struct desktop :
+        element
     {
-        rectangle rc;
-        PSTADE_REQUIRE(::SystemParametersInfo(SPI_GETWORKAREA, 0, &rc, 0));
-        return rc;
-    }
-};
+    protected:
+        rectangle override_bounds() const
+        {
+            rectangle rc;
+            PSTADE_REQUIRE(::SystemParametersInfo(SPI_GETWORKAREA, 0, &rc, 0));
+            return rc;
+        }
+    };
 
 
-namespace desktop_detail {
+    namespace desktop_detail {
 
 
-    PSTADE_STATEMENT(Register,
-        hamburger::register_element<desktop>("desktop");
-    )
+        PSTADE_STATEMENT(Register,
+            hamburger::register_element<desktop>("desktop");
+        )
+
+
+        inline
+        bool is_desktop(element& elem)
+        {
+            return oven::equals(elem.name(), desktop_name);
+        }
+
+
+    } // namespace desktop_detail
 
 
     inline
-    bool is_desktop(element& elem)
+    rectangle desktop_bounds(element& elem)
     {
-        return oven::equals(elem.name(), desktop_name);
+        boost::optional<element&> top = lime::find_up(elem, desktop_detail::is_desktop);
+        BOOST_ASSERT(top);
+
+        return (*top).bounds();
     }
-
-
-} // namespace desktop_detail
-
-
-inline
-rectangle desktop_bounds(element& elem)
-{
-    boost::optional<element&> top = lime::find_up(elem, desktop_detail::is_desktop);
-    BOOST_ASSERT(top);
-
-    return (*top).bounds();
-}
 
 
 } } // namespace pstade::hamburger

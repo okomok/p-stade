@@ -16,15 +16,15 @@
 namespace pstade { namespace hamburger {
 
 
-typedef WTL::CSize
-dimension;
+    typedef WTL::CSize
+    dimension;
 
 
-inline
-dimension swap_axis(dimension sz)
-{
-    return hamburger::dimension(sz.cy, sz.cx);
-}
+    inline
+    dimension swap_axis(dimension const& sz)
+    {
+        return hamburger::dimension(sz.cy, sz.cx);
+    }
 
 
 } } // namespace pstade::hamburger

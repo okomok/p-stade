@@ -16,21 +16,21 @@
 namespace pstade { namespace hamburger { namespace detail {
 
 
-template< class = void >
-struct quit_on_destroy
-{
-    template< class Derived > static
-    bool process(Derived& derived, HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, LRESULT& lResult, DWORD dwMsgMapID)
+    template< class = void >
+    struct quit_on_destroy
     {
-        if (uMsg != WM_DESTROY)
+        template< class Derived > static
+        bool process(Derived& derived, HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, LRESULT& lResult, DWORD dwMsgMapID)
+        {
+            if (uMsg != WM_DESTROY)
+                return false;
+
+            ::PostQuitMessage(1);
+
+            pstade::unused(derived, hWnd, wParam, lParam, lResult, dwMsgMapID);
             return false;
-
-        ::PostQuitMessage(1);
-
-        pstade::unused(derived, hWnd, wParam, lParam, lResult, dwMsgMapID);
-        return false;
-    }
-};
+        }
+    };
 
 
 

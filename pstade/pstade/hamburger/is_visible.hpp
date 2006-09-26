@@ -17,11 +17,11 @@
 namespace pstade { namespace hamburger {
 
 
-template< class Node > inline
-bool is_visible(Node& node)
-{
-    return oven::equals(node%Name_visible, Value_true);
-}
+    template< class Node > inline
+    bool is_visible(Node& node)
+    {
+        return oven::equals(node%Name_visible, Value_true);
+    }
 
 
 } } // namespace pstade::hamburger

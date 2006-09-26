@@ -36,83 +36,83 @@
 namespace pstade { namespace hamburger {
 
 
-PSTADE_INSTANCE(const ustring, Name_includedHref,   ("includedHref"))
-PSTADE_INSTANCE(const ustring, Name_serializable,   ("serializable"))
+    PSTADE_INSTANCE(ustring const, Name_includedHref,   ("includedHref"))
+    PSTADE_INSTANCE(ustring const, Name_serializable,   ("serializable"))
 
 
-namespace include_detail {
+    namespace include_detail {
 
 
-    PSTADE_INSTANCE(const ustring, Name_href, ("href"))
+        PSTADE_INSTANCE(ustring const, Name_href, ("href"))
 
 
-} // namespace include_detail
+    } // namespace include_detail
 
 
-struct include :
-    element
-{
-public:
-    include()
+    struct include :
+        element
     {
-        *this%Name_visible = Value_false;
-    }
-
-protected:
-    void override_create()
-    {
-        BOOST_ASSERT(boost::empty(*this));
-
-        ustring path = *this%include_detail::Name_href;
-
-        // Todo:
-        // build_path(path, ...) using 'lime::root(*this)%Name_moduleFileName'
-
-        try {
-            hamburger::load(*this, path);
-        }
-        catch (lime::load_error const&) {
-            BOOST_ASSERT(false);
-            // log << pstade::what("include-error", "failed to load:" + oven::copy_range<std::string>(path));
+    public:
+        include()
+        {
+            *this%Name_visible = Value_false;
         }
 
-        boost::optional<element&> pa = parent();
-        BOOST_ASSERT(pa);
+    protected:
+        void override_create()
+        {
+            BOOST_ASSERT(boost::empty(*this));
 
-        namespace bll = boost::lambda;
+            ustring path = *this%include_detail::Name_href;
 
-        // read-only access, thread-safe MAYBE.
-        iterator here = std::find_if(
-            boost::begin(*pa), boost::end(*pa),
-            // m_self for passing the two same types 'element' to 'is_same' 
-            bll::bind<bool>(pstade::is_same, boost::ref(m_self), bll::_1)
-        );
+            // Todo:
+            // build_path(path, ...) using 'lime::root(*this)%Name_moduleFileName'
 
-        BOOST_ASSERT(oven::distance(*this) == 1); // only xml root element
+            try {
+                hamburger::load(*this, path);
+            }
+            catch (lime::load_error const&) {
+                BOOST_ASSERT(false);
+                // log << pstade::what("include-error", "failed to load:" + oven::copy_range<std::string>(path));
+            }
 
-        iterator first = begin();
-        element& xmlroot = *first;
-        xmlroot.detail_construct(*pa, xmlroot.name()); // change parent!
-        xmlroot%Name_includedHref = path;
-        xmlroot%Name_serializable = *this%Name_serializable;
-        (*pa).transfer(here, first, *this); // transfer xmlroot to here
+            boost::optional<element&> pa = parent();
+            BOOST_ASSERT(pa);
 
-        // 'first' is invalid here.
-        xmlroot.create();
-        // don't touch here cause 'create' might make threads.
-    }
-};
+            namespace bll = boost::lambda;
+
+            // read-only access, thread-safe MAYBE.
+            iterator here = std::find_if(
+                boost::begin(*pa), boost::end(*pa),
+                // m_self for passing the two same types 'element' to 'is_same' 
+                bll::bind<bool>(pstade::is_same, boost::ref(m_self), bll::_1)
+            );
+
+            BOOST_ASSERT(oven::distance(*this) == 1); // only xml root element
+
+            iterator first = begin();
+            element& xmlroot = *first;
+            xmlroot.detail_construct(*pa, xmlroot.name()); // change parent!
+            xmlroot%Name_includedHref = path;
+            xmlroot%Name_serializable = *this%Name_serializable;
+            (*pa).transfer(here, first, *this); // transfer xmlroot to here
+
+            // 'first' is invalid here.
+            xmlroot.create();
+            // don't touch here cause 'create' might make threads.
+        }
+    };
 
 
-namespace include_detail {
+    namespace include_detail {
 
 
-    PSTADE_STATEMENT(Register,
-        hamburger::register_element<include>("include");
-    )
+        PSTADE_STATEMENT(Register,
+            hamburger::register_element<include>("include");
+        )
 
 
-} // namespace include_detail
+    } // namespace include_detail
 
 
 } } // namespace pstade::hamburger

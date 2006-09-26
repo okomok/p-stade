@@ -250,7 +250,6 @@ namespace pstade_oven_extension {
 
     namespace ms_detail {
 
-        template< class T >
         struct rb_tree_range :
             ms_detail::indirected_list_functions
         {

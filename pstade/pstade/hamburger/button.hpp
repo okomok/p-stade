@@ -19,26 +19,26 @@
 namespace pstade { namespace hamburger {
 
 
-struct button :
-    ketchup::message_processor<button, element>
-{
-    begin_msg_map
-    <
-        empty_entry<>
-    >
-    end_msg_map;
-};
+    struct button :
+        ketchup::message_processor<button, element>
+    {
+        begin_msg_map
+        <
+            empty_entry<>
+        >
+        end_msg_map;
+    };
 
 
-namespace button_detail {
+    namespace button_detail {
 
 
-    PSTADE_STATEMENT(Register,
-        hamburger::register_element<button>("button");
-    )
+        PSTADE_STATEMENT(Register,
+            hamburger::register_element<button>("button");
+        )
 
 
-} // namespace button_detail
+    } // namespace button_detail
 
 
 } } // namespace pstade::hamburger

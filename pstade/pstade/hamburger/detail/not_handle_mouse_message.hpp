@@ -17,20 +17,20 @@
 namespace pstade { namespace hamburger { namespace detail {
 
 
-template< class = void >
-struct using_mouse_message
-{
-    template< class Derived > static
-    bool process(Derived& derived, HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, LRESULT& lResult, DWORD dwMsgMapID)
+    template< class = void >
+    struct using_mouse_message
     {
-        if (uMsg != WM_NCHITTEST)
-            return false;
+        template< class Derived > static
+        bool process(Derived& derived, HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, LRESULT& lResult, DWORD dwMsgMapID)
+        {
+            if (uMsg != WM_NCHITTEST)
+                return false;
 
-        lResult = HTCLIENT;
-        pstade::unused(derived, hWnd, wParam, lParam, dwMsgMapID);
-        return true;
-    }
-};
+            lResult = HTCLIENT;
+            pstade::unused(derived, hWnd, wParam, lParam, dwMsgMapID);
+            return true;
+        }
+    };
 
 
 } } } // namespace pstade::hamburger::detail

@@ -16,15 +16,15 @@
 namespace pstade { namespace hamburger {
 
 
-typedef WTL::CRect
-rectangle;
+    typedef WTL::CRect
+    rectangle;
 
 
-inline
-rectangle swap_axis(rectangle rc)
-{
-    return hamburger::rectangle(rc.top, rc.left, rc.bottom, rc.right);
-}
+    inline
+    rectangle swap_axis(rectangle const& rc)
+    {
+        return hamburger::rectangle(rc.top, rc.left, rc.bottom, rc.right);
+    }
 
 
 } } // namespace pstade::hamburger

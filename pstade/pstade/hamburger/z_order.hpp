@@ -21,29 +21,29 @@
 namespace pstade { namespace hamburger {
 
 
-struct z_order_function
-{
-    typedef bool result_type;
-
-    template< class Node >
-    bool operator()(Node& node1, Node& node2) const
+    struct z_order_function
     {
-        try {
-            int zIndex1 = pstade::lexical(node1%Name_zIndex);
-            int zIndex2 = pstade::lexical(node2%Name_zIndex);
-            return zIndex1 < zIndex2;
+        typedef bool result_type;
+
+        template< class Node >
+        bool operator()(Node& node1, Node& node2) const
+        {
+            try {
+                int zIndex1 = pstade::lexical(node1%Name_zIndex);
+                int zIndex2 = pstade::lexical(node2%Name_zIndex);
+                return zIndex1 < zIndex2;
+            }
+            catch (boost::bad_lexical_cast const& PSTADE_IF_DEBUG(err)) {
+                PSTADE_IF_DEBUG (
+                    log << err.what();
+                )
+                return false;
+            }
         }
-        catch (boost::bad_lexical_cast const& PSTADE_IF_DEBUG(err)) {
-            PSTADE_IF_DEBUG (
-                log << err.what();
-            )
-            return false;
-        }
-    }
-};
+    };
 
 
-PSTADE_INSTANCE(const z_order_function, z_order, value);
+    PSTADE_INSTANCE(z_order_function const, z_order, value);
 
 
 } } // namespace pstade::hamburger

@@ -17,11 +17,11 @@
 namespace pstade { namespace hamburger {
 
 
-inline
-point location(const element& elem)
-{
-    return elem.bounds().TopLeft();
-}
+    inline
+    point location(element const& elem)
+    {
+        return elem.bounds().TopLeft();
+    }
 
 
 } } // namespace pstade::hamburger

@@ -17,11 +17,11 @@
 namespace pstade { namespace hamburger {
 
 
-template< class Node > inline
-bool is_enabled(Node& node)
-{
-    return oven::equals(node%Name_enabled, Value_true);
-}
+    template< class Node > inline
+    bool is_enabled(Node& node)
+    {
+        return oven::equals(node%Name_enabled, Value_true);
+    }
 
 
 } } // namespace pstade::hamburger

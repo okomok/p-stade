@@ -18,13 +18,13 @@
 namespace pstade { namespace hamburger {
 
 
-inline
-void show(element& elem)
-{
-    elem%Name_visible = Value_true;
-    hamburger::invalidate(elem);
-    hamburger::update(elem);
-}
+    inline
+    void show(element& elem)
+    {
+        elem%Name_visible = Value_true;
+        hamburger::invalidate(elem);
+        hamburger::update(elem);
+    }
 
 
 } } // namespace pstade::hamburger

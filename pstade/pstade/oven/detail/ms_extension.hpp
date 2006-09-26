@@ -135,7 +135,7 @@ friend class boost::iterator_core_access;
 };
 
 
-// customization helpers
+// extension helpers
 //
 
 struct array_functions

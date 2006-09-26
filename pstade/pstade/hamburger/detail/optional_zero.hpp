@@ -17,17 +17,17 @@
 namespace pstade { namespace hamburger { namespace detail {
 
 
-template< class Target, class Node >
-void optional_zero(Target& x, Node& node, ustring Name)
-{
-    try {
-        Target opt = pstade::lexical(node%Name);
-        if (opt != 0)
-            x = opt;
+    template< class Target, class Node >
+    void optional_zero(Target& x, Node& node, ustring const& Name)
+    {
+        try {
+            Target opt = pstade::lexical(node%Name);
+            if (opt != 0)
+                x = opt;
+        }
+        catch (boost::bad_lexical_cast const&) {
+        }
     }
-    catch (boost::bad_lexical_cast const&) {
-    }
-}
 
 
 } } } // namespace pstade::hamburger::detail

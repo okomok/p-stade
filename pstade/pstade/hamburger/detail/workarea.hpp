@@ -19,28 +19,28 @@
 namespace pstade { namespace hamburger { namespace detail {
 
 
-// Todo: multi-monitor
-//
-inline
-bool is_in_workarea(point pt)
-{
-    rectangle rc;
-    if (!::SystemParametersInfo(SPI_GETWORKAREA, 0, &rc, 0))
-        return true;
+    // Todo: multi-monitor
+    //
+    inline
+    bool is_in_workarea(point const& pt)
+    {
+        rectangle rc;
+        if (!::SystemParametersInfo(SPI_GETWORKAREA, 0, &rc, 0))
+            return true;
 
-    return rc.PtInRect(pt)|tomato::booleanized;
-}
+        return rc.PtInRect(pt)|tomato::booleanized;
+    }
 
 
-inline
-bool is_cross_workarea(rectangle rc)
-{
-    rectangle w;
-    if (!::SystemParametersInfo(SPI_GETWORKAREA, 0, &w, 0))
-        return true;
+    inline
+    bool is_cross_workarea(rectangle const& rc)
+    {
+        rectangle w;
+        if (!::SystemParametersInfo(SPI_GETWORKAREA, 0, &w, 0))
+            return true;
 
-    return !(rc & w).IsRectEmpty()|tomato::booleanized;
-}
+        return !(rc & w).IsRectEmpty()|tomato::booleanized;
+    }
 
 
 } } } // namespace pstade::hamburger::detail

@@ -10,6 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Todo:
+//
+// Make this Movable.
+
+
 #include <string> // basic_string
 #include <vector>
 #include <boost/cstdint.hpp> // uint8_t, uint32_t

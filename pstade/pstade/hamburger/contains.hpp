@@ -20,20 +20,20 @@
 namespace pstade { namespace hamburger {
 
 
-inline
-bool contains(const element& elem, point in_elem)
-{
-    rectangle rc(origin, hamburger::size(elem));
-    return rc.PtInRect(in_elem)|tomato::booleanized;
-}
+    inline
+    bool contains(const element& elem, point const& in_elem)
+    {
+        rectangle rc(origin, hamburger::size(elem));
+        return rc.PtInRect(in_elem)|tomato::booleanized;
+    }
 
 
-inline
-bool contains_in_screen(const element& elem, point in_screen)
-{
-    point in_elem = hamburger::screen_to(elem, in_screen);
-    return hamburger::contains(elem, in_elem);
-}
+    inline
+    bool contains_in_screen(const element& elem, point const& in_screen)
+    {
+        point in_elem = hamburger::screen_to(elem, in_screen);
+        return hamburger::contains(elem, in_elem);
+    }
 
 
 } } // namespace pstade::hamburger
