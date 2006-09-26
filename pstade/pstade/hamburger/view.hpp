@@ -157,6 +157,12 @@ namespace pstade { namespace hamburger {
                 child.create();
             }
 
+            // Note:
+            // Every mouse motion needs them z_ordered.
+            // 'oven::sorted' is too slow. Sort it now!
+            // See <./detail/chain_mouse_message.hpp>
+            lime::traverse(*this, z_order_sort);
+
             pstade::unused(pst);
             return tomato::create_success;
         }
@@ -200,7 +206,7 @@ namespace pstade { namespace hamburger {
 
             detail::paint_background(*this, dcCompatible, rc);
 
-            BOOST_FOREACH (element& child, m_self|oven::sorted(z_order)) {
+            BOOST_FOREACH (element& child, m_self/*|oven::sorted(z_order)*/) {
                 child.paint(dcCompatible, child.bounds());
             }
 
@@ -216,7 +222,7 @@ namespace pstade { namespace hamburger {
             dc.GetClipBox(&rc);
             detail::paint_background(*this, dc, rc);
 
-            BOOST_FOREACH (element& child, m_self|oven::sorted(z_order)) {
+            BOOST_FOREACH (element& child, m_self/*|oven::sorted(z_order)*/) {
                 rectangle b = child.bounds();
                 if (!(rc & b).IsRectEmpty())
                     child.paint(dc, b);

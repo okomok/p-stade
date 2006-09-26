@@ -42,8 +42,21 @@ namespace pstade { namespace hamburger {
         }
     };
 
-
     PSTADE_INSTANCE(z_order_function const, z_order, value);
+
+
+    struct z_order_sort_fun
+    {
+        typedef void result_type;
+
+        template< class Node >
+        void operator()(Node& node) const
+        {
+            node.sort(z_order);
+        }
+    };
+
+    PSTADE_INSTANCE(z_order_sort_fun const, z_order_sort, value);
 
 
 } } // namespace pstade::hamburger

@@ -13,12 +13,18 @@
 #include <map>
 #include <string>
 #include <boost/foreach.hpp>
+#include <boost/mpl/identity.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
 #include <boost/ptr_container/ptr_list.hpp>
+#include <boost/range/end.hpp>
 #include <boost/throw_exception.hpp>
 #include <pstade/if_debug.hpp>
+#include <pstade/oven/adaptor_to_base.hpp>
+#include <pstade/oven/algorithm.hpp> // find
 #include <pstade/oven/equals.hpp>
+#include <pstade/oven/map_key_range.hpp>
+#include <pstade/oven/range_iterator.hpp>
 #include <pstade/oven/range_reference.hpp>
 #include <pstade/ustring.hpp>
 #include <pstade/what.hpp>
@@ -51,7 +57,8 @@ namespace pstade { namespace lime {
 
         template< class Node >
         typename oven::range_reference<Node>::type
-        get_child(Node& parent, ustring const& childName)
+        get_child(typename boost::mpl::identity<Node>::type& parent,
+            ustring const& childName) // 'identity' creates a non-deduced form.
         {
             typedef typename oven::range_reference<Node>::type child_t;
 
@@ -63,7 +70,6 @@ namespace pstade { namespace lime {
             node_facade_detail::throw_error(childName);
             PSTADE_IF_DEBUG( throw 0; ) // suppress warning
         }
-
 
     } // namesapce node_facade_detail
 
@@ -106,18 +112,40 @@ namespace pstade { namespace lime {
             return m_atts;
         }
 
+            attributes_type const& attributes() const
+            {
+                return m_atts;
+            }
+
     // operators
         friend
         Derived& operator/(Derived& node, ustring const& childName)
         {
-            return node_facade_detail::get_child(node, childName);
+            return node_facade_detail::get_child<Derived>(node, childName);
         }
+
+            friend
+            Derived const& operator/(Derived const& node, ustring const& childName)
+            {
+                return node_facade_detail::get_child<Derived const>(node, childName);
+            }
 
         friend
         ustring& operator%(Derived& node, ustring const& attName)
         {
             return node.attributes()[attName];
         }
+
+            friend
+            ustring const& operator%(Derived const& node, ustring const& attName)
+            {
+                typedef typename oven::range_iterator<attributes_type const>::type iter_t;
+                iter_t it = oven::find(node.attributes()|oven::map_keys, attName)|oven::to_base;
+                if (it == boost::end(node.attributes()))
+                    return node.name(); // should throw?
+
+                return it->second;
+            }
 
         friend
         Derived& operator+=(Derived& node, ustring const& childName)

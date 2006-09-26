@@ -68,7 +68,7 @@ namespace pstade { namespace hamburger {
         {
             detail::paint_background(*this, g, rc);
 
-            BOOST_FOREACH (element& child, m_self|oven::sorted(z_order)) {
+            BOOST_FOREACH (element& child, m_self/*|oven::sorted(z_order)*/) {
                 child.paint(g, child.bounds() + rc.TopLeft());
             }
         }

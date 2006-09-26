@@ -586,18 +586,6 @@ Note that ``memoized`` can return a `Forward Range`_ even if its adapting range 
 - Returns: ``[boost::begin(fwdRngOrString),y)``, where for all the value ``v`` in the range ``v != 0`` is ``true``, and ``*y == 0`` is ``true``.
 
 
-``out_placed``
-^^^^^^^^^^^^^^
-``out_placed`` converts its adapting range to a `Random Access Range`_ by using temporary iterator container::
-
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\out_placed.ipp
-
-
-- Header: ``<pstade/oven/out_place_range.hpp>``
-- Valid expression: ``fwdRng|out_placed``
-- Returns: A `Random Access Range`_ representing ``[boost::begin(fwdRng),boost::end(fwdRng))``.
-
-
 ``permuted``
 ^^^^^^^^^^^^
 - Header: ``<pstade/oven/permute_range.hpp>``
@@ -684,15 +672,6 @@ Note that ``memoized`` can return a `Forward Range`_ even if its adapting range 
 ^^^^^^^^^^
 - Header: ``<pstade/oven/slice_range.hpp>``
 - See: `Range Library Proposal`_.
-
-
-``sorted``
-^^^^^^^^^^
-``sorted`` provides the out-place sorting. Note that ``sorted`` doesn't modify its adapting range.
-
-- Header: ``<pstade/oven/sort_range.hpp>``
-- Valid expression: ``fwdRng|sorted`` or ``fwdRng|sorted(pred)``
-- Returns: A sorted view of ``fwdRng``.
 
 
 ``stridden``
@@ -966,4 +945,6 @@ Version 0.91.1
 Version 0.91.2
 ^^^^^^^^^^^^^^
 - Added `Extending Boost.Range`_.
+- Rejected ``out_placed`` and ``sorted``.
+
 

@@ -10,6 +10,16 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Pending...
+//
+
+
+// Note:
+//
+// Is this range is really needed?
+// 'transformed(move)' seems enough?
+
+
 #include <boost/move.hpp>
 #include <boost/mpl/if.hpp>
 #include <pstade/egg/function.hpp>
@@ -42,12 +52,12 @@ namespace move_range_detail {
     };
 
 
-    template< class Range >
+    template< class LValueRange >
     struct super_
     {
         typedef transform_range<
-            Range,
-            move_fun<typename range_value<Range>::type>
+            LValueRange,
+            move_fun<typename range_value<LValueRange>::type>
         > type;
     };
 
@@ -55,20 +65,20 @@ namespace move_range_detail {
 } // namespace move_range_detail
 
 
-template< class Range >
+template< class LValueRange >
 struct move_range :
-    move_range_detail::super_<Range>::type,
-    private as_lightweight_proxy< move_range<Range> >
+    move_range_detail::super_<LValueRange>::type,
+    private as_lightweight_proxy< move_range<LValueRange> >
 {
-    typedef Range pstade_oven_range_base_type;
+    typedef LValueRange pstade_oven_range_base_type;
 
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
-    typedef typename move_range_detail::super_<Range>::type super_t;
+    PSTADE_OVEN_DETAIL_REQUIRES(LValueRange, SinglePassRangeConcept);
+    typedef typename move_range_detail::super_<LValueRange>::type super_t;
     typedef typename super_t::function_type fun_t;
 
 public:
-    explicit move_range(Range& rng) :
+    explicit move_range(LValueRange& rng) :
         super_t(rng, fun_t())
     { }
 };
@@ -79,14 +89,14 @@ namespace move_range_detail {
 
     struct baby_make
     {
-        template< class Unused, class Range >
+        template< class Unused, class LValueRange >
         struct apply
         {
-            typedef move_range<Range> const type;
+            typedef move_range<LValueRange> const type;
         };
 
-        template< class Result, class Range >
-        Result call(Range& rng)
+        template< class Result, class LValueRange >
+        Result call(LValueRange& rng)
         {
             return Result(rng);
         }

@@ -21,6 +21,7 @@
 #include "./lime/root.hpp"
 #include "./lime/save.hpp"
 #include "./lime/save_file.hpp"
+#include "./lime/traverse.hpp"
 
 
 #endif

@@ -71,7 +71,7 @@ namespace pstade { namespace hamburger { namespace detail {
         BOOST_FOREACH (
             element& child,
             parent |
-                oven::sorted(z_order) |
+                // oven::sorted(z_order) | // too slow.
                 oven::reversed )
         {
             // avoid 'oven::filtered' for code size
