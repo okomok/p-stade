@@ -104,8 +104,11 @@ std::vector<char> fun()
 }
 
 
-// customization test
+// extension test
 //
+
+#include <pstade/oven/extension.hpp>
+
 
 namespace xxx {
 
@@ -115,56 +118,33 @@ namespace xxx {
 
 namespace pstade_oven_extension {
 
-    template< class Range > inline
-    xxx::X pstade_oven_(copy_range<xxx::X>, Range& rng)
+    template< >
+    struct range< xxx::X >
     {
-        (void)rng;
-        return xxx::X();
-    }
-
-}
-
-namespace yyy {
-
-    struct Y { };
-
-    template< class Range > inline
-    Y pstade_oven_copy_range(boost::type<Y>, Range& rng)
-    {
-        (void)rng;
-        return Y();
-    }
-
-
-    struct Z
-    {
-        template< class Range >
-        friend
-        Z pstade_oven_copy_range(boost::type<Z>, Range& rng)
+        template< class X, class Range >
+        X copy(Range& rng)
         {
             (void)rng;
-            return Z();
+            return xxx::X();
         }
     };
+
 }
 
-void test_customization()
+
+void test_extension()
 {
     using namespace pstade;
     using namespace oven;
 
     xxx::X x = std::string()|copied;
     (void)x;
-    yyy::Y y = std::string()|copied;
-    (void)y;
-    yyy::Z z = std::string()|copied;
-    (void)z;
 }
 
 
 int test_main(int, char*[])
 {
     ::test();
-    ::test_customization();
+    ::test_extension();
     return 0;
 }

@@ -10,6 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Question:
+//
+// Should 'constant_range< std::vector<int> > crng(f,l);' be supported?
+
+
 #include <boost/type_traits/add_const.hpp>
 #include <pstade/affect.hpp>
 #include <pstade/egg/function.hpp>

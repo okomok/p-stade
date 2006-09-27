@@ -18,10 +18,10 @@
 namespace pstade { namespace lime {
 
 
-    PSTADE_INSTANCE(const ustring, i_attName,   ("value"))
+    PSTADE_INSTANCE(ustring const, i_attName,   ("value"))
 
-    PSTADE_INSTANCE(const ustring, i_CharData,  ("&CharData"))
-    PSTADE_INSTANCE(const ustring, i_Reference, ("&Reference"))
+    PSTADE_INSTANCE(ustring const, i_CharData,  ("&CharData"))
+    PSTADE_INSTANCE(ustring const, i_Reference, ("&Reference"))
 
 
 } } // namespace pstade::lime

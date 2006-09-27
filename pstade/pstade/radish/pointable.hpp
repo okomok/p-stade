@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/assert.hpp>
 #include <boost/mpl/empty_base.hpp>
 #include <pstade/adl_barrier.hpp>
 
@@ -35,6 +36,7 @@ struct pointable :
     friend
     Element& operator *(T const& x)
     {
+        BOOST_ASSERT(x.operator->());
         return *(x.operator->());
     }
 

@@ -11,11 +11,14 @@
 
 
 #include <boost/assert.hpp>
+#include <boost/foreach.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/utility/addressof.hpp>
+#include "../extension.hpp" // noncopyable
+#include "../range_reference.hpp"
 
 
 // POSITION's header is undocumented, so is NULL.
@@ -154,7 +157,8 @@ struct array_functions
 };
 
 
-struct list_functions
+struct list_functions :
+    noncopyable
 {
     template< class Iterator, class X >
     Iterator begin(X& x)

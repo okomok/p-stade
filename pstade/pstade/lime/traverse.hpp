@@ -11,6 +11,7 @@
 
 
 #include <boost/foreach.hpp>
+#include <pstade/oven/range_reference.hpp>
 
 
 namespace pstade { namespace lime {
@@ -22,9 +23,11 @@ namespace pstade { namespace lime {
         typedef typename oven::range_reference<Node>::type child_t;
 
         BOOST_FOREACH (child_t child, parent) {
-            fun(child);
             traverse(child, fun);
+            fun(child);
         }
+
+        fun(parent);
     }
 
 

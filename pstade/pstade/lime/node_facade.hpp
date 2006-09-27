@@ -56,13 +56,11 @@ namespace pstade { namespace lime {
 
 
         template< class Node >
-        typename oven::range_reference<Node>::type
-        get_child(typename boost::mpl::identity<Node>::type& parent,
-            ustring const& childName) // 'identity' creates a non-deduced form.
+        Node& get_child( // 'identity' creates a non-deduced form.
+            typename boost::mpl::identity<Node>::type& parent,
+            ustring const& childName)
         {
-            typedef typename oven::range_reference<Node>::type child_t;
-
-            BOOST_FOREACH (child_t child, parent) {
+            BOOST_FOREACH (Node& child, parent) {
                 if (oven::equals(child.name(), childName))
                     return child;
             }

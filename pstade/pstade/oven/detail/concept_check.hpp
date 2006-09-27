@@ -10,6 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Note:
+//
+// Waiting for new Boost.Concept library with Boost 1.34...
+
+
 // Question:
 //
 // Functors are often no default-constructible,

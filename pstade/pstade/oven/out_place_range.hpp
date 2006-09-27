@@ -10,6 +10,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Rejected...
+// See "./sort_range.hpp"
+
+
 // Note:
 //
 // Iterators manage temporary container for BOOST_FOREACH.

@@ -76,6 +76,7 @@ namespace boost {
 //
 
 
+#include <boost/foreach.hpp>
 #include <boost/iterator/indirect_iterator.hpp>
 #include <boost/iterator/zip_iterator.hpp>
 #include <boost/tuple/tuple.hpp>
@@ -85,6 +86,8 @@ namespace boost {
 #include <pstade/const_overloaded.hpp>
 #include "./detail/ms_extension.hpp"
 #include "./extension.hpp"
+#include "./range_reference.hpp"
+#include "./range_value.hpp"
 
 
 namespace pstade_oven_extension {
@@ -99,7 +102,8 @@ namespace pstade_oven_extension {
     namespace ms_detail {
 
         struct atl_array_functions :
-            array_functions
+            array_functions,
+            noncopyable
         {
             template< class Iterator, class X >
             Iterator end(X& x) // redefine
@@ -176,7 +180,8 @@ namespace pstade_oven_extension {
 
     namespace ms_detail {
 
-        struct indirected_list_functions
+        struct indirected_list_functions :
+            noncopyable
         {
             template< class Iterator, class X >
             Iterator begin(X& x)
@@ -210,6 +215,7 @@ namespace pstade_oven_extension {
             typedef boost::indirect_iterator<miter_t> mutable_iterator;
             typedef boost::indirect_iterator<citer_t> constant_iterator;
         };
+
     };
 
 
@@ -327,11 +333,27 @@ namespace pstade_oven_extension {
         {
             return begin<Iterator>(x) + x.GetLength();
         }
+
+        template< class X, class Range >
+        X copy(Range& rng)
+        {
+            X x;
+
+            typedef typename pstade::oven::
+                range_reference<Range>::type ref_t;
+
+            BOOST_FOREACH (ref_t r, rng) {
+                x.AppendChar(r);
+            }
+
+            return x;
+        }
     };
 
 
     template< class BaseType, const int t_nSize >
-    struct range< ATL::CStaticString<BaseType, t_nSize> >
+    struct range< ATL::CStaticString<BaseType, t_nSize> > :
+        noncopyable
     {
         template< class X >
         struct meta
@@ -378,15 +400,53 @@ namespace pstade_oven_extension {
         {
             return begin<Iterator>(x) + x.Length();
         }
+
+        template< class X, class Range >
+        X copy(Range& rng)
+        {
+            X x;
+            BOOST_FOREACH (OLECHAR ch, rng) {
+                x.Append(&ch, 1);
+            }
+
+            return x;
+        }
     };
 
 
     // simples
     //
 
+    namespace ms_detail {
+
+        struct copy_using_Add
+        {
+            template< class X, class Range >
+            X copy(Range& rng)
+            {
+                typedef typename pstade::oven::
+                    range_reference<Range>::type ref_t;
+
+                X x;
+                BOOST_FOREACH (ref_t r, rng) {
+                    x.Add(r);
+                }
+
+                return x;
+            }
+        };
+
+    } // namespace ms_detail
+
+
     template< PSTADE_APPLE_ATL_CSIMPLEARRAY_TEMPLATE_PARAMS >
     struct range< ATL::CSimpleArray< PSTADE_APPLE_ATL_CSIMPLEARRAY_TEMPLATE_ARGS > > :
-        ms_detail::array_functions
+        ms_detail::array_functions,
+    #if !defined(PSTADE_APPLE_ATL_HAS_OLD_CSIMPLECOLL)
+        ms_detail::copy_using_Add
+    #else
+        noncopyable
+    #endif
     {
         template< class X >
         struct meta
@@ -403,7 +463,8 @@ namespace pstade_oven_extension {
 
     template< class T >
     struct range< ATL::CSimpleValArray<T> > :
-        ms_detail::array_functions
+        ms_detail::array_functions,
+        noncopyable
     {
         template< class X >
         struct meta
@@ -500,7 +561,6 @@ PSTADE_OVEN_EXTENSION_TYPE((ATL)(CComBSTR))
     PSTADE_OVEN_EXTENSION_TEMPLATE((ATL)(CSimpleMap), 2)
     PSTADE_OVEN_EXTENSION_TEMPLATE((ATL)(CSimpleValArray), 1)
 #endif
-
 
 
 #endif

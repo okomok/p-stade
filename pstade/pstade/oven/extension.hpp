@@ -24,6 +24,8 @@
 #include <boost/preprocessor/seq/size.hpp>
 #include <boost/preprocessor/tuple/eat.hpp>
 #include <boost/range/const_iterator.hpp>
+#include <boost/range/begin.hpp>
+#include <boost/range/end.hpp>
 #include <boost/range/iterator.hpp>
 #include <boost/range/size_type.hpp>
 #include <boost/type_traits/is_const.hpp>
@@ -41,7 +43,22 @@ namespace pstade_oven_extension {
 
 
     template< class T, class Active = void >
-    struct range;
+    struct range
+    {
+        template< class X, class Range >
+        X copy(Range& rng)
+        {
+            return X(boost::begin(rng), boost::end(rng));
+        }
+    };
+
+
+    struct noncopyable
+    {
+    private:
+        template< class X, class Range >
+        X copy(Range& rng);
+    };
 
 
 } // namespace pstade_oven_extension

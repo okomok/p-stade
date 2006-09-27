@@ -6,8 +6,7 @@
 
 # include <boost/move.hpp>
 # include <boost/assert.hpp>
-//# include "say.hpp"
-#define SAY(x)
+# include "say.hpp"
 
 //
 // A sample movable class.

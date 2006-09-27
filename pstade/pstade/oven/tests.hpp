@@ -25,6 +25,7 @@
 #include <boost/range/rbegin.hpp>
 #include <boost/range/rend.hpp>
 #include "./detail/concept_check.hpp"
+#include "./copy_range.hpp"
 #include "./equals.hpp"
 #include "./range_iterator.hpp"
 #include "./range_value.hpp"
@@ -133,6 +134,16 @@ bool test_random_access(Range& rng)
     result = result && oven::equals(rng, saved);
 
     return result;
+}
+
+
+template< class To, class From >
+bool test_copyable(From const& from)
+{
+    To to = from|copied;
+
+    return oven::equals(from, oven::copy_range<To>(from)) &&
+        oven::equals(from, to);
 }
 
 

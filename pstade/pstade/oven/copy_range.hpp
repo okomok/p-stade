@@ -33,29 +33,8 @@
 #include "./algorithm.hpp" // copy
 #include "./detail/concept_check.hpp"
 #include "./detail/debug_distance.hpp"
+#include "./extension.hpp"
 #include "./range_traversal.hpp"
-
-
-// copy_range extension space
-//
-
-namespace pstade_oven_extension {
-
-
-    template< class T >
-    struct copy_range // ADL marker
-    { };
-
-
-    template< class T, class Range > inline
-    T pstade_oven_(copy_range<T>, Range& rng,
-        typename boost::enable_if< pstade::apple::has_range_constructor<T> >::type * = 0)
-    {
-        return T(boost::begin(rng), boost::end(rng));
-    }
-
-
-} // namespace pstade_oven_extension
 
 
 namespace pstade { namespace oven {
@@ -63,13 +42,6 @@ namespace pstade { namespace oven {
 
 // copy_range
 //
-
-template< class T, class Range > inline
-T pstade_oven_copy_range(boost::type<T>, Range& rng)
-{
-    return pstade_oven_(pstade_oven_extension::copy_range<T>(), rng);
-}
-
 
 PSTADE_ADL_BARRIER(copy_range) { // for Boost
 
@@ -79,11 +51,7 @@ PSTADE_ADL_BARRIER(copy_range) { // for Boost
     copy_range(Range const& rng)
     {
         detail::requires< boost::SinglePassRangeConcept<Range> >();
-
-        // Under: http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1893.pdf
-        // using namespace(Copyable);
-
-        return pstade_oven_copy_range(boost::type<Copyable>(), rng);
+        return pstade_oven_extension::range<Copyable>().template copy<Copyable>(rng);
     }
 
 

@@ -27,7 +27,6 @@
 #include "./tomato/module_init.hpp"
 #include "./tomato/multibyte_to_widechar.hpp"
 #include "./tomato/ole_init.hpp"
-#include "./tomato/oven.hpp"
 #include "./tomato/rebar.hpp"
 #include "./tomato/rgb.hpp"
 #include "./tomato/scoped_handle.hpp"

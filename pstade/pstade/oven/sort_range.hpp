@@ -10,6 +10,14 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Rejected...
+//
+// Because this adaptor is *expensive* enough
+// to effect on your software design sooner or later.
+// On the other hand, when you can accept the big time-and-space,
+// this may be still useful. So I don't remove...
+
+
 #include <boost/ptr_container/indirect_fun.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
