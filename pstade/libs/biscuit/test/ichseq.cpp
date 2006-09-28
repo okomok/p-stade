@@ -17,7 +17,7 @@
 
 
 #include <string>
-#include <pstade/oven/as_literal.hpp>
+#include <pstade/oven/literal_range.hpp>
 
 
 void test()

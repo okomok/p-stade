@@ -28,9 +28,9 @@
 #include <pstade/instance.hpp>
 #include <pstade/integral_cast.hpp>
 #include <pstade/oven/array_range.hpp>
-#include <pstade/oven/as_c_str.hpp>
-#include <pstade/oven/distance.hpp>
+#include <pstade/oven/c_str_range.hpp>
 #include <pstade/oven/copy_range.hpp>
+#include <pstade/oven/distance.hpp>
 #include <pstade/oven/equals.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
 #include <pstade/require.hpp>

@@ -30,7 +30,8 @@ Oven provides an experimental Range Adaptor implementation of `Range Library Pro
 
 	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\introduction.ipp
 
-All the types and functions are defined in ``namespace pstade::oven`` at ``<pstade/oven.hpp>``.
+All the types and functions are defined in ``namespace pstade::oven`` at ``<pstade/oven.hpp>``
+unless otherwise specified.
 
 
 Requirements
@@ -137,6 +138,17 @@ Oven provides some predefined range types.
 ``<pstade/oven/ranges.hpp>`` includes every range header unless otherwise specified.
 
 
+``array_protect_range``
+^^^^^^^^^^^^^^^^^^^^^^^
+The current Boost.Range regards char array as literal, which
+``array_protect_range`` works around.
+
+- Header: ``<pstade/oven/array_protect_range.hpp>``
+- Valid expression: ``array_protect_range<T [sz]> rng(arr)`` and ``arr|array_protected``
+- Precondition: ``arr`` is an array whose ``value_type`` is ``T`` and whose size is ``sz``.
+- Returns: ``[boost::begin(arr),boost::begin(arr)+sz)``, where ``sz`` is the size of ``arr``.
+
+
 ``array_range``
 ^^^^^^^^^^^^^^^
 ``array_range`` is a model of `Random Access Range`_ which delivers
@@ -148,6 +160,17 @@ a range presentation of dynamically allocated arrays::
 - Header: ``<pstade/oven/array_range.hpp>``
 - Valid expression: ``array_range<T> rng(sz);``
 - Precondition: ``new T[sz];`` is a valid expression.
+
+
+``c_str_range``
+^^^^^^^^^^^^^^^
+``c_str_range`` makes a `Random Access Range`_ from null-terminated c-style string::
+
+	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\c_str_range.ipp
+
+
+- Header: ``<pstade/oven/c_str_range.hpp>``
+- Valid expression: ``c_str_range<Char> rng(psz)`` and ``psz|as_c_str``, where ``psz`` is convertible to a pointer to a null-terminated array.
 
 
 ``counting_range``
@@ -237,6 +260,19 @@ __ http://www.sgi.com/tech/stl/istream_iterator.html
 - Returns: A range whose iterators behave as if they were the original iterators wrapped in ``istreambuf_iterator``
 
 
+
+``literal_range``
+^^^^^^^^^^^^^^^^^
+``literal_range`` makes a `Random Access Range`_ from character array.
+``literal_range`` doesn't support any pointer type. So it is safe. Compare it with ``c_str_range``::
+
+	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\literal_range.ipp
+
+
+- Header: ``<pstade/oven/literal_range.hpp>``
+- Valid expression: ``literal_range<Char,sz> rng(arr)`` and ``arr|as_literal``, where ``arr`` is a ``char`` or ``wchar_t`` array type;
+
+
 ``single_range``
 ^^^^^^^^^^^^^^^^
 ``single_range`` is a `Random Access Range`_ which delivers a range presentation of one object::
@@ -245,7 +281,7 @@ __ http://www.sgi.com/tech/stl/istream_iterator.html
 
 
 - Header: ``<pstade/oven/single_range.hpp>``
-- Valid expression: ``single_range<T> rng(v);`` and ``oven::make_single_range(v)``
+- Valid expression: ``single_range<T> rng(v);``, ``oven::make_single_range(v)`` and ``v|as_single``.
 - Precondition: The type of ``v`` is ``T``.
 
 
@@ -317,14 +353,6 @@ Instead, add ``&`` to make it a function **pointer**.
 - Valid expression: ``rng|applied(f1,f2)``
 - Precondition: ``f1(rng)`` and ``f2(rng)`` return iterators that are convertible to ``rng``\'s.
 - Returns: ``[f1(rng),f2(rng))``.
-
-
-``array_protected``
-^^^^^^^^^^^^^^^^^^^
-- Header: ``<pstade/oven/array_protect_range.hpp>``
-- Valid expression: ``arr|array_protected``
-- Precondition: ``arr`` is an array.
-- Returns: ``[boost::begin(arr),boost::begin(arr)+sz)``, where ``sz`` is the size of ``arr``.
 
 
 ``broken_into``
@@ -581,9 +609,9 @@ Note that ``memoized`` can return a `Forward Range`_ even if its adapting range 
 ``null_terminated``
 ^^^^^^^^^^^^^^^^^^^
 - Header: ``<pstade/oven/null_terminate_range.hpp>``
-- Valid expression: ``fwdRngOrString|null_terminated``
-- Precondition: ``rngOrString`` is a string literal; otherwise, for all the value ``v`` in the ``fwdRngOrString``, the expression ``v == 0`` must be valid, and some ``v`` that the expression is ``true`` exists in the ``fwdRngOrString``.
-- Returns: ``[boost::begin(fwdRngOrString),y)``, where for all the value ``v`` in the range ``v != 0`` is ``true``, and ``*y == 0`` is ``true``.
+- Valid expression: ``fwdRng|null_terminated``
+- Precondition: ``fwdRng`` has a value which is convertible to ``0``.
+- Returns: ``fwdRng|taken_while(_1 != 0)``.
 
 
 ``permuted``
@@ -946,5 +974,6 @@ Version 0.91.2
 ^^^^^^^^^^^^^^
 - Added `Extending Boost.Range`_.
 - Rejected ``out_placed`` and ``sorted``.
-
-
+- Added `literal_range`_ and `c_str_range`_.
+- `null_terminated`_ no longer supports c-string.
+- Added ``as_single`` to `single_range`_'\s valid expression

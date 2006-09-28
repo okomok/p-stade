@@ -11,7 +11,7 @@
 
 
 #include <pstade/oven/algorithm.hpp> // copy
-#include <pstade/oven/as_literal.hpp>
+#include <pstade/oven/literal_range.hpp>
 
 
 namespace pstade { namespace lime {

@@ -12,8 +12,8 @@
 
 #include <boost/foreach.hpp>
 #include <pstade/oven/algorithm.hpp> // copy
-#include <pstade/oven/as_literal.hpp>
 #include <pstade/oven/equals.hpp>
+#include <pstade/oven/literal_range.hpp>
 #include <pstade/oven/range_reference.hpp>
 #include <pstade/unparenthesize.hpp>
 #include <pstade/ustring.hpp>

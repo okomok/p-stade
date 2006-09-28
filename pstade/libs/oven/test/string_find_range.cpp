@@ -20,7 +20,7 @@
 #include <vector>
 #include <boost/foreach.hpp>
 #include <pstade/oven/functions.hpp>
-#include <pstade/oven/as_literal.hpp>
+#include <pstade/oven/literal_range.hpp>
 #include <pstade/oven/copy_range.hpp>
 
 

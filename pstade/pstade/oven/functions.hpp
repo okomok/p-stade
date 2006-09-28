@@ -13,9 +13,6 @@
 #include "./algorithm.hpp"
 
 #include "./adaptor_to_base.hpp"
-#include "./as_array.hpp"
-#include "./as_c_str.hpp"
-#include "./as_literal.hpp"
 #include "./begin_end.hpp"
 #include "./copy_range.hpp"
 #include "./distance.hpp"

@@ -10,11 +10,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/single_range.hpp>
+#include <pstade/oven/c_str_range.hpp>
 
 
-#include <string>
-#include <vector>
 #include <pstade/oven/functions.hpp>
 
 
@@ -23,17 +21,16 @@ void test()
     namespace oven = pstade::oven;
     using namespace oven;
 
-    std::string ans("a");
-
     {
-        BOOST_CHECK( oven::equals(oven::make_single_range('a'), ans) );
+        c_str_range<char const> rng("hello\0range");
+        BOOST_CHECK( oven::equals(rng, std::string("hello")) );
     }
     {
-        BOOST_CHECK( oven::equals('a'|as_single, ans) );
+        BOOST_CHECK( oven::equals("hello\0range"|as_c_str, std::string("hello")) );
     }
     {
-        char ch = 'a';
-        BOOST_CHECK( oven::equals(oven::make_single_range(ch), ans) );
+        wchar_t const *psz = L"hello range";
+        BOOST_CHECK( oven::equals(psz|as_c_str, std::wstring(L"hello range")) );
     }
 }
 

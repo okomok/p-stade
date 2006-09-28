@@ -19,7 +19,7 @@
 #include <string>
 #include <boost/range.hpp>
 #include <boost/range/concepts.hpp>
-#include <pstade/oven/as_literal.hpp>
+#include <pstade/oven/literal_range.hpp>
 #include <pstade/oven/transform_range.hpp>
 
 

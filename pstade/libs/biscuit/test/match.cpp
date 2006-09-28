@@ -16,7 +16,7 @@
 
 #include <string>
 #include <pstade/const.hpp>
-#include <pstade/oven/as_literal.hpp>
+#include <pstade/oven/literal_range.hpp>
 
 
 using namespace pstade;

@@ -20,7 +20,7 @@
 #include <boost/range/begin.hpp>
 #include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/apple/sdk/windows.hpp>
-#include <pstade/oven/as_c_str.hpp>
+#include <pstade/oven/c_str_range.hpp>
 #include <pstade/oven/distance.hpp>
 #include <pstade/oven/equals.hpp>
 #include <pstade/oven/null_terminate_range.hpp>

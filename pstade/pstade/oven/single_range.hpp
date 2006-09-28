@@ -13,6 +13,7 @@
 #include <boost/range/iterator_range.hpp>
 #include <boost/utility/addressof.hpp>
 #include <pstade/egg/function.hpp>
+#include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 
 
@@ -57,6 +58,7 @@ namespace single_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_single_range, single_range_detail::baby_make)
+PSTADE_EGG_PIPABLE(as_single, single_range_detail::baby_make)
 
 
 } } // namespace pstade::oven

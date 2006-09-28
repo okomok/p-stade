@@ -12,7 +12,7 @@
 
 #include <string>
 #include <pstade/lexical_cast.hpp>
-#include <pstade/oven/as_c_str.hpp>
+#include <pstade/oven/c_str_range.hpp>
 #include <pstade/oven/copy_range.hpp>
 
 

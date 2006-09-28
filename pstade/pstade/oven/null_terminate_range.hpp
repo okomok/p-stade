@@ -102,6 +102,7 @@ namespace null_terminate_range_detail {
         template< class Result, class ForwardRange >
         Result call(ForwardRange& rng)
         {
+            BOOST_ASSERT(oven::is_null_terminated(rng));
             return Result(rng);
         }
     };

@@ -15,7 +15,7 @@
 #include <pstade/apple/atl/conv.hpp>
 #include <pstade/egg/baby_auto.hpp>
 #include <pstade/egg/pipable.hpp>
-#include <pstade/oven/as_c_str.hpp>
+#include <pstade/oven/c_str_range.hpp>
 #include <pstade/oven/copy_range.hpp>
 
 

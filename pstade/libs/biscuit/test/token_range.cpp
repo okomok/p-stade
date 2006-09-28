@@ -20,7 +20,7 @@
 #include <boost/range.hpp>
 #include <boost/range/concepts.hpp>
 #include <pstade/oven/functions.hpp>
-#include <pstade/oven/as_literal.hpp>
+#include <pstade/oven/literal_range.hpp>
 
 
 using namespace pstade;

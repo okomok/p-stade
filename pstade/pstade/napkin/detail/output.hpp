@@ -15,7 +15,7 @@
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
 #include <pstade/apple/is_sequence.hpp>
-#include <pstade/oven/as_c_str.hpp>
+#include <pstade/oven/c_str_range.hpp>
 #include <pstade/overload.hpp>
 #include "./is_boost_archive.hpp"
 
