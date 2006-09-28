@@ -480,7 +480,8 @@ namespace pstade_oven_extension {
 
 
     template< PSTADE_APPLE_ATL_CSIMPLEMAP_TEMPLATE_PARAMS >
-    struct range< ATL::CSimpleMap< PSTADE_APPLE_ATL_CSIMPLEMAP_TEMPLATE_ARGS > >
+    struct range< ATL::CSimpleMap< PSTADE_APPLE_ATL_CSIMPLEMAP_TEMPLATE_ARGS > > :
+        noncopyable // how to copy?
     {
         template< class X >
         struct meta

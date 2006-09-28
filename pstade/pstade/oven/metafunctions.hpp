@@ -14,7 +14,9 @@
 
 #include "./range_base.hpp"
 #include "./range_category.hpp"
+#include "./range_constant_iterator.hpp"
 #include "./range_iterator.hpp"
+#include "./range_mutable_iterator.hpp"
 #include "./range_difference.hpp"
 #include "./range_pointer.hpp"
 #include "./range_traversal.hpp"

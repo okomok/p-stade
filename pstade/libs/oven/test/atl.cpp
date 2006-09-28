@@ -32,7 +32,6 @@ namespace oven = pstade::oven;
 using namespace oven;
 
 
-inline
 void test_collection()
 {
     int sample[] = { 0, 1, 2, 3, 4, 5, 6, 7 };
@@ -121,7 +120,6 @@ void test_collection()
 }
 
 
-inline
 void test_string()
 {
     std::basic_string<TCHAR> sample(_T("abcdefgh"));
