@@ -347,12 +347,17 @@ Instead, add ``&`` to make it a function **pointer**.
 ``applied``
 ^^^^^^^^^^^
 ``applied`` returns a range which is adapting by using functors.
-``applied`` is intended to be used with Boost.Phoenix version2.
+``applied`` is intended to be used with Boost.Phoenix version2::
+
+	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\applied.ipp
+
 
 - Header: ``<pstade/oven/apply_range.hpp>``
 - Valid expression: ``rng|applied(f1,f2)``
 - Precondition: ``f1(rng)`` and ``f2(rng)`` return iterators that are convertible to ``rng``\'s.
 - Returns: ``[f1(rng),f2(rng))``.
+
+``rng1`` is the same as ``phoenix::arg1``.
 
 
 ``broken_into``
@@ -881,7 +886,7 @@ Oven provides yet another extension way to simplify the Boost.Range's::
 	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\extension.ipp
 
 
-1. Specialize ``::pstade_oven_extension::range``, which has the second template parameter for ``boost::enable_if``.
+1. Specialize ``::pstade_oven_extension::BoostRange``, which has the second template parameter for ``boost::enable_if``.
 2. Define template ``meta``, ``begin`` and ``end`` like above. The const overloads sometimes can be omitted. ``boost::size`` is automatically extended by Oven.
 3. Call the macro for extension in global namespace.
 

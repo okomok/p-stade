@@ -53,7 +53,7 @@ namespace pstade_oven_extension {
 
 
     template< class T, class Active = void >
-    struct range :
+    struct BoostRange :
         iter_copyable
     { };
 
@@ -76,7 +76,7 @@ namespace pstade { namespace oven { namespace extension_detail {
     struct PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR
     {
         typedef typename remove_cvr<T>::type plain_t;
-        typedef typename pstade_oven_extension::range<plain_t>::template meta<plain_t>::mutable_iterator type;
+        typedef typename pstade_oven_extension::BoostRange<plain_t>::template meta<plain_t>::mutable_iterator type;
     };
 
 
@@ -84,7 +84,7 @@ namespace pstade { namespace oven { namespace extension_detail {
     struct range_const_iterator
     {
         typedef typename remove_cvr<T>::type plain_t;
-        typedef typename pstade_oven_extension::range<plain_t>::template meta<plain_t>::constant_iterator type;
+        typedef typename pstade_oven_extension::BoostRange<plain_t>::template meta<plain_t>::constant_iterator type;
     };
 
 
@@ -108,7 +108,7 @@ namespace pstade { namespace oven { namespace extension_detail {
         Result call(T& x)
         {
             typedef typename boost::remove_cv<T>::type plain_t;
-            return pstade_oven_extension::range<plain_t>().template begin<Result>(x);
+            return pstade_oven_extension::BoostRange<plain_t>().template begin<Result>(x);
         }
     };
 
@@ -126,7 +126,7 @@ namespace pstade { namespace oven { namespace extension_detail {
         Result call(T& x)
         {
             typedef typename boost::remove_cv<T>::type plain_t;
-            return pstade_oven_extension::range<plain_t>().template end<Result>(x);
+            return pstade_oven_extension::BoostRange<plain_t>().template end<Result>(x);
         }
     };
 

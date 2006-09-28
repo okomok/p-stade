@@ -39,7 +39,7 @@ namespace pstade_oven_extension {
 
 
     template< >
-    struct range< WTL::CString >
+    struct BoostRange< WTL::CString >
     {
         template< class X >
         struct meta
@@ -81,8 +81,8 @@ namespace pstade_oven_extension {
 
 
     template< class T >
-    struct range< WTL::CSimpleStack<T> > :
-        range< ATL::CSimpleArray<T> >
+    struct BoostRange< WTL::CSimpleStack<T> > :
+        BoostRange< ATL::CSimpleArray<T> >
     { };
 
 

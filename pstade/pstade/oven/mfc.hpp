@@ -160,7 +160,7 @@ namespace pstade_oven_extension {
     //
 
     template< >
-    struct range< ::CByteArray > :
+    struct BoostRange< ::CByteArray > :
         ms_detail::array_functions,
         noncopyable
     {
@@ -176,7 +176,7 @@ namespace pstade_oven_extension {
 
 
     template< >
-    struct range< ::CDWordArray > :
+    struct BoostRange< ::CDWordArray > :
         ms_detail::array_functions,
         noncopyable
     {
@@ -192,7 +192,7 @@ namespace pstade_oven_extension {
 
 
     template< >
-    struct range< ::CObArray > :
+    struct BoostRange< ::CObArray > :
         ms_detail::mfc_ptr_array_functions
     {
         template< class X >
@@ -205,7 +205,7 @@ namespace pstade_oven_extension {
 
 
     template< >
-    struct range< ::CPtrArray > :
+    struct BoostRange< ::CPtrArray > :
         ms_detail::mfc_ptr_array_functions
     {
         template< class X >
@@ -218,7 +218,7 @@ namespace pstade_oven_extension {
 
 
     template< >
-    struct range< ::CStringArray > :
+    struct BoostRange< ::CStringArray > :
         ms_detail::array_functions,
         noncopyable
     {
@@ -234,7 +234,7 @@ namespace pstade_oven_extension {
 
 
     template< >
-    struct range< ::CUIntArray > :
+    struct BoostRange< ::CUIntArray > :
         ms_detail::array_functions,
         noncopyable
     {
@@ -250,7 +250,7 @@ namespace pstade_oven_extension {
 
 
     template< >
-    struct range< ::CWordArray > :
+    struct BoostRange< ::CWordArray > :
         ms_detail::array_functions,
         noncopyable
     {
@@ -269,7 +269,7 @@ namespace pstade_oven_extension {
     //
 
     template< >
-    struct range< ::CObList > :
+    struct BoostRange< ::CObList > :
         ms_detail::list_functions
     {
         template< class X >
@@ -286,7 +286,7 @@ namespace pstade_oven_extension {
 
 
     template< >
-    struct range< ::CPtrList > :
+    struct BoostRange< ::CPtrList > :
         ms_detail::list_functions
     {
         template< class X >
@@ -303,7 +303,7 @@ namespace pstade_oven_extension {
 
 
     template< >
-    struct range< ::CStringList > :
+    struct BoostRange< ::CStringList > :
         ms_detail::list_functions
     {
         template< class X >
@@ -516,7 +516,7 @@ namespace pstade_oven_extension {
     //
 
     template< >
-    struct range< ::CMapPtrToWord > :
+    struct BoostRange< ::CMapPtrToWord > :
         ms_detail::mfc_map_functions
     {
         template< class X >
@@ -532,7 +532,7 @@ namespace pstade_oven_extension {
 
 
     template< >
-    struct range< ::CMapPtrToPtr > :
+    struct BoostRange< ::CMapPtrToPtr > :
         ms_detail::mfc_map_functions
     {
         template< class X >
@@ -548,7 +548,7 @@ namespace pstade_oven_extension {
 
 
     template< >
-    struct range< ::CMapStringToOb > :
+    struct BoostRange< ::CMapStringToOb > :
         ms_detail::mfc_map_functions
     {
         template< class X >
@@ -564,7 +564,7 @@ namespace pstade_oven_extension {
 
 
     template< >
-    struct range< ::CMapStringToPtr > :
+    struct BoostRange< ::CMapStringToPtr > :
         ms_detail::mfc_map_functions
     {
         template< class X >
@@ -580,7 +580,7 @@ namespace pstade_oven_extension {
 
 
     template< >
-    struct range< ::CMapStringToString > :
+    struct BoostRange< ::CMapStringToString > :
     #if !defined(PSTADE_APPLE_MFC_NO_CPAIR)
         ms_detail::mfc_cpair_map_functions
     #else
@@ -607,7 +607,7 @@ namespace pstade_oven_extension {
 
 
     template< >
-    struct range< ::CMapWordToOb > :
+    struct BoostRange< ::CMapWordToOb > :
         ms_detail::mfc_map_functions
     {
         template< class X >
@@ -623,7 +623,7 @@ namespace pstade_oven_extension {
 
 
     template< >
-    struct range< ::CMapWordToPtr > :
+    struct BoostRange< ::CMapWordToPtr > :
         ms_detail::mfc_map_functions
     {
         template< class X >
@@ -642,7 +642,7 @@ namespace pstade_oven_extension {
     //
 
     template< class Type, class ArgType >
-    struct range< ::CArray<Type, ArgType> > :
+    struct BoostRange< ::CArray<Type, ArgType> > :
         ms_detail::array_functions,
         noncopyable
     {
@@ -658,7 +658,7 @@ namespace pstade_oven_extension {
 
 
     template< class Type, class ArgType >
-    struct range< ::CList<Type, ArgType> > :
+    struct BoostRange< ::CList<Type, ArgType> > :
         ms_detail::list_functions
     {
         template< class X >
@@ -677,7 +677,7 @@ namespace pstade_oven_extension {
 
 
     template< class Key, class ArgKey, class Mapped, class ArgMapped >
-    struct range< ::CMap<Key, ArgKey, Mapped, ArgMapped> > :
+    struct BoostRange< ::CMap<Key, ArgKey, Mapped, ArgMapped> > :
     #if !defined(PSTADE_APPLE_MFC_NO_CPAIR)
         ms_detail::mfc_cpair_map_functions
     #else
@@ -704,7 +704,7 @@ namespace pstade_oven_extension {
 
 
     template< class BaseClass, class PtrType >
-    struct range< ::CTypedPtrArray<BaseClass, PtrType> > :
+    struct BoostRange< ::CTypedPtrArray<BaseClass, PtrType> > :
         noncopyable
     {
         template< class X >
@@ -751,7 +751,7 @@ namespace pstade_oven_extension {
 
 
     template< class BaseClass, class PtrType >
-    struct range< ::CTypedPtrList<BaseClass, PtrType> > :
+    struct BoostRange< ::CTypedPtrList<BaseClass, PtrType> > :
         ms_detail::list_functions
     {
         template< class X >
@@ -767,7 +767,7 @@ namespace pstade_oven_extension {
 
 
     template< class BaseClass, class KeyPtrType, class MappedPtrType >
-    struct range< ::CTypedPtrMap<BaseClass, KeyPtrType, MappedPtrType> > :
+    struct BoostRange< ::CTypedPtrMap<BaseClass, KeyPtrType, MappedPtrType> > :
         ms_detail::mfc_map_functions
     {
         template< class X >
@@ -785,7 +785,7 @@ namespace pstade_oven_extension {
 #if defined(PSTADE_APPLE_MFC_HAS_LEGACY_STRING)
 
     template< >
-    struct range< ::CString >
+    struct BoostRange< ::CString >
     {
         template< class X >
         struct meta

@@ -73,6 +73,13 @@ void test()
             )
         ));
     }
+    {
+        std::string src("112244221144");
+        //src.erase(
+        src|applied(ph::remove(rng1, '2'), oven::end)
+        //)
+        ;
+    }
 #endif
 
 #if 0 // deprecated interface

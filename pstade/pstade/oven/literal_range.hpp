@@ -17,9 +17,9 @@
 // Consider "hello\0secret".
 // What should 'boost::to_upper("hello\0secret")' do?
 // So Oven has another function 'as_c_str'.
-// 'equals(std::string("hello\0secret"), "hello\0secret"|as_literal);'
-// 'equals(std::string("hello"), "hello\0secret"|array_protected|taken_while(_1 != 0));'
-// 'equals(std::string("hello"), "hello\0secret"|as_c_str);' // optimized shortcut for above.
+// "hello\0secret"|as_literal      == *hello\0secret*
+// "hello\0secret"|as_c_str        == *hello*
+// "hello\0secret"|array_protected == *hello\0secret\0*
 
 
 #include <cstddef> // size_t
