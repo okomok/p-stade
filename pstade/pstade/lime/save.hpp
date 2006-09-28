@@ -12,8 +12,8 @@
 
 #include <boost/foreach.hpp>
 #include <pstade/oven/algorithm.hpp> // copy
+#include <pstade/oven/as_literal.hpp>
 #include <pstade/oven/equals.hpp>
-#include <pstade/oven/null_terminate_range.hpp>
 #include <pstade/oven/range_reference.hpp>
 #include <pstade/unparenthesize.hpp>
 #include <pstade/ustring.hpp>
@@ -31,18 +31,18 @@ namespace pstade { namespace lime {
     template< class AssocContainer, class OutIter >
     void save_attributes(AssocContainer const& attributes, OutIter const& out)
     {
-        using oven::null_terminated;
+        using oven::as_literal;
 
         BOOST_FOREACH (
             PSTADE_UNPARENTHESIZE((std::pair<ustring, ustring>)) att,
             attributes
         )
         {
-            oven::copy(" "|null_terminated, out);
+            oven::copy(" "|as_literal, out);
             oven::copy(att.first, out);
-            oven::copy("=\""|null_terminated, out);
+            oven::copy("=\""|as_literal, out);
             oven::copy(att.second, out);
-            oven::copy("\""|null_terminated, out);
+            oven::copy("\""|as_literal, out);
         }
     }
 
@@ -50,7 +50,7 @@ namespace pstade { namespace lime {
     template< class Node, class OutIter >
     void save_default(Node& node, OutIter const& out)
     {
-        using oven::null_terminated;
+        using oven::as_literal;
         typedef typename oven::range_reference<Node>::type child_t;
 
         if (oven::equals(node.name(), i_CharData) ||
@@ -61,12 +61,12 @@ namespace pstade { namespace lime {
         }
 
         { // STag
-            oven::copy("<"|null_terminated, out);
+            oven::copy("<"|as_literal, out);
             oven::copy(node.name(), out);
 
             lime::save_attributes(node.attributes(), out);
 
-            oven::copy(">"|null_terminated, out);
+            oven::copy(">"|as_literal, out);
         }
 
         BOOST_FOREACH (child_t child, node) {
@@ -74,9 +74,9 @@ namespace pstade { namespace lime {
         }
 
         { // ETag
-            oven::copy("</"|null_terminated, out);
+            oven::copy("</"|as_literal, out);
             oven::copy(node.name(), out);
-            oven::copy(">"|null_terminated, out);
+            oven::copy(">"|as_literal, out);
         }
     }
 

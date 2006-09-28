@@ -89,7 +89,7 @@ int main(int argc, char *argv[])
             pstade::require(fout, "good output file: " + oname);
 
             oven::copy("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\" ?>"
-                "<pre class=\"cpp_source\">"|oven::null_terminated, oven::to_stream(fout));
+                "<pre class=\"cpp_source\">"|oven::as_literal, oven::to_stream(fout));
 
              biscuit::match<
                 iteration<cpp_to_hatena::start, cpp_to_hatena::act_line_escape>
@@ -104,7 +104,7 @@ int main(int argc, char *argv[])
                 oven::to_utf8_encoder(oven::to_stream(fout))|argued      // UTF-8‚É–ß‚µ‚Äo—Í
             );
 
-            oven::copy("</pre>"|oven::null_terminated, oven::to_stream(fout));
+            oven::copy("</pre>"|oven::as_literal, oven::to_stream(fout));
 
             std::cout << "<output-file>" << oname << "</output-file>";
 

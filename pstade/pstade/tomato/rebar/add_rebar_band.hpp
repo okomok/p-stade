@@ -18,6 +18,7 @@
 #include <pstade/apple/wtl/ctrls.hpp> // CReBarCtrl
 #include <pstade/candy/set.hpp>
 #include <pstade/oven/append_range.hpp>
+#include <pstade/oven/as_c_str.hpp>
 #include <pstade/oven/begin_end.hpp>
 #include <pstade/oven/copy_range.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
@@ -41,7 +42,7 @@ void add_rebar_band(window_ref rebar, window_ref child, UINT fStyle, CStringizab
     // info.lpText is not 'const'. 'const_cast' is dangerous,
     // so that, copy it.
     std::vector<TCHAR> text; {
-        text = str|c_stringized|oven::null_terminated
+        text = str|c_stringized|oven::as_c_str
             |oven::appended(_T('\0'))|oven::copied;
         BOOST_ASSERT(oven::is_null_terminated(text));
     }

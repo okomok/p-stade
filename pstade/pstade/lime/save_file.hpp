@@ -13,7 +13,6 @@
 #include <fstream> // ofstream
 #include <string>
 #include <boost/throw_exception.hpp>
-#include <pstade/oven/null_terminate_range.hpp>
 #include <pstade/oven/to_stream.hpp>
 #include <pstade/oven/to_utf8_encoder.hpp>
 #include <pstade/what.hpp>

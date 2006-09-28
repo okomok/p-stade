@@ -69,6 +69,9 @@ namespace not_detail {
     template< class Predicate >
     struct baby_fun
     {
+        explicit baby_fun() // DefaultConstructible if 'Predicate' is.
+        { }
+
         explicit baby_fun(Predicate const& pred) :
             m_pred(pred)
         { }
@@ -148,6 +151,23 @@ struct less_fun
 };
 
 PSTADE_INSTANCE(less_fun const, less, value)
+
+
+// is_zero
+//
+
+struct is_zero_fun
+{
+    typedef bool result_type;
+
+    template< class X >
+    bool operator()(X const& x) const
+    {
+        return x == 0;
+    }
+};
+
+PSTADE_INSTANCE(is_zero_fun const, is_zero, value)
 
 
 // plus

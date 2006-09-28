@@ -17,7 +17,7 @@
 #include <string>
 #include <vector>
 #include <pstade/oven/algorithm.hpp> // copy
-#include <pstade/oven/null_terminate_range.hpp>
+#include <pstade/oven/as_literal.hpp>
 
 
 void test()
@@ -28,7 +28,7 @@ void test()
     // variadic forms
     {
         std::vector<char> text; {
-            oven::copy("aBcDefgH"|oven::null_terminated, std::back_inserter(text));
+            oven::copy("aBcDefgH"|oven::as_literal, std::back_inserter(text));
         }
         BOOST_CHECK((  biscuit::match< seq< as_lower< chseq<'a','b','c','d','e'> >, chseq<'f','g','H'> > >(text) ));
         BOOST_CHECK(( !biscuit::match< seq< as_lower< chseq<'a','b','c','d','e'> >, chseq<'F','g','H'> > >(text) ));
@@ -45,10 +45,10 @@ void test()
     }
 
     {
-        BOOST_CHECK((  biscuit::match< seq< as_lower< chseq<'a','b','c','d','e'> >, chseq<'f','g','H'> > >("aBcDefgH"|oven::null_terminated) ));
-        BOOST_CHECK(( !biscuit::match< seq< as_lower< chseq<'a','b','c','d','e'> >, chseq<'F','g','H'> > >("aBcDefgH"|oven::null_terminated) ));
-        BOOST_CHECK(( !biscuit::match< seq< as_lower< chseq<'a','b','C','d','e'> >, chseq<'f','g','H'> > >("aBcDefgH"|oven::null_terminated) ));
-        BOOST_CHECK(( !biscuit::match< seq< as_lower< chseq<'a','b','c','d','E'> >, chseq<'F','g','H'> > >("aBcDefgH"|oven::null_terminated) ));
+        BOOST_CHECK((  biscuit::match< seq< as_lower< chseq<'a','b','c','d','e'> >, chseq<'f','g','H'> > >("aBcDefgH"|oven::as_literal) ));
+        BOOST_CHECK(( !biscuit::match< seq< as_lower< chseq<'a','b','c','d','e'> >, chseq<'F','g','H'> > >("aBcDefgH"|oven::as_literal) ));
+        BOOST_CHECK(( !biscuit::match< seq< as_lower< chseq<'a','b','C','d','e'> >, chseq<'f','g','H'> > >("aBcDefgH"|oven::as_literal) ));
+        BOOST_CHECK(( !biscuit::match< seq< as_lower< chseq<'a','b','c','d','E'> >, chseq<'F','g','H'> > >("aBcDefgH"|oven::as_literal) ));
     }
 
     // numbered forms
@@ -69,10 +69,10 @@ void test()
     }
 
     {
-        BOOST_CHECK((  biscuit::match< seq2< as_lower< chseq5<'a','b','c','d','e'> >, chseq3<'f','g','H'> > >("aBcDefgH"|oven::null_terminated) ));
-        BOOST_CHECK(( !biscuit::match< seq2< as_lower< chseq5<'a','b','c','d','e'> >, chseq3<'F','g','H'> > >("aBcDefgH"|oven::null_terminated) ));
-        BOOST_CHECK(( !biscuit::match< seq2< as_lower< chseq5<'a','b','C','d','e'> >, chseq3<'f','g','H'> > >("aBcDefgH"|oven::null_terminated) ));
-        BOOST_CHECK(( !biscuit::match< seq2< as_lower< chseq5<'a','b','c','d','E'> >, chseq3<'F','g','H'> > >("aBcDefgH"|oven::null_terminated) ));
+        BOOST_CHECK((  biscuit::match< seq2< as_lower< chseq5<'a','b','c','d','e'> >, chseq3<'f','g','H'> > >("aBcDefgH"|oven::as_literal) ));
+        BOOST_CHECK(( !biscuit::match< seq2< as_lower< chseq5<'a','b','c','d','e'> >, chseq3<'F','g','H'> > >("aBcDefgH"|oven::as_literal) ));
+        BOOST_CHECK(( !biscuit::match< seq2< as_lower< chseq5<'a','b','C','d','e'> >, chseq3<'f','g','H'> > >("aBcDefgH"|oven::as_literal) ));
+        BOOST_CHECK(( !biscuit::match< seq2< as_lower< chseq5<'a','b','c','d','E'> >, chseq3<'F','g','H'> > >("aBcDefgH"|oven::as_literal) ));
     }
 }
 

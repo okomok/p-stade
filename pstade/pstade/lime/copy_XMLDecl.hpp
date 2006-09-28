@@ -11,7 +11,7 @@
 
 
 #include <pstade/oven/algorithm.hpp> // copy
-#include <pstade/oven/null_terminate_range.hpp>
+#include <pstade/oven/as_literal.hpp>
 
 
 namespace pstade { namespace lime {
@@ -21,7 +21,7 @@ namespace pstade { namespace lime {
     void copy_XMLDecl(OutIter const& out)
     {
         oven::copy(
-            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"|oven::null_terminated,
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"|oven::as_literal,
             out
         );
     }

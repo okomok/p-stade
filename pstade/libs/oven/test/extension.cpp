@@ -174,6 +174,16 @@ namespace pstade_oven_extension {
         {
             return x.last;
         }
+
+        // optional, but recommanded.
+        template< class X, class Range >
+        X copy(Range& rng)
+        {
+            X x;
+            x.first = boost::begin(rng);
+            x.last  = boost::end(rng);
+            return x;
+        }
     };
 
 } // namespace pstade_oven_extension
@@ -199,6 +209,7 @@ void test()
         oven::test_random_access(cont3);
         oven::test_random_access(seq1);
         oven::test_random_access(pr);
+        oven::test_copyable< Foo::Pair<int *> >(pr);
     }
 }
 

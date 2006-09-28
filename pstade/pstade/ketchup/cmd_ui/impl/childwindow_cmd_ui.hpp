@@ -39,7 +39,7 @@ private:
         tomato::check_window(m_child, state);
     }
 
-    void override_set_text(const TCHAR *pszText)
+    void override_set_text(TCHAR const *pszText)
     {
         tomato::set_window_text(m_child, pszText);
     }

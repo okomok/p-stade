@@ -16,7 +16,7 @@
 
 #include <string>
 #include <pstade/const.hpp>
-#include <pstade/oven/null_terminate_range.hpp>
+#include <pstade/oven/as_literal.hpp>
 
 
 using namespace pstade;
@@ -48,12 +48,12 @@ void test()
             star_until< any, chseq2<'*','/'> >
         > c_comment;
 
-        BOOST_CHECK( biscuit::match<c_comment>("/* hello, c comment */"|oven::null_terminated) );
+        BOOST_CHECK( biscuit::match<c_comment>("/* hello, c comment */"|oven::as_literal) );
     }
     
     {
-        BOOST_CHECK( biscuit::match<xml_comment>("<!-- hello, xml comment -->"|oven::null_terminated) );
-        BOOST_CHECK( !biscuit::match<xml_comment>("<!-- not well-formed comment -- -->"|oven::null_terminated) );
+        BOOST_CHECK( biscuit::match<xml_comment>("<!-- hello, xml comment -->"|oven::as_literal) );
+        BOOST_CHECK( !biscuit::match<xml_comment>("<!-- not well-formed comment -- -->"|oven::as_literal) );
     }
     {
         std::string str("<!-- hello, xml comment -->");

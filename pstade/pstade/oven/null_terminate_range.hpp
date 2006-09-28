@@ -10,43 +10,22 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Question:
-//
-// Is cstring_range/cstringized a better name ?
-
-
-#include <algorithm>    // find
-#include <cstddef>      // size_t
-#include <cstring>      // strlen
-#include <cwchar>       // wcslen
-#include <stdexcept>    // range_error
-#include <string>
+#include <algorithm> // find
 #include <boost/assert.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/empty.hpp>
 #include <boost/range/end.hpp>
-#include <boost/range/const_iterator.hpp>
-#include <boost/range/iterator_range.hpp>
-#include <boost/throw_exception.hpp>
+#include <boost/utility/result_of.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
+#include <pstade/functional.hpp> // not_, is_zero
 #include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
 #include "./range_iterator.hpp"
-#include "./range_value.hpp"
+#include "./take_while_range.hpp"
 
 
 namespace pstade { namespace oven {
-
-
-template< class ForwardRange > inline
-void null_terminate(ForwardRange& rng)
-{
-    BOOST_ASSERT(!boost::empty(rng));
-
-    typedef typename range_value<ForwardRange>::type val_t;
-    *boost::begin(rng) = val_t('\0');
-}
 
 
 template< class ForwardRange >
@@ -54,14 +33,21 @@ bool is_null_terminated(ForwardRange const& rng)
 {
     detail::requires< boost::ForwardRangeConcept<ForwardRange> >();
 
-    typedef typename boost::range_const_iterator<ForwardRange>::type iter_t;
-    typedef typename range_value<ForwardRange>::type val_t;
+    typedef typename range_iterator_const<ForwardRange>::type iter_t;
 
     iter_t first = boost::begin(rng);
     iter_t last = boost::end(rng);
-    iter_t it = std::find(first, last, val_t('\0'));
+    iter_t it = std::find(first, last, 0);
 
-    return (it != last);
+    return it != last;
+}
+
+
+template< class ForwardRange > inline
+void null_terminate(ForwardRange& rng)
+{
+    BOOST_ASSERT(!boost::empty(rng));
+    *boost::begin(rng) = 0;
 }
 
 
@@ -69,135 +55,11 @@ namespace null_terminate_range_detail {
 
 
     template< class ForwardRange >
-    typename range_iterator<ForwardRange>::type
-    begin(ForwardRange& rng)
-    {
-        detail::requires< boost::ForwardRangeConcept<ForwardRange> >();
-        return boost::begin(rng);
-    }
-
-    template< class ForwardRange >
-    typename range_iterator<ForwardRange>::type
-    end(ForwardRange& rng)
-    {
-        detail::requires< boost::ForwardRangeConcept<ForwardRange> >();
-
-        typedef typename range_iterator<ForwardRange>::type iter_t;
-        typedef typename range_value<ForwardRange>::type val_t;
-
-        iter_t first = boost::begin(rng);
-        iter_t last = boost::end(rng);
-        iter_t it = std::find(first, last, val_t('\0'));
-
-        if (it == last) {
-            std::string msg("pstade::oven - rng must be null-terminated.");
-            boost::throw_exception(std::range_error(msg));
-        }
-
-        return it;
-    }
-
-
-    // take both array and pointer out of Boost.Range.
-    //
-
-    template< class T > inline
-    T *begin(T *s)
-    {
-        return s;
-    }
-
-    template< class T > inline
-    T *end(T *s)
-    {
-        while (*s != '\0')
-            ++s;
-
-        return s;
-    }
-
-
-    inline
-    char *begin(char *s)
-    {
-        return s;
-    }
-
-    inline
-    char *end(char *s)
-    {
-        using namespace std;
-        return s + strlen(s);
-    }
-
-    inline
-    char const *begin(const char *s)
-    {
-        return s;
-    }
-
-    inline
-    char const *end(const char *s)
-    {
-        using namespace std;
-        return s + strlen(s);
-    }
-
-
-    inline
-    wchar_t *begin(wchar_t *s)
-    {
-        return s;
-    }
-
-    inline
-    wchar_t *end(wchar_t *s)
-    {
-        using namespace std;
-        return s + wcslen(s);
-    }
-
-    inline
-    wchar_t const *begin(const wchar_t *s)
-    {
-        return s;
-    }
-
-    inline
-    wchar_t const *end(const wchar_t *s)
-    {
-        using namespace std;
-        return s + wcslen(s);
-    }
-
-
-    // meta
-    //
-
-    template< class ForwardRange >
-    struct iter
-    {
-        typedef typename range_iterator<ForwardRange>::type type;
-    };
-
-    template< class T >
-    struct iter<T *>
-    {
-        typedef T *type;
-    };
-
-    template< class T, std::size_t sz >
-    struct iter<T [sz]>
-    {
-        typedef T *type;
-    };
-
-
-    template< class ForwardRangeOrCString >
     struct super_
     {
-        typedef boost::iterator_range<
-            typename iter<ForwardRangeOrCString>::type 
+        typedef take_while_range<
+            ForwardRange,
+            typename boost::result_of<not_fun(is_zero_fun)>::type
         > type;
     };
 
@@ -205,19 +67,23 @@ namespace null_terminate_range_detail {
 } // namespace null_terminate_range_detail
 
 
-template< class ForwardRangeOrCString >
+
+template< class ForwardRange >
 struct null_terminate_range :
-    null_terminate_range_detail::super_<ForwardRangeOrCString>::type,
-    private as_lightweight_proxy< null_terminate_range<ForwardRangeOrCString> >
+    null_terminate_range_detail::super_<ForwardRange>::type,
+    /*private, which VC7.1 complains about*/
+    as_lightweight_proxy< null_terminate_range<ForwardRange> >
 {
-    typedef ForwardRangeOrCString pstade_oven_range_base_type;
+    typedef ForwardRange pstade_oven_range_base_type;
 
 private:
-    typedef typename null_terminate_range_detail::super_<ForwardRangeOrCString>::type super_t;
+    PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeRangeConcept);
+    typedef typename null_terminate_range_detail::super_<ForwardRange>::type super_t;
+    typedef typename super_t::predicate_type pred_t;
 
 public:
-    explicit null_terminate_range(ForwardRangeOrCString& x) :
-        super_t(null_terminate_range_detail::begin(x), null_terminate_range_detail::end(x))
+    explicit null_terminate_range(ForwardRange& rng) :
+        super_t(rng, pred_t())
     { }
 };
 
@@ -227,22 +93,21 @@ namespace null_terminate_range_detail {
 
     struct baby_make
     {
-        template< class Unused, class ForwardRangeOrCString >
+        template< class Unused, class ForwardRange >
         struct apply
         {
-            typedef null_terminate_range<ForwardRangeOrCString> const type;
+            typedef null_terminate_range<ForwardRange> const type;
         };
 
-        template< class Result, class ForwardRangeOrCString >
-        Result call(ForwardRangeOrCString& x)
+        template< class Result, class ForwardRange >
+        Result call(ForwardRange& rng)
         {
-            return Result(x);
+            return Result(rng);
         }
     };
 
 
 } // namespace null_terminate_range_detail
-
 
 
 PSTADE_EGG_FUNCTION(make_null_terminate_range, null_terminate_range_detail::baby_make)

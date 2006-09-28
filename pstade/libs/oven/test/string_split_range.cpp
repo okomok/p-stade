@@ -20,7 +20,7 @@
 #include <vector>
 #include <boost/foreach.hpp>
 #include <pstade/oven/functions.hpp>
-#include <pstade/oven/null_terminate_range.hpp>
+#include <pstade/oven/as_literal.hpp>
 #include <pstade/oven/copy_range.hpp>
 
 
@@ -59,14 +59,14 @@ void test()
         // ICE under VC7.1/8.
         BOOST_FOREACH (
             boost::sub_range<std::string> m,
-            src|string_split( boost::algorithm::first_finder("-*-"|null_terminated, boost::algorithm::is_iequal()) )
+            src|string_split( boost::algorithm::first_finder("-*-"|as_literal, boost::algorithm::is_iequal()) )
         ) {
             out.push_back(m|oven::copied);
         }
 #endif
 
         oven::for_each(
-            src|string_split( boost::first_finder("-*-"|null_terminated, boost::is_iequal()) ),
+            src|string_split( boost::first_finder("-*-"|as_literal, boost::is_iequal()) ),
             ::fun(out)
         );
 

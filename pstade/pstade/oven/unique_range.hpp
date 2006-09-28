@@ -48,10 +48,11 @@ struct unique_range :
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeConcept);
     typedef typename unique_range_detail::super_<ForwardRange>::type super_t;
+    typedef typename super_t::predicate_type pred_t;
 
 public:
     explicit unique_range(ForwardRange& rng) :
-        super_t(rng, pstade::not_(equal_to))
+        super_t(rng, pred_t())
     { }
 };
 

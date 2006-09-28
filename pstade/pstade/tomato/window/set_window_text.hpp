@@ -16,9 +16,11 @@
 
 
 #include <boost/array.hpp>
+#include <boost/range/iterator_range.hpp>
 #include <boost/range/begin.hpp>
 #include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/apple/sdk/windows.hpp>
+#include <pstade/oven/as_c_str.hpp>
 #include <pstade/oven/distance.hpp>
 #include <pstade/oven/equals.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
@@ -35,7 +37,7 @@ template< class CStringizable >
 void set_window_text(window_ref wnd, CStringizable const& str)
 {
     TCHAR const *pszNew = str|c_stringized;
-    oven::null_terminate_range<TCHAR const *> rngNew(pszNew);
+    boost::iterator_range<TCHAR const *> rngNew(pszNew|oven::as_c_str);
     int newLen = static_cast<int>(oven::distance(rngNew));
 
     typedef static_c<int, 255> bufLen;

@@ -44,19 +44,19 @@ struct S :
 
 void test_introduction()
 {
-    PSTADE_CHECK( biscuit::match<expression>( "12345"|oven::null_terminated|biscuit::filtered<skip_space>() ) );
-    PSTADE_CHECK( biscuit::match<expression>( "-12345"|oven::null_terminated|biscuit::filtered<skip_space>() ) );
-    PSTADE_CHECK( biscuit::match<expression>( "+12345"|oven::null_terminated|biscuit::filtered<skip_space>() ) );
-    PSTADE_CHECK( biscuit::match<expression>( "1 + 2"|oven::null_terminated|biscuit::filtered<skip_space>() ) );
-    PSTADE_CHECK( biscuit::match<expression>( "1 * 2"|oven::null_terminated|biscuit::filtered<skip_space>() ) );
-    PSTADE_CHECK( biscuit::match<expression>( "1/2 + 3/4"|oven::null_terminated|biscuit::filtered<skip_space>() ) );
-    PSTADE_CHECK( biscuit::match<expression>( "1 + 2 + 3 + 4"|oven::null_terminated|biscuit::filtered<skip_space>() ) );
-    PSTADE_CHECK( biscuit::match<expression>( "1 * 2 * 3 * 4"|oven::null_terminated|biscuit::filtered<skip_space>() ) );
-    PSTADE_CHECK( biscuit::match<expression>( "(1 + 2) * (3 + 4)"|oven::null_terminated|biscuit::filtered<skip_space>() ) );
-    PSTADE_CHECK( biscuit::match<expression>(  "(-1 + 2) * (3 + -4)"|oven::null_terminated|biscuit::filtered<skip_space>() ) );
-    PSTADE_CHECK( biscuit::match<expression>( "1 + ((6 * 200) - 20) / 6"|oven::null_terminated|biscuit::filtered<skip_space>() ) );
-    PSTADE_CHECK( biscuit::match<expression>( "(1 + (2 + (3 + (4 + 5))))"|oven::null_terminated|biscuit::filtered<skip_space>() ) );
-    PSTADE_CHECK( !biscuit::match<expression>( "(1 + (2 + (3 + (4 + 5)))"|oven::null_terminated|biscuit::filtered<skip_space>() ) );
+    PSTADE_CHECK( biscuit::match<expression>( "12345"|oven::as_literal|biscuit::filtered<skip_space>() ) );
+    PSTADE_CHECK( biscuit::match<expression>( "-12345"|oven::as_literal|biscuit::filtered<skip_space>() ) );
+    PSTADE_CHECK( biscuit::match<expression>( "+12345"|oven::as_literal|biscuit::filtered<skip_space>() ) );
+    PSTADE_CHECK( biscuit::match<expression>( "1 + 2"|oven::as_literal|biscuit::filtered<skip_space>() ) );
+    PSTADE_CHECK( biscuit::match<expression>( "1 * 2"|oven::as_literal|biscuit::filtered<skip_space>() ) );
+    PSTADE_CHECK( biscuit::match<expression>( "1/2 + 3/4"|oven::as_literal|biscuit::filtered<skip_space>() ) );
+    PSTADE_CHECK( biscuit::match<expression>( "1 + 2 + 3 + 4"|oven::as_literal|biscuit::filtered<skip_space>() ) );
+    PSTADE_CHECK( biscuit::match<expression>( "1 * 2 * 3 * 4"|oven::as_literal|biscuit::filtered<skip_space>() ) );
+    PSTADE_CHECK( biscuit::match<expression>( "(1 + 2) * (3 + 4)"|oven::as_literal|biscuit::filtered<skip_space>() ) );
+    PSTADE_CHECK( biscuit::match<expression>(  "(-1 + 2) * (3 + -4)"|oven::as_literal|biscuit::filtered<skip_space>() ) );
+    PSTADE_CHECK( biscuit::match<expression>( "1 + ((6 * 200) - 20) / 6"|oven::as_literal|biscuit::filtered<skip_space>() ) );
+    PSTADE_CHECK( biscuit::match<expression>( "(1 + (2 + (3 + (4 + 5))))"|oven::as_literal|biscuit::filtered<skip_space>() ) );
+    PSTADE_CHECK( !biscuit::match<expression>( "(1 + (2 + (3 + (4 + 5)))"|oven::as_literal|biscuit::filtered<skip_space>() ) );
 
     PSTADE_CHECK( biscuit::match< S >("(()())") );
     PSTADE_CHECK( biscuit::match< S >("(()()(())()())") );
@@ -135,8 +135,8 @@ void test_actor()
 //
 void test_match()
 {
-    PSTADE_CHECK( biscuit::match<xml_comment>("<!-- hello, xml comment -->"|oven::null_terminated) );
-    PSTADE_CHECK( !biscuit::match<xml_comment>("<!-- not well-formed comment -- -->"|oven::null_terminated) );
+    PSTADE_CHECK( biscuit::match<xml_comment>("<!-- hello, xml comment -->"|oven::as_literal) );
+    PSTADE_CHECK( !biscuit::match<xml_comment>("<!-- not well-formed comment -- -->"|oven::as_literal) );
 }
 
 
@@ -183,7 +183,7 @@ void test_filter_range()
             biscuit::make_filter_range< biscuit::not_< chset<'&','.','%'> > >(
                 biscuit::make_filter_range< biscuit::not_<space> >(
                     biscuit::make_filter_range< biscuit::not_<digit> >(
-                        oven::make_null_terminate_range("x & 4 y . 125 %  z")
+                        "x & 4 y . 125 %  z"|oven::as_literal
                     )
                 )
             )
@@ -193,7 +193,7 @@ void test_filter_range()
     PSTADE_CHECK((
         biscuit::match< repeat< char_<'D'>, 3 > >(
             "abcdabcdabcd" |
-                oven::null_terminated |
+                oven::as_literal |
                 biscuit::filtered< biscuit::not_< char_<'a'> > >() |
                 biscuit::filtered< biscuit::not_< char_<'b'> > >() |
                 biscuit::filtered< biscuit::not_< char_<'c'> > >() |
@@ -218,7 +218,7 @@ void test_token_range()
     BOOST_FOREACH (
         boost::iterator_range<const char *> rng,
         "  /* c comment no.1 */int i; /* c comment no.2 */i = 1; /* c comment no.3 */ ++i;  " |
-            oven::null_terminated |
+            oven::as_literal |
             biscuit::tokenized<c_comment>()
     ) {
         std::cout << oven::copy_range<std::string>(rng) << std::endl;
@@ -308,7 +308,7 @@ struct pattern_loader
 void test_seq_range()
 {
     std::string pattern("ab");
-    PSTADE_CHECK(( biscuit::match< seq< chseq<'x'>, seq_range<pattern_loader>, chseq<'y'> > >("xabcy"|oven::null_terminated, pattern) ));
+    PSTADE_CHECK(( biscuit::match< seq< chseq<'x'>, seq_range<pattern_loader>, chseq<'y'> > >("xabcy"|oven::as_literal, pattern) ));
 }
 
 
@@ -317,9 +317,9 @@ void test_seq_range()
 void test_set_range()
 {
     std::string pattern("ab");
-    PSTADE_CHECK(( biscuit::match< seq< chseq<'x'>, set_range<pattern_loader>, chseq<'y'> > >("xay"|oven::null_terminated, pattern) ));
-    PSTADE_CHECK(( biscuit::match< seq< chseq<'x'>, set_range<pattern_loader>, chseq<'y'> > >("xby"|oven::null_terminated, pattern) ));
-    PSTADE_CHECK(( biscuit::match< seq< chseq<'x'>, set_range<pattern_loader>, chseq<'y'> > >("xcy"|oven::null_terminated, pattern) ));
+    PSTADE_CHECK(( biscuit::match< seq< chseq<'x'>, set_range<pattern_loader>, chseq<'y'> > >("xay"|oven::as_literal, pattern) ));
+    PSTADE_CHECK(( biscuit::match< seq< chseq<'x'>, set_range<pattern_loader>, chseq<'y'> > >("xby"|oven::as_literal, pattern) ));
+    PSTADE_CHECK(( biscuit::match< seq< chseq<'x'>, set_range<pattern_loader>, chseq<'y'> > >("xcy"|oven::as_literal, pattern) ));
 }
 
 
@@ -357,7 +357,7 @@ void test_appendix()
 
     PSTADE_CHECK((
         oven::equal(
-            biscuit::parse<haskell_comment>("-- C++ also is functional.\nqsort [] = []"|oven::null_terminated),
+            biscuit::parse<haskell_comment>("-- C++ also is functional.\nqsort [] = []"|oven::as_literal),
             "-- C++ also is functional."
         )
     ));

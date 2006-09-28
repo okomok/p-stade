@@ -10,12 +10,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/null_terminate_range.hpp>
+#include <pstade/oven/as_array.hpp>
 
 
+#include <iterator>
 #include <string>
 #include <boost/range.hpp>
-#include <pstade/oven/functions.hpp>
+#include <pstade/oven/distance.hpp>
 
 
 void test()
@@ -24,9 +25,8 @@ void test()
     using namespace oven;
 
     {
-        int sample[] = { 1,2,3,4,5,0,7,8,9 };
-        int answer[] = { 1,2,3,4,5 };
-        BOOST_CHECK( oven::equals(sample|null_terminated, answer) );
+        char str[] = "hello range";
+        BOOST_CHECK( oven::distance(str|as_array) == 12 );
     }
 }
 

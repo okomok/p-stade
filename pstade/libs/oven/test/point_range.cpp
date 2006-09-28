@@ -17,8 +17,9 @@
 #include <string>
 #include <vector>
 #include <boost/range.hpp>
+#include <pstade/functional.hpp>
 #include <pstade/oven/functions.hpp>
-#include <pstade/oven/null_terminate_range.hpp>
+#include <pstade/oven/take_while_range.hpp>
 
 
 void test()
@@ -35,7 +36,7 @@ void test()
         std::vector<char> vec;
         vec.resize(oven::distance(src) + 1);
         std::strcpy(vec|pointed|begins, src.c_str());
-        BOOST_CHECK(( oven::equals(vec|null_terminated, src) ));
+        BOOST_CHECK(( oven::equals(vec|taken_while(pstade::not_(is_zero)), src) ));
     }
 }
 

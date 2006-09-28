@@ -10,33 +10,31 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/overload.hpp>
+namespace pstade_biscuit_extension {
+
+    struct insert_backref { };
+
+}
 
 
 namespace pstade { namespace biscuit {
 
 
-//   Workaround:
-//     subrng's type should have been 'ParsingSubRange const&', but 
-//     VC6 cannot order two ctors of boost::iterator_range if the argument range is const-qualified.
-//
+template< class MatchResults, class ParsingSubRange > inline
+void pstade_biscuit_insert_backref(MatchResults& results, int id, ParsingSubRange& subrng)
+{
+    pstade_biscuit_(pstade_biscuit_extension::insert_backref(), results, id, subrng);
+}
+
+
 template< class MatchResults, class ParsingSubRange > inline
 void insert_backref(MatchResults& results, int id, ParsingSubRange& subrng)
 {
-    pstade_biscuit_insert_backref(results, id, subrng, overload<>());
+    pstade_biscuit_insert_backref(results, id, subrng);
 }
 
 
 } } // namespace pstade::biscuit
-
-
-// default
-//
-template< class MatchResults, class ParsingSubRange > inline
-void pstade_biscuit_insert_backref(MatchResults& results, int id, ParsingSubRange& subrng, pstade::overload<>)
-{
-    results.pstade_biscuit_insert_backref(id, subrng);
-}
 
 
 #endif

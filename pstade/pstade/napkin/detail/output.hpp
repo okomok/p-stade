@@ -15,7 +15,7 @@
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
 #include <pstade/apple/is_sequence.hpp>
-#include <pstade/oven/null_terminate_range.hpp>
+#include <pstade/oven/as_c_str.hpp>
 #include <pstade/overload.hpp>
 #include "./is_boost_archive.hpp"
 
@@ -38,7 +38,7 @@ struct std_sequence_output
     template< class T, class CharT >
     static void call(T& out, const CharT *psz)
     {
-        BOOST_FOREACH (CharT ch, psz|oven::null_terminated) {
+        BOOST_FOREACH (CharT ch, psz|oven::as_c_str) {
             out.push_back(ch);
             // out.insert(out.end(), ch);
         }

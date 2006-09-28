@@ -64,7 +64,7 @@ void test_introduction()
             out.push_back(ch);
         }
 
-        BOOST_CHECK( oven::equals(out, "hello, range!"|null_terminated) );
+        BOOST_CHECK( oven::equals(out, "hello, range!"|as_literal) );
     }
 }
 

@@ -28,21 +28,38 @@ struct null_match_results :
 {
     typedef ParsingRange pstade_biscuit_match_results_parsing_range_type;
 
-    template< class ParsingSubRange >
-    bool pstade_biscuit_find_backref(int id, ParsingSubRange& subrng)
+    template< class ParsingSubRange > friend
+    bool pstade_biscuit_find_backref(null_match_results<ParsingRange> const& self, int id, ParsingSubRange& subrng)
     {
-        BOOST_ASSERT(boost::empty(*this));
+        BOOST_ASSERT(boost::empty(self));
         pstade::unused(id, subrng);
         return false;
     }
 
-    template< class ParsingSubRange >
-    void pstade_biscuit_insert_backref(int id, ParsingSubRange& subrng)
+    template< class ParsingSubRange > friend
+    void pstade_biscuit_insert_backref(null_match_results<ParsingRange>& self, int id, ParsingSubRange& subrng)
     {
-        BOOST_ASSERT(boost::empty(*this));
+        BOOST_ASSERT(boost::empty(self));
         pstade::unused(id, subrng);
     }
 };
+
+/*
+    template< class ParsingRange, class ParsingSubRange >
+    bool pstade_biscuit_find_backref(null_match_results<ParsingRange> const& self, int id, ParsingSubRange& subrng)
+    {
+        BOOST_ASSERT(boost::empty(self));
+        pstade::unused(id, subrng);
+        return false;
+    }
+
+    template< class ParsingRange, class ParsingSubRange >
+    void pstade_biscuit_insert_backref(null_match_results<ParsingRange>& self, int id, ParsingSubRange& subrng)
+    {
+        BOOST_ASSERT(boost::empty(self));
+        pstade::unused(id, subrng);
+    }
+*/
 
 
 } } // namespace pstade::biscuit

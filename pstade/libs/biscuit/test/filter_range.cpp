@@ -19,7 +19,7 @@
 #include <string>
 #include <boost/range.hpp>
 #include <boost/range/concepts.hpp>
-#include <pstade/oven/null_terminate_range.hpp>
+#include <pstade/oven/as_literal.hpp>
 #include <pstade/oven/transform_range.hpp>
 
 
@@ -117,7 +117,7 @@ void test()
         BOOST_CHECK((
             biscuit::match< chseq3<'x','y','z'> >(
                 "x  y     z" |
-                    oven::null_terminated |
+                    oven::as_literal |
                     biscuit::filtered< not_< require<any, isspace_> > >()
             )
         ));
@@ -127,7 +127,7 @@ void test()
         BOOST_CHECK((
             biscuit::match< chseq<'x','y','z'> >(
                 biscuit::make_filter_range< not_<space> >(
-                    oven::make_null_terminate_range("x  y     z")
+                    "x  y     z"|oven::as_literal
                 )
             )
         ));
@@ -137,7 +137,7 @@ void test()
                 biscuit::make_filter_range< not_< chset<'&','.','%'> > >(
                     biscuit::make_filter_range< not_<space> >(
                         biscuit::make_filter_range< not_<digit> >(
-                            oven::make_null_terminate_range("x & 4 y . 125 %  z")
+                            "x & 4 y . 125 %  z"|oven::as_literal
                         )
                     )
                 )
@@ -149,7 +149,7 @@ void test()
         BOOST_CHECK((
             biscuit::match< chseq<'x','y','z'> >(
                 "x & 4 y . 125 %  z" |
-                    oven::null_terminated |
+                    oven::as_literal |
                     biscuit::filtered< not_<digit> >() |
                     biscuit::filtered< not_<space> >() |
                     biscuit::filtered< not_< chset<'&','.','%'> > >()
@@ -161,7 +161,7 @@ void test()
         BOOST_CHECK((
             biscuit::match< repeat< char_<'D'>, 3 > >(
                 "abcdabcdabcd" |
-                    oven::null_terminated |
+                    oven::as_literal |
                     biscuit::filtered< not_< char_<'a'> > >() |
                     biscuit::filtered< not_< char_<'b'> > >() |
                     biscuit::filtered< not_< char_<'c'> > >() |

@@ -20,7 +20,7 @@
 #include <boost/range.hpp>
 #include <boost/range/concepts.hpp>
 #include <pstade/oven/functions.hpp>
-#include <pstade/oven/null_terminate_range.hpp>
+#include <pstade/oven/as_literal.hpp>
 
 
 using namespace pstade;
@@ -100,7 +100,7 @@ void test()
         int i = 0;
         BOOST_FOREACH (
             boost::sub_range<const char *> rng,
-            make_token_range<c_comment>(SRC_TEXT|oven::null_terminated))
+            make_token_range<c_comment>(SRC_TEXT|oven::as_literal))
         {
             if (i == 0)
                 BOOST_CHECK( oven::equals(rng, ans0) );
@@ -118,7 +118,7 @@ void test()
         BOOST_FOREACH (
             boost::sub_range<const char *> rng,
             SRC_TEXT |
-                oven::null_terminated |
+                oven::as_literal |
                 tokenized<c_comment>()
         )
         {
@@ -172,7 +172,7 @@ void test()
         int i = 0;
         BOOST_FOREACH (
             boost::sub_range<const char *> rng,
-            biscuit::make_token_range<c_comment_n>(SRC_TEXT|oven::null_terminated))
+            biscuit::make_token_range<c_comment_n>(SRC_TEXT|oven::as_literal))
         {
             if (i == 0)
                 BOOST_CHECK( oven::equals(rng, ans0) );
@@ -190,7 +190,7 @@ void test()
         BOOST_FOREACH (
             boost::sub_range<const char *> rng,
             SRC_TEXT |
-                oven::null_terminated |
+                oven::as_literal |
                 biscuit::tokenized<c_comment_n>()
         )
         {

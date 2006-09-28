@@ -15,7 +15,7 @@ WTL::CAppModule _Module;
 #include <pstade/tomato/window/class_name.hpp>
 
 
-#include <pstade/tomato/oven.hpp>
+#include <pstade/oven/wtl.hpp>
 #include <pstade/oven/copy_range.hpp>
 
 #include <iostream>

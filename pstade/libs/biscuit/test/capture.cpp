@@ -238,7 +238,7 @@ void test()
                     backref<1>,
                     char_<'x'>
                 >
-            > >("abcxabcx"|oven::null_terminated)
+            > >("abcxabcx"|oven::as_literal)
         ));
     }   
 
@@ -253,7 +253,7 @@ void test()
                     backref<1>,
                     char_<'x'>
                 >
-            >("abcxabcx"|oven::null_terminated, cap)
+            >("abcxabcx"|oven::as_literal, cap)
         ));
 
 #if !defined(ITERATOR_RANGE_CONSTRUCTOR_IS_BROKEN)

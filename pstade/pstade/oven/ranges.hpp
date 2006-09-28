@@ -14,7 +14,6 @@
 #include "./always_range.hpp"
 #include "./append_range.hpp"
 #include "./apply_range.hpp"
-#include "./array_protect_range.hpp"
 #include "./array_range.hpp"
 #include "./break_into_range.hpp"
 #include "./check_range.hpp"

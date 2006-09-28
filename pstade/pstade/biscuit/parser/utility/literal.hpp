@@ -11,7 +11,7 @@
 
 
 #include <pstade/oven/algorithm.hpp> // find
-#include <pstade/oven/null_terminate_range.hpp>
+#include <pstade/oven/as_literal.hpp>
 #include <pstade/unused.hpp>
 #include "../../config/nullary_parser.hpp"
 #include "../../state/increment.hpp"
@@ -62,7 +62,7 @@ namespace literal_detail {
         static bool parse(State& s, UserState& us) \
         { \
             pstade::unused(us); \
-            return literal_detail::seq(s, psz|oven::null_terminated); \
+            return literal_detail::seq(s, psz|oven::as_literal); \
         } \
     }; \
 /**/
@@ -75,7 +75,7 @@ namespace literal_detail {
         static bool parse(State& s, UserState& us) \
         { \
             pstade::unused(us); \
-            return literal_detail::set(s, psz|oven::null_terminated); \
+            return literal_detail::set(s, psz|oven::as_literal); \
         } \
     }; \
 /**/

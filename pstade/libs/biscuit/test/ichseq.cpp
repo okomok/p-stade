@@ -17,7 +17,7 @@
 
 
 #include <string>
-#include <pstade/oven/null_terminate_range.hpp>
+#include <pstade/oven/as_literal.hpp>
 
 
 void test()
@@ -54,10 +54,10 @@ void test()
     }
 
     {
-        BOOST_CHECK(( biscuit::match< seq< ichar<'a'>, ichar<'b'>, ichar<'c'> > >("abc"|oven::null_terminated) ));
-        BOOST_CHECK(( biscuit::match< seq< ichar<'A'>, ichar<'B'>, ichar<'C'> > >("aBC"|oven::null_terminated) ));
-        BOOST_CHECK(( biscuit::match< seq< ichar<'A'>, ichar<'b'>, ichar<'C'> > >("Abc"|oven::null_terminated) ));
-        BOOST_CHECK(( biscuit::match< seq< ichar<'a'>, ichar<'B'>, ichar<'c'> > >("aBc"|oven::null_terminated) ));
+        BOOST_CHECK(( biscuit::match< seq< ichar<'a'>, ichar<'b'>, ichar<'c'> > >("abc"|oven::as_literal) ));
+        BOOST_CHECK(( biscuit::match< seq< ichar<'A'>, ichar<'B'>, ichar<'C'> > >("aBC"|oven::as_literal) ));
+        BOOST_CHECK(( biscuit::match< seq< ichar<'A'>, ichar<'b'>, ichar<'C'> > >("Abc"|oven::as_literal) ));
+        BOOST_CHECK(( biscuit::match< seq< ichar<'a'>, ichar<'B'>, ichar<'c'> > >("aBc"|oven::as_literal) ));
 
         BOOST_CHECK(( biscuit::match< ichseq<'a','b','c'> >("abc") ));
         BOOST_CHECK(( biscuit::match< ichseq<'A','B','C'> >("aBC") ));
@@ -95,15 +95,15 @@ void test()
     }
 
     {
-        BOOST_CHECK(( biscuit::match< seq3< ichar<'a'>, ichar<'b'>, ichar<'c'> > >("abc"|oven::null_terminated) ));
-        BOOST_CHECK(( biscuit::match< seq3< ichar<'A'>, ichar<'B'>, ichar<'C'> > >("aBC"|oven::null_terminated) ));
-        BOOST_CHECK(( biscuit::match< seq3< ichar<'A'>, ichar<'b'>, ichar<'C'> > >("Abc"|oven::null_terminated) ));
-        BOOST_CHECK(( biscuit::match< seq3< ichar<'a'>, ichar<'B'>, ichar<'c'> > >("aBc"|oven::null_terminated) ));
+        BOOST_CHECK(( biscuit::match< seq3< ichar<'a'>, ichar<'b'>, ichar<'c'> > >("abc"|oven::as_literal) ));
+        BOOST_CHECK(( biscuit::match< seq3< ichar<'A'>, ichar<'B'>, ichar<'C'> > >("aBC"|oven::as_literal) ));
+        BOOST_CHECK(( biscuit::match< seq3< ichar<'A'>, ichar<'b'>, ichar<'C'> > >("Abc"|oven::as_literal) ));
+        BOOST_CHECK(( biscuit::match< seq3< ichar<'a'>, ichar<'B'>, ichar<'c'> > >("aBc"|oven::as_literal) ));
 
-        BOOST_CHECK(( biscuit::match< ichseq3<'a','b','c'> >("abc"|oven::null_terminated) ));
-        BOOST_CHECK(( biscuit::match< ichseq3<'A','B','C'> >("aBC"|oven::null_terminated) ));
-        BOOST_CHECK(( biscuit::match< ichseq3<'A','b','C'> >("Abc"|oven::null_terminated) ));
-        BOOST_CHECK(( biscuit::match< ichseq3<'a','B','c'> >("aBc"|oven::null_terminated) ));
+        BOOST_CHECK(( biscuit::match< ichseq3<'a','b','c'> >("abc"|oven::as_literal) ));
+        BOOST_CHECK(( biscuit::match< ichseq3<'A','B','C'> >("aBC"|oven::as_literal) ));
+        BOOST_CHECK(( biscuit::match< ichseq3<'A','b','C'> >("Abc"|oven::as_literal) ));
+        BOOST_CHECK(( biscuit::match< ichseq3<'a','B','c'> >("aBc"|oven::as_literal) ));
     }
 }
 

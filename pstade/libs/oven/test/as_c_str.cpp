@@ -10,11 +10,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/null_terminate_range.hpp>
+#include <pstade/oven/as_c_str.hpp>
 
 
-#include <string>
-#include <boost/range.hpp>
 #include <pstade/oven/functions.hpp>
 
 
@@ -24,9 +22,11 @@ void test()
     using namespace oven;
 
     {
-        int sample[] = { 1,2,3,4,5,0,7,8,9 };
-        int answer[] = { 1,2,3,4,5 };
-        BOOST_CHECK( oven::equals(sample|null_terminated, answer) );
+        BOOST_CHECK( oven::equals("hello\0range"|as_c_str, std::string("hello")) );
+    }
+    {
+        wchar_t const str[] = L"hello range";
+        BOOST_CHECK( oven::equals(str|as_c_str, std::wstring(L"hello range")) );
     }
 }
 

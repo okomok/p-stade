@@ -28,6 +28,7 @@
 #include <pstade/instance.hpp>
 #include <pstade/integral_cast.hpp>
 #include <pstade/oven/array_range.hpp>
+#include <pstade/oven/as_c_str.hpp>
 #include <pstade/oven/distance.hpp>
 #include <pstade/oven/copy_range.hpp>
 #include <pstade/oven/equals.hpp>
@@ -128,7 +129,7 @@ typedef ini_section pstade_pizza_profile;
     {
         // Note: if pszValue is NULL, section is deleted.
         BOOST_ASSERT(is_open());
-        BOOST_ASSERT(!oven::equals(pszValue|oven::null_terminated, ini_section_detail::magicStr));
+        BOOST_ASSERT(!oven::equals(pszValue|oven::as_c_str, ini_section_detail::magicStr));
 
         PSTADE_REQUIRE(
             ::WritePrivateProfileString(

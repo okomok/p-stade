@@ -12,15 +12,15 @@
 
 #include <string>
 #include <pstade/lexical_cast.hpp>
+#include <pstade/oven/as_c_str.hpp>
 #include <pstade/oven/copy_range.hpp>
-#include <pstade/oven/null_terminate_range.hpp>
 
 
 namespace pstade {
 
 
 template< class Range > inline
-std::string what(std::string tag, Range const& msg)
+std::string what(std::string const& tag, Range const& msg)
 {
     return
         '<' + tag + '>' +
@@ -33,12 +33,12 @@ std::string what(std::string tag, Range const& msg)
 inline
 std::string what(std::string tag, char const *psz)
 {
-    return pstade::what(tag, psz|oven::null_terminated);
+    return pstade::what(tag, psz|oven::as_c_str);
 }
 
 
 inline
-std::string what(std::string tag, int n)
+std::string what(std::string const& tag, int n)
 {
     return pstade::what(tag, pstade::lexical_cast<std::string>(n));
 }

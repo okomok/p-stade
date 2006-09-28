@@ -10,29 +10,31 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/overload.hpp>
+namespace pstade_biscuit_extension {
+
+    struct find_backref { };
+
+}
 
 
 namespace pstade { namespace biscuit {
 
 
 template< class MatchResults, class ParsingSubRange > inline
-bool find_backref(MatchResults& results, int id, ParsingSubRange& subrng)
+bool pstade_biscuit_find_backref(MatchResults const& results, int id, ParsingSubRange& subrng)
 {
-    return pstade_biscuit_find_backref(results, id, subrng, overload<>());
+    return pstade_biscuit_(pstade_biscuit_extension::find_backref(), results, id, subrng);
+}
+
+
+template< class MatchResults, class ParsingSubRange > inline
+bool find_backref(MatchResults const& results, int id, ParsingSubRange& subrng)
+{
+    return pstade_biscuit_find_backref(results, id, subrng);
 }
 
 
 } } // namespace pstade::biscuit
-
-
-// default
-//
-template< class MatchResults, class ParsingSubRange > inline
-bool pstade_biscuit_find_backref(MatchResults& results, int id, ParsingSubRange& subrng, pstade::overload<>)
-{
-    return results.pstade_biscuit_find_backref(id, subrng);
-}
 
 
 #endif

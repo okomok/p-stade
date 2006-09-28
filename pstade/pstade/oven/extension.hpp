@@ -42,8 +42,7 @@
 namespace pstade_oven_extension {
 
 
-    template< class T, class Active = void >
-    struct range
+    struct iter_copyable
     {
         template< class X, class Range >
         X copy(Range& rng)
@@ -51,6 +50,12 @@ namespace pstade_oven_extension {
             return X(boost::begin(rng), boost::end(rng));
         }
     };
+
+
+    template< class T, class Active = void >
+    struct range :
+        iter_copyable
+    { };
 
 
     struct noncopyable

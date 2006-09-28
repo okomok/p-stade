@@ -11,8 +11,8 @@
 
 
 #include <pstade/apple/sdk/windows.hpp>
+#include <pstade/oven/as_c_str.hpp>
 #include <pstade/oven/copy_range.hpp>
-#include <pstade/oven/null_terminate_range.hpp>
 
 
 namespace pstade { namespace tomato {
@@ -25,7 +25,7 @@ struct find_file_construct
 
     Sequence operator()(WIN32_FIND_DATA const& data) const
     {
-        return data.cFileName|oven::null_terminated|oven::copied;
+        return data.cFileName|oven::as_c_str|oven::copied;
     }
 };
 

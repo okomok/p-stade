@@ -12,6 +12,8 @@
 
 // Deprecated!
 //
+// See the new strategy...
+// http://d.hatena.ne.jp/mb2sync/20060924
 
 
 // What:

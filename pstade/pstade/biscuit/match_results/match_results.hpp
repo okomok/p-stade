@@ -10,14 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/config.hpp>
-#include <boost/detail/workaround.hpp>
 #include <functional> // std::less
 #include <map>
 #include <utility> // std::pair
-
-// Workaround:
-//   'boost::sub_range' is broken under eVC++4 and VC++8. It is not Assignable.
+#include <boost/range/end.hpp>
+#include <pstade/oven/range_iterator.hpp>
 #include <pstade/oven/sub_range_base.hpp>
 
 
@@ -34,56 +31,35 @@ private:
 
 public:
     typedef ParsingRange pstade_biscuit_match_results_parsing_range_type;
-
-    template< class ParsingSubRange >
-    bool pstade_biscuit_find_backref(int id, ParsingSubRange& subrng)
-    {
-        typedef typename boost::range_iterator<super_t>::type iter_t;
-
-        iter_t const it = super_t::find(id);
-        if (it != boost::end(*this)) {
-            subrng = it->second;
-            return true;
-        }
-
-        return false;
-    }
-
-    template< class ParsingSubRange >
-    void pstade_biscuit_insert_backref(int id, ParsingSubRange& subrng)
-    {
-        typedef typename boost::range_iterator<super_t>::type iter_t;
-
-#if !BOOST_WORKAROUND(BOOST_MSVC, < 1300)
-
-        std::pair<iter_t, bool> ret = super_t::insert(std::make_pair(id, subrng));
-        if (!ret.second) // overwrite
-            ret.first->second = subrng;
-
-#else
-
-    // Workaround:
-    //   VC6 cannot order two ctors of boost::iterator_range if the argument range is const-qualified.
-    //   And ctor of std::pair also adds const to ParsingSubRange.
-    //   That is to say, we cannot call ctors of std::pair, oh my!
-
-    // If 'const' of 'int const' is missing, results.insert(val) calls ctor of std::pair,
-    // because this is the exact type of std::map's value_type,
-    // and so a trivial conversion using ctor is required. Take care.
-
-    std::pair<int const, stored_range_t> val; {
-        const_cast<int&>(val.first) = id; // illegal but works.
-        val.second = subrng;
-    }
-
-    std::pair<iter_t, bool> ret = super_t::insert(val);
-    if (!ret.second)
-        ret.first->second = subrng;
-
-#endif // !BOOST_WORKAROUND(BOOST_MSVC, < 1300)
-
-    }
 };
+
+
+template< class ParsingRange, class ParsingSubRange >
+bool pstade_biscuit_find_backref(match_results<ParsingRange> const& self, int id, ParsingSubRange& subrng)
+{
+    typedef typename oven::
+        range_iterator<match_results<ParsingRange> const>::type iter_t;
+
+    iter_t const it = self.find(id);
+    if (it != boost::end(self)) {
+        subrng = it->second;
+        return true;
+    }
+
+    return false;
+}
+
+
+template< class ParsingRange, class ParsingSubRange >
+void pstade_biscuit_insert_backref(match_results<ParsingRange>& self, int id, ParsingSubRange& subrng)
+{
+    typedef typename oven::
+        range_iterator<match_results<ParsingRange> >::type iter_t;
+
+    std::pair<iter_t, bool> ret = self.insert(std::make_pair(id, subrng));
+    if (!ret.second) // overwrite
+        ret.first->second = subrng;
+}
 
 
 } } // namespace pstade::biscuit

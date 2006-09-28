@@ -15,7 +15,7 @@
 #include <pstade/require.hpp>
 
 
-using namespace pstade;
+namespace biscuit = pstade::biscuit;
 using namespace biscuit;
 
 
@@ -26,6 +26,6 @@ typedef chseq<
 
 int main()
 {
-    PSTADE_REQUIRE( biscuit::match<long_parser>("Wild is the wind that strips away our sins"|oven::null_terminated) );
+    PSTADE_REQUIRE( biscuit::match<long_parser>("Wild is the wind that strips away our sins"|pstade::oven::as_literal) );
     return 0;
 }
