@@ -264,7 +264,7 @@ __ http://www.sgi.com/tech/stl/istream_iterator.html
 ``literal_range``
 ^^^^^^^^^^^^^^^^^
 ``literal_range`` makes a `Random Access Range`_ from character array.
-``literal_range`` doesn't support any pointer type. So it is safe. Compare it with ``c_str_range``::
+``literal_range`` doesn't support any pointer type but array type. So it is safe and fast. Compare it with ``c_str_range``::
 
 	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\literal_range.ipp
 

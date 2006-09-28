@@ -26,7 +26,7 @@
 #include <boost/range/iterator_range.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
-#include "./sub_range_result.hpp"
+#include "./as_lightweight_proxy.hpp"
 
 
 namespace pstade { namespace oven {
@@ -34,7 +34,8 @@ namespace pstade { namespace oven {
 
 template< class Char, std::size_t sz >
 struct literal_range :
-    boost::iterator_range<Char const *>
+    boost::iterator_range<Char const *>,
+    private as_lightweight_proxy< literal_range<Char, sz> >
 {
 private:
     typedef boost::iterator_range<Char const *> super_t;

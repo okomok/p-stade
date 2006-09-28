@@ -10,11 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Todo:
-//
-// Make this Movable.
-
-
+#include <cstddef> // size_t
 #include <string> // basic_string
 #include <vector>
 #include <boost/cstdint.hpp> // uint8_t, uint32_t
@@ -26,7 +22,6 @@
 #include <pstade/apple/is_boost_range.hpp>
 #include <pstade/apple/is_sequence.hpp>
 #include <pstade/oven/copy_range.hpp>
-#include <pstade/oven/null_terminate_range.hpp>
 
 
 namespace pstade {
@@ -92,13 +87,16 @@ public:
     }
 
     // implicit conversions
-    //
-    ustring(char const *psz) :
-        super_t(psz, oven::null_terminate_range_detail::end(psz))
+    // this seems inconsistent with range constructor above?
+    // But this class is the string....
+    template< std::size_t sz >
+    ustring(char const (&arr)[sz]) :
+        super_t(static_cast<char const *>(arr), static_cast<char const*>(arr) + sz - 1)
     { }
 
-    ustring(wchar_t const *psz) :
-        super_t(psz, oven::null_terminate_range_detail::end(psz))
+    template< std::size_t sz >
+    ustring(wchar_t const (&arr)[sz]) :
+        super_t(static_cast<wchar_t const *>(arr), static_cast<wchar_t const *>(arr) + sz - 1)
     { }
 };
 

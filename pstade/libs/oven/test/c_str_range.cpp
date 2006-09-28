@@ -13,6 +13,7 @@
 #include <pstade/oven/c_str_range.hpp>
 
 
+#include <string>
 #include <pstade/oven/functions.hpp>
 
 
@@ -31,6 +32,10 @@ void test()
     {
         wchar_t const *psz = L"hello range";
         BOOST_CHECK( oven::equals(psz|as_c_str, std::wstring(L"hello range")) );
+    }
+    {
+        std::string src("hello range");
+        BOOST_CHECK( oven::equals(src.c_str()|as_c_str, src) );
     }
 }
 

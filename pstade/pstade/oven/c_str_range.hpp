@@ -14,10 +14,11 @@
 #include <cstring> // strlen
 #include <cwchar>  // wcslen
 #include <boost/range/iterator_range.hpp>
-#include <boost/type_traits/decay.hpp>
 #include <boost/type_traits/remove_pointer.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
+#include <pstade/pass_by.hpp>
+#include "./as_lightweight_proxy.hpp"
 
 
 namespace pstade { namespace oven {
@@ -47,7 +48,8 @@ namespace c_str_range_detail {
 
 template< class Char >
 struct c_str_range :
-    boost::iterator_range<Char *>
+    boost::iterator_range<Char *>,
+    private as_lightweight_proxy< c_str_range<Char> >
 {
 private:
     typedef boost::iterator_range<Char *> super_t;
@@ -67,14 +69,13 @@ namespace c_str_range_detail {
         template< class Unused, class CString >
         struct apply
         {
-            // 'pass_by_value' removes const-ness. Decay it.
-            typedef typename boost::decay<CString>::type ptr_t;
+            typedef typename pass_by_value<CString>::type ptr_t;
             typedef typename boost::remove_pointer<ptr_t>::type char_t;
             typedef c_str_range<char_t> const type;
         };
 
-        template< class Result, class CString >
-        Result call(CString psz)
+        template< class Result, class Char >
+        Result call(Char *psz)
         {
             return Result(psz);
         }

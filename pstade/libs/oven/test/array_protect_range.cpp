@@ -21,14 +21,16 @@
 
 void test()
 {
-    using namespace pstade;
+    namespace oven = pstade::oven;
     using namespace oven;
 
     {
-        char str[] = "hello range";
+        char const str[] = "hello range";
 
+        array_protect_range< char const [12] > rng(str);
+        BOOST_CHECK( oven::distance(rng) == 12 );
         BOOST_CHECK( oven::distance(oven::make_array_protect_range(str)) == 12 );
-        BOOST_CHECK( oven::distance(str|oven::array_protected) == 12 );
+        BOOST_CHECK( oven::distance(str|array_protected) == 12 );
     }
 }
 

@@ -10,54 +10,32 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Workaround:
-//
-// Under below Boost 1.34, char array is regarded as null-terminated.
-
-
 #include <cstddef> // size_t
 #include <boost/mpl/assert.hpp>
-#include <boost/mpl/bool.hpp>
 #include <boost/range/iterator_range.hpp>
-#include <boost/type_traits/extent.hpp>
-#include <boost/type_traits/is_array.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
-#include "./sub_range_base.hpp"
 
 
 namespace pstade { namespace oven {
 
 
-namespace array_protect_range_detail {
-
-
-    template< class T > inline
-    boost::iterator_range<T *>
-    aux(T *arr, std::size_t sz)
-    {
-        return boost::make_iterator_range(arr, arr + sz);
-    }
-
-
-} // namespace array_protect_range_detail
-
-
 template< class Array >
-struct array_protect_range :
-    sub_range_base<Array>::type,
-    private as_lightweight_proxy< array_protect_range<Array> >
-{
-    typedef Array pstade_oven_range_base_type;
+struct array_protect_range;
 
+
+template< class T, std::size_t sz >
+struct array_protect_range< T [sz] > :
+    boost::iterator_range<T *>,
+    private as_lightweight_proxy< array_protect_range< T [sz] > >
+{
 private:
-    BOOST_MPL_ASSERT((boost::is_array<Array>));
-    typedef typename sub_range_base<Array>::type super_t;
+    typedef boost::iterator_range<T *> super_t;
 
 public:
-    explicit array_protect_range(Array& arr) :
-        super_t(array_protect_range_detail::aux(arr, boost::extent<Array>::value))
+    explicit array_protect_range(T (&arr)[sz]) :
+        super_t(arr, static_cast<T *>(arr) + sz)
     { }
 };
 
@@ -86,6 +64,7 @@ namespace array_protect_range_detail {
 
 PSTADE_EGG_FUNCTION(make_array_protect_range, array_protect_range_detail::baby_make)
 PSTADE_EGG_PIPABLE(array_protected, array_protect_range_detail::baby_make)
+PSTADE_EGG_PIPABLE(as_array, array_protect_range_detail::baby_make)
 
 
 } } // namespace pstade::oven
