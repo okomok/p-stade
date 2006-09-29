@@ -59,7 +59,6 @@ class CTypedPtrMap;
 #include <pstade/apple/mfc/afxcoll.hpp> // CXXXArray, CXXXList, CMapXXXToXXX
 #include <pstade/apple/mfc/config.hpp>
 #include <pstade/apple/sdk/tchar.hpp>
-#include <pstade/const_overloaded.hpp>
 #include "./atl.hpp" // seems to be allowed.
 #include "./extension.hpp"
 #include "./range_constant_iterator.hpp"
@@ -796,8 +795,7 @@ namespace pstade_oven_extension {
         };
 
         template< class Iterator, class X >
-        typename pstade::const_overloaded<Iterator, X>::type
-        begin(X& x)
+        Iterator begin(X& x, typename const_overloaded<X>::type = 0)
         {
             return x.GetBuffer(0);
         }

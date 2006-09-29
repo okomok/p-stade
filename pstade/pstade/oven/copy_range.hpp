@@ -46,12 +46,12 @@ namespace pstade { namespace oven {
 PSTADE_ADL_BARRIER(copy_range) { // for Boost
 
 
-    template< class Copyable, class Range > inline
+    template< class Copyable, class From > inline
     Copyable const
-    copy_range(Range const& rng)
+    copy_range(From const& from)
     {
-        detail::requires< boost::SinglePassRangeConcept<Range> >();
-        return pstade_oven_extension::Range<Copyable>().template copy<Copyable>(rng);
+        detail::requires< boost::SinglePassRangeConcept<From> >();
+        return pstade_oven_extension::Range<Copyable>().template copy<Copyable>(from);
     }
 
 
@@ -63,8 +63,8 @@ PSTADE_ADL_BARRIER(copy_range) { // for Boost
 
 struct copy_range_class
 {
-    template< class T, class Range >
-    static T call(Range const& rng)
+    template< class T, class From >
+    static T call(From const& rng)
     {
         return oven::copy_range<T>(rng);
     }
@@ -94,41 +94,40 @@ namespace copied_out_detail {
 
     struct baby
     {
-        template< class Unused, class InRange, class OutRangeOrIter >
+        template< class Unused, class From, class To >
         struct apply :
             boost::mpl::if_<
                 boost::is_convertible<
-                    typename range_traversal<InRange>::type,
+                    typename range_traversal<From>::type,
                     boost::forward_traversal_tag
                 >,
-                InRange&,
+                From&,
                 void // not multi-pass
             >
         { };
 
-        template< class Result, class InRange, class OutIter >
-        typename boost::disable_if<apple::is_boost_range<OutIter>,
-        // Workaround: GCC never allow 'OutIter&' that has the same signature as below.
-        Result>::type call(InRange& in, OutIter out)
+        template< class Result, class From, class To >
+        Result call(From& from, To& it,
+            typename boost::disable_if<apple::is_boost_range<To> >::type * = 0)
         {
-            oven::copy(in, out);
+            oven::copy(from, it);
 
-            typedef typename range_traversal<InRange>::type trv_t;
-            return copied_out_detail::check_valid(in, trv_t());
+            typedef typename range_traversal<From>::type trv_t;
+            return copied_out_detail::check_valid(from, trv_t());
         }
 
         // Note:
         // "Range or Iterator" detection is incomplete, so be careful.
-        template< class Result, class InRange, class OutRange >
-        typename boost::enable_if<apple::is_boost_range<OutRange>,
-        Result>::type call(InRange& in, OutRange& out)
+        template< class Result, class From, class To >
+        Result call(From& from, To& rng,
+            typename boost::enable_if< apple::is_boost_range<To> >::type * = 0)
         {
-            BOOST_ASSERT("out of range" && detail::debug_distance(in) <= detail::debug_distance(out));
+            BOOST_ASSERT("out of range" && detail::debug_distance(from) <= detail::debug_distance(rng));
 
-            oven::copy(in, boost::begin(out));
+            oven::copy(from, boost::begin(rng));
 
-            typedef typename range_traversal<InRange>::type trv_t;
-            return copied_out_detail::check_valid(in, trv_t());
+            typedef typename range_traversal<From>::type trv_t;
+            return copied_out_detail::check_valid(from, trv_t());
         }
     };
 

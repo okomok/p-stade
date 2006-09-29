@@ -83,7 +83,6 @@ namespace boost {
 #include <pstade/apple/atl/base.hpp> // CComBSTR
 #include <pstade/apple/atl/config.hpp>
 #include <pstade/apple/atl/is_ATL_string.hpp>
-#include <pstade/const_overloaded.hpp>
 #include "./detail/ms_extension.hpp"
 #include "./extension.hpp"
 #include "./range_reference.hpp"
@@ -317,7 +316,7 @@ namespace pstade_oven_extension {
         };
 
         template< class Iterator, class X >
-        typename pstade::const_overloaded<Iterator, X>::type begin(X& x)
+        Iterator begin(X& x, typename const_overloaded<X>::type = 0)
         {
             return x.GetBuffer(0);
         }

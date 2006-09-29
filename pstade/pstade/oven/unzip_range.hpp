@@ -92,8 +92,8 @@ public:
 //
 
 template< int N, class TupleRange > inline
-typename const_overloaded<unzip_range_at<TupleRange, N>, TupleRange>::type const
-make_unzip_range_at(TupleRange& rng)
+unzip_range_at<TupleRange, N> const
+make_unzip_range_at(TupleRange& rng, typename const_overloaded<TupleRange>::type = 0)
 {
     return unzip_range_at<TupleRange, N>(rng);
 }

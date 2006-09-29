@@ -31,7 +31,6 @@
 #include <boost/type_traits/is_const.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <boost/type_traits/remove_reference.hpp>
-#include <boost/utility/enable_if.hpp>
 #include <pstade/const_overloaded.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/remove_cvr.hpp>
@@ -64,6 +63,9 @@ namespace pstade_oven_extension {
         template< class X, class From >
         X copy(From& rng);
     };
+
+
+    using pstade::const_overloaded;
 
 
 } // namespace pstade_oven_extension

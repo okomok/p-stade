@@ -104,8 +104,8 @@ public:
 //
 
 template< class N, class FusionSeqRange > inline
-typename const_overloaded<get_at_range<FusionSeqRange, N>, FusionSeqRange>::type const
-make_get_at_range(FusionSeqRange& rng)
+get_at_range<FusionSeqRange, N> const
+make_get_at_range(FusionSeqRange& rng, typename const_overloaded<FusionSeqRange>::type = 0)
 {
     return get_at_range<FusionSeqRange, N>(rng);
 }

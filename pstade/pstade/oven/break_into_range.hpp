@@ -86,8 +86,8 @@ public:
 //
 
 template< class Type, class Range, class TokenizerFun > inline
-typename const_overloaded<break_into_range<Range, TokenizerFun, Type>, Range>::type const
-make_break_into_range(Range& rng, TokenizerFun const& fun)
+break_into_range<Range, TokenizerFun, Type> const
+make_break_into_range(Range& rng, TokenizerFun const& fun, typename const_overloaded<Range>::type = 0)
 {
     return break_into_range<Range, TokenizerFun, Type>(rng, fun);
 }

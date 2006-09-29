@@ -10,19 +10,21 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Workaround:
+// What:
 //
 // GCC3.4.4 cannot order overloadings of non-const-reference and const-reference
 // if it has explicit template arguments.
 // So disable the non-const-reference overloading in the case of const-reference.
 // http://groups.google.com/group/comp.lang.c++.moderated/browse_frm/thread/2dc6189c2eec0fd5/
+// This class doesn't always do the same thing as 'disable_if<is_const<T> >'.
+// This is nothing but a workaround for bugs. So, it has this name.
 
 
 #include <boost/config.hpp> // BOOST_MSVC, BOOST_NO_SFINAE
 #include <boost/mpl/identity.hpp>
 #include <boost/mpl/or.hpp>
 #include <boost/type_traits/is_const.hpp>
-#include <boost/utility/enable_if.hpp> // disable_if, lazy_disable_if
+#include <boost/utility/enable_if.hpp> // disable_if
 
 
 // Workaround:
@@ -78,8 +80,7 @@ struct contains_const :
 
 
     template<
-        class Result,
-        class A0 = void, class A1 = void, class A2 = void, class A3 = void, class A4 = void,
+        class A0,        class A1 = void, class A2 = void, class A3 = void, class A4 = void,
         class A5 = void, class A6 = void, class A7 = void, class A8 = void, class A9 = void
     >
     struct const_overloaded :
@@ -88,23 +89,7 @@ struct contains_const :
                 A0, A1, A2, A3, A4,
                 A5, A6, A7, A8, A9
             >,
-            Result
-        >
-    { };
-
-
-    template<
-        class Result,
-        class A0 = void, class A1 = void, class A2 = void, class A3 = void, class A4 = void,
-        class A5 = void, class A6 = void, class A7 = void, class A8 = void, class A9 = void
-    >
-    struct const_overloaded_eval :
-        boost::lazy_disable_if<
-            const_overloaded_detail::contains_const<
-                A0, A1, A2, A3, A4,
-                A5, A6, A7, A8, A9
-            >,
-            Result
+            void *
         >
     { };
 
@@ -113,22 +98,11 @@ struct contains_const :
 
 
     template<
-        class Result,
-        class A0 = void, class A1 = void, class A2 = void, class A3 = void, class A4 = void,
+        class A0,        class A1 = void, class A2 = void, class A3 = void, class A4 = void,
         class A5 = void, class A6 = void, class A7 = void, class A8 = void, class A9 = void
     >
     struct const_overloaded :
-        boost::mpl::identity<Result>
-    { };
-
-
-    template<
-        class Result,
-        class A0 = void, class A1 = void, class A2 = void, class A3 = void, class A4 = void,
-        class A5 = void, class A6 = void, class A7 = void, class A8 = void, class A9 = void
-    >
-    struct const_overloaded_eval :
-        Result
+        boost::mpl::identity<void *>
     { };
 
 

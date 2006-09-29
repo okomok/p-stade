@@ -30,7 +30,6 @@ namespace WTL {
 
 #include <boost/foreach.hpp>
 #include <pstade/apple/sdk/tchar.hpp>
-#include <pstade/const_overloaded.hpp>
 #include "./atl.hpp"
 #include "./extension.hpp"
 
@@ -49,8 +48,7 @@ namespace pstade_oven_extension {
         };
 
         template< class Iterator, class X >
-        typename pstade::const_overloaded<Iterator, X>::type
-        begin(X& x)
+        Iterator begin(X& x, typename const_overloaded<X>::type = 0)
         {
             return x.GetBuffer(0);
         }
@@ -82,7 +80,7 @@ namespace pstade_oven_extension {
 
     template< class T >
     struct Range< WTL::CSimpleStack<T> > :
-        BoostRange< ATL::CSimpleArray<T> >
+        Range< ATL::CSimpleArray<T> >
     { };
 
 
