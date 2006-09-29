@@ -119,10 +119,10 @@ namespace xxx {
 namespace pstade_oven_extension {
 
     template< >
-    struct BoostRange< xxx::X >
+    struct Range< xxx::X >
     {
-        template< class X, class Range >
-        X copy(Range& rng)
+        template< class X, class From >
+        X copy(From& rng)
         {
             (void)rng;
             return xxx::X();

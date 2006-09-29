@@ -82,7 +82,7 @@ struct your_sequence :
 namespace pstade_oven_extension {
 
     template< class T >
-    struct BoostRange<T,
+    struct Range<T,
         typename boost::enable_if< mine::is_container<T> >::type >
     {
         template< class X >
@@ -106,7 +106,7 @@ namespace pstade_oven_extension {
     };
 
     template< >
-    struct BoostRange< ::your_sequence >
+    struct Range< ::your_sequence >
     {
         template< class X >
         struct meta
@@ -151,7 +151,7 @@ namespace Foo {
 namespace pstade_oven_extension {
 
     template< class T >
-    struct BoostRange< Foo::Pair<T> >
+    struct Range< Foo::Pair<T> >
     {
         // X == Foo::Pair<T>
         template< class X >
@@ -176,8 +176,8 @@ namespace pstade_oven_extension {
         }
 
         // optional, but recommanded.
-        template< class X, class Range >
-        X copy(Range& rng)
+        template< class X, class From >
+        X copy(From& rng)
         {
             X x;
             x.first = boost::begin(rng);

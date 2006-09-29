@@ -37,7 +37,7 @@ unless otherwise specified.
 Requirements
 ------------
 - `Boost C++ Libraries Version 1.33.1`__ or later (no compilation required)
-- `P-Stade C++ Libraries Version 1.00.5`__ or later (no compilation required, give a higher priority than Boost headers)
+- `P-Stade C++ Libraries Version 1.01.3`__ or later (no compilation required, give a higher priority than Boost headers)
 
 __ Boost_
 __ http://sourceforge.net/project/showfiles.php?group_id=141222&package_id=173059
@@ -886,7 +886,7 @@ Oven provides yet another extension way to simplify the Boost.Range's::
 	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\extension.ipp
 
 
-1. Specialize ``::pstade_oven_extension::BoostRange``, which has the second template parameter for ``boost::enable_if``.
+1. Specialize ``::pstade_oven_extension::Range``, which has the second template parameter for ``boost::enable_if``.
 2. Define template ``meta``, ``begin`` and ``end`` like above. The const overloads sometimes can be omitted. ``boost::size`` is automatically extended by Oven.
 3. Call the macro for extension in global namespace.
 

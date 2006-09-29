@@ -160,7 +160,7 @@ namespace pstade_oven_extension {
     //
 
     template< >
-    struct BoostRange< ::CByteArray > :
+    struct Range< ::CByteArray > :
         ms_detail::array_functions,
         noncopyable
     {
@@ -176,7 +176,7 @@ namespace pstade_oven_extension {
 
 
     template< >
-    struct BoostRange< ::CDWordArray > :
+    struct Range< ::CDWordArray > :
         ms_detail::array_functions,
         noncopyable
     {
@@ -192,7 +192,7 @@ namespace pstade_oven_extension {
 
 
     template< >
-    struct BoostRange< ::CObArray > :
+    struct Range< ::CObArray > :
         ms_detail::mfc_ptr_array_functions
     {
         template< class X >
@@ -205,7 +205,7 @@ namespace pstade_oven_extension {
 
 
     template< >
-    struct BoostRange< ::CPtrArray > :
+    struct Range< ::CPtrArray > :
         ms_detail::mfc_ptr_array_functions
     {
         template< class X >
@@ -218,7 +218,7 @@ namespace pstade_oven_extension {
 
 
     template< >
-    struct BoostRange< ::CStringArray > :
+    struct Range< ::CStringArray > :
         ms_detail::array_functions,
         noncopyable
     {
@@ -234,7 +234,7 @@ namespace pstade_oven_extension {
 
 
     template< >
-    struct BoostRange< ::CUIntArray > :
+    struct Range< ::CUIntArray > :
         ms_detail::array_functions,
         noncopyable
     {
@@ -250,7 +250,7 @@ namespace pstade_oven_extension {
 
 
     template< >
-    struct BoostRange< ::CWordArray > :
+    struct Range< ::CWordArray > :
         ms_detail::array_functions,
         noncopyable
     {
@@ -269,7 +269,7 @@ namespace pstade_oven_extension {
     //
 
     template< >
-    struct BoostRange< ::CObList > :
+    struct Range< ::CObList > :
         ms_detail::list_functions
     {
         template< class X >
@@ -286,7 +286,7 @@ namespace pstade_oven_extension {
 
 
     template< >
-    struct BoostRange< ::CPtrList > :
+    struct Range< ::CPtrList > :
         ms_detail::list_functions
     {
         template< class X >
@@ -303,7 +303,7 @@ namespace pstade_oven_extension {
 
 
     template< >
-    struct BoostRange< ::CStringList > :
+    struct Range< ::CStringList > :
         ms_detail::list_functions
     {
         template< class X >
@@ -516,7 +516,7 @@ namespace pstade_oven_extension {
     //
 
     template< >
-    struct BoostRange< ::CMapPtrToWord > :
+    struct Range< ::CMapPtrToWord > :
         ms_detail::mfc_map_functions
     {
         template< class X >
@@ -532,7 +532,7 @@ namespace pstade_oven_extension {
 
 
     template< >
-    struct BoostRange< ::CMapPtrToPtr > :
+    struct Range< ::CMapPtrToPtr > :
         ms_detail::mfc_map_functions
     {
         template< class X >
@@ -548,7 +548,7 @@ namespace pstade_oven_extension {
 
 
     template< >
-    struct BoostRange< ::CMapStringToOb > :
+    struct Range< ::CMapStringToOb > :
         ms_detail::mfc_map_functions
     {
         template< class X >
@@ -564,7 +564,7 @@ namespace pstade_oven_extension {
 
 
     template< >
-    struct BoostRange< ::CMapStringToPtr > :
+    struct Range< ::CMapStringToPtr > :
         ms_detail::mfc_map_functions
     {
         template< class X >
@@ -580,7 +580,7 @@ namespace pstade_oven_extension {
 
 
     template< >
-    struct BoostRange< ::CMapStringToString > :
+    struct Range< ::CMapStringToString > :
     #if !defined(PSTADE_APPLE_MFC_NO_CPAIR)
         ms_detail::mfc_cpair_map_functions
     #else
@@ -607,7 +607,7 @@ namespace pstade_oven_extension {
 
 
     template< >
-    struct BoostRange< ::CMapWordToOb > :
+    struct Range< ::CMapWordToOb > :
         ms_detail::mfc_map_functions
     {
         template< class X >
@@ -623,7 +623,7 @@ namespace pstade_oven_extension {
 
 
     template< >
-    struct BoostRange< ::CMapWordToPtr > :
+    struct Range< ::CMapWordToPtr > :
         ms_detail::mfc_map_functions
     {
         template< class X >
@@ -642,7 +642,7 @@ namespace pstade_oven_extension {
     //
 
     template< class Type, class ArgType >
-    struct BoostRange< ::CArray<Type, ArgType> > :
+    struct Range< ::CArray<Type, ArgType> > :
         ms_detail::array_functions,
         noncopyable
     {
@@ -658,7 +658,7 @@ namespace pstade_oven_extension {
 
 
     template< class Type, class ArgType >
-    struct BoostRange< ::CList<Type, ArgType> > :
+    struct Range< ::CList<Type, ArgType> > :
         ms_detail::list_functions
     {
         template< class X >
@@ -677,7 +677,7 @@ namespace pstade_oven_extension {
 
 
     template< class Key, class ArgKey, class Mapped, class ArgMapped >
-    struct BoostRange< ::CMap<Key, ArgKey, Mapped, ArgMapped> > :
+    struct Range< ::CMap<Key, ArgKey, Mapped, ArgMapped> > :
     #if !defined(PSTADE_APPLE_MFC_NO_CPAIR)
         ms_detail::mfc_cpair_map_functions
     #else
@@ -704,7 +704,7 @@ namespace pstade_oven_extension {
 
 
     template< class BaseClass, class PtrType >
-    struct BoostRange< ::CTypedPtrArray<BaseClass, PtrType> > :
+    struct Range< ::CTypedPtrArray<BaseClass, PtrType> > :
         noncopyable
     {
         template< class X >
@@ -751,7 +751,7 @@ namespace pstade_oven_extension {
 
 
     template< class BaseClass, class PtrType >
-    struct BoostRange< ::CTypedPtrList<BaseClass, PtrType> > :
+    struct Range< ::CTypedPtrList<BaseClass, PtrType> > :
         ms_detail::list_functions
     {
         template< class X >
@@ -767,7 +767,7 @@ namespace pstade_oven_extension {
 
 
     template< class BaseClass, class KeyPtrType, class MappedPtrType >
-    struct BoostRange< ::CTypedPtrMap<BaseClass, KeyPtrType, MappedPtrType> > :
+    struct Range< ::CTypedPtrMap<BaseClass, KeyPtrType, MappedPtrType> > :
         ms_detail::mfc_map_functions
     {
         template< class X >
@@ -785,7 +785,7 @@ namespace pstade_oven_extension {
 #if defined(PSTADE_APPLE_MFC_HAS_LEGACY_STRING)
 
     template< >
-    struct BoostRange< ::CString >
+    struct Range< ::CString >
     {
         template< class X >
         struct meta
@@ -814,8 +814,8 @@ namespace pstade_oven_extension {
             return begin<Iterator>(x) + x.GetLength();
         }
 
-        template< class X, class Range >
-        X copy(Range& rng)
+        template< class X, class From >
+        X copy(From& rng)
         {
             X x;
             BOOST_FOREACH (TCHAR ch, rng) {

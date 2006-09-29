@@ -51,7 +51,7 @@ PSTADE_ADL_BARRIER(copy_range) { // for Boost
     copy_range(Range const& rng)
     {
         detail::requires< boost::SinglePassRangeConcept<Range> >();
-        return pstade_oven_extension::BoostRange<Copyable>().template copy<Copyable>(rng);
+        return pstade_oven_extension::Range<Copyable>().template copy<Copyable>(rng);
     }
 
 

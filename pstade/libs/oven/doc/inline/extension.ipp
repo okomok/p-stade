@@ -11,7 +11,7 @@ namespace Foo {
 namespace pstade_oven_extension {
 
     template< class T >
-    struct BoostRange< Foo::Pair<T> >
+    struct Range< Foo::Pair<T> >
     {
         // X == Foo::Pair<T>
         template< class X >

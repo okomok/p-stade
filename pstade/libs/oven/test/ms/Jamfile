@@ -1,5 +1,5 @@
 
-subproject libs/range/test/old ;
+subproject libs/oven/test/ms ;
 
 import testing ;
 
@@ -7,7 +7,7 @@ import testing ;
 DEPENDS all : test ;
 
 
-rule range-test ( name )
+rule oven-ms-test ( name )
 {
     return [
         run $(name).cpp
@@ -19,7 +19,7 @@ rule range-test ( name )
 
 
 test-suite range :
-    [ range-test atl ]
-    [ range-test mfc_ ]
-    [ range-test wtl ]
+    [ oven-ms-test atl ]
+    [ oven-ms-test mfc ]
+    [ oven-ms-test wtl ]
     ;

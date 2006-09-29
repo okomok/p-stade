@@ -71,8 +71,7 @@ namespace null_terminate_range_detail {
 template< class ForwardRange >
 struct null_terminate_range :
     null_terminate_range_detail::super_<ForwardRange>::type,
-    /*private, which VC7.1 complains about*/
-    as_lightweight_proxy< null_terminate_range<ForwardRange> >
+    /*private, which VC7.1 complains about*/ as_lightweight_proxy< null_terminate_range<ForwardRange> >
 {
     typedef ForwardRange pstade_oven_range_base_type;
 
@@ -84,7 +83,9 @@ private:
 public:
     explicit null_terminate_range(ForwardRange& rng) :
         super_t(rng, pred_t())
-    { }
+    {
+        BOOST_ASSERT(oven::is_null_terminated(rng));
+    }
 };
 
 
@@ -102,7 +103,6 @@ namespace null_terminate_range_detail {
         template< class Result, class ForwardRange >
         Result call(ForwardRange& rng)
         {
-            BOOST_ASSERT(oven::is_null_terminated(rng));
             return Result(rng);
         }
     };

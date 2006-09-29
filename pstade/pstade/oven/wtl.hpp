@@ -39,7 +39,7 @@ namespace pstade_oven_extension {
 
 
     template< >
-    struct BoostRange< WTL::CString >
+    struct Range< WTL::CString >
     {
         template< class X >
         struct meta
@@ -67,8 +67,8 @@ namespace pstade_oven_extension {
             return begin<Iterator>(x) + x.GetLength();
         }
 
-        template< class X, class Range >
-        X copy(Range& rng)
+        template< class X, class From >
+        X copy(From& rng)
         {
             X x;
             BOOST_FOREACH (TCHAR ch, rng) {
@@ -81,7 +81,7 @@ namespace pstade_oven_extension {
 
 
     template< class T >
-    struct BoostRange< WTL::CSimpleStack<T> > :
+    struct Range< WTL::CSimpleStack<T> > :
         BoostRange< ATL::CSimpleArray<T> >
     { };
 

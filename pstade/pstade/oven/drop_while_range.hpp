@@ -1,5 +1,5 @@
-#ifndef PSTADE_OVEN_TAKE_WHILE_RANGE_HPP
-#define PSTADE_OVEN_TAKE_WHILE_RANGE_HPP
+#ifndef PSTADE_OVEN_DROP_WHILE_RANGE_HPP
+#define PSTADE_OVEN_DROP_WHILE_RANGE_HPP
 
 
 // PStade.Oven
@@ -12,8 +12,8 @@
 
 // Question:
 //
-// Should be implemented by 'head_iterator' or something,
-// which makes this really lazy.
+// Should this be implemented by 'head_iterator' or something,
+// which makes this really lazy?
 
 
 #include <boost/range/end.hpp>

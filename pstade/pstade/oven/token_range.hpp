@@ -154,11 +154,11 @@ PSTADE_EGG_PIPABLE(tokenized, token_range_detail::baby_make)
 #include "./extension.hpp"
 
 
-namespace pstade { namespace oven {
+namespace pstade_oven_extension {
 
 
     template< class BidiIter >
-    struct extension< boost::sub_match<BidiIter> >
+    struct Range< boost::sub_match<BidiIter> >
     {
         template< class X >
         struct meta
@@ -181,10 +181,10 @@ namespace pstade { namespace oven {
     };
 
 
-} } // namespace pstade::oven
+} // namespace pstade_oven_extension
 
 
-PSTADE_OVEN_EXTENSION_TEMPLATE((boost, BOOST_PP_NIL), sub_match, 1)
+PSTADE_OVEN_EXTENSION_TEMPLATE((boost)(sub_match), 1)
 
 
 #endif // !defined(PSTADE_OVEN_NO_BOOST_SUB_MATCH_RANGE_EXTENSION)

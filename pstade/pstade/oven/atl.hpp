@@ -116,7 +116,7 @@ namespace pstade_oven_extension {
 
 
     template< class E, class ETraits >
-    struct BoostRange< ATL::CAtlArray<E, ETraits> > :
+    struct Range< ATL::CAtlArray<E, ETraits> > :
         ms_detail::atl_array_functions
     {
         template< class X >
@@ -131,7 +131,7 @@ namespace pstade_oven_extension {
 
 
     template< class E >
-    struct BoostRange< ATL::CAutoPtrArray<E> > :
+    struct Range< ATL::CAutoPtrArray<E> > :
         ms_detail::atl_array_functions
     {
         template< class X >
@@ -149,7 +149,7 @@ namespace pstade_oven_extension {
 
 
     template< class I, const IID *piid >
-    struct BoostRange< ATL::CInterfaceArray<I, piid> > :
+    struct Range< ATL::CInterfaceArray<I, piid> > :
         ms_detail::atl_array_functions
     {
         template< class X >
@@ -164,7 +164,7 @@ namespace pstade_oven_extension {
 
 
     template< class E, class ETraits >
-    struct BoostRange< ATL::CAtlList<E, ETraits> > :
+    struct Range< ATL::CAtlList<E, ETraits> > :
         ms_detail::list_functions
     {
         template< class X >
@@ -202,7 +202,7 @@ namespace pstade_oven_extension {
 
 
     template< class E >
-    struct BoostRange< ATL::CAutoPtrList<E> > :
+    struct Range< ATL::CAutoPtrList<E> > :
         ms_detail::indirected_list_functions
     {
         template< class X >
@@ -220,7 +220,7 @@ namespace pstade_oven_extension {
 
 
     template< class E, class Allocator >
-    struct BoostRange< ATL::CHeapPtrList<E, Allocator> > :
+    struct Range< ATL::CHeapPtrList<E, Allocator> > :
         ms_detail::indirected_list_functions
     {
         template< class X >
@@ -237,7 +237,7 @@ namespace pstade_oven_extension {
 
 
     template< class I, const IID *piid >
-    struct BoostRange< ATL::CInterfaceList<I, piid> > :
+    struct Range< ATL::CInterfaceList<I, piid> > :
         ms_detail::list_functions
     {
         template< class X >
@@ -276,22 +276,22 @@ namespace pstade_oven_extension {
 
 
     template< class K, class V, class KTraits, class VTraits >
-    struct BoostRange< ATL::CRBTree<K, V, KTraits, VTraits > > :
+    struct Range< ATL::CRBTree<K, V, KTraits, VTraits > > :
         ms_detail::rb_tree_range
     { };
 
     template< class K, class V, class KTraits, class VTraits >
-    struct BoostRange< ATL::CRBMap<K, V, KTraits, VTraits > > :
+    struct Range< ATL::CRBMap<K, V, KTraits, VTraits > > :
         ms_detail::rb_tree_range
     { };
 
     template< class K, class V, class KTraits, class VTraits >
-    struct BoostRange< ATL::CRBMultiMap<K, V, KTraits, VTraits > > :
+    struct Range< ATL::CRBMultiMap<K, V, KTraits, VTraits > > :
         ms_detail::rb_tree_range
     { };
 
     template< class K, class V, class KTraits, class VTraits >
-    struct BoostRange< ATL::CAtlMap<K, V, KTraits, VTraits> > :
+    struct Range< ATL::CAtlMap<K, V, KTraits, VTraits> > :
         ms_detail::rb_tree_range
     {
         template< class Iterator, class X >
@@ -307,7 +307,7 @@ namespace pstade_oven_extension {
     //
 
     template< class T >
-    struct BoostRange< T, typename boost::enable_if< pstade::apple::is_ATL_string<T> >::type >
+    struct Range< T, typename boost::enable_if< pstade::apple::is_ATL_string<T> >::type >
     {
         template< class X >
         struct meta
@@ -334,13 +334,13 @@ namespace pstade_oven_extension {
             return begin<Iterator>(x) + x.GetLength();
         }
 
-        template< class X, class Range >
-        X copy(Range& rng)
+        template< class X, class From >
+        X copy(From& rng)
         {
             X x;
 
             typedef typename pstade::oven::
-                range_reference<Range>::type ref_t;
+                range_reference<From>::type ref_t;
 
             BOOST_FOREACH (ref_t r, rng) {
                 x.AppendChar(r);
@@ -352,7 +352,7 @@ namespace pstade_oven_extension {
 
 
     template< class BaseType, const int t_nSize >
-    struct BoostRange< ATL::CStaticString<BaseType, t_nSize> > :
+    struct Range< ATL::CStaticString<BaseType, t_nSize> > :
         noncopyable
     {
         template< class X >
@@ -380,7 +380,7 @@ namespace pstade_oven_extension {
 
 
     template< >
-    struct BoostRange< ATL::CComBSTR >
+    struct Range< ATL::CComBSTR >
     {
         template< class X >
         struct meta
@@ -401,8 +401,8 @@ namespace pstade_oven_extension {
             return begin<Iterator>(x) + x.Length();
         }
 
-        template< class X, class Range >
-        X copy(Range& rng)
+        template< class X, class From >
+        X copy(From& rng)
         {
             X x;
             BOOST_FOREACH (OLECHAR ch, rng) {
@@ -421,11 +421,11 @@ namespace pstade_oven_extension {
 
         struct copy_using_Add
         {
-            template< class X, class Range >
-            X copy(Range& rng)
+            template< class X, class From >
+            X copy(From& rng)
             {
                 typedef typename pstade::oven::
-                    range_reference<Range>::type ref_t;
+                    range_reference<From>::type ref_t;
 
                 X x;
                 BOOST_FOREACH (ref_t r, rng) {
@@ -440,7 +440,7 @@ namespace pstade_oven_extension {
 
 
     template< PSTADE_APPLE_ATL_CSIMPLEARRAY_TEMPLATE_PARAMS >
-    struct BoostRange< ATL::CSimpleArray< PSTADE_APPLE_ATL_CSIMPLEARRAY_TEMPLATE_ARGS > > :
+    struct Range< ATL::CSimpleArray< PSTADE_APPLE_ATL_CSIMPLEARRAY_TEMPLATE_ARGS > > :
         ms_detail::array_functions,
     #if !defined(PSTADE_APPLE_ATL_HAS_OLD_CSIMPLECOLL)
         ms_detail::copy_using_Add
@@ -462,7 +462,7 @@ namespace pstade_oven_extension {
 #if defined(PSTADE_APPLE_ATL_HAS_OLD_CSIMPLECOLL)
 
     template< class T >
-    struct BoostRange< ATL::CSimpleValArray<T> > :
+    struct Range< ATL::CSimpleValArray<T> > :
         ms_detail::array_functions,
         noncopyable
     {
@@ -480,7 +480,7 @@ namespace pstade_oven_extension {
 
 
     template< PSTADE_APPLE_ATL_CSIMPLEMAP_TEMPLATE_PARAMS >
-    struct BoostRange< ATL::CSimpleMap< PSTADE_APPLE_ATL_CSIMPLEMAP_TEMPLATE_ARGS > > :
+    struct Range< ATL::CSimpleMap< PSTADE_APPLE_ATL_CSIMPLEMAP_TEMPLATE_ARGS > > :
         noncopyable // how to copy?
     {
         template< class X >
