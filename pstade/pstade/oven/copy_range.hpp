@@ -19,16 +19,12 @@
 #include <boost/iterator/iterator_categories.hpp> // traversal_tag's
 #include <boost/mpl/if.hpp>
 #include <boost/range/begin.hpp>
-#include <boost/range/end.hpp>
-#include <boost/type.hpp>
 #include <boost/type_traits/is_convertible.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <pstade/adl_barrier.hpp>
-#include <pstade/apple/has_range_constructor.hpp>
 #include <pstade/apple/is_boost_range.hpp>
 #include <pstade/egg/baby_auto.hpp>
 #include <pstade/egg/pipable.hpp>
-#include <pstade/nullptr.hpp>
 #include <pstade/unused.hpp>
 #include "./algorithm.hpp" // copy
 #include "./detail/concept_check.hpp"
@@ -46,11 +42,11 @@ namespace pstade { namespace oven {
 PSTADE_ADL_BARRIER(copy_range) { // for Boost
 
 
-    template< class Copyable, class From > inline
+    template< class Copyable, class FromRange > inline
     Copyable const
-    copy_range(From const& from)
+    copy_range(FromRange const& from)
     {
-        detail::requires< boost::SinglePassRangeConcept<From> >();
+        detail::requires< boost::SinglePassRangeConcept<FromRange> >();
         return pstade_oven_extension::Range<Copyable>().template copy<Copyable>(from);
     }
 
@@ -63,10 +59,10 @@ PSTADE_ADL_BARRIER(copy_range) { // for Boost
 
 struct copy_range_class
 {
-    template< class T, class From >
-    static T call(From const& rng)
+    template< class Copyable, class FromRange >
+    static Copyable call(FromRange const& from)
     {
-        return oven::copy_range<T>(rng);
+        return oven::copy_range<Copyable>(from);
     }
 };
 
@@ -85,7 +81,7 @@ namespace copied_out_detail {
     }
 
     template< class Range > inline
-    void check_valid(Range& rng, boost::single_pass_traversal_tag)
+    void   check_valid(Range& rng, boost::single_pass_traversal_tag)
     {
         // invalid after 'copy'
         pstade::unused(rng);
@@ -94,39 +90,39 @@ namespace copied_out_detail {
 
     struct baby
     {
-        template< class Unused, class From, class To >
+        template< class Unused, class FromRange, class To >
         struct apply :
             boost::mpl::if_<
                 boost::is_convertible<
-                    typename range_traversal<From>::type,
+                    typename range_traversal<FromRange>::type,
                     boost::forward_traversal_tag
                 >,
-                From&,
+                FromRange&,
                 void // not multi-pass
             >
         { };
 
-        template< class Result, class From, class To >
-        Result call(From& from, To& it,
-            typename boost::disable_if<apple::is_boost_range<To> >::type * = 0)
+        template< class Result, class FromRange, class OutIter >
+        Result call(FromRange& from, OutIter& to,
+            typename boost::disable_if<apple::is_boost_range<OutIter> >::type * = 0)
         {
-            oven::copy(from, it);
+            oven::copy(from, to);
 
-            typedef typename range_traversal<From>::type trv_t;
+            typedef typename range_traversal<FromRange>::type trv_t;
             return copied_out_detail::check_valid(from, trv_t());
         }
 
         // Note:
         // "Range or Iterator" detection is incomplete, so be careful.
-        template< class Result, class From, class To >
-        Result call(From& from, To& rng,
-            typename boost::enable_if< apple::is_boost_range<To> >::type * = 0)
+        template< class Result, class FromRange, class ToRange >
+        Result call(FromRange& from, ToRange& to,
+            typename boost::enable_if< apple::is_boost_range<ToRange> >::type * = 0)
         {
-            BOOST_ASSERT("out of range" && detail::debug_distance(from) <= detail::debug_distance(rng));
+            BOOST_ASSERT("out of range" && detail::debug_distance(from) <= detail::debug_distance(to));
 
-            oven::copy(from, boost::begin(rng));
+            oven::copy(from, boost::begin(to));
 
-            typedef typename range_traversal<From>::type trv_t;
+            typedef typename range_traversal<FromRange>::type trv_t;
             return copied_out_detail::check_valid(from, trv_t());
         }
     };

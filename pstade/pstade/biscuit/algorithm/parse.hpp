@@ -62,7 +62,7 @@ parse(ForwardRange& r, UserState& us, typename const_overloaded<ForwardRange>::t
 
 // no user-state
 template< class Parser, class ForwardRange > inline
-typename oven::sub_range_result<ForwardRange::type
+typename oven::sub_range_result<ForwardRange>::type
 parse(ForwardRange& r, typename const_overloaded<ForwardRange>::type = 0)
 {
     typedef typename match_results_default<Parser, ForwardRange>::type results_t;
