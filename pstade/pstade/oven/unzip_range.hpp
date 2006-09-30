@@ -93,7 +93,8 @@ public:
 
 template< int N, class TupleRange > inline
 unzip_range_at<TupleRange, N> const
-make_unzip_range_at(TupleRange& rng, typename const_overloaded<TupleRange>::type = 0)
+make_unzip_range_at(TupleRange& rng,
+    typename const_overloaded<TupleRange>::type = 0)
 {
     return unzip_range_at<TupleRange, N>(rng);
 }
@@ -148,7 +149,7 @@ namespace unzip_range_detail {
 
     struct baby_unzipped
     {
-        template< class Unused, class TupleRange >
+        template< class Myself, class TupleRange >
         struct apply
         {
             typedef typename boost::tuples::tuple<

@@ -21,7 +21,9 @@
 #include <pstade/oven/counting_range.hpp>
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/memoize_range.hpp>
+#include <pstade/oven/transform_range.hpp>
 #include <boost/iterator/reverse_iterator.hpp>
+#include <pstade/locale.hpp>
 
 
 template< class Range >
@@ -39,7 +41,7 @@ make_boost_reverse(Range& rng)
 
 void test()
 {
-    using namespace pstade;
+    namespace oven = pstade::oven;
     using namespace oven;
 
     int src[] = { 0, 1, 2, 3, 4, 5 };
@@ -92,6 +94,14 @@ void test()
                 ans
             )
         ));
+    }
+
+    {
+        using pstade::to_upper;
+        std::string src("abcDefg");
+        // oven::copy_backward(src|transformed(to_upper), boost::end(src)); can be replaced with...        
+        oven::copy(src|reversed|transformed(to_upper), src|reversed|begins);
+        BOOST_CHECK( oven::equals(src, std::string("ABCDEFG")) );
     }
 }
 

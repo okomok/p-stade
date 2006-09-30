@@ -45,7 +45,7 @@ namespace array_protect_range_detail {
 
     struct baby_make
     {
-        template< class Unused, class Array >
+        template< class Myself, class Array >
         struct apply
         {
             typedef array_protect_range<Array> const type;

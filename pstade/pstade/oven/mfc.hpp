@@ -1,14 +1,14 @@
-#ifndef PSTADE_APPLE_MFC_HPP
-#define PSTADE_APPLE_MFC_HPP
+#ifndef PSTADE_OVEN_MFC_HPP
+#define PSTADE_OVEN_MFC_HPP
 
 
 
 
-// Boost.Range MFC Extension
+// PStade.Oven
 //
 // Copyright Shunsuke Sogame 2005-2006.
-// Distributed under the Boost Software License, Version 1.0. 
-// (See accompanying file LICENSE_1_0.txt or copy at 
+// Distributed under the Boost Software License, Version 1.0.
+// (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
@@ -136,8 +136,7 @@ namespace pstade_oven_extension {
             }
         };
 
-        struct mfc_ptr_array_functions :
-            noncopyable
+        struct mfc_ptr_array_functions
         {
             template< class Iterator, class X >
             Iterator begin(X& x)
@@ -160,11 +159,11 @@ namespace pstade_oven_extension {
 
     template< >
     struct Range< ::CByteArray > :
-        ms_detail::array_functions,
-        noncopyable
+        range_noncopyable,
+        ms_detail::array_functions
     {
         template< class X >
-        struct meta
+        struct associate
         {
             typedef BYTE val_t;
 
@@ -176,11 +175,11 @@ namespace pstade_oven_extension {
 
     template< >
     struct Range< ::CDWordArray > :
-        ms_detail::array_functions,
-        noncopyable
+        range_noncopyable,
+        ms_detail::array_functions
     {
         template< class X >
-        struct meta
+        struct associate
         {
             typedef DWORD val_t;
 
@@ -192,10 +191,11 @@ namespace pstade_oven_extension {
 
     template< >
     struct Range< ::CObArray > :
+        range_noncopyable,
         ms_detail::mfc_ptr_array_functions
     {
         template< class X >
-        struct meta
+        struct associate
         {
             typedef ms_detail::mfc_ptr_array_iterator<X, CObject *> mutable_iterator;
             typedef ms_detail::mfc_ptr_array_iterator<X const, CObject const *> constant_iterator;
@@ -205,10 +205,11 @@ namespace pstade_oven_extension {
 
     template< >
     struct Range< ::CPtrArray > :
+        range_noncopyable,
         ms_detail::mfc_ptr_array_functions
     {
         template< class X >
-        struct meta
+        struct associate
         {
             typedef ms_detail::mfc_ptr_array_iterator<X, void *> mutable_iterator;
             typedef ms_detail::mfc_ptr_array_iterator<X const, void const *> constant_iterator;
@@ -218,11 +219,11 @@ namespace pstade_oven_extension {
 
     template< >
     struct Range< ::CStringArray > :
-        ms_detail::array_functions,
-        noncopyable
+        range_noncopyable,
+        ms_detail::array_functions
     {
         template< class X >
-        struct meta
+        struct associate
         {
             typedef ::CString val_t;
 
@@ -234,11 +235,11 @@ namespace pstade_oven_extension {
 
     template< >
     struct Range< ::CUIntArray > :
-        ms_detail::array_functions,
-        noncopyable
+        range_noncopyable,
+        ms_detail::array_functions
     {
         template< class X >
-        struct meta
+        struct associate
         {
             typedef UINT val_t;
 
@@ -250,11 +251,11 @@ namespace pstade_oven_extension {
 
     template< >
     struct Range< ::CWordArray > :
-        ms_detail::array_functions,
-        noncopyable
+        range_noncopyable,
+        ms_detail::array_functions
     {
         template< class X >
-        struct meta
+        struct associate
         {
             typedef WORD val_t;
 
@@ -269,10 +270,11 @@ namespace pstade_oven_extension {
 
     template< >
     struct Range< ::CObList > :
+        range_noncopyable,
         ms_detail::list_functions
     {
         template< class X >
-        struct meta
+        struct associate
         {
             typedef ms_detail::list_iterator<X, ::CObject *> mutable_iterator;
     #if !defined(PSTADE_APPLE_MFC_CONST_COL_RETURNS_NON_REF)
@@ -286,10 +288,11 @@ namespace pstade_oven_extension {
 
     template< >
     struct Range< ::CPtrList > :
+        range_noncopyable,
         ms_detail::list_functions
     {
         template< class X >
-        struct meta
+        struct associate
         {
             typedef ms_detail::list_iterator<X, void *> mutable_iterator;
     #if !defined(PSTADE_APPLE_MFC_CONST_COL_RETURNS_NON_REF)
@@ -303,10 +306,11 @@ namespace pstade_oven_extension {
 
     template< >
     struct Range< ::CStringList > :
+        range_noncopyable,
         ms_detail::list_functions
     {
         template< class X >
-        struct meta
+        struct associate
         {
             typedef ::CString val_t;
 
@@ -394,8 +398,7 @@ namespace pstade_oven_extension {
             }
         };
 
-        struct mfc_map_functions :
-            noncopyable
+        struct mfc_map_functions
         {
             template< class Iterator, class X >
             Iterator begin(X& x)
@@ -483,8 +486,7 @@ namespace pstade_oven_extension {
             }
         };
 
-        struct mfc_cpair_map_functions :
-            noncopyable
+        struct mfc_cpair_map_functions
         {
             template< class Iterator, class X >
             Iterator begin(X& x)
@@ -516,10 +518,11 @@ namespace pstade_oven_extension {
 
     template< >
     struct Range< ::CMapPtrToWord > :
+        range_noncopyable,
         ms_detail::mfc_map_functions
     {
         template< class X >
-        struct meta
+        struct associate
         {
             typedef void *key_t;
             typedef WORD mapped_t;
@@ -532,10 +535,11 @@ namespace pstade_oven_extension {
 
     template< >
     struct Range< ::CMapPtrToPtr > :
+        range_noncopyable,
         ms_detail::mfc_map_functions
     {
         template< class X >
-        struct meta
+        struct associate
         {
             typedef void *key_t;
             typedef void *mapped_t;
@@ -548,10 +552,11 @@ namespace pstade_oven_extension {
 
     template< >
     struct Range< ::CMapStringToOb > :
+        range_noncopyable,
         ms_detail::mfc_map_functions
     {
         template< class X >
-        struct meta
+        struct associate
         {
             typedef ::CString key_t;
             typedef ::CObject *mapped_t;
@@ -564,10 +569,11 @@ namespace pstade_oven_extension {
 
     template< >
     struct Range< ::CMapStringToPtr > :
+        range_noncopyable,
         ms_detail::mfc_map_functions
     {
         template< class X >
-        struct meta
+        struct associate
         {
             typedef ::CString key_t;
             typedef void *mapped_t;
@@ -580,6 +586,7 @@ namespace pstade_oven_extension {
 
     template< >
     struct Range< ::CMapStringToString > :
+        range_noncopyable,
     #if !defined(PSTADE_APPLE_MFC_NO_CPAIR)
         ms_detail::mfc_cpair_map_functions
     #else
@@ -587,7 +594,7 @@ namespace pstade_oven_extension {
     #endif
     {
         template< class X >
-        struct meta
+        struct associate
         {
     #if !defined(PSTADE_APPLE_MFC_NO_CPAIR)
             typedef typename X::CPair pair_t;
@@ -607,10 +614,11 @@ namespace pstade_oven_extension {
 
     template< >
     struct Range< ::CMapWordToOb > :
+        range_noncopyable,
         ms_detail::mfc_map_functions
     {
         template< class X >
-        struct meta
+        struct associate
         {
             typedef WORD key_t;
             typedef ::CObject *mapped_t;
@@ -623,10 +631,11 @@ namespace pstade_oven_extension {
 
     template< >
     struct Range< ::CMapWordToPtr > :
+        range_noncopyable,
         ms_detail::mfc_map_functions
     {
         template< class X >
-        struct meta
+        struct associate
         {
             typedef WORD key_t;
             typedef void *mapped_t;
@@ -642,11 +651,11 @@ namespace pstade_oven_extension {
 
     template< class Type, class ArgType >
     struct Range< ::CArray<Type, ArgType> > :
-        ms_detail::array_functions,
-        noncopyable
+        range_noncopyable,
+        ms_detail::array_functions
     {
         template< class X >
-        struct meta
+        struct associate
         {
             typedef Type val_t;
 
@@ -658,10 +667,11 @@ namespace pstade_oven_extension {
 
     template< class Type, class ArgType >
     struct Range< ::CList<Type, ArgType> > :
+        range_noncopyable,
         ms_detail::list_functions
     {
         template< class X >
-        struct meta
+        struct associate
         {
             typedef Type val_t;
 
@@ -677,6 +687,7 @@ namespace pstade_oven_extension {
 
     template< class Key, class ArgKey, class Mapped, class ArgMapped >
     struct Range< ::CMap<Key, ArgKey, Mapped, ArgMapped> > :
+        range_noncopyable,
     #if !defined(PSTADE_APPLE_MFC_NO_CPAIR)
         ms_detail::mfc_cpair_map_functions
     #else
@@ -684,7 +695,7 @@ namespace pstade_oven_extension {
     #endif
     {
         template< class X >
-        struct meta
+        struct associate
         {
     #if !defined(PSTADE_APPLE_MFC_NO_CPAIR)
             typedef typename X::CPair pair_t;
@@ -704,7 +715,7 @@ namespace pstade_oven_extension {
 
     template< class BaseClass, class PtrType >
     struct Range< ::CTypedPtrArray<BaseClass, PtrType> > :
-        noncopyable
+        range_noncopyable
     {
         template< class X >
         struct fun
@@ -726,7 +737,7 @@ namespace pstade_oven_extension {
         };
 
         template< class X >
-        struct meta
+        struct associate
         {
             typedef typename pstade::oven::range_mutable_iterator<BaseClass>::type miter_t;
             typedef typename pstade::oven::range_constant_iterator<BaseClass>::type citer_t;
@@ -751,10 +762,11 @@ namespace pstade_oven_extension {
 
     template< class BaseClass, class PtrType >
     struct Range< ::CTypedPtrList<BaseClass, PtrType> > :
+        range_noncopyable,
         ms_detail::list_functions
     {
         template< class X >
-        struct meta
+        struct associate
         {
             typedef typename boost::remove_pointer<PtrType>::type val_t;
 
@@ -767,10 +779,11 @@ namespace pstade_oven_extension {
 
     template< class BaseClass, class KeyPtrType, class MappedPtrType >
     struct Range< ::CTypedPtrMap<BaseClass, KeyPtrType, MappedPtrType> > :
+        range_noncopyable,
         ms_detail::mfc_map_functions
     {
         template< class X >
-        struct meta
+        struct associate
         {
             typedef ms_detail::mfc_map_iterator<X, KeyPtrType, MappedPtrType> mutable_iterator;
             typedef mutable_iterator constant_iterator;
@@ -787,7 +800,7 @@ namespace pstade_oven_extension {
     struct Range< ::CString >
     {
         template< class X >
-        struct meta
+        struct associate
         {
             // LPTSTR/LPCTSTR is not always defined in <tchar.h>.
             typedef TCHAR *mutable_iterator;
@@ -795,7 +808,8 @@ namespace pstade_oven_extension {
         };
 
         template< class Iterator, class X >
-        Iterator begin(X& x, typename const_overloaded<X>::type = 0)
+        Iterator begin(X& x,
+            typename const_overloaded<X>::type = 0)
         {
             return x.GetBuffer(0);
         }

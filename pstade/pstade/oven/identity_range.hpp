@@ -28,14 +28,14 @@ namespace identity_range_detail {
 
     template<
         class Range,
-        class CategoryOrTraversal
+        class Traversal
     >
     struct super_
     {
         typedef boost::iterator_range<
             identity_iterator<
                 typename range_iterator<Range>::type,
-                CategoryOrTraversal
+                Traversal
             >
         > type;
     };
@@ -46,17 +46,17 @@ namespace identity_range_detail {
 
 template<
     class Range,
-    class CategoryOrTraversal = boost::use_default
+    class Traversal = boost::use_default
 >
 struct identity_range :
-    identity_range_detail::super_<Range, CategoryOrTraversal>::type,
-    private as_lightweight_proxy< identity_range<Range, CategoryOrTraversal> >
+    identity_range_detail::super_<Range, Traversal>::type,
+    private as_lightweight_proxy< identity_range<Range, Traversal> >
 {
     typedef Range pstade_oven_range_base_type;
 
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
-    typedef typename identity_range_detail::super_<Range, CategoryOrTraversal>::type super_t;
+    typedef typename identity_range_detail::super_<Range, Traversal>::type super_t;
 
 public:
     explicit identity_range(Range& rng) :
@@ -70,15 +70,15 @@ namespace identity_range_detail {
 
     struct baby_make
     {
-        template< class Unused, class Range, class CategoryOrTraversal = boost::use_default >
+        template< class Myself, class Range, class Traversal = boost::use_default >
         struct apply
         {
-            typedef typename pass_by_value<CategoryOrTraversal>::type trv_t;
+            typedef typename pass_by_value<Traversal>::type trv_t;
             typedef identity_range<Range, trv_t> const type;
         };
 
-        template< class Result, class Range, class CategoryOrTraversal >
-        Result call(Range& rng, CategoryOrTraversal)
+        template< class Result, class Range, class Traversal >
+        Result call(Range& rng, Traversal)
         {
             return Result(rng);
         }

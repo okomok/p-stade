@@ -14,11 +14,8 @@
 //
 // The BottomIterator must be valid after copying of TopIterator.
 // Thus, 'boost::token_iterator' cannot be supported.
-
-
-// Note:
 //
-// Makes 'biscuit::filter_range' deprecated!
+// This class makes 'biscuit::filter_range' deprecated!
 
 
 #include <boost/iterator/iterator_adaptor.hpp>

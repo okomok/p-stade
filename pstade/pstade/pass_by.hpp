@@ -36,9 +36,10 @@ struct pass_by_reference :
 { };
 
 
+// removes cv-qualifier, cuz 'foo(int const)' is same as 'foo(int)'.
 template< class T >
 struct pass_by_value :
-    boost::remove_cv<
+    boost::remove_cv< 
         // 'decay' calls 'remove_reference'.
         typename boost::decay<T>::type
     >

@@ -58,7 +58,7 @@ namespace shift_range_detail {
 
     struct baby_make
     {
-        template< class Unused, class ForwardRange, class Difference >
+        template< class Myself, class ForwardRange, class Difference >
         struct apply
         {
             typedef shift_range<ForwardRange> const type;

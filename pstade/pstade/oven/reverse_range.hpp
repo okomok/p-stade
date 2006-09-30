@@ -72,7 +72,7 @@ namespace reverse_range_detail {
 
     struct baby_make
     {
-        template< class Unused, class BidiRange >
+        template< class Myself, class BidiRange >
         struct apply
         {
             typedef reverse_range<BidiRange> const type;

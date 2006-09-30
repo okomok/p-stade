@@ -89,7 +89,7 @@ namespace move_range_detail {
 
     struct baby_make
     {
-        template< class Unused, class LValueRange >
+        template< class Myself, class LValueRange >
         struct apply
         {
             typedef move_range<LValueRange> const type;

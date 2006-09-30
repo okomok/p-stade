@@ -53,7 +53,7 @@ struct baby_auto
         From& m_from;
     };
 
-    template< class Unused, class From >
+    template< class Myself, class From >
     struct apply
     {
         typedef temp<From> const type;

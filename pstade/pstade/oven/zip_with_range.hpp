@@ -108,7 +108,7 @@ namespace zip_with_range_detail {
 
     struct baby_make
     {
-        template< class Unused, class Range0, class Range1, class BinaryFun >
+        template< class Myself, class Range0, class Range1, class BinaryFun >
         struct apply
         {
             typedef typename pass_by_value<BinaryFun>::type fun_t;

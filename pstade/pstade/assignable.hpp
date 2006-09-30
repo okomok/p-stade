@@ -88,7 +88,7 @@ private:
     typedef assignable self_t;
 
 public:
-    explicit assignable() :
+    explicit assignable() : // DefaultConstructible iif 'Clonable' is.
         m_ptr(assignable_detail::new_clone(Clonable()))
     { }
 

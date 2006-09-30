@@ -11,29 +11,48 @@
 
 
 #include <boost/iterator/iterator_adaptor.hpp>
+#include <boost/iterator/iterator_categories.hpp> // iterator_traversal
+#include <boost/mpl/assert.hpp>
+#include <boost/mpl/identity.hpp>
+#include <boost/mpl/if.hpp>
+#include <boost/type_traits/is_convertible.hpp>
+#include <boost/type_traits/is_same.hpp>
 
 
 namespace pstade { namespace oven {
 
 
-template< class Iterator, class CategoryOrTraversal >
+template< class Iterator, class Traversal >
 struct identity_iterator;
 
 
 namespace identity_iterator_detail {
 
 
+    template< class BaseTraversal, class Traversal >
+    struct traversal :
+        boost::mpl::if_<
+            boost::is_same<Traversal, boost::use_default>,
+            BaseTraversal, Traversal
+        >
+    { };
+
+
     template<
         class Iterator,
-        class CategoryOrTraversal
+        class Traversal
     >
     struct super_
     {
+        typedef typename boost::iterator_traversal<Iterator>::type base_trv_t;
+        typedef typename traversal<base_trv_t, Traversal>::type trv_t;
+        BOOST_MPL_ASSERT((boost::is_convertible<base_trv_t, trv_t>));
+
         typedef boost::iterator_adaptor<
-            identity_iterator<Iterator, CategoryOrTraversal>,
+            identity_iterator<Iterator, Traversal>,
             Iterator,
             boost::use_default,
-            CategoryOrTraversal
+            trv_t
         > type;
     };
 
@@ -43,13 +62,13 @@ namespace identity_iterator_detail {
 
 template<
     class Iterator,
-    class CategoryOrTraversal = boost::use_default
+    class Traversal = boost::use_default
 >
 struct identity_iterator :
-    identity_iterator_detail::super_<Iterator, CategoryOrTraversal>::type
+    identity_iterator_detail::super_<Iterator, Traversal>::type
 {
 private:
-    typedef typename identity_iterator_detail::super_<Iterator, CategoryOrTraversal>::type super_t;
+    typedef typename identity_iterator_detail::super_<Iterator, Traversal>::type super_t;
 
 public:
     explicit identity_iterator(Iterator const& it) :
@@ -69,19 +88,11 @@ friend class boost::iterator_core_access;
 };
 
 
-template< class Iterator, class CategoryOrTraversal > inline
-identity_iterator<Iterator, CategoryOrTraversal> const
-make_identity_iterator(Iterator const& it, CategoryOrTraversal)
-{
-    return identity_iterator<Iterator, CategoryOrTraversal>(it);
-}
-
-
-template< class Iterator > inline
-identity_iterator<Iterator> const
+template< class Traversal, class Iterator > inline
+identity_iterator<Iterator, Traversal> const
 make_identity_iterator(Iterator const& it)
 {
-    return identity_iterator<Iterator>(it);
+    return identity_iterator<Iterator, Traversal>(it);
 }
 
 

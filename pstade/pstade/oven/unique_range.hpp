@@ -62,7 +62,7 @@ namespace unique_range_detail {
 
     struct baby_make
     {
-        template< class Unused, class ForwardRange >
+        template< class Myself, class ForwardRange >
         struct apply
         {
             typedef unique_range<ForwardRange> const type;

@@ -33,7 +33,7 @@ namespace get_at_range_detail {
     template< class N >
     struct baby_at
     {
-        template< class Unused, class FusionSeq >
+        template< class Myself, class FusionSeq >
         struct apply :
             boost::fusion::result_of::at<FusionSeq, N>
         { };
@@ -105,7 +105,8 @@ public:
 
 template< class N, class FusionSeqRange > inline
 get_at_range<FusionSeqRange, N> const
-make_get_at_range(FusionSeqRange& rng, typename const_overloaded<FusionSeqRange>::type = 0)
+make_get_at_range(FusionSeqRange& rng,
+    typename const_overloaded<FusionSeqRange>::type = 0)
 {
     return get_at_range<FusionSeqRange, N>(rng);
 }

@@ -69,7 +69,7 @@ namespace joint_range_detail {
 
     struct baby_make
     {
-        template< class Unused, class RangeL, class RangeR >
+        template< class Myself, class RangeL, class RangeR >
         struct apply
         {
             typedef joint_range<RangeL, RangeR> const type;

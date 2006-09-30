@@ -83,10 +83,10 @@ namespace pstade_oven_extension {
 
     template< class T >
     struct Range<T,
-        typename boost::enable_if< mine::is_container<T> >::type >
+        typename where_< mine::is_container<T> >::type >
     {
         template< class X >
-        struct meta
+        struct associate
         {
             typedef typename X::impl_t::iterator mutable_iterator;
             typedef typename X::impl_t::const_iterator constant_iterator;
@@ -109,7 +109,7 @@ namespace pstade_oven_extension {
     struct Range< ::your_sequence >
     {
         template< class X >
-        struct meta
+        struct associate
         {
             typedef std::string::iterator mutable_iterator;
             typedef std::string::const_iterator constant_iterator;
@@ -155,7 +155,7 @@ namespace pstade_oven_extension {
     {
         // X == Foo::Pair<T>
         template< class X >
-        struct meta
+        struct associate
         {
             typedef T mutable_iterator;
             typedef T constant_iterator;

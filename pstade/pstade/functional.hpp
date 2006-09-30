@@ -44,7 +44,7 @@ namespace identity_detail {
 
     struct baby
     {
-        template< class Unused, class T >
+        template< class Myself, class T >
         struct apply :
             boost::add_reference<T>
         { };
@@ -69,14 +69,14 @@ namespace not_detail {
     template< class Predicate >
     struct baby_fun
     {
-        explicit baby_fun() // DefaultConstructible if 'Predicate' is.
+        explicit baby_fun() // DefaultConstructible iif 'Predicate' is.
         { }
 
         explicit baby_fun(Predicate const& pred) :
             m_pred(pred)
         { }
 
-        template< class Unused, class T0, class T1 = void >
+        template< class Myself, class T0, class T1 = void >
         struct apply
         {
             typedef bool type;
@@ -100,7 +100,7 @@ namespace not_detail {
 
     struct baby
     {
-        template< class Unused, class Predicate >
+        template< class Myself, class Predicate >
         struct apply
         {
             typedef typename pass_by_value<Predicate>::type pred_t;
@@ -208,7 +208,7 @@ namespace plus_detail {
 
     struct baby
     {
-        template< class Unused, class X, class Y >
+        template< class Myself, class X, class Y >
         struct apply :
             deduce_result<X, Y>
         { };
@@ -232,7 +232,7 @@ namespace at_first_detail {
 
     struct baby
     {
-        template< class Unused, class Pair >
+        template< class Myself, class Pair >
         struct apply :
             boost::add_reference<
                 typename affect_const<
@@ -260,7 +260,7 @@ namespace at_second_detail {
 
     struct baby
     {
-        template< class Unused, class Pair >
+        template< class Myself, class Pair >
         struct apply :
             boost::add_reference<
                 typename affect_const<

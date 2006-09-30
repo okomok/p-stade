@@ -51,10 +51,6 @@ namespace baby_result_detail {
     };
 
 
-    typedef boost::mpl::void_
-    dummy_type;
-
-
     template< class A >
     struct meta_arg :
         boost::remove_reference<A>
@@ -87,8 +83,7 @@ struct baby_result0 :
 //
 template< class BabyFunction, class A0 >
 struct baby_result1 :
-    BabyFunction::template apply<
-        baby_result_detail::dummy_type,
+    BabyFunction::template apply<BabyFunction,
         typename baby_result_detail::meta_arg<A0>::type
     >
 { };
@@ -116,8 +111,7 @@ struct baby_result1 :
 
 template< class BabyFunction, BOOST_PP_ENUM_PARAMS(n, class A) >
 struct BOOST_PP_CAT(baby_result, n) :
-    BabyFunction::template apply<
-        baby_result_detail::dummy_type,
+    BabyFunction::template apply<BabyFunction,
         BOOST_PP_ENUM(n, PSTADE_EGG_meta_arg, ~)
     >
 { };

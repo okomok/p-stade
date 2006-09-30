@@ -106,7 +106,7 @@ namespace c_str_detail {
 
     struct baby
     {
-        template< class Unused, class CStringizable >
+        template< class Myself, class CStringizable >
         struct apply
         {
             typedef TCHAR const *type;

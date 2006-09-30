@@ -44,7 +44,7 @@ namespace always_range_detail {
 
     struct baby_make
     {
-        template< class Unused, class IgnoredRange, class Range >
+        template< class Myself, class IgnoredRange, class Range >
         struct apply
         {
             typedef always_range<IgnoredRange, Range> const type;

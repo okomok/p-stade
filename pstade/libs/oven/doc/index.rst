@@ -71,11 +71,11 @@ Oven has all the range-based STL algorithms which are ported from `Boost.RangeEx
 - Returns: ``std::algo(boost::begin(rng),boost::end(rng),a0,a1,...,aN);``
 
 
-``adaptor_to``
-^^^^^^^^^^^^^^
+``adaptor_to/to_base``
+^^^^^^^^^^^^^^^^^^^^^^
 ``adaptor_to`` gets the ``base_type`` iterator of iterator adaptors::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\adaptor_to.ipp
+	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\adaptor_to_base.ipp
 
 
 - Header: ``<pstade/oven/adaptor_to_base.hpp>``
@@ -83,6 +83,19 @@ Oven has all the range-based STL algorithms which are ported from `Boost.RangeEx
 - Precondition: The type of ``base`` is ``BaseIter``, and ``it`` is an iterator adaptor.
 
 ``to_base`` adds the automatic type deduction to ``adaptor_to``.
+
+
+``begins/ends``
+^^^^^^^^^^^^^^^
+``begins/ends`` is a pipable version of ``boost::begin/end``::
+
+	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\begins_ends.ipp
+
+
+- Header: ``<pstade/oven/begin_end.hpp>``
+- Valid expression: ``rng|begins`` and ``rng|ends``.
+- Precondition: ``boost::begin(rng)`` and ``boost::end(rng)`` is a valid expression.
+- Returns: ``boost::begin(rng)`` and ``boost::end(rng)`` respectively.
 
 
 ``copied``
@@ -176,7 +189,8 @@ a range presentation of dynamically allocated arrays::
 ``counting_range``
 ^^^^^^^^^^^^^^^^^^
 ``counting_range`` is a range whose iterators behave as if
-they were the original iterators wrapped in `counting_iterator`__::
+they were the original iterators wrapped in `counting_iterator`__.
+Note that this range introduces the replacement of ``for`` loop::
 
 	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\counting_range.ipp
 
@@ -184,7 +198,8 @@ __ http://www.boost.org/libs/iterator/doc/counting_iterator.html
 
 
 - Header: ``<pstade/oven/counting_range.hpp>``
-- Valid expression: ``counting_range<I,T,D> rng(n,m);`` and ``oven::make_counting_range(n,m);``
+- Valid expression1: ``counting_range<I,T,D> rng(n,m);`` and ``oven::make_counting_range(n,m);``
+- Valid expression2: ``oven::from_0_to(m)`` and ``oven::from_1_to(m)``
 - Precondition: ``boost::couting_iterator<I,T,D>(x);`` is a valid expression, where
   ``x`` is ``n`` or ``m``.
 
@@ -540,7 +555,8 @@ Pending...
 
 
 - Header: ``<pstade/oven/identity_range.hpp>``
-- Valid expression: ``rng|identities``
+- Valid expression: ``rng|identities`` and ``rng|identities(trv)``, where ``trv`` is a traversal tag object.
+- Precondition: ``rng``\'s traversal tag is convertible to ``trv``.
 - Returns: ``[boost::begin(rng),boost::end(rng))``.
 
 
@@ -845,7 +861,7 @@ Output Iterator Adaptors
 ``to_counter``
 ^^^^^^^^^^^^^^
 ``to_counter`` takes an initial count and increments it every output.
-`adaptor_to`_ or ``to_base`` can extract the result of the counting::
+`adaptor_to/to_base`_ can extract the result of the counting::
 
 	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\to_counter.ipp
 
@@ -879,18 +895,25 @@ the same as ``value_type`` of it.
 
 Extending Boost.Range
 ---------------------
-`The extension way of Boost.Range`__ seems to assume future C++ abilities.
+`The extension way of Boost.Range`__ seems to assume future C++ ability ``decltype``.
 For now, it is not practical to apply the way to the large library something like MFC.
-Oven provides yet another extension way to simplify the Boost.Range's::
+Oven provides yet another extension way, which is similar to
+`Conceptualizing the Range-Based for Loop`__ proposal to simplify the Boost.Range one::
 
 	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\extension.ipp
 
 
-1. Specialize ``::pstade_oven_extension::Range``, which has the second template parameter for ``boost::enable_if``.
-2. Define template ``meta``, ``begin`` and ``end`` like above. The const overloads sometimes can be omitted. ``boost::size`` is automatically extended by Oven.
-3. Call the macro for extension in global namespace.
+1. Specialize ``::pstade_oven_extension::Range``.
+2. Define template ``associate``, ``begin`` and ``end``.
+3. Call the macro, in global namespace, to act as a bridge between Oven and Boost.Range.
 
 __ http://www.boost.org/libs/range/doc/boost_range.html#minimal_interface
+__ http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2049.pdf
+
+
+Note that the const overloads can be sometimes omitted like above.
+Also, ``concept_Range`` has the second template parameter for ``boost::enable_if``.
+``boost::size`` is automatically extended by Oven.
 
 
 - Header: ``<pstade/oven/extension.hpp>``
@@ -908,6 +931,9 @@ Acknowledgments
 - `Boost.Range`_
 - `Boost.RangeEx`_
 - `Range Library Proposal`_
+- `Range Library Core`__
+
+__ http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2068.html
 
 
 
@@ -981,4 +1007,6 @@ Version 0.91.2
 - Rejected ``out_placed`` and ``sorted``.
 - Added `literal_range`_ and `c_str_range`_.
 - `null_terminated`_ no longer supports c-string.
-- Added ``as_single`` to `single_range`_'\s valid expression
+- Added ``as_single`` to `single_range`_'\s valid expressions.
+- Added `begins/ends`_.
+

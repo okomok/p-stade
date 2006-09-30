@@ -89,6 +89,7 @@ public:
     // implicit conversions
     // this seems inconsistent with range constructor above?
     // But this class is the string....
+    //
     template< std::size_t sz >
     ustring(char const (&arr)[sz]) :
         super_t(static_cast<char const *>(arr), static_cast<char const*>(arr) + sz - 1)
@@ -104,7 +105,7 @@ public:
 // truncated!
 //
 template<class CharT, class Traits >
-std::basic_ostream<CharT, Traits>& operator<<(std::basic_ostream<CharT, Traits>& os, ustring str)
+std::basic_ostream<CharT, Traits>& operator<<(std::basic_ostream<CharT, Traits>& os, ustring const& str)
 {
     os << oven::copy_range< std::basic_string<CharT, Traits> >(str);
     return os;

@@ -31,7 +31,7 @@ namespace begin_end_detail {
 
     struct with_apply
     {
-        template< class Unused, class Range >
+        template< class Myself, class Range >
         struct apply :
             range_iterator<Range>
         { };

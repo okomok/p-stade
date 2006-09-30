@@ -140,7 +140,7 @@ namespace generate_range_detail {
 
     struct baby_make
     {
-        template< class Unused, class Range, class Generator >
+        template< class Myself, class Range, class Generator >
         struct apply
         {
             typedef typename unwrap<typename pass_by_value<Generator>::type>::type gen_t;

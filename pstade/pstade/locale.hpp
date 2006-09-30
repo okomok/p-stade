@@ -66,7 +66,7 @@ namespace to_upper_lower_detail {
 
     struct with_apply
     {
-        template< class Unused, class CharT, class Locale = void >
+        template< class Myself, class CharT, class Locale = void >
         struct apply :
             pass_by_value<CharT>
         { };

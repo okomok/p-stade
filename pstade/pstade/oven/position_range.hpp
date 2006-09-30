@@ -95,7 +95,7 @@ namespace position_range_detail {
     {
         typedef boost::spirit::file_position default_pos_t;
 
-        template< class Unused, class ForwardRange, class PositionT = default_pos_t, class Int = void >
+        template< class Myself, class ForwardRange, class PositionT = default_pos_t, class Int = void >
         struct apply
         {
             typedef typename pass_by_value<PositionT>::type pos_t;

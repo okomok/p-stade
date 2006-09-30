@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/config.hpp> // BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE
 #include <boost/range/end.hpp>
 #include <boost/type_traits/add_const.hpp>
 #include <pstade/const_overloaded.hpp>
@@ -25,7 +26,7 @@ namespace match_detail {
 
 
     template< class Parser, class ParsingRange, class MatchResults, class UserState > inline
-    bool aux(ParsingRange& r, MatchResults& rs, UserState& us)
+    bool aux(ParsingRange& r, MatchResults& rs, UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
     {
         typedef typename parsing_range_state<ParsingRange, MatchResults>::type state_t;
 
@@ -38,7 +39,8 @@ namespace match_detail {
 
 
 template< class Parser, class ForwardRange, class UserState > inline
-bool match(ForwardRange& r, UserState& us, typename const_overloaded<ForwardRange>::type = 0)
+typename const_overloaded_result<bool, ForwardRange>::type
+match(ForwardRange& r, UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
 {
     typedef typename match_results_default<Parser, ForwardRange>::type results_t;
     results_t rs;
@@ -46,7 +48,7 @@ bool match(ForwardRange& r, UserState& us, typename const_overloaded<ForwardRang
 }
 
     template< class Parser, class ForwardRange, class UserState > inline
-    bool match(ForwardRange const& r, UserState& us)
+    bool match(ForwardRange const& r, UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
     {
         typedef typename match_results_default<Parser, typename boost::add_const<ForwardRange>::type>::type results_t;
         results_t rs;
@@ -56,7 +58,8 @@ bool match(ForwardRange& r, UserState& us, typename const_overloaded<ForwardRang
 
 // no user-state
 template< class Parser, class ForwardRange > inline
-bool match(ForwardRange& r, typename const_overloaded<ForwardRange>::type = 0)
+typename const_overloaded_result<bool, ForwardRange>::type
+match(ForwardRange& r BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
 {
     typedef typename match_results_default<Parser, ForwardRange>::type results_t;
     results_t rs;
@@ -64,7 +67,7 @@ bool match(ForwardRange& r, typename const_overloaded<ForwardRange>::type = 0)
 }
 
     template< class Parser, class ForwardRange > inline
-    bool match(ForwardRange const& r)
+    bool match(ForwardRange const& r BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
     {
         typedef typename match_results_default<Parser, typename boost::add_const<ForwardRange>::type>::type results_t;
         results_t rs;
@@ -73,13 +76,14 @@ bool match(ForwardRange& r, typename const_overloaded<ForwardRange>::type = 0)
 
 
 template< class Parser, class ForwardRange, class MatchResults, class UserState > inline
-bool results_match(ForwardRange& r, MatchResults& rs, UserState& us, typename const_overloaded<ForwardRange>::type = 0)
+typename const_overloaded_result<bool, ForwardRange>::type
+results_match(ForwardRange& r, MatchResults& rs, UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
 {
     return match_detail::aux<Parser>(r, rs, us);
 }
 
     template< class Parser, class ForwardRange, class MatchResults, class UserState > inline
-    bool results_match(ForwardRange const& r, MatchResults& rs, UserState& us)
+    bool results_match(ForwardRange const& r, MatchResults& rs, UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
     {
         return match_detail::aux<Parser>(r, rs, us);
     }
@@ -87,13 +91,14 @@ bool results_match(ForwardRange& r, MatchResults& rs, UserState& us, typename co
 
 // no user-state
 template< class Parser, class ForwardRange, class MatchResults > inline
-bool results_match(ForwardRange& r, MatchResults& rs, typename const_overloaded<ForwardRange>::type = 0)
+typename const_overloaded_result<bool, ForwardRange>::type
+results_match(ForwardRange& r, MatchResults& rs BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
 {
     return match_detail::aux<Parser>(r, rs, null_state);
 }
 
     template< class Parser, class ForwardRange, class MatchResults > inline
-    bool results_match(ForwardRange const& r, MatchResults& rs)
+    bool results_match(ForwardRange const& r, MatchResults& rs BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
     {
         return match_detail::aux<Parser>(r, rs, null_state);
     }

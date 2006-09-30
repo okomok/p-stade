@@ -10,11 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Question:
-//
-// 'Copyable' should be a Range?
-
-
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_categories.hpp> // traversal_tag's
 #include <boost/mpl/if.hpp>
@@ -42,12 +37,13 @@ namespace pstade { namespace oven {
 PSTADE_ADL_BARRIER(copy_range) { // for Boost
 
 
-    template< class Copyable, class FromRange > inline
-    Copyable const
+    template< class OvenCopyableRange, class FromRange > inline
+    OvenCopyableRange const
     copy_range(FromRange const& from)
     {
         detail::requires< boost::SinglePassRangeConcept<FromRange> >();
-        return pstade_oven_extension::Range<Copyable>().template copy<Copyable>(from);
+        return pstade_oven_extension::Range<OvenCopyableRange>().
+            template copy<OvenCopyableRange>(from);
     }
 
 
@@ -59,10 +55,10 @@ PSTADE_ADL_BARRIER(copy_range) { // for Boost
 
 struct copy_range_class
 {
-    template< class Copyable, class FromRange >
-    static Copyable call(FromRange const& from)
+    template< class OvenCopyableRange, class FromRange >
+    static OvenCopyableRange call(FromRange const& from)
     {
-        return oven::copy_range<Copyable>(from);
+        return oven::copy_range<OvenCopyableRange>(from);
     }
 };
 
@@ -90,7 +86,7 @@ namespace copied_out_detail {
 
     struct baby
     {
-        template< class Unused, class FromRange, class To >
+        template< class Myself, class FromRange, class To >
         struct apply :
             boost::mpl::if_<
                 boost::is_convertible<

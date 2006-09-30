@@ -15,7 +15,7 @@ namespace pstade_oven_extension {
     {
         // X == Foo::Pair<T>
         template< class X >
-        struct meta
+        struct associate
         {
             typedef T mutable_iterator;
             typedef T constant_iterator;

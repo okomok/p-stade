@@ -90,7 +90,7 @@ namespace match_range_detail {
 
     struct baby_make
     {
-        template< class Unused, class BidiRange, class Regex, class Flag = void >
+        template< class Myself, class BidiRange, class Regex, class Flag = void >
         struct apply
         {
             typedef match_range<BidiRange> const type;

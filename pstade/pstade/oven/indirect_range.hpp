@@ -94,7 +94,7 @@ namespace indirect_range_detail {
 
     struct baby_make
     {
-        template< class Unused, class Range >
+        template< class Myself, class Range >
         struct apply
         {
             typedef indirect_range<Range> const type;

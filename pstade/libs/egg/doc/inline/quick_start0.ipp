@@ -1,6 +1,6 @@
 struct baby_multiply
 {
-    template< class Unused, class X, class Y >
+    template< class Myself, class X, class Y >
     struct apply :
         boost::remove_const<X>
     { };

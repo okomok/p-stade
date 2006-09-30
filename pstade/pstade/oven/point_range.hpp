@@ -82,7 +82,7 @@ namespace point_range_detail {
 
     struct baby_make
     {
-        template< class Unused, class ContiguousRange >
+        template< class Myself, class ContiguousRange >
         struct apply
         {
             typedef point_range<ContiguousRange> const type;

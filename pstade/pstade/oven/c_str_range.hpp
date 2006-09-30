@@ -66,7 +66,7 @@ namespace c_str_range_detail {
 
     struct baby_make
     {
-        template< class Unused, class CString >
+        template< class Myself, class CString >
         struct apply
         {
             typedef typename pass_by_value<CString>::type ptr_t;

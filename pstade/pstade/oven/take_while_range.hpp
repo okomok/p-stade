@@ -53,7 +53,7 @@ namespace take_while_range_detail {
 
     struct baby_make
     {
-        template< class Unused, class ForwardRange, class Predicate >
+        template< class Myself, class ForwardRange, class Predicate >
         struct apply
         {
             typedef typename pass_by_value<Predicate>::type pred_t;

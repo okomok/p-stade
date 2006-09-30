@@ -47,7 +47,7 @@ namespace to_tstring_detail {
 
     struct baby
     {
-        template< class Unused, class WideCharSeq >
+        template< class Myself, class WideCharSeq >
         struct apply
         {
             typedef tstring const type;

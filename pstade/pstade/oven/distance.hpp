@@ -48,7 +48,7 @@ namespace distance_detail {
 
     struct baby
     {
-        template< class Unused, class Range >
+        template< class Myself, class Range >
         struct apply :
             range_difference<Range>
         { };

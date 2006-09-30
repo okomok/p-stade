@@ -95,7 +95,7 @@ namespace require_detail {
 
     struct baby
     {
-        template< class Unused, class T, class StringT = void >
+        template< class Myself, class T, class StringT = void >
         struct apply :
             boost::add_reference<T>
         { };

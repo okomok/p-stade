@@ -29,7 +29,7 @@ namespace verify_detail {
 
     struct baby
     {
-        template< class Unused, class T >
+        template< class Myself, class T >
         struct apply :
             boost::add_reference<T>
         { };

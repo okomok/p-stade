@@ -77,7 +77,7 @@ namespace second_range_detail {
 
     struct baby_make
     {
-        template< class Unused, class PairRange >
+        template< class Myself, class PairRange >
         struct apply
         {
             typedef second_range<PairRange> const type;

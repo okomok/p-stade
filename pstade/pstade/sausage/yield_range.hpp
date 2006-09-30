@@ -57,7 +57,7 @@ namespace yield_range_detail {
 
     struct baby_make
     {
-        template< class Unused, class Routine >
+        template< class Myself, class Routine >
         struct apply
         {
             typedef typename pass_by_value<Routine>::type rou_t;

@@ -59,15 +59,15 @@ namespace pstade {
     // 1ary
     //
     template< class T, class A0 > inline
-    std::auto_ptr<T>
-    new_(A0& a0, typename const_overloaded<A0>::type = 0)
+    typename const_overloaded_result< std::auto_ptr<T>, A0 >::type
+    new_(A0& a0)
     {
         return std::auto_ptr<T>( new T(a0) );
     } 
 
     template< class T, class A0 > inline
-    std::auto_ptr<T>
-    new_(A0 const& a0, typename const_overloaded<A0>::type = 0/*no effect, don't care.*/)
+    typename const_overloaded_result< std::auto_ptr<T>, A0 >::type // no effect, don't care.
+    new_(A0 const& a0)
     {
         return std::auto_ptr<T>( new T(a0) );
     }
@@ -77,8 +77,8 @@ namespace pstade {
     //
 #define PSTADE_NEW_new(R, BitSeq) \
     template< class T, BOOST_PP_ENUM_PARAMS(n, class A) > inline \
-    std::auto_ptr<T> \
-    new_( BOOST_PP_SEQ_FOR_EACH_I_R(R, PSTADE_NEW_param, ~, BitSeq), typename const_overloaded< BOOST_PP_ENUM_PARAMS(n, A) >::type = 0 ) \
+    typename const_overloaded_result< std::auto_ptr<T>, BOOST_PP_ENUM_PARAMS(n, A) >::type \
+    new_( BOOST_PP_SEQ_FOR_EACH_I_R(R, PSTADE_NEW_param, ~, BitSeq) ) \
     { \
         return std::auto_ptr<T>( new T( BOOST_PP_ENUM_PARAMS(n, a) ) ); \
     } \

@@ -17,7 +17,6 @@
 #include <boost/mpl/if.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/utility/addressof.hpp>
-#include "../extension.hpp" // noncopyable
 #include "../range_reference.hpp"
 
 
@@ -157,8 +156,7 @@ struct array_functions
 };
 
 
-struct list_functions :
-    noncopyable
+struct list_functions
 {
     template< class Iterator, class X >
     Iterator begin(X& x)

@@ -122,7 +122,7 @@ namespace out_place_range_detail {
 
     struct baby_make
     {
-        template< class Unused, class ForwardRange, class UnaryFun = unused_fun >
+        template< class Myself, class ForwardRange, class UnaryFun = unused_fun >
         struct apply
         {
             typedef typename pass_by_value<UnaryFun>::type fun_t;

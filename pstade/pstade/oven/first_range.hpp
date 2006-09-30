@@ -85,7 +85,7 @@ namespace first_range_detail {
 
     struct baby_make
     {
-        template< class Unused, class PairRange >
+        template< class Myself, class PairRange >
         struct apply
         {
             typedef first_range<PairRange> const type;

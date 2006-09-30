@@ -40,7 +40,7 @@ namespace single_range_detail {
 
     struct baby_make
     {
-        template< class Unused, class Value >
+        template< class Myself, class Value >
         struct apply
         {
             typedef single_range<Value> const type;

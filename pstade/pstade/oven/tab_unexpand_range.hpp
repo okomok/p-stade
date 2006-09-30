@@ -68,7 +68,7 @@ namespace tab_unexpand_range_detail {
 
     struct baby_make
     {
-        template< class Unused, class ForwardRange, class TabSizeT >
+        template< class Myself, class ForwardRange, class TabSizeT >
         struct apply
         {
             typedef tab_unexpand_range<ForwardRange> const type;

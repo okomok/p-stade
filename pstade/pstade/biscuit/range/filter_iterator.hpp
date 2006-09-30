@@ -13,7 +13,6 @@
 // See: <boost/iterator/filter_iterator.hpp>
 
 
-#include <boost/config.hpp> // BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_categories.hpp>
@@ -119,7 +118,7 @@ friend class boost::iterator_core_access;
 
 template< class Parser, class ForwardIter, class UserState > inline
 filter_iterator<Parser, ForwardIter, UserState> const
-make_filter_iterator(ForwardIter const& x, ForwardIter const& last, UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
+make_filter_iterator(ForwardIter const& x, ForwardIter const& last, UserState& us)
 {
     return filter_iterator<Parser, ForwardIter, UserState>(x, last, us);
 }

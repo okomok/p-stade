@@ -82,7 +82,7 @@ namespace multi_pass_range_detail {
 
     struct baby_make
     {
-        template< class Unused, class Range >
+        template< class Myself, class Range >
         struct apply
         {
             typedef multi_pass_range<Range> const type;

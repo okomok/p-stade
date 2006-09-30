@@ -52,11 +52,11 @@ namespace literal_range_detail {
 
     struct baby_make
     {
-        template< class Unused, class T >
+        template< class Myself, class T >
         struct apply;
 
-        template< class Unused, class Char, std::size_t sz >
-        struct apply< Unused, Char const [sz] >
+        template< class Myself, class Char, std::size_t sz >
+        struct apply< Myself, Char const [sz] >
         {
             typedef literal_range<Char, sz> const type;
         };

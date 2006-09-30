@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/config.hpp> // BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE, BOOST_EXPLICIT_TEMPLATE_TYPE
 #include <boost/range/result_iterator.hpp>
 #include <boost/type_traits/add_const.hpp>
 #include <pstade/const_overloaded.hpp>
@@ -64,15 +65,15 @@ public:
 
 
 template< class Parser, class ForwardRange, class UserState > inline
-token_range<Parser, ForwardRange, UserState> const
-make_token_range(ForwardRange& r, UserState& us, typename const_overloaded<ForwardRange>::type = 0)
+typename const_overloaded_result<token_range<Parser, ForwardRange, UserState>, ForwardRange>::type const
+make_token_range(ForwardRange& r, UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
 {
     return token_range<Parser, ForwardRange, UserState>(r, us);
 }
 
     template< class Parser, class ForwardRange, class UserState > inline
     token_range<Parser, typename boost::add_const<ForwardRange>::type, UserState> const
-    make_token_range(ForwardRange const& r, UserState& us)
+    make_token_range(ForwardRange const& r, UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
     {
         return token_range<Parser, typename boost::add_const<ForwardRange>::type, UserState>(r, us);
     }
@@ -80,15 +81,15 @@ make_token_range(ForwardRange& r, UserState& us, typename const_overloaded<Forwa
 
 // no user-state
 template< class Parser, class ForwardRange > inline
-token_range<Parser, ForwardRange> const
-make_token_range(ForwardRange& r, typename const_overloaded<ForwardRange>::type = 0)
+typename const_overloaded_result<token_range<Parser, ForwardRange>, ForwardRange>::type const
+make_token_range(ForwardRange& r BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
 {
     return token_range<Parser, ForwardRange>(r);
 }
 
     template< class Parser, class ForwardRange > inline
     token_range<Parser, typename boost::add_const<ForwardRange>::type> const
-    make_token_range(ForwardRange const& r)
+    make_token_range(ForwardRange const& r BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
     {
         return token_range<Parser, typename boost::add_const<ForwardRange>::type>(r);
     }
@@ -129,7 +130,7 @@ namespace token_range_detail {
 
 template< class Parser, class UserState > inline
 token_range_detail::pipe<Parser, UserState> const
-tokenized(UserState& us)
+tokenized(UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
 {
     return token_range_detail::pipe<Parser, UserState>(us);
 }
@@ -137,7 +138,7 @@ tokenized(UserState& us)
 // no user-state
 template< class Parser > inline
 token_range_detail::pipe<Parser, null_state_type> const
-tokenized()
+tokenized(BOOST_EXPLICIT_TEMPLATE_TYPE(Parser))
 {
     return token_range_detail::pipe<Parser, null_state_type>(null_state);
 }

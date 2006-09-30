@@ -70,7 +70,7 @@ namespace for_each_child_window_detail {
 
         typedef window_ref routine_result_type;
 
-        template< class Unused, class UnaryFun >
+        template< class Myself, class UnaryFun >
         struct apply :
             pass_by_value<UnaryFun>
         { };

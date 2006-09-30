@@ -31,6 +31,7 @@
 #include <boost/type_traits/is_const.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <boost/type_traits/remove_reference.hpp>
+#include <boost/utility/enable_if.hpp>
 #include <pstade/const_overloaded.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/remove_cvr.hpp>
@@ -41,7 +42,7 @@
 namespace pstade_oven_extension {
 
 
-    struct iter_copyable
+    struct range_copyable
     {
         template< class X, class From >
         X copy(From& rng)
@@ -50,19 +51,29 @@ namespace pstade_oven_extension {
         }
     };
 
-
-    template< class T, class Active = void >
-    struct Range :
-        iter_copyable
-    { };
-
-
-    struct noncopyable
+    struct range_noncopyable
     {
     private:
         template< class X, class From >
         X copy(From& rng);
     };
+
+
+    template< class T, class Active = void >
+    struct Range :
+        range_copyable
+    { };
+
+
+    template< class Condition >
+    struct where_ :
+        boost::enable_if<Condition>
+    { };
+
+    template< bool Condition >
+    struct where_c :
+        boost::enable_if_c<Condition>
+    { };
 
 
     using pstade::const_overloaded;
@@ -78,7 +89,8 @@ namespace pstade { namespace oven { namespace extension_detail {
     struct PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR
     {
         typedef typename remove_cvr<T>::type plain_t;
-        typedef typename pstade_oven_extension::Range<plain_t>::template meta<plain_t>::mutable_iterator type;
+        typedef typename pstade_oven_extension::Range<plain_t>::
+            template associate<plain_t>::mutable_iterator type;
     };
 
 
@@ -86,7 +98,8 @@ namespace pstade { namespace oven { namespace extension_detail {
     struct range_const_iterator
     {
         typedef typename remove_cvr<T>::type plain_t;
-        typedef typename pstade_oven_extension::Range<plain_t>::template meta<plain_t>::constant_iterator type;
+        typedef typename pstade_oven_extension::Range<plain_t>::
+            template associate<plain_t>::constant_iterator type;
     };
 
 
@@ -101,7 +114,7 @@ namespace pstade { namespace oven { namespace extension_detail {
 
     struct baby_begin
     {
-        template< class Unused, class T >
+        template< class Myself, class T >
         struct apply :
             range_result_iterator<T>
         { };
@@ -119,7 +132,7 @@ namespace pstade { namespace oven { namespace extension_detail {
 
     struct baby_end
     {
-        template< class Unused, class T >
+        template< class Myself, class T >
         struct apply :
             range_result_iterator<T>
         { };
@@ -144,7 +157,7 @@ namespace pstade { namespace oven { namespace extension_detail {
 
     struct baby_size
     {
-        template< class Unused, class T >
+        template< class Myself, class T >
         struct apply :
             range_size<T>
         { };

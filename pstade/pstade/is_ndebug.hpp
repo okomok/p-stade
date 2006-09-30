@@ -28,7 +28,7 @@ struct is_ndebug :
 
 #if 0
 
-// 'true_' and 'false_' looks cute...?
+// 'true_' and 'false_' is cute enough?
 
 typedef boost::mpl::true_
 ndebug_tag;

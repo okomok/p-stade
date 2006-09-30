@@ -24,8 +24,12 @@ void test()
     using namespace oven;
 
     {
-        std::string str("hello, check_range");
+        std::string str("hello, identity_range");
         BOOST_CHECK(oven::equals(str, str|identities|identities));
+    }
+    {
+        std::string str("hello, identity_range");
+        BOOST_CHECK(oven::equals(str, str|identities(boost::single_pass_traversal_tag())));
     }
 }
 

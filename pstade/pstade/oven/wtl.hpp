@@ -41,7 +41,7 @@ namespace pstade_oven_extension {
     struct Range< WTL::CString >
     {
         template< class X >
-        struct meta
+        struct associate
         {
             typedef TCHAR *mutable_iterator;
             typedef TCHAR const *constant_iterator;

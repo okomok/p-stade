@@ -101,8 +101,7 @@ namespace pstade_oven_extension {
     namespace ms_detail {
 
         struct atl_array_functions :
-            array_functions,
-            noncopyable
+            array_functions
         {
             template< class Iterator, class X >
             Iterator end(X& x) // redefine
@@ -116,10 +115,11 @@ namespace pstade_oven_extension {
 
     template< class E, class ETraits >
     struct Range< ATL::CAtlArray<E, ETraits> > :
+        range_noncopyable,
         ms_detail::atl_array_functions
     {
         template< class X >
-        struct meta
+        struct associate
         {
             typedef E val_t;
 
@@ -131,10 +131,11 @@ namespace pstade_oven_extension {
 
     template< class E >
     struct Range< ATL::CAutoPtrArray<E> > :
+        range_noncopyable,
         ms_detail::atl_array_functions
     {
         template< class X >
-        struct meta
+        struct associate
         {
             // ATL::CAutoPtr/CHeapPtr is no assignable.
             typedef ATL::CAutoPtr<E> val_t;
@@ -149,10 +150,11 @@ namespace pstade_oven_extension {
 
     template< class I, const IID *piid >
     struct Range< ATL::CInterfaceArray<I, piid> > :
+        range_noncopyable,
         ms_detail::atl_array_functions
     {
         template< class X >
-        struct meta
+        struct associate
         {
             typedef ATL::CComQIPtr<I, piid> val_t;
 
@@ -164,10 +166,11 @@ namespace pstade_oven_extension {
 
     template< class E, class ETraits >
     struct Range< ATL::CAtlList<E, ETraits> > :
+        range_noncopyable,
         ms_detail::list_functions
     {
         template< class X >
-        struct meta
+        struct associate
         {
             typedef E val_t;
 
@@ -179,8 +182,7 @@ namespace pstade_oven_extension {
 
     namespace ms_detail {
 
-        struct indirected_list_functions :
-            noncopyable
+        struct indirected_list_functions
         {
             template< class Iterator, class X >
             Iterator begin(X& x)
@@ -202,10 +204,11 @@ namespace pstade_oven_extension {
 
     template< class E >
     struct Range< ATL::CAutoPtrList<E> > :
+        range_noncopyable,
         ms_detail::indirected_list_functions
     {
         template< class X >
-        struct meta
+        struct associate
         {
             typedef ATL::CAutoPtr<E> val_t;
             typedef ms_detail::list_iterator<X, val_t> miter_t;
@@ -220,10 +223,11 @@ namespace pstade_oven_extension {
 
     template< class E, class Allocator >
     struct Range< ATL::CHeapPtrList<E, Allocator> > :
+        range_noncopyable,
         ms_detail::indirected_list_functions
     {
         template< class X >
-        struct meta
+        struct associate
         {
             typedef ATL::CHeapPtr<E, Allocator> val_t;
             typedef ms_detail::list_iterator<X, val_t> miter_t;
@@ -237,10 +241,11 @@ namespace pstade_oven_extension {
 
     template< class I, const IID *piid >
     struct Range< ATL::CInterfaceList<I, piid> > :
+        range_noncopyable,
         ms_detail::list_functions
     {
         template< class X >
-        struct meta
+        struct associate
         {
             typedef ATL::CComQIPtr<I, piid> val_t;
 
@@ -256,10 +261,11 @@ namespace pstade_oven_extension {
     namespace ms_detail {
 
         struct rb_tree_range :
+            range_noncopyable,
             ms_detail::indirected_list_functions
         {
             template< class X >
-            struct meta
+            struct associate
             {
                 typedef typename X::CPair val_t;
 
@@ -306,17 +312,19 @@ namespace pstade_oven_extension {
     //
 
     template< class T >
-    struct Range< T, typename boost::enable_if< pstade::apple::is_ATL_string<T> >::type >
+    struct Range< T,
+        typename where_< pstade::apple::is_ATL_string<T> >::type >
     {
         template< class X >
-        struct meta
+        struct associate
         {
             typedef typename X::PXSTR mutable_iterator;
             typedef typename X::PCXSTR constant_iterator;
         };
 
         template< class Iterator, class X >
-        Iterator begin(X& x, typename const_overloaded<X>::type = 0)
+        Iterator begin(X& x,
+            typename const_overloaded<X>::type = 0)
         {
             return x.GetBuffer(0);
         }
@@ -352,10 +360,10 @@ namespace pstade_oven_extension {
 
     template< class BaseType, const int t_nSize >
     struct Range< ATL::CStaticString<BaseType, t_nSize> > :
-        noncopyable
+        range_noncopyable
     {
         template< class X >
-        struct meta
+        struct associate
         {
             typedef BaseType const *mutable_iterator;
             typedef mutable_iterator constant_iterator;
@@ -382,7 +390,7 @@ namespace pstade_oven_extension {
     struct Range< ATL::CComBSTR >
     {
         template< class X >
-        struct meta
+        struct associate
         {
             typedef OLECHAR *mutable_iterator;
             typedef OLECHAR const *constant_iterator;
@@ -418,7 +426,7 @@ namespace pstade_oven_extension {
 
     namespace ms_detail {
 
-        struct copy_using_Add
+        struct copyable_using_Add
         {
             template< class X, class From >
             X copy(From& rng)
@@ -442,13 +450,13 @@ namespace pstade_oven_extension {
     struct Range< ATL::CSimpleArray< PSTADE_APPLE_ATL_CSIMPLEARRAY_TEMPLATE_ARGS > > :
         ms_detail::array_functions,
     #if !defined(PSTADE_APPLE_ATL_HAS_OLD_CSIMPLECOLL)
-        ms_detail::copy_using_Add
+        ms_detail::copyable_using_Add
     #else
-        noncopyable
+        range_noncopyable
     #endif
     {
         template< class X >
-        struct meta
+        struct associate
         {
             typedef T val_t;
 
@@ -462,11 +470,11 @@ namespace pstade_oven_extension {
 
     template< class T >
     struct Range< ATL::CSimpleValArray<T> > :
-        ms_detail::array_functions,
-        noncopyable
+        range_noncopyable,
+        ms_detail::array_functions
     {
         template< class X >
-        struct meta
+        struct associate
         {
             typedef T val_t;
 
@@ -480,10 +488,10 @@ namespace pstade_oven_extension {
 
     template< PSTADE_APPLE_ATL_CSIMPLEMAP_TEMPLATE_PARAMS >
     struct Range< ATL::CSimpleMap< PSTADE_APPLE_ATL_CSIMPLEMAP_TEMPLATE_ARGS > > :
-        noncopyable // how to copy?
+        range_noncopyable // how to copy?
     {
         template< class X >
-        struct meta
+        struct associate
         {
             typedef TKey k_val_t;
             typedef k_val_t *k_miter_t;

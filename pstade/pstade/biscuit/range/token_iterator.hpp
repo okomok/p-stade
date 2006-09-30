@@ -11,7 +11,6 @@
 
 
 #include <boost/assert.hpp>
-#include <boost/config.hpp> // BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE
 #include <boost/iterator/iterator_categories.hpp> // forward_traversal_tag
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/range/begin.hpp>
@@ -137,7 +136,7 @@ private:
 
 template< class Parser, class ForwardIter, class UserState > inline
 token_iterator<Parser, ForwardIter, UserState> const
-make_token_iterator(ForwardIter const& x, ForwardIter const& last, UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
+make_token_iterator(ForwardIter const& x, ForwardIter const& last, UserState& us)
 {
     return token_iterator<Parser, ForwardIter, UserState>(x, last, us);
 }

@@ -110,7 +110,7 @@ namespace token_range_detail {
 
     struct baby_make
     {
-        template< class Unused, class BidiRange, class Regex, class IntOrRndRange = void, class Flag = void >
+        template< class Myself, class BidiRange, class Regex, class IntOrRndRange = void, class Flag = void >
         struct apply
         {
             typedef token_range<BidiRange> const type;
@@ -161,7 +161,7 @@ namespace pstade_oven_extension {
     struct Range< boost::sub_match<BidiIter> >
     {
         template< class X >
-        struct meta
+        struct associate
         {
             typedef typename X::iterator mutable_iterator;
             typedef typename X::const_iterator constant_iterator;

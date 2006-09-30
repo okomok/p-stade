@@ -69,7 +69,7 @@ namespace append_range_detail {
 
     struct baby_make
     {
-        template< class Unused, class Range, class Value >
+        template< class Myself, class Range, class Value >
         struct apply
         {
             typedef append_range<Range, Value> const type;

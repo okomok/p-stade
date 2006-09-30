@@ -71,7 +71,7 @@ namespace permute_range_detail {
 
     struct baby_make
     {
-        template< class Unused, class ElementRange, class IndexRange >
+        template< class Myself, class ElementRange, class IndexRange >
         struct apply
         {
             typedef permute_range<ElementRange, IndexRange> const type;

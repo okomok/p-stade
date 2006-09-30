@@ -96,7 +96,7 @@ namespace sort_range_detail {
 
     struct baby_make
     {
-        template< class Unused, class ForwardRange, class BinaryPred = less_fun >
+        template< class Myself, class ForwardRange, class BinaryPred = less_fun >
         struct apply
         {
             typedef typename pass_by_value<BinaryPred>::type pred_t;

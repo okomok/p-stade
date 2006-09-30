@@ -16,6 +16,7 @@
 
 
 // Note:
+//
 // ADL customization seems not to be needed.
 // Note that 'private' nested 'typedef' cannot be used with SFINAE.
 // http://groups.google.com/group/comp.lang.c++.moderated/msg/84fe1563ccc65846

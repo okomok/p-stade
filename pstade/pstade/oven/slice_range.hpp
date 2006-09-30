@@ -49,7 +49,7 @@ namespace slice_range_detail {
 
     struct baby_make
     {
-        template< class Unused, class ForwardRange, class DifferenceN, class DifferenceM >
+        template< class Myself, class ForwardRange, class DifferenceN, class DifferenceM >
         struct apply
         {
             typedef slice_range<ForwardRange> const type;

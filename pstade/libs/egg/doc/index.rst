@@ -90,7 +90,7 @@ Baby Function
 A ``BabyFunction`` is any type that is copy-constructible and the following expression must be valid.
 
 - Case of no arguments; ``BabyFunction::nullary_result_type`` and ``baby.call<R>();``, where ``R`` is the same as ``BabyFunction::nullary_result_type``
-- Case of ``N >= 1`` arguments; ``BabyFunction::apply<unspecified,A1,A2,...,AN>::type``  and ``baby.call<R>(a1,a2,...aN);``, where ``R`` is the same as ``BabyFunction::apply<unspecified,A1,A2,...,AN>::type``
+- Case of ``N >= 1`` arguments; ``BabyFunction::apply<BabyFunction,A1,A2,...,AN>::type``  and ``baby.call<R>(a1,a2,...aN);``, where ``R`` is the same as ``BabyFunction::apply<BabyFunction,A1,A2,...,AN>::type``
 - Semantics: The nested ``nullary_result_type`` and ``result`` return the result type of the functor.
 
 Note that the result type of nullary functors is always specified by using nested ``nullary_result_type`` typedef instead of nested ``result`` templates.

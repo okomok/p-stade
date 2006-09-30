@@ -47,7 +47,7 @@ namespace take_range_detail {
 
     struct baby_make
     {
-        template< class Unused, class ForwardRange, class Difference >
+        template< class Myself, class ForwardRange, class Difference >
         struct apply
         {
             typedef take_range<ForwardRange> const type;

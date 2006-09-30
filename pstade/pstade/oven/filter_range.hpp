@@ -79,7 +79,7 @@ namespace filter_range_detail {
 
     struct baby_make
     {
-        template< class Unused, class Range, class Predicate >
+        template< class Myself, class Range, class Predicate >
         struct apply
         {
             typedef typename pass_by_value<Predicate>::type pred_t;
