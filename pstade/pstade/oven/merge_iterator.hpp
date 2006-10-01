@@ -10,17 +10,28 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Note:
+//
+// This iterator seems never mutable.
+// If a value referenced by this iterator is changed,
+// the incementing way is changed.
+// Then, the iterator becomes invalid and non-Comparable.
+
+
 // Question:
 //
-// Can be bidirectional?
+// Can be Bidirectional?
 
 
 #include <boost/assert.hpp>
 #include <boost/iterator/detail/minimum_category.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_categories.hpp> // iterator_traversal, tags
+#include <boost/iterator/iterator_traits.hpp>
+# include <boost/mpl/identity.hpp>
 #include <boost/type_traits/add_reference.hpp>
 #include <pstade/egg/function.hpp>
+#include "./detail/constant_reference.hpp"
 
 
 namespace pstade { namespace oven {
@@ -52,26 +63,25 @@ namespace merge_iterator_detail {
             merge_iterator<Iterator1, Iterator2>,
             Iterator1,
             boost::use_default,
-            typename traversal<Iterator2, Iterator2>::type
+            typename traversal<Iterator1, Iterator2>::type,
+            typename detail::constant_reference<Iterator1>::type
         > type;
     };
 
 
-    struct baby_min_
+    // prefers the type of 'x'. See <boost/implicit_cast.hpp>
+    template< class T > 
+    T const& min_(T const& x, typename boost::mpl::identity<T>::type const& y)
     {
-        template< class Myself, class X, class Y >
-        struct apply :
-            boost::add_reference<X>
-        { };
-
-        template< class Result, class X, class Y >
-        Result call(X& x, Y& y)
-        {
-            return x < y ? x : y;
-        }
-    };
-
-    PSTADE_EGG_FUNCTION_(min_, baby_min_)
+        // Workaround:
+        // I don't certainly know, but ternary-operator could make a temporary
+        // in the case of 'char const& min_(char const& x, char& y)'
+        //
+        if (x < y)
+            return x;
+        else
+            return y;
+    }
 
 
 } // namespace merge_iterator_detail
@@ -131,12 +141,14 @@ private:
 friend class boost::iterator_core_access;
     ref_t dereference() const
     {
+        BOOST_ASSERT(!(is_end1() && is_end2()));
+
         if (is_end1())
             return *m_it2;
         else if (is_end2())
             return *this->base();
-        else
-            return merge_iterator_detail::min_(*this->base(), *m_it2);
+
+        return merge_iterator_detail::min_(*this->base(), *m_it2);
     }
 
     template< class Other >

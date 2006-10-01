@@ -22,6 +22,7 @@
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/distance.hpp>
 #include <pstade/oven/reverse_range.hpp>
+#include <boost/iterator/counting_iterator.hpp>
 
 
 void test()
@@ -89,8 +90,8 @@ void test()
 
     {
         std::string src("abcdefg");
-        BOOST_CHECK( (src|repeated(5))[8] == 'b' );
-        BOOST_CHECK( (src|repeated(5)|reversed)[8] == 'f' );
+        BOOST_CHECK( (src|repeated(5)).begin()[8] == 'b' );
+        BOOST_CHECK( (src|repeated(5)|reversed).begin()[8] == 'f' );
     }
 }
 

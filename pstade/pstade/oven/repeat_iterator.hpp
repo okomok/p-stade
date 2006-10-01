@@ -19,6 +19,7 @@
 #include <boost/config.hpp> // BOOST_MSVC
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
+#include "./detail/constant_reference.hpp"
 
 
 #if defined(BOOST_MSVC)
@@ -42,7 +43,10 @@ namespace repeat_iterator_detail {
     {
         typedef boost::iterator_adaptor<
             repeat_iterator<ForwardIter, Size>,
-            ForwardIter
+            ForwardIter,
+            boost::use_default,
+            boost::use_default,
+            typename detail::constant_reference<ForwardIter>::type
         > type;
     };
 
@@ -100,21 +104,22 @@ public:
         m_first(first), m_last(last)        
     { }
 
+template< class, class > friend struct repeat_iterator;
     template< class ForwardIter_ >
     repeat_iterator(
         repeat_iterator<ForwardIter_, Size> const& other,
         typename boost::enable_if_convertible<ForwardIter_, ForwardIter>::type * = 0
     ) :
         super_t(other.base()), m_index(other.index()),
-        m_first(other.sbegin()), m_last(other.send())       
+        m_first(other.m_first()), m_last(other.m_last())       
     { }
 
-    const ForwardIter& sbegin() const
+    ForwardIter const& sbegin() const
     {
         return m_first;
     }
 
-    const ForwardIter& send() const
+    ForwardIter const& send() const
     {
         return m_last;
     }
@@ -131,7 +136,7 @@ private:
     template< class Other >
     bool is_compatible(Other const& other) const
     {
-        return m_first == other.sbegin() && m_last == other.send();
+        return m_first == other.m_first && m_last == other.m_last;
     }
 
 friend class boost::iterator_core_access;
@@ -188,7 +193,7 @@ friend class boost::iterator_core_access;
         BOOST_ASSERT(is_compatible(other));
 
         return
-            repeat_iterator_detail::pseudo_pos<diff_t>(other.base(), other.index(), other.sbegin(), other.send())
+            repeat_iterator_detail::pseudo_pos<diff_t>(other.base(), other.index(), other.m_first, other.m_last)
             - repeat_iterator_detail::pseudo_pos<diff_t>(this->base(), m_index, m_first, m_last);
     }
 
@@ -232,7 +237,9 @@ private:
 
 template< class ForwardIter, class Size > inline
 repeat_iterator<ForwardIter, Size> const
-make_repeat_iterator(ForwardIter const& it, Size index, ForwardIter const& first, ForwardIter const& last)
+make_repeat_iterator(
+    ForwardIter const& it, Size index,
+    ForwardIter const& first, ForwardIter const& last)
 {
     return repeat_iterator<ForwardIter, Size>(it, index, first, last);
 }

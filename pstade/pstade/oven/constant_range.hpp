@@ -22,9 +22,9 @@
 #include <pstade/functional.hpp> // identity
 #include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
+#include "./detail/constant_reference.hpp"
 #include "./transform_range.hpp"
-#include "./range_reference.hpp"
-#include "./range_value.hpp"
+#include "./range_iterator.hpp"
 
 
 namespace pstade { namespace oven {
@@ -34,25 +34,14 @@ namespace constant_range_detail {
 
 
     template< class Range >
-    struct reference
-    {
-        typedef typename range_reference<Range>::type ref_t;
-        typedef typename range_value<Range>::type val_t;
-
-        typedef typename affect_cvr<
-            ref_t,
-            typename boost::add_const<val_t>::type
-        >::type type;
-    };
-
-
-    template< class Range >
     struct super_
     {
         typedef transform_range<
             Range,
             identity_fun,
-            typename reference<Range>::type
+            typename detail::constant_reference<
+                typename range_iterator<Range>::type
+            >::type
         > type;
     };
 
@@ -70,10 +59,11 @@ struct constant_range :
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
     typedef typename constant_range_detail::super_<Range>::type super_t;
+    typedef typename super_t::function_type fun_t;
 
 public:
     explicit constant_range(Range& rng) :
-        super_t(rng, identity)
+        super_t(rng, fun_t())
     { }
 };
 

@@ -18,9 +18,14 @@
 namespace pstade { namespace oven {
 
 
-template< class Range, class Base = boost::mpl::empty_base >
-struct as_lightweight_proxy :
-    Base
+// Workaround:
+// VC7.1 complains about 'empty_base'
+// if class hierarchy has two or more 'private' base of this.
+// So EBO is given up.
+//
+template< class Range /*, class Base = boost::mpl::empty_base*/ >
+struct as_lightweight_proxy 
+    // : Base
 {
     friend
     boost::mpl::true_ *

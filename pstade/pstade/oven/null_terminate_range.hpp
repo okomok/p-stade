@@ -71,7 +71,7 @@ namespace null_terminate_range_detail {
 template< class ForwardRange >
 struct null_terminate_range :
     null_terminate_range_detail::super_<ForwardRange>::type,
-    /*private, which VC7.1 complains about*/ as_lightweight_proxy< null_terminate_range<ForwardRange> >
+    private as_lightweight_proxy< null_terminate_range<ForwardRange> >
 {
     typedef ForwardRange pstade_oven_range_base_type;
 

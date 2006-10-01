@@ -18,6 +18,7 @@
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/tests.hpp>
 #include <pstade/oven/to_stream.hpp>
+#include <pstade/oven/c_str_range.hpp>
 
 
 void test()
@@ -30,8 +31,12 @@ void test()
         std::string rng2("beghjkmnopqsuy");
         BOOST_CHECK( oven::equals(rng1|merged(rng2), std::string("abcdefghijklmmmnopqrstuvwxyz")) );
         oven::copy(rng1|merged(rng2), oven::to_stream(std::cout));
-
-        //BOOST_CHECK( oven::test_forward(rng1|merged(rng2)) ); nonswappable...
+    }
+    {
+        std::string rng1("acdfilmmrtvwxz");
+        c_str_range<char const> rng2("beghjkmnopqsuy");
+        BOOST_CHECK( oven::equals(rng1|merged(rng2), std::string("abcdefghijklmmmnopqrstuvwxyz")) );
+        oven::copy(rng1|merged(rng2), oven::to_stream(std::cout));
     }
 }
 

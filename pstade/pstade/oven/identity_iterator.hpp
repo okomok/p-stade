@@ -71,6 +71,9 @@ private:
     typedef typename identity_iterator_detail::super_<Iterator, Traversal>::type super_t;
 
 public:
+    explicit identity_iterator()
+    { }
+
     explicit identity_iterator(Iterator const& it) :
         super_t(it)
     { }

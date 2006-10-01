@@ -11,6 +11,7 @@
 
 
 // Rejected...
+//
 // See "./sort_range.hpp"
 
 
@@ -21,8 +22,6 @@
 
 #include <memory> // auto_ptr
 #include <vector>
-#include <boost/config.hpp>
-#include <boost/detail/workaround.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <pstade/new.hpp>
@@ -35,13 +34,6 @@
 #include "./indirect_range.hpp"
 #include "./range_iterator.hpp"
 #include "./share_range.hpp"
-
-
-#if BOOST_WORKAROUND(BOOST_MSVC, == 1310)
-    // 'private' multiple inheritance of 'as_lightweight_proxy' makes VC7.1 anger.
-    // I don't know why. Who knows.
-    #define PSTADE_OVEN_OUT_PLACE_RANGE_WEIRD_ERROR_WITH_SORT_RANGE
-#endif
 
 
 namespace pstade { namespace oven {
@@ -97,10 +89,7 @@ template<
 >
 struct out_place_range :
     out_place_range_detail::super_<ForwardRange>::type,
-#if !defined(PSTADE_OVEN_OUT_PLACE_RANGE_WEIRD_ERROR_WITH_SORT_RANGE)
-    private
-#endif
-    as_lightweight_proxy< out_place_range<ForwardRange, UnaryFun> >
+    private as_lightweight_proxy< out_place_range<ForwardRange, UnaryFun> >
 {
     typedef ForwardRange pstade_oven_range_base_type;
     typedef UnaryFun function_type;
