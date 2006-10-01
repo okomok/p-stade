@@ -17,6 +17,7 @@
 #include "./function_output_iterator.hpp"
 #include "./identity_iterator.hpp"
 #include "./joint_iterator.hpp"
+#include "./merge_iterator.hpp"
 #include "./regularize_iterator.hpp"
 #include "./repeat_iterator.hpp"
 #include "./reverse_iterator.hpp"

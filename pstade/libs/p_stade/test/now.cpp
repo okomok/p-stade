@@ -1,106 +1,34 @@
 
-
-namespace poost_extension {
-
-    struct hello { };
-
-}
-
-namespace poost {
-
-    namespace detail {
-
-        template< class T >
-        int poost_hello(T const& x)
-        {
-            return poost_(poost_extension::hello(), x);
-        }
-
-    }
-
-    template< class T >
-    int hello(T const& x)
-    {
-        using namespace detail;
-        return poost_hello(x);
-    }
-
-}
+#include <boost/concept/where.hpp> 
+#include <boost/concept_check.hpp> // Convertible
+#include <boost/mpl/identity.hpp>
 
 
-// user code
-//
-
-struct bar_base
-{
-    int m_i;
-};
+// See:
+// http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2081.pdf
 
 
-namespace my {
-
-    struct foo
-    {
-    private:
-        int i;
-
-        friend int poost_hello(foo const& self)
-        {
-            return self.i;
-        }
-    };
-
-    struct foo_
-    {
-        int i;
-    };
-
-        inline
-        int poost_hello(foo_ const& f_)
-        {
-            return f_.i;
-        }
-
-    struct bar : bar_base
-    { };
-}
+template< class U, class T >
+BOOST_CONCEPT_WHERE(
+    ((boost::Convertible<T, U>))
+    ((boost::Convertible<T, U>)),
+(U)) convert(T const& x);
 
 
-namespace your {
-
-    template< class Int >
-    struct foo
-    {
-    private:
-        Int i;
-
-        friend int poost_hello(foo<Int> const& self)
-        {
-            Int i; // (1)
-            return self.i;
-        }
-    };
-
-    struct bar : bar_base
-    { };
-}
-
-
-namespace poost_extension {
-
-    int poost_(hello, bar_base const& b)
-    {
-        return b.m_i;
-    }
-
-}
+template< class U, class T >
+typename boost::where_<
+    boost::Convertible<T, U>,
+    boost::where_<
+        boost::Convertible<T, U>,
+        boost::mpl::identity<U>
+    >
+>::type convert_(T const& x);
 
 
 int main()
 {
-    poost::hello(my::foo());
-    poost::hello(my::foo_());
-    poost::hello(your::foo<int>());
-    poost::hello(my::bar());
-    poost::hello(your::bar());
+    ::convert<float>(17);
+    // ::convert<int *>(17.0); // error
+    ::convert_<float>(17);
+    // ::convert_<int *>(17.0); // error
 }
