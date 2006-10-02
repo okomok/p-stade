@@ -12,7 +12,6 @@
 
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
-#include <pstade/egg/function.hpp>
 #include <pstade/functional.hpp> // less
 #include "./detail/constant_reference.hpp"
 #include "./merge_iterator.hpp"
@@ -154,7 +153,7 @@ set_union_iterator<Iterator1, Iterator2, BinaryPred> const
 make_set_union_iterator(
     Iterator1 const& it1, Iterator1 const& last1,
     Iterator2 const& it2, Iterator2 const& last2,
-    BinaryPred pred)
+    BinaryPred pred = BinaryPred())
 {
     return set_union_iterator<Iterator1, Iterator2, BinaryPred>(
         it1, last1, it2, last2, pred);

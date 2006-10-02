@@ -78,6 +78,7 @@ test-suite oven :
     [ oven-test repeat_range ]
     [ oven-test reverse_range ]
     [ oven-test scan_range ]
+    [ oven-test set_intersection_range ]
     [ oven-test set_union_range ]
     [ oven-test share_range ]
     [ oven-test single_range ]
