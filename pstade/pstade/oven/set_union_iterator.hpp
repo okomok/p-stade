@@ -1,5 +1,5 @@
-#ifndef PSTADE_OVEN_MERGE_ITERATOR_HPP
-#define PSTADE_OVEN_MERGE_ITERATOR_HPP
+#ifndef PSTADE_OVEN_SET_UNION_ITERATOR_HPP
+#define PSTADE_OVEN_SET_UNION_ITERATOR_HPP
 
 
 // PStade.Oven
@@ -10,23 +10,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Note:
-//
-// This iterator seems never mutable.
-// If a value referenced by this iterator is changed,
-// the incementing way is changed.
-// Then, the iterator becomes invalid and non-Comparable.
-
-
 #include <boost/assert.hpp>
-#include <boost/iterator/detail/minimum_category.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
-#include <boost/iterator/iterator_categories.hpp> // iterator_traversal, tags
-#include <boost/iterator/iterator_traits.hpp>
-#include <boost/mpl/identity.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/functional.hpp> // less
 #include "./detail/constant_reference.hpp"
+#include "./merge_iterator.hpp"
 
 
 namespace pstade { namespace oven {
@@ -36,22 +25,10 @@ template<
     class Iterator1, class Iterator2,
     class BinaryPred
 >
-struct merge_iterator;
+struct set_union_iterator;
 
 
-namespace merge_iterator_detail {
-
-
-    template< class Iterator1, class Iterator2 >
-    struct traversal :
-        boost::detail::minimum_category<
-            boost::forward_traversal_tag,
-            typename boost::detail::minimum_category<
-                typename boost::iterator_traversal<Iterator1>::type,
-                typename boost::iterator_traversal<Iterator2>::type
-            >::type
-        >
-    { };
+namespace set_union_iterator_detail {
 
 
     template<
@@ -61,53 +38,34 @@ namespace merge_iterator_detail {
     struct super_
     {
         typedef boost::iterator_adaptor<
-            merge_iterator<Iterator1, Iterator2, BinaryPred>,
+            set_union_iterator<Iterator1, Iterator2, BinaryPred>,
             Iterator1,
             boost::use_default,
-            typename traversal<Iterator1, Iterator2>::type,
+            typename merge_iterator_detail::traversal<Iterator1, Iterator2>::type,
             typename detail::constant_reference<Iterator1>::type
         > type;
     };
 
 
-    // Here is function to avoid multiple evaluations.
-    // It prefers the type of 'x' as result.
-    // See <boost/implicit_cast.hpp>.
-    template< class T, class BinaryPred > 
-    T const& min_(
-        T const& x,
-        typename boost::mpl::identity<T>::type const& y,
-        BinaryPred const& pred)
-    {
-        // Workaround:
-        // I don't certainly know, but ternary-operator could make a temporary
-        // in the case of 'char const& min_(char const& x, char& y)'
-        if (pred(x, y))
-            return x;
-        else
-            return y;
-    }
-
-
-} // namespace merge_iterator_detail
+} // namespace set_union_iterator_detail
 
 
 template<
     class Iterator1, class Iterator2,
     class BinaryPred = less_fun
 >
-struct merge_iterator :
-    merge_iterator_detail::super_<Iterator1, Iterator2, BinaryPred>::type
+struct set_union_iterator :
+    set_union_iterator_detail::super_<Iterator1, Iterator2, BinaryPred>::type
 {
 private:
-    typedef typename merge_iterator_detail::super_<Iterator1, Iterator2, BinaryPred>::type super_t;
+    typedef typename set_union_iterator_detail::super_<Iterator1, Iterator2, BinaryPred>::type super_t;
     typedef typename super_t::reference ref_t;
 
 public:
-    merge_iterator()
+    set_union_iterator()
     { }
 
-    merge_iterator(
+    set_union_iterator(
         Iterator1 const& it1, Iterator1 const& last1,
         Iterator2 const& it2, Iterator2 const& last2,
         BinaryPred const& pred = pstade::less
@@ -117,10 +75,10 @@ public:
         m_pred(pred)
     { }
 
-template< class, class, class > friend struct merge_iterator;
+template< class, class, class > friend struct set_union_iterator;
     template< class Iterator1_, class Iterator2_ >
-    merge_iterator(
-        merge_iterator<Iterator1_, Iterator2_, BinaryPred> const& other,
+    set_union_iterator(
+        set_union_iterator<Iterator1_, Iterator2_, BinaryPred> const& other,
         typename boost::enable_if_convertible<Iterator1_, Iterator1>::type * = 0,
         typename boost::enable_if_convertible<Iterator2_, Iterator2>::type * = 0
     ) :
@@ -160,6 +118,9 @@ friend class boost::iterator_core_access;
         else if (is_end2())
             return *this->base();
 
+        // Note:
+        // If the values are same, SGI STL implementation prefers
+        // the value of 'm_it1', but Oven prefers 'm_it2'.
         return merge_iterator_detail::min_(*this->base(), *m_it2, m_pred);
     }
 
@@ -180,31 +141,33 @@ friend class boost::iterator_core_access;
             ++this->base_reference();
         else if (m_pred(*this->base(), *m_it2))
             ++this->base_reference();
-        else
+        else if (m_pred(*m_it2, *this->base()))
             ++m_it2;
+        else
+            ++this->base_reference(), ++m_it2;
     }
 };
 
 
 template< class BinaryPred, class Iterator1, class Iterator2 > inline
-merge_iterator<Iterator1, Iterator2, BinaryPred> const
-make_merge_iterator(
+set_union_iterator<Iterator1, Iterator2, BinaryPred> const
+make_set_union_iterator(
     Iterator1 const& it1, Iterator1 const& last1,
     Iterator2 const& it2, Iterator2 const& last2,
     BinaryPred pred)
 {
-    return merge_iterator<Iterator1, Iterator2, BinaryPred>(
+    return set_union_iterator<Iterator1, Iterator2, BinaryPred>(
         it1, last1, it2, last2, pred);
 }
 
 
 template< class Iterator1, class Iterator2 > inline
-merge_iterator<Iterator1, Iterator2> const
-make_merge_iterator(
+set_union_iterator<Iterator1, Iterator2> const
+make_set_union_iterator(
     Iterator1 const& it1, Iterator1 const& last1,
     Iterator2 const& it2, Iterator2 const& last2)
 {
-    return merge_iterator<Iterator1, Iterator2>(
+    return set_union_iterator<Iterator1, Iterator2>(
         it1, last1, it2, last2);
 }
 

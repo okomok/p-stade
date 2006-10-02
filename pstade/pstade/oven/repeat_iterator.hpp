@@ -19,7 +19,6 @@
 #include <boost/config.hpp> // BOOST_MSVC
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
-#include "./detail/constant_reference.hpp"
 
 
 #if defined(BOOST_MSVC)
@@ -43,10 +42,7 @@ namespace repeat_iterator_detail {
     {
         typedef boost::iterator_adaptor<
             repeat_iterator<ForwardIter, Size>,
-            ForwardIter,
-            boost::use_default,
-            boost::use_default,
-            typename detail::constant_reference<ForwardIter>::type
+            ForwardIter
         > type;
     };
 

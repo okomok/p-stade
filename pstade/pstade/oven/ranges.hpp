@@ -60,6 +60,7 @@
 #include "./regularize_range.hpp"
 #include "./repeat_range.hpp"
 #include "./reverse_range.hpp"
+#include "./set_union_range.hpp"
 #include "./scan_range.hpp"
 #include "./second_range.hpp"
 #include "./share_range.hpp"

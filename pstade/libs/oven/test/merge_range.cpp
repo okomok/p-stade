@@ -30,14 +30,23 @@ void test()
         std::string rng1("acdfilmmrtvwxz");
         std::string rng2("beghjkmnopqsuy");
         BOOST_CHECK( oven::equals(rng1|merged(rng2), std::string("abcdefghijklmmmnopqrstuvwxyz")) );
-        oven::copy(rng1|merged(rng2), oven::to_stream(std::cout));
+        //oven::copy(rng1|merged(rng2), oven::to_stream(std::cout));
     }
     {
         std::string rng1("acdfilmmrtvwxz");
         c_str_range<char const> rng2("beghjkmnopqsuy");
         BOOST_CHECK( oven::equals(rng1|merged(rng2), std::string("abcdefghijklmmmnopqrstuvwxyz")) );
-        oven::copy(rng1|merged(rng2), oven::to_stream(std::cout));
+        //oven::copy(rng1|merged(rng2), oven::to_stream(std::cout));
     }
+    {
+        std::string rng1("acdflmmtvz");
+        std::string rng2("behjkmnosy");
+        std::string rng3("giqwx");
+        std::string rng4("pru");
+        BOOST_CHECK( oven::equals(rng1|merged(rng2)|merged(rng3)|merged(rng4), std::string("abcdefghijklmmmnopqrstuvwxyz")) );
+        // oven::copy(rng1|merged(rng2)|merged(rng3)|merged(rng4), oven::to_stream(std::cout));
+    }
+
 }
 
 
