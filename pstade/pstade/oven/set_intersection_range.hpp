@@ -17,16 +17,83 @@
 #include <pstade/egg/pipable.hpp>
 #include <pstade/functional.hpp> // less
 #include <pstade/pass_by.hpp>
+#include <pstade/unused.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
+#include "./merge_iterator.hpp"
 #include "./range_iterator.hpp"
-#include "./set_intersection_iterator.hpp"
 
 
 namespace pstade { namespace oven {
 
 
 namespace set_intersection_range_detail {
+
+
+    struct merger
+    {
+        template< class Iterator1, class Iterator2, class BinaryPred >
+        static void initialize(
+            Iterator1& first1, Iterator1 const& last1,
+            Iterator2& first2, Iterator2 const& last2,
+            BinaryPred& pred)
+        {
+            next(first1, last1, first2, last2, pred);
+        }
+
+        template< class Reference, class Iterator1, class Iterator2, class BinaryPred >
+        static Reference dereference(
+            Iterator1 const& first1, Iterator1 const& last1,
+            Iterator2 const& first2, Iterator2 const& last2,
+            BinaryPred& pred)
+        {
+            if (first1 == last1)
+                return *first2;
+            else if (first2 == last2)
+                return *first1;
+
+            pstade::unused(pred);
+            return *first2;
+        }
+
+        template< class Iterator1, class Iterator2, class BinaryPred >
+        static void increment(
+            Iterator1& first1, Iterator1 const& last1,
+            Iterator2& first2, Iterator2 const& last2,
+            BinaryPred& pred)
+        {
+            if (first1 != last1)
+                ++first1;
+            
+            if (first2 != last2)
+                ++first2;
+
+            next(first1, last1, first2, last2, pred);
+        }
+
+    private:
+        template< class Iterator1, class Iterator2, class BinaryPred >
+        static void next(
+            Iterator1& first1, Iterator1 const& last1,
+            Iterator2& first2, Iterator2 const& last2,
+            BinaryPred& pred)
+        {
+            while (first1 != last1 && first2 != last2) {
+                if (pred(*first1, *first2)) 
+                  ++first1;
+                else if (pred(*first2, *first1)) 
+                  ++first2;
+                else
+                    break;
+            }
+
+            if (first1 == last1)
+                first2 = last2;
+
+            if (first2 == last2)
+                first1 = last1;
+        }
+    };
 
 
     template<
@@ -36,10 +103,11 @@ namespace set_intersection_range_detail {
     struct super_
     {
         typedef boost::iterator_range<
-            set_intersection_iterator<
+            merge_iterator<
                 typename range_iterator<Range1>::type,
                 typename range_iterator<Range2>::type,
-                BinaryPred
+                BinaryPred,
+                merger
             >
         > type;
     };

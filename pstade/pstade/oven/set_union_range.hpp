@@ -19,14 +19,37 @@
 #include <pstade/pass_by.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
+#include "./merge_iterator.hpp"
 #include "./range_iterator.hpp"
-#include "./set_union_iterator.hpp"
 
 
 namespace pstade { namespace oven {
 
 
 namespace set_union_range_detail {
+
+
+    struct merger :
+        merge_iterator_detail::merger
+    {
+        template< class Iterator1, class Iterator2, class BinaryPred >
+        static void increment(
+            Iterator1& first1, Iterator1 const& last1,
+            Iterator2& first2, Iterator2 const& last2,
+            BinaryPred& pred)
+        {
+            if (first1 == last1)
+                ++first2;
+            else if (first2 == last2)
+                ++first1;
+            else if (pred(*first1, *first2))
+                ++first1;
+            else if (pred(*first2, *first1))
+                ++first2;
+            else
+                ++first1, ++first2;
+        }
+    };
 
 
     template<
@@ -36,10 +59,11 @@ namespace set_union_range_detail {
     struct super_
     {
         typedef boost::iterator_range<
-            set_union_iterator<
+            merge_iterator<
                 typename range_iterator<Range1>::type,
                 typename range_iterator<Range2>::type,
-                BinaryPred
+                BinaryPred,
+                merger
             >
         > type;
     };

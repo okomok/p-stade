@@ -22,8 +22,6 @@
 #include "./repeat_iterator.hpp"
 #include "./reverse_iterator.hpp"
 #include "./scan_iterator.hpp"
-#include "./set_intersection_iterator.hpp"
-#include "./set_union_iterator.hpp"
 #include "./share_iterator.hpp"
 #include "./stride_iterator.hpp"
 #include "./tab_expand_iterator.hpp"

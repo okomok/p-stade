@@ -24,6 +24,7 @@
 #include <boost/iterator/iterator_categories.hpp> // iterator_traversal, tags
 #include <boost/mpl/identity.hpp>
 #include <pstade/functional.hpp> // less
+#include <pstade/unused.hpp>
 #include "./detail/constant_reference.hpp"
 
 
@@ -32,7 +33,8 @@ namespace pstade { namespace oven {
 
 template<
     class Iterator1, class Iterator2,
-    class BinaryPred
+    class BinaryPred,
+    class DetailMerger
 >
 struct merge_iterator;
 
@@ -54,12 +56,13 @@ namespace merge_iterator_detail {
 
     template<
         class Iterator1, class Iterator2,
-        class BinaryPred
+        class BinaryPred,
+        class DetailMerger
     >
     struct super_
     {
         typedef boost::iterator_adaptor<
-            merge_iterator<Iterator1, Iterator2, BinaryPred>,
+            merge_iterator<Iterator1, Iterator2, BinaryPred, DetailMerger>,
             Iterator1,
             boost::use_default,
             typename traversal<Iterator1, Iterator2>::type,
@@ -75,7 +78,7 @@ namespace merge_iterator_detail {
     T const& min_(
         T const& x,
         typename boost::mpl::identity<T>::type const& y,
-        BinaryPred const& pred)
+        BinaryPred pred)
     {
         // Workaround:
         // I don't certainly know, but ternary-operator could make a temporary
@@ -87,18 +90,63 @@ namespace merge_iterator_detail {
     }
 
 
+    struct merger
+    {
+        template< class Iterator1, class Iterator2, class BinaryPred >
+        static void initialize(
+            Iterator1& first1, Iterator1 const& last1,
+            Iterator2& first2, Iterator2 const& last2,
+            BinaryPred& pred)
+        {
+            pstade::unused(first1, last1, first2, last2, pred);
+        }
+
+        template< class Reference, class Iterator1, class Iterator2, class BinaryPred >
+        static Reference dereference(
+            Iterator1 const& first1, Iterator1 const& last1,
+            Iterator2 const& first2, Iterator2 const& last2,
+            BinaryPred& pred)
+        {
+            if (first1 == last1)
+                return *first2;
+            else if (first2 == last2)
+                return *first1;
+
+            return (min_)(*first1, *first2, pred);
+        }
+
+        template< class Iterator1, class Iterator2, class BinaryPred >
+        static void increment(
+            Iterator1& first1, Iterator1 const& last1,
+            Iterator2& first2, Iterator2 const& last2,
+            BinaryPred& pred)
+        {
+            if (first1 == last1)
+                ++first2;
+            else if (first2 == last2)
+                ++first1;
+            else if (pred(*first1, *first2))
+                ++first1;
+            else
+                ++first2;
+        }
+    };
+
+
 } // namespace merge_iterator_detail
 
 
 template<
     class Iterator1, class Iterator2,
-    class BinaryPred = less_fun
+    class BinaryPred   = less_fun,
+    class DetailMerger = merge_iterator_detail::merger
 >
 struct merge_iterator :
-    merge_iterator_detail::super_<Iterator1, Iterator2, BinaryPred>::type
+    merge_iterator_detail::super_<Iterator1, Iterator2, BinaryPred, DetailMerger>::type
 {
 private:
-    typedef typename merge_iterator_detail::super_<Iterator1, Iterator2, BinaryPred>::type super_t;
+    typedef typename merge_iterator_detail::
+        super_<Iterator1, Iterator2, BinaryPred, DetailMerger>::type super_t;
     typedef typename super_t::reference ref_t;
 
 public:
@@ -113,9 +161,12 @@ public:
         super_t(it1), m_last1(last1),
         m_it2(it2),   m_last2(last2),
         m_pred(pred)
-    { }
+    {
+        DetailMerger::initialize(
+            this->base_reference(), m_last1, m_it2, m_last2, m_pred);
+    }
 
-template< class, class, class > friend struct merge_iterator;
+template< class, class, class, class > friend struct merge_iterator;
     template< class Iterator1_, class Iterator2_ >
     merge_iterator(
         merge_iterator<Iterator1_, Iterator2_, BinaryPred> const& other,
@@ -152,13 +203,8 @@ friend class boost::iterator_core_access;
     ref_t dereference() const
     {
         BOOST_ASSERT(!(is_end1() && is_end2()));
-
-        if (is_end1())
-            return *m_it2;
-        else if (is_end2())
-            return *this->base();
-
-        return merge_iterator_detail::min_(*this->base(), *m_it2, m_pred);
+        return DetailMerger::template dereference<ref_t>(
+            this->base(), m_last1, m_it2, m_last2, m_pred);
     }
 
     template< class Other >
@@ -171,15 +217,8 @@ friend class boost::iterator_core_access;
     void increment()
     {
         BOOST_ASSERT(!(is_end1() && is_end2()));
-
-        if (is_end1())
-            ++m_it2;
-        else if (is_end2())
-            ++this->base_reference();
-        else if (m_pred(*this->base(), *m_it2))
-            ++this->base_reference();
-        else
-            ++m_it2;
+        return DetailMerger::increment(
+            this->base_reference(), m_last1, m_it2, m_last2, m_pred);
     }
 };
 
