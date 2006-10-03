@@ -13,6 +13,7 @@
 #include <pstade/oven/merge_range.hpp>
 
 
+#include <cctype>
 #include <iostream>
 #include <string>
 #include <pstade/oven/functions.hpp>
@@ -21,32 +22,34 @@
 #include <pstade/oven/c_str_range.hpp>
 
 
+bool lt_nocase(char c1, char c2)
+{
+    return std::tolower(c1) < std::tolower(c2);
+}
+
+
 void test()
 {
     namespace oven = pstade::oven;
     using namespace oven;
 
     {
-        std::string rng1("acdfilmmrtvwxz");
-        std::string rng2("beghjkmnopqsuy");
-        BOOST_CHECK( oven::equals(rng1|merged(rng2), std::string("abcdefghijklmmmnopqrstuvwxyz")) );
-        //oven::copy(rng1|merged(rng2), oven::to_stream(std::cout));
-    }
-    {
-        std::string rng1("acdfilmmrtvwxz");
-        c_str_range<char const> rng2("beghjkmnopqsuy");
-        BOOST_CHECK( oven::equals(rng1|merged(rng2), std::string("abcdefghijklmmmnopqrstuvwxyz")) );
-        //oven::copy(rng1|merged(rng2), oven::to_stream(std::cout));
-    }
-    {
-        std::string rng1("acdflmmtvz");
-        std::string rng2("behjkmnosy");
-        std::string rng3("giqwx");
-        std::string rng4("pru");
-        BOOST_CHECK( oven::equals(rng1|merged(rng2)|merged(rng3)|merged(rng4), std::string("abcdefghijklmmmnopqrstuvwxyz")) );
-        // oven::copy(rng1|merged(rng2)|merged(rng3)|merged(rng4), oven::to_stream(std::cout));
-    }
+        int A1[] = {1,3,5,7,9,11};
+        int A2[] = {1,1,2,3,5,8,13};
+        int AA[] = {1,1,1,2,3,3,5,5,7,8,9,11,13};
 
+        BOOST_CHECK( oven::equals(A1|merged(A2), AA) );
+        oven::copy(A1|merged(A2), to_stream(std::cout));
+    }
+    {
+        std::string A1("abbbfH");
+        std::string A2("ABbCDFFhh");
+        std::string AA("aAbbbBbCDfFFHhh");
+        BOOST_CHECK( oven::equals(A1|merged(A2, &::lt_nocase), AA) );
+        oven::copy(A1|merged(A2, &::lt_nocase), to_stream(std::cout));
+        // std::cout << std::endl;
+        // oven::merge(A1, A2, to_stream(std::cout), &lt_nocase); 
+    }
 }
 
 

@@ -13,6 +13,7 @@
 #include <pstade/oven/set_intersection_range.hpp>
 
 
+#include <cctype> // tolower
 #include <iostream>
 #include <string>
 #include <pstade/oven/functions.hpp>
@@ -21,29 +22,31 @@
 #include <pstade/oven/c_str_range.hpp>
 
 
+bool lt_nocase(char c1, char c2)
+{
+    return std::tolower(c1) < std::tolower(c2);
+}
+
+
 void test()
 {
     namespace oven = pstade::oven;
     using namespace oven;
 
     {
-        std::string rng1("13579");
-        std::string rng2("1239");
-        BOOST_CHECK( oven::equals(rng1|set_intersected(rng2), std::string("139")) );
-        oven::copy(rng1|set_intersected(rng2), oven::to_stream(std::cout));
+        int A1[] = {1,3,5,7,9,11};
+        int A2[] = {1,1,2,3,5,8,13};
+        int AA[] = {1,3,5};
+
+        BOOST_CHECK( oven::equals(A1|set_cap(A2), AA) );
+        oven::copy(A1|set_cap(A2), to_stream(std::cout));
     }
     {
-        std::string rng1("13579");
-        std::string rng2("112358");
-        BOOST_CHECK( oven::equals(rng1|set_intersected(rng2), std::string("135")) );
-        oven::copy(rng1|set_intersected(rng2), oven::to_stream(std::cout));
-        oven::set_intersection(rng1, rng2, oven::to_stream(std::cout));
-    }
-    {
-        std::string rng1("abbbfh");
-        c_str_range<char const> rng2("abbcdffhh");
-        BOOST_CHECK( oven::equals(rng1|set_intersected(rng2), std::string("abbfh")) );
-        oven::copy(rng1|set_intersected(rng2), oven::to_stream(std::cout));
+        std::string A1("abbBBfhH");
+        std::string A2("ABBCDFFH");
+        std::string AA("abbfh");
+        BOOST_CHECK( oven::equals(A1|set_cap(A2, &::lt_nocase), AA) );
+        oven::copy(A1|set_cap(A2, &::lt_nocase), to_stream(std::cout));
     }
 }
 

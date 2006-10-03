@@ -10,10 +10,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/set_union_range.hpp>
+#include <pstade/oven/set_difference_range.hpp>
 
 
-#include <cctype>
+#include <cctype> // tolower
 #include <iostream>
 #include <string>
 #include <pstade/oven/functions.hpp>
@@ -36,16 +36,19 @@ void test()
     {
         int A1[] = {1,3,5,7,9,11};
         int A2[] = {1,1,2,3,5,8,13};
-        int AA[] = {1,1,2,3,5,7,8,9,11,13};
+        int AA[] = {7,9,11};
 
-        BOOST_CHECK( oven::equals(A1|set_cup(A2), AA) );
+        BOOST_CHECK( oven::equals(A1|set_minus(A2), AA) );
+        //oven::copy(A1|set_minus(A2), to_stream(std::cout));
     }
     {
-        std::string A1("abBBfH");
-        std::string A2("ABbCDFFhh");
-        std::string AA("abBBCDfFHh");
-        BOOST_CHECK( oven::equals(A1|set_cup(A2, &::lt_nocase), AA) );
-        oven::copy(A1|set_cup(A2, &::lt_nocase), to_stream(std::cout));
+        std::string A1("abbBBfghH");
+        std::string A2("ABBCDFFH");
+        std::string AA("BBgH");
+        BOOST_CHECK( oven::equals(A1|set_minus(A2, &::lt_nocase), AA) );
+        //oven::copy(A1|set_minus(A2, &::lt_nocase), to_stream(std::cout));
+        //std::cout << std::endl;
+        //oven::set_difference(A1, A2, to_stream(std::cout), &::lt_nocase); 
     }
 }
 

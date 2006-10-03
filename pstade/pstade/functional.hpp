@@ -24,6 +24,7 @@
 #include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <boost/utility/enable_if.hpp> // disable_if
+#include <boost/utility/result_of.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/affect.hpp>
 #include <pstade/egg/function.hpp>
@@ -279,6 +280,57 @@ namespace at_second_detail {
 } // namespace at_second_detail
 
 PSTADE_EGG_FUNCTION(at_second, at_second_detail::baby)
+
+
+// swap_bind
+//
+
+namespace swap_bind_detail {
+
+    template< class BinaryFun >
+    struct baby_fun
+    {
+        explicit baby_fun()
+        { }
+
+        explicit baby_fun(BinaryFun const& fun) :
+            m_fun(fun)
+        { }
+
+        template< class Myself, class T0, class T1 >
+        struct apply :
+            boost::result_of<BinaryFun(T0, T1)>
+        { };
+
+        template< class Result, class T0, class T1 >
+        Result call(T0& a0, T1& a1)
+        {
+            return m_fun(a1, a0); // swapped
+        }
+
+    private:
+        BinaryFun m_fun;
+    };
+
+    struct baby
+    {
+        template< class Myself, class BinaryFun >
+        struct apply
+        {
+            typedef typename pass_by_value<BinaryFun>::type pred_t;
+            typedef egg::function< baby_fun<pred_t> > type;
+        };
+
+        template< class Result, class BinaryFun >
+        Result call(BinaryFun& pred)
+        {
+            return Result(pred);
+        }
+    };
+
+} // namespace swap_bind_detail
+
+PSTADE_EGG_FUNCTION_(swap_bind, swap_bind_detail::baby)
 
 
 } // ADL barrier

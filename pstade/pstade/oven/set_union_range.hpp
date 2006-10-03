@@ -42,12 +42,14 @@ namespace set_union_range_detail {
                 ++first2;
             else if (first2 == last2)
                 ++first1;
-            else if (pred(*first1, *first2))
-                ++first1;
             else if (pred(*first2, *first1))
                 ++first2;
-            else
-                ++first1, ++first2;
+            else if (pred(*first1, *first2))
+                ++first1;
+            else {
+                ++first2;
+                ++first1;
+            }
         }
     };
 
@@ -128,7 +130,7 @@ namespace set_union_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_set_union_range, set_union_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(set_united, set_union_range_detail::baby_make)
+PSTADE_EGG_PIPABLE(set_cup, set_union_range_detail::baby_make)
 
 
 } } // namespace pstade::oven

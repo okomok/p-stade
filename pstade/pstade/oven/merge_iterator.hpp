@@ -80,13 +80,15 @@ namespace merge_iterator_detail {
         typename boost::mpl::identity<T>::type const& y,
         BinaryPred pred)
     {
-        // Workaround:
         // I don't certainly know, but ternary-operator could make a temporary
-        // in the case of 'char const& min_(char const& x, char& y)'
-        if (pred(x, y))
-            return x;
-        else
+        // in the case of 'char const& min_(char const& x, char& y)'.
+        // So use if-else.
+
+        // For stability, prefer 'x' if equal.
+        if (pred(y, x))
             return y;
+        else
+            return x;
     }
 
 
@@ -125,10 +127,11 @@ namespace merge_iterator_detail {
                 ++first2;
             else if (first2 == last2)
                 ++first1;
-            else if (pred(*first1, *first2))
-                ++first1;
-            else
+            // See 'min_' above.
+            else if (pred(*first2, *first1))
                 ++first2;
+            else
+                ++first1;
         }
     };
 
