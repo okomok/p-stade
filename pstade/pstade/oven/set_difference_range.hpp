@@ -30,7 +30,7 @@ namespace pstade { namespace oven {
 namespace set_difference_range_detail {
 
 
-    struct merger
+    struct merge_routine
     {
         template< class Reference, class Iterator1, class Iterator2, class BinaryPred >
         static Reference yield(
@@ -43,7 +43,7 @@ namespace set_difference_range_detail {
         }
 
         template< class Iterator1, class Iterator2, class BinaryPred >
-        static void yield_to(
+        static void from_yield_phase(
             Iterator1& first1, Iterator1 const& last1,
             Iterator2& first2, Iterator2 const& last2,
             BinaryPred& pred)
@@ -53,7 +53,7 @@ namespace set_difference_range_detail {
         }
 
         template< class Iterator1, class Iterator2, class BinaryPred >
-        static void to_yield(
+        static void to_yield_phase(
             Iterator1& first1, Iterator1 const& last1,
             Iterator2& first2, Iterator2 const& last2,
             BinaryPred& pred)
@@ -73,7 +73,7 @@ namespace set_difference_range_detail {
             if (first1 == last1)
                 first2 = last2;
         }
-    }; // struct merger
+    };
 
 
     template<
@@ -87,7 +87,7 @@ namespace set_difference_range_detail {
                 typename range_iterator<Range1>::type,
                 typename range_iterator<Range2>::type,
                 BinaryPred,
-                merger
+                merge_routine
             >
         > type;
     };

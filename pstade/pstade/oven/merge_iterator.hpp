@@ -34,7 +34,7 @@ namespace pstade { namespace oven {
 template<
     class Iterator1, class Iterator2,
     class BinaryPred,
-    class DetailMerger
+    class MergeRoutine
 >
 struct merge_iterator;
 
@@ -57,12 +57,12 @@ namespace merge_iterator_detail {
     template<
         class Iterator1, class Iterator2,
         class BinaryPred,
-        class DetailMerger
+        class MergeRoutine
     >
     struct super_
     {
         typedef boost::iterator_adaptor<
-            merge_iterator<Iterator1, Iterator2, BinaryPred, DetailMerger>,
+            merge_iterator<Iterator1, Iterator2, BinaryPred, MergeRoutine>,
             Iterator1,
             boost::use_default,
             typename traversal<Iterator1, Iterator2>::type,
@@ -92,7 +92,9 @@ namespace merge_iterator_detail {
     }
 
 
-    struct merger
+    // This code is generated from STL implementations
+    // somewhat by rote.
+    struct merge_routine
     {
         template< class Reference, class Iterator1, class Iterator2, class BinaryPred >
         static Reference yield(
@@ -111,24 +113,7 @@ namespace merge_iterator_detail {
         }
 
         template< class Iterator1, class Iterator2, class BinaryPred >
-        static void to_yield(
-            Iterator1& first1, Iterator1 const& last1,
-            Iterator2& first2, Iterator2 const& last2,
-            BinaryPred& pred)
-        {
-            /* has no effect.
-            while (first1 != last1 && first2 != last2) {
-                if (pred(*first2, *first1)) 
-                    break;
-                else
-                    break;
-            }
-            */
-            pstade::unused(first1, last1, first2, last2, pred);
-        }
-
-        template< class Iterator1, class Iterator2, class BinaryPred >
-        static void yield_to(
+        static void from_yield_phase(
             Iterator1& first1, Iterator1 const& last1,
             Iterator2& first2, Iterator2 const& last2,
             BinaryPred& pred)
@@ -149,6 +134,23 @@ namespace merge_iterator_detail {
             else
                 ++first1;
         }
+
+        template< class Iterator1, class Iterator2, class BinaryPred >
+        static void to_yield_phase(
+            Iterator1& first1, Iterator1 const& last1,
+            Iterator2& first2, Iterator2 const& last2,
+            BinaryPred& pred)
+        {
+            /* has no effect.
+            while (first1 != last1 && first2 != last2) {
+                if (pred(*first2, *first1)) 
+                    break;
+                else
+                    break;
+            }
+            */
+            pstade::unused(first1, last1, first2, last2, pred);
+        }
     };
 
 
@@ -158,14 +160,14 @@ namespace merge_iterator_detail {
 template<
     class Iterator1, class Iterator2,
     class BinaryPred   = less_fun,
-    class DetailMerger = merge_iterator_detail::merger
+    class MergeRoutine = merge_iterator_detail::merge_routine
 >
 struct merge_iterator :
-    merge_iterator_detail::super_<Iterator1, Iterator2, BinaryPred, DetailMerger>::type
+    merge_iterator_detail::super_<Iterator1, Iterator2, BinaryPred, MergeRoutine>::type
 {
 private:
     typedef typename merge_iterator_detail::
-        super_<Iterator1, Iterator2, BinaryPred, DetailMerger>::type super_t;
+        super_<Iterator1, Iterator2, BinaryPred, MergeRoutine>::type super_t;
     typedef typename super_t::reference ref_t;
 
 public:
@@ -181,7 +183,7 @@ public:
         m_it2(it2),   m_last2(last2),
         m_pred(pred)
     {
-        DetailMerger::to_yield(
+        MergeRoutine::to_yield_phase(
             this->base_reference(), m_last1, m_it2, m_last2, m_pred);
     }
 
@@ -222,7 +224,7 @@ friend class boost::iterator_core_access;
     ref_t dereference() const
     {
         BOOST_ASSERT(!(is_end1() && is_end2()));
-        return DetailMerger::template yield<ref_t>(
+        return MergeRoutine::template yield<ref_t>(
             this->base(), m_last1, m_it2, m_last2, m_pred);
     }
 
@@ -236,9 +238,9 @@ friend class boost::iterator_core_access;
     void increment()
     {
         BOOST_ASSERT(!(is_end1() && is_end2()));
-        DetailMerger::yield_to(
+        MergeRoutine::from_yield_phase(
             this->base_reference(), m_last1, m_it2, m_last2, m_pred);
-        DetailMerger::to_yield(
+        MergeRoutine::to_yield_phase(
             this->base_reference(), m_last1, m_it2, m_last2, m_pred);
     }
 };

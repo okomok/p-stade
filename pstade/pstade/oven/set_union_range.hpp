@@ -29,11 +29,11 @@ namespace pstade { namespace oven {
 namespace set_union_range_detail {
 
 
-    struct merger :
-        merge_iterator_detail::merger
+    struct merge_routine :
+        merge_iterator_detail::merge_routine
     {
         template< class Iterator1, class Iterator2, class BinaryPred >
-        static void yield_to(
+        static void from_yield_phase(
             Iterator1& first1, Iterator1 const& last1,
             Iterator2& first2, Iterator2 const& last2,
             BinaryPred& pred)
@@ -72,7 +72,7 @@ namespace set_union_range_detail {
                 typename range_iterator<Range1>::type,
                 typename range_iterator<Range2>::type,
                 BinaryPred,
-                merger
+                merge_routine
             >
         > type;
     };
