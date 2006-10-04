@@ -32,17 +32,8 @@ namespace set_difference_range_detail {
 
     struct merger
     {
-        template< class Iterator1, class Iterator2, class BinaryPred >
-        static void initialize(
-            Iterator1& first1, Iterator1 const& last1,
-            Iterator2& first2, Iterator2 const& last2,
-            BinaryPred& pred)
-        {
-            next(first1, last1, first2, last2, pred);
-        }
-
         template< class Reference, class Iterator1, class Iterator2, class BinaryPred >
-        static Reference dereference(
+        static Reference yield(
             Iterator1 const& first1, Iterator1 const& last1,
             Iterator2 const& first2, Iterator2 const& last2,
             BinaryPred& pred)
@@ -52,39 +43,37 @@ namespace set_difference_range_detail {
         }
 
         template< class Iterator1, class Iterator2, class BinaryPred >
-        static void increment(
+        static void yield_to(
             Iterator1& first1, Iterator1 const& last1,
             Iterator2& first2, Iterator2 const& last2,
             BinaryPred& pred)
         {
-            if (first1 != last1)
-                ++first1;
-
-            next(first1, last1, first2, last2, pred);
+            pstade::unused(last1, first2, last2, pred);
+            ++first1;
         }
 
-    private:
         template< class Iterator1, class Iterator2, class BinaryPred >
-        static void next(
+        static void to_yield(
             Iterator1& first1, Iterator1 const& last1,
             Iterator2& first2, Iterator2 const& last2,
             BinaryPred& pred)
         {
             while (first1 != last1 && first2 != last2) {
-                if (pred(*first2, *first1)) 
+                if (pred(*first2, *first1))
                     ++first2;
-                else if (pred(*first1, *first2)) 
+                else if (pred(*first1, *first2))
                     break;
                 else {
-                    ++first2;
                     ++first1;
+                    ++first2;
                 }
             }
 
+            // no copy phase of rng2
             if (first1 == last1)
                 first2 = last2;
         }
-    };
+    }; // struct merger
 
 
     template<

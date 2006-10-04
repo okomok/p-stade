@@ -10,20 +10,24 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Todo:
+// Note:
 //
-// This range, for now, needs ForwardRange.
-// The implementation seems beautiful, though.
+// 'rng1|set_minus(rng2)|set_cup(rng2|set_minus(rng1))'
+// works fine, but wants the ranges be Forward.
 
 
+#include <boost/range/begin.hpp>
+#include <boost/range/end.hpp>
+#include <boost/range/iterator_range.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <pstade/functional.hpp> // less
 #include <pstade/pass_by.hpp>
+#include <pstade/unused.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
-#include "./set_difference_range.hpp"
-#include "./set_union_range.hpp"
+#include "./merge_iterator.hpp"
+#include "./range_iterator.hpp"
 
 
 namespace pstade { namespace oven {
@@ -32,15 +36,80 @@ namespace pstade { namespace oven {
 namespace set_symmetric_difference_range_detail {
 
 
+    struct merger
+    {
+        template< class Reference, class Iterator1, class Iterator2, class BinaryPred >
+        static Reference yield(
+            Iterator1 const& first1, Iterator1 const& last1,
+            Iterator2 const& first2, Iterator2 const& last2,
+            BinaryPred& pred)
+        {
+            // copy-copy phase
+            if (first1 == last1)
+                return *first2;
+            else if (first2 == last2)
+                return *first1;
+            
+            // while phase
+            return merge_iterator_detail::min_(*first1, *first2, pred);
+        }
+
+        template< class Iterator1, class Iterator2, class BinaryPred >
+        static void yield_to(
+            Iterator1& first1, Iterator1 const& last1,
+            Iterator2& first2, Iterator2 const& last2,
+            BinaryPred& pred)
+        {
+            // copy-copy phase
+            if (first1 == last1) {
+                ++first2;
+                return;
+            }
+            else if (first2 == last2) {
+                ++first1;
+                return;
+            }
+
+            // while phase
+            if (pred(*first2, *first1))
+                ++first2;
+            else
+                ++first1;
+        }
+
+        template< class Iterator1, class Iterator2, class BinaryPred >
+        static void to_yield(
+            Iterator1& first1, Iterator1 const& last1,
+            Iterator2& first2, Iterator2 const& last2,
+            BinaryPred& pred)
+        {
+            while (first1 != last1 && first2 != last2) {
+                if (pred(*first2, *first1))
+                    break;
+                else if (pred(*first1, *first2))
+                    break;
+                else {
+                    ++first1;
+                    ++first2;
+                }
+            }
+        }
+    }; // struct merger
+
+
     template<
-        class ForwardRange1, class ForwardRange2,
+        class Range1, class Range2,
         class BinaryPred
     >
     struct super_
     {
-        typedef set_union_range<
-            set_difference_range<ForwardRange1, ForwardRange2, BinaryPred> const,
-            set_difference_range<ForwardRange2, ForwardRange1, BinaryPred> const
+        typedef boost::iterator_range<
+            merge_iterator<
+                typename range_iterator<Range1>::type,
+                typename range_iterator<Range2>::type,
+                BinaryPred,
+                merger
+            >
         > type;
     };
 
@@ -49,23 +118,27 @@ namespace set_symmetric_difference_range_detail {
 
 
 template<
-    class ForwardRange1, class ForwardRange2,
+    class Range1, class Range2,
     class BinaryPred = less_fun
 >
 struct set_symmetric_difference_range :
-    set_symmetric_difference_range_detail::super_<ForwardRange1, ForwardRange2, BinaryPred>::type,
-    private as_lightweight_proxy< set_symmetric_difference_range<ForwardRange1, ForwardRange2, BinaryPred> >
+    set_symmetric_difference_range_detail::super_<Range1, Range2, BinaryPred>::type,
+    private as_lightweight_proxy< set_symmetric_difference_range<Range1, Range2, BinaryPred> >
 {
-    typedef ForwardRange1 pstade_oven_range_base_type;
+    typedef Range1 pstade_oven_range_base_type;
 
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange1, SinglePassForwardRangeConcept);
-    PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange2, SinglePassForwardRangeConcept);
-    typedef typename set_symmetric_difference_range_detail::super_<ForwardRange1, ForwardRange2, BinaryPred>::type super_t;
+    PSTADE_OVEN_DETAIL_REQUIRES(Range1, SinglePassRangeConcept);
+    PSTADE_OVEN_DETAIL_REQUIRES(Range2, SinglePassRangeConcept);
+    typedef typename set_symmetric_difference_range_detail::super_<Range1, Range2, BinaryPred>::type super_t;
+    typedef typename super_t::iterator iter_t;
 
 public:
-    set_symmetric_difference_range(ForwardRange1& rng1, ForwardRange2& rng2, BinaryPred const& pred = pstade::less) :
-        super_t(rng1|set_minus(rng2, pred), rng2|set_minus(rng1, pred))
+    set_symmetric_difference_range(Range1& rng1, Range2& rng2, BinaryPred const& pred = pstade::less) :
+        super_t(
+            iter_t(boost::begin(rng1), boost::end(rng1), boost::begin(rng2), boost::end(rng2), pred),
+            iter_t(boost::end(rng1),   boost::end(rng1), boost::end(rng2),   boost::end(rng2), pred)
+        )
     { }
 };
 
@@ -75,21 +148,21 @@ namespace set_symmetric_difference_range_detail {
 
     struct baby_make
     {
-        template< class Myself, class ForwardRange1, class ForwardRange2, class BinaryPred = less_fun >
+        template< class Myself, class Range1, class Range2, class BinaryPred = less_fun >
         struct apply
         {
             typedef typename pass_by_value<BinaryPred>::type pred_t;
-            typedef set_symmetric_difference_range<ForwardRange1, ForwardRange2, pred_t> const type;
+            typedef set_symmetric_difference_range<Range1, Range2, pred_t> const type;
         };
 
-        template< class Result, class ForwardRange1, class ForwardRange2, class BinaryPred >
-        Result call(ForwardRange1& rng1, ForwardRange2& rng2, BinaryPred& pred)
+        template< class Result, class Range1, class Range2, class BinaryPred >
+        Result call(Range1& rng1, Range2& rng2, BinaryPred& pred)
         {
             return Result(rng1, rng2, pred);
         }
 
-        template< class Result, class ForwardRange1, class ForwardRange2 >
-        Result call(ForwardRange1& rng1, ForwardRange2& rng2)
+        template< class Result, class Range1, class Range2 >
+        Result call(Range1& rng1, Range2& rng2)
         {
             return Result(rng1, rng2);
         }

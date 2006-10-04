@@ -33,22 +33,29 @@ namespace set_union_range_detail {
         merge_iterator_detail::merger
     {
         template< class Iterator1, class Iterator2, class BinaryPred >
-        static void increment(
+        static void yield_to(
             Iterator1& first1, Iterator1 const& last1,
             Iterator2& first2, Iterator2 const& last2,
             BinaryPred& pred)
         {
-            if (first1 == last1)
+            // copy-copy phase
+            if (first1 == last1) {
                 ++first2;
-            else if (first2 == last2)
+                return;
+            }
+            else if (first2 == last2) {
                 ++first1;
-            else if (pred(*first2, *first1))
+                return;
+            }
+
+            // while phase
+            if (pred(*first2, *first1))
                 ++first2;
             else if (pred(*first1, *first2))
                 ++first1;
             else {
-                ++first2;
                 ++first1;
+                ++first2;
             }
         }
     };

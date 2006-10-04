@@ -32,64 +32,45 @@ namespace set_intersection_range_detail {
 
     struct merger
     {
-        template< class Iterator1, class Iterator2, class BinaryPred >
-        static void initialize(
-            Iterator1& first1, Iterator1 const& last1,
-            Iterator2& first2, Iterator2 const& last2,
-            BinaryPred& pred)
-        {
-            next(first1, last1, first2, last2, pred);
-        }
-
         template< class Reference, class Iterator1, class Iterator2, class BinaryPred >
-        static Reference dereference(
+        static Reference yield(
             Iterator1 const& first1, Iterator1 const& last1,
             Iterator2 const& first2, Iterator2 const& last2,
             BinaryPred& pred)
         {
-            if (first1 == last1)
-                return *first2;
-            else if (first2 == last2)
-                return *first1;
-
-            pstade::unused(pred);
-            return *first1; // requirement of 'std::set_intersection'.
+            pstade::unused(last1, first2, last2, pred);
+            return *first1;
         }
 
         template< class Iterator1, class Iterator2, class BinaryPred >
-        static void increment(
+        static void yield_to(
             Iterator1& first1, Iterator1 const& last1,
             Iterator2& first2, Iterator2 const& last2,
             BinaryPred& pred)
         {
-            if (first2 != last2)
-                ++first2;
-
-            if (first1 != last1)
-                ++first1;
-
-            next(first1, last1, first2, last2, pred);
+            ++first1;
+            ++first2;
+            pstade::unused(last1, last2, pred);
         }
 
-    private:
         template< class Iterator1, class Iterator2, class BinaryPred >
-        static void next(
+        static void to_yield(
             Iterator1& first1, Iterator1 const& last1,
             Iterator2& first2, Iterator2 const& last2,
             BinaryPred& pred)
         {
-            while (first1 != last1 && first2 != last2) {
-                if (pred(*first2, *first1)) 
-                  ++first2;
-                else if (pred(*first1, *first2)) 
-                  ++first1;
+            while (first1 != last1 && first2 != last2)  {
+                if (pred(*first2, *first1))
+                    ++first2;
+                else if (pred(*first1, *first2))
+                    ++first1;
                 else
                     break;
             }
 
+            // no copy-copy phase
             if (first1 == last1)
                 first2 = last2;
-
             if (first2 == last2)
                 first1 = last1;
         }

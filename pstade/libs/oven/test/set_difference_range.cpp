@@ -39,16 +39,16 @@ void test()
         int AA[] = {7,9,11};
 
         BOOST_CHECK( oven::equals(A1|set_minus(A2), AA) );
-        //oven::copy(A1|set_minus(A2), to_stream(std::cout));
+        oven::copy(A1|set_minus(A2), to_stream(std::cout));
     }
     {
         std::string A1("abbBBfghH");
         std::string A2("ABBCDFFH");
         std::string AA("BBgH");
         BOOST_CHECK( oven::equals(A1|set_minus(A2, &::lt_nocase), AA) );
-        //oven::copy(A1|set_minus(A2, &::lt_nocase), to_stream(std::cout));
-        //std::cout << std::endl;
-        //oven::set_difference(A1, A2, to_stream(std::cout), &::lt_nocase); 
+        oven::copy(A1|set_minus(A2, &::lt_nocase), to_stream(std::cout));
+        std::cout << std::endl;
+        oven::set_difference(A1, A2, to_stream(std::cout), &::lt_nocase); 
     }
 }
 

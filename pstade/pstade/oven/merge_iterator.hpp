@@ -94,41 +94,57 @@ namespace merge_iterator_detail {
 
     struct merger
     {
-        template< class Iterator1, class Iterator2, class BinaryPred >
-        static void initialize(
-            Iterator1& first1, Iterator1 const& last1,
-            Iterator2& first2, Iterator2 const& last2,
-            BinaryPred& pred)
-        {
-            pstade::unused(first1, last1, first2, last2, pred);
-        }
-
         template< class Reference, class Iterator1, class Iterator2, class BinaryPred >
-        static Reference dereference(
+        static Reference yield(
             Iterator1 const& first1, Iterator1 const& last1,
             Iterator2 const& first2, Iterator2 const& last2,
             BinaryPred& pred)
         {
+            // copy-copy phase
             if (first1 == last1)
                 return *first2;
             else if (first2 == last2)
                 return *first1;
 
+            // while phase
             return (min_)(*first1, *first2, pred);
         }
 
         template< class Iterator1, class Iterator2, class BinaryPred >
-        static void increment(
+        static void to_yield(
             Iterator1& first1, Iterator1 const& last1,
             Iterator2& first2, Iterator2 const& last2,
             BinaryPred& pred)
         {
-            if (first1 == last1)
+            /* has no effect.
+            while (first1 != last1 && first2 != last2) {
+                if (pred(*first2, *first1)) 
+                    break;
+                else
+                    break;
+            }
+            */
+            pstade::unused(first1, last1, first2, last2, pred);
+        }
+
+        template< class Iterator1, class Iterator2, class BinaryPred >
+        static void yield_to(
+            Iterator1& first1, Iterator1 const& last1,
+            Iterator2& first2, Iterator2 const& last2,
+            BinaryPred& pred)
+        {
+            // copy-copy phase
+            if (first1 == last1) {
                 ++first2;
-            else if (first2 == last2)
+                return;
+            }
+            else if (first2 == last2) {
                 ++first1;
-            // See 'min_' above.
-            else if (pred(*first2, *first1))
+                return;
+            }
+
+            // while phase
+            if (pred(*first2, *first1))
                 ++first2;
             else
                 ++first1;
@@ -165,7 +181,7 @@ public:
         m_it2(it2),   m_last2(last2),
         m_pred(pred)
     {
-        DetailMerger::initialize(
+        DetailMerger::to_yield(
             this->base_reference(), m_last1, m_it2, m_last2, m_pred);
     }
 
@@ -206,7 +222,7 @@ friend class boost::iterator_core_access;
     ref_t dereference() const
     {
         BOOST_ASSERT(!(is_end1() && is_end2()));
-        return DetailMerger::template dereference<ref_t>(
+        return DetailMerger::template yield<ref_t>(
             this->base(), m_last1, m_it2, m_last2, m_pred);
     }
 
@@ -220,7 +236,9 @@ friend class boost::iterator_core_access;
     void increment()
     {
         BOOST_ASSERT(!(is_end1() && is_end2()));
-        return DetailMerger::increment(
+        DetailMerger::yield_to(
+            this->base_reference(), m_last1, m_it2, m_last2, m_pred);
+        DetailMerger::to_yield(
             this->base_reference(), m_last1, m_it2, m_last2, m_pred);
     }
 };
