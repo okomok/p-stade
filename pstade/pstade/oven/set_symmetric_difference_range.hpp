@@ -38,6 +38,24 @@ namespace set_symmetric_difference_range_detail {
 
     struct merge_routine
     {
+        template< class Iterator1, class Iterator2, class BinaryPred >
+        static void before_yield(
+            Iterator1& first1, Iterator1 const& last1,
+            Iterator2& first2, Iterator2 const& last2,
+            BinaryPred& pred)
+        {
+            while (first1 != last1 && first2 != last2) {
+                if (pred(*first2, *first1))
+                    break;
+                else if (pred(*first1, *first2))
+                    break;
+                else {
+                    ++first1;
+                    ++first2;
+                }
+            }
+        }
+
         template< class Reference, class Iterator1, class Iterator2, class BinaryPred >
         static Reference yield(
             Iterator1 const& first1, Iterator1 const& last1,
@@ -55,7 +73,7 @@ namespace set_symmetric_difference_range_detail {
         }
 
         template< class Iterator1, class Iterator2, class BinaryPred >
-        static void from_yield_phase(
+        static void after_yield(
             Iterator1& first1, Iterator1 const& last1,
             Iterator2& first2, Iterator2 const& last2,
             BinaryPred& pred)
@@ -75,24 +93,6 @@ namespace set_symmetric_difference_range_detail {
                 ++first2;
             else
                 ++first1;
-        }
-
-        template< class Iterator1, class Iterator2, class BinaryPred >
-        static void to_yield_phase(
-            Iterator1& first1, Iterator1 const& last1,
-            Iterator2& first2, Iterator2 const& last2,
-            BinaryPred& pred)
-        {
-            while (first1 != last1 && first2 != last2) {
-                if (pred(*first2, *first1))
-                    break;
-                else if (pred(*first1, *first2))
-                    break;
-                else {
-                    ++first1;
-                    ++first2;
-                }
-            }
         }
     };
 

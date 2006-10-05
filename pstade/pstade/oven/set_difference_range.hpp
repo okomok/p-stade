@@ -32,28 +32,8 @@ namespace set_difference_range_detail {
 
     struct merge_routine
     {
-        template< class Reference, class Iterator1, class Iterator2, class BinaryPred >
-        static Reference yield(
-            Iterator1 const& first1, Iterator1 const& last1,
-            Iterator2 const& first2, Iterator2 const& last2,
-            BinaryPred& pred)
-        {
-            pstade::unused(last1, first2, last2, pred);
-            return *first1;
-        }
-
         template< class Iterator1, class Iterator2, class BinaryPred >
-        static void from_yield_phase(
-            Iterator1& first1, Iterator1 const& last1,
-            Iterator2& first2, Iterator2 const& last2,
-            BinaryPred& pred)
-        {
-            pstade::unused(last1, first2, last2, pred);
-            ++first1;
-        }
-
-        template< class Iterator1, class Iterator2, class BinaryPred >
-        static void to_yield_phase(
+        static void before_yield(
             Iterator1& first1, Iterator1 const& last1,
             Iterator2& first2, Iterator2 const& last2,
             BinaryPred& pred)
@@ -72,6 +52,26 @@ namespace set_difference_range_detail {
             // no copy phase of rng2
             if (first1 == last1)
                 first2 = last2;
+        }
+
+        template< class Reference, class Iterator1, class Iterator2, class BinaryPred >
+        static Reference yield(
+            Iterator1 const& first1, Iterator1 const& last1,
+            Iterator2 const& first2, Iterator2 const& last2,
+            BinaryPred& pred)
+        {
+            pstade::unused(last1, first2, last2, pred);
+            return *first1;
+        }
+
+        template< class Iterator1, class Iterator2, class BinaryPred >
+        static void after_yield(
+            Iterator1& first1, Iterator1 const& last1,
+            Iterator2& first2, Iterator2 const& last2,
+            BinaryPred& pred)
+        {
+            pstade::unused(last1, first2, last2, pred);
+            ++first1;
         }
     };
 

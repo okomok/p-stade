@@ -33,7 +33,7 @@ namespace set_union_range_detail {
         merge_iterator_detail::merge_routine
     {
         template< class Iterator1, class Iterator2, class BinaryPred >
-        static void from_yield_phase(
+        static void after_yield(
             Iterator1& first1, Iterator1 const& last1,
             Iterator2& first2, Iterator2 const& last2,
             BinaryPred& pred)

@@ -22,7 +22,6 @@
 #include <boost/iterator/detail/minimum_category.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_categories.hpp> // iterator_traversal, tags
-#include <boost/mpl/identity.hpp>
 #include <pstade/functional.hpp> // less
 #include <pstade/unused.hpp>
 #include "./detail/constant_reference.hpp"
@@ -71,20 +70,13 @@ namespace merge_iterator_detail {
     };
 
 
-    // Here is function to avoid multiple evaluations.
-    // It prefers the type of 'x' as result.
-    // See <boost/implicit_cast.hpp>.
-    template< class T, class BinaryPred > 
-    T const& min_(
-        T const& x,
-        typename boost::mpl::identity<T>::type const& y,
-        BinaryPred pred)
+    template< class X, class Y, class BinaryPred > 
+    X const& min_(X const& x, Y const& y, BinaryPred pred)
     {
-        // I don't certainly know, but ternary-operator could make a temporary
-        // in the case of 'char const& min_(char const& x, char& y)'.
-        // So use if-else.
+        // ternary-operator could make a rvalue.
+        // I don't know certainly know, though.
 
-        // For stability, prefer 'x' if equal.
+        // Standard requires 'x' if equal.
         if (pred(y, x))
             return y;
         else
@@ -92,10 +84,27 @@ namespace merge_iterator_detail {
     }
 
 
-    // This code is generated from STL implementations
+    // This code is generated from STL implementation
     // somewhat by rote.
     struct merge_routine
     {
+        template< class Iterator1, class Iterator2, class BinaryPred >
+        static void before_yield(
+            Iterator1& first1, Iterator1 const& last1,
+            Iterator2& first2, Iterator2 const& last2,
+            BinaryPred& pred)
+        {
+            /* has no effect.
+            while (first1 != last1 && first2 != last2) {
+                if (pred(*first2, *first1)) 
+                    break;
+                else
+                    break;
+            }
+            */
+            pstade::unused(first1, last1, first2, last2, pred);
+        }
+
         template< class Reference, class Iterator1, class Iterator2, class BinaryPred >
         static Reference yield(
             Iterator1 const& first1, Iterator1 const& last1,
@@ -113,7 +122,7 @@ namespace merge_iterator_detail {
         }
 
         template< class Iterator1, class Iterator2, class BinaryPred >
-        static void from_yield_phase(
+        static void after_yield(
             Iterator1& first1, Iterator1 const& last1,
             Iterator2& first2, Iterator2 const& last2,
             BinaryPred& pred)
@@ -133,23 +142,6 @@ namespace merge_iterator_detail {
                 ++first2;
             else
                 ++first1;
-        }
-
-        template< class Iterator1, class Iterator2, class BinaryPred >
-        static void to_yield_phase(
-            Iterator1& first1, Iterator1 const& last1,
-            Iterator2& first2, Iterator2 const& last2,
-            BinaryPred& pred)
-        {
-            /* has no effect.
-            while (first1 != last1 && first2 != last2) {
-                if (pred(*first2, *first1)) 
-                    break;
-                else
-                    break;
-            }
-            */
-            pstade::unused(first1, last1, first2, last2, pred);
         }
     };
 
@@ -183,7 +175,7 @@ public:
         m_it2(it2),   m_last2(last2),
         m_pred(pred)
     {
-        MergeRoutine::to_yield_phase(
+        MergeRoutine::before_yield(
             this->base_reference(), m_last1, m_it2, m_last2, m_pred);
     }
 
@@ -238,9 +230,9 @@ friend class boost::iterator_core_access;
     void increment()
     {
         BOOST_ASSERT(!(is_end1() && is_end2()));
-        MergeRoutine::from_yield_phase(
+        MergeRoutine::after_yield(
             this->base_reference(), m_last1, m_it2, m_last2, m_pred);
-        MergeRoutine::to_yield_phase(
+        MergeRoutine::before_yield(
             this->base_reference(), m_last1, m_it2, m_last2, m_pred);
     }
 };
