@@ -18,6 +18,7 @@
 // Then, the iterator becomes invalid and non-Comparable.
 
 
+#include <algorithm> // swap
 #include <boost/assert.hpp>
 #include <boost/iterator/detail/minimum_category.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
@@ -230,10 +231,15 @@ friend class boost::iterator_core_access;
     void increment()
     {
         BOOST_ASSERT(!(is_end1() && is_end2()));
-        MergeRoutine::after_yield(
-            this->base_reference(), m_last1, m_it2, m_last2, m_pred);
-        MergeRoutine::before_yield(
-            this->base_reference(), m_last1, m_it2, m_last2, m_pred);
+
+        Iterator1 first1(this->base()); // for exception safety
+        Iterator2 first2(m_it2);        //
+
+        MergeRoutine::after_yield( first1, m_last1, first2, m_last2, m_pred);
+        MergeRoutine::before_yield(first1, m_last1, first2, m_last2, m_pred);
+
+        std::swap(first1, this->base_reference());
+        std::swap(first2, m_it2);
     }
 };
 
