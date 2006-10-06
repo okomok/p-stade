@@ -15,14 +15,14 @@
 // This iterator seems never mutable.
 // If a value referenced by this iterator is changed,
 // the incementing way is changed.
-// Then, the iterator becomes invalid and non-Comparable.
+// Then, the iterators become incompatible.
 
 
 #include <algorithm> // swap
 #include <boost/assert.hpp>
 #include <boost/iterator/detail/minimum_category.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
-#include <boost/iterator/iterator_categories.hpp> // iterator_traversal, tags
+#include <boost/iterator/iterator_categories.hpp> // tags, iterator_traversal
 #include <pstade/functional.hpp> // less
 #include <pstade/unused.hpp>
 #include "./detail/constant_reference.hpp"
@@ -127,7 +127,7 @@ namespace merge_iterator_detail {
         static void after_yield(
             Iterator1& first1, Iterator1 const& last1,
             Iterator2& first2, Iterator2 const& last2,
-            Compare& comp)
+            Compare comp)
         {
             // copy-copy phase
             if (first1 == last1) {

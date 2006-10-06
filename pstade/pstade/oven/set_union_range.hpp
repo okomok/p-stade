@@ -36,7 +36,7 @@ namespace set_union_range_detail {
         static void after_yield(
             Iterator1& first1, Iterator1 const& last1,
             Iterator2& first2, Iterator2 const& last2,
-            Compare& comp)
+            Compare comp)
         {
             // copy-copy phase
             if (first1 == last1) {

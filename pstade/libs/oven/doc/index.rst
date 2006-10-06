@@ -37,7 +37,7 @@ unless otherwise specified.
 Requirements
 ------------
 - `Boost C++ Libraries Version 1.33.1`__ or later (no compilation required)
-- `P-Stade C++ Libraries Version 1.01.3`__ or later (no compilation required, give a higher priority than Boost headers)
+- `P-Stade C++ Libraries Version 1.01.4`__ or later (no compilation required, give a higher priority than Boost headers)
 
 __ Boost_
 __ http://sourceforge.net/project/showfiles.php?group_id=141222&package_id=173059
@@ -700,8 +700,8 @@ Note that ``memoized`` can return a `Forward Range`_ even if its adapting range 
 ``rotated``
 ^^^^^^^^^^^
 - Header: ``<pstade/oven/rotate_range.hpp>``
-- Valid expression: ``rng|rotated(i)``
-- Returns: ``[mid,boost::end(rng))|jointed([boost::begin(rng),mid))``, where ``mid`` is as if ``boost::begin(rng)+i``.
+- Valid expression: ``fwdRng|rotated(fun)``
+- Returns: ``[fun(fwdRng),boost::end(fwdRng))|jointed([boost::begin(fwdRng),fun(fwdRng)))``
 
 
 ``reversed``
@@ -931,6 +931,18 @@ Output Iterator Adaptors
 - Returns: An ``OutputIterator`` which counts the output.
 
 
+``to_function``
+^^^^^^^^^^^^^^^
+``to_function`` returns an ``OutputIterator`` which is a port of `boost::function_output_iterator`__
+with some workarounds.
+
+__ http://www.boost.org/libs/iterator/doc/function_output_iterator.html
+
+- Header: ``<pstade/oven/function_output_iterator.hpp>``
+- Valid expression: ``to_function(fun)`` and ``to_regularized_function(lambda)``
+- Returns: An ``OutputIterator`` which behaves as if it were ``boost::function_output_iterator``.
+
+
 ``to_stream``
 ^^^^^^^^^^^^^
 ``to_stream`` returns an ``OutputItertor`` which is a shorthand version of ``std::ostream_iterator``.
@@ -940,7 +952,7 @@ the same as ``value_type`` of it.
 
 
 - Header: ``<pstade/oven/to_stream.hpp>``
-- Valid expression: ``to_stream(os)``.
+- Valid expression: ``to_stream(os)``
 - Precondition: The type to be assigned to dereference of an iterator which ``to_stream`` returns must be an ``OutputStreamable``.
 - Returns: An ``OutputIterator`` which behave as if it were ``std::ostream_iterator``.
 
@@ -992,8 +1004,10 @@ Acknowledgments
 - `Boost.RangeEx`_
 - `Range Library Proposal`_
 - `Range Library Core`__
+- `VTL (View Template Library)`__
 
 __ http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2068.html
+__ http://www.zib.de/weiser/vtl/
 
 
 
@@ -1032,18 +1046,12 @@ Version 0.90.3 - 0.90.6
 
 __ http://std.dkuug.dk/jtc1/sc22/wg21/docs/lwg-defects.html#198
 
-Version 0.90.7
-^^^^^^^^^^^^^^
+Version 0.90.7 - 0.90.9
+^^^^^^^^^^^^^^^^^^^^^^^
 - Added ``matched``, ``xpressive_matched`` and ``xpressive_tokenized``.
-
-Version 0.90.8
-^^^^^^^^^^^^^^
 - Renamed ``base_iterator`` to ``to_base``.
 - Renamed ``copied`` adaptor to ``copied_to``.
 - Added `concatenated`_.
-
-Version 0.90.9
-^^^^^^^^^^^^^^
 - Renamed ``copied_to`` to ``copied_out``.
 - Fixed a bug of ``transformed`` and ``concatenated``.
 - Added ``generated``.
@@ -1077,5 +1085,5 @@ Version 0.91.3
 - Changed effects of ``sliced``.
 - Added ``popped``.
 - Changed the valid expression of ``array_protect_range`` and ``literal_range``.
-
+- Added ``to_function``.
 

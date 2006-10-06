@@ -42,7 +42,7 @@ namespace set_symmetric_difference_range_detail {
         static void before_yield(
             Iterator1& first1, Iterator1 const& last1,
             Iterator2& first2, Iterator2 const& last2,
-            Compare& comp)
+            Compare comp)
         {
             while (first1 != last1 && first2 != last2) {
                 if (comp(*first2, *first1))
@@ -67,7 +67,7 @@ namespace set_symmetric_difference_range_detail {
                 return *first2;
             else if (first2 == last2)
                 return *first1;
-            
+
             // while phase
             return merge_iterator_detail::min_(*first1, *first2, comp);
         }
@@ -76,7 +76,7 @@ namespace set_symmetric_difference_range_detail {
         static void after_yield(
             Iterator1& first1, Iterator1 const& last1,
             Iterator2& first2, Iterator2 const& last2,
-            Compare& comp)
+            Compare comp)
         {
             // copy-copy phase
             if (first1 == last1) {

@@ -23,12 +23,14 @@ namespace pstade { namespace oven { namespace detail {
 template< class ForwardIter, class Compare >
 bool iter_is_sorted(ForwardIter first, ForwardIter last, Compare comp)
 {
+    // See:
+    // <boost-sandbox/boost/sequence_algo/algorithm.hpp>
+
     if (first == last)
         return true;
 
-    ForwardIter next = first;
-    for (++next; next != last; first = next, ++next) {
-        if (comp(*next, *first))
+    for (ForwardIter old = first; ++first != last; old = first) {
+        if (comp(*first, *old))
             return false;
     }
 

@@ -36,7 +36,7 @@ namespace set_difference_range_detail {
         static void before_yield(
             Iterator1& first1, Iterator1 const& last1,
             Iterator2& first2, Iterator2 const& last2,
-            Compare& comp)
+            Compare comp)
         {
             while (first1 != last1 && first2 != last2) {
                 if (comp(*first2, *first1))
