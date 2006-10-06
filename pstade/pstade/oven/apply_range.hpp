@@ -45,9 +45,9 @@ public:
         super_t(bfun(rng), efun(rng))
     { }
 
-    template< class BeginFun >
-    apply_range(Range& rng, BeginFun bfun) :
-        super_t(bfun(rng), boost::end(rng))
+    template< class RangeFun >
+    apply_range(Range& rng, RangeFun fun) :
+        super_t(fun(rng))
     { }
 };
 
@@ -69,10 +69,10 @@ namespace apply_range_detail {
             return Result(rng, bfun, efun);
         }
 
-        template< class Result, class Range, class BeginFun >
-        Result call(Range& rng, BeginFun& bfun)
+        template< class Result, class Range, class RangeFun >
+        Result call(Range& rng, RangeFun& fun)
         {
-            return Result(rng, bfun);
+            return Result(rng, fun);
         }
     };
 

@@ -27,6 +27,7 @@
 #include <boost/foreach.hpp>
 #include <boost/range.hpp>
 #include <pstade/oven/functions.hpp>
+#include <pstade/functional.hpp>
 
 
 struct id_fun
@@ -41,7 +42,7 @@ struct id_fun
 
 void test()
 {
-    using namespace pstade;
+    namespace oven = pstade::oven;
     using namespace oven;
 
     std::string src("abcdefghijk");
@@ -57,7 +58,7 @@ void test()
         BOOST_CHECK((
             oven::equals(
                 src,
-                src|applied(oven::begin)
+                src|applied(pstade::identity)
             )
         ));
     }

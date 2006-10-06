@@ -17,7 +17,7 @@
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
-#include "./detail/debug_in_distance.hpp"
+#include "./distance.hpp"
 #include "./sub_range_base.hpp"
 
 
@@ -40,7 +40,7 @@ public:
     take_range(ForwardRange& rng, Difference d) :
         super_t(boost::begin(rng), boost::next(boost::begin(rng), d))
     {
-        BOOST_ASSERT(detail::debug_in_distance(d, rng));
+        BOOST_ASSERT(0 <= d && d <= oven::distance(rng));
     }
 };
 

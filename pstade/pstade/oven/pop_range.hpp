@@ -18,7 +18,7 @@
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
-#include "./detail/debug_in_distance.hpp"
+#include "./distance.hpp"
 #include "./sub_range_base.hpp"
 
 
@@ -38,11 +38,11 @@ private:
 
 public:
     template< class Difference >
-    pop_range(BidiRange& biRng, Difference front, Difference back) :
-        super_t(boost::next(boost::begin(biRng), front), boost::prior(boost::end(biRng), back))
+    pop_range(BidiRange& rng, Difference front, Difference back) :
+        super_t(boost::next(boost::begin(rng), front), boost::prior(boost::end(rng), back))
     {
         BOOST_ASSERT(0 <= front && 0 <= back);
-        BOOST_ASSERT(detail::debug_in_distance(front + back, rng));
+        BOOST_ASSERT(front + back <= oven::distance(rng));
     }
 };
 
@@ -52,16 +52,16 @@ namespace pop_range_detail {
 
     struct baby_make
     {
-        template< class Myself, class BidiRange, class DifferenceF, class DifferenceB = void >
+        template< class Myself, class BidiRange, class DifferenceF, class DifferenceB >
         struct apply
         {
             typedef pop_range<BidiRange> const type;
         };
 
         template< class Result, class BidiRange, class DifferenceF, class DifferenceB >
-        Result call(BidiRange& biRng, DifferenceF front, DifferenceB back)
+        Result call(BidiRange& rng, DifferenceF front, DifferenceB back)
         {
-            return Result(biRng, front, back);
+            return Result(rng, front, back);
         }
     };
 
