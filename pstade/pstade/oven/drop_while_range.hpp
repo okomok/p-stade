@@ -20,7 +20,6 @@
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <pstade/functional.hpp> // not_
-#include <pstade/pass_by.hpp>
 #include "./algorithm.hpp" // find_if
 #include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
@@ -30,20 +29,20 @@
 namespace pstade { namespace oven {
 
 
-template< class Range, class Predicate >
+template< class Range >
 struct drop_while_range :
     sub_range_base<Range>::type,
-    private as_lightweight_proxy< drop_while_range<Range, Predicate> >
+    private as_lightweight_proxy< drop_while_range<Range> >
 {
     typedef Range pstade_oven_range_base_type;
-    typedef Predicate predicate_type;
 
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
     typedef typename sub_range_base<Range>::type super_t;
 
 public:
-    drop_while_range(Range& rng, Predicate const& pred) :
+    template< class Predicate >
+    drop_while_range(Range& rng, Predicate pred) :
         super_t(oven::find_if(rng, pstade::not_(pred)), boost::end(rng))
     { }
 };
@@ -57,8 +56,7 @@ namespace drop_while_range_detail {
         template< class Myself, class Range, class Predicate >
         struct apply
         {
-            typedef typename pass_by_value<Predicate>::type pred_t;
-            typedef drop_while_range<Range, pred_t> const type;
+            typedef drop_while_range<Range> const type;
         };
 
         template< class Result, class Range, class Predicate >

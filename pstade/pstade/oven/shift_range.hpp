@@ -10,45 +10,34 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/next_prior.hpp> // next
+#include <boost/range/begin.hpp>
+#include <boost/range/end.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
-#include "./range_difference.hpp"
-#include "./slice_range.hpp"
+#include "./sub_range_base.hpp"
 
 
 namespace pstade { namespace oven {
 
 
-namespace shift_range_detail {
-
-
-    template< class ForwardRange >
-    struct super_
-    {
-        typedef slice_range<ForwardRange> type;
-    };
-
-
-} // namespace shift_range_detail
-
-
 template< class ForwardRange >
 struct shift_range :
-    shift_range_detail::super_<ForwardRange>::type,
+    sub_range_base<ForwardRange>::type,
     private as_lightweight_proxy< shift_range<ForwardRange> >
 {
     typedef ForwardRange pstade_oven_range_base_type;
 
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeConcept);
-    typedef typename shift_range_detail::super_<ForwardRange>::type super_t;
-    typedef typename range_difference<ForwardRange>::type diff_t;
+    typedef typename sub_range_base<ForwardRange>::type super_t;
 
 public:
-    shift_range(ForwardRange& rng, diff_t d) :
-        super_t(rng, d, d)
+    template< class Difference >
+    shift_range(ForwardRange& rng, Difference d) :
+        super_t(boost::next(boost::begin(rng), d), boost::next(boost::end(rng), d))
     { }
 };
 

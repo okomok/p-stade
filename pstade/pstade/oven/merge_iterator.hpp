@@ -75,7 +75,7 @@ namespace merge_iterator_detail {
     X const& min_(X const& x, Y const& y, BinaryPred pred)
     {
         // ternary-operator could make a rvalue.
-        // I don't know certainly know, though.
+        // I don't certainly know, though.
 
         // Standard requires 'x' if equal.
         if (pred(y, x))

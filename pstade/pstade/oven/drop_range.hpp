@@ -10,13 +10,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/next_prior.hpp> // next
 #include <boost/range/end.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
-#include "./detail/advance_begin.hpp"
 #include "./detail/concept_check.hpp"
-#include "./range_difference.hpp"
+#include "./detail/debug_in_distance.hpp"
 #include "./sub_range_base.hpp"
 
 
@@ -33,12 +33,14 @@ struct drop_range :
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
     typedef typename sub_range_base<Range>::type super_t;
-    typedef typename range_difference<Range>::type diff_t;
 
 public:
-    drop_range(Range& rng, diff_t d) :
-        super_t(detail::advance_begin(rng, d), boost::end(rng))
-    { }
+    template< class Difference >
+    drop_range(Range& rng, Difference d) :
+        super_t(boost::next(boost::begin(rng), d), boost::end(rng))
+    {
+        BOOST_ASSERT(detail::debug_in_distance(d, rng));
+    }
 };
 
 

@@ -10,13 +10,14 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/assert.hpp>
+#include <boost/next_prior.hpp>
 #include <boost/range/begin.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
-#include "./detail/advance_begin.hpp"
 #include "./detail/concept_check.hpp"
-#include "./range_difference.hpp"
+#include "./detail/debug_in_distance.hpp"
 #include "./sub_range_base.hpp"
 
 
@@ -33,12 +34,14 @@ struct take_range :
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeConcept);
     typedef typename sub_range_base<ForwardRange>::type super_t;
-    typedef typename range_difference<ForwardRange>::type diff_t;
 
 public:
-    take_range(ForwardRange& rng, diff_t d) :
-        super_t(boost::begin(rng), detail::advance_begin(rng, d))
-    { }
+    template< class Difference >
+    take_range(ForwardRange& rng, Difference d) :
+        super_t(boost::begin(rng), boost::next(boost::begin(rng), d))
+    {
+        BOOST_ASSERT(detail::debug_in_distance(d, rng));
+    }
 };
 
 

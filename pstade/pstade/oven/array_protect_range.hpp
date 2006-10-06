@@ -11,8 +11,8 @@
 
 
 #include <cstddef> // size_t
-#include <boost/mpl/assert.hpp>
 #include <boost/range/iterator_range.hpp>
+#include <boost/type_traits/remove_extent.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
@@ -21,19 +21,16 @@
 namespace pstade { namespace oven {
 
 
-template< class Array >
-struct array_protect_range;
-
-
-template< class T, std::size_t sz >
-struct array_protect_range< T [sz] > :
+template< class T >
+struct array_protect_range :
     boost::iterator_range<T *>,
-    private as_lightweight_proxy< array_protect_range< T [sz] > >
+    private as_lightweight_proxy< array_protect_range<T> >
 {
 private:
     typedef boost::iterator_range<T *> super_t;
 
 public:
+    template< std::size_t sz >
     explicit array_protect_range(T (&arr)[sz]) :
         super_t(arr, static_cast<T *>(arr) + sz)
     { }
@@ -48,7 +45,9 @@ namespace array_protect_range_detail {
         template< class Myself, class Array >
         struct apply
         {
-            typedef array_protect_range<Array> const type;
+            typedef array_protect_range<
+                typename boost::remove_extent<Array>::type
+            > const type;
         };
 
         template< class Result, class Array >

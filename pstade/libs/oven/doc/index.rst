@@ -7,7 +7,7 @@ The Oven Range Library
 :Author: MB
 :Contact: mb2act@yahoo.co.jp 
 :License: Distributed under the `Boost Software License Version 1.0`_
-:Version: 0.91.2
+:Version: 0.91.3
 
 
 
@@ -157,7 +157,7 @@ The current Boost.Range regards char array as literal, which
 ``array_protect_range`` works around.
 
 - Header: ``<pstade/oven/array_protect_range.hpp>``
-- Valid expression: ``array_protect_range<T [sz]> rng(arr)`` and ``arr|array_protected``
+- Valid expression: ``array_protect_range<T> rng(arr)`` and ``arr|array_protected``
 - Precondition: ``arr`` is an array whose ``value_type`` is ``T`` and whose size is ``sz``.
 - Returns: ``[boost::begin(arr),boost::begin(arr)+sz)``, where ``sz`` is the size of ``arr``.
 
@@ -285,7 +285,7 @@ __ http://www.sgi.com/tech/stl/istream_iterator.html
 
 
 - Header: ``<pstade/oven/literal_range.hpp>``
-- Valid expression: ``literal_range<Char,sz> rng(arr)`` and ``arr|as_literal``, where ``arr`` is a ``char`` or ``wchar_t`` array type;
+- Valid expression: ``literal_range<Char> rng(arr)`` and ``arr|as_literal``, where ``arr`` is a ``char`` or ``wchar_t`` array type;
 
 
 ``single_range``
@@ -523,7 +523,6 @@ it needs `regularized`_ that makes it assignable and then conforming.
 - Returns: ``rng|map_keys``.
 
 
-
 ``generation``
 ^^^^^^^^^^^^^^
 ``generation`` generates a range whose values are the results of invoking
@@ -536,7 +535,6 @@ doesn't modify its adapting range, which is used only as **range**::
 - Header: ``<pstade/oven/generate_range.hpp>``
 - Valid expression: ``rng|generation(rfun)``, where ``rfun`` is nullary.
 - Returns: A `Single Pass Range`_ whose values are the results of invoking ``rfun``.
-
 
 
 ``got_at``
@@ -627,6 +625,19 @@ Note that ``memoized`` can return a `Forward Range`_ even if its adapting range 
 - Returns: A `Forward Range`_ whose values are memoized.
 
 
+``merged``
+^^^^^^^^^^
+``merged`` combines two sorted ranges into a single sorted range::
+
+	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\merged.ipp
+
+
+- Header: ``<pstade/oven/merge_range.hpp>``
+- Valid expression: ``rng1|merged(rng2)`` and ``rng1|merged(rng2,pred)``
+- Precondition: ``rng1`` and ``rng2`` are sorted.
+- Returns: A constant range which behaves as if they were made by ``std::merge``.
+
+
 ``null_terminated``
 ^^^^^^^^^^^^^^^^^^^
 - Header: ``<pstade/oven/null_terminate_range.hpp>``
@@ -656,6 +667,14 @@ Note that ``memoized`` can return a `Forward Range`_ even if its adapting range 
 - Returns:  ``[&*boost::begin(vec),&*boost::begin(vec)+oven::distance(vec))`` if ``vec`` is not empty; otherwise, ``[0,0)``.
 
 
+``popped``
+^^^^^^^^^^
+- Header: ``<pstade/oven/pop_range.hpp>``
+- Valid expression: ``biRng|popped(f,b)``
+- Precondition: ``0 <= f && 0 <= b && f+b <= oven::distance(biRng)``
+- Returns: ``[boost::next(boost::begin(biRng),f),boost::prior(boost::end(biRng),b))``.
+
+
 ``prepended``
 ^^^^^^^^^^^^^
 - Header: ``<pstade/oven/prepend_range.hpp>``
@@ -678,10 +697,49 @@ Note that ``memoized`` can return a `Forward Range`_ even if its adapting range 
 - Returns: A range that repeats ``[boost::begin(rng),boost::end(rng))`` ``n`` times.
 
 
+``rotated``
+^^^^^^^^^^^
+- Header: ``<pstade/oven/rotate_range.hpp>``
+- Valid expression: ``rng|rotated(i)``
+- Returns: ``[mid,boost::end(rng))|jointed([boost::begin(rng),mid))``, where ``mid`` is as if ``boost::begin(rng)+i``.
+
+
 ``reversed``
 ^^^^^^^^^^^^
 - Header: ``<pstade/oven/reverse_range.hpp>``
 - See: `Range Library Proposal`_.
+
+
+``set_cap``
+^^^^^^^^^^^
+- Header: ``<pstade/oven/set_intersection_range.hpp>``
+- Valid expression: ``rng1|set_cap(rng2)`` and ``rng1|set_cap(rng2,pred)``
+- Precondition: ``rng1`` and ``rng2`` are sorted.
+- Returns: A constant range which behaves as if they were made by ``std::set_intersection``.
+
+
+``set_cup``
+^^^^^^^^^^^
+- Header: ``<pstade/oven/set_union_range.hpp>``
+- Valid expression: ``rng1|set_cup(rng2)`` and ``rng1|set_cup(rng2,pred)``
+- Precondition: ``rng1`` and ``rng2`` are sorted.
+- Returns: A constant range which behaves as if they were made by ``std::set_union``.
+
+
+``set_delta``
+^^^^^^^^^^^^^
+- Header: ``<pstade/oven/set_symmetric_difference_range.hpp>``
+- Valid expression: ``rng1|set_delta(rng2)`` and ``rng1|set_delta(rng2,pred)``
+- Precondition: ``rng1`` and ``rng2`` are sorted.
+- Returns: A constant range which behaves as if they were made by ``std::set_symmetric_difference``.
+
+
+``set_minus``
+^^^^^^^^^^^^^
+- Header: ``<pstade/oven/set_difference_range.hpp>``
+- Valid expression: ``rng1|set_minus(rng2)`` and ``rng1|set_minus(rng2,pred)``
+- Precondition: ``rng1`` and ``rng2`` are sorted.
+- Returns: A constant range which behaves as if they were made by ``std::set_difference``.
 
 
 ``scanned``
@@ -714,13 +772,15 @@ Note that ``memoized`` can return a `Forward Range`_ even if its adapting range 
 ^^^^^^^^^^^
 - Header: ``<pstade/oven/shift_range.hpp>``
 - Valid expression: ``fwdRng|shifted(d)``
-- Returns: ``fwdRng|sliced(d,d)``.
+- Returns: ``[boost::next(boost::begin(fwdRng),d),boost::next(boost::end(fwdRng),d))``.
 
 
 ``sliced``
 ^^^^^^^^^^
 - Header: ``<pstade/oven/slice_range.hpp>``
-- See: `Range Library Proposal`_.
+- Valid expression: ``fwdRng|sliced(n,m)``
+- Precondition: ``0 <= n && n <= m && m <= oven::distance(fwdRng)``
+- Returns: ``[boost::next(boost::begin(rng),n),boost::next(boost::begin(rng),m))``.
 
 
 ``stridden``
@@ -1009,4 +1069,13 @@ Version 0.91.2
 - `null_terminated`_ no longer supports c-string.
 - Added ``as_single`` to `single_range`_'\s valid expressions.
 - Added `begins/ends`_.
+
+Version 0.91.3
+^^^^^^^^^^^^^^
+- Added ``merged``, ``set_cup``, ``set_cap``, ``set_minus`` and ``set_delta``.
+- Added ``rotated``.
+- Changed effects of ``sliced``.
+- Added ``popped``.
+- Changed the valid expression of ``array_protect_range`` and ``literal_range``.
+
 

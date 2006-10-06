@@ -15,7 +15,6 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/empty.hpp>
 #include <boost/range/end.hpp>
-#include <boost/utility/result_of.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <pstade/functional.hpp> // not_, is_zero
@@ -57,10 +56,7 @@ namespace null_terminate_range_detail {
     template< class ForwardRange >
     struct super_
     {
-        typedef take_while_range<
-            ForwardRange,
-            typename boost::result_of<not_fun(is_zero_fun)>::type
-        > type;
+        typedef take_while_range<ForwardRange> type;
     };
 
 
@@ -78,11 +74,10 @@ struct null_terminate_range :
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeRangeConcept);
     typedef typename null_terminate_range_detail::super_<ForwardRange>::type super_t;
-    typedef typename super_t::predicate_type pred_t;
 
 public:
     explicit null_terminate_range(ForwardRange& rng) :
-        super_t(rng, pred_t())
+        super_t(rng, pstade::not_(is_zero))
     {
         BOOST_ASSERT(oven::is_null_terminated(rng));
     }

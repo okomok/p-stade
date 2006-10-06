@@ -10,13 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/array_protect_range.hpp>
+#include <pstade/oven/shift_range.hpp>
 
 
-#include <iterator>
-#include <string>
 #include <boost/range.hpp>
-#include <pstade/oven/distance.hpp>
+#include <pstade/oven/functions.hpp>
 
 
 void test()
@@ -24,13 +22,12 @@ void test()
     namespace oven = pstade::oven;
     using namespace oven;
 
+    int A[] = { 0,1,2,3,4,5,6,7,8,9 };
     {
-        char const str[] = "hello range";
-
-        array_protect_range<char const> rng(str);
-        BOOST_CHECK( oven::distance(rng) == 12 );
-        BOOST_CHECK( oven::distance(oven::make_array_protect_range(str)) == 12 );
-        BOOST_CHECK( oven::distance(str|array_protected) == 12 );
+        BOOST_CHECK( oven::equals(
+            boost::make_iterator_range(A+1,A+4)|shifted(1),
+            boost::make_iterator_range(A+2,A+5)
+        ) );
     }
 }
 

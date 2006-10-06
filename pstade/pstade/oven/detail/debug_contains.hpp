@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <iterator> // iterator_tag's
+#include <iterator> // tags
 #include <boost/range/end.hpp>
 #include <pstade/for_debug.hpp>
 #include <pstade/unused.hpp>
@@ -50,7 +50,7 @@ bool debug_contains_aux(Range& rng, Iterator const& it, std::input_iterator_tag)
 
 
 template< class Range, class Iterator > inline
-bool debug_contains(Range& rng, Iterator const& it)
+bool debug_contains(Range const& rng, Iterator const& it)
 {
     pstade::for_debug();
 

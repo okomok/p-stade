@@ -26,11 +26,11 @@ void test()
     std::string src("0123456");
 
     {
-        BOOST_CHECK( oven::equals(oven::make_slice_range(src, 0, 0), src) );
+        BOOST_CHECK( oven::equals(oven::make_slice_range(src, 0, 0), std::string("")) );
     }
 
     {
-        BOOST_CHECK( oven::equals(src|sliced(1, -1), std::string("12345")) );
+        BOOST_CHECK( oven::equals(src|sliced(1, 6), std::string("12345")) );
     }
 }
 

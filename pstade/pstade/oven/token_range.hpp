@@ -11,7 +11,6 @@
 
 
 #include <cstddef> // size_t
-#include <iterator> // distance
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
@@ -75,12 +74,11 @@ private:
     PSTADE_OVEN_DETAIL_REQUIRES(BidiRange, BidirectionalRangeConcept);
     typedef typename token_range_detail::super_<BidiRange, CharT, Traits>::type super_t;
     typedef typename super_t::iterator iter_t;
-    typedef typename iter_t::regex_type regex_t;
 
 public:
+    template< class Regex >
     token_range(
-        BidiRange& rng,
-        regex_t const& re,
+        BidiRange& rng, Regex const& re,
         int submatch = 0,
         token_range_detail::match_flag_type flag = token_range_detail::match_default
     ) :
@@ -90,10 +88,9 @@ public:
         )
     { }
 
-    template< class RandRange >
+    template< class Regex, class RandRange >
     token_range(
-        BidiRange& rng,
-        regex_t const& re,
+        BidiRange& rng, Regex const& re,
         RandRange const& submatches,
         token_range_detail::match_flag_type flag = token_range_detail::match_default
     ) :

@@ -11,16 +11,35 @@
 
 
 #include <boost/assert.hpp>
+#include <boost/next_prior.hpp> // next
+#include <boost/range/begin.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
 #include "./distance.hpp"
-#include "./range_difference.hpp"
+#include "./range_iterator.hpp"
 #include "./sub_range_base.hpp"
 
 
 namespace pstade { namespace oven {
+
+
+namespace slice_range_detail {
+
+
+    template< class Super, class ForwardRange, class Difference >
+    Super make(ForwardRange& rng, Difference n, Difference m)
+    {
+        BOOST_ASSERT(0 <= n && n <= m && m <= oven::distance(rng));
+
+        typedef typename range_iterator<ForwardRange>::type iter_t;
+        iter_t first = boost::next(boost::begin(rng), n);
+        return Super(first, boost::next(first, m - n));
+    }
+
+
+} // namespace slice_range_detail
 
 
 template< class ForwardRange >
@@ -33,14 +52,12 @@ struct slice_range :
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeConcept);
     typedef typename sub_range_base<ForwardRange>::type super_t;
-    typedef typename range_difference<ForwardRange>::type diff_t;
 
 public:
-    slice_range(ForwardRange& rng, diff_t n, diff_t m) :
-        super_t(boost::make_iterator_range(rng, n, m))
-    {
-        BOOST_ASSERT( oven::distance(rng) >= n+m );
-    }
+    template< class Difference >
+    slice_range(ForwardRange& rng, Difference n, Difference m) :
+        super_t(slice_range_detail::make<super_t>(rng, n, m))
+    { }
 };
 
 

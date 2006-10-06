@@ -45,6 +45,7 @@ void test()
         BOOST_CHECK( oven::equals(vec, rng) );
     }
 
+#if 0 // rejected
     {
         std::string   in("hello, copied!");
         std::string out1("hello, ranges!");
@@ -56,6 +57,7 @@ void test()
         BOOST_CHECK( oven::equals(in, out2) );
         BOOST_CHECK( oven::equals(in, out3) );
     }
+#endif
 
     {
         std::string   in("hello, copied!");
@@ -75,6 +77,7 @@ void test()
         BOOST_CHECK( oven::equals(in, out) );
     }
 
+#if 0 // rejected
     {
         std::stringstream ss;
         std::string ans("abcdefg");
@@ -84,8 +87,9 @@ void test()
         oven::make_istream_range<char>(ss)|copied_out(out);
         BOOST_CHECK( oven::equals(out, ans) );
     }
+#endif
 
-#if 0
+#if 0 // illegal
     {
         std::string rng("abcdefg");
         std::vector<char> vec(rng|copied);

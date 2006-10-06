@@ -19,7 +19,6 @@
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <pstade/functional.hpp> // not_
-#include <pstade/pass_by.hpp>
 #include "./algorithm.hpp" // find_if
 #include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
@@ -29,20 +28,20 @@
 namespace pstade { namespace oven {
 
 
-template< class ForwardRange, class Predicate >
+template< class ForwardRange >
 struct take_while_range :
     sub_range_base<ForwardRange>::type,
-    private as_lightweight_proxy< take_while_range<ForwardRange, Predicate> >
+    private as_lightweight_proxy< take_while_range<ForwardRange> >
 {
     typedef ForwardRange pstade_oven_range_base_type;
-    typedef Predicate predicate_type;
 
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeConcept);
     typedef typename sub_range_base<ForwardRange>::type super_t;
 
 public:
-    take_while_range(ForwardRange& rng, Predicate const& pred) :
+    template< class Predicate >
+    take_while_range(ForwardRange& rng, Predicate pred) :
         super_t(boost::begin(rng), oven::find_if(rng, pstade::not_(pred)))
     { }
 };
@@ -56,8 +55,7 @@ namespace take_while_range_detail {
         template< class Myself, class ForwardRange, class Predicate >
         struct apply
         {
-            typedef typename pass_by_value<Predicate>::type pred_t;
-            typedef take_while_range<ForwardRange, pred_t> const type;
+            typedef take_while_range<ForwardRange> const type;
         };
 
         template< class Result, class ForwardRange, class Predicate >

@@ -58,12 +58,11 @@ private:
     PSTADE_OVEN_DETAIL_REQUIRES(BidiRange, BidirectionalRangeConcept);
     typedef typename xpressive_match_range_detail::super_<BidiRange>::type super_t;
     typedef typename super_t::iterator iter_t;
-    typedef typename iter_t::regex_type regex_t;
 
 public:
+    template< class Regex >
     xpressive_match_range(
-        BidiRange& rng,
-        regex_t const& re,
+        BidiRange& rng, Regex const& re,
         xpressive_match_range_detail::match_flag_type flag = xpressive_match_range_detail::match_default
     ) :
         super_t(

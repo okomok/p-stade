@@ -1,5 +1,5 @@
 {
-    literal_range<char, 12> rng("hello range");
+    literal_range<char> rng("hello range");
     BOOST_CHECK( oven::equals(rng, std::string("hello range")) );
 }
 {

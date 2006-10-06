@@ -17,7 +17,7 @@
 #include <boost/optional.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/oven/copy_range.hpp>
-#include <pstade/oven/slice_range.hpp>
+#include <pstade/oven/pop_range.hpp>
 
 
 namespace pstade { namespace tomato {
@@ -65,7 +65,7 @@ rgb(CharRange const& rng)
     // See:
     // http://groups.google.com/group/comp.lang.c++.moderated/msg/3a2bbe7be45a9d80
     //
-    std::string tmp = rng|oven::sliced(1, 0)|oven::copied;
+    std::string tmp = rng|oven::popped(1, 0)|oven::copied;
     std::istringstream is(tmp);
 
     boost::uint32_t n;

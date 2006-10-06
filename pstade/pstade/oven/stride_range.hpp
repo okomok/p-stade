@@ -18,7 +18,7 @@
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./detail/concept_check.hpp"
-#include "./detail/debug_distance.hpp"
+#include "./distance.hpp"
 #include "./range_iterator.hpp"
 #include "./stride_iterator.hpp"
 
@@ -43,8 +43,8 @@ namespace stride_range_detail {
     template< class ForwardRange, class Difference > inline
     bool is_valid_base(ForwardRange& rng, Difference length)
     {
-        Difference dist = detail::debug_distance(rng);
-        return dist == 0 || dist % length == 0;
+        Difference d = oven::distance(rng);
+        return d == 0 || d % length == 0;
     }
 
 

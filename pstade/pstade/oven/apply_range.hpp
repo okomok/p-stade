@@ -12,14 +12,14 @@
 
 // Note:
 //
-// Will be cute with the upcoming Boost.Phoenix-v2.
+// Will be cute with the upcoming Boost.Phoenix2.
 
 
+#include <boost/range/end.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <pstade/pass_by.hpp>
 #include "./as_lightweight_proxy.hpp"
-#include "./begin_end.hpp"
 #include "./detail/concept_check.hpp"
 #include "./sub_range_base.hpp"
 
@@ -27,18 +27,12 @@
 namespace pstade { namespace oven {
 
 
-template<
-    class Range,
-    class BeginFun,
-    class EndFun = end_fun
->
+template< class Range >
 struct apply_range :
     sub_range_base<Range>::type,
-    private as_lightweight_proxy< apply_range<Range, BeginFun, EndFun> >
+    private as_lightweight_proxy< apply_range<Range> >
 {
     typedef Range pstade_oven_range_base_type;
-    typedef BeginFun begin_function_type;
-    typedef EndFun end_function_type;
 
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
@@ -46,11 +40,14 @@ private:
     typedef typename super_t::iterator iter_t;
 
 public:
-    // Workaround:
-    // VC++ name-lookup around default arguments is broken.
-    // 'oven::' resolves the ambiguity between ours and boost's.
-    apply_range(Range& rng, BeginFun bfun, EndFun efun = oven::end) :
+    template< class BeginFun, class EndFun >
+    apply_range(Range& rng, BeginFun bfun, EndFun efun) :
         super_t(bfun(rng), efun(rng))
+    { }
+
+    template< class BeginFun >
+    apply_range(Range& rng, BeginFun bfun) :
+        super_t(bfun(rng), boost::end(rng))
     { }
 };
 
@@ -60,12 +57,10 @@ namespace apply_range_detail {
 
     struct baby_make
     {
-        template< class Myself, class Range, class BeginFun, class EndFun = end_fun >
+        template< class Myself, class Range, class BeginFun, class EndFun = void >
         struct apply
         {
-            typedef typename pass_by_value<BeginFun>::type bfun_t;
-            typedef typename pass_by_value<EndFun>::type   efun_t;
-            typedef apply_range<Range, bfun_t, efun_t> const type;
+            typedef apply_range<Range> const type;
         };
 
         template< class Result, class Range, class BeginFun, class EndFun >

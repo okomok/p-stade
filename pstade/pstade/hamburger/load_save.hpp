@@ -10,14 +10,14 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <iterator> // back_inserter
 #include <vector>
+#include <boost/range/begin.hpp>
 #include <pstade/lime/copy_XMLDecl.hpp>
 #include <pstade/lime/load.hpp>
 #include <pstade/lime/save.hpp>
 #include <pstade/oven/algorithm.hpp> // copy
-#include <pstade/oven/copy_range.hpp>
 #include <pstade/oven/function_output_iterator.hpp>
+#include <pstade/oven/to_sequence.hpp>
 #include <pstade/oven/utf8_decode_range.hpp>
 #include <pstade/tomato/file_range.hpp>
 #include <pstade/tomato/tstring.hpp>
@@ -56,10 +56,10 @@ namespace pstade { namespace hamburger {
     {
         std::vector<utf8cp_t> tmp;
         lime::copy_XMLDecl(std::back_inserter(tmp));
-        lime::save_default(node, oven::to_utf8_encoder(std::back_inserter(tmp)));
+        lime::save_default(node, oven::to_utf8_encoder(oven::to_back_of(tmp)));
 
         tomato::ofile_range<utf8cp_t> orng(path|tomato::to_tstring, tmp.size());
-        tmp|oven::copied_out(orng);
+        oven::copy(tmp, boost::begin(orng));
     }
 
 

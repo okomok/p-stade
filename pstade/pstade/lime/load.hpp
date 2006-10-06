@@ -21,7 +21,7 @@
 #include <pstade/oven/copy_range.hpp>
 #include <pstade/oven/distance.hpp>
 #include <pstade/oven/range_value.hpp>
-#include <pstade/oven/slice_range.hpp>
+#include <pstade/oven/pop_range.hpp>
 #include <pstade/unused.hpp>
 #include <pstade/ustring.hpp>
 #include <pstade/what.hpp>
@@ -180,7 +180,7 @@ namespace pstade { namespace lime {
                 BOOST_ASSERT(oven::distance(val) >= 2);
 
                 cxt.top().attributes()[cxt.current_AttName()]
-                    = val|oven::sliced(1, -1); // remove " "
+                    = val|oven::popped(1, 1); // remove " "
             }
         };
 

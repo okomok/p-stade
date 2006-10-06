@@ -24,6 +24,8 @@
 
 #include <cstddef> // size_t
 #include <boost/range/iterator_range.hpp>
+#include <boost/type_traits/remove_const.hpp>
+#include <boost/type_traits/remove_extent.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
@@ -32,15 +34,16 @@
 namespace pstade { namespace oven {
 
 
-template< class Char, std::size_t sz >
+template< class Char >
 struct literal_range :
     boost::iterator_range<Char const *>,
-    private as_lightweight_proxy< literal_range<Char, sz> >
+    private as_lightweight_proxy< literal_range<Char> >
 {
 private:
     typedef boost::iterator_range<Char const *> super_t;
 
 public:
+    template< std::size_t sz >
     explicit literal_range(Char const (&arr)[sz]) :
         super_t(arr, static_cast<Char const *>(arr) + sz - 1)
     { }
@@ -52,17 +55,18 @@ namespace literal_range_detail {
 
     struct baby_make
     {
-        template< class Myself, class T >
-        struct apply;
-
-        template< class Myself, class Char, std::size_t sz >
-        struct apply< Myself, Char const [sz] >
+        template< class Myself, class Array >
+        struct apply
         {
-            typedef literal_range<Char, sz> const type;
+            typedef literal_range<
+                typename boost::remove_const<
+                    typename boost::remove_extent<Array>::type
+                >::type
+            > const type;
         };
 
-        template< class Result, class Char, std::size_t sz >
-        Result call(Char const (&arr)[sz])
+        template< class Result, class Array >
+        Result call(Array& arr)
         {
             return Result(arr);
         }
