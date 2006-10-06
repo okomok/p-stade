@@ -35,32 +35,32 @@ namespace pstade { namespace oven {
 namespace sort_range_detail {
 
 
-    template< class BinaryPred >
+    template< class Compare >
     struct sort_fun
     {
-        explicit sort_fun(BinaryPred const& pred) :
-            m_pred(pred)
+        explicit sort_fun(Compare const& comp) :
+            m_comp(comp)
         { }
 
         template< class Range >
         void operator()(Range& its) const
         {
-            oven::sort(its, boost::make_indirect_fun(m_pred));
+            oven::sort(its, boost::make_indirect_fun(m_comp));
         }
 
     private:
-        BinaryPred m_pred;
+        Compare m_comp;
     };
 
 
     template<
         class ForwardRange,
-        class BinaryPred
+        class Compare
     >
     struct super_
     {
         typedef out_place_range<
-            ForwardRange, sort_fun<BinaryPred>
+            ForwardRange, sort_fun<Compare>
         > type;
     };
 
@@ -70,23 +70,23 @@ namespace sort_range_detail {
 
 template<
     class ForwardRange,
-    class BinaryPred = less_fun
+    class Compare = less_fun
 >
 struct sort_range :
-    sort_range_detail::super_<ForwardRange, BinaryPred>::type,
-    private as_lightweight_proxy< sort_range<ForwardRange, BinaryPred> >
+    sort_range_detail::super_<ForwardRange, Compare>::type,
+    private as_lightweight_proxy< sort_range<ForwardRange, Compare> >
 {
     typedef ForwardRange pstade_oven_range_base_type;
-    typedef BinaryPred predicate_type;
+    typedef Compare compicate_type;
 
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeConcept);
-    typedef typename sort_range_detail::super_<ForwardRange, BinaryPred>::type super_t;
+    typedef typename sort_range_detail::super_<ForwardRange, Compare>::type super_t;
     typedef typename super_t::function_type fun_t;
 
 public:
-    explicit sort_range(ForwardRange& rng, BinaryPred const& pred = pstade::less) :
-        super_t(rng, fun_t(pred))
+    explicit sort_range(ForwardRange& rng, Compare const& comp = pstade::less) :
+        super_t(rng, fun_t(comp))
     { }
 };
 
@@ -96,17 +96,17 @@ namespace sort_range_detail {
 
     struct baby_make
     {
-        template< class Myself, class ForwardRange, class BinaryPred = less_fun >
+        template< class Myself, class ForwardRange, class Compare = less_fun >
         struct apply
         {
-            typedef typename pass_by_value<BinaryPred>::type pred_t;
-            typedef sort_range<ForwardRange, pred_t> const type;
+            typedef typename pass_by_value<Compare>::type comp_t;
+            typedef sort_range<ForwardRange, comp_t> const type;
         };
 
-        template< class Result, class ForwardRange, class BinaryPred >
-        Result call(ForwardRange& rng, BinaryPred& pred)
+        template< class Result, class ForwardRange, class Compare >
+        Result call(ForwardRange& rng, Compare& comp)
         {
-            return Result(rng, pred);
+            return Result(rng, comp);
         }
 
         template< class Result, class ForwardRange >

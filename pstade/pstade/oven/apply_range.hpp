@@ -57,7 +57,7 @@ namespace apply_range_detail {
 
     struct baby_make
     {
-        template< class Myself, class Range, class BeginFun, class EndFun = void >
+        template< class Myself, class Range, class BeginOrRangeFun, class EndFun = void >
         struct apply
         {
             typedef apply_range<Range> const type;
@@ -87,7 +87,7 @@ PSTADE_EGG_PIPABLE(applied, apply_range_detail::baby_make)
 } } // namespace pstade::oven
 
 
-// for Boost.Phoenix-v2
+// for Boost.Phoenix2
 //
 #if defined(PSTADE_OVEN_USING_PHOENIX_V2)
 

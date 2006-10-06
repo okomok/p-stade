@@ -20,12 +20,18 @@
 
 
 #include <boost/noncopyable.hpp>
-#include <pstade/overload.hpp>
+#include "../extension.hpp"
 #include "./basic_placeholder.hpp"
-#include "./output.hpp"
 
 
 namespace pstade { namespace napkin { namespace detail {
+
+
+template< class T, class String > inline
+void pstade_napkin_output(T& out, String psz)
+{
+    pstade_napkin_(pstade_napkin_extension::output(), out, psz);
+}
 
 
 template< class CharT, class StringOutputable >
@@ -40,7 +46,7 @@ struct basic_holder :
 protected:
     void override_output(const CharT *psz)
     {
-        pstade_napkin_output(m_held, psz, overload<>());
+        pstade_napkin_output(m_held, psz);
     }
 
 private:

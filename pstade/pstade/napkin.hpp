@@ -11,6 +11,7 @@
 
 
 #include "./napkin/config.hpp"
+#include "./napkin/extension.hpp"
 #include "./napkin/nout.hpp"
 #include "./napkin/ostream.hpp"
 #include "./napkin/ostream_char.hpp"

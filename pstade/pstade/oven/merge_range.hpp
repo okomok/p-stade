@@ -31,7 +31,7 @@ namespace merge_range_detail {
 
     template<
         class Range1, class Range2,
-        class BinaryPred
+        class Compare
     >
     struct super_
     {
@@ -39,7 +39,7 @@ namespace merge_range_detail {
             merge_iterator<
                 typename range_iterator<Range1>::type,
                 typename range_iterator<Range2>::type,
-                BinaryPred
+                Compare
             >
         > type;
     };
@@ -50,25 +50,25 @@ namespace merge_range_detail {
 
 template<
     class Range1, class Range2,
-    class BinaryPred = less_fun
+    class Compare = less_fun
 >
 struct merge_range :
-    merge_range_detail::super_<Range1, Range2, BinaryPred>::type,
-    private as_lightweight_proxy< merge_range<Range1, Range2, BinaryPred> >
+    merge_range_detail::super_<Range1, Range2, Compare>::type,
+    private as_lightweight_proxy< merge_range<Range1, Range2, Compare> >
 {
     typedef Range1 pstade_oven_range_base_type;
 
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(Range1, SinglePassRangeConcept);
     PSTADE_OVEN_DETAIL_REQUIRES(Range2, SinglePassRangeConcept);
-    typedef typename merge_range_detail::super_<Range1, Range2, BinaryPred>::type super_t;
+    typedef typename merge_range_detail::super_<Range1, Range2, Compare>::type super_t;
     typedef typename super_t::iterator iter_t;
 
 public:
-    merge_range(Range1& rng1, Range2& rng2, BinaryPred const& pred = pstade::less) :
+    merge_range(Range1& rng1, Range2& rng2, Compare const& comp = pstade::less) :
         super_t(
-            iter_t(boost::begin(rng1), boost::end(rng1), boost::begin(rng2), boost::end(rng2), pred),
-            iter_t(boost::end(rng1),   boost::end(rng1), boost::end(rng2),   boost::end(rng2), pred)
+            iter_t(boost::begin(rng1), boost::end(rng1), boost::begin(rng2), boost::end(rng2), comp),
+            iter_t(boost::end(rng1),   boost::end(rng1), boost::end(rng2),   boost::end(rng2), comp)
         )
     { }
 };
@@ -79,17 +79,17 @@ namespace merge_range_detail {
 
     struct baby_make
     {
-        template< class Myself, class Range1, class Range2, class BinaryPred = less_fun >
+        template< class Myself, class Range1, class Range2, class Compare = less_fun >
         struct apply
         {
-            typedef typename pass_by_value<BinaryPred>::type pred_t;
+            typedef typename pass_by_value<Compare>::type pred_t;
             typedef merge_range<Range1, Range2, pred_t> const type;
         };
 
-        template< class Result, class Range1, class Range2, class BinaryPred >
-        Result call(Range1& rng1, Range2& rng2, BinaryPred& pred)
+        template< class Result, class Range1, class Range2, class Compare >
+        Result call(Range1& rng1, Range2& rng2, Compare& comp)
         {
-            return Result(rng1, rng2, pred);
+            return Result(rng1, rng2, comp);
         }
 
         template< class Result, class Range1, class Range2 >

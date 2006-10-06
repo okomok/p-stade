@@ -11,7 +11,7 @@
 
 
 #include <boost/assert.hpp>
-#include <boost/next_prior.hpp>
+#include <boost/next_prior.hpp> // next
 #include <boost/range/begin.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>

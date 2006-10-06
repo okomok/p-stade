@@ -10,14 +10,17 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// See:
+// What:
 //
+// Emulates the proposal;
 // http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n1962.html
 
 
 // Note:
 //
-// ADL customization seems not to be needed.
+// ADL extension which would enable 'assert(invariant(someHandle));'
+// is not so useful as expected. Scattering 'assert' seems to be anti-pattern.
+//
 // Note that 'private' nested 'typedef' cannot be used with SFINAE.
 // http://groups.google.com/group/comp.lang.c++.moderated/msg/84fe1563ccc65846
 

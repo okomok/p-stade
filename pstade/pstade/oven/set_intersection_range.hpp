@@ -32,16 +32,16 @@ namespace set_intersection_range_detail {
 
     struct merge_routine
     {
-        template< class Iterator1, class Iterator2, class BinaryPred >
+        template< class Iterator1, class Iterator2, class Compare >
         static void before_yield(
             Iterator1& first1, Iterator1 const& last1,
             Iterator2& first2, Iterator2 const& last2,
-            BinaryPred& pred)
+            Compare& comp)
         {
             while (first1 != last1 && first2 != last2)  {
-                if (pred(*first2, *first1))
+                if (comp(*first2, *first1))
                     ++first2;
-                else if (pred(*first1, *first2))
+                else if (comp(*first1, *first2))
                     ++first1;
                 else
                     break;
@@ -54,23 +54,23 @@ namespace set_intersection_range_detail {
                 first1 = last1;
         } 
         
-        template< class Reference, class Iterator1, class Iterator2, class BinaryPred >
+        template< class Reference, class Iterator1, class Iterator2, class Compare >
         static Reference yield(
             Iterator1 const& first1, Iterator1 const& last1,
             Iterator2 const& first2, Iterator2 const& last2,
-            BinaryPred& pred)
+            Compare& comp)
         {
-            pstade::unused(last1, first2, last2, pred);
+            pstade::unused(last1, first2, last2, comp);
             return *first1;
         }
 
-        template< class Iterator1, class Iterator2, class BinaryPred >
+        template< class Iterator1, class Iterator2, class Compare >
         static void after_yield(
             Iterator1& first1, Iterator1 const& last1,
             Iterator2& first2, Iterator2 const& last2,
-            BinaryPred& pred)
+            Compare& comp)
         {
-            pstade::unused(last1, last2, pred);
+            pstade::unused(last1, last2, comp);
             ++first1;
             ++first2;
         }
@@ -79,7 +79,7 @@ namespace set_intersection_range_detail {
 
     template<
         class Range1, class Range2,
-        class BinaryPred
+        class Compare
     >
     struct super_
     {
@@ -87,7 +87,7 @@ namespace set_intersection_range_detail {
             merge_iterator<
                 typename range_iterator<Range1>::type,
                 typename range_iterator<Range2>::type,
-                BinaryPred,
+                Compare,
                 merge_routine
             >
         > type;
@@ -99,25 +99,25 @@ namespace set_intersection_range_detail {
 
 template<
     class Range1, class Range2,
-    class BinaryPred = less_fun
+    class Compare = less_fun
 >
 struct set_intersection_range :
-    set_intersection_range_detail::super_<Range1, Range2, BinaryPred>::type,
-    private as_lightweight_proxy< set_intersection_range<Range1, Range2, BinaryPred> >
+    set_intersection_range_detail::super_<Range1, Range2, Compare>::type,
+    private as_lightweight_proxy< set_intersection_range<Range1, Range2, Compare> >
 {
     typedef Range1 pstade_oven_range_base_type;
 
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(Range1, SinglePassRangeConcept);
     PSTADE_OVEN_DETAIL_REQUIRES(Range2, SinglePassRangeConcept);
-    typedef typename set_intersection_range_detail::super_<Range1, Range2, BinaryPred>::type super_t;
+    typedef typename set_intersection_range_detail::super_<Range1, Range2, Compare>::type super_t;
     typedef typename super_t::iterator iter_t;
 
 public:
-    set_intersection_range(Range1& rng1, Range2& rng2, BinaryPred const& pred = pstade::less) :
+    set_intersection_range(Range1& rng1, Range2& rng2, Compare const& comp = pstade::less) :
         super_t(
-            iter_t(boost::begin(rng1), boost::end(rng1), boost::begin(rng2), boost::end(rng2), pred),
-            iter_t(boost::end(rng1),   boost::end(rng1), boost::end(rng2),   boost::end(rng2), pred)
+            iter_t(boost::begin(rng1), boost::end(rng1), boost::begin(rng2), boost::end(rng2), comp),
+            iter_t(boost::end(rng1),   boost::end(rng1), boost::end(rng2),   boost::end(rng2), comp)
         )
     { }
 };
@@ -128,17 +128,17 @@ namespace set_intersection_range_detail {
 
     struct baby_make
     {
-        template< class Myself, class Range1, class Range2, class BinaryPred = less_fun >
+        template< class Myself, class Range1, class Range2, class Compare = less_fun >
         struct apply
         {
-            typedef typename pass_by_value<BinaryPred>::type pred_t;
+            typedef typename pass_by_value<Compare>::type pred_t;
             typedef set_intersection_range<Range1, Range2, pred_t> const type;
         };
 
-        template< class Result, class Range1, class Range2, class BinaryPred >
-        Result call(Range1& rng1, Range2& rng2, BinaryPred& pred)
+        template< class Result, class Range1, class Range2, class Compare >
+        Result call(Range1& rng1, Range2& rng2, Compare& comp)
         {
-            return Result(rng1, rng2, pred);
+            return Result(rng1, rng2, comp);
         }
 
         template< class Result, class Range1, class Range2 >
