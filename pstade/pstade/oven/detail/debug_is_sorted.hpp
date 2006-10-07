@@ -42,7 +42,7 @@ template< class ForwardIter, class Compare > inline
 bool debug_is_sorted_aux(ForwardIter first, ForwardIter last, Compare comp,
     boost::forward_traversal_tag)
 {
-    return (iter_is_sorted)(first, last, comp);
+    return detail::iter_is_sorted(first, last, comp);
 }
 
 
@@ -61,7 +61,7 @@ bool debug_is_sorted(ForwardIter first, ForwardIter last, Compare comp)
     pstade::for_debug();
 
     typedef typename boost::iterator_traversal<ForwardIter>::type trv_t;
-    return (debug_is_sorted_aux)(first, last, comp, trv_t());
+    return detail::debug_is_sorted_aux(first, last, comp, trv_t());
 }
 
 

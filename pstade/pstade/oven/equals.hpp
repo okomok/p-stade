@@ -19,14 +19,13 @@
 
 
 #include <boost/iterator/detail/minimum_category.hpp>
-#include <boost/iterator/iterator_categories.hpp> // traversal_tag's
+#include <boost/iterator/iterator_categories.hpp> // tags
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/functional.hpp> // equal_to
 #include <pstade/instance.hpp>
 #include "./algorithm.hpp" // equal
-#include "./detail/concept_check.hpp"
 #include "./distance.hpp"
 #include "./range_iterator.hpp"
 #include "./range_traversal.hpp"
@@ -80,9 +79,6 @@ struct equals_fun
     template< class Range1, class Range2, class BinaryPred >
     bool operator()(Range1 const& rng1, Range2 const& rng2, BinaryPred pred) const
     {
-        detail::requires< boost::SinglePassRangeConcept<Range1> >();
-        detail::requires< boost::SinglePassRangeConcept<Range2> >();
-
         typedef typename boost::detail::minimum_category<
             typename range_traversal<Range1>::type,
             typename range_traversal<Range2>::type

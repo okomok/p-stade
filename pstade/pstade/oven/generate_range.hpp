@@ -110,7 +110,6 @@ struct generate_range :
     generate_range_detail::super_<Range, Generator, Reference, Value>::type,
     private as_lightweight_proxy< generate_range<Range, Generator, Reference, Value> >
 {
-    typedef Range pstade_oven_range_base_type;
     typedef Generator generator_type;
 
 private:

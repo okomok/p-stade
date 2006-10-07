@@ -12,6 +12,9 @@
 
 // Note:
 //
+// This iterator can't be Mutable, because
+// the 'next' function depends on the value referenced.
+//
 // Conforming to bidirectional iterator seems to need 'm_first'.
 // Am I right?
 
@@ -22,6 +25,7 @@
 #include <boost/iterator/detail/minimum_category.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_categories.hpp>
+#include "./detail/constant_reference.hpp"
 #include "./reverse_iterator.hpp"
 
 
@@ -51,7 +55,8 @@ namespace adjacent_filter_iterator_detail {
             adjacent_filter_iterator<ForwardIter, BinaryPred>,
             ForwardIter,
             boost::use_default,
-            typename traversal<ForwardIter>::type
+            typename traversal<ForwardIter>::type,
+            typename detail::constant_reference<ForwardIter>::type
         > type;
     };
 

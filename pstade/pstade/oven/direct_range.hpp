@@ -29,8 +29,9 @@ namespace direct_range_detail {
     template< class Range >
     struct super_
     {
-        typedef typename range_iterator<Range>::type iter_t;
-        typedef counting_range<iter_t> type;
+        typedef counting_range<
+            typename range_iterator<Range>::type
+        > type;
     };
 
 

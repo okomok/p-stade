@@ -51,8 +51,6 @@ struct index_range :
     index_range_detail::super_<Incrementable, UnaryFun, Reference, Value>::type,
     private as_lightweight_proxy< index_range<Incrementable, UnaryFun, Reference, Value> >
 {
-    typedef UnaryFun function_type;
-
 private:
     typedef typename index_range_detail::super_<Incrementable, UnaryFun, Reference, Value>::type super_t;
     typedef typename range_base<super_t>::type base_t;

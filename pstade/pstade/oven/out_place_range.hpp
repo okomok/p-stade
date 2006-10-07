@@ -91,7 +91,6 @@ struct out_place_range :
     out_place_range_detail::super_<ForwardRange>::type,
     private as_lightweight_proxy< out_place_range<ForwardRange, UnaryFun> >
 {
-    typedef ForwardRange pstade_oven_range_base_type;
     typedef UnaryFun function_type;
 
 private:

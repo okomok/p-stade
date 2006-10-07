@@ -85,7 +85,6 @@ struct get_at_range :
     get_at_range_detail::super_<FusionSeqRange, N>::type,
     private as_lightweight_proxy< get_at_range<FusionSeqRange, N> >
 {
-    typedef FusionSeqRange pstade_oven_range_base_type;
     typedef N index_type;
 
 private:

@@ -69,8 +69,6 @@ struct null_terminate_range :
     null_terminate_range_detail::super_<ForwardRange>::type,
     private as_lightweight_proxy< null_terminate_range<ForwardRange> >
 {
-    typedef ForwardRange pstade_oven_range_base_type;
-
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeRangeConcept);
     typedef typename null_terminate_range_detail::super_<ForwardRange>::type super_t;

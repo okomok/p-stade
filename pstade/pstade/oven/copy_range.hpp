@@ -19,7 +19,6 @@
 #include <pstade/egg/pipable.hpp>
 #include <pstade/unused.hpp>
 #include "./algorithm.hpp" // copy
-#include "./detail/concept_check.hpp"
 #include "./extension.hpp"
 #include "./range_traversal.hpp"
 
@@ -37,7 +36,6 @@ PSTADE_ADL_BARRIER(copy_range) { // for Boost
     OvenCopyableRange const
     copy_range(Range const& rng)
     {
-        detail::requires< boost::SinglePassRangeConcept<Range> >();
         return pstade_oven_extension::Range<OvenCopyableRange>().
             template copy<OvenCopyableRange>(rng);
     }

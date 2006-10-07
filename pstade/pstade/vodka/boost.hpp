@@ -17,6 +17,7 @@
 #include "./boost/numeric_conversion_cast.hpp"
 #include "./boost/range_size.hpp"
 #include "./boost/ptr_container_ptr_vector.hpp"
-
+#include "./boost/concept_check.hpp"
+#include "./boost/iterator_iterator_concept.hpp"
 
 #endif

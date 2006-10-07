@@ -59,8 +59,6 @@ struct second_range :
     second_range_detail::super_<PairRange>::type,
     private as_lightweight_proxy< second_range<PairRange> >
 {
-    typedef PairRange pstade_oven_range_base_type;
-
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(PairRange, SinglePassRangeConcept);
     typedef typename second_range_detail::super_<PairRange>::type super_t;

@@ -160,8 +160,7 @@ struct merge_iterator :
     merge_iterator_detail::super_<Iterator1, Iterator2, Compare, MergeRoutine>::type
 {
 private:
-    typedef typename merge_iterator_detail::
-        super_<Iterator1, Iterator2, Compare, MergeRoutine>::type super_t;
+    typedef typename merge_iterator_detail::super_<Iterator1, Iterator2, Compare, MergeRoutine>::type super_t;
     typedef typename super_t::reference ref_t;
 
 public:

@@ -76,8 +76,7 @@ struct sort_range :
     sort_range_detail::super_<ForwardRange, Compare>::type,
     private as_lightweight_proxy< sort_range<ForwardRange, Compare> >
 {
-    typedef ForwardRange pstade_oven_range_base_type;
-    typedef Compare compicate_type;
+    typedef Compare compare_type;
 
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeConcept);

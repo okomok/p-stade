@@ -11,12 +11,11 @@
 
 
 #include <iterator> // distance
-#include <boost/iterator/iterator_categories.hpp> // traversal_tag's
+#include <boost/iterator/iterator_categories.hpp> // tags
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/egg/function.hpp>
-#include "./detail/concept_check.hpp"
 #include "./range_difference.hpp"
 #include "./range_traversal.hpp"
 
@@ -56,8 +55,6 @@ namespace distance_detail {
         template< class Result, class Range >
         Result call(Range const& rng)
         {
-            detail::requires< boost::SinglePassRangeConcept<Range> >();
-
             typedef typename range_traversal<Range>::type trv_t;
             return distance_detail::aux<Result>(rng, trv_t());
         }

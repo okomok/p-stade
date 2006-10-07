@@ -10,80 +10,62 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/oven/tests.hpp>
 #include <pstade/oven/adjacent_filter_range.hpp>
 
 
-#include <iterator>
-#include <string>
 #include <vector>
-#include <boost/foreach.hpp>
-#include <boost/range.hpp>
-#include <boost/range/concepts.hpp>
 #include <pstade/oven/functions.hpp>
-#include <pstade/oven/reverse_range.hpp>
-#include <pstade/oven/istream_range.hpp>
 
 
 struct is_not_divisor
 {
-    bool operator()(int x, int y) const { return (y % x) != 0; }
+    bool operator()(int x, int y) const
+    { return (y % x) != 0; }
 };
 
 
 struct not_equal_to
 {
-    bool operator()(int x, int y) const { return x != y; }
+    bool operator()(int x, int y) const
+    { return x != y; }
 };
 
 
 void test()
 {
-    using namespace pstade;
+    namespace oven = pstade::oven;
     using namespace oven;
 
-    int src[] = { 2, 2, 4, 4, 6, 8, 8, 10, 10, 20, 40, 80, 120 };
-    int ans1[] = { 2, 6, 8, 10, 120 };
-    int ans2[] = { 2, 4, 6, 8, 10, 20, 40, 80, 120 };
-    int ans3[] = { 2, 8, 10 };
+    int const src[] = { 2, 2, 4, 4, 6, 8, 8, 10, 10, 20, 40, 80, 120 };
 
     {
-        typedef adjacent_filter_range< std::string, is_not_divisor > rng_t;
-        boost::function_requires< boost::BidirectionalRangeConcept<rng_t> >();
-    }
+        int ans[] = { 2, 6, 8, 10, 120 };
+        std::vector<int> expected = ans|copied;
 
+        oven::test_bidirectional_readable(
+            src|adjacent_filtered(is_not_divisor()),
+            expected
+        );
+    }
     {
-        BOOST_CHECK((
-            oven::equals( oven::make_adjacent_filter_range(src, is_not_divisor()), ans1)
-        ));
+        int ans[] = { 2, 4, 6, 8, 10, 20, 40, 80, 120 };
+        std::vector<int> expected = ans|copied;
 
-        BOOST_CHECK((
-            oven::equals( oven::make_adjacent_filter_range(src, not_equal_to()), ans2)
-        ));
+        oven::test_bidirectional_readable(
+            src|adjacent_filtered(not_equal_to()),
+            expected
+        );
     }
-
     {
-        BOOST_CHECK((
-            oven::equals(
-                src |
-                    oven::adjacent_filtered(is_not_divisor()) |
-                    oven::adjacent_filtered(is_not_divisor()),
-                ans3
-            )
-        ));
+        int ans[] = { 2, 8, 10 };
+        std::vector<int> expected = ans|copied;
+
+        oven::test_bidirectional_readable(
+            src|adjacent_filtered(is_not_divisor())|adjacent_filtered(is_not_divisor()),
+            expected
+        );
     }
-
-    {
-        BOOST_CHECK((
-            oven::equals( src|adjacent_filtered(is_not_divisor())|reversed|reversed, ans1)
-        ));
-
-        BOOST_FOREACH (int i, src|adjacent_filtered(is_not_divisor())|reversed)  {
-            std::cout << i << ',';
-        }
-    }
-
-    //std::stringstream ss;
-    //oven::make_istream_range<int>(ss)|adjacent_filtered(is_not_divisor());
 }
 
 

@@ -22,11 +22,6 @@
 // Thus, filter_iterator etc cannot conform to it.
 
 
-#include <boost/concept_check.hpp>
-#include <boost/range/concepts.hpp>
-#include <boost/type_traits/remove_cv.hpp>
-
-
 #if defined(PSTADE_OVEN_CFG_ENABLE_CONCEPT_CHECK)
 
     #define PSTADE_OVEN_DETAIL_REQUIRES(Range, Concept) \

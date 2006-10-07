@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/concept/assert.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
@@ -18,7 +19,7 @@
 #include <pstade/pass_by.hpp>
 #include "./adjacent_filter_iterator.hpp"
 #include "./as_lightweight_proxy.hpp"
-#include "./detail/concept_check.hpp"
+#include "./concepts.hpp"
 #include "./range_iterator.hpp"
 
 
@@ -28,12 +29,12 @@ namespace pstade { namespace oven {
 namespace adjacent_filter_range_detail {
 
 
-    template< class ForwardRange, class BinaryPred >
+    template< class Range, class BinaryPred >
     struct super_
     {
         typedef boost::iterator_range<
             adjacent_filter_iterator<
-                typename range_iterator<ForwardRange>::type,
+                typename range_iterator<Range>::type,
                 BinaryPred
             >
         > type;
@@ -43,21 +44,23 @@ namespace adjacent_filter_range_detail {
 } // namespace adjacent_filter_range_detail
 
 
-template< class ForwardRange, class BinaryPred >
+template< class Range, class BinaryPred >
 struct adjacent_filter_range :
-    adjacent_filter_range_detail::super_<ForwardRange, BinaryPred>::type,
-    private as_lightweight_proxy< adjacent_filter_range<ForwardRange, BinaryPred> >
+    adjacent_filter_range_detail::super_<Range, BinaryPred>::type,
+    private as_lightweight_proxy< adjacent_filter_range<Range, BinaryPred> >
 {
-    typedef ForwardRange pstade_oven_range_base_type;
+    BOOST_CONCEPT_ASSERT((Forward<Range>));
+    BOOST_CONCEPT_ASSERT((Readable<Range>));
+
+    typedef Range pstade_oven_range_base_type;
     typedef BinaryPred predicate_type;
 
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeConcept);
-    typedef typename adjacent_filter_range_detail::super_<ForwardRange, BinaryPred>::type super_t;
+    typedef typename adjacent_filter_range_detail::super_<Range, BinaryPred>::type super_t;
     typedef typename super_t::iterator iter_t;
 
 public:
-    adjacent_filter_range(ForwardRange& rng, BinaryPred const& pred) :
+    adjacent_filter_range(Range& rng, BinaryPred const& pred) :
         super_t(
             iter_t(boost::begin(rng), pred, boost::begin(rng), boost::end(rng)),
             iter_t(boost::end(rng),   pred, boost::begin(rng), boost::end(rng))
@@ -71,15 +74,15 @@ namespace adjacent_filter_range_detail {
 
     struct baby_make
     {
-        template< class Myself, class ForwardRange, class BinaryPred >
+        template< class Myself, class Range, class BinaryPred >
         struct apply
         {
             typedef typename pass_by_value<BinaryPred>::type pred_t;
-            typedef adjacent_filter_range<ForwardRange, pred_t> const type;
+            typedef adjacent_filter_range<Range, pred_t> const type;
         };
 
-        template< class Result, class ForwardRange, class BinaryPred >
-        Result call(ForwardRange& rng, BinaryPred& pred)
+        template< class Result, class Range, class BinaryPred >
+        Result call(Range& rng, BinaryPred& pred)
         {
             return Result(rng, pred);
         }

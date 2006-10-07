@@ -31,7 +31,8 @@ namespace merge_range_detail {
 
     template<
         class Range1, class Range2,
-        class Compare
+        class Compare,
+        class MergeRoutine
     >
     struct super_
     {
@@ -39,7 +40,8 @@ namespace merge_range_detail {
             merge_iterator<
                 typename range_iterator<Range1>::type,
                 typename range_iterator<Range2>::type,
-                Compare
+                Compare,
+                MergeRoutine
             >
         > type;
     };
@@ -50,18 +52,20 @@ namespace merge_range_detail {
 
 template<
     class Range1, class Range2,
-    class Compare = less_fun
+    class Compare      = less_fun,
+    class MergeRoutine = merge_iterator_detail::merge_routine
 >
 struct merge_range :
-    merge_range_detail::super_<Range1, Range2, Compare>::type,
-    private as_lightweight_proxy< merge_range<Range1, Range2, Compare> >
+    merge_range_detail::super_<Range1, Range2, Compare, MergeRoutine>::type,
+    private as_lightweight_proxy< merge_range<Range1, Range2, Compare, MergeRoutine> >
 {
     typedef Range1 pstade_oven_range_base_type;
+    typedef Compare compare_type;
 
 private:
     PSTADE_OVEN_DETAIL_REQUIRES(Range1, SinglePassRangeConcept);
     PSTADE_OVEN_DETAIL_REQUIRES(Range2, SinglePassRangeConcept);
-    typedef typename merge_range_detail::super_<Range1, Range2, Compare>::type super_t;
+    typedef typename merge_range_detail::super_<Range1, Range2, Compare, MergeRoutine>::type super_t;
     typedef typename super_t::iterator iter_t;
 
 public:
@@ -82,8 +86,8 @@ namespace merge_range_detail {
         template< class Myself, class Range1, class Range2, class Compare = less_fun >
         struct apply
         {
-            typedef typename pass_by_value<Compare>::type pred_t;
-            typedef merge_range<Range1, Range2, pred_t> const type;
+            typedef typename pass_by_value<Compare>::type comp_t;
+            typedef merge_range<Range1, Range2, comp_t> const type;
         };
 
         template< class Result, class Range1, class Range2, class Compare >

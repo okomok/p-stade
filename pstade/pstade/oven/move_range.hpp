@@ -52,12 +52,12 @@ namespace move_range_detail {
     };
 
 
-    template< class LValueRange >
+    template< class LvalueRange >
     struct super_
     {
         typedef transform_range<
-            LValueRange,
-            move_fun<typename range_value<LValueRange>::type>
+            LvalueRange,
+            move_fun<typename range_value<LvalueRange>::type>
         > type;
     };
 
@@ -65,20 +65,18 @@ namespace move_range_detail {
 } // namespace move_range_detail
 
 
-template< class LValueRange >
+template< class LvalueRange >
 struct move_range :
-    move_range_detail::super_<LValueRange>::type,
-    private as_lightweight_proxy< move_range<LValueRange> >
+    move_range_detail::super_<LvalueRange>::type,
+    private as_lightweight_proxy< move_range<LvalueRange> >
 {
-    typedef LValueRange pstade_oven_range_base_type;
-
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(LValueRange, SinglePassRangeConcept);
-    typedef typename move_range_detail::super_<LValueRange>::type super_t;
+    PSTADE_OVEN_DETAIL_REQUIRES(LvalueRange, SinglePassRangeConcept);
+    typedef typename move_range_detail::super_<LvalueRange>::type super_t;
     typedef typename super_t::function_type fun_t;
 
 public:
-    explicit move_range(LValueRange& rng) :
+    explicit move_range(LvalueRange& rng) :
         super_t(rng, fun_t())
     { }
 };
@@ -89,14 +87,14 @@ namespace move_range_detail {
 
     struct baby_make
     {
-        template< class Myself, class LValueRange >
+        template< class Myself, class LvalueRange >
         struct apply
         {
-            typedef move_range<LValueRange> const type;
+            typedef move_range<LvalueRange> const type;
         };
 
-        template< class Result, class LValueRange >
-        Result call(LValueRange& rng)
+        template< class Result, class LvalueRange >
+        Result call(LvalueRange& rng)
         {
             return Result(rng);
         }
