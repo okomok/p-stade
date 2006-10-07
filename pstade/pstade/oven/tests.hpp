@@ -10,13 +10,17 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <algorithm>
 #include <boost/assert.hpp>
 #include <boost/concept/assert.hpp>
 #include <boost/foreach.hpp>
+#include <boost/range/begin.hpp>
 #include <boost/range/empty.hpp>
+#include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <boost/iterator/new_iterator_tests.hpp>
 #include <boost/next_prior.hpp>
+#include <pstade/const.hpp>
 #include "./algorithm.hpp"
 #include "./concepts.hpp"
 #include "./copy_range.hpp"
@@ -25,6 +29,7 @@
 #include "./range_iterator.hpp"
 #include "./range_reference.hpp"
 #include "./range_value.hpp"
+#include "./reverse_range.hpp"
 #include "./to_sequence.hpp"
 
 
@@ -46,15 +51,11 @@ void test_single_pass_writable(Range& rng, Vector const& expected)
 {
     BOOST_ASSERT(oven::distance(expected) >= 1);
 
-    oven::test_single_pass_readable(rng, expected);
     BOOST_CONCEPT_ASSERT((Writable<Range>));
 
     oven::fill(rng, expected[0]);
 
-    typedef typename range_reference<Range>::type ref_t;
-    BOOST_FOREACH (ref_t r, rng) {
-        BOOST_ASSERT(r == expected[0]);
-    }
+    // what can we do?
 }
 
 
@@ -64,23 +65,42 @@ void test_single_pass_writable(Range& rng, Vector const& expected)
 template< class Range, class Vector >
 void test_forward_readable(Range& rng, Vector const& expected)
 {
-    BOOST_ASSERT(oven::distance(expected) >= 2);
-    BOOST_ASSERT(oven::distance(rng) >= 2);
-
-    oven::test_single_pass_readable(rng, expected);
-
     BOOST_CONCEPT_ASSERT((Forward<Range>));
     BOOST_CONCEPT_ASSERT((Readable<Range>));
 
-    boost::forward_readable_iterator_test(
-        boost::begin(rng), boost::next(boost::begin(rng)),
-        expected[0], expected[1]
-    );
+    BOOST_ASSERT(oven::distance(expected) >= 2);
+    BOOST_ASSERT(oven::distance(rng) >= 2);
+
+    {
+        oven::test_single_pass_readable(rng, expected);
+    }
+    {
+        boost::forward_readable_iterator_test(
+            boost::begin(rng), boost::next(boost::begin(rng)),
+            expected[0], expected[1]
+        );
+    }
+    {
+        Vector expResult, rngResult;
+        std::rotate_copy( // 'oven::rotate_copy' seems ambiguous.
+            boost::begin(expected),
+            boost::next(boost::begin(expected)),
+            boost::end(expected),
+            oven::to_back_of(expResult)
+        );
+        std::rotate_copy(
+            boost::begin(rng),
+            boost::next(boost::begin(rng)),
+            boost::end(rng),
+            oven::to_back_of(rngResult)
+        );
+        BOOST_CHECK(oven::equals(rngResult, expResult));
+    }
 };
 
 
 template< class Range, class Vector >
-void test_forward_writable(Range& rng, Vector const& expected)
+void test_forward_readable_writable(Range& rng, Vector const& expected)
 {
     BOOST_ASSERT(oven::distance(expected) >= 1);
 
@@ -103,32 +123,52 @@ void test_forward_writable(Range& rng, Vector const& expected)
 // Bidirectional
 //
 
+namespace tests_detail {
+
+
+    template< class Range, class Vector >
+    void bidirectional_readable(Range& rng, Vector const& expected)
+    {
+        BOOST_CONCEPT_ASSERT((Bidirectional<Range>));
+        BOOST_CONCEPT_ASSERT((Readable<Range>));
+
+        BOOST_ASSERT(oven::distance(expected) >= 2);
+        BOOST_ASSERT(oven::distance(rng) == oven::distance(expected));
+
+        oven::test_forward_readable(rng, expected);
+
+        boost::bidirectional_readable_iterator_test(
+            boost::begin(rng),
+            expected[0], expected[1]
+        );
+    }
+
+
+} // namespace tests_detail
+
+
 template< class Range, class Vector >
 void test_bidirectional_readable(Range& rng, Vector const& expected)
 {
-    BOOST_ASSERT(oven::distance(expected) >= 2);
-    BOOST_ASSERT(oven::distance(rng) == oven::distance(expected));
+    tests_detail::bidirectional_readable(rng, expected);
+    tests_detail::bidirectional_readable(rng|const_qualified, expected);
 
-    oven::test_forward_readable(rng, expected);
-
-    BOOST_CONCEPT_ASSERT((Bidirectional<Range>));
-    BOOST_CONCEPT_ASSERT((Readable<Range>));
-
-    boost::bidirectional_readable_iterator_test(
-        boost::begin(rng),
-        expected[0], expected[1]
-    );
+    Vector expRev = expected; oven::reverse(expRev);
+    tests_detail::bidirectional_readable(rng|reversed, expRev);
+    tests_detail::bidirectional_readable(rng|const_qualified|reversed, expRev);
 }
 
 
 template< class Range, class Vector >
-void test_bidirectional_writable(Range& rng, Vector const& expected)
+void test_bidirectional_readable_writable(Range& rng, Vector const& expected)
 {
-    oven::test_bidirectional_readable(rng, expected);
     BOOST_CONCEPT_ASSERT((Writable<Range>));
 
-    oven::copy_backward(expected, boost::end(rng));
+    oven::test_bidirectional_readable(rng, expected);
 
+    Vector exp = expected;
+    oven::stable_partition(exp);
+    oven::stable_partition(rng);
     BOOST_ASSERT(oven::equals(rng, expected));
 }
 
@@ -139,11 +179,13 @@ void test_bidirectional_writable(Range& rng, Vector const& expected)
 template< class Range, class Vector >
 void test_random_access_readable(Range& rng, Vector const& expected)
 {
+    BOOST_CONCEPT_ASSERT((RandomAccess<Range>));
+    BOOST_CONCEPT_ASSERT((Readable<Range>));
+
     BOOST_ASSERT(oven::distance(expected) >= 2);
     BOOST_ASSERT(oven::distance(rng) == oven::distance(expected));
 
-    BOOST_CONCEPT_ASSERT((RandomAccess<Range>));
-    BOOST_CONCEPT_ASSERT((Readable<Range>));
+    oven::test_bidirectional_readable(rng, expected);
 
     boost::random_access_readable_iterator_test(
         boost::begin(rng), static_cast<int>(oven::distance(expected)), expected
@@ -152,7 +194,7 @@ void test_random_access_readable(Range& rng, Vector const& expected)
 
 
 template< class Range, class Vector >
-void test_random_access_writable(Range& rng, Vector const& expected)
+void test_random_access_readable_writable(Range& rng, Vector const& expected)
 {
     oven::test_random_access_readable(rng, expected);
     BOOST_CONCEPT_ASSERT((Writable<Range>));

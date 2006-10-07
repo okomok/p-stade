@@ -329,13 +329,14 @@ namespace boost
                return *--last;
            }
     
+           /* BUGBUG: Thers's no way to forward operator[] or iterators.
            reference operator[]( size_type sz ) const
            {
                //BOOST_STATIC_ASSERT( is_random_access );
                BOOST_ASSERT( sz < size() );
                return m_Begin[sz];
            }
-
+           */
            iterator_range& advance_begin( difference_type n )
            {
                std::advance( m_Begin, n );

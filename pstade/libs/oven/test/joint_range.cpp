@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/oven/tests.hpp>
 #include <pstade/oven/joint_range.hpp>
 
 
@@ -19,7 +20,6 @@
 #include <vector>
 #include <boost/foreach.hpp>
 #include <boost/range.hpp>
-#include <boost/range/concepts.hpp>
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/copy_range.hpp>
 #include <pstade/oven/single_range.hpp>
@@ -28,12 +28,22 @@
 
 void test()
 {
-    using namespace pstade;
+    namespace oven = pstade::oven;
     using namespace oven;
 
     {
-        typedef joint_range< std::string, std::string > rng_t;
-        boost::function_requires< boost::RandomAccessRangeConcept<rng_t> >();
+        int src0[] = { 2,1,4 };
+        int src1[] = { 6,5,9 };
+        int src2[] = { 8,3,7 };
+        int const ans[] = { 2,1,4,6,5,9,8,3,7 };
+        std::vector<int> expected = ans|copied;
+        oven::test_random_access_readable_writable(src0|jointed(src1)|jointed(src2), expected);
+    }
+    {
+        std::string src0;
+        std::string src1;
+        std::string src2;
+        oven::test_empty(src0|jointed(src1)|jointed(src2));
     }
 
     std::string ans ("01234567");
