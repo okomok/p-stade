@@ -10,55 +10,52 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/oven/tests.hpp>
 #include <pstade/oven/concatenate_range.hpp>
 
 
 #include <vector>
-#include <boost/range.hpp>
 #include <string>
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/reverse_range.hpp>
-#include <pstade/oven/tests.hpp>
 
 
 void test()
 {
-    using namespace pstade;
+    namespace oven = pstade::oven;
     using namespace oven;
 
-    std::vector<std::string> vec;
-    vec.push_back("abcd");
-    vec.push_back("efg");
-    vec.push_back("h");
-    vec.push_back("");
-    vec.push_back("ij");
-    vec.push_back("");
-    vec.push_back("klmn");
-    vec.push_back("");
-
-    {
-        BOOST_CHECK( oven::equals( vec|concatenated, std::string("abcdefghijklmn") ) );
+    std::vector<std::string> rng; {
+        rng.push_back("abcd");
+        rng.push_back("efg");
+        rng.push_back("h");
+        rng.push_back("");
+        rng.push_back("ij");
+        rng.push_back("");
+        rng.push_back("klmn");
+        rng.push_back("");
     }
 
     {
-        BOOST_CHECK( oven::equals( vec|concatenated|reversed, std::string("nmlkjihgfedcba") ) );
+        std::vector<char> expected = std::string("abcdefghijklmn")|copied;
+        BOOST_CHECK( oven::test_Bidirectional_Readable_Writable(rng|concatenated, expected) );
     }
-
     {
-        BOOST_CHECK( oven::test_bidirectional(vec|concatenated) );
+        std::vector<char> expected = std::string("nmlkjihgfedcba")|copied;
+        BOOST_CHECK( oven::test_Bidirectional_Readable_Writable(rng|concatenated|reversed, expected) );
     }
-
     {
-        std::vector<std::string> vec;
-        vec.push_back("");
-        vec.push_back("");
-        vec.push_back("");
-        BOOST_CHECK( boost::empty(vec|concatenated) );
-        vec.push_back("ab");
-        BOOST_CHECK( oven::equals(vec|concatenated, std::string("ab")) );
-        vec.push_back("");
-        vec.push_back("");
-        BOOST_CHECK( oven::equals(vec|concatenated, std::string("ab")) );
+        std::vector<std::string> rng;
+        rng.push_back("");
+        rng.push_back("");
+        rng.push_back("");
+        BOOST_CHECK( oven::test_empty(rng|concatenated) );
+        rng.push_back("ABC");
+        std::vector<char> expected = std::string("ABC")|copied;
+        BOOST_CHECK( oven::test_Bidirectional_Readable_Writable(rng|concatenated, expected) );
+        rng.push_back("");
+        rng.push_back("");
+        BOOST_CHECK( oven::test_Bidirectional_Readable_Writable(rng|concatenated, expected) );
     }   
 }
 

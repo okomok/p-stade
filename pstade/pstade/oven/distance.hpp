@@ -10,12 +10,19 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Question:
+//
+// Requires ForwardRange?
+
+
 #include <iterator> // distance
+#include <boost/assert.hpp>
 #include <boost/iterator/iterator_categories.hpp> // tags
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/egg/function.hpp>
+#include "./concepts.hpp"
 #include "./range_difference.hpp"
 #include "./range_traversal.hpp"
 
@@ -30,8 +37,6 @@ namespace distance_detail {
     // It is possible for an iterator to be marked as RandomAccessTraversal
     // but model InputIterator, which may trigger a slower 'std::distance',
     // because STL doesn't know the traversal concept yet. So hook it!
-    //
-
     template< class Result, class Range > inline
     Result aux(Range const& rng, boost::random_access_traversal_tag)
     {
@@ -45,6 +50,16 @@ namespace distance_detail {
     }
 
 
+    // Topic:
+    // 'std::distance' also requires this. (24.1/6)
+    template< class Difference > inline
+    Difference assert_reachable(Difference d)
+    {
+        BOOST_ASSERT(d >= 0);
+        return d;
+    }
+
+
     struct baby
     {
         template< class Myself, class Range >
@@ -53,10 +68,12 @@ namespace distance_detail {
         { };
 
         template< class Result, class Range >
-        Result call(Range const& rng)
+        PSTADE_CONCEPT_WHERE(
+            ((SinglePass<Range>))((Readable<Range const>)),
+        (Result)) call(Range const& rng)
         {
             typedef typename range_traversal<Range>::type trv_t;
-            return distance_detail::aux<Result>(rng, trv_t());
+            return (assert_reachable)( distance_detail::aux<Result>(rng, trv_t()) );
         }
     };
 
@@ -64,7 +81,7 @@ namespace distance_detail {
 } // namespace distance_detail
 
 
-PSTADE_ADL_BARRIER(distance) { // for Boost
+PSTADE_ADL_BARRIER(distance) { // for Boost and Std
 
 PSTADE_EGG_FUNCTION(distance, distance_detail::baby)
 

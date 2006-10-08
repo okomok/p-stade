@@ -37,13 +37,13 @@ void test()
         int src2[] = { 8,3,7 };
         int const ans[] = { 2,1,4,6,5,9,8,3,7 };
         std::vector<int> expected = ans|copied;
-        oven::test_random_access_readable_writable(src0|jointed(src1)|jointed(src2), expected);
+        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(src0|jointed(src1)|jointed(src2), expected) );
     }
     {
         std::string src0;
         std::string src1;
         std::string src2;
-        oven::test_empty(src0|jointed(src1)|jointed(src2));
+        BOOST_CHECK( oven::test_empty(src0|jointed(src1)|jointed(src2)) );
     }
 
     std::string ans ("01234567");

@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/oven/tests.hpp>
 #include <pstade/oven/c_str_range.hpp>
 
 
@@ -22,6 +23,11 @@ void test()
     namespace oven = pstade::oven;
     using namespace oven;
 
+    {
+        c_str_range<char const> rng("hello\0range");
+        std::vector<char> expected = std::string("hello")|copied;
+        BOOST_CHECK( oven::test_RandomAccess_Readable(rng, expected) );
+    }
     {
         c_str_range<char const> rng("hello\0range");
         BOOST_CHECK( oven::equals(rng, std::string("hello")) );

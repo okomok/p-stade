@@ -10,13 +10,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/oven/tests.hpp>
 #include <pstade/oven/array_protect_range.hpp>
 
 
-#include <iterator>
 #include <string>
-#include <boost/range.hpp>
-#include <pstade/oven/distance.hpp>
+#include <pstade/oven/functions.hpp>
 
 
 void test()
@@ -24,13 +23,16 @@ void test()
     namespace oven = pstade::oven;
     using namespace oven;
 
-    {
-        char const str[] = "hello range";
+    std::vector<char> expected = std::string("hello, array_protect_range")|copied;
+    expected.push_back('\0'); // contains null.
 
-        array_protect_range<char const> rng(str);
-        BOOST_CHECK( oven::distance(rng) == 12 );
-        BOOST_CHECK( oven::distance(oven::make_array_protect_range(str)) == 12 );
-        BOOST_CHECK( oven::distance(str|array_protected) == 12 );
+    {
+        char str[] = "hello, array_protect_range";
+        array_protect_range<char> src(str);
+        BOOST_CHECK(oven::test_RandomAccess_Readable_Writable(src, expected));
+    }
+    {
+        BOOST_CHECK(oven::test_RandomAccess_Readable("hello, array_protect_range"|array_protected, expected));
     }
 }
 

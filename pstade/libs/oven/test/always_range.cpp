@@ -10,23 +10,27 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/oven/tests.hpp>
 #include <pstade/oven/always_range.hpp>
 
 
 #include <string>
-#include <boost/range.hpp>
+#include <vector>
 #include <pstade/oven/functions.hpp>
 
 
 void test()
 {
-    using namespace pstade;
+    namespace oven = pstade::oven;
     using namespace oven;
 
     {
-        std::string str1("unused");
-        std::string str2("hello, always_range!");
-        BOOST_CHECK(oven::equals(str2, str1|always(str2)));
+        std::string src1("unused");
+        std::string src2("hello, always_range!");
+        std::vector<char> expected = src2|copied;
+        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
+            src1|always(src2), expected
+        ) );
     }
 }
 

@@ -10,7 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/concept/assert.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
@@ -49,9 +48,8 @@ struct adjacent_filter_range :
     adjacent_filter_range_detail::super_<Range, BinaryPred>::type,
     private as_lightweight_proxy< adjacent_filter_range<Range, BinaryPred> >
 {
-    BOOST_CONCEPT_ASSERT((Forward<Range>));
-    BOOST_CONCEPT_ASSERT((Readable<Range>));
-
+    PSTADE_CONCEPT_ASSERT((Forward<Range>));
+    PSTADE_CONCEPT_ASSERT((Readable<Range>));
     typedef Range pstade_oven_range_base_type;
     typedef BinaryPred predicate_type;
 

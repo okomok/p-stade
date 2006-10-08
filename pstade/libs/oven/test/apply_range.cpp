@@ -19,25 +19,14 @@
 #endif
 
 
+#include <pstade/oven/tests.hpp>
 #include <pstade/oven/apply_range.hpp>
 
-#include <iterator>
+
 #include <string>
 #include <vector>
-#include <boost/foreach.hpp>
-#include <boost/range.hpp>
 #include <pstade/oven/functions.hpp>
 #include <pstade/functional.hpp>
-
-
-struct id_fun
-{
-    template< class T >
-    T& operator()(T& x) const
-    {
-        return x;
-    }
-};
 
 
 void test()
@@ -45,25 +34,28 @@ void test()
     namespace oven = pstade::oven;
     using namespace oven;
 
-    std::string src("abcdefghijk");
-
     {
-        BOOST_CHECK((
-            oven::equals(
-                src,
-                src|applied(oven::begin, oven::end)
-            )
-        ));
-
-        BOOST_CHECK((
-            oven::equals(
-                src,
-                src|applied(pstade::identity)
-            )
-        ));
+        std::string src("hello, apply_range");
+        std::vector<char> expected = src|copied;
+        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
+            src|applied(begin, end),
+            expected
+        ) );
+    }
+    {
+        std::string src("hello, apply_range");
+        std::vector<char> expected = src|copied;
+        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
+            src|applied(pstade::identity),
+            expected
+        ) );
     }
 
+
 #if defined(PSTADE_OVEN_USING_PHOENIX_V2)
+
+    std::string src("abcdefghijk");
+
     namespace ph = boost::phoenix;
     {
         std::string s1("efg");
@@ -81,60 +73,7 @@ void test()
         //)
         ;
     }
-#endif
 
-#if 0 // deprecated interface
-    namespace bll = boost::lambda;
-    using namespace bll;
-    namespace ll = bll::ll;
-
-    {
-        BOOST_CHECK((
-            oven::equals(
-                src,
-                src|applied(::id_fun())
-            )
-        ));
-    }
-
-    {
-        BOOST_CHECK((
-            oven::equals(
-                std::string("efghijk"),
-                oven::make_apply_range(src, bll::bind(ll::find(), bll::_1, bll::_2, 'e'), bll::_2)
-            )
-        ));
-    }
-
-    {
-        BOOST_CHECK((
-            oven::equals(
-                std::string("abcdefghij"),
-                src|applied(bll::_1, bll::_2 - 1)
-            )
-        ));
-    }
-
-    {
-        BOOST_CHECK((
-            oven::equals(
-                std::string("defgh"),
-                src|applied(bll::_1 + 3, bll::_2 - 3)
-            )
-        ));
-    }
-
-    
-    {
-        BOOST_CHECK((
-            oven::equals(
-                std::string("efgh"),
-                src|
-                    applied(bll::bind(ll::find(), bll::_1, bll::_2, 'e'), bll::_2)|
-                    applied(bll::_1, bll::bind(ll::find(), bll::_1, bll::_2, 'i'))
-            )
-        ));
-    }
 #endif
 }
 

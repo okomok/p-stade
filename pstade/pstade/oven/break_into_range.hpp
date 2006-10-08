@@ -24,7 +24,7 @@
 #include <pstade/const_overloaded.hpp>
 #include <pstade/nonassignable.hpp>
 #include "./as_lightweight_proxy.hpp"
-#include "./detail/concept_check.hpp"
+#include "./concepts.hpp"
 #include "./range_iterator.hpp"
 #include "./range_value.hpp"
 
@@ -64,11 +64,11 @@ struct break_into_range :
     break_into_range_detail::super_<Range, TokenizerFun, Type>::type,
     private as_lightweight_proxy< break_into_range<Range, TokenizerFun, Type> >
 {
+    PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
     typedef Range pstade_oven_range_base_type;
     typedef TokenizerFun tokenizer_function_type;
 
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
     typedef typename break_into_range_detail::super_<Range, TokenizerFun, Type>::type super_t;
     typedef typename super_t::iterator iter_t;
 

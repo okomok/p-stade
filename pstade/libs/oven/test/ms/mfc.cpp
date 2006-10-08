@@ -128,7 +128,7 @@ void test_string()
     {
         typedef ::CString rng_t;
 
-        BOOST_CHECK(( oven::test_copyable<rng_t>(sample) ));
+        BOOST_CHECK(( oven::test_Copyable<rng_t>(sample) ));
         rng_t rng = sample|copied;
         BOOST_CHECK(( oven::test_random_access(rng) ));
     }

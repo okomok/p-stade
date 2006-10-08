@@ -10,22 +10,22 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/oven/tests.hpp>
 #include <pstade/oven/clear_range.hpp>
 
 
 #include <string>
-#include <boost/range.hpp>
 #include <pstade/oven/functions.hpp>
 
 
 void test()
 {
-    using namespace pstade;
+    namespace oven = pstade::oven;
     using namespace oven;
 
     {
         std::string str("hello, clear_range!");
-        BOOST_CHECK( boost::empty(str|cleared) );
+        BOOST_CHECK( oven::test_empty(str|cleared) );
     }
 }
 

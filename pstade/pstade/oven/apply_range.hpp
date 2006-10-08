@@ -20,7 +20,7 @@
 #include <pstade/egg/pipable.hpp>
 #include <pstade/pass_by.hpp>
 #include "./as_lightweight_proxy.hpp"
-#include "./detail/concept_check.hpp"
+#include "./concepts.hpp"
 #include "./sub_range_base.hpp"
 
 
@@ -32,10 +32,10 @@ struct apply_range :
     sub_range_base<Range>::type,
     private as_lightweight_proxy< apply_range<Range> >
 {
+    PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
     typedef Range pstade_oven_range_base_type;
 
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
     typedef typename sub_range_base<Range>::type super_t;
     typedef typename super_t::iterator iter_t;
 

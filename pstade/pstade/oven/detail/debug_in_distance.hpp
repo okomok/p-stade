@@ -30,8 +30,8 @@ bool debug_in_distance_aux(Difference d, Range& rng, boost::forward_traversal_ta
 template< class Difference, class Range > inline
 bool debug_in_distance_aux(Difference d, Range& rng, boost::single_pass_traversal_tag)
 {
-    pstade::unused(d, rng);
-    return true;
+    pstade::unused(rng);
+    return 0 <= d;
 }
 
 

@@ -15,7 +15,7 @@
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
-#include "./detail/concept_check.hpp"
+#include "./concepts.hpp"
 #include "./joint_range.hpp"
 #include "./single_range.hpp"
 
@@ -49,10 +49,10 @@ struct append_range :
     append_range_detail::super_<Range, Value>::type,
     private as_lightweight_proxy< append_range<Range, Value> >
 {
+    PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
     typedef Range pstade_oven_range_base_type;
 
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
     typedef typename append_range_detail::init<Value>::type init_t;
     typedef typename append_range_detail::super_<Range, Value>::type super_t;
 

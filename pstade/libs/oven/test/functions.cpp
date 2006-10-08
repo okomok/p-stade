@@ -15,23 +15,21 @@
 
 
 #include <string>
-#include <boost/range.hpp>
 #include <pstade/egg/function.hpp>
 
 
 void test()
 {
-    using namespace pstade;
+    namespace oven = pstade::oven;
     using namespace oven;
 
     std::string src1("abcde");
     std::string src2("abcde");
 
-    { // equals
+    {
         BOOST_CHECK( oven::equals(src1, src2) );
     }
-
-    { // distance
+    {
         BOOST_CHECK( oven::distance(src1) == 5 );
     }
 }

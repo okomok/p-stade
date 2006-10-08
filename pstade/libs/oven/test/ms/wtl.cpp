@@ -60,7 +60,7 @@ void test_string()
 
     {
         typedef WTL::CString rng_t;
-        BOOST_CHECK(( oven::test_copyable<rng_t>(sample) ));
+        BOOST_CHECK(( oven::test_Copyable<rng_t>(sample) ));
         WTL::CString rng = sample|copied;
         BOOST_CHECK(( oven::test_random_access(rng) ));
     }

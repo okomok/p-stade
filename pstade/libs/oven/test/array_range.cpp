@@ -10,25 +10,26 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/oven/tests.hpp>
 #include <pstade/oven/array_range.hpp>
 
 
 #include <string>
-#include <boost/range.hpp>
+#include <vector>
 #include <pstade/oven/functions.hpp>
-#include <pstade/oven/begin_end.hpp>
 
 
 void test()
 {
-    using namespace pstade;
+    namespace oven = pstade::oven;
     using namespace oven;
 
     {
-        std::string str("hello, array_range");
-        array_range<char> arr(oven::distance(str));
-        oven::copy(str, arr|begins);
-        BOOST_CHECK(oven::equals(str, arr));
+        std::vector<char> expected = std::string("hello, array_range")|copied;
+        array_range<char> rng(oven::distance(expected));
+        oven::copy(expected, rng|begins);
+
+        BOOST_CHECK(oven::test_RandomAccess_Readable_Writable(rng, expected));
     }
 }
 

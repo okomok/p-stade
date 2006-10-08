@@ -17,8 +17,9 @@
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concatenate_iterator.hpp"
-#include "./detail/concept_check.hpp"
+#include "./concepts.hpp"
 #include "./range_iterator.hpp"
+#include "./range_value.hpp"
 
 
 namespace pstade { namespace oven {
@@ -46,10 +47,11 @@ struct concatenate_range :
     concatenate_range_detail::super_<TopRange>::type,
     private as_lightweight_proxy< concatenate_range<TopRange> >
 {
+    PSTADE_CONCEPT_ASSERT((SinglePass<TopRange>));
+    PSTADE_CONCEPT_ASSERT((SinglePass<typename range_value<TopRange>::type>));
     typedef TopRange pstade_oven_range_base_type;
 
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(TopRange, SinglePassRangeConcept);
     typedef typename concatenate_range_detail::super_<TopRange>::type super_t;
     typedef typename super_t::iterator iter_t;
 

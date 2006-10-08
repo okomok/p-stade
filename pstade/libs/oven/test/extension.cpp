@@ -209,7 +209,7 @@ void test()
         oven::test_random_access(cont3);
         oven::test_random_access(seq1);
         oven::test_random_access(pr);
-        oven::test_copyable< Foo::Pair<int *> >(pr);
+        oven::test_Copyable< Foo::Pair<int *> >(pr);
     }
 }
 

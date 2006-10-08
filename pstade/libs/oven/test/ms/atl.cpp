@@ -93,7 +93,7 @@ void test_collection()
     {
         typedef ATL::CSimpleArray<int> rng_t;
 
-        BOOST_CHECK(( oven::test_copyable<rng_t>(sample) ));
+        BOOST_CHECK(( oven::test_Copyable<rng_t>(sample) ));
         rng_t rng = sample|copied;
         BOOST_CHECK(( oven::test_random_access(rng) ));
     }
@@ -129,14 +129,14 @@ void test_string()
     {
         typedef ATL::CAtlString rng_t;
 
-        BOOST_CHECK(( oven::test_copyable<rng_t>(sample) ));
+        BOOST_CHECK(( oven::test_Copyable<rng_t>(sample) ));
         rng_t rng = sample|copied;
         BOOST_CHECK(( oven::test_random_access(rng) ));
     }
     {
         typedef ATL::CFixedStringT<ATL::CAtlString, 60> rng_t;
 
-        BOOST_CHECK(( oven::test_copyable<rng_t>(sample) ));
+        BOOST_CHECK(( oven::test_Copyable<rng_t>(sample) ));
         rng_t rng = sample|copied;
         BOOST_CHECK(( oven::test_random_access(rng) ));
     }
@@ -147,7 +147,7 @@ void test_string()
         typedef ATL::CComBSTR rng_t;
 
         rng_t sample(OLESTR("abcdefg"));
-        BOOST_CHECK(( oven::test_copyable<rng_t>(sample) ));
+        BOOST_CHECK(( oven::test_Copyable<rng_t>(sample) ));
         rng_t rng = sample|copied;
         BOOST_CHECK(( oven::test_random_access(rng) ));
     }

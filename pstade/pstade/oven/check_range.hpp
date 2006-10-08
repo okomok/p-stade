@@ -17,7 +17,7 @@
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./check_iterator.hpp"
-#include "./detail/concept_check.hpp"
+#include "./concepts.hpp"
 #include "./range_iterator.hpp"
 
 
@@ -46,6 +46,7 @@ struct check_range :
     check_range_detail::super_<Range>::type,
     private as_lightweight_proxy< check_range<Range> >
 {
+    PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
     typedef Range pstade_oven_range_base_type;
 
 private:

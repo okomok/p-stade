@@ -56,6 +56,7 @@
 #include <pstade/apple/has_sort.hpp>
 #include <pstade/apple/has_unique.hpp>
 #include <pstade/apple/has_upper_bound.hpp>
+#include "./detail/config.hpp" // PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR
 
 
 namespace pstade { namespace oven {
@@ -128,7 +129,7 @@ PSTADE_ADL_BARRIER(algorithm) {
     ///
     /// \pre Rng meets the requirements for a Input range
     template<typename Rng,typename Val>
-    inline BOOST_DEDUCED_TYPENAME boost::range_iterator<Rng>::type
+    inline BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type
     find(Rng & rng,Val const & val)
     {
         return range_ex_detail::find_impl(rng,val);
@@ -148,7 +149,7 @@ PSTADE_ADL_BARRIER(algorithm) {
     ///
     /// \pre Rng meets the requirements for a Input range
     template<typename Rng,typename Pred>
-    inline BOOST_DEDUCED_TYPENAME boost::range_iterator<Rng>::type
+    inline BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type
     find_if(Rng & rng,Pred pred)
     {
         return std::find_if(boost::begin(rng),boost::end(rng),pred);
@@ -169,7 +170,7 @@ PSTADE_ADL_BARRIER(algorithm) {
     /// \pre Rng1 meets the requirements for a Forward range
     /// \pre Rng2 meets the requirements for a Forward range
     template<typename Rng1,typename Rng2>
-    inline BOOST_DEDUCED_TYPENAME boost::range_iterator<Rng1>::type
+    inline BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng1>::type
     find_end(Rng1 & rng1,Rng2 const & rng2)
     {
         return std::find_end(boost::begin(rng1),boost::end(rng1),
@@ -187,7 +188,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     /// \overload
     template<typename Rng1,typename Rng2,typename BinPred>
-    inline BOOST_DEDUCED_TYPENAME boost::range_iterator<Rng1>::type
+    inline BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng1>::type
     find_end(Rng1 & rng1,Rng2 const & rng2,BinPred pred)
     {
         return std::find_end(boost::begin(rng1),boost::end(rng1),
@@ -210,7 +211,7 @@ PSTADE_ADL_BARRIER(algorithm) {
     /// \pre Rng1 meets the requirements for a Forward range
     /// \pre Rng2 meets the requirements for a Forward range
     template<typename Rng1,typename Rng2>
-    inline BOOST_DEDUCED_TYPENAME boost::range_iterator<Rng1>::type
+    inline BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng1>::type
     find_first_of(Rng1 & rng1,Rng2 const & rng2)
     {
         return std::find_first_of(boost::begin(rng1),boost::end(rng1),
@@ -228,7 +229,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     /// \overload
     template<typename Rng1,typename Rng2,typename BinPred>
-    inline BOOST_DEDUCED_TYPENAME boost::range_iterator<Rng1>::type
+    inline BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng1>::type
     find_first_of(Rng1 & rng1,Rng2 const & rng2,BinPred pred)
     {
         return std::find_first_of(boost::begin(rng1),boost::end(rng1),
@@ -250,7 +251,7 @@ PSTADE_ADL_BARRIER(algorithm) {
     ///
     /// \pre Rng meets the requirements for a Forward range
     template<typename Rng>
-    inline BOOST_DEDUCED_TYPENAME boost::range_iterator<Rng>::type
+    inline BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type
     adjacent_find(Rng & rng)
     {
         return std::adjacent_find(boost::begin(rng),boost::end(rng));
@@ -266,7 +267,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     /// \overload
     template<typename Rng,typename BinPred>
-    inline BOOST_DEDUCED_TYPENAME boost::range_iterator<Rng>::type
+    inline BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type
     adjacent_find(Rng & rng,BinPred pred)
     {
         return std::adjacent_find(boost::begin(rng),boost::end(rng),pred);
@@ -327,7 +328,7 @@ PSTADE_ADL_BARRIER(algorithm) {
     /// \pre Rng meets the requirements for an Input range
     /// \pre InIter meets the requirements for an Input iterator
     template<typename Rng,typename InIter>
-    inline std::pair<BOOST_DEDUCED_TYPENAME boost::range_iterator<Rng>::type,InIter>
+    inline std::pair<BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type,InIter>
     mismatch(Rng & rng,InIter first)
     {
         return std::mismatch(boost::begin(rng),boost::end(rng),first);
@@ -343,7 +344,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     /// \overload
     template<typename Rng,typename InIter,typename BinPred>
-    inline std::pair<BOOST_DEDUCED_TYPENAME boost::range_iterator<Rng>::type,InIter>
+    inline std::pair<BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type,InIter>
     mismatch(Rng & rng,InIter first,BinPred pred)
     {
         return std::mismatch(boost::begin(rng),boost::end(rng),first,pred);
@@ -397,7 +398,7 @@ PSTADE_ADL_BARRIER(algorithm) {
     /// \pre Rng1 meets the requirements for a Forward range
     /// \pre Rng2 meets the requirements for a Forward range
     template<typename Rng1,typename Rng2>
-    inline BOOST_DEDUCED_TYPENAME boost::range_iterator<Rng1>::type
+    inline BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng1>::type
     search(Rng1 & rng1,Rng2 const & rng2)
     {
         return std::search(boost::begin(rng1),boost::end(rng1),
@@ -415,7 +416,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     /// \overload
     template<typename Rng1,typename Rng2,typename BinPred>
-    inline BOOST_DEDUCED_TYPENAME boost::range_iterator<Rng1>::type
+    inline BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng1>::type
     search(Rng1 & rng1,Rng2 const & rng2,BinPred pred)
     {
         return std::search(boost::begin(rng1),boost::end(rng1),
@@ -642,7 +643,7 @@ PSTADE_ADL_BARRIER(algorithm) {
     ///
     /// \pre Rng meets the requirements for a Forward range
     template<typename Rng,typename Val>
-    inline BOOST_DEDUCED_TYPENAME boost::range_iterator<Rng>::type
+    inline BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type
     remove(Rng & rng,Val const & val)
     {
         return range_ex_detail::remove_impl(rng,val);
@@ -686,7 +687,7 @@ PSTADE_ADL_BARRIER(algorithm) {
     ///
     /// \pre Rng meets the requirements for a Forward range
     template<typename Rng,typename Pred>
-    inline BOOST_DEDUCED_TYPENAME boost::range_iterator<Rng>::type
+    inline BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type
     remove_if(Rng & rng,Pred pred)
     {
         return range_ex_detail::remove_if_impl(rng,pred);
@@ -775,7 +776,7 @@ PSTADE_ADL_BARRIER(algorithm) {
     ///
     /// \pre Rng meets the requirements for a Forward range
     template<typename Rng>
-    inline BOOST_DEDUCED_TYPENAME boost::range_iterator<Rng>::type
+    inline BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type
     unique(Rng & rng)
     {
         return range_ex_detail::unique_impl(rng);
@@ -791,7 +792,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     /// \overload
     template<typename Rng,typename Pred>
-    inline BOOST_DEDUCED_TYPENAME boost::range_iterator<Rng>::type
+    inline BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type
     unique(Rng & rng,Pred pred)
     {
         return range_ex_detail::unique_if_impl(rng,pred);
@@ -882,7 +883,7 @@ PSTADE_ADL_BARRIER(algorithm) {
     /// \pre Rng meets the requirements for a Forward range
     template<typename Rng>
     inline void rotate(Rng & rng,
-        BOOST_DEDUCED_TYPENAME boost::range_iterator<Rng>::type middle)
+        BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type middle)
     {
         std::rotate(boost::begin(rng),middle,boost::end(rng));
     }
@@ -903,7 +904,7 @@ PSTADE_ADL_BARRIER(algorithm) {
     /// \pre OutIter meets the requirements for an Output iterator
     template<typename Rng,typename OutIter>
     inline OutIter rotate_copy(Rng & rng,
-        BOOST_DEDUCED_TYPENAME boost::range_iterator<Rng>::type middle,
+        BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type middle,
         OutIter out)
     {
         return std::rotate_copy(boost::begin(rng),middle,boost::end(rng),out);
@@ -956,7 +957,7 @@ PSTADE_ADL_BARRIER(algorithm) {
     ///
     /// \pre Rng meets the requirements for a Bidirectional range
     template<typename Rng,typename Pred>
-    inline BOOST_DEDUCED_TYPENAME boost::range_iterator<Rng>::type
+    inline BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type
     partition(Rng & rng,Pred pred)
     {
         return std::partition(boost::begin(rng),boost::end(rng),pred);
@@ -976,7 +977,7 @@ PSTADE_ADL_BARRIER(algorithm) {
     ///
     /// \pre Rng meets the requirements for a Bidirectional range
     template<typename Rng,typename Pred>
-    inline BOOST_DEDUCED_TYPENAME boost::range_iterator<Rng>::type
+    inline BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type
     stable_partition(Rng & rng,Pred pred)
     {
         return std::stable_partition(boost::begin(rng),boost::end(rng),pred);
@@ -1103,7 +1104,7 @@ PSTADE_ADL_BARRIER(algorithm) {
     /// \pre Rng meets the requirements for a Random Access range
     template<typename Rng>
     inline void partial_sort(Rng & rng,
-        BOOST_DEDUCED_TYPENAME boost::range_iterator<Rng>::type middle)
+        BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type middle)
     {
         std::partial_sort(boost::begin(rng),middle,boost::end(rng));
     }
@@ -1119,7 +1120,7 @@ PSTADE_ADL_BARRIER(algorithm) {
     /// \overload
     template<typename Rng,typename Cmp>
     inline void partial_sort(Rng & rng,
-        BOOST_DEDUCED_TYPENAME boost::range_iterator<Rng>::type middle,
+        BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type middle,
         Cmp cmp)
     {
         std::partial_sort(boost::begin(rng),middle,boost::end(rng),cmp);
@@ -1141,7 +1142,7 @@ PSTADE_ADL_BARRIER(algorithm) {
     /// \pre Rng1 meets the requirements for a Input range
     /// \pre Rng2 meets the requirements for a Random Access range
     template<typename Rng1,typename Rng2>
-    inline BOOST_DEDUCED_TYPENAME boost::range_iterator<Rng2>::type
+    inline BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng2>::type
     partial_sort_copy(Rng1 const & rng1,Rng2 & rng2)
     {
         return std::partial_sort_copy(boost::begin(rng1),boost::end(rng1),
@@ -1159,7 +1160,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     /// \overload
     template<typename Rng1,typename Rng2,typename Cmp>
-    inline BOOST_DEDUCED_TYPENAME boost::range_iterator<Rng2>::type
+    inline BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng2>::type
     partial_sort_copy(Rng1 const & rng1,Rng2 & rng2,Cmp cmp)
     {
         return std::partial_sort_copy(boost::begin(rng1),boost::end(rng1),
@@ -1182,7 +1183,7 @@ PSTADE_ADL_BARRIER(algorithm) {
     /// \pre Rng meets the requirements for a Random Access range
     template<typename Rng>
     inline void nth_element(Rng & rng,
-        BOOST_DEDUCED_TYPENAME boost::range_iterator<Rng>::type nth)
+        BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type nth)
     {
         std::nth_element(boost::begin(rng),nth,boost::end(rng));
     }
@@ -1198,7 +1199,7 @@ PSTADE_ADL_BARRIER(algorithm) {
     /// \overload
     template<typename Rng,typename Cmp>
     inline void nth_element(Rng & rng,
-        BOOST_DEDUCED_TYPENAME boost::range_iterator<Rng>::type nth,
+        BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type nth,
         Cmp cmp)
     {
         std::nth_element(boost::begin(rng),nth,boost::end(rng),cmp);
@@ -1242,7 +1243,7 @@ PSTADE_ADL_BARRIER(algorithm) {
     ///
     /// \pre Rng meets the requirements for a Forward range
     template<typename Rng,typename Val>
-    inline BOOST_DEDUCED_TYPENAME boost::range_iterator<Rng>::type
+    inline BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type
     lower_bound(Rng & rng,Val const & val)
     {
         return range_ex_detail::lower_bound_impl(rng,val);
@@ -1258,7 +1259,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     /// \overload
     template<typename Rng,typename Val,typename Cmp>
-    inline BOOST_DEDUCED_TYPENAME boost::range_iterator<Rng>::type
+    inline BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type
     lower_bound(Rng & rng,Val const & val,Cmp cmp)
     {
         return std::lower_bound(boost::begin(rng),boost::end(rng),val,cmp);
@@ -1301,7 +1302,7 @@ PSTADE_ADL_BARRIER(algorithm) {
     ///
     /// \pre Rng meets the requirements for a Forward range
     template<typename Rng,typename Val>
-    inline BOOST_DEDUCED_TYPENAME boost::range_iterator<Rng>::type
+    inline BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type
     upper_bound(Rng & rng,Val const & val)
     {
         return range_ex_detail::upper_bound_impl(rng,val);
@@ -1317,7 +1318,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     /// \overload
     template<typename Rng,typename Val,typename Cmp>
-    inline BOOST_DEDUCED_TYPENAME boost::range_iterator<Rng>::type
+    inline BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type
     upper_bound(Rng & rng,Val const & val,Cmp cmp)
     {
         return std::upper_bound(boost::begin(rng),boost::end(rng),val,cmp);
@@ -1434,7 +1435,7 @@ PSTADE_ADL_BARRIER(algorithm) {
     /// \pre Rng meets the requirements for a Bidirectional range
     template<typename Rng>
     inline void inplace_merge(Rng & rng,
-        BOOST_DEDUCED_TYPENAME boost::range_iterator<Rng>::type middle)
+        BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type middle)
     {
         std::inplace_merge(boost::begin(rng),middle,boost::end(rng));
     }
@@ -1450,7 +1451,7 @@ PSTADE_ADL_BARRIER(algorithm) {
     /// \overload
     template<typename Rng,typename Cmp>
     inline void inplace_merge(Rng & rng,
-        BOOST_DEDUCED_TYPENAME boost::range_iterator<Rng>::type middle,
+        BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type middle,
         Cmp cmp)
     {
         std::inplace_merge(boost::begin(rng),middle,boost::end(rng),cmp);
@@ -1715,7 +1716,7 @@ PSTADE_ADL_BARRIER(algorithm) {
     ///
     /// \pre Rng meets the requirements for a Forward range
     template<typename Rng>
-    inline BOOST_DEDUCED_TYPENAME boost::range_iterator<Rng>::type
+    inline BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type
     min_element(Rng & rng)
     {
         return std::min_element(boost::begin(rng),boost::end(rng));
@@ -1731,7 +1732,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     /// \overload
     template<typename Rng,typename BinPred>
-    inline BOOST_DEDUCED_TYPENAME boost::range_iterator<Rng>::type
+    inline BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type
     min_element(Rng & rng,BinPred pred)
     {
         return std::min_element(boost::begin(rng),boost::end(rng),pred);
@@ -1751,7 +1752,7 @@ PSTADE_ADL_BARRIER(algorithm) {
     ///
     /// \pre Rng meets the requirements for a Forward range
     template<typename Rng>
-    inline BOOST_DEDUCED_TYPENAME boost::range_iterator<Rng>::type
+    inline BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type
     max_element(Rng & rng)
     {
         return std::max_element(boost::begin(rng),boost::end(rng));
@@ -1767,7 +1768,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     /// \overload
     template<typename Rng,typename BinPred>
-    inline BOOST_DEDUCED_TYPENAME boost::range_iterator<Rng>::type
+    inline BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type
     max_element(Rng & rng,BinPred pred)
     {
         return std::max_element(boost::begin(rng),boost::end(rng),pred);

@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/oven/tests.hpp>
 #include <pstade/oven/check_range.hpp>
 
 
@@ -23,12 +24,13 @@
 
 void test()
 {
-    using namespace pstade;
+    namespace oven = pstade::oven;
     using namespace oven;
 
     {
-        std::string str("hello, check_range");
-        BOOST_CHECK(oven::equals(str, str|checked));
+        std::string rng("hello, check_range");
+        std::vector<char> expected = rng|copied;
+        BOOST_CHECK(oven::test_RandomAccess_Readable_Writable(rng|checked, expected));
     }
 
     {
@@ -74,7 +76,7 @@ void test()
         pstade::unused(
             std::string()
 PSTADE_IF_DEBUG(| checked)
-                | argued,
+                | pstade::argued,
             12
         );
     }

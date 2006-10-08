@@ -10,33 +10,32 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/oven/tests.hpp>
 #include <pstade/oven/break_into_range.hpp>
 
 
-#include <iostream>
 #include <string>
 #include <vector>
-#include <boost/range.hpp>
 #include <pstade/oven/functions.hpp>
 
 
 void test()
 {
-    using namespace pstade;
+    namespace oven = pstade::oven;
     using namespace oven;
 
     {
         int const offsets[] = { 2,2,4 };
         std::string src("12252001");
-        std::vector<std::string> ans; {
-            ans.push_back("12");
-            ans.push_back("25");
-            ans.push_back("2001");
+        std::vector<std::string> expected; {
+            expected.push_back("12");
+            expected.push_back("25");
+            expected.push_back("2001");
         }
 
-        BOOST_CHECK( oven::equals(
-            ans,
-            src|broken_into<std::string>(boost::offset_separator(offsets, offsets+3))
+        BOOST_CHECK( oven::test_Forward_Readable(
+            src|broken_into<std::string>(boost::offset_separator(offsets, offsets+3)),
+            expected
         ) );
     }
 }

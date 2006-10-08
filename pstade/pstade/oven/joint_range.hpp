@@ -16,7 +16,7 @@
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
-#include "./detail/concept_check.hpp"
+#include "./concepts.hpp"
 #include "./joint_iterator.hpp"
 #include "./range_iterator.hpp"
 
@@ -47,11 +47,12 @@ struct joint_range :
     joint_range_detail::super_<RangeL, RangeR>::type,
     private as_lightweight_proxy< joint_range<RangeL, RangeR> >
 {
+    PSTADE_CONCEPT_ASSERT((Forward<RangeL>));
+    PSTADE_CONCEPT_ASSERT((Forward<RangeR>));
+
     typedef RangeL pstade_oven_range_base_type;
 
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(RangeL, SinglePassRangeConcept);
-    PSTADE_OVEN_DETAIL_REQUIRES(RangeR, SinglePassRangeConcept);
     typedef typename joint_range_detail::super_<RangeL, RangeR>::type super_t;
 
 public:

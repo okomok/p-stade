@@ -43,28 +43,28 @@ void test()
         int ans[] = { 2, 6, 8, 10, 120 };
         std::vector<int> expected = ans|copied;
 
-        oven::test_bidirectional_readable(
+        BOOST_CHECK( oven::test_Bidirectional_Readable(
             src|adjacent_filtered(is_not_divisor()),
             expected
-        );
+        ) );
     }
     {
         int ans[] = { 2, 4, 6, 8, 10, 20, 40, 80, 120 };
         std::vector<int> expected = ans|copied;
 
-        oven::test_bidirectional_readable(
+        BOOST_CHECK( oven::test_Bidirectional_Readable(
             src|adjacent_filtered(not_equal_to()),
             expected
-        );
+        ) );
     }
     {
         int ans[] = { 2, 8, 10 };
         std::vector<int> expected = ans|copied;
 
-        oven::test_bidirectional_readable(
+        BOOST_CHECK( oven::test_Bidirectional_Readable(
             src|adjacent_filtered(is_not_divisor())|adjacent_filtered(is_not_divisor()),
             expected
-        );
+        ) );
     }
 }
 

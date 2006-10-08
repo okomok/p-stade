@@ -24,29 +24,16 @@
 // requirements but client functions.
 
 
-#include <boost/config.hpp>
-#include <boost/concept_check.hpp>
-#include <boost/concept/assert.hpp>
-#include <boost/concept/usage.hpp>
-#include <boost/detail/workaround.hpp>
 #include <boost/iterator/iterator_concepts.hpp> // boost_concepts
 #include <boost/range/begin.hpp>
 #include <boost/range/const_iterator.hpp>
 #include <boost/range/end.hpp>
 #include <boost/range/iterator.hpp>
 #include <boost/range/size_type.hpp>
+#include <pstade/concept.hpp>
 #include <pstade/remove_cvr.hpp>
 #include "./detail/config.hpp" // PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR
 #include "./range_iterator.hpp"
-
-
-#if BOOST_WORKAROUND(__GNUC__, <= 3)
-    // GCC seems to require the members be DefaultConstructible
-    // without this. 'BOOST_CONCEPT_USAGE' will work around?
-    #define PSTADE_usage(Model) Model(); ~Model()
-#else
-    #define PSTADE_usage BOOST_CONCEPT_USAGE
-#endif
 
 
 namespace pstade { namespace oven {
@@ -55,50 +42,50 @@ namespace pstade { namespace oven {
 // value access concepts
 //
 
-template< class R >
+template< class T >
 struct Readable
 {
-    typedef typename range_iterator<R>::type iterator;
+    typedef typename range_iterator<T>::type iterator;
 
-    PSTADE_usage(Readable)
+    PSTADE_CONCEPT_USAGE(Readable)
     {
-        BOOST_CONCEPT_ASSERT((boost_concepts::ReadableIteratorConcept<iterator>));
+        PSTADE_CONCEPT_ASSERT((boost_concepts::ReadableIteratorConcept<iterator>));
     }
 };
 
 
-template< class R >
+template< class T >
 struct Writable
 {
-    typedef typename range_iterator<R>::type iterator;
+    typedef typename range_iterator<T>::type iterator;
 
-    PSTADE_usage(Writable)
+    PSTADE_CONCEPT_USAGE(Writable)
     {
-        BOOST_CONCEPT_ASSERT((boost_concepts::WritableIteratorConcept<iterator>));
+        PSTADE_CONCEPT_ASSERT((boost_concepts::WritableIteratorConcept<iterator>));
     }
 };
 
 
-template< class R >
+template< class T >
 struct Swappable
 {
-    typedef typename range_iterator<R>::type iterator;
+    typedef typename range_iterator<T>::type iterator;
 
-    PSTADE_usage(Swappable)
+    PSTADE_CONCEPT_USAGE(Swappable)
     {
-        BOOST_CONCEPT_ASSERT((boost_concepts::SwappableIteratorConcept<iterator>));
+        PSTADE_CONCEPT_ASSERT((boost_concepts::SwappableIteratorConcept<iterator>));
     }
 };
 
 
-template< class R >
+template< class T >
 struct Lvalue
 {
-    typedef typename range_iterator<R>::type iterator;
+    typedef typename range_iterator<T>::type iterator;
 
-    PSTADE_usage(Lvalue)
+    PSTADE_CONCEPT_USAGE(Lvalue)
     {
-        BOOST_CONCEPT_ASSERT((boost_concepts::LvalueIteratorConcept<iterator>));
+        PSTADE_CONCEPT_ASSERT((boost_concepts::LvalueIteratorConcept<iterator>));
     }
 };
 
@@ -106,18 +93,18 @@ struct Lvalue
 // traversal concepts
 //
 
-template< class R >
+template< class T >
 struct SinglePass
 {
-    typedef typename remove_cvr<R>::type plain_t;
+    typedef typename remove_cvr<T>::type plain_t;
     typedef typename boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<plain_t>::type mutable_iterator;
     typedef typename boost::range_const_iterator<plain_t>::type constant_iterator;
 
-    PSTADE_usage(SinglePass)
+    PSTADE_CONCEPT_USAGE(SinglePass)
     {
-        BOOST_CONCEPT_ASSERT((boost_concepts::SinglePassIteratorConcept<mutable_iterator>));
-        BOOST_CONCEPT_ASSERT((boost_concepts::SinglePassIteratorConcept<constant_iterator>));
-        BOOST_CONCEPT_ASSERT((boost_concepts::InteroperableIteratorConcept<mutable_iterator, constant_iterator>));
+        PSTADE_CONCEPT_ASSERT((boost_concepts::SinglePassIteratorConcept<mutable_iterator>));
+        PSTADE_CONCEPT_ASSERT((boost_concepts::SinglePassIteratorConcept<constant_iterator>));
+        PSTADE_CONCEPT_ASSERT((boost_concepts::InteroperableIteratorConcept<mutable_iterator, constant_iterator>));
 
         mit = boost::begin(x);
         mit = boost::end(x);
@@ -137,59 +124,56 @@ private:
 };
 
 
-template< class R >
+template< class T >
 struct Forward :
-    SinglePass<R>
+    SinglePass<T>
 {
-    typedef typename remove_cvr<R>::type plain_t;
+    typedef typename remove_cvr<T>::type plain_t;
     typedef typename boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<plain_t>::type mutable_iterator;
     typedef typename boost::range_const_iterator<plain_t>::type constant_iterator;
 
-    PSTADE_usage(Forward)
+    PSTADE_CONCEPT_USAGE(Forward)
     {
-        BOOST_CONCEPT_ASSERT((boost_concepts::ForwardTraversalConcept<mutable_iterator>));
-        BOOST_CONCEPT_ASSERT((boost_concepts::ForwardTraversalConcept<constant_iterator>));
+        PSTADE_CONCEPT_ASSERT((boost_concepts::ForwardTraversalConcept<mutable_iterator>));
+        PSTADE_CONCEPT_ASSERT((boost_concepts::ForwardTraversalConcept<constant_iterator>));
     }
 };
 
 
-template< class R >
+template< class T >
 struct Bidirectional :
-    Forward<R>
+    Forward<T>
 {
-    typedef typename remove_cvr<R>::type plain_t;
+    typedef typename remove_cvr<T>::type plain_t;
     typedef typename boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<plain_t>::type mutable_iterator;
     typedef typename boost::range_const_iterator<plain_t>::type constant_iterator;
 
-    PSTADE_usage(Bidirectional)
+    PSTADE_CONCEPT_USAGE(Bidirectional)
     {
-        BOOST_CONCEPT_ASSERT((boost_concepts::BidirectionalTraversalConcept<mutable_iterator>));
-        BOOST_CONCEPT_ASSERT((boost_concepts::BidirectionalTraversalConcept<constant_iterator>));
+        PSTADE_CONCEPT_ASSERT((boost_concepts::BidirectionalTraversalConcept<mutable_iterator>));
+        PSTADE_CONCEPT_ASSERT((boost_concepts::BidirectionalTraversalConcept<constant_iterator>));
     }
 };
 
 
-template< class R >
+template< class T >
 struct RandomAccess :
-    Bidirectional<R>
+    Bidirectional<T>
 {
-    typedef typename remove_cvr<R>::type plain_t;
+    typedef typename remove_cvr<T>::type plain_t;
     typedef typename boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<plain_t>::type mutable_iterator;
     typedef typename boost::range_const_iterator<plain_t>::type constant_iterator;
     typedef typename boost::range_size<plain_t>::type size_type; // seems redundant, IMO.
 
-    PSTADE_usage(RandomAccess)
+    PSTADE_CONCEPT_USAGE(RandomAccess)
     {
-        BOOST_CONCEPT_ASSERT((boost_concepts::RandomAccessTraversalConcept<mutable_iterator>));
-        BOOST_CONCEPT_ASSERT((boost_concepts::RandomAccessTraversalConcept<constant_iterator>));
+        PSTADE_CONCEPT_ASSERT((boost_concepts::RandomAccessTraversalConcept<mutable_iterator>));
+        PSTADE_CONCEPT_ASSERT((boost_concepts::RandomAccessTraversalConcept<constant_iterator>));
     }
 };
 
 
 } } // namespace pstade::oven
-
-
-#undef PSTADE_usage
 
 
 #endif

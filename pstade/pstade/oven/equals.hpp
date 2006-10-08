@@ -26,6 +26,7 @@
 #include <pstade/functional.hpp> // equal_to
 #include <pstade/instance.hpp>
 #include "./algorithm.hpp" // equal
+#include "./concepts.hpp"
 #include "./distance.hpp"
 #include "./range_iterator.hpp"
 #include "./range_traversal.hpp"
@@ -77,7 +78,10 @@ struct equals_fun
     typedef bool result_type;
 
     template< class Range1, class Range2, class BinaryPred >
-    bool operator()(Range1 const& rng1, Range2 const& rng2, BinaryPred pred) const
+    PSTADE_CONCEPT_WHERE(
+        ((SinglePass<Range1>))((Readable<Range1 const>))
+        ((SinglePass<Range2>))((Readable<Range2 const>)),
+    (bool)) operator()(Range1 const& rng1, Range2 const& rng2, BinaryPred pred) const
     {
         typedef typename boost::detail::minimum_category<
             typename range_traversal<Range1>::type,
