@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/oven/tests.hpp>
 #include <pstade/oven/file_range.hpp>
 
 
@@ -22,12 +23,12 @@
 
 void test()
 {
-    using namespace pstade;
+    namespace oven = pstade::oven;
     using namespace oven;
 
     {
         file_range<> frng("non-exist.file");
-        BOOST_CHECK(( boost::empty(frng) ));
+        BOOST_CHECK(( oven::test_empty(frng) ));
         BOOST_CHECK(( !frng.is_open() ));
     }
     {

@@ -15,7 +15,7 @@
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./const_lvalue_iterator.hpp"
-#include "./detail/concept_check.hpp"
+#include "./concepts.hpp"
 #include "./range_iterator.hpp"
 
 
@@ -44,16 +44,17 @@ struct const_lvalue_range :
     const_lvalue_range_detail::super_<Range>::type,
     private as_lightweight_proxy< const_lvalue_range<Range> >
 {
-    typedef Range pstade_oven_range_base_type;
+    PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
 
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
     typedef typename const_lvalue_range_detail::super_<Range>::type super_t;
 
 public:
     explicit const_lvalue_range(Range& rng) :
         super_t(rng)
     { }
+
+    typedef Range pstade_oven_range_base_type;
 };
 
 

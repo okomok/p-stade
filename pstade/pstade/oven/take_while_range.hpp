@@ -21,29 +21,31 @@
 #include <pstade/functional.hpp> // not_
 #include "./algorithm.hpp" // find_if
 #include "./as_lightweight_proxy.hpp"
-#include "./detail/concept_check.hpp"
+#include "./concepts.hpp"
 #include "./sub_range_base.hpp"
 
 
 namespace pstade { namespace oven {
 
 
-template< class ForwardRange >
+template< class Range >
 struct take_while_range :
-    sub_range_base<ForwardRange>::type,
-    private as_lightweight_proxy< take_while_range<ForwardRange> >
+    sub_range_base<Range>::type,
+    private as_lightweight_proxy< take_while_range<Range> >
 {
-    typedef ForwardRange pstade_oven_range_base_type;
+    PSTADE_CONCEPT_ASSERT((Forward<Range>));
+    PSTADE_CONCEPT_ASSERT((Readable<Range>));
 
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeConcept);
-    typedef typename sub_range_base<ForwardRange>::type super_t;
+    typedef typename sub_range_base<Range>::type super_t;
 
 public:
     template< class Predicate >
-    take_while_range(ForwardRange& rng, Predicate pred) :
+    take_while_range(Range& rng, Predicate pred) :
         super_t(boost::begin(rng), oven::find_if(rng, pstade::not_(pred)))
     { }
+
+    typedef Range pstade_oven_range_base_type;
 };
 
 
@@ -52,14 +54,14 @@ namespace take_while_range_detail {
 
     struct baby_make
     {
-        template< class Myself, class ForwardRange, class Predicate >
+        template< class Myself, class Range, class Predicate >
         struct apply
         {
-            typedef take_while_range<ForwardRange> const type;
+            typedef take_while_range<Range> const type;
         };
 
-        template< class Result, class ForwardRange, class Predicate >
-        Result call(ForwardRange& rng, Predicate& pred)
+        template< class Result, class Range, class Predicate >
+        Result call(Range& rng, Predicate& pred)
         {
             return Result(rng, pred);
         }

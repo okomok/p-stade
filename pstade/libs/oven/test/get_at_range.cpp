@@ -26,7 +26,7 @@ typedef std::vector<tup_t> rng_t;
 
 void test()
 {
-    using namespace pstade;
+    namespace oven = pstade::oven;
     using namespace oven;
 
     ::rng_t rng;

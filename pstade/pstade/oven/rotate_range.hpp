@@ -15,7 +15,7 @@
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
-#include "./detail/concept_check.hpp"
+#include "./concepts.hpp"
 #include "./joint_range.hpp"
 #include "./range_base.hpp"
 #include "./range_iterator.hpp"
@@ -28,19 +28,19 @@ namespace pstade { namespace oven {
 namespace rotate_range_detail {
 
 
-    template< class ForwardRange >
+    template< class Range >
     struct super_
     {
-        typedef typename sub_range_base<ForwardRange>::type const rng_t;
+        typedef typename sub_range_base<Range>::type const rng_t;
         typedef joint_range<rng_t, rng_t> type;
     };
 
 
-    template< class Super, class ForwardRange, class MiddleFun >
-    Super make(ForwardRange& rng, MiddleFun fun)
+    template< class Super, class Range, class MiddleFun >
+    Super make(Range& rng, MiddleFun fun)
     {
         typedef typename range_base<Super>::type base_t;
-        typedef typename range_iterator<ForwardRange>::type iter_t;
+        typedef typename range_iterator<Range>::type iter_t;
         iter_t middle = fun(rng);
         return Super(base_t(middle, boost::end(rng)), base_t(boost::begin(rng), middle));
     }
@@ -50,22 +50,23 @@ namespace rotate_range_detail {
 
 
 
-template< class ForwardRange >
+template< class Range >
 struct rotate_range :
-    rotate_range_detail::super_<ForwardRange>::type,
-    private as_lightweight_proxy< rotate_range<ForwardRange> >
+    rotate_range_detail::super_<Range>::type,
+    private as_lightweight_proxy< rotate_range<Range> >
 {
-    typedef ForwardRange pstade_oven_range_base_type;
+    PSTADE_CONCEPT_ASSERT((Forward<Range>));
 
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeRangeConcept);
-    typedef typename rotate_range_detail::super_<ForwardRange>::type super_t;
+    typedef typename rotate_range_detail::super_<Range>::type super_t;
 
 public:
     template< class MiddleFun >
-    rotate_range(ForwardRange& rng, MiddleFun fun) :
+    rotate_range(Range& rng, MiddleFun fun) :
         super_t(rotate_range_detail::make<super_t>(rng, fun))
     { }
+
+    typedef Range pstade_oven_range_base_type;
 };
 
 
@@ -74,14 +75,14 @@ namespace rotate_range_detail {
 
     struct baby_make
     {
-        template< class Myself, class ForwardRange, class MiddleFun >
+        template< class Myself, class Range, class MiddleFun >
         struct apply
         {
-            typedef rotate_range<ForwardRange> const type;
+            typedef rotate_range<Range> const type;
         };
 
-        template< class Result, class ForwardRange, class MiddleFun >
-        Result call(ForwardRange& rng, MiddleFun& fun)
+        template< class Result, class Range, class MiddleFun >
+        Result call(Range& rng, MiddleFun& fun)
         {
             return Result(rng, fun);
         }

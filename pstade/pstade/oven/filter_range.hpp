@@ -26,7 +26,7 @@
 #include <pstade/egg/pipable.hpp>
 #include <pstade/pass_by.hpp>
 #include "./as_lightweight_proxy.hpp"
-#include "./detail/concept_check.hpp"
+#include "./concepts.hpp"
 #include "./range_iterator.hpp"
 
 
@@ -56,11 +56,11 @@ struct filter_range :
     filter_range_detail::super_<Range, Predicate>::type,
     private as_lightweight_proxy< filter_range<Range, Predicate> >
 {
-    typedef Range pstade_oven_range_base_type;
+    PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+    PSTADE_CONCEPT_ASSERT((Readable<Range>));
     typedef Predicate predicate_type;
 
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
     typedef typename filter_range_detail::super_<Range, Predicate>::type super_t;
     typedef typename super_t::iterator iter_t;
 
@@ -71,6 +71,8 @@ public:
             iter_t(pred, boost::end(rng),   boost::end(rng))
         )
     { }
+
+    typedef Range pstade_oven_range_base_type;
 };
 
 

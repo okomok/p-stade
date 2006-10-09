@@ -16,7 +16,7 @@
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
-#include "./detail/concept_check.hpp"
+#include "./concepts.hpp"
 #include "./range_iterator.hpp"
 
 
@@ -54,11 +54,10 @@ struct zip_range :
     zip_range_detail::super_<Range0, Range1>::type,
     private as_lightweight_proxy< zip_range<Range0, Range1> >
 {
-    typedef Range0 pstade_oven_range_base_type;
+    PSTADE_CONCEPT_ASSERT((SinglePass<Range0>));
+    PSTADE_CONCEPT_ASSERT((SinglePass<Range1>));
 
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(Range0, SinglePassRangeConcept);
-    PSTADE_OVEN_DETAIL_REQUIRES(Range1, SinglePassRangeConcept);
     typedef typename zip_range_detail::super_<Range0, Range1>::type super_t;
 
 public:
@@ -68,6 +67,8 @@ public:
             boost::tuples::make_tuple(boost::end(rng0), boost::end(rng1))
         )
     { }
+
+    typedef Range0 pstade_oven_range_base_type;
 };
 
 

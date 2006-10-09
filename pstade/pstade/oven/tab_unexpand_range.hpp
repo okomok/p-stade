@@ -16,7 +16,7 @@
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
-#include "./detail/concept_check.hpp"
+#include "./concepts.hpp"
 #include "./range_iterator.hpp"
 #include "./tab_unexpand_iterator.hpp"
 
@@ -27,12 +27,12 @@ namespace pstade { namespace oven {
 namespace tab_unexpand_range_detail {
 
 
-    template< class ForwardRange >
+    template< class Range >
     struct super_
     {
         typedef boost::iterator_range<
             tab_unexpand_iterator<
-                typename range_iterator<ForwardRange>::type
+                typename range_iterator<Range>::type
             >
         > type;
     };
@@ -41,25 +41,27 @@ namespace tab_unexpand_range_detail {
 } // namespace tab_expand_range_detail
 
 
-template< class ForwardRange >
+template< class Range >
 struct tab_unexpand_range :
-    tab_unexpand_range_detail::super_<ForwardRange>::type,
-    private as_lightweight_proxy< tab_unexpand_range<ForwardRange> >
+    tab_unexpand_range_detail::super_<Range>::type,
+    private as_lightweight_proxy< tab_unexpand_range<Range> >
 {
-    typedef ForwardRange pstade_oven_range_base_type;
+    PSTADE_CONCEPT_ASSERT((Forward<Range>));
+    PSTADE_CONCEPT_ASSERT((Readable<Range>));
 
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeConcept);
-    typedef typename tab_unexpand_range_detail::super_<ForwardRange>::type super_t;
+    typedef typename tab_unexpand_range_detail::super_<Range>::type super_t;
     typedef typename super_t::iterator iter_t;
 
 public:
-    tab_unexpand_range(ForwardRange& rng, int tabsize) :
+    tab_unexpand_range(Range& rng, int tabsize) :
         super_t(
             iter_t(boost::begin(rng), boost::end(rng), tabsize),
             iter_t(boost::end(rng), boost::end(rng), tabsize)
         )
     { }
+
+    typedef Range pstade_oven_range_base_type;
 };
 
 
@@ -68,14 +70,14 @@ namespace tab_unexpand_range_detail {
 
     struct baby_make
     {
-        template< class Myself, class ForwardRange, class TabSizeT >
+        template< class Myself, class Range, class TabSizeT >
         struct apply
         {
-            typedef tab_unexpand_range<ForwardRange> const type;
+            typedef tab_unexpand_range<Range> const type;
         };
 
-        template< class Result, class ForwardRange >
-        Result call(ForwardRange& rng, int tabsize)
+        template< class Result, class Range >
+        Result call(Range& rng, int tabsize)
         {
             return Result(rng, tabsize);
         }

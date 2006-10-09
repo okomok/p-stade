@@ -17,7 +17,7 @@
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
-#include "./detail/concept_check.hpp"
+#include "./concepts.hpp"
 #include "./range_iterator.hpp"
 #include "./range_value.hpp"
 
@@ -29,7 +29,7 @@ namespace match_range_detail {
 
 
     template<
-        class BidiRange,
+        class Range,
         class CharT,
         class Traits
     >
@@ -37,7 +37,7 @@ namespace match_range_detail {
     {
         typedef boost::iterator_range<
             boost::regex_iterator<
-                typename range_iterator<BidiRange>::type,
+                typename range_iterator<Range>::type,
                 CharT,
                 Traits
             >
@@ -53,27 +53,27 @@ namespace match_range_detail {
 
 
 template<
-    class BidiRange,
-    class CharT  = typename range_value<BidiRange>::type,
+    class Range,
+    class CharT  = typename range_value<Range>::type,
     class Traits = boost::regex_traits<CharT>
 >
 struct match_range :
-    match_range_detail::super_<BidiRange, CharT, Traits>::type,
-    private as_lightweight_proxy< match_range<BidiRange, CharT, Traits> >
+    match_range_detail::super_<Range, CharT, Traits>::type,
+    private as_lightweight_proxy< match_range<Range, CharT, Traits> >
 {
-    typedef BidiRange pstade_oven_range_base_type;
+    PSTADE_CONCEPT_ASSERT((Bidirectional<Range>));
+    PSTADE_CONCEPT_ASSERT((Readable<Range>));
     typedef CharT char_type;
     typedef Traits traits_type;
 
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(BidiRange, BidirectionalRangeConcept);
-    typedef typename match_range_detail::super_<BidiRange, CharT, Traits>::type super_t;
+    typedef typename match_range_detail::super_<Range, CharT, Traits>::type super_t;
     typedef typename super_t::iterator iter_t;
 
 public:
     template< class Regex >
     match_range(
-        BidiRange& rng, Regex const& re,
+        Range& rng, Regex const& re,
         match_range_detail::match_flag_type flag = match_range_detail::match_default
     ) :
         super_t(
@@ -81,6 +81,8 @@ public:
             iter_t()
         )
     { }
+
+    typedef Range pstade_oven_range_base_type;
 };
 
 
@@ -89,14 +91,14 @@ namespace match_range_detail {
 
     struct baby_make
     {
-        template< class Myself, class BidiRange, class Regex, class Flag = void >
+        template< class Myself, class Range, class Regex, class Flag = void >
         struct apply
         {
-            typedef match_range<BidiRange> const type;
+            typedef match_range<Range> const type;
         };
 
-        template< class Result, class BidiRange, class Regex >
-        Result call(BidiRange& rng, Regex const& re, match_flag_type flag = match_default)
+        template< class Result, class Range, class Regex >
+        Result call(Range& rng, Regex const& re, match_flag_type flag = match_default)
         {
             return Result(rng, re, flag);
         }

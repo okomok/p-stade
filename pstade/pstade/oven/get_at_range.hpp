@@ -19,7 +19,7 @@
 #include <pstade/egg/function.hpp>
 #include <pstade/nonassignable.hpp>
 #include "./as_lightweight_proxy.hpp"
-#include "./detail/concept_check.hpp"
+#include "./concepts.hpp"
 #include "./range_reference.hpp"
 #include "./transform_range.hpp"
 
@@ -85,10 +85,10 @@ struct get_at_range :
     get_at_range_detail::super_<FusionSeqRange, N>::type,
     private as_lightweight_proxy< get_at_range<FusionSeqRange, N> >
 {
+    PSTADE_CONCEPT_ASSERT((SinglePass<FusionSeqRange>));
     typedef N index_type;
 
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(FusionSeqRange, SinglePassRangeConcept);
     typedef typename get_at_range_detail::super_<FusionSeqRange, N>::type super_t;
     typedef typename super_t::function_type fun_t;
 

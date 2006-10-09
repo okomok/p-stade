@@ -26,7 +26,6 @@ struct always_range :
     private as_lightweight_proxy< always_range<Range> >
 {
     PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-    typedef Range pstade_oven_range_base_type;
 
 private:
     typedef typename sub_range_base<Range>::type super_t;
@@ -36,6 +35,8 @@ public:
     always_range(Unused const&, Range& rng) :
         super_t(rng)
     { }
+
+    typedef Range pstade_oven_range_base_type;
 };
 
 

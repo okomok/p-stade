@@ -19,7 +19,7 @@
 #include <pstade/egg/pipable.hpp>
 #include <pstade/functional.hpp> // not_, is_zero
 #include "./as_lightweight_proxy.hpp"
-#include "./detail/concept_check.hpp"
+#include "./concepts.hpp"
 #include "./range_iterator.hpp"
 #include "./take_while_range.hpp"
 
@@ -27,12 +27,12 @@
 namespace pstade { namespace oven {
 
 
-template< class ForwardRange >
-bool is_null_terminated(ForwardRange const& rng)
+template< class Range >
+PSTADE_CONCEPT_WHERE(
+    ((Forward<Range>))((Readable<Range const>)),
+(bool)) is_null_terminated(Range const& rng)
 {
-    detail::requires< boost::ForwardRangeConcept<ForwardRange> >();
-
-    typedef typename range_iterator_const<ForwardRange>::type iter_t;
+    typedef typename range_iterator_const<Range>::type iter_t;
 
     iter_t first = boost::begin(rng);
     iter_t last = boost::end(rng);
@@ -42,8 +42,8 @@ bool is_null_terminated(ForwardRange const& rng)
 }
 
 
-template< class ForwardRange > inline
-void null_terminate(ForwardRange& rng)
+template< class Range > inline
+void null_terminate(Range& rng)
 {
     BOOST_ASSERT(!boost::empty(rng));
     *boost::begin(rng) = 0;
@@ -53,10 +53,10 @@ void null_terminate(ForwardRange& rng)
 namespace null_terminate_range_detail {
 
 
-    template< class ForwardRange >
+    template< class Range >
     struct super_
     {
-        typedef take_while_range<ForwardRange> type;
+        typedef take_while_range<Range> type;
     };
 
 
@@ -64,17 +64,19 @@ namespace null_terminate_range_detail {
 
 
 
-template< class ForwardRange >
+template< class Range >
 struct null_terminate_range :
-    null_terminate_range_detail::super_<ForwardRange>::type,
-    private as_lightweight_proxy< null_terminate_range<ForwardRange> >
+    null_terminate_range_detail::super_<Range>::type,
+    private as_lightweight_proxy< null_terminate_range<Range> >
 {
+    PSTADE_CONCEPT_ASSERT((Forward<Range>));
+    PSTADE_CONCEPT_ASSERT((Readable<Range>));
+
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeRangeConcept);
-    typedef typename null_terminate_range_detail::super_<ForwardRange>::type super_t;
+    typedef typename null_terminate_range_detail::super_<Range>::type super_t;
 
 public:
-    explicit null_terminate_range(ForwardRange& rng) :
+    explicit null_terminate_range(Range& rng) :
         super_t(rng, pstade::not_(is_zero))
     {
         BOOST_ASSERT(oven::is_null_terminated(rng));
@@ -87,14 +89,14 @@ namespace null_terminate_range_detail {
 
     struct baby_make
     {
-        template< class Myself, class ForwardRange >
+        template< class Myself, class Range >
         struct apply
         {
-            typedef null_terminate_range<ForwardRange> const type;
+            typedef null_terminate_range<Range> const type;
         };
 
-        template< class Result, class ForwardRange >
-        Result call(ForwardRange& rng)
+        template< class Result, class Range >
+        Result call(Range& rng)
         {
             return Result(rng);
         }

@@ -9,6 +9,14 @@
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
+#include <boost/config.hpp>
+#include <boost/detail/workaround.hpp>
+
+#if BOOST_WORKAROUND(BOOST_MSVC, == 1310)
+    // VC++7.1 fatal error C1204
+    #define PSTADE_CONCEPT_OFF
+#endif
+
 
 #include <pstade/oven.hpp>
 
@@ -22,33 +30,17 @@
 #include <boost/lambda/lambda.hpp>
 #include <boost/foreach.hpp>
 #include <pstade/egg/function.hpp>
+#include <pstade/locale.hpp>
 
 
-struct baby_to_lower
-{
-    template< class Unused, class CharT >
-    struct apply : boost::remove_const<CharT>
-    { };
-
-    template< class Result, class CharT >
-    Result call(CharT ch)
-    {
-        return std::tolower(ch, std::locale());
-    }
-};
-
-
-PSTADE_EGG_FUNCTION(to_lower, baby_to_lower)
-
-
-using namespace pstade;
+namespace oven = pstade::oven;
 using namespace oven;
 
 
 void test_introduction()
 {
     {
-        using namespace boost;
+        namespace lambda = boost::lambda;
 
         std::vector<char> out;
 
@@ -58,7 +50,8 @@ void test_introduction()
                 | filtered(lambda::_1 != 'x')
                 | regularized
                 | reversed
-                | transformed(::to_lower)
+                | transformed(pstade::to_lower)
+                | regularized
                 | memoized
         ) {
             out.push_back(ch);

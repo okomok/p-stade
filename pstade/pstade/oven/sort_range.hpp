@@ -25,7 +25,7 @@
 #include <pstade/pass_by.hpp>
 #include "./algorithm.hpp" // sort
 #include "./as_lightweight_proxy.hpp"
-#include "./detail/concept_check.hpp"
+#include "./concepts.hpp"
 #include "./out_place_range.hpp"
 
 
@@ -54,13 +54,13 @@ namespace sort_range_detail {
 
 
     template<
-        class ForwardRange,
+        class Range,
         class Compare
     >
     struct super_
     {
         typedef out_place_range<
-            ForwardRange, sort_fun<Compare>
+            Range, sort_fun<Compare>
         > type;
     };
 
@@ -69,22 +69,23 @@ namespace sort_range_detail {
 
 
 template<
-    class ForwardRange,
+    class Range,
     class Compare = less_fun
 >
 struct sort_range :
-    sort_range_detail::super_<ForwardRange, Compare>::type,
-    private as_lightweight_proxy< sort_range<ForwardRange, Compare> >
+    sort_range_detail::super_<Range, Compare>::type,
+    private as_lightweight_proxy< sort_range<Range, Compare> >
 {
+    PSTADE_CONCEPT_ASSERT((Forward<Range>));
+    PSTADE_CONCEPT_ASSERT((Readable<Range>));
     typedef Compare compare_type;
 
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeConcept);
-    typedef typename sort_range_detail::super_<ForwardRange, Compare>::type super_t;
+    typedef typename sort_range_detail::super_<Range, Compare>::type super_t;
     typedef typename super_t::function_type fun_t;
 
 public:
-    explicit sort_range(ForwardRange& rng, Compare const& comp = pstade::less) :
+    explicit sort_range(Range& rng, Compare const& comp = pstade::less) :
         super_t(rng, fun_t(comp))
     { }
 };
@@ -95,21 +96,21 @@ namespace sort_range_detail {
 
     struct baby_make
     {
-        template< class Myself, class ForwardRange, class Compare = less_fun >
+        template< class Myself, class Range, class Compare = less_fun >
         struct apply
         {
             typedef typename pass_by_value<Compare>::type comp_t;
-            typedef sort_range<ForwardRange, comp_t> const type;
+            typedef sort_range<Range, comp_t> const type;
         };
 
-        template< class Result, class ForwardRange, class Compare >
-        Result call(ForwardRange& rng, Compare& comp)
+        template< class Result, class Range, class Compare >
+        Result call(Range& rng, Compare& comp)
         {
             return Result(rng, comp);
         }
 
-        template< class Result, class ForwardRange >
-        Result call(ForwardRange& rng)
+        template< class Result, class Range >
+        Result call(Range& rng)
         {
             return Result(rng);
         }

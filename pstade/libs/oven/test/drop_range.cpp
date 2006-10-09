@@ -10,19 +10,26 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/oven/tests.hpp>
 #include <pstade/oven/drop_range.hpp>
 
 
 #include <string>
+#include <vector>
 #include <boost/range.hpp>
 #include <pstade/oven/functions.hpp>
 
 
 void test()
 {
-    using namespace pstade;
+    namespace oven = pstade::oven;
     using namespace oven;
 
+    {
+        std::string rng("hello, drop_range!");
+        std::vector<char> expected = std::string("range!")|copied;
+        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(rng|dropped(7)|dropped(5), expected) );
+    }
     {
         std::string src("hello, drop_range!");
         std::string ans("range!");

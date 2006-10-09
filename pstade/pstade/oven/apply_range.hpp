@@ -33,7 +33,6 @@ struct apply_range :
     private as_lightweight_proxy< apply_range<Range> >
 {
     PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-    typedef Range pstade_oven_range_base_type;
 
 private:
     typedef typename sub_range_base<Range>::type super_t;
@@ -49,6 +48,8 @@ public:
     apply_range(Range& rng, RangeFun fun) :
         super_t(fun(rng))
     { }
+
+    typedef Range pstade_oven_range_base_type;
 };
 
 

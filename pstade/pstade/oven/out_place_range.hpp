@@ -29,7 +29,7 @@
 #include <pstade/unused.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./copy_range.hpp"
-#include "./detail/concept_check.hpp"
+#include "./concepts.hpp"
 #include "./direct_range.hpp"
 #include "./indirect_range.hpp"
 #include "./range_iterator.hpp"
@@ -42,28 +42,28 @@ namespace pstade { namespace oven {
 namespace out_place_range_detail {
 
 
-    template< class ForwardRange >
+    template< class Range >
     struct iter_sequence
     {   
-        typedef typename range_iterator<ForwardRange>::type iter_t;
+        typedef typename range_iterator<Range>::type iter_t;
         typedef std::vector<iter_t> type;
     };
 
 
-    template< class ForwardRange >
+    template< class Range >
     struct super_
     {
         typedef oven::indirect_range<
             oven::share_range<
-                typename iter_sequence<ForwardRange>::type
+                typename iter_sequence<Range>::type
             > const
         > type;
     };
 
 
-    template< class IterSeq, class ForwardRange, class UnaryFun >
+    template< class IterSeq, class Range, class UnaryFun >
     oven::share_range<IterSeq> const
-    make_share(ForwardRange& rng, UnaryFun fun)
+    make_share(Range& rng, UnaryFun fun)
     {
         // Note:
         // 'share_range' size never be affected by its holding sequence
@@ -84,24 +84,26 @@ namespace out_place_range_detail {
 
 
 template<
-    class ForwardRange,
+    class Range,
     class UnaryFun = unused_fun
 >
 struct out_place_range :
-    out_place_range_detail::super_<ForwardRange>::type,
-    private as_lightweight_proxy< out_place_range<ForwardRange, UnaryFun> >
+    out_place_range_detail::super_<Range>::type,
+    private as_lightweight_proxy< out_place_range<Range, UnaryFun> >
 {
+    PSTADE_CONCEPT_ASSERT((Forward<Range>));
     typedef UnaryFun function_type;
 
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeConcept);
-    typedef typename out_place_range_detail::super_<ForwardRange>::type super_t;
-    typedef typename out_place_range_detail::iter_sequence<ForwardRange>::type seq_t;
+    typedef typename out_place_range_detail::super_<Range>::type super_t;
+    typedef typename out_place_range_detail::iter_sequence<Range>::type seq_t;
 
 public:
-    explicit out_place_range(ForwardRange& rng, UnaryFun const& fun = unused) :
+    explicit out_place_range(Range& rng, UnaryFun const& fun = unused) :
         super_t(out_place_range_detail::make_share<seq_t>(rng, fun))
     { }
+
+    typedef Range pstade_oven_range_base_type;
 };
 
 
@@ -110,21 +112,21 @@ namespace out_place_range_detail {
 
     struct baby_make
     {
-        template< class Myself, class ForwardRange, class UnaryFun = unused_fun >
+        template< class Myself, class Range, class UnaryFun = unused_fun >
         struct apply
         {
             typedef typename pass_by_value<UnaryFun>::type fun_t;
-            typedef out_place_range<ForwardRange, fun_t> const type;
+            typedef out_place_range<Range, fun_t> const type;
         };
 
-        template< class Result, class ForwardRange, class UnaryFun >
-        Result call(ForwardRange& rng, UnaryFun& fun)
+        template< class Result, class Range, class UnaryFun >
+        Result call(Range& rng, UnaryFun& fun)
         {
             return Result(rng, fun);
         }
 
-        template< class Result, class ForwardRange >
-        Result call(ForwardRange& rng)
+        template< class Result, class Range >
+        Result call(Range& rng)
         {
             return Result(rng);
         }

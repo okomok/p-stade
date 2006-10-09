@@ -15,7 +15,7 @@
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
-#include "./detail/concept_check.hpp"
+#include "./concepts.hpp"
 #include "./detail/debug_in_distance.hpp"
 #include "./sub_range_base.hpp"
 
@@ -28,10 +28,9 @@ struct drop_range :
     sub_range_base<Range>::type,
     private as_lightweight_proxy< drop_range<Range> >
 {
-    typedef Range pstade_oven_range_base_type;
+    PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
 
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
     typedef typename sub_range_base<Range>::type super_t;
 
 public:
@@ -41,6 +40,8 @@ public:
     {
         BOOST_ASSERT(detail::debug_in_distance(d, rng));
     }
+
+    typedef Range pstade_oven_range_base_type;
 };
 
 

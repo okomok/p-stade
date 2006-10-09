@@ -50,7 +50,6 @@ struct adjacent_filter_range :
 {
     PSTADE_CONCEPT_ASSERT((Forward<Range>));
     PSTADE_CONCEPT_ASSERT((Readable<Range>));
-    typedef Range pstade_oven_range_base_type;
     typedef BinaryPred predicate_type;
 
 private:
@@ -64,6 +63,8 @@ public:
             iter_t(boost::end(rng),   pred, boost::begin(rng), boost::end(rng))
         )
     { }
+
+    typedef Range pstade_oven_range_base_type;
 };
 
 

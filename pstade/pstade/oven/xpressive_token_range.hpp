@@ -17,7 +17,7 @@
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
-#include "./detail/concept_check.hpp"
+#include "./concepts.hpp"
 #include "./range_iterator.hpp"
 
 
@@ -27,13 +27,13 @@ namespace pstade { namespace oven {
 namespace xpressive_token_range_detail {
 
 
-    template< class BidiRange >
+    template< class Range >
     struct super_
     {
         typedef boost::iterator_range<
             boost::xpressive::regex_token_iterator<
                 // Xpressive seems not to support a mutable iterator.
-                typename range_iterator_const<BidiRange>::type
+                typename range_iterator_const<Range>::type
             >
         > type;
     };
@@ -46,22 +46,22 @@ namespace xpressive_token_range_detail {
 } // namespace xpressive_token_range_detail
 
 
-template< class BidiRange >
+template< class Range >
 struct xpressive_token_range :
-    xpressive_token_range_detail::super_<BidiRange>::type,
-    private as_lightweight_proxy< xpressive_token_range<BidiRange> >
+    xpressive_token_range_detail::super_<Range>::type,
+    private as_lightweight_proxy< xpressive_token_range<Range> >
 {
-    typedef BidiRange pstade_oven_range_base_type;
+    PSTADE_CONCEPT_ASSERT((Bidirectional<Range>));
+    PSTADE_CONCEPT_ASSERT((Readable<Range>));
 
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(BidiRange, BidirectionalRangeConcept);
-    typedef typename xpressive_token_range_detail::super_<BidiRange>::type super_t;
+    typedef typename xpressive_token_range_detail::super_<Range>::type super_t;
     typedef typename super_t::iterator iter_t;
 
 public:
     template< class Regex >
     xpressive_token_range(
-        BidiRange& rng, Regex const& re
+        Range& rng, Regex const& re
     ) :
         super_t(
             iter_t(boost::begin(rng), boost::end(rng), re),
@@ -71,7 +71,7 @@ public:
 
     template< class Regex, class SubMatches >
     xpressive_token_range(
-        BidiRange& rng, Regex const& re,
+        Range& rng, Regex const& re,
         SubMatches const& submatches,
         xpressive_token_range_detail::match_flag_type flag = xpressive_token_range_detail::match_default
     ) :
@@ -80,6 +80,8 @@ public:
             iter_t()
         )
     { }
+
+    typedef Range pstade_oven_range_base_type;
 };
 
 
@@ -88,20 +90,20 @@ namespace xpressive_token_range_detail {
 
     struct baby_make
     {
-        template< class Myself, class BidiRange, class Regex, class SubMatches = void, class Flag = void >
+        template< class Myself, class Range, class Regex, class SubMatches = void, class Flag = void >
         struct apply
         {
-            typedef xpressive_token_range<BidiRange> const type;
+            typedef xpressive_token_range<Range> const type;
         };
 
-        template< class Result, class BidiRange, class Regex >
-        Result call(BidiRange& rng, Regex const& re)
+        template< class Result, class Range, class Regex >
+        Result call(Range& rng, Regex const& re)
         {
             return Result(rng, re);
         }
 
-        template< class Result, class BidiRange, class Regex, class SubMatches >
-        Result call(BidiRange& rng, Regex const& re, SubMatches const& submatches, match_flag_type flag = match_default)
+        template< class Result, class Range, class Regex, class SubMatches >
+        Result call(Range& rng, Regex const& re, SubMatches const& submatches, match_flag_type flag = match_default)
         {
             return Result(rng, re, submatches, flag);
         }

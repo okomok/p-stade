@@ -18,7 +18,7 @@
 #include <pstade/nullptr.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./check_range.hpp"
-#include "./detail/concept_check.hpp"
+#include "./concepts.hpp"
 #include "./multi_pass_range.hpp"
 
 
@@ -133,16 +133,17 @@ struct memoize_range :
     memoize_range_detail::super_<Range>::type,
     private as_lightweight_proxy< memoize_range<Range> >
 {
-    typedef Range pstade_oven_range_base_type;
+    PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
 
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
     typedef typename memoize_range_detail::super_<Range>::type super_t;
 
 public:
     explicit memoize_range(Range& rng) :
         super_t(check_range<Range>(rng))
     { }
+
+    typedef Range pstade_oven_range_base_type;
 };
 
 

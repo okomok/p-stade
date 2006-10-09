@@ -21,7 +21,7 @@
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
-#include "./detail/concept_check.hpp"
+#include "./concepts.hpp"
 #include "./extension.hpp"
 #include "./range_iterator.hpp"
 #include "./range_value.hpp"
@@ -34,7 +34,7 @@ namespace token_range_detail {
 
 
     template<
-        class BidiRange,
+        class Range,
         class CharT,
         class Traits
     >
@@ -42,7 +42,7 @@ namespace token_range_detail {
     {
         typedef boost::iterator_range<
             boost::regex_token_iterator<
-                typename range_iterator<BidiRange>::type,
+                typename range_iterator<Range>::type,
                 CharT,
                 Traits
             >
@@ -58,27 +58,27 @@ namespace token_range_detail {
 
 
 template<
-    class BidiRange,
-    class CharT  = typename range_value<BidiRange>::type,
+    class Range,
+    class CharT  = typename range_value<Range>::type,
     class Traits = boost::regex_traits<CharT>
 >
 struct token_range :
-    token_range_detail::super_<BidiRange, CharT, Traits>::type,
-    private as_lightweight_proxy< token_range<BidiRange, CharT, Traits> >
+    token_range_detail::super_<Range, CharT, Traits>::type,
+    private as_lightweight_proxy< token_range<Range, CharT, Traits> >
 {
-    typedef BidiRange pstade_oven_range_base_type;
+    PSTADE_CONCEPT_ASSERT((Bidirectional<Range>));
+    PSTADE_CONCEPT_ASSERT((Readable<Range>));
     typedef CharT char_type;
     typedef Traits traits_type;
 
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(BidiRange, BidirectionalRangeConcept);
-    typedef typename token_range_detail::super_<BidiRange, CharT, Traits>::type super_t;
+    typedef typename token_range_detail::super_<Range, CharT, Traits>::type super_t;
     typedef typename super_t::iterator iter_t;
 
 public:
     template< class Regex >
     token_range(
-        BidiRange& rng, Regex const& re,
+        Range& rng, Regex const& re,
         int submatch = 0,
         token_range_detail::match_flag_type flag = token_range_detail::match_default
     ) :
@@ -90,7 +90,7 @@ public:
 
     template< class Regex, class RandRange >
     token_range(
-        BidiRange& rng, Regex const& re,
+        Range& rng, Regex const& re,
         RandRange const& submatches,
         token_range_detail::match_flag_type flag = token_range_detail::match_default
     ) :
@@ -99,6 +99,8 @@ public:
             iter_t()
         )
     { }
+
+    typedef Range pstade_oven_range_base_type;
 };
 
 
@@ -107,21 +109,21 @@ namespace token_range_detail {
 
     struct baby_make
     {
-        template< class Myself, class BidiRange, class Regex, class IntOrRndRange = void, class Flag = void >
+        template< class Myself, class Range, class Regex, class IntOrRndRange = void, class Flag = void >
         struct apply
         {
-            typedef token_range<BidiRange> const type;
+            typedef token_range<Range> const type;
         };
 
-        template< class Result, class BidiRange, class Regex >
-        Result call(BidiRange& rng, Regex const& re, int submatch = 0, match_flag_type flag = match_default)
+        template< class Result, class Range, class Regex >
+        Result call(Range& rng, Regex const& re, int submatch = 0, match_flag_type flag = match_default)
         {
             return Result(rng, re, submatch, flag);
         }
 
-        template< class Result, class BidiRange, class Regex, class RandRange >
+        template< class Result, class Range, class Regex, class RandRange >
         typename boost::disable_if<boost::is_same<RandRange, int>, // for GCC
-        Result>::type call(BidiRange& rng, Regex const& re, RandRange const& submatches, match_flag_type flag = match_default)
+        Result>::type call(Range& rng, Regex const& re, RandRange const& submatches, match_flag_type flag = match_default)
         {
             return Result(rng, re, submatches, flag);
         }

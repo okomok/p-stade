@@ -47,10 +47,8 @@ struct check_range :
     private as_lightweight_proxy< check_range<Range> >
 {
     PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-    typedef Range pstade_oven_range_base_type;
 
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
     typedef typename check_range_detail::super_<Range>::type super_t;
     typedef typename super_t::iterator iter_t;
 
@@ -61,6 +59,8 @@ public:
             iter_t(boost::end(rng),   boost::begin(rng), boost::end(rng))
         )
     { }
+
+    typedef Range pstade_oven_range_base_type;
 };
 
 

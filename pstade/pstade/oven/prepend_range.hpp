@@ -15,7 +15,7 @@
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
-#include "./detail/concept_check.hpp"
+#include "./concepts.hpp"
 #include "./joint_range.hpp"
 #include "./single_range.hpp"
 
@@ -49,10 +49,9 @@ struct prepend_range :
     prepend_range_detail::super_<Range, Value>::type,
     private as_lightweight_proxy< prepend_range<Range, Value> >
 {
-    typedef Range pstade_oven_range_base_type;
+    PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
 
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
     typedef typename prepend_range_detail::init<Value>::type init_t;
     typedef typename prepend_range_detail::super_<Range, Value>::type super_t;
 
@@ -61,6 +60,8 @@ public:
         init_t(boost::ref(v)),
         super_t(init_t::member, rng)
     { }
+
+    typedef Range pstade_oven_range_base_type;
 };
 
 

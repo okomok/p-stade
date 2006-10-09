@@ -16,7 +16,7 @@
 #include <pstade/egg/pipable.hpp>
 #include <pstade/pass_by.hpp>
 #include "./as_lightweight_proxy.hpp"
-#include "./detail/concept_check.hpp"
+#include "./concepts.hpp"
 #include "./range_base.hpp"
 #include "./range_reference.hpp"
 #include "./transform_range.hpp"
@@ -86,12 +86,11 @@ struct zip_with_range :
     zip_with_range_detail::super_<Range0, Range1, BinaryFun, Reference, Value>::type,
     private as_lightweight_proxy< zip_with_range<Range0, Range1, BinaryFun, Reference, Value> >
 {
-    typedef Range0 pstade_oven_range_base_type;
+    PSTADE_CONCEPT_ASSERT((SinglePass<Range0>));
+    PSTADE_CONCEPT_ASSERT((SinglePass<Range1>));
     typedef BinaryFun function_type;
 
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(Range0, SinglePassRangeConcept);
-    PSTADE_OVEN_DETAIL_REQUIRES(Range1, SinglePassRangeConcept);
     typedef typename zip_with_range_detail::super_<Range0, Range1, BinaryFun, Reference, Value>::type super_t;
     typedef typename range_base<super_t>::type base_t;
     typedef typename super_t::function_type fun_t;
@@ -100,6 +99,8 @@ public:
     zip_with_range(Range0& rng0, Range1& rng1, BinaryFun const& fun) :
         super_t(base_t(rng0, rng1), fun_t(fun))
     { }
+
+    typedef Range0 pstade_oven_range_base_type;
 };
 
 

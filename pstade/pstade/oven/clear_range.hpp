@@ -27,16 +27,16 @@ struct clear_range :
     private as_lightweight_proxy< clear_range<Range> >
 {
     PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-    typedef Range pstade_oven_range_base_type;
 
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
     typedef typename sub_range_base<Range>::type super_t;
 
 public:
     explicit clear_range(Range& rng) :
         super_t(boost::end(rng), boost::end(rng))
     { }
+
+    typedef Range pstade_oven_range_base_type;
 };
 
 

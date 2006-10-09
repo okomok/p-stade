@@ -24,13 +24,15 @@
 // If 'T' is a dependent-name, add 'typename'.
 
 
+#include <pstade/void.hpp>
+
+
 #define PSTADE_UNPARENTHESIZE(Decayed) \
     pstade::unparenthesize_detail::aux<void(Decayed)>::type \
 /**/
 
 
 namespace pstade { namespace unparenthesize_detail {
-
 
     template< class Decayed >
     struct aux;
@@ -41,6 +43,11 @@ namespace pstade { namespace unparenthesize_detail {
         typedef Decayed type;
     };
 
+    template< >
+    struct aux<void(void_)>
+    {
+        typedef void type;
+    };
 
 } } // namespace pstade::unparenthesize_detail
 

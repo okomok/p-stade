@@ -14,7 +14,7 @@
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
-#include "./detail/concept_check.hpp"
+#include "./concepts.hpp"
 #include "./range_iterator.hpp"
 #include "./regularize_iterator.hpp"
 
@@ -44,16 +44,18 @@ struct regularize_range :
     regularize_range_detail::super_<Range>::type,
     private as_lightweight_proxy< regularize_range<Range> >
 {
-    typedef Range pstade_oven_range_base_type;
+    // iterator can be neither Assignable nor DefaultConstructible.
+    // PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
 
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
     typedef typename regularize_range_detail::super_<Range>::type super_t;
 
 public:
     explicit regularize_range(Range& rng) :
         super_t(rng)
     { }
+
+    typedef Range pstade_oven_range_base_type;
 };
 
 

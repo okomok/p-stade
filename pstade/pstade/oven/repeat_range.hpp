@@ -16,7 +16,7 @@
 #include <pstade/egg/pipable.hpp>
 #include <pstade/pass_by.hpp>
 #include "./as_lightweight_proxy.hpp"
-#include "./detail/concept_check.hpp"
+#include "./concepts.hpp"
 #include "./range_iterator.hpp"
 #include "./repeat_iterator.hpp"
 #include "./sub_range_result.hpp"
@@ -29,14 +29,14 @@ namespace repeat_range_detail {
 
 
     template<
-        class ForwardRange,
+        class Range,
         class Size
     >
     struct super_
     {
         typedef boost::iterator_range<
             repeat_iterator<
-                typename range_iterator<ForwardRange>::type,
+                typename range_iterator<Range>::type,
                 Size
             >
         > type;
@@ -47,32 +47,33 @@ namespace repeat_range_detail {
 
 
 template<
-    class ForwardRange,
+    class Range,
     class Size = std::size_t
 >
 struct repeat_range :
-    repeat_range_detail::super_<ForwardRange, Size>::type,
-    private as_lightweight_proxy< repeat_range<ForwardRange, Size> >
+    repeat_range_detail::super_<Range, Size>::type,
+    private as_lightweight_proxy< repeat_range<Range, Size> >
 {
-    typedef ForwardRange pstade_oven_range_base_type;
+    PSTADE_CONCEPT_ASSERT((Forward<Range>));
 
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeConcept);
-    typedef typename repeat_range_detail::super_<ForwardRange, Size>::type super_t;
+    typedef typename repeat_range_detail::super_<Range, Size>::type super_t;
     typedef typename super_t::iterator iter_t;
 
 public:
-    repeat_range(ForwardRange& rng, Size sz) :
+    repeat_range(Range& rng, Size sz) :
         super_t(
             iter_t(boost::begin(rng), 0,  boost::begin(rng), boost::end(rng)),
             iter_t(boost::begin(rng), sz, boost::begin(rng), boost::end(rng))
         )
     { }
 
-    typename sub_range_result<ForwardRange>::type source() const
+    typename sub_range_result<Range>::type source() const
     {
         return boost::make_iterator_range(this->begin().sbegin(), this->begin().send());
     }
+
+    typedef Range pstade_oven_range_base_type;
 };
 
 
@@ -81,15 +82,15 @@ namespace repeat_range_detail {
 
     struct baby_make
     {
-        template< class Myself, class ForwardRange, class Size >
+        template< class Myself, class Range, class Size >
         struct apply
         {
             typedef typename pass_by_value<Size>::type sz_t;
-            typedef repeat_range<ForwardRange, sz_t> const type;
+            typedef repeat_range<Range, sz_t> const type;
         };
 
-        template< class Result, class ForwardRange, class Size >
-        Result call(ForwardRange& rng, Size sz)
+        template< class Result, class Range, class Size >
+        Result call(Range& rng, Size sz)
         {
             return Result(rng, sz);
         }

@@ -16,29 +16,30 @@
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
-#include "./detail/concept_check.hpp"
+#include "./concepts.hpp"
 #include "./sub_range_base.hpp"
 
 
 namespace pstade { namespace oven {
 
 
-template< class ForwardRange >
+template< class Range >
 struct shift_range :
-    sub_range_base<ForwardRange>::type,
-    private as_lightweight_proxy< shift_range<ForwardRange> >
+    sub_range_base<Range>::type,
+    private as_lightweight_proxy< shift_range<Range> >
 {
-    typedef ForwardRange pstade_oven_range_base_type;
+    PSTADE_CONCEPT_ASSERT((Forward<Range>));
 
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeConcept);
-    typedef typename sub_range_base<ForwardRange>::type super_t;
+    typedef typename sub_range_base<Range>::type super_t;
 
 public:
     template< class Difference >
-    shift_range(ForwardRange& rng, Difference d) :
+    shift_range(Range& rng, Difference d) :
         super_t(boost::next(boost::begin(rng), d), boost::next(boost::end(rng), d))
     { }
+
+    typedef Range pstade_oven_range_base_type;
 };
 
 
@@ -47,14 +48,14 @@ namespace shift_range_detail {
 
     struct baby_make
     {
-        template< class Myself, class ForwardRange, class Difference >
+        template< class Myself, class Range, class Difference >
         struct apply
         {
-            typedef shift_range<ForwardRange> const type;
+            typedef shift_range<Range> const type;
         };
 
-        template< class Result, class ForwardRange, class Difference >
-        Result call(ForwardRange& rng, Difference d)
+        template< class Result, class Range, class Difference >
+        Result call(Range& rng, Difference d)
         {
             return Result(rng, d);
         }

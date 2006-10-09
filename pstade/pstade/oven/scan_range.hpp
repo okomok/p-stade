@@ -18,7 +18,7 @@
 #include <pstade/functional.hpp> // plus
 #include <pstade/pass_by.hpp>
 #include "./as_lightweight_proxy.hpp"
-#include "./detail/concept_check.hpp"
+#include "./concepts.hpp"
 #include "./range_iterator.hpp"
 #include "./scan_iterator.hpp"
 
@@ -58,12 +58,12 @@ struct scan_range :
     scan_range_detail::super_<Range, State, BinaryFun>::type,
     private as_lightweight_proxy< scan_range<Range, State, BinaryFun> >
 {
-    typedef Range pstade_oven_range_base_type;
+    PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+    PSTADE_CONCEPT_ASSERT((Readable<Range>));
     typedef State state_type;
     typedef BinaryFun function_type;
 
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
     typedef typename scan_range_detail::super_<Range, State, BinaryFun>::type super_t;
     typedef typename super_t::iterator iter_t;
 
@@ -74,6 +74,8 @@ public:
             iter_t(boost::end(rng),   init, fun)
         )
     { }
+
+    typedef Range pstade_oven_range_base_type;
 };
 
 

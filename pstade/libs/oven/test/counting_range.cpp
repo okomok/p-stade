@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/oven/tests.hpp>
 #include <pstade/oven/counting_range.hpp>
 
 
@@ -23,8 +24,15 @@
 
 void test()
 {
-    using namespace pstade;
+    namespace oven = pstade::oven;
     using namespace oven;
+    
+    {
+        int ans[] = { 2, 3, 4, 5, 6 };
+        std::vector<int> expected = ans|copied;
+
+        BOOST_CHECK( oven::test_RandomAccess_Readable(oven::make_counting_range(2, 7), expected) );
+    }
 
     {
         int ans[] = { 2, 3, 4, 5, 6 };
@@ -66,7 +74,7 @@ void test()
         vec.clear();
     }
 
-#if 0
+#if 0 // no longer throw.
     {
         try {
             oven::make_counting_range(100, 2);

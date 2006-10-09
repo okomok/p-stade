@@ -34,19 +34,17 @@ void test()
     namespace oven = pstade::oven;
     using namespace oven;
 
+    std::string rng("hello, apply_range");
+    std::vector<char> expected = rng|copied;
     {
-        std::string src("hello, apply_range");
-        std::vector<char> expected = src|copied;
         BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
-            src|applied(begin, end),
+            rng|applied(begin, end),
             expected
         ) );
     }
     {
-        std::string src("hello, apply_range");
-        std::vector<char> expected = src|copied;
         BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
-            src|applied(pstade::identity),
+            rng|applied(pstade::identity),
             expected
         ) );
     }

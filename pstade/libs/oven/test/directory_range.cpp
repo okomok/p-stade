@@ -19,9 +19,8 @@
 
 void test()
 {
-    using namespace boost;
-    namespace fs = filesystem;
-    using namespace pstade;
+    namespace fs = boost::filesystem;
+    namespace oven = pstade::oven;
     using namespace oven;
 
     {

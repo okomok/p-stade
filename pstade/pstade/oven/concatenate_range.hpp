@@ -49,7 +49,6 @@ struct concatenate_range :
 {
     PSTADE_CONCEPT_ASSERT((SinglePass<TopRange>));
     PSTADE_CONCEPT_ASSERT((SinglePass<typename range_value<TopRange>::type>));
-    typedef TopRange pstade_oven_range_base_type;
 
 private:
     typedef typename concatenate_range_detail::super_<TopRange>::type super_t;
@@ -62,6 +61,8 @@ public:
             iter_t(boost::end(rngs),   boost::end(rngs))
         )
     { }
+
+    typedef TopRange pstade_oven_range_base_type;
 };
 
 

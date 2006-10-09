@@ -10,11 +10,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/oven/tests.hpp>
 #include <pstade/oven/filter_range.hpp>
 
 
-#include <iterator>
-#include <string>
 #include <vector>
 #include <boost/foreach.hpp>
 #include <boost/range.hpp>
@@ -23,40 +22,41 @@
 
 struct is_positive
 {
-    bool operator()(int x) const { return 0 < x; }
+    bool operator()(int x) const
+    { return 0 < x; }
 };
 
 
 struct is_even
 {
-    bool operator()(int x) const { return (x % 2) == 0; }
+    bool operator()(int x) const
+    { return (x % 2) == 0; }
 };
 
 
 void test()
 {
-    using namespace pstade;
+    namespace oven = pstade::oven;
     using namespace oven;
 
-    int src[] = { 0, -1, 4, -3, 5, 8, -2 };
-    int ans1[] = { 4, 5, 8 };
-    int ans2[] = { 4, 8 };
-
+    int rng[] = { 0, -1, 4, -3, 5, 8, -2, 10 };
     {
-        BOOST_CHECK((
-            oven::equal( oven::make_filter_range(src, is_positive()), ans1)
-        ));
+        int ans[] = { 4, 5, 8, 10 };
+        std::vector<int> expected = ans|copied;
+        BOOST_CHECK( oven::test_Bidirectional_Readable_Writable(
+            oven::make_filter_range(rng, ::is_positive()),
+            expected
+        ) );
     }
-
     {
-        BOOST_CHECK((
-            oven::equal(
-                src |
-                    oven::filtered(is_positive()) |
-                    oven::filtered(is_even()),
-                ans2
-            )
-        ));
+        int ans[] = { 4, 8, 10 };
+        std::vector<int> expected = ans|copied;
+        BOOST_CHECK( oven::test_Bidirectional_Readable_Writable(
+                rng |
+                    oven::filtered(::is_positive()) |
+                    oven::filtered(::is_even()),
+                expected
+        ) );
     }
 }
 

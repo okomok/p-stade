@@ -17,7 +17,7 @@
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
-#include "./detail/concept_check.hpp"
+#include "./concepts.hpp"
 #include "./distance.hpp"
 #include "./sub_range_base.hpp"
 
@@ -25,25 +25,26 @@
 namespace pstade { namespace oven {
 
 
-template< class BidiRange >
+template< class Range >
 struct pop_range :
-    sub_range_base<BidiRange>::type,
-    private as_lightweight_proxy< pop_range<BidiRange> >
+    sub_range_base<Range>::type,
+    private as_lightweight_proxy< pop_range<Range> >
 {
-    typedef BidiRange pstade_oven_range_base_type;
+    PSTADE_CONCEPT_ASSERT((Bidirectional<Range>));
 
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(BidiRange, SinglePassRangeConcept);
-    typedef typename sub_range_base<BidiRange>::type super_t;
+    typedef typename sub_range_base<Range>::type super_t;
 
 public:
     template< class Difference >
-    pop_range(BidiRange& rng, Difference front, Difference back) :
+    pop_range(Range& rng, Difference front, Difference back) :
         super_t(boost::next(boost::begin(rng), front), boost::prior(boost::end(rng), back))
     {
         BOOST_ASSERT(0 <= front && 0 <= back);
         BOOST_ASSERT(front + back <= oven::distance(rng));
     }
+
+    typedef Range pstade_oven_range_base_type;
 };
 
 
@@ -52,14 +53,14 @@ namespace pop_range_detail {
 
     struct baby_make
     {
-        template< class Myself, class BidiRange, class DifferenceF, class DifferenceB >
+        template< class Myself, class Range, class DifferenceF, class DifferenceB >
         struct apply
         {
-            typedef pop_range<BidiRange> const type;
+            typedef pop_range<Range> const type;
         };
 
-        template< class Result, class BidiRange, class DifferenceF, class DifferenceB >
-        Result call(BidiRange& rng, DifferenceF front, DifferenceB back)
+        template< class Result, class Range, class DifferenceF, class DifferenceB >
+        Result call(Range& rng, DifferenceF front, DifferenceB back)
         {
             return Result(rng, front, back);
         }

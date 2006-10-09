@@ -20,7 +20,7 @@
 #include <pstade/egg/pipable.hpp>
 #include <pstade/nullptr.hpp>
 #include "./as_lightweight_proxy.hpp"
-#include "./detail/concept_check.hpp"
+#include "./concepts.hpp"
 #include "./distance.hpp"
 #include "./range_pointer.hpp"
 
@@ -64,16 +64,17 @@ struct point_range :
     point_range_detail::super_<ContiguousRange>::type,
     private as_lightweight_proxy< point_range<ContiguousRange> >
 {
-    typedef ContiguousRange pstade_oven_range_base_type;
+    PSTADE_CONCEPT_ASSERT((RandomAccess<ContiguousRange>));
 
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(ContiguousRange, RandomAccessRangeConcept);
     typedef typename point_range_detail::super_<ContiguousRange>::type super_t;
 
 public:
     explicit point_range(ContiguousRange& vec) :
         super_t(point_range_detail::make<super_t>(vec))
     { }
+
+    typedef ContiguousRange pstade_oven_range_base_type;
 };
 
 

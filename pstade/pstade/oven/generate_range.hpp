@@ -27,7 +27,7 @@
 #include <pstade/egg/pipable.hpp>
 #include <pstade/pass_by.hpp>
 #include "./as_lightweight_proxy.hpp"
-#include "./detail/concept_check.hpp"
+#include "./concepts.hpp"
 #include "./identity_range.hpp"
 #include "./range_base.hpp"
 #include "./transform_range.hpp"
@@ -110,10 +110,10 @@ struct generate_range :
     generate_range_detail::super_<Range, Generator, Reference, Value>::type,
     private as_lightweight_proxy< generate_range<Range, Generator, Reference, Value> >
 {
+    PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
     typedef Generator generator_type;
 
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
     typedef typename generate_range_detail::super_<Range, Generator, Reference, Value>::type super_t;
     typedef typename range_base<super_t>::type base_t;
     typedef typename super_t::function_type fun_t;

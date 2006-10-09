@@ -25,7 +25,7 @@
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
-#include "./detail/concept_check.hpp"
+#include "./concepts.hpp"
 #include "./range_iterator.hpp"
 
 
@@ -74,10 +74,9 @@ struct indirect_range :
         Range, Value, CategoryOrTraversal, Reference, Difference
     > >
 {
-    typedef Range pstade_oven_range_base_type;
+    PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
 
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
     typedef typename indirect_range_detail::super_<
         Range, Value, CategoryOrTraversal, Reference, Difference
     >::type super_t;
@@ -86,6 +85,8 @@ public:
     explicit indirect_range(Range& rng) :
         super_t(rng)
     { }
+
+    typedef Range pstade_oven_range_base_type;
 };
 
 

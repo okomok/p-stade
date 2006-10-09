@@ -17,7 +17,7 @@
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
-#include "./detail/concept_check.hpp"
+#include "./concepts.hpp"
 #include "./range_iterator.hpp"
 
 
@@ -47,12 +47,12 @@ struct permute_range :
     permute_range_detail::super_<ElementRange, IndexRange>::type,
     private as_lightweight_proxy< permute_range<ElementRange, IndexRange> >
 {
-    typedef ElementRange pstade_oven_range_base_type;
+    PSTADE_CONCEPT_ASSERT((RandomAccess<ElementRange>));
+    PSTADE_CONCEPT_ASSERT((SinglePass<IndexRange>));
+    PSTADE_CONCEPT_ASSERT((Readable<IndexRange>));
     typedef IndexRange index_range_type;
 
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(ElementRange, RandomAccessRangeConcept);
-    PSTADE_OVEN_DETAIL_REQUIRES(IndexRange, SinglePassRangeConcept);
     typedef typename permute_range_detail::super_<ElementRange, IndexRange>::type super_t;
     typedef typename super_t::iterator iter_t;
 
@@ -63,6 +63,8 @@ public:
             iter_t(boost::end(erng), boost::end(irng))
         )
     { }
+
+    typedef ElementRange pstade_oven_range_base_type;
 };
 
 

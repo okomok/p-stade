@@ -15,7 +15,7 @@
 #include <pstade/egg/pipable.hpp>
 #include <pstade/pass_by.hpp>
 #include "./as_lightweight_proxy.hpp"
-#include "./detail/concept_check.hpp"
+#include "./concepts.hpp"
 #include "./identity_iterator.hpp"
 #include "./range_iterator.hpp"
 
@@ -52,16 +52,17 @@ struct identity_range :
     identity_range_detail::super_<Range, Traversal>::type,
     private as_lightweight_proxy< identity_range<Range, Traversal> >
 {
-    typedef Range pstade_oven_range_base_type;
+    PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
 
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
     typedef typename identity_range_detail::super_<Range, Traversal>::type super_t;
 
 public:
     explicit identity_range(Range& rng) :
         super_t(rng)
     { }
+
+    typedef Range pstade_oven_range_base_type;
 };
 
 

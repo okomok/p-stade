@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/oven/tests.hpp>
 #include <pstade/oven/identity_range.hpp>
 
 
@@ -20,9 +21,14 @@
 
 void test()
 {
-    using namespace pstade;
+    namespace oven = pstade::oven;
     using namespace oven;
 
+    {
+        std::string rng("hello, identity_range");
+        std::vector<char> expected = rng|copied;
+        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(rng|identities, expected) );
+    }
     {
         std::string str("hello, identity_range");
         BOOST_CHECK(oven::equals(str, str|identities|identities));

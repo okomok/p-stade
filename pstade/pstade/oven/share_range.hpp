@@ -19,7 +19,7 @@
 #include <boost/shared_ptr.hpp>
 #include <pstade/instance.hpp>
 #include "./as_lightweight_proxy.hpp"
-#include "./detail/concept_check.hpp"
+#include "./concepts.hpp"
 #include "./share_iterator.hpp"
 
 
@@ -57,10 +57,9 @@ struct share_range :
     share_range_detail::super_<Range>::type,
     private as_lightweight_proxy< share_range<Range> >
 {
-    typedef Range pstade_oven_range_base_type;
+    PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
 
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
     typedef typename share_range_detail::super_<Range>::type super_t;
 
 public:
@@ -76,6 +75,8 @@ public:
     {
         return boost::begin(*this).range();
     }
+
+    typedef Range pstade_oven_range_base_type;
 };
 
 

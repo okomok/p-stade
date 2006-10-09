@@ -11,19 +11,14 @@
 
 
 #include <algorithm>
-#include <iostream>
 #include <boost/assert.hpp>
 #include <boost/concept_check.hpp>
-#include <boost/foreach.hpp>
-#include <boost/noncopyable.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/empty.hpp>
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <boost/iterator/new_iterator_tests.hpp>
-#include <boost/iterator/reverse_iterator.hpp>
 #include <boost/next_prior.hpp>
-#include <pstade/concept.hpp>
 #include <pstade/const.hpp>
 #include "./algorithm.hpp"
 #include "./concepts.hpp"
@@ -35,6 +30,16 @@
 #include "./range_reference.hpp"
 #include "./range_value.hpp"
 #include "./to_sequence.hpp"
+
+#include <vector>
+#include <pstade/concept.hpp>
+
+
+#if !defined(PSTADE_OVEN_TESTS_REVERSE_RANGE_TESTING)
+    #include "./reverse_iterator.hpp"
+#else
+    #include <boost/iterator/reverse_iterator.hpp> // is broken; see "./reverse_iterator.hpp".
+#endif
 
 
 namespace pstade { namespace oven {
@@ -148,15 +153,11 @@ bool test_Forward_Readable(Range& rng, Vector const& expected)
     {
         if (!tests_detail::forward_r(rng, expected))
             return false;
-
-        std::cout << "Forward Readable Range test passed." << std::endl;
     }
 
     {
         if (!tests_detail::forward_r(rng|const_qualified, expected))
             return false;
-
-        std::cout << "Forward Readable Range const-qualified test passed." << std::endl;
     }
 
     return true;
@@ -175,8 +176,6 @@ bool test_Forward_Readable_Writable(Range& rng, Vector const& expected)
     {
         if (!tests_detail::forward_rw(rng, expected))
             return false;
-
-        std::cout << "Forward Readable Writable Range test passed." << std::endl;
     }
 
     return true;
@@ -189,6 +188,19 @@ bool test_Forward_Readable_Writable(Range& rng, Vector const& expected)
 namespace tests_detail {
 
 
+#if !defined(PSTADE_OVEN_TESTS_REVERSE_RANGE_TESTING)
+    template< class Range >
+    boost::iterator_range<
+        oven::reverse_iterator<typename range_iterator<Range>::type>
+    > const
+    make_reversed(Range& rng)
+    {
+        return boost::make_iterator_range(
+            oven::make_reverse_iterator(boost::end(rng)),
+            oven::make_reverse_iterator(boost::begin(rng))
+        );
+    }
+#else
     template< class Range >
     boost::iterator_range<
         boost::reverse_iterator<typename range_iterator<Range>::type>
@@ -200,6 +212,7 @@ namespace tests_detail {
             boost::make_reverse_iterator(boost::begin(rng))
         );
     }
+#endif
 
 
     template< class Value >
@@ -285,8 +298,6 @@ bool test_Bidirectional_Readable(Range& rng, Vector const& expected)
         oven::reverse(expRev); // vector needed instead iterator_range.
         if (!tests_detail::bidirectional_r(tests_detail::make_reversed(rng), expRev))
             return false;
-
-        std::cout << "Bidirectional Readable Range test passed." << std::endl;
     }
 
     {
@@ -297,8 +308,6 @@ bool test_Bidirectional_Readable(Range& rng, Vector const& expected)
         oven::reverse(expRev);
         if (!tests_detail::bidirectional_r(tests_detail::make_reversed(rng|const_qualified), expRev))
             return false;
-
-        std::cout << "Bidirectional Readable Range const-qualified test passed." << std::endl;
     }
 
     return true;
@@ -322,8 +331,6 @@ bool test_Bidirectional_Readable_Writable(Range& rng, Vector const& expected)
         oven::reverse(expRev);
         if (!tests_detail::bidirectional_rw(tests_detail::make_reversed(rng), expRev))
             return false;
-
-        std::cout << "Bidirectional Readable Writable Range test passed." << std::endl;
     }
 
     return true;
@@ -397,8 +404,6 @@ bool test_RandomAccess_Readable(Range& rng, Vector const& expected)
         oven::reverse(expRev);
         if (!tests_detail::random_access_r(tests_detail::make_reversed(rng), expRev))
             return false;
-
-        std::cout << "RandomAccess Readable Range test passed." << std::endl;
     }
 
     {
@@ -409,8 +414,6 @@ bool test_RandomAccess_Readable(Range& rng, Vector const& expected)
         oven::reverse(expRev);
         if (!tests_detail::random_access_r(tests_detail::make_reversed(rng|const_qualified), expRev))
             return false;
-
-        std::cout << "RandomAccess Readable Range const-qualified test passed." << std::endl;
     }
 
     return true;
@@ -434,8 +437,6 @@ bool test_RandomAccess_Readable_Writable(Range& rng, Vector const& expected)
         oven::reverse(expRev);
         if (!tests_detail::random_access_rw(tests_detail::make_reversed(rng), expRev))
             return false;
-
-        std::cout << "RandomAccess Readable Writable Range test passed." << std::endl;
     }
 
     return true;
@@ -445,10 +446,29 @@ bool test_RandomAccess_Readable_Writable(Range& rng, Vector const& expected)
 // Misc
 //
 
+namespace tests_detail {
+
+
+    template< class Range >
+    bool is_empty(Range& rng)
+    {
+        if(!boost::empty(rng))
+            return false;
+
+        return true;
+    }
+
+
+} // namespace tests_detail
+
+
 template< class Range >
 bool test_empty(Range& rng)
 {
-    if(!boost::empty(rng))
+    if(!tests_detail::is_empty(rng))
+        return false;
+
+    if(!tests_detail::is_empty(rng|const_qualified))
         return false;
 
     return true;

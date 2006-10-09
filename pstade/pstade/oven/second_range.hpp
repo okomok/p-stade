@@ -16,7 +16,7 @@
 #include <pstade/egg/pipable.hpp>
 #include <pstade/functional.hpp> // at_second
 #include "./as_lightweight_proxy.hpp"
-#include "./detail/concept_check.hpp"
+#include "./concepts.hpp"
 #include "./range_reference.hpp"
 #include "./transform_range.hpp"
 
@@ -59,8 +59,9 @@ struct second_range :
     second_range_detail::super_<PairRange>::type,
     private as_lightweight_proxy< second_range<PairRange> >
 {
+    PSTADE_CONCEPT_ASSERT((SinglePass<PairRange>));
+
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(PairRange, SinglePassRangeConcept);
     typedef typename second_range_detail::super_<PairRange>::type super_t;
 
 public:

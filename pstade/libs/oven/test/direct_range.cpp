@@ -10,27 +10,39 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/oven/tests.hpp>
 #include <pstade/oven/direct_range.hpp>
 #include <pstade/oven/indirect_range.hpp>
 
 
 #include <string>
+#include <vector>
 #include <pstade/oven/functions.hpp>
 
 
 void test()
 {
-    using namespace pstade;
+    namespace oven = pstade::oven;
     using namespace oven;
 
-    std::string src("abcde");
+    {
+        int rng[] = { 1,2,3,4,5 };
+        int *ans[] = { &rng[0], &rng[1], &rng[2], &rng[3], &rng[4] };
+        std::vector<int *> expected = ans|copied;
 
-    oven::direct_range<std::string> dst(src);
+        BOOST_CHECK( oven::test_RandomAccess_Readable(rng|directed, expected) );
+    }
 
-    BOOST_CHECK( oven::equals( dst|indirected, src ) );
-    BOOST_CHECK( oven::equals( src|directed|indirected, src ) );
-    BOOST_CHECK( oven::equals( src|directed|indirected|directed|indirected|directed|indirected, src ) );
 
+    {
+        std::string src("abcde");
+
+        oven::direct_range<std::string> dst(src);
+
+        BOOST_CHECK( oven::equals( dst|indirected, src ) );
+        BOOST_CHECK( oven::equals( src|directed|indirected, src ) );
+        BOOST_CHECK( oven::equals( src|directed|indirected|directed|indirected|directed|indirected, src ) );
+    }
 }
 
 

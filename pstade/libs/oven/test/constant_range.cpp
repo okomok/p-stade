@@ -10,16 +10,18 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/oven/tests.hpp>
 #include <pstade/oven/constant_range.hpp>
 
 
 #include <string>
+#include <vector>
 #include <boost/range.hpp>
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/identity_range.hpp>
 
 
-using namespace pstade;
+namespace oven = pstade::oven;
 using namespace oven;
 
 
@@ -51,6 +53,11 @@ void test()
         ::legacy_way(str|identities); // oops, compiles.
         // ::modern_way(str|identities); // error
         // ::legacy_way(str|identities|constants); // error
+    }
+    {
+        std::string rng("urifoqjfoqnfeionfqo");
+        std::vector<char> expected = rng|copied;
+        BOOST_CHECK(oven::test_RandomAccess_Readable(rng, expected));
     }
 }
 

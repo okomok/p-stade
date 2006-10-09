@@ -15,7 +15,7 @@
 #include <pstade/functional.hpp> // less
 #include <pstade/pass_by.hpp>
 #include "./as_lightweight_proxy.hpp"
-#include "./detail/concept_check.hpp"
+#include "./concepts.hpp"
 #include "./merge_range.hpp"
 
 
@@ -82,9 +82,12 @@ struct set_union_range :
     set_union_range_detail::super_<Range1, Range2, Compare>::type,
     private as_lightweight_proxy< set_union_range<Range1, Range2, Compare> >
 {
+    PSTADE_CONCEPT_ASSERT((SinglePass<Range1>));
+    PSTADE_CONCEPT_ASSERT((Readable<Range1>));
+    PSTADE_CONCEPT_ASSERT((SinglePass<Range2>));
+    PSTADE_CONCEPT_ASSERT((Readable<Range2>));
+
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(Range1, SinglePassRangeConcept);
-    PSTADE_OVEN_DETAIL_REQUIRES(Range2, SinglePassRangeConcept);
     typedef typename set_union_range_detail::super_<Range1, Range2, Compare>::type super_t;
 
 public:

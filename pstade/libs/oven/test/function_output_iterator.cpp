@@ -42,7 +42,7 @@ void modify(char& ch)
 
 void test()
 {
-    using namespace pstade;
+    namespace oven = pstade::oven;
     using namespace oven;
 
     std::string const src("hello,to_function");
@@ -81,7 +81,7 @@ void test()
     }
     {
         g_ss.str("");
-        oven::copy(src, oven::to_function(unused));
+        oven::copy(src, oven::to_function(pstade::unused));
         BOOST_CHECK( boost::empty(g_ss.str()) );
     }
 

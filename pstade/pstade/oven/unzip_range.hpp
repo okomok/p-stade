@@ -21,7 +21,7 @@
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
-#include "./detail/concept_check.hpp"
+#include "./concepts.hpp"
 #include "./range_value.hpp"
 #include "./transform_range.hpp"
 
@@ -74,8 +74,9 @@ struct unzip_range_at :
     unzip_range_detail::super_at<TupleRange, N>::type,
     private as_lightweight_proxy< unzip_range_at<TupleRange, N> >
 {
+    PSTADE_CONCEPT_ASSERT((SinglePass<TupleRange>));
+
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(TupleRange, SinglePassRangeConcept);
     typedef typename unzip_range_detail::super_at<TupleRange, N>::type super_t;
     typedef typename super_t::function_type fun_t;
 

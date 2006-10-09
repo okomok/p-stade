@@ -17,7 +17,7 @@
 #include <pstade/pass_by.hpp>
 #include <pstade/static_c.hpp>
 #include "./as_lightweight_proxy.hpp"
-#include "./detail/concept_check.hpp"
+#include "./concepts.hpp"
 #include "./range_iterator.hpp"
 
 
@@ -33,22 +33,22 @@ namespace position_range_detail {
 
 
     template<
-        class ForwardRange,
+        class Range,
         class PositionT
     >
     struct super_
     {
         typedef boost::iterator_range<
             boost::spirit::position_iterator2< // 2!
-                typename range_iterator<ForwardRange>::type,
+                typename range_iterator<Range>::type,
                 PositionT
             >
         > type;
     };
 
 
-    template< class PositionIter, class ForwardRange, class PositionT >
-    PositionIter make_first(ForwardRange& rng, PositionT const& pos, int tabchars)
+    template< class PositionIter, class Range, class PositionT >
+    PositionIter make_first(Range& rng, PositionT const& pos, int tabchars)
     {
         PositionIter pit(boost::begin(rng), boost::end(rng), pos);
         pit.set_tabchars(tabchars);
@@ -60,23 +60,23 @@ namespace position_range_detail {
 
 
 template<
-    class ForwardRange,
+    class Range,
     class PositionT = boost::spirit::file_position
 >
 struct position_range :
-    position_range_detail::super_<ForwardRange, PositionT>::type,
-    private as_lightweight_proxy< position_range<ForwardRange, PositionT> >
+    position_range_detail::super_<Range, PositionT>::type,
+    private as_lightweight_proxy< position_range<Range, PositionT> >
 {
-    typedef ForwardRange pstade_oven_range_base_type;
+    PSTADE_CONCEPT_ASSERT((Forward<Range>));
+    PSTADE_CONCEPT_ASSERT((Readable<Range>));
 
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeConcept);
-    typedef typename position_range_detail::super_<ForwardRange, PositionT>::type super_t;
+    typedef typename position_range_detail::super_<Range, PositionT>::type super_t;
     typedef typename super_t::iterator iter_t;
 
 public:
     explicit position_range(
-        ForwardRange& rng,
+        Range& rng,
         PositionT const& pos = PositionT(),
         int tabchars = position_range_detail::default_tabchars::value
     ) :
@@ -85,6 +85,8 @@ public:
             iter_t()
         )
     { }
+
+    typedef Range pstade_oven_range_base_type;
 };
 
 
@@ -95,21 +97,21 @@ namespace position_range_detail {
     {
         typedef boost::spirit::file_position default_pos_t;
 
-        template< class Myself, class ForwardRange, class PositionT = default_pos_t, class Int = void >
+        template< class Myself, class Range, class PositionT = default_pos_t, class Int = void >
         struct apply
         {
             typedef typename pass_by_value<PositionT>::type pos_t;
-            typedef position_range<ForwardRange, pos_t> const type;
+            typedef position_range<Range, pos_t> const type;
         };
 
-        template< class Result, class ForwardRange >
-        Result call(ForwardRange& rng)
+        template< class Result, class Range >
+        Result call(Range& rng)
         {
             return Result(rng);
         }
 
-        template< class Result, class ForwardRange, class PositionT >
-        Result call(ForwardRange& rng, PositionT const& pos, int tabchars = default_tabchars::value)
+        template< class Result, class Range, class PositionT >
+        Result call(Range& rng, PositionT const& pos, int tabchars = default_tabchars::value)
         {
             return Result(rng, pos, tabchars);
         }

@@ -55,7 +55,7 @@
 #include <pstade/egg/pipable.hpp>
 #include <pstade/pass_by.hpp>
 #include "./as_lightweight_proxy.hpp"
-#include "./detail/concept_check.hpp"
+#include "./concepts.hpp"
 #include "./range_iterator.hpp"
 
 
@@ -110,11 +110,10 @@ struct transform_range :
     transform_range_detail::super_<Range, UnaryFun, Reference, Value>::type,
     private as_lightweight_proxy< transform_range<Range, UnaryFun, Reference, Value> >
 {
-    typedef Range pstade_oven_range_base_type;
+    PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
     typedef UnaryFun function_type;
 
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
     typedef typename transform_range_detail::super_<Range, UnaryFun, Reference, Value>::type super_t;
     typedef typename super_t::iterator iter_t;
 
@@ -125,6 +124,8 @@ public:
             iter_t(boost::end(rng), fun)
         )
     { }
+
+    typedef Range pstade_oven_range_base_type;
 };
 
 

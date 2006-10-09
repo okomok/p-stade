@@ -16,7 +16,7 @@
 #include <pstade/functional.hpp> // equal_to, not_
 #include "./adjacent_filter_range.hpp"
 #include "./as_lightweight_proxy.hpp"
-#include "./detail/concept_check.hpp"
+#include "./concepts.hpp"
 
 
 namespace pstade { namespace oven {
@@ -25,11 +25,11 @@ namespace pstade { namespace oven {
 namespace unique_range_detail {
 
 
-    template< class ForwardRange >
+    template< class Range >
     struct super_
     {
         typedef adjacent_filter_range<
-            ForwardRange,
+            Range,
             typename boost::result_of<not_fun(equal_to_fun)>::type
         > type;
     };
@@ -38,18 +38,20 @@ namespace unique_range_detail {
 } // namespace unique_range_detail
 
 
-template< class ForwardRange >
+template< class Range >
 struct unique_range :
-    unique_range_detail::super_<ForwardRange>::type,
-    private as_lightweight_proxy< unique_range<ForwardRange> >
+    unique_range_detail::super_<Range>::type,
+    private as_lightweight_proxy< unique_range<Range> >
 {
+    PSTADE_CONCEPT_ASSERT((Forward<Range>));
+    PSTADE_CONCEPT_ASSERT((Readable<Range>));
+
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeConcept);
-    typedef typename unique_range_detail::super_<ForwardRange>::type super_t;
+    typedef typename unique_range_detail::super_<Range>::type super_t;
     typedef typename super_t::predicate_type pred_t;
 
 public:
-    explicit unique_range(ForwardRange& rng) :
+    explicit unique_range(Range& rng) :
         super_t(rng, pred_t())
     { }
 };
@@ -60,14 +62,14 @@ namespace unique_range_detail {
 
     struct baby_make
     {
-        template< class Myself, class ForwardRange >
+        template< class Myself, class Range >
         struct apply
         {
-            typedef unique_range<ForwardRange> const type;
+            typedef unique_range<Range> const type;
         };
 
-        template< class Result, class ForwardRange >
-        Result call(ForwardRange& rng)
+        template< class Result, class Range >
+        Result call(Range& rng)
         {
             return Result(rng);
         }

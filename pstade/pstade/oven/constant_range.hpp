@@ -21,7 +21,7 @@
 #include <pstade/egg/pipable.hpp>
 #include <pstade/functional.hpp> // identity
 #include "./as_lightweight_proxy.hpp"
-#include "./detail/concept_check.hpp"
+#include "./concepts.hpp"
 #include "./detail/constant_reference.hpp"
 #include "./transform_range.hpp"
 #include "./range_iterator.hpp"
@@ -54,10 +54,9 @@ struct constant_range :
     constant_range_detail::super_<Range>::type,
     private as_lightweight_proxy< constant_range<Range> >
 {
-    typedef Range pstade_oven_range_base_type;
+    PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
 
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
     typedef typename constant_range_detail::super_<Range>::type super_t;
     typedef typename super_t::function_type fun_t;
 
@@ -65,6 +64,8 @@ public:
     explicit constant_range(Range& rng) :
         super_t(rng, fun_t())
     { }
+
+    typedef Range pstade_oven_range_base_type;
 };
 
 

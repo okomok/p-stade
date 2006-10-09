@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/oven/tests.hpp>
 #include <pstade/oven/const_lvalue_range.hpp>
 
 
@@ -128,10 +129,15 @@ void check_random_access(Range& )
 
 void test()
 {
-    using namespace pstade;
+    namespace oven = pstade::oven;
     using namespace oven;
     namespace bll = boost::lambda;
 
+    {
+        std::string rng("hello, const_lvalue_range!");
+        std::vector<char> expected = rng|copied;
+        BOOST_ASSERT(oven::test_RandomAccess_Readable(rng, expected));
+    }
     {
         std::string src("axaxaxbxbxbx");
         std::string s1; // snapshot

@@ -25,7 +25,7 @@
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
-#include "./detail/concept_check.hpp"
+#include "./concepts.hpp"
 #include "./range_value.hpp"
 #include "./transform_range.hpp"
 
@@ -52,12 +52,12 @@ namespace move_range_detail {
     };
 
 
-    template< class LvalueRange >
+    template< class Range >
     struct super_
     {
         typedef transform_range<
-            LvalueRange,
-            move_fun<typename range_value<LvalueRange>::type>
+            Range,
+            move_fun<typename range_value<Range>::type>
         > type;
     };
 
@@ -65,18 +65,20 @@ namespace move_range_detail {
 } // namespace move_range_detail
 
 
-template< class LvalueRange >
+template< class Range >
 struct move_range :
-    move_range_detail::super_<LvalueRange>::type,
-    private as_lightweight_proxy< move_range<LvalueRange> >
+    move_range_detail::super_<Range>::type,
+    private as_lightweight_proxy< move_range<Range> >
 {
+    PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+    PSTADE_CONCEPT_ASSERT((Lvalue<Range>));
+
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(LvalueRange, SinglePassRangeConcept);
-    typedef typename move_range_detail::super_<LvalueRange>::type super_t;
+    typedef typename move_range_detail::super_<Range>::type super_t;
     typedef typename super_t::function_type fun_t;
 
 public:
-    explicit move_range(LvalueRange& rng) :
+    explicit move_range(Range& rng) :
         super_t(rng, fun_t())
     { }
 };
@@ -87,14 +89,14 @@ namespace move_range_detail {
 
     struct baby_make
     {
-        template< class Myself, class LvalueRange >
+        template< class Myself, class Range >
         struct apply
         {
-            typedef move_range<LvalueRange> const type;
+            typedef move_range<Range> const type;
         };
 
-        template< class Result, class LvalueRange >
-        Result call(LvalueRange& rng)
+        template< class Result, class Range >
+        Result call(Range& rng)
         {
             return Result(rng);
         }

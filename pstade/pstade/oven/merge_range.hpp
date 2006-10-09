@@ -18,7 +18,7 @@
 #include <pstade/functional.hpp> // less
 #include <pstade/pass_by.hpp>
 #include "./as_lightweight_proxy.hpp"
-#include "./detail/concept_check.hpp"
+#include "./concepts.hpp"
 #include "./merge_iterator.hpp"
 #include "./range_iterator.hpp"
 
@@ -59,12 +59,13 @@ struct merge_range :
     merge_range_detail::super_<Range1, Range2, Compare, MergeRoutine>::type,
     private as_lightweight_proxy< merge_range<Range1, Range2, Compare, MergeRoutine> >
 {
-    typedef Range1 pstade_oven_range_base_type;
+    PSTADE_CONCEPT_ASSERT((SinglePass<Range1>));
+    PSTADE_CONCEPT_ASSERT((Readable<Range1>));
+    PSTADE_CONCEPT_ASSERT((SinglePass<Range2>));
+    PSTADE_CONCEPT_ASSERT((Readable<Range2>));
     typedef Compare compare_type;
 
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(Range1, SinglePassRangeConcept);
-    PSTADE_OVEN_DETAIL_REQUIRES(Range2, SinglePassRangeConcept);
     typedef typename merge_range_detail::super_<Range1, Range2, Compare, MergeRoutine>::type super_t;
     typedef typename super_t::iterator iter_t;
 
@@ -75,6 +76,8 @@ public:
             iter_t(boost::end(rng1),   boost::end(rng1), boost::end(rng2),   boost::end(rng2), comp)
         )
     { }
+
+    typedef Range1 pstade_oven_range_base_type;
 };
 
 

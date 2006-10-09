@@ -17,7 +17,7 @@
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
-#include "./detail/concept_check.hpp"
+#include "./concepts.hpp"
 #include "./distance.hpp"
 #include "./range_iterator.hpp"
 #include "./stride_iterator.hpp"
@@ -29,19 +29,19 @@ namespace pstade { namespace oven {
 namespace stride_range_detail {
 
 
-    template< class ForwardRange >
+    template< class Range >
     struct super_
     {
         typedef boost::iterator_range<
             stride_iterator<
-                typename range_iterator<ForwardRange>::type
+                typename range_iterator<Range>::type
             >
         > type;
     };
 
 
-    template< class ForwardRange, class Difference > inline
-    bool is_valid_base(ForwardRange& rng, Difference length)
+    template< class Range, class Difference > inline
+    bool is_valid_base(Range& rng, Difference length)
     {
         Difference d = oven::distance(rng);
         return d == 0 || d % length == 0;
@@ -51,21 +51,20 @@ namespace stride_range_detail {
 } // namespace stride_range_detail
 
 
-template< class ForwardRange >
+template< class Range >
 struct stride_range :
-    stride_range_detail::super_<ForwardRange>::type,
-    private as_lightweight_proxy< stride_range<ForwardRange> >
+    stride_range_detail::super_<Range>::type,
+    private as_lightweight_proxy< stride_range<Range> >
 {
-    typedef ForwardRange pstade_oven_range_base_type;
+    PSTADE_CONCEPT_ASSERT((Forward<Range>));
 
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(ForwardRange, ForwardRangeConcept);
-    typedef typename stride_range_detail::super_<ForwardRange>::type super_t;
+    typedef typename stride_range_detail::super_<Range>::type super_t;
     typedef typename super_t::iterator iter_t;
     typedef typename super_t::difference_type diff_t;
 
 public:
-    stride_range(ForwardRange& rng, diff_t length, diff_t offset = 0) :
+    stride_range(Range& rng, diff_t length, diff_t offset = 0) :
         super_t(
             iter_t(boost::begin(rng), length, offset),
             iter_t(boost::end(rng),   length, offset)
@@ -83,6 +82,8 @@ public:
     {
         return boost::begin(*this).offset();
     }
+
+    typedef Range pstade_oven_range_base_type;
 };
 
 
@@ -91,20 +92,20 @@ namespace stride_range_detail {
 
     struct baby_make
     {
-        template< class Myself, class ForwardRange, class Difference, class = void >
+        template< class Myself, class Range, class Difference, class = void >
         struct apply
         {
-            typedef stride_range<ForwardRange> const type;
+            typedef stride_range<Range> const type;
         };
 
-        template< class Result, class ForwardRange, class Difference >
-        Result call(ForwardRange& rng, Difference length, Difference offset)
+        template< class Result, class Range, class Difference >
+        Result call(Range& rng, Difference length, Difference offset)
         {
             return Result(rng, length, offset);
         }
 
-        template< class Result, class ForwardRange, class Difference >
-        Result call(ForwardRange& rng, Difference length)
+        template< class Result, class Range, class Difference >
+        Result call(Range& rng, Difference length)
         {
             return Result(rng, length);
         }

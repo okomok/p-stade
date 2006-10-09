@@ -50,7 +50,6 @@ struct append_range :
     private as_lightweight_proxy< append_range<Range, Value> >
 {
     PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-    typedef Range pstade_oven_range_base_type;
 
 private:
     typedef typename append_range_detail::init<Value>::type init_t;
@@ -61,6 +60,8 @@ public:
         init_t(boost::ref(v)),
         super_t(rng, init_t::member)
     { }
+
+    typedef Range pstade_oven_range_base_type;
 };
 
 

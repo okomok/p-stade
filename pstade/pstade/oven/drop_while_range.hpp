@@ -22,7 +22,7 @@
 #include <pstade/functional.hpp> // not_
 #include "./algorithm.hpp" // find_if
 #include "./as_lightweight_proxy.hpp"
-#include "./detail/concept_check.hpp"
+#include "./concepts.hpp"
 #include "./sub_range_base.hpp"
 
 
@@ -34,10 +34,10 @@ struct drop_while_range :
     sub_range_base<Range>::type,
     private as_lightweight_proxy< drop_while_range<Range> >
 {
-    typedef Range pstade_oven_range_base_type;
+    PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+    PSTADE_CONCEPT_ASSERT((Readable<Range>));
 
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(Range, SinglePassRangeConcept);
     typedef typename sub_range_base<Range>::type super_t;
 
 public:
@@ -45,6 +45,8 @@ public:
     drop_while_range(Range& rng, Predicate pred) :
         super_t(oven::find_if(rng, pstade::not_(pred)), boost::end(rng))
     { }
+
+    typedef Range pstade_oven_range_base_type;
 };
 
 
