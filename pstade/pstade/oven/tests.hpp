@@ -36,7 +36,7 @@
 
 
 #if !defined(PSTADE_OVEN_TESTS_REVERSE_RANGE_TESTING)
-    #include "./reverse_iterator.hpp"
+    #include "./reverse_range.hpp"
 #else
     #include <boost/iterator/reverse_iterator.hpp> // is broken; see "./reverse_iterator.hpp".
 #endif
@@ -190,15 +190,10 @@ namespace tests_detail {
 
 #if !defined(PSTADE_OVEN_TESTS_REVERSE_RANGE_TESTING)
     template< class Range >
-    boost::iterator_range<
-        oven::reverse_iterator<typename range_iterator<Range>::type>
-    > const
+    reverse_range<Range>
     make_reversed(Range& rng)
     {
-        return boost::make_iterator_range(
-            oven::make_reverse_iterator(boost::end(rng)),
-            oven::make_reverse_iterator(boost::begin(rng))
-        );
+        return rng|reversed;
     }
 #else
     template< class Range >

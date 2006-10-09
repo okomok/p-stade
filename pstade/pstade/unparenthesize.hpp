@@ -24,32 +24,40 @@
 // If 'T' is a dependent-name, add 'typename'.
 
 
-#include <pstade/void.hpp>
+namespace pstade {
+
+
+struct void_
+{ };
+
+
+// If 'T' is a dependent-name,
+// you can always add 'typename' to this
+// even if 'Decayed' is not dependent.
+// See "./concept.hpp".
+
+template< class Decayed, class T = void >
+struct unparenthesize;
+
+template< class Decayed, class T >
+struct unparenthesize<void(Decayed), T>
+{
+    typedef Decayed type;
+};
+
+template< class T >
+struct unparenthesize<void(void_), T>
+{
+    typedef void type;
+};
+
+
+} // namespace pstade
 
 
 #define PSTADE_UNPARENTHESIZE(Decayed) \
-    pstade::unparenthesize_detail::aux<void(Decayed)>::type \
+    pstade::unparenthesize<void(Decayed)>::type \
 /**/
-
-
-namespace pstade { namespace unparenthesize_detail {
-
-    template< class Decayed >
-    struct aux;
-
-    template< class Decayed >
-    struct aux<void(Decayed)>
-    {
-        typedef Decayed type;
-    };
-
-    template< >
-    struct aux<void(void_)>
-    {
-        typedef void type;
-    };
-
-} } // namespace pstade::unparenthesize_detail
 
 
 #endif

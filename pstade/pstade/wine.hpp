@@ -12,10 +12,10 @@
 
 #include "./adl_barrier.hpp"
 #include "./affect.hpp"
-#include "./arg.hpp"
 #include "./arraya.hpp"
 #include "./assignable.hpp"
 #include "./base_to_derived.hpp"
+#include "./by_reference.hpp"
 #include "./check.hpp"
 #include "./concept.hpp"
 #include "./const.hpp"
@@ -47,7 +47,6 @@
 #include "./unused.hpp"
 #include "./used.hpp"
 #include "./ustring.hpp"
-#include "./void.hpp"
 #include "./what.hpp"
 #include "./yes_no.hpp"
 

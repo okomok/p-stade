@@ -18,11 +18,12 @@ rule wine-test ( name )
 test-suite wine :
     [ wine-test adl_barrier ]
     [ wine-test affect ]
-    [ wine-test arg ]
     [ wine-test arraya ]
     [ wine-test assignable ]
     [ wine-test base_to_derived ]
+    [ wine-test by_reference ]
     [ wine-test check ]
+    [ wine-test concept_off ]
     [ wine-test const ]
     [ wine-test contract ]
     [ wine-test for_debug ]

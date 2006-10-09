@@ -20,7 +20,7 @@
 // A 'const' must be outside of 'PSTADE_CONCEPT_WHERE'.
 //
 // PSTADE_CONCEPT_WHERE(...
-// ((void)) const make_const_value();
+// (int)) const make_const_value();
 
 
 #if !defined(NDEBUG) && !defined(PSTADE_CONCEPT_OFF)
@@ -46,40 +46,14 @@
 #else
 
     #include <boost/preprocessor/seq/seq.hpp> // SEQ_HEAD
+    #include <pstade/unparenthesize.hpp>
 
     #define PSTADE_CONCEPT_ASSERT(ModelInParens)
     #define PSTADE_CONCEPT_USAGE(Model) ~Model()
     #define PSTADE_CONCEPT_WHERE(Models, Result) \
-        typename pstade::concept_detail::unparen<void BOOST_PP_SEQ_HEAD(Models), void Result>::type
+        typename pstade::unparenthesize<void Result, void BOOST_PP_SEQ_HEAD(Models)>::type
 
 #endif // !defined(PSTADE_CONCEPT_OFF)
-
-
-#include <pstade/void.hpp>
-
-
-namespace pstade { namespace concept_detail {
-
-    // 'typename' needs a dependent-name.
-    // Unlike 'PSTADE_UNPARENTHESIZE',
-    // we have 'Models' as the dependent-name.
-
-    template< class ModelFn, class Result >
-    struct unparen;
-
-    template< class ModelFn, class Result >
-    struct unparen< ModelFn, void(Result) >
-    {
-        typedef Result type;
-    };
-
-    template< class ModelFn >
-    struct unparen< ModelFn, void(void_) >
-    {
-        typedef void type;
-    };
-
-} } // namespace pstade::concept_detail
 
 
 #endif
