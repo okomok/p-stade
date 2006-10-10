@@ -9,6 +9,8 @@
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
+
+#include <pstade/oven/tests.hpp>
 #include <pstade/oven/transform_range.hpp>
 
 
@@ -41,12 +43,22 @@ int div2_(int x) { return x/2; }
 
 void test()
 {
-    using namespace pstade;
+    namespace oven = pstade::oven;
     using namespace oven;
 
     int src[] = { 1, 2, 3, 4, 5 };
     int ans1[] = { 2, 4, 6, 8, 10 };
 
+    {
+        int rng[] = {1,2,3,4,5};
+        int ans[] = {2,4,6,8,10};
+        std::vector<char> expected = ans|copied;
+
+        BOOST_CHECK( oven::test_RandomAccess_Readable(
+            rng|transformed(::multiply2()),
+            expected
+        ) );
+    }
     {
         BOOST_CHECK((
             oven::equal( oven::make_transform_range(src, multiply2()), ans1)

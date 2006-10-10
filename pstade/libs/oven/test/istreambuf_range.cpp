@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/oven/tests.hpp>
 #include <pstade/oven/istreambuf_range.hpp>
 
 
@@ -20,10 +21,21 @@
 
 void test()
 {
-    using namespace pstade;
+    namespace oven = pstade::oven;
     using namespace oven;
 
     std::string answer("hello,istreambuf_range!");
+
+    {
+        std::stringstream ss;
+        ss << answer;
+        std::vector<char> expected = answer|copied;
+
+        BOOST_CHECK( oven::test_SinglePass_Readable(
+            oven::make_istreambuf_range(ss),
+            expected
+        ) );
+    }
 
     {
         std::stringstream ss;

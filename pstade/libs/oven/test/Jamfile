@@ -72,7 +72,7 @@ test-suite oven :
     [ oven-test null_terminate_range ]
     [ oven-test out_place_range ]
     [ oven-test permute_range ]
-    [ oven-test point_range ]
+    [ oven-test pointer_range ]
     [ oven-test pop_range ]
     [ oven-test position_range ]
     [ oven-test regularize_range ]

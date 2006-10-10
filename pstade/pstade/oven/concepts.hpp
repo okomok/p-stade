@@ -30,10 +30,13 @@
 #include <boost/range/end.hpp>
 #include <boost/range/iterator.hpp>
 #include <boost/range/size_type.hpp>
+#include <boost/type_traits/add_const.hpp>
 #include <pstade/concept.hpp>
 #include <pstade/remove_cvr.hpp>
 #include "./detail/config.hpp" // PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR
 #include "./range_iterator.hpp"
+#include "./range_reference.hpp"
+#include "./range_value.hpp"
 
 
 namespace pstade { namespace oven {
@@ -43,15 +46,35 @@ namespace pstade { namespace oven {
 //
 
 template< class T >
-struct Readable
+struct Readable :
+    boost::Assignable<typename range_iterator<T>::type>,
+    boost::CopyConstructible<typename range_iterator<T>::type>
 {
     typedef typename range_iterator<T>::type iterator;
+    typedef typename range_value<T>::type value_type;
+    typedef typename range_reference<T>::type reference;
 
     PSTADE_CONCEPT_USAGE(Readable)
     {
-        PSTADE_CONCEPT_ASSERT((boost_concepts::ReadableIteratorConcept<iterator>));
+        // Note:
+        // 'boost_concepts::ReadableIteratorConcept<iterator>'
+        // checks 'value_type v = *i;', which requires 'value_type'
+        // to be CopyConstructible. But, for example,
+        // 'ptr_vector' can have noncopyable 'value_type'.
+        value_type const& v = *it;
+        boost::ignore_unused_variable_warning(v);
     }
+
+private:
+    iterator it;
 };
+
+    // Workaround:
+    // See "./sub_range_result.hpp"
+    template< class T >
+    struct Readable_const :
+        Readable<typename boost::add_const<T>::type>
+    { };
 
 
 template< class T >
@@ -65,6 +88,11 @@ struct Writable
     }
 };
 
+    template< class T >
+    struct Writable_const :
+        Writable<typename boost::add_const<T>::type>
+    { };
+
 
 template< class T >
 struct Swappable
@@ -77,6 +105,11 @@ struct Swappable
     }
 };
 
+    template< class T >
+    struct Swappable_const :
+        Swappable<typename boost::add_const<T>::type>
+    { };
+
 
 template< class T >
 struct Lvalue
@@ -88,6 +121,11 @@ struct Lvalue
         PSTADE_CONCEPT_ASSERT((boost_concepts::LvalueIteratorConcept<iterator>));
     }
 };
+
+    template< class T >
+    struct Lvalue_const :
+        Lvalue<typename boost::add_const<T>::type>
+    { };
 
 
 // traversal concepts

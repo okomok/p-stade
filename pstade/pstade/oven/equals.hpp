@@ -79,8 +79,8 @@ struct equals_fun
 
     template< class Range1, class Range2, class BinaryPred >
     PSTADE_CONCEPT_WHERE(
-        ((SinglePass<Range1>))((Readable<Range1 const>))
-        ((SinglePass<Range2>))((Readable<Range2 const>)),
+        ((SinglePass<Range1>))((Readable_const<Range1>))
+        ((SinglePass<Range2>))((Readable_const<Range2>)),
     (bool)) operator()(Range1 const& rng1, Range2 const& rng2, BinaryPred pred) const
     {
         typedef typename boost::detail::minimum_category<

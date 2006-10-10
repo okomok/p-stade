@@ -18,6 +18,7 @@
 #include "./identity_iterator.hpp"
 #include "./joint_iterator.hpp"
 #include "./merge_iterator.hpp"
+#include "./permute_iterator.hpp"
 #include "./regularize_iterator.hpp"
 #include "./repeat_iterator.hpp"
 #include "./reverse_iterator.hpp"
@@ -26,11 +27,6 @@
 #include "./stride_iterator.hpp"
 #include "./tab_expand_iterator.hpp"
 #include "./tab_unexpand_iterator.hpp"
-
-#include "./to_counter.hpp"
-#include "./to_sequence.hpp"
-#include "./to_stream.hpp"
-#include "./to_utf8_encoder.hpp"
 
 
 #endif

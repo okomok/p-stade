@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/oven/tests.hpp>
 #include <pstade/oven/regularize_range.hpp>
 
 
@@ -42,13 +43,22 @@ void bar(Iterator x)
 
 void test()
 {
-    using namespace boost;
-    using namespace pstade;
+    namespace lambda = boost::lambda;
+    namespace oven = pstade::oven;
     using namespace oven;
 
     {
+        std::string rng("8frj91j81hf891y2");
+        std::vector<char> expected = rng|copied;
+
+        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
+            rng|regularized,
+            expected
+        ) );
+    }
+    {
         std::string str;
-        ::bar( make_filter_iterator(
+        ::bar( boost::make_filter_iterator(
             lambda::_1 != '1',
             boost::begin(str),
             boost::end(str)

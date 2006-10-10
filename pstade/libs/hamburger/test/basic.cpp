@@ -13,6 +13,7 @@
 #include <pstade/hamburger.hpp>
 
 
+#include <iterator>
 #include <fstream>
 #include <iterator>
 #include <iostream>
@@ -45,7 +46,7 @@ void test()
 			oven::copy(
 				oven::file_range<utf8cp_t>(iname) |
 					oven::utf8_decoded,
-				oven::to_back_of(tmp)
+				std::back_inserter(tmp)
 			);
 		}
 

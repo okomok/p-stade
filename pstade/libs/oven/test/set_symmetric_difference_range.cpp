@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/oven/tests.hpp>
 #include <pstade/oven/set_symmetric_difference_range.hpp>
 
 
@@ -37,20 +38,23 @@ void test()
         int A1[] = {1,3,5,7,9,11};
         int A2[] = {1,1,2,3,5,8,13};
         int AA[] = {1,2,7,8,9,11,13};
+        std::vector<int> expected = AA|copied;
 
-        BOOST_CHECK( oven::equals(A1|set_delta(A2), AA) );
-        oven::copy(A1|set_delta(A2), to_stream(std::cout));
-        std::cout << std::endl;
-        oven::set_symmetric_difference(A1, A2, to_stream(std::cout));
+        BOOST_CHECK( oven::test_Forward_Readable(
+            A1|set_delta(A2),
+            expected
+        ) );
     }
     {
         std::string A1("abbBBfghH");
         std::string A2("ABBCDFFH");
         std::string AA("BBCDFgH");
-        BOOST_CHECK( oven::equals(A1|set_delta(A2, &::lt_nocase), AA) );
-        oven::copy(A1|set_delta(A2, &::lt_nocase), to_stream(std::cout));
-        std::cout << std::endl;
-        oven::set_symmetric_difference(A1, A2, to_stream(std::cout), &::lt_nocase);
+        std::vector<char> expected = AA|copied;
+
+        BOOST_CHECK( oven::test_Forward_Readable(
+            A1|set_delta(A2, &::lt_nocase),
+            expected
+        ) );
     }
 }
 

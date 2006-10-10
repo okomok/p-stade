@@ -15,8 +15,8 @@
 
 
 #include <string>
-#include <pstade/const.hpp>
 #include <pstade/oven/literal_range.hpp>
+#include <pstade/reference.hpp>
 
 
 using namespace pstade;
@@ -65,7 +65,7 @@ void test()
     }
     {
         std::string str("<!-- hello, xml comment -->");
-        BOOST_CHECK( biscuit::match<xml_comment>(pstade::const_(str)) );
+        BOOST_CHECK( biscuit::match<xml_comment>(pstade::const_reference(str)) );
     }
 
     {

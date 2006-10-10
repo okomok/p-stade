@@ -10,6 +10,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#define PSTADE_OVEN_TESTS_REVERSE_RANGE_TESTING
+#include <pstade/oven/tests.hpp>
 #include <pstade/oven/reverse_range.hpp>
 
 
@@ -47,6 +49,15 @@ void test()
     int src[] = { 0, 1, 2, 3, 4, 5 };
     int rev[] = { 5, 4, 3, 2, 1, 0 };
 
+    {
+        std::string rng("548175816");
+        std::vector<char> expected = std::string("618571845")|copied;
+
+        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
+            rng|reversed,
+            expected
+        ) );
+    }
     {
         BOOST_CHECK((
             oven::equals( oven::make_reverse_range(src), rev)

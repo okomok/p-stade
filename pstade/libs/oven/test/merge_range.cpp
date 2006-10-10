@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/oven/tests.hpp>
 #include <pstade/oven/merge_range.hpp>
 
 
@@ -33,6 +34,29 @@ void test()
     namespace oven = pstade::oven;
     using namespace oven;
 
+    {
+        int A1[] = {1,6,7,10,14,17};
+        int A2[] = {2,5,8,11,13,18};
+        int A3[] = {3,4,9,12,15,16};
+        int AA[] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18};
+        std::vector<int> expected = AA|copied;
+
+        BOOST_CHECK( oven::test_Forward_Readable(
+            A1|merged(A2)|merged(A3),
+            expected
+        ) );
+    }
+    {
+        std::string A1("abbbfH");
+        std::string A2("ABbCDFFhh");
+        std::string AA("aAbbbBbCDfFFHhh");
+        std::vector<char> expected = AA|copied;
+
+        BOOST_CHECK( oven::test_Forward_Readable(
+            A1|merged(A2, &::lt_nocase),
+            expected
+        ) );
+    }
     {
         int A1[] = {1,3,5,7,9,11};
         int A2[] = {1,1,2,3,5,8,13};

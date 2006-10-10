@@ -10,12 +10,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/oven/tests.hpp>
 #include <pstade/oven/indirect_range.hpp>
 
 
 #include <iterator>
 #include <string>
-#include <vector>
 #include <boost/foreach.hpp>
 #include <boost/range.hpp>
 #include <pstade/oven/functions.hpp>
@@ -29,8 +29,19 @@ struct A
 
 void test()
 {
-    using namespace pstade;
+    namespace oven = pstade::oven;
     using namespace oven;
+
+    {
+        int ans[] = { 2,4,5,1,3 };
+        int *rng[] = { &ans[0], &ans[1], &ans[2], &ans[3], &ans[4] };
+
+        std::vector<int> expected = ans|copied;
+        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
+            rng|indirected,
+            expected
+        ) );
+    }
 
 
     char characters[] = "abcdefg";
@@ -40,7 +51,6 @@ void test()
         pointers_to_chars[i] = &characters[i];
 
     char ans[] = "abcdefg";
-
     {
         BOOST_CHECK((
             oven::equal( oven::make_indirect_range(pointers_to_chars), ans)

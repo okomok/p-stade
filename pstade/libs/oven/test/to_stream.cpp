@@ -21,7 +21,7 @@
 #include <pstade/is_same.hpp>
 
 
-using namespace pstade;
+namespace oven = pstade::oven;
 using namespace oven;
 
 

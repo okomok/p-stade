@@ -10,14 +10,15 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/oven/tests.hpp>
 #include <pstade/oven/index_range.hpp>
 
 
+#include <iterator>
 #include <string>
 #include <vector>
 #include <boost/range.hpp>
 #include <pstade/oven/functions.hpp>
-#include <pstade/oven/reverse_range.hpp>
 
 
 std::vector<char> g_vec;
@@ -36,16 +37,17 @@ struct vec_get
 
 void test()
 {
-    using namespace pstade;
-    using namespace boost;
+    namespace oven = pstade::oven;
     using namespace oven;
 
     {
-        std::string src("11111234516313!");
-        g_vec = src|copied;
+        std::string ans("11111234516313!");
+        oven::copy(ans, std::back_inserter(g_vec));
 
-        BOOST_CHECK( oven::equals(src, oven::make_index_range(0, (int)src.size(), vec_get())) );
-        BOOST_CHECK( oven::equals(src|reversed, oven::make_index_range(0, (int)src.size(), vec_get())|reversed) );
+        BOOST_CHECK( oven::test_RandomAccess_Readable(
+            oven::make_index_range(0, (int)ans.size(), vec_get()),
+            g_vec
+        ) );
     }
 }
 

@@ -23,7 +23,7 @@
 
 void test()
 {
-    using namespace pstade;
+    namespace oven = pstade::oven;
     using namespace oven;
 
     std::map<int, std::string> vec;

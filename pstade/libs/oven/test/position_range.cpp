@@ -18,7 +18,8 @@
 #include <pstade/biscuit.hpp>
 
 
-using namespace pstade;
+namespace oven = pstade::oven;
+namespace biscuit = pstade::biscuit;
 using namespace biscuit;
 using biscuit::plus;
 
@@ -44,14 +45,11 @@ struct checker :
 
 void test()
 {
-    using namespace pstade;
-    using namespace oven;
-
     {
         std::string src("AAAAA\nAAAAA\nAAAAA");
 
         BOOST_CHECK((
-            biscuit::match< plus< or_< chset<'A','\n'>, checker > > >(src|with_position)
+            biscuit::match< plus< or_< chset<'A','\n'>, checker > > >(src|oven::with_position)
         ));
     }
 
@@ -59,7 +57,7 @@ void test()
         std::string src("AAAAA\nAAAAA\nAA#AA");
 
         BOOST_CHECK(( !
-            biscuit::match< plus< or_< chset<'A','\n'>, checker > > >(src|with_position)
+            biscuit::match< plus< or_< chset<'A','\n'>, checker > > >(src|oven::with_position)
         ));
     }
 }

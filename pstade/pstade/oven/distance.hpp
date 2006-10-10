@@ -69,7 +69,7 @@ namespace distance_detail {
 
         template< class Result, class Range >
         PSTADE_CONCEPT_WHERE(
-            ((SinglePass<Range>))((Readable<Range const>)),
+            ((SinglePass<Range>)),
         (Result)) call(Range const& rng)
         {
             typedef typename range_traversal<Range>::type trv_t;

@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/oven/tests.hpp>
 #include <pstade/oven/take_range.hpp>
 
 
@@ -20,9 +21,18 @@
 
 void test()
 {
-    using namespace pstade;
+    namespace oven = pstade::oven;
     using namespace oven;
 
+    {
+        std::string rng("hello, take_range!");
+        std::vector<char> expected = std::string("hello")|copied;
+
+        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
+            rng|taken(7)|taken(5),
+            expected
+        ) );
+    }
     {
         std::string src("hello, take_range!");
         std::string ans("hello");

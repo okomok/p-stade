@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/oven/tests.hpp>
 #include <pstade/oven/slice_range.hpp>
 
 
@@ -20,11 +21,21 @@
 
 void test()
 {
-    using namespace pstade;
+    namespace oven = pstade::oven;
     using namespace oven;
 
-    std::string src("0123456");
+    {
+        int A[] = { 0,1,2,3,4,5,6,7,8,9 };
+        int ans[] = { 3,4,5,6,7 };
+        std::vector<int> expected = ans|copied;
 
+        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
+            A|sliced(3,8),
+            expected
+        ) );
+    }
+
+    std::string src("0123456");
     {
         BOOST_CHECK( oven::equals(oven::make_slice_range(src, 0, 0), std::string("")) );
     }

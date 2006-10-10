@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/oven/tests.hpp>
 #include <pstade/oven/zip_range.hpp>
 
 
@@ -21,12 +22,30 @@
 #include <pstade/unparenthesize.hpp>
 #include <pstade/oven/functions.hpp>
 
+#include <boost/tuple/tuple_comparison.hpp> // DON'T FORGET for Readability!
+
 
 void test()
 {
-    using namespace pstade;
+    namespace oven = pstade::oven;
     using namespace oven;
 
+    {
+        std::string rng0("0123");
+        int rng1[] = { 0,1,2,3 };
+
+        typedef boost::tuple<char, int> tt;
+        std::vector<tt> expected;
+        expected.push_back(tt('0', 0));
+        expected.push_back(tt('1', 1));
+        expected.push_back(tt('2', 2));
+        expected.push_back(tt('3', 3));
+
+        BOOST_CHECK( oven::test_RandomAccess_Readable(
+            rng0|zipped(rng1),
+            expected
+        ) );
+    }
     {
         std::string src0("0123456");
         std::string ans0("0123556");
@@ -58,6 +77,26 @@ void test()
     }
 }
 
+/*
+error: no match for 'operator==' in '((
+    boost::iterator_facade<
+        boost::zip_iterator<
+            boost::tuples::tuple<
+                __gnu_cxx::__normal_iterator<
+                    char*, std::basic_string<char, std::char_traits<char>, std::allocator<char> >
+                >,
+                int*,
+                boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type
+            >
+        >,
+        boost::tuples::cons<char&, boost::tuples::cons<int&, boost::tuples::null_type> >,
+        boost::random_access_traversal_tag,
+        boost::tuples::cons<char&, boost::tuples::cons<int&, boost::tuples::null_type> >,
+        ptrdiff_t
+    >
+    *)(&i))->boost::iterator_facade<I, V, TC, R, D>::operator*
+    [with Derived = boost::zip_iterator<boost::tuples::tuple<__gnu_cxx::__normal_iterator<char*, std::basic_string<char, std::char_traits<char>, std::allocator<char> > >, int*, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type> >, Value = boost::tuples::cons<char&, boost::tuples::cons<int&, boost::tuples::null_type> >, CategoryOrTraversal = boost::random_access_traversal_tag, Reference = boost::tuples::cons<char&, boost::tuples::cons<int&, boost::tuples::null_type> >, Difference = ptrdiff_t]() == (&vals)->std::vector<_Tp, _Alloc>::operator[] [with _Tp = test()::tt, _Alloc = std::allocator<test()::tt>](((unsigned int)c))'
+*/
 
 int test_main(int, char*[])
 {

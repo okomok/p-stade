@@ -24,7 +24,6 @@
 #include <pstade/apple/atl/module.hpp>
 #include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/apple/sdk/windows.hpp>
-#include <pstade/const.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
 #include <pstade/oven/sub_range_result.hpp>
 #include <pstade/require.hpp>

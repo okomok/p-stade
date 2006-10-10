@@ -10,14 +10,18 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/oven/tests.hpp>
 #include <pstade/oven/memoize_range.hpp>
 
 
 #include <string>
+#include <sstream>
 #include <boost/range.hpp>
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/copy_range.hpp>
 #include <pstade/oven/filter_range.hpp>
+#include <pstade/oven/istream_range.hpp>
+#include <pstade/oven/regularize_range.hpp>
 
 #include <iterator>
 #include <boost/lambda/core.hpp>
@@ -26,9 +30,20 @@
 
 void test()
 {
-    using namespace pstade;
+    namespace oven = pstade::oven;
     using namespace oven;
     namespace bll = boost::lambda;
+
+    {
+        std::string ans("18284610528192");
+        std::stringstream ss;
+        ss << ans;
+        std::vector<char> expected = ans|copied;
+        BOOST_CHECK( oven::test_Forward_Readable(
+            oven::make_istream_range<char>(ss)|memoized,
+            expected
+        ) );
+    }
 
     {
         std::string src("axaxaxbxbxbx");
@@ -40,9 +55,11 @@ void test()
             oven::equals(answer,
                 src |
                     filtered(bll::_1 != 'x') |
+                    regularized |
                     memoized |
                     copied_out(std::back_inserter(s1)) |
                     filtered(bll::_1 != 'a') |
+                    regularized |
                     memoized |
                     copied_out(std::back_inserter(s2))
             )

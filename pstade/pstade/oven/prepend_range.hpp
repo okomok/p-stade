@@ -10,8 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/ref.hpp>
-#include <boost/utility/base_from_member.hpp>
+#include <pstade/base_from.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
@@ -27,9 +26,9 @@ namespace prepend_range_detail {
 
 
     template< class Value >
-    struct init
+    struct init_single
     {
-        typedef boost::base_from_member< single_range<Value> > type;
+        typedef base_from< single_range<Value> > type;
     };
 
 
@@ -45,19 +44,20 @@ namespace prepend_range_detail {
 
 template< class Range, class Value >
 struct prepend_range :
-    private prepend_range_detail::init<Value>::type,
+    private prepend_range_detail::init_single<Value>::type,
     prepend_range_detail::super_<Range, Value>::type,
     private as_lightweight_proxy< prepend_range<Range, Value> >
 {
     PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
 
 private:
-    typedef typename prepend_range_detail::init<Value>::type init_t;
+    typedef typename prepend_range_detail::init_single<Value>::type init_t;
+    typedef typename init_t::member_type single_t;
     typedef typename prepend_range_detail::super_<Range, Value>::type super_t;
 
 public:
     prepend_range(Range& rng, Value& v) :
-        init_t(boost::ref(v)),
+        init_t(single_t(v)),
         super_t(init_t::member, rng)
     { }
 

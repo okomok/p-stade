@@ -18,5 +18,9 @@
 #include "./distance.hpp"
 #include "./equals.hpp"
 
+#include "./to_counter.hpp"
+#include "./to_stream.hpp"
+#include "./to_utf8_encoder.hpp"
+
 
 #endif

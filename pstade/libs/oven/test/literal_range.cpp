@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/oven/tests.hpp>
 #include <pstade/oven/literal_range.hpp>
 
 
@@ -27,6 +28,13 @@ void test()
     namespace oven = pstade::oven;
     using namespace oven;
 
+    {
+        std::vector<char> expected = std::string("hello range")|copied;
+        BOOST_CHECK( oven::test_RandomAccess_Readable(
+            "hello range"|as_literal,
+            expected
+        ) );
+    }
     {
         literal_range<char> rng("hello range");
         BOOST_CHECK( oven::equals(rng, std::string("hello range")) );

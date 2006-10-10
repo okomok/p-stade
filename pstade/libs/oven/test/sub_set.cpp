@@ -20,20 +20,20 @@
 
 void test()
 {
-    using namespace pstade;
+    namespace oven = pstade::oven;
     using namespace oven;
 
     std::string src("abcde");
 
-	oven::sub_set<std::string> ss1(src);
-	
-	BOOST_CHECK( oven::equals(ss1, src) );
+    oven::sub_set<std::string> ss1(src);
+    
+    BOOST_CHECK( oven::equals(ss1, src) );
 
-	std::string::iterator its[] = { boost::begin(src), boost::begin(src)+2, boost::begin(src)+4 };
+    std::string::iterator its[] = { boost::begin(src), boost::begin(src)+2, boost::begin(src)+4 };
 
-	oven::sub_set<std::string> ss2(its);
+    oven::sub_set<std::string> ss2(its);
 
-	BOOST_CHECK( oven::equals(ss2, std::string("ace")) );
+    BOOST_CHECK( oven::equals(ss2, std::string("ace")) );
 
 }
 

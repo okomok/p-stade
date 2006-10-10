@@ -27,13 +27,8 @@
 void test()
 {
     // Under vc7.1, using-directive must be here...why?
-    using namespace pstade;
+    namespace oven = pstade::oven;
     using namespace oven;
-
-    {
-        typedef tab_unexpand_range< std::string > rng_t;
-        boost::function_requires< boost::ForwardRangeConcept<rng_t> >();
-    }
 
     std::string ans("TTTactor<Scpp_token::pp_include_path,TTTact_pp_include_pathS>");
     std::string src("SSSSSSSSSSSSactor<Scpp_token::pp_include_path,SSSSSSSSSSact_pp_include_pathS>");

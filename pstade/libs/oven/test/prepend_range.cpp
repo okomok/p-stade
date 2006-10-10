@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/oven/tests.hpp>
 #include <pstade/oven/prepend_range.hpp>
 
 
@@ -21,21 +22,34 @@
 
 void test()
 {
-    using namespace pstade;
+    namespace oven = pstade::oven;
     using namespace oven;
-    namespace _ = oven;
 
-    const std::string src("bcde");
+    {
+        int src0[] = { 1,6,9 };
+        int src1   = 8;
+        int src2   = 2;
+        int src3   = 5;
+        int ans[]  = { 5,2,8,1,6,9 };
+
+        std::vector<int> expected = ans|copied;
+        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
+            src0|prepended(src1)|prepended(src2)|prepended(src3),
+            expected
+        ) );
+    }
+
+    const std::string src("bcde"); // constant
     std::string ans("abcde");
 
     {
         std::string src("bcde"); // mutable
         char ch = 'a'; // mutable
-        BOOST_CHECK( _::equals(_::make_prepend_range(src, ch), ans) );
+        BOOST_CHECK( oven::equals(oven::make_prepend_range(src, ch), ans) );
     }
 
     {
-        BOOST_CHECK( _::equals(src|prepended('a'), ans) );
+        BOOST_CHECK( oven::equals(src|prepended('a'), ans) );
 
         std::cout << std::endl;
         const char ch = 'a';
@@ -46,7 +60,7 @@ void test()
     }
 
     {
-        BOOST_CHECK( _::equals(
+        BOOST_CHECK( oven::equals(
             std::string("de")|
                 prepended('c')|prepended('b')|prepended('a'),
             ans)

@@ -41,6 +41,9 @@ namespace zip_with_range_detail {
         typedef typename boost::result_of<BinaryFun(ref0_t, ref1_t)>::type
         result_type;
 
+        explicit with_fun() // must be DefaultConstructible to be ForwardIterator.
+        { }
+
         explicit with_fun(BinaryFun const& fun) :
             m_fun(fun)
         { }

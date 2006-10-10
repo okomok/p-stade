@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/oven/tests.hpp>
 #include <pstade/oven/shift_range.hpp>
 
 
@@ -23,6 +24,14 @@ void test()
     using namespace oven;
 
     int A[] = { 0,1,2,3,4,5,6,7,8,9 };
+    {
+        int ans[] = { 3,4,5,6,7 };
+        std::vector<int> expected = ans|copied;
+        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
+            boost::make_iterator_range(A+1,A+6)|shifted(2),
+            expected
+        ) );
+    }
     {
         BOOST_CHECK( oven::equals(
             boost::make_iterator_range(A+1,A+4)|shifted(1),

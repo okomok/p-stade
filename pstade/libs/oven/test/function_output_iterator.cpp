@@ -13,6 +13,7 @@
 #include <pstade/oven/function_output_iterator.hpp>
 
 
+#include <iterator>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -63,7 +64,7 @@ void test()
     }
     {
         std::vector<char> vec;
-        oven::copy(std::string("abc"), oven::to_back_of(vec));
+        oven::copy(std::string("abc"), std::back_inserter(vec));
         BOOST_CHECK( oven::equals(std::string("abc"), vec) );
         // identities keeps vec mutable.
         oven::copy(vec|identities, oven::to_function(&::modify));
@@ -83,19 +84,6 @@ void test()
         g_ss.str("");
         oven::copy(src, oven::to_function(pstade::unused));
         BOOST_CHECK( boost::empty(g_ss.str()) );
-    }
-
-    {
-        std::list<char> seq;
-        oven::copy(std::string("abc"), oven::to_front_of(seq));
-        oven::copy(std::string("xyz"), oven::to_back_of(seq));
-        BOOST_CHECK( oven::equals(std::string("cbaxyz"), seq) );
-    }
-    {
-        std::list<char> seq; seq.push_back('_');
-        oven::copy(std::string("abc"), oven::to_sequence(seq, boost::begin(seq)));
-        oven::copy(std::string("xyz"), oven::to_sequence(seq, boost::end(seq)));
-        BOOST_CHECK( oven::equals(std::string("abc_xyz"), seq) );
     }
 }
 

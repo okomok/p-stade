@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/oven/tests.hpp>
 #include <pstade/oven/share_range.hpp>
 
 
@@ -33,11 +34,19 @@ struct xxx :
 
 void test()
 {
-    using namespace pstade;
+    namespace oven = pstade::oven;
     using namespace oven;
 
     std::string ans("0123");
 
+    {
+        std::vector<char> expected = std::string("hello, share_range")|copied;
+
+        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
+            new std::string("hello, share_range")|shared,
+            expected
+        ) );
+    }
     {
         boost::shared_ptr<std::string> p(new std::string());
         make_share_iterator(p->begin(), p);

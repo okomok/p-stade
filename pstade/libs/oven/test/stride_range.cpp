@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/oven/tests.hpp>
 #include <pstade/oven/stride_range.hpp>
 
 
@@ -27,9 +28,19 @@
 
 void test()
 {
-    using namespace pstade;
+    namespace oven = pstade::oven;
     using namespace oven;
 
+    {
+        int rng[] = { 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15 };
+        int ans[] = { 0,4,8,12 };
+        std::vector<char> expected = ans|copied;
+
+        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
+            rng|stridden(4),
+            expected
+        ) );
+    }
     {
         int const ans[] = { 0,4,8,12 };
         BOOST_CHECK( oven::equals(ans,

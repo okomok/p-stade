@@ -22,7 +22,7 @@
 #include <pstade/unused.hpp>
 
 
-using namespace pstade;
+namespace oven = pstade::oven;
 using namespace oven;
 
 

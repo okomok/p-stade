@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/oven/tests.hpp>
 #include <pstade/oven/repeat_range.hpp>
 
 
@@ -18,7 +19,6 @@
 #include <vector>
 #include <boost/foreach.hpp>
 #include <boost/range.hpp>
-#include <boost/range/concepts.hpp>
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/distance.hpp>
 #include <pstade/oven/reverse_range.hpp>
@@ -27,12 +27,18 @@
 
 void test()
 {
-    using namespace pstade;
+    namespace oven = pstade::oven;
     using namespace oven;
 
     {
-        typedef repeat_range< std::string > rng_t;
-        boost::function_requires< boost::RandomAccessRangeConcept<rng_t> >();
+        std::string rng("1234");
+        std::string ans("12341234123412341234123412341234");
+        std::vector<char> expected = ans|copied;
+
+        BOOST_CHECK( oven::test_RandomAccess_Readable(
+            rng|repeated(4)|repeated(2),
+            expected
+        ) );
     }
 
     {

@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/iterator/permutation_iterator.hpp>
+// #include <boost/iterator/permutation_iterator.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
@@ -19,6 +19,7 @@
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./range_iterator.hpp"
+#include "./permute_iterator.hpp"
 
 
 namespace pstade { namespace oven {
@@ -31,7 +32,8 @@ namespace permute_range_detail {
     struct super_
     {
         typedef boost::iterator_range<
-            boost::permutation_iterator<
+            // boost::permutation_iterator<
+            permute_iterator<
                 typename range_iterator<ElementRange>::type,
                 typename range_iterator<IndexRange>::type
             >
@@ -60,7 +62,7 @@ public:
     permute_range(ElementRange& erng, IndexRange& irng) :
         super_t(
             iter_t(boost::begin(erng), boost::begin(irng)),
-            iter_t(boost::end(erng), boost::end(irng))
+            iter_t(boost::begin(erng), boost::end(irng)) // never pass 'boost::end(erng)'.
         )
     { }
 

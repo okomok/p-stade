@@ -23,14 +23,14 @@
 
 void test()
 {
-    using namespace pstade;
+    namespace oven = pstade::oven;
     using namespace oven;
 
     std::map<int, std::string> vec;
     vec[3] = "hello";
     vec[4] = "key";
 
-    BOOST_FOREACH( int i, vec|map_keys) {
+    BOOST_FOREACH (int i, vec|map_keys) {
         std::cout << i;
     }
 }

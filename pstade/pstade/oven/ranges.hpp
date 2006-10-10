@@ -54,7 +54,7 @@
 #include "./null_terminate_range.hpp"
 #include "./out_place_range.hpp"
 #include "./permute_range.hpp"
-#include "./point_range.hpp"
+#include "./pointer_range.hpp"
 #include "./pop_range.hpp"
 #include "./position_range.hpp"
 #include "./prepend_range.hpp"

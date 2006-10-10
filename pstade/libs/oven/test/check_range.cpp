@@ -17,7 +17,7 @@
 #include <string>
 #include <boost/range.hpp>
 #include <pstade/oven/functions.hpp>
-#include <pstade/by_reference.hpp>
+#include <pstade/reference.hpp>
 #include <pstade/unused.hpp>
 #include <pstade/if_debug.hpp>
 
@@ -76,7 +76,7 @@ void test()
         pstade::unused(
             std::string()
 PSTADE_IF_DEBUG(| checked)
-                | pstade::by_reference,
+                | pstade::referenced,
             12
         );
     }

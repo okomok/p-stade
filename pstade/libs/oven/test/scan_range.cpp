@@ -10,9 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/oven/tests.hpp>
 #include <pstade/oven/scan_range.hpp>
 
 
+#include <numeric>
 #include <iostream>
 #include <iterator>
 #include <string>
@@ -37,9 +39,28 @@ std::string stringize(std::string const& state, int i)
 
 void test()
 {
-    using namespace pstade;
+    namespace oven = pstade::oven;
     using namespace oven;
 
+    {
+        int rng[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9,10};
+        int ans[] = { 1, 3, 6,10,15,21,28,36,45,55};
+        std::vector<int> expected = ans|copied;
+
+        BOOST_CHECK( oven::test_Forward_Readable(
+            rng|scanned(0),
+            expected
+        ) );
+    }
+    {
+        int rng[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9,10};
+        std::vector<int> ans;
+        std::partial_sum(boost::begin(rng), boost::end(rng), std::back_inserter(ans));
+        BOOST_CHECK( oven::equals(
+            rng|scanned(0),
+            ans
+        ) );
+    }
     {
         int src[]  = { 1, 2, 3, 4, 5, 6, 7, 8, 9,10};
         int ans1[] = { 1, 3, 6,10,15,21,28,36,45,55};

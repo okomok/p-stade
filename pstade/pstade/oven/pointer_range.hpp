@@ -4,45 +4,31 @@
 
 // PStade.Oven
 //
-// Copyright MB 2005-2006.
+// Copyright Shunsuke Sogame 2005-2006.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// What:
-//
-// make Pointer Range from std::vector.
-
-
-#include <boost/iterator/iterator_traits.hpp>
+#include <boost/mpl/assert.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/empty.hpp>
-#include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
-#include <boost/range/result_iterator.hpp>
-#include <boost/static_assert.hpp>
 #include <boost/type_traits/is_pointer.hpp>
 #include <boost/utility/addressof.hpp>
 #include <pstade/egg/function.hpp>
+#include <pstade/egg/pipable.hpp>
 #include <pstade/nullptr.hpp>
-#include <pstade/oven/distance.hpp>
-#include "./is_lightweight_proxy.hpp"
-#include "./range_adaptor.hpp"
+#include "./as_lightweight_proxy.hpp"
+#include "./concepts.hpp"
+#include "./distance.hpp"
+#include "./range_pointer.hpp"
 
 
 namespace pstade { namespace oven {
 
 
 namespace pointer_range_detail {
-
-
-    template< class ContiguousRange >
-    struct range_pointer
-    {
-        typedef typename boost::range_result_iterator<ContiguousRange>::type iter_t;
-        typedef typename boost::iterator_pointer<iter_t>::type type;
-    };
 
 
     template< class ContiguousRange >
@@ -54,18 +40,16 @@ namespace pointer_range_detail {
     };
 
 
-    template< class ContiguousRange >
-    typename super_<ContiguousRange>::type
-    make_super(ContiguousRange& vec)
+    template< class Super, class ContiguousRange >
+    Super make(ContiguousRange& vec)
     {
-        typedef typename super_<ContiguousRange>::type super_t;
-        typedef typename super_t::iterator iter_t;
-        BOOST_STATIC_ASSERT( boost::is_pointer<iter_t>::value );
+        typedef typename Super::iterator iter_t;
+        BOOST_MPL_ASSERT((boost::is_pointer<iter_t>));
 
         if (boost::empty(vec))
-            return super_t(iter_t(PSTADE_NULLPTR), iter_t(PSTADE_NULLPTR));
+            return Super(iter_t(PSTADE_NULLPTR), iter_t(PSTADE_NULLPTR));
 
-        return super_t(
+        return Super(
             boost::addressof( *boost::begin(vec) ),
             boost::addressof( *boost::begin(vec) ) + oven::distance(vec)
         );
@@ -77,25 +61,32 @@ namespace pointer_range_detail {
 
 template< class ContiguousRange >
 struct pointer_range :
-    pointer_range_detail::super_<ContiguousRange>::type
+    pointer_range_detail::super_<ContiguousRange>::type,
+    private as_lightweight_proxy< pointer_range<ContiguousRange> >
 {
+    PSTADE_CONCEPT_ASSERT((RandomAccess<ContiguousRange>));
+
+private:
     typedef typename pointer_range_detail::super_<ContiguousRange>::type super_t;
 
+public:
     explicit pointer_range(ContiguousRange& vec) :
-        super_t(pointer_range_detail::make_super(vec))
+        super_t(pointer_range_detail::make<super_t>(vec))
     { }
+
+    typedef ContiguousRange pstade_oven_range_base_type;
 };
 
 
 namespace pointer_range_detail {
 
 
-    struct baby_generator
+    struct baby_make
     {
-        template< class ContiguousRange >
-        struct result
+        template< class Myself, class ContiguousRange >
+        struct apply
         {
-            typedef const pointer_range<ContiguousRange> type;
+            typedef pointer_range<ContiguousRange> const type;
         };
 
         template< class Result, class ContiguousRange >
@@ -110,14 +101,11 @@ namespace pointer_range_detail {
 
 
 
-PSTADE_EGG_FUNCTION(make_pointer_range, pointer_range_detail::baby_generator)
-PSTADE_OVEN_RANGE_ADAPTOR(pointers, pointer_range_detail::baby_generator)
+PSTADE_EGG_FUNCTION(make_pointer_range, pointer_range_detail::baby_make)
+PSTADE_EGG_PIPABLE(pointers, pointer_range_detail::baby_make)
 
 
 } } // namespace pstade::oven
-
-
-PSTADE_OVEN_IS_LIGHTWEIGHT_PROXY_TEMPLATE(pstade::oven::pointer_range, 1)
 
 
 #endif
