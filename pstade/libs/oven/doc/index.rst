@@ -421,8 +421,8 @@ Instead, add ``&`` to make it a function **pointer**.
 
 - Header: ``<pstade/oven/concatenate_range.hpp>``
 - Valid expression: ``rngs|concatenated``
-- Specification: ``TopIterator`` is an iterator of ``rngs``, and ``BottomIterator`` is an iterator of the range which the dereference of ``TopIterator`` returns.
-- Precondition: The ``BottomIterator`` must be valid after copying of ``TopIterator``.
+- Specification: ``SegmentIterator`` is an iterator of ``rngs``, and ``LocalIterator`` is an iterator of the range which the dereference of ``SegmentIterator`` returns.
+- Precondition: The ``LocalIterator`` must be valid after copying of ``SegmentIterator``.
 
 
 
@@ -1028,7 +1028,7 @@ Version 0.90.2
 ^^^^^^^^^^^^^^
 - Added some `Range Adaptors`_.
 - Changed the header of `permuted`_.
-- Changed the header of `pointed`_.
+- Changed the header of ``pointed``.
 - Changed a valid expression of `zipped`_.
 - Changed `checked`_ to throw exception.
 - Renamed ``found`` to `string_found`_.
@@ -1086,4 +1086,5 @@ Version 0.91.3
 - Added ``popped``.
 - Changed the valid expression of ``array_protect_range`` and ``literal_range``.
 - Added ``to_function``.
+
 

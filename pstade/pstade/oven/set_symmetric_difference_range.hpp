@@ -13,7 +13,7 @@
 // Note:
 //
 // 'rng1|set_minus(rng2)|set_cup(rng2|set_minus(rng1))'
-// works fine, but requires the ranges be Forward.
+// works fine, but requires the ranges to be Forward.
 
 
 #include <pstade/egg/function.hpp>

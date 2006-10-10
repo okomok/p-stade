@@ -24,7 +24,7 @@
 
 void test()
 {
-    using namespace pstade;
+    namespace oven = pstade::oven;
     using namespace oven;
 
     {
@@ -32,11 +32,11 @@ void test()
         BOOST_CHECK(( boost::empty(vec|pointed) ));
     }
     {
-        std::string const src("hello, point_range");
+        std::string const src("hello, pointer_range");
         std::vector<char> vec;
         vec.resize(oven::distance(src) + 1);
         std::strcpy(vec|pointed|begins, src.c_str());
-        BOOST_CHECK(( oven::equals(vec|taken_while(pstade::not_(is_zero)), src) ));
+        BOOST_CHECK(( oven::equals(vec|taken_while(pstade::not_(pstade::is_zero)), src) ));
     }
 }
 

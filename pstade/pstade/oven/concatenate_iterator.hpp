@@ -10,9 +10,14 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// See:
+//
+// http://lafstern.org/matt/segmented.pdf
+
+
 // Note:
 //
-// The BottomIterator must be valid after copying of TopIterator.
+// The LocalIterator must be valid after copying of SegmentIterator.
 // Thus, 'boost::token_iterator' cannot be supported.
 //
 // This class makes 'biscuit::filter_range' deprecated!
@@ -39,7 +44,7 @@
 namespace pstade { namespace oven {
 
 
-template< class TopIterator >
+template< class SegmentIter >
 struct concatenate_iterator;
 
 
@@ -48,15 +53,15 @@ namespace concatenate_iterator_detail {
 
     // See:
     // http://opensource.adobe.com/iterator_8hpp-source.html#l00087
-    template< class TopIterator, class BottomRange >
+    template< class SegmentIter, class LocalRange >
     struct traversal
     {
-        typedef typename boost::iterator_traversal<TopIterator>::type top_trv_t;
-        typedef typename range_traversal<BottomRange>::type bot_trv_t;
+        typedef typename boost::iterator_traversal<SegmentIter>::type segment_trv_t;
+        typedef typename range_traversal<LocalRange>::type bot_trv_t;
 
         typedef typename boost::mpl::eval_if<
             boost::mpl::and_<
-                boost::is_convertible<top_trv_t, boost::bidirectional_traversal_tag>,
+                boost::is_convertible<segment_trv_t, boost::bidirectional_traversal_tag>,
                 boost::is_convertible<bot_trv_t, boost::bidirectional_traversal_tag>
             >,
             boost::mpl::identity<boost::bidirectional_traversal_tag>,
@@ -69,24 +74,24 @@ namespace concatenate_iterator_detail {
     };
 
 
-    template< class TopIterator >
-    struct bottom_range :
-        boost::iterator_reference<TopIterator>
+    template< class SegmentIter >
+    struct local_range :
+        boost::iterator_reference<SegmentIter>
     { };
 
 
-    template< class TopIterator >
+    template< class SegmentIter >
     struct super_
     {
-        typedef typename bottom_range<TopIterator>::type brng_t;
+        typedef typename local_range<SegmentIter>::type lrng_t;
 
         typedef boost::iterator_adaptor<
-            concatenate_iterator<TopIterator>,
-            TopIterator,
-            typename range_value<brng_t>::type,
-            typename traversal<TopIterator, brng_t>::type,
-            typename range_reference<brng_t>::type,
-            typename range_difference<brng_t>::type
+            concatenate_iterator<SegmentIter>,
+            SegmentIter,
+            typename range_value<lrng_t>::type,
+            typename traversal<SegmentIter, lrng_t>::type,
+            typename range_reference<lrng_t>::type,
+            typename range_difference<lrng_t>::type
         > type;
     };
 
@@ -94,76 +99,88 @@ namespace concatenate_iterator_detail {
 } // namespace concatenate_iterator_detail
 
 
-template< class TopIterator >
+template< class SegmentIter >
 struct concatenate_iterator :
-    concatenate_iterator_detail::super_<TopIterator>::type
+    concatenate_iterator_detail::super_<SegmentIter>::type
 {
 private:
-    typedef typename concatenate_iterator_detail::super_<TopIterator>::type super_t;
+    typedef typename concatenate_iterator_detail::super_<SegmentIter>::type super_t;
     typedef typename super_t::reference ref_t;
-    typedef typename concatenate_iterator_detail::bottom_range<TopIterator>::type bottom_rng_t;
-    typedef typename range_iterator<bottom_rng_t>::type bottom_iter_t;
+    typedef typename concatenate_iterator_detail::local_range<SegmentIter>::type local_rng_t;
 
 public:
+    typedef SegmentIter segment_iterator;
+    typedef typename range_iterator<local_rng_t>::type local_iterator;
+
     concatenate_iterator()
     { }
 
-    concatenate_iterator(TopIterator const& it, TopIterator const& last) :
+    concatenate_iterator(SegmentIter const& it, SegmentIter const& last) :
         super_t(it), m_last(last)
     {
         PSTADE_CONSTRUCTOR_PRECONDITION (~
         )
 
-        reset_bottom_forward();
+        reset_local_forward();
     }
 
 
 template< class > friend struct concatenate_iterator;
-    template< class TopIterator_ >
+    template< class SegmentIter_ >
     concatenate_iterator(
-        concatenate_iterator<TopIterator_> const& other,
-        typename boost::enable_if_convertible<TopIterator_, TopIterator>::type * = 0
+        concatenate_iterator<SegmentIter_> const& other,
+        typename boost::enable_if_convertible<SegmentIter_, SegmentIter>::type * = 0
     ) :
         super_t(other.base()), m_last(other.m_last),
-        m_bottom(other.m_bottom)
+        m_local(other.m_local)
     {
         PSTADE_CONSTRUCTOR_PRECONDITION (~
         )
     }
 
-private:
-    TopIterator m_last;
-    bottom_iter_t m_bottom;
+    SegmentIter const& segment() const
+    {
+        return this->base();
+    }
 
-    bool top_is_end() const
+    local_iterator const& local() const
+    {
+        return m_local;
+    }
+
+private:
+    SegmentIter m_last;
+    local_iterator m_local;
+
+    bool segment_is_end() const
     {
         return this->base() == m_last;
     }
 
-    bottom_rng_t bottom_range() const
+    local_rng_t local_range() const
     {
         PSTADE_PRECONDITION (
-            (!top_is_end())
+            (!segment_is_end())
         )
 
         return *this->base();
     }
 
-    void reset_bottom_forward()
+    void reset_local_forward()
     {
-        while (!top_is_end() && boost::empty(bottom_range()))
+        while (!segment_is_end() && boost::empty(local_range()))
             ++this->base_reference();
 
-        if (!top_is_end())
-            m_bottom = boost::begin(bottom_range());
+        if (!segment_is_end())
+            m_local = boost::begin(local_range());
     }
 
-    void reset_bottom_reverse()
+    void reset_local_reverse()
     {
-        while (boost::empty(bottom_range()))
+        while (boost::empty(local_range()))
             --this->base_reference();
 
-        m_bottom = boost::end(bottom_range());
+        m_local = boost::end(local_range());
     }
 
     template< class Other >
@@ -174,19 +191,19 @@ private:
 
     PSTADE_CLASS_INVARIANT
     (
-        // 'm_bottom' is undefined if 'top_is_end'.
-        (!top_is_end() ?
-            detail::debug_contains(bottom_range(), m_bottom) : true)
+        // 'm_local' is undefined if 'segment_is_end'.
+        (!segment_is_end() ?
+            detail::debug_contains(local_range(), m_local) : true)
     )
 
 friend class boost::iterator_core_access;
     ref_t dereference() const
     {
         PSTADE_PRECONDITION (
-            (!top_is_end())
+            (!segment_is_end())
         )
 
-        return *m_bottom;
+        return *m_local;
     }
 
     template< class Other >
@@ -197,24 +214,24 @@ friend class boost::iterator_core_access;
         )
 
         return this->base() == other.base() // basic premise
-            && (top_is_end() || m_bottom == other.m_bottom);
+            && (segment_is_end() || m_local == other.m_local);
     }
 
     void increment()
     {
         PSTADE_PUBLIC_PRECONDITION (
-            (!top_is_end())
+            (!segment_is_end())
         )
 
         PSTADE_INVARIANT (
-            (m_bottom != boost::end(bottom_range()))
+            (m_local != boost::end(local_range()))
         )
 
-        ++m_bottom;
+        ++m_local;
 
-        if (m_bottom == boost::end(bottom_range())) {
+        if (m_local == boost::end(local_range())) {
             ++this->base_reference();
-            reset_bottom_forward();
+            reset_local_forward();
         }
     }
 
@@ -223,21 +240,21 @@ friend class boost::iterator_core_access;
         PSTADE_PUBLIC_PRECONDITION (~
         )
 
-        if (top_is_end() || m_bottom == boost::begin(bottom_range())) {
+        if (segment_is_end() || m_local == boost::begin(local_range())) {
             --this->base_reference();
-            reset_bottom_reverse();
+            reset_local_reverse();
         }
 
-        --m_bottom;
+        --m_local;
     }
 };
 
 
-template< class TopIterator > inline
-concatenate_iterator<TopIterator> const
-make_concatenate_iterator(TopIterator const& it, TopIterator const& last)
+template< class SegmentIter > inline
+concatenate_iterator<SegmentIter> const
+make_concatenate_iterator(SegmentIter const& it, SegmentIter const& last)
 {
-    return concatenate_iterator<TopIterator>(it, last);
+    return concatenate_iterator<SegmentIter>(it, last);
 }
 
 

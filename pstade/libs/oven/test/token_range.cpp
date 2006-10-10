@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/oven/tests.hpp>
 #include <pstade/oven/token_range.hpp>
 
 
@@ -18,7 +19,6 @@
 #include <boost/range.hpp>
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/concatenate_range.hpp>
-#include <pstade/oven/tests.hpp>
 
 
 void test()
@@ -36,8 +36,11 @@ void test()
             input|tokenized(re, std::vector<int>(), boost::regex_constants::match_default);
         }
 
-        BOOST_CHECK( oven::equals(input|tokenized(re)|concatenated, std::string("Thisishisface") ) );
-        BOOST_CHECK( oven::test_forward(input|tokenized(re)|concatenated) );
+        std::vector<char> expected = std::string("Thisishisface")|copied
+        BOOST_CHECK( oven::test_Forward_Readable_Writable(
+            input|tokenized(re)|concatenated,
+            expected
+        ) );
     }
 }
 

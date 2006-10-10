@@ -11,6 +11,7 @@
 
 
 #include <pstade/oven/algorithm.hpp>
+#include <pstade/oven/numeric.hpp>
 
 #include <pstade/oven/functions.hpp>
 
@@ -280,6 +281,17 @@ void test_algorithms(Rng & rng)
 
         b = oven::prev_permutation(rng);
         b = oven::prev_permutation(rng, std::less<value_type>());
+
+        { // numeric test
+            int x = oven::accumulate(rng, 0);
+            x = oven::accumulate(rng, 0, null_op2());
+            x = oven::inner_product(rng, boost::begin(rng2), 0);
+            x = oven::inner_product(rng, boost::begin(rng2), 0, null_op2(), null_op2());
+            o = oven::partial_sum(rng, boost::begin(out));
+            o = oven::partial_sum(rng, boost::begin(out), null_op2());
+            o = oven::adjacent_difference(rng, boost::begin(out));
+            o = oven::adjacent_difference(rng, boost::begin(out), null_op2());
+        }
     }
 
     // test the algorithms that require a random-access range

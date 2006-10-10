@@ -28,12 +28,12 @@ namespace pstade { namespace oven {
 namespace concatenate_range_detail {
 
 
-    template< class TopRange >
+    template< class SegmentRange >
     struct super_
     {
         typedef boost::iterator_range<
             concatenate_iterator<
-                typename range_iterator<TopRange>::type
+                typename range_iterator<SegmentRange>::type
             >
         > type;
     };
@@ -42,27 +42,27 @@ namespace concatenate_range_detail {
 } // namespace concatenate_range_detail
 
 
-template< class TopRange >
+template< class SegmentRange >
 struct concatenate_range :
-    concatenate_range_detail::super_<TopRange>::type,
-    private as_lightweight_proxy< concatenate_range<TopRange> >
+    concatenate_range_detail::super_<SegmentRange>::type,
+    private as_lightweight_proxy< concatenate_range<SegmentRange> >
 {
-    PSTADE_CONCEPT_ASSERT((SinglePass<TopRange>));
-    PSTADE_CONCEPT_ASSERT((SinglePass<typename range_value<TopRange>::type>));
+    PSTADE_CONCEPT_ASSERT((SinglePass<SegmentRange>));
+    PSTADE_CONCEPT_ASSERT((SinglePass<typename range_value<SegmentRange>::type>));
 
 private:
-    typedef typename concatenate_range_detail::super_<TopRange>::type super_t;
+    typedef typename concatenate_range_detail::super_<SegmentRange>::type super_t;
     typedef typename super_t::iterator iter_t;
 
 public:
-    explicit concatenate_range(TopRange& rngs) :
+    explicit concatenate_range(SegmentRange& rngs) :
         super_t(
             iter_t(boost::begin(rngs), boost::end(rngs)),
             iter_t(boost::end(rngs),   boost::end(rngs))
         )
     { }
 
-    typedef TopRange pstade_oven_range_base_type;
+    typedef SegmentRange pstade_oven_range_base_type;
 };
 
 
@@ -71,14 +71,14 @@ namespace concatenate_range_detail {
 
     struct baby_make
     {
-        template< class Myself, class TopRange >
+        template< class Myself, class SegmentRange >
         struct apply
         {
-            typedef concatenate_range<TopRange> const type;
+            typedef concatenate_range<SegmentRange> const type;
         };
 
-        template< class Result, class TopRange >
-        Result call(TopRange& rngs)
+        template< class Result, class SegmentRange >
+        Result call(SegmentRange& rngs)
         {
             return Result(rngs);
         }

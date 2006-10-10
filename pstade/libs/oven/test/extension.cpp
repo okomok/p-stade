@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/oven/tests.hpp>
 #include <pstade/oven/extension.hpp>
 
 
@@ -197,18 +198,20 @@ void test()
     using namespace pstade;
 
     mine::container1 cont1;
+    std::vector<int> expected_int;
     mine::container2<int, char> cont2;
     mine::inside::container3 cont3;
+    std::vector<char> expected_char;
     ::your_sequence seq1;
     Foo::Pair<int *> pr;
 
     bool never = false;
     if (never) {
-        oven::test_random_access(cont1);
-        oven::test_random_access(cont2);
-        oven::test_random_access(cont3);
-        oven::test_random_access(seq1);
-        oven::test_random_access(pr);
+        oven::test_RandomAccess_Readable_Writable(cont1, expected_int);
+        oven::test_RandomAccess_Readable_Writable(cont2, expected_int);
+        oven::test_RandomAccess_Readable_Writable(cont3, expected_char);
+        oven::test_RandomAccess_Readable_Writable(seq1,  expected_char);
+        oven::test_RandomAccess_Readable_Writable(pr,    expected_int);
         oven::test_Copyable< Foo::Pair<int *> >(pr);
     }
 }
