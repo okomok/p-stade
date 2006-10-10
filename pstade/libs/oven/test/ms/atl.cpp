@@ -12,12 +12,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/oven/tests.hpp>
 #include <pstade/oven/atl.hpp> // can be placed first. VC++ ignores, though.
 
 
 #include <string>
+#include <vector>
 #include <boost/range.hpp>
-#include <pstade/oven/tests.hpp>
 
 
 #include <pstade/apple/atl/config.hpp> // ATL_VER
@@ -34,7 +35,8 @@ using namespace oven;
 
 void test_collection()
 {
-    int sample[] = { 0, 1, 2, 3, 4, 5, 6, 7 };
+    int sample[] = { 3,1,2,5,7,4,6,0 };
+    std::vector<int> expected = sample|copied;
 
 #if (_ATL_VER >= 0x0700)
 
@@ -46,7 +48,10 @@ void test_collection()
             rng.Add(i);
         }
 
-        BOOST_CHECK(( oven::test_random_access(rng) ));
+        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
+            rng,
+            expected
+        ) );
     }
     {
         typedef ATL::CAutoPtrArray<int> rng_t;
@@ -60,7 +65,10 @@ void test_collection()
             rng.Add(ptr4), rng.Add(ptr5), rng.Add(ptr6), rng.Add(ptr7);
         }
 
-        BOOST_CHECK(( oven::test_random_access(rng) ));
+        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
+            rng,
+            expected
+        ) );
     }
     {
         typedef ATL::CAtlList<int> rng_t;
@@ -70,21 +78,27 @@ void test_collection()
             rng.AddTail(i);
         }
 
-        BOOST_CHECK(( oven::test_bidirectional(rng) ));
+        BOOST_CHECK( oven::test_Bidirectional_Readable_Writable(
+            rng,
+            expected
+        ) );
     }
     {
         typedef ATL::CAutoPtrList<int> rng_t;
 
         rng_t rng; {
             ATL::CAutoPtr<int>
-                ptr0(new int(3)), ptr1(new int(4)), ptr2(new int(5)), ptr3(new int(4)),
-                ptr4(new int(1)), ptr5(new int(2)), ptr6(new int(4)), ptr7(new int(0));
+                ptr0(new int(3)), ptr1(new int(1)), ptr2(new int(2)), ptr3(new int(5)),
+                ptr4(new int(7)), ptr5(new int(4)), ptr6(new int(6)), ptr7(new int(0));
 
             rng.AddTail(ptr0), rng.AddTail(ptr1), rng.AddTail(ptr2), rng.AddTail(ptr3),
             rng.AddTail(ptr4), rng.AddTail(ptr5), rng.AddTail(ptr6), rng.AddTail(ptr7);
         }
 
-        BOOST_CHECK(( oven::test_bidirectional(rng) ));
+        BOOST_CHECK( oven::test_Bidirectional_Readable_Writable(
+            rng,
+            expected
+        ) );
     }
 
 #endif // (_ATL_VER >= 0x0700)
@@ -95,7 +109,11 @@ void test_collection()
 
         BOOST_CHECK(( oven::test_Copyable<rng_t>(sample) ));
         rng_t rng = sample|copied;
-        BOOST_CHECK(( oven::test_random_access(rng) ));
+
+        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
+            rng,
+            expected
+        ) );
     }
 #else
     {
@@ -105,7 +123,11 @@ void test_collection()
         BOOST_FOREACH (int i, sample) {
             rng.Add(i);
         }
-        BOOST_CHECK(( oven::test_random_access(rng) ));
+
+        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
+            rng,
+            expected
+        ) );
     }
     {
         typedef ATL::CSimpleValArray<int> rng_t;
@@ -114,7 +136,11 @@ void test_collection()
         BOOST_FOREACH (int i, sample) {
             rng.Add(i);
         }
-        BOOST_CHECK(( oven::test_random_access(rng) ));
+
+        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
+            rng,
+            expected
+        ) );
     }
 #endif
 }
@@ -123,6 +149,7 @@ void test_collection()
 void test_string()
 {
     std::basic_string<TCHAR> sample(_T("abcdefgh"));
+    std::vector<TCHAR> expected = sample|copied;
 
 #if (_ATL_VER >= 0x0700)
 
@@ -131,14 +158,22 @@ void test_string()
 
         BOOST_CHECK(( oven::test_Copyable<rng_t>(sample) ));
         rng_t rng = sample|copied;
-        BOOST_CHECK(( oven::test_random_access(rng) ));
+
+        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
+            rng,
+            expected
+        ) );
     }
     {
         typedef ATL::CFixedStringT<ATL::CAtlString, 60> rng_t;
 
         BOOST_CHECK(( oven::test_Copyable<rng_t>(sample) ));
         rng_t rng = sample|copied;
-        BOOST_CHECK(( oven::test_random_access(rng) ));
+
+        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
+            rng,
+            expected
+        ) );
     }
 
 #endif // (_ATL_VER >= 0x0700)
@@ -146,10 +181,14 @@ void test_string()
     {
         typedef ATL::CComBSTR rng_t;
 
-        rng_t sample(OLESTR("abcdefg"));
+        rng_t rng(OLESTR("abcdefgh"));
+        // CComBSTR overloads operator&..., so,
+        // strictly speaking, he seems not 'CopyConstructible'.
         BOOST_CHECK(( oven::test_Copyable<rng_t>(sample) ));
-        rng_t rng = sample|copied;
-        BOOST_CHECK(( oven::test_random_access(rng) ));
+        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
+            rng,
+            expected
+        ) );
     }
 }
 

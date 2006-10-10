@@ -535,7 +535,8 @@ bool test_empty(Range& rng)
 template< class To, class From >
 bool test_Copyable(From const& from)
 {
-    PSTADE_CONCEPT_ASSERT((boost::CopyConstructible<To>));
+    // CopyConstructible needs the normal 'operator&'.
+    // PSTADE_CONCEPT_ASSERT((boost::CopyConstructible<To>));
 
     To to = from|copied;
 

@@ -77,26 +77,6 @@ void test()
     }
 }
 
-/*
-error: no match for 'operator==' in '((
-    boost::iterator_facade<
-        boost::zip_iterator<
-            boost::tuples::tuple<
-                __gnu_cxx::__normal_iterator<
-                    char*, std::basic_string<char, std::char_traits<char>, std::allocator<char> >
-                >,
-                int*,
-                boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type
-            >
-        >,
-        boost::tuples::cons<char&, boost::tuples::cons<int&, boost::tuples::null_type> >,
-        boost::random_access_traversal_tag,
-        boost::tuples::cons<char&, boost::tuples::cons<int&, boost::tuples::null_type> >,
-        ptrdiff_t
-    >
-    *)(&i))->boost::iterator_facade<I, V, TC, R, D>::operator*
-    [with Derived = boost::zip_iterator<boost::tuples::tuple<__gnu_cxx::__normal_iterator<char*, std::basic_string<char, std::char_traits<char>, std::allocator<char> > >, int*, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type, boost::tuples::null_type> >, Value = boost::tuples::cons<char&, boost::tuples::cons<int&, boost::tuples::null_type> >, CategoryOrTraversal = boost::random_access_traversal_tag, Reference = boost::tuples::cons<char&, boost::tuples::cons<int&, boost::tuples::null_type> >, Difference = ptrdiff_t]() == (&vals)->std::vector<_Tp, _Alloc>::operator[] [with _Tp = test()::tt, _Alloc = std::allocator<test()::tt>](((unsigned int)c))'
-*/
 
 int test_main(int, char*[])
 {

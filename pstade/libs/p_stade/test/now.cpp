@@ -1,35 +1,29 @@
+#include <pstade/vodka/drink.hpp>
+
+#include <boost/iterator/iterator_traits.hpp>
+#include <boost/lambda/core.hpp>
+#include <boost/lambda/lambda.hpp>
+
+#include <vector>
 
 
-void a() { }
-
-
-template< class T >
-void x(T const&) { }
-
-template< class T >
-void y(T&) { }
-
-template< class T >
-void z(T) { }
-
-
-template< class T >
-void o(T&) { }
-
-template< class T >
-void o(T const&) { }
-
+template<typename IT, typename FN>
+typename FN::template sig<
+    boost::tuples::tuple<FN,
+        typename boost::iterator_reference<IT>::type
+    >
+>::type
+my_for_each(IT itBegin, IT itEnd, FN fn)
+{
+    return fn(*itBegin);
+}
 
 int main()
 {
-    // x(a); // error (1)
-    x(&a);
-
-    y(a);
-    // y(&a); // error
-
-    z(a); // decayed
-    z(&a);
-
-    o(a); // ??? (2)
+    namespace lambda = boost::lambda;
+    std::vector<int> vec;
+    vec.push_back(2);
+    int result = ::my_for_each(vec.begin(), vec.end(), lambda::_1 + 3);
+    assert( 5 == result );
 }
+

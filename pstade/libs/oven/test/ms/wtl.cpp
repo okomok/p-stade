@@ -44,12 +44,16 @@ void test_collection()
     {
         typedef WTL::CSimpleStack<int> rng_t;
 
+        std::vector<int> expected = sample|copied;
         rng_t rng;
         BOOST_FOREACH (int i, sample) {
             rng.Add(i);
         }
 
-        BOOST_CHECK(( oven::test_random_access(rng) ));
+        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
+            rng,
+            expected
+        ) );
     }
 }
 
@@ -60,9 +64,14 @@ void test_string()
 
     {
         typedef WTL::CString rng_t;
+        std::vector<TCHAR> expected = sample|copied;
         BOOST_CHECK(( oven::test_Copyable<rng_t>(sample) ));
         WTL::CString rng = sample|copied;
-        BOOST_CHECK(( oven::test_random_access(rng) ));
+
+        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
+            rng,
+            expected
+        ) );
     }
 }
 
