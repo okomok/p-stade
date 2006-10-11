@@ -14,6 +14,7 @@
 //
 // Strictly speaking, this iterator is never be RandomAccessIterator,
 // but RandomAccessTraversal. So is 'boost::counting_iterator'.
+// Also note <boost-sandbox/boost/view/cyclic_iterator.hpp>.
 
 
 #include <boost/config.hpp> // BOOST_MSVC

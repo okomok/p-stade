@@ -334,6 +334,13 @@ Instead, add ``&`` to make it a function **pointer**.
 - See: `Range Library Proposal`_.
 
 
+``advanced``
+^^^^^^^^^^^^
+- Header: ``<pstade/oven/advance_range.hpp>``
+- Valid expression: ``fwdRng|advanced(d)``
+- Returns: ``[boost::next(boost::begin(fwdRng),d),boost::next(boost::end(fwdRng),d))``.
+
+
 ``always``
 ^^^^^^^^^^^^^
 ``always`` returns a range which does not change as its adapting range vary::
@@ -768,30 +775,15 @@ Note that ``memoized`` can return a `Forward Range`_ even if its adapting range 
 - Returns: A range whose iterators behave as if they were the original iterators wrapped in ``boost::shared_container_iterator``.
 
 
-``shifted``
-^^^^^^^^^^^
-- Header: ``<pstade/oven/shift_range.hpp>``
-- Valid expression: ``fwdRng|shifted(d)``
-- Returns: ``[boost::next(boost::begin(fwdRng),d),boost::next(boost::end(fwdRng),d))``.
-
-
 ``sliced``
 ^^^^^^^^^^
+``sliced`` provides the column view of its adapting range::
+
+	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\sliced.ipp
+
 - Header: ``<pstade/oven/slice_range.hpp>``
-- Valid expression: ``fwdRng|sliced(n,m)``
-- Precondition: ``0 <= n && n <= m && m <= oven::distance(fwdRng)``
-- Returns: ``[boost::next(boost::begin(rng),n),boost::next(boost::begin(rng),m))``.
-
-
-``stridden``
-^^^^^^^^^^^^
-``stridden`` provides the column view of its adapting range::
-
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\stridden.ipp
-
-- Header: ``<pstade/oven/stride_range.hpp>``
-- Valid expression: ``fwdRng|stridden(l,o)``
-- Precondition: ``d % l == 0 || d % l == l`` and ``o < l``, where ``d = oven::distance(fwdRng);``
+- Valid expression: ``rndRng|sliced(start,stride)``
+- Precondition: ``d == 0 || d % stride == 0`` and ``0 <= start && start < stride``, where ``d = oven::distance(rndRng);``
 
 
 ``string_found``
@@ -845,6 +837,14 @@ prefix (possibly empty) of the range of elements that satisfy `Predicate`_::
 - Header: ``<pstade/oven/transorm_range.hpp>``
 - Valid expression: ``rng|transformed(rfun)``
 - See: `Range Library Proposal`_.
+
+
+``through_window``
+^^^^^^^^^^^^^^^^^^
+- Header: ``<pstade/oven/window_range.hpp>``
+- Valid expression: ``fwdRng|through_window(n,m)``
+- Precondition: ``0 <= n && n <= m && m <= oven::distance(fwdRng)``
+- Returns: ``[boost::next(boost::begin(rng),n),boost::next(boost::begin(rng),m))``.
 
 
 ``uniqued``
@@ -1082,9 +1082,10 @@ Version 0.91.3
 ^^^^^^^^^^^^^^
 - Added ``merged``, ``set_cup``, ``set_cap``, ``set_minus`` and ``set_delta``.
 - Added ``rotated``.
-- Changed effects of ``sliced``.
+- Removed ``stridden`` and changed effects of ``sliced``.
+- Added ``through_window``.
 - Added ``popped``.
 - Changed the valid expression of ``array_protect_range`` and ``literal_range``.
 - Added ``to_function``.
-
+- Renamed ``shifted`` to ``advanced``.
 

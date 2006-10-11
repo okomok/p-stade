@@ -56,7 +56,6 @@ struct xpressive_match_range :
     PSTADE_CONCEPT_ASSERT((Readable<Range>));
 
 private:
-    PSTADE_OVEN_DETAIL_REQUIRES(Range, BidirectionalRangeConcept);
     typedef typename xpressive_match_range_detail::super_<Range>::type super_t;
     typedef typename super_t::iterator iter_t;
 

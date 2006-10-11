@@ -11,14 +11,12 @@
 
 
 #include <pstade/oven/tests.hpp>
-#include <pstade/oven/token_range.hpp>
+#include <pstade/oven/window_range.hpp>
 
 
 #include <string>
 #include <vector>
-#include <boost/range.hpp>
 #include <pstade/oven/functions.hpp>
-#include <pstade/oven/concatenate_range.hpp>
 
 
 void test()
@@ -27,20 +25,23 @@ void test()
     using namespace oven;
 
     {
-        std::string input("This is his face");
-        boost::regex re("\\w+");
-        bool f = false;
-        if (f) {
-            input|tokenized(re);
-            input|tokenized(re, -1);
-            input|tokenized(re, std::vector<int>(), boost::regex_constants::match_default);
-        }
+        int A[] = { 0,1,2,3,4,5,6,7,8,9 };
+        int ans[] = { 3,4,5,6,7 };
+        std::vector<int> expected = ans|copied;
 
-        std::vector<char> expected = std::string("Thisishisface")|copied;
-        BOOST_CHECK( oven::test_Forward_Readable_Writable(
-            input|tokenized(re)|concatenated,
+        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
+            A|through_window(3,8),
             expected
         ) );
+    }
+
+    std::string src("0123456");
+    {
+        BOOST_CHECK( oven::equals(oven::make_window_range(src, 0, 0), std::string("")) );
+    }
+
+    {
+        BOOST_CHECK( oven::equals(src|through_window(1, 6), std::string("12345")) );
     }
 }
 

@@ -26,7 +26,7 @@ void test()
 
 #if defined(BOOST_MSVC)
     {
-        locale_saver loc("japanese");
+        pstade::locale_saver loc("japanese");
         std::string mb("a‚ b‚¢c‚¤‚¦de");
         std::wstring wc(L"a‚ b‚¢c‚¤‚¦de");
         BOOST_CHECK(!oven::equals(mb, wc) );

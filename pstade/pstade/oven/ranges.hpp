@@ -11,6 +11,7 @@
 
 
 #include "./adjacent_filter_range.hpp"
+#include "./advance_range.hpp"
 #include "./always_range.hpp"
 #include "./append_range.hpp"
 #include "./apply_range.hpp"
@@ -69,11 +70,9 @@
 #include "./scan_range.hpp"
 #include "./second_range.hpp"
 #include "./share_range.hpp"
-#include "./shift_range.hpp"
 #include "./single_range.hpp"
 #include "./slice_range.hpp"
 #include "./sort_range.hpp"
-#include "./stride_range.hpp"
 #include "./string_find_range.hpp"
 #include "./string_split_range.hpp"
 #include "./sub_set.hpp"
@@ -87,6 +86,7 @@
 #include "./unzip_range.hpp"
 #include "./utf8_decode_range.hpp"
 #include "./utf8_encode_range.hpp"
+#include "./window_range.hpp"
 // #include "./xpressive_match_range.hpp"
 // #include "./xpressive_token_range.hpp"
 #include "./zip_range.hpp"

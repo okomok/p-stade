@@ -44,9 +44,6 @@ void modern_way(Range& rng)
 
 void test()
 {
-    using namespace pstade;
-    using namespace oven;
-
     {
         std::string str("hello, constant_range!");
         BOOST_CHECK(oven::equals(str, str|constants));

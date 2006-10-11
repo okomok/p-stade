@@ -18,7 +18,6 @@
 #include <functional>
 #include <string>
 #include <boost/range.hpp>
-#include <boost/range/concepts.hpp>
 #include <pstade/oven/literal_range.hpp>
 #include <pstade/oven/transform_range.hpp>
 
@@ -72,13 +71,6 @@ struct isspace_
 
 void test()
 {
-    // concept check
-    //
-    {
-        typedef filter_range< any, std::string > rng_t;
-        boost::function_requires< boost::ForwardRangeConcept<rng_t> >();
-    }
-
     // variadic forms
     //
     {

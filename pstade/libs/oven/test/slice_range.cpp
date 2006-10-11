@@ -14,9 +14,16 @@
 #include <pstade/oven/slice_range.hpp>
 
 
+#include <iostream>
 #include <string>
-#include <vector>
+#include <boost/foreach.hpp>
+#include <boost/mpl/assert.hpp>
+#include <boost/type_traits/is_same.hpp>
+#include <pstade/oven/counting_range.hpp>
 #include <pstade/oven/functions.hpp>
+#include <pstade/oven/metafunctions.hpp>
+#include <pstade/oven/memoize_range.hpp>
+#include <pstade/oven/advance_range.hpp>
 
 
 void test()
@@ -25,25 +32,59 @@ void test()
     using namespace oven;
 
     {
-        int A[] = { 0,1,2,3,4,5,6,7,8,9 };
-        int ans[] = { 3,4,5,6,7 };
-        std::vector<int> expected = ans|copied;
+        int rng[] = { 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15 };
+        int ans[] = { 2,6,10,14 };
+        std::vector<char> expected = ans|copied;
 
         BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
-            A|sliced(3,8),
+            rng|sliced(2, 4),
             expected
         ) );
     }
-
-    std::string src("0123456");
     {
-        BOOST_CHECK( oven::equals(oven::make_slice_range(src, 0, 0), std::string("")) );
+        int const ans[] = { 0,4,8,12 };
+        BOOST_CHECK( oven::equals(ans,
+            oven::from_0_to(16)|sliced(0, 4)
+        ) );
+
+        BOOST_FOREACH (int x, oven::from_0_to(16)|sliced(0, 4)) {
+            std::cout << x << std::endl;
+        }
+
+        BOOST_CHECK( 4 ==
+            (oven::from_0_to(16)|sliced(0, 4)).stride()
+        );
+
+        BOOST_CHECK( 0 ==
+            (oven::from_0_to(16)|sliced(0, 4)).start()
+        );
     }
 
     {
-        BOOST_CHECK( oven::equals(src|sliced(1, 6), std::string("12345")) );
+        int const ans[] = { 2,6,10,14 };
+        BOOST_CHECK( oven::equals(ans,
+            oven::from_0_to(16)|advanced(2)|sliced(0, 4)
+        ) );
+    }
+
+    {
+        int const answer[] = { 2,6,10,14 };
+        BOOST_CHECK( oven::equals(answer,
+            oven::make_counting_range(0, 16)|sliced(2, 4)
+        ) );
+    }
+
+    {
+        int const answer[] = { 2,6,10,14 };
+        BOOST_CHECK( oven::equals(answer,
+            oven::make_counting_range(0, 16)|sliced(2, 4)
+        ) );
     }
 }
+
+
+typedef pstade::oven::slice_range<std::string> slice_rng_t;
+BOOST_MPL_ASSERT((boost::is_same< pstade::oven::range_base<slice_rng_t>::type, std::string >));
 
 
 int test_main(int, char*[])

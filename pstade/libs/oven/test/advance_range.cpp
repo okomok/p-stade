@@ -10,12 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/mb_encode_range.hpp>
+#include <pstade/oven/tests.hpp>
+#include <pstade/oven/advance_range.hpp>
 
 
-#include <string>
 #include <boost/range.hpp>
-#include <pstade/locale_saver.hpp>
 #include <pstade/oven/functions.hpp>
 
 
@@ -24,15 +23,21 @@ void test()
     namespace oven = pstade::oven;
     using namespace oven;
 
-#if defined(BOOST_MSVC)
+    int A[] = { 0,1,2,3,4,5,6,7,8,9 };
     {
-        pstade::locale_saver loc("japanese");
-        std::string mb("a‚ b‚¢c‚¤‚¦de");
-        std::wstring wc(L"a‚ b‚¢c‚¤‚¦de");
-        BOOST_CHECK(!oven::equals(mb, wc) );
-        BOOST_CHECK( oven::equals(wc|mb_encoded, mb) );
+        int ans[] = { 3,4,5,6,7 };
+        std::vector<int> expected = ans|copied;
+        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
+            boost::make_iterator_range(A+1,A+6)|advanced(2),
+            expected
+        ) );
     }
-#endif
+    {
+        BOOST_CHECK( oven::equals(
+            boost::make_iterator_range(A+1,A+4)|advanced(1),
+            boost::make_iterator_range(A+2,A+5)
+        ) );
+    }
 }
 
 

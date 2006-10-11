@@ -1,29 +1,36 @@
 #include <pstade/vodka/drink.hpp>
 
-#include <boost/iterator/iterator_traits.hpp>
+
+#include <string>
+#include <vector>
+#include <boost/assert.hpp>
 #include <boost/lambda/core.hpp>
 #include <boost/lambda/lambda.hpp>
+#include <boost/foreach.hpp>
+#include <pstade/locale.hpp>
+#include <boost/range/adaptors.hpp>
 
-#include <vector>
-
-
-template<typename IT, typename FN>
-typename FN::template sig<
-    boost::tuples::tuple<FN,
-        typename boost::iterator_reference<IT>::type
-    >
->::type
-my_for_each(IT itBegin, IT itEnd, FN fn)
-{
-    return fn(*itBegin);
-}
 
 int main()
 {
     namespace lambda = boost::lambda;
-    std::vector<int> vec;
-    vec.push_back(2);
-    int result = ::my_for_each(vec.begin(), vec.end(), lambda::_1 + 3);
-    assert( 5 == result );
-}
+    namespace loc = pstade;
+    namespace ranges = boost::ranges;
+    using namespace ranges;
 
+    std::vector<char> out;
+
+    BOOST_FOREACH (char ch,
+        new std::string("xOLxLExH")
+            | shared
+            | filtered(lambda::_1 != 'x') | regularized
+            | reversed
+            | transformed(loc::to_lower)  | const_lvalues
+            | jointed(", range!\0secret"|as_c_str)
+            | memoized
+    ) {
+        out.push_back(ch);
+    }
+
+    BOOST_ASSERT( ranges::equals(out, "hello, range!"|as_literal) );
+}
