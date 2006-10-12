@@ -70,10 +70,10 @@ public:
         BOOST_ASSERT(is_valid_start());
     }
 
-    template< class RandomAccessIter_ >
+    template< class RandIter_ >
     slice_iterator(
-        slice_iterator<RandomAccessIter_> const& other,
-        typename boost::enable_if_convertible<RandomAccessIter_, RandIter>::type * = 0
+        slice_iterator<RandIter_> const& other,
+        typename boost::enable_if_convertible<RandIter_, RandIter>::type * = 0
     ) :
         super_t(other.base()), m_start(other.start()), m_stride(other.stride())
     {

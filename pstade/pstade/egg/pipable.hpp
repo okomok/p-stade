@@ -35,7 +35,6 @@
 #include <boost/type_traits/add_const.hpp>
 #include <pstade/instance.hpp>
 #include <pstade/nonassignable.hpp>
-#include <pstade/unparenthesize.hpp>
 #include "./baby_call.hpp"
 #include "./baby_result.hpp"
 #include "./detail/config.hpp"
@@ -209,7 +208,7 @@ operator|(Input const& in, pipe<BabyFunction> const& pi)
 
 #define PSTADE_EGG_PIPABLE(Name, Baby) \
     PSTADE_INSTANCE( \
-        pstade::egg::pipe< PSTADE_UNPARENTHESIZE(Baby) > const, \
+        pstade::egg::pipe< Baby > const, \
         Name, value \
     ) \
 /**/

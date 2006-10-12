@@ -11,6 +11,7 @@
 
 
 #define PSTADE_OVEN_DEBUG
+#include <pstade/oven/tests.hpp>
 #include <pstade/oven/tab_expand_range.hpp>
 #include <pstade/oven/tab_unexpand_range.hpp>
 

@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#define PSTADE_CONCEPT_OFF
+ // #define PSTADE_CONCEPT_CHECK
 
 
 #include <pstade/concept.hpp>
@@ -48,8 +48,9 @@ template< class U, class T >
 PSTADE_CONCEPT_WHERE(
     ((boost::Convertible<T, U>))
     ((boost::Convertible<T, U>)),
-(pstade::void_)) return_void(T const&)
-{ }
+(void)) return_void(T const&)
+{
+}
 
 
 void test()

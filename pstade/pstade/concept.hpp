@@ -23,7 +23,7 @@
 // (int)) const make_const_value();
 
 
-#if !defined(NDEBUG) && !defined(PSTADE_CONCEPT_OFF)
+#if !defined(NDEBUG) && defined(PSTADE_CONCEPT_CHECK)
 
     #include <boost/config.hpp>
     #include <boost/detail/workaround.hpp>

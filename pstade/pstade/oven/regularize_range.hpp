@@ -45,7 +45,7 @@ struct regularize_range :
     private as_lightweight_proxy< regularize_range<Range> >
 {
     // iterator can be neither Assignable nor DefaultConstructible.
-    // PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+    // PSTADE_CONCEPT_ASSERT((*Broken*SinglePass<Range>));
 
 private:
     typedef typename regularize_range_detail::super_<Range>::type super_t;

@@ -42,6 +42,7 @@ test-suite wine :
     [ wine-test reference ]
     [ wine-test remove_cvr ]
     [ wine-test require ]
+    [ wine-test result_of_lambda ]
     [ wine-test statement ]
     [ wine-test static_c ]
     [ wine-test unparenthesize ]

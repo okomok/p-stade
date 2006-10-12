@@ -27,10 +27,6 @@
 namespace pstade {
 
 
-struct void_
-{ };
-
-
 // If 'T' is a dependent-name,
 // you can always add 'typename' to this
 // even if 'Decayed' is not dependent.
@@ -46,7 +42,7 @@ struct unparenthesize<void(Decayed), T>
 };
 
 template< class T >
-struct unparenthesize<void(void_), T>
+struct unparenthesize<void(void), T>
 {
     typedef void type;
 };
@@ -56,7 +52,7 @@ struct unparenthesize<void(void_), T>
 
 
 #define PSTADE_UNPARENTHESIZE(Decayed) \
-    pstade::unparenthesize<void(Decayed)>::type \
+    pstade::unparenthesize<void Decayed>::type \
 /**/
 
 

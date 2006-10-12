@@ -29,7 +29,6 @@
 #include <boost/preprocessor/seq/for_each_product.hpp>
 #include <boost/type_traits/add_const.hpp>
 #include <pstade/instance.hpp>
-#include <pstade/unparenthesize.hpp>
 #include "./baby_call.hpp"
 #include "./baby_result.hpp"
 #include "./detail/config.hpp"
@@ -188,11 +187,11 @@ struct function : BabyFunction
 
     #define PSTADE_EGG_FUNCTION_define(TypeName, Name, Baby) \
         typedef pstade::egg::function< \
-            PSTADE_UNPARENTHESIZE(Baby) \
+            Baby \
         > TypeName; \
         \
         PSTADE_INSTANCE( \
-            pstade::egg::function< PSTADE_UNPARENTHESIZE(Baby) > const, \
+            pstade::egg::function< Baby > const, \
             Name, value \
         ) \
     /**/

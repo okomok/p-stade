@@ -10,6 +10,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#if !defined(PSTADE_CONCEPT_CHECK) \
+    && !defined(PSTADE_OVEN_TESTS_NO_CONCEPT_CHECK)
+#define PSTADE_CONCEPT_CHECK
+#endif
+
+
 #include <algorithm>
 #include <boost/assert.hpp>
 #include <boost/concept_check.hpp>
@@ -535,7 +541,8 @@ bool test_empty(Range& rng)
 template< class To, class From >
 bool test_Copyable(From const& from)
 {
-    // CopyConstructible needs the normal 'operator&'.
+    // CopyConstructible needs the normal 'operator&',
+    // but some class doesn't have it...
     // PSTADE_CONCEPT_ASSERT((boost::CopyConstructible<To>));
 
     To to = from|copied;

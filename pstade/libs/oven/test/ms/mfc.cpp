@@ -26,7 +26,7 @@
 
 #if BOOST_WORKAROUND(BOOST_MSVC, == 1310)
     // VC++7.1 fatal error C1204
-    #define PSTADE_CONCEPT_OFF
+    #define PSTADE_OVEN_TESTS_NO_CONCEPT_CHECK
 #endif
 
 #include <boost/test/minimal.hpp>

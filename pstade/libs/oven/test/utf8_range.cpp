@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/oven/tests.hpp>
 #include <pstade/oven/utf8_decode_range.hpp>
 #include <pstade/oven/utf8_encode_range.hpp>
 
