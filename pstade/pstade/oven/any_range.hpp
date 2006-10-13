@@ -27,43 +27,54 @@ namespace any_range_detail {
 
 
     template<
-        class Reference,
+        class Value,
         class Traversal,
-        class Difference = std::ptrdiff_t
+        class Reference,
+        class Difference
     >
     struct super_
     {
         typedef boost::iterator_range<
-            any_iterator<Reference, Traversal, Difference>
+            any_iterator<Value, Traversal, Reference, Difference>
         > type;
     };
+
+
+    template< class X, class Y >
+    struct disable_if_same :
+        boost::disable_if<
+            boost::is_same<X, Y>,
+            void *
+        >
+    { };
 
 
 } // namespace any_range_detail
 
 
 template<
-    class Reference,
+    class Value,
     class Traversal,
+    class Reference  = Value&,
     class Difference = std::ptrdiff_t
 >
 struct any_range :
-    any_range_detail::super_<Reference, Traversal, Difference>::type,
-    private as_lightweight_proxy< any_range<Reference, Traversal, Difference> >
+    any_range_detail::super_<Value, Traversal, Reference, Difference>::type,
+    private as_lightweight_proxy< any_range<Value, Traversal, Reference, Difference> >
 {
 private:
-    typedef typename any_range_detail::super_<Reference, Traversal, Difference>::type super_t;
+    typedef typename any_range_detail::super_<Value, Traversal, Reference, Difference>::type super_t;
 
 public:
     template< class Range >
-    explicit any_range(Range& rng,
-        typename boost::disable_if< boost::is_same<Range, any_range> >::type * = 0
+    any_range(Range& rng,
+        typename any_range_detail::disable_if_same<Range, any_range>::type = 0
     ) :
         super_t(boost::begin(rng), boost::end(rng))
     { }
 
     template< class Range >
-    explicit any_range(Range const& rng) :
+    any_range(Range const& rng) :
         super_t(boost::begin(rng), boost::end(rng))
     { }
 };
