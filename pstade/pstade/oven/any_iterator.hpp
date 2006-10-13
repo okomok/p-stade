@@ -108,7 +108,7 @@ namespace any_iterator_detail {
 
 
     template< class Iterator >
-    void decrement_aux(Iterator& it, boost::incrementable_traversal_tag)
+    void decrement_aux(Iterator& it, ...)
     {
         BOOST_ASSERT(false);
         pstade::unused(it);
@@ -122,7 +122,7 @@ namespace any_iterator_detail {
 
 
     template< class Iterator, class Difference >
-    void advance_aux(Iterator& it, Difference d, boost::incrementable_traversal_tag)
+    void advance_aux(Iterator& it, Difference d, ...)
     {
         BOOST_ASSERT(false);
         pstade::unused(it, d);
@@ -136,7 +136,7 @@ namespace any_iterator_detail {
 
 
     template< class Difference, class Iterator >
-    Difference difference_to_aux(Iterator const& first, Iterator const& last, boost::incrementable_traversal_tag)
+    Difference difference_to_aux(Iterator const& first, Iterator const& last, ...)
     {
         BOOST_ASSERT(false);
         pstade::unused(first, last);
