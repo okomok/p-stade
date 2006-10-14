@@ -12,6 +12,7 @@
 
 #include <algorithm> // swap
 #include <cstddef> // ptrdiff_t
+#include <boost/any.hpp>
 #include <boost/assert.hpp>
 #include <boost/checked_delete.hpp>
 #include <boost/iterator/iterator_categories.hpp> // tags
@@ -52,7 +53,7 @@ namespace any_iterator_detail {
         { }
 
         clone_ptr(self_t const& other) :
-            m_ptr(other->clone())
+            m_ptr(other.m_ptr ? other->clone() : PSTADE_NULLPTR)
         { }
 
         ~clone_ptr()
@@ -82,20 +83,15 @@ namespace any_iterator_detail {
     };
 
 
-    struct clonable
-    {
-        virtual ~clonable() { };
-        virtual clonable *clone() const = 0;
-    };
-
-
     template<
         class Reference,
         class Difference
     >
-    struct placeholder
+    struct placeholder :
+        private boost::noncopyable
     {
         virtual ~placeholder() { }
+
         virtual Reference dereference() const = 0;
         virtual bool equal(placeholder const& other) const = 0;
         virtual void increment() = 0;
@@ -103,6 +99,7 @@ namespace any_iterator_detail {
         virtual void advance(Difference d) = 0;
         virtual Difference difference_to(placeholder const& other) const = 0;
 
+        virtual boost::any base() const = 0;
         virtual placeholder *clone() const = 0;
     };
 
@@ -168,7 +165,7 @@ namespace any_iterator_detail {
         typedef placeholder<Reference, Difference> placeholder_t;
 
     public:
-        holder(Iterator const& held) :
+        explicit holder(Iterator const& held) :
           m_held(held)
         { }
 
@@ -205,6 +202,11 @@ namespace any_iterator_detail {
         }
 
     public:
+        virtual boost::any base() const
+        {
+            return m_held;
+        }
+
         virtual placeholder_t *clone() const
         {
             return new self_t(m_held);
@@ -260,6 +262,11 @@ public:
     any_iterator(Iterator const& it) :
         m_pimpl(new any_iterator_detail::holder<Iterator, Traversal, Reference, Difference>(it))
     { }
+
+    boost::any base() const
+    {
+        return m_pimpl->base();
+    }
 
 template< class, class, class, class > friend struct any_iterator;
 

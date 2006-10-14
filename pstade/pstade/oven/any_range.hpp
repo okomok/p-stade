@@ -16,8 +16,8 @@
 #include <boost/range/iterator_range.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/utility/enable_if.hpp>
-#include "./as_lightweight_proxy.hpp"
 #include "./any_iterator.hpp"
+#include "./as_lightweight_proxy.hpp"
 
 
 namespace pstade { namespace oven {
@@ -40,6 +40,7 @@ namespace any_range_detail {
     };
 
 
+    // give way to implicitly-declared copy-constructor.
     template< class X, class Y >
     struct disable_if_same :
         boost::disable_if<
