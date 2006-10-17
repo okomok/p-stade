@@ -15,18 +15,15 @@
 // Doesn't support an OutputIterator, for now.
 
 
-#include <algorithm> // swap
 #include <cstddef> // ptrdiff_t
 #include <boost/any.hpp>
 #include <boost/assert.hpp>
-#include <boost/checked_delete.hpp>
 #include <boost/iterator/iterator_categories.hpp> // tags
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/type_traits/is_convertible.hpp>
-#include <pstade/radish/pointable.hpp>
-#include <pstade/nullptr.hpp>
+#include <pstade/assignable.hpp>
 #include <pstade/unused.hpp>
 
 
@@ -45,49 +42,6 @@ struct any_iterator;
 namespace any_iterator_detail {
 
 
-    template< class T >
-    struct clone_ptr :
-        radish::pointable<clone_ptr<T>, T>
-    {
-    private:
-        typedef clone_ptr self_t;
-
-    public:
-        explicit clone_ptr(T *ptr = PSTADE_NULLPTR) :
-            m_ptr(ptr)
-        { }
-
-        clone_ptr(self_t const& other) :
-            m_ptr(other.m_ptr ? other->clone() : PSTADE_NULLPTR)
-        { }
-
-        ~clone_ptr()
-        {
-            boost::checked_delete(m_ptr);
-        }
-
-        self_t& operator=(self_t const& other)
-        {
-            self_t(other).swap(*this);
-            return *this;
-        }
-
-        T *operator->() const
-        {
-            BOOST_ASSERT(m_ptr);
-            return m_ptr;
-        }
-
-        void swap(self_t& other)
-        {
-            std::swap(m_ptr, other.m_ptr);
-        }
-
-    private:
-        T *m_ptr;
-    };
-
-
     template<
         class Reference,
         class Difference
@@ -96,7 +50,6 @@ namespace any_iterator_detail {
         private boost::noncopyable
     {
         virtual ~placeholder() { }
-
         virtual Reference dereference() const = 0;
         virtual bool equal(placeholder const& other) const = 0;
         virtual void increment() = 0;
@@ -105,7 +58,16 @@ namespace any_iterator_detail {
         virtual Difference difference_to(placeholder const& other) const = 0;
 
         virtual boost::any base() const = 0;
+
+    private:
         virtual placeholder *clone() const = 0;
+
+        friend
+        placeholder<Reference, Difference> *
+        pstade_assignable_new(placeholder<Reference, Difference> const& self)
+        {
+            return self.clone();
+        }
     };
 
 
@@ -212,6 +174,7 @@ namespace any_iterator_detail {
             return m_held;
         }
 
+    private:
         virtual placeholder_t *clone() const
         {
             return new self_t(m_held);
@@ -270,43 +233,43 @@ public:
 
     boost::any base() const
     {
-        return m_pimpl->base();
+        return (**m_pimpl).base();
     }
 
 template< class, class, class, class > friend struct any_iterator;
 
 private:
-    any_iterator_detail::clone_ptr<placeholder_t> m_pimpl;
+    boost::optional< assignable<placeholder_t> > m_pimpl;
 
 friend class boost::iterator_core_access;
     ref_t dereference() const
     {
-        return m_pimpl->dereference();
+        return (**m_pimpl).dereference();
     }
 
     bool equal(self_t const& other) const
     {
-        return m_pimpl->equal(*other.m_pimpl);
+        return (**m_pimpl).equal(**other.m_pimpl);
     }
 
     void increment()
     {
-        m_pimpl->increment();
+        (**m_pimpl).increment();
     }
 
     void decrement()
     {
-        m_pimpl->decrement();
+        (**m_pimpl).decrement();
     }
 
     void advance(diff_t d)
     {
-        m_pimpl->advance(d);
+        (**m_pimpl).advance(d);
     }
 
     diff_t distance_to(self_t const& other) const
     {
-        return m_pimpl->difference_to(*other.m_pimpl);
+        return (**m_pimpl).difference_to(**other.m_pimpl);
     }
 };
 
