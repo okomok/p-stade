@@ -31,7 +31,8 @@ namespace window_range_detail {
     template< class Super, class Range, class Difference >
     Super make(Range& rng, Difference n, Difference m)
     {
-        BOOST_ASSERT(0 <= n && n <= m && m <= oven::distance(rng));
+        // Should a "bigger" window be allowed?
+        // BOOST_ASSERT(0 <= n && n <= m && m <= oven::distance(rng));
 
         typedef typename range_iterator<Range>::type iter_t;
         iter_t first = boost::next(boost::begin(rng), n);
@@ -67,7 +68,7 @@ namespace window_range_detail {
 
     struct baby_make
     {
-        template< class Myself, class Range, class DifferenceN, class DifferenceM >
+        template< class Myself, class Range, class Difference, class Difference_ >
         struct apply
         {
             typedef window_range<Range> const type;

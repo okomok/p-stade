@@ -18,10 +18,10 @@
 #include <pstade/biscuit/algorithm/match.hpp>
 #include <pstade/biscuit/parser.hpp>
 #include <pstade/nullptr.hpp>
+#include <pstade/oven/advance_range.hpp>
 #include <pstade/oven/copy_range.hpp>
 #include <pstade/oven/distance.hpp>
 #include <pstade/oven/range_value.hpp>
-#include <pstade/oven/pop_range.hpp>
 #include <pstade/unused.hpp>
 #include <pstade/ustring.hpp>
 #include <pstade/what.hpp>
@@ -180,7 +180,7 @@ namespace pstade { namespace lime {
                 BOOST_ASSERT(oven::distance(val) >= 2);
 
                 cxt.top().attributes()[cxt.current_AttName()]
-                    = val|oven::popped(1, 1); // remove " "
+                    = val|oven::advanced(1, -1); // remove " "
             }
         };
 

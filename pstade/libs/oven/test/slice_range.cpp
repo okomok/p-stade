@@ -63,7 +63,7 @@ void test()
     {
         int const ans[] = { 2,6,10,14 };
         BOOST_CHECK( oven::equals(ans,
-            oven::from_0_to(16)|advanced(2)|sliced(0, 4)
+            oven::from_0_to(16)|advanced(2, 2)|sliced(0, 4)
         ) );
     }
 

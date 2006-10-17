@@ -12,6 +12,7 @@
 
 #include <pstade/oven/tests.hpp>
 #include <pstade/oven/generate_range.hpp>
+#include <boost/none.hpp>
 
 
 #include <cstdlib> // rand
@@ -22,15 +23,66 @@
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/function_output_iterator.hpp>
 #include <pstade/oven/counting_range.hpp>
+#include <pstade/nullptr.hpp>
 
 
-class my_generator :
+struct my_generator :
     private boost::noncopyable
 {
-public:
-    typedef int result_type;
-    my_generator() : m_state(0) { }
-    int operator()() { return ++m_state; }
+    my_generator(int last) :
+        m_state(last)
+    { }
+
+    typedef boost::optional<int const&> result_type;
+
+    result_type operator()()
+    {
+        --m_state;
+
+        if (m_state == 0)
+            return result_type();
+
+        return m_state;
+    }
+
+    int m_state;
+};
+
+
+struct rand_generator
+{
+    typedef boost::optional<long> result_type;
+
+    result_type operator()()
+    {
+        long result = std::rand();
+        if (result % 3 == 0)
+            return result_type();
+
+        return result;
+    }
+};
+
+
+struct ptr_generator :
+    private boost::noncopyable
+{
+    ptr_generator(int last) :
+        m_state(last)
+    { }
+
+    typedef int const *result_type;
+
+    result_type operator()()
+    {
+        --m_state;
+
+        if (m_state == 0)
+            return PSTADE_NULLPTR;
+
+        return &m_state;
+    }
+
     int m_state;
 };
 
@@ -40,6 +92,7 @@ void test()
     namespace oven = pstade::oven;
     using namespace oven;
 
+#if 0 // rejected interface
     {
         // Workaround:
         // GCC cannot order const and non-const reference to function,
@@ -52,15 +105,55 @@ void test()
             std::cout << x << std::endl;
         }
     }
+#endif
 
     {
-        ::my_generator gen;
+        my_generator X(10);
 
-        BOOST_FOREACH (int x, oven::from_1_to(10)|generation(boost::ref(gen))) {
-            (void)x;
+        BOOST_FOREACH (int x, oven::generation<my_generator&>(X)) {
+            std::cout << x << std::endl;
         }
 
-        BOOST_CHECK(gen.m_state == 9);
+        BOOST_CHECK(X.m_state == 0);
+    }
+
+    {
+        my_generator X(10);
+        int ans[] = { 9,8,7,6,5,4,3,2,1 };
+        std::vector<int> expected = ans|copied;
+
+        BOOST_CHECK( oven::test_SinglePass_Readable(
+            oven::generation<my_generator&>(X),
+            expected
+        ));
+
+        BOOST_CHECK(X.m_state == 0);
+    }
+
+    {
+        BOOST_FOREACH (long x, oven::generation(rand_generator())) {
+            std::cout << x << std::endl;
+        }
+    }
+
+
+    {
+        ptr_generator X(10);
+        BOOST_FOREACH (int x, oven::generation<ptr_generator&>(X)) {
+            std::cout << x << std::endl;
+        }
+    }
+    {
+        ptr_generator X(10);
+        int ans[] = { 9,8,7,6,5,4,3,2,1 };
+        std::vector<int> expected = ans|copied;
+
+        BOOST_CHECK( oven::test_SinglePass_Readable(
+            oven::generation<ptr_generator&>(X),
+            expected
+        ));
+
+        BOOST_CHECK(X.m_state == 0);
     }
 }
 

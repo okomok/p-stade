@@ -42,7 +42,7 @@ namespace any_range_detail {
 
     // give way to implicitly-declared copy-constructor.
     template< class X, class Y >
-    struct disable_if_same :
+    struct never_used_to_copy :
         boost::disable_if<
             boost::is_same<X, Y>,
             void *
@@ -69,7 +69,7 @@ private:
 public:
     template< class Range >
     any_range(Range& rng,
-        typename any_range_detail::disable_if_same<Range, any_range>::type = 0
+        typename any_range_detail::never_used_to_copy<any_range, Range>::type = 0
     ) :
         super_t(boost::begin(rng), boost::end(rng))
     { }

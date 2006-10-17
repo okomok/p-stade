@@ -30,7 +30,17 @@ void test()
         std::vector<int> expected = ans|copied;
 
         BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
-            A|through_window(3,8),
+            A|through_window(3, 8),
+            expected
+        ) );
+    }
+
+    {
+        int A[] = { 0,1,2,3,4,5,6,7,8,9 };
+        std::vector<int> expected = A|copied;
+
+        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
+            A|through_window(3, 8)|through_window(-3, 5+2),
             expected
         ) );
     }

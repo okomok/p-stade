@@ -151,6 +151,17 @@ Oven provides some predefined range types.
 ``<pstade/oven/ranges.hpp>`` includes every range header unless otherwise specified.
 
 
+``any_range``
+^^^^^^^^^^^^^
+``any_range`` is a range whose iterators behave as if they were the original iterators wrapped in
+`any_iterator`__.
+
+__ http://thbecker.net/free_software_utilities/type_erasure_for_cpp_iterators/start_page.html
+
+- Header: ``<pstade/oven/any_range.hpp>``
+- Valid expression: ``any_range<Value,TraversalTag> any_(rng);``
+
+
 ``array_protect_range``
 ^^^^^^^^^^^^^^^^^^^^^^^
 The current Boost.Range regards char array as literal, which
@@ -337,8 +348,8 @@ Instead, add ``&`` to make it a function **pointer**.
 ``advanced``
 ^^^^^^^^^^^^
 - Header: ``<pstade/oven/advance_range.hpp>``
-- Valid expression: ``fwdRng|advanced(d)``
-- Returns: ``[boost::next(boost::begin(fwdRng),d),boost::next(boost::end(fwdRng),d))``.
+- Valid expression: ``fwdRng|advanced(df,dl)``
+- Returns: ``[boost::next(boost::begin(fwdRng),df),boost::next(boost::end(fwdRng),dl))``.
 
 
 ``always``
@@ -674,14 +685,6 @@ Note that ``memoized`` can return a `Forward Range`_ even if its adapting range 
 - Returns:  ``[&*boost::begin(vec),&*boost::begin(vec)+oven::distance(vec))`` if ``vec`` is not empty; otherwise, ``[0,0)``.
 
 
-``popped``
-^^^^^^^^^^
-- Header: ``<pstade/oven/pop_range.hpp>``
-- Valid expression: ``biRng|popped(f,b)``
-- Precondition: ``0 <= f && 0 <= b && f+b <= oven::distance(biRng)``
-- Returns: ``[boost::next(boost::begin(biRng),f),boost::prior(boost::end(biRng),b))``.
-
-
 ``prepended``
 ^^^^^^^^^^^^^
 - Header: ``<pstade/oven/prepend_range.hpp>``
@@ -1002,10 +1005,12 @@ Acknowledgments
 - `Boost C++ Libraries`_
 - `Boost.Range`_
 - `Boost.RangeEx`_
-- `Range Library Proposal`_
 - `Range Library Core`__
+- `Range Library Proposal`_
+- `RangeLib - The Boost Iterable Range Library`__
 - `VTL (View Template Library)`__
 
+__ http://www.torjo.com/rangelib/index.html
 __ http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2068.html
 __ http://www.zib.de/weiser/vtl/
 
@@ -1018,23 +1023,17 @@ Version 0.90.0
 ^^^^^^^^^^^^^^
 - Released initial version.
 
-Version 0.90.1
-^^^^^^^^^^^^^^
+Version 0.90.1 - 0.90.6
+^^^^^^^^^^^^^^^^^^^^^^^
 - Updated this document.
 - Implemented `Range Algorithms`_.
 - Added some `Ranges`_ and `Range Adaptors`_.
-
-Version 0.90.2
-^^^^^^^^^^^^^^
 - Added some `Range Adaptors`_.
 - Changed the header of `permuted`_.
 - Changed the header of ``pointed``.
 - Changed a valid expression of `zipped`_.
 - Changed `checked`_ to throw exception.
 - Renamed ``found`` to `string_found`_.
-
-Version 0.90.3 - 0.90.6
-^^^^^^^^^^^^^^^^^^^^^^^
 - Changed the header of `Range Algorithms`_.
 - Added ``base_iterator``.
 - Added some `Range Adaptors`_.
@@ -1088,4 +1087,9 @@ Version 0.91.3
 - Changed the valid expression of ``array_protect_range`` and ``literal_range``.
 - Added ``to_function``.
 - Renamed ``shifted`` to ``advanced``.
+
+Version 0.91.4
+^^^^^^^^^^^^^^
+- Added ``any_range``.
+- Removed ``popped`` and changed the valid expression of ``advanced``.
 

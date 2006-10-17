@@ -28,15 +28,43 @@ void test()
         int ans[] = { 3,4,5,6,7 };
         std::vector<int> expected = ans|copied;
         BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
-            boost::make_iterator_range(A+1,A+6)|advanced(2),
+            boost::make_iterator_range(A+1,A+6)|advanced(2,2),
             expected
         ) );
     }
     {
         BOOST_CHECK( oven::equals(
-            boost::make_iterator_range(A+1,A+4)|advanced(1),
+            boost::make_iterator_range(A+1,A+4)|advanced(1,1),
             boost::make_iterator_range(A+2,A+5)
         ) );
+    }
+
+    std::string rng("0123456789");
+    {
+        std::vector<char> expected = std::string("12345678")|copied;
+
+        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
+            rng|advanced(1,-1),
+            expected
+        ) );
+    }
+    {
+        std::vector<char> expected = std::string("345")|copied;
+
+        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
+            rng|advanced(1,-1)|advanced(2,-3),
+            expected
+        ) );
+    }
+
+    {
+        std::string src("0123456789");
+        {
+            BOOST_CHECK( oven::equals(
+                src|advanced(1, -1),
+                std::string("12345678")
+            ) );
+        }
     }
 }
 

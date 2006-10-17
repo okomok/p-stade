@@ -10,6 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// See:
+//
+// http://thbecker.net/free_software_utilities/type_erasure_for_cpp_iterators/start_page.html
+
+
 #include <algorithm> // swap
 #include <cstddef> // ptrdiff_t
 #include <boost/any.hpp>

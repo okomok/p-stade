@@ -42,9 +42,11 @@ private:
 
 public:
     template< class Difference >
-    advance_range(Range& rng, Difference d) :
-        super_t(boost::next(boost::begin(rng), d), boost::next(boost::end(rng), d))
-    { }
+    advance_range(Range& rng, Difference dfirst, Difference dlast) :
+        super_t(boost::next(boost::begin(rng), dfirst), boost::next(boost::end(rng), dlast))
+    {
+        BOOST_ASSERT(0 + dfirst <= oven::distance(rng) + dlast);
+    }
 
     typedef Range pstade_oven_range_base_type;
 };
@@ -55,16 +57,16 @@ namespace advance_range_detail {
 
     struct baby_make
     {
-        template< class Myself, class Range, class Difference >
+        template< class Myself, class Range, class Difference, class Difference_ >
         struct apply
         {
             typedef advance_range<Range> const type;
         };
 
         template< class Result, class Range, class Difference >
-        Result call(Range& rng, Difference d)
+        Result call(Range& rng, Difference dfirst, Difference dlast)
         {
-            return Result(rng, d);
+            return Result(rng, dfirst, dlast);
         }
     };
 
