@@ -72,7 +72,7 @@ public:
         scan_iterator<Iterator_, State, BinaryFun> const& other,
         typename boost::enable_if_convertible<Iterator_, Iterator>::type * = 0
     ) :
-        super_t(other.base()), m_state(other.state()), m_fun(other.functor())
+        super_t(other.base()), m_state(other.state()), m_fun(other.function())
     { }
 
     State const& state() const
@@ -80,7 +80,7 @@ public:
         return m_state;
     }
 
-    BinaryFun functor() const
+    BinaryFun const& function() const
     {
         return m_fun;
     }

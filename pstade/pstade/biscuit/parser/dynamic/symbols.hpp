@@ -27,8 +27,8 @@ namespace pstade { namespace biscuit {
 namespace symbols_detail {
 
 
-    template< class State, class UserState, class PairAssocContainer, class Functor >
-    bool aux(State& s, UserState& us, PairAssocContainer& rngs, Functor fun)
+    template< class State, class UserState, class PairAssocContainer, class Function >
+    bool aux(State& s, UserState& us, PairAssocContainer& rngs, Function fun)
     {
         typedef typename boost::range_result_iterator<PairAssocContainer>::type iter_t;
 
@@ -48,13 +48,13 @@ namespace symbols_detail {
 } // namespace symbols_detail
 
 
-template< class PairAssocContainerFtor = identity_fun, class Functor = null_fun >
+template< class PairAssocContainerFtor = identity_fun, class Function = null_fun >
 struct symbols
 {
     template< class State, class UserState >
     static bool parse(State& s, UserState& us)
     {
-        return symbols_detail::aux(s, us, PairAssocContainerFtor()(us), Functor());
+        return symbols_detail::aux(s, us, PairAssocContainerFtor()(us), Function());
     }
 };
 

@@ -10,9 +10,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// See:
+// Note:
 //
-// http://thbecker.net/free_software_utilities/type_erasure_for_cpp_iterators/start_page.html
+// Doesn't support an OutputIterator, for now.
 
 
 #include <algorithm> // swap
@@ -110,7 +110,7 @@ namespace any_iterator_detail {
 
 
     template< class Iterator >
-    void decrement_aux(Iterator& it, ...)
+    void decrement_aux(Iterator& it, boost::single_pass_traversal_tag)
     {
         BOOST_ASSERT(false);
         pstade::unused(it);
@@ -124,7 +124,7 @@ namespace any_iterator_detail {
 
 
     template< class Iterator, class Difference >
-    void advance_aux(Iterator& it, Difference d, ...)
+    void advance_aux(Iterator& it, Difference d, boost::single_pass_traversal_tag)
     {
         BOOST_ASSERT(false);
         pstade::unused(it, d);
@@ -138,7 +138,7 @@ namespace any_iterator_detail {
 
 
     template< class Difference, class Iterator >
-    Difference difference_to_aux(Iterator const& first, Iterator const& last, ...)
+    Difference difference_to_aux(Iterator const& first, Iterator const& last, boost::single_pass_traversal_tag)
     {
         BOOST_ASSERT(false);
         pstade::unused(first, last);

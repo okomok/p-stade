@@ -17,6 +17,7 @@
 
 #include <cstdlib> // rand
 #include <iostream>
+#include <sstream>
 #include <boost/foreach.hpp>
 #include <boost/range.hpp>
 #include <boost/noncopyable.hpp>
@@ -78,12 +79,38 @@ struct ptr_generator :
         --m_state;
 
         if (m_state == 0)
-            return PSTADE_NULLPTR;
+            return result_type(); // == PSTADE_NULLPTR.
 
         return &m_state;
     }
 
     int m_state;
+};
+
+
+template< class T, class CharT, class Traits = std::char_traits<CharT> >
+struct from_istream
+{
+    typedef std::basic_istream<CharT, Traits> istream_type;
+
+    explicit from_istream(istream_type& is) :
+        m_is(is)
+    { }
+
+    typedef boost::optional<CharT> result_type;
+
+    result_type operator()()
+    {
+        T val;
+        m_is >> val;
+        if (!m_is)
+            return result_type();
+
+        return val;
+    }
+
+private:
+    istream_type& m_is;
 };
 
 
@@ -110,7 +137,7 @@ void test()
     {
         my_generator X(10);
 
-        BOOST_FOREACH (int x, oven::generation<my_generator&>(X)) {
+        BOOST_FOREACH (int x, oven::generation(X)) {
             std::cout << x << std::endl;
         }
 
@@ -123,7 +150,7 @@ void test()
         std::vector<int> expected = ans|copied;
 
         BOOST_CHECK( oven::test_SinglePass_Readable(
-            oven::generation<my_generator&>(X),
+            oven::generation(X),
             expected
         ));
 
@@ -131,7 +158,7 @@ void test()
     }
 
     {
-        BOOST_FOREACH (long x, oven::generation(rand_generator())) {
+        BOOST_FOREACH (long x, oven::make_generate_range(rand_generator())) {
             std::cout << x << std::endl;
         }
     }
@@ -139,7 +166,7 @@ void test()
 
     {
         ptr_generator X(10);
-        BOOST_FOREACH (int x, oven::generation<ptr_generator&>(X)) {
+        BOOST_FOREACH (int x, oven::generation(X)) {
             std::cout << x << std::endl;
         }
     }
@@ -149,11 +176,20 @@ void test()
         std::vector<int> expected = ans|copied;
 
         BOOST_CHECK( oven::test_SinglePass_Readable(
-            oven::generation<ptr_generator&>(X),
+            oven::generation(X),
             expected
         ));
 
         BOOST_CHECK(X.m_state == 0);
+    }
+
+    {
+        std::string src("abcdefg");
+        std::stringstream ss;
+        ss << src;
+        from_istream<char, char> X(ss);
+
+        BOOST_CHECK( oven::equals(oven::generation(X), src) );
     }
 }
 

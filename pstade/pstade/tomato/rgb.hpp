@@ -11,6 +11,7 @@
 
 
 #include <iomanip> // hex
+#include <locale>
 #include <sstream> // istringstream
 #include <boost/cstdint.hpp> // uint32_t
 #include <boost/none.hpp>
@@ -64,9 +65,11 @@ rgb(CharRange const& rng)
 
     // See:
     // http://groups.google.com/group/comp.lang.c++.moderated/msg/3a2bbe7be45a9d80
-    //
+    // http://d.hatena.ne.jp/y-hamigaki/20061017
+
     std::string tmp = rng|oven::dropped(1)|oven::copied;
     std::istringstream is(tmp);
+    is.imbue(std::locale::classic());
 
     boost::uint32_t n;
     if (!(is >> std::hex >> n))

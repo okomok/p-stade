@@ -75,12 +75,12 @@ public:
 
     diff_t start() const
     {
-        return boost::begin(*this).start();
+        return this->begin().start();
     }
 
     diff_t stride() const
     {
-        return boost::begin(*this).stride();
+        return this->begin().stride();
     }
 
     typedef Range pstade_oven_range_base_type;

@@ -39,6 +39,9 @@ namespace generate_iterator_detail {
     { };
 
 
+    // "Optional" seems to be one of the concepts?
+    //
+
     template< class T >
     struct indirect_reference :
         boost::indirect_reference<T>
@@ -49,6 +52,9 @@ namespace generate_iterator_detail {
         boost::add_reference<T>
     { };
 
+
+    // 'Generator' can be a reference.
+    //
 
     template< class Generator >
     struct aux_gen
@@ -116,9 +122,10 @@ private:
     typedef typename generate_iterator_detail::generator_result<Generator>::type result_t;
 
 public:
-    // This requires non-reference Generator to be
-    // DefaultConstructible, but SinglePassIterator is not
-    // required to be DefaultConstructible.
+    // If default-constructed one plays the end iterator role,
+    // it would require non-reference 'Generator' to be
+    // DefaultConstructible. But SinglePassIterator is not
+    // required to be. So, prefer the constructor with 'not_end'.
     // generate_iterator()
     // { }
 

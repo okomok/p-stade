@@ -125,6 +125,11 @@ public:
         )
     { }
 
+    function_type const function() const
+    {
+        return this->begin().functor();
+    }
+
     typedef Range pstade_oven_range_base_type;
 };
 

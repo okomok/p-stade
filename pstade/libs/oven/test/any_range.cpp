@@ -30,6 +30,7 @@
 #include <boost/range.hpp>
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/ranges.hpp>
+#include <pstade/locale.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/core.hpp>
 
@@ -39,6 +40,7 @@ void test()
     namespace lambda = boost::lambda;
     namespace oven = pstade::oven;
     using namespace oven;
+    using pstade::to_upper;
 
     {
         std::string rng("8frj91j81hf891y2");
@@ -54,6 +56,13 @@ void test()
     {
         std::string str;
         any_range<char, boost::random_access_traversal_tag> any_rng(str|identities);
+    }
+    {
+        std::string rng("hello! any_range!");
+        any_range<char const, boost::bidirectional_traversal_tag> any_ =
+            rng|transformed(to_upper)|const_lvalues|filtered(lambda::_1 != '!')|regularized;
+
+        BOOST_CHECK( oven::equals(any_, std::string("HELLO ANY_RANGE")) );
     }
 }
 

@@ -10,7 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/range/begin.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <boost/spirit/iterator/file_iterator.hpp>
 #include "./as_lightweight_proxy.hpp"
@@ -62,7 +61,7 @@ public:
 
     bool is_open() const
     {
-        return boost::begin(*this);
+        return this->begin();
     }
 };
 

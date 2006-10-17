@@ -7,7 +7,7 @@ The Oven Range Library
 :Author: MB
 :Contact: mb2act@yahoo.co.jp 
 :License: Distributed under the `Boost Software License Version 1.0`_
-:Version: 0.91.3
+:Version: 0.91.4
 
 
 
@@ -37,7 +37,7 @@ unless otherwise specified.
 Requirements
 ------------
 - `Boost C++ Libraries Version 1.33.1`__ or later (no compilation required)
-- `P-Stade C++ Libraries Version 1.01.4`__ or later (no compilation required, give a higher priority than Boost headers)
+- `P-Stade C++ Libraries Version 1.01.5`__ or later (no compilation required, give a higher priority than Boost headers)
 
 __ Boost_
 __ http://sourceforge.net/project/showfiles.php?group_id=141222&package_id=173059
@@ -154,12 +154,15 @@ Oven provides some predefined range types.
 ``any_range``
 ^^^^^^^^^^^^^
 ``any_range`` is a range whose iterators behave as if they were the original iterators wrapped in
-`any_iterator`__.
+`any_iterator`__::
+
+	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\any_range.ipp
+
 
 __ http://thbecker.net/free_software_utilities/type_erasure_for_cpp_iterators/start_page.html
 
 - Header: ``<pstade/oven/any_range.hpp>``
-- Valid expression: ``any_range<Value,TraversalTag> any_(rng);``
+- Valid expression: ``any_range<Value,TraversalTag> any_(rng);`` and ``any_range<Value,TraversalTag> any_ = rng;``
 
 
 ``array_protect_range``
@@ -258,6 +261,23 @@ __ http://www.boost.org/libs/spirit/doc/file_iterator.html
 - Precondition: ``boost::spirit::file_iterator<C>`` is a valid expression.
 
 
+``generate_range``
+^^^^^^^^^^^^^^^^^^
+``generate_range`` is a `Single Pass Range`_ whose iterators behave as if
+they were the original iterators wrapped in `generator_iterator`__::
+
+	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\generate_range.ipp
+
+__ http://www.boost.org/libs/utility/generator_iterator.htm
+
+
+- Header: ``<pstade/oven/generate_range.hpp>``
+- Valid expression1: ``generate_range<rfunT> rng(rfun);`` and ``oven::make_generate_range(rfun)``
+- Valid expression2: ``oven::generation(rfun)``
+- Precondition:``rfun`` call returns initialized ``boost::optional`` if range is not end; Otherwise, returns uninitialized one.
+- Returns: A `Single Pass Range`_ whose values are the results of invoking ``rfun``, where ``rfun`` is a reference in the case of valid expression2.
+
+
 ``index_range``
 ^^^^^^^^^^^^^^^
 Pending...
@@ -348,8 +368,9 @@ Instead, add ``&`` to make it a function **pointer**.
 ``advanced``
 ^^^^^^^^^^^^
 - Header: ``<pstade/oven/advance_range.hpp>``
-- Valid expression: ``fwdRng|advanced(df,dl)``
-- Returns: ``[boost::next(boost::begin(fwdRng),df),boost::next(boost::end(fwdRng),dl))``.
+- Valid expression: ``fwdRng|advanced(d1,d2)`` and ``fwdRng|advanced(d1)``
+- Precondition: ``fwdRng`` must be a `Bidirectional Range`_ if either ``d1`` or ``d2`` is negative.
+- Returns: ``[boost::next(boost::begin(fwdRng),d1),boost::next(boost::end(fwdRng),d2))``, where ``d2`` equals ``d1`` in the case of the second valid expression.
 
 
 ``always``
@@ -541,20 +562,6 @@ it needs `regularized`_ that makes it assignable and then conforming.
 - Returns: ``rng|map_keys``.
 
 
-``generation``
-^^^^^^^^^^^^^^
-``generation`` generates a range whose values are the results of invoking
-a function object that takes no arguments. Note that ``generation``
-doesn't modify its adapting range, which is used only as **range**::
-
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\generation.ipp
-
-
-- Header: ``<pstade/oven/generate_range.hpp>``
-- Valid expression: ``rng|generation(rfun)``, where ``rfun`` is nullary.
-- Returns: A `Single Pass Range`_ whose values are the results of invoking ``rfun``.
-
-
 ``got_at``
 ^^^^^^^^^^
 Pending...
@@ -653,7 +660,7 @@ Note that ``memoized`` can return a `Forward Range`_ even if its adapting range 
 - Header: ``<pstade/oven/merge_range.hpp>``
 - Valid expression: ``rng1|merged(rng2)`` and ``rng1|merged(rng2,pred)``
 - Precondition: ``rng1`` and ``rng2`` are sorted.
-- Returns: A constant range which behaves as if they were made by ``std::merge``.
+- Returns: A constant `Forward Range`_ which behaves as if they were made by ``std::merge``.
 
 
 ``null_terminated``
@@ -704,7 +711,7 @@ Note that ``memoized`` can return a `Forward Range`_ even if its adapting range 
 ^^^^^^^^^^^^
 - Header: ``<pstade/oven/repeat_range.hpp>``
 - Valid expression: ``rng|repeated(n)``
-- Returns: A range that repeats ``[boost::begin(rng),boost::end(rng))`` ``n`` times.
+- Returns: A constant range that repeats ``[boost::begin(rng),boost::end(rng))`` ``n`` times.
 
 
 ``rotated``
@@ -725,7 +732,7 @@ Note that ``memoized`` can return a `Forward Range`_ even if its adapting range 
 - Header: ``<pstade/oven/set_intersection_range.hpp>``
 - Valid expression: ``rng1|set_cap(rng2)`` and ``rng1|set_cap(rng2,pred)``
 - Precondition: ``rng1`` and ``rng2`` are sorted.
-- Returns: A constant range which behaves as if they were made by ``std::set_intersection``.
+- Returns: A constant `Forward Range`_ which behaves as if they were made by ``std::set_intersection``.
 
 
 ``set_cup``
@@ -733,7 +740,7 @@ Note that ``memoized`` can return a `Forward Range`_ even if its adapting range 
 - Header: ``<pstade/oven/set_union_range.hpp>``
 - Valid expression: ``rng1|set_cup(rng2)`` and ``rng1|set_cup(rng2,pred)``
 - Precondition: ``rng1`` and ``rng2`` are sorted.
-- Returns: A constant range which behaves as if they were made by ``std::set_union``.
+- Returns: A constant `Forward Range`_ which behaves as if they were made by ``std::set_union``.
 
 
 ``set_delta``
@@ -741,7 +748,7 @@ Note that ``memoized`` can return a `Forward Range`_ even if its adapting range 
 - Header: ``<pstade/oven/set_symmetric_difference_range.hpp>``
 - Valid expression: ``rng1|set_delta(rng2)`` and ``rng1|set_delta(rng2,pred)``
 - Precondition: ``rng1`` and ``rng2`` are sorted.
-- Returns: A constant range which behaves as if they were made by ``std::set_symmetric_difference``.
+- Returns: A constant `Forward Range`_ which behaves as if they were made by ``std::set_symmetric_difference``.
 
 
 ``set_minus``
@@ -749,7 +756,7 @@ Note that ``memoized`` can return a `Forward Range`_ even if its adapting range 
 - Header: ``<pstade/oven/set_difference_range.hpp>``
 - Valid expression: ``rng1|set_minus(rng2)`` and ``rng1|set_minus(rng2,pred)``
 - Precondition: ``rng1`` and ``rng2`` are sorted.
-- Returns: A constant range which behaves as if they were made by ``std::set_difference``.
+- Returns: A constant `Forward Range`_ which behaves as if they were made by ``std::set_difference``.
 
 
 ``scanned``
@@ -846,7 +853,6 @@ prefix (possibly empty) of the range of elements that satisfy `Predicate`_::
 ^^^^^^^^^^^^^^^^^^
 - Header: ``<pstade/oven/window_range.hpp>``
 - Valid expression: ``fwdRng|through_window(n,m)``
-- Precondition: ``0 <= n && n <= m && m <= oven::distance(fwdRng)``
 - Returns: ``[boost::next(boost::begin(rng),n),boost::next(boost::begin(rng),m))``.
 
 
@@ -918,8 +924,8 @@ given as the first argument, instead of a tupling::
 
 
 
-Output Iterator Adaptors
-------------------------
+Output Iterator Makers
+----------------------
 
 ``to_counter``
 ^^^^^^^^^^^^^^
@@ -1059,7 +1065,7 @@ Version 0.90.7 - 0.90.9
 
 Version 0.91.0
 ^^^^^^^^^^^^^^
-- Added `Output Iterator Adaptors`_.
+- Added `Output Iterator Makers`_.
 
 Version 0.91.1
 ^^^^^^^^^^^^^^
@@ -1092,4 +1098,5 @@ Version 0.91.4
 ^^^^^^^^^^^^^^
 - Added ``any_range``.
 - Removed ``popped`` and changed the valid expression of ``advanced``.
+- Removed ``generation`` as adaptor and added it as range.
 

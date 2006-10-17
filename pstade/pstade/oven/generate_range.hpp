@@ -59,11 +59,12 @@ make_generate_range(Generator gen)
 }
 
 
+// 'make_generate_range<Gen&>(gen);' seems not a good thing.
 template< class Generator > inline
-generate_range<Generator> const
-generation(Generator gen)
+generate_range<Generator&> const
+generation(Generator& gen)
 {
-    return generate_range<Generator>(gen);
+    return generate_range<Generator&>(gen);
 }
 
 

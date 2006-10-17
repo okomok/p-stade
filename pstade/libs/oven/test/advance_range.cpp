@@ -34,7 +34,7 @@ void test()
     }
     {
         BOOST_CHECK( oven::equals(
-            boost::make_iterator_range(A+1,A+4)|advanced(1,1),
+            boost::make_iterator_range(A+1,A+4)|advanced(1),
             boost::make_iterator_range(A+2,A+5)
         ) );
     }

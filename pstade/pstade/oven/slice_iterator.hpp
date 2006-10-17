@@ -13,8 +13,7 @@
 // Note:
 //
 // Inspired by [1].
-// 'm_cache' is necessary for [2], which also works
-// around repeated dereferences. Neat!
+// 'm_cache' is necessary for [2].
 // It might be interesting to look into [3].
 //
 // [1] http://d.hatena.ne.jp/yotto-k/20060725

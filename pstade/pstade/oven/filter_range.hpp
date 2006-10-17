@@ -72,6 +72,11 @@ public:
         )
     { }
 
+    predicate_type const predicate() const
+    {
+        return this->begin().predicate();
+    }
+
     typedef Range pstade_oven_range_base_type;
 };
 

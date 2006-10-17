@@ -30,6 +30,23 @@
 namespace pstade { namespace oven {
 
 
+namespace advance_range_detail {
+
+
+    template< class Super, class Range, class Difference > inline
+    Super make(Range& rng, Difference dfirst, Difference dlast)
+    {
+        BOOST_ASSERT(0 + dfirst <= oven::distance(rng) + dlast);
+
+        return Super(
+            boost::next(boost::begin(rng), dfirst),
+            boost::next(boost::end(rng), dlast));
+    }
+
+
+} // namespace advance_range_detail
+
+
 template< class Range >
 struct advance_range :
     sub_range_base<Range>::type,
@@ -43,10 +60,13 @@ private:
 public:
     template< class Difference >
     advance_range(Range& rng, Difference dfirst, Difference dlast) :
-        super_t(boost::next(boost::begin(rng), dfirst), boost::next(boost::end(rng), dlast))
-    {
-        BOOST_ASSERT(0 + dfirst <= oven::distance(rng) + dlast);
-    }
+        super_t(advance_range_detail::make<super_t>(rng, dfirst, dlast))
+    { }
+
+    template< class Difference >
+    advance_range(Range& rng, Difference d) :
+        super_t(advance_range_detail::make<super_t>(rng, d, d))
+    { }
 
     typedef Range pstade_oven_range_base_type;
 };
@@ -57,7 +77,7 @@ namespace advance_range_detail {
 
     struct baby_make
     {
-        template< class Myself, class Range, class Difference, class Difference_ >
+        template< class Myself, class Range, class Difference, class Difference_ = void >
         struct apply
         {
             typedef advance_range<Range> const type;
@@ -67,6 +87,12 @@ namespace advance_range_detail {
         Result call(Range& rng, Difference dfirst, Difference dlast)
         {
             return Result(rng, dfirst, dlast);
+        }
+
+        template< class Result, class Range, class Difference >
+        Result call(Range& rng, Difference d)
+        {
+            return Result(rng, d);
         }
     };
 
