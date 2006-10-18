@@ -13,18 +13,19 @@
 // What:
 //
 // Makes a copy-constructible type to be assignable.
+// This class is also known as "clone_ptr".
 // Note that 'default_constructible' is 'boost::optional',
 // which requires assignability. Thus,
-// 'boost::optional< assignable<T> > x;' becomes "clone_ptr".
+// 'boost::optional< assignable<T> > x;' does what you want.
 // This class is maybe nothing but workaround.
-// The performance is, of course, bad.
+// The performance is bad. Boost.Move can fix it?
 
 
 // See: Clonable
 //
 // http://www.boost.org/libs/ptr_container/doc/reference.html#the-clonable-concept
 // T:CopyConstructible implies T:Clonable for any type T.
-// A reference type seems not to be Clonable.
+// A reference type is not Clonable.
 
 
 #include <algorithm> // swap
@@ -38,29 +39,6 @@
 #include <pstade/radish/swappable.hpp>
 
 
-namespace pstade_assignable_extension {
-
-
-    struct new_ { };
-    struct delete_ { };
-
-
-    template< class T > inline
-    T *pstade_assignable_(new_, T const& x)
-    {
-        return boost::heap_clone_allocator::allocate_clone(x);
-    }
-
-    template< class T > inline
-    void pstade_assignable_(delete_, T* ptr)
-    {
-        boost::heap_clone_allocator::deallocate_clone(ptr);
-    }
-
-
-} // namespace pstade_assignable_extension
-
-
 namespace pstade {
 
 
@@ -69,6 +47,20 @@ struct assignable;
 
 
 namespace assignable_detail {
+
+
+    template< class T > inline
+    T *new_(T const& x)
+    {
+        return boost::heap_clone_allocator::allocate_clone(x);
+    }
+
+
+    template< class T > inline
+    void delete_(T *ptr)
+    {
+        return boost::heap_clone_allocator::deallocate_clone(ptr);
+    }
 
 
     template< class Clonable >
@@ -89,21 +81,6 @@ namespace assignable_detail {
 } // namespace assignable_detail
 
 
-template< class T > inline
-T *pstade_assignable_new(T const& x)
-{
-    T *ptr = pstade_assignable_(pstade_assignable_extension::new_(), x);
-    BOOST_ASSERT(ptr);
-    return ptr;
-}
-
-template< class T > inline
-void pstade_assignable_delete(T *ptr)
-{
-    pstade_assignable_(pstade_assignable_extension::delete_(), ptr);
-}
-
-
 template< class Clonable >
 struct assignable :
     assignable_detail::super_<Clonable>::type
@@ -113,7 +90,11 @@ private:
 
 public:
     explicit assignable() : // DefaultConstructible iif 'Clonable' is.
-        m_ptr(pstade_assignable_new(Clonable()))
+        m_ptr(assignable_detail::new_(Clonable()))
+    { }
+
+    explicit assignable(Clonable const& x) :
+        m_ptr(assignable_detail::new_(x))
     { }
 
     explicit assignable(Clonable *ptr) :
@@ -122,12 +103,8 @@ public:
         BOOST_ASSERT(ptr);
     }
 
-    explicit assignable(Clonable const& x) :
-        m_ptr(pstade_assignable_new(x))
-    { }
-
     assignable(self_t const& other) :
-        m_ptr(pstade_assignable_new(*other))
+        m_ptr(assignable_detail::new_(*other))
     { }
 
     self_t& operator=(self_t const& other)
@@ -138,7 +115,7 @@ public:
 
     ~assignable()
     {
-        pstade_assignable_delete(m_ptr);
+        assignable_detail::delete_(m_ptr);
     }
 
 // totally_ordered
@@ -173,6 +150,14 @@ private:
         os << *self.m_ptr;
     }
 };
+
+
+template< class Clonable > inline
+assignable<Clonable> const
+make_assignable(Clonable const& x)
+{
+    return assignable<Clonable>(x);
+}
 
 
 } // namespace pstade

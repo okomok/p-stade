@@ -49,7 +49,6 @@ namespace any_iterator_detail {
     struct placeholder :
         private boost::noncopyable
     {
-        virtual ~placeholder() { }
         virtual Reference dereference() const = 0;
         virtual bool equal(placeholder const& other) const = 0;
         virtual void increment() = 0;
@@ -57,6 +56,7 @@ namespace any_iterator_detail {
         virtual void advance(Difference d) = 0;
         virtual Difference difference_to(placeholder const& other) const = 0;
 
+        virtual ~placeholder() { }
         virtual boost::any base() const = 0;
 
     private:
@@ -64,7 +64,7 @@ namespace any_iterator_detail {
 
         friend
         placeholder<Reference, Difference> *
-        pstade_assignable_new(placeholder<Reference, Difference> const& self)
+        new_clone(placeholder<Reference, Difference> const& self)
         {
             return self.clone();
         }

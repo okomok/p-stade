@@ -26,7 +26,7 @@ namespace pstade { namespace egg { namespace detail {
 
 template< class X, class Y >
 struct disable_if_same :
-    boost::disable_if< boost::is_same<X, Y> >
+    boost::disable_if< boost::is_same<X, Y>, void * >
 { };
 
 

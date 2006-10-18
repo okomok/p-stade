@@ -75,7 +75,7 @@ struct pipe : BabyFunction,
     //
 
     template< class A0 >
-    explicit pipe(A0& a0, typename detail::disable_if_same<A0, pipe>::type * = 0) :
+    explicit pipe(A0& a0, typename detail::disable_if_same<A0, pipe>::type = 0) :
         BabyFunction(a0)
     { }
 
