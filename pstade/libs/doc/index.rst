@@ -61,12 +61,12 @@ A `Boost.Range`_ Extension Library
 
 
 Tomato
-------
+---------
 An ATL/WTL_ Extension Library
 
 
 
-`Wine`_
+Wine
 -------
 Language Utilities
 

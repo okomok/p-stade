@@ -13,6 +13,7 @@
 // What:
 //
 // Never throws, use in destructors.
+// 'x || (assert(false), false);' is better?
 
 
 #include <boost/assert.hpp>
