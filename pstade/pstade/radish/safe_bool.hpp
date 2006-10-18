@@ -36,8 +36,9 @@ typedef int safe_bool_detail::box:: *
 safe_bool;
 
 
-inline
-safe_bool make_safe_bool(bool b)
+// delay evaluation using template to suppress VC++ warning.
+template< class Expr > inline
+safe_bool make_safe_bool(Expr const& b)
 {
     return b ? &safe_bool_detail::box::true_ : PSTADE_NULLPTR;
 }

@@ -43,7 +43,8 @@ struct pointable :
     friend
     Element *get_pointer(T const& x) // for Boost.Bind
     {
-        return x.operator->();
+        // can't call 'operator->()' which has usually assertion.
+        return x.get();
     }
 };
 

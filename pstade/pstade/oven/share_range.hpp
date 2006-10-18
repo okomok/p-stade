@@ -19,7 +19,6 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/utility/addressof.hpp>
 #include <pstade/instance.hpp>
-#include <pstade/radish/pointable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./share_iterator.hpp"
@@ -57,7 +56,6 @@ namespace share_range_detail {
 template< class Range >
 struct share_range :
     share_range_detail::super_<Range>::type,
-    radish::pointable< share_range<Range>, Range >,
     private as_lightweight_proxy< share_range<Range> >
 {
     PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
@@ -74,9 +72,9 @@ public:
         super_t(share_range_detail::make<super_t>(prng.release()))
     { }
 
-    Range *operator->() const
+    Range& operator *() const
     {
-        return boost::addressof(this->begin().range());
+        return this->begin().range();
     }
 
     typedef Range pstade_oven_range_base_type;

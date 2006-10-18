@@ -23,7 +23,8 @@
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/type_traits/is_convertible.hpp>
-#include <pstade/assignable.hpp>
+#include <pstade/clone_ptr.hpp>
+#include <pstade/new.hpp>
 #include <pstade/unused.hpp>
 
 
@@ -56,19 +57,24 @@ namespace any_iterator_detail {
         virtual void advance(Difference d) = 0;
         virtual Difference difference_to(placeholder const& other) const = 0;
 
-        virtual ~placeholder() { }
-        virtual boost::any base() const = 0;
-
-    private:
         virtual placeholder *clone() const = 0;
-
-        friend
-        placeholder<Reference, Difference> *
-        new_clone(placeholder<Reference, Difference> const& self)
-        {
-            return self.clone();
-        }
+        virtual boost::any base() const = 0;
+        virtual ~placeholder() { }
     };
+
+
+    // Note:
+    // You can't use the friend-injection here.
+    // Consider null 'clone_ptr'.
+    // As it doesn't require any instance of 'placeholder',
+    // there is no instantiation of 'new_clone' for 'placeholder'.
+    // Thus copy-constructor of 'clone_ptr' would fail to find 'new_clone'.
+    template< class Reference, class Difference > inline
+    placeholder<Reference, Difference> *
+    new_clone(placeholder<Reference, Difference> const& ph)
+    {
+        return ph.clone();
+    }
 
 
     template< class Iterator >
@@ -228,48 +234,48 @@ public:
 
     template< class Iterator >
     any_iterator(Iterator const& it) :
-        m_pimpl(new any_iterator_detail::holder<Iterator, Traversal, Reference, Difference>(it))
+        m_pimpl(pstade::new_< any_iterator_detail::holder<Iterator, Traversal, Reference, Difference> >(it))
     { }
 
     boost::any base() const
     {
-        return (**m_pimpl).base();
+        return m_pimpl->base();
     }
 
 template< class, class, class, class > friend struct any_iterator;
 
 private:
-    boost::optional< assignable<placeholder_t> > m_pimpl;
+    clone_ptr<placeholder_t> m_pimpl;
 
 friend class boost::iterator_core_access;
     ref_t dereference() const
     {
-        return (**m_pimpl).dereference();
+        return m_pimpl->dereference();
     }
 
     bool equal(self_t const& other) const
     {
-        return (**m_pimpl).equal(**other.m_pimpl);
+        return m_pimpl->equal(*other.m_pimpl);
     }
 
     void increment()
     {
-        (**m_pimpl).increment();
+        m_pimpl->increment();
     }
 
     void decrement()
     {
-        (**m_pimpl).decrement();
+        m_pimpl->decrement();
     }
 
     void advance(diff_t d)
     {
-        (**m_pimpl).advance(d);
+        m_pimpl->advance(d);
     }
 
     diff_t distance_to(self_t const& other) const
     {
-        return (**m_pimpl).difference_to(**other.m_pimpl);
+        return m_pimpl->difference_to(*other.m_pimpl);
     }
 };
 

@@ -26,7 +26,8 @@
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/optional.hpp>
-#include <pstade/assignable.hpp>
+#include <pstade/clone_ptr.hpp>
+#include <pstade/new.hpp>
 
 
 namespace pstade { namespace oven {
@@ -69,7 +70,7 @@ public:
     { }
 
     explicit regularize_iterator(Iterator const& it) :
-        m_pimpl(it)
+        m_pimpl(pstade::new_<Iterator>(it))
     { }
 
 template< class > friend struct regularize_iterator;
@@ -86,15 +87,15 @@ template< class > friend struct regularize_iterator;
 
     Iterator const& base() const
     {
-        return **m_pimpl;
+        return *m_pimpl;
     }
 
 private:
-    boost::optional< assignable<Iterator> > m_pimpl;
+    clone_ptr<Iterator> m_pimpl;
 
     Iterator& base_reference()
     {
-        return **m_pimpl;
+        return *m_pimpl;
     }
 
 friend class boost::iterator_core_access;

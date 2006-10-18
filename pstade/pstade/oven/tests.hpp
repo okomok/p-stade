@@ -19,6 +19,7 @@
 #include <algorithm>
 #include <boost/assert.hpp>
 #include <boost/concept_check.hpp>
+#include <boost/foreach.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/empty.hpp>
 #include <boost/range/end.hpp>
@@ -553,6 +554,35 @@ bool test_Copyable(From const& from)
     }
 
     if (!oven::equals(from, to)) {
+        BOOST_ASSERT(false);
+        return false;
+    }
+
+    return true;
+}
+
+
+namespace tests_detail {
+
+
+    bool is_lightweight_proxy(boost::mpl::true_ *)
+    {
+        return true;
+    }
+
+    bool is_lightweight_proxy(boost::mpl::false_ *)
+    {
+        return false;
+    }
+
+
+} // namespace tests_detail
+
+
+template< class Range > inline
+bool test_lightweight_proxy(Range const& rng)
+{
+    if (!tests_detail::is_lightweight_proxy(BOOST_FOREACH_IS_LIGHTWEIGHT_PROXY(rng))) {
         BOOST_ASSERT(false);
         return false;
     }
