@@ -11,8 +11,6 @@
 
 
 #include <cstddef> // ptrdiff_t
-#include <boost/range/begin.hpp>
-#include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -68,12 +66,12 @@ public:
     any_range(Range& rng,
         typename any_range_detail::never_used_to_copy<any_range, Range>::type = 0
     ) :
-        super_t(boost::begin(rng), boost::end(rng))
+        super_t(rng)
     { }
 
     template< class Range >
     any_range(Range const& rng) :
-        super_t(boost::begin(rng), boost::end(rng))
+        super_t(rng)
     { }
 };
 

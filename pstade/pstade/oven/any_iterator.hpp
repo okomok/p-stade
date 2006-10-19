@@ -63,8 +63,8 @@ namespace any_iterator_detail {
     };
 
 
-    // Note:
-    // You can't use the friend-injection here.
+    // Topic:
+    // You can't use the friend-injection to 'placeholder' here.
     // Consider null 'clone_ptr'.
     // As it doesn't require any instance of 'placeholder',
     // there is no instantiation of 'new_clone' for 'placeholder'.
@@ -130,8 +130,8 @@ namespace any_iterator_detail {
         placeholder<Reference, Difference>
     {
     private:
-        BOOST_MPL_ASSERT((boost::is_convertible<typename boost::iterator_reference<Iterator>::type,  Reference>));
         BOOST_MPL_ASSERT((boost::is_convertible<typename boost::iterator_traversal<Iterator>::type,  Traversal>));
+        BOOST_MPL_ASSERT((boost::is_convertible<typename boost::iterator_reference<Iterator>::type,  Reference>));
         BOOST_MPL_ASSERT((boost::is_convertible<typename boost::iterator_difference<Iterator>::type, Difference>));
 
         typedef holder self_t;
@@ -229,11 +229,17 @@ private:
     typedef any_iterator_detail::placeholder<Reference, Difference> placeholder_t;
 
 public:
-    any_iterator()
+    // This class is convertible only to the same type
+    // because of 'holder::equals/difference_to' implementation.
+    // So, there is no template constructor used to copy.
+
+    explicit any_iterator()
     { }
 
+    // There is no way to know the convertibility before instantiation.
+    // So 'explicit' seems to be required.
     template< class Iterator >
-    any_iterator(Iterator const& it) :
+    explicit any_iterator(Iterator const& it) :
         m_pimpl(pstade::new_< any_iterator_detail::holder<Iterator, Traversal, Reference, Difference> >(it))
     { }
 
@@ -241,8 +247,6 @@ public:
     {
         return m_pimpl->base();
     }
-
-template< class, class, class, class > friend struct any_iterator;
 
 private:
     clone_ptr<placeholder_t> m_pimpl;

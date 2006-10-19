@@ -16,7 +16,7 @@
 
 // PStade.Wine
 //
-// Copyright MB 2005-2006.
+// Copyright Shunsuke Sogame 2005-2006.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -26,7 +26,15 @@
 
 
 #include <algorithm>
+#include <memory>
+#include <sstream>
 #include <vector>
+#include <boost/foreach.hpp>
+#include <boost/lambda/lambda.hpp>
+#include <boost/lambda/core.hpp>
+#include <boost/optional.hpp>
+#include <pstade/oven/indirect_range.hpp>
+#include <pstade/nonassignable.hpp>
 
 
 struct xxx
@@ -47,9 +55,39 @@ struct yyy : xxx
 };
 
 
+// has no relational operators.
+struct zzz
+{
+    explicit zzz(int )
+    { }
+};
+
+
+struct no_ass :
+    private pstade::nonassignable
+{ };
+
+
+inline
 bool operator<(::xxx const& x1, ::xxx const& x2)
 {
     return x1.m_i < x2.m_i;
+}
+
+
+template< class T >
+void check_clone_ptr(T x)
+{
+    T y(x);
+    y = x;
+}
+
+
+template< class T >
+void check_regular(T x)
+{
+    ::check_clone_ptr(x);
+    T y;
 }
 
 
@@ -64,18 +102,47 @@ void test()
         typedef clone_ptr< ::xxx > val_t;
         std::vector< val_t > xs;
 
-        val_t v1(::xxx(3));
-        val_t v2(::yyy(5));
+        val_t v1(new ::xxx(3));
+        val_t v2(new ::yyy(5));
         xs.push_back( v1 );
         xs.push_back( v2 );
-        xs.push_back( val_t(::xxx(9)) );
+        xs.push_back( val_t(new ::xxx(9)) );
         xs.push_back( val_t(v1) );
-        xs.push_back( val_t(::yyy(6)) );
-        xs.push_back( val_t(::xxx(7)) );
-        xs.push_back( val_t(::xxx(12)) );
+        xs.push_back( val_t(new ::yyy(6)) );
+        xs.push_back( val_t(new ::xxx(7)) );
+        xs.push_back( val_t(new ::xxx(12)) );
         xs.push_back( val_t(v2) );
 
         std::sort(xs.begin(), xs.end());
+
+        BOOST_FOREACH( ::xxx& x, xs|oven::indirected) {
+            (void)x;
+        }
+    }
+
+    {
+        clone_ptr< ::xxx > ax(new ::xxx(5));
+        *ax;
+        ax->m_i;
+        ::check_clone_ptr(ax);
+        ::check_regular(ax);
+    }
+
+    {
+        clone_ptr< ::zzz > az(new ::zzz(3));
+    }
+
+    {
+        clone_ptr< char > ac, bc;
+        std::stringstream ss;
+        ss << ac;
+        get_pointer(ac);
+        swap(ac, bc);
+    }
+
+    {
+        clone_ptr< ::no_ass > a;
+        ::check_clone_ptr(a);
     }
 }
 

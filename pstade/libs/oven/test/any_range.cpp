@@ -64,6 +64,21 @@ void test()
 
         BOOST_CHECK( oven::equals(any_, std::string("HELLO ANY_RANGE")) );
     }
+    {
+        BOOST_CHECK( oven::test_lightweight_proxy(
+            any_range<char const, boost::random_access_traversal_tag>(std::string("rng"))
+        ) );
+    }
+
+#if 0 // seems impossible
+    {
+        std::string rng;
+        any_iterator<char, boost::random_access_traversal_tag> any_ = boost::begin(rng);
+        any_iterator<char const, boost::random_access_traversal_tag> cany_ = boost::const_begin(rng);
+        BOOST_CHECK( any_ == cany_ );
+        //BOOST_CHECK( boost::const_begin(rng) == any_ );
+    }
+#endif
 }
 
 
