@@ -35,6 +35,13 @@
 #include <boost/lambda/core.hpp>
 
 
+template< class AnyIter1, class AnyIter2 >
+bool equals(AnyIter1 it1, AnyIter2 it2)
+{
+    return it1 == it2;
+}
+
+
 void test()
 {
     namespace lambda = boost::lambda;
@@ -70,12 +77,28 @@ void test()
         ) );
     }
 
-#if 0 // seems impossible
+#if 0 // impossible
     {
-        std::string rng;
-        any_iterator<char, boost::random_access_traversal_tag> any_ = boost::begin(rng);
-        any_iterator<char const, boost::random_access_traversal_tag> cany_ = boost::const_begin(rng);
-        BOOST_CHECK( any_ == cany_ );
+        std::string rng("abcd");
+        typedef any_iterator<char      , boost::random_access_traversal_tag> many_iter;
+        typedef any_iterator<char const, boost::random_access_traversal_tag> cany_iter;
+        many_iter many(boost::begin(rng));
+        many_iter many2(boost::begin(rng));
+        cany_iter cany(boost::const_begin(rng));
+        cany_iter cany2(boost::const_begin(rng));
+
+        BOOST_CHECK( boost::begin(rng) == boost::const_begin(rng) );
+        BOOST_CHECK( many == many2 );
+        BOOST_CHECK( cany == cany2 );
+
+        many_iter many3(many);
+        BOOST_CHECK( many3 == many );
+
+        cany_iter cany_tmp(many);
+        BOOST_CHECK( cany_tmp == cany );
+
+        BOOST_CHECK( cany_iter(many) == cany );
+        BOOST_CHECK( many == cany );
         //BOOST_CHECK( boost::const_begin(rng) == any_ );
     }
 #endif

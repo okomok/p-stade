@@ -12,7 +12,13 @@
 
 // Note:
 //
-// could be implemented by using 'apply_range'.
+// This range follows the strategy of 'boost::filter_iterator'.
+// See his constructor, which is not really lazy.
+// Though <boost/archive/iterators/head_iterator.hpp> is lazy,
+// the dereference has some overhead, which would be avoided by the Range concept.
+// 'Boost.RangeLib' has 'break_iterator', but it seems to be redundant.
+// It does in effect the same thing as this range.
+// Also note that this range could be implemented by using 'apply_range' with Phoenix2.
 
 
 #include <boost/range/begin.hpp>

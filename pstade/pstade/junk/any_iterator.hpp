@@ -15,8 +15,8 @@
 // Is it possible to support OutputIterator?
 
 
-#include <cstddef>  // ptrdiff_t
-#include <typeinfo> // bad_cast
+#include <cstddef> // ptrdiff_t
+#include <boost/any.hpp>
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_categories.hpp> // tags
 #include <boost/iterator/iterator_facade.hpp>
@@ -50,15 +50,16 @@ namespace any_iterator_detail {
     struct placeholder :
         private boost::noncopyable
     {
-        virtual ~placeholder() { }
-        virtual placeholder *clone() const = 0;
-
         virtual Reference dereference() const = 0;
         virtual bool equal(placeholder const& other) const = 0;
         virtual void increment() = 0;
         virtual void decrement() = 0;
         virtual void advance(Difference d) = 0;
         virtual Difference difference_to(placeholder const& other) const = 0;
+
+        virtual placeholder *clone() const = 0;
+        virtual boost::any base() const = 0;
+        virtual ~placeholder() { }
     };
 
 
@@ -141,27 +142,7 @@ namespace any_iterator_detail {
           m_held(held)
         { }
 
-    private:
-        Iterator m_held;
-
-        virtual placeholder_t *clone() const
-        {
-            return new self_t(m_held);
-        }
-
-        bool is_compatible(placeholder_t const& other) const
-        {
-            try {
-                dynamic_cast<self_t const&>(other);
-            }
-            catch (std::bad_cast const&) {
-                return false;
-            }
-
-            return true;
-        }
-
-    public:
+    public: 
         virtual Reference dereference() const
         {
             return *m_held;
@@ -169,8 +150,12 @@ namespace any_iterator_detail {
 
         virtual bool equal(placeholder_t const& other) const
         {
-            BOOST_ASSERT(is_compatible(other));
+        #if defined(NDEBUG)
             return m_held == static_cast<self_t const&>(other).m_held;
+        #else
+            self_t const& other_ = dynamic_cast<self_t const&>(other);
+            return m_held == other_.m_held;
+        #endif
         }
 
         virtual void increment()
@@ -190,10 +175,24 @@ namespace any_iterator_detail {
 
         virtual Difference difference_to(placeholder_t const& other) const
         {
-            BOOST_ASSERT(is_compatible(other));
             return any_iterator_detail::difference_to_aux<Difference>(
                 m_held, static_cast<self_t const&>(other).m_held, Traversal());
         }
+
+    public:
+        virtual boost::any base() const
+        {
+            return m_held;
+        }
+
+    private:
+        virtual placeholder_t *clone() const
+        {
+            return new self_t(m_held);
+        }
+
+    private:
+        Iterator m_held;
     };
 
 
@@ -235,23 +234,39 @@ private:
     typedef any_iterator_detail::placeholder<Reference, Difference> placeholder_t;
 
 public:
-    // There is no template constructor used to copy.
-    // This class is convertible only to the same type,
-    // because 'holder::equals/difference_to' needs
-    // the same 'holder' type as its downcast argument.
-
     explicit any_iterator()
     { }
 
     // 'explicit' must be required.
-    // There is no way to know the convertibility beforehand.
-    template< class Iterator_ >
-    explicit any_iterator(Iterator_ const& it) :
+    // There is no way to know the convertibility before instantiation.
+    template< class Iterator >
+    explicit any_iterator(Iterator const& it) :
         m_pimpl(pstade::new_< any_iterator_detail::holder<
-            Iterator_,
+            Iterator,
             Traversal, Reference, Difference
         > >(it))
     { }
+
+#if 0 // impossible
+    // This class is convertible only to the same type,
+    // because 'holder::equals/difference_to' requires the same 'holder' type.
+    template< class Value_, class Traversal_, class Reference_, class Difference_ >
+    any_iterator(any_iterator<Value_, Traversal_, Reference_, Difference_> const& other,
+        typename boost::enable_if_convertible<Traversal_,  Traversal>::type  * = 0,
+        typename boost::enable_if_convertible<Reference_,  Reference>::type  * = 0,
+        typename boost::enable_if_convertible<Difference_, Difference>::type * = 0
+    ) :
+        m_pimpl(pstade::new_< any_iterator_detail::holder<
+            any_iterator<Value_, Traversal_, Reference_, Difference_>,
+            Traversal, Reference, Difference
+        > >(other))
+    { }
+#endif
+
+    boost::any base() const
+    {
+        return m_pimpl->base();
+    }
 
 private:
     clone_ptr<placeholder_t> m_pimpl;
