@@ -29,7 +29,6 @@
 #include <boost/ptr_container/clone_allocator.hpp>
 #include <pstade/nullptr.hpp>
 #include <pstade/radish/bool_testable.hpp>
-#include <pstade/radish/output_streamable.hpp>
 #include <pstade/radish/pointable.hpp>
 #include <pstade/radish/swappable.hpp>
 
@@ -62,11 +61,10 @@ namespace clone_ptr_detail {
     {
         typedef
             radish::bool_testable    < clone_ptr<Clonable>,
-            radish::output_streamable< clone_ptr<Clonable>,
             radish::pointable        < clone_ptr<Clonable>, Clonable,
             radish::swappable        < clone_ptr<Clonable>,
             boost::totally_ordered   < clone_ptr<Clonable>
-            > > > > >
+            > > > >
         type;
     };
 
@@ -91,11 +89,6 @@ public:
     {
         clone_ptr_detail::delete_(m_ptr);
     }
-
-    template< class Clonable_ >
-    explicit clone_ptr(Clonable_ *ptr) :
-        m_ptr(ptr)
-    { }
 
     template< class Clonable_ >
     explicit clone_ptr(std::auto_ptr<Clonable_> ap) :
@@ -155,31 +148,17 @@ public:
         return m_ptr == other.m_ptr;
     }
 
-// misc
-    void reset()
+// release/reset
+    std::auto_ptr<Clonable> release()
     {
-        self_t().swap(*this);
-    }
-
-    template< class Clonable_ >
-    void reset(Clonable_ *ptr)
-    {
-        self_t(ptr).swap(*this);
+        std::auto_ptr<Clonable> ap(m_ptr);
+        m_ptr = PSTADE_NULLPTR;
+        return ap;
     }
 
 private:
     Clonable *m_ptr;
 };
-
-
-template< class Clonable, class OStream >
-void pstade_radish_output(clone_ptr<Clonable> const& cp, OStream& os)
-{
-    if (cp)
-        os << *cp;
-    else
-        os << 0;
-}
 
 
 } // namespace pstade
