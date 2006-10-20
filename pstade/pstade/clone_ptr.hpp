@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// What:
+// Note:
 //
 // This class is maybe nothing but workaround.
 // The performance is, of course, bad.

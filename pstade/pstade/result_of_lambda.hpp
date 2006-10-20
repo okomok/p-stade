@@ -71,7 +71,7 @@ namespace boost {
 //
 namespace pstade {
 
-    // typedef boost::lambda::placeholder1_type _1_; // Abrahams' suggestion
+//  typedef boost::remove_const<boost::lambda::placeholder1_type>::type _1_; // Abrahams' proposal
     typedef boost::remove_const<boost::lambda::placeholder1_type>::type lambda_1_fun;
     typedef boost::remove_const<boost::lambda::placeholder2_type>::type lambda_2_fun;
     typedef boost::remove_const<boost::lambda::placeholder3_type>::type lambda_3_fun;

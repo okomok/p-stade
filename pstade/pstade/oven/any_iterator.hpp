@@ -260,7 +260,7 @@ public:
     { }
 
     template< class Iterator_ >
-    Iterator_ base() const
+    Iterator_ const& base() const
     {
         return any_iterator_detail::down_cast< any_iterator_detail::holder<
             Iterator_,
