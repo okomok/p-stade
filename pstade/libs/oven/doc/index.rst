@@ -163,6 +163,7 @@ __ http://thbecker.net/free_software_utilities/type_erasure_for_cpp_iterators/st
 
 - Header: ``<pstade/oven/any_range.hpp>``
 - Valid expression: ``any_range<Value,TraversalTag> any_(rng);`` and ``any_range<Value,TraversalTag> any_ = rng;``
+  , where the iterators of ``any_`` are ``Interoperatable`` if and only if ``rng``\s are the same type.
 
 
 ``array_protect_range``
@@ -1016,8 +1017,8 @@ Acknowledgments
 - `RangeLib - The Boost Iterable Range Library`__
 - `VTL (View Template Library)`__
 
-__ http://www.torjo.com/rangelib/index.html
 __ http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2068.html
+__ http://www.torjo.com/rangelib/index.html
 __ http://www.zib.de/weiser/vtl/
 
 

@@ -47,6 +47,7 @@
 #include "./unused.hpp"
 #include "./used.hpp"
 #include "./ustring.hpp"
+#include "./value.hpp"
 #include "./what.hpp"
 #include "./yes_no.hpp"
 

@@ -69,12 +69,11 @@ namespace reference_detail {
 } // namespace reference_detail
 
 
+PSTADE_EGG_FUNCTION(reference,   reference_detail::baby)
+PSTADE_EGG_PIPABLE(to_reference, reference_detail::baby)
 
-PSTADE_EGG_FUNCTION(reference, reference_detail::baby)
-PSTADE_EGG_PIPABLE(referenced, reference_detail::baby)
-
-PSTADE_EGG_FUNCTION(const_reference, reference_detail::baby_const)
-PSTADE_EGG_PIPABLE(const_referenced, reference_detail::baby_const)
+PSTADE_EGG_FUNCTION(const_reference,   reference_detail::baby_const)
+PSTADE_EGG_PIPABLE(to_const_reference, reference_detail::baby_const)
 
 
 } // namespace pstade

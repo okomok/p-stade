@@ -26,7 +26,7 @@ void test()
     using namespace pstade;
 
     ::foo(pstade::reference(1));
-    ::foo(1|referenced);
+    ::foo(1|to_reference);
 }
 
 
@@ -84,8 +84,8 @@ void ctest()
         double d = 3;
         d = d*d;
         d = d/d;
-        // ::apply(::reset, d|pstade::const_referenced); // error!
-        ::apply(::resee, d|pstade::const_referenced);
+        // ::apply(::reset, d|pstade::to_const_reference); // error!
+        ::apply(::resee, d|pstade::to_const_reference);
     }
 #endif
 }

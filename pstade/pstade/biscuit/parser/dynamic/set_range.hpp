@@ -53,7 +53,7 @@ struct set_range
         if (biscuit::state_is_end(s))
             return false;
 
-        if (!set_range_detail::find(RangeFtor()(us)|referenced, *s.get_cur()))
+        if (!set_range_detail::find(RangeFtor()(us)|to_reference, *s.get_cur()))
             return false;
 
         biscuit::state_increment(s);

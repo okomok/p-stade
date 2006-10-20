@@ -173,7 +173,7 @@ bool test_Forward_Readable(Range& rng, Vector const& expected)
     }
 
     {
-        if (!tests_detail::forward_r(rng|const_referenced, expected)) {
+        if (!tests_detail::forward_r(rng|to_const_reference, expected)) {
             BOOST_ASSERT(false);
             return false;
         }
@@ -329,14 +329,14 @@ bool test_Bidirectional_Readable(Range& rng, Vector const& expected)
     }
 
     {
-        if (!tests_detail::bidirectional_r(rng|const_referenced, expected)) {
+        if (!tests_detail::bidirectional_r(rng|to_const_reference, expected)) {
             BOOST_ASSERT(false);
             return false;
         }
 
         Vector expRev = expected;
         oven::reverse(expRev);
-        if (!tests_detail::bidirectional_r(tests_detail::make_reversed(rng|const_referenced), expRev)) {
+        if (!tests_detail::bidirectional_r(tests_detail::make_reversed(rng|to_const_reference), expRev)) {
             BOOST_ASSERT(false);
             return false;
         }
@@ -457,14 +457,14 @@ bool test_RandomAccess_Readable(Range& rng, Vector const& expected)
     }
 
     {
-        if (!tests_detail::random_access_r(rng|const_referenced, expected)) {
+        if (!tests_detail::random_access_r(rng|to_const_reference, expected)) {
             BOOST_ASSERT(false);
             return false;
         }
 
         Vector expRev = expected;
         oven::reverse(expRev);
-        if (!tests_detail::random_access_r(tests_detail::make_reversed(rng|const_referenced), expRev)) {
+        if (!tests_detail::random_access_r(tests_detail::make_reversed(rng|to_const_reference), expRev)) {
             BOOST_ASSERT(false);
             return false;
         }
@@ -530,7 +530,7 @@ bool test_empty(Range& rng)
         return false;
     }
 
-    if(!tests_detail::is_empty(rng|const_referenced)) {
+    if(!tests_detail::is_empty(rng|to_const_reference)) {
         BOOST_ASSERT(false);
         return false;
     }

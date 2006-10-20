@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Question:
+// Note:
 //
 // Is it possible to support OutputIterator?
 
@@ -41,6 +41,21 @@ struct any_iterator;
 
 
 namespace any_iterator_detail {
+
+
+    template< class To, class From > inline
+    To const& down_cast(From const& from)
+    {
+#if !defined(NDEBUG)
+        try {
+            dynamic_cast<To const&>(from);
+        }
+        catch (std::bad_cast const&) {
+            BOOST_ASSERT("'Iterator_' types must be the same." && false);
+        }
+#endif
+        return static_cast<To const&>(from);
+    }
 
 
     template<
@@ -141,24 +156,17 @@ namespace any_iterator_detail {
           m_held(held)
         { }
 
+        Iterator const& held() const
+        {
+            return m_held;
+        }
+
     private:
         Iterator m_held;
 
         virtual placeholder_t *clone() const
         {
             return new self_t(m_held);
-        }
-
-        bool is_compatible(placeholder_t const& other) const
-        {
-            try {
-                dynamic_cast<self_t const&>(other);
-            }
-            catch (std::bad_cast const&) {
-                return false;
-            }
-
-            return true;
         }
 
     public:
@@ -169,8 +177,7 @@ namespace any_iterator_detail {
 
         virtual bool equal(placeholder_t const& other) const
         {
-            BOOST_ASSERT(is_compatible(other));
-            return m_held == static_cast<self_t const&>(other).m_held;
+            return m_held == any_iterator_detail::down_cast<self_t>(other).m_held;
         }
 
         virtual void increment()
@@ -190,9 +197,8 @@ namespace any_iterator_detail {
 
         virtual Difference difference_to(placeholder_t const& other) const
         {
-            BOOST_ASSERT(is_compatible(other));
             return any_iterator_detail::difference_to_aux<Difference>(
-                m_held, static_cast<self_t const&>(other).m_held, Traversal());
+                m_held, any_iterator_detail::down_cast<self_t>(other).m_held, Traversal());
         }
     };
 
@@ -228,23 +234,23 @@ struct any_iterator :
     any_iterator_detail::super_<Value, Traversal, Reference, Difference>::type
 {
 private:
-    typedef any_iterator self_t;
     typedef typename any_iterator_detail::super_<Value, Traversal, Reference, Difference>::type super_t;
     typedef typename super_t::reference ref_t;
     typedef typename super_t::difference_type diff_t;
     typedef any_iterator_detail::placeholder<Reference, Difference> placeholder_t;
 
 public:
-    // There is no template constructor used to copy.
-    // This class is convertible only to the same type,
-    // because 'holder::equals/difference_to' needs
-    // the same 'holder' type as its downcast argument.
-
     explicit any_iterator()
     { }
 
-    // 'explicit' must be required.
-    // There is no way to know the convertibility beforehand.
+    // There is no implicit constructor which can be used to convert.
+    // 'm_pimpl' must hold the same 'Iterator_' type which enables
+    // 'holder::equals/difference_to' to downcast properly.
+    // But there is no way to know the 'Iterator_' type beforehand, thus
+    // no way to know the convertibility.
+    // Note that this implies that 'Other' below is always the same as
+    // self type.
+
     template< class Iterator_ >
     explicit any_iterator(Iterator_ const& it) :
         m_pimpl(pstade::new_< any_iterator_detail::holder<
@@ -252,6 +258,15 @@ public:
             Traversal, Reference, Difference
         > >(it))
     { }
+
+    template< class Iterator_ >
+    Iterator_ base() const
+    {
+        return any_iterator_detail::down_cast< any_iterator_detail::holder<
+            Iterator_,
+            Traversal, Reference, Difference
+        > >(*m_pimpl).held();
+    }
 
 private:
     clone_ptr<placeholder_t> m_pimpl;
@@ -262,7 +277,8 @@ friend class boost::iterator_core_access;
         return m_pimpl->dereference();
     }
 
-    bool equal(self_t const& other) const
+    template< class Other >
+    bool equal(Other const& other) const
     {
         return m_pimpl->equal(*other.m_pimpl);
     }
@@ -282,7 +298,8 @@ friend class boost::iterator_core_access;
         m_pimpl->advance(d);
     }
 
-    diff_t distance_to(self_t const& other) const
+    template< class Other >
+    diff_t distance_to(Other const& other) const
     {
         return m_pimpl->difference_to(*other.m_pimpl);
     }

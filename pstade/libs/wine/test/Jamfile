@@ -47,5 +47,6 @@ test-suite wine :
     [ wine-test static_c ]
     [ wine-test unparenthesize ]
     [ wine-test unused ]
+    [ wine-test value ]
     [ wine-test verify ]
     ;

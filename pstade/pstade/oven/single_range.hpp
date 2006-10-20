@@ -10,6 +10,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Note:
+//
+// The constant-iterator is the same as the mutable-iterator.
+// Const-ness of this range muste be independent from
+// const-ness of the 'Value'.
+
+
 #include <boost/range/iterator_range.hpp>
 #include <boost/utility/addressof.hpp>
 #include <pstade/egg/function.hpp>

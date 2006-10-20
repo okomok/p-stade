@@ -101,7 +101,7 @@ int main(int argc, char *argv[])
                     | oven::transformed(::newline_cvter())               // 改行なら'\n'に変換する
                     | oven::tab_expanded(::tabsize<>::value)             // タブを空白にする
                     | oven::memoized,                                    // 速くするためキャッシュする
-                oven::to_utf8_encoder(oven::to_stream(fout))|referenced  // UTF-8に戻して出力
+                oven::to_utf8_encoder(oven::to_stream(fout))|to_reference// UTF-8に戻して出力
             );
 
             oven::copy("</pre>"|oven::as_literal, oven::to_stream(fout));

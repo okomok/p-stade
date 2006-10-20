@@ -76,7 +76,13 @@ void test()
             any_range<char const, boost::random_access_traversal_tag>(std::string("rng"))
         ) );
     }
-
+    {
+        std::string rng("abcd");
+        typedef any_iterator<char, boost::random_access_traversal_tag> many_iter;
+        many_iter many(boost::begin(rng));
+        // many.base<char *>(); // bad_cast!
+        many.base<std::string::iterator>();
+    }
 #if 0 // impossible
     {
         std::string rng("abcd");

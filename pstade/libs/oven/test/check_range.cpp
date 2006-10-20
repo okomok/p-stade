@@ -76,7 +76,7 @@ void test()
         pstade::unused(
             std::string()
 PSTADE_IF_DEBUG(| checked)
-                | pstade::referenced,
+                | pstade::to_reference,
             12
         );
     }
