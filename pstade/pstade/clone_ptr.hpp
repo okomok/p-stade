@@ -60,10 +60,10 @@ namespace clone_ptr_detail {
     struct super_
     {
         typedef
-            radish::bool_testable    < clone_ptr<Clonable>,
-            radish::pointable        < clone_ptr<Clonable>, Clonable,
-            radish::swappable        < clone_ptr<Clonable>,
-            boost::totally_ordered   < clone_ptr<Clonable>
+            radish::bool_testable < clone_ptr<Clonable>,
+            radish::pointable     < clone_ptr<Clonable>, Clonable,
+            radish::swappable     < clone_ptr<Clonable>,
+            boost::totally_ordered< clone_ptr<Clonable>
             > > > >
         type;
     };
@@ -95,11 +95,11 @@ public:
         m_ptr(ap.release())
     { }
 
+// copy
     clone_ptr(self_t const& other) :
         m_ptr(other ? clone_ptr_detail::new_(*other) : PSTADE_NULLPTR)
     { }
 
-// copy-assignments
     self_t& operator=(self_t const& other)
     {
         self_t(other).swap(*this);

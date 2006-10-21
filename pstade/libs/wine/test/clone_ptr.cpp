@@ -140,6 +140,7 @@ void test()
         get_pointer(ac);
         swap(ac, bc);
         ac.release();
+        ac = pstade::new_<char>('a');
     }
 
     {

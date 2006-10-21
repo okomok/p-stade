@@ -1,25 +1,24 @@
 
+#include <cassert>
 
-#include <boost/ptr_container/ptr_vector.hpp>
-#include <boost/concept_check.hpp>
-#include <boost/iterator/iterator_concepts.hpp>
-#include <boost/noncopyable.hpp>
-
-
-struct my// :
-    //boost::noncopyable
-{ };
-
-
-template< class Iterator >
-void foo(Iterator)
+struct A
 {
-    boost::function_requires< boost_concepts::ReadableIteratorConcept<Iterator> >();
-}
+    A(int) {
+        //assert(false);
+    }
+    
+    ~A() {
+        assert(false);
+    }
+};
 
+
+A foo()
+{
+    return 3;
+}
 
 int main()
 {
-    boost::ptr_vector<my> vec;
-    ::foo(vec.begin());
+    foo();
 }
