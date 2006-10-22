@@ -1,24 +1,10 @@
 
-#include <cassert>
+#include <boost/range.hpp>
 
-struct A
-{
-    A(int) {
-        //assert(false);
-    }
-    
-    ~A() {
-        assert(false);
-    }
-};
-
-
-A foo()
-{
-    return 3;
-}
 
 int main()
 {
-    foo();
+    std::string rng;
+    boost::iterator_range<std::string::iterator> iter_rng1(rng);
+    boost::iterator_range<std::string::iterator> iter_rng2 = iter_rng1;
 }
