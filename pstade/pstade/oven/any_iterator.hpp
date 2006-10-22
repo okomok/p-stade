@@ -77,12 +77,11 @@ namespace any_iterator_detail {
     };
 
 
-    // Topic:
-    // You can't use the friend-injection to 'placeholder' here.
-    // Consider null 'clone_ptr'.
-    // As it doesn't require any instance of 'placeholder',
-    // there is no instantiation of 'new_clone' for 'placeholder'.
-    // Thus copy-constructor of 'clone_ptr' would fail to find 'new_clone'.
+    // Workaround:
+    // If this definition is in 'placeholder' using friend-injection,
+    // GCC3.4's ADL fails to find 'new_clone' for 'placeholder'.
+    // 'pstade::new_' does something bad for GCC.
+    // It seems a bug of GCC. I don't certainly know, though.
     template< class Reference, class Difference > inline
     placeholder<Reference, Difference> *
     new_clone(placeholder<Reference, Difference> const& ph)
