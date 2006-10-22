@@ -91,35 +91,35 @@ namespace any_iterator_detail {
     }
 
 
-    template< class Iterator >
+    template< class Iterator > inline
     void decrement_aux(Iterator& it, boost::single_pass_traversal_tag)
     {
         BOOST_ASSERT(false);
         pstade::unused(it);
     }
 
-    template< class Iterator >
+    template< class Iterator > inline
     void decrement_aux(Iterator& it, boost::bidirectional_traversal_tag)
     {
         --it;
     }
 
 
-    template< class Iterator, class Difference >
+    template< class Iterator, class Difference > inline
     void advance_aux(Iterator& it, Difference d, boost::single_pass_traversal_tag)
     {
         BOOST_ASSERT(false);
         pstade::unused(it, d);
     }
 
-    template< class Iterator, class Difference >
+    template< class Iterator, class Difference > inline
     void advance_aux(Iterator& it, Difference d, boost::random_access_traversal_tag)
     {
         it += d;
     }
 
 
-    template< class Difference, class Iterator >
+    template< class Difference, class Iterator > inline
     Difference difference_to_aux(Iterator const& first, Iterator const& last, boost::single_pass_traversal_tag)
     {
         BOOST_ASSERT(false);
@@ -127,7 +127,7 @@ namespace any_iterator_detail {
         return Difference();
     }
 
-    template< class Difference, class Iterator >
+    template< class Difference, class Iterator > inline
     Difference difference_to_aux(Iterator const &first, Iterator const& last, boost::random_access_traversal_tag)
     {
         return last - first;

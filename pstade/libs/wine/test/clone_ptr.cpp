@@ -135,12 +135,12 @@ void test()
 
     {
         clone_ptr< char > ac, bc;
-        std::stringstream ss;
+        // std::stringstream ss;
         // ss << ac; // rejected
         get_pointer(ac);
         swap(ac, bc);
-        ac.release();
         ac = pstade::new_<char>('a');
+        ac.release();
     }
 
     {

@@ -925,8 +925,8 @@ given as the first argument, instead of a tupling::
 
 
 
-Output Iterator Makers
-----------------------
+Output Iterator Adaptors
+------------------------
 
 ``to_counter``
 ^^^^^^^^^^^^^^
@@ -1066,7 +1066,7 @@ Version 0.90.7 - 0.90.9
 
 Version 0.91.0
 ^^^^^^^^^^^^^^
-- Added `Output Iterator Makers`_.
+- Added `Output Iterator Adaptors`_.
 
 Version 0.91.1
 ^^^^^^^^^^^^^^
