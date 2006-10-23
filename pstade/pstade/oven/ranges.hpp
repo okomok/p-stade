@@ -76,6 +76,7 @@
 #include "./sort_range.hpp"
 #include "./string_find_range.hpp"
 #include "./string_split_range.hpp"
+#include "./sub_range.hpp"
 #include "./sub_set.hpp"
 #include "./tab_expand_range.hpp"
 #include "./tab_unexpand_range.hpp"

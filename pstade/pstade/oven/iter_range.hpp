@@ -89,8 +89,11 @@ struct iter_range :
     iter_range_detail::super_<Iterator>::type
     
 {
-    typedef iter_range<Iterator> type;
+private:
     typedef typename iter_range_detail::super_<Iterator>::type super_t;
+
+public:
+    typedef iter_range type;
 
 // structors
     iter_range()
@@ -102,25 +105,31 @@ struct iter_range :
     { }
 
     template< class Range_ >
-    iter_range(Range_& rng, typename unused_to_copy<type, Range_>::type = 0) :
+    iter_range(Range_& rng,
+        typename unused_to_copy<type, Range_>::type = 0
+    ) :
         super_t(boost::begin(rng), boost::end(rng))
     { }
 
     template< class Range_ >
-    iter_range(Range_ const& rng) :
+    iter_range(Range_ const& rng,
+        typename unused_to_copy<type, Range_>::type = 0
+    ) :
         super_t(boost::begin(rng), boost::end(rng))
     { }
 
 // copy-assignments
     template< class Range_ >
-    typename unused_to_copy_assign<type, Range_>::type operator=(Range_& rng)
+    typename unused_to_copy_assign<type, Range_>::type
+    operator=(Range_& rng)
     {
         type(rng).swap(*this);
         return *this;
     }
 
     template< class Range_ >
-    type& operator=(Range_ const& rng)
+    typename unused_to_copy_assign<type, Range_>::type
+    operator=(Range_ const& rng)
     {
         type(rng).swap(*this);
         return *this;
@@ -162,21 +171,21 @@ struct iter_range :
 };
 
 
-template< class Iterator >
+template< class Iterator > inline
 iter_range<Iterator> const
 make_iter_range(Iterator const& first, Iterator const& last)
 {
     return iter_range<Iterator>(first, last);
 }
 
-template< class Range >
+template< class Range > inline
 iter_range<typename range_iterator<Range>::type> const
 make_iter_range(Range& rng)
 {
     return iter_range<typename range_iterator<Range>::type>(rng);
 }
 
-template< class Range >
+template< class Range > inline
 iter_range<typename range_iterator_const<Range>::type> const
 make_iter_range(Range const& rng)
 {

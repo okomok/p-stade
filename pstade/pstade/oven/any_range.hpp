@@ -14,6 +14,7 @@
 #include <boost/range/iterator_range.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/utility/enable_if.hpp>
+#include <pstade/unused_to_copy.hpp>
 #include "./any_iterator.hpp"
 #include "./as_lightweight_proxy.hpp"
 
@@ -32,17 +33,13 @@ namespace any_range_detail {
     >
     struct super_
     {
+        // Note:
+        // 'oven::iter_range' calls 'adaptor_to',
+        // but no iterator can be convertible to 'any_iterator'. 
         typedef boost::iterator_range<
             any_iterator<Value, Traversal, Reference, Difference>
         > type;
     };
-
-
-    // give way to implicitly-declared copy-constructor.
-    template< class X, class Y >
-    struct never_used_to_copy :
-        boost::disable_if< boost::is_same<X, Y>, void * >
-    { };
 
 
 } // namespace any_range_detail
@@ -59,20 +56,43 @@ struct any_range :
     private as_lightweight_proxy< any_range<Value, Traversal, Reference, Difference> >
 {
 private:
+    typedef any_range selt_t;
     typedef typename any_range_detail::super_<Value, Traversal, Reference, Difference>::type super_t;
 
 public:
+// structors
     template< class Range >
     any_range(Range& rng,
-        typename any_range_detail::never_used_to_copy<any_range, Range>::type = 0
+        typename unused_to_copy<selt_t, Range>::type = 0
     ) :
-        super_t(rng)
+        super_t(boost::begin(rng), boost::end(rng))
     { }
 
     template< class Range >
-    any_range(Range const& rng) :
-        super_t(rng)
+    any_range(Range const& rng,
+        typename unused_to_copy<selt_t, Range>::type = 0
+    ) :
+        super_t(boost::begin(rng), boost::end(rng))
     { }
+
+// copy-assignments
+    template< class Range_ >
+    typename unused_to_copy_assign<selt_t, Range_>::type
+    operator=(Range_& rng)
+    {
+        super_t::operator=(rng);
+        return *this;
+    }
+
+    template< class Range_ >
+    typename unused_to_copy_assign<selt_t, Range_>::type
+    operator=(Range_ const& rng)
+    {
+        super_t::operator=(rng);
+        return *this;
+    }
+
+    PSTADE_IMPLICITLY_DEFINED_COPY(any_range, super_t)
 };
 
 

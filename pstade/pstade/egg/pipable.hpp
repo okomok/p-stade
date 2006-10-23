@@ -35,10 +35,10 @@
 #include <boost/type_traits/add_const.hpp>
 #include <pstade/instance.hpp>
 #include <pstade/nonassignable.hpp>
+#include <pstade/unused_to_copy.hpp>
 #include "./baby_call.hpp"
 #include "./baby_result.hpp"
 #include "./detail/config.hpp"
-#include "./detail/disable_if_same.hpp"
 #include "./detail/pipes.hpp"
 #include "./is_pipe.hpp" // as_pipe
 
@@ -75,12 +75,16 @@ struct pipe : BabyFunction,
     //
 
     template< class A0 >
-    explicit pipe(A0& a0, typename detail::disable_if_same<A0, pipe>::type = 0) :
+    explicit pipe(A0& a0,
+        typename unused_to_copy<pipe, A0>::type = 0
+    ) :
         BabyFunction(a0)
     { }
 
     template< class A0 >
-    explicit pipe(A0 const& a0) :
+    explicit pipe(A0 const& a0,
+        typename unused_to_copy<pipe, A0>::type = 0
+    ) :
         BabyFunction(a0)
     { }
 

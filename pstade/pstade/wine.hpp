@@ -45,6 +45,7 @@
 #include "./static_c.hpp"
 #include "./unparenthesize.hpp"
 #include "./unused.hpp"
+#include "./unused_to_copy.hpp"
 #include "./used.hpp"
 #include "./ustring.hpp"
 #include "./value.hpp"
