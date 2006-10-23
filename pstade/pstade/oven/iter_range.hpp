@@ -12,10 +12,11 @@
 
 // What:
 //
-// The minimum "iterator_range".
+// The minimal "iterator_range".
 // This range has...
 //   no deep equality-compare.
 //   neither 'front', 'back' nor 'operator[]'.
+//   the conversion using 'adaptor_to'.
 //
 // Note that it is impossible to implement 'back' and 'operator[]' safely,
 // which was overlooked by 'boost::iterator_range'.
@@ -32,7 +33,9 @@
 #include <pstade/radish/bool_testable.hpp>
 #include <pstade/radish/swappable.hpp>
 #include <pstade/unused_to_copy.hpp>
+#include "./adaptor_to_base.hpp"
 #include "./algorithm.hpp" // copy
+#include "./range_iterator.hpp"
 #include "./to_stream.hpp"
 
 
@@ -47,7 +50,7 @@ namespace iter_range_detail {
 
 
     template< class Iterator >
-    struct super_
+    struct operators
     {
         typedef
             boost::equality_comparable< iter_range<Iterator>,
@@ -58,14 +61,36 @@ namespace iter_range_detail {
     };
 
 
+    template< class Iterator >
+    struct super_ :
+        operators<Iterator>::type
+    {
+        typedef super_<Iterator> type;
+
+    protected:
+        super_()
+        { }
+
+        template< class Iterator_ >
+        super_(Iterator_ const& first, Iterator_ const& last) :
+            m_first(oven::adaptor_to<Iterator>(first)),
+            m_last (oven::adaptor_to<Iterator>(last ))
+        { }
+
+        Iterator m_first, m_last;
+    };
+
+
 } // namespace iter_range_detail
 
 
 template< class Iterator >
 struct iter_range :
     iter_range_detail::super_<Iterator>::type
+    
 {
     typedef iter_range<Iterator> type;
+    typedef typename iter_range_detail::super_<Iterator>::type super_t;
 
 // structors
     iter_range()
@@ -73,17 +98,17 @@ struct iter_range :
 
     template< class Iterator_ >
     iter_range(Iterator_ const& first, Iterator_ const& last) :
-        m_first(first), m_last(last)
+        super_t(first, last)
     { }
 
     template< class Range_ >
     iter_range(Range_& rng, typename unused_to_copy<type, Range_>::type = 0) :
-        m_first(boost::begin(rng)), m_last(boost::end(rng))
+        super_t(boost::begin(rng), boost::end(rng))
     { }
 
     template< class Range_ >
     iter_range(Range_ const& rng) :
-        m_first(boost::begin(rng)), m_last(boost::end(rng))
+        super_t(boost::begin(rng), boost::end(rng))
     { }
 
 // copy-assignments
@@ -108,36 +133,55 @@ struct iter_range :
 
     Iterator begin() const
     {
-        return m_first;
+        return this->m_first;
     }
 
     Iterator end() const
     {
-        return m_last;
+        return this->m_last;
     }
 
 // bool_testable
     operator radish::safe_bool() const
     {
-        return radish::make_safe_bool(m_first != m_last);
+        return radish::make_safe_bool(this->m_first != this->m_last);
     }
 
 // equality_comparable
     bool operator==(type const& other) const
     {
-        return m_first == other.m_first && m_last == other.m_last;
+        return this->m_first == other.m_first && this->m_last == other.m_last;
     }
 
 // swappable
     void swap(type& other)
     {
-        std::swap(m_first, other.m_first);
-        std::swap(m_last, other.m_last);
+        std::swap(this->m_first, other.m_first);
+        std::swap(this->m_last, other.m_last);
     }
-
-private:
-    Iterator m_first, m_last;
 };
+
+
+template< class Iterator >
+iter_range<Iterator> const
+make_iter_range(Iterator const& first, Iterator const& last)
+{
+    return iter_range<Iterator>(first, last);
+}
+
+template< class Range >
+iter_range<typename range_iterator<Range>::type> const
+make_iter_range(Range& rng)
+{
+    return iter_range<typename range_iterator<Range>::type>(rng);
+}
+
+template< class Range >
+iter_range<typename range_iterator_const<Range>::type> const
+make_iter_range(Range const& rng)
+{
+    return iter_range<typename range_iterator_const<Range>::type>(rng);
+}
 
 
 template< class Iterator, class CharT, class Traits > inline

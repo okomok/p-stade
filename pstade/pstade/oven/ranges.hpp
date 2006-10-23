@@ -42,6 +42,7 @@
 #include "./indirect_range.hpp"
 #include "./istream_range.hpp"
 #include "./istreambuf_range.hpp"
+#include "./iter_range.hpp"
 #include "./joint_range.hpp"
 #include "./literal_range.hpp"
 #include "./map_key_range.hpp"

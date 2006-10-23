@@ -17,6 +17,9 @@
 #include <string>
 #include <sstream>
 #include <pstade/oven/functions.hpp>
+#include <pstade/oven/filter_range.hpp>
+#include <pstade/oven/regularize_range.hpp>
+#include <pstade/locale.hpp>
 
 
 void test()
@@ -59,6 +62,10 @@ void test()
         rng3 = rng1;
         BOOST_CHECK( oven::equals(rng1, rng2) );
         BOOST_CHECK( oven::equals(rng1, rng3) );
+    }
+    {
+        oven::sub_range<std::string> rng = src|filtered(pstade::is_alnum)|regularized;
+        BOOST_CHECK( oven::equals(rng, src) );
     }
 }
 

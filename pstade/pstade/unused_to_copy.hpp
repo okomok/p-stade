@@ -18,15 +18,15 @@ namespace pstade {
 
 
 // give way to implicitly-declared copy-constructor.
-template< class X, class Y >
+template< class T, class A >
 struct unused_to_copy :
-    boost::disable_if< boost::is_same<X, Y>, void * >
+    boost::disable_if< boost::is_same<T, A>, void * >
 { };
 
 
-template< class X, class Y >
+template< class T, class A >
 struct unused_to_copy_assign :
-    boost::disable_if< boost::is_same<X, Y>, X& >
+    boost::disable_if< boost::is_same<T, A>, T& >
 { };
 
 
