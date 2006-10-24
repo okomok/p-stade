@@ -13,7 +13,6 @@
 #include <cstddef> // size_t
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/range/iterator_range.hpp>
 #include <boost/range/size_type.hpp>
 #include <boost/regex.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -21,6 +20,7 @@
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
+#include "./iter_range.hpp"
 #include "./concepts.hpp"
 #include "./extension.hpp"
 #include "./range_iterator.hpp"
@@ -38,16 +38,15 @@ namespace token_range_detail {
         class CharT,
         class Traits
     >
-    struct super_
-    {
-        typedef boost::iterator_range<
+    struct super_ :
+        iter_range<
             boost::regex_token_iterator<
                 typename range_iterator<Range>::type,
                 CharT,
                 Traits
             >
-        > type;
-    };
+        >
+    { };
 
 
     using boost::regex_constants::match_flag_type;

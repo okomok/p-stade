@@ -12,12 +12,12 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/range/iterator_range.hpp>
 #include <boost/xpressive/regex_token_iterator.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
+#include "./iter_range.hpp"
 #include "./range_iterator.hpp"
 
 
@@ -28,15 +28,14 @@ namespace xpressive_token_range_detail {
 
 
     template< class Range >
-    struct super_
-    {
-        typedef boost::iterator_range<
+    struct super_ :
+        iter_range<
             boost::xpressive::regex_token_iterator<
                 // Xpressive seems not to support a mutable iterator.
                 typename range_iterator_const<Range>::type
             >
-        > type;
-    };
+        >
+    { };
 
 
     using boost::xpressive::regex_constants::match_flag_type;

@@ -10,10 +10,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/range/iterator_range.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <pstade/oven/as_lightweight_proxy.hpp>
+#include <pstade/oven/iter_range.hpp>
 #include <pstade/pass_by.hpp>
 #include "./yield_iterator.hpp"
 
@@ -25,12 +25,11 @@ namespace yield_range_detail {
 
 
     template< class Routine >
-    struct super_
-    {
-        typedef boost::iterator_range<
+    struct super_ :
+        oven::iter_range<
             yield_iterator<Routine>
-        > type;
-    };
+        >
+    { };
 
 
 } // namespace yield_range_detail

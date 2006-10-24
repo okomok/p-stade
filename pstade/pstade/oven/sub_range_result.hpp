@@ -15,8 +15,7 @@
 // 'sub_range_base' with some workarounds
 
 
-#include <boost/range/const_iterator.hpp>
-#include <boost/range/iterator_range.hpp>
+#include "./iter_range.hpp"
 #include "./range_iterator.hpp"
 
 
@@ -27,23 +26,17 @@ template< class Range >
 struct sub_range_result
 {
     // 'const' works around "Forwarding Problem".
-    typedef boost::iterator_range<
+    typedef iter_range<
         typename range_iterator<Range>::type
     > const type;
 };
 
 
-// Workaround:
-// In the case of explicitly adding 'const' to array
-// (something like 'sub_range_result<const array>'),
-// VC7.1 is confused when ordering. I don't know why, so I define...
-// (you can use also boost::add_const for this workaround.)
-//
 template< class Range >
 struct sub_range_result_const
 {
-    typedef boost::iterator_range<
-        typename boost::range_const_iterator<Range>::type
+    typedef iter_range<
+        typename range_iterator_const<Range>::type
     > const type;
 };
 

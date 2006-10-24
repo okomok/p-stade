@@ -15,12 +15,12 @@
 #include <boost/pointee.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/range/iterator_range.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/utility/addressof.hpp>
 #include <pstade/instance.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
+#include "./iter_range.hpp"
 #include "./share_iterator.hpp"
 
 
@@ -31,12 +31,11 @@ namespace share_range_detail {
 
 
     template< class Range >
-    struct super_
-    {
-        typedef boost::iterator_range<
+    struct super_ :
+        iter_range<
             share_iterator<Range>
-        > type;
-    };
+        >
+    { };
 
 
     template< class Super, class Range >

@@ -12,12 +12,11 @@
 
 #include <boost/assert.hpp>
 #include <boost/iterator/counting_iterator.hpp>
-#include <boost/iterator/iterator_categories.hpp>
-#include <boost/range/iterator_range.hpp>
 #include <pstade/if_debug.hpp>
 #include <pstade/instance.hpp>
 #include <pstade/unused.hpp>
 #include "./as_lightweight_proxy.hpp"
+#include "./iter_range.hpp"
 
 
 namespace pstade { namespace oven {
@@ -46,12 +45,11 @@ namespace counting_range_detail {
         class CategoryOrTraversal,
         class Difference
     >
-    struct super_
-    {
-        typedef boost::iterator_range<
+    struct super_ :
+        iter_range<
             boost::counting_iterator<Incrementable, CategoryOrTraversal, Difference>
-        > type;
-    };
+        >
+    { };
 
 
 } // namespace counting_range_detail

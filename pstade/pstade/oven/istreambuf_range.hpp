@@ -13,8 +13,8 @@
 #include <iosfwd>   // basic_istream, basic_streambuf
 #include <iterator> // istreambuf_iterator
 #include <string>   // char_traits
-#include <boost/range/iterator_range.hpp>
 #include "./as_lightweight_proxy.hpp"
+#include "./iter_range.hpp"
 
 
 namespace pstade { namespace oven {
@@ -24,12 +24,11 @@ namespace istreambuf_range_detail {
 
 
     template< class CharT, class Traits >
-    struct super_
-    {
-        typedef boost::iterator_range<
+    struct super_ :
+        iter_range<
             std::istreambuf_iterator<CharT, Traits>
-        > type;
-    };
+        >
+    { };
 
 
 } // namespace istreambuf_range_detail

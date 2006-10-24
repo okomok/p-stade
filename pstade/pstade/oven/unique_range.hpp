@@ -44,7 +44,7 @@ struct unique_range :
     private as_lightweight_proxy< unique_range<Range> >
 {
     PSTADE_CONCEPT_ASSERT((Forward<Range>));
-    PSTADE_CONCEPT_ASSERT((Readable<Range>));
+    // PSTADE_CONCEPT_ASSERT((Readable<Range>));
 
 private:
     typedef typename unique_range_detail::super_<Range>::type super_t;

@@ -20,10 +20,10 @@
 #include <boost/assert.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/range/begin.hpp>
-#include <boost/range/iterator_range.hpp>
 #include <pstade/apple/atl/module.hpp>
 #include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/apple/sdk/windows.hpp>
+#include <pstade/oven/iter_range.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
 #include <pstade/oven/sub_range_result.hpp>
 #include <pstade/require.hpp>
@@ -95,7 +95,7 @@ public:
 
     const_sub_range_t folder() const
     {
-        return boost::make_iterator_range(
+        return oven::make_iter_range(
             boost::begin(m_buf),
             tomato::path_find_file_name(boost::begin(m_buf))
         );
@@ -103,7 +103,7 @@ public:
 
     const_sub_range_t identifier() const
     {
-        return boost::make_iterator_range(
+        return oven::make_iter_range(
             boost::begin(m_buf),
             tomato::path_find_extension(boost::begin(m_buf))
         );
@@ -112,7 +112,7 @@ public:
     const_sub_range_t name() const
     {
         TCHAR const *pszFile = tomato::path_find_file_name(boost::begin(m_buf));
-        return boost::make_iterator_range(
+        return oven::make_iter_range(
             pszFile,
             tomato::path_find_extension(pszFile)
         );

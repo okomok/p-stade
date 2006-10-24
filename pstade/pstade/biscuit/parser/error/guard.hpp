@@ -11,8 +11,8 @@
 
 
 #include <boost/assert.hpp>
-#include <boost/range/iterator_range.hpp>
 #include <boost/range/result_iterator.hpp>
+#include <pstade/oven/iter_range.hpp>
 #include "./parser_error.hpp"
 
 
@@ -35,7 +35,7 @@ struct guard
     static bool parse(State& s, UserState& us)
     {
         typedef typename boost::range_result_iterator<State>::type iter_t;
-        typedef typename boost::iterator_range<iter_t> range_t;
+        typedef typename oven::iter_range<iter_t> range_t;
 
         iter_t const marker = s.get_cur();
 

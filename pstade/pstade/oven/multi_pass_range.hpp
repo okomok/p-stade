@@ -10,11 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/range/iterator_range.hpp>
 #include <boost/spirit/iterator/multi_pass.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
+#include "./iter_range.hpp"
 #include "./range_iterator.hpp"
 
 
@@ -31,15 +31,14 @@ namespace multi_pass_range_detail {
         class CheckingPolicy,
         class StoragePolicy
     >
-    struct super_
-    {
-        typedef boost::iterator_range<
+    struct super_ :
+        iter_range<
             boost::spirit::multi_pass<
                 typename range_iterator<InputIterRange>::type,
                 InputPolicy, OwnershipPolicy, CheckingPolicy, StoragePolicy
             >
-        > type;
-    };
+        >
+    { };
 
 
 } // namespace multi_pass_range_detail

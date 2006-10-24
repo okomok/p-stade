@@ -19,9 +19,9 @@
 #include <boost/assert.hpp>
 #include <boost/cstdint.hpp> // uint8_t
 #include <boost/noncopyable.hpp>
-#include <boost/range/iterator_range.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/nullptr.hpp>
+#include <pstade/oven/iter_range.hpp>
 #include "./scoped_file_view.hpp"
 #include "./scoped_handle.hpp"
 #include "./tstring.hpp"
@@ -121,12 +121,12 @@ namespace file_range_detail {
 template< class Value = boost::uint8_t >
 struct ifile_range :
     file_range_detail::iview<Value>,
-    boost::iterator_range<Value const *>,
+    oven::iter_range<Value const *>::type,
     private boost::noncopyable
 {
 private:
     typedef file_range_detail::iview<Value> view_t;
-    typedef boost::iterator_range<Value const *> super_t;
+    typedef typename oven::iter_range<Value const *>::type super_t;
 
 public:
     explicit ifile_range(tstring const& path) :
@@ -139,12 +139,12 @@ public:
 template< class Value = boost::uint8_t >
 struct ofile_range :
     file_range_detail::oview<Value>,
-    boost::iterator_range<Value *>,
+    oven::iter_range<Value *>::type,
     private boost::noncopyable
 {
 private:
     typedef file_range_detail::oview<Value> view_t;
-    typedef boost::iterator_range<Value *> super_t;
+    typedef typename oven::iter_range<Value *>::type super_t;
 
 public:
     explicit ofile_range(tstring const& path, std::ptrdiff_t diff) :

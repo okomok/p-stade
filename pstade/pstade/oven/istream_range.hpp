@@ -14,8 +14,8 @@
 #include <iosfwd>   // basic_istream
 #include <iterator> // istream_iterator
 #include <string>   // char_traits
-#include <boost/range/iterator_range.hpp>
 #include "./as_lightweight_proxy.hpp"
+#include "./iter_range.hpp"
 
 
 namespace pstade { namespace oven {
@@ -30,12 +30,11 @@ namespace istream_range_detail {
         class Traits,
         class Difference
     >
-    struct super_
-    {
-        typedef boost::iterator_range<
+    struct super_ :
+        iter_range<
             std::istream_iterator<Value, CharT, Traits, Difference>
-        > type;
-    };
+        >
+    { };
 
 
 } // namespace istream_range_detail

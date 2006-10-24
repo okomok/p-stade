@@ -52,26 +52,27 @@ namespace pstade { namespace oven {
 //
 
 template< class Base, class Adaptor > inline
-typename boost::enable_if<
-    boost::mpl::and_<
-        boost::is_convertible<Adaptor&, Base>,
-        boost::mpl::not_< boost::is_const<Adaptor> >
-    >,
-Base>::type adaptor_to(Adaptor& ad)
+Base adaptor_to(Adaptor& ad,
+    typename boost::enable_if<
+        boost::mpl::and_<
+            boost::is_convertible<Adaptor&, Base>,
+            boost::mpl::not_< boost::is_const<Adaptor> >
+        >
+    >::type * = 0)
 {
     return ad;
 }
 
 template< class Base, class Adaptor > inline
-typename boost::enable_if<boost::is_convertible<Adaptor const&, Base>,
-Base>::type adaptor_to(Adaptor const& ad)
+Base adaptor_to(Adaptor const& ad,
+    typename boost::enable_if< boost::is_convertible<Adaptor const&, Base> >::type * = 0)
 {
     return ad;
 }
 
 template< class Base, class Adaptor > inline
-typename boost::disable_if<boost::is_convertible<Adaptor const&, Base>,
-Base>::type adaptor_to(Adaptor const& ad)
+Base adaptor_to(Adaptor const& ad,
+    typename boost::disable_if< boost::is_convertible<Adaptor const&, Base > >::type * = 0)
 {
     return oven::adaptor_to<Base>(ad.base());
 }

@@ -29,7 +29,7 @@ namespace pstade { namespace oven {
 
 template< class Range >
 PSTADE_CONCEPT_WHERE(
-    ((Forward<Range>))((Readable_const<Range>)),
+    ((Forward<Range>)), // ((Readable_const<Range>)),
 (bool)) is_null_terminated(Range const& rng)
 {
     typedef typename range_iterator_const<Range>::type iter_t;
@@ -70,7 +70,7 @@ struct null_terminate_range :
     private as_lightweight_proxy< null_terminate_range<Range> >
 {
     PSTADE_CONCEPT_ASSERT((Forward<Range>));
-    PSTADE_CONCEPT_ASSERT((Readable<Range>));
+    // PSTADE_CONCEPT_ASSERT((Readable<Range>));
 
 private:
     typedef typename null_terminate_range_detail::super_<Range>::type super_t;

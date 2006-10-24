@@ -19,10 +19,10 @@
 #include <boost/foreach.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/range/iterator_range.hpp>
 #include <boost/range/result_iterator.hpp>
 #include <boost/range/sub_range.hpp>
 #include <pstade/const_overloaded.hpp>
+#include <pstade/oven/iter_range.hpp>
 #include <pstade/unused.hpp>
 #include "../parser/directive/no_actions.hpp"
 #include "../parser/directive/no_captures.hpp"
@@ -41,7 +41,7 @@ namespace iterate_detail {
     void aux_action(ForwardIter first, ForwardIter last, UserState& us, GapAction action)
     {
         if (first != last) {
-            boost::iterator_range<ForwardIter> rng(first, last);
+            oven::iter_range<ForwardIter> rng(first, last);
             action(rng, us);
         }
     }
@@ -64,7 +64,7 @@ namespace iterate_detail {
             // Note:
             // The comment above is impossible to understand.
             // Never write the question as comment.
-            biscuit::parse<Parser>(boost::make_iterator_range(boost::begin(sr), last), us);
+            biscuit::parse<Parser>(oven::make_iter_range(boost::begin(sr), last), us);
 
             last_parsed = boost::end(sr);
         }

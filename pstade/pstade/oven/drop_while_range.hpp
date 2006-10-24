@@ -35,7 +35,7 @@ struct drop_while_range :
     private as_lightweight_proxy< drop_while_range<Range> >
 {
     PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-    PSTADE_CONCEPT_ASSERT((Readable<Range>));
+    // PSTADE_CONCEPT_ASSERT((Readable<Range>));
 
 private:
     typedef typename sub_range_base<Range>::type super_t;

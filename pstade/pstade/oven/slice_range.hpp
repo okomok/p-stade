@@ -13,12 +13,12 @@
 #include <boost/assert.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/range/iterator_range.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./distance.hpp"
+#include "./iter_range.hpp"
 #include "./range_iterator.hpp"
 #include "./slice_iterator.hpp"
 
@@ -30,14 +30,13 @@ namespace slice_range_detail {
 
 
     template< class Range >
-    struct super_
-    {
-        typedef boost::iterator_range<
+    struct super_ :
+        iter_range<
             slice_iterator<
                 typename range_iterator<Range>::type
             >
-        > type;
-    };
+        >
+    { };
 
 
     template< class Range, class Difference > inline

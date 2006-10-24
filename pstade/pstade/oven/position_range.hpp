@@ -10,7 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/range/iterator_range.hpp>
 #include <boost/spirit/iterator/position_iterator.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
@@ -18,6 +17,7 @@
 #include <pstade/static_c.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
+#include "./iter_range.hpp"
 #include "./range_iterator.hpp"
 
 
@@ -36,15 +36,14 @@ namespace position_range_detail {
         class Range,
         class PositionT
     >
-    struct super_
-    {
-        typedef boost::iterator_range<
+    struct super_ :
+        iter_range<
             boost::spirit::position_iterator2< // 2!
                 typename range_iterator<Range>::type,
                 PositionT
             >
-        > type;
-    };
+        >
+    { };
 
 
     template< class PositionIter, class Range, class PositionT >

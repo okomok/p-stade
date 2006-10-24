@@ -15,8 +15,8 @@
 #include <boost/optional.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/range/iterator_range.hpp>
 #include <boost/range/result_iterator.hpp>
+#include <pstade/oven/iter_range.hpp>
 #include <pstade/unused.hpp>
 #include "../../match_results/find_backref.hpp"
 #include "../../state/match_results_type.hpp"
@@ -34,7 +34,7 @@ struct backref
     static bool parse(State& s, UserState& us)
     {
         typedef typename boost::range_result_iterator<State>::type iter_t;
-        typedef boost::iterator_range<iter_t> rng_t;
+        typedef oven::iter_range<iter_t> rng_t;
 
         rng_t rng;
         if (!biscuit::find_backref(s.results(), id, rng))
@@ -64,7 +64,7 @@ struct backref<-1>
         typedef typename boost::range_result_iterator<State>::type iter_t;
         typedef typename state_match_results<State>::type results_t;
         typedef typename results_t::value_type key_and_mapped_t;    
-        typedef boost::iterator_range<iter_t> rng_t;
+        typedef oven::iter_range<iter_t> rng_t;
 
         BOOST_FOREACH (key_and_mapped_t const& km, s.results()) {
             rng_t rng(km.second);

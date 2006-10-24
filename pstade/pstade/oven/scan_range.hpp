@@ -12,13 +12,13 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/range/iterator_range.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <pstade/functional.hpp> // plus
 #include <pstade/pass_by.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
+#include "./iter_range.hpp"
 #include "./range_iterator.hpp"
 #include "./scan_iterator.hpp"
 
@@ -34,16 +34,15 @@ namespace scan_range_detail {
         class State,
         class BinaryFun
     >
-    struct super_
-    {
-        typedef boost::iterator_range<
+    struct super_ :
+        iter_range<
             scan_iterator<
                 typename range_iterator<Range>::type,
                 State,
                 BinaryFun
             >
-        > type;
-    };
+        >
+    { };
 
 
 } // namespace scan_range_detail
@@ -59,7 +58,7 @@ struct scan_range :
     private as_lightweight_proxy< scan_range<Range, State, BinaryFun> >
 {
     PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-    PSTADE_CONCEPT_ASSERT((Readable<Range>));
+    // PSTADE_CONCEPT_ASSERT((Readable<Range>));
     typedef State state_type;
     typedef BinaryFun function_type;
 

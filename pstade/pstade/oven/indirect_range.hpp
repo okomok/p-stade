@@ -21,11 +21,11 @@
 #include <boost/iterator/indirect_iterator.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/range/iterator_range.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
+#include "./iter_range.hpp"
 #include "./range_iterator.hpp"
 
 
@@ -42,9 +42,8 @@ namespace indirect_range_detail {
         class Reference,
         class Difference
     >
-    struct super_
-    {
-        typedef boost::iterator_range<
+    struct super_ :
+        iter_range<
             boost::indirect_iterator<
                 typename range_iterator<Range>::type,
                 Value,
@@ -52,8 +51,8 @@ namespace indirect_range_detail {
                 Reference,
                 Difference
             >
-        > type;
-    };
+        >
+    { };
 
 
 } // namespace indirect_range_detail

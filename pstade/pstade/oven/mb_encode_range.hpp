@@ -11,10 +11,10 @@
 
 
 #include <boost/archive/iterators/mb_from_wchar.hpp>
-#include <boost/range/iterator_range.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
+#include "./iter_range.hpp"
 #include "./range_iterator.hpp"
 
 
@@ -25,14 +25,13 @@ namespace mb_encode_range_detail {
 
 
     template< class Range >
-    struct super_
-    {
-        typedef boost::iterator_range<
+    struct super_ :
+        iter_range<
             boost::archive::iterators::mb_from_wchar<
                 typename range_iterator<Range>::type
             >
-        > type;
-    };
+        >
+    { };
 
 
 } // namespace mb_encode_range_detail

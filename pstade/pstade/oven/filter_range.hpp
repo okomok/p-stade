@@ -21,12 +21,12 @@
 #include <boost/iterator/filter_iterator.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/range/iterator_range.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <pstade/pass_by.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
+#include "./iter_range.hpp"
 #include "./range_iterator.hpp"
 
 
@@ -37,15 +37,14 @@ namespace filter_range_detail {
 
 
     template< class Range, class Predicate >
-    struct super_
-    {
-        typedef boost::iterator_range<
+    struct super_ :
+        iter_range<
             boost::filter_iterator<
                 Predicate,
                 typename range_iterator<Range>::type
             >
-        > type;
-    };
+        >
+    { };
 
 
 } // namespace filter_range_detail
@@ -57,7 +56,7 @@ struct filter_range :
     private as_lightweight_proxy< filter_range<Range, Predicate> >
 {
     PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-    PSTADE_CONCEPT_ASSERT((Readable<Range>));
+    // PSTADE_CONCEPT_ASSERT((Readable<Range>));
     typedef Predicate predicate_type;
 
 private:

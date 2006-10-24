@@ -11,13 +11,13 @@
 
 
 #include <boost/cstdint.hpp> // uint32_t
-#include <boost/range/iterator_range.hpp>
 #include <boost/regex/pending/unicode_iterator.hpp> // u8_to_u32_iterator
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <pstade/pass_by.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
+#include "./iter_range.hpp"
 #include "./range_iterator.hpp"
 
 
@@ -31,15 +31,14 @@ namespace utf8_decode_range_detail {
         class Range,
         class Ucs4T
     >
-    struct super_
-    {
-        typedef boost::iterator_range<
+    struct super_ :
+        iter_range<
             boost::u8_to_u32_iterator<
                 typename range_iterator<Range>::type,
                 Ucs4T
             >
-        > type;
-    };
+        >
+    { };
 
 
 } // namespace utf8_decode_range_detail

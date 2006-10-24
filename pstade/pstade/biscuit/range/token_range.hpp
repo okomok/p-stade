@@ -16,6 +16,7 @@
 #include <pstade/const_overloaded.hpp>
 #include <pstade/nonassignable.hpp>
 #include <pstade/oven/as_lightweight_proxy.hpp>
+#include <pstade/oven/iter_range.hpp>
 #include "../state/null_state.hpp"
 #include "./token_iterator.hpp"
 
@@ -31,16 +32,15 @@ namespace token_range_detail {
 
 
     template< class Parser, class ForwardRange, class UserState >
-    struct super_
-    {
-        typedef boost::iterator_range<
+    struct super_ :
+        oven::iter_range<
             token_iterator<
                 Parser,
                 typename boost::range_result_iterator<ForwardRange>::type,
                 UserState
             >
-        > type;
-    };
+        >
+    { };
 
 
 } // namespace token_range_detail

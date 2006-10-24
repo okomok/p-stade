@@ -98,9 +98,9 @@ struct set_difference_range :
     private as_lightweight_proxy< set_difference_range<Range1, Range2, Compare> >
 {
     PSTADE_CONCEPT_ASSERT((SinglePass<Range1>));
-    PSTADE_CONCEPT_ASSERT((Readable<Range1>));
+    // PSTADE_CONCEPT_ASSERT((Readable<Range1>));
     PSTADE_CONCEPT_ASSERT((SinglePass<Range2>));
-    PSTADE_CONCEPT_ASSERT((Readable<Range2>));
+    // PSTADE_CONCEPT_ASSERT((Readable<Range2>));
 
 private:
     typedef typename set_difference_range_detail::super_<Range1, Range2, Compare>::type super_t;

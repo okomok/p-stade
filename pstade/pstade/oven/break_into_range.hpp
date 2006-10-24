@@ -18,13 +18,13 @@
 #include <string>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/range/iterator_range.hpp>
 #include <boost/token_iterator.hpp>
 #include <boost/type_traits/add_const.hpp>
 #include <pstade/const_overloaded.hpp>
 #include <pstade/nonassignable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
+#include "./iter_range.hpp"
 #include "./range_iterator.hpp"
 #include "./range_value.hpp"
 
@@ -40,16 +40,15 @@ namespace break_into_range_detail {
         class TokenizerFun,
         class Type
     >
-    struct super_
-    {
-        typedef boost::iterator_range<
+    struct super_ :
+        iter_range<
             boost::token_iterator<
                 TokenizerFun,
                 typename range_iterator<Range>::type,
                 Type
             >
-        > type;
-    };
+        >
+    { };
 
 
 } // namespace break_into_range_detail

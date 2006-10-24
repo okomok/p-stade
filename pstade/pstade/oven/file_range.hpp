@@ -10,9 +10,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/range/iterator_range.hpp>
 #include <boost/spirit/iterator/file_iterator.hpp>
 #include "./as_lightweight_proxy.hpp"
+#include "./iter_range.hpp"
 
 
 namespace pstade { namespace oven {
@@ -22,12 +22,11 @@ namespace file_range_detail {
 
 
     template< class CharT >
-    struct super_
-    {
-        typedef boost::iterator_range<
+    struct super_ :
+        iter_range<
             boost::spirit::file_iterator<CharT>
-        > type;
-    };
+        >
+    { };
 
 
     template< class Super, class CharT >

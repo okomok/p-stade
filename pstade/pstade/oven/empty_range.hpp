@@ -10,9 +10,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/range/iterator_range.hpp>
 #include <pstade/nullptr.hpp>
 #include "./as_lightweight_proxy.hpp"
+#include "./iter_range.hpp"
 #include "./range_constantable.hpp"
 
 
@@ -21,14 +21,14 @@ namespace pstade { namespace oven {
 
 template< class Value >
 struct empty_range :
-    boost::iterator_range<Value *>,
+    iter_range<Value *>::type,
     private range_constantable<empty_range<Value>, Value const *>,
     private as_lightweight_proxy< empty_range<Value> >
 {
     typedef Value const *const_iterator;
 
 private:
-    typedef boost::iterator_range<Value *> super_t;
+    typedef typename iter_range<Value *>::type super_t;
     typedef typename super_t::iterator iter_t;
 
 public:

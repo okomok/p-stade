@@ -14,9 +14,9 @@
 #include <boost/config.hpp>
 #include <boost/foreach.hpp>
 #include <boost/mpl/if.hpp>
-#include <boost/range/iterator_range.hpp>
 #include <boost/range/result_iterator.hpp>
 #include <pstade/oven/adaptor_to_base.hpp>
+#include <pstade/oven/iter_range.hpp>
 #include "../../match_results/insert_backref.hpp"
 #include "../../match_results/parsing_range_type.hpp"
 #include "../../state/cur_guard.hpp"
@@ -42,7 +42,7 @@ struct capture
         typedef typename match_results_parsing_range<results_t>::type dst_rng_t;
         typedef typename boost::range_result_iterator<dst_rng_t>::type dst_iter_t;
 
-        boost::iterator_range<dst_iter_t> rng(
+        oven::iter_range<dst_iter_t> rng(
             oven::adaptor_to<dst_iter_t>(gd.marker()),
             oven::adaptor_to<dst_iter_t>(s.get_cur())
         );
@@ -81,7 +81,7 @@ struct capture<-1, Parser>
             --id;
         }
 
-        boost::iterator_range<dst_iter_t> rng(
+        oven::iter_range<dst_iter_t> rng(
             oven::adaptor_to<dst_iter_t>(gd.marker()),
             oven::adaptor_to<dst_iter_t>(s.get_cur())
         );

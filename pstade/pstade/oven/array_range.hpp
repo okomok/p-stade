@@ -12,9 +12,9 @@
 
 #include <cstddef> // size_t
 #include <boost/noncopyable.hpp>
-#include <boost/range/iterator_range.hpp>
 #include <boost/scoped_array.hpp>
 #include <boost/utility/base_from_member.hpp>
+#include "./iter_range.hpp"
 #include "./range_constantable.hpp"
 
 
@@ -39,7 +39,7 @@ namespace array_range_detail {
 template< class Value >
 struct array_range :
     private array_range_detail::init<Value>::type,
-    boost::iterator_range<Value *>,
+    iter_range<Value *>::type,
     private range_constantable<array_range<Value>, Value const *>,
     private boost::noncopyable
 {
@@ -47,7 +47,7 @@ struct array_range :
 
 private:
     typedef typename array_range_detail::init<Value>::type init_t;
-    typedef boost::iterator_range<Value *> super_t;
+    typedef typename iter_range<Value *>::type super_t;
 
 public:
     explicit array_range(std::size_t sz) :

@@ -13,10 +13,10 @@
 #include <boost/assert.hpp>
 #include <boost/config.hpp> // BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE
 #include <boost/range/end.hpp>
-#include <boost/range/iterator_range.hpp>
 #include <boost/range/result_iterator.hpp>
 #include <boost/type_traits/add_const.hpp>
 #include <pstade/const_overloaded.hpp>
+#include <pstade/oven/iter_range.hpp>
 #include <pstade/oven/sub_range_result.hpp>
 #include "../match_results/default_type.hpp"
 #include "../state/increment.hpp"
@@ -42,11 +42,11 @@ namespace search_detail {
         for (; !biscuit::state_is_end(s); biscuit::state_increment(s)) {
             iter_t const marker = s.get_cur();
             if (Parser::parse(s, us))
-                return boost::make_iterator_range(marker, s.get_cur());
+                return oven::make_iter_range(marker, s.get_cur());
         }
 
         BOOST_ASSERT( boost::end(s) == boost::end(r) );
-        return boost::make_iterator_range(boost::end(s), boost::end(s));
+        return oven::make_iter_range(boost::end(s), boost::end(s));
     }
 
 

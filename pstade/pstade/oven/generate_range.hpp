@@ -10,9 +10,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/range/iterator_range.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./generate_iterator.hpp"
+#include "./iter_range.hpp"
 
 
 namespace pstade { namespace oven {
@@ -22,12 +22,11 @@ namespace generate_range_detail {
 
 
     template< class Generator >
-    struct super_
-    {
-        typedef boost::iterator_range<
+    struct super_ :
+        iter_range<
             generate_iterator<Generator>
-        > type;
-    };
+        >
+    { };
 
 
 } // namespace generate_range_detail

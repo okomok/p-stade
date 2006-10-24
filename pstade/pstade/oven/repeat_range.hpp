@@ -11,12 +11,12 @@
 
 
 #include <cstddef> // size_t
-#include <boost/range/iterator_range.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <pstade/pass_by.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
+#include "./iter_range.hpp"
 #include "./range_iterator.hpp"
 #include "./repeat_iterator.hpp"
 #include "./sub_range_result.hpp"
@@ -32,15 +32,14 @@ namespace repeat_range_detail {
         class Range,
         class Size
     >
-    struct super_
-    {
-        typedef boost::iterator_range<
+    struct super_ :
+        iter_range<
             repeat_iterator<
                 typename range_iterator<Range>::type,
                 Size
             >
-        > type;
-    };
+        >
+    { };
 
 
 } // namespace repeat_range_detail
@@ -70,7 +69,7 @@ public:
 
     typename sub_range_result<Range>::type source() const
     {
-        return boost::make_iterator_range(this->begin().sbegin(), this->begin().send());
+        return oven::make_iter_range(this->begin().sbegin(), this->begin().send());
     }
 
     typedef Range pstade_oven_range_base_type;

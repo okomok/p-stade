@@ -19,9 +19,9 @@
 #include <cstddef>   // ptrdiff_t
 #include <iterator>  // advance
 #include <boost/iterator/iterator_categories.hpp>
-#include <boost/range/iterator_range.hpp>
 #include <boost/range/result_iterator.hpp>
 #include <boost/static_assert.hpp>
+#include <pstade/oven/iter_range.hpp>
 #include <pstade/unused.hpp>
 #include "../algorithm/match.hpp"
 #include "./not_fwd.hpp"
@@ -45,7 +45,7 @@ namespace after_detail {
         std::advance(first, begin_to_cur - len);
 
         return biscuit::match<Parser>(
-            boost::make_iterator_range(first, s.get_cur()),
+            oven::make_iter_range(first, s.get_cur()),
             us
         );
     }
@@ -64,7 +64,7 @@ namespace after_detail {
         pstade::unused(begin_to_cur);
 
         return biscuit::match<Parser>(
-            boost::make_iterator_range(first, s.get_cur()),
+            oven::make_iter_range(first, s.get_cur()),
             us
         );
     }

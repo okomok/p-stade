@@ -13,7 +13,6 @@
 #include <boost/mpl/assert.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/empty.hpp>
-#include <boost/range/iterator_range.hpp>
 #include <boost/type_traits/is_pointer.hpp>
 #include <boost/utility/addressof.hpp>
 #include <pstade/egg/function.hpp>
@@ -22,6 +21,7 @@
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./distance.hpp"
+#include "./iter_range.hpp"
 #include "./range_pointer.hpp"
 
 
@@ -32,12 +32,11 @@ namespace point_range_detail {
 
 
     template< class ContiguousRange >
-    struct super_
-    {
-        typedef boost::iterator_range<
+    struct super_ :
+        iter_range<
             typename range_pointer<ContiguousRange>::type
-        > type;
-    };
+        >
+    { };
 
 
     template< class Super, class ContiguousRange >

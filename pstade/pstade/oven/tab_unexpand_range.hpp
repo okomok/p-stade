@@ -12,11 +12,11 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/range/iterator_range.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
+#include "./iter_range.hpp"
 #include "./range_iterator.hpp"
 #include "./tab_unexpand_iterator.hpp"
 
@@ -28,14 +28,13 @@ namespace tab_unexpand_range_detail {
 
 
     template< class Range >
-    struct super_
-    {
-        typedef boost::iterator_range<
+    struct super_ :
+        iter_range<
             tab_unexpand_iterator<
                 typename range_iterator<Range>::type
             >
-        > type;
-    };
+        >
+    { };
 
 
 } // namespace tab_expand_range_detail
@@ -47,7 +46,7 @@ struct tab_unexpand_range :
     private as_lightweight_proxy< tab_unexpand_range<Range> >
 {
     PSTADE_CONCEPT_ASSERT((Forward<Range>));
-    PSTADE_CONCEPT_ASSERT((Readable<Range>));
+    // PSTADE_CONCEPT_ASSERT((Readable<Range>));
 
 private:
     typedef typename tab_unexpand_range_detail::super_<Range>::type super_t;

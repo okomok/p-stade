@@ -12,9 +12,9 @@
 
 #include <boost/config.hpp> // BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE
 #include <boost/range/begin.hpp>
-#include <boost/range/iterator_range.hpp>
 #include <boost/type_traits/add_const.hpp>
 #include <pstade/const_overloaded.hpp>
+#include <pstade/oven/iter_range.hpp>
 #include <pstade/oven/sub_range_result.hpp>
 #include "../match_results/default_type.hpp"
 #include "../state/null_state.hpp"
@@ -35,7 +35,7 @@ namespace parse_detail {
 
         state_t s(r, rs);
         Parser::parse(s, us);
-        return boost::make_iterator_range(boost::begin(s), s.get_cur());
+        return oven::make_iter_range(boost::begin(s), s.get_cur());
     }
 
 

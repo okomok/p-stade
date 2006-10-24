@@ -22,7 +22,6 @@
 #include <boost/assert.hpp>
 #include <boost/mpl/int.hpp>
 #include <boost/range/empty.hpp>
-#include <boost/range/iterator_range.hpp>
 #include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/instance.hpp>
@@ -141,7 +140,6 @@ typedef ini_section pstade_pizza_profile;
     bool pstade_pizza_query_string(TCHAR const *pszValueName, TCHAR *pFirst, TCHAR *pLast)
     {
         BOOST_ASSERT(is_open());
-        // BOOST_ASSERT(diet::valid(tomato::buffer(boost::make_iterator_range(pFirst, pLast))));
 
         return ini_section_detail::query_string(
             tomato::c_str(m_fileName), tomato::c_str(m_sectionName),

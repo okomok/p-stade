@@ -11,11 +11,11 @@
 
 
 #include <cstddef> // size_t
-#include <boost/range/iterator_range.hpp>
 #include <boost/type_traits/remove_extent.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
+#include "./iter_range.hpp"
 
 
 namespace pstade { namespace oven {
@@ -23,16 +23,17 @@ namespace pstade { namespace oven {
 
 template< class T >
 struct array_protect_range :
-    boost::iterator_range<T *>,
+    iter_range<T *>::type,
     private as_lightweight_proxy< array_protect_range<T> >
 {
 private:
-    typedef boost::iterator_range<T *> super_t;
+    typedef typename iter_range<T *>::type super_t;
 
 public:
     template< std::size_t sz >
     explicit array_protect_range(T (&arr)[sz]) :
-        super_t(arr, static_cast<T *>(arr) + sz)
+        // cast precisely for enabler.
+        super_t(static_cast<T *>(arr), static_cast<T *>(arr) + sz)
     { }
 };
 

@@ -10,13 +10,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/range/const_iterator.hpp>
 #include <boost/range/iterator.hpp>
 #include <boost/range/result_iterator.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 #include <boost/type_traits/remove_volatile.hpp>
-#include <pstade/remove_cvr.hpp>
 #include "./detail/config.hpp" // PSTADE_OVEN_BOOST_RANGE_VERSION_1
+#include "./range_constant_iterator.hpp"
 
 
 namespace pstade { namespace oven {
@@ -37,13 +36,14 @@ struct range_iterator :
 
 
 // Workaround:
-// See 'sub_range_result_const'.
+// In the case of explicitly adding 'const' to array
+// (something like 'range_iterator<const array>'),
+// VC7.1 is confused when ordering. I don't know why, so I define...
+// (you can use also boost::add_const for this workaround.)
 //
 template< class Range >
 struct range_iterator_const :
-    boost::range_const_iterator<
-        typename remove_cvr<Range>::type
-    >
+    range_constant_iterator<Range>
 { };
 
 

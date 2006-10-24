@@ -12,11 +12,11 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/range/iterator_range.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
+#include "./iter_range.hpp"
 #include "./joint_iterator.hpp"
 #include "./range_iterator.hpp"
 
@@ -28,15 +28,14 @@ namespace joint_range_detail {
 
 
     template< class RangeL, class RangeR >
-    struct super_
-    {
-        typedef boost::iterator_range<
+    struct super_ :
+        iter_range<
             joint_iterator<
                 typename range_iterator<RangeL>::type,
                 typename range_iterator<RangeR>::type
             >
-        > type;
-    };
+        >
+    { };
 
 
 } // namespace joint_range_detail

@@ -26,7 +26,6 @@ namespace is_boost_range_detail {
 
     PSTADE_HAS_TYPE(iterator)
     PSTADE_HAS_TYPE(const_iterator)
-    PSTADE_HAS_TYPE(value_type)
 
 
 } // namespace is_boost_range_detail
@@ -41,8 +40,7 @@ struct is_boost_range_impl :
         boost::is_array<T>,
         boost::mpl::and_<
             is_boost_range_detail::has_iterator<T>,
-            is_boost_range_detail::has_const_iterator<T>,
-            is_boost_range_detail::has_value_type<T>
+            is_boost_range_detail::has_const_iterator<T>
         >
     >
 { };

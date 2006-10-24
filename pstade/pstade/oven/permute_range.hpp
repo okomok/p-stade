@@ -10,14 +10,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// #include <boost/iterator/permutation_iterator.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/range/iterator_range.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
+#include "./iter_range.hpp"
 #include "./range_iterator.hpp"
 #include "./permute_iterator.hpp"
 
@@ -29,16 +28,14 @@ namespace permute_range_detail {
 
 
     template< class ElementRange, class IndexRange >
-    struct super_
-    {
-        typedef boost::iterator_range<
-            // boost::permutation_iterator<
+    struct super_ :
+        iter_range<
             permute_iterator<
                 typename range_iterator<ElementRange>::type,
                 typename range_iterator<IndexRange>::type
             >
-        > type;
-    };
+        >
+    { };
 
 
 } // namespace permute_range_detail

@@ -54,10 +54,12 @@ void test()
         std::string str = ss.str();
         BOOST_CHECK( src == str );
     }
+#if 0 // rejected
     {
         oven::iter_range<std::string::iterator> rng = src|filtered(pstade::is_alpha)|regularized;
         BOOST_CHECK( oven::equals(rng, src) );
     }
+#endif
 }
 
 

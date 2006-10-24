@@ -15,8 +15,8 @@
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/range/iterator_range.hpp>
 #include <boost/utility/addressof.hpp>
+#include <pstade/oven/iter_range.hpp>
 #include "../algorithm/search.hpp"
 
 
@@ -35,7 +35,7 @@ namespace token_iterator_detail {
     {
         typedef boost::iterator_facade<
             token_iterator<Parser, ForwardIter, UserState>,
-            boost::iterator_range<ForwardIter> const,
+            oven::iter_range<ForwardIter> const,
             boost::forward_traversal_tag
         > type;
     };
@@ -72,7 +72,7 @@ public:
         m_pus( boost::addressof(other.user_state()) )
     { }
 
-    boost::iterator_range<ForwardIter> const& submatch() const
+    oven::iter_range<ForwardIter> const& submatch() const
     {
         return m_submatch;
     }
@@ -88,13 +88,13 @@ public:
     }
 
 private:
-    boost::iterator_range<ForwardIter> m_submatch;
+    oven::iter_range<ForwardIter> m_submatch;
     ForwardIter m_last;
     UserState *m_pus;
 
     void search_submatch()
     {
-        boost::iterator_range<ForwardIter> rng(boost::end(m_submatch), m_last);
+        oven::iter_range<ForwardIter> rng(boost::end(m_submatch), m_last);
         m_submatch = biscuit::search<Parser>(rng, *m_pus);
         // if not found, m_submatch becomes [m_last, m_last)
     }
@@ -115,21 +115,13 @@ friend class boost::iterator_core_access;
     bool equal(OtherIter const& other) const
     {
         BOOST_ASSERT(is_compatible(other));
-        return escaped_iterator_range_equal(other);
+        return m_submatch == other.submatch();
     }
 
     void increment()
     {
         BOOST_ASSERT("out of range" && boost::begin(m_submatch) != m_last);
         search_submatch();
-    }
-
-private:
-    template< class OtherIter >
-    bool escaped_iterator_range_equal(OtherIter const& other) const
-    {
-        // 'operator==' of 'iterator_range' calls 'std::equal'!
-        return m_submatch.equal(other.m_submatch);
     }
 };
 

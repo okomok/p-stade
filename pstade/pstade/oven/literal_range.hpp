@@ -23,12 +23,12 @@
 
 
 #include <cstddef> // size_t
-#include <boost/range/iterator_range.hpp>
 #include <boost/type_traits/remove_const.hpp>
 #include <boost/type_traits/remove_extent.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
+#include "./iter_range.hpp"
 
 
 namespace pstade { namespace oven {
@@ -36,16 +36,19 @@ namespace pstade { namespace oven {
 
 template< class Char >
 struct literal_range :
-    boost::iterator_range<Char const *>,
+    iter_range<Char const *>::type,
     private as_lightweight_proxy< literal_range<Char> >
 {
 private:
-    typedef boost::iterator_range<Char const *> super_t;
+    typedef typename iter_range<Char const *>::type super_t;
 
 public:
     template< std::size_t sz >
     explicit literal_range(Char const (&arr)[sz]) :
-        super_t(arr, static_cast<Char const *>(arr) + sz - 1)
+        super_t(
+            static_cast<Char const *>(arr),
+            static_cast<Char const *>(arr) + sz - 1
+        )
     { }
 };
 

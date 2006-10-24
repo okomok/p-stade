@@ -12,12 +12,12 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/range/iterator_range.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concatenate_iterator.hpp"
 #include "./concepts.hpp"
+#include "./iter_range.hpp"
 #include "./range_iterator.hpp"
 #include "./range_value.hpp"
 
@@ -29,14 +29,13 @@ namespace concatenate_range_detail {
 
 
     template< class SegmentRange >
-    struct super_
-    {
-        typedef boost::iterator_range<
+    struct super_ :
+        iter_range<
             concatenate_iterator<
                 typename range_iterator<SegmentRange>::type
             >
-        > type;
-    };
+        >
+    { };
 
 
 } // namespace concatenate_range_detail

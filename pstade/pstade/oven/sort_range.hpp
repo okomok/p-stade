@@ -77,7 +77,7 @@ struct sort_range :
     private as_lightweight_proxy< sort_range<Range, Compare> >
 {
     PSTADE_CONCEPT_ASSERT((Forward<Range>));
-    PSTADE_CONCEPT_ASSERT((Readable<Range>));
+    // PSTADE_CONCEPT_ASSERT((Readable<Range>));
     typedef Compare compare_type;
 
 private:

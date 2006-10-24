@@ -16,7 +16,6 @@
 // This range has...
 //   no deep equality-compare.
 //   neither 'front', 'back' nor 'operator[]'.
-//   the conversion using 'adaptor_to'.
 //
 // Note that it is impossible to implement 'back' and 'operator[]' safely,
 // which was overlooked by 'boost::iterator_range'.
@@ -26,15 +25,15 @@
 #include <algorithm> // swap
 #include <cstddef> // size_t
 #include <iosfwd> // basic_ostream
-#include <boost/iterator/iterator_traits.hpp> // iterator_value
+#include <boost/iterator/iterator_traits.hpp>
 #include <boost/operators.hpp> // equality_comparable
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/radish/bool_testable.hpp>
 #include <pstade/radish/swappable.hpp>
 #include <pstade/unused_to_copy.hpp>
-#include "./adaptor_to_base.hpp"
 #include "./algorithm.hpp" // copy
+#include "./as_lightweight_proxy.hpp"
 #include "./range_iterator.hpp"
 #include "./to_stream.hpp"
 
@@ -50,7 +49,7 @@ namespace iter_range_detail {
 
 
     template< class Iterator >
-    struct operators
+    struct super_
     {
         typedef
             boost::equality_comparable< iter_range<Iterator>,
@@ -61,33 +60,13 @@ namespace iter_range_detail {
     };
 
 
-    template< class Iterator >
-    struct super_ :
-        operators<Iterator>::type
-    {
-        typedef super_<Iterator> type;
-
-    protected:
-        super_()
-        { }
-
-        template< class Iterator_ >
-        super_(Iterator_ const& first, Iterator_ const& last) :
-            m_first(oven::adaptor_to<Iterator>(first)),
-            m_last (oven::adaptor_to<Iterator>(last ))
-        { }
-
-        Iterator m_first, m_last;
-    };
-
-
 } // namespace iter_range_detail
 
 
 template< class Iterator >
 struct iter_range :
-    iter_range_detail::super_<Iterator>::type
-    
+    iter_range_detail::super_<Iterator>::type,
+    private as_lightweight_proxy< iter_range<Iterator> >
 {
 private:
     typedef typename iter_range_detail::super_<Iterator>::type super_t;
@@ -101,21 +80,21 @@ public:
 
     template< class Iterator_ >
     iter_range(Iterator_ const& first, Iterator_ const& last) :
-        super_t(first, last)
+        m_first(first), m_last(last)
     { }
 
     template< class Range_ >
     iter_range(Range_& rng,
         typename unused_to_copy<type, Range_>::type = 0
     ) :
-        super_t(boost::begin(rng), boost::end(rng))
+        m_first(boost::begin(rng)), m_last(boost::end(rng))
     { }
 
     template< class Range_ >
     iter_range(Range_ const& rng,
         typename unused_to_copy<type, Range_>::type = 0
     ) :
-        super_t(boost::begin(rng), boost::end(rng))
+        m_first(boost::begin(rng)), m_last(boost::end(rng))
     { }
 
 // copy-assignments
@@ -142,32 +121,42 @@ public:
 
     Iterator begin() const
     {
-        return this->m_first;
+        return m_first;
     }
 
     Iterator end() const
     {
-        return this->m_last;
+        return m_last;
     }
+
+// convenience
+    typedef typename boost::iterator_category<Iterator>::type   iterator_category;
+    typedef typename boost::iterator_value<Iterator>::type      value_type;
+    typedef typename boost::iterator_difference<Iterator>::type difference_type;
+    typedef typename boost::iterator_pointer<Iterator>::type    pointer;
+    typedef typename boost::iterator_reference<Iterator>::type  reference;
 
 // bool_testable
     operator radish::safe_bool() const
     {
-        return radish::make_safe_bool(this->m_first != this->m_last);
+        return radish::make_safe_bool(m_first != m_last);
     }
 
 // equality_comparable
     bool operator==(type const& other) const
     {
-        return this->m_first == other.m_first && this->m_last == other.m_last;
+        return m_first == other.m_first && m_last == other.m_last;
     }
 
 // swappable
     void swap(type& other)
     {
-        std::swap(this->m_first, other.m_first);
-        std::swap(this->m_last, other.m_last);
+        std::swap(m_first, other.m_first);
+        std::swap(m_last, other.m_last);
     }
+
+private:
+    Iterator m_first, m_last;
 };
 
 

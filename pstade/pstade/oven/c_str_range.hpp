@@ -13,12 +13,12 @@
 #include <cstddef> // size_t
 #include <cstring> // strlen
 #include <cwchar>  // wcslen
-#include <boost/range/iterator_range.hpp>
 #include <boost/type_traits/remove_pointer.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <pstade/pass_by.hpp>
 #include "./as_lightweight_proxy.hpp"
+#include "./iter_range.hpp"
 
 
 namespace pstade { namespace oven {
@@ -48,11 +48,11 @@ namespace c_str_range_detail {
 
 template< class Char >
 struct c_str_range :
-    boost::iterator_range<Char *>,
+    iter_range<Char *>::type,
     private as_lightweight_proxy< c_str_range<Char> >
 {
 private:
-    typedef boost::iterator_range<Char *> super_t;
+    typedef typename iter_range<Char *>::type super_t;
 
 public:
     explicit c_str_range(Char *psz) :

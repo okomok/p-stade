@@ -11,9 +11,9 @@
 
 
 #include <boost/filesystem/operations.hpp> // basic_directory_iterator
-#include <boost/range/iterator_range.hpp>
 #include <boost/version.hpp>
 #include "./as_lightweight_proxy.hpp"
+#include "./iter_range.hpp"
 
 
 #if (BOOST_VERSION < 103400)
@@ -31,12 +31,11 @@
 
 
             template< class Path >
-            struct super_
-            {
-                typedef boost::iterator_range<
+            struct super_ :
+                iter_range<
                     boost::filesystem::basic_directory_iterator<Path>
-                > type;
-            };
+                >
+            { };
 
 
         } // namespace directory_range_detail
@@ -83,12 +82,11 @@
 
 
             template< class = void >
-            struct super_
-            {
-                typedef boost::iterator_range<
+            struct super_ :
+                iter_range<
                     boost::filesystem::directory_iterator
-                > type;
-            };
+                >
+            { };
 
 
         } // namespace directory_range_detail

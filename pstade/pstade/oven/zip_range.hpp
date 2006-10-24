@@ -11,12 +11,12 @@
 
 
 #include <boost/iterator/zip_iterator.hpp>
-#include <boost/range/iterator_range.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
+#include "./iter_range.hpp"
 #include "./range_iterator.hpp"
 
 
@@ -36,14 +36,13 @@ namespace zip_range_detail {
 
 
     template< class Range0, class Range1 >
-    struct super_
-    {
-        typedef boost::iterator_range<
+    struct super_ :
+        iter_range<
             boost::zip_iterator<
                 typename iterator_tuple<Range0, Range1>::type
             >
-        > type;
-    };
+        >
+    { };
 
 
 } // namespace zip_range_detail

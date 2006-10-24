@@ -20,11 +20,11 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/range/iterator_range.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
+#include "./iter_range.hpp"
 #include "./range_iterator.hpp"
 #include "./reverse_iterator.hpp"
 
@@ -36,14 +36,13 @@ namespace reverse_range_detail {
 
 
     template< class Range >
-    struct super_
-    {
-        typedef boost::iterator_range<
+    struct super_ :
+        iter_range<
             reverse_iterator<
                 typename range_iterator<Range>::type
             >
-        > type;
-    };
+        >
+    { };
 
 
 } // namespace reverse_range_detail

@@ -63,10 +63,12 @@ void test()
         BOOST_CHECK( oven::equals(rng1, rng2) );
         BOOST_CHECK( oven::equals(rng1, rng3) );
     }
+#if 0 // rejected
     {
         oven::sub_range<std::string> rng = src|filtered(pstade::is_alnum)|regularized;
         BOOST_CHECK( oven::equals(rng, src) );
     }
+#endif
 }
 
 

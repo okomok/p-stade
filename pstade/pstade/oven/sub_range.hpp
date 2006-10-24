@@ -12,11 +12,12 @@
 
 // What:
 //
-// "sub_range" which conforms to Assignalbe and CopyConstructible,
+// "sub_range" which conforms to Assignable and CopyConstructible,
 // but not DefaultConstructible.
 
 
 #include <pstade/unused_to_copy.hpp>
+#include "./as_lightweight_proxy.hpp"
 #include "./iter_range.hpp"
 #include "./range_constant_iterator.hpp"
 #include "./range_constantable.hpp"
@@ -48,7 +49,8 @@ namespace sub_range_detail {
 template< class Range >
 struct sub_range :
     sub_range_detail::super_<Range>::type,
-    private range_constantable<sub_range<Range>, typename range_iterator_const<Range>::type>
+    private range_constantable<sub_range<Range>, typename range_iterator_const<Range>::type>,
+    private as_lightweight_proxy< sub_range<Range> >
 {
 private:
     typedef typename sub_range_detail::super_<Range>::type super_t;

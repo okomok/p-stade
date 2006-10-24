@@ -11,12 +11,12 @@
 
 
 #include <cstddef> // ptrdiff_t
-#include <boost/range/iterator_range.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <pstade/unused_to_copy.hpp>
 #include "./any_iterator.hpp"
 #include "./as_lightweight_proxy.hpp"
+#include "./iter_range.hpp"
 
 
 namespace pstade { namespace oven {
@@ -31,15 +31,11 @@ namespace any_range_detail {
         class Reference,
         class Difference
     >
-    struct super_
-    {
-        // Note:
-        // 'oven::iter_range' calls 'adaptor_to',
-        // but no iterator can be convertible to 'any_iterator'. 
-        typedef boost::iterator_range<
+    struct super_ :
+        iter_range<
             any_iterator<Value, Traversal, Reference, Difference>
-        > type;
-    };
+        >
+    { };
 
 
 } // namespace any_range_detail
@@ -91,8 +87,6 @@ public:
         super_t::operator=(rng);
         return *this;
     }
-
-    PSTADE_IMPLICITLY_DEFINED_COPY(any_range, super_t)
 };
 
 

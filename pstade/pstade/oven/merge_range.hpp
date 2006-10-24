@@ -12,13 +12,13 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/range/iterator_range.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <pstade/functional.hpp> // less
 #include <pstade/pass_by.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
+#include "./iter_range.hpp"
 #include "./merge_iterator.hpp"
 #include "./range_iterator.hpp"
 
@@ -34,17 +34,16 @@ namespace merge_range_detail {
         class Compare,
         class MergeRoutine
     >
-    struct super_
-    {
-        typedef boost::iterator_range<
+    struct super_ :
+        iter_range<
             merge_iterator<
                 typename range_iterator<Range1>::type,
                 typename range_iterator<Range2>::type,
                 Compare,
                 MergeRoutine
             >
-        > type;
-    };
+        >
+    { };
 
 
 } // namespace merge_range_detail
@@ -60,9 +59,9 @@ struct merge_range :
     private as_lightweight_proxy< merge_range<Range1, Range2, Compare, MergeRoutine> >
 {
     PSTADE_CONCEPT_ASSERT((SinglePass<Range1>));
-    PSTADE_CONCEPT_ASSERT((Readable<Range1>));
+    // PSTADE_CONCEPT_ASSERT((Readable<Range1>));
     PSTADE_CONCEPT_ASSERT((SinglePass<Range2>));
-    PSTADE_CONCEPT_ASSERT((Readable<Range2>));
+    // PSTADE_CONCEPT_ASSERT((Readable<Range2>));
     typedef Compare compare_type;
 
 private:

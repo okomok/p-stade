@@ -46,7 +46,6 @@
 #include <boost/iterator/transform_iterator.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/range/iterator_range.hpp>
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -56,6 +55,7 @@
 #include <pstade/pass_by.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
+#include "./iter_range.hpp"
 #include "./range_iterator.hpp"
 
 
@@ -89,11 +89,11 @@ namespace transform_range_detail {
             boost::mpl::identity<Reference>
         >::type ref_t;
 
-        typedef boost::iterator_range<
+        typedef typename iter_range<
             boost::transform_iterator<
                 UnaryFun, iter_t, ref_t, Value
             >
-        > type;
+        >::type type;
     };
 
 

@@ -21,8 +21,8 @@
 
 
 #include <boost/noncopyable.hpp>
-#include <boost/range/iterator_range.hpp>
 #include <pstade/apple/sdk/windows.hpp>
+#include <pstade/oven/iter_range.hpp>
 #include <pstade/verify.hpp>
 #include "../c_str.hpp"
 #include "./find_file_iterator.hpp"
@@ -57,12 +57,11 @@ namespace find_file_range_detail {
 
 
     template< class = void >
-    struct super_
-    {
-        typedef boost::iterator_range<
+    struct super_ :
+        oven::iter_range<
             find_file_iterator
-        > type;
-    };
+        >
+    { };
 
 
 } // namespace find_file_range_detail

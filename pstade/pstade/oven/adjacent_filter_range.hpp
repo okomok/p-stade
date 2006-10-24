@@ -12,13 +12,13 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/range/iterator_range.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <pstade/pass_by.hpp>
 #include "./adjacent_filter_iterator.hpp"
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
+#include "./iter_range.hpp"
 #include "./range_iterator.hpp"
 
 
@@ -29,15 +29,14 @@ namespace adjacent_filter_range_detail {
 
 
     template< class Range, class BinaryPred >
-    struct super_
-    {
-        typedef boost::iterator_range<
+    struct super_ :
+        iter_range<
             adjacent_filter_iterator<
                 typename range_iterator<Range>::type,
                 BinaryPred
             >
-        > type;
-    };
+        >
+    { };
 
 
 } // namespace adjacent_filter_range_detail
@@ -49,7 +48,7 @@ struct adjacent_filter_range :
     private as_lightweight_proxy< adjacent_filter_range<Range, BinaryPred> >
 {
     PSTADE_CONCEPT_ASSERT((Forward<Range>));
-    PSTADE_CONCEPT_ASSERT((Readable<Range>));
+    // PSTADE_CONCEPT_ASSERT((Readable<Range>));
     typedef BinaryPred predicate_type;
 
 private:

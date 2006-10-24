@@ -18,8 +18,8 @@
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/range/iterator_range.hpp>
 #include <boost/utility/addressof.hpp>
+#include <pstade/oven/iter_range.hpp>
 #include "../algorithm/search.hpp"
 
 
@@ -92,8 +92,8 @@ private:
         }
 
         // get a next submatch
-        boost::iterator_range<ForwardIter> tr(this->base(), m_last);
-        boost::iterator_range<ForwardIter> sr = biscuit::search<Parser>(tr, *m_pus);
+        oven::iter_range<ForwardIter> tr(this->base(), m_last);
+        oven::iter_range<ForwardIter> sr = biscuit::search<Parser>(tr, *m_pus);
 
         if (boost::begin(sr) == m_last) {
             // not found

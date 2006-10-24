@@ -17,11 +17,11 @@
 // const-ness of the 'Value'.
 
 
-#include <boost/range/iterator_range.hpp>
 #include <boost/utility/addressof.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
+#include "./iter_range.hpp"
 
 
 namespace pstade { namespace oven {
@@ -29,11 +29,11 @@ namespace pstade { namespace oven {
 
 template< class Value >
 struct single_range :
-    boost::iterator_range<Value *>,
+    iter_range<Value *>::type,
     private as_lightweight_proxy< single_range<Value> >
 {
 private:
-    typedef boost::iterator_range<Value *> super_t;
+    typedef typename iter_range<Value *>::type super_t;
 
 public:
     explicit single_range(Value& v) :
