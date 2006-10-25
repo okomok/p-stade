@@ -10,17 +10,22 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// What:
-//
-// "sub_range" which conforms to Assignable and CopyConstructible,
-// but not DefaultConstructible.
-
-
 #include <pstade/unused_to_copy.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./range_constant_iterator.hpp"
 #include "./range_constantable.hpp"
 #include "./sub_range_base.hpp"
+
+
+#include <boost/config.hpp>
+#include <boost/detail/workaround.hpp>
+
+#if BOOST_WORKAROUND(BOOST_MSVC, == 1400)
+    // 12.8/8 says "the *copy constructor* for the class is used".
+    // But VC8's implicitly-defined copy-constructor could call
+    // any unary template constructor maybe after overload resolution.
+    #define PSTADE_implicitly_defined_copy_is_broken
+#endif
 
 
 namespace pstade { namespace oven {
@@ -37,55 +42,52 @@ struct sub_range :
     typedef typename range_constant_iterator<Range>::type const_iterator; // constantable
 
 // structors
+    sub_range()
+    { }
+
     template< class Range_ >
-    sub_range(Range_& rng,
-        typename unused_to_copy<type, Range>::type = 0
-    ) :
+    sub_range(Range_& rng, typename unused_to_copy<type, Range>::type = 0) :
         base(rng)
     { }
 
     template< class Range_ >
-    sub_range(Range_ const& rng,
-        typename unused_to_copy<type, Range>::type = 0
-    ) :
+    sub_range(Range_ const& rng) :
         base(rng)
     { }
 
 // copy-assignments
     template< class Range_ >
-    typename unused_to_copy_assign<type, Range_>::type
-    operator=(Range_& rng)
+    typename unused_to_copy_assign<type, Range_>::type operator=(Range_& rng)
     {
         base::operator=(rng);
         return *this;
     }
 
     template< class Range_ >
-    typename unused_to_copy_assign<type, Range_>::type
-    operator=(Range_ const& rng)
+    type& operator=(Range_ const& rng)
     {
         base::operator=(rng);
         return *this;
     }
+
+#if defined(PSTADE_implicitly_defined_copy_is_broken)
+    sub_range(type const& other) :
+        base(static_cast<base const&>(other))
+    { }
+
+    type& operator=(type const& other)
+    {
+        base::operator=(static_cast<base const&>(other));
+        return *this;
+    }
+#endif
 };
 
 
 } } // namespace pstade::oven
 
 
-#include <boost/mpl/bool.hpp>
-
-namespace pstade {
-
-    template< class Range >
-    struct is_slice_copyable<
-        oven::sub_range<Range>,
-        typename oven::sub_range_base<Range>::type
-    > :
-        boost::mpl::true_
-    { };
-
-} // namespace pstade
+#undef PSTADE_implicitly_defined_copy_is_broken
 
 
 #endif

@@ -84,31 +84,25 @@ public:
     { }
 
     template< class Range_ >
-    iter_range(Range_& rng,
-        typename unused_to_copy<type, Range_>::type = 0
-    ) :
+    iter_range(Range_& rng, typename unused_to_copy<type, Range_>::type = 0) :
         m_first(boost::begin(rng)), m_last(boost::end(rng))
     { }
 
     template< class Range_ >
-    iter_range(Range_ const& rng,
-        typename unused_to_copy<type, Range_>::type = 0
-    ) :
+    iter_range(Range_ const& rng) :
         m_first(boost::begin(rng)), m_last(boost::end(rng))
     { }
 
 // copy-assignments
     template< class Range_ >
-    typename unused_to_copy_assign<type, Range_>::type
-    operator=(Range_& rng)
+    typename unused_to_copy_assign<type, Range_>::type operator=(Range_& rng)
     {
         type(rng).swap(*this);
         return *this;
     }
 
     template< class Range_ >
-    typename unused_to_copy_assign<type, Range_>::type
-    operator=(Range_ const& rng)
+    type& operator=(Range_ const& rng)
     {
         type(rng).swap(*this);
         return *this;

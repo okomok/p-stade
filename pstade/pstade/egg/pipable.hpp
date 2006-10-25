@@ -75,16 +75,12 @@ struct pipe : BabyFunction,
     //
 
     template< class A0 >
-    explicit pipe(A0& a0,
-        typename unused_to_copy<pipe, A0>::type = 0
-    ) :
+    explicit pipe(A0& a0, typename unused_to_copy<pipe, A0>::type = 0) :
         BabyFunction(a0)
     { }
 
     template< class A0 >
-    explicit pipe(A0 const& a0,
-        typename unused_to_copy<pipe, A0>::type = 0
-    ) :
+    explicit pipe(A0 const& a0) :
         BabyFunction(a0)
     { }
 

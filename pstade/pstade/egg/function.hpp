@@ -67,16 +67,12 @@ struct function : BabyFunction
     //
 
     template< class A0 >
-    explicit function(A0& a0,
-        typename unused_to_copy<function, A0>::type = 0
-    ) :
+    explicit function(A0& a0, typename unused_to_copy<function, A0>::type = 0) :
         BabyFunction(a0)
     { }
 
     template< class A0 >
-    explicit function(A0 const& a0,
-        typename unused_to_copy<function, A0>::type = 0
-    ) :
+    explicit function(A0 const& a0) :
         BabyFunction(a0)
     { }
 

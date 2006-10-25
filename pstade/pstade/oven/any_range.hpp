@@ -58,31 +58,25 @@ private:
 public:
 // structors
     template< class Range >
-    any_range(Range& rng,
-        typename unused_to_copy<selt_t, Range>::type = 0
-    ) :
+    any_range(Range& rng, typename unused_to_copy<selt_t, Range>::type = 0) :
         super_t(boost::begin(rng), boost::end(rng))
     { }
 
     template< class Range >
-    any_range(Range const& rng,
-        typename unused_to_copy<selt_t, Range>::type = 0
-    ) :
+    any_range(Range const& rng) :
         super_t(boost::begin(rng), boost::end(rng))
     { }
 
 // copy-assignments
     template< class Range_ >
-    typename unused_to_copy_assign<selt_t, Range_>::type
-    operator=(Range_& rng)
+    typename unused_to_copy_assign<selt_t, Range_>::type operator=(Range_& rng)
     {
         super_t::operator=(rng);
         return *this;
     }
 
     template< class Range_ >
-    typename unused_to_copy_assign<selt_t, Range_>::type
-    operator=(Range_ const& rng)
+    self_t& operator=(Range_ const& rng)
     {
         super_t::operator=(rng);
         return *this;
