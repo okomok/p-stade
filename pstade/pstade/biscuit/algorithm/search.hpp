@@ -13,10 +13,10 @@
 #include <boost/assert.hpp>
 #include <boost/config.hpp> // BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE
 #include <boost/range/end.hpp>
-#include <boost/range/result_iterator.hpp>
 #include <boost/type_traits/add_const.hpp>
 #include <pstade/const_overloaded.hpp>
 #include <pstade/oven/iter_range.hpp>
+#include <pstade/oven/range_iterator.hpp>
 #include <pstade/oven/sub_range_result.hpp>
 #include "../match_results/default_type.hpp"
 #include "../state/increment.hpp"
@@ -36,7 +36,7 @@ namespace search_detail {
     aux(ParsingRange& r, MatchResults& rs, UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
     {
         typedef typename parsing_range_state<ParsingRange, MatchResults>::type state_t;
-        typedef typename boost::range_result_iterator<state_t>::type iter_t;
+        typedef typename oven::range_iterator<state_t>::type iter_t;
 
         state_t s(r, rs);
         for (; !biscuit::state_is_end(s); biscuit::state_increment(s)) {

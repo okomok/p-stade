@@ -14,7 +14,7 @@
 #include <boost/mpl/bool.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/mpl/or.hpp>
-#include <boost/range/result_iterator.hpp>
+#include <pstade/oven/range_iterator.hpp>
 #include <pstade/is_ndebug.hpp>
 #include "./begin.hpp"
 #include "./end.hpp"
@@ -52,7 +52,7 @@ namespace star_detail {
         template< class State, class UserState >
         static bool parse(State& s, UserState& us)
         {
-            typedef typename boost::range_result_iterator<State>::type iter_t;
+            typedef typename oven::range_iterator<State>::type iter_t;
 
             for (;;) {
                 iter_t const marker = s.get_cur();

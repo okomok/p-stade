@@ -11,8 +11,8 @@
 
 
 #include <boost/config.hpp> // BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
-#include <boost/range/result_iterator.hpp>
 #include <pstade/oven/iter_range.hpp>
+#include <pstade/oven/range_iterator.hpp>
 #include "../../algorithm/match.hpp"
 #include "../../state/cur_guard.hpp"
 #include "../not.hpp"
@@ -32,7 +32,7 @@ struct require
         if (!Parser::parse(s, us))
             return false;
 
-        typedef typename boost::range_result_iterator<State>::type iter_t;
+        typedef typename oven::range_iterator<State>::type iter_t;
         oven::iter_range<iter_t> rng(gd.marker(), s.get_cur());
 
         if (!(Predicate()(rng, us)))
@@ -55,7 +55,7 @@ struct state_require
         if (!Parser::parse(s, us))
             return false;
 
-        typedef typename boost::range_result_iterator<State>::type iter_t;
+        typedef typename oven::range_iterator<State>::type iter_t;
         oven::iter_range<iter_t> rng(gd.marker(), s.get_cur());
 
         if (!(Predicate()(s, rng, us)))

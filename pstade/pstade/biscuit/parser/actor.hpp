@@ -10,8 +10,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/range/result_iterator.hpp>
 #include <pstade/oven/iter_range.hpp>
+#include <pstade/oven/range_iterator.hpp>
 #include "../action/null_action.hpp"
 #include "../state/cur_guard.hpp"
 
@@ -31,7 +31,7 @@ struct actor
             return false;
 
         if (s.is_actionable()) {
-            typedef typename boost::range_result_iterator<State>::type iter_t;
+            typedef typename oven::range_iterator<State>::type iter_t;
             oven::iter_range<iter_t> rng(gd.marker(), s.get_cur());
 
             Action()(rng, us);
@@ -55,7 +55,7 @@ struct state_actor
             return false;
 
         if (s.is_actionable()) {
-            typedef typename boost::range_result_iterator<State>::type iter_t;
+            typedef typename oven::range_iterator<State>::type iter_t;
             oven::iter_range<iter_t> rng(gd.marker(), s.get_cur());
 
             Action()(s, rng, us);

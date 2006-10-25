@@ -42,8 +42,6 @@ struct mb_encode_range :
     mb_encode_range_detail::super_<Range>::type,
     private as_lightweight_proxy< mb_encode_range<Range> >
 {
-    typedef Range pstade_oven_range_base_type;
-
 private:
     typedef typename mb_encode_range_detail::super_<Range>::type super_t;
 
@@ -51,6 +49,8 @@ public:
     explicit mb_encode_range(Range& rng) :
         super_t(rng)
     { }
+
+    typedef Range pstade_oven_range_base_type;
 };
 
 

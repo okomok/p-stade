@@ -15,8 +15,8 @@
 #include <boost/optional.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/range/result_iterator.hpp>
 #include <pstade/oven/iter_range.hpp>
+#include <pstade/oven/range_iterator.hpp>
 #include <pstade/unused.hpp>
 #include "../../match_results/find_backref.hpp"
 #include "../../state/match_results_type.hpp"
@@ -33,7 +33,7 @@ struct backref
     template< class State, class UserState >
     static bool parse(State& s, UserState& us)
     {
-        typedef typename boost::range_result_iterator<State>::type iter_t;
+        typedef typename oven::range_iterator<State>::type iter_t;
         typedef oven::iter_range<iter_t> rng_t;
 
         rng_t rng;
@@ -61,7 +61,7 @@ struct backref<-1>
     template< class State, class UserState >
     static bool parse(State& s, UserState& us)
     {
-        typedef typename boost::range_result_iterator<State>::type iter_t;
+        typedef typename oven::range_iterator<State>::type iter_t;
         typedef typename state_match_results<State>::type results_t;
         typedef typename results_t::value_type key_and_mapped_t;    
         typedef oven::iter_range<iter_t> rng_t;

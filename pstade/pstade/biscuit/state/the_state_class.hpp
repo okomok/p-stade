@@ -13,7 +13,7 @@
 #include <boost/noncopyable.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/range/result_iterator.hpp>
+#include <pstade/oven/range_iterator.hpp>
 #include <pstade/oven/sub_range_base.hpp>
 
 
@@ -31,7 +31,7 @@ struct the_state_class
     {
     private:
         typedef typename oven::sub_range_base<ParsingRange>::type super_t;
-        typedef typename boost::range_result_iterator<super_t>::type iter_t;
+        typedef typename oven::range_iterator<super_t>::type iter_t;
 
     public:
         // for state metafunctions

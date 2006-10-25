@@ -13,7 +13,7 @@
 #include <iterator> // distance
 #include <boost/iterator/iterator_traits.hpp> // iterator_difference
 #include <boost/mpl/void.hpp>
-#include <boost/range/result_iterator.hpp>
+#include <pstade/oven/range_iterator.hpp>
 #include "../../state/advance.hpp"
 
 

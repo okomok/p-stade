@@ -23,8 +23,8 @@
 /**/
 
 #define PSTADE_BISCUIT_make_body_if_0(i) \
-    typedef typename boost::range_result_iterator<State>::type iter_t; \
-    boost::iterator_range<iter_t> rng(gd.marker(), s.get_cur()); \
+    typedef typename oven::range_iterator<State>::type iter_t; \
+    oven::iter_range<iter_t> rng(gd.marker(), s.get_cur()); \
 /**/
 
 #define PSTADE_BISCUIT_make_body_if_non0(i) \

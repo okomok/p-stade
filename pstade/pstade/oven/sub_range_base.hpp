@@ -12,7 +12,7 @@
 
 // Same as:
 //
-// boost::sub_range<Range>::base that is undocumented
+// 'boost::sub_range<Range>::base' that is undocumented
 
 
 // Note:

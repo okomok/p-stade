@@ -21,13 +21,13 @@
 #include <boost/mpl/or.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/range/result_iterator.hpp>
 #include <pstade/instance.hpp>
 #include <pstade/ios_init.hpp>
 #include <pstade/is_ndebug.hpp>
 #include <pstade/napkin/config.hpp> // NO_WIDESTRING
 #include <pstade/napkin/ostream.hpp>
 #include <pstade/napkin/ostream_char.hpp>
+#include <pstade/oven/range_iterator.hpp>
 
 
 namespace pstade { namespace biscuit {
@@ -109,7 +109,7 @@ namespace debugger_detail {
             {
                 typedef typename GetOStream::type os_t;
                 typedef typename napkin::ostream_char<os_t>::type char_t;
-                typedef typename boost::range_result_iterator<State>::type iter_t;
+                typedef typename oven::range_iterator<State>::type iter_t;
 
                 // If L'x' != 'x', output strings might look broken.
                 // But 'type_info' doesn't support 'wstring', *never mind*.

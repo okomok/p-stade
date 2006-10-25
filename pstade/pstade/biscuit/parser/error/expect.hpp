@@ -11,8 +11,8 @@
 
 
 #include <boost/range/end.hpp>
-#include <boost/range/result_iterator.hpp>
 #include <pstade/oven/iter_range.hpp>
+#include <pstade/oven/range_iterator.hpp>
 #include "./parser_error.hpp"
 
 
@@ -25,7 +25,7 @@ struct expect
     template< class State, class UserState >
     static bool parse(State& s, UserState& us)
     {
-        typedef typename boost::range_result_iterator<State>::type iter_t;
+        typedef typename oven::range_iterator<State>::type iter_t;
         typedef typename oven::iter_range<iter_t> range_t;
 
         if (!Parser::parse(s, us)) {

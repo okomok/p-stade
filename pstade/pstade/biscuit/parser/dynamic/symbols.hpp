@@ -15,7 +15,7 @@
 // Sleeping waiting for new TSTree of Boost.Spirit
 
 
-#include <boost/range/result_iterator.hpp>
+#include <pstade/oven/range_iterator.hpp>
 #include "../../state/parse.hpp"
 #include "./identity_fun.hpp"
 #include "./null_fun.hpp"
@@ -30,7 +30,7 @@ namespace symbols_detail {
     template< class State, class UserState, class PairAssocContainer, class Function >
     bool aux(State& s, UserState& us, PairAssocContainer& rngs, Function fun)
     {
-        typedef typename boost::range_result_iterator<PairAssocContainer>::type iter_t;
+        typedef typename oven::range_iterator<PairAssocContainer>::type iter_t;
 
         for (iter_t it = boost::begin(rngs), last = boost::end(rngs); it != last; ++it) {
             typename optional_iterator<State>::type opit = biscuit::state_parse(s, it->first);

@@ -14,7 +14,7 @@
 
 
 #include <boost/iterator/iterator_traits.hpp> // for boost::iterator_value
-#include <boost/range/result_iterator.hpp>
+#include <pstade/oven/range_iterator.hpp>
 #include "../locale/converter/to_lower.hpp"
 #include "./as_transformed.hpp"
 
@@ -28,7 +28,7 @@ struct as_lower
     template< class State, class UserState >
     static bool parse(State& s, UserState& us)
     {
-        typedef typename boost::range_result_iterator<State>::type iter_t;
+        typedef typename oven::range_iterator<State>::type iter_t;
 
         return as_transformed<
             Parser,

@@ -246,8 +246,8 @@ public:
     // There is no implicit constructor which can be used to convert.
     // 'm_pimpl' must hold the same 'Iterator_' type which enables
     // 'holder::equals/difference_to' to downcast properly.
-    // But there is no way to know the 'Iterator_' type beforehand, thus
-    // no way to know the convertibility.
+    // But there is no way to know the 'Iterator_' type beforehand,
+    // thus no way to know the convertibility.
     // Note that this implies that 'Other' below is always the same as
     // self type.
 

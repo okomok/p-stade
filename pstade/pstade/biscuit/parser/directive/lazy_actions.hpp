@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/range/result_iterator.hpp>
+#include <pstade/oven/range_iterator.hpp>
 #include "./no_actions.hpp"
 #include "./no_captures.hpp"
 
@@ -27,7 +27,7 @@ struct lazy_actions
         if (!s.is_actionable())
             return Parser::parse(s, us);
 
-        typename boost::range_result_iterator<State>::type const marker = s.get_cur();
+        typename oven::range_iterator<State>::type const marker = s.get_cur();
 
         if (!no_captures< no_actions<Parser> >::parse(s, us))
             return false;

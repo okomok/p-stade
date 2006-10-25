@@ -9,7 +9,7 @@
 #define PSTADE_BISCUIT_NUMBERED_PARSERS_ARG_arg P
 
 #define PSTADE_BISCUIT_NUMBERED_PARSERS_ARG_body_header \
-    typedef typename boost::range_result_iterator<State>::type iter_t; \
+    typedef typename oven::range_iterator<State>::type iter_t; \
     typedef typename boost::iterator_difference<iter_t>::type diff_t; \
     bool ret = false; \
     iter_t const marker = s.get_cur(); \

@@ -18,10 +18,10 @@
 #include <algorithm> // distance
 #include <cstddef>   // ptrdiff_t
 #include <iterator>  // advance
-#include <boost/iterator/iterator_categories.hpp>
-#include <boost/range/result_iterator.hpp>
-#include <boost/static_assert.hpp>
 #include <pstade/oven/iter_range.hpp>
+#include <pstade/oven/range_difference.hpp>
+#include <pstade/oven/range_iterator.hpp>
+#include <pstade/oven/range_traversal.hpp>
 #include <pstade/unused.hpp>
 #include "../algorithm/match.hpp"
 #include "./not_fwd.hpp"
@@ -38,8 +38,8 @@ namespace after_detail {
         Difference len, Difference begin_to_cur,
         boost::forward_traversal_tag)
     {
-        typedef typename boost::range_result_iterator<State>::type iter_t;
-        typedef typename boost::range_difference<State>::type diff_t;
+        typedef typename oven::range_iterator<State>::type iter_t;
+        typedef typename oven::range_difference<State>::type diff_t;
 
         iter_t first = boost::begin(s);
         std::advance(first, begin_to_cur - len);
@@ -56,7 +56,7 @@ namespace after_detail {
         Difference len, Difference begin_to_cur,
         boost::bidirectional_traversal_tag)
     {
-        typedef typename boost::range_result_iterator<State>::type iter_t;
+        typedef typename oven::range_iterator<State>::type iter_t;
 
         iter_t first = s.get_cur();
         std::advance(first, -len);
@@ -81,9 +81,8 @@ struct after
     template< class State, class UserState >
     static bool parse(State& s, UserState& us)
     {
-        typedef typename boost::range_result_iterator<State>::type iter_t;
-        typedef typename boost::iterator_traversal<iter_t>::type trv_t;
-        typedef typename boost::range_difference<State>::type diff_t;
+        typedef typename oven::range_traversal<State>::type trv_t;
+        typedef typename oven::range_difference<State>::type diff_t;
 
         diff_t begin_to_cur = std::distance(boost::begin(s), s.get_cur());
         if (begin_to_cur < len)

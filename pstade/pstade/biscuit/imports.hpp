@@ -14,14 +14,15 @@
 #if !defined(BOOST_NO_USING_TEMPLATE)
 
 
-#include <boost/range/sub_range.hpp>
+#include <pstade/oven/iter_range.hpp>
+#include <pstade/oven/sub_range.hpp>
 
 
 namespace pstade { namespace biscuit {
 
 
-using boost::iterator_range;
-using boost::sub_range;
+using oven::iter_range;
+using oven::sub_range;
 
 
 } } // namespace pstade::biscuit

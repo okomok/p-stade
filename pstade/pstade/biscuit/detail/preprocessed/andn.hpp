@@ -23,7 +23,7 @@ namespace pstade { namespace biscuit {
         {
             state_cur_guard<State> gd(s); if ( !P0::parse(s, us)) { return false; }
 
-            typedef typename boost::range_result_iterator<State> ::type iter_t; boost::iterator_range<iter_t> rng(gd.marker(), s.get_cur());
+            typedef typename oven::range_iterator<State> ::type iter_t; oven::iter_range<iter_t> rng(gd.marker(), s.get_cur());
 
             gd.dismiss(); return true;
         }
@@ -39,7 +39,7 @@ namespace pstade { namespace biscuit {
         {
             state_cur_guard<State> gd(s); if ( !P0::parse(s, us)) { return false; }
 
-            typedef typename boost::range_result_iterator<State> ::type iter_t; boost::iterator_range<iter_t> rng(gd.marker(), s.get_cur());
+            typedef typename oven::range_iterator<State> ::type iter_t; oven::iter_range<iter_t> rng(gd.marker(), s.get_cur());
             if ( !biscuit::state_match<P1> (rng, s, us)) { return false; }
 
             gd.dismiss(); return true;
@@ -56,7 +56,7 @@ namespace pstade { namespace biscuit {
         {
             state_cur_guard<State> gd(s); if ( !P0::parse(s, us)) { return false; }
 
-            typedef typename boost::range_result_iterator<State> ::type iter_t; boost::iterator_range<iter_t> rng(gd.marker(), s.get_cur());
+            typedef typename oven::range_iterator<State> ::type iter_t; oven::iter_range<iter_t> rng(gd.marker(), s.get_cur());
             if ( !biscuit::state_match<P1> (rng, s, us)) { return false; }
             if ( !biscuit::state_match<P2> (rng, s, us)) { return false; }
 
@@ -74,7 +74,7 @@ namespace pstade { namespace biscuit {
         {
             state_cur_guard<State> gd(s); if ( !P0::parse(s, us)) { return false; }
 
-            typedef typename boost::range_result_iterator<State> ::type iter_t; boost::iterator_range<iter_t> rng(gd.marker(), s.get_cur());
+            typedef typename oven::range_iterator<State> ::type iter_t; oven::iter_range<iter_t> rng(gd.marker(), s.get_cur());
             if ( !biscuit::state_match<P1> (rng, s, us)) { return false; }
             if ( !biscuit::state_match<P2> (rng, s, us)) { return false; }
             if ( !biscuit::state_match<P3> (rng, s, us)) { return false; }
@@ -93,7 +93,7 @@ namespace pstade { namespace biscuit {
         {
             state_cur_guard<State> gd(s); if ( !P0::parse(s, us)) { return false; }
 
-            typedef typename boost::range_result_iterator<State> ::type iter_t; boost::iterator_range<iter_t> rng(gd.marker(), s.get_cur());
+            typedef typename oven::range_iterator<State> ::type iter_t; oven::iter_range<iter_t> rng(gd.marker(), s.get_cur());
             if ( !biscuit::state_match<P1> (rng, s, us)) { return false; }
             if ( !biscuit::state_match<P2> (rng, s, us)) { return false; }
             if ( !biscuit::state_match<P3> (rng, s, us)) { return false; }
@@ -113,7 +113,7 @@ namespace pstade { namespace biscuit {
         {
             state_cur_guard<State> gd(s); if ( !P0::parse(s, us)) { return false; }
 
-            typedef typename boost::range_result_iterator<State> ::type iter_t; boost::iterator_range<iter_t> rng(gd.marker(), s.get_cur());
+            typedef typename oven::range_iterator<State> ::type iter_t; oven::iter_range<iter_t> rng(gd.marker(), s.get_cur());
             if ( !biscuit::state_match<P1> (rng, s, us)) { return false; }
             if ( !biscuit::state_match<P2> (rng, s, us)) { return false; }
             if ( !biscuit::state_match<P3> (rng, s, us)) { return false; }
@@ -134,7 +134,7 @@ namespace pstade { namespace biscuit {
         {
             state_cur_guard<State> gd(s); if ( !P0::parse(s, us)) { return false; }
 
-            typedef typename boost::range_result_iterator<State> ::type iter_t; boost::iterator_range<iter_t> rng(gd.marker(), s.get_cur());
+            typedef typename oven::range_iterator<State> ::type iter_t; oven::iter_range<iter_t> rng(gd.marker(), s.get_cur());
             if ( !biscuit::state_match<P1> (rng, s, us)) { return false; }
             if ( !biscuit::state_match<P2> (rng, s, us)) { return false; }
             if ( !biscuit::state_match<P3> (rng, s, us)) { return false; }
@@ -156,7 +156,7 @@ namespace pstade { namespace biscuit {
         {
             state_cur_guard<State> gd(s); if ( !P0::parse(s, us)) { return false; }
 
-            typedef typename boost::range_result_iterator<State> ::type iter_t; boost::iterator_range<iter_t> rng(gd.marker(), s.get_cur());
+            typedef typename oven::range_iterator<State> ::type iter_t; oven::iter_range<iter_t> rng(gd.marker(), s.get_cur());
             if ( !biscuit::state_match<P1> (rng, s, us)) { return false; }
             if ( !biscuit::state_match<P2> (rng, s, us)) { return false; }
             if ( !biscuit::state_match<P3> (rng, s, us)) { return false; }
@@ -179,7 +179,7 @@ namespace pstade { namespace biscuit {
         {
             state_cur_guard<State> gd(s); if ( !P0::parse(s, us)) { return false; }
 
-            typedef typename boost::range_result_iterator<State> ::type iter_t; boost::iterator_range<iter_t> rng(gd.marker(), s.get_cur());
+            typedef typename oven::range_iterator<State> ::type iter_t; oven::iter_range<iter_t> rng(gd.marker(), s.get_cur());
             if ( !biscuit::state_match<P1> (rng, s, us)) { return false; }
             if ( !biscuit::state_match<P2> (rng, s, us)) { return false; }
             if ( !biscuit::state_match<P3> (rng, s, us)) { return false; }
@@ -203,7 +203,7 @@ namespace pstade { namespace biscuit {
         {
             state_cur_guard<State> gd(s); if ( !P0::parse(s, us)) { return false; }
 
-            typedef typename boost::range_result_iterator<State> ::type iter_t; boost::iterator_range<iter_t> rng(gd.marker(), s.get_cur());
+            typedef typename oven::range_iterator<State> ::type iter_t; oven::iter_range<iter_t> rng(gd.marker(), s.get_cur());
             if ( !biscuit::state_match<P1> (rng, s, us)) { return false; }
             if ( !biscuit::state_match<P2> (rng, s, us)) { return false; }
             if ( !biscuit::state_match<P3> (rng, s, us)) { return false; }
@@ -228,7 +228,7 @@ namespace pstade { namespace biscuit {
         {
             state_cur_guard<State> gd(s); if ( !P0::parse(s, us)) { return false; }
 
-            typedef typename boost::range_result_iterator<State> ::type iter_t; boost::iterator_range<iter_t> rng(gd.marker(), s.get_cur());
+            typedef typename oven::range_iterator<State> ::type iter_t; oven::iter_range<iter_t> rng(gd.marker(), s.get_cur());
             if ( !biscuit::state_match<P1> (rng, s, us)) { return false; }
             if ( !biscuit::state_match<P2> (rng, s, us)) { return false; }
             if ( !biscuit::state_match<P3> (rng, s, us)) { return false; }
@@ -254,7 +254,7 @@ namespace pstade { namespace biscuit {
         {
             state_cur_guard<State> gd(s); if ( !P0::parse(s, us)) { return false; }
 
-            typedef typename boost::range_result_iterator<State> ::type iter_t; boost::iterator_range<iter_t> rng(gd.marker(), s.get_cur());
+            typedef typename oven::range_iterator<State> ::type iter_t; oven::iter_range<iter_t> rng(gd.marker(), s.get_cur());
             if ( !biscuit::state_match<P1> (rng, s, us)) { return false; }
             if ( !biscuit::state_match<P2> (rng, s, us)) { return false; }
             if ( !biscuit::state_match<P3> (rng, s, us)) { return false; }
@@ -281,7 +281,7 @@ namespace pstade { namespace biscuit {
         {
             state_cur_guard<State> gd(s); if ( !P0::parse(s, us)) { return false; }
 
-            typedef typename boost::range_result_iterator<State> ::type iter_t; boost::iterator_range<iter_t> rng(gd.marker(), s.get_cur());
+            typedef typename oven::range_iterator<State> ::type iter_t; oven::iter_range<iter_t> rng(gd.marker(), s.get_cur());
             if ( !biscuit::state_match<P1> (rng, s, us)) { return false; }
             if ( !biscuit::state_match<P2> (rng, s, us)) { return false; }
             if ( !biscuit::state_match<P3> (rng, s, us)) { return false; }
@@ -309,7 +309,7 @@ namespace pstade { namespace biscuit {
         {
             state_cur_guard<State> gd(s); if ( !P0::parse(s, us)) { return false; }
 
-            typedef typename boost::range_result_iterator<State> ::type iter_t; boost::iterator_range<iter_t> rng(gd.marker(), s.get_cur());
+            typedef typename oven::range_iterator<State> ::type iter_t; oven::iter_range<iter_t> rng(gd.marker(), s.get_cur());
             if ( !biscuit::state_match<P1> (rng, s, us)) { return false; }
             if ( !biscuit::state_match<P2> (rng, s, us)) { return false; }
             if ( !biscuit::state_match<P3> (rng, s, us)) { return false; }
@@ -338,7 +338,7 @@ namespace pstade { namespace biscuit {
         {
             state_cur_guard<State> gd(s); if ( !P0::parse(s, us)) { return false; }
 
-            typedef typename boost::range_result_iterator<State> ::type iter_t; boost::iterator_range<iter_t> rng(gd.marker(), s.get_cur());
+            typedef typename oven::range_iterator<State> ::type iter_t; oven::iter_range<iter_t> rng(gd.marker(), s.get_cur());
             if ( !biscuit::state_match<P1> (rng, s, us)) { return false; }
             if ( !biscuit::state_match<P2> (rng, s, us)) { return false; }
             if ( !biscuit::state_match<P3> (rng, s, us)) { return false; }
@@ -368,7 +368,7 @@ namespace pstade { namespace biscuit {
         {
             state_cur_guard<State> gd(s); if ( !P0::parse(s, us)) { return false; }
 
-            typedef typename boost::range_result_iterator<State> ::type iter_t; boost::iterator_range<iter_t> rng(gd.marker(), s.get_cur());
+            typedef typename oven::range_iterator<State> ::type iter_t; oven::iter_range<iter_t> rng(gd.marker(), s.get_cur());
             if ( !biscuit::state_match<P1> (rng, s, us)) { return false; }
             if ( !biscuit::state_match<P2> (rng, s, us)) { return false; }
             if ( !biscuit::state_match<P3> (rng, s, us)) { return false; }
@@ -399,7 +399,7 @@ namespace pstade { namespace biscuit {
         {
             state_cur_guard<State> gd(s); if ( !P0::parse(s, us)) { return false; }
 
-            typedef typename boost::range_result_iterator<State> ::type iter_t; boost::iterator_range<iter_t> rng(gd.marker(), s.get_cur());
+            typedef typename oven::range_iterator<State> ::type iter_t; oven::iter_range<iter_t> rng(gd.marker(), s.get_cur());
             if ( !biscuit::state_match<P1> (rng, s, us)) { return false; }
             if ( !biscuit::state_match<P2> (rng, s, us)) { return false; }
             if ( !biscuit::state_match<P3> (rng, s, us)) { return false; }
@@ -431,7 +431,7 @@ namespace pstade { namespace biscuit {
         {
             state_cur_guard<State> gd(s); if ( !P0::parse(s, us)) { return false; }
 
-            typedef typename boost::range_result_iterator<State> ::type iter_t; boost::iterator_range<iter_t> rng(gd.marker(), s.get_cur());
+            typedef typename oven::range_iterator<State> ::type iter_t; oven::iter_range<iter_t> rng(gd.marker(), s.get_cur());
             if ( !biscuit::state_match<P1> (rng, s, us)) { return false; }
             if ( !biscuit::state_match<P2> (rng, s, us)) { return false; }
             if ( !biscuit::state_match<P3> (rng, s, us)) { return false; }
@@ -464,7 +464,7 @@ namespace pstade { namespace biscuit {
         {
             state_cur_guard<State> gd(s); if ( !P0::parse(s, us)) { return false; }
 
-            typedef typename boost::range_result_iterator<State> ::type iter_t; boost::iterator_range<iter_t> rng(gd.marker(), s.get_cur());
+            typedef typename oven::range_iterator<State> ::type iter_t; oven::iter_range<iter_t> rng(gd.marker(), s.get_cur());
             if ( !biscuit::state_match<P1> (rng, s, us)) { return false; }
             if ( !biscuit::state_match<P2> (rng, s, us)) { return false; }
             if ( !biscuit::state_match<P3> (rng, s, us)) { return false; }
@@ -498,7 +498,7 @@ namespace pstade { namespace biscuit {
         {
             state_cur_guard<State> gd(s); if ( !P0::parse(s, us)) { return false; }
 
-            typedef typename boost::range_result_iterator<State> ::type iter_t; boost::iterator_range<iter_t> rng(gd.marker(), s.get_cur());
+            typedef typename oven::range_iterator<State> ::type iter_t; oven::iter_range<iter_t> rng(gd.marker(), s.get_cur());
             if ( !biscuit::state_match<P1> (rng, s, us)) { return false; }
             if ( !biscuit::state_match<P2> (rng, s, us)) { return false; }
             if ( !biscuit::state_match<P3> (rng, s, us)) { return false; }

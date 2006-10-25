@@ -18,45 +18,22 @@
 
 #include <pstade/unused_to_copy.hpp>
 #include "./as_lightweight_proxy.hpp"
-#include "./iter_range.hpp"
 #include "./range_constant_iterator.hpp"
 #include "./range_constantable.hpp"
-#include "./range_iterator.hpp"
+#include "./sub_range_base.hpp"
 
 
 namespace pstade { namespace oven {
 
 
 template< class Range >
-struct sub_range;
-
-
-namespace sub_range_detail {
-
-
-    template< class Range >
-    struct super_
-    {
-        typedef
-            iter_range< typename range_iterator<Range>::type >
-        type;
-    };
-
-
-} // namespace sub_range_detail
-
-
-template< class Range >
 struct sub_range :
-    sub_range_detail::super_<Range>::type,
-    private range_constantable<sub_range<Range>, typename range_iterator_const<Range>::type>,
+    sub_range_base<Range>::type,
+    private range_constantable<sub_range<Range>, typename range_constant_iterator<Range>::type>,
     private as_lightweight_proxy< sub_range<Range> >
 {
-private:
-    typedef typename sub_range_detail::super_<Range>::type super_t;
-
-public:
     typedef sub_range type;
+    typedef typename sub_range_base<Range>::type base;
     typedef typename range_constant_iterator<Range>::type const_iterator; // constantable
 
 // structors
@@ -64,14 +41,14 @@ public:
     sub_range(Range_& rng,
         typename unused_to_copy<type, Range>::type = 0
     ) :
-        super_t(rng)
+        base(rng)
     { }
 
     template< class Range_ >
     sub_range(Range_ const& rng,
         typename unused_to_copy<type, Range>::type = 0
     ) :
-        super_t(rng)
+        base(rng)
     { }
 
 // copy-assignments
@@ -79,7 +56,7 @@ public:
     typename unused_to_copy_assign<type, Range_>::type
     operator=(Range_& rng)
     {
-        super_t::operator=(rng);
+        base::operator=(rng);
         return *this;
     }
 
@@ -87,13 +64,28 @@ public:
     typename unused_to_copy_assign<type, Range_>::type
     operator=(Range_ const& rng)
     {
-        super_t::operator=(rng);
+        base::operator=(rng);
         return *this;
     }
 };
 
 
 } } // namespace pstade::oven
+
+
+#include <boost/mpl/bool.hpp>
+
+namespace pstade {
+
+    template< class Range >
+    struct is_slice_copyable<
+        oven::sub_range<Range>,
+        typename oven::sub_range_base<Range>::type
+    > :
+        boost::mpl::true_
+    { };
+
+} // namespace pstade
 
 
 #endif

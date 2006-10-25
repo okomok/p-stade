@@ -56,7 +56,7 @@ public:
     tab_expand_range(Range& rng, int tabsize) :
         super_t(
             iter_t(boost::begin(rng), tabsize),
-            iter_t(boost::end(rng), tabsize)
+            iter_t(boost::end(rng),   tabsize)
         )
     { }
 

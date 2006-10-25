@@ -19,10 +19,10 @@
 #include <boost/foreach.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/range/result_iterator.hpp>
-#include <boost/range/sub_range.hpp>
 #include <pstade/const_overloaded.hpp>
 #include <pstade/oven/iter_range.hpp>
+#include <pstade/oven/sub_range.hpp>
+#include <pstade/oven/range_iterator.hpp>
 #include <pstade/unused.hpp>
 #include "../parser/directive/no_actions.hpp"
 #include "../parser/directive/no_captures.hpp"
@@ -50,12 +50,12 @@ namespace iterate_detail {
     template< class Parser, class ParsingRange, class UserState, class GapAction >
     void aux(ParsingRange& r, UserState& us, GapAction action BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
     {
-        typedef typename boost::range_result_iterator<ParsingRange>::type iter_t;
+        typedef typename oven::range_iterator<ParsingRange>::type iter_t;
         iter_t last = boost::end(r);
         iter_t last_parsed = boost::begin(r);
 
         token_range< no_captures< no_actions<Parser> >, ParsingRange, UserState > trng(r, us);
-        BOOST_FOREACH (boost::sub_range<ParsingRange> sr, trng) {
+        BOOST_FOREACH (oven::sub_range<ParsingRange> sr, trng) {
             iterate_detail::aux_action(last_parsed, boost::begin(sr), us, action);
 
             // Note:

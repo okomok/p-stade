@@ -13,7 +13,7 @@
 #include <boost/optional.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/range/result_iterator.hpp>
+#include <pstade/oven/range_iterator.hpp>
 
 
 namespace pstade { namespace biscuit {
@@ -23,7 +23,7 @@ template< class Range >
 struct optional_iterator
 {
     typedef boost::optional<
-        typename boost::range_result_iterator<Range>::type
+        typename oven::range_iterator<Range>::type
     > type;
 };
 
@@ -35,8 +35,8 @@ namespace state_parse_detail {
     typename optional_iterator<State>::type
     aux(State& s, Range& r)
     {
-        typedef typename boost::range_result_iterator<State>::type siter_t;
-        typedef typename boost::range_result_iterator<Range>::type riter_t;
+        typedef typename oven::range_iterator<State>::type siter_t;
+        typedef typename oven::range_iterator<Range>::type riter_t;
         typedef boost::optional<siter_t> opt_t;
 
         siter_t sit(s.get_cur()), slast(boost::end(s));

@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/range/result_iterator.hpp>
+#include <pstade/oven/range_iterator.hpp>
 #include "../../state/parse.hpp"
 #include "./identity_fun.hpp"
 
@@ -26,7 +26,7 @@ namespace rngseq_detail {
     {
         state_cur_guard<State> gd(s);
 
-        typedef typename boost::range_result_iterator<RangeOfRange>::type iter_t;
+        typedef typename oven::range_iterator<RangeOfRange>::type iter_t;
         for (iter_t it = boost::begin(rngs), last = boost::end(rngs); it != last; ++it) {
             typename optional_iterator<State>::type opit = biscuit::state_parse(s, *it);
             if (!opit)

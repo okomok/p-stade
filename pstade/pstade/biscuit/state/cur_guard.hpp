@@ -11,7 +11,7 @@
 
 
 #include <boost/noncopyable.hpp>
-#include <boost/range/result_iterator.hpp>
+#include <pstade/oven/range_iterator.hpp>
 
 
 // See: scope_guard
@@ -25,7 +25,7 @@ template< class State >
 struct state_cur_guard :
     private boost::noncopyable
 {
-    typedef typename boost::range_result_iterator<State>::type iter_t; 
+    typedef typename oven::range_iterator<State>::type iter_t; 
 
     explicit state_cur_guard(State& s) :
         m_state(s), m_marker(s.get_cur()), m_dismissed(false)

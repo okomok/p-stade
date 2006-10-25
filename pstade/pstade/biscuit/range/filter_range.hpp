@@ -11,12 +11,12 @@
 
 
 #include <boost/config.hpp> // BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE, BOOST_EXPLICIT_TEMPLATE_TYPE
-#include <boost/range/result_iterator.hpp>
 #include <boost/type_traits/add_const.hpp>
 #include <pstade/const_overloaded.hpp>
 #include <pstade/nonassignable.hpp>
 #include <pstade/oven/as_lightweight_proxy.hpp>
 #include <pstade/oven/iter_range.hpp>
+#include <pstade/oven/range_iterator.hpp>
 #include "../state/null_state.hpp"
 #include "./filter_iterator.hpp"
 
@@ -36,7 +36,7 @@ namespace filter_range_detail {
         oven::iter_range<
             biscuit::filter_iterator<
                 Parser,
-                typename boost::range_result_iterator<ForwardRange>::type,
+                typename oven::range_iterator<ForwardRange>::type,
                 UserState
             >
         >

@@ -21,7 +21,7 @@ namespace pstade { namespace biscuit {
         template< class State, class UserState >
         static bool parse(State& s, UserState& us)
         {
-            typedef typename boost::range_result_iterator<State> ::type iter_t; typedef typename boost::iterator_difference<iter_t> ::type diff_t; bool ret = false; iter_t const marker = s.get_cur(); diff_t d = 0;
+            typedef typename oven::range_iterator<State> ::type iter_t; typedef typename boost::iterator_difference<iter_t> ::type diff_t; bool ret = false; iter_t const marker = s.get_cur(); diff_t d = 0;
 
             if (P0::parse(s, us)) { ret = true; d = (std::max)(std::distance(marker, s.get_cur()), d); } s.set_cur(marker);
 
@@ -37,7 +37,7 @@ namespace pstade { namespace biscuit {
         template< class State, class UserState >
         static bool parse(State& s, UserState& us)
         {
-            typedef typename boost::range_result_iterator<State> ::type iter_t; typedef typename boost::iterator_difference<iter_t> ::type diff_t; bool ret = false; iter_t const marker = s.get_cur(); diff_t d = 0;
+            typedef typename oven::range_iterator<State> ::type iter_t; typedef typename boost::iterator_difference<iter_t> ::type diff_t; bool ret = false; iter_t const marker = s.get_cur(); diff_t d = 0;
 
             if (P0::parse(s, us)) { ret = true; d = (std::max)(std::distance(marker, s.get_cur()), d); } s.set_cur(marker);
             if (P1::parse(s, us)) { ret = true; d = (std::max)(std::distance(marker, s.get_cur()), d); } s.set_cur(marker);
@@ -54,7 +54,7 @@ namespace pstade { namespace biscuit {
         template< class State, class UserState >
         static bool parse(State& s, UserState& us)
         {
-            typedef typename boost::range_result_iterator<State> ::type iter_t; typedef typename boost::iterator_difference<iter_t> ::type diff_t; bool ret = false; iter_t const marker = s.get_cur(); diff_t d = 0;
+            typedef typename oven::range_iterator<State> ::type iter_t; typedef typename boost::iterator_difference<iter_t> ::type diff_t; bool ret = false; iter_t const marker = s.get_cur(); diff_t d = 0;
 
             if (P0::parse(s, us)) { ret = true; d = (std::max)(std::distance(marker, s.get_cur()), d); } s.set_cur(marker);
             if (P1::parse(s, us)) { ret = true; d = (std::max)(std::distance(marker, s.get_cur()), d); } s.set_cur(marker);
@@ -72,7 +72,7 @@ namespace pstade { namespace biscuit {
         template< class State, class UserState >
         static bool parse(State& s, UserState& us)
         {
-            typedef typename boost::range_result_iterator<State> ::type iter_t; typedef typename boost::iterator_difference<iter_t> ::type diff_t; bool ret = false; iter_t const marker = s.get_cur(); diff_t d = 0;
+            typedef typename oven::range_iterator<State> ::type iter_t; typedef typename boost::iterator_difference<iter_t> ::type diff_t; bool ret = false; iter_t const marker = s.get_cur(); diff_t d = 0;
 
             if (P0::parse(s, us)) { ret = true; d = (std::max)(std::distance(marker, s.get_cur()), d); } s.set_cur(marker);
             if (P1::parse(s, us)) { ret = true; d = (std::max)(std::distance(marker, s.get_cur()), d); } s.set_cur(marker);
@@ -91,7 +91,7 @@ namespace pstade { namespace biscuit {
         template< class State, class UserState >
         static bool parse(State& s, UserState& us)
         {
-            typedef typename boost::range_result_iterator<State> ::type iter_t; typedef typename boost::iterator_difference<iter_t> ::type diff_t; bool ret = false; iter_t const marker = s.get_cur(); diff_t d = 0;
+            typedef typename oven::range_iterator<State> ::type iter_t; typedef typename boost::iterator_difference<iter_t> ::type diff_t; bool ret = false; iter_t const marker = s.get_cur(); diff_t d = 0;
 
             if (P0::parse(s, us)) { ret = true; d = (std::max)(std::distance(marker, s.get_cur()), d); } s.set_cur(marker);
             if (P1::parse(s, us)) { ret = true; d = (std::max)(std::distance(marker, s.get_cur()), d); } s.set_cur(marker);
@@ -111,7 +111,7 @@ namespace pstade { namespace biscuit {
         template< class State, class UserState >
         static bool parse(State& s, UserState& us)
         {
-            typedef typename boost::range_result_iterator<State> ::type iter_t; typedef typename boost::iterator_difference<iter_t> ::type diff_t; bool ret = false; iter_t const marker = s.get_cur(); diff_t d = 0;
+            typedef typename oven::range_iterator<State> ::type iter_t; typedef typename boost::iterator_difference<iter_t> ::type diff_t; bool ret = false; iter_t const marker = s.get_cur(); diff_t d = 0;
 
             if (P0::parse(s, us)) { ret = true; d = (std::max)(std::distance(marker, s.get_cur()), d); } s.set_cur(marker);
             if (P1::parse(s, us)) { ret = true; d = (std::max)(std::distance(marker, s.get_cur()), d); } s.set_cur(marker);
@@ -132,7 +132,7 @@ namespace pstade { namespace biscuit {
         template< class State, class UserState >
         static bool parse(State& s, UserState& us)
         {
-            typedef typename boost::range_result_iterator<State> ::type iter_t; typedef typename boost::iterator_difference<iter_t> ::type diff_t; bool ret = false; iter_t const marker = s.get_cur(); diff_t d = 0;
+            typedef typename oven::range_iterator<State> ::type iter_t; typedef typename boost::iterator_difference<iter_t> ::type diff_t; bool ret = false; iter_t const marker = s.get_cur(); diff_t d = 0;
 
             if (P0::parse(s, us)) { ret = true; d = (std::max)(std::distance(marker, s.get_cur()), d); } s.set_cur(marker);
             if (P1::parse(s, us)) { ret = true; d = (std::max)(std::distance(marker, s.get_cur()), d); } s.set_cur(marker);
@@ -154,7 +154,7 @@ namespace pstade { namespace biscuit {
         template< class State, class UserState >
         static bool parse(State& s, UserState& us)
         {
-            typedef typename boost::range_result_iterator<State> ::type iter_t; typedef typename boost::iterator_difference<iter_t> ::type diff_t; bool ret = false; iter_t const marker = s.get_cur(); diff_t d = 0;
+            typedef typename oven::range_iterator<State> ::type iter_t; typedef typename boost::iterator_difference<iter_t> ::type diff_t; bool ret = false; iter_t const marker = s.get_cur(); diff_t d = 0;
 
             if (P0::parse(s, us)) { ret = true; d = (std::max)(std::distance(marker, s.get_cur()), d); } s.set_cur(marker);
             if (P1::parse(s, us)) { ret = true; d = (std::max)(std::distance(marker, s.get_cur()), d); } s.set_cur(marker);
@@ -177,7 +177,7 @@ namespace pstade { namespace biscuit {
         template< class State, class UserState >
         static bool parse(State& s, UserState& us)
         {
-            typedef typename boost::range_result_iterator<State> ::type iter_t; typedef typename boost::iterator_difference<iter_t> ::type diff_t; bool ret = false; iter_t const marker = s.get_cur(); diff_t d = 0;
+            typedef typename oven::range_iterator<State> ::type iter_t; typedef typename boost::iterator_difference<iter_t> ::type diff_t; bool ret = false; iter_t const marker = s.get_cur(); diff_t d = 0;
 
             if (P0::parse(s, us)) { ret = true; d = (std::max)(std::distance(marker, s.get_cur()), d); } s.set_cur(marker);
             if (P1::parse(s, us)) { ret = true; d = (std::max)(std::distance(marker, s.get_cur()), d); } s.set_cur(marker);
@@ -201,7 +201,7 @@ namespace pstade { namespace biscuit {
         template< class State, class UserState >
         static bool parse(State& s, UserState& us)
         {
-            typedef typename boost::range_result_iterator<State> ::type iter_t; typedef typename boost::iterator_difference<iter_t> ::type diff_t; bool ret = false; iter_t const marker = s.get_cur(); diff_t d = 0;
+            typedef typename oven::range_iterator<State> ::type iter_t; typedef typename boost::iterator_difference<iter_t> ::type diff_t; bool ret = false; iter_t const marker = s.get_cur(); diff_t d = 0;
 
             if (P0::parse(s, us)) { ret = true; d = (std::max)(std::distance(marker, s.get_cur()), d); } s.set_cur(marker);
             if (P1::parse(s, us)) { ret = true; d = (std::max)(std::distance(marker, s.get_cur()), d); } s.set_cur(marker);
@@ -226,7 +226,7 @@ namespace pstade { namespace biscuit {
         template< class State, class UserState >
         static bool parse(State& s, UserState& us)
         {
-            typedef typename boost::range_result_iterator<State> ::type iter_t; typedef typename boost::iterator_difference<iter_t> ::type diff_t; bool ret = false; iter_t const marker = s.get_cur(); diff_t d = 0;
+            typedef typename oven::range_iterator<State> ::type iter_t; typedef typename boost::iterator_difference<iter_t> ::type diff_t; bool ret = false; iter_t const marker = s.get_cur(); diff_t d = 0;
 
             if (P0::parse(s, us)) { ret = true; d = (std::max)(std::distance(marker, s.get_cur()), d); } s.set_cur(marker);
             if (P1::parse(s, us)) { ret = true; d = (std::max)(std::distance(marker, s.get_cur()), d); } s.set_cur(marker);
@@ -252,7 +252,7 @@ namespace pstade { namespace biscuit {
         template< class State, class UserState >
         static bool parse(State& s, UserState& us)
         {
-            typedef typename boost::range_result_iterator<State> ::type iter_t; typedef typename boost::iterator_difference<iter_t> ::type diff_t; bool ret = false; iter_t const marker = s.get_cur(); diff_t d = 0;
+            typedef typename oven::range_iterator<State> ::type iter_t; typedef typename boost::iterator_difference<iter_t> ::type diff_t; bool ret = false; iter_t const marker = s.get_cur(); diff_t d = 0;
 
             if (P0::parse(s, us)) { ret = true; d = (std::max)(std::distance(marker, s.get_cur()), d); } s.set_cur(marker);
             if (P1::parse(s, us)) { ret = true; d = (std::max)(std::distance(marker, s.get_cur()), d); } s.set_cur(marker);
@@ -279,7 +279,7 @@ namespace pstade { namespace biscuit {
         template< class State, class UserState >
         static bool parse(State& s, UserState& us)
         {
-            typedef typename boost::range_result_iterator<State> ::type iter_t; typedef typename boost::iterator_difference<iter_t> ::type diff_t; bool ret = false; iter_t const marker = s.get_cur(); diff_t d = 0;
+            typedef typename oven::range_iterator<State> ::type iter_t; typedef typename boost::iterator_difference<iter_t> ::type diff_t; bool ret = false; iter_t const marker = s.get_cur(); diff_t d = 0;
 
             if (P0::parse(s, us)) { ret = true; d = (std::max)(std::distance(marker, s.get_cur()), d); } s.set_cur(marker);
             if (P1::parse(s, us)) { ret = true; d = (std::max)(std::distance(marker, s.get_cur()), d); } s.set_cur(marker);
@@ -307,7 +307,7 @@ namespace pstade { namespace biscuit {
         template< class State, class UserState >
         static bool parse(State& s, UserState& us)
         {
-            typedef typename boost::range_result_iterator<State> ::type iter_t; typedef typename boost::iterator_difference<iter_t> ::type diff_t; bool ret = false; iter_t const marker = s.get_cur(); diff_t d = 0;
+            typedef typename oven::range_iterator<State> ::type iter_t; typedef typename boost::iterator_difference<iter_t> ::type diff_t; bool ret = false; iter_t const marker = s.get_cur(); diff_t d = 0;
 
             if (P0::parse(s, us)) { ret = true; d = (std::max)(std::distance(marker, s.get_cur()), d); } s.set_cur(marker);
             if (P1::parse(s, us)) { ret = true; d = (std::max)(std::distance(marker, s.get_cur()), d); } s.set_cur(marker);
@@ -336,7 +336,7 @@ namespace pstade { namespace biscuit {
         template< class State, class UserState >
         static bool parse(State& s, UserState& us)
         {
-            typedef typename boost::range_result_iterator<State> ::type iter_t; typedef typename boost::iterator_difference<iter_t> ::type diff_t; bool ret = false; iter_t const marker = s.get_cur(); diff_t d = 0;
+            typedef typename oven::range_iterator<State> ::type iter_t; typedef typename boost::iterator_difference<iter_t> ::type diff_t; bool ret = false; iter_t const marker = s.get_cur(); diff_t d = 0;
 
             if (P0::parse(s, us)) { ret = true; d = (std::max)(std::distance(marker, s.get_cur()), d); } s.set_cur(marker);
             if (P1::parse(s, us)) { ret = true; d = (std::max)(std::distance(marker, s.get_cur()), d); } s.set_cur(marker);
@@ -366,7 +366,7 @@ namespace pstade { namespace biscuit {
         template< class State, class UserState >
         static bool parse(State& s, UserState& us)
         {
-            typedef typename boost::range_result_iterator<State> ::type iter_t; typedef typename boost::iterator_difference<iter_t> ::type diff_t; bool ret = false; iter_t const marker = s.get_cur(); diff_t d = 0;
+            typedef typename oven::range_iterator<State> ::type iter_t; typedef typename boost::iterator_difference<iter_t> ::type diff_t; bool ret = false; iter_t const marker = s.get_cur(); diff_t d = 0;
 
             if (P0::parse(s, us)) { ret = true; d = (std::max)(std::distance(marker, s.get_cur()), d); } s.set_cur(marker);
             if (P1::parse(s, us)) { ret = true; d = (std::max)(std::distance(marker, s.get_cur()), d); } s.set_cur(marker);
@@ -397,7 +397,7 @@ namespace pstade { namespace biscuit {
         template< class State, class UserState >
         static bool parse(State& s, UserState& us)
         {
-            typedef typename boost::range_result_iterator<State> ::type iter_t; typedef typename boost::iterator_difference<iter_t> ::type diff_t; bool ret = false; iter_t const marker = s.get_cur(); diff_t d = 0;
+            typedef typename oven::range_iterator<State> ::type iter_t; typedef typename boost::iterator_difference<iter_t> ::type diff_t; bool ret = false; iter_t const marker = s.get_cur(); diff_t d = 0;
 
             if (P0::parse(s, us)) { ret = true; d = (std::max)(std::distance(marker, s.get_cur()), d); } s.set_cur(marker);
             if (P1::parse(s, us)) { ret = true; d = (std::max)(std::distance(marker, s.get_cur()), d); } s.set_cur(marker);
@@ -429,7 +429,7 @@ namespace pstade { namespace biscuit {
         template< class State, class UserState >
         static bool parse(State& s, UserState& us)
         {
-            typedef typename boost::range_result_iterator<State> ::type iter_t; typedef typename boost::iterator_difference<iter_t> ::type diff_t; bool ret = false; iter_t const marker = s.get_cur(); diff_t d = 0;
+            typedef typename oven::range_iterator<State> ::type iter_t; typedef typename boost::iterator_difference<iter_t> ::type diff_t; bool ret = false; iter_t const marker = s.get_cur(); diff_t d = 0;
 
             if (P0::parse(s, us)) { ret = true; d = (std::max)(std::distance(marker, s.get_cur()), d); } s.set_cur(marker);
             if (P1::parse(s, us)) { ret = true; d = (std::max)(std::distance(marker, s.get_cur()), d); } s.set_cur(marker);
@@ -462,7 +462,7 @@ namespace pstade { namespace biscuit {
         template< class State, class UserState >
         static bool parse(State& s, UserState& us)
         {
-            typedef typename boost::range_result_iterator<State> ::type iter_t; typedef typename boost::iterator_difference<iter_t> ::type diff_t; bool ret = false; iter_t const marker = s.get_cur(); diff_t d = 0;
+            typedef typename oven::range_iterator<State> ::type iter_t; typedef typename boost::iterator_difference<iter_t> ::type diff_t; bool ret = false; iter_t const marker = s.get_cur(); diff_t d = 0;
 
             if (P0::parse(s, us)) { ret = true; d = (std::max)(std::distance(marker, s.get_cur()), d); } s.set_cur(marker);
             if (P1::parse(s, us)) { ret = true; d = (std::max)(std::distance(marker, s.get_cur()), d); } s.set_cur(marker);
@@ -496,7 +496,7 @@ namespace pstade { namespace biscuit {
         template< class State, class UserState >
         static bool parse(State& s, UserState& us)
         {
-            typedef typename boost::range_result_iterator<State> ::type iter_t; typedef typename boost::iterator_difference<iter_t> ::type diff_t; bool ret = false; iter_t const marker = s.get_cur(); diff_t d = 0;
+            typedef typename oven::range_iterator<State> ::type iter_t; typedef typename boost::iterator_difference<iter_t> ::type diff_t; bool ret = false; iter_t const marker = s.get_cur(); diff_t d = 0;
 
             if (P0::parse(s, us)) { ret = true; d = (std::max)(std::distance(marker, s.get_cur()), d); } s.set_cur(marker);
             if (P1::parse(s, us)) { ret = true; d = (std::max)(std::distance(marker, s.get_cur()), d); } s.set_cur(marker);
