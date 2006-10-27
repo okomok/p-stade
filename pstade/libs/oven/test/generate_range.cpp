@@ -65,6 +65,9 @@ struct rand_generator
 };
 
 
+#if 0 // impossible
+// copy of an iterator would copy the address into itself.
+// That's the dangling pointer!
 struct ptr_generator :
     private boost::noncopyable
 {
@@ -86,6 +89,7 @@ struct ptr_generator :
 
     int m_state;
 };
+#endif
 
 
 template< class T, class CharT, class Traits = std::char_traits<CharT> >
@@ -163,7 +167,7 @@ void test()
         }
     }
 
-
+#if 0 // impossible
     {
         ptr_generator X(10);
         BOOST_FOREACH (int x, oven::generation(X)) {
@@ -182,7 +186,7 @@ void test()
 
         BOOST_CHECK(X.m_state == 0);
     }
-
+#endif
     {
         std::string src("abcdefg");
         std::stringstream ss;

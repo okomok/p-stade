@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <limits> // numeric_limits
 #include <boost/assert.hpp>
 #include <boost/iterator/counting_iterator.hpp>
 #include <pstade/if_debug.hpp>
@@ -106,6 +107,13 @@ counting_range<Incrementable> const
 from_1_to(Incrementable const& c)
 {
     return counting_range<Incrementable>(1, c);
+}
+
+template< class Incrementable > inline
+counting_range<Incrementable> const
+count_from(Incrementable const& c)
+{
+    return counting_range<Incrementable>(c, (std::numeric_limits<Incrementable>::max)());
 }
 
 

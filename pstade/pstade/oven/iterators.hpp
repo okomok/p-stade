@@ -29,6 +29,7 @@
 #include "./slice_iterator.hpp"
 #include "./tab_expand_iterator.hpp"
 #include "./tab_unexpand_iterator.hpp"
+#include "./take_while_iterator.hpp"
 
 
 #endif

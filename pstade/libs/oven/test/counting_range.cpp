@@ -20,6 +20,12 @@
 #include <boost/foreach.hpp>
 #include <boost/range.hpp>
 #include <pstade/oven/functions.hpp>
+#include <pstade/oven/take_while_range.hpp>
+#include <pstade/oven/transform_range.hpp>
+#include <pstade/oven/regularize_range.hpp>
+#include <pstade/result_of_lambda.hpp>
+#include <boost/lambda/lambda.hpp>
+#include <pstade/reference.hpp>
 
 
 void test()
@@ -85,6 +91,17 @@ void test()
         BOOST_CHECK(false);
     }
 #endif
+
+    {
+        namespace lambda = boost::lambda;
+
+        oven::copy(
+            oven::count_from(1)|
+                transformed(lambda::_1 * 30)|regularized|
+                taken_while(lambda::_1 < 1000),
+            oven::to_ostream<int>(std::cout, ",")
+        );
+    }
 }
 
 

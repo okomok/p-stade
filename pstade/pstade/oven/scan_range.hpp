@@ -91,8 +91,8 @@ namespace scan_range_detail {
         template< class Myself, class Range, class State, class BinaryFun = plus_fun >
         struct apply
         {
-            typedef typename pass_by_value<BinaryFun>::type fun_t;
             typedef typename pass_by_value<State>::type sta_t;
+            typedef typename pass_by_value<BinaryFun>::type fun_t;
             typedef scan_range<Range, sta_t, fun_t> const type;
         };
 

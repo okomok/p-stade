@@ -102,7 +102,7 @@ namespace generate_iterator_detail {
             generate_iterator<Generator>,
             val_t,
             boost::single_pass_traversal_tag,
-            ref_t            
+            ref_t
         > type;
     };
 
@@ -130,8 +130,7 @@ public:
     // { }
 
     generate_iterator(Generator gen, bool not_end) :
-        m_gen(gen),
-        m_result() // can be a pointer, so value-initialize it.
+        m_gen(gen), m_result()
     {
         if (not_end)
             generate();
