@@ -170,7 +170,7 @@ friend class boost::iterator_core_access;
 };
 
 
-template< class Generator >
+template< class Generator > inline
 generate_iterator<Generator> const
 make_generate_iterator(Generator gen, bool not_end)
 {

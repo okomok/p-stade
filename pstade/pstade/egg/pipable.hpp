@@ -33,6 +33,7 @@
 #include <boost/preprocessor/seq/for_each_i.hpp>
 #include <boost/preprocessor/seq/for_each_product.hpp>
 #include <boost/type_traits/add_const.hpp>
+#include <pstade/implicitly_defined.hpp>
 #include <pstade/instance.hpp>
 #include <pstade/nonassignable.hpp>
 #include <pstade/unused_to_copy.hpp>
@@ -52,6 +53,9 @@ struct pipe : BabyFunction,
     private nonassignable
 {
     typedef BabyFunction pstade_egg_baby_type;
+
+
+    PSTADE_IMPLICITLY_DEFINED_COPY_CONSTRUCTOR_TO_BASE(pipe, BabyFunction)
 
 
     // 0ary

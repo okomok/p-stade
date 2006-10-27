@@ -28,6 +28,7 @@
 #include <boost/preprocessor/seq/for_each_i.hpp>
 #include <boost/preprocessor/seq/for_each_product.hpp>
 #include <boost/type_traits/add_const.hpp>
+#include <pstade/implicitly_defined.hpp>
 #include <pstade/instance.hpp>
 #include <pstade/unused_to_copy.hpp>
 #include "./baby_call.hpp"
@@ -44,6 +45,9 @@ template< class BabyFunction >
 struct function : BabyFunction
 {
     typedef BabyFunction pstade_egg_baby_type;
+
+
+    PSTADE_IMPLICITLY_DEFINED_COPY_TO_BASE(function, BabyFunction)
 
 
     // 0ary

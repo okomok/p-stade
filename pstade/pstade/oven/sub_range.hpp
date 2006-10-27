@@ -10,28 +10,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/implicitly_defined.hpp>
 #include <pstade/unused_to_copy.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./range_constant_iterator.hpp"
 #include "./range_constantable.hpp"
 #include "./sub_range_base.hpp"
-
-
-#include <boost/config.hpp>
-#include <boost/detail/workaround.hpp>
-
-#if BOOST_WORKAROUND(BOOST_MSVC, <= 1400)
-    // 12.8/8 notes "the *copy constructor* for the class is used".
-    // But VC8's implicitly-defined copy-constructor could call
-    // any unary template constructor maybe after overload resolution.
-    // So is copy-assignment-operator.
-    // This is the fatal bug of VC8; http://tinyurl.com/yb8ban
-    // Fortunately, though all the range adaptors of oven are derived
-    // from 'iter_range' which has template constructor wrongly chosen,
-    // VC8 optimizer seems to generate the same code as expected.
-    // IIRC, VC7.1 also sometimes runs afoul of the same bug.
-    #define PSTADE_implicitly_defined_copy_is_broken
-#endif
 
 
 namespace pstade { namespace oven {
@@ -76,24 +60,18 @@ struct sub_range :
         return *this;
     }
 
-#if defined(PSTADE_implicitly_defined_copy_is_broken)
-    sub_range(type const& other) :
-        base(static_cast<base const&>(other))
-    { }
-
-    type& operator=(type const& other)
-    {
-        base::operator=(static_cast<base const&>(other));
-        return *this;
-    }
-#endif
+    // VC8's broken implicitly-defined copy-constructor wrongly
+    // calls template constructor of 'iter_range'. Then,
+    // sub_range<string> const rng1(str);
+    // sub_range<string> rng2(rng1);
+    // doesn't compile. So define it by scratch using this macro.
+    // As for the range adaptors of oven, VC8 optimizer fortunately
+    // seems to generate the same code as expected without this.
+    PSTADE_IMPLICITLY_DEFINED_COPY_TO_BASE(sub_range, base)
 };
 
 
 } } // namespace pstade::oven
-
-
-#undef PSTADE_implicitly_defined_copy_is_broken
 
 
 #endif

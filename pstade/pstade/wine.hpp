@@ -24,6 +24,7 @@
 #include "./functional.hpp"
 #include "./has_xxx.hpp"
 #include "./if_debug.hpp"
+#include "./implicitly_defined.hpp"
 #include "./instance.hpp"
 #include "./integral_cast.hpp"
 // #include "./ios_init.hpp"

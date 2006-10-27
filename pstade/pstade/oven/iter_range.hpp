@@ -14,7 +14,7 @@
 //
 // The minimal "iterator_range".
 // This range has...
-//   no deep equality-compare.
+//   no deep equality-comparison.
 //   neither 'front', 'back' nor 'operator[]'.
 //
 // Note that it is impossible to implement 'back' and 'operator[]' safely,

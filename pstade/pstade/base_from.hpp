@@ -12,7 +12,7 @@
 
 // What:
 //
-// See 'PSTADE_implicitly_defined_copy_is_broken' at "./oven/sub_range.hpp"
+// See './implicitly_defined.hpp"
 // If your derived class is copyable, prefer this to
 // 'boost::base_from_member'. Otherwise, VC7.1/8
 // sometimes brings the derived class object
