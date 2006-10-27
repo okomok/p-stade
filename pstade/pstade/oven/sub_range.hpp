@@ -20,10 +20,16 @@
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
 
-#if BOOST_WORKAROUND(BOOST_MSVC, == 1400)
-    // 12.8/8 says "the *copy constructor* for the class is used".
+#if BOOST_WORKAROUND(BOOST_MSVC, <= 1400)
+    // 12.8/8 notes "the *copy constructor* for the class is used".
     // But VC8's implicitly-defined copy-constructor could call
     // any unary template constructor maybe after overload resolution.
+    // So is copy-assignment-operator.
+    // This is the fatal bug of VC8; http://tinyurl.com/yb8ban
+    // Fortunately, though all the range adaptors of oven are derived
+    // from 'iter_range' which has template constructor wrongly chosen,
+    // VC8 optimizer seems to generate the same code as expected.
+    // IIRC, VC7.1 also sometimes runs afoul of the same bug.
     #define PSTADE_implicitly_defined_copy_is_broken
 #endif
 

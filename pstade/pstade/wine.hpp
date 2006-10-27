@@ -41,6 +41,7 @@
 #include "./reference.hpp"
 #include "./remove_cvr.hpp"
 #include "./require.hpp"
+// #include "./result_of_lambda.hpp"
 #include "./statement.hpp"
 #include "./static_c.hpp"
 #include "./unparenthesize.hpp"

@@ -52,13 +52,13 @@ struct any_range :
     private as_lightweight_proxy< any_range<Value, Traversal, Reference, Difference> >
 {
 private:
-    typedef any_range selt_t;
+    typedef any_range self_t;
     typedef typename any_range_detail::super_<Value, Traversal, Reference, Difference>::type super_t;
 
 public:
 // structors
     template< class Range >
-    any_range(Range& rng, typename unused_to_copy<selt_t, Range>::type = 0) :
+    any_range(Range& rng, typename unused_to_copy<self_t, Range>::type = 0) :
         super_t(boost::begin(rng), boost::end(rng))
     { }
 
@@ -69,7 +69,7 @@ public:
 
 // copy-assignments
     template< class Range_ >
-    typename unused_to_copy_assign<selt_t, Range_>::type operator=(Range_& rng)
+    typename unused_to_copy_assign<self_t, Range_>::type operator=(Range_& rng)
     {
         super_t::operator=(rng);
         return *this;

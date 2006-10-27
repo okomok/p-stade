@@ -17,10 +17,7 @@
 // http://groups.google.com/group/comp.lang.c++.moderated/browse_frm/thread/eca7b43d751008cd/
 
 
-#include <boost/mpl/bool.hpp>
-#include <boost/mpl/or.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <boost/type_traits/remove_cv.hpp>
 #include <boost/utility/enable_if.hpp>
 
 

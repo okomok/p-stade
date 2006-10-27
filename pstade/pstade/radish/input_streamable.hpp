@@ -10,6 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Note:
+//
+// maybe rejected; doesn't work even under modern compilers.
+
+
 #include <iosfwd> // basic_istream
 #include <boost/mpl/empty_base.hpp>
 #include <pstade/adl_barrier.hpp>

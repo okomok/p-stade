@@ -26,10 +26,9 @@ namespace append_range_detail {
 
 
     template< class Value >
-    struct init_single
-    {
-        typedef base_from< single_range<Value> > type;
-    };
+    struct init_single :
+        base_from< single_range<Value> >
+    { };
 
 
     template< class Range, class Value >

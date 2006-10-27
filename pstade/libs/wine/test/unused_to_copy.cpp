@@ -35,7 +35,7 @@ struct my_base
     }
 
     template< class A_ >
-    my_base(A_ const&, typename unused_to_copy<type, A_>::type = 0)
+    my_base(A_ const&)
     {
         BOOST_CHECK(false);
     }
@@ -50,7 +50,7 @@ struct my_base
     }
 
     template< class A_ >
-    typename unused_to_copy_assign<type, A_>::type
+    type&
     operator=(A_ const&)
     {
         BOOST_CHECK(false);
@@ -65,16 +65,6 @@ struct my_derived :
 {
     my_derived() { }
 };
-
-
-namespace pstade {
-
-    template< class T >
-    struct is_slice_copyable< ::my_derived<T>, ::my_base<T> > :
-        boost::mpl::true_
-    { };
-
-}
 
 
 template< class Src, class Dst >
@@ -102,8 +92,11 @@ void test()
     ::test_copy< ::my_base<int>    const, ::my_base<int>    >();
     ::test_copy< ::my_derived<int>,       ::my_derived<int> >();
     ::test_copy< ::my_derived<int> const, ::my_derived<int> >();
+
+#if 0 // rejected
     ::test_copy< ::my_derived<int>,       ::my_base<int>    >();
     ::test_copy< ::my_derived<int> const, ::my_base<int>    >();
+#endif
 }
 
 
