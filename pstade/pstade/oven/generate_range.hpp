@@ -21,10 +21,10 @@ namespace pstade { namespace oven {
 namespace generate_range_detail {
 
 
-    template< class Generator >
+    template< class Generator, class Traversal >
     struct super_ :
         iter_range<
-            generate_iterator<Generator>
+            generate_iterator<Generator, Traversal>
         >
     { };
 
@@ -32,15 +32,18 @@ namespace generate_range_detail {
 } // namespace generate_range_detail
 
 
-template< class Generator >
+template<
+    class Generator,
+    class Traversal = boost::single_pass_traversal_tag
+>
 struct generate_range :
-    generate_range_detail::super_<Generator>::type,
-    private as_lightweight_proxy< generate_range<Generator> >
+    generate_range_detail::super_<Generator, Traversal>::type,
+    private as_lightweight_proxy< generate_range<Generator, Traversal> >
 {
     typedef Generator generator_type;
 
 private:
-    typedef typename generate_range_detail::super_<Generator>::type super_t;
+    typedef typename generate_range_detail::super_<Generator, Traversal>::type super_t;
     typedef typename super_t::iterator iter_t;
 
 public:
@@ -57,13 +60,27 @@ make_generate_range(Generator gen)
     return generate_range<Generator>(gen);
 }
 
+template< class Generator, class Traversal > inline
+generate_range<Generator, Traversal> const
+make_generate_range(Generator gen, Traversal)
+{
+    return generate_range<Generator, Traversal>(gen);
+}
 
-// 'make_generate_range<Gen&>(gen);' seems not a good thing.
+
+// 'make_generate_range<Gen&>(gen);' seems cumbersome?
 template< class Generator > inline
 generate_range<Generator&> const
 generation(Generator& gen)
 {
     return generate_range<Generator&>(gen);
+}
+
+template< class Generator, class Traversal > inline
+generate_range<Generator&, Traversal> const
+generation(Generator& gen, Traversal)
+{
+    return generate_range<Generator&, Traversal>(gen);
 }
 
 

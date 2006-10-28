@@ -11,13 +11,10 @@
 
 
 #include <boost/assert.hpp>
-#include <boost/mpl/identity.hpp>
-#include <boost/mpl/if.hpp>
 #include <boost/indirect_reference.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/optional.hpp>
 #include <boost/type_traits/add_reference.hpp>
-#include <boost/type_traits/is_same.hpp>
 #include <boost/utility/addressof.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/remove_cvr.hpp>
@@ -26,7 +23,7 @@
 namespace pstade { namespace oven {
 
 
-template< class Generator >
+template< class Generator, class Traversal >
 struct generate_iterator;
 
 
@@ -39,7 +36,7 @@ namespace generate_iterator_detail {
     { };
 
 
-    // "Optional" seems to be one of the concepts?
+    // "Optional" seems to be a new concept?
     //
 
     template< class T >
@@ -91,7 +88,7 @@ namespace generate_iterator_detail {
     };
 
 
-    template< class Generator >
+    template< class Generator, class Traversal >
     struct super_
     {
         typedef typename generator_result<Generator>::type result_t;
@@ -99,9 +96,9 @@ namespace generate_iterator_detail {
         typedef typename remove_cvr<ref_t>::type val_t;
 
         typedef boost::iterator_facade<
-            generate_iterator<Generator>,
+            generate_iterator<Generator, Traversal>,
             val_t,
-            boost::single_pass_traversal_tag,
+            Traversal,
             ref_t
         > type;
     };
@@ -110,13 +107,16 @@ namespace generate_iterator_detail {
 } // namespace generate_iterator_detail
 
 
-template< class Generator >
+template<
+    class Generator,
+    class Traversal = boost::single_pass_traversal_tag
+>
 struct generate_iterator :
-    generate_iterator_detail::super_<Generator>::type
+    generate_iterator_detail::super_<Generator, Traversal>::type
 {
 private:
     typedef generate_iterator self_t;
-    typedef typename generate_iterator_detail::super_<Generator>::type super_t;
+    typedef typename generate_iterator_detail::super_<Generator, Traversal>::type super_t;
     typedef typename super_t::reference ref_t;
     typedef generate_iterator_detail::aux_gen<Generator> aux_gen_t;
     typedef typename generate_iterator_detail::generator_result<Generator>::type result_t;
@@ -126,8 +126,8 @@ public:
     // it would require non-reference 'Generator' to be
     // DefaultConstructible. But SinglePassIterator is not
     // required to be. So, prefer the constructor with 'not_end'.
-    // generate_iterator()
-    // { }
+    generate_iterator()
+    { }
 
     generate_iterator(Generator gen, bool not_end) :
         m_gen(gen), m_result()
@@ -153,6 +153,7 @@ private:
 friend class boost::iterator_core_access;
     ref_t dereference() const
     {
+        BOOST_ASSERT(!is_end());
         return *m_result;
     }
 

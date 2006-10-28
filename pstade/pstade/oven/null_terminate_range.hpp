@@ -15,6 +15,7 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/empty.hpp>
 #include <boost/range/end.hpp>
+#include <boost/utility/result_of.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <pstade/functional.hpp> // not_, is_zero
@@ -56,7 +57,8 @@ namespace null_terminate_range_detail {
     template< class Range >
     struct super_
     {
-        typedef take_while_range<Range> type;
+        typedef typename boost::result_of<pstade::not_fun(pstade::is_zero_fun)>::type pred_t;
+        typedef take_while_range<Range, pred_t> type;
     };
 
 

@@ -115,6 +115,7 @@ friend class boost::iterator_core_access;
 
     void increment()
     {
+        BOOST_ASSERT(!is_end());
         ++this->base_reference();
         check_predicate();
     }

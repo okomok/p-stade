@@ -25,9 +25,9 @@ int increment(int x)
     return x + 1;
 }
 
-int not_11(int x)
+int not_10(int x)
 {
-    return x != 11;
+    return x != 10;
 }
 
 
@@ -37,14 +37,14 @@ void test()
     using namespace oven;
 
     {
-        int ans[]  = { 1, 2, 3, 4, 5, 6, 7, 8, 9,10};
+        int ans[]  = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, };
 
         BOOST_CHECK( oven::equal( // not 'equal*s*'
             ans, iteration(0, &increment)|begins
         ) );
 
         BOOST_CHECK( oven::equals(
-            ans, iteration(0, &increment)|taken_while(&not_11)
+            ans, iteration(0, &increment)|taken_while(&not_10)
         ) );
 
         BOOST_CHECK( oven::equals(
