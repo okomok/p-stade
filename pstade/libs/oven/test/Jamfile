@@ -27,6 +27,7 @@ rule oven-compile ( name )
 
 test-suite oven :
     [ oven-test adjacent_filter_range ]
+    [ oven-test adjacent_transform_range ]
     [ oven-test adaptor_to_base ]
     [ oven-test advance_range ]
     [ oven-test algorithm ]

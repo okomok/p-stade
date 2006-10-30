@@ -10,6 +10,15 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// See:
+//
+// Adjacent convenience - algorithms on adjacent pairs
+// http://groups.google.com/group/comp.lang.c++.moderated/browse_frm/thread/df2bf11921c91fad/
+//
+// You may say this range could be implemented by 'transform_range' and 'zip_range'
+// without a specific iterator. But such implementation would not be so simple.
+
+
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/egg/function.hpp>

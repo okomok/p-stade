@@ -7,7 +7,7 @@ The Oven Range Library
 :Author: MB
 :Contact: mb2act@yahoo.co.jp 
 :License: Distributed under the `Boost Software License Version 1.0`_
-:Version: 0.91.5
+:Version: 0.91.6
 
 
 
@@ -37,7 +37,7 @@ unless otherwise specified.
 Requirements
 ------------
 - `Boost C++ Libraries Version 1.33.1`__ or later (no compilation required)
-- `P-Stade C++ Libraries Version 1.01.6`__ or later (no compilation required, give a higher priority than Boost headers)
+- `P-Stade C++ Libraries Version 1.01.7`__ or later (no compilation required, give a higher priority than Boost headers)
 
 __ Boost_
 __ http://sourceforge.net/project/showfiles.php?group_id=141222&package_id=173059
@@ -369,13 +369,20 @@ Instead, add ``&`` to make it a function **pointer**.
 
 ``adjacent_filtered``
 ^^^^^^^^^^^^^^^^^^^^^
-``adjacent_filtered`` returns a range whose adjacent pairs are filtered by using a `Predicate`_::
+``adjacent_filtered`` returns a range where adjacent pairs of adapting range are filtered by using a `Predicate`_::
 
 	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\adjacent_filtered.ipp
 
 
 - Header: ``<pstade/oven/adjacent_filter_range.hpp>``
 - See: `Range Library Proposal`_.
+
+
+``adjacent_transformed``
+^^^^^^^^^^^^^^^^^^^^^^^^
+- Header: ``<pstade/oven/adjacent_transform_range.hpp>``
+- Valid expression: ``fwdRng|adjacent_transformed(rfun)``
+- Returns: A range where adjacent pairs of ``fwdRng`` are transformed by using ``rfun``.
 
 
 ``advanced``
@@ -1117,4 +1124,8 @@ Version 0.91.5
 ^^^^^^^^^^^^^^
 - ``taken`` and ``taken_while`` supports `Single Pass Range`_.
 - Added ``iterate_range``.
+
+Version 0.91.6
+^^^^^^^^^^^^^^
+- Added ``adjacent_transformed``.
 

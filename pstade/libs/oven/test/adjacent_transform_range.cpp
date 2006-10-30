@@ -34,7 +34,7 @@ void test()
 
         oven::copy(src|adjacent_transformed(pstade::plus), oven::to_stream(std::cout));
 
-        BOOST_CHECK( oven::test_Bidirectional_Readable(
+        BOOST_CHECK( oven::test_RandomAccess_Readable(
             src |
                 adjacent_transformed(pstade::plus) | const_lvalues,
             expected
@@ -58,7 +58,19 @@ void test()
             nothing | identities(boost::forward_traversal_tag()) |
                 adjacent_transformed(pstade::plus)
         ) );
+    }
+    {
+        int const nothing[] = { 1 };
 
+        BOOST_CHECK( oven::test_empty(
+            nothing |
+                adjacent_transformed(pstade::plus)
+        ) );
+
+        BOOST_CHECK( oven::test_empty(
+            nothing | identities(boost::forward_traversal_tag()) |
+                adjacent_transformed(pstade::plus)
+        ) );
     }
 }
 
