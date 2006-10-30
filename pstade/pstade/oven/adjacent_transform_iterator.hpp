@@ -10,7 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <iterator> // distance
 #include <boost/assert.hpp>
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
@@ -103,8 +102,8 @@ public:
     adjacent_transform_iterator()
     { }
 
-    adjacent_transform_iterator(ForwardIter const& it, ForwardIter const& next, BinaryFun const& fun) :
-        super_t(it), m_next(next), m_fun(fun)
+    adjacent_transform_iterator(ForwardIter const& it, BinaryFun const& fun) :
+        super_t(it), m_fun(fun)
     { }
 
     template< class ForwardIter_, class Reference_, class Value_ >
@@ -112,13 +111,8 @@ public:
         adjacent_transform_iterator<ForwardIter_, BinaryFun, Reference_, Value_> const& other,
         typename boost::enable_if_convertible<ForwardIter_, ForwardIter>::type * = 0
     ) :
-        super_t(other.base()), m_next(other.next()), m_fun(other.function())
+        super_t(other.base()), m_fun(other.function())
     { }
-
-    ForwardIter const& next() const
-    {
-        return m_next;
-    }
 
     BinaryFun const& function() const
     {
@@ -126,46 +120,13 @@ public:
     }
 
 private:
-    ForwardIter m_next;
     BinaryFun   m_fun;
-
-    bool is_dot() const
-    {
-        return this->base() == m_next;
-    }
-
-    bool line_invariant() const
-    {
-        return !is_dot() &&
-            boost::next(this->base()) == m_next;
-    }
 
 friend class boost::iterator_core_access;
     ref_t dereference() const
     {
-        BOOST_ASSERT(line_invariant());
-        return m_fun(*this->base(), *m_next);
-    }
-
-    template< class Other >
-    bool equal(Other const& other) const
-    {
-        BOOST_ASSERT(!is_dot() ? line_invariant() : true);
-        return this->base() == other.base();
-    }
-
-    void increment()
-    {
-        BOOST_ASSERT(line_invariant());
-        ++this->base_reference();
-        ++m_next;
-    }
-
-    void decrement()
-    {
-        BOOST_ASSERT(line_invariant());
-        --this->base_reference();
-        --m_next;
+        // here is the same problem as 'boost::reverse_iterator'.
+        return m_fun(*this->base(), *boost::next(this->base()));
     }
 };
 
@@ -188,31 +149,21 @@ namespace adjacent_transform_iterator_detail {
             ;
 
         return prev;
-
-    /*
-        while (boost::next(first) != last)
-            ++first;
-
-        return first;
-    */
     }
 
 
 } // namespace adjacent_transform_iterator_detail
 
 
-
-template< class Reference, class Value, class ForwardIter, class BinaryFun >
+template< class Reference, class Value, class ForwardIter, class BinaryFun > inline
 adjacent_transform_iterator<ForwardIter, BinaryFun, Reference, Value> const
 make_adjacent_transform_begin_iterator(ForwardIter const& first, ForwardIter const& last, BinaryFun fun)
 {
     typedef adjacent_transform_iterator<ForwardIter, BinaryFun, Reference, Value> result_t;
 
-    if (std::distance(first, last) == 0)
-        return result_t(first, first, fun); // dot
-
-    return result_t(first, boost::next(first), fun);
-}
+    pstade::unused(last);
+    return result_t(first, fun);
+ }
 
 
 template< class Reference, class Value, class ForwardIter, class BinaryFun >
@@ -221,11 +172,11 @@ make_adjacent_transform_end_iterator(ForwardIter const& first, ForwardIter const
 {
     typedef adjacent_transform_iterator<ForwardIter, BinaryFun, Reference, Value> result_t;
 
-    if (std::distance(first, last) == 0)
-        return result_t(first, first, fun); // dot
+    if (first == last)
+        return result_t(first, fun);
 
     typedef typename boost::iterator_traversal<ForwardIter>::type trv_t;
-    return result_t(adjacent_transform_iterator_detail::back(first, last, trv_t()), last, fun);
+    return result_t(adjacent_transform_iterator_detail::back(first, last, trv_t()), fun);
 }
 
 

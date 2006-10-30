@@ -58,13 +58,12 @@ struct adjacent_transform_range :
 
 private:
     typedef typename adjacent_transform_range_detail::super_<Range, BinaryFun, Reference, Value>::type super_t;
-    typedef typename super_t::iterator iter_t;
 
 public:
     adjacent_transform_range(Range& rng, BinaryFun const& fun) :
         super_t(
-            iter_t(oven::make_adjacent_transform_begin_iterator<Reference, Value>(boost::begin(rng), boost::end(rng), fun)),
-            iter_t(oven::make_adjacent_transform_end_iterator  <Reference, Value>(boost::begin(rng), boost::end(rng), fun))
+            oven::make_adjacent_transform_begin_iterator<Reference, Value>(boost::begin(rng), boost::end(rng), fun),
+            oven::make_adjacent_transform_end_iterator  <Reference, Value>(boost::begin(rng), boost::end(rng), fun)
         )
     { }
 
