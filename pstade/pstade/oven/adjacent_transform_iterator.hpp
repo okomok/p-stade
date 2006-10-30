@@ -1,4 +1,4 @@
- #ifndef PSTADE_OVEN_ADJACENT_TRANSFORM_ITERATOR_HPP
+#ifndef PSTADE_OVEN_ADJACENT_TRANSFORM_ITERATOR_HPP
 #define PSTADE_OVEN_ADJACENT_TRANSFORM_ITERATOR_HPP
 
 
@@ -49,7 +49,7 @@ namespace adjacent_transform_iterator_detail {
 
 
     template< class ForwardIter, class BinaryFun >
-    struct reference
+    struct default_reference
     {
         typedef typename boost::iterator_reference<ForwardIter>::type ref_t;
         typedef typename boost::result_of<BinaryFun(ref_t, ref_t)>::type type;
@@ -61,7 +61,7 @@ namespace adjacent_transform_iterator_detail {
     {
         typedef typename
             boost::mpl::eval_if< boost::is_same<Reference, boost::use_default>,
-                reference<ForwardIter, BinaryFun>,
+                default_reference<ForwardIter, BinaryFun>,
                 boost::mpl::identity<Reference>
             >::type
         ref_t;
