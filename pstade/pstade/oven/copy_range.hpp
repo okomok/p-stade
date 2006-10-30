@@ -11,7 +11,7 @@
 
 
 #include <boost/assert.hpp>
-#include <boost/iterator/iterator_categories.hpp> // tags
+#include <boost/iterator/iterator_categories.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/type_traits/is_convertible.hpp>
 #include <pstade/adl_barrier.hpp>

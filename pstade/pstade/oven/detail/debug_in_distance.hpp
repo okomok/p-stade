@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/iterator/iterator_categories.hpp> // tags
+#include <boost/iterator/iterator_categories.hpp>
 #include <pstade/for_debug.hpp>
 #include <pstade/unused.hpp>
 #include "../distance.hpp"

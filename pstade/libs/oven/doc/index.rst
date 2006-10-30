@@ -7,7 +7,7 @@ The Oven Range Library
 :Author: MB
 :Contact: mb2act@yahoo.co.jp 
 :License: Distributed under the `Boost Software License Version 1.0`_
-:Version: 0.91.4
+:Version: 0.91.5
 
 
 
@@ -37,7 +37,7 @@ unless otherwise specified.
 Requirements
 ------------
 - `Boost C++ Libraries Version 1.33.1`__ or later (no compilation required)
-- `P-Stade C++ Libraries Version 1.01.5`__ or later (no compilation required, give a higher priority than Boost headers)
+- `P-Stade C++ Libraries Version 1.01.6`__ or later (no compilation required, give a higher priority than Boost headers)
 
 __ Boost_
 __ http://sourceforge.net/project/showfiles.php?group_id=141222&package_id=173059
@@ -273,7 +273,7 @@ __ http://www.boost.org/libs/utility/generator_iterator.htm
 
 
 - Header: ``<pstade/oven/generate_range.hpp>``
-- Valid expression1: ``generate_range<rfunT> rng(rfun);`` and ``oven::make_generate_range(rfun)``
+- Valid expression1: ``generate_range<Rfun> rng(rfun);`` and ``oven::make_generate_range(rfun)``
 - Valid expression2: ``oven::generation(rfun)``
 - Precondition:``rfun`` call returns initialized ``boost::optional`` if range is not end; Otherwise, returns uninitialized one.
 - Returns: A `Single Pass Range`_ whose values are the results of invoking ``rfun``, where ``rfun`` is a reference in the case of valid expression2.
@@ -287,7 +287,7 @@ A legacy API may provide a way to access objects by using an index.
 ``index_range`` can be a building block for something like a ``ToolBarButtonRange``.
 
 - Header: ``<pstade/oven/index_range.hpp>``
-- Valid expression: ``index_range<Incrementable,rfunT>``, where ``rfunT`` is a type of ``rfun``.
+- Valid expression: ``index_range<Incrementable,Rfun>``, where ``Rfun`` is a type of ``rfun``.
 
 
 ``istream_range``
@@ -306,6 +306,18 @@ __ http://www.sgi.com/tech/stl/istream_iterator.html
 - Precondition: ``std::istreambuf_iterator<C,T>(stm)`` is a valid expression.
 - Returns: A range whose iterators behave as if they were the original iterators wrapped in ``istreambuf_iterator``
 
+
+``iterate_range``
+^^^^^^^^^^^^^^^^^
+``iterate_range`` creates an infinite range where the first item is calculated by applying
+the function on the first argument, the second item by applying the function on the previous result and so on::
+
+	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\iterate_range.ipp
+	
+
+- Header: ``<pstade/oven/iterate_range.hpp>``
+- Valid expression: ``iterate_range<X,Fun> rng(x,fun);`` and  ``oven::iteration(x,fun);``
+- Returns: An infinite `Single Pass Range`_ of repeated applications of ``fun`` to ``x``.
 
 
 ``literal_range``
@@ -819,9 +831,9 @@ Note that ``memoized`` can return a `Forward Range`_ even if its adapting range 
 
 
 - Header: ``<pstade/oven/take_range.hpp>``
-- Valid expression: ``fwdRng|taken(n)``
+- Valid expression: ``rng|taken(n)``
 - Precondition: ``0 <= n && n <= oven::distance(rng)``
-- Returns: ``[boost::begin(fwdRng),l)``, where ``l = boost::begin(fwdRng); std::advance(l,n);``.
+- Returns: A range which behaves as if it were ``[boost::begin(rng),l)``, where ``l = boost::begin(rng); std::advance(l,n);``.
 
 
 ``taken_while``
@@ -833,8 +845,8 @@ prefix (possibly empty) of the range of elements that satisfy `Predicate`_::
 
 
 - Header: ``<pstade/oven/take_while_range.hpp>``
-- Valid expression: ``fwdRng|taken_while(pred)``
-- Returns: ``[boost::begin(fwdRng),oven::find_if(fwdRng,not_(pred)))``
+- Valid expression: ``rng|taken_while(pred)``
+- Returns: A range which behaves as if it were ``[boost::begin(rng),oven::find_if(rng,not_(pred)))``
 
 
 ``tokenized``
@@ -1100,4 +1112,9 @@ Version 0.91.4
 - Added ``any_range``.
 - Removed ``popped`` and changed the valid expression of ``advanced``.
 - Removed ``generation`` as adaptor and added it as range.
+
+Version 0.91.5
+^^^^^^^^^^^^^^
+- ``taken`` and ``taken_while`` supports `Single Pass Range`_.
+- Added ``iterate_range``.
 

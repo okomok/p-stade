@@ -12,9 +12,15 @@
 
 #include <boost/assert.hpp>
 #include <boost/indirect_reference.hpp>
+#include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_facade.hpp>
+#include <boost/mpl/assert.hpp>
+#include <boost/mpl/if.hpp>
+#include <boost/mpl/or.hpp>
 #include <boost/optional.hpp>
 #include <boost/type_traits/add_reference.hpp>
+#include <boost/type_traits/is_reference.hpp>
+#include <boost/type_traits/is_same.hpp>
 #include <boost/utility/addressof.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/remove_cvr.hpp>
@@ -88,9 +94,25 @@ namespace generate_iterator_detail {
     };
 
 
+    // A pointer copy/assignment can't tell Generator anything.
+    // So it must be SinglePass.
+    template< class Generator, class Traversal >
+    struct traversal :
+        boost::mpl::if_< boost::is_reference<Generator>,
+            boost::single_pass_traversal_tag,
+            Traversal
+        >
+    { };
+
+
     template< class Generator, class Traversal >
     struct super_
     {
+        BOOST_MPL_ASSERT(( boost::mpl::or_<
+            boost::is_same<Traversal, boost::single_pass_traversal_tag>,
+            boost::is_same<Traversal, boost::forward_traversal_tag>
+        > ));
+
         typedef typename generator_result<Generator>::type result_t;
         typedef typename indirect_reference<result_t>::type ref_t;
         typedef typename remove_cvr<ref_t>::type val_t;
@@ -98,7 +120,7 @@ namespace generate_iterator_detail {
         typedef boost::iterator_facade<
             generate_iterator<Generator, Traversal>,
             val_t,
-            Traversal,
+            typename traversal<Generator, Traversal>::type,
             ref_t
         > type;
     };

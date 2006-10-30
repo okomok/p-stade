@@ -19,6 +19,10 @@
 #include <pstade/oven/take_range.hpp>
 #include <pstade/oven/take_while_range.hpp>
 
+#include <boost/lambda/lambda.hpp>
+#include <boost/lambda/core.hpp>
+#include <pstade/oven/regularize_range.hpp>
+
 
 int increment(int x)
 {
@@ -54,6 +58,14 @@ void test()
         BOOST_FOREACH (int i , iteration(0, &increment)|taken(10)) {
             std::cout << i << ",";
         }
+    }
+
+    {
+        namespace lambda = boost::lambda;
+        int answer[] = { 1,2,4,8,16 };
+        BOOST_CHECK( oven::equals(answer,
+            oven::iteration(1, lambda::_1 * 2)|regularized|oven::taken(5)
+        ) );
     }
 }
 

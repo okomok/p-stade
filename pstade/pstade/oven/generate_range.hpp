@@ -67,20 +67,13 @@ make_generate_range(Generator gen, Traversal)
     return generate_range<Generator, Traversal>(gen);
 }
 
-
 // 'make_generate_range<Gen&>(gen);' seems cumbersome?
+// Note that it is always SinglePass if Generator is reference.
 template< class Generator > inline
 generate_range<Generator&> const
 generation(Generator& gen)
 {
     return generate_range<Generator&>(gen);
-}
-
-template< class Generator, class Traversal > inline
-generate_range<Generator&, Traversal> const
-generation(Generator& gen, Traversal)
-{
-    return generate_range<Generator&, Traversal>(gen);
 }
 
 

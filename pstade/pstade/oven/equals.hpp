@@ -19,7 +19,7 @@
 
 
 #include <boost/iterator/detail/minimum_category.hpp>
-#include <boost/iterator/iterator_categories.hpp> // tags
+#include <boost/iterator/iterator_categories.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/adl_barrier.hpp>

@@ -52,7 +52,7 @@ struct xpressive_match_range :
     private as_lightweight_proxy< xpressive_match_range<Range> >
 {
     PSTADE_CONCEPT_ASSERT((Bidirectional<Range>));
-    PSTADE_CONCEPT_ASSERT((Readable<Range>));
+    // PSTADE_CONCEPT_ASSERT((Readable<Range>));
 
 private:
     typedef typename xpressive_match_range_detail::super_<Range>::type super_t;

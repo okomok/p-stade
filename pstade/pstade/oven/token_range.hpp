@@ -66,7 +66,7 @@ struct token_range :
     private as_lightweight_proxy< token_range<Range, CharT, Traits> >
 {
     PSTADE_CONCEPT_ASSERT((Bidirectional<Range>));
-    PSTADE_CONCEPT_ASSERT((Readable<Range>));
+    // PSTADE_CONCEPT_ASSERT((Readable<Range>));
     typedef CharT char_type;
     typedef Traits traits_type;
 

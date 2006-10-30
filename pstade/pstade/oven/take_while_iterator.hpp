@@ -51,8 +51,8 @@ public:
     take_while_iterator()
     { }
 
-    take_while_iterator(Iterator const& first, Iterator const& last, Predicate const& pred) :
-        super_t(first), m_last(last), m_pred(pred)
+    take_while_iterator(Iterator const& it, Iterator const& last, Predicate const& pred) :
+        super_t(it), m_last(last), m_pred(pred)
     {
         check_predicate();
     }
@@ -124,9 +124,9 @@ friend class boost::iterator_core_access;
 
 template< class Iterator, class Predicate > inline
 take_while_iterator<Iterator, Predicate> const
-make_take_while_iterator(Iterator const& first, Iterator const& last, Predicate pred)
+make_take_while_iterator(Iterator const& it, Iterator const& last, Predicate pred)
 {
-    return take_while_iterator<Iterator, Predicate>(first, last, pred);
+    return take_while_iterator<Iterator, Predicate>(it, last, pred);
 }
 
 

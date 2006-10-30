@@ -18,7 +18,7 @@
 
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
-#include <boost/iterator/iterator_categories.hpp> // forward_traversal_tag
+#include <boost/iterator/iterator_categories.hpp>
 
 
 #if !defined(PSTADE_OVEN_DEBUG)

@@ -39,8 +39,8 @@ namespace iterate_range_detail {
             return m_state;
         }
 
-        do_it(State const& state, UnaryFun const& fun) :
-            m_state(state), m_fun(fun), m_beginning(true)
+        do_it(State const& init, UnaryFun const& fun) :
+            m_state(init), m_fun(fun), m_beginning(true)
         { }
 
     private:
@@ -77,8 +77,9 @@ private:
     typedef typename super_t::generator_type gen_t;
 
 public:
-    iterate_range(State const& state, UnaryFun const& fun) :
-        super_t(gen_t(state, fun))
+    // The argument order follows 'std::accumulate'.
+    iterate_range(State const& init, UnaryFun const& fun) :
+        super_t(gen_t(init, fun))
     { }
 };
 
@@ -97,15 +98,15 @@ namespace iterate_range_detail {
         };
 
         template< class Result, class State, class UnaryFun, class Traversal >
-        Result call(State const& state, UnaryFun& fun, Traversal)
+        Result call(State const& init, UnaryFun& fun, Traversal)
         {
-            return Result(state, fun);
+            return Result(init, fun);
         }
 
         template< class Result, class State, class UnaryFun >
-        Result call(State const& state, UnaryFun& fun)
+        Result call(State const& init, UnaryFun& fun)
         {
-            return Result(state, fun);
+            return Result(init, fun);
         }
     };
 

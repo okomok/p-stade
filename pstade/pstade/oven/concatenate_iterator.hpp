@@ -24,7 +24,7 @@
 
 
 #include <boost/iterator/iterator_adaptor.hpp>
-#include <boost/iterator/iterator_categories.hpp> // iterator_traversal, tag's
+#include <boost/iterator/iterator_categories.hpp> // tags, iterator_traversal
 #include <boost/iterator/iterator_traits.hpp> // iterator_reference
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/eval_if.hpp>

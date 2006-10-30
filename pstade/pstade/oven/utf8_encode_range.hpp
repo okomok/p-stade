@@ -53,7 +53,7 @@ struct utf8_encode_range :
     private as_lightweight_proxy< utf8_encode_range<Range, U8T> >
 {
     PSTADE_CONCEPT_ASSERT((Bidirectional<Range>));
-    PSTADE_CONCEPT_ASSERT((Readable<Range>));
+    // PSTADE_CONCEPT_ASSERT((Readable<Range>));
 
 private:
     typedef typename utf8_encode_range_detail::super_<Range, U8T>::type super_t;

@@ -48,7 +48,7 @@ struct permute_range :
 {
     PSTADE_CONCEPT_ASSERT((RandomAccess<ElementRange>));
     PSTADE_CONCEPT_ASSERT((SinglePass<IndexRange>));
-    PSTADE_CONCEPT_ASSERT((Readable<IndexRange>));
+    // PSTADE_CONCEPT_ASSERT((Readable<IndexRange>));
     typedef IndexRange index_range_type;
 
 private:

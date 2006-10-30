@@ -18,7 +18,7 @@
 #include <cstddef>  // ptrdiff_t
 #include <typeinfo> // bad_cast
 #include <boost/assert.hpp>
-#include <boost/iterator/iterator_categories.hpp> // tags
+#include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/mpl/assert.hpp>

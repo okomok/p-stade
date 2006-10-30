@@ -1,5 +1,4 @@
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
 
 
 // PStade.Oven
@@ -10,11 +9,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/counting_range.hpp>
-
-
-#include <iterator>
-#include <boost/bind.hpp>
 #include <boost/range.hpp>
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/ranges.hpp>
@@ -26,27 +20,32 @@ namespace lambda = boost::lambda;
 namespace oven = pstade::oven;
 using namespace oven;
 
-typedef any_range<int const, boost::bidirectional_traversal_tag>
+
+typedef
+    any_range<int const, boost::single_pass_traversal_tag>
 any_range_;
+
 
 any_range_ denominators(int x)
 {
     return oven::from_1_to(x+1)|filtered(x % lambda::_1 == 0)|regularized;
 }
 
+
 bool is_prime(int x)
 {
-    return oven::equals(denominators(x), 1|as_single|appended(x));
-}
-
-any_range_ primes(int x)
-{
-    return oven::from_1_to(x+1)|filtered(&is_prime);
+    int const youI[] = { 1, x };
+    return oven::equals(denominators(x), youI);
 }
 
 
-int test_main(int, char*[])
+any_range_ const primes =
+    iteration(1, lambda::_1 + 1)|regularized|const_lvalues|filtered(&is_prime);
+
+
+int main()
 {
-    oven::copy(primes(5000), std::ostream_iterator<int>(std::cout, ","));
-    return 0;
+    oven::copy(primes|taken(500),
+        to_ostream<int>(std::cout, ",")
+    );
 }

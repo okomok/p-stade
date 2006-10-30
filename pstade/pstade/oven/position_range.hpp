@@ -67,7 +67,7 @@ struct position_range :
     private as_lightweight_proxy< position_range<Range, PositionT> >
 {
     PSTADE_CONCEPT_ASSERT((Forward<Range>));
-    PSTADE_CONCEPT_ASSERT((Readable<Range>));
+    // PSTADE_CONCEPT_ASSERT((Readable<Range>));
 
 private:
     typedef typename position_range_detail::super_<Range, PositionT>::type super_t;

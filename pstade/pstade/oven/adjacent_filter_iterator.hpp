@@ -131,7 +131,7 @@ private:
     template< class Other >
     bool is_compatible(Other const& other) const
     {
-        return m_first == other.m_first && m_last == other.m_last;
+        return m_first == other.begin() && m_last == other.end();
     }
 
 friend class boost::iterator_core_access;
@@ -161,13 +161,13 @@ friend class boost::iterator_core_access;
     {
         BOOST_ASSERT("out of range" && this->base() != m_first);
 
-        namespace bll = boost::lambda;
+        namespace lambda = boost::lambda;
 
         // if you pass 'this->base()' instead of 'm_first', overflow(1-step) comes.
         this->base_reference() = adjacent_filter_iterator_detail::next(
             oven::make_reverse_iterator(this->base()),
             oven::make_reverse_iterator(m_first),
-            bll::bind<bool>(m_pred, bll::_2, bll::_1)
+            lambda::bind<bool>(m_pred, lambda::_2, lambda::_1)
         ).base();
     }
 };

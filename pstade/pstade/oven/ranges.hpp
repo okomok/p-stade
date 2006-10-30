@@ -11,6 +11,7 @@
 
 
 #include "./adjacent_filter_range.hpp"
+#include "./adjacent_transform_range.hpp"
 #include "./advance_range.hpp"
 #include "./always_range.hpp"
 #include "./any_range.hpp"

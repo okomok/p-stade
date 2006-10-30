@@ -4,102 +4,62 @@
 
 // PStade.Oven
 //
-// Copyright MB 2005-2006.
+// Copyright Shunsuke Sogame 2005-2006.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/oven/tests.hpp>
 #include <pstade/oven/adjacent_transform_range.hpp>
 
 
-#include <iterator>
-#include <string>
-#include <vector>
-#include <boost/foreach.hpp>
-#include <boost/lambda/bind.hpp>
-#include <boost/lambda/core.hpp>
-#include <boost/bind.hpp>
-#include <boost/range.hpp>
-#include <pstade/oven/copy.hpp>
-#include <pstade/oven/equal.hpp>
-#include <pstade/oven/adjacent_transform_range.hpp>
-#include <pstade/oven/reverse_range.hpp>
+#include <iostream>
+#include <pstade/oven/functions.hpp>
+#include <pstade/functional.hpp>
+#include <pstade/oven/const_lvalue_range.hpp>
+#include <pstade/oven/identity_range.hpp>
 
-
-struct is_divisor
-{
-    bool operator()(int x, int y) const { return (y % x) == 0; }
-};
-
-struct get_first
-{
-	typedef int result_type;
-
-	template< class SubRange >
-	int operator()(SubRange rng) const
-	{
-		return *boost::begin(rng);
-	}
-};
 
 void test()
 {
-    using namespace pstade;
+    namespace oven = pstade::oven;
     using namespace oven;
 
-    int src[] = { 2, 2, 4, 4, 6, 8, 8, 10, 10, 20, 40, 80, 120 };
-    int ans1[] = { 2, 6, 8, 10, 120 };
-    int ans2[] = { 2, 4, 6, 8, 10, 20, 40, 80, 120 };
-    int ans3[] = { 2, 8, 10 };
-
-	oven::make_adjacent_transform_iterator(boost::begin(src), boost::begin(src), boost::end(src), get_first() ,is_divisor());
-	oven::make_adjacent_transform_range(src, get_first(), is_divisor());
-    {
-        BOOST_CHECK((
-            oven::equals( oven::make_adjacent_transform_range(src, get_first(), is_divisor()), ans1)
-        ));
-
-        BOOST_CHECK((
-            oven::equals( oven::make_adjacent_transform_range(src, get_first()), ans2)
-        ));
-        
-        BOOST_CHECK((
-            oven::equals( src|adjacent_transformed(get_first()), ans2 )
-        ));
-    }
+    int const src[] = { 1,2,3,4,5,6,7,8,9,10 };
 
     {
-        BOOST_CHECK((
-            oven::equals(
-                src |
-                    oven::adjacent_transformed(get_first(), is_divisor()) |
-                    oven::adjacent_transformed(get_first(), is_divisor()),
-                ans3
-            )
-        ));
-    }
+        int ans[] = { 3,5,7,9,11,13,15,17,19 };
+        std::vector<int> expected = ans|copied;
 
+        oven::copy(src|adjacent_transformed(pstade::plus), oven::to_stream(std::cout));
+
+        BOOST_CHECK( oven::test_Bidirectional_Readable(
+            src |
+                adjacent_transformed(pstade::plus) | const_lvalues,
+            expected
+        ) );
+
+        BOOST_CHECK( oven::test_Forward_Readable(
+            src | identities(boost::forward_traversal_tag()) |
+                adjacent_transformed(pstade::plus) | const_lvalues,
+            expected
+        ) );
+    }
     {
-        BOOST_CHECK((
-            oven::equals( src|adjacent_transformed(get_first(), is_divisor())|reversed|reversed, ans1)
-        ));
+        std::vector<int> nothing;
 
-		BOOST_FOREACH (int i, src|adjacent_transformed(get_first(), is_divisor())|reversed)  {
-			std::cout << i << ',';
-		}
+        BOOST_CHECK( oven::test_empty(
+            nothing |
+                adjacent_transformed(pstade::plus)
+        ) );
+
+        BOOST_CHECK( oven::test_empty(
+            nothing | identities(boost::forward_traversal_tag()) |
+                adjacent_transformed(pstade::plus)
+        ) );
+
     }
-
-	{
-		using namespace boost;
-
-		BOOST_CHECK((
-			oven::equals(
-				src|adjacent_transformed( boost::mem_fn(&boost::iterator_range<int*>::front) ),
-				ans2
-			)
-		));
-	}
 }
 
 

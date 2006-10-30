@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/iterator/iterator_categories.hpp> // tags
+#include <boost/iterator/iterator_categories.hpp>
 #include <boost/mpl/eval_if.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/type_traits/is_convertible.hpp>
