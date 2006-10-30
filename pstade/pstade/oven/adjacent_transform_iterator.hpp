@@ -1,4 +1,4 @@
-#ifndef PSTADE_OVEN_ADJACENT_TRANSFORM_ITERATOR_HPP
+ #ifndef PSTADE_OVEN_ADJACENT_TRANSFORM_ITERATOR_HPP
 #define PSTADE_OVEN_ADJACENT_TRANSFORM_ITERATOR_HPP
 
 
@@ -18,6 +18,7 @@
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_traits.hpp> // iterator_reference/traversal
 #include <boost/next_prior.hpp>
+#include <boost/optional.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/unused.hpp>
@@ -120,13 +121,28 @@ public:
     }
 
 private:
-    BinaryFun   m_fun;
+    BinaryFun m_fun;
+    mutable boost::optional<ForwardIter> m_cache;
 
 friend class boost::iterator_core_access;
     ref_t dereference() const
     {
-        // here is the same problem as 'boost::reverse_iterator'.
-        return m_fun(*this->base(), *boost::next(this->base()));
+        if (!m_cache)
+            m_cache = boost::next(this->base());
+
+        return m_fun(*this->base(), **m_cache);
+    }
+
+    void increment()
+    {
+        ++this->base_reference();
+        m_cache.reset();
+    }
+
+    void decrement()
+    {
+        --this->base_reference();
+        m_cache.reset();
     }
 };
 

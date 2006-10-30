@@ -17,6 +17,7 @@
 
 
 #include <boost/iterator/iterator_adaptor.hpp>
+#include <boost/next_prior.hpp>
 #include <boost/optional.hpp>
 #include <pstade/adl_barrier.hpp>
 
@@ -75,10 +76,8 @@ private:
 friend class boost::iterator_core_access;
     ref_t dereference() const
     {
-        if (!m_cache) {
-            m_cache = this->base();
-            --*m_cache;
-        }
+        if (!m_cache)
+            m_cache = boost::prior(this->base());
 
         return **m_cache;
     }
