@@ -155,7 +155,7 @@ struct got_at :
     private nonassignable
     // Topic:
     // 'noncopyable' is allowed here by the latest standard draft,
-    // but GCC doesn't follow it.
+    // but GCC doesn't follow it yet.
     // http://www.codecomments.com/archive324-2006-4-888159.html
 { };
 

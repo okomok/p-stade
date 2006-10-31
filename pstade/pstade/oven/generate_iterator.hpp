@@ -15,6 +15,7 @@
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/mpl/assert.hpp>
+#include <boost/mpl/bool.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/mpl/or.hpp>
 #include <boost/optional.hpp>
@@ -147,16 +148,19 @@ public:
     // If default-constructed one plays the end iterator role,
     // it would require non-reference 'Generator' to be
     // DefaultConstructible. But SinglePassIterator is not
-    // required to be. So, prefer the constructor with 'not_end'.
+    // required to be. So, prefer the constructor with 'mpl::true_/false_'.
     generate_iterator()
     { }
 
-    generate_iterator(Generator gen, bool not_end) :
+    generate_iterator(Generator gen, boost::mpl::true_) :
         m_gen(gen), m_result()
     {
-        if (not_end)
-            generate();
+        generate();
     }
+
+    generate_iterator(Generator gen, boost::mpl::false_) : // end iterator
+        m_gen(gen), m_result()
+    { }
 
     bool is_end() const
     {
@@ -190,14 +194,6 @@ friend class boost::iterator_core_access;
         generate();
     }
 };
-
-
-template< class Generator > inline
-generate_iterator<Generator> const
-make_generate_iterator(Generator gen, bool not_end)
-{
-    return generate_iterator<Generator>(gen, not_end);
-}
 
 
 } } // namespace pstade::oven

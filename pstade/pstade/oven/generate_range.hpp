@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/mpl/bool.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./generate_iterator.hpp"
 #include "./iter_range.hpp"
@@ -48,7 +49,10 @@ private:
 
 public:
     explicit generate_range(Generator gen) :
-        super_t(iter_t(gen, true), iter_t(gen, false))
+        super_t(
+            iter_t(gen, boost::mpl::true_()),
+            iter_t(gen, boost::mpl::false_())
+        )
     { }
 };
 

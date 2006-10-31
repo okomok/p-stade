@@ -119,7 +119,7 @@ private:
     IteratorL m_lastL; IteratorR m_firstR; // the joint point
     IteratorR m_itR;
 
-    bool is_valid() const
+    bool invariant() const
     {
         return (!is_in_rangeL() || m_itR == m_firstR);
     }
@@ -138,7 +138,7 @@ private:
 friend class boost::iterator_core_access;
     ref_t dereference() const
     {
-        BOOST_ASSERT(is_valid());
+        BOOST_ASSERT(invariant());
 
         if (this->base() != m_lastL)
             return *this->base();
@@ -149,8 +149,8 @@ friend class boost::iterator_core_access;
     template< class Other >
     bool equal(Other const& other) const
     {
-        BOOST_ASSERT(is_valid());
-        BOOST_ASSERT(other.is_valid());
+        BOOST_ASSERT(invariant());
+        BOOST_ASSERT(other.invariant());
         BOOST_ASSERT(is_compatible(other));
 
         return this->base() == other.base() && m_itR == other.m_itR;
@@ -158,14 +158,14 @@ friend class boost::iterator_core_access;
 
     void increment()
     {
-        BOOST_ASSERT(is_valid());
+        BOOST_ASSERT(invariant());
 
         joint_iterator_detail::increment(this->base_reference(), m_itR, m_lastL);
     }
 
     void decrement()
     {
-        BOOST_ASSERT(is_valid());
+        BOOST_ASSERT(invariant());
 
         oven::reverse_iterator<IteratorR> itL(m_itR), lastL(m_firstR);
         oven::reverse_iterator<IteratorL> itR(this->base());
@@ -176,7 +176,7 @@ friend class boost::iterator_core_access;
 
     void advance(diff_t d)
     {
-        BOOST_ASSERT(is_valid());
+        BOOST_ASSERT(invariant());
 
         if (d >= 0) {
             joint_iterator_detail::advance(this->base_reference(), m_itR, d, m_lastL);
@@ -193,8 +193,7 @@ friend class boost::iterator_core_access;
     template< class Other >
     diff_t distance_to(Other const& other) const
     {
-        BOOST_ASSERT(is_valid());
-        BOOST_ASSERT(other.is_valid());
+        BOOST_ASSERT(invariant());
         BOOST_ASSERT(is_compatible(other));
 
         if (is_in_rangeL() && other.is_in_rangeL())

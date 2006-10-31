@@ -15,7 +15,7 @@
 #include <boost/mpl/identity.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_categories.hpp>
-#include <boost/iterator/iterator_traits.hpp> // iterator_reference/traversal
+#include <boost/iterator/iterator_traits.hpp>
 #include <boost/next_prior.hpp>
 #include <boost/optional.hpp>
 #include <boost/type_traits/is_same.hpp>
