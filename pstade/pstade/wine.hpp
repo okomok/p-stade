@@ -30,6 +30,7 @@
 // #include "./ios_init.hpp"
 #include "./is_ndebug.hpp"
 #include "./is_same.hpp"
+#include "./lambda_sig.hpp"
 #include "./lexical_cast.hpp"
 #include "./locale.hpp"
 #include "./locale_saver.hpp"

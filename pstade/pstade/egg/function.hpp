@@ -30,11 +30,12 @@
 #include <boost/type_traits/add_const.hpp>
 #include <pstade/implicitly_defined.hpp>
 #include <pstade/instance.hpp>
+#include <pstade/lambda_sig.hpp>
 #include <pstade/unused_to_copy.hpp>
 #include "./baby_call.hpp"
 #include "./baby_result.hpp"
 #include "./detail/config.hpp"
-#include "./detail/result_ofs.hpp"
+#include "./detail/result_of.hpp"
 #include "./function_fwd.hpp"
 
 
@@ -42,7 +43,9 @@ namespace pstade { namespace egg {
 
 
 template< class BabyFunction >
-struct function : BabyFunction
+struct function :
+    BabyFunction,
+    lambda_sig
 {
     typedef BabyFunction pstade_egg_baby_type;
 

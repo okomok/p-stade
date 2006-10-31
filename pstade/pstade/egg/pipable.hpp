@@ -153,7 +153,7 @@ struct pipe : BabyFunction,
         BOOST_PP_CAT(A, Index) BOOST_PP_CAT(PSTADE_EGG_c, Bit) & BOOST_PP_CAT(a, Index) \
     /**/
 
-                   
+
     #define PSTADE_EGG_c0
     #define PSTADE_EGG_c1 const
 

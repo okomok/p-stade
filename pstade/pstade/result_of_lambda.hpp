@@ -33,36 +33,49 @@
 
 namespace boost {
 
+
     // 0ary
+    //
     template< class T >
-    struct result_of<boost::lambda::lambda_functor<T>(void)> :
-        boost::lambda::lambda_functor<T>::template sig<
-            boost::tuples::tuple<boost::lambda::lambda_functor<T>
+    struct result_of<lambda::lambda_functor<T>(void)> : // CWPro8 requires 'void'.
+        lambda::lambda_functor<T>::template sig<
+            tuples::tuple<
+                lambda::lambda_functor<T>
             >
         >
     { };
+
+    // 'lambda_functor' ignores cv-qualifier.
+    template< class T >
+    struct result_of<lambda::lambda_functor<T> const (void)> :
+        result_of<lambda::lambda_functor<T>(void)>
+    { };
+
+    template< class T >
+    struct result_of<lambda::lambda_functor<T> volatile (void)> :
+        result_of<lambda::lambda_functor<T>(void)>
+    { };
+
+    template< class T >
+    struct result_of<lambda::lambda_functor<T> const volatile (void)> :
+        result_of<lambda::lambda_functor<T>(void)>
+    { };
+
+
+    // Quesion:
+    // 'lambda_functor' doesn't allow rvalue as its argument,
+    // so users always have to pass reference type as 'AN'? (20.5.4/1)
+
 
     // 1ary-
-    template< class T, class A0 >
-    struct result_of<boost::lambda::lambda_functor<T>(A0)> :
-        boost::lambda::lambda_functor<T>::template sig<
-            boost::tuples::tuple<boost::lambda::lambda_functor<T>,
-                // Quesion:
-                // Users should add reference?
-                // A Boost.Lambda functor doesn't allow rvalue as its argument,
-                // so users always have to pass reference type as 'A0'? (20.5.4/1)
-                typename boost::add_reference<A0>::type
-            >
-        >
-    { };
-
-    // 2ary-
+    //
 #define PSTADE_max_arity 3 // undocumented?
-#define PSTADE_add_ref(Z, N, _) typename boost::add_reference< BOOST_PP_CAT(A, N) >::type
-    #define BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_max_arity, <pstade/result_of_lambda.hpp>))
+#define PSTADE_add_ref(Z, N, _) typename add_reference< BOOST_PP_CAT(A, N) >::type
+    #define BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_max_arity, <pstade/result_of_lambda.hpp>))
     #include BOOST_PP_ITERATE()
 #undef PSTADE_add_ref
 #undef PSTADE_max_arity
+
 
 } // namespace boost
 
@@ -85,12 +98,28 @@ namespace pstade {
 
 
     template< class T, BOOST_PP_ENUM_PARAMS(n, class A) >
-    struct result_of<boost::lambda::lambda_functor<T>(BOOST_PP_ENUM_PARAMS(n, A))> :
-        boost::lambda::lambda_functor<T>::template sig<
-            boost::tuples::tuple<boost::lambda::lambda_functor<T>,
+    struct result_of<lambda::lambda_functor<T>(BOOST_PP_ENUM_PARAMS(n, A))> :
+        lambda::lambda_functor<T>::template sig<
+            tuples::tuple<
+                lambda::lambda_functor<T>,
                 BOOST_PP_ENUM(n, PSTADE_add_ref, ~)
             >
         >
+    { };
+
+    template< class T, BOOST_PP_ENUM_PARAMS(n, class A) >
+    struct result_of<lambda::lambda_functor<T> const (BOOST_PP_ENUM_PARAMS(n, A))> :
+        result_of<lambda::lambda_functor<T>(BOOST_PP_ENUM_PARAMS(n, A))>
+    { };
+
+    template< class T, BOOST_PP_ENUM_PARAMS(n, class A) >
+    struct result_of<lambda::lambda_functor<T> volatile (BOOST_PP_ENUM_PARAMS(n, A))> :
+        result_of<lambda::lambda_functor<T>(BOOST_PP_ENUM_PARAMS(n, A))>
+    { };
+
+    template< class T, BOOST_PP_ENUM_PARAMS(n, class A) >
+    struct result_of<lambda::lambda_functor<T> const volatile (BOOST_PP_ENUM_PARAMS(n, A))> :
+        result_of<lambda::lambda_functor<T>(BOOST_PP_ENUM_PARAMS(n, A))>
     { };
 
 

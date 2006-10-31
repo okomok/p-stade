@@ -7,7 +7,7 @@ The Egg Function Library
 :Author: MB
 :Contact: mb2act@yahoo.co.jp 
 :License: Distributed under the `Boost Software License Version 1.0`_
-:Version: 0.90.3
+:Version: 0.90.4
 
 
 
@@ -38,7 +38,7 @@ Requirements
 ------------
 
 - `Boost C++ Libraries Version 1.33.1`__ or later (no compilation required)
-- `P-Stade C++ Libraries Version 1.00.8`__ or later (no compilation required, give a higher priority than Boost headers)
+- `P-Stade C++ Libraries Version 1.01.7`__ or later (no compilation required, give a higher priority than Boost headers)
 
 __ Boost_
 __ http://sourceforge.net/project/showfiles.php?group_id=141222&package_id=173059
@@ -162,4 +162,9 @@ Version 0.90.3
 - Fixed a bug that passes an ``egg::function`` object to ``BabyFunction``\'s constructor.
 - Renamed ``decay_function`` to ``pstade::pass_by_value``.
 - Changed ``BabyFunction``\'s nested ``result`` to ``apply``.
+
+Version 0.90.4
+^^^^^^^^^^^^^^
+- Boost.Lambda return type deduction system supported.
+
 
