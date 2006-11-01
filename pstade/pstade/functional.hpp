@@ -329,10 +329,10 @@ namespace at_second_detail {
 PSTADE_EGG_FUNCTION(at_second, at_second_detail::baby)
 
 
-// swap_bind
+// flip
 //
 
-namespace swap_bind_detail {
+namespace flip_detail {
 
     template< class BinaryFun >
     struct baby_fun
@@ -346,13 +346,13 @@ namespace swap_bind_detail {
 
         template< class Myself, class T0, class T1 >
         struct apply :
-            boost::result_of<BinaryFun(T0, T1)>
+            boost::result_of<BinaryFun(T1, T0)>
         { };
 
         template< class Result, class T0, class T1 >
         Result call(T0& a0, T1& a1)
         {
-            return m_fun(a1, a0); // swapped
+            return m_fun(a1, a0);
         }
 
     private:
@@ -364,8 +364,8 @@ namespace swap_bind_detail {
         template< class Myself, class BinaryFun >
         struct apply
         {
-            typedef typename pass_by_value<BinaryFun>::type pred_t;
-            typedef egg::function< baby_fun<pred_t> > type;
+            typedef typename pass_by_value<BinaryFun>::type fun_t;
+            typedef egg::function< baby_fun<fun_t> > type;
         };
 
         template< class Result, class BinaryFun >
@@ -375,9 +375,9 @@ namespace swap_bind_detail {
         }
     };
 
-} // namespace swap_bind_detail
+} // namespace flip_detail
 
-PSTADE_EGG_FUNCTION_(swap_bind, swap_bind_detail::baby)
+PSTADE_EGG_FUNCTION_(flip, flip_detail::baby)
 
 
 } // ADL barrier

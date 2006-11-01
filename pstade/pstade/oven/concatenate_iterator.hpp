@@ -18,9 +18,8 @@
 // Note:
 //
 // The LocalIterator must be valid after copying of SegmentIterator.
-// Thus, 'boost::token_iterator' cannot be supported.
-//
-// This class makes 'biscuit::filter_range' deprecated!
+// So, this range cannot support something like 'boost::token_iterator',
+// which manages the source range in the iterator itself.
 
 
 #include <boost/iterator/iterator_adaptor.hpp>
@@ -57,18 +56,18 @@ namespace concatenate_iterator_detail {
     struct traversal
     {
         typedef typename boost::iterator_traversal<SegmentIter>::type segment_trv_t;
-        typedef typename range_traversal<LocalRange>::type bot_trv_t;
+        typedef typename range_traversal<LocalRange>::type local_trv_t;
 
         typedef typename boost::mpl::eval_if<
             boost::mpl::and_<
                 boost::is_convertible<segment_trv_t, boost::bidirectional_traversal_tag>,
-                boost::is_convertible<bot_trv_t, boost::bidirectional_traversal_tag>
+                boost::is_convertible<local_trv_t, boost::bidirectional_traversal_tag>
             >,
             boost::mpl::identity<boost::bidirectional_traversal_tag>,
             boost::mpl::eval_if<
-                boost::is_convertible<bot_trv_t, boost::forward_traversal_tag>,
+                boost::is_convertible<local_trv_t, boost::forward_traversal_tag>,
                 boost::mpl::identity<boost::forward_traversal_tag>,
-                boost::mpl::identity<bot_trv_t>
+                boost::mpl::identity<local_trv_t>
             >
         >::type type;
     };
@@ -83,15 +82,15 @@ namespace concatenate_iterator_detail {
     template< class SegmentIter >
     struct super_
     {
-        typedef typename local_range<SegmentIter>::type lrng_t;
+        typedef typename local_range<SegmentIter>::type local_rng_t;
 
         typedef boost::iterator_adaptor<
             concatenate_iterator<SegmentIter>,
             SegmentIter,
-            typename range_value<lrng_t>::type,
-            typename traversal<SegmentIter, lrng_t>::type,
-            typename range_reference<lrng_t>::type,
-            typename range_difference<lrng_t>::type
+            typename range_value<local_rng_t>::type,
+            typename traversal<SegmentIter, local_rng_t>::type,
+            typename range_reference<local_rng_t>::type,
+            typename range_difference<local_rng_t>::type
         > type;
     };
 

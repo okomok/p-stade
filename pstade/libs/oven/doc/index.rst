@@ -712,6 +712,13 @@ Note that ``memoized`` can return a `Forward Range`_ even if its adapting range 
 - Returns:  ``[&*boost::begin(vec),&*boost::begin(vec)+oven::distance(vec))`` if ``vec`` is not empty; otherwise, ``[0,0)``.
 
 
+``popped_back``
+^^^^^^^^^^^^^^^
+- Header: ``<pstade/oven/pop_back_range.hpp>``
+- Valid expression: ``fwdRng|popped_back``
+- Returns: A range which behaves as if it were ``[boost::begin(fwdRng),boost::next(boost::begin(fwdRng),oven::distance(fwdRng)-1))``
+
+
 ``prepended``
 ^^^^^^^^^^^^^
 - Header: ``<pstade/oven/prepend_range.hpp>``
@@ -1128,6 +1135,7 @@ Version 0.91.5
 Version 0.91.6
 ^^^^^^^^^^^^^^
 - Added ``adjacent_transformed``.
+- Added ``popped_back``.
 - Changed ``counting_range`` valid expressions.
 
 

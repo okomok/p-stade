@@ -13,9 +13,23 @@
 #include <pstade/functional.hpp>
 
 
+#include <string>
+
+
+std::string add_str(std::string left, std::string right)
+{
+    return left + right;
+}
+
+
 void test()
 {
     BOOST_CHECK( pstade::always(3)() == 3 );
+
+    BOOST_CHECK(
+        pstade::flip(&::add_str)("def", "abc") ==
+            ::add_str("abc", "def")
+    );
 }
 
 
