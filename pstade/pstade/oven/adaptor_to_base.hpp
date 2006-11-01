@@ -80,7 +80,7 @@ Base adaptor_to(Adaptor const& ad,
 
 // Note:
 // This cannot support a reference type as 'Base',
-// because of the weird behavior...
+// because of the weird compiler behavior...
 //
 
 struct adaptor_to_class

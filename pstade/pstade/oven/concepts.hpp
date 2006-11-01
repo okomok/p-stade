@@ -66,7 +66,7 @@ private:
 };
 
     // Workaround:
-    // See "./sub_range_result.hpp"
+    // See "./range_iterator.hpp".
     template< class T >
     struct Readable_const :
         Readable<typename boost::add_const<T>::type>

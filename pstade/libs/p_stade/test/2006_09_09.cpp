@@ -39,7 +39,7 @@ void test()
     using namespace oven;
     using namespace boost;
 
-    BOOST_FOREACH (int const i, from_0_to(10) {
+    BOOST_FOREACH (int const i, count_to(10) {
         std::cout << i;
     }
 

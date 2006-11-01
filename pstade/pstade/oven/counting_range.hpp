@@ -95,25 +95,26 @@ make_counting_range(Incrementable const& i, Incrementable const& j)
 // would get stuck into a hell of cast. So we define...
 //
 
-template< class Incrementable > inline
+template< class Incrementable_, class Incrementable > inline
 counting_range<Incrementable> const
-from_0_to(Incrementable const& c)
+count_from_to(Incrementable_ const& i, Incrementable const& j)
 {
-    return counting_range<Incrementable>(0, c);
+    // suppress warning using 'static_cast'.
+    return counting_range<Incrementable>(static_cast<Incrementable>(i), j);
 }
 
 template< class Incrementable > inline
 counting_range<Incrementable> const
-from_1_to(Incrementable const& c)
+count_from(Incrementable const& i)
 {
-    return counting_range<Incrementable>(1, c);
+    return counting_range<Incrementable>(i, (std::numeric_limits<Incrementable>::max)());
 }
 
 template< class Incrementable > inline
 counting_range<Incrementable> const
-count_from(Incrementable const& c)
+count_to(Incrementable const& j)
 {
-    return counting_range<Incrementable>(c, (std::numeric_limits<Incrementable>::max)());
+    return counting_range<Incrementable>(0, j);
 }
 
 

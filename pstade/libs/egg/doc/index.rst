@@ -165,6 +165,6 @@ Version 0.90.3
 
 Version 0.90.4
 ^^^^^^^^^^^^^^
-- Boost.Lambda return type deduction system supported.
+- Boost.Lambda supported.
 
 

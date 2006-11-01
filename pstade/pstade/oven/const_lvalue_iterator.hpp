@@ -60,7 +60,6 @@ private:
     typedef typename const_lvalue_iterator_detail::super_<Iterator>::type super_t;
     typedef typename super_t::reference ref_t;
     typedef typename super_t::value_type val_t;
-    typedef typename super_t::difference_type diff_t;
 
 public:
     explicit const_lvalue_iterator()
@@ -102,7 +101,8 @@ friend class boost::iterator_core_access;
         m_value.reset();
     }
 
-    void advance(diff_t d)
+    template< class Difference >
+    void advance(Difference d)
     {
         this->base_reference() += d;
         m_value.reset();

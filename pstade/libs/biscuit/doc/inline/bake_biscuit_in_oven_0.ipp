@@ -2,7 +2,7 @@
 
 // ...
 
-BOOST_FOREACH (int i, oven::from_1_to(argc)) {
+BOOST_FOREACH (int i, oven::count_from_to(1, argc)) {
 
     BOOST_CHECK((
         biscuit::match<xml_grammar::start>(

@@ -132,7 +132,7 @@ void test()
         // Now it seems impossible to support a function reference...
         using std::rand;
 
-        BOOST_FOREACH (long x, oven::from_0_to(10)|generation(rand)) {
+        BOOST_FOREACH (long x, oven::count_to(10)|generation(rand)) {
             std::cout << x << std::endl;
         }
     }

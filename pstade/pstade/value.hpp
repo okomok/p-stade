@@ -24,7 +24,8 @@ T value(T v)
 }
 
 
-// define by scratch to avoid the dark-side of language.
+// define by scratch to avoid reference parameter,
+// the dark-side of the language.
 //
 
 namespace value_detail {

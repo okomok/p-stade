@@ -214,7 +214,7 @@ __ http://www.boost.org/libs/iterator/doc/counting_iterator.html
 
 - Header: ``<pstade/oven/counting_range.hpp>``
 - Valid expression1: ``counting_range<I,T,D> rng(n,m);`` and ``oven::make_counting_range(n,m);``
-- Valid expression2: ``oven::from_0_to(m)`` and ``oven::from_1_to(m)``
+- Valid expression2: ``oven::count_from(n)`` and ``oven::count_to(m)``
 - Precondition: ``boost::couting_iterator<I,T,D>(x);`` is a valid expression, where
   ``x`` is ``n`` or ``m``.
 
@@ -1128,4 +1128,6 @@ Version 0.91.5
 Version 0.91.6
 ^^^^^^^^^^^^^^
 - Added ``adjacent_transformed``.
+- Changed ``counting_range`` valid expressions.
+
 

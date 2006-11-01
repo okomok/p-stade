@@ -23,6 +23,7 @@
 #include <boost/type_traits/add_reference.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/remove_cv.hpp>
+#include <boost/utility/addressof.hpp>
 #include <boost/utility/enable_if.hpp> // disable_if
 #include <boost/utility/result_of.hpp>
 #include <pstade/adl_barrier.hpp>
@@ -118,6 +119,52 @@ namespace not_detail {
 } // namespace not_detail
 
 PSTADE_EGG_FUNCTION_(not_, not_detail::baby)
+
+
+// always
+//
+
+namespace always_detail {
+
+    template< class T >
+    struct baby_fun
+    {
+        typedef T& result_type;
+
+        explicit baby_fun()
+        { }
+
+        explicit baby_fun(T& x) :
+            m_px(boost::addressof(x))
+        { }
+
+        result_type operator()() const
+        {
+            return *m_px;
+        }
+
+    private:
+        T *m_px;
+    };
+
+    struct baby
+    {
+        template< class Myself, class T >
+        struct apply
+        {
+            typedef baby_fun<T> type;
+        };
+
+        template< class Result, class T >
+        Result call(T& x)
+        {
+            return Result(x);
+        }
+    };
+
+} // namespace always_detail
+
+PSTADE_EGG_FUNCTION(always, always_detail::baby)
 
 
 // equal_to

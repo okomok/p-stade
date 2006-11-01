@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/iterator/iterator_categories.hpp> // tags, iterator_traversal
+#include <boost/iterator/iterator_categories.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/for_debug.hpp>

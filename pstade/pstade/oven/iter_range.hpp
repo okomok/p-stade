@@ -25,6 +25,7 @@
 #include <algorithm> // swap
 #include <cstddef> // size_t
 #include <iosfwd> // basic_ostream
+#include <boost/iterator/iterator_categories.hpp> // iterator_traversal
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/operators.hpp> // equality_comparable
 #include <boost/range/begin.hpp>
@@ -129,6 +130,7 @@ public:
     typedef typename boost::iterator_difference<Iterator>::type difference_type;
     typedef typename boost::iterator_pointer<Iterator>::type    pointer;
     typedef typename boost::iterator_reference<Iterator>::type  reference;
+    typedef typename boost::iterator_traversal<Iterator>::type  iterator_traversal;
 
 // bool_testable
     operator radish::safe_bool() const

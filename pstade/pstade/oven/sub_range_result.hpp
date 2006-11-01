@@ -32,6 +32,8 @@ struct sub_range_result
 };
 
 
+// Workaround:
+// See "./range_iterator.hpp".
 template< class Range >
 struct sub_range_result_const
 {

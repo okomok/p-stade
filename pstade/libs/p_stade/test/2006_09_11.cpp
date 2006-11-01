@@ -25,7 +25,7 @@ void experiment(base_generator_type& generator)
     typedef boost::variate_generator<base_generator_type&, distribution_type> gen_type;
     gen_type die_gen(generator, distribution_type(1, 6));
 
-    BOOST_FOREACH (int i, from_0_to(10)|generated(boost::ref(die_gen))) {
+    BOOST_FOREACH (int i, count_to(10)|generated(boost::ref(die_gen))) {
         std::cout << i << " ";
     }
     std::cout << std::endl;

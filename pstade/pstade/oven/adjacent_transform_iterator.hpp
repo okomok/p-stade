@@ -10,17 +10,16 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/assert.hpp>
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
-#include <boost/iterator/iterator_categories.hpp>
-#include <boost/iterator/iterator_traits.hpp>
-#include <boost/next_prior.hpp>
+#include <boost/iterator/iterator_traits.hpp> // iterator_reference
+#include <boost/next_prior.hpp> // next
 #include <boost/optional.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/unused.hpp>
+#include "./detail/range_prior.hpp"
 
 
 namespace pstade { namespace oven {
@@ -90,7 +89,6 @@ struct adjacent_transform_iterator :
 private:
     typedef typename adjacent_transform_iterator_detail::super_<ForwardIter, BinaryFun, Reference, Value>::type super_t;
     typedef typename super_t::reference ref_t;
-    typedef typename super_t::difference_type diff_t;
 
 public:
     adjacent_transform_iterator()
@@ -138,36 +136,13 @@ friend class boost::iterator_core_access;
         m_cache.reset();
     }
 
-    void advance(diff_t d)
+    template< class Difference >
+    void advance(Difference d)
     {
         this->base_reference() += d;
         m_cache.reset();
     }
 };
-
-
-namespace adjacent_transform_iterator_detail {
-
-
-    template< class ForwardIter > inline
-    ForwardIter prior(ForwardIter first, ForwardIter const& last, boost::bidirectional_traversal_tag)
-    {
-        pstade::unused(first);
-        return boost::prior(last);
-    }
-
-    template< class ForwardIter > inline
-    ForwardIter prior(ForwardIter first, ForwardIter const& last, boost::forward_traversal_tag)
-    {
-        ForwardIter prev(first);
-        for (; ++first != last; prev = first)
-            ;
-
-        return prev;
-    }
-
-
-} // namespace adjacent_transform_iterator_detail
 
 
 template< class Reference, class Value, class ForwardIter, class BinaryFun > inline
@@ -190,8 +165,7 @@ make_adjacent_transform_end_iterator(ForwardIter const& first, ForwardIter const
     if (first == last)
         return result_t(first, fun);
 
-    typedef typename boost::iterator_traversal<ForwardIter>::type trv_t;
-    return result_t(adjacent_transform_iterator_detail::prior(first, last, trv_t()), fun);
+    return result_t(detail::range_prior(first, last), fun);
 }
 
 

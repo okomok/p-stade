@@ -28,7 +28,7 @@ any_range_;
 
 any_range_ denominators(int x)
 {
-    return oven::from_1_to(x+1)|filtered(x % lambda::_1 == 0)|regularized;
+    return oven::count_from_to(1, x+1)|filtered(x % lambda::_1 == 0)|regularized;
 }
 
 

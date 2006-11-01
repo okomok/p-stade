@@ -22,8 +22,6 @@
 // at <boost/spirit/phoenix/function/detail/function_eval.hpp>
 
 
-#include <boost/type_traits/add_const.hpp>
-#include <boost/type_traits/add_reference.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 
@@ -37,9 +35,10 @@ namespace reference_detail {
     struct baby
     {
         template< class Myself, class T >
-        struct apply :
-            boost::add_reference<T>
-        { };
+        struct apply
+        {
+            typedef T& type;
+        };
 
         template< class Result, class T >
         Result call(T& x)
@@ -52,11 +51,10 @@ namespace reference_detail {
     struct baby_const
     {
         template< class Myself, class T >
-        struct apply :
-            boost::add_reference<
-                typename boost::add_const<T>::type
-            >
-        { };
+        struct apply
+        {
+            typedef T const& type;
+        };
 
         template< class Result, class T >
         Result call(T const& x)

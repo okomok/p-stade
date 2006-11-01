@@ -45,7 +45,7 @@ rule egg-test ( name : includes * )
 test-suite egg :
     [ egg-test doc ]
     [ egg-test function ]
-    [ egg-test lamba ]
+    [ egg-test lambda ]
     [ egg-test pipable ]
     [ egg-test unused_to_copy ]
     ;

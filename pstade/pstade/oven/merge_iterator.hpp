@@ -22,7 +22,7 @@
 #include <boost/assert.hpp>
 #include <boost/iterator/detail/minimum_category.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
-#include <boost/iterator/iterator_categories.hpp> // tags, iterator_traversal
+#include <boost/iterator/iterator_categories.hpp>
 #include <pstade/functional.hpp> // less
 #include <pstade/unused.hpp>
 #include "./detail/constant_reference.hpp"

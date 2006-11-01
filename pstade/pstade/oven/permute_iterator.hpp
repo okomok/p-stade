@@ -55,7 +55,6 @@ struct permute_iterator :
 private:
     typedef typename permute_iterator_detail::super_<ElementIter, IndexIter>::type super_t;
     typedef typename super_t::reference ref_t;
-    typedef typename super_t::difference_type diff_t;
 
 public:
     explicit permute_iterator()
@@ -100,16 +99,11 @@ friend class boost::iterator_core_access;
         m_cache.reset();
     }
 
-    void advance(diff_t d)
+    template< class Difference >
+    void advance(Difference d)
     {
         this->base_reference() += d;
         m_cache.reset();
-    }
-
-    template< class Other >
-    diff_t distance_to(Other const& other) const
-    {
-        return other.base() - this->base();
     }
 };
 

@@ -74,9 +74,10 @@ void ctest()
         double d = 3;
         d = d*d;
         d = d/d;
-        
+
         // ::apply(::reset, pstade::const_reference(d)); // error!
         ::apply(::resee, pstade::const_reference(d));
+        ::apply(::resee, d|pstade::to_const_reference);
     }
 
 #if 0

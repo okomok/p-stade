@@ -44,26 +44,26 @@ void test()
     {
         int const ans[] = { 0,4,8,12 };
         BOOST_CHECK( oven::equals(ans,
-            oven::from_0_to(16)|sliced(0, 4)
+            oven::count_to(16)|sliced(0, 4)
         ) );
 
-        BOOST_FOREACH (int x, oven::from_0_to(16)|sliced(0, 4)) {
+        BOOST_FOREACH (int x, oven::count_to(16)|sliced(0, 4)) {
             std::cout << x << std::endl;
         }
 
         BOOST_CHECK( 4 ==
-            (oven::from_0_to(16)|sliced(0, 4)).stride()
+            (oven::count_to(16)|sliced(0, 4)).stride()
         );
 
         BOOST_CHECK( 0 ==
-            (oven::from_0_to(16)|sliced(0, 4)).start()
+            (oven::count_to(16)|sliced(0, 4)).start()
         );
     }
 
     {
         int const ans[] = { 2,6,10,14 };
         BOOST_CHECK( oven::equals(ans,
-            oven::from_0_to(16)|advanced(2, 2)|sliced(0, 4)
+            oven::count_to(16)|advanced(2, 2)|sliced(0, 4)
         ) );
     }
 

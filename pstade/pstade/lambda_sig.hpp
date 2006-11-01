@@ -18,7 +18,7 @@
 
 
 #include <boost/preprocessor/iteration/iterate.hpp>
-#include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/utility/result_of.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <pstade/adl_barrier.hpp>

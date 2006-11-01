@@ -29,7 +29,7 @@ void test()
     using namespace pstade;
     using namespace oven;
 
-    BOOST_FOREACH (int const i, from_0_to(10)) {
+    BOOST_FOREACH (int const i, count_to(10)) {
         std::cout << i;
     }
 
