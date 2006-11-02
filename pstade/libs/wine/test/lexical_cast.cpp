@@ -13,6 +13,9 @@
 #include <pstade/lexical_cast.hpp>
 
 
+#include <boost/mpl/identity.hpp>
+
+
 template< class T >
 void foo(T& x)
 {
@@ -31,22 +34,36 @@ void test()
 {
     using namespace pstade;
 
-    std::string str = pstade::lexical(12);
-    BOOST_CHECK( str == "12" );
+    {
+        BOOST_CHECK( pstade::lexical_cast(12, boost::type<std::string>()) == "12" );
+        std::string str = pstade::lexical(12);
+        BOOST_CHECK( str == "12" );
+        BOOST_CHECK( pstade::lexical_cast(str, boost::type<int>()) == 12 );
+    }
 
-    int n = pstade::lexical(str);
-    BOOST_CHECK( n == 12 );
+    {
+        using boost::mpl::identity;
+        BOOST_CHECK( pstade::lexical_cast(12, identity<std::string>()) == "12" );
+        std::string str = pstade::lexical(12);
+        BOOST_CHECK( str == "12" );
+        BOOST_CHECK( pstade::lexical_cast(str, identity<int>()) == 12 );
+    }
 
-    BOOST_CHECK((
-        boost::lexical_cast<int, std::string>(
-            pstade::lexical(
-                boost::lexical_cast<int, std::string>(
-                    pstade::lexical(12)
+    {
+        std::string str = pstade::lexical(12);
+        int n = pstade::lexical(str);
+        BOOST_CHECK( n == 12 );
+
+        BOOST_CHECK((
+            boost::lexical_cast<int, std::string>(
+                pstade::lexical(
+                    boost::lexical_cast<int, std::string>(
+                        pstade::lexical(12)
+                    )
                 )
-            )
-        ) == 12
-    ));
-
+            ) == 12
+        ));
+    }
 
     ::foo(pstade::lexical(12));
     ::bar(pstade::lexical(12));

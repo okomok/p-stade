@@ -26,7 +26,7 @@ inline
 void for_debug()
 {
 #if defined(NDEBUG)
-    std::logic_error err("'for_debug' was called in release mode.");
+    std::logic_error err("'for_debug' is called in release mode.");
     boost::throw_exception(err);
 #endif
 }
