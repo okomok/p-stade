@@ -11,7 +11,7 @@
 
 
 #include <string>
-#include <pstade/lexical_cast.hpp>
+#include <boost/lexical_cast.hpp>
 #include <pstade/oven/c_str_range.hpp>
 #include <pstade/oven/copy_range.hpp>
 
@@ -40,7 +40,7 @@ std::string what(std::string tag, char const *psz)
 inline
 std::string what(std::string const& tag, int n)
 {
-    return pstade::what(tag, pstade::lexical_cast<std::string>(n));
+    return pstade::what(tag, boost::lexical_cast<std::string>(n));
 }
 
 

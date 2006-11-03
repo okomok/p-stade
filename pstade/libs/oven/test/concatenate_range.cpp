@@ -14,10 +14,14 @@
 #include <pstade/oven/concatenate_range.hpp>
 
 
+#include <iostream>
 #include <vector>
 #include <string>
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/reverse_range.hpp>
+
+#include <pstade/biscuit/parser.hpp>
+#include <pstade/biscuit/range/token_range.hpp>
 
 
 void test()
@@ -56,7 +60,26 @@ void test()
         rng.push_back("");
         rng.push_back("");
         BOOST_CHECK( oven::test_Bidirectional_Readable_Writable(rng|concatenated, expected) );
-    }   
+    }
+    {
+        namespace biscuit = pstade::biscuit;
+
+        typedef biscuit::seq<
+            biscuit::chseq<'/','*'>,
+            biscuit::star_until< biscuit::any, biscuit::chseq<'*','/'> >
+        > c_comment;
+
+        std::string rng(" /*hello*/ abc /* xx*/ ii /*312  */ ");
+        std::vector<char> expected = std::string("/*hello*//* xx*//*312  */")|copied;
+
+        // It seems not ForwardWritable, because once you change
+        // a character, the parsing way is changed.
+        // If it is a SinglePass algorithm, it seems to be writable, though.
+        BOOST_CHECK( oven::test_Forward_Readable(
+            rng|biscuit::tokenized<c_comment>()|concatenated,
+            expected
+        ) );
+    }
 }
 
 

@@ -13,8 +13,7 @@
 #include <limits> // numeric_limits
 #include <boost/assert.hpp>
 #include <boost/iterator/counting_iterator.hpp>
-#include <pstade/if_debug.hpp>
-#include <pstade/instance.hpp>
+#include <boost/iterator/iterator_categories.hpp> // iterator_traversal
 #include <pstade/unused.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./iter_range.hpp"
@@ -27,17 +26,27 @@ namespace counting_range_detail {
 
 
     template< class Incrementable > inline
-    void check_range(Incrementable const& i, Incrementable const& j, boost::single_pass_traversal_tag)
+    bool is_valid(Incrementable const& i, Incrementable const& j, boost::single_pass_traversal_tag)
     {
         pstade::unused(i, j);
+        return true;
+    }
+
+    template< class Incrementable > inline
+    bool is_valid(Incrementable const& i, Incrementable const& j, boost::random_access_traversal_tag)
+    {
+        return i <= j;
     }
 
 
-    template< class Incrementable > inline
-    void check_range(Incrementable const& i, Incrementable const& j, boost::random_access_traversal_tag)
+    template< class Super, class Incrementable > inline
+    Super make(Incrementable const& i, Incrementable const& j)
     {
-        BOOST_ASSERT(i <= j);
-        pstade::unused(i, j);
+        typedef typename Super::iterator iter_t;
+        typedef typename boost::iterator_traversal<iter_t>::type trv_t;
+        BOOST_ASSERT( (is_valid)(i, j, trv_t()) );
+
+        return Super(iter_t(i), iter_t(j));
     }
 
 
@@ -66,16 +75,14 @@ struct counting_range :
     private as_lightweight_proxy< counting_range<Incrementable, CategoryOrTraversal, Difference> >
 {
 private:
-    typedef typename counting_range_detail::super_<Incrementable, CategoryOrTraversal, Difference>::type super_t;
-    typedef typename super_t::iterator iter_t;
+    typedef typename
+        counting_range_detail::super_<Incrementable, CategoryOrTraversal, Difference>::type
+    super_t;
 
 public:
     counting_range(Incrementable const& i, Incrementable const& j) :
-        super_t(iter_t(i), iter_t(j))
-    {
-        typedef typename boost::iterator_traversal<iter_t>::type trv_t;
-        PSTADE_IF_DEBUG( counting_range_detail::check_range(i, j, trv_t()); )
-    }
+        super_t(counting_range_detail::make<super_t>(i, j))
+    { }
 };
 
 

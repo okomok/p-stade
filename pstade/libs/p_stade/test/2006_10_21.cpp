@@ -1,4 +1,5 @@
 
+#include <iostream>
 #include <cassert>
 
 struct A
@@ -8,6 +9,7 @@ struct A
     }
     
     ~A() {
+        std::cout << ",";
         assert(false);
     }
 };

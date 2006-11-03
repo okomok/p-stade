@@ -44,7 +44,6 @@ namespace lexical_cast_detail {
         apply_meta_impl<typename boost::remove_cv<F>::type>
     { };
 
-
     struct baby
     {
         template< class Myself, class From, class To >
@@ -52,7 +51,7 @@ namespace lexical_cast_detail {
             apply_meta<To>
         { };
 
-        template< class Result, class To, class From >
+        template< class Result, class From, class To >
         Result call(From const& from, To)
         {
             return boost::lexical_cast<Result>(from);
