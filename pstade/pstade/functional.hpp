@@ -346,7 +346,7 @@ namespace flip_detail {
 
         template< class Myself, class T0, class T1 >
         struct apply :
-            boost::result_of<BinaryFun(T1, T0)>
+            boost::result_of<BinaryFun(T1&, T0&)>
         { };
 
         template< class Result, class T0, class T1 >

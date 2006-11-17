@@ -15,7 +15,7 @@
 // A helper metafunction to implement constant iterators.
 // This seems more useful rather than something like
 // 'constant_iterator' which makes coding cumbersome.
-// See "../merge_iterator.hpp" or "../repeat_iterator".
+// See "../merge_iterator.hpp" or "../cycle_iterator".
 
 
 #include <boost/iterator/iterator_traits.hpp>

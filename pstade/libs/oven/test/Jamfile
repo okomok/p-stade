@@ -47,6 +47,7 @@ test-suite oven :
     [ oven-test const_lvalue_range ]
     [ oven-test copy_range ]
     [ oven-test counting_range ]
+    [ oven-test cycle_range ]
     [ oven-test direct_range ]
     [ oven-test doc ]
     [ oven-test drop_range ]

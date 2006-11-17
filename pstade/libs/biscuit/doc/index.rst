@@ -52,7 +52,7 @@ A simple EBNF grammar snippet::
 
 is approximated using Biscuit's facilities as seen in this code snippet::
 
-	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\introduction_0.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\introduction_0.ipp
 
 Through the magic of the lazy template instantiation, these are perfectly valid types.
 The production rule ``expression`` is a type that has a static member function ``parse``.
@@ -60,7 +60,7 @@ As ``parse`` will be instantiated later by Algorithms_, all you have to do is to
 
 Direct recurring types [#]_ also are valid::
 
-	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\introduction_1.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\introduction_1.ipp
 
 Note that left-recursions are not allowed, though compilers might detect them if templates are easy.
 
@@ -90,15 +90,15 @@ Quick Start
 -----------
 #. Include Biscuit headers::
 
-	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\quick_start_1.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\quick_start_1.ipp
 
 #. Define your own Parser_ type::
 
-	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\quick_start_2.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\quick_start_2.ipp
 
 #. Call Algorithms_ [#]_::
 
-	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\quick_start_3.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\quick_start_3.ipp
 
 
 .. [#] An unqualified call may trigger an unintentional ADL. You must always add ``biscuit::``.
@@ -120,7 +120,7 @@ Parser
 ^^^^^^
 A ``Parser`` is any type that has the static member function::
 
-	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\basic_concept_parser.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\basic_concept_parser.ipp
 
 
 Parsing Range
@@ -259,7 +259,7 @@ Literal
 The C++ Standard doesn't allow you to pass a string literal to templates.
 ``chseq`` template parameter arity is limited. For that workaround, ``PSTADE_BISCUIT_SEQ_LITERAL`` macro is provided::
 
-	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\predefined_parsers_literal.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\predefined_parsers_literal.ipp
 
 ``PSTADE_BISCUIT_SEQ_LITERAL`` defines a `Parser`_ whose name is the first argument by using
 the string literal that is passed as the second argument.
@@ -269,7 +269,7 @@ Actor
 ^^^^^
 ``actor`` template creates a Parser_ that triggers a `Semantic Action`_ object::
 
-	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\predefined_parsers_actor.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\predefined_parsers_actor.ipp
 
 `Parsing SubRange`_ can be assigned to ``boost::sub_range<ParsingRange>`` idiomatically.
 If a `Parsing Range`_ is mutable, its `Parsing SubRange`_ also is mutable.
@@ -329,7 +329,7 @@ range is comparable with ``char``.
 ^^^^^^^^^
 ``biscuit::match`` returns ``true`` if a Parser_ runs through the range; otherwise ``false``::
 
-	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\algorithms_match.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\algorithms_match.ipp
 
 Notice that a null-terminated string is no longer a model of Range with Boost 1.35.
 ``oven::null_terminate_range`` is provided for the workaround.
@@ -341,7 +341,7 @@ Notice that a null-terminated string is no longer a model of Range with Boost 1.
 If not found, it returns ``boost::make_iterator_range(boost::end(r), boost::end(r))``, 
 where ``r`` is an object of type `Parsing Range`_::
 
-	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\algorithms_search.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\algorithms_search.ipp
 
 
 ``parse``
@@ -361,18 +361,18 @@ Ranges
 ^^^^^^^^^^^^^^^^
 ``filter_range`` is a `Forward Range`_ that is filtered by Parser_::
 
-	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\ranges_filter_range_0.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\ranges_filter_range_0.ipp
 
 A chain of ``filter_range`` works properly::
 
-	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\ranges_filter_range_1.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\ranges_filter_range_1.ipp
 
 ``filter_range`` is a model of `Forward Range`_ that can be passed to Algorithms_.
 That's why Biscuit doesn't provide anything like `Boost.Spirit`_'s Scanner__.
 
 `Range adapter`__ syntax also is supported by ``filtered``::
 
-	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\ranges_filter_range_2.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\ranges_filter_range_2.ipp
 
 __ http://spirit.sourceforge.net/distrib/spirit_1_8_2/libs/spirit/doc/scanner.html
 __ http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1871.html#range-adapters-part-4
@@ -382,7 +382,7 @@ __ http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1871.html#range-adap
 ^^^^^^^^^^^^^^^
 ``token_range`` is a `Forward Range`_ whose ``value_type`` is a matching `Parsing SubRange`_::
 
-	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\ranges_token_range_0.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\ranges_token_range_0.ipp
 
 Outputs::
 
@@ -400,7 +400,7 @@ Capturing
 ``capture`` and ``backref`` create Parser_ for the capturing.
 results_xxx [#]_ Algorithms_ are provided for accessing matching results after parsing::
 
-	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\capturing_0.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\capturing_0.ipp
 
 ``match_results<r>``, where ``r`` is a `Parsing Range`_, conforms to
 `Pair Associative Container`__ and `Unique Associative Container`__
@@ -428,14 +428,14 @@ The only way is to extract values from `User State`_.
 ^^^^^^^^^^
 ``valseq`` makes a sequential Parser_ from `Value Functor`_\s::
 
-	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\valseq_0.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\valseq_0.ipp
 
 
 ``valset``
 ^^^^^^^^^^
 ``valset`` makes an alternation Parser_ from `Value Functor`_\s::
 
-	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\valset_0.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\valset_0.ipp
 
 
 ``seq_range``
@@ -444,14 +444,14 @@ The only way is to extract values from `User State`_.
 ``seq_range<V>`` makes a sequential Parser_, where ``V`` is a `Value Functor`_
 whose function call expression must be, whether reference or not, a `Forward Range`_ whose ``value_type`` is comparable with `Parsing Range`_'s::
 
-	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\seq_range_0.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\seq_range_0.ipp
 
 
 ``set_range``
 ^^^^^^^^^^^^^
 ``set_range`` is provided in a similar way::
 
-	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\set_range_0.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\set_range_0.ipp
 
 
 
@@ -459,7 +459,7 @@ Debugging
 ---------
 Biscuit emulates `Boost.Spirit`_'s debugging__::
 
-	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\debugger_0.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\debugger_0.ipp
 
 __ http://spirit.sourceforge.net/distrib/spirit_1_8_2/libs/spirit/doc/debugging.html
 
@@ -499,7 +499,7 @@ Error Handling
 --------------
 Biscuit emulates `Boost.Spirit`_'s `Error Handling`__::
 
-	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\error_handling_0.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\error_handling_0.ipp
 
 __ http://spirit.sourceforge.net/distrib/spirit_1_8_3/libs/spirit/doc/error_handling.html
 
@@ -514,7 +514,7 @@ Bake in Oven
 `Oven`__ is the `Boost.Range`_ extension library.
 It provides some predefined ranges for Biscuit::
 
-	D:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\bake_biscuit_in_oven_0.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\biscuit\doc\inline\bake_biscuit_in_oven_0.ipp
 
 __ OvenR_
 

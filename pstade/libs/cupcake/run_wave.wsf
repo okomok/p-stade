@@ -18,10 +18,10 @@
 
 var g_debug = false;
 
-var g_boost_path = "D:\\Application\\boost";
+var g_boost_path = "E:\\Application\\boost";
 // Get at: http://www.codeproject.com/cpp/wave_preprocessor.asp
-var g_wave_path= "D:\\Application\\wave-1.0.0\\wave.exe";
-var g_out_folder = "D:\\Importance\\Document\\sample source\\boost_shortcut\\workspace";
+var g_wave_path= "E:\\Application\\wave-1.0.0\\wave.exe";
+var g_out_folder = "E:\\Importance\\Document\\sample source\\boost_shortcut\\workspace";
 
 main();
 

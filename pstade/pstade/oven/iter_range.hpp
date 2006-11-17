@@ -109,7 +109,7 @@ public:
         return *this;
     }
 
-// range implementations
+// range implementation
     typedef Iterator iterator;
     typedef Iterator const_iterator;
     typedef std::size_t size_type;

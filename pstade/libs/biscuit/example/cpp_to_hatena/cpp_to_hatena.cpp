@@ -91,7 +91,7 @@ int main(int argc, char *argv[])
             oven::copy("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\" ?>"
                 "<pre class=\"cpp_source\">"|oven::as_literal, oven::to_stream(fout));
 
-             biscuit::match<
+            biscuit::match<
                 iteration<cpp_to_hatena::start, cpp_to_hatena::act_line_escape>
             >(
                 oven::file_range<boost::uint8_t>(iname)                  // spirit::file_iterator‚ÌƒyƒA

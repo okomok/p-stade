@@ -18,6 +18,7 @@
 
 
 #include <boost/mpl/empty_base.hpp>
+#include "./detail/config.hpp" // PSTADE_OVEN_BOOST_RANGE_BEGIN/END
 
 
 namespace pstade { namespace oven {
@@ -25,7 +26,7 @@ namespace pstade { namespace oven {
 
 template<
     class T,
-    class ConstIterator,
+    class ConstantIter,
     class Base = boost::mpl::empty_base
 >
 struct range_constantable :
@@ -36,18 +37,18 @@ struct range_constantable :
     // It is of little use to pass a range to 'Base',
     // because 'Base' constructors become unavailable.
     //
-    // typedef ConstIterator const_iterator;
+    // typedef ConstantIter const_iterator;
 
     // Eat const-qualified range
     // before member functions are looked up.
     friend
-    ConstIterator boost_range_begin(T const& x)
+    ConstantIter PSTADE_OVEN_BOOST_RANGE_BEGIN(T const& x)
     {
         return x.begin();
     }
 
     friend
-    ConstIterator boost_range_end(T const& x)
+    ConstantIter PSTADE_OVEN_BOOST_RANGE_END(T const& x)
     {
         return x.end();
     }

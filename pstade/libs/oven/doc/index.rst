@@ -7,7 +7,7 @@ The Oven Range Library
 :Author: MB
 :Contact: mb2act@yahoo.co.jp 
 :License: Distributed under the `Boost Software License Version 1.0`_
-:Version: 0.91.6
+:Version: 0.91.7
 
 
 
@@ -28,7 +28,7 @@ Introduction
 ------------
 Oven provides an experimental Range Adaptor implementation of `Range Library Proposal`_::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\introduction.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\introduction.ipp
 
 All the types and functions are defined in ``namespace pstade::oven`` at ``<pstade/oven.hpp>``
 unless otherwise specified.
@@ -37,7 +37,7 @@ unless otherwise specified.
 Requirements
 ------------
 - `Boost C++ Libraries Version 1.33.1`__ or later (no compilation required)
-- `P-Stade C++ Libraries Version 1.01.7`__ or later (no compilation required, give a higher priority than Boost headers)
+- `P-Stade C++ Libraries Version 1.01.8`__ or later (no compilation required, give a higher priority than Boost headers)
 
 __ Boost_
 __ http://sourceforge.net/project/showfiles.php?group_id=141222&package_id=173059
@@ -62,7 +62,7 @@ STL Algorithms
 ^^^^^^^^^^^^^^
 Oven has all the range-based STL algorithms which are ported from `Boost.RangeEx`_ with some compiler workarounds::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\stl_algorithms.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\stl_algorithms.ipp
 
 
 - Header: ``<pstade/oven/algorithm.hpp>``
@@ -75,7 +75,7 @@ Oven has all the range-based STL algorithms which are ported from `Boost.RangeEx
 ^^^^^^^^^^^^^^^^^^^^^^
 ``adaptor_to`` gets the ``base_type`` iterator of iterator adaptors::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\adaptor_to_base.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\adaptor_to_base.ipp
 
 
 - Header: ``<pstade/oven/adaptor_to_base.hpp>``
@@ -89,7 +89,7 @@ Oven has all the range-based STL algorithms which are ported from `Boost.RangeEx
 ^^^^^^^^^^^^^^^
 ``begins/ends`` is a pipable version of ``boost::begin/end``::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\begins_ends.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\begins_ends.ipp
 
 
 - Header: ``<pstade/oven/begin_end.hpp>``
@@ -103,7 +103,7 @@ Oven has all the range-based STL algorithms which are ported from `Boost.RangeEx
 ``copied`` adds the automatic type deduction to `copy_range`_ which
 calls the range constructor of the STL Sequences::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\copied.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\copied.ipp
 
 .. _copy_range: http://www.boost.org/libs/range/doc/utility_class.html#copy_range
 
@@ -121,7 +121,7 @@ Note that ``Seq seq(rng|copied);`` is not a valid expression.
 The upcoming `Boost.Range`_ will replace ``boost::size`` by ``boost::distance``.
 ``oven::distance`` that is the same as ``boost::distance`` makes your code portable::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\distance.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\distance.ipp
 
 
 - Header: ``<pstade/oven/distance.hpp>``
@@ -135,7 +135,7 @@ The upcoming `Boost.Range`_ will replace ``boost::size`` by ``boost::distance``.
 ``equals`` is the range-based ``std::equal`` that takes two ranges as the arguments.
 Note that the size of two ranges is also checked out::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\equals.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\equals.ipp
 
 
 - Header: ``<pstade/oven/equals.hpp>``
@@ -156,7 +156,7 @@ Oven provides some predefined range types.
 ``any_range`` is a range whose iterators behave as if they were the original iterators wrapped in
 `any_iterator`__::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\any_range.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\any_range.ipp
 
 
 __ http://thbecker.net/free_software_utilities/type_erasure_for_cpp_iterators/start_page.html
@@ -182,7 +182,7 @@ The current Boost.Range regards char array as literal, which
 ``array_range`` is a model of `Random Access Range`_ which delivers
 a range presentation of dynamically allocated arrays::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\array_range.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\array_range.ipp
 
 
 - Header: ``<pstade/oven/array_range.hpp>``
@@ -194,7 +194,7 @@ a range presentation of dynamically allocated arrays::
 ^^^^^^^^^^^^^^^
 ``c_str_range`` makes a `Random Access Range`_ from null-terminated c-style string::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\c_str_range.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\c_str_range.ipp
 
 
 - Header: ``<pstade/oven/c_str_range.hpp>``
@@ -207,7 +207,7 @@ a range presentation of dynamically allocated arrays::
 they were the original iterators wrapped in `counting_iterator`__.
 Note that this range introduces the replacement of ``for`` loop::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\counting_range.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\counting_range.ipp
 
 __ http://www.boost.org/libs/iterator/doc/counting_iterator.html
 
@@ -224,7 +224,7 @@ __ http://www.boost.org/libs/iterator/doc/counting_iterator.html
 ``directory_range`` is a range whose iterators behave as if
 they were the original iterators wrapped in `directory_iterator`__::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\directory_range.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\directory_range.ipp
 
 __ http://www.boost.org/libs/filesystem/doc/operations.htm#directory_iterator
 
@@ -239,7 +239,7 @@ __ http://www.boost.org/libs/filesystem/doc/operations.htm#directory_iterator
 ^^^^^^^^^^^^^^^
 ``empty_range`` is a `Random Access Range`_ which is always empty::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\empty_range.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\empty_range.ipp
 	
 
 - Header: ``<pstade/oven/empty_range.hpp>``
@@ -252,7 +252,7 @@ __ http://www.boost.org/libs/filesystem/doc/operations.htm#directory_iterator
 The member ``is_open()`` returns ``true`` if and only if the file opening is succeeded.
 If ``is_open()`` is not ``true``, the range is empty::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\file_range.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\file_range.ipp
 
 __ http://www.boost.org/libs/spirit/doc/file_iterator.html
 
@@ -267,7 +267,7 @@ __ http://www.boost.org/libs/spirit/doc/file_iterator.html
 ``generate_range`` is a `Single Pass Range`_ whose iterators behave as if
 they were the original iterators wrapped in `generator_iterator`__::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\generate_range.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\generate_range.ipp
 
 __ http://www.boost.org/libs/utility/generator_iterator.htm
 
@@ -294,7 +294,7 @@ A legacy API may provide a way to access objects by using an index.
 ^^^^^^^^^^^^^^^^^
 ``istream_range`` is a range whose iterators behave as if they were the original iterators wrapped in `istream_iterator`__::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\istream_range.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\istream_range.ipp
 
 __ http://www.sgi.com/tech/stl/istream_iterator.html
 
@@ -312,7 +312,7 @@ __ http://www.sgi.com/tech/stl/istream_iterator.html
 ``iterate_range`` creates an infinite range where the first item is calculated by applying
 the function on the first argument, the second item by applying the function on the previous result and so on::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\iterate_range.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\iterate_range.ipp
 	
 
 - Header: ``<pstade/oven/iterate_range.hpp>``
@@ -325,18 +325,29 @@ the function on the first argument, the second item by applying the function on 
 ``literal_range`` makes a `Random Access Range`_ from character array.
 ``literal_range`` doesn't support any pointer type but array type. So it is safe and fast. Compare it with ``c_str_range``::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\literal_range.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\literal_range.ipp
 
 
 - Header: ``<pstade/oven/literal_range.hpp>``
 - Valid expression: ``literal_range<Char> rng(arr)`` and ``arr|as_literal``, where ``arr`` is a ``char`` or ``wchar_t`` array type;
 
 
+``repeat_range``
+^^^^^^^^^^^^^^^^
+``repeat_range`` creates a `Random Access Range`_ where all values are the first argument::
+
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\repeat_range.ipp
+
+- Header: ``<pstade/oven/repeat_range.hpp>``
+- Valid expression: ``repeat_range<T,C> rng(v,c);``, ``oven::make_repeat_range(v,c)`` and ``v|repeated(c)``.
+- Precondition: The type of ``v`` is ``T``.
+
+
 ``single_range``
 ^^^^^^^^^^^^^^^^
 ``single_range`` is a `Random Access Range`_ which delivers a range presentation of one object::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\single_range.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\single_range.ipp
 
 
 - Header: ``<pstade/oven/single_range.hpp>``
@@ -371,7 +382,7 @@ Instead, add ``&`` to make it a function **pointer**.
 ^^^^^^^^^^^^^^^^^^^^^
 ``adjacent_filtered`` returns a range where adjacent pairs of adapting range are filtered by using a `Predicate`_::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\adjacent_filtered.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\adjacent_filtered.ipp
 
 
 - Header: ``<pstade/oven/adjacent_filter_range.hpp>``
@@ -397,7 +408,7 @@ Instead, add ``&`` to make it a function **pointer**.
 ^^^^^^^^^^^^^
 ``always`` returns a range which does not change as its adapting range vary::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\always.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\always.ipp
 
 
 - Header: ``<pstade/oven/always_range.hpp>``
@@ -409,7 +420,7 @@ Instead, add ``&`` to make it a function **pointer**.
 ^^^^^^^^^^^^
 ``appended`` returns a range which is appended with its argument::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\appended.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\appended.ipp
 
 
 - Header: ``<pstade/oven/append_range.hpp>``
@@ -423,7 +434,7 @@ Instead, add ``&`` to make it a function **pointer**.
 ``applied`` returns a range which is adapting by using functors.
 ``applied`` is intended to be used with Boost.Phoenix version2::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\applied.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\applied.ipp
 
 
 - Header: ``<pstade/oven/apply_range.hpp>``
@@ -438,7 +449,7 @@ Instead, add ``&`` to make it a function **pointer**.
 ^^^^^^^^^^^^^^^
 ``broken_into`` is the adaptor version of ``boost::tokenizer``::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\broken_into.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\broken_into.ipp
 
 
 - Header: ``<pstade/oven/break_into_range.hpp>``
@@ -450,7 +461,7 @@ Instead, add ``&`` to make it a function **pointer**.
 ^^^^^^^^^^^
 ``checked`` adds the bounds checking ability to its adapting range::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\checked.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\checked.ipp
 
 
 - Header: ``<pstade/oven/check_range.hpp>``
@@ -463,7 +474,7 @@ Instead, add ``&`` to make it a function **pointer**.
 ^^^^^^^^^^^
 ``cleared`` returns a range which is always empty::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\cleared.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\cleared.ipp
 
 
 - Header: ``<pstade/oven/clear_range.hpp>``
@@ -476,7 +487,7 @@ Instead, add ``&`` to make it a function **pointer**.
 ^^^^^^^^^^^^^^^^
 ``concatenated`` accepts a range whose ``value_type`` is a range and concatenates them::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\concatenated.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\concatenated.ipp
 
 - Header: ``<pstade/oven/concatenate_range.hpp>``
 - Valid expression: ``rngs|concatenated``
@@ -491,7 +502,7 @@ In spite of STL designers effort, the ``const_iterator`` is not so useful as exp
 An adapted range loses the difference between the mutable and constant.
 That's why ``constants`` returns a range whose iterators dereference cannot be modified::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\constants.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\constants.ipp
 
 
 - Header: ``<pstade/oven/constant_range.hpp>``
@@ -514,7 +525,7 @@ makes STL that doesn't know traversal concepts choose effective algorithms.
 ^^^^^^^^^^^^^^
 ``copied_out`` makes a side-effect that copies its adapting range to its argument::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\copied_out.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\copied_out.ipp
 
 
 - Header: ``<pstade/oven/copy_range.hpp>``
@@ -524,11 +535,23 @@ makes STL that doesn't know traversal concepts choose effective algorithms.
 - Returns: ``[boost::begin(rng),boost::end(rng))`` if ``rng`` is a `Forward Range`_; otherwise, ``void``.
 
 
+``cycled``
+^^^^^^^^^^^^
+``cycled`` creates a circular range from its adapting range::
+
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\cycled.ipp
+
+
+- Header: ``<pstade/oven/cycle_range.hpp>``
+- Valid expression: ``rng|cycled(n)``
+- Returns: A constant range that repeats ``[boost::begin(rng),boost::end(rng))`` ``n`` times.
+
+
 ``directed``
 ^^^^^^^^^^^^
 ``directed`` returns a range whose values are iterators of its adapting range::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\directed.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\directed.ipp
 
 
 - Header: ``<pstade/oven/direct_range.hpp>``
@@ -540,7 +563,7 @@ makes STL that doesn't know traversal concepts choose effective algorithms.
 ^^^^^^^^^^^
 ``dropped`` returns the suffix of its adapting range after the first ``n`` elements::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\dropped.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\dropped.ipp
 
 
 - Header: ``<pstade/oven/drop_range.hpp>``
@@ -553,7 +576,7 @@ makes STL that doesn't know traversal concepts choose effective algorithms.
 ^^^^^^^^^^^^^^^^^
 ``dropped_while`` returns the remaining suffix of its adapting range of elements that satisfy `Predicate`_::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\dropped_while.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\dropped_while.ipp
 
 
 - Header: ``<pstade/oven/drop_while_range.hpp>``
@@ -565,7 +588,7 @@ makes STL that doesn't know traversal concepts choose effective algorithms.
 ^^^^^^^^^^^^
 ``filtered`` returns a range which is filtered by using a `Predicate`_::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\filtered.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\filtered.ipp
 
 Note that a non-assignable lambda functor makes ``filtered`` non-conforming, so
 it needs `regularized`_ that makes it assignable and then conforming.
@@ -594,7 +617,7 @@ Pending...
 ^^^^^^^^^^^^^^
 ``identities`` returns a range which is identical to its adapting range::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\identities.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\identities.ipp
 
 
 - Header: ``<pstade/oven/identity_range.hpp>``
@@ -607,7 +630,7 @@ Pending...
 ^^^^^^^^^^^^^^
 ``indirected`` adapts its adapting range by applying an extra dereference inside of ``operator*()``::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\indirected.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\indirected.ipp
 
 
 - Header: ``<pstade/oven/indirect_range.hpp>``
@@ -618,7 +641,7 @@ Pending...
 ^^^^^^^^^^^
 ``jointed`` returns a range which is jointed with its argument::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\jointed.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\jointed.ipp
 
 
 - Header: ``<pstade/oven/joint_range.hpp>``
@@ -631,7 +654,7 @@ Pending...
 ^^^^^^^^^^^^
 ``map_keys`` returns a range whose values are the keys of its adapting associative container::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\map_keys.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\map_keys.ipp
 
 
 - Header: ``<pstade/oven/map_key_range.hpp>``
@@ -642,7 +665,7 @@ Pending...
 ^^^^^^^^^^^^^^
 ``map_values`` returns a range whose values are the mapped values of its adapting associative container::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\map_values.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\map_values.ipp
 
 
 - Header: ``<pstade/oven/map_value_range.hpp>``
@@ -661,7 +684,7 @@ Pending...
 ``memoized`` returns a range whose values are cached for speed, preparing repeated dereferences.
 Note that ``memoized`` can return a `Forward Range`_ even if its adapting range is a `Single Pass Range`_::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\memoized.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\memoized.ipp
 
 
 - Header: ``<pstade/oven/memoize_range.hpp>``
@@ -674,7 +697,7 @@ Note that ``memoized`` can return a `Forward Range`_ even if its adapting range 
 ^^^^^^^^^^
 ``merged`` combines two sorted ranges into a single sorted range::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\merged.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\merged.ipp
 
 
 - Header: ``<pstade/oven/merge_range.hpp>``
@@ -703,7 +726,7 @@ Note that ``memoized`` can return a `Forward Range`_ even if its adapting range 
 ^^^^^^^^^^^
 ``pointed`` provides an interface to have a conversation with legacy APIs::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\pointed.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\pointed.ipp
 
 
 - Header: ``<pstade/oven/point_range.hpp>``
@@ -732,13 +755,6 @@ Note that ``memoized`` can return a `Forward Range`_ even if its adapting range 
 - Header: ``<pstade/oven/regularize_range.hpp>``
 - Valid expression: ``rng|regularized``
 - Returns: ``[boost::begin(rng),boost::end(rng))``, which is a conforming range, even if iterators of ``rng`` are not assignable.
-
-
-``repeated``
-^^^^^^^^^^^^
-- Header: ``<pstade/oven/repeat_range.hpp>``
-- Valid expression: ``rng|repeated(n)``
-- Returns: A constant range that repeats ``[boost::begin(rng),boost::end(rng))`` ``n`` times.
 
 
 ``rotated``
@@ -790,7 +806,7 @@ Note that ``memoized`` can return a `Forward Range`_ even if its adapting range 
 ^^^^^^^^^^^
 ``scanned`` is similar to ``oven::accumulate``, but returns a range of successive reduced values from its adapting range::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\scanned.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\scanned.ipp
 
 
 - Header: ``<pstade/oven/scan_range.hpp>``
@@ -816,7 +832,7 @@ Note that ``memoized`` can return a `Forward Range`_ even if its adapting range 
 ^^^^^^^^^^
 ``sliced`` provides the column view of its adapting range::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\sliced.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\sliced.ipp
 
 - Header: ``<pstade/oven/slice_range.hpp>``
 - Valid expression: ``rndRng|sliced(start,stride)``
@@ -841,7 +857,7 @@ Note that ``memoized`` can return a `Forward Range`_ even if its adapting range 
 ^^^^^^^^^
 ``taken``, applied to its adapting range, returns the prefix of the range of length ``n``::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\taken.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\taken.ipp
 
 
 - Header: ``<pstade/oven/take_range.hpp>``
@@ -855,7 +871,7 @@ Note that ``memoized`` can return a `Forward Range`_ even if its adapting range 
 ``taken_while``, applied to a `Predicate`_ and its adapting range, returns the longest
 prefix (possibly empty) of the range of elements that satisfy `Predicate`_::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\taken_while.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\taken_while.ipp
 
 
 - Header: ``<pstade/oven/take_while_range.hpp>``
@@ -942,7 +958,7 @@ If one input range is short, excess elements of the longer range are discarded.
 ``zipped_with`` generalises ``zipped`` by zipping with the functor,
 given as the first argument, instead of a tupling::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\zipped_with.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\zipped_with.ipp
 
 
 - Header: ``<pstade/oven/zip_with_range.hpp>``
@@ -959,7 +975,7 @@ Output Iterator Adaptors
 ``to_counter`` takes an initial count and increments it every output.
 `adaptor_to/to_base`_ can extract the result of the counting::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\to_counter.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\to_counter.ipp
 
 
 - Header: ``<pstade/oven/to_counter.hpp>``
@@ -1008,7 +1024,7 @@ For now, it is not practical to apply the way to the large library something lik
 Oven provides yet another extension way, which is similar to
 `Conceptualizing the Range-Based for Loop`__ proposal to simplify the Boost.Range one::
 
-	D:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\extension.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\extension.ipp
 
 
 1. Specialize ``::pstade_oven_extension::Range``.
@@ -1138,4 +1154,8 @@ Version 0.91.6
 - Added ``popped_back``.
 - Changed ``counting_range`` valid expressions.
 
+Version 0.91.7
+^^^^^^^^^^^^^^
+- Renamed ``repeated`` to ``cycled``.
+- Added ``repeat_range``.
 

@@ -59,17 +59,17 @@ Quick Start
 
 1. Define a type that is a model of `Baby Function`_::
 
-	D:\p-stade.sourceforge.net\pstade\libs\egg\doc\inline\quick_start0.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\egg\doc\inline\quick_start0.ipp
 
 
 2. Make a functor by using ``PSTADE_EGG_FUNCTION``::
 
-	D:\p-stade.sourceforge.net\pstade\libs\egg\doc\inline\quick_start1.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\egg\doc\inline\quick_start1.ipp
 
 
 3. Use as a normal function which supports `Boost.ResultOf`_::
 
-	D:\p-stade.sourceforge.net\pstade\libs\egg\doc\inline\quick_start2.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\egg\doc\inline\quick_start2.ipp
 
 Note that ``X`` is deduced as ``int const`` and ``Y`` as ``int``.
 

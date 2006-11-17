@@ -53,7 +53,7 @@ Tested Under
 ----------------------
 ``PSTADE_ADL_BARRIER`` protects names from ADL invasions::
 
-	D:\p-stade.sourceforge.net\pstade\libs\wine\doc\inline\adl_barrier.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\wine\doc\inline\adl_barrier.ipp
 
 Now ``xxx::aaa`` is isolated from ``xxx::begin``, so ``::begin`` is called.
 
@@ -67,7 +67,7 @@ Now ``xxx::aaa`` is isolated from ``xxx::begin``, so ``::begin`` is called.
 A non-const rvalue cannot bind to the deduced non-const reference.
 ``arg`` works around it::
 
-	D:\p-stade.sourceforge.net\pstade\libs\wine\doc\inline\arg.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\wine\doc\inline\arg.ipp
 
 - Header: ``<pstade/arg.hpp>``
 - Valid expression: ``arg(x)``
@@ -105,7 +105,7 @@ Pending...
 ``derived_cast`` is a type-safe cast from a base class to the derived class.
 It just calls ``static_cast``, but the name makes codes clearer::
 
-	D:\p-stade.sourceforge.net\pstade\libs\wine\doc\inline\derived_cast.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\wine\doc\inline\derived_cast.ipp
 
 ``derived`` provides the automatic conversion.
 
@@ -151,7 +151,7 @@ has some pitfalls, which ``PSTADE_INSTANCE`` works around.
 otherwise, ``boost::mpl::false_``. Moreover, it is convertible to ``boost::mpl::true_`` if ``NDEBUG`` is defined;
 otherwise, convertible to ``boost::mpl::false_``::
 
-	D:\p-stade.sourceforge.net\pstade\libs\wine\doc\inline\is_ndebug.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\wine\doc\inline\is_ndebug.ipp
 
 
 - Header: ``<pstade/is_ndebug.hpp>``
@@ -218,7 +218,7 @@ Pending...
 Macros regard `,` as an argument separator. This makes problem when
 you pass a type to macros. ``PSTADE_UNPARENTHESIZE`` works around it::
 
-	D:\p-stade.sourceforge.net\pstade\libs\wine\doc\inline\unparenthesize.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\wine\doc\inline\unparenthesize.ipp
 
 If the argument type is a dependent name, add ``typename`` before.
 
@@ -234,16 +234,16 @@ If the argument type is a dependent name, add ``typename`` before.
 Though an unused variable makes the cumbersome "unused variable" warning, it sometimes helps you.
 The legacy workaround shows::
 
-	D:\p-stade.sourceforge.net\pstade\libs\wine\doc\inline\unused_bad.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\wine\doc\inline\unused_bad.ipp
 
 ``unused`` is a function whose body is empty. It suppresses the warning::
 
-	D:\p-stade.sourceforge.net\pstade\libs\wine\doc\inline\unused_good.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\wine\doc\inline\unused_good.ipp
 
 A smart compiler easily removes such an empty function as ``unused``.
 Note that ``(void)option`` could still make the warning. One of the useful cases is::
 
-	D:\p-stade.sourceforge.net\pstade\libs\wine\doc\inline\unused_useful.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\wine\doc\inline\unused_useful.ipp
 
 The error seems conforming one, but ``unused`` can work around.
 

@@ -25,7 +25,7 @@ function main()
 
 function main_impl(arg)
 {
-	var exe = "D:\\p-stade.sourceforge.net\\pstade\\libs\\doc\\expand_tab.exe"
+	var exe = "E:\\p-stade.sourceforge.net\\pstade\\libs\\doc\\expand_tab.exe"
 
 	var folder = _fs.GetFolder(arg);
 

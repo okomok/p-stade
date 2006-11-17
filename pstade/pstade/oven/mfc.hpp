@@ -3,7 +3,6 @@
 
 
 
-
 // PStade.Oven
 //
 // Copyright Shunsuke Sogame 2005-2006.
@@ -124,7 +123,7 @@ namespace pstade_oven_extension {
         friend class boost::iterator_core_access;
             ref_t dereference() const
             {
-                BOOST_ASSERT(0 <= this->base() && this->base() < m_parr->GetSize() && "out of range");
+                BOOST_ASSERT("out of range" && 0 <= this->base() && this->base() < m_parr->GetSize());
                 return *( m_parr->GetData() + this->base() );
             }
 

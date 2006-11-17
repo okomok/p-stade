@@ -21,8 +21,8 @@
 
 // Note:
 //
-// 'boost::result_of' doesn't work with an array reference
-// under weird VC++7.1.
+// This could be implemnented by 'boost::result_of'?
+// But I'm not sure whether or not he works well under VC++.
 
 
 #include <boost/preprocessor/cat.hpp>

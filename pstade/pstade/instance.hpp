@@ -54,7 +54,7 @@
 
 #define PSTADE_INSTANCE(Type, Name, ValueOrArgSeq) \
     BOOST_PP_ASSERT(PSTADE_INSTANCE_is_valid(ValueOrArgSeq)) \
-    BOOST_PP_IIF (BOOST_MPL_PP_IS_SEQ(ValueOrArgSeq), \
+    BOOST_PP_IIF( BOOST_MPL_PP_IS_SEQ(ValueOrArgSeq), \
         PSTADE_INSTANCE_args, \
         PSTADE_INSTANCE_no_args \
     )(Type, Name, ValueOrArgSeq) \
@@ -62,7 +62,7 @@
 
 
     #define PSTADE_INSTANCE_is_valid(ValueOrArgSeq) \
-        BOOST_PP_IIF (BOOST_MPL_PP_IS_SEQ(ValueOrArgSeq), \
+        BOOST_PP_IIF( BOOST_MPL_PP_IS_SEQ(ValueOrArgSeq), \
             1 BOOST_PP_TUPLE_EAT(2), \
             BOOST_MPL_PP_TOKEN_EQUAL \
         )(ValueOrArgSeq, value) \

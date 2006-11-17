@@ -76,10 +76,8 @@ template< class Clonable >
 struct clone_ptr :
     clone_ptr_detail::super_<Clonable>::type
 {
-private:
-    typedef clone_ptr self_t;
+    typedef clone_ptr type;
 
-public:
 // structors
     clone_ptr() :
         m_ptr(PSTADE_NULLPTR)
@@ -96,20 +94,20 @@ public:
     { }
 
 // copy
-    clone_ptr(self_t const& other) :
+    clone_ptr(type const& other) :
         m_ptr(other ? clone_ptr_detail::new_(*other) : PSTADE_NULLPTR)
     { }
 
-    self_t& operator=(self_t const& other)
+    type& operator=(type const& other)
     {
-        self_t(other).swap(*this);
+        type(other).swap(*this);
         return *this;
     }
 
     template< class Clonable_ >
-    self_t& operator=(std::auto_ptr<Clonable_> ap)
+    type& operator=(std::auto_ptr<Clonable_> ap)
     {
-        self_t(ap).swap(*this);
+        type(ap).swap(*this);
         return *this;
     }
 
@@ -132,18 +130,18 @@ public:
     }
 
 // swappable
-    void swap(self_t& other)
+    void swap(type& other)
     {
         std::swap(m_ptr, other.m_ptr);
     }
 
 // totally_ordered
-    bool operator< (self_t const& other) const
+    bool operator< (type const& other) const
     {
         return m_ptr < other.m_ptr;
     }
 
-    bool operator==(self_t const& other) const
+    bool operator==(type const& other) const
     {
         return m_ptr == other.m_ptr;
     }
