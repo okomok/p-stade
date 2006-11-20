@@ -33,11 +33,11 @@ struct lambda_sig
 {
 private:
     template< class F, class Args, int Arity >
-    struct pstade_lambda_sig_impl;
+    struct sig_impl;
 
     // 0ary
     template< class F, class Args >
-    struct pstade_lambda_sig_impl< F, Args, 0 > :
+    struct sig_impl< F, Args, 0 > :
         boost::result_of<
             F(
             )
@@ -46,7 +46,7 @@ private:
 
     // 1ary
     template< class F, class Args >
-    struct pstade_lambda_sig_impl< F, Args, 1 > :
+    struct sig_impl< F, Args, 1 > :
         boost::result_of<
             F(
                 typename boost::tuples::element< 0, Args >::type &
@@ -65,7 +65,7 @@ private:
 public:
     template< class SigArgs >
     struct sig :
-        pstade_lambda_sig_impl<
+        sig_impl<
             typename SigArgs::head_type, // function
             typename SigArgs::tail_type, // argument tuple
             boost::tuples::length< SigArgs >::value - 1
@@ -86,7 +86,7 @@ public:
 
 
     template< class F, class Args >
-    struct pstade_lambda_sig_impl< F, Args, n > :
+    struct sig_impl< F, Args, n > :
         boost::result_of<
             F(
                 BOOST_PP_ENUM(n, PSTADE_element, ~)

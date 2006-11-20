@@ -45,13 +45,13 @@ void test()
 #if (PSTADE_APPLE_ATL_VER >= 0x0700)
     {
         ATL::CString str = tomato::window_text(hWnd)|oven::copied;
-        tcout << (str|c_stringized) << std::endl;
+        tcout << (str|to_c_str) << std::endl;
     }
 #endif
 
     {
         WTL::CString str = tomato::window_text(hWnd)|oven::copied;
-        tcout << (str|c_stringized) << std::endl;
+        tcout << (str|to_c_str) << std::endl;
     }
 
     {
@@ -63,7 +63,7 @@ void test()
     {
         tomato::window_text text(hWnd);
         // boost::to_upper(text); // no longer mutable range
-        tcout << (text|c_stringized) << std::endl;
+        tcout << (text|to_c_str) << std::endl;
     }
 
     {
@@ -73,7 +73,7 @@ void test()
     }
 
     {
-        tcout << (tomato::window_text(hWnd)|c_stringized) << std::endl;
+        tcout << (tomato::window_text(hWnd)|to_c_str) << std::endl;
         oven::copy(tomato::window_text(hWnd), oven::to_stream(tcout));
     }
 }

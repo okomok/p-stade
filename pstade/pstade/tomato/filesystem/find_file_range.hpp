@@ -80,7 +80,7 @@ private:
 public:
     template< class CStringizable >
     explicit find_file_range(CStringizable const& str) :
-        init_t(str|c_stringized),
+        init_t(str|to_c_str),
         super_t(iter_t(m_hFind, m_data), iter_t())
     { }
 };

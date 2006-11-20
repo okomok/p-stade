@@ -34,6 +34,15 @@
 #include <pstade/egg/pipable.hpp>
 
 
+namespace pstade_tomato_extension {
+
+
+    struct size_initialize { };
+
+
+} // namespace pstade_tomato_extension
+
+
 namespace pstade { namespace tomato {
 
 
@@ -54,7 +63,7 @@ namespace size_initialize_detail {
             BOOST_MPL_ASSERT((boost::is_pod<T>));
         #endif
 
-            pstade_tomato_size_initialize(x);
+            pstade_tomato_(pstade_tomato_extension::size_initialize(), x);
             return x;
         }
     };
@@ -70,44 +79,50 @@ PSTADE_EGG_PIPABLE(size_initialized, size_initialize_detail::baby)
 } } // namespace pstade::tomato
 
 
-// predefined customizations
+// predefined extensions
 //
 
-template< class T > inline
-void pstade_tomato_size_initialize(T& x)
-{
-    x.cbSize = sizeof(T);
-}
+namespace pstade_tomato_extension {
 
 
-inline
-void pstade_tomato_size_initialize(MENUITEMINFO& mii)
-{
-    // See: WTL7.5::CMenuItemInfo
-
-    mii.cbSize = sizeof(MENUITEMINFO);
-
-#if (WINVER >= 0x0500)
-
-    // adjust struct size if running on older version of Windows
-    if (::AtlIsOldWindows()) {
-        BOOST_ASSERT(mii.cbSize > MENUITEMINFO_SIZE_VERSION_400); // must be
-        mii.cbSize = MENUITEMINFO_SIZE_VERSION_400;
+    template< class T > inline
+    void pstade_tomato_(size_initialize, T& x)
+    {
+        x.cbSize = sizeof(T);
     }
 
-#endif
-}
+
+    inline
+    void pstade_tomato_(size_initialize, MENUITEMINFO& mii)
+    {
+        // See: WTL7.5::CMenuItemInfo
+
+        mii.cbSize = sizeof(MENUITEMINFO);
+
+    #if (WINVER >= 0x0500)
+
+        // adjust struct size if running on older version of Windows
+        if (::AtlIsOldWindows()) {
+            BOOST_ASSERT(mii.cbSize > MENUITEMINFO_SIZE_VERSION_400); // must be
+            mii.cbSize = MENUITEMINFO_SIZE_VERSION_400;
+        }
+
+    #endif
+    }
 
 
 #if !defined(_WIN32_WCE)
 
     inline
-    void pstade_tomato_size_initialize(WINDOWPLACEMENT& wndpl)
+    void pstade_tomato_(size_initialize, WINDOWPLACEMENT& wndpl)
     {
         wndpl.length = sizeof(WINDOWPLACEMENT);
     }
 
 #endif // !defined(_WIN32_WCE)
+
+
+} // namespace pstade_tomato_extension
 
 
 #endif

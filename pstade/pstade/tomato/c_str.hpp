@@ -133,7 +133,7 @@ namespace c_str_detail {
 
 
 PSTADE_EGG_FUNCTION(c_str, c_str_detail::baby)
-PSTADE_EGG_PIPABLE(c_stringized, c_str_detail::baby)
+PSTADE_EGG_PIPABLE(to_c_str, c_str_detail::baby)
 
 
 } } // namespace pstade::tomato

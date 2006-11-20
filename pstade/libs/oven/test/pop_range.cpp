@@ -17,6 +17,7 @@
 #include <string>
 #include <boost/range.hpp>
 #include <pstade/oven/functions.hpp>
+#include <pstade/oven/identity_range.hpp>
 
 
 void test()
@@ -24,32 +25,24 @@ void test()
     namespace oven = pstade::oven;
     using namespace oven;
 
-    std::string rng("0123456789");
     {
-        std::vector<char> expected = std::string("12345678")|copied;
+        std::string rng("abcdefg12");
+        std::vector<char> expected = std::string("abcdefg")|copied;
 
         BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
-            rng|popped(1,1),
+            rng|popped|popped,
             expected
         ) );
     }
     {
-        std::vector<char> expected = std::string("345")|copied;
+        std::string rng("abcdefg12");
+        std::vector<char> expected = std::string("abcdefg")|copied;
 
-        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
-            rng|popped(1,1)|popped(2,3),
+        BOOST_CHECK( oven::test_Forward_Readable_Writable(
+            rng|identities(boost::forward_traversal_tag())|
+                popped|popped,
             expected
         ) );
-    }
-
-    {
-        std::string src("0123456789");
-        {
-            BOOST_CHECK( oven::equals(
-                src|popped(1, 1),
-                std::string("12345678")
-            ) );
-        }
     }
 }
 

@@ -7,7 +7,7 @@ The Oven Range Library
 :Author: MB
 :Contact: mb2act@yahoo.co.jp 
 :License: Distributed under the `Boost Software License Version 1.0`_
-:Version: 0.91.7
+:Version: 0.91.8
 
 
 
@@ -735,10 +735,10 @@ Note that ``memoized`` can return a `Forward Range`_ even if its adapting range 
 - Returns:  ``[&*boost::begin(vec),&*boost::begin(vec)+oven::distance(vec))`` if ``vec`` is not empty; otherwise, ``[0,0)``.
 
 
-``popped_back``
-^^^^^^^^^^^^^^^
-- Header: ``<pstade/oven/pop_back_range.hpp>``
-- Valid expression: ``fwdRng|popped_back``
+``popped``
+^^^^^^^^^^
+- Header: ``<pstade/oven/pop_range.hpp>``
+- Valid expression: ``fwdRng|popped``
 - Returns: A range which behaves as if it were ``[boost::begin(fwdRng),boost::next(boost::begin(fwdRng),oven::distance(fwdRng)-1))``
 
 
@@ -1158,4 +1158,8 @@ Version 0.91.7
 ^^^^^^^^^^^^^^
 - Renamed ``repeated`` to ``cycled``.
 - Added ``repeat_range``.
+
+Version 0.91.8
+^^^^^^^^^^^^^^
+- Renamed ``popped_back`` to ``popped``.
 

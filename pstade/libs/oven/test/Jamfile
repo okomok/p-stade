@@ -80,7 +80,7 @@ test-suite oven :
     [ oven-test out_place_range ]
     [ oven-test permute_range ]
     [ oven-test point_range ]
-    [ oven-test pop_back_range ]
+    [ oven-test pop_range ]
     [ oven-test position_range ]
     [ oven-test regularize_range ]
     [ oven-test repeat_range ]

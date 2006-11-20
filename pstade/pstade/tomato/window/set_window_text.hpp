@@ -36,7 +36,7 @@ namespace pstade { namespace tomato {
 template< class CStringizable >
 void set_window_text(window_ref wnd, CStringizable const& str)
 {
-    TCHAR const *pszNew = str|c_stringized;
+    TCHAR const *pszNew = str|to_c_str;
     oven::iter_range<TCHAR const *> rngNew(pszNew|oven::as_c_str);
     int newLen = static_cast<int>(oven::distance(rngNew));
 
