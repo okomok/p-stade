@@ -21,13 +21,11 @@
 #include <boost/thread/thread.hpp>
 #include <pstade/egg/function.hpp>
 #include "./algorithm.hpp" // for_each
-#include "./any_range.hpp"
 #include "./distance.hpp"
 #include "./drop_range.hpp"
+#include "./concepts.hpp"
 #include "./range_difference.hpp"
-#include "./range_reference.hpp"
-#include "./range_traversal.hpp"
-#include "./range_value.hpp"
+#include "./sub_range_base.hpp"
 #include "./take_range.hpp"
 
 
@@ -37,11 +35,11 @@ namespace pstade { namespace oven {
 namespace parallel_detail {
 
 
-    template< class AnyRange, class UnaryFun, class Difference >
+    template< class IterRange, class UnaryFun, class Difference >
     struct for_each_fun
     {
         template< class Range >
-        for_each_fun(Range& rng, UnaryFun& fun, Difference grain) :
+        for_each_fun(Range& rng, UnaryFun const& fun, Difference grain) :
             m_rng(rng), m_fun(fun), m_grain(grain)
         { }
 
@@ -57,6 +55,9 @@ namespace parallel_detail {
                 return;
             }
 
+            // We don't need to call 'adaptor_to' or something.
+            // 'taken' and 'dropped' applied to ForwardRange
+            // fortunately return a type convertible to 'IterRange'.
             boost::thread thrdL(for_each_fun(m_rng|taken(dist/2),   m_fun, m_grain));
             boost::thread thrdR(for_each_fun(m_rng|dropped(dist/2), m_fun, m_grain));
             thrdR.join();
@@ -64,8 +65,8 @@ namespace parallel_detail {
         }
 
     private:
-        AnyRange m_rng;
-        UnaryFun m_fun; // must be copied before creating threads.
+        IterRange  m_rng;
+        UnaryFun   m_fun; // must be copied before creating threads.
         Difference m_grain;
     };
 
@@ -78,22 +79,19 @@ namespace parallel_detail {
         };
 
         template< class Result, class Range, class UnaryFun, class Difference >
-        Result call(Range& rng, UnaryFun& fun, Difference grain)
+        // Workaround:
+        // Compilers complain about "return void"
+        // if you write not 'void' but 'Result'.
+        PSTADE_CONCEPT_WHERE(
+            ((Forward<Range>)),
+        (void)) call(Range& rng, UnaryFun fun, Difference grain)
         {
             typedef typename range_difference<Range>::type diff_t;
 
             // Range type must be erased to avoid infinite recursion
             // of 'for_each_fun' template-instantiation.
-            typedef
-                any_range<
-                    typename range_value<Range>::type,
-                    typename range_traversal<Range>::type,
-                    typename range_reference<Range>::type,
-                    diff_t
-                >
-            any_range_t;
-
-            for_each_fun<any_range_t, UnaryFun, diff_t>(rng, fun, grain)();
+            typedef typename sub_range_base<Range>::type base_t;
+            for_each_fun<base_t, UnaryFun, diff_t>(rng, fun, grain)();
         }
     };
 
