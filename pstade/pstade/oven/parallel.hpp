@@ -13,8 +13,6 @@
 // See:
 //
 // http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2104.pdf
-//
-// This cheap implementation is just out of curiosity.
 
 
 #include <boost/range/empty.hpp>
@@ -43,7 +41,7 @@ namespace parallel_detail {
             m_rng(rng), m_fun(fun), m_grain(grain)
         { }
 
-        void operator()() const
+        void operator()()
         {
             if (boost::empty(m_rng))
                 return;
@@ -58,8 +56,10 @@ namespace parallel_detail {
             // We don't need to call 'adaptor_to' or something.
             // 'taken' and 'dropped' applied to ForwardRange
             // fortunately return a type convertible to 'IterRange'.
-            boost::thread thrdL(for_each_fun(m_rng|taken(dist/2),   m_fun, m_grain));
-            boost::thread thrdR(for_each_fun(m_rng|dropped(dist/2), m_fun, m_grain));
+            take_range<IterRange> rngL(m_rng, dist/2);
+            drop_range<IterRange> rngR(m_rng, dist/2);
+            boost::thread thrdL(for_each_fun(rngL, m_fun, m_grain));
+            boost::thread thrdR(for_each_fun(rngR, m_fun, m_grain));
             thrdR.join();
             thrdL.join();
         }
@@ -88,9 +88,10 @@ namespace parallel_detail {
         {
             typedef typename range_difference<Range>::type diff_t;
 
-            // Range type must be erased to avoid infinite recursion
+            // Range type must be "erased" to avoid infinite recursion
             // of 'for_each_fun' template-instantiation.
             typedef typename sub_range_base<Range>::type base_t;
+
             for_each_fun<base_t, UnaryFun, diff_t>(rng, fun, grain)();
         }
     };
