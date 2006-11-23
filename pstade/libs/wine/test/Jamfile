@@ -23,6 +23,7 @@ test-suite wine :
     [ wine-test check ]
     [ wine-test clone_ptr ]
     [ wine-test concept_off ]
+    [ wine-test concept_on ]
     [ wine-test contract ]
     [ wine-test for_debug ]
     [ wine-test functional ]

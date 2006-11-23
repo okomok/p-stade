@@ -58,15 +58,17 @@ namespace parallel_detail {
             // fortunately return a type convertible to 'IterRange'.
             take_range<IterRange> rngL(m_rng, dist/2);
             drop_range<IterRange> rngR(m_rng, dist/2);
+
             boost::thread thrdL(for_each_fun(rngL, m_fun, m_grain));
             boost::thread thrdR(for_each_fun(rngR, m_fun, m_grain));
-            thrdR.join();
+
             thrdL.join();
+            thrdR.join();
         }
 
     private:
         IterRange  m_rng;
-        UnaryFun   m_fun; // must be copied before creating threads.
+        UnaryFun   m_fun;
         Difference m_grain;
     };
 

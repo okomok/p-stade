@@ -51,7 +51,7 @@ namespace distance_detail {
 
 
     // Topic:
-    // 'std::distance' also requires this. (24.1/6)
+    // This is 'std::distance' requirement. (24.1/6)
     template< class Difference > inline
     Difference assert_reachable(Difference d)
     {

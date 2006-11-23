@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/oven/tests.hpp>
 #include <pstade/oven/parallel.hpp>
 
 
@@ -20,7 +21,7 @@
 
 void output(char ch)
 {
-    ::Sleep(std::rand()%100);
+   // ::Sleep(std::rand()%100);
    std::cout << ch;
 }
 
@@ -32,7 +33,7 @@ void test()
 
     {
         std::string rng("abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz");
-        oven::parallel_for_each(rng, &output);
+        oven::parallel_for_each(rng, &output, 16);
     }
 }
 

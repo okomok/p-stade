@@ -30,7 +30,6 @@ namespace pstade {
 // If 'T' is a dependent-name,
 // you can always add 'typename' to this
 // even if 'Decayed' is not dependent.
-// See "./concept.hpp".
 
 template< class Decayed, class T = void >
 struct unparenthesize;

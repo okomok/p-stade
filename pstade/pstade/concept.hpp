@@ -50,8 +50,12 @@
 
     #define PSTADE_CONCEPT_ASSERT(ModelInParens)
     #define PSTADE_CONCEPT_USAGE(Model) ~Model()
+
+    // 'typename' is legal here even if 'Result' is not dependent,
+    // because this macro appears in a template. (C++ Templates 9.3.2)
     #define PSTADE_CONCEPT_WHERE(Models, Result) \
-        typename pstade::unparenthesize<void Result, void BOOST_PP_SEQ_HEAD(Models)>::type
+        typename pstade::unparenthesize<void Result>::type \
+    /**/
 
 #endif // !defined(PSTADE_CONCEPT_OFF)
 
