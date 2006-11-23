@@ -11,12 +11,12 @@
 
 
 #include <boost/assert.hpp>
-#include <boost/next_prior.hpp> // next
 #include <boost/range/begin.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
+#include "./detail/next_prior.hpp" // next
 #include "./distance.hpp"
 #include "./range_iterator.hpp"
 #include "./sub_range_base.hpp"
@@ -35,8 +35,8 @@ namespace window_range_detail {
         // BOOST_ASSERT(0 <= n && n <= m && m <= oven::distance(rng));
 
         typedef typename range_iterator<Range>::type iter_t;
-        iter_t first = boost::next(boost::begin(rng), n);
-        return Super(first, boost::next(first, m - n));
+        iter_t first = detail::next(boost::begin(rng), n);
+        return Super(first, detail::next(first, m - n));
     }
 
 

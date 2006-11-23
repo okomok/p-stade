@@ -14,9 +14,9 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/iterator/iterator_categories.hpp>
-#include <boost/next_prior.hpp> // prior
 #include <pstade/unused.hpp>
 #include "../range_iterator.hpp"
+#include "./next_prior.hpp" // prior
 
 
 namespace pstade { namespace oven { namespace detail {
@@ -26,7 +26,7 @@ template< class ForwardIter > inline
 ForwardIter range_prior_aux(ForwardIter first, ForwardIter const& last, boost::bidirectional_traversal_tag)
 {
     pstade::unused(first);
-    return boost::prior(last);
+    return detail::prior(last);
 }
 
 

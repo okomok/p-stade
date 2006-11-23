@@ -10,13 +10,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/next_prior.hpp> // next
 #include <boost/range/end.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./detail/debug_in_distance.hpp"
+#include "./detail/next_prior.hpp" // next
 #include "./sub_range_base.hpp"
 
 
@@ -36,7 +36,7 @@ private:
 public:
     template< class Difference >
     drop_range(Range& rng, Difference d) :
-        super_t(boost::next(boost::begin(rng), d), boost::end(rng))
+        super_t(detail::next(boost::begin(rng), d), boost::end(rng))
     {
         BOOST_ASSERT(detail::debug_in_distance(d, rng));
     }

@@ -27,21 +27,17 @@
 namespace pstade {
 
 
-// If 'T' is a dependent-name,
-// you can always add 'typename' to this
-// even if 'Decayed' is not dependent.
-
-template< class Decayed, class T = void >
+template< class Decayed >
 struct unparenthesize;
 
-template< class Decayed, class T >
-struct unparenthesize<void(Decayed), T>
+template< class Decayed >
+struct unparenthesize<void(Decayed)>
 {
     typedef Decayed type;
 };
 
-template< class T >
-struct unparenthesize<void(void), T>
+template< >
+struct unparenthesize<void(void)>
 {
     typedef void type;
 };

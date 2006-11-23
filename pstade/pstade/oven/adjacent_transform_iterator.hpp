@@ -14,11 +14,11 @@
 #include <boost/mpl/identity.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_traits.hpp> // iterator_reference
-#include <boost/next_prior.hpp> // next
 #include <boost/optional.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/unused.hpp>
+#include "./detail/next_prior.hpp" // next
 #include "./detail/range_prior.hpp"
 
 
@@ -119,7 +119,7 @@ friend class boost::iterator_core_access;
     ref_t dereference() const
     {
         if (!m_cache)
-            m_cache = boost::next(this->base());
+            m_cache = detail::next(this->base());
 
         return m_fun(*this->base(), **m_cache);
     }

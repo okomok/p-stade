@@ -65,17 +65,17 @@ namespace joint_iterator_detail {
         BOOST_ASSERT(diff >= 0);
 
         if (itL != lastL) {
-            Difference dL = std::distance(itL, lastL);
+            Difference dL = lastL - itL;
             if (diff > dL) {
                 itL = lastL;
-                std::advance(itR, diff - dL);
+                itR += diff - dL;
             }
             else {
-                std::advance(itL, diff);
+                itL += diff;
             }
         }
         else {
-            std::advance(itR, diff);
+            itR += diff;
         }
     }
 

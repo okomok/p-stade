@@ -109,7 +109,7 @@ friend class boost::iterator_core_access;
     {
         if (!m_cache) {
             m_cache = this->base();
-            std::advance(*m_cache, m_start); // guarantees constant-time. (24.3.4/1)
+            *m_cache += m_start;
         }
 
         return **m_cache;
@@ -124,19 +124,19 @@ friend class boost::iterator_core_access;
 
     void increment()
     {
-        std::advance(this->base_reference(), m_stride);
+        this->base_reference() += m_stride;
         m_cache.reset();
     }
 
     void decrement()
     {
-        std::advance(this->base_reference(), -m_stride);
+        this->base_reference() += -m_stride;
         m_cache.reset();
     }
 
     void advance(diff_t d)
     {
-        std::advance(this->base_reference(), d * m_stride);
+        this->base_reference() += d * m_stride;
         m_cache.reset();
     }
 

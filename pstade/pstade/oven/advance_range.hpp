@@ -17,13 +17,13 @@
 // 'cshift_range'(cyclic shift operation) is also a candidate. 
 
 
-#include <boost/next_prior.hpp> // next
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
+#include "./detail/next_prior.hpp" // next
 #include "./sub_range_base.hpp"
 
 
@@ -39,8 +39,8 @@ namespace advance_range_detail {
         BOOST_ASSERT(0 + dfirst <= oven::distance(rng) + dlast);
 
         return Super(
-            boost::next(boost::begin(rng), dfirst),
-            boost::next(boost::end(rng), dlast));
+            detail::next(boost::begin(rng), dfirst),
+            detail::next(boost::end(rng), dlast));
     }
 
 

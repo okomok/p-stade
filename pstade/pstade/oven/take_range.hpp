@@ -12,12 +12,12 @@
 
 #include <boost/assert.hpp>
 #include <boost/mpl/identity.hpp>
-#include <boost/next_prior.hpp> // next
 #include <boost/range/begin.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
+#include "./detail/next_prior.hpp" // next
 #include "./distance.hpp"
 #include "./range_difference.hpp"
 #include "./range_traversal.hpp"
@@ -74,7 +74,7 @@ namespace take_range_detail {
 
         return Super(
             boost::begin(rng),
-            boost::next(boost::begin(rng), d)
+            detail::next(boost::begin(rng), d)
         );
     }
 
