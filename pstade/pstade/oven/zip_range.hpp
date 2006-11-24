@@ -14,7 +14,6 @@
 #include <boost/tuple/tuple.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
-#include <pstade/pass_by.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
@@ -88,7 +87,7 @@ private:
     typedef typename super_t::iterator iter_t;
 
 public:
-    explicit zip_range(RangeTuple const& tup) :
+    explicit zip_range(RangeTuple& tup) :
         super_t(
             iter_t(zip_range_detail::tuple_transform(tup, zip_range_detail::begin_fun())),
             iter_t(zip_range_detail::tuple_transform(tup, zip_range_detail::end_fun()))
@@ -102,18 +101,37 @@ namespace zip_range_detail {
 
     struct baby_make
     {
+        template< class Myself, class RangeTupleOrRange0, class Range1 = void >
+        struct apply;
+
+        // tuple
         template< class Myself, class RangeTuple >
-        struct apply
+        struct apply<Myself, RangeTuple>
         {
-            typedef typename pass_by_value<RangeTuple>::type tup_t;
-            typedef zip_range<tup_t> const type;
+            typedef zip_range<RangeTuple> const type;
         };
 
         template< class Result, class RangeTuple >
-        Result call(RangeTuple const& tup)
+        Result call(RangeTuple& tup)
         {
             return Result(tup);
         }
+
+#if 1 // pending...
+        // two ranges (primary)
+        template< class Myself, class Range0, class Range1 >
+        struct apply
+        {
+            typedef zip_range<boost::tuples::tuple<Range0&, Range1&> const> const type;
+        };
+
+        template< class Result, class Range0, class Range1 >
+        Result call(Range0& rng0, Range1& rng1)
+        {
+            typedef typename Result::range_tuple_type tup_t;
+            return Result(tup_t(rng0, rng1));
+        }
+#endif
     };
 
 
@@ -122,31 +140,6 @@ namespace zip_range_detail {
 
 PSTADE_EGG_FUNCTION(make_zip_range, zip_range_detail::baby_make)
 PSTADE_EGG_PIPABLE(zipped, zip_range_detail::baby_make)
-
-
-namespace tied_detail {
-
-
-    struct baby
-    {
-        template< class Myself, class T0, class T1 >
-        struct apply
-        {
-            typedef boost::tuples::tuple<T0&, T1&> const type;
-        };
-
-        template< class Result, class T0, class T1>
-        Result call(T0& a0, T1& a1)
-        {
-            return Result(a0, a1);
-        }
-    };
-
-
-} // namespace tie_detail
-
-
-PSTADE_EGG_PIPABLE(tied, tied_detail::baby)
 
 
 } } // namespace pstade::oven

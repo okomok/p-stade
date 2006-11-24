@@ -62,7 +62,7 @@ private:
     typedef typename range_base<super_t>::type base_t;
 
 public:
-    zip_with_range(RangeTuple const& tup, UnaryFun const& fun) :
+    zip_with_range(RangeTuple& tup, UnaryFun const& fun) :
         super_t(base_t(tup), fun)
     { }
 };
@@ -76,13 +76,12 @@ namespace zip_with_range_detail {
         template< class Myself, class RangeTuple, class UnaryFun >
         struct apply
         {
-            typedef typename pass_by_value<RangeTuple>::type tup_t;
             typedef typename pass_by_value<UnaryFun>::type fun_t;
-            typedef zip_with_range<tup_t, fun_t> const type;
+            typedef zip_with_range<RangeTuple, fun_t> const type;
         };
 
         template< class Result, class RangeTuple, class UnaryFun >
-        Result call(RangeTuple const& tup, UnaryFun& fun)
+        Result call(RangeTuple& tup, UnaryFun& fun)
         {
             return Result(tup, fun);
         }

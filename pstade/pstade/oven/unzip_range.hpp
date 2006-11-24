@@ -93,8 +93,6 @@ public:
     explicit unzip_at_range(TupleRange& rng) :
         super_t(rng, fun_t())
     { }
-
-    typedef TupleRange pstade_oven_range_base_type;
 };
 
 

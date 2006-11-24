@@ -48,6 +48,7 @@ test-suite wine :
     [ wine-test result_of_lambda ]
     [ wine-test statement ]
     [ wine-test static_c ]
+    [ wine-test tie ]
     [ wine-test tupled ]
     [ wine-test unparenthesize ]
     [ wine-test unused ]

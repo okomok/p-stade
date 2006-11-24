@@ -44,7 +44,7 @@ void test()
         std::vector<int> expected = ans|copied;
 
        BOOST_CHECK( oven::test_RandomAccess_Readable(
-            xs|tied(ys)|zipped_with(::plus()),
+            xs|pstade::tied(ys)|zipped_with(::plus()),
             expected
         ) );
     }

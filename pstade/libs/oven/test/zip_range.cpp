@@ -21,6 +21,8 @@
 #include <boost/range.hpp>
 #include <pstade/unparenthesize.hpp>
 #include <pstade/oven/functions.hpp>
+#include <pstade/tie.hpp>
+
 
 #include <boost/tuple/tuple_comparison.hpp> // DON'T FORGET for Readability!
 
@@ -42,7 +44,7 @@ void test()
         expected.push_back(tt('3', 3));
 
         BOOST_CHECK( oven::test_RandomAccess_Readable(
-            rng0|tied(rng1)|zipped,
+            rng0|pstade::tied(rng1)|zipped,
             expected
         ) );
     }
@@ -78,7 +80,7 @@ void test()
 
         BOOST_FOREACH (
             PSTADE_UNPARENTHESIZE((boost::tuple<char&, int&>)) t,
-            src0|tied(src1)|zipped
+            src0|zipped(src1)
         ) {
             char& ch = boost::get<0>(t);
             if (ch == '4')
