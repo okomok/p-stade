@@ -949,7 +949,7 @@ Pending...
 If one input range is short, excess elements of the longer range are discarded.
 
 - Header: ``<pstade/oven/zip_range.hpp>``
-- Valid expression: ``rng0|zipped(rng1)``
+- Valid expression: ``boost::tie(rng0,rng1)|zipped`` and ``rng0|tied(rng1)|zipped``
 - Returns: A range whose iterators behave as if they were the original iterators wrapped in ``boost::zip_iterator``.
 
 
@@ -962,7 +962,8 @@ given as the first argument, instead of a tupling::
 
 
 - Header: ``<pstade/oven/zip_with_range.hpp>``
-- Valid expression: ``rng0|zipped_with(rng1, rfun)``
+- Valid expression: ``boost::tie(rng0,rng1)|zipped_with(rfun)`` and ``rng0|tied(rng1)|zipped_with(rfun)``
+- Precondition: ``rfun(tup)`` is a valid expression, where ``tup`` is the tuple returned by the ``boost::zip_iterator``\'s ``operator*``.
 - Returns: A range whose values are zipped by using ``rfun``.
 
 
@@ -1162,4 +1163,6 @@ Version 0.91.7
 Version 0.91.8
 ^^^^^^^^^^^^^^
 - Renamed ``popped_back`` to ``popped``.
+- Changed the valid expressions of ``zipped`` and ``zipped_with``.
+
 

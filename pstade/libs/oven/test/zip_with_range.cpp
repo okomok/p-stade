@@ -25,9 +25,9 @@ struct plus
 {
     typedef int result_type;
 
-    int operator()(int x, int y) const
+    int operator()(boost::tuple<int, int> t) const
     {
-        return x + y;
+        return boost::get<0>(t) + boost::get<1>(t);
     }
 };
 
@@ -44,7 +44,7 @@ void test()
         std::vector<int> expected = ans|copied;
 
        BOOST_CHECK( oven::test_RandomAccess_Readable(
-            xs|zipped_with(ys, ::plus()),
+            xs|tied(ys)|zipped_with(::plus()),
             expected
         ) );
     }
@@ -55,7 +55,7 @@ void test()
         int ans[] = { 1, 7, 3, 5,11,13, 9 };
 
         BOOST_CHECK( oven::equals(
-            xs|zipped_with(ys, ::plus()),
+            boost::tie(xs, ys)|zipped_with(::plus()),
             ans
         ) );
     }

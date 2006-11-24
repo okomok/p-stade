@@ -42,7 +42,24 @@ void test()
         expected.push_back(tt('3', 3));
 
         BOOST_CHECK( oven::test_RandomAccess_Readable(
-            rng0|zipped(rng1),
+            rng0|tied(rng1)|zipped,
+            expected
+        ) );
+    }
+    {
+        std::string rng0("0123");
+        int rng1[] = { 0,1,2,3 };
+        std::string rng2("ABCD");
+
+        typedef boost::tuple<char, int, char> tt;
+        std::vector<tt> expected;
+        expected.push_back(tt('0', 0, 'A'));
+        expected.push_back(tt('1', 1, 'B'));
+        expected.push_back(tt('2', 2, 'C'));
+        expected.push_back(tt('3', 3, 'D'));
+
+        BOOST_CHECK( oven::test_RandomAccess_Readable(
+            boost::tuples::tie(rng0, rng1, rng2)|zipped,
             expected
         ) );
     }
@@ -61,7 +78,7 @@ void test()
 
         BOOST_FOREACH (
             PSTADE_UNPARENTHESIZE((boost::tuple<char&, int&>)) t,
-            src0|zipped(src1)
+            src0|tied(src1)|zipped
         ) {
             char& ch = boost::get<0>(t);
             if (ch == '4')

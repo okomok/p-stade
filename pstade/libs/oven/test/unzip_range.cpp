@@ -43,7 +43,7 @@ void test()
 
         BOOST_FOREACH (
             int& i,
-            src0|zipped(src1)|unzipped_at<1>()
+            src0|tied(src1)|zipped|unzipped_at_c<1>()
         ) {
             if (i == 4)
                 i = 5;
@@ -62,14 +62,14 @@ void test()
 
         BOOST_CHECK((
             oven::equals(
-                boost::get<0>(src0|zipped(src1)|unzipped),
+                boost::get<0>(src0|tied(src1)|zipped|unzipped),
                 src0
             )
         ));
 
         BOOST_CHECK((
             oven::equals(
-                boost::get<1>(src0|zipped(src1)|unzipped),
+                boost::get<1>(src0|tied(src1)|zipped|unzipped),
                 src1
             )
         ));

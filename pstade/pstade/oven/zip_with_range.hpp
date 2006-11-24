@@ -10,15 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/tuple/tuple.hpp>
-#include <boost/utility/result_of.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <pstade/pass_by.hpp>
 #include "./as_lightweight_proxy.hpp"
-#include "./concepts.hpp"
 #include "./range_base.hpp"
-#include "./range_reference.hpp"
 #include "./transform_range.hpp"
 #include "./zip_range.hpp"
 
@@ -30,46 +26,16 @@ namespace zip_with_range_detail {
 
 
     template<
-        class Range0, class Range1,
-        class BinaryFun
-    >
-    struct with_fun
-    {
-        typedef typename range_reference<Range0>::type ref0_t;
-        typedef typename range_reference<Range1>::type ref1_t;
-
-        typedef typename boost::result_of<BinaryFun(ref0_t, ref1_t)>::type
-        result_type;
-
-        explicit with_fun() // must be DefaultConstructible to be ForwardIterator.
-        { }
-
-        explicit with_fun(BinaryFun const& fun) :
-            m_fun(fun)
-        { }
-
-        result_type operator()(boost::tuples::tuple<ref0_t, ref1_t> const& tup) const
-        {
-            using namespace boost;
-            return m_fun(tuples::get<0>(tup), tuples::get<1>(tup));
-        }
-
-    private:
-        BinaryFun m_fun;
-    };
-
-
-    template<
-        class Range0, class Range1,
-        class BinaryFun,
+        class RangeTuple,
+        class UnaryFun,
         class Reference,
         class Value
     >
     struct super_
     {
         typedef transform_range<
-            zip_range<Range0, Range1> const,
-            with_fun<Range0, Range1, BinaryFun>,
+            zip_range<RangeTuple> const,
+            UnaryFun,
             Reference,
             Value
         > type;
@@ -80,30 +46,23 @@ namespace zip_with_range_detail {
 
 
 template<
-    class Range0, class Range1,
-    class BinaryFun,
+    class RangeTuple,
+    class UnaryFun,
     class Reference = boost::use_default,
     class Value     = boost::use_default
 >
 struct zip_with_range :
-    zip_with_range_detail::super_<Range0, Range1, BinaryFun, Reference, Value>::type,
-    private as_lightweight_proxy< zip_with_range<Range0, Range1, BinaryFun, Reference, Value> >
+    zip_with_range_detail::super_<RangeTuple, UnaryFun, Reference, Value>::type,
+    private as_lightweight_proxy< zip_with_range<RangeTuple, UnaryFun, Reference, Value> >
 {
-    PSTADE_CONCEPT_ASSERT((SinglePass<Range0>));
-    PSTADE_CONCEPT_ASSERT((SinglePass<Range1>));
-    typedef BinaryFun function_type;
-
 private:
-    typedef typename zip_with_range_detail::super_<Range0, Range1, BinaryFun, Reference, Value>::type super_t;
+    typedef typename zip_with_range_detail::super_<RangeTuple, UnaryFun, Reference, Value>::type super_t;
     typedef typename range_base<super_t>::type base_t;
-    typedef typename super_t::function_type fun_t;
 
 public:
-    zip_with_range(Range0& rng0, Range1& rng1, BinaryFun const& fun) :
-        super_t(base_t(rng0, rng1), fun_t(fun))
+    zip_with_range(RangeTuple const& tup, UnaryFun const& fun) :
+        super_t(base_t(tup), fun)
     { }
-
-    typedef Range0 pstade_oven_range_base_type;
 };
 
 
@@ -112,17 +71,18 @@ namespace zip_with_range_detail {
 
     struct baby_make
     {
-        template< class Myself, class Range0, class Range1, class BinaryFun >
+        template< class Myself, class RangeTuple, class UnaryFun >
         struct apply
         {
-            typedef typename pass_by_value<BinaryFun>::type fun_t;
-            typedef zip_with_range<Range0, Range1, fun_t> const type;
+            typedef typename pass_by_value<RangeTuple>::type tup_t;
+            typedef typename pass_by_value<UnaryFun>::type fun_t;
+            typedef zip_with_range<tup_t, fun_t> const type;
         };
 
-        template< class Result, class Range0, class Range1, class BinaryFun >
-        Result call(Range0& rng0, Range1& rng1, BinaryFun& fun)
+        template< class Result, class RangeTuple, class UnaryFun >
+        Result call(RangeTuple const& tup, UnaryFun& fun)
         {
-            return Result(rng0, rng1, fun);
+            return Result(tup, fun);
         }
     };
 

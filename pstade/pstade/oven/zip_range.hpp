@@ -14,8 +14,8 @@
 #include <boost/tuple/tuple.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
+#include <pstade/pass_by.hpp>
 #include "./as_lightweight_proxy.hpp"
-#include "./concepts.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
 
@@ -26,20 +26,48 @@ namespace pstade { namespace oven {
 namespace zip_range_detail {
 
 
-    template< class Range0, class Range1 >
-    struct iterator_tuple
+    using boost::detail::tuple_impl_specific::tuple_meta_transform;
+    using boost::detail::tuple_impl_specific::tuple_transform;
+
+
+    struct with_apply
     {
-        typedef typename range_iterator<Range0>::type iter0_t;
-        typedef typename range_iterator<Range1>::type iter1_t;
-        typedef boost::tuples::tuple<iter0_t, iter1_t> type;
+        template< class Range >
+        struct apply :
+            range_iterator<Range>
+        { };
     };
 
 
-    template< class Range0, class Range1 >
+    struct begin_fun : with_apply
+    {
+        template< class Range >
+        typename apply<Range&>::type
+        operator()(Range& rng) const
+        {
+            return boost::begin(rng);
+        }
+    };
+
+
+    struct end_fun   : with_apply
+    {
+        template< class Range >
+        typename apply<Range&>::type
+        operator()(Range& rng) const
+        {
+            return boost::end(rng);
+        }
+    };
+
+
+    template< class RangeTuple >
     struct super_ :
         iter_range<
             boost::zip_iterator<
-                typename iterator_tuple<Range0, Range1>::type
+                typename tuple_meta_transform<
+                    RangeTuple, with_apply
+                >::type
             >
         >
     { };
@@ -48,26 +76,24 @@ namespace zip_range_detail {
 } // namespace zip_range_detail
 
 
-template< class Range0, class Range1 >
+template< class RangeTuple >
 struct zip_range :
-    zip_range_detail::super_<Range0, Range1>::type,
-    private as_lightweight_proxy< zip_range<Range0, Range1> >
+    zip_range_detail::super_<RangeTuple>::type,
+    private as_lightweight_proxy< zip_range<RangeTuple> >
 {
-    PSTADE_CONCEPT_ASSERT((SinglePass<Range0>));
-    PSTADE_CONCEPT_ASSERT((SinglePass<Range1>));
+    typedef RangeTuple range_tuple_type;
 
 private:
-    typedef typename zip_range_detail::super_<Range0, Range1>::type super_t;
+    typedef typename zip_range_detail::super_<RangeTuple>::type super_t;
+    typedef typename super_t::iterator iter_t;
 
 public:
-    zip_range(Range0& rng0, Range1& rng1) :
+    explicit zip_range(RangeTuple const& tup) :
         super_t(
-            boost::tuples::make_tuple(boost::begin(rng0), boost::begin(rng1)),
-            boost::tuples::make_tuple(boost::end(rng0), boost::end(rng1))
+            iter_t(zip_range_detail::tuple_transform(tup, zip_range_detail::begin_fun())),
+            iter_t(zip_range_detail::tuple_transform(tup, zip_range_detail::end_fun()))
         )
     { }
-
-    typedef Range0 pstade_oven_range_base_type;
 };
 
 
@@ -76,16 +102,17 @@ namespace zip_range_detail {
 
     struct baby_make
     {
-        template< class Myself, class Range0, class Range1 >
+        template< class Myself, class RangeTuple >
         struct apply
         {
-            typedef zip_range<Range0, Range1> const type;
+            typedef typename pass_by_value<RangeTuple>::type tup_t;
+            typedef zip_range<tup_t> const type;
         };
 
-        template< class Result, class Range0, class Range1 >
-        Result call(Range0& rng0, Range1& rng1)
+        template< class Result, class RangeTuple >
+        Result call(RangeTuple const& tup)
         {
-            return Result(rng0, rng1);
+            return Result(tup);
         }
     };
 
@@ -95,6 +122,31 @@ namespace zip_range_detail {
 
 PSTADE_EGG_FUNCTION(make_zip_range, zip_range_detail::baby_make)
 PSTADE_EGG_PIPABLE(zipped, zip_range_detail::baby_make)
+
+
+namespace tied_detail {
+
+
+    struct baby
+    {
+        template< class Myself, class T0, class T1 >
+        struct apply
+        {
+            typedef boost::tuples::tuple<T0&, T1&> const type;
+        };
+
+        template< class Result, class T0, class T1>
+        Result call(T0& a0, T1& a1)
+        {
+            return Result(a0, a1);
+        }
+    };
+
+
+} // namespace tie_detail
+
+
+PSTADE_EGG_PIPABLE(tied, tied_detail::baby)
 
 
 } } // namespace pstade::oven

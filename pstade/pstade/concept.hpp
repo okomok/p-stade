@@ -52,7 +52,7 @@
     #define PSTADE_CONCEPT_USAGE(Model) ~Model()
 
     // 'typename' is legal here even if 'Result' is not dependent,
-    // because this macro appears in a template. (C++ Templates 9.3.2)
+    // because this macro appears in a template. (C++98 14.6/5)
     #define PSTADE_CONCEPT_WHERE(Models, Result) \
         typename pstade::unparenthesize<void Result>::type \
     /**/
