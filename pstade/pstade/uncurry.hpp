@@ -16,13 +16,12 @@
 // In fact, C++ has no curried function; any better name?
 
 
-#include <boost/mpl/if.hpp>
 #include <boost/mpl/int.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/tuple/tuple.hpp>
-#include <boost/type_traits/is_const.hpp>
 #include <boost/utility/result_of.hpp>
+#include <pstade/affect.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <pstade/pass_by.hpp>
@@ -35,18 +34,12 @@ namespace uncurry_detail {
 
 
     template< class Tuple, int N >
-    struct result_of_get
-    {
-        typedef typename boost::tuples::element<N, Tuple>::type elem_t;
-        typedef boost::tuples::access_traits<elem_t> traits_t;
-
-        typedef typename
-            boost::mpl::if_< boost::is_const<Tuple>,
-                typename traits_t::const_type,
-                typename traits_t::non_const_type
-            >::type
-        type;
-    };
+    struct result_of_get :
+        affect_cvr<
+            Tuple&,
+            typename boost::tuples::element<N, Tuple>::type
+        >
+    { };
 
 
     template< class Function, class Tuple, class Arity >

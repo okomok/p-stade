@@ -14,13 +14,15 @@
 #include <boost/mpl/int.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <boost/type_traits/add_const.hpp>
+#include <boost/type_traits/remove_reference.hpp>
+#include <pstade/affect.hpp>
 #include <pstade/const_overloaded.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <pstade/nonassignable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
-#include "./range_value.hpp"
+#include "./range_reference.hpp"
 #include "./transform_range.hpp"
 
 
@@ -33,11 +35,14 @@ namespace unzip_at_range_detail {
     template< class TupleRange, class N >
     struct result_of_get_at
     {
-        typedef typename range_value<TupleRange>::type tup_t;
+        typedef typename range_reference<TupleRange>::type tup_ref_t;
+        typedef typename boost::remove_reference<tup_ref_t>::type tup_t;
+
         typedef
-            typename boost::tuples::access_traits<
+            typename affect_cvr<
+                tup_ref_t,
                 typename boost::tuples::element<N::value, tup_t>::type
-            >::const_type
+            >::type
         type;
     };
 
