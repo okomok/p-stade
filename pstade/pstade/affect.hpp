@@ -13,7 +13,7 @@
 // Note:
 //
 // The name 'affect' comes from C++ Standard 9.3.1/4.
-// If a member is reference or poiner, it is not affected.
+// If a member is reference, it is not affected.
 // You can find the same strategy in boost::tuples::access_traits.
 
 
