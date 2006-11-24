@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/iterator/zip_iterator.hpp> // tuple_impl_specific
 #include <boost/mpl/int.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <boost/type_traits/add_const.hpp>
@@ -49,9 +50,9 @@ namespace unzip_at_range_detail {
         result_type;
 
         template< class Tuple >
-        result_type operator()(Tuple const& t) const
+        result_type operator()(Tuple const& tup) const
         {
-            return boost::tuples::get<N::value>(t);
+            return boost::tuples::get<N::value>(tup);
         }
     };
 
@@ -59,10 +60,12 @@ namespace unzip_at_range_detail {
     template< class TupleRange, class N >
     struct super_
     {
-        typedef transform_range<
-            TupleRange,
-            get_at<TupleRange, N>
-        > type;
+        typedef
+            transform_range<
+                TupleRange,
+                get_at<TupleRange, N>
+            >
+        type;
     };
 
 
@@ -85,6 +88,8 @@ public:
     explicit unzip_at_range(TupleRange& rng) :
         super_t(rng, fun_t())
     { }
+
+    typedef TupleRange pstade_oven_range_base_type;
 };
 
 
@@ -154,77 +159,75 @@ struct unzipped_at_c :
 namespace unzipped_detail {
 
 
-    template< class TupleRange, class Arity >
-    struct apply_impl;
-
-    template< class TupleRange >
-    struct apply_impl< TupleRange, boost::mpl::int_<2> >
-    {
-        typedef typename boost::tuples::tuple<
-            unzip_at_range< TupleRange, boost::mpl::int_<0> >,
-            unzip_at_range< TupleRange, boost::mpl::int_<1> >
-        > const type;
-    };
-
-    template< class TupleRange >
-    struct apply_impl< TupleRange, boost::mpl::int_<3> >
-    {
-        typedef typename boost::tuples::tuple<
-            unzip_at_range< TupleRange, boost::mpl::int_<0> >,
-            unzip_at_range< TupleRange, boost::mpl::int_<1> >,
-            unzip_at_range< TupleRange, boost::mpl::int_<2> >
-        > const type;
-    };
-
-
-    template< class Result, class TupleRange > inline
-    Result call_impl(TupleRange& rng, boost::mpl::int_<2>)
-    {
-        return Result(
-            unzip_at_range< TupleRange, boost::mpl::int_<0> >(rng),
-            unzip_at_range< TupleRange, boost::mpl::int_<1> >(rng));
-    }
-
-    template< class Result, class TupleRange > inline
-    Result call_impl(TupleRange& rng, boost::mpl::int_<3>)
-    {
-        return Result(
-            unzip_at_range< TupleRange, boost::mpl::int_<0> >(rng),
-            unzip_at_range< TupleRange, boost::mpl::int_<1> >(rng),
-            unzip_at_range< TupleRange, boost::mpl::int_<2> >(rng));
-    }
-
-
-    template< class TupleRange >
-    struct length
+    template< int From, int To >
+    struct counting_tuple
     {
         typedef
-            boost::mpl::int_<
-                boost::tuples::length<
-                    typename range_value<TupleRange>::type
-                >::value
+            boost::tuples::cons<
+                boost::mpl::int_<From>,
+                typename counting_tuple<From + 1, To>::type
             >
         type;
+    };
+
+    template< int To >
+    struct counting_tuple<To, To>
+    {
+        typedef boost::tuples::null_type type;
+    };
+
+
+    template< class TupleRange >
+    struct make_at_range
+    {
+        template< class N >
+        struct apply
+        {
+            typedef unzip_at_range<TupleRange, N> type;
+        };
+
+        template< class N >
+        typename apply<N>::type
+        operator()(N const&) const
+        {
+            typedef typename apply<N>::type result_t;
+            return result_t(m_rng);
+        }
+
+        explicit make_at_range(TupleRange& rng) :
+            m_rng(rng)
+        { }
+
+    private:
+        TupleRange& m_rng;
+    };
+
+
+    namespace impl = boost::detail::tuple_impl_specific;
+
+
+    template< class TupleRange >
+    struct to_counting_tuple
+    {
+        typedef typename range_value<TupleRange>::type tup_t;
+        typedef typename counting_tuple<0, boost::tuples::length<tup_t>::value>::type type;
     };
 
 
     struct baby
     {
         template< class Myself, class TupleRange >
-        struct apply :
-            apply_impl<
-                TupleRange,
-                typename length<TupleRange>::type
-            >
-        { };
+        struct apply
+        {
+            typedef typename to_counting_tuple<TupleRange>::type counting_tup_t;
+            typedef typename impl::tuple_meta_transform<counting_tup_t, make_at_range<TupleRange> >::type type;
+        };
 
         template< class Result, class TupleRange >
         Result call(TupleRange& rng)
         {
-            return unzipped_detail::call_impl<Result>(
-                rng,
-                typename length<TupleRange>::type()
-            );
+            typedef typename to_counting_tuple<TupleRange>::type counting_tup_t;
+            return impl::tuple_transform(counting_tup_t(), make_at_range<TupleRange>(rng));
         }
     };
 

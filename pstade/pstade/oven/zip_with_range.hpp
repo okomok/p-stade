@@ -55,6 +55,8 @@ struct zip_with_range :
     zip_with_range_detail::super_<RangeTuple, UnaryFun, Reference, Value>::type,
     private as_lightweight_proxy< zip_with_range<RangeTuple, UnaryFun, Reference, Value> >
 {
+    typedef RangeTuple range_tuple_type;
+
 private:
     typedef typename zip_with_range_detail::super_<RangeTuple, UnaryFun, Reference, Value>::type super_t;
     typedef typename range_base<super_t>::type base_t;
