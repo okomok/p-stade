@@ -37,7 +37,7 @@ unless otherwise specified.
 Requirements
 ------------
 - `Boost C++ Libraries Version 1.33.1`__ or later (no compilation required)
-- `P-Stade C++ Libraries Version 1.01.8`__ or later (no compilation required, give a higher priority than Boost headers)
+- `P-Stade C++ Libraries Version 1.01.9`__ or later (no compilation required, give a higher priority than Boost headers)
 
 __ Boost_
 __ http://sourceforge.net/project/showfiles.php?group_id=141222&package_id=173059
@@ -511,8 +511,9 @@ That's why ``constants`` returns a range whose iterators dereference cannot be m
 
 ``const_lvalues``
 ^^^^^^^^^^^^^^^^^
-``const_lvalues`` makes iterators of `Forward Range`_ conform to Forward Iterator, which
-makes STL that doesn't know traversal concepts choose effective algorithms.
+``const_lvalues`` turns the associated ``reference`` type of the base range into real reference,
+which makes iterators of `Forward Range`_ conform to Forward Iterator.
+Thus, STL that doesn't know traversal concepts can choose effective algorithms.
 
 
 - Header: ``<pstade/oven/const_lvalue_range.hpp>``
@@ -751,6 +752,11 @@ Note that ``memoized`` can return a `Forward Range`_ even if its base range is a
 
 ``regularized``
 ^^^^^^^^^^^^^^^
+Boost.Lambda functors are neither DefaultConstructible nor CopyAssignable.
+If an iterator holds such a functor, it cannot be a model of Forward Iterator.
+``regularized`` converts such a broken iterator to conforming one.
+
+
 - Header: ``<pstade/oven/regularize_range.hpp>``
 - Valid expression: ``rng|regularized``
 - Returns: ``[boost::begin(rng),boost::end(rng))``, which is a conforming range, even if iterators of ``rng`` are not assignable.
@@ -837,6 +843,8 @@ Note that ``memoized`` can return a `Forward Range`_ even if its base range is a
 - Valid expression: ``rndRng|sliced(start,stride)``
 - Precondition: ``d == 0 || d % stride == 0`` and ``0 <= start && start < stride``, where ``d = oven::distance(rndRng);``
 
+Note that this effect is different from `Range Library Proposal`_\'s, which is the role of `advanced`_.
+
 
 ``string_found``
 ^^^^^^^^^^^^^^^^
@@ -909,7 +917,7 @@ prefix (possibly empty) of the range of elements that satisfy `Predicate`_::
 Pending...
 
 - Header: ``<pstade/oven/unzip_range.hpp>``
-- Valid expression: ``zipped_rng|unzipped_at<N>`` or ``zipped_range|unzipped``
+- Valid expression: ``zipped_rng|unzipped_at<N>()`` or ``zipped_range|unzipped``
 - Precondition: ``N`` is a integral constant specifying the index.
 - Returns: A range which is unzipped the `zipped`_ range.
 
@@ -944,14 +952,14 @@ Pending...
 
 ``zipped``
 ^^^^^^^^^^
-``zipped`` takes two range and returns a range of corresponding tuples.
+``zipped`` takes a tuple of ranges and returns a range of corresponding tuples.
 If one input range is short, excess elements of the longer range are discarded.
 
 - Header: ``<pstade/oven/zip_range.hpp>``
-- Valid expression: ``pstade::tie(rng0,rng1,..rngN)|zipped``
+- Valid expression: ``pstade::tie(rng1,rng2,..rngN)|zipped``
 - Returns: A range whose iterators behave as if they were the original iterators wrapped in ``boost::zip_iterator``.
 
-If the base ranges are neither a const-reference nor rvalue, you can use ``boost::tie`` instead of ``pstade::tie``.
+If the base ranges are neither const-reference nor rvalue, you can use ``boost::tie`` instead of ``pstade::tie``.
 
 
 ``zipped_with``
@@ -963,8 +971,8 @@ given as the first argument, instead of a tupling::
 
 
 - Header: ``<pstade/oven/zip_with_range.hpp>``
-- Valid expression: ``pstade::tie(rng0,rng1,..rngN)|zipped_with(rfun)``
-- Precondition: The arity of ``rfun`` is ``N-1``.
+- Valid expression: ``pstade::tie(rng1,rng2,..rngN)|zipped_with(rfun)``
+- Precondition: The arity of ``rfun`` is ``N``.
 - Returns: A range whose values are zipped by using ``rfun``.
 
 

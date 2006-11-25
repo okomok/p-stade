@@ -184,7 +184,7 @@ unless otherwise specified.</p>
 <h1><a class="toc-backref" href="#id19" id="requirements" name="requirements">2&nbsp;&nbsp;&nbsp;Requirements</a></h1>
 <ul class="simple">
 <li><a class="reference" href="http://www.boost.org/">Boost C++ Libraries Version 1.33.1</a> or later (no compilation required)</li>
-<li><a class="reference" href="http://sourceforge.net/project/showfiles.php?group_id=141222&amp;package_id=173059">P-Stade C++ Libraries Version 1.01.8</a> or later (no compilation required, give a higher priority than Boost headers)</li>
+<li><a class="reference" href="http://sourceforge.net/project/showfiles.php?group_id=141222&amp;package_id=173059">P-Stade C++ Libraries Version 1.01.9</a> or later (no compilation required, give a higher priority than Boost headers)</li>
 </ul>
 </div>
 <div class="section">
@@ -824,8 +824,9 @@ That's why <tt class="docutils literal"><span class="pre">constants</span></tt> 
 </div>
 <div class="section">
 <h2><a class="toc-backref" href="#id58" id="const-lvalues" name="const-lvalues">6.13&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">const_lvalues</span></tt></a></h2>
-<p><tt class="docutils literal"><span class="pre">const_lvalues</span></tt> makes iterators of <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#forward_range">Forward Range</a> conform to Forward Iterator, which
-makes STL that doesn't know traversal concepts choose effective algorithms.</p>
+<p><tt class="docutils literal"><span class="pre">const_lvalues</span></tt> turns the associated <tt class="docutils literal"><span class="pre">reference</span></tt> type of the base range into real reference,
+which makes iterators of <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#forward_range">Forward Range</a> conform to Forward Iterator.
+Thus, STL that doesn't know traversal concepts can choose effective algorithms.</p>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/const_lvalue_range.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">rng|const_lvalues</span></tt></li>
@@ -1165,6 +1166,9 @@ BOOST_CHECK(( oven::equals(vec|null_terminated, src) ));</pre>
 </div>
 <div class="section">
 <h2><a class="toc-backref" href="#id80" id="regularized" name="regularized">6.35&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">regularized</span></tt></a></h2>
+<p>Boost.Lambda functors are neither DefaultConstructible nor CopyAssignable.
+If an iterator holds such a functor, it cannot be a model of Forward Iterator.
+<tt class="docutils literal"><span class="pre">regularized</span></tt> converts such a broken iterator to conforming one.</p>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/regularize_range.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">rng|regularized</span></tt></li>
@@ -1277,6 +1281,7 @@ BOOST_CHECK( oven::equals(answer,
 <li>Valid expression: <tt class="docutils literal"><span class="pre">rndRng|sliced(start,stride)</span></tt></li>
 <li>Precondition: <tt class="docutils literal"><span class="pre">d</span> <span class="pre">==</span> <span class="pre">0</span> <span class="pre">||</span> <span class="pre">d</span> <span class="pre">%</span> <span class="pre">stride</span> <span class="pre">==</span> <span class="pre">0</span></tt> and <tt class="docutils literal"><span class="pre">0</span> <span class="pre">&lt;=</span> <span class="pre">start</span> <span class="pre">&amp;&amp;</span> <span class="pre">start</span> <span class="pre">&lt;</span> <span class="pre">stride</span></tt>, where <tt class="docutils literal"><span class="pre">d</span> <span class="pre">=</span> <span class="pre">oven::distance(rndRng);</span></tt></li>
 </ul>
+<p>Note that this effect is different from <a class="reference" href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1871.html">Range Library Proposal</a>'s, which is the role of <a class="reference" href="#advanced">advanced</a>.</p>
 </div>
 <div class="section">
 <h2><a class="toc-backref" href="#id91" id="string-found" name="string-found">6.46&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">string_found</span></tt></a></h2>
@@ -1363,7 +1368,7 @@ BOOST_CHECK( oven::equals(
 <p>Pending...</p>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/unzip_range.hpp&gt;</span></tt></li>
-<li>Valid expression: <tt class="docutils literal"><span class="pre">zipped_rng|unzipped_at&lt;N&gt;</span></tt> or <tt class="docutils literal"><span class="pre">zipped_range|unzipped</span></tt></li>
+<li>Valid expression: <tt class="docutils literal"><span class="pre">zipped_rng|unzipped_at&lt;N&gt;()</span></tt> or <tt class="docutils literal"><span class="pre">zipped_range|unzipped</span></tt></li>
 <li>Precondition: <tt class="docutils literal"><span class="pre">N</span></tt> is a integral constant specifying the index.</li>
 <li>Returns: A range which is unzipped the <a class="reference" href="#zipped">zipped</a> range.</li>
 </ul>
@@ -1402,14 +1407,14 @@ BOOST_CHECK( oven::equals(
 </div>
 <div class="section">
 <h2><a class="toc-backref" href="#id104" id="zipped" name="zipped">6.59&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">zipped</span></tt></a></h2>
-<p><tt class="docutils literal"><span class="pre">zipped</span></tt> takes two range and returns a range of corresponding tuples.
+<p><tt class="docutils literal"><span class="pre">zipped</span></tt> takes a tuple of ranges and returns a range of corresponding tuples.
 If one input range is short, excess elements of the longer range are discarded.</p>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/zip_range.hpp&gt;</span></tt></li>
-<li>Valid expression: <tt class="docutils literal"><span class="pre">pstade::tie(rng0,rng1,..rngN)|zipped</span></tt></li>
+<li>Valid expression: <tt class="docutils literal"><span class="pre">pstade::tie(rng1,rng2,..rngN)|zipped</span></tt></li>
 <li>Returns: A range whose iterators behave as if they were the original iterators wrapped in <tt class="docutils literal"><span class="pre">boost::zip_iterator</span></tt>.</li>
 </ul>
-<p>If the base ranges are neither a const-reference nor rvalue, you can use <tt class="docutils literal"><span class="pre">boost::tie</span></tt> instead of <tt class="docutils literal"><span class="pre">pstade::tie</span></tt>.</p>
+<p>If the base ranges are neither const-reference nor rvalue, you can use <tt class="docutils literal"><span class="pre">boost::tie</span></tt> instead of <tt class="docutils literal"><span class="pre">pstade::tie</span></tt>.</p>
 </div>
 <div class="section">
 <h2><a class="toc-backref" href="#id105" id="zipped-with" name="zipped-with">6.60&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">zipped_with</span></tt></a></h2>
@@ -1427,8 +1432,8 @@ BOOST_CHECK( oven::equals(
 
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/zip_with_range.hpp&gt;</span></tt></li>
-<li>Valid expression: <tt class="docutils literal"><span class="pre">pstade::tie(rng0,rng1,..rngN)|zipped_with(rfun)</span></tt></li>
-<li>Precondition: The arity of <tt class="docutils literal"><span class="pre">rfun</span></tt> is <tt class="docutils literal"><span class="pre">N-1</span></tt>.</li>
+<li>Valid expression: <tt class="docutils literal"><span class="pre">pstade::tie(rng1,rng2,..rngN)|zipped_with(rfun)</span></tt></li>
+<li>Precondition: The arity of <tt class="docutils literal"><span class="pre">rfun</span></tt> is <tt class="docutils literal"><span class="pre">N</span></tt>.</li>
 <li>Returns: A range whose values are zipped by using <tt class="docutils literal"><span class="pre">rfun</span></tt>.</li>
 </ul>
 </div>
@@ -1688,7 +1693,7 @@ Also, <tt class="docutils literal"><span class="pre">Range</span></tt> has the s
 <div class="footer">
 <hr class="footer" />
 <a class="reference" href="doc/index.rst">View document source</a>.
-Generated on: 2006-11-25 02:13 UTC.
+Generated on: 2006-11-25 06:55 UTC.
 Generated by <a class="reference" href="http://docutils.sourceforge.net/">Docutils</a> from <a class="reference" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a> source.
 
 </div>
