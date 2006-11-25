@@ -18,7 +18,6 @@
 #include <boost/utility/result_of.hpp>
 #include <pstade/affect.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
 #include <pstade/pass_by.hpp>
 
 

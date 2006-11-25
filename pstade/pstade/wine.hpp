@@ -49,6 +49,7 @@
 #include "./tie.hpp"
 #include "./tupled.hpp"
 #include "./unparenthesize.hpp"
+#include "./untupled.hpp"
 #include "./unused.hpp"
 #include "./unused_to_copy.hpp"
 #include "./used.hpp"

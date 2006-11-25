@@ -33,35 +33,35 @@ namespace pstade {
         struct baby
         {
             // 5ary (primary)
-            template< class Myself, class T0, class T1 = void, class T2 = void, class T3 = void, class T4 = void >
+            template< class Myself, class A0, class A1 = void, class A2 = void, class A3 = void, class A4 = void >
             struct apply
             {
-                typedef boost::tuples::tuple<T0&, T1&, T2&, T3&, T4&> type;
+                typedef boost::tuples::tuple<A0&, A1&, A2&, A3&, A4&> type;
             };
 
-            template< class Result, class T0, class T1, class T2, class T3, class T4 >
-            Result call(T0& a0, T1& a1, T2& a2, T3& a3, T4& a4)
+            template< class Result, class A0, class A1, class A2, class A3, class A4 >
+            Result call(A0& a0, A1& a1, A2& a2, A3& a3, A4& a4)
             {
                 return Result(a0, a1, a2, a3, a4);
             }
 
             // 1ary
-            template< class Myself, class T0 >
-            struct apply< Myself, T0 >
+            template< class Myself, class A0 >
+            struct apply< Myself, A0 >
             {
-                typedef boost::tuples::tuple<T0&> type;
+                typedef boost::tuples::tuple<A0&> type;
             };
 
-            template< class Result, class T0>
-            Result call(T0& a0)
+            template< class Result, class A0>
+            Result call(A0& a0)
             {
                 return Result(a0);
             }
 
             // 2ary-4ary
         #define PSTADE_max_arity 4
-        #define PSTADE_add_ref(Z, N, _) BOOST_PP_CAT(T, N) &
-        #define PSTADE_ref_param(Z, N, _) BOOST_PP_CAT(T, N) & BOOST_PP_CAT(a, N)
+        #define PSTADE_add_ref(Z, N, _) BOOST_PP_CAT(A, N) &
+        #define PSTADE_ref_param(Z, N, _) BOOST_PP_CAT(A, N) & BOOST_PP_CAT(a, N)
             #define BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_max_arity, <pstade/tie.hpp>))
             #include BOOST_PP_ITERATE()
         #undef PSTADE_ref_param
@@ -86,13 +86,13 @@ namespace pstade {
 #define n BOOST_PP_ITERATION()
 
 
-template< class Myself, BOOST_PP_ENUM_PARAMS(n, class T) >
-struct apply< Myself, BOOST_PP_ENUM_PARAMS(n, T) >
+template< class Myself, BOOST_PP_ENUM_PARAMS(n, class A) >
+struct apply< Myself, BOOST_PP_ENUM_PARAMS(n, A) >
 {
     typedef boost::tuples::tuple< BOOST_PP_ENUM(n, PSTADE_add_ref, ~) > type;
 };
 
-template< class Result, BOOST_PP_ENUM_PARAMS(n, class T) >
+template< class Result, BOOST_PP_ENUM_PARAMS(n, class A) >
 Result call( BOOST_PP_ENUM(n, PSTADE_ref_param, ~) )
 {
     return Result( BOOST_PP_ENUM_PARAMS(n, a) );

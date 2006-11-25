@@ -51,6 +51,7 @@ test-suite wine :
     [ wine-test tie ]
     [ wine-test tupled ]
     [ wine-test unparenthesize ]
+    [ wine-test untupled ]
     [ wine-test unused ]
     [ wine-test unused_to_copy ]
     [ wine-test value ]
