@@ -380,7 +380,7 @@ Instead, add ``&`` to make it a function **pointer**.
 
 ``adjacent_filtered``
 ^^^^^^^^^^^^^^^^^^^^^
-``adjacent_filtered`` returns a range where adjacent pairs of adapting range are filtered by using a `Predicate`_::
+``adjacent_filtered`` returns a range where adjacent pairs of base range are filtered by using a `Predicate`_::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\adjacent_filtered.ipp
 
@@ -406,7 +406,7 @@ Instead, add ``&`` to make it a function **pointer**.
 
 ``always``
 ^^^^^^^^^^^^^
-``always`` returns a range which does not change as its adapting range vary::
+``always`` returns a range which does not change as its base range vary::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\always.ipp
 
@@ -431,8 +431,7 @@ Instead, add ``&`` to make it a function **pointer**.
 
 ``applied``
 ^^^^^^^^^^^
-``applied`` returns a range which is adapting by using functors.
-``applied`` is intended to be used with Boost.Phoenix version2::
+``applied`` puts an algorithm into a range, intended to be used with Boost.Phoenix version2::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\applied.ipp
 
@@ -459,7 +458,7 @@ Instead, add ``&`` to make it a function **pointer**.
 
 ``checked``
 ^^^^^^^^^^^
-``checked`` adds the bounds checking ability to its adapting range::
+``checked`` adds the bounds checking ability to its base range::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\checked.ipp
 
@@ -523,7 +522,7 @@ makes STL that doesn't know traversal concepts choose effective algorithms.
 
 ``copied_out``
 ^^^^^^^^^^^^^^
-``copied_out`` makes a side-effect that copies its adapting range to its argument::
+``copied_out`` makes a side-effect that copies its base range to its argument::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\copied_out.ipp
 
@@ -537,7 +536,7 @@ makes STL that doesn't know traversal concepts choose effective algorithms.
 
 ``cycled``
 ^^^^^^^^^^^^
-``cycled`` creates a circular range from its adapting range::
+``cycled`` creates a circular range from its base range::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\cycled.ipp
 
@@ -549,7 +548,7 @@ makes STL that doesn't know traversal concepts choose effective algorithms.
 
 ``directed``
 ^^^^^^^^^^^^
-``directed`` returns a range whose values are iterators of its adapting range::
+``directed`` returns a range whose values are iterators of its base range::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\directed.ipp
 
@@ -561,7 +560,7 @@ makes STL that doesn't know traversal concepts choose effective algorithms.
 
 ``dropped``
 ^^^^^^^^^^^
-``dropped`` returns the suffix of its adapting range after the first ``n`` elements::
+``dropped`` returns the suffix of its base range after the first ``n`` elements::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\dropped.ipp
 
@@ -574,7 +573,7 @@ makes STL that doesn't know traversal concepts choose effective algorithms.
 
 ``dropped_while``
 ^^^^^^^^^^^^^^^^^
-``dropped_while`` returns the remaining suffix of its adapting range of elements that satisfy `Predicate`_::
+``dropped_while`` returns the remaining suffix of its base range of elements that satisfy `Predicate`_::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\dropped_while.ipp
 
@@ -615,7 +614,7 @@ Pending...
 
 ``identities``
 ^^^^^^^^^^^^^^
-``identities`` returns a range which is identical to its adapting range::
+``identities`` returns a range which is identical to its base range::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\identities.ipp
 
@@ -628,7 +627,7 @@ Pending...
 
 ``indirected``
 ^^^^^^^^^^^^^^
-``indirected`` adapts its adapting range by applying an extra dereference inside of ``operator*()``::
+``indirected`` adapts its base range by applying an extra dereference inside of ``operator*()``::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\indirected.ipp
 
@@ -652,7 +651,7 @@ Pending...
 
 ``map_keys``
 ^^^^^^^^^^^^
-``map_keys`` returns a range whose values are the keys of its adapting associative container::
+``map_keys`` returns a range whose values are the keys of its base associative container::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\map_keys.ipp
 
@@ -663,7 +662,7 @@ Pending...
 
 ``map_values``
 ^^^^^^^^^^^^^^
-``map_values`` returns a range whose values are the mapped values of its adapting associative container::
+``map_values`` returns a range whose values are the mapped values of its base associative container::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\map_values.ipp
 
@@ -682,7 +681,7 @@ Pending...
 ``memoized``
 ^^^^^^^^^^^^
 ``memoized`` returns a range whose values are cached for speed, preparing repeated dereferences.
-Note that ``memoized`` can return a `Forward Range`_ even if its adapting range is a `Single Pass Range`_::
+Note that ``memoized`` can return a `Forward Range`_ even if its base range is a `Single Pass Range`_::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\memoized.ipp
 
@@ -804,7 +803,7 @@ Note that ``memoized`` can return a `Forward Range`_ even if its adapting range 
 
 ``scanned``
 ^^^^^^^^^^^
-``scanned`` is similar to ``oven::accumulate``, but returns a range of successive reduced values from its adapting range::
+``scanned`` is similar to ``oven::accumulate``, but returns a range of successive reduced values from its base range::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\scanned.ipp
 
@@ -830,7 +829,7 @@ Note that ``memoized`` can return a `Forward Range`_ even if its adapting range 
 
 ``sliced``
 ^^^^^^^^^^
-``sliced`` provides the column view of its adapting range::
+``sliced`` provides the column view of its base range::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\sliced.ipp
 
@@ -855,7 +854,7 @@ Note that ``memoized`` can return a `Forward Range`_ even if its adapting range 
 
 ``taken``
 ^^^^^^^^^
-``taken``, applied to its adapting range, returns the prefix of the range of length ``n``::
+``taken``, applied to its base range, returns the prefix of the range of length ``n``::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\taken.ipp
 
@@ -868,7 +867,7 @@ Note that ``memoized`` can return a `Forward Range`_ even if its adapting range 
 
 ``taken_while``
 ^^^^^^^^^^^^^^^
-``taken_while``, applied to a `Predicate`_ and its adapting range, returns the longest
+``taken_while``, applied to a `Predicate`_ and its base range, returns the longest
 prefix (possibly empty) of the range of elements that satisfy `Predicate`_::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\taken_while.ipp
@@ -949,8 +948,10 @@ Pending...
 If one input range is short, excess elements of the longer range are discarded.
 
 - Header: ``<pstade/oven/zip_range.hpp>``
-- Valid expression: ``boost::tie(rng0,rng1)|zipped`` and ``rng0|tied(rng1)|zipped``
+- Valid expression: ``pstade::tie(rng0,rng1,..rngN)|zipped``
 - Returns: A range whose iterators behave as if they were the original iterators wrapped in ``boost::zip_iterator``.
+
+If the base ranges are neither a const-reference nor rvalue, you can use ``boost::tie`` instead of ``pstade::tie``.
 
 
 ``zipped_with``
@@ -962,8 +963,8 @@ given as the first argument, instead of a tupling::
 
 
 - Header: ``<pstade/oven/zip_with_range.hpp>``
-- Valid expression: ``boost::tie(rng0,rng1)|zipped_with(rfun)`` and ``rng0|tied(rng1)|zipped_with(rfun)``
-- Precondition: ``rfun(tup)`` is a valid expression, where ``tup`` is the tuple returned by the ``boost::zip_iterator``\'s ``operator*``.
+- Valid expression: ``pstade::tie(rng0,rng1,..rngN)|zipped_with(rfun)``
+- Precondition: The arity of ``rfun`` is ``N-1``.
 - Returns: A range whose values are zipped by using ``rfun``.
 
 

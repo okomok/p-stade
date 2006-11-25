@@ -27,9 +27,6 @@ void test()
         BOOST_CHECK(
             pstade::tupled(&::my_plus)(boost::make_tuple(5, 7, 2)) == 14
         );
-        BOOST_CHECK(
-            (&::my_plus|to_tupled)(boost::make_tuple(5, 7, 2)) == 14
-        );
     }
 }
 

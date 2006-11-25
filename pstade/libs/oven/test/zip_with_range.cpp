@@ -19,17 +19,18 @@
 #include <boost/foreach.hpp>
 #include <boost/range.hpp>
 #include <pstade/oven/functions.hpp>
+#include <pstade/tie.hpp>
 
 
-struct plus
+int plus2(int x, int y)
 {
-    typedef int result_type;
+    return x + y;
+}
 
-    int operator()(boost::tuple<int, int> t) const
-    {
-        return boost::get<0>(t) + boost::get<1>(t);
-    }
-};
+int plus3(int x, int y, int z)
+{
+    return x + y + z;
+}
 
 
 void test()
@@ -44,7 +45,7 @@ void test()
         std::vector<int> expected = ans|copied;
 
        BOOST_CHECK( oven::test_RandomAccess_Readable(
-            xs|pstade::tied(ys)|zipped_with(::plus()),
+            xs|pstade::tied(ys)|zipped_with(&::plus2),
             expected
         ) );
     }
@@ -55,10 +56,23 @@ void test()
         int ans[] = { 1, 7, 3, 5,11,13, 9 };
 
         BOOST_CHECK( oven::equals(
-            boost::tie(xs, ys)|zipped_with(::plus()),
+            boost::tie(xs, ys)|zipped_with(&::plus2),
             ans
         ) );
     }
+
+    {
+        int xs[]  = { 0, 1, 2, 3, 4, 5, 6 };
+        int ys[]  = { 1, 6, 1, 2, 7, 8, 3 };
+        int zs[]  = { 2, 1, 5, 1, 6, 7, 4 };
+        int ans[] = { 3, 8, 8, 6,17,20,13 };
+
+        BOOST_CHECK( oven::equals(
+            boost::tie(xs, ys, zs)|zipped_with(&::plus3),
+            ans
+        ) );
+    }
+    
 }
 
 

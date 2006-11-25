@@ -10,9 +10,17 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Note:
+//
+// If you have a function taking a tuple,
+// you can use of course 'rng|zipped|transformed(f)'.
+
+
+#include <boost/utility/result_of.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <pstade/pass_by.hpp>
+#include <pstade/tupled.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./range_base.hpp"
 #include "./transform_range.hpp"
@@ -35,7 +43,7 @@ namespace zip_with_range_detail {
     {
         typedef transform_range<
             zip_range<RangeTuple> const,
-            UnaryFun,
+            typename boost::result_of<tupled_fun(UnaryFun)>::type,
             Reference,
             Value
         > type;
@@ -60,10 +68,11 @@ struct zip_with_range :
 private:
     typedef typename zip_with_range_detail::super_<RangeTuple, UnaryFun, Reference, Value>::type super_t;
     typedef typename range_base<super_t>::type base_t;
+    typedef typename super_t::function_type tupled_fun_t;
 
 public:
     zip_with_range(RangeTuple& tup, UnaryFun const& fun) :
-        super_t(base_t(tup), fun)
+        super_t(base_t(tup), tupled_fun_t(fun))
     { }
 };
 

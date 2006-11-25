@@ -24,7 +24,7 @@
 #include <pstade/tie.hpp>
 
 
-#include <boost/tuple/tuple_comparison.hpp> // DON'T FORGET for Readability!
+#include <boost/tuple/tuple_comparison.hpp> // DON'T FORGET for Readable test
 
 
 void test()
@@ -47,6 +47,11 @@ void test()
             rng0|pstade::tied(rng1)|zipped,
             expected
         ) );
+
+        BOOST_CHECK( oven::test_RandomAccess_Readable(
+            rng0|zipped(rng1), // will be rejected?
+            expected
+        ) );
     }
     {
         std::string rng0("0123");
@@ -62,6 +67,11 @@ void test()
 
         BOOST_CHECK( oven::test_RandomAccess_Readable(
             boost::tuples::tie(rng0, rng1, rng2)|zipped,
+            expected
+        ) );
+
+        BOOST_CHECK( oven::test_RandomAccess_Readable(
+            rng0|pstade::tied(rng1, rng2)|zipped,
             expected
         ) );
     }
@@ -80,7 +90,7 @@ void test()
 
         BOOST_FOREACH (
             PSTADE_UNPARENTHESIZE((boost::tuple<char&, int&>)) t,
-            src0|zipped(src1)
+            pstade::tie(src0, src1)|zipped
         ) {
             char& ch = boost::get<0>(t);
             if (ch == '4')

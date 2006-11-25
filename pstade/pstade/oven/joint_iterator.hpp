@@ -10,7 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <iterator> // advance, distance
 #include <boost/assert.hpp>
 #include <boost/iterator/detail/minimum_category.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>

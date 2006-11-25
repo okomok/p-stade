@@ -117,7 +117,7 @@ namespace zip_range_detail {
             return Result(tup);
         }
 
-#if 1 // pending...
+#if 1 // will be rejected.
         // two ranges (primary)
         template< class Myself, class Range0, class Range1 >
         struct apply

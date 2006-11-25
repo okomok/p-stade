@@ -10,17 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/assert.hpp>
-#include <boost/iterator/iterator_categories.hpp>
-#include <boost/mpl/if.hpp>
-#include <boost/type_traits/is_convertible.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/egg/baby_auto.hpp>
 #include <pstade/egg/pipable.hpp>
-#include <pstade/unused.hpp>
 #include "./algorithm.hpp" // copy
 #include "./extension.hpp"
-#include "./range_traversal.hpp"
 
 
 namespace pstade { namespace oven {
@@ -65,43 +59,20 @@ PSTADE_EGG_PIPABLE(copied, egg::baby_auto<copy_range_class>)
 namespace copied_out_detail {
 
 
-    template< class Range > inline
-    Range& check_valid(Range& rng, boost::forward_traversal_tag)
-    {
-        return rng;
-    }
-
-    template< class Range > inline
-    void   check_valid(Range& rng, boost::single_pass_traversal_tag)
-    {
-        // invalid after 'copy'
-        pstade::unused(rng);
-    }
-
-
     struct baby
     {
         template< class Myself, class Range, class OutIter >
-        struct apply :
-            boost::mpl::if_<
-                boost::is_convertible<
-                    typename range_traversal<Range>::type,
-                    boost::forward_traversal_tag
-                >,
-                Range&,
-                void // not multi-pass
-            >
-        { };
+        struct apply
+        {
+            typedef Range& type;
+        };
 
         template< class Result, class Range, class OutIter >
         Result call(Range& rng, OutIter to)
         {
             oven::copy(rng, to);
-
-            typedef typename range_traversal<Range>::type trv_t;
-            return copied_out_detail::check_valid(rng, trv_t());
+            return rng;
         }
-
     };
 
 
