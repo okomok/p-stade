@@ -35,7 +35,7 @@ namespace zip_with_range_detail {
 
     template<
         class RangeTuple,
-        class UnaryFun,
+        class Function,
         class Reference,
         class Value
     >
@@ -43,7 +43,7 @@ namespace zip_with_range_detail {
     {
         typedef transform_range<
             zip_range<RangeTuple> const,
-            typename boost::result_of<tupled_fun(UnaryFun)>::type,
+            typename boost::result_of<tupled_fun(Function)>::type,
             Reference,
             Value
         > type;
@@ -55,22 +55,22 @@ namespace zip_with_range_detail {
 
 template<
     class RangeTuple,
-    class UnaryFun,
+    class Function,
     class Reference = boost::use_default,
     class Value     = boost::use_default
 >
 struct zip_with_range :
-    zip_with_range_detail::super_<RangeTuple, UnaryFun, Reference, Value>::type,
-    private as_lightweight_proxy< zip_with_range<RangeTuple, UnaryFun, Reference, Value> >
+    zip_with_range_detail::super_<RangeTuple, Function, Reference, Value>::type,
+    private as_lightweight_proxy< zip_with_range<RangeTuple, Function, Reference, Value> >
 {
     typedef RangeTuple range_tuple_type;
 
 private:
-    typedef typename zip_with_range_detail::super_<RangeTuple, UnaryFun, Reference, Value>::type super_t;
+    typedef typename zip_with_range_detail::super_<RangeTuple, Function, Reference, Value>::type super_t;
     typedef typename range_base<super_t>::type base_t;
 
 public:
-    zip_with_range(RangeTuple& tup, UnaryFun const& fun) :
+    zip_with_range(RangeTuple& tup, Function const& fun) :
         super_t(base_t(tup), pstade::tupled(fun))
     { }
 };
@@ -81,15 +81,15 @@ namespace zip_with_range_detail {
 
     struct baby_make
     {
-        template< class Myself, class RangeTuple, class UnaryFun >
+        template< class Myself, class RangeTuple, class Function >
         struct apply
         {
-            typedef typename pass_by_value<UnaryFun>::type fun_t;
+            typedef typename pass_by_value<Function>::type fun_t;
             typedef zip_with_range<RangeTuple, fun_t> const type;
         };
 
-        template< class Result, class RangeTuple, class UnaryFun >
-        Result call(RangeTuple& tup, UnaryFun& fun)
+        template< class Result, class RangeTuple, class Function >
+        Result call(RangeTuple& tup, Function& fun)
         {
             return Result(tup, fun);
         }
