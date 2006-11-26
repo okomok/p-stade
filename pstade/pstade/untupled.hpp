@@ -44,21 +44,29 @@ namespace pstade {
             template< class Result, class A0, class A1, class A2, class A3, class A4 >
             Result call(A0& a0, A1& a1, A2& a2, A3& a3, A4& a4)
             {
-                return m_fun(
-                    pstade::tie( a0, a1, a2, a3, a4 )
-                );
+                return
+                    m_fun(
+                       pstade::tie( a0, a1, a2, a3, a4 )
+                    );
             }
 
             // 1ary
             template< class Myself, class A0 >
             struct apply< Myself, A0 > :
-                boost::result_of<Function(boost::tuples::tuple< A0& >)>
+                boost::result_of<
+                    Function(
+                        boost::tuples::tuple< A0& >
+                    )
+                >
             { };
 
             template< class Result, class A0 >
             Result call(A0& a0)
             {
-                return m_fun(pstade::tie( a0 ));
+                return
+                    m_fun(
+                      pstade::tie( a0 )
+                  );
             }
 
             // 2ary-4ary
@@ -126,9 +134,10 @@ struct apply< Myself, BOOST_PP_ENUM_PARAMS(n, A) > :
 template< class Result, BOOST_PP_ENUM_PARAMS(n, class A) >
 Result call( BOOST_PP_ENUM(n, PSTADE_ref_param, ~) )
 {
-    return m_fun(
-        pstade::tie( BOOST_PP_ENUM_PARAMS(n, a) )
-    );
+    return
+        m_fun(
+            pstade::tie( BOOST_PP_ENUM_PARAMS(n, a) )
+        );
 }
 
 

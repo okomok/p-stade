@@ -68,11 +68,10 @@ struct zip_with_range :
 private:
     typedef typename zip_with_range_detail::super_<RangeTuple, UnaryFun, Reference, Value>::type super_t;
     typedef typename range_base<super_t>::type base_t;
-    typedef typename super_t::function_type tupled_fun_t;
 
 public:
     zip_with_range(RangeTuple& tup, UnaryFun const& fun) :
-        super_t(base_t(tup), tupled_fun_t(fun))
+        super_t(base_t(tup), pstade::tupled(fun))
     { }
 };
 

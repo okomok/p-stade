@@ -511,7 +511,7 @@ That's why ``constants`` returns a range whose iterators dereference cannot be m
 
 ``const_lvalues``
 ^^^^^^^^^^^^^^^^^
-``const_lvalues`` turns the associated ``reference`` type of the base range into real reference,
+``const_lvalues`` turns the associated ``reference`` type of the base range into reference type,
 which makes iterators of `Forward Range`_ conform to Forward Iterator.
 Thus, STL that doesn't know traversal concepts can choose effective algorithms.
 
@@ -753,7 +753,7 @@ Note that ``memoized`` can return a `Forward Range`_ even if its base range is a
 ``regularized``
 ^^^^^^^^^^^^^^^
 Boost.Lambda functors are neither DefaultConstructible nor CopyAssignable.
-If an iterator holds such a functor, it cannot be a model of Forward Iterator.
+An iterator holding such a functor cannot conform to even InputIterator.
 ``regularized`` converts such a broken iterator to conforming one.
 
 
@@ -1064,11 +1064,13 @@ Acknowledgments
 - `Boost C++ Libraries`_
 - `Boost.Range`_
 - `Boost.RangeEx`_
+- `Boost.View`__
 - `Range Library Core`__
 - `Range Library Proposal`_
 - `RangeLib - The Boost Iterable Range Library`__
 - `VTL (View Template Library)`__
 
+__ http://www.flll.jku.at/staff/private/roland/view/
 __ http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2068.html
 __ http://www.torjo.com/rangelib/index.html
 __ http://www.zib.de/weiser/vtl/
