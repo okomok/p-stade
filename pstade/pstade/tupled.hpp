@@ -37,8 +37,7 @@ namespace pstade {
 
 
         template< class Function, class Tuple, class Arity >
-        struct apply_impl
-        { };
+        struct apply_impl;
 
 
         // 0ary

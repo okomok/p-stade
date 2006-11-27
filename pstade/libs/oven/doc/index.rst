@@ -425,7 +425,6 @@ Instead, add ``&`` to make it a function **pointer**.
 
 - Header: ``<pstade/oven/append_range.hpp>``
 - Valid expression: ``rng|appended(v)``
-- Precondition: ``v*`` is convertible to the ``iterator`` type of ``rng``.
 - Returns: ``rng|jointed(oven::make_single_range(v))``.
 
 
@@ -646,7 +645,7 @@ Pending...
 
 - Header: ``<pstade/oven/joint_range.hpp>``
 - Valid expression: ``rng1|jointed(rng2)``
-- Precondition: The ``iterator`` ``reference`` type of ``rng2`` is convertible to ``rng1``\'s.
+- Precondition: The ``reference`` type of ``rng2`` is convertible to ``rng1``\'s.
 - Returns: A range that joints ``[boost::begin(rng1),boost::end(rng1))`` and ``[boost::begin(rng2),boost::end(rng2))``.
 
 
@@ -746,7 +745,6 @@ Note that ``memoized`` can return a `Forward Range`_ even if its base range is a
 ^^^^^^^^^^^^^
 - Header: ``<pstade/oven/prepend_range.hpp>``
 - Valid expression: ``rng|prepended(v)``
-- Precondition: The ``iterator`` type of ``rng`` is convertible to ``v*``.
 - Returns: ``oven::make_single_range(v)|jointed(rng)``.
 
 

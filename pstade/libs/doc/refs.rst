@@ -19,6 +19,7 @@
 .. _Ketchup: ./ketchup/index.html
 .. _Napkin:  ./napkin/index.html
 .. _Oven:    ./oven/index.html
+.. _Sausage: ./sausage/index.html
 .. _Tomato:  ./tomato/index.html
 .. _Wine:    ./wine/index.html
 .. _Sauce:   ./sauce
@@ -28,6 +29,7 @@
 .. _KetchupR: http://p-stade.sourceforge.net/ketchup/index.html
 .. _NapkinR:  http://p-stade.sourceforge.net/napkin/index.html
 .. _OvenR:    http://p-stade.sourceforge.net/oven/index.html
+.. _SausageR: http://p-stade.sourceforge.net/sausage/index.html
 .. _TomatoR:  http://p-stade.sourceforge.net/tomato/index.html
 .. _WineR:    http://p-stade.sourceforge.net/wine/index.html
 

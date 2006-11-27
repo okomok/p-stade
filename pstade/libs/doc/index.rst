@@ -60,6 +60,12 @@ A `Boost.Range`_ Extension Library
 
 
 
+`Sausage`_
+----------
+A Coroutine Iteration Emulator
+
+
+
 Tomato
 ---------
 An ATL/WTL_ Extension Library
