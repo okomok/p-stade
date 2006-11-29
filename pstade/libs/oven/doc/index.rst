@@ -923,7 +923,7 @@ Pending...
 ``utf8_decoded``
 ^^^^^^^^^^^^^^^^
 - Header: ``<pstade/oven/utf8_decode_range.hpp>``
-- Valid expression: ``biRng|utf8_decoded()`` or ``biRng|utf8_decoded(u32)``
+- Valid expression: ``biRng|utf8_decoded`` or ``biRng|utf8_decoded(u32)``
 - Returns: A `Bidirectional Range`_ whose iterators behave as if they were the original iterators wrapped in ``boost::u8_to_u32_iterator``.
 
 

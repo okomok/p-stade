@@ -19,7 +19,6 @@
 
 
 #include <boost/iterator/iterator_traits.hpp>
-#include <boost/type_traits/add_const.hpp>
 #include <pstade/affect.hpp>
 
 
@@ -27,16 +26,12 @@ namespace pstade { namespace oven { namespace detail {
 
 
 template< class Iterator >
-struct constant_reference
-{
-    typedef typename boost::iterator_reference<Iterator>::type ref_t;
-    typedef typename boost::iterator_value<Iterator>::type val_t;
-
-    typedef typename affect_cvr<
-        ref_t,
-        typename boost::add_const<val_t>::type
-    >::type type;
-};
+struct constant_reference :
+    affect_cvr<
+        typename boost::iterator_reference<Iterator>::type,
+        typename boost::iterator_value<Iterator>::type const
+    >
+{ };
 
 
 } } } // namespace pstade::oven::detail

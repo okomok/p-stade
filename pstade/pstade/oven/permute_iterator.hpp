@@ -57,10 +57,10 @@ private:
     typedef typename super_t::reference ref_t;
 
 public:
-    explicit permute_iterator()
+    permute_iterator()
     { }
 
-    explicit permute_iterator(ElementIter const& e, IndexIter const& i) :
+    permute_iterator(ElementIter const& e, IndexIter const& i) :
         super_t(i), m_elemIter(e)
     { }
 

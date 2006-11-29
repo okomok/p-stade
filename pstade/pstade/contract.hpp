@@ -40,7 +40,6 @@
 #include <pstade/for_debug.hpp>
 #include <pstade/nonconstructible.hpp>
 #include <pstade/nullptr.hpp>
-#include <pstade/overload.hpp>
 #include <pstade/unused.hpp>
 
 

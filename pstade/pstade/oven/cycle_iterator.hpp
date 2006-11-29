@@ -62,8 +62,8 @@ namespace cycle_iterator_detail {
     }
 
 
-    template< class ForwardIter, class Size >
-    void decrement(ForwardIter& it, Size& index, ForwardIter const& first, ForwardIter last)
+    template< class BidiIter, class Size >
+    void decrement(BidiIter& it, Size& index, BidiIter const& first, BidiIter last)
     {
         if (it != first) {
             --it;

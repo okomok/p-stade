@@ -39,7 +39,7 @@ private:
     typedef typename sub_range_base<Range>::type super_t;
 
 public:
-    pop_range(Range& rng) :
+    explicit pop_range(Range& rng) :
         super_t(boost::begin(rng), detail::range_prior(rng))
     { }
 
