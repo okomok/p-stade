@@ -98,9 +98,9 @@ public:
         super_t(it), m_fun(fun)
     { }
 
-    template< class ForwardIter_, class Reference_, class Value_ >
+    template< class ForwardIter_, class BinaryFun_, class Reference_, class Value_ >
     adjacent_transform_iterator(
-        adjacent_transform_iterator<ForwardIter_, BinaryFun, Reference_, Value_> const& other,
+        adjacent_transform_iterator<ForwardIter_, BinaryFun_, Reference_, Value_> const& other,
         typename boost::enable_if_convertible<ForwardIter_, ForwardIter>::type * = 0
     ) :
         super_t(other.base()), m_fun(other.function())

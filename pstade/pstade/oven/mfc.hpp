@@ -52,6 +52,7 @@ class CTypedPtrMap;
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/iterator/transform_iterator.hpp>
 #include <boost/type_traits/is_const.hpp>
+#include <boost/type_traits/remove_const.hpp>
 #include <boost/type_traits/remove_pointer.hpp>
 #include <boost/utility/addressof.hpp>
 #include <pstade/apple/mfc/afx.hpp> // legacy CString
@@ -512,6 +513,7 @@ namespace pstade_oven_extension {
 
     } // namespace ms_detail
 
+
     // maps
     //
 
@@ -733,6 +735,13 @@ namespace pstade_oven_extension {
             {
                 return static_cast<result_type>(p);
             }
+
+            // for Interoperatable
+            fun()
+            { }
+
+            fun(fun<typename boost::remove_const<X>::type> const& other)
+            { }
         };
 
         template< class X >

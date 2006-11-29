@@ -7,7 +7,7 @@ P-Stade C++ Libraries
 :Author: MB
 :Contact: mb2act@yahoo.co.jp
 :License: Distributed under the `Boost Software License Version 1.0`_
-:Version: 1.01.x
+:Version: 1.02.x
 
 
 

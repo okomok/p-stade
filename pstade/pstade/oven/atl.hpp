@@ -260,20 +260,29 @@ namespace pstade_oven_extension {
 
     namespace ms_detail {
 
+        struct indirected_GetAt
+        {
+            template< class Reference, class List >
+            static Reference call(List& lst, POSITION pos)
+            {
+                // 'CRBTree::GetAt' returns pointer, so indirect it!
+                return *lst.GetAt(pos);
+            }
+        };
+
         struct rb_tree_range :
             range_noncopyable,
-            ms_detail::indirected_list_functions
+            ms_detail::list_functions
         {
             template< class X >
             struct associate
             {
                 typedef typename X::CPair val_t;
 
-                typedef ms_detail::list_iterator<X, val_t *, val_t *> miter_t;
-                typedef ms_detail::list_iterator<X const, val_t const *, val_t const *> citer_t;
-                
-                typedef boost::indirect_iterator<miter_t> mutable_iterator;
-                typedef boost::indirect_iterator<citer_t> constant_iterator;
+                typedef ms_detail::list_iterator<X, val_t,
+                    boost::use_default, boost::use_default, indirected_GetAt> mutable_iterator;
+                typedef ms_detail::list_iterator<X const, val_t const,
+                    boost::use_default, boost::use_default, indirected_GetAt> constant_iterator;
             };
         };
 
@@ -300,10 +309,9 @@ namespace pstade_oven_extension {
         ms_detail::rb_tree_range
     {
         template< class Iterator, class X >
-        Iterator begin(X& x) // redefine
+        Iterator begin(X& x) // redefine; CAtlMap has no 'GetHeadPosition'.
         {
-            typedef typename Iterator::base_type base_t; // == ms_detail::list_iterator
-            return Iterator(base_t(x, x.GetStartPosition())); // no 'GetHeadPosition'
+            return Iterator(x, x.GetStartPosition());
         }
     };
 
@@ -569,6 +577,41 @@ PSTADE_OVEN_EXTENSION_TYPE((ATL)(CComBSTR))
     PSTADE_OVEN_EXTENSION_TEMPLATE((ATL)(CSimpleMap), 2)
     PSTADE_OVEN_EXTENSION_TEMPLATE((ATL)(CSimpleValArray), 1)
 #endif
+
+
+
+// make_CAdapt
+//
+
+
+#include <pstade/apple/atl/comcli_fwd.hpp> // CAdapt
+#include <pstade/egg/function.hpp>
+#include <pstade/pass_by.hpp>
+
+
+namespace pstade { namespace oven {
+
+
+    struct baby_make_CAdapt
+    {
+        template< class Myself, class T >
+        struct apply
+        {
+            typedef ATL::CAdapt<typename pass_by_value<T>::type> type;
+        };
+
+        template< class Result, class T >
+        Result call(T& src)
+        {
+            return Result(src);
+        }
+    };
+
+    PSTADE_EGG_FUNCTION(make_CAdapt, baby_make_CAdapt)
+
+
+} } // namespae pstade::oven
+
 
 
 #endif

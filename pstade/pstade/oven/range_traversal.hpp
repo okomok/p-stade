@@ -11,6 +11,7 @@
 
 
 #include <boost/iterator/iterator_categories.hpp> // iterator_traversal
+#include "./detail/pure_traversal.hpp"
 #include "./range_iterator.hpp"
 
 
@@ -27,7 +28,7 @@ struct range_traversal :
 
 template< class Range >
 struct range_pure_traversal :
-    boost::detail::pure_traversal_tag<
+    detail::pure_traversal<
         typename range_iterator<Range>::type
     >
 { };

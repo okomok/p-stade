@@ -51,7 +51,7 @@ Boost.Range MFC/ATL Extension provides `Boost.Range`_ support for MFC/ATL collec
 Requirements
 ============
 
-- `Boost C++ Libraries Version 1.34.0`__ or later (no compilation required)
+- `Boost C++ Libraries Version 1.33.1`__ or later (no compilation required)
 - Visual C++ 7.1 or Visual C++ 8.0
 
 __ Boost_
@@ -62,7 +62,7 @@ __ Boost_
 MFC Ranges
 ==========
 
-If the ``<boost/range/mfc.hpp>`` is included before or after `Boost.Range`_ headers,
+If the ``<pstade/oven/mfc.hpp>`` is included before or after `Boost.Range`_ headers,
 the MFC collections and strings become models of Range.
 The table below lists the Traversal Category and ``range_reference`` of MFC ranges.
 
@@ -129,7 +129,7 @@ As for ``const Range``, see `const Ranges`_.
 ATL Ranges
 ==========
 
-If the ``<boost/range/atl.hpp>`` is included before or after `Boost.Range`_ headers,
+If the ``<pstade/oven/atl.hpp>`` is included before or after `Boost.Range`_ headers,
 the ATL collections and strings become models of Range.
 The table below lists the Traversal Category and ``range_reference`` of ATL ranges.
 

@@ -45,7 +45,6 @@
 
 #else
 
-    #include <boost/preprocessor/seq/seq.hpp> // SEQ_HEAD
     #include <pstade/unparenthesize.hpp>
 
     #define PSTADE_CONCEPT_ASSERT(ModelInParens)

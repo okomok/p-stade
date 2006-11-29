@@ -26,6 +26,7 @@
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include "./detail/constant_reference.hpp"
+#include "./detail/pure_traversal.hpp"
 #include "./reverse_iterator.hpp"
 
 
@@ -42,7 +43,7 @@ namespace adjacent_filter_iterator_detail {
     template< class ForwardIter >
     struct traversal :
         boost::detail::minimum_category<
-            typename boost::iterator_traversal<ForwardIter>::type,
+            typename detail::pure_traversal<ForwardIter>::type,
             boost::bidirectional_traversal_tag
         >
     { };
@@ -100,9 +101,9 @@ public:
         m_first(first), m_last(last)
     { }
 
-    template< class ForwardIter_ >
+    template< class ForwardIter_, class BinaryPred_ >
     adjacent_filter_iterator(
-        adjacent_filter_iterator<ForwardIter_, BinaryPred> const& other,
+        adjacent_filter_iterator<ForwardIter_, BinaryPred_> const& other,
         typename boost::enable_if_convertible<ForwardIter_, ForwardIter>::type * = 0
     ) :
         super_t(other.base()), m_pred(other.predicate()),

@@ -478,6 +478,17 @@ template< class Range, class Vector >
 bool test_RandomAccess_Readable_Writable(Range& rng, Vector const& expected)
 {
     BOOST_ASSERT(oven::distance(expected) >= 3);
+
+#if BOOST_WORKAROUND(BOOST_MSVC, == 1310) && !defined(PSTADE_CONCEPT_CHECK) && !defined(NDEBUG)
+    // Workaround:
+    // Under VC++7.1 + No PSTADE_CONCEPT_CHECK + Debug mode,
+    // 'oven::distance(rng)' sometimes fails to find ADL 'boost_range_end' of
+    // const-qualified ranges without the following line. Weird!
+    boost::const_end(rng);
+    // Note that another workaround is to remove the const-qualifier
+    // from the 'oven::distance' implementation.
+#endif
+
     BOOST_ASSERT(oven::distance(rng) == oven::distance(expected));
 
     if (!oven::test_RandomAccess_Readable(rng, expected))

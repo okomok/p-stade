@@ -14,6 +14,7 @@
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/optional.hpp>
+#include "./detail/pure_traversal.hpp"
 
 
 namespace pstade { namespace oven {
@@ -29,7 +30,7 @@ namespace scan_iterator_detail {
     template< class Iterator >
     struct traversal :
         boost::detail::minimum_category<
-            typename boost::iterator_traversal<Iterator>::type,
+            typename detail::pure_traversal<Iterator>::type,
             boost::forward_traversal_tag
         >
     { };
@@ -67,10 +68,11 @@ public:
         super_t(it), m_state(init), m_fun(fun)
     { }
 
-    template< class Iterator_ >
+    template< class Iterator_, class State_, class BinaryFun_ >
     scan_iterator(
-        scan_iterator<Iterator_, State, BinaryFun> const& other,
-        typename boost::enable_if_convertible<Iterator_, Iterator>::type * = 0
+        scan_iterator<Iterator_, State_, BinaryFun_> const& other,
+        typename boost::enable_if_convertible<Iterator_, Iterator>::type * = 0,
+        typename boost::enable_if_convertible<State_, State>::type       * = 0
     ) :
         super_t(other.base()), m_state(other.state()), m_fun(other.function())
     { }

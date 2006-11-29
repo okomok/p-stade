@@ -25,6 +25,16 @@ rule oven-compile ( name )
     ] ;
 }
 
+rule oven-compile-fail ( name )
+{
+    return [
+        compile-fail $(name).cpp
+        :
+        <include>$(PSTADE_ROOT)
+        <include>$(BOOST_ROOT)
+    ] ;
+}
+
 test-suite oven :
     [ oven-test adjacent_filter_range ]
     [ oven-test adjacent_transform_range ]
@@ -44,6 +54,7 @@ test-suite oven :
     [ oven-test clear_range ]
     [ oven-test concatenate_range ]
     [ oven-test constant_range ]
+    [ oven-compile-fail constant_range_fail ]
     [ oven-test const_lvalue_range ]
     [ oven-test copy_range ]
     [ oven-test counting_range ]

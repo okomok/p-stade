@@ -19,7 +19,14 @@ rule oven-ms-test ( name )
 
 
 test-suite range :
-    [ oven-ms-test atl ]
-    [ oven-ms-test mfc ]
+    [ oven-ms-test atl_array ]
+    [ oven-ms-test atl_list ]
+    [ oven-ms-test atl_map ]
+    [ oven-ms-test atl_string ]
+    [ oven-ms-test mfc_array ]
+    [ oven-ms-test mfc_list ]
+    [ oven-ms-test mfc_map ]
+    [ oven-ms-test mfc_string ]
+    [ oven-ms-test mfc_typed ]
     [ oven-ms-test wtl ]
     ;

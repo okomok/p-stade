@@ -7,7 +7,7 @@ The Oven Range Library
 :Author: MB
 :Contact: mb2act@yahoo.co.jp 
 :License: Distributed under the `Boost Software License Version 1.0`_
-:Version: 0.91.8
+:Version: 0.91.9
 
 
 
@@ -37,7 +37,7 @@ unless otherwise specified.
 Requirements
 ------------
 - `Boost C++ Libraries Version 1.33.1`__ or later (no compilation required)
-- `P-Stade C++ Libraries Version 1.01.9`__ or later (no compilation required, give a higher priority than Boost headers)
+- `P-Stade C++ Libraries Version 1.02.0`__ or later (no compilation required, give a higher priority than Boost headers)
 
 __ Boost_
 __ http://sourceforge.net/project/showfiles.php?group_id=141222&package_id=173059
@@ -47,7 +47,7 @@ __ http://sourceforge.net/project/showfiles.php?group_id=141222&package_id=17305
 Tested Under
 ------------
 - Microsoft Visual C++ 2005 Express Edition
-- Microsoft Visual C++ .NET Version 7.1
+- Microsoft Visual C++ .NET Version 7.1 SP1
 - GCC 3.4.4
 
 
@@ -1056,6 +1056,16 @@ Also, ``Range`` has the second template parameter for ``boost::enable_if``.
 
 
 
+MFC/ATL Extension
+-----------------
+Oven provides `Boost.Range`_ support for MFC/ATL collection and string types.
+See `Range MFC/ATL Extension`__.
+
+
+__ ./doc/ms/mfc_atl.html
+
+
+
 Acknowledgments
 ---------------
 - `P-Stade`_
@@ -1173,5 +1183,10 @@ Version 0.91.8
 ^^^^^^^^^^^^^^
 - Renamed ``popped_back`` to ``popped``.
 - Changed the valid expressions of ``zipped`` and ``zipped_with``.
+
+Version 0.91.9
+^^^^^^^^^^^^^^
+- Ported to VC++7.1 SP1.
+- Added MFC/ATL support.
 
 

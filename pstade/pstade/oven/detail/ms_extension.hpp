@@ -33,7 +33,8 @@ template<
     class List,
     class Value,
     class Reference,
-    class Traversal
+    class Traversal,
+    class GetAt
 >
 struct list_iterator;
 
@@ -42,7 +43,8 @@ template<
     class List,
     class Value,
     class Reference,
-    class Traversal
+    class Traversal,
+    class GetAt
 >
 struct list_iterator_super
 {
@@ -59,7 +61,7 @@ struct list_iterator_super
     >::type trv_t;
 
     typedef boost::iterator_facade<
-        list_iterator<List, Value, Reference, Traversal>,
+        list_iterator<List, Value, Reference, Traversal, GetAt>,
         Value,
         trv_t,
         ref_t
@@ -67,18 +69,29 @@ struct list_iterator_super
 };
 
 
+struct default_GetAt
+{
+    template< class Reference, class List >
+    static Reference call(List& lst, POSITION pos)
+    {
+        return lst.GetAt(pos);
+    }
+};
+
+
 template<
     class List,
     class Value,
-    class Reference = boost::use_default,
-    class Traversal = boost::use_default
+    class Reference  = boost::use_default,
+    class Traversal  = boost::use_default,
+    class GetAt      = default_GetAt
 >
 struct list_iterator :
-    list_iterator_super<List, Value, Reference, Traversal>::type
+    list_iterator_super<List, Value, Reference, Traversal, GetAt>::type
 {
 private:
     typedef list_iterator self_t;
-    typedef typename list_iterator_super<List, Value, Reference, Traversal>::type super_t;
+    typedef typename list_iterator_super<List, Value, Reference, Traversal, GetAt>::type super_t;
     typedef typename super_t::reference ref_t;
 
 public:
@@ -89,11 +102,11 @@ public:
         m_plst(boost::addressof(lst)), m_pos(pos)
     { }
 
-template< class, class, class, class > friend struct list_iterator;
-    template< class List_, class Value_, class Reference_, class Traversal_>
+template< class, class, class, class, class > friend struct list_iterator;
+    template< class List_, class Value_, class Reference_, class Traversal_, class GetAt_>
     list_iterator(
-        list_iterator<List_, Value_, Reference_, Traversal_> const& other,
-        typename boost::enable_if_convertible<Value_ *, Value *>::type * = 0
+        list_iterator<List_, Value_, Reference_, Traversal_, GetAt_> const& other,
+        typename boost::enable_if_convertible<List_ *, List *>::type * = 0
     ) :
         m_plst(other.m_plst), m_pos(other.m_pos)
     { }
@@ -106,7 +119,7 @@ friend class boost::iterator_core_access;
     ref_t dereference() const
     {
         BOOST_ASSERT("out of range" && m_pos != 0);
-        return m_plst->GetAt(m_pos);
+        return GetAt::template call<ref_t>(*m_plst, m_pos);
     }
 
     // A    B    C    D    x

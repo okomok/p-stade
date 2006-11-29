@@ -14,6 +14,7 @@
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_traits.hpp> // iterator_value
 #include <boost/optional.hpp>
+#include "./detail/pure_traversal.hpp"
 
 
 namespace pstade { namespace oven {
@@ -27,14 +28,6 @@ namespace const_lvalue_iterator_detail {
 
 
     template< class Iterator >
-    struct traversal :
-        boost::detail::pure_traversal_tag< // makes 'facade_iterator_category' recompute.
-            typename boost::iterator_traversal<Iterator>::type
-        >
-    { };
-
-
-    template< class Iterator >
     struct super_
     {
         typedef typename boost::iterator_value<Iterator>::type val_t;
@@ -43,7 +36,7 @@ namespace const_lvalue_iterator_detail {
             const_lvalue_iterator<Iterator>,
             Iterator,
             val_t,
-            typename traversal<Iterator>::type,
+            typename detail::pure_traversal<Iterator>::type, // *pure* makes 'facade_iterator_category' recompute.
             val_t const&
         > type;
     };

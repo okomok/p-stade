@@ -84,8 +84,9 @@ struct equals_fun
     (bool)) operator()(Range1 const& rng1, Range2 const& rng2, BinaryPred pred) const
     {
         typedef typename boost::detail::minimum_category<
-            typename range_traversal<Range1>::type,
-            typename range_traversal<Range2>::type
+            // 'minimum_category' needs *pure*.
+            typename range_pure_traversal<Range1>::type,
+            typename range_pure_traversal<Range2>::type
         >::type trv_t;
 
         return equals_detail::aux(rng1, rng2, pred, trv_t());

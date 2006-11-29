@@ -27,6 +27,7 @@
 #include <pstade/unused.hpp>
 #include "./detail/constant_reference.hpp"
 #include "./detail/debug_is_sorted.hpp"
+#include "./detail/pure_traversal.hpp"
 
 
 namespace pstade { namespace oven {
@@ -48,8 +49,8 @@ namespace merge_iterator_detail {
         boost::detail::minimum_category<
             boost::forward_traversal_tag,
             typename boost::detail::minimum_category<
-                typename boost::iterator_traversal<Iterator1>::type,
-                typename boost::iterator_traversal<Iterator2>::type
+                typename detail::pure_traversal<Iterator1>::type,
+                typename detail::pure_traversal<Iterator2>::type
             >::type
         >
     { };
@@ -184,9 +185,9 @@ public:
     }
 
 template< class, class, class, class > friend struct merge_iterator;
-    template< class Iterator1_, class Iterator2_ >
+    template< class Iterator1_, class Iterator2_, class Compare_ >
     merge_iterator(
-        merge_iterator<Iterator1_, Iterator2_, Compare> const& other,
+        merge_iterator<Iterator1_, Iterator2_, Compare_> const& other,
         typename boost::enable_if_convertible<Iterator1_, Iterator1>::type * = 0,
         typename boost::enable_if_convertible<Iterator2_, Iterator2>::type * = 0
     ) :

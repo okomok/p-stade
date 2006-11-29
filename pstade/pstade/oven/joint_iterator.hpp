@@ -14,6 +14,7 @@
 #include <boost/iterator/detail/minimum_category.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_categories.hpp>
+#include "./detail/pure_traversal.hpp"
 #include "./reverse_iterator.hpp"
 
 
@@ -30,8 +31,8 @@ namespace joint_iterator_detail {
     template< class IteratorL, class IteratorR >
     struct traversal :
         boost::detail::minimum_category<
-            typename boost::iterator_traversal<IteratorL>::type,
-            typename boost::iterator_traversal<IteratorR>::type
+            typename detail::pure_traversal<IteratorL>::type,
+            typename detail::pure_traversal<IteratorR>::type
         >
     { };
 
