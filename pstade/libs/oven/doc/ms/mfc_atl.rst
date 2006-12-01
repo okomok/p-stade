@@ -1,16 +1,13 @@
 
-++++++++++++++++++++++++++++++++
- |Boost| Range MFC/ATL Extension
-++++++++++++++++++++++++++++++++
-
-.. |Boost| image:: http://www.boost.org/libs/ptr_container/doc/boost.png
+++++++++++++++++++++++
+Oven MFC/ATL Extension
+++++++++++++++++++++++
 
 
-
-:Author:        Shunsuke Sogame
+:Author:        MB
 :Contact:       mb2act@yahoo.co.jp
 :date:          26th of May 2006
-:copyright:     Shunsuke Sogame 2005-2006. Use, modification and distribution is subject to the Boost Software License, Version 1.0 (see LICENSE_1_0.txt__).
+:copyright:     MB 2005-2006. Use, modification and distribution is subject to the Boost Software License, Version 1.0 (see LICENSE_1_0.txt__).
 
 __ http://www.boost.org/LICENSE_1_0.txt
 
@@ -20,7 +17,7 @@ __ http://www.boost.org/LICENSE_1_0.txt
 Overview
 ========
 
-Boost.Range MFC/ATL Extension provides `Boost.Range`_ support for MFC/ATL collection and string types.
+Oven MFC/ATL Extension provides `Boost.Range`_ support for MFC/ATL collection and string types.
 
 
 .. parsed-literal::
@@ -50,12 +47,18 @@ Boost.Range MFC/ATL Extension provides `Boost.Range`_ support for MFC/ATL collec
 ============
 Requirements
 ============
-
 - `Boost C++ Libraries Version 1.33.1`__ or later (no compilation required)
-- Visual C++ 7.1 or Visual C++ 8.0
+- `P-Stade C++ Libraries Version 1.02.0`__ or later (no compilation required, give a higher priority than Boost headers)
 
 __ Boost_
+__ http://sourceforge.net/project/showfiles.php?group_id=141222&package_id=173059
 
+
+============
+Tested Under
+============
+- Microsoft Visual C++ .NET Version 7.1 SP1
+- Microsoft Visual C++ 2005 Express Edition
 
 
 ==========

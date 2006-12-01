@@ -531,7 +531,7 @@ Thus, STL that doesn't know traversal concepts can choose effective algorithms.
 - Valid expression: ``rng|copied_out(it)``
 - Precondition: ``oven::copy(rng,it)`` is a valid expression.
 - Effect: ``oven::copy(rng,it)``
-- Returns: ``[boost::begin(rng),boost::end(rng))`` if ``rng`` is a `Forward Range`_; otherwise, ``void``.
+- Returns: ``rng``.
 
 
 ``cycled``
