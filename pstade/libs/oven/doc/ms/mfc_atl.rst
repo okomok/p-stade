@@ -1,7 +1,7 @@
 
-++++++++++++++++++++++
-Oven MFC/ATL Extension
-++++++++++++++++++++++
+++++++++++++++++++++++++++++
+Oven Range MFC/ATL Extension
+++++++++++++++++++++++++++++
 
 
 :Author:        MB
@@ -17,7 +17,7 @@ __ http://www.boost.org/LICENSE_1_0.txt
 Overview
 ========
 
-Oven MFC/ATL Extension provides `Boost.Range`_ support for MFC/ATL collection and string types.
+Oven Range MFC/ATL Extension provides `Boost.Range`_ support for MFC/ATL collection and string types.
 
 
 .. parsed-literal::

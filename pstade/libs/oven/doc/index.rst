@@ -1059,7 +1059,7 @@ Also, ``Range`` has the second template parameter for ``boost::enable_if``.
 MFC/ATL Extension
 -----------------
 Oven provides `Boost.Range`_ support for MFC/ATL collection and string types.
-See `Range MFC/ATL Extension`__.
+See `Oven Range MFC/ATL Extension`__.
 
 
 __ ./doc/ms/mfc_atl.html

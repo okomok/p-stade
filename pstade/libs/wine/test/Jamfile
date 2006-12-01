@@ -46,6 +46,7 @@ test-suite wine :
     [ wine-test remove_cvr ]
     [ wine-test require ]
     [ wine-test result_of_lambda ]
+    [ wine-test ret ]
     [ wine-test statement ]
     [ wine-test static_c ]
     [ wine-test tie ]
