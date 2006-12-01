@@ -29,13 +29,13 @@ namespace pstade {
         template< class Result_, class Function >
         struct baby_fun
         {
-			typedef Result_ nullary_result_type;
+            typedef Result_ nullary_result_type;
 
-			template< class Myself, BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(PSTADE_EGG_MAX_ARITY, class T, void) >
-			struct apply
-			{
-				typedef Result_ type;
-			};
+            template< class Myself, BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(PSTADE_EGG_MAX_ARITY, class T, void) >
+            struct apply
+            {
+                typedef Result_ type;
+            };
 
             // 0ary
             template< class Result >
@@ -74,45 +74,45 @@ namespace pstade {
     } // namespace ret_detail
 
 
-	template< class Result, class Function >
-	struct result_of_ret
-	{
-		typedef egg::function< ret_detail::baby_fun<Result, Function> > type;
-	};
+    template< class Result, class Function >
+    struct result_of_ret
+    {
+        typedef egg::function< ret_detail::baby_fun<Result, Function> > type;
+    };
 
 
-	template< class Result, class Function > inline
-	typename result_of_ret<Result, Function>::type
-	ret(Function fun)
-	{
-		return typename result_of_ret<Result, Function>::type(fun);
-	}
+    template< class Result, class Function > inline
+    typename result_of_ret<Result, Function>::type
+    ret(Function fun)
+    {
+        return typename result_of_ret<Result, Function>::type(fun);
+    }
 
 
-	template< class Result >
-	struct with_ret;
+    template< class Result >
+    struct with_ret;
 
 
-	namespace with_ret_detail {
+    namespace with_ret_detail {
 
-		struct adl_marker
-		{ };
+        struct adl_marker
+        { };
 
-		template< class Result, class Function > inline
-		typename result_of_ret<Result, Function>::type
-		operator|(Function fun, with_ret<Result> const&)
-		{
-			return typename result_of_ret<Result, Function>::type(fun);
-		}
+        template< class Result, class Function > inline
+        typename result_of_ret<Result, Function>::type
+        operator|(Function fun, with_ret<Result> const&)
+        {
+            return typename result_of_ret<Result, Function>::type(fun);
+        }
 
-	} // namespace with_ret_detail
+    } // namespace with_ret_detail
 
 
-	template< class Result >
-	struct with_ret :
-		with_ret_detail::adl_marker,
-		private nonassignable
-	{ };
+    template< class Result >
+    struct with_ret :
+        with_ret_detail::adl_marker,
+        private nonassignable
+    { };
 
 
 } // namespace pstade
