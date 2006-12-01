@@ -42,28 +42,28 @@
 void test()
 {
     using namespace pstade;
-	namespace lambda = boost::lambda;
+    namespace lambda = boost::lambda;
 
-	ATL::CSimpleValArray<int> arr;
-		arr.Add(5), arr.Add(2), arr.Add(3), arr.Add(5)
-	;
+    ATL::CSimpleValArray<int> arr;
+        arr.Add(5), arr.Add(2), arr.Add(3), arr.Add(5)
+    ;
 
-	::CList<int, int const&> lst;
-		lst.AddTail(4), lst.AddTail(6), lst.AddTail(4), lst.AddTail(1)
-	;
+    ::CList<int, int const&> lst;
+        lst.AddTail(4), lst.AddTail(6), lst.AddTail(4), lst.AddTail(1)
+    ;
 
-	std::vector<int> vec =
-		WTL::CString(_T("9876")) |
+    std::vector<int> vec =
+        WTL::CString(_T("9876")) |
             oven::transformed(lambda::bind(lexical_cast, lambda::_1, boost::type<int>())) |
             oven::copied
-	;
+    ;
 
-	BOOST_CHECK( oven::equals(
-		boost::tie(arr, lst) |
+    BOOST_CHECK( oven::equals(
+        boost::tie(arr, lst) |
             oven::zipped_with(lambda::_1 + lambda::_2)
-		,
-		vec			
-	) );
+        ,
+        vec
+    ) );
 }
 
 

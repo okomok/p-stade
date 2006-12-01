@@ -31,7 +31,7 @@ namespace pstade {
         {
             typedef Result_ nullary_result_type;
 
-            template< class Myself, BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(PSTADE_EGG_MAX_ARITY, class T, void) >
+            template< class Myself, BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(PSTADE_EGG_MAX_ARITY, class A, void) >
             struct apply
             {
                 typedef Result_ type;
@@ -52,12 +52,10 @@ namespace pstade {
             }
 
             // 2ary-
-        #define PSTADE_max_arity PSTADE_EGG_MAX_ARITY
         #define PSTADE_ref_param(Z, N, _) BOOST_PP_CAT(A, N) & BOOST_PP_CAT(a, N)
-            #define BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_max_arity, <pstade/ret.hpp>))
+            #define  BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_EGG_MAX_ARITY, <pstade/ret.hpp>))
             #include BOOST_PP_ITERATE()
-        #undef PSTADE_ref_param
-        #undef PSTADE_max_arity
+        #undef  PSTADE_ref_param
 
             explicit baby_fun() // DefaultConstructible iff 'Function' is.
             { }
