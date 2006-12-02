@@ -69,7 +69,7 @@ namespace pstade {
             { };
 
             template< class Result, class A0 >
-            Result call(A0& a0)
+            Result call( A0& a0 )
             {
                 return
                     m_fun(
@@ -95,7 +95,8 @@ namespace pstade {
 
         private:
             Function m_fun;
-        };
+
+        }; // struct baby_fun
 
 
         struct baby

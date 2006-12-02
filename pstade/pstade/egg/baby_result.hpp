@@ -22,6 +22,17 @@
 ==============================================================================*/
 
 
+// Note:
+//
+// Assume there is no 'nullary_result_type' mechanism.
+// As [1] mentions, 'boost::result_of<F()>::type' must always be valid,
+// which implies that 'Baby::apply<Myself>::type' must be;
+// even if 'F' object is never called without arguments.
+// It would be very cumbersome.
+//
+// [1] http://anubis.dkuug.dk/jtc1/sc22/wg21/docs/papers/2003/n1454.html
+
+
 #include <boost/mpl/apply.hpp>
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
@@ -63,7 +74,7 @@ namespace baby_result_detail {
 struct error_no_arguments_supplied
 {
     template< class T >
-    error_no_arguments_supplied(const T&)
+    error_no_arguments_supplied(T const&)
     { }
 };
 
