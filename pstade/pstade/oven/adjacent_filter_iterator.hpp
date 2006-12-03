@@ -25,6 +25,7 @@
 #include <boost/iterator/detail/minimum_category.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_categories.hpp>
+#include <pstade/reference.hpp>
 #include "./detail/constant_reference.hpp"
 #include "./detail/pure_traversal.hpp"
 #include "./reverse_iterator.hpp"
@@ -69,7 +70,7 @@ namespace adjacent_filter_iterator_detail {
 
         ForwardIter next = first;
         while (++next != last) {
-            if (pred(*first, *next))
+            if (pred(*first|to_reference, *next|to_reference))
                 return next;
             first = next;
         }

@@ -19,12 +19,12 @@
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/arithmetic/dec.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
-#include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_params_with_a_default.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
+#include <pstade/preprocessor.hpp>
 
 
 namespace pstade {
@@ -35,19 +35,15 @@ namespace pstade {
 
         struct baby
         {
-
-        #define PSTADE_add_ref(Z, N, _)   BOOST_PP_CAT(A, N) &
-        #define PSTADE_ref_param(Z, N, _) BOOST_PP_CAT(A, N) & BOOST_PP_CAT(a, N)
-
             // PSTADE_EGG_MAX_ARITY (primary)
             template< class Myself, BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(PSTADE_EGG_MAX_ARITY, class A, void) >
             struct apply
             {
-                typedef boost::tuples::tuple< BOOST_PP_ENUM(PSTADE_EGG_MAX_ARITY, PSTADE_add_ref, ~) > type;
+                typedef boost::tuples::tuple< PSTADE_PP_ENUM_REF_PARAMS(PSTADE_EGG_MAX_ARITY, A) > type;
             };
 
             template< class Result, class A0, class A1, class A2, class A3, class A4 >
-            Result call( BOOST_PP_ENUM(PSTADE_EGG_MAX_ARITY, PSTADE_ref_param, ~) )
+            Result call( PSTADE_PP_ENUM_REF_PARAMS_WITH_VARS(PSTADE_EGG_MAX_ARITY, A, a) )
             {
                 return Result( BOOST_PP_ENUM_PARAMS(PSTADE_EGG_MAX_ARITY, a) );
             }
@@ -71,9 +67,6 @@ namespace pstade {
             #include BOOST_PP_ITERATE()
         #undef  PSTADE_max_arity
 
-        #undef PSTADE_ref_param
-        #undef PSTADE_add_ref
-
         }; // struct baby
 
 
@@ -95,11 +88,11 @@ namespace pstade {
 template< class Myself, BOOST_PP_ENUM_PARAMS(n, class A) >
 struct apply< Myself, BOOST_PP_ENUM_PARAMS(n, A) >
 {
-    typedef boost::tuples::tuple< BOOST_PP_ENUM(n, PSTADE_add_ref, ~) > type;
+    typedef boost::tuples::tuple< PSTADE_PP_ENUM_REF_PARAMS(n, A) > type;
 };
 
 template< class Result, BOOST_PP_ENUM_PARAMS(n, class A) >
-Result call( BOOST_PP_ENUM(n, PSTADE_ref_param, ~) )
+Result call( PSTADE_PP_ENUM_REF_PARAMS_WITH_VARS(n, A, a) )
 {
     return Result( BOOST_PP_ENUM_PARAMS(n, a) );
 }

@@ -14,6 +14,7 @@
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/optional.hpp>
+#include <pstade/reference.hpp>
 #include "./detail/pure_traversal.hpp"
 
 
@@ -94,7 +95,7 @@ private:
 
     State call_fun() const
     {
-        return m_fun(m_state, *this->base());
+        return m_fun(m_state, *this->base()|to_reference);
     }
 
 friend class boost::iterator_core_access;

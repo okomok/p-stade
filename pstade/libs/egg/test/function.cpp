@@ -108,16 +108,16 @@ BOOST_MPL_ASSERT(( pstade::egg::baby_result_detail::has_nullary_result_type<bar_
 BOOST_MPL_ASSERT(( pstade::egg::baby_result_detail::has_nullary_result_type<hoge_impl> ));
 
 
-BOOST_MPL_ASSERT(( boost::is_same<boost::result_of<foo_fun(int)>::type, int> ));
+BOOST_MPL_ASSERT(( boost::is_same<boost::result_of<foo_fun(int)>::type, int const> ));
 BOOST_MPL_ASSERT(( boost::is_same<boost::result_of<foo_fun(int&)>::type, int> ));
-BOOST_MPL_ASSERT(( boost::is_same<boost::result_of<foo_fun(int, int)>::type, int> ));
+BOOST_MPL_ASSERT(( boost::is_same<boost::result_of<foo_fun(int, int)>::type, int const> ));
 BOOST_MPL_ASSERT(( boost::is_same<boost::result_of<foo_fun(int&, int)>::type, int> ));
 
 BOOST_MPL_ASSERT(( boost::is_same<boost::result_of<bar_fun()>::type, int> ));
 
 BOOST_MPL_ASSERT(( boost::is_same<boost::result_of<hoge_fun()>::type, std::string> ));
 BOOST_MPL_ASSERT(( boost::is_same<boost::result_of<hoge_fun(int&)>::type, int> ));
-BOOST_MPL_ASSERT(( boost::is_same<boost::result_of<hoge_fun(int, int)>::type, int> ));
+BOOST_MPL_ASSERT(( boost::is_same<boost::result_of<hoge_fun(int, int)>::type, int const> ));
 BOOST_MPL_ASSERT(( boost::is_same<boost::result_of<hoge_fun(int&, int)>::type, int> ));
 
 

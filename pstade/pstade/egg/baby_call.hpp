@@ -11,10 +11,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
-#include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
+#include <pstade/preprocessor.hpp>
 #include "./baby_result.hpp"
 #include "./detail/config.hpp"
 
@@ -39,12 +38,12 @@ baby_call(BabyFunction baby)
 //
 template< class BabyFunction, class A0 > inline
 typename egg::baby_result1<BabyFunction,
-    A0
+    A0&
 >::type
 baby_call(BabyFunction baby, A0& a0)
 {
     typedef typename egg::baby_result1<BabyFunction,
-        A0
+        A0&
     >::type result_t;
 
     return baby.template call<result_t>(a0);
@@ -53,14 +52,8 @@ baby_call(BabyFunction baby, A0& a0)
 
 // 2ary -
 //
-#define PSTADE_EGG_arg(Z, N, _) \
-    BOOST_PP_CAT(A, N) & BOOST_PP_CAT(a, N) \
-/**/
-
 #define BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_EGG_MAX_ARITY, <pstade/egg/baby_call.hpp>))
 #include BOOST_PP_ITERATE()
-
-#undef PSTADE_EGG_arg
 
 
 } } // namespace pstade::egg
@@ -73,12 +66,12 @@ baby_call(BabyFunction baby, A0& a0)
 
 template< class BabyFunction, BOOST_PP_ENUM_PARAMS(n, class A) > inline
 typename BOOST_PP_CAT(baby_result, n)<BabyFunction,
-    BOOST_PP_ENUM_PARAMS(n, A)
+    PSTADE_PP_ENUM_REF_PARAMS(n, A)
 >::type
-baby_call( BabyFunction baby, BOOST_PP_ENUM(n, PSTADE_EGG_arg, ~) )
+baby_call( BabyFunction baby, PSTADE_PP_ENUM_REF_PARAMS_WITH_VARS(n, A, a) )
 {
     typedef typename BOOST_PP_CAT(baby_result, n)<BabyFunction,
-        BOOST_PP_ENUM_PARAMS(n, A)
+        PSTADE_PP_ENUM_REF_PARAMS(n, A)
     >::type result_t;
 
     return baby.template call<result_t>( BOOST_PP_ENUM_PARAMS(n, a) );

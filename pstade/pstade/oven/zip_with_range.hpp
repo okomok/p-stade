@@ -43,7 +43,7 @@ namespace zip_with_range_detail {
     {
         typedef transform_range<
             zip_range<RangeTuple> const,
-            typename boost::result_of<tupled_fun(Function)>::type,
+            typename boost::result_of<tupled_fun(Function const&)>::type,
             Reference,
             Value
         > type;

@@ -82,11 +82,11 @@ namespace pstade {
     #define PSTADE_max_arity 10
     #define PSTADE_result_of_get(Z, N, _) typename result_of_get< Tuple, N >::type
     #define PSTADE_get(Z, N, _) boost::tuples::get< N >(tup)
-        #define BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_max_arity, <pstade/tupled.hpp>))
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_max_arity, <pstade/tupled.hpp>))
         #include BOOST_PP_ITERATE()
-    #undef PSTADE_get
-    #undef PSTADE_result_of_get
-    #undef PSTADE_max_arity
+    #undef  PSTADE_get
+    #undef  PSTADE_result_of_get
+    #undef  PSTADE_max_arity
 
 
         template< class Function >

@@ -188,7 +188,7 @@ struct pipe : BabyFunction,
 //
 template< class Input, class BabyFunction > inline
 typename baby_result1<BabyFunction,
-    Input
+    Input&
 >::type
 operator|(Input& in, pipe<BabyFunction> const& pi)
 {
@@ -198,7 +198,7 @@ operator|(Input& in, pipe<BabyFunction> const& pi)
 
 template< class Input, class BabyFunction > inline
 typename baby_result1<BabyFunction,
-    typename boost::add_const<Input>::type
+    typename boost::add_const<Input>::type&
 >::type
 operator|(Input const& in, pipe<BabyFunction> const& pi)
 {

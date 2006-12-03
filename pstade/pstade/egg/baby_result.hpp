@@ -33,14 +33,16 @@
 // [1] http://anubis.dkuug.dk/jtc1/sc22/wg21/docs/papers/2003/n1454.html
 
 
-#include <boost/mpl/apply.hpp>
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
+#include <boost/mpl/not.hpp>
 #include <boost/mpl/void.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/type_traits/add_const.hpp>
+#include <boost/type_traits/is_reference.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 #include <pstade/has_xxx.hpp>
 #include "./detail/config.hpp"
@@ -64,7 +66,10 @@ namespace baby_result_detail {
 
     template< class A >
     struct meta_arg :
-        boost::remove_reference<A>
+        boost::mpl::eval_if< boost::mpl::not_< boost::is_reference<A> >,
+            boost::add_const<A>,
+            boost::remove_reference<A>
+        >
     { };
 
 

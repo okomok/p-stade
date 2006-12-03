@@ -86,7 +86,7 @@ struct function :
 
     template< class A0 >
     typename baby_result1<BabyFunction,
-        A0
+        A0&
     >::type
     operator()(
         A0& a0
@@ -99,7 +99,7 @@ struct function :
 
     template< class A0 >
     typename baby_result1<BabyFunction,
-        typename boost::add_const<A0>::type
+        typename boost::add_const<A0>::type&
     >::type
     operator()(
         A0 const& a0
@@ -139,7 +139,7 @@ struct function :
 
 
     #define PSTADE_EGG_arg_type(R, _, Index, Bit) \
-        BOOST_PP_COMMA_IF(Index) BOOST_PP_CAT(PSTADE_EGG_ac, Bit)(BOOST_PP_CAT(A, Index)) \
+        BOOST_PP_COMMA_IF(Index) BOOST_PP_CAT(PSTADE_EGG_ac, Bit)(BOOST_PP_CAT(A, Index)) & \
     /**/
 
 

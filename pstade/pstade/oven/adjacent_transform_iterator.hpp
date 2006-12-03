@@ -17,6 +17,7 @@
 #include <boost/optional.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/utility/result_of.hpp>
+#include <pstade/reference.hpp>
 #include <pstade/unused.hpp>
 #include "./detail/next_prior.hpp" // next
 #include "./detail/range_prior.hpp"
@@ -121,7 +122,7 @@ friend class boost::iterator_core_access;
         if (!m_cache)
             m_cache = detail::next(this->base());
 
-        return m_fun(*this->base(), **m_cache);
+        return m_fun(*this->base()|to_reference, **m_cache|to_reference);
     }
 
     void increment()

@@ -12,6 +12,7 @@
 
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
+#include <pstade/reference.hpp>
 
 
 namespace pstade { namespace oven {
@@ -95,7 +96,7 @@ private:
         if (is_end())
             return;
 
-        if (!m_pred(*this->base()))
+        if (!m_pred(*this->base()|to_reference))
             this->base_reference() = m_last;
     }
 
