@@ -50,6 +50,7 @@
 #include "./statement.hpp"
 #include "./static_c.hpp"
 #include "./tie.hpp"
+#include "./to_type.hpp"
 #include "./tupled.hpp"
 #include "./unparenthesize.hpp"
 #include "./untupled.hpp"

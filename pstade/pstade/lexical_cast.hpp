@@ -16,11 +16,10 @@
 
 
 #include <boost/lexical_cast.hpp>
-#include <boost/type.hpp>
-#include <boost/type_traits/remove_cv.hpp>
 #include <pstade/egg/baby_auto.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/pipable.hpp>
+#include <pstade/to_type.hpp>
 
 
 namespace pstade {
@@ -28,27 +27,11 @@ namespace pstade {
 
 namespace lexical_cast_detail {
 
-    template< class F >
-    struct apply_meta_impl :
-        F
-    { };
-
-    template< class T >
-    struct apply_meta_impl< boost::type<T> >
-    {
-        typedef T type;
-    };
-
-    template< class F >
-    struct apply_meta :
-        apply_meta_impl<typename boost::remove_cv<F>::type>
-    { };
-
     struct baby
     {
         template< class Myself, class From, class To >
         struct apply :
-            apply_meta<To>
+            to_type<To>
         { };
 
         template< class Result, class From, class To >

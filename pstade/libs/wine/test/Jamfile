@@ -52,6 +52,7 @@ test-suite wine :
     [ wine-test statement ]
     [ wine-test static_c ]
     [ wine-test tie ]
+    [ wine-test to_type ]
     [ wine-test tupled ]
     [ wine-test unparenthesize ]
     [ wine-test untupled ]

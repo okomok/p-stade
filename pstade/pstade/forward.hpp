@@ -31,8 +31,10 @@
 #include <boost/type_traits/is_same.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/nonassignable.hpp>
+#include <pstade/egg/pipable.hpp>
+#include <pstade/pass_by.hpp>
 #include <pstade/preprocessor.hpp>
+#include <pstade/to_type.hpp>
 
 
 namespace pstade {
@@ -41,8 +43,7 @@ namespace pstade {
     namespace forward_detail {
 
         
-        struct use_default
-        { };
+        struct use_default;
 
 
         template< class Result_, class Signature >
@@ -129,55 +130,42 @@ namespace pstade {
         }; // struct baby_fun
 
 
+        struct baby
+        {
+            template< class Myself, class Function, class ResultType = void >
+            struct apply
+            {
+                typedef typename pass_by_value<Function>::type fun_t;
+                typedef typename to_type<ResultType>::type result_t;
+                typedef egg::function< baby_fun<result_t, fun_t> > type;
+            };
+       
+            template< class Result, class Function, class ResultType >
+            Result call(Function& fun, ResultType)
+            {
+                return Result(fun);
+            }
+
+            template< class Myself, class Function >
+            struct apply<Myself, Function>
+            {
+                typedef typename pass_by_value<Function>::type fun_t;
+                typedef egg::function< baby_fun<use_default, fun_t> > type;
+            };
+
+            template< class Result, class Function >
+            Result call(Function& fun)
+            {
+                return Result(fun);
+            } 
+        };
+
+            
     } // namespace forward_detail
 
 
-    template< class Function, class Result = forward_detail::use_default >
-    struct result_of_forward
-    {
-        typedef egg::function< forward_detail::baby_fun<Result, Function> > type;
-    };
-
-
-    template< class Function > inline
-    typename result_of_forward<Function>::type
-    forward(Function fun)
-    {
-        return typename result_of_forward<Function>::type(fun);
-    }
-
-    template< class Result, class Function > inline
-    typename result_of_forward<Function, Result>::type
-    forward(Function fun)
-    {
-        return typename result_of_forward<Function, Result>::type(fun);
-    }
-
-
-    template< class Result >
-    struct forwarded;
-
-
-    namespace forwarded_detail {
-
-        struct adl_marker
-        { };
-
-        template< class Result, class Function > inline
-        typename result_of_forward<Function, Result>::type
-        operator|(Function fun, forwarded<Result> const&)
-        {
-            return typename result_of_forward<Function, Result>::type(fun);
-        }
-
-    } // namespace forwarded_detail
-
-
-    template< class Result = forward_detail::use_default >
-    struct forwarded :
-        forwarded_detail::adl_marker,
-        private nonassignable
-    { };
+    PSTADE_EGG_FUNCTION(forward, forward_detail::baby)
+    PSTADE_EGG_PIPABLE(forwarded, forward_detail::baby)
 
 
 } // namespace pstade
