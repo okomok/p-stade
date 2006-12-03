@@ -195,7 +195,7 @@ struct function :
     #define PSTADE_EGG_FUNCTION_define(TypeName, Name, Baby) \
         typedef pstade::egg::function< \
             Baby \
-        > TypeName; \
+        > const TypeName; \
         \
         PSTADE_INSTANCE( \
             pstade::egg::function< Baby > const, \

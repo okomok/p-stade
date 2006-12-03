@@ -57,7 +57,7 @@ namespace null_terminate_range_detail {
     template< class Range >
     struct super_
     {
-        typedef typename boost::result_of<pstade::not_fun(pstade::is_zero_fun const&)>::type pred_t;
+        typedef typename boost::result_of<pstade::not_fun(pstade::is_zero_fun&)>::type pred_t;
         typedef take_while_range<Range, pred_t> type;
     };
 

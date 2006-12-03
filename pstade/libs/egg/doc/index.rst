@@ -7,7 +7,7 @@ The Egg Function Library
 :Author: MB
 :Contact: mb2act@yahoo.co.jp 
 :License: Distributed under the `Boost Software License Version 1.0`_
-:Version: 0.90.4
+:Version: 0.90.5
 
 
 
@@ -116,7 +116,7 @@ So you should prefer this macro.
 - Header: ``<pstade/egg/function.hpp>``
 - Valid expression: ``PSTADE_EGG_FUNCTION(Name, BabyFunction)``
 - Precondition: placed under namespace scope and ``BabyFunction`` is `Default Constructible`_.
-- Effects: ``typedef function<BabyFunction> Name##_fun; function<BabyFunction> const Name;``
+- Effects: ``typedef function<BabyFunction> const Name##_fun; function<BabyFunction> const Name;``
 
 
 ``PSTADE_EGG_PIPABLE``
@@ -166,5 +166,10 @@ Version 0.90.3
 Version 0.90.4
 ^^^^^^^^^^^^^^
 - Boost.Lambda supported.
+
+Version 0.90.5
+^^^^^^^^^^^^^^
+- Effect of ``PSTADE_EGG_FUNCTION`` slightly changed.
+- Fixed a bug of ``result_of`` customization.
 
 

@@ -16,7 +16,7 @@
 #include <string>
 #include <boost/mpl/assert.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <pstade/functional.hpp>
+#include <pstade/value.hpp>
 
 
 std::string g_str("x");
@@ -24,11 +24,11 @@ std::string g_str("x");
 
 struct bar_fun
 {
-    typedef std::string& result_type;
+    typedef std::string result_type;
 
-    std::string& operator()(char) const
+    std::string operator()(char) const
     {
-        return g_str;
+        return "x";
     }
 };
 
@@ -38,10 +38,10 @@ using namespace pstade;
 
 BOOST_MPL_ASSERT((
     boost::is_same<
-        std::string&,
+        std::string,
         boost::result_of<
             boost::result_of<
-                compose_fun(identity_fun, bar_fun)
+                compose_fun(value_fun const, bar_fun)
             >::type
             (char)
         >::type
@@ -52,7 +52,7 @@ BOOST_MPL_ASSERT((
 void test()
 {
     {
-        BOOST_CHECK( compose(identity, bar_fun())('c') == std::string("x") );
+        BOOST_CHECK( compose(value, bar_fun())('c') == std::string("x") );
     }
 }
 

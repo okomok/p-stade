@@ -12,41 +12,66 @@
 
 #include <boost/noncopyable.hpp>
 #include <pstade/instance.hpp>
+#include <pstade/remove_cvr.hpp>
 
 
 namespace pstade {
 
 
-template< class T > inline
-T value(T v)
-{
-    return v;
-}
+    // Define from scratch.
+    // Egg would turn the argument into reference;
+    // that's the dark-side of the language in the
+    // case of function reference.
+    //
 
 
-// define by scratch to avoid reference parameter,
-// the dark-side of the language.
-//
-
-namespace value_detail {
+    namespace value_detail {
 
 
-    struct pipe :
-        private boost::noncopyable
-    { };
+        struct fun
+        {
+            template< class Signature >
+            struct result;
+
+            template< class Self, class A >
+            struct result<Self(A)> :
+                remove_cvr<A>
+            { };
+
+            template< class A >
+            A operator()(A a) const
+            {
+                return a;
+            }
+        };
 
 
-    template< class T > inline
-    T operator|(T v, pipe const&)
-    {
-        return v;
-    }
-
-    
-} // namespace value_detail
+    } // namespace value_detail
 
 
-PSTADE_INSTANCE(value_detail::pipe const, to_value, value)
+    typedef value_detail::fun const value_fun;
+    PSTADE_INSTANCE(value_fun, value, value)
+
+
+    namespace value_detail {
+
+
+        struct pipe :
+            private boost::noncopyable
+        { };
+
+
+        template< class A > inline
+        A operator|(A a, pipe const&)
+        {
+            return a;
+        }
+
+        
+    } // namespace value_detail
+
+
+    PSTADE_INSTANCE(value_detail::pipe const, to_value, value)
 
 
 } // namespace pstade

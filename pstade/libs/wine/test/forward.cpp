@@ -15,6 +15,7 @@
 
 #include <boost/lambda/core.hpp>
 #include <boost/lambda/bind.hpp>
+#include <boost/lambda/lambda.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/reference.hpp>
 
@@ -94,6 +95,13 @@ void test()
     {
         BOOST_CHECK( 3 ==
             pstade::forward(&my_fun1)(3)
+        );
+    }
+
+    {
+        // (lambda::_1 + lambda::_2)(1, 2); // error
+        BOOST_CHECK( 3 == 
+            pstade::forward(lambda::_1 + lambda::_2)(1, 2)
         );
     }
 }
