@@ -30,7 +30,7 @@ namespace unique_range_detail {
     {
         typedef adjacent_filter_range<
             Range,
-            typename boost::result_of<not_fun(equal_to_fun&)>::type
+            typename boost::result_of<not_fun(equal_to_fun const&)>::type
         > type;
     };
 

@@ -15,6 +15,7 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/tuple/tuple.hpp>
+#include <boost/type_traits/remove_cv.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/affect.hpp>
 #include <pstade/egg/function.hpp>
@@ -95,14 +96,16 @@ namespace pstade {
             template< class Myself, class Tuple >
             struct apply
             {
-                typedef boost::mpl::int_<boost::tuples::length<Tuple>::value> n_t;
+                typedef typename boost::remove_cv<Tuple>::type tup_t; // 'tuples::length' doesn't know 'const'!
+                typedef boost::mpl::int_<boost::tuples::length<tup_t>::value> n_t;
                 typedef typename apply_impl<Function, Tuple, n_t>::type type;
             };
 
             template< class Result, class Tuple >
             Result call(Tuple& tup) const
             {
-                typedef boost::mpl::int_<boost::tuples::length<Tuple>::value> n_t;
+                typedef typename boost::remove_cv<Tuple>::type tup_t;
+                typedef boost::mpl::int_<boost::tuples::length<tup_t>::value> n_t;
                 return tupled_detail::call_impl<Result>(m_fun, tup, n_t());
             }
 
@@ -112,6 +115,13 @@ namespace pstade {
             explicit baby_fun(Function const& fun) :
                 m_fun(fun)
             { }
+
+            typedef Function base_type;
+
+            Function const& base()
+            {
+                return m_fun;
+            }
 
         private:
             Function m_fun;

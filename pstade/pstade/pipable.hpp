@@ -19,6 +19,14 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Note:
+//
+// You may say preprocessors could be removed by using
+// the way shown at "./compose.hpp".
+// But such implementation is not as small as the following.
+// Also, we must know the exact type passed to 'operator|'.
+
+
 #include <boost/preprocessor/arithmetic/dec.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
@@ -44,9 +52,6 @@ namespace pstade {
             private nonassignable
         {
 
-            typedef Function function_type;
-            typedef Arguments arguments_type;
-
             // PSTADE_EGG_MAX_ARITY (primary)
             template< class Myself, BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(PSTADE_EGG_MAX_ARITY, class A, void) >
             struct apply
@@ -66,9 +71,7 @@ namespace pstade {
             }
 
             // 0ary
-            typedef
-                pipe const&
-            nullary_result_type;
+            typedef pipe const& nullary_result_type;
 
             template< class Result >
             Result call( ) const
@@ -106,7 +109,10 @@ namespace pstade {
                 m_fun(fun), m_args(args)
             { }
 
-            Function const& function() const
+            typedef Function base_type;
+            typedef Arguments arguments_type;
+
+            Function const& base() const
             {
                 return m_fun;
             }
@@ -117,23 +123,17 @@ namespace pstade {
             }
 
         private:
-            mutable Function m_fun;
+            Function m_fun;
             Arguments m_args;
 
         }; // struct pipe
 
 
-        template< class Tuple, class A >
-        struct result_of_push_front
+        template< class Arguments, class A > inline
+        boost::tuples::cons<A&, Arguments>
+        push_front(Arguments const& args, A& a)
         {
-            typedef boost::tuples::cons<A&, Tuple> type;
-        };
-
-        template< class Tuple, class A > inline
-        typename result_of_push_front<Tuple, A>::type
-        push_front(Tuple const& tup, A& a)
-        {
-            return boost::tuples::cons<A&, Tuple>(a, tup);
+            return boost::tuples::cons<A&, Arguments>(a, args);
         };
 
 
@@ -144,8 +144,8 @@ namespace pstade {
                 boost::result_of<tupled_fun(Function)>::type
             tupled_t;
 
-            typedef typename
-                result_of_push_front<Arguments, A>::type
+            typedef
+                boost::tuples::cons<A&, Arguments>
             args_t;
 
             typedef typename
@@ -158,7 +158,7 @@ namespace pstade {
         typename result_of_piping<A, Function, Arguments>::type
         operator|(A& a, pipe<Function, Arguments> const& pi)
         {
-            return pstade::tupled(pi.function())(
+            return pstade::tupled(pi.base())(
                 pipable_detail::push_front(pi.arguments(), a)
             );
         };
@@ -168,7 +168,7 @@ namespace pstade {
         typename result_of_piping<typename boost::add_const<A>::type, Function, Arguments>::type
         operator|(A const& a, pipe<Function, Arguments> const& pi)
         {
-            return pstade::tupled(pi.function())(
+            return pstade::tupled(pi.base())(
                 pipable_detail::push_front(pi.arguments(), a)
             );
         };
@@ -180,7 +180,7 @@ namespace pstade {
             struct apply
             {
                 typedef typename pass_by_value<Function>::type fun_t;
-                typedef egg::function< pipe<fun_t> > type;
+                typedef egg::function< pipe<fun_t> > type; // makes 'pipe' callable.
             };
 
             template< class Result, class Function >

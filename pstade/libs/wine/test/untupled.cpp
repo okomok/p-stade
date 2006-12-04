@@ -19,6 +19,12 @@ int my_plus(boost::tuples::tuple<int const&, int const&, int const&> tup)
 }
 
 
+int my_two(boost::tuples::tuple<>)
+{
+    return 2;
+}
+
+
 void test()
 {
     using namespace pstade;
@@ -26,6 +32,11 @@ void test()
     {
         BOOST_CHECK(
             pstade::untupled(&::my_plus)(5, 7, 2) == 14
+        );
+    }
+    {
+        BOOST_CHECK(
+            pstade::untupled(&::my_two)() == 2
         );
     }
 }

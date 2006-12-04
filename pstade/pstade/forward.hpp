@@ -22,6 +22,12 @@
 // by passing the extra argument, as 'lambda::ret' does.
 
 
+// Note:
+//
+// This class cannot be implemented by using 'tupled' and 'untupled',
+// for they need a function supporting 'result_of'.
+
+
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
 #include <boost/preprocessor/arithmetic/dec.hpp>

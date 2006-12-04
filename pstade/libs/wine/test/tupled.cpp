@@ -18,6 +18,11 @@ int my_plus(int x, int y, int z)
     return x + y + z;
 }
 
+int my_two()
+{
+    return 2;
+}
+
 
 void test()
 {
@@ -26,6 +31,11 @@ void test()
     {
         BOOST_CHECK(
             pstade::tupled(&::my_plus)(boost::make_tuple(5, 7, 2)) == 14
+        );
+    }
+    {
+        BOOST_CHECK(
+            pstade::tupled(&::my_two)(boost::make_tuple()) == 2
         );
     }
 }

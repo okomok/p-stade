@@ -1,4 +1,3 @@
-#ifndef BOOST_PP_IS_ITERATING
 #ifndef PSTADE_COMPOSE_HPP
 #define PSTADE_COMPOSE_HPP
 
@@ -11,15 +10,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/preprocessor/arithmetic/dec.hpp>
-#include <boost/preprocessor/iteration/iterate.hpp>
-#include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/preprocessor/repetition/enum_params_with_a_default.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/preprocessor.hpp>
+#include <pstade/tupled.hpp>
+#include <pstade/untupled.hpp>
 
 
 namespace pstade {
@@ -28,83 +24,42 @@ namespace pstade {
     namespace compose_detail {
 
 
-        template< class F, class GSig >
-        struct result_of_aux :
-            boost::result_of<
-                F(
-                    typename boost::result_of<GSig>::type
-                )
-            >
-        { };
-
-
         template< class F, class G >
-        struct baby_fun
+        struct baby_base
         {
-
-            // PSTADE_EGG_MAX_ARITY (primary)
-            template< class Myself, BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(PSTADE_EGG_MAX_ARITY, class A, void) >
-            struct apply :
-                result_of_aux< F, G(
-                    PSTADE_PP_ENUM_REF_PARAMS(PSTADE_EGG_MAX_ARITY, A)
-                ) >
-            { };
-
-            template< class Result, BOOST_PP_ENUM_PARAMS(PSTADE_EGG_MAX_ARITY, class A) >
-            Result call( PSTADE_PP_ENUM_REF_PARAMS_WITH_OBJECTS(PSTADE_EGG_MAX_ARITY, A, a) ) const
+            template< class Myself, class Arguments >
+            struct apply
             {
-                return m_f( m_g(
-                    BOOST_PP_ENUM_PARAMS(PSTADE_EGG_MAX_ARITY, a)
-                ) );
+                typedef typename
+                    boost::result_of<tupled_fun(G&)>::type
+                tg_t;
+
+                typedef typename
+                    boost::result_of<tg_t(Arguments&)>::type
+                result_of_tg;
+
+                typedef typename
+                    boost::result_of<F(result_of_tg)>::type
+                type;
+            };
+
+            template< class Result, class Arguments >
+            Result call(Arguments& args) const
+            {
+                return m_f( pstade::tupled(m_g)(args) );
             }
 
-            // 0ary
-            typedef typename
-                result_of_aux< F, G(
-                ) >::type
-            nullary_result_type;
-
-            template< class Result >
-            Result call( ) const
-            {
-                return m_f( m_g(
-                ) );
-            }
-
-            // 1ary
-            template< class Myself, class A0 >
-            struct apply< Myself, A0 > :
-                result_of_aux< F, G(
-                    A0&
-                ) >
-            { };
-
-            template< class Result, class A0 >
-            Result call( A0& a0 ) const
-            {
-                return m_f( m_g(
-                    a0
-                ) );
-            }
-
-            // 2ary-
-        #define PSTADE_max_arity BOOST_PP_DEC(PSTADE_EGG_MAX_ARITY)
-            #define  BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_max_arity, <pstade/compose.hpp>))
-            #include BOOST_PP_ITERATE()
-        #undef  PSTADE_max_arity
-
-            explicit baby_fun() // DefaultConstructible iff 'F' and 'G' is.
+            explicit baby_base() // DefaultConstructible iff 'F' and 'G' is.
             { }
 
-            explicit baby_fun(F const& f, G const& g) :
+            explicit baby_base(F const& f, G const& g) :
                 m_f(f), m_g(g)
             { }
 
         private:
             mutable F m_f;
-            mutable G m_g;
-
-        }; // struct baby_fun
+            G m_g;
+        };
 
 
         struct baby
@@ -112,18 +67,25 @@ namespace pstade {
             template< class Myself, class F, class G >
             struct apply
             {
-                typedef egg::function<
-                    baby_fun<
-                        typename pass_by_value<F>::type,
-                        typename pass_by_value<G>::type
+                typedef
+                    egg::function<
+                        baby_base<
+                            typename pass_by_value<F>::type,
+                            typename pass_by_value<G>::type
+                        >
                     >
-                > type;
+                base_t;
+
+                typedef typename
+                    boost::result_of<untupled_fun(base_t)>::type
+                type;
             };
 
             template< class Result, class F, class G >
             Result call(F& f, G& g) const
             {
-                return Result(f, g);
+                typedef typename Result::base_type base_t;
+                return pstade::untupled(base_t(f, g));
             }
         };
 
@@ -138,26 +100,4 @@ namespace pstade {
 } // namespace pstade
 
 
-#endif
-#else
-#define n BOOST_PP_ITERATION()
-
-
-template< class Myself, BOOST_PP_ENUM_PARAMS(n, class A) >
-struct apply< Myself, BOOST_PP_ENUM_PARAMS(n, A) > :
-    result_of_aux< F, G(
-        PSTADE_PP_ENUM_REF_PARAMS(n, A)
-    ) >
-{ };
-
-template< class Result, BOOST_PP_ENUM_PARAMS(n, class A) >
-Result call( PSTADE_PP_ENUM_REF_PARAMS_WITH_OBJECTS(n, A, a) ) const
-{
-    return m_f( m_g(
-        BOOST_PP_ENUM_PARAMS(n, a)
-    ) );
-}
-
-
-#undef n
 #endif

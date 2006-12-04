@@ -48,6 +48,17 @@ namespace pstade {
                 return Result( BOOST_PP_ENUM_PARAMS(PSTADE_EGG_MAX_ARITY, a) );
             }
 
+            // 0ary
+            typedef
+                boost::tuples::tuple<>
+            nullary_result_type;
+
+            template< class Result >
+            Result call() const
+            {
+                return Result( );
+            }
+
             // 1ary
             template< class Myself, class A0 >
             struct apply< Myself, A0 >
