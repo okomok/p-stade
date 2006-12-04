@@ -98,13 +98,13 @@ namespace iterate_range_detail {
         };
 
         template< class Result, class State, class UnaryFun, class Traversal >
-        Result call(State const& init, UnaryFun& fun, Traversal)
+        Result call(State const& init, UnaryFun& fun, Traversal) const
         {
             return Result(init, fun);
         }
 
         template< class Result, class State, class UnaryFun >
-        Result call(State const& init, UnaryFun& fun)
+        Result call(State const& init, UnaryFun& fun) const
         {
             return Result(init, fun);
         }

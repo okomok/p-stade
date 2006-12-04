@@ -13,7 +13,7 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
+#include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concatenate_iterator.hpp"
 #include "./concepts.hpp"
@@ -77,7 +77,7 @@ namespace concatenate_range_detail {
         };
 
         template< class Result, class SegmentRange >
-        Result call(SegmentRange& rngs)
+        Result call(SegmentRange& rngs) const
         {
             return Result(rngs);
         }
@@ -88,7 +88,7 @@ namespace concatenate_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_concatenate_range, concatenate_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(concatenated, concatenate_range_detail::baby_make)
+PSTADE_PIPABLE(concatenated, make_concatenate_range_fun)
 
 
 } } // namespace pstade::oven

@@ -21,7 +21,7 @@
 #include <locale>
 #include <boost/noncopyable.hpp>
 #include <boost/scoped_ptr.hpp>
-#include <pstade/instance.hpp>
+#include <pstade/singleton.hpp>
 
 
 namespace pstade {
@@ -74,7 +74,7 @@ namespace locale_saver_detail {
         }
     };
 
-    PSTADE_INSTANCE(global_t const, global, value)
+    PSTADE_SINGLETON_CONST(global_t, global)
 
 
     template< class = void >

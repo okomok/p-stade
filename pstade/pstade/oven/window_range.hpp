@@ -13,7 +13,7 @@
 #include <boost/assert.hpp>
 #include <boost/range/begin.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
+#include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./detail/next_prior.hpp" // next
@@ -75,7 +75,7 @@ namespace window_range_detail {
         };
 
         template< class Result, class Range, class Difference >
-        Result call(Range& rng, Difference n, Difference m)
+        Result call(Range& rng, Difference n, Difference m) const
         {
             return Result(rng, n, m);
         }
@@ -86,7 +86,7 @@ namespace window_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_window_range, window_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(through_window, window_range_detail::baby_make)
+PSTADE_PIPABLE(through_window, make_window_range_fun)
 
 
 } } // namespace pstade::oven

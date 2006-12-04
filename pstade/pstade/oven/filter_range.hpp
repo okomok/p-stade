@@ -22,8 +22,8 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
 #include <pstade/pass_by.hpp>
+#include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
@@ -93,7 +93,7 @@ namespace filter_range_detail {
         };
 
         template< class Result, class Range, class Predicate >
-        Result call(Range& rng, Predicate& pred)
+        Result call(Range& rng, Predicate& pred) const
         {
             return Result(rng, pred);
         }
@@ -104,7 +104,7 @@ namespace filter_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_filter_range, filter_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(filtered, filter_range_detail::baby_make)
+PSTADE_PIPABLE(filtered, make_filter_range_fun)
 
 
 } } // namespace pstade::oven

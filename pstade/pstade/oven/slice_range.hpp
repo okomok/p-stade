@@ -14,7 +14,7 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
+#include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./distance.hpp"
@@ -98,7 +98,7 @@ namespace slice_range_detail {
         };
 
         template< class Result, class Range, class Difference >
-        Result call(Range& rng, Difference start, Difference stride)
+        Result call(Range& rng, Difference start, Difference stride) const
         {
             return Result(rng, start, stride);
         }
@@ -109,7 +109,7 @@ namespace slice_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_slice_range, slice_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(sliced, slice_range_detail::baby_make)
+PSTADE_PIPABLE(sliced, make_slice_range_fun)
 
 
 } } // namespace pstade::oven

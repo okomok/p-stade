@@ -17,13 +17,13 @@
 
 
 #include <ios> // ios_base::Init
-#include <pstade/instance.hpp>
+#include <pstade/singleton.hpp>
 
 
 namespace pstade { namespace ios_init_detail {
 
 
-PSTADE_INSTANCE(std::ios_base::Init const, init, value)
+PSTADE_SINGLETON_CONST(std::ios_base::Init, init)
 
 
 } } // namespace pstade::ios_init_detail

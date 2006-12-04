@@ -12,7 +12,7 @@
 
 #include <boost/archive/iterators/wchar_from_mb.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
+#include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
@@ -66,7 +66,7 @@ namespace mb_decode_range_detail {
         };
 
         template< class Result, class Range >
-        Result call(Range& rng)
+        Result call(Range& rng) const
         {
             return Result(rng);
         }
@@ -77,7 +77,7 @@ namespace mb_decode_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_mb_decode_range, mb_decode_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(mb_decoded, mb_decode_range_detail::baby_make)
+PSTADE_PIPABLE(mb_decoded, make_mb_decode_range_fun)
 
 
 } } // namespace pstade::oven

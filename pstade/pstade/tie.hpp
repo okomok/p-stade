@@ -23,7 +23,7 @@
 #include <boost/preprocessor/repetition/enum_params_with_a_default.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
+#include <pstade/pipable.hpp>
 #include <pstade/preprocessor.hpp>
 
 
@@ -43,7 +43,7 @@ namespace pstade {
             };
 
             template< class Result, class A0, class A1, class A2, class A3, class A4 >
-            Result call( PSTADE_PP_ENUM_REF_PARAMS_WITH_VARS(PSTADE_EGG_MAX_ARITY, A, a) )
+            Result call( PSTADE_PP_ENUM_REF_PARAMS_WITH_OBJECTS(PSTADE_EGG_MAX_ARITY, A, a) ) const
             {
                 return Result( BOOST_PP_ENUM_PARAMS(PSTADE_EGG_MAX_ARITY, a) );
             }
@@ -56,7 +56,7 @@ namespace pstade {
             };
 
             template< class Result, class A0>
-            Result call( A0& a0 )
+            Result call( A0& a0 ) const
             {
                 return Result( a0 );
             }
@@ -74,7 +74,7 @@ namespace pstade {
 
 
     PSTADE_EGG_FUNCTION(tie, tie_detail::baby)
-    PSTADE_EGG_PIPABLE(tied, tie_detail::baby)
+    PSTADE_PIPABLE(tied, tie_fun)
 
 
 } // namespace pstade
@@ -92,7 +92,7 @@ struct apply< Myself, BOOST_PP_ENUM_PARAMS(n, A) >
 };
 
 template< class Result, BOOST_PP_ENUM_PARAMS(n, class A) >
-Result call( PSTADE_PP_ENUM_REF_PARAMS_WITH_VARS(n, A, a) )
+Result call( PSTADE_PP_ENUM_REF_PARAMS_WITH_OBJECTS(n, A, a) ) const
 {
     return Result( BOOST_PP_ENUM_PARAMS(n, a) );
 }

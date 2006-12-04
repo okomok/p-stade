@@ -39,7 +39,7 @@ namespace get_at_range_detail {
         { };
 
         template< class Result, class FusionSeq >
-        Result call(FusionSeq& seq)
+        Result call(FusionSeq& seq) const
         {
             return boost::fusion::at<N>(seq);
         }

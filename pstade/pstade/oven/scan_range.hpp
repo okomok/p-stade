@@ -13,9 +13,9 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
 #include <pstade/functional.hpp> // plus
 #include <pstade/pass_by.hpp>
+#include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
@@ -97,13 +97,13 @@ namespace scan_range_detail {
         };
 
         template< class Result, class Range, class State, class BinaryFun >
-        Result call(Range& rng, State const& init, BinaryFun& fun)
+        Result call(Range& rng, State const& init, BinaryFun& fun) const
         {
             return Result(rng, init, fun);
         }
 
         template< class Result, class Range, class State >
-        Result call(Range& rng, State const& init)
+        Result call(Range& rng, State const& init) const
         {
             return Result(rng, init);
         }
@@ -114,7 +114,7 @@ namespace scan_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_scan_range, scan_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(scanned, scan_range_detail::baby_make)
+PSTADE_PIPABLE(scanned, make_scan_range_fun)
 
 
 } } // namespace pstade::oven

@@ -14,7 +14,7 @@
 #include <boost/range/end.hpp>
 #include <boost/xpressive/regex_token_iterator.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
+#include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
@@ -96,13 +96,13 @@ namespace xpressive_token_range_detail {
         };
 
         template< class Result, class Range, class Regex >
-        Result call(Range& rng, Regex const& re)
+        Result call(Range& rng, Regex const& re) const
         {
             return Result(rng, re);
         }
 
         template< class Result, class Range, class Regex, class SubMatches >
-        Result call(Range& rng, Regex const& re, SubMatches const& submatches, match_flag_type flag = match_default)
+        Result call(Range& rng, Regex const& re, SubMatches const& submatches, match_flag_type flag = match_default) const
         {
             return Result(rng, re, submatches, flag);
         }
@@ -113,7 +113,7 @@ namespace xpressive_token_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_xpressive_token_range, xpressive_token_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(xpressive_tokenized, xpressive_token_range_detail::baby_make)
+PSTADE_PIPABLE(xpressive_tokenized, make_xpressive_token_range_fun)
 
 
 } } // namespace pstade::oven

@@ -52,7 +52,7 @@ namespace identity_detail {
         { };
 
         template< class Result, class T >
-        Result call(T& x)
+        Result call(T& x) const
         {
             return x;
         }
@@ -85,19 +85,19 @@ namespace not_detail {
         };
 
         template< class Result, class T0 >
-        Result call(T0& a0)
+        Result call(T0& a0) const
         {
             return !m_pred(a0);
         }
 
         template< class Result, class T0, class T1 >
-        Result call(T0& a0, T1& a1)
+        Result call(T0& a0, T1& a1) const
         {
             return !m_pred(a0, a1);
         }
 
     private:
-        Predicate m_pred;
+        mutable Predicate m_pred;
     };
 
     struct baby
@@ -110,7 +110,7 @@ namespace not_detail {
         };
 
         template< class Result, class Predicate >
-        Result call(Predicate& pred)
+        Result call(Predicate& pred) const
         {
             return Result(pred);
         }
@@ -156,7 +156,7 @@ namespace always_detail {
         };
 
         template< class Result, class T >
-        Result call(T& x)
+        Result call(T& x) const
         {
             return Result(x);
         }
@@ -181,7 +181,7 @@ struct equal_to_fun
     }
 };
 
-PSTADE_INSTANCE(equal_to_fun const, equal_to, value)
+PSTADE_SINGLETON_CONST(equal_to_fun, equal_to)
 
 
 // less
@@ -198,7 +198,7 @@ struct less_fun
     }
 };
 
-PSTADE_INSTANCE(less_fun const, less, value)
+PSTADE_SINGLETON_CONST(less_fun, less)
 
 
 // is_zero
@@ -215,7 +215,7 @@ struct is_zero_fun
     }
 };
 
-PSTADE_INSTANCE(is_zero_fun const, is_zero, value)
+PSTADE_SINGLETON_CONST(is_zero_fun, is_zero)
 
 
 // plus
@@ -262,7 +262,7 @@ namespace plus_detail {
         { };
 
         template< class Result, class X, class Y >
-        Result call(X const& x, Y const& y)
+        Result call(X const& x, Y const& y) const
         {
             return x + y;
         }
@@ -290,7 +290,7 @@ namespace at_first_detail {
         { };
 
         template< class Result, class Pair >
-        Result call(Pair& x)
+        Result call(Pair& x) const
         {
             return x.first;
         }
@@ -318,7 +318,7 @@ namespace at_second_detail {
         { };
 
         template< class Result, class Pair >
-        Result call(Pair& x)
+        Result call(Pair& x) const
         {
             return x.second;
         }
@@ -350,13 +350,13 @@ namespace flip_detail {
         { };
 
         template< class Result, class T0, class T1 >
-        Result call(T0& a0, T1& a1)
+        Result call(T0& a0, T1& a1) const
         {
             return m_fun(a1, a0);
         }
 
     private:
-        BinaryFun m_fun;
+        mutable BinaryFun m_fun;
     };
 
     struct baby
@@ -369,7 +369,7 @@ namespace flip_detail {
         };
 
         template< class Result, class BinaryFun >
-        Result call(BinaryFun& pred)
+        Result call(BinaryFun& pred) const
         {
             return Result(pred);
         }
@@ -377,7 +377,7 @@ namespace flip_detail {
 
 } // namespace flip_detail
 
-PSTADE_EGG_FUNCTION_(flip, flip_detail::baby)
+PSTADE_EGG_FUNCTION(flip, flip_detail::baby)
 
 
 } // ADL barrier

@@ -16,8 +16,8 @@
 #include <boost/noncopyable.hpp>
 #include <boost/type_traits/is_base_of.hpp>
 #include <boost/utility/addressof.hpp>
-#include <pstade/instance.hpp>
 #include <pstade/nonassignable.hpp>
+#include <pstade/singleton.hpp>
 
 
 #if BOOST_WORKAROUND(BOOST_MSVC, == 1310)
@@ -103,7 +103,7 @@ namespace to_derived_detail {
 } // namespace to_derived_detail
 
 
-PSTADE_INSTANCE(to_derived_detail::pipe const, to_derived, value)
+PSTADE_SINGLETON_CONST(to_derived_detail::pipe, to_derived)
 
 
 } // namespace pstade

@@ -76,7 +76,7 @@ namespace for_each_child_window_detail {
         { };
 
         template< class Result, class UnaryFun >
-        Result call(UnaryFun& yield)
+        Result call(UnaryFun& yield) const
         {
             // Workaround:
             // VC++7.1/8 fails to decay function-reference.

@@ -33,11 +33,12 @@
 
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/not.hpp>
+#include <boost/type.hpp>
 #include <boost/type_traits/is_const.hpp>
 #include <boost/type_traits/is_convertible.hpp>
 #include <boost/utility/enable_if.hpp>
-#include <pstade/egg/baby_auto.hpp>
-#include <pstade/egg/pipable.hpp>
+#include <pstade/auto_castable.hpp>
+#include <pstade/pipable.hpp>
 
 
 namespace pstade { namespace oven {
@@ -83,16 +84,16 @@ Base adaptor_to(Adaptor const& ad,
 // because of the weird compiler behavior...
 //
 
-struct adaptor_to_class
+struct adaptor_to_fun
 {
     template< class Base, class Adaptor >
-    static Base call(Adaptor& ad)
+    Base operator()(Adaptor& ad, boost::type<Base>) const
     {
         return oven::adaptor_to<Base>(ad);
     }
 };
 
-PSTADE_EGG_PIPABLE(to_base, egg::baby_auto<adaptor_to_class>)
+PSTADE_PIPABLE(to_base, boost::result_of<auto_castable_fun(adaptor_to_fun)>::type)
 
 
 } } // namespace pstade::oven

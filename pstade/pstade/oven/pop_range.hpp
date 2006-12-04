@@ -18,7 +18,7 @@
 
 #include <boost/range/begin.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
+#include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./detail/range_prior.hpp"
 #include "./concepts.hpp"
@@ -59,7 +59,7 @@ namespace pop_range_detail {
         };
 
         template< class Result, class Range >
-        Result call(Range& rng)
+        Result call(Range& rng) const
         {
             return Result(rng);
         }
@@ -70,7 +70,7 @@ namespace pop_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_pop_range, pop_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(popped, pop_range_detail::baby_make)
+PSTADE_PIPABLE(popped, make_pop_range_fun)
 
 
 } } // namespace pstade::oven

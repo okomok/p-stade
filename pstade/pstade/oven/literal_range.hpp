@@ -26,7 +26,7 @@
 #include <boost/type_traits/remove_const.hpp>
 #include <boost/type_traits/remove_extent.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
+#include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./iter_range.hpp"
 
@@ -69,7 +69,7 @@ namespace literal_range_detail {
         };
 
         template< class Result, class Array >
-        Result call(Array& arr)
+        Result call(Array& arr) const
         {
             return Result(arr);
         }
@@ -80,7 +80,7 @@ namespace literal_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_literal_range, literal_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(as_literal, literal_range_detail::baby_make)
+PSTADE_PIPABLE(as_literal, make_literal_range_fun)
 
 
 } } // namespace pstade::oven

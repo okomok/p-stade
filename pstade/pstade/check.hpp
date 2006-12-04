@@ -24,9 +24,9 @@
 #include <boost/preprocessor/stringize.hpp>
 #include <boost/type_traits/add_reference.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
 #include <pstade/instance.hpp>
 #include <pstade/napkin/ostream.hpp>
+#include <pstade/pipable.hpp>
 #include <pstade/what.hpp>
 
 
@@ -95,7 +95,7 @@ namespace check_detail {
         { };
 
         template< class Result, class T, class StringT >
-        Result call(T& x, StringT& info)
+        Result call(T& x, StringT& info) const
         {
             if (!x)
                 check_detail::report(info);
@@ -109,7 +109,7 @@ namespace check_detail {
 
 
 PSTADE_EGG_FUNCTION(check, check_detail::baby)
-PSTADE_EGG_PIPABLE(checked, check_detail::baby)
+PSTADE_PIPABLE(checked, check_fun)
 
 
 template< class StringOutputable > inline

@@ -11,8 +11,8 @@
 
 
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
 #include <pstade/pass_by.hpp>
+#include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./identity_iterator.hpp"
@@ -78,13 +78,13 @@ namespace identity_range_detail {
         };
 
         template< class Result, class Range, class Traversal >
-        Result call(Range& rng, Traversal)
+        Result call(Range& rng, Traversal) const
         {
             return Result(rng);
         }
 
         template< class Result, class Range >
-        Result call(Range& rng)
+        Result call(Range& rng) const
         {
             return Result(rng);
         }
@@ -95,7 +95,7 @@ namespace identity_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_identity_range, identity_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(identities, identity_range_detail::baby_make)
+PSTADE_PIPABLE(identities, make_identity_range_fun)
 
 
 } } // namespace pstade::oven

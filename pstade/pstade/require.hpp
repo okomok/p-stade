@@ -25,7 +25,7 @@
 #include <boost/throw_exception.hpp>
 #include <boost/type_traits/add_reference.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
+#include <pstade/pipable.hpp>
 #include <pstade/what.hpp>
 
 
@@ -101,7 +101,7 @@ namespace require_detail {
         { };
 
         template< class Result, class T >
-        Result call(T& x)
+        Result call(T& x) const
         {
             if (!x)
                 require_detail::throw_error("");
@@ -110,7 +110,7 @@ namespace require_detail {
         }
 
         template< class Result, class T, class StringT >
-        Result call(T& x, StringT& info)
+        Result call(T& x, StringT& info) const
         {
             if (!x)
                 require_detail::throw_error(info);
@@ -124,7 +124,7 @@ namespace require_detail {
 
 
 PSTADE_EGG_FUNCTION(require, require_detail::baby)
-PSTADE_EGG_PIPABLE(required, require_detail::baby)
+PSTADE_PIPABLE(required, require_fun)
 
 
 } // namespace pstade

@@ -18,8 +18,8 @@
 #include <pstade/affect.hpp>
 #include <pstade/const_overloaded.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
 #include <pstade/nonassignable.hpp>
+#include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./range_reference.hpp"
@@ -227,7 +227,7 @@ namespace unzipped_detail {
         };
 
         template< class Result, class TupleRange >
-        Result call(TupleRange& rng)
+        Result call(TupleRange& rng) const
         {
             typedef typename to_counting_tuple<TupleRange>::type counting_tup_t;
             return impl::tuple_transform(counting_tup_t(), make_at_range<TupleRange>(rng));
@@ -238,7 +238,7 @@ namespace unzipped_detail {
 } // namespace unzipped_detail
 
 
-PSTADE_EGG_PIPABLE(unzipped, unzipped_detail::baby)
+PSTADE_PIPABLE(unzipped, egg::function<unzipped_detail::baby>)
 
 
 } } // namespace pstade::oven

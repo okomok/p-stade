@@ -10,17 +10,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/preprocessor/arithmetic/dec.hpp>
-
-
 #if !defined(PSTADE_EGG_MAX_ARITY)
     #define PSTADE_EGG_MAX_ARITY 5
 #endif
-
-
-#define PSTADE_EGG_PIPABLE_MAX_ARITY \
-    BOOST_PP_DEC(PSTADE_EGG_MAX_ARITY) \
-/**/
 
 
 #endif

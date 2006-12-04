@@ -37,6 +37,17 @@
 
 // Note:
 //
+// You can prefer
+//     PSTADE_SINGLETON_CONST(T, O1)
+//     PSTADE_SINGLETON_CONST(T, O2)
+// to
+//     PSTADE_INSTANCE(T const, O1, value)
+//     PSTADE_INSTANCE(T const, O2, value)
+// , because the const object can be shared.
+
+
+// Note:
+//
 // For keeping const-ness, we cannot apply 'PSTADE_UNPARENTHESIZE'
 // inside of this macro implementation.
 
@@ -52,12 +63,12 @@
 #include <boost/utility/value_init.hpp> // value_initialized
 
 
-#define PSTADE_INSTANCE(Type, Name, ValueOrArgSeq) \
+#define PSTADE_INSTANCE(Type, Object, ValueOrArgSeq) \
     BOOST_PP_ASSERT(PSTADE_INSTANCE_is_valid(ValueOrArgSeq)) \
     BOOST_PP_IIF( BOOST_MPL_PP_IS_SEQ(ValueOrArgSeq), \
         PSTADE_INSTANCE_args, \
         PSTADE_INSTANCE_no_args \
-    )(Type, Name, ValueOrArgSeq) \
+    )(Type, Object, ValueOrArgSeq) \
 /**/
 
 
@@ -76,20 +87,20 @@
     #endif
 
 
-    #define PSTADE_INSTANCE_no_args(Type, Name, _) \
-        PSTADE_INSTANCE_define_box(Type, Name, PSTADE_INSTANCE_define_v(Type)) \
+    #define PSTADE_INSTANCE_no_args(Type, Object, _) \
+        PSTADE_INSTANCE_define_box(Type, Object, PSTADE_INSTANCE_define_v(Type)) \
         namespace { \
             PSTADE_INSTANCE_static \
-            Type& Name = PSTADE_INSTANCE_OF(Name); \
+            Type& Object = PSTADE_INSTANCE_OF(Object); \
         } \
     /**/
 
 
-    #define PSTADE_INSTANCE_args(Type, Name, ArgSeq) \
-        PSTADE_INSTANCE_define_box(Type, Name, PSTADE_INSTANCE_define_a(Type, ArgSeq)) \
+    #define PSTADE_INSTANCE_args(Type, Object, ArgSeq) \
+        PSTADE_INSTANCE_define_box(Type, Object, PSTADE_INSTANCE_define_a(Type, ArgSeq)) \
         namespace { \
             PSTADE_INSTANCE_static \
-            Type& Name = PSTADE_INSTANCE_OF(Name); \
+            Type& Object = PSTADE_INSTANCE_OF(Object); \
         } \
     /**/
 
@@ -103,14 +114,14 @@
     #endif
 
 
-    #define PSTADE_INSTANCE_box_name(Name) \
-        BOOST_PP_CAT(pstade_instance_of_, Name) \
+    #define PSTADE_INSTANCE_box_name(Object) \
+        BOOST_PP_CAT(pstade_instance_of_, Object) \
     /**/
 
 
-    #define PSTADE_INSTANCE_define_box(Type, Name, DefineInstance) \
+    #define PSTADE_INSTANCE_define_box(Type, Object, DefineInstance) \
         inline \
-        Type& PSTADE_INSTANCE_box_name(Name)() \
+        Type& PSTADE_INSTANCE_box_name(Object)() \
         { \
             static DefineInstance \
             return instance; \
@@ -120,8 +131,8 @@
 
 // Workaround:
 // GCC dynamic-initialization sometimes needs a function call syntax.
-#define PSTADE_INSTANCE_OF(Name) \
-    PSTADE_INSTANCE_box_name(Name)() \
+#define PSTADE_INSTANCE_OF(Object) \
+    PSTADE_INSTANCE_box_name(Object)() \
 /**/
 
 

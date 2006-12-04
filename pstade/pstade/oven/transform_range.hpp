@@ -51,7 +51,7 @@
 #include <boost/type_traits/is_same.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
+#include <pstade/pipable.hpp>
 #include <pstade/pass_by.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
@@ -147,7 +147,7 @@ namespace transform_range_detail {
         };
 
         template< class Result, class Range, class UnaryFun >
-        Result call(Range& rng, UnaryFun& fun)
+        Result call(Range& rng, UnaryFun& fun) const
         {
             return Result(rng, fun);
         }
@@ -158,7 +158,7 @@ namespace transform_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_transform_range, transform_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(transformed, transform_range_detail::baby_make)
+PSTADE_PIPABLE(transformed, make_transform_range_fun)
 
 
 } } // namespace pstade::oven

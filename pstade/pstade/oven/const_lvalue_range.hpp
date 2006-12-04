@@ -11,7 +11,7 @@
 
 
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
+#include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./const_lvalue_iterator.hpp"
 #include "./concepts.hpp"
@@ -69,7 +69,7 @@ namespace const_lvalue_range_detail {
         };
 
         template< class Result, class Range >
-        Result call(Range& rng)
+        Result call(Range& rng) const
         {
             return Result(rng);
         }
@@ -80,7 +80,7 @@ namespace const_lvalue_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_const_lvalue_range, const_lvalue_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(const_lvalues, const_lvalue_range_detail::baby_make)
+PSTADE_PIPABLE(const_lvalues, make_const_lvalue_range_fun)
 
 
 } } // namespace pstade::oven

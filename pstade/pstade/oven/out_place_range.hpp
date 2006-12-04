@@ -23,9 +23,9 @@
 #include <memory> // auto_ptr
 #include <vector>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
 #include <pstade/new.hpp>
 #include <pstade/pass_by.hpp>
+#include <pstade/pipable.hpp>
 #include <pstade/unused.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./copy_range.hpp"
@@ -120,13 +120,13 @@ namespace out_place_range_detail {
         };
 
         template< class Result, class Range, class UnaryFun >
-        Result call(Range& rng, UnaryFun& fun)
+        Result call(Range& rng, UnaryFun& fun) const
         {
             return Result(rng, fun);
         }
 
         template< class Result, class Range >
-        Result call(Range& rng)
+        Result call(Range& rng) const
         {
             return Result(rng);
         }
@@ -137,7 +137,7 @@ namespace out_place_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_out_place_range, out_place_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(out_placed, out_place_range_detail::baby_make)
+PSTADE_PIPABLE(out_placed, make_out_place_range_fun)
 
 
 } } // namespace pstade::oven

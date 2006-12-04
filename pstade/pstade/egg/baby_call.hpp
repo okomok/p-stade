@@ -25,7 +25,7 @@ namespace pstade { namespace egg {
 //
 template< class BabyFunction > inline
 typename baby_result0<BabyFunction>::type
-baby_call(BabyFunction baby)
+baby_call(BabyFunction& baby)
 {
     typedef typename baby_result0<BabyFunction
     >::type result_t;
@@ -40,7 +40,7 @@ template< class BabyFunction, class A0 > inline
 typename egg::baby_result1<BabyFunction,
     A0&
 >::type
-baby_call(BabyFunction baby, A0& a0)
+baby_call(BabyFunction& baby, A0& a0)
 {
     typedef typename egg::baby_result1<BabyFunction,
         A0&
@@ -68,7 +68,7 @@ template< class BabyFunction, BOOST_PP_ENUM_PARAMS(n, class A) > inline
 typename BOOST_PP_CAT(baby_result, n)<BabyFunction,
     PSTADE_PP_ENUM_REF_PARAMS(n, A)
 >::type
-baby_call( BabyFunction baby, PSTADE_PP_ENUM_REF_PARAMS_WITH_VARS(n, A, a) )
+baby_call( BabyFunction& baby, PSTADE_PP_ENUM_REF_PARAMS_WITH_OBJECTS(n, A, a) )
 {
     typedef typename BOOST_PP_CAT(baby_result, n)<BabyFunction,
         PSTADE_PP_ENUM_REF_PARAMS(n, A)

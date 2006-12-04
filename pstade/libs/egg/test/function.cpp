@@ -19,13 +19,13 @@ struct foo_impl
     };
 
     template< class Result, class Arg0 >
-    Result call(Arg0& a0)
+    Result call(Arg0& a0) const
     {
         return a0 * a0;
     }
 
     template< class Result, class Arg0, class Arg1 >
-    Result call(Arg0& a0, Arg1& a1)
+    Result call(Arg0& a0, Arg1& a1) const
     {
         return a0 * a1;
     }
@@ -38,7 +38,7 @@ struct bar_impl
     nullary_result_type;
 
     template< class Result >
-    Result call()
+    Result call() const
     {
         return 1;
     }
@@ -57,19 +57,19 @@ struct hoge_impl
     };
 
     template< class Result >
-    Result call()
+    Result call() const
     {
         return "hello";
     }
 
     template< class Result, class Arg0 >
-    Result call(Arg0& a0)
+    Result call(Arg0& a0) const
     {
         return a0 + a0;
     }
 
     template< class Result, class Arg0, class Arg1 >
-    Result call(Arg0& a0, Arg1& a1)
+    Result call(Arg0& a0, Arg1& a1) const
     {
         return a0 + a1;
     }
@@ -87,7 +87,7 @@ struct qoo_impl
     };
 
     template< class Result, class Arg0, class Arg1 >
-    Result call(Arg0& a0, Arg1& a1)
+    Result call(Arg0& a0, Arg1& a1) const
     {
         return a0 * a1;
     }

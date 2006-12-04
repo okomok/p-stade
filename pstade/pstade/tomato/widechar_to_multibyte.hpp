@@ -11,12 +11,13 @@
 
 
 #include <string>
+#include <boost/utility/result_of.hpp>
 #include <pstade/apple/atl/config.hpp> // ATL_VER
 #include <pstade/apple/atl/conv.hpp>
-#include <pstade/egg/baby_auto.hpp>
-#include <pstade/egg/pipable.hpp>
+#include <pstade/auto_castable.hpp>
 #include <pstade/oven/c_str_range.hpp>
 #include <pstade/oven/copy_range.hpp>
+#include <pstade/pipable.hpp>
 
 
 namespace pstade { namespace tomato {
@@ -45,17 +46,16 @@ widechar_to(WideCharRange const& from)
 }
 
 
-struct widechar_to_class
+struct widechar_to_fun
 {
     template< class MultiByteSeq, class WideCharRange >
-    static MultiByteSeq call(WideCharRange const& from)
+    MultiByteSeq operator()(WideCharRange const& from, boost::type<MultiByteSeq>) const
     {
         return tomato::widechar_to<MultiByteSeq>(from);
     }
 };
 
-
-PSTADE_EGG_PIPABLE(to_multibyte, egg::baby_auto<widechar_to_class>)
+PSTADE_PIPABLE(to_multibyte, boost::result_of<auto_castable_fun(widechar_to_fun)>::type)
 
 
 } } // namespace pstade::tomato

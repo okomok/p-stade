@@ -12,7 +12,7 @@
 
 #include <boost/spirit/iterator/multi_pass.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
+#include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
@@ -88,7 +88,7 @@ namespace multi_pass_range_detail {
         };
 
         template< class Result, class Range >
-        Result call(Range& rng)
+        Result call(Range& rng) const
         {
             return Result(rng);
         }
@@ -99,7 +99,7 @@ namespace multi_pass_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_multi_pass_range, multi_pass_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(multi_passed, multi_pass_range_detail::baby_make)
+PSTADE_PIPABLE(multi_passed, make_multi_pass_range_fun)
 
 
 } } // namespace pstade::oven

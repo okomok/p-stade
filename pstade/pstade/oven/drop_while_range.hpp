@@ -18,8 +18,8 @@
 
 #include <boost/range/end.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
 #include <pstade/functional.hpp> // not_
+#include <pstade/pipable.hpp>
 #include "./algorithm.hpp" // find_if
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
@@ -62,7 +62,7 @@ namespace drop_while_range_detail {
         };
 
         template< class Result, class Range, class Predicate >
-        Result call(Range& rng, Predicate& pred)
+        Result call(Range& rng, Predicate& pred) const
         {
             return Result(rng, pred);
         }
@@ -73,7 +73,7 @@ namespace drop_while_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_drop_while_range, drop_while_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(dropped_while, drop_while_range_detail::baby_make)
+PSTADE_PIPABLE(dropped_while, make_drop_while_range_fun)
 
 
 } } // namespace pstade::oven

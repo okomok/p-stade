@@ -12,37 +12,36 @@
 
 #include <boost/mpl/assert.hpp>
 #include <boost/numeric/conversion/cast.hpp> // numeric_cast
+#include <boost/type.hpp>
 #include <boost/type_traits/is_integral.hpp>
-#include <pstade/egg/baby_auto.hpp>
-#include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
+#include <pstade/auto_castable.hpp>
+#include <pstade/pipable.hpp>
 
 
 namespace pstade {
 
 
-template< class To, class From > inline
-To integral_cast(From from)
-{
-    BOOST_MPL_ASSERT((boost::is_integral<To>));
-    BOOST_MPL_ASSERT((boost::is_integral<From>));
-
-    return boost::numeric_cast<To>(from);
-}
-
-
-struct integral_cast_class
-{
-    template< class To, class From >
-    static To call(From from)
+    template< class To, class From > inline
+    To integral_cast(From from)
     {
-        return pstade::integral_cast<To>(from);
+        BOOST_MPL_ASSERT((boost::is_integral<To>));
+        BOOST_MPL_ASSERT((boost::is_integral<From>));
+
+        return boost::numeric_cast<To>(from);
     }
-};
 
 
-PSTADE_EGG_FUNCTION(integral, egg::baby_auto<integral_cast_class>)
-PSTADE_EGG_PIPABLE(to_integer, egg::baby_auto<integral_cast_class>)
+    struct integral_cast_fun
+    {
+        template< class To, class From >
+        To operator()(From from, boost::type<To>) const
+        {
+            return pstade::integral_cast<To>(from);
+        }
+    };
+
+    PSTADE_AUTO_CASTABLE(integral, integral_cast_fun)
+    PSTADE_PIPABLE(to_integer, integral_fun)
 
 
 } // namespace pstade

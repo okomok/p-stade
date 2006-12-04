@@ -15,8 +15,8 @@
 #include <boost/range/begin.hpp>
 #include <boost/type_traits/is_convertible.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
 #include <pstade/functional.hpp> // not_
+#include <pstade/pipable.hpp>
 #include "./algorithm.hpp" // find_if
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
@@ -108,7 +108,7 @@ namespace take_while_range_detail {
         };
 
         template< class Result, class Range, class Predicate >
-        Result call(Range& rng, Predicate& pred)
+        Result call(Range& rng, Predicate& pred) const
         {
             return Result(rng, pred);
         }
@@ -119,7 +119,7 @@ namespace take_while_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_take_while_range, take_while_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(taken_while, take_while_range_detail::baby_make)
+PSTADE_PIPABLE(taken_while, make_take_while_range_fun)
 
 
 } } // namespace pstade::oven

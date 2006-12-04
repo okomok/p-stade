@@ -19,7 +19,7 @@
 #include <boost/assert.hpp>
 #include <boost/type_traits/add_reference.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
+#include <pstade/pipable.hpp>
 
 
 namespace pstade {
@@ -36,7 +36,7 @@ namespace verify_detail {
         { };
 
         template< class Result, class T >
-        Result call(T& x)
+        Result call(T& x) const
         {
             BOOST_ASSERT(!!x); // 'operator!' is safer.
             return x;
@@ -48,7 +48,7 @@ namespace verify_detail {
 
 
 PSTADE_EGG_FUNCTION(verify, verify_detail::baby)
-PSTADE_EGG_PIPABLE(verified, verify_detail::baby)
+PSTADE_PIPABLE(verified, verify_fun)
 
 
 } // namespace pstade

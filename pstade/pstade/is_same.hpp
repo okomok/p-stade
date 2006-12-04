@@ -11,25 +11,25 @@
 
 
 #include <boost/utility/addressof.hpp>
-#include <pstade/instance.hpp>
+#include <pstade/singleton.hpp>
 
 
 namespace pstade {
 
 
-struct is_same_fun
-{
-    typedef bool result_type;
-
-    template< class T >
-    bool operator()(T const& x, T const& y) const
+    struct is_same_fun
     {
-        return boost::addressof(x) == boost::addressof(y);
-    }
-};
+        typedef bool result_type;
+
+        template< class T >
+        bool operator()(T const& x, T const& y) const
+        {
+            return boost::addressof(x) == boost::addressof(y);
+        }
+    };
 
 
-PSTADE_INSTANCE(is_same_fun const, is_same, value)
+    PSTADE_SINGLETON_CONST(is_same_fun, is_same)
 
 
 } // namespace pstade

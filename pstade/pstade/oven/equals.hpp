@@ -24,7 +24,7 @@
 #include <boost/range/end.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/functional.hpp> // equal_to
-#include <pstade/instance.hpp>
+#include <pstade/singleton.hpp>
 #include "./algorithm.hpp" // equal
 #include "./concepts.hpp"
 #include "./distance.hpp"
@@ -102,7 +102,7 @@ struct equals_fun
 
 PSTADE_ADL_BARRIER(equals) { // for Boost
 
-PSTADE_INSTANCE(equals_fun const, equals, value)
+PSTADE_SINGLETON_CONST(equals_fun, equals)
 
 } // ADL barrier
 

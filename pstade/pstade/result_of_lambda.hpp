@@ -70,7 +70,7 @@ namespace boost {
     // 1ary-
     //
 #define PSTADE_max_arity 3 // undocumented?
-#define PSTADE_add_ref(Z, N, _) typename add_reference< BOOST_PP_CAT(A, N) >::type
+#define PSTADE_add_ref(Z, N, _) typename add_reference< BOOST_PP_CAT(A, N) >::type // my service
     #define BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_max_arity, <pstade/result_of_lambda.hpp>))
     #include BOOST_PP_ITERATE()
 #undef PSTADE_add_ref

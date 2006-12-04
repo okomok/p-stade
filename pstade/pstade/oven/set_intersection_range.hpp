@@ -11,9 +11,9 @@
 
 
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
 #include <pstade/functional.hpp> // less
 #include <pstade/pass_by.hpp>
+#include <pstade/pipable.hpp>
 #include <pstade/unused.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
@@ -126,13 +126,13 @@ namespace set_intersection_range_detail {
         };
 
         template< class Result, class Range1, class Range2, class Compare >
-        Result call(Range1& rng1, Range2& rng2, Compare& comp)
+        Result call(Range1& rng1, Range2& rng2, Compare& comp) const
         {
             return Result(rng1, rng2, comp);
         }
 
         template< class Result, class Range1, class Range2 >
-        Result call(Range1& rng1, Range2& rng2)
+        Result call(Range1& rng1, Range2& rng2) const
         {
             return Result(rng1, rng2);
         }
@@ -143,7 +143,7 @@ namespace set_intersection_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_set_intersection_range, set_intersection_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(set_cap, set_intersection_range_detail::baby_make)
+PSTADE_PIPABLE(set_cap, make_set_intersection_range_fun)
 
 
 } } // namespace pstade::oven

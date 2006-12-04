@@ -17,8 +17,8 @@
 #include <boost/range/end.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
 #include <pstade/functional.hpp> // not_, is_zero
+#include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./range_iterator.hpp"
@@ -98,7 +98,7 @@ namespace null_terminate_range_detail {
         };
 
         template< class Result, class Range >
-        Result call(Range& rng)
+        Result call(Range& rng) const
         {
             return Result(rng);
         }
@@ -109,7 +109,7 @@ namespace null_terminate_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_null_terminate_range, null_terminate_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(null_terminated, null_terminate_range_detail::baby_make)
+PSTADE_PIPABLE(null_terminated, make_null_terminate_range_fun)
 
 
 } } // namespace pstade::oven

@@ -12,7 +12,7 @@
 
 #include <pstade/base_from.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
+#include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./joint_range.hpp"
@@ -76,7 +76,7 @@ namespace append_range_detail {
         };
 
         template< class Result, class Range, class Value >
-        Result call(Range& rng, Value& v)
+        Result call(Range& rng, Value& v) const
         {
             return Result(rng, v);
         }
@@ -87,7 +87,7 @@ namespace append_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_append_range, append_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(appended, append_range_detail::baby_make)
+PSTADE_PIPABLE(appended, make_append_range_fun)
 
 
 } } // namespace pstade::oven

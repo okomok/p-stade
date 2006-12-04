@@ -13,7 +13,7 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
+#include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
@@ -79,7 +79,7 @@ namespace permute_range_detail {
         };
 
         template< class Result, class ElementRange, class IndexRange >
-        Result call(ElementRange& erng, IndexRange& irng)
+        Result call(ElementRange& erng, IndexRange& irng) const
         {
             return Result(erng, irng);
         }
@@ -90,7 +90,7 @@ namespace permute_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_permute_range, permute_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(permuted, permute_range_detail::baby_make)
+PSTADE_PIPABLE(permuted, make_permute_range_fun)
 
 
 } } // namespace pstade::oven

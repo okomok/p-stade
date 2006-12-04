@@ -13,8 +13,8 @@
 #include <cstddef> // size_t
 #include <pstade/base_from.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
 #include <pstade/pass_by.hpp>
+#include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./cycle_range.hpp"
 #include "./single_range.hpp"
@@ -77,7 +77,7 @@ namespace repeat_range_detail {
         };
 
         template< class Result, class Value, class Size >
-        Result call(Value& v, Size sz)
+        Result call(Value& v, Size sz) const
         {
             return Result(v, sz);
         }
@@ -88,7 +88,7 @@ namespace repeat_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_repeat_range, repeat_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(repeated, repeat_range_detail::baby_make)
+PSTADE_PIPABLE(repeated, make_repeat_range_fun)
 
 
 } } // namespace pstade::oven

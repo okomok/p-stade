@@ -13,7 +13,7 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
+#include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./joint_range.hpp"
@@ -82,7 +82,7 @@ namespace rotate_range_detail {
         };
 
         template< class Result, class Range, class MiddleFun >
-        Result call(Range& rng, MiddleFun& fun)
+        Result call(Range& rng, MiddleFun& fun) const
         {
             return Result(rng, fun);
         }
@@ -93,7 +93,7 @@ namespace rotate_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_rotate_range, rotate_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(rotated, rotate_range_detail::baby_make)
+PSTADE_PIPABLE(rotated, make_rotate_range_fun)
 
 
 } } // namespace pstade::oven

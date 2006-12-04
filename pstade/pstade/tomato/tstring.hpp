@@ -13,7 +13,8 @@
 #include <sstream> // basic_stringstream
 #include <string>  // basic_string
 #include <pstade/apple/sdk/tchar.hpp>
-#include <pstade/egg/pipable.hpp>
+#include <pstade/egg/function.hpp>
+#include <pstade/pipable.hpp>
 #include <pstade/oven/copy_range.hpp>
 #include "./multibyte_to_widechar.hpp"
 #include "./widechar_to_multibyte.hpp"
@@ -54,7 +55,7 @@ namespace to_tstring_detail {
         };
 
         template< class Result, class WideCharSeq >
-        Result call(WideCharSeq const& from)
+        Result call(WideCharSeq const& from) const
         {
         #if defined(_UNICODE)
             return from|oven::copied;
@@ -68,7 +69,7 @@ namespace to_tstring_detail {
 } // namespace to_tstring_detail
 
 
-PSTADE_EGG_PIPABLE(to_tstring, to_tstring_detail::baby)
+PSTADE_PIPABLE(to_tstring, egg::function<to_tstring_detail::baby>)
 
 
 } } // namespace pstade::tomato

@@ -16,47 +16,39 @@
 
 
 #include <boost/lexical_cast.hpp>
-#include <pstade/egg/baby_auto.hpp>
+#include <pstade/auto_castable.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
+#include <pstade/pipable.hpp>
 #include <pstade/to_type.hpp>
 
 
 namespace pstade {
 
 
-namespace lexical_cast_detail {
+    namespace lexical_cast_detail {
 
-    struct baby
-    {
-        template< class Myself, class From, class To >
-        struct apply :
-            to_type<To>
-        { };
-
-        template< class Result, class From, class To >
-        Result call(From const& from, To)
+        struct baby
         {
-            return boost::lexical_cast<Result>(from);
-        }
-    };
+            template< class Myself, class From, class To >
+            struct apply :
+                to_type<To>
+            { };
 
-} // namespace lexical_cast_detail
+            template< class Result, class From, class To >
+            Result call(From const& from, To) const
+            {
+                return boost::lexical_cast<Result>(from);
+            }
+        };
 
-PSTADE_EGG_FUNCTION(lexical_cast, lexical_cast_detail::baby)
+    } // namespace lexical_cast_detail
 
 
-struct lexical_cast_class
-{
-    template< class To, class From >
-    static To call(From const& from)
-    {
-        return boost::lexical_cast<To>(from);
-    }
-};
+    PSTADE_EGG_FUNCTION(lexical_cast, lexical_cast_detail::baby)
 
-PSTADE_EGG_FUNCTION(lexical, egg::baby_auto<lexical_cast_class>)
-PSTADE_EGG_PIPABLE(lexicalized, egg::baby_auto<lexical_cast_class>)
+
+    PSTADE_AUTO_CASTABLE(lexical, lexical_cast_fun)
+    PSTADE_PIPABLE(lexicalized, lexical_fun)
 
 
 } // namespace pstade

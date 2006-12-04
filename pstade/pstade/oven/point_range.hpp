@@ -16,8 +16,8 @@
 #include <boost/type_traits/is_pointer.hpp>
 #include <boost/utility/addressof.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
 #include <pstade/nullptr.hpp>
+#include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./distance.hpp"
@@ -89,7 +89,7 @@ namespace point_range_detail {
         };
 
         template< class Result, class ContiguousRange >
-        Result call(ContiguousRange& rng)
+        Result call(ContiguousRange& rng) const
         {
             return Result(rng);
         }
@@ -101,7 +101,7 @@ namespace point_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_point_range, point_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(pointed, point_range_detail::baby_make)
+PSTADE_PIPABLE(pointed, make_point_range_fun)
 
 
 } } // namespace pstade::oven

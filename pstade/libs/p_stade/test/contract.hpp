@@ -160,7 +160,7 @@ namespace contract_detail {
         };
 
         template< class Result, class T >
-        Result call(T& x)
+        Result call(T& x) const
         {
         #if !defined(NDEBUG)
             return x;

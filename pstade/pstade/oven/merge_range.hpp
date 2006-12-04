@@ -13,9 +13,9 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
 #include <pstade/functional.hpp> // less
 #include <pstade/pass_by.hpp>
+#include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
@@ -93,13 +93,13 @@ namespace merge_range_detail {
         };
 
         template< class Result, class Range1, class Range2, class Compare >
-        Result call(Range1& rng1, Range2& rng2, Compare& comp)
+        Result call(Range1& rng1, Range2& rng2, Compare& comp) const
         {
             return Result(rng1, rng2, comp);
         }
 
         template< class Result, class Range1, class Range2 >
-        Result call(Range1& rng1, Range2& rng2)
+        Result call(Range1& rng1, Range2& rng2) const
         {
             return Result(rng1, rng2);
         }
@@ -110,7 +110,7 @@ namespace merge_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_merge_range, merge_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(merged, merge_range_detail::baby_make)
+PSTADE_PIPABLE(merged, make_merge_range_fun)
 
 
 } } // namespace pstade::oven

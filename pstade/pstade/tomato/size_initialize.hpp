@@ -31,7 +31,7 @@
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/apple/wtl/user.hpp> // ::AtlIsOldWindows
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
+#include <pstade/pipable.hpp>
 
 
 namespace pstade_tomato_extension {
@@ -57,7 +57,7 @@ namespace size_initialize_detail {
         { };
 
         template< class Result, class T >
-        Result call(T& x)
+        Result call(T& x) const
         {
         #if !BOOST_WORKAROUND(BOOST_MSVC, < 1400)  
             BOOST_MPL_ASSERT((boost::is_pod<T>));
@@ -73,7 +73,7 @@ namespace size_initialize_detail {
 
 
 PSTADE_EGG_FUNCTION(size_initialize, size_initialize_detail::baby)
-PSTADE_EGG_PIPABLE(size_initialized, size_initialize_detail::baby)
+PSTADE_PIPABLE(size_initialized, size_initialize_fun)
 
 
 } } // namespace pstade::tomato

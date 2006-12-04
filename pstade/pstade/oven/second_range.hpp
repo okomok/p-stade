@@ -13,8 +13,8 @@
 #include <boost/type_traits/remove_reference.hpp>
 #include <pstade/affect.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
 #include <pstade/functional.hpp> // at_second
+#include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./range_reference.hpp"
@@ -83,7 +83,7 @@ namespace second_range_detail {
         };
 
         template< class Result, class PairRange >
-        Result call(PairRange& rng)
+        Result call(PairRange& rng) const
         {
             return Result(rng);
         }
@@ -94,7 +94,7 @@ namespace second_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_second_range, second_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(seconds, second_range_detail::baby_make)
+PSTADE_PIPABLE(seconds, make_second_range_fun)
 
 
 } } // namespace pstade::oven

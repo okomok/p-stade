@@ -601,7 +601,7 @@ namespace pstade { namespace oven {
         };
 
         template< class Result, class T >
-        Result call(T& src)
+        Result call(T& src) const
         {
             return Result(src);
         }

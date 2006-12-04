@@ -12,7 +12,7 @@
 
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/for_debug.hpp>
-#include <pstade/instance.hpp>
+#include <pstade/singleton.hpp>
 #include "../boolean_cast.hpp"
 
 
@@ -31,7 +31,7 @@ struct is_window_fun
 };
 
 
-PSTADE_INSTANCE(is_window_fun const, is_window, value)
+PSTADE_SINGLETON_CONST(is_window_fun, is_window)
 
 
 } } // namespace pstade::tomato

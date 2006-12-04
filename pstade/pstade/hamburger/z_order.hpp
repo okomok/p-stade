@@ -11,8 +11,8 @@
 
 
 #include <pstade/if_debug.hpp>
-#include <pstade/instance.hpp>
 #include <pstade/lexical_cast.hpp>
+#include <pstade/singleton.hpp>
 #include <pstade/tomato/boolean_cast.hpp>
 #include <pstade/unused.hpp>
 #include "./log.hpp"
@@ -21,7 +21,7 @@
 namespace pstade { namespace hamburger {
 
 
-    struct z_order_function
+    struct z_order_fun
     {
         typedef bool result_type;
 
@@ -42,7 +42,7 @@ namespace pstade { namespace hamburger {
         }
     };
 
-    PSTADE_INSTANCE(z_order_function const, z_order, value);
+    PSTADE_SINGLETON_CONST(z_order_fun, z_order)
 
 
     struct z_order_sort_fun
@@ -56,7 +56,7 @@ namespace pstade { namespace hamburger {
         }
     };
 
-    PSTADE_INSTANCE(z_order_sort_fun const, z_order_sort, value);
+    PSTADE_SINGLETON_CONST(z_order_sort_fun, z_order_sort)
 
 
 } } // namespace pstade::hamburger

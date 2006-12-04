@@ -13,8 +13,8 @@
 #include <boost/cstdint.hpp> // uint32_t
 #include <boost/regex/pending/unicode_iterator.hpp> // u8_to_u32_iterator
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
 #include <pstade/pass_by.hpp>
+#include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
@@ -80,13 +80,13 @@ namespace utf8_decode_range_detail {
         };
 
         template< class Result, class Range, class Ucs4T >
-        Result call(Range& rng, Ucs4T)
+        Result call(Range& rng, Ucs4T) const
         {
             return Result(rng);
         }
 
         template< class Result, class Range >
-        Result call(Range& rng)
+        Result call(Range& rng) const
         {
             return Result(rng);
         }
@@ -97,7 +97,7 @@ namespace utf8_decode_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_utf8_decode_range, utf8_decode_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(utf8_decoded, utf8_decode_range_detail::baby_make)
+PSTADE_PIPABLE(utf8_decoded, make_utf8_decode_range_fun)
 
 
 } } // namespace pstade::oven

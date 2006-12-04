@@ -10,14 +10,17 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include "./second_range.hpp"
 
 
 namespace pstade { namespace oven {
 
 
-PSTADE_EGG_FUNCTION(make_map_value_range, second_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(map_values, second_range_detail::baby_make)
+typedef make_second_range_fun make_map_value_range_fun;
+PSTADE_SINGLETON_CONST(make_map_value_range_fun, make_map_value_range)
+PSTADE_PIPABLE(map_values, make_map_value_range_fun)
 
 
 } } // namespace pstade::oven

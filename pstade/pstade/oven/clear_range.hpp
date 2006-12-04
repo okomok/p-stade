@@ -12,7 +12,7 @@
 
 #include <boost/range/end.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
+#include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./sub_range_base.hpp"
@@ -52,7 +52,7 @@ namespace clear_range_detail {
         };
 
         template< class Result, class Range>
-        Result call(Range& rng)
+        Result call(Range& rng) const
         {
             return Result(rng);
         }
@@ -63,7 +63,7 @@ namespace clear_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_clear_range, clear_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(cleared, clear_range_detail::baby_make)
+PSTADE_PIPABLE(cleared, make_clear_range_fun)
 
 
 } } // namespace pstade::oven

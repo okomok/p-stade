@@ -120,7 +120,7 @@ namespace pstade { namespace oven { namespace extension_detail {
         { };
 
         template< class Result, class T >
-        Result call(T& x)
+        Result call(T& x) const
         {
             typedef typename boost::remove_cv<T>::type plain_t;
             return pstade_oven_extension::Range<plain_t>().template begin<Result>(x);
@@ -138,7 +138,7 @@ namespace pstade { namespace oven { namespace extension_detail {
         { };
 
         template< class Result, class T >
-        Result call(T& x)
+        Result call(T& x) const
         {
             typedef typename boost::remove_cv<T>::type plain_t;
             return pstade_oven_extension::Range<plain_t>().template end<Result>(x);
@@ -163,7 +163,7 @@ namespace pstade { namespace oven { namespace extension_detail {
         { };
 
         template< class Result, class T >
-        Result call(T const& x)
+        Result call(T const& x) const
         {
             return oven::distance(x);
         }

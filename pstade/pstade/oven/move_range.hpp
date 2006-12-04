@@ -23,7 +23,7 @@
 #include <boost/move.hpp>
 #include <boost/mpl/if.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
+#include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./range_value.hpp"
@@ -96,7 +96,7 @@ namespace move_range_detail {
         };
 
         template< class Result, class Range >
-        Result call(Range& rng)
+        Result call(Range& rng) const
         {
             return Result(rng);
         }
@@ -107,7 +107,7 @@ namespace move_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_move_range, move_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(moved, move_range_detail::baby_make)
+PSTADE_PIPABLE(moved, make_move_range_fun)
 
 
 } } // namespace pstade::oven

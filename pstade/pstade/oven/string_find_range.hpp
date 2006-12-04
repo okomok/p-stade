@@ -12,7 +12,7 @@
 
 #include <boost/algorithm/string/find_iterator.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
+#include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
@@ -68,7 +68,7 @@ namespace string_find_range_detail {
         };
 
         template< class Result, class Range, class FinderT >
-        Result call(Range& rng, FinderT& f)
+        Result call(Range& rng, FinderT& f) const
         {
             return Result(rng, f);
         }
@@ -79,7 +79,7 @@ namespace string_find_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_string_find_range, string_find_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(string_found, string_find_range_detail::baby_make)
+PSTADE_PIPABLE(string_found, make_string_find_range_fun)
 
 
 } } // namespace pstade::oven

@@ -21,8 +21,8 @@
 #include <boost/type_traits/remove_reference.hpp>
 #include <pstade/affect.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
 #include <pstade/functional.hpp> // at_first
+#include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./range_reference.hpp"
@@ -91,7 +91,7 @@ namespace first_range_detail {
         };
 
         template< class Result, class PairRange >
-        Result call(PairRange& rng)
+        Result call(PairRange& rng) const
         {
             return Result(rng);
         }
@@ -102,7 +102,7 @@ namespace first_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_first_range, first_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(firsts, first_range_detail::baby_make)
+PSTADE_PIPABLE(firsts, make_first_range_fun)
 
 
 } } // namespace pstade::oven

@@ -12,7 +12,7 @@
 
 // What:
 //
-// I love the name of 'boost::type', but he is not a metafunction!
+// I love the name of 'boost::type', but she is not a metafunction!
 
 
 #include <boost/type.hpp>

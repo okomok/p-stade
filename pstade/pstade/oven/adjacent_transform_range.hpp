@@ -22,8 +22,8 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
 #include <pstade/pass_by.hpp>
+#include <pstade/pipable.hpp>
 #include "./adjacent_transform_iterator.hpp"
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
@@ -93,7 +93,7 @@ namespace adjacent_transform_range_detail {
         };
 
         template< class Result, class Range, class BinaryFun >
-        Result call(Range& rng, BinaryFun& fun)
+        Result call(Range& rng, BinaryFun& fun) const
         {
             return Result(rng, fun);
         }
@@ -104,7 +104,7 @@ namespace adjacent_transform_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_adjacent_transform_range, adjacent_transform_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(adjacent_transformed, adjacent_transform_range_detail::baby_make)
+PSTADE_PIPABLE(adjacent_transformed, make_adjacent_transform_range_fun)
 
 
 } } // namespace pstade::oven

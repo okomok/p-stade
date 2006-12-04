@@ -29,8 +29,8 @@
 #include <boost/preprocessor/seq/for_each_product.hpp>
 #include <boost/type_traits/add_const.hpp>
 #include <pstade/implicitly_defined.hpp>
-#include <pstade/instance.hpp>
 #include <pstade/lambda_sig.hpp>
+#include <pstade/singleton.hpp>
 #include <pstade/unused_to_copy.hpp>
 #include "./baby_call.hpp"
 #include "./baby_result.hpp"
@@ -63,9 +63,18 @@ struct function :
     typename baby_result0<BabyFunction
     >::type
     operator()(
-    ) const
+    )
     {
         return egg::baby_call<BabyFunction>(*this
+        );
+    }
+
+    typename baby_result0<BabyFunction const
+    >::type
+    operator()(
+    ) const
+    {
+        return egg::baby_call<BabyFunction const>(*this
         );
     }
 
@@ -90,7 +99,7 @@ struct function :
     >::type
     operator()(
         A0& a0
-    ) const
+    )
     {
         return egg::baby_call<BabyFunction>(*this,
             a0
@@ -103,9 +112,36 @@ struct function :
     >::type
     operator()(
         A0 const& a0
-    ) const
+    )
     {
         return egg::baby_call<BabyFunction>(*this,
+            a0
+        );
+    }
+
+
+    template< class A0 >
+    typename baby_result1<BabyFunction const,
+        A0&
+    >::type
+    operator()(
+        A0& a0
+    ) const
+    {
+        return egg::baby_call<BabyFunction const>(*this,
+            a0
+        );
+    }
+
+    template< class A0 >
+    typename baby_result1<BabyFunction const,
+        typename boost::add_const<A0>::type&
+    >::type
+    operator()(
+        A0 const& a0
+    ) const
+    {
+        return egg::baby_call<BabyFunction const>(*this,
             a0
         );
     }
@@ -122,16 +158,28 @@ struct function :
             BabyFunction(BOOST_PP_ENUM_PARAMS(n, a)) \
         { } \
         \
-        \
         template< BOOST_PP_ENUM_PARAMS(n, class A) > \
         typename BOOST_PP_CAT(baby_result, n)<BabyFunction, \
             BOOST_PP_SEQ_FOR_EACH_I_R(R, PSTADE_EGG_arg_type, ~, BitSeq) \
         >::type \
         operator()( \
             BOOST_PP_SEQ_FOR_EACH_I_R(R, PSTADE_EGG_param, ~, BitSeq) \
-        ) const \
+        ) \
         { \
             return egg::baby_call<BabyFunction>(*this, \
+                BOOST_PP_ENUM_PARAMS(n, a) \
+            ); \
+        } \
+        \
+        template< BOOST_PP_ENUM_PARAMS(n, class A) > \
+        typename BOOST_PP_CAT(baby_result, n)<BabyFunction const, \
+            BOOST_PP_SEQ_FOR_EACH_I_R(R, PSTADE_EGG_arg_type, ~, BitSeq) \
+        >::type \
+        operator()( \
+            BOOST_PP_SEQ_FOR_EACH_I_R(R, PSTADE_EGG_param, ~, BitSeq) \
+        ) const \
+        { \
+            return egg::baby_call<BabyFunction const>(*this, \
                 BOOST_PP_ENUM_PARAMS(n, a) \
             ); \
         } \
@@ -182,25 +230,19 @@ struct function :
 } } // namespace pstade::egg
 
 
-#define PSTADE_EGG_FUNCTION(Name, Baby) \
-    PSTADE_EGG_FUNCTION_define(BOOST_PP_CAT(Name, _fun), Name, Baby) \
+#define PSTADE_EGG_FUNCTION(Object, Baby) \
+    PSTADE_EGG_FUNCTION_define(BOOST_PP_CAT(Object, _fun), Object, Baby) \
 /**/
 
 
-#define PSTADE_EGG_FUNCTION_(Name, Baby) \
-    PSTADE_EGG_FUNCTION_define(BOOST_PP_CAT(Name, fun), Name, Baby) \
+#define PSTADE_EGG_FUNCTION_(Object, Baby) \
+    PSTADE_EGG_FUNCTION_define(BOOST_PP_CAT(Object, fun), Object, Baby) \
 /**/
 
 
-    #define PSTADE_EGG_FUNCTION_define(TypeName, Name, Baby) \
-        typedef pstade::egg::function< \
-            Baby \
-        > const TypeName; \
-        \
-        PSTADE_INSTANCE( \
-            pstade::egg::function< Baby > const, \
-            Name, value \
-        ) \
+    #define PSTADE_EGG_FUNCTION_define(Type, Object, Baby) \
+        typedef pstade::egg::function< Baby > Type; \
+        PSTADE_SINGLETON_CONST( pstade::egg::function< Baby >, Object ) \
     /**/
 
 

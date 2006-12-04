@@ -12,7 +12,7 @@
 
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/for_debug.hpp>
-#include <pstade/instance.hpp>
+#include <pstade/singleton.hpp>
 #include "../boolean_cast.hpp"
 
 
@@ -29,7 +29,7 @@ struct is_menu_fun
 };
 
 
-PSTADE_INSTANCE(is_menu_fun const, is_menu, value)
+PSTADE_SINGLETON_CONST(is_menu_fun, is_menu)
 
 
 } } // namespace pstade::tomato

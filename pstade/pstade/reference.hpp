@@ -23,7 +23,7 @@
 
 
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
+#include <pstade/pipable.hpp>
 
 
 namespace pstade {
@@ -41,7 +41,7 @@ namespace reference_detail {
         };
 
         template< class Result, class T >
-        Result call(T& x)
+        Result call(T& x) const
         {
             return x;
         }
@@ -57,7 +57,7 @@ namespace reference_detail {
         };
 
         template< class Result, class T >
-        Result call(T const& x)
+        Result call(T const& x) const
         {
             return x;
         }
@@ -68,10 +68,10 @@ namespace reference_detail {
 
 
 PSTADE_EGG_FUNCTION(reference,   reference_detail::baby)
-PSTADE_EGG_PIPABLE(to_reference, reference_detail::baby)
+PSTADE_PIPABLE(to_reference, reference_fun)
 
 PSTADE_EGG_FUNCTION(const_reference,   reference_detail::baby_const)
-PSTADE_EGG_PIPABLE(to_const_reference, reference_detail::baby_const)
+PSTADE_PIPABLE(to_const_reference, const_reference_fun)
 
 
 } // namespace pstade

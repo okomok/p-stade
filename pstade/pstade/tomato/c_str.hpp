@@ -18,7 +18,7 @@
 #include <pstade/apple/wtl/misc.hpp> // CString
 #include <pstade/apple/basic_string_fwd.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
+#include <pstade/pipable.hpp>
 #include <pstade/nullptr.hpp>
 #include <pstade/static_c.hpp>
 #include "./boolean_cast.hpp"
@@ -114,13 +114,13 @@ namespace c_str_detail {
 
         // 'has_xxx' works only with "class".
         template< class Result >
-        Result call(TCHAR const *psz)
+        Result call(TCHAR const *psz) const
         {
             return psz;
         }
 
         template< class Result, class CStringizable >
-        Result call(CStringizable const& str)
+        Result call(CStringizable const& str) const
         {
             Result result = c_str_detail::aux(str);
             BOOST_ASSERT(c_str_detail::invariant(result));
@@ -133,7 +133,7 @@ namespace c_str_detail {
 
 
 PSTADE_EGG_FUNCTION(c_str, c_str_detail::baby)
-PSTADE_EGG_PIPABLE(to_c_str, c_str_detail::baby)
+PSTADE_PIPABLE(to_c_str, c_str_fun)
 
 
 } } // namespace pstade::tomato

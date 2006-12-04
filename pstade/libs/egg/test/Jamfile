@@ -46,6 +46,6 @@ test-suite egg :
     [ egg-test doc ]
     [ egg-test function ]
     [ egg-test lambda ]
-    [ egg-test pipable ]
+    [ egg-test state ]
     [ egg-test unused_to_copy ]
     ;

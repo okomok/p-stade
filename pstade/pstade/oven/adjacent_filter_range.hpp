@@ -13,8 +13,8 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
 #include <pstade/pass_by.hpp>
+#include <pstade/pipable.hpp>
 #include "./adjacent_filter_iterator.hpp"
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
@@ -80,7 +80,7 @@ namespace adjacent_filter_range_detail {
         };
 
         template< class Result, class Range, class BinaryPred >
-        Result call(Range& rng, BinaryPred& pred)
+        Result call(Range& rng, BinaryPred& pred) const
         {
             return Result(rng, pred);
         }
@@ -91,7 +91,7 @@ namespace adjacent_filter_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_adjacent_filter_range, adjacent_filter_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(adjacent_filtered, adjacent_filter_range_detail::baby_make)
+PSTADE_PIPABLE(adjacent_filtered, make_adjacent_filter_range_fun)
 
 
 } } // namespace pstade::oven

@@ -15,8 +15,8 @@
 #include <cwchar>  // wcslen
 #include <boost/type_traits/remove_pointer.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
 #include <pstade/pass_by.hpp>
+#include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./iter_range.hpp"
 
@@ -75,7 +75,7 @@ namespace c_str_range_detail {
         };
 
         template< class Result, class Char >
-        Result call(Char *psz)
+        Result call(Char *psz) const
         {
             return Result(psz);
         }
@@ -86,7 +86,7 @@ namespace c_str_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_c_str_range, c_str_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(as_c_str, c_str_range_detail::baby_make)
+PSTADE_PIPABLE(as_c_str, make_c_str_range_fun)
 
 
 } } // namespace pstade::oven

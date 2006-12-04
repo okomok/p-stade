@@ -13,7 +13,7 @@
 #include <cstddef> // size_t
 #include <boost/type_traits/remove_extent.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
+#include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./iter_range.hpp"
 
@@ -52,7 +52,7 @@ namespace array_protect_range_detail {
         };
 
         template< class Result, class Array >
-        Result call(Array& arr)
+        Result call(Array& arr) const
         {
             return Result(arr);
         }
@@ -63,8 +63,8 @@ namespace array_protect_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_array_protect_range, array_protect_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(array_protected, array_protect_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(as_array, array_protect_range_detail::baby_make)
+PSTADE_PIPABLE(array_protected, make_array_protect_range_fun)
+PSTADE_PIPABLE(as_array, make_array_protect_range_fun)
 
 
 } } // namespace pstade::oven

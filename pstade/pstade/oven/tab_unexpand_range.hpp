@@ -13,7 +13,7 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
+#include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
@@ -76,7 +76,7 @@ namespace tab_unexpand_range_detail {
         };
 
         template< class Result, class Range >
-        Result call(Range& rng, int tabsize)
+        Result call(Range& rng, int tabsize) const
         {
             return Result(rng, tabsize);
         }
@@ -87,7 +87,7 @@ namespace tab_unexpand_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_tab_unexpand_range, tab_unexpand_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(tab_unexpanded, tab_unexpand_range_detail::baby_make)
+PSTADE_PIPABLE(tab_unexpanded, make_tab_unexpand_range_fun)
 
 
 } } // namespace pstade::oven

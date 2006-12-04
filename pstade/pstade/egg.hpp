@@ -10,13 +10,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./egg/baby_auto.hpp"
 #include "./egg/baby_call.hpp"
 #include "./egg/baby_of.hpp"
 #include "./egg/baby_result.hpp"
 #include "./egg/function.hpp"
-#include "./egg/is_pipe.hpp"
-#include "./egg/pipable.hpp"
 
 
 #endif

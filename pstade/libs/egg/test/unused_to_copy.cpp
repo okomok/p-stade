@@ -14,7 +14,7 @@ struct a_baby
     };
 
     template< class Result, class X, class Y >
-    Result call(X& x, Y& y)
+    Result call(X& x, Y& y) const
     {
         return x * y;
     }
@@ -45,13 +45,13 @@ void test()
     {
         a_function_fun a;
         a_function_fun b(a);
-        b = a;
+        // b = a;
     }
 
     {
         a_function_fun const a;
         a_function_fun b(a);
-        b = a;
+        // b = a;
     }
 
 }

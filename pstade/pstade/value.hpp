@@ -11,46 +11,38 @@
 
 
 #include <boost/noncopyable.hpp>
-#include <pstade/instance.hpp>
-#include <pstade/remove_cvr.hpp>
+#include <pstade/pass_by.hpp>
+#include <pstade/singleton.hpp>
 
 
 namespace pstade {
 
 
-    // Define from scratch.
+    // Define it without Egg.
     // Egg would turn the argument into reference;
     // that's the dark-side of the language in the
     // case of function reference.
     //
 
+    struct value_fun
+    {
+        template< class Signature >
+        struct result;
 
-    namespace value_detail {
+        template< class Self, class A >
+        struct result<Self(A)> :
+            pass_by_value<A>
+        { };
 
-
-        struct fun
+        template< class A >
+        A operator()(A a) const
         {
-            template< class Signature >
-            struct result;
-
-            template< class Self, class A >
-            struct result<Self(A)> :
-                remove_cvr<A>
-            { };
-
-            template< class A >
-            A operator()(A a) const
-            {
-                return a;
-            }
-        };
+            return a;
+        }
+    };
 
 
-    } // namespace value_detail
-
-
-    typedef value_detail::fun const value_fun;
-    PSTADE_INSTANCE(value_fun, value, value)
+    PSTADE_SINGLETON_CONST(value_fun, value)
 
 
     namespace value_detail {
@@ -71,7 +63,7 @@ namespace pstade {
     } // namespace value_detail
 
 
-    PSTADE_INSTANCE(value_detail::pipe const, to_value, value)
+    PSTADE_SINGLETON_CONST(value_detail::pipe, to_value)
 
 
 } // namespace pstade

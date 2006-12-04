@@ -17,13 +17,15 @@
 
 #include <boost/noncopyable.hpp>
 #include <boost/preprocessor/cat.hpp>
-#include <pstade/instance.hpp>
+#include <pstade/singleton.hpp>
 
 
 #define PSTADE_STATEMENT(Label, Statement) \
     PSTADE_STATEMENT_define_init_type(Label, Statement) \
-    PSTADE_INSTANCE(PSTADE_STATEMENT_init_type(Label) const volatile, \
-        PSTADE_STATEMENT_init(Label), value) \
+    namespace { \
+        PSTADE_STATEMENT_init_type(Label) const volatile& PSTADE_STATEMENT_init(Label) \
+            = pstade::singleton< PSTADE_STATEMENT_init_type(Label) >::instance; \
+    } \
 /**/
 
 

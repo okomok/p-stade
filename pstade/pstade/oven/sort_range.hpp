@@ -20,7 +20,7 @@
 
 #include <boost/ptr_container/indirect_fun.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
+#include <pstade/pipable.hpp>
 #include <pstade/functional.hpp> // less
 #include <pstade/pass_by.hpp>
 #include "./algorithm.hpp" // sort
@@ -104,13 +104,13 @@ namespace sort_range_detail {
         };
 
         template< class Result, class Range, class Compare >
-        Result call(Range& rng, Compare& comp)
+        Result call(Range& rng, Compare& comp) const
         {
             return Result(rng, comp);
         }
 
         template< class Result, class Range >
-        Result call(Range& rng)
+        Result call(Range& rng) const
         {
             return Result(rng);
         }
@@ -121,7 +121,7 @@ namespace sort_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_sort_range, sort_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(sorted, sort_range_detail::baby_make)
+PSTADE_PIPABLE(sorted, make_sort_range_fun)
 
 
 } } // namespace pstade::oven

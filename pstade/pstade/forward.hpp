@@ -19,7 +19,7 @@
 //     lambda::_1(1|to_reference);
 //
 // Also, this can add 'boost::result_of/lambda::sig' support
-// by passing extra template argument, as 'lambda::ret' does.
+// by passing the extra argument, as 'lambda::ret' does.
 
 
 #include <boost/mpl/eval_if.hpp>
@@ -31,8 +31,8 @@
 #include <boost/type_traits/is_same.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
 #include <pstade/pass_by.hpp>
+#include <pstade/pipable.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/to_type.hpp>
 
@@ -68,7 +68,7 @@ namespace pstade {
             { };
 
             template< class Result, BOOST_PP_ENUM_PARAMS(PSTADE_EGG_MAX_ARITY, class A) >
-            Result call( PSTADE_PP_ENUM_REF_PARAMS_WITH_VARS(PSTADE_EGG_MAX_ARITY, A, a) )
+            Result call( PSTADE_PP_ENUM_REF_PARAMS_WITH_OBJECTS(PSTADE_EGG_MAX_ARITY, A, a) )
             {
                 return
                     m_fun(
@@ -85,7 +85,7 @@ namespace pstade {
             nullary_result_type;
 
             template< class Result >
-            Result call( )
+            Result call( ) const
             {
                 return
                     m_fun(
@@ -103,7 +103,7 @@ namespace pstade {
             { };
 
             template< class Result, class A0 >
-            Result call( A0& a0 )
+            Result call( A0& a0 ) const
             {
                 return
                     m_fun(
@@ -124,24 +124,29 @@ namespace pstade {
                 m_fun(fun)
             { }
 
+            Function const& base() const
+            {
+                return m_fun;
+            }
+
         private:
-            Function m_fun;
+            mutable Function m_fun;
 
         }; // struct baby_fun
 
 
         struct baby
         {
-            template< class Myself, class Function, class ResultType = void >
+            template< class Myself, class Function, class TypeResult = void >
             struct apply
             {
                 typedef typename pass_by_value<Function>::type fun_t;
-                typedef typename to_type<ResultType>::type result_t;
+                typedef typename to_type<TypeResult>::type result_t;
                 typedef egg::function< baby_fun<result_t, fun_t> > type;
             };
        
-            template< class Result, class Function, class ResultType >
-            Result call(Function& fun, ResultType)
+            template< class Result, class Function, class TypeResult >
+            Result call(Function& fun, TypeResult) const
             {
                 return Result(fun);
             }
@@ -154,7 +159,7 @@ namespace pstade {
             };
 
             template< class Result, class Function >
-            Result call(Function& fun)
+            Result call(Function& fun) const
             {
                 return Result(fun);
             } 
@@ -165,7 +170,7 @@ namespace pstade {
 
 
     PSTADE_EGG_FUNCTION(forward, forward_detail::baby)
-    PSTADE_EGG_PIPABLE(forwarded, forward_detail::baby)
+    PSTADE_PIPABLE(forwarded, forward_fun)
 
 
 } // namespace pstade
@@ -186,7 +191,7 @@ struct apply< Myself, BOOST_PP_ENUM_PARAMS(n, A) > :
 { };
 
 template< class Result, BOOST_PP_ENUM_PARAMS(n, class A) >
-Result call( PSTADE_PP_ENUM_REF_PARAMS_WITH_VARS(n, A, a) )
+Result call( PSTADE_PP_ENUM_REF_PARAMS_WITH_OBJECTS(n, A, a) ) const
 {
     return
         m_fun(

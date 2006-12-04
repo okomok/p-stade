@@ -17,7 +17,7 @@
 
 
 template< BOOST_PP_ENUM_PARAMS(5, class A) >
-void foo( PSTADE_PP_ENUM_REF_PARAMS_WITH_VARS(5, A, a) )
+void foo( PSTADE_PP_ENUM_REF_PARAMS_WITH_OBJECTS(5, A, a) )
 {
     return;
 }
@@ -30,7 +30,7 @@ void foo_( PSTADE_PP_ENUM_REF_PARAMS(5, A) )
 
 
 template< BOOST_PP_ENUM_PARAMS(5, class A) >
-void cfoo( PSTADE_PP_ENUM_CREF_PARAMS_WITH_VARS(5, A, a) )
+void cfoo( PSTADE_PP_ENUM_CREF_PARAMS_WITH_OBJECTS(5, A, a) )
 {
     return;
 }

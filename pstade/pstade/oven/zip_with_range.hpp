@@ -18,8 +18,8 @@
 
 #include <boost/utility/result_of.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
 #include <pstade/pass_by.hpp>
+#include <pstade/pipable.hpp>
 #include <pstade/tupled.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./range_base.hpp"
@@ -89,7 +89,7 @@ namespace zip_with_range_detail {
         };
 
         template< class Result, class RangeTuple, class Function >
-        Result call(RangeTuple& tup, Function& fun)
+        Result call(RangeTuple& tup, Function& fun) const
         {
             return Result(tup, fun);
         }
@@ -100,7 +100,7 @@ namespace zip_with_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_zip_with_range, zip_with_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(zipped_with, zip_with_range_detail::baby_make)
+PSTADE_PIPABLE(zipped_with, make_zip_with_range_fun)
 
 
 } } // namespace pstade::oven

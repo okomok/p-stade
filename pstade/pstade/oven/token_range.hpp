@@ -18,7 +18,7 @@
 #include <boost/type_traits/is_same.hpp>
 #include <boost/utility/enable_if.hpp> // disable_if
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
+#include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./iter_range.hpp"
 #include "./concepts.hpp"
@@ -115,14 +115,14 @@ namespace token_range_detail {
         };
 
         template< class Result, class Range, class Regex >
-        Result call(Range& rng, Regex const& re, int submatch = 0, match_flag_type flag = match_default)
+        Result call(Range& rng, Regex const& re, int submatch = 0, match_flag_type flag = match_default) const
         {
             return Result(rng, re, submatch, flag);
         }
 
         template< class Result, class Range, class Regex, class RandRange >
         typename boost::disable_if<boost::is_same<RandRange, int>, // for GCC
-        Result>::type call(Range& rng, Regex const& re, RandRange const& submatches, match_flag_type flag = match_default)
+        Result>::type call(Range& rng, Regex const& re, RandRange const& submatches, match_flag_type flag = match_default) const
         {
             return Result(rng, re, submatches, flag);
         }
@@ -133,7 +133,7 @@ namespace token_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_token_range, token_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(tokenized, token_range_detail::baby_make)
+PSTADE_PIPABLE(tokenized, make_token_range_fun)
 
 
 } } // namespace pstade::oven

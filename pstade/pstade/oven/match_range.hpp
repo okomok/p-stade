@@ -14,7 +14,7 @@
 #include <boost/range/end.hpp>
 #include <boost/regex.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
+#include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
@@ -97,7 +97,7 @@ namespace match_range_detail {
         };
 
         template< class Result, class Range, class Regex >
-        Result call(Range& rng, Regex const& re, match_flag_type flag = match_default)
+        Result call(Range& rng, Regex const& re, match_flag_type flag = match_default) const
         {
             return Result(rng, re, flag);
         }
@@ -108,7 +108,7 @@ namespace match_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_match_range, match_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(matches, match_range_detail::baby_make)
+PSTADE_PIPABLE(matches, make_match_range_fun)
 
 
 } } // namespace pstade::oven

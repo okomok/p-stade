@@ -29,7 +29,7 @@ namespace pstade {
             { };
 
             template< class Result, class Function >
-            Result call(Function& fun)
+            Result call(Function& fun) const
             {
                 return pstade::compose(fun, tie);
             }

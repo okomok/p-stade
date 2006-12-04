@@ -9,13 +9,10 @@
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
+
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
 
-#if BOOST_WORKAROUND(BOOST_MSVC, == 1310)
-    // VC++7.1 fatal error C1204
-    #define PSTADE_OVEN_TESTS_NO_CONCEPT_CHECK
-#endif
 
 #include <pstade/oven/tests.hpp>
 #include <pstade/oven.hpp>

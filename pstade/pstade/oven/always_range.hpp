@@ -11,7 +11,7 @@
 
 
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
+#include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./sub_range_base.hpp"
@@ -52,7 +52,7 @@ namespace always_range_detail {
         };
 
         template< class Result, class Unused, class Range>
-        Result call(Unused& _, Range& rng)
+        Result call(Unused& _, Range& rng) const
         {
             return Result(_, rng);
         }
@@ -63,7 +63,7 @@ namespace always_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_always_range, always_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(always, always_range_detail::baby_make)
+PSTADE_PIPABLE(always, make_always_range_fun)
 
 
 } } // namespace pstade::oven

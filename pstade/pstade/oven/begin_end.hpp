@@ -19,7 +19,7 @@
 #include <boost/range/end.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
+#include <pstade/pipable.hpp>
 #include "./range_iterator.hpp"
 
 
@@ -41,7 +41,7 @@ namespace begin_end_detail {
     struct baby_begin : with_apply
     {
         template< class Result, class Range >
-        Result call(Range& rng)
+        Result call(Range& rng) const
         {
             return boost::begin(rng);
         }
@@ -51,7 +51,7 @@ namespace begin_end_detail {
     struct baby_end   : with_apply
     {
         template< class Result, class Range >
-        Result call(Range& rng)
+        Result call(Range& rng) const
         {
             return boost::end(rng);
         }
@@ -69,8 +69,8 @@ PSTADE_EGG_FUNCTION(end,   begin_end_detail::baby_end)
 } // ADL barrier
 
 
-PSTADE_EGG_PIPABLE(begins, begin_end_detail::baby_begin)
-PSTADE_EGG_PIPABLE(ends,   begin_end_detail::baby_end)
+PSTADE_PIPABLE(begins, begin_fun)
+PSTADE_PIPABLE(ends,   end_fun)
 
 
 } } // namespace pstade::oven

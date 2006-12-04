@@ -20,7 +20,7 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
+#include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./detail/next_prior.hpp" // next
@@ -84,13 +84,13 @@ namespace advance_range_detail {
         };
 
         template< class Result, class Range, class Difference >
-        Result call(Range& rng, Difference dfirst, Difference dlast)
+        Result call(Range& rng, Difference dfirst, Difference dlast) const
         {
             return Result(rng, dfirst, dlast);
         }
 
         template< class Result, class Range, class Difference >
-        Result call(Range& rng, Difference d)
+        Result call(Range& rng, Difference d) const
         {
             return Result(rng, d);
         }
@@ -101,7 +101,7 @@ namespace advance_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_advance_range, advance_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(advanced, advance_range_detail::baby_make)
+PSTADE_PIPABLE(advanced, make_advance_range_fun)
 
 
 } } // namespace pstade::oven

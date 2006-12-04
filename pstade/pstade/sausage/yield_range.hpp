@@ -11,10 +11,10 @@
 
 
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
 #include <pstade/oven/as_lightweight_proxy.hpp>
 #include <pstade/oven/iter_range.hpp>
 #include <pstade/pass_by.hpp>
+#include <pstade/pipable.hpp>
 #include "./yield_iterator.hpp"
 
 
@@ -64,7 +64,7 @@ namespace yield_range_detail {
         };
 
         template< class Result, class Routine >
-        Result call(Routine& rou)
+        Result call(Routine& rou) const
         {
             return Result(rou);
         }
@@ -75,7 +75,7 @@ namespace yield_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_yield_range, yield_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(yielded, yield_range_detail::baby_make)
+PSTADE_PIPABLE(yielded, make_yield_range_fun)
 
 
 } } // namespace pstade::sausage

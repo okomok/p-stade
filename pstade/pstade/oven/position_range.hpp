@@ -12,8 +12,8 @@
 
 #include <boost/spirit/iterator/position_iterator.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
 #include <pstade/pass_by.hpp>
+#include <pstade/pipable.hpp>
 #include <pstade/static_c.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
@@ -104,13 +104,13 @@ namespace position_range_detail {
         };
 
         template< class Result, class Range >
-        Result call(Range& rng)
+        Result call(Range& rng) const
         {
             return Result(rng);
         }
 
         template< class Result, class Range, class PositionT >
-        Result call(Range& rng, PositionT const& pos, int tabchars = default_tabchars::value)
+        Result call(Range& rng, PositionT const& pos, int tabchars = default_tabchars::value) const
         {
             return Result(rng, pos, tabchars);
         }
@@ -121,7 +121,7 @@ namespace position_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_position_range, position_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(with_position, position_range_detail::baby_make)
+PSTADE_PIPABLE(with_position, make_position_range_fun)
 
 
 } } // namespace pstade::oven

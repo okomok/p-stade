@@ -12,7 +12,7 @@
 
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/for_debug.hpp>
-#include <pstade/instance.hpp>
+#include <pstade/singleton.hpp>
 #include "../boolean_cast.hpp"
 
 
@@ -33,7 +33,7 @@ struct is_dc_fun
 };
 
 
-PSTADE_INSTANCE(is_dc_fun const, is_dc, value)
+PSTADE_SINGLETON_CONST(is_dc_fun, is_dc)
 
 
 } } // namespace pstade::tomato

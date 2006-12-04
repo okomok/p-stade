@@ -10,9 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/type.hpp>
+#include <boost/utility/result_of.hpp>
 #include <pstade/adl_barrier.hpp>
-#include <pstade/egg/baby_auto.hpp>
-#include <pstade/egg/pipable.hpp>
+#include <pstade/auto_castable.hpp>
+#include <pstade/pipable.hpp>
 #include "./algorithm.hpp" // copy
 #include "./extension.hpp"
 
@@ -41,16 +43,16 @@ PSTADE_ADL_BARRIER(copy_range) { // for Boost
 // copied
 //
 
-struct copy_range_class
+struct copy_range_fun
 {
     template< class OvenCopyableRange, class Range >
-    static OvenCopyableRange call(Range const& rng)
+    OvenCopyableRange operator()(Range const& rng, boost::type<OvenCopyableRange>) const
     {
         return oven::copy_range<OvenCopyableRange>(rng);
     }
 };
 
-PSTADE_EGG_PIPABLE(copied, egg::baby_auto<copy_range_class>)
+PSTADE_PIPABLE(copied, boost::result_of<auto_castable_fun(copy_range_fun)>::type)
 
 
 // copied_out
@@ -68,7 +70,7 @@ namespace copied_out_detail {
         };
 
         template< class Result, class Range, class OutIter >
-        Result call(Range& rng, OutIter to)
+        Result call(Range& rng, OutIter to) const
         {
             oven::copy(rng, to);
             return rng;
@@ -80,8 +82,8 @@ namespace copied_out_detail {
 
 
 // Which is better name?
-PSTADE_EGG_PIPABLE(copied_out, copied_out_detail::baby)
-PSTADE_EGG_PIPABLE(copied_to,  copied_out_detail::baby)
+PSTADE_PIPABLE(copied_out, egg::function<copied_out_detail::baby>)
+PSTADE_PIPABLE(copied_to,  egg::function<copied_out_detail::baby>)
 
 
 } } // namespace pstade::oven

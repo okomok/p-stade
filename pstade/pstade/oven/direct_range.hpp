@@ -13,7 +13,7 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
+#include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./counting_range.hpp"
@@ -68,7 +68,7 @@ namespace direct_range_detail {
         };
 
         template< class Result, class Range >
-        Result call(Range& rng)
+        Result call(Range& rng) const
         {
             return Result(rng);
         }
@@ -80,7 +80,7 @@ namespace direct_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_direct_range, direct_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(directed, direct_range_detail::baby_make)
+PSTADE_PIPABLE(directed, make_direct_range_fun)
 
 
 } } // namespace pstade::oven

@@ -17,8 +17,8 @@
 
 #include <boost/range/end.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
 #include <pstade/pass_by.hpp>
+#include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./sub_range_base.hpp"
@@ -65,13 +65,13 @@ namespace apply_range_detail {
         };
 
         template< class Result, class Range, class BeginFun, class EndFun >
-        Result call(Range& rng, BeginFun& bfun, EndFun& efun)
+        Result call(Range& rng, BeginFun& bfun, EndFun& efun) const
         {
             return Result(rng, bfun, efun);
         }
 
         template< class Result, class Range, class RangeFun >
-        Result call(Range& rng, RangeFun& fun)
+        Result call(Range& rng, RangeFun& fun) const
         {
             return Result(rng, fun);
         }
@@ -82,7 +82,7 @@ namespace apply_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_apply_range, apply_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(applied, apply_range_detail::baby_make)
+PSTADE_PIPABLE(applied, make_apply_range_fun)
 
 
 } } // namespace pstade::oven
@@ -93,11 +93,11 @@ PSTADE_EGG_PIPABLE(applied, apply_range_detail::baby_make)
 #if defined(PSTADE_OVEN_USING_PHOENIX_V2)
 
     #include <boost/spirit/phoenix/core/argument.hpp>
-    #include <pstade/instance.hpp>
+    #include <pstade/singleton.hpp>
 
     namespace pstade { namespace oven {
 
-    PSTADE_INSTANCE(boost::phoenix::actor< boost::phoenix::argument<0> > const, rng1, value)
+    PSTADE_SINGLETON_CONST(boost::phoenix::actor< boost::phoenix::argument<0> >, rng1)
 
     } } // namespace pstade::oven
 

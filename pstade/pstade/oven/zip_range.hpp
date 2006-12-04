@@ -13,7 +13,7 @@
 #include <boost/iterator/zip_iterator.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/pipable.hpp>
+#include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
@@ -112,7 +112,7 @@ namespace zip_range_detail {
         };
 
         template< class Result, class RangeTuple >
-        Result call(RangeTuple& tup)
+        Result call(RangeTuple& tup) const
         {
             return Result(tup);
         }
@@ -126,7 +126,7 @@ namespace zip_range_detail {
         };
 
         template< class Result, class Range0, class Range1 >
-        Result call(Range0& rng0, Range1& rng1)
+        Result call(Range0& rng0, Range1& rng1) const
         {
             typedef typename Result::range_tuple_type tup_t;
             return Result(tup_t(rng0, rng1));
@@ -139,7 +139,7 @@ namespace zip_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_zip_range, zip_range_detail::baby_make)
-PSTADE_EGG_PIPABLE(zipped, zip_range_detail::baby_make)
+PSTADE_PIPABLE(zipped, make_zip_range_fun)
 
 
 } } // namespace pstade::oven

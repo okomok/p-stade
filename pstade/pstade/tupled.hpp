@@ -100,7 +100,7 @@ namespace pstade {
             };
 
             template< class Result, class Tuple >
-            Result call(Tuple& tup)
+            Result call(Tuple& tup) const
             {
                 typedef boost::mpl::int_<boost::tuples::length<Tuple>::value> n_t;
                 return tupled_detail::call_impl<Result>(m_fun, tup, n_t());
@@ -128,7 +128,7 @@ namespace pstade {
             };
 
             template< class Result, class Function >
-            Result call(Function& fun)
+            Result call(Function& fun) const
             {
                 return Result(fun);
             }

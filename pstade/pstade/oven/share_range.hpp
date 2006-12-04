@@ -17,7 +17,7 @@
 #include <boost/range/end.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/utility/addressof.hpp>
-#include <pstade/instance.hpp>
+#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
@@ -111,7 +111,7 @@ namespace share_range_detail {
 } // namespace share_range_detail
 
 
-PSTADE_INSTANCE(share_range_detail::pipe const, shared, value)
+PSTADE_SINGLETON_CONST(share_range_detail::pipe, shared)
 
 
 } } // namespace pstade::oven
