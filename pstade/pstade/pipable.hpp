@@ -31,8 +31,8 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/tuple/tuple.hpp>
-#include <boost/type_traits/add_const.hpp>
 #include <boost/utility/result_of.hpp>
+#include <pstade/const.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/nonassignable.hpp>
 #include <pstade/pass_by.hpp>
@@ -163,9 +163,8 @@ namespace pstade {
             );
         };
 
-        // prefer 'add_const' for VC++7.1.
         template< class A, class Function, class Arguments > inline
-        typename result_of_piping<typename boost::add_const<A>::type, Function, Arguments>::type
+        typename result_of_piping<PSTADE_CONST(A), Function, Arguments>::type
         operator|(A const& a, pipe<Function, Arguments> const& pi)
         {
             return pstade::tupled(pi.base())(
@@ -189,7 +188,7 @@ namespace pstade {
         };
 
         template< class A, class Function, class Arguments > inline
-        typename result_of_piping<typename boost::add_const<A>::type, Function, Arguments>::type
+        typename result_of_piping<PSTADE_CONST(A), Function, Arguments>::type
         operator|(A const& a, egg::function< pipe<Function, Arguments> > const& pi)
         {
             return pstade::tupled(pi.base())(

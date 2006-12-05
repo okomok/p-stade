@@ -30,6 +30,7 @@
 #include <boost/operators.hpp> // equality_comparable
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
+#include <pstade/const.hpp>
 #include <pstade/radish/bool_testable.hpp>
 #include <pstade/radish/swappable.hpp>
 #include <pstade/unused_to_copy.hpp>
@@ -171,10 +172,10 @@ make_iter_range(Range& rng)
 }
 
 template< class Range > inline
-iter_range<typename range_iterator_const<Range>::type> const
+iter_range<typename range_iterator<PSTADE_CONST(Range)>::type> const
 make_iter_range(Range const& rng)
 {
-    return iter_range<typename range_iterator_const<Range>::type>(rng);
+    return iter_range<typename range_iterator<PSTADE_CONST(Range)>::type>(rng);
 }
 
 

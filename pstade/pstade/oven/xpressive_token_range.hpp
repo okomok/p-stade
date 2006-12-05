@@ -13,6 +13,7 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/xpressive/regex_token_iterator.hpp>
+#include <pstade/const.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
@@ -32,7 +33,7 @@ namespace xpressive_token_range_detail {
         iter_range<
             boost::xpressive::regex_token_iterator<
                 // Xpressive seems not to support a mutable iterator.
-                typename range_iterator_const<Range>::type
+                typename range_iterator<PSTADE_CONST(Range)>::type
             >
         >
     { };

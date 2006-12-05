@@ -41,7 +41,6 @@
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/type_traits/add_const.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/apple/has_equal_range.hpp>
@@ -53,6 +52,7 @@
 #include <pstade/apple/has_sort.hpp>
 #include <pstade/apple/has_unique.hpp>
 #include <pstade/apple/has_upper_bound.hpp>
+#include <pstade/const.hpp>
 #include "./detail/config.hpp" // PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR
 #include "./range_difference.hpp"
 #include "./range_iterator.hpp"
@@ -136,7 +136,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     /// \overload
     template<typename Rng,typename Val>
-    inline BOOST_DEDUCED_TYPENAME range_iterator_const<Rng>::type
+    inline BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_CONST(Rng)>::type
     find(Rng const & rng,Val const & val)
     {
         return range_ex_detail::find_impl(rng,val);
@@ -156,7 +156,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     /// \overload
     template<typename Rng,typename Pred>
-    inline BOOST_DEDUCED_TYPENAME range_iterator_const<Rng>::type
+    inline BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_CONST(Rng)>::type
     find_if(Rng const & rng,Pred pred)
     {
         return std::find_if(boost::begin(rng),boost::end(rng),pred);
@@ -178,7 +178,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     /// \overload
     template<typename Rng1,typename Rng2>
-    inline BOOST_DEDUCED_TYPENAME range_iterator_const<Rng1>::type
+    inline BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_CONST(Rng1)>::type
     find_end(Rng1 const & rng1,Rng2 const & rng2)
     {
         return std::find_end(boost::begin(rng1),boost::end(rng1),
@@ -196,7 +196,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     /// \overload
     template<typename Rng1,typename Rng2,typename BinPred>
-    inline BOOST_DEDUCED_TYPENAME range_iterator_const<Rng1>::type
+    inline BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_CONST(Rng1)>::type
     find_end(Rng1 const & rng1,Rng2 const & rng2,BinPred pred)
     {
         return std::find_end(boost::begin(rng1),boost::end(rng1),
@@ -219,7 +219,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     /// \overload
     template<typename Rng1,typename Rng2>
-    inline BOOST_DEDUCED_TYPENAME range_iterator_const<Rng1>::type
+    inline BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_CONST(Rng1)>::type
     find_first_of(Rng1 const & rng1,Rng2 const & rng2)
     {
         return std::find_first_of(boost::begin(rng1),boost::end(rng1),
@@ -237,7 +237,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     /// \overload
     template<typename Rng1,typename Rng2,typename BinPred>
-    inline BOOST_DEDUCED_TYPENAME range_iterator_const<Rng1>::type
+    inline BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_CONST(Rng1)>::type
     find_first_of(Rng1 const & rng1,Rng2 const & rng2,BinPred pred)
     {
         return std::find_first_of(boost::begin(rng1),boost::end(rng1),
@@ -258,7 +258,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     /// \overload
     template<typename Rng>
-    inline BOOST_DEDUCED_TYPENAME range_iterator_const<Rng>::type
+    inline BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_CONST(Rng)>::type
     adjacent_find(Rng const & rng)
     {
         return std::adjacent_find(boost::begin(rng),boost::end(rng));
@@ -274,7 +274,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     /// \overload
     template<typename Rng,typename BinPred>
-    inline BOOST_DEDUCED_TYPENAME range_iterator_const<Rng>::type
+    inline BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_CONST(Rng)>::type
     adjacent_find(Rng const & rng,BinPred pred)
     {
         return std::adjacent_find(boost::begin(rng),boost::end(rng),pred);
@@ -294,7 +294,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     /// \overload
     template<typename Rng,typename Val>
-    inline BOOST_DEDUCED_TYPENAME range_difference<typename boost::add_const<Rng>::type>::type
+    inline BOOST_DEDUCED_TYPENAME range_difference<PSTADE_CONST(Rng)>::type
     count(Rng const & rng,Val const & val)
     {
         return std::count(boost::begin(rng),boost::end(rng),val);
@@ -314,7 +314,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     /// \overload
     template<typename Rng,typename Pred>
-    inline BOOST_DEDUCED_TYPENAME range_difference<typename boost::add_const<Rng>::type>::type
+    inline BOOST_DEDUCED_TYPENAME range_difference<PSTADE_CONST(Rng)>::type
     count_if(Rng const & rng,Pred pred)
     {
         return std::count_if(boost::begin(rng),boost::end(rng),pred);
@@ -335,7 +335,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     /// \overload
     template<typename Rng,typename InIter>
-    inline std::pair<BOOST_DEDUCED_TYPENAME range_iterator_const<Rng>::type,InIter>
+    inline std::pair<BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_CONST(Rng)>::type,InIter>
     mismatch(Rng const & rng,InIter first)
     {
         return std::mismatch(boost::begin(rng),boost::end(rng),first);
@@ -351,7 +351,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     /// \overload
     template<typename Rng,typename InIter,typename BinPred>
-    inline std::pair<BOOST_DEDUCED_TYPENAME range_iterator_const<Rng>::type,InIter>
+    inline std::pair<BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_CONST(Rng)>::type,InIter>
     mismatch(Rng const & rng,InIter first,BinPred pred)
     {
         return std::mismatch(boost::begin(rng),boost::end(rng),first,pred);
@@ -406,7 +406,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     /// \overload
     template<typename Rng1,typename Rng2>
-    inline BOOST_DEDUCED_TYPENAME range_iterator_const<Rng1>::type
+    inline BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_CONST(Rng1)>::type
     search(Rng1 const & rng1,Rng2 const & rng2)
     {
         return std::search(boost::begin(rng1),boost::end(rng1),
@@ -424,7 +424,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     /// \overload
     template<typename Rng1,typename Rng2,typename BinPred>
-    inline BOOST_DEDUCED_TYPENAME range_iterator_const<Rng1>::type
+    inline BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_CONST(Rng1)>::type
     search(Rng1 const & rng1,Rng2 const & rng2,BinPred pred)
     {
         return std::search(boost::begin(rng1),boost::end(rng1),
@@ -650,7 +650,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     /// \overload
     template<typename Rng,typename Val>
-    inline BOOST_DEDUCED_TYPENAME range_iterator_const<Rng>::type
+    inline BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_CONST(Rng)>::type
     remove(Rng const & rng,Val const & val)
     {
         return range_ex_detail::remove_impl(rng,val);
@@ -694,7 +694,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     /// \overload
     template<typename Rng,typename Pred>
-    inline BOOST_DEDUCED_TYPENAME range_iterator_const<Rng>::type
+    inline BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_CONST(Rng)>::type
     remove_if(Rng const & rng,Pred pred)
     {
         return range_ex_detail::remove_if_impl(rng,pred);
@@ -783,7 +783,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     /// \overload
     template<typename Rng>
-    inline BOOST_DEDUCED_TYPENAME range_iterator_const<Rng>::type
+    inline BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_CONST(Rng)>::type
     unique(Rng const & rng)
     {
         return range_ex_detail::unique_impl(rng);
@@ -799,7 +799,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     /// \overload
     template<typename Rng,typename Pred>
-    inline BOOST_DEDUCED_TYPENAME range_iterator_const<Rng>::type
+    inline BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_CONST(Rng)>::type
     unique(Rng const & rng,Pred pred)
     {
         return range_ex_detail::unique_if_impl(rng,pred);
@@ -890,7 +890,7 @@ PSTADE_ADL_BARRIER(algorithm) {
     /// \overload
     template<typename Rng>
     inline void rotate(Rng const & rng,
-        BOOST_DEDUCED_TYPENAME range_iterator_const<Rng>::type middle)
+        BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_CONST(Rng)>::type middle)
     {
         std::rotate(boost::begin(rng),middle,boost::end(rng));
     }
@@ -912,7 +912,7 @@ PSTADE_ADL_BARRIER(algorithm) {
     /// \overload
     template<typename Rng,typename OutIter>
     inline OutIter rotate_copy(Rng const & rng,
-        BOOST_DEDUCED_TYPENAME range_iterator_const<Rng>::type middle,
+        BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_CONST(Rng)>::type middle,
         OutIter out)
     {
         return std::rotate_copy(boost::begin(rng),middle,boost::end(rng),out);
@@ -964,7 +964,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     /// \overload
     template<typename Rng,typename Pred>
-    inline BOOST_DEDUCED_TYPENAME range_iterator_const<Rng>::type
+    inline BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_CONST(Rng)>::type
     partition(Rng const & rng,Pred pred)
     {
         return std::partition(boost::begin(rng),boost::end(rng),pred);
@@ -984,7 +984,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     /// \overload
     template<typename Rng,typename Pred>
-    inline BOOST_DEDUCED_TYPENAME range_iterator_const<Rng>::type
+    inline BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_CONST(Rng)>::type
     stable_partition(Rng const & rng,Pred pred)
     {
         return std::stable_partition(boost::begin(rng),boost::end(rng),pred);
@@ -1111,7 +1111,7 @@ PSTADE_ADL_BARRIER(algorithm) {
     /// \overload
     template<typename Rng>
     inline void partial_sort(Rng const & rng,
-        BOOST_DEDUCED_TYPENAME range_iterator_const<Rng>::type middle)
+        BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_CONST(Rng)>::type middle)
     {
         std::partial_sort(boost::begin(rng),middle,boost::end(rng));
     }
@@ -1128,7 +1128,7 @@ PSTADE_ADL_BARRIER(algorithm) {
     /// \overload
     template<typename Rng,typename Cmp>
     inline void partial_sort(Rng const & rng,
-        BOOST_DEDUCED_TYPENAME range_iterator_const<Rng>::type middle,
+        BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_CONST(Rng)>::type middle,
         Cmp cmp)
     {
         std::partial_sort(boost::begin(rng),middle,boost::end(rng),cmp);
@@ -1150,7 +1150,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     /// \overload
     template<typename Rng1,typename Rng2>
-    inline BOOST_DEDUCED_TYPENAME range_iterator_const<Rng2>::type
+    inline BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_CONST(Rng2)>::type
     partial_sort_copy(Rng1 const & rng1,Rng2 const & rng2)
     {
         return std::partial_sort_copy(boost::begin(rng1),boost::end(rng1),
@@ -1168,7 +1168,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     /// \overload
     template<typename Rng1,typename Rng2,typename Cmp>
-    inline BOOST_DEDUCED_TYPENAME range_iterator_const<Rng2>::type
+    inline BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_CONST(Rng2)>::type
     partial_sort_copy(Rng1 const & rng1,Rng2 const & rng2,Cmp cmp)
     {
         return std::partial_sort_copy(boost::begin(rng1),boost::end(rng1),
@@ -1190,7 +1190,7 @@ PSTADE_ADL_BARRIER(algorithm) {
     /// \overload
     template<typename Rng>
     inline void nth_element(Rng const & rng,
-        BOOST_DEDUCED_TYPENAME range_iterator_const<Rng>::type nth)
+        BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_CONST(Rng)>::type nth)
     {
         std::nth_element(boost::begin(rng),nth,boost::end(rng));
     }
@@ -1207,7 +1207,7 @@ PSTADE_ADL_BARRIER(algorithm) {
     /// \overload
     template<typename Rng,typename Cmp>
     inline void nth_element(Rng const & rng,
-        BOOST_DEDUCED_TYPENAME range_iterator_const<Rng>::type nth,
+        BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_CONST(Rng)>::type nth,
         Cmp cmp)
     {
         std::nth_element(boost::begin(rng),nth,boost::end(rng),cmp);
@@ -1250,7 +1250,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     /// \overload
     template<typename Rng,typename Val>
-    inline BOOST_DEDUCED_TYPENAME range_iterator_const<Rng>::type
+    inline BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_CONST(Rng)>::type
     lower_bound(Rng const & rng,Val const & val)
     {
         return range_ex_detail::lower_bound_impl(rng,val);
@@ -1266,7 +1266,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     /// \overload
     template<typename Rng,typename Val,typename Cmp>
-    inline BOOST_DEDUCED_TYPENAME range_iterator_const<Rng>::type
+    inline BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_CONST(Rng)>::type
     lower_bound(Rng const & rng,Val const & val,Cmp cmp)
     {
         return std::lower_bound(boost::begin(rng),boost::end(rng),val,cmp);
@@ -1309,7 +1309,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     /// \overload
     template<typename Rng,typename Val>
-    inline BOOST_DEDUCED_TYPENAME range_iterator_const<Rng>::type
+    inline BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_CONST(Rng)>::type
     upper_bound(Rng const & rng,Val const & val)
     {
         return range_ex_detail::upper_bound_impl(rng,val);
@@ -1325,7 +1325,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     /// \overload
     template<typename Rng,typename Val,typename Cmp>
-    inline BOOST_DEDUCED_TYPENAME range_iterator_const<Rng>::type
+    inline BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_CONST(Rng)>::type
     upper_bound(Rng const & rng,Val const & val,Cmp cmp)
     {
         return std::upper_bound(boost::begin(rng),boost::end(rng),val,cmp);
@@ -1368,7 +1368,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     /// \overload
     template<typename Rng,typename Val>
-    inline BOOST_DEDUCED_TYPENAME range_ex_detail::iter_pair<typename boost::add_const<Rng>::type>::type
+    inline BOOST_DEDUCED_TYPENAME range_ex_detail::iter_pair<PSTADE_CONST(Rng)>::type
     equal_range(Rng const & rng,Val const & val)
     {
         return range_ex_detail::equal_range_impl(rng,val);
@@ -1384,7 +1384,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     /// \overload
     template<typename Rng,typename Val,typename Cmp>
-    inline BOOST_DEDUCED_TYPENAME range_ex_detail::iter_pair<typename boost::add_const<Rng>::type>::type
+    inline BOOST_DEDUCED_TYPENAME range_ex_detail::iter_pair<PSTADE_CONST(Rng)>::type
     equal_range(Rng const & rng,Val const & val,Cmp cmp)
     {
         return std::equal_range(boost::begin(rng),boost::end(rng),val,cmp);
@@ -1442,7 +1442,7 @@ PSTADE_ADL_BARRIER(algorithm) {
     /// \overload
     template<typename Rng>
     inline void inplace_merge(Rng const & rng,
-        BOOST_DEDUCED_TYPENAME range_iterator_const<Rng>::type middle)
+        BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_CONST(Rng)>::type middle)
     {
         std::inplace_merge(boost::begin(rng),middle,boost::end(rng));
     }
@@ -1459,7 +1459,7 @@ PSTADE_ADL_BARRIER(algorithm) {
     /// \overload
     template<typename Rng,typename Cmp>
     inline void inplace_merge(Rng const & rng,
-        BOOST_DEDUCED_TYPENAME range_iterator_const<Rng>::type middle,
+        BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_CONST(Rng)>::type middle,
         Cmp cmp)
     {
         std::inplace_merge(boost::begin(rng),middle,boost::end(rng),cmp);
@@ -1723,7 +1723,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     /// \overload
     template<typename Rng>
-    inline BOOST_DEDUCED_TYPENAME range_iterator_const<Rng>::type
+    inline BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_CONST(Rng)>::type
     min_element(Rng const & rng)
     {
         return std::min_element(boost::begin(rng),boost::end(rng));
@@ -1739,7 +1739,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     /// \overload
     template<typename Rng,typename BinPred>
-    inline BOOST_DEDUCED_TYPENAME range_iterator_const<Rng>::type
+    inline BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_CONST(Rng)>::type
     min_element(Rng const & rng,BinPred pred)
     {
         return std::min_element(boost::begin(rng),boost::end(rng),pred);
@@ -1759,7 +1759,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     /// \overload
     template<typename Rng>
-    inline BOOST_DEDUCED_TYPENAME range_iterator_const<Rng>::type
+    inline BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_CONST(Rng)>::type
     max_element(Rng const & rng)
     {
         return std::max_element(boost::begin(rng),boost::end(rng));
@@ -1775,7 +1775,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     /// \overload
     template<typename Rng,typename BinPred>
-    inline BOOST_DEDUCED_TYPENAME range_iterator_const<Rng>::type
+    inline BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_CONST(Rng)>::type
     max_element(Rng const & rng,BinPred pred)
     {
         return std::max_element(boost::begin(rng),boost::end(rng),pred);

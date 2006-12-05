@@ -12,9 +12,9 @@
 
 #include <boost/fusion/sequence/intrinsic/at.hpp>
 #include <boost/mpl/int.hpp>
-#include <boost/type_traits/add_const.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 #include <pstade/affect.hpp>
+#include <pstade/const.hpp>
 #include <pstade/const_overloaded.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/nonassignable.hpp>
@@ -112,10 +112,10 @@ make_get_at_range(FusionSeqRange& rng,
 
 
 template< class N, class FusionSeqRange > inline
-get_at_range<typename boost::add_const<FusionSeqRange>::type, N> const
+get_at_range<PSTADE_CONST(FusionSeqRange), N> const
 make_get_at_range(FusionSeqRange const& rng)
 {
-    return get_at_range<typename boost::add_const<FusionSeqRange>::type, N>(rng);
+    return get_at_range<PSTADE_CONST(FusionSeqRange), N>(rng);
 }
 
 
@@ -139,10 +139,10 @@ namespace get_at_range_detail {
 
 
     template< class FusionSeqRange, class N > inline
-    get_at_range<typename boost::add_const<FusionSeqRange>::type, N> const
+    get_at_range<PSTADE_CONST(FusionSeqRange), N> const
     operator|(FusionSeqRange const& rng, got_at<N> const&)
     {
-        return get_at_range<typename boost::add_const<FusionSeqRange>::type, N>(rng);
+        return get_at_range<PSTADE_CONST(FusionSeqRange), N>(rng);
     }
 
 

@@ -27,7 +27,7 @@
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/seq/for_each_i.hpp>
 #include <boost/preprocessor/seq/for_each_product.hpp>
-#include <boost/type_traits/add_const.hpp>
+#include <pstade/const.hpp>
 #include <pstade/implicitly_defined.hpp>
 #include <pstade/lambda_sig.hpp>
 #include <pstade/singleton.hpp>
@@ -108,7 +108,7 @@ struct function :
 
     template< class A0 >
     typename baby_result1<BabyFunction,
-        typename boost::add_const<A0>::type&
+        PSTADE_CONST(A0)&
     >::type
     operator()(
         A0 const& a0
@@ -135,7 +135,7 @@ struct function :
 
     template< class A0 >
     typename baby_result1<BabyFunction const,
-        typename boost::add_const<A0>::type&
+        PSTADE_CONST(A0)&
     >::type
     operator()(
         A0 const& a0
@@ -201,10 +201,8 @@ struct function :
     #define PSTADE_EGG_c1 const
 
 
-    // Workaround:
-    // VC++7.1 is somewhat broken with array reference.
     #define PSTADE_EGG_ac0(X) X
-    #define PSTADE_EGG_ac1(X) typename boost::add_const< X >::type
+    #define PSTADE_EGG_ac1(X) PSTADE_CONST(X)
 
 
     #define PSTADE_EGG_bits(Z, N, _) ((0)(1))

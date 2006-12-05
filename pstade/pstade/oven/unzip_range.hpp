@@ -13,9 +13,9 @@
 #include <boost/iterator/zip_iterator.hpp> // tuple_impl_specific
 #include <boost/mpl/int.hpp>
 #include <boost/tuple/tuple.hpp>
-#include <boost/type_traits/add_const.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 #include <pstade/affect.hpp>
+#include <pstade/const.hpp>
 #include <pstade/const_overloaded.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/nonassignable.hpp>
@@ -106,10 +106,10 @@ make_unzip_at_range(TupleRange& rng,
 
 
 template< class N, class TupleRange > inline
-unzip_at_range<typename boost::add_const<TupleRange>::type, N> const
+unzip_at_range<PSTADE_CONST(TupleRange), N> const
 make_unzip_at_range(TupleRange const& rng)
 {
-    return unzip_at_range<typename boost::add_const<TupleRange>::type, N>(rng);
+    return unzip_at_range<PSTADE_CONST(TupleRange), N>(rng);
 }
 
 
@@ -133,10 +133,10 @@ namespace unzip_at_range_detail {
 
 
     template< class TupleRange, class N > inline
-    unzip_at_range<typename boost::add_const<TupleRange>::type, N> const
+    unzip_at_range<PSTADE_CONST(TupleRange), N> const
     operator|(TupleRange const& rng, unzipped_at<N> const&)
     {
-        return unzip_at_range<typename boost::add_const<TupleRange>::type, N>(rng);
+        return unzip_at_range<PSTADE_CONST(TupleRange), N>(rng);
     }
 
 

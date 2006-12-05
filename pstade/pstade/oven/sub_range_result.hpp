@@ -12,7 +12,7 @@
 
 // Same as:
 //
-// 'sub_range_base' with some workarounds
+// 'sub_range_base' with one workaround.
 
 
 #include "./iter_range.hpp"
@@ -28,17 +28,6 @@ struct sub_range_result
     // 'const' works around "Forwarding Problem".
     typedef iter_range<
         typename range_iterator<Range>::type
-    > const type;
-};
-
-
-// Workaround:
-// See "./range_iterator.hpp".
-template< class Range >
-struct sub_range_result_const
-{
-    typedef iter_range<
-        typename range_iterator_const<Range>::type
     > const type;
 };
 

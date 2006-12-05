@@ -38,7 +38,6 @@
 #include <boost/range/end.hpp>
 #include <boost/range/iterator.hpp>
 #include <boost/range/size_type.hpp>
-#include <boost/type_traits/add_const.hpp>
 #include <pstade/concept.hpp>
 #include <pstade/remove_cvr.hpp>
 #include "./detail/config.hpp" // PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR
@@ -65,13 +64,6 @@ private:
     iterator it;
 };
 
-    // Workaround:
-    // See "./range_iterator.hpp".
-    template< class T >
-    struct Readable_const :
-        Readable<typename boost::add_const<T>::type>
-    { };
-
 
 template< class T >
 struct Writable
@@ -83,11 +75,6 @@ struct Writable
         PSTADE_CONCEPT_ASSERT((boost_concepts::WritableIteratorConcept<iterator>));
     }
 };
-
-    template< class T >
-    struct Writable_const :
-        Writable<typename boost::add_const<T>::type>
-    { };
 
 
 template< class T >
@@ -101,11 +88,6 @@ struct Swappable
     }
 };
 
-    template< class T >
-    struct Swappable_const :
-        Swappable<typename boost::add_const<T>::type>
-    { };
-
 
 template< class T >
 struct Lvalue
@@ -117,11 +99,6 @@ struct Lvalue
         PSTADE_CONCEPT_ASSERT((boost_concepts::LvalueIteratorConcept<iterator>));
     }
 };
-
-    template< class T >
-    struct Lvalue_const :
-        Lvalue<typename boost::add_const<T>::type>
-    { };
 
 
 // traversal concepts
