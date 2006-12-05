@@ -16,6 +16,7 @@
 #include <boost/type_traits/is_integral.hpp>
 #include <pstade/auto_castable.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/to_type.hpp>
 
 
 namespace pstade {
@@ -33,10 +34,19 @@ namespace pstade {
 
     struct integral_cast_fun
     {
-        template< class To, class From >
-        To operator()(From from, boost::type<To>) const
+        // In fact, 'PSTADE_PIPABLE' doesn't pose 'result_of' support.
+        template< class Signature >
+        struct result;
+
+        template< class Self, class From, class TypeTo >
+        struct result<Self(From, TypeTo)> :
+            to_type<TypeTo>
+        { };
+
+        template< class From, class TypeTo >
+        typename to_type<TypeTo>::type operator()(From from, TypeTo) const
         {
-            return pstade::integral_cast<To>(from);
+            return pstade::integral_cast<typename to_type<TypeTo>::type>(from);
         }
     };
 

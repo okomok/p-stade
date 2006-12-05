@@ -45,6 +45,11 @@ struct sub_range :
         base(rng)
     { }
 
+    template< class Iterator >
+    sub_range(Iterator const& first, Iterator const& last) :
+        base(first, last)
+    { }
+
 // copy-assignments
     template< class Range_ >
     typename unused_to_copy_assign<type, Range_>::type operator=(Range_& rng)

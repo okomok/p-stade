@@ -141,15 +141,48 @@ namespace pstade {
         }; // struct baby_fun
 
 
-        struct baby
+        template< class Function, class Result = use_default >
+        struct result_
+        {
+            typedef egg::function< baby_fun<Result, Function> > type;
+        };
+
+
+    } // namespace forward_detail
+
+
+    // explicit parameter form
+    //
+
+    template< class Function > inline
+    typename forward_detail::result_<Function>::type
+    forward(Function fun)
+    {
+        return typename forward_detail::result_<Function>::type(fun);
+    }
+
+    template< class Result, class Function > inline
+    typename forward_detail::result_<Function, Result>::type
+    forward(Function fun)
+    {
+        return typename forward_detail::result_<Function, Result>::type(fun);
+    }
+
+
+    // normal function form
+    //
+
+    namespace forward_detail {
+
+        struct baby_
         {
             template< class Myself, class Function, class TypeResult = void >
-            struct apply
-            {
-                typedef typename pass_by_value<Function>::type fun_t;
-                typedef typename to_type<TypeResult>::type result_t;
-                typedef egg::function< baby_fun<result_t, fun_t> > type;
-            };
+            struct apply :
+                result_<
+                    typename pass_by_value<Function>::type,
+                    typename to_type<TypeResult>::type
+                >
+            { };
        
             template< class Result, class Function, class TypeResult >
             Result call(Function& fun, TypeResult) const
@@ -158,24 +191,22 @@ namespace pstade {
             }
 
             template< class Myself, class Function >
-            struct apply<Myself, Function>
-            {
-                typedef typename pass_by_value<Function>::type fun_t;
-                typedef egg::function< baby_fun<use_default, fun_t> > type;
-            };
+            struct apply<Myself, Function> :
+                result_<
+                    typename pass_by_value<Function>::type
+                >
+            { };
 
             template< class Result, class Function >
             Result call(Function& fun) const
             {
                 return Result(fun);
-            } 
+            }
         };
 
-            
     } // namespace forward_detail
 
-
-    PSTADE_EGG_FUNCTION(forward, forward_detail::baby)
+    PSTADE_EGG_FUNCTION_(forward_, forward_detail::baby_)
     PSTADE_PIPABLE(forwarded, forward_fun)
 
 

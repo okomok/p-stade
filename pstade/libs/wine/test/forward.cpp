@@ -61,11 +61,19 @@ void test()
     namespace lambda = boost::lambda;
 
     ::my_fun_t my_fun;
+
     {
         BOOST_CHECK( 3 ==
-            ::foo( pstade::forward(my_fun, boost::type<int>()) )
+            ::foo( pstade::forward<int>(my_fun) )
+        );
+    } 
+
+    {
+        BOOST_CHECK( 3 ==
+            ::foo( pstade::forward_(my_fun, boost::type<int>()) )
         );
     }
+
     {
         BOOST_CHECK( 3 ==
             ::foo( my_fun|forwarded(boost::type<int>()) )
@@ -73,37 +81,43 @@ void test()
     }
     {
         BOOST_CHECK( 3 ==
-            lambda::bind( pstade::forward(my_fun, boost::type<int>()), lambda::_1, lambda::_2 )(1|to_reference, 2|to_reference)
+            lambda::bind( pstade::forward_(my_fun, boost::type<int>()), lambda::_1, lambda::_2 )(1|to_reference, 2|to_reference)
         );
     }
     { // make lambda perfect!
         BOOST_CHECK( 3 ==
-            pstade::forward(
-                lambda::bind( pstade::forward(my_fun, boost::type<int>()), lambda::_1, lambda::_2 )
+            pstade::forward_(
+                lambda::bind( pstade::forward_(my_fun, boost::type<int>()), lambda::_1, lambda::_2 )
             )(1, 2)
         );
     }
-/*
+
     ::my_fun0_t my_fun0;
     {
         boost::result_of<
             boost::result_of<forward_fun(my_fun0_t, boost::type<int>)>::type()
-        >::type result = pstade::forward(my_fun0, boost::type<int>())();
+        >::type result = pstade::forward_(my_fun0, boost::type<int>())();
         BOOST_CHECK( result == 10 );
     }
-*/
+
     {
         BOOST_CHECK( 3 ==
             pstade::forward(&my_fun1)(3)
+        );
+    }
+    {
+        BOOST_CHECK( 3 ==
+            pstade::forward_(&my_fun1)(3)
         );
     }
 
     {
         // (lambda::_1 + lambda::_2)(1, 2); // error
         BOOST_CHECK( 3 == 
-            pstade::forward(lambda::_1 + lambda::_2)(1, 2)
+            pstade::forward_(lambda::_1 + lambda::_2)(1, 2)
         );
     }
+
 }
 
 

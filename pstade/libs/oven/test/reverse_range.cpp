@@ -20,7 +20,7 @@
 #include <vector>
 #include <boost/foreach.hpp>
 #include <boost/range.hpp>
-#include <pstade/oven/counting_range.hpp>
+#include <pstade/oven/count_range.hpp>
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/memoize_range.hpp>
 #include <pstade/oven/transform_range.hpp>

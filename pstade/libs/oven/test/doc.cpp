@@ -77,9 +77,9 @@ void test_stl_algorithms()
 
 void test_copied()
 {
-    std::vector<int> vec = oven::make_counting_range(3, 9)|copied;
+    std::vector<int> vec = oven::make_count_range(3, 9)|copied;
     vec.push_back(9);
-    BOOST_CHECK( oven::equals(vec, oven::make_counting_range(3, 10)) );
+    BOOST_CHECK( oven::equals(vec, oven::make_count_range(3, 10)) );
 }
 
 
@@ -112,10 +112,10 @@ void test_array_range()
 }
 
 
-void test_counting_range()
+void test_count_range()
 {
     int ints[] = { 2, 3, 4, 5, 6 };
-    BOOST_CHECK( oven::equal(oven::make_counting_range(2, 7), ints) );
+    BOOST_CHECK( oven::equal(oven::make_count_range(2, 7), ints) );
 }
 
 
@@ -453,7 +453,7 @@ int test_main(int, char*[])
     ::test_equals();
 
     ::test_array_range();
-    ::test_counting_range();
+    ::test_count_range();
     ::test_directory_range();
     ::test_empty_range();
     ::test_istream_range();

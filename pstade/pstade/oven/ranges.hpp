@@ -27,7 +27,7 @@
 #include "./constant_range.hpp"
 #include "./const_lvalue_range.hpp"
 #include "./copy_range.hpp"
-#include "./counting_range.hpp"
+#include "./count_range.hpp"
 #include "./cycle_range.hpp"
 // #include "./directory_range.hpp"
 #include "./direct_range.hpp"

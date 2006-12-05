@@ -201,19 +201,19 @@ a range presentation of dynamically allocated arrays::
 - Valid expression: ``c_str_range<Char> rng(psz)`` and ``psz|as_c_str``, where ``psz`` is convertible to a pointer to a null-terminated array.
 
 
-``counting_range``
+``count_range``
 ^^^^^^^^^^^^^^^^^^
-``counting_range`` is a range whose iterators behave as if
+``count_range`` is a range whose iterators behave as if
 they were the original iterators wrapped in `counting_iterator`__.
 Note that this range introduces the replacement of ``for`` loop::
 
-	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\counting_range.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\count_range.ipp
 
 __ http://www.boost.org/libs/iterator/doc/counting_iterator.html
 
 
-- Header: ``<pstade/oven/counting_range.hpp>``
-- Valid expression1: ``counting_range<I,T,D> rng(n,m);`` and ``oven::make_counting_range(n,m);``
+- Header: ``<pstade/oven/count_range.hpp>``
+- Valid expression1: ``count_range<I,T,D> rng(n,m);``, ``oven::make_count_range(n,m);`` and ``pstade::tie(n,m)|counted``.
 - Valid expression2: ``oven::count_from(n)`` and ``oven::count_to(m)``
 - Precondition: ``boost::couting_iterator<I,T,D>(x);`` is a valid expression, where
   ``x`` is ``n`` or ``m``.
@@ -555,7 +555,7 @@ Thus, STL that doesn't know traversal concepts can choose effective algorithms.
 
 - Header: ``<pstade/oven/direct_range.hpp>``
 - Valid expression: ``rng|directed``
-- Returns: ``oven::make_counting_range(boost::begin(rng),boost::end(rng))``.
+- Returns: ``oven::make_count_range(boost::begin(rng),boost::end(rng))``.
 
 
 ``dropped``
@@ -1188,5 +1188,9 @@ Version 0.91.9
 ^^^^^^^^^^^^^^
 - Ported to VC++7.1 SP1.
 - Added MFC/ATL support.
+
+Version 0.92.0
+^^^^^^^^^^^^^^
+- Renamed `counting_range`` to ``count_range``, and added a valid expression.
 
 

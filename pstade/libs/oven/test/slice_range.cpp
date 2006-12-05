@@ -19,7 +19,7 @@
 #include <boost/foreach.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <pstade/oven/counting_range.hpp>
+#include <pstade/oven/count_range.hpp>
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/metafunctions.hpp>
 #include <pstade/oven/memoize_range.hpp>
@@ -70,14 +70,14 @@ void test()
     {
         int const answer[] = { 2,6,10,14 };
         BOOST_CHECK( oven::equals(answer,
-            oven::make_counting_range(0, 16)|sliced(2, 4)
+            oven::make_count_range(0, 16)|sliced(2, 4)
         ) );
     }
 
     {
         int const answer[] = { 2,6,10,14 };
         BOOST_CHECK( oven::equals(answer,
-            oven::make_counting_range(0, 16)|sliced(2, 4)
+            oven::make_count_range(0, 16)|sliced(2, 4)
         ) );
     }
 }

@@ -174,6 +174,30 @@ namespace pstade {
         };
 
 
+        // For "passed as is."
+        // 'egg::function<T>' is derived from 'T', so in fact it works fine without this.
+        // But the overloads with explicit type make sure to win the overload-resolution race!
+        //
+
+        template< class A, class Function, class Arguments > inline
+        typename result_of_piping<A, Function, Arguments>::type
+        operator|(A& a, egg::function< pipe<Function, Arguments> > const& pi)
+        {
+            return pstade::tupled(pi.base())(
+                pipable_detail::push_front(pi.arguments(), a)
+            );
+        };
+
+        template< class A, class Function, class Arguments > inline
+        typename result_of_piping<typename boost::add_const<A>::type, Function, Arguments>::type
+        operator|(A const& a, egg::function< pipe<Function, Arguments> > const& pi)
+        {
+            return pstade::tupled(pi.base())(
+                pipable_detail::push_front(pi.arguments(), a)
+            );
+        };
+
+
         struct baby
         {
             template< class Myself, class Function >

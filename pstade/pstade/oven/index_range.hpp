@@ -11,7 +11,7 @@
 
 
 #include "./as_lightweight_proxy.hpp"
-#include "./counting_range.hpp"
+#include "./count_range.hpp"
 #include "./range_base.hpp"
 #include "./transform_range.hpp"
 
@@ -31,7 +31,7 @@ namespace index_range_detail {
     struct super_
     {
         typedef transform_range<
-            counting_range<Incrementable> const,
+            count_range<Incrementable> const,
             UnaryFun,
             Reference, Value
         > type;

@@ -21,6 +21,7 @@
 #include <boost/range.hpp>
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/reverse_range.hpp>
+#include <pstade/functional.hpp>
 
 
 void test()
@@ -35,6 +36,11 @@ void test()
 
         BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
             rng|sorted,
+            expected
+        ) );
+
+        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
+            rng|sorted(pstade::less),
             expected
         ) );
     }

@@ -16,7 +16,7 @@
 #include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
-#include "./counting_range.hpp"
+#include "./count_range.hpp"
 #include "./range_iterator.hpp"
 
 
@@ -29,7 +29,7 @@ namespace direct_range_detail {
     template< class Range >
     struct super_
     {
-        typedef counting_range<
+        typedef count_range<
             typename range_iterator<Range>::type
         > type;
     };

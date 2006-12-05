@@ -12,8 +12,8 @@
 
 // What:
 //
-// A unary template constructor can win the overloading
-// race against copy-constructor. So disable it.
+// A unary template constructor can win the overload-resolution race
+// against copy-constructor. So disable it.
 // http://groups.google.com/group/comp.lang.c++.moderated/browse_frm/thread/eca7b43d751008cd/
 
 

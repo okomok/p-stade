@@ -11,7 +11,7 @@
 #include <boost/random/variate_generator.hpp>
 
 #include <pstade/oven/generate_range.hpp>
-#include <pstade/oven/counting_range.hpp>
+#include <pstade/oven/count_range.hpp>
 
 
 typedef boost::minstd_rand base_generator_type;
