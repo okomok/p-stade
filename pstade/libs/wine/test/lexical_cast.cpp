@@ -36,7 +36,7 @@ void test()
 
     {
         BOOST_CHECK( pstade::lexical_cast(12, boost::type<std::string>()) == "12" );
-        std::string str = pstade::lexical(12);
+        std::string str = 12|lexicalized;
         BOOST_CHECK( str == "12" );
         BOOST_CHECK( pstade::lexical_cast(str, boost::type<int>()) == 12 );
     }
@@ -44,29 +44,26 @@ void test()
     {
         using boost::mpl::identity;
         BOOST_CHECK( pstade::lexical_cast(12, identity<std::string>()) == "12" );
-        std::string str = pstade::lexical(12);
+        std::string str = 12|lexicalized
         BOOST_CHECK( str == "12" );
         BOOST_CHECK( pstade::lexical_cast(str, identity<int>()) == 12 );
     }
 
     {
-        std::string str = pstade::lexical(12);
-        int n = pstade::lexical(str);
+        std::string str = 12|lexicalized;
+        int n = str|lexicalized;
         BOOST_CHECK( n == 12 );
 
         BOOST_CHECK((
             boost::lexical_cast<int, std::string>(
-                pstade::lexical(
-                    boost::lexical_cast<int, std::string>(
-                        pstade::lexical(12)
-                    )
-                )
+                boost::lexical_cast<int, std::string>(
+                    12|lexicalized
+                )|lexicalized
             ) == 12
         ));
     }
 
-    ::foo(pstade::lexical(12));
-    ::bar(pstade::lexical(12));
+    ::foo(12|lexicalized);
     ::bar(12|lexicalized);
 }
 

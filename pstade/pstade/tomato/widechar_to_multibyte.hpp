@@ -18,6 +18,8 @@
 #include <pstade/oven/c_str_range.hpp>
 #include <pstade/oven/copy_range.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
+#include <pstade/to_type.hpp>
 
 
 namespace pstade { namespace tomato {
@@ -46,15 +48,17 @@ widechar_to(WideCharRange const& from)
 }
 
 
-struct widechar_to_fun
+struct widechar_to_fun :
+    to_type_cast_result
 {
-    template< class MultiByteSeq, class WideCharRange >
-    MultiByteSeq operator()(WideCharRange const& from, boost::type<MultiByteSeq>) const
+    template< class From, class Type_To >
+    typename to_type<Type_To>::type operator()(From const& from, Type_To) const
     {
-        return tomato::widechar_to<MultiByteSeq>(from);
+        return tomato::widechar_to<typename to_type<Type_To>::type>(from);
     }
 };
 
+PSTADE_SINGLETON_CONST(widechar_to_fun, widechar_to_)
 PSTADE_PIPABLE(to_multibyte, boost::result_of<auto_castable_fun(widechar_to_fun)>::type)
 
 

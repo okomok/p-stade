@@ -33,12 +33,12 @@
 
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/not.hpp>
-#include <boost/type.hpp>
 #include <boost/type_traits/is_const.hpp>
 #include <boost/type_traits/is_convertible.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <pstade/auto_castable.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/to_type.hpp>
 
 
 namespace pstade { namespace oven {
@@ -84,15 +84,23 @@ Base adaptor_to(Adaptor const& ad,
 // because of the weird compiler behavior...
 //
 
-struct adaptor_to_fun
+struct adaptor_to_fun :
+    to_type_cast_result
 {
-    template< class Base, class Adaptor >
-    Base operator()(Adaptor& ad, boost::type<Base>) const
+    template< class From, class Type_To >
+    typename to_type<Type_To>::type operator()(From& from, Type_To) const
     {
-        return oven::adaptor_to<Base>(ad);
+        return oven::adaptor_to<typename to_type<Type_To>::type>(from);
+    }
+
+    template< class From, class Type_To >
+    typename to_type<Type_To>::type operator()(From const& from, Type_To) const
+    {
+        return oven::adaptor_to<typename to_type<Type_To>::type>(from);
     }
 };
 
+PSTADE_SINGLETON_CONST(adaptor_to_fun, adaptor_to_)
 PSTADE_PIPABLE(to_base, boost::result_of<auto_castable_fun(adaptor_to_fun)>::type)
 
 

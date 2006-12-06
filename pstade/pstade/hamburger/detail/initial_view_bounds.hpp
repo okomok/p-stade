@@ -23,10 +23,10 @@ namespace pstade { namespace hamburger { namespace detail {
     rectangle initial_view_bounds(Node& node)
     {
         try {
-            int left    = pstade::lexical(node%Name_left);
-            int width   = pstade::lexical(node%Name_width);
-            int top     = pstade::lexical(node%Name_top);
-            int height  = pstade::lexical(node%Name_height);
+            int left    = node%Name_left  |lexicalized;
+            int width   = node%Name_width |lexicalized;
+            int top     = node%Name_top   |lexicalized;
+            int height  = node%Name_height|lexicalized;
 
             rectangle rc(
                 left, top,

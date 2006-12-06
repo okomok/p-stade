@@ -14,12 +14,21 @@
 
 
 #include <string>
-#include <pstade/lexical_cast.hpp>
-#include <pstade/pipable.hpp>
+#include <boost/lexical_cast.hpp>
 
 
-PSTADE_AUTO_CASTABLE(lexical, pstade::lexical_cast_fun)
-PSTADE_PIPABLE(lexicalized, lexical_fun)
+struct lexical_cast_fun
+{
+    // 'result_of' support isn't needed.
+
+    template< class From, class To >
+    To operator()(From from, boost::type<To>) const
+    {
+        return boost::lexical_cast<To>(from);
+    }
+};
+
+PSTADE_AUTO_CASTABLE(lexical, lexical_cast_fun)
 
 
 void test()
@@ -30,14 +39,6 @@ void test()
     }
     {
         std::string to = ::lexical(512);
-        BOOST_CHECK( to == "512" );
-    }
-    {
-        int to = std::string("3")|::lexicalized;
-        BOOST_CHECK( to == 3 );
-    }
-    {
-        std::string to = 512|::lexicalized;
         BOOST_CHECK( to == "512" );
     }
 }

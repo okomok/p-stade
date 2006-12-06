@@ -10,21 +10,21 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/instance.hpp>
+#include <pstade/singleton.hpp>
 
 
 namespace pstade { namespace biscuit {
 
 
-struct null_state_type
+struct null_state_type_impl
 { };
 
 
-typedef null_state_type
-null_state_t;
+typedef null_state_type_impl const null_state_type;
+typedef null_state_type_impl const null_state_t;
 
 
-PSTADE_INSTANCE(null_state_type, null_state, value)
+PSTADE_SINGLETON_CONST(null_state_type_impl, null_state)
 
 
 } } // namespace pstade::biscuit

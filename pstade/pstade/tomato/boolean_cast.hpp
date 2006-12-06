@@ -20,12 +20,13 @@
 // 'boolean/booleanized' is slightly slower.
 
 
-#include <boost/type.hpp>
+#include <boost/utility/result_of.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/apple/sdk/wtypes.hpp> // VARIANT_BOOL
 #include <pstade/auto_castable.hpp>
-#include <pstade/egg/function.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
+#include <pstade/to_type.hpp>
 
 
 namespace pstade { namespace tomato {
@@ -81,17 +82,18 @@ To boolean_cast(From from)
 }
 
 
-struct boolean_cast_fun
+struct boolean_cast_fun :
+    to_type_cast_result
 {
-    template< class To, class From >
-    To operator()(From from, boost::type<To>) const
+    template< class From, class Type_To >
+    typename to_type<Type_To>::type operator()(From const& from, Type_To) const
     {
-        return tomato::boolean_cast<To>(from);
+        return tomato::boolean_cast<typename to_type<Type_To>::type>(from);
     }
 };
 
-PSTADE_AUTO_CASTABLE(boolean, boolean_cast_fun)
-PSTADE_PIPABLE(booleanized, boolean_fun)
+PSTADE_SINGLETON_CONST(boolean_cast_fun, boolean_cast_)
+PSTADE_PIPABLE(booleanized, boost::result_of<auto_castable_fun(boolean_cast_fun)>::type)
 
 
 } } // namespace pstade::tomato

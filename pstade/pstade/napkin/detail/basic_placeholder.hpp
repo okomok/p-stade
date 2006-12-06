@@ -35,7 +35,7 @@ struct basic_placeholder
     template< class OutputStreamable >
     void output(const OutputStreamable& x)
     {
-        std::basic_string<CharT> tmp = pstade::lexical(x);
+        std::basic_string<CharT> tmp = x|lexicalized;
         override_output(tmp.c_str());
     }
 

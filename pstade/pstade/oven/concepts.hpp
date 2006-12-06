@@ -18,14 +18,6 @@
 //  http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Question:
-//
-// ReadableIterator's 'value_type' must be CopyConstructible?
-// "X is convertible to T" always implies T must be CopyConstructible.
-// Thus, ptr_vector whose value_type is not CopyConstructible
-// is not Readable?
-
-
 // Note:
 //
 // Some metafunctions and 'boost::size' are no longer

@@ -28,10 +28,10 @@ namespace pstade { namespace hamburger { namespace detail {
         rectangle att_bounds(element& elem)
         {
             try {
-                int l = pstade::lexical(elem%Name_left);
-                int t = pstade::lexical(elem%Name_top);
-                int w = pstade::lexical(elem%Name_width);
-                int h = pstade::lexical(elem%Name_height);
+                int l = elem%Name_left  |lexicalized;
+                int t = elem%Name_top   |lexicalized;
+                int w = elem%Name_width |lexicalized;
+                int h = elem%Name_height|lexicalized;
                 return rectangle(l, t, l+w, t+h);
             }
             catch (boost::bad_lexical_cast const&) {

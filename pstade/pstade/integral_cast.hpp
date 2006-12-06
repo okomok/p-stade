@@ -12,10 +12,11 @@
 
 #include <boost/mpl/assert.hpp>
 #include <boost/numeric/conversion/cast.hpp> // numeric_cast
-#include <boost/type.hpp>
 #include <boost/type_traits/is_integral.hpp>
+#include <boost/utility/result_of.hpp>
 #include <pstade/auto_castable.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include <pstade/to_type.hpp>
 
 
@@ -32,26 +33,18 @@ namespace pstade {
     }
 
 
-    struct integral_cast_fun
+    struct integral_cast_fun :
+        to_type_cast_result
     {
-        // In fact, 'PSTADE_PIPABLE' doesn't pose 'result_of' support.
-        template< class Signature >
-        struct result;
-
-        template< class Self, class From, class TypeTo >
-        struct result<Self(From, TypeTo)> :
-            to_type<TypeTo>
-        { };
-
-        template< class From, class TypeTo >
-        typename to_type<TypeTo>::type operator()(From from, TypeTo) const
+        template< class From, class Type_To >
+        typename to_type<Type_To>::type operator()(From const& from, Type_To) const
         {
-            return pstade::integral_cast<typename to_type<TypeTo>::type>(from);
+            return pstade::integral_cast<typename to_type<Type_To>::type>(from);
         }
     };
 
-    PSTADE_AUTO_CASTABLE(integral, integral_cast_fun)
-    PSTADE_PIPABLE(to_integer, integral_fun)
+    PSTADE_SINGLETON_CONST(integral_cast_fun, integral_cast_)
+    PSTADE_PIPABLE(to_integer, boost::result_of<auto_castable_fun(integral_cast_fun)>::type)
 
 
 } // namespace pstade

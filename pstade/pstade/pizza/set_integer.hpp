@@ -22,7 +22,7 @@ namespace pstade { namespace pizza {
 template< class Profile, class CStringizable, class IntegerT >
 void set_integer(Profile& pr, const CStringizable& valueName, IntegerT value)
 {
-    tomato::tstring str = pstade::lexical(value);
+    tomato::tstring str = value|lexicalized;
     pizza::set_string(pr, valueName, str.c_str());
 }
 

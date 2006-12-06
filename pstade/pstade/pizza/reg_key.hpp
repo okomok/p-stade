@@ -50,10 +50,10 @@ inline
 bool pstade_pizza_query_string(ATL::CRegKey& key, const TCHAR *pszValueName, TCHAR *pFirst, TCHAR *pLast, pstade::overload<>)
 {
 #if !(PSTADE_APPLE_ATL_VER < 0x0700)
-    ULONG ulBufs = pstade::integral(pLast - pFirst);
+    ULONG ulBufs = (pLast - pFirst)|pstade::to_integer;
     return key.QueryStringValue(pszValueName, pFirst, &ulBufs) == ERROR_SUCCESS;
 #else
-    DWORD dwCount = pstade::integral(pLast - pFirst);
+    DWORD dwCount = (pLast - pFirst)|pstade::to_integer;
     return key.QueryValue(pFirst, pszValueName, &dwCount) == ERROR_SUCCESS;
 #endif
 }

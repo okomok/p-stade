@@ -58,6 +58,7 @@ void test_boolean()
 {
     using namespace pstade;
 
+#if 0 // rejected
     {
         bool t, f;
         t = tomato::boolean(true);
@@ -121,6 +122,7 @@ void test_boolean()
         BOOST_CHECK( t == TRUE );
         BOOST_CHECK( f == FALSE );
     }
+#endif
 }
 
 
@@ -197,6 +199,7 @@ void test_booleanized()
 
 void test_compare()
 {
+#if 0
     using namespace pstade;
     using namespace tomato;
 
@@ -208,6 +211,7 @@ void test_compare()
     bool t3 = b|booleanized; // nearly same as above.
 
     std::cout << t0 << t1 << t2 << t3;
+#endif
 }
 
 

@@ -21,7 +21,7 @@ namespace pstade { namespace hamburger { namespace detail {
     void optional_zero(Target& x, Node& node, ustring const& Name)
     {
         try {
-            Target opt = pstade::lexical(node%Name);
+            Target opt = node%Name|lexicalized;
             if (opt != 0)
                 x = opt;
         }

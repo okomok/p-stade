@@ -40,6 +40,18 @@ namespace pstade {
     { };
 
 
+    struct to_type_cast_result
+    {
+        template< class Signature >
+        struct result;
+
+        template< class Self, class From, class Type_To >
+        struct result<Self(From, Type_To)> :
+            to_type<Type_To>
+        { };
+    };
+
+
 } // namespace pstade
 
 

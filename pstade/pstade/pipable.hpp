@@ -142,14 +142,14 @@ namespace pstade {
         {
             typedef typename
                 boost::result_of<tupled_fun(Function)>::type
-            tupled_t;
+            tfun_t;
 
             typedef
                 boost::tuples::cons<A&, Arguments>
             args_t;
 
             typedef typename
-                boost::result_of<tupled_t(args_t)>::type
+                boost::result_of<tfun_t(args_t)>::type
             type;
         };
 

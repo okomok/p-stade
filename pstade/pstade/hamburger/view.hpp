@@ -172,10 +172,10 @@ namespace pstade { namespace hamburger {
             set_msg_handled(false);
 
             rectangle rc = bounds();
-            *this%Name_left   = pstade::lexical(rc.left);
-            *this%Name_top    = pstade::lexical(rc.top);
-            *this%Name_width  = pstade::lexical(rc.Width());
-            *this%Name_height = pstade::lexical(rc.Height());
+            *this%Name_left   = rc.left    |lexicalized;
+            *this%Name_top    = rc.top     |lexicalized;
+            *this%Name_width  = rc.Width() |lexicalized;
+            *this%Name_height = rc.Height()|lexicalized;
         }
 
         void on_paint(HDC)

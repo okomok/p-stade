@@ -29,8 +29,8 @@ namespace pstade { namespace hamburger {
         bool operator()(Node& node1, Node& node2) const
         {
             try {
-                int zIndex1 = pstade::lexical(node1%Name_zIndex);
-                int zIndex2 = pstade::lexical(node2%Name_zIndex);
+                int zIndex1 = node1%Name_zIndex|lexicalized;
+                int zIndex2 = node2%Name_zIndex|lexicalized;
                 return zIndex1 < zIndex2;
             }
             catch (boost::bad_lexical_cast const& PSTADE_IF_DEBUG(err)) {

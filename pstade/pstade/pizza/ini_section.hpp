@@ -61,7 +61,7 @@ namespace ini_section_detail {
             ::GetPrivateProfileString(
                 pszSectionName, pszValueName,
                 tomato::c_str(magicStr), // default
-                boost::begin(buf), pstade::integral(oven::distance(buf)),
+                boost::begin(buf), oven::distance(buf)|to_integer,
                 pszFileName);
 
             if (oven::equals(buf|oven::null_terminated, magicStr))
@@ -70,7 +70,7 @@ namespace ini_section_detail {
 
         ::GetPrivateProfileString( // bufsz contains NULL (== buffer size) >= 1
             pszSectionName, pszValueName,
-            _T(""), pFirst, pstade::integral(pLast - pFirst), pszFileName);
+            _T(""), pFirst, (pLast - pFirst)|to_integer, pszFileName);
 
         return true;
     }

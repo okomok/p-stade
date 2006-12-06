@@ -17,37 +17,28 @@
 
 #include <boost/lexical_cast.hpp>
 #include <pstade/auto_castable.hpp>
-#include <pstade/egg/function.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include <pstade/to_type.hpp>
 
 
 namespace pstade {
 
 
-    namespace lexical_cast_detail {
-
-        struct baby
+    struct lexical_cast_fun :
+        to_type_cast_result
+    {
+        template< class From, class Type_To >
+        typename to_type<Type_To>::type operator()(From from, Type_To) const
         {
-            template< class Myself, class From, class To >
-            struct apply :
-                to_type<To>
-            { };
+            return boost::lexical_cast<typename to_type<Type_To>::type>(from);
+        }
+    };
 
-            template< class Result, class From, class To >
-            Result call(From const& from, To) const
-            {
-                return boost::lexical_cast<Result>(from);
-            }
-        };
-
-    } // namespace lexical_cast_detail
+    PSTADE_SINGLETON_CONST(lexical_cast_fun, lexical_cast)
 
 
-    PSTADE_EGG_FUNCTION(lexical_cast, lexical_cast_detail::baby)
-
-
-    PSTADE_AUTO_CASTABLE(lexical, lexical_cast_fun)
+    PSTADE_AUTO_CASTABLE(lexical, lexical_cast_fun) // will be removed.
     PSTADE_PIPABLE(lexicalized, lexical_fun)
 
 
