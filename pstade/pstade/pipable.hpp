@@ -138,7 +138,7 @@ namespace pstade {
 
 
         template< class A, class Function, class Arguments >
-        struct result_of_piping
+        struct result_of_output
         {
             typedef typename
                 boost::result_of<tupled_fun(Function)>::type
@@ -153,47 +153,55 @@ namespace pstade {
             type;
         };
 
+        template< class Result, class A, class Pipe > inline
+        Result output(A& a, Pipe const& pi)
+        {
+            return pstade::tupled(pi.base())(
+                pipable_detail::push_front(pi.arguments(), a)
+            );
+        }
+
 
         template< class A, class Function, class Arguments > inline
-        typename result_of_piping<A, Function, Arguments>::type
+        typename result_of_output<A, Function, Arguments>::type
         operator|(A& a, pipe<Function, Arguments> const& pi)
         {
-            return pstade::tupled(pi.base())(
-                pipable_detail::push_front(pi.arguments(), a)
-            );
+            return pipable_detail::output<
+                typename result_of_output<A, Function, Arguments>::type
+            >(a, pi);
         };
 
         template< class A, class Function, class Arguments > inline
-        typename result_of_piping<PSTADE_CONST(A), Function, Arguments>::type
+        typename result_of_output<PSTADE_CONST(A), Function, Arguments>::type
         operator|(A const& a, pipe<Function, Arguments> const& pi)
         {
-            return pstade::tupled(pi.base())(
-                pipable_detail::push_front(pi.arguments(), a)
-            );
+            return pipable_detail::output<
+                typename result_of_output<PSTADE_CONST(A), Function, Arguments>::type
+            >(a, pi);
         };
 
 
-        // For "passed as is."
+        // For "passed as is".
         // 'egg::function<T>' is derived from 'T', so in fact it works fine without this.
         // But the overloads with explicit type make sure to win the overload-resolution race!
         //
 
         template< class A, class Function, class Arguments > inline
-        typename result_of_piping<A, Function, Arguments>::type
+        typename result_of_output<A, Function, Arguments>::type
         operator|(A& a, egg::function< pipe<Function, Arguments> > const& pi)
         {
-            return pstade::tupled(pi.base())(
-                pipable_detail::push_front(pi.arguments(), a)
-            );
+            return pipable_detail::output<
+                typename result_of_output<A, Function, Arguments>::type
+            >(a, pi);
         };
 
         template< class A, class Function, class Arguments > inline
-        typename result_of_piping<PSTADE_CONST(A), Function, Arguments>::type
+        typename result_of_output<PSTADE_CONST(A), Function, Arguments>::type
         operator|(A const& a, egg::function< pipe<Function, Arguments> > const& pi)
         {
-            return pstade::tupled(pi.base())(
-                pipable_detail::push_front(pi.arguments(), a)
-            );
+            return pipable_detail::output<
+                typename result_of_output<PSTADE_CONST(A), Function, Arguments>::type
+            >(a, pi);
         };
 
 

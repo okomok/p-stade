@@ -49,7 +49,7 @@ namespace pstade {
                 return m_f( pstade::tupled(m_g)(args) );
             }
 
-            explicit baby_base() // DefaultConstructible iff 'F' and 'G' is.
+            explicit baby_base() // DefaultConstructible iff 'F' and 'G' are.
             { }
 
             explicit baby_base(F const& f, G const& g) :
