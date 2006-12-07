@@ -14,7 +14,7 @@
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
 #include <pstade/adl_barrier.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/singleton.hpp>
@@ -62,18 +62,10 @@ namespace pstade {
 
     namespace to_upper_lower_detail {
 
-        struct with_result
+        struct with_apply
         {
-            template< class Signature >
-            struct result;
-
-            template< class _, class CharT, class Locale >
-            struct result<_(CharT, Locale)> :
-                pass_by_value<CharT>
-            { };
-
-            template< class _, class CharT >
-            struct result<_(CharT)> :
+            template< class Myself, class CharT, class Locale = void >
+            struct apply :
                 pass_by_value<CharT>
             { };
         };
@@ -81,31 +73,35 @@ namespace pstade {
     } // namespace to_upper_lower_detail
 
     
-    struct op_to_upper : to_upper_lower_detail::with_result
+    struct op_to_upper :
+        to_upper_lower_detail::with_apply,
+        callable<op_to_upper>
     {
-        template< class CharT >
-        typename result<int(CharT, int)>::type operator()(CharT ch, std::locale const& loc) const
+        template< class Result, class CharT >
+        Result call(CharT ch, std::locale const& loc) const
         {
             return std::toupper(ch, loc);
         }
 
-        template< class CharT >
-        typename result<int(CharT)>::type operator()(CharT ch) const
+        template< class Result, class CharT >
+        Result call(CharT ch) const
         {
             return std::toupper(ch, std::locale());
         }
     };
 
-    struct op_to_lower : to_upper_lower_detail::with_result
+    struct op_to_lower :
+        to_upper_lower_detail::with_apply,
+        callable<op_to_lower>
     {
-        template< class CharT >
-        typename result<int(CharT, int)>::type operator()(CharT ch, std::locale const& loc) const
+        template< class Result, class CharT >
+        Result call(CharT ch, std::locale const& loc) const
         {
             return std::tolower(ch, loc);
         }
 
-        template< class CharT >
-        typename result<int(CharT)>::type operator()(CharT ch) const
+        template< class Result, class CharT >
+        Result call(CharT ch) const
         {
             return std::tolower(ch, std::locale());
         }

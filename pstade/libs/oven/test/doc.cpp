@@ -26,7 +26,6 @@
 #include <boost/lambda/core.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <boost/foreach.hpp>
-#include <pstade/egg/function.hpp>
 #include <pstade/locale.hpp>
 
 

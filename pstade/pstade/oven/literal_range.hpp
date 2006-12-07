@@ -25,8 +25,9 @@
 #include <cstddef> // size_t
 #include <boost/type_traits/remove_const.hpp>
 #include <boost/type_traits/remove_extent.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./iter_range.hpp"
 
@@ -53,33 +54,28 @@ public:
 };
 
 
-namespace literal_range_detail {
-
-
-    struct baby_make
+struct op_make_literal_range :
+    callable<op_make_literal_range>
+{
+    template< class Myself, class Array >
+    struct apply
     {
-        template< class Myself, class Array >
-        struct apply
-        {
-            typedef literal_range<
-                typename boost::remove_const<
-                    typename boost::remove_extent<Array>::type
-                >::type
-            > const type;
-        };
-
-        template< class Result, class Array >
-        Result call(Array& arr) const
-        {
-            return Result(arr);
-        }
+        typedef literal_range<
+            typename boost::remove_const<
+                typename boost::remove_extent<Array>::type
+            >::type
+        > const type;
     };
 
+    template< class Result, class Array >
+    Result call(Array& arr) const
+    {
+        return Result(arr);
+    }
+};
 
-} // namespace literal_range_detail
 
-
-PSTADE_EGG_FUNCTION(make_literal_range, literal_range_detail::baby_make)
+PSTADE_SINGLETON_CONST(make_literal_range, op_make_literal_range)
 PSTADE_PIPABLE(as_literal, op_make_literal_range)
 
 

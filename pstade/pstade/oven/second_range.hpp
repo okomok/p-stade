@@ -12,9 +12,10 @@
 
 #include <boost/type_traits/remove_reference.hpp>
 #include <pstade/affect.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/functional.hpp> // at_second
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./range_reference.hpp"
@@ -71,29 +72,24 @@ public:
 };
 
 
-namespace second_range_detail {
-
-
-    struct baby_make
+struct op_make_second_range :
+    callable<op_make_second_range>
+{
+    template< class Myself, class PairRange >
+    struct apply
     {
-        template< class Myself, class PairRange >
-        struct apply
-        {
-            typedef second_range<PairRange> const type;
-        };
-
-        template< class Result, class PairRange >
-        Result call(PairRange& rng) const
-        {
-            return Result(rng);
-        }
+        typedef second_range<PairRange> const type;
     };
 
+    template< class Result, class PairRange >
+    Result call(PairRange& rng) const
+    {
+        return Result(rng);
+    }
+};
 
-} // namespace second_range_detail
 
-
-PSTADE_EGG_FUNCTION(make_second_range, second_range_detail::baby_make)
+PSTADE_SINGLETON_CONST(make_second_range, op_make_second_range)
 PSTADE_PIPABLE(seconds, op_make_second_range)
 
 

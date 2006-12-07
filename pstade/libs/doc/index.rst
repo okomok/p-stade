@@ -36,12 +36,6 @@ The Port of YARD_ to Boost_
 
 
 
-Egg_
--------
-The Functor Maker
-
-
-
 `Ketchup`_
 ----------
 The Replacement for BEGIN_MSG_MAP of ATL/WTL using Class Templates

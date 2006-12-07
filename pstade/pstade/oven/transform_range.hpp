@@ -50,9 +50,10 @@
 #include <boost/mpl/identity.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/utility/result_of.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/pass_by.hpp>
+#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
@@ -134,30 +135,25 @@ public:
 };
 
 
-namespace transform_range_detail {
-
-
-    struct baby_make
+struct op_make_transform_range :
+    callable<op_make_transform_range>
+{
+    template< class Myself, class Range, class UnaryFun >
+    struct apply
     {
-        template< class Myself, class Range, class UnaryFun >
-        struct apply
-        {
-            typedef typename pass_by_value<UnaryFun>::type fun_t;
-            typedef transform_range<Range, fun_t> const type;
-        };
-
-        template< class Result, class Range, class UnaryFun >
-        Result call(Range& rng, UnaryFun& fun) const
-        {
-            return Result(rng, fun);
-        }
+        typedef typename pass_by_value<UnaryFun>::type fun_t;
+        typedef transform_range<Range, fun_t> const type;
     };
 
+    template< class Result, class Range, class UnaryFun >
+    Result call(Range& rng, UnaryFun& fun) const
+    {
+        return Result(rng, fun);
+    }
+};
 
-} // namespace transform_range_detail
 
-
-PSTADE_EGG_FUNCTION(make_transform_range, transform_range_detail::baby_make)
+PSTADE_SINGLETON_CONST(make_transform_range, op_make_transform_range)
 PSTADE_PIPABLE(transformed, op_make_transform_range)
 
 

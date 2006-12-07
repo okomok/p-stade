@@ -10,10 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/functional.hpp> // less
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include <pstade/unused.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
@@ -112,36 +113,31 @@ public:
 };
 
 
-namespace set_difference_range_detail {
-
-
-    struct baby_make
+struct op_make_set_difference_range :
+    callable<op_make_set_difference_range>
+{
+    template< class Myself, class Range1, class Range2, class Compare = op_less >
+    struct apply
     {
-        template< class Myself, class Range1, class Range2, class Compare = op_less >
-        struct apply
-        {
-            typedef typename pass_by_value<Compare>::type comp_t;
-            typedef set_difference_range<Range1, Range2, comp_t> const type;
-        };
-
-        template< class Result, class Range1, class Range2, class Compare >
-        Result call(Range1& rng1, Range2& rng2, Compare& comp) const
-        {
-            return Result(rng1, rng2, comp);
-        }
-
-        template< class Result, class Range1, class Range2 >
-        Result call(Range1& rng1, Range2& rng2) const
-        {
-            return Result(rng1, rng2);
-        }
+        typedef typename pass_by_value<Compare>::type comp_t;
+        typedef set_difference_range<Range1, Range2, comp_t> const type;
     };
 
+    template< class Result, class Range1, class Range2, class Compare >
+    Result call(Range1& rng1, Range2& rng2, Compare& comp) const
+    {
+        return Result(rng1, rng2, comp);
+    }
 
-} // namespace set_difference_range_detail
+    template< class Result, class Range1, class Range2 >
+    Result call(Range1& rng1, Range2& rng2) const
+    {
+        return Result(rng1, rng2);
+    }
+};
 
 
-PSTADE_EGG_FUNCTION(make_set_difference_range, set_difference_range_detail::baby_make)
+PSTADE_SINGLETON_CONST(make_set_difference_range, op_make_set_difference_range)
 PSTADE_PIPABLE(set_minus, op_make_set_difference_range)
 
 

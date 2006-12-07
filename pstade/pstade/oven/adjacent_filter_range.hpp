@@ -12,9 +12,10 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include "./adjacent_filter_iterator.hpp"
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
@@ -67,30 +68,25 @@ public:
 };
 
 
-namespace adjacent_filter_range_detail {
-
-
-    struct baby_make
+struct op_make_adjacent_filter_range :
+    callable<op_make_adjacent_filter_range>
+{
+    template< class Myself, class Range, class BinaryPred >
+    struct apply
     {
-        template< class Myself, class Range, class BinaryPred >
-        struct apply
-        {
-            typedef typename pass_by_value<BinaryPred>::type pred_t;
-            typedef adjacent_filter_range<Range, pred_t> const type;
-        };
-
-        template< class Result, class Range, class BinaryPred >
-        Result call(Range& rng, BinaryPred& pred) const
-        {
-            return Result(rng, pred);
-        }
+        typedef typename pass_by_value<BinaryPred>::type pred_t;
+        typedef adjacent_filter_range<Range, pred_t> const type;
     };
 
+    template< class Result, class Range, class BinaryPred >
+    Result call(Range& rng, BinaryPred& pred) const
+    {
+        return Result(rng, pred);
+    }
+};
 
-} // namespace adjacent_filter_range_detail
 
-
-PSTADE_EGG_FUNCTION(make_adjacent_filter_range, adjacent_filter_range_detail::baby_make)
+PSTADE_SINGLETON_CONST(make_adjacent_filter_range, op_make_adjacent_filter_range)
 PSTADE_PIPABLE(adjacent_filtered, op_make_adjacent_filter_range)
 
 

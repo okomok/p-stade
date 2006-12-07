@@ -12,8 +12,9 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
@@ -64,29 +65,24 @@ public:
 };
 
 
-namespace tab_unexpand_range_detail {
-
-
-    struct baby_make
+struct op_make_tab_unexpand_range :
+    callable<op_make_tab_unexpand_range>
+{
+    template< class Myself, class Range, class TabSizeT >
+    struct apply
     {
-        template< class Myself, class Range, class TabSizeT >
-        struct apply
-        {
-            typedef tab_unexpand_range<Range> const type;
-        };
-
-        template< class Result, class Range >
-        Result call(Range& rng, int tabsize) const
-        {
-            return Result(rng, tabsize);
-        }
+        typedef tab_unexpand_range<Range> const type;
     };
 
+    template< class Result, class Range >
+    Result call(Range& rng, int tabsize) const
+    {
+        return Result(rng, tabsize);
+    }
+};
 
-} // namespace tab_unexpand_range_detail
 
-
-PSTADE_EGG_FUNCTION(make_tab_unexpand_range, tab_unexpand_range_detail::baby_make)
+PSTADE_SINGLETON_CONST(make_tab_unexpand_range, op_make_tab_unexpand_range)
 PSTADE_PIPABLE(tab_unexpanded, op_make_tab_unexpand_range)
 
 

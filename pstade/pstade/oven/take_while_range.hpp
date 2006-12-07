@@ -14,9 +14,10 @@
 #include <boost/mpl/eval_if.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/type_traits/is_convertible.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/functional.hpp> // not_
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include "./algorithm.hpp" // find_if
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
@@ -95,30 +96,25 @@ public:
 };
 
 
-namespace take_while_range_detail {
-
-
-    struct baby_make
+struct op_make_take_while_range :
+    callable<op_make_take_while_range>
+{
+    template< class Myself, class Range, class Predicate >
+    struct apply
     {
-        template< class Myself, class Range, class Predicate >
-        struct apply
-        {
-            typedef typename pass_by_value<Predicate>::type pred_t;
-            typedef take_while_range<Range, pred_t> const type;
-        };
-
-        template< class Result, class Range, class Predicate >
-        Result call(Range& rng, Predicate& pred) const
-        {
-            return Result(rng, pred);
-        }
+        typedef typename pass_by_value<Predicate>::type pred_t;
+        typedef take_while_range<Range, pred_t> const type;
     };
 
+    template< class Result, class Range, class Predicate >
+    Result call(Range& rng, Predicate& pred) const
+    {
+        return Result(rng, pred);
+    }
+};
 
-} // namespace take_while_range_detail
 
-
-PSTADE_EGG_FUNCTION(make_take_while_range, take_while_range_detail::baby_make)
+PSTADE_SINGLETON_CONST(make_take_while_range, op_make_take_while_range)
 PSTADE_PIPABLE(taken_while, op_make_take_while_range)
 
 

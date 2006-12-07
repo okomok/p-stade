@@ -12,8 +12,9 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
@@ -67,29 +68,24 @@ public:
 };
 
 
-namespace permute_range_detail {
-
-
-    struct baby_make
+struct op_make_permute_range :
+    callable<op_make_permute_range>
+{
+    template< class Myself, class ElementRange, class IndexRange >
+    struct apply
     {
-        template< class Myself, class ElementRange, class IndexRange >
-        struct apply
-        {
-            typedef permute_range<ElementRange, IndexRange> const type;
-        };
-
-        template< class Result, class ElementRange, class IndexRange >
-        Result call(ElementRange& erng, IndexRange& irng) const
-        {
-            return Result(erng, irng);
-        }
+        typedef permute_range<ElementRange, IndexRange> const type;
     };
 
+    template< class Result, class ElementRange, class IndexRange >
+    Result call(ElementRange& erng, IndexRange& irng) const
+    {
+        return Result(erng, irng);
+    }
+};
 
-} // namespace permute_range_detail
 
-
-PSTADE_EGG_FUNCTION(make_permute_range, permute_range_detail::baby_make)
+PSTADE_SINGLETON_CONST(make_permute_range, op_make_permute_range)
 PSTADE_PIPABLE(permuted, op_make_permute_range)
 
 

@@ -11,8 +11,9 @@
 
 
 #include <pstade/base_from.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./joint_range.hpp"
@@ -64,29 +65,24 @@ public:
 };
 
 
-namespace prepend_range_detail {
-
-
-    struct baby_make
+struct op_make_prepend_range :
+    callable<op_make_prepend_range>
+{
+    template< class Myself, class Range, class Value >
+    struct apply
     {
-        template< class Myself, class Range, class Value >
-        struct apply
-        {
-            typedef prepend_range<Range, Value> const type;
-        };
-
-        template< class Result, class Range, class Value >
-        Result call(Range& rng, Value& v) const
-        {
-            return Result(rng, v);
-        }
+        typedef prepend_range<Range, Value> const type;
     };
 
+    template< class Result, class Range, class Value >
+    Result call(Range& rng, Value& v) const
+    {
+        return Result(rng, v);
+    }
+};
 
-} // namespace prepend_range_detail
 
-
-PSTADE_EGG_FUNCTION(make_prepend_range, prepend_range_detail::baby_make)
+PSTADE_SINGLETON_CONST(make_prepend_range, op_make_prepend_range)
 PSTADE_PIPABLE(prepended, op_make_prepend_range)
 
 

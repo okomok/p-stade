@@ -11,8 +11,9 @@
 
 
 #include <boost/spirit/iterator/multi_pass.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
@@ -76,29 +77,24 @@ public:
 };
 
 
-namespace multi_pass_range_detail {
-
-
-    struct baby_make
+struct op_make_multi_pass_range :
+    callable<op_make_multi_pass_range>
+{
+    template< class Myself, class Range >
+    struct apply
     {
-        template< class Myself, class Range >
-        struct apply
-        {
-            typedef multi_pass_range<Range> const type;
-        };
-
-        template< class Result, class Range >
-        Result call(Range& rng) const
-        {
-            return Result(rng);
-        }
+        typedef multi_pass_range<Range> const type;
     };
 
+    template< class Result, class Range >
+    Result call(Range& rng) const
+    {
+        return Result(rng);
+    }
+};
 
-} // namespace multi_pass_range_detail
 
-
-PSTADE_EGG_FUNCTION(make_multi_pass_range, multi_pass_range_detail::baby_make)
+PSTADE_SINGLETON_CONST(make_multi_pass_range, op_make_multi_pass_range)
 PSTADE_PIPABLE(multi_passed, op_make_multi_pass_range)
 
 

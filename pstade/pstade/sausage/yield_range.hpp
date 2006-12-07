@@ -10,11 +10,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/oven/as_lightweight_proxy.hpp>
 #include <pstade/oven/iter_range.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include "./yield_iterator.hpp"
 
 
@@ -51,30 +52,25 @@ public:
 };
 
 
-namespace yield_range_detail {
-
-
-    struct baby_make
+struct op_make_yield_range :
+    callable<op_make_yield_range>
+{
+    template< class Myself, class Routine >
+    struct apply
     {
-        template< class Myself, class Routine >
-        struct apply
-        {
-            typedef typename pass_by_value<Routine>::type rou_t;
-            typedef yield_range<rou_t> const type;
-        };
-
-        template< class Result, class Routine >
-        Result call(Routine& rou) const
-        {
-            return Result(rou);
-        }
+        typedef typename pass_by_value<Routine>::type rou_t;
+        typedef yield_range<rou_t> const type;
     };
 
+    template< class Result, class Routine >
+    Result call(Routine& rou) const
+    {
+        return Result(rou);
+    }
+};
 
-} // namespace yield_range_detail
 
-
-PSTADE_EGG_FUNCTION(make_yield_range, yield_range_detail::baby_make)
+PSTADE_SINGLETON_CONT(make_yield_range, op_make_yield_range)
 PSTADE_PIPABLE(yielded, op_make_yield_range)
 
 

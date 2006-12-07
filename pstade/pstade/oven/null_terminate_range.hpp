@@ -17,9 +17,10 @@
 #include <boost/range/end.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/const.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/functional.hpp> // not_, is_zero
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./range_iterator.hpp"
@@ -87,29 +88,24 @@ public:
 };
 
 
-namespace null_terminate_range_detail {
-
-
-    struct baby_make
+struct op_make_null_terminate_range :
+    callable<op_make_null_terminate_range>
+{
+    template< class Myself, class Range >
+    struct apply
     {
-        template< class Myself, class Range >
-        struct apply
-        {
-            typedef null_terminate_range<Range> const type;
-        };
-
-        template< class Result, class Range >
-        Result call(Range& rng) const
-        {
-            return Result(rng);
-        }
+        typedef null_terminate_range<Range> const type;
     };
 
+    template< class Result, class Range >
+    Result call(Range& rng) const
+    {
+        return Result(rng);
+    }
+};
 
-} // namespace null_terminate_range_detail
 
-
-PSTADE_EGG_FUNCTION(make_null_terminate_range, null_terminate_range_detail::baby_make)
+PSTADE_SINGLETON_CONST(make_null_terminate_range, op_make_null_terminate_range)
 PSTADE_PIPABLE(null_terminated, op_make_null_terminate_range)
 
 

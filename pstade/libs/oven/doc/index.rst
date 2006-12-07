@@ -1191,6 +1191,6 @@ Version 0.91.9
 
 Version 0.92.0
 ^^^^^^^^^^^^^^
-- Renamed `counting_range`` to ``count_range``, and added a valid expression.
+- Renamed ``counting_range`` to ``count_range``, and added a valid expression.
 
 

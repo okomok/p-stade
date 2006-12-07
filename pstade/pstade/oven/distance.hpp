@@ -68,8 +68,8 @@ struct op_distance
     template< class Signature >
     struct result;
 
-    template< class _, class Range >
-    struct result<_(Range)> :
+    template< class Self, class Range >
+    struct result<Self(Range)> :
         range_difference<Range>
     { };
 

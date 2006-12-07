@@ -16,9 +16,10 @@
 
 
 #include <pstade/affect.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/functional.hpp> // identity
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./detail/constant_reference.hpp"
@@ -68,29 +69,24 @@ public:
 };
 
 
-namespace constant_range_detail {
-
-
-    struct baby_make
+struct op_make_constant_range :
+    callable<op_make_constant_range>
+{
+    template< class Myself, class Range >
+    struct apply
     {
-        template< class Myself, class Range >
-        struct apply
-        {
-            typedef constant_range<Range> const type;
-        };
-
-        template< class Result, class Range >
-        Result call(Range& rng) const
-        {
-            return Result(rng);
-        }
+        typedef constant_range<Range> const type;
     };
 
+    template< class Result, class Range >
+    Result call(Range& rng) const
+    {
+        return Result(rng);
+    }
+};
 
-} // namespace constant_range_detail
 
-
-PSTADE_EGG_FUNCTION(make_constant_range, constant_range_detail::baby_make)
+PSTADE_SINGLETON_CONST(make_constant_range, op_make_constant_range)
 PSTADE_PIPABLE(constants, op_make_constant_range)
 
 

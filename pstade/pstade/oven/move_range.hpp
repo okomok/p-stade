@@ -22,8 +22,9 @@
 
 #include <boost/move.hpp>
 #include <boost/mpl/if.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./range_value.hpp"
@@ -84,29 +85,24 @@ public:
 };
 
 
-namespace move_range_detail {
-
-
-    struct baby_make
+struct op_make_move_range :
+    callable<op_make_move_range>
+{
+    template< class Myself, class Range >
+    struct apply
     {
-        template< class Myself, class Range >
-        struct apply
-        {
-            typedef move_range<Range> const type;
-        };
-
-        template< class Result, class Range >
-        Result call(Range& rng) const
-        {
-            return Result(rng);
-        }
+        typedef move_range<Range> const type;
     };
 
+    template< class Result, class Range >
+    Result call(Range& rng) const
+    {
+        return Result(rng);
+    }
+};
 
-} // namespace move_range_detail
 
-
-PSTADE_EGG_FUNCTION(make_move_range, move_range_detail::baby_make)
+PSTADE_SINGLETON_CONST(make_move_range, op_make_move_range)
 PSTADE_PIPABLE(moved, op_make_move_range)
 
 

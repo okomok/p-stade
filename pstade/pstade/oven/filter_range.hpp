@@ -21,9 +21,10 @@
 #include <boost/iterator/filter_iterator.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
@@ -80,30 +81,25 @@ public:
 };
 
 
-namespace filter_range_detail {
-
-
-    struct baby_make
+struct op_make_filter_range :
+    callable<op_make_filter_range>
+{
+    template< class Myself, class Range, class Predicate >
+    struct apply
     {
-        template< class Myself, class Range, class Predicate >
-        struct apply
-        {
-            typedef typename pass_by_value<Predicate>::type pred_t;
-            typedef filter_range<Range, pred_t> const type;
-        };
-
-        template< class Result, class Range, class Predicate >
-        Result call(Range& rng, Predicate& pred) const
-        {
-            return Result(rng, pred);
-        }
+        typedef typename pass_by_value<Predicate>::type pred_t;
+        typedef filter_range<Range, pred_t> const type;
     };
 
+    template< class Result, class Range, class Predicate >
+    Result call(Range& rng, Predicate& pred) const
+    {
+        return Result(rng, pred);
+    }
+};
 
-} // namespace filter_range_detail
 
-
-PSTADE_EGG_FUNCTION(make_filter_range, filter_range_detail::baby_make)
+PSTADE_SINGLETON_CONST(make_filter_range, op_make_filter_range)
 PSTADE_PIPABLE(filtered, op_make_filter_range)
 
 

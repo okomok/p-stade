@@ -12,8 +12,9 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./joint_range.hpp"
@@ -70,29 +71,24 @@ public:
 };
 
 
-namespace rotate_range_detail {
-
-
-    struct baby_make
+struct op_make_rotate_range :
+    callable<op_make_rotate_range>
+{
+    template< class Myself, class Range, class MiddleFun >
+    struct apply
     {
-        template< class Myself, class Range, class MiddleFun >
-        struct apply
-        {
-            typedef rotate_range<Range> const type;
-        };
-
-        template< class Result, class Range, class MiddleFun >
-        Result call(Range& rng, MiddleFun& fun) const
-        {
-            return Result(rng, fun);
-        }
+        typedef rotate_range<Range> const type;
     };
 
+    template< class Result, class Range, class MiddleFun >
+    Result call(Range& rng, MiddleFun& fun) const
+    {
+        return Result(rng, fun);
+    }
+};
 
-} // namespace rotate_range_detail
 
-
-PSTADE_EGG_FUNCTION(make_rotate_range, rotate_range_detail::baby_make)
+PSTADE_SINGLETON_CONST(make_rotate_range, op_make_rotate_range)
 PSTADE_PIPABLE(rotated, op_make_rotate_range)
 
 

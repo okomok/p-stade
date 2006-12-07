@@ -17,7 +17,8 @@
 
 #include <boost/range/empty.hpp>
 #include <boost/thread/thread.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
+#include <pstade/singleton.hpp>
 #include "./algorithm.hpp" // for_each
 #include "./distance.hpp"
 #include "./drop_range.hpp"
@@ -72,37 +73,39 @@ namespace parallel_detail {
         Difference m_grain;
     };
 
-    struct baby_for_each
-    {
-        template< class Myself, class Range, class UnaryFun, class Difference = void >
-        struct apply
-        {
-            typedef void type;
-        };
-
-        template< class Result, class Range, class UnaryFun, class Difference >
-        // Workaround:
-        // Compilers complain about "return void"
-        // if you write not 'void' but 'Result'.
-        PSTADE_CONCEPT_WHERE(
-            ((Forward<Range>)),
-        (void)) call(Range& rng, UnaryFun fun, Difference grain)
-        {
-            typedef typename range_difference<Range>::type diff_t;
-
-            // Range type must be "erased" to avoid infinite recursion
-            // of 'op_for_each' template-instantiation.
-            typedef typename sub_range_base<Range>::type base_t;
-
-            op_for_each<base_t, UnaryFun, diff_t>(rng, fun, grain)();
-        }
-    };
-
 
 } // namespace parallel_detail
 
 
-PSTADE_EGG_FUNCTION(parallel_for_each, parallel_detail::baby_for_each)
+struct op_parallel_for_each :
+    callable<op_parallel_for_each>
+{
+    template< class Myself, class Range, class UnaryFun, class Difference = void >
+    struct apply
+    {
+        typedef void type;
+    };
+
+    template< class Result, class Range, class UnaryFun, class Difference >
+    // Workaround:
+    // Compilers complain about "return void"
+    // if you write not 'void' but 'Result'.
+    PSTADE_CONCEPT_WHERE(
+        ((Forward<Range>)),
+    (void)) call(Range& rng, UnaryFun fun, Difference grain)
+    {
+        typedef typename range_difference<Range>::type diff_t;
+
+        // Range type must be "erased" to avoid infinite recursion
+        // of 'op_for_each' template-instantiation.
+        typedef typename sub_range_base<Range>::type base_t;
+
+        parallel_detail::op_for_each<base_t, UnaryFun, diff_t>(rng, fun, grain)();
+    }
+};
+
+
+PSTADE_SINGLETON_CONST(parallel_for_each, op_parallel_for_each)
 
 
 } } // namespace pstade::oven

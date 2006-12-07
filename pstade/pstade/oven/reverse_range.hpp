@@ -20,8 +20,9 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
@@ -66,29 +67,24 @@ public:
 };
 
 
-namespace reverse_range_detail {
-
-
-    struct baby_make
+struct op_make_reverse_range :
+    callable<op_make_reverse_range>
+{
+    template< class Myself, class Range >
+    struct apply
     {
-        template< class Myself, class Range >
-        struct apply
-        {
-            typedef reverse_range<Range> const type;
-        };
-
-        template< class Result, class Range >
-        Result call(Range& rng) const
-        {
-            return Result(rng);
-        }
+        typedef reverse_range<Range> const type;
     };
 
+    template< class Result, class Range >
+    Result call(Range& rng) const
+    {
+        return Result(rng);
+    }
+};
 
-} // namespace reverse_range_detail
 
-
-PSTADE_EGG_FUNCTION(make_reverse_range, reverse_range_detail::baby_make)
+PSTADE_SINGLETON_CONST(make_reverse_range, op_make_reverse_range)
 PSTADE_PIPABLE(reversed, op_make_reverse_range)
 
 

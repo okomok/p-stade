@@ -22,10 +22,11 @@
 
 #include <memory> // auto_ptr
 #include <vector>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/new.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include <pstade/unused.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./copy_range.hpp"
@@ -107,36 +108,31 @@ public:
 };
 
 
-namespace out_place_range_detail {
-
-
-    struct baby_make
+struct op_make_out_place_range :
+    callable<op_make_out_place_range>
+{
+    template< class Myself, class Range, class UnaryFun = op_unused >
+    struct apply
     {
-        template< class Myself, class Range, class UnaryFun = op_unused >
-        struct apply
-        {
-            typedef typename pass_by_value<UnaryFun>::type fun_t;
-            typedef out_place_range<Range, fun_t> const type;
-        };
-
-        template< class Result, class Range, class UnaryFun >
-        Result call(Range& rng, UnaryFun& fun) const
-        {
-            return Result(rng, fun);
-        }
-
-        template< class Result, class Range >
-        Result call(Range& rng) const
-        {
-            return Result(rng);
-        }
+        typedef typename pass_by_value<UnaryFun>::type fun_t;
+        typedef out_place_range<Range, fun_t> const type;
     };
 
+    template< class Result, class Range, class UnaryFun >
+    Result call(Range& rng, UnaryFun& fun) const
+    {
+        return Result(rng, fun);
+    }
 
-} // namespace out_place_range_detail
+    template< class Result, class Range >
+    Result call(Range& rng) const
+    {
+        return Result(rng);
+    }
+};
 
 
-PSTADE_EGG_FUNCTION(make_out_place_range, out_place_range_detail::baby_make)
+PSTADE_SINGLETON_CONST(make_out_place_range, op_make_out_place_range)
 PSTADE_PIPABLE(out_placed, op_make_out_place_range)
 
 

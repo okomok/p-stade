@@ -17,7 +17,6 @@
 #include <pstade/affect.hpp>
 #include <pstade/const.hpp>
 #include <pstade/const_overloaded.hpp>
-#include <pstade/egg/function.hpp>
 #include <pstade/nonassignable.hpp>
 #include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
@@ -217,28 +216,29 @@ namespace unzipped_detail {
     };
 
 
-    struct baby
-    {
-        template< class Myself, class TupleRange >
-        struct apply
-        {
-            typedef typename to_counting_tuple<TupleRange>::type counting_tup_t;
-            typedef typename impl::tuple_meta_transform<counting_tup_t, make_at_range<TupleRange> >::type type;
-        };
-
-        template< class Result, class TupleRange >
-        Result call(TupleRange& rng) const
-        {
-            typedef typename to_counting_tuple<TupleRange>::type counting_tup_t;
-            return impl::tuple_transform(counting_tup_t(), make_at_range<TupleRange>(rng));
-        }
-    };
-
-
 } // namespace unzipped_detail
 
 
-PSTADE_PIPABLE(unzipped, egg::function<unzipped_detail::baby>)
+struct op_unzipped :
+    callable<op_unzipped>
+{
+    template< class Myself, class TupleRange >
+    struct apply
+    {
+        typedef typename unzipped_detail::to_counting_tuple<TupleRange>::type counting_tup_t;
+        typedef typename unzipped_detail::impl::tuple_meta_transform<counting_tup_t, unzipped_detail::make_at_range<TupleRange> >::type type;
+    };
+
+    template< class Result, class TupleRange >
+    Result call(TupleRange& rng) const
+    {
+        typedef typename unzipped_detail::to_counting_tuple<TupleRange>::type counting_tup_t;
+        return unzipped_detail::impl::tuple_transform(counting_tup_t(), unzipped_detail::make_at_range<TupleRange>(rng));
+    }
+};
+
+
+PSTADE_PIPABLE(unzipped, op_unzipped)
 
 
 } } // namespace pstade::oven

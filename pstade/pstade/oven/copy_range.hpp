@@ -13,6 +13,7 @@
 #include <boost/utility/result_of.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/auto_castable.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/singleton.hpp>
 #include <pstade/to_type.hpp>
@@ -61,32 +62,27 @@ PSTADE_PIPABLE(copied, boost::result_of<op_auto_castable(op_copy_range)>::type)
 // copied_out
 //
 
-namespace copied_out_detail {
-
-
-    struct baby
+struct op_copied_out :
+    callable<op_copied_out>
+{
+    template< class Myself, class Range, class OutIter >
+    struct apply
     {
-        template< class Myself, class Range, class OutIter >
-        struct apply
-        {
-            typedef Range& type;
-        };
-
-        template< class Result, class Range, class OutIter >
-        Result call(Range& rng, OutIter to) const
-        {
-            oven::copy(rng, to);
-            return rng;
-        }
+        typedef Range& type;
     };
 
-
-} // namespace copied_out_detail
+    template< class Result, class Range, class OutIter >
+    Result call(Range& rng, OutIter to) const
+    {
+        oven::copy(rng, to);
+        return rng;
+    }
+};
 
 
 // Which is better name?
-PSTADE_PIPABLE(copied_out, egg::function<copied_out_detail::baby>)
-PSTADE_PIPABLE(copied_to,  egg::function<copied_out_detail::baby>)
+PSTADE_PIPABLE(copied_out, op_copied_out)
+PSTADE_PIPABLE(copied_to,  op_copied_out)
 
 
 } } // namespace pstade::oven

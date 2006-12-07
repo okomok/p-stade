@@ -11,8 +11,9 @@
 
 
 #include <boost/optional.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/pass_by.hpp>
+#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./generate_range.hpp"
 
@@ -84,38 +85,33 @@ public:
 };
 
 
-namespace iterate_range_detail {
-
-
-    struct baby_make
+struct op_make_iterate_range :
+    callable<op_make_iterate_range>
+{
+    template< class Myself, class State, class UnaryFun, class Traversal = boost::single_pass_traversal_tag >
+    struct apply
     {
-        template< class Myself, class State, class UnaryFun, class Traversal = boost::single_pass_traversal_tag >
-        struct apply
-        {
-            typedef typename pass_by_value<State>::type sta_t;
-            typedef typename pass_by_value<UnaryFun>::type fun_t;
-            typedef iterate_range<sta_t, fun_t, Traversal> const type;
-        };
-
-        template< class Result, class State, class UnaryFun, class Traversal >
-        Result call(State const& init, UnaryFun& fun, Traversal) const
-        {
-            return Result(init, fun);
-        }
-
-        template< class Result, class State, class UnaryFun >
-        Result call(State const& init, UnaryFun& fun) const
-        {
-            return Result(init, fun);
-        }
+        typedef typename pass_by_value<State>::type sta_t;
+        typedef typename pass_by_value<UnaryFun>::type fun_t;
+        typedef iterate_range<sta_t, fun_t, Traversal> const type;
     };
 
+    template< class Result, class State, class UnaryFun, class Traversal >
+    Result call(State const& init, UnaryFun& fun, Traversal) const
+    {
+        return Result(init, fun);
+    }
 
-} // namespace iterate_range_detail
+    template< class Result, class State, class UnaryFun >
+    Result call(State const& init, UnaryFun& fun) const
+    {
+        return Result(init, fun);
+    }
+};
 
 
-PSTADE_EGG_FUNCTION(make_iterate_range, iterate_range_detail::baby_make)
-PSTADE_EGG_FUNCTION(iteration, iterate_range_detail::baby_make)
+PSTADE_SINGLETON_CONST(make_iterate_range, op_make_iterate_range)
+PSTADE_SINGLETON_CONST(iteration, op_make_iterate_range)
 
 
 } } // namespace pstade::oven

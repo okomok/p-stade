@@ -17,9 +17,10 @@
 #include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/apple/wtl/misc.hpp> // CString
 #include <pstade/apple/basic_string_fwd.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/nullptr.hpp>
+#include <pstade/singleton.hpp>
 #include <pstade/static_c.hpp>
 #include "./boolean_cast.hpp"
 
@@ -104,35 +105,36 @@ namespace c_str_detail {
     }
 
 
-    struct baby
-    {
-        template< class Myself, class CStringizable >
-        struct apply
-        {
-            typedef TCHAR const *type;
-        };
-
-        // 'has_xxx' works only with "class".
-        template< class Result >
-        Result call(TCHAR const *psz) const
-        {
-            return psz;
-        }
-
-        template< class Result, class CStringizable >
-        Result call(CStringizable const& str) const
-        {
-            Result result = c_str_detail::aux(str);
-            BOOST_ASSERT(c_str_detail::invariant(result));
-            return result;
-        }
-    };
-
-
 } // namespace c_str_detail
 
 
-PSTADE_EGG_FUNCTION(c_str, c_str_detail::baby)
+struct op_c_str :
+    callable<op_c_str>
+{
+    template< class Myself, class CStringizable >
+    struct apply
+    {
+        typedef TCHAR const *type;
+    };
+
+    // 'has_xxx' works only with "class".
+    template< class Result >
+    Result call(TCHAR const *psz) const
+    {
+        return psz;
+    }
+
+    template< class Result, class CStringizable >
+    Result call(CStringizable const& str) const
+    {
+        Result result = c_str_detail::aux(str);
+        BOOST_ASSERT(c_str_detail::invariant(result));
+        return result;
+    }
+};
+
+
+PSTADE_SINGLETON_CONST(c_str, op_c_str)
 PSTADE_PIPABLE(to_c_str, op_c_str)
 
 

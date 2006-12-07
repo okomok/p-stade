@@ -12,7 +12,7 @@
 
 #include <boost/utility/addressof.hpp>
 #include <pstade/apple/sdk/windows.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/pass_by.hpp>
 #include "./window_ptr.hpp"
 #include "./window_ref.hpp"
@@ -56,46 +56,43 @@ namespace for_each_child_window_detail {
     }
 
 
-    struct baby
-    {
-        // 'NULL' means the root window.
-        explicit baby(window_ptr parent) :
-            m_parent(parent)
-        { }
-
-        HWND parent() const
-        {
-            return m_parent.get();
-        }
-
-        typedef window_ref routine_result_type;
-
-        template< class Myself, class UnaryFun >
-        struct apply :
-            pass_by_value<UnaryFun>
-        { };
-
-        template< class Result, class UnaryFun >
-        Result call(UnaryFun& yield) const
-        {
-            // Workaround:
-            // VC++7.1/8 fails to decay function-reference.
-            // Without the explicit parameter, 'UnaryFun' of 'aux<UnaryFun>(...)'
-            // would be deduced as a *reference* type. Lovely!
-            for_each_child_window_detail::aux<Result>(m_parent, yield);
-            return yield;
-        }
-
-    private:
-        window_ptr m_parent;
-    };
-
-
 } // namespace for_each_child_window_detail
 
 
-typedef egg::function<for_each_child_window_detail::baby>
-for_each_child_window;
+struct for_each_child_window :
+    callable<for_each_child_window>
+{
+    // 'NULL' means the root window.
+    explicit for_each_child_window(window_ptr parent) :
+        m_parent(parent)
+    { }
+
+    HWND parent() const
+    {
+        return m_parent.get();
+    }
+
+    typedef window_ref routine_result_type;
+
+    template< class Myself, class UnaryFun >
+    struct apply :
+        pass_by_value<UnaryFun>
+    { };
+
+    template< class Result, class UnaryFun >
+    Result call(UnaryFun& yield) const
+    {
+        // Workaround:
+        // VC++7.1/8 fails to decay function-reference.
+        // Without the explicit parameter, 'UnaryFun' of 'aux<UnaryFun>(...)'
+        // would be deduced as a *reference* type. Lovely!
+        for_each_child_window_detail::aux<Result>(m_parent, yield);
+        return yield;
+    }
+
+private:
+    window_ptr m_parent;
+};
 
 
 } } // namespace pstade::tomato

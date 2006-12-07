@@ -13,9 +13,10 @@
 #include <sstream> // basic_stringstream
 #include <string>  // basic_string
 #include <pstade/apple/sdk/tchar.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/oven/copy_range.hpp>
+#include <pstade/singleton.hpp>
 #include "./multibyte_to_widechar.hpp"
 #include "./widechar_to_multibyte.hpp"
 
@@ -43,33 +44,28 @@ tstring_to(tstring const& from)
 }
 
 
-namespace to_tstring_detail {
-
-
-    struct baby
+struct op_to_string :
+    callable<op_to_string>
+{
+    template< class Myself, class WideCharSeq >
+    struct apply
     {
-        template< class Myself, class WideCharSeq >
-        struct apply
-        {
-            typedef tstring const type;
-        };
-
-        template< class Result, class WideCharSeq >
-        Result call(WideCharSeq const& from) const
-        {
-        #if defined(_UNICODE)
-            return from|oven::copied;
-        #else
-            return tomato::widechar_to<tstring>(from);
-        #endif
-        }
+        typedef tstring const type;
     };
 
+    template< class Result, class WideCharSeq >
+    Result call(WideCharSeq const& from) const
+    {
+    #if defined(_UNICODE)
+        return from|oven::copied;
+    #else
+        return tomato::widechar_to<tstring>(from);
+    #endif
+    }
+};
 
-} // namespace to_tstring_detail
 
-
-PSTADE_PIPABLE(to_tstring, egg::function<to_tstring_detail::baby>)
+PSTADE_PIPABLE(to_tstring, op_to_string)
 
 
 } } // namespace pstade::tomato

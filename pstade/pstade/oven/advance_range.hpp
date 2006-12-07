@@ -19,8 +19,9 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./detail/next_prior.hpp" // next
@@ -72,35 +73,30 @@ public:
 };
 
 
-namespace advance_range_detail {
-
-
-    struct baby_make
+struct op_make_advance_range :
+    callable<op_make_advance_range>
+{
+    template< class Myself, class Range, class Difference, class Difference_ = void >
+    struct apply
     {
-        template< class Myself, class Range, class Difference, class Difference_ = void >
-        struct apply
-        {
-            typedef advance_range<Range> const type;
-        };
-
-        template< class Result, class Range, class Difference >
-        Result call(Range& rng, Difference dfirst, Difference dlast) const
-        {
-            return Result(rng, dfirst, dlast);
-        }
-
-        template< class Result, class Range, class Difference >
-        Result call(Range& rng, Difference d) const
-        {
-            return Result(rng, d);
-        }
+        typedef advance_range<Range> const type;
     };
 
+    template< class Result, class Range, class Difference >
+    Result call(Range& rng, Difference dfirst, Difference dlast) const
+    {
+        return Result(rng, dfirst, dlast);
+    }
 
-} // namespace advance_range_detail
+    template< class Result, class Range, class Difference >
+    Result call(Range& rng, Difference d) const
+    {
+        return Result(rng, d);
+    }
+};
 
 
-PSTADE_EGG_FUNCTION(make_advance_range, advance_range_detail::baby_make)
+PSTADE_SINGLETON_CONST(make_advance_range, op_make_advance_range)
 PSTADE_PIPABLE(advanced, op_make_advance_range)
 
 

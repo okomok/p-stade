@@ -17,23 +17,21 @@
 
 
 #include <boost/assert.hpp>
-#include <boost/type_traits/add_reference.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/pipable.hpp>
 
 
 namespace pstade {
 
 
-namespace verify_detail {
-
-
-    struct baby
+    struct op_verify :
+        callable<op_verify>
     {
         template< class Myself, class T >
-        struct apply :
-            boost::add_reference<T>
-        { };
+        struct apply
+        {
+            typedef T& type;
+        };
 
         template< class Result, class T >
         Result call(T& x) const // doesn't add 'const' to 'T'.
@@ -44,10 +42,7 @@ namespace verify_detail {
     };
 
 
-} // namespace verify_detail
-
-
-PSTADE_EGG_FUNCTION(verify, verify_detail::baby)
+PSTADE_SINGLETON_CONST(verify, op_verify)
 PSTADE_PIPABLE(verified, op_verify)
 
 

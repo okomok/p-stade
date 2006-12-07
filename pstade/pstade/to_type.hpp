@@ -42,7 +42,7 @@ namespace pstade {
 
     struct to_type_cast_result
     {
-        template< class Signature >
+        template< class >
         struct result;
 
         template< class Self, class From, class Type_To >

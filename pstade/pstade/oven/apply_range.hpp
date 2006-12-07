@@ -16,9 +16,10 @@
 
 
 #include <boost/range/end.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./sub_range_base.hpp"
@@ -53,35 +54,30 @@ public:
 };
 
 
-namespace apply_range_detail {
-
-
-    struct baby_make
+struct op_make_apply_range :
+    callable<op_make_apply_range>
+{
+    template< class Myself, class Range, class BeginOrRangeFun, class EndFun = void >
+    struct apply
     {
-        template< class Myself, class Range, class BeginOrRangeFun, class EndFun = void >
-        struct apply
-        {
-            typedef apply_range<Range> const type;
-        };
-
-        template< class Result, class Range, class BeginFun, class EndFun >
-        Result call(Range& rng, BeginFun& bfun, EndFun& efun) const
-        {
-            return Result(rng, bfun, efun);
-        }
-
-        template< class Result, class Range, class RangeFun >
-        Result call(Range& rng, RangeFun& fun) const
-        {
-            return Result(rng, fun);
-        }
+        typedef apply_range<Range> const type;
     };
 
+    template< class Result, class Range, class BeginFun, class EndFun >
+    Result call(Range& rng, BeginFun& bfun, EndFun& efun) const
+    {
+        return Result(rng, bfun, efun);
+    }
 
-} // namespace apply_range_detail
+    template< class Result, class Range, class RangeFun >
+    Result call(Range& rng, RangeFun& fun) const
+    {
+        return Result(rng, fun);
+    }
+};
 
 
-PSTADE_EGG_FUNCTION(make_apply_range, apply_range_detail::baby_make)
+PSTADE_SINGLETON_CONST(make_apply_range, op_make_apply_range)
 PSTADE_PIPABLE(applied, op_make_apply_range)
 
 

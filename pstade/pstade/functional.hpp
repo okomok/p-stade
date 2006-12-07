@@ -20,18 +20,18 @@
 
 
 #include <boost/mpl/if.hpp> // if_c
-#include <boost/type_traits/add_reference.hpp>
 #include <boost/type_traits/is_same.hpp>
+#include <boost/type_traits/remove_cv.hpp>
 #include <boost/utility/addressof.hpp>
 #include <boost/utility/enable_if.hpp> // disable_if
 #include <boost/utility/result_of.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/affect.hpp>
-#include <pstade/egg/function.hpp>
-#include <pstade/egg/function_adaptor.hpp>
+#include <pstade/callable.hpp>
+#include <pstade/function_adaptor.hpp>
 #include <pstade/instance.hpp>
 #include <pstade/pass_by.hpp>
-#include <pstade/remove_cvr.hpp>
+#include <pstade/singleton.hpp>
 #include <pstade/yes_no.hpp>
 
 
@@ -43,25 +43,23 @@ PSTADE_ADL_BARRIER(functional) {
     // identity
     //
 
-    namespace identity_detail {
-
-        struct baby
+    struct op_identity :
+        callable<op_identity>
+    {
+        template< class Myself, class T >
+        struct apply
         {
-            template< class Myself, class T >
-            struct apply :
-                boost::add_reference<T>
-            { };
-
-            template< class Result, class T >
-            Result call(T& x) const
-            {
-                return x;
-            }
+            typedef T& type;
         };
 
-    } // namespace identity_detail
+        template< class Result, class T >
+        Result call(T& x) const
+        {
+            return x;
+        }
+    };
 
-    PSTADE_EGG_FUNCTION(identity, identity_detail::baby)
+    PSTADE_SINGLETON_CONST(identity, op_identity)
 
 
     // not_
@@ -70,12 +68,13 @@ PSTADE_ADL_BARRIER(functional) {
     namespace not_detail {
 
         template< class Predicate >
-        struct baby_op_result
+        struct op_result :
+            callable< op_result<Predicate> > 
         {
-            explicit baby_op_result() // DefaultConstructible iif 'Predicate' is.
+            explicit op_result() // DefaultConstructible iif 'Predicate' is.
             { }
 
-            explicit baby_op_result(Predicate const& pred) :
+            explicit op_result(Predicate const& pred) :
                 m_pred(pred)
             { }
 
@@ -98,12 +97,12 @@ PSTADE_ADL_BARRIER(functional) {
             }
 
         private:
-            mutable Predicate m_pred;
+            Predicate m_pred;
         };
 
     } // namespace not_detail
 
-    PSTADE_EGG_FUNCTION_ADAPTOR(not_, not_detail::baby_op_result)
+    PSTADE_FUNCTION_ADAPTOR(not_, not_detail::op_result)
 
 
     // always
@@ -132,24 +131,25 @@ PSTADE_ADL_BARRIER(functional) {
             T *m_px;
         };
 
-        struct baby
-        {
-            template< class Myself, class T >
-            struct apply
-            {
-                typedef op_result<T> type;
-            };
-
-            template< class Result, class T >
-            Result call(T& x) const
-            {
-                return Result(x);
-            }
-        };
-
     } // namespace always_detail
 
-    PSTADE_EGG_FUNCTION(always, always_detail::baby)
+    struct op_always :
+        callable<op_always>
+    {
+        template< class Myself, class T >
+        struct apply
+        {
+            typedef always_detail::op_result<T> type;
+        };
+
+        template< class Result, class T >
+        Result call(T& x) const
+        {
+            return Result(x);
+        }
+    };
+
+    PSTADE_SINGLETON_CONST(always, op_always)
 
 
     // equal_to
@@ -215,8 +215,8 @@ PSTADE_ADL_BARRIER(functional) {
         struct deduce_result
         {
         private:
-            typedef typename remove_cvr<X>::type x_t;
-            typedef typename remove_cvr<Y>::type y_t;
+            typedef typename boost::remove_cv<X>::type x_t;
+            typedef typename boost::remove_cv<Y>::type y_t;
 
             template< class X_, class Y_ > static
             yes test(X_ const&);
@@ -241,18 +241,16 @@ PSTADE_ADL_BARRIER(functional) {
 
     } // namespace plus_detail
 
-    struct op_plus
+    struct op_plus :
+        callable<op_plus>
     {
-        template< class Signature >
-        struct result;
-
-        template< class _, class X, class Y >
-        struct result<_(X, Y)> :
+        template< class Myself, class X, class Y >
+        struct apply :
             plus_detail::deduce_result<X, Y>
         { };
 
-        template< class X, class Y >
-        typename result<int(X, Y)>::type operator()(X const& x, Y const& y) const
+        template< class Result, class X, class Y >
+        Result call(X const& x, Y const& y) const
         {
             return x + y;
         }
@@ -264,57 +262,51 @@ PSTADE_ADL_BARRIER(functional) {
     // at_first
     //
 
-    namespace at_first_detail {
+    struct op_at_first :
+        callable<op_at_first>
+    {
+        template< class Myself, class Pair >
+        struct apply :
+            boost::add_reference<
+                typename affect_const<
+                    Pair, typename Pair::first_type
+                >::type
+            >
+        { };
 
-        struct baby
+        template< class Result, class Pair >
+        Result call(Pair& x) const
         {
-            template< class Myself, class Pair >
-            struct apply :
-                boost::add_reference<
-                    typename affect_const<
-                        Pair, typename Pair::first_type
-                    >::type
-                >
-            { };
+            return x.first;
+        }
+    };
 
-            template< class Result, class Pair >
-            Result call(Pair& x) const
-            {
-                return x.first;
-            }
-        };
-
-    } // namespace at_first_detail
-
-    PSTADE_EGG_FUNCTION(at_first, at_first_detail::baby)
+    PSTADE_SINGLETON_CONST(at_first, op_at_first)
 
 
     // at_second
     //
 
-    namespace at_second_detail {
+    struct op_at_second :
+        callable<op_at_second>
+    {
+        template< class Myself, class Pair >
+        struct apply :
+            boost::add_reference<
+                typename affect_const<
+                    Pair, typename Pair::second_type
+                >::type
+            >
+        { };
 
-        struct baby
+        template< class Result, class Pair >
+        Result call(Pair& x) const
         {
-            template< class Myself, class Pair >
-            struct apply :
-                boost::add_reference<
-                    typename affect_const<
-                        Pair, typename Pair::second_type
-                    >::type
-                >
-            { };
+            return x.second;
+        }
+    };
 
-            template< class Result, class Pair >
-            Result call(Pair& x) const
-            {
-                return x.second;
-            }
-        };
-
-    } // namespace at_second_detail
-
-    PSTADE_EGG_FUNCTION(at_second, at_second_detail::baby)
+    PSTADE_SINGLETON_CONST(at_second, op_at_second)
 
 
     // flip
@@ -323,12 +315,13 @@ PSTADE_ADL_BARRIER(functional) {
     namespace flip_detail {
 
         template< class BinaryFun >
-        struct baby_op_result
+        struct op_result :
+            callable< op_result<BinaryFun> >
         {
-            explicit baby_op_result()
+            explicit op_result()
             { }
 
-            explicit baby_op_result(BinaryFun const& fun) :
+            explicit op_result(BinaryFun const& fun) :
                 m_fun(fun)
             { }
 
@@ -344,12 +337,12 @@ PSTADE_ADL_BARRIER(functional) {
             }
 
         private:
-            mutable BinaryFun m_fun;
+            BinaryFun m_fun;
         };
 
     } // namespace flip_detail
 
-    PSTADE_EGG_FUNCTION_ADAPTOR(flip, flip_detail::baby_op_result)
+    PSTADE_FUNCTION_ADAPTOR(flip, flip_detail::op_result)
 
 
 } // ADL barrier

@@ -16,7 +16,6 @@
 #include <pstade/affect.hpp>
 #include <pstade/const.hpp>
 #include <pstade/const_overloaded.hpp>
-#include <pstade/egg/function.hpp>
 #include <pstade/nonassignable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"

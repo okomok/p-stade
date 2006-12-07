@@ -24,8 +24,9 @@
 #include <boost/preprocessor/stringize.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/type_traits/add_reference.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include <pstade/what.hpp>
 
 
@@ -58,42 +59,46 @@
 namespace pstade {
 
 
-struct require_error :
-    std::runtime_error
-{
-    explicit require_error(std::string const& what) :
-        std::runtime_error(what)
-    { }
-};
-
-
-namespace require_detail {
-
-
-    inline
-    void throw_error(std::string info)
+    struct require_error :
+        std::runtime_error
     {
-        require_error err(pstade::what("require", info));
-        boost::throw_exception(err);
-    }
+        explicit require_error(std::string const& what) :
+            std::runtime_error(what)
+        { }
+    };
 
 
-    inline
-    std::string make_info(char const *expr, char const *file, int line, char const *func, char const *msg)
-    {
-        // avoid stringstream and joint_range for code size
-        //
-        return 
-            pstade::what("file",        file) +
-            pstade::what("line",        line) +
-            pstade::what("expression",  expr) +
-            pstade::what("function",    func) +
-            pstade::what("message",     msg)
-        ;
-    }
+    namespace require_detail {
 
 
-    struct baby
+        inline
+        void throw_error(std::string info)
+        {
+            require_error err(pstade::what("require", info));
+            boost::throw_exception(err);
+        }
+
+
+        inline
+        std::string make_info(char const *expr, char const *file, int line, char const *func, char const *msg)
+        {
+            // avoid stringstream and joint_range for code size
+            //
+            return 
+                pstade::what("file",        file) +
+                pstade::what("line",        line) +
+                pstade::what("expression",  expr) +
+                pstade::what("function",    func) +
+                pstade::what("message",     msg)
+            ;
+        }
+
+
+    } // namespace require_detail
+
+
+    struct op_require :
+        callable<op_require>
     {
         template< class Myself, class T, class StringT = void >
         struct apply :
@@ -120,11 +125,8 @@ namespace require_detail {
     };
 
 
-} // namespace require_detail
-
-
-PSTADE_EGG_FUNCTION(require, require_detail::baby)
-PSTADE_PIPABLE(required, op_require)
+    PSTADE_SINGLETON_CONST(require, op_require)
+    PSTADE_PIPABLE(required, op_require)
 
 
 } // namespace pstade

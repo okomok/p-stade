@@ -12,8 +12,9 @@
 
 #include <boost/iterator/zip_iterator.hpp>
 #include <boost/tuple/tuple.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
@@ -96,49 +97,44 @@ public:
 };
 
 
-namespace zip_range_detail {
+struct op_make_zip_range :
+    callable<op_make_zip_range>
+{
+    template< class Myself, class RangeTupleOrRange0, class Range1 = void >
+    struct apply;
 
-
-    struct baby_make
+    // tuple
+    template< class Myself, class RangeTuple >
+    struct apply<Myself, RangeTuple>
     {
-        template< class Myself, class RangeTupleOrRange0, class Range1 = void >
-        struct apply;
-
-        // tuple
-        template< class Myself, class RangeTuple >
-        struct apply<Myself, RangeTuple>
-        {
-            typedef zip_range<RangeTuple> const type;
-        };
-
-        template< class Result, class RangeTuple >
-        Result call(RangeTuple& tup) const
-        {
-            return Result(tup);
-        }
-
-#if 1 // will be rejected.
-        // two ranges (primary)
-        template< class Myself, class Range0, class Range1 >
-        struct apply
-        {
-            typedef zip_range<boost::tuples::tuple<Range0&, Range1&> const> const type;
-        };
-
-        template< class Result, class Range0, class Range1 >
-        Result call(Range0& rng0, Range1& rng1) const
-        {
-            typedef typename Result::range_tuple_type tup_t;
-            return Result(tup_t(rng0, rng1));
-        }
-#endif
+        typedef zip_range<RangeTuple> const type;
     };
 
+    template< class Result, class RangeTuple >
+    Result call(RangeTuple& tup) const
+    {
+        return Result(tup);
+    }
 
-} // namespace zip_range_detail
+#if 1 // will be rejected.
+    // two ranges (primary)
+    template< class Myself, class Range0, class Range1 >
+    struct apply
+    {
+        typedef zip_range<boost::tuples::tuple<Range0&, Range1&> const> const type;
+    };
+
+    template< class Result, class Range0, class Range1 >
+    Result call(Range0& rng0, Range1& rng1) const
+    {
+        typedef typename Result::range_tuple_type tup_t;
+        return Result(tup_t(rng0, rng1));
+    }
+#endif
+};
 
 
-PSTADE_EGG_FUNCTION(make_zip_range, zip_range_detail::baby_make)
+PSTADE_SINGLETON_CONST(make_zip_range, op_make_zip_range)
 PSTADE_PIPABLE(zipped, op_make_zip_range)
 
 

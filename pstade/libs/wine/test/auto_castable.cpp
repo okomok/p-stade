@@ -17,7 +17,7 @@
 #include <boost/lexical_cast.hpp>
 
 
-struct lexical_cast_fun
+struct op_lexical_cast
 {
     // 'result_of' support isn't needed.
 

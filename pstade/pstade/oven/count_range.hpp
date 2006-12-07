@@ -17,6 +17,7 @@
 #include <boost/type_traits/remove_cv.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include <pstade/unused.hpp>
 #include <pstade/tupled.hpp>
 #include "./as_lightweight_proxy.hpp"
@@ -90,30 +91,24 @@ public:
 };
 
 
-namespace count_range_detail {
-
-
-    struct baby_make
+struct op_make_count_range :
+    callable<op_make_count_range>
+{
+    template< class Myself, class Incrementable, class Incrementable_ >
+    struct apply
     {
-        template< class Myself, class Incrementable, class Incrementable_ >
-        struct apply
-        {
-            typedef typename boost::remove_cv<Incrementable>::type inc_t;
-            typedef count_range<inc_t> const type;
-        };
-
-        template< class Result, class Incrementable >
-        Result call(Incrementable const& i, Incrementable const& j) const
-        {
-            return Result(i, j);
-        }
+        typedef typename boost::remove_cv<Incrementable>::type inc_t;
+        typedef count_range<inc_t> const type;
     };
 
+    template< class Result, class Incrementable >
+    Result call(Incrementable const& i, Incrementable const& j) const
+    {
+        return Result(i, j);
+    }
+};
 
-} // namespace count_range_detail
-
-
-PSTADE_EGG_FUNCTION(make_count_range, count_range_detail::baby_make)
+PSTADE_SINGLETON_CONST(make_count_range, op_make_count_range)
 PSTADE_PIPABLE(counted, boost::result_of<op_tupled(op_make_count_range)>::type)
 
 

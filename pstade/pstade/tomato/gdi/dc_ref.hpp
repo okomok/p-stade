@@ -18,7 +18,7 @@
 namespace pstade { namespace tomato {
 
 
-typedef detail::handle_ref<HDC, is_dc_fun>
+typedef detail::handle_ref<HDC, op_is_dc>
 dc_ref;
 
 

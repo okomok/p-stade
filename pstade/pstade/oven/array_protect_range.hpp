@@ -12,8 +12,9 @@
 
 #include <cstddef> // size_t
 #include <boost/type_traits/remove_extent.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./iter_range.hpp"
 
@@ -38,31 +39,26 @@ public:
 };
 
 
-namespace array_protect_range_detail {
-
-
-    struct baby_make
+struct op_make_array_protect_range :
+    callable<op_make_array_protect_range>
+{
+    template< class Myself, class Array >
+    struct apply
     {
-        template< class Myself, class Array >
-        struct apply
-        {
-            typedef array_protect_range<
-                typename boost::remove_extent<Array>::type
-            > const type;
-        };
-
-        template< class Result, class Array >
-        Result call(Array& arr) const
-        {
-            return Result(arr);
-        }
+        typedef array_protect_range<
+            typename boost::remove_extent<Array>::type
+        > const type;
     };
 
+    template< class Result, class Array >
+    Result call(Array& arr) const
+    {
+        return Result(arr);
+    }
+};
 
-} // namespace array_protect_range_detail
 
-
-PSTADE_EGG_FUNCTION(make_array_protect_range, array_protect_range_detail::baby_make)
+PSTADE_SINGLETON_CONST(make_array_protect_range, op_make_array_protect_range)
 PSTADE_PIPABLE(array_protected, op_make_array_protect_range)
 PSTADE_PIPABLE(as_array, op_make_array_protect_range)
 

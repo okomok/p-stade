@@ -22,17 +22,16 @@
 // at <boost/spirit/phoenix/function/detail/function_eval.hpp>
 
 
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 
 
 namespace pstade {
 
 
-namespace reference_detail {
-
-
-    struct baby
+    struct op_reference :
+        callable<op_reference>
     {
         template< class Myself, class T >
         struct apply
@@ -48,7 +47,8 @@ namespace reference_detail {
     };
 
 
-    struct baby_const
+    struct op_const_reference :
+        callable<op_const_reference>
     {
         template< class Myself, class T >
         struct apply
@@ -64,13 +64,10 @@ namespace reference_detail {
     };
 
 
-} // namespace reference_detail
-
-
-PSTADE_EGG_FUNCTION(reference, reference_detail::baby)
+PSTADE_SINGLETON_CONST(reference, op_reference)
 PSTADE_PIPABLE(to_reference, op_reference)
 
-PSTADE_EGG_FUNCTION(const_reference, reference_detail::baby_const)
+PSTADE_SINGLETON_CONST(const_reference, op_const_reference)
 PSTADE_PIPABLE(to_const_reference, op_const_reference)
 
 

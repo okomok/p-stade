@@ -13,9 +13,10 @@
 #include <boost/assert.hpp>
 #include <boost/checked_delete.hpp>
 #include <boost/iterator/iterator_traits.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/nullptr.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./check_range.hpp"
 #include "./concepts.hpp"
@@ -147,29 +148,24 @@ public:
 };
 
 
-namespace memoize_range_detail {
-
-
-    struct baby_make
+struct op_make_memoize_range :
+    callable<op_make_memoize_range>
+{
+    template< class Myself, class Range >
+    struct apply
     {
-        template< class Myself, class Range >
-        struct apply
-        {
-            typedef memoize_range<Range> const type;
-        };
-
-        template< class Result, class Range >
-        Result call(Range& rng) const
-        {
-            return Result(rng);
-        }
+        typedef memoize_range<Range> const type;
     };
 
+    template< class Result, class Range >
+    Result call(Range& rng) const
+    {
+        return Result(rng);
+    }
+};
 
-} // namespace memoize_range_detail
 
-
-PSTADE_EGG_FUNCTION(make_memoize_range, memoize_range_detail::baby_make)
+PSTADE_SINGLETON_CONST(make_memoize_range, op_make_memoize_range)
 PSTADE_PIPABLE(memoized, op_make_memoize_range)
 
 

@@ -11,8 +11,9 @@
 
 
 #include <boost/archive/iterators/mb_from_wchar.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
@@ -54,29 +55,24 @@ public:
 };
 
 
-namespace mb_encode_range_detail {
-
-
-    struct baby_make
+struct op_make_mb_encode_range :
+    callable<op_make_mb_encode_range>
+{
+    template< class Myself, class Range >
+    struct apply
     {
-        template< class Myself, class Range >
-        struct apply
-        {
-            typedef mb_encode_range<Range> const type;
-        };
-
-        template< class Result, class Range >
-        Result call(Range& rng) const
-        {
-            return Result(rng);
-        }
+        typedef mb_encode_range<Range> const type;
     };
 
+    template< class Result, class Range >
+    Result call(Range& rng) const
+    {
+        return Result(rng);
+    }
+};
 
-} // namespace mb_encode_range_detail
 
-
-PSTADE_EGG_FUNCTION(make_mb_encode_range, mb_encode_range_detail::baby_make)
+PSTADE_SINGLETON_CONST(make_mb_encode_range, op_make_mb_encode_range)
 PSTADE_PIPABLE(mb_encoded, op_make_mb_encode_range)
 
 

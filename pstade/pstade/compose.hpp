@@ -11,7 +11,7 @@
 
 
 #include <boost/utility/result_of.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/singleton.hpp>
@@ -26,7 +26,8 @@ namespace pstade {
 
 
         template< class F, class G >
-        struct baby_base
+        struct base_op_result :
+            callable< base_op_result<F, G> >
         {
             template< class Myself, class Arguments >
             struct apply
@@ -50,15 +51,15 @@ namespace pstade {
                 return m_f( pstade::tupled(m_g)(args) );
             }
 
-            explicit baby_base() // DefaultConstructible iff 'F' and 'G' are.
+            explicit base_op_result() // DefaultConstructible iff 'F' and 'G' are.
             { }
 
-            explicit baby_base(F const& f, G const& g) :
+            explicit base_op_result(F const& f, G const& g) :
                 m_f(f), m_g(g)
             { }
 
         private:
-            mutable F m_f;
+            F m_f;
             G m_g;
         };
 
@@ -71,15 +72,13 @@ namespace pstade {
         template< class Signature >
         struct result;
 
-        template< class _, class F, class G >
-        struct result<_(F, G)>
+        template< class Self, class F, class G >
+        struct result<Self(F, G)>
         {
             typedef
-                egg::function<
-                    compose_detail::baby_base<
-                        typename pass_by_value<F>::type,
-                        typename pass_by_value<G>::type
-                    >
+                compose_detail::base_op_result<
+                    typename pass_by_value<F>::type,
+                    typename pass_by_value<G>::type
                 >
             base_t;
 

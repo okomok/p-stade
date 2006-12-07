@@ -12,10 +12,11 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/functional.hpp> // plus
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
@@ -83,37 +84,32 @@ public:
 };
 
 
-namespace scan_range_detail {
-
-
-    struct baby_make
+struct op_make_scan_range :
+    callable<op_make_scan_range>
+{
+    template< class Myself, class Range, class State, class BinaryFun = op_plus >
+    struct apply
     {
-        template< class Myself, class Range, class State, class BinaryFun = op_plus >
-        struct apply
-        {
-            typedef typename pass_by_value<State>::type sta_t;
-            typedef typename pass_by_value<BinaryFun>::type fun_t;
-            typedef scan_range<Range, sta_t, fun_t> const type;
-        };
-
-        template< class Result, class Range, class State, class BinaryFun >
-        Result call(Range& rng, State const& init, BinaryFun& fun) const
-        {
-            return Result(rng, init, fun);
-        }
-
-        template< class Result, class Range, class State >
-        Result call(Range& rng, State const& init) const
-        {
-            return Result(rng, init);
-        }
+        typedef typename pass_by_value<State>::type sta_t;
+        typedef typename pass_by_value<BinaryFun>::type fun_t;
+        typedef scan_range<Range, sta_t, fun_t> const type;
     };
 
+    template< class Result, class Range, class State, class BinaryFun >
+    Result call(Range& rng, State const& init, BinaryFun& fun) const
+    {
+        return Result(rng, init, fun);
+    }
 
-} // namespace scan_range_detail
+    template< class Result, class Range, class State >
+    Result call(Range& rng, State const& init) const
+    {
+        return Result(rng, init);
+    }
+};
 
 
-PSTADE_EGG_FUNCTION(make_scan_range, scan_range_detail::baby_make)
+PSTADE_SINGLETON_CONST(make_scan_range, op_make_scan_range)
 PSTADE_PIPABLE(scanned, op_make_scan_range)
 
 

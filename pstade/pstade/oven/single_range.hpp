@@ -18,8 +18,9 @@
 
 
 #include <boost/utility/addressof.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./iter_range.hpp"
 
@@ -42,29 +43,24 @@ public:
 };
 
 
-namespace single_range_detail {
-
-
-    struct baby_make
+struct op_make_single_range :
+    callable<op_make_single_range>
+{
+    template< class Myself, class Value >
+    struct apply
     {
-        template< class Myself, class Value >
-        struct apply
-        {
-            typedef single_range<Value> const type;
-        };
-
-        template< class Result, class Value >
-        Result call(Value& v) const
-        {
-            return Result(v);
-        }
+        typedef single_range<Value> const type;
     };
 
+    template< class Result, class Value >
+    Result call(Value& v) const
+    {
+        return Result(v);
+    }
+};
 
-} // namespace single_range_detail
 
-
-PSTADE_EGG_FUNCTION(make_single_range, single_range_detail::baby_make)
+PSTADE_SINGLETON_CONST(make_single_range, op_make_single_range)
 PSTADE_PIPABLE(as_single, op_make_single_range)
 
 

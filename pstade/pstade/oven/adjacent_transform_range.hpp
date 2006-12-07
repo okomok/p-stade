@@ -21,9 +21,10 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include "./adjacent_transform_iterator.hpp"
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
@@ -80,30 +81,25 @@ public:
 };
 
 
-namespace adjacent_transform_range_detail {
-
-
-    struct baby_make
+struct op_make_adjacent_transform_range :
+    callable<op_make_adjacent_transform_range>
+{
+    template< class Myself, class Range, class BinaryFun >
+    struct apply
     {
-        template< class Myself, class Range, class BinaryFun >
-        struct apply
-        {
-            typedef typename pass_by_value<BinaryFun>::type fun_t;
-            typedef adjacent_transform_range<Range, fun_t> const type;
-        };
-
-        template< class Result, class Range, class BinaryFun >
-        Result call(Range& rng, BinaryFun& fun) const
-        {
-            return Result(rng, fun);
-        }
+        typedef typename pass_by_value<BinaryFun>::type fun_t;
+        typedef adjacent_transform_range<Range, fun_t> const type;
     };
 
+    template< class Result, class Range, class BinaryFun >
+    Result call(Range& rng, BinaryFun& fun) const
+    {
+        return Result(rng, fun);
+    }
+};
 
-} // namespace adjacent_transform_range_detail
 
-
-PSTADE_EGG_FUNCTION(make_adjacent_transform_range, adjacent_transform_range_detail::baby_make)
+PSTADE_SINGLETON_CONST(make_adjacent_transform_range, op_make_adjacent_transform_range)
 PSTADE_PIPABLE(adjacent_transformed, op_make_adjacent_transform_range)
 
 

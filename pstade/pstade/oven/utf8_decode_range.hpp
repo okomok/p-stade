@@ -12,9 +12,10 @@
 
 #include <boost/cstdint.hpp> // uint32_t
 #include <boost/regex/pending/unicode_iterator.hpp> // u8_to_u32_iterator
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
@@ -67,36 +68,31 @@ public:
 };
 
 
-namespace utf8_decode_range_detail {
-
-
-    struct baby_make
+struct op_make_utf8_decode_range :
+    callable<op_make_utf8_decode_range>
+{
+    template< class Myself, class Range, class Ucs4T = boost::uint32_t >
+    struct apply
     {
-        template< class Myself, class Range, class Ucs4T = boost::uint32_t >
-        struct apply
-        {
-            typedef typename pass_by_value<Ucs4T>::type ucs4_t;
-            typedef utf8_decode_range<Range, ucs4_t> const type;
-        };
-
-        template< class Result, class Range, class Ucs4T >
-        Result call(Range& rng, Ucs4T) const
-        {
-            return Result(rng);
-        }
-
-        template< class Result, class Range >
-        Result call(Range& rng) const
-        {
-            return Result(rng);
-        }
+        typedef typename pass_by_value<Ucs4T>::type ucs4_t;
+        typedef utf8_decode_range<Range, ucs4_t> const type;
     };
 
+    template< class Result, class Range, class Ucs4T >
+    Result call(Range& rng, Ucs4T) const
+    {
+        return Result(rng);
+    }
 
-} // namespace utf8_decode_range_detail
+    template< class Result, class Range >
+    Result call(Range& rng) const
+    {
+        return Result(rng);
+    }
+};
 
 
-PSTADE_EGG_FUNCTION(make_utf8_decode_range, utf8_decode_range_detail::baby_make)
+PSTADE_SINGLETON_CONST(make_utf8_decode_range, op_make_utf8_decode_range)
 PSTADE_PIPABLE(utf8_decoded, op_make_utf8_decode_range)
 
 

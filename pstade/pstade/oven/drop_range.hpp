@@ -11,8 +11,9 @@
 
 
 #include <boost/range/end.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./detail/debug_in_distance.hpp"
@@ -45,29 +46,24 @@ public:
 };
 
 
-namespace drop_range_detail {
-
-
-    struct baby_make
+struct op_make_drop_range :
+    callable<op_make_drop_range>
+{
+    template< class Myself, class Range, class Difference = void >
+    struct apply
     {
-        template< class Myself, class Range, class Difference = void >
-        struct apply
-        {
-            typedef drop_range<Range> const type;
-        };
-
-        template< class Result, class Range, class Difference >
-        Result call(Range& rng, Difference d) const
-        {
-            return Result(rng, d);
-        }
+        typedef drop_range<Range> const type;
     };
 
+    template< class Result, class Range, class Difference >
+    Result call(Range& rng, Difference d) const
+    {
+        return Result(rng, d);
+    }
+};
 
-} // namespace drop_range_detail
 
-
-PSTADE_EGG_FUNCTION(make_drop_range, drop_range_detail::baby_make)
+PSTADE_SINGLETON_CONST(make_drop_range, op_make_drop_range)
 PSTADE_PIPABLE(dropped, op_make_drop_range)
 
 

@@ -13,9 +13,10 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/xpressive/regex_iterator.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/const.hpp>
-#include <pstade/egg/function.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
@@ -75,29 +76,24 @@ public:
 };
 
 
-namespace xpressive_match_range_detail {
-
-
-    struct baby_make
+struct op_make_xpressive_match_range :
+    callable<op_make_xpressive_match_range>
+{
+    template< class Myself, class Range, class Regex, class Flag = void >
+    struct apply
     {
-        template< class Myself, class Range, class Regex, class Flag = void >
-        struct apply
-        {
-            typedef xpressive_match_range<Range> const type;
-        };
-
-        template< class Result, class Range, class Regex >
-        Result call(Range& rng, Regex const& re, match_flag_type flag = match_default) const
-        {
-            return Result(rng, re, flag);
-        }
+        typedef xpressive_match_range<Range> const type;
     };
 
+    template< class Result, class Range, class Regex >
+    Result call(Range& rng, Regex const& re, match_flag_type flag = match_default) const
+    {
+        return Result(rng, re, flag);
+    }
+};
 
-} // namespace xpressive_match_range_detail
 
-
-PSTADE_EGG_FUNCTION(make_xpressive_match_range, xpressive_match_range_detail::baby_make)
+PSTADE_SINGLETON_CONST(make_xpressive_match_range, op_make_xpressive_match_range)
 PSTADE_PIPABLE(xpressive_matches, op_make_xpressive_match_range)
 
 

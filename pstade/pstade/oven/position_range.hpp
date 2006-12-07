@@ -11,9 +11,10 @@
 
 
 #include <boost/spirit/iterator/position_iterator.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include <pstade/static_c.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
@@ -89,38 +90,33 @@ public:
 };
 
 
-namespace position_range_detail {
+struct op_make_position_range :
+    callable<op_make_position_range>
+{
+    typedef boost::spirit::file_position default_pos_t;
 
-
-    struct baby_make
+    template< class Myself, class Range, class PositionT = default_pos_t, class Int = void >
+    struct apply
     {
-        typedef boost::spirit::file_position default_pos_t;
-
-        template< class Myself, class Range, class PositionT = default_pos_t, class Int = void >
-        struct apply
-        {
-            typedef typename pass_by_value<PositionT>::type pos_t;
-            typedef position_range<Range, pos_t> const type;
-        };
-
-        template< class Result, class Range >
-        Result call(Range& rng) const
-        {
-            return Result(rng);
-        }
-
-        template< class Result, class Range, class PositionT >
-        Result call(Range& rng, PositionT const& pos, int tabchars = default_tabchars::value) const
-        {
-            return Result(rng, pos, tabchars);
-        }
+        typedef typename pass_by_value<PositionT>::type pos_t;
+        typedef position_range<Range, pos_t> const type;
     };
 
+    template< class Result, class Range >
+    Result call(Range& rng) const
+    {
+        return Result(rng);
+    }
 
-} // namespace position_range_detail
+    template< class Result, class Range, class PositionT >
+    Result call(Range& rng, PositionT const& pos, int tabchars = position_range_detail::default_tabchars::value) const
+    {
+        return Result(rng, pos, tabchars);
+    }
+};
 
 
-PSTADE_EGG_FUNCTION(make_position_range, position_range_detail::baby_make)
+PSTADE_SINGLETON_CONST(make_position_range, op_make_position_range)
 PSTADE_PIPABLE(with_position, op_make_position_range)
 
 

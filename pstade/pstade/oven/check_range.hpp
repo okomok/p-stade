@@ -12,8 +12,9 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./check_iterator.hpp"
 #include "./concepts.hpp"
@@ -63,29 +64,24 @@ public:
 };
 
 
-namespace check_range_detail {
-
-
-    struct baby_make
+struct op_make_check_range :
+    callable<op_make_check_range>
+{
+    template< class Myself, class Range >
+    struct apply
     {
-        template< class Myself, class Range >
-        struct apply
-        {
-            typedef check_range<Range> const type;
-        };
-
-        template< class Result, class Range >
-        Result call(Range& rng) const
-        {
-            return Result(rng);
-        }
+        typedef check_range<Range> const type;
     };
 
+    template< class Result, class Range >
+    Result call(Range& rng) const
+    {
+        return Result(rng);
+    }
+};
 
-} // namespace check_range_detail
 
-
-PSTADE_EGG_FUNCTION(make_check_range, check_range_detail::baby_make)
+PSTADE_SINGLETON_CONST(make_check_range, op_make_check_range)
 PSTADE_PIPABLE(checked, op_make_check_range)
 
 

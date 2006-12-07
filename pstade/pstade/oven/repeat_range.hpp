@@ -12,9 +12,10 @@
 
 #include <cstddef> // size_t
 #include <pstade/base_from.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./cycle_range.hpp"
 #include "./single_range.hpp"
@@ -64,30 +65,25 @@ public:
 };
 
 
-namespace repeat_range_detail {
-
-
-    struct baby_make
+struct op_make_repeat_range :
+    callable<op_make_repeat_range>
+{
+    template< class Myself, class Value, class Size >
+    struct apply
     {
-        template< class Myself, class Value, class Size >
-        struct apply
-        {
-            typedef typename pass_by_value<Size>::type sz_t;
-            typedef repeat_range<Value, sz_t> const type;
-        };
-
-        template< class Result, class Value, class Size >
-        Result call(Value& v, Size sz) const
-        {
-            return Result(v, sz);
-        }
+        typedef typename pass_by_value<Size>::type sz_t;
+        typedef repeat_range<Value, sz_t> const type;
     };
 
+    template< class Result, class Value, class Size >
+    Result call(Value& v, Size sz) const
+    {
+        return Result(v, sz);
+    }
+};
 
-} // namespace repeat_range_detail
 
-
-PSTADE_EGG_FUNCTION(make_repeat_range, repeat_range_detail::baby_make)
+PSTADE_SINGLETON_CONST(make_repeat_range, op_make_repeat_range)
 PSTADE_PIPABLE(repeated, op_make_repeat_range)
 
 

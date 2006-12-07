@@ -22,7 +22,7 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_params_with_a_default.hpp>
 #include <boost/tuple/tuple.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/preprocessor.hpp>
 
@@ -30,65 +30,59 @@
 namespace pstade {
 
 
-    namespace tie_detail {
-
-
-        struct baby
+    struct op_tie :
+        callable< op_tie, boost::tuples::tuple<> >
+    {
+        // PSTADE_CALLABLE_MAX_ARITY (primary)
+        template< class Myself, BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(PSTADE_CALLABLE_MAX_ARITY, class A, void) >
+        struct apply
         {
-            // PSTADE_EGG_MAX_ARITY (primary)
-            template< class Myself, BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(PSTADE_EGG_MAX_ARITY, class A, void) >
-            struct apply
-            {
-                typedef boost::tuples::tuple< PSTADE_PP_ENUM_REF_PARAMS(PSTADE_EGG_MAX_ARITY, A) > type;
-            };
+            typedef boost::tuples::tuple< PSTADE_PP_ENUM_REF_PARAMS(PSTADE_CALLABLE_MAX_ARITY, A) > type;
+        };
 
-            template< class Result, class A0, class A1, class A2, class A3, class A4 >
-            Result call( PSTADE_PP_ENUM_REF_PARAMS_WITH_OBJECTS(PSTADE_EGG_MAX_ARITY, A, a) ) const
-            {
-                return Result( BOOST_PP_ENUM_PARAMS(PSTADE_EGG_MAX_ARITY, a) );
-            }
+        template< class Result, class A0, class A1, class A2, class A3, class A4 >
+        Result call( PSTADE_PP_ENUM_REF_PARAMS_WITH_OBJECTS(PSTADE_CALLABLE_MAX_ARITY, A, a) ) const
+        {
+            return Result( BOOST_PP_ENUM_PARAMS(PSTADE_CALLABLE_MAX_ARITY, a) );
+        }
 
-            // 0ary
-            typedef
-                boost::tuples::tuple<>
-            nullary_result_type;
+        // 0ary
+        template< class Result >
+        Result call() const
+        {
+            return Result( );
+        }
 
-            template< class Result >
-            Result call() const
-            {
-                return Result( );
-            }
+        // 1ary
+        template< class Myself, class A0 >
+        struct apply< Myself, A0 >
+        {
+            typedef boost::tuples::tuple< A0& > type;
+        };
 
-            // 1ary
-            template< class Myself, class A0 >
-            struct apply< Myself, A0 >
-            {
-                typedef boost::tuples::tuple< A0& > type;
-            };
+        template< class Result, class A0>
+        Result call( A0& a0 ) const
+        {
+            return Result( a0 );
+        }
 
-            template< class Result, class A0>
-            Result call( A0& a0 ) const
-            {
-                return Result( a0 );
-            }
+        // 2ary-
+    #define PSTADE_max_arity BOOST_PP_DEC(PSTADE_CALLABLE_MAX_ARITY)
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_max_arity, <pstade/tie.hpp>))
+        #include BOOST_PP_ITERATE()
+    #undef  PSTADE_max_arity
 
-            // 2ary-
-        #define PSTADE_max_arity BOOST_PP_DEC(PSTADE_EGG_MAX_ARITY)
-            #define  BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_max_arity, <pstade/tie.hpp>))
-            #include BOOST_PP_ITERATE()
-        #undef  PSTADE_max_arity
-
-        }; // struct baby
+    }; // struct baby
 
 
-    } // namespace tie_detail
-
-
-    PSTADE_EGG_FUNCTION(tie, tie_detail::baby)
+    PSTADE_SINGLETON_CONST(tie, op_tie)
     PSTADE_PIPABLE(tied, op_tie)
 
 
 } // namespace pstade
+
+
+PSTADE_CALLABLE_NULLARY_RESULT_TYPE((pstade)(op_tie))
 
 
 #endif

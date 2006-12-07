@@ -10,8 +10,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./const_lvalue_iterator.hpp"
 #include "./concepts.hpp"
@@ -57,29 +58,24 @@ public:
 };
 
 
-namespace const_lvalue_range_detail {
-
-
-    struct baby_make
+struct op_make_const_lvalue_range :
+    callable<op_make_const_lvalue_range>
+{
+    template< class Myself, class Range >
+    struct apply
     {
-        template< class Myself, class Range >
-        struct apply
-        {
-            typedef const_lvalue_range<Range> const type;
-        };
-
-        template< class Result, class Range >
-        Result call(Range& rng) const
-        {
-            return Result(rng);
-        }
+        typedef const_lvalue_range<Range> const type;
     };
 
+    template< class Result, class Range >
+    Result call(Range& rng) const
+    {
+        return Result(rng);
+    }
+};
 
-} // namespace const_lvalue_range_detail
 
-
-PSTADE_EGG_FUNCTION(make_const_lvalue_range, const_lvalue_range_detail::baby_make)
+PSTADE_SINGLETON_CONST(make_const_lvalue_range, op_make_const_lvalue_range)
 PSTADE_PIPABLE(const_lvalues, op_make_const_lvalue_range)
 
 

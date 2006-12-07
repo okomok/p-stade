@@ -17,8 +17,9 @@
 #include <boost/regex.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/utility/enable_if.hpp> // disable_if
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./iter_range.hpp"
 #include "./concepts.hpp"
@@ -103,36 +104,31 @@ public:
 };
 
 
-namespace token_range_detail {
-
-
-    struct baby_make
+struct op_make_token_range :
+    callable<op_make_token_range>
+{
+    template< class Myself, class Range, class Regex, class IntOrRndRange = void, class Flag = void >
+    struct apply
     {
-        template< class Myself, class Range, class Regex, class IntOrRndRange = void, class Flag = void >
-        struct apply
-        {
-            typedef token_range<Range> const type;
-        };
-
-        template< class Result, class Range, class Regex >
-        Result call(Range& rng, Regex const& re, int submatch = 0, match_flag_type flag = match_default) const
-        {
-            return Result(rng, re, submatch, flag);
-        }
-
-        template< class Result, class Range, class Regex, class RandRange >
-        typename boost::disable_if<boost::is_same<RandRange, int>, // for GCC
-        Result>::type call(Range& rng, Regex const& re, RandRange const& submatches, match_flag_type flag = match_default) const
-        {
-            return Result(rng, re, submatches, flag);
-        }
+        typedef token_range<Range> const type;
     };
 
+    template< class Result, class Range, class Regex >
+    Result call(Range& rng, Regex const& re, int submatch = 0, match_flag_type flag = match_default) const
+    {
+        return Result(rng, re, submatch, flag);
+    }
 
-} // namespace token_range_detail
+    template< class Result, class Range, class Regex, class RandRange >
+    typename boost::disable_if<boost::is_same<RandRange, int>, // for GCC
+    Result>::type call(Range& rng, Regex const& re, RandRange const& submatches, match_flag_type flag = match_default) const
+    {
+        return Result(rng, re, submatches, flag);
+    }
+};
 
 
-PSTADE_EGG_FUNCTION(make_token_range, token_range_detail::baby_make)
+PSTADE_SINGLETON_CONST(make_token_range, op_make_token_range)
 PSTADE_PIPABLE(tokenized, op_make_token_range)
 
 

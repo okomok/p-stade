@@ -585,14 +585,16 @@ PSTADE_OVEN_EXTENSION_TYPE((ATL)(CComBSTR))
 
 
 #include <pstade/apple/atl/comcli_fwd.hpp> // CAdapt
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/pass_by.hpp>
+#include <pstade/singleton.hpp>
 
 
 namespace pstade { namespace oven {
 
 
-    struct baby_make_CAdapt
+    struct op_make_CAdapt :
+        callable<op_make_CAdapt>
     {
         template< class Myself, class T >
         struct apply
@@ -607,7 +609,7 @@ namespace pstade { namespace oven {
         }
     };
 
-    PSTADE_EGG_FUNCTION(make_CAdapt, baby_make_CAdapt)
+    PSTADE_SINGLETON_CONST(make_CAdapt, op_make_CAdapt)
 
 
 } } // namespae pstade::oven

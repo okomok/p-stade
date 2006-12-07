@@ -10,8 +10,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./sub_range_base.hpp"
@@ -40,29 +41,24 @@ public:
 };
 
 
-namespace always_range_detail {
-
-
-    struct baby_make
+struct op_make_always_range :
+    callable<op_make_always_range>
+{
+    template< class Myself, class Unused, class Range >
+    struct apply
     {
-        template< class Myself, class Unused, class Range >
-        struct apply
-        {
-            typedef always_range<Range> const type;
-        };
-
-        template< class Result, class Unused, class Range>
-        Result call(Unused& _, Range& rng) const
-        {
-            return Result(_, rng);
-        }
+        typedef always_range<Range> const type;
     };
 
+    template< class Result, class Unused, class Range>
+    Result call(Unused& _, Range& rng) const
+    {
+        return Result(_, rng);
+    }
+};
 
-} // namespace always_range_detail
 
-
-PSTADE_EGG_FUNCTION(make_always_range, always_range_detail::baby_make)
+PSTADE_SINGLETON_CONST(make_always_range, op_make_always_range)
 PSTADE_PIPABLE(always, op_make_always_range)
 
 

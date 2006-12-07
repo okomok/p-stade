@@ -13,8 +13,8 @@
 #include <boost/preprocessor/cat.hpp>
 #include <boost/type.hpp>
 #include <boost/utility/result_of.hpp>
-#include <pstade/egg/function.hpp>
-#include <pstade/egg/function_adaptor.hpp>
+#include <pstade/callable.hpp>
+#include <pstade/function_adaptor.hpp>
 #include <pstade/nonassignable.hpp>
 
 
@@ -39,13 +39,14 @@ namespace pstade {
             }
 
         private:
-            mutable CastFunction m_fun;
+            CastFunction m_fun;
             From& m_from;
         };
 
 
         template< class CastFunction >
-        struct baby_op_result
+        struct op_result :
+            callable< op_result<CastFunction> >
         {
             template< class Myself, class From >
             struct apply
@@ -59,10 +60,10 @@ namespace pstade {
                 return Result(m_fun, from);
             }
 
-            explicit baby_op_result() // DefaultConstructible iif 'CastFunction' is.
+            explicit op_result() // DefaultConstructible iif 'CastFunction' is.
             { }
 
-            explicit baby_op_result(CastFunction const& fun) :
+            explicit op_result(CastFunction const& fun) :
                 m_fun(fun)
             { }
 
@@ -74,7 +75,7 @@ namespace pstade {
     } // namespace auto_castable_detail
 
 
-    PSTADE_EGG_FUNCTION_ADAPTOR(auto_castable, auto_castable_detail::baby_op_result)
+    PSTADE_FUNCTION_ADAPTOR(auto_castable, auto_castable_detail::op_result)
 
 
     #define PSTADE_AUTO_CASTABLE(Object, CastFunction) \

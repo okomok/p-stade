@@ -35,19 +35,19 @@ struct bar_fun
 
 using namespace pstade;
 
-
+/*
 BOOST_MPL_ASSERT((
     boost::is_same<
         std::string,
         boost::result_of<
             boost::result_of<
-                op_compose(value_fun const, bar_fun)
+                op_compose(op_value const, bar_fun)
             >::type
             (char)
         >::type
     >
 ));
-
+*/
 
 void test()
 {

@@ -17,9 +17,10 @@
 
 
 #include <boost/utility/result_of.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include <pstade/tupled.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./range_base.hpp"
@@ -76,30 +77,25 @@ public:
 };
 
 
-namespace zip_with_range_detail {
-
-
-    struct baby_make
+struct op_make_zip_with_range :
+    callable<op_make_zip_with_range>
+{
+    template< class Myself, class RangeTuple, class Function >
+    struct apply
     {
-        template< class Myself, class RangeTuple, class Function >
-        struct apply
-        {
-            typedef typename pass_by_value<Function>::type fun_t;
-            typedef zip_with_range<RangeTuple, fun_t> const type;
-        };
-
-        template< class Result, class RangeTuple, class Function >
-        Result call(RangeTuple& tup, Function& fun) const
-        {
-            return Result(tup, fun);
-        }
+        typedef typename pass_by_value<Function>::type fun_t;
+        typedef zip_with_range<RangeTuple, fun_t> const type;
     };
 
+    template< class Result, class RangeTuple, class Function >
+    Result call(RangeTuple& tup, Function& fun) const
+    {
+        return Result(tup, fun);
+    }
+};
 
-} // namespace zip_with_range_detail
 
-
-PSTADE_EGG_FUNCTION(make_zip_with_range, zip_with_range_detail::baby_make)
+PSTADE_SINGLETON_CONST(make_zip_with_range, op_make_zip_with_range)
 PSTADE_PIPABLE(zipped_with, op_make_zip_with_range)
 
 

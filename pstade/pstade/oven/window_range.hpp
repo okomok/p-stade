@@ -12,8 +12,9 @@
 
 #include <boost/assert.hpp>
 #include <boost/range/begin.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./detail/next_prior.hpp" // next
@@ -63,29 +64,24 @@ public:
 };
 
 
-namespace window_range_detail {
-
-
-    struct baby_make
+struct op_make_window_range :
+    callable<op_make_window_range>
+{
+    template< class Myself, class Range, class Difference, class Difference_ >
+    struct apply
     {
-        template< class Myself, class Range, class Difference, class Difference_ >
-        struct apply
-        {
-            typedef window_range<Range> const type;
-        };
-
-        template< class Result, class Range, class Difference >
-        Result call(Range& rng, Difference n, Difference m) const
-        {
-            return Result(rng, n, m);
-        }
+        typedef window_range<Range> const type;
     };
 
+    template< class Result, class Range, class Difference >
+    Result call(Range& rng, Difference n, Difference m) const
+    {
+        return Result(rng, n, m);
+    }
+};
 
-} // namespace window_range_detail
 
-
-PSTADE_EGG_FUNCTION(make_window_range, window_range_detail::baby_make)
+PSTADE_SINGLETON_CONST(make_window_range, op_make_window_range)
 PSTADE_PIPABLE(through_window, op_make_window_range)
 
 

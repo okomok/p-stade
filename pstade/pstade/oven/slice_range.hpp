@@ -13,8 +13,9 @@
 #include <boost/assert.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./distance.hpp"
@@ -86,29 +87,24 @@ public:
 };
 
 
-namespace slice_range_detail {
-
-
-    struct baby_make
+struct op_make_slice_range :
+    callable<op_make_slice_range>
+{
+    template< class Myself, class Range, class Difference, class Difference_ >
+    struct apply
     {
-        template< class Myself, class Range, class Difference, class Difference_ >
-        struct apply
-        {
-            typedef slice_range<Range> const type;
-        };
-
-        template< class Result, class Range, class Difference >
-        Result call(Range& rng, Difference start, Difference stride) const
-        {
-            return Result(rng, start, stride);
-        }
+        typedef slice_range<Range> const type;
     };
 
+    template< class Result, class Range, class Difference >
+    Result call(Range& rng, Difference start, Difference stride) const
+    {
+        return Result(rng, start, stride);
+    }
+};
 
-} // namespace slice_range_detail
 
-
-PSTADE_EGG_FUNCTION(make_slice_range, slice_range_detail::baby_make)
+PSTADE_SINGLETON_CONST(make_slice_range, op_make_slice_range)
 PSTADE_PIPABLE(sliced, op_make_slice_range)
 
 

@@ -17,8 +17,9 @@
 
 
 #include <boost/range/begin.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./detail/range_prior.hpp"
 #include "./concepts.hpp"
@@ -47,29 +48,24 @@ public:
 };
 
 
-namespace pop_range_detail {
-
-
-    struct baby_make
+struct op_make_pop_range :
+    callable<op_make_pop_range>
+{
+    template< class Myself, class Range >
+    struct apply
     {
-        template< class Myself, class Range >
-        struct apply
-        {
-            typedef pop_range<Range> const type;
-        };
-
-        template< class Result, class Range >
-        Result call(Range& rng) const
-        {
-            return Result(rng);
-        }
+        typedef pop_range<Range> const type;
     };
 
+    template< class Result, class Range >
+    Result call(Range& rng) const
+    {
+        return Result(rng);
+    }
+};
 
-} // namespace pop_range_detail
 
-
-PSTADE_EGG_FUNCTION(make_pop_range, pop_range_detail::baby_make)
+PSTADE_SINGLETON_CONST(make_pop_range, op_make_pop_range)
 PSTADE_PIPABLE(popped, op_make_pop_range)
 
 

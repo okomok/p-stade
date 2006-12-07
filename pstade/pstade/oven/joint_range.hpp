@@ -12,8 +12,9 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
@@ -64,29 +65,24 @@ public:
 };
 
 
-namespace joint_range_detail {
-
-
-    struct baby_make
+struct op_make_joint_range :
+    callable<op_make_joint_range>
+{
+    template< class Myself, class RangeL, class RangeR >
+    struct apply
     {
-        template< class Myself, class RangeL, class RangeR >
-        struct apply
-        {
-            typedef joint_range<RangeL, RangeR> const type;
-        };
-
-        template< class Result, class RangeL, class RangeR >
-        Result call(RangeL& rngL, RangeR& rngR) const
-        {
-            return Result(rngL, rngR);
-        }
+        typedef joint_range<RangeL, RangeR> const type;
     };
 
+    template< class Result, class RangeL, class RangeR >
+    Result call(RangeL& rngL, RangeR& rngR) const
+    {
+        return Result(rngL, rngR);
+    }
+};
 
-} // namespace joint_range_detail
 
-
-PSTADE_EGG_FUNCTION(make_joint_range, joint_range_detail::baby_make)
+PSTADE_SINGLETON_CONST(make_joint_range, op_make_joint_range)
 PSTADE_PIPABLE(jointed, op_make_joint_range)
 
 

@@ -33,8 +33,9 @@
 #include <boost/type_traits/remove_reference.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <pstade/const_overloaded.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/remove_cvr.hpp>
+#include <pstade/singleton.hpp>
 #include "./detail/config.hpp" // PSTADE_OVEN_BOOST_RANGE_BEGIN etc.
 #include "./distance.hpp"
 
@@ -112,7 +113,8 @@ namespace pstade { namespace oven { namespace extension_detail {
     { };
 
 
-    struct baby_begin
+    struct op_begin :
+        callable<op_begin>
     {
         template< class Myself, class T >
         struct apply :
@@ -127,10 +129,11 @@ namespace pstade { namespace oven { namespace extension_detail {
         }
     };
 
-    PSTADE_EGG_FUNCTION(PSTADE_OVEN_BOOST_RANGE_BEGIN, baby_begin)
+    PSTADE_SINGLETON_CONST(PSTADE_OVEN_BOOST_RANGE_BEGIN, op_begin)
 
 
-    struct baby_end
+    struct op_end :
+        callable<op_end>
     {
         template< class Myself, class T >
         struct apply :
@@ -145,7 +148,7 @@ namespace pstade { namespace oven { namespace extension_detail {
         }
     };
 
-    PSTADE_EGG_FUNCTION(PSTADE_OVEN_BOOST_RANGE_END, baby_end)
+    PSTADE_SINGLETON_CONST(PSTADE_OVEN_BOOST_RANGE_END, op_end)
 
 
     template< class T >
@@ -155,7 +158,8 @@ namespace pstade { namespace oven { namespace extension_detail {
         typedef typename boost::iterator_difference<miter_t>::type type;
     };
 
-    struct baby_size
+    struct op_size :
+        callable<op_size>
     {
         template< class Myself, class T >
         struct apply :
@@ -169,7 +173,7 @@ namespace pstade { namespace oven { namespace extension_detail {
         }
     };
 
-    PSTADE_EGG_FUNCTION(boost_range_size, baby_size)
+    PSTADE_SINGLETON_CONST(boost_range_size, op_size)
 
 
 } } } // namespace pstade::oven::extension_detail

@@ -43,6 +43,15 @@ void cfoo_( PSTADE_PP_ENUM_CREF_PARAMS(5, A) )
 }
 
 
+PSTADE_PP_DECLARE_TYPE(struct, (aaa))
+PSTADE_PP_DECLARE_TYPE(struct, (naaa)(nbbb)(ccc))
+
+PSTADE_PP_DECLARE_TEMPLATE(struct, (taaa), (class)(int)(char))
+PSTADE_PP_DECLARE_TEMPLATE(struct, (naaa)(nbbb)(tccc1), 3)
+PSTADE_PP_DECLARE_TEMPLATE(struct, (naaa)(nbbb)(tccc2), (class)(int)(unsigned int))
+
+
+
 void test()
 {
     int i = 0;

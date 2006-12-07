@@ -32,13 +32,14 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <boost/utility/result_of.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/const.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/function_adaptor.hpp>
 #include <pstade/nonassignable.hpp>
-#include <pstade/pass_by.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/singleton.hpp>
 #include <pstade/tupled.hpp>
+#include <pstade/unparenthesize.hpp>
 
 
 namespace pstade {
@@ -49,30 +50,29 @@ namespace pstade {
 
         template< class Function, class Arguments = boost::tuples::tuple<> >
         struct pipe :
+            callable< pipe<Function, Arguments>, pipe<Function, Arguments> const& >,
             private nonassignable
         {
 
-            // PSTADE_EGG_MAX_ARITY (primary)
-            template< class Myself, BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(PSTADE_EGG_MAX_ARITY, class A, void) >
+            // PSTADE_CALLABLE_MAX_ARITY (primary)
+            template< class Myself, BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(PSTADE_CALLABLE_MAX_ARITY, class A, void) >
             struct apply
             {
                 typedef pipe< Function,
                     // tuple of references!
-                    boost::tuples::tuple< PSTADE_PP_ENUM_REF_PARAMS(PSTADE_EGG_MAX_ARITY, A) >
+                    boost::tuples::tuple< PSTADE_PP_ENUM_REF_PARAMS(PSTADE_CALLABLE_MAX_ARITY, A) >
                 > type;
             };
 
-            template< class Result, BOOST_PP_ENUM_PARAMS(PSTADE_EGG_MAX_ARITY, class A) >
-            Result call( PSTADE_PP_ENUM_REF_PARAMS_WITH_OBJECTS(PSTADE_EGG_MAX_ARITY, A, a) ) const
+            template< class Result, BOOST_PP_ENUM_PARAMS(PSTADE_CALLABLE_MAX_ARITY, class A) >
+            Result call( PSTADE_PP_ENUM_REF_PARAMS_WITH_OBJECTS(PSTADE_CALLABLE_MAX_ARITY, A, a) ) const
             {
                 return Result( m_fun,
-                    typename Result::arguments_type( BOOST_PP_ENUM_PARAMS(PSTADE_EGG_MAX_ARITY, a) )
+                    typename Result::arguments_type( BOOST_PP_ENUM_PARAMS(PSTADE_CALLABLE_MAX_ARITY, a) )
                 );
             }
 
             // 0ary
-            typedef pipe const& nullary_result_type;
-
             template< class Result >
             Result call( ) const
             {
@@ -97,7 +97,7 @@ namespace pstade {
             }
 
             // 2ary-
-        #define PSTADE_max_arity BOOST_PP_DEC(PSTADE_EGG_MAX_ARITY)
+        #define PSTADE_max_arity BOOST_PP_DEC(PSTADE_CALLABLE_MAX_ARITY)
             #define  BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_max_arity, <pstade/pipable.hpp>))
             #include BOOST_PP_ITERATE()
         #undef  PSTADE_max_arity
@@ -181,51 +181,10 @@ namespace pstade {
         };
 
 
-        // For "passed as is".
-        // 'egg::function<T>' is derived from 'T', so in fact it works fine without this.
-        // But the overloads with explicit type make sure to win the overload-resolution race!
-        //
-
-        template< class A, class Function, class Arguments > inline
-        typename result_of_output<A, Function, Arguments>::type
-        operator|(A& a, egg::function< pipe<Function, Arguments> > const& pi)
-        {
-            return pipable_detail::output<
-                typename result_of_output<A, Function, Arguments>::type
-            >(a, pi);
-        };
-
-        template< class A, class Function, class Arguments > inline
-        typename result_of_output<PSTADE_CONST(A), Function, Arguments>::type
-        operator|(A const& a, egg::function< pipe<Function, Arguments> > const& pi)
-        {
-            return pipable_detail::output<
-                typename result_of_output<PSTADE_CONST(A), Function, Arguments>::type
-            >(a, pi);
-        };
-
-
-        struct baby
-        {
-            template< class Myself, class Function >
-            struct apply
-            {
-                typedef typename pass_by_value<Function>::type fun_t;
-                typedef egg::function< pipe<fun_t> > type; // makes 'pipe' callable.
-            };
-
-            template< class Result, class Function >
-            Result call(Function& fun) const
-            {
-                return Result(fun);
-            }
-        };
-
-
     } // namespace pipable_detail
 
 
-    PSTADE_EGG_FUNCTION(pipable, pipable_detail::baby)
+    PSTADE_FUNCTION_ADAPTOR(pipable, pipable_detail::pipe)
 
 
     #define PSTADE_PIPABLE(Object, Function) \
@@ -234,6 +193,9 @@ namespace pstade {
 
 
 } // namespace pstade
+
+
+PSTADE_CALLABLE_NULLARY_RESULT_TEMPLATE((pstade)(pipable_detail)(pipe), 2)
 
 
 #endif

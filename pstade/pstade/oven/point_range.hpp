@@ -15,9 +15,10 @@
 #include <boost/range/empty.hpp>
 #include <boost/type_traits/is_pointer.hpp>
 #include <boost/utility/addressof.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/nullptr.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./distance.hpp"
@@ -77,30 +78,24 @@ public:
 };
 
 
-namespace point_range_detail {
-
-
-    struct baby_make
+struct op_make_point_range :
+    callable<op_make_point_range>
+{
+    template< class Myself, class ContiguousRange >
+    struct apply
     {
-        template< class Myself, class ContiguousRange >
-        struct apply
-        {
-            typedef point_range<ContiguousRange> const type;
-        };
-
-        template< class Result, class ContiguousRange >
-        Result call(ContiguousRange& rng) const
-        {
-            return Result(rng);
-        }
+        typedef point_range<ContiguousRange> const type;
     };
 
+    template< class Result, class ContiguousRange >
+    Result call(ContiguousRange& rng) const
+    {
+        return Result(rng);
+    }
+};
 
-} // namespace point_range_detail
 
-
-
-PSTADE_EGG_FUNCTION(make_point_range, point_range_detail::baby_make)
+PSTADE_SINGLETON_CONST(make_point_range, op_make_point_range)
 PSTADE_PIPABLE(pointed, op_make_point_range)
 
 

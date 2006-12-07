@@ -22,11 +22,11 @@
 #include <string>
 #include <boost/current_function.hpp>
 #include <boost/preprocessor/stringize.hpp>
-#include <boost/type_traits/add_reference.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/instance.hpp>
 #include <pstade/napkin/ostream.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include <pstade/what.hpp>
 
 
@@ -59,40 +59,44 @@
 namespace pstade {
 
 
-namespace check_detail {
+    namespace check_detail {
 
 
-    PSTADE_INSTANCE(napkin::ostream, os, value)
+        PSTADE_INSTANCE(napkin::ostream, os, value)
 
 
-    inline
-    void report(std::string info)
-    {
-        os << pstade::what("check", info);
-    }
+        inline
+        void report(std::string info)
+        {
+            os << pstade::what("check", info);
+        }
 
 
-    inline
-    std::string make_info(char const *expr, char const *file, int line, char const *func, char const *msg)
-    {
-        std::ostringstream info;
-        info <<
-            pstade::what("file",        file) <<
-            pstade::what("line",        line) <<
-            pstade::what("expression",  expr) <<
-            pstade::what("function",    func) <<
-            pstade::what("message",     msg);
+        inline
+        std::string make_info(char const *expr, char const *file, int line, char const *func, char const *msg)
+        {
+            std::ostringstream info;
+            info <<
+                pstade::what("file",        file) <<
+                pstade::what("line",        line) <<
+                pstade::what("expression",  expr) <<
+                pstade::what("function",    func) <<
+                pstade::what("message",     msg);
 
-        return info.str();
-    }
+            return info.str();
+        }
+
+    } // namespace check_detail
 
 
-    struct baby
+    struct op_check :
+        callable<op_check>
     {
         template< class Myself, class T, class StringT >
-        struct apply :
-            boost::add_reference<T>
-        { };
+        struct apply
+        {
+            typedef T& type;
+        };
 
         template< class Result, class T, class StringT >
         Result call(T& x, StringT& info) const
@@ -104,19 +108,15 @@ namespace check_detail {
         }
     };
 
-
-} // namespace check_detail
-
-
-PSTADE_EGG_FUNCTION(check, check_detail::baby)
-PSTADE_PIPABLE(checked, op_check)
+    PSTADE_SINGLETON_CONST(check, op_check)
+    PSTADE_PIPABLE(checked, op_check)
 
 
-template< class StringOutputable > inline
-void check_reset_ostream(StringOutputable& out)
-{
-    check_detail::os.reset(out);
-}
+    template< class StringOutputable > inline
+    void check_reset_ostream(StringOutputable& out)
+    {
+        check_detail::os.reset(out);
+    }
 
 
 } // namespace pstade

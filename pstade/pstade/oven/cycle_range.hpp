@@ -11,9 +11,10 @@
 
 
 #include <cstddef> // size_t
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/pass_by.hpp>
+#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./cycle_iterator.hpp"
@@ -77,30 +78,25 @@ public:
 };
 
 
-namespace cycle_range_detail {
-
-
-    struct baby_make
+struct op_make_cycle_range :
+    callable<op_make_cycle_range>
+{
+    template< class Myself, class Range, class Size >
+    struct apply
     {
-        template< class Myself, class Range, class Size >
-        struct apply
-        {
-            typedef typename pass_by_value<Size>::type sz_t;
-            typedef cycle_range<Range, sz_t> const type;
-        };
-
-        template< class Result, class Range, class Size >
-        Result call(Range& rng, Size sz) const
-        {
-            return Result(rng, sz);
-        }
+        typedef typename pass_by_value<Size>::type sz_t;
+        typedef cycle_range<Range, sz_t> const type;
     };
 
+    template< class Result, class Range, class Size >
+    Result call(Range& rng, Size sz) const
+    {
+        return Result(rng, sz);
+    }
+};
 
-} // namespace cycle_range_detail
 
-
-PSTADE_EGG_FUNCTION(make_cycle_range, cycle_range_detail::baby_make)
+PSTADE_SINGLETON_CONST(make_cycle_range, op_make_cycle_range)
 PSTADE_PIPABLE(cycled, op_make_cycle_range)
 
 

@@ -11,8 +11,9 @@
 
 
 #include <boost/algorithm/string/find_iterator.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
@@ -56,29 +57,24 @@ public:
 };
 
 
-namespace string_find_range_detail {
-
-
-    struct baby_make
+struct op_make_string_find_range :
+    callable<op_make_string_find_range>
+{
+    template< class Myself, class Range, class FinderT >
+    struct apply
     {
-        template< class Myself, class Range, class FinderT >
-        struct apply
-        {
-            typedef string_find_range<Range> const type;
-        };
-
-        template< class Result, class Range, class FinderT >
-        Result call(Range& rng, FinderT& f) const
-        {
-            return Result(rng, f);
-        }
+        typedef string_find_range<Range> const type;
     };
 
+    template< class Result, class Range, class FinderT >
+    Result call(Range& rng, FinderT& f) const
+    {
+        return Result(rng, f);
+    }
+};
 
-} // namespace string_find_range_detail
 
-
-PSTADE_EGG_FUNCTION(make_string_find_range, string_find_range_detail::baby_make)
+PSTADE_SINGLETON_CONST(make_string_find_range, op_make_string_find_range)
 PSTADE_PIPABLE(string_found, op_make_string_find_range)
 
 

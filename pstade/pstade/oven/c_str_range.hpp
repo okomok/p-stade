@@ -14,9 +14,10 @@
 #include <cstring> // strlen
 #include <cwchar>  // wcslen
 #include <boost/type_traits/remove_pointer.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./iter_range.hpp"
 
@@ -61,31 +62,26 @@ public:
 };
 
 
-namespace c_str_range_detail {
-
-
-    struct baby_make
+struct op_make_c_str_range :
+    callable<op_make_c_str_range>
+{
+    template< class Myself, class CString >
+    struct apply
     {
-        template< class Myself, class CString >
-        struct apply
-        {
-            typedef typename pass_by_value<CString>::type ptr_t;
-            typedef typename boost::remove_pointer<ptr_t>::type char_t;
-            typedef c_str_range<char_t> const type;
-        };
-
-        template< class Result, class Char >
-        Result call(Char *psz) const
-        {
-            return Result(psz);
-        }
+        typedef typename pass_by_value<CString>::type ptr_t;
+        typedef typename boost::remove_pointer<ptr_t>::type char_t;
+        typedef c_str_range<char_t> const type;
     };
 
+    template< class Result, class Char >
+    Result call(Char *psz) const
+    {
+        return Result(psz);
+    }
+};
 
-} // namespace c_str_range_detail
 
-
-PSTADE_EGG_FUNCTION(make_c_str_range, c_str_range_detail::baby_make)
+PSTADE_SINGLETON_CONST(make_c_str_range, op_make_c_str_range)
 PSTADE_PIPABLE(as_c_str, op_make_c_str_range)
 
 

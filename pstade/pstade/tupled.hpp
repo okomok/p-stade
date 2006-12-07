@@ -18,8 +18,8 @@
 #include <boost/type_traits/remove_cv.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/affect.hpp>
-#include <pstade/egg/function.hpp>
-#include <pstade/egg/function_adaptor.hpp>
+#include <pstade/callable.hpp>
+#include <pstade/function_adaptor.hpp>
 
 
 namespace pstade {
@@ -91,7 +91,8 @@ namespace pstade {
 
 
         template< class Function >
-        struct baby_op_result
+        struct op_result :
+            callable< op_result<Function> >
         {
             template< class Myself, class Tuple >
             struct apply
@@ -109,10 +110,10 @@ namespace pstade {
                 return tupled_detail::call_impl<Result>(m_fun, tup, n_t());
             }
 
-            explicit baby_op_result() // DefaultConstructible iff 'Function' is.
+            explicit op_result() // DefaultConstructible iff 'Function' is.
             { }
 
-            explicit baby_op_result(Function const& fun) :
+            explicit op_result(Function const& fun) :
                 m_fun(fun)
             { }
 
@@ -131,7 +132,7 @@ namespace pstade {
     } // namespace tupled_detail
 
 
-    PSTADE_EGG_FUNCTION_ADAPTOR(tupled, tupled_detail::baby_op_result)
+    PSTADE_FUNCTION_ADAPTOR(tupled, tupled_detail::op_result)
 
 
 } // namespace pstade

@@ -20,9 +20,10 @@
 
 #include <boost/type_traits/remove_reference.hpp>
 #include <pstade/affect.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/functional.hpp> // at_first
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./range_reference.hpp"
@@ -79,29 +80,24 @@ public:
 };
 
 
-namespace first_range_detail {
-
-
-    struct baby_make
+struct op_make_first_range :
+    callable<op_make_first_range>
+{
+    template< class Myself, class PairRange >
+    struct apply
     {
-        template< class Myself, class PairRange >
-        struct apply
-        {
-            typedef first_range<PairRange> const type;
-        };
-
-        template< class Result, class PairRange >
-        Result call(PairRange& rng) const
-        {
-            return Result(rng);
-        }
+        typedef first_range<PairRange> const type;
     };
 
+    template< class Result, class PairRange >
+    Result call(PairRange& rng) const
+    {
+        return Result(rng);
+    }
+};
 
-} // namespace first_range_detail
 
-
-PSTADE_EGG_FUNCTION(make_first_range, first_range_detail::baby_make)
+PSTADE_SINGLETON_CONST(make_first_range, op_make_first_range)
 PSTADE_PIPABLE(firsts, op_make_first_range)
 
 

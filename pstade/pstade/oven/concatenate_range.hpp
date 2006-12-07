@@ -12,7 +12,7 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concatenate_iterator.hpp"
@@ -65,29 +65,24 @@ public:
 };
 
 
-namespace concatenate_range_detail {
-
-
-    struct baby_make
+struct op_make_concatenate_range :
+    callable<op_make_concatenate_range>
+{
+    template< class Myself, class SegmentRange >
+    struct apply
     {
-        template< class Myself, class SegmentRange >
-        struct apply
-        {
-            typedef concatenate_range<SegmentRange> const type;
-        };
-
-        template< class Result, class SegmentRange >
-        Result call(SegmentRange& rngs) const
-        {
-            return Result(rngs);
-        }
+        typedef concatenate_range<SegmentRange> const type;
     };
 
+    template< class Result, class SegmentRange >
+    Result call(SegmentRange& rngs) const
+    {
+        return Result(rngs);
+    }
+};
 
-} // namespace concatenate_range_detail
 
-
-PSTADE_EGG_FUNCTION(make_concatenate_range, concatenate_range_detail::baby_make)
+PSTADE_SINGLETON_CONST(make_concatenate_range, op_make_concatenate_range)
 PSTADE_PIPABLE(concatenated, op_make_concatenate_range)
 
 

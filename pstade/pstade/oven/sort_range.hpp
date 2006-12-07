@@ -19,10 +19,11 @@
 
 
 #include <boost/ptr_container/indirect_fun.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/functional.hpp> // less
 #include <pstade/pass_by.hpp>
+#include <pstade/singleton.hpp>
 #include "./algorithm.hpp" // sort
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
@@ -91,36 +92,31 @@ public:
 };
 
 
-namespace sort_range_detail {
-
-
-    struct baby_make
+struct op_make_sort_range :
+    callable<op_make_sort_range>
+{
+    template< class Myself, class Range, class Compare = op_less >
+    struct apply
     {
-        template< class Myself, class Range, class Compare = op_less >
-        struct apply
-        {
-            typedef typename pass_by_value<Compare>::type comp_t;
-            typedef sort_range<Range, comp_t> const type;
-        };
-
-        template< class Result, class Range, class Compare >
-        Result call(Range& rng, Compare& comp) const
-        {
-            return Result(rng, comp);
-        }
-
-        template< class Result, class Range >
-        Result call(Range& rng) const
-        {
-            return Result(rng);
-        }
+        typedef typename pass_by_value<Compare>::type comp_t;
+        typedef sort_range<Range, comp_t> const type;
     };
 
+    template< class Result, class Range, class Compare >
+    Result call(Range& rng, Compare& comp) const
+    {
+        return Result(rng, comp);
+    }
 
-} // namespace sort_range_detail
+    template< class Result, class Range >
+    Result call(Range& rng) const
+    {
+        return Result(rng);
+    }
+};
 
 
-PSTADE_EGG_FUNCTION(make_sort_range, sort_range_detail::baby_make)
+PSTADE_SINGLETON_CONST(make_sort_range, op_make_sort_range)
 PSTADE_PIPABLE(sorted, op_make_sort_range)
 
 

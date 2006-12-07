@@ -30,8 +30,9 @@
 #include <boost/type_traits/is_pod.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/apple/wtl/user.hpp> // ::AtlIsOldWindows
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 
 
 namespace pstade_tomato_extension {
@@ -46,33 +47,28 @@ namespace pstade_tomato_extension {
 namespace pstade { namespace tomato {
 
 
-namespace size_initialize_detail {
+struct op_size_initialize :
+    callable<op_size_initialize>
+{
+    template< class Myself, class T >
+    struct apply :
+        boost::add_reference<T>
+    { };
 
-
-    struct baby
+    template< class Result, class T >
+    Result call(T& x) const
     {
-        template< class Myself, class T >
-        struct apply :
-            boost::add_reference<T>
-        { };
+    #if !BOOST_WORKAROUND(BOOST_MSVC, < 1400)  
+        BOOST_MPL_ASSERT((boost::is_pod<T>));
+    #endif
 
-        template< class Result, class T >
-        Result call(T& x) const
-        {
-        #if !BOOST_WORKAROUND(BOOST_MSVC, < 1400)  
-            BOOST_MPL_ASSERT((boost::is_pod<T>));
-        #endif
-
-            pstade_tomato_(pstade_tomato_extension::size_initialize(), x);
-            return x;
-        }
-    };
+        pstade_tomato_(pstade_tomato_extension::size_initialize(), x);
+        return x;
+    }
+};
 
 
-} // namespace size_initialize_detail
-
-
-PSTADE_EGG_FUNCTION(size_initialize, size_initialize_detail::baby)
+PSTADE_SINGLETON_CONST(size_initialize, op_size_initialize)
 PSTADE_PIPABLE(size_initialized, op_size_initialize)
 
 

@@ -18,8 +18,9 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/adl_barrier.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include "./range_iterator.hpp"
 
 
@@ -38,33 +39,36 @@ namespace begin_end_detail {
     };
 
 
-    struct baby_begin : with_apply
-    {
-        template< class Result, class Range >
-        Result call(Range& rng) const
-        {
-            return boost::begin(rng);
-        }
-    };
-
-
-    struct baby_end   : with_apply
-    {
-        template< class Result, class Range >
-        Result call(Range& rng) const
-        {
-            return boost::end(rng);
-        }
-    };
-
-
 } // namespace begin_end_detail
+
+
+struct op_begin :
+    begin_end_detail::with_apply,
+    callable<op_begin>
+{
+    template< class Result, class Range >
+    Result call(Range& rng) const
+    {
+        return boost::begin(rng);
+    }
+};
+
+struct op_end   :
+    begin_end_detail::with_apply,
+    callable<op_end>
+{
+    template< class Result, class Range >
+    Result call(Range& rng) const
+    {
+        return boost::end(rng);
+    }
+};
 
 
 PSTADE_ADL_BARRIER(begin_end) { // for Boost v1.33 'boost::const_begin/end'
 
-PSTADE_EGG_FUNCTION(begin, begin_end_detail::baby_begin)
-PSTADE_EGG_FUNCTION(end,   begin_end_detail::baby_end)
+PSTADE_SINGLETON_CONST(begin, op_begin)
+PSTADE_SINGLETON_CONST(end, op_end)
 
 } // ADL barrier
 

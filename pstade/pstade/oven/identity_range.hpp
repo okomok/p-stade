@@ -10,9 +10,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./identity_iterator.hpp"
@@ -65,36 +66,31 @@ public:
 };
 
 
-namespace identity_range_detail {
-
-
-    struct baby_make
+struct op_make_identity_range :
+    callable<op_make_identity_range>
+{
+    template< class Myself, class Range, class Traversal = boost::use_default >
+    struct apply
     {
-        template< class Myself, class Range, class Traversal = boost::use_default >
-        struct apply
-        {
-            typedef typename pass_by_value<Traversal>::type trv_t;
-            typedef identity_range<Range, trv_t> const type;
-        };
-
-        template< class Result, class Range, class Traversal >
-        Result call(Range& rng, Traversal) const
-        {
-            return Result(rng);
-        }
-
-        template< class Result, class Range >
-        Result call(Range& rng) const
-        {
-            return Result(rng);
-        }
+        typedef typename pass_by_value<Traversal>::type trv_t;
+        typedef identity_range<Range, trv_t> const type;
     };
 
+    template< class Result, class Range, class Traversal >
+    Result call(Range& rng, Traversal) const
+    {
+        return Result(rng);
+    }
 
-} // namespace identity_range_detail
+    template< class Result, class Range >
+    Result call(Range& rng) const
+    {
+        return Result(rng);
+    }
+};
 
 
-PSTADE_EGG_FUNCTION(make_identity_range, identity_range_detail::baby_make)
+PSTADE_SINGLETON_CONST(make_identity_range, op_make_identity_range)
 PSTADE_PIPABLE(identities, op_make_identity_range)
 
 

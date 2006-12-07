@@ -15,8 +15,6 @@
 
 
 #include <string>
-#include <pstade/egg/function.hpp>
-
 
 void test()
 {
