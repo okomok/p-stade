@@ -89,7 +89,7 @@ namespace reverse_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_reverse_range, reverse_range_detail::baby_make)
-PSTADE_PIPABLE(reversed, make_reverse_range_fun)
+PSTADE_PIPABLE(reversed, op_make_reverse_range)
 
 
 } } // namespace pstade::oven

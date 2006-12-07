@@ -21,7 +21,7 @@
 namespace pstade { namespace hamburger {
 
 
-    struct z_order_fun
+    struct op_z_order
     {
         typedef bool result_type;
 
@@ -42,10 +42,10 @@ namespace pstade { namespace hamburger {
         }
     };
 
-    PSTADE_SINGLETON_CONST(z_order_fun, z_order)
+    PSTADE_SINGLETON_CONST(z_order, op_z_order)
 
 
-    struct z_order_sort_fun
+    struct op_z_order_sort
     {
         typedef void result_type;
 
@@ -56,7 +56,7 @@ namespace pstade { namespace hamburger {
         }
     };
 
-    PSTADE_SINGLETON_CONST(z_order_sort_fun, z_order_sort)
+    PSTADE_SINGLETON_CONST(z_order_sort, op_z_order_sort)
 
 
 } } // namespace pstade::hamburger

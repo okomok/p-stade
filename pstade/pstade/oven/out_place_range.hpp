@@ -85,7 +85,7 @@ namespace out_place_range_detail {
 
 template<
     class Range,
-    class UnaryFun = unused_fun
+    class UnaryFun = op_unused
 >
 struct out_place_range :
     out_place_range_detail::super_<Range>::type,
@@ -112,7 +112,7 @@ namespace out_place_range_detail {
 
     struct baby_make
     {
-        template< class Myself, class Range, class UnaryFun = unused_fun >
+        template< class Myself, class Range, class UnaryFun = op_unused >
         struct apply
         {
             typedef typename pass_by_value<UnaryFun>::type fun_t;
@@ -137,7 +137,7 @@ namespace out_place_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_out_place_range, out_place_range_detail::baby_make)
-PSTADE_PIPABLE(out_placed, make_out_place_range_fun)
+PSTADE_PIPABLE(out_placed, op_make_out_place_range)
 
 
 } } // namespace pstade::oven

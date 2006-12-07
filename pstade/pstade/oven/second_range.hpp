@@ -45,7 +45,7 @@ namespace second_range_detail {
     {
         typedef transform_range<
             PairRange,
-            at_second_fun,
+            op_at_second,
             typename reference<PairRange>::type
         > type;
     };
@@ -94,7 +94,7 @@ namespace second_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_second_range, second_range_detail::baby_make)
-PSTADE_PIPABLE(seconds, make_second_range_fun)
+PSTADE_PIPABLE(seconds, op_make_second_range)
 
 
 } } // namespace pstade::oven

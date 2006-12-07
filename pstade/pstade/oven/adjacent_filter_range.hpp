@@ -91,7 +91,7 @@ namespace adjacent_filter_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_adjacent_filter_range, adjacent_filter_range_detail::baby_make)
-PSTADE_PIPABLE(adjacent_filtered, make_adjacent_filter_range_fun)
+PSTADE_PIPABLE(adjacent_filtered, op_make_adjacent_filter_range)
 
 
 } } // namespace pstade::oven

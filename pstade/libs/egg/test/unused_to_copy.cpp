@@ -43,14 +43,14 @@ PSTADE_EGG_FUNCTION(a_function, a_baby)
 void test()
 {
     {
-        a_function_fun a;
-        a_function_fun b(a);
+        op_a_function a;
+        op_a_function b(a);
         // b = a;
     }
 
     {
-        a_function_fun const a;
-        a_function_fun b(a);
+        op_a_function const a;
+        op_a_function b(a);
         // b = a;
     }
 

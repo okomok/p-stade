@@ -75,7 +75,7 @@ namespace yield_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_yield_range, yield_range_detail::baby_make)
-PSTADE_PIPABLE(yielded, make_yield_range_fun)
+PSTADE_PIPABLE(yielded, op_make_yield_range)
 
 
 } } // namespace pstade::sausage

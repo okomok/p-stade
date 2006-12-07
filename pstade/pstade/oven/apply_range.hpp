@@ -82,7 +82,7 @@ namespace apply_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_apply_range, apply_range_detail::baby_make)
-PSTADE_PIPABLE(applied, make_apply_range_fun)
+PSTADE_PIPABLE(applied, op_make_apply_range)
 
 
 } } // namespace pstade::oven
@@ -97,7 +97,7 @@ PSTADE_PIPABLE(applied, make_apply_range_fun)
 
     namespace pstade { namespace oven {
 
-    PSTADE_SINGLETON_CONST(boost::phoenix::actor< boost::phoenix::argument<0> >, rng1)
+    PSTADE_SINGLETON_CONST(rng1, boost::phoenix::actor< boost::phoenix::argument<0> >)
 
     } } // namespace pstade::oven
 

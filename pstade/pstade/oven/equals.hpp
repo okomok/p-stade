@@ -74,7 +74,7 @@ namespace equals_detail {
 } // namespace equals_detail
 
 
-struct equals_fun
+struct op_equals
 {
     typedef bool result_type;
 
@@ -103,7 +103,7 @@ struct equals_fun
 
 PSTADE_ADL_BARRIER(equals) { // for Boost
 
-PSTADE_SINGLETON_CONST(equals_fun, equals)
+PSTADE_SINGLETON_CONST(equals, op_equals)
 
 } // ADL barrier
 

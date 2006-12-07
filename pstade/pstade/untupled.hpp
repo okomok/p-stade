@@ -24,7 +24,7 @@
 #include <boost/tuple/tuple.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/pass_by.hpp>
+#include <pstade/egg/function_adaptor.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/tie.hpp>
 
@@ -36,7 +36,7 @@ namespace pstade {
 
 
         template< class Function >
-        struct baby_fun
+        struct baby_op_result
         {
 
             // PSTADE_EGG_MAX_ARITY (primary)
@@ -103,10 +103,10 @@ namespace pstade {
         #undef  PSTADE_max_arity
 
 
-            explicit baby_fun() // DefaultConstructible iff 'Function' is.
+            explicit baby_op_result() // DefaultConstructible iff 'Function' is.
             { }
 
-            explicit baby_fun(Function const& fun) :
+            explicit baby_op_result(Function const& fun) :
                 m_fun(fun)
             { }
 
@@ -120,30 +120,13 @@ namespace pstade {
         private:
             mutable Function m_fun;
 
-        }; // struct baby_fun
-
-
-        struct baby
-        {
-            template< class Myself, class Function >
-            struct apply
-            {
-                typedef typename pass_by_value<Function>::type fun_t;
-                typedef egg::function< baby_fun<fun_t> > type;
-            };
-
-            template< class Result, class Function >
-            Result call(Function& fun) const
-            {
-                return Result(fun);
-            }
-        };
+        }; // struct baby_op_result
 
 
     } // namespace untupled_detail
 
 
-    PSTADE_EGG_FUNCTION(untupled, untupled_detail::baby)
+    PSTADE_EGG_FUNCTION_ADAPTOR(untupled, untupled_detail::baby_op_result)
 
 
 } // namespace pstade

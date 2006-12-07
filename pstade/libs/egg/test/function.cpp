@@ -96,7 +96,7 @@ struct qoo_impl
     { }
 };
 
-typedef pstade::egg::function<qoo_impl> qoo_fun;
+typedef pstade::egg::function<qoo_impl> op_qoo;
 
 PSTADE_EGG_FUNCTION(foo, foo_impl)
 PSTADE_EGG_FUNCTION(bar, bar_impl)
@@ -108,20 +108,20 @@ BOOST_MPL_ASSERT(( pstade::egg::baby_result_detail::has_nullary_result_type<bar_
 BOOST_MPL_ASSERT(( pstade::egg::baby_result_detail::has_nullary_result_type<hoge_impl> ));
 
 
-BOOST_MPL_ASSERT(( boost::is_same<boost::result_of<foo_fun(int)>::type, int const> ));
-BOOST_MPL_ASSERT(( boost::is_same<boost::result_of<foo_fun(int&)>::type, int> ));
-BOOST_MPL_ASSERT(( boost::is_same<boost::result_of<foo_fun(int, int)>::type, int const> ));
-BOOST_MPL_ASSERT(( boost::is_same<boost::result_of<foo_fun(int&, int)>::type, int> ));
+BOOST_MPL_ASSERT(( boost::is_same<boost::result_of<op_foo(int)>::type, int const> ));
+BOOST_MPL_ASSERT(( boost::is_same<boost::result_of<op_foo(int&)>::type, int> ));
+BOOST_MPL_ASSERT(( boost::is_same<boost::result_of<op_foo(int, int)>::type, int const> ));
+BOOST_MPL_ASSERT(( boost::is_same<boost::result_of<op_foo(int&, int)>::type, int> ));
 
-BOOST_MPL_ASSERT(( boost::is_same<boost::result_of<bar_fun()>::type, int> ));
+BOOST_MPL_ASSERT(( boost::is_same<boost::result_of<op_bar()>::type, int> ));
 
-BOOST_MPL_ASSERT(( boost::is_same<boost::result_of<hoge_fun()>::type, std::string> ));
-BOOST_MPL_ASSERT(( boost::is_same<boost::result_of<hoge_fun(int&)>::type, int> ));
-BOOST_MPL_ASSERT(( boost::is_same<boost::result_of<hoge_fun(int, int)>::type, int const> ));
-BOOST_MPL_ASSERT(( boost::is_same<boost::result_of<hoge_fun(int&, int)>::type, int> ));
+BOOST_MPL_ASSERT(( boost::is_same<boost::result_of<op_hage()>::type, std::string> ));
+BOOST_MPL_ASSERT(( boost::is_same<boost::result_of<op_hage(int&)>::type, int> ));
+BOOST_MPL_ASSERT(( boost::is_same<boost::result_of<op_hage(int, int)>::type, int const> ));
+BOOST_MPL_ASSERT(( boost::is_same<boost::result_of<op_hage(int&, int)>::type, int> ));
 
 
-void test_fun()
+void test()
 {
     BOOST_CHECK( bar() == 1 );
 
@@ -132,13 +132,13 @@ void test_fun()
     BOOST_CHECK( hoge(4) == 4+4 );
     BOOST_CHECK( hoge(5, 6) == 5+6 );
 
-    qoo_fun(1,2)(3,4);
-    qoo_fun(3,5).hello();
+    op_qoo(1,2)(3,4);
+    op_qoo(3,5).hello();
 }
 
 
 int test_main(int, char*[])
 {
-    test_fun();
+    test();
     return 0;
 }

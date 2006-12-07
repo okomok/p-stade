@@ -114,7 +114,7 @@ namespace xpressive_token_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_xpressive_token_range, xpressive_token_range_detail::baby_make)
-PSTADE_PIPABLE(xpressive_tokenized, make_xpressive_token_range_fun)
+PSTADE_PIPABLE(xpressive_tokenized, op_make_xpressive_token_range)
 
 
 } } // namespace pstade::oven

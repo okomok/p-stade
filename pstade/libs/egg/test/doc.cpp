@@ -30,7 +30,7 @@ void test()
 {
     int volatile y = 5;
 
-    boost::result_of< ::multiply_fun(int, int) >::type
+    boost::result_of< ::op_multiply(int, int) >::type
         volatile result = ::multiply(4, y);
 
     BOOST_CHECK( result == 20 );

@@ -36,7 +36,7 @@ namespace verify_detail {
         { };
 
         template< class Result, class T >
-        Result call(T& x) const
+        Result call(T& x) const // doesn't add 'const' to 'T'.
         {
             BOOST_ASSERT(!!x); // 'operator!' is safer.
             return x;
@@ -48,7 +48,7 @@ namespace verify_detail {
 
 
 PSTADE_EGG_FUNCTION(verify, verify_detail::baby)
-PSTADE_PIPABLE(verified, verify_fun)
+PSTADE_PIPABLE(verified, op_verify)
 
 
 } // namespace pstade

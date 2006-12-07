@@ -37,7 +37,7 @@ namespace nout_detail {
 } // namespace nout_detail
 
 
-PSTADE_SINGLETON_CONST(nout_detail::out, nout)
+PSTADE_SINGLETON_CONST(nout, nout_detail::out)
 
 
 } } // namespace pstade::napkin

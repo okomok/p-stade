@@ -124,7 +124,7 @@ namespace require_detail {
 
 
 PSTADE_EGG_FUNCTION(require, require_detail::baby)
-PSTADE_PIPABLE(required, require_fun)
+PSTADE_PIPABLE(required, op_require)
 
 
 } // namespace pstade

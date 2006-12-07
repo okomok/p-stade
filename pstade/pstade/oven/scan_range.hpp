@@ -51,7 +51,7 @@ namespace scan_range_detail {
 template<
     class Range,
     class State,
-    class BinaryFun = plus_fun
+    class BinaryFun = op_plus
 >
 struct scan_range :
     scan_range_detail::super_<Range, State, BinaryFun>::type,
@@ -88,7 +88,7 @@ namespace scan_range_detail {
 
     struct baby_make
     {
-        template< class Myself, class Range, class State, class BinaryFun = plus_fun >
+        template< class Myself, class Range, class State, class BinaryFun = op_plus >
         struct apply
         {
             typedef typename pass_by_value<State>::type sta_t;
@@ -114,7 +114,7 @@ namespace scan_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_scan_range, scan_range_detail::baby_make)
-PSTADE_PIPABLE(scanned, make_scan_range_fun)
+PSTADE_PIPABLE(scanned, op_make_scan_range)
 
 
 } } // namespace pstade::oven

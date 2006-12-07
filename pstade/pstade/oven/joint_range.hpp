@@ -87,7 +87,7 @@ namespace joint_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_joint_range, joint_range_detail::baby_make)
-PSTADE_PIPABLE(jointed, make_joint_range_fun)
+PSTADE_PIPABLE(jointed, op_make_joint_range)
 
 
 } } // namespace pstade::oven

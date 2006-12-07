@@ -63,7 +63,7 @@ namespace clear_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_clear_range, clear_range_detail::baby_make)
-PSTADE_PIPABLE(cleared, make_clear_range_fun)
+PSTADE_PIPABLE(cleared, op_make_clear_range)
 
 
 } } // namespace pstade::oven

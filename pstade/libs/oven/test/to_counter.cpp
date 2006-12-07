@@ -40,7 +40,7 @@ void test()
 
 #if 0 // result_of seems useless...
 
-        boost::result_of<to_counter_fun(int)>::type k = oven::unique_copy(rng, oven::to_counter(1));
+        boost::result_of<op_to_counter(int)>::type k = oven::unique_copy(rng, oven::to_counter(1));
         BOOST_CHECK( k.function().incrementable() == 7 );
 #endif
 

@@ -87,7 +87,7 @@ namespace append_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_append_range, append_range_detail::baby_make)
-PSTADE_PIPABLE(appended, make_append_range_fun)
+PSTADE_PIPABLE(appended, op_make_append_range)
 
 
 } } // namespace pstade::oven

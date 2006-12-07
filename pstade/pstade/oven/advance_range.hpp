@@ -101,7 +101,7 @@ namespace advance_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_advance_range, advance_range_detail::baby_make)
-PSTADE_PIPABLE(advanced, make_advance_range_fun)
+PSTADE_PIPABLE(advanced, op_make_advance_range)
 
 
 } } // namespace pstade::oven

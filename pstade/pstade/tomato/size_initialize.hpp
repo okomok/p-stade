@@ -73,7 +73,7 @@ namespace size_initialize_detail {
 
 
 PSTADE_EGG_FUNCTION(size_initialize, size_initialize_detail::baby)
-PSTADE_PIPABLE(size_initialized, size_initialize_fun)
+PSTADE_PIPABLE(size_initialized, op_size_initialize)
 
 
 } } // namespace pstade::tomato

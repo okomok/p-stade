@@ -23,7 +23,7 @@
 namespace pstade { namespace ios_init_detail {
 
 
-PSTADE_SINGLETON_CONST(std::ios_base::Init, init)
+PSTADE_SINGLETON_CONST(init, std::ios_base::Init)
 
 
 } } // namespace pstade::ios_init_detail

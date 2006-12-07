@@ -17,11 +17,11 @@ namespace pstade { namespace oven {
 
 
 template< class Incrementable >
-struct increment_fun
+struct op_increment
 {
     typedef void result_type;
 
-    explicit increment_fun(Incrementable const& i) :
+    explicit op_increment(Incrementable const& i) :
         m_i(i)
     { }
 
@@ -48,10 +48,10 @@ private:
 
 
 template< class Incrementable > inline
-function_output_iterator< increment_fun<Incrementable> > const
+function_output_iterator< op_increment<Incrementable> > const
 to_counter(Incrementable const& i)
 {
-    return oven::to_function(increment_fun<Incrementable>(i));
+    return oven::to_function(op_increment<Incrementable>(i));
 }
 
 

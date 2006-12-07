@@ -74,7 +74,7 @@ namespace locale_saver_detail {
         }
     };
 
-    PSTADE_SINGLETON_CONST(global_t, global)
+    PSTADE_SINGLETON_CONST(global, global_t)
 
 
     template< class = void >

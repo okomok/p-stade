@@ -36,9 +36,9 @@ namespace sort_range_detail {
 
 
     template< class Compare >
-    struct sort_fun
+    struct op_sort
     {
-        explicit sort_fun(Compare const& comp) :
+        explicit op_sort(Compare const& comp) :
             m_comp(comp)
         { }
 
@@ -60,7 +60,7 @@ namespace sort_range_detail {
     struct super_
     {
         typedef out_place_range<
-            Range, sort_fun<Compare>
+            Range, op_sort<Compare>
         > type;
     };
 
@@ -70,7 +70,7 @@ namespace sort_range_detail {
 
 template<
     class Range,
-    class Compare = less_fun
+    class Compare = op_less
 >
 struct sort_range :
     sort_range_detail::super_<Range, Compare>::type,
@@ -96,7 +96,7 @@ namespace sort_range_detail {
 
     struct baby_make
     {
-        template< class Myself, class Range, class Compare = less_fun >
+        template< class Myself, class Range, class Compare = op_less >
         struct apply
         {
             typedef typename pass_by_value<Compare>::type comp_t;
@@ -121,7 +121,7 @@ namespace sort_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_sort_range, sort_range_detail::baby_make)
-PSTADE_PIPABLE(sorted, make_sort_range_fun)
+PSTADE_PIPABLE(sorted, op_make_sort_range)
 
 
 } } // namespace pstade::oven

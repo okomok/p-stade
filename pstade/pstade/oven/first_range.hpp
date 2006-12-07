@@ -53,7 +53,7 @@ namespace first_range_detail {
     {
         typedef transform_range<
             PairRange,
-            at_first_fun,
+            op_at_first,
             typename reference<PairRange>::type
         > type;
     };
@@ -102,7 +102,7 @@ namespace first_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_first_range, first_range_detail::baby_make)
-PSTADE_PIPABLE(firsts, make_first_range_fun)
+PSTADE_PIPABLE(firsts, op_make_first_range)
 
 
 } } // namespace pstade::oven

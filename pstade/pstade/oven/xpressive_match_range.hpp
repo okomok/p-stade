@@ -98,7 +98,7 @@ namespace xpressive_match_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_xpressive_match_range, xpressive_match_range_detail::baby_make)
-PSTADE_PIPABLE(xpressive_matches, make_xpressive_match_range_fun)
+PSTADE_PIPABLE(xpressive_matches, op_make_xpressive_match_range)
 
 
 } } // namespace pstade::oven

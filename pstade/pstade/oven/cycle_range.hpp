@@ -101,7 +101,7 @@ namespace cycle_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_cycle_range, cycle_range_detail::baby_make)
-PSTADE_PIPABLE(cycled, make_cycle_range_fun)
+PSTADE_PIPABLE(cycled, op_make_cycle_range)
 
 
 } } // namespace pstade::oven

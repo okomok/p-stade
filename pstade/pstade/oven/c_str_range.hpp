@@ -86,7 +86,7 @@ namespace c_str_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_c_str_range, c_str_range_detail::baby_make)
-PSTADE_PIPABLE(as_c_str, make_c_str_range_fun)
+PSTADE_PIPABLE(as_c_str, op_make_c_str_range)
 
 
 } } // namespace pstade::oven

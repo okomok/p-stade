@@ -21,7 +21,7 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/adl_barrier.hpp>
-#include <pstade/egg/function.hpp>
+#include <pstade/singleton.hpp>
 #include "./concepts.hpp"
 #include "./range_difference.hpp"
 #include "./range_traversal.hpp"
@@ -60,30 +60,34 @@ namespace distance_detail {
     }
 
 
-    struct baby
-    {
-        template< class Myself, class Range >
-        struct apply :
-            range_difference<Range>
-        { };
-
-        template< class Result, class Range >
-        PSTADE_CONCEPT_WHERE(
-            ((SinglePass<Range>)),
-        (Result)) call(Range const& rng) const
-        {
-            typedef typename range_traversal<Range>::type trv_t;
-            return (assert_reachable)( distance_detail::aux<Result>(rng, trv_t()) );
-        }
-    };
-
-
 } // namespace distance_detail
+
+
+struct op_distance
+{
+    template< class Signature >
+    struct result;
+
+    template< class _, class Range >
+    struct result<_(Range)> :
+        range_difference<Range>
+    { };
+
+    template< class Range >
+    PSTADE_CONCEPT_WHERE(
+        ((SinglePass<Range>)),
+    (typename range_difference<Range>::type)) operator()(Range const& rng) const
+    {
+        typedef typename range_difference<Range>::type result_t;
+        typedef typename range_traversal<Range>::type trv_t;
+        return distance_detail::assert_reachable( distance_detail::aux<result_t>(rng, trv_t()) );
+    }
+};
 
 
 PSTADE_ADL_BARRIER(distance) { // for Boost and Std
 
-PSTADE_EGG_FUNCTION(distance, distance_detail::baby)
+PSTADE_SINGLETON_CONST(distance, op_distance)
 
 } // ADL barrier
 

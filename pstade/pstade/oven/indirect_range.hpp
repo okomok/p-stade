@@ -112,7 +112,7 @@ namespace indirect_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_indirect_range, indirect_range_detail::baby_make)
-PSTADE_PIPABLE(indirected, make_indirect_range_fun)
+PSTADE_PIPABLE(indirected, op_make_indirect_range)
 
 
 } } // namespace pstade::oven

@@ -61,7 +61,7 @@ to_ostreambuf(std::basic_streambuf<CharT, Traits> *pb)
 //
 
 template< class Stream >
-struct stream_output_fun
+struct op_stream_output
 {
     typedef Stream stream_type;
     typedef void result_type;
@@ -70,7 +70,7 @@ struct stream_output_fun
     // DefaultConstructible is not required
     // as OutputIterator is not.
 
-    explicit stream_output_fun(Stream& s) :
+    explicit op_stream_output(Stream& s) :
         m_ps(boost::addressof(s))
     { }
 
@@ -97,10 +97,10 @@ private:
 
 
 template< class Stream > inline
-function_output_iterator< stream_output_fun<Stream> > const
+function_output_iterator< op_stream_output<Stream> > const
 to_stream(Stream& s)
 {
-    return oven::to_function(stream_output_fun<Stream>(s));
+    return oven::to_function(op_stream_output<Stream>(s));
 }
 
 

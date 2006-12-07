@@ -22,8 +22,8 @@ void test()
 
     ui = pstade::integral_cast<signed int>(i);
 
-    ui = pstade::integral(i);
-    ui = pstade::integral(3);
+    //ui = pstade::integral(i);
+    //ui = pstade::integral(3);
 
     ui = i|to_integer;
 }

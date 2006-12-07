@@ -34,10 +34,10 @@ namespace parallel_detail {
 
 
     template< class IterRange, class UnaryFun, class Difference >
-    struct for_each_fun
+    struct op_for_each
     {
         template< class Range >
-        for_each_fun(Range& rng, UnaryFun const& fun, Difference grain) :
+        op_for_each(Range& rng, UnaryFun const& fun, Difference grain) :
             m_rng(rng), m_fun(fun), m_grain(grain)
         { }
 
@@ -59,8 +59,8 @@ namespace parallel_detail {
             take_range<IterRange> rngL(m_rng, dist/2);
             drop_range<IterRange> rngR(m_rng, dist/2);
 
-            boost::thread thrdL(for_each_fun(rngL, m_fun, m_grain));
-            boost::thread thrdR(for_each_fun(rngR, m_fun, m_grain));
+            boost::thread thrdL(op_for_each(rngL, m_fun, m_grain));
+            boost::thread thrdR(op_for_each(rngR, m_fun, m_grain));
 
             thrdL.join();
             thrdR.join();
@@ -91,10 +91,10 @@ namespace parallel_detail {
             typedef typename range_difference<Range>::type diff_t;
 
             // Range type must be "erased" to avoid infinite recursion
-            // of 'for_each_fun' template-instantiation.
+            // of 'op_for_each' template-instantiation.
             typedef typename sub_range_base<Range>::type base_t;
 
-            for_each_fun<base_t, UnaryFun, diff_t>(rng, fun, grain)();
+            op_for_each<base_t, UnaryFun, diff_t>(rng, fun, grain)();
         }
     };
 

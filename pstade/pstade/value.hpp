@@ -24,13 +24,13 @@ namespace pstade {
     // case of function reference.
     //
 
-    struct value_fun
+    struct op_value
     {
         template< class Signature >
         struct result;
 
-        template< class Self, class A >
-        struct result<Self(A)> :
+        template< class _, class A >
+        struct result<_(A)> :
             pass_by_value<A>
         { };
 
@@ -42,7 +42,7 @@ namespace pstade {
     };
 
 
-    PSTADE_SINGLETON_CONST(value_fun, value)
+    PSTADE_SINGLETON_CONST(value, op_value)
 
 
     namespace value_detail {
@@ -63,7 +63,7 @@ namespace pstade {
     } // namespace value_detail
 
 
-    PSTADE_SINGLETON_CONST(value_detail::pipe, to_value)
+    PSTADE_SINGLETON_CONST(to_value, value_detail::pipe)
 
 
 } // namespace pstade

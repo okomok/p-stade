@@ -82,7 +82,7 @@ To boolean_cast(From from)
 }
 
 
-struct boolean_cast_fun :
+struct op_boolean_cast :
     to_type_cast_result
 {
     template< class From, class Type_To >
@@ -92,8 +92,8 @@ struct boolean_cast_fun :
     }
 };
 
-PSTADE_SINGLETON_CONST(boolean_cast_fun, boolean_cast_)
-PSTADE_PIPABLE(booleanized, boost::result_of<auto_castable_fun(boolean_cast_fun)>::type)
+PSTADE_SINGLETON_CONST(boolean_cast_, op_boolean_cast)
+PSTADE_PIPABLE(booleanized, boost::result_of<op_auto_castable(op_boolean_cast)>::type)
 
 
 } } // namespace pstade::tomato

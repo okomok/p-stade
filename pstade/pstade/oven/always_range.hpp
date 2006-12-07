@@ -63,7 +63,7 @@ namespace always_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_always_range, always_range_detail::baby_make)
-PSTADE_PIPABLE(always, make_always_range_fun)
+PSTADE_PIPABLE(always, op_make_always_range)
 
 
 } } // namespace pstade::oven

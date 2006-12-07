@@ -69,8 +69,8 @@ PSTADE_EGG_FUNCTION(end,   begin_end_detail::baby_end)
 } // ADL barrier
 
 
-PSTADE_PIPABLE(begins, begin_fun)
-PSTADE_PIPABLE(ends,   end_fun)
+PSTADE_PIPABLE(begins, op_begin)
+PSTADE_PIPABLE(ends, op_end)
 
 
 } } // namespace pstade::oven

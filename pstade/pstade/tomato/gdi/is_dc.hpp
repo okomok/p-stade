@@ -19,7 +19,7 @@
 namespace pstade { namespace tomato {
 
 
-struct is_dc_fun
+struct op_is_dc
 {
     typedef bool result_type;
 
@@ -33,7 +33,7 @@ struct is_dc_fun
 };
 
 
-PSTADE_SINGLETON_CONST(is_dc_fun, is_dc)
+PSTADE_SINGLETON_CONST(is_dc, op_is_dc)
 
 
 } } // namespace pstade::tomato

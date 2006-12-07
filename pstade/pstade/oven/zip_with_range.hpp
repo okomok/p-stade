@@ -43,7 +43,7 @@ namespace zip_with_range_detail {
     {
         typedef transform_range<
             zip_range<RangeTuple> const,
-            typename boost::result_of<tupled_fun(Function const&)>::type,
+            typename boost::result_of<op_tupled(Function const&)>::type,
             Reference,
             Value
         > type;
@@ -100,7 +100,7 @@ namespace zip_with_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_zip_with_range, zip_with_range_detail::baby_make)
-PSTADE_PIPABLE(zipped_with, make_zip_with_range_fun)
+PSTADE_PIPABLE(zipped_with, op_make_zip_with_range)
 
 
 } } // namespace pstade::oven

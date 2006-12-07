@@ -88,7 +88,7 @@ namespace concatenate_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_concatenate_range, concatenate_range_detail::baby_make)
-PSTADE_PIPABLE(concatenated, make_concatenate_range_fun)
+PSTADE_PIPABLE(concatenated, op_make_concatenate_range)
 
 
 } } // namespace pstade::oven

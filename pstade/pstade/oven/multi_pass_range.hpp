@@ -99,7 +99,7 @@ namespace multi_pass_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_multi_pass_range, multi_pass_range_detail::baby_make)
-PSTADE_PIPABLE(multi_passed, make_multi_pass_range_fun)
+PSTADE_PIPABLE(multi_passed, op_make_multi_pass_range)
 
 
 } } // namespace pstade::oven

@@ -37,7 +37,7 @@ namespace dout_detail {
 } // namespace dout_detail
 
 
-PSTADE_SINGLETON_CONST(dout_detail::out, dout)
+PSTADE_SINGLETON_CONST(dout, dout_detail::out)
 
 
 } } // namespace pstade::napkin

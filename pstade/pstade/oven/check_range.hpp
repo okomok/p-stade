@@ -86,7 +86,7 @@ namespace check_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_check_range, check_range_detail::baby_make)
-PSTADE_PIPABLE(checked, make_check_range_fun)
+PSTADE_PIPABLE(checked, op_make_check_range)
 
 
 } } // namespace pstade::oven

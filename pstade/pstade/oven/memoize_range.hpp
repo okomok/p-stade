@@ -170,7 +170,7 @@ namespace memoize_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_memoize_range, memoize_range_detail::baby_make)
-PSTADE_PIPABLE(memoized, make_memoize_range_fun)
+PSTADE_PIPABLE(memoized, op_make_memoize_range)
 
 
 } } // namespace pstade::oven

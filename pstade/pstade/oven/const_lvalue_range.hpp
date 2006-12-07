@@ -80,7 +80,7 @@ namespace const_lvalue_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_const_lvalue_range, const_lvalue_range_detail::baby_make)
-PSTADE_PIPABLE(const_lvalues, make_const_lvalue_range_fun)
+PSTADE_PIPABLE(const_lvalues, op_make_const_lvalue_range)
 
 
 } } // namespace pstade::oven

@@ -93,7 +93,7 @@ namespace rotate_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_rotate_range, rotate_range_detail::baby_make)
-PSTADE_PIPABLE(rotated, make_rotate_range_fun)
+PSTADE_PIPABLE(rotated, op_make_rotate_range)
 
 
 } } // namespace pstade::oven

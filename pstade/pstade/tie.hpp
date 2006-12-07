@@ -85,7 +85,7 @@ namespace pstade {
 
 
     PSTADE_EGG_FUNCTION(tie, tie_detail::baby)
-    PSTADE_PIPABLE(tied, tie_fun)
+    PSTADE_PIPABLE(tied, op_tie)
 
 
 } // namespace pstade

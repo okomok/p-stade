@@ -114,7 +114,7 @@ namespace count_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_count_range, count_range_detail::baby_make)
-PSTADE_PIPABLE(counted, boost::result_of<tupled_fun(make_count_range_fun)>::type)
+PSTADE_PIPABLE(counted, boost::result_of<op_tupled(op_make_count_range)>::type)
 
 
 // Note:

@@ -19,9 +19,9 @@ namespace pstade { namespace sausage { namespace detail {
 
 
 template< class Functor >
-struct forward_yield_fun
+struct op_forward_yield
 {
-    explicit forward_yield_fun(Functor fun) :
+    explicit op_forward_yield(Functor fun) :
         m_fun(fun)
     { };
 
@@ -45,10 +45,10 @@ private:
 
 
 template< class Functor > inline
-forward_yield_fun<Functor> const
+op_forward_yield<Functor> const
 make_forward_yield(Functor fun)
 {
-    return forward_yield_fun<Functor>(fun);
+    return op_forward_yield<Functor>(fun);
 }
 
 

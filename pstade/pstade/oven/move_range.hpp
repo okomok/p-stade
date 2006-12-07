@@ -37,7 +37,7 @@ namespace move_range_detail {
 
 
     template< class Value >
-    struct move_fun
+    struct op_move
     {
         typedef typename boost::mpl::if_<
             boost::is_movable<Value>,
@@ -57,7 +57,7 @@ namespace move_range_detail {
     {
         typedef transform_range<
             Range,
-            move_fun<typename range_value<Range>::type>
+            op_move<typename range_value<Range>::type>
         > type;
     };
 
@@ -107,7 +107,7 @@ namespace move_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_move_range, move_range_detail::baby_make)
-PSTADE_PIPABLE(moved, make_move_range_fun)
+PSTADE_PIPABLE(moved, op_make_move_range)
 
 
 } } // namespace pstade::oven

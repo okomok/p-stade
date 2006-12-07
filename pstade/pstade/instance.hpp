@@ -38,8 +38,8 @@
 // Note:
 //
 // You can prefer
-//     PSTADE_SINGLETON_CONST(T, O1)
-//     PSTADE_SINGLETON_CONST(T, O2)
+//     PSTADE_SINGLETON_CONST(O1, T)
+//     PSTADE_SINGLETON_CONST(O2, T)
 // to
 //     PSTADE_INSTANCE(T const, O1, value)
 //     PSTADE_INSTANCE(T const, O2, value)

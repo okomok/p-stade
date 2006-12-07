@@ -158,7 +158,7 @@ namespace transform_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_transform_range, transform_range_detail::baby_make)
-PSTADE_PIPABLE(transformed, make_transform_range_fun)
+PSTADE_PIPABLE(transformed, op_make_transform_range)
 
 
 } } // namespace pstade::oven

@@ -14,8 +14,8 @@
 #include <boost/type.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/egg/function.hpp>
+#include <pstade/egg/function_adaptor.hpp>
 #include <pstade/nonassignable.hpp>
-#include <pstade/pass_by.hpp>
 
 
 namespace pstade {
@@ -45,7 +45,7 @@ namespace pstade {
 
 
         template< class CastFunction >
-        struct baby_fun
+        struct baby_op_result
         {
             template< class Myself, class From >
             struct apply
@@ -59,10 +59,10 @@ namespace pstade {
                 return Result(m_fun, from);
             }
 
-            explicit baby_fun() // DefaultConstructible iif 'CastFunction' is.
+            explicit baby_op_result() // DefaultConstructible iif 'CastFunction' is.
             { }
 
-            explicit baby_fun(CastFunction const& fun) :
+            explicit baby_op_result(CastFunction const& fun) :
                 m_fun(fun)
             { }
 
@@ -71,38 +71,18 @@ namespace pstade {
         };
 
 
-        struct baby
-        {
-            template< class Myself, class CastFunction >
-            struct apply
-            {
-                typedef typename pass_by_value<CastFunction>::type fun_t;
-                typedef egg::function< baby_fun<fun_t> > type;
-            };
-
-            template< class Result, class CastFunction >
-            Result call(CastFunction& fun) const
-            {
-                return Result(fun);
-            }
-        };
-
-
     } // namespace auto_castable_detail
 
 
-    PSTADE_EGG_FUNCTION(auto_castable, auto_castable_detail::baby)
+    PSTADE_EGG_FUNCTION_ADAPTOR(auto_castable, auto_castable_detail::baby_op_result)
 
 
     #define PSTADE_AUTO_CASTABLE(Object, CastFunction) \
         typedef \
-            boost::result_of<pstade::auto_castable_fun(CastFunction)>::type \
-        BOOST_PP_CAT(Object, _fun); \
+            boost::result_of<pstade::op_auto_castable(CastFunction)>::type \
+        BOOST_PP_CAT(op_, Object); \
         \
-        PSTADE_SINGLETON_CONST( \
-            BOOST_PP_CAT(Object, _fun), \
-            Object \
-        ) \
+        PSTADE_SINGLETON_CONST(Object, BOOST_PP_CAT(op_, Object)) \
     /**/
 
 

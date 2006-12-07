@@ -35,7 +35,7 @@ struct find_file_matches_mask
 #define PSTADE_TOMATO_define_pred(suffix, SUFFIX) \
     typedef find_file_matches_mask< BOOST_PP_CAT(FILE_ATTRIBUTE_, SUFFIX) > \
     PSTADE_TOMATO_pred_t(suffix); \
-    PSTADE_SINGLETON_CONST(PSTADE_TOMATO_pred_t(suffix), PSTADE_TOMATO_pred(suffix)) \
+    PSTADE_SINGLETON_CONST(PSTADE_TOMATO_pred(suffix), PSTADE_TOMATO_pred_t(suffix)) \
 /**/
 
     #define PSTADE_TOMATO_pred(suffix) \
@@ -43,7 +43,7 @@ struct find_file_matches_mask
     /**/
 
     #define PSTADE_TOMATO_pred_t(suffix) \
-        BOOST_PP_CAT(PSTADE_TOMATO_pred(suffix), _fun) \
+        BOOST_PP_CAT(op_, PSTADE_TOMATO_pred(suffix)) \
     /**/
 
 
@@ -62,7 +62,7 @@ PSTADE_TOMATO_define_pred(archive,    ARCHIVE)
 #undef PSTADE_TOMATO_define_pred
 
 
-struct find_file_is_dots_fun
+struct op_find_file_is_dots
 {
     typedef bool result_type;
 
@@ -82,7 +82,7 @@ struct find_file_is_dots_fun
     }
 };
 
-PSTADE_SINGLETON_CONST(find_file_is_dots_fun, find_file_is_dots)
+PSTADE_SINGLETON_CONST(find_file_is_dots, op_find_file_is_dots)
 
 
 } } // namespace pstade::tomato

@@ -30,7 +30,7 @@ namespace unique_range_detail {
     {
         typedef adjacent_filter_range<
             Range,
-            typename boost::result_of<not_fun(equal_to_fun const&)>::type
+            typename boost::result_of<op_not_(op_equal_to const&)>::type
         > type;
     };
 
@@ -80,7 +80,7 @@ namespace unique_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_unique_range, unique_range_detail::baby_make)
-PSTADE_PIPABLE(uniqued, make_unique_range_fun)
+PSTADE_PIPABLE(uniqued, op_make_unique_range)
 
 
 } } // namespace pstade::oven

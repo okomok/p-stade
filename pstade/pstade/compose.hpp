@@ -14,6 +14,7 @@
 #include <pstade/egg/function.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/singleton.hpp>
 #include <pstade/tupled.hpp>
 #include <pstade/untupled.hpp>
 
@@ -31,15 +32,15 @@ namespace pstade {
             struct apply
             {
                 typedef typename
-                    boost::result_of<tupled_fun(G&)>::type
-                tg_t;
+                    boost::result_of<op_tupled(G&)>::type
+                tupled_g;
 
                 typedef typename
-                    boost::result_of<tg_t(Arguments&)>::type
-                result_of_tg;
+                    boost::result_of<tupled_g(Arguments&)>::type
+                result_of_tupled_g;
 
                 typedef typename
-                    boost::result_of<F(result_of_tg)>::type
+                    boost::result_of<F(result_of_tupled_g)>::type
                 type;
             };
 
@@ -62,39 +63,42 @@ namespace pstade {
         };
 
 
-        struct baby
-        {
-            template< class Myself, class F, class G >
-            struct apply
-            {
-                typedef
-                    egg::function<
-                        baby_base<
-                            typename pass_by_value<F>::type,
-                            typename pass_by_value<G>::type
-                        >
-                    >
-                base_t;
-
-                typedef typename
-                    boost::result_of<untupled_fun(base_t)>::type
-                type;
-            };
-
-            template< class Result, class F, class G >
-            Result call(F& f, G& g) const
-            {
-                typedef typename Result::base_type base_t;
-                return pstade::untupled(base_t(f, g));
-            }
-        };
-
-
     } // namespace compose_detail
 
 
-    PSTADE_EGG_FUNCTION(compose, compose_detail::baby)
-    PSTADE_PIPABLE(composed, compose_fun)
+    struct op_compose
+    {
+        template< class Signature >
+        struct result;
+
+        template< class _, class F, class G >
+        struct result<_(F, G)>
+        {
+            typedef
+                egg::function<
+                    compose_detail::baby_base<
+                        typename pass_by_value<F>::type,
+                        typename pass_by_value<G>::type
+                    >
+                >
+            base_t;
+
+            typedef typename
+                boost::result_of<op_untupled(base_t)>::type
+            type;
+        };
+
+        template< class F, class G >
+        typename result<int(F, G)>::type operator()(F f, G g) const
+        {
+            typedef typename result<int(F, G)>::base_t base_t;
+            return pstade::untupled(base_t(f, g));
+        }
+    };
+
+
+    PSTADE_SINGLETON_CONST(compose, op_compose)
+    PSTADE_PIPABLE(composed, op_compose)
 
 
 } // namespace pstade

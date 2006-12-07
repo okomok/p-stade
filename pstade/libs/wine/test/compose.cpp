@@ -41,7 +41,7 @@ BOOST_MPL_ASSERT((
         std::string,
         boost::result_of<
             boost::result_of<
-                compose_fun(value_fun const, bar_fun)
+                op_compose(value_fun const, bar_fun)
             >::type
             (char)
         >::type

@@ -141,15 +141,15 @@ namespace pstade {
         struct result_of_output
         {
             typedef typename
-                boost::result_of<tupled_fun(Function)>::type
-            tfun_t;
+                boost::result_of<op_tupled(Function)>::type
+            tupled_f;
 
             typedef
                 boost::tuples::cons<A&, Arguments>
             args_t;
 
             typedef typename
-                boost::result_of<tfun_t(args_t)>::type
+                boost::result_of<tupled_f(args_t)>::type
             type;
         };
 
@@ -229,10 +229,7 @@ namespace pstade {
 
 
     #define PSTADE_PIPABLE(Object, Function) \
-        PSTADE_SINGLETON_CONST( \
-            boost::result_of<pstade::pipable_fun(Function)>::type, \
-            Object \
-        ) \
+        PSTADE_SINGLETON_CONST(Object, boost::result_of<pstade::op_pipable(Function)>::type)
     /**/
 
 

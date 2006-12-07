@@ -14,6 +14,7 @@
 #include "./egg/baby_of.hpp"
 #include "./egg/baby_result.hpp"
 #include "./egg/function.hpp"
+#include "./egg/function_adaptor.hpp"
 
 
 #endif

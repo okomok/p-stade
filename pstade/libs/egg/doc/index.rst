@@ -7,7 +7,7 @@ The Egg Function Library
 :Author: MB
 :Contact: mb2act@yahoo.co.jp 
 :License: Distributed under the `Boost Software License Version 1.0`_
-:Version: 0.90.5
+:Version: 0.90.6
 
 
 
@@ -119,14 +119,6 @@ So you should prefer this macro.
 - Effects: ``typedef function<BabyFunction> const Name##_fun; function<BabyFunction> const Name;``
 
 
-``PSTADE_EGG_PIPABLE``
-^^^^^^^^^^^^^^^^^^^^^^
-- Header: ``<pstade/egg/pipable.hpp>``
-- Valid expression: ``PSTADE_EGG_PIPBLE(Name, BabyFunction)``
-- Precondition: same as ``PSTADE_EGG_FUNCTION``'s
-- Effects: Makes ``in|Name(a0,a1,...aN)`` call ``function<BabyFunction>()(in,a0,a1,...aN)``.
-
-
 ``PSTADE_EGG_MAX_ARITY``
 ^^^^^^^^^^^^^^^^^^^^^^^^
 The default maximum arity of functors Egg makes is five. If you want more arity, define ``PSTADE_EGG_MAX_ARITY`` before
@@ -170,5 +162,10 @@ Version 0.90.4
 Version 0.90.5
 ^^^^^^^^^^^^^^
 - Fixed a bug of ``result_of`` customization.
+
+Version 0.90.6
+^^^^^^^^^^^^^^
+- ``PSTADE_EGG_PIPABLE`` was removed.
+
 
 

@@ -40,6 +40,7 @@
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/preprocessor.hpp>
+#include <pstade/singleton.hpp>
 #include <pstade/to_type.hpp>
 
 
@@ -62,7 +63,7 @@ namespace pstade {
 
 
         template< class Result_, class Function >
-        struct baby_fun
+        struct baby_op_result
         {
 
             // PSTADE_EGG_MAX_ARITY (primary)
@@ -123,10 +124,10 @@ namespace pstade {
             #include BOOST_PP_ITERATE()
         #undef  PSTADE_max_arity
 
-            explicit baby_fun() // DefaultConstructible iff 'Function' is.
+            explicit baby_op_result() // DefaultConstructible iff 'Function' is.
             { }
 
-            explicit baby_fun(Function const& fun) :
+            explicit baby_op_result(Function const& fun) :
                 m_fun(fun)
             { }
 
@@ -138,13 +139,13 @@ namespace pstade {
         private:
             mutable Function m_fun;
 
-        }; // struct baby_fun
+        }; // struct baby_op_result
 
 
         template< class Function, class Result = use_default >
         struct result_
         {
-            typedef egg::function< baby_fun<Result, Function> > type;
+            typedef egg::function< baby_op_result<Result, Function> > type;
         };
 
 
@@ -172,42 +173,41 @@ namespace pstade {
     // normal function form
     //
 
-    namespace forward_detail {
+    struct op_forward
+    {
+        template< class Signature >
+        struct result;
 
-        struct baby_
+        template< class _, class Function, class Type_Result >
+        struct result<_(Function, Type_Result)> :
+            forward_detail::result_<
+                typename pass_by_value<Function>::type,
+                typename to_type<Type_Result>::type
+            >
+        { };
+   
+        template< class Function, class Type_Result >
+        typename result<int(Function, Type_Result)>::type operator()(Function fun, Type_Result) const
         {
-            template< class Myself, class Function, class TypeResult = void >
-            struct apply :
-                result_<
-                    typename pass_by_value<Function>::type,
-                    typename to_type<TypeResult>::type
-                >
-            { };
-       
-            template< class Result, class Function, class TypeResult >
-            Result call(Function& fun, TypeResult) const
-            {
-                return Result(fun);
-            }
+            return typename result<int(Function, Type_Result)>::type(fun);
+        }
 
-            template< class Myself, class Function >
-            struct apply<Myself, Function> :
-                result_<
-                    typename pass_by_value<Function>::type
-                >
-            { };
+        template< class _, class Function >
+        struct result<_(Function)> :
+            forward_detail::result_<
+                typename pass_by_value<Function>::type
+            >
+        { };
 
-            template< class Result, class Function >
-            Result call(Function& fun) const
-            {
-                return Result(fun);
-            }
-        };
+        template< class Function >
+        typename result<int(Function)>::type operator()(Function fun) const
+        {
+            return typename result<int(Function)>::type(fun);
+        }
+    };
 
-    } // namespace forward_detail
-
-    PSTADE_EGG_FUNCTION_(forward_, forward_detail::baby_)
-    PSTADE_PIPABLE(forwarded, forward_fun)
+    PSTADE_SINGLETON_CONST(forward_, op_forward)
+    PSTADE_PIPABLE(forwarded, op_forward)
 
 
 } // namespace pstade

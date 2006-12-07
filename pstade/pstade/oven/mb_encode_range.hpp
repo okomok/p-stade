@@ -77,7 +77,7 @@ namespace mb_encode_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_mb_encode_range, mb_encode_range_detail::baby_make)
-PSTADE_PIPABLE(mb_encoded, make_mb_encode_range_fun)
+PSTADE_PIPABLE(mb_encoded, op_make_mb_encode_range)
 
 
 } } // namespace pstade::oven

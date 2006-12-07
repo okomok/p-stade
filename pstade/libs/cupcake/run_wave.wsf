@@ -19,6 +19,7 @@
 var g_debug = false;
 
 var g_boost_path = "E:\\Application\\boost";
+var g_pstade_path = "E:\\p-stade.sourceforge.net\\pstade";
 // Get at: http://www.codeproject.com/cpp/wave_preprocessor.asp
 var g_wave_path= "E:\\Application\\wave-1.0.0\\wave.exe";
 var g_out_folder = "E:\\Importance\\Document\\sample source\\boost_shortcut\\workspace";
@@ -38,7 +39,9 @@ function run_wave_impl(arg)
 	var command = g_wave_path + " " +
 		"-S"+ cupcake_wrap_path(g_boost_path) + " " +
 		"-o" + cupcake_wrap_path(out_path) + " " +
-		"-I" + cupcake_wrap_path(dirpath) +
+		"-I" + cupcake_wrap_path(dirpath) + " " +
+		"-S" + cupcake_wrap_path(g_pstade_path) + " " +
+		"-t" + cupcake_wrap_path(g_out_folder + "\\wave.log") + " " +
 		cupcake_wrap_path(arg);
 
 	command += "\npause";

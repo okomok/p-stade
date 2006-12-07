@@ -24,7 +24,7 @@ typedef null_state_type_impl const null_state_type;
 typedef null_state_type_impl const null_state_t;
 
 
-PSTADE_SINGLETON_CONST(null_state_type_impl, null_state)
+PSTADE_SINGLETON_CONST(null_state, null_state_type_impl)
 
 
 } } // namespace pstade::biscuit

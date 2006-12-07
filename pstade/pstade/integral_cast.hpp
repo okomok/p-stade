@@ -24,7 +24,7 @@ namespace pstade {
 
 
     template< class To, class From > inline
-    To integral_cast(From from)
+    To integral_cast(From const& from)
     {
         BOOST_MPL_ASSERT((boost::is_integral<To>));
         BOOST_MPL_ASSERT((boost::is_integral<From>));
@@ -33,7 +33,7 @@ namespace pstade {
     }
 
 
-    struct integral_cast_fun :
+    struct op_integral_cast :
         to_type_cast_result
     {
         template< class From, class Type_To >
@@ -43,8 +43,8 @@ namespace pstade {
         }
     };
 
-    PSTADE_SINGLETON_CONST(integral_cast_fun, integral_cast_)
-    PSTADE_PIPABLE(to_integer, boost::result_of<auto_castable_fun(integral_cast_fun)>::type)
+    PSTADE_SINGLETON_CONST(integral_cast_, op_integral_cast)
+    PSTADE_PIPABLE(to_integer, boost::result_of<op_auto_castable(op_integral_cast)>::type)
 
 
 } // namespace pstade

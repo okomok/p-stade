@@ -5,6 +5,6 @@ BOOST_CHECK((
             biscuit::filtered< not_< char_<'a'> > >() |
             biscuit::filtered< not_< char_<'b'> > >() |
             biscuit::filtered< not_< char_<'c'> > >() |
-            oven::transformed(toupper_fun())
+            oven::transformed(to_upper)
     )
 ));

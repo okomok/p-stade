@@ -86,7 +86,7 @@ namespace window_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_window_range, window_range_detail::baby_make)
-PSTADE_PIPABLE(through_window, make_window_range_fun)
+PSTADE_PIPABLE(through_window, op_make_window_range)
 
 
 } } // namespace pstade::oven

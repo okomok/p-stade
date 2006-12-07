@@ -51,7 +51,7 @@ namespace merge_range_detail {
 
 template<
     class Range1, class Range2,
-    class Compare      = less_fun,
+    class Compare      = op_less,
     class MergeRoutine = merge_iterator_detail::merge_routine
 >
 struct merge_range :
@@ -85,7 +85,7 @@ namespace merge_range_detail {
 
     struct baby_make
     {
-        template< class Myself, class Range1, class Range2, class Compare = less_fun >
+        template< class Myself, class Range1, class Range2, class Compare = op_less >
         struct apply
         {
             typedef typename pass_by_value<Compare>::type comp_t;
@@ -110,7 +110,7 @@ namespace merge_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_merge_range, merge_range_detail::baby_make)
-PSTADE_PIPABLE(merged, make_merge_range_fun)
+PSTADE_PIPABLE(merged, op_make_merge_range)
 
 
 } } // namespace pstade::oven

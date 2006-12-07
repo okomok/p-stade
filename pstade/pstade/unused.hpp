@@ -26,7 +26,7 @@
 namespace pstade {
 
 
-    struct unused_fun
+    struct op_unused
     {
         typedef void result_type;
 
@@ -49,7 +49,7 @@ namespace pstade {
     };
 
 
-    PSTADE_SINGLETON_CONST(unused_fun, unused)
+    PSTADE_SINGLETON_CONST(unused, op_unused)
 
 
 } // namespace pstade

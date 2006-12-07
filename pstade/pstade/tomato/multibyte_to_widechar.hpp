@@ -48,7 +48,7 @@ multibyte_to(MultiByteRange const& from)
 }
 
 
-struct multibyte_to_fun :
+struct op_multibyte_to :
     to_type_cast_result
 {
     template< class From, class Type_To >
@@ -58,8 +58,8 @@ struct multibyte_to_fun :
     }
 };
 
-PSTADE_SINGLETON_CONST(multibyte_to_fun, multibyte_to_)
-PSTADE_PIPABLE(to_widechar, boost::result_of<auto_castable_fun(multibyte_to_fun)>::type)
+PSTADE_SINGLETON_CONST(multibyte_to_, op_multibyte_to)
+PSTADE_PIPABLE(to_widechar, boost::result_of<op_auto_castable(op_multibyte_to)>::type)
 
 
 } } // namespace pstade::tomato

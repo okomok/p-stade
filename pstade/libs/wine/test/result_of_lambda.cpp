@@ -33,7 +33,7 @@ void test()
 
     {
         int i = 12;
-        boost::result_of<lambda_1_fun(int)>::type result = lambda::_1(i);
+        boost::result_of<op_lambda_1(int)>::type result = lambda::_1(i);
         BOOST_CHECK(result == 12);
     }
     {
@@ -45,7 +45,7 @@ void test()
             ::foo(
                 v.begin(),
                 lambda::bind<
-                    boost::result_of<pstade::identity_fun(int)>::type
+                    boost::result_of<pstade::op_identity(int)>::type
                 >(identity, lambda::_1)
             )
        );

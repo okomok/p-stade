@@ -79,7 +79,7 @@ namespace string_split_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_string_split_range, string_split_range_detail::baby_make)
-PSTADE_PIPABLE(string_split, make_string_split_range_fun)
+PSTADE_PIPABLE(string_split, op_make_string_split_range)
 
 
 } } // namespace pstade::oven

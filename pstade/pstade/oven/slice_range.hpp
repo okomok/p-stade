@@ -109,7 +109,7 @@ namespace slice_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_slice_range, slice_range_detail::baby_make)
-PSTADE_PIPABLE(sliced, make_slice_range_fun)
+PSTADE_PIPABLE(sliced, op_make_slice_range)
 
 
 } } // namespace pstade::oven

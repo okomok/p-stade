@@ -80,7 +80,7 @@ namespace direct_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_direct_range, direct_range_detail::baby_make)
-PSTADE_PIPABLE(directed, make_direct_range_fun)
+PSTADE_PIPABLE(directed, op_make_direct_range)
 
 
 } } // namespace pstade::oven

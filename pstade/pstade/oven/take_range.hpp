@@ -133,7 +133,7 @@ namespace take_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_take_range, take_range_detail::baby_make)
-PSTADE_PIPABLE(taken, make_take_range_fun)
+PSTADE_PIPABLE(taken, op_make_take_range)
 
 
 } } // namespace pstade::oven

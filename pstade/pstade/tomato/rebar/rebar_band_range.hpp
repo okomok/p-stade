@@ -24,7 +24,7 @@ namespace pstade { namespace tomato {
 namespace rebar_band_range_detail {
 
 
-    struct get_fun
+    struct op_get
     {
         typedef rebar_band result_type;
 
@@ -33,7 +33,7 @@ namespace rebar_band_range_detail {
             return rebar_band(*m_prebar, tomato::get_rebar_band_id(*m_prebar, i));
         }
 
-        explicit get_fun(window_ref rebar) :
+        explicit op_get(window_ref rebar) :
             m_prebar(rebar)
         { }
 
@@ -45,7 +45,7 @@ namespace rebar_band_range_detail {
     template< class = void >
     struct super_
     {
-        typedef oven::index_range<int, get_fun> type;
+        typedef oven::index_range<int, op_get> type;
     };
 
 
@@ -62,7 +62,7 @@ public:
     explicit rebar_band_range(window_ref rebar) :
         super_t(
             0, WTL::CReBarCtrl(rebar).GetBandCount(),
-            rebar_band_range_detail::get_fun(rebar)
+            rebar_band_range_detail::op_get(rebar)
         )
     { }
 };

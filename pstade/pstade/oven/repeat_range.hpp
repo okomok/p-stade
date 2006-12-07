@@ -88,7 +88,7 @@ namespace repeat_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_repeat_range, repeat_range_detail::baby_make)
-PSTADE_PIPABLE(repeated, make_repeat_range_fun)
+PSTADE_PIPABLE(repeated, op_make_repeat_range)
 
 
 } } // namespace pstade::oven

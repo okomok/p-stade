@@ -95,7 +95,7 @@ namespace identity_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_identity_range, identity_range_detail::baby_make)
-PSTADE_PIPABLE(identities, make_identity_range_fun)
+PSTADE_PIPABLE(identities, op_make_identity_range)
 
 
 } } // namespace pstade::oven

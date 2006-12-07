@@ -73,7 +73,7 @@ namespace drop_while_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_drop_while_range, drop_while_range_detail::baby_make)
-PSTADE_PIPABLE(dropped_while, make_drop_while_range_fun)
+PSTADE_PIPABLE(dropped_while, op_make_drop_while_range)
 
 
 } } // namespace pstade::oven

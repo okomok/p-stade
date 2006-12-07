@@ -139,7 +139,7 @@ namespace zip_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_zip_range, zip_range_detail::baby_make)
-PSTADE_PIPABLE(zipped, make_zip_range_fun)
+PSTADE_PIPABLE(zipped, op_make_zip_range)
 
 
 } } // namespace pstade::oven

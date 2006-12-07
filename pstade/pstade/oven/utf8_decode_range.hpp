@@ -97,7 +97,7 @@ namespace utf8_decode_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_utf8_decode_range, utf8_decode_range_detail::baby_make)
-PSTADE_PIPABLE(utf8_decoded, make_utf8_decode_range_fun)
+PSTADE_PIPABLE(utf8_decoded, op_make_utf8_decode_range)
 
 
 } } // namespace pstade::oven

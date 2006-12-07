@@ -154,7 +154,7 @@ namespace merge_iterator_detail {
 
 template<
     class Iterator1, class Iterator2,
-    class Compare      = less_fun,
+    class Compare      = op_less,
     class MergeRoutine = merge_iterator_detail::merge_routine
 >
 struct merge_iterator :

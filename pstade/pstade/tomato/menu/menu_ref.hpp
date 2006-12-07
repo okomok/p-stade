@@ -18,7 +18,7 @@
 namespace pstade { namespace tomato {
 
 
-typedef detail::handle_ref<HMENU, is_menu_fun>
+typedef detail::handle_ref<HMENU, op_is_menu>
 menu_ref;
 
 

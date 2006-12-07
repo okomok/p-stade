@@ -79,7 +79,7 @@ namespace string_find_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_string_find_range, string_find_range_detail::baby_make)
-PSTADE_PIPABLE(string_found, make_string_find_range_fun)
+PSTADE_PIPABLE(string_found, op_make_string_find_range)
 
 
 } } // namespace pstade::oven

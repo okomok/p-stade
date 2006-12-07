@@ -104,7 +104,7 @@ namespace adjacent_transform_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_adjacent_transform_range, adjacent_transform_range_detail::baby_make)
-PSTADE_PIPABLE(adjacent_transformed, make_adjacent_transform_range_fun)
+PSTADE_PIPABLE(adjacent_transformed, op_make_adjacent_transform_range)
 
 
 } } // namespace pstade::oven

@@ -229,18 +229,12 @@ struct function :
 
 
 #define PSTADE_EGG_FUNCTION(Object, Baby) \
-    PSTADE_EGG_FUNCTION_define(BOOST_PP_CAT(Object, _fun), Object, Baby) \
+    PSTADE_EGG_FUNCTION_aux(Object, Baby, BOOST_PP_CAT(op_, Object)) \
 /**/
 
-
-#define PSTADE_EGG_FUNCTION_(Object, Baby) \
-    PSTADE_EGG_FUNCTION_define(BOOST_PP_CAT(Object, fun), Object, Baby) \
-/**/
-
-
-    #define PSTADE_EGG_FUNCTION_define(Type, Object, Baby) \
+    #define PSTADE_EGG_FUNCTION_aux(Object, Baby, Type) \
         typedef pstade::egg::function< Baby > Type; \
-        PSTADE_SINGLETON_CONST( pstade::egg::function< Baby >, Object ) \
+        PSTADE_SINGLETON_CONST(Object, pstade::egg::function< Baby >) \
     /**/
 
 

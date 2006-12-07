@@ -17,7 +17,7 @@
 namespace pstade {
 
 
-    struct is_same_fun
+    struct op_is_same
     {
         typedef bool result_type;
 
@@ -29,7 +29,7 @@ namespace pstade {
     };
 
 
-    PSTADE_SINGLETON_CONST(is_same_fun, is_same)
+    PSTADE_SINGLETON_CONST(is_same, op_is_same)
 
 
 } // namespace pstade

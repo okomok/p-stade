@@ -44,7 +44,7 @@ void test()
     {
         using boost::mpl::identity;
         BOOST_CHECK( pstade::lexical_cast(12, identity<std::string>()) == "12" );
-        std::string str = 12|lexicalized
+        std::string str = 12|lexicalized;
         BOOST_CHECK( str == "12" );
         BOOST_CHECK( pstade::lexical_cast(str, identity<int>()) == 12 );
     }

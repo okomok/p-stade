@@ -103,7 +103,7 @@ namespace to_derived_detail {
 } // namespace to_derived_detail
 
 
-PSTADE_SINGLETON_CONST(to_derived_detail::pipe, to_derived)
+PSTADE_SINGLETON_CONST(to_derived, to_derived_detail::pipe)
 
 
 } // namespace pstade

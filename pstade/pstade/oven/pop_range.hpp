@@ -70,7 +70,7 @@ namespace pop_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_pop_range, pop_range_detail::baby_make)
-PSTADE_PIPABLE(popped, make_pop_range_fun)
+PSTADE_PIPABLE(popped, op_make_pop_range)
 
 
 } } // namespace pstade::oven

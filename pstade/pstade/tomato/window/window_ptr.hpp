@@ -18,7 +18,7 @@
 namespace pstade { namespace tomato {
 
 
-typedef detail::handle_ptr<HWND, is_window_fun>
+typedef detail::handle_ptr<HWND, op_is_window>
 window_ptr;
 
 

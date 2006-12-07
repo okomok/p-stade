@@ -19,7 +19,7 @@
 namespace pstade { namespace tomato {
 
 
-struct is_menu_fun
+struct op_is_menu
 {
     bool operator()(HMENU hMenu) const
     {
@@ -29,7 +29,7 @@ struct is_menu_fun
 };
 
 
-PSTADE_SINGLETON_CONST(is_menu_fun, is_menu)
+PSTADE_SINGLETON_CONST(is_menu, op_is_menu)
 
 
 } } // namespace pstade::tomato

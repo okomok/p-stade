@@ -104,7 +104,7 @@ namespace filter_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_filter_range, filter_range_detail::baby_make)
-PSTADE_PIPABLE(filtered, make_filter_range_fun)
+PSTADE_PIPABLE(filtered, op_make_filter_range)
 
 
 } } // namespace pstade::oven

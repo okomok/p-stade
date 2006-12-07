@@ -44,7 +44,7 @@ PSTADE_ADL_BARRIER(copy_range) { // for Boost
 // copied
 //
 
-struct copy_range_fun :
+struct op_copy_range :
     to_type_cast_result
 {
     template< class From, class Type_To >
@@ -54,8 +54,8 @@ struct copy_range_fun :
     }
 };
 
-PSTADE_SINGLETON_CONST(copy_range_fun, copy_range_)
-PSTADE_PIPABLE(copied, boost::result_of<auto_castable_fun(copy_range_fun)>::type)
+PSTADE_SINGLETON_CONST(copy_range_, op_copy_range)
+PSTADE_PIPABLE(copied, boost::result_of<op_auto_castable(op_copy_range)>::type)
 
 
 // copied_out

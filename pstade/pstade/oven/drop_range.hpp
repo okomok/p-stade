@@ -68,7 +68,7 @@ namespace drop_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_drop_range, drop_range_detail::baby_make)
-PSTADE_PIPABLE(dropped, make_drop_range_fun)
+PSTADE_PIPABLE(dropped, op_make_drop_range)
 
 
 } } // namespace pstade::oven

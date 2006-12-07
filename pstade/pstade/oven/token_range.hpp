@@ -133,7 +133,7 @@ namespace token_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_token_range, token_range_detail::baby_make)
-PSTADE_PIPABLE(tokenized, make_token_range_fun)
+PSTADE_PIPABLE(tokenized, op_make_token_range)
 
 
 } } // namespace pstade::oven

@@ -84,7 +84,7 @@ Base adaptor_to(Adaptor const& ad,
 // because of the weird compiler behavior...
 //
 
-struct adaptor_to_fun :
+struct op_adaptor_to :
     to_type_cast_result
 {
     template< class From, class Type_To >
@@ -100,8 +100,8 @@ struct adaptor_to_fun :
     }
 };
 
-PSTADE_SINGLETON_CONST(adaptor_to_fun, adaptor_to_)
-PSTADE_PIPABLE(to_base, boost::result_of<auto_castable_fun(adaptor_to_fun)>::type)
+PSTADE_SINGLETON_CONST(adaptor_to_, op_adaptor_to)
+PSTADE_PIPABLE(to_base, boost::result_of<op_auto_castable(op_adaptor_to)>::type)
 
 
 } } // namespace pstade::oven

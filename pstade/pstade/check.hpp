@@ -109,7 +109,7 @@ namespace check_detail {
 
 
 PSTADE_EGG_FUNCTION(check, check_detail::baby)
-PSTADE_PIPABLE(checked, check_fun)
+PSTADE_PIPABLE(checked, op_check)
 
 
 template< class StringOutputable > inline

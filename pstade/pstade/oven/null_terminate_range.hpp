@@ -58,7 +58,7 @@ namespace null_terminate_range_detail {
     template< class Range >
     struct super_
     {
-        typedef typename boost::result_of<pstade::not_fun(pstade::is_zero_fun const&)>::type pred_t;
+        typedef typename boost::result_of<pstade::op_not_(op_is_zero const&)>::type pred_t;
         typedef take_while_range<Range, pred_t> type;
     };
 
@@ -110,7 +110,7 @@ namespace null_terminate_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_null_terminate_range, null_terminate_range_detail::baby_make)
-PSTADE_PIPABLE(null_terminated, make_null_terminate_range_fun)
+PSTADE_PIPABLE(null_terminated, op_make_null_terminate_range)
 
 
 } } // namespace pstade::oven

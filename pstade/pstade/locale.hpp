@@ -31,7 +31,7 @@ namespace pstade {
     /**/
 
     #define PSTADE_def_pred(R, _, CType) \
-        struct PSTADE_PP_CAT3(is_, CType, _fun) \
+        struct PSTADE_PP_CAT3(op_, is_, CType) \
         { \
             typedef bool result_type; \
             \
@@ -48,7 +48,7 @@ namespace pstade {
             } \
         }; \
         \
-        PSTADE_SINGLETON_CONST( PSTADE_PP_CAT3(is_, CType, _fun), BOOST_PP_CAT(is_, CType) ) \
+        PSTADE_SINGLETON_CONST( BOOST_PP_CAT(is_, CType), PSTADE_PP_CAT3(op_, is_, CType) ) \
     /**/
 
     BOOST_PP_SEQ_FOR_EACH(PSTADE_def_pred, ~, PSTADE_ctypes)
@@ -62,50 +62,60 @@ namespace pstade {
 
     namespace to_upper_lower_detail {
 
-        struct with_apply
+        struct with_result
         {
-            template< class Myself, class CharT, class Locale = void >
-            struct apply :
+            template< class Signature >
+            struct result;
+
+            template< class _, class CharT, class Locale >
+            struct result<_(CharT, Locale)> :
+                pass_by_value<CharT>
+            { };
+
+            template< class _, class CharT >
+            struct result<_(CharT)> :
                 pass_by_value<CharT>
             { };
         };
 
-        struct baby_up : with_apply
-        {
-            template< class Result, class CharT >
-            Result call(CharT ch, std::locale const& loc) const
-            {
-                return std::toupper(ch, loc);
-            }
-
-            template< class Result, class CharT >
-            Result call(CharT ch) const
-            {
-                return std::toupper(ch, std::locale());
-            }
-        };
-
-        struct baby_lo : with_apply
-        {
-            template< class Result, class CharT >
-            Result call(CharT ch, std::locale const& loc) const
-            {
-                return std::tolower(ch, loc);
-            }
-
-            template< class Result, class CharT >
-            Result call(CharT ch) const
-            {
-                return std::tolower(ch, std::locale());
-            }
-        };
-
     } // namespace to_upper_lower_detail
+
+    
+    struct op_to_upper : to_upper_lower_detail::with_result
+    {
+        template< class CharT >
+        typename result<int(CharT, int)>::type operator()(CharT ch, std::locale const& loc) const
+        {
+            return std::toupper(ch, loc);
+        }
+
+        template< class CharT >
+        typename result<int(CharT)>::type operator()(CharT ch) const
+        {
+            return std::toupper(ch, std::locale());
+        }
+    };
+
+    struct op_to_lower : to_upper_lower_detail::with_result
+    {
+        template< class CharT >
+        typename result<int(CharT, int)>::type operator()(CharT ch, std::locale const& loc) const
+        {
+            return std::tolower(ch, loc);
+        }
+
+        template< class CharT >
+        typename result<int(CharT)>::type operator()(CharT ch) const
+        {
+            return std::tolower(ch, std::locale());
+        }
+    };
+
 
     PSTADE_ADL_BARRIER(locale) { // for Boost
 
-    PSTADE_EGG_FUNCTION(to_upper, to_upper_lower_detail::baby_up)
-    PSTADE_EGG_FUNCTION(to_lower, to_upper_lower_detail::baby_lo)
+    PSTADE_SINGLETON_CONST(to_upper, op_to_upper)
+    PSTADE_SINGLETON_CONST(to_lower, op_to_lower)
 
     } // ADL barrier
 

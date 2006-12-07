@@ -19,7 +19,7 @@
 namespace pstade { namespace tomato {
 
 
-struct is_window_fun
+struct op_is_window
 {
     typedef bool result_type;
 
@@ -31,7 +31,7 @@ struct is_window_fun
 };
 
 
-PSTADE_SINGLETON_CONST(is_window_fun, is_window)
+PSTADE_SINGLETON_CONST(is_window, op_is_window)
 
 
 } } // namespace pstade::tomato

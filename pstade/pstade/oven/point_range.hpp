@@ -101,7 +101,7 @@ namespace point_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_point_range, point_range_detail::baby_make)
-PSTADE_PIPABLE(pointed, make_point_range_fun)
+PSTADE_PIPABLE(pointed, op_make_point_range)
 
 
 } } // namespace pstade::oven

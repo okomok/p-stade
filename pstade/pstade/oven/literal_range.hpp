@@ -80,7 +80,7 @@ namespace literal_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_literal_range, literal_range_detail::baby_make)
-PSTADE_PIPABLE(as_literal, make_literal_range_fun)
+PSTADE_PIPABLE(as_literal, op_make_literal_range)
 
 
 } } // namespace pstade::oven

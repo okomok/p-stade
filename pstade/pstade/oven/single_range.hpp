@@ -65,7 +65,7 @@ namespace single_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_single_range, single_range_detail::baby_make)
-PSTADE_PIPABLE(as_single, make_single_range_fun)
+PSTADE_PIPABLE(as_single, op_make_single_range)
 
 
 } } // namespace pstade::oven

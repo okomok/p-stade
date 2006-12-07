@@ -63,8 +63,8 @@ namespace array_protect_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_array_protect_range, array_protect_range_detail::baby_make)
-PSTADE_PIPABLE(array_protected, make_array_protect_range_fun)
-PSTADE_PIPABLE(as_array, make_array_protect_range_fun)
+PSTADE_PIPABLE(array_protected, op_make_array_protect_range)
+PSTADE_PIPABLE(as_array, op_make_array_protect_range)
 
 
 } } // namespace pstade::oven

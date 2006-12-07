@@ -48,7 +48,7 @@ widechar_to(WideCharRange const& from)
 }
 
 
-struct widechar_to_fun :
+struct op_widechar_to :
     to_type_cast_result
 {
     template< class From, class Type_To >
@@ -58,8 +58,8 @@ struct widechar_to_fun :
     }
 };
 
-PSTADE_SINGLETON_CONST(widechar_to_fun, widechar_to_)
-PSTADE_PIPABLE(to_multibyte, boost::result_of<auto_castable_fun(widechar_to_fun)>::type)
+PSTADE_SINGLETON_CONST(widechar_to_, op_widechar_to)
+PSTADE_PIPABLE(to_multibyte, boost::result_of<op_auto_castable(op_widechar_to)>::type)
 
 
 } } // namespace pstade::tomato

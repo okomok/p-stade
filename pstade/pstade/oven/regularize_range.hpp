@@ -80,7 +80,7 @@ namespace regularize_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_regularize_range, regularize_range_detail::baby_make)
-PSTADE_PIPABLE(regularized, make_regularize_range_fun)
+PSTADE_PIPABLE(regularized, op_make_regularize_range)
 
 
 } } // namespace pstade::oven

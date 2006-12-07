@@ -18,7 +18,7 @@
 namespace pstade { namespace tomato {
 
 
-typedef detail::handle_ref<HWND, is_window_fun>
+typedef detail::handle_ref<HWND, op_is_window>
 window_ref;
 
 

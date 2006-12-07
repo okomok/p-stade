@@ -119,7 +119,7 @@ namespace take_while_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_take_while_range, take_while_range_detail::baby_make)
-PSTADE_PIPABLE(taken_while, make_take_while_range_fun)
+PSTADE_PIPABLE(taken_while, op_make_take_while_range)
 
 
 } } // namespace pstade::oven

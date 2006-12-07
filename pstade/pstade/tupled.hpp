@@ -19,7 +19,7 @@
 #include <boost/utility/result_of.hpp>
 #include <pstade/affect.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/pass_by.hpp>
+#include <pstade/egg/function_adaptor.hpp>
 
 
 namespace pstade {
@@ -91,7 +91,7 @@ namespace pstade {
 
 
         template< class Function >
-        struct baby_fun
+        struct baby_op_result
         {
             template< class Myself, class Tuple >
             struct apply
@@ -109,10 +109,10 @@ namespace pstade {
                 return tupled_detail::call_impl<Result>(m_fun, tup, n_t());
             }
 
-            explicit baby_fun() // DefaultConstructible iff 'Function' is.
+            explicit baby_op_result() // DefaultConstructible iff 'Function' is.
             { }
 
-            explicit baby_fun(Function const& fun) :
+            explicit baby_op_result(Function const& fun) :
                 m_fun(fun)
             { }
 
@@ -128,27 +128,10 @@ namespace pstade {
         };
 
 
-        struct baby
-        {
-            template< class Myself, class Function >
-            struct apply
-            {
-                typedef typename pass_by_value<Function>::type fun_t;
-                typedef egg::function< baby_fun<fun_t> > type;
-            };
-
-            template< class Result, class Function >
-            Result call(Function& fun) const
-            {
-                return Result(fun);
-            }
-        };
-
-
     } // namespace tupled_detail
 
 
-    PSTADE_EGG_FUNCTION(tupled, tupled_detail::baby)
+    PSTADE_EGG_FUNCTION_ADAPTOR(tupled, tupled_detail::baby_op_result)
 
 
 } // namespace pstade

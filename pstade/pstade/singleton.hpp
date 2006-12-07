@@ -37,13 +37,13 @@ namespace pstade {
 // 'stdafx.h' sometimes needs 'static'.
 //
 
-#define PSTADE_SINGLETON(T, O) \
+#define PSTADE_SINGLETON(O, T) \
     namespace { \
         static T& O = pstade::singleton< T >::instance; \
     } \
 /**/
 
-#define PSTADE_SINGLETON_CONST(T, O) \
+#define PSTADE_SINGLETON_CONST(O, T) \
     namespace { \
         static T const& O = pstade::singleton< T >::instance; \
     } \

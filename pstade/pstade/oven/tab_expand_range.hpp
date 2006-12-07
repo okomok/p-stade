@@ -87,7 +87,7 @@ namespace tab_expand_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_tab_expand_range, tab_expand_range_detail::baby_make)
-PSTADE_PIPABLE(tab_expanded, make_tab_expand_range_fun)
+PSTADE_PIPABLE(tab_expanded, op_make_tab_expand_range)
 
 
 } } // namespace pstade::oven

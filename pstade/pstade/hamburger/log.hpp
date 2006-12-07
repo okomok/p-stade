@@ -48,7 +48,7 @@ namespace pstade { namespace hamburger {
         };
 
 
-        PSTADE_SINGLETON_CONST(init, i)
+        PSTADE_SINGLETON_CONST(i, init)
 
 
     } // namespace log_detail

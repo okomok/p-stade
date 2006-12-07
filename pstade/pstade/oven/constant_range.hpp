@@ -37,7 +37,7 @@ namespace constant_range_detail {
     {
         typedef transform_range<
             Range,
-            identity_fun,
+            op_identity,
             typename detail::constant_reference<
                 typename range_iterator<Range>::type
             >::type
@@ -91,7 +91,7 @@ namespace constant_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_constant_range, constant_range_detail::baby_make)
-PSTADE_PIPABLE(constants, make_constant_range_fun)
+PSTADE_PIPABLE(constants, op_make_constant_range)
 
 
 } } // namespace pstade::oven

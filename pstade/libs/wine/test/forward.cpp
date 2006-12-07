@@ -95,7 +95,7 @@ void test()
     ::my_fun0_t my_fun0;
     {
         boost::result_of<
-            boost::result_of<forward_fun(my_fun0_t, boost::type<int>)>::type()
+            boost::result_of<op_forward(my_fun0_t, boost::type<int>)>::type()
         >::type result = pstade::forward_(my_fun0, boost::type<int>())();
         BOOST_CHECK( result == 10 );
     }

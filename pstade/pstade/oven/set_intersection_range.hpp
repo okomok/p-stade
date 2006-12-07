@@ -92,7 +92,7 @@ namespace set_intersection_range_detail {
 
 template<
     class Range1, class Range2,
-    class Compare = less_fun
+    class Compare = op_less
 >
 struct set_intersection_range :
     set_intersection_range_detail::super_<Range1, Range2, Compare>::type,
@@ -118,7 +118,7 @@ namespace set_intersection_range_detail {
 
     struct baby_make
     {
-        template< class Myself, class Range1, class Range2, class Compare = less_fun >
+        template< class Myself, class Range1, class Range2, class Compare = op_less >
         struct apply
         {
             typedef typename pass_by_value<Compare>::type comp_t;
@@ -143,7 +143,7 @@ namespace set_intersection_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_set_intersection_range, set_intersection_range_detail::baby_make)
-PSTADE_PIPABLE(set_cap, make_set_intersection_range_fun)
+PSTADE_PIPABLE(set_cap, op_make_set_intersection_range)
 
 
 } } // namespace pstade::oven

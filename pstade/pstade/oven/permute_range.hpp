@@ -90,7 +90,7 @@ namespace permute_range_detail {
 
 
 PSTADE_EGG_FUNCTION(make_permute_range, permute_range_detail::baby_make)
-PSTADE_PIPABLE(permuted, make_permute_range_fun)
+PSTADE_PIPABLE(permuted, op_make_permute_range)
 
 
 } } // namespace pstade::oven
