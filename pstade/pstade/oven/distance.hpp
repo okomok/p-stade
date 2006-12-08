@@ -21,6 +21,7 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/adl_barrier.hpp>
+#include <pstade/lambda_sig.hpp>
 #include <pstade/singleton.hpp>
 #include "./concepts.hpp"
 #include "./range_difference.hpp"
@@ -63,7 +64,8 @@ namespace distance_detail {
 } // namespace distance_detail
 
 
-struct op_distance
+struct op_distance :
+    lambda_sig
 {
     template< class Signature >
     struct result;

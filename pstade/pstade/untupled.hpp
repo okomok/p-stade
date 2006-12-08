@@ -111,7 +111,7 @@ namespace pstade {
             }
 
         private:
-            mutable Function m_fun;
+            Function m_fun;
 
         }; // struct op_result
 

@@ -12,6 +12,7 @@
 
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
+#include <pstade/lambda_sig.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/singleton.hpp>
@@ -67,7 +68,8 @@ namespace pstade {
     } // namespace compose_detail
 
 
-    struct op_compose
+    struct op_compose :
+        lambda_sig
     {
         template< class Signature >
         struct result;

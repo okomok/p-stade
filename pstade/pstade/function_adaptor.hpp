@@ -11,6 +11,7 @@
 
 
 #include <boost/preprocessor/cat.hpp>
+#include <pstade/lambda_sig.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/singleton.hpp>
 
@@ -21,7 +22,8 @@
 
 
     #define PSTADE_FUNCTION_ADAPTOR_aux(Object, Template, Type) \
-        struct Type \
+        struct Type : \
+            pstade::lambda_sig \
         { \
             template< class Signature > \
             struct result; \

@@ -11,6 +11,7 @@
 
 
 #include <boost/noncopyable.hpp>
+#include <pstade/lambda_sig.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/singleton.hpp>
 
@@ -24,7 +25,8 @@ namespace pstade {
     // case of function reference.
 
 
-    struct op_value
+    struct op_value :
+        lambda_sig
     {
         template< class Signature >
         struct result;
