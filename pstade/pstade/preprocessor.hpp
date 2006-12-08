@@ -20,6 +20,8 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/seq/elem.hpp>
+#include <boost/preprocessor/seq/for_each.hpp>
+#include <boost/preprocessor/seq/for_each_i.hpp>
 #include <boost/preprocessor/seq/pop_back.hpp>
 #include <boost/preprocessor/seq/size.hpp>
 #include <boost/preprocessor/tuple/eat.hpp>

@@ -114,14 +114,16 @@ struct op_make_token_range :
     };
 
     template< class Result, class Range, class Regex >
-    Result call(Range& rng, Regex const& re, int submatch = 0, match_flag_type flag = match_default) const
+    Result call(Range& rng, Regex const& re, int submatch = 0,
+        token_range_detail::match_flag_type flag = token_range_detail::match_default) const
     {
         return Result(rng, re, submatch, flag);
     }
 
     template< class Result, class Range, class Regex, class RandRange >
     typename boost::disable_if<boost::is_same<RandRange, int>, // for GCC
-    Result>::type call(Range& rng, Regex const& re, RandRange const& submatches, match_flag_type flag = match_default) const
+    Result>::type call(Range& rng, Regex const& re, RandRange const& submatches,
+        token_range_detail::match_flag_type flag = token_range_detail::match_default) const
     {
         return Result(rng, re, submatches, flag);
     }

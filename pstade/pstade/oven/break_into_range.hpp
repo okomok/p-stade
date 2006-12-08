@@ -121,7 +121,7 @@ namespace break_into_range_detail {
     break_into_range<Range, TokenizerFun, Type> const
     operator|(Range& rng, pipe<Type, TokenizerFun> const& pi)
     {
-        return break_into_range<Range, TokenizerFun, Type>(rng, pi.m);
+        return break_into_range<Range, TokenizerFun, Type>(rng, pi.m_fun);
     }
 
 
@@ -129,7 +129,7 @@ namespace break_into_range_detail {
     break_into_range<PSTADE_CONST(Range), TokenizerFun, Type> const
     operator|(Range const& rng, pipe<Type, TokenizerFun> const& pi)
     {
-        return break_into_range<PSTADE_CONST(Range), TokenizerFun, Type>(rng, pi.m);
+        return break_into_range<PSTADE_CONST(Range), TokenizerFun, Type>(rng, pi.m_fun);
     }
 
 

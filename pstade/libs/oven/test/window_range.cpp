@@ -44,7 +44,6 @@ void test()
             expected
         ) );
     }
-
     std::string src("0123456");
     {
         BOOST_CHECK( oven::equals(oven::make_window_range(src, 0, 0), std::string("")) );

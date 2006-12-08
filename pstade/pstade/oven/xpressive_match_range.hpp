@@ -86,7 +86,7 @@ struct op_make_xpressive_match_range :
     };
 
     template< class Result, class Range, class Regex >
-    Result call(Range& rng, Regex const& re, match_flag_type flag = match_default) const
+    Result call(Range& rng, Regex const& re, xpressive_match_range_detail::match_flag_type flag = xpressive_match_range_detail::match_default) const
     {
         return Result(rng, re, flag);
     }

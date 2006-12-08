@@ -92,7 +92,7 @@ struct op_parallel_for_each :
     // if you write not 'void' but 'Result'.
     PSTADE_CONCEPT_WHERE(
         ((Forward<Range>)),
-    (void)) call(Range& rng, UnaryFun fun, Difference grain)
+    (void)) call(Range& rng, UnaryFun fun, Difference grain) const
     {
         typedef typename range_difference<Range>::type diff_t;
 

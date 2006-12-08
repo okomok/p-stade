@@ -26,6 +26,8 @@
 // http://article.gmane.org/gmane.comp.lib.boost.devel/150218
 
 
+#include <boost/config.hpp>
+#include <boost/detail/workaround.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/punctuation/comma_if.hpp>
@@ -47,6 +49,11 @@
 #endif
 
 
+#if BOOST_WORKAROUND(BOOST_MSVC, == 1310) // VC7.1
+    #define PSTADE_CALLABLE_NEEDS_ETI_WORKAROUND
+#endif
+
+
 namespace pstade {
 
 
@@ -60,6 +67,10 @@ namespace pstade {
                 typename boost::add_const<A>::type
             >
         { };
+
+
+        typedef void her_t;
+        typedef int  his_t;
 
 
     } // namespace callable_detail
@@ -77,7 +88,7 @@ namespace pstade {
 
         // 0ary
 
-        NullaryResult // Never call 'boost::result_of', which requires 'Derived' to be complete here.
+        NullaryResult // don't call 'boost::result_of', which requires 'Derived' to be complete.
         operator()() const
         {
             return const_derived().template call<
@@ -95,28 +106,58 @@ namespace pstade {
             >
         { };
 
+#if !defined(PSTADE_CALLABLE_NEEDS_ETI_WORKAROUND)
+
+        typedef callable const self_fun_t;
+
         template< class Self, class A0 >
         struct result<Self(A0)> :
             result1<A0>
         { };
 
-        // Workaround:
-        // Never call 'result<Self(A0&,..)>' directly; signature form makes VC7.1 fall into ETI.
+#else
+
+        typedef Derived self_fun_t;
+
+        template< class Self, class A0 >
+        struct result<Self const(A0)>
+        {
+            typedef typename result1<A0>::type type;
+        };
+/*
         template< class A0 >
-        typename result1<A0&>::type
+        struct result<Derived const(A0)>
+        {
+            typedef typename result1<A0>::type type;
+        };
+
+        template< class A0 >
+        struct result<Derived volatile(A0)> :
+            result1<A0>
+        { };
+
+        template< class A0 >
+        struct result<Derived const volatile(A0)> :
+            result1<A0>
+        { };
+*/
+#endif // !defined(PSTADE_CALLABLE_NEEDS_ETI_WORKAROUND)
+
+        template< class A0 >
+        typename result<self_fun_t(A0&)>::type
         operator()(A0& a0) const
         {
             return const_derived().template call<
-                typename result1<A0&>::type
+                typename result<self_fun_t(A0&)>::type
             >(a0);
         }
 
         template< class A0 >
-        typename result1<PSTADE_CONST(A0)&>::type
+        typename result<Derived(PSTADE_CONST(A0)&)>::type
         operator()(A0 const& a0) const
         {
             return const_derived().template call<
-                typename result1<PSTADE_CONST(A0)&>::type
+                typename result<self_fun_t(PSTADE_CONST(A0)&)>::type
             >(a0);
         }
 
@@ -125,11 +166,11 @@ namespace pstade {
 
     #define PSTADE_call_operator(R, BitSeq) \
         template< BOOST_PP_ENUM_PARAMS(n, class A) > \
-        typename BOOST_PP_CAT(result, n)<BOOST_PP_SEQ_FOR_EACH_I_R(R, PSTADE_arg_type, ~, BitSeq)>::type \
+        typename result<self_fun_t(BOOST_PP_SEQ_FOR_EACH_I_R(R, PSTADE_arg_type, ~, BitSeq))>::type \
         operator()(BOOST_PP_SEQ_FOR_EACH_I_R(R, PSTADE_param, ~, BitSeq)) const \
         { \
             return const_derived().template call< \
-                typename BOOST_PP_CAT(result, n)<BOOST_PP_SEQ_FOR_EACH_I_R(R, PSTADE_arg_type, ~, BitSeq)>::type \
+                typename result<self_fun_t(BOOST_PP_SEQ_FOR_EACH_I_R(R, PSTADE_arg_type, ~, BitSeq))>::type \
             >(BOOST_PP_ENUM_PARAMS(n, a)); \
         } \
     /**/
@@ -163,8 +204,8 @@ namespace pstade {
 
 
 // 'callable' can't define 'result_type' for you.
-// 'boost::result_of' ignores any nested 'result' specializations,
-// if a functor has nested 'result_type',
+// If a functor has nested 'result_type',
+//'boost::result_of' ignores any nested 'result' specializations.
 
 
 #define PSTADE_CALLABLE_NULLARY_RESULT_TYPE(NameSeq) \
@@ -241,19 +282,54 @@ namespace pstade {
 #define n BOOST_PP_ITERATION()
 
 
-template< BOOST_PP_ENUM_PARAMS(n, class A) >
-struct BOOST_PP_CAT(result, n) :
-    Derived::template apply< Derived,
-        BOOST_PP_ENUM(n, PSTADE_meta_argument, ~)
-    >
-{ };
+    template< BOOST_PP_ENUM_PARAMS(n, class A) >
+    struct BOOST_PP_CAT(result, n) :
+        Derived::template apply< Derived,
+            BOOST_PP_ENUM(n, PSTADE_meta_argument, ~)
+        >
+    { };
 
-template< class Self, BOOST_PP_ENUM_PARAMS(n, class A) >
-struct result<Self(BOOST_PP_ENUM_PARAMS(n, A))> :
-    BOOST_PP_CAT(result, n)<
-        BOOST_PP_ENUM_PARAMS(n, A)
-    >
-{ };
+
+#if !defined(PSTADE_CALLABLE_NEEDS_ETI_WORKAROUND)
+
+    template< class Self, BOOST_PP_ENUM_PARAMS(n, class A) >
+    struct result<Self(BOOST_PP_ENUM_PARAMS(n, A))> :
+        BOOST_PP_CAT(result, n)<
+            BOOST_PP_ENUM(n, PSTADE_meta_argument, ~)
+        >
+    { };
+
+#else
+
+    template< BOOST_PP_ENUM_PARAMS(n, class A) >
+    struct result<Derived(BOOST_PP_ENUM_PARAMS(n, A))> :
+        BOOST_PP_CAT(result, n)<
+            BOOST_PP_ENUM(n, PSTADE_meta_argument, ~)
+        >
+    { };
+
+    template< BOOST_PP_ENUM_PARAMS(n, class A) >
+    struct result<Derived const(BOOST_PP_ENUM_PARAMS(n, A))> :
+        BOOST_PP_CAT(result, n)<
+            BOOST_PP_ENUM(n, PSTADE_meta_argument, ~)
+        >
+    { };
+
+    template< BOOST_PP_ENUM_PARAMS(n, class A) >
+    struct result<Derived volatile(BOOST_PP_ENUM_PARAMS(n, A))> :
+        BOOST_PP_CAT(result, n)<
+            BOOST_PP_ENUM(n, PSTADE_meta_argument, ~)
+        >
+    { };
+
+    template< BOOST_PP_ENUM_PARAMS(n, class A) >
+    struct result<Derived const volatile(BOOST_PP_ENUM_PARAMS(n, A))> :
+        BOOST_PP_CAT(result, n)<
+            BOOST_PP_ENUM(n, PSTADE_meta_argument, ~)
+        >
+    { };
+
+#endif //  !defined(PSTADE_CALLABLE_NEEDS_ETI_WORKAROUND)
 
 
 BOOST_PP_SEQ_FOR_EACH_PRODUCT(

@@ -102,7 +102,7 @@ struct op_make_xpressive_token_range :
     }
 
     template< class Result, class Range, class Regex, class SubMatches >
-    Result call(Range& rng, Regex const& re, SubMatches const& submatches, match_flag_type flag = match_default) const
+    Result call(Range& rng, Regex const& re, SubMatches const& submatches, xpressive_token_range_detail::match_flag_type flag = xpressive_token_range_detail::match_default) const
     {
         return Result(rng, re, submatches, flag);
     }

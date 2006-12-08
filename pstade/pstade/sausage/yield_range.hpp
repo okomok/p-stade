@@ -70,7 +70,7 @@ struct op_make_yield_range :
 };
 
 
-PSTADE_SINGLETON_CONT(make_yield_range, op_make_yield_range)
+PSTADE_SINGLETON_CONST(make_yield_range, op_make_yield_range)
 PSTADE_PIPABLE(yielded, op_make_yield_range)
 
 
