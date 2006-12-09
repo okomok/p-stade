@@ -16,6 +16,7 @@
 
 
 #include <boost/mpl/apply.hpp>
+#include <boost/mpl/placeholders.hpp> // _1
 #include <pstade/lambda_sig.hpp>
 #include <pstade/pass_by.hpp>
 
@@ -37,9 +38,6 @@ namespace pstade {
             boost::mpl::apply1<To, typename pass_by_value<A0>::type>
         { };
 
-        // Workaround:
-        // Never call 'result<object_generator(A0,..)>' directly;
-        // a signature form makes VC7.1 fall into ETI.
         template< class A0 >
         typename boost::mpl::apply1<To, A0>::type
         operator()(A0 a0) const
@@ -47,6 +45,9 @@ namespace pstade {
             return typename boost::mpl::apply1<To, A0>::type(a0);
         }
     };
+
+
+    typedef boost::mpl::placeholders::_1 object_arg1;
 
 
 } // namespace pstade

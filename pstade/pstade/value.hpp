@@ -11,7 +11,6 @@
 
 
 #include <boost/mpl/identity.hpp>
-#include <boost/mpl/placeholders.hpp> // _1
 #include <boost/noncopyable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/object_generator.hpp>
@@ -26,7 +25,7 @@ namespace pstade {
     // case of function reference.
 
 
-    typedef object_generator< boost::mpl::identity<boost::mpl::placeholders::_1> > op_value;
+    typedef object_generator< boost::mpl::identity<object_arg1> > op_value;
     PSTADE_CONSTANT(value, op_value)
 
 

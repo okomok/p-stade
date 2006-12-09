@@ -20,7 +20,6 @@
 
 
 #include <boost/mpl/if.hpp> // if_c
-#include <boost/mpl/placeholders.hpp> // _1
 #include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <boost/utility/addressof.hpp>
@@ -103,7 +102,7 @@ PSTADE_ADL_BARRIER(functional) {
 
     } // namespace not_detail
 
-    typedef object_generator< not_detail::op_result<boost::mpl::placeholders::_1> > op_not_;
+    typedef object_generator< not_detail::op_result<object_arg1> > op_not_;
     PSTADE_CONSTANT(not_, op_not_)
 
 
@@ -344,7 +343,7 @@ PSTADE_ADL_BARRIER(functional) {
 
     } // namespace flip_detail
 
-    typedef object_generator< flip_detail::op_result<boost::mpl::placeholders::_1> > op_flip;
+    typedef object_generator< flip_detail::op_result<object_arg1> > op_flip;
     PSTADE_CONSTANT(flip, op_flip)
 
 

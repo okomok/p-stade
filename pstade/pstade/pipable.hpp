@@ -27,7 +27,6 @@
 // Also, we must know the exact type passed to 'operator|'.
 
 
-#include <boost/mpl/placeholders.hpp> // _1
 #include <boost/preprocessor/arithmetic/dec.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
@@ -176,7 +175,7 @@ namespace pstade {
     } // namespace pipable_detail
 
 
-    typedef object_generator< pipable_detail::pipe<boost::mpl::placeholders::_1> > op_pipable;
+    typedef object_generator< pipable_detail::pipe<object_arg1> > op_pipable;
     PSTADE_CONSTANT(pipable, op_pipable)
 
 

@@ -66,9 +66,12 @@ namespace pstade {
         struct op_result :
             callable< op_result<Function, Result_>, typename result_of_aux<Result_, Function()>::type >
         {
+
             typedef op_result type;
 
+
             // PSTADE_CALLABLE_MAX_ARITY (primary)
+
             template< class Myself, BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(PSTADE_CALLABLE_MAX_ARITY, class A, void) >
             struct apply :
                 result_of_aux< Result_,
@@ -86,6 +89,7 @@ namespace pstade {
             }
 
             // 0ary
+
             template< class Result >
             Result call( ) const
             {
@@ -95,6 +99,7 @@ namespace pstade {
             }
 
             // 1ary
+
             template< class Myself, class A0 >
             struct apply< Myself, A0 > :
                 result_of_aux< Result_,
@@ -114,6 +119,7 @@ namespace pstade {
             }
 
             // 2ary-
+
         #define PSTADE_max_arity BOOST_PP_DEC(PSTADE_CALLABLE_MAX_ARITY)
             #define  BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_max_arity, <pstade/forward.hpp>))
             #include BOOST_PP_ITERATE()

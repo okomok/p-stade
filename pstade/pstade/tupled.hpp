@@ -12,7 +12,6 @@
 
 
 #include <boost/mpl/int.hpp>
-#include <boost/mpl/placeholders.hpp> // _1
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/tuple/tuple.hpp>
@@ -20,6 +19,7 @@
 #include <boost/utility/result_of.hpp>
 #include <pstade/affect.hpp>
 #include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/object_generator.hpp>
 
 
@@ -136,7 +136,7 @@ namespace pstade {
     } // namespace tupled_detail
 
 
-    typedef object_generator< tupled_detail::op_result<boost::mpl::placeholders::_1> > op_tupled;
+    typedef object_generator< tupled_detail::op_result<object_arg1> > op_tupled;
     PSTADE_CONSTANT(tupled, op_tupled)
 
 

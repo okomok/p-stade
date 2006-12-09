@@ -16,6 +16,7 @@
 
 #include <string>
 #include <sstream>
+#include <boost/range.hpp>
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/filter_range.hpp>
 #include <pstade/oven/regularize_range.hpp>
@@ -33,6 +34,14 @@ void test()
         std::vector<char> expected = src|copied;
         BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
             rng, expected
+        ) );
+
+        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
+            oven::make_iter_range(src), expected
+        ) );
+ 
+        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
+            oven::make_iter_range(boost::begin(src), boost::end(src)), expected
         ) );
     }
     {

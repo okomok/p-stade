@@ -30,7 +30,9 @@
 #include <boost/operators.hpp> // equality_comparable
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/const.hpp>
+#include <boost/type_traits/remove_cv.hpp>
+#include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/radish/bool_testable.hpp>
 #include <pstade/radish/swappable.hpp>
 #include <pstade/unused_to_copy.hpp>
@@ -157,26 +159,35 @@ private:
 };
 
 
-template< class Iterator > inline
-iter_range<Iterator> const
-make_iter_range(Iterator const& first, Iterator const& last)
+struct op_make_iter_range :
+    callable<op_make_iter_range>
 {
-    return iter_range<Iterator>(first, last);
-}
+    template< class Myself, class Iterator, class Iterator_ = void >
+    struct apply
+    {
+        typedef iter_range<typename boost::remove_cv<Iterator>::type> const type;
+    };
 
-template< class Range > inline
-iter_range<typename range_iterator<Range>::type> const
-make_iter_range(Range& rng)
-{
-    return iter_range<typename range_iterator<Range>::type>(rng);
-}
+    template< class Result, class Iterator >
+    Result call(Iterator& first, Iterator& last) const
+    {
+        return Result(first, last);
+    }
 
-template< class Range > inline
-iter_range<typename range_iterator<PSTADE_CONST(Range)>::type> const
-make_iter_range(Range const& rng)
-{
-    return iter_range<typename range_iterator<PSTADE_CONST(Range)>::type>(rng);
-}
+    template< class Myself, class Range >
+    struct apply<Myself, Range>
+    {
+        typedef iter_range<typename range_iterator<Range>::type> const type;
+    };
+
+    template< class Result, class Range >
+    Result call(Range& rng) const
+    {
+        return Result(rng);
+    }
+};
+
+PSTADE_CONSTANT(make_iter_range, op_make_iter_range)
 
 
 template< class Iterator, class CharT, class Traits > inline

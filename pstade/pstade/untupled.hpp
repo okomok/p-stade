@@ -17,7 +17,6 @@
 // but this is the basis together with 'tupled'.
 
 
-#include <boost/mpl/placeholders.hpp> // _1
 #include <boost/preprocessor/arithmetic/dec.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
@@ -42,6 +41,7 @@ namespace pstade {
         {
 
             // PSTADE_CALLABLE_MAX_ARITY (primary)
+
             template< class Myself, BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(PSTADE_CALLABLE_MAX_ARITY, class A, void) >
             struct apply :
                 boost::result_of<
@@ -61,7 +61,9 @@ namespace pstade {
                     );
             }
 
+
             // 0ary
+
             template< class Result >
             Result call() const
             {
@@ -72,6 +74,7 @@ namespace pstade {
             }
 
             // 1ary
+
             template< class Myself, class A0 >
             struct apply< Myself, A0 > :
                 boost::result_of<
@@ -91,6 +94,7 @@ namespace pstade {
             }
 
             // 2ary-
+
         #define PSTADE_max_arity BOOST_PP_DEC(PSTADE_CALLABLE_MAX_ARITY)
             #define  BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_max_arity, <pstade/untupled.hpp>))
             #include BOOST_PP_ITERATE()
@@ -120,7 +124,7 @@ namespace pstade {
     } // namespace untupled_detail
 
 
-    typedef object_generator< untupled_detail::op_result<boost::mpl::placeholders::_1> > op_untupled;
+    typedef object_generator< untupled_detail::op_result<object_arg1> > op_untupled;
     PSTADE_CONSTANT(untupled, op_untupled)
 
 

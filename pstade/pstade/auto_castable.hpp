@@ -10,7 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/mpl/placeholders.hpp> // _1
 #include <boost/preprocessor/cat.hpp>
 #include <boost/type.hpp>
 #include <boost/utility/result_of.hpp>
@@ -77,7 +76,7 @@ namespace pstade {
     } // namespace auto_castable_detail
 
 
-    typedef object_generator< auto_castable_detail::op_result<boost::mpl::placeholders::_1> > op_auto_castable;
+    typedef object_generator< auto_castable_detail::op_result<object_arg1> > op_auto_castable;
     PSTADE_CONSTANT(auto_castable, op_auto_castable)
 
 

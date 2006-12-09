@@ -16,18 +16,23 @@
 #include <algorithm>
 #include <string>
 #include <boost/range.hpp>
+#include <boost/result_of.hpp>
 #include <pstade/oven/functions.hpp>
 
 
 void test()
 {
-    using namespace pstade;
+    namespace oven = pstade::oven;
     using namespace oven;
 
     {
         std::string rng1("hello, begin_end");
         std::string rng2(rng1);
         BOOST_CHECK( std::equal(rng1|begins, rng1|ends, rng2|begins) );
+
+        boost::result_of<op_begin(std::string&)>::type first = oven::begin(rng1);
+        *first = 'H';
+        boost::result_of<op_end(std::string&)>::type last = oven::end(rng1);
     }
 }
 
