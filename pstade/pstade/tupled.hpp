@@ -12,6 +12,7 @@
 
 
 #include <boost/mpl/int.hpp>
+#include <boost/mpl/placeholders.hpp> // _1
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/tuple/tuple.hpp>
@@ -19,7 +20,7 @@
 #include <boost/utility/result_of.hpp>
 #include <pstade/affect.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/function_adaptor.hpp>
+#include <pstade/object_generator.hpp>
 
 
 namespace pstade {
@@ -42,6 +43,7 @@ namespace pstade {
 
 
         // 0ary
+
         template< class Function, class Tuple >
         struct apply_impl< Function, Tuple, boost::mpl::int_<0> > :
             boost::result_of<
@@ -60,6 +62,7 @@ namespace pstade {
 
 
         // 1ary
+
         template< class Function, class Tuple >
         struct apply_impl< Function, Tuple, boost::mpl::int_<1> > :
             boost::result_of<
@@ -80,6 +83,7 @@ namespace pstade {
 
 
         // 2ary-
+
     #define PSTADE_max_arity 10
     #define PSTADE_result_of_get(Z, N, _) typename result_of_get< Tuple, N >::type
     #define PSTADE_get(Z, N, _) boost::tuples::get< N >(tup)
@@ -132,7 +136,8 @@ namespace pstade {
     } // namespace tupled_detail
 
 
-    PSTADE_FUNCTION_ADAPTOR(tupled, tupled_detail::op_result)
+    typedef object_generator< tupled_detail::op_result<boost::mpl::placeholders::_1> > op_tupled;
+    PSTADE_CONSTANT(tupled, op_tupled)
 
 
 } // namespace pstade

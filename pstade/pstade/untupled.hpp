@@ -17,6 +17,7 @@
 // but this is the basis together with 'tupled'.
 
 
+#include <boost/mpl/placeholders.hpp> // _1
 #include <boost/preprocessor/arithmetic/dec.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
@@ -24,7 +25,7 @@
 #include <boost/tuple/tuple.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/function_adaptor.hpp>
+#include <pstade/object_generator.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/tie.hpp>
 
@@ -119,7 +120,8 @@ namespace pstade {
     } // namespace untupled_detail
 
 
-    PSTADE_FUNCTION_ADAPTOR(untupled, untupled_detail::op_result)
+    typedef object_generator< untupled_detail::op_result<boost::mpl::placeholders::_1> > op_untupled;
+    PSTADE_CONSTANT(untupled, op_untupled)
 
 
 } // namespace pstade

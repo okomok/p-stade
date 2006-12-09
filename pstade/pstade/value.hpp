@@ -10,40 +10,23 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/mpl/identity.hpp>
+#include <boost/mpl/placeholders.hpp> // _1
 #include <boost/noncopyable.hpp>
 #include <pstade/constant.hpp>
-#include <pstade/lambda_sig.hpp>
-#include <pstade/pass_by.hpp>
+#include <pstade/object_generator.hpp>
 
 
 namespace pstade {
 
 
-    // Define it without 'callable'.
-    // Egg would turn the argument into reference;
+    // Define this without 'callable' nor 'pipable'.
+    // They would turn the argument into reference;
     // that's the dark-side of the language in the
     // case of function reference.
 
 
-    struct op_value :
-        lambda_sig
-    {
-        template< class Signature >
-        struct result;
-
-        template< class Self, class A >
-        struct result<Self(A)> :
-            pass_by_value<A>
-        { };
-
-        template< class A >
-        A operator()(A a) const
-        {
-            return a;
-        }
-    };
-
-
+    typedef object_generator< boost::mpl::identity<boost::mpl::placeholders::_1> > op_value;
     PSTADE_CONSTANT(value, op_value)
 
 

@@ -74,7 +74,7 @@ namespace pstade {
         lambda_sig
     {
 
-        typedef NullaryResult pstade_callable_nullary_result_type;
+        typedef NullaryResult detail_nullary_result_type;
 
 
         template< class Signature >
@@ -109,7 +109,8 @@ namespace pstade {
         { };
 
         // Workaround:
-        // Never call 'result<Self(A0&,..)>' directly; signature form makes VC7.1 fall into ETI.
+        // Never call 'result<callable(A0&,..)>' directly;
+        // a signature form makes VC7.1 fall into ETI.
         template< class A0 >
         typename result1<A0&>::type
         operator()(A0& a0) const
@@ -188,7 +189,7 @@ namespace pstade {
         template< > \
         struct result_of< PSTADE_PP_FULLNAME(NameSeq)(void) > \
         { \
-            typedef PSTADE_PP_FULLNAME(NameSeq)::pstade_callable_nullary_result_type type; \
+            typedef PSTADE_PP_FULLNAME(NameSeq)::detail_nullary_result_type type; \
         }; \
         \
         template< > \
@@ -220,7 +221,7 @@ namespace pstade {
         template< PSTADE_PP_TO_TEMPLATE_PARAMS(ParamSeq) > \
         struct result_of< PSTADE_PP_FULLNAME(NameSeq)< PSTADE_PP_TO_TEMPLATE_ARGS(ParamSeq) >(void) > \
         { \
-            typedef typename PSTADE_PP_FULLNAME(NameSeq)< PSTADE_PP_TO_TEMPLATE_ARGS(ParamSeq) >::pstade_callable_nullary_result_type type; \
+            typedef typename PSTADE_PP_FULLNAME(NameSeq)< PSTADE_PP_TO_TEMPLATE_ARGS(ParamSeq) >::detail_nullary_result_type type; \
         }; \
         \
         template< PSTADE_PP_TO_TEMPLATE_PARAMS(ParamSeq) > \

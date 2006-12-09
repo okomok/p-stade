@@ -25,7 +25,7 @@
 // Note:
 //
 // This class cannot be implemented by using 'tupled' and 'untupled',
-// for they need a function supporting 'result_of'.
+// for they need a function supporting 'result_of', which this class will make!
 
 
 #include <boost/mpl/eval_if.hpp>
