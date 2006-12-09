@@ -10,10 +10,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/mpl/identity.hpp>
 #include <boost/noncopyable.hpp>
 #include <pstade/constant.hpp>
-#include <pstade/object_generator.hpp>
+#include <pstade/pass_by.hpp>
 
 
 namespace pstade {
@@ -25,11 +24,27 @@ namespace pstade {
     // case of function reference.
 
 
-    PSTADE_OBJECT_GENERATOR(value, boost::mpl::identity)
+    struct op_value
+    {
+        template< class Signature >
+        struct result;
+
+        template< class Self, class A >
+        struct result<Self(A)> :
+            pass_by_value<A>
+        { };
+
+        template< class A >
+        A operator()(A a) const
+        {
+            return a;
+        }
+    };
+
+    PSTADE_CONSTANT(value, op_value)
 
 
     namespace value_detail {
-
 
         struct pipe :
             private boost::noncopyable
@@ -41,10 +56,8 @@ namespace pstade {
         {
             return a;
         }
-
         
     } // namespace value_detail
-
 
     PSTADE_CONSTANT(to_value, value_detail::pipe)
 

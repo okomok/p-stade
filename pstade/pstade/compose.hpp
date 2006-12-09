@@ -13,7 +13,6 @@
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
-#include <pstade/lambda_sig.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/tupled.hpp>
@@ -57,11 +56,17 @@ namespace pstade {
         };
 
 
-        template< class F, class G >
-        struct op_result
+    } // namespace compose_detail
+
+
+    struct op_compose :
+        callable<op_compose>
+    {
+        template< class Myself, class F, class G >
+        struct apply
         {
             typedef
-                base_op_result<
+                compose_detail::base_op_result<
                     typename pass_by_value<F>::type,
                     typename pass_by_value<G>::type
                 >
@@ -72,25 +77,10 @@ namespace pstade {
             type;
         };
 
-
-    } // namespace compose_detail
-
-
-    struct op_compose :
-        lambda_sig
-    {
-        template< class Signature >
-        struct result;
-
-        template< class Self, class F, class G >
-        struct result<Self(F, G)> :
-            compose_detail::op_result<F, G>
-        { };
-
-        template< class F, class G >
-        typename compose_detail::result<F, G>::type operator()(F f, G g) const
+        template< class Result, class F, class G >
+        Result call(F& f, G& g) const
         {
-            typedef typename compose_detail::op_result<F, G>::base_t base_t;
+            typedef typename Result::base_type base_t;
             return pstade::untupled(base_t(f, g));
         }
     };

@@ -47,6 +47,11 @@ void test()
             src|adjacent_filtered(is_not_divisor()),
             expected
         ) );
+
+        BOOST_CHECK( oven::test_Bidirectional_Readable(
+            oven::make_adjacent_filter_range(src, is_not_divisor()),
+            expected
+        ) );
     }
     {
         int ans[] = { 2, 4, 6, 8, 10, 20, 40, 80, 120 };

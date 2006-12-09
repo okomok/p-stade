@@ -42,7 +42,8 @@ protected:
     typedef Member member_type;
 
 #if defined(__GNUC__)
-    // If you use this class as a metafunction, GCC3.4 complains
+    // 'typedef base_from type;' is bad for GCC3.4.
+    // If you use this class as a metafunction, GCC complains
     // "with only non-default constructor in class without a constructor"
     // without this.
     base_from();

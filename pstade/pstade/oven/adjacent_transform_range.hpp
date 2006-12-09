@@ -21,9 +21,7 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
-#include <pstade/pass_by.hpp>
+#include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
 #include "./adjacent_transform_iterator.hpp"
 #include "./as_lightweight_proxy.hpp"
@@ -81,25 +79,7 @@ public:
 };
 
 
-struct op_make_adjacent_transform_range :
-    callable<op_make_adjacent_transform_range>
-{
-    template< class Myself, class Range, class BinaryFun >
-    struct apply
-    {
-        typedef typename pass_by_value<BinaryFun>::type fun_t;
-        typedef adjacent_transform_range<Range, fun_t> const type;
-    };
-
-    template< class Result, class Range, class BinaryFun >
-    Result call(Range& rng, BinaryFun& fun) const
-    {
-        return Result(rng, fun);
-    }
-};
-
-
-PSTADE_CONSTANT(make_adjacent_transform_range, op_make_adjacent_transform_range)
+PSTADE_OBJECT_GENERATOR(make_adjacent_transform_range, adjacent_transform_range, 2, (pass_by_qualifier))
 PSTADE_PIPABLE(adjacent_transformed, op_make_adjacent_transform_range)
 
 

@@ -102,7 +102,8 @@ PSTADE_ADL_BARRIER(functional) {
 
     } // namespace not_detail
 
-    PSTADE_OBJECT_GENERATOR(not_, not_detail::op_result)
+    typedef object_generator< not_detail::op_result<object_1> > op_not_;
+    PSTADE_CONSTANT(not_, op_not_)
 
 
     // always
@@ -342,7 +343,8 @@ PSTADE_ADL_BARRIER(functional) {
 
     } // namespace flip_detail
 
-    PSTADE_OBJECT_GENERATOR(flip, flip_detail::op_result)
+    typedef object_generator< flip_detail::op_result<object_1> > op_flip;
+    PSTADE_CONSTANT(flip, op_flip)
 
 
 } // ADL barrier
