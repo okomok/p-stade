@@ -24,7 +24,6 @@
 #include <boost/tuple/tuple.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
 #include <pstade/object_generator.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/tie.hpp>
@@ -127,8 +126,8 @@ namespace pstade {
     } // namespace untupled_detail
 
 
-    typedef object_generator< untupled_detail::op_result<object_1> > op_untupled;
-    PSTADE_CONSTANT(untupled, op_untupled)
+    PSTADE_OBJECT_GENERATOR(untupled, untupled_detail::op_result, 1, (object_by_value))
+
 
 
 } // namespace pstade

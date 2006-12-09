@@ -13,7 +13,7 @@
 #include <pstade/object_generator.hpp>
 
 
-#include <boost/mpl/identity.hpp>
+#include <boost/mpl/placeholders.hpp>
 
 
 using namespace pstade;
@@ -25,6 +25,11 @@ struct my_type
     explicit my_type(A0)
     { }
 };
+
+
+typedef boost::mpl::placeholders::_1 object_1;
+typedef boost::mpl::placeholders::_2 object_2;
+
 
 typedef object_generator< my_type<object_1> > v_gen_t;
 typedef object_generator< my_type<object_1>, object_by_value > v_gen_t_;
@@ -39,6 +44,8 @@ struct your_type
     explicit your_type(A0, A1)
     { }
 };
+
+
 // GCC3.4 requires your_type to be DefaultConstructible
 // if you put nested 'type' in 'your_type', so we define...
 template< class A0, class A1 >

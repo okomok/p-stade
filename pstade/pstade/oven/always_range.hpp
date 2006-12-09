@@ -10,8 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
+#include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
@@ -21,10 +20,10 @@
 namespace pstade { namespace oven {
 
 
-template< class Range >
+template< class Unused, class Range >
 struct always_range :
     sub_range_base<Range>::type,
-    private as_lightweight_proxy< always_range<Range> >
+    private as_lightweight_proxy< always_range<Unused, Range> >
 {
     PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
 
@@ -32,33 +31,15 @@ private:
     typedef typename sub_range_base<Range>::type super_t;
 
 public:
-    template< class Unused >
-    always_range(Unused const&, Range& rng) :
+    always_range(Unused&, Range& rng) :
         super_t(rng)
     { }
 
-    typedef Range pstade_oven_range_base_type;
+    typedef Unused pstade_oven_range_base_type;
 };
 
 
-struct op_make_always_range :
-    callable<op_make_always_range>
-{
-    template< class Myself, class Unused, class Range >
-    struct apply
-    {
-        typedef always_range<Range> const type;
-    };
-
-    template< class Result, class Unused, class Range>
-    Result call(Unused& _, Range& rng) const
-    {
-        return Result(_, rng);
-    }
-};
-
-
-PSTADE_CONSTANT(make_always_range, op_make_always_range)
+PSTADE_OBJECT_GENERATOR(make_always_range, always_range, 2, (object_by_qualifier)(object_by_qualifier))
 PSTADE_PIPABLE(always, op_make_always_range)
 
 

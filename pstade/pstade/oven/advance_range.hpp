@@ -19,8 +19,7 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
+#include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
@@ -73,30 +72,7 @@ public:
 };
 
 
-struct op_make_advance_range :
-    callable<op_make_advance_range>
-{
-    template< class Myself, class Range, class Difference, class Difference_ = void >
-    struct apply
-    {
-        typedef advance_range<Range> const type;
-    };
-
-    template< class Result, class Range, class Difference >
-    Result call(Range& rng, Difference dfirst, Difference dlast) const
-    {
-        return Result(rng, dfirst, dlast);
-    }
-
-    template< class Result, class Range, class Difference >
-    Result call(Range& rng, Difference d) const
-    {
-        return Result(rng, d);
-    }
-};
-
-
-PSTADE_CONSTANT(make_advance_range, op_make_advance_range)
+PSTADE_OBJECT_GENERATOR(make_advance_range, advance_range, 1, (object_by_qualifier))
 PSTADE_PIPABLE(advanced, op_make_advance_range)
 
 

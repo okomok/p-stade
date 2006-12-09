@@ -151,21 +151,21 @@ namespace pstade {
     // If not, he complains "with only non-default constructor in class without a constructor".
     // When can we say goodbye to macros!?
 
-    #define PSTADE_OBJECT_GENERATOR(G, X, ParamSeqOrCount, AffectSeq) \
-        PSTADE_OBJECT_GENERATOR_aux(G, X, PSTADE_PP_TO_TEMPLATE_PARAM_SEQ(ParamSeqOrCount), AffectSeq) \
+    #define PSTADE_OBJECT_GENERATOR(G, T, ParamSeqOrCount, AffectSeq) \
+        PSTADE_OBJECT_GENERATOR_aux(G, T, PSTADE_PP_TO_TEMPLATE_PARAM_SEQ(ParamSeqOrCount), AffectSeq) \
     /**/
 
-        #define PSTADE_OBJECT_GENERATOR_aux(G, X, ParamSeq, AffectSeq) \
+        #define PSTADE_OBJECT_GENERATOR_aux(G, T, ParamSeq, AffectSeq) \
+            template< PSTADE_PP_TO_TEMPLATE_PARAMS(ParamSeq) > \
             struct BOOST_PP_CAT(pstade_object_generator_, G) \
             { \
-                template< BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(PSTADE_CALLABLE_MAX_ARITY, class T, void) > \
-                struct apply
-                { \
-                    typedef X<PSTADE_PP_TO_TEMPLATE_ARGS(ParamSeq)> type; \
-                }; \
+                typedef T<PSTADE_PP_TO_TEMPLATE_ARGS(ParamSeq)> type; \
             }; \
+            \
             typedef pstade::object_generator< \
-                BOOST_PP_CAT(pstade_object_generator_, G) \
+                BOOST_PP_CAT(pstade_object_generator_, G)< \
+                    BOOST_PP_SEQ_FOR_EACH_I(PSTADE_OBJECT_GENERATOR_placeholder_op, ~, ParamSeq) \
+                >, \
                 BOOST_PP_SEQ_ENUM(AffectSeq) \
             > BOOST_PP_CAT(op_, G); \
             \

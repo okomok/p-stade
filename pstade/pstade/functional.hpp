@@ -29,7 +29,6 @@
 #include <pstade/affect.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
-#include <pstade/instance.hpp>
 #include <pstade/object_generator.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/yes_no.hpp>
@@ -102,8 +101,7 @@ PSTADE_ADL_BARRIER(functional) {
 
     } // namespace not_detail
 
-    typedef object_generator< not_detail::op_result<object_1> > op_not_;
-    PSTADE_CONSTANT(not_, op_not_)
+    PSTADE_OBJECT_GENERATOR(not_, not_detail::op_result, 1, (object_by_value))
 
 
     // always
@@ -343,8 +341,7 @@ PSTADE_ADL_BARRIER(functional) {
 
     } // namespace flip_detail
 
-    typedef object_generator< flip_detail::op_result<object_1> > op_flip;
-    PSTADE_CONSTANT(flip, op_flip)
+    PSTADE_OBJECT_GENERATOR(flip, flip_detail::op_result, 1, (object_by_value))
 
 
 } // ADL barrier

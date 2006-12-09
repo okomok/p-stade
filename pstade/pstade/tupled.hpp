@@ -19,7 +19,6 @@
 #include <boost/utility/result_of.hpp>
 #include <pstade/affect.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
 #include <pstade/object_generator.hpp>
 
 
@@ -136,8 +135,7 @@ namespace pstade {
     } // namespace tupled_detail
 
 
-    typedef object_generator< tupled_detail::op_result<object_1> > op_tupled;
-    PSTADE_CONSTANT(tupled, op_tupled)
+    PSTADE_OBJECT_GENERATOR(tupled, tupled_detail::op_result, 1, (object_by_value))
 
 
 } // namespace pstade

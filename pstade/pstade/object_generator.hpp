@@ -14,17 +14,13 @@
 #include <boost/mpl/apply.hpp>
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
-#include <boost/mpl/placeholders.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/arithmetic/dec.hpp>
-#include <boost/preprocessor/arithmetic/inc.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
-#include <boost/preprocessor/punctuation/comma_if.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_params_with_a_default.hpp>
 #include <boost/preprocessor/seq/enum.hpp>
-#include <boost/preprocessor/seq/for_each_i.hpp>
 #include <boost/type_traits/add_reference.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <pstade/callable.hpp>
@@ -39,13 +35,6 @@ namespace pstade {
     struct object_by_value;
     struct object_by_qualifier;
     struct object_by_reference;
-
-
-    typedef boost::mpl::placeholders::_1 object_1;
-    typedef boost::mpl::placeholders::_2 object_2;
-    typedef boost::mpl::placeholders::_3 object_3;
-    typedef boost::mpl::placeholders::_4 object_4;
-    typedef boost::mpl::placeholders::_5 object_5;
 
 
     namespace object_generator_detail {
@@ -134,35 +123,29 @@ namespace pstade {
     }; // object_generator
 
 
-    // Workaround:
-    // Doh! GCC3.4 requires Metafunction to be DefaultConstructible.
-    // If not, he complains "with only non-default constructor in class without a constructor".
-    // When can we say goodbye to macros!?
+    // Note:
+    // 1. GCC3.4 requires Metafunction to be DefaultConstructible.
+    // 2. A PlaceHolderExpression can't ignore redundant arguments.
+    // 3. A nested 'type' is often different from what you wanna generate.
 
-    #define PSTADE_OBJECT_GENERATOR(G, T, ParamSeqOrCount, AffectSeq) \
-        PSTADE_OBJECT_GENERATOR_aux(G, T, PSTADE_PP_TO_TEMPLATE_PARAM_SEQ(ParamSeqOrCount), AffectSeq) \
-    /**/
+    struct object_unused;
 
-        #define PSTADE_OBJECT_GENERATOR_aux(G, T, ParamSeq, AffectSeq) \
-            template< PSTADE_PP_TO_TEMPLATE_PARAMS(ParamSeq) > \
-            struct BOOST_PP_CAT(pstade_object_generator_, G) \
+    #define PSTADE_OBJECT_GENERATOR(G, X, Count, AffectSeq) \
+        struct BOOST_PP_CAT(pstade_object_generator_, G) \
+        { \
+            template< BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(PSTADE_CALLABLE_MAX_ARITY, class T, pstade::object_unused) > \
+            struct apply \
             { \
-                typedef T<PSTADE_PP_TO_TEMPLATE_ARGS(ParamSeq)> type; \
+                typedef X<BOOST_PP_ENUM_PARAMS(Count, T)> type; \
             }; \
-            \
-            typedef pstade::object_generator< \
-                BOOST_PP_CAT(pstade_object_generator_, G)< \
-                    BOOST_PP_SEQ_FOR_EACH_I(PSTADE_OBJECT_GENERATOR_placeholder_op, ~, ParamSeq) \
-                >, \
-                BOOST_PP_SEQ_ENUM(AffectSeq) \
-            > BOOST_PP_CAT(op_, G); \
-            \
-            PSTADE_CONSTANT(G, BOOST_PP_CAT(op_, G)) \
-        /**/
-
-        #define PSTADE_OBJECT_GENERATOR_placeholder_op(R, _, I, Elem) \
-            BOOST_PP_COMMA_IF(I) BOOST_PP_CAT(pstade::object_, BOOST_PP_INC(I)) \
-        /**/
+        }; \
+        typedef pstade::object_generator< \
+            BOOST_PP_CAT(pstade_object_generator_, G), \
+            BOOST_PP_SEQ_ENUM(AffectSeq) \
+        > BOOST_PP_CAT(op_, G); \
+        \
+        PSTADE_CONSTANT(G, BOOST_PP_CAT(op_, G)) \
+    /**/
 
 
 } // namespace pstade
