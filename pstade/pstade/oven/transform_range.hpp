@@ -37,7 +37,7 @@
 // };
 //
 // A transformed range whose 'reference' is 'int'(non-reference)
-// cannot work this functor because of dangling reference.
+// cannot work with this functor because of dangling reference.
 // A transformed range's 'reference' type is sometimes
 // orthogonal to functor's 'result_type'.
 

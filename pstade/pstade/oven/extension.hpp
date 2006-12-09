@@ -11,18 +11,7 @@
 
 
 #include <boost/iterator/iterator_traits.hpp> // iterator_difference
-#include <boost/mpl/aux_/preprocessor/is_seq.hpp>
 #include <boost/mpl/eval_if.hpp>
-#include <boost/preprocessor/cat.hpp>
-#include <boost/preprocessor/control/iif.hpp>
-#include <boost/preprocessor/comma_if.hpp>
-#include <boost/preprocessor/comparison/equal.hpp>
-#include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/preprocessor/repetition/repeat.hpp>
-#include <boost/preprocessor/seq/for_each.hpp>
-#include <boost/preprocessor/seq/pop_back.hpp>
-#include <boost/preprocessor/seq/size.hpp>
-#include <boost/preprocessor/tuple/eat.hpp>
 #include <boost/range/const_iterator.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
@@ -34,6 +23,7 @@
 #include <boost/utility/enable_if.hpp>
 #include <pstade/const_overloaded.hpp>
 #include <pstade/callable.hpp>
+#include <pstade/preprocessor.hpp>
 #include <pstade/remove_cvr.hpp>
 #include <pstade/singleton.hpp>
 #include "./detail/config.hpp" // PSTADE_OVEN_BOOST_RANGE_BEGIN etc.
@@ -182,40 +172,6 @@ namespace pstade { namespace oven { namespace extension_detail {
 // Bridge macros between Oven and Boost.Range Extension
 //
 
-    #define PSTADE_OVEN_EXTENSION_for_each_without_back(Op, NameSeq) \
-        BOOST_PP_SEQ_FOR_EACH(Op, ~, BOOST_PP_SEQ_POP_BACK(NameSeq)) \
-    /**/
-
-
-    #define PSTADE_OVEN_EXTENSION_namespace_open(NameSeq) \
-        BOOST_PP_IIF( BOOST_PP_EQUAL(BOOST_PP_SEQ_SIZE(NameSeq), 1), \
-            BOOST_PP_TUPLE_EAT(2), \
-            PSTADE_OVEN_EXTENSION_for_each_without_back \
-        )(PSTADE_OVEN_EXTENSION_namespace_open_op, NameSeq)
-    /**/
-
-        #define PSTADE_OVEN_EXTENSION_namespace_open_op(R, _, Elem) \
-            namespace Elem { \
-        /**/
-
-
-    #define PSTADE_OVEN_EXTENSION_namespace_close(NameSeq) \
-        BOOST_PP_IIF( BOOST_PP_EQUAL(BOOST_PP_SEQ_SIZE(NameSeq), 1), \
-            BOOST_PP_TUPLE_EAT(2), \
-            PSTADE_OVEN_EXTENSION_for_each_without_back \
-        )(PSTADE_OVEN_EXTENSION_namespace_close_op, NameSeq)
-    /**/
-
-        #define PSTADE_OVEN_EXTENSION_namespace_close_op(R, _, Elem) \
-            } \
-        /**/
-
-
-    #define PSTADE_OVEN_EXTENSION_scope_op(R, _, Elem) \
-        ::Elem \
-    /**/
-
-
 #define PSTADE_OVEN_EXTENSION_TYPE(NameSeq) \
     namespace boost { \
         PSTADE_OVEN_EXTENSION_TYPE_forward_meta(NameSeq, PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR) \
@@ -223,48 +179,43 @@ namespace pstade { namespace oven { namespace extension_detail {
         PSTADE_OVEN_EXTENSION_TYPE_forward_meta(NameSeq, range_size) \
     } \
     \
-    PSTADE_OVEN_EXTENSION_namespace_open(NameSeq) \
+    PSTADE_PP_NAMESPACE_OPEN(NameSeq) \
         PSTADE_OVEN_EXTENSION_TYPE_forward(NameSeq, PSTADE_OVEN_BOOST_RANGE_BEGIN, range_result_iterator) \
         PSTADE_OVEN_EXTENSION_TYPE_forward(NameSeq, PSTADE_OVEN_BOOST_RANGE_END,   range_result_iterator) \
         PSTADE_OVEN_EXTENSION_TYPE_forward(NameSeq, boost_range_size,              range_size) \
-    PSTADE_OVEN_EXTENSION_namespace_close(NameSeq) \
+    PSTADE_PP_NAMESPACE_CLOSE(NameSeq) \
 /**/
-
-
-    #define PSTADE_OVEN_EXTENSION_TYPE_fullname(NameSeq) \
-        BOOST_PP_SEQ_FOR_EACH(PSTADE_OVEN_EXTENSION_scope_op, ~, NameSeq) \
-    /**/
 
 
     #define PSTADE_OVEN_EXTENSION_TYPE_forward_meta(NameSeq, Fun) \
         template< > \
-        struct Fun< PSTADE_OVEN_EXTENSION_TYPE_fullname(NameSeq) > : \
-            pstade::oven::extension_detail::Fun< PSTADE_OVEN_EXTENSION_TYPE_fullname(NameSeq) > \
+        struct Fun< PSTADE_PP_FULLNAME(NameSeq) > : \
+            pstade::oven::extension_detail::Fun< PSTADE_PP_FULLNAME(NameSeq) > \
         { }; \
         \
         template< > \
-        struct Fun< PSTADE_OVEN_EXTENSION_TYPE_fullname(NameSeq) & > : \
-            Fun< PSTADE_OVEN_EXTENSION_TYPE_fullname(NameSeq) > \
+        struct Fun< PSTADE_PP_FULLNAME(NameSeq) & > : \
+            Fun< PSTADE_PP_FULLNAME(NameSeq) > \
         { }; \
         \
         template< > \
-        struct Fun< PSTADE_OVEN_EXTENSION_TYPE_fullname(NameSeq) const > : \
-            Fun< PSTADE_OVEN_EXTENSION_TYPE_fullname(NameSeq) > \
+        struct Fun< PSTADE_PP_FULLNAME(NameSeq) const > : \
+            Fun< PSTADE_PP_FULLNAME(NameSeq) > \
         { }; \
     /**/
 
 
     #define PSTADE_OVEN_EXTENSION_TYPE_forward(NameSeq, Fun, Result) \
         inline \
-        pstade::oven::extension_detail::Result< PSTADE_OVEN_EXTENSION_TYPE_fullname(NameSeq) >::type \
-        Fun(PSTADE_OVEN_EXTENSION_TYPE_fullname(NameSeq)& x) \
+        pstade::oven::extension_detail::Result< PSTADE_PP_FULLNAME(NameSeq) >::type \
+        Fun(PSTADE_PP_FULLNAME(NameSeq)& x) \
         { \
             return pstade::oven::extension_detail::Fun(x); \
         } \
         \
         inline \
-        pstade::oven::extension_detail::Result< PSTADE_OVEN_EXTENSION_TYPE_fullname(NameSeq) const >::type \
-        Fun(PSTADE_OVEN_EXTENSION_TYPE_fullname(NameSeq) const& x) \
+        pstade::oven::extension_detail::Result< PSTADE_PP_FULLNAME(NameSeq) const >::type \
+        Fun(PSTADE_PP_FULLNAME(NameSeq) const& x) \
         { \
             return pstade::oven::extension_detail::Fun(x); \
         } \
@@ -274,20 +225,9 @@ namespace pstade { namespace oven { namespace extension_detail {
 #define PSTADE_OVEN_EXTENSION_TEMPLATE(NameSeq, ParamSeqOrCount) \
     PSTADE_OVEN_EXTENSION_TEMPLATE_impl( \
         NameSeq, \
-        PSTADE_OVEN_EXTENSION_TEMPLATE_to_param_seq(ParamSeqOrCount) \
+        PSTADE_PP_TO_TEMPLATE_PARAM_SEQ(ParamSeqOrCount) \
     ) \
 /**/
-
-    #define PSTADE_OVEN_EXTENSION_TEMPLATE_to_param_seq(ParamSeqOrCount) \
-        BOOST_PP_IIF( BOOST_MPL_PP_IS_SEQ(ParamSeqOrCount), \
-            ParamSeqOrCount BOOST_PP_TUPLE_EAT(3), \
-            BOOST_PP_REPEAT \
-        )(ParamSeqOrCount, PSTADE_OVEN_EXTENSION_TEMPLATE_to_param_seq_op, ~) \
-    /**/
-
-        #define PSTADE_OVEN_EXTENSION_TEMPLATE_to_param_seq_op(Z, N, _) \
-            (class) \
-        /**/
 
 
 #define PSTADE_OVEN_EXTENSION_TEMPLATE_impl(NameSeq, ParamSeq) \
@@ -297,41 +237,31 @@ namespace pstade { namespace oven { namespace extension_detail {
         PSTADE_OVEN_EXTENSION_TEMPLATE_forward_meta(NameSeq, ParamSeq, range_size) \
     } \
     \
-    PSTADE_OVEN_EXTENSION_namespace_open(NameSeq) \
+    PSTADE_PP_NAMESPACE_OPEN(NameSeq) \
         PSTADE_OVEN_EXTENSION_TEMPLATE_forward(NameSeq, ParamSeq, PSTADE_OVEN_BOOST_RANGE_BEGIN, range_result_iterator) \
         PSTADE_OVEN_EXTENSION_TEMPLATE_forward(NameSeq, ParamSeq, PSTADE_OVEN_BOOST_RANGE_END,   range_result_iterator) \
         PSTADE_OVEN_EXTENSION_TEMPLATE_forward(NameSeq, ParamSeq, boost_range_size,              range_size) \
-    PSTADE_OVEN_EXTENSION_namespace_close(NameSeq) \
+    PSTADE_PP_NAMESPACE_CLOSE(NameSeq) \
 /**/
 
 
-    #define PSTADE_OVEN_EXTENSION_TEMPLATE_params(ParamSeq) \
-        BOOST_PP_SEQ_FOR_EACH_I(PSTADE_OVEN_EXTENSION_TEMPLATE_params_op, ~, ParamSeq) \
-    /**/
-
-        #define PSTADE_OVEN_EXTENSION_TEMPLATE_params_op(R, _, I, Elem) \
-            BOOST_PP_COMMA_IF(I) Elem BOOST_PP_CAT(T, I) \
-        /**/
-
-
     #define PSTADE_OVEN_EXTENSION_TEMPLATE_fullname(NameSeq, ParamSeq) \
-        BOOST_PP_SEQ_FOR_EACH(PSTADE_OVEN_EXTENSION_scope_op, ~, NameSeq) \
-        < BOOST_PP_ENUM_PARAMS(BOOST_PP_SEQ_SIZE(ParamSeq), T) > \
+        PSTADE_PP_FULLNAME(NameSeq)< PSTADE_PP_TO_TEMPLATE_ARGS(ParamSeq) > \
     /**/
 
 
     #define PSTADE_OVEN_EXTENSION_TEMPLATE_forward_meta(NameSeq, ParamSeq, Fun) \
-        template< PSTADE_OVEN_EXTENSION_TEMPLATE_params(ParamSeq) > \
+        template< PSTADE_PP_TO_TEMPLATE_PARAMS(ParamSeq) > \
         struct Fun< PSTADE_OVEN_EXTENSION_TEMPLATE_fullname(NameSeq, ParamSeq) > : \
             pstade::oven::extension_detail::Fun< PSTADE_OVEN_EXTENSION_TEMPLATE_fullname(NameSeq, ParamSeq) > \
         { }; \
         \
-        template< PSTADE_OVEN_EXTENSION_TEMPLATE_params(ParamSeq) > \
+        template< PSTADE_PP_TO_TEMPLATE_PARAMS(ParamSeq) > \
         struct Fun< PSTADE_OVEN_EXTENSION_TEMPLATE_fullname(NameSeq, ParamSeq) & > : \
             Fun< PSTADE_OVEN_EXTENSION_TEMPLATE_fullname(NameSeq, ParamSeq) > \
         { }; \
         \
-        template< PSTADE_OVEN_EXTENSION_TEMPLATE_params(ParamSeq) > \
+        template< PSTADE_PP_TO_TEMPLATE_PARAMS(ParamSeq) > \
         struct Fun< PSTADE_OVEN_EXTENSION_TEMPLATE_fullname(NameSeq, ParamSeq) const > : \
             Fun< PSTADE_OVEN_EXTENSION_TEMPLATE_fullname(NameSeq, ParamSeq) > \
         { }; \
@@ -339,14 +269,14 @@ namespace pstade { namespace oven { namespace extension_detail {
 
 
     #define PSTADE_OVEN_EXTENSION_TEMPLATE_forward(NameSeq, ParamSeq, Fun, Result) \
-        template< PSTADE_OVEN_EXTENSION_TEMPLATE_params(ParamSeq) > inline \
+        template< PSTADE_PP_TO_TEMPLATE_PARAMS(ParamSeq) > inline \
         typename pstade::oven::extension_detail::Result< PSTADE_OVEN_EXTENSION_TEMPLATE_fullname(NameSeq, ParamSeq) >::type \
         Fun(PSTADE_OVEN_EXTENSION_TEMPLATE_fullname(NameSeq, ParamSeq)& x) \
         { \
             return pstade::oven::extension_detail::Fun(x); \
         } \
         \
-        template< PSTADE_OVEN_EXTENSION_TEMPLATE_params(ParamSeq) > inline \
+        template< PSTADE_PP_TO_TEMPLATE_PARAMS(ParamSeq) > inline \
         typename pstade::oven::extension_detail::Result< PSTADE_OVEN_EXTENSION_TEMPLATE_fullname(NameSeq, ParamSeq) const >::type \
         Fun(PSTADE_OVEN_EXTENSION_TEMPLATE_fullname(NameSeq, ParamSeq) const& x) \
         { \

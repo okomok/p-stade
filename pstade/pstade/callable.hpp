@@ -37,6 +37,7 @@
 #include <boost/type_traits/add_const.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 #include <boost/utility/result_of.hpp> // inclusion guaranteed
+#include <pstade/adl_barrier.hpp>
 #include <pstade/const.hpp>
 #include <pstade/lambda_sig.hpp>
 #include <pstade/preprocessor.hpp>
@@ -53,34 +54,39 @@ namespace pstade {
     namespace callable_detail {
 
 
-        // makes rvalue const-qualified.
+        // let rvalue const-qualified.
         template< class A >
         struct meta_argument :
             boost::remove_reference<
-                typename boost::add_const<A>::type
+                typename boost::add_const<A>::type // VC++ warns against 'A const'.
             >
         { };
 
 
     } // namespace callable_detail
 
-    
+
+    PSTADE_ADL_BARRIER(callable) {
+
+
     template< class Derived, class NullaryResult = void >
     struct callable :
         lambda_sig
     {
-        typedef NullaryResult nullary_result_type;
+
+        typedef NullaryResult pstade_callable_nullary_result_type;
 
 
         template< class Signature >
         struct result;
+
 
         // 0ary
 
         NullaryResult // Never call 'boost::result_of', which requires 'Derived' to be complete here.
         operator()() const
         {
-            return const_derived().template call<
+            return derived().template call<
                 NullaryResult
             >();
         }
@@ -88,6 +94,7 @@ namespace pstade {
 
         // 1ary
 
+    private:
         template< class A0 >
         struct result1 :
             Derived::template apply< Derived,
@@ -95,6 +102,7 @@ namespace pstade {
             >
         { };
 
+    public:
         template< class Self, class A0 >
         struct result<Self(A0)> :
             result1<A0>
@@ -106,7 +114,7 @@ namespace pstade {
         typename result1<A0&>::type
         operator()(A0& a0) const
         {
-            return const_derived().template call<
+            return derived().template call<
                 typename result1<A0&>::type
             >(a0);
         }
@@ -115,7 +123,7 @@ namespace pstade {
         typename result1<PSTADE_CONST(A0)&>::type
         operator()(A0 const& a0) const
         {
-            return const_derived().template call<
+            return derived().template call<
                 typename result1<PSTADE_CONST(A0)&>::type
             >(a0);
         }
@@ -128,7 +136,7 @@ namespace pstade {
         typename BOOST_PP_CAT(result, n)<BOOST_PP_SEQ_FOR_EACH_I_R(R, PSTADE_arg_type, ~, BitSeq)>::type \
         operator()(BOOST_PP_SEQ_FOR_EACH_I_R(R, PSTADE_param, ~, BitSeq)) const \
         { \
-            return const_derived().template call< \
+            return derived().template call< \
                 typename BOOST_PP_CAT(result, n)<BOOST_PP_SEQ_FOR_EACH_I_R(R, PSTADE_arg_type, ~, BitSeq)>::type \
             >(BOOST_PP_ENUM_PARAMS(n, a)); \
         } \
@@ -154,12 +162,15 @@ namespace pstade {
     #undef  PSTADE_call_operator
 
     private:
-        Derived const& const_derived() const
+        Derived const& derived() const
         {
             return static_cast<Derived const&>(*this);
         }
 
     }; // struct callable
+
+
+    } // ADL barrier
 
 
 // 'callable' can't define 'result_type' for you.
@@ -178,7 +189,7 @@ namespace pstade {
         template< > \
         struct result_of< PSTADE_PP_FULLNAME(NameSeq)(void) > \
         { \
-            typedef PSTADE_PP_FULLNAME(NameSeq)::nullary_result_type type; \
+            typedef PSTADE_PP_FULLNAME(NameSeq)::pstade_callable_nullary_result_type type; \
         }; \
         \
         template< > \
@@ -211,7 +222,7 @@ namespace pstade {
         template< PSTADE_PP_TO_TEMPLATE_PARAMS(ParamSeq) > \
         struct result_of< PSTADE_PP_FULLNAME(NameSeq)< PSTADE_PP_TO_TEMPLATE_ARGS(ParamSeq) >(void) > \
         { \
-            typedef typename PSTADE_PP_FULLNAME(NameSeq)< PSTADE_PP_TO_TEMPLATE_ARGS(ParamSeq) >::nullary_result_type type; \
+            typedef typename PSTADE_PP_FULLNAME(NameSeq)< PSTADE_PP_TO_TEMPLATE_ARGS(ParamSeq) >::pstade_callable_nullary_result_type type; \
         }; \
         \
         template< PSTADE_PP_TO_TEMPLATE_PARAMS(ParamSeq) > \
@@ -241,25 +252,27 @@ namespace pstade {
 #define n BOOST_PP_ITERATION()
 
 
-template< BOOST_PP_ENUM_PARAMS(n, class A) >
-struct BOOST_PP_CAT(result, n) :
-    Derived::template apply< Derived,
-        BOOST_PP_ENUM(n, PSTADE_meta_argument, ~)
-    >
-{ };
+private:
+    template< BOOST_PP_ENUM_PARAMS(n, class A) >
+    struct BOOST_PP_CAT(result, n) :
+        Derived::template apply< Derived,
+            BOOST_PP_ENUM(n, PSTADE_meta_argument, ~)
+        >
+    { };
 
-template< class Self, BOOST_PP_ENUM_PARAMS(n, class A) >
-struct result<Self(BOOST_PP_ENUM_PARAMS(n, A))> :
-    BOOST_PP_CAT(result, n)<
-        BOOST_PP_ENUM_PARAMS(n, A)
-    >
-{ };
+public:
+    template< class Self, BOOST_PP_ENUM_PARAMS(n, class A) >
+    struct result<Self(BOOST_PP_ENUM_PARAMS(n, A))> :
+        BOOST_PP_CAT(result, n)<
+            BOOST_PP_ENUM_PARAMS(n, A)
+        >
+    { };
 
 
-BOOST_PP_SEQ_FOR_EACH_PRODUCT(
-    PSTADE_call_operator,
-    BOOST_PP_REPEAT(n, PSTADE_bits, ~)
-)
+    BOOST_PP_SEQ_FOR_EACH_PRODUCT(
+        PSTADE_call_operator,
+        BOOST_PP_REPEAT(n, PSTADE_bits, ~)
+    )
 
 
 #undef n

@@ -19,7 +19,7 @@
 namespace pstade {
 
 
-    // Define it without Egg.
+    // Define it without 'callable'.
     // Egg would turn the argument into reference;
     // that's the dark-side of the language in the
     // case of function reference.

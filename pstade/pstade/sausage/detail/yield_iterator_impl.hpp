@@ -28,11 +28,11 @@
 #include <boost/throw_exception.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 #include <boost/utility/addressof.hpp>
+#include <pstade/forward.hpp>
 #include <pstade/nullptr.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/static_c.hpp>
 #include "../exception.hpp" // exit_exception
-#include "./forward_yield.hpp"
 #include "./ref_to_ptr.hpp"
 #include "./routine_result.hpp"
 
@@ -132,7 +132,7 @@ private:
     void work()
     {
         try {
-            m_rou(detail::make_forward_yield(
+            m_rou(pstade::forward<void>(
                 boost::lambda::bind(&self_t::yield, this, boost::lambda::_1)
             ));
         }
