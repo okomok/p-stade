@@ -12,9 +12,9 @@
 
 #include <boost/spirit/iterator/position_iterator.hpp>
 #include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/singleton.hpp>
 #include <pstade/static_c.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
@@ -116,7 +116,7 @@ struct op_make_position_range :
 };
 
 
-PSTADE_SINGLETON_CONST(make_position_range, op_make_position_range)
+PSTADE_CONSTANT(make_position_range, op_make_position_range)
 PSTADE_PIPABLE(with_position, op_make_position_range)
 
 

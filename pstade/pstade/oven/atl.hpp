@@ -586,8 +586,8 @@ PSTADE_OVEN_EXTENSION_TYPE((ATL)(CComBSTR))
 
 #include <pstade/apple/atl/comcli_fwd.hpp> // CAdapt
 #include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/pass_by.hpp>
-#include <pstade/singleton.hpp>
 
 
 namespace pstade { namespace oven {
@@ -609,7 +609,7 @@ namespace pstade { namespace oven {
         }
     };
 
-    PSTADE_SINGLETON_CONST(make_CAdapt, op_make_CAdapt)
+    PSTADE_CONSTANT(make_CAdapt, op_make_CAdapt)
 
 
 } } // namespae pstade::oven

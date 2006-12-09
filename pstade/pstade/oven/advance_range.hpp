@@ -20,8 +20,8 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./detail/next_prior.hpp" // next
@@ -96,7 +96,7 @@ struct op_make_advance_range :
 };
 
 
-PSTADE_SINGLETON_CONST(make_advance_range, op_make_advance_range)
+PSTADE_CONSTANT(make_advance_range, op_make_advance_range)
 PSTADE_PIPABLE(advanced, op_make_advance_range)
 
 

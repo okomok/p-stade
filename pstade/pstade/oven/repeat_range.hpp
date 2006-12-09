@@ -13,9 +13,9 @@
 #include <cstddef> // size_t
 #include <pstade/base_from.hpp>
 #include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./cycle_range.hpp"
 #include "./single_range.hpp"
@@ -83,7 +83,7 @@ struct op_make_repeat_range :
 };
 
 
-PSTADE_SINGLETON_CONST(make_repeat_range, op_make_repeat_range)
+PSTADE_CONSTANT(make_repeat_range, op_make_repeat_range)
 PSTADE_PIPABLE(repeated, op_make_repeat_range)
 
 

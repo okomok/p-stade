@@ -10,8 +10,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/singleton.hpp>
 #include "./first_range.hpp"
 
 
@@ -19,7 +19,7 @@ namespace pstade { namespace oven {
 
 
 typedef op_make_first_range op_make_map_key_range;
-PSTADE_SINGLETON_CONST(make_map_key_range, op_make_map_key_range)
+PSTADE_CONSTANT(make_map_key_range, op_make_map_key_range)
 PSTADE_PIPABLE(map_keys, op_make_map_key_range)
 
 

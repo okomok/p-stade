@@ -26,8 +26,8 @@
 #include <boost/type_traits/remove_const.hpp>
 #include <boost/type_traits/remove_extent.hpp>
 #include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./iter_range.hpp"
 
@@ -75,7 +75,7 @@ struct op_make_literal_range :
 };
 
 
-PSTADE_SINGLETON_CONST(make_literal_range, op_make_literal_range)
+PSTADE_CONSTANT(make_literal_range, op_make_literal_range)
 PSTADE_PIPABLE(as_literal, op_make_literal_range)
 
 

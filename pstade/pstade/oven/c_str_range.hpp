@@ -15,9 +15,9 @@
 #include <cwchar>  // wcslen
 #include <boost/type_traits/remove_pointer.hpp>
 #include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./iter_range.hpp"
 
@@ -81,7 +81,7 @@ struct op_make_c_str_range :
 };
 
 
-PSTADE_SINGLETON_CONST(make_c_str_range, op_make_c_str_range)
+PSTADE_CONSTANT(make_c_str_range, op_make_c_str_range)
 PSTADE_PIPABLE(as_c_str, op_make_c_str_range)
 
 

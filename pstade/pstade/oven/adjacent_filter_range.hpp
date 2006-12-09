@@ -13,9 +13,9 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/singleton.hpp>
 #include "./adjacent_filter_iterator.hpp"
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
@@ -86,7 +86,7 @@ struct op_make_adjacent_filter_range :
 };
 
 
-PSTADE_SINGLETON_CONST(make_adjacent_filter_range, op_make_adjacent_filter_range)
+PSTADE_CONSTANT(make_adjacent_filter_range, op_make_adjacent_filter_range)
 PSTADE_PIPABLE(adjacent_filtered, op_make_adjacent_filter_range)
 
 

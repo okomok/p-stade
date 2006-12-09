@@ -28,10 +28,10 @@
 #include <pstade/adl_barrier.hpp>
 #include <pstade/affect.hpp>
 #include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/function_adaptor.hpp>
 #include <pstade/instance.hpp>
 #include <pstade/pass_by.hpp>
-#include <pstade/singleton.hpp>
 #include <pstade/yes_no.hpp>
 
 
@@ -59,7 +59,7 @@ PSTADE_ADL_BARRIER(functional) {
         }
     };
 
-    PSTADE_SINGLETON_CONST(identity, op_identity)
+    PSTADE_CONSTANT(identity, op_identity)
 
 
     // not_
@@ -149,7 +149,7 @@ PSTADE_ADL_BARRIER(functional) {
         }
     };
 
-    PSTADE_SINGLETON_CONST(always, op_always)
+    PSTADE_CONSTANT(always, op_always)
 
 
     // equal_to
@@ -166,7 +166,7 @@ PSTADE_ADL_BARRIER(functional) {
         }
     };
 
-    PSTADE_SINGLETON_CONST(equal_to, op_equal_to)
+    PSTADE_CONSTANT(equal_to, op_equal_to)
 
 
     // less
@@ -183,7 +183,7 @@ PSTADE_ADL_BARRIER(functional) {
         }
     };
 
-    PSTADE_SINGLETON_CONST(less, op_less)
+    PSTADE_CONSTANT(less, op_less)
 
 
     // is_zero
@@ -200,7 +200,7 @@ PSTADE_ADL_BARRIER(functional) {
         }
     };
 
-    PSTADE_SINGLETON_CONST(is_zero, op_is_zero)
+    PSTADE_CONSTANT(is_zero, op_is_zero)
 
 
     // plus
@@ -256,7 +256,7 @@ PSTADE_ADL_BARRIER(functional) {
         }
     };
 
-    PSTADE_SINGLETON_CONST(plus, op_plus)
+    PSTADE_CONSTANT(plus, op_plus)
 
 
     // at_first
@@ -281,7 +281,7 @@ PSTADE_ADL_BARRIER(functional) {
         }
     };
 
-    PSTADE_SINGLETON_CONST(at_first, op_at_first)
+    PSTADE_CONSTANT(at_first, op_at_first)
 
 
     // at_second
@@ -306,7 +306,7 @@ PSTADE_ADL_BARRIER(functional) {
         }
     };
 
-    PSTADE_SINGLETON_CONST(at_second, op_at_second)
+    PSTADE_CONSTANT(at_second, op_at_second)
 
 
     // flip

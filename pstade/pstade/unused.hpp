@@ -15,7 +15,7 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include <pstade/singleton.hpp>
+#include <pstade/constant.hpp>
 
 
 #if !defined(PSTADE_UNUSED_MAX_ARITY)
@@ -49,7 +49,7 @@ namespace pstade {
     };
 
 
-    PSTADE_SINGLETON_CONST(unused, op_unused)
+    PSTADE_CONSTANT(unused, op_unused)
 
 
 } // namespace pstade

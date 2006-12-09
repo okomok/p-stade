@@ -12,10 +12,10 @@
 
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/lambda_sig.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/singleton.hpp>
 #include <pstade/tupled.hpp>
 #include <pstade/untupled.hpp>
 
@@ -33,17 +33,9 @@ namespace pstade {
             template< class Myself, class Arguments >
             struct apply
             {
-                typedef typename
-                    boost::result_of<op_tupled(G&)>::type
-                tupled_g;
-
-                typedef typename
-                    boost::result_of<tupled_g(Arguments&)>::type
-                result_of_tupled_g;
-
-                typedef typename
-                    boost::result_of<F(result_of_tupled_g)>::type
-                type;
+                typedef typename boost::result_of<op_tupled(G&)>::type tupled_g;
+                typedef typename boost::result_of<tupled_g(Arguments&)>::type result_of_tupled_g;
+                typedef typename boost::result_of<F(result_of_tupled_g)>::type type;
             };
 
             template< class Result, class Arguments >
@@ -65,20 +57,11 @@ namespace pstade {
         };
 
 
-    } // namespace compose_detail
-
-
-    struct op_compose :
-        lambda_sig
-    {
-        template< class Signature >
-        struct result;
-
-        template< class Self, class F, class G >
-        struct result<Self(F, G)>
+        template< class F, class G >
+        struct op_result
         {
             typedef
-                compose_detail::base_op_result<
+                base_op_result<
                     typename pass_by_value<F>::type,
                     typename pass_by_value<G>::type
                 >
@@ -89,16 +72,31 @@ namespace pstade {
             type;
         };
 
+
+    } // namespace compose_detail
+
+
+    struct op_compose :
+        lambda_sig
+    {
+        template< class Signature >
+        struct result;
+
+        template< class Self, class F, class G >
+        struct result<Self(F, G)> :
+            compose_detail::op_result<F, G>
+        { };
+
         template< class F, class G >
-        typename result<int(F, G)>::type operator()(F f, G g) const
+        typename compose_detail::result<F, G>::type operator()(F f, G g) const
         {
-            typedef typename result<int(F, G)>::base_t base_t;
+            typedef typename compose_detail::op_result<F, G>::base_t base_t;
             return pstade::untupled(base_t(f, g));
         }
     };
 
 
-    PSTADE_SINGLETON_CONST(compose, op_compose)
+    PSTADE_CONSTANT(compose, op_compose)
     PSTADE_PIPABLE(composed, op_compose)
 
 

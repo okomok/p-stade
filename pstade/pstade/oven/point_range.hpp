@@ -16,9 +16,9 @@
 #include <boost/type_traits/is_pointer.hpp>
 #include <boost/utility/addressof.hpp>
 #include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/nullptr.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./distance.hpp"
@@ -95,7 +95,7 @@ struct op_make_point_range :
 };
 
 
-PSTADE_SINGLETON_CONST(make_point_range, op_make_point_range)
+PSTADE_CONSTANT(make_point_range, op_make_point_range)
 PSTADE_PIPABLE(pointed, op_make_point_range)
 
 

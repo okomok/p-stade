@@ -179,7 +179,6 @@ namespace pstade {
 
 
 #define PSTADE_CALLABLE_NULLARY_RESULT_TYPE(NameSeq) \
-    PSTADE_PP_DECLARE_TYPE(struct, NameSeq) \
     PSTADE_CALLABLE_NULLARY_RESULT_TYPE_result_of(NameSeq) \
 /**/
 
@@ -212,7 +211,6 @@ namespace pstade {
 
 
 #define PSTADE_CALLABLE_NULLARY_RESULT_TEMPLATE(NameSeq, ParamSeqOrCount) \
-    PSTADE_PP_DECLARE_TEMPLATE(struct, NameSeq, ParamSeqOrCount) \
     PSTADE_CALLABLE_NULLARY_RESULT_TEMPLATE_result_of(NameSeq, PSTADE_PP_TO_TEMPLATE_PARAM_SEQ(ParamSeqOrCount)) \
 /**/
 

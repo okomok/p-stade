@@ -19,11 +19,11 @@
 
 
 #include <boost/ptr_container/indirect_fun.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/functional.hpp> // less
 #include <pstade/pass_by.hpp>
-#include <pstade/singleton.hpp>
 #include "./algorithm.hpp" // sort
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
@@ -116,7 +116,7 @@ struct op_make_sort_range :
 };
 
 
-PSTADE_SINGLETON_CONST(make_sort_range, op_make_sort_range)
+PSTADE_CONSTANT(make_sort_range, op_make_sort_range)
 PSTADE_PIPABLE(sorted, op_make_sort_range)
 
 

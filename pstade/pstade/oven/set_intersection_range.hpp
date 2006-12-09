@@ -11,10 +11,10 @@
 
 
 #include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/functional.hpp> // less
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/singleton.hpp>
 #include <pstade/unused.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
@@ -138,7 +138,7 @@ struct op_make_set_intersection_range :
 };
 
 
-PSTADE_SINGLETON_CONST(make_set_intersection_range, op_make_set_intersection_range)
+PSTADE_CONSTANT(make_set_intersection_range, op_make_set_intersection_range)
 PSTADE_PIPABLE(set_cap, op_make_set_intersection_range)
 
 

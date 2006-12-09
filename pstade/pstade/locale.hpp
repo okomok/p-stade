@@ -15,9 +15,9 @@
 #include <boost/preprocessor/seq/for_each.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/preprocessor.hpp>
-#include <pstade/singleton.hpp>
 
 
 namespace pstade {
@@ -48,7 +48,7 @@ namespace pstade {
             } \
         }; \
         \
-        PSTADE_SINGLETON_CONST( BOOST_PP_CAT(is_, CType), PSTADE_PP_CAT3(op_, is_, CType) ) \
+        PSTADE_CONSTANT( BOOST_PP_CAT(is_, CType), PSTADE_PP_CAT3(op_, is_, CType) ) \
     /**/
 
     BOOST_PP_SEQ_FOR_EACH(PSTADE_def_pred, ~, PSTADE_ctypes)
@@ -110,8 +110,8 @@ namespace pstade {
 
     PSTADE_ADL_BARRIER(locale) { // for Boost
 
-    PSTADE_SINGLETON_CONST(to_upper, op_to_upper)
-    PSTADE_SINGLETON_CONST(to_lower, op_to_lower)
+    PSTADE_CONSTANT(to_upper, op_to_upper)
+    PSTADE_CONSTANT(to_lower, op_to_lower)
 
     } // ADL barrier
 

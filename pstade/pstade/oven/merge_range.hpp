@@ -16,7 +16,7 @@
 #include <pstade/functional.hpp> // less
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/singleton.hpp>
+#include <pstade/constant.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
@@ -105,7 +105,7 @@ struct op_make_merge_range :
 };
 
 
-PSTADE_SINGLETON_CONST(make_merge_range, op_make_merge_range)
+PSTADE_CONSTANT(make_merge_range, op_make_merge_range)
 PSTADE_PIPABLE(merged, op_make_merge_range)
 
 

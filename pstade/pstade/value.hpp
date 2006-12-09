@@ -11,9 +11,9 @@
 
 
 #include <boost/noncopyable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/lambda_sig.hpp>
 #include <pstade/pass_by.hpp>
-#include <pstade/singleton.hpp>
 
 
 namespace pstade {
@@ -44,7 +44,7 @@ namespace pstade {
     };
 
 
-    PSTADE_SINGLETON_CONST(value, op_value)
+    PSTADE_CONSTANT(value, op_value)
 
 
     namespace value_detail {
@@ -65,7 +65,7 @@ namespace pstade {
     } // namespace value_detail
 
 
-    PSTADE_SINGLETON_CONST(to_value, value_detail::pipe)
+    PSTADE_CONSTANT(to_value, value_detail::pipe)
 
 
 } // namespace pstade

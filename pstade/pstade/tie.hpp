@@ -23,6 +23,7 @@
 #include <boost/preprocessor/repetition/enum_params_with_a_default.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/preprocessor.hpp>
 
@@ -75,7 +76,7 @@ namespace pstade {
     }; // struct baby
 
 
-    PSTADE_SINGLETON_CONST(tie, op_tie)
+    PSTADE_CONSTANT(tie, op_tie)
     PSTADE_PIPABLE(tied, op_tie)
 
 

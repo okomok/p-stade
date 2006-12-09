@@ -18,7 +18,7 @@
 #include <boost/range/empty.hpp>
 #include <boost/thread/thread.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/singleton.hpp>
+#include <pstade/constant.hpp>
 #include "./algorithm.hpp" // for_each
 #include "./distance.hpp"
 #include "./drop_range.hpp"
@@ -105,7 +105,7 @@ struct op_parallel_for_each :
 };
 
 
-PSTADE_SINGLETON_CONST(parallel_for_each, op_parallel_for_each)
+PSTADE_CONSTANT(parallel_for_each, op_parallel_for_each)
 
 
 } } // namespace pstade::oven

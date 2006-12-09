@@ -23,9 +23,9 @@
 #include <boost/utility/enable_if.hpp>
 #include <pstade/const_overloaded.hpp>
 #include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/remove_cvr.hpp>
-#include <pstade/singleton.hpp>
 #include "./detail/config.hpp" // PSTADE_OVEN_BOOST_RANGE_BEGIN etc.
 #include "./distance.hpp"
 
@@ -119,7 +119,7 @@ namespace pstade { namespace oven { namespace extension_detail {
         }
     };
 
-    PSTADE_SINGLETON_CONST(PSTADE_OVEN_BOOST_RANGE_BEGIN, op_begin)
+    PSTADE_CONSTANT(PSTADE_OVEN_BOOST_RANGE_BEGIN, op_begin)
 
 
     struct op_end :
@@ -138,7 +138,7 @@ namespace pstade { namespace oven { namespace extension_detail {
         }
     };
 
-    PSTADE_SINGLETON_CONST(PSTADE_OVEN_BOOST_RANGE_END, op_end)
+    PSTADE_CONSTANT(PSTADE_OVEN_BOOST_RANGE_END, op_end)
 
 
     template< class T >
@@ -163,7 +163,7 @@ namespace pstade { namespace oven { namespace extension_detail {
         }
     };
 
-    PSTADE_SINGLETON_CONST(boost_range_size, op_size)
+    PSTADE_CONSTANT(boost_range_size, op_size)
 
 
 } } } // namespace pstade::oven::extension_detail

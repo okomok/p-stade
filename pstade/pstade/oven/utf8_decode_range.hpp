@@ -13,9 +13,9 @@
 #include <boost/cstdint.hpp> // uint32_t
 #include <boost/regex/pending/unicode_iterator.hpp> // u8_to_u32_iterator
 #include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
@@ -92,7 +92,7 @@ struct op_make_utf8_decode_range :
 };
 
 
-PSTADE_SINGLETON_CONST(make_utf8_decode_range, op_make_utf8_decode_range)
+PSTADE_CONSTANT(make_utf8_decode_range, op_make_utf8_decode_range)
 PSTADE_PIPABLE(utf8_decoded, op_make_utf8_decode_range)
 
 

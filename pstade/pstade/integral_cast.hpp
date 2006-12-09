@@ -15,8 +15,8 @@
 #include <boost/type_traits/is_integral.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/auto_castable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/singleton.hpp>
 #include <pstade/to_type.hpp>
 
 
@@ -43,7 +43,7 @@ namespace pstade {
         }
     };
 
-    PSTADE_SINGLETON_CONST(integral_cast_, op_integral_cast)
+    PSTADE_CONSTANT(integral_cast_, op_integral_cast)
     PSTADE_PIPABLE(to_integer, boost::result_of<op_auto_castable(op_integral_cast)>::type)
 
 

@@ -11,8 +11,8 @@
 
 
 #include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./const_lvalue_iterator.hpp"
 #include "./concepts.hpp"
@@ -75,7 +75,7 @@ struct op_make_const_lvalue_range :
 };
 
 
-PSTADE_SINGLETON_CONST(make_const_lvalue_range, op_make_const_lvalue_range)
+PSTADE_CONSTANT(make_const_lvalue_range, op_make_const_lvalue_range)
 PSTADE_PIPABLE(const_lvalues, op_make_const_lvalue_range)
 
 

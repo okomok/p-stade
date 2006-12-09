@@ -15,8 +15,8 @@
 #include <boost/xpressive/regex_token_iterator.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/const.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
@@ -109,7 +109,7 @@ struct op_make_xpressive_token_range :
 };
 
 
-PSTADE_SINGLETON_CONST(make_xpressive_token_range, op_make_xpressive_token_range)
+PSTADE_CONSTANT(make_xpressive_token_range, op_make_xpressive_token_range)
 PSTADE_PIPABLE(xpressive_tokenized, op_make_xpressive_token_range)
 
 

@@ -10,9 +10,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/constant.hpp>
 #include <pstade/if_debug.hpp>
 #include <pstade/lexical_cast.hpp>
-#include <pstade/singleton.hpp>
 #include <pstade/tomato/boolean_cast.hpp>
 #include <pstade/unused.hpp>
 #include "./log.hpp"
@@ -42,7 +42,7 @@ namespace pstade { namespace hamburger {
         }
     };
 
-    PSTADE_SINGLETON_CONST(z_order, op_z_order)
+    PSTADE_CONSTANT(z_order, op_z_order)
 
 
     struct op_z_order_sort
@@ -56,7 +56,7 @@ namespace pstade { namespace hamburger {
         }
     };
 
-    PSTADE_SINGLETON_CONST(z_order_sort, op_z_order_sort)
+    PSTADE_CONSTANT(z_order_sort, op_z_order_sort)
 
 
 } } // namespace pstade::hamburger

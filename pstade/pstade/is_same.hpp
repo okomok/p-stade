@@ -11,7 +11,7 @@
 
 
 #include <boost/utility/addressof.hpp>
-#include <pstade/singleton.hpp>
+#include <pstade/constant.hpp>
 
 
 namespace pstade {
@@ -29,7 +29,7 @@ namespace pstade {
     };
 
 
-    PSTADE_SINGLETON_CONST(is_same, op_is_same)
+    PSTADE_CONSTANT(is_same, op_is_same)
 
 
 } // namespace pstade

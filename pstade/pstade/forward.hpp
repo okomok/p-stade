@@ -37,10 +37,10 @@
 #include <boost/type_traits/is_same.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/preprocessor.hpp>
-#include <pstade/singleton.hpp>
 #include <pstade/to_type.hpp>
 
 
@@ -190,7 +190,7 @@ namespace pstade {
         }
     };
 
-    PSTADE_SINGLETON_CONST(forward_, op_forward)
+    PSTADE_CONSTANT(forward_, op_forward)
     PSTADE_PIPABLE(forwarded, op_forward)
 
 

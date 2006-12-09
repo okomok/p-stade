@@ -31,8 +31,8 @@
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/apple/wtl/user.hpp> // ::AtlIsOldWindows
 #include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/singleton.hpp>
 
 
 namespace pstade_tomato_extension {
@@ -68,7 +68,7 @@ struct op_size_initialize :
 };
 
 
-PSTADE_SINGLETON_CONST(size_initialize, op_size_initialize)
+PSTADE_CONSTANT(size_initialize, op_size_initialize)
 PSTADE_PIPABLE(size_initialized, op_size_initialize)
 
 

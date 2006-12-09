@@ -13,8 +13,8 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./joint_range.hpp"
@@ -88,7 +88,7 @@ struct op_make_rotate_range :
 };
 
 
-PSTADE_SINGLETON_CONST(make_rotate_range, op_make_rotate_range)
+PSTADE_CONSTANT(make_rotate_range, op_make_rotate_range)
 PSTADE_PIPABLE(rotated, op_make_rotate_range)
 
 

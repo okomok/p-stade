@@ -10,10 +10,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/constant.hpp>
 #include <pstade/instance.hpp>
 #include <pstade/napkin/dout.hpp>
 #include <pstade/napkin/lock_ostream.hpp>
-#include <pstade/singleton.hpp>
 #include <pstade/statement.hpp>
 
 
@@ -48,7 +48,7 @@ namespace pstade { namespace hamburger {
         };
 
 
-        PSTADE_SINGLETON_CONST(i, init)
+        PSTADE_CONSTANT(i, init)
 
 
     } // namespace log_detail

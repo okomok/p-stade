@@ -25,8 +25,8 @@
 #include <boost/throw_exception.hpp>
 #include <boost/type_traits/add_reference.hpp>
 #include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/singleton.hpp>
 #include <pstade/what.hpp>
 
 
@@ -125,7 +125,7 @@ namespace pstade {
     };
 
 
-    PSTADE_SINGLETON_CONST(require, op_require)
+    PSTADE_CONSTANT(require, op_require)
     PSTADE_PIPABLE(required, op_require)
 
 

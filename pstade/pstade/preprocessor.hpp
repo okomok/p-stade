@@ -42,7 +42,8 @@
 /**/
 
 
-// If 'Param' is array type, VC++7.1 might break down. Take care.
+// If 'Param' is template parameter and deduced as array type,
+// VC++7.1 might break down. Take care.
 #define PSTADE_PP_ENUM_CREF_PARAMS(Count, Param) \
     BOOST_PP_ENUM_BINARY_PARAMS(Count, Param, const& BOOST_PP_INTERCEPT) \
 /**/

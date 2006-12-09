@@ -23,6 +23,7 @@
 #include "./concept.hpp"
 #include "./const.hpp"
 #include "./const_overloaded.hpp"
+#include "./constant.hpp"
 #include "./contract.hpp"
 #include "./for_debug.hpp"
 #include "./forward.hpp"

@@ -34,10 +34,10 @@
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/const.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/function_adaptor.hpp>
 #include <pstade/nonassignable.hpp>
 #include <pstade/preprocessor.hpp>
-#include <pstade/singleton.hpp>
 #include <pstade/tupled.hpp>
 
 
@@ -139,17 +139,9 @@ namespace pstade {
         template< class A, class Function, class Arguments >
         struct result_of_output
         {
-            typedef typename
-                boost::result_of<op_tupled(Function)>::type
-            tupled_f;
-
-            typedef
-                boost::tuples::cons<A&, Arguments>
-            args_t;
-
-            typedef typename
-                boost::result_of<tupled_f(args_t)>::type
-            type;
+            typedef typename boost::result_of<op_tupled(Function)>::type tupled_f;
+            typedef boost::tuples::cons<A&, Arguments> args_t;
+            typedef typename boost::result_of<tupled_f(args_t)>::type type;
         };
 
         template< class Result, class A, class Pipe > inline
@@ -187,7 +179,7 @@ namespace pstade {
 
 
     #define PSTADE_PIPABLE(Object, Function) \
-        PSTADE_SINGLETON_CONST(Object, boost::result_of<pstade::op_pipable(Function)>::type)
+        PSTADE_CONSTANT(Object, boost::result_of<pstade::op_pipable(Function)>::type)
     /**/
 
 

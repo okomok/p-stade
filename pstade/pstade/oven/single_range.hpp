@@ -19,8 +19,8 @@
 
 #include <boost/utility/addressof.hpp>
 #include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./iter_range.hpp"
 
@@ -60,7 +60,7 @@ struct op_make_single_range :
 };
 
 
-PSTADE_SINGLETON_CONST(make_single_range, op_make_single_range)
+PSTADE_CONSTANT(make_single_range, op_make_single_range)
 PSTADE_PIPABLE(as_single, op_make_single_range)
 
 

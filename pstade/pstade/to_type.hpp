@@ -16,6 +16,7 @@
 
 
 #include <boost/type.hpp>
+#include <pstade/adl_barrier.hpp>
 #include <pstade/remove_cvr.hpp>
 
 
@@ -40,9 +41,11 @@ namespace pstade {
     { };
 
 
+    PSTADE_ADL_BARRIER(to_type) {
+
     struct to_type_cast_result
     {
-        template< class >
+        template< class Signature >
         struct result;
 
         template< class Self, class From, class Type_To >
@@ -50,6 +53,8 @@ namespace pstade {
             to_type<Type_To>
         { };
     };
+
+    } // ADL barrier
 
 
 } // namespace pstade

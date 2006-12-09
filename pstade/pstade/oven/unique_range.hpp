@@ -11,10 +11,10 @@
 
 
 #include <boost/utility/result_of.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/functional.hpp> // equal_to, not_
 #include <pstade/pipable.hpp>
-#include <pstade/singleton.hpp>
 #include "./adjacent_filter_range.hpp"
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
@@ -75,7 +75,7 @@ struct op_make_unique_range :
 };
 
 
-PSTADE_SINGLETON_CONST(make_unique_range, op_make_unique_range)
+PSTADE_CONSTANT(make_unique_range, op_make_unique_range)
 PSTADE_PIPABLE(uniqued, op_make_unique_range)
 
 

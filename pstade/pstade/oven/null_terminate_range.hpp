@@ -17,10 +17,11 @@
 #include <boost/range/end.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/const.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/functional.hpp> // not_, is_zero
 #include <pstade/pipable.hpp>
-#include <pstade/singleton.hpp>
+#include <pstade/constant.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./range_iterator.hpp"
@@ -105,7 +106,7 @@ struct op_make_null_terminate_range :
 };
 
 
-PSTADE_SINGLETON_CONST(make_null_terminate_range, op_make_null_terminate_range)
+PSTADE_CONSTANT(make_null_terminate_range, op_make_null_terminate_range)
 PSTADE_PIPABLE(null_terminated, op_make_null_terminate_range)
 
 

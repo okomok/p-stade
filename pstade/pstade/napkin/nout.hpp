@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/singleton.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/unused.hpp>
 
 
@@ -37,7 +37,7 @@ namespace nout_detail {
 } // namespace nout_detail
 
 
-PSTADE_SINGLETON_CONST(nout, nout_detail::out)
+PSTADE_CONSTANT(nout, nout_detail::out)
 
 
 } } // namespace pstade::napkin

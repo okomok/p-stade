@@ -11,9 +11,9 @@
 
 
 #include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./identity_iterator.hpp"
@@ -90,7 +90,7 @@ struct op_make_identity_range :
 };
 
 
-PSTADE_SINGLETON_CONST(make_identity_range, op_make_identity_range)
+PSTADE_CONSTANT(make_identity_range, op_make_identity_range)
 PSTADE_PIPABLE(identities, op_make_identity_range)
 
 

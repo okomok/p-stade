@@ -17,9 +17,9 @@
 
 #include <pstade/affect.hpp>
 #include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/functional.hpp> // identity
 #include <pstade/pipable.hpp>
-#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./detail/constant_reference.hpp"
@@ -86,7 +86,7 @@ struct op_make_constant_range :
 };
 
 
-PSTADE_SINGLETON_CONST(make_constant_range, op_make_constant_range)
+PSTADE_CONSTANT(make_constant_range, op_make_constant_range)
 PSTADE_PIPABLE(constants, op_make_constant_range)
 
 

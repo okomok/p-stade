@@ -12,8 +12,8 @@
 
 #include <boost/optional.hpp>
 #include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/pass_by.hpp>
-#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./generate_range.hpp"
 
@@ -110,8 +110,8 @@ struct op_make_iterate_range :
 };
 
 
-PSTADE_SINGLETON_CONST(make_iterate_range, op_make_iterate_range)
-PSTADE_SINGLETON_CONST(iteration, op_make_iterate_range)
+PSTADE_CONSTANT(make_iterate_range, op_make_iterate_range)
+PSTADE_CONSTANT(iteration, op_make_iterate_range)
 
 
 } } // namespace pstade::oven

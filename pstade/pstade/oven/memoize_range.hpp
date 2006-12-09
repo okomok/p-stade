@@ -14,9 +14,9 @@
 #include <boost/checked_delete.hpp>
 #include <boost/iterator/iterator_traits.hpp>
 #include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/nullptr.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./check_range.hpp"
 #include "./concepts.hpp"
@@ -165,7 +165,7 @@ struct op_make_memoize_range :
 };
 
 
-PSTADE_SINGLETON_CONST(make_memoize_range, op_make_memoize_range)
+PSTADE_CONSTANT(make_memoize_range, op_make_memoize_range)
 PSTADE_PIPABLE(memoized, op_make_memoize_range)
 
 

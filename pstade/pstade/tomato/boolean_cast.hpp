@@ -24,8 +24,8 @@
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/apple/sdk/wtypes.hpp> // VARIANT_BOOL
 #include <pstade/auto_castable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/singleton.hpp>
 #include <pstade/to_type.hpp>
 
 
@@ -92,7 +92,7 @@ struct op_boolean_cast :
     }
 };
 
-PSTADE_SINGLETON_CONST(boolean_cast_, op_boolean_cast)
+PSTADE_CONSTANT(boolean_cast_, op_boolean_cast)
 PSTADE_PIPABLE(booleanized, boost::result_of<op_auto_castable(op_boolean_cast)>::type)
 
 

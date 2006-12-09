@@ -14,6 +14,7 @@
 #include <boost/type.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/function_adaptor.hpp>
 #include <pstade/nonassignable.hpp>
 
@@ -83,7 +84,7 @@ namespace pstade {
             boost::result_of<pstade::op_auto_castable(CastFunction)>::type \
         BOOST_PP_CAT(op_, Object); \
         \
-        PSTADE_SINGLETON_CONST(Object, BOOST_PP_CAT(op_, Object)) \
+        PSTADE_CONSTANT(Object, BOOST_PP_CAT(op_, Object)) \
     /**/
 
 

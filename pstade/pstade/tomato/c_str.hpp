@@ -18,9 +18,9 @@
 #include <pstade/apple/wtl/misc.hpp> // CString
 #include <pstade/apple/basic_string_fwd.hpp>
 #include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/nullptr.hpp>
-#include <pstade/singleton.hpp>
 #include <pstade/static_c.hpp>
 #include "./boolean_cast.hpp"
 
@@ -134,7 +134,7 @@ struct op_c_str :
 };
 
 
-PSTADE_SINGLETON_CONST(c_str, op_c_str)
+PSTADE_CONSTANT(c_str, op_c_str)
 PSTADE_PIPABLE(to_c_str, op_c_str)
 
 

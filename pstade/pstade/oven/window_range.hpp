@@ -13,8 +13,8 @@
 #include <boost/assert.hpp>
 #include <boost/range/begin.hpp>
 #include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./detail/next_prior.hpp" // next
@@ -81,7 +81,7 @@ struct op_make_window_range :
 };
 
 
-PSTADE_SINGLETON_CONST(make_window_range, op_make_window_range)
+PSTADE_CONSTANT(make_window_range, op_make_window_range)
 PSTADE_PIPABLE(through_window, op_make_window_range)
 
 

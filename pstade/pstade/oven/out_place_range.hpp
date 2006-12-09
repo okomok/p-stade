@@ -23,10 +23,10 @@
 #include <memory> // auto_ptr
 #include <vector>
 #include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/new.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/singleton.hpp>
 #include <pstade/unused.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./copy_range.hpp"
@@ -132,7 +132,7 @@ struct op_make_out_place_range :
 };
 
 
-PSTADE_SINGLETON_CONST(make_out_place_range, op_make_out_place_range)
+PSTADE_CONSTANT(make_out_place_range, op_make_out_place_range)
 PSTADE_PIPABLE(out_placed, op_make_out_place_range)
 
 

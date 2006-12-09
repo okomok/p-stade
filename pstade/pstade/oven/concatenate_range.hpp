@@ -13,6 +13,7 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concatenate_iterator.hpp"
@@ -82,7 +83,7 @@ struct op_make_concatenate_range :
 };
 
 
-PSTADE_SINGLETON_CONST(make_concatenate_range, op_make_concatenate_range)
+PSTADE_CONSTANT(make_concatenate_range, op_make_concatenate_range)
 PSTADE_PIPABLE(concatenated, op_make_concatenate_range)
 
 

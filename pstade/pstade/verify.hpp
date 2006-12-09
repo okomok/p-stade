@@ -18,6 +18,7 @@
 
 #include <boost/assert.hpp>
 #include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>
 
 
@@ -42,7 +43,7 @@ namespace pstade {
     };
 
 
-PSTADE_SINGLETON_CONST(verify, op_verify)
+PSTADE_CONSTANT(verify, op_verify)
 PSTADE_PIPABLE(verified, op_verify)
 
 

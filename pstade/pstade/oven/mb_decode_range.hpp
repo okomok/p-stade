@@ -12,8 +12,8 @@
 
 #include <boost/archive/iterators/wchar_from_mb.hpp>
 #include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
@@ -72,7 +72,7 @@ struct op_make_mb_decode_range :
 };
 
 
-PSTADE_SINGLETON_CONST(make_mb_decode_range, op_make_mb_decode_range)
+PSTADE_CONSTANT(make_mb_decode_range, op_make_mb_decode_range)
 PSTADE_PIPABLE(mb_decoded, op_make_mb_decode_range)
 
 

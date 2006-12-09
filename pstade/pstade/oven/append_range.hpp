@@ -12,8 +12,8 @@
 
 #include <pstade/base_from.hpp>
 #include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./joint_range.hpp"
@@ -82,7 +82,7 @@ struct op_make_append_range :
 };
 
 
-PSTADE_SINGLETON_CONST(make_append_range, op_make_append_range)
+PSTADE_CONSTANT(make_append_range, op_make_append_range)
 PSTADE_PIPABLE(appended, op_make_append_range)
 
 

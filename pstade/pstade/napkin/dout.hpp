@@ -11,7 +11,7 @@
 
 
 #include <pstade/apple/sdk/windows.hpp>
-#include <pstade/singleton.hpp>
+#include <pstade/constant.hpp>
 
 
 namespace pstade { namespace napkin {
@@ -37,7 +37,7 @@ namespace dout_detail {
 } // namespace dout_detail
 
 
-PSTADE_SINGLETON_CONST(dout, dout_detail::out)
+PSTADE_CONSTANT(dout, dout_detail::out)
 
 
 } } // namespace pstade::napkin

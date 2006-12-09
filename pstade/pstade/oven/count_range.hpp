@@ -16,8 +16,8 @@
 #include <boost/iterator/iterator_categories.hpp> // iterator_traversal
 #include <boost/type_traits/remove_cv.hpp>
 #include <boost/utility/result_of.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/singleton.hpp>
 #include <pstade/unused.hpp>
 #include <pstade/tupled.hpp>
 #include "./as_lightweight_proxy.hpp"
@@ -108,7 +108,7 @@ struct op_make_count_range :
     }
 };
 
-PSTADE_SINGLETON_CONST(make_count_range, op_make_count_range)
+PSTADE_CONSTANT(make_count_range, op_make_count_range)
 PSTADE_PIPABLE(counted, boost::result_of<op_tupled(op_make_count_range)>::type)
 
 

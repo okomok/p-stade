@@ -17,7 +17,7 @@
 
 #include <boost/noncopyable.hpp>
 #include <boost/preprocessor/cat.hpp>
-#include <pstade/singleton.hpp>
+#include <pstade/constant.hpp>
 
 
 #define PSTADE_STATEMENT(Label, Statement) \

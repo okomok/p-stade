@@ -18,9 +18,9 @@
 
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/singleton.hpp>
 #include <pstade/tupled.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./range_base.hpp"
@@ -95,7 +95,7 @@ struct op_make_zip_with_range :
 };
 
 
-PSTADE_SINGLETON_CONST(make_zip_with_range, op_make_zip_with_range)
+PSTADE_CONSTANT(make_zip_with_range, op_make_zip_with_range)
 PSTADE_PIPABLE(zipped_with, op_make_zip_with_range)
 
 

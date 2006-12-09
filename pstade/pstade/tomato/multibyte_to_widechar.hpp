@@ -15,10 +15,10 @@
 #include <pstade/apple/atl/config.hpp> // ATL_VER
 #include <pstade/apple/atl/conv.hpp>
 #include <pstade/auto_castable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/oven/c_str_range.hpp>
 #include <pstade/oven/copy_range.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/singleton.hpp>
 #include <pstade/to_type.hpp>
 
 
@@ -58,7 +58,7 @@ struct op_multibyte_to :
     }
 };
 
-PSTADE_SINGLETON_CONST(multibyte_to_, op_multibyte_to)
+PSTADE_CONSTANT(multibyte_to_, op_multibyte_to)
 PSTADE_PIPABLE(to_widechar, boost::result_of<op_auto_castable(op_multibyte_to)>::type)
 
 

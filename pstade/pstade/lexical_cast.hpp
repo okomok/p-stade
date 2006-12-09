@@ -18,8 +18,8 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/auto_castable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/singleton.hpp>
 #include <pstade/to_type.hpp>
 
 
@@ -37,7 +37,7 @@ namespace pstade {
     };
 
 
-    PSTADE_SINGLETON_CONST(lexical_cast, op_lexical_cast)
+    PSTADE_CONSTANT(lexical_cast, op_lexical_cast)
     PSTADE_PIPABLE(lexicalized, boost::result_of<op_auto_castable(op_lexical_cast)>::type)
 
 

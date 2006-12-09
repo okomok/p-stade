@@ -17,9 +17,9 @@
 
 #include <boost/range/end.hpp>
 #include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./sub_range_base.hpp"
@@ -77,7 +77,7 @@ struct op_make_apply_range :
 };
 
 
-PSTADE_SINGLETON_CONST(make_apply_range, op_make_apply_range)
+PSTADE_CONSTANT(make_apply_range, op_make_apply_range)
 PSTADE_PIPABLE(applied, op_make_apply_range)
 
 
@@ -89,11 +89,11 @@ PSTADE_PIPABLE(applied, op_make_apply_range)
 #if defined(PSTADE_OVEN_USING_PHOENIX_V2)
 
     #include <boost/spirit/phoenix/core/argument.hpp>
-    #include <pstade/singleton.hpp>
+    #include <pstade/constant.hpp>
 
     namespace pstade { namespace oven {
 
-    PSTADE_SINGLETON_CONST(rng1, boost::phoenix::actor< boost::phoenix::argument<0> >)
+    PSTADE_CONSTANT(rng1, boost::phoenix::actor< boost::phoenix::argument<0> >)
 
     } } // namespace pstade::oven
 

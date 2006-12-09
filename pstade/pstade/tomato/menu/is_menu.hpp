@@ -11,8 +11,8 @@
 
 
 #include <pstade/apple/sdk/windows.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/for_debug.hpp>
-#include <pstade/singleton.hpp>
 #include "../boolean_cast.hpp"
 
 
@@ -29,7 +29,7 @@ struct op_is_menu
 };
 
 
-PSTADE_SINGLETON_CONST(is_menu, op_is_menu)
+PSTADE_CONSTANT(is_menu, op_is_menu)
 
 
 } } // namespace pstade::tomato

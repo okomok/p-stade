@@ -21,9 +21,9 @@
 #include <boost/type_traits/remove_reference.hpp>
 #include <pstade/affect.hpp>
 #include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/functional.hpp> // at_first
 #include <pstade/pipable.hpp>
-#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./range_reference.hpp"
@@ -97,7 +97,7 @@ struct op_make_first_range :
 };
 
 
-PSTADE_SINGLETON_CONST(make_first_range, op_make_first_range)
+PSTADE_CONSTANT(make_first_range, op_make_first_range)
 PSTADE_PIPABLE(firsts, op_make_first_range)
 
 

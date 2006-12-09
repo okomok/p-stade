@@ -14,7 +14,7 @@
 #include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/candy/test_any.hpp>
-#include <pstade/singleton.hpp>
+#include <pstade/constant.hpp>
 
 
 namespace pstade { namespace tomato {
@@ -35,7 +35,7 @@ struct find_file_matches_mask
 #define PSTADE_TOMATO_define_pred(suffix, SUFFIX) \
     typedef find_file_matches_mask< BOOST_PP_CAT(FILE_ATTRIBUTE_, SUFFIX) > \
     PSTADE_TOMATO_pred_t(suffix); \
-    PSTADE_SINGLETON_CONST(PSTADE_TOMATO_pred(suffix), PSTADE_TOMATO_pred_t(suffix)) \
+    PSTADE_CONSTANT(PSTADE_TOMATO_pred(suffix), PSTADE_TOMATO_pred_t(suffix)) \
 /**/
 
     #define PSTADE_TOMATO_pred(suffix) \
@@ -82,7 +82,7 @@ struct op_find_file_is_dots
     }
 };
 
-PSTADE_SINGLETON_CONST(find_file_is_dots, op_find_file_is_dots)
+PSTADE_CONSTANT(find_file_is_dots, op_find_file_is_dots)
 
 
 } } // namespace pstade::tomato

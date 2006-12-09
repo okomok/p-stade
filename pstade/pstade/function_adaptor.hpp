@@ -11,9 +11,9 @@
 
 
 #include <boost/preprocessor/cat.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/lambda_sig.hpp>
 #include <pstade/pass_by.hpp>
-#include <pstade/singleton.hpp>
 
 
 #define PSTADE_FUNCTION_ADAPTOR(Object, Template) \
@@ -41,7 +41,7 @@
             } \
         }; \
         \
-        PSTADE_SINGLETON_CONST(Object, Type) \
+        PSTADE_CONSTANT(Object, Type) \
     /**/
 
 

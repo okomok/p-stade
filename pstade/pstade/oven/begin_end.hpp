@@ -19,8 +19,8 @@
 #include <boost/range/end.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/singleton.hpp>
 #include "./range_iterator.hpp"
 
 
@@ -67,8 +67,8 @@ struct op_end   :
 
 PSTADE_ADL_BARRIER(begin_end) { // for Boost v1.33 'boost::const_begin/end'
 
-PSTADE_SINGLETON_CONST(begin, op_begin)
-PSTADE_SINGLETON_CONST(end, op_end)
+PSTADE_CONSTANT(begin, op_begin)
+PSTADE_CONSTANT(end, op_end)
 
 } // ADL barrier
 

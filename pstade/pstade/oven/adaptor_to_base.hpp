@@ -37,6 +37,7 @@
 #include <boost/type_traits/is_convertible.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <pstade/auto_castable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/to_type.hpp>
 
@@ -100,7 +101,7 @@ struct op_adaptor_to :
     }
 };
 
-PSTADE_SINGLETON_CONST(adaptor_to_, op_adaptor_to)
+PSTADE_CONSTANT(adaptor_to_, op_adaptor_to)
 PSTADE_PIPABLE(to_base, boost::result_of<op_auto_castable(op_adaptor_to)>::type)
 
 

@@ -51,9 +51,9 @@
 #include <boost/type_traits/is_same.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/pass_by.hpp>
-#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
@@ -153,7 +153,7 @@ struct op_make_transform_range :
 };
 
 
-PSTADE_SINGLETON_CONST(make_transform_range, op_make_transform_range)
+PSTADE_CONSTANT(make_transform_range, op_make_transform_range)
 PSTADE_PIPABLE(transformed, op_make_transform_range)
 
 

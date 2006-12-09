@@ -14,8 +14,8 @@
 #include <pstade/adl_barrier.hpp>
 #include <pstade/auto_castable.hpp>
 #include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/singleton.hpp>
 #include <pstade/to_type.hpp>
 #include "./algorithm.hpp" // copy
 #include "./extension.hpp"
@@ -55,7 +55,7 @@ struct op_copy_range :
     }
 };
 
-PSTADE_SINGLETON_CONST(copy_range_, op_copy_range)
+PSTADE_CONSTANT(copy_range_, op_copy_range)
 PSTADE_PIPABLE(copied, boost::result_of<op_auto_castable(op_copy_range)>::type)
 
 

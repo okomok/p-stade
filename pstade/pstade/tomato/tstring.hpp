@@ -16,7 +16,6 @@
 #include <pstade/callable.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/oven/copy_range.hpp>
-#include <pstade/singleton.hpp>
 #include "./multibyte_to_widechar.hpp"
 #include "./widechar_to_multibyte.hpp"
 

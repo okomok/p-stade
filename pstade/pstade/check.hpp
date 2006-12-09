@@ -23,10 +23,10 @@
 #include <boost/current_function.hpp>
 #include <boost/preprocessor/stringize.hpp>
 #include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/instance.hpp>
 #include <pstade/napkin/ostream.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/singleton.hpp>
 #include <pstade/what.hpp>
 
 
@@ -108,7 +108,7 @@ namespace pstade {
         }
     };
 
-    PSTADE_SINGLETON_CONST(check, op_check)
+    PSTADE_CONSTANT(check, op_check)
     PSTADE_PIPABLE(checked, op_check)
 
 

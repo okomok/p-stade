@@ -21,8 +21,8 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/adl_barrier.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/lambda_sig.hpp>
-#include <pstade/singleton.hpp>
 #include "./concepts.hpp"
 #include "./range_difference.hpp"
 #include "./range_traversal.hpp"
@@ -89,7 +89,7 @@ struct op_distance :
 
 PSTADE_ADL_BARRIER(distance) { // for Boost and Std
 
-PSTADE_SINGLETON_CONST(distance, op_distance)
+PSTADE_CONSTANT(distance, op_distance)
 
 } // ADL barrier
 

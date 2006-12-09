@@ -12,8 +12,8 @@
 
 #include <boost/spirit/iterator/multi_pass.hpp>
 #include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/singleton.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
@@ -94,7 +94,7 @@ struct op_make_multi_pass_range :
 };
 
 
-PSTADE_SINGLETON_CONST(make_multi_pass_range, op_make_multi_pass_range)
+PSTADE_CONSTANT(make_multi_pass_range, op_make_multi_pass_range)
 PSTADE_PIPABLE(multi_passed, op_make_multi_pass_range)
 
 
