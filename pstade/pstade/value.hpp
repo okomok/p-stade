@@ -25,8 +25,7 @@ namespace pstade {
     // case of function reference.
 
 
-    typedef object_generator< boost::mpl::identity<object_arg1> > op_value;
-    PSTADE_CONSTANT(value, op_value)
+    PSTADE_OBJECT_GENERATOR(value, boost::mpl::identity)
 
 
     namespace value_detail {

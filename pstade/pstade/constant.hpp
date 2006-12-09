@@ -13,7 +13,7 @@
 #include <pstade/singleton.hpp>
 
 
-// // 'stdafx.h' sometimes needs 'static'.
+// 'stdafx.h' sometimes needs 'static'.
 
 #define PSTADE_CONSTANT(O, T) \
     namespace { \

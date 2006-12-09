@@ -88,6 +88,7 @@ namespace pstade {
                     );
             }
 
+
             // 0ary
 
             template< class Result >
@@ -97,6 +98,7 @@ namespace pstade {
                     m_fun(
                     );
             }
+
 
             // 1ary
 
@@ -118,12 +120,14 @@ namespace pstade {
                     );
             }
 
+
             // 2ary-
 
         #define PSTADE_max_arity BOOST_PP_DEC(PSTADE_CALLABLE_MAX_ARITY)
             #define  BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_max_arity, <pstade/forward.hpp>))
             #include BOOST_PP_ITERATE()
         #undef  PSTADE_max_arity
+
 
             explicit op_result() // DefaultConstructible iff 'Function' is.
             { }

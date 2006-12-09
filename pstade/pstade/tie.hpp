@@ -34,7 +34,9 @@ namespace pstade {
     struct op_tie :
         callable< op_tie, boost::tuples::tuple<> >
     {
+
         // PSTADE_CALLABLE_MAX_ARITY (primary)
+
         template< class Myself, BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(PSTADE_CALLABLE_MAX_ARITY, class A, void) >
         struct apply
         {
@@ -47,14 +49,18 @@ namespace pstade {
             return Result( BOOST_PP_ENUM_PARAMS(PSTADE_CALLABLE_MAX_ARITY, a) );
         }
 
+
         // 0ary
+
         template< class Result >
         Result call() const
         {
             return Result( );
         }
 
+
         // 1ary
+
         template< class Myself, class A0 >
         struct apply< Myself, A0 >
         {
@@ -67,7 +73,9 @@ namespace pstade {
             return Result( a0 );
         }
 
+
         // 2ary-
+
     #define PSTADE_max_arity BOOST_PP_DEC(PSTADE_CALLABLE_MAX_ARITY)
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_max_arity, <pstade/tie.hpp>))
         #include BOOST_PP_ITERATE()

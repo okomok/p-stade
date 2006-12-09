@@ -162,6 +162,7 @@ namespace pstade {
     #undef  PSTADE_meta_argument
     #undef  PSTADE_call_operator
 
+
     private:
         Derived const& derived() const
         {

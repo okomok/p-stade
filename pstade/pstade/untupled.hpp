@@ -73,6 +73,7 @@ namespace pstade {
                     );
             }
 
+
             // 1ary
 
             template< class Myself, class A0 >
@@ -92,6 +93,7 @@ namespace pstade {
                         pstade::tie( a0 )
                     );
             }
+
 
             // 2ary-
 
@@ -124,8 +126,7 @@ namespace pstade {
     } // namespace untupled_detail
 
 
-    typedef object_generator< untupled_detail::op_result<object_arg1> > op_untupled;
-    PSTADE_CONSTANT(untupled, op_untupled)
+    PSTADE_OBJECT_GENERATOR(untupled, untupled_detail::op_result)
 
 
 } // namespace pstade

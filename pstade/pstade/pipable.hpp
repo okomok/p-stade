@@ -54,6 +54,7 @@ namespace pstade {
         {
 
             // PSTADE_CALLABLE_MAX_ARITY (primary)
+
             template< class Myself, BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(PSTADE_CALLABLE_MAX_ARITY, class A, void) >
             struct apply
             {
@@ -71,14 +72,18 @@ namespace pstade {
                 );
             }
 
+
             // 0ary
+
             template< class Result >
             Result call( ) const
             {
                 return *this;
             }
 
+
             // 1ary
+
             template< class Myself, class A0 >
             struct apply< Myself, A0 >
             {
@@ -95,11 +100,14 @@ namespace pstade {
                 );
             }
 
+
             // 2ary-
+
         #define PSTADE_max_arity BOOST_PP_DEC(PSTADE_CALLABLE_MAX_ARITY)
             #define  BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_max_arity, <pstade/pipable.hpp>))
             #include BOOST_PP_ITERATE()
         #undef  PSTADE_max_arity
+
 
             explicit pipe() // DefaultConstructible if 'Function' is.
             { }
@@ -175,8 +183,7 @@ namespace pstade {
     } // namespace pipable_detail
 
 
-    typedef object_generator< pipable_detail::pipe<object_arg1> > op_pipable;
-    PSTADE_CONSTANT(pipable, op_pipable)
+    PSTADE_OBJECT_GENERATOR(pipable, pipable_detail::pipe)
 
 
     #define PSTADE_PIPABLE(Object, Function) \
