@@ -16,6 +16,7 @@
 #include <boost/mpl/identity.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/arithmetic/dec.hpp>
+#include <boost/preprocessor/arithmetic/inc.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
@@ -66,7 +67,8 @@ namespace pstade {
             object_generator< To,
                 BOOST_PP_ENUM_PARAMS(PSTADE_CALLABLE_MAX_ARITY, Affect)
             >,
-            typename boost::mpl::apply0< To >::type
+            typename boost::mpl::apply0< To
+            >::type
         >
     {
 
@@ -82,7 +84,7 @@ namespace pstade {
             typedef typename
                 boost::mpl::BOOST_PP_CAT(apply, PSTADE_CALLABLE_MAX_ARITY)< To,
                     BOOST_PP_ENUM(PSTADE_CALLABLE_MAX_ARITY, PSTADE_template_argument, ~)
-                >::type const
+                >::type
             type;
         };
 
@@ -110,7 +112,7 @@ namespace pstade {
             typedef typename
                 boost::mpl::apply1< To,
                     typename object_generator_detail::template_argument<Affect0, A0>::type
-                >::type const
+                >::type
             type;
         };
 
@@ -121,7 +123,7 @@ namespace pstade {
         }
                 
 
-        // 2ary -
+        // 2ary-
 
     #define PSTADE_max_arity BOOST_PP_DEC(PSTADE_CALLABLE_MAX_ARITY)
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_max_arity, <pstade/object_generator.hpp>))
@@ -134,11 +136,15 @@ namespace pstade {
     }; // object_generator
 
 
+    // Rationale:
     // The following macro was preferred to PlaceholderExpression because...
     // 1. 'To' must be nullary.
     // 2. GCC3.4 requires Metafunction to be DefaultConstructible.
     // 3. A PlaceHolderExpression can't ignore redundant arguments.
     // 4. A nested 'type' is sometimes different from what you wanna generate.
+    //
+    // Note that you can add cv-qualifier to 'X'.
+
 
     struct object_generator_failed_with_too_few_arguments;
 
@@ -167,7 +173,7 @@ namespace pstade {
 } // namespace pstade
 
 
-PSTADE_CALLABLE_NULLARY_RESULT_TEMPLATE((pstade)(object_generator), PSTADE_CALLABLE_MAX_ARITY)
+PSTADE_CALLABLE_NULLARY_RESULT_TEMPLATE((pstade)(object_generator), BOOST_PP_INC(PSTADE_CALLABLE_MAX_ARITY))
 
 
 #endif
@@ -181,7 +187,7 @@ struct apply< Myself, BOOST_PP_ENUM_PARAMS(n, A) >
     typedef typename
         boost::mpl::BOOST_PP_CAT(apply, n)< To,
             BOOST_PP_ENUM(n, PSTADE_template_argument, ~)
-        >::type const
+        >::type
     type;
 };
 

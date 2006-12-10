@@ -11,8 +11,20 @@
 
 
 #include <pstade/tie.hpp>
+
+
+#include <boost/mpl/assert.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <boost/tuple/tuple_comparison.hpp>
+#include <boost/type_traits/is_same.hpp>
+#include <boost/utility/result_of.hpp>
+
+
+BOOST_MPL_ASSERT(( boost::is_same< boost::tuples::tuple<> const,
+                 boost::result_of<pstade::op_tie()>::type > ));
+
+BOOST_MPL_ASSERT(( boost::is_same< boost::tuples::tuple<int&, int const&> const,
+                 boost::result_of<pstade::op_tie(int&, int)>::type > ));
 
 
 void test()
