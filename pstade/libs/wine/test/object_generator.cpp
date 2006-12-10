@@ -69,7 +69,7 @@ struct our_type
     { }
 };
 
-PSTADE_OBJECT_GENERATOR(make_our_type, our_type, 2, (object_by_qualifier)(object_by_value))
+PSTADE_OBJECT_GENERATOR(make_our_type, our_type, (object_by_qualifier)(object_by_value))
 
 
 void test()

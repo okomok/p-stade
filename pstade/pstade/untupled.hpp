@@ -126,8 +126,7 @@ namespace pstade {
     } // namespace untupled_detail
 
 
-    PSTADE_OBJECT_GENERATOR(untupled, untupled_detail::op_result, 1, (object_by_value))
-
+    PSTADE_OBJECT_GENERATOR(untupled, untupled_detail::op_result, (object_by_value))
 
 
 } // namespace pstade

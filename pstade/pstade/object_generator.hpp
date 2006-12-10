@@ -20,6 +20,7 @@
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_params_with_a_default.hpp>
+#include <boost/preprocessor/seq/size.hpp>
 #include <boost/preprocessor/seq/enum.hpp>
 #include <boost/type_traits/add_reference.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -123,20 +124,24 @@ namespace pstade {
     }; // object_generator
 
 
-    // Note:
+    // The following macro is preferable to PlaceholderExpression because...
     // 1. GCC3.4 requires Metafunction to be DefaultConstructible.
     // 2. A PlaceHolderExpression can't ignore redundant arguments.
-    // 3. A nested 'type' is often different from what you wanna generate.
+    // 3. A nested 'type' is sometimes different from what you wanna generate.
 
-    struct object_unused;
+    struct object_generation_failed_with_too_few_arguments;
 
-    #define PSTADE_OBJECT_GENERATOR(G, X, Count, AffectSeq) \
+    #define PSTADE_OBJECT_GENERATOR(G, X, AffectSeq) \
+        PSTADE_OBJECT_GENERATOR_WITH_A_DEFAULT(G, X, AffectSeq, pstade::object_generation_failed_with_too_few_arguments) \
+    /**/
+
+    #define PSTADE_OBJECT_GENERATOR_WITH_A_DEFAULT(G, X, AffectSeq, Default) \
         struct BOOST_PP_CAT(pstade_object_generator_, G) \
         { \
-            template< BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(PSTADE_CALLABLE_MAX_ARITY, class T, pstade::object_unused) > \
+            template< BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(PSTADE_CALLABLE_MAX_ARITY, class T, Default) > \
             struct apply \
             { \
-                typedef X<BOOST_PP_ENUM_PARAMS(Count, T)> type; \
+                typedef X<BOOST_PP_ENUM_PARAMS(BOOST_PP_SEQ_SIZE(AffectSeq), T)> type; \
             }; \
         }; \
         typedef pstade::object_generator< \

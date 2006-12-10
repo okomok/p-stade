@@ -39,7 +39,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_always_range, always_range, 2, (object_by_qualifier)(object_by_qualifier))
+PSTADE_OBJECT_GENERATOR(make_always_range, always_range, (object_by_qualifier)(object_by_qualifier))
 PSTADE_PIPABLE(always, op_make_always_range)
 
 

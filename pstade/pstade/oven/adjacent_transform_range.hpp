@@ -79,7 +79,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_adjacent_transform_range, adjacent_transform_range, 2, (pass_by_qualifier))
+PSTADE_OBJECT_GENERATOR(make_adjacent_transform_range, adjacent_transform_range, (object_by_qualifier)(object_by_value))
 PSTADE_PIPABLE(adjacent_transformed, op_make_adjacent_transform_range)
 
 
