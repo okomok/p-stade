@@ -79,14 +79,11 @@ namespace pstade {
         // PSTADE_CALLABLE_MAX_ARITY (primary)
 
         template< class Myself, BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(PSTADE_CALLABLE_MAX_ARITY, class A, void) >
-        struct apply
-        {
-            typedef typename
-                boost::mpl::BOOST_PP_CAT(apply, PSTADE_CALLABLE_MAX_ARITY)< To,
-                    BOOST_PP_ENUM(PSTADE_CALLABLE_MAX_ARITY, PSTADE_template_argument, ~)
-                >::type
-            type;
-        };
+        struct apply :
+            boost::mpl::BOOST_PP_CAT(apply, PSTADE_CALLABLE_MAX_ARITY)< To,
+                BOOST_PP_ENUM(PSTADE_CALLABLE_MAX_ARITY, PSTADE_template_argument, ~)
+            >
+        { };
 
         template< class Result, BOOST_PP_ENUM_PARAMS(PSTADE_CALLABLE_MAX_ARITY, class A) >
         Result call( PSTADE_PP_ENUM_REF_PARAMS_WITH_OBJECTS(PSTADE_CALLABLE_MAX_ARITY, A, a) ) const
@@ -107,14 +104,11 @@ namespace pstade {
         // 1ary
 
         template< class Myself, class A0 >
-        struct apply<Myself, A0>
-        {
-            typedef typename
-                boost::mpl::apply1< To,
-                    typename object_generator_detail::template_argument<Affect0, A0>::type
-                >::type
-            type;
-        };
+        struct apply<Myself, A0> :
+            boost::mpl::apply1< To,
+                typename object_generator_detail::template_argument<Affect0, A0>::type
+            >
+        { };
 
         template< class Result, class A0 >
         Result call(A0& a0) const
@@ -182,14 +176,11 @@ PSTADE_CALLABLE_NULLARY_RESULT_TEMPLATE((pstade)(object_generator), BOOST_PP_INC
 
 
 template< class Myself, BOOST_PP_ENUM_PARAMS(n, class A) >
-struct apply< Myself, BOOST_PP_ENUM_PARAMS(n, A) >
-{
-    typedef typename
-        boost::mpl::BOOST_PP_CAT(apply, n)< To,
-            BOOST_PP_ENUM(n, PSTADE_template_argument, ~)
-        >::type
-    type;
-};
+struct apply< Myself, BOOST_PP_ENUM_PARAMS(n, A) > :
+    boost::mpl::BOOST_PP_CAT(apply, n)< To,
+        BOOST_PP_ENUM(n, PSTADE_template_argument, ~)
+    >
+{ };
 
 template< class Result, BOOST_PP_ENUM_PARAMS(n, class A) >
 Result call( PSTADE_PP_ENUM_REF_PARAMS_WITH_OBJECTS(n, A, a) ) const

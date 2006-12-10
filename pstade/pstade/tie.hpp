@@ -27,7 +27,7 @@ namespace pstade {
 
     PSTADE_OBJECT_GENERATOR_WITH_A_DEFAULT(
         tie,
-        const boost::tuples::tuple,
+        boost::tuples::tuple,
         BOOST_PP_REPEAT(PSTADE_CALLABLE_MAX_ARITY, PSTADE_make_elem, ~),
         boost::tuples::null_type
     )
