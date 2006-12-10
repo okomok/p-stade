@@ -47,18 +47,15 @@ namespace pstade {
 
 
         template< class By, class A >
-        struct template_argument
-        {
-            typedef typename
-                boost::mpl::eval_if< boost::is_same<By, by_value>,
-                    pass_by_value<A>,
-                    boost::mpl::eval_if< boost::is_same<By, by_reference>,
-                        boost::add_reference<A>,
-                        boost::mpl::identity<A>
-                    >
-                >::type
-            type;
-        };
+        struct template_argument :
+            boost::mpl::eval_if< boost::is_same<By, by_value>,
+                pass_by_value<A>,
+                boost::mpl::eval_if< boost::is_same<By, by_reference>,
+                    boost::add_reference<A>,
+                    boost::mpl::identity<A>
+                >
+            >
+        { };
 
 
     } // namespace object_generator_detail
