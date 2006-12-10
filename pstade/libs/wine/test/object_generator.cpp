@@ -77,7 +77,7 @@ struct our_type
 PSTADE_OBJECT_GENERATOR(make_our_type, our_type, (by_qualified)(by_value))
 
 
-PSTADE_OBJECT_GENERATOR_WITH_A_DEFAULT(my_tie, const boost::tuples::tuple,
+PSTADE_OBJECT_GENERATOR_WITH_A_DEFAULT(my_tie, boost::tuples::tuple,
     (by_reference)(by_reference)(by_reference)(by_reference)(by_reference), boost::tuples::null_type)
 
 

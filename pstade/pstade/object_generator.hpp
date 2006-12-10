@@ -35,8 +35,6 @@
 namespace pstade {
 
 
-
-
     namespace object_generator_detail {
 
 
