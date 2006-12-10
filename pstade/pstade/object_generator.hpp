@@ -43,16 +43,22 @@ namespace pstade {
         struct by_qualified;
 
 
+        struct unused;
+
+
         template< class By, class A >
-        struct template_argument :
-            boost::mpl::eval_if< boost::is_same< by_value, By >,
-                pass_by_value<A>,
-                boost::mpl::eval_if< boost::is_same< by_reference, By >,
-                    boost::add_reference<A>,
-                    boost::mpl::identity<A>
-                >
-            >
-        { };
+        struct template_argument
+        {
+            typedef typename
+                boost::mpl::eval_if< boost::is_same<By, by_value>,
+                    pass_by_value<A>,
+                    boost::mpl::eval_if< boost::is_same<By, by_reference>,
+                        boost::add_reference<A>,
+                        boost::mpl::identity<A>
+                    >
+                >::type
+            type;
+        };
 
 
     } // namespace object_generator_detail
@@ -61,7 +67,7 @@ namespace pstade {
     // To: *Nullary* MPL MetafunctionClass
 
     template< class To,
-        BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(PSTADE_CALLABLE_MAX_ARITY, class By, object_generator_detail::by_value)
+        BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(PSTADE_CALLABLE_MAX_ARITY, class By, object_generator_detail::unused)
     >
     struct object_generator :
         callable<
