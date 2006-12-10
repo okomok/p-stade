@@ -24,6 +24,7 @@ void test()
     BOOST_CHECK( boost::make_tuple(1,2,3)     == tie(1,2,3)     );
     BOOST_CHECK( boost::make_tuple(1,2)       == tie(1,2)       );
     BOOST_CHECK( boost::make_tuple(1)         == tie(1)         );
+    BOOST_CHECK( boost::make_tuple()          == tie()          );
 
     BOOST_CHECK( boost::make_tuple(1,2,3,4,5) == (1|tied(2,3,4,5)) );
     BOOST_CHECK( boost::make_tuple(1,2,3,4)   == (1|tied(2,3,4))   );
@@ -31,6 +32,12 @@ void test()
     BOOST_CHECK( boost::make_tuple(1,2)       == (1|tied(2))       );
     BOOST_CHECK( boost::make_tuple(1)         == (1|tied())        );
     BOOST_CHECK( boost::make_tuple(1)         == (1|tied)          );
+
+    {
+        int m = 5;
+        boost::tuples::get<4>(tie(1,2,3,4,m)) = 10;
+        BOOST_CHECK(m == 10);
+    }
 }
 
 
