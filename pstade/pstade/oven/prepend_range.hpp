@@ -11,8 +11,7 @@
 
 
 #include <pstade/base_from.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
+#include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
@@ -65,24 +64,7 @@ public:
 };
 
 
-struct op_make_prepend_range :
-    callable<op_make_prepend_range>
-{
-    template< class Myself, class Range, class Value >
-    struct apply
-    {
-        typedef prepend_range<Range, Value> const type;
-    };
-
-    template< class Result, class Range, class Value >
-    Result call(Range& rng, Value& v) const
-    {
-        return Result(rng, v);
-    }
-};
-
-
-PSTADE_CONSTANT(make_prepend_range, op_make_prepend_range)
+PSTADE_OBJECT_GENERATOR(make_prepend_range, const prepend_range, (by_qualified)(by_qualified))
 PSTADE_PIPABLE(prepended, op_make_prepend_range)
 
 

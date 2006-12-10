@@ -13,8 +13,7 @@
 #include <boost/assert.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
+#include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
@@ -87,24 +86,7 @@ public:
 };
 
 
-struct op_make_slice_range :
-    callable<op_make_slice_range>
-{
-    template< class Myself, class Range, class Difference, class Difference_ >
-    struct apply
-    {
-        typedef slice_range<Range> const type;
-    };
-
-    template< class Result, class Range, class Difference >
-    Result call(Range& rng, Difference start, Difference stride) const
-    {
-        return Result(rng, start, stride);
-    }
-};
-
-
-PSTADE_CONSTANT(make_slice_range, op_make_slice_range)
+PSTADE_OBJECT_GENERATOR(make_slice_range, const slice_range, (by_qualified))
 PSTADE_PIPABLE(sliced, op_make_slice_range)
 
 

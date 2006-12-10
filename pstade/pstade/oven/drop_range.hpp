@@ -11,8 +11,7 @@
 
 
 #include <boost/range/end.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
+#include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
@@ -46,24 +45,7 @@ public:
 };
 
 
-struct op_make_drop_range :
-    callable<op_make_drop_range>
-{
-    template< class Myself, class Range, class Difference = void >
-    struct apply
-    {
-        typedef drop_range<Range> const type;
-    };
-
-    template< class Result, class Range, class Difference >
-    Result call(Range& rng, Difference d) const
-    {
-        return Result(rng, d);
-    }
-};
-
-
-PSTADE_CONSTANT(make_drop_range, op_make_drop_range)
+PSTADE_OBJECT_GENERATOR(make_drop_range, const drop_range, (by_qualified))
 PSTADE_PIPABLE(dropped, op_make_drop_range)
 
 

@@ -12,8 +12,7 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
+#include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
@@ -65,24 +64,7 @@ public:
 };
 
 
-struct op_make_joint_range :
-    callable<op_make_joint_range>
-{
-    template< class Myself, class RangeL, class RangeR >
-    struct apply
-    {
-        typedef joint_range<RangeL, RangeR> const type;
-    };
-
-    template< class Result, class RangeL, class RangeR >
-    Result call(RangeL& rngL, RangeR& rngR) const
-    {
-        return Result(rngL, rngR);
-    }
-};
-
-
-PSTADE_CONSTANT(make_joint_range, op_make_joint_range)
+PSTADE_OBJECT_GENERATOR(make_joint_range, const joint_range, (by_qualified)(by_qualified))
 PSTADE_PIPABLE(jointed, op_make_joint_range)
 
 

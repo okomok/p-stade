@@ -22,10 +22,8 @@
 
 #include <memory> // auto_ptr
 #include <vector>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
 #include <pstade/new.hpp>
-#include <pstade/pass_by.hpp>
+#include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/unused.hpp>
 #include "./as_lightweight_proxy.hpp"
@@ -108,31 +106,7 @@ public:
 };
 
 
-struct op_make_out_place_range :
-    callable<op_make_out_place_range>
-{
-    template< class Myself, class Range, class UnaryFun = op_unused >
-    struct apply
-    {
-        typedef typename pass_by_value<UnaryFun>::type fun_t;
-        typedef out_place_range<Range, fun_t> const type;
-    };
-
-    template< class Result, class Range, class UnaryFun >
-    Result call(Range& rng, UnaryFun& fun) const
-    {
-        return Result(rng, fun);
-    }
-
-    template< class Result, class Range >
-    Result call(Range& rng) const
-    {
-        return Result(rng);
-    }
-};
-
-
-PSTADE_CONSTANT(make_out_place_range, op_make_out_place_range)
+PSTADE_OBJECT_GENERATOR_WITH_A_DEFAULT(make_out_place_range, const out_place_range, (by_qualified)(by_value), op_unused)
 PSTADE_PIPABLE(out_placed, op_make_out_place_range)
 
 

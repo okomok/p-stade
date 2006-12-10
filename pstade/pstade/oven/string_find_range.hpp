@@ -11,8 +11,7 @@
 
 
 #include <boost/algorithm/string/find_iterator.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
+#include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./iter_range.hpp"
@@ -57,24 +56,7 @@ public:
 };
 
 
-struct op_make_string_find_range :
-    callable<op_make_string_find_range>
-{
-    template< class Myself, class Range, class FinderT >
-    struct apply
-    {
-        typedef string_find_range<Range> const type;
-    };
-
-    template< class Result, class Range, class FinderT >
-    Result call(Range& rng, FinderT& f) const
-    {
-        return Result(rng, f);
-    }
-};
-
-
-PSTADE_CONSTANT(make_string_find_range, op_make_string_find_range)
+PSTADE_OBJECT_GENERATOR(make_string_find_range, const string_find_range, (by_qualified))
 PSTADE_PIPABLE(string_found, op_make_string_find_range)
 
 

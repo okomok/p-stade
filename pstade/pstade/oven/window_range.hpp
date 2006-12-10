@@ -12,8 +12,7 @@
 
 #include <boost/assert.hpp>
 #include <boost/range/begin.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
+#include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
@@ -64,24 +63,7 @@ public:
 };
 
 
-struct op_make_window_range :
-    callable<op_make_window_range>
-{
-    template< class Myself, class Range, class Difference, class Difference_ >
-    struct apply
-    {
-        typedef window_range<Range> const type;
-    };
-
-    template< class Result, class Range, class Difference >
-    Result call(Range& rng, Difference n, Difference m) const
-    {
-        return Result(rng, n, m);
-    }
-};
-
-
-PSTADE_CONSTANT(make_window_range, op_make_window_range)
+PSTADE_OBJECT_GENERATOR(make_window_range, const window_range, (by_qualified))
 PSTADE_PIPABLE(through_window, op_make_window_range)
 
 

@@ -15,9 +15,8 @@
 #include <boost/range/empty.hpp>
 #include <boost/type_traits/is_pointer.hpp>
 #include <boost/utility/addressof.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
 #include <pstade/nullptr.hpp>
+#include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
@@ -78,24 +77,7 @@ public:
 };
 
 
-struct op_make_point_range :
-    callable<op_make_point_range>
-{
-    template< class Myself, class ContiguousRange >
-    struct apply
-    {
-        typedef point_range<ContiguousRange> const type;
-    };
-
-    template< class Result, class ContiguousRange >
-    Result call(ContiguousRange& rng) const
-    {
-        return Result(rng);
-    }
-};
-
-
-PSTADE_CONSTANT(make_point_range, op_make_point_range)
+PSTADE_OBJECT_GENERATOR(make_point_range, const point_range, (by_qualified))
 PSTADE_PIPABLE(pointed, op_make_point_range)
 
 

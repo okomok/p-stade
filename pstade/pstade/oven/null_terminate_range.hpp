@@ -17,11 +17,9 @@
 #include <boost/range/end.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/const.hpp>
-#include <pstade/constant.hpp>
-#include <pstade/callable.hpp>
 #include <pstade/functional.hpp> // not_, is_zero
+#include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/constant.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./range_iterator.hpp"
@@ -89,24 +87,7 @@ public:
 };
 
 
-struct op_make_null_terminate_range :
-    callable<op_make_null_terminate_range>
-{
-    template< class Myself, class Range >
-    struct apply
-    {
-        typedef null_terminate_range<Range> const type;
-    };
-
-    template< class Result, class Range >
-    Result call(Range& rng) const
-    {
-        return Result(rng);
-    }
-};
-
-
-PSTADE_CONSTANT(make_null_terminate_range, op_make_null_terminate_range)
+PSTADE_OBJECT_GENERATOR(make_null_terminate_range, const null_terminate_range, (by_qualified))
 PSTADE_PIPABLE(null_terminated, op_make_null_terminate_range)
 
 

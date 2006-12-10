@@ -10,8 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
+#include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./const_lvalue_iterator.hpp"
@@ -58,24 +57,7 @@ public:
 };
 
 
-struct op_make_const_lvalue_range :
-    callable<op_make_const_lvalue_range>
-{
-    template< class Myself, class Range >
-    struct apply
-    {
-        typedef const_lvalue_range<Range> const type;
-    };
-
-    template< class Result, class Range >
-    Result call(Range& rng) const
-    {
-        return Result(rng);
-    }
-};
-
-
-PSTADE_CONSTANT(make_const_lvalue_range, op_make_const_lvalue_range)
+PSTADE_OBJECT_GENERATOR(make_const_lvalue_range, const const_lvalue_range, (by_qualified))
 PSTADE_PIPABLE(const_lvalues, op_make_const_lvalue_range)
 
 

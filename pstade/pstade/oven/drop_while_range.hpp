@@ -17,9 +17,8 @@
 
 
 #include <boost/range/end.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
 #include <pstade/functional.hpp> // not_
+#include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
 #include "./algorithm.hpp" // find_if
 #include "./as_lightweight_proxy.hpp"
@@ -51,24 +50,7 @@ public:
 };
 
 
-struct op_make_drop_while_range :
-    callable<op_make_drop_while_range>
-{
-    template< class Myself, class Range, class Predicate >
-    struct apply
-    {
-        typedef drop_while_range<Range> const type;
-    };
-
-    template< class Result, class Range, class Predicate >
-    Result call(Range& rng, Predicate& pred) const
-    {
-        return Result(rng, pred);
-    }
-};
-
-
-PSTADE_CONSTANT(make_drop_while_range, op_make_drop_while_range)
+PSTADE_OBJECT_GENERATOR(make_drop_while_range, const drop_while_range, (by_qualified))
 PSTADE_PIPABLE(dropped_while, op_make_drop_while_range)
 
 

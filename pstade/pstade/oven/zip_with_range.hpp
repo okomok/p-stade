@@ -17,9 +17,7 @@
 
 
 #include <boost/utility/result_of.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
-#include <pstade/pass_by.hpp>
+#include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/tupled.hpp>
 #include "./as_lightweight_proxy.hpp"
@@ -77,25 +75,7 @@ public:
 };
 
 
-struct op_make_zip_with_range :
-    callable<op_make_zip_with_range>
-{
-    template< class Myself, class RangeTuple, class Function >
-    struct apply
-    {
-        typedef typename pass_by_value<Function>::type fun_t;
-        typedef zip_with_range<RangeTuple, fun_t> const type;
-    };
-
-    template< class Result, class RangeTuple, class Function >
-    Result call(RangeTuple& tup, Function& fun) const
-    {
-        return Result(tup, fun);
-    }
-};
-
-
-PSTADE_CONSTANT(make_zip_with_range, op_make_zip_with_range)
+PSTADE_OBJECT_GENERATOR(make_zip_with_range, const zip_with_range, (by_qualified)(by_value))
 PSTADE_PIPABLE(zipped_with, op_make_zip_with_range)
 
 

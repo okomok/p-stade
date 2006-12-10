@@ -12,8 +12,7 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
+#include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concatenate_iterator.hpp"
@@ -66,24 +65,7 @@ public:
 };
 
 
-struct op_make_concatenate_range :
-    callable<op_make_concatenate_range>
-{
-    template< class Myself, class SegmentRange >
-    struct apply
-    {
-        typedef concatenate_range<SegmentRange> const type;
-    };
-
-    template< class Result, class SegmentRange >
-    Result call(SegmentRange& rngs) const
-    {
-        return Result(rngs);
-    }
-};
-
-
-PSTADE_CONSTANT(make_concatenate_range, op_make_concatenate_range)
+PSTADE_OBJECT_GENERATOR(make_concatenate_range, const concatenate_range, (by_qualified))
 PSTADE_PIPABLE(concatenated, op_make_concatenate_range)
 
 

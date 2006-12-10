@@ -14,9 +14,8 @@
 #include <boost/assert.hpp>
 #include <boost/iterator/counting_iterator.hpp>
 #include <boost/iterator/iterator_categories.hpp> // iterator_traversal
-#include <boost/type_traits/remove_cv.hpp>
 #include <boost/utility/result_of.hpp>
-#include <pstade/constant.hpp>
+#include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/unused.hpp>
 #include <pstade/tupled.hpp>
@@ -91,24 +90,7 @@ public:
 };
 
 
-struct op_make_count_range :
-    callable<op_make_count_range>
-{
-    template< class Myself, class Incrementable, class Incrementable_ >
-    struct apply
-    {
-        typedef typename boost::remove_cv<Incrementable>::type inc_t;
-        typedef count_range<inc_t> const type;
-    };
-
-    template< class Result, class Incrementable >
-    Result call(Incrementable const& i, Incrementable const& j) const
-    {
-        return Result(i, j);
-    }
-};
-
-PSTADE_CONSTANT(make_count_range, op_make_count_range)
+PSTADE_OBJECT_GENERATOR(make_count_range, const count_range, (by_value))
 PSTADE_PIPABLE(counted, boost::result_of<op_tupled(op_make_count_range)>::type)
 
 

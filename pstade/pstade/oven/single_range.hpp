@@ -18,8 +18,7 @@
 
 
 #include <boost/utility/addressof.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
+#include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./iter_range.hpp"
@@ -43,24 +42,7 @@ public:
 };
 
 
-struct op_make_single_range :
-    callable<op_make_single_range>
-{
-    template< class Myself, class Value >
-    struct apply
-    {
-        typedef single_range<Value> const type;
-    };
-
-    template< class Result, class Value >
-    Result call(Value& v) const
-    {
-        return Result(v);
-    }
-};
-
-
-PSTADE_CONSTANT(make_single_range, op_make_single_range)
+PSTADE_OBJECT_GENERATOR(make_single_range, const single_range, (by_qualified))
 PSTADE_PIPABLE(as_single, op_make_single_range)
 
 

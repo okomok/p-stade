@@ -11,9 +11,7 @@
 
 
 #include <boost/spirit/iterator/position_iterator.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
-#include <pstade/pass_by.hpp>
+#include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/static_c.hpp>
 #include "./as_lightweight_proxy.hpp"
@@ -90,33 +88,7 @@ public:
 };
 
 
-struct op_make_position_range :
-    callable<op_make_position_range>
-{
-    typedef boost::spirit::file_position default_pos_t;
-
-    template< class Myself, class Range, class PositionT = default_pos_t, class Int = void >
-    struct apply
-    {
-        typedef typename pass_by_value<PositionT>::type pos_t;
-        typedef position_range<Range, pos_t> const type;
-    };
-
-    template< class Result, class Range >
-    Result call(Range& rng) const
-    {
-        return Result(rng);
-    }
-
-    template< class Result, class Range, class PositionT >
-    Result call(Range& rng, PositionT const& pos, int tabchars = position_range_detail::default_tabchars::value) const
-    {
-        return Result(rng, pos, tabchars);
-    }
-};
-
-
-PSTADE_CONSTANT(make_position_range, op_make_position_range)
+PSTADE_OBJECT_GENERATOR_WITH_A_DEFAULT(make_position_range, const position_range, (by_qualified)(by_value), boost::spirit::file_position)
 PSTADE_PIPABLE(with_position, op_make_position_range)
 
 

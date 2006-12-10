@@ -10,9 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
-#include <pstade/pass_by.hpp>
+#include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
@@ -62,35 +60,15 @@ public:
         super_t(rng)
     { }
 
+    explicit identity_range(Range& rng, Traversal) : // for OBJECT_GENERATOR
+        super_t(rng)
+    { }
+
     typedef Range pstade_oven_range_base_type;
 };
 
 
-struct op_make_identity_range :
-    callable<op_make_identity_range>
-{
-    template< class Myself, class Range, class Traversal = boost::use_default >
-    struct apply
-    {
-        typedef typename pass_by_value<Traversal>::type trv_t;
-        typedef identity_range<Range, trv_t> const type;
-    };
-
-    template< class Result, class Range, class Traversal >
-    Result call(Range& rng, Traversal) const
-    {
-        return Result(rng);
-    }
-
-    template< class Result, class Range >
-    Result call(Range& rng) const
-    {
-        return Result(rng);
-    }
-};
-
-
-PSTADE_CONSTANT(make_identity_range, op_make_identity_range)
+PSTADE_OBJECT_GENERATOR_WITH_A_DEFAULT(make_identity_range, const identity_range, (by_qualified)(by_value), boost::use_default)
 PSTADE_PIPABLE(identities, op_make_identity_range)
 
 

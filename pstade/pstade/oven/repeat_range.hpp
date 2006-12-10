@@ -12,9 +12,7 @@
 
 #include <cstddef> // size_t
 #include <pstade/base_from.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
-#include <pstade/pass_by.hpp>
+#include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./cycle_range.hpp"
@@ -65,25 +63,7 @@ public:
 };
 
 
-struct op_make_repeat_range :
-    callable<op_make_repeat_range>
-{
-    template< class Myself, class Value, class Size >
-    struct apply
-    {
-        typedef typename pass_by_value<Size>::type sz_t;
-        typedef repeat_range<Value, sz_t> const type;
-    };
-
-    template< class Result, class Value, class Size >
-    Result call(Value& v, Size sz) const
-    {
-        return Result(v, sz);
-    }
-};
-
-
-PSTADE_CONSTANT(make_repeat_range, op_make_repeat_range)
+PSTADE_OBJECT_GENERATOR(make_repeat_range, const repeat_range, (by_qualified)(by_value))
 PSTADE_PIPABLE(repeated, op_make_repeat_range)
 
 

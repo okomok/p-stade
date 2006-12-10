@@ -41,8 +41,6 @@ namespace pstade {
         struct by_value;
         struct by_reference;
         struct by_qualified;
-
-
         struct unused;
 
 

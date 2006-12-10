@@ -19,11 +19,9 @@
 
 
 #include <boost/ptr_container/indirect_fun.hpp>
-#include <pstade/constant.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/pipable.hpp>
 #include <pstade/functional.hpp> // less
-#include <pstade/pass_by.hpp>
+#include <pstade/object_generator.hpp>
+#include <pstade/pipable.hpp>
 #include "./algorithm.hpp" // sort
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
@@ -92,31 +90,7 @@ public:
 };
 
 
-struct op_make_sort_range :
-    callable<op_make_sort_range>
-{
-    template< class Myself, class Range, class Compare = op_less >
-    struct apply
-    {
-        typedef typename pass_by_value<Compare>::type comp_t;
-        typedef sort_range<Range, comp_t> const type;
-    };
-
-    template< class Result, class Range, class Compare >
-    Result call(Range& rng, Compare& comp) const
-    {
-        return Result(rng, comp);
-    }
-
-    template< class Result, class Range >
-    Result call(Range& rng) const
-    {
-        return Result(rng);
-    }
-};
-
-
-PSTADE_CONSTANT(make_sort_range, op_make_sort_range)
+PSTADE_OBJECT_GENERATOR_WITH_A_DEFAULT(make_sort_range, const sort_range, (by_qualified)(by_value), op_less)
 PSTADE_PIPABLE(sorted, op_make_sort_range)
 
 

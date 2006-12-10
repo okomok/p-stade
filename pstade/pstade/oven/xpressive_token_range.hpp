@@ -13,9 +13,8 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/xpressive/regex_token_iterator.hpp>
-#include <pstade/callable.hpp>
 #include <pstade/const.hpp>
-#include <pstade/constant.hpp>
+#include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
@@ -38,10 +37,6 @@ namespace xpressive_token_range_detail {
             >
         >
     { };
-
-
-    using boost::xpressive::regex_constants::match_flag_type;
-    using boost::xpressive::regex_constants::match_default;
 
 
 } // namespace xpressive_token_range_detail
@@ -74,7 +69,7 @@ public:
     xpressive_token_range(
         Range& rng, Regex const& re,
         SubMatches const& submatches,
-        xpressive_token_range_detail::match_flag_type flag = xpressive_token_range_detail::match_default
+        boost::xpressive::regex_constants::match_flag_type flag = boost::xpressive::regex_constants::match_default
     ) :
         super_t(
             iter_t(boost::begin(rng), boost::end(rng), re, submatches, flag),
@@ -86,30 +81,7 @@ public:
 };
 
 
-struct op_make_xpressive_token_range :
-    callable<op_make_xpressive_token_range>
-{
-    template< class Myself, class Range, class Regex, class SubMatches = void, class Flag = void >
-    struct apply
-    {
-        typedef xpressive_token_range<Range> const type;
-    };
-
-    template< class Result, class Range, class Regex >
-    Result call(Range& rng, Regex const& re) const
-    {
-        return Result(rng, re);
-    }
-
-    template< class Result, class Range, class Regex, class SubMatches >
-    Result call(Range& rng, Regex const& re, SubMatches const& submatches, xpressive_token_range_detail::match_flag_type flag = xpressive_token_range_detail::match_default) const
-    {
-        return Result(rng, re, submatches, flag);
-    }
-};
-
-
-PSTADE_CONSTANT(make_xpressive_token_range, op_make_xpressive_token_range)
+PSTADE_OBJECT_GENERATOR(make_xpressive_token_range, const xpressive_token_range, (by_qualified))
 PSTADE_PIPABLE(xpressive_tokenized, op_make_xpressive_token_range)
 
 

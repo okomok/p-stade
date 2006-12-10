@@ -12,10 +12,8 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
 #include <pstade/functional.hpp> // plus
-#include <pstade/pass_by.hpp>
+#include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
@@ -84,32 +82,7 @@ public:
 };
 
 
-struct op_make_scan_range :
-    callable<op_make_scan_range>
-{
-    template< class Myself, class Range, class State, class BinaryFun = op_plus >
-    struct apply
-    {
-        typedef typename pass_by_value<State>::type sta_t;
-        typedef typename pass_by_value<BinaryFun>::type fun_t;
-        typedef scan_range<Range, sta_t, fun_t> const type;
-    };
-
-    template< class Result, class Range, class State, class BinaryFun >
-    Result call(Range& rng, State const& init, BinaryFun& fun) const
-    {
-        return Result(rng, init, fun);
-    }
-
-    template< class Result, class Range, class State >
-    Result call(Range& rng, State const& init) const
-    {
-        return Result(rng, init);
-    }
-};
-
-
-PSTADE_CONSTANT(make_scan_range, op_make_scan_range)
+PSTADE_OBJECT_GENERATOR_WITH_A_DEFAULT(make_scan_range, const scan_range, (by_qualified)(by_value)(by_value), op_plus)
 PSTADE_PIPABLE(scanned, op_make_scan_range)
 
 

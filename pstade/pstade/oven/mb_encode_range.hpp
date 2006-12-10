@@ -11,8 +11,7 @@
 
 
 #include <boost/archive/iterators/mb_from_wchar.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
+#include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./iter_range.hpp"
@@ -55,24 +54,7 @@ public:
 };
 
 
-struct op_make_mb_encode_range :
-    callable<op_make_mb_encode_range>
-{
-    template< class Myself, class Range >
-    struct apply
-    {
-        typedef mb_encode_range<Range> const type;
-    };
-
-    template< class Result, class Range >
-    Result call(Range& rng) const
-    {
-        return Result(rng);
-    }
-};
-
-
-PSTADE_CONSTANT(make_mb_encode_range, op_make_mb_encode_range)
+PSTADE_OBJECT_GENERATOR(make_mb_encode_range, const mb_encode_range, (by_qualified))
 PSTADE_PIPABLE(mb_encoded, op_make_mb_encode_range)
 
 

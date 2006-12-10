@@ -11,9 +11,7 @@
 
 
 #include <boost/optional.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
-#include <pstade/pass_by.hpp>
+#include <pstade/object_generator.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./generate_range.hpp"
 
@@ -85,32 +83,7 @@ public:
 };
 
 
-struct op_make_iterate_range :
-    callable<op_make_iterate_range>
-{
-    template< class Myself, class State, class UnaryFun, class Traversal = boost::single_pass_traversal_tag >
-    struct apply
-    {
-        typedef typename pass_by_value<State>::type sta_t;
-        typedef typename pass_by_value<UnaryFun>::type fun_t;
-        typedef iterate_range<sta_t, fun_t, Traversal> const type;
-    };
-
-    template< class Result, class State, class UnaryFun, class Traversal >
-    Result call(State const& init, UnaryFun& fun, Traversal) const
-    {
-        return Result(init, fun);
-    }
-
-    template< class Result, class State, class UnaryFun >
-    Result call(State const& init, UnaryFun& fun) const
-    {
-        return Result(init, fun);
-    }
-};
-
-
-PSTADE_CONSTANT(make_iterate_range, op_make_iterate_range)
+PSTADE_OBJECT_GENERATOR_WITH_A_DEFAULT(make_iterate_range, const iterate_range, (by_value)(by_value), boost::single_pass_traversal_tag)
 PSTADE_CONSTANT(iteration, op_make_iterate_range)
 
 

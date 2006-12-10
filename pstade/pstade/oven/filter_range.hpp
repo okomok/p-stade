@@ -21,9 +21,7 @@
 #include <boost/iterator/filter_iterator.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
-#include <pstade/pass_by.hpp>
+#include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
@@ -81,25 +79,7 @@ public:
 };
 
 
-struct op_make_filter_range :
-    callable<op_make_filter_range>
-{
-    template< class Myself, class Range, class Predicate >
-    struct apply
-    {
-        typedef typename pass_by_value<Predicate>::type pred_t;
-        typedef filter_range<Range, pred_t> const type;
-    };
-
-    template< class Result, class Range, class Predicate >
-    Result call(Range& rng, Predicate& pred) const
-    {
-        return Result(rng, pred);
-    }
-};
-
-
-PSTADE_CONSTANT(make_filter_range, op_make_filter_range)
+PSTADE_OBJECT_GENERATOR(make_filter_range, const filter_range, (by_qualified)(by_value))
 PSTADE_PIPABLE(filtered, op_make_filter_range)
 
 

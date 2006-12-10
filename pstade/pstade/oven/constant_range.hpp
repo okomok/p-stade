@@ -16,9 +16,8 @@
 
 
 #include <pstade/affect.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
 #include <pstade/functional.hpp> // identity
+#include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
@@ -69,24 +68,7 @@ public:
 };
 
 
-struct op_make_constant_range :
-    callable<op_make_constant_range>
-{
-    template< class Myself, class Range >
-    struct apply
-    {
-        typedef constant_range<Range> const type;
-    };
-
-    template< class Result, class Range >
-    Result call(Range& rng) const
-    {
-        return Result(rng);
-    }
-};
-
-
-PSTADE_CONSTANT(make_constant_range, op_make_constant_range)
+PSTADE_OBJECT_GENERATOR(make_constant_range, const constant_range, (by_qualified))
 PSTADE_PIPABLE(constants, op_make_constant_range)
 
 

@@ -12,11 +12,9 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/callable.hpp>
 #include <pstade/functional.hpp> // less
-#include <pstade/pass_by.hpp>
+#include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/constant.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
@@ -81,31 +79,7 @@ public:
 };
 
 
-struct op_make_merge_range :
-    callable<op_make_merge_range>
-{
-    template< class Myself, class Range1, class Range2, class Compare = op_less >
-    struct apply
-    {
-        typedef typename pass_by_value<Compare>::type comp_t;
-        typedef merge_range<Range1, Range2, comp_t> const type;
-    };
-
-    template< class Result, class Range1, class Range2, class Compare >
-    Result call(Range1& rng1, Range2& rng2, Compare& comp) const
-    {
-        return Result(rng1, rng2, comp);
-    }
-
-    template< class Result, class Range1, class Range2 >
-    Result call(Range1& rng1, Range2& rng2) const
-    {
-        return Result(rng1, rng2);
-    }
-};
-
-
-PSTADE_CONSTANT(make_merge_range, op_make_merge_range)
+PSTADE_OBJECT_GENERATOR_WITH_A_DEFAULT(make_merge_range, const merge_range, (by_qualified)(by_qualified)(by_value), op_less)
 PSTADE_PIPABLE(merged, op_make_merge_range)
 
 

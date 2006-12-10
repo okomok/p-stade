@@ -12,8 +12,7 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
+#include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
@@ -68,24 +67,7 @@ public:
 };
 
 
-struct op_make_permute_range :
-    callable<op_make_permute_range>
-{
-    template< class Myself, class ElementRange, class IndexRange >
-    struct apply
-    {
-        typedef permute_range<ElementRange, IndexRange> const type;
-    };
-
-    template< class Result, class ElementRange, class IndexRange >
-    Result call(ElementRange& erng, IndexRange& irng) const
-    {
-        return Result(erng, irng);
-    }
-};
-
-
-PSTADE_CONSTANT(make_permute_range, op_make_permute_range)
+PSTADE_OBJECT_GENERATOR(make_permute_range, const permute_range, (by_qualified)(by_qualified))
 PSTADE_PIPABLE(permuted, op_make_permute_range)
 
 

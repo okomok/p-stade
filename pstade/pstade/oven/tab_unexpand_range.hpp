@@ -12,8 +12,7 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
+#include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
@@ -65,24 +64,7 @@ public:
 };
 
 
-struct op_make_tab_unexpand_range :
-    callable<op_make_tab_unexpand_range>
-{
-    template< class Myself, class Range, class TabSizeT >
-    struct apply
-    {
-        typedef tab_unexpand_range<Range> const type;
-    };
-
-    template< class Result, class Range >
-    Result call(Range& rng, int tabsize) const
-    {
-        return Result(rng, tabsize);
-    }
-};
-
-
-PSTADE_CONSTANT(make_tab_unexpand_range, op_make_tab_unexpand_range)
+PSTADE_OBJECT_GENERATOR(make_tab_unexpand_range, const tab_unexpand_range, (by_qualified))
 PSTADE_PIPABLE(tab_unexpanded, op_make_tab_unexpand_range)
 
 

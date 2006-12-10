@@ -12,9 +12,7 @@
 
 #include <boost/cstdint.hpp> // uint8_t
 #include <boost/regex/pending/unicode_iterator.hpp> // u32_to_u8_iterator
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
-#include <pstade/pass_by.hpp>
+#include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
@@ -64,35 +62,15 @@ public:
         super_t(rng)
     { }
 
+    explicit utf8_encode_range(Range& rng, U8T) : // OBJECT_GENERATOR
+        super_t(rng)
+    { }
+
     typedef Range pstade_oven_range_base_type;
 };
 
 
-struct op_make_utf8_encode_range :
-    callable<op_make_utf8_encode_range>
-{
-    template< class Myself, class Range, class U8T = boost::uint8_t >
-    struct apply
-    {
-        typedef typename pass_by_value<U8T>::type u8_t;
-        typedef utf8_encode_range<Range, u8_t> const type;
-    };
-
-    template< class Result, class Range, class U8T >
-    Result call(Range& rng, U8T) const
-    {
-        return Result(rng);
-    }
-
-    template< class Result, class Range >
-    Result call(Range& rng) const
-    {
-        return Result(rng);
-    }
-};
-
-
-PSTADE_CONSTANT(make_utf8_encode_range, op_make_utf8_encode_range)
+PSTADE_OBJECT_GENERATOR_WITH_A_DEFAULT(make_utf8_encode_range, const utf8_encode_range, (by_qualified)(by_value), boost::uint8_t)
 PSTADE_PIPABLE(utf8_encoded, op_make_utf8_encode_range)
 
 

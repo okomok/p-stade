@@ -13,8 +13,7 @@
 #include <boost/assert.hpp>
 #include <boost/mpl/identity.hpp>
 #include <boost/range/begin.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
+#include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
@@ -111,24 +110,7 @@ public:
 };
 
 
-struct op_make_take_range :
-    callable<op_make_take_range>
-{
-    template< class Myself, class Range, class Difference >
-    struct apply
-    {
-        typedef take_range<Range> const type;
-    };
-
-    template< class Result, class Range, class Difference >
-    Result call(Range& rng, Difference d) const
-    {
-        return Result(rng, d);
-    }
-};
-
-
-PSTADE_CONSTANT(make_take_range, op_make_take_range)
+PSTADE_OBJECT_GENERATOR(make_take_range, const take_range, (by_qualified))
 PSTADE_PIPABLE(taken, op_make_take_range)
 
 

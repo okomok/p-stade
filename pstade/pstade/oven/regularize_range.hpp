@@ -10,8 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
+#include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./iter_range.hpp"
@@ -58,24 +57,7 @@ public:
 };
 
 
-struct op_make_regularize_range :
-    callable<op_make_regularize_range>
-{
-    template< class Myself, class Range  >
-    struct apply
-    {
-        typedef regularize_range<Range> const type;
-    };
-
-    template< class Result, class Range >
-    Result call(Range& rng) const
-    {
-        return Result(rng);
-    }
-};
-
-
-PSTADE_CONSTANT(make_regularize_range, op_make_regularize_range)
+PSTADE_OBJECT_GENERATOR(make_regularize_range, const regularize_range, (by_qualified))
 PSTADE_PIPABLE(regularized, op_make_regularize_range)
 
 

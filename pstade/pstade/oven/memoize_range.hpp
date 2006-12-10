@@ -13,9 +13,8 @@
 #include <boost/assert.hpp>
 #include <boost/checked_delete.hpp>
 #include <boost/iterator/iterator_traits.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
 #include <pstade/nullptr.hpp>
+#include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./check_range.hpp"
@@ -148,24 +147,7 @@ public:
 };
 
 
-struct op_make_memoize_range :
-    callable<op_make_memoize_range>
-{
-    template< class Myself, class Range >
-    struct apply
-    {
-        typedef memoize_range<Range> const type;
-    };
-
-    template< class Result, class Range >
-    Result call(Range& rng) const
-    {
-        return Result(rng);
-    }
-};
-
-
-PSTADE_CONSTANT(make_memoize_range, op_make_memoize_range)
+PSTADE_OBJECT_GENERATOR(make_memoize_range, const memoize_range, (by_qualified))
 PSTADE_PIPABLE(memoized, op_make_memoize_range)
 
 
