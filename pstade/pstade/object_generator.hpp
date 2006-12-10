@@ -23,6 +23,7 @@
 #include <boost/preprocessor/repetition/enum_params_with_a_default.hpp>
 #include <boost/preprocessor/seq/size.hpp>
 #include <boost/preprocessor/seq/enum.hpp>
+#include <boost/preprocessor/seq/transform.hpp>
 #include <boost/type_traits/add_reference.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <pstade/callable.hpp>
@@ -34,19 +35,21 @@
 namespace pstade {
 
 
-    struct object_by_value;
-    struct object_by_qualifier;
-    struct object_by_reference;
 
 
     namespace object_generator_detail {
 
 
-        template< class Affect, class A >
+        struct by_value;
+        struct by_reference;
+        struct by_qualified;
+
+
+        template< class By, class A >
         struct template_argument :
-            boost::mpl::eval_if< boost::is_same< object_by_value, Affect >,
+            boost::mpl::eval_if< boost::is_same< by_value, By >,
                 pass_by_value<A>,
-                boost::mpl::eval_if< boost::is_same< object_by_reference, Affect >,
+                boost::mpl::eval_if< boost::is_same< by_reference, By >,
                     boost::add_reference<A>,
                     boost::mpl::identity<A>
                 >
@@ -60,12 +63,12 @@ namespace pstade {
     // To: *Nullary* MPL MetafunctionClass
 
     template< class To,
-        BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(PSTADE_CALLABLE_MAX_ARITY, class Affect, object_by_value)
+        BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(PSTADE_CALLABLE_MAX_ARITY, class By, object_generator_detail::by_value)
     >
     struct object_generator :
         callable<
             object_generator< To,
-                BOOST_PP_ENUM_PARAMS(PSTADE_CALLABLE_MAX_ARITY, Affect)
+                BOOST_PP_ENUM_PARAMS(PSTADE_CALLABLE_MAX_ARITY, By)
             >,
             typename boost::mpl::apply0< To
             >::type
@@ -73,7 +76,7 @@ namespace pstade {
     {
 
     #define PSTADE_template_argument(Z, N, _) \
-        typename object_generator_detail::template_argument<BOOST_PP_CAT(Affect, N), BOOST_PP_CAT(A, N)>::type \
+        typename object_generator_detail::template_argument<BOOST_PP_CAT(By, N), BOOST_PP_CAT(A, N)>::type \
     /**/
 
         // PSTADE_CALLABLE_MAX_ARITY (primary)
@@ -95,23 +98,23 @@ namespace pstade {
         // 0ary
 
         template< class Result >
-        Result call() const
+        Result call( ) const
         {
-            return Result();
+            return Result( );
         }
 
 
         // 1ary
 
         template< class Myself, class A0 >
-        struct apply<Myself, A0> :
+        struct apply< Myself, A0 > :
             boost::mpl::apply1< To,
-                typename object_generator_detail::template_argument<Affect0, A0>::type
+                typename object_generator_detail::template_argument<By0, A0>::type
             >
         { };
 
         template< class Result, class A0 >
-        Result call(A0& a0) const
+        Result call( A0& a0 ) const
         {
             return Result( a0 );
         }
@@ -131,6 +134,7 @@ namespace pstade {
 
 
     // Rationale:
+    //
     // The following macro was preferred to PlaceholderExpression because...
     // 1. 'To' must be nullary.
     // 2. GCC3.4 requires Metafunction to be DefaultConstructible.
@@ -142,26 +146,30 @@ namespace pstade {
 
     struct object_generator_failed_with_too_few_arguments;
 
-    #define PSTADE_OBJECT_GENERATOR(G, X, AffectSeq) \
-        PSTADE_OBJECT_GENERATOR_WITH_A_DEFAULT(G, X, AffectSeq, pstade::object_generator_failed_with_too_few_arguments) \
+    #define PSTADE_OBJECT_GENERATOR(G, X, BySeq) \
+        PSTADE_OBJECT_GENERATOR_WITH_A_DEFAULT(G, X, BySeq, pstade::object_generator_failed_with_too_few_arguments) \
     /**/
 
-    #define PSTADE_OBJECT_GENERATOR_WITH_A_DEFAULT(G, X, AffectSeq, Default) \
+    #define PSTADE_OBJECT_GENERATOR_WITH_A_DEFAULT(G, X, BySeq, Default) \
         struct BOOST_PP_CAT(pstade_object_generator_wrap_of_, G) \
         { \
             template< BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(PSTADE_CALLABLE_MAX_ARITY, class A, Default) > \
             struct apply \
             { \
-                typedef X<BOOST_PP_ENUM_PARAMS(BOOST_PP_SEQ_SIZE(AffectSeq), A)> type; \
+                typedef X<BOOST_PP_ENUM_PARAMS(BOOST_PP_SEQ_SIZE(BySeq), A)> type; \
             }; \
         }; \
         typedef pstade::object_generator< \
             BOOST_PP_CAT(pstade_object_generator_wrap_of_, G), \
-            BOOST_PP_SEQ_ENUM(AffectSeq) \
+            BOOST_PP_SEQ_ENUM(BOOST_PP_SEQ_TRANSFORM(PSTADE_OBJECT_GENERATOR_to_fullname, ~, BySeq)) \
         > BOOST_PP_CAT(op_, G); \
         \
         PSTADE_CONSTANT(G, BOOST_PP_CAT(op_, G)) \
     /**/
+
+        #define PSTADE_OBJECT_GENERATOR_to_fullname(S, _, Elem) \
+            pstade::object_generator_detail:: Elem \
+        /**/
 
 
 } // namespace pstade

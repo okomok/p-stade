@@ -168,8 +168,8 @@ struct op_make_iter_range :
         typedef iter_range<typename boost::remove_cv<Iterator>::type> const type;
     };
 
-    template< class Result, class Iterator >
-    Result call(Iterator& first, Iterator& last) const
+    template< class Result, class Iterator, class Iterator_ >
+    Result call(Iterator& first, Iterator_& last) const // two Iterators may have different cv-qualifier.
     {
         return Result(first, last);
     }

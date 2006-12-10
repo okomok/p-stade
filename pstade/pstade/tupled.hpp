@@ -135,7 +135,7 @@ namespace pstade {
     } // namespace tupled_detail
 
 
-    PSTADE_OBJECT_GENERATOR(tupled, tupled_detail::op_result, (object_by_value))
+    PSTADE_OBJECT_GENERATOR(tupled, tupled_detail::op_result, (by_value))
 
 
 } // namespace pstade

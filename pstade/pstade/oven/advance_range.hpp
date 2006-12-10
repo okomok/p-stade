@@ -72,7 +72,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_advance_range, const advance_range, (object_by_qualifier))
+PSTADE_OBJECT_GENERATOR(make_advance_range, const advance_range, (by_qualified))
 PSTADE_PIPABLE(advanced, op_make_advance_range)
 
 

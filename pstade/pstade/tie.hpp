@@ -23,7 +23,7 @@
 namespace pstade {
 
 
-#define PSTADE_make_elem(Z, N, _) (object_by_reference)
+#define PSTADE_make_elem(Z, N, _) (by_reference)
 
     PSTADE_OBJECT_GENERATOR_WITH_A_DEFAULT(
         tie,

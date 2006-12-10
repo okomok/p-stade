@@ -20,10 +20,10 @@
 #include <boost/utility/result_of.hpp>
 
 
-BOOST_MPL_ASSERT(( boost::is_same< boost::tuples::tuple<> const,
+BOOST_MPL_ASSERT(( boost::is_same< boost::tuples::tuple<>,
                  boost::result_of<pstade::op_tie()>::type > ));
 
-BOOST_MPL_ASSERT(( boost::is_same< boost::tuples::tuple<int&, int const&> const,
+BOOST_MPL_ASSERT(( boost::is_same< boost::tuples::tuple<int&, int const&>,
                  boost::result_of<pstade::op_tie(int&, int)>::type > ));
 
 
@@ -49,6 +49,11 @@ void test()
         int m = 5;
         boost::tuples::get<4>(tie(1,2,3,4,m)) = 10;
         BOOST_CHECK(m == 10);
+    }
+    {
+        int x, y, z;
+        pstade::tie(x, y, z) = pstade::tie(1, 2, 3);
+        BOOST_CHECK( x == 1 && y == 2 && z == 3 );
     }
 }
 

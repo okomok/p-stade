@@ -19,6 +19,11 @@
 #include <pstade/oven/functions.hpp>
 
 
+template< class T >
+void can_take(T&)
+{ };
+
+
 void test()
 {
     namespace oven = pstade::oven;
@@ -31,6 +36,9 @@ void test()
         BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
             src1|always(src2), expected
         ) );
+    }
+    {
+        ::can_take(std::string()|always(std::string()));
     }
 }
 
