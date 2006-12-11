@@ -62,7 +62,7 @@ public:
         super_t(rng)
     { }
 
-    explicit utf8_decode_range(Range& rng, Ucs4T) : // OBJECT_GENERATOR
+    explicit utf8_decode_range(Range& rng, Ucs4T) : // for OBJECT_GENERATOR
         super_t(rng)
     { }
 
@@ -70,7 +70,8 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR_WITH_A_DEFAULT(make_utf8_decode_range, const utf8_decode_range, (by_qualified)(by_value), boost::uint32_t)
+PSTADE_OBJECT_GENERATOR_WITH_DEFAULTS(make_utf8_decode_range, const utf8_decode_range,
+    (by_qualified)(by_value), (argument_needed)(boost::uint32_t))
 PSTADE_PIPABLE(utf8_decoded, op_make_utf8_decode_range)
 
 

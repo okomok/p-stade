@@ -76,11 +76,6 @@ struct our_type
 
 PSTADE_OBJECT_GENERATOR(make_our_type, our_type, (by_qualified)(by_value))
 
-
-PSTADE_OBJECT_GENERATOR_WITH_A_DEFAULT(my_tie, boost::tuples::tuple,
-    (by_reference)(by_reference)(by_reference)(by_reference)(by_reference), boost::tuples::null_type)
-
-
 void test()
 {
 #if 0 // LambdaExpression rejected.
@@ -121,13 +116,6 @@ void test()
     {
         int const x = 3;
         our_type<int const, int> o = ::make_our_type(x, 3);
-    }
-
-    {
-        int const x = 3;
-        int y = 4;
-        boost::tuples::get<2>( ::my_tie(1, x, y) ) = 10;
-        BOOST_CHECK(y == 10);
     }
 }
 

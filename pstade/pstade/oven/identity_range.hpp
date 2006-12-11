@@ -68,7 +68,8 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR_WITH_A_DEFAULT(make_identity_range, const identity_range, (by_qualified)(by_value), boost::use_default)
+PSTADE_OBJECT_GENERATOR_WITH_DEFAULTS(make_identity_range, const identity_range,
+    (by_qualified)(by_value), (argument_needed)(boost::use_default))
 PSTADE_PIPABLE(identities, op_make_identity_range)
 
 

@@ -106,7 +106,8 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR_WITH_A_DEFAULT(make_out_place_range, const out_place_range, (by_qualified)(by_value), op_unused)
+PSTADE_OBJECT_GENERATOR_WITH_DEFAULTS(make_out_place_range, const out_place_range,
+    (by_qualified)(by_value), (argument_needed)(op_unused))
 PSTADE_PIPABLE(out_placed, op_make_out_place_range)
 
 

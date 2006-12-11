@@ -10,11 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <string>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/regex.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
+#include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
@@ -45,10 +45,6 @@ namespace match_range_detail {
     { };
 
 
-    using boost::regex_constants::match_flag_type;
-    using boost::regex_constants::match_default;
-
-
 } // namespace match_range_detail
 
 
@@ -74,7 +70,7 @@ public:
     template< class Regex >
     match_range(
         Range& rng, Regex const& re,
-        match_range_detail::match_flag_type flag = match_range_detail::match_default
+        boost::regex_constants::match_flag_type flag = boost::regex_constants::match_default
     ) :
         super_t(
             iter_t(boost::begin(rng), boost::end(rng), re, flag),
@@ -86,24 +82,9 @@ public:
 };
 
 
-struct op_make_match_range :
-    callable<op_make_match_range>
-{
-    template< class Myself, class Range, class Regex, class Flag = void >
-    struct apply
-    {
-        typedef match_range<Range> const type;
-    };
-
-    template< class Result, class Range, class Regex >
-    Result call(Range& rng, Regex const& re, match_range_detail::match_flag_type flag = match_range_detail::match_default) const
-    {
-        return Result(rng, re, flag);
-    }
-};
-
-
-PSTADE_CONSTANT(make_match_range, op_make_match_range)
+struct match_range_argument_needed : std::string { }; // make a valid expression.
+PSTADE_OBJECT_GENERATOR_WITH_DEFAULTS(make_match_range, const match_range, 
+    (by_qualified), (match_range_argument_needed))
 PSTADE_PIPABLE(matches, op_make_match_range)
 
 

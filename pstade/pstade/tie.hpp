@@ -23,16 +23,18 @@
 namespace pstade {
 
 
-#define PSTADE_make_elem(Z, N, _) (by_reference)
+#define PSTADE_make_by(Z, N, _) (by_reference)
+#define PSTADE_make_default(Z, N, _) (boost::tuples::null_type)
 
-    PSTADE_OBJECT_GENERATOR_WITH_A_DEFAULT(
+    PSTADE_OBJECT_GENERATOR_WITH_DEFAULTS(
         tie,
         boost::tuples::tuple,
-        BOOST_PP_REPEAT(PSTADE_CALLABLE_MAX_ARITY, PSTADE_make_elem, ~),
-        boost::tuples::null_type
+        BOOST_PP_REPEAT(PSTADE_CALLABLE_MAX_ARITY, PSTADE_make_by, ~),
+        BOOST_PP_REPEAT(PSTADE_CALLABLE_MAX_ARITY, PSTADE_make_default, ~)
     )
 
-#undef  PSTADE_make_elem
+#undef  PSTADE_make_default
+#undef  PSTADE_make_by
 
 
     PSTADE_PIPABLE(tied, op_tie)

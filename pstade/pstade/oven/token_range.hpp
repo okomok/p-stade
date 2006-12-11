@@ -10,15 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <cstddef> // size_t
+#include <string>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/range/size_type.hpp>
 #include <boost/regex.hpp>
-#include <boost/type_traits/is_same.hpp>
-#include <boost/utility/enable_if.hpp> // disable_if
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
+#include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./iter_range.hpp"
@@ -50,10 +46,6 @@ namespace token_range_detail {
     { };
 
 
-    using boost::regex_constants::match_flag_type;
-    using boost::regex_constants::match_default;
-
-
 } // namespace token_range_detail
 
 
@@ -80,7 +72,7 @@ public:
     token_range(
         Range& rng, Regex const& re,
         int submatch = 0,
-        token_range_detail::match_flag_type flag = token_range_detail::match_default
+        boost::regex_constants::match_flag_type flag = boost::regex_constants::match_default
     ) :
         super_t(
             iter_t(boost::begin(rng), boost::end(rng), re, submatch, flag),
@@ -92,7 +84,7 @@ public:
     token_range(
         Range& rng, Regex const& re,
         RandRange const& submatches,
-        token_range_detail::match_flag_type flag = token_range_detail::match_default
+        boost::regex_constants::match_flag_type flag = boost::regex_constants::match_default
     ) :
         super_t(
             iter_t(boost::begin(rng), boost::end(rng), re, submatches, flag),
@@ -104,33 +96,9 @@ public:
 };
 
 
-struct op_make_token_range :
-    callable<op_make_token_range>
-{
-    template< class Myself, class Range, class Regex, class IntOrRndRange = void, class Flag = void >
-    struct apply
-    {
-        typedef token_range<Range> const type;
-    };
-
-    template< class Result, class Range, class Regex >
-    Result call(Range& rng, Regex const& re, int submatch = 0,
-        token_range_detail::match_flag_type flag = token_range_detail::match_default) const
-    {
-        return Result(rng, re, submatch, flag);
-    }
-
-    template< class Result, class Range, class Regex, class RandRange >
-    typename boost::disable_if<boost::is_same<RandRange, int>, // for GCC
-    Result>::type call(Range& rng, Regex const& re, RandRange const& submatches,
-        token_range_detail::match_flag_type flag = token_range_detail::match_default) const
-    {
-        return Result(rng, re, submatches, flag);
-    }
-};
-
-
-PSTADE_CONSTANT(make_token_range, op_make_token_range)
+struct token_range_argument_needed : std::string { }; // make a valid expression.
+PSTADE_OBJECT_GENERATOR_WITH_DEFAULTS(make_token_range, const token_range,
+    (by_qualified), (token_range_argument_needed))
 PSTADE_PIPABLE(tokenized, op_make_token_range)
 
 

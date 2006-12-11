@@ -112,7 +112,8 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR_WITH_A_DEFAULT(make_set_intersection_range, const set_intersection_range, (by_qualified)(by_qualified)(by_value), op_less)
+PSTADE_OBJECT_GENERATOR_WITH_DEFAULTS(make_set_intersection_range, const set_intersection_range,
+    (by_qualified)(by_qualified)(by_value), (argument_needed)(argument_needed)(op_less))
 PSTADE_PIPABLE(set_cap, op_make_set_intersection_range)
 
 
