@@ -100,7 +100,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_token_range, const token_range, (by_qualified))
+PSTADE_OBJECT_GENERATOR(make_token_range, const token_range, (by_qualified), ~)
 PSTADE_PIPABLE(tokenized, op_make_token_range)
 
 

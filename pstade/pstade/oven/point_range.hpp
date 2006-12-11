@@ -77,7 +77,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_point_range, const point_range, (by_qualified))
+PSTADE_OBJECT_GENERATOR(make_point_range, const point_range, (by_qualified), ~)
 PSTADE_PIPABLE(pointed, op_make_point_range)
 
 

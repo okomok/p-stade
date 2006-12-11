@@ -81,7 +81,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_xpressive_token_range, const xpressive_token_range, (by_qualified))
+PSTADE_OBJECT_GENERATOR(make_xpressive_token_range, const xpressive_token_range, (by_qualified), ~)
 PSTADE_PIPABLE(xpressive_tokenized, op_make_xpressive_token_range)
 
 

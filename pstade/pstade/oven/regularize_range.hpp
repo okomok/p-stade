@@ -57,7 +57,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_regularize_range, const regularize_range, (by_qualified))
+PSTADE_OBJECT_GENERATOR(make_regularize_range, const regularize_range, (by_qualified), ~)
 PSTADE_PIPABLE(regularized, op_make_regularize_range)
 
 

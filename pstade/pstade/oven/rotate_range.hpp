@@ -70,7 +70,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_rotate_range, const rotate_range, (by_qualified))
+PSTADE_OBJECT_GENERATOR(make_rotate_range, const rotate_range, (by_qualified), ~)
 PSTADE_PIPABLE(rotated, op_make_rotate_range)
 
 

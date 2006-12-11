@@ -66,7 +66,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_reverse_range, const reverse_range, (by_qualified))
+PSTADE_OBJECT_GENERATOR(make_reverse_range, const reverse_range, (by_qualified), ~)
 PSTADE_PIPABLE(reversed, op_make_reverse_range)
 
 

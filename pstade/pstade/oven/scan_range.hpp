@@ -82,8 +82,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR_WITH_DEFAULTS(make_scan_range, const scan_range,
-    (by_qualified)(by_value)(by_value), (argument_required)(argument_required)(op_plus))
+PSTADE_OBJECT_GENERATOR(make_scan_range, const scan_range, (by_qualified)(by_value)(by_value), (argument_required)(argument_required)(op_plus))
 PSTADE_PIPABLE(scanned, op_make_scan_range)
 
 

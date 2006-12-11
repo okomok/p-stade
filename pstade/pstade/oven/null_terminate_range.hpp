@@ -87,7 +87,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_null_terminate_range, const null_terminate_range, (by_qualified))
+PSTADE_OBJECT_GENERATOR(make_null_terminate_range, const null_terminate_range, (by_qualified), ~)
 PSTADE_PIPABLE(null_terminated, op_make_null_terminate_range)
 
 

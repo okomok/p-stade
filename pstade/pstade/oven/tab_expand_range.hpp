@@ -64,7 +64,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_tab_expand_range, const tab_expand_range, (by_qualified))
+PSTADE_OBJECT_GENERATOR(make_tab_expand_range, const tab_expand_range, (by_qualified), ~)
 PSTADE_PIPABLE(tab_expanded, op_make_tab_expand_range)
 
 

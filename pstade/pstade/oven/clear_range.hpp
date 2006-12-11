@@ -40,7 +40,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_clear_range, const clear_range, (by_qualified))
+PSTADE_OBJECT_GENERATOR(make_clear_range, const clear_range, (by_qualified), ~)
 PSTADE_PIPABLE(cleared, op_make_clear_range)
 
 

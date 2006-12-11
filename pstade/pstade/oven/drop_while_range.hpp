@@ -50,7 +50,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_drop_while_range, const drop_while_range, (by_qualified))
+PSTADE_OBJECT_GENERATOR(make_drop_while_range, const drop_while_range, (by_qualified), ~)
 PSTADE_PIPABLE(dropped_while, op_make_drop_while_range)
 
 

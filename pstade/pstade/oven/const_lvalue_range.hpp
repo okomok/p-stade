@@ -57,7 +57,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_const_lvalue_range, const const_lvalue_range, (by_qualified))
+PSTADE_OBJECT_GENERATOR(make_const_lvalue_range, const const_lvalue_range, (by_qualified), ~)
 PSTADE_PIPABLE(const_lvalues, op_make_const_lvalue_range)
 
 

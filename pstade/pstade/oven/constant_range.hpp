@@ -68,7 +68,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_constant_range, const constant_range, (by_qualified))
+PSTADE_OBJECT_GENERATOR(make_constant_range, const constant_range, (by_qualified), ~)
 PSTADE_PIPABLE(constants, op_make_constant_range)
 
 

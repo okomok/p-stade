@@ -56,7 +56,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_direct_range, const direct_range, (by_qualified))
+PSTADE_OBJECT_GENERATOR(make_direct_range, const direct_range, (by_qualified), ~)
 PSTADE_PIPABLE(directed, op_make_direct_range)
 
 

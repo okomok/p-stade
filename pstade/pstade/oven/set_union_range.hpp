@@ -96,8 +96,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR_WITH_DEFAULTS(make_set_union_range, const set_union_range,
-    (by_qualified)(by_qualified)(by_value), (argument_required)(argument_required)(op_less))
+PSTADE_OBJECT_GENERATOR(make_set_union_range, const set_union_range, (by_qualified)(by_qualified)(by_value), (argument_required)(argument_required)(op_less))
 PSTADE_PIPABLE(set_cup, op_make_set_union_range)
 
 

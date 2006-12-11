@@ -89,7 +89,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_indirect_range, const indirect_range, (by_qualified))
+PSTADE_OBJECT_GENERATOR(make_indirect_range, const indirect_range, (by_qualified), ~)
 PSTADE_PIPABLE(indirected, op_make_indirect_range)
 
 

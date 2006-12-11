@@ -15,13 +15,12 @@
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
 #include <boost/preprocessor/cat.hpp>
-#include <boost/preprocessor/arithmetic/dec.hpp>
+#include <boost/preprocessor/arithmetic/add.hpp>
 #include <boost/preprocessor/arithmetic/inc.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_params_with_a_default.hpp>
-#include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/seq/size.hpp>
 #include <boost/preprocessor/seq/enum.hpp>
 #include <boost/preprocessor/seq/for_each_i.hpp>
@@ -32,6 +31,7 @@
 #include <pstade/constant.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/preprocessor.hpp>
+#include <pstade/use_default.hpp>
 
 
 namespace pstade {
@@ -61,18 +61,15 @@ namespace pstade {
     } // namespace object_generator_detail
 
 
-    // To: *Nullary* MPL MetafunctionClass
-
-    template< class To,
+    template<
+        class To,
+        class NullaryResult = boost::use_default,
         BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(PSTADE_CALLABLE_MAX_ARITY, class By, object_generator_detail::unused)
     >
     struct object_generator :
         callable<
-            object_generator< To,
-                BOOST_PP_ENUM_PARAMS(PSTADE_CALLABLE_MAX_ARITY, By)
-            >,
-            typename boost::mpl::apply0< To
-            >::type
+            object_generator< To, NullaryResult, BOOST_PP_ENUM_PARAMS(PSTADE_CALLABLE_MAX_ARITY, By) >,
+            typename defaultable_eval_to< NullaryResult, boost::mpl::apply0<To> >::type
         >
     {
 
@@ -137,31 +134,38 @@ namespace pstade {
     // Rationale:
     //
     // The following macro was preferred to PlaceholderExpression because...
-    // 1. 'To' must be nullary.
-    // 2. GCC3.4 requires Metafunction to be DefaultConstructible.
+    // 1. 'To' must be nullary for the nullary result declaration.
+    // 2. GCC3.4 requires Metafunction to be DefaultConstructible. Doh!
     // 3. A PlaceHolderExpression can't ignore redundant arguments.
     // 4. A nested 'type' is sometimes different from what you wanna generate.
-    //
-    // Note that you can add cv-qualifier to 'X'.
 
 
     struct argument_required;
 
 
-    #define PSTADE_OBJECT_GENERATOR(G, X, BySeq) \
-        PSTADE_OBJECT_GENERATOR_WITH_DEFAULTS_aux(G, X, BySeq, PSTADE_OBJECT_GENERATOR_argument_required_seq) \
+    #define PSTADE_OBJECT_GENERATOR(G, X, BySeq, DefaultSeq) \
+        PSTADE_OBJECT_GENERATOR_aux(G, X, void, BySeq, PSTADE_PP_SEQ_TO_SEQ(DefaultSeq, (pstade::argument_required))) \
+    /**/
+
+    #define PSTADE_OBJECT_GENERATOR_NULLARY(G, X, NullaryResult, BySeq, DefaultSeq) \
+        PSTADE_OBJECT_GENERATOR_aux(G, X, NullaryResult, BySeq, DefaultSeq, NullaryResult) \
     /**/
 
 
-    #define PSTADE_OBJECT_GENERATOR_WITH_DEFAULTS(G, X, BySeq, DefaultSeq) \
-        PSTADE_OBJECT_GENERATOR_WITH_DEFAULTS_aux(G, X, BySeq, DefaultSeq PSTADE_OBJECT_GENERATOR_argument_required_seq) \
-    /**/
+    // Requirements:
+    //
+    // Assume 'N' is the size of 'BySeq', and 'DefaultSeq_' is 'DefaultSeq' ++ 'argument_required_seq'.
+    //
+    // 1. 'X' is a template, where cv-qualifier may be followed.
+    // 2. 'X<DefaultSeq_[0],..,DefaultSeq_[N-1]>' is well-formed if 'NullaryResult' is 'boost::use_default'.
 
 
-    #define PSTADE_OBJECT_GENERATOR_WITH_DEFAULTS_aux(G, X, BySeq, DefaultSeq) \
-        struct BOOST_PP_CAT(pstade_object_generator_wrap_of_, G) \
+    #define PSTADE_OBJECT_GENERATOR_aux(G, X, NullaryResult, BySeq, DefaultSeq) \
+        struct BOOST_PP_CAT(pstade_object_generator_quote_of_, G) \
         { \
-            template< BOOST_PP_SEQ_ENUM(BOOST_PP_SEQ_FOR_EACH_I(PSTADE_OBJECT_GENERATOR_with_default, ~, DefaultSeq)) > \
+            template< BOOST_PP_SEQ_ENUM( \
+                BOOST_PP_SEQ_FOR_EACH_I(PSTADE_OBJECT_GENERATOR_with_default, ~, DefaultSeq PSTADE_OBJECT_GENERATOR_argument_required_seq) \
+            ) > \
             struct apply \
             { \
                 typedef X< BOOST_PP_ENUM_PARAMS(BOOST_PP_SEQ_SIZE(BySeq), A) > type; \
@@ -169,8 +173,9 @@ namespace pstade {
         }; \
         \
         typedef pstade::object_generator< \
-            BOOST_PP_CAT(pstade_object_generator_wrap_of_, G), \
-            BOOST_PP_SEQ_ENUM(BOOST_PP_SEQ_TRANSFORM(PSTADE_OBJECT_GENERATOR_to_fullname, ~, BySeq)) \
+            BOOST_PP_CAT(pstade_object_generator_quote_of_, G), \
+            NullaryResult, \
+            BOOST_PP_SEQ_ENUM( BOOST_PP_SEQ_TRANSFORM(PSTADE_OBJECT_GENERATOR_to_fullname, ~, BySeq) ) \
         > BOOST_PP_CAT(op_, G); \
         \
         PSTADE_CONSTANT(G, BOOST_PP_CAT(op_, G)) \
@@ -192,7 +197,7 @@ namespace pstade {
 } // namespace pstade
 
 
-PSTADE_CALLABLE_NULLARY_RESULT_TEMPLATE((pstade)(object_generator), BOOST_PP_INC(PSTADE_CALLABLE_MAX_ARITY))
+PSTADE_CALLABLE_NULLARY_RESULT_TEMPLATE((pstade)(object_generator), BOOST_PP_ADD(PSTADE_CALLABLE_MAX_ARITY, 2))
 
 
 #endif

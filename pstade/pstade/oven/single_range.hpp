@@ -42,7 +42,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_single_range, const single_range, (by_qualified))
+PSTADE_OBJECT_GENERATOR(make_single_range, const single_range, (by_qualified), ~)
 PSTADE_PIPABLE(as_single, op_make_single_range)
 
 

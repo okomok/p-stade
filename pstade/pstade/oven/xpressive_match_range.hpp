@@ -71,7 +71,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_xpressive_match_range, const xpressive_match_range, (by_qualified))
+PSTADE_OBJECT_GENERATOR(make_xpressive_match_range, const xpressive_match_range, (by_qualified), ~)
 PSTADE_PIPABLE(xpressive_matches, op_make_xpressive_match_range)
 
 

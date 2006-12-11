@@ -147,7 +147,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_memoize_range, const memoize_range, (by_qualified))
+PSTADE_OBJECT_GENERATOR(make_memoize_range, const memoize_range, (by_qualified), ~)
 PSTADE_PIPABLE(memoized, op_make_memoize_range)
 
 

@@ -54,7 +54,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_mb_decode_range, const mb_decode_range, (by_qualified))
+PSTADE_OBJECT_GENERATOR(make_mb_decode_range, const mb_decode_range, (by_qualified), ~)
 PSTADE_PIPABLE(mb_decoded, op_make_mb_decode_range)
 
 

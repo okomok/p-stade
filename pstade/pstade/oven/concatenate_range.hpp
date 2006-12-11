@@ -65,7 +65,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_concatenate_range, const concatenate_range, (by_qualified))
+PSTADE_OBJECT_GENERATOR(make_concatenate_range, const concatenate_range, (by_qualified), ~)
 PSTADE_PIPABLE(concatenated, op_make_concatenate_range)
 
 

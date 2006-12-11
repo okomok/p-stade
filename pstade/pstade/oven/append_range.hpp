@@ -64,7 +64,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_append_range, const append_range, (by_qualified)(by_qualified))
+PSTADE_OBJECT_GENERATOR(make_append_range, const append_range, (by_qualified)(by_qualified), ~)
 PSTADE_PIPABLE(appended, op_make_append_range)
 
 

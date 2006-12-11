@@ -185,7 +185,7 @@ namespace pstade {
     } // namespace pipable_detail
 
 
-    PSTADE_OBJECT_GENERATOR(pipable, pipable_detail::pipe, (by_value))
+    PSTADE_OBJECT_GENERATOR(pipable, pipable_detail::pipe, (by_value), ~)
 
 
     #define PSTADE_PIPABLE(Object, Function) \

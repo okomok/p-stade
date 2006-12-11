@@ -23,13 +23,11 @@
 namespace pstade {
 
 
-    PSTADE_OBJECT_GENERATOR_WITH_DEFAULTS(
-        tie,
-        boost::tuples::tuple,
+    PSTADE_OBJECT_GENERATOR_NULLARY(tie,
+        boost::tuples::tuple, boost::tuples::tuple<>,
         PSTADE_PP_SEQ_REPLICATE(PSTADE_CALLABLE_MAX_ARITY, by_reference),
         PSTADE_PP_SEQ_REPLICATE(PSTADE_CALLABLE_MAX_ARITY, boost::tuples::null_type)
     )
-
 
     PSTADE_PIPABLE(tied, op_tie)
 

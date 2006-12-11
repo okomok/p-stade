@@ -47,7 +47,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_pop_range, const pop_range, (by_qualified))
+PSTADE_OBJECT_GENERATOR(make_pop_range, const pop_range, (by_qualified), ~)
 PSTADE_PIPABLE(popped, op_make_pop_range)
 
 

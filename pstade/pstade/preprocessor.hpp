@@ -85,6 +85,14 @@
     /**/
 
 
+#define PSTADE_PP_SEQ_TO_SEQ(MaybeSeq, Seq) \
+    BOOST_PP_IIF( BOOST_MPL_PP_IS_SEQ(MaybeSeq), \
+        MaybeSeq, \
+        Seq \
+    )
+/**/
+
+
 // type system
 
 

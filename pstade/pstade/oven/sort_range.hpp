@@ -90,8 +90,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR_WITH_DEFAULTS(make_sort_range, const sort_range,
-    (by_qualified)(by_value), (argument_required)(op_less))
+PSTADE_OBJECT_GENERATOR(make_sort_range, const sort_range, (by_qualified)(by_value), (argument_required)(op_less))
 PSTADE_PIPABLE(sorted, op_make_sort_range)
 
 

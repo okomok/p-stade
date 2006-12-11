@@ -86,7 +86,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_slice_range, const slice_range, (by_qualified))
+PSTADE_OBJECT_GENERATOR(make_slice_range, const slice_range, (by_qualified), ~)
 PSTADE_PIPABLE(sliced, op_make_slice_range)
 
 

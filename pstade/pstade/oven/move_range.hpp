@@ -84,7 +84,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_move_range, const move_range, (by_qualified))
+PSTADE_OBJECT_GENERATOR(make_move_range, const move_range, (by_qualified), ~)
 PSTADE_PIPABLE(moved, op_make_move_range)
 
 

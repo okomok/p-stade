@@ -63,7 +63,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_check_range, const check_range, (by_qualified))
+PSTADE_OBJECT_GENERATOR(make_check_range, const check_range, (by_qualified), ~)
 PSTADE_PIPABLE(checked, op_make_check_range)
 
 

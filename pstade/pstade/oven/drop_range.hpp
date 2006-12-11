@@ -45,7 +45,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_drop_range, const drop_range, (by_qualified))
+PSTADE_OBJECT_GENERATOR(make_drop_range, const drop_range, (by_qualified), ~)
 PSTADE_PIPABLE(dropped, op_make_drop_range)
 
 

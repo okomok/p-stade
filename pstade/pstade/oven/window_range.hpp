@@ -63,7 +63,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_window_range, const window_range, (by_qualified))
+PSTADE_OBJECT_GENERATOR(make_window_range, const window_range, (by_qualified), ~)
 PSTADE_PIPABLE(through_window, op_make_window_range)
 
 

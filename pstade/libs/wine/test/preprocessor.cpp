@@ -65,6 +65,15 @@ void cyfoo( BOOST_PP_SEQ_ENUM( PSTADE_PP_SEQ_CYCLE(3, (A)(A)) ) )
 { }
 
 
+template< class A >
+void to_seq( BOOST_PP_SEQ_ENUM( PSTADE_PP_SEQ_TO_SEQ(~, (A)) ) )
+{ }
+
+template< class A >
+void to_seq2( BOOST_PP_SEQ_ENUM( PSTADE_PP_SEQ_TO_SEQ((A)(A), (A)) ) )
+{ }
+
+
 void test()
 {
     int i = 0;
@@ -76,6 +85,9 @@ void test()
 
     ::rfoo(1, 1, 1, 1, 1);
     ::cyfoo(1, 1, 1, 1, 1, 1);
+
+    ::to_seq(1);
+    ::to_seq2(1, 1);
 }
 
 

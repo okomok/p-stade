@@ -14,6 +14,7 @@
 
 
 #include <boost/mpl/placeholders.hpp>
+#include <boost/mpl/bool.hpp>
 #include <boost/tuple/tuple.hpp>
 
 
@@ -74,10 +75,23 @@ struct our_type
     { }
 };
 
-PSTADE_OBJECT_GENERATOR(make_our_type, our_type, (by_qualified)(by_value))
+PSTADE_OBJECT_GENERATOR(make_our_type, our_type, (by_qualified)(by_value), ~)
+
+
+// test case for 'his_type<unspecified>' is ill-formed.
+template< class A0, class A1 = typename A0::type >
+struct his_type
+{
+    explicit his_type(A0, A1 = A1())
+    { }
+};
+
+PSTADE_OBJECT_GENERATOR(make_his_type, his_type, (by_value), ~)
+
 
 void test()
 {
+
 #if 0 // LambdaExpression rejected.
     {
         my_type<int> o = ::v_gen_t()(3);
@@ -117,12 +131,22 @@ void test()
         int const x = 3;
         our_type<int const, int> o = ::make_our_type(x, 3);
     }
+    {
+        his_type<boost::mpl::true_> o = ::make_his_type( boost::mpl::true_() );
+    }
 
 #if 0 // error message check; not so bad :-), except for VC7.1 :-(
     {
         ::make_our_type(3); // too few arguments
     }
 #endif
+
+#if 0 // error message check;
+    {
+        ::make_our_type(1, 2, 3); // too many arguments
+    }
+#endif
+
 }
 
 

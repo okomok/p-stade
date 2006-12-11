@@ -66,7 +66,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_adjacent_filter_range, const adjacent_filter_range, (by_qualified)(by_value))
+PSTADE_OBJECT_GENERATOR(make_adjacent_filter_range, const adjacent_filter_range, (by_qualified)(by_value), ~)
 PSTADE_PIPABLE(adjacent_filtered, op_make_adjacent_filter_range)
 
 

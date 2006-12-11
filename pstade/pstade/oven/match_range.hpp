@@ -87,7 +87,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_match_range, const match_range, (by_qualified))
+PSTADE_OBJECT_GENERATOR(make_match_range, const match_range, (by_qualified), ~)
 PSTADE_PIPABLE(matches, op_make_match_range)
 
 
