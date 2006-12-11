@@ -15,26 +15,20 @@
 // Supports rvalue and const-reference.
 
 
-#include <boost/preprocessor/repetition/repeat.hpp>
 #include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/preprocessor.hpp>
 
 
 namespace pstade {
 
 
-#define PSTADE_make_by(Z, N, _) (by_reference)
-#define PSTADE_make_default(Z, N, _) (boost::tuples::null_type)
-
     PSTADE_OBJECT_GENERATOR_WITH_DEFAULTS(
         tie,
         boost::tuples::tuple,
-        BOOST_PP_REPEAT(PSTADE_CALLABLE_MAX_ARITY, PSTADE_make_by, ~),
-        BOOST_PP_REPEAT(PSTADE_CALLABLE_MAX_ARITY, PSTADE_make_default, ~)
+        PSTADE_PP_SEQ_REPLICATE(PSTADE_CALLABLE_MAX_ARITY, by_reference),
+        PSTADE_PP_SEQ_REPLICATE(PSTADE_CALLABLE_MAX_ARITY, boost::tuples::null_type)
     )
-
-#undef  PSTADE_make_default
-#undef  PSTADE_make_by
 
 
     PSTADE_PIPABLE(tied, op_tie)

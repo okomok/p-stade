@@ -14,11 +14,14 @@
 
 
 #include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/preprocessor/seq/enum.hpp>
+#include <pstade/unused.hpp>
 
 
 template< BOOST_PP_ENUM_PARAMS(5, class A) >
 void foo( PSTADE_PP_ENUM_REF_PARAMS_WITH_OBJECTS(5, A, a) )
 {
+    pstade::unused(a0, a1, a2, a3, a4);
     return;
 }
 
@@ -32,6 +35,7 @@ void foo_( PSTADE_PP_ENUM_REF_PARAMS(5, A) )
 template< BOOST_PP_ENUM_PARAMS(5, class A) >
 void cfoo( PSTADE_PP_ENUM_CREF_PARAMS_WITH_OBJECTS(5, A, a) )
 {
+    pstade::unused(a0, a1, a2, a3, a4);
     return;
 }
 
@@ -51,6 +55,15 @@ PSTADE_PP_DECLARE_TEMPLATE(struct, (naaa)(nbbb)(tccc1), 3)
 PSTADE_PP_DECLARE_TEMPLATE(struct, (naaa)(nbbb)(tccc2), (class)(int)(unsigned int))
 
 
+template< class A >
+void rfoo( BOOST_PP_SEQ_ENUM( PSTADE_PP_SEQ_REPLICATE(5, A) ) )
+{ }
+
+
+template< class A >
+void cyfoo( BOOST_PP_SEQ_ENUM( PSTADE_PP_SEQ_CYCLE(3, (A)(A)) ) )
+{ }
+
 
 void test()
 {
@@ -60,6 +73,9 @@ void test()
 
     ::cfoo(1, 1, 1, 1, 1);
     ::cfoo_(1, 1, 1, 1, 1);
+
+    ::rfoo(1, 1, 1, 1, 1);
+    ::cyfoo(1, 1, 1, 1, 1, 1);
 }
 
 

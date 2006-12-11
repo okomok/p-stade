@@ -10,12 +10,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <string>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/regex.hpp>
 #include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/use_default.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./iter_range.hpp"
 #include "./concepts.hpp"
@@ -35,15 +35,21 @@ namespace token_range_detail {
         class CharT,
         class Traits
     >
-    struct super_ :
-        iter_range<
-            boost::regex_token_iterator<
-                typename range_iterator<Range>::type,
-                CharT,
-                Traits
+    struct super_
+    {
+        typedef typename defaultable_eval_to< CharT, range_value<Range> >::type char_t;
+        typedef typename defaultable_to< Traits, boost::regex_traits<char_t> >::type traits_t;
+
+        typedef typename
+            iter_range<
+                boost::regex_token_iterator<
+                    typename range_iterator<Range>::type,
+                    char_t,
+                    traits_t                
+                >
             >
-        >
-    { };
+        type;
+    };
 
 
 } // namespace token_range_detail
@@ -51,8 +57,8 @@ namespace token_range_detail {
 
 template<
     class Range,
-    class CharT  = typename range_value<Range>::type,
-    class Traits = boost::regex_traits<CharT>
+    class CharT  = boost::use_default,
+    class Traits = boost::use_default
 >
 struct token_range :
     token_range_detail::super_<Range, CharT, Traits>::type,
@@ -60,8 +66,6 @@ struct token_range :
 {
     PSTADE_CONCEPT_ASSERT((Bidirectional<Range>));
     // PSTADE_CONCEPT_ASSERT((Readable<Range>));
-    typedef CharT char_type;
-    typedef Traits traits_type;
 
 private:
     typedef typename token_range_detail::super_<Range, CharT, Traits>::type super_t;
@@ -96,9 +100,7 @@ public:
 };
 
 
-struct token_range_argument_needed : std::string { }; // make a valid expression.
-PSTADE_OBJECT_GENERATOR_WITH_DEFAULTS(make_token_range, const token_range,
-    (by_qualified), (token_range_argument_needed))
+PSTADE_OBJECT_GENERATOR(make_token_range, const token_range, (by_qualified))
 PSTADE_PIPABLE(tokenized, op_make_token_range)
 
 

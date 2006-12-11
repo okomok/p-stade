@@ -133,7 +133,7 @@ public:
 
 
 PSTADE_OBJECT_GENERATOR_WITH_DEFAULTS(make_set_symmetric_difference_range, const set_symmetric_difference_range,
-    (by_qualified)(by_qualified)(by_value), (argument_needed)(argument_needed)(op_less))
+    (by_qualified)(by_qualified)(by_value), (argument_required)(argument_required)(op_less))
 PSTADE_PIPABLE(set_delta, op_make_set_symmetric_difference_range)
 
 

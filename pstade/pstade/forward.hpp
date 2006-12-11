@@ -28,13 +28,10 @@
 // for they need a function supporting 'result_of', which this class will make!
 
 
-#include <boost/mpl/eval_if.hpp>
-#include <boost/mpl/identity.hpp>
 #include <boost/preprocessor/arithmetic/dec.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_params_with_a_default.hpp>
-#include <boost/type_traits/is_same.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
@@ -42,6 +39,7 @@
 #include <pstade/pipable.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/to_type.hpp>
+#include <pstade/use_default.hpp>
 
 
 namespace pstade {
@@ -49,20 +47,14 @@ namespace pstade {
 
     namespace forward_detail {
 
-        
-        struct use_default;
-
 
         template< class Result_, class Signature >
         struct result_of_aux :
-            boost::mpl::eval_if< boost::is_same<Result_, use_default>,
-                boost::result_of<Signature>,
-                boost::mpl::identity<Result_>
-            >
+            defaultable_eval_to< Result_, boost::result_of<Signature> >
         { };
 
 
-        template< class Function, class Result_ = use_default >
+        template< class Function, class Result_ = boost::use_default >
         struct op_result :
             callable< op_result<Function, Result_>, typename result_of_aux<Result_, Function()>::type >
         {

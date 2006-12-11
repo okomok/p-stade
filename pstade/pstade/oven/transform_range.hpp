@@ -46,12 +46,10 @@
 #include <boost/iterator/transform_iterator.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/mpl/eval_if.hpp>
-#include <boost/mpl/identity.hpp>
-#include <boost/type_traits/is_same.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/use_default.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
@@ -82,17 +80,17 @@ namespace transform_range_detail {
     {
         typedef typename range_iterator<Range>::type iter_t;
 
-        typedef typename boost::mpl::eval_if<
-            boost::is_same<Reference, boost::use_default>,
-            default_reference<iter_t, UnaryFun>,
-            boost::mpl::identity<Reference>
-        >::type ref_t;
+        typedef typename
+            defaultable_eval_to< Reference, default_reference<iter_t, UnaryFun> >::type
+        ref_t;
 
-        typedef typename iter_range<
-            boost::transform_iterator<
-                UnaryFun, iter_t, ref_t, Value
+        typedef
+            iter_range<
+                boost::transform_iterator<
+                    UnaryFun, iter_t, ref_t, Value
+                >
             >
-        >::type type;
+        type;
     };
 
 
@@ -103,7 +101,7 @@ template<
     class Range,
     class UnaryFun,
     class Reference = boost::use_default,
-    class Value = boost::use_default
+    class Value     = boost::use_default
 >
 struct transform_range :
     transform_range_detail::super_<Range, UnaryFun, Reference, Value>::type,
@@ -120,11 +118,11 @@ public:
     transform_range(Range& rng, UnaryFun const& fun) :
         super_t(
             iter_t(boost::begin(rng), fun),
-            iter_t(boost::end(rng), fun)
+            iter_t(boost::end(rng),   fun)
         )
     { }
 
-    function_type const function() const
+    function_type const function() const // 'boost::transform_iterator' doesn't return reference.
     {
         return this->begin().functor();
     }

@@ -27,35 +27,65 @@
 #include <boost/preprocessor/tuple/eat.hpp>
 
 
+// utility
+
+
 // 'BOOST_PP_SEQ_CAT' isn't ugly?
 #define PSTADE_PP_CAT3(A0, A1, A2) \
     BOOST_PP_CAT(A0, BOOST_PP_CAT(A1, A2)) \
 /**/
 
 
-#define PSTADE_PP_ENUM_REF_PARAMS(Count, Param) \
-    BOOST_PP_ENUM_BINARY_PARAMS(Count, Param, & BOOST_PP_INTERCEPT) \
+// parameter
+
+
+#define PSTADE_PP_ENUM_REF_PARAMS(Size, Param) \
+    BOOST_PP_ENUM_BINARY_PARAMS(Size, Param, & BOOST_PP_INTERCEPT) \
 /**/
 
-#define PSTADE_PP_ENUM_REF_PARAMS_WITH_OBJECTS(Count, Param, Arg) \
-    BOOST_PP_ENUM_BINARY_PARAMS(Count, Param, & Arg) \
+#define PSTADE_PP_ENUM_REF_PARAMS_WITH_OBJECTS(Size, Param, Arg) \
+    BOOST_PP_ENUM_BINARY_PARAMS(Size, Param, & Arg) \
 /**/
 
 
 // If 'Param' is template parameter and deduced as array type,
 // VC++7.1 might break down. Take care.
-#define PSTADE_PP_ENUM_CREF_PARAMS(Count, Param) \
-    BOOST_PP_ENUM_BINARY_PARAMS(Count, Param, const& BOOST_PP_INTERCEPT) \
+#define PSTADE_PP_ENUM_CREF_PARAMS(Size, Param) \
+    BOOST_PP_ENUM_BINARY_PARAMS(Size, Param, const& BOOST_PP_INTERCEPT) \
 /**/
 
-#define PSTADE_PP_ENUM_CREF_PARAMS_WITH_OBJECTS(Count, Param, Arg) \
-    BOOST_PP_ENUM_BINARY_PARAMS(Count, Param, const& Arg) \
+#define PSTADE_PP_ENUM_CREF_PARAMS_WITH_OBJECTS(Size, Param, Arg) \
+    BOOST_PP_ENUM_BINARY_PARAMS(Size, Param, const& Arg) \
 /**/
+
+
+// sequence helper
 
 
 #define PSTADE_PP_SEQ_BACK(Seq) \
     BOOST_PP_SEQ_ELEM(BOOST_PP_DEC(BOOST_PP_SEQ_SIZE(Seq)), Seq) \
 /**/
+
+
+#define PSTADE_PP_SEQ_REPLICATE(Size, A) \
+    BOOST_PP_REPEAT(Size, PSTADE_PP_SEQ_REPLICATE_op, A) \
+/**/
+
+    #define PSTADE_PP_SEQ_REPLICATE_op(Z, N, A) \
+        (A) \
+    /**/
+
+
+#define PSTADE_PP_SEQ_CYCLE(Size, Seq) \
+    BOOST_PP_REPEAT(Size, PSTADE_PP_SEQ_CYCLE_op, Seq) \
+/**/
+
+    #define PSTADE_PP_SEQ_CYCLE_op(Z, N, Seq) \
+        Seq \
+    /**/
+
+
+// type system
 
 
 #define PSTADE_PP_DECLARE_TYPE(Struct, NameSeq) \

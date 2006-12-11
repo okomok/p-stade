@@ -10,15 +10,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/mpl/eval_if.hpp>
-#include <boost/mpl/identity.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_traits.hpp> // iterator_reference
 #include <boost/optional.hpp>
-#include <boost/type_traits/is_same.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/reference.hpp>
 #include <pstade/unused.hpp>
+#include <pstade/use_default.hpp>
 #include "./detail/next_prior.hpp" // next
 #include "./detail/range_prior.hpp"
 
@@ -50,17 +48,11 @@ namespace adjacent_transform_iterator_detail {
     struct super_
     {
         typedef typename
-            boost::mpl::eval_if< boost::is_same<Reference, boost::use_default>,
-                default_reference<ForwardIter, BinaryFun>,
-                boost::mpl::identity<Reference>
-            >::type
+            defaultable_eval_to< Reference, default_reference<ForwardIter, BinaryFun> >::type
         ref_t;
 
         typedef typename
-            boost::mpl::eval_if< boost::is_same<Value, boost::use_default>,
-                remove_cvr<ref_t>,
-                boost::mpl::identity<Value>
-            >::type
+            defaultable_eval_to< Value, remove_cvr<ref_t> >::type
         val_t;
 
         typedef

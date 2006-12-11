@@ -117,6 +117,12 @@ void test()
         int const x = 3;
         our_type<int const, int> o = ::make_our_type(x, 3);
     }
+
+#if 0 // error message check; not so bad :-), except for VC7.1 :-(
+    {
+        ::make_our_type(3); // too few arguments
+    }
+#endif
 }
 
 

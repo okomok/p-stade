@@ -89,7 +89,7 @@ public:
 
 
 PSTADE_OBJECT_GENERATOR_WITH_DEFAULTS(make_position_range, const position_range,
-    (by_qualified)(by_value), (argument_needed)(boost::spirit::file_position))
+    (by_qualified)(by_value), (argument_required)(boost::spirit::file_position))
 PSTADE_PIPABLE(with_position, op_make_position_range)
 
 

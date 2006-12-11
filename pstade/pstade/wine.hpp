@@ -63,6 +63,7 @@
 #include "./untupled.hpp"
 #include "./unused.hpp"
 #include "./unused_to_copy.hpp"
+#include "./use_default.hpp"
 #include "./used.hpp"
 #include "./ustring.hpp"
 #include "./value.hpp"

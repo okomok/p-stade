@@ -27,6 +27,7 @@
 // Also, we must know the exact type passed to 'operator|'.
 
 
+#include <boost/mpl/bool.hpp>
 #include <boost/preprocessor/arithmetic/dec.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
@@ -38,6 +39,7 @@
 #include <pstade/nonassignable.hpp>
 #include <pstade/object_generator.hpp>
 #include <pstade/preprocessor.hpp>
+#include <pstade/remove_cvr.hpp>
 #include <pstade/tupled.hpp>
 
 
@@ -189,6 +191,23 @@ namespace pstade {
     #define PSTADE_PIPABLE(Object, Function) \
         PSTADE_CONSTANT(Object, boost::result_of<pstade::op_pipable(Function)>::type) \
     /**/
+
+
+    template< class T >
+    struct is_pipe_impl :
+        boost::mpl::false_
+    { };
+
+    template< class Function, class Arguments >
+    struct is_pipe_impl< pipable_detail::pipe<Function, Arguments> > :
+        boost::mpl::true_
+    { };
+
+
+    template< class T >
+    struct is_pipe :
+        is_pipe_impl< remove_cvr<T> >
+    { };
 
 
 } // namespace pstade

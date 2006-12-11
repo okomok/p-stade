@@ -80,7 +80,7 @@ public:
 
 
 PSTADE_OBJECT_GENERATOR_WITH_DEFAULTS(make_merge_range, const merge_range,
-    (by_qualified)(by_qualified)(by_value), (argument_needed)(argument_needed)(op_less))
+    (by_qualified)(by_qualified)(by_value), (argument_required)(argument_required)(op_less))
 PSTADE_PIPABLE(merged, op_make_merge_range)
 
 

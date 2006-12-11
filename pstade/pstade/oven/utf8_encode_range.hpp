@@ -71,7 +71,7 @@ public:
 
 
 PSTADE_OBJECT_GENERATOR_WITH_DEFAULTS(make_utf8_encode_range, const utf8_encode_range,
-    (by_qualified)(by_value), (argument_needed)(boost::uint8_t))
+    (by_qualified)(by_value), (argument_required)(boost::uint8_t))
 PSTADE_PIPABLE(utf8_encoded, op_make_utf8_encode_range)
 
 

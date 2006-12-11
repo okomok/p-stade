@@ -14,9 +14,8 @@
 #include <boost/foreach.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_facade.hpp>
-#include <boost/mpl/if.hpp>
-#include <boost/type_traits/is_same.hpp>
 #include <boost/utility/addressof.hpp>
+#include <pstade/use_default.hpp>
 #include "../range_reference.hpp"
 
 
@@ -48,17 +47,13 @@ template<
 >
 struct list_iterator_super
 {
-    typedef typename boost::mpl::if_<
-        boost::is_same<boost::use_default, Reference>,
-        Value&,
-        Reference
-    >::type ref_t;
+    typedef typename
+        pstade::defaultable_to<Reference, Value&>::type
+    ref_t;
 
-    typedef typename boost::mpl::if_<
-        boost::is_same<boost::use_default, Traversal>,
-        boost::bidirectional_traversal_tag,
-        Traversal
-    >::type trv_t;
+    typedef typename
+        pstade::defaultable_to<Traversal, boost::bidirectional_traversal_tag>::type
+    trv_t;
 
     typedef boost::iterator_facade<
         list_iterator<List, Value, Reference, Traversal, GetAt>,

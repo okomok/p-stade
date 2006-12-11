@@ -13,10 +13,8 @@
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_categories.hpp> // iterator_traversal
 #include <boost/mpl/assert.hpp>
-#include <boost/mpl/identity.hpp>
-#include <boost/mpl/if.hpp>
 #include <boost/type_traits/is_convertible.hpp>
-#include <boost/type_traits/is_same.hpp>
+#include <pstade/use_default.hpp>
 
 
 namespace pstade { namespace oven {
@@ -29,15 +27,6 @@ struct identity_iterator;
 namespace identity_iterator_detail {
 
 
-    template< class BaseTraversal, class Traversal >
-    struct traversal :
-        boost::mpl::if_<
-            boost::is_same<Traversal, boost::use_default>,
-            BaseTraversal, Traversal
-        >
-    { };
-
-
     template<
         class Iterator,
         class Traversal
@@ -45,7 +34,7 @@ namespace identity_iterator_detail {
     struct super_
     {
         typedef typename boost::iterator_traversal<Iterator>::type base_trv_t;
-        typedef typename traversal<base_trv_t, Traversal>::type trv_t;
+        typedef typename defaultable_to<Traversal, base_trv_t>::type trv_t;
         BOOST_MPL_ASSERT((boost::is_convertible<base_trv_t, trv_t>));
 
         typedef boost::iterator_adaptor<

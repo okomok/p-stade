@@ -77,7 +77,7 @@ namespace pstade {
     {
 
     #define PSTADE_template_argument(Z, N, _) \
-        typename object_generator_detail::template_argument<BOOST_PP_CAT(By, N), BOOST_PP_CAT(A, N)>::type \
+        typename object_generator_detail::template_argument< BOOST_PP_CAT(By, N), BOOST_PP_CAT(A, N) >::type \
     /**/
 
         // PSTADE_CALLABLE_MAX_ARITY (primary)
@@ -145,16 +145,17 @@ namespace pstade {
     // Note that you can add cv-qualifier to 'X'.
 
 
-    struct argument_needed;
+    struct argument_required;
 
 
     #define PSTADE_OBJECT_GENERATOR(G, X, BySeq) \
-        PSTADE_OBJECT_GENERATOR_WITH_DEFAULTS_aux(G, X, BySeq, PSTADE_OBJECT_GENERATOR_argument_needed_seq()) \
+        PSTADE_OBJECT_GENERATOR_WITH_DEFAULTS_aux(G, X, BySeq, PSTADE_OBJECT_GENERATOR_argument_required_seq) \
     /**/
 
 
     #define PSTADE_OBJECT_GENERATOR_WITH_DEFAULTS(G, X, BySeq, DefaultSeq) \
-        PSTADE_OBJECT_GENERATOR_WITH_DEFAULTS_aux(G, X, BySeq, DefaultSeq PSTADE_OBJECT_GENERATOR_argument_needed_seq())
+        PSTADE_OBJECT_GENERATOR_WITH_DEFAULTS_aux(G, X, BySeq, DefaultSeq PSTADE_OBJECT_GENERATOR_argument_required_seq) \
+    /**/
 
 
     #define PSTADE_OBJECT_GENERATOR_WITH_DEFAULTS_aux(G, X, BySeq, DefaultSeq) \
@@ -163,9 +164,10 @@ namespace pstade {
             template< BOOST_PP_SEQ_ENUM(BOOST_PP_SEQ_FOR_EACH_I(PSTADE_OBJECT_GENERATOR_with_default, ~, DefaultSeq)) > \
             struct apply \
             { \
-                typedef X<BOOST_PP_ENUM_PARAMS(BOOST_PP_SEQ_SIZE(BySeq), A)> type; \
+                typedef X< BOOST_PP_ENUM_PARAMS(BOOST_PP_SEQ_SIZE(BySeq), A) > type; \
             }; \
         }; \
+        \
         typedef pstade::object_generator< \
             BOOST_PP_CAT(pstade_object_generator_wrap_of_, G), \
             BOOST_PP_SEQ_ENUM(BOOST_PP_SEQ_TRANSFORM(PSTADE_OBJECT_GENERATOR_to_fullname, ~, BySeq)) \
@@ -182,12 +184,8 @@ namespace pstade {
             pstade::object_generator_detail:: Elem \
         /**/
 
-        #define PSTADE_OBJECT_GENERATOR_argument_needed_seq() \
-            BOOST_PP_REPEAT(PSTADE_CALLABLE_MAX_ARITY, PSTADE_OBJECT_GENERATOR_make_argument_needed, ~) \
-        /**/
-
-        #define PSTADE_OBJECT_GENERATOR_make_argument_needed(Z, N, _) \
-            (pstade::argument_needed) \
+        #define PSTADE_OBJECT_GENERATOR_argument_required_seq \
+            PSTADE_PP_SEQ_REPLICATE(PSTADE_CALLABLE_MAX_ARITY, pstade::argument_required) \
         /**/
 
 
