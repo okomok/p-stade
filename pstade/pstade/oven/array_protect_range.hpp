@@ -13,8 +13,8 @@
 #include <cstddef> // size_t
 #include <boost/type_traits/remove_extent.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/object_generator.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./iter_range.hpp"
 
@@ -27,6 +27,8 @@ struct array_protect_range :
     iter_range<T *>::type,
     private as_lightweight_proxy< array_protect_range<T> >
 {
+    typedef typename array_protect_range type;
+
 private:
     typedef typename iter_range<T *>::type super_t;
 
@@ -39,26 +41,13 @@ public:
 };
 
 
-struct op_make_array_protect_range :
-    callable<op_make_array_protect_range>
-{
-    template< class Myself, class Array >
-    struct apply
-    {
-        typedef array_protect_range<
-            typename boost::remove_extent<Array>::type
-        > const type;
-    };
-
-    template< class Result, class Array >
-    Result call(Array& arr) const
-    {
-        return Result(arr);
-    }
-};
+template< class Array >
+struct deduce_to_array_element :
+    deduce_to< Array, boost::remove_extent<Array> >
+{ };
 
 
-PSTADE_CONSTANT(make_array_protect_range, op_make_array_protect_range)
+PSTADE_OBJECT_GENERATOR(make_array_protect_range, array_protect_range< deduce_to_array_element<from_1> > const)
 PSTADE_PIPABLE(array_protected, op_make_array_protect_range)
 PSTADE_PIPABLE(as_array, op_make_array_protect_range)
 

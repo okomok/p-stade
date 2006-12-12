@@ -13,6 +13,7 @@
 
 #include <boost/mpl/apply.hpp>
 #include <boost/mpl/eval_if.hpp>
+#include <boost/mpl/identity.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/arithmetic/dec.hpp>
@@ -38,22 +39,13 @@ namespace pstade {
         struct argument_not_passed;
         
 
-        template< class A, class Default, class F >
-        struct deduce :
-            boost::mpl::eval_if< boost::is_same<A, argument_not_passed>,
-                boost::mpl::identity<Default>,
-                F
-            >
-        { };
-
-
         template<
             class Lambda,
             BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(PSTADE_CALLABLE_MAX_ARITY, class A, argument_not_passed)
         >
-        struct apply
+        struct make
         {
-            typedef Lambda to_t;
+            typedef Lambda saved_t;
 
             typedef typename
                 boost::mpl::BOOST_PP_CAT(apply, PSTADE_CALLABLE_MAX_ARITY)<
@@ -63,15 +55,12 @@ namespace pstade {
             result_t;
 
             typedef typename
-                affect_cvr<to_t, result_t>::type
+                affect_cvr<saved_t, result_t>::type
             type;
         };
 
 
     } // namespace object_generator_detail
-
-
-    struct object_generator_error_argument_required;
 
 
     typedef boost::mpl::_  from_;
@@ -82,33 +71,49 @@ namespace pstade {
     typedef boost::mpl::_5 from_5;
 
 
-    template< class A, class Default = object_generator_error_argument_required >
-    struct deduce_by_value :
-        object_generator_detail::deduce<
-            A, Default,
-            pass_by_value<A>
-        >
-    { };
+    struct object_generator_error_argument_required;
 
-    template< class A, class Default = object_generator_error_argument_required >
-    struct deduce_by_reference :
-        object_generator_detail::deduce<
-            A, Default,
-            boost::add_reference<A>
-        >
-    { };
 
-    template< class A, class Default = object_generator_error_argument_required >
-    struct deduce_by_qualified :
-        object_generator_detail::deduce<
-            A, Default,
-            boost::mpl::identity<A>
+    template<
+        class A, class F,
+        class Default = object_generator_error_argument_required
+    >
+    struct deduce_to :
+        boost::mpl::eval_if< boost::is_same<A, object_generator_detail::argument_not_passed>,
+            boost::mpl::identity<Default>,
+            F
         >
     { };
 
 
-    // MPL seems to fail if 'X<unspecified> x;' is ill-formed
+    template< class A, class Default = object_generator_error_argument_required >
+    struct deduce_to_value :
+        deduce_to<
+            A, pass_by_value<A>,
+            Default
+        >
+    { };
+
+    template< class A, class Default = object_generator_error_argument_required >
+    struct deduce_to_reference :
+        deduce_to<
+            A, boost::add_reference<A>,
+            Default
+        >
+    { };
+
+    template< class A, class Default = object_generator_error_argument_required >
+    struct deduce_to_qualified :
+        deduce_to<
+            A, boost::mpl::identity<A>,
+            Default
+        >
+    { };
+
+
+    // Boost.MPL seems to fail if 'X<unspecified> x;' is ill-formed
     // even if 'X<unspecified>' is well-formed. So 'NullaryResult' is required.
+
 
     template< class Lambda, class NullaryResult = void >
     struct object_generator :
@@ -119,7 +124,7 @@ namespace pstade {
 
         template< class Myself, BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(PSTADE_CALLABLE_MAX_ARITY, class A, void) >
         struct apply :
-            object_generator_detail::apply< Lambda,
+            object_generator_detail::make< Lambda,
                 BOOST_PP_ENUM_PARAMS(PSTADE_CALLABLE_MAX_ARITY, A)
             >
         { };
@@ -136,7 +141,8 @@ namespace pstade {
         template< class Result >
         Result call( ) const
         {
-            return Result( );
+            return Result(
+            );
         }
 
 
@@ -144,7 +150,7 @@ namespace pstade {
 
         template< class Myself, class A0 >
         struct apply< Myself, A0 > :
-            object_generator_detail::apply< Lambda,
+            object_generator_detail::make< Lambda,
                 A0
             >
         { };
@@ -152,7 +158,9 @@ namespace pstade {
         template< class Result, class A0 >
         Result call( A0& a0 ) const
         {
-            return Result( a0 );
+            return Result(
+                a0
+            );
         }
                 
 
@@ -186,7 +194,7 @@ PSTADE_CALLABLE_NULLARY_RESULT_TEMPLATE((pstade)(object_generator), 2)
 
 template< class Myself, BOOST_PP_ENUM_PARAMS(n, class A) >
 struct apply< Myself, BOOST_PP_ENUM_PARAMS(n, A) > :
-    object_generator_detail::apply< Lambda,
+    object_generator_detail::make< Lambda,
         BOOST_PP_ENUM_PARAMS(n, A)
     >
 { };
@@ -194,7 +202,9 @@ struct apply< Myself, BOOST_PP_ENUM_PARAMS(n, A) > :
 template< class Result, BOOST_PP_ENUM_PARAMS(n, class A) >
 Result call( PSTADE_PP_ENUM_REF_PARAMS_WITH_OBJECTS(n, A, a) ) const
 {
-    return Result( BOOST_PP_ENUM_PARAMS(n, a) );
+    return Result(
+        BOOST_PP_ENUM_PARAMS(n, a)
+    );
 }
 
 

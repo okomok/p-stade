@@ -15,7 +15,7 @@
 #include <cwchar>  // wcslen
 #include <boost/type_traits/remove_pointer.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
+#include <pstade/object_generator.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
@@ -52,6 +52,8 @@ struct c_str_range :
     iter_range<Char *>::type,
     private as_lightweight_proxy< c_str_range<Char> >
 {
+    typedef c_str_range type;
+
 private:
     typedef typename iter_range<Char *>::type super_t;
 
@@ -62,26 +64,13 @@ public:
 };
 
 
-struct op_make_c_str_range :
-    callable<op_make_c_str_range>
-{
-    template< class Myself, class CString >
-    struct apply
-    {
-        typedef typename pass_by_value<CString>::type ptr_t;
-        typedef typename boost::remove_pointer<ptr_t>::type char_t;
-        typedef c_str_range<char_t> const type;
-    };
-
-    template< class Result, class Char >
-    Result call(Char *psz) const
-    {
-        return Result(psz);
-    }
-};
+template< class CString >
+struct deduce_to_char_ptr :
+    deduce_to< CString, boost::remove_pointer<typename pass_by_value<CString>::type> >
+{ };
 
 
-PSTADE_CONSTANT(make_c_str_range, op_make_c_str_range)
+PSTADE_OBJECT_GENERATOR(make_c_str_range, c_str_range< deduce_to_char_ptr<from_1> > const)
 PSTADE_PIPABLE(as_c_str, op_make_c_str_range)
 
 

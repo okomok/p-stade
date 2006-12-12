@@ -67,7 +67,7 @@ public:
 
 
 PSTADE_OBJECT_GENERATOR(make_joint_range,
-    PSTADE_UNPARENTHESIZE((joint_range< deduce_by_qualified<from_1>, deduce_by_qualified<from_2> >)) const)
+    PSTADE_UNPARENTHESIZE((joint_range< deduce_to_qualified<from_1>, deduce_to_qualified<from_2> >)) const)
 PSTADE_PIPABLE(jointed, op_make_joint_range)
 
 

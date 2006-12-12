@@ -81,7 +81,7 @@ namespace pstade {
 
 
     template< class A, class Default = object_generator_error_argument_required >
-    struct deduce_by_value :
+    struct deduce_to_value :
         object_generator_detail::deduce<
             A, Default,
             pass_by_value<A>
@@ -89,7 +89,7 @@ namespace pstade {
     { };
 
     template< class A, class Default = object_generator_error_argument_required >
-    struct deduce_by_reference :
+    struct deduce_to_reference :
         object_generator_detail::deduce<
             A, Default,
             boost::add_reference<A>
@@ -97,7 +97,7 @@ namespace pstade {
     { };
 
     template< class A, class Default = object_generator_error_argument_required >
-    struct deduce_by_qualified :
+    struct deduce_to_qualified :
         object_generator_detail::deduce<
             A, Default,
             boost::mpl::identity<A>

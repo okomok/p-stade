@@ -37,9 +37,9 @@
 namespace pstade {
 
 
-    struct deduce_by_value;
-    struct deduce_by_reference;
-    struct deduce_by_qualified;
+    struct deduce_to_value;
+    struct deduce_to_reference;
+    struct deduce_to_qualified;
 
 
     namespace object_generator_detail {
@@ -47,9 +47,9 @@ namespace pstade {
 
         template< class By, class A >
         struct template_argument :
-            boost::mpl::eval_if< boost::is_same<By, deduce_by_value>,
+            boost::mpl::eval_if< boost::is_same<By, deduce_to_value>,
                 pass_by_value<A>,
-                boost::mpl::eval_if< boost::is_same<By, deduce_by_reference>,
+                boost::mpl::eval_if< boost::is_same<By, deduce_to_reference>,
                     boost::add_reference<A>,
                     boost::mpl::identity<A>
                 >

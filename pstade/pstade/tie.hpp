@@ -34,11 +34,10 @@ namespace pstade {
         // Boost.MPL default max arity is not enough for Boost.Tuple.
         // So, avoid PlaceholderExpression.
 
-
-#define PSTADE_deduce(Z, N, _) typename deduce_by_reference< BOOST_PP_CAT(A, N), boost::tuples::null_type >::type
-
         struct expr
         {
+        #define PSTADE_deduce(Z, N, _) typename deduce_to_reference< BOOST_PP_CAT(A, N), boost::tuples::null_type >::type
+
             template< BOOST_PP_ENUM_PARAMS(PSTADE_CALLABLE_MAX_ARITY, class A) >
             struct apply
             {
@@ -46,9 +45,9 @@ namespace pstade {
                     BOOST_PP_ENUM(PSTADE_CALLABLE_MAX_ARITY, PSTADE_deduce, ~)
                 > type;
             };
-        };
 
-#undef PSTADE_deduce
+        #undef  PSTADE_deduce
+        };
 
 
     } // namespace tie_detail

@@ -29,6 +29,7 @@ struct drop_range :
     private as_lightweight_proxy< drop_range<Range> >
 {
     PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+    typedef drop_range type;
 
 private:
     typedef typename sub_range_base<Range>::type super_t;
@@ -45,7 +46,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_drop_range, const drop_range, (by_qualified), ~)
+PSTADE_OBJECT_GENERATOR(make_drop_range, drop_range< deduce_to_qualified<from_1> > const)
 PSTADE_PIPABLE(dropped, op_make_drop_range)
 
 

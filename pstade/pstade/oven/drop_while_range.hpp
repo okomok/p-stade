@@ -36,6 +36,7 @@ struct drop_while_range :
 {
     PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
     // PSTADE_CONCEPT_ASSERT((Readable<Range>));
+    typedef drop_while_range type;
 
 private:
     typedef typename sub_range_base<Range>::type super_t;
@@ -50,7 +51,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_drop_while_range, const drop_while_range, (by_qualified), ~)
+PSTADE_OBJECT_GENERATOR(make_drop_while_range, drop_while_range< deduce_to_qualified<from_1> > const)
 PSTADE_PIPABLE(dropped_while, op_make_drop_while_range)
 
 

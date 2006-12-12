@@ -50,7 +50,7 @@ namespace pstade {
 
 
     template< int N, class Default = object_generator_error_argument_required >
-    struct deduce_by_value
+    struct deduce_to_value
     {
         template< BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(PSTADE_CALLABLE_MAX_ARITY, class A, object_generator_detail::not_passed) >
         struct apply :
@@ -64,7 +64,7 @@ namespace pstade {
     };
 
     template< int N, class Default = object_generator_error_argument_required >
-    struct deduce_by_reference
+    struct deduce_to_reference
     {
         template< BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(PSTADE_CALLABLE_MAX_ARITY, class A, object_generator_detail::not_passed) >
         struct apply :
@@ -78,7 +78,7 @@ namespace pstade {
     };
 
     template< int N, class Default = object_generator_error_argument_required >
-    struct deduce_by_qualified
+    struct deduce_to_qualified
     {
         template< BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(PSTADE_CALLABLE_MAX_ARITY, class A, object_generator_detail::not_passed) >
         struct apply :
