@@ -45,17 +45,15 @@ namespace pstade {
         >
         struct make
         {
-            typedef Lambda saved_t;
-
             typedef typename
                 boost::mpl::BOOST_PP_CAT(apply, PSTADE_CALLABLE_MAX_ARITY)<
                     typename remove_cvr<Lambda>::type,
                     BOOST_PP_ENUM_PARAMS(PSTADE_CALLABLE_MAX_ARITY, A)
                 >::type
-            result_t;
+            object_t;
 
             typedef typename
-                affect_cvr<saved_t, result_t>::type
+                affect_cvr<Lambda, object_t>::type
             type;
         };
 
