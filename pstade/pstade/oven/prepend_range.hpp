@@ -64,7 +64,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_prepend_range, const prepend_range, (by_qualified)(by_qualified))
+PSTADE_OBJECT_GENERATOR(make_prepend_range, const prepend_range, (by_qualified)(by_qualified), ~)
 PSTADE_PIPABLE(prepended, op_make_prepend_range)
 
 

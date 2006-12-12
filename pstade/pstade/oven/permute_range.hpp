@@ -67,7 +67,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_permute_range, const permute_range, (by_qualified)(by_qualified))
+PSTADE_OBJECT_GENERATOR(make_permute_range, const permute_range, (by_qualified)(by_qualified), ~)
 PSTADE_PIPABLE(permuted, op_make_permute_range)
 
 

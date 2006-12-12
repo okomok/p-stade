@@ -83,7 +83,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_iterate_range, const iterate_range, (by_value)(by_value))
+PSTADE_OBJECT_GENERATOR(make_iterate_range, const iterate_range, (by_value)(by_value), ~)
 PSTADE_CONSTANT(iteration, op_make_iterate_range)
 
 

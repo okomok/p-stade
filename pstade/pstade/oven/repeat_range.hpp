@@ -63,7 +63,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_repeat_range, const repeat_range, (by_qualified)(by_value))
+PSTADE_OBJECT_GENERATOR(make_repeat_range, const repeat_range, (by_qualified)(by_value), ~)
 PSTADE_PIPABLE(repeated, op_make_repeat_range)
 
 

@@ -14,6 +14,7 @@
 #include <boost/range/end.hpp>
 #include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/unparenthesize.hpp>
 #include "./adjacent_filter_iterator.hpp"
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
@@ -48,6 +49,7 @@ struct adjacent_filter_range :
 {
     PSTADE_CONCEPT_ASSERT((Forward<Range>));
     // PSTADE_CONCEPT_ASSERT((Readable<Range>));
+    typedef adjacent_filter_range type;
     typedef BinaryPred predicate_type;
 
 private:
@@ -66,7 +68,8 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_adjacent_filter_range, const adjacent_filter_range, (by_qualified)(by_value), ~)
+PSTADE_OBJECT_GENERATOR(make_adjacent_filter_range,
+    PSTADE_UNPARENTHESIZE((adjacent_filter_range< deduce_by_qualified<from_1>, deduce_by_value<from_2> >)) const)
 PSTADE_PIPABLE(adjacent_filtered, op_make_adjacent_filter_range)
 
 

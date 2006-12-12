@@ -75,7 +75,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_zip_with_range, const zip_with_range, (by_qualified)(by_value))
+PSTADE_OBJECT_GENERATOR(make_zip_with_range, const zip_with_range, (by_qualified)(by_value), ~)
 PSTADE_PIPABLE(zipped_with, op_make_zip_with_range)
 
 

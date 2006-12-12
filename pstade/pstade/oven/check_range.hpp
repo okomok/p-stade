@@ -46,6 +46,7 @@ struct check_range :
     private as_lightweight_proxy< check_range<Range> >
 {
     PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+    typedef check_range type;
 
 private:
     typedef typename check_range_detail::super_<Range>::type super_t;
@@ -63,7 +64,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_check_range, const check_range, (by_qualified), ~)
+PSTADE_OBJECT_GENERATOR(make_check_range, check_range< deduce_by_qualified<from_1> > const)
 PSTADE_PIPABLE(checked, op_make_check_range)
 
 

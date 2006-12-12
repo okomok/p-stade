@@ -14,6 +14,7 @@
 #include <boost/range/end.hpp>
 #include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/unparenthesize.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
@@ -48,8 +49,7 @@ struct joint_range :
 {
     PSTADE_CONCEPT_ASSERT((Forward<RangeL>));
     PSTADE_CONCEPT_ASSERT((Forward<RangeR>));
-
-    typedef RangeL pstade_oven_range_base_type;
+    typedef joint_range type;
 
 private:
     typedef typename joint_range_detail::super_<RangeL, RangeR>::type super_t;
@@ -61,10 +61,13 @@ public:
             oven::make_joint_right_iterator(boost::end(rngL), boost::begin(rngR), boost::end(rngR))
         )
     { }
+
+    typedef RangeL pstade_oven_range_base_type;
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_joint_range, const joint_range, (by_qualified)(by_qualified))
+PSTADE_OBJECT_GENERATOR(make_joint_range,
+    PSTADE_UNPARENTHESIZE((joint_range< deduce_by_qualified<from_1>, deduce_by_qualified<from_2> >)) const)
 PSTADE_PIPABLE(jointed, op_make_joint_range)
 
 

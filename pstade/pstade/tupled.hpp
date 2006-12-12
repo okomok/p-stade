@@ -20,6 +20,7 @@
 #include <pstade/affect.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/object_generator.hpp>
+#include <pstade/unused.hpp>
 
 
 namespace pstade {
@@ -54,6 +55,8 @@ namespace pstade {
         template< class Result, class Function, class Tuple >
         Result call_impl(Function fun, Tuple& tup, boost::mpl::int_<0>)
         {
+            pstade::unused(tup);
+
             return
                 fun(
                 );
@@ -135,7 +138,7 @@ namespace pstade {
     } // namespace tupled_detail
 
 
-    PSTADE_OBJECT_GENERATOR(tupled, tupled_detail::op_result, (by_value), ~)
+    PSTADE_OBJECT_GENERATOR(tupled, tupled_detail::op_result< deduce_by_value<from_1> >)
 
 
 } // namespace pstade

@@ -13,6 +13,7 @@
 #include <pstade/base_from.hpp>
 #include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/unparenthesize.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./joint_range.hpp"
@@ -48,6 +49,7 @@ struct append_range :
     private as_lightweight_proxy< append_range<Range, Value> >
 {
     PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+    typedef append_range type;
 
 private:
     typedef typename append_range_detail::init_single<Value>::type init_t;
@@ -64,7 +66,8 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_append_range, const append_range, (by_qualified)(by_qualified), ~)
+PSTADE_OBJECT_GENERATOR(make_append_range,
+    PSTADE_UNPARENTHESIZE((append_range< deduce_by_qualified<from_1>, deduce_by_qualified<from_2> >)) const)
 PSTADE_PIPABLE(appended, op_make_append_range)
 
 

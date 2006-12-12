@@ -23,6 +23,7 @@
 #include <boost/range/end.hpp>
 #include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/unparenthesize.hpp>
 #include "./adjacent_transform_iterator.hpp"
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
@@ -62,6 +63,7 @@ struct adjacent_transform_range :
 {
     PSTADE_CONCEPT_ASSERT((Forward<Range>));
     // PSTADE_CONCEPT_ASSERT((Readable<Range>));
+    typedef adjacent_transform_range type;
     typedef BinaryFun function_type;
 
 private:
@@ -79,7 +81,8 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_adjacent_transform_range, const adjacent_transform_range, (by_qualified)(by_value), ~)
+PSTADE_OBJECT_GENERATOR(make_adjacent_transform_range,
+    PSTADE_UNPARENTHESIZE((adjacent_transform_range< deduce_by_qualified<from_1>, deduce_by_value<from_2> >)) const)
 PSTADE_PIPABLE(adjacent_transformed, op_make_adjacent_transform_range)
 
 

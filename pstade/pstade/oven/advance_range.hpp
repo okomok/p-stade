@@ -53,6 +53,7 @@ struct advance_range :
     private as_lightweight_proxy< advance_range<Range> >
 {
     PSTADE_CONCEPT_ASSERT((Forward<Range>));
+    typedef advance_range type;
 
 private:
     typedef typename sub_range_base<Range>::type super_t;
@@ -72,7 +73,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_advance_range, const advance_range, (by_qualified), ~)
+PSTADE_OBJECT_GENERATOR(make_advance_range, advance_range< deduce_by_qualified<from_1> > const)
 PSTADE_PIPABLE(advanced, op_make_advance_range)
 
 

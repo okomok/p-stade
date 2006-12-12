@@ -44,6 +44,7 @@ struct direct_range :
     private as_lightweight_proxy< direct_range<Range> >
 {
     PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+    typedef direct_range type;
     typedef Range pstade_oven_range_base_type;
 
 private:
@@ -56,7 +57,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_direct_range, const direct_range, (by_qualified), ~)
+PSTADE_OBJECT_GENERATOR(make_direct_range, direct_range< deduce_by_qualified<from_1> > const)
 PSTADE_PIPABLE(directed, op_make_direct_range)
 
 

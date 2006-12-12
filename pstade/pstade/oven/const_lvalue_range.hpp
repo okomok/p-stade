@@ -44,6 +44,7 @@ struct const_lvalue_range :
     private as_lightweight_proxy< const_lvalue_range<Range> >
 {
     PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+    typedef const_lvalue_range type;
 
 private:
     typedef typename const_lvalue_range_detail::super_<Range>::type super_t;
@@ -57,7 +58,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_const_lvalue_range, const const_lvalue_range, (by_qualified), ~)
+PSTADE_OBJECT_GENERATOR(make_const_lvalue_range, const_lvalue_range< deduce_by_qualified<from_1> > const)
 PSTADE_PIPABLE(const_lvalues, op_make_const_lvalue_range)
 
 

@@ -44,6 +44,7 @@ struct regularize_range :
 {
     // iterator can be neither Assignable nor DefaultConstructible.
     // PSTADE_CONCEPT_ASSERT((*Broken*SinglePass<Range>));
+    typedef regularize_range type;
 
 private:
     typedef typename regularize_range_detail::super_<Range>::type super_t;
@@ -57,7 +58,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_regularize_range, const regularize_range, (by_qualified), ~)
+PSTADE_OBJECT_GENERATOR(make_regularize_range, regularize_range< deduce_by_qualified<from_1> > const)
 PSTADE_PIPABLE(regularized, op_make_regularize_range)
 
 

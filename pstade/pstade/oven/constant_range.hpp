@@ -54,6 +54,7 @@ struct constant_range :
     private as_lightweight_proxy< constant_range<Range> >
 {
     PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+    typedef constant_range type;
 
 private:
     typedef typename constant_range_detail::super_<Range>::type super_t;
@@ -68,7 +69,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_constant_range, const constant_range, (by_qualified), ~)
+PSTADE_OBJECT_GENERATOR(make_constant_range, constant_range< deduce_by_qualified<from_1> > const)
 PSTADE_PIPABLE(constants, op_make_constant_range)
 
 

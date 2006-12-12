@@ -49,6 +49,7 @@
 #include <boost/utility/result_of.hpp>
 #include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/unparenthesize.hpp>
 #include <pstade/use_default.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
@@ -108,6 +109,7 @@ struct transform_range :
     private as_lightweight_proxy< transform_range<Range, UnaryFun, Reference, Value> >
 {
     PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+    typedef transform_range type;
     typedef UnaryFun function_type;
 
 private:
@@ -131,7 +133,8 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_transform_range, const transform_range, (by_qualified)(by_value))
+PSTADE_OBJECT_GENERATOR(make_transform_range,
+    PSTADE_UNPARENTHESIZE((transform_range< deduce_by_qualified<from_1>, deduce_by_value<from_2> >)) const)
 PSTADE_PIPABLE(transformed, op_make_transform_range)
 
 

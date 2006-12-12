@@ -12,6 +12,7 @@
 
 #include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/unparenthesize.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./identity_iterator.hpp"
@@ -51,6 +52,7 @@ struct identity_range :
     private as_lightweight_proxy< identity_range<Range, Traversal> >
 {
     PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+    typedef identity_range type;
 
 private:
     typedef typename identity_range_detail::super_<Range, Traversal>::type super_t;
@@ -68,7 +70,8 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_identity_range, const identity_range, (by_qualified)(by_value), (argument_required)(boost::use_default))
+PSTADE_OBJECT_GENERATOR(make_identity_range,
+    PSTADE_UNPARENTHESIZE((identity_range< deduce_by_qualified<from_1>, deduce_by_value<from_2, boost::use_default> >)) const)
 PSTADE_PIPABLE(identities, op_make_identity_range)
 
 

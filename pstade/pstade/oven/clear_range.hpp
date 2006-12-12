@@ -27,6 +27,7 @@ struct clear_range :
     private as_lightweight_proxy< clear_range<Range> >
 {
     PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+    typedef clear_range type;
 
 private:
     typedef typename sub_range_base<Range>::type super_t;
@@ -40,7 +41,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_clear_range, const clear_range, (by_qualified), ~)
+PSTADE_OBJECT_GENERATOR(make_clear_range, clear_range< deduce_by_qualified<from_1> > const)
 PSTADE_PIPABLE(cleared, op_make_clear_range)
 
 

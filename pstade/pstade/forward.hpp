@@ -56,7 +56,12 @@ namespace pstade {
 
         template< class Function, class Result_ = boost::use_default >
         struct op_result :
-            callable< op_result<Function, Result_>, typename result_of_aux<Result_, Function()>::type >
+            callable<
+                op_result<Function, Result_>,
+                typename result_of_aux< Result_,
+                    Function()
+                >::type
+            >
         {
 
             typedef op_result type;

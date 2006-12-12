@@ -78,8 +78,6 @@ namespace pstade {
     typedef boost::mpl::_1 from_1;
     typedef boost::mpl::_2 from_2;
     typedef boost::mpl::_3 from_3;
-    typedef boost::mpl::_4 from_4;
-    typedef boost::mpl::_5 from_5;
 
 
     template< class A, class Default = object_generator_error_argument_required >
@@ -107,12 +105,9 @@ namespace pstade {
     { };
 
 
-    // MPL seems to fail if 'X<unspecified> x;' is ill-formed
-    // even if 'X<unspecified>' is well-formed. So 'NullaryResult' is required.
-
-    template< class Lambda, class NullaryResult = void >
+    template< class Lambda >
     struct object_generator :
-        callable< object_generator<Lambda, NullaryResult>, NullaryResult > 
+        callable< object_generator<Lambda>, typename object_generator_detail::apply<Lambda>::type>
     {
 
         // PSTADE_CALLABLE_MAX_ARITY (primary)
@@ -159,7 +154,7 @@ namespace pstade {
         // 2ary-
 
     #define PSTADE_max_arity BOOST_PP_DEC(PSTADE_CALLABLE_MAX_ARITY)
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_max_arity, <pstade/object_generator.hpp>))
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_max_arity, <pstade/object_generator2.hpp>))
         #include BOOST_PP_ITERATE()
     #undef  PSTADE_max_arity
 
@@ -176,7 +171,7 @@ namespace pstade {
 } // namespace pstade
 
 
-PSTADE_CALLABLE_NULLARY_RESULT_TEMPLATE((pstade)(object_generator), 2)
+PSTADE_CALLABLE_NULLARY_RESULT_TEMPLATE((pstade)(object_generator), 1)
 
 
 #endif

@@ -54,6 +54,7 @@ struct reverse_range :
     private as_lightweight_proxy< reverse_range<Range> >
 {
     PSTADE_CONCEPT_ASSERT((Bidirectional<Range>));
+    typedef reverse_range type;
     typedef Range pstade_oven_range_base_type;
 
 private:
@@ -66,7 +67,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_reverse_range, const reverse_range, (by_qualified), ~)
+PSTADE_OBJECT_GENERATOR(make_reverse_range, reverse_range< deduce_by_qualified<from_1> > const)
 PSTADE_PIPABLE(reversed, op_make_reverse_range)
 
 

@@ -17,6 +17,7 @@
 #include <pstade/functional.hpp> // not_
 #include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/unparenthesize.hpp>
 #include "./algorithm.hpp" // find_if
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
@@ -81,6 +82,7 @@ struct take_while_range :
     private as_lightweight_proxy< take_while_range<Range, Predicate> >
 {
     // PSTADE_CONCEPT_ASSERT((Readable<Range>));
+    typedef take_while_range type;
 
 private:
     typedef typename take_while_range_detail::super_<Range, Predicate>::type super_t;
@@ -95,7 +97,8 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_take_while_range, const take_while_range, (by_qualified)(by_value))
+PSTADE_OBJECT_GENERATOR(make_take_while_range,
+    PSTADE_UNPARENTHESIZE((take_while_range< deduce_by_qualified<from_1>, deduce_by_value<from_2> >)) const)
 PSTADE_PIPABLE(taken_while, op_make_take_while_range)
 
 

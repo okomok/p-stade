@@ -45,7 +45,7 @@ protected:
     // 'typedef base_from type;' is bad for GCC3.4.
     // If you use this class as a metafunction, GCC complains
     // "with only non-default constructor in class without a constructor"
-    // without this.
+    // without this. (Boost1.34 seems to work around this.)
     base_from();
 #endif
 };

@@ -12,6 +12,7 @@
 
 #include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/unparenthesize.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./sub_range_base.hpp"
@@ -26,6 +27,7 @@ struct always_range :
     private as_lightweight_proxy< always_range<Unused, Range> >
 {
     PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+    typedef always_range type;
 
 private:
     typedef typename sub_range_base<Range>::type super_t;
@@ -39,7 +41,8 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_always_range, const always_range, (by_qualified)(by_qualified), ~)
+PSTADE_OBJECT_GENERATOR(make_always_range,
+    PSTADE_UNPARENTHESIZE((always_range< deduce_by_qualified<from_1>, deduce_by_qualified<from_2> >)) const)
 PSTADE_PIPABLE(always, op_make_always_range)
 
 

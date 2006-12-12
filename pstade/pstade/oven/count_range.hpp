@@ -78,6 +78,8 @@ struct count_range :
     count_range_detail::super_<Incrementable, CategoryOrTraversal, Difference>::type,
     private as_lightweight_proxy< count_range<Incrementable, CategoryOrTraversal, Difference> >
 {
+    typedef count_range type;
+
 private:
     typedef typename
         count_range_detail::super_<Incrementable, CategoryOrTraversal, Difference>::type
@@ -90,7 +92,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_count_range, const count_range, (by_value), ~)
+PSTADE_OBJECT_GENERATOR(make_count_range, count_range< deduce_by_value<from_1> > const)
 PSTADE_PIPABLE(counted, boost::result_of<op_tupled(op_make_count_range)>::type)
 
 

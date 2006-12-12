@@ -79,7 +79,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_filter_range, const filter_range, (by_qualified)(by_value))
+PSTADE_OBJECT_GENERATOR(make_filter_range, const filter_range, (by_qualified)(by_value), ~)
 PSTADE_PIPABLE(filtered, op_make_filter_range)
 
 

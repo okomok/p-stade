@@ -40,7 +40,7 @@ namespace match_range_detail {
         typedef typename defaultable_eval_to< CharT, range_value<Range> >::type char_t;
         typedef typename defaultable_to< Traits, boost::regex_traits<char_t> >::type traits_t;
 
-        typedef typename
+        typedef
             iter_range<
                 boost::regex_iterator<
                     typename range_iterator<Range>::type,

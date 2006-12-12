@@ -48,6 +48,7 @@ struct concatenate_range :
 {
     PSTADE_CONCEPT_ASSERT((SinglePass<SegmentRange>));
     PSTADE_CONCEPT_ASSERT((SinglePass<typename range_value<SegmentRange>::type>));
+    typedef concatenate_range type;
 
 private:
     typedef typename concatenate_range_detail::super_<SegmentRange>::type super_t;
@@ -65,7 +66,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_concatenate_range, const concatenate_range, (by_qualified), ~)
+PSTADE_OBJECT_GENERATOR(make_concatenate_range, concatenate_range< deduce_by_qualified<from_1> > const)
 PSTADE_PIPABLE(concatenated, op_make_concatenate_range)
 
 

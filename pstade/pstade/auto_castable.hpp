@@ -76,7 +76,7 @@ namespace pstade {
     } // namespace auto_castable_detail
 
 
-    PSTADE_OBJECT_GENERATOR(auto_castable, auto_castable_detail::op_result, (by_value), ~)
+    PSTADE_OBJECT_GENERATOR(auto_castable, auto_castable_detail::op_result< deduce_by_value<from_1> >)
 
 
     #define PSTADE_AUTO_CASTABLE(Object, CastFunction) \

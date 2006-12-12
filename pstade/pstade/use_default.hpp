@@ -35,10 +35,10 @@ namespace pstade {
     { };
 
 
-    template< class Defaultable, class ToClass >
+    template< class Defaultable, class ToFun >
     struct defaultable_eval_to :
         boost::mpl::eval_if< boost::is_same<Defaultable, boost::use_default>,
-            ToClass,
+            ToFun,
             boost::mpl::identity<Defaultable>
         >
     { };

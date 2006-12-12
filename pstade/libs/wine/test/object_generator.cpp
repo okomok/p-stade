@@ -11,141 +11,131 @@
 
 
 #include <pstade/object_generator.hpp>
+#include <pstade/constant.hpp>
 
 
-#include <boost/mpl/placeholders.hpp>
-#include <boost/mpl/bool.hpp>
 #include <boost/tuple/tuple.hpp>
+#include <boost/type_traits/is_const.hpp>
+#include <boost/mpl/assert.hpp>
+#include <pstade/unparenthesize.hpp>
 
 
 using namespace pstade;
 
 
-#if 0 // LambdaExpression rejected.
-
-template< class A0 >
+template< class A0, class A1 = char >
 struct my_type
 {
-    explicit my_type(A0)
+    explicit my_type(A0, A1 = char())
     { }
 };
 
 
-typedef boost::mpl::placeholders::_1 object_1;
-typedef boost::mpl::placeholders::_2 object_2;
+typedef object_generator< my_type< deduce_by_value<from_1> > > op_make_my_type_v;
+PSTADE_CONSTANT(make_my_type_v, op_make_my_type_v)
+
+typedef object_generator< my_type< deduce_by_reference<from_1> > > op_make_my_type_r;
+PSTADE_CONSTANT(make_my_type_r, op_make_my_type_r)
+
+typedef object_generator< my_type< deduce_by_qualified<from_1> > > op_make_my_type_q;
+PSTADE_CONSTANT(make_my_type_q, op_make_my_type_q)
 
 
-typedef object_generator< my_type<object_1> > v_gen_t;
-typedef object_generator< my_type<object_1>, object_by_value > v_gen_t_;
-typedef object_generator< my_type<object_1>, object_by_qualifier > c_gen_t;
+typedef object_generator< my_type< deduce_by_value<from_1>, deduce_by_value<from_2, char> > > op_make_my_type_v_d;
+PSTADE_CONSTANT(make_my_type_v_d, op_make_my_type_v_d)
 
 
-template< class A0, class A1 >
+template< class A0 >
 struct your_type
 {
-    typedef your_type type; // will break down GCC3.4.
+    explicit your_type(A0, int, int, int)
+    { };
+};
 
-    explicit your_type(A0, A1)
+PSTADE_OBJECT_GENERATOR(make_your_type, your_type< deduce_by_value<from_1> >)
+
+
+
+template< class A0 >
+struct gcc_bug // Boost1.33 only; Boost1.34 fixed this!
+{
+    typedef gcc_bug type; // makes 'mpl::quote' need me DefaultConstructible.
+
+    explicit gcc_bug(A0, int)
+    { };
+};
+
+PSTADE_OBJECT_GENERATOR(make_gcc_bug, gcc_bug< deduce_by_value<from_1> >)
+
+
+template< class A0 >
+struct return_const
+{
+    explicit return_const(A0)
     { }
 };
 
+PSTADE_OBJECT_GENERATOR(make_return_const, const return_const< deduce_by_value<from_1> >)
 
-// GCC3.4 requires your_type to be DefaultConstructible
-// if you put nested 'type' in 'your_type', so we define...
-template< class A0, class A1 >
-struct make_your_type
+
+template< class A0, class A1, class A2 >
+struct number
 {
-    typedef your_type<A0, A1> type;
-};
-
-typedef object_generator< make_your_type<object_1, object_2> > yv_gen_t;
-typedef object_generator< make_your_type<object_1, object_2>, object_by_value, object_by_value > yv_gen_t_;
-typedef object_generator< make_your_type<object_1, object_2>, object_by_qualifier, object_by_value > ycv_gen_t;
-
-#endif
-
-
-// Workaround for above situation using macro.
-template< class A0, class A1 >
-struct our_type
-{
-    typedef our_type type;
-
-    explicit our_type(A0, A1)
+    template< class T0, class T1, class T2 >
+    explicit number(T0, T1, T2)
     { }
 };
 
-PSTADE_OBJECT_GENERATOR(make_our_type, our_type, (by_qualified)(by_value), ~)
+struct A {};
+struct B {};
+struct C {};
 
-
-// test case for 'his_type<unspecified>' is ill-formed.
-template< class A0, class A1 = typename A0::type >
-struct his_type
-{
-    explicit his_type(A0, A1 = A1())
-    { }
-};
-
-PSTADE_OBJECT_GENERATOR(make_his_type, his_type, (by_value), ~)
+PSTADE_OBJECT_GENERATOR( make_number312, PSTADE_UNPARENTHESIZE((number< deduce_by_value<from_3>, deduce_by_value<from_1>, deduce_by_value<from_2> >)) )
+PSTADE_OBJECT_GENERATOR( make_number111, PSTADE_UNPARENTHESIZE((number< deduce_by_value<from_1>, deduce_by_value<from_1>, deduce_by_value<from_1> >)) )
+PSTADE_OBJECT_GENERATOR( make_number213, PSTADE_UNPARENTHESIZE((number< deduce_by_value<from_2>, deduce_by_value<from_1>, deduce_by_value<from_3> >)) )
+// PSTADE_OBJECT_GENERATOR( make_number_,   PSTADE_UNPARENTHESIZE((number< deduce_by_value<from_>, deduce_by_value<from_>, deduce_by_value<from_> >)) ) // not supported by MPL.
 
 
 void test()
 {
-
-#if 0 // LambdaExpression rejected.
     {
-        my_type<int> o = ::v_gen_t()(3);
-        my_type<int> o_ = ::v_gen_t_()(3);
+        my_type<int> x = ::make_my_type_v(5);
     }
     {
-        int x = 3;
-        my_type<int> o = ::c_gen_t()(x);
+        my_type<int const&> x = ::make_my_type_r(5);
     }
     {
-        my_type<int const> o = ::c_gen_t()(3);
+        my_type<int const> x = ::make_my_type_q(5);
     }
     {
-        int const x = 3;
-        my_type<int const> o = ::c_gen_t()(x);
+        my_type<int> x = ::make_my_type_v_d(5);
     }
 
     {
-        your_type<int, int> o = ::yv_gen_t()(3, 4);
-        your_type<int, int> o_ = ::yv_gen_t_()(3, 4);
-    }
-    {
-        int x = 3;
-        your_type<int, int> o = ::ycv_gen_t()(x, 3);
-    }
-    {
-        your_type<int const, int> o = ::ycv_gen_t()(3, 3);
+        your_type<char> x = ::make_your_type('a', 1, 2, 3);
     }
 
     {
-        int const x = 3;
-        your_type<int const, int> o = ::ycv_gen_t()(x, 3);
-    }
-#endif
-
-    {
-        int const x = 3;
-        our_type<int const, int> o = ::make_our_type(x, 3);
-    }
-    {
-        his_type<boost::mpl::true_> o = ::make_his_type( boost::mpl::true_() );
+        gcc_bug<int> x = ::make_gcc_bug(0, 1);
     }
 
-#if 0 // error message check; not so bad :-), except for VC7.1 :-(
     {
-        ::make_our_type(3); // too few arguments
+        return_const<int> x = ::make_return_const(1);
+        BOOST_MPL_ASSERT(( boost::is_const<boost::result_of< ::op_make_return_const(int) >::type> ));
     }
-#endif
 
-#if 0 // error message check;
     {
-        ::make_our_type(1, 2, 3); // too many arguments
+        number<C, A, B> x = ::make_number312(A(), B(), C());
     }
-#endif
+    {
+        number<A, A, A> x = ::make_number111(A(), B(), C());
+    }
+    {
+        number<B, A, C> x = ::make_number213(A(), B(), C());
+    }
+    {
+        //number<A, B, C> x = ::make_number_(A(), B(), C());
+    }
 
 }
 
