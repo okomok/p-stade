@@ -33,11 +33,72 @@
 namespace pstade {
 
 
+    typedef boost::mpl::_  from_;
+    typedef boost::mpl::_1 from_1;
+    typedef boost::mpl::_2 from_2;
+    typedef boost::mpl::_3 from_3;
+    typedef boost::mpl::_4 from_4;
+    typedef boost::mpl::_5 from_5;
+
+
+    // predefined deducers
+
+
+    struct argument_not_passed;
+    struct object_generator_error_argument_required;
+
+
+    template<
+        class A, class F,
+        class Default = object_generator_error_argument_required
+    >
+    struct deduce_to :
+        boost::mpl::eval_if< boost::is_same<A, argument_not_passed>,
+            boost::mpl::identity<Default>,
+            F
+        >
+    { };
+
+
+    template<
+        class A,
+        class Default = object_generator_error_argument_required
+    >
+    struct deduce_to_value :
+        deduce_to<
+            A, pass_by_value<A>,
+            Default
+        >
+    { };
+
+    template<
+        class A,
+        class Default = object_generator_error_argument_required
+    >
+    struct deduce_to_reference :
+        deduce_to<
+            A, boost::add_reference<A>,
+            Default
+        >
+    { };
+
+    template<
+        class A,
+        class Default = object_generator_error_argument_required
+    >
+    struct deduce_to_qualified :
+        deduce_to<
+            A, boost::mpl::identity<A>,
+            Default
+        >
+    { };
+
+
+    // the object_generator
+
+
     namespace object_generator_detail {
 
-
-        struct argument_not_passed;
-        
 
         template<
             class Lambda,
@@ -61,54 +122,6 @@ namespace pstade {
     } // namespace object_generator_detail
 
 
-    typedef boost::mpl::_  from_;
-    typedef boost::mpl::_1 from_1;
-    typedef boost::mpl::_2 from_2;
-    typedef boost::mpl::_3 from_3;
-    typedef boost::mpl::_4 from_4;
-    typedef boost::mpl::_5 from_5;
-
-
-    struct object_generator_error_argument_required;
-
-
-    template<
-        class A, class F,
-        class Default = object_generator_error_argument_required
-    >
-    struct deduce_to :
-        boost::mpl::eval_if< boost::is_same<A, object_generator_detail::argument_not_passed>,
-            boost::mpl::identity<Default>,
-            F
-        >
-    { };
-
-
-    template< class A, class Default = object_generator_error_argument_required >
-    struct deduce_to_value :
-        deduce_to<
-            A, pass_by_value<A>,
-            Default
-        >
-    { };
-
-    template< class A, class Default = object_generator_error_argument_required >
-    struct deduce_to_reference :
-        deduce_to<
-            A, boost::add_reference<A>,
-            Default
-        >
-    { };
-
-    template< class A, class Default = object_generator_error_argument_required >
-    struct deduce_to_qualified :
-        deduce_to<
-            A, boost::mpl::identity<A>,
-            Default
-        >
-    { };
-
-
     // Boost.MPL seems to fail if 'X<unspecified> x;' is ill-formed
     // even if 'X<unspecified>' is well-formed. So 'NullaryResult' is required.
 
@@ -130,7 +143,9 @@ namespace pstade {
         template< class Result, BOOST_PP_ENUM_PARAMS(PSTADE_CALLABLE_MAX_ARITY, class A) >
         Result call( PSTADE_PP_ENUM_REF_PARAMS_WITH_OBJECTS(PSTADE_CALLABLE_MAX_ARITY, A, a) ) const
         {
-            return Result( BOOST_PP_ENUM_PARAMS(PSTADE_CALLABLE_MAX_ARITY, a) );
+            return Result(
+                BOOST_PP_ENUM_PARAMS(PSTADE_CALLABLE_MAX_ARITY, a)
+            );
         }
 
 

@@ -15,6 +15,7 @@
 #include <pstade/functional.hpp> // plus
 #include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/unparenthesize.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
@@ -58,6 +59,7 @@ struct scan_range :
 {
     PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
     // PSTADE_CONCEPT_ASSERT((Readable<Range>));
+    typedef scan_range type;
     typedef State state_type;
     typedef BinaryFun function_type;
 
@@ -82,7 +84,8 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_scan_range, const scan_range, (by_qualified)(by_value)(by_value), (argument_required)(argument_required)(op_plus))
+PSTADE_OBJECT_GENERATOR(make_scan_range,
+    PSTADE_UNPARENTHESIZE((scan_range< deduce_to_qualified<from_1>, deduce_to_value<from_2>, deduce_to_value<from_3, op_plus> >)) const)
 PSTADE_PIPABLE(scanned, op_make_scan_range)
 
 

@@ -96,6 +96,37 @@ PSTADE_OBJECT_GENERATOR( make_number213, PSTADE_UNPARENTHESIZE((number< deduce_t
 // PSTADE_OBJECT_GENERATOR( make_number_,   PSTADE_UNPARENTHESIZE((number< deduce_to_value<from_>, deduce_to_value<from_>, deduce_to_value<from_> >)) ) // not supported by MPL.
 
 
+struct H
+{
+    typedef int hello;
+};
+
+template< class H >
+struct get_hello
+{
+    typedef typename H::hello type;
+};
+
+template< class A0, class A1 = typename A0::hello >
+struct needs_all_param
+{
+    explicit needs_all_param(A0, A1 = typename A0::hello())
+    { }
+};
+
+template< class A0, class A1 >
+struct deduce_to_hello :
+    boost::mpl::eval_if< boost::is_same<A1, argument_not_passed>,
+        get_hello<A0>,
+        boost::mpl::identity<A1>
+    >
+{ };
+
+
+typedef object_generator< needs_all_param< deduce_to_value<from_1>, deduce_to_hello<from_1, from_2> > > op_make_nap;
+PSTADE_CONSTANT(make_nap, op_make_nap)
+
+
 void test()
 {
     {
@@ -137,6 +168,12 @@ void test()
         //number<A, B, C> x = ::make_number_(A(), B(), C());
     }
 
+#if !defined(__GNUC__) // GCC3.4.4; internal compiler error: in lookup_member, at cp/search.c:1296
+    {
+        needs_all_param<H, int> x = ::make_nap(H());
+        needs_all_param<H> y = ::make_nap(H());
+    }
+#endif
 }
 
 
