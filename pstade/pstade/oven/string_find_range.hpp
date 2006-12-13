@@ -58,7 +58,8 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_string_find_range, const(string_find_range< deduce_to_qualified<from_1> >))
+PSTADE_OBJECT_GENERATOR(make_string_find_range,
+    const(string_find_range< deduce_to_qualified<from_1> >))
 PSTADE_PIPABLE(string_found, (op_make_string_find_range))
 
 

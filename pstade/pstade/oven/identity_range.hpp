@@ -65,7 +65,8 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_identity_range, const(identity_range< deduce_to_qualified<from_1>, deduce_to_value<from_2, boost::use_default> >))
+PSTADE_OBJECT_GENERATOR(make_identity_range,
+    const(identity_range< deduce_to_qualified<from_1>, deduce_to_value<from_2, boost::use_default> >))
 PSTADE_PIPABLE(identities, (op_make_identity_range))
 
 

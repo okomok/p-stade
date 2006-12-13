@@ -14,6 +14,7 @@
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_traits.hpp> // iterator_value
 #include <boost/optional.hpp>
+#include <pstade/object_generator.hpp>
 #include "./detail/pure_traversal.hpp"
 
 
@@ -103,12 +104,8 @@ friend class boost::iterator_core_access;
 };
 
 
-template< class Iterator > inline
-const_lvalue_iterator<Iterator> const
-make_const_lvalue_iterator(Iterator const& it)
-{
-    return const_lvalue_iterator<Iterator>(it);
-}
+PSTADE_OBJECT_GENERATOR(make_const_lvalue_iterator,
+    const(const_lvalue_iterator< deduce_to_value<from_1> >))
 
 
 } } // namespace pstade::oven

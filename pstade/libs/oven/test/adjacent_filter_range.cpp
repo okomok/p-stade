@@ -71,6 +71,10 @@ void test()
             expected
         ) );
     }
+    {
+        int ans[] = { 1 };
+        oven::make_adjacent_filter_iterator(boost::begin(ans), is_not_divisor(), boost::begin(ans), boost::end(ans));
+    }
 }
 
 

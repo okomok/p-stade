@@ -80,7 +80,8 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_filter_range, const(filter_range< deduce_to_qualified<from_1>, deduce_to_value<from_2> >))
+PSTADE_OBJECT_GENERATOR(make_filter_range,
+    const(filter_range< deduce_to_qualified<from_1>, deduce_to_value<from_2> >))
 PSTADE_PIPABLE(filtered, (op_make_filter_range))
 
 

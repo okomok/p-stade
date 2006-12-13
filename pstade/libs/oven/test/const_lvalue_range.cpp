@@ -186,6 +186,10 @@ void test()
         BOOST_CHECK( (it1 == it2) == (&*it1 == &*it2) );
     }
 #endif
+    {
+        std::string str;
+        oven::make_const_lvalue_iterator(boost::begin(str));
+    }
 }
 
 

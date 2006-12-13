@@ -12,6 +12,7 @@
 
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
+#include <pstade/object_generator.hpp>
 #include <pstade/reference.hpp>
 
 
@@ -44,6 +45,8 @@ template< class Iterator, class Predicate >
 struct take_while_iterator :
     take_while_iterator_detail::super_<Iterator, Predicate>::type
 {
+    typedef take_while_iterator type;
+
 private:
     typedef typename take_while_iterator_detail::super_<Iterator, Predicate>::type super_t;
     typedef typename super_t::reference ref_t;
@@ -123,12 +126,8 @@ friend class boost::iterator_core_access;
 };
 
 
-template< class Iterator, class Predicate > inline
-take_while_iterator<Iterator, Predicate> const
-make_take_while_iterator(Iterator const& it, Iterator const& last, Predicate pred)
-{
-    return take_while_iterator<Iterator, Predicate>(it, last, pred);
-}
+PSTADE_OBJECT_GENERATOR(make_take_while_iterator,
+    const(take_while_iterator< deduce_to_value<from_1>, deduce_to_value<from_3> >))
 
 
 } } // namespace pstade::oven

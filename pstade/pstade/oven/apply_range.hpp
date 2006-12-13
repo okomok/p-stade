@@ -16,9 +16,7 @@
 
 
 #include <boost/range/end.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
-#include <pstade/pass_by.hpp>
+#include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
@@ -34,6 +32,7 @@ struct apply_range :
     private as_lightweight_proxy< apply_range<Range> >
 {
     PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+    typedef apply_range type;
 
 private:
     typedef typename sub_range_base<Range>::type super_t;
@@ -54,30 +53,8 @@ public:
 };
 
 
-struct op_make_apply_range :
-    callable<op_make_apply_range>
-{
-    template< class Myself, class Range, class BeginOrRangeFun, class EndFun = void >
-    struct apply
-    {
-        typedef apply_range<Range> const type;
-    };
-
-    template< class Result, class Range, class BeginFun, class EndFun >
-    Result call(Range& rng, BeginFun& bfun, EndFun& efun) const
-    {
-        return Result(rng, bfun, efun);
-    }
-
-    template< class Result, class Range, class RangeFun >
-    Result call(Range& rng, RangeFun& fun) const
-    {
-        return Result(rng, fun);
-    }
-};
-
-
-PSTADE_CONSTANT(make_apply_range, (op_make_apply_range))
+PSTADE_OBJECT_GENERATOR(make_apply_range,
+    const(apply_range< deduce_to_qualified<from_1> >))
 PSTADE_PIPABLE(applied, (op_make_apply_range))
 
 

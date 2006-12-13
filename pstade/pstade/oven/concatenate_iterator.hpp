@@ -32,6 +32,7 @@
 #include <boost/range/empty.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/contract.hpp>
+#include <pstade/object_generator.hpp>
 #include "./detail/debug_contains.hpp"
 #include "./range_difference.hpp"
 #include "./range_iterator.hpp"
@@ -249,12 +250,8 @@ friend class boost::iterator_core_access;
 };
 
 
-template< class SegmentIter > inline
-concatenate_iterator<SegmentIter> const
-make_concatenate_iterator(SegmentIter const& it, SegmentIter const& last)
-{
-    return concatenate_iterator<SegmentIter>(it, last);
-}
+PSTADE_OBJECT_GENERATOR(make_concatenate_iterator,
+    const(concatenate_iterator< deduce_to_value<from_1> >))
 
 
 } } // namespace pstade::oven

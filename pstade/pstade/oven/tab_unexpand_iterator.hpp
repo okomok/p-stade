@@ -13,6 +13,7 @@
 #include <algorithm> // advance, distance
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
+#include <pstade/object_generator.hpp>
 #include "./tab_expand_iterator.hpp"
 
 
@@ -43,6 +44,8 @@ template< class ForwardIter >
 struct tab_unexpand_iterator :
     tab_unexpand_iterator_detail::super_<ForwardIter>::type
 {
+    typedef tab_unexpand_iterator type;
+
 private:
     typedef typename tab_unexpand_iterator_detail::super_<ForwardIter>::type super_t;
     typedef typename super_t::base_type base_t;
@@ -168,12 +171,8 @@ friend class boost::iterator_core_access;
 };
 
 
-template< class ForwardIter > inline
-tab_unexpand_iterator<ForwardIter> const
-make_tab_unexpand_iterator(ForwardIter const& it, ForwardIter const& last, int tabsize)
-{
-    return tab_unexpand_iterator<ForwardIter>(it, last, tabsize);
-}
+PSTADE_OBJECT_GENERATOR(make_tab_unexpand_iterator,
+    const(tab_unexpand_iterator< deduce_to_value<from_1> >))
 
 
 } } // namespace pstade::oven

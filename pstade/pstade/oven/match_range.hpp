@@ -88,7 +88,8 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_match_range, const(match_range< deduce_to_qualified<from_1> >))
+PSTADE_OBJECT_GENERATOR(make_match_range,
+    const(match_range< deduce_to_qualified<from_1> >))
 PSTADE_PIPABLE(matches, (op_make_match_range))
 
 

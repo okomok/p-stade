@@ -20,6 +20,7 @@
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/throw_exception.hpp>
+#include <pstade/object_generator.hpp>
 
 
 namespace pstade { namespace oven {
@@ -86,6 +87,8 @@ template< class Iterator >
 struct check_iterator :
     check_iterator_detail::super_<Iterator>::type
 {
+    typedef check_iterator type;
+
 private:
     typedef typename check_iterator_detail::super_<Iterator>::type super_t;
     typedef typename super_t::reference ref_t;
@@ -214,12 +217,8 @@ friend class boost::iterator_core_access;
 };
 
 
-template< class Iterator > inline
-check_iterator<Iterator> const
-make_check_iterator(Iterator const& it, Iterator const& first, Iterator const& last)
-{
-    return check_iterator<Iterator>(it, first, last);
-}
+PSTADE_OBJECT_GENERATOR(make_check_iterator,
+    const(check_iterator< deduce_to_value<from_1> >))
 
 
 } } // namespace pstade::oven

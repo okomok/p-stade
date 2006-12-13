@@ -28,6 +28,7 @@
 #include <boost/optional.hpp>
 #include <pstade/clone_ptr.hpp>
 #include <pstade/new.hpp>
+#include <pstade/object_generator.hpp>
 
 
 namespace pstade { namespace oven {
@@ -60,6 +61,8 @@ template< class Iterator >
 struct regularize_iterator :
     regularize_iterator_detail::super_<Iterator>::type
 {
+    typedef regularize_iterator type;
+
 private:
     typedef typename regularize_iterator_detail::super_<Iterator>::type super_t;
     typedef typename super_t::reference ref_t;
@@ -133,12 +136,8 @@ friend class boost::iterator_core_access;
 };
 
 
-template< class Iterator > inline
-regularize_iterator<Iterator> const
-make_regularize_iterator(Iterator const& it)
-{
-    return regularize_iterator<Iterator>(it);
-}
+PSTADE_OBJECT_GENERATOR(make_regularize_iterator,
+    const(regularize_iterator< deduce_to_value<from_1> >))
 
 
 } } // namespace pstade::oven

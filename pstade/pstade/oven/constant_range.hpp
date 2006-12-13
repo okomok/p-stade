@@ -69,7 +69,8 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_constant_range, const(constant_range< deduce_to_qualified<from_1> >))
+PSTADE_OBJECT_GENERATOR(make_constant_range,
+    const(constant_range< deduce_to_qualified<from_1> >))
 PSTADE_PIPABLE(constants, (op_make_constant_range))
 
 

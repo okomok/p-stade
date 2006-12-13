@@ -76,8 +76,7 @@ template< class Range > inline
 share_iterator<Range> const
 make_share_iterator(
     typename range_iterator<Range>::type const& it,
-    boost::shared_ptr<Range> const& prng
-)
+    boost::shared_ptr<Range> const& prng)
 {
     return share_iterator<Range>(it, prng);
 }

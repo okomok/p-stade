@@ -19,6 +19,7 @@
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/optional.hpp>
 #include <pstade/adl_barrier.hpp>
+#include <pstade/object_generator.hpp>
 #include "./detail/next_prior.hpp" // prior
 
 
@@ -49,6 +50,8 @@ template< class BidiIter >
 struct reverse_iterator :
     reverse_iterator_detail::super_<BidiIter>::type
 {
+    typedef reverse_iterator type;
+
 private:
     typedef typename reverse_iterator_detail::super_<BidiIter>::type super_t;
     typedef typename super_t::reference ref_t;
@@ -110,14 +113,8 @@ friend class boost::iterator_core_access;
 
 PSTADE_ADL_BARRIER(reverse_iterator) { // for Boost
 
-
-    template< class BidiIter > inline
-    reverse_iterator<BidiIter> const
-    make_reverse_iterator(BidiIter const& it)
-    {
-        return reverse_iterator<BidiIter>(it);
-    }
-
+PSTADE_OBJECT_GENERATOR(make_reverse_iterator,
+    const(reverse_iterator< deduce_to_value<from_1> >))
 
 } // ADL barrier
 

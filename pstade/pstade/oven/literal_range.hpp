@@ -63,7 +63,8 @@ struct deduce_to_array_element_non_const :
 { };
 
 
-PSTADE_OBJECT_GENERATOR(make_literal_range, const(literal_range< deduce_to_array_element_non_const<from_1> >))
+PSTADE_OBJECT_GENERATOR(make_literal_range,
+    const(literal_range< deduce_to_array_element_non_const<from_1> >))
 PSTADE_PIPABLE(as_literal, (op_make_literal_range))
 
 

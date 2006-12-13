@@ -19,6 +19,7 @@
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_categories.hpp>
+#include <pstade/object_generator.hpp>
 
 
 #if !defined(PSTADE_OVEN_DEBUG)
@@ -59,6 +60,8 @@ template< class ForwardIter >
 struct tab_expand_iterator :
     tab_expand_iterator_detail::super_<ForwardIter>::type
 {
+    typedef tab_expand_iterator type;
+
 private:
     typedef typename tab_expand_iterator_detail::super_<ForwardIter>::type super_t;
     typedef typename super_t::difference_type diff_t;
@@ -182,12 +185,8 @@ friend class boost::iterator_core_access;
 };
 
 
-template< class ForwardIter > inline
-tab_expand_iterator<ForwardIter> const
-make_tab_expand_iterator(ForwardIter const& it, int tabsize)
-{
-    return tab_expand_iterator<ForwardIter>(it, tabsize);
-}
+PSTADE_OBJECT_GENERATOR(make_tab_expand_iterator,
+    const(tab_expand_iterator< deduce_to_value<from_1> >))
 
 
 } } // namespace pstade::oven

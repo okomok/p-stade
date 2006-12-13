@@ -24,6 +24,7 @@
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include <pstade/functional.hpp> // less
+#include <pstade/object_generator.hpp>
 #include <pstade/unused.hpp>
 #include "./detail/constant_reference.hpp"
 #include "./detail/debug_is_sorted.hpp"
@@ -160,6 +161,8 @@ template<
 struct merge_iterator :
     merge_iterator_detail::super_<Iterator1, Iterator2, Compare, MergeRoutine>::type
 {
+    typedef merge_iterator type;
+
 private:
     typedef typename merge_iterator_detail::super_<Iterator1, Iterator2, Compare, MergeRoutine>::type super_t;
     typedef typename super_t::reference ref_t;
@@ -248,27 +251,8 @@ friend class boost::iterator_core_access;
 };
 
 
-template< class Compare, class Iterator1, class Iterator2 > inline
-merge_iterator<Iterator1, Iterator2, Compare> const
-make_merge_iterator(
-    Iterator1 const& it1, Iterator1 const& last1,
-    Iterator2 const& it2, Iterator2 const& last2,
-    Compare comp = Compare())
-{
-    return merge_iterator<Iterator1, Iterator2, Compare>(
-        it1, last1, it2, last2, comp);
-}
-
-
-template< class Iterator1, class Iterator2 > inline
-merge_iterator<Iterator1, Iterator2> const
-make_merge_iterator(
-    Iterator1 const& it1, Iterator1 const& last1,
-    Iterator2 const& it2, Iterator2 const& last2)
-{
-    return merge_iterator<Iterator1, Iterator2>(
-        it1, last1, it2, last2);
-}
+PSTADE_OBJECT_GENERATOR(make_merge_iterator,
+    const(merge_iterator< deduce_to_value<from_1>, deduce_to_value<from_2>, deduce_to_value<from_3> >))
 
 
 } } // namespace pstade::oven

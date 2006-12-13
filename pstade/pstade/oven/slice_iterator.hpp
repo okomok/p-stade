@@ -24,6 +24,7 @@
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/optional.hpp>
+#include <pstade/object_generator.hpp>
 
 
 namespace pstade { namespace oven {
@@ -53,6 +54,8 @@ template< class RandIter >
 struct slice_iterator :
     slice_iterator_detail::super_<RandIter>::type
 {
+    typedef slice_iterator type;
+
 private:
     typedef typename slice_iterator_detail::super_<RandIter>::type super_t;
     typedef typename super_t::difference_type diff_t;
@@ -148,12 +151,7 @@ friend class boost::iterator_core_access;
 };
 
 
-template< class RandIter, class Difference > inline
-slice_iterator<RandIter> const
-make_slice_iterator(RandIter const& it, Difference start, Difference stride)
-{
-    return slice_iterator<RandIter>(it, start, stride);
-}
+PSTADE_OBJECT_GENERATOR(make_slice_iterator, const(slice_iterator< deduce_to_value<from_1> >))
 
 
 } } // namespace pstade::oven

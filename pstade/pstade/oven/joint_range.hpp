@@ -65,7 +65,8 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_joint_range, const(joint_range< deduce_to_qualified<from_1>, deduce_to_qualified<from_2> >))
+PSTADE_OBJECT_GENERATOR(make_joint_range,
+    const(joint_range< deduce_to_qualified<from_1>, deduce_to_qualified<from_2> >))
 PSTADE_PIPABLE(jointed, (op_make_joint_range))
 
 

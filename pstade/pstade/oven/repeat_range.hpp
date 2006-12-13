@@ -65,7 +65,8 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_repeat_range, const(repeat_range< deduce_to_qualified<from_1>, deduce_to_value<from_2> >))
+PSTADE_OBJECT_GENERATOR(make_repeat_range,
+    const(repeat_range< deduce_to_qualified<from_1>, deduce_to_value<from_2> >))
 PSTADE_PIPABLE(repeated, (op_make_repeat_range))
 
 

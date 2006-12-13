@@ -20,6 +20,7 @@
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/optional.hpp>
+#include <pstade/object_generator.hpp>
 
 
 namespace pstade { namespace oven {
@@ -52,6 +53,8 @@ template< class ElementIter, class IndexIter >
 struct permute_iterator :
     permute_iterator_detail::super_<ElementIter, IndexIter>::type
 {
+    typedef permute_iterator type;
+
 private:
     typedef typename permute_iterator_detail::super_<ElementIter, IndexIter>::type super_t;
     typedef typename super_t::reference ref_t;
@@ -108,12 +111,8 @@ friend class boost::iterator_core_access;
 };
 
 
-template< class ElementIter, class IndexIter >
-permute_iterator<ElementIter, IndexIter> const
-make_permute_iterator(ElementIter const& e, IndexIter const& i)
-{
-    return permute_iterator<ElementIter, IndexIter>(e, i);
-}
+PSTADE_OBJECT_GENERATOR(make_permute_iterator,
+    const(permute_iterator< deduce_to_value<from_1>, deduce_to_value<from_2> >))
 
 
 } } // namespace pstade::oven

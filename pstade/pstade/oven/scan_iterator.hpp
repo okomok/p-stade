@@ -14,6 +14,7 @@
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/optional.hpp>
+#include <pstade/object_generator.hpp>
 #include <pstade/reference.hpp>
 #include "./detail/pure_traversal.hpp"
 
@@ -57,6 +58,8 @@ template< class Iterator, class State, class BinaryFun >
 struct scan_iterator :
     scan_iterator_detail::super_<Iterator, State, BinaryFun>::type
 {
+    typedef scan_iterator type;
+
 private:
     typedef typename scan_iterator_detail::super_<Iterator, State, BinaryFun>::type super_t;
     typedef typename super_t::reference ref_t;
@@ -116,12 +119,8 @@ friend class boost::iterator_core_access;
 };
 
 
-template< class Iterator, class State, class BinaryFun > inline
-scan_iterator<Iterator, State, BinaryFun> const
-make_scan_iterator(Iterator const& it, State const& init, BinaryFun fun)
-{
-    return scan_iterator<Iterator, State, BinaryFun>(it, init, fun);
-}
+PSTADE_OBJECT_GENERATOR(make_scan_iterator,
+    const(scan_iterator< deduce_to_value<from_1>, deduce_to_value<from_2>, deduce_to_value<from_3> >))
 
 
 } } // namespace pstade::oven

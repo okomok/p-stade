@@ -25,6 +25,7 @@
 #include <boost/iterator/detail/minimum_category.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_categories.hpp>
+#include <pstade/object_generator.hpp>
 #include <pstade/reference.hpp>
 #include "./detail/constant_reference.hpp"
 #include "./detail/pure_traversal.hpp"
@@ -86,6 +87,8 @@ template< class ForwardIter, class BinaryPred >
 struct adjacent_filter_iterator :
     adjacent_filter_iterator_detail::super_<ForwardIter, BinaryPred>::type
 {
+    typedef adjacent_filter_iterator type;
+
 private:
     typedef typename adjacent_filter_iterator_detail::super_<ForwardIter, BinaryPred>::type super_t;
     typedef typename super_t::reference ref_t;
@@ -175,14 +178,8 @@ friend class boost::iterator_core_access;
 };
 
 
-template< class ForwardIter, class BinaryPred > inline
-adjacent_filter_iterator<ForwardIter, BinaryPred> const
-make_adjacent_filter_iterator(
-    ForwardIter const& it, BinaryPred pred,
-    ForwardIter const& first, ForwardIter const& last)
-{
-    return adjacent_filter_iterator<ForwardIter, BinaryPred>(it, pred, first, last);
-}
+PSTADE_OBJECT_GENERATOR(make_adjacent_filter_iterator,
+    const(adjacent_filter_iterator< deduce_to_value<from_1>, deduce_to_value<from_2> >))
 
 
 } } // namespace pstade::oven

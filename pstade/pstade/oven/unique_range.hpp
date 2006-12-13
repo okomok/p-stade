@@ -58,7 +58,8 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_unique_range, const(unique_range< deduce_to_qualified<from_1> >))
+PSTADE_OBJECT_GENERATOR(make_unique_range,
+    const(unique_range< deduce_to_qualified<from_1> >))
 PSTADE_PIPABLE(uniqued, (op_make_unique_range))
 
 
