@@ -17,37 +17,47 @@
 // 'BOOST_PARAMETER_PARENTHESIZED_TYPE' with Boost v1.34
 
 
-// Note:
+// What:
 //
-// 'PSTADE_UNPARENTHESIZE((T const))' is not supported.
-// Instead, use 'PSTADE_UNPARENTHESIZE((T)) const'.
-// If 'T' is a dependent-name, add 'typename'.
+// Makes decayed-T with cv-qualifier from
+// PSTADE_UNPARENTHESIZE(cv-qualifier(T)), where cv-qualifier is optional.
+
+
+#include <pstade/affect.hpp>
 
 
 namespace pstade {
 
 
-template< class Decayed >
-struct unparenthesize;
+    namespace unparenthesize_detail {
 
-template< class Decayed >
-struct unparenthesize<void(Decayed)>
-{
-    typedef Decayed type;
-};
+        // suppress warning about meaningless cv-qualifier.
+        struct non_built_in;
 
-template< >
-struct unparenthesize<void(void)>
-{
-    typedef void type;
-};
+    }
+
+
+    template< class Signature >
+    struct unparenthesize;
+
+
+    template< class Q, class T >
+    struct unparenthesize<Q(T)> :
+        affect_cv<Q, T>
+    { };
+
+    template< class Q >
+    struct unparenthesize<Q(void)>
+    {
+        typedef void type;
+    };
 
 
 } // namespace pstade
 
 
-#define PSTADE_UNPARENTHESIZE(Decayed) \
-    pstade::unparenthesize<void Decayed>::type \
+#define PSTADE_UNPARENTHESIZE(QT) \
+    pstade::unparenthesize< pstade::unparenthesize_detail::non_built_in QT >::type \
 /**/
 
 

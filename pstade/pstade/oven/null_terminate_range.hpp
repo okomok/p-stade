@@ -88,8 +88,8 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_null_terminate_range, null_terminate_range< deduce_to_qualified<from_1> > const)
-PSTADE_PIPABLE(null_terminated, op_make_null_terminate_range)
+PSTADE_OBJECT_GENERATOR(make_null_terminate_range, const(null_terminate_range< deduce_to_qualified<from_1> >))
+PSTADE_PIPABLE(null_terminated, (op_make_null_terminate_range))
 
 
 } } // namespace pstade::oven

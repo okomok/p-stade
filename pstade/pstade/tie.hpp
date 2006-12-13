@@ -53,8 +53,8 @@ namespace pstade {
 
 
     typedef object_generator< tie_detail::expr, boost::tuples::tuple<> > op_tie;
-    PSTADE_CONSTANT(tie, op_tie)
-    PSTADE_PIPABLE(tied, op_tie)
+    PSTADE_CONSTANT(tie, (op_tie))
+    PSTADE_PIPABLE(tied, (op_tie))
 
 
 } // namespace pstade

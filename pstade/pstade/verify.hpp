@@ -43,8 +43,8 @@ namespace pstade {
     };
 
 
-PSTADE_CONSTANT(verify, op_verify)
-PSTADE_PIPABLE(verified, op_verify)
+PSTADE_CONSTANT(verify, (op_verify))
+PSTADE_PIPABLE(verified, (op_verify))
 
 
 } // namespace pstade

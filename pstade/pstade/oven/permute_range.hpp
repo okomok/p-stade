@@ -14,7 +14,6 @@
 #include <boost/range/end.hpp>
 #include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/unparenthesize.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
@@ -69,9 +68,8 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_permute_range, 
-    PSTADE_UNPARENTHESIZE((permute_range< deduce_to_qualified<from_1>, deduce_to_qualified<from_2> >)) const)
-PSTADE_PIPABLE(permuted, op_make_permute_range)
+PSTADE_OBJECT_GENERATOR(make_permute_range, const(permute_range< deduce_to_qualified<from_1>, deduce_to_qualified<from_2> >))
+PSTADE_PIPABLE(permuted, (op_make_permute_range))
 
 
 } } // namespace pstade::oven

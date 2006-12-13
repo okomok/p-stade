@@ -49,7 +49,7 @@ namespace pstade {
     };
 
 
-    PSTADE_CONSTANT(unused, op_unused)
+    PSTADE_CONSTANT(unused, (op_unused))
 
 
 } // namespace pstade

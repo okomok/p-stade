@@ -22,7 +22,6 @@
 #include <pstade/functional.hpp> // less
 #include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/unparenthesize.hpp>
 #include "./algorithm.hpp" // sort
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
@@ -92,9 +91,8 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_sort_range,
-    PSTADE_UNPARENTHESIZE((sort_range< deduce_to_qualified<from_1>, deduce_to_value<from_2, op_less> >)) const)
-PSTADE_PIPABLE(sorted, op_make_sort_range)
+PSTADE_OBJECT_GENERATOR(make_sort_range, const(sort_range< deduce_to_qualified<from_1>, deduce_to_value<from_2, op_less> >))
+PSTADE_PIPABLE(sorted, (op_make_sort_range))
 
 
 } } // namespace pstade::oven

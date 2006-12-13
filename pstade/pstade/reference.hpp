@@ -64,11 +64,11 @@ namespace pstade {
     };
 
 
-    PSTADE_CONSTANT(reference, op_reference)
-    PSTADE_PIPABLE(to_reference, op_reference)
+    PSTADE_CONSTANT(reference, (op_reference))
+    PSTADE_PIPABLE(to_reference, (op_reference))
 
-    PSTADE_CONSTANT(const_reference, op_const_reference)
-    PSTADE_PIPABLE(to_const_reference, op_const_reference)
+    PSTADE_CONSTANT(const_reference, (op_const_reference))
+    PSTADE_PIPABLE(to_const_reference, (op_const_reference))
 
 
 } // namespace pstade

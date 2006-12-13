@@ -58,7 +58,7 @@ PSTADE_ADL_BARRIER(functional) {
         }
     };
 
-    PSTADE_CONSTANT(identity, op_identity)
+    PSTADE_CONSTANT(identity, (op_identity))
 
 
     // not_
@@ -101,7 +101,7 @@ PSTADE_ADL_BARRIER(functional) {
 
     } // namespace not_detail
 
-    PSTADE_OBJECT_GENERATOR(not_, not_detail::op_result< deduce_to_value<from_1> >)
+    PSTADE_OBJECT_GENERATOR(not_, (not_detail::op_result< deduce_to_value<from_1> >))
 
 
     // always
@@ -148,7 +148,7 @@ PSTADE_ADL_BARRIER(functional) {
         }
     };
 
-    PSTADE_CONSTANT(always, op_always)
+    PSTADE_CONSTANT(always, (op_always))
 
 
     // equal_to
@@ -165,7 +165,7 @@ PSTADE_ADL_BARRIER(functional) {
         }
     };
 
-    PSTADE_CONSTANT(equal_to, op_equal_to)
+    PSTADE_CONSTANT(equal_to, (op_equal_to))
 
 
     // less
@@ -182,7 +182,7 @@ PSTADE_ADL_BARRIER(functional) {
         }
     };
 
-    PSTADE_CONSTANT(less, op_less)
+    PSTADE_CONSTANT(less, (op_less))
 
 
     // is_zero
@@ -199,7 +199,7 @@ PSTADE_ADL_BARRIER(functional) {
         }
     };
 
-    PSTADE_CONSTANT(is_zero, op_is_zero)
+    PSTADE_CONSTANT(is_zero, (op_is_zero))
 
 
     // plus
@@ -255,7 +255,7 @@ PSTADE_ADL_BARRIER(functional) {
         }
     };
 
-    PSTADE_CONSTANT(plus, op_plus)
+    PSTADE_CONSTANT(plus, (op_plus))
 
 
     // at_first
@@ -280,7 +280,7 @@ PSTADE_ADL_BARRIER(functional) {
         }
     };
 
-    PSTADE_CONSTANT(at_first, op_at_first)
+    PSTADE_CONSTANT(at_first, (op_at_first))
 
 
     // at_second
@@ -305,7 +305,7 @@ PSTADE_ADL_BARRIER(functional) {
         }
     };
 
-    PSTADE_CONSTANT(at_second, op_at_second)
+    PSTADE_CONSTANT(at_second, (op_at_second))
 
 
     // flip
@@ -341,7 +341,7 @@ PSTADE_ADL_BARRIER(functional) {
 
     } // namespace flip_detail
 
-    PSTADE_OBJECT_GENERATOR(flip, flip_detail::op_result< deduce_to_value<from_1> >)
+    PSTADE_OBJECT_GENERATOR(flip, (flip_detail::op_result< deduce_to_value<from_1> >))
 
 
 } // ADL barrier

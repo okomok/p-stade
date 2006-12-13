@@ -17,7 +17,6 @@
 #include <pstade/functional.hpp> // not_
 #include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/unparenthesize.hpp>
 #include "./algorithm.hpp" // find_if
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
@@ -97,9 +96,8 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_take_while_range,
-    PSTADE_UNPARENTHESIZE((take_while_range< deduce_to_qualified<from_1>, deduce_to_value<from_2> >)) const)
-PSTADE_PIPABLE(taken_while, op_make_take_while_range)
+PSTADE_OBJECT_GENERATOR(make_take_while_range, const(take_while_range< deduce_to_qualified<from_1>, deduce_to_value<from_2> >))
+PSTADE_PIPABLE(taken_while, (op_make_take_while_range))
 
 
 } } // namespace pstade::oven

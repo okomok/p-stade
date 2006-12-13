@@ -67,8 +67,8 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_reverse_range, reverse_range< deduce_to_qualified<from_1> > const)
-PSTADE_PIPABLE(reversed, op_make_reverse_range)
+PSTADE_OBJECT_GENERATOR(make_reverse_range, const(reverse_range< deduce_to_qualified<from_1> >))
+PSTADE_PIPABLE(reversed, (op_make_reverse_range))
 
 
 } } // namespace pstade::oven

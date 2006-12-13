@@ -187,7 +187,7 @@ struct op_make_iter_range :
     }
 };
 
-PSTADE_CONSTANT(make_iter_range, op_make_iter_range)
+PSTADE_CONSTANT(make_iter_range, (op_make_iter_range))
 
 
 template< class Iterator, class CharT, class Traits > inline

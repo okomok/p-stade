@@ -14,7 +14,6 @@
 #include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/static_c.hpp>
-#include <pstade/unparenthesize.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
@@ -90,9 +89,8 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_position_range,
-    PSTADE_UNPARENTHESIZE((position_range< deduce_to_qualified<from_1>, deduce_to_value<from_2, boost::spirit::file_position> >)) const)
-PSTADE_PIPABLE(with_position, op_make_position_range)
+PSTADE_OBJECT_GENERATOR(make_position_range, const(position_range< deduce_to_qualified<from_1>, deduce_to_value<from_2, boost::spirit::file_position> >))
+PSTADE_PIPABLE(with_position, (op_make_position_range))
 
 
 } } // namespace pstade::oven

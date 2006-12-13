@@ -197,8 +197,8 @@ namespace pstade {
         }
     };
 
-    PSTADE_CONSTANT(forward_, op_forward)
-    PSTADE_PIPABLE(forwarded, op_forward)
+    PSTADE_CONSTANT(forward_, (op_forward))
+    PSTADE_PIPABLE(forwarded, (op_forward))
 
 
 } // namespace pstade

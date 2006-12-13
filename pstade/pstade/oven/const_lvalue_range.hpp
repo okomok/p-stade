@@ -58,8 +58,8 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_const_lvalue_range, const_lvalue_range< deduce_to_qualified<from_1> > const)
-PSTADE_PIPABLE(const_lvalues, op_make_const_lvalue_range)
+PSTADE_OBJECT_GENERATOR(make_const_lvalue_range, const(const_lvalue_range< deduce_to_qualified<from_1> >))
+PSTADE_PIPABLE(const_lvalues, (op_make_const_lvalue_range))
 
 
 } } // namespace pstade::oven

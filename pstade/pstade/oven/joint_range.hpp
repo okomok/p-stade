@@ -14,7 +14,6 @@
 #include <boost/range/end.hpp>
 #include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/unparenthesize.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
@@ -66,9 +65,8 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_joint_range,
-    PSTADE_UNPARENTHESIZE((joint_range< deduce_to_qualified<from_1>, deduce_to_qualified<from_2> >)) const)
-PSTADE_PIPABLE(jointed, op_make_joint_range)
+PSTADE_OBJECT_GENERATOR(make_joint_range, const(joint_range< deduce_to_qualified<from_1>, deduce_to_qualified<from_2> >))
+PSTADE_PIPABLE(jointed, (op_make_joint_range))
 
 
 } } // namespace pstade::oven

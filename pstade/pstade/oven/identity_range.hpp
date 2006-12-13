@@ -12,7 +12,6 @@
 
 #include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/unparenthesize.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./identity_iterator.hpp"
@@ -66,9 +65,8 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_identity_range,
-    PSTADE_UNPARENTHESIZE((identity_range< deduce_to_qualified<from_1>, deduce_to_value<from_2, boost::use_default> >)) const)
-PSTADE_PIPABLE(identities, op_make_identity_range)
+PSTADE_OBJECT_GENERATOR(make_identity_range, const(identity_range< deduce_to_qualified<from_1>, deduce_to_value<from_2, boost::use_default> >))
+PSTADE_PIPABLE(identities, (op_make_identity_range))
 
 
 } } // namespace pstade::oven

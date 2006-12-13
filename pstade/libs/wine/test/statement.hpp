@@ -17,7 +17,7 @@
 #include <pstade/instance.hpp>
 
 
-PSTADE_INSTANCE(int, x, value)
+PSTADE_INSTANCE((int), x, value)
 
 
 #if defined(BOOST_MSVC)

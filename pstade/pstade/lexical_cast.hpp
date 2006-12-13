@@ -37,8 +37,8 @@ namespace pstade {
     };
 
 
-    PSTADE_CONSTANT(lexical_cast, op_lexical_cast)
-    PSTADE_PIPABLE(lexicalized, boost::result_of<op_auto_castable(op_lexical_cast)>::type)
+    PSTADE_CONSTANT(lexical_cast, (op_lexical_cast))
+    PSTADE_PIPABLE(lexicalized, (boost::result_of<op_auto_castable(op_lexical_cast)>::type))
 
 
 } // namespace pstade

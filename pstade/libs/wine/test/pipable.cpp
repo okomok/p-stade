@@ -24,7 +24,7 @@ struct my_fun_t
 };
 
 
-PSTADE_PIPABLE(my_fun, my_fun_t)
+PSTADE_PIPABLE(my_fun, (my_fun_t))
 
 
 struct your_fun_t
@@ -38,7 +38,7 @@ struct your_fun_t
 };
 
 
-PSTADE_PIPABLE(your_fun, your_fun_t)
+PSTADE_PIPABLE(your_fun, (your_fun_t))
 
 
 void test()

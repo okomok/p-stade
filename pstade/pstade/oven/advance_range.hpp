@@ -73,8 +73,8 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_advance_range, advance_range< deduce_to_qualified<from_1> > const)
-PSTADE_PIPABLE(advanced, op_make_advance_range)
+PSTADE_OBJECT_GENERATOR(make_advance_range, const(advance_range< deduce_to_qualified<from_1> >))
+PSTADE_PIPABLE(advanced, (op_make_advance_range))
 
 
 } } // namespace pstade::oven

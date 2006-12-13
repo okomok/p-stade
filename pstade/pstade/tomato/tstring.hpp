@@ -64,7 +64,7 @@ struct op_to_string :
 };
 
 
-PSTADE_PIPABLE(to_tstring, op_to_string)
+PSTADE_PIPABLE(to_tstring, (op_to_string))
 
 
 } } // namespace pstade::tomato

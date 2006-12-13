@@ -29,7 +29,7 @@ struct op_is_menu
 };
 
 
-PSTADE_CONSTANT(is_menu, op_is_menu)
+PSTADE_CONSTANT(is_menu, (op_is_menu))
 
 
 } } // namespace pstade::tomato

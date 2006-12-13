@@ -57,8 +57,8 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_direct_range, direct_range< deduce_to_qualified<from_1> > const)
-PSTADE_PIPABLE(directed, op_make_direct_range)
+PSTADE_OBJECT_GENERATOR(make_direct_range, const(direct_range< deduce_to_qualified<from_1> >))
+PSTADE_PIPABLE(directed, (op_make_direct_range))
 
 
 } } // namespace pstade::oven

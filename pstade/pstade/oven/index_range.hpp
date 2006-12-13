@@ -13,7 +13,6 @@
 
 #include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/unparenthesize.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./count_range.hpp"
 #include "./range_base.hpp"
@@ -67,8 +66,7 @@ public:
     { }
 };
 
-PSTADE_OBJECT_GENERATOR(make_index_range,
-    PSTADE_UNPARENTHESIZE((index_range< deduce_to_value<from_1>, deduce_to_value<from_3> >)) const)
+PSTADE_OBJECT_GENERATOR(make_index_range, const(index_range< deduce_to_value<from_1>, deduce_to_value<from_3> >))
 
 
 } } // namespace pstade::oven

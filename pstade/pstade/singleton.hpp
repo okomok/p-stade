@@ -17,6 +17,9 @@
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) 
 
 
+#include <pstade/unparenthesize.hpp>
+
+
 namespace pstade {
 
 
@@ -34,13 +37,17 @@ namespace pstade {
 } // namespace pstade
 
 
-// 'stdafx.h' sometimes needs 'static'.
 
 #define PSTADE_SINGLETON(O, T) \
-    namespace { \
-        static T& O = pstade::singleton< T >::instance; \
-    } \
+    PSTADE_SINGLETON_aux(O, PSTADE_UNPARENTHESIZE(T)) \
 /**/
+
+    // 'stdafx.h' sometimes needs 'static'.
+    #define PSTADE_SINGLETON_aux(O, T) \
+        namespace { \
+            static T& O = pstade::singleton< T >::instance; \
+        } \
+    /**/
 
 
 #endif

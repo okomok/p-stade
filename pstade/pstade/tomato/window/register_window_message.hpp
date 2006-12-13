@@ -19,7 +19,7 @@
 
 #define PSTADE_TOMATO_REGISTER_WINDOW_MESSAGE(Name, Msg) \
     PSTADE_INSTANCE( \
-        UINT const, \
+        const (UINT), \
         Name, \
         (pstade::tomato::register_window_message_detail::check( \
             ::RegisterWindowMessage(PSTADE_TOMATO_TSTRINGIZE(Msg)) \

@@ -67,14 +67,14 @@ struct op_end   :
 
 PSTADE_ADL_BARRIER(begin_end) { // for Boost v1.33 'boost::const_begin/end'
 
-PSTADE_CONSTANT(begin, op_begin)
-PSTADE_CONSTANT(end, op_end)
+PSTADE_CONSTANT(begin, (op_begin))
+PSTADE_CONSTANT(end, (op_end))
 
 } // ADL barrier
 
 
-PSTADE_PIPABLE(begins, op_begin)
-PSTADE_PIPABLE(ends, op_end)
+PSTADE_PIPABLE(begins, (op_begin))
+PSTADE_PIPABLE(ends, (op_end))
 
 
 } } // namespace pstade::oven

@@ -89,8 +89,8 @@ struct op_make_second_range :
 };
 
 
-PSTADE_CONSTANT(make_second_range, op_make_second_range)
-PSTADE_PIPABLE(seconds, op_make_second_range)
+PSTADE_CONSTANT(make_second_range, (op_make_second_range))
+PSTADE_PIPABLE(seconds, (op_make_second_range))
 
 
 } } // namespace pstade::oven

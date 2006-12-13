@@ -74,7 +74,7 @@ namespace locale_saver_detail {
         }
     };
 
-    PSTADE_CONSTANT(global, global_t)
+    PSTADE_CONSTANT(global, (global_t))
 
 
     template< class = void >

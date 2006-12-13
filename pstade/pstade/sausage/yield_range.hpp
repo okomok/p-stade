@@ -70,8 +70,8 @@ struct op_make_yield_range :
 };
 
 
-PSTADE_CONSTANT(make_yield_range, op_make_yield_range)
-PSTADE_PIPABLE(yielded, op_make_yield_range)
+PSTADE_CONSTANT(make_yield_range, (op_make_yield_range))
+PSTADE_PIPABLE(yielded, (op_make_yield_range))
 
 
 } } // namespace pstade::sausage

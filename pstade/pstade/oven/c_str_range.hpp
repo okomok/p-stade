@@ -70,8 +70,8 @@ struct deduce_to_char_ptr :
 { };
 
 
-PSTADE_OBJECT_GENERATOR(make_c_str_range, c_str_range< deduce_to_char_ptr<from_1> > const)
-PSTADE_PIPABLE(as_c_str, op_make_c_str_range)
+PSTADE_OBJECT_GENERATOR(make_c_str_range, const(c_str_range< deduce_to_char_ptr<from_1> >))
+PSTADE_PIPABLE(as_c_str, (op_make_c_str_range))
 
 
 } } // namespace pstade::oven

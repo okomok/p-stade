@@ -97,8 +97,8 @@ struct op_make_first_range :
 };
 
 
-PSTADE_CONSTANT(make_first_range, op_make_first_range)
-PSTADE_PIPABLE(firsts, op_make_first_range)
+PSTADE_CONSTANT(make_first_range, (op_make_first_range))
+PSTADE_PIPABLE(firsts, (op_make_first_range))
 
 
 } } // namespace pstade::oven

@@ -105,7 +105,7 @@ struct op_parallel_for_each :
 };
 
 
-PSTADE_CONSTANT(parallel_for_each, op_parallel_for_each)
+PSTADE_CONSTANT(parallel_for_each, (op_parallel_for_each))
 
 
 } } // namespace pstade::oven

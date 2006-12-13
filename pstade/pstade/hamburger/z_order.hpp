@@ -42,7 +42,7 @@ namespace pstade { namespace hamburger {
         }
     };
 
-    PSTADE_CONSTANT(z_order, op_z_order)
+    PSTADE_CONSTANT(z_order, (op_z_order))
 
 
     struct op_z_order_sort
@@ -56,7 +56,7 @@ namespace pstade { namespace hamburger {
         }
     };
 
-    PSTADE_CONSTANT(z_order_sort, op_z_order_sort)
+    PSTADE_CONSTANT(z_order_sort, (op_z_order_sort))
 
 
 } } // namespace pstade::hamburger

@@ -76,7 +76,7 @@ namespace pstade {
     } // namespace auto_castable_detail
 
 
-    PSTADE_OBJECT_GENERATOR(auto_castable, auto_castable_detail::op_result< deduce_to_value<from_1> >)
+    PSTADE_OBJECT_GENERATOR(auto_castable, (auto_castable_detail::op_result< deduce_to_value<from_1> >))
 
 
     #define PSTADE_AUTO_CASTABLE(Object, CastFunction) \
@@ -84,7 +84,7 @@ namespace pstade {
             boost::result_of<pstade::op_auto_castable(CastFunction)>::type \
         BOOST_PP_CAT(op_, Object); \
         \
-        PSTADE_CONSTANT(Object, BOOST_PP_CAT(op_, Object)) \
+        PSTADE_CONSTANT( Object, (BOOST_PP_CAT(op_, Object)) ) \
     /**/
 
 

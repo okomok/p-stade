@@ -134,8 +134,8 @@ struct op_make_zip_range :
 };
 
 
-PSTADE_CONSTANT(make_zip_range, op_make_zip_range)
-PSTADE_PIPABLE(zipped, op_make_zip_range)
+PSTADE_CONSTANT(make_zip_range, (op_make_zip_range))
+PSTADE_PIPABLE(zipped, (op_make_zip_range))
 
 
 } } // namespace pstade::oven

@@ -94,8 +94,8 @@ struct op_make_multi_pass_range :
 };
 
 
-PSTADE_CONSTANT(make_multi_pass_range, op_make_multi_pass_range)
-PSTADE_PIPABLE(multi_passed, op_make_multi_pass_range)
+PSTADE_CONSTANT(make_multi_pass_range, (op_make_multi_pass_range))
+PSTADE_PIPABLE(multi_passed, (op_make_multi_pass_range))
 
 
 } } // namespace pstade::oven

@@ -13,7 +13,6 @@
 #include <pstade/functional.hpp> // less
 #include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/unparenthesize.hpp>
 #include <pstade/unused.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
@@ -113,9 +112,8 @@ public:
     { }
 };
 
-PSTADE_OBJECT_GENERATOR(make_set_intersection_range,
-    PSTADE_UNPARENTHESIZE((set_intersection_range< deduce_to_qualified<from_1>, deduce_to_qualified<from_2>, deduce_to_value<from_3, op_less> >)) const)
-PSTADE_PIPABLE(set_cap, op_make_set_intersection_range)
+PSTADE_OBJECT_GENERATOR(make_set_intersection_range, const(set_intersection_range< deduce_to_qualified<from_1>, deduce_to_qualified<from_2>, deduce_to_value<from_3, op_less> >))
+PSTADE_PIPABLE(set_cap, (op_make_set_intersection_range))
 
 
 } } // namespace pstade::oven

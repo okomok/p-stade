@@ -20,7 +20,7 @@
 namespace pstade { namespace hamburger {
 
 
-    PSTADE_INSTANCE(napkin::lock_ostream, log, (napkin::dout))
+    PSTADE_INSTANCE((napkin::lock_ostream), log, (napkin::dout))
 
 
     template< class StringOutputable >
@@ -48,7 +48,7 @@ namespace pstade { namespace hamburger {
         };
 
 
-        PSTADE_CONSTANT(i, init)
+        PSTADE_CONSTANT(i, (init))
 
 
     } // namespace log_detail

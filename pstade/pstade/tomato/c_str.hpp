@@ -134,8 +134,8 @@ struct op_c_str :
 };
 
 
-PSTADE_CONSTANT(c_str, op_c_str)
-PSTADE_PIPABLE(to_c_str, op_c_str)
+PSTADE_CONSTANT(c_str, (op_c_str))
+PSTADE_PIPABLE(to_c_str, (op_c_str))
 
 
 } } // namespace pstade::tomato

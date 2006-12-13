@@ -23,7 +23,7 @@
 namespace pstade { namespace ios_init_detail {
 
 
-PSTADE_CONSTANT(init, std::ios_base::Init)
+PSTADE_CONSTANT(init, (std::ios_base::Init))
 
 
 } } // namespace pstade::ios_init_detail

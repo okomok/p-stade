@@ -36,7 +36,7 @@ namespace pstade { namespace biscuit {
 namespace debugger_detail {
 
 
-    PSTADE_INSTANCE(napkin::ostream, os, (std::cout))
+    PSTADE_INSTANCE((napkin::ostream), os, (std::cout))
 
     struct get_ostream
     {
@@ -47,7 +47,7 @@ namespace debugger_detail {
     
 #if !defined(PSTADE_NAPKIN_NO_WIDESTRING)
 
-    PSTADE_INSTANCE(napkin::wostream, wos, (std::wcout))
+    PSTADE_INSTANCE((napkin::wostream), wos, (std::wcout))
 
     struct get_wostream
     {
@@ -58,7 +58,7 @@ namespace debugger_detail {
 #endif
 
 
-    PSTADE_INSTANCE(int, class_trace_indent_count, value)
+    PSTADE_INSTANCE((int), class_trace_indent_count, value)
 
     struct indents
     {

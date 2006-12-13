@@ -89,7 +89,7 @@ struct op_distance :
 
 PSTADE_ADL_BARRIER(distance) { // for Boost and Std
 
-PSTADE_CONSTANT(distance, op_distance)
+PSTADE_CONSTANT(distance, (op_distance))
 
 } // ADL barrier
 

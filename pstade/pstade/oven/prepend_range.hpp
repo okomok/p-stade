@@ -13,7 +13,6 @@
 #include <pstade/base_from.hpp>
 #include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/unparenthesize.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./joint_range.hpp"
@@ -66,9 +65,8 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_prepend_range,
-    PSTADE_UNPARENTHESIZE((prepend_range< deduce_to_qualified<from_1>, deduce_to_qualified<from_2> >)) const)
-PSTADE_PIPABLE(prepended, op_make_prepend_range)
+PSTADE_OBJECT_GENERATOR(make_prepend_range, const(prepend_range< deduce_to_qualified<from_1>, deduce_to_qualified<from_2> >))
+PSTADE_PIPABLE(prepended, (op_make_prepend_range))
 
 
 } } // namespace pstade::oven

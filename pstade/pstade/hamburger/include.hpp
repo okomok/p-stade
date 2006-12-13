@@ -36,14 +36,14 @@
 namespace pstade { namespace hamburger {
 
 
-    PSTADE_INSTANCE(ustring const, Name_includedHref,   ("includedHref"))
-    PSTADE_INSTANCE(ustring const, Name_serializable,   ("serializable"))
+    PSTADE_INSTANCE(const(ustring), Name_includedHref,   ("includedHref"))
+    PSTADE_INSTANCE(const(ustring), Name_serializable,   ("serializable"))
 
 
     namespace include_detail {
 
 
-        PSTADE_INSTANCE(ustring const, Name_href, ("href"))
+        PSTADE_INSTANCE(const(ustring), Name_href, ("href"))
 
 
     } // namespace include_detail

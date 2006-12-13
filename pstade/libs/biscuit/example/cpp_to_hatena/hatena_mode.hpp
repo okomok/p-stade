@@ -18,7 +18,7 @@ namespace cpp_to_hatena {
 
 namespace hatena_mode_detail {
 
-    PSTADE_INSTANCE(bool, is_on, (true))
+    PSTADE_INSTANCE((bool), is_on, (true))
 
 }
 

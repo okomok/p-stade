@@ -43,8 +43,8 @@ namespace pstade {
         }
     };
 
-    PSTADE_CONSTANT(integral_cast_, op_integral_cast)
-    PSTADE_PIPABLE(to_integer, boost::result_of<op_auto_castable(op_integral_cast)>::type)
+    PSTADE_CONSTANT(integral_cast_, (op_integral_cast))
+    PSTADE_PIPABLE(to_integer, (boost::result_of<op_auto_castable(op_integral_cast)>::type))
 
 
 } // namespace pstade

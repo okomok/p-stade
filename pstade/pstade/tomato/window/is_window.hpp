@@ -31,7 +31,7 @@ struct op_is_window
 };
 
 
-PSTADE_CONSTANT(is_window, op_is_window)
+PSTADE_CONSTANT(is_window, (op_is_window))
 
 
 } } // namespace pstade::tomato

@@ -29,7 +29,7 @@ namespace pstade {
     };
 
 
-    PSTADE_CONSTANT(is_same, op_is_same)
+    PSTADE_CONSTANT(is_same, (op_is_same))
 
 
 } // namespace pstade

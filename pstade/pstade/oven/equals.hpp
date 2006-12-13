@@ -103,7 +103,7 @@ struct op_equals
 
 PSTADE_ADL_BARRIER(equals) { // for Boost
 
-PSTADE_CONSTANT(equals, op_equals)
+PSTADE_CONSTANT(equals, (op_equals))
 
 } // ADL barrier
 

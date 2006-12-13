@@ -48,7 +48,7 @@ namespace pstade {
             } \
         }; \
         \
-        PSTADE_CONSTANT( BOOST_PP_CAT(is_, CType), PSTADE_PP_CAT3(op_, is_, CType) ) \
+        PSTADE_CONSTANT( BOOST_PP_CAT(is_, CType), (PSTADE_PP_CAT3(op_, is_, CType)) ) \
     /**/
 
     BOOST_PP_SEQ_FOR_EACH(PSTADE_def_pred, ~, PSTADE_ctypes)
@@ -110,8 +110,8 @@ namespace pstade {
 
     PSTADE_ADL_BARRIER(locale) { // for Boost
 
-    PSTADE_CONSTANT(to_upper, op_to_upper)
-    PSTADE_CONSTANT(to_lower, op_to_lower)
+    PSTADE_CONSTANT(to_upper, (op_to_upper))
+    PSTADE_CONSTANT(to_lower, (op_to_lower))
 
     } // ADL barrier
 

@@ -125,8 +125,8 @@ namespace pstade {
     };
 
 
-    PSTADE_CONSTANT(require, op_require)
-    PSTADE_PIPABLE(required, op_require)
+    PSTADE_CONSTANT(require, (op_require))
+    PSTADE_PIPABLE(required, (op_require))
 
 
 } // namespace pstade

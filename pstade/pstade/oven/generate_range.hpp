@@ -12,7 +12,6 @@
 
 #include <boost/mpl/bool.hpp>
 #include <pstade/object_generator.hpp>
-#include <pstade/unparenthesize.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./generate_iterator.hpp"
 #include "./iter_range.hpp"
@@ -60,11 +59,10 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_generate_range, 
-    PSTADE_UNPARENTHESIZE((generate_range< deduce_to_value<from_1>, deduce_to_value<from_2, boost::single_pass_traversal_tag> >)) const)
+PSTADE_OBJECT_GENERATOR(make_generate_range, const(generate_range< deduce_to_value<from_1>, deduce_to_value<from_2, boost::single_pass_traversal_tag> >))
 
 // It is always SinglePass if Generator is reference.
-PSTADE_OBJECT_GENERATOR(generation, generate_range< deduce_to_reference<from_1> > const)
+PSTADE_OBJECT_GENERATOR(generation, const(generate_range< deduce_to_reference<from_1> >))
 
 
 } } // namespace pstade::oven

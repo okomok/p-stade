@@ -60,7 +60,7 @@ namespace pstade { namespace hamburger {
         };
 
 
-        PSTADE_INSTANCE(impl_t, impl, value);
+        PSTADE_INSTANCE((impl_t), impl, value);
 
 
         // Workaround:

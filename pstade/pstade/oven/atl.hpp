@@ -609,7 +609,7 @@ namespace pstade { namespace oven {
         }
     };
 
-    PSTADE_CONSTANT(make_CAdapt, op_make_CAdapt)
+    PSTADE_CONSTANT(make_CAdapt, (op_make_CAdapt))
 
 
 } } // namespae pstade::oven

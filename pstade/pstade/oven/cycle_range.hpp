@@ -13,7 +13,6 @@
 #include <cstddef> // size_t
 #include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/unparenthesize.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./cycle_iterator.hpp"
@@ -78,9 +77,8 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_cycle_range,
-    PSTADE_UNPARENTHESIZE((cycle_range< deduce_to_qualified<from_1>, deduce_to_value<from_2> >)) const)
-PSTADE_PIPABLE(cycled, op_make_cycle_range)
+PSTADE_OBJECT_GENERATOR(make_cycle_range, const(cycle_range< deduce_to_qualified<from_1>, deduce_to_value<from_2> >))
+PSTADE_PIPABLE(cycled, (op_make_cycle_range))
 
 
 } } // namespace pstade::oven

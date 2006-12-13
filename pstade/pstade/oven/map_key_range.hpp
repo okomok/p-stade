@@ -19,8 +19,8 @@ namespace pstade { namespace oven {
 
 
 typedef op_make_first_range op_make_map_key_range;
-PSTADE_CONSTANT(make_map_key_range, op_make_map_key_range)
-PSTADE_PIPABLE(map_keys, op_make_map_key_range)
+PSTADE_CONSTANT(make_map_key_range, (op_make_map_key_range))
+PSTADE_PIPABLE(map_keys, (op_make_map_key_range))
 
 
 } } // namespace pstade::oven

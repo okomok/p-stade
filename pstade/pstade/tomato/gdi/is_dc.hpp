@@ -33,7 +33,7 @@ struct op_is_dc
 };
 
 
-PSTADE_CONSTANT(is_dc, op_is_dc)
+PSTADE_CONSTANT(is_dc, (op_is_dc))
 
 
 } } // namespace pstade::tomato

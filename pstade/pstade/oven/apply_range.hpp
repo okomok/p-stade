@@ -77,8 +77,8 @@ struct op_make_apply_range :
 };
 
 
-PSTADE_CONSTANT(make_apply_range, op_make_apply_range)
-PSTADE_PIPABLE(applied, op_make_apply_range)
+PSTADE_CONSTANT(make_apply_range, (op_make_apply_range))
+PSTADE_PIPABLE(applied, (op_make_apply_range))
 
 
 } } // namespace pstade::oven
@@ -93,7 +93,7 @@ PSTADE_PIPABLE(applied, op_make_apply_range)
 
     namespace pstade { namespace oven {
 
-    PSTADE_CONSTANT(rng1, boost::phoenix::actor< boost::phoenix::argument<0> >)
+    PSTADE_CONSTANT(rng1, (boost::phoenix::actor< boost::phoenix::argument<0> >))
 
     } } // namespace pstade::oven
 

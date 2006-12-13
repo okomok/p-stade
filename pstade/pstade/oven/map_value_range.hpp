@@ -19,8 +19,8 @@ namespace pstade { namespace oven {
 
 
 typedef op_make_second_range op_make_map_value_range;
-PSTADE_CONSTANT(make_map_value_range, op_make_map_value_range)
-PSTADE_PIPABLE(map_values, op_make_map_value_range)
+PSTADE_CONSTANT(make_map_value_range, (op_make_map_value_range))
+PSTADE_PIPABLE(map_values, (op_make_map_value_range))
 
 
 } } // namespace pstade::oven

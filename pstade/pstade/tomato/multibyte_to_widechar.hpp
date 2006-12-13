@@ -58,8 +58,8 @@ struct op_multibyte_to :
     }
 };
 
-PSTADE_CONSTANT(multibyte_to_, op_multibyte_to)
-PSTADE_PIPABLE(to_widechar, boost::result_of<op_auto_castable(op_multibyte_to)>::type)
+PSTADE_CONSTANT(multibyte_to_, (op_multibyte_to))
+PSTADE_PIPABLE(to_widechar, (boost::result_of<op_auto_castable(op_multibyte_to)>::type))
 
 
 } } // namespace pstade::tomato

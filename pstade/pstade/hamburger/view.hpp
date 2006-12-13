@@ -75,7 +75,7 @@ namespace pstade { namespace hamburger {
 
 
         // 'boost::thread_group' seems unrecommanded.
-        PSTADE_INSTANCE(boost::thread_group, threads, value)
+        PSTADE_INSTANCE((boost::thread_group), threads, value)
 
 
     } // namespace view_detail

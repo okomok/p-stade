@@ -27,6 +27,7 @@ test-suite wine :
     [ wine-test compose ]
     [ wine-test concept_off ]
     [ wine-test concept_on ]
+    [ wine-test constant ]
     [ wine-test contract ]
     [ wine-test for_debug ]
     [ wine-test forward ]

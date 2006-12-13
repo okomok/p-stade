@@ -28,6 +28,7 @@
 #include <pstade/pass_by.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/remove_cvr.hpp>
+#include <pstade/unparenthesize.hpp>
 
 
 namespace pstade {
@@ -203,8 +204,8 @@ namespace pstade {
 
 
     #define PSTADE_OBJECT_GENERATOR(G, Lambda) \
-        typedef pstade::object_generator< Lambda > BOOST_PP_CAT(op_, G); \
-        PSTADE_CONSTANT(G, BOOST_PP_CAT(op_, G)) \
+        typedef pstade::object_generator< PSTADE_UNPARENTHESIZE(Lambda) > BOOST_PP_CAT(op_, G); \
+        PSTADE_CONSTANT( G, (BOOST_PP_CAT(op_, G)) ) \
     /**/
 
 

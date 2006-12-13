@@ -101,8 +101,8 @@ struct op_adaptor_to :
     }
 };
 
-PSTADE_CONSTANT(adaptor_to_, op_adaptor_to)
-PSTADE_PIPABLE(to_base, boost::result_of<op_auto_castable(op_adaptor_to)>::type)
+PSTADE_CONSTANT(adaptor_to_, (op_adaptor_to))
+PSTADE_PIPABLE(to_base, (boost::result_of<op_auto_castable(op_adaptor_to)>::type))
 
 
 } } // namespace pstade::oven

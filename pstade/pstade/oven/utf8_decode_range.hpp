@@ -14,7 +14,6 @@
 #include <boost/regex/pending/unicode_iterator.hpp> // u8_to_u32_iterator
 #include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/unparenthesize.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
@@ -68,9 +67,8 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_utf8_decode_range,
-    PSTADE_UNPARENTHESIZE((utf8_decode_range< deduce_to_qualified<from_1>, deduce_to_value<from_2, boost::uint32_t> >)) const)
-PSTADE_PIPABLE(utf8_decoded, op_make_utf8_decode_range)
+PSTADE_OBJECT_GENERATOR(make_utf8_decode_range, const(utf8_decode_range< deduce_to_qualified<from_1>, deduce_to_value<from_2, boost::uint32_t> >))
+PSTADE_PIPABLE(utf8_decoded, (op_make_utf8_decode_range))
 
 
 } } // namespace pstade::oven

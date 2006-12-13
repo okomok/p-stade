@@ -36,22 +36,22 @@ struct bbb : private boost::noncopyable
 };
 
 
-PSTADE_INSTANCE(int, x, value)
-PSTADE_INSTANCE(const int, cx, value)
-PSTADE_INSTANCE(aaa, a, ('a')(10)(3.5))
-PSTADE_INSTANCE(bbb, b, ("hello"))
+PSTADE_INSTANCE((int), x, value)
+PSTADE_INSTANCE(const (int), cx, value)
+PSTADE_INSTANCE((aaa), a, ('a')(10)(3.5))
+PSTADE_INSTANCE((bbb), b, ("hello"))
 
 
-PSTADE_INSTANCE(int, x1, (12))
-PSTADE_INSTANCE(int const, cx1, (12))
+PSTADE_INSTANCE((int), x1, (12))
+PSTADE_INSTANCE(const (int), cx1, (12))
 
 
-PSTADE_INSTANCE(const char *, sz, ("hello"))
-PSTADE_INSTANCE(std::string, str, (sz))
-PSTADE_INSTANCE(const std::string, cstr, (str))
-PSTADE_INSTANCE(std::string const, cstr2, value)
-PSTADE_INSTANCE(PSTADE_UNPARENTHESIZE((std::map<int, int>)), map1_, value)
-PSTADE_INSTANCE(PSTADE_UNPARENTHESIZE((std::map<int, int>)) const, map2_, value)
+PSTADE_INSTANCE(const (char *), sz, ("hello"))
+PSTADE_INSTANCE((std::string), str, (sz))
+PSTADE_INSTANCE(const (std::string), cstr, (str))
+PSTADE_INSTANCE(const (std::string), cstr2, value)
+PSTADE_INSTANCE(( PSTADE_UNPARENTHESIZE((std::map<int, int>)) ), map1_, value)
+PSTADE_INSTANCE(const (PSTADE_UNPARENTHESIZE((std::map<int, int>))), map2_, value)
 
 
 template< class T >
@@ -108,7 +108,7 @@ namespace detail {
 
 }
 
-PSTADE_INSTANCE(detail::device_type, device, value)
+PSTADE_INSTANCE((detail::device_type), device, value)
 
 
 void test_singleton()

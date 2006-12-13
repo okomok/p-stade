@@ -16,6 +16,24 @@
 #include <map>
 #include <utility>
 #include <boost/foreach.hpp>
+#include <boost/mpl/assert.hpp>
+#include <boost/type_traits/is_same.hpp>
+
+
+typedef const std::pair<int, double> a_pair_t;
+
+BOOST_MPL_ASSERT(( boost::is_same< PSTADE_UNPARENTHESIZE((std::pair<int, double>)) const,
+                 a_pair_t>));
+
+BOOST_MPL_ASSERT(( boost::is_same< PSTADE_UNPARENTHESIZE(const (std::pair<int, double>)),
+                 a_pair_t>));
+
+
+
+#define MY_CUTE_MACRO(T, _) PSTADE_UNPARENTHESIZE(T)
+
+BOOST_MPL_ASSERT(( boost::is_same< MY_CUTE_MACRO(const (std::pair<int, double>), ~),
+                 a_pair_t>));
 
 
 // Workaround:

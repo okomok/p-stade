@@ -41,7 +41,7 @@ namespace pstade { namespace hamburger { namespace detail {
 
     PSTADE_IF_DEBUG (
 
-        PSTADE_INSTANCE(napkin::ostream, mos, (napkin::nout))
+        PSTADE_INSTANCE((napkin::ostream), mos, (napkin::nout))
 
         inline
         void show_info(element& elem, point mouse)

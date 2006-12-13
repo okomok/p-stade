@@ -65,8 +65,8 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_tab_expand_range, tab_expand_range< deduce_to_qualified<from_1> > const)
-PSTADE_PIPABLE(tab_expanded, op_make_tab_expand_range)
+PSTADE_OBJECT_GENERATOR(make_tab_expand_range, const(tab_expand_range< deduce_to_qualified<from_1> >))
+PSTADE_PIPABLE(tab_expanded, (op_make_tab_expand_range))
 
 
 } } // namespace pstade::oven

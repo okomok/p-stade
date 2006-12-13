@@ -55,8 +55,8 @@ struct op_copy_range :
     }
 };
 
-PSTADE_CONSTANT(copy_range_, op_copy_range)
-PSTADE_PIPABLE(copied, boost::result_of<op_auto_castable(op_copy_range)>::type)
+PSTADE_CONSTANT(copy_range_, (op_copy_range))
+PSTADE_PIPABLE(copied, (boost::result_of<op_auto_castable(op_copy_range)>::type))
 
 
 // copied_out
@@ -81,8 +81,8 @@ struct op_copied_out :
 
 
 // Which is better name?
-PSTADE_PIPABLE(copied_out, op_copied_out)
-PSTADE_PIPABLE(copied_to,  op_copied_out)
+PSTADE_PIPABLE(copied_out, (op_copied_out))
+PSTADE_PIPABLE(copied_to, ( op_copied_out))
 
 
 } } // namespace pstade::oven

@@ -21,7 +21,7 @@ namespace pstade { namespace hamburger {
     point;
 
 
-    PSTADE_INSTANCE(point const, origin, (0)(0))
+    PSTADE_INSTANCE(const(point), origin, (0)(0))
 
 
 } } // namespace pstade::hamburger

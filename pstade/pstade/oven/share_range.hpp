@@ -111,7 +111,7 @@ namespace share_range_detail {
 } // namespace share_range_detail
 
 
-PSTADE_CONSTANT(shared, share_range_detail::pipe)
+PSTADE_CONSTANT(shared, (share_range_detail::pipe))
 
 
 } } // namespace pstade::oven

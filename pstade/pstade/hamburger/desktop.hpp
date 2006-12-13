@@ -24,7 +24,7 @@
 namespace pstade { namespace hamburger {
 
 
-    PSTADE_INSTANCE(ustring const, desktop_name, ("desktop"))
+    PSTADE_INSTANCE(const(ustring), desktop_name, ("desktop"))
 
 
     // Question:

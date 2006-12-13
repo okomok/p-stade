@@ -92,8 +92,8 @@ struct op_boolean_cast :
     }
 };
 
-PSTADE_CONSTANT(boolean_cast_, op_boolean_cast)
-PSTADE_PIPABLE(booleanized, boost::result_of<op_auto_castable(op_boolean_cast)>::type)
+PSTADE_CONSTANT(boolean_cast_, (op_boolean_cast))
+PSTADE_PIPABLE(booleanized, (boost::result_of<op_auto_castable(op_boolean_cast)>::type))
 
 
 } } // namespace pstade::tomato

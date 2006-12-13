@@ -62,7 +62,7 @@ namespace pstade {
     namespace check_detail {
 
 
-        PSTADE_INSTANCE(napkin::ostream, os, value)
+        PSTADE_INSTANCE((napkin::ostream), os, value)
 
 
         inline
@@ -108,8 +108,8 @@ namespace pstade {
         }
     };
 
-    PSTADE_CONSTANT(check, op_check)
-    PSTADE_PIPABLE(checked, op_check)
+    PSTADE_CONSTANT(check, (op_check))
+    PSTADE_PIPABLE(checked, (op_check))
 
 
     template< class StringOutputable > inline

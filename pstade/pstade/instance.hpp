@@ -24,32 +24,26 @@
 
 // Usage:
 //
-// PSTADE_INSTANCE(int, i, value) // value-initialize
-// PSTADE_INSTANCE(string, s, ("hello"))
+// PSTADE_INSTANCE((int), i, value) // value-initialize
+// PSTADE_INSTANCE((string), s, ("hello"))
 
 
 // Reason why 'ValueOrArgSeq' is checked:
 //
-// Assume you typo 'PSTADE_INSTANCE(bool, b, true)'
-// instead of 'PSTADE_INSTANCE(bool, b, (true))'.
+// Assume you typo 'PSTADE_INSTANCE((bool), b, true)'
+// instead of 'PSTADE_INSTANCE((bool), b, (true))'.
 // 'b' is value-initialized, thus 'b' becomes 'false'.
 
 
 // Note:
 //
 // You can prefer
-//     PSTADE_CONSTANT(O1, T)
-//     PSTADE_CONSTANT(O2, T)
+//     PSTADE_CONSTANT(O1, (T))
+//     PSTADE_CONSTANT(O2, (T))
 // to
-//     PSTADE_INSTANCE(T const, O1, value)
-//     PSTADE_INSTANCE(T const, O2, value)
+//     PSTADE_INSTANCE(const(T), O1, value)
+//     PSTADE_INSTANCE(const(T), O2, value)
 // , because the const object can be shared.
-
-
-// Note:
-//
-// For keeping const-ness, we cannot apply 'PSTADE_UNPARENTHESIZE'
-// inside of this macro implementation.
 
 
 #include <boost/config.hpp> // BOOST_MSVC
@@ -61,6 +55,7 @@
 #include <boost/preprocessor/seq/enum.hpp>
 #include <boost/preprocessor/tuple/eat.hpp>
 #include <boost/utility/value_init.hpp> // value_initialized
+#include <pstade/unparenthesize.hpp>
 
 
 #define PSTADE_INSTANCE(Type, Object, ValueOrArgSeq) \
@@ -68,7 +63,7 @@
     BOOST_PP_IIF( BOOST_MPL_PP_IS_SEQ(ValueOrArgSeq), \
         PSTADE_INSTANCE_args, \
         PSTADE_INSTANCE_no_args \
-    )(Type, Object, ValueOrArgSeq) \
+    )(PSTADE_UNPARENTHESIZE(Type), Object, ValueOrArgSeq) \
 /**/
 
 

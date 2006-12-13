@@ -41,7 +41,7 @@ namespace pstade {
         }
     };
 
-    PSTADE_CONSTANT(value, op_value)
+    PSTADE_CONSTANT(value, (op_value))
 
 
     namespace value_detail {
@@ -59,7 +59,7 @@ namespace pstade {
         
     } // namespace value_detail
 
-    PSTADE_CONSTANT(to_value, value_detail::pipe)
+    PSTADE_CONSTANT(to_value, (value_detail::pipe))
 
 
 } // namespace pstade

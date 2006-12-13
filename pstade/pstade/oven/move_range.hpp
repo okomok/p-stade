@@ -85,8 +85,8 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_move_range, move_range< deduce_to_qualified<from_1> > const)
-PSTADE_PIPABLE(moved, op_make_move_range)
+PSTADE_OBJECT_GENERATOR(make_move_range, const(move_range< deduce_to_qualified<from_1> >))
+PSTADE_PIPABLE(moved, (op_make_move_range))
 
 
 } } // namespace pstade::oven

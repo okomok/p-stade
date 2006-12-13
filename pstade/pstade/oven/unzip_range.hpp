@@ -238,7 +238,7 @@ struct op_unzipped :
 };
 
 
-PSTADE_PIPABLE(unzipped, op_unzipped)
+PSTADE_PIPABLE(unzipped, (op_unzipped))
 
 
 } } // namespace pstade::oven

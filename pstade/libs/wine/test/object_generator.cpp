@@ -32,17 +32,17 @@ struct my_type
 
 
 typedef object_generator< my_type< deduce_to_value<from_1> > > op_make_my_type_v;
-PSTADE_CONSTANT(make_my_type_v, op_make_my_type_v)
+PSTADE_CONSTANT(make_my_type_v, (op_make_my_type_v))
 
 typedef object_generator< my_type< deduce_to_reference<from_1> > > op_make_my_type_r;
-PSTADE_CONSTANT(make_my_type_r, op_make_my_type_r)
+PSTADE_CONSTANT(make_my_type_r, (op_make_my_type_r))
 
 typedef object_generator< my_type< deduce_to_qualified<from_1> > > op_make_my_type_q;
-PSTADE_CONSTANT(make_my_type_q, op_make_my_type_q)
+PSTADE_CONSTANT(make_my_type_q, (op_make_my_type_q))
 
 
 typedef object_generator< my_type< deduce_to_value<from_1>, deduce_to_value<from_2, char> > > op_make_my_type_v_d;
-PSTADE_CONSTANT(make_my_type_v_d, op_make_my_type_v_d)
+PSTADE_CONSTANT(make_my_type_v_d, (op_make_my_type_v_d))
 
 
 template< class A0 >
@@ -124,7 +124,7 @@ struct deduce_to_hello :
 
 
 typedef object_generator< needs_all_param< deduce_to_value<from_1>, deduce_to_hello<from_1, from_2> > > op_make_nap;
-PSTADE_CONSTANT(make_nap, op_make_nap)
+PSTADE_CONSTANT(make_nap, (op_make_nap))
 
 
 void test()

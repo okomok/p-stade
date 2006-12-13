@@ -68,8 +68,8 @@ struct op_size_initialize :
 };
 
 
-PSTADE_CONSTANT(size_initialize, op_size_initialize)
-PSTADE_PIPABLE(size_initialized, op_size_initialize)
+PSTADE_CONSTANT(size_initialize, (op_size_initialize))
+PSTADE_PIPABLE(size_initialized, (op_size_initialize))
 
 
 } } // namespace pstade::tomato

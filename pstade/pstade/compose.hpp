@@ -86,8 +86,8 @@ namespace pstade {
     };
 
 
-    PSTADE_CONSTANT(compose, op_compose)
-    PSTADE_PIPABLE(composed, op_compose)
+    PSTADE_CONSTANT(compose, (op_compose))
+    PSTADE_PIPABLE(composed, (op_compose))
 
 
 } // namespace pstade
