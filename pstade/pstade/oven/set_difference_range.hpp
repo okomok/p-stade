@@ -13,6 +13,7 @@
 #include <pstade/functional.hpp> // less
 #include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/unparenthesize.hpp>
 #include <pstade/unused.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
@@ -100,6 +101,7 @@ struct set_difference_range :
     // PSTADE_CONCEPT_ASSERT((Readable<Range1>));
     PSTADE_CONCEPT_ASSERT((SinglePass<Range2>));
     // PSTADE_CONCEPT_ASSERT((Readable<Range2>));
+    typedef set_difference_range type;
 
 private:
     typedef typename set_difference_range_detail::super_<Range1, Range2, Compare>::type super_t;
@@ -110,8 +112,8 @@ public:
     { }
 };
 
-
-PSTADE_OBJECT_GENERATOR(make_set_difference_range, const set_difference_range, (by_qualified)(by_qualified)(by_value), (argument_required)(argument_required)(op_less))
+PSTADE_OBJECT_GENERATOR(make_set_difference_range,
+    PSTADE_UNPARENTHESIZE((set_difference_range< deduce_to_qualified<from_1>, deduce_to_qualified<from_2>, deduce_to_value<from_3, op_less> >)) const)
 PSTADE_PIPABLE(set_minus, op_make_set_difference_range)
 
 

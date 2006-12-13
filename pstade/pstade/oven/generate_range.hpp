@@ -11,6 +11,8 @@
 
 
 #include <boost/mpl/bool.hpp>
+#include <pstade/object_generator.hpp>
+#include <pstade/unparenthesize.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./generate_iterator.hpp"
 #include "./iter_range.hpp"
@@ -41,6 +43,7 @@ struct generate_range :
     generate_range_detail::super_<Generator, Traversal>::type,
     private as_lightweight_proxy< generate_range<Generator, Traversal> >
 {
+    typedef generate_range type;
     typedef Generator generator_type;
 
 private:
@@ -48,7 +51,7 @@ private:
     typedef typename super_t::iterator iter_t;
 
 public:
-    explicit generate_range(Generator gen) :
+    explicit generate_range(Generator gen, unused_argument = unused_argument()) :
         super_t(
             iter_t(gen, boost::mpl::true_()),
             iter_t(gen, boost::mpl::false_())
@@ -57,28 +60,11 @@ public:
 };
 
 
-template< class Generator > inline
-generate_range<Generator> const
-make_generate_range(Generator gen)
-{
-    return generate_range<Generator>(gen);
-}
+PSTADE_OBJECT_GENERATOR(make_generate_range, 
+    PSTADE_UNPARENTHESIZE((generate_range< deduce_to_value<from_1>, deduce_to_value<from_2, boost::single_pass_traversal_tag> >)) const)
 
-template< class Generator, class Traversal > inline
-generate_range<Generator, Traversal> const
-make_generate_range(Generator gen, Traversal)
-{
-    return generate_range<Generator, Traversal>(gen);
-}
-
-// 'make_generate_range<Gen&>(gen);' seems cumbersome?
-// Note that it is always SinglePass if Generator is reference.
-template< class Generator > inline
-generate_range<Generator&> const
-generation(Generator& gen)
-{
-    return generate_range<Generator&>(gen);
-}
+// It is always SinglePass if Generator is reference.
+PSTADE_OBJECT_GENERATOR(generation, generate_range< deduce_to_reference<from_1> > const)
 
 
 } } // namespace pstade::oven

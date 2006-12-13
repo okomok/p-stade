@@ -10,6 +10,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+
+#include <pstade/object_generator.hpp>
+#include <pstade/pipable.hpp>
+#include <pstade/unparenthesize.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./count_range.hpp"
 #include "./range_base.hpp"
@@ -51,6 +55,8 @@ struct index_range :
     index_range_detail::super_<Incrementable, UnaryFun, Reference, Value>::type,
     private as_lightweight_proxy< index_range<Incrementable, UnaryFun, Reference, Value> >
 {
+    typedef index_range type;
+
 private:
     typedef typename index_range_detail::super_<Incrementable, UnaryFun, Reference, Value>::type super_t;
     typedef typename range_base<super_t>::type base_t;
@@ -61,13 +67,8 @@ public:
     { }
 };
 
-
-template< class Incrementable, class UnaryFun > inline
-index_range<Incrementable, UnaryFun> const
-make_index_range(Incrementable const& i, Incrementable const& j, UnaryFun fun)
-{
-    return index_range<Incrementable, UnaryFun>(i, j, fun);
-}
+PSTADE_OBJECT_GENERATOR(make_index_range,
+    PSTADE_UNPARENTHESIZE((index_range< deduce_to_value<from_1>, deduce_to_value<from_3> >)) const)
 
 
 } } // namespace pstade::oven

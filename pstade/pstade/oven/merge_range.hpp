@@ -15,6 +15,7 @@
 #include <pstade/functional.hpp> // less
 #include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/unparenthesize.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
@@ -61,6 +62,7 @@ struct merge_range :
     // PSTADE_CONCEPT_ASSERT((Readable<Range1>));
     PSTADE_CONCEPT_ASSERT((SinglePass<Range2>));
     // PSTADE_CONCEPT_ASSERT((Readable<Range2>));
+    typedef merge_range type;
     typedef Compare compare_type;
 
 private:
@@ -79,7 +81,8 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_merge_range, const merge_range, (by_qualified)(by_qualified)(by_value), (argument_required)(argument_required)(op_less))
+PSTADE_OBJECT_GENERATOR(make_merge_range,
+    PSTADE_UNPARENTHESIZE((merge_range< deduce_to_qualified<from_1>, deduce_to_qualified<from_2>, deduce_to_value<from_3, op_less> >)) const)
 PSTADE_PIPABLE(merged, op_make_merge_range)
 
 

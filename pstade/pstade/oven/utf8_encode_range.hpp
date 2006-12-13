@@ -14,6 +14,7 @@
 #include <boost/regex/pending/unicode_iterator.hpp> // u32_to_u8_iterator
 #include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/unparenthesize.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
@@ -53,16 +54,13 @@ struct utf8_encode_range :
 {
     PSTADE_CONCEPT_ASSERT((Bidirectional<Range>));
     // PSTADE_CONCEPT_ASSERT((Readable<Range>));
+    typedef utf8_encode_range type;
 
 private:
     typedef typename utf8_encode_range_detail::super_<Range, U8T>::type super_t;
 
 public:
-    explicit utf8_encode_range(Range& rng) :
-        super_t(rng)
-    { }
-
-    explicit utf8_encode_range(Range& rng, U8T) : // for OBJECT_GENERATOR
+    explicit utf8_encode_range(Range& rng, unused_argument = unused_argument()) :
         super_t(rng)
     { }
 
@@ -70,7 +68,8 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_utf8_encode_range, const utf8_encode_range, (by_qualified)(by_value), (argument_required)(boost::uint8_t))
+PSTADE_OBJECT_GENERATOR(make_utf8_encode_range,
+    PSTADE_UNPARENTHESIZE((utf8_encode_range< deduce_to_qualified<from_1>, deduce_to_value<from_2, boost::uint8_t> >)) const)
 PSTADE_PIPABLE(utf8_encoded, op_make_utf8_encode_range)
 
 

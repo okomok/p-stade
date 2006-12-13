@@ -27,7 +27,7 @@ struct array_protect_range :
     iter_range<T *>::type,
     private as_lightweight_proxy< array_protect_range<T> >
 {
-    typedef typename array_protect_range type;
+    typedef array_protect_range type;
 
 private:
     typedef typename iter_range<T *>::type super_t;

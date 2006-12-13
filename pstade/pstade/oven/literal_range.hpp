@@ -27,6 +27,7 @@
 #include <boost/type_traits/remove_extent.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
+#include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./iter_range.hpp"
@@ -40,6 +41,8 @@ struct literal_range :
     iter_range<Char const *>::type,
     private as_lightweight_proxy< literal_range<Char> >
 {
+    typedef literal_range type;
+
 private:
     typedef typename iter_range<Char const *>::type super_t;
 
@@ -54,28 +57,13 @@ public:
 };
 
 
-struct op_make_literal_range :
-    callable<op_make_literal_range>
-{
-    template< class Myself, class Array >
-    struct apply
-    {
-        typedef literal_range<
-            typename boost::remove_const<
-                typename boost::remove_extent<Array>::type
-            >::type
-        > const type;
-    };
-
-    template< class Result, class Array >
-    Result call(Array& arr) const
-    {
-        return Result(arr);
-    }
-};
+template< class Array >
+struct deduce_to_array_element_non_const :
+    deduce_to< Array, boost::remove_const<typename boost::remove_extent<Array>::type> >
+{ };
 
 
-PSTADE_CONSTANT(make_literal_range, op_make_literal_range)
+PSTADE_OBJECT_GENERATOR(make_literal_range, literal_range< deduce_to_array_element_non_const<from_1> > const)
 PSTADE_PIPABLE(as_literal, op_make_literal_range)
 
 

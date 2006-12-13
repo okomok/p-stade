@@ -96,6 +96,8 @@ struct take_range :
     take_range_detail::super_<Range>::type,
     private as_lightweight_proxy< take_range<Range> >
 {
+    typedef take_range type;
+
 private:
     typedef typename take_range_detail::super_<Range>::type super_t;
     typedef typename range_traversal<Range>::type trv_t;
@@ -110,7 +112,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_take_range, const take_range, (by_qualified), ~)
+PSTADE_OBJECT_GENERATOR(make_take_range, take_range< deduce_to_qualified<from_1> > const)
 PSTADE_PIPABLE(taken, op_make_take_range)
 
 

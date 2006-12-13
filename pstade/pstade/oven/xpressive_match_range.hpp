@@ -50,6 +50,7 @@ struct xpressive_match_range :
 {
     PSTADE_CONCEPT_ASSERT((Bidirectional<Range>));
     // PSTADE_CONCEPT_ASSERT((Readable<Range>));
+    typedef xpressive_match_range type;
 
 private:
     typedef typename xpressive_match_range_detail::super_<Range>::type super_t;
@@ -71,7 +72,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_xpressive_match_range, const xpressive_match_range, (by_qualified), ~)
+PSTADE_OBJECT_GENERATOR(make_xpressive_match_range, xpressive_match_range< deduce_to_qualified<from_1> > const)
 PSTADE_PIPABLE(xpressive_matches, op_make_xpressive_match_range)
 
 

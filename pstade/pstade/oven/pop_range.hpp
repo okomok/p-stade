@@ -34,6 +34,7 @@ struct pop_range :
     private as_lightweight_proxy< pop_range<Range> >
 {
     PSTADE_CONCEPT_ASSERT((Forward<Range>));
+    typedef pop_range type;
 
 private:
     typedef typename sub_range_base<Range>::type super_t;
@@ -47,7 +48,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_pop_range, const pop_range, (by_qualified), ~)
+PSTADE_OBJECT_GENERATOR(make_pop_range, pop_range< deduce_to_qualified<from_1> > const)
 PSTADE_PIPABLE(popped, op_make_pop_range)
 
 

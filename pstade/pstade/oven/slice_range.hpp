@@ -56,6 +56,7 @@ struct slice_range :
     private as_lightweight_proxy< slice_range<Range> >
 {
     PSTADE_CONCEPT_ASSERT((RandomAccess<Range>));
+    typedef slice_range type;
 
 private:
     typedef typename slice_range_detail::super_<Range>::type super_t;
@@ -86,7 +87,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_slice_range, const slice_range, (by_qualified), ~)
+PSTADE_OBJECT_GENERATOR(make_slice_range, slice_range< deduce_to_qualified<from_1> > const)
 PSTADE_PIPABLE(sliced, op_make_slice_range)
 
 

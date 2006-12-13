@@ -74,6 +74,7 @@ struct indirect_range :
     > >
 {
     PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+    typedef indirect_range type;
 
 private:
     typedef typename indirect_range_detail::super_<
@@ -89,7 +90,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_indirect_range, const indirect_range, (by_qualified), ~)
+PSTADE_OBJECT_GENERATOR(make_indirect_range, indirect_range< deduce_to_qualified<from_1> > const)
 PSTADE_PIPABLE(indirected, op_make_indirect_range)
 
 

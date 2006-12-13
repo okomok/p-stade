@@ -72,6 +72,7 @@ struct move_range :
 {
     PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
     PSTADE_CONCEPT_ASSERT((Lvalue<Range>));
+    typedef move_range type;
 
 private:
     typedef typename move_range_detail::super_<Range>::type super_t;
@@ -84,7 +85,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_move_range, const move_range, (by_qualified), ~)
+PSTADE_OBJECT_GENERATOR(make_move_range, move_range< deduce_to_qualified<from_1> > const)
 PSTADE_PIPABLE(moved, op_make_move_range)
 
 

@@ -80,7 +80,7 @@ public:
 };
 
 
-// 'callable' is useless here, because a temporary 'auto_ptr' is const-qualified,
+// 'callable/object_generator' is useless here, because a temporary 'auto_ptr' is const-qualified,
 // thus, the ownership cannot be moved. So make it by scratch.
 //
 

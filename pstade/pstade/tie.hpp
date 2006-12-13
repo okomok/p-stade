@@ -31,8 +31,7 @@ namespace pstade {
 
 
         // Workaround:
-        // Boost.MPL default max arity is not enough for Boost.Tuple.
-        // So, avoid PlaceholderExpression.
+        // Boost.MPL default max arity is not enough for Boost.Tuple with PlaceholderExpression.
 
         struct expr
         {

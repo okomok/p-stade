@@ -134,6 +134,7 @@ struct memoize_range :
     private as_lightweight_proxy< memoize_range<Range> >
 {
     PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+    typedef memoize_range type;
 
 private:
     typedef typename memoize_range_detail::super_<Range>::type super_t;

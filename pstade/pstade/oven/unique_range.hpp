@@ -45,6 +45,7 @@ struct unique_range :
 {
     PSTADE_CONCEPT_ASSERT((Forward<Range>));
     // PSTADE_CONCEPT_ASSERT((Readable<Range>));
+    typedef unique_range type;
 
 private:
     typedef typename unique_range_detail::super_<Range>::type super_t;
@@ -57,7 +58,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_unique_range, const unique_range, (by_qualified), ~)
+PSTADE_OBJECT_GENERATOR(make_unique_range, unique_range< deduce_to_qualified<from_1> > const)
 PSTADE_PIPABLE(uniqued, op_make_unique_range)
 
 

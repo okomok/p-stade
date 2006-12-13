@@ -23,6 +23,7 @@
 #include <boost/range/end.hpp>
 #include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/unparenthesize.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
@@ -56,6 +57,7 @@ struct filter_range :
 {
     PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
     // PSTADE_CONCEPT_ASSERT((Readable<Range>));
+    typedef filter_range type;
     typedef Predicate predicate_type;
 
 private:
@@ -79,7 +81,8 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_filter_range, const filter_range, (by_qualified)(by_value), ~)
+PSTADE_OBJECT_GENERATOR(make_filter_range, 
+    PSTADE_UNPARENTHESIZE((filter_range< deduce_to_qualified<from_1>, deduce_to_value<from_2> >)) const)
 PSTADE_PIPABLE(filtered, op_make_filter_range)
 
 

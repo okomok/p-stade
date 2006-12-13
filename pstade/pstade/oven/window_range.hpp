@@ -49,6 +49,7 @@ struct window_range :
     private as_lightweight_proxy< window_range<Range> >
 {
     PSTADE_CONCEPT_ASSERT((Forward<Range>));
+    typedef window_range type;
 
 private:
     typedef typename sub_range_base<Range>::type super_t;
@@ -63,7 +64,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_window_range, const window_range, (by_qualified), ~)
+PSTADE_OBJECT_GENERATOR(make_window_range, window_range< deduce_to_qualified<from_1> > const)
 PSTADE_PIPABLE(through_window, op_make_window_range)
 
 

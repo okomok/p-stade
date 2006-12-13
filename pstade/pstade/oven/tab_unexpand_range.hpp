@@ -47,6 +47,7 @@ struct tab_unexpand_range :
 {
     PSTADE_CONCEPT_ASSERT((Forward<Range>));
     // PSTADE_CONCEPT_ASSERT((Readable<Range>));
+    typedef tab_unexpand_range type;
 
 private:
     typedef typename tab_unexpand_range_detail::super_<Range>::type super_t;
@@ -64,7 +65,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_tab_unexpand_range, const tab_unexpand_range, (by_qualified), ~)
+PSTADE_OBJECT_GENERATOR(make_tab_unexpand_range, tab_unexpand_range< deduce_to_qualified<from_1> > const)
 PSTADE_PIPABLE(tab_unexpanded, op_make_tab_unexpand_range)
 
 

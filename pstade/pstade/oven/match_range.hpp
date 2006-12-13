@@ -66,6 +66,7 @@ struct match_range :
 {
     PSTADE_CONCEPT_ASSERT((Bidirectional<Range>));
     // PSTADE_CONCEPT_ASSERT((Readable<Range>));
+    typedef match_range type;
 
 private:
     typedef typename match_range_detail::super_<Range, CharT, Traits>::type super_t;
@@ -87,7 +88,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_match_range, const match_range, (by_qualified), ~)
+PSTADE_OBJECT_GENERATOR(make_match_range, match_range< deduce_to_qualified<from_1> > const)
 PSTADE_PIPABLE(matches, op_make_match_range)
 
 

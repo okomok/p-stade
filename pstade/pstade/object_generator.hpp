@@ -94,6 +94,20 @@ namespace pstade {
     { };
 
 
+    // utility
+
+
+    struct unused_argument
+    {
+        unused_argument()
+        { }
+
+        template< class T >
+        unused_argument(T const&)
+        { }
+    };
+
+
     // the object_generator
 
 

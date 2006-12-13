@@ -20,6 +20,7 @@
 #include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/tupled.hpp>
+#include <pstade/unparenthesize.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./range_base.hpp"
 #include "./transform_range.hpp"
@@ -62,6 +63,7 @@ struct zip_with_range :
     zip_with_range_detail::super_<RangeTuple, Function, Reference, Value>::type,
     private as_lightweight_proxy< zip_with_range<RangeTuple, Function, Reference, Value> >
 {
+    typedef zip_with_range type;
     typedef RangeTuple range_tuple_type;
 
 private:
@@ -75,7 +77,8 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_zip_with_range, const zip_with_range, (by_qualified)(by_value), ~)
+PSTADE_OBJECT_GENERATOR(make_zip_with_range,
+    PSTADE_UNPARENTHESIZE((zip_with_range< deduce_to_qualified<from_1>, deduce_to_value<from_2> >)) const)
 PSTADE_PIPABLE(zipped_with, op_make_zip_with_range)
 
 

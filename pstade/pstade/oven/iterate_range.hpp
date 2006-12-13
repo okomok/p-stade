@@ -12,6 +12,7 @@
 
 #include <boost/optional.hpp>
 #include <pstade/object_generator.hpp>
+#include <pstade/unparenthesize.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./generate_range.hpp"
 
@@ -68,6 +69,7 @@ struct iterate_range :
     iterate_range_detail::super_<State, UnaryFun, Traversal>::type,
     private as_lightweight_proxy< iterate_range<State, UnaryFun, Traversal> >
 {
+    typedef iterate_range type;
     typedef State state_type;
     typedef UnaryFun function_type;
 
@@ -83,7 +85,8 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_iterate_range, const iterate_range, (by_value)(by_value), ~)
+PSTADE_OBJECT_GENERATOR(make_iterate_range,
+    PSTADE_UNPARENTHESIZE((iterate_range< deduce_to_value<from_1>, deduce_to_value<from_2> >)) const)
 PSTADE_CONSTANT(iteration, op_make_iterate_range)
 
 

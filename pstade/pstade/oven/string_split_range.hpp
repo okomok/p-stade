@@ -42,7 +42,7 @@ struct string_split_range :
     string_split_range_detail::super_<Range>::type,
     private as_lightweight_proxy< string_split_range<Range> >
 {
-    typedef Range pstade_oven_range_base_type;
+    typedef string_split_range type;
 
 private:
     typedef typename string_split_range_detail::super_<Range>::type super_t;
@@ -53,10 +53,12 @@ public:
     string_split_range(Range& rng, FinderT f) :
         super_t(iter_t(rng, f), iter_t())
     { }
+
+    typedef Range pstade_oven_range_base_type;
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_string_split_range, const string_split_range, (by_qualified), ~)
+PSTADE_OBJECT_GENERATOR(make_string_split_range, string_split_range< deduce_to_qualified<from_1> > const)
 PSTADE_PIPABLE(string_split, op_make_string_split_range)
 
 

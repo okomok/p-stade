@@ -64,6 +64,7 @@ struct point_range :
     private as_lightweight_proxy< point_range<ContiguousRange> >
 {
     PSTADE_CONCEPT_ASSERT((RandomAccess<ContiguousRange>));
+    typedef point_range type;
 
 private:
     typedef typename point_range_detail::super_<ContiguousRange>::type super_t;
@@ -77,7 +78,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_point_range, const point_range, (by_qualified), ~)
+PSTADE_OBJECT_GENERATOR(make_point_range, point_range< deduce_to_qualified<from_1> > const)
 PSTADE_PIPABLE(pointed, op_make_point_range)
 
 

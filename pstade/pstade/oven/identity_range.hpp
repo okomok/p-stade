@@ -58,11 +58,7 @@ private:
     typedef typename identity_range_detail::super_<Range, Traversal>::type super_t;
 
 public:
-    explicit identity_range(Range& rng) :
-        super_t(rng)
-    { }
-
-    explicit identity_range(Range& rng, Traversal) : // for OBJECT_GENERATOR
+    explicit identity_range(Range& rng, unused_argument = unused_argument()) :
         super_t(rng)
     { }
 

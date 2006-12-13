@@ -42,6 +42,8 @@ struct mb_encode_range :
     mb_encode_range_detail::super_<Range>::type,
     private as_lightweight_proxy< mb_encode_range<Range> >
 {
+    typedef mb_encode_range type;
+
 private:
     typedef typename mb_encode_range_detail::super_<Range>::type super_t;
 
@@ -54,7 +56,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_mb_encode_range, const mb_encode_range, (by_qualified), ~)
+PSTADE_OBJECT_GENERATOR(make_mb_encode_range, mb_encode_range< deduce_to_qualified<from_1> > const)
 PSTADE_PIPABLE(mb_encoded, op_make_mb_encode_range)
 
 

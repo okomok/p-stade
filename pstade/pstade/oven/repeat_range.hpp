@@ -14,6 +14,7 @@
 #include <pstade/base_from.hpp>
 #include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/unparenthesize.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./cycle_range.hpp"
 #include "./single_range.hpp"
@@ -50,6 +51,8 @@ struct repeat_range :
     repeat_range_detail::super_<Value, Size>::type,
     private as_lightweight_proxy< repeat_range<Value, Size> >
 {
+    typedef repeat_range type;
+
 private:
     typedef typename repeat_range_detail::init_single<Value>::type init_t;
     typedef typename init_t::member_type single_t;
@@ -63,7 +66,8 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_repeat_range, const repeat_range, (by_qualified)(by_value), ~)
+PSTADE_OBJECT_GENERATOR(make_repeat_range,
+    PSTADE_UNPARENTHESIZE((repeat_range< deduce_to_qualified<from_1>, deduce_to_value<from_2> >)) const)
 PSTADE_PIPABLE(repeated, op_make_repeat_range)
 
 

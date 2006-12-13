@@ -74,6 +74,7 @@ struct null_terminate_range :
 {
     PSTADE_CONCEPT_ASSERT((Forward<Range>));
     // PSTADE_CONCEPT_ASSERT((Readable<Range>));
+    typedef null_terminate_range type;
 
 private:
     typedef typename null_terminate_range_detail::super_<Range>::type super_t;
@@ -87,7 +88,7 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_null_terminate_range, const null_terminate_range, (by_qualified), ~)
+PSTADE_OBJECT_GENERATOR(make_null_terminate_range, null_terminate_range< deduce_to_qualified<from_1> > const)
 PSTADE_PIPABLE(null_terminated, op_make_null_terminate_range)
 
 
