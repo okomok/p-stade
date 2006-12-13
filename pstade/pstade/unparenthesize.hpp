@@ -31,8 +31,8 @@ namespace pstade {
 
     namespace unparenthesize_detail {
 
-        // suppress warning about meaningless cv-qualifier.
-        struct non_built_in;
+        // suppress warning about "meaningless" cv-qualifier.
+        struct non_built_in { };
 
     }
 

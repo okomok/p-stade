@@ -52,7 +52,7 @@ struct your_type
     { };
 };
 
-PSTADE_OBJECT_GENERATOR(make_your_type, your_type< deduce_to_value<from_1> >)
+PSTADE_OBJECT_GENERATOR(make_your_type, (your_type< deduce_to_value<from_1> >))
 
 
 
@@ -65,7 +65,7 @@ struct gcc_bug // Boost1.33 only; Boost1.34 fixed this!
     { };
 };
 
-PSTADE_OBJECT_GENERATOR(make_gcc_bug, gcc_bug< deduce_to_value<from_1> >)
+PSTADE_OBJECT_GENERATOR(make_gcc_bug, (gcc_bug< deduce_to_value<from_1> >))
 
 
 template< class A0 >
@@ -75,7 +75,7 @@ struct return_const
     { }
 };
 
-PSTADE_OBJECT_GENERATOR(make_return_const, const return_const< deduce_to_value<from_1> >)
+PSTADE_OBJECT_GENERATOR(make_return_const, const (return_const< deduce_to_value<from_1> >))
 
 
 template< class A0, class A1, class A2 >
@@ -90,10 +90,10 @@ struct A {};
 struct B {};
 struct C {};
 
-PSTADE_OBJECT_GENERATOR( make_number312, PSTADE_UNPARENTHESIZE((number< deduce_to_value<from_3>, deduce_to_value<from_1>, deduce_to_value<from_2> >)) )
-PSTADE_OBJECT_GENERATOR( make_number111, PSTADE_UNPARENTHESIZE((number< deduce_to_value<from_1>, deduce_to_value<from_1>, deduce_to_value<from_1> >)) )
-PSTADE_OBJECT_GENERATOR( make_number213, PSTADE_UNPARENTHESIZE((number< deduce_to_value<from_2>, deduce_to_value<from_1>, deduce_to_value<from_3> >)) )
-// PSTADE_OBJECT_GENERATOR( make_number_,   PSTADE_UNPARENTHESIZE((number< deduce_to_value<from_>, deduce_to_value<from_>, deduce_to_value<from_> >)) ) // not supported by MPL.
+PSTADE_OBJECT_GENERATOR( make_number312, (number< deduce_to_value<from_3>, deduce_to_value<from_1>, deduce_to_value<from_2> >) )
+PSTADE_OBJECT_GENERATOR( make_number111, (number< deduce_to_value<from_1>, deduce_to_value<from_1>, deduce_to_value<from_1> >) )
+PSTADE_OBJECT_GENERATOR( make_number213, (number< deduce_to_value<from_2>, deduce_to_value<from_1>, deduce_to_value<from_3> >) )
+// PSTADE_OBJECT_GENERATOR( make_number_,   (number< deduce_to_value<from_>, deduce_to_value<from_>, deduce_to_value<from_> >) ) // not supported by MPL.
 
 
 struct H
