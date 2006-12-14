@@ -20,10 +20,8 @@
 // What:
 //
 // Makes decayed-T with cv-qualifier from
-// PSTADE_UNPARENTHESIZE(cv-qualifier(T)), where cv-qualifier is optional.
+// PSTADE_UNPARENTHESIZE((T)cv-qualifier), where cv-qualifier is optional.
 
-
-#include <pstade/affect.hpp>
 
 
 namespace pstade {
@@ -31,8 +29,7 @@ namespace pstade {
 
     namespace unparenthesize_detail {
 
-        // suppress warning about "meaningless" cv-qualifier.
-        struct non_built_in { };
+        struct klass;
 
     }
 
@@ -41,13 +38,32 @@ namespace pstade {
     struct unparenthesize;
 
 
-    template< class Q, class T >
-    struct unparenthesize<Q(T)> :
-        affect_cv<Q, T>
-    { };
+    template< class T >
+    struct unparenthesize<void (unparenthesize_detail::klass::*)(T)>
+    {
+        typedef T type;
+    };
 
-    template< class Q >
-    struct unparenthesize<Q(void)>
+    template< class T >
+    struct unparenthesize<void (unparenthesize_detail::klass::*)(T) const>
+    {
+        typedef T const type;
+    };
+
+    template< class T >
+    struct unparenthesize<void (unparenthesize_detail::klass::*)(T) volatile>
+    {
+        typedef T volatile type;
+    };
+
+    template< class T >
+    struct unparenthesize<void (unparenthesize_detail::klass::*)(T) const volatile>
+    {
+        typedef T const volatile type;
+    };
+
+    template< >
+    struct unparenthesize<void (unparenthesize_detail::klass::*)(void)>
     {
         typedef void type;
     };
@@ -56,8 +72,8 @@ namespace pstade {
 } // namespace pstade
 
 
-#define PSTADE_UNPARENTHESIZE(QT) \
-    pstade::unparenthesize< pstade::unparenthesize_detail::non_built_in QT >::type \
+#define PSTADE_UNPARENTHESIZE(TQ) \
+    pstade::unparenthesize< void (pstade::unparenthesize_detail::klass::*) TQ >::type \
 /**/
 
 

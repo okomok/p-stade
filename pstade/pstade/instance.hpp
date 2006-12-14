@@ -41,8 +41,8 @@
 //     PSTADE_CONSTANT(O1, (T))
 //     PSTADE_CONSTANT(O2, (T))
 // to
-//     PSTADE_INSTANCE(const(T), O1, value)
-//     PSTADE_INSTANCE(const(T), O2, value)
+//     PSTADE_INSTANCE((T) const, O1, value)
+//     PSTADE_INSTANCE((T) const, O2, value)
 // , because the const object can be shared.
 
 

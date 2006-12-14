@@ -48,7 +48,7 @@ struct deduce_to_array_element :
 
 
 PSTADE_OBJECT_GENERATOR(make_array_protect_range,
-    const(array_protect_range< deduce_to_array_element<from_1> >))
+    (array_protect_range< deduce_to_array_element<from_1> >) const)
 PSTADE_PIPABLE(array_protected, (op_make_array_protect_range))
 PSTADE_PIPABLE(as_array, (op_make_array_protect_range))
 

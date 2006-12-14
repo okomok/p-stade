@@ -45,7 +45,7 @@ public:
 
 
 PSTADE_OBJECT_GENERATOR(make_single_range,
-    const(single_range< deduce_to_qualified<from_1> >))
+    (single_range< deduce_to_qualified<from_1> >) const)
 PSTADE_PIPABLE(as_single, (op_make_single_range))
 
 

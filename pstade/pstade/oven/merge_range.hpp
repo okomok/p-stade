@@ -81,7 +81,7 @@ public:
 
 
 PSTADE_OBJECT_GENERATOR(make_merge_range,
-    const(merge_range< deduce_to_qualified<from_1>, deduce_to_qualified<from_2>, deduce_to_value<from_3, op_less> >))
+    (merge_range< deduce_to_qualified<from_1>, deduce_to_qualified<from_2>, deduce_to_value<from_3, op_less> >) const)
 PSTADE_PIPABLE(merged, (op_make_merge_range))
 
 

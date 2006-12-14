@@ -26,17 +26,17 @@ namespace pstade { namespace hamburger {
     namespace mover_detail {
 
 
-        PSTADE_INSTANCE(const(ustring), Name_direction, ("direction"))
+        PSTADE_INSTANCE((ustring) const, Name_direction, ("direction"))
 
-            PSTADE_INSTANCE(const(ustring), Value_bottom,        ("bottom"))
-            PSTADE_INSTANCE(const(ustring), Value_bottomLeft,    ("bottomLeft"))
-            PSTADE_INSTANCE(const(ustring), Value_bottomRight,   ("bottomRight"))
-            PSTADE_INSTANCE(const(ustring), Value_left,          ("left"))
-            PSTADE_INSTANCE(const(ustring), Value_right,         ("right"))
-            PSTADE_INSTANCE(const(ustring), Value_top,           ("top"))
-            PSTADE_INSTANCE(const(ustring), Value_topLeft,       ("topLeft"))
-            PSTADE_INSTANCE(const(ustring), Value_topRight,      ("topRight"))
-            PSTADE_INSTANCE(const(ustring), Value_free,          ("free"))
+            PSTADE_INSTANCE((ustring) const, Value_bottom,        ("bottom"))
+            PSTADE_INSTANCE((ustring) const, Value_bottomLeft,    ("bottomLeft"))
+            PSTADE_INSTANCE((ustring) const, Value_bottomRight,   ("bottomRight"))
+            PSTADE_INSTANCE((ustring) const, Value_left,          ("left"))
+            PSTADE_INSTANCE((ustring) const, Value_right,         ("right"))
+            PSTADE_INSTANCE((ustring) const, Value_top,           ("top"))
+            PSTADE_INSTANCE((ustring) const, Value_topLeft,       ("topLeft"))
+            PSTADE_INSTANCE((ustring) const, Value_topRight,      ("topRight"))
+            PSTADE_INSTANCE((ustring) const, Value_free,          ("free"))
 
 
         template< class Node >

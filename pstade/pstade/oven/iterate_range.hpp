@@ -85,7 +85,7 @@ public:
 
 
 PSTADE_OBJECT_GENERATOR(make_iterate_range,
-    const(iterate_range< deduce_to_value<from_1>, deduce_to_value<from_2> >))
+    (iterate_range< deduce_to_value<from_1>, deduce_to_value<from_2> >) const)
 PSTADE_CONSTANT(iteration, (op_make_iterate_range))
 
 

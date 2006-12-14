@@ -52,7 +52,7 @@ public:
 
 
 PSTADE_OBJECT_GENERATOR(make_drop_while_range,
-    const(drop_while_range< deduce_to_qualified<from_1> >))
+    (drop_while_range< deduce_to_qualified<from_1> >) const)
 PSTADE_PIPABLE(dropped_while, (op_make_drop_while_range))
 
 

@@ -172,7 +172,7 @@ friend class boost::iterator_core_access;
 
 
 PSTADE_OBJECT_GENERATOR(make_tab_unexpand_iterator,
-    const(tab_unexpand_iterator< deduce_to_value<from_1> >))
+    (tab_unexpand_iterator< deduce_to_value<from_1> >) const)
 
 
 } } // namespace pstade::oven

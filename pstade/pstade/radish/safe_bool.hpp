@@ -45,8 +45,8 @@ safe_bool make_safe_bool(Expr const& b)
 
 
 // slightly slower.
-PSTADE_INSTANCE(const(safe_bool), safe_true,  (&safe_bool_detail::box::true_))
-PSTADE_INSTANCE(const(safe_bool), safe_false, (PSTADE_NULLPTR))
+PSTADE_INSTANCE((safe_bool) const, safe_true,  (&safe_bool_detail::box::true_))
+PSTADE_INSTANCE((safe_bool) const, safe_false, (PSTADE_NULLPTR))
 
 
 } } // namespace pstade::radish

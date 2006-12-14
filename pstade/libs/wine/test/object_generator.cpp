@@ -75,7 +75,7 @@ struct return_const
     { }
 };
 
-PSTADE_OBJECT_GENERATOR(make_return_const, const (return_const< deduce_to_value<from_1> >))
+PSTADE_OBJECT_GENERATOR(make_return_const, (return_const< deduce_to_value<from_1> >) const)
 
 
 template< class A0, class A1, class A2 >

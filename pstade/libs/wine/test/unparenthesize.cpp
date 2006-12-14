@@ -20,20 +20,17 @@
 #include <boost/type_traits/is_same.hpp>
 
 
-typedef const std::pair<int, double> a_pair_t;
-
-BOOST_MPL_ASSERT(( boost::is_same< PSTADE_UNPARENTHESIZE((std::pair<int, double>)) const,
-                 a_pair_t>));
-
-BOOST_MPL_ASSERT(( boost::is_same< PSTADE_UNPARENTHESIZE(const (std::pair<int, double>)),
-                 a_pair_t>));
+typedef std::pair<int, double> pair_t;
+typedef pair_t const c_pair_t;
+typedef pair_t volatile v_pair_t;
+typedef pair_t const volatile cv_pair_t;
 
 
+BOOST_MPL_ASSERT(( boost::is_same< PSTADE_UNPARENTHESIZE((std::pair<int, double>)), pair_t>));
+BOOST_MPL_ASSERT(( boost::is_same< PSTADE_UNPARENTHESIZE((std::pair<int, double>) const), c_pair_t>));
+BOOST_MPL_ASSERT(( boost::is_same< PSTADE_UNPARENTHESIZE((std::pair<int, double>) volatile), v_pair_t>));
+BOOST_MPL_ASSERT(( boost::is_same< PSTADE_UNPARENTHESIZE((std::pair<int, double>) const volatile), cv_pair_t>));
 
-#define MY_CUTE_MACRO(T, _) PSTADE_UNPARENTHESIZE(T)
-
-BOOST_MPL_ASSERT(( boost::is_same< MY_CUTE_MACRO(const (std::pair<int, double>), ~),
-                 a_pair_t>));
 
 
 // Workaround:

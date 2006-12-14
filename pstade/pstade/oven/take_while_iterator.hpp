@@ -127,7 +127,7 @@ friend class boost::iterator_core_access;
 
 
 PSTADE_OBJECT_GENERATOR(make_take_while_iterator,
-    const(take_while_iterator< deduce_to_value<from_1>, deduce_to_value<from_3> >))
+    (take_while_iterator< deduce_to_value<from_1>, deduce_to_value<from_3> >) const)
 
 
 } } // namespace pstade::oven

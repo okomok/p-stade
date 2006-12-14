@@ -54,7 +54,7 @@ public:
 
 
 PSTADE_OBJECT_GENERATOR(make_apply_range,
-    const(apply_range< deduce_to_qualified<from_1> >))
+    (apply_range< deduce_to_qualified<from_1> >) const)
 PSTADE_PIPABLE(applied, (op_make_apply_range))
 
 

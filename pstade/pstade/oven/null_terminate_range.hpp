@@ -89,7 +89,7 @@ public:
 
 
 PSTADE_OBJECT_GENERATOR(make_null_terminate_range,
-    const(null_terminate_range< deduce_to_qualified<from_1> >))
+    (null_terminate_range< deduce_to_qualified<from_1> >) const)
 PSTADE_PIPABLE(null_terminated, (op_make_null_terminate_range))
 
 

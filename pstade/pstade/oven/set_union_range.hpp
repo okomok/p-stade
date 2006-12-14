@@ -98,7 +98,7 @@ public:
 
 
 PSTADE_OBJECT_GENERATOR(make_set_union_range,
-    const(set_union_range< deduce_to_qualified<from_1>, deduce_to_qualified<from_2>, deduce_to_value<from_3, op_less> >))
+    (set_union_range< deduce_to_qualified<from_1>, deduce_to_qualified<from_2>, deduce_to_value<from_3, op_less> >) const)
 PSTADE_PIPABLE(set_cup, (op_make_set_union_range))
 
 

@@ -49,7 +49,7 @@ public:
 
 
 PSTADE_OBJECT_GENERATOR(make_pop_range,
-    const(pop_range< deduce_to_qualified<from_1> >))
+    (pop_range< deduce_to_qualified<from_1> >) const)
 PSTADE_PIPABLE(popped, (op_make_pop_range))
 
 

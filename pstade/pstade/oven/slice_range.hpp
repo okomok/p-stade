@@ -88,7 +88,7 @@ public:
 
 
 PSTADE_OBJECT_GENERATOR(make_slice_range,
-    const(slice_range< deduce_to_qualified<from_1> >))
+    (slice_range< deduce_to_qualified<from_1> >) const)
 PSTADE_PIPABLE(sliced, (op_make_slice_range))
 
 

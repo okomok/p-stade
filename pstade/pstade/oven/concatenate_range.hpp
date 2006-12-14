@@ -67,7 +67,7 @@ public:
 
 
 PSTADE_OBJECT_GENERATOR(make_concatenate_range,
-    const(concatenate_range< deduce_to_qualified<from_1> >))
+    (concatenate_range< deduce_to_qualified<from_1> >) const)
 PSTADE_PIPABLE(concatenated, (op_make_concatenate_range))
 
 
