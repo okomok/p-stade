@@ -58,7 +58,8 @@ namespace pstade {
         template< class A >
         struct meta_argument :
             boost::remove_reference<
-                typename boost::add_const<A>::type // VC++ warns against 'A const'.
+                // VC++ warns against 'A const' if 'A' is reference, so...
+                typename boost::add_const<A>::type
             >
         { };
 

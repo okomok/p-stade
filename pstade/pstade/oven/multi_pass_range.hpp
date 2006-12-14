@@ -11,8 +11,7 @@
 
 
 #include <boost/spirit/iterator/multi_pass.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
+#include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./iter_range.hpp"
@@ -62,6 +61,7 @@ struct multi_pass_range :
         InputPolicy, OwnershipPolicy, CheckingPolicy, StoragePolicy
     > >
 {
+    typedef multi_pass_range type;
     typedef InputIterRange pstade_oven_range_base_type;
 
 private:
@@ -77,24 +77,8 @@ public:
 };
 
 
-struct op_make_multi_pass_range :
-    callable<op_make_multi_pass_range>
-{
-    template< class Myself, class Range >
-    struct apply
-    {
-        typedef multi_pass_range<Range> const type;
-    };
-
-    template< class Result, class Range >
-    Result call(Range& rng) const
-    {
-        return Result(rng);
-    }
-};
-
-
-PSTADE_CONSTANT(make_multi_pass_range, (op_make_multi_pass_range))
+PSTADE_OBJECT_GENERATOR(make_multi_pass_range,
+    const(multi_pass_range< deduce_to_qualified<from_1> >))
 PSTADE_PIPABLE(multi_passed, (op_make_multi_pass_range))
 
 
