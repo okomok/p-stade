@@ -48,11 +48,11 @@ template<
 struct list_iterator_super
 {
     typedef typename
-        pstade::defaultable_to<Reference, Value&>::type
+        pstade::use_default_to<Reference, Value&>::type
     ref_t;
 
     typedef typename
-        pstade::defaultable_to<Traversal, boost::bidirectional_traversal_tag>::type
+        pstade::use_default_to<Traversal, boost::bidirectional_traversal_tag>::type
     trv_t;
 
     typedef boost::iterator_facade<

@@ -34,7 +34,7 @@ namespace identity_iterator_detail {
     struct super_
     {
         typedef typename boost::iterator_traversal<Iterator>::type base_trv_t;
-        typedef typename defaultable_to<Traversal, base_trv_t>::type trv_t;
+        typedef typename use_default_to<Traversal, base_trv_t>::type trv_t;
         BOOST_MPL_ASSERT((boost::is_convertible<base_trv_t, trv_t>));
 
         typedef boost::iterator_adaptor<

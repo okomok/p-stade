@@ -37,8 +37,8 @@ namespace token_range_detail {
     >
     struct super_
     {
-        typedef typename defaultable_eval_to< CharT, range_value<Range> >::type char_t;
-        typedef typename defaultable_to< Traits, boost::regex_traits<char_t> >::type traits_t;
+        typedef typename use_default_eval_to< CharT, range_value<Range> >::type char_t;
+        typedef typename use_default_to< Traits, boost::regex_traits<char_t> >::type traits_t;
 
         typedef
             iter_range<

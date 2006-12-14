@@ -50,7 +50,7 @@ namespace pstade {
 
         template< class Result_, class Signature >
         struct result_of_aux :
-            defaultable_eval_to< Result_, boost::result_of<Signature> >
+            use_default_eval_to< Result_, boost::result_of<Signature> >
         { };
 
 

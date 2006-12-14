@@ -81,7 +81,7 @@ namespace transform_range_detail {
         typedef typename range_iterator<Range>::type iter_t;
 
         typedef typename
-            defaultable_eval_to< Reference, default_reference<iter_t, UnaryFun> >::type
+            use_default_eval_to< Reference, default_reference<iter_t, UnaryFun> >::type
         ref_t;
 
         typedef

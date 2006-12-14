@@ -10,6 +10,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Copyright 2005, 2006 Cryolite.
+// Distributed under the Boost Software License, Version 1.0. (See
+// accompanying file LICENSE_1_0.txt or copy at
+// http://www.boost.org/LICENSE_1_0.txt)
+
+
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
 #include <boost/mpl/if.hpp>
@@ -26,20 +32,20 @@ namespace boost {
 namespace pstade {
 
 
-    template< class Defaultable, class To >
-    struct defaultable_to :
-        boost::mpl::if_< boost::is_same<Defaultable, boost::use_default>,
+    template< class From, class To >
+    struct use_default_to :
+        boost::mpl::if_< boost::is_same<From, boost::use_default>,
             To,
-            Defaultable
+            From
         >
     { };
 
 
-    template< class Defaultable, class ToFun >
-    struct defaultable_eval_to :
-        boost::mpl::eval_if< boost::is_same<Defaultable, boost::use_default>,
+    template< class From, class ToFun >
+    struct use_default_eval_to :
+        boost::mpl::eval_if< boost::is_same<From, boost::use_default>,
             ToFun,
-            boost::mpl::identity<Defaultable>
+            boost::mpl::identity<From>
         >
     { };
 

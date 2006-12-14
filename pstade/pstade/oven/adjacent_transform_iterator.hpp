@@ -48,11 +48,11 @@ namespace adjacent_transform_iterator_detail {
     struct super_
     {
         typedef typename
-            defaultable_eval_to< Reference, default_reference<ForwardIter, BinaryFun> >::type
+            use_default_eval_to< Reference, default_reference<ForwardIter, BinaryFun> >::type
         ref_t;
 
         typedef typename
-            defaultable_eval_to< Value, remove_cvr<ref_t> >::type
+            use_default_eval_to< Value, remove_cvr<ref_t> >::type
         val_t;
 
         typedef
