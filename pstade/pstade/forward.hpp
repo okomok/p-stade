@@ -24,7 +24,7 @@
 
 // Note:
 //
-// This class cannot be implemented by using 'tupled' and 'untupled',
+// This class cannot be implemented by using 'fuse' and 'unfuse',
 // for they need a function supporting 'result_of', which this class will make!
 
 

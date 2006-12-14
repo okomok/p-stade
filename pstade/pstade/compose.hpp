@@ -11,12 +11,12 @@
 
 
 #include <boost/utility/result_of.hpp>
+#include <pstade/fuse.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/tupled.hpp>
-#include <pstade/untupled.hpp>
+#include <pstade/unfuse.hpp>
 
 
 namespace pstade {
@@ -32,15 +32,15 @@ namespace pstade {
             template< class Myself, class Arguments >
             struct apply
             {
-                typedef typename boost::result_of<op_tupled(G&)>::type tupled_g;
-                typedef typename boost::result_of<tupled_g(Arguments&)>::type result_of_tupled_g;
-                typedef typename boost::result_of<F(result_of_tupled_g)>::type type;
+                typedef typename boost::result_of<op_fuse(G&)>::type fused_g;
+                typedef typename boost::result_of<fused_g(Arguments&)>::type result_of_fused_g;
+                typedef typename boost::result_of<F(result_of_fused_g)>::type type;
             };
 
             template< class Result, class Arguments >
             Result call(Arguments& args) const
             {
-                return m_f( pstade::tupled(m_g)(args) );
+                return m_f( pstade::fuse(m_g)(args) );
             }
 
             explicit base_op_result() // DefaultConstructible iff 'F' and 'G' are.
@@ -73,7 +73,7 @@ namespace pstade {
             base_t;
 
             typedef typename
-                boost::result_of<op_untupled(base_t)>::type
+                boost::result_of<op_unfuse(base_t)>::type
             type;
         };
 
@@ -81,7 +81,7 @@ namespace pstade {
         Result call(F& f, G& g) const
         {
             typedef typename Result::base_type base_t;
-            return pstade::untupled(base_t(f, g));
+            return pstade::unfuse(base_t(f, g));
         }
     };
 

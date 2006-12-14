@@ -33,6 +33,17 @@ struct bar_fun
 };
 
 
+int make_zero()
+{
+    return 0;
+}
+
+int increment(int i)
+{
+    return i + 1;
+}
+
+
 using namespace pstade;
 
 /*
@@ -49,10 +60,15 @@ BOOST_MPL_ASSERT((
 ));
 */
 
+
 void test()
 {
     {
         BOOST_CHECK( compose(value, bar_fun())('c') == std::string("x") );
+    }
+    {
+        BOOST_CHECK( compose(&increment, &make_zero)() == 1 );
+        BOOST_CHECK( (&increment|composed(&make_zero))() == 1 );
     }
 }
 

@@ -15,10 +15,10 @@
 #include <boost/iterator/counting_iterator.hpp>
 #include <boost/iterator/iterator_categories.hpp> // iterator_traversal
 #include <boost/utility/result_of.hpp>
+#include <pstade/fuse.hpp>
 #include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/unused.hpp>
-#include <pstade/tupled.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./iter_range.hpp"
 
@@ -94,7 +94,7 @@ public:
 
 PSTADE_OBJECT_GENERATOR(make_count_range,
     (count_range< deduce_to_value<from_1> >) const)
-PSTADE_PIPABLE(counted, (boost::result_of<op_tupled(op_make_count_range)>::type))
+PSTADE_PIPABLE(counted, (boost::result_of<op_fuse(op_make_count_range)>::type))
 
 
 // Note:

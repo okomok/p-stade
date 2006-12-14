@@ -17,9 +17,9 @@
 
 
 #include <boost/utility/result_of.hpp>
+#include <pstade/fuse.hpp>
 #include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/tupled.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./range_base.hpp"
 #include "./transform_range.hpp"
@@ -42,7 +42,7 @@ namespace zip_with_range_detail {
     {
         typedef transform_range<
             zip_range<RangeTuple> const,
-            typename boost::result_of<op_tupled(Function const&)>::type,
+            typename boost::result_of<op_fuse(Function const&)>::type,
             Reference,
             Value
         > type;
@@ -71,7 +71,7 @@ private:
 
 public:
     zip_with_range(RangeTuple& tup, Function const& fun) :
-        super_t(base_t(tup), pstade::tupled(fun))
+        super_t(base_t(tup), pstade::fuse(fun))
     { }
 };
 

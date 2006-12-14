@@ -36,11 +36,11 @@
 #include <pstade/callable.hpp>
 #include <pstade/const.hpp>
 #include <pstade/constant.hpp>
+#include <pstade/fuse.hpp>
 #include <pstade/nonassignable.hpp>
 #include <pstade/object_generator.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/remove_cvr.hpp>
-#include <pstade/tupled.hpp>
 
 
 namespace pstade {
@@ -149,15 +149,15 @@ namespace pstade {
         template< class A, class Function, class Arguments >
         struct result_of_output
         {
-            typedef typename boost::result_of<op_tupled(Function)>::type tupled_f;
+            typedef typename boost::result_of<op_fuse(Function)>::type fused_f;
             typedef boost::tuples::cons<A&, Arguments> args_t;
-            typedef typename boost::result_of<tupled_f(args_t)>::type type;
+            typedef typename boost::result_of<fused_f(args_t)>::type type;
         };
 
         template< class Result, class A, class Pipe > inline
         Result output(A& a, Pipe const& pi)
         {
-            return pstade::tupled(pi.base())(
+            return pstade::fuse(pi.base())(
                 pipable_detail::push_front(pi.arguments(), a)
             );
         }

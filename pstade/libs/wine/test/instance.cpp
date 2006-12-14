@@ -51,7 +51,7 @@ PSTADE_INSTANCE((std::string), str, (sz))
 PSTADE_INSTANCE((std::string) const, cstr, (str))
 PSTADE_INSTANCE((std::string) const, cstr2, value)
 PSTADE_INSTANCE(( PSTADE_UNPARENTHESIZE((std::map<int, int>)) ), map1_, value)
-PSTADE_INSTANCE((PSTADE_UNPARENTHESIZE((std::map<int, int>) const)), map2_, value)
+PSTADE_INSTANCE((PSTADE_UNPARENTHESIZE((std::map<int, int>))) const, map2_, value)
 
 
 template< class T >

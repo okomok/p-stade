@@ -33,7 +33,7 @@ namespace pstade {
         // Workaround:
         // Boost.MPL default max arity is not enough for 'boost::tuple<..>' with PlaceholderExpression.
 
-        struct expr
+        struct klass
         {
         #define PSTADE_deduce(Z, N, _) typename deduce_to_reference< BOOST_PP_CAT(A, N), boost::tuples::null_type >::type
 
@@ -52,7 +52,7 @@ namespace pstade {
     } // namespace tie_detail
 
 
-    typedef object_generator< tie_detail::expr, boost::tuples::tuple<> > op_tie;
+    typedef object_generator< tie_detail::klass, boost::tuples::tuple<> > op_tie;
     PSTADE_CONSTANT(tie, (op_tie))
     PSTADE_PIPABLE(tied, (op_tie))
 
