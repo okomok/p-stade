@@ -23,57 +23,52 @@
 // PSTADE_UNPARENTHESIZE((T)cv-qualifier), where cv-qualifier is optional.
 
 
+namespace pstade { namespace unparenthesize_detail {
 
-namespace pstade {
 
-
-    namespace unparenthesize_detail {
-
-        struct klass;
-
-    }
+    struct klass;
 
 
     template< class Signature >
-    struct unparenthesize;
+    struct aux;
 
 
     template< class T >
-    struct unparenthesize<void (unparenthesize_detail::klass::*)(T)>
+    struct aux<void (klass::*)(T)>
     {
         typedef T type;
     };
 
+    template< >
+    struct aux<void (klass::*)(void)>
+    {
+        typedef void type;
+    };
+
     template< class T >
-    struct unparenthesize<void (unparenthesize_detail::klass::*)(T) const>
+    struct aux<void (klass::*)(T) const>
     {
         typedef T const type;
     };
 
     template< class T >
-    struct unparenthesize<void (unparenthesize_detail::klass::*)(T) volatile>
+    struct aux<void (klass::*)(T) volatile>
     {
         typedef T volatile type;
     };
 
     template< class T >
-    struct unparenthesize<void (unparenthesize_detail::klass::*)(T) const volatile>
+    struct aux<void (klass::*)(T) const volatile>
     {
         typedef T const volatile type;
     };
 
-    template< >
-    struct unparenthesize<void (unparenthesize_detail::klass::*)(void)>
-    {
-        typedef void type;
-    };
 
-
-} // namespace pstade
+} } // namespace pstade::unparenthesize_detail
 
 
 #define PSTADE_UNPARENTHESIZE(TQ) \
-    pstade::unparenthesize< void (pstade::unparenthesize_detail::klass::*) TQ >::type \
+    pstade::unparenthesize_detail::aux< void (pstade::unparenthesize_detail::klass::*) TQ >::type \
 /**/
 
 

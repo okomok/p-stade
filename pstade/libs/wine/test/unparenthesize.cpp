@@ -26,11 +26,12 @@ typedef pair_t volatile v_pair_t;
 typedef pair_t const volatile cv_pair_t;
 
 
-BOOST_MPL_ASSERT(( boost::is_same< PSTADE_UNPARENTHESIZE((std::pair<int, double>)), pair_t>));
-BOOST_MPL_ASSERT(( boost::is_same< PSTADE_UNPARENTHESIZE((std::pair<int, double>) const), c_pair_t>));
-BOOST_MPL_ASSERT(( boost::is_same< PSTADE_UNPARENTHESIZE((std::pair<int, double>) volatile), v_pair_t>));
-BOOST_MPL_ASSERT(( boost::is_same< PSTADE_UNPARENTHESIZE((std::pair<int, double>) const volatile), cv_pair_t>));
+BOOST_MPL_ASSERT(( boost::is_same< PSTADE_UNPARENTHESIZE((std::pair<int, double>)), pair_t >));
+BOOST_MPL_ASSERT(( boost::is_same< PSTADE_UNPARENTHESIZE((std::pair<int, double>) const), c_pair_t >));
+BOOST_MPL_ASSERT(( boost::is_same< PSTADE_UNPARENTHESIZE((std::pair<int, double>) volatile), v_pair_t >));
+BOOST_MPL_ASSERT(( boost::is_same< PSTADE_UNPARENTHESIZE((std::pair<int, double>) const volatile), cv_pair_t >));
 
+BOOST_MPL_ASSERT(( boost::is_same< PSTADE_UNPARENTHESIZE((void)), void >));
 
 
 // Workaround:
