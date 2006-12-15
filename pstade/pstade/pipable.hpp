@@ -61,7 +61,6 @@ namespace pstade {
             struct apply
             {
                 typedef pipe< Function,
-                    // tuple of references!
                     boost::tuples::tuple< PSTADE_PP_ENUM_REF_PARAMS(PSTADE_CALLABLE_MAX_ARITY, A) >
                 > type;
             };
