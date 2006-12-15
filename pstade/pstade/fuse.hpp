@@ -40,20 +40,24 @@ namespace pstade {
             >
         { };
 
-        template< class Tuple, int N >
-        struct result_of_at_c :
-            affect_cvr<
-                Tuple&,
-                typename boost::tuples::element<N, Tuple>::type
-            >
-        { };
-
-        template< int N, class Tuple > inline
-        typename result_of_at_c<Tuple, N>::type
-        at_c(Tuple& tup)
+        template< int N >
+        struct op_at_c :
+            callable< op_at_c<N> >
         {
-            return boost::tuples::get<N>(tup);
-        }
+            template< class Myself, class Tuple >
+            struct apply :
+                affect_cvr<
+                    Tuple&,
+                    typename boost::tuples::element<N, Tuple>::type
+                >
+            { };
+
+            template< class Result, class Tuple >
+            Result call(Tuple& tup) const
+            {
+                return boost::tuples::get<N>(tup);
+            }
+        };
 
 
         template< class Function, class FusionSeq, class Arity >
@@ -82,7 +86,7 @@ namespace pstade {
         template< class Function, class FusionSeq >
         struct apply_impl< Function, FusionSeq, boost::mpl::int_<1> > :
             boost::result_of< Function(
-                typename result_of_at_c<FusionSeq, 0>::type
+                typename boost::result_of<op_at_c<0>(FusionSeq&)>::type
             ) >
         { };
 
@@ -90,7 +94,7 @@ namespace pstade {
         Result call_impl(Function fun, FusionSeq& seq, boost::mpl::int_<1>)
         {
             return fun(
-                fuse_detail::at_c<0>(seq)
+                fuse_detail::op_at_c<0>()(seq)
             );
         }
 
@@ -98,8 +102,8 @@ namespace pstade {
         // 2ary-
 
     #define PSTADE_max_arity 10
-    #define PSTADE_result_of_at_c(Z, N, _) typename result_of_at_c< FusionSeq, N >::type
-    #define PSTADE_at_c(Z, N, _)           fuse_detail::at_c< N >(seq)
+    #define PSTADE_result_of_at_c(Z, N, _) typename boost::result_of<op_at_c< N >(FusionSeq&)>::type
+    #define PSTADE_at_c(Z, N, _)           fuse_detail::op_at_c< N >()(seq)
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_max_arity, <pstade/fuse.hpp>))
         #include BOOST_PP_ITERATE()
     #undef  PSTADE_at_c

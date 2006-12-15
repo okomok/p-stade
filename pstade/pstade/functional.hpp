@@ -265,13 +265,14 @@ PSTADE_ADL_BARRIER(functional) {
         callable<op_at_first>
     {
         template< class Myself, class Pair >
-        struct apply :
-            boost::add_reference<
-                typename affect_const<
+        struct apply
+        {
+            typedef typename
+                affect_cv<
                     Pair, typename Pair::first_type
-                >::type
-            >
-        { };
+                >::type &
+            type;
+        };
 
         template< class Result, class Pair >
         Result call(Pair& x) const
@@ -290,13 +291,14 @@ PSTADE_ADL_BARRIER(functional) {
         callable<op_at_second>
     {
         template< class Myself, class Pair >
-        struct apply :
-            boost::add_reference<
-                typename affect_const<
+        struct apply
+        {
+            typedef typename
+                affect_cv<
                     Pair, typename Pair::second_type
-                >::type
-            >
-        { };
+                >::type &
+            type;
+        };
 
         template< class Result, class Pair >
         Result call(Pair& x) const

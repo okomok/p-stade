@@ -10,15 +10,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/type_traits/remove_reference.hpp>
-#include <pstade/affect.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
+#include <boost/mpl/placeholders.hpp> // _1
 #include <pstade/functional.hpp> // at_second
+#include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
-#include "./range_reference.hpp"
+#include "./detail/reference_affect.hpp"
 #include "./transform_range.hpp"
 
 
@@ -28,27 +26,26 @@ namespace pstade { namespace oven {
 namespace second_range_detail {
 
 
-    template< class PairRange >
-    struct reference
+    template< class Pair >
+    struct value_at
     {
-        typedef typename range_reference<PairRange>::type pair_ref_t;
-        typedef typename boost::remove_reference<pair_ref_t>::type pair_t;
-
-        typedef typename affect_cvr<
-            pair_ref_t,
-            typename pair_t::second_type
-        >::type type;
+        typedef typename Pair::second_type type;
     };
 
 
     template< class PairRange >
     struct super_
     {
-        typedef transform_range<
-            PairRange,
-            op_at_second,
-            typename reference<PairRange>::type
-        > type;
+        typedef
+            transform_range<
+                PairRange,
+                op_at_second,
+                typename detail::reference_affect<
+                    PairRange,
+                    value_at<boost::mpl::_1>
+                >::type
+            >
+        type;
     };
 
 
@@ -61,6 +58,7 @@ struct second_range :
     private as_lightweight_proxy< second_range<PairRange> >
 {
     PSTADE_CONCEPT_ASSERT((SinglePass<PairRange>));
+    typedef second_range type;
 
 private:
     typedef typename second_range_detail::super_<PairRange>::type super_t;
@@ -72,24 +70,7 @@ public:
 };
 
 
-struct op_make_second_range :
-    callable<op_make_second_range>
-{
-    template< class Myself, class PairRange >
-    struct apply
-    {
-        typedef second_range<PairRange> const type;
-    };
-
-    template< class Result, class PairRange >
-    Result call(PairRange& rng) const
-    {
-        return Result(rng);
-    }
-};
-
-
-PSTADE_CONSTANT(make_second_range, (op_make_second_range))
+PSTADE_OBJECT_GENERATOR(make_second_range, (second_range< deduce_to_qualified<from_1> >) const)
 PSTADE_PIPABLE(seconds, (op_make_second_range))
 
 

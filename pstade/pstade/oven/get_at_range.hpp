@@ -13,15 +13,14 @@
 #include <boost/fusion/sequence/intrinsic/at.hpp>
 #include <boost/fusion/sequence/intrinsic/value_at.hpp>
 #include <boost/mpl/int.hpp>
-#include <pstade/affect.hpp>
+#include <boost/mpl/placeholders.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/const.hpp>
 #include <pstade/const_overloaded.hpp>
 #include <pstade/nonassignable.hpp>
-#include <pstade/remove_cvr.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
-#include "./range_reference.hpp"
+#include "./detail/reference_affect.hpp"
 #include "./transform_range.hpp"
 
 
@@ -48,30 +47,20 @@ namespace get_at_range_detail {
     };
 
 
-    // See the Note of "./transform_range.hpp".
     template< class FusionSeqRange, class N >
-    struct reference
+    struct super_
     {
-        typedef typename range_reference<FusionSeqRange>::type seq_ref_t;
-        typedef typename remove_cvr<seq_ref_t>::type seq_t;
-
-        typedef typename
-            affect_cvr<
-                seq_ref_t,
-                typename boost::fusion::result_of::value_at<seq_t, N>::type
-            >::type
+        typedef
+            transform_range<
+                FusionSeqRange,
+                op_at<N>,
+                typename detail::reference_affect<
+                    FusionSeqRange,
+                    boost::fusion::result_of::value_at<boost::mpl::_1, N>
+                >::type
+            >
         type;
     };
-
-
-    template< class FusionSeqRange, class N >
-    struct super_ :
-        transform_range<
-            FusionSeqRange,
-            op_at<N>,
-            typename reference<FusionSeqRange, N>::type
-        >
-    { };
 
 
 } // namespace get_at_range_detail

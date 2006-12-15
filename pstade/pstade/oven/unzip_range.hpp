@@ -12,15 +12,18 @@
 
 #include <boost/iterator/zip_iterator.hpp> // tuple_impl_specific
 #include <boost/mpl/int.hpp>
+#include <boost/mpl/placeholders.hpp> // _1
 #include <boost/tuple/tuple.hpp>
-#include <boost/type_traits/remove_reference.hpp>
 #include <pstade/affect.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/const.hpp>
 #include <pstade/const_overloaded.hpp>
 #include <pstade/nonassignable.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/remove_cvr.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
+#include "./detail/reference_affect.hpp"
 #include "./range_reference.hpp"
 #include "./transform_range.hpp"
 
@@ -31,43 +34,43 @@ namespace pstade { namespace oven {
 namespace unzip_at_range_detail {
 
 
-    template< class TupleRange, class N >
-    struct result_of_get_at
+    template< class N >
+    struct op_at :
+        callable< op_at<N> >
     {
-        typedef typename range_reference<TupleRange>::type tup_ref_t;
-        typedef typename boost::remove_reference<tup_ref_t>::type tup_t;
+        template< class Myself, class Tuple >
+        struct apply :
+            affect_cvr<
+                Tuple&,
+                typename boost::tuples::element<N::value, Tuple>::type
+            >
+        { };
 
-        typedef
-            typename affect_cvr<
-                tup_ref_t,
-                typename boost::tuples::element<N::value, tup_t>::type
-            >::type
-        type;
-    };
-
-
-    template< class TupleRange, class N >
-    struct get_at
-    {
-        typedef
-            typename result_of_get_at<TupleRange, N>::type
-        result_type;
-
-        template< class Tuple >
-        result_type operator()(Tuple const& tup) const
+        template< class Result, class Tuple >
+        Result call(Tuple& tup) const
         {
             return boost::tuples::get<N::value>(tup);
         }
     };
 
 
+    template< class Tuple, class N >
+    struct value_at :
+        boost::tuples::element<N::value, Tuple>
+    { };
+
+
     template< class TupleRange, class N >
-    struct super_
+    struct super_ // avoid metafunction forwarding; GCC3.4 is broken by MPL.
     {
         typedef
             transform_range<
                 TupleRange,
-                get_at<TupleRange, N>
+                op_at<N>,
+                typename detail::reference_affect<
+                    TupleRange,
+                    value_at<boost::mpl::_1, N>
+                >::type
             >
         type;
     };
