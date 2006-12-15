@@ -15,11 +15,11 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/tuple/tuple.hpp>
-#include <boost/type_traits/remove_cv.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/affect.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/object_generator.hpp>
+#include <pstade/remove_cvr.hpp>
 #include <pstade/unused.hpp>
 
 
@@ -35,10 +35,17 @@ namespace pstade {
         struct result_of_size :
             boost::mpl::int_<
                 boost::tuples::length<
-                    typename boost::remove_cv<Tuple>::type // Boost.Tuple needs this.
+                    typename remove_cvr<Tuple>::type // Boost.Tuple needs this.
                 >::value
             >
         { };
+
+
+        template< class Tuple, int N >
+        struct value_at_c :
+            boost::tuples::element<N, typename remove_cvr<Tuple>::type>
+        { };
+
 
         template< int N >
         struct op_at_c :
@@ -46,10 +53,7 @@ namespace pstade {
         {
             template< class Myself, class Tuple >
             struct apply :
-                affect_cvr<
-                    Tuple&,
-                    typename boost::tuples::element<N, Tuple>::type
-                >
+                affect_cvr<Tuple&, typename value_at_c<Tuple, N>::type>
             { };
 
             template< class Result, class Tuple >

@@ -34,16 +34,19 @@ namespace pstade { namespace oven {
 namespace unzip_at_range_detail {
 
 
+    template< class Tuple, class N >
+    struct value_at :
+        boost::tuples::element<N::value, typename remove_cvr<Tuple>::type>
+    { };
+
+
     template< class N >
     struct op_at :
         callable< op_at<N> >
     {
         template< class Myself, class Tuple >
         struct apply :
-            affect_cvr<
-                Tuple&,
-                typename boost::tuples::element<N::value, Tuple>::type
-            >
+            affect_cvr<Tuple&, typename value_at<Tuple, N>::type>
         { };
 
         template< class Result, class Tuple >
@@ -52,12 +55,6 @@ namespace unzip_at_range_detail {
             return boost::tuples::get<N::value>(tup);
         }
     };
-
-
-    template< class Tuple, class N >
-    struct value_at :
-        boost::tuples::element<N::value, Tuple>
-    { };
 
 
     template< class TupleRange, class N >
