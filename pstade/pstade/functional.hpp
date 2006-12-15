@@ -70,7 +70,7 @@ PSTADE_ADL_BARRIER(functional) {
         struct op_result :
             callable< op_result<Predicate> > 
         {
-            explicit op_result() // DefaultConstructible iif 'Predicate' is.
+            explicit op_result() // for ForwardIterator
             { }
 
             explicit op_result(Predicate const& pred) :

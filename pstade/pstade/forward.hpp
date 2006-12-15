@@ -20,6 +20,7 @@
 //
 // Also, this can add 'boost::result_of/lambda::sig' support
 // by passing the extra argument, as 'lambda::ret' does.
+// Thus, you can change the result type of the function.
 
 
 // Note:
@@ -126,7 +127,7 @@ namespace pstade {
         #undef  PSTADE_max_arity
 
 
-            explicit op_result() // DefaultConstructible iff 'Function' is.
+            explicit op_result() // for ForwardIterator
             { }
 
             explicit op_result(Function const& fun) :

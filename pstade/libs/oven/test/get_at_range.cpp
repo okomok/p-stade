@@ -18,11 +18,22 @@
 #include <boost/fusion/tuple/tuple.hpp>
 #include <boost/fusion/tuple/make_tuple.hpp>
 #include <boost/mpl/int.hpp>
+#include <boost/mpl/assert.hpp>
+#include <boost/type_traits/is_same.hpp>
 #include <boost/foreach.hpp>
 
 
 typedef boost::fusion::tuple<int, char> tup_t;
 typedef std::vector<tup_t> rng_t;
+
+
+namespace fusion_does {
+
+    typedef boost::fusion::tuple<int&> rtup_t;
+    BOOST_MPL_ASSERT((boost::is_same< boost::fusion::result_of::value_at_c<rtup_t, 0>::type,
+        int&>));
+
+}
 
 
 void test()

@@ -43,7 +43,7 @@ namespace pstade {
                 return m_f( pstade::fuse(m_g)(args) );
             }
 
-            explicit base_op_result() // DefaultConstructible iff 'F' and 'G' are.
+            explicit base_op_result() // for ForwardIterator
             { }
 
             explicit base_op_result(F const& f, G const& g) :

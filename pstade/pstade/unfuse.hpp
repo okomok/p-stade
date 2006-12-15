@@ -13,7 +13,7 @@
 
 // Note:
 //
-// This could be implementedy by 'compose' and 'tie',
+// This could be implementedy by 'compose' with 'tie',
 // but this is the basis together with 'fuse'.
 
 
@@ -44,21 +44,21 @@ namespace pstade {
 
             template< class Myself, BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(PSTADE_CALLABLE_MAX_ARITY, class A, void) >
             struct apply :
-                boost::result_of<
-                    Function(
-                        // no 'const&', cuz this tuple is rvalue (20.5.4/1).
-                        boost::tuples::tuple< PSTADE_PP_ENUM_REF_PARAMS(PSTADE_CALLABLE_MAX_ARITY, A) >
-                    )
-                >
+                boost::result_of< Function(
+                    boost::tuples::tuple<
+                        PSTADE_PP_ENUM_REF_PARAMS(PSTADE_CALLABLE_MAX_ARITY, A)
+                    >
+                ) >
             { };
 
             template< class Result, BOOST_PP_ENUM_PARAMS(PSTADE_CALLABLE_MAX_ARITY, class A) >
             Result call( PSTADE_PP_ENUM_REF_PARAMS_WITH_OBJECTS(PSTADE_CALLABLE_MAX_ARITY, A, a) ) const
             {
-                return
-                    m_fun(
-                       pstade::tie( BOOST_PP_ENUM_PARAMS(PSTADE_CALLABLE_MAX_ARITY, a) )
-                    );
+                return m_fun(
+                    pstade::tie(
+                        BOOST_PP_ENUM_PARAMS(PSTADE_CALLABLE_MAX_ARITY, a)
+                    )
+                );
             }
 
 
@@ -67,10 +67,10 @@ namespace pstade {
             template< class Result >
             Result call() const
             {
-                return
-                    m_fun(
-                        pstade::tie()
-                    );
+                return m_fun(
+                    pstade::tie(
+                    )
+                );
             }
 
 
@@ -78,20 +78,21 @@ namespace pstade {
 
             template< class Myself, class A0 >
             struct apply< Myself, A0 > :
-                boost::result_of<
-                    Function(
-                        boost::tuples::tuple< A0& >
-                    )
-                >
+                boost::result_of< Function(
+                    boost::tuples::tuple<
+                        A0&
+                    >
+                ) >
             { };
 
             template< class Result, class A0 >
             Result call( A0& a0 ) const
             {
-                return
-                    m_fun(
-                        pstade::tie( a0 )
-                    );
+                return m_fun(
+                    pstade::tie(
+                        a0
+                    )
+                );
             }
 
 
@@ -103,7 +104,7 @@ namespace pstade {
         #undef  PSTADE_max_arity
 
 
-            explicit op_result() // DefaultConstructible iff 'Function' is.
+            explicit op_result() // for ForwardIterator
             { }
 
             explicit op_result(Function const& fun) :
@@ -142,20 +143,21 @@ PSTADE_CALLABLE_NULLARY_RESULT_TEMPLATE((pstade)(unfuse_detail)(op_result), 1)
 
 template< class Myself, BOOST_PP_ENUM_PARAMS(n, class A) >
 struct apply< Myself, BOOST_PP_ENUM_PARAMS(n, A) > :
-    boost::result_of<
-        Function(
-            boost::tuples::tuple< PSTADE_PP_ENUM_REF_PARAMS(n, A) >
-        )
-    >
+    boost::result_of< Function(
+        boost::tuples::tuple<
+            PSTADE_PP_ENUM_REF_PARAMS(n, A)
+        >
+    ) >
 { };
 
 template< class Result, BOOST_PP_ENUM_PARAMS(n, class A) >
 Result call( PSTADE_PP_ENUM_REF_PARAMS_WITH_OBJECTS(n, A, a) ) const
 {
-    return
-        m_fun(
-            pstade::tie( BOOST_PP_ENUM_PARAMS(n, a) )
-        );
+    return m_fun(
+        pstade::tie(
+            BOOST_PP_ENUM_PARAMS(n, a)
+        )
+    );
 }
 
 

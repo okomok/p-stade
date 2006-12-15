@@ -22,6 +22,9 @@
 #include <boost/range.hpp>
 #include <pstade/oven/functions.hpp>
 #include <functional>
+#include <pstade/value.hpp>
+#include <pstade/functional.hpp>
+#include <pstade/forward.hpp>
 
 
 struct multiply2 :
@@ -77,6 +80,13 @@ void test()
             );
         
         BOOST_CHECK(ok);
+    }
+    {
+        std::string str;
+        str |
+            transformed(pstade::value) |
+            // transformed(pstade::identity); // dangling!
+            transformed(pstade::forward<char>(pstade::identity));
     }
 }
 

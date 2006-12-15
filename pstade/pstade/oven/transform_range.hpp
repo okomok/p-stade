@@ -62,14 +62,6 @@ namespace pstade { namespace oven {
 namespace transform_range_detail {
 
 
-    template< class Iterator, class UnaryFun >
-    struct default_reference
-    {
-        typedef typename boost::iterator_reference<Iterator>::type ref_t;
-        typedef typename boost::result_of<UnaryFun(ref_t)>::type type;
-    };
-
-
     template<
         class Range,
         class UnaryFun,
@@ -78,16 +70,20 @@ namespace transform_range_detail {
     >
     struct super_
     {
-        typedef typename range_iterator<Range>::type iter_t;
+        typedef typename range_iterator<Range>::type base_iter_t;
+        typedef typename boost::iterator_reference<base_iter_t>::type base_ref_t;
 
         typedef typename
-            use_default_eval_to< Reference, default_reference<iter_t, UnaryFun> >::type
+            use_default_eval_to<
+                Reference,
+                boost::result_of<UnaryFun(base_ref_t)>
+            >::type
         ref_t;
 
         typedef
             iter_range<
                 boost::transform_iterator<
-                    UnaryFun, iter_t, ref_t, Value
+                    UnaryFun, base_iter_t, ref_t, Value
                 >
             >
         type;
@@ -123,7 +119,7 @@ public:
         )
     { }
 
-    function_type const function() const // 'boost::transform_iterator' doesn't return reference.
+    function_type const function() const
     {
         return this->begin().functor();
     }

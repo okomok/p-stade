@@ -111,7 +111,7 @@ namespace pstade {
         #undef  PSTADE_max_arity
 
 
-            explicit pipe() // DefaultConstructible if 'Function' is.
+            explicit pipe() // for ForwardIterator
             { }
 
             explicit pipe(Function const& fun, Arguments const& args = Arguments()) :

@@ -11,12 +11,14 @@
 
 
 #include <boost/fusion/sequence/intrinsic/at.hpp>
+#include <boost/fusion/sequence/intrinsic/value_at.hpp>
 #include <boost/mpl/int.hpp>
-#include <boost/type_traits/remove_reference.hpp>
 #include <pstade/affect.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/const.hpp>
 #include <pstade/const_overloaded.hpp>
 #include <pstade/nonassignable.hpp>
+#include <pstade/remove_cvr.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./range_reference.hpp"
@@ -30,7 +32,8 @@ namespace get_at_range_detail {
 
 
     template< class N >
-    struct baby_at
+    struct op_at :
+        callable< op_at<N> >
     {
         template< class Myself, class FusionSeq >
         struct apply :
@@ -45,35 +48,30 @@ namespace get_at_range_detail {
     };
 
 
-    template< class N >
-    struct function
-    {
-        typedef egg::function< baby_at<N> > type;
-    };
-
-
+    // See the Note of "./transform_range.hpp".
     template< class FusionSeqRange, class N >
     struct reference
     {
         typedef typename range_reference<FusionSeqRange>::type seq_ref_t;
-        typedef typename boost::remove_reference<seq_ref_t>::type seq_t;
+        typedef typename remove_cvr<seq_ref_t>::type seq_t;
 
-        typedef typename affect_cvr<
-            seq_ref_t,
-            typename boost::fusion::result_of::at<seq_t, N>::type
-        >::type type;
+        typedef typename
+            affect_cvr<
+                seq_ref_t,
+                typename boost::fusion::result_of::value_at<seq_t, N>::type
+            >::type
+        type;
     };
 
 
     template< class FusionSeqRange, class N >
-    struct super_
-    {
-        typedef transform_range<
+    struct super_ :
+        transform_range<
             FusionSeqRange,
-            typename function<N>::type,
+            op_at<N>,
             typename reference<FusionSeqRange, N>::type
-        > type;
-    };
+        >
+    { };
 
 
 } // namespace get_at_range_detail
@@ -85,6 +83,7 @@ struct get_at_range :
     private as_lightweight_proxy< get_at_range<FusionSeqRange, N> >
 {
     PSTADE_CONCEPT_ASSERT((SinglePass<FusionSeqRange>));
+    typedef get_at_range type;
     typedef N index_type;
 
 private:
@@ -98,7 +97,7 @@ public:
 };
 
 
-// generators
+// object generators
 //
 
 template< class N, class FusionSeqRange > inline

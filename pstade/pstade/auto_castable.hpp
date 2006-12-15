@@ -61,7 +61,7 @@ namespace pstade {
                 return Result(m_fun, from);
             }
 
-            explicit op_result() // DefaultConstructible iif 'CastFunction' is.
+            explicit op_result() // for ForwardIterator
             { }
 
             explicit op_result(CastFunction const& fun) :
