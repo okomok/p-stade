@@ -70,7 +70,7 @@ namespace take_range_detail {
     Super make(Range& rng, Difference d, boost::forward_traversal_tag)
     {
         PSTADE_CONCEPT_ASSERT((Forward<Range>));
-        BOOST_ASSERT(0 <= d && d <= oven::distance(rng));
+        BOOST_ASSERT(0 <= d); // '&& d <= oven::distance(rng));' makes an eternal range hung up!
 
         return Super(
             boost::begin(rng),
