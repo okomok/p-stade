@@ -34,68 +34,53 @@
 namespace pstade {
 
 
-    typedef boost::mpl::_  from_;
-    typedef boost::mpl::_1 from_1;
-    typedef boost::mpl::_2 from_2;
-    typedef boost::mpl::_3 from_3;
-    typedef boost::mpl::_4 from_4;
-    typedef boost::mpl::_5 from_5;
-
-
-    // predefined deducers
-
-
     struct argument_not_passed;
     struct object_generator_error_argument_required;
 
 
     template<
-        class A, class F,
+        class A, class Deducer,
         class Default = object_generator_error_argument_required
     >
-    struct deduce_to :
+    struct deduce :
         boost::mpl::eval_if< boost::is_same<A, argument_not_passed>,
             boost::mpl::identity<Default>,
-            F
+            boost::mpl::apply1<Deducer, A>
         >
     { };
 
 
-    template<
-        class A,
-        class Default = object_generator_error_argument_required
-    >
-    struct deduce_to_value :
-        deduce_to<
-            A, pass_by_value<A>,
-            Default
-        >
-    { };
-
-    template<
-        class A,
-        class Default = object_generator_error_argument_required
-    >
-    struct deduce_to_reference :
-        deduce_to<
-            A, boost::add_reference<A>,
-            Default
-        >
-    { };
-
-    template<
-        class A,
-        class Default = object_generator_error_argument_required
-    >
-    struct deduce_to_qualified :
-        deduce_to<
-            A, boost::mpl::identity<A>,
-            Default
-        >
-    { };
+    namespace deducers {
 
 
-    // utility
+        struct to_value
+        {
+            template< class A >
+            struct apply :
+                pass_by_value<A>
+            { };
+        };
+
+
+        struct to_reference
+        {
+            template< class A >
+            struct apply :
+                boost::add_reference<A>
+            { };
+        };
+
+
+        struct to_qualified
+        {
+            template< class A >
+            struct apply :
+                boost::mpl::identity<A>
+            { };
+        };
+
+
+    } // namespace deducers
 
 
     struct unused_argument
@@ -107,9 +92,6 @@ namespace pstade {
         unused_argument(T const&)
         { }
     };
-
-
-    // the object_generator
 
 
     namespace object_generator_detail {
@@ -204,7 +186,20 @@ namespace pstade {
 
 
     #define PSTADE_OBJECT_GENERATOR(G, Lambda) \
-        typedef pstade::object_generator< PSTADE_UNPARENTHESIZE(Lambda) > BOOST_PP_CAT(op_, G); \
+        namespace BOOST_PP_CAT(pstade_object_generator_detail_, G) { \
+        \
+            using pstade::deducers::to_value; \
+            using pstade::deducers::to_reference; \
+            using pstade::deducers::to_qualified; \
+            using boost::mpl::_1; \
+            using boost::mpl::_2; \
+            using boost::mpl::_3; \
+            using boost::mpl::_4; \
+            using boost::mpl::_5; \
+        \
+            typedef pstade::object_generator< PSTADE_UNPARENTHESIZE(Lambda) > BOOST_PP_CAT(op_, G); \
+        } \
+        typedef BOOST_PP_CAT(pstade_object_generator_detail_, G)::BOOST_PP_CAT(op_, G) BOOST_PP_CAT(op_, G); \
         PSTADE_CONSTANT( G, (BOOST_PP_CAT(op_, G)) ) \
     /**/
 

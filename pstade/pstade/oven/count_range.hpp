@@ -93,7 +93,7 @@ public:
 
 
 PSTADE_OBJECT_GENERATOR(make_count_range,
-    (count_range< deduce_to_value<from_1> >) const)
+    (count_range< deduce<_1, to_value> >) const)
 PSTADE_PIPABLE(counted, (boost::result_of<op_fuse(op_make_count_range)>::type))
 
 

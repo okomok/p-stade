@@ -67,7 +67,7 @@ public:
 };
 
 PSTADE_OBJECT_GENERATOR(make_index_range,
-    (index_range< deduce_to_value<from_1>, deduce_to_value<from_3> >) const)
+    (index_range< deduce<_1, to_value>, deduce<_3, to_value> >) const)
 
 
 } } // namespace pstade::oven

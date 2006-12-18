@@ -72,7 +72,7 @@ public:
 
 
 PSTADE_OBJECT_GENERATOR(make_rotate_range,
-    (rotate_range< deduce_to_qualified<from_1> >) const)
+    (rotate_range< deduce<_1, to_qualified> >) const)
 PSTADE_PIPABLE(rotated, (op_make_rotate_range))
 
 

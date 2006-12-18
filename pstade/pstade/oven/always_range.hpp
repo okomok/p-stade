@@ -41,7 +41,7 @@ public:
 
 
 PSTADE_OBJECT_GENERATOR(make_always_range,
-    (always_range< deduce_to_qualified<from_1>, deduce_to_qualified<from_2> >) const)
+    (always_range< deduce<_1, to_qualified>, deduce<_2, to_qualified> >) const)
 PSTADE_PIPABLE(always, (op_make_always_range))
 
 

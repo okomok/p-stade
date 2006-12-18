@@ -60,11 +60,11 @@ public:
 
 
 PSTADE_OBJECT_GENERATOR(make_generate_range,
-    (generate_range< deduce_to_value<from_1>, deduce_to_value<from_2, boost::single_pass_traversal_tag> >) const)
+    (generate_range< deduce<_1, to_value>, deduce<_2, to_value, boost::single_pass_traversal_tag> >) const)
 
 // It is always SinglePass if Generator is reference.
 PSTADE_OBJECT_GENERATOR(generation,
-    (generate_range< deduce_to_reference<from_1> >) const)
+    (generate_range< deduce<_1, to_reference> >) const)
 
 
 } } // namespace pstade::oven

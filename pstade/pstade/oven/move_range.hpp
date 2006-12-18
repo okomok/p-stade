@@ -86,7 +86,7 @@ public:
 
 
 PSTADE_OBJECT_GENERATOR(make_move_range,
-    (move_range< deduce_to_qualified<from_1> >) const)
+    (move_range< deduce<_1, to_qualified> >) const)
 PSTADE_PIPABLE(moved, (op_make_move_range))
 
 

@@ -114,7 +114,7 @@ friend class boost::iterator_core_access;
 PSTADE_ADL_BARRIER(reverse_iterator) { // for Boost
 
 PSTADE_OBJECT_GENERATOR(make_reverse_iterator,
-    (reverse_iterator< deduce_to_value<from_1> >) const)
+    (reverse_iterator< deduce<_1, to_value> >) const)
 
 } // ADL barrier
 

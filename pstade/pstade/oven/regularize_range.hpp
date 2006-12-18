@@ -59,7 +59,7 @@ public:
 
 
 PSTADE_OBJECT_GENERATOR(make_regularize_range,
-    (regularize_range< deduce_to_qualified<from_1> >) const)
+    (regularize_range< deduce<_1, to_qualified> >) const)
 PSTADE_PIPABLE(regularized, (op_make_regularize_range))
 
 

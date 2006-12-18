@@ -83,7 +83,7 @@ public:
 
 
 PSTADE_OBJECT_GENERATOR(make_xpressive_token_range,
-    (xpressive_token_range< deduce_to_qualified<from_1> >) const)
+    (xpressive_token_range< deduce<_1, to_qualified> >) const)
 PSTADE_PIPABLE(xpressive_tokenized, (op_make_xpressive_token_range))
 
 

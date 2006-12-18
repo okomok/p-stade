@@ -84,7 +84,7 @@ public:
 
 
 PSTADE_OBJECT_GENERATOR(make_scan_range,
-    (scan_range< deduce_to_qualified<from_1>, deduce_to_value<from_2>, deduce_to_value<from_3, op_plus> >) const)
+    (scan_range< deduce<_1, to_qualified>, deduce<_2, to_value>, deduce<_3, to_value, op_plus> >) const)
 PSTADE_PIPABLE(scanned, (op_make_scan_range))
 
 

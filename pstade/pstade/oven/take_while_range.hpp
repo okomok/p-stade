@@ -97,7 +97,7 @@ public:
 
 
 PSTADE_OBJECT_GENERATOR(make_take_while_range,
-    (take_while_range< deduce_to_qualified<from_1>, deduce_to_value<from_2> >) const)
+    (take_while_range< deduce<_1, to_qualified>, deduce<_2, to_value> >) const)
 PSTADE_PIPABLE(taken_while, (op_make_take_while_range))
 
 

@@ -78,7 +78,7 @@ public:
 
 
 PSTADE_OBJECT_GENERATOR(make_multi_pass_range,
-    (multi_pass_range< deduce_to_qualified<from_1> >) const)
+    (multi_pass_range< deduce<_1, to_qualified> >) const)
 PSTADE_PIPABLE(multi_passed, (op_make_multi_pass_range))
 
 

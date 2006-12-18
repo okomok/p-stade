@@ -21,7 +21,7 @@ namespace pstade { namespace oven {
 // Workaround:
 // VC7.1 complains about 'empty_base'
 // if class hierarchy has two or more 'private' base of this.
-// So the liner hierarchy optimization is given up.
+// So the liner hierarchy optimization was given up.
 //
 template< class Range /*, class Base = boost::mpl::empty_base*/ >
 struct as_lightweight_proxy 

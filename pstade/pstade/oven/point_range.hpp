@@ -79,7 +79,7 @@ public:
 
 
 PSTADE_OBJECT_GENERATOR(make_point_range,
-    (point_range< deduce_to_qualified<from_1> >) const)
+    (point_range< deduce<_1, to_qualified> >) const)
 PSTADE_PIPABLE(pointed, (op_make_point_range))
 
 

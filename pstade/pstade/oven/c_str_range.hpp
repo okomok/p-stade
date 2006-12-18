@@ -66,14 +66,12 @@ public:
 
 template< class CString >
 struct deduce_to_char_ptr :
-    deduce_to< CString, 
-        boost::remove_pointer<typename pass_by_value<CString>::type>
-    >
+    boost::remove_pointer<typename pass_by_value<CString>::type>
 { };
 
 
 PSTADE_OBJECT_GENERATOR(make_c_str_range,
-    (c_str_range< deduce_to_char_ptr<from_1> >) const)
+    (c_str_range< deduce_to_char_ptr<_1> >) const)
 PSTADE_PIPABLE(as_c_str, (op_make_c_str_range))
 
 

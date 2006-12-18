@@ -127,7 +127,7 @@ namespace pstade {
     } // namespace unfuse_detail
 
 
-    PSTADE_OBJECT_GENERATOR(unfuse, (unfuse_detail::op_result< deduce_to_value<from_1> >))
+    PSTADE_OBJECT_GENERATOR(unfuse, (unfuse_detail::op_result< deduce<_1, to_value> >))
 
 
 } // namespace pstade

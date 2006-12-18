@@ -66,7 +66,7 @@ public:
 
 
 PSTADE_OBJECT_GENERATOR(make_prepend_range,
-    (prepend_range< deduce_to_qualified<from_1>, deduce_to_qualified<from_2> >) const)
+    (prepend_range< deduce<_1, to_qualified>, deduce<_2, to_qualified> >) const)
 PSTADE_PIPABLE(prepended, (op_make_prepend_range))
 
 

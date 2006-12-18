@@ -65,7 +65,7 @@ public:
 
 
 PSTADE_OBJECT_GENERATOR(make_window_range,
-    (window_range< deduce_to_qualified<from_1> >) const)
+    (window_range< deduce<_1, to_qualified> >) const)
 PSTADE_PIPABLE(through_window, (op_make_window_range))
 
 

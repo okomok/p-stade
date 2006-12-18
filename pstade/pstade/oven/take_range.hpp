@@ -113,7 +113,7 @@ public:
 
 
 PSTADE_OBJECT_GENERATOR(make_take_range,
-    (take_range< deduce_to_qualified<from_1> >) const)
+    (take_range< deduce<_1, to_qualified> >) const)
 PSTADE_PIPABLE(taken, (op_make_take_range))
 
 

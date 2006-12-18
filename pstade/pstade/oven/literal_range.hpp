@@ -59,12 +59,12 @@ public:
 
 template< class Array >
 struct deduce_to_array_element_non_const :
-    deduce_to< Array, boost::remove_const<typename boost::remove_extent<Array>::type> >
+    boost::remove_const<typename boost::remove_extent<Array>::type>
 { };
 
 
 PSTADE_OBJECT_GENERATOR(make_literal_range,
-    (literal_range< deduce_to_array_element_non_const<from_1> >) const)
+    (literal_range< deduce_to_array_element_non_const<_1> >) const)
 PSTADE_PIPABLE(as_literal, (op_make_literal_range))
 
 

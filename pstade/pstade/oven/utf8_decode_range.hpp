@@ -68,7 +68,7 @@ public:
 
 
 PSTADE_OBJECT_GENERATOR(make_utf8_decode_range,
-    (utf8_decode_range< deduce_to_qualified<from_1>, deduce_to_value<from_2, boost::uint32_t> >) const)
+    (utf8_decode_range< deduce<_1, to_qualified>, deduce<_2, to_value, boost::uint32_t> >) const)
 PSTADE_PIPABLE(utf8_decoded, (op_make_utf8_decode_range))
 
 

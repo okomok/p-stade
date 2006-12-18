@@ -47,7 +47,7 @@ public:
 
 
 PSTADE_OBJECT_GENERATOR(make_drop_range,
-    (drop_range< deduce_to_qualified<from_1> >) const)
+    (drop_range< deduce<_1, to_qualified> >) const)
 PSTADE_PIPABLE(dropped, (op_make_drop_range))
 
 

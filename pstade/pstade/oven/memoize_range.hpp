@@ -149,7 +149,7 @@ public:
 
 
 PSTADE_OBJECT_GENERATOR(make_memoize_range,
-    (memoize_range< deduce_to_qualified<from_1> >) const)
+    (memoize_range< deduce<_1, to_qualified> >) const)
 PSTADE_PIPABLE(memoized, (op_make_memoize_range))
 
 

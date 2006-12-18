@@ -218,7 +218,7 @@ friend class boost::iterator_core_access;
 
 
 PSTADE_OBJECT_GENERATOR(make_check_iterator,
-    (check_iterator< deduce_to_value<from_1> >) const)
+    (check_iterator< deduce<_1, to_value> >) const)
 
 
 } } // namespace pstade::oven

@@ -71,7 +71,7 @@ public:
 
 
 PSTADE_OBJECT_GENERATOR(make_second_range,
-    (second_range< deduce_to_qualified<from_1> >) const)
+    (second_range< deduce<_1, to_qualified> >) const)
 PSTADE_PIPABLE(seconds, (op_make_second_range))
 
 

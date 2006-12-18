@@ -105,7 +105,7 @@ friend class boost::iterator_core_access;
 
 
 PSTADE_OBJECT_GENERATOR(make_const_lvalue_iterator,
-    (const_lvalue_iterator< deduce_to_value<from_1> >) const)
+    (const_lvalue_iterator< deduce<_1, to_value> >) const)
 
 
 } } // namespace pstade::oven

@@ -91,7 +91,7 @@ public:
 
 
 PSTADE_OBJECT_GENERATOR(make_indirect_range,
-    (indirect_range< deduce_to_qualified<from_1> >) const)
+    (indirect_range< deduce<_1, to_qualified> >) const)
 PSTADE_PIPABLE(indirected, (op_make_indirect_range))
 
 

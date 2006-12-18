@@ -90,7 +90,7 @@ public:
 
 
 PSTADE_OBJECT_GENERATOR(make_position_range,
-    (position_range< deduce_to_qualified<from_1>, deduce_to_value<from_2, boost::spirit::file_position> >) const)
+    (position_range< deduce<_1, to_qualified>, deduce<_2, to_value, boost::spirit::file_position> >) const)
 PSTADE_PIPABLE(with_position, (op_make_position_range))
 
 

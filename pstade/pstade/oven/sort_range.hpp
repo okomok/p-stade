@@ -92,7 +92,7 @@ public:
 
 
 PSTADE_OBJECT_GENERATOR(make_sort_range,
-    (sort_range< deduce_to_qualified<from_1>, deduce_to_value<from_2, op_less> >) const)
+    (sort_range< deduce<_1, to_qualified>, deduce<_2, to_value, op_less> >) const)
 PSTADE_PIPABLE(sorted, (op_make_sort_range))
 
 

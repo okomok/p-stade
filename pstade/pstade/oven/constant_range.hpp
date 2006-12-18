@@ -70,7 +70,7 @@ public:
 
 
 PSTADE_OBJECT_GENERATOR(make_constant_range,
-    (constant_range< deduce_to_qualified<from_1> >) const)
+    (constant_range< deduce<_1, to_qualified> >) const)
 PSTADE_PIPABLE(constants, (op_make_constant_range))
 
 

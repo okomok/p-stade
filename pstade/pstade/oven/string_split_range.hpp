@@ -59,7 +59,7 @@ public:
 
 
 PSTADE_OBJECT_GENERATOR(make_string_split_range,
-    (string_split_range< deduce_to_qualified<from_1> >) const)
+    (string_split_range< deduce<_1, to_qualified> >) const)
 PSTADE_PIPABLE(string_split, (op_make_string_split_range))
 
 

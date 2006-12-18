@@ -102,7 +102,7 @@ public:
 
 
 PSTADE_OBJECT_GENERATOR(make_token_range,
-    (token_range< deduce_to_qualified<from_1> >) const)
+    (token_range< deduce<_1, to_qualified> >) const)
 PSTADE_PIPABLE(tokenized, (op_make_token_range))
 
 

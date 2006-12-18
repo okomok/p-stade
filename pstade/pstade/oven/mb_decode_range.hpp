@@ -57,7 +57,7 @@ public:
 
 
 PSTADE_OBJECT_GENERATOR(make_mb_decode_range,
-    (mb_decode_range< deduce_to_qualified<from_1> >) const)
+    (mb_decode_range< deduce<_1, to_qualified> >) const)
 PSTADE_PIPABLE(mb_decoded, (op_make_mb_decode_range))
 
 

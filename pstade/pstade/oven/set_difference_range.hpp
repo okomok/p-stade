@@ -112,7 +112,7 @@ public:
 };
 
 PSTADE_OBJECT_GENERATOR(make_set_difference_range,
-    (set_difference_range< deduce_to_qualified<from_1>, deduce_to_qualified<from_2>, deduce_to_value<from_3, op_less> >) const)
+    (set_difference_range< deduce<_1, to_qualified>, deduce<_2, to_qualified>, deduce<_3, to_value, op_less> >) const)
 PSTADE_PIPABLE(set_minus, (op_make_set_difference_range))
 
 

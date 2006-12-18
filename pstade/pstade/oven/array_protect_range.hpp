@@ -43,12 +43,12 @@ public:
 
 template< class Array >
 struct deduce_to_array_element :
-    deduce_to< Array, boost::remove_extent<Array> >
+    boost::remove_extent<Array>
 { };
 
 
 PSTADE_OBJECT_GENERATOR(make_array_protect_range,
-    (array_protect_range< deduce_to_array_element<from_1> >) const)
+    (array_protect_range< deduce_to_array_element<_1> >) const)
 PSTADE_PIPABLE(array_protected, (op_make_array_protect_range))
 PSTADE_PIPABLE(as_array, (op_make_array_protect_range))
 

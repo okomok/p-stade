@@ -10,7 +10,7 @@ using namespace pstade;
 
 
 typedef
-    object_generator< std::pair< deduce_to_value<from_1>, deduce_to_value<from_2> > >
+    object_generator< std::pair< deduce<_1, to_value>, deduce<_2, to_value> > >
 op_make_pair;
 
 op_make_pair const make_pair = op_make_pair();
