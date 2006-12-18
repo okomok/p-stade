@@ -10,6 +10,16 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Pending...
+//
+
+
+// Note:
+//
+// Ranges are always copied.
+// The inifinite number class seems required.
+
+
 #include <limits> // numeric_limits
 #include <boost/xpressive/proto/compile.hpp>
 #include <boost/xpressive/proto/operators.hpp>
@@ -30,6 +40,25 @@ namespace pstade { namespace oven {
     namespace compile_detail {
 
 
+        template< class Derived >
+        struct compiler
+        {
+            template< class Derived, class Expr, class State, class Visitor >
+            struct apply_aux :
+                Derived::template apply<Expr, State, Visitor>
+            { };
+
+            template< class Expr, class State, class Visitor >
+            static typename apply_aux<Derived, Expr, State, Visitor>::type
+            call(Expr const& expr, State const& state, Visitor& visitor)
+            {
+                return Derived().template call_<
+                    typename apply_aux<Derived, Expr, State, Visitor>::type
+                >(expr, state, visitor);
+            }
+        };
+
+
         namespace proto = boost::proto;
 
 
@@ -38,16 +67,16 @@ namespace pstade { namespace oven {
         struct visitor_t { };
 
 
-        struct terminal_compiler
+        struct terminal_compiler :
+            compiler<terminal_compiler>
         {
             template< class Expr, class State, class Visitor >
             struct apply :
                 sub_range_result<PSTADE_CONST(typename Expr::arg0_type)>
             { };
 
-            template< class Expr, class State, class Visitor >
-            static typename apply<Expr, State, Visitor>::type
-            call(Expr const& expr, State const& state, Visitor& visitor)
+            template< class Result, class Expr, class State, class Visitor >
+            Result call_(Expr const& expr, State const& state, Visitor& visitor)
             {
                 pstade::unused(state, visitor);
                 return proto::arg(expr);
@@ -55,7 +84,8 @@ namespace pstade { namespace oven {
         };
 
 
-        struct joint_compiler
+        struct joint_compiler :
+            compiler<joint_compiler>
         {
             template< class Expr, class State, class Visitor >
             struct apply
@@ -78,11 +108,10 @@ namespace pstade { namespace oven {
                 type;
             };
 
-            template< class Expr, class State, class Visitor >
-            static typename apply<Expr, State, Visitor>::type
-            call(Expr const& expr, State const& state, Visitor& visitor)
+            template< class Result, class Expr, class State, class Visitor >
+            Result call_(Expr const& expr, State const& state, Visitor& visitor)
             {
-                return typename apply<Expr, State, Visitor>::type(
+                return Result(
                     proto::compile(proto::left(expr),  state, visitor, oven_tag()),
                     proto::compile(proto::right(expr), state, visitor, oven_tag())
                 );
@@ -90,7 +119,8 @@ namespace pstade { namespace oven {
         };
 
 
-        struct positive_compiler
+        struct positive_compiler :
+            compiler<positive_compiler>
         {
             template< class Expr, class State, class Visitor >
             struct apply
@@ -106,11 +136,10 @@ namespace pstade { namespace oven {
                 type;
             };
 
-            template< class Expr, class State, class Visitor >
-            static typename apply<Expr, State, Visitor>::type
-            call(Expr const& expr, State const& state, Visitor& visitor)
+            template< class Result, class Expr, class State, class Visitor >
+            Result call_(Expr const& expr, State const& state, Visitor& visitor)
             {
-                return typename apply<Expr, State, Visitor>::type(
+                return Result(
                     proto::compile(proto::arg(expr), state, visitor, oven_tag()),
                     (std::numeric_limits<std::size_t>::max)()
                 );

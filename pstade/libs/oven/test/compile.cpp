@@ -20,7 +20,7 @@
 #include <pstade/oven/equals.hpp>
 #include <pstade/oven/copy_range.hpp>
 #include <pstade/oven/take_range.hpp>
-
+#include <pstade/oven/identity_range.hpp>
 
 
 void test()
@@ -39,6 +39,25 @@ void test()
         ) );
     }
 }
+
+
+#if 0
+void test_()
+{
+    {
+        std::string       rng1("12");
+        std::list<char>   rng2 = std::string("34")|copied;
+        std::vector<char> rng3 = std::string("56")|copied;
+        std::string       rng4_("78");
+        test_noncopyable_range<std::string> rng4(rng4_);
+
+        BOOST_CHECK( equals(
+            compile( +(rng1 >> (rng2|as_expr) >> rng3) ) | taken(18),
+            std::string("123456123456123456")
+        ) );
+    }
+}
+#endif
 
 
 int test_main(int, char*[])

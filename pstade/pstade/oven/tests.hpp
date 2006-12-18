@@ -20,12 +20,14 @@
 #include <boost/assert.hpp>
 #include <boost/concept_check.hpp>
 #include <boost/foreach.hpp>
+#include <boost/noncopyable.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/empty.hpp>
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
 #include <boost/iterator/new_iterator_tests.hpp>
 #include <boost/next_prior.hpp>
+#include <pstade/object_generator.hpp>
 #include <pstade/reference.hpp>
 #include "./algorithm.hpp"
 #include "./concepts.hpp"
@@ -35,6 +37,7 @@
 #include "./range_iterator.hpp"
 #include "./range_reference.hpp"
 #include "./range_value.hpp"
+#include "./sub_range_base.hpp"
 
 // you need not include them.
 #include <vector>
@@ -600,6 +603,21 @@ bool test_lightweight_proxy(Range const& rng)
 
     return true;
 }
+
+
+template< class Range >
+struct test_noncopyable_range :
+    sub_range_base<Range>::type,
+    private boost::noncopyable
+{
+private:
+    typedef typename sub_range_base<Range>::type super_t;
+
+public:
+    explicit test_noncopyable_range(Range& rng) :
+        super_t(rng)
+    { };
+};
 
 
 } } // namespace pstade::oven

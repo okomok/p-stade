@@ -30,7 +30,6 @@
 #include <boost/range/end.hpp>
 #include <boost/range/iterator.hpp>
 #include <boost/range/size_type.hpp>
-#include <boost/type_traits/remove_reference.hpp>
 #include <pstade/concept.hpp>
 #include <pstade/remove_cvr.hpp>
 #include "./detail/config.hpp" // PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR
@@ -46,8 +45,7 @@ namespace pstade { namespace oven {
 template< class T >
 struct Readable
 {
-    typedef typename boost::remove_reference<T>::type non_ref_t;
-    typedef typename range_iterator<non_ref_t>::type iterator;
+    typedef typename range_iterator<T>::type iterator;
 
     PSTADE_CONCEPT_USAGE(Readable)
     {
@@ -62,8 +60,7 @@ private:
 template< class T >
 struct Writable
 {
-    typedef typename boost::remove_reference<T>::type non_ref_t;
-    typedef typename range_iterator<non_ref_t>::type iterator;
+    typedef typename range_iterator<T>::type iterator;
 
     PSTADE_CONCEPT_USAGE(Writable)
     {
@@ -75,8 +72,7 @@ struct Writable
 template< class T >
 struct Swappable
 {
-    typedef typename boost::remove_reference<T>::type non_ref_t;
-    typedef typename range_iterator<non_ref_t>::type iterator;
+    typedef typename range_iterator<T>::type iterator;
 
     PSTADE_CONCEPT_USAGE(Swappable)
     {
@@ -88,8 +84,7 @@ struct Swappable
 template< class T >
 struct Lvalue
 {
-    typedef typename boost::remove_reference<T>::type non_ref_t;
-    typedef typename range_iterator<non_ref_t>::type iterator;
+    typedef typename range_iterator<T>::type iterator;
 
     PSTADE_CONCEPT_USAGE(Lvalue)
     {
