@@ -16,7 +16,7 @@
 #include <boost/range/empty.hpp>
 #include <boost/range/end.hpp>
 #include <boost/utility/result_of.hpp>
-#include <pstade/const.hpp>
+#include <pstade/deduced_const.hpp>
 #include <pstade/functional.hpp> // not_, is_zero
 #include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
@@ -34,7 +34,7 @@ PSTADE_CONCEPT_WHERE(
     ((Forward<Range>)), // ((Readable_const<Range>)),
 (bool)) is_null_terminated(Range const& rng)
 {
-    typedef typename range_iterator<PSTADE_CONST(Range)>::type iter_t;
+    typedef typename range_iterator<PSTADE_DEDUCED_CONST(Range)>::type iter_t;
 
     iter_t first = boost::begin(rng);
     iter_t last = boost::end(rng);

@@ -645,7 +645,7 @@ Pending...
 
 - Header: ``<pstade/oven/joint_range.hpp>``
 - Valid expression: ``rng1|jointed(rng2)``
-- Precondition: The ``reference`` type of ``rng2`` is convertible to ``rng1``\'s.
+- Precondition: The ``reference`` type of ``rng2`` is convertible to ``rng1``\'s without creating rvalue.
 - Returns: A range that joints ``[boost::begin(rng1),boost::end(rng1))`` and ``[boost::begin(rng2),boost::end(rng2))``.
 
 

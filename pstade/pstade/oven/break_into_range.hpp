@@ -19,8 +19,8 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/token_iterator.hpp>
-#include <pstade/const.hpp>
 #include <pstade/const_overloaded.hpp>
+#include <pstade/deduced_const.hpp>
 #include <pstade/nonassignable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
@@ -95,10 +95,10 @@ make_break_into_range(Range& rng, TokenizerFun const& fun,
 
 
 template< class Type, class Range, class TokenizerFun > inline
-break_into_range<PSTADE_CONST(Range), TokenizerFun, Type> const
+break_into_range<PSTADE_DEDUCED_CONST(Range), TokenizerFun, Type> const
 make_break_into_range(Range const& rng, TokenizerFun const& fun)
 {
-    return break_into_range<PSTADE_CONST(Range), TokenizerFun, Type>(rng, fun);
+    return break_into_range<PSTADE_DEDUCED_CONST(Range), TokenizerFun, Type>(rng, fun);
 }
 
 
@@ -126,10 +126,10 @@ namespace break_into_range_detail {
 
 
     template< class Range, class TokenizerFun, class Type > inline
-    break_into_range<PSTADE_CONST(Range), TokenizerFun, Type> const
+    break_into_range<PSTADE_DEDUCED_CONST(Range), TokenizerFun, Type> const
     operator|(Range const& rng, pipe<Type, TokenizerFun> const& pi)
     {
-        return break_into_range<PSTADE_CONST(Range), TokenizerFun, Type>(rng, pi.m_fun);
+        return break_into_range<PSTADE_DEDUCED_CONST(Range), TokenizerFun, Type>(rng, pi.m_fun);
     }
 
 

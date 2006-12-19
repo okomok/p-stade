@@ -23,6 +23,7 @@
 // http://d.hatena.ne.jp/uskz/20061011
 
 
+#include <boost/config.hpp> // BOOST_NESTED_TEMPLATE
 #include <boost/lambda/core.hpp> // placeholders
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
@@ -38,7 +39,7 @@ namespace boost {
     //
     template< class T >
     struct result_of<lambda::lambda_functor<T>(void)> : // CWPro8 requires 'void'.
-        lambda::lambda_functor<T>::template sig<
+        lambda::lambda_functor<T>::BOOST_NESTED_TEMPLATE sig<
             tuples::tuple<
                 lambda::lambda_functor<T>
             >
@@ -98,7 +99,7 @@ namespace pstade {
 
     template< class T, BOOST_PP_ENUM_PARAMS(n, class A) >
     struct result_of<lambda::lambda_functor<T>(BOOST_PP_ENUM_PARAMS(n, A))> :
-        lambda::lambda_functor<T>::template sig<
+        lambda::lambda_functor<T>::BOOST_NESTED_TEMPLATE sig<
             tuples::tuple<
                 lambda::lambda_functor<T>,
                 BOOST_PP_ENUM(n, PSTADE_add_ref, ~)

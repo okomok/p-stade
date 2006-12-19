@@ -26,6 +26,7 @@
 // http://article.gmane.org/gmane.comp.lib.boost.devel/150218
 
 
+#include <boost/config.hpp> // BOOST_NESTED_TEMPLATE
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/punctuation/comma_if.hpp>
@@ -38,7 +39,7 @@
 #include <boost/type_traits/remove_reference.hpp>
 #include <boost/utility/result_of.hpp> // inclusion guaranteed
 #include <pstade/adl_barrier.hpp>
-#include <pstade/const.hpp>
+#include <pstade/deduced_const.hpp>
 #include <pstade/lambda_sig.hpp>
 #include <pstade/preprocessor.hpp>
 
@@ -87,7 +88,7 @@ namespace pstade {
         NullaryResult // Never call 'boost::result_of', which requires 'Derived' to be complete here.
         operator()() const
         {
-            return derived().template call<
+            return derived().BOOST_NESTED_TEMPLATE call<
                 NullaryResult
             >();
         }
@@ -98,7 +99,7 @@ namespace pstade {
     private:
         template< class A0 >
         struct result1 :
-            Derived::template apply< Derived,
+            Derived::BOOST_NESTED_TEMPLATE apply< Derived,
                 typename callable_detail::meta_argument<A0>::type
             >
         { };
@@ -116,17 +117,17 @@ namespace pstade {
         typename result1<A0&>::type
         operator()(A0& a0) const
         {
-            return derived().template call<
+            return derived().BOOST_NESTED_TEMPLATE call<
                 typename result1<A0&>::type
             >(a0);
         }
 
         template< class A0 >
-        typename result1<PSTADE_CONST(A0)&>::type
+        typename result1<PSTADE_DEDUCED_CONST(A0)&>::type
         operator()(A0 const& a0) const
         {
-            return derived().template call<
-                typename result1<PSTADE_CONST(A0)&>::type
+            return derived().BOOST_NESTED_TEMPLATE call<
+                typename result1<PSTADE_DEDUCED_CONST(A0)&>::type
             >(a0);
         }
 
@@ -138,7 +139,7 @@ namespace pstade {
         typename BOOST_PP_CAT(result, n)<BOOST_PP_SEQ_FOR_EACH_I_R(R, PSTADE_arg_type, ~, BitSeq)>::type \
         operator()(BOOST_PP_SEQ_FOR_EACH_I_R(R, PSTADE_param, ~, BitSeq)) const \
         { \
-            return derived().template call< \
+            return derived().BOOST_NESTED_TEMPLATE call< \
                 typename BOOST_PP_CAT(result, n)<BOOST_PP_SEQ_FOR_EACH_I_R(R, PSTADE_arg_type, ~, BitSeq)>::type \
             >(BOOST_PP_ENUM_PARAMS(n, a)); \
         } \
@@ -149,7 +150,7 @@ namespace pstade {
     #define PSTADE_c0
     #define PSTADE_c1 const
     #define PSTADE_ac0(X) X
-    #define PSTADE_ac1(X) PSTADE_CONST(X)
+    #define PSTADE_ac1(X) PSTADE_DEDUCED_CONST(X)
     #define PSTADE_bits(Z, N, _) ((0)(1))
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_CALLABLE_MAX_ARITY, <pstade/callable.hpp>))
         #include BOOST_PP_ITERATE()
@@ -256,7 +257,7 @@ namespace pstade {
 private:
     template< BOOST_PP_ENUM_PARAMS(n, class A) >
     struct BOOST_PP_CAT(result, n) :
-        Derived::template apply< Derived,
+        Derived::BOOST_NESTED_TEMPLATE apply< Derived,
             BOOST_PP_ENUM(n, PSTADE_meta_argument, ~)
         >
     { };

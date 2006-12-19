@@ -1,7 +1,7 @@
 #include <boost/test/minimal.hpp>
 #include <boost/spirit/phoenix/core/argument.hpp>
 #include <boost/spirit/phoenix/function.hpp>
-#include <pstade/const.hpp>
+#include <pstade/deduced_const.hpp>
 
 
 struct foo_impl

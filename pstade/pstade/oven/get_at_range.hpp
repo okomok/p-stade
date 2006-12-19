@@ -15,8 +15,8 @@
 #include <boost/mpl/int.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/const.hpp>
 #include <pstade/const_overloaded.hpp>
+#include <pstade/deduced_const.hpp>
 #include <pstade/nonassignable.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
@@ -99,10 +99,10 @@ make_get_at_range(FusionSeqRange& rng,
 
 
 template< class N, class FusionSeqRange > inline
-get_at_range<PSTADE_CONST(FusionSeqRange), N> const
+get_at_range<PSTADE_DEDUCED_CONST(FusionSeqRange), N> const
 make_get_at_range(FusionSeqRange const& rng)
 {
-    return get_at_range<PSTADE_CONST(FusionSeqRange), N>(rng);
+    return get_at_range<PSTADE_DEDUCED_CONST(FusionSeqRange), N>(rng);
 }
 
 
@@ -126,10 +126,10 @@ namespace get_at_range_detail {
 
 
     template< class FusionSeqRange, class N > inline
-    get_at_range<PSTADE_CONST(FusionSeqRange), N> const
+    get_at_range<PSTADE_DEDUCED_CONST(FusionSeqRange), N> const
     operator|(FusionSeqRange const& rng, got_at<N> const&)
     {
-        return get_at_range<PSTADE_CONST(FusionSeqRange), N>(rng);
+        return get_at_range<PSTADE_DEDUCED_CONST(FusionSeqRange), N>(rng);
     }
 
 

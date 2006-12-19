@@ -13,8 +13,8 @@
 #include <boost/assert.hpp>
 #include <boost/config.hpp> // BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE
 #include <boost/range/end.hpp>
-#include <pstade/const.hpp>
 #include <pstade/const_overloaded.hpp>
+#include <pstade/deduced_const.hpp>
 #include <pstade/oven/iter_range.hpp>
 #include <pstade/oven/range_iterator.hpp>
 #include <pstade/oven/sub_range_result.hpp>
@@ -63,10 +63,10 @@ search(ForwardRange& r, UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser
 }
 
     template< class Parser, class ForwardRange, class UserState > inline
-    typename oven::sub_range_result<PSTADE_CONST(ForwardRange)>::type
+    typename oven::sub_range_result<PSTADE_DEDUCED_CONST(ForwardRange)>::type
     search(ForwardRange const& r, UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
     {
-        typedef typename match_results_default<Parser, PSTADE_CONST(ForwardRange)>::type results_t;
+        typedef typename match_results_default<Parser, PSTADE_DEDUCED_CONST(ForwardRange)>::type results_t;
         results_t rs;
         return search_detail::aux<Parser>(r, rs, us);
     }
@@ -83,10 +83,10 @@ search(ForwardRange& r BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
 }
 
     template< class Parser, class ForwardRange > inline
-    typename oven::sub_range_result<PSTADE_CONST(ForwardRange)>::type
+    typename oven::sub_range_result<PSTADE_DEDUCED_CONST(ForwardRange)>::type
     search(ForwardRange const& r BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
     {
-        typedef typename match_results_default<Parser, PSTADE_CONST(ForwardRange)>::type results_t;
+        typedef typename match_results_default<Parser, PSTADE_DEDUCED_CONST(ForwardRange)>::type results_t;
         results_t rs;
         return search_detail::aux<Parser>(r, rs, null_state);
     }
@@ -100,7 +100,7 @@ results_search(ForwardRange& r, MatchResults& rs, UserState& us BOOST_APPEND_EXP
 }
 
     template< class Parser, class ForwardRange, class MatchResults, class UserState > inline
-    typename oven::sub_range_result<PSTADE_CONST(ForwardRange)>::type
+    typename oven::sub_range_result<PSTADE_DEDUCED_CONST(ForwardRange)>::type
     results_search(ForwardRange const& r, MatchResults& rs, UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
     {
         return search_detail::aux<Parser>(r, rs, us);
@@ -116,7 +116,7 @@ results_search(ForwardRange& r, MatchResults& rs BOOST_APPEND_EXPLICIT_TEMPLATE_
 }
 
     template< class Parser, class MatchResults, class ForwardRange > inline
-    typename oven::sub_range_result<PSTADE_CONST(ForwardRange)>::type
+    typename oven::sub_range_result<PSTADE_DEDUCED_CONST(ForwardRange)>::type
     results_search(ForwardRange const& r, MatchResults& rs BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
     {
         return search_detail::aux<Parser>(r, rs, null_state);

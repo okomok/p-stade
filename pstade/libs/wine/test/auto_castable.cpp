@@ -28,7 +28,7 @@ struct op_lexical_cast
     }
 };
 
-PSTADE_AUTO_CASTABLE(lexical, op_lexical_cast)
+PSTADE_AUTO_CASTABLE(lexical, (op_lexical_cast))
 
 
 void test()

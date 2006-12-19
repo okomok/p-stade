@@ -23,8 +23,8 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/adl_barrier.hpp>
-#include <pstade/const.hpp>
 #include <pstade/constant.hpp>
+#include <pstade/deduced_const.hpp>
 #include <pstade/functional.hpp> // equal_to
 #include "./algorithm.hpp" // equal
 #include "./concepts.hpp"
@@ -56,8 +56,8 @@ namespace equals_detail {
     bool aux(Range1 const& rng1, Range2 const& rng2, BinaryPred pred,
         boost::single_pass_traversal_tag)
     {
-        typedef typename range_iterator<PSTADE_CONST(Range1)>::type iter1_t;
-        typedef typename range_iterator<PSTADE_CONST(Range2)>::type iter2_t;
+        typedef typename range_iterator<PSTADE_DEDUCED_CONST(Range1)>::type iter1_t;
+        typedef typename range_iterator<PSTADE_DEDUCED_CONST(Range2)>::type iter2_t;
 
         iter1_t it1 = boost::begin(rng1), last1 = boost::end(rng1);
         iter2_t it2 = boost::begin(rng2), last2 = boost::end(rng2);
@@ -80,8 +80,8 @@ struct op_equals
 
     template< class Range1, class Range2, class BinaryPred >
     PSTADE_CONCEPT_WHERE(
-        ((SinglePass<Range1>))  // ((Readable<PSTADE_CONST(Range1)>))
-        ((SinglePass<Range2>)), // ((Readable<PSTADE_CONST(Range2)>)),
+        ((SinglePass<Range1>))  // ((Readable<PSTADE_DEDUCED_CONST(Range1)>))
+        ((SinglePass<Range2>)), // ((Readable<PSTADE_DEDUCED_CONST(Range2)>)),
     (bool)) operator()(Range1 const& rng1, Range2 const& rng2, BinaryPred pred) const
     {
         typedef typename boost::detail::minimum_category<

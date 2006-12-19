@@ -23,7 +23,6 @@
 #include <pstade/apple/atl/module.hpp>
 #include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/apple/sdk/windows.hpp>
-#include <pstade/const.hpp>
 #include <pstade/oven/iter_range.hpp>
 #include <pstade/oven/null_terminate_range.hpp>
 #include <pstade/oven/sub_range_result.hpp>
@@ -84,7 +83,7 @@ struct module_file_name :
 private:
     typedef module_file_name_detail::init<>::type init_t; 
     typedef module_file_name_detail::super_<>::type super_t;
-    typedef oven::sub_range_result<PSTADE_CONST(module_file_name)>::type const_sub_range_t;
+    typedef oven::sub_range_result<module_file_name const>::type const_sub_range_t;
 
 public:
     explicit module_file_name(HINSTANCE hInst = _Module.GetModuleInstance()) :

@@ -37,7 +37,7 @@
 #include <pstade/oven/const_lvalue_range.hpp>
 
 
-#include <pstade/const.hpp>
+#include <pstade/deduced_const.hpp>
 
 
 namespace oven = pstade::oven;
@@ -47,7 +47,7 @@ using namespace oven;
 template< class MfcMap, class AssocContainer >
 void init_map(MfcMap& map, AssocContainer const& sample)
 {
-    typedef typename range_iterator<PSTADE_CONST(AssocContainer)>::type iter_t;
+    typedef typename range_iterator<PSTADE_DEDUCED_CONST(AssocContainer)>::type iter_t;
 
     for (iter_t it = boost::const_begin(sample), last = boost::const_end(sample); it != last; ++it) {
         map.SetAt(it->first, it->second);
@@ -60,7 +60,7 @@ void init_map(MfcMap& map, AssocContainer const& sample)
 template< class AssocContainer, class StdPair >
 bool has_pair(AssocContainer const& ac, StdPair const& p)
 {
-    typedef typename range_iterator<PSTADE_CONST(AssocContainer)>::type iter_t;
+    typedef typename range_iterator<PSTADE_DEDUCED_CONST(AssocContainer)>::type iter_t;
 
     for (iter_t it = boost::const_begin(ac), last = boost::const_end(ac); it != last; ++it) {
         if (it->first == p.first && it->second == p.second)
@@ -77,7 +77,7 @@ bool test_mfc_map(MfcMap& map, AssocContainer const& sample)
     PSTADE_CONCEPT_ASSERT((Forward<MfcMap>));
 
     typedef typename range_iterator<MfcMap>::type iter_t;
-    typedef typename range_iterator<PSTADE_CONST(AssocContainer)>::type siter_t;
+    typedef typename range_iterator<PSTADE_DEDUCED_CONST(AssocContainer)>::type siter_t;
 
     bool result = true;
 
@@ -107,7 +107,7 @@ bool test_mfc_CPair_map(MfcMap& map, const AssocContainer& sample)
     PSTADE_CONCEPT_ASSERT((Forward<MfcMap>));
 
     typedef typename range_iterator<MfcMap>::type iter_t;
-    typedef typename range_iterator<PSTADE_CONST(AssocContainer)>::type siter_t;
+    typedef typename range_iterator<PSTADE_DEDUCED_CONST(AssocContainer)>::type siter_t;
 
     bool result = true;
 

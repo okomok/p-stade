@@ -20,6 +20,7 @@
 
 #include <algorithm> // swap
 #include <boost/assert.hpp>
+#include <boost/config.hpp> // BOOST_NESTED_TEMPLATE
 #include <boost/iterator/detail/minimum_category.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_categories.hpp>
@@ -224,7 +225,7 @@ friend class boost::iterator_core_access;
     ref_t dereference() const
     {
         BOOST_ASSERT(!(is_end1() && is_end2()));
-        return MergeRoutine::template yield<ref_t>(
+        return MergeRoutine::BOOST_NESTED_TEMPLATE yield<ref_t>(
             this->base(), m_last1, m_it2, m_last2, m_comp);
     }
 

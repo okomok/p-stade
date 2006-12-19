@@ -11,6 +11,7 @@
 
 
 #include <boost/assert.hpp>
+#include <boost/config.hpp> // BOOST_NESTED_TEMPLATE
 #include <boost/indirect_reference.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_facade.hpp>
@@ -173,7 +174,7 @@ private:
 
     void generate()
     {
-        m_result = m_gen.template call<result_t>();
+        m_result = m_gen.BOOST_NESTED_TEMPLATE call<result_t>();
     }
 
 friend class boost::iterator_core_access;

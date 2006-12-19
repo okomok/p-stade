@@ -13,7 +13,7 @@
 // What:
 //
 // 12.8/8 notes "the *copy constructor* for the class is used".
-// But VC8's implicitly-defined copy-constructor could call
+// But VC8's implicitly-defined copy-constructor can call
 // any unary template constructor maybe after overload resolution.
 // So is copy-assignment-operator.
 // This is the fatal bug of VC8; http://tinyurl.com/yb8ban

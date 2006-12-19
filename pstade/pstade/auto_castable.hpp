@@ -17,6 +17,7 @@
 #include <pstade/constant.hpp>
 #include <pstade/nonassignable.hpp>
 #include <pstade/object_generator.hpp>
+#include <pstade/unparenthesize.hpp>
 
 
 namespace pstade {
@@ -25,11 +26,11 @@ namespace pstade {
     namespace auto_castable_detail {
 
 
-        template< class CastFunction, class From >
+        template< class CastFun, class From >
         struct temp :
             private nonassignable
         {
-            temp(CastFunction const& fun, From& from) :
+            temp(CastFun const& fun, From& from) :
                 m_fun(fun), m_from(from)
             { }
 
@@ -40,19 +41,19 @@ namespace pstade {
             }
 
         private:
-            CastFunction m_fun;
+            CastFun m_fun;
             From& m_from;
         };
 
 
-        template< class CastFunction >
+        template< class CastFun >
         struct op_result :
-            callable< op_result<CastFunction> >
+            callable< op_result<CastFun> >
         {
             template< class Myself, class From >
             struct apply
             {
-                typedef temp<CastFunction, From> const type;
+                typedef temp<CastFun, From> const type;
             };
 
             template< class Result, class From >
@@ -64,12 +65,12 @@ namespace pstade {
             explicit op_result() // for ForwardIterator
             { }
 
-            explicit op_result(CastFunction const& fun) :
+            explicit op_result(CastFun const& fun) :
                 m_fun(fun)
             { }
 
         private:
-            CastFunction m_fun;
+            CastFun m_fun;
         };
 
 
@@ -79,9 +80,9 @@ namespace pstade {
     PSTADE_OBJECT_GENERATOR(auto_castable, (auto_castable_detail::op_result< deduce<_1, to_value> >))
 
 
-    #define PSTADE_AUTO_CASTABLE(Object, CastFunction) \
+    #define PSTADE_AUTO_CASTABLE(Object, CastFun) \
         typedef \
-            boost::result_of<pstade::op_auto_castable(CastFunction)>::type \
+            boost::result_of<pstade::op_auto_castable( PSTADE_UNPARENTHESIZE(CastFun) )>::type \
         BOOST_PP_CAT(op_, Object); \
         \
         PSTADE_CONSTANT( Object, (BOOST_PP_CAT(op_, Object)) ) \

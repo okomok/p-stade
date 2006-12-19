@@ -12,8 +12,8 @@
 
 #include <boost/config.hpp> // BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE
 #include <boost/range/end.hpp>
-#include <pstade/const.hpp>
 #include <pstade/const_overloaded.hpp>
+#include <pstade/deduced_const.hpp>
 #include "../match_results/default_type.hpp"
 #include "../state/null_state.hpp"
 #include "../state/parsing_range_state_type.hpp"
@@ -50,7 +50,7 @@ match(ForwardRange& r, UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser)
     template< class Parser, class ForwardRange, class UserState > inline
     bool match(ForwardRange const& r, UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
     {
-        typedef typename match_results_default<Parser, PSTADE_CONST(ForwardRange)>::type results_t;
+        typedef typename match_results_default<Parser, PSTADE_DEDUCED_CONST(ForwardRange)>::type results_t;
         results_t rs;
         return match_detail::aux<Parser>(r, rs, us);
     }
@@ -69,7 +69,7 @@ match(ForwardRange& r BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
     template< class Parser, class ForwardRange > inline
     bool match(ForwardRange const& r BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
     {
-        typedef typename match_results_default<Parser, PSTADE_CONST(ForwardRange)>::type results_t;
+        typedef typename match_results_default<Parser, PSTADE_DEDUCED_CONST(ForwardRange)>::type results_t;
         results_t rs;
         return match_detail::aux<Parser>(r, rs, null_state);
     }

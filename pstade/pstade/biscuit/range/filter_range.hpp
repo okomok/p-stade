@@ -11,8 +11,8 @@
 
 
 #include <boost/config.hpp> // BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE, BOOST_EXPLICIT_TEMPLATE_TYPE
-#include <pstade/const.hpp>
 #include <pstade/const_overloaded.hpp>
+#include <pstade/deduced_const.hpp>
 #include <pstade/nonassignable.hpp>
 #include <pstade/oven/as_lightweight_proxy.hpp>
 #include <pstade/oven/iter_range.hpp>
@@ -72,10 +72,10 @@ make_filter_range(ForwardRange& r, UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_
 }
 
     template< class Parser, class ForwardRange, class UserState > inline
-    filter_range<Parser, PSTADE_CONST(ForwardRange), UserState> const
+    filter_range<Parser, PSTADE_DEDUCED_CONST(ForwardRange), UserState> const
     make_filter_range(ForwardRange const& r, UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
     {
-        return filter_range<Parser, PSTADE_CONST(ForwardRange), UserState>(r, us);
+        return filter_range<Parser, PSTADE_DEDUCED_CONST(ForwardRange), UserState>(r, us);
     }
 
 
@@ -88,10 +88,10 @@ make_filter_range(ForwardRange& r BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
 }
 
     template< class Parser, class ForwardRange > inline
-    filter_range<Parser, PSTADE_CONST(ForwardRange)> const
+    filter_range<Parser, PSTADE_DEDUCED_CONST(ForwardRange)> const
     make_filter_range(ForwardRange const& r BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
     {
-        return filter_range<Parser, PSTADE_CONST(ForwardRange)>(r);
+        return filter_range<Parser, PSTADE_DEDUCED_CONST(ForwardRange)>(r);
     }
 
 
@@ -118,7 +118,7 @@ namespace filter_range_detail {
     }
 
         template< class Parser, class ForwardRange, class UserState > inline
-        filter_range<Parser, PSTADE_CONST(ForwardRange), UserState> const
+        filter_range<Parser, PSTADE_DEDUCED_CONST(ForwardRange), UserState> const
         operator|(ForwardRange const& rng, pipe<Parser, UserState> const& pi)
         {
             return biscuit::make_filter_range<Parser>(rng, pi.m_us);

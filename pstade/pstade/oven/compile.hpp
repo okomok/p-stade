@@ -21,11 +21,12 @@
 
 
 #include <limits> // numeric_limits
+#include <boost/config.hpp> // BOOST_NESTED_TEMPLATE
 #include <boost/xpressive/proto/compile.hpp>
 #include <boost/xpressive/proto/operators.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/const.hpp>
 #include <pstade/constant.hpp>
+#include <pstade/deduced_const.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/unused.hpp>
 #include "./cycle_range.hpp"
@@ -46,7 +47,7 @@ namespace pstade { namespace oven {
         private:
             template< class Expr, class State, class Visitor >
             struct apply_aux :
-                Derived::template apply<Expr, State, Visitor>
+                Derived::BOOST_NESTED_TEMPLATE apply<Expr, State, Visitor>
             { };
 
         public:
@@ -54,7 +55,7 @@ namespace pstade { namespace oven {
             static typename apply_aux<Expr, State, Visitor>::type
             call(Expr const& expr, State const& state, Visitor& visitor)
             {
-                return Derived().template call_<
+                return Derived().BOOST_NESTED_TEMPLATE call_<
                     typename apply_aux<Expr, State, Visitor>::type
                 >(expr, state, visitor);
             }
@@ -74,7 +75,7 @@ namespace pstade { namespace oven {
         {
             template< class Expr, class State, class Visitor >
             struct apply :
-                sub_range_result<PSTADE_CONST(typename Expr::arg0_type)>
+                sub_range_result<PSTADE_DEDUCED_CONST(typename Expr::arg0_type)>
             { };
 
             template< class Result, class Expr, class State, class Visitor >
@@ -97,12 +98,12 @@ namespace pstade { namespace oven {
 
                 // compile the left branch
                 typedef typename
-                    proto::compiler<typename left_type::tag_type,  oven_tag>::template apply<left_type,  State, Visitor>::type
+                    proto::compiler<typename left_type::tag_type,  oven_tag>::BOOST_NESTED_TEMPLATE apply<left_type,  State, Visitor>::type
                 left_compiled_type;
 
                 // compile the right branch
                 typedef typename
-                    proto::compiler<typename right_type::tag_type, oven_tag>::template apply<right_type, State, Visitor>::type
+                    proto::compiler<typename right_type::tag_type, oven_tag>::BOOST_NESTED_TEMPLATE apply<right_type, State, Visitor>::type
                 right_compiled_type;
 
                 typedef
@@ -130,7 +131,7 @@ namespace pstade { namespace oven {
                 typedef typename Expr::arg0_type::expr_type expr_type;
 
                 typedef typename
-                    proto::compiler<typename expr_type::tag_type,  oven_tag>::template apply<expr_type,  State, Visitor>::type
+                    proto::compiler<typename expr_type::tag_type,  oven_tag>::BOOST_NESTED_TEMPLATE apply<expr_type,  State, Visitor>::type
                 compiled_type;
 
                 typedef

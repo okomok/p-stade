@@ -31,7 +31,6 @@
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/object_generator.hpp>
-#include <pstade/pass_by.hpp>
 #include <pstade/yes_no.hpp>
 
 
@@ -72,17 +71,17 @@ PSTADE_ADL_BARRIER(functional) {
         {
             typedef T& result_type;
 
+            T& operator()() const
+            {
+                return *m_px;
+            }
+
             explicit op_result() // for ForwardIterator
             { }
 
             explicit op_result(T& x) :
                 m_px(boost::addressof(x))
             { }
-
-            T& operator()() const
-            {
-                return *m_px;
-            }
 
         private:
             T *m_px;
@@ -118,13 +117,6 @@ PSTADE_ADL_BARRIER(functional) {
         struct op_result :
             callable< op_result<Predicate> > 
         {
-            explicit op_result() // for ForwardIterator
-            { }
-
-            explicit op_result(Predicate const& pred) :
-                m_pred(pred)
-            { }
-
             template< class Myself, class T0, class T1 = void >
             struct apply
             {
@@ -142,6 +134,13 @@ PSTADE_ADL_BARRIER(functional) {
             {
                 return !m_pred(a0, a1);
             }
+
+            explicit op_result() // for ForwardIterator
+            { }
+
+            explicit op_result(Predicate const& pred) :
+                m_pred(pred)
+            { }
 
         private:
             Predicate m_pred;
@@ -203,13 +202,13 @@ PSTADE_ADL_BARRIER(functional) {
     namespace functional_detail {
 
         template< class X, class Y > static
-        yes test_x(X const&);
+        yes are_you_x(X const&);
 
         template< class X, class Y > static
-        no  test_x(Y const&, typename boost::disable_if< boost::is_same<X, Y> >::type * = 0);
+        no  are_you_x(Y const&, typename boost::disable_if< boost::is_same<X, Y> >::type * = 0);
 
         template< class X, class Y > static
-        functional_failed_to_deduce_arithmetic_operation_result_type test_x(...);
+        functional_failed_to_deduce_arithmetic_operation_result_type are_you_x(...);
 
     }
 
@@ -225,7 +224,7 @@ PSTADE_ADL_BARRIER(functional) {
         static y_t y; \
         \
         static bool const is_x = \
-            sizeof( functional_detail::test_x<x_t, y_t>(x Op y) ) == sizeof(yes); \
+            sizeof( functional_detail::are_you_x<x_t, y_t>(x Op y) ) == sizeof(yes); \
         \
     public: \
         typedef typename \
@@ -288,13 +287,6 @@ PSTADE_ADL_BARRIER(functional) {
         struct op_result :
             callable< op_result<BinaryFun> >
         {
-            explicit op_result() // for ForwardIterator
-            { }
-
-            explicit op_result(BinaryFun const& fun) :
-                m_fun(fun)
-            { }
-
             template< class Myself, class T0, class T1 >
             struct apply :
                 boost::result_of<BinaryFun(T1&, T0&)>
@@ -305,6 +297,13 @@ PSTADE_ADL_BARRIER(functional) {
             {
                 return m_fun(a1, a0);
             }
+
+            explicit op_result() // for ForwardIterator
+            { }
+
+            explicit op_result(BinaryFun const& fun) :
+                m_fun(fun)
+            { }
 
         private:
             BinaryFun m_fun;

@@ -16,8 +16,8 @@
 #include <boost/tuple/tuple.hpp>
 #include <pstade/affect.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/const.hpp>
 #include <pstade/const_overloaded.hpp>
+#include <pstade/deduced_const.hpp>
 #include <pstade/nonassignable.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/remove_cvr.hpp>
@@ -105,10 +105,10 @@ make_unzip_at_range(TupleRange& rng,
 
 
 template< class N, class TupleRange > inline
-unzip_at_range<PSTADE_CONST(TupleRange), N> const
+unzip_at_range<PSTADE_DEDUCED_CONST(TupleRange), N> const
 make_unzip_at_range(TupleRange const& rng)
 {
-    return unzip_at_range<PSTADE_CONST(TupleRange), N>(rng);
+    return unzip_at_range<PSTADE_DEDUCED_CONST(TupleRange), N>(rng);
 }
 
 
@@ -132,10 +132,10 @@ namespace unzip_at_range_detail {
 
 
     template< class TupleRange, class N > inline
-    unzip_at_range<PSTADE_CONST(TupleRange), N> const
+    unzip_at_range<PSTADE_DEDUCED_CONST(TupleRange), N> const
     operator|(TupleRange const& rng, unzipped_at<N> const&)
     {
-        return unzip_at_range<PSTADE_CONST(TupleRange), N>(rng);
+        return unzip_at_range<PSTADE_DEDUCED_CONST(TupleRange), N>(rng);
     }
 
 

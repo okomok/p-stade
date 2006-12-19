@@ -1,4 +1,4 @@
-#include <pstade/const.hpp>
+#include <pstade/deduced_const.hpp>
 // ...
 
 double d = 3;

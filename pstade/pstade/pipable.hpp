@@ -34,8 +34,8 @@
 #include <boost/tuple/tuple.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/const.hpp>
 #include <pstade/constant.hpp>
+#include <pstade/deduced_const.hpp>
 #include <pstade/fuse.hpp>
 #include <pstade/nonassignable.hpp>
 #include <pstade/object_generator.hpp>
@@ -172,11 +172,11 @@ namespace pstade {
         };
 
         template< class A, class Function, class Arguments > inline
-        typename result_of_output<PSTADE_CONST(A), Function, Arguments>::type
+        typename result_of_output<PSTADE_DEDUCED_CONST(A), Function, Arguments>::type
         operator|(A const& a, pipe<Function, Arguments> const& pi)
         {
             return pipable_detail::output<
-                typename result_of_output<PSTADE_CONST(A), Function, Arguments>::type
+                typename result_of_output<PSTADE_DEDUCED_CONST(A), Function, Arguments>::type
             >(a, pi);
         };
 

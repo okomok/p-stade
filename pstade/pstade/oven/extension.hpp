@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/config.hpp> // BOOST_NESTED_TEMPLATE
 #include <boost/iterator/iterator_traits.hpp> // iterator_difference
 #include <boost/mpl/eval_if.hpp>
 #include <boost/range/const_iterator.hpp>
@@ -115,7 +116,7 @@ namespace pstade { namespace oven { namespace extension_detail {
         Result call(T& x) const
         {
             typedef typename boost::remove_cv<T>::type plain_t;
-            return pstade_oven_extension::Range<plain_t>().template begin<Result>(x);
+            return pstade_oven_extension::Range<plain_t>().BOOST_NESTED_TEMPLATE begin<Result>(x);
         }
     };
 
@@ -134,7 +135,7 @@ namespace pstade { namespace oven { namespace extension_detail {
         Result call(T& x) const
         {
             typedef typename boost::remove_cv<T>::type plain_t;
-            return pstade_oven_extension::Range<plain_t>().template end<Result>(x);
+            return pstade_oven_extension::Range<plain_t>().BOOST_NESTED_TEMPLATE end<Result>(x);
         }
     };
 

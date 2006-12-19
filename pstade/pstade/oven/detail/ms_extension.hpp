@@ -11,6 +11,7 @@
 
 
 #include <boost/assert.hpp>
+#include <boost/config.hpp> // BOOST_NESTED_TEMPLATE
 #include <boost/foreach.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_facade.hpp>
@@ -114,7 +115,7 @@ friend class boost::iterator_core_access;
     ref_t dereference() const
     {
         BOOST_ASSERT("out of range" && m_pos != 0);
-        return GetAt::template call<ref_t>(*m_plst, m_pos);
+        return GetAt::BOOST_NESTED_TEMPLATE call<ref_t>(*m_plst, m_pos);
     }
 
     // A    B    C    D    x
