@@ -35,8 +35,19 @@ void test()
     BOOST_CHECK( pstade::equal_to(1, 1) );
     BOOST_CHECK(!pstade::equal_to(0, 1) );
 
+    BOOST_CHECK( pstade::greater(3, 0) );
+    BOOST_CHECK(!pstade::greater(1, 3) );
     BOOST_CHECK( pstade::less(0, 3) );
     BOOST_CHECK(!pstade::less(3, 1) );
+
+    BOOST_CHECK( pstade::greater_equal(3, 0) );
+    BOOST_CHECK( pstade::greater_equal(1, 1) );
+    BOOST_CHECK( pstade::less_equal(0, 0) );
+    BOOST_CHECK( pstade::less_equal(0, 1) );
+
+    BOOST_CHECK( pstade::logical_and(pstade::equal_to(0, 0), pstade::greater(3, 0)) );
+    BOOST_CHECK( pstade::logical_or(pstade::equal_to(0, 3), pstade::greater(3, 0)) );
+    BOOST_CHECK( pstade::logical_not(pstade::equal_to(0, 3)) );
 
     BOOST_CHECK( pstade::is_zero(0) );
     BOOST_CHECK(!pstade::is_zero(1) );

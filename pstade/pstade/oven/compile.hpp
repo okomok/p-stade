@@ -43,17 +43,19 @@ namespace pstade { namespace oven {
         template< class Derived >
         struct compiler
         {
-            template< class Derived, class Expr, class State, class Visitor >
+        private:
+            template< class Expr, class State, class Visitor >
             struct apply_aux :
                 Derived::template apply<Expr, State, Visitor>
             { };
 
+        public:
             template< class Expr, class State, class Visitor >
-            static typename apply_aux<Derived, Expr, State, Visitor>::type
+            static typename apply_aux<Expr, State, Visitor>::type
             call(Expr const& expr, State const& state, Visitor& visitor)
             {
                 return Derived().template call_<
-                    typename apply_aux<Derived, Expr, State, Visitor>::type
+                    typename apply_aux<Expr, State, Visitor>::type
                 >(expr, state, visitor);
             }
         };
@@ -173,7 +175,7 @@ namespace pstade { namespace oven {
     typedef compile_detail::op op_compile;
     PSTADE_CONSTANT(compile, (op_compile))
 
-    PSTADE_PIPABLE(as_expr, (boost::proto::op::make_terminal))
+    PSTADE_PIPABLE(as_term, (boost::proto::op::make_terminal))
 
 
 } } // namespace pstade::oven

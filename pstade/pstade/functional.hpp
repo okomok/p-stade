@@ -14,12 +14,13 @@
 //
 // std::unary/binary_negate requires 'Predicate'
 // to be Adaptable, which seems to be deprecated.
-// See [1] at Boost.Phoenix2 about 'deduce_result'.
+// See [1] at Boost.Phoenix2 about deduction of arithmetic results.
 //
 // [1] <boost/spirit/phoenix/detail/type_deduction.hpp>
 
 
 #include <boost/mpl/if.hpp> // if_c
+#include <boost/preprocessor/cat.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <boost/utility/addressof.hpp>
@@ -59,6 +60,53 @@ PSTADE_ADL_BARRIER(functional) {
     };
 
     PSTADE_CONSTANT(identity, (op_identity))
+
+
+    // always
+    //
+
+    namespace always_detail {
+
+        template< class T >
+        struct op_result
+        {
+            typedef T& result_type;
+
+            explicit op_result() // for ForwardIterator
+            { }
+
+            explicit op_result(T& x) :
+                m_px(boost::addressof(x))
+            { }
+
+            T& operator()() const
+            {
+                return *m_px;
+            }
+
+        private:
+            T *m_px;
+        };
+
+    } // namespace always_detail
+
+    struct op_always :
+        callable<op_always>
+    {
+        template< class Myself, class T >
+        struct apply
+        {
+            typedef always_detail::op_result<T> type;
+        };
+
+        template< class Result, class T >
+        Result call(T& x) const
+        {
+            return Result(x);
+        }
+    };
+
+    PSTADE_CONSTANT(always, (op_always))
 
 
     // not_
@@ -104,210 +152,131 @@ PSTADE_ADL_BARRIER(functional) {
     PSTADE_OBJECT_GENERATOR(not_, (not_detail::op_result< deduce<_1, to_value> >))
 
 
-    // always
+    // comparison and logical
     //
 
-    namespace always_detail {
+#define PSTADE_binary_pred(F, Op) \
+    struct BOOST_PP_CAT(op_, F) \
+    { \
+        typedef bool result_type; \
+        \
+        template< class X, class Y > \
+        bool operator()(X const& x, Y const& y) const \
+        { \
+            return x Op y; \
+        } \
+    }; \
+    \
+    PSTADE_CONSTANT( F, (BOOST_PP_CAT(op_,F)) ) \
+/**/
 
-        template< class T >
-        struct op_result
-        {
-            typedef T& result_type;
+    PSTADE_binary_pred(equal_to, ==)
+    PSTADE_binary_pred(greater, >)
+    PSTADE_binary_pred(less, <)
+    PSTADE_binary_pred(greater_equal, >=)
+    PSTADE_binary_pred(less_equal, <=)
+    PSTADE_binary_pred(logical_and, &&)
+    PSTADE_binary_pred(logical_or, ||)
 
-            explicit op_result()
-            { }
+#undef  PSTADE_binary_pred
 
-            explicit op_result(T& x) :
-                m_px(boost::addressof(x))
-            { }
-
-            result_type operator()() const
-            {
-                return *m_px;
-            }
-
-        private:
-            T *m_px;
-        };
-
-    } // namespace always_detail
-
-    struct op_always :
-        callable<op_always>
-    {
-        template< class Myself, class T >
-        struct apply
-        {
-            typedef always_detail::op_result<T> type;
-        };
-
-        template< class Result, class T >
-        Result call(T& x) const
-        {
-            return Result(x);
-        }
-    };
-
-    PSTADE_CONSTANT(always, (op_always))
-
-
-    // equal_to
-    //
-
-    struct op_equal_to
-    {
-        typedef bool result_type;
-
-        template< class X, class Y >
-        bool operator()(X const& x, Y const& y) const
-        {
-            return x == y;
-        }
-    };
-
-    PSTADE_CONSTANT(equal_to, (op_equal_to))
-
-
-    // less
-    //
-
-    struct op_less
-    {
-        typedef bool result_type;
-
-        template< class X, class Y >
-        bool operator()(X const& x, Y const& y) const
-        {
-            return x < y;
-        }
-    };
-
-    PSTADE_CONSTANT(less, (op_less))
-
-
-    // is_zero
-    //
-
-    struct op_is_zero
+    struct op_logical_not
     {
         typedef bool result_type;
 
         template< class X >
         bool operator()(X const& x) const
         {
-            return x == 0;
+            return !x;
         }
     };
 
-    PSTADE_CONSTANT(is_zero, (op_is_zero))
+    PSTADE_CONSTANT(logical_not, (op_logical_not))
 
 
-    // plus
+    // arithmetic
     //
 
-    struct plus_failed_to_deduce_result_type
+    struct functional_failed_to_deduce_arithmetic_operation_result_type
     { };
 
-    namespace plus_detail {
+    namespace functional_detail {
 
-        template< class X, class Y >
-        struct deduce_result
-        {
-        private:
-            typedef typename boost::remove_cv<X>::type x_t;
-            typedef typename boost::remove_cv<Y>::type y_t;
+        template< class X, class Y > static
+        yes test_x(X const&);
 
-            template< class X_, class Y_ > static
-            yes test(X_ const&);
+        template< class X, class Y > static
+        no  test_x(Y const&, typename boost::disable_if< boost::is_same<X, Y> >::type * = 0);
 
-            template< class X_, class Y_ > static
-            no  test(Y_ const&, typename boost::disable_if< boost::is_same<X_, Y_> >::type * = 0);
+        template< class X, class Y > static
+        functional_failed_to_deduce_arithmetic_operation_result_type test_x(...);
 
-            template< class X_, class Y_ > static
-            plus_failed_to_deduce_result_type test(...);
+    }
 
-            static x_t x;
-            static y_t y;
+#define PSTADE_binary_arithmetic(F, Op) \
+    template< class X, class Y > \
+    struct BOOST_PP_CAT(functional_detail_result_of_, F) \
+    { \
+    private: \
+        typedef typename boost::remove_cv<X>::type x_t; \
+        typedef typename boost::remove_cv<Y>::type y_t; \
+        \
+        static x_t x; \
+        static y_t y; \
+        \
+        static bool const is_x = \
+            sizeof( functional_detail::test_x<x_t, y_t>(x Op y) ) == sizeof(yes); \
+        \
+    public: \
+        typedef typename \
+            boost::mpl::if_c< is_x, \
+                x_t, y_t \
+            >::type \
+        type; \
+    }; \
+    \
+    struct BOOST_PP_CAT(op_, F) : \
+        callable< BOOST_PP_CAT(op_, F) > \
+    { \
+        template< class Myself, class X, class Y > \
+        struct apply : \
+            BOOST_PP_CAT(functional_detail_result_of_, F)<X, Y> \
+        { }; \
+        \
+        template< class Result, class X, class Y > \
+        Result call(X const& x, Y const& y) const \
+        { \
+            return x Op y; \
+        } \
+    }; \
+    \
+    PSTADE_CONSTANT( F, (BOOST_PP_CAT(op_, F)) ) \
+/**/
 
-            static bool const is_x =
-                sizeof( test<x_t, y_t>(x + y) ) == sizeof(yes);
+    PSTADE_binary_arithmetic(plus, +)
+    PSTADE_binary_arithmetic(minus, -)
+    PSTADE_binary_arithmetic(multiplies, *)
+    PSTADE_binary_arithmetic(divides, /)
+    PSTADE_binary_arithmetic(modulus, %)
 
-        public:
-            typedef typename boost::mpl::if_c< is_x,
-                x_t, y_t
-            >::type type;
-        };
+#undef  PSTADE_binary_arithmetic
 
-    } // namespace plus_detail
-
-    struct op_plus :
-        callable<op_plus>
+    struct op_negate :
+        callable<op_negate>
     {
-        template< class Myself, class X, class Y >
+        template< class Myself, class X >
         struct apply :
-            plus_detail::deduce_result<X, Y>
+            boost::remove_cv<X>
         { };
 
-        template< class Result, class X, class Y >
-        Result call(X const& x, Y const& y) const
+        template< class Result, class X >
+        Result call(X const& x) const
         {
-            return x + y;
+            return -x;
         }
     };
 
-    PSTADE_CONSTANT(plus, (op_plus))
-
-
-    // at_first
-    //
-
-    struct op_at_first :
-        callable<op_at_first>
-    {
-        template< class Myself, class Pair >
-        struct apply
-        {
-            typedef typename
-                affect_cv<
-                    Pair, typename Pair::first_type
-                >::type &
-            type;
-        };
-
-        template< class Result, class Pair >
-        Result call(Pair& x) const
-        {
-            return x.first;
-        }
-    };
-
-    PSTADE_CONSTANT(at_first, (op_at_first))
-
-
-    // at_second
-    //
-
-    struct op_at_second :
-        callable<op_at_second>
-    {
-        template< class Myself, class Pair >
-        struct apply
-        {
-            typedef typename
-                affect_cv<
-                    Pair, typename Pair::second_type
-                >::type &
-            type;
-        };
-
-        template< class Result, class Pair >
-        Result call(Pair& x) const
-        {
-            return x.second;
-        }
-    };
-
-    PSTADE_CONSTANT(at_second, (op_at_second))
+    PSTADE_CONSTANT(negate, (op_negate))
 
 
     // flip
@@ -319,7 +288,7 @@ PSTADE_ADL_BARRIER(functional) {
         struct op_result :
             callable< op_result<BinaryFun> >
         {
-            explicit op_result()
+            explicit op_result() // for ForwardIterator
             { }
 
             explicit op_result(BinaryFun const& fun) :
@@ -344,6 +313,54 @@ PSTADE_ADL_BARRIER(functional) {
     } // namespace flip_detail
 
     PSTADE_OBJECT_GENERATOR(flip, (flip_detail::op_result< deduce<_1, to_value> >))
+
+
+    // at_first/second
+    //
+
+#define PSTADE_FUNCTIONAL_MEMBER(F, Xxx, XxxType) \
+    struct BOOST_PP_CAT(op_, F) : \
+        callable< BOOST_PP_CAT(op_, F) > \
+    { \
+        template< class Myself, class A > \
+        struct apply \
+        { \
+            typedef typename \
+                affect_cv< \
+                    A, typename A::XxxType \
+                >::type & \
+            type; \
+        }; \
+        \
+        template< class Result, class A > \
+        Result call(A& a) const \
+        { \
+            return a.Xxx; \
+        } \
+    }; \
+    \
+    PSTADE_CONSTANT( F, (BOOST_PP_CAT(op_, F)) ) \
+/**/
+
+    PSTADE_FUNCTIONAL_MEMBER(at_first, first, first_type)
+    PSTADE_FUNCTIONAL_MEMBER(at_second, second, second_type)
+
+
+    // is_zero
+    //
+
+    struct op_is_zero
+    {
+        typedef bool result_type;
+
+        template< class X >
+        bool operator()(X const& x) const
+        {
+            return x == 0;
+        }
+    };
+
+    PSTADE_CONSTANT(is_zero, (op_is_zero))
 
 
 } // ADL barrier

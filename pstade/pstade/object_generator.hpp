@@ -186,8 +186,8 @@ namespace pstade {
 
 
     #define PSTADE_OBJECT_GENERATOR(G, Lambda) \
-        namespace BOOST_PP_CAT(pstade_object_generator_detail_, G) { \
-        \
+        namespace BOOST_PP_CAT(pstade_object_generator_workarea_, G) { \
+            using pstade::deduce; \
             using pstade::deducers::to_value; \
             using pstade::deducers::to_reference; \
             using pstade::deducers::to_qualified; \
@@ -196,10 +196,11 @@ namespace pstade {
             using boost::mpl::_3; \
             using boost::mpl::_4; \
             using boost::mpl::_5; \
-        \
+            \
             typedef pstade::object_generator< PSTADE_UNPARENTHESIZE(Lambda) > BOOST_PP_CAT(op_, G); \
         } \
-        typedef BOOST_PP_CAT(pstade_object_generator_detail_, G)::BOOST_PP_CAT(op_, G) BOOST_PP_CAT(op_, G); \
+        \
+        typedef BOOST_PP_CAT(pstade_object_generator_workarea_, G)::BOOST_PP_CAT(op_, G) BOOST_PP_CAT(op_, G); \
         PSTADE_CONSTANT( G, (BOOST_PP_CAT(op_, G)) ) \
     /**/
 
