@@ -7,7 +7,7 @@ The Oven Range Library
 :Author: MB
 :Contact: mb2act@yahoo.co.jp 
 :License: Distributed under the `Boost Software License Version 1.0`_
-:Version: 0.92.0
+:Version: 0.92.1
 
 
 
@@ -96,6 +96,10 @@ Oven has all the range-based STL algorithms which are ported from `Boost.RangeEx
 - Valid expression: ``rng|begins`` and ``rng|ends``.
 - Precondition: ``boost::begin(rng)`` and ``boost::end(rng)`` is a valid expression.
 - Returns: ``boost::begin(rng)`` and ``boost::end(rng)`` respectively.
+
+``compile``
+^^^^^^^^^^^
+Pending...
 
 
 ``copied``
@@ -399,9 +403,9 @@ Instead, add ``&`` to make it a function **pointer**.
 ``advanced``
 ^^^^^^^^^^^^
 - Header: ``<pstade/oven/advance_range.hpp>``
-- Valid expression: ``fwdRng|advanced(d1,d2)`` and ``fwdRng|advanced(d1)``
+- Valid expression: ``fwdRng|advanced(d1,d2)``
 - Precondition: ``fwdRng`` must be a `Bidirectional Range`_ if either ``d1`` or ``d2`` is negative.
-- Returns: ``[boost::next(boost::begin(fwdRng),d1),boost::next(boost::end(fwdRng),d2))``, where ``d2`` equals ``d1`` in the case of the second valid expression.
+- Returns: ``[boost::next(boost::begin(fwdRng),d1),boost::next(boost::end(fwdRng),d2))``.
 
 
 ``always``
@@ -1126,28 +1130,19 @@ Version 0.90.7 - 0.90.9
 - No longer supports function types as ``rfun``.
 - Changed `utf8_decoded`_ valid expression.
 
-Version 0.91.0
-^^^^^^^^^^^^^^
+Version 0.91.0 - 0.91.3
+^^^^^^^^^^^^^^^^^^^^^^^
 - Added `Output Iterator Adaptors`_.
-
-Version 0.91.1
-^^^^^^^^^^^^^^
 - Renamed ``generated`` to ``generation``.
 - Renamed ``positioned`` to ``with_position``.
 - Renamed ``matched`` to ``matches``.
 - Renamed ``xpressive_matched`` to ``xpressive_matches``.
-
-Version 0.91.2
-^^^^^^^^^^^^^^
 - Added `Extending Boost.Range`_.
 - Rejected ``out_placed`` and ``sorted``.
 - Added `literal_range`_ and `c_str_range`_.
 - `null_terminated`_ no longer supports c-string.
 - Added ``as_single`` to `single_range`_'\s valid expressions.
 - Added `begins/ends`_.
-
-Version 0.91.3
-^^^^^^^^^^^^^^
 - Added ``merged``, ``set_cup``, ``set_cap``, ``set_minus`` and ``set_delta``.
 - Added ``rotated``.
 - Removed ``stridden`` and changed effects of ``sliced``.
@@ -1157,35 +1152,20 @@ Version 0.91.3
 - Added ``to_function``.
 - Renamed ``shifted`` to ``advanced``.
 
-Version 0.91.4
-^^^^^^^^^^^^^^
+Version 0.91.4 - 0.91.9
+^^^^^^^^^^^^^^^^^^^^^^^
 - Added ``any_range``.
 - Removed ``popped`` and changed the valid expression of ``advanced``.
 - Removed ``generation`` as adaptor and added it as range.
-
-Version 0.91.5
-^^^^^^^^^^^^^^
 - ``taken`` and ``taken_while`` supports `Single Pass Range`_.
 - Added ``iterate_range``.
-
-Version 0.91.6
-^^^^^^^^^^^^^^
 - Added ``adjacent_transformed``.
 - Added ``popped_back``.
 - Changed ``counting_range`` valid expressions.
-
-Version 0.91.7
-^^^^^^^^^^^^^^
 - Renamed ``repeated`` to ``cycled``.
 - Added ``repeat_range``.
-
-Version 0.91.8
-^^^^^^^^^^^^^^
 - Renamed ``popped_back`` to ``popped``.
 - Changed the valid expressions of ``zipped`` and ``zipped_with``.
-
-Version 0.91.9
-^^^^^^^^^^^^^^
 - Ported to VC++7.1 SP1.
 - Added MFC/ATL support.
 
@@ -1193,4 +1173,7 @@ Version 0.92.0
 ^^^^^^^^^^^^^^
 - Renamed ``counting_range`` to ``count_range``, and added a valid expression.
 
+Version 0.92.1
+^^^^^^^^^^^^^^
+- Removed the valid expression ``advanced(d)``.
 

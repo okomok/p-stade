@@ -49,12 +49,12 @@ multibyte_to(MultiByteRange const& from)
 
 
 struct op_multibyte_to :
-    to_type_cast_result
+    to_type_callable<op_multibyte_to>
 {
-    template< class From, class Type_To >
-    typename to_type<Type_To>::type operator()(From const& from, Type_To) const
+    template< class To, class From >
+    To call(From const& from) const
     {
-        return tomato::multibyte_to<typename to_type<Type_To>::type>(from);
+        return tomato::multibyte_to<To>(from);
     }
 };
 

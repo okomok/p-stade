@@ -83,12 +83,12 @@ To boolean_cast(From from)
 
 
 struct op_boolean_cast :
-    to_type_cast_result
+    to_type_callable<op_boolean_cast>
 {
-    template< class From, class Type_To >
-    typename to_type<Type_To>::type operator()(From const& from, Type_To) const
+    template< class To, class From >
+    To call(From const& from) const
     {
-        return tomato::boolean_cast<typename to_type<Type_To>::type>(from);
+        return tomato::boolean_cast<To>(from);
     }
 };
 

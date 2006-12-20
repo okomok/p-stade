@@ -201,13 +201,13 @@ PSTADE_ADL_BARRIER(functional) {
 
     namespace functional_detail {
 
-        template< class X, class Y > static
+        template< class X, class Y >
         yes are_you_x(X const&);
 
-        template< class X, class Y > static
+        template< class X, class Y >
         no  are_you_x(Y const&, typename boost::disable_if< boost::is_same<X, Y> >::type * = 0);
 
-        template< class X, class Y > static
+        template< class X, class Y >
         functional_failed_to_deduce_arithmetic_operation_result_type are_you_x(...);
 
     }

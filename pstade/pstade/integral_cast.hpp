@@ -34,12 +34,12 @@ namespace pstade {
 
 
     struct op_integral_cast :
-        to_type_cast_result
+        to_type_callable<op_integral_cast>
     {
-        template< class From, class Type_To >
-        typename to_type<Type_To>::type operator()(From const& from, Type_To) const
+        template< class To, class From >
+        To call(From const& from) const
         {
-            return pstade::integral_cast<typename to_type<Type_To>::type>(from);
+            return pstade::integral_cast<To>(from);
         }
     };
 

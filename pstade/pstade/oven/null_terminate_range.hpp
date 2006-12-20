@@ -31,7 +31,7 @@ namespace pstade { namespace oven {
 
 template< class Range >
 PSTADE_CONCEPT_WHERE(
-    ((Forward<Range>)), // ((Readable_const<Range>)),
+    ((Forward<Range>)), // ((Readable<PSTADE_DEDUCED_CONST(Range)>)),
 (bool)) is_null_terminated(Range const& rng)
 {
     typedef typename range_iterator<PSTADE_DEDUCED_CONST(Range)>::type iter_t;

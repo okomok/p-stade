@@ -58,7 +58,7 @@ namespace unzip_at_range_detail {
 
 
     template< class TupleRange, class N >
-    struct super_ // avoid metafunction forwarding; GCC3.4 is broken by MPL.
+    struct super_ // avoid inheritance; GCC3.4 is broken by MPL.
     {
         typedef
             transform_range<

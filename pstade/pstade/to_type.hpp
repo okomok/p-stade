@@ -15,8 +15,10 @@
 // I love the name of 'boost::type', but she is not a metafunction!
 
 
+#include <boost/config.hpp> // BOOST_NESTED_TEMPLATE
 #include <boost/type.hpp>
 #include <pstade/adl_barrier.hpp>
+#include <pstade/lambda_sig.hpp>
 #include <pstade/remove_cvr.hpp>
 
 
@@ -43,16 +45,39 @@ namespace pstade {
 
     PSTADE_ADL_BARRIER(to_type) {
 
-    struct to_type_cast_result
-    {
-        template< class Signature >
-        struct result;
 
-        template< class Self, class From, class Type_To >
-        struct result<Self(From, Type_To)> :
-            to_type<Type_To>
-        { };
-    };
+        // lightweight 'callable' for cast functions
+        template< class Derived >
+        struct to_type_callable :
+            lambda_sig
+        {
+            template< class Signature >
+            struct result;
+
+            template< class Self, class From, class Type_To >
+            struct result<Self(From, Type_To)> :
+                to_type<Type_To>
+            { };
+
+            template< class From, class Type_To >
+            typename to_type<Type_To>::type operator()(From& from, Type_To) const
+            {
+                return derived().BOOST_NESTED_TEMPLATE call<typename to_type<Type_To>::type>(from);
+            }
+
+            template< class From, class Type_To >
+            typename to_type<Type_To>::type operator()(From const& from, Type_To) const
+            {
+                return derived().BOOST_NESTED_TEMPLATE call<typename to_type<Type_To>::type>(from);
+            }
+
+        private:
+            Derived const& derived() const
+            {
+                return static_cast<Derived const&>(*this);
+            }
+        };
+
 
     } // ADL barrier
 

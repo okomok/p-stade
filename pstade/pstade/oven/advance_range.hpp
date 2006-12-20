@@ -64,11 +64,6 @@ public:
         super_t(advance_range_detail::make<super_t>(rng, dfirst, dlast))
     { }
 
-    template< class Difference >
-    advance_range(Range& rng, Difference d) :
-        super_t(advance_range_detail::make<super_t>(rng, d, d))
-    { }
-
     typedef Range pstade_oven_range_base_type;
 };
 

@@ -86,18 +86,12 @@ Base adaptor_to(Adaptor const& ad,
 //
 
 struct op_adaptor_to :
-    to_type_cast_result
+    to_type_callable<op_adaptor_to>
 {
-    template< class From, class Type_To >
-    typename to_type<Type_To>::type operator()(From& from, Type_To) const
+    template< class To, class From >
+    To call(From& from) const
     {
-        return oven::adaptor_to<typename to_type<Type_To>::type>(from);
-    }
-
-    template< class From, class Type_To >
-    typename to_type<Type_To>::type operator()(From const& from, Type_To) const
-    {
-        return oven::adaptor_to<typename to_type<Type_To>::type>(from);
+        return oven::adaptor_to<To>(from);
     }
 };
 
