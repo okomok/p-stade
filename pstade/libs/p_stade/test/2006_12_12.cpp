@@ -19,7 +19,7 @@ void test()
     lambda::_1(12|to_reference); // ok
 
     boost::result_of<
-        boost::result_of<op_forward(op_lambda_1)>::type(int)
+        boost::result_of<op::forward(op_lambda_1)>::type(int)
     >::type x =
         forward(lambda::_1)(12);
 

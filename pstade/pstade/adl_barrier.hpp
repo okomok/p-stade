@@ -15,6 +15,23 @@
 // Using-directive is beyond ADL.
 
 
+// Note:
+//
+// A nested namespace cannot be supported well;
+/*
+namespace barrier {
+   namespace op {
+       struct j { };
+   }
+}
+using namespace barrier;
+
+namespace op { struct i{ }; }
+
+op::i aa; // 'op' is ambiguous!
+*/
+
+
 #include <boost/config.hpp> // BOOST_NO_ARGUMENT_DEPENDENT_LOOKUP
 #include <boost/preprocessor/cat.hpp>
 
