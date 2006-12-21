@@ -48,7 +48,7 @@ Derived& base_to(Base& base)
 
 
 // Note:
-// 'PSTADE_TO_DERIVED_NEEDS_NAMED_RETURN_VALUE' makes Egg useless.
+// 'PSTADE_TO_DERIVED_NEEDS_NAMED_RETURN_VALUE' makes 'pipable' useless.
 // So we must define from scratch...
 //
 

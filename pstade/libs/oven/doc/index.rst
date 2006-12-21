@@ -7,7 +7,7 @@ The Oven Range Library
 :Author: MB
 :Contact: mb2act@yahoo.co.jp 
 :License: Distributed under the `Boost Software License Version 1.0`_
-:Version: 0.92.1
+:Version: 0.92.2
 
 
 
@@ -217,7 +217,7 @@ __ http://www.boost.org/libs/iterator/doc/counting_iterator.html
 
 
 - Header: ``<pstade/oven/count_range.hpp>``
-- Valid expression1: ``count_range<I,T,D> rng(n,m);``, ``oven::make_count_range(n,m);`` and ``pstade::tie(n,m)|counted``.
+- Valid expression1: ``count_range<I,T,D> rng(n,m);``, ``oven::make_count_range(n,m);`` and ``pstade::pack(n,m)|counted``.
 - Valid expression2: ``oven::count_from(n)`` and ``oven::count_to(m)``
 - Precondition: ``boost::couting_iterator<I,T,D>(x);`` is a valid expression, where
   ``x`` is ``n`` or ``m``.
@@ -958,10 +958,10 @@ Pending...
 If one input range is short, excess elements of the longer range are discarded.
 
 - Header: ``<pstade/oven/zip_range.hpp>``
-- Valid expression: ``pstade::tie(rng1,rng2,..rngN)|zipped``
+- Valid expression: ``pstade::pack(rng1,rng2,..rngN)|zipped``, where ``N <= 5``.
 - Returns: A range whose iterators behave as if they were the original iterators wrapped in ``boost::zip_iterator``.
 
-If the base ranges are neither const-reference nor rvalue, you can use ``boost::tie`` instead of ``pstade::tie``.
+If the base ranges are neither const-reference nor rvalue, you can use ``boost::tie`` instead of ``pstade::pack``.
 
 
 ``zipped_with``
@@ -973,7 +973,7 @@ given as the first argument, instead of a tupling::
 
 
 - Header: ``<pstade/oven/zip_with_range.hpp>``
-- Valid expression: ``pstade::tie(rng1,rng2,..rngN)|zipped_with(rfun)``
+- Valid expression: ``pstade::pack(rng1,rng2,..rngN)|zipped_with(rfun)``, where ``N <= 5``.
 - Precondition: The arity of ``rfun`` is ``N``.
 - Returns: A range whose values are zipped by using ``rfun``.
 
@@ -1176,4 +1176,8 @@ Version 0.92.0
 Version 0.92.1
 ^^^^^^^^^^^^^^
 - Removed the valid expression ``advanced(d)``.
+
+Version 0.92.2
+^^^^^^^^^^^^^^
+- Renamed ``tie`` to ``pack``.
 

@@ -26,7 +26,7 @@
 #include <pstade/result_of_lambda.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <pstade/reference.hpp>
-#include <pstade/tie.hpp>
+#include <pstade/pack.hpp>
 
 
 void test()
@@ -45,7 +45,7 @@ void test()
         int ans[] = { 2, 3, 4, 5, 6 };
 
         BOOST_CHECK( oven::equal(oven::make_count_range(2, 7), ans) );
-        BOOST_CHECK( oven::equals(pstade::tie(2, 7)|counted, ans) );
+        BOOST_CHECK( oven::equals(pstade::pack(2, 7)|counted, ans) );
 
         std::vector<int> vec;
         oven::copy(oven::make_count_range(2, 7), std::back_inserter(vec));

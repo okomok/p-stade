@@ -21,7 +21,7 @@
 #include <boost/foreach.hpp>
 #include <boost/range.hpp>
 #include <pstade/oven/functions.hpp>
-#include <pstade/tie.hpp>
+#include <pstade/pack.hpp>
 
 
 void test()
@@ -44,7 +44,7 @@ void test()
 
         BOOST_FOREACH (
             int& i,
-            src0|pstade::tied(src1)|zipped|unzipped_at_c<1>()
+            src0|pstade::packed(src1)|zipped|unzipped_at_c<1>()
         ) {
             if (i == 4)
                 i = 5;
@@ -63,14 +63,14 @@ void test()
 
         BOOST_CHECK((
             oven::equals(
-                boost::get<0>(src0|pstade::tied(src1)|zipped|unzipped),
+                boost::get<0>(src0|pstade::packed(src1)|zipped|unzipped),
                 src0
             )
         ));
 
         BOOST_CHECK((
             oven::equals(
-                boost::get<1>(src0|pstade::tied(src1)|zipped|unzipped),
+                boost::get<1>(src0|pstade::packed(src1)|zipped|unzipped),
                 src1
             )
         ));

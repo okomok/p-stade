@@ -13,7 +13,7 @@
 
 // Note:
 //
-// This could be implementedy by 'compose' with 'tie',
+// This could be implementedy by 'compose' with 'pack',
 // but this is the basis together with 'fuse'.
 
 
@@ -25,8 +25,8 @@
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/object_generator.hpp>
+#include <pstade/pack.hpp>
 #include <pstade/preprocessor.hpp>
-#include <pstade/tie.hpp>
 
 
 namespace pstade {
@@ -55,7 +55,7 @@ namespace pstade {
             Result call( PSTADE_PP_ENUM_REF_PARAMS_WITH_OBJECTS(PSTADE_CALLABLE_MAX_ARITY, A, a) ) const
             {
                 return m_fun(
-                    pstade::tie(
+                    pstade::pack(
                         BOOST_PP_ENUM_PARAMS(PSTADE_CALLABLE_MAX_ARITY, a)
                     )
                 );
@@ -68,7 +68,7 @@ namespace pstade {
             Result call() const
             {
                 return m_fun(
-                    pstade::tie(
+                    pstade::pack(
                     )
                 );
             }
@@ -89,7 +89,7 @@ namespace pstade {
             Result call( A0& a0 ) const
             {
                 return m_fun(
-                    pstade::tie(
+                    pstade::pack(
                         a0
                     )
                 );
@@ -154,7 +154,7 @@ template< class Result, BOOST_PP_ENUM_PARAMS(n, class A) >
 Result call( PSTADE_PP_ENUM_REF_PARAMS_WITH_OBJECTS(n, A, a) ) const
 {
     return m_fun(
-        pstade::tie(
+        pstade::pack(
             BOOST_PP_ENUM_PARAMS(n, a)
         )
     );

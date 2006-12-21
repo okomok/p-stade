@@ -19,7 +19,7 @@
 #include <boost/foreach.hpp>
 #include <boost/range.hpp>
 #include <pstade/oven/functions.hpp>
-#include <pstade/tie.hpp>
+#include <pstade/pack.hpp>
 
 
 int plus2(int x, int y)
@@ -45,7 +45,7 @@ void test()
         std::vector<int> expected = ans|copied;
 
        BOOST_CHECK( oven::test_RandomAccess_Readable(
-            xs|pstade::tied(ys)|zipped_with(&::plus2),
+            xs|pstade::packed(ys)|zipped_with(&::plus2),
             expected
         ) );
     }
