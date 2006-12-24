@@ -4,8 +4,8 @@ The Oven Range Library
 
 .. include:: ../../doc/refs.rst
 
-:Author: MB
-:Contact: mb2act@yahoo.co.jp 
+:Author: Shunsuke Sogame
+:Contact: pstade.mb@gmail.com
 :License: Distributed under the `Boost Software License Version 1.0`_
 :Version: 0.92.2
 

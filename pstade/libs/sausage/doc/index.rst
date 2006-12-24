@@ -4,8 +4,8 @@ The Sausage Coroutine Iteration Library
 
 .. include:: ../../doc/refs.rst
 
-:Author: MB
-:Contact: mb2act@yahoo.co.jp 
+:Author: Shunsuke Sogame
+:Contact: pstade.mb@gmail.com
 :License: Distributed under the `Boost Software License Version 1.0`_
 :Version: 0.90.0
 
@@ -46,8 +46,8 @@ __ http://sourceforge.net/project/showfiles.php?group_id=141222&package_id=17305
 Tested Under
 ------------
 
-- Microsoft Visual C++ 2005 Express Edition
-- Microsoft Visual C++ .NET Version 7.1
+- Microsoft Visual C++ 2005 Express Edition SP1
+- Microsoft Visual C++ .NET Version 7.1 SP1
 - GCC 3.4.4
 
 

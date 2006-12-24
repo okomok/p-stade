@@ -54,7 +54,7 @@ void test()
         }
     }
 
-    wnds(::output);
+    wnds(&::output);
 
 
     {

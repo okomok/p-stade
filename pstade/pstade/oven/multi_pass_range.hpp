@@ -62,7 +62,6 @@ struct multi_pass_range :
     > >
 {
     typedef multi_pass_range type;
-    typedef InputIterRange pstade_oven_range_base_type;
 
 private:
     typedef typename multi_pass_range_detail::super_<
@@ -74,6 +73,8 @@ public:
     explicit multi_pass_range(InputIterRange& rng) :
         super_t(rng)
     { }
+
+    typedef InputIterRange pstade_oven_range_base_type;
 };
 
 

@@ -12,6 +12,7 @@
 
 #include <string>
 #include <boost/lexical_cast.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/oven/c_str_range.hpp>
 #include <pstade/oven/copy_range.hpp>
 
@@ -19,29 +20,33 @@
 namespace pstade {
 
 
-template< class Range > inline
-std::string what(std::string const& tag, Range const& msg)
-{
-    return
-        '<' + tag + '>' +
-            oven::copy_range<std::string>(msg) +
-        "</" + tag + '>'
-    ;
-}
+    struct op_what
+    {
+        typedef std::string result_type;
+
+        template< class Range >
+        std::string operator()(std::string const& tag, Range const& msg) const
+        {
+            return
+                '<' + tag + '>' +
+                    oven::copy_range<std::string>(msg) +
+                "</" + tag + '>'
+            ;
+        }
+
+        std::string operator()(std::string const& tag, char const *psz) const
+        {
+            return (*this)(tag, psz|oven::as_c_str);
+        }
+
+        std::string operator()(std::string const& tag, int n) const
+        {
+            return (*this)(tag, boost::lexical_cast<std::string>(n));
+        }
+    };
 
 
-inline
-std::string what(std::string tag, char const *psz)
-{
-    return pstade::what(tag, psz|oven::as_c_str);
-}
-
-
-inline
-std::string what(std::string const& tag, int n)
-{
-    return pstade::what(tag, boost::lexical_cast<std::string>(n));
-}
+    PSTADE_CONSTANT(what, (op_what))
 
 
 } // namespace pstade

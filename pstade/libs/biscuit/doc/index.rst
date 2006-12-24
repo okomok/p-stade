@@ -3,8 +3,8 @@ The Biscuit Parser Library
 ++++++++++++++++++++++++++
 
 
-:Author: MB and Christopher Diggins(original author)
-:Contact: mb2act@yahoo.co.jp 
+:Author: Shunsuke Sogame and Christopher Diggins(original author)
+:Contact: pstade.mb@gmail.com
 :License: Distributed under the `Boost Software License Version 1.0`_
 :Version: 1.02.8
 
@@ -17,7 +17,7 @@ The Biscuit Parser Library
 
 .. epigraph::
 
-	"*If your slave commits a fault, do not smash his teeth with your fists; give him some of the biscuit which famous Rhodes has sent you.*"
+	"*Give him some of the biscuit which famous Rhodes has sent you.*"
 	
 	-- Marcus Valerius Martialis
 
@@ -80,8 +80,8 @@ __ http://sourceforge.net/project/showfiles.php?group_id=141222&package_id=17305
 
 Tested Under
 ------------
-- Microsoft Visual C++ 2005 Express Edition
-- Microsoft Visual C++ .NET Version 7.1
+- Microsoft Visual C++ 2005 Express Edition SP1
+- Microsoft Visual C++ .NET Version 7.1 SP1
 - GCC 3.4.4
 
 

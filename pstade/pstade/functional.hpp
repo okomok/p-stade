@@ -287,13 +287,13 @@ PSTADE_ADL_BARRIER(functional) {
         struct op_result :
             callable< op_result<BinaryFun> >
         {
-            template< class Myself, class T0, class T1 >
+            template< class Myself, class A0, class A1 >
             struct apply :
-                boost::result_of<BinaryFun(T1&, T0&)>
+                boost::result_of<BinaryFun(A1&, A0&)>
             { };
 
-            template< class Result, class T0, class T1 >
-            Result call(T0& a0, T1& a1) const
+            template< class Result, class A0, class A1 >
+            Result call(A0& a0, A1& a1) const
             {
                 return m_fun(a1, a0);
             }

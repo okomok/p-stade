@@ -13,6 +13,8 @@
 #include <pstade/callable.hpp>
 
 
+#include <boost/type_traits/is_pod.hpp>
+#include <boost/mpl/assert.hpp>
 #include <boost/utility/result_of.hpp>
 
 
@@ -96,10 +98,11 @@ struct op_bar :
 PSTADE_CALLABLE_NULLARY_RESULT_TEMPLATE((op_bar), 2)
 
 
-#if !defined(BOOST_MSVC)
+struct dummy { };
 
 template< class T0, class T1 >
 struct op_hoge
+    // :dummy // also can work around!
 {
     template< class Signature >
     struct result;
@@ -132,7 +135,14 @@ struct op_hoge
     {
         return '0';
     }
+
+#if defined(BOOST_MSVC)
+    op_hoge()
+    { }
+#endif
 };
+
+//BOOST_MPL_ASSERT_NOT(( boost::is_pod< op_hoge<int,int> > ));
 
 namespace boost {
 
@@ -144,7 +154,7 @@ namespace boost {
 
 }
 
-#endif
+
 
 void test()
 {
@@ -174,7 +184,6 @@ void test()
         BOOST_CHECK( x == '0' );
     }
 
-#if !defined(BOOST_MSVC)
     {
         boost::result_of<op_hoge<int, int>(int, int)>::type x = foo(1, 2);
         BOOST_CHECK( x == "2" );
@@ -187,7 +196,6 @@ void test()
         boost::result_of<op_hoge<int, int>()>::type x = foo();
         BOOST_CHECK( x == '0' );
     }
-#endif
 }
 
 

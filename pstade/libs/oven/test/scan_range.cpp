@@ -76,11 +76,6 @@ void test()
         int ans[] = { 9, 7, 4, 0 }; 
 
         BOOST_CHECK( oven::equals(
-            src|scanned(10, ::minus),
-            ans
-        ) );
-
-        BOOST_CHECK( oven::equals(
             src|scanned(10, &::minus),
             ans
         ) );
@@ -89,7 +84,7 @@ void test()
     {
         int const src[] = { 1,2,3,4,5 };
 
-        BOOST_FOREACH (std::string str, src|scanned(std::string(), ::stringize)) {
+        BOOST_FOREACH (std::string str, src|scanned(std::string(), &::stringize)) {
             std::cout << "\"" << str << "\" ";
         }
         // outputs: "1" "12" "123" "1234" "12345"

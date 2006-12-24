@@ -66,4 +66,5 @@ test-suite wine :
     [ wine-test use_default ]
     [ wine-test value ]
     [ wine-test verify ]
+    [ wine-test what ]
     ;

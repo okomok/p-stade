@@ -10,16 +10,23 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/constant.hpp>
+#include <pstade/what.hpp>
 
 
-PSTADE_CONSTANT(hello, (int))
+#include <pstade/oven/copy_range.hpp>
+#include <string>
+#include <vector>
+
+
+using namespace pstade;
 
 
 void test()
 {
-    int h = hello;
-    (void)h;
+    std::vector<char> rng = std::string("hello")|oven::copied;
+    BOOST_CHECK( what("tag", rng) == "<tag>hello</tag>" );
+    BOOST_CHECK( what("tag", "hello") == "<tag>hello</tag>" );
+    BOOST_CHECK( what("tag", 12) == "<tag>12</tag>" );
 }
 
 

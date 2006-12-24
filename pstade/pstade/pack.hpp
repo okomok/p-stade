@@ -12,7 +12,7 @@
 
 // What:
 //
-// yet another make_tuple that supports rvalue and const-reference.
+// Yet another 'make_tuple' to support rvalue and const-reference.
 
 
 #include <boost/tuple/tuple.hpp>
