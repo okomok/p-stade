@@ -11,19 +11,27 @@
 
 
 #include <iostream> // cin
+#include <pstade/constant.hpp>
 
 
 namespace pstade {
 
 
-inline
-int pause()
-{
-    std::cin.ignore();
-    // or std::cin.get();
+    struct op_pause
+    {
+        typedef int result_type;
 
-    return 0; // for 'main'
-}
+        int operator()() const
+        {
+            std::cin.ignore();
+            // or std::cin.get();
+
+            return 0; // for 'main'
+        }
+    };
+
+
+    PSTADE_CONSTANT(pause, (op_pause))
 
 
 } // namespace pstade

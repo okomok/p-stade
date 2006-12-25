@@ -12,7 +12,6 @@
 
 #include <cstddef> // ptrdiff_t
 #include <boost/type_traits/is_same.hpp>
-#include <boost/utility/enable_if.hpp>
 #include <pstade/unused_to_copy.hpp>
 #include "./any_iterator.hpp"
 #include "./as_lightweight_proxy.hpp"

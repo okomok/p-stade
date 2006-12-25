@@ -25,7 +25,7 @@
 #include <boost/mpl/identity.hpp>
 #include <boost/mpl/or.hpp>
 #include <boost/type_traits/is_const.hpp>
-#include <boost/utility/enable_if.hpp> // disable_if
+#include <pstade/enable_if.hpp> // disable_if
 
 
 // Workaround:
@@ -74,9 +74,6 @@ namespace const_overloaded_detail {
     { };
 
 
-    struct enabler;
-
-
 } // namespace const_overloaded_detail
 
 
@@ -88,12 +85,11 @@ namespace const_overloaded_detail {
         class A5 = void, class A6 = void, class A7 = void, class A8 = void, class A9 = void
     >
     struct const_overloaded :
-        boost::disable_if<
+        disable_if<
             const_overloaded_detail::contains_const<
                 A0, A1, A2, A3, A4,
                 A5, A6, A7, A8, A9
-            >,
-            const_overloaded_detail::enabler *
+            >
         >
     { };
 
@@ -104,7 +100,7 @@ namespace const_overloaded_detail {
         class A5 = void, class A6 = void, class A7 = void, class A8 = void, class A9 = void
     >
     struct const_overloaded_result :
-        boost::disable_if<
+        disable_if<
             const_overloaded_detail::contains_const<
                 A0, A1, A2, A3, A4,
                 A5, A6, A7, A8, A9
@@ -119,7 +115,7 @@ namespace const_overloaded_detail {
         class A5 = void, class A6 = void, class A7 = void, class A8 = void, class A9 = void
     >
     struct const_overloaded_eval_result :
-        boost::lazy_disable_if<
+        disable_if<
             const_overloaded_detail::contains_const<
                 A0, A1, A2, A3, A4,
                 A5, A6, A7, A8, A9
@@ -137,7 +133,7 @@ namespace const_overloaded_detail {
         class A5 = void, class A6 = void, class A7 = void, class A8 = void, class A9 = void
     >
     struct const_overloaded :
-        boost::mpl::identity<const_overloaded_detail::enabler *>
+        boost::mpl::identity<enabler>
     { };
 
 
@@ -155,9 +151,10 @@ namespace const_overloaded_detail {
         class A0,        class A1 = void, class A2 = void, class A3 = void, class A4 = void,
         class A5 = void, class A6 = void, class A7 = void, class A8 = void, class A9 = void
     >
-    struct const_overloaded_eval_result :
-        Result
-    { };
+    struct const_overloaded_eval_result
+    {
+        typedef typename Result::type type;
+    };
 
 
 #endif // !defined(PSTADE_CONST_OVERLOADED_NOT_REQUIRED)

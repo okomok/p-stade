@@ -18,36 +18,27 @@
 
 
 #include <boost/type_traits/is_same.hpp>
-#include <boost/utility/enable_if.hpp>
+#include <pstade/enable_if.hpp>
 
 
 namespace pstade {
 
 
-namespace unused_to_copy_detail {
-
-    // 'void *' would accept any pointer.
-    struct enabler;
-
-}
-
-
-template< class T, class A >
-struct unused_to_copy :
-    boost::disable_if<
-        boost::is_same<T, A>,
-        unused_to_copy_detail::enabler *
-    >
-{ };
+    template< class T, class A >
+    struct unused_to_copy :
+        disable_if<
+            boost::is_same<T, A>
+        >
+    { };
 
 
-template< class T, class A >
-struct unused_to_copy_assign :
-    boost::disable_if<
-        boost::is_same<T, A>,
-        T&
-    >
-{ };
+    template< class T, class A >
+    struct unused_to_copy_assign :
+        disable_if<
+            boost::is_same<T, A>,
+            T&
+        >
+    { };
 
 
 } // namespace pstade

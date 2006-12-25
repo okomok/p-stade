@@ -25,6 +25,7 @@
 #include "./constant.hpp"
 #include "./contract.hpp"
 #include "./deduced_const.hpp"
+#include "./enable_if.hpp"
 #include "./for_debug.hpp"
 #include "./forward.hpp"
 #include "./functional.hpp"

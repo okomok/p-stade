@@ -17,10 +17,10 @@
 #include <boost/mpl/bool.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/utility/enable_if.hpp>
 #include <pstade/apple/basic_ostream_fwd.hpp>
 #include <pstade/apple/is_boost_range.hpp>
 #include <pstade/apple/is_sequence.hpp>
+#include <pstade/enable_if.hpp>
 #include <pstade/oven/copy_range.hpp>
 
 
@@ -79,7 +79,7 @@ public:
     // The copy-initialization prefers copy constructor and converts argument to ustring.
     // But operator= doesn't, so be strict.
     template< class Range > 
-    typename boost::enable_if<apple::is_boost_range<Range>,
+    typename enable_if<apple::is_boost_range<Range>,
     ustring&>::type operator=(Range const& rng)
     {
         assign(boost::begin(rng), boost::end(rng));

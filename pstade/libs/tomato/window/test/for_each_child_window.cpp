@@ -59,7 +59,7 @@ void test()
 
     {
         tomato::window_ref wnd = ::GetForegroundWindow();
-        tomato::for_each_child_window(wnd.handle())(::output);
+        tomato::for_each_child_window(wnd.handle())(&::output);
     }
 
     // vexing parse! :-(

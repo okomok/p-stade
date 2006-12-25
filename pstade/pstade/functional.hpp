@@ -24,12 +24,12 @@
 #include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <boost/utility/addressof.hpp>
-#include <boost/utility/enable_if.hpp> // disable_if
 #include <boost/utility/result_of.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/affect.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
+#include <pstade/enable_if.hpp> // disable_if
 #include <pstade/object_generator.hpp>
 #include <pstade/yes_no.hpp>
 
@@ -205,7 +205,7 @@ PSTADE_ADL_BARRIER(functional) {
         yes are_you_x(X const&);
 
         template< class X, class Y >
-        no  are_you_x(Y const&, typename boost::disable_if< boost::is_same<X, Y> >::type * = 0);
+        no  are_you_x(Y const&, typename disable_if< boost::is_same<X, Y> >::type = 0);
 
         template< class X, class Y >
         functional_failed_to_deduce_arithmetic_operation_result_type are_you_x(...);

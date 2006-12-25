@@ -37,11 +37,11 @@
 
 
 #include <algorithm>
-#include <boost/config.hpp>
-#include <boost/iterator/iterator_traits.hpp>
+#include <utility> // pair
+#include <boost/mpl/identity.hpp>
+#include <boost/preprocessor/cat.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/utility/enable_if.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/apple/has_equal_range.hpp>
 #include <pstade/apple/has_find.hpp>
@@ -52,8 +52,10 @@
 #include <pstade/apple/has_sort.hpp>
 #include <pstade/apple/has_unique.hpp>
 #include <pstade/apple/has_upper_bound.hpp>
-#include <pstade/deduced_const.hpp>
-#include "./detail/config.hpp" // PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR
+#include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
+#include <pstade/enable_if.hpp>
+#include <pstade/pass_by.hpp>
 #include "./range_difference.hpp"
 #include "./range_iterator.hpp"
 
@@ -64,1817 +66,977 @@ namespace pstade { namespace oven {
 PSTADE_ADL_BARRIER(algorithm) {
 
 
-    namespace range_ex_detail
-    {
-        template<typename Rng>
-        struct iter_pair
-        {
-            typedef BOOST_DEDUCED_TYPENAME range_iterator<
-                Rng
-            >::type iterator;
-
-            typedef std::pair<iterator,iterator> type;
-        };
-    }
-
-    /////////////////////////////////////////////////////////////////////////
     // Non-Modifying Sequence Operations
-    /////////////////////////////////////////////////////////////////////////
 
-    /// \brief template function for_each
-    ///
-    /// range-based version of the for_each std algorithm
-    ///
-    /// \pre Rng meets the requirements for a Input range
-    template<typename Rng,typename Fun>
-    inline Fun for_each(Rng & rng,Fun fun)
-    {
-        return std::for_each(boost::begin(rng),boost::end(rng),fun);
-    }
 
-    /// \overload
-    template<typename Rng,typename Fun>
-    inline Fun for_each(Rng const & rng,Fun fun)
-    {
-        return std::for_each(boost::begin(rng),boost::end(rng),fun);
-    }
+    // for_each
 
-    namespace range_ex_detail
+#define PSTADE_for_each_form(Xxx, ResultFun) \
+    \
+    struct BOOST_PP_CAT(op_, Xxx) : \
+        callable<BOOST_PP_CAT(op_, Xxx)> \
+    { \
+        template< class Myself, class Range, class A0 > \
+        struct apply : \
+            ResultFun \
+        { }; \
+        \
+        template< class Result, class Range, class A0 > \
+        Result call(Range& rng, A0& a0) const \
+        { \
+            return std::Xxx(boost::begin(rng), boost::end(rng), a0); \
+        } \
+    }; \
+    \
+    PSTADE_CONSTANT( Xxx, (BOOST_PP_CAT(op_, Xxx)) ) \
+    \
+/**/
+
+    PSTADE_for_each_form(for_each, pass_by_value<A0>)
+
+
+    // find
+    
+    struct op_find :
+        callable<op_find>
     {
-        template<typename Rng,typename Val>
-        inline BOOST_DEDUCED_TYPENAME boost::lazy_enable_if<
-            apple::has_find<Rng>
-          , range_iterator<Rng>
-        >::type
-        find_impl(Rng & rng,Val const & val)
+        template< class Myself, class Range, class Val >
+        struct apply :
+            range_iterator<Range>
+        { };
+
+        template< class Result, class Range, class Val >
+        Result call(Range& rng, Val& val,
+            // GCC fails if 'enable_if' is placed on result type. 
+            typename enable_if< apple::has_find<Range> >::type = 0) const
         {
             return rng.find(val);
         }
 
-        template<typename Rng,typename Val>
-        inline BOOST_DEDUCED_TYPENAME boost::lazy_disable_if<
-            apple::has_find<Rng>
-          , range_iterator<Rng>
-        >::type
-        find_impl(Rng & rng,Val const & val)
+        template< class Result, class Range, class Val >
+        Result call(Range& rng, Val& val,
+            typename disable_if<apple::has_find<Range> >::type = 0) const
         {
-            return std::find(boost::begin(rng),boost::end(rng),val);
+            return std::find(boost::begin(rng), boost::end(rng), val);
         }
-    }
+    };
 
-    /// \brief template function find
-    ///
-    /// range-based version of the find std algorithm
-    ///
-    /// \pre Rng meets the requirements for a Input range
-    template<typename Rng,typename Val>
-    inline BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type
-    find(Rng & rng,Val const & val)
+    PSTADE_CONSTANT(find, (op_find))
+
+
+    // find_if
+
+    PSTADE_for_each_form(find_if, range_iterator<Range>)
+
+
+    // find_end/first_of
+
+#define PSTADE_find_end_form(Xxx, ResultFun) \
+    \
+    struct BOOST_PP_CAT(op_, Xxx) : \
+        callable<BOOST_PP_CAT(op_, Xxx)> \
+    { \
+        template< class Myself, class Range1, class Range2, class A0 = void > \
+        struct apply : \
+            ResultFun \
+        { }; \
+        \
+        template< class Result, class Range1, class Range2, class A0 > \
+        Result call(Range1& rng1, Range2& rng2, A0& a0) const \
+        { \
+            return std::Xxx( \
+                boost::begin(rng1), boost::end(rng1), \
+                boost::begin(rng2), boost::end(rng2), \
+                a0 \
+            ); \
+        } \
+        \
+        template< class Result, class Range1, class Range2 > \
+        Result call(Range1& rng1, Range2& rng2) const \
+        { \
+            return std::Xxx( \
+                boost::begin(rng1), boost::end(rng1), \
+                boost::begin(rng2), boost::end(rng2) \
+            ); \
+        } \
+    }; \
+    \
+    PSTADE_CONSTANT(Xxx, (BOOST_PP_CAT(op_, Xxx)) )
+    \
+/**/
+
+    PSTADE_find_end_form(find_end, range_iterator<Range1>)
+    PSTADE_find_end_form(find_first_of, range_iterator<Range1>)
+
+
+    // adjacent_find
+
+#define PSTADE_adjacent_find_form(Xxx, ResultFun) \
+    \
+    struct BOOST_PP_CAT(op_, Xxx) : \
+        callable<BOOST_PP_CAT(op_, Xxx)> \
+    { \
+        template< class Myself, class Range, class A0 = void > \
+        struct apply : \
+            ResultFun \
+        { }; \
+        \
+        template< class Result, class Range, class A0 > \
+        Result call(Range& rng, A0& a0) const \
+        { \
+            return std::Xxx(boost::begin(rng), boost::end(rng), a0); \
+        } \
+        template< class Result, class Range > \
+        Result call(Range& rng) const \
+        { \
+            return std::Xxx(boost::begin(rng), boost::end(rng)); \
+        } \
+    }; \
+    \
+    PSTADE_CONSTANT( Xxx, (BOOST_PP_CAT(op_, Xxx)) ) \
+    \
+/**/
+
+    PSTADE_adjacent_find_form(adjacent_find, range_iterator<Range>)
+
+
+    // count/count_if
+
+    PSTADE_for_each_form(count, range_difference<Range>)
+    PSTADE_for_each_form(count_if, range_difference<Range>)
+
+
+    // mismatch
+
+    struct op_mismatch :
+        callable<op_mismatch>
     {
-        return range_ex_detail::find_impl(rng,val);
-    }
+        template< class Myself, class Range, class InIter, class BinPred = void >
+        struct apply
+        {
+            typedef
+                std::pair<
+                    typename range_iterator<Range>::type,
+                    typename pass_by_value<InIter>::type
+                >
+            type;
+        };
 
-    /// \overload
-    template<typename Rng,typename Val>
-    inline BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_DEDUCED_CONST(Rng)>::type
-    find(Rng const & rng,Val const & val)
+        template< class Result, class Range, class InIter, class BinPred >
+        Result call(Range& rng, InIter& first, BinPred& pred) const
+        {
+            return std::mismatch(boost::begin(rng), boost::end(rng), first, pred);
+        }
+
+        template< class Result, class Range, class InIter >
+        Result call(Range& rng, InIter& first) const
+        {
+            return std::mismatch(boost::begin(rng), boost::end(rng), first);
+        }
+    };
+
+    PSTADE_CONSTANT(mismatch, (op_mismatch))
+
+
+    // equal
+
+    struct op_equal :
+        callable<op_equal>
     {
-        return range_ex_detail::find_impl(rng,val);
-    }
+        template< class Myself, class Range, class InIter, class BinPred = void >
+        struct apply
+        {
+            typedef bool type;
+        };
 
-    /// \brief template function find_if
-    ///
-    /// range-based version of the find_if std algorithm
-    ///
-    /// \pre Rng meets the requirements for a Input range
-    template<typename Rng,typename Pred>
-    inline BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type
-    find_if(Rng & rng,Pred pred)
-    {
-        return std::find_if(boost::begin(rng),boost::end(rng),pred);
-    }
+        template< class Result, class Range, class InIter, class BinPred >
+        Result call(Range& rng, InIter& first, BinPred& pred) const
+        {
+            return std::equal(boost::begin(rng), boost::end(rng), first, pred);
+        }
 
-    /// \overload
-    template<typename Rng,typename Pred>
-    inline BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_DEDUCED_CONST(Rng)>::type
-    find_if(Rng const & rng,Pred pred)
-    {
-        return std::find_if(boost::begin(rng),boost::end(rng),pred);
-    }
+        template< class Result, class Range, class InIter >
+        Result call(Range& rng, InIter& first) const
+        {
+            return std::equal(boost::begin(rng), boost::end(rng), first);
+        }
+    };
 
-    /// \brief template function find_end
-    ///
-    /// range-based version of the find_end std algorithm
-    ///
-    /// \pre Rng1 meets the requirements for a Forward range
-    /// \pre Rng2 meets the requirements for a Forward range
-    template<typename Rng1,typename Rng2>
-    inline BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng1>::type
-    find_end(Rng1 & rng1,Rng2 const & rng2)
-    {
-        return std::find_end(boost::begin(rng1),boost::end(rng1),
-                             boost::begin(rng2),boost::end(rng2));
-    }
+    PSTADE_CONSTANT(equal, (op_equal))
 
-    /// \overload
-    template<typename Rng1,typename Rng2>
-    inline BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_DEDUCED_CONST(Rng1)>::type
-    find_end(Rng1 const & rng1,Rng2 const & rng2)
-    {
-        return std::find_end(boost::begin(rng1),boost::end(rng1),
-                             boost::begin(rng2),boost::end(rng2));
-    }
 
-    /// \overload
-    template<typename Rng1,typename Rng2,typename BinPred>
-    inline BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng1>::type
-    find_end(Rng1 & rng1,Rng2 const & rng2,BinPred pred)
-    {
-        return std::find_end(boost::begin(rng1),boost::end(rng1),
-                             boost::begin(rng2),boost::end(rng2),pred);
-    }
+    // search
 
-    /// \overload
-    template<typename Rng1,typename Rng2,typename BinPred>
-    inline BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_DEDUCED_CONST(Rng1)>::type
-    find_end(Rng1 const & rng1,Rng2 const & rng2,BinPred pred)
-    {
-        return std::find_end(boost::begin(rng1),boost::end(rng1),
-                             boost::begin(rng2),boost::end(rng2),pred);
-    }
+    PSTADE_find_end_form(search, range_iterator<Range1>)
 
-    /// \brief template function find_first_of
-    ///
-    /// range-based version of the find_first_of std algorithm
-    ///
-    /// \pre Rng1 meets the requirements for a Forward range
-    /// \pre Rng2 meets the requirements for a Forward range
-    template<typename Rng1,typename Rng2>
-    inline BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng1>::type
-    find_first_of(Rng1 & rng1,Rng2 const & rng2)
-    {
-        return std::find_first_of(boost::begin(rng1),boost::end(rng1),
-                                  boost::begin(rng2),boost::end(rng2));
-    }
 
-    /// \overload
-    template<typename Rng1,typename Rng2>
-    inline BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_DEDUCED_CONST(Rng1)>::type
-    find_first_of(Rng1 const & rng1,Rng2 const & rng2)
-    {
-        return std::find_first_of(boost::begin(rng1),boost::end(rng1),
-                                  boost::begin(rng2),boost::end(rng2));
-    }
-
-    /// \overload
-    template<typename Rng1,typename Rng2,typename BinPred>
-    inline BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng1>::type
-    find_first_of(Rng1 & rng1,Rng2 const & rng2,BinPred pred)
-    {
-        return std::find_first_of(boost::begin(rng1),boost::end(rng1),
-                                  boost::begin(rng2),boost::end(rng2),pred);
-    }
-
-    /// \overload
-    template<typename Rng1,typename Rng2,typename BinPred>
-    inline BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_DEDUCED_CONST(Rng1)>::type
-    find_first_of(Rng1 const & rng1,Rng2 const & rng2,BinPred pred)
-    {
-        return std::find_first_of(boost::begin(rng1),boost::end(rng1),
-                                  boost::begin(rng2),boost::end(rng2),pred);
-    }
-
-    /// \brief template function adjacent_find
-    ///
-    /// range-based version of the adjacent_find std algorithm
-    ///
-    /// \pre Rng meets the requirements for a Forward range
-    template<typename Rng>
-    inline BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type
-    adjacent_find(Rng & rng)
-    {
-        return std::adjacent_find(boost::begin(rng),boost::end(rng));
-    }
-
-    /// \overload
-    template<typename Rng>
-    inline BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_DEDUCED_CONST(Rng)>::type
-    adjacent_find(Rng const & rng)
-    {
-        return std::adjacent_find(boost::begin(rng),boost::end(rng));
-    }
-
-    /// \overload
-    template<typename Rng,typename BinPred>
-    inline BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type
-    adjacent_find(Rng & rng,BinPred pred)
-    {
-        return std::adjacent_find(boost::begin(rng),boost::end(rng),pred);
-    }
-
-    /// \overload
-    template<typename Rng,typename BinPred>
-    inline BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_DEDUCED_CONST(Rng)>::type
-    adjacent_find(Rng const & rng,BinPred pred)
-    {
-        return std::adjacent_find(boost::begin(rng),boost::end(rng),pred);
-    }
-
-    /// \brief template function count
-    ///
-    /// range-based version of the count std algorithm
-    ///
-    /// \pre Rng meets the requirements for an Input range
-    template<typename Rng,typename Val>
-    inline BOOST_DEDUCED_TYPENAME range_difference<Rng>::type
-    count(Rng & rng,Val const & val)
-    {
-        return std::count(boost::begin(rng),boost::end(rng),val);
-    }
-
-    /// \overload
-    template<typename Rng,typename Val>
-    inline BOOST_DEDUCED_TYPENAME range_difference<PSTADE_DEDUCED_CONST(Rng)>::type
-    count(Rng const & rng,Val const & val)
-    {
-        return std::count(boost::begin(rng),boost::end(rng),val);
-    }
-
-    /// \brief template function count_if
-    ///
-    /// range-based version of the count_if std algorithm
-    ///
-    /// \pre Rng meets the requirements for an Input range
-    template<typename Rng,typename Pred>
-    inline BOOST_DEDUCED_TYPENAME range_difference<Rng>::type
-    count_if(Rng & rng,Pred pred)
-    {
-        return std::count_if(boost::begin(rng),boost::end(rng),pred);
-    }
-
-    /// \overload
-    template<typename Rng,typename Pred>
-    inline BOOST_DEDUCED_TYPENAME range_difference<PSTADE_DEDUCED_CONST(Rng)>::type
-    count_if(Rng const & rng,Pred pred)
-    {
-        return std::count_if(boost::begin(rng),boost::end(rng),pred);
-    }
-
-    /// \brief template function mismatch
-    ///
-    /// range-based version of the mismatch std algorithm
-    ///
-    /// \pre Rng meets the requirements for an Input range
-    /// \pre InIter meets the requirements for an Input iterator
-    template<typename Rng,typename InIter>
-    inline std::pair<BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type,InIter>
-    mismatch(Rng & rng,InIter first)
-    {
-        return std::mismatch(boost::begin(rng),boost::end(rng),first);
-    }
-
-    /// \overload
-    template<typename Rng,typename InIter>
-    inline std::pair<BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_DEDUCED_CONST(Rng)>::type,InIter>
-    mismatch(Rng const & rng,InIter first)
-    {
-        return std::mismatch(boost::begin(rng),boost::end(rng),first);
-    }
-
-    /// \overload
-    template<typename Rng,typename InIter,typename BinPred>
-    inline std::pair<BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type,InIter>
-    mismatch(Rng & rng,InIter first,BinPred pred)
-    {
-        return std::mismatch(boost::begin(rng),boost::end(rng),first,pred);
-    }
-
-    /// \overload
-    template<typename Rng,typename InIter,typename BinPred>
-    inline std::pair<BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_DEDUCED_CONST(Rng)>::type,InIter>
-    mismatch(Rng const & rng,InIter first,BinPred pred)
-    {
-        return std::mismatch(boost::begin(rng),boost::end(rng),first,pred);
-    }
-
-    /// \brief template function equal
-    ///
-    /// range-based version of the equal std algorithm
-    ///
-    /// \pre Rng meets the requirements for an Input range
-    /// \pre InIter meets the requirements for an Input iterator
-    template<typename Rng,typename InIter>
-    inline bool equal(Rng & rng,InIter first)
-    {
-        return std::equal(boost::begin(rng),boost::end(rng),first);
-    }
-
-    /// \overload
-    template<typename Rng,typename InIter>
-    inline bool equal(Rng const & rng,InIter first)
-    {
-        return std::equal(boost::begin(rng),boost::end(rng),first);
-    }
-
-    /// \overload
-    template<typename Rng,typename InIter,typename BinPred>
-    inline bool equal(Rng & rng,InIter first,BinPred pred)
-    {
-        return std::equal(boost::begin(rng),boost::end(rng),first,pred);
-    }
-
-    /// \overload
-    template<typename Rng,typename InIter,typename BinPred>
-    inline bool equal(Rng const & rng,InIter first,BinPred pred)
-    {
-        return std::equal(boost::begin(rng),boost::end(rng),first,pred);
-    }
-
-    /// \brief template function search
-    ///
-    /// range-based version of the search std algorithm
-    ///
-    /// \pre Rng1 meets the requirements for a Forward range
-    /// \pre Rng2 meets the requirements for a Forward range
-    template<typename Rng1,typename Rng2>
-    inline BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng1>::type
-    search(Rng1 & rng1,Rng2 const & rng2)
-    {
-        return std::search(boost::begin(rng1),boost::end(rng1),
-                           boost::begin(rng2),boost::end(rng2));
-    }
-
-    /// \overload
-    template<typename Rng1,typename Rng2>
-    inline BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_DEDUCED_CONST(Rng1)>::type
-    search(Rng1 const & rng1,Rng2 const & rng2)
-    {
-        return std::search(boost::begin(rng1),boost::end(rng1),
-                           boost::begin(rng2),boost::end(rng2));
-    }
-
-    /// \overload
-    template<typename Rng1,typename Rng2,typename BinPred>
-    inline BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng1>::type
-    search(Rng1 & rng1,Rng2 const & rng2,BinPred pred)
-    {
-        return std::search(boost::begin(rng1),boost::end(rng1),
-                           boost::begin(rng2),boost::end(rng2),pred);
-    }
-
-    /// \overload
-    template<typename Rng1,typename Rng2,typename BinPred>
-    inline BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_DEDUCED_CONST(Rng1)>::type
-    search(Rng1 const & rng1,Rng2 const & rng2,BinPred pred)
-    {
-        return std::search(boost::begin(rng1),boost::end(rng1),
-                           boost::begin(rng2),boost::end(rng2),pred);
-    }
-
-    /////////////////////////////////////////////////////////////////////////
     // Modifying Sequence Operations
-    /////////////////////////////////////////////////////////////////////////
 
-    /// \brief template function copy
-    ///
-    /// range-based version of the copy std algorithm
-    ///
-    /// \pre Rng meets the requirements for an Input range
-    /// \pre OutIter meets the requirements for an Output iterator
-    template<typename Rng,typename OutIter>
-    inline OutIter copy(Rng const & rng,OutIter out)
-    {
-        return std::copy(boost::begin(rng),boost::end(rng),out);
-    }
 
-    /// \brief template function copy_backwards
-    ///
-    /// range-based version of the copy_backwards std algorithm
-    ///
-    /// \pre Rng meets the requirements for a Bidirectional range
-    /// \pre BidiIter meets the requirements for a Bidirectional iterator
-    template<typename Rng,typename BidiIter>
-    inline BidiIter copy_backward(Rng const & rng,BidiIter out)
-    {
-        return std::copy_backward(boost::begin(rng),boost::end(rng),out);
-    }
+    // copy
 
-    /// \brief template function transform
-    ///
-    /// range-based version of the transform std algorithm
-    ///
-    /// \pre Rng meets the requirements for an Input range
-    /// \pre InIter meets the requirements for an Input iterator
-    /// \pre OutIter meets the requirements for an Output iterator
-    template<typename Rng,typename OutIter,typename UnaryOp>
-    inline OutIter transform(Rng const & rng,OutIter out,UnaryOp fun)
-    {
-        return std::transform(boost::begin(rng),boost::end(rng),out,fun);
-    }
+    PSTADE_for_each_form(copy, pass_by_value<A0>)
+    PSTADE_for_each_form(copy_backward, pass_by_value<A0>)
 
-    /// \overload
-    template<typename Rng,typename InIter,typename OutIter,typename BinOp>
-    inline OutIter transform(Rng const & rng,InIter first2,OutIter out,BinOp fun)
-    {
-        return std::transform(boost::begin(rng),boost::end(rng),first2,out,fun);
-    }
 
-    /// \brief template function replace
-    ///
-    /// range-based version of the replace std algorithm
-    ///
-    /// \pre Rng meets the requirements for a Forward range
-    template<typename Rng,typename Val>
-    inline void replace(Rng & rng,Val const & what,Val const & with_what)
-    {
-        return std::replace(boost::begin(rng),boost::end(rng),what,with_what);
-    }
+    // transform
 
-    /// \overload
-    template<typename Rng,typename Val>
-    inline void replace(Rng const & rng,Val const & what,Val const & with_what)
+    struct op_transform :
+        callable<op_transform>
     {
-        return std::replace(boost::begin(rng),boost::end(rng),what,with_what);
-    }
+        template< class Myself, class Range, class InIter, class OutIter, class BinOp = void >
+        struct apply :
+            pass_by_value<OutIter>
+        { };
 
-    /// \brief template function replace_if
-    ///
-    /// range-based version of the replace_if std algorithm
-    ///
-    /// \pre Rng meets the requirements for a Forward range
-    template<typename Rng,typename Pred,typename Val>
-    inline void replace_if(Rng & rng,Pred pred,Val const & val)
-    {
-        return std::replace_if(boost::begin(rng),boost::end(rng),pred,val);
-    }
+        template< class Result, class Range, class InIter, class OutIter, class BinOp >
+        Result call(Range& rng, InIter& first2, OutIter& out, BinOp& fun) const
+        {
+            return std::transform(boost::begin(rng), boost::end(rng), first2, out, fun);
+        }
 
-    /// \overload
-    template<typename Rng,typename Pred,typename Val>
-    inline void replace_if(Rng const & rng,Pred pred,Val const & val)
-    {
-        return std::replace_if(boost::begin(rng),boost::end(rng),pred,val);
-    }
+        template< class Myself, class Range, class OutIter, class UnaryOp >
+        struct apply<Myself, Range, OutIter, UnaryOp> :
+            pass_by_value<OutIter>
+        { };
 
-    /// \brief template function replace_copy
-    ///
-    /// range-based version of the replace_copy std algorithm
-    ///
-    /// \pre Rng meets the requirements for an Input range
-    /// \pre OutIter meets the requirements for an Output iterator
-    template<typename Rng,typename OutIter,typename Val>
-    inline OutIter replace_copy(Rng const & rng,OutIter out,Val const & what,Val const & with_what)
-    {
-        return std::replace_copy(boost::begin(rng),boost::end(rng),out,what,with_what);
-    }
+        template< class Result, class Range, class OutIter, class UnaryOp >
+        Result call(Range& rng, OutIter& out, UnaryOp& fun) const
+        {
+            return std::transform(boost::begin(rng), boost::end(rng), out, fun);
+        }
+    };
 
-    /// \brief template function replace_copy_if
-    ///
-    /// range-based version of the replace_copy_if std algorithm
-    ///
-    /// \pre Rng meets the requirements for an Input range
-    /// \pre OutIter meets the requirements for an Output iterator
-    template<typename Rng,typename OutIter,typename Pred,typename Val>
-    inline OutIter replace_copy_if(Rng const & rng,OutIter out,Pred pred,Val const & val)
-    {
-        return std::replace_copy_if(boost::begin(rng),boost::end(rng),out,pred,val);
-    }
+    PSTADE_CONSTANT(transform, (op_transform))
 
-    /// \brief template function fill
-    ///
-    /// range-based version of the fill std algorithm
-    ///
-    /// \pre Rng meets the requirements for a Forward range
-    template<typename Rng,typename Val>
-    inline void fill(Rng & rng,Val const & val)
-    {
-        std::fill(boost::begin(rng),boost::end(rng),val);
-    }
 
-    /// \overload
-    template<typename Rng,typename Val>
-    inline void fill(Rng const & rng,Val const & val)
-    {
-        std::fill(boost::begin(rng),boost::end(rng),val);
-    }
+    // replace/replace_if
 
-    /// \brief template function fill_n
-    ///
-    /// range-based version of the fill_n std algorithm
-    ///
-    /// \pre Rng meets the requirements for an Output range
-    template<typename Rng,typename Int,typename Val>
-    inline void fill_n(Rng & rng,Int size,Val const & val)
-    {
-        // BUGBUG an Output range? Rethink this, and output ranges in general.
-        std::fill_n(boost::begin(rng),size,val);
-    }
+#define PSTADE_replace_form(Xxx, ResultFun) \
+    \
+    struct BOOST_PP_CAT(op_, Xxx) : \
+        callable<BOOST_PP_CAT(op_, Xxx)> \
+    { \
+        template< class Myself, class Range, class A0, class A1 > \
+        struct apply : \
+            ResultFun \
+        { }; \
+        \
+        template< class Result, class Range, class A0, class A1 > \
+        Result call(Range& rng, A0& a0, A1& a1) const \
+        { \
+            return std::Xxx(boost::begin(rng), boost::end(rng), a0, a1); \
+        } \
+    }; \
+    \
+    PSTADE_CONSTANT( Xxx, (BOOST_PP_CAT(op_, Xxx)) )
+    \
+/**/
 
-    /// \overload
-    template<typename Rng,typename Int,typename Val>
-    inline void fill_n(Rng const & rng,Int size,Val const & val)
-    {
-        std::fill_n(boost::begin(rng),size,val);
-    }
+    PSTADE_replace_form(replace, boost::mpl::identity<void>)
+    PSTADE_replace_form(replace_if, boost::mpl::identity<void>)
 
-    /// \brief template function generate
-    ///
-    /// range-based version of the generate std algorithm
-    ///
-    /// \pre Rng meets the requirements for a Forward range
-    template<typename Rng,typename Generator>
-    inline void generate(Rng & rng,Generator gen)
-    {
-        std::generate(boost::begin(rng),boost::end(rng),gen);
-    }
 
-    /// \overload
-    template<typename Rng,typename Generator>
-    inline void generate(Rng const & rng,Generator gen)
-    {
-        std::generate(boost::begin(rng),boost::end(rng),gen);
-    }
+    // replace_copy
 
-    /// \brief template function generate_n
-    ///
-    /// range-based version of the generate_n std algorithm
-    ///
-    /// \pre Rng meets the requirements for an Output range
-    template<typename Rng,typename Int,typename Generator>
-    void generate_n(Rng & rng,Int size,Generator gen)
+    struct op_replace_copy :
+        callable<op_replace_copy>
     {
-        std::generate_n(boost::begin(rng),size,gen);
-    }
+        template< class Myself, class Range, class OutIter, class Val, class Val_ >
+        struct apply :
+            pass_by_value<OutIter>
+        { };
 
-    /// \overload
-    template<typename Rng,typename Int,typename Generator>
-    void generate_n(Rng const & rng,Int size,Generator gen)
-    {
-        std::generate_n(boost::begin(rng),size,gen);
-    }
+        template< class Result, class Range, class OutIter, class Val >
+        Result call(Range& rng, OutIter& out, Val& what, Val& with_what) const
+        {
+            return std::replace_copy(boost::begin(rng), boost::end(rng), out, what, with_what);
+        }
+    };
 
-    namespace range_ex_detail
+    PSTADE_CONSTANT(replace_copy, (op_replace_copy))
+
+
+    // replace_copy_if
+
+    struct op_replace_copy_if :
+        callable<op_replace_copy_if>
     {
-        template<typename Rng,typename Val>
-        inline BOOST_DEDUCED_TYPENAME boost::lazy_enable_if<
-            apple::has_remove<Rng>
-          , range_iterator<Rng>
-        >::type
-        remove_impl(Rng & rng,Val const & val)
+        template< class Myself, class Range, class OutIter, class Pred, class Val >
+        struct apply :
+            pass_by_value<OutIter>
+        { };
+
+        template< class Result, class Range, class OutIter, class Pred, class Val >
+        Result call(Range& rng, OutIter& out, Pred& pred, Val& val) const
+        {
+            return std::replace_copy_if(boost::begin(rng), boost::end(rng), out, pred, val);
+        }
+    };
+
+    PSTADE_CONSTANT(replace_copy_if, (op_replace_copy_if))
+
+
+    // fill
+
+    PSTADE_for_each_form(fill, boost::mpl::identity<void>)
+
+
+    // fill_n
+
+    struct op_fill_n :
+        callable<op_fill_n>
+    {
+        template< class M, class Rng, class Int, class Val >
+        struct apply
+        {
+            typedef void type;
+        };
+
+        template< class R, class Rng, class Int, class Val >
+        void call(Rng& rng, Int& size, Val& val) const
+        {
+            std::fill_n(boost::begin(rng), size, val);
+        }
+    };
+
+    PSTADE_CONSTANT(fill_n, (op_fill_n))
+
+
+    // generate
+
+    PSTADE_for_each_form(generate, boost::mpl::identity<void>)
+
+
+    // generate_n
+
+    struct op_generate_n :
+        callable<op_generate_n>
+    {
+        template< class Myself, class Range, class Int, class Generator >
+        struct apply
+        {
+            typedef void type;
+        };
+
+        template< class Result, class Range, class Int, class Generator >
+        void call(Range& rng, Int& size, Generator& gen) const
+        {
+            std::generate_n(boost::begin(rng), size, gen);
+        };
+    };
+
+    PSTADE_CONSTANT(generate_n, (op_generate_n))
+
+
+    // remove
+
+    struct op_remove :
+        callable<op_remove>
+    {
+        template< class Myself, class Range, class Val >
+        struct apply :
+            range_iterator<Range>
+        { };
+
+        template< class Result, class Range, class Val >
+        Result call(Range& rng, Val& val,
+            typename enable_if< apple::has_remove<Range> >::type = 0) const
         {
             rng.remove(val);
             return boost::end(rng);
         }
 
-        template<typename Rng,typename Val>
-        inline BOOST_DEDUCED_TYPENAME boost::lazy_disable_if<
-            apple::has_remove<Rng>
-          , range_iterator<Rng>
-        >::type
-        remove_impl(Rng & rng,Val const & val)
+        template< class Result, class Range, class Val >
+        Result call(Range& rng, Val& val,
+            typename disable_if<apple::has_remove<Range> >::type = 0) const
         {
-            return std::remove(boost::begin(rng),boost::end(rng),val);
+            return std::remove(boost::begin(rng), boost::end(rng), val);
         }
-    }
+    };
 
-    /// \brief template function remove
-    ///
-    /// range-based version of the remove std algorithm
-    ///
-    /// \pre Rng meets the requirements for a Forward range
-    template<typename Rng,typename Val>
-    inline BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type
-    remove(Rng & rng,Val const & val)
-    {
-        return range_ex_detail::remove_impl(rng,val);
-    }
+    PSTADE_CONSTANT(remove, (op_remove))
 
-    /// \overload
-    template<typename Rng,typename Val>
-    inline BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_DEDUCED_CONST(Rng)>::type
-    remove(Rng const & rng,Val const & val)
-    {
-        return range_ex_detail::remove_impl(rng,val);
-    }
 
-    namespace range_ex_detail
+    // remove_if
+
+    struct op_remove_if :
+        callable<op_remove_if>
     {
-        template<typename Rng,typename Pred>
-        inline BOOST_DEDUCED_TYPENAME boost::lazy_enable_if<
-            apple::has_remove_if<Rng>
-          , range_iterator<Rng>
-        >::type
-        remove_if_impl(Rng & rng,Pred pred)
+        template< class Myself, class Range, class Pred >
+        struct apply :
+            range_iterator<Range>
+        { };
+
+        template< class Result, class Range, class Pred >
+        Result call(Range& rng, Pred& pred,
+            typename enable_if< apple::has_remove_if<Range> >::type = 0) const
         {
             rng.remove_if(pred);
             return boost::end(rng);
         }
 
-        template<typename Rng,typename Pred>
-        inline BOOST_DEDUCED_TYPENAME boost::lazy_disable_if<
-            apple::has_remove_if<Rng>
-          , range_iterator<Rng>
-        >::type
-        remove_if_impl(Rng & rng,Pred pred)
+        template< class Result, class Range, class Pred >
+        Result call(Range& rng, Pred& pred,
+            typename disable_if<apple::has_remove_if<Range> >::type = 0) const
         {
-            return std::remove_if(boost::begin(rng),boost::end(rng),pred);
+            return std::remove_if(boost::begin(rng), boost::end(rng), pred);
         }
-    }
+    };
 
-    /// \brief template function remove_if
-    ///
-    /// range-based version of the remove_if std algorithm
-    ///
-    /// \pre Rng meets the requirements for a Forward range
-    template<typename Rng,typename Pred>
-    inline BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type
-    remove_if(Rng & rng,Pred pred)
+    PSTADE_CONSTANT(remove_if, (op_remove_if))
+
+
+    // remove_copy/remove_copy_if
+
+    PSTADE_replace_form(remove_copy, pass_by_value<A0>)
+    PSTADE_replace_form(remove_copy_if, pass_by_value<A0>)
+
+
+    // unique
+
+    struct op_unique :
+        callable<op_unique>
     {
-        return range_ex_detail::remove_if_impl(rng,pred);
-    }
+        template< class Myself, class Range, class Pred = void >
+        struct apply :
+            range_iterator<Range>
+        { };
 
-    /// \overload
-    template<typename Rng,typename Pred>
-    inline BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_DEDUCED_CONST(Rng)>::type
-    remove_if(Rng const & rng,Pred pred)
-    {
-        return range_ex_detail::remove_if_impl(rng,pred);
-    }
-
-    /// \brief template function remove_copy
-    ///
-    /// range-based version of the remove_copy std algorithm
-    ///
-    /// \pre Rng meets the requirements for an Input range
-    /// \pre OutIter meets the requirements for an Output iterator
-    template<typename Rng,typename OutIter,typename Val>
-    inline OutIter remove_copy(Rng const & rng,OutIter out,Val const & val)
-    {
-        return std::remove_copy(boost::begin(rng),boost::end(rng),out,val);
-    }
-
-    /// \brief template function remove_copy_if
-    ///
-    /// range-based version of the remove_copy_if std algorithm
-    ///
-    /// \pre Rng meets the requirements for an Input range
-    /// \pre OutIter meets the requirements for an Output iterator
-    template<typename Rng,typename OutIter,typename Pred>
-    inline OutIter remove_copy_if(Rng const & rng,OutIter out,Pred pred)
-    {
-        return std::remove_copy_if(boost::begin(rng),boost::end(rng),out,pred);
-    }
-
-    namespace range_ex_detail
-    {
-        template<typename Rng>
-        inline BOOST_DEDUCED_TYPENAME boost::lazy_enable_if<
-            apple::has_unique<Rng>
-          , range_iterator<Rng>
-        >::type
-        unique_impl(Rng & rng)
-        {
-            rng.unique();
-            return boost::end(rng);
-        }
-
-        template<typename Rng>
-        inline BOOST_DEDUCED_TYPENAME boost::lazy_disable_if<
-            apple::has_unique<Rng>
-          , range_iterator<Rng>
-        >::type
-        unique_impl(Rng & rng)
-        {
-            return std::unique(boost::begin(rng),boost::end(rng));
-        }
-
-        template<typename Rng,typename Pred>
-        inline BOOST_DEDUCED_TYPENAME boost::lazy_enable_if<
-            apple::has_unique<Rng>
-          , range_iterator<Rng>
-        >::type
-        unique_if_impl(Rng & rng,Pred pred)
+        template< class Result, class Range, class Pred >
+        Result call(Range& rng, Pred& pred,
+            typename enable_if< apple::has_unique<Range> >::type = 0) const
         {
             rng.unique(pred);
             return boost::end(rng);
         }
 
-        template<typename Rng,typename Pred>
-        inline BOOST_DEDUCED_TYPENAME boost::lazy_disable_if<
-            apple::has_unique<Rng>
-          , range_iterator<Rng>
-        >::type
-        unique_if_impl(Rng & rng,Pred pred)
+        template< class Result, class Range, class Pred >
+        Result call(Range& rng, Pred& pred,
+            typename disable_if<apple::has_unique<Range> >::type = 0) const
         {
-            return std::unique(boost::begin(rng),boost::end(rng),pred);
+            return std::unique(boost::begin(rng), boost::end(rng), pred);
         }
-    }
 
-    /// \brief template function unique
-    ///
-    /// range-based version of the unique std algorithm
-    ///
-    /// \pre Rng meets the requirements for a Forward range
-    template<typename Rng>
-    inline BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type
-    unique(Rng & rng)
-    {
-        return range_ex_detail::unique_impl(rng);
-    }
+        template< class Result, class Range >
+        Result call(Range& rng,
+            typename enable_if< apple::has_unique<Range> >::type = 0) const
+        {
+            rng.unique();
+            return boost::end(rng);
+        }
 
-    /// \overload
-    template<typename Rng>
-    inline BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_DEDUCED_CONST(Rng)>::type
-    unique(Rng const & rng)
-    {
-        return range_ex_detail::unique_impl(rng);
-    }
+        template< class Result, class Range >
+        Result call(Range& rng,
+            typename disable_if<apple::has_unique<Range> >::type = 0) const
+        {
+            return std::unique(boost::begin(rng), boost::end(rng));
+        }
+    };
 
-    /// \overload
-    template<typename Rng,typename Pred>
-    inline BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type
-    unique(Rng & rng,Pred pred)
-    {
-        return range_ex_detail::unique_if_impl(rng,pred);
-    }
+    PSTADE_CONSTANT(unique, (op_unique))
 
-    /// \overload
-    template<typename Rng,typename Pred>
-    inline BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_DEDUCED_CONST(Rng)>::type
-    unique(Rng const & rng,Pred pred)
-    {
-        return range_ex_detail::unique_if_impl(rng,pred);
-    }
 
-    /// \brief template function unique_copy
-    ///
-    /// range-based version of the unique_copy std algorithm
-    ///
-    /// \pre Rng meets the requirements for an Input range
-    /// \pre OutIter meets the requirements for an Output iterator
-    template<typename Rng,typename OutIter>
-    inline OutIter unique_copy(Rng const & rng,OutIter out)
-    {
-        return std::unique_copy(boost::begin(rng),boost::end(rng),out);
-    }
+    // unique_copy
 
-    /// \overload
-    template<typename Rng,typename OutIter,typename Pred>
-    inline OutIter unique_copy(Rng const & rng,OutIter out,Pred pred)
+    struct op_unique_copy :
+        callable<op_unique_copy>
     {
-        return std::unique_copy(boost::begin(rng),boost::end(rng),out,pred);
-    }
+        template< class Myself, class Range, class OutIter, class Pred = void >
+        struct apply :
+            pass_by_value<OutIter>
+        { };
 
-    namespace range_ex_detail
+        template< class Result, class Range, class OutIter, class Pred >
+        Result call(Range& rng, OutIter& out, Pred& pred) const
+        {
+            return std::unique_copy(boost::begin(rng), boost::end(rng), out, pred);
+        }
+
+        template< class Result, class Range, class OutIter >
+        Result call(Range& rng, OutIter& out) const
+        {
+            return std::unique_copy(boost::begin(rng), boost::end(rng), out);
+        }
+    };
+
+    PSTADE_CONSTANT(unique_copy, (op_unique_copy))
+
+
+    // reverse
+
+    struct op_reverse :
+        callable<op_reverse>
     {
-        template<typename Rng>
-        inline BOOST_DEDUCED_TYPENAME boost::enable_if<
-            apple::has_reverse<Rng>
-        >::type
-        reverse_impl(Rng & rng)
+        template< class Myself, class Range >
+        struct apply
+        {
+            typedef void type;
+        };
+
+        template< class Result, class Range >
+        void call(Range& rng,
+            typename enable_if< apple::has_reverse<Range> >::type = 0) const
         {
             rng.reverse();
         }
 
-        template<typename Rng>
-        inline BOOST_DEDUCED_TYPENAME boost::disable_if<
-            apple::has_reverse<Rng>
-        >::type
-        reverse_impl(Rng & rng)
+        template< class Result, class Range >
+        void call(Range& rng,
+            typename disable_if<apple::has_reverse<Range> >::type = 0) const
         {
-            std::reverse(boost::begin(rng),boost::end(rng));
+            std::reverse(boost::begin(rng), boost::end(rng));
         }
-    }
+    };
 
-    /// \brief template function reverse
-    ///
-    /// range-based version of the reverse std algorithm
-    ///
-    /// \pre Rng meets the requirements for a Bidirectional range
-    template<typename Rng>
-    inline void reverse(Rng & rng)
-    {
-        range_ex_detail::reverse_impl(rng);
-    }
+    PSTADE_CONSTANT(reverse, (op_reverse))
 
-    /// \overload
-    template<typename Rng>
-    inline void reverse(Rng const & rng)
-    {
-        range_ex_detail::reverse_impl(rng);
-    }
 
-    /// \brief template function reverse_copy
-    ///
-    /// range-based version of the reverse_copy std algorithm
-    ///
-    /// \pre Rng meets the requirements for a Bidirectional range
-    /// \pre OutIter meets the requirements for an Output iterator
-    template<typename Rng,typename OutIter>
-    inline OutIter reverse_copy(Rng const & rng,OutIter out)
-    {
-        return std::reverse_copy(boost::begin(rng),boost::end(rng),out);
-    }
+    // reverse_copy
 
-    /// \brief template function rotate
-    ///
-    /// range-based version of the rotate std algorithm
-    ///
-    /// \pre Rng meets the requirements for a Forward range
-    template<typename Rng>
-    inline void rotate(Rng & rng,
-        BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type middle)
-    {
-        std::rotate(boost::begin(rng),middle,boost::end(rng));
-    }
+    PSTADE_for_each_form(reverse_copy, pass_by_value<A0>)
 
-    /// \overload
-    template<typename Rng>
-    inline void rotate(Rng const & rng,
-        BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_DEDUCED_CONST(Rng)>::type middle)
-    {
-        std::rotate(boost::begin(rng),middle,boost::end(rng));
-    }
 
-    /// \brief template function rotate_copy
-    ///
-    /// range-based version of the rotate_copy std algorithm
-    ///
-    /// \pre Rng meets the requirements for a Forward range
-    /// \pre OutIter meets the requirements for an Output iterator
-    template<typename Rng,typename OutIter>
-    inline OutIter rotate_copy(Rng & rng,
-        BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type middle,
-        OutIter out)
-    {
-        return std::rotate_copy(boost::begin(rng),middle,boost::end(rng),out);
-    }
+    // rotate
 
-    /// \overload
-    template<typename Rng,typename OutIter>
-    inline OutIter rotate_copy(Rng const & rng,
-        BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_DEDUCED_CONST(Rng)>::type middle,
-        OutIter out)
+    struct op_rotate :
+        callable<op_rotate>
     {
-        return std::rotate_copy(boost::begin(rng),middle,boost::end(rng),out);
-    }
-
-    /// \brief template function random_shuffle
-    ///
-    /// range-based version of the random_shuffle std algorithm
-    ///
-    /// \pre Rng meets the requirements for a Random Access range
-    template<typename Rng>
-    inline void random_shuffle(Rng & rng)
-    {
-        std::random_shuffle(boost::begin(rng),boost::end(rng));
-    }
-
-    /// \overload
-    template<typename Rng>
-    inline void random_shuffle(Rng const & rng)
-    {
-        std::random_shuffle(boost::begin(rng),boost::end(rng));
-    }
-
-    /// \overload
-    template<typename Rng,typename Generator>
-    inline void random_shuffle(Rng & rng,Generator gen)
-    {
-        std::random_shuffle(boost::begin(rng),boost::end(rng),gen);
-    }
-
-    /// \overload
-    template<typename Rng,typename Generator>
-    inline void random_shuffle(Rng const & rng,Generator gen)
-    {
-        std::random_shuffle(boost::begin(rng),boost::end(rng),gen);
-    }
-
-    /// \brief template function partition
-    ///
-    /// range-based version of the partition std algorithm
-    ///
-    /// \pre Rng meets the requirements for a Bidirectional range
-    template<typename Rng,typename Pred>
-    inline BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type
-    partition(Rng & rng,Pred pred)
-    {
-        return std::partition(boost::begin(rng),boost::end(rng),pred);
-    }
-
-    /// \overload
-    template<typename Rng,typename Pred>
-    inline BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_DEDUCED_CONST(Rng)>::type
-    partition(Rng const & rng,Pred pred)
-    {
-        return std::partition(boost::begin(rng),boost::end(rng),pred);
-    }
-
-    /// \brief template function stable_partition
-    ///
-    /// range-based version of the stable_partition std algorithm
-    ///
-    /// \pre Rng meets the requirements for a Bidirectional range
-    template<typename Rng,typename Pred>
-    inline BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type
-    stable_partition(Rng & rng,Pred pred)
-    {
-        return std::stable_partition(boost::begin(rng),boost::end(rng),pred);
-    }
-
-    /// \overload
-    template<typename Rng,typename Pred>
-    inline BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_DEDUCED_CONST(Rng)>::type
-    stable_partition(Rng const & rng,Pred pred)
-    {
-        return std::stable_partition(boost::begin(rng),boost::end(rng),pred);
-    }
-
-    namespace range_ex_detail
-    {
-        template<typename Rng>
-        inline BOOST_DEDUCED_TYPENAME boost::enable_if<
-            apple::has_sort<Rng>
-        >::type
-        sort_impl(Rng & rng)
+        template< class Myself, class Range, class Middle >
+        struct apply
         {
-            rng.sort();
-        }
+            typedef void type;
+        };
 
-        template<typename Rng>
-        inline BOOST_DEDUCED_TYPENAME boost::disable_if<
-            apple::has_sort<Rng>
-        >::type
-        sort_impl(Rng & rng)
+        template< class Result, class Range >
+        void call(Range& rng, typename range_iterator<Range>::type const& middle) const
         {
-            std::sort(boost::begin(rng),boost::end(rng));
+            std::rotate(boost::begin(rng), middle, boost::end(rng));
         }
-    }
+    };
 
-    /// \brief template function sort
-    ///
-    /// range-based version of the sort std algorithm
-    ///
-    /// \pre Rng meets the requirements for a Random Access range
-    template<typename Rng>
-    inline void sort(Rng & rng)
-    {
-        range_ex_detail::sort_impl(rng);
-    }
+    PSTADE_CONSTANT(rotate, (op_rotate))
 
-    /// \overload
-    template<typename Rng>
-    inline void sort(Rng const & rng)
-    {
-        range_ex_detail::sort_impl(rng);
-    }
 
-    namespace range_ex_detail
+    // rotate_copy
+
+    struct op_rotate_copy :
+        callable<op_rotate_copy>
     {
-        template<typename Rng,typename Cmp>
-        inline BOOST_DEDUCED_TYPENAME boost::enable_if<
-            apple::has_sort<Rng>
-        >::type
-        sort_impl(Rng & rng,Cmp cmp)
+        template< class Myself, class Range, class Middle, class OutIter >
+        struct apply :
+            pass_by_value<OutIter>
+        { };
+
+        template< class Result, class Range, class OutIter >
+        Result call(Range& rng, typename range_iterator<Range>::type const& middle, OutIter& out) const
+        {
+            return std::rotate_copy(boost::begin(rng), middle, boost::end(rng), out);
+        }
+    };
+
+    PSTADE_CONSTANT(rotate_copy, (op_rotate_copy))
+
+
+    // random_shuffle
+
+    PSTADE_adjacent_find_form(random_shuffle, boost::mpl::identity<void>)
+
+
+    // partition/stable_partition
+
+    PSTADE_for_each_form(partition, range_iterator<Range>)
+    PSTADE_for_each_form(stable_partition, range_iterator<Range>)
+
+
+    // sort
+
+    struct op_sort :
+        callable<op_sort>
+    {
+        template< class Myself, class Range, class Cmp = void >
+        struct apply
+        {
+            typedef void type;
+        };
+
+        template< class Result, class Range, class Cmp >
+        void call(Range& rng, Cmp& cmp,
+            typename enable_if< apple::has_sort<Range> >::type = 0) const
         {
             rng.sort(cmp);
         }
 
-        template<typename Rng,typename Cmp>
-        inline BOOST_DEDUCED_TYPENAME boost::disable_if<
-            apple::has_sort<Rng>
-        >::type
-        sort_impl(Rng & rng,Cmp cmp)
+        template< class Result, class Range, class Cmp >
+        void call(Range& rng, Cmp& cmp,
+            typename disable_if<apple::has_sort<Range> >::type = 0) const
         {
-            std::sort(boost::begin(rng),boost::end(rng),cmp);
-        }
-    }
-
-    /// \overload
-    template<typename Rng,typename Cmp>
-    inline void sort(Rng & rng,Cmp cmp)
-    {
-        range_ex_detail::sort_impl(rng,cmp);
-    }
-
-    /// \overload
-    template<typename Rng,typename Cmp>
-    inline void sort(Rng const & rng,Cmp cmp)
-    {
-        range_ex_detail::sort_impl(rng,cmp);
-    }
-
-    /// \brief template function stable_sort
-    ///
-    /// range-based version of the stable_sort std algorithm
-    ///
-    /// \pre Rng meets the requirements for a Random Access range
-    template<typename Rng>
-    inline void stable_sort(Rng & rng)
-    {
-        std::stable_sort(boost::begin(rng),boost::end(rng));
-    }
-
-    /// \overload
-    template<typename Rng>
-    inline void stable_sort(Rng const & rng)
-    {
-        std::stable_sort(boost::begin(rng),boost::end(rng));
-    }
-
-    /// \overload
-    template<typename Rng,typename Cmp>
-    inline void stable_sort(Rng & rng,Cmp cmp)
-    {
-        std::stable_sort(boost::begin(rng),boost::end(rng),cmp);
-    }
-
-    /// \overload
-    template<typename Rng,typename Cmp>
-    inline void stable_sort(Rng const & rng,Cmp cmp)
-    {
-        std::stable_sort(boost::begin(rng),boost::end(rng),cmp);
-    }
-
-    /// \brief template function partial_sort
-    ///
-    /// range-based version of the partial_sort std algorithm
-    ///
-    /// \pre Rng meets the requirements for a Random Access range
-    template<typename Rng>
-    inline void partial_sort(Rng & rng,
-        BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type middle)
-    {
-        std::partial_sort(boost::begin(rng),middle,boost::end(rng));
-    }
-
-    /// \overload
-    template<typename Rng>
-    inline void partial_sort(Rng const & rng,
-        BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_DEDUCED_CONST(Rng)>::type middle)
-    {
-        std::partial_sort(boost::begin(rng),middle,boost::end(rng));
-    }
-
-    /// \overload
-    template<typename Rng,typename Cmp>
-    inline void partial_sort(Rng & rng,
-        BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type middle,
-        Cmp cmp)
-    {
-        std::partial_sort(boost::begin(rng),middle,boost::end(rng),cmp);
-    }
-
-    /// \overload
-    template<typename Rng,typename Cmp>
-    inline void partial_sort(Rng const & rng,
-        BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_DEDUCED_CONST(Rng)>::type middle,
-        Cmp cmp)
-    {
-        std::partial_sort(boost::begin(rng),middle,boost::end(rng),cmp);
-    }
-
-    /// \brief template function partial_sort_copy
-    ///
-    /// range-based version of the partial_sort_copy std algorithm
-    ///
-    /// \pre Rng1 meets the requirements for a Input range
-    /// \pre Rng2 meets the requirements for a Random Access range
-    template<typename Rng1,typename Rng2>
-    inline BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng2>::type
-    partial_sort_copy(Rng1 const & rng1,Rng2 & rng2)
-    {
-        return std::partial_sort_copy(boost::begin(rng1),boost::end(rng1),
-                                      boost::begin(rng2),boost::end(rng2));
-    }
-
-    /// \overload
-    template<typename Rng1,typename Rng2>
-    inline BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_DEDUCED_CONST(Rng2)>::type
-    partial_sort_copy(Rng1 const & rng1,Rng2 const & rng2)
-    {
-        return std::partial_sort_copy(boost::begin(rng1),boost::end(rng1),
-                                      boost::begin(rng2),boost::end(rng2));
-    }
-
-    /// \overload
-    template<typename Rng1,typename Rng2,typename Cmp>
-    inline BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng2>::type
-    partial_sort_copy(Rng1 const & rng1,Rng2 & rng2,Cmp cmp)
-    {
-        return std::partial_sort_copy(boost::begin(rng1),boost::end(rng1),
-                                      boost::begin(rng2),boost::end(rng2),cmp);
-    }
-
-    /// \overload
-    template<typename Rng1,typename Rng2,typename Cmp>
-    inline BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_DEDUCED_CONST(Rng2)>::type
-    partial_sort_copy(Rng1 const & rng1,Rng2 const & rng2,Cmp cmp)
-    {
-        return std::partial_sort_copy(boost::begin(rng1),boost::end(rng1),
-                                      boost::begin(rng2),boost::end(rng2),cmp);
-    }
-
-    /// \brief template function nth_element
-    ///
-    /// range-based version of the nth_element std algorithm
-    ///
-    /// \pre Rng meets the requirements for a Random Access range
-    template<typename Rng>
-    inline void nth_element(Rng & rng,
-        BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type nth)
-    {
-        std::nth_element(boost::begin(rng),nth,boost::end(rng));
-    }
-
-    /// \overload
-    template<typename Rng>
-    inline void nth_element(Rng const & rng,
-        BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_DEDUCED_CONST(Rng)>::type nth)
-    {
-        std::nth_element(boost::begin(rng),nth,boost::end(rng));
-    }
-
-    /// \overload
-    template<typename Rng,typename Cmp>
-    inline void nth_element(Rng & rng,
-        BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type nth,
-        Cmp cmp)
-    {
-        std::nth_element(boost::begin(rng),nth,boost::end(rng),cmp);
-    }
-
-    /// \overload
-    template<typename Rng,typename Cmp>
-    inline void nth_element(Rng const & rng,
-        BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_DEDUCED_CONST(Rng)>::type nth,
-        Cmp cmp)
-    {
-        std::nth_element(boost::begin(rng),nth,boost::end(rng),cmp);
-    }
-
-    namespace range_ex_detail
-    {
-        template<typename Rng,typename Val>
-        inline BOOST_DEDUCED_TYPENAME boost::lazy_enable_if<
-            apple::has_lower_bound<Rng>
-          , range_iterator<Rng>
-        >::type
-        lower_bound_impl(Rng & rng,Val const & val)
-        {
-            return rng.lower_bound(val);
+            std::sort(boost::begin(rng), boost::end(rng), cmp);
         }
 
-        template<typename Rng,typename Val>
-        inline BOOST_DEDUCED_TYPENAME boost::lazy_disable_if<
-            apple::has_lower_bound<Rng>
-          , range_iterator<Rng>
-        >::type
-        lower_bound_impl(Rng & rng,Val const & val)
+        template< class Result, class Range >
+        void call(Range& rng,
+            typename enable_if< apple::has_sort<Range> >::type = 0) const
         {
-            return std::lower_bound(boost::begin(rng),boost::end(rng),val);
-        }
-    }
-
-    /// \brief template function lower_bound
-    ///
-    /// range-based version of the lower_bound std algorithm
-    ///
-    /// \pre Rng meets the requirements for a Forward range
-    template<typename Rng,typename Val>
-    inline BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type
-    lower_bound(Rng & rng,Val const & val)
-    {
-        return range_ex_detail::lower_bound_impl(rng,val);
-    }
-
-    /// \overload
-    template<typename Rng,typename Val>
-    inline BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_DEDUCED_CONST(Rng)>::type
-    lower_bound(Rng const & rng,Val const & val)
-    {
-        return range_ex_detail::lower_bound_impl(rng,val);
-    }
-
-    /// \overload
-    template<typename Rng,typename Val,typename Cmp>
-    inline BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type
-    lower_bound(Rng & rng,Val const & val,Cmp cmp)
-    {
-        return std::lower_bound(boost::begin(rng),boost::end(rng),val,cmp);
-    }
-
-    /// \overload
-    template<typename Rng,typename Val,typename Cmp>
-    inline BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_DEDUCED_CONST(Rng)>::type
-    lower_bound(Rng const & rng,Val const & val,Cmp cmp)
-    {
-        return std::lower_bound(boost::begin(rng),boost::end(rng),val,cmp);
-    }
-
-    namespace range_ex_detail
-    {
-        template<typename Rng,typename Val>
-        inline BOOST_DEDUCED_TYPENAME boost::lazy_enable_if<
-            apple::has_upper_bound<Rng>
-          , range_iterator<Rng>
-        >::type
-        upper_bound_impl(Rng & rng,Val const & val)
-        {
-            return rng.upper_bound(val);
+            rng.sort();
         }
 
-        template<typename Rng,typename Val>
-        inline BOOST_DEDUCED_TYPENAME boost::lazy_disable_if<
-            apple::has_upper_bound<Rng>
-          , range_iterator<Rng>
-        >::type
-        upper_bound_impl(Rng & rng,Val const & val)
+        template< class Result, class Range >
+        void call(Range& rng,
+            typename disable_if<apple::has_sort<Range> >::type = 0) const
         {
-            return std::upper_bound(boost::begin(rng),boost::end(rng),val);
+            std::sort(boost::begin(rng), boost::end(rng));
         }
-    }
+    };
 
-    /// \brief template function upper_bound
-    ///
-    /// range-based version of the upper_bound std algorithm
-    ///
-    /// \pre Rng meets the requirements for a Forward range
-    template<typename Rng,typename Val>
-    inline BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type
-    upper_bound(Rng & rng,Val const & val)
-    {
-        return range_ex_detail::upper_bound_impl(rng,val);
-    }
+    PSTADE_CONSTANT(sort, (op_sort))
 
-    /// \overload
-    template<typename Rng,typename Val>
-    inline BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_DEDUCED_CONST(Rng)>::type
-    upper_bound(Rng const & rng,Val const & val)
-    {
-        return range_ex_detail::upper_bound_impl(rng,val);
-    }
 
-    /// \overload
-    template<typename Rng,typename Val,typename Cmp>
-    inline BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type
-    upper_bound(Rng & rng,Val const & val,Cmp cmp)
-    {
-        return std::upper_bound(boost::begin(rng),boost::end(rng),val,cmp);
-    }
+    // stable_sort
 
-    /// \overload
-    template<typename Rng,typename Val,typename Cmp>
-    inline BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_DEDUCED_CONST(Rng)>::type
-    upper_bound(Rng const & rng,Val const & val,Cmp cmp)
-    {
-        return std::upper_bound(boost::begin(rng),boost::end(rng),val,cmp);
-    }
+    PSTADE_adjacent_find_form(stable_sort, boost::mpl::identity<void>)
 
-    namespace range_ex_detail
+
+    // partial_sort
+
+    struct op_partial_sort :
+        callable<op_partial_sort>
     {
-        template<typename Rng,typename Val>
-        inline BOOST_DEDUCED_TYPENAME boost::lazy_enable_if<
-            apple::has_equal_range<Rng>
-          , iter_pair<Rng>
-        >::type
-        equal_range_impl(Rng & rng,Val const & val)
+        template< class Myself, class Range, class Middle, class Cmp = void >
+        struct apply
+        {
+            typedef void type;
+        };
+
+        template< class Result, class Range, class Cmp >
+        void call(Range& rng, typename range_iterator<Range>::type const& middle, Cmp& cmp) const
+        {
+            std::partial_sort(boost::begin(rng), middle, boost::end(rng), cmp);
+        }
+
+        template< class Result, class Range >
+        void call(Range& rng, typename range_iterator<Range>::type const& middle) const
+        {
+            std::partial_sort(boost::begin(rng), middle, boost::end(rng));        
+        }
+    };
+
+    PSTADE_CONSTANT(partial_sort, (op_partial_sort))
+
+
+    // partial_sort_copy
+
+    PSTADE_find_end_form(partial_sort_copy, range_iterator<Range2>)
+
+
+    // nth_element
+
+    struct op_nth_element :
+        callable<op_nth_element>
+    {
+        template< class Myself, class Range, class Nth, class Cmp = void >
+        struct apply
+        {
+            typedef void type;
+        };
+        
+        template< class Result, class Range, class Cmp >
+        void call(Range& rng, typename range_iterator<Range>::type const& nth, Cmp& cmp) const
+        {
+            std::nth_element(boost::begin(rng), nth, boost::end(rng), cmp);
+        }
+
+        template< class Result, class Range >
+        void call(Range& rng, typename range_iterator<Range>::type const& nth) const
+        {
+            std::nth_element(boost::begin(rng), nth, boost::end(rng));
+        }
+    };
+
+    PSTADE_CONSTANT(nth_element, (op_nth_element))
+
+
+    // lower/upper_bound
+
+#define PSTADE_bound_algo(Xxx) \
+    \
+    struct BOOST_PP_CAT(op_, Xxx) : \
+        callable<BOOST_PP_CAT(op_, Xxx)> \
+    { \
+        template< class Myself, class Range, class Val, class Cmp = void > \
+        struct apply : \
+            range_iterator<Range> \
+        { }; \
+        \
+        template< class Result, class Range, class Val, class Cmp > \
+        Result call(Range& rng, Val& val, Cmp& cmp) const \
+        { \
+            return std::Xxx(boost::begin(rng), boost::end(rng), val, cmp); \
+        } \
+        \
+        template< class Result, class Range, class Val > \
+        Result call(Range& rng, Val& val, \
+            typename enable_if< apple::BOOST_PP_CAT(has_, Xxx)<Range> >::type = 0) const \
+        { \
+            return rng.Xxx(val); \
+        } \
+        \
+        template< class Result, class Range, class Val > \
+        Result call(Range& rng, Val& val, \
+            typename disable_if<apple::BOOST_PP_CAT(has_, Xxx)<Range> >::type = 0) const \
+        { \
+            return std::Xxx(boost::begin(rng), boost::end(rng), val); \
+        } \
+    }; \
+    \
+    PSTADE_CONSTANT(Xxx, (BOOST_PP_CAT(op_, Xxx))) \
+    \
+/**/
+
+    PSTADE_bound_algo(lower_bound)
+    PSTADE_bound_algo(upper_bound)
+
+#undef  PSTADE_bound_algo
+
+
+    // equal_range
+
+    struct op_equal_range :
+        callable<op_equal_range>
+    {
+        template< class Myself, class Range, class Val, class Cmp = void >
+        struct apply
+        {
+            typedef typename range_iterator<Range>::type iter_t;
+            typedef std::pair<iter_t, iter_t> type;
+        };
+
+        template< class Result, class Range, class Val, class Cmp >
+        Result call(Range& rng, Val& val, Cmp& cmp) const
+        {
+            return std::equal_range(boost::begin(rng), boost::end(rng), val, cmp);
+        }
+
+        template< class Result, class Range, class Val >
+        Result call(Range& rng, Val& val,
+            typename enable_if< apple::has_equal_range<Range> >::type = 0) const
         {
             return rng.equal_range(val);
         }
 
-        template<typename Rng,typename Val>
-        inline BOOST_DEDUCED_TYPENAME boost::lazy_disable_if<
-            apple::has_equal_range<Rng>
-          , iter_pair<Rng>
-        >::type
-        equal_range_impl(Rng & rng,Val const & val)
+        template< class Result, class Range, class Val >
+        Result call(Range& rng, Val& val,
+            typename disable_if<apple::has_equal_range<Range> >::type = 0) const
         {
-            return std::equal_range(boost::begin(rng),boost::end(rng),val);
+            return std::equal_range(boost::begin(rng), boost::end(rng), val);
         }
-    }
+    };
 
-    /// \brief template function equal_range
-    ///
-    /// range-based version of the equal_range std algorithm
-    ///
-    /// \pre Rng meets the requirements for a Forward range
-    template<typename Rng,typename Val>
-    inline BOOST_DEDUCED_TYPENAME range_ex_detail::iter_pair<Rng>::type
-    equal_range(Rng & rng,Val const & val)
+    PSTADE_CONSTANT(equal_range, (op_equal_range))
+
+
+    // binary_search
+
+    struct op_binary_search :
+        callable<op_binary_search>
     {
-        return range_ex_detail::equal_range_impl(rng,val);
-    }
+        template< class Myself, class Range, class Val, class Cmp = void >
+        struct apply
+        {
+           typedef bool type;
+        };
 
-    /// \overload
-    template<typename Rng,typename Val>
-    inline BOOST_DEDUCED_TYPENAME range_ex_detail::iter_pair<PSTADE_DEDUCED_CONST(Rng)>::type
-    equal_range(Rng const & rng,Val const & val)
+        template< class Result, class Range, class Val, class Cmp >
+        Result call(Range& rng, Val& val, Cmp& cmp) const
+        {
+           return std::binary_search(boost::begin(rng), boost::end(rng), val, cmp);
+        }
+
+        template< class Result, class Range, class Val >
+        Result call(Range& rng, Val& val) const
+        {
+           return std::binary_search(boost::begin(rng), boost::end(rng), val);
+        }
+    };
+
+    PSTADE_CONSTANT(binary_search, (op_binary_search))
+
+
+    // inplace_merge
+
+    struct op_inplace_merge :
+        callable<op_inplace_merge>
     {
-        return range_ex_detail::equal_range_impl(rng,val);
-    }
+        template< class Myself, class Range, class Middle, class Cmp = void >
+        struct apply
+        {
+            typedef void type;
+        };
 
-    /// \overload
-    template<typename Rng,typename Val,typename Cmp>
-    inline BOOST_DEDUCED_TYPENAME range_ex_detail::iter_pair<Rng>::type
-    equal_range(Rng & rng,Val const & val,Cmp cmp)
-    {
-        return std::equal_range(boost::begin(rng),boost::end(rng),val,cmp);
-    }
+        template< class Result, class Range, class Cmp >
+        Result call(Range& rng, typename range_iterator<Range>::type const& middle, Cmp& cmp) const
+        {
+            std::inplace_merge(boost::begin(rng), middle, boost::end(rng), cmp);
+        }
 
-    /// \overload
-    template<typename Rng,typename Val,typename Cmp>
-    inline BOOST_DEDUCED_TYPENAME range_ex_detail::iter_pair<PSTADE_DEDUCED_CONST(Rng)>::type
-    equal_range(Rng const & rng,Val const & val,Cmp cmp)
-    {
-        return std::equal_range(boost::begin(rng),boost::end(rng),val,cmp);
-    }
+        template< class Result, class Range >
+        Result call(Range& rng, typename range_iterator<Range>::type const& middle) const
+        {
+            std::inplace_merge(boost::begin(rng), middle, boost::end(rng));
+        }
+    };
 
-    /// \brief template function binary_search
-    ///
-    /// range-based version of the binary_search std algorithm
-    ///
-    /// \pre Rng meets the requirements for a Forward range
-    template<typename Rng,typename Val>
-    inline bool binary_search(Rng const & rng,Val const & val)
-    {
-        return std::binary_search(boost::begin(rng),boost::end(rng),val);
-    }
+    PSTADE_CONSTANT(inplace_merge, (op_inplace_merge))
 
-    /// \overload
-    template<typename Rng,typename Val,typename Cmp>
-    inline bool binary_search(Rng const & rng,Val const & val,Cmp cmp)
-    {
-        return std::binary_search(boost::begin(rng),boost::end(rng),val,cmp);
-    }
 
-    /// \brief template function merge
-    ///
-    /// range-based version of the merge std algorithm
-    ///
-    template<typename Rng1,typename Rng2,typename OutIter>
-    inline OutIter merge(Rng1 const & rng1,Rng2 const & rng2,OutIter out)
-    {
-        return std::merge(boost::begin(rng1),boost::end(rng1),
-                          boost::begin(rng2),boost::end(rng2),out);
-    }
-
-    /// \overload
-    template<typename Rng1,typename Rng2,typename OutIter,typename Cmp>
-    inline OutIter merge(Rng1 const & rng1,Rng2 const & rng2,OutIter out,Cmp cmp)
-    {
-        return std::merge(boost::begin(rng1),boost::end(rng1),
-                          boost::begin(rng2),boost::end(rng2),out,cmp);
-    }
-
-    /// \brief template function inplace_merge
-    ///
-    /// range-based version of the inplace_merge std algorithm
-    ///
-    /// \pre Rng meets the requirements for a Bidirectional range
-    template<typename Rng>
-    inline void inplace_merge(Rng & rng,
-        BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type middle)
-    {
-        std::inplace_merge(boost::begin(rng),middle,boost::end(rng));
-    }
-
-    /// \overload
-    template<typename Rng>
-    inline void inplace_merge(Rng const & rng,
-        BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_DEDUCED_CONST(Rng)>::type middle)
-    {
-        std::inplace_merge(boost::begin(rng),middle,boost::end(rng));
-    }
-
-    /// \overload
-    template<typename Rng,typename Cmp>
-    inline void inplace_merge(Rng & rng,
-        BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type middle,
-        Cmp cmp)
-    {
-        std::inplace_merge(boost::begin(rng),middle,boost::end(rng),cmp);
-    }
-
-    /// \overload
-    template<typename Rng,typename Cmp>
-    inline void inplace_merge(Rng const & rng,
-        BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_DEDUCED_CONST(Rng)>::type middle,
-        Cmp cmp)
-    {
-        std::inplace_merge(boost::begin(rng),middle,boost::end(rng),cmp);
-    }
-
-    /////////////////////////////////////////////////////////////////////////
     // Set Algorithms
-    /////////////////////////////////////////////////////////////////////////
 
-    /// \brief template function includes
-    ///
-    /// range-based version of the includes std algorithm
-    ///
-    /// \pre Rng1 meets the requirements for an Input range
-    /// \pre Rng2 meets the requirements for an Input range
-    template<typename Rng1,typename Rng2>
-    inline bool includes(Rng1 const & rng1,Rng2 const & rng2)
-    {
-        return std::includes(boost::begin(rng1),boost::end(rng1),
-                             boost::begin(rng2),boost::end(rng2));
-    }
 
-    /// \overload
-    template<typename Rng1,typename Rng2,typename Cmp>
-    inline bool includes(Rng1 const & rng1,Rng2 const & rng2,Cmp cmp)
-    {
-        return std::includes(boost::begin(rng1),boost::end(rng1),
-                            boost::begin(rng2),boost::end(rng2),cmp);
-    }
+    // includes
 
-    /// \brief template function set_union
-    ///
-    /// range-based version of the set_union std algorithm
-    ///
-    /// \pre Rng1 meets the requirements for an Input range
-    /// \pre Rng2 meets the requirements for an Input range
-    template<typename Rng1,typename Rng2,typename OutIter>
-    inline OutIter set_union(Rng1 const & rng1,Rng2 const & rng2,OutIter out)
-    {
-        return std::set_union(boost::begin(rng1),boost::end(rng1),
-                              boost::begin(rng2),boost::end(rng2),out);
-    }
+    PSTADE_find_end_form(includes, boost::mpl::identity<bool>)
 
-    /// \overload
-    template<typename Rng1,typename Rng2,typename OutIter,typename Cmp>
-    inline OutIter set_union(Rng1 const & rng1,Rng2 const & rng2,OutIter out,Cmp cmp)
-    {
-        return std::set_union(boost::begin(rng1),boost::end(rng1),
-                              boost::begin(rng2),boost::end(rng2),out,cmp);
-    }
 
-    /// \brief template function set_intersection
-    ///
-    /// range-based version of the set_intersection std algorithm
-    ///
-    /// \pre Rng1 meets the requirements for an Input range
-    /// \pre Rng2 meets the requirements for an Input range
-    template<typename Rng1,typename Rng2,typename OutIter>
-    inline OutIter set_intersection(Rng1 const & rng1,Rng2 const & rng2,OutIter out)
-    {
-        return std::set_intersection(boost::begin(rng1),boost::end(rng1),
-                                     boost::begin(rng2),boost::end(rng2),out);
-    }
+    // merge/set_xxx
 
-    /// \overload
-    template<typename Rng1,typename Rng2,typename OutIter,typename Cmp>
-    inline OutIter set_intersection(Rng1 const & rng1,Rng2 const & rng2,OutIter out,Cmp cmp)
-    {
-        return std::set_intersection(boost::begin(rng1),boost::end(rng1),
-                                     boost::begin(rng2),boost::end(rng2),out,cmp);
-    }
+#define PSTADE_merge_algo(Xxx) \
+    \
+    struct BOOST_PP_CAT(op_, Xxx) : \
+        callable<BOOST_PP_CAT(op_, Xxx)> \
+    { \
+        template< class Myself, class Range1, class Range2, class OutIter, class Cmp = void > \
+        struct apply : \
+            pass_by_value<OutIter> \
+        { }; \
+        \
+        template< class Result, class Range1, class Range2, class OutIter, class Cmp > \
+        Result call(Range1& rng1, Range2& rng2, OutIter& out, Cmp& cmp) const \
+        { \
+            return std::Xxx( \
+                boost::begin(rng1), boost::end(rng1), \
+                boost::begin(rng2), boost::end(rng2), \
+                out, cmp \
+            ); \
+        } \
+        \
+        template< class Result, class Range1, class Range2, class OutIter > \
+        Result call(Range1& rng1, Range2& rng2, OutIter& out) const \
+        { \
+            return std::Xxx( \
+                boost::begin(rng1), boost::end(rng1), \
+                boost::begin(rng2), boost::end(rng2), \
+                out \
+            ); \
+        } \
+    }; \
+    \
+    PSTADE_CONSTANT( Xxx, (BOOST_PP_CAT(op_, Xxx)) ) \
+    \
+/**/
 
-    /// \brief template function set_difference
-    ///
-    /// range-based version of the set_difference std algorithm
-    ///
-    /// \pre Rng1 meets the requirements for an Input range
-    /// \pre Rng2 meets the requirements for an Input range
-    template<typename Rng1,typename Rng2,typename OutIter>
-    inline OutIter set_difference(Rng1 const & rng1,Rng2 const & rng2,OutIter out)
-    {
-        return std::set_difference(boost::begin(rng1),boost::end(rng1),
-                                   boost::begin(rng2),boost::end(rng2),out);
-    }
+    PSTADE_merge_algo(merge)
+    PSTADE_merge_algo(set_union)
+    PSTADE_merge_algo(set_intersection)
+    PSTADE_merge_algo(set_difference)
+    PSTADE_merge_algo(set_symmetric_difference)
 
-    /// \overload
-    template<typename Rng1,typename Rng2,typename OutIter,typename Cmp>
-    inline OutIter set_difference(Rng1 const & rng1,Rng2 const & rng2,OutIter out,Cmp cmp)
-    {
-        return std::set_difference(boost::begin(rng1),boost::end(rng1),
-                                   boost::begin(rng2),boost::end(rng2),out,cmp);
-    }
+#undef  PSTADE_merge_algo
 
-    /// \brief template function set_symmetric_difference
-    ///
-    /// range-based version of the set_symmetric_difference std algorithm
-    ///
-    /// \pre Rng1 meets the requirements for an Input range
-    /// \pre Rng2 meets the requirements for an Input range
-    template<typename Rng1,typename Rng2,typename OutIter>
-    inline OutIter set_symmetric_difference(Rng1 const & rng1,Rng2 const & rng2,OutIter out)
-    {
-        return std::set_symmetric_difference(boost::begin(rng1),boost::end(rng1),
-                                             boost::begin(rng2),boost::end(rng2),out);
-    }
 
-    /// \overload
-    template<typename Rng1,typename Rng2,typename OutIter,typename Cmp>
-    inline OutIter set_symmetric_difference(Rng1 const & rng1,Rng2 const & rng2,OutIter out,Cmp cmp)
-    {
-        return std::set_symmetric_difference(boost::begin(rng1),boost::end(rng1),
-                                             boost::begin(rng2),boost::end(rng2),out,cmp);
-    }
+    // xxx_heap
 
-    ///////////////////////////////////////////////////////////////////////////
-    // Heap Operations
-    ///////////////////////////////////////////////////////////////////////////
+#define PSTADE_heap_algo(Xxx) \
+    \
+    struct BOOST_PP_CAT(op_, Xxx) : \
+        callable<BOOST_PP_CAT(op_, Xxx)> \
+    { \
+        template< class Myself, class Range, class Cmp = void > \
+        struct apply \
+        { \
+            typedef void type; \
+        }; \
+        \
+        template< class Myself, class Range, class Cmp > \
+        void call(Range& rng, Cmp& cmp) const \
+        { \
+            std::Xxx(boost::begin(rng), boost::end(rng), cmp); \
+        } \
+        \
+        template< class Result, class Range > \
+        void call(Range& rng) const \
+        { \
+            std::Xxx(boost::begin(rng), boost::end(rng)); \
+        } \
+    }; \
+    \
+    PSTADE_CONSTANT( Xxx, (BOOST_PP_CAT(op_, Xxx)) ) \
+    \
+/**/
 
-    /// \brief template function push_heap
-    ///
-    /// range-based version of the push_heap std algorithm
-    ///
-    /// \pre Rng meets the requirements for a Random Access range
-    template<typename Rng>
-    inline void push_heap(Rng & rng)
-    {
-        std::push_heap(boost::begin(rng),boost::end(rng));
-    }
+    PSTADE_heap_algo(push_heap)
+    PSTADE_heap_algo(pop_heap)
+    PSTADE_heap_algo(make_heap)
+    PSTADE_heap_algo(sort_heap)
 
-    /// \overload
-    template<typename Rng>
-    inline void push_heap(Rng const & rng)
-    {
-        std::push_heap(boost::begin(rng),boost::end(rng));
-    }
+#undef PSTADE_heap_algo
 
-    /// \overload
-    template<typename Rng,typename Cmp>
-    inline void push_heap(Rng & rng,Cmp cmp)
-    {
-        std::push_heap(boost::begin(rng),boost::end(rng),cmp);
-    }
 
-    /// \overload
-    template<typename Rng,typename Cmp>
-    inline void push_heap(Rng const & rng,Cmp cmp)
-    {
-        std::push_heap(boost::begin(rng),boost::end(rng),cmp);
-    }
+    // min_element/max_element
 
-    /// \brief template function pop_heap
-    ///
-    /// range-based version of the pop_heap std algorithm
-    ///
-    /// \pre Rng meets the requirements for a Random Access range
-    template<typename Rng>
-    inline void pop_heap(Rng & rng)
-    {
-        std::pop_heap(boost::begin(rng),boost::end(rng));
-    }
+#define PSTADE_minmax(Xxx) \
+    \
+    struct BOOST_PP_CAT(op_, Xxx) : \
+        callable<BOOST_PP_CAT(op_, Xxx)> \
+    { \
+        template< class Myself, class Range, class BinPred = void > \
+        struct apply : \
+            range_iterator<Range> \
+        { }; \
+        \
+        template< class Result, class Range, class BinPred > \
+        Result call(Range& rng, BinPred& pred) const \
+        { \
+            return std::Xxx(boost::begin(rng), boost::end(rng), pred); \
+        } \
+        \
+        template< class Result, class Range > \
+        Result call(Range& rng) const \
+        { \
+            return std::Xxx(boost::begin(rng), boost::end(rng)); \
+        } \
+    }; \
+    \
+    PSTADE_CONSTANT( Xxx, (BOOST_PP_CAT(op_, Xxx)) ) \
+    \
+/**/
 
-    /// \overload
-    template<typename Rng>
-    inline void pop_heap(Rng const & rng)
-    {
-        std::pop_heap(boost::begin(rng),boost::end(rng));
-    }
+    PSTADE_minmax(min_element)
+    PSTADE_minmax(max_element)
 
-    /// \overload
-    template<typename Rng,typename Cmp>
-    inline void pop_heap(Rng & rng,Cmp cmp)
-    {
-        std::pop_heap(boost::begin(rng),boost::end(rng),cmp);
-    }
+#undef  PSTADE_minmax
 
-    /// \overload
-    template<typename Rng,typename Cmp>
-    inline void pop_heap(Rng const & rng,Cmp cmp)
-    {
-        std::pop_heap(boost::begin(rng),boost::end(rng),cmp);
-    }
 
-    /// \brief template function make_heap
-    ///
-    /// range-based version of the make_heap std algorithm
-    ///
-    /// \pre Rng meets the requirements for a Random Access range
-    template<typename Rng>
-    inline void make_heap(Rng & rng)
-    {
-        std::make_heap(boost::begin(rng),boost::end(rng));
-    }
+    // lexicographical_compare
 
-    /// \overload
-    template<typename Rng>
-    inline void make_heap(Rng const & rng)
-    {
-        std::make_heap(boost::begin(rng),boost::end(rng));
-    }
+    PSTADE_find_end_form(lexicographical_compare, boost::mpl::identity<bool>)
 
-    /// \overload
-    template<typename Rng,typename Cmp>
-    inline void make_heap(Rng & rng,Cmp cmp)
-    {
-        std::make_heap(boost::begin(rng),boost::end(rng),cmp);
-    }
 
-    /// \overload
-    template<typename Rng,typename Cmp>
-    inline void make_heap(Rng const & rng,Cmp cmp)
-    {
-        std::make_heap(boost::begin(rng),boost::end(rng),cmp);
-    }
+    // next/prev_permutation
 
-    /// \brief template function sort_heap
-    ///
-    /// range-based version of the sort_heap std algorithm
-    ///
-    template<typename Rng>
-    inline void sort_heap(Rng & rng)
-    {
-        std::sort_heap(boost::begin(rng),boost::end(rng));
-    }
-
-    /// \overload
-    template<typename Rng>
-    inline void sort_heap(Rng const & rng)
-    {
-        std::sort_heap(boost::begin(rng),boost::end(rng));
-    }
-
-    /// \overload
-    template<typename Rng,typename Cmp>
-    inline void sort_heap(Rng & rng,Cmp cmp)
-    {
-        std::sort_heap(boost::begin(rng),boost::end(rng),cmp);
-    }
-
-    /// \overload
-    template<typename Rng,typename Cmp>
-    inline void sort_heap(Rng const & rng,Cmp cmp)
-    {
-        std::sort_heap(boost::begin(rng),boost::end(rng),cmp);
-    }
-
-    /////////////////////////////////////////////////////////////////////////
-    // Minimum and Maximum
-    /////////////////////////////////////////////////////////////////////////
-
-    /// \brief template function min_element
-    ///
-    /// range-based version of the min_element std algorithm
-    ///
-    /// \pre Rng meets the requirements for a Forward range
-    template<typename Rng>
-    inline BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type
-    min_element(Rng & rng)
-    {
-        return std::min_element(boost::begin(rng),boost::end(rng));
-    }
-
-    /// \overload
-    template<typename Rng>
-    inline BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_DEDUCED_CONST(Rng)>::type
-    min_element(Rng const & rng)
-    {
-        return std::min_element(boost::begin(rng),boost::end(rng));
-    }
-
-    /// \overload
-    template<typename Rng,typename BinPred>
-    inline BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type
-    min_element(Rng & rng,BinPred pred)
-    {
-        return std::min_element(boost::begin(rng),boost::end(rng),pred);
-    }
-
-    /// \overload
-    template<typename Rng,typename BinPred>
-    inline BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_DEDUCED_CONST(Rng)>::type
-    min_element(Rng const & rng,BinPred pred)
-    {
-        return std::min_element(boost::begin(rng),boost::end(rng),pred);
-    }
-
-    /// \brief template function max_element
-    ///
-    /// range-based version of the max_element std algorithm
-    ///
-    /// \pre Rng meets the requirements for a Forward range
-    template<typename Rng>
-    inline BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type
-    max_element(Rng & rng)
-    {
-        return std::max_element(boost::begin(rng),boost::end(rng));
-    }
-
-    /// \overload
-    template<typename Rng>
-    inline BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_DEDUCED_CONST(Rng)>::type
-    max_element(Rng const & rng)
-    {
-        return std::max_element(boost::begin(rng),boost::end(rng));
-    }
-
-    /// \overload
-    template<typename Rng,typename BinPred>
-    inline BOOST_DEDUCED_TYPENAME boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<Rng>::type
-    max_element(Rng & rng,BinPred pred)
-    {
-        return std::max_element(boost::begin(rng),boost::end(rng),pred);
-    }
-
-    /// \overload
-    template<typename Rng,typename BinPred>
-    inline BOOST_DEDUCED_TYPENAME range_iterator<PSTADE_DEDUCED_CONST(Rng)>::type
-    max_element(Rng const & rng,BinPred pred)
-    {
-        return std::max_element(boost::begin(rng),boost::end(rng),pred);
-    }
-
-    /// \brief template function lexicographic_compare
-    ///
-    /// range-based version of the lexicographic_compare std algorithm
-    ///
-    /// \pre Rng1 meets the requirements for an Input range
-    /// \pre Rng2 meets the requirements for an Input range
-    template<typename Rng1,typename Rng2>
-    inline bool lexicographical_compare(Rng1 const & rng1,Rng2 const & rng2)
-    {
-        return std::lexicographical_compare(boost::begin(rng1),boost::end(rng1),
-                                            boost::begin(rng2),boost::end(rng2));
-    }
-
-    /// \overload
-    template<typename Rng1,typename Rng2,typename BinPred>
-    inline bool lexicographical_compare(Rng1 const & rng1,Rng2 const & rng2,BinPred pred)
-    {
-        return std::lexicographical_compare(boost::begin(rng1),boost::end(rng1),
-                                            boost::begin(rng2),boost::end(rng2),pred);
-    }
-
-    /////////////////////////////////////////////////////////////////////////
-    // Permutations
-    /////////////////////////////////////////////////////////////////////////
-
-    /// \brief template function next_permutation
-    ///
-    /// range-based version of the next_permutation std algorithm
-    ///
-    /// \pre Rng meets the requirements for a Bidirectional range
-    template<typename Rng>
-    inline bool next_permutation(Rng & rng)
-    {
-        return std::next_permutation(boost::begin(rng),boost::end(rng));
-    }
-
-    /// \overload
-    template<typename Rng>
-    inline bool next_permutation(Rng const & rng)
-    {
-        return std::next_permutation(boost::begin(rng),boost::end(rng));
-    }
-
-    /// \overload
-    template<typename Rng,typename Cmp>
-    inline bool next_permutation(Rng & rng,Cmp cmp)
-    {
-        return std::next_permutation(boost::begin(rng),boost::end(rng),cmp);
-    }
-
-    /// \overload
-    template<typename Rng,typename Cmp>
-    inline bool next_permutation(Rng const & rng,Cmp cmp)
-    {
-        return std::next_permutation(boost::begin(rng),boost::end(rng),cmp);
-    }
-
-    /// \brief template function prev_permutation
-    ///
-    /// range-based version of the prev_permutation std algorithm
-    ///
-    /// \pre Rng meets the requirements for a Bidirectional range
-    template<typename Rng>
-    inline bool prev_permutation(Rng & rng)
-    {
-        return std::prev_permutation(boost::begin(rng),boost::end(rng));
-    }
-
-    /// \overload
-    template<typename Rng>
-    inline bool prev_permutation(Rng const & rng)
-    {
-        return std::prev_permutation(boost::begin(rng),boost::end(rng));
-    }
-
-    /// \overload
-    template<typename Rng,typename Cmp>
-    inline bool prev_permutation(Rng & rng,Cmp cmp)
-    {
-        return std::prev_permutation(boost::begin(rng),boost::end(rng),cmp);
-    }
-
-    /// \overload
-    template<typename Rng,typename Cmp>
-    inline bool prev_permutation(Rng const & rng,Cmp cmp)
-    {
-        return std::prev_permutation(boost::begin(rng),boost::end(rng),cmp);
-    }
+    PSTADE_adjacent_find_form(next_permutation, boost::mpl::identity<bool>)
+    PSTADE_adjacent_find_form(prev_permutation, boost::mpl::identity<bool>)
 
 
 } // ADL barrier
 
 
 } } // namespace pstade::oven
+
+
+#undef  PSTADE_replace_form
+#undef  PSTADE_adjacent_find_form
+#undef  PSTADE_find_end_form
+#undef  PSTADE_for_each_form
 
 
 #endif

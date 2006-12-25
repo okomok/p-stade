@@ -21,10 +21,10 @@
 #include <boost/type_traits/is_const.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <boost/type_traits/remove_reference.hpp>
-#include <boost/utility/enable_if.hpp>
 #include <pstade/const_overloaded.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
+#include <pstade/enable_if.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/remove_cvr.hpp>
 #include "./detail/config.hpp" // PSTADE_OVEN_BOOST_RANGE_BEGIN etc.
@@ -51,7 +51,7 @@ namespace pstade_oven_extension {
     };
 
 
-    template< class T, class Active = void >
+    template< class T, class Active = pstade::enabler >
     struct Range :
         range_copyable
     { };
@@ -59,12 +59,12 @@ namespace pstade_oven_extension {
 
     template< class Condition >
     struct where_ :
-        boost::enable_if<Condition>
+        pstade::enable_if<Condition>
     { };
 
     template< bool Condition >
     struct where_c :
-        boost::enable_if_c<Condition>
+        pstade::enable_if_c<Condition>
     { };
 
 

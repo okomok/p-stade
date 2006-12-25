@@ -34,7 +34,7 @@ All the names belong to ``namespace pstade``.
 Requirements
 ------------
 - `Boost C++ Libraries Version 1.33.1`__ or later (no compilation required)
-- `P-Stade C++ Libraries Version 1.00.5`__ or later (no compilation required, give a higher priority than Boost headers)
+- `P-Stade C++ Libraries Version 1.02.4`__ or later (no compilation required, give a higher priority than Boost headers)
 
 __ Boost_
 __ http://sourceforge.net/project/showfiles.php?group_id=141222&package_id=173059
@@ -43,8 +43,8 @@ __ http://sourceforge.net/project/showfiles.php?group_id=141222&package_id=17305
 
 Tested Under
 ------------
-- Microsoft Visual C++ 2005 Express Edition
-- Microsoft Visual C++ .NET Version 7.1
+- Microsoft Visual C++ 2005 Express Edition SP1
+- Microsoft Visual C++ .NET Version 7.1 SP1
 - GCC 3.4.4
 
 

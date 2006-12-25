@@ -35,9 +35,9 @@
 #include <boost/mpl/not.hpp>
 #include <boost/type_traits/is_const.hpp>
 #include <boost/type_traits/is_convertible.hpp>
-#include <boost/utility/enable_if.hpp>
 #include <pstade/auto_castable.hpp>
 #include <pstade/constant.hpp>
+#include <pstade/enable_if.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/to_type.hpp>
 
@@ -55,26 +55,26 @@ namespace pstade { namespace oven {
 
 template< class Base, class Adaptor > inline
 Base adaptor_to(Adaptor& ad,
-    typename boost::enable_if<
+    typename enable_if<
         boost::mpl::and_<
             boost::is_convertible<Adaptor&, Base>,
             boost::mpl::not_< boost::is_const<Adaptor> >
         >
-    >::type * = 0)
+    >::type = 0)
 {
     return ad;
 }
 
 template< class Base, class Adaptor > inline
 Base adaptor_to(Adaptor const& ad,
-    typename boost::enable_if< boost::is_convertible<Adaptor const&, Base> >::type * = 0)
+    typename enable_if< boost::is_convertible<Adaptor const&, Base> >::type = 0)
 {
     return ad;
 }
 
 template< class Base, class Adaptor > inline
 Base adaptor_to(Adaptor const& ad,
-    typename boost::disable_if< boost::is_convertible<Adaptor const&, Base > >::type * = 0)
+    typename disable_if<boost::is_convertible<Adaptor const&, Base> >::type = 0)
 {
     return oven::adaptor_to<Base>(ad.base());
 }
