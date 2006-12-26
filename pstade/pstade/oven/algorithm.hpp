@@ -56,6 +56,7 @@
 #include <pstade/constant.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/pass_by.hpp>
+#include <pstade/unparenthesize.hpp>
 #include "./range_difference.hpp"
 #include "./range_iterator.hpp"
 
@@ -208,61 +209,50 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     // mismatch
 
-    struct op_mismatch :
-        callable<op_mismatch>
+#define PSTADE_mismatch_form(Xxx, ResultFun) \
+    \
+    struct BOOST_PP_CAT(op_, Xxx) : \
+        callable<BOOST_PP_CAT(op_, Xxx)> \
+    { \
+        template< class Myself, class Range, class A0, class A1 = void > \
+        struct apply : \
+            ResultFun \
+        { }; \
+        \
+        template< class Result, class Range, class A0, class A1 > \
+        Result call(Range& rng, A0& a0, A1& a1) const \
+        { \
+            return std::Xxx(boost::begin(rng), boost::end(rng), a0, a1); \
+        } \
+        \
+        template< class Result, class Range, class A0 > \
+        Result call(Range& rng, A0& a1) const \
+        { \
+            return std::Xxx(boost::begin(rng), boost::end(rng), a1); \
+        } \
+    }; \
+    \
+    PSTADE_CONSTANT( Xxx, (BOOST_PP_CAT(op_, Xxx)) ) \
+    \
+/**/
+
+    template< class Range, class A0 >
+    struct detail_mismatch_result
     {
-        template< class Myself, class Range, class InIter, class BinPred = void >
-        struct apply
-        {
-            typedef
-                std::pair<
-                    typename range_iterator<Range>::type,
-                    typename pass_by_value<InIter>::type
-                >
-            type;
-        };
-
-        template< class Result, class Range, class InIter, class BinPred >
-        Result call(Range& rng, InIter& first, BinPred& pred) const
-        {
-            return std::mismatch(boost::begin(rng), boost::end(rng), first, pred);
-        }
-
-        template< class Result, class Range, class InIter >
-        Result call(Range& rng, InIter& first) const
-        {
-            return std::mismatch(boost::begin(rng), boost::end(rng), first);
-        }
+        typedef
+            std::pair<
+                typename range_iterator<Range>::type,
+                typename pass_by_value<A0>::type
+            >
+        type;
     };
 
-    PSTADE_CONSTANT(mismatch, (op_mismatch))
+    PSTADE_mismatch_form(mismatch, PSTADE_UNPARENTHESIZE((detail_mismatch_result<Range, A0>)))
 
 
     // equal
 
-    struct op_equal :
-        callable<op_equal>
-    {
-        template< class Myself, class Range, class InIter, class BinPred = void >
-        struct apply
-        {
-            typedef bool type;
-        };
-
-        template< class Result, class Range, class InIter, class BinPred >
-        Result call(Range& rng, InIter& first, BinPred& pred) const
-        {
-            return std::equal(boost::begin(rng), boost::end(rng), first, pred);
-        }
-
-        template< class Result, class Range, class InIter >
-        Result call(Range& rng, InIter& first) const
-        {
-            return std::equal(boost::begin(rng), boost::end(rng), first);
-        }
-    };
-
-    PSTADE_CONSTANT(equal, (op_equal))
+    PSTADE_mismatch_form(equal, boost::mpl::identity<bool>)
 
 
     // search
@@ -273,7 +263,7 @@ PSTADE_ADL_BARRIER(algorithm) {
     // Modifying Sequence Operations
 
 
-    // copy
+    // copy/copy_backward
 
     PSTADE_for_each_form(copy, pass_by_value<A0>)
     PSTADE_for_each_form(copy_backward, pass_by_value<A0>)
@@ -337,44 +327,31 @@ PSTADE_ADL_BARRIER(algorithm) {
     PSTADE_replace_form(replace_if, boost::mpl::identity<void>)
 
 
-    // replace_copy
+    // replace_copy/replace_copy_if
 
-    struct op_replace_copy :
-        callable<op_replace_copy>
-    {
-        template< class Myself, class Range, class OutIter, class Val, class Val_ >
-        struct apply :
-            pass_by_value<OutIter>
-        { };
+#define PSTADE_replace_copy_form(Xxx, ResultFun) \
+    \
+    struct BOOST_PP_CAT(op_, Xxx) : \
+        callable<BOOST_PP_CAT(op_, Xxx)> \
+    { \
+        template< class Myself, class Range, class A0, class A1, class A2 > \
+        struct apply : \
+            ResultFun \
+        { }; \
+        \
+        template< class Result, class Range, class A0, class A1, class A2 > \
+        Result call(Range& rng, A0& a0, A1& a1, A2& a2) const \
+        { \
+            return std::Xxx(boost::begin(rng), boost::end(rng), a0, a1, a2); \
+        } \
+    }; \
+    \
+    PSTADE_CONSTANT( Xxx, (BOOST_PP_CAT(op_, Xxx)) ) \
+    \
+/**/
 
-        template< class Result, class Range, class OutIter, class Val >
-        Result call(Range& rng, OutIter& out, Val& what, Val& with_what) const
-        {
-            return std::replace_copy(boost::begin(rng), boost::end(rng), out, what, with_what);
-        }
-    };
-
-    PSTADE_CONSTANT(replace_copy, (op_replace_copy))
-
-
-    // replace_copy_if
-
-    struct op_replace_copy_if :
-        callable<op_replace_copy_if>
-    {
-        template< class Myself, class Range, class OutIter, class Pred, class Val >
-        struct apply :
-            pass_by_value<OutIter>
-        { };
-
-        template< class Result, class Range, class OutIter, class Pred, class Val >
-        Result call(Range& rng, OutIter& out, Pred& pred, Val& val) const
-        {
-            return std::replace_copy_if(boost::begin(rng), boost::end(rng), out, pred, val);
-        }
-    };
-
-    PSTADE_CONSTANT(replace_copy_if, (op_replace_copy_if))
+    PSTADE_replace_copy_form(replace_copy, pass_by_value<A0>)
+    PSTADE_replace_copy_form(replace_copy_if, pass_by_value<A0>)
 
 
     // fill
@@ -384,24 +361,28 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     // fill_n
 
-    struct op_fill_n :
-        callable<op_fill_n>
-    {
-        template< class M, class Rng, class Int, class Val >
-        struct apply
-        {
-            typedef void type;
-        };
+#define PSTADE_fill_n_form(Xxx, ResultFun) \
+    \
+    struct BOOST_PP_CAT(op_, Xxx) : \
+        callable<BOOST_PP_CAT(op_, Xxx)> \
+    { \
+        template< class Myself, class Range, class A0, class A1 > \
+        struct apply : \
+            ResultFun \
+        { }; \
+        \
+        template< class Result, class Range, class A0, class A1 > \
+        Result call(Range& rng, A0& a0, A1& a1) const \
+        { \
+            std::Xxx(boost::begin(rng), a0, a1); \
+        } \
+    }; \
+    \
+    PSTADE_CONSTANT( Xxx, (BOOST_PP_CAT(op_, Xxx)) ) \
+    \
+/**/
 
-        template< class R, class Rng, class Int, class Val >
-        void call(Rng& rng, Int& size, Val& val) const
-        {
-            std::fill_n(boost::begin(rng), size, val);
-        }
-    };
-
-    PSTADE_CONSTANT(fill_n, (op_fill_n))
-
+    PSTADE_fill_n_form(fill_n, boost::mpl::identity<void>)
 
     // generate
 
@@ -410,23 +391,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     // generate_n
 
-    struct op_generate_n :
-        callable<op_generate_n>
-    {
-        template< class Myself, class Range, class Int, class Generator >
-        struct apply
-        {
-            typedef void type;
-        };
-
-        template< class Result, class Range, class Int, class Generator >
-        void call(Range& rng, Int& size, Generator& gen) const
-        {
-            std::generate_n(boost::begin(rng), size, gen);
-        };
-    };
-
-    PSTADE_CONSTANT(generate_n, (op_generate_n))
+    PSTADE_fill_n_form(generate_n, boost::mpl::identity<void>)
 
 
     // remove
@@ -539,28 +504,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     // unique_copy
 
-    struct op_unique_copy :
-        callable<op_unique_copy>
-    {
-        template< class Myself, class Range, class OutIter, class Pred = void >
-        struct apply :
-            pass_by_value<OutIter>
-        { };
-
-        template< class Result, class Range, class OutIter, class Pred >
-        Result call(Range& rng, OutIter& out, Pred& pred) const
-        {
-            return std::unique_copy(boost::begin(rng), boost::end(rng), out, pred);
-        }
-
-        template< class Result, class Range, class OutIter >
-        Result call(Range& rng, OutIter& out) const
-        {
-            return std::unique_copy(boost::begin(rng), boost::end(rng), out);
-        }
-    };
-
-    PSTADE_CONSTANT(unique_copy, (op_unique_copy))
+    PSTADE_mismatch_form(unique_copy, pass_by_value<A0>)
 
 
     // reverse
@@ -699,29 +643,34 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     // partial_sort
 
-    struct op_partial_sort :
-        callable<op_partial_sort>
-    {
-        template< class Myself, class Range, class Middle, class Cmp = void >
-        struct apply
-        {
-            typedef void type;
-        };
+#define PSTADE_partial_sort_form(Xxx, ResultFun) \
+    \
+    struct BOOST_PP_CAT(op_, Xxx) : \
+        callable<BOOST_PP_CAT(op_, Xxx)> \
+    { \
+        template< class Myself, class Range, class A0, class A1 = void > \
+        struct apply : \
+            ResultFun \
+        { }; \
+        \
+        template< class Result, class Range, class A1 > \
+        Result call(Range& rng, typename range_iterator<Range>::type const& a0, A1& a1) const \
+        { \
+            return std::Xxx(boost::begin(rng), a0, boost::end(rng), a1); \
+        } \
+        \
+        template< class Result, class Range > \
+        Result call(Range& rng, typename range_iterator<Range>::type const& a0) const \
+        { \
+            return std::Xxx(boost::begin(rng), a0, boost::end(rng)); \
+        } \
+    }; \
+    \
+    PSTADE_CONSTANT( Xxx, (BOOST_PP_CAT(op_, Xxx)) ) \
+    \
+/**/
 
-        template< class Result, class Range, class Cmp >
-        void call(Range& rng, typename range_iterator<Range>::type const& middle, Cmp& cmp) const
-        {
-            std::partial_sort(boost::begin(rng), middle, boost::end(rng), cmp);
-        }
-
-        template< class Result, class Range >
-        void call(Range& rng, typename range_iterator<Range>::type const& middle) const
-        {
-            std::partial_sort(boost::begin(rng), middle, boost::end(rng));        
-        }
-    };
-
-    PSTADE_CONSTANT(partial_sort, (op_partial_sort))
+    PSTADE_partial_sort_form(partial_sort, boost::mpl::identity<void>)
 
 
     // partial_sort_copy
@@ -731,162 +680,70 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     // nth_element
 
-    struct op_nth_element :
-        callable<op_nth_element>
-    {
-        template< class Myself, class Range, class Nth, class Cmp = void >
-        struct apply
-        {
-            typedef void type;
-        };
-        
-        template< class Result, class Range, class Cmp >
-        void call(Range& rng, typename range_iterator<Range>::type const& nth, Cmp& cmp) const
-        {
-            std::nth_element(boost::begin(rng), nth, boost::end(rng), cmp);
-        }
-
-        template< class Result, class Range >
-        void call(Range& rng, typename range_iterator<Range>::type const& nth) const
-        {
-            std::nth_element(boost::begin(rng), nth, boost::end(rng));
-        }
-    };
-
-    PSTADE_CONSTANT(nth_element, (op_nth_element))
+    PSTADE_partial_sort_form(nth_element, boost::mpl::identity<void>)
 
 
     // lower/upper_bound
 
-#define PSTADE_bound_algo(Xxx) \
+#define PSTADE_lower_bound_form(Xxx, ResultFun) \
     \
     struct BOOST_PP_CAT(op_, Xxx) : \
         callable<BOOST_PP_CAT(op_, Xxx)> \
     { \
-        template< class Myself, class Range, class Val, class Cmp = void > \
+        template< class Myself, class Range, class A0, class A1 = void > \
         struct apply : \
-            range_iterator<Range> \
+            ResultFun \
         { }; \
         \
-        template< class Result, class Range, class Val, class Cmp > \
-        Result call(Range& rng, Val& val, Cmp& cmp) const \
+        template< class Result, class Range, class A0, class A1 > \
+        Result call(Range& rng, A0& a0, A1& a1) const \
         { \
-            return std::Xxx(boost::begin(rng), boost::end(rng), val, cmp); \
+            return std::Xxx(boost::begin(rng), boost::end(rng), a0, a1); \
         } \
         \
-        template< class Result, class Range, class Val > \
-        Result call(Range& rng, Val& val, \
+        template< class Result, class Range, class A0 > \
+        Result call(Range& rng, A0& a0, \
             typename enable_if< apple::BOOST_PP_CAT(has_, Xxx)<Range> >::type = 0) const \
         { \
-            return rng.Xxx(val); \
+            return rng.Xxx(a0); \
         } \
         \
-        template< class Result, class Range, class Val > \
-        Result call(Range& rng, Val& val, \
+        template< class Result, class Range, class A0 > \
+        Result call(Range& rng, A0& a0, \
             typename disable_if<apple::BOOST_PP_CAT(has_, Xxx)<Range> >::type = 0) const \
         { \
-            return std::Xxx(boost::begin(rng), boost::end(rng), val); \
+            return std::Xxx(boost::begin(rng), boost::end(rng), a0); \
         } \
     }; \
     \
-    PSTADE_CONSTANT(Xxx, (BOOST_PP_CAT(op_, Xxx))) \
+    PSTADE_CONSTANT( Xxx, (BOOST_PP_CAT(op_, Xxx)) ) \
     \
 /**/
 
-    PSTADE_bound_algo(lower_bound)
-    PSTADE_bound_algo(upper_bound)
-
-#undef  PSTADE_bound_algo
+    PSTADE_lower_bound_form(lower_bound, range_iterator<Range>)
+    PSTADE_lower_bound_form(upper_bound, range_iterator<Range>)
 
 
     // equal_range
 
-    struct op_equal_range :
-        callable<op_equal_range>
+    template< class Range >
+    struct detail_equal_range_result
     {
-        template< class Myself, class Range, class Val, class Cmp = void >
-        struct apply
-        {
-            typedef typename range_iterator<Range>::type iter_t;
-            typedef std::pair<iter_t, iter_t> type;
-        };
-
-        template< class Result, class Range, class Val, class Cmp >
-        Result call(Range& rng, Val& val, Cmp& cmp) const
-        {
-            return std::equal_range(boost::begin(rng), boost::end(rng), val, cmp);
-        }
-
-        template< class Result, class Range, class Val >
-        Result call(Range& rng, Val& val,
-            typename enable_if< apple::has_equal_range<Range> >::type = 0) const
-        {
-            return rng.equal_range(val);
-        }
-
-        template< class Result, class Range, class Val >
-        Result call(Range& rng, Val& val,
-            typename disable_if<apple::has_equal_range<Range> >::type = 0) const
-        {
-            return std::equal_range(boost::begin(rng), boost::end(rng), val);
-        }
+        typedef typename range_iterator<Range>::type iter_t;
+        typedef std::pair<iter_t, iter_t> type;
     };
 
-    PSTADE_CONSTANT(equal_range, (op_equal_range))
+    PSTADE_lower_bound_form(equal_range, detail_equal_range_result<Range>)
 
 
     // binary_search
 
-    struct op_binary_search :
-        callable<op_binary_search>
-    {
-        template< class Myself, class Range, class Val, class Cmp = void >
-        struct apply
-        {
-           typedef bool type;
-        };
-
-        template< class Result, class Range, class Val, class Cmp >
-        Result call(Range& rng, Val& val, Cmp& cmp) const
-        {
-           return std::binary_search(boost::begin(rng), boost::end(rng), val, cmp);
-        }
-
-        template< class Result, class Range, class Val >
-        Result call(Range& rng, Val& val) const
-        {
-           return std::binary_search(boost::begin(rng), boost::end(rng), val);
-        }
-    };
-
-    PSTADE_CONSTANT(binary_search, (op_binary_search))
+    PSTADE_mismatch_form(binary_search, boost::mpl::identity<bool>)
 
 
     // inplace_merge
 
-    struct op_inplace_merge :
-        callable<op_inplace_merge>
-    {
-        template< class Myself, class Range, class Middle, class Cmp = void >
-        struct apply
-        {
-            typedef void type;
-        };
-
-        template< class Result, class Range, class Cmp >
-        Result call(Range& rng, typename range_iterator<Range>::type const& middle, Cmp& cmp) const
-        {
-            std::inplace_merge(boost::begin(rng), middle, boost::end(rng), cmp);
-        }
-
-        template< class Result, class Range >
-        Result call(Range& rng, typename range_iterator<Range>::type const& middle) const
-        {
-            std::inplace_merge(boost::begin(rng), middle, boost::end(rng));
-        }
-    };
-
-    PSTADE_CONSTANT(inplace_merge, (op_inplace_merge))
+    PSTADE_partial_sort_form(inplace_merge, boost::mpl::identity<void>)
 
 
     // Set Algorithms
@@ -899,7 +756,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     // merge/set_xxx
 
-#define PSTADE_merge_algo(Xxx) \
+#define PSTADE_merge_form(Xxx) \
     \
     struct BOOST_PP_CAT(op_, Xxx) : \
         callable<BOOST_PP_CAT(op_, Xxx)> \
@@ -934,86 +791,25 @@ PSTADE_ADL_BARRIER(algorithm) {
     \
 /**/
 
-    PSTADE_merge_algo(merge)
-    PSTADE_merge_algo(set_union)
-    PSTADE_merge_algo(set_intersection)
-    PSTADE_merge_algo(set_difference)
-    PSTADE_merge_algo(set_symmetric_difference)
-
-#undef  PSTADE_merge_algo
+    PSTADE_merge_form(merge)
+    PSTADE_merge_form(set_union)
+    PSTADE_merge_form(set_intersection)
+    PSTADE_merge_form(set_difference)
+    PSTADE_merge_form(set_symmetric_difference)
 
 
     // xxx_heap
 
-#define PSTADE_heap_algo(Xxx) \
-    \
-    struct BOOST_PP_CAT(op_, Xxx) : \
-        callable<BOOST_PP_CAT(op_, Xxx)> \
-    { \
-        template< class Myself, class Range, class Cmp = void > \
-        struct apply \
-        { \
-            typedef void type; \
-        }; \
-        \
-        template< class Myself, class Range, class Cmp > \
-        void call(Range& rng, Cmp& cmp) const \
-        { \
-            std::Xxx(boost::begin(rng), boost::end(rng), cmp); \
-        } \
-        \
-        template< class Result, class Range > \
-        void call(Range& rng) const \
-        { \
-            std::Xxx(boost::begin(rng), boost::end(rng)); \
-        } \
-    }; \
-    \
-    PSTADE_CONSTANT( Xxx, (BOOST_PP_CAT(op_, Xxx)) ) \
-    \
-/**/
-
-    PSTADE_heap_algo(push_heap)
-    PSTADE_heap_algo(pop_heap)
-    PSTADE_heap_algo(make_heap)
-    PSTADE_heap_algo(sort_heap)
-
-#undef PSTADE_heap_algo
+    PSTADE_adjacent_find_form(push_heap, boost::mpl::identity<void>)
+    PSTADE_adjacent_find_form(pop_heap,  boost::mpl::identity<void>)
+    PSTADE_adjacent_find_form(make_heap, boost::mpl::identity<void>)
+    PSTADE_adjacent_find_form(sort_heap, boost::mpl::identity<void>)
 
 
     // min_element/max_element
 
-#define PSTADE_minmax(Xxx) \
-    \
-    struct BOOST_PP_CAT(op_, Xxx) : \
-        callable<BOOST_PP_CAT(op_, Xxx)> \
-    { \
-        template< class Myself, class Range, class BinPred = void > \
-        struct apply : \
-            range_iterator<Range> \
-        { }; \
-        \
-        template< class Result, class Range, class BinPred > \
-        Result call(Range& rng, BinPred& pred) const \
-        { \
-            return std::Xxx(boost::begin(rng), boost::end(rng), pred); \
-        } \
-        \
-        template< class Result, class Range > \
-        Result call(Range& rng) const \
-        { \
-            return std::Xxx(boost::begin(rng), boost::end(rng)); \
-        } \
-    }; \
-    \
-    PSTADE_CONSTANT( Xxx, (BOOST_PP_CAT(op_, Xxx)) ) \
-    \
-/**/
-
-    PSTADE_minmax(min_element)
-    PSTADE_minmax(max_element)
-
-#undef  PSTADE_minmax
+    PSTADE_adjacent_find_form(min_element, range_iterator<Range>)
+    PSTADE_adjacent_find_form(max_element, range_iterator<Range>)
 
 
     // lexicographical_compare
@@ -1033,10 +829,16 @@ PSTADE_ADL_BARRIER(algorithm) {
 } } // namespace pstade::oven
 
 
-#undef  PSTADE_replace_form
 #undef  PSTADE_adjacent_find_form
+#undef  PSTADE_fill_n_form
 #undef  PSTADE_find_end_form
 #undef  PSTADE_for_each_form
+#undef  PSTADE_lower_bound_form
+#undef  PSTADE_merge_form
+#undef  PSTADE_mismatch_form
+#undef  PSTADE_partial_sort_form
+#undef  PSTADE_replace_copy_form
+#undef  PSTADE_replace_form
 
 
 #endif

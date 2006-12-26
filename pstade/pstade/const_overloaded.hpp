@@ -17,15 +17,17 @@
 // So disable the non-const-reference overloading in the case of const-reference.
 // http://groups.google.com/group/comp.lang.c++.moderated/browse_frm/thread/2dc6189c2eec0fd5/
 // This class doesn't always do the same thing as 'disable_if<is_const<T> >'.
-// This is nothing but a workaround for bugs. So, it shouldn't have the name
-// something like "where_mutable", IMO.
 
 
 #include <boost/config.hpp> // BOOST_MSVC, BOOST_NO_SFINAE
 #include <boost/mpl/identity.hpp>
 #include <boost/mpl/or.hpp>
+#include <boost/preprocessor/cat.hpp>
+#include <boost/preprocessor/repetition/enum.hpp>
+#include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/preprocessor/repetition/enum_params_with_a_default.hpp>
 #include <boost/type_traits/is_const.hpp>
-#include <pstade/enable_if.hpp> // disable_if
+#include <pstade/enable_if.hpp>
 
 
 // Workaround:
@@ -39,87 +41,63 @@
 namespace pstade {
 
 
-namespace const_overloaded_detail {
+    namespace const_overloaded_detail {
 
 
-    template<
-        class T0, class T1, class T2, class T3, class T4,
-        class T5, class T6, class T7, class T8, class T9
-    >
-    struct or10 :
-        boost::mpl::or_<
-            boost::mpl::or_<T0, T1, T2, T3, T4>,
-            boost::mpl::or_<T5, T6, T7, T8, T9>
-        >
-    { };
+        template< BOOST_PP_ENUM_PARAMS(10, class T) >
+        struct or10 :
+            boost::mpl::or_<
+                boost::mpl::or_<T0, T1, T2, T3, T4>,
+                boost::mpl::or_<T5, T6, T7, T8, T9>
+            >
+        { };
 
 
-    template<
-        class A0, class A1, class A2, class A3, class A4,
-        class A5, class A6, class A7, class A8, class A9
-    >
-    struct contains_const :
-        or10<
-            boost::is_const<A0>,
-            boost::is_const<A1>,
-            boost::is_const<A2>,
-            boost::is_const<A3>,
-            boost::is_const<A4>,
-            boost::is_const<A5>,
-            boost::is_const<A6>,
-            boost::is_const<A7>,
-            boost::is_const<A8>,
-            boost::is_const<A9>
-        >
-    { };
+    #define PSTADE_is_const(Z, N, _) boost::is_const< BOOST_PP_CAT(A, N) >
+
+        template< BOOST_PP_ENUM_PARAMS(10, class A) >
+        struct contains_const :
+            or10< BOOST_PP_ENUM(10, PSTADE_is_const, ~) >
+        { };
+
+    #undef  PSTADE_is_const
 
 
-} // namespace const_overloaded_detail
+    } // namespace const_overloaded_detail
 
 
 #if !defined(PSTADE_CONST_OVERLOADED_NOT_REQUIRED)
 
 
     template<
-        class A0,        class A1 = void, class A2 = void, class A3 = void, class A4 = void,
-        class A5 = void, class A6 = void, class A7 = void, class A8 = void, class A9 = void
+        class A_, BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(9, class A, void)
     >
     struct const_overloaded :
         disable_if<
-            const_overloaded_detail::contains_const<
-                A0, A1, A2, A3, A4,
-                A5, A6, A7, A8, A9
-            >
+            const_overloaded_detail::contains_const< A_, BOOST_PP_ENUM_PARAMS(9, A) >
         >
     { };
 
 
     template<
         class Result,
-        class A0,        class A1 = void, class A2 = void, class A3 = void, class A4 = void,
-        class A5 = void, class A6 = void, class A7 = void, class A8 = void, class A9 = void
+        class A_, BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(9, class A, void)
     >
     struct const_overloaded_result :
         disable_if<
-            const_overloaded_detail::contains_const<
-                A0, A1, A2, A3, A4,
-                A5, A6, A7, A8, A9
-            >,
+            const_overloaded_detail::contains_const< A_, BOOST_PP_ENUM_PARAMS(9, A) >,
             Result
         >
     { };
 
+
     template<
         class Result,
-        class A0,        class A1 = void, class A2 = void, class A3 = void, class A4 = void,
-        class A5 = void, class A6 = void, class A7 = void, class A8 = void, class A9 = void
+        class A_, BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(9, class A, void)
     >
     struct const_overloaded_eval_result :
-        disable_if<
-            const_overloaded_detail::contains_const<
-                A0, A1, A2, A3, A4,
-                A5, A6, A7, A8, A9
-            >,
+        lazy_disable_if<
+            const_overloaded_detail::contains_const< A_, BOOST_PP_ENUM_PARAMS(9, A) >,
             Result
         >
     { };
@@ -129,8 +107,7 @@ namespace const_overloaded_detail {
 
 
     template<
-        class A0,        class A1 = void, class A2 = void, class A3 = void, class A4 = void,
-        class A5 = void, class A6 = void, class A7 = void, class A8 = void, class A9 = void
+        class A_, BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(9, class A, void)
     >
     struct const_overloaded :
         boost::mpl::identity<enabler>
@@ -139,17 +116,16 @@ namespace const_overloaded_detail {
 
     template<
         class Result,
-        class A0,        class A1 = void, class A2 = void, class A3 = void, class A4 = void,
-        class A5 = void, class A6 = void, class A7 = void, class A8 = void, class A9 = void
+        class A_, BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(9, class A, void)
     >
     struct const_overloaded_result :
         boost::mpl::identity<Result>
     { };
 
+
     template<
         class Result,
-        class A0,        class A1 = void, class A2 = void, class A3 = void, class A4 = void,
-        class A5 = void, class A6 = void, class A7 = void, class A8 = void, class A9 = void
+        class A_, BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(9, class A, void)
     >
     struct const_overloaded_eval_result
     {

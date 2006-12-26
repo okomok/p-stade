@@ -57,17 +57,7 @@ namespace pstade_oven_extension {
     { };
 
 
-    template< class Condition >
-    struct where_ :
-        pstade::enable_if<Condition>
-    { };
-
-    template< bool Condition >
-    struct where_c :
-        pstade::enable_if_c<Condition>
-    { };
-
-
+    using pstade::enable_if;
     using pstade::const_overloaded;
 
 

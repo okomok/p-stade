@@ -12,9 +12,12 @@
 
 // What:
 //
-// 'boost::enable_if' using void pointer seems a mistake?
-// GCC makes you write enable_if on function parameter list,
-// then, void pointer that can eat any pointer would be dangerous.
+// 'boost::enable_if' using 'void *' seems a mistake?
+// GCC makes you write 'enable_if' on function parameter list,
+// then, 'void *' that can eat any pointer would be dangerous.
+
+
+#include <boost/utility/enable_if.hpp>
 
 
 namespace pstade {
@@ -26,77 +29,32 @@ namespace pstade {
 
     }
 
-
     typedef
         enable_if_detail::klass *
     enabler;
 
 
-    template< bool B, class T = enabler >
-    struct enable_if_c
-    {
-        typedef T type;
-    };
-
-    template< class T >
-    struct enable_if_c<false, T>
-    { };
-
-
     template< class Cond, class T = enabler > 
     struct enable_if :
-        enable_if_c<Cond::value, T>
+        boost::enable_if<Cond, T>
     { };
 
 
-    template< bool B, class T >
-    struct lazy_enable_if_c
-    {
-        typedef typename T::type type;
-    };
-
-    template< class T >
-    struct lazy_enable_if_c<false, T>
-    { };
-
-
-    template< class Cond, class T > 
+    template< class Cond, class F > 
     struct lazy_enable_if :
-        lazy_enable_if_c<Cond::value, T>
-    { };
-
-
-    template< bool B, class T = enabler >
-    struct disable_if_c
-    {
-        typedef T type;
-    };
-
-    template< class T >
-    struct disable_if_c<true, T>
+        boost::lazy_enable_if<Cond, F>
     { };
 
 
     template< class Cond, class T = enabler > 
     struct disable_if :
-        disable_if_c<Cond::value, T>
+        boost::disable_if<Cond, T>
     { };
 
 
-    template< bool B, class T >
-    struct lazy_disable_if_c
-    {
-        typedef typename T::type type;
-    };
-
-    template< class T >
-    struct lazy_disable_if_c<true, T>
-    { };
-
-
-    template< class Cond, class T > 
+    template< class Cond, class F > 
     struct lazy_disable_if :
-        lazy_disable_if_c<Cond::value, T>
+        boost::lazy_disable_if<Cond, F>
     { };
 
 
