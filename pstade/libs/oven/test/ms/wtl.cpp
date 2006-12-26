@@ -2,8 +2,8 @@
 
 #include <boost/test/minimal.hpp>
 #define _WTL_NO_AUTOMATIC_NAMESPACE
-#include <atlbase.h>
-#include <atlapp.h>
+#include <pstade/apple/atl/base.hpp>
+#include <pstade/apple/wtl/app.hpp>
 
 extern WTL::CAppModule _Module;
 
@@ -23,10 +23,10 @@ extern WTL::CAppModule _Module;
 #include <string>
 #include <vector>
 #include <boost/range.hpp>
-#include <atlmisc.h>  // CString
-#include <atlwin.h>
-#include <atlctrls.h>
-#include <atlctrlw.h> // CSimpleStack
+#include <pstade/apple/atl/misc.hpp> // CString
+#include <pstade/apple/atl/win.hpp>
+#include <pstade/apple/wtl/ctrls.hpp>
+#include <pstade/apple/wtl/ctrlw.hpp> // CSimpleStack
 #include <pstade/oven/tests.hpp>
 
 

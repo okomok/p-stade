@@ -20,7 +20,6 @@
 
 
 #include <boost/config.hpp> // BOOST_MSVC, BOOST_NO_SFINAE
-#include <boost/mpl/identity.hpp>
 #include <boost/mpl/or.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
@@ -109,18 +108,20 @@ namespace pstade {
     template<
         class A_, BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(9, class A, void)
     >
-    struct const_overloaded :
-        boost::mpl::identity<enabler>
-    { };
+    struct const_overloaded
+    {
+        typedef enabler type;
+    };
 
 
     template<
         class Result,
         class A_, BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(9, class A, void)
     >
-    struct const_overloaded_result :
-        boost::mpl::identity<Result>
-    { };
+    struct const_overloaded_result
+    {
+        typedef Result type;
+    };
 
 
     template<

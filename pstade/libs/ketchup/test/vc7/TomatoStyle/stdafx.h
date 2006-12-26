@@ -25,5 +25,5 @@
 
 extern WTL::CAppModule _Module;
 
-#include <atlwin.h>
 #include <pstade/apple/wtl/app.hpp>
+#include <pstade/apple/atl/win.hpp>
