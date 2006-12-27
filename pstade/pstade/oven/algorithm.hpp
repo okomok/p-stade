@@ -56,7 +56,7 @@
 #include <pstade/constant.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/pass_by.hpp>
-#include <pstade/unparenthesize.hpp>
+#include "./detail/algo_forms.hpp"
 #include "./range_difference.hpp"
 #include "./range_iterator.hpp"
 
@@ -72,28 +72,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     // for_each
 
-#define PSTADE_for_each_form(Xxx, ResultFun) \
-    \
-    struct BOOST_PP_CAT(op_, Xxx) : \
-        callable<BOOST_PP_CAT(op_, Xxx)> \
-    { \
-        template< class Myself, class Range, class A0 > \
-        struct apply : \
-            ResultFun \
-        { }; \
-        \
-        template< class Result, class Range, class A0 > \
-        Result call(Range& rng, A0& a0) const \
-        { \
-            return std::Xxx(boost::begin(rng), boost::end(rng), a0); \
-        } \
-    }; \
-    \
-    PSTADE_CONSTANT( Xxx, (BOOST_PP_CAT(op_, Xxx)) ) \
-    \
-/**/
-
-    PSTADE_for_each_form(for_each, pass_by_value<A0>)
+    PSTADE_OVEN_DETAIL_ALGO_FORM((1), for_each, (pass_by_value<A0>))
 
 
     // find
@@ -127,114 +106,27 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     // find_if
 
-    PSTADE_for_each_form(find_if, range_iterator<Range>)
+    PSTADE_OVEN_DETAIL_ALGO_FORM((1), find_if, (range_iterator<Range>))
 
 
     // find_end/first_of
 
-#define PSTADE_find_end_form(Xxx, ResultFun) \
-    \
-    struct BOOST_PP_CAT(op_, Xxx) : \
-        callable<BOOST_PP_CAT(op_, Xxx)> \
-    { \
-        template< class Myself, class Range1, class Range2, class A0 = void > \
-        struct apply : \
-            ResultFun \
-        { }; \
-        \
-        template< class Result, class Range1, class Range2, class A0 > \
-        Result call(Range1& rng1, Range2& rng2, A0& a0) const \
-        { \
-            return std::Xxx( \
-                boost::begin(rng1), boost::end(rng1), \
-                boost::begin(rng2), boost::end(rng2), \
-                a0 \
-            ); \
-        } \
-        \
-        template< class Result, class Range1, class Range2 > \
-        Result call(Range1& rng1, Range2& rng2) const \
-        { \
-            return std::Xxx( \
-                boost::begin(rng1), boost::end(rng1), \
-                boost::begin(rng2), boost::end(rng2) \
-            ); \
-        } \
-    }; \
-    \
-    PSTADE_CONSTANT(Xxx, (BOOST_PP_CAT(op_, Xxx)) )
-    \
-/**/
-
-    PSTADE_find_end_form(find_end, range_iterator<Range1>)
-    PSTADE_find_end_form(find_first_of, range_iterator<Range1>)
+    PSTADE_OVEN_DETAIL_ALGO_FORM_BINARY((0)(1), find_end,      (range_iterator<Range1>))
+    PSTADE_OVEN_DETAIL_ALGO_FORM_BINARY((0)(1), find_first_of, (range_iterator<Range1>))
 
 
     // adjacent_find
 
-#define PSTADE_adjacent_find_form(Xxx, ResultFun) \
-    \
-    struct BOOST_PP_CAT(op_, Xxx) : \
-        callable<BOOST_PP_CAT(op_, Xxx)> \
-    { \
-        template< class Myself, class Range, class A0 = void > \
-        struct apply : \
-            ResultFun \
-        { }; \
-        \
-        template< class Result, class Range, class A0 > \
-        Result call(Range& rng, A0& a0) const \
-        { \
-            return std::Xxx(boost::begin(rng), boost::end(rng), a0); \
-        } \
-        template< class Result, class Range > \
-        Result call(Range& rng) const \
-        { \
-            return std::Xxx(boost::begin(rng), boost::end(rng)); \
-        } \
-    }; \
-    \
-    PSTADE_CONSTANT( Xxx, (BOOST_PP_CAT(op_, Xxx)) ) \
-    \
-/**/
-
-    PSTADE_adjacent_find_form(adjacent_find, range_iterator<Range>)
+    PSTADE_OVEN_DETAIL_ALGO_FORM((0)(1), adjacent_find, (range_iterator<Range>))
 
 
     // count/count_if
 
-    PSTADE_for_each_form(count, range_difference<Range>)
-    PSTADE_for_each_form(count_if, range_difference<Range>)
+    PSTADE_OVEN_DETAIL_ALGO_FORM((1), count,    (range_difference<Range>))
+    PSTADE_OVEN_DETAIL_ALGO_FORM((1), count_if, (range_difference<Range>))
 
 
     // mismatch
-
-#define PSTADE_mismatch_form(Xxx, ResultFun) \
-    \
-    struct BOOST_PP_CAT(op_, Xxx) : \
-        callable<BOOST_PP_CAT(op_, Xxx)> \
-    { \
-        template< class Myself, class Range, class A0, class A1 = void > \
-        struct apply : \
-            ResultFun \
-        { }; \
-        \
-        template< class Result, class Range, class A0, class A1 > \
-        Result call(Range& rng, A0& a0, A1& a1) const \
-        { \
-            return std::Xxx(boost::begin(rng), boost::end(rng), a0, a1); \
-        } \
-        \
-        template< class Result, class Range, class A0 > \
-        Result call(Range& rng, A0& a1) const \
-        { \
-            return std::Xxx(boost::begin(rng), boost::end(rng), a1); \
-        } \
-    }; \
-    \
-    PSTADE_CONSTANT( Xxx, (BOOST_PP_CAT(op_, Xxx)) ) \
-    \
-/**/
 
     template< class Range, class A0 >
     struct detail_mismatch_result
@@ -247,17 +139,17 @@ PSTADE_ADL_BARRIER(algorithm) {
         type;
     };
 
-    PSTADE_mismatch_form(mismatch, PSTADE_UNPARENTHESIZE((detail_mismatch_result<Range, A0>)))
+    PSTADE_OVEN_DETAIL_ALGO_FORM((1)(2), mismatch, (detail_mismatch_result<Range, A0>))
 
 
     // equal
 
-    PSTADE_mismatch_form(equal, boost::mpl::identity<bool>)
+    PSTADE_OVEN_DETAIL_ALGO_FORM((1)(2), equal, (boost::mpl::identity<bool>))
 
 
     // search
 
-    PSTADE_find_end_form(search, range_iterator<Range1>)
+    PSTADE_OVEN_DETAIL_ALGO_FORM_BINARY((0)(1), search, (range_iterator<Range1>))
 
 
     // Modifying Sequence Operations
@@ -265,8 +157,8 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     // copy/copy_backward
 
-    PSTADE_for_each_form(copy, pass_by_value<A0>)
-    PSTADE_for_each_form(copy_backward, pass_by_value<A0>)
+    PSTADE_OVEN_DETAIL_ALGO_FORM((1), copy,          (pass_by_value<A0>))
+    PSTADE_OVEN_DETAIL_ALGO_FORM((1), copy_backward, (pass_by_value<A0>))
 
 
     // transform
@@ -302,61 +194,19 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     // replace/replace_if
 
-#define PSTADE_replace_form(Xxx, ResultFun) \
-    \
-    struct BOOST_PP_CAT(op_, Xxx) : \
-        callable<BOOST_PP_CAT(op_, Xxx)> \
-    { \
-        template< class Myself, class Range, class A0, class A1 > \
-        struct apply : \
-            ResultFun \
-        { }; \
-        \
-        template< class Result, class Range, class A0, class A1 > \
-        Result call(Range& rng, A0& a0, A1& a1) const \
-        { \
-            return std::Xxx(boost::begin(rng), boost::end(rng), a0, a1); \
-        } \
-    }; \
-    \
-    PSTADE_CONSTANT( Xxx, (BOOST_PP_CAT(op_, Xxx)) )
-    \
-/**/
-
-    PSTADE_replace_form(replace, boost::mpl::identity<void>)
-    PSTADE_replace_form(replace_if, boost::mpl::identity<void>)
+    PSTADE_OVEN_DETAIL_ALGO_FORM((2), replace,    (boost::mpl::identity<void>)) 
+    PSTADE_OVEN_DETAIL_ALGO_FORM((2), replace_if, (boost::mpl::identity<void>))
 
 
     // replace_copy/replace_copy_if
 
-#define PSTADE_replace_copy_form(Xxx, ResultFun) \
-    \
-    struct BOOST_PP_CAT(op_, Xxx) : \
-        callable<BOOST_PP_CAT(op_, Xxx)> \
-    { \
-        template< class Myself, class Range, class A0, class A1, class A2 > \
-        struct apply : \
-            ResultFun \
-        { }; \
-        \
-        template< class Result, class Range, class A0, class A1, class A2 > \
-        Result call(Range& rng, A0& a0, A1& a1, A2& a2) const \
-        { \
-            return std::Xxx(boost::begin(rng), boost::end(rng), a0, a1, a2); \
-        } \
-    }; \
-    \
-    PSTADE_CONSTANT( Xxx, (BOOST_PP_CAT(op_, Xxx)) ) \
-    \
-/**/
-
-    PSTADE_replace_copy_form(replace_copy, pass_by_value<A0>)
-    PSTADE_replace_copy_form(replace_copy_if, pass_by_value<A0>)
+    PSTADE_OVEN_DETAIL_ALGO_FORM((3), replace_copy,    (pass_by_value<A0>))
+    PSTADE_OVEN_DETAIL_ALGO_FORM((3), replace_copy_if, (pass_by_value<A0>))
 
 
     // fill
 
-    PSTADE_for_each_form(fill, boost::mpl::identity<void>)
+    PSTADE_OVEN_DETAIL_ALGO_FORM((1), fill, (boost::mpl::identity<void>))
 
 
     // fill_n
@@ -386,7 +236,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     // generate
 
-    PSTADE_for_each_form(generate, boost::mpl::identity<void>)
+    PSTADE_OVEN_DETAIL_ALGO_FORM((1), generate, (boost::mpl::identity<void>))
 
 
     // generate_n
@@ -454,8 +304,8 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     // remove_copy/remove_copy_if
 
-    PSTADE_replace_form(remove_copy, pass_by_value<A0>)
-    PSTADE_replace_form(remove_copy_if, pass_by_value<A0>)
+    PSTADE_OVEN_DETAIL_ALGO_FORM((2), remove_copy,    (pass_by_value<A0>))
+    PSTADE_OVEN_DETAIL_ALGO_FORM((2), remove_copy_if, (pass_by_value<A0>))
 
 
     // unique
@@ -504,7 +354,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     // unique_copy
 
-    PSTADE_mismatch_form(unique_copy, pass_by_value<A0>)
+    PSTADE_OVEN_DETAIL_ALGO_FORM((1)(2), unique_copy, (pass_by_value<A0>))
 
 
     // reverse
@@ -538,7 +388,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     // reverse_copy
 
-    PSTADE_for_each_form(reverse_copy, pass_by_value<A0>)
+    PSTADE_OVEN_DETAIL_ALGO_FORM((1), reverse_copy, (pass_by_value<A0>))
 
 
     // rotate
@@ -584,13 +434,13 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     // random_shuffle
 
-    PSTADE_adjacent_find_form(random_shuffle, boost::mpl::identity<void>)
+    PSTADE_OVEN_DETAIL_ALGO_FORM((0)(1), random_shuffle, (boost::mpl::identity<void>))
 
 
     // partition/stable_partition
 
-    PSTADE_for_each_form(partition, range_iterator<Range>)
-    PSTADE_for_each_form(stable_partition, range_iterator<Range>)
+    PSTADE_OVEN_DETAIL_ALGO_FORM((1), partition,        (range_iterator<Range>))
+    PSTADE_OVEN_DETAIL_ALGO_FORM((1), stable_partition, (range_iterator<Range>))
 
 
     // sort
@@ -638,7 +488,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     // stable_sort
 
-    PSTADE_adjacent_find_form(stable_sort, boost::mpl::identity<void>)
+    PSTADE_OVEN_DETAIL_ALGO_FORM((0)(1), stable_sort, (boost::mpl::identity<void>))
 
 
     // partial_sort
@@ -675,7 +525,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     // partial_sort_copy
 
-    PSTADE_find_end_form(partial_sort_copy, range_iterator<Range2>)
+    PSTADE_OVEN_DETAIL_ALGO_FORM_BINARY((0)(1), partial_sort_copy, (range_iterator<Range2>))
 
 
     // nth_element
@@ -738,7 +588,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     // binary_search
 
-    PSTADE_mismatch_form(binary_search, boost::mpl::identity<bool>)
+    PSTADE_OVEN_DETAIL_ALGO_FORM((1)(2), binary_search, (boost::mpl::identity<bool>))
 
 
     // inplace_merge
@@ -751,76 +601,41 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     // includes
 
-    PSTADE_find_end_form(includes, boost::mpl::identity<bool>)
+    PSTADE_OVEN_DETAIL_ALGO_FORM_BINARY((0)(1), includes, (boost::mpl::identity<bool>))
 
 
     // merge/set_xxx
 
-#define PSTADE_merge_form(Xxx) \
-    \
-    struct BOOST_PP_CAT(op_, Xxx) : \
-        callable<BOOST_PP_CAT(op_, Xxx)> \
-    { \
-        template< class Myself, class Range1, class Range2, class OutIter, class Cmp = void > \
-        struct apply : \
-            pass_by_value<OutIter> \
-        { }; \
-        \
-        template< class Result, class Range1, class Range2, class OutIter, class Cmp > \
-        Result call(Range1& rng1, Range2& rng2, OutIter& out, Cmp& cmp) const \
-        { \
-            return std::Xxx( \
-                boost::begin(rng1), boost::end(rng1), \
-                boost::begin(rng2), boost::end(rng2), \
-                out, cmp \
-            ); \
-        } \
-        \
-        template< class Result, class Range1, class Range2, class OutIter > \
-        Result call(Range1& rng1, Range2& rng2, OutIter& out) const \
-        { \
-            return std::Xxx( \
-                boost::begin(rng1), boost::end(rng1), \
-                boost::begin(rng2), boost::end(rng2), \
-                out \
-            ); \
-        } \
-    }; \
-    \
-    PSTADE_CONSTANT( Xxx, (BOOST_PP_CAT(op_, Xxx)) ) \
-    \
-/**/
-
-    PSTADE_merge_form(merge)
-    PSTADE_merge_form(set_union)
-    PSTADE_merge_form(set_intersection)
-    PSTADE_merge_form(set_difference)
-    PSTADE_merge_form(set_symmetric_difference)
+    PSTADE_OVEN_DETAIL_ALGO_FORM_BINARY((1)(2), merge,                    (pass_by_value<A0>))
+    PSTADE_OVEN_DETAIL_ALGO_FORM_BINARY((1)(2), set_union,                (pass_by_value<A0>))
+    PSTADE_OVEN_DETAIL_ALGO_FORM_BINARY((1)(2), set_intersection,         (pass_by_value<A0>))
+    PSTADE_OVEN_DETAIL_ALGO_FORM_BINARY((1)(2), set_difference,           (pass_by_value<A0>))
+    PSTADE_OVEN_DETAIL_ALGO_FORM_BINARY((1)(2), set_symmetric_difference, (pass_by_value<A0>))
 
 
     // xxx_heap
 
-    PSTADE_adjacent_find_form(push_heap, boost::mpl::identity<void>)
-    PSTADE_adjacent_find_form(pop_heap,  boost::mpl::identity<void>)
-    PSTADE_adjacent_find_form(make_heap, boost::mpl::identity<void>)
-    PSTADE_adjacent_find_form(sort_heap, boost::mpl::identity<void>)
+    PSTADE_OVEN_DETAIL_ALGO_FORM((0)(1), push_heap, (boost::mpl::identity<void>))
+    PSTADE_OVEN_DETAIL_ALGO_FORM((0)(1), pop_heap,  (boost::mpl::identity<void>))
+    PSTADE_OVEN_DETAIL_ALGO_FORM((0)(1), make_heap, (boost::mpl::identity<void>))
+    PSTADE_OVEN_DETAIL_ALGO_FORM((0)(1), sort_heap, (boost::mpl::identity<void>))
 
 
     // min_element/max_element
 
-    PSTADE_adjacent_find_form(min_element, range_iterator<Range>)
-    PSTADE_adjacent_find_form(max_element, range_iterator<Range>)
+    PSTADE_OVEN_DETAIL_ALGO_FORM((0)(1), min_element, (range_iterator<Range>))
+    PSTADE_OVEN_DETAIL_ALGO_FORM((0)(1), max_element, (range_iterator<Range>))
 
 
     // lexicographical_compare
 
-    PSTADE_find_end_form(lexicographical_compare, boost::mpl::identity<bool>)
+    PSTADE_OVEN_DETAIL_ALGO_FORM_BINARY((0)(1), lexicographical_compare, (boost::mpl::identity<bool>))
 
 
     // next/prev_permutation
 
-    PSTADE_adjacent_find_form(next_permutation, boost::mpl::identity<bool>)
-    PSTADE_adjacent_find_form(prev_permutation, boost::mpl::identity<bool>)
+    PSTADE_OVEN_DETAIL_ALGO_FORM((0)(1), next_permutation, (boost::mpl::identity<bool>))
+    PSTADE_OVEN_DETAIL_ALGO_FORM((0)(1), prev_permutation, (boost::mpl::identity<bool>))
 
 
 } // ADL barrier
@@ -829,16 +644,9 @@ PSTADE_ADL_BARRIER(algorithm) {
 } } // namespace pstade::oven
 
 
-#undef  PSTADE_adjacent_find_form
 #undef  PSTADE_fill_n_form
-#undef  PSTADE_find_end_form
-#undef  PSTADE_for_each_form
 #undef  PSTADE_lower_bound_form
-#undef  PSTADE_merge_form
-#undef  PSTADE_mismatch_form
 #undef  PSTADE_partial_sort_form
-#undef  PSTADE_replace_copy_form
-#undef  PSTADE_replace_form
 
 
 #endif
