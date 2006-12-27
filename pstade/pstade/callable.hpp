@@ -68,15 +68,22 @@ namespace pstade {
     } // namespace callable_detail
 
 
+    template< class Derived >
+    struct callable_error_not_a_nullary_function;
+
+
     PSTADE_ADL_BARRIER(callable) {
 
 
-    template< class Derived, class NullaryResult = void >
+    template<
+        class Derived,
+        class NullaryResult = callable_error_not_a_nullary_function<Derived>
+     >
     struct callable :
         lambda_sig
     {
 
-        typedef NullaryResult detail_nullary_result_type;
+        typedef NullaryResult nullary_result_type;
 
 
         template< class Signature >
@@ -192,7 +199,7 @@ namespace pstade {
         template< > \
         struct result_of< PSTADE_PP_FULLNAME(NameSeq)(void) > \
         { \
-            typedef PSTADE_PP_FULLNAME(NameSeq)::detail_nullary_result_type type; \
+            typedef PSTADE_PP_FULLNAME(NameSeq)::nullary_result_type type; \
         }; \
         \
         template< > \
@@ -224,7 +231,7 @@ namespace pstade {
         template< PSTADE_PP_TO_TEMPLATE_PARAMS(ParamSeq) > \
         struct result_of< PSTADE_PP_FULLNAME(NameSeq)< PSTADE_PP_TO_TEMPLATE_ARGS(ParamSeq) >(void) > \
         { \
-            typedef typename PSTADE_PP_FULLNAME(NameSeq)< PSTADE_PP_TO_TEMPLATE_ARGS(ParamSeq) >::detail_nullary_result_type type; \
+            typedef typename PSTADE_PP_FULLNAME(NameSeq)< PSTADE_PP_TO_TEMPLATE_ARGS(ParamSeq) >::nullary_result_type type; \
         }; \
         \
         template< PSTADE_PP_TO_TEMPLATE_PARAMS(ParamSeq) > \

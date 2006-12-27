@@ -256,11 +256,11 @@ namespace contract_detail {
         // non void
         //
         #define PSTADE_POSTCONDITION_non_void(ResultT) \
-                pstade::contract_detail::postcondition_result_ptr< ResultT > pstade_contract_detail_result_ptr; \
+                ::pstade::contract_detail::postcondition_result_ptr< ResultT > pstade_contract_detail_result_ptr; \
             pstade_contract_detail_postcondition_label: \
                 if (!!pstade_contract_detail_result_ptr) { \
                     ResultT result = *pstade_contract_detail_result_ptr; \
-                    pstade::unused(result); \
+                    ::pstade::unused(result); \
                     PSTADE_POSTCONDITION_evaluation_non_void \
         /**/
 
@@ -302,7 +302,7 @@ namespace contract_detail {
     // class invariant
     //
     #define PSTADE_CLASS_INVARIANT(As) \
-        friend class pstade::contract_access; \
+        friend class ::pstade::contract_access; \
         void pstade_invariant() const \
         { \
             PSTADE_CONTRACT_expand(As) \
@@ -311,17 +311,17 @@ namespace contract_detail {
 
     #define PSTADE_PUBLIC_PRECONDITION(As) \
         PSTADE_CONTRACT_try_catch(As, "public precondition is broken.") \
-        pstade::contract_detail::precondition_evaluator pstade_contract_detail_precondition_evaluator_of(*this, true,  true); \
+        ::pstade::contract_detail::precondition_evaluator pstade_contract_detail_precondition_evaluator_of(*this, true,  true); \
     /**/
 
     #define PSTADE_CONSTRUCTOR_PRECONDITION(As) \
         PSTADE_CONTRACT_try_catch(As, "constructor precondition is broken.") \
-        pstade::contract_detail::precondition_evaluator pstade_contract_detail_precondition_evaluator_of(*this, false, true); \
+        ::pstade::contract_detail::precondition_evaluator pstade_contract_detail_precondition_evaluator_of(*this, false, true); \
     /**/
 
     #define PSTADE_DESTRUCTOR_PRECONDITION(As) \
         PSTADE_CONTRACT_try_catch(As, "destructor precondition is broken.") \
-        pstade::contract_detail::precondition_evaluator pstade_contract_detail_precondition_evaluator_of(*this, true, false); \
+        ::pstade::contract_detail::precondition_evaluator pstade_contract_detail_precondition_evaluator_of(*this, true, false); \
     /**/
 
     // block invariant
@@ -333,7 +333,7 @@ namespace contract_detail {
     // oldof
     //
     #define PSTADE_COPY_OLDOF(X, Id) \
-        pstade::contract_detail::any_old Id(X); \
+        ::pstade::contract_detail::any_old Id(X); \
     /**/
 
     // helper
@@ -341,7 +341,7 @@ namespace contract_detail {
     #define PSTADE_CONTRACT_try_catch(As, Msg) \
         try { \
             PSTADE_CONTRACT_expand(As) \
-            pstade::contract_detail::suppress_unreachable_code_warning(); \
+            ::pstade::contract_detail::suppress_unreachable_code_warning(); \
         } \
         catch (...) { \
             BOOST_ASSERT(Msg && false); \

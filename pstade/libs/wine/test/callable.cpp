@@ -160,6 +160,23 @@ namespace boost {
 }
 
 
+struct error_msg_check :
+    pstade::callable<error_msg_check>
+{
+    template< class Myself, class A0 >
+    struct apply
+    {
+        typedef int type;
+    };
+
+    template< class Result, class A0 >
+    Result call(A0& a0) const
+    {
+        return 1;
+    }
+};
+
+
 
 void test()
 {
@@ -201,6 +218,12 @@ void test()
         boost::result_of<op_hoge<int, int>()>::type x = foo();
         BOOST_CHECK( x == '0' );
     }
+
+#if 0
+    {
+        error_msg_check()();
+    }
+#endif
 }
 
 

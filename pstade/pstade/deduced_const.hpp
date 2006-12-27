@@ -27,7 +27,7 @@
     #include <boost/type_traits/add_const.hpp>
 
     #define PSTADE_DEDUCED_CONST(T) \
-        typename boost::add_const< T >::type \
+        typename ::boost::add_const< T >::type \
     /**/
 
 #else

@@ -42,7 +42,7 @@ namespace equals_detail {
     // Question:
     // Boost doesn't have this overload. Faster or slower?
     template< class Range1, class Range2, class BinaryPred >
-    bool aux(Range1 const& rng1, Range2 const& rng2, BinaryPred pred,
+    bool aux(Range1& rng1, Range2& rng2, BinaryPred& pred,
         boost::random_access_traversal_tag)
     {
         if (oven::distance(rng1) != oven::distance(rng2))
@@ -53,11 +53,11 @@ namespace equals_detail {
 
 
     template< class Range1, class Range2, class BinaryPred >
-    bool aux(Range1 const& rng1, Range2 const& rng2, BinaryPred pred,
+    bool aux(Range1& rng1, Range2& rng2, BinaryPred& pred,
         boost::single_pass_traversal_tag)
     {
-        typedef typename range_iterator<PSTADE_DEDUCED_CONST(Range1)>::type iter1_t;
-        typedef typename range_iterator<PSTADE_DEDUCED_CONST(Range2)>::type iter2_t;
+        typedef typename range_iterator<Range1>::type iter1_t;
+        typedef typename range_iterator<Range2>::type iter2_t;
 
         iter1_t it1 = boost::begin(rng1), last1 = boost::end(rng1);
         iter2_t it2 = boost::begin(rng2), last2 = boost::end(rng2);

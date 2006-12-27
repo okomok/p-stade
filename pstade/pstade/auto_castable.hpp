@@ -82,7 +82,7 @@ namespace pstade {
 
     #define PSTADE_AUTO_CASTABLE(Object, CastFun) \
         typedef \
-            boost::result_of<pstade::op_auto_castable( PSTADE_UNPARENTHESIZE(CastFun) )>::type \
+            ::boost::result_of< ::pstade::op_auto_castable( PSTADE_UNPARENTHESIZE(CastFun) ) >::type \
         BOOST_PP_CAT(op_, Object); \
         \
         PSTADE_CONSTANT( Object, (BOOST_PP_CAT(op_, Object)) ) \

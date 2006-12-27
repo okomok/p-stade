@@ -56,7 +56,7 @@
 #include <pstade/constant.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/pass_by.hpp>
-#include "./detail/forward.hpp"
+#include "./detail/range_based.hpp"
 #include "./range_difference.hpp"
 #include "./range_iterator.hpp"
 
@@ -67,12 +67,12 @@ namespace pstade { namespace oven {
 PSTADE_ADL_BARRIER(algorithm) {
 
 
-    // Non-Modifying Sequence Operations
+// Non-modifying sequence operations
 
 
     // for_each
 
-    PSTADE_OVEN_DETAIL_FORWARD(for_each, std::for_each, (pass_by_value<A0>), (1))
+    PSTADE_OVEN_DETAIL_RANGE_BASED(for_each, std::for_each, (pass_by_value<A0>), (1))
 
 
     // find
@@ -80,21 +80,21 @@ PSTADE_ADL_BARRIER(algorithm) {
     struct op_find :
         callable<op_find>
     {
-        template< class Myself, class Range, class Val >
+        template< class Myself, class Range, class Value >
         struct apply :
             range_iterator<Range>
         { };
 
-        template< class Result, class Range, class Val >
-        Result call(Range& rng, Val& val,
+        template< class Result, class Range, class Value >
+        Result call(Range& rng, Value& val,
             // GCC fails if 'enable_if' is placed on result type. 
             typename enable_if< apple::has_find<Range> >::type = 0) const
         {
             return rng.find(val);
         }
 
-        template< class Result, class Range, class Val >
-        Result call(Range& rng, Val& val,
+        template< class Result, class Range, class Value >
+        Result call(Range& rng, Value& val,
             typename disable_if<apple::has_find<Range> >::type = 0) const
         {
             return std::find(boost::begin(rng), boost::end(rng), val);
@@ -106,24 +106,24 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     // find_if
 
-    PSTADE_OVEN_DETAIL_FORWARD(find_if, std::find_if, (range_iterator<Range>), (1))
+    PSTADE_OVEN_DETAIL_RANGE_BASED(find_if, std::find_if, (range_iterator<Range>), (1))
 
 
     // find_end/find_first_of
 
-    PSTADE_OVEN_DETAIL_FORWARD_BINARY(find_end,      std::find_end,      (range_iterator<Range1>), (0)(1))
-    PSTADE_OVEN_DETAIL_FORWARD_BINARY(find_first_of, std::find_first_of, (range_iterator<Range1>), (0)(1))
+    PSTADE_OVEN_DETAIL_RANGE_BASED_BINARY(find_end,      std::find_end,      (range_iterator<Range1>), (0)(1))
+    PSTADE_OVEN_DETAIL_RANGE_BASED_BINARY(find_first_of, std::find_first_of, (range_iterator<Range1>), (0)(1))
 
 
     // adjacent_find
 
-    PSTADE_OVEN_DETAIL_FORWARD(adjacent_find, std::adjacent_find, (range_iterator<Range>), (0)(1))
+    PSTADE_OVEN_DETAIL_RANGE_BASED(adjacent_find, std::adjacent_find, (range_iterator<Range>), (0)(1))
 
 
     // count(_if)
 
-    PSTADE_OVEN_DETAIL_FORWARD(count,    std::count,    (range_difference<Range>), (1))
-    PSTADE_OVEN_DETAIL_FORWARD(count_if, std::count_if, (range_difference<Range>), (1))
+    PSTADE_OVEN_DETAIL_RANGE_BASED(count,    std::count,    (range_difference<Range>), (1))
+    PSTADE_OVEN_DETAIL_RANGE_BASED(count_if, std::count_if, (range_difference<Range>), (1))
 
 
     // mismatch
@@ -139,26 +139,26 @@ PSTADE_ADL_BARRIER(algorithm) {
         type;
     };
 
-    PSTADE_OVEN_DETAIL_FORWARD(mismatch, std::mismatch, (detail_mismatch_result<Range, A0>), (1)(2))
+    PSTADE_OVEN_DETAIL_RANGE_BASED(mismatch, std::mismatch, (detail_mismatch_result<Range, A0>), (1)(2))
 
 
     // equal
 
-    PSTADE_OVEN_DETAIL_FORWARD(equal, std::equal, (boost::mpl::identity<bool>), (1)(2))
+    PSTADE_OVEN_DETAIL_RANGE_BASED(equal, std::equal, (boost::mpl::identity<bool>), (1)(2))
 
 
     // search
 
-    PSTADE_OVEN_DETAIL_FORWARD_BINARY(search, std::search, (range_iterator<Range1>), (0)(1))
+    PSTADE_OVEN_DETAIL_RANGE_BASED_BINARY(search, std::search, (range_iterator<Range1>), (0)(1))
 
 
-    // Modifying Sequence Operations
+// Mutating sequence operations
 
 
     // copy(_backward)
 
-    PSTADE_OVEN_DETAIL_FORWARD(copy,          std::copy,          (pass_by_value<A0>), (1))
-    PSTADE_OVEN_DETAIL_FORWARD(copy_backward, std::copy_backward, (pass_by_value<A0>), (1))
+    PSTADE_OVEN_DETAIL_RANGE_BASED(copy,          std::copy,          (pass_by_value<A0>), (1))
+    PSTADE_OVEN_DETAIL_RANGE_BASED(copy_backward, std::copy_backward, (pass_by_value<A0>), (1))
 
 
     // transform
@@ -166,26 +166,26 @@ PSTADE_ADL_BARRIER(algorithm) {
     struct op_transform :
         callable<op_transform>
     {
-        template< class Myself, class Range, class InIter, class OutIter, class BinOp = void >
+        template< class Myself, class Range, class InputIter, class OutputIter, class BinaryOp = void >
         struct apply :
-            pass_by_value<OutIter>
+            pass_by_value<OutputIter>
         { };
 
-        template< class Result, class Range, class InIter, class OutIter, class BinOp >
-        Result call(Range& rng, InIter& first2, OutIter& out, BinOp& fun) const
+        template< class Result, class Range, class InputIter, class OutputIter, class BinaryOp >
+        Result call(Range& rng, InputIter& first2, OutputIter& out, BinaryOp& op) const
         {
-            return std::transform(boost::begin(rng), boost::end(rng), first2, out, fun);
+            return std::transform(boost::begin(rng), boost::end(rng), first2, out, op);
         }
 
-        template< class Myself, class Range, class OutIter, class UnaryOp >
-        struct apply<Myself, Range, OutIter, UnaryOp> :
-            pass_by_value<OutIter>
+        template< class Myself, class Range, class OutputIter, class UnaryOp >
+        struct apply<Myself, Range, OutputIter, UnaryOp> :
+            pass_by_value<OutputIter>
         { };
 
-        template< class Result, class Range, class OutIter, class UnaryOp >
-        Result call(Range& rng, OutIter& out, UnaryOp& fun) const
+        template< class Result, class Range, class OutputIter, class UnaryOp >
+        Result call(Range& rng, OutputIter& out, UnaryOp& op) const
         {
-            return std::transform(boost::begin(rng), boost::end(rng), out, fun);
+            return std::transform(boost::begin(rng), boost::end(rng), out, op);
         }
     };
 
@@ -194,15 +194,15 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     // replace(_if)/replace_copy(_if)
 
-    PSTADE_OVEN_DETAIL_FORWARD(replace,         std::replace,         (boost::mpl::identity<void>), (2)) 
-    PSTADE_OVEN_DETAIL_FORWARD(replace_if,      std::replace_if,      (boost::mpl::identity<void>), (2))
-    PSTADE_OVEN_DETAIL_FORWARD(replace_copy,    std::replace_copy,    (pass_by_value<A0>), (3))
-    PSTADE_OVEN_DETAIL_FORWARD(replace_copy_if, std::replace_copy_if, (pass_by_value<A0>), (3))
+    PSTADE_OVEN_DETAIL_RANGE_BASED(replace,         std::replace,         (boost::mpl::identity<void>), (2)) 
+    PSTADE_OVEN_DETAIL_RANGE_BASED(replace_if,      std::replace_if,      (boost::mpl::identity<void>), (2))
+    PSTADE_OVEN_DETAIL_RANGE_BASED(replace_copy,    std::replace_copy,    (pass_by_value<A0>), (3))
+    PSTADE_OVEN_DETAIL_RANGE_BASED(replace_copy_if, std::replace_copy_if, (pass_by_value<A0>), (3))
 
 
     // fill
 
-    PSTADE_OVEN_DETAIL_FORWARD(fill, std::fill, (boost::mpl::identity<void>), (1))
+    PSTADE_OVEN_DETAIL_RANGE_BASED(fill, std::fill, (boost::mpl::identity<void>), (1))
 
 
     // fill_n
@@ -233,7 +233,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     // generate
 
-    PSTADE_OVEN_DETAIL_FORWARD(generate, std::generate, (boost::mpl::identity<void>), (1))
+    PSTADE_OVEN_DETAIL_RANGE_BASED(generate, std::generate, (boost::mpl::identity<void>), (1))
 
     
     // generate_n
@@ -246,21 +246,21 @@ PSTADE_ADL_BARRIER(algorithm) {
     struct op_remove :
         callable<op_remove>
     {
-        template< class Myself, class Range, class Val >
+        template< class Myself, class Range, class Value >
         struct apply :
             range_iterator<Range>
         { };
 
-        template< class Result, class Range, class Val >
-        Result call(Range& rng, Val& val,
+        template< class Result, class Range, class Value >
+        Result call(Range& rng, Value& val,
             typename enable_if< apple::has_remove<Range> >::type = 0) const
         {
             rng.remove(val);
             return boost::end(rng);
         }
 
-        template< class Result, class Range, class Val >
-        Result call(Range& rng, Val& val,
+        template< class Result, class Range, class Value >
+        Result call(Range& rng, Value& val,
             typename disable_if<apple::has_remove<Range> >::type = 0) const
         {
             return std::remove(boost::begin(rng), boost::end(rng), val);
@@ -275,21 +275,21 @@ PSTADE_ADL_BARRIER(algorithm) {
     struct op_remove_if :
         callable<op_remove_if>
     {
-        template< class Myself, class Range, class Pred >
+        template< class Myself, class Range, class UnaryPred >
         struct apply :
             range_iterator<Range>
         { };
 
-        template< class Result, class Range, class Pred >
-        Result call(Range& rng, Pred& pred,
+        template< class Result, class Range, class UnaryPred >
+        Result call(Range& rng, UnaryPred& pred,
             typename enable_if< apple::has_remove_if<Range> >::type = 0) const
         {
             rng.remove_if(pred);
             return boost::end(rng);
         }
 
-        template< class Result, class Range, class Pred >
-        Result call(Range& rng, Pred& pred,
+        template< class Result, class Range, class UnaryPred >
+        Result call(Range& rng, UnaryPred& pred,
             typename disable_if<apple::has_remove_if<Range> >::type = 0) const
         {
             return std::remove_if(boost::begin(rng), boost::end(rng), pred);
@@ -301,8 +301,8 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     // remove_copy(_if)
 
-    PSTADE_OVEN_DETAIL_FORWARD(remove_copy,    std::remove_copy,    (pass_by_value<A0>), (2))
-    PSTADE_OVEN_DETAIL_FORWARD(remove_copy_if, std::remove_copy_if, (pass_by_value<A0>), (2))
+    PSTADE_OVEN_DETAIL_RANGE_BASED(remove_copy,    std::remove_copy,    (pass_by_value<A0>), (2))
+    PSTADE_OVEN_DETAIL_RANGE_BASED(remove_copy_if, std::remove_copy_if, (pass_by_value<A0>), (2))
 
 
     // unique
@@ -310,21 +310,21 @@ PSTADE_ADL_BARRIER(algorithm) {
     struct op_unique :
         callable<op_unique>
     {
-        template< class Myself, class Range, class Pred = void >
+        template< class Myself, class Range, class BinaryPred = void >
         struct apply :
             range_iterator<Range>
         { };
 
-        template< class Result, class Range, class Pred >
-        Result call(Range& rng, Pred& pred,
+        template< class Result, class Range, class BinaryPred >
+        Result call(Range& rng, BinaryPred& pred,
             typename enable_if< apple::has_unique<Range> >::type = 0) const
         {
             rng.unique(pred);
             return boost::end(rng);
         }
 
-        template< class Result, class Range, class Pred >
-        Result call(Range& rng, Pred& pred,
+        template< class Result, class Range, class BinaryPred >
+        Result call(Range& rng, BinaryPred& pred,
             typename disable_if<apple::has_unique<Range> >::type = 0) const
         {
             return std::unique(boost::begin(rng), boost::end(rng), pred);
@@ -351,7 +351,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     // unique_copy
 
-    PSTADE_OVEN_DETAIL_FORWARD(unique_copy, std::unique_copy, (pass_by_value<A0>), (1)(2))
+    PSTADE_OVEN_DETAIL_RANGE_BASED(unique_copy, std::unique_copy, (pass_by_value<A0>), (1)(2))
 
 
     // reverse
@@ -385,7 +385,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     // reverse_copy
 
-    PSTADE_OVEN_DETAIL_FORWARD(reverse_copy, std::reverse_copy, (pass_by_value<A0>), (1))
+    PSTADE_OVEN_DETAIL_RANGE_BASED(reverse_copy, std::reverse_copy, (pass_by_value<A0>), (1))
 
 
     // rotate
@@ -393,14 +393,14 @@ PSTADE_ADL_BARRIER(algorithm) {
     struct op_rotate :
         callable<op_rotate>
     {
-        template< class Myself, class Range, class Middle >
+        template< class Myself, class Range, class Iterator >
         struct apply
         {
             typedef void type;
         };
 
-        template< class Result, class Range >
-        void call(Range& rng, typename range_iterator<Range>::type const& middle) const
+        template< class Result, class Range, class Iterator >
+        void call(Range& rng, Iterator& middle) const
         {
             std::rotate(boost::begin(rng), middle, boost::end(rng));
         }
@@ -414,13 +414,13 @@ PSTADE_ADL_BARRIER(algorithm) {
     struct op_rotate_copy :
         callable<op_rotate_copy>
     {
-        template< class Myself, class Range, class Middle, class OutIter >
+        template< class Myself, class Range, class Iterator, class OutputIter >
         struct apply :
-            pass_by_value<OutIter>
+            pass_by_value<OutputIter>
         { };
 
-        template< class Result, class Range, class OutIter >
-        Result call(Range& rng, typename range_iterator<Range>::type const& middle, OutIter& out) const
+        template< class Result, class Range, class Iterator, class OutputIter >
+        Result call(Range& rng, Iterator& middle, OutputIter& out) const
         {
             return std::rotate_copy(boost::begin(rng), middle, boost::end(rng), out);
         }
@@ -431,13 +431,16 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     // random_shuffle
 
-    PSTADE_OVEN_DETAIL_FORWARD(random_shuffle, std::random_shuffle, (boost::mpl::identity<void>), (0)(1))
+    PSTADE_OVEN_DETAIL_RANGE_BASED(random_shuffle, std::random_shuffle, (boost::mpl::identity<void>), (0)(1))
 
 
     // (stable_)partition
 
-    PSTADE_OVEN_DETAIL_FORWARD(partition,        std::partition,        (range_iterator<Range>), (1))
-    PSTADE_OVEN_DETAIL_FORWARD(stable_partition, std::stable_partition, (range_iterator<Range>), (1))
+    PSTADE_OVEN_DETAIL_RANGE_BASED(partition,        std::partition,        (range_iterator<Range>), (1))
+    PSTADE_OVEN_DETAIL_RANGE_BASED(stable_partition, std::stable_partition, (range_iterator<Range>), (1))
+
+
+// Sorting and related operations
 
 
     // sort
@@ -445,24 +448,24 @@ PSTADE_ADL_BARRIER(algorithm) {
     struct op_sort :
         callable<op_sort>
     {
-        template< class Myself, class Range, class Cmp = void >
+        template< class Myself, class Range, class Compare = void >
         struct apply
         {
             typedef void type;
         };
 
-        template< class Result, class Range, class Cmp >
-        void call(Range& rng, Cmp& cmp,
+        template< class Result, class Range, class Compare >
+        void call(Range& rng, Compare& comp,
             typename enable_if< apple::has_sort<Range> >::type = 0) const
         {
-            rng.sort(cmp);
+            rng.sort(comp);
         }
 
-        template< class Result, class Range, class Cmp >
-        void call(Range& rng, Cmp& cmp,
+        template< class Result, class Range, class Compare >
+        void call(Range& rng, Compare& comp,
             typename disable_if<apple::has_sort<Range> >::type = 0) const
         {
-            std::sort(boost::begin(rng), boost::end(rng), cmp);
+            std::sort(boost::begin(rng), boost::end(rng), comp);
         }
 
         template< class Result, class Range >
@@ -485,7 +488,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     // stable_sort
 
-    PSTADE_OVEN_DETAIL_FORWARD(stable_sort, std::stable_sort, (boost::mpl::identity<void>), (0)(1))
+    PSTADE_OVEN_DETAIL_RANGE_BASED(stable_sort, std::stable_sort, (boost::mpl::identity<void>), (0)(1))
 
 
     // partial_sort
@@ -522,7 +525,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     // partial_sort_copy
 
-    PSTADE_OVEN_DETAIL_FORWARD_BINARY(partial_sort_copy, std::partial_sort_copy, (range_iterator<Range2>), (0)(1))
+    PSTADE_OVEN_DETAIL_RANGE_BASED_BINARY(partial_sort_copy, std::partial_sort_copy, (range_iterator<Range2>), (0)(1))
 
 
     // nth_element
@@ -585,7 +588,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     // binary_search
 
-    PSTADE_OVEN_DETAIL_FORWARD(binary_search, std::binary_search, (boost::mpl::identity<bool>), (1)(2))
+    PSTADE_OVEN_DETAIL_RANGE_BASED(binary_search, std::binary_search, (boost::mpl::identity<bool>), (1)(2))
 
 
     // inplace_merge
@@ -598,41 +601,41 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     // includes
 
-    PSTADE_OVEN_DETAIL_FORWARD_BINARY(includes, std::includes, (boost::mpl::identity<bool>), (0)(1))
+    PSTADE_OVEN_DETAIL_RANGE_BASED_BINARY(includes, std::includes, (boost::mpl::identity<bool>), (0)(1))
 
 
     // merge/set_xxx
 
-    PSTADE_OVEN_DETAIL_FORWARD_BINARY(merge,                    std::merge,                    (pass_by_value<A0>), (1)(2))
-    PSTADE_OVEN_DETAIL_FORWARD_BINARY(set_union,                std::set_union,                (pass_by_value<A0>), (1)(2))
-    PSTADE_OVEN_DETAIL_FORWARD_BINARY(set_intersection,         std::set_intersection,         (pass_by_value<A0>), (1)(2))
-    PSTADE_OVEN_DETAIL_FORWARD_BINARY(set_difference,           std::set_difference,           (pass_by_value<A0>), (1)(2))
-    PSTADE_OVEN_DETAIL_FORWARD_BINARY(set_symmetric_difference, std::set_symmetric_difference, (pass_by_value<A0>), (1)(2))
+    PSTADE_OVEN_DETAIL_RANGE_BASED_BINARY(merge,                    std::merge,                    (pass_by_value<A0>), (1)(2))
+    PSTADE_OVEN_DETAIL_RANGE_BASED_BINARY(set_union,                std::set_union,                (pass_by_value<A0>), (1)(2))
+    PSTADE_OVEN_DETAIL_RANGE_BASED_BINARY(set_intersection,         std::set_intersection,         (pass_by_value<A0>), (1)(2))
+    PSTADE_OVEN_DETAIL_RANGE_BASED_BINARY(set_difference,           std::set_difference,           (pass_by_value<A0>), (1)(2))
+    PSTADE_OVEN_DETAIL_RANGE_BASED_BINARY(set_symmetric_difference, std::set_symmetric_difference, (pass_by_value<A0>), (1)(2))
 
 
     // xxx_heap
 
-    PSTADE_OVEN_DETAIL_FORWARD(push_heap, std::push_heap, (boost::mpl::identity<void>), (0)(1))
-    PSTADE_OVEN_DETAIL_FORWARD(pop_heap,  std::pop_heap,  (boost::mpl::identity<void>), (0)(1))
-    PSTADE_OVEN_DETAIL_FORWARD(make_heap, std::make_heap, (boost::mpl::identity<void>), (0)(1))
-    PSTADE_OVEN_DETAIL_FORWARD(sort_heap, std::sort_heap, (boost::mpl::identity<void>), (0)(1))
+    PSTADE_OVEN_DETAIL_RANGE_BASED(push_heap, std::push_heap, (boost::mpl::identity<void>), (0)(1))
+    PSTADE_OVEN_DETAIL_RANGE_BASED(pop_heap,  std::pop_heap,  (boost::mpl::identity<void>), (0)(1))
+    PSTADE_OVEN_DETAIL_RANGE_BASED(make_heap, std::make_heap, (boost::mpl::identity<void>), (0)(1))
+    PSTADE_OVEN_DETAIL_RANGE_BASED(sort_heap, std::sort_heap, (boost::mpl::identity<void>), (0)(1))
 
 
     // min/max_element
 
-    PSTADE_OVEN_DETAIL_FORWARD(min_element, std::min_element, (range_iterator<Range>), (0)(1))
-    PSTADE_OVEN_DETAIL_FORWARD(max_element, std::max_element, (range_iterator<Range>), (0)(1))
+    PSTADE_OVEN_DETAIL_RANGE_BASED(min_element, std::min_element, (range_iterator<Range>), (0)(1))
+    PSTADE_OVEN_DETAIL_RANGE_BASED(max_element, std::max_element, (range_iterator<Range>), (0)(1))
 
 
     // lexicographical_compare
 
-    PSTADE_OVEN_DETAIL_FORWARD_BINARY(lexicographical_compare, std::lexicographical_compare, (boost::mpl::identity<bool>), (0)(1))
+    PSTADE_OVEN_DETAIL_RANGE_BASED_BINARY(lexicographical_compare, std::lexicographical_compare, (boost::mpl::identity<bool>), (0)(1))
 
 
     // next/prev_permutation
 
-    PSTADE_OVEN_DETAIL_FORWARD(next_permutation, std::next_permutation, (boost::mpl::identity<bool>), (0)(1))
-    PSTADE_OVEN_DETAIL_FORWARD(prev_permutation, std::prev_permutation, (boost::mpl::identity<bool>), (0)(1))
+    PSTADE_OVEN_DETAIL_RANGE_BASED(next_permutation, std::next_permutation, (boost::mpl::identity<bool>), (0)(1))
+    PSTADE_OVEN_DETAIL_RANGE_BASED(prev_permutation, std::prev_permutation, (boost::mpl::identity<bool>), (0)(1))
 
 
 } // ADL barrier

@@ -37,9 +37,9 @@
     /**/
 
     #define PSTADE_CHECK_MESSAGE(Expr, Msg) \
-        pstade::check( \
+        ::pstade::check( \
             Expr, \
-            pstade::check_detail::make_info(BOOST_PP_STRINGIZE(Expr), __FILE__, __LINE__, BOOST_CURRENT_FUNCTION, Msg) \
+            ::pstade::check_detail::make_info(BOOST_PP_STRINGIZE(Expr), __FILE__, __LINE__, BOOST_CURRENT_FUNCTION, Msg) \
         ) \
     /**/
 

@@ -1180,4 +1180,6 @@ Version 0.92.1
 Version 0.92.2
 ^^^^^^^^^^^^^^
 - Renamed ``tie`` to ``pack``.
+- Added ``boost::result_of`` support to range-based algorithms.
+
 

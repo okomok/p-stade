@@ -188,7 +188,7 @@ namespace pstade {
 
 
     #define PSTADE_PIPABLE(Object, Function) \
-        PSTADE_CONSTANT( Object, (boost::result_of<pstade::op_pipable(Function)>::type) ) \
+        PSTADE_CONSTANT( Object, (::boost::result_of< ::pstade::op_pipable(Function) >::type) ) \
     /**/
 
 

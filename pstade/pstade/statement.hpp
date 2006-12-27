@@ -24,14 +24,14 @@
     PSTADE_STATEMENT_define_init_type(Label, Statement) \
     namespace { \
         PSTADE_STATEMENT_init_type(Label) const volatile& PSTADE_STATEMENT_init(Label) \
-            = pstade::singleton< PSTADE_STATEMENT_init_type(Label) >::instance; \
+            = ::pstade::singleton< PSTADE_STATEMENT_init_type(Label) >::instance; \
     } \
 /**/
 
 
 #define PSTADE_STATEMENT_define_init_type(Label, Statement) \
     struct PSTADE_STATEMENT_init_type(Label) : \
-        private boost::noncopyable \
+        private ::boost::noncopyable \
     { \
         PSTADE_STATEMENT_init_type(Label)() \
         { \

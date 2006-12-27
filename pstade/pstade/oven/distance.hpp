@@ -21,8 +21,8 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/adl_barrier.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
-#include <pstade/lambda_sig.hpp>
 #include "./concepts.hpp"
 #include "./range_difference.hpp"
 #include "./range_traversal.hpp"
@@ -36,16 +36,16 @@ namespace distance_detail {
 
     // Note:
     // It is possible for an iterator to be marked as RandomAccessTraversal
-    // but model InputIterator, which may trigger a slower 'std::distance',
+    // but to model InputIterator, which may trigger a slower 'std::distance',
     // because STL doesn't know the traversal concept yet. So hook it!
     template< class Result, class Range > inline
-    Result aux(Range const& rng, boost::random_access_traversal_tag)
+    Result aux(Range& rng, boost::random_access_traversal_tag)
     {
         return boost::end(rng) - boost::begin(rng);
     }
 
     template< class Result, class Range > inline
-    Result aux(Range const& rng, boost::single_pass_traversal_tag)
+    Result aux(Range& rng, boost::single_pass_traversal_tag)
     {
         return std::distance(boost::begin(rng), boost::end(rng));
     }
@@ -65,24 +65,20 @@ namespace distance_detail {
 
 
 struct op_distance :
-    lambda_sig
+    callable<op_distance>
 {
-    template< class Signature >
-    struct result;
-
-    template< class Self, class Range >
-    struct result<Self(Range)> :
+    template< class Myself, class Range >
+    struct apply :
         range_difference<Range>
     { };
 
-    template< class Range >
+    template< class Result, class Range >
     PSTADE_CONCEPT_WHERE(
         ((SinglePass<Range>)),
-    (typename range_difference<Range>::type)) operator()(Range const& rng) const
+    (Result)) call(Range& rng) const
     {
-        typedef typename range_difference<Range>::type result_t;
         typedef typename range_traversal<Range>::type trv_t;
-        return distance_detail::assert_reachable( distance_detail::aux<result_t>(rng, trv_t()) );
+        return distance_detail::assert_reachable( distance_detail::aux<Result>(rng, trv_t()) );
     }
 };
 

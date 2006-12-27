@@ -32,23 +32,23 @@
     struct BOOST_PP_CAT(detail_is_, Trait) /* 'boost::type' needs this. */ \
     { \
         static bool const value = \
-            sizeof(pstade::yes) \
-            == sizeof( BOOST_PP_CAT(Prefix, _is_)(Trait(), boost::type<T>()) ); \
+            sizeof(::pstade::yes) \
+            == sizeof( BOOST_PP_CAT(Prefix, _is_)(Trait(), ::boost::type<T>()) ); \
     }; \
     \
     template< class T > \
     struct BOOST_PP_CAT(is_, Trait) : \
-        boost::mpl::bool_< BOOST_PP_CAT(detail_is_, Trait)<T>::value > \
+        ::boost::mpl::bool_< BOOST_PP_CAT(detail_is_, Trait)<T>::value > \
     { }; \
     \
     template< class T, class Base = boost::mpl::empty_base > \
     struct BOOST_PP_CAT(as_, Trait) \
     { \
         friend /* needs definition to suppress GCC waring. */ \
-        pstade::yes \
-        BOOST_PP_CAT(Prefix, _is_)(Trait, boost::type<T>) \
+        ::pstade::yes \
+        BOOST_PP_CAT(Prefix, _is_)(Trait, ::boost::type<T>) \
         { \
-            return pstade::yes(); \
+            return ::pstade::yes(); \
         } \
     }; \
 /**/

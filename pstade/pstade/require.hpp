@@ -38,18 +38,18 @@
 #if !defined(NDEBUG) || defined(PSTADE_REQUIRE_DEBUG)
 
     #define PSTADE_REQUIRE_MESSAGE(Expr, Msg) \
-        pstade::require( \
+        ::pstade::require( \
             Expr, \
-            pstade::require_detail::make_info(BOOST_PP_STRINGIZE(Expr), __FILE__, __LINE__, BOOST_CURRENT_FUNCTION, Msg) \
+            ::pstade::require_detail::make_info(BOOST_PP_STRINGIZE(Expr), __FILE__, __LINE__, BOOST_CURRENT_FUNCTION, Msg) \
         ) \
     /**/
 
 #else
 
     #define PSTADE_REQUIRE_MESSAGE(Expr, Msg) \
-        pstade::require( \
+        ::pstade::require( \
             Expr, \
-            pstade::require_detail::make_info("", __FILE__, __LINE__, "", Msg) \
+            ::pstade::require_detail::make_info("", __FILE__, __LINE__, "", Msg) \
         ) \
     /**/
 

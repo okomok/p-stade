@@ -196,8 +196,7 @@ PSTADE_ADL_BARRIER(functional) {
     // arithmetic
     //
 
-    struct functional_failed_to_deduce_arithmetic_operation_result_type
-    { };
+    struct functional_failed_to_deduce_arithmetic_operation_result_type;
 
     namespace functional_detail {
 

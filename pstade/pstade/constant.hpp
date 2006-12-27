@@ -21,7 +21,7 @@
     // 'stdafx.h' sometimes needs 'static'.
     #define PSTADE_CONSTANT_aux(O, T) \
         namespace { \
-            static T const& O = pstade::singleton< T >::instance; \
+            static T const& O = ::pstade::singleton< T >::instance; \
         } \
     /**/
 

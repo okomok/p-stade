@@ -132,7 +132,7 @@
 
 
     #define PSTADE_INSTANCE_define_v(Type) \
-        boost::value_initialized< Type > instance; \
+        ::boost::value_initialized< Type > instance; \
     /**/
 
 
