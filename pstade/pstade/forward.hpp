@@ -205,7 +205,7 @@ namespace pstade {
 } // namespace pstade
 
 
-PSTADE_CALLABLE_NULLARY_RESULT_TEMPLATE((pstade)(forward_detail)(op_result), 2)
+PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE((pstade)(forward_detail)(op_result), 2)
 
 
 #endif

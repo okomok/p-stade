@@ -87,8 +87,8 @@ namespace pstade_oven_extension {
 } // namespace pstade_oven_extension
 
 
-PSTADE_OVEN_EXTENSION_TYPE((WTL)(CString))
-PSTADE_OVEN_EXTENSION_TEMPLATE((WTL)(CSimpleStack), 1)
+PSTADE_OVEN_EXTENSION_OF_TYPE((WTL)(CString))
+PSTADE_OVEN_EXTENSION_OF_TEMPLATE((WTL)(CSimpleStack), 1)
 
 
 #endif

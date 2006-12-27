@@ -189,11 +189,11 @@ namespace pstade {
 // if a functor has nested 'result_type',
 
 
-#define PSTADE_CALLABLE_NULLARY_RESULT_TYPE(NameSeq) \
-    PSTADE_CALLABLE_NULLARY_RESULT_TYPE_result_of(NameSeq) \
+#define PSTADE_CALLABLE_NULLARY_RESULT_OF_TYPE(NameSeq) \
+    PSTADE_CALLABLE_NULLARY_RESULT_OF_TYPE_aux(NameSeq) \
 /**/
 
-#define PSTADE_CALLABLE_NULLARY_RESULT_TYPE_result_of(NameSeq) \
+#define PSTADE_CALLABLE_NULLARY_RESULT_OF_TYPE_aux(NameSeq) \
     namespace boost { \
         \
         template< > \
@@ -207,25 +207,15 @@ namespace pstade {
             : result_of< PSTADE_PP_FULLNAME(NameSeq)(void) > \
         { }; \
         \
-        template< > \
-        struct result_of< PSTADE_PP_FULLNAME(NameSeq) volatile(void) > \
-            : result_of< PSTADE_PP_FULLNAME(NameSeq)(void) > \
-        { }; \
-        \
-        template< > \
-        struct result_of< PSTADE_PP_FULLNAME(NameSeq) const volatile(void) > \
-            : result_of< PSTADE_PP_FULLNAME(NameSeq)(void) > \
-        { }; \
-        \
     } \
 /**/
 
 
-#define PSTADE_CALLABLE_NULLARY_RESULT_TEMPLATE(NameSeq, ParamSeqOrCount) \
-    PSTADE_CALLABLE_NULLARY_RESULT_TEMPLATE_result_of(NameSeq, PSTADE_PP_TO_TEMPLATE_PARAM_SEQ(ParamSeqOrCount)) \
+#define PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE(NameSeq, ParamSeqOrCount) \
+    PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE_aux(NameSeq, PSTADE_PP_TO_TEMPLATE_PARAM_SEQ(ParamSeqOrCount)) \
 /**/
 
-#define PSTADE_CALLABLE_NULLARY_RESULT_TEMPLATE_result_of(NameSeq, ParamSeq) \
+#define PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE_aux(NameSeq, ParamSeq) \
     namespace boost { \
         \
         template< PSTADE_PP_TO_TEMPLATE_PARAMS(ParamSeq) > \
@@ -239,17 +229,7 @@ namespace pstade {
             : result_of< PSTADE_PP_FULLNAME(NameSeq)< PSTADE_PP_TO_TEMPLATE_ARGS(ParamSeq) >(void) > \
         { }; \
         \
-        template< PSTADE_PP_TO_TEMPLATE_PARAMS(ParamSeq) > \
-        struct result_of< PSTADE_PP_FULLNAME(NameSeq)< PSTADE_PP_TO_TEMPLATE_ARGS(ParamSeq) > volatile(void) > \
-            : result_of< PSTADE_PP_FULLNAME(NameSeq)< PSTADE_PP_TO_TEMPLATE_ARGS(ParamSeq) >(void) > \
-        { }; \
-        \
-        template< PSTADE_PP_TO_TEMPLATE_PARAMS(ParamSeq) > \
-        struct result_of< PSTADE_PP_FULLNAME(NameSeq)< PSTADE_PP_TO_TEMPLATE_ARGS(ParamSeq) > const volatile(void) > \
-            : result_of< PSTADE_PP_FULLNAME(NameSeq)< PSTADE_PP_TO_TEMPLATE_ARGS(ParamSeq) >(void) > \
-        { }; \
-        \
-    } \
+     } \
 /**/
 
 

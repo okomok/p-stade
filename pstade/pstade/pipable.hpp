@@ -212,7 +212,7 @@ namespace pstade {
 } // namespace pstade
 
 
-PSTADE_CALLABLE_NULLARY_RESULT_TEMPLATE((pstade)(pipable_detail)(pipe), 2)
+PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE((pstade)(pipable_detail)(pipe), 2)
 
 
 #endif

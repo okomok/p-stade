@@ -38,5 +38,5 @@ namespace pstade_oven_extension {
 
 } // namespace pstade_oven_extension
 
-PSTADE_OVEN_EXTENSION_TEMPLATE((Foo)(Pair), (class))
-// PSTADE_OVEN_EXTENSION_TEMPLATE((Foo)(Pair), 1) // also ok.
+PSTADE_OVEN_EXTENSION_OF_TEMPLATE((Foo)(Pair), (class))
+// PSTADE_OVEN_EXTENSION_OF_TEMPLATE((Foo)(Pair), 1) // also ok.

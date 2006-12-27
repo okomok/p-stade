@@ -152,7 +152,7 @@ namespace pstade_oven_extension {
 } // namespace pstade_oven_extension
 
 
-PSTADE_OVEN_EXTENSION_TEMPLATE((boost)(sub_match), 1)
+PSTADE_OVEN_EXTENSION_OF_TEMPLATE((boost)(sub_match), 1)
 
 
 #endif // !defined(PSTADE_OVEN_NO_BOOST_SUB_MATCH_RANGE_EXTENSION)

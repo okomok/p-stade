@@ -132,11 +132,11 @@ namespace pstade_oven_extension {
 }
 
 
-PSTADE_OVEN_EXTENSION_TYPE((mine)(container1))
-PSTADE_OVEN_EXTENSION_TEMPLATE((mine)(container2), 2)
-PSTADE_OVEN_EXTENSION_TYPE((mine)(inside)(container3))
+PSTADE_OVEN_EXTENSION_OF_TYPE((mine)(container1))
+PSTADE_OVEN_EXTENSION_OF_TEMPLATE((mine)(container2), 2)
+PSTADE_OVEN_EXTENSION_OF_TYPE((mine)(inside)(container3))
 
-PSTADE_OVEN_EXTENSION_TYPE((your_sequence))
+PSTADE_OVEN_EXTENSION_OF_TYPE((your_sequence))
 
 
 namespace Foo {
@@ -189,8 +189,8 @@ namespace pstade_oven_extension {
 
 } // namespace pstade_oven_extension
 
-PSTADE_OVEN_EXTENSION_TEMPLATE((Foo)(Pair), (class))
-// PSTADE_OVEN_EXTENSION_TEMPLATE((Foo)(Pair), 1) // also ok.
+PSTADE_OVEN_EXTENSION_OF_TEMPLATE((Foo)(Pair), (class))
+// PSTADE_OVEN_EXTENSION_OF_TEMPLATE((Foo)(Pair), 1) // also ok.
 
 
 void test()

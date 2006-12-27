@@ -23,7 +23,7 @@ namespace abc {
 template< class T >
 void foo(T x) 
 {
-    abc::bar(std::string(), x); // may be diagnosed or not?
+    abc::bar(std::string(), x); // may be diagnosed in 1st phase?
 }
 */
 

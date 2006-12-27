@@ -133,7 +133,7 @@ namespace pstade {
 } // namespace pstade
 
 
-PSTADE_CALLABLE_NULLARY_RESULT_TEMPLATE((pstade)(unfuse_detail)(op_result), 1)
+PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE((pstade)(unfuse_detail)(op_result), 1)
 
 
 #endif

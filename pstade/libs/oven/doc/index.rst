@@ -1053,9 +1053,9 @@ Also, ``Range`` has the second template parameter for ``pstade::enable_if``.
 
 
 - Header: ``<pstade/oven/extension.hpp>``
-- Valid expression1: ``PSTADE_OVEN_EXTENSION_TYPE(X)``
-- Valid expression2: ``PSTADE_OVEN_EXTENSION_TEMPLATE(X,N)``, where ``N`` is the number of template arguments. Only valid if all template arguments are typenames.
-- Valid expression3: ``PSTADE_OVEN_EXTENSION_TEMPLATE(X,S)``, where ``S`` is a sequence of template arguments. Must be used when integral or template template parameters are present.
+- Valid expression1: ``PSTADE_OVEN_EXTENSION_OF_TYPE(X)``
+- Valid expression2: ``PSTADE_OVEN_EXTENSION_OF_TEMPLATE(X,N)``, where ``N`` is the number of template arguments. Only valid if all template arguments are typenames.
+- Valid expression3: ``PSTADE_OVEN_EXTENSION_OF_TEMPLATE(X,S)``, where ``S`` is a sequence of template arguments. Must be used when integral or template template parameters are present.
 - Precondition: ``X`` is a Boost.Preprocessor Sequence of type name.
 
 
@@ -1181,5 +1181,5 @@ Version 0.92.2
 ^^^^^^^^^^^^^^
 - Renamed ``tie`` to ``pack``.
 - Added ``boost::result_of`` support to range-based algorithms.
-
+- Renamed `Extending Boost.Range`_ macros.
 

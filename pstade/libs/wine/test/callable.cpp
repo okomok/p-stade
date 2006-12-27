@@ -54,7 +54,7 @@ struct op_foo :
     }
 };
 
-PSTADE_CALLABLE_NULLARY_RESULT_TYPE((op_foo))
+PSTADE_CALLABLE_NULLARY_RESULT_OF_TYPE((op_foo))
 
 
 op_foo const foo = op_foo();
@@ -99,7 +99,7 @@ struct op_bar :
     }
 };
 
-PSTADE_CALLABLE_NULLARY_RESULT_TEMPLATE((op_bar), 2)
+PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE((op_bar), 2)
 
 
 struct dummy { };

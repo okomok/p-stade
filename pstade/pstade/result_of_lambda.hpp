@@ -24,7 +24,7 @@
 
 
 #include <boost/config.hpp> // BOOST_NESTED_TEMPLATE
-#include <boost/lambda/core.hpp> // placeholders
+#include <boost/lambda/core.hpp> // lambda_functor, placeholders
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
@@ -46,19 +46,8 @@ namespace boost {
         >
     { };
 
-    // 'lambda_functor' ignores cv-qualifier.
     template< class T >
-    struct result_of<lambda::lambda_functor<T> const (void)> :
-        result_of<lambda::lambda_functor<T>(void)>
-    { };
-
-    template< class T >
-    struct result_of<lambda::lambda_functor<T> volatile (void)> :
-        result_of<lambda::lambda_functor<T>(void)>
-    { };
-
-    template< class T >
-    struct result_of<lambda::lambda_functor<T> const volatile (void)> :
+    struct result_of<lambda::lambda_functor<T> const(void)> :
         result_of<lambda::lambda_functor<T>(void)>
     { };
 
@@ -108,17 +97,7 @@ namespace pstade {
     { };
 
     template< class T, BOOST_PP_ENUM_PARAMS(n, class A) >
-    struct result_of<lambda::lambda_functor<T> const (BOOST_PP_ENUM_PARAMS(n, A))> :
-        result_of<lambda::lambda_functor<T>(BOOST_PP_ENUM_PARAMS(n, A))>
-    { };
-
-    template< class T, BOOST_PP_ENUM_PARAMS(n, class A) >
-    struct result_of<lambda::lambda_functor<T> volatile (BOOST_PP_ENUM_PARAMS(n, A))> :
-        result_of<lambda::lambda_functor<T>(BOOST_PP_ENUM_PARAMS(n, A))>
-    { };
-
-    template< class T, BOOST_PP_ENUM_PARAMS(n, class A) >
-    struct result_of<lambda::lambda_functor<T> const volatile (BOOST_PP_ENUM_PARAMS(n, A))> :
+    struct result_of<lambda::lambda_functor<T> const(BOOST_PP_ENUM_PARAMS(n, A))> :
         result_of<lambda::lambda_functor<T>(BOOST_PP_ENUM_PARAMS(n, A))>
     { };
 
