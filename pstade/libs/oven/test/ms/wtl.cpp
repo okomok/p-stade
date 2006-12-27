@@ -23,7 +23,7 @@ extern WTL::CAppModule _Module;
 #include <string>
 #include <vector>
 #include <boost/range.hpp>
-#include <pstade/apple/atl/misc.hpp> // CString
+#include <pstade/apple/wtl/misc.hpp> // CString
 #include <pstade/apple/atl/win.hpp>
 #include <pstade/apple/wtl/ctrls.hpp>
 #include <pstade/apple/wtl/ctrlw.hpp> // CSimpleStack

@@ -13,7 +13,7 @@
 // Note:
 //
 // I'm not sure whether or not the following is well-formed.
-// So 'SizeSeq' must be specified.
+// So pass 'SizeSeq' for now.
 /*
 namespace abc {
     template< class T >
@@ -23,7 +23,7 @@ namespace abc {
 template< class T >
 void foo(T x) 
 {
-    abc::bar(std::string(), x); // may be diagnosed?
+    abc::bar(std::string(), x); // may be diagnosed or not?
 }
 */
 

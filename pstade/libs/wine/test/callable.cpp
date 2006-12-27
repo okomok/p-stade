@@ -30,6 +30,7 @@ struct op_foo :
     template< class Result, class A0, class A1 >
     Result call(A0& a0, A1& a1) const
     {
+        (void)a0; (void)a1;
         return "2";
     }
 
@@ -42,6 +43,7 @@ struct op_foo :
     template< class Result, class A0 >
     Result call(A0& a0) const
     {
+        (void)a0;
         return 1;
     }
 
@@ -73,6 +75,7 @@ struct op_bar :
     template< class Result, class A0, class A1 >
     Result call(A0& a0, A1& a1) const
     {
+        (void)a0; (void)a1;
         return "2";
     }
 
@@ -85,6 +88,7 @@ struct op_bar :
     template< class Result, class A0 >
     Result call(A0& a0) const
     {
+        (void)a0;
         return 1;
     }
 
@@ -128,6 +132,7 @@ struct op_hoge
     template< class A0 >
     typename result<op_hoge(A0)>::type operator()(A0 const& a0) const
     {
+        (void)a0;
         return 1;
     }
 
