@@ -11,6 +11,7 @@
 
 
 #include <boost/mpl/or.hpp>
+#include <pstade/enable_if.hpp>
 #include <pstade/remove_cvr.hpp>
 #include "./is_basic_string.hpp"
 #include "./is_deque.hpp"
@@ -21,7 +22,7 @@
 namespace pstade { namespace apple {
 
 
-template< class T, class = void >
+template< class T, class = enabler >
 struct is_sequence_impl :
     boost::mpl::or_<
         is_vector<T>,

@@ -18,6 +18,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/enable_if.hpp>
 #include <pstade/remove_cvr.hpp>
 #include "./is_list.hpp"
 
@@ -25,7 +26,7 @@
 namespace pstade { namespace apple {
 
 
-template< class T, class = void >
+template< class T, class = enabler >
 struct has_sort_impl :
     is_list<T>
 { };

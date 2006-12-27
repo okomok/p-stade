@@ -123,7 +123,7 @@ namespace pstade {
     // even if 'X<unspecified>' is well-formed. So 'NullaryResult' is required.
 
 
-    template< class Lambda, class NullaryResult = void >
+    template< class Lambda, class NullaryResult = boost::use_default >
     struct object_generator :
         callable< object_generator<Lambda, NullaryResult>, NullaryResult > 
     {

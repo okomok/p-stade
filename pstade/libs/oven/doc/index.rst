@@ -1048,7 +1048,7 @@ __ http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2049.pdf
 
 
 Note that the const overloads can be sometimes omitted like above.
-Also, ``Range`` has the second template parameter for ``boost::enable_if``.
+Also, ``Range`` has the second template parameter for ``pstade::enable_if``.
 ``boost::size`` is automatically extended by Oven.
 
 

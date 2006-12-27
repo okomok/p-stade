@@ -42,6 +42,7 @@
 #include <pstade/deduced_const.hpp>
 #include <pstade/lambda_sig.hpp>
 #include <pstade/preprocessor.hpp>
+#include <pstade/use_default.hpp>
 
 
 #if !defined(PSTADE_CALLABLE_MAX_ARITY)
@@ -68,22 +69,21 @@ namespace pstade {
     } // namespace callable_detail
 
 
-    template< class Derived >
-    struct callable_error_not_a_nullary_function;
+    template< class Function >
+    struct callable_error_non_nullary;
 
 
     PSTADE_ADL_BARRIER(callable) {
 
 
-    template<
-        class Derived,
-        class NullaryResult = callable_error_not_a_nullary_function<Derived>
-     >
+    template< class Derived, class NullaryResult = boost::use_default >
     struct callable :
         lambda_sig
     {
 
-        typedef NullaryResult nullary_result_type;
+        typedef typename
+            use_default_to< NullaryResult, callable_error_non_nullary<Derived> >::type
+        nullary_result_type;
 
 
         template< class Signature >
@@ -92,7 +92,7 @@ namespace pstade {
 
         // 0ary
 
-        NullaryResult // Never call 'boost::result_of', which requires 'Derived' to be complete here.
+        nullary_result_type // Never call 'boost::result_of', which requires 'Derived' to be complete.
         operator()() const
         {
             return derived().BOOST_NESTED_TEMPLATE call<

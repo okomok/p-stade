@@ -13,6 +13,7 @@
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/or.hpp>
 #include <boost/type_traits/is_array.hpp>
+#include <pstade/enable_if.hpp>
 #include <pstade/has_xxx.hpp>
 #include <pstade/remove_cvr.hpp>
 #include "./is_sequence.hpp"
@@ -33,7 +34,7 @@ namespace is_boost_range_detail {
 
 // specialize for your range
 //
-template< class T, class = void >
+template< class T, class = enabler >
 struct is_boost_range_impl :
     boost::mpl::or_<
         is_sequence<T>,

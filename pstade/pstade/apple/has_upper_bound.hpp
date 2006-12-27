@@ -19,6 +19,7 @@
 
 
 #include <boost/mpl/or.hpp>
+#include <pstade/enable_if.hpp>
 #include <pstade/remove_cvr.hpp>
 #include "./is_hash_map.hpp"
 #include "./is_hash_set.hpp"
@@ -29,7 +30,7 @@
 namespace pstade { namespace apple {
 
 
-template< class T, class = void >
+template< class T, class = enabler >
 struct has_upper_bound_impl :
     boost::mpl::or_<
         boost::mpl::or_<

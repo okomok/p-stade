@@ -16,6 +16,7 @@
 
 
 #include <boost/mpl/or.hpp>
+#include <pstade/enable_if.hpp>
 #include <pstade/remove_cvr.hpp>
 #include "./is_associative_container.hpp"
 #include "./is_sequence.hpp"
@@ -24,7 +25,7 @@
 namespace pstade { namespace apple {
 
 
-template< class T, class = void >
+template< class T, class = enabler >
 struct has_range_constructor_impl :
     boost::mpl::or_<
         is_sequence<T>,
