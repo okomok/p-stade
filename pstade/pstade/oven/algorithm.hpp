@@ -56,7 +56,7 @@
 #include <pstade/constant.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/pass_by.hpp>
-#include "./detail/algo_forms.hpp"
+#include "./detail/forward.hpp"
 #include "./range_difference.hpp"
 #include "./range_iterator.hpp"
 
@@ -72,7 +72,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     // for_each
 
-    PSTADE_OVEN_DETAIL_ALGO_FORM((1), for_each, (pass_by_value<A0>))
+    PSTADE_OVEN_DETAIL_FORWARD(for_each, std::for_each, (pass_by_value<A0>), (1))
 
 
     // find
@@ -106,24 +106,24 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     // find_if
 
-    PSTADE_OVEN_DETAIL_ALGO_FORM((1), find_if, (range_iterator<Range>))
+    PSTADE_OVEN_DETAIL_FORWARD(find_if, std::find_if, (range_iterator<Range>), (1))
 
 
-    // find_end/first_of
+    // find_end/find_first_of
 
-    PSTADE_OVEN_DETAIL_ALGO_FORM_BINARY((0)(1), find_end,      (range_iterator<Range1>))
-    PSTADE_OVEN_DETAIL_ALGO_FORM_BINARY((0)(1), find_first_of, (range_iterator<Range1>))
+    PSTADE_OVEN_DETAIL_FORWARD_BINARY(find_end,      std::find_end,      (range_iterator<Range1>), (0)(1))
+    PSTADE_OVEN_DETAIL_FORWARD_BINARY(find_first_of, std::find_first_of, (range_iterator<Range1>), (0)(1))
 
 
     // adjacent_find
 
-    PSTADE_OVEN_DETAIL_ALGO_FORM((0)(1), adjacent_find, (range_iterator<Range>))
+    PSTADE_OVEN_DETAIL_FORWARD(adjacent_find, std::adjacent_find, (range_iterator<Range>), (0)(1))
 
 
-    // count/count_if
+    // count(_if)
 
-    PSTADE_OVEN_DETAIL_ALGO_FORM((1), count,    (range_difference<Range>))
-    PSTADE_OVEN_DETAIL_ALGO_FORM((1), count_if, (range_difference<Range>))
+    PSTADE_OVEN_DETAIL_FORWARD(count,    std::count,    (range_difference<Range>), (1))
+    PSTADE_OVEN_DETAIL_FORWARD(count_if, std::count_if, (range_difference<Range>), (1))
 
 
     // mismatch
@@ -139,26 +139,26 @@ PSTADE_ADL_BARRIER(algorithm) {
         type;
     };
 
-    PSTADE_OVEN_DETAIL_ALGO_FORM((1)(2), mismatch, (detail_mismatch_result<Range, A0>))
+    PSTADE_OVEN_DETAIL_FORWARD(mismatch, std::mismatch, (detail_mismatch_result<Range, A0>), (1)(2))
 
 
     // equal
 
-    PSTADE_OVEN_DETAIL_ALGO_FORM((1)(2), equal, (boost::mpl::identity<bool>))
+    PSTADE_OVEN_DETAIL_FORWARD(equal, std::equal, (boost::mpl::identity<bool>), (1)(2))
 
 
     // search
 
-    PSTADE_OVEN_DETAIL_ALGO_FORM_BINARY((0)(1), search, (range_iterator<Range1>))
+    PSTADE_OVEN_DETAIL_FORWARD_BINARY(search, std::search, (range_iterator<Range1>), (0)(1))
 
 
     // Modifying Sequence Operations
 
 
-    // copy/copy_backward
+    // copy(_backward)
 
-    PSTADE_OVEN_DETAIL_ALGO_FORM((1), copy,          (pass_by_value<A0>))
-    PSTADE_OVEN_DETAIL_ALGO_FORM((1), copy_backward, (pass_by_value<A0>))
+    PSTADE_OVEN_DETAIL_FORWARD(copy,          std::copy,          (pass_by_value<A0>), (1))
+    PSTADE_OVEN_DETAIL_FORWARD(copy_backward, std::copy_backward, (pass_by_value<A0>), (1))
 
 
     // transform
@@ -192,21 +192,17 @@ PSTADE_ADL_BARRIER(algorithm) {
     PSTADE_CONSTANT(transform, (op_transform))
 
 
-    // replace/replace_if
+    // replace(_if)/replace_copy(_if)
 
-    PSTADE_OVEN_DETAIL_ALGO_FORM((2), replace,    (boost::mpl::identity<void>)) 
-    PSTADE_OVEN_DETAIL_ALGO_FORM((2), replace_if, (boost::mpl::identity<void>))
-
-
-    // replace_copy/replace_copy_if
-
-    PSTADE_OVEN_DETAIL_ALGO_FORM((3), replace_copy,    (pass_by_value<A0>))
-    PSTADE_OVEN_DETAIL_ALGO_FORM((3), replace_copy_if, (pass_by_value<A0>))
+    PSTADE_OVEN_DETAIL_FORWARD(replace,         std::replace,         (boost::mpl::identity<void>), (2)) 
+    PSTADE_OVEN_DETAIL_FORWARD(replace_if,      std::replace_if,      (boost::mpl::identity<void>), (2))
+    PSTADE_OVEN_DETAIL_FORWARD(replace_copy,    std::replace_copy,    (pass_by_value<A0>), (3))
+    PSTADE_OVEN_DETAIL_FORWARD(replace_copy_if, std::replace_copy_if, (pass_by_value<A0>), (3))
 
 
     // fill
 
-    PSTADE_OVEN_DETAIL_ALGO_FORM((1), fill, (boost::mpl::identity<void>))
+    PSTADE_OVEN_DETAIL_FORWARD(fill, std::fill, (boost::mpl::identity<void>), (1))
 
 
     // fill_n
@@ -234,11 +230,12 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     PSTADE_fill_n_form(fill_n, boost::mpl::identity<void>)
 
+
     // generate
 
-    PSTADE_OVEN_DETAIL_ALGO_FORM((1), generate, (boost::mpl::identity<void>))
+    PSTADE_OVEN_DETAIL_FORWARD(generate, std::generate, (boost::mpl::identity<void>), (1))
 
-
+    
     // generate_n
 
     PSTADE_fill_n_form(generate_n, boost::mpl::identity<void>)
@@ -302,10 +299,10 @@ PSTADE_ADL_BARRIER(algorithm) {
     PSTADE_CONSTANT(remove_if, (op_remove_if))
 
 
-    // remove_copy/remove_copy_if
+    // remove_copy(_if)
 
-    PSTADE_OVEN_DETAIL_ALGO_FORM((2), remove_copy,    (pass_by_value<A0>))
-    PSTADE_OVEN_DETAIL_ALGO_FORM((2), remove_copy_if, (pass_by_value<A0>))
+    PSTADE_OVEN_DETAIL_FORWARD(remove_copy,    std::remove_copy,    (pass_by_value<A0>), (2))
+    PSTADE_OVEN_DETAIL_FORWARD(remove_copy_if, std::remove_copy_if, (pass_by_value<A0>), (2))
 
 
     // unique
@@ -354,7 +351,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     // unique_copy
 
-    PSTADE_OVEN_DETAIL_ALGO_FORM((1)(2), unique_copy, (pass_by_value<A0>))
+    PSTADE_OVEN_DETAIL_FORWARD(unique_copy, std::unique_copy, (pass_by_value<A0>), (1)(2))
 
 
     // reverse
@@ -388,7 +385,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     // reverse_copy
 
-    PSTADE_OVEN_DETAIL_ALGO_FORM((1), reverse_copy, (pass_by_value<A0>))
+    PSTADE_OVEN_DETAIL_FORWARD(reverse_copy, std::reverse_copy, (pass_by_value<A0>), (1))
 
 
     // rotate
@@ -434,13 +431,13 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     // random_shuffle
 
-    PSTADE_OVEN_DETAIL_ALGO_FORM((0)(1), random_shuffle, (boost::mpl::identity<void>))
+    PSTADE_OVEN_DETAIL_FORWARD(random_shuffle, std::random_shuffle, (boost::mpl::identity<void>), (0)(1))
 
 
-    // partition/stable_partition
+    // (stable_)partition
 
-    PSTADE_OVEN_DETAIL_ALGO_FORM((1), partition,        (range_iterator<Range>))
-    PSTADE_OVEN_DETAIL_ALGO_FORM((1), stable_partition, (range_iterator<Range>))
+    PSTADE_OVEN_DETAIL_FORWARD(partition,        std::partition,        (range_iterator<Range>), (1))
+    PSTADE_OVEN_DETAIL_FORWARD(stable_partition, std::stable_partition, (range_iterator<Range>), (1))
 
 
     // sort
@@ -488,7 +485,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     // stable_sort
 
-    PSTADE_OVEN_DETAIL_ALGO_FORM((0)(1), stable_sort, (boost::mpl::identity<void>))
+    PSTADE_OVEN_DETAIL_FORWARD(stable_sort, std::stable_sort, (boost::mpl::identity<void>), (0)(1))
 
 
     // partial_sort
@@ -525,7 +522,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     // partial_sort_copy
 
-    PSTADE_OVEN_DETAIL_ALGO_FORM_BINARY((0)(1), partial_sort_copy, (range_iterator<Range2>))
+    PSTADE_OVEN_DETAIL_FORWARD_BINARY(partial_sort_copy, std::partial_sort_copy, (range_iterator<Range2>), (0)(1))
 
 
     // nth_element
@@ -588,7 +585,7 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     // binary_search
 
-    PSTADE_OVEN_DETAIL_ALGO_FORM((1)(2), binary_search, (boost::mpl::identity<bool>))
+    PSTADE_OVEN_DETAIL_FORWARD(binary_search, std::binary_search, (boost::mpl::identity<bool>), (1)(2))
 
 
     // inplace_merge
@@ -601,41 +598,41 @@ PSTADE_ADL_BARRIER(algorithm) {
 
     // includes
 
-    PSTADE_OVEN_DETAIL_ALGO_FORM_BINARY((0)(1), includes, (boost::mpl::identity<bool>))
+    PSTADE_OVEN_DETAIL_FORWARD_BINARY(includes, std::includes, (boost::mpl::identity<bool>), (0)(1))
 
 
     // merge/set_xxx
 
-    PSTADE_OVEN_DETAIL_ALGO_FORM_BINARY((1)(2), merge,                    (pass_by_value<A0>))
-    PSTADE_OVEN_DETAIL_ALGO_FORM_BINARY((1)(2), set_union,                (pass_by_value<A0>))
-    PSTADE_OVEN_DETAIL_ALGO_FORM_BINARY((1)(2), set_intersection,         (pass_by_value<A0>))
-    PSTADE_OVEN_DETAIL_ALGO_FORM_BINARY((1)(2), set_difference,           (pass_by_value<A0>))
-    PSTADE_OVEN_DETAIL_ALGO_FORM_BINARY((1)(2), set_symmetric_difference, (pass_by_value<A0>))
+    PSTADE_OVEN_DETAIL_FORWARD_BINARY(merge,                    std::merge,                    (pass_by_value<A0>), (1)(2))
+    PSTADE_OVEN_DETAIL_FORWARD_BINARY(set_union,                std::set_union,                (pass_by_value<A0>), (1)(2))
+    PSTADE_OVEN_DETAIL_FORWARD_BINARY(set_intersection,         std::set_intersection,         (pass_by_value<A0>), (1)(2))
+    PSTADE_OVEN_DETAIL_FORWARD_BINARY(set_difference,           std::set_difference,           (pass_by_value<A0>), (1)(2))
+    PSTADE_OVEN_DETAIL_FORWARD_BINARY(set_symmetric_difference, std::set_symmetric_difference, (pass_by_value<A0>), (1)(2))
 
 
     // xxx_heap
 
-    PSTADE_OVEN_DETAIL_ALGO_FORM((0)(1), push_heap, (boost::mpl::identity<void>))
-    PSTADE_OVEN_DETAIL_ALGO_FORM((0)(1), pop_heap,  (boost::mpl::identity<void>))
-    PSTADE_OVEN_DETAIL_ALGO_FORM((0)(1), make_heap, (boost::mpl::identity<void>))
-    PSTADE_OVEN_DETAIL_ALGO_FORM((0)(1), sort_heap, (boost::mpl::identity<void>))
+    PSTADE_OVEN_DETAIL_FORWARD(push_heap, std::push_heap, (boost::mpl::identity<void>), (0)(1))
+    PSTADE_OVEN_DETAIL_FORWARD(pop_heap,  std::pop_heap,  (boost::mpl::identity<void>), (0)(1))
+    PSTADE_OVEN_DETAIL_FORWARD(make_heap, std::make_heap, (boost::mpl::identity<void>), (0)(1))
+    PSTADE_OVEN_DETAIL_FORWARD(sort_heap, std::sort_heap, (boost::mpl::identity<void>), (0)(1))
 
 
-    // min_element/max_element
+    // min/max_element
 
-    PSTADE_OVEN_DETAIL_ALGO_FORM((0)(1), min_element, (range_iterator<Range>))
-    PSTADE_OVEN_DETAIL_ALGO_FORM((0)(1), max_element, (range_iterator<Range>))
+    PSTADE_OVEN_DETAIL_FORWARD(min_element, std::min_element, (range_iterator<Range>), (0)(1))
+    PSTADE_OVEN_DETAIL_FORWARD(max_element, std::max_element, (range_iterator<Range>), (0)(1))
 
 
     // lexicographical_compare
 
-    PSTADE_OVEN_DETAIL_ALGO_FORM_BINARY((0)(1), lexicographical_compare, (boost::mpl::identity<bool>))
+    PSTADE_OVEN_DETAIL_FORWARD_BINARY(lexicographical_compare, std::lexicographical_compare, (boost::mpl::identity<bool>), (0)(1))
 
 
     // next/prev_permutation
 
-    PSTADE_OVEN_DETAIL_ALGO_FORM((0)(1), next_permutation, (boost::mpl::identity<bool>))
-    PSTADE_OVEN_DETAIL_ALGO_FORM((0)(1), prev_permutation, (boost::mpl::identity<bool>))
+    PSTADE_OVEN_DETAIL_FORWARD(next_permutation, std::next_permutation, (boost::mpl::identity<bool>), (0)(1))
+    PSTADE_OVEN_DETAIL_FORWARD(prev_permutation, std::prev_permutation, (boost::mpl::identity<bool>), (0)(1))
 
 
 } // ADL barrier

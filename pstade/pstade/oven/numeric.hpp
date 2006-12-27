@@ -13,7 +13,7 @@
 #include <numeric>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/pass_by.hpp>
-#include "./detail/algo_forms.hpp"
+#include "./detail/forward.hpp"
 
 
 namespace pstade { namespace oven {
@@ -21,10 +21,10 @@ namespace pstade { namespace oven {
 PSTADE_ADL_BARRIER(numeric) {
 
 
-    PSTADE_OVEN_DETAIL_ALGO_FORM((1)(2), accumulate,          (pass_by_value<A0>))
-    PSTADE_OVEN_DETAIL_ALGO_FORM((2)(4), inner_product,       (pass_by_value<A1>))
-    PSTADE_OVEN_DETAIL_ALGO_FORM((1)(2), partial_sum,         (pass_by_value<A0>))
-    PSTADE_OVEN_DETAIL_ALGO_FORM((1)(2), adjacent_difference, (pass_by_value<A0>))
+    PSTADE_OVEN_DETAIL_FORWARD(accumulate,          std::accumulate,          (pass_by_value<A0>), (1)(2))
+    PSTADE_OVEN_DETAIL_FORWARD(inner_product,       std::inner_product,       (pass_by_value<A1>), (2)(4))
+    PSTADE_OVEN_DETAIL_FORWARD(partial_sum,         std::partial_sum,         (pass_by_value<A0>), (1)(2))
+    PSTADE_OVEN_DETAIL_FORWARD(adjacent_difference, std::adjacent_difference, (pass_by_value<A0>), (1)(2))
 
 
 } // ADL barrier
