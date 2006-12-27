@@ -115,7 +115,7 @@ struct needs_all_param
 
 template< class A0, class A1 >
 struct deduce_to_hello :
-    boost::mpl::eval_if< boost::is_same<A1, argument_not_passed>,
+    boost::mpl::eval_if< boost::is_same<A1, void>,
         get_hello<A0>,
         boost::mpl::identity<A1>
     >

@@ -34,7 +34,6 @@
 namespace pstade {
 
 
-    struct argument_not_passed;
     struct object_generator_error_argument_required;
 
 
@@ -43,7 +42,7 @@ namespace pstade {
         class Default = object_generator_error_argument_required
     >
     struct deduce :
-        boost::mpl::eval_if< boost::is_same<A, argument_not_passed>,
+        boost::mpl::eval_if< boost::is_same<A, void>,
             boost::mpl::identity<Default>,
             boost::mpl::apply1<Deducer, A>
         >
@@ -83,23 +82,12 @@ namespace pstade {
     } // namespace deducers
 
 
-    struct unused_argument
-    {
-        unused_argument()
-        { }
-
-        template< class T >
-        unused_argument(T const&)
-        { }
-    };
-
-
     namespace object_generator_detail {
 
 
         template<
             class Lambda,
-            BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(PSTADE_CALLABLE_MAX_ARITY, class A, argument_not_passed)
+            BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(PSTADE_CALLABLE_MAX_ARITY, class A, void)
         >
         struct make
         {
@@ -203,6 +191,15 @@ namespace pstade {
         typedef BOOST_PP_CAT(pstade_object_generator_workarea_, G)::BOOST_PP_CAT(op_, G) BOOST_PP_CAT(op_, G); \
         PSTADE_CONSTANT( G, (BOOST_PP_CAT(op_, G)) ) \
     /**/
+
+
+    // eats unused arguments passed to constructor.
+    struct used_only_to_deduce
+    {
+        template< class T >
+        used_only_to_deduce(T const&)
+        { }
+    };
 
 
 } // namespace pstade

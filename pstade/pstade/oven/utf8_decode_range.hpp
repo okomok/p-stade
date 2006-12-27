@@ -59,7 +59,7 @@ private:
     typedef typename utf8_decode_range_detail::super_<Range, Ucs4T>::type super_t;
 
 public:
-    explicit utf8_decode_range(Range& rng, unused_argument = unused_argument()) :
+    explicit utf8_decode_range(Range& rng, used_only_to_deduce = 0) :
         super_t(rng)
     { }
 

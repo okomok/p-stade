@@ -50,7 +50,7 @@ private:
     typedef typename super_t::iterator iter_t;
 
 public:
-    explicit generate_range(Generator gen, unused_argument = unused_argument()) :
+    explicit generate_range(Generator gen, used_only_to_deduce = 0) :
         super_t(
             iter_t(gen, boost::mpl::true_()),
             iter_t(gen, boost::mpl::false_())

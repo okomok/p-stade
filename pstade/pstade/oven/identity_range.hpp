@@ -57,7 +57,7 @@ private:
     typedef typename identity_range_detail::super_<Range, Traversal>::type super_t;
 
 public:
-    explicit identity_range(Range& rng, unused_argument = unused_argument()) :
+    explicit identity_range(Range& rng, used_only_to_deduce = 0) :
         super_t(rng)
     { }
 
