@@ -19,21 +19,21 @@
 
 
 template< BOOST_PP_ENUM_PARAMS(5, class A) >
-void foo( PSTADE_PP_ENUM_REF_PARAMS_WITH_OBJECTS(5, A, a) )
+void foo( PSTADE_PP_ENUM_REF_PARAMS(5, A, a) )
 {
     pstade::unused(a0, a1, a2, a3, a4);
     return;
 }
 
 template< BOOST_PP_ENUM_PARAMS(5, class A) >
-void foo_( PSTADE_PP_ENUM_REF_PARAMS(5, A) )
+void foo_( PSTADE_PP_ENUM_REFS(5, A) )
 {
     return;
 }
 
 
 template< BOOST_PP_ENUM_PARAMS(5, class A) >
-void cfoo( PSTADE_PP_ENUM_CREF_PARAMS_WITH_OBJECTS(5, A, a) )
+void cfoo( PSTADE_PP_ENUM_CREF_PARAMS(5, A, a) )
 {
     pstade::unused(a0, a1, a2, a3, a4);
     return;
@@ -41,7 +41,7 @@ void cfoo( PSTADE_PP_ENUM_CREF_PARAMS_WITH_OBJECTS(5, A, a) )
 
 
 template< BOOST_PP_ENUM_PARAMS(5, class A) >
-void cfoo_( PSTADE_PP_ENUM_CREF_PARAMS(5, A) )
+void cfoo_( PSTADE_PP_ENUM_CREFS(5, A) )
 {
     return;
 }

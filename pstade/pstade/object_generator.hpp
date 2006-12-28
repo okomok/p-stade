@@ -22,12 +22,12 @@
 #include <boost/preprocessor/repetition/enum_params_with_a_default.hpp>
 #include <boost/type_traits/add_reference.hpp>
 #include <boost/type_traits/is_same.hpp>
+#include <boost/type_traits/remove_cv.hpp>
 #include <pstade/affect.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/preprocessor.hpp>
-#include <pstade/remove_cvr.hpp>
 #include <pstade/unparenthesize.hpp>
 
 
@@ -89,17 +89,17 @@ namespace pstade {
             class Lambda,
             BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(PSTADE_CALLABLE_MAX_ARITY, class A, void)
         >
-        struct make
+        struct meta_make
         {
             typedef typename
                 boost::mpl::BOOST_PP_CAT(apply, PSTADE_CALLABLE_MAX_ARITY)<
-                    typename remove_cvr<Lambda>::type,
+                    typename boost::remove_cv<Lambda>::type,
                     BOOST_PP_ENUM_PARAMS(PSTADE_CALLABLE_MAX_ARITY, A)
                 >::type
             object_t;
 
             typedef typename
-                affect_cvr<Lambda, object_t>::type
+                affect_cv<Lambda, object_t>::type
             type;
         };
 
@@ -120,13 +120,13 @@ namespace pstade {
 
         template< class Myself, BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(PSTADE_CALLABLE_MAX_ARITY, class A, void) >
         struct apply :
-            object_generator_detail::make< Lambda,
+            object_generator_detail::meta_make< Lambda,
                 BOOST_PP_ENUM_PARAMS(PSTADE_CALLABLE_MAX_ARITY, A)
             >
         { };
 
         template< class Result, BOOST_PP_ENUM_PARAMS(PSTADE_CALLABLE_MAX_ARITY, class A) >
-        Result call( PSTADE_PP_ENUM_REF_PARAMS_WITH_OBJECTS(PSTADE_CALLABLE_MAX_ARITY, A, a) ) const
+        Result call( PSTADE_PP_ENUM_REF_PARAMS(PSTADE_CALLABLE_MAX_ARITY, A, a) ) const
         {
             return Result(
                 BOOST_PP_ENUM_PARAMS(PSTADE_CALLABLE_MAX_ARITY, a)
@@ -148,7 +148,7 @@ namespace pstade {
 
         template< class Myself, class A0 >
         struct apply< Myself, A0 > :
-            object_generator_detail::make< Lambda,
+            object_generator_detail::meta_make< Lambda,
                 A0
             >
         { };
@@ -215,13 +215,13 @@ PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE((pstade)(object_generator), 2)
 
 template< class Myself, BOOST_PP_ENUM_PARAMS(n, class A) >
 struct apply< Myself, BOOST_PP_ENUM_PARAMS(n, A) > :
-    object_generator_detail::make< Lambda,
+    object_generator_detail::meta_make< Lambda,
         BOOST_PP_ENUM_PARAMS(n, A)
     >
 { };
 
 template< class Result, BOOST_PP_ENUM_PARAMS(n, class A) >
-Result call( PSTADE_PP_ENUM_REF_PARAMS_WITH_OBJECTS(n, A, a) ) const
+Result call( PSTADE_PP_ENUM_REF_PARAMS(n, A, a) ) const
 {
     return Result(
         BOOST_PP_ENUM_PARAMS(n, a)

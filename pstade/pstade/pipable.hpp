@@ -61,12 +61,12 @@ namespace pstade {
             struct apply
             {
                 typedef pipe< Function,
-                    boost::tuples::tuple< PSTADE_PP_ENUM_REF_PARAMS(PSTADE_CALLABLE_MAX_ARITY, A) >
+                    boost::tuples::tuple< PSTADE_PP_ENUM_REFS(PSTADE_CALLABLE_MAX_ARITY, A) >
                 > type;
             };
 
             template< class Result, BOOST_PP_ENUM_PARAMS(PSTADE_CALLABLE_MAX_ARITY, class A) >
-            Result call( PSTADE_PP_ENUM_REF_PARAMS_WITH_OBJECTS(PSTADE_CALLABLE_MAX_ARITY, A, a) ) const
+            Result call( PSTADE_PP_ENUM_REF_PARAMS(PSTADE_CALLABLE_MAX_ARITY, A, a) ) const
             {
                 return Result( m_fun,
                     typename Result::arguments_type( BOOST_PP_ENUM_PARAMS(PSTADE_CALLABLE_MAX_ARITY, a) )
@@ -224,12 +224,12 @@ template< class Myself, BOOST_PP_ENUM_PARAMS(n, class A) >
 struct apply< Myself, BOOST_PP_ENUM_PARAMS(n, A) >
 {
     typedef pipe< Function,
-        boost::tuples::tuple< PSTADE_PP_ENUM_REF_PARAMS(n, A) >
+        boost::tuples::tuple< PSTADE_PP_ENUM_REFS(n, A) >
     > type;
 };
 
 template< class Result, BOOST_PP_ENUM_PARAMS(n, class A) >
-Result call( PSTADE_PP_ENUM_REF_PARAMS_WITH_OBJECTS(n, A, a) ) const
+Result call( PSTADE_PP_ENUM_REF_PARAMS(n, A, a) ) const
 {
     return Result( m_fun,
         typename Result::arguments_type( BOOST_PP_ENUM_PARAMS(n, a) )

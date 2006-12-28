@@ -60,7 +60,7 @@ void foo(T x)
 
     #define PSTADE_OVEN_DETAIL_RANGE_BASED_call(R, IterBased, Size) \
         template< class Result, class Range BOOST_PP_COMMA_IF(Size) BOOST_PP_ENUM_PARAMS(Size, class A) > \
-        Result call(Range& rng BOOST_PP_COMMA_IF(Size) PSTADE_PP_ENUM_REF_PARAMS_WITH_OBJECTS(Size, A, a)) const \
+        Result call(Range& rng BOOST_PP_COMMA_IF(Size) PSTADE_PP_ENUM_REF_PARAMS(Size, A, a)) const \
         { \
             return IterBased(::boost::begin(rng), ::boost::end(rng) \
                 BOOST_PP_COMMA_IF(Size) BOOST_PP_ENUM_PARAMS(Size, a)); \
@@ -87,7 +87,7 @@ void foo(T x)
 
     #define PSTADE_OVEN_DETAIL_RANGE_BASED_BINARY_call(R, IterBased, Size) \
         template< class Result, class Range1, class Range2 BOOST_PP_COMMA_IF(Size) BOOST_PP_ENUM_PARAMS(Size, class A) > \
-        Result call(Range1& rng1, Range2& rng2 BOOST_PP_COMMA_IF(Size) PSTADE_PP_ENUM_REF_PARAMS_WITH_OBJECTS(Size, A, a)) const \
+        Result call(Range1& rng1, Range2& rng2 BOOST_PP_COMMA_IF(Size) PSTADE_PP_ENUM_REF_PARAMS(Size, A, a)) const \
         { \
             return IterBased(::boost::begin(rng1), ::boost::end(rng1), ::boost::begin(rng2), ::boost::end(rng2) \
                 BOOST_PP_COMMA_IF(Size) BOOST_PP_ENUM_PARAMS(Size, a) ); \

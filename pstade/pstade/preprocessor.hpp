@@ -39,22 +39,22 @@
 // parameter
 
 
-#define PSTADE_PP_ENUM_REF_PARAMS(Size, Param) \
+#define PSTADE_PP_ENUM_REFS(Size, Param) \
     BOOST_PP_ENUM_BINARY_PARAMS(Size, Param, & BOOST_PP_INTERCEPT) \
 /**/
 
-#define PSTADE_PP_ENUM_REF_PARAMS_WITH_OBJECTS(Size, Param, Arg) \
+#define PSTADE_PP_ENUM_REF_PARAMS(Size, Param, Arg) \
     BOOST_PP_ENUM_BINARY_PARAMS(Size, Param, & Arg) \
 /**/
 
 
 // If 'Param' is template parameter and deduced as array type,
 // VC++7.1 might break down. Take care.
-#define PSTADE_PP_ENUM_CREF_PARAMS(Size, Param) \
+#define PSTADE_PP_ENUM_CREFS(Size, Param) \
     BOOST_PP_ENUM_BINARY_PARAMS(Size, Param, const& BOOST_PP_INTERCEPT) \
 /**/
 
-#define PSTADE_PP_ENUM_CREF_PARAMS_WITH_OBJECTS(Size, Param, Arg) \
+#define PSTADE_PP_ENUM_CREF_PARAMS(Size, Param, Arg) \
     BOOST_PP_ENUM_BINARY_PARAMS(Size, Param, const& Arg) \
 /**/
 

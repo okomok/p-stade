@@ -46,13 +46,13 @@ namespace pstade {
             struct apply :
                 boost::result_of< Function(
                     boost::tuples::tuple<
-                        PSTADE_PP_ENUM_REF_PARAMS(PSTADE_CALLABLE_MAX_ARITY, A)
+                        PSTADE_PP_ENUM_REFS(PSTADE_CALLABLE_MAX_ARITY, A)
                     >
                 ) >
             { };
 
             template< class Result, BOOST_PP_ENUM_PARAMS(PSTADE_CALLABLE_MAX_ARITY, class A) >
-            Result call( PSTADE_PP_ENUM_REF_PARAMS_WITH_OBJECTS(PSTADE_CALLABLE_MAX_ARITY, A, a) ) const
+            Result call( PSTADE_PP_ENUM_REF_PARAMS(PSTADE_CALLABLE_MAX_ARITY, A, a) ) const
             {
                 return m_fun(
                     pstade::pack(
@@ -145,13 +145,13 @@ template< class Myself, BOOST_PP_ENUM_PARAMS(n, class A) >
 struct apply< Myself, BOOST_PP_ENUM_PARAMS(n, A) > :
     boost::result_of< Function(
         boost::tuples::tuple<
-            PSTADE_PP_ENUM_REF_PARAMS(n, A)
+            PSTADE_PP_ENUM_REFS(n, A)
         >
     ) >
 { };
 
 template< class Result, BOOST_PP_ENUM_PARAMS(n, class A) >
-Result call( PSTADE_PP_ENUM_REF_PARAMS_WITH_OBJECTS(n, A, a) ) const
+Result call( PSTADE_PP_ENUM_REF_PARAMS(n, A, a) ) const
 {
     return m_fun(
         pstade::pack(
