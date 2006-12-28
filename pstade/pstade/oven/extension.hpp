@@ -20,7 +20,6 @@
 #include <boost/range/size_type.hpp>
 #include <boost/type_traits/is_const.hpp>
 #include <boost/type_traits/remove_cv.hpp>
-#include <boost/type_traits/remove_reference.hpp>
 #include <pstade/const_overloaded.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
@@ -72,7 +71,7 @@ namespace pstade { namespace oven { namespace extension_detail {
     {
         typedef typename remove_cvr<T>::type plain_t;
         typedef typename pstade_oven_extension::Range<plain_t>::
-            template associate<plain_t>::mutable_iterator type;
+            BOOST_NESTED_TEMPLATE associate<plain_t>::mutable_iterator type;
     };
 
 
@@ -81,13 +80,13 @@ namespace pstade { namespace oven { namespace extension_detail {
     {
         typedef typename remove_cvr<T>::type plain_t;
         typedef typename pstade_oven_extension::Range<plain_t>::
-            template associate<plain_t>::constant_iterator type;
+            BOOST_NESTED_TEMPLATE associate<plain_t>::constant_iterator type;
     };
 
 
     template< class T >
     struct range_result_iterator :
-        boost::mpl::eval_if< boost::is_const<typename boost::remove_reference<T>::type>,
+        boost::mpl::eval_if< boost::is_const<T>,
             range_const_iterator<T>,
             PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<T>
         >
@@ -161,7 +160,7 @@ namespace pstade { namespace oven { namespace extension_detail {
 
 
 // Bridge macros between Oven and Boost.Range Extension
-//
+
 
 #define PSTADE_OVEN_EXTENSION_OF_TYPE(NameSeq) \
     namespace boost { \
@@ -182,11 +181,6 @@ namespace pstade { namespace oven { namespace extension_detail {
         template< > \
         struct Fun< PSTADE_PP_FULLNAME(NameSeq) > : \
             ::pstade::oven::extension_detail::Fun< PSTADE_PP_FULLNAME(NameSeq) > \
-        { }; \
-        \
-        template< > \
-        struct Fun< PSTADE_PP_FULLNAME(NameSeq) & > : \
-            Fun< PSTADE_PP_FULLNAME(NameSeq) > \
         { }; \
         \
         template< > \
@@ -245,11 +239,6 @@ namespace pstade { namespace oven { namespace extension_detail {
         template< PSTADE_PP_TO_TEMPLATE_PARAMS(ParamSeq) > \
         struct Fun< PSTADE_OVEN_EXTENSION_OF_TEMPLATE_fullname(NameSeq, ParamSeq) > : \
             ::pstade::oven::extension_detail::Fun< PSTADE_OVEN_EXTENSION_OF_TEMPLATE_fullname(NameSeq, ParamSeq) > \
-        { }; \
-        \
-        template< PSTADE_PP_TO_TEMPLATE_PARAMS(ParamSeq) > \
-        struct Fun< PSTADE_OVEN_EXTENSION_OF_TEMPLATE_fullname(NameSeq, ParamSeq) & > : \
-            Fun< PSTADE_OVEN_EXTENSION_OF_TEMPLATE_fullname(NameSeq, ParamSeq) > \
         { }; \
         \
         template< PSTADE_PP_TO_TEMPLATE_PARAMS(ParamSeq) > \
