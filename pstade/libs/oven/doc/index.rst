@@ -521,6 +521,7 @@ Thus, STL that doesn't know traversal concepts can choose effective algorithms.
 
 - Header: ``<pstade/oven/const_lvalue_range.hpp>``
 - Valid expression: ``rng|const_lvalues``
+- Precondition: ``value_type`` of ``rng`` is CopyConstructible, Assignable and DefaultConstructible.
 - Returns: ``[boost::begin(rng),boost::end(rng))`` whose iterators are constant.
 
 

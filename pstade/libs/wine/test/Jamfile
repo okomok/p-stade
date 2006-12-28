@@ -29,6 +29,7 @@ test-suite wine :
     [ wine-test concept_on ]
     [ wine-test constant ]
     [ wine-test contract ]
+    [ wine-test deduced_const ]
     [ wine-test enable_if ]
     [ wine-test for_debug ]
     [ wine-test forward ]
