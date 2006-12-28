@@ -90,7 +90,7 @@ void foo(T x)
         Result call(Range1& rng1, Range2& rng2 BOOST_PP_COMMA_IF(Size) PSTADE_PP_ENUM_REF_PARAMS(Size, A, a)) const \
         { \
             return IterBased(::boost::begin(rng1), ::boost::end(rng1), ::boost::begin(rng2), ::boost::end(rng2) \
-                BOOST_PP_COMMA_IF(Size) BOOST_PP_ENUM_PARAMS(Size, a) ); \
+                BOOST_PP_COMMA_IF(Size) BOOST_PP_ENUM_PARAMS(Size, a)); \
         } \
     /**/
 

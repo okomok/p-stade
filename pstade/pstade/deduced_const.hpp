@@ -13,7 +13,7 @@
 // What:
 //
 // If 'T' is deduced as array type,
-// VC7.1 overload-resolution system is broken by the syntax 'T const'.
+// VC7.1 type system is broken by the syntax 'T const'.
 // So prefer 'boost::add_const', or
 // you can use this macro to say the bug loudly!
 
@@ -27,7 +27,7 @@
     #include <boost/type_traits/add_const.hpp>
 
     // Workaround:
-    // Never write '::boost'! or else VC7.1 type system would be broken.
+    // Never write '::boost'; VC7.1 would show more weird behavior.
     #define PSTADE_DEDUCED_CONST(T) \
         typename boost::add_const< T >::type \
     /**/
