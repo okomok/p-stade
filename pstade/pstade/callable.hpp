@@ -87,7 +87,8 @@ namespace pstade {
 
 
         template< class Signature >
-        struct result;
+        struct result
+        { }; // complete for SFINAE.
 
 
         // 0ary

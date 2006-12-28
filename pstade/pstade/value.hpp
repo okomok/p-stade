@@ -27,7 +27,8 @@ namespace pstade {
     struct op_value
     {
         template< class Signature >
-        struct result;
+        struct result
+        { };
 
         template< class Self, class A >
         struct result<Self(A)> :

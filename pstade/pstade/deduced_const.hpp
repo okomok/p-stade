@@ -26,8 +26,10 @@
 
     #include <boost/type_traits/add_const.hpp>
 
+    // Workaround:
+    // Never use '::boost'! or else VC7.1 type system would be broken.
     #define PSTADE_DEDUCED_CONST(T) \
-        typename ::boost::add_const< T >::type \
+        typename boost::add_const< T >::type \
     /**/
 
 #else

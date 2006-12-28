@@ -52,7 +52,8 @@ namespace pstade {
             lambda_sig
         {
             template< class Signature >
-            struct result;
+            struct result
+            { };
 
             template< class Self, class From, class Type_To >
             struct result<Self(From, Type_To)> :
