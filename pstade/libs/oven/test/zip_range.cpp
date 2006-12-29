@@ -104,6 +104,11 @@ void test()
         BOOST_CHECK(( oven::equals(src0, ans0) ));
         BOOST_CHECK(( oven::equals(src1, ans1) ));
     }
+#if 0 // When tuple will become a fusion sequence...
+    {
+        boost::make_tuple(std::string(), std::string())|zipped;
+    }
+#endif
 }
 
 

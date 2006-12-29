@@ -10,6 +10,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Note:
+//
+// 'tuple_transform' doesn't support non-const tuple,
+// so that 'RangeTuple' must hold references for now.
+// Boost.Fusion will solve it.
+
+
 #include <boost/iterator/zip_iterator.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <boost/type_traits/remove_reference.hpp>
