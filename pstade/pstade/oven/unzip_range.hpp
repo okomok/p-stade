@@ -14,13 +14,13 @@
 #include <boost/mpl/int.hpp>
 #include <boost/mpl/placeholders.hpp> // _1
 #include <boost/tuple/tuple.hpp>
-#include <pstade/affect.hpp>
+#include <boost/utility/result_of.hpp>
+#include <pstade/at.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/const_overloaded.hpp>
 #include <pstade/deduced_const.hpp>
 #include <pstade/nonassignable.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/remove_cvr.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
 #include "./detail/reference_affect.hpp"
@@ -34,25 +34,22 @@ namespace pstade { namespace oven {
 namespace unzip_at_range_detail {
 
 
-    template< class Tuple, class N >
-    struct value_at :
-        boost::tuples::element<N::value, typename remove_cvr<Tuple>::type>
-    { };
-
-
+    // "Bind" from scratch.
+    // A Boost.Lambda functor is useless here,
+    // because it is not Assignable.
     template< class N >
-    struct op_at :
-        callable< op_at<N> >
+    struct op_at_ :
+        callable< op_at_<N> >
     {
         template< class Myself, class Tuple >
         struct apply :
-            affect_cvr<Tuple&, typename value_at<Tuple, N>::type>
+            boost::result_of<op_at(Tuple&, N)>
         { };
 
         template< class Result, class Tuple >
         Result call(Tuple& tup) const
         {
-            return boost::tuples::get<N::value>(tup);
+            return pstade::at(tup, N());
         }
     };
 
@@ -63,7 +60,7 @@ namespace unzip_at_range_detail {
         typedef
             transform_range<
                 TupleRange,
-                op_at<N>,
+                op_at_<N>,
                 typename detail::reference_affect<
                     TupleRange,
                     value_at<boost::mpl::_1, N>

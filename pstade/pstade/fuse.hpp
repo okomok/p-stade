@@ -17,6 +17,7 @@
 #include <boost/tuple/tuple.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/affect.hpp>
+#include <pstade/at.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/object_generator.hpp>
 #include <pstade/remove_cvr.hpp>
@@ -29,39 +30,17 @@ namespace pstade {
     namespace fuse_detail {
 
 
-        // waiting for Boost.Fusion...
+        using boost::mpl::int_;
+
 
         template< class Tuple >
         struct result_of_size :
-            boost::mpl::int_<
+            int_<
                 boost::tuples::length<
                     typename remove_cvr<Tuple>::type // Boost.Tuple needs this.
                 >::value
             >
         { };
-
-
-        template< class Tuple, int N >
-        struct value_at_c :
-            boost::tuples::element<N, typename remove_cvr<Tuple>::type>
-        { };
-
-
-        template< int N >
-        struct op_at_c :
-            callable< op_at_c<N> >
-        {
-            template< class Myself, class Tuple >
-            struct apply :
-                affect_cvr<Tuple&, typename value_at_c<Tuple, N>::type>
-            { };
-
-            template< class Result, class Tuple >
-            Result call(Tuple& tup) const
-            {
-                return boost::tuples::get<N>(tup);
-            }
-        };
 
 
         template< class Function, class FusionSeq, class Arity >
@@ -71,13 +50,13 @@ namespace pstade {
         // 0ary
 
         template< class Function, class FusionSeq >
-        struct apply_impl< Function, FusionSeq, boost::mpl::int_<0> > :
+        struct apply_impl< Function, FusionSeq, int_<0> > :
             boost::result_of< Function(
             ) >
         { };
 
         template< class Result, class Function, class FusionSeq >
-        Result call_impl(Function fun, FusionSeq& seq, boost::mpl::int_<0>)
+        Result call_impl(Function fun, FusionSeq& seq, int_<0>)
         {
             pstade::unused(seq);
             return fun(
@@ -88,17 +67,17 @@ namespace pstade {
         // 1ary
 
         template< class Function, class FusionSeq >
-        struct apply_impl< Function, FusionSeq, boost::mpl::int_<1> > :
+        struct apply_impl< Function, FusionSeq, int_<1> > :
             boost::result_of< Function(
-                typename boost::result_of<op_at_c<0>(FusionSeq&)>::type
+                typename boost::result_of<op_at(FusionSeq&, int_<0>)>::type
             ) >
         { };
 
         template< class Result, class Function, class FusionSeq >
-        Result call_impl(Function fun, FusionSeq& seq, boost::mpl::int_<1>)
+        Result call_impl(Function fun, FusionSeq& seq, int_<1>)
         {
             return fun(
-                fuse_detail::op_at_c<0>()(seq)
+                pstade::at(seq, int_<0>())
             );
         }
 
@@ -106,8 +85,8 @@ namespace pstade {
         // 2ary-
 
     #define PSTADE_max_arity 10
-    #define PSTADE_result_of_at_c(Z, N, _) typename boost::result_of<op_at_c< N >(FusionSeq&)>::type
-    #define PSTADE_at_c(Z, N, _)           fuse_detail::op_at_c< N >()(seq)
+    #define PSTADE_result_of_at_c(Z, N, _) typename boost::result_of<op_at(FusionSeq&, int_<N>)>::type
+    #define PSTADE_at_c(Z, N, _)           pstade::at(seq, int_<N>())
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_max_arity, <pstade/fuse.hpp>))
         #include BOOST_PP_ITERATE()
     #undef  PSTADE_at_c
@@ -167,14 +146,14 @@ namespace pstade {
 
 
 template< class Function, class FusionSeq >
-struct apply_impl< Function, FusionSeq, boost::mpl::int_< n > > :
+struct apply_impl< Function, FusionSeq, int_< n > > :
     boost::result_of< Function(
         BOOST_PP_ENUM(n, PSTADE_result_of_at_c, ~)
     ) >
 { };
 
 template< class Result, class Function, class FusionSeq >
-Result call_impl(Function fun, FusionSeq& seq, boost::mpl::int_< n >)
+Result call_impl(Function fun, FusionSeq& seq, int_< n >)
 {
     return fun(
         BOOST_PP_ENUM(n, PSTADE_at_c, ~)

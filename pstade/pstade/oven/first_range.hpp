@@ -19,7 +19,7 @@
 
 
 #include <boost/mpl/placeholders.hpp> // _1
-#include <pstade/functional.hpp> // at_first
+#include <pstade/at.hpp>
 #include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
@@ -34,13 +34,6 @@ namespace pstade { namespace oven {
 namespace first_range_detail {
 
 
-    template< class Pair >
-    struct value_at
-    {
-        typedef typename Pair::first_type type;
-    };
-
-
     template< class PairRange >
     struct super_
     {
@@ -50,7 +43,7 @@ namespace first_range_detail {
                 op_at_first,
                 typename detail::reference_affect<
                     PairRange,
-                    value_at<boost::mpl::_1>
+                    value_at_first<boost::mpl::_1>
                 >::type
             >
         type;

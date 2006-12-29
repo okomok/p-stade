@@ -17,6 +17,7 @@
 #include "./apple/hash_set_fwd.hpp"
 #include "./apple/list_fwd.hpp"
 #include "./apple/map_fwd.hpp"
+#include "./apple/pair_fwd.hpp"
 #include "./apple/set_fwd.hpp"
 #include "./apple/vector_fwd.hpp"
 
@@ -26,6 +27,7 @@
 #include "./apple/is_hash_set.hpp"
 #include "./apple/is_list.hpp"
 #include "./apple/is_map.hpp"
+#include "./apple/is_pair.hpp"
 #include "./apple/is_set.hpp"
 #include "./apple/is_vector.hpp"
 

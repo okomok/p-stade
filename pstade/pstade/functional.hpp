@@ -26,7 +26,6 @@
 #include <boost/utility/addressof.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/adl_barrier.hpp>
-#include <pstade/affect.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/enable_if.hpp> // disable_if
@@ -311,37 +310,6 @@ PSTADE_ADL_BARRIER(functional) {
     } // namespace flip_detail
 
     PSTADE_OBJECT_GENERATOR(flip, (flip_detail::op_result< deduce<_1, to_value> >))
-
-
-    // at_first/second
-    //
-
-#define PSTADE_FUNCTIONAL_MEMBER(F, Xxx, XxxType) \
-    struct BOOST_PP_CAT(op_, F) : \
-        callable< BOOST_PP_CAT(op_, F) > \
-    { \
-        template< class Myself, class A > \
-        struct apply \
-        { \
-            typedef typename \
-                affect_cv< \
-                    A, typename A::XxxType \
-                >::type & \
-            type; \
-        }; \
-        \
-        template< class Result, class A > \
-        Result call(A& a) const \
-        { \
-            return a.Xxx; \
-        } \
-    }; \
-    \
-    PSTADE_CONSTANT( F, (BOOST_PP_CAT(op_, F)) ) \
-/**/
-
-    PSTADE_FUNCTIONAL_MEMBER(at_first, first, first_type)
-    PSTADE_FUNCTIONAL_MEMBER(at_second, second, second_type)
 
 
     // is_zero

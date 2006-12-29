@@ -54,10 +54,6 @@ void test()
 
     BOOST_CHECK( pstade::plus(3, 1) == 4 );
 
-    std::pair<int, int> aPair(5, 7);
-    BOOST_CHECK( pstade::at_first(aPair)  == 5 );
-    BOOST_CHECK( pstade::at_second(aPair) == 7 );
-
     BOOST_CHECK(
         pstade::flip(&::add_str)("def", "abc") ==
             ::add_str("abc", "def")

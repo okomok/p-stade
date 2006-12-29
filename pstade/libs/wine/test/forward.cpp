@@ -19,7 +19,7 @@
 #include <boost/utility/result_of.hpp>
 #include <pstade/reference.hpp>
 
-#include <pstade/result_of_lambda.hpp>
+#include <pstade/lambda_result.hpp>
 
 
 struct my_fun_t

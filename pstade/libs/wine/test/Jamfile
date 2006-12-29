@@ -41,6 +41,8 @@ test-suite wine :
     [ wine-test integral_cast ]
     [ wine-test is_ndebug ]
     [ wine-test is_same ]
+    [ wine-test lambda_bind ]
+    [ wine-test lambda_result ]
     [ wine-test lambda_sig ]
     [ wine-test lexical_cast ]
     [ wine-test locale ]

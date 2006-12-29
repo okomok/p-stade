@@ -18,6 +18,7 @@
 #include <boost/lambda/lambda.hpp>
 #include <boost/iterator/iterator_traits.hpp>
 #include <pstade/functional.hpp>
+#include <pstade/lambda_placeholders.hpp>
 
 
 template< class Iterator, class Function >
