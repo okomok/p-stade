@@ -56,7 +56,7 @@ namespace pstade {
     namespace callable_detail {
 
 
-        // let rvalue const-qualified.
+        // Add const-qualifier if rvalue is specified.
         template< class A >
         struct meta_argument :
             boost::remove_reference<
@@ -69,7 +69,7 @@ namespace pstade {
     } // namespace callable_detail
 
 
-    template< class Function >
+    template< class Function > // for cute error message.
     struct callable_error_non_nullary;
 
 
@@ -106,7 +106,7 @@ namespace pstade {
 
     private:
         template< class A0 >
-        struct result1 :
+        struct result1 : // Prefer inheritance for SFINAE.
             Derived::BOOST_NESTED_TEMPLATE apply< Derived,
                 typename callable_detail::meta_argument<A0>::type
             >
