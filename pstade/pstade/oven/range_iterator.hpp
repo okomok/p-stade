@@ -23,14 +23,10 @@ namespace pstade { namespace oven {
 template< class Range >
 struct range_iterator :
 #if !defined(PSTADE_OVEN_BOOST_RANGE_VERSION_1)
-    boost::range_iterator<
+    boost::range_iterator<Range>
 #else
-    boost::range_result_iterator<
+    boost::range_result_iterator<Range>
 #endif
-        typename boost::remove_volatile<
-            typename boost::remove_reference<Range>::type
-        >::type
-    >
 { };
 
 

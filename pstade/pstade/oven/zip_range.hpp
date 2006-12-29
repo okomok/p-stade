@@ -12,6 +12,7 @@
 
 #include <boost/iterator/zip_iterator.hpp>
 #include <boost/tuple/tuple.hpp>
+#include <boost/type_traits/remove_reference.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>
@@ -34,7 +35,9 @@ namespace zip_range_detail {
     {
         template< class Range >
         struct apply :
-            range_iterator<Range>
+            range_iterator<
+                typename boost::remove_reference<Range>::type
+            >
         { };
     };
 
@@ -116,7 +119,7 @@ struct op_make_zip_range :
         return Result(tup);
     }
 
-#if 1 // will be rejected.
+#if 1 // will be rejected?
     // two ranges (primary)
     template< class Myself, class Range0, class Range1 >
     struct apply

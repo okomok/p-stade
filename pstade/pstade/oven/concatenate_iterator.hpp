@@ -17,28 +17,29 @@
 
 // Note:
 //
-// The LocalIterator must be valid after copying of SegmentIterator.
-// So, this range cannot support something like 'boost::token_iterator',
-// which manages the source range in the iterator itself.
+// 'iterator_reference' of SegmentIterator can be a "rvalue" range.
+// Something like 'iterator_range' is fine.
+// But, for example, 'std::string' is bad, because
+// the LocalIterator must be valid after copying of SegmentIterator.
+// That is, 'boost::token_iterator' is not supported;
+// such iterator manages the source range in the iterator itself.
 
 
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_categories.hpp>
-#include <boost/iterator/iterator_traits.hpp> // iterator_reference
+#include <boost/iterator/iterator_traits.hpp>
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/empty.hpp>
 #include <boost/range/end.hpp>
+#include <boost/utility/result_of.hpp>
 #include <pstade/contract.hpp>
 #include <pstade/object_generator.hpp>
+#include "./begin_end.hpp" // op_begin
 #include "./detail/debug_contains.hpp"
-#include "./range_difference.hpp"
 #include "./range_iterator.hpp"
-#include "./range_reference.hpp"
-#include "./range_traversal.hpp"
-#include "./range_value.hpp"
 
 
 namespace pstade { namespace oven {
@@ -51,48 +52,53 @@ struct concatenate_iterator;
 namespace concatenate_iterator_detail {
 
 
+    template< class SegmentIter >
+    struct local_iterator :
+        // How simple it is!
+        boost::result_of<op_begin(typename boost::iterator_reference<SegmentIter>::type)>
+    { };
+
+
     // See:
     // http://opensource.adobe.com/iterator_8hpp-source.html#l00087
-    template< class SegmentIter, class LocalRange >
+    template< class SegmentIter, class LocalIter >
     struct traversal
     {
         typedef typename boost::iterator_traversal<SegmentIter>::type segment_trv_t;
-        typedef typename range_traversal<LocalRange>::type local_trv_t;
+        typedef typename boost::iterator_traversal<LocalIter>::type local_trv_t;
 
-        typedef typename boost::mpl::eval_if<
-            boost::mpl::and_<
-                boost::is_convertible<segment_trv_t, boost::bidirectional_traversal_tag>,
-                boost::is_convertible<local_trv_t, boost::bidirectional_traversal_tag>
-            >,
-            boost::mpl::identity<boost::bidirectional_traversal_tag>,
+        typedef typename
             boost::mpl::eval_if<
-                boost::is_convertible<local_trv_t, boost::forward_traversal_tag>,
-                boost::mpl::identity<boost::forward_traversal_tag>,
-                boost::mpl::identity<local_trv_t>
-            >
-        >::type type;
+                boost::mpl::and_<
+                    boost::is_convertible<segment_trv_t, boost::bidirectional_traversal_tag>,
+                    boost::is_convertible<local_trv_t, boost::bidirectional_traversal_tag>
+                >,
+                boost::mpl::identity<boost::bidirectional_traversal_tag>,
+                boost::mpl::eval_if<
+                    boost::is_convertible<local_trv_t, boost::forward_traversal_tag>,
+                    boost::mpl::identity<boost::forward_traversal_tag>,
+                    boost::mpl::identity<local_trv_t>
+                >
+            >::type
+        type;
     };
-
-
-    template< class SegmentIter >
-    struct local_range :
-        boost::iterator_reference<SegmentIter>
-    { };
 
 
     template< class SegmentIter >
     struct super_
     {
-        typedef typename local_range<SegmentIter>::type local_rng_t;
+        typedef typename local_iterator<SegmentIter>::type local_iter_t;
 
-        typedef boost::iterator_adaptor<
-            concatenate_iterator<SegmentIter>,
-            SegmentIter,
-            typename range_value<local_rng_t>::type,
-            typename traversal<SegmentIter, local_rng_t>::type,
-            typename range_reference<local_rng_t>::type,
-            typename range_difference<local_rng_t>::type
-        > type;
+        typedef
+            boost::iterator_adaptor<
+                concatenate_iterator<SegmentIter>,
+                SegmentIter,
+                typename boost::iterator_value<local_iter_t>::type,
+                typename traversal<SegmentIter, local_iter_t>::type,
+                typename boost::iterator_reference<local_iter_t>::type,
+                typename boost::iterator_difference<local_iter_t>::type
+            >
+        type;
     };
 
 
@@ -106,11 +112,11 @@ struct concatenate_iterator :
 private:
     typedef typename concatenate_iterator_detail::super_<SegmentIter>::type super_t;
     typedef typename super_t::reference ref_t;
-    typedef typename concatenate_iterator_detail::local_range<SegmentIter>::type local_rng_t;
+    typedef typename boost::iterator_reference<SegmentIter>::type local_rng_ref_t;
 
 public:
     typedef SegmentIter segment_iterator;
-    typedef typename range_iterator<local_rng_t>::type local_iterator;
+    typedef typename concatenate_iterator_detail::local_iterator<SegmentIter>::type local_iterator;
 
     concatenate_iterator()
     { }
@@ -157,7 +163,7 @@ private:
         return this->base() == m_last;
     }
 
-    local_rng_t local_range() const
+    local_rng_ref_t local_range() const
     {
         PSTADE_PRECONDITION (
             (!segment_is_end())
