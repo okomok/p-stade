@@ -56,18 +56,18 @@ BOOST_MPL_ASSERT((boost::is_same<int&, value_at<tup_t const, boost::mpl::int_<0>
 BOOST_MPL_ASSERT((boost::is_same<double, value_at<tup_t const, boost::mpl::int_<1> >::type>));
 
 // lvalue
-BOOST_MPL_ASSERT((boost::is_same<int&, boost::result_of<op_at(tup_t&, boost::mpl::int_<0>)>::type>));
-BOOST_MPL_ASSERT((boost::is_same<double&, boost::result_of<op_at(tup_t&, boost::mpl::int_<1>)>::type>));
+BOOST_MPL_ASSERT((boost::is_same<int&, boost::result_of<op_at<boost::mpl::int_<0> >(tup_t&)>::type>));
+BOOST_MPL_ASSERT((boost::is_same<double&, boost::result_of<op_at<boost::mpl::int_<1> >(tup_t&)>::type>));
 
-BOOST_MPL_ASSERT((boost::is_same<int&, boost::result_of<op_at(tup_t const&, boost::mpl::int_<0>)>::type>));
-BOOST_MPL_ASSERT((boost::is_same<double const&, boost::result_of<op_at(tup_t const&, boost::mpl::int_<1>)>::type>));
+BOOST_MPL_ASSERT((boost::is_same<int&, boost::result_of<op_at<boost::mpl::int_<0> >(tup_t const&)>::type>));
+BOOST_MPL_ASSERT((boost::is_same<double const&, boost::result_of<op_at<boost::mpl::int_<1> >(tup_t const&)>::type>));
 
 // rvalue
-BOOST_MPL_ASSERT((boost::is_same<int&, boost::result_of<op_at(tup_t, boost::mpl::int_<0>)>::type>));
-BOOST_MPL_ASSERT((boost::is_same<double const&, boost::result_of<op_at(tup_t, boost::mpl::int_<1>)>::type>));
+BOOST_MPL_ASSERT((boost::is_same<int&, boost::result_of<op_at<boost::mpl::int_<0> >(tup_t)>::type>));
+BOOST_MPL_ASSERT((boost::is_same<double const&, boost::result_of<op_at<boost::mpl::int_<1> >(tup_t)>::type>));
 
-BOOST_MPL_ASSERT((boost::is_same<int&, boost::result_of<op_at(tup_t const, boost::mpl::int_<0>)>::type>));
-BOOST_MPL_ASSERT((boost::is_same<double const&, boost::result_of<op_at(tup_t const, boost::mpl::int_<1>)>::type>));
+BOOST_MPL_ASSERT((boost::is_same<int&, boost::result_of<op_at<boost::mpl::int_<0> >(tup_t const)>::type>));
+BOOST_MPL_ASSERT((boost::is_same<double const&, boost::result_of<op_at< boost::mpl::int_<1> >(tup_t const)>::type>));
 
 
 void test()
@@ -77,8 +77,8 @@ void test()
     BOOST_CHECK( is_same(p.second, at_second(p)) );
 
     tup_t t(p.first, 1.0);
-    BOOST_CHECK( is_same(boost::get<0>(t), at(t, boost::mpl::int_<0>())) );
-    BOOST_CHECK( is_same(boost::get<1>(t), at(t, boost::mpl::int_<1>())) );
+    BOOST_CHECK( is_same(boost::get<0>(t), pstade::at<boost::mpl::int_<0> >(t)) );
+    BOOST_CHECK( is_same(boost::get<1>(t), pstade::at<boost::mpl::int_<1> >(t)) );
 }
 
 

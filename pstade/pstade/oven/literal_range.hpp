@@ -25,7 +25,6 @@
 #include <cstddef> // size_t
 #include <boost/type_traits/remove_const.hpp>
 #include <boost/type_traits/remove_extent.hpp>
-#include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>

@@ -17,6 +17,8 @@
 #include "./auto_castable.hpp"
 #include "./base_from.hpp"
 #include "./base_to_derived.hpp"
+#include "./callable1.hpp"
+#include "./callable2.hpp"
 #include "./callable.hpp"
 #include "./check.hpp"
 #include "./clone_ptr.hpp"

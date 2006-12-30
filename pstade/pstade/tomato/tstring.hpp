@@ -13,7 +13,7 @@
 #include <sstream> // basic_stringstream
 #include <string>  // basic_string
 #include <pstade/apple/sdk/tchar.hpp>
-#include <pstade/callable.hpp>
+#include <pstade/callable1.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/oven/copy_range.hpp>
 #include "./multibyte_to_widechar.hpp"
@@ -44,7 +44,7 @@ tstring_to(tstring const& from)
 
 
 struct op_to_string :
-    callable<op_to_string>
+    callable1<op_to_string>
 {
     template< class Myself, class WideCharSeq >
     struct apply

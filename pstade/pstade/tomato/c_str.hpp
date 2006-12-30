@@ -17,7 +17,7 @@
 #include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/apple/wtl/misc.hpp> // CString
 #include <pstade/apple/basic_string_fwd.hpp>
-#include <pstade/callable.hpp>
+#include <pstade/callable1.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/nullptr.hpp>
@@ -109,7 +109,7 @@ namespace c_str_detail {
 
 
 struct op_c_str :
-    callable<op_c_str>
+    callable1<op_c_str>
 {
     template< class Myself, class CStringizable >
     struct apply

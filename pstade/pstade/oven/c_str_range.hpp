@@ -14,7 +14,6 @@
 #include <cstring> // strlen
 #include <cwchar>  // wcslen
 #include <boost/type_traits/remove_pointer.hpp>
-#include <pstade/callable.hpp>
 #include <pstade/object_generator.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>

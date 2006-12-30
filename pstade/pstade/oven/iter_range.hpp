@@ -31,7 +31,7 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/type_traits/remove_cv.hpp>
-#include <pstade/callable.hpp>
+#include <pstade/callable2.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/radish/bool_testable.hpp>
 #include <pstade/radish/swappable.hpp>
@@ -160,7 +160,7 @@ private:
 
 
 struct op_make_iter_range :
-    callable<op_make_iter_range>
+    callable2<op_make_iter_range>
 {
     template< class Myself, class Iterator, class Iterator_ = void >
     struct apply

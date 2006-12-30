@@ -12,7 +12,7 @@
 
 #include <boost/utility/addressof.hpp>
 #include <pstade/apple/sdk/windows.hpp>
-#include <pstade/callable.hpp>
+#include <pstade/callable1.hpp>
 #include <pstade/pass_by.hpp>
 #include "./window_ptr.hpp"
 #include "./window_ref.hpp"
@@ -60,7 +60,7 @@ namespace for_each_child_window_detail {
 
 
 struct for_each_child_window :
-    callable<for_each_child_window>
+    callable1<for_each_child_window>
 {
     // 'NULL' means the root window.
     explicit for_each_child_window(window_ptr parent) :

@@ -253,7 +253,7 @@ public:
 
     template< class Iterator_ >
     explicit any_iterator(Iterator_ const& it) :
-        m_pimpl(new_<
+        m_pimpl(op_new<
             any_iterator_detail::holder<Iterator_, Traversal, Reference, Difference>
         >()(it))
     { }

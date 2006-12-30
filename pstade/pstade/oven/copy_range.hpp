@@ -12,7 +12,7 @@
 
 #include <pstade/adl_barrier.hpp>
 #include <pstade/auto_castable.hpp>
-#include <pstade/callable.hpp>
+#include <pstade/callable2.hpp>
 #include <pstade/pipable.hpp>
 #include "./algorithm.hpp" // copy
 #include "./extension.hpp"
@@ -61,7 +61,7 @@ PSTADE_PIPABLE(copied, (auto_castable< op_copy_range<boost::mpl::_1> >))
 //
 
 struct op_copied_out :
-    callable<op_copied_out>
+    callable2<op_copied_out>
 {
     template< class Myself, class Range, class OutIter >
     struct apply

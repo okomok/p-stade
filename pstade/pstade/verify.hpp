@@ -17,7 +17,7 @@
 
 
 #include <boost/assert.hpp>
-#include <pstade/callable.hpp>
+#include <pstade/callable1.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>
 
@@ -26,7 +26,7 @@ namespace pstade {
 
 
     struct op_verify :
-        callable<op_verify>
+        callable1<op_verify>
     {
         template< class Myself, class T >
         struct apply

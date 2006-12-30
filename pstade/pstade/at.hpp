@@ -21,9 +21,11 @@
 
 #include <boost/tuple/tuple.hpp>
 #include <boost/type_traits/remove_cv.hpp>
+#include <boost/utility/result_of.hpp>
 #include <pstade/affect.hpp>
 #include <pstade/apple/pair_fwd.hpp>
-#include <pstade/callable.hpp>
+#include <pstade/callable1.hpp>
+#include <pstade/const_overloaded.hpp>
 #include <pstade/constant.hpp>
 
 
@@ -48,7 +50,7 @@ namespace pstade {
 
 
     struct op_at_first :
-        callable<op_at_first>
+        callable1<op_at_first>
     {
         template<class Myself, class Pair>
         struct apply :
@@ -66,7 +68,7 @@ namespace pstade {
 
 
     struct op_at_second :
-        callable<op_at_second>
+        callable1<op_at_second>
     {
         template<class Myself, class Pair>
         struct apply :
@@ -92,22 +94,38 @@ namespace pstade {
     { };
 
 
+    template<class N>
     struct op_at :
-        callable<op_at>
+        callable1<op_at<N> >
     {
-        template<class Myself, class Tuple, class N>
+        template<class Myself, class Tuple>
         struct apply :
             affect_cvr<Tuple&, typename value_at<Tuple, N>::type>
         { };
 
-        template<class Result, class Tuple, class N>
-        Result call(Tuple& t, N) const
+        template<class Result, class Tuple>
+        Result call(Tuple& t) const
         {
             return boost::tuples::get<N::value>(t);
         }
     };
 
-    PSTADE_CONSTANT(at, (op_at))
+
+    template<class N, class Tuple> inline
+    typename const_overloaded_eval_result<
+        boost::result_of<op_at<N>(Tuple&)>, Tuple
+    >::type
+    at(Tuple& t)
+    {
+        return op_at<N>()(t);
+    }
+
+    template<class N, class Tuple> inline
+    typename boost::result_of<op_at<N>(Tuple const&)>::type
+    at(Tuple const& t)
+    {
+        return op_at<N>()(t);
+    }
 
 
 } // namespace pstade

@@ -24,7 +24,7 @@
 #include <boost/config.hpp> // BOOST_NESTED_TEMPLATE
 #include <boost/xpressive/proto/compile.hpp>
 #include <boost/xpressive/proto/operators.hpp>
-#include <pstade/callable.hpp>
+#include <pstade/callable1.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/deduced_const.hpp>
 #include <pstade/pipable.hpp>
@@ -151,7 +151,7 @@ namespace pstade { namespace oven {
 
 
         struct op :
-            callable<op>
+            callable1<op>
         {
             template< class Myself, class Xpr >
             struct apply :

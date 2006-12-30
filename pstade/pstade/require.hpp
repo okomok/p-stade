@@ -24,7 +24,7 @@
 #include <boost/preprocessor/stringize.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/type_traits/add_reference.hpp>
-#include <pstade/callable.hpp>
+#include <pstade/callable2.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/what.hpp>
@@ -98,7 +98,7 @@ namespace pstade {
 
 
     struct op_require :
-        callable<op_require>
+        callable2<op_require>
     {
         template< class Myself, class T, class StringT = void >
         struct apply :

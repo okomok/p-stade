@@ -12,7 +12,7 @@
 
 #include <boost/utility/result_of.hpp>
 #include <pstade/fuse.hpp>
-#include <pstade/callable.hpp>
+#include <pstade/callable2.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
@@ -60,7 +60,7 @@ namespace pstade {
 
 
     struct op_compose :
-        callable<op_compose>
+        callable2<op_compose>
     {
         template< class Myself, class F, class G >
         struct apply

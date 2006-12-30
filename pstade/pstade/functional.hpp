@@ -26,7 +26,8 @@
 #include <boost/utility/addressof.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/adl_barrier.hpp>
-#include <pstade/callable.hpp>
+#include <pstade/callable1.hpp>
+#include <pstade/callable2.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/enable_if.hpp> // disable_if
 #include <pstade/object_generator.hpp>
@@ -42,7 +43,7 @@ PSTADE_ADL_BARRIER(functional) {
     //
 
     struct op_identity :
-        callable<op_identity>
+        callable1<op_identity>
     {
         template< class Myself, class T >
         struct apply
@@ -89,7 +90,7 @@ PSTADE_ADL_BARRIER(functional) {
     } // namespace always_detail
 
     struct op_always :
-        callable<op_always>
+        callable1<op_always>
     {
         template< class Myself, class T >
         struct apply
@@ -114,7 +115,7 @@ PSTADE_ADL_BARRIER(functional) {
 
         template< class Predicate >
         struct op_result :
-            callable< op_result<Predicate> > 
+            callable2< op_result<Predicate> > 
         {
             template< class Myself, class T0, class T1 = void >
             struct apply
@@ -233,7 +234,7 @@ PSTADE_ADL_BARRIER(functional) {
     }; \
     \
     struct BOOST_PP_CAT(op_, F) : \
-        callable< BOOST_PP_CAT(op_, F) > \
+        callable2< BOOST_PP_CAT(op_, F) > \
     { \
         template< class Myself, class X, class Y > \
         struct apply : \
@@ -259,7 +260,7 @@ PSTADE_ADL_BARRIER(functional) {
 #undef  PSTADE_binary_arithmetic
 
     struct op_negate :
-        callable<op_negate>
+        callable1<op_negate>
     {
         template< class Myself, class X >
         struct apply :
@@ -283,7 +284,7 @@ PSTADE_ADL_BARRIER(functional) {
 
         template< class BinaryFun >
         struct op_result :
-            callable< op_result<BinaryFun> >
+            callable2< op_result<BinaryFun> >
         {
             template< class Myself, class A0, class A1 >
             struct apply :

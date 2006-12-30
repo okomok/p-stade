@@ -20,7 +20,7 @@
 #include <boost/iterator/zip_iterator.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <boost/type_traits/remove_reference.hpp>
-#include <pstade/callable.hpp>
+#include <pstade/callable2.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
@@ -108,7 +108,7 @@ public:
 
 
 struct op_make_zip_range :
-    callable<op_make_zip_range>
+    callable2<op_make_zip_range>
 {
     template< class Myself, class RangeTupleOrRange0, class Range1 = void >
     struct apply;

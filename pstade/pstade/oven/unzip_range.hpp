@@ -16,7 +16,6 @@
 #include <boost/tuple/tuple.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/at.hpp>
-#include <pstade/callable.hpp>
 #include <pstade/const_overloaded.hpp>
 #include <pstade/deduced_const.hpp>
 #include <pstade/nonassignable.hpp>
@@ -34,33 +33,13 @@ namespace pstade { namespace oven {
 namespace unzip_at_range_detail {
 
 
-    // "Bind" from scratch.
-    // A Boost.Lambda functor is useless here,
-    // because it is not Assignable.
-    template< class N >
-    struct op_at_ :
-        callable< op_at_<N> >
-    {
-        template< class Myself, class Tuple >
-        struct apply :
-            boost::result_of<op_at(Tuple&, N)>
-        { };
-
-        template< class Result, class Tuple >
-        Result call(Tuple& tup) const
-        {
-            return pstade::at(tup, N());
-        }
-    };
-
-
     template< class TupleRange, class N >
     struct super_ // avoid inheritance; GCC3.4 is broken by MPL.
     {
         typedef
             transform_range<
                 TupleRange,
-                op_at_<N>,
+                op_at<N>,
                 typename detail::reference_affect<
                     TupleRange,
                     value_at<boost::mpl::_1, N>

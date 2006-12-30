@@ -21,6 +21,8 @@ test-suite wine :
     [ wine-test arraya ]
     [ wine-test auto_castable ]
     [ wine-test base_to_derived ]
+    [ wine-test callable1 ]
+    [ wine-test callable2 ]
     [ wine-test callable ]
     [ wine-test check ]
     [ wine-test clone_ptr ]

@@ -12,7 +12,6 @@
 
 #include <cstddef> // size_t
 #include <boost/type_traits/remove_extent.hpp>
-#include <pstade/callable.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/object_generator.hpp>
 #include "./as_lightweight_proxy.hpp"

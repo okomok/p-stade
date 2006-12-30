@@ -17,14 +17,15 @@
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/preprocessor.hpp>
+#include <pstade/unparenthesize.hpp>
 
 
 namespace pstade {
 
 
     template<class X>
-    struct new_ :
-        callable<new_<X>, std::auto_ptr<X> >
+    struct op_new :
+        callable<op_new<X>, std::auto_ptr<X> >
     {
         template<class Myself, PSTADE_CALLABLE_APPLY_PARAMS(A)>
         struct apply

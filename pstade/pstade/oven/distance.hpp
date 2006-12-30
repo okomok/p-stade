@@ -21,7 +21,7 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/adl_barrier.hpp>
-#include <pstade/callable.hpp>
+#include <pstade/callable1.hpp>
 #include <pstade/constant.hpp>
 #include "./concepts.hpp"
 #include "./range_difference.hpp"
@@ -65,7 +65,7 @@ namespace distance_detail {
 
 
 struct op_distance :
-    callable<op_distance>
+    callable1<op_distance>
 {
     template< class Myself, class Range >
     struct apply :

@@ -13,6 +13,9 @@
 #include <pstade/integral_cast.hpp>
 
 
+#include <boost/utility/result_of.hpp>
+
+
 void test()
 {
     using namespace pstade;
@@ -23,10 +26,21 @@ void test()
     ui = pstade::op_integral_cast<signed int>()(i);
     ui = pstade::integral_cast<signed int>(i);
 
-    //ui = pstade::integral(i);
-    //ui = pstade::integral(3);
-
     ui = i|to_integer;
+}
+
+
+void test_()
+{
+    using namespace pstade;
+
+    try {
+        boost::result_of<op_integral_cast<short>(long)>::type
+            s = pstade::integral_cast<short>(70000L);
+    }
+    catch (boost::bad_numeric_cast)
+    {
+    }
 }
 
 

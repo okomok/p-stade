@@ -18,7 +18,7 @@
 #include <boost/utility/result_of.hpp>
 #include <pstade/affect.hpp>
 #include <pstade/at.hpp>
-#include <pstade/callable.hpp>
+#include <pstade/callable1.hpp>
 #include <pstade/object_generator.hpp>
 #include <pstade/remove_cvr.hpp>
 #include <pstade/unused.hpp>
@@ -69,7 +69,7 @@ namespace pstade {
         template< class Function, class FusionSeq >
         struct apply_impl< Function, FusionSeq, int_<1> > :
             boost::result_of< Function(
-                typename boost::result_of<op_at(FusionSeq&, int_<0>)>::type
+                typename boost::result_of<op_at< int_<0> >(FusionSeq&)>::type
             ) >
         { };
 
@@ -77,7 +77,7 @@ namespace pstade {
         Result call_impl(Function fun, FusionSeq& seq, int_<1>)
         {
             return fun(
-                pstade::at(seq, int_<0>())
+                pstade::at< int_<0> >(seq)
             );
         }
 
@@ -85,8 +85,8 @@ namespace pstade {
         // 2ary-
 
     #define PSTADE_max_arity 10
-    #define PSTADE_result_of_at_c(Z, N, _) typename boost::result_of<op_at(FusionSeq&, int_<N>)>::type
-    #define PSTADE_at_c(Z, N, _)           pstade::at(seq, int_<N>())
+    #define PSTADE_result_of_at_c(Z, N, _) typename boost::result_of< op_at< int_<N> >(FusionSeq&)>::type
+    #define PSTADE_at_c(Z, N, _)           pstade::at< int_<N> >(seq)
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_max_arity, <pstade/fuse.hpp>))
         #include BOOST_PP_ITERATE()
     #undef  PSTADE_at_c
@@ -96,7 +96,7 @@ namespace pstade {
 
         template< class Function >
         struct op_result :
-            callable< op_result<Function> >
+            callable1< op_result<Function> >
         {
             template< class Myself, class FusionSeq >
             struct apply

@@ -14,7 +14,7 @@
 #include <boost/fusion/sequence/intrinsic/value_at.hpp>
 #include <boost/mpl/int.hpp>
 #include <boost/mpl/placeholders.hpp>
-#include <pstade/callable.hpp>
+#include <pstade/callable1.hpp>
 #include <pstade/const_overloaded.hpp>
 #include <pstade/deduced_const.hpp>
 #include <pstade/nonassignable.hpp>
@@ -32,7 +32,7 @@ namespace get_at_range_detail {
 
     template< class N >
     struct op_at :
-        callable< op_at<N> >
+        callable1< op_at<N> >
     {
         template< class Myself, class FusionSeq >
         struct apply :

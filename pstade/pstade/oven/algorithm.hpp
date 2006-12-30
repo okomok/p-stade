@@ -52,6 +52,8 @@
 #include <pstade/apple/has_sort.hpp>
 #include <pstade/apple/has_unique.hpp>
 #include <pstade/apple/has_upper_bound.hpp>
+#include <pstade/callable1.hpp>
+#include <pstade/callable2.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/enable_if.hpp>
@@ -78,7 +80,7 @@ PSTADE_ADL_BARRIER(algorithm) {
     // find
     
     struct op_find :
-        callable<op_find>
+        callable2<op_find>
     {
         template< class Myself, class Range, class Value >
         struct apply :
@@ -244,7 +246,7 @@ PSTADE_ADL_BARRIER(algorithm) {
     // remove
 
     struct op_remove :
-        callable<op_remove>
+        callable2<op_remove>
     {
         template< class Myself, class Range, class Value >
         struct apply :
@@ -273,7 +275,7 @@ PSTADE_ADL_BARRIER(algorithm) {
     // remove_if
 
     struct op_remove_if :
-        callable<op_remove_if>
+        callable2<op_remove_if>
     {
         template< class Myself, class Range, class UnaryPred >
         struct apply :
@@ -308,7 +310,7 @@ PSTADE_ADL_BARRIER(algorithm) {
     // unique
 
     struct op_unique :
-        callable<op_unique>
+        callable2<op_unique>
     {
         template< class Myself, class Range, class BinaryPred = void >
         struct apply :
@@ -357,7 +359,7 @@ PSTADE_ADL_BARRIER(algorithm) {
     // reverse
 
     struct op_reverse :
-        callable<op_reverse>
+        callable1<op_reverse>
     {
         template< class Myself, class Range >
         struct apply
@@ -391,7 +393,7 @@ PSTADE_ADL_BARRIER(algorithm) {
     // rotate
 
     struct op_rotate :
-        callable<op_rotate>
+        callable2<op_rotate>
     {
         template< class Myself, class Range, class Iterator >
         struct apply
@@ -446,7 +448,7 @@ PSTADE_ADL_BARRIER(algorithm) {
     // sort
 
     struct op_sort :
-        callable<op_sort>
+        callable2<op_sort>
     {
         template< class Myself, class Range, class Compare = void >
         struct apply

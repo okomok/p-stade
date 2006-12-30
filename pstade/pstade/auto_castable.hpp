@@ -13,7 +13,7 @@
 #include <boost/mpl/apply.hpp>
 #include <boost/mpl/placeholders.hpp> // inclusion guaranteed.
 #include <boost/preprocessor/cat.hpp>
-#include <pstade/callable.hpp>
+#include <pstade/callable1.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/nonassignable.hpp>
 #include <pstade/unparenthesize.hpp>
@@ -53,7 +53,7 @@ namespace pstade {
 
     template<class Lambda>
     struct auto_castable :
-        callable<auto_castable<Lambda> >
+        callable1<auto_castable<Lambda> >
     {
         template<class Myself, class From>
         struct apply

@@ -40,8 +40,9 @@
 #include <boost/preprocessor/seq/for_each_product.hpp>
 #include <boost/type_traits/add_const.hpp>
 #include <boost/type_traits/remove_reference.hpp>
-#include <boost/utility/result_of.hpp> // inclusion guaranteed
+#include <boost/utility/result_of.hpp>
 #include <pstade/adl_barrier.hpp>
+#include <pstade/callable1.hpp> // meta_argument
 #include <pstade/deduced_const.hpp>
 #include <pstade/lambda_sig.hpp>
 #include <pstade/preprocessor.hpp>
@@ -54,22 +55,6 @@
 
 
 namespace pstade {
-
-
-    namespace callable_detail {
-
-
-        // Add const-qualifier if rvalue is specified.
-        template< class A >
-        struct meta_argument :
-            boost::remove_reference<
-                // VC++ warns against 'A const' if 'A' is reference, so...
-                typename boost::add_const<A>::type
-            >
-        { };
-
-
-    } // namespace callable_detail
 
 
     template< class Function > // for cute error message.
@@ -105,45 +90,7 @@ namespace pstade {
         }
 
 
-        // 1ary
-
-    private:
-        template< class A0 >
-        struct result1 : // Prefer inheritance for SFINAE.
-            Derived::BOOST_NESTED_TEMPLATE apply< Derived,
-                typename callable_detail::meta_argument<A0>::type
-            >
-        { };
-
-    public:
-        template< class Self, class A0 >
-        struct result<Self(A0)> :
-            result1<A0>
-        { };
-
-        // Workaround:
-        // Never call 'result<callable(A0&,..)>' directly;
-        // a signature form makes VC7.1 fall into ETI.
-        template< class A0 >
-        typename result1<A0&>::type
-        operator()(A0& a0) const
-        {
-            return derived().BOOST_NESTED_TEMPLATE call<
-                typename result1<A0&>::type
-            >(a0);
-        }
-
-        template< class A0 >
-        typename result1<PSTADE_DEDUCED_CONST(A0)&>::type
-        operator()(A0 const& a0) const
-        {
-            return derived().BOOST_NESTED_TEMPLATE call<
-                typename result1<PSTADE_DEDUCED_CONST(A0)&>::type
-            >(a0);
-        }
-
-
-        // 2ary-
+        // 1ary-
 
     #define PSTADE_call_operator(R, BitSeq) \
         template< BOOST_PP_ENUM_PARAMS(n, class A) > \
@@ -163,7 +110,7 @@ namespace pstade {
     #define PSTADE_ac0(X) X
     #define PSTADE_ac1(X) PSTADE_DEDUCED_CONST(X)
     #define PSTADE_bits(Z, N, _) ((0)(1))
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_CALLABLE_MAX_ARITY, <pstade/callable.hpp>))
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_CALLABLE_MAX_ARITY, <pstade/callable.hpp>))
         #include BOOST_PP_ITERATE()
     #undef  PSTADE_bits
     #undef  PSTADE_ac1
