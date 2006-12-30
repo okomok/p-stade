@@ -253,9 +253,9 @@ public:
 
     template< class Iterator_ >
     explicit any_iterator(Iterator_ const& it) :
-        m_pimpl(new_(boost::type<
+        m_pimpl(new_<
             any_iterator_detail::holder<Iterator_, Traversal, Reference, Difference>
-        >(), it))
+        >()(it))
     { }
 
     template< class Iterator_ >

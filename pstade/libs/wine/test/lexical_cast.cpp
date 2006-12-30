@@ -13,9 +13,6 @@
 #include <pstade/lexical_cast.hpp>
 
 
-#include <boost/mpl/identity.hpp>
-
-
 template< class T >
 void foo(T& x)
 {
@@ -35,18 +32,18 @@ void test()
     using namespace pstade;
 
     {
-        BOOST_CHECK( pstade::lexical_cast(12, boost::type<std::string>()) == "12" );
+        BOOST_CHECK( pstade::lexical_cast<std::string>()(12) == "12" );
         std::string str = 12|lexicalized;
         BOOST_CHECK( str == "12" );
-        BOOST_CHECK( pstade::lexical_cast(str, boost::type<int>()) == 12 );
+        BOOST_CHECK( pstade::lexical_cast<int>()(str) == 12 );
     }
 
     {
         using boost::mpl::identity;
-        BOOST_CHECK( pstade::lexical_cast(12, identity<std::string>()) == "12" );
+        BOOST_CHECK( pstade::lexical_cast<std::string>()(12) == "12" );
         std::string str = 12|lexicalized;
         BOOST_CHECK( str == "12" );
-        BOOST_CHECK( pstade::lexical_cast(str, identity<int>()) == 12 );
+        BOOST_CHECK( pstade::lexical_cast<int>()(str) == 12 );
     }
 
     {

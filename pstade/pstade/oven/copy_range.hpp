@@ -10,13 +10,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/utility/result_of.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/auto_castable.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/to_type.hpp>
 #include "./algorithm.hpp" // copy
 #include "./extension.hpp"
 
@@ -45,18 +42,19 @@ PSTADE_ADL_BARRIER(copy_range) { // for Boost
 // copied
 //
 
-struct op_copy_range :
-    to_type_callable<op_copy_range>
+template< class To >
+struct copy_range_
 {
-    template< class To, class From >
-    To call(From const& from) const
+    typedef To result_type;
+
+    template< class From >
+    To operator()(From const& from) const
     {
         return oven::copy_range<To>(from);
     }
 };
 
-PSTADE_CONSTANT(copy_range_, (op_copy_range))
-PSTADE_PIPABLE(copied, (boost::result_of<op_auto_castable(op_copy_range)>::type))
+PSTADE_PIPABLE(copied, (auto_castable< copy_range_<boost::mpl::_1> >))
 
 
 // copied_out
@@ -72,7 +70,7 @@ struct op_copied_out :
     };
 
     template< class Result, class Range, class OutIter >
-    Result call(Range& rng, OutIter to) const
+    Result call(Range& rng, OutIter& to) const
     {
         oven::copy(rng, to);
         return rng;

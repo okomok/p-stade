@@ -10,13 +10,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/mpl/apply.hpp>
+#include <boost/mpl/placeholders.hpp> // inclusion guaranteed.
 #include <boost/preprocessor/cat.hpp>
-#include <boost/type.hpp>
-#include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/nonassignable.hpp>
-#include <pstade/object_generator.hpp>
 #include <pstade/unparenthesize.hpp>
 
 
@@ -26,63 +25,55 @@ namespace pstade {
     namespace auto_castable_detail {
 
 
-        template< class CastFun, class From >
+        template<class Lambda, class From>
         struct temp :
             private nonassignable
         {
-            temp(CastFun const& fun, From& from) :
-                m_fun(fun), m_from(from)
+            temp(From& from) :
+                m_from(from)
             { }
 
-            template< class To >
+            template<class To>
             operator To() const
             {
-                return m_fun(m_from, boost::type<To>());
+                typedef typename
+                    boost::mpl::apply1<Lambda, To>::type
+                fun_t;
+
+                return fun_t()(m_from);
             }
 
         private:
-            CastFun m_fun;
             From& m_from;
-        };
-
-
-        template< class CastFun >
-        struct op_result :
-            callable< op_result<CastFun> >
-        {
-            template< class Myself, class From >
-            struct apply
-            {
-                typedef temp<CastFun, From> const type;
-            };
-
-            template< class Result, class From >
-            Result call(From& from) const
-            {
-                return Result(m_fun, from);
-            }
-
-            explicit op_result() // for ForwardIterator
-            { }
-
-            explicit op_result(CastFun const& fun) :
-                m_fun(fun)
-            { }
-
-        private:
-            CastFun m_fun;
         };
 
 
     } // namespace auto_castable_detail
 
 
-    PSTADE_OBJECT_GENERATOR(auto_castable, (auto_castable_detail::op_result< deduce<_1, to_value> >))
+    template<class Lambda>
+    struct auto_castable :
+        callable<auto_castable<Lambda> >
+    {
+        template<class Myself, class From>
+        struct apply
+        {
+            typedef
+                auto_castable_detail::temp<Lambda, From> const
+            type;
+        };
+
+        template<class Result, class From>
+        Result call(From& from) const
+        {
+            return Result(from);
+        }
+    };
 
 
-    #define PSTADE_AUTO_CASTABLE(Object, CastFun) \
+    #define PSTADE_AUTO_CASTABLE(Object, Lambda) \
         typedef \
-            ::boost::result_of< ::pstade::op_auto_castable( PSTADE_UNPARENTHESIZE(CastFun) ) >::type \
+            ::pstade::auto_castable<PSTADE_UNPARENTHESIZE(Lambda)> \
         BOOST_PP_CAT(op_, Object); \
         \
         PSTADE_CONSTANT( Object, (BOOST_PP_CAT(op_, Object)) ) \

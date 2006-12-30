@@ -25,7 +25,6 @@
 #include <pstade/constant.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/preprocessor.hpp>
-#include <pstade/remove_cvr.hpp>
 #include "./detail/config.hpp" // PSTADE_OVEN_BOOST_RANGE_BEGIN etc.
 #include "./distance.hpp"
 
@@ -69,7 +68,7 @@ namespace pstade { namespace oven { namespace extension_detail {
     template< class T >
     struct PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR
     {
-        typedef typename remove_cvr<T>::type plain_t;
+        typedef typename boost::remove_cv<T>::type plain_t;
         typedef typename pstade_oven_extension::Range<plain_t>::
             BOOST_NESTED_TEMPLATE associate<plain_t>::mutable_iterator type;
     };
@@ -78,7 +77,7 @@ namespace pstade { namespace oven { namespace extension_detail {
     template< class T >
     struct range_const_iterator
     {
-        typedef typename remove_cvr<T>::type plain_t;
+        typedef typename boost::remove_cv<T>::type plain_t;
         typedef typename pstade_oven_extension::Range<plain_t>::
             BOOST_NESTED_TEMPLATE associate<plain_t>::constant_iterator type;
     };

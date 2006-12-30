@@ -235,9 +235,9 @@ namespace pstade {
 /**/
 
 
-#define PSTADE_CALLABLE_PRIMARY_APPLY() \
+#define PSTADE_CALLABLE_PRIMARY_APPLY \
     template<class Myself, class A_, BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(PSTADE_CALLABLE_MAX_ARITY, class A, void)> \
-    struct apply { }; \
+    struct apply
 /**/
 
 

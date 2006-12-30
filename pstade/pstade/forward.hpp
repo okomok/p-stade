@@ -66,7 +66,8 @@ namespace pstade {
             typedef op_result type;
 
 
-            PSTADE_CALLABLE_PRIMARY_APPLY()
+            PSTADE_CALLABLE_PRIMARY_APPLY
+            { };
 
 
             // 0ary

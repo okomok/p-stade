@@ -1,6 +1,6 @@
 #ifndef BOOST_PP_IS_ITERATING
-#ifndef PSTADE_NEW_AUTO_HPP
-#define PSTADE_NEW_AUTO_HPP
+#ifndef PSTADE_NEW_HPP
+#define PSTADE_NEW_HPP
 
 
 // PStade.Wine
@@ -14,51 +14,35 @@
 #include <memory> // auto_ptr
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/preprocessor/repetition/enum_params_with_a_default.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/preprocessor.hpp>
-#include <pstade/to_type.hpp>
 
 
 namespace pstade {
 
 
-#define PSTADE_ctor_max_arity \
-    BOOST_PP_DEC(PSTADE_CALLABLE_MAX_ARITY) \
-/**/
-
-
-    struct op_new_ :
-        callable<op_new_>
+    template<class X>
+    struct new_ :
+        callable<new_<X>, std::auto_ptr<X> >
     {
-        // PSTADE_ctor_max_arity (primary)
-        template<class Myself, class Type_X, BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(PSTADE_ctor_max_arity, class A, void)>
-        struct apply
+        PSTADE_CALLABLE_PRIMARY_APPLY
         {
-            typedef typename to_type<Type_X>::type x_t;
-            typedef std::auto_ptr<x_t> type;
+            typedef std::auto_ptr<X> type;
         };
 
         // 0ary
-        template<class Result, class Type_X>
-        Result call(Type_X) const
+        template<class Result>
+        Result call() const
         {
-            typedef typename to_type<Type_X>::type x_t;
-            return Result(new x_t());
+            return Result(new X());
         }
 
         // 1ary-
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_ctor_max_arity, <pstade/new.hpp>))
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_CALLABLE_MAX_ARITY, <pstade/new.hpp>))
         #include BOOST_PP_ITERATE()
  
-    }; // struct op_new_
-
-
-    PSTADE_CONSTANT(new_, (op_new_))
-
-
-#undef  PSTADE_ctor_max_arity
+    };
 
 
 } // namespace pstade
@@ -69,11 +53,10 @@ namespace pstade {
 #define n BOOST_PP_ITERATION()
 
 
-template<class Result, class Type_X, BOOST_PP_ENUM_PARAMS(n, class A)>
-Result call(Type_X, PSTADE_PP_ENUM_REF_PARAMS(n, A, a)) const
+template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
+Result call(PSTADE_PP_ENUM_REF_PARAMS(n, A, a)) const
 {
-    typedef typename to_type<Type_X>::type x_t;
-    return Result(new x_t(BOOST_PP_ENUM_PARAMS(n, a)));
+    return Result(new X(BOOST_PP_ENUM_PARAMS(n, a)));
 }
 
 

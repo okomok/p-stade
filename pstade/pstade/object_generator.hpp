@@ -115,7 +115,8 @@ namespace pstade {
         callable< object_generator<Lambda, NullaryResult>, NullaryResult > 
     {
 
-        PSTADE_CALLABLE_PRIMARY_APPLY()
+        PSTADE_CALLABLE_PRIMARY_APPLY
+        { };
 
 
         // 0ary

@@ -61,7 +61,7 @@ void test()
     }
 
     {
-        BOOST_CHECK( oven::equals(pstade::new_(boost::type<xxx>(), "0123")|shared, ans) );
+        BOOST_CHECK( oven::equals(pstade::new_<xxx>()("0123")|shared, ans) );
     }
 
     {

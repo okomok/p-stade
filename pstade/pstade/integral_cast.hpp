@@ -13,38 +13,30 @@
 #include <boost/mpl/assert.hpp>
 #include <boost/numeric/conversion/cast.hpp> // numeric_cast
 #include <boost/type_traits/is_integral.hpp>
-#include <boost/utility/result_of.hpp>
 #include <pstade/auto_castable.hpp>
-#include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/to_type.hpp>
 
 
 namespace pstade {
 
 
-    template< class To, class From > inline
-    To integral_cast(From const& from)
+    template<class To>
+    struct integral_cast
     {
-        BOOST_MPL_ASSERT((boost::is_integral<To>));
-        BOOST_MPL_ASSERT((boost::is_integral<From>));
-
-        return boost::numeric_cast<To>(from);
-    }
-
-
-    struct op_integral_cast :
-        to_type_callable<op_integral_cast>
-    {
-        template< class To, class From >
-        To call(From const& from) const
+        typedef To result_type;
+        
+        template<class From>
+        To operator()(From const& from)
         {
-            return pstade::integral_cast<To>(from);
+            BOOST_MPL_ASSERT((boost::is_integral<To>));
+            BOOST_MPL_ASSERT((boost::is_integral<From>));
+
+            return boost::numeric_cast<To>(from);
         }
     };
 
-    PSTADE_CONSTANT(integral_cast_, (op_integral_cast))
-    PSTADE_PIPABLE(to_integer, (boost::result_of<op_auto_castable(op_integral_cast)>::type))
+
+    PSTADE_PIPABLE(to_integer, (auto_castable<integral_cast<boost::mpl::_1> >))
 
 
 } // namespace pstade

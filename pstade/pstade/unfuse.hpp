@@ -41,7 +41,8 @@ namespace pstade {
             >
         {
 
-            PSTADE_CALLABLE_PRIMARY_APPLY()
+            PSTADE_CALLABLE_PRIMARY_APPLY
+            { };
 
 
             // 0ary

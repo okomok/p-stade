@@ -17,18 +17,19 @@
 #include <boost/lexical_cast.hpp>
 
 
-struct op_lexical_cast
+template<class To>
+struct lexical_cast
 {
-    // 'result_of' support isn't needed.
+    typedef To result_type;
 
-    template< class From, class To >
-    To operator()(From from, boost::type<To>) const
+    template<class From>
+    To operator()(From from) const
     {
         return boost::lexical_cast<To>(from);
     }
 };
 
-PSTADE_AUTO_CASTABLE(lexical, (op_lexical_cast))
+PSTADE_AUTO_CASTABLE(lexical, (lexical_cast<boost::mpl::_1>))
 
 
 void test()

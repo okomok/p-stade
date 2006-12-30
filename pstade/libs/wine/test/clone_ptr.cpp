@@ -103,15 +103,15 @@ void test()
         typedef clone_ptr< ::xxx > val_t;
         std::vector< val_t > xs;
 
-        val_t v1(pstade::new_(boost::type< ::xxx>(), 3));
-        val_t v2(pstade::new_(boost::type< ::yyy>(), 5));
+        val_t v1(pstade::new_< ::xxx>()(3));
+        val_t v2(pstade::new_< ::yyy>()(5));
         xs.push_back( v1 );
         xs.push_back( v2 );
-        xs.push_back( val_t(pstade::new_(boost::type< ::xxx>(), 9)) );
+        xs.push_back( val_t(pstade::new_< ::xxx>()(9)) );
         xs.push_back( val_t(v1) );
-        xs.push_back( val_t(pstade::new_(boost::type< ::yyy>(), 6)) );
-        xs.push_back( val_t(pstade::new_(boost::type< ::xxx>(), 7)) );
-        xs.push_back( val_t(pstade::new_(boost::type< ::xxx>(), 12)) );
+        xs.push_back( val_t(pstade::new_< ::yyy>()(6)) );
+        xs.push_back( val_t(pstade::new_< ::xxx>()(7)) );
+        xs.push_back( val_t(pstade::new_< ::xxx>()(12)) );
         xs.push_back( val_t(v2) );
 
         std::sort(xs.begin(), xs.end());
@@ -122,7 +122,7 @@ void test()
     }
 
     {
-        clone_ptr< ::xxx > ax(pstade::new_(boost::type< ::xxx>(), 5));
+        clone_ptr< ::xxx > ax(pstade::new_< ::xxx>()(5));
         *ax;
         ax->m_i;
         ::check_clone_ptr(ax);
@@ -130,7 +130,7 @@ void test()
     }
 
     {
-        clone_ptr< ::zzz > az(pstade::new_(boost::type< ::zzz>(), 3));
+        clone_ptr< ::zzz > az(pstade::new_< ::zzz>()(3));
     }
 
     {
@@ -139,7 +139,7 @@ void test()
         // ss << ac; // rejected
         get_pointer(ac);
         swap(ac, bc);
-        ac = pstade::new_(boost::type<char>(), 'a');
+        ac = pstade::new_<char>()('a');
         ac.release();
     }
 

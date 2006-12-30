@@ -20,13 +20,10 @@
 // 'boolean/booleanized' is slightly slower.
 
 
-#include <boost/utility/result_of.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/apple/sdk/wtypes.hpp> // VARIANT_BOOL
 #include <pstade/auto_castable.hpp>
-#include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/to_type.hpp>
 
 
 namespace pstade { namespace tomato {
@@ -35,7 +32,7 @@ namespace pstade { namespace tomato {
 namespace boolean_cast_detail {
 
 
-    template< class To, class From >
+    template<class To, class From>
     struct cvter;
 
 
@@ -74,7 +71,7 @@ namespace boolean_cast_detail {
 } // namespace boolean_cast_detail
 
 
-template< class To, class From > inline
+template<class To, class From> inline
 To boolean_cast(From from)
 {
     typedef boolean_cast_detail::cvter<To, From> cvter_t;
@@ -82,18 +79,19 @@ To boolean_cast(From from)
 }
 
 
-struct op_boolean_cast :
-    to_type_callable<op_boolean_cast>
+template< class To >
+struct boolean_cast_
 {
-    template< class To, class From >
-    To call(From const& from) const
+    typedef To result_type;
+
+    template<class From>
+    To operator()(From const& from) const
     {
         return tomato::boolean_cast<To>(from);
     }
 };
 
-PSTADE_CONSTANT(boolean_cast_, (op_boolean_cast))
-PSTADE_PIPABLE(booleanized, (boost::result_of<op_auto_castable(op_boolean_cast)>::type))
+PSTADE_PIPABLE(booleanized, (auto_castable<boolean_cast_<boost::mpl::_1> >))
 
 
 } } // namespace pstade::tomato

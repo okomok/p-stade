@@ -39,7 +39,6 @@
 #include <pstade/constant.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/to_type.hpp>
 
 
 namespace pstade { namespace oven {
@@ -85,18 +84,25 @@ Base adaptor_to(Adaptor const& ad,
 // because of the weird compiler behavior...
 //
 
-struct op_adaptor_to :
-    to_type_callable<op_adaptor_to>
+template< class To >
+struct adaptor_to_
 {
-    template< class To, class From >
-    To call(From& from) const
+    typedef To result_type;
+
+    template< class From >
+    To operator()(From& from) const
+    {
+        return oven::adaptor_to<To>(from);
+    }
+
+    template< class From >
+    To operator()(From const& from) const
     {
         return oven::adaptor_to<To>(from);
     }
 };
 
-PSTADE_CONSTANT(adaptor_to_, (op_adaptor_to))
-PSTADE_PIPABLE(to_base, (boost::result_of<op_auto_castable(op_adaptor_to)>::type))
+PSTADE_PIPABLE(to_base, (auto_castable< adaptor_to_<boost::mpl::_1> >))
 
 
 } } // namespace pstade::oven

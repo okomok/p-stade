@@ -54,7 +54,8 @@ namespace pstade {
             private nonassignable
         {
 
-            PSTADE_CALLABLE_PRIMARY_APPLY()
+            PSTADE_CALLABLE_PRIMARY_APPLY
+            { };
 
 
             // 0ary
