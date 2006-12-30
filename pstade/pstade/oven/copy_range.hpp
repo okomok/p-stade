@@ -11,7 +11,7 @@
 
 
 #include <pstade/adl_barrier.hpp>
-#include <pstade/auto_castable.hpp>
+#include <pstade/automatic.hpp>
 #include <pstade/callable2.hpp>
 #include <pstade/pipable.hpp>
 #include "./algorithm.hpp" // copy
@@ -54,7 +54,7 @@ struct op_copy_range
     }
 };
 
-PSTADE_PIPABLE(copied, (auto_castable< op_copy_range<boost::mpl::_1> >))
+PSTADE_PIPABLE(copied, (automatic< op_copy_range<boost::mpl::_1> >))
 
 
 // copied_out

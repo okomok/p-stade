@@ -22,7 +22,7 @@
 
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/apple/sdk/wtypes.hpp> // VARIANT_BOOL
-#include <pstade/auto_castable.hpp>
+#include <pstade/automatic.hpp>
 #include <pstade/pipable.hpp>
 
 
@@ -91,7 +91,7 @@ struct op_boolean_cast
     }
 };
 
-PSTADE_PIPABLE(booleanized, (auto_castable<op_boolean_cast<boost::mpl::_1> >))
+PSTADE_PIPABLE(booleanized, (automatic<op_boolean_cast<boost::mpl::_1> >))
 
 
 } } // namespace pstade::tomato

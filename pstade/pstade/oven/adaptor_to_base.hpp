@@ -35,7 +35,7 @@
 #include <boost/mpl/not.hpp>
 #include <boost/type_traits/is_const.hpp>
 #include <boost/type_traits/is_convertible.hpp>
-#include <pstade/auto_castable.hpp>
+#include <pstade/automatic.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/pipable.hpp>
@@ -102,7 +102,7 @@ struct op_adaptor_to
     }
 };
 
-PSTADE_PIPABLE(to_base, (auto_castable< op_adaptor_to<boost::mpl::_1> >))
+PSTADE_PIPABLE(to_base, (automatic< op_adaptor_to<boost::mpl::_1> >))
 
 
 } } // namespace pstade::oven

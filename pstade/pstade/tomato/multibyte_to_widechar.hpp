@@ -13,7 +13,7 @@
 #include <string>
 #include <pstade/apple/atl/config.hpp> // ATL_VER
 #include <pstade/apple/atl/conv.hpp>
-#include <pstade/auto_castable.hpp>
+#include <pstade/automatic.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/oven/c_str_range.hpp>
 #include <pstade/oven/copy_range.hpp>
@@ -57,7 +57,7 @@ struct op_multibyte_to
     }
 };
 
-PSTADE_PIPABLE(to_widechar, (auto_castable<op_multibyte_to<boost::mpl::_1> >))
+PSTADE_PIPABLE(to_widechar, (automatic<op_multibyte_to<boost::mpl::_1> >))
 
 
 } } // namespace pstade::tomato

@@ -107,18 +107,7 @@ void test()
 
 #if 0
     {
-        //std::auto_ptr<A0> p0( PSTADE_NEW((A0))() );
-        *PSTADE_NEW((A0))();
-    }
-    {
-        std::auto_ptr<A1> p1(PSTADE_NEW((A1))(i));
-        std::auto_ptr<A1> p2(PSTADE_NEW((A1))(c));
-        *PSTADE_NEW((A1))(c);
-    }
-    {
-        std::auto_ptr<A2> p1(PSTADE_NEW((A2))(i,i));
-        std::auto_ptr<A2> p2(PSTADE_NEW((A2))(i,i));
-        std::auto_ptr<A2> p3(PSTADE_NEW((A2))(c,i));
+        std::auto_ptr<A4> p1(pstade::new_(c,i,c,c));
     }
 #endif
 }

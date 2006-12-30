@@ -14,7 +14,7 @@
 #include "./affect.hpp"
 #include "./arraya.hpp"
 #include "./at.hpp"
-#include "./auto_castable.hpp"
+#include "./automatic.hpp"
 #include "./base_from.hpp"
 #include "./base_to_derived.hpp"
 #include "./callable1.hpp"

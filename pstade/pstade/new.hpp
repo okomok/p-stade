@@ -15,9 +15,7 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
 #include <pstade/preprocessor.hpp>
-#include <pstade/unparenthesize.hpp>
 
 
 namespace pstade {
@@ -49,8 +47,13 @@ namespace pstade {
         // 1ary-
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_CALLABLE_MAX_ARITY, <pstade/new.hpp>))
         #include BOOST_PP_ITERATE()
- 
     };
+
+
+    // There is no 'new_'.
+    // Yet another 63 functions seems bad.
+    // Also note it is impossible for 'automatic'
+    // to work with 'auto_ptr' which is not CopyConstructible.
 
 
 } // namespace pstade

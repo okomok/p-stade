@@ -13,7 +13,7 @@
 #include <boost/mpl/assert.hpp>
 #include <boost/numeric/conversion/cast.hpp> // numeric_cast
 #include <boost/type_traits/is_integral.hpp>
-#include <pstade/auto_castable.hpp>
+#include <pstade/automatic.hpp>
 #include <pstade/pipable.hpp>
 
 
@@ -42,7 +42,7 @@ namespace pstade {
     };
 
 
-    PSTADE_PIPABLE(to_integer, (auto_castable<op_integral_cast<boost::mpl::_1> >))
+    PSTADE_PIPABLE(to_integer, (automatic<op_integral_cast<boost::mpl::_1> >))
 
 
 } // namespace pstade

@@ -19,7 +19,7 @@ test-suite wine :
     [ wine-test adl_barrier ]
     [ wine-test affect ]
     [ wine-test arraya ]
-    [ wine-test auto_castable ]
+    [ wine-test automatic ]
     [ wine-test base_to_derived ]
     [ wine-test callable1 ]
     [ wine-test callable2 ]

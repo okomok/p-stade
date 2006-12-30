@@ -13,20 +13,18 @@
 
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/fuse.hpp>
-#include <pstade/nonassignable.hpp>
-#include <pstade/unfuse.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/preprocessor.hpp>
+#include <pstade/automatic.hpp>
 
 
 namespace pstade {
 
 
     template<class X>
-    struct construct :
-        callable<construct<X>, X>
+    struct op_construct :
+        callable<op_construct<X>, X>
     {
         template<class Myself, PSTADE_CALLABLE_APPLY_PARAMS(A)>
         struct apply
@@ -50,66 +48,10 @@ namespace pstade {
         // 1ary-
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_CALLABLE_MAX_ARITY, <pstade/construct.hpp>))
         #include BOOST_PP_ITERATE()
- 
     };
 
 
-    namespace constructed_detail {
-
-
-        template<class Arguments>
-        struct temp :
-            private nonassignable
-        {
-            template<class X>
-            operator X() const
-            {
-                return fuse(construct<X>())(m_args);
-            }
-
-            explicit temp(Arguments& args) :
-                m_args(args)
-            { }
-
-        private:
-            Arguments m_args;
-        };
-
-
-        struct base_op :
-            callable<base_op>
-        {
-            template<class Myself, class Arguments>
-            struct apply
-            {
-                typedef temp<Arguments> const type;
-            };
-
-            template<class Result, class Arguments>
-            Result call(Arguments& args) const
-            {
-                // 'args' is destructed as soon as this 'call' returns.
-                // So, 'temp' must *copy* it to 'm_args'.
-                return Result(args); 
-            }
-        };
-
-
-        struct op :
-            boost::result_of<op_unfuse(base_op)>::type
-        {
-            template<class X>
-            operator X() const
-            {
-                return X();
-            }
-        };
-
-
-    } // namespace constructed_detail            
-
-
-    PSTADE_CONSTANT(constructor, (constructed_detail::op))
+    PSTADE_CONSTANT(constructor, (automatic<op_construct<boost::mpl::_1> >))
 
 
 } // namespace pstade

@@ -11,7 +11,7 @@
 
 
 #include <boost/lexical_cast.hpp>
-#include <pstade/auto_castable.hpp>
+#include <pstade/automatic.hpp>
 #include <pstade/pipable.hpp>
 
 
@@ -31,7 +31,7 @@ namespace pstade {
     };
 
 
-    PSTADE_PIPABLE(lexicalized, (auto_castable<op_lexical_cast<boost::mpl::_1> >))
+    PSTADE_PIPABLE(lexicalized, (automatic<op_lexical_cast<boost::mpl::_1> >))
 
 
 } // namespace pstade

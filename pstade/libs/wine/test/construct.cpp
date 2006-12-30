@@ -14,7 +14,9 @@
 #include <pstade/construct.hpp>
 
 
+#include <pstade/value.hpp>
 #include <string>
+#include <boost/utility/result_of.hpp>
 #include <utility>
 
 
@@ -27,18 +29,36 @@ std::pair<int, char> foo()
 }
 
 
+// Note:
+// GCC3.4 would fail if 'std::pair' had a unary template constructor,
+// because GCC3.4 prefers direct-initialization to copy-initialization
+// in the case of default argument syntax. This must be the bug of GCC3.4.
+void bar(std::pair<int, char> p = constructor(3, 'c'))
+{
+    BOOST_CHECK(p == std::make_pair(3, 'c'));
+}
+
+
 void test()
 {
     {
-        BOOST_CHECK( construct<std::string>()("hello") == std::string("hello") );
+        boost::result_of<op_construct<std::string>(char const*)>::type
+            x = op_construct<std::string>()("hello"|to_value);
+        BOOST_CHECK( x == std::string("hello") );
     }
     {
-        std::string str = constructor;
+        std::string x = constructor("hello");
+        BOOST_CHECK( x == std::string("hello") );
+    }
+    {
+        std::string x = constructor;
     }
     {
         BOOST_CHECK(foo() == std::make_pair(3, 'c'));
     }
-
+    {
+        bar();
+    }
 }
 
 
