@@ -38,6 +38,12 @@ namespace pstade {
             return Result(new X());
         }
 
+        // workaround for vexing parse
+        std::auto_ptr<X> call() const
+        {
+            return std::auto_ptr<X>(new X());
+        }
+
         // 1ary-
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_CALLABLE_MAX_ARITY, <pstade/new.hpp>))
         #include BOOST_PP_ITERATE()

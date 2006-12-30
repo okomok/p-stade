@@ -28,6 +28,7 @@ test-suite wine :
     [ wine-test concept_off ]
     [ wine-test concept_on ]
     [ wine-test constant ]
+    [ wine-test construct ]
     [ wine-test contract ]
     [ wine-test deduced_const ]
     [ wine-test enable_if ]

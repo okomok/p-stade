@@ -54,6 +54,7 @@ void test()
 
     {
         std::auto_ptr<A0> p0( (pstade::new_<A0>())() ); // vexing parse.
+        std::auto_ptr<A0> p0_( pstade::new_<A0>().call() );
         *pstade::new_<A0>()();
     }
     {

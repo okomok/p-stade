@@ -24,6 +24,7 @@
 #include "./concept.hpp"
 #include "./const_overloaded.hpp"
 #include "./constant.hpp"
+#include "./construct.hpp"
 #include "./contract.hpp"
 #include "./deduced_const.hpp"
 #include "./enable_if.hpp"
