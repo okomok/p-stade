@@ -62,7 +62,6 @@ test-suite wine :
     [ wine-test require ]
     [ wine-test statement ]
     [ wine-test static_c ]
-    [ wine-test to_type ]
     [ wine-test unfuse ]
     [ wine-test unparenthesize ]
     [ wine-test unused ]

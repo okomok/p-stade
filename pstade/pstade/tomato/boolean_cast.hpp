@@ -80,7 +80,7 @@ To boolean_cast(From from)
 
 
 template< class To >
-struct boolean_cast_
+struct op_boolean_cast
 {
     typedef To result_type;
 
@@ -91,7 +91,7 @@ struct boolean_cast_
     }
 };
 
-PSTADE_PIPABLE(booleanized, (auto_castable<boolean_cast_<boost::mpl::_1> >))
+PSTADE_PIPABLE(booleanized, (auto_castable<op_boolean_cast<boost::mpl::_1> >))
 
 
 } } // namespace pstade::tomato

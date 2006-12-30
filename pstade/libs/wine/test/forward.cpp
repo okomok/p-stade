@@ -70,24 +70,26 @@ void test()
 
     {
         BOOST_CHECK( 3 ==
-            ::foo( pstade::forward_(my_fun, boost::type<int>()) )
+            ::foo( pstade::op_forward<int>()(my_fun) )
         );
     }
 
+#if 0
     {
         BOOST_CHECK( 3 ==
-            ::foo( my_fun|forwarded(boost::type<int>()) )
+            3  ::foo( my_fun|forwarded(boost::type<int>()) )
         );
     }
+#endif
     {
         BOOST_CHECK( 3 ==
-            lambda::bind( pstade::forward_(my_fun, boost::type<int>()), lambda::_1, lambda::_2 )(1|to_reference, 2|to_reference)
+            lambda::bind( pstade::op_forward<int>()(my_fun), lambda::_1, lambda::_2 )(1|to_reference, 2|to_reference)
         );
     }
     { // make lambda perfect!
         BOOST_CHECK( 3 ==
-            pstade::forward_(
-                lambda::bind( pstade::forward_(my_fun, boost::type<int>()), lambda::_1, lambda::_2 )
+            pstade::op_forward<>()(
+                lambda::bind( pstade::op_forward<int>()(my_fun), lambda::_1, lambda::_2 )
             )(1, 2)
         );
     }
@@ -95,8 +97,8 @@ void test()
     ::my_fun0_t my_fun0;
     {
         boost::result_of<
-            boost::result_of<op_forward(my_fun0_t, boost::type<int>)>::type()
-        >::type result = pstade::forward_(my_fun0, boost::type<int>())();
+            boost::result_of<op_forward<int>(my_fun0_t)>::type()
+        >::type result = pstade::op_forward<int>()(my_fun0)();
         BOOST_CHECK( result == 10 );
     }
 
@@ -107,14 +109,17 @@ void test()
     }
     {
         BOOST_CHECK( 3 ==
-            pstade::forward_(&my_fun1)(3)
+            pstade::op_forward<>()(&my_fun1)(3)
         );
     }
 
     {
         // (lambda::_1 + lambda::_2)(1, 2); // error
         BOOST_CHECK( 3 == 
-            pstade::forward_(lambda::_1 + lambda::_2)(1, 2)
+            pstade::forward(lambda::_1 + lambda::_2)(1, 2)
+        );
+        BOOST_CHECK( 3 == 
+            pstade::op_forward<>()(lambda::_1 + lambda::_2)(1, 2)
         );
     }
 

@@ -37,7 +37,6 @@
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/preprocessor.hpp>
-#include <pstade/to_type.hpp>
 #include <pstade/use_default.hpp>
 
 
@@ -47,17 +46,17 @@ namespace pstade {
     namespace forward_detail {
 
 
-        template< class Result_, class Signature >
+        template< class ResultType, class Signature >
         struct result_of_aux :
-            use_default_eval_to< Result_, boost::result_of<Signature> >
+            use_default_eval_to< ResultType, boost::result_of<Signature> >
         { };
 
 
-        template< class Function, class Result_ = boost::use_default >
+        template< class Function, class ResultType = boost::use_default >
         struct op_result :
             callable<
-                op_result<Function, Result_>,
-                typename result_of_aux< Result_,
+                op_result<Function, ResultType>,
+                typename result_of_aux< ResultType,
                     Function()
                 >::type
             >
@@ -66,7 +65,8 @@ namespace pstade {
             typedef op_result type;
 
 
-            PSTADE_CALLABLE_PRIMARY_APPLY
+            template< class Myself, PSTADE_CALLABLE_APPLY_PARAMS(A) >
+            struct apply
             { };
 
 
@@ -85,7 +85,7 @@ namespace pstade {
 
             template< class Myself, class A0 >
             struct apply< Myself, A0 > :
-                result_of_aux< Result_,
+                result_of_aux< ResultType,
                     Function(
                         A0&
                     )
@@ -138,49 +138,34 @@ namespace pstade {
         return forward_detail::op_result<Function>(fun);
     }
 
-    template< class Result, class Function > inline
-    forward_detail::op_result<Function, Result>
+    template< class ResultType, class Function > inline
+    forward_detail::op_result<Function, ResultType>
     forward(Function fun)
     {
-        return forward_detail::op_result<Function, Result>(fun);
+        return forward_detail::op_result<Function, ResultType>(fun);
     }
 
 
-    // normal function form
+    // function object form
 
+    template< class ResultType = boost::use_default >
     struct op_forward :
-        callable<op_forward>
+        callable< op_forward<ResultType> >
     {
-        template< class Myself, class Function, class Type_Result = void >
+        template< class Myself, class Function >
         struct apply :
             forward_detail::op_result<
                 typename pass_by_value<Function>::type,
-                typename to_type<Type_Result>::type
+                ResultType
             >
         { };
    
-        template< class Result, class Function, class Type_Result >
-        Result call(Function& fun, Type_Result) const
-        {
-            return Result(fun);
-        }
-
-        template< class Myself, class Function >
-        struct apply<Myself, Function> :
-            forward_detail::op_result<
-                typename pass_by_value<Function>::type
-            >
-        { };
-
         template< class Result, class Function >
         Result call(Function& fun) const
         {
             return Result(fun);
         }
     };
-
-    PSTADE_CONSTANT(forward_, (op_forward))
-    PSTADE_PIPABLE(forwarded, (op_forward))
 
 
 } // namespace pstade
@@ -196,7 +181,7 @@ PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE((pstade)(forward_detail)(op_result), 
 
 template< class Myself, BOOST_PP_ENUM_PARAMS(n, class A) >
 struct apply< Myself, BOOST_PP_ENUM_PARAMS(n, A) > :
-    result_of_aux< Result_,
+    result_of_aux< ResultType,
         Function(
             PSTADE_PP_ENUM_REFS(n, A)
         )

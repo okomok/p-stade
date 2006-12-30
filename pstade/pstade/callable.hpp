@@ -27,6 +27,7 @@
 
 
 #include <boost/config.hpp> // BOOST_NESTED_TEMPLATE
+#include <boost/preprocessor/arithmetic/inc.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/punctuation/comma_if.hpp>
@@ -34,6 +35,7 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_params_with_a_default.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
+#include <boost/preprocessor/repetition/repeat_from_to.hpp>
 #include <boost/preprocessor/seq/for_each_i.hpp>
 #include <boost/preprocessor/seq/for_each_product.hpp>
 #include <boost/type_traits/add_const.hpp>
@@ -235,10 +237,11 @@ namespace pstade {
 /**/
 
 
-#define PSTADE_CALLABLE_PRIMARY_APPLY \
-    template<class Myself, class A_, BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(PSTADE_CALLABLE_MAX_ARITY, class A, void)> \
-    struct apply
+#define PSTADE_CALLABLE_APPLY_PARAMS(A) \
+    class BOOST_PP_CAT(A, 0) BOOST_PP_REPEAT_FROM_TO(1, BOOST_PP_INC(PSTADE_CALLABLE_MAX_ARITY), PSTADE_CALLABLE_APPLY_PARAMS_op, A) 
 /**/
+
+    #define PSTADE_CALLABLE_APPLY_PARAMS_op(Z, N, A) , class BOOST_PP_CAT(A, N) = void
 
 
 } // namespace pstade

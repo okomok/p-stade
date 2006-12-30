@@ -115,7 +115,8 @@ namespace pstade {
         callable< object_generator<Lambda, NullaryResult>, NullaryResult > 
     {
 
-        PSTADE_CALLABLE_PRIMARY_APPLY
+        template< class Myself, PSTADE_CALLABLE_APPLY_PARAMS(A) >
+        struct apply
         { };
 
 

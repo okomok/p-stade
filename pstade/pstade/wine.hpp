@@ -63,7 +63,6 @@
 #include "./singleton.hpp"
 #include "./statement.hpp"
 #include "./static_c.hpp"
-#include "./to_type.hpp"
 #include "./unfuse.hpp"
 #include "./unparenthesize.hpp"
 #include "./unused.hpp"

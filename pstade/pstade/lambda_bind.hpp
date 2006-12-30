@@ -26,7 +26,8 @@ namespace pstade {
     struct op_lambda_bind :
         callable<op_lambda_bind>
     {
-        PSTADE_CALLABLE_PRIMARY_APPLY
+        template<class Myself, PSTADE_CALLABLE_APPLY_PARAMS(A)>
+        struct apply
         { };
 
         // 1ary-

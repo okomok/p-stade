@@ -46,7 +46,7 @@ widechar_to(WideCharRange const& from)
 
 
 template<class To>
-struct widechar_to_
+struct op_widechar_to
 {
     typedef To result_type;
 
@@ -57,7 +57,7 @@ struct widechar_to_
     }
 };
 
-PSTADE_PIPABLE(to_multibyte, (auto_castable<widechar_to_<boost::mpl::_1> >))
+PSTADE_PIPABLE(to_multibyte, (auto_castable<op_widechar_to<boost::mpl::_1> >))
 
 
 } } // namespace pstade::tomato

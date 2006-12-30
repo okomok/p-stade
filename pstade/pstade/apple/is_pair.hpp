@@ -21,7 +21,7 @@ namespace pstade { namespace apple {
 namespace is_pair_detail {
 
 
-    template< class T, class U >
+    template< class X >
     struct aux :
         boost::mpl::false_
     { };

@@ -41,7 +41,8 @@ namespace pstade {
             >
         {
 
-            PSTADE_CALLABLE_PRIMARY_APPLY
+            template< class Myself, PSTADE_CALLABLE_APPLY_PARAMS(A) >
+            struct apply
             { };
 
 

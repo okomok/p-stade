@@ -26,7 +26,8 @@ namespace pstade {
     struct new_ :
         callable<new_<X>, std::auto_ptr<X> >
     {
-        PSTADE_CALLABLE_PRIMARY_APPLY
+        template<class Myself, PSTADE_CALLABLE_APPLY_PARAMS(A)>
+        struct apply
         {
             typedef std::auto_ptr<X> type;
         };

@@ -46,7 +46,7 @@ multibyte_to(MultiByteRange const& from)
 
 
 template<class To>
-struct multibyte_to_
+struct op_multibyte_to
 {
     typedef To result_type;
 
@@ -57,7 +57,7 @@ struct multibyte_to_
     }
 };
 
-PSTADE_PIPABLE(to_widechar, (auto_castable<multibyte_to_<boost::mpl::_1> >))
+PSTADE_PIPABLE(to_widechar, (auto_castable<op_multibyte_to<boost::mpl::_1> >))
 
 
 } } // namespace pstade::tomato

@@ -43,7 +43,7 @@ PSTADE_ADL_BARRIER(copy_range) { // for Boost
 //
 
 template< class To >
-struct copy_range_
+struct op_copy_range
 {
     typedef To result_type;
 
@@ -54,7 +54,7 @@ struct copy_range_
     }
 };
 
-PSTADE_PIPABLE(copied, (auto_castable< copy_range_<boost::mpl::_1> >))
+PSTADE_PIPABLE(copied, (auto_castable< op_copy_range<boost::mpl::_1> >))
 
 
 // copied_out

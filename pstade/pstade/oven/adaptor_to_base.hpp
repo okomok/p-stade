@@ -85,7 +85,7 @@ Base adaptor_to(Adaptor const& ad,
 //
 
 template< class To >
-struct adaptor_to_
+struct op_adaptor_to
 {
     typedef To result_type;
 
@@ -102,7 +102,7 @@ struct adaptor_to_
     }
 };
 
-PSTADE_PIPABLE(to_base, (auto_castable< adaptor_to_<boost::mpl::_1> >))
+PSTADE_PIPABLE(to_base, (auto_castable< op_adaptor_to<boost::mpl::_1> >))
 
 
 } } // namespace pstade::oven

@@ -14,7 +14,6 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/utility/result_of.hpp>
-#include <pstade/auto_castable.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/fuse.hpp>
 #include <pstade/nonassignable.hpp>
@@ -29,7 +28,8 @@ namespace pstade {
     struct construct :
         callable<construct<X>, X>
     {
-        PSTADE_CALLABLE_PRIMARY_APPLY
+        template<class Myself, PSTADE_CALLABLE_APPLY_PARAMS(A)>
+        struct apply
         {
             typedef X type;
         };
@@ -67,12 +67,6 @@ namespace pstade {
                 return fuse(construct<X>())(m_args);
             }
 
-            template<class X>
-            X get() const
-            {
-                return fuse(construct<X>())(m_args);
-            }
-
             explicit temp(Arguments& args) :
                 m_args(args)
             { }
@@ -82,8 +76,8 @@ namespace pstade {
         };
 
 
-        struct base :
-            callable<base>
+        struct base_op :
+            callable<base_op>
         {
             template<class Myself, class Arguments>
             struct apply
@@ -101,8 +95,8 @@ namespace pstade {
         };
 
 
-        struct aux :
-            boost::result_of<op_unfuse(base)>::type
+        struct op :
+            boost::result_of<op_unfuse(base_op)>::type
         {
             template<class X>
             operator X() const
@@ -115,7 +109,7 @@ namespace pstade {
     } // namespace constructed_detail            
 
 
-    PSTADE_CONSTANT(constructor, (constructed_detail::aux))
+    PSTADE_CONSTANT(constructor, (constructed_detail::op))
 
 
 } // namespace pstade
