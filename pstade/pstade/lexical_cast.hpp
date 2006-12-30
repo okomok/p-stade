@@ -19,7 +19,7 @@ namespace pstade {
 
 
     template<class To>
-    struct lexical_cast
+    struct op_lexical_cast
     {
         typedef To result_type;
 
@@ -31,7 +31,7 @@ namespace pstade {
     };
 
 
-    PSTADE_PIPABLE(lexicalized, (auto_castable<lexical_cast<boost::mpl::_1> >))
+    PSTADE_PIPABLE(lexicalized, (auto_castable<op_lexical_cast<boost::mpl::_1> >))
 
 
 } // namespace pstade

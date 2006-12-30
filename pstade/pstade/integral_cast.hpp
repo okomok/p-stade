@@ -20,23 +20,29 @@
 namespace pstade {
 
 
+    template<class To, class From> inline
+    To integral_cast(From const& from)
+    {
+        BOOST_MPL_ASSERT((boost::is_integral<To>));
+        BOOST_MPL_ASSERT((boost::is_integral<From>));
+        return boost::numeric_cast<To>(from);
+    }
+
+
     template<class To>
-    struct integral_cast
+    struct op_integral_cast
     {
         typedef To result_type;
         
         template<class From>
         To operator()(From const& from)
         {
-            BOOST_MPL_ASSERT((boost::is_integral<To>));
-            BOOST_MPL_ASSERT((boost::is_integral<From>));
-
-            return boost::numeric_cast<To>(from);
+            return pstade::integral_cast<To>(from);
         }
     };
 
 
-    PSTADE_PIPABLE(to_integer, (auto_castable<integral_cast<boost::mpl::_1> >))
+    PSTADE_PIPABLE(to_integer, (auto_castable<op_integral_cast<boost::mpl::_1> >))
 
 
 } // namespace pstade

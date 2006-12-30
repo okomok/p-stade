@@ -54,7 +54,7 @@ void test()
 
     std::vector<int> vec =
         WTL::CString(_T("9876")) |
-            oven::transformed(lambda::bind(lexical_cast, lambda::_1, boost::type<int>())) |
+            oven::transformed(lambda::bind(op_lexical_cast<int>(), lambda::_1)) |
             oven::copied
     ;
 

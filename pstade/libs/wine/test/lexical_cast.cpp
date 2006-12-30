@@ -32,18 +32,18 @@ void test()
     using namespace pstade;
 
     {
-        BOOST_CHECK( pstade::lexical_cast<std::string>()(12) == "12" );
+        BOOST_CHECK( pstade::op_lexical_cast<std::string>()(12) == "12" );
         std::string str = 12|lexicalized;
         BOOST_CHECK( str == "12" );
-        BOOST_CHECK( pstade::lexical_cast<int>()(str) == 12 );
+        BOOST_CHECK( pstade::op_lexical_cast<int>()(str) == 12 );
     }
 
     {
         using boost::mpl::identity;
-        BOOST_CHECK( pstade::lexical_cast<std::string>()(12) == "12" );
+        BOOST_CHECK( pstade::op_lexical_cast<std::string>()(12) == "12" );
         std::string str = 12|lexicalized;
         BOOST_CHECK( str == "12" );
-        BOOST_CHECK( pstade::lexical_cast<int>()(str) == 12 );
+        BOOST_CHECK( pstade::op_lexical_cast<int>()(str) == 12 );
     }
 
     {

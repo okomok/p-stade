@@ -20,7 +20,8 @@ void test()
     unsigned int ui = 0;
     signed int i = 0;
 
-    ui = pstade::integral_cast<signed int>()(i);
+    ui = pstade::op_integral_cast<signed int>()(i);
+    ui = pstade::integral_cast<signed int>(i);
 
     //ui = pstade::integral(i);
     //ui = pstade::integral(3);
