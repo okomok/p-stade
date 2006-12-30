@@ -32,6 +32,7 @@
 #include <boost/preprocessor/punctuation/comma_if.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/preprocessor/repetition/enum_params_with_a_default.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/seq/for_each_i.hpp>
 #include <boost/preprocessor/seq/for_each_product.hpp>
@@ -231,6 +232,12 @@ namespace pstade {
         { }; \
         \
      } \
+/**/
+
+
+#define PSTADE_CALLABLE_PRIMARY_APPLY() \
+    template<class Myself, class A_, BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(PSTADE_CALLABLE_MAX_ARITY, class A, void)> \
+    struct apply { }; \
 /**/
 
 

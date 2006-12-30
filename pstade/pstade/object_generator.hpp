@@ -16,7 +16,6 @@
 #include <boost/mpl/identity.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <boost/preprocessor/cat.hpp>
-#include <boost/preprocessor/arithmetic/dec.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_params_with_a_default.hpp>
@@ -116,22 +115,7 @@ namespace pstade {
         callable< object_generator<Lambda, NullaryResult>, NullaryResult > 
     {
 
-        // PSTADE_CALLABLE_MAX_ARITY (primary)
-
-        template< class Myself, BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(PSTADE_CALLABLE_MAX_ARITY, class A, void) >
-        struct apply :
-            object_generator_detail::meta_make< Lambda,
-                BOOST_PP_ENUM_PARAMS(PSTADE_CALLABLE_MAX_ARITY, A)
-            >
-        { };
-
-        template< class Result, BOOST_PP_ENUM_PARAMS(PSTADE_CALLABLE_MAX_ARITY, class A) >
-        Result call( PSTADE_PP_ENUM_REF_PARAMS(PSTADE_CALLABLE_MAX_ARITY, A, a) ) const
-        {
-            return Result(
-                BOOST_PP_ENUM_PARAMS(PSTADE_CALLABLE_MAX_ARITY, a)
-            );
-        }
+        PSTADE_CALLABLE_PRIMARY_APPLY()
 
 
         // 0ary
@@ -164,10 +148,8 @@ namespace pstade {
 
         // 2ary-
 
-    #define PSTADE_max_arity BOOST_PP_DEC(PSTADE_CALLABLE_MAX_ARITY)
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_max_arity, <pstade/object_generator.hpp>))
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_CALLABLE_MAX_ARITY, <pstade/object_generator.hpp>))
         #include BOOST_PP_ITERATE()
-    #undef  PSTADE_max_arity
 
 
     }; // object_generator

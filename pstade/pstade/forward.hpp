@@ -29,10 +29,8 @@
 // for they need a function supporting 'result_of', which this class will make!
 
 
-#include <boost/preprocessor/arithmetic/dec.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/preprocessor/repetition/enum_params_with_a_default.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
@@ -68,25 +66,7 @@ namespace pstade {
             typedef op_result type;
 
 
-            // PSTADE_CALLABLE_MAX_ARITY (primary)
-
-            template< class Myself, BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(PSTADE_CALLABLE_MAX_ARITY, class A, void) >
-            struct apply :
-                result_of_aux< Result_,
-                    Function(
-                        PSTADE_PP_ENUM_REFS(PSTADE_CALLABLE_MAX_ARITY, A)
-                    )
-                >
-            { };
-
-            template< class Result, BOOST_PP_ENUM_PARAMS(PSTADE_CALLABLE_MAX_ARITY, class A) >
-            Result call( PSTADE_PP_ENUM_REF_PARAMS(PSTADE_CALLABLE_MAX_ARITY, A, a) ) const
-            {
-                return
-                    m_fun(
-                       BOOST_PP_ENUM_PARAMS(PSTADE_CALLABLE_MAX_ARITY, a)
-                    );
-            }
+            PSTADE_CALLABLE_PRIMARY_APPLY()
 
 
             // 0ary
@@ -123,10 +103,8 @@ namespace pstade {
 
             // 2ary-
 
-        #define PSTADE_max_arity BOOST_PP_DEC(PSTADE_CALLABLE_MAX_ARITY)
-            #define  BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_max_arity, <pstade/forward.hpp>))
+            #define  BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_CALLABLE_MAX_ARITY, <pstade/forward.hpp>))
             #include BOOST_PP_ITERATE()
-        #undef  PSTADE_max_arity
 
 
             explicit op_result() // for ForwardIterator

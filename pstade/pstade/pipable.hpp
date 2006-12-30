@@ -28,7 +28,6 @@
 
 
 #include <boost/mpl/bool.hpp>
-#include <boost/preprocessor/arithmetic/dec.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/tuple/tuple.hpp>
@@ -55,23 +54,7 @@ namespace pstade {
             private nonassignable
         {
 
-            // PSTADE_CALLABLE_MAX_ARITY (primary)
-
-            template< class Myself, BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(PSTADE_CALLABLE_MAX_ARITY, class A, void) >
-            struct apply
-            {
-                typedef pipe< Function,
-                    boost::tuples::tuple< PSTADE_PP_ENUM_REFS(PSTADE_CALLABLE_MAX_ARITY, A) >
-                > type;
-            };
-
-            template< class Result, BOOST_PP_ENUM_PARAMS(PSTADE_CALLABLE_MAX_ARITY, class A) >
-            Result call( PSTADE_PP_ENUM_REF_PARAMS(PSTADE_CALLABLE_MAX_ARITY, A, a) ) const
-            {
-                return Result( m_fun,
-                    typename Result::arguments_type( BOOST_PP_ENUM_PARAMS(PSTADE_CALLABLE_MAX_ARITY, a) )
-                );
-            }
+            PSTADE_CALLABLE_PRIMARY_APPLY()
 
 
             // 0ary
@@ -104,10 +87,8 @@ namespace pstade {
 
             // 2ary-
 
-        #define PSTADE_max_arity BOOST_PP_DEC(PSTADE_CALLABLE_MAX_ARITY)
-            #define  BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_max_arity, <pstade/pipable.hpp>))
+            #define  BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_CALLABLE_MAX_ARITY, <pstade/pipable.hpp>))
             #include BOOST_PP_ITERATE()
-        #undef  PSTADE_max_arity
 
 
             explicit pipe() // for ForwardIterator

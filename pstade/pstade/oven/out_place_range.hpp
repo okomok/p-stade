@@ -68,7 +68,7 @@ namespace out_place_range_detail {
         // 'share_range' size never be affected by its holding sequence
         // once constructed. So, first of all, you must initialize the sequence
         // before passing it to 'share_range'.
-        std::auto_ptr<IterSeq> pseq(pstade::new_<IterSeq>());
+        std::auto_ptr<IterSeq> pseq(new_(boost::type<IterSeq>()));
         *pseq = oven::copy_range<IterSeq>(rng|directed);
 
         // Question:

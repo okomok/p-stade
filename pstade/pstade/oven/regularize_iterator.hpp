@@ -70,7 +70,7 @@ public:
     { }
 
     explicit regularize_iterator(Iterator const& it) :
-        m_pimpl(pstade::new_<Iterator>(it))
+        m_pimpl(new_(boost::type<Iterator>(), it))
     { }
 
 template< class > friend struct regularize_iterator;

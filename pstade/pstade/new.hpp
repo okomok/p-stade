@@ -1,6 +1,6 @@
 #ifndef BOOST_PP_IS_ITERATING
-#ifndef PSTADE_NEW_HPP
-#define PSTADE_NEW_HPP
+#ifndef PSTADE_NEW_AUTO_HPP
+#define PSTADE_NEW_AUTO_HPP
 
 
 // PStade.Wine
@@ -11,98 +11,54 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// See:
-//
-// http://d.hatena.ne.jp/Cryolite/20060622
-// http://www.boost.org/libs/smart_ptr/shared_ptr.htm#BestPractices
-// http://thread.gmane.org/gmane.comp.lib.boost.devel/140159/
-// http://archives.free.net.ph/message/20060328.234524.bf2bc428.en.html
-// http://www.gotw.ca/gotw/056.htm
-
-
-// See: <boost/detail/callable.hpp>
-//
-// Copyright David Abrahams 2006. Distributed under the Boost
-// Software License, Version 1.0. (See accompanying
-// file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
-
-
 #include <memory> // auto_ptr
-#include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
-#include <boost/preprocessor/punctuation/comma_if.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/preprocessor/repetition/repeat.hpp>
-#include <boost/preprocessor/seq/for_each_i.hpp>
-#include <boost/preprocessor/seq/for_each_product.hpp>
-#include <pstade/const_overloaded.hpp>
-
-
-#if !defined(PSTADE_NEW_MAX_ARITY)
-    #define PSTADE_NEW_MAX_ARITY 5
-#endif
+#include <boost/preprocessor/repetition/enum_params_with_a_default.hpp>
+#include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
+#include <pstade/preprocessor.hpp>
+#include <pstade/to_type.hpp>
 
 
 namespace pstade {
 
 
-    // 0ary
-    //
-    template< class T > inline
-    std::auto_ptr<T>
-    new_()
-    {
-        return std::auto_ptr<T>( new T() );
-    } 
-
-
-    // 1ary
-    //
-    template< class T, class A0 > inline
-    typename const_overloaded_result< std::auto_ptr<T>, A0 >::type
-    new_(A0& a0)
-    {
-        return std::auto_ptr<T>( new T(a0) );
-    } 
-
-    template< class T, class A0 > inline
-    typename const_overloaded_result< std::auto_ptr<T>, A0 >::type // no effect, don't care.
-    new_(A0 const& a0)
-    {
-        return std::auto_ptr<T>( new T(a0) );
-    }
-
-
-    // 2ary -
-    //
-#define PSTADE_NEW_new(R, BitSeq) \
-    template< class T, BOOST_PP_ENUM_PARAMS(n, class A) > inline \
-    typename const_overloaded_result< std::auto_ptr<T>, BOOST_PP_ENUM_PARAMS(n, A) >::type \
-    new_( BOOST_PP_SEQ_FOR_EACH_I_R(R, PSTADE_NEW_param, ~, BitSeq) ) \
-    { \
-        return std::auto_ptr<T>( new T( BOOST_PP_ENUM_PARAMS(n, a) ) ); \
-    } \
+#define PSTADE_ctor_max_arity \
+    BOOST_PP_DEC(PSTADE_CALLABLE_MAX_ARITY) \
 /**/
 
-#define PSTADE_NEW_param(R, _, Index, Bit) \
-    BOOST_PP_COMMA_IF(Index) BOOST_PP_CAT(A, Index) BOOST_PP_CAT(PSTADE_NEW_c, Bit) & BOOST_PP_CAT(a, Index) \
-/**/
 
-#define PSTADE_NEW_c0
-#define PSTADE_NEW_c1 const
+    struct op_new_ :
+        callable<op_new_>
+    {
+        // PSTADE_ctor_max_arity (primary)
+        template<class Myself, class Type_X, BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(PSTADE_ctor_max_arity, class A, void)>
+        struct apply
+        {
+            typedef typename to_type<Type_X>::type x_t;
+            typedef std::auto_ptr<x_t> type;
+        };
 
-#define PSTADE_NEW_bits(Z, N, _) ((0)(1))
+        // 0ary
+        template<class Result, class Type_X>
+        Result call(Type_X) const
+        {
+            typedef typename to_type<Type_X>::type x_t;
+            return Result(new x_t());
+        }
+
+        // 1ary-
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_ctor_max_arity, <pstade/new.hpp>))
+        #include BOOST_PP_ITERATE()
+ 
+    }; // struct op_new_
 
 
-#define BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_NEW_MAX_ARITY, <pstade/new.hpp>))
-#include BOOST_PP_ITERATE()
+    PSTADE_CONSTANT(new_, (op_new_))
 
 
-#undef PSTADE_NEW_bits
-#undef PSTADE_NEW_c1
-#undef PSTADE_NEW_c0
-#undef PSTADE_NEW_param
-#undef PSTADE_NEW_new
+#undef  PSTADE_ctor_max_arity
 
 
 } // namespace pstade
@@ -113,10 +69,12 @@ namespace pstade {
 #define n BOOST_PP_ITERATION()
 
 
-BOOST_PP_SEQ_FOR_EACH_PRODUCT(
-    PSTADE_NEW_new,
-    BOOST_PP_REPEAT(n, PSTADE_NEW_bits, ~)
-)
+template<class Result, class Type_X, BOOST_PP_ENUM_PARAMS(n, class A)>
+Result call(Type_X, PSTADE_PP_ENUM_REF_PARAMS(n, A, a)) const
+{
+    typedef typename to_type<Type_X>::type x_t;
+    return Result(new x_t(BOOST_PP_ENUM_PARAMS(n, a)));
+}
 
 
 #undef n

@@ -253,19 +253,17 @@ public:
 
     template< class Iterator_ >
     explicit any_iterator(Iterator_ const& it) :
-        m_pimpl(pstade::new_< any_iterator_detail::holder<
-            Iterator_,
-            Traversal, Reference, Difference
-        > >(it))
+        m_pimpl(new_(boost::type<
+            any_iterator_detail::holder<Iterator_, Traversal, Reference, Difference>
+        >(), it))
     { }
 
     template< class Iterator_ >
     Iterator_ const& base() const
     {
-        return any_iterator_detail::down_cast< any_iterator_detail::holder<
-            Iterator_,
-            Traversal, Reference, Difference
-        > >(*m_pimpl).held();
+        return any_iterator_detail::down_cast<
+            any_iterator_detail::holder<Iterator_, Traversal, Reference, Difference>
+        >(*m_pimpl).held();
     }
 
 private:
