@@ -13,10 +13,10 @@
 
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
+#include <pstade/automatic.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/preprocessor.hpp>
-#include <pstade/automatic.hpp>
 
 
 namespace pstade {

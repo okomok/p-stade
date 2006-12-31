@@ -29,10 +29,45 @@ std::pair<int, char> foo()
 }
 
 
-// Note:
-// GCC3.4 would fail if 'std::pair' had a unary template constructor,
-// because GCC3.4 prefers direct-initialization to copy-initialization
-// in the case of default argument syntax. This must be the bug of GCC3.4.
+struct eater
+{
+    template<class T>
+    explicit eater(T) { }
+
+    eater(int i) { }
+
+    eater() { }
+};
+
+
+void eat1(eater e = constructor)
+{
+    (void)e;
+}
+
+void eat2()
+{
+    eater e = constructor;
+    eater e_ = constructor();
+}
+
+void eat3(eater e  = constructor())
+{
+    (void)e;
+}
+
+
+#if !defined(__GNUC__)
+// GCC prefers direct-initialization to copy-initialization
+// in the case of default-argument. This must be bug of GCC.
+// I don't know the exact condition; eater compiles. Why?
+void buz(std::string s = constructor)
+{
+    (void)s;
+}
+#endif
+
+
 void bar(std::pair<int, char> p = constructor(3, 'c'))
 {
     BOOST_CHECK(p == std::make_pair(3, 'c'));
@@ -61,6 +96,24 @@ void test()
     }
     {
         bar();
+    }
+    {
+        eat1();
+    }
+    {
+        eat2();
+    }
+    {
+        eat3();
+    }
+#if !defined(__GNUC__)
+    {
+        buz();
+    }
+#endif
+    {
+        std::string s = constructor;
+        std::string s_ = constructor;
     }
 }
 

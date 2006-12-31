@@ -25,6 +25,9 @@
 // This CRTP class can work around the VC7.1/8 fatal bug!!
 // http://article.gmane.org/gmane.comp.lib.boost.devel/150218
 // See http://d.hatena.ne.jp/mb2sync/20061223#p1 for more detail.
+//
+// This class is big, but seems not to make
+// the compile-time so slower as expected.
 
 
 #include <boost/config.hpp> // BOOST_NESTED_TEMPLATE
