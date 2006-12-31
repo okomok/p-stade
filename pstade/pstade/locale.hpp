@@ -14,7 +14,7 @@
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
 #include <pstade/adl_barrier.hpp>
-#include <pstade/callable2.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/preprocessor.hpp>
@@ -75,7 +75,7 @@ namespace pstade {
     
     struct op_to_upper :
         to_upper_lower_detail::with_apply,
-        callable2<op_to_upper>
+        callable<op_to_upper>
     {
         template< class Result, class CharT >
         Result call(CharT ch, std::locale const& loc) const
@@ -92,7 +92,7 @@ namespace pstade {
 
     struct op_to_lower :
         to_upper_lower_detail::with_apply,
-        callable2<op_to_lower>
+        callable<op_to_lower>
     {
         template< class Result, class CharT >
         Result call(CharT ch, std::locale const& loc) const

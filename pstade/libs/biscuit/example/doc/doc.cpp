@@ -258,7 +258,7 @@ void test_capturing()
 #include <boost/assign.hpp>
 
 template< int i >
-struct biscuit::value_at
+struct value_at_
 {
     std::string& operator()(std::vector<std::string>& values)
     {
@@ -273,7 +273,7 @@ void test_valseq()
     std::vector<std::string> inputs; { inputs += "ghi", "abc"; }
     std::vector<std::string> values; { values += "abc", "def", "ghi"; }
   
-    PSTADE_CHECK(( biscuit::match< valseq< biscuit::value_at<2>, biscuit::value_at<0> > >(inputs, values) ));
+    PSTADE_CHECK(( biscuit::match< valseq< value_at_<2>, value_at_<0> > >(inputs, values) ));
 }
 
 
@@ -288,9 +288,9 @@ void test_valset()
     std::vector<std::string> inputs2; { inputs2 += "ghi"; }
     std::vector<std::string> values; { values += "abc", "def", "ghi"; }
 
-    PSTADE_CHECK(( biscuit::match< valset< biscuit::value_at<0>, biscuit::value_at<1>, biscuit::value_at<2> > >(inputs0, values) ));
-    PSTADE_CHECK(( biscuit::match< valset< biscuit::value_at<0>, biscuit::value_at<1>, biscuit::value_at<2> > >(inputs1, values) ));
-    PSTADE_CHECK(( biscuit::match< valset< biscuit::value_at<0>, biscuit::value_at<1>, biscuit::value_at<2> > >(inputs2, values) ));
+    PSTADE_CHECK(( biscuit::match< valset< value_at_<0>, value_at_<1>, value_at_<2> > >(inputs0, values) ));
+    PSTADE_CHECK(( biscuit::match< valset< value_at_<0>, value_at_<1>, value_at_<2> > >(inputs1, values) ));
+    PSTADE_CHECK(( biscuit::match< valset< value_at_<0>, value_at_<1>, value_at_<2> > >(inputs2, values) ));
 }
 
 

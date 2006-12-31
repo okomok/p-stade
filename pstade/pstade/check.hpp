@@ -22,7 +22,7 @@
 #include <string>
 #include <boost/current_function.hpp>
 #include <boost/preprocessor/stringize.hpp>
-#include <pstade/callable2.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/instance.hpp>
 #include <pstade/napkin/ostream.hpp>
@@ -90,7 +90,7 @@ namespace pstade {
 
 
     struct op_check :
-        callable2<op_check>
+        callable<op_check>
     {
         template< class Myself, class T, class StringT >
         struct apply

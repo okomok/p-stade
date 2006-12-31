@@ -16,7 +16,7 @@
 #include <boost/tuple/tuple.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/at.hpp>
-#include <pstade/callable1.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/const_overloaded.hpp>
 #include <pstade/deduced_const.hpp>
 #include <pstade/nonassignable.hpp>
@@ -197,7 +197,7 @@ namespace unzipped_detail {
 
 
 struct op_unzipped :
-    callable1<op_unzipped>
+    callable<op_unzipped>
 {
     template< class Myself, class TupleRange >
     struct apply

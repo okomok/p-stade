@@ -22,7 +22,7 @@
 // at <boost/spirit/phoenix/function/detail/function_eval.hpp>
 
 
-#include <pstade/callable1.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>
 
@@ -31,7 +31,7 @@ namespace pstade {
 
 
     struct op_reference :
-        callable1<op_reference>
+        callable<op_reference>
     {
         template< class Myself, class T >
         struct apply
@@ -48,7 +48,7 @@ namespace pstade {
 
 
     struct op_const_reference :
-        callable1<op_const_reference>
+        callable<op_const_reference>
     {
         template< class Myself, class T >
         struct apply

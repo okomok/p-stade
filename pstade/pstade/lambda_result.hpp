@@ -15,7 +15,6 @@
 //
 // 20.5.4/4 (b) seems not to specify whether or not
 // the specialization of 'result_of' is a legal way.
-// Also, inner template specialization doesn't work well under VC++.
 
 
 // Thanks to:

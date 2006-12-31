@@ -21,7 +21,7 @@
 #include <boost/type_traits/is_const.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/const_overloaded.hpp>
-#include <pstade/callable1.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/preprocessor.hpp>
@@ -93,7 +93,7 @@ namespace pstade { namespace oven { namespace extension_detail {
 
 
     struct op_begin :
-        callable1<op_begin>
+        callable<op_begin>
     {
         template< class Myself, class T >
         struct apply :
@@ -112,7 +112,7 @@ namespace pstade { namespace oven { namespace extension_detail {
 
 
     struct op_end :
-        callable1<op_end>
+        callable<op_end>
     {
         template< class Myself, class T >
         struct apply :
@@ -138,7 +138,7 @@ namespace pstade { namespace oven { namespace extension_detail {
     };
 
     struct op_size :
-        callable1<op_size>
+        callable<op_size>
     {
         template< class Myself, class T >
         struct apply :

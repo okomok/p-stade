@@ -24,7 +24,7 @@
 #include <boost/utility/result_of.hpp>
 #include <pstade/affect.hpp>
 #include <pstade/apple/pair_fwd.hpp>
-#include <pstade/callable1.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/const_overloaded.hpp>
 #include <pstade/constant.hpp>
 
@@ -50,7 +50,7 @@ namespace pstade {
 
 
     struct op_at_first :
-        callable1<op_at_first>
+        callable<op_at_first>
     {
         template<class Myself, class Pair>
         struct apply :
@@ -68,7 +68,7 @@ namespace pstade {
 
 
     struct op_at_second :
-        callable1<op_at_second>
+        callable<op_at_second>
     {
         template<class Myself, class Pair>
         struct apply :
@@ -96,7 +96,7 @@ namespace pstade {
 
     template<class N>
     struct op_at :
-        callable1<op_at<N> >
+        callable<op_at<N> >
     {
         template<class Myself, class Tuple>
         struct apply :

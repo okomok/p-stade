@@ -30,7 +30,7 @@
 #include <boost/type_traits/is_pod.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/apple/wtl/user.hpp> // ::AtlIsOldWindows
-#include <pstade/callable1.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>
 
@@ -48,7 +48,7 @@ namespace pstade { namespace tomato {
 
 
 struct op_size_initialize :
-    callable1<op_size_initialize>
+    callable<op_size_initialize>
 {
     template< class Myself, class T >
     struct apply :

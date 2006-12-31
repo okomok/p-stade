@@ -18,7 +18,7 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/adl_barrier.hpp>
-#include <pstade/callable1.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>
 #include "./range_iterator.hpp"
@@ -44,7 +44,7 @@ namespace begin_end_detail {
 
 struct op_begin :
     begin_end_detail::with_apply,
-    callable1<op_begin>
+    callable<op_begin>
 {
     template< class Result, class Range >
     Result call(Range& rng) const
@@ -55,7 +55,7 @@ struct op_begin :
 
 struct op_end   :
     begin_end_detail::with_apply,
-    callable1<op_end>
+    callable<op_end>
 {
     template< class Result, class Range >
     Result call(Range& rng) const

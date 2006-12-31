@@ -14,7 +14,7 @@
 #include <boost/mpl/placeholders.hpp> // inclusion guaranteed.
 #include <boost/preprocessor/cat.hpp>
 #include <boost/utility/result_of.hpp>
-#include <pstade/callable1.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/fuse.hpp>
 #include <pstade/nonassignable.hpp>
@@ -53,7 +53,7 @@ namespace pstade {
 
         template<class Lambda>
         struct base_op :
-            callable1<base_op<Lambda> >
+            callable<base_op<Lambda> >
         {
             template<class Myself, class Arguments>
             struct apply
