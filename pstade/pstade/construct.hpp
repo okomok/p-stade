@@ -57,6 +57,9 @@ namespace pstade {
 } // namespace pstade
 
 
+PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE((pstade)(op_construct), 1)
+
+
 #endif
 #else
 #define n BOOST_PP_ITERATION()

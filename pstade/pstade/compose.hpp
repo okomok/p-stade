@@ -12,6 +12,7 @@
 
 #include <boost/utility/result_of.hpp>
 #include <pstade/fuse.hpp>
+#include <pstade/callable1.hpp>
 #include <pstade/callable2.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/pass_by.hpp>
@@ -27,7 +28,7 @@ namespace pstade {
 
         template< class F, class G >
         struct base_op_result :
-            callable< base_op_result<F, G> >
+            callable1< base_op_result<F, G> >
         {
             template< class Myself, class Arguments >
             struct apply

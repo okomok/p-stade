@@ -48,7 +48,7 @@ namespace pstade {
 
 
     struct op_const_reference :
-        callable<op_const_reference>
+        callable1<op_const_reference>
     {
         template< class Myself, class T >
         struct apply

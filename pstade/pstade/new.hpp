@@ -22,8 +22,8 @@ namespace pstade {
 
 
     template<class X>
-    struct op_new :
-        callable<op_new<X>, std::auto_ptr<X> >
+    struct op_new_ :
+        callable<op_new_<X>, std::auto_ptr<X> >
     {
         template<class Myself, PSTADE_CALLABLE_APPLY_PARAMS(A)>
         struct apply
@@ -50,13 +50,16 @@ namespace pstade {
     };
 
 
-    // There is no 'new_'.
-    // Yet another 63 functions seems bad.
+    // There is no 'new_' yet.
+    // Yet another 63 functions seems bad?
     // Also note it is impossible for 'automatic'
     // to work with 'auto_ptr' which is not CopyConstructible.
 
 
 } // namespace pstade
+
+
+PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE((pstade)(op_new_), 1)
 
 
 #endif

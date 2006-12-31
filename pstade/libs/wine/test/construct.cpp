@@ -54,6 +54,9 @@ void test()
         std::string x = constructor;
     }
     {
+        std::string x = constructor();
+    }
+    {
         BOOST_CHECK(foo() == std::make_pair(3, 'c'));
     }
     {
