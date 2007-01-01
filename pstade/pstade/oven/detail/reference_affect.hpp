@@ -30,7 +30,7 @@ struct reference_affect
     typedef typename range_reference<Range>::type ref_t;
 
     typedef typename
-        affect_cvr<
+        affect<
             ref_t,
             typename boost::mpl::apply1<Lambda, typename remove_cvr<ref_t>::type>::type
         >::type

@@ -31,75 +31,56 @@
 namespace pstade {
 
 
-namespace affect_detail {
+    namespace affect_detail {
 
 
-    template< class From >
-    struct has_const :
-        boost::is_const<
-            typename boost::remove_reference<From>::type
-        >
-    { };
+        template<class From, class To>
+        struct constness :
+            boost::mpl::eval_if< boost::is_const<From>,
+                boost::add_const<To>,
+                boost::mpl::identity<To>
+            >
+        { };
 
 
-    template< class From >
-    struct has_volatile :
-        boost::is_volatile<
-            typename boost::remove_reference<From>::type
-        >
-    { };
+        template<class From, class To>
+        struct volatileness :
+            boost::mpl::eval_if< boost::is_volatile<From>,
+                boost::add_volatile<To>,
+                boost::mpl::identity<To>
+            >
+        { };
 
 
-} // namespace affect_detail
+        template<class From, class To>
+        struct referenceness :
+            boost::mpl::eval_if< boost::is_reference<From>,
+                boost::add_reference<To>,
+                boost::mpl::identity<To>
+            >
+        { };
 
 
-template< class From, class To >
-struct affect_const :
-    boost::mpl::eval_if< affect_detail::has_const<From>,
-        boost::add_const<To>,
-        boost::mpl::identity<To>
-    >
-{ };
+    } // namespace affect_detail
 
 
-template< class From, class To >
-struct affect_volatile :
-    boost::mpl::eval_if< affect_detail::has_volatile<From>,
-        boost::add_volatile<To>,
-        boost::mpl::identity<To>
-    >
-{ };
+    template<class From, class To>
+    struct affect
+    {
+        typedef typename
+            boost::remove_reference<From>::type
+        non_ref_from;
 
-
-template< class From, class To >
-struct affect_reference :
-    boost::mpl::eval_if< boost::is_reference<From>,
-        boost::add_reference<To>,
-        boost::mpl::identity<To>
-    >
-{ };
-
-
-template< class From, class To >
-struct affect_cv :
-    affect_volatile<From,
-        typename affect_const<From,
-            To
-        >::type
-    >
-{ };
-
-
-template< class From, class To >
-struct affect_cvr :
-    affect_reference<From,
-        typename affect_volatile<From,
-            typename affect_const<From,
-                To
+        typedef typename
+            affect_detail::referenceness<From,
+                typename affect_detail::constness<non_ref_from,
+                    typename affect_detail::volatileness<non_ref_from,
+                        To
+                    >::type
+                >::type
             >::type
-        >::type
-    >
-{ };
+        type;
+    };
 
 
 } // namespace pstade

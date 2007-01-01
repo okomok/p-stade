@@ -54,7 +54,7 @@ namespace pstade {
     {
         template<class Myself, class Pair>
         struct apply :
-            affect_cvr<Pair&, typename value_at_first<Pair>::type>
+            affect<Pair&, typename value_at_first<Pair>::type>
         { };
 
         template<class Result, class Pair>
@@ -72,7 +72,7 @@ namespace pstade {
     {
         template<class Myself, class Pair>
         struct apply :
-            affect_cvr<Pair&, typename value_at_second<Pair>::type>
+            affect<Pair&, typename value_at_second<Pair>::type>
         { };
 
         template<class Result, class Pair>
@@ -100,7 +100,7 @@ namespace pstade {
     {
         template<class Myself, class Tuple>
         struct apply :
-            affect_cvr<Tuple&, typename value_at<Tuple, N>::type>
+            affect<Tuple&, typename value_at<Tuple, N>::type>
         { };
 
         template<class Result, class Tuple>

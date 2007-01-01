@@ -98,7 +98,7 @@ namespace pstade {
             object_t;
 
             typedef typename
-                affect_cv<Lambda, object_t>::type
+                affect<Lambda, object_t>::type
             type;
         };
 

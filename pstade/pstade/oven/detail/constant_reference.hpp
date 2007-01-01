@@ -27,7 +27,7 @@ namespace pstade { namespace oven { namespace detail {
 
 template< class Iterator >
 struct constant_reference :
-    affect_cvr<
+    affect<
         typename boost::iterator_reference<Iterator>::type,
         typename boost::iterator_value<Iterator>::type const
     >
