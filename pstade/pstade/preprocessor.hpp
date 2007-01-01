@@ -105,24 +105,24 @@
 
 #define PSTADE_PP_DECLARE_TEMPLATE(Struct, NameSeq, ParamSeqOrCount) \
     PSTADE_PP_NAMESPACE_OPEN(NameSeq) \
-        template< PSTADE_PP_TO_TEMPLATE_PARAMS(PSTADE_PP_TO_TEMPLATE_PARAM_SEQ(ParamSeqOrCount)) > \
+        template< PSTADE_PP_TO_TEMPLATE_PARAMS(PSTADE_PP_TO_TEMPLATE_PARAM_SEQ(ParamSeqOrCount), T) > \
         Struct PSTADE_PP_SEQ_BACK(NameSeq); \
     PSTADE_PP_NAMESPACE_CLOSE(NameSeq) \
 /**/
 
 
 // (class)(int) -> class T0, int T1
-#define PSTADE_PP_TO_TEMPLATE_PARAMS(ParamSeq) \
-    BOOST_PP_SEQ_FOR_EACH_I(PSTADE_PP_TO_TEMPLATE_PARAMS_op, ~, ParamSeq) \
+#define PSTADE_PP_TO_TEMPLATE_PARAMS(ParamSeq, T) \
+    BOOST_PP_SEQ_FOR_EACH_I(PSTADE_PP_TO_TEMPLATE_PARAMS_op, T, ParamSeq) \
 /**/
 
-    #define PSTADE_PP_TO_TEMPLATE_PARAMS_op(R, _, I, Elem) \
+    #define PSTADE_PP_TO_TEMPLATE_PARAMS_op(R, T, I, Elem) \
         BOOST_PP_COMMA_IF(I) Elem BOOST_PP_CAT(T, I) \
     /**/
 
 
 // (class)(int) -> T0, T1
-#define PSTADE_PP_TO_TEMPLATE_ARGS(ParamSeq) \
+#define PSTADE_PP_TO_TEMPLATE_ARGS(ParamSeq, T) \
     BOOST_PP_ENUM_PARAMS(BOOST_PP_SEQ_SIZE(ParamSeq), T) \
 /**/
 

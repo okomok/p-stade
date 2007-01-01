@@ -197,21 +197,21 @@ namespace pstade {
 
 
 #define PSTADE_CALLABLE_NULLARY_RESULT_OF_TYPE(NameSeq) \
-    PSTADE_CALLABLE_NULLARY_RESULT_OF_TYPE_aux(NameSeq) \
+    PSTADE_CALLABLE_NULLARY_RESULT_OF_TYPE_aux(PSTADE_PP_FULLNAME(NameSeq)) \
 /**/
 
-#define PSTADE_CALLABLE_NULLARY_RESULT_OF_TYPE_aux(NameSeq) \
+#define PSTADE_CALLABLE_NULLARY_RESULT_OF_TYPE_aux(Fullname) \
     namespace boost { \
         \
         template< > \
-        struct result_of< PSTADE_PP_FULLNAME(NameSeq)(void) > \
+        struct result_of< Fullname(void) > \
         { \
-            typedef PSTADE_PP_FULLNAME(NameSeq)::nullary_result_type type; \
+            typedef Fullname::nullary_result_type type; \
         }; \
         \
         template< > \
-        struct result_of< PSTADE_PP_FULLNAME(NameSeq) const(void) > \
-            : result_of< PSTADE_PP_FULLNAME(NameSeq)(void) > \
+        struct result_of< Fullname const(void) > : \
+               result_of< Fullname(void) > \
         { }; \
         \
     } \
@@ -219,21 +219,21 @@ namespace pstade {
 
 
 #define PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE(NameSeq, ParamSeqOrCount) \
-    PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE_aux(NameSeq, PSTADE_PP_TO_TEMPLATE_PARAM_SEQ(ParamSeqOrCount)) \
+    PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE_aux(PSTADE_PP_FULLNAME(NameSeq), PSTADE_PP_TO_TEMPLATE_PARAM_SEQ(ParamSeqOrCount)) \
 /**/
 
-#define PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE_aux(NameSeq, ParamSeq) \
+#define PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE_aux(Fullname, ParamSeq) \
     namespace boost { \
         \
-        template< PSTADE_PP_TO_TEMPLATE_PARAMS(ParamSeq) > \
-        struct result_of< PSTADE_PP_FULLNAME(NameSeq)< PSTADE_PP_TO_TEMPLATE_ARGS(ParamSeq) >(void) > \
+        template< PSTADE_PP_TO_TEMPLATE_PARAMS(ParamSeq, T) > \
+        struct result_of< Fullname< PSTADE_PP_TO_TEMPLATE_ARGS(ParamSeq, T) >(void) > \
         { \
-            typedef typename PSTADE_PP_FULLNAME(NameSeq)< PSTADE_PP_TO_TEMPLATE_ARGS(ParamSeq) >::nullary_result_type type; \
+            typedef typename Fullname< PSTADE_PP_TO_TEMPLATE_ARGS(ParamSeq, T) >::nullary_result_type type; \
         }; \
         \
-        template< PSTADE_PP_TO_TEMPLATE_PARAMS(ParamSeq) > \
-        struct result_of< PSTADE_PP_FULLNAME(NameSeq)< PSTADE_PP_TO_TEMPLATE_ARGS(ParamSeq) > const(void) > \
-            : result_of< PSTADE_PP_FULLNAME(NameSeq)< PSTADE_PP_TO_TEMPLATE_ARGS(ParamSeq) >(void) > \
+        template< PSTADE_PP_TO_TEMPLATE_PARAMS(ParamSeq, T) > \
+        struct result_of< Fullname< PSTADE_PP_TO_TEMPLATE_ARGS(ParamSeq, T) > const(void) > : \
+               result_of< Fullname< PSTADE_PP_TO_TEMPLATE_ARGS(ParamSeq, T) >(void) > \
         { }; \
         \
      } \

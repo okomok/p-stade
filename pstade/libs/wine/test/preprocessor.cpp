@@ -16,6 +16,8 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/seq/enum.hpp>
 #include <pstade/unused.hpp>
+#include <boost/mpl/assert.hpp>
+#include <boost/type_traits/is_same.hpp>
 
 
 template< BOOST_PP_ENUM_PARAMS(5, class A) >
@@ -45,6 +47,17 @@ void cfoo_( PSTADE_PP_ENUM_CREFS(5, A) )
 {
     return;
 }
+
+
+template< PSTADE_PP_TO_TEMPLATE_PARAMS((class)(int), P) >
+struct params
+{
+    typedef params< PSTADE_PP_TO_TEMPLATE_ARGS((class)(int), P) > self_t;
+    BOOST_MPL_ASSERT((boost::is_same<self_t, params>));
+};
+
+params<int, 3> g_params;
+
 
 
 PSTADE_PP_DECLARE_TYPE(struct, (aaa))
