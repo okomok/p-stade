@@ -26,6 +26,7 @@
 
 
 #include <boost/smart_ptr.hpp>
+#include <pstade/automatic.hpp>
 
 
 struct A0 { A0() { } };
@@ -47,51 +48,115 @@ struct B { };
 struct D : B { };
 
 
+//PSTADE_AUTOMATIC(happy_new, (op_new_auto<_1>))
+
+struct op_happy_new
+{
+    
+    // hmm,
+    // VC++ moving sequence must be in the same scope.
+    template<class Y>
+    operator std::auto_ptr_ref<Y>() const
+    {
+        std::auto_ptr<Y> p(new int(3));
+        std::auto_ptr_ref<Y> ref(p);
+        p.release();
+        return ref;
+    }
+    
+    /*
+    // needs temporary, then cannot bind to non-const-reference auto_ptr
+    template<class To>
+    operator To() const
+    {
+        return To(new int(3));
+    }
+    */
+};
+
+op_happy_new const happy_new = { };
+
+
+void happy_test()
+{
+#if 0
+    std::auto_ptr<int> p(happy_new);
+    BOOST_CHECK( *p == 3 );
+#endif
+}
+
+
 void test()
 {
-    int i = 0;
-    int const c = 0;
+    int i = 12;
+    int const c = 13;
+
+    using namespace pstade;
 
     {
-        std::auto_ptr<A0> p0( (pstade::op_new_<A0>())() ); // vexing parse.
-        std::auto_ptr<A0> p0_( pstade::op_new_<A0>().call() );
-        *pstade::op_new_<A0>()();
+        int *p = op_new_<int>()();
+        BOOST_CHECK( *p == 0 );
+        delete p;
     }
     {
-        std::auto_ptr<A1> p1(pstade::op_new_<A1>()(i));
-        std::auto_ptr<A1> p2(pstade::op_new_<A1>()(c));
-        *pstade::op_new_<A1>()(c);
+        int *p = op_new_<int>()(3);
+        BOOST_CHECK( *p == 3 );
+        delete p;
+    }
+#if 0
+    {
+        int *p = new_ptr();
+        BOOST_CHECK( *p == 0 );
+        delete p;
     }
     {
-        std::auto_ptr<A2> p1(pstade::op_new_<A2>()(i,i));
-        std::auto_ptr<A2> p2(pstade::op_new_<A2>()(i,i));
-        std::auto_ptr<A2> p3(pstade::op_new_<A2>()(c,i));
+        int *p = new_ptr(3);
+        BOOST_CHECK( *p == 3 );
+        delete p;
+    }
+#endif
+    {
+        std::auto_ptr<A0> p0( (op_new_auto<A0>())() ); // vexing parse.
+        //std::auto_ptr<A0> p0_( op_new_auto<A0>().call() );
+        *op_new_auto<A0>()();
     }
     {
-        std::auto_ptr<A3> p2(pstade::op_new_<A3>()(i,c,i));
-        std::auto_ptr<A3> p1(pstade::op_new_<A3>()(i,i,i));
+        std::auto_ptr<A1> p1(op_new_auto<A1>()(i));
+        std::auto_ptr<A1> p2(op_new_auto<A1>()(c));
+        *op_new_auto<A1>()(c);
     }
     {
-        std::auto_ptr<A4> p1(pstade::op_new_<A4>()(c,i,c,c));
-        std::auto_ptr<A4> p2(pstade::op_new_<A4>()(c,i,i,c));
-        std::auto_ptr<A4> p3(pstade::op_new_<A4>()(c,i,c,i));
+        std::auto_ptr<A2> p1(op_new_auto<A2>()(i,i));
+        std::auto_ptr<A2> p2(op_new_auto<A2>()(i,i));
+        std::auto_ptr<A2> p3(op_new_auto<A2>()(c,i));
     }
     {
-        std::auto_ptr<A5> p1(pstade::op_new_<A5>()(c,i,i,i,c));
-        std::auto_ptr<A5> p2(pstade::op_new_<A5>()(i,i,i,i,c));
-        std::auto_ptr<A5> p3(pstade::op_new_<A5>()(c,i,i,i,i));
-        std::auto_ptr<A5> p4(pstade::op_new_<A5>()(i,i,i,i,i));
+        std::auto_ptr<A3> p2(op_new_auto<A3>()(i,c,i));
+        std::auto_ptr<A3> p1(op_new_auto<A3>()(i,i,i));
     }
     {
-        std::auto_ptr<A2> ap(pstade::op_new_<A2>()(i,i));
-        boost::scoped_ptr<A3> cp(pstade::op_new_<A3>()(i,i,i));
-        // boost::shared_ptr<A4> sp(pstade::op_new_<A4>()(i,i,i,i)); // Boost v1.34 -
+        std::auto_ptr<A4> p1(op_new_auto<A4>()(c,i,c,c));
+        std::auto_ptr<A4> p2(op_new_auto<A4>()(c,i,i,c));
+        std::auto_ptr<A4> p3(op_new_auto<A4>()(c,i,c,i));
     }
-
+    {
+        std::auto_ptr<A5> p1(op_new_auto<A5>()(c,i,i,i,c));
+        std::auto_ptr<A5> p2(op_new_auto<A5>()(i,i,i,i,c));
+        std::auto_ptr<A5> p3(op_new_auto<A5>()(c,i,i,i,i));
+        std::auto_ptr<A5> p4(op_new_auto<A5>()(i,i,i,i,i));
+    }
+    {
+        std::auto_ptr<A2> ap(op_new_auto<A2>()(i,i));
+        boost::scoped_ptr<A3> cp(op_new_auto<A3>()(i,i,i));
+        // boost::shared_ptr<A4> sp(op_new_auto<A4>()(i,i,i,i)); // Boost v1.34 -
+    }
+    {
+        boost::shared_ptr<A5> p1(op_new_shared<A5>()(c,i,i,i,c));
+    }
     {
         ::foo(
-            pstade::op_new_<S>()("exception", i, "safe!"),
-            pstade::op_new_<S>()("exception", i, "safe!")
+            op_new_auto<S>()("exception", i, "safe!"),
+            op_new_auto<S>()("exception", i, "safe!")
         );
     }
 
@@ -101,7 +166,7 @@ void test()
 
     #if !BOOST_WORKAROUND(BOOST_MSVC, == 1310)
         // eternal recursive calls, funny VC++7.1
-        std::auto_ptr< ::B > apB_((pstade::op_new_< ::D >())()); // runtime failure under VC++7.1
+        std::auto_ptr< ::B > apB_((op_new_auto< ::D >())()); // runtime failure under VC++7.1
     #endif
     }
 
@@ -110,6 +175,9 @@ void test()
         std::auto_ptr<A4> p1(pstade::new_(c,i,c,c));
     }
 #endif
+    {
+        happy_test();
+    }
 }
 
 

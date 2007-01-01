@@ -96,6 +96,7 @@ void test()
     }
     {
         bar();
+        bar(constructor(3, 'c'));
     }
     {
         eat1();
@@ -113,7 +114,7 @@ void test()
 #endif
     {
         std::string s = constructor;
-        std::string s_ = constructor;
+        std::string s_ = constructor();
     }
 }
 

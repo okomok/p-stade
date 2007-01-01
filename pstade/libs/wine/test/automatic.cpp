@@ -39,7 +39,7 @@ struct op_cast1
     }
 };
 
-PSTADE_AUTOMATIC(auto_cast1, (op_cast1<boost::mpl::_1>))
+PSTADE_AUTOMATIC(auto_cast1, (op_cast1<_1>))
 
 
 template<class To>
@@ -54,7 +54,7 @@ struct op_cast2
     }
 };
 
-PSTADE_AUTOMATIC(auto_cast2, (op_cast2<boost::mpl::_1>))
+PSTADE_AUTOMATIC(auto_cast2, (op_cast2<_1>))
 
 
 void test()

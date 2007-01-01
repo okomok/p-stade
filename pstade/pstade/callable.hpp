@@ -150,12 +150,18 @@ namespace pstade {
         // 2ary-
 
     #define PSTADE_call_operator(R, BitSeq) \
+        PSTADE_call_operator_aux( \
+            BOOST_PP_SEQ_FOR_EACH_I_R(R, PSTADE_arg_type, ~, BitSeq), \
+            BOOST_PP_SEQ_FOR_EACH_I_R(R, PSTADE_param, ~, BitSeq) \
+        ) \
+    /**/
+    #define PSTADE_call_operator_aux(ArgTypes, Params) \
         template< BOOST_PP_ENUM_PARAMS(n, class A) > \
-        typename BOOST_PP_CAT(result, n)<BOOST_PP_SEQ_FOR_EACH_I_R(R, PSTADE_arg_type, ~, BitSeq)>::type \
-        operator()(BOOST_PP_SEQ_FOR_EACH_I_R(R, PSTADE_param, ~, BitSeq)) const \
+        typename BOOST_PP_CAT(result, n)< ArgTypes >::type \
+        operator()( Params ) const \
         { \
             return derived().BOOST_NESTED_TEMPLATE call< \
-                typename BOOST_PP_CAT(result, n)<BOOST_PP_SEQ_FOR_EACH_I_R(R, PSTADE_arg_type, ~, BitSeq)>::type \
+                typename BOOST_PP_CAT(result, n)< ArgTypes >::type \
             >(BOOST_PP_ENUM_PARAMS(n, a)); \
         } \
     /**/
@@ -177,6 +183,7 @@ namespace pstade {
     #undef  PSTADE_param
     #undef  PSTADE_arg_type
     #undef  PSTADE_meta_argument
+    #undef  PSTADE_call_operator_aux
     #undef  PSTADE_call_operator
 
 

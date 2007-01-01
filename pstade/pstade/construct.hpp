@@ -15,7 +15,6 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <pstade/automatic.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
 #include <pstade/preprocessor.hpp>
 
 
@@ -39,19 +38,15 @@ namespace pstade {
             return Result();
         }
 
-        // workaround for vexing parse
-        X call() const
-        {
-            return X();
-        }
-
         // 1ary-
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_CALLABLE_MAX_ARITY, <pstade/construct.hpp>))
         #include BOOST_PP_ITERATE()
     };
 
 
-    PSTADE_CONSTANT(constructor, (automatic<op_construct<boost::mpl::_1> >))
+    // There is no 'construct' yet.
+    // This is usually good enough?
+    PSTADE_AUTOMATIC(constructor, (op_construct<_1>))
 
 
 } // namespace pstade

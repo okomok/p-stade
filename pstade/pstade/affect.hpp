@@ -67,12 +67,12 @@ namespace pstade {
     template<class From, class To>
     struct affect
     {
-        typedef typename
-            boost::remove_reference<From>::type
+        typedef
+            typename boost::remove_reference<From>::type
         non_ref_from;
 
-        typedef typename
-            affect_detail::referenceness<From,
+        typedef
+            typename affect_detail::referenceness<From,
                 typename affect_detail::constness<non_ref_from,
                     typename affect_detail::volatileness<non_ref_from,
                         To

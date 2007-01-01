@@ -1,5 +1,5 @@
-#ifndef PSTADE_OVEN_OUT_PLACE_RANGE_HPP
-#define PSTADE_OVEN_OUT_PLACE_RANGE_HPP
+#ifndef PSTADE_OVEN_OUTPLACE_RANGE_HPP
+#define PSTADE_OVEN_OUTPLACE_RANGE_HPP
 
 
 // PStade.Oven
@@ -37,7 +37,7 @@
 namespace pstade { namespace oven {
 
 
-namespace out_place_range_detail {
+namespace outplace_range_detail {
 
 
     template< class Range >
@@ -67,7 +67,7 @@ namespace out_place_range_detail {
         // 'share_range' size never be affected by its holding sequence
         // once constructed. So, first of all, you must initialize the sequence
         // before passing it to 'share_range'.
-        std::auto_ptr<IterSeq> pseq(new<IterSeq>());
+        std::auto_ptr<IterSeq> pseq(new IterSeq());
         *pseq = oven::copy_range<IterSeq>(rng|directed);
 
         // Question:
@@ -78,37 +78,37 @@ namespace out_place_range_detail {
     }
 
 
-} // namespace out_place_range_detail
+} // namespace outplace_range_detail
 
 
 template<
     class Range,
     class UnaryFun = op_unused
 >
-struct out_place_range :
-    out_place_range_detail::super_<Range>::type,
-    private as_lightweight_proxy< out_place_range<Range, UnaryFun> >
+struct outplace_range :
+    outplace_range_detail::super_<Range>::type,
+    private as_lightweight_proxy< outplace_range<Range, UnaryFun> >
 {
     PSTADE_CONCEPT_ASSERT((Forward<Range>));
-    typedef out_place_range type;
+    typedef outplace_range type;
     typedef UnaryFun function_type;
 
 private:
-    typedef typename out_place_range_detail::super_<Range>::type super_t;
-    typedef typename out_place_range_detail::iter_sequence<Range>::type seq_t;
+    typedef typename outplace_range_detail::super_<Range>::type super_t;
+    typedef typename outplace_range_detail::iter_sequence<Range>::type seq_t;
 
 public:
-    explicit out_place_range(Range& rng, UnaryFun const& fun = unused) :
-        super_t(out_place_range_detail::make_share<seq_t>(rng, fun))
+    explicit outplace_range(Range& rng, UnaryFun const& fun = unused) :
+        super_t(outplace_range_detail::make_share<seq_t>(rng, fun))
     { }
 
     typedef Range pstade_oven_range_base_type;
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_out_place_range,
-    (out_place_range< deduce<_1, to_qualified>, deduce<_2, to_value, op_unused> >) const)
-PSTADE_PIPABLE(out_placed, (op_make_out_place_range))
+PSTADE_OBJECT_GENERATOR(make_outplace_range,
+    (outplace_range< deduce<_1, to_qualified>, deduce<_2, to_value, op_unused> >) const)
+PSTADE_PIPABLE(outplaced, (op_make_outplace_range))
 
 
 } } // namespace pstade::oven

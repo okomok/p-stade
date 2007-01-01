@@ -11,13 +11,14 @@
 
 
 #include <boost/mpl/apply.hpp>
-#include <boost/mpl/placeholders.hpp> // inclusion guaranteed.
+#include <boost/mpl/placeholders.hpp> // inclusion guaranteed
 #include <boost/preprocessor/cat.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/fuse.hpp>
 #include <pstade/nonassignable.hpp>
+#include <pstade/pass_by.hpp>
 #include <pstade/unfuse.hpp>
 #include <pstade/unparenthesize.hpp>
 
@@ -32,7 +33,7 @@ namespace pstade {
         struct temp :
             private nonassignable
         {
-            explicit temp(Arguments& args) :
+            explicit temp(Arguments const& args) :
                 m_args(args)
             { }
 
@@ -58,7 +59,12 @@ namespace pstade {
             template<class Myself, class Arguments>
             struct apply
             {
-                typedef temp<Lambda, Arguments> const type;
+                typedef
+                    temp<
+                        Lambda,
+                        typename pass_by_value<Arguments>::type // needless in fact.
+                    > const
+                type;
             };
 
             template<class Result, class Arguments>
@@ -91,10 +97,12 @@ namespace pstade {
 
 
     #define PSTADE_AUTOMATIC(Object, Lambda) \
-        typedef \
-            ::pstade::automatic<PSTADE_UNPARENTHESIZE(Lambda)> \
-        BOOST_PP_CAT(op_, Object); \
+        namespace BOOST_PP_CAT(pstade_automatic_workarea_of_, Object) { \
+            using ::boost::mpl::_1; \
+            typedef ::pstade::automatic<PSTADE_UNPARENTHESIZE(Lambda)> op; \
+        } \
         \
+        typedef BOOST_PP_CAT(pstade_automatic_workarea_of_, Object)::op BOOST_PP_CAT(op_, Object); \
         PSTADE_CONSTANT( Object, (BOOST_PP_CAT(op_, Object)) ) \
     /**/
 

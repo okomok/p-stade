@@ -25,7 +25,7 @@
 #include "./algorithm.hpp" // sort
 #include "./as_lightweight_proxy.hpp"
 #include "./concepts.hpp"
-#include "./out_place_range.hpp"
+#include "./outplace_range.hpp"
 
 
 namespace pstade { namespace oven {
@@ -58,7 +58,7 @@ namespace sort_range_detail {
     >
     struct super_
     {
-        typedef out_place_range<
+        typedef outplace_range<
             Range, op_sort<Compare>
         > type;
     };
