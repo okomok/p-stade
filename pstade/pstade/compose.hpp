@@ -11,9 +11,9 @@
 
 
 #include <boost/utility/result_of.hpp>
-#include <pstade/fuse.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
+#include <pstade/fuse.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/unfuse.hpp>
@@ -25,11 +25,11 @@ namespace pstade {
     namespace compose_detail {
 
 
-        template< class F, class G >
+        template<class F, class G>
         struct base_op_result :
-            callable< base_op_result<F, G> >
+            callable<base_op_result<F, G> >
         {
-            template< class Myself, class Arguments >
+            template<class Myself, class Arguments>
             struct apply
             {
                 typedef typename boost::result_of<op_fuse(G&)>::type fused_g;
@@ -37,16 +37,16 @@ namespace pstade {
                 typedef typename boost::result_of<F(result_of_fused_g)>::type type;
             };
 
-            template< class Result, class Arguments >
+            template<class Result, class Arguments>
             Result call(Arguments& args) const
             {
-                return m_f( pstade::fuse(m_g)(args) );
+                return m_f(fuse(m_g)(args));
             }
 
-            explicit base_op_result() // for ForwardIterator
+            base_op_result() // for ForwardIterator
             { }
 
-            explicit base_op_result(F const& f, G const& g) :
+            base_op_result(F const& f, G const& g) :
                 m_f(f), m_g(g)
             { }
 
@@ -62,7 +62,7 @@ namespace pstade {
     struct op_compose :
         callable<op_compose>
     {
-        template< class Myself, class F, class G >
+        template<class Myself, class F, class G>
         struct apply
         {
             typedef
@@ -77,11 +77,11 @@ namespace pstade {
             type;
         };
 
-        template< class Result, class F, class G >
+        template<class Result, class F, class G>
         Result call(F& f, G& g) const
         {
             typedef typename Result::base_type base_t;
-            return pstade::unfuse(base_t(f, g));
+            return unfuse(base_t(f, g));
         }
     };
 
