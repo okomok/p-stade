@@ -11,6 +11,8 @@
 
 
 #include <pstade/automatic.hpp>
+#include <boost/mpl/assert.hpp>
+#include <boost/type_traits/is_same.hpp>
 
 
 template<class To>

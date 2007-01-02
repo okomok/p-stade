@@ -44,7 +44,7 @@ namespace pstade {
             {
                 typedef boost::tuples::tuple<
                     BOOST_PP_ENUM(PSTADE_CALLABLE_MAX_ARITY, PSTADE_deduce, ~)
-                > type;
+                > type; // Don't add 'const' for 'operator='.
             };
 
         #undef  PSTADE_deduce

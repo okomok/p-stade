@@ -79,6 +79,11 @@ namespace pstade {
 
 PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE((pstade)(op_new_), 1)
 
+// These macros works; 'op_compose' returns a type derived from 'callable'.
+PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE((pstade)(op_new_ptr), 1)
+PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE((pstade)(op_new_auto), 1)
+PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE((pstade)(op_new_shared), 1)
+
 
 #endif
 #else

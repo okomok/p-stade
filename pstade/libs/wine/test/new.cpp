@@ -26,6 +26,8 @@
 
 
 #include <boost/smart_ptr.hpp>
+#include <boost/mpl/assert.hpp>
+#include <boost/type_traits/is_same.hpp>
 #include <pstade/automatic.hpp>
 
 
@@ -84,6 +86,29 @@ void happy_test()
     BOOST_CHECK( *p == 3 );
 #endif
 }
+
+
+// nullary result_of check
+BOOST_MPL_ASSERT(( boost::is_same<
+                 boost::result_of<pstade::op_new_<int>()>::type,
+                 int *
+>));
+BOOST_MPL_ASSERT(( boost::is_same<
+                 boost::result_of<pstade::op_new_auto<int>()>::type,
+                 std::auto_ptr<int>
+>));
+BOOST_MPL_ASSERT(( boost::is_same<
+                 boost::result_of<pstade::op_new_shared<int>()>::type,
+                 boost::shared_ptr<int>
+>));
+BOOST_MPL_ASSERT(( boost::is_same<
+                 boost::result_of<pstade::op_new_ptr< std::auto_ptr<int> >()>::type,
+                 std::auto_ptr<int>
+>));
+BOOST_MPL_ASSERT(( boost::is_same<
+                 boost::result_of<pstade::op_new_ptr< std::auto_ptr<int> >(int)>::type,
+                 std::auto_ptr<int>
+>));
 
 
 void test()
