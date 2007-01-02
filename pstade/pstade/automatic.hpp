@@ -62,7 +62,8 @@ namespace pstade {
                 typedef
                     temp<
                         Lambda,
-                        typename pass_by_value<Arguments>::type // needless in fact.
+                        // 'pass_by_value' is needless here in fact.
+                        typename pass_by_value<Arguments>::type
                     > const
                 type;
             };
