@@ -30,6 +30,7 @@
 #include "./enable_if.hpp"
 #include "./for_debug.hpp"
 #include "./forward.hpp"
+#include "./function.hpp"
 #include "./functional.hpp"
 #include "./fuse.hpp"
 #include "./has_xxx.hpp"

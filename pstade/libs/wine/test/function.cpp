@@ -13,60 +13,36 @@
 #include <pstade/function.hpp>
 
 
+#include <string>
+#include <pstade/tests.hpp>
+
+
+template<class A0, class A1>
 struct baby_foo
 {
-    typedef char nullary_result_type;
+    typedef A0& result;
 
-    template< class Myself, class A0, class A1 = void >
-    struct apply
+    static result call(A0& a0, A1& a1)
     {
-        typedef std::string type;
-    };
-
-    template< class Result, class A0, class A1 >
-    Result call(A0& a0, A1& a1) const
-    {
-        (void)a0; (void)a1;
-        return "2";
-    }
-
-    template< class Myself, class A0 >
-    struct apply<Myself, A0>
-    {
-        typedef int type;
-    };
-
-    template< class Result, class A0 >
-    Result call(A0& a0) const
-    {
-        (void)a0;
-        return 1;
-    }
-
-    template< class Result >
-    Result call() const
-    {
-        return '0';
+        a0 += a1;
+        return a0;
     }
 };
 
 
-PSTADE_FUNCTION(foo, (baby_foo))
+PSTADE_FUNCTION(foo, (baby_foo<_1, _2>))
+
+
+PSTADE_TEST_IS_RESULT_OF((std::string&), op_foo(std::string&, char))
+PSTADE_TEST_IS_RESULT_OF((std::string const&), op_foo(std::string, char))
 
 
 void test()
 {
     {
-        boost::result_of<op_foo(int, int)>::type x = foo(1, 2);
-        BOOST_CHECK( x == "2" );
-    }
-    {
-        boost::result_of<op_foo(int)>::type x = foo(1);
-        BOOST_CHECK( x == 1 );
-    }
-    {
-        boost::result_of<op_foo()>::type x = foo();
-        BOOST_CHECK( x == '0' );
+        std::string s("abc");
+        boost::result_of<op_foo(std::string&, char)>::type x = foo(s, '2');
+        BOOST_CHECK( x == "abc2" );
     }
 }
 

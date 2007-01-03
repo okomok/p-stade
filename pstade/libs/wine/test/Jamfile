@@ -34,6 +34,7 @@ test-suite wine :
     [ wine-test enable_if ]
     [ wine-test for_debug ]
     [ wine-test forward ]
+    [ wine-test function ]
     [ wine-test functional ]
     [ wine-test fuse ]
     [ wine-test has_xxx ]
