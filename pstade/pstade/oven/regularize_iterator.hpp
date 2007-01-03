@@ -24,7 +24,7 @@
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/optional.hpp>
 #include <pstade/clone_ptr.hpp>
-#include <pstade/new.hpp>
+#include <pstade/new_delete.hpp>
 #include <pstade/object_generator.hpp>
 
 

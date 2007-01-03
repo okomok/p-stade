@@ -49,7 +49,7 @@ test-suite wine :
     [ wine-test locale ]
     [ wine-test locale_saver ]
     [ wine-test metapredicate ]
-    [ wine-test new ]
+    [ wine-test new_delete ]
     [ wine-test nullptr ]
     [ wine-test object_generator ]
     [ wine-test overload ]

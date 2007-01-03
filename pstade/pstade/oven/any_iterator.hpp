@@ -25,7 +25,7 @@
 #include <boost/mpl/bool.hpp>
 #include <boost/type_traits/is_convertible.hpp>
 #include <pstade/clone_ptr.hpp>
-#include <pstade/new.hpp>
+#include <pstade/new_delete.hpp>
 #include <pstade/unused.hpp>
 
 
