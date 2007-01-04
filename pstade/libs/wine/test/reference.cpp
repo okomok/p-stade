@@ -15,6 +15,17 @@
 #include <pstade/wine.hpp>
 #include <pstade/reference.hpp>
 
+#include <pstade/tests.hpp>
+
+
+PSTADE_TEST_IS_RESULT_OF((int&), pstade::op_reference(int&))
+PSTADE_TEST_IS_RESULT_OF((int const&), pstade::op_reference(int const&))
+PSTADE_TEST_IS_RESULT_OF((int const&), pstade::op_reference(int))
+
+PSTADE_TEST_IS_RESULT_OF((int const&), pstade::op_const_reference(int&))
+PSTADE_TEST_IS_RESULT_OF((int const&), pstade::op_const_reference(int const&))
+PSTADE_TEST_IS_RESULT_OF((int const&), pstade::op_const_reference(int))
+
 
 template< class T >
 void foo(T& )

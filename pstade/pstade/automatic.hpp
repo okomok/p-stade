@@ -99,7 +99,7 @@ namespace pstade {
 
     #define PSTADE_AUTOMATIC(Object, Lambda) \
         namespace BOOST_PP_CAT(pstade_automatic_workarea_of_, Object) { \
-            using ::boost::mpl::_1; \
+            using ::boost::mpl::_; \
             typedef ::pstade::automatic<PSTADE_UNPARENTHESIZE(Lambda)> op; \
         } \
         \

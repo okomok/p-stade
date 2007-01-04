@@ -46,7 +46,7 @@ namespace pstade {
 
     // There is no 'construct' yet.
     // This is usually good enough?
-    PSTADE_AUTOMATIC(constructor, (op_construct<_1>))
+    PSTADE_AUTOMATIC(constructor, (op_construct<_>))
 
 
 } // namespace pstade

@@ -22,14 +22,14 @@ struct baby_foo
 {
     typedef A0& result;
 
-    static result call(A0& a0, A1& a1)
+    result call(A0& a0, A1& a1)
     {
         a0 += a1;
         return a0;
     }
 };
 
-PSTADE_FUNCTION(foo, (baby_foo<_1, _2>))
+PSTADE_FUNCTION(foo, (baby_foo<_, _>))
 
 
 PSTADE_TEST_IS_RESULT_OF((std::string&), op_foo(std::string&, char))
@@ -44,7 +44,7 @@ struct baby_bar
         typedef apply type;
         typedef A0 result;
 
-        static result call(A0& a0, A1& a1)
+        result call(A0& a0, A1& a1)
         {
             return a0 + a1;
         }
@@ -56,7 +56,7 @@ struct baby_bar
         typedef apply type;
         typedef A0 result;
 
-        static result call(A0& a0)
+        result call(A0& a0)
         {
             return a0;
         }
@@ -64,7 +64,7 @@ struct baby_bar
 
     typedef std::string nullary_result;
 
-    static nullary_result call()
+    nullary_result call()
     {
         return "nullary";
     }

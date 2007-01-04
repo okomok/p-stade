@@ -20,7 +20,8 @@
 
 // Note:
 //
-// This is virtually a short version of 'forward'.
+// 'callable' is more generic than this whose 'Baby' can't
+// have members, but the definition of 'Baby' can be simpler.
 
 
 #include <boost/mpl/apply.hpp>
@@ -75,7 +76,7 @@ namespace pstade {
         template<class Result>
         Result call() const
         {
-            return Baby::call();
+            return Baby().call();
         }
 
         // 1ary-
@@ -86,12 +87,7 @@ namespace pstade {
 
     #define PSTADE_FUNCTION(Object, Baby) \
         namespace BOOST_PP_CAT(pstade_function_workarea_of_, Object) { \
-            using ::boost::mpl::_1; \
-            using ::boost::mpl::_2; \
-            using ::boost::mpl::_3; \
-            using ::boost::mpl::_4; \
-            using ::boost::mpl::_5; \
-            \
+            using ::boost::mpl::_; \
             typedef ::pstade::function<PSTADE_UNPARENTHESIZE(Baby)> op; \
         } \
         typedef BOOST_PP_CAT(pstade_function_workarea_of_, Object)::op BOOST_PP_CAT(op_, Object); \
@@ -121,7 +117,7 @@ template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
 Result call(PSTADE_PP_ENUM_REF_PARAMS(n, A, a)) const
 {
     typedef typename boost::mpl::BOOST_PP_CAT(apply, n)<Baby, BOOST_PP_ENUM_PARAMS(n, A)>::type baby_t;
-    return baby_t::call(BOOST_PP_ENUM_PARAMS(n, a));
+    return baby_t().call(BOOST_PP_ENUM_PARAMS(n, a));
 }
 
 

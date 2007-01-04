@@ -22,52 +22,40 @@
 // at <boost/spirit/phoenix/function/detail/function_eval.hpp>
 
 
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
+#include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
 
 
 namespace pstade {
 
 
-    struct op_reference :
-        callable<op_reference>
+    template<class X>
+    struct baby_reference
     {
-        template< class Myself, class T >
-        struct apply
-        {
-            typedef T& type;
-        };
+        typedef X& result;
 
-        template< class Result, class T >
-        Result call(T& x) const
+        result call(X& x)
         {
             return x;
         }
     };
 
-
-    struct op_const_reference :
-        callable<op_const_reference>
-    {
-        template< class Myself, class T >
-        struct apply
-        {
-            typedef T const& type;
-        };
-
-        template< class Result, class T >
-        Result call(T const& x) const
-        {
-            return x;
-        }
-    };
-
-
-    PSTADE_CONSTANT(reference, (op_reference))
+    PSTADE_FUNCTION(reference, (baby_reference<_>))
     PSTADE_PIPABLE(to_reference, (op_reference))
 
-    PSTADE_CONSTANT(const_reference, (op_const_reference))
+
+    template<class X>
+    struct baby_const_reference
+    {
+        typedef X const& result;
+
+        result call(X const& x)
+        {
+            return x;
+        }
+    };
+
+    PSTADE_FUNCTION(const_reference, (baby_const_reference<_>))
     PSTADE_PIPABLE(to_const_reference, (op_const_reference))
 
 

@@ -127,7 +127,7 @@ namespace pstade {
         op_new_ptr< boost::shared_ptr<X> >
     { };
 
-    PSTADE_AUTOMATIC(shared_object, (op_new_shared< boost::pointee<_1> >))
+    PSTADE_AUTOMATIC(shared_object, (op_new_shared< boost::pointee<_> >))
 
 
     template<class X>

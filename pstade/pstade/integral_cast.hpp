@@ -35,7 +35,7 @@ namespace pstade {
         typedef To result_type;
         
         template<class From>
-        To operator()(From const& from)
+        To operator()(From const& from) const
         {
             return pstade::integral_cast<To>(from);
         }
