@@ -24,12 +24,15 @@
 
 
 #include <boost/mpl/apply.hpp>
+#include <boost/mpl/eval_if.hpp>
+#include <boost/mpl/identity.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
+#include <pstade/has_xxx.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/unparenthesize.hpp>
 
@@ -37,13 +40,44 @@
 namespace pstade {
 
 
+    namespace function_detail {
+
+
+        PSTADE_HAS_TYPE(nullary_result)
+
+        template<class Baby>
+        struct nullary_result_aux
+        {
+            typedef typename Baby::nullary_result type;
+        };
+
+        template<class Baby>
+        struct nullary_result :
+            boost::mpl::eval_if< has_nullary_result<Baby>,
+                nullary_result_aux<Baby>,
+                boost::mpl::identity<boost::use_default>
+            >
+        { };
+
+
+    } // namespace function_detail
+
+
     template<class Baby>
     struct function :
-        callable< function<Baby> >
+        callable<function<Baby>, typename function_detail::nullary_result<Baby>::type>
     {
         template<class Myself, PSTADE_CALLABLE_APPLY_PARAMS(A)>
         struct apply
         { }; // complete for SFINAE.
+
+
+        // 0ary
+        template<class Result>
+        Result call() const
+        {
+            return Baby::call();
+        }
 
         // 1ary-
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_CALLABLE_MAX_ARITY, <pstade/function.hpp>))
@@ -67,6 +101,9 @@ namespace pstade {
 
 
 } // namespace pstade
+
+
+PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE((pstade)(function), 1)
 
 
 #endif
