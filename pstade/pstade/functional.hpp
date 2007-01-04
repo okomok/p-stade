@@ -10,10 +10,15 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// What:
+//
+// Works around the non-Assignability of Boost.Lambda Functors.
+
+
 // Note:
 //
 // std::unary/binary_negate requires 'Predicate'
-// to be Adaptable, which seems to be deprecated.
+// to be Adaptable, which seems to be obsolete.
 // See [1] at Boost.Phoenix2 about deduction of arithmetic results.
 //
 // [1] <boost/spirit/phoenix/detail/type_deduction.hpp>
@@ -313,10 +318,10 @@ PSTADE_ADL_BARRIER(functional) {
     PSTADE_OBJECT_GENERATOR(flip, (flip_detail::op_result< deduce<_1, to_value> >))
 
 
-    // is_zero
+    // equal_to_0
     //
 
-    struct op_is_zero
+    struct op_equal_to_0
     {
         typedef bool result_type;
 
@@ -327,7 +332,7 @@ PSTADE_ADL_BARRIER(functional) {
         }
     };
 
-    PSTADE_CONSTANT(is_zero, (op_is_zero))
+    PSTADE_CONSTANT(equal_to_0, (op_equal_to_0))
 
 
 } // ADL barrier

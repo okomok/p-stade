@@ -12,9 +12,10 @@
 
 
 #include <boost/lambda/bind.hpp>
-#include <boost/preprocessor/arithmetic/dec.hpp>
+#include <boost/lambda/core.hpp> // placeholders
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/type_traits/remove_const.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/preprocessor.hpp>
@@ -31,23 +32,19 @@ namespace pstade {
         { };
 
         // 1ary-
-
     #define PSTADE_bind_tuple_mapper(N) \
         typename boost::lambda::detail::bind_tuple_mapper< \
             BOOST_PP_ENUM_PARAMS(N, const A) \
         >::type \
     /**/
-
     #define PSTADE_lambda_functor_base(N) \
         boost::lambda::lambda_functor_base< \
             boost::lambda::action<N, boost::lambda::function_action<N> >, \
             PSTADE_bind_tuple_mapper(N) \
         > \
     /**/
-
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_CALLABLE_MAX_ARITY, <pstade/lambda_bind.hpp>))
         #include BOOST_PP_ITERATE()
-
     #undef  PSTADE_lambda_functor_base
     #undef  PSTADE_bind_tuple_mapper
 
@@ -55,6 +52,14 @@ namespace pstade {
 
 
     PSTADE_CONSTANT(lambda_bind, (op_lambda_bind))
+
+
+    typedef boost::remove_const<boost::lambda::placeholder1_type>::type op_lambda_1;
+    typedef boost::remove_const<boost::lambda::placeholder2_type>::type op_lambda_2;
+    typedef boost::remove_const<boost::lambda::placeholder3_type>::type op_lambda_3;
+    PSTADE_CONSTANT(lambda_1, (op_lambda_1))
+    PSTADE_CONSTANT(lambda_2, (op_lambda_2))
+    PSTADE_CONSTANT(lambda_3, (op_lambda_3))
 
 
 } // namespace pstade

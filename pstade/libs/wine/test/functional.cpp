@@ -28,7 +28,7 @@ void test()
 {
     BOOST_CHECK( pstade::identity(12) == 12 );
 
-    BOOST_CHECK( pstade::not_(pstade::is_zero)(10) ); 
+    BOOST_CHECK( pstade::not_(pstade::equal_to_0)(10) ); 
 
     BOOST_CHECK( pstade::always(3)() == 3 );
 
@@ -49,8 +49,8 @@ void test()
     BOOST_CHECK( pstade::logical_or(pstade::equal_to(0, 3), pstade::greater(3, 0)) );
     BOOST_CHECK( pstade::logical_not(pstade::equal_to(0, 3)) );
 
-    BOOST_CHECK( pstade::is_zero(0) );
-    BOOST_CHECK(!pstade::is_zero(1) );
+    BOOST_CHECK( pstade::equal_to_0(0) );
+    BOOST_CHECK(!pstade::equal_to_0(1) );
 
     BOOST_CHECK( pstade::plus(3, 1) == 4 );
 

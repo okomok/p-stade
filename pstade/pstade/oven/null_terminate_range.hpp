@@ -17,7 +17,7 @@
 #include <boost/range/end.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/deduced_const.hpp>
-#include <pstade/functional.hpp> // not_, is_zero
+#include <pstade/functional.hpp> // not_, equal_to_0
 #include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
@@ -58,7 +58,7 @@ namespace null_terminate_range_detail {
     template< class Range >
     struct super_
     {
-        typedef typename boost::result_of<pstade::op_not(op_is_zero const&)>::type pred_t;
+        typedef typename boost::result_of<pstade::op_not(op_equal_to_0 const&)>::type pred_t;
         typedef take_while_range<Range, pred_t> type;
     };
 
@@ -81,7 +81,7 @@ private:
 
 public:
     explicit null_terminate_range(Range& rng) :
-        super_t(rng, pstade::not_(is_zero))
+        super_t(rng, pstade::not_(equal_to_0))
     {
         BOOST_ASSERT(oven::is_null_terminated(rng));
     }

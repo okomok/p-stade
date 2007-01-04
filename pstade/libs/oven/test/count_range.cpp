@@ -23,7 +23,7 @@
 #include <pstade/oven/take_while_range.hpp>
 #include <pstade/oven/transform_range.hpp>
 #include <pstade/oven/regularize_range.hpp>
-#include <pstade/lambda_result.hpp>
+#include <pstade/lambda_result_of.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <pstade/reference.hpp>
 #include <pstade/pack.hpp>

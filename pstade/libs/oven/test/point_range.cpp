@@ -37,7 +37,7 @@ void test()
         std::vector<char> vec;
         vec.resize(oven::distance(src) + 1);
         std::strcpy(vec|pointed|begins, src.c_str());
-        BOOST_CHECK(( oven::equals(vec|taken_while(pstade::not_(pstade::is_zero)), src) ));
+        BOOST_CHECK(( oven::equals(vec|taken_while(pstade::not_(pstade::equal_to_0)), src) ));
     }
 }
 

@@ -13,7 +13,6 @@
 #include <pstade/lambda_bind.hpp>
 
 
-#include <pstade/lambda_placeholders.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/functional.hpp>
 #include <pstade/reference.hpp>

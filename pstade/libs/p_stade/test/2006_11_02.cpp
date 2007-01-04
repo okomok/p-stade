@@ -7,7 +7,7 @@
 #include <pstade/oven.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/core.hpp>
-#include <pstade/result_of_lambda.hpp>
+#include <pstade/lambda_result_of.hpp>
 
 
 namespace oven = pstade::oven;
