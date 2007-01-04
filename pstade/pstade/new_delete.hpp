@@ -23,6 +23,7 @@
 #include <pstade/automatic.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/compose.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/construct.hpp>
 #include <pstade/preprocessor.hpp>
 
@@ -34,8 +35,8 @@ namespace pstade {
     //
 
     template<class X>
-    struct op_new_ :
-        callable<op_new_<X>, X *>
+    struct op_new :
+        callable<op_new<X>, X *>
     {
         template<class Myself, PSTADE_CALLABLE_APPLY_PARAMS(A)>
         struct apply
@@ -57,7 +58,7 @@ namespace pstade {
 
 
     template<class X>
-    struct op_new_<X[]>
+    struct op_new<X[]>
     {
         typedef X *result_type;
 
@@ -66,6 +67,10 @@ namespace pstade {
             return new X[n];
         }
     };
+
+
+    // There is no 'new_' yet.
+    // Yet another 63 functions seems bad?
 
 
     // delete
@@ -106,7 +111,7 @@ namespace pstade {
     struct op_new_ptr :
         boost::result_of<op_compose(
             op_construct<P>,
-            op_new_<typename boost::pointee<P>::type>
+            op_new<typename boost::pointee<P>::type>
         )>::type
     { };
 
@@ -143,7 +148,7 @@ namespace pstade {
 // nullary results
 //
 
-PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE((pstade)(op_new_), 1)
+PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE((pstade)(op_new), 1)
 
 // These macros work; 'op_compose' returns a type derived from 'callable'.
 PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE((pstade)(op_new_ptr), 1)

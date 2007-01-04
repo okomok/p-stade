@@ -30,7 +30,7 @@ namespace unique_range_detail {
     {
         typedef adjacent_filter_range<
             Range,
-            typename boost::result_of<op_not_(op_equal_to)>::type
+            typename boost::result_of<op_not(op_equal_to)>::type
         > type;
     };
 

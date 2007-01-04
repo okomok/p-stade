@@ -148,6 +148,7 @@ PSTADE_ADL_BARRIER(functional) {
     } // namespace not_detail
 
     PSTADE_OBJECT_GENERATOR(not_, (not_detail::op_result< deduce<_1, to_value> >))
+    typedef op_not_ op_not;
 
 
     // comparison and logical

@@ -53,19 +53,19 @@ struct D : B { };
 
 
 // nullary new
-PSTADE_TEST_IS_RESULT_OF((int *), pstade::op_new_<int>())
+PSTADE_TEST_IS_RESULT_OF((int *), pstade::op_new<int>())
 PSTADE_TEST_IS_RESULT_OF((std::auto_ptr<int>), pstade::op_new_ptr< std::auto_ptr<int> >())
 PSTADE_TEST_IS_RESULT_OF((std::auto_ptr<int>), pstade::op_new_auto<int>())
 PSTADE_TEST_IS_RESULT_OF((boost::shared_ptr<int>), pstade::op_new_shared<int>())
 
 // unary new
-PSTADE_TEST_IS_RESULT_OF((int *), pstade::op_new_<int>(int))
+PSTADE_TEST_IS_RESULT_OF((int *), pstade::op_new<int>(int))
 PSTADE_TEST_IS_RESULT_OF((std::auto_ptr<int>), pstade::op_new_ptr< std::auto_ptr<int> >(int))
 PSTADE_TEST_IS_RESULT_OF((std::auto_ptr<int>), pstade::op_new_auto<int>(int))
 PSTADE_TEST_IS_RESULT_OF((boost::shared_ptr<int>), pstade::op_new_shared<int>(int))
 
 // array new
-PSTADE_TEST_IS_RESULT_OF((int *), pstade::op_new_<int[]>(std::size_t))
+PSTADE_TEST_IS_RESULT_OF((int *), pstade::op_new<int[]>(std::size_t))
 PSTADE_TEST_IS_RESULT_OF((boost::shared_array<int>), pstade::op_new_shared<int[]>(std::size_t))
 
 // delete
@@ -81,17 +81,17 @@ void test()
     using namespace pstade;
 
     {
-        int *p = op_new_<int>()();
+        int *p = op_new<int>()();
         BOOST_CHECK( *p == 0 );
         delete_(p);
     }
     {
-        int *p = op_new_<int>()(3);
+        int *p = op_new<int>()(3);
         BOOST_CHECK( *p == 3 );
         delete_(p);
     }
     {
-        std::string *p = op_new_<std::string[]>()(3);
+        std::string *p = op_new<std::string[]>()(3);
         delete_array(p);
     }
     {
