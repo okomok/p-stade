@@ -46,15 +46,15 @@ namespace pstade {
         PSTADE_HAS_TYPE(nullary_result)
 
         template<class Baby>
-        struct nullary_result_aux
+        struct nullary_result
         {
             typedef typename Baby::nullary_result type;
         };
 
         template<class Baby>
-        struct nullary_result :
+        struct nullary_result_of :
             boost::mpl::eval_if< has_nullary_result<Baby>,
-                nullary_result_aux<Baby>,
+                nullary_result<Baby>,
                 boost::mpl::identity<boost::use_default>
             >
         { };
@@ -65,12 +65,11 @@ namespace pstade {
 
     template<class Baby>
     struct function :
-        callable<function<Baby>, typename function_detail::nullary_result<Baby>::type>
+        callable<function<Baby>, typename function_detail::nullary_result_of<Baby>::type>
     {
         template<class Myself, PSTADE_CALLABLE_APPLY_PARAMS(A)>
         struct apply
         { }; // complete for SFINAE.
-
 
         // 0ary
         template<class Result>

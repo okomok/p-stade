@@ -30,6 +30,7 @@
 #include <boost/mpl/assert.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <pstade/tests.hpp>
+#include <string>
 
 
 struct A0 { A0() { } };
@@ -64,7 +65,8 @@ PSTADE_TEST_IS_RESULT_OF((std::auto_ptr<int>), pstade::op_new_auto<int>(int))
 PSTADE_TEST_IS_RESULT_OF((boost::shared_ptr<int>), pstade::op_new_shared<int>(int))
 
 // array new
-PSTADE_TEST_IS_RESULT_OF((int *), pstade::op_new_<int[3]>())
+PSTADE_TEST_IS_RESULT_OF((int *), pstade::op_new_<int[]>(std::size_t))
+PSTADE_TEST_IS_RESULT_OF((boost::shared_array<int>), pstade::op_new_shared<int[]>(std::size_t))
 
 // delete
 PSTADE_TEST_IS_RESULT_OF((void), pstade::op_delete(int*))
@@ -89,7 +91,7 @@ void test()
         delete_(p);
     }
     {
-        int *p = op_new_<int[3]>()();
+        std::string *p = op_new_<std::string[]>()(3);
         delete_array(p);
     }
     {
@@ -142,9 +144,18 @@ void test()
         std::auto_ptr< ::B > apB(apD);
 
     #if !BOOST_WORKAROUND(BOOST_MSVC, == 1310)
-        // eternal recursive calls, funny VC++7.1
-        std::auto_ptr< ::B > apB_((op_new_auto< ::D >())()); // runtime failure under VC++7.1
+        // VC7.1 STL bug; eternal recursive calls.
+        std::auto_ptr< ::B > apB_((op_new_auto< ::D >())());
     #endif
+    }
+    {
+        boost::shared_ptr<int> p = shared_object(3);
+        BOOST_CHECK( *p == 3 );
+        boost::shared_ptr<std::string> p_ = shared_object("hello");
+        BOOST_CHECK( *p_ == "hello" );
+    }
+    {
+        boost::shared_array<std::string> p = op_new_shared<std::string[]>()(12);
     }
 }
 

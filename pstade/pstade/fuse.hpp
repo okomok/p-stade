@@ -15,12 +15,12 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/tuple/tuple.hpp>
+#include <boost/type_traits/remove_cv.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/affect.hpp>
 #include <pstade/at.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/object_generator.hpp>
-#include <pstade/remove_cvr.hpp>
 #include <pstade/unused.hpp>
 
 
@@ -37,7 +37,7 @@ namespace pstade {
         struct result_of_size :
             int_<
                 boost::tuples::length<
-                    typename remove_cvr<Tuple>::type // Boost.Tuple needs this.
+                    typename boost::remove_cv<Tuple>::type // Boost.Tuple needs 'remove_cv'.
                 >::value
             >
         { };
@@ -55,8 +55,8 @@ namespace pstade {
             ) >
         { };
 
-        template< class Result, class Function, class FusionSeq >
-        Result call_impl(Function fun, FusionSeq& seq, int_<0>)
+        template< class Result, class Function, class FusionSeq > inline
+        Result call_impl(Function const& fun, FusionSeq& seq, int_<0>)
         {
             pstade::unused(seq);
             return fun(
@@ -73,8 +73,8 @@ namespace pstade {
             ) >
         { };
 
-        template< class Result, class Function, class FusionSeq >
-        Result call_impl(Function fun, FusionSeq& seq, int_<1>)
+        template< class Result, class Function, class FusionSeq > inline
+        Result call_impl(Function const& fun, FusionSeq& seq, int_<1>)
         {
             return fun(
                 pstade::at< int_<0> >(seq)
@@ -152,8 +152,8 @@ struct apply_impl< Function, FusionSeq, int_< n > > :
     ) >
 { };
 
-template< class Result, class Function, class FusionSeq >
-Result call_impl(Function fun, FusionSeq& seq, int_< n >)
+template< class Result, class Function, class FusionSeq > inline
+Result call_impl(Function const& fun, FusionSeq& seq, int_< n >)
 {
     return fun(
         BOOST_PP_ENUM(n, PSTADE_at, ~)

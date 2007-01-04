@@ -17,8 +17,10 @@
 #include <boost/pointee.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/shared_array.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/utility/result_of.hpp>
+#include <pstade/automatic.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/compose.hpp>
 #include <pstade/construct.hpp>
@@ -53,15 +55,15 @@ namespace pstade {
         #include BOOST_PP_ITERATE()
     };
 
-    template<class X, std::size_t N>
-    struct op_new_< X[N] >
+
+    template<class X>
+    struct op_new_<X[]>
     {
         typedef X *result_type;
-        typedef X *nullary_result_type; // for the macro below.
 
-        X *operator()() const
+        X *operator()(std::size_t n) const
         {
-            return new X[N];
+            return new X[n];
         }
     };
 
@@ -81,6 +83,7 @@ namespace pstade {
     };
 
     PSTADE_CONSTANT(delete_, (op_delete))
+
 
     struct op_delete_array
     {
@@ -107,15 +110,31 @@ namespace pstade {
         )>::type
     { };
 
+
     template<class X>
     struct op_new_auto :
         op_new_ptr< std::auto_ptr<X> >
     { };
 
+
     template<class X>
     struct op_new_shared :
         op_new_ptr< boost::shared_ptr<X> >
     { };
+
+    PSTADE_AUTOMATIC(shared_object, (op_new_shared< boost::pointee<_1> >))
+
+
+    template<class X>
+    struct op_new_shared<X[]>
+    {
+        typedef boost::shared_array<X> result_type;
+
+        result_type operator()(std::size_t n) const
+        {
+            return result_type(new X[n]);
+        }
+    };
 
 
 } // namespace pstade
