@@ -39,7 +39,7 @@ struct chat_monchy_
     };
 };
 
-#if 1
+#if 0
 
     template< class T >
     struct chat_monchy : chat_monchy_<T> { };
@@ -105,10 +105,40 @@ bar(op1 f, int x)
 };
 
 
+// const qualifier check
+
+int a_fun(int)
+{
+    return 1;
+}
+
+template<class F>
+struct forwarding
+{
+    typename boost::result_of<F (int)>::type
+    operator()() const
+    {
+        return m_f(3);
+    }
+
+    explicit forwarding(F const& f) :
+        m_f(f)
+    { }
+
+    F m_f;
+};
+
+template<class F>
+forwarding<F> make_forwarding(F f)
+{
+    return forwarding<F>(f);
+};
+
+
 void test()
 {
 
-#if 1
+#if 0
     {
         int array[] = { 1,2,3 };
         boost::result_of<chat_monchy<int>(int (&)[3])>::type result
@@ -142,9 +172,14 @@ void test()
         (void)result;
     }
 #endif
+#if 0
     {
         ::bar(op1(), 1);
         ::bar(op2(), 1);
+    }
+#endif
+    {
+        ::make_forwarding(&a_fun)();
     }
 }
 

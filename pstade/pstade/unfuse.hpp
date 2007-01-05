@@ -19,7 +19,6 @@
 
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/tuple/tuple.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/object_generator.hpp>
@@ -33,64 +32,37 @@ namespace pstade {
     namespace unfuse_detail {
 
 
-        template< class Function >
+        template<class Function, class Pack = op_pack>
         struct op_result :
             callable<
-                op_result<Function>,
-                typename boost::result_of<Function(boost::tuples::tuple<>)>::type
+                op_result<Function, Pack>,
+                typename boost::result_of<Function(
+                    typename boost::result_of<Pack()>::type
+                )>::type
             >
         {
-
-            template< class Myself, PSTADE_CALLABLE_APPLY_PARAMS(A) >
+            template<class Myself, PSTADE_CALLABLE_APPLY_PARAMS(A)>
             struct apply
-            { };
-
+            { }; // complete for SFINAE.
 
             // 0ary
-
             template< class Result >
             Result call() const
             {
                 return m_fun(
-                    pstade::pack(
-                    )
+                    m_pack()
                 );
             }
 
-
-            // 1ary
-
-            template< class Myself, class A0 >
-            struct apply< Myself, A0 > :
-                boost::result_of< Function(
-                    boost::tuples::tuple<
-                        A0&
-                    >
-                ) >
-            { };
-
-            template< class Result, class A0 >
-            Result call( A0& a0 ) const
-            {
-                return m_fun(
-                    pstade::pack(
-                        a0
-                    )
-                );
-            }
-
-
-            // 2ary-
-
-            #define  BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_CALLABLE_MAX_ARITY, <pstade/unfuse.hpp>))
+            // 1ary-
+            #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_CALLABLE_MAX_ARITY, <pstade/unfuse.hpp>))
             #include BOOST_PP_ITERATE()
-
 
             explicit op_result() // for ForwardIterator
             { }
 
-            explicit op_result(Function const& fun) :
-                m_fun(fun)
+            explicit op_result(Function const& fun, Pack const& pack_ = pack) :
+                m_fun(fun), m_pack(pack_)
             { }
 
             typedef Function base_type;
@@ -102,20 +74,21 @@ namespace pstade {
 
         private:
             Function m_fun;
-
-        }; // struct op_result
+            Pack m_pack;
+        };
 
 
     } // namespace unfuse_detail
 
 
-    PSTADE_OBJECT_GENERATOR(unfuse, (unfuse_detail::op_result< deduce<_1, to_value> >))
+    PSTADE_OBJECT_GENERATOR(unfuse,
+        (unfuse_detail::op_result< deduce<_1, to_value>, deduce<_2, to_value, op_pack> >))
 
 
 } // namespace pstade
 
 
-PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE((pstade)(unfuse_detail)(op_result), 1)
+PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE((pstade)(unfuse_detail)(op_result), 2)
 
 
 #endif
@@ -123,22 +96,18 @@ PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE((pstade)(unfuse_detail)(op_result), 1
 #define n BOOST_PP_ITERATION()
 
 
-template< class Myself, BOOST_PP_ENUM_PARAMS(n, class A) >
-struct apply< Myself, BOOST_PP_ENUM_PARAMS(n, A) > :
-    boost::result_of< Function(
-        boost::tuples::tuple<
-            PSTADE_PP_ENUM_REFS(n, A)
-        >
-    ) >
+template<class Myself, BOOST_PP_ENUM_PARAMS(n, class A)>
+struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
+    boost::result_of<Function(
+        typename boost::result_of<Pack(PSTADE_PP_ENUM_REFS(n, A))>::type
+    )>
 { };
 
-template< class Result, BOOST_PP_ENUM_PARAMS(n, class A) >
-Result call( PSTADE_PP_ENUM_REF_PARAMS(n, A, a) ) const
+template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
+Result call(PSTADE_PP_ENUM_REF_PARAMS(n, A, a)) const
 {
     return m_fun(
-        pstade::pack(
-            BOOST_PP_ENUM_PARAMS(n, a)
-        )
+        m_pack(BOOST_PP_ENUM_PARAMS(n, a))
     );
 }
 

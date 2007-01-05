@@ -12,20 +12,12 @@
 
 // Note:
 //
-// I'm not sure whether or not the following is well-formed.
-// So pass 'SizeSeq' for now.
-/*
-namespace abc {
-    template< class T >
-    void bar();
-}
-
-template< class T >
-void foo(T x) 
-{
-    abc::bar(std::string(), x); // may be diagnosed in 1st phase?
-}
-*/
+// 'SizeSeq' can be omitted?
+//
+// See: http://tinyurl.com/vkfa8
+//
+// comp.lang.c++.moderated
+// "Two phase name lookup and signature"
 
 
 #include <boost/preprocessor/cat.hpp>

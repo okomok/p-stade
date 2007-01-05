@@ -12,7 +12,9 @@
 
 // What:
 //
-// Works around the non-Assignability of Boost.Lambda Functors.
+// Adds 'boost::result_of' support to <functional>.
+// Also, these are Assignable and DefaultConstructible;
+// Boost.Lambda functors are not.
 
 
 // Note:

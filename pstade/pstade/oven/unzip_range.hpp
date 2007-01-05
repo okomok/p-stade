@@ -74,8 +74,7 @@ public:
 
 template< class N, class TupleRange > inline
 unzip_at_range<TupleRange, N> const
-make_unzip_at_range(TupleRange& rng,
-    typename const_overloaded<TupleRange>::type = 0)
+make_unzip_at_range(TupleRange& rng PSTADE_CONST_OVERLOADED(TupleRange))
 {
     return unzip_at_range<TupleRange, N>(rng);
 }

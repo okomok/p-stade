@@ -15,7 +15,6 @@
 // Deprecated. Prefer the 'iteration' parser.
 
 
-#include <boost/config.hpp> // BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE
 #include <boost/foreach.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
@@ -48,7 +47,7 @@ namespace iterate_detail {
 
 
     template< class Parser, class ParsingRange, class UserState, class GapAction >
-    void aux(ParsingRange& r, UserState& us, GapAction action BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
+    void aux(ParsingRange& r, UserState& us, GapAction action)
     {
         typedef typename oven::range_iterator<ParsingRange>::type iter_t;
         iter_t last = boost::end(r);
@@ -77,14 +76,13 @@ namespace iterate_detail {
 
 
 template< class Parser, class ForwardRange, class UserState, class GapAction > inline
-typename const_overloaded_result<void, ForwardRange>::type
-iterate(ForwardRange& r, UserState& us, GapAction action BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
+void iterate(ForwardRange& r, UserState& us, GapAction action PSTADE_CONST_OVERLOADED(ForwardRange))
 {
     iterate_detail::aux<Parser>(r, us, action);
 }
 
     template< class Parser, class ForwardRange, class UserState, class GapAction > inline
-    void iterate(ForwardRange const& r, UserState& us, GapAction action BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
+    void iterate(ForwardRange const& r, UserState& us, GapAction action)
     {
         iterate_detail::aux<Parser>(r, us, action);
     }
@@ -92,14 +90,13 @@ iterate(ForwardRange& r, UserState& us, GapAction action BOOST_APPEND_EXPLICIT_T
 
 // no user-state
 template< class Parser, class ForwardRange, class UserState, class GapAction > inline
-typename const_overloaded_result<void, ForwardRange>::type
-iterate(ForwardRange& r, GapAction action BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
+void iterate(ForwardRange& r, GapAction action PSTADE_CONST_OVERLOADED(ForwardRange))
 {
     iterate_detail::aux<Parser>(r, null_state, action);
 }
 
     template< class Parser, class ForwardRange, class UserState, class GapAction > inline
-    void iterate(ForwardRange const& r, GapAction action BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
+    void iterate(ForwardRange const& r, GapAction action)
     {
         iterate_detail::aux<Parser>(r, null_state, action);
     }
@@ -111,7 +108,7 @@ namespace iterate_detail {
 
 
     template< class Parser, class ForwardRange, class UserState >
-    void aux_without_gap_actions(ForwardRange& r, UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
+    void aux_without_gap_actions(ForwardRange& r, UserState& us)
     {
         token_range<Parser, ForwardRange, UserState> trng(r, us);
         BOOST_FOREACH (boost::sub_range<ForwardRange> sr, trng) {
@@ -124,14 +121,13 @@ namespace iterate_detail {
 
 
 template< class Parser, class ForwardRange, class UserState > inline
-typename const_overloaded_result<void, ForwardRange>::type
-iterate(ForwardRange& r, UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
+void iterate(ForwardRange& r, UserState& us PSTADE_CONST_OVERLOADED(ForwardRange))
 {
     iterate_detail::aux_without_gap_actions<Parser>(r, us);
 }
 
     template< class Parser, class ForwardRange, class UserState > inline
-    void iterate(ForwardRange const& r, UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
+    void iterate(ForwardRange const& r, UserState& us)
     {
         iterate_detail::aux_without_gap_actions<Parser>(r, us);
     }
@@ -139,14 +135,13 @@ iterate(ForwardRange& r, UserState& us BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parse
 
 // no user-state
 template< class Parser, class ForwardRange > inline
-typename const_overloaded_result<void, ForwardRange>::type
-iterate(ForwardRange& r BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
+void iterate(ForwardRange& r PSTADE_CONST_OVERLOADED(ForwardRange))
 {
     iterate_detail::aux_without_gap_actions<Parser>(r, null_state);
 }
 
     template< class Parser, class ForwardRange > inline
-    void iterate(ForwardRange const& r BOOST_APPEND_EXPLICIT_TEMPLATE_TYPE(Parser))
+    void iterate(ForwardRange const& r)
     {
         iterate_detail::aux_without_gap_actions<Parser>(r, null_state);
     }

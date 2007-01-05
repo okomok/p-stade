@@ -112,10 +112,8 @@ namespace pstade {
 
 
     template<class N, class Tuple> inline
-    typename const_overloaded_eval_result<
-        boost::result_of<op_at<N>(Tuple&)>, Tuple
-    >::type
-    at(Tuple& t)
+    typename  boost::result_of<op_at<N>(Tuple&)>::type
+    at(Tuple& t PSTADE_CONST_OVERLOADED(Tuple))
     {
         return op_at<N>()(t);
     }

@@ -20,7 +20,6 @@
 #include <boost/range/size_type.hpp>
 #include <boost/type_traits/is_const.hpp>
 #include <boost/type_traits/remove_cv.hpp>
-#include <pstade/const_overloaded.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/enable_if.hpp>
@@ -56,7 +55,6 @@ namespace pstade_oven_extension {
 
 
     using pstade::enable_if;
-    using pstade::const_overloaded;
 
 
 } // namespace pstade_oven_extension
