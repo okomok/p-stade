@@ -61,8 +61,8 @@ namespace pstade {
             explicit op_result() // for ForwardIterator
             { }
 
-            explicit op_result(Function const& fun, Pack const& pack_ = pack) :
-                m_fun(fun), m_pack(pack_)
+            explicit op_result(Function const& f, Pack const& p = pack) :
+                m_fun(f), m_pack(p)
             { }
 
             typedef Function base_type;

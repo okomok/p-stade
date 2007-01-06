@@ -20,7 +20,7 @@
 #include <boost/range/end.hpp>
 #include <boost/throw_exception.hpp>
 #include <pstade/if_debug.hpp>
-#include <pstade/oven/adaptor_to_base.hpp>
+#include <pstade/oven/adapted_to_base.hpp>
 #include <pstade/oven/algorithm.hpp> // find
 #include <pstade/oven/equals.hpp>
 #include <pstade/oven/map_key_range.hpp>

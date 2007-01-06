@@ -175,7 +175,7 @@ public:
     merge_iterator(
         Iterator1 const& it1, Iterator1 const& last1,
         Iterator2 const& it2, Iterator2 const& last2,
-        Compare const& comp = pstade::less
+        Compare const& comp = less
     ) :
         super_t(it1), m_last1(last1),
         m_it2(it2),   m_last2(last2),

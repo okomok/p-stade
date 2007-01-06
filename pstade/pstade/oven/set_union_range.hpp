@@ -91,7 +91,7 @@ private:
     typedef typename set_union_range_detail::super_<Range1, Range2, Compare>::type super_t;
 
 public:
-    set_union_range(Range1& rng1, Range2& rng2, Compare const& comp = pstade::less) :
+    set_union_range(Range1& rng1, Range2& rng2, Compare const& comp = less) :
         super_t(rng1, rng2, comp)
     { }
 };

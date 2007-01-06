@@ -27,6 +27,7 @@
 #include <pstade/callable.hpp>
 #include <pstade/const_overloaded.hpp>
 #include <pstade/constant.hpp>
+#include <pstade/deduced_const.hpp>
 
 
 namespace pstade {
@@ -112,14 +113,14 @@ namespace pstade {
 
 
     template<class N, class Tuple> inline
-    typename  boost::result_of<op_at<N>(Tuple&)>::type
+    typename boost::result_of<op_at<N>(Tuple&)>::type
     at(Tuple& t PSTADE_CONST_OVERLOADED(Tuple))
     {
         return op_at<N>()(t);
     }
 
     template<class N, class Tuple> inline
-    typename boost::result_of<op_at<N>(Tuple const&)>::type
+    typename boost::result_of<op_at<N>(PSTADE_DEDUCED_CONST(Tuple)&)>::type
     at(Tuple const& t)
     {
         return op_at<N>()(t);

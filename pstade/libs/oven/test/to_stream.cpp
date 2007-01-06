@@ -35,7 +35,7 @@ void test()
 
     {
         g_ss.str("");
-        std::stringstream& ss = oven::adaptor_to<std::stringstream&>( oven::copy(src, oven::to_stream(g_ss)) );
+        std::stringstream& ss = oven::adapted_to<std::stringstream&>( oven::copy(src, oven::to_stream(g_ss)) );
         BOOST_CHECK( oven::equals(g_ss.str(), src) );
         BOOST_CHECK( pstade::is_same(ss, g_ss) );
     }

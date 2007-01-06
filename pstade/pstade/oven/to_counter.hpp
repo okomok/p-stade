@@ -36,7 +36,7 @@ struct op_increment
         return m_i;
     }
 
-// as "adaptor", 'oven::adaptor_to' kicks in!
+// as "adaptor", 'oven::adapted_to' kicks in!
     Incrementable const& base() const
     {
         return m_i;

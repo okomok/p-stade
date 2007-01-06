@@ -69,7 +69,7 @@ private:
     typedef typename super_t::iterator iter_t;
 
 public:
-    merge_range(Range1& rng1, Range2& rng2, Compare const& comp = pstade::less) :
+    merge_range(Range1& rng1, Range2& rng2, Compare const& comp = less) :
         super_t(
             iter_t(boost::begin(rng1), boost::end(rng1), boost::begin(rng2), boost::end(rng2), comp),
             iter_t(boost::end(rng1),   boost::end(rng1), boost::end(rng2),   boost::end(rng2), comp)

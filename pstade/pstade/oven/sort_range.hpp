@@ -85,7 +85,7 @@ private:
     typedef typename super_t::function_type fun_t;
 
 public:
-    explicit sort_range(Range& rng, Compare const& comp = pstade::less) :
+    explicit sort_range(Range& rng, Compare const& comp = less) :
         super_t(rng, fun_t(comp))
     { }
 };

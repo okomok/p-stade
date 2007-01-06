@@ -85,7 +85,7 @@ struct op_stream_output
         return *m_ps;
     }
 
-// as "adaptor", 'oven::adaptor_to' kicks in!
+// as "adaptor", 'oven::adapted_to' kicks in!
     Stream& base() const
     {
         return *m_ps;

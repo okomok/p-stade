@@ -19,7 +19,7 @@
 #include <boost/utility/result_of.hpp>
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/to_utf8_encoder.hpp>
-#include <pstade/oven/adaptor_to_base.hpp>
+#include <pstade/oven/adapted_to_base.hpp>
 #include <pstade/oven/unique_range.hpp>
 #include <pstade/unused.hpp>
 
@@ -35,8 +35,8 @@ void test()
         int i = oven::copy(rng|uniqued, oven::to_counter(0))|to_base;
         BOOST_CHECK( i == 6 );
 
-        BOOST_CHECK( 7 == oven::adaptor_to<int>(oven::unique_copy(rng, oven::to_counter(1))) );
-        BOOST_CHECK( 7 == oven::adaptor_to<int>( oven::adaptor_to<int>(oven::unique_copy(rng, oven::to_counter(1))) ) );
+        BOOST_CHECK( 7 == oven::adapted_to<int>(oven::unique_copy(rng, oven::to_counter(1))) );
+        BOOST_CHECK( 7 == oven::adapted_to<int>( oven::adapted_to<int>(oven::unique_copy(rng, oven::to_counter(1))) ) );
 
 #if 0 // result_of seems useless...
 
@@ -52,7 +52,7 @@ void test()
     }
     {
         std::wstring rng(L"aabbbcccdddeffg");
-        int i = oven::adaptor_to<int>(oven::unique_copy(rng, oven::to_utf8_encoder(oven::to_counter(0))));
+        int i = oven::adapted_to<int>(oven::unique_copy(rng, oven::to_utf8_encoder(oven::to_counter(0))));
         int j = oven::unique_copy(rng, oven::to_utf8_encoder(oven::to_counter(0)))|to_base;
         BOOST_CHECK( i == j && i == 7 );
     }

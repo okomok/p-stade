@@ -47,7 +47,7 @@ struct function_output_iterator
         return m_fun;
     }
 
-// as "adaptor", 'oven::adaptor_to' kicks in!
+// as "adaptor", 'oven::adapted_to' kicks in!
     UnaryFun const& base() const
     {
         return m_fun;

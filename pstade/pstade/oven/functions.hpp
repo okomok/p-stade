@@ -13,7 +13,7 @@
 #include "./algorithm.hpp"
 #include "./numeric.hpp"
 
-#include "./adaptor_to_base.hpp"
+#include "./adapted_to_base.hpp"
 #include "./begin_end.hpp"
 #include "./copy_range.hpp"
 #include "./distance.hpp"

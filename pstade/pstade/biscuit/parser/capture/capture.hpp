@@ -14,7 +14,7 @@
 #include <boost/config.hpp>
 #include <boost/foreach.hpp>
 #include <boost/mpl/if.hpp>
-#include <pstade/oven/adaptor_to_base.hpp>
+#include <pstade/oven/adapted_to_base.hpp>
 #include <pstade/oven/iter_range.hpp>
 #include <pstade/oven/range_iterator.hpp>
 #include "../../match_results/insert_backref.hpp"
@@ -43,8 +43,8 @@ struct capture
         typedef typename oven::range_iterator<dst_rng_t>::type dst_iter_t;
 
         oven::iter_range<dst_iter_t> rng(
-            oven::adaptor_to<dst_iter_t>(gd.marker()),
-            oven::adaptor_to<dst_iter_t>(s.get_cur())
+            oven::adapted_to<dst_iter_t>(gd.marker()),
+            oven::adapted_to<dst_iter_t>(s.get_cur())
         );
 
         biscuit::insert_backref(s.results(), id, rng);
@@ -82,8 +82,8 @@ struct capture<-1, Parser>
         }
 
         oven::iter_range<dst_iter_t> rng(
-            oven::adaptor_to<dst_iter_t>(gd.marker()),
-            oven::adaptor_to<dst_iter_t>(s.get_cur())
+            oven::adapted_to<dst_iter_t>(gd.marker()),
+            oven::adapted_to<dst_iter_t>(s.get_cur())
         );
 
         biscuit::insert_backref(s.results(), id, rng);

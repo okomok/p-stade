@@ -54,7 +54,7 @@ namespace parallel_detail {
                 return;
             }
 
-            // We don't need to call 'adaptor_to' or something.
+            // We don't need to call 'adapted_to' or something.
             // 'taken' and 'dropped' applied to ForwardRange
             // fortunately return a type convertible to 'IterRange'.
             take_range<IterRange> rngL(m_rng, dist/2);

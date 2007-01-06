@@ -7,7 +7,7 @@ The Oven Range Library
 :Author: Shunsuke Sogame
 :Contact: pstade.mb@gmail.com
 :License: Distributed under the `Boost Software License Version 1.0`_
-:Version: 0.92.2
+:Version: 0.92.3
 
 
 
@@ -71,18 +71,18 @@ Oven has all the range-based STL algorithms which are ported from `Boost.RangeEx
 - Returns: ``std::algo(boost::begin(rng),boost::end(rng),a0,a1,...,aN);``
 
 
-``adaptor_to/to_base``
+``adapted_to/to_base``
 ^^^^^^^^^^^^^^^^^^^^^^
-``adaptor_to`` gets the ``base_type`` iterator of iterator adaptors::
+``adapted_to`` gets the ``base_type`` iterator of adapted iterators::
 
-	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\adaptor_to_base.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\adapted_to_base.ipp
 
 
-- Header: ``<pstade/oven/adaptor_to_base.hpp>``
-- Valid expression: ``base = oven::adaptor_to<BaseIter>(it);`` or ``BaseIter base = it|to_base;``
+- Header: ``<pstade/oven/adapted_to_base.hpp>``
+- Valid expression: ``base = oven::adapted_to<BaseIter>(it);`` or ``BaseIter base = it|to_base;``
 - Precondition: The type of ``base`` is ``BaseIter``, and ``it`` is an iterator adaptor.
 
-``to_base`` adds the automatic type deduction to ``adaptor_to``.
+``to_base`` adds the automatic type deduction to ``adapted_to``.
 
 
 ``begins/ends``
@@ -986,7 +986,7 @@ Output Iterator Adaptors
 ``to_counter``
 ^^^^^^^^^^^^^^
 ``to_counter`` takes an initial count and increments it every output.
-`adaptor_to/to_base`_ can extract the result of the counting::
+`adapted_to/to_base`_ can extract the result of the counting::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\to_counter.ipp
 
@@ -1183,4 +1183,8 @@ Version 0.92.2
 - Renamed ``tie`` to ``pack``.
 - Added ``boost::result_of`` support to range-based algorithms.
 - Renamed `Extending Boost.Range`_ macros.
+
+Version 0.92.3
+^^^^^^^^^^^^^^
+- Renamed ``adaptor_to`` to ``adapted_to``.
 
