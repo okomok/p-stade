@@ -79,11 +79,19 @@ void cyfoo( BOOST_PP_SEQ_ENUM( PSTADE_PP_SEQ_CYCLE((A)(A), 3) ) )
 
 
 template< class A >
-void to_seq( BOOST_PP_SEQ_ENUM( PSTADE_PP_SEQ_TO_SEQ(~, (A)) ) )
-{ }
+int plus( A a0, A a1, A a2 )
+{
+    return a0 + a1 + a2;
+}
+
 
 template< class A >
-void to_seq2( BOOST_PP_SEQ_ENUM( PSTADE_PP_SEQ_TO_SEQ((A)(A), (A)) ) )
+void to_seq( BOOST_PP_SEQ_ENUM( PSTADE_PP_SEQ_MAYBE_TO(~, (A)) ) )
+{ }
+
+
+template< class A >
+void to_seq2( BOOST_PP_SEQ_ENUM( PSTADE_PP_SEQ_MAYBE_TO((A)(A), (A)) ) )
 { }
 
 
@@ -98,6 +106,8 @@ void test()
 
     ::rfoo(1, 1, 1, 1, 1);
     ::cyfoo(1, 1, 1, 1, 1, 1);
+
+    BOOST_CHECK( 3+4+5 == ::plus( BOOST_PP_SEQ_ENUM( PSTADE_PP_SEQ_RANGE(3, 6) ) ) );
 
     ::to_seq(1);
     ::to_seq2(1, 1);

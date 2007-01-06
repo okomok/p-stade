@@ -11,14 +11,15 @@
 
 
 #include <boost/preprocessor/cat.hpp>
-#include <boost/preprocessor/detail/is_unary.hpp>
 #include <boost/preprocessor/comparison/equal.hpp>
 #include <boost/preprocessor/control/iif.hpp>
+#include <boost/preprocessor/detail/is_unary.hpp>
 #include <boost/preprocessor/facilities/intercept.hpp>
 #include <boost/preprocessor/punctuation/comma_if.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
+#include <boost/preprocessor/repetition/repeat_from_to.hpp>
 #include <boost/preprocessor/seq/elem.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
 #include <boost/preprocessor/seq/for_each_i.hpp>
@@ -30,7 +31,6 @@
 // utility
 //
 
-// 'BOOST_PP_SEQ_CAT' isn't ugly?
 #define PSTADE_PP_CAT3(A0, A1, A2) \
     BOOST_PP_CAT(A0, BOOST_PP_CAT(A1, A2)) \
 /**/
@@ -59,7 +59,7 @@
 /**/
 
 
-// sequence helper
+// sequence
 //
 
 #define PSTADE_PP_SEQ_IS_SEQ \
@@ -72,25 +72,30 @@
 /**/
 
 
-#define PSTADE_PP_SEQ_REPEAT(A, Size) \
-    BOOST_PP_REPEAT(Size, PSTADE_PP_SEQ_REPEAT_op, A) \
-/**/
-
-    #define PSTADE_PP_SEQ_REPEAT_op(z, N, A) \
-        (A) \
-    /**/
-
-
 #define PSTADE_PP_SEQ_CYCLE(Seq, Size) \
-    BOOST_PP_REPEAT(Size, PSTADE_PP_SEQ_CYCLE_op, Seq) \
+    BOOST_PP_REPEAT(Size, PSTADE_PP_SEQ_cycle, Seq) \
 /**/
 
-    #define PSTADE_PP_SEQ_CYCLE_op(z, N, Seq) \
+    #define PSTADE_PP_SEQ_cycle(z, N, Seq) \
         Seq \
     /**/
 
 
-#define PSTADE_PP_SEQ_TO_SEQ(MaybeSeq, Seq) \
+#define PSTADE_PP_SEQ_REPEAT(A, Size) \
+    PSTADE_PP_SEQ_CYCLE((A), Size) \
+/**/
+
+
+#define PSTADE_PP_SEQ_RANGE(N, M) \
+    BOOST_PP_REPEAT_FROM_TO(N, M, PSTADE_PP_SEQ_range, ~) \
+/**/
+
+    #define PSTADE_PP_SEQ_range(z, N, _) \
+        (N) \
+    /**/
+
+
+#define PSTADE_PP_SEQ_MAYBE_TO(MaybeSeq, Seq) \
     BOOST_PP_IIF( PSTADE_PP_SEQ_IS_SEQ(MaybeSeq), \
         MaybeSeq, \
         Seq \
@@ -149,7 +154,7 @@
 #define PSTADE_PP_NAMESPACE_OPEN(NameSeq) \
     BOOST_PP_IIF( BOOST_PP_EQUAL(BOOST_PP_SEQ_SIZE(NameSeq), 1), \
         BOOST_PP_TUPLE_EAT(2), \
-       PSTADE_PP_for_each_without_back \
+        PSTADE_PP_for_each_without_back \
     )(PSTADE_PP_NAMESPACE_OPEN_op, NameSeq)
 /**/
 
