@@ -10,8 +10,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/mpl/aux_/preprocessor/is_seq.hpp>
 #include <boost/preprocessor/cat.hpp>
+#include <boost/preprocessor/detail/is_unary.hpp>
 #include <boost/preprocessor/comparison/equal.hpp>
 #include <boost/preprocessor/control/iif.hpp>
 #include <boost/preprocessor/facilities/intercept.hpp>
@@ -28,7 +28,7 @@
 
 
 // utility
-
+//
 
 // 'BOOST_PP_SEQ_CAT' isn't ugly?
 #define PSTADE_PP_CAT3(A0, A1, A2) \
@@ -37,7 +37,7 @@
 
 
 // parameter
-
+//
 
 #define PSTADE_PP_ENUM_REFS(Size, Param) \
     BOOST_PP_ENUM_BINARY_PARAMS(Size, Param, & BOOST_PP_INTERCEPT) \
@@ -60,6 +60,11 @@
 
 
 // sequence helper
+//
+
+#define PSTADE_PP_SEQ_IS_SEQ \
+    BOOST_PP_IS_UNARY \
+/**/
 
 
 #define PSTADE_PP_SEQ_BACK(Seq) \
@@ -67,26 +72,26 @@
 /**/
 
 
-#define PSTADE_PP_SEQ_REPLICATE(Size, A) \
-    BOOST_PP_REPEAT(Size, PSTADE_PP_SEQ_REPLICATE_op, A) \
+#define PSTADE_PP_SEQ_REPEAT(A, Size) \
+    BOOST_PP_REPEAT(Size, PSTADE_PP_SEQ_REPEAT_op, A) \
 /**/
 
-    #define PSTADE_PP_SEQ_REPLICATE_op(Z, N, A) \
+    #define PSTADE_PP_SEQ_REPEAT_op(z, N, A) \
         (A) \
     /**/
 
 
-#define PSTADE_PP_SEQ_CYCLE(Size, Seq) \
+#define PSTADE_PP_SEQ_CYCLE(Seq, Size) \
     BOOST_PP_REPEAT(Size, PSTADE_PP_SEQ_CYCLE_op, Seq) \
 /**/
 
-    #define PSTADE_PP_SEQ_CYCLE_op(Z, N, Seq) \
+    #define PSTADE_PP_SEQ_CYCLE_op(z, N, Seq) \
         Seq \
     /**/
 
 
 #define PSTADE_PP_SEQ_TO_SEQ(MaybeSeq, Seq) \
-    BOOST_PP_IIF( BOOST_MPL_PP_IS_SEQ(MaybeSeq), \
+    BOOST_PP_IIF( PSTADE_PP_SEQ_IS_SEQ(MaybeSeq), \
         MaybeSeq, \
         Seq \
     )
@@ -94,7 +99,7 @@
 
 
 // type system
-
+//
 
 #define PSTADE_PP_DECLARE_TYPE(Struct, NameSeq) \
     PSTADE_PP_NAMESPACE_OPEN(NameSeq) \
@@ -116,7 +121,7 @@
     BOOST_PP_SEQ_FOR_EACH_I(PSTADE_PP_TO_TEMPLATE_PARAMS_op, T, ParamSeq) \
 /**/
 
-    #define PSTADE_PP_TO_TEMPLATE_PARAMS_op(R, T, I, Elem) \
+    #define PSTADE_PP_TO_TEMPLATE_PARAMS_op(r, T, I, Elem) \
         BOOST_PP_COMMA_IF(I) Elem BOOST_PP_CAT(T, I) \
     /**/
 
@@ -129,13 +134,13 @@
 
 // (class)(int) -> as is; 2 -> (class)(class)
 #define PSTADE_PP_TO_TEMPLATE_PARAM_SEQ(ParamSeqOrCount) \
-    BOOST_PP_IIF( BOOST_MPL_PP_IS_SEQ(ParamSeqOrCount), \
+    BOOST_PP_IIF( PSTADE_PP_SEQ_IS_SEQ(ParamSeqOrCount), \
         ParamSeqOrCount BOOST_PP_TUPLE_EAT(3), \
         BOOST_PP_REPEAT \
     )(ParamSeqOrCount, PSTADE_PP_TO_TEMPLATE_PARAM_SEQ_op, ~) \
 /**/
 
-    #define PSTADE_PP_TO_TEMPLATE_PARAM_SEQ_op(Z, N, _) \
+    #define PSTADE_PP_TO_TEMPLATE_PARAM_SEQ_op(z, N, _) \
         (class) \
     /**/
 
@@ -152,7 +157,7 @@
         BOOST_PP_SEQ_FOR_EACH(Op, ~, BOOST_PP_SEQ_POP_BACK(NameSeq)) \
     /**/
 
-        #define PSTADE_PP_NAMESPACE_OPEN_op(R, _, Elem) \
+        #define PSTADE_PP_NAMESPACE_OPEN_op(r, _, Elem) \
             namespace Elem { \
         /**/
 
@@ -165,7 +170,7 @@
     )(PSTADE_PP_NAMESPACE_CLOSE_op, NameSeq)
 /**/
 
-    #define PSTADE_PP_NAMESPACE_CLOSE_op(R, _, Elem) \
+    #define PSTADE_PP_NAMESPACE_CLOSE_op(r, _, Elem) \
         } \
     /**/
 
@@ -175,7 +180,7 @@
     BOOST_PP_SEQ_FOR_EACH(PSTADE_PP_scope_op, ~, NameSeq) \
 /**/
 
-    #define PSTADE_PP_scope_op(R, _, Elem) \
+    #define PSTADE_PP_scope_op(r, _, Elem) \
         ::Elem \
     /**/
 

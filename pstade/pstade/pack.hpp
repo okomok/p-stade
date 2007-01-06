@@ -15,13 +15,14 @@
 // Yet another 'make_tuple' to support rvalue and const-reference.
 
 
-#include <boost/tuple/tuple.hpp>
-#include <pstade/constant.hpp>
-#include <pstade/object_generator.hpp>
-#include <pstade/pipable.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/tuple/tuple.hpp>
+#include <pstade/callable.hpp> // MAX_ARITY
+#include <pstade/constant.hpp>
+#include <pstade/object_generator.hpp>
+#include <pstade/pipable.hpp>
 
 
 namespace pstade {

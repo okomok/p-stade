@@ -69,12 +69,12 @@ PSTADE_PP_DECLARE_TEMPLATE(struct, (naaa)(nbbb)(tccc2), (class)(int)(unsigned in
 
 
 template< class A >
-void rfoo( BOOST_PP_SEQ_ENUM( PSTADE_PP_SEQ_REPLICATE(5, A) ) )
+void rfoo( BOOST_PP_SEQ_ENUM( PSTADE_PP_SEQ_REPEAT(A, 5) ) )
 { }
 
 
 template< class A >
-void cyfoo( BOOST_PP_SEQ_ENUM( PSTADE_PP_SEQ_CYCLE(3, (A)(A)) ) )
+void cyfoo( BOOST_PP_SEQ_ENUM( PSTADE_PP_SEQ_CYCLE((A)(A), 3) ) )
 { }
 
 
