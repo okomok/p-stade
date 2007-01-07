@@ -24,12 +24,14 @@
 #include <boost/iterator/detail/minimum_category.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_categories.hpp>
+#include <boost/mpl/assert.hpp>
 #include <pstade/functional.hpp> // less
 #include <pstade/object_generator.hpp>
 #include <pstade/unused.hpp>
 #include "./detail/constant_reference.hpp"
 #include "./detail/debug_is_sorted.hpp"
 #include "./detail/pure_traversal.hpp"
+#include "./detail/reference_is_convertible.hpp"
 
 
 namespace pstade { namespace oven {
@@ -167,6 +169,7 @@ struct merge_iterator :
 private:
     typedef typename merge_iterator_detail::super_<Iterator1, Iterator2, Compare, MergeRoutine>::type super_t;
     typedef typename super_t::reference ref_t;
+    BOOST_MPL_ASSERT((detail::reference_is_convertible_aux<typename boost::iterator_reference<Iterator2>::type, ref_t>));
 
 public:
     merge_iterator()
@@ -224,6 +227,11 @@ private:
 friend class boost::iterator_core_access;
     ref_t dereference() const
     {
+        // The overload resulution tries to instantiate
+        // const/non-const overloaded function templates
+        // even if never called, so place here.
+        BOOST_MPL_ASSERT((detail::reference_is_convertible<Iterator2, merge_iterator>));
+
         BOOST_ASSERT(!(is_end1() && is_end2()));
         return MergeRoutine::BOOST_NESTED_TEMPLATE yield<ref_t>(
             this->base(), m_last1, m_it2, m_last2, m_comp);

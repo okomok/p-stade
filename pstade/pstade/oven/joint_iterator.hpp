@@ -14,7 +14,9 @@
 #include <boost/iterator/detail/minimum_category.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_categories.hpp>
+#include <boost/mpl/assert.hpp>
 #include "./detail/pure_traversal.hpp"
+#include "./detail/reference_is_convertible.hpp"
 #include "./reverse_iterator.hpp"
 
 
@@ -121,6 +123,9 @@ private:
 
     bool invariant() const
     {
+        // "./merge_iterator.hpp" tells why placed here.
+        BOOST_MPL_ASSERT((detail::reference_is_convertible<IteratorR, IteratorL>));
+
         return (!is_in_rangeL() || m_itR == m_firstR);
     }
 

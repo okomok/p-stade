@@ -14,7 +14,7 @@
 
 
 #include <string>
-#include <pstade/tests.hpp>
+#include <pstade/test.hpp>
 
 
 template<class A0, class A1>

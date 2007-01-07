@@ -21,6 +21,11 @@
 #include <pstade/oven/tests.hpp>
 #include <pstade/oven/to_stream.hpp>
 #include <pstade/oven/c_str_range.hpp>
+#include <pstade/test.hpp>
+
+
+namespace oven = pstade::oven;
+using namespace oven;
 
 
 bool lt_nocase(char c1, char c2)
@@ -29,11 +34,19 @@ bool lt_nocase(char c1, char c2)
 }
 
 
+template<class Range1, class Range2>
+typename boost::result_of<op_make_merge_range(Range1&, Range2&)>::type
+make_merge_range_(Range1& rng1, Range2& rng2)
+{
+    return oven::merge_range<Range1, Range2>(rng1, rng2);
+}
+
+
+PSTADE_TEST_IS_RESULT_OF((merge_range<int[6], int[6]>), op_make_merge_range(int(&)[6], int(&)[6]));
+
+
 void test()
 {
-    namespace oven = pstade::oven;
-    using namespace oven;
-
     {
         int A1[] = {1,6,7,10,14,17};
         int A2[] = {2,5,8,11,13,18};

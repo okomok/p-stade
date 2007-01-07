@@ -15,7 +15,7 @@
 #include <pstade/wine.hpp>
 #include <pstade/reference.hpp>
 
-#include <pstade/tests.hpp>
+#include <pstade/test.hpp>
 
 
 PSTADE_TEST_IS_RESULT_OF((int&), pstade::op_reference(int&))

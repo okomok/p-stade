@@ -80,7 +80,7 @@ Oven has all the range-based STL algorithms which are ported from `Boost.RangeEx
 
 - Header: ``<pstade/oven/adapted_to_base.hpp>``
 - Valid expression: ``base = oven::adapted_to<BaseIter>(it);`` or ``BaseIter base = it|to_base;``
-- Precondition: The type of ``base`` is ``BaseIter``, and ``it`` is an iterator adaptor.
+- Precondition: The type of ``base`` is ``BaseIter``, and ``it`` is an adapted iterator.
 
 ``to_base`` adds the automatic type deduction to ``adapted_to``.
 

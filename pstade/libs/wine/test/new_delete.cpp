@@ -25,11 +25,10 @@
 #include <pstade/new_delete.hpp>
 
 
-#include <pstade/tests.hpp>
+#include <pstade/test.hpp>
 #include <boost/smart_ptr.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <pstade/tests.hpp>
 #include <string>
 
 
