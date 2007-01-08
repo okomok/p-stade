@@ -28,6 +28,7 @@ namespace pstade {
 
 
 // GCC needs arity parameter to succeed at specialization.
+// Note VC++ would crash with this.
 #define PSTADE_arity_param() \
     BOOST_MPL_AUX_LAMBDA_ARITY_PARAM( \
         class Arity = boost::mpl::int_<boost::mpl::aux::template_arity<X>::value>) \
@@ -37,7 +38,7 @@ namespace pstade {
 /**/
 
 #define PSTADE_at_c(z, N, _) \
-    typename boost::mpl::at_c<Arguments, N>::type \
+    typename boost::mpl::at_c<ArgumentSeq, N>::type \
 /**/
 
 
@@ -52,7 +53,7 @@ namespace pstade {
 
 
     template<
-        class Arguments,
+        class ArgumentSeq,
         class X
         PSTADE_arity_param()
     >
@@ -92,11 +93,11 @@ struct template_arguments_of<X<BOOST_PP_ENUM_PARAMS(n, T)> PSTADE_arity(n)>
 
 
 template<
-    class Arguments,
+    class ArgumentSeq,
     template<BOOST_PP_ENUM_PARAMS(n, class _)> class X,
     BOOST_PP_ENUM_PARAMS(n, class T)
 >
-struct template_arguments_copy<Arguments, X<BOOST_PP_ENUM_PARAMS(n, T)> PSTADE_arity(n)>
+struct template_arguments_copy<ArgumentSeq, X<BOOST_PP_ENUM_PARAMS(n, T)> PSTADE_arity(n)>
 {
     typedef X<BOOST_PP_ENUM(n, PSTADE_at_c, ~)> type;
 };
