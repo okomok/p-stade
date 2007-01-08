@@ -227,11 +227,6 @@ private:
 friend class boost::iterator_core_access;
     ref_t dereference() const
     {
-        // The overload resulution tries to instantiate
-        // const/non-const overloaded function templates
-        // even if never called, so place here.
-        BOOST_MPL_ASSERT((detail::reference_is_convertible<Iterator2, merge_iterator>));
-
         BOOST_ASSERT(!(is_end1() && is_end2()));
         return MergeRoutine::BOOST_NESTED_TEMPLATE yield<ref_t>(
             this->base(), m_last1, m_it2, m_last2, m_comp);

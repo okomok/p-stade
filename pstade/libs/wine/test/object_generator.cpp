@@ -121,9 +121,20 @@ struct deduce_to_hello :
     >
 { };
 
-
 typedef object_generator< needs_all_param< deduce<boost::mpl::_1, deducers::to_value>, deduce_to_hello<boost::mpl::_1, boost::mpl::_2> > > op_make_nap;
-PSTADE_CONSTANT(make_nap, (op_make_nap))
+#if !defined(__GNUC__) // GCC3.4.4; internal compiler error: in lookup_member, at cp/search.c:1296
+    PSTADE_CONSTANT(make_nap, (op_make_nap))
+#endif
+
+
+template< class A0 >
+struct must_mutable
+{
+    BOOST_MPL_ASSERT_NOT((boost::is_const<A0>));
+    explicit must_mutable(A0) { }
+};
+
+PSTADE_OBJECT_GENERATOR(make_must_mutable, (must_mutable<_1>))
 
 
 void test()
@@ -173,6 +184,10 @@ void test()
         needs_all_param<H> y = ::make_nap(H());
     }
 #endif
+    {
+        int i = 0; // non-const
+        ::make_must_mutable(i);
+    }
 }
 
 

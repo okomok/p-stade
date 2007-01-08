@@ -18,6 +18,7 @@ rule wine-test ( name )
 test-suite wine :
     [ wine-test adl_barrier ]
     [ wine-test affect ]
+    [ wine-test alternative ]
     [ wine-test arraya ]
     [ wine-test automatic ]
     [ wine-test base_to_derived ]

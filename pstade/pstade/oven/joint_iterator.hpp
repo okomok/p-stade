@@ -90,6 +90,7 @@ struct joint_iterator :
     joint_iterator_detail::super_<IteratorL, IteratorR>::type
 {
 private:
+    BOOST_MPL_ASSERT((detail::reference_is_convertible<IteratorR, IteratorL>));
     typedef typename joint_iterator_detail::super_<IteratorL, IteratorR>::type super_t;
     typedef typename super_t::reference ref_t;
     typedef typename super_t::difference_type diff_t;
@@ -123,9 +124,6 @@ private:
 
     bool invariant() const
     {
-        // "./merge_iterator.hpp" tells why placed here.
-        BOOST_MPL_ASSERT((detail::reference_is_convertible<IteratorR, IteratorL>));
-
         return (!is_in_rangeL() || m_itR == m_firstR);
     }
 

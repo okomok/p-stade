@@ -61,7 +61,6 @@ struct merge_range :
     // PSTADE_CONCEPT_ASSERT((Readable<Range1>));
     PSTADE_CONCEPT_ASSERT((SinglePass<Range2>));
     // PSTADE_CONCEPT_ASSERT((Readable<Range2>));
-    typedef merge_range type;
     typedef Compare compare_type;
 
 private:

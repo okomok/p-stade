@@ -12,6 +12,7 @@
 
 #include "./adl_barrier.hpp"
 #include "./affect.hpp"
+#include "./alternative.hpp"
 #include "./arraya.hpp"
 #include "./at.hpp"
 #include "./automatic.hpp"
