@@ -15,28 +15,22 @@
 #include <boost/mpl/aux_/lambda_arity_param.hpp>
 #include <boost/mpl/aux_/template_arity.hpp>
 #include <boost/mpl/int.hpp>
+#include <boost/mpl/limits/arity.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/preprocessor/repetition/enum_params_with_a_default.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
-
-
-#if !defined (PSTADE_TEMPLATE_ARGUMENTS_MAX_ARITY)
-    #define PSTADE_TEMPLATE_ARGUMENTS_MAX_ARITY 5 // *small* for MPL PlaceholderExpression
-#endif
 
 
 namespace pstade {
 
 
-    // GCC needs arity parameter to succeed at specialization.
+// GCC needs arity parameter to succeed at specialization.
 #define PSTADE_arity_param() \
     BOOST_MPL_AUX_LAMBDA_ARITY_PARAM( \
-        class Arity = boost::mpl::int_<boost::mpl::aux::template_arity<X>::value> \
-    ) \
+        class Arity = boost::mpl::int_<boost::mpl::aux::template_arity<X>::value>) \
 /**/
 #define PSTADE_arity(N) \
     BOOST_MPL_AUX_LAMBDA_ARITY_PARAM(boost::mpl::int_<N>) \
@@ -68,8 +62,8 @@ namespace pstade {
     };
 
 
-    // 1ary-
-    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_TEMPLATE_ARGUMENTS_MAX_ARITY, <pstade/template_arguments.hpp>))
+    // 1ary-BOOST_MPL_LIMIT_METAFUNCTION_ARITY for MPL PlaceholderExpression
+    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_MPL_LIMIT_METAFUNCTION_ARITY, <pstade/template_arguments.hpp>))
     #include BOOST_PP_ITERATE()
 
 
