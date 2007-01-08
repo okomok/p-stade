@@ -136,9 +136,7 @@ namespace pstade {
     } // namespace object_generator_detail
 
 
-    template<
-        class Lambda
-    >
+    template<class Lambda>
     struct object_generator :
         callable<
             object_generator<Lambda>,
