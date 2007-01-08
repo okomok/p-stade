@@ -24,11 +24,11 @@
 #include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/affect.hpp>
-#include <pstade/alternative.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/preprocessor.hpp>
+#include <pstade/template_arguments.hpp>
 #include <pstade/unparenthesize.hpp>
 
 
@@ -105,18 +105,18 @@ namespace pstade {
 
 
         template<class Lambda>
-        struct wrap :
+        struct to_alternative :
             boost::mpl::eval_if< is_object_generator_class<Lambda>,
                 Lambda,
-                alternative<Lambda>
+                template_arguments_of<Lambda>
             >
         { };
 
-        template<class Wrapped, class Lambda>
-        struct unwrap :
+        template<class Alternative, class Lambda>
+        struct alternative_to :
             boost::mpl::eval_if< is_object_generator_class<Lambda>,
-                boost::mpl::identity<Wrapped>,
-                alternative_affect<Wrapped, Lambda>
+                boost::mpl::identity<Alternative>,
+                template_arguments_copy<Alternative, Lambda>
             >
         { };
 
@@ -133,13 +133,13 @@ namespace pstade {
 
             typedef typename
                 boost::mpl::BOOST_PP_CAT(apply, PSTADE_CALLABLE_MAX_ARITY)<
-                    typename wrap<lambda_t>::type,
+                    typename to_alternative<lambda_t>::type,
                     BOOST_PP_ENUM_PARAMS(PSTADE_CALLABLE_MAX_ARITY, A)
                 >::type
-            wrapped_object_t;
+            alt_object_t;
 
             typedef typename
-                affect<Lambda, typename unwrap<wrapped_object_t, lambda_t>::type>::type
+                affect<Lambda, typename alternative_to<alt_object_t, lambda_t>::type>::type
             type;
         };
 

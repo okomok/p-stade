@@ -18,7 +18,6 @@ rule wine-test ( name )
 test-suite wine :
     [ wine-test adl_barrier ]
     [ wine-test affect ]
-    [ wine-test alternative ]
     [ wine-test arraya ]
     [ wine-test automatic ]
     [ wine-test base_to_derived ]
@@ -65,6 +64,7 @@ test-suite wine :
     [ wine-test require ]
     [ wine-test statement ]
     [ wine-test static_c ]
+    [ wine-test template_arguments ]
     [ wine-test unfuse ]
     [ wine-test unparenthesize ]
     [ wine-test unused ]

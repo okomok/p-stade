@@ -12,7 +12,6 @@
 
 #include "./adl_barrier.hpp"
 #include "./affect.hpp"
-#include "./alternative.hpp"
 #include "./arraya.hpp"
 #include "./at.hpp"
 #include "./automatic.hpp"
@@ -64,6 +63,7 @@
 #include "./singleton.hpp"
 #include "./statement.hpp"
 #include "./static_c.hpp"
+#include "./template_arguments.hpp"
 #include "./unfuse.hpp"
 #include "./unparenthesize.hpp"
 #include "./unused.hpp"
