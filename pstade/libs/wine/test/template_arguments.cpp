@@ -21,14 +21,17 @@
 using namespace pstade;
 
 
+#define PSTADE_vector pstade::template_arguments_detail::vector
+
+
 template<class T0>
 struct klass1
 {
     typedef void type;
 };
 
-PSTADE_TEST_IS_SAME((template_arguments<int&>), (template_arguments_of< klass1<int&> >::type))
-PSTADE_TEST_IS_SAME((klass1<int&>), (template_arguments_copy< template_arguments<int&>, klass1<char> >::type))
+PSTADE_TEST_IS_SAME((PSTADE_vector<int&>), (template_arguments_of< klass1<int&> >::type))
+PSTADE_TEST_IS_SAME((klass1<int&>), (template_arguments_copy< PSTADE_vector<int&>, klass1<char> >::type))
 
 typedef
     boost::mpl::apply< template_arguments_of< klass1<boost::mpl::_1> >::type, int >::type
@@ -43,8 +46,8 @@ struct klass2
     typedef void type;
 };
 
-PSTADE_TEST_IS_SAME((template_arguments<int&, double>), (template_arguments_of< klass2<int&, double> >::type))
-PSTADE_TEST_IS_SAME((klass2<int&, double>), (template_arguments_copy< template_arguments<int&, double>, klass2<char, char> >::type))
+PSTADE_TEST_IS_SAME((PSTADE_vector<int&, double>), (template_arguments_of< klass2<int&, double> >::type))
+PSTADE_TEST_IS_SAME((klass2<int&, double>), (template_arguments_copy< PSTADE_vector<int&, double>, klass2<char, char> >::type))
 
 typedef
     boost::mpl::apply< template_arguments_of< klass2<boost::mpl::_1> >::type, int >::type

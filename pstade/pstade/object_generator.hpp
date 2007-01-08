@@ -12,7 +12,6 @@
 
 
 #include <boost/mpl/apply.hpp>
-#include <boost/mpl/bool.hpp>
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
 #include <boost/mpl/placeholders.hpp>
@@ -83,40 +82,30 @@ namespace pstade {
     } // namespace deducers
 
 
-    template<class F>
-    struct object_generator_class
-    {
-        typedef F type;
-    };
-
-
     namespace object_generator_detail {
 
 
         template<class Lambda>
-        struct is_object_generator_class :
-            boost::mpl::false_
+        struct is_placeholder_expression :
+            boost::mpl::is_lambda_expression<Lambda>
         { };
 
-        template<class F>
-        struct is_object_generator_class< object_generator_class<F> > :
-            boost::mpl::true_
-        { };
 
+        // Work around "ETI" of 'boost::mpl::apply'.
 
         template<class Lambda>
         struct to_alternative :
-            boost::mpl::eval_if< is_object_generator_class<Lambda>,
-                Lambda,
-                template_arguments_of<Lambda>
+            boost::mpl::eval_if< is_placeholder_expression<Lambda>,
+                template_arguments_of<Lambda>,
+                boost::mpl::identity<Lambda>
             >
         { };
 
         template<class Alternative, class Lambda>
         struct alternative_to :
-            boost::mpl::eval_if< is_object_generator_class<Lambda>,
-                boost::mpl::identity<Alternative>,
-                template_arguments_copy<Alternative, Lambda>
+            boost::mpl::eval_if< is_placeholder_expression<Lambda>,
+                template_arguments_copy<Alternative, Lambda>,
+                boost::mpl::identity<Alternative>
             >
         { };
 

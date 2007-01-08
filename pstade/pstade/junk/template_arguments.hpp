@@ -11,23 +11,14 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// What:
-//
-// Can work around ETI of 'boost::mpl::apply'.
-
-
-// Note:
-//
-// Hmm, if you include <boost/mpl/at.hpp>, unqualified calls of
-// 'begin/end' by Boost.StringAlgorithm break down GCC.
-// So, for now, 'template_arguments_of' doesn't return a MPL Sequence.
-
-
 #include <boost/mpl/aux_/lambda_arity_param.hpp>
 #include <boost/mpl/aux_/template_arity.hpp>
+#include <boost/mpl/at.hpp>
 #include <boost/mpl/int.hpp>
+#include <boost/mpl/vector/vector10.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
+#include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_params_with_a_default.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
@@ -41,23 +32,6 @@
 namespace pstade {
 
 
-    namespace template_arguments_detail {
-
-
-        template<BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(PSTADE_ALTERNATIVE_MAX_ARITY, class T, void)>
-        struct vector
-        {
-            typedef vector type;
-
-        #define PSTADE_typedef_argument(z, N, _) typedef BOOST_PP_CAT(T, N) BOOST_PP_CAT(argument, N);
-            BOOST_PP_REPEAT(PSTADE_ALTERNATIVE_MAX_ARITY, PSTADE_typedef_argument, ~)
-        #undef  PSTADE_typedef_argument
-        };
-
-
-    } // namespace template_arguments_detail
-
-
     // GCC needs arity parameter to succeed at specialization.
 #define PSTADE_arity_param() \
     BOOST_MPL_AUX_LAMBDA_ARITY_PARAM( \
@@ -68,6 +42,10 @@ namespace pstade {
     BOOST_MPL_AUX_LAMBDA_ARITY_PARAM(boost::mpl::int_<N>) \
 /**/
 
+#define PSTADE_at_c(z, N, _) \
+    typename boost::mpl::at_c<Arguments, N>::type \
+/**/
+
 
     template<
         class X
@@ -75,7 +53,7 @@ namespace pstade {
     >
     struct template_arguments_of
     {
-        typedef template_arguments_detail::vector<> type;
+        typedef boost::mpl::vector0<> type;
     };
 
 
@@ -95,8 +73,9 @@ namespace pstade {
     #include BOOST_PP_ITERATE()
 
 
-#undef PSTADE_arity
-#undef PSTADE_arity_param
+#undef  PSTADE_at_c
+#undef  PSTADE_arity
+#undef  PSTADE_arity_param
 
 
 } // namespace pstade
@@ -113,7 +92,7 @@ template<
 >
 struct template_arguments_of<X<BOOST_PP_ENUM_PARAMS(n, T)> PSTADE_arity(n)>
 {
-    typedef template_arguments_detail::vector<BOOST_PP_ENUM_PARAMS(n, T)> type;
+    typedef boost::mpl::BOOST_PP_CAT(vector, n)<BOOST_PP_ENUM_PARAMS(n, T)> type;
 };
 
 
@@ -124,11 +103,9 @@ template<
 >
 struct template_arguments_copy<Arguments, X<BOOST_PP_ENUM_PARAMS(n, T)> PSTADE_arity(n)>
 {
-    typedef X<BOOST_PP_ENUM_PARAMS(n, typename Arguments::argument)> type;
+    typedef X<BOOST_PP_ENUM(n, PSTADE_at_c, ~)> type;
 };
 
 
 #undef n
 #endif
-
-
