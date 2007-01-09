@@ -16,7 +16,6 @@
 #include <boost/tuple/tuple.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <boost/utility/result_of.hpp>
-#include <pstade/affect.hpp>
 #include <pstade/at.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/object_generator.hpp>
