@@ -10,6 +10,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/utility/result_of.hpp>
+#include <pstade/function.hpp>
+#include <pstade/pass_by.hpp>
 #include "./function_output_iterator.hpp"
 
 
@@ -47,12 +50,22 @@ private:
 };
 
 
-template< class Incrementable > inline
-function_output_iterator< op_increment<Incrementable> > const
-to_counter(Incrementable const& i)
+template< class Incrementable >
+struct baby_to_counter
 {
-    return oven::to_function(op_increment<Incrementable>(i));
-}
+    typedef typename
+        boost::result_of<op_to_function(
+            op_increment<typename pass_by_value<Incrementable>::type>
+        )>::type
+    result;
+
+    result call(Incrementable& i)
+    {
+        return result(typename result::function_type(i));
+    }
+};
+
+PSTADE_FUNCTION(to_counter, (baby_to_counter<_>))
 
 
 } } // namespace pstade::oven

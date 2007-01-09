@@ -23,7 +23,10 @@
 
 
 #include <boost/mpl/void.hpp>
+#include <boost/utility/result_of.hpp>
 #include <iterator> // output_iterator_tag
+#include <pstade/function.hpp>
+#include <pstade/object_generator.hpp>
 #include "./regularize_iterator.hpp"
 
 
@@ -93,20 +96,25 @@ public:
 };
 
 
-template< class UnaryFun > inline
-function_output_iterator<UnaryFun> const
-to_function(UnaryFun fun)
-{
-    return function_output_iterator<UnaryFun>(fun);
-}
+PSTADE_OBJECT_GENERATOR(to_function, (function_output_iterator< deduce<_1, to_value> >) const)
 
 
-template< class UnaryFun > inline
-regularize_iterator< function_output_iterator<UnaryFun> > const
-to_regularized_function(UnaryFun fun)
+template< class UnaryFun >
+struct baby_to_regularized_function
 {
-    return oven::make_regularize_iterator(oven::to_function(fun));
-}
+    typedef
+        typename boost::result_of<op_make_regularize_iterator(
+            typename boost::result_of<op_to_function(UnaryFun&)>::type
+        )>::type
+    result;
+
+    result call(UnaryFun& fun)
+    {
+        return make_regularize_iterator(to_function(fun));
+    }
+};
+
+PSTADE_FUNCTION(to_regularized_function, (baby_to_regularized_function<_>))
 
 
 } } // namespace pstade::oven

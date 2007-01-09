@@ -11,17 +11,14 @@
 
 
 #include <boost/regex/pending/unicode_iterator.hpp> // utf8_output_iterator
+#include <pstade/object_generator.hpp>
 
 
 namespace pstade { namespace oven {
 
 
-template< class BaseIter > inline
-boost::utf8_output_iterator<BaseIter> const
-to_utf8_encoder(BaseIter const& it)
-{
-    return boost::utf8_output_iterator<BaseIter>(it);
-}
+PSTADE_OBJECT_GENERATOR(to_utf8_encoder,
+    (boost::utf8_output_iterator< deduce<_1, to_value> >) const)
 
 
 } } // namespace pstade::oven

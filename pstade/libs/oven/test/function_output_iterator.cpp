@@ -50,17 +50,17 @@ void test()
     std::string const src("hello,to_function");
     {
         g_ss.str("");
-        oven::copy(src, oven::to_function(to_ss));
+        oven::copy(src, oven::to_function(&::to_ss));
         BOOST_CHECK( oven::equals(g_ss.str(), src) );
     }
     {
         g_ss.str("");
-        oven::copy(src, oven::make_regularize_iterator(oven::to_function(to_ss)));
+        oven::copy(src, oven::make_regularize_iterator(oven::to_function(&::to_ss)));
         BOOST_CHECK( oven::equals(g_ss.str(), src) );
     }
     {
         g_ss.str("");
-        oven::copy(src, oven::to_regularized_function(to_ss));
+        oven::copy(src, oven::to_regularized_function(&::to_ss));
         BOOST_CHECK( oven::equals(g_ss.str(), src) );
     }
     {

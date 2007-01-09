@@ -118,6 +118,7 @@ test-suite oven :
     [ oven-test take_while_range ]
     [ oven-test to_counter ]
     [ oven-test to_stream ]
+    [ oven-test to_utf8_encoder ]
     [ oven-compile token_range ]
     [ oven-test transform_range ]
     [ oven-test unique_range ]

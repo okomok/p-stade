@@ -32,8 +32,8 @@ namespace pstade {
         using boost::mpl::int_;
 
 
-        template< class Tuple >
-        struct result_of_size :
+        template<class Tuple>
+        struct meta_size :
             int_<
                 boost::tuples::length<
                     typename boost::remove_cv<Tuple>::type // Boost.Tuple needs 'remove_cv'.
@@ -42,19 +42,20 @@ namespace pstade {
         { };
 
 
-        template< class Function, class FusionSeq, class Arity >
-        struct apply_impl;
+        template<class Function, class FusionSeq, class Arity>
+        struct apply_impl
+        { }; // complete for SFINAE.
 
 
         // 0ary
 
-        template< class Function, class FusionSeq >
+        template<class Function, class FusionSeq>
         struct apply_impl< Function, FusionSeq, int_<0> > :
             boost::result_of< Function(
             ) >
         { };
 
-        template< class Result, class Function, class FusionSeq > inline
+        template<class Result, class Function, class FusionSeq> inline
         Result call_impl(Function const& fun, FusionSeq& seq, int_<0>)
         {
             pstade::unused(seq);
@@ -71,22 +72,19 @@ namespace pstade {
     #undef  PSTADE_max_arity
 
 
-        template< class Function >
+        template<class Function>
         struct op_result :
             callable< op_result<Function> >
         {
-            template< class Myself, class FusionSeq >
-            struct apply
-            {
-                typedef typename result_of_size<FusionSeq>::type n_t;
-                typedef typename apply_impl<Function, FusionSeq, n_t>::type type;
-            };
+            template<class Myself, class FusionSeq>
+            struct apply :
+                apply_impl<Function, FusionSeq, typename meta_size<FusionSeq>::type>
+            { };
 
-            template< class Result, class FusionSeq >
+            template<class Result, class FusionSeq>
             Result call(FusionSeq& seq) const
             {
-                typedef typename result_of_size<FusionSeq>::type n_t;
-                return fuse_detail::call_impl<Result>(m_fun, seq, n_t());
+                return fuse_detail::call_impl<Result>(m_fun, seq, typename meta_size<FusionSeq>::type());
             }
 
             explicit op_result() // for ForwardIterator
@@ -98,7 +96,7 @@ namespace pstade {
 
             typedef Function base_type;
 
-            Function const& base()
+            Function const& base() const
             {
                 return m_fun;
             }
@@ -122,18 +120,18 @@ namespace pstade {
 #define n BOOST_PP_ITERATION()
 
 
-template< class Function, class FusionSeq >
-struct apply_impl< Function, FusionSeq, int_< n > > :
-    boost::result_of< Function(
-        PSTADE_PP_ENUM_PARAMS_WITH(n, typename boost::result_of<op_at_c<PSTADE_PP_INT, >(FusionSeq&)>::type)
-    ) >
+template<class Function, class FusionSeq>
+struct apply_impl< Function, FusionSeq, int_<n> > :
+    boost::result_of<Function(
+        PSTADE_PP_ENUM_PARAMS_WITH(n, typename boost::result_of<op_at_c<PSTADE_PP_INT_, >(FusionSeq&)>::type)
+    )>
 { };
 
-template< class Result, class Function, class FusionSeq > inline
-Result call_impl(Function const& fun, FusionSeq& seq, int_< n >)
+template<class Result, class Function, class FusionSeq> inline
+Result call_impl(Function const& fun, FusionSeq& seq, int_<n>)
 {
     return fun(
-        PSTADE_PP_ENUM_PARAMS_WITH(n, pstade::at_c<PSTADE_PP_INT, >(seq))
+        PSTADE_PP_ENUM_PARAMS_WITH(n, pstade::at_c<PSTADE_PP_INT_, >(seq))
     );
 }
 

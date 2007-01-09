@@ -95,7 +95,7 @@ void test()
     ::to_seq(1);
     ::to_seq2(1, 1);
 
-    BOOST_CHECK( PSTADE_PP_INT6 == 6 );
+    BOOST_CHECK( PSTADE_PP_INT_6 == 6 );
 }
 
 

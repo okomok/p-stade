@@ -13,6 +13,8 @@
 #include <iosfwd> // basic_ostream/streambuf
 #include <iterator>
 #include <boost/utility/addressof.hpp>
+#include <boost/utility/result_of.hpp>
+#include <pstade/function.hpp>
 #include "./function_output_iterator.hpp"
 
 
@@ -96,12 +98,20 @@ private:
 };
 
 
-template< class Stream > inline
-function_output_iterator< op_stream_output<Stream> > const
-to_stream(Stream& s)
+template< class Stream >
+struct baby_to_stream
 {
-    return oven::to_function(op_stream_output<Stream>(s));
-}
+    typedef typename
+        boost::result_of<op_to_function(op_stream_output<Stream>)>::type
+    result;
+
+    result call(Stream& s)
+    {
+        return result(typename result::function_type(s));
+    }
+};
+
+PSTADE_FUNCTION(to_stream, (baby_to_stream<_>))
 
 
 } } // namespace pstade::oven

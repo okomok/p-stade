@@ -178,26 +178,26 @@
 // int
 //
 
-#define PSTADE_PP_INT0  0
-#define PSTADE_PP_INT1  1
-#define PSTADE_PP_INT2  2
-#define PSTADE_PP_INT3  3
-#define PSTADE_PP_INT4  4
-#define PSTADE_PP_INT5  5
-#define PSTADE_PP_INT6  6
-#define PSTADE_PP_INT7  7
-#define PSTADE_PP_INT8  8
-#define PSTADE_PP_INT9  9
-#define PSTADE_PP_INT10 10
-#define PSTADE_PP_INT11 11
-#define PSTADE_PP_INT12 12
-#define PSTADE_PP_INT13 13
-#define PSTADE_PP_INT14 14
-#define PSTADE_PP_INT15 15
-#define PSTADE_PP_INT16 16
-#define PSTADE_PP_INT17 17
-#define PSTADE_PP_INT18 18
-#define PSTADE_PP_INT19 19
+#define PSTADE_PP_INT_0  0
+#define PSTADE_PP_INT_1  1
+#define PSTADE_PP_INT_2  2
+#define PSTADE_PP_INT_3  3
+#define PSTADE_PP_INT_4  4
+#define PSTADE_PP_INT_5  5
+#define PSTADE_PP_INT_6  6
+#define PSTADE_PP_INT_7  7
+#define PSTADE_PP_INT_8  8
+#define PSTADE_PP_INT_9  9
+#define PSTADE_PP_INT_10 10
+#define PSTADE_PP_INT_11 11
+#define PSTADE_PP_INT_12 12
+#define PSTADE_PP_INT_13 13
+#define PSTADE_PP_INT_14 14
+#define PSTADE_PP_INT_15 15
+#define PSTADE_PP_INT_16 16
+#define PSTADE_PP_INT_17 17
+#define PSTADE_PP_INT_18 18
+#define PSTADE_PP_INT_19 19
 
 
 #endif
