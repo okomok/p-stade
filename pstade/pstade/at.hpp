@@ -19,6 +19,7 @@
 // because of the reference-to-reference problem.
 
 
+#include <boost/mpl/int.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <boost/utility/result_of.hpp>
@@ -97,7 +98,7 @@ namespace pstade {
 
     template<class N>
     struct op_at :
-        callable<op_at<N> >
+        callable< op_at<N> >
     {
         template<class Myself, class Tuple>
         struct apply :
@@ -124,6 +125,36 @@ namespace pstade {
     at(Tuple const& t)
     {
         return op_at<N>()(t);
+    }
+
+
+    // at_c
+
+
+    template<class Tuple, int N>
+    struct value_at_c :
+        value_at< Tuple, boost::mpl::int_<N> >
+    { };
+
+
+    template<int N>
+    struct op_at_c :
+        op_at< boost::mpl::int_<N> >
+    { };
+
+
+    template<int N, class Tuple> inline
+    typename boost::result_of<op_at_c<N>(Tuple&)>::type
+    at_c(Tuple& t PSTADE_CONST_OVERLOADED(Tuple))
+    {
+        return op_at_c<N>()(t);
+    }
+
+    template<int N, class Tuple> inline
+    typename boost::result_of<op_at_c<N>(PSTADE_DEDUCED_CONST(Tuple)&)>::type
+    at_c(Tuple const& t)
+    {
+        return op_at_c<N>()(t);
     }
 
 

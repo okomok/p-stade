@@ -39,23 +39,8 @@
 // parameter
 //
 
-#define PSTADE_PP_ENUM_REFS(Size, Param) \
-    BOOST_PP_ENUM_BINARY_PARAMS(Size, Param, & BOOST_PP_INTERCEPT) \
-/**/
-
-#define PSTADE_PP_ENUM_REF_PARAMS(Size, Param, Arg) \
-    BOOST_PP_ENUM_BINARY_PARAMS(Size, Param, & Arg) \
-/**/
-
-
-// If 'Param' is template parameter and deduced as array type,
-// VC++7.1 might break down. Take care.
-#define PSTADE_PP_ENUM_CREFS(Size, Param) \
-    BOOST_PP_ENUM_BINARY_PARAMS(Size, Param, const& BOOST_PP_INTERCEPT) \
-/**/
-
-#define PSTADE_PP_ENUM_CREF_PARAMS(Size, Param, Arg) \
-    BOOST_PP_ENUM_BINARY_PARAMS(Size, Param, const& Arg) \
+#define PSTADE_PP_ENUM_PARAMS_WITH(Size, Param, A) \
+    BOOST_PP_ENUM_BINARY_PARAMS(Size, Param, A BOOST_PP_INTERCEPT) \
 /**/
 
 
@@ -188,6 +173,31 @@
     #define PSTADE_PP_scope_op(r, _, Elem) \
         ::Elem \
     /**/
+
+
+// int
+//
+
+#define PSTADE_PP_INT0  0
+#define PSTADE_PP_INT1  1
+#define PSTADE_PP_INT2  2
+#define PSTADE_PP_INT3  3
+#define PSTADE_PP_INT4  4
+#define PSTADE_PP_INT5  5
+#define PSTADE_PP_INT6  6
+#define PSTADE_PP_INT7  7
+#define PSTADE_PP_INT8  8
+#define PSTADE_PP_INT9  9
+#define PSTADE_PP_INT10 10
+#define PSTADE_PP_INT11 11
+#define PSTADE_PP_INT12 12
+#define PSTADE_PP_INT13 13
+#define PSTADE_PP_INT14 14
+#define PSTADE_PP_INT15 15
+#define PSTADE_PP_INT16 16
+#define PSTADE_PP_INT17 17
+#define PSTADE_PP_INT18 18
+#define PSTADE_PP_INT19 19
 
 
 #endif

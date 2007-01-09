@@ -12,10 +12,10 @@
 
 
 #include <boost/preprocessor/iteration/iterate.hpp>
+#include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <pstade/automatic.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/preprocessor.hpp>
 
 
 namespace pstade {
@@ -61,7 +61,7 @@ PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE((pstade)(op_construct), 1)
 
 
 template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
-Result call(PSTADE_PP_ENUM_REF_PARAMS(n, A, a)) const
+Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
 {
     return Result(BOOST_PP_ENUM_PARAMS(n, a));
 }

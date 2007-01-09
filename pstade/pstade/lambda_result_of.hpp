@@ -25,9 +25,7 @@
 #include <boost/config.hpp> // BOOST_NESTED_TEMPLATE
 #include <boost/lambda/core.hpp> // lambda_functor
 #include <boost/preprocessor/iteration/iterate.hpp>
-#include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/type_traits/add_reference.hpp>
 #include <boost/utility/result_of.hpp>
 
 
@@ -51,18 +49,11 @@ namespace boost {
     { };
 
 
-    // Quesion:
-    // 'lambda_functor' doesn't allow rvalue as its argument,
-    // so users always have to pass reference type as 'AN'? (20.5.4/1)
-
-
     // 1ary-
     //
 #define PSTADE_max_arity 3 // undocumented?
-#define PSTADE_add_ref(Z, N, _) typename add_reference< BOOST_PP_CAT(A, N) >::type // my service
     #define BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_max_arity, <pstade/lambda_result_of.hpp>))
     #include BOOST_PP_ITERATE()
-#undef PSTADE_add_ref
 #undef PSTADE_max_arity
 
 
@@ -79,7 +70,7 @@ namespace boost {
         lambda::lambda_functor<T>::BOOST_NESTED_TEMPLATE sig<
             tuples::tuple<
                 lambda::lambda_functor<T>,
-                BOOST_PP_ENUM(n, PSTADE_add_ref, ~)
+                BOOST_PP_ENUM_PARAMS(n, A)
             >
         >
     { };

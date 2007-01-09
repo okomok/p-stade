@@ -24,12 +24,11 @@
 
 #include <boost/mpl/or.hpp>
 #include <boost/preprocessor/cat.hpp>
-#include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/preprocessor/repetition/enum_params_with_a_default.hpp>
 #include <boost/preprocessor/seq/enum.hpp>
 #include <boost/type_traits/is_const.hpp>
 #include <pstade/enable_if.hpp> // disable_if
+#include <pstade/preprocessor.hpp>
 
 
 // This macro can't always be turned on; especially under VC++.
@@ -73,14 +72,10 @@ namespace pstade { namespace const_overloaded_detail {
     { };
 
 
-#define PSTADE_is_const(z, N, _) boost::is_const< BOOST_PP_CAT(T, N) >
-
-    template<BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(10, class T, void)>
+    template<PSTADE_PP_ENUM_PARAMS_WITH(10, class T, = void)>
     struct contains_const :
-        or10<BOOST_PP_ENUM(10, PSTADE_is_const, ~)>
+        or10<PSTADE_PP_ENUM_PARAMS_WITH(10, boost::is_const<T, >)>
     { };
-
-#undef  PSTADE_is_const
 
 
 } } // namespace pstade::const_overloaded_detail

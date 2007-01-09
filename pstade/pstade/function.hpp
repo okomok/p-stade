@@ -30,11 +30,11 @@
 #include <boost/mpl/placeholders.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
+#include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/has_xxx.hpp>
-#include <pstade/preprocessor.hpp>
 #include <pstade/unparenthesize.hpp>
 
 
@@ -114,7 +114,7 @@ struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)>
 };
 
 template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
-Result call(PSTADE_PP_ENUM_REF_PARAMS(n, A, a)) const
+Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
 {
     typedef typename boost::mpl::BOOST_PP_CAT(apply, n)<Baby, BOOST_PP_ENUM_PARAMS(n, A)>::type baby_t;
     return baby_t().call(BOOST_PP_ENUM_PARAMS(n, a));

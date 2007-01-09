@@ -35,9 +35,6 @@
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/punctuation/comma_if.hpp>
-#include <boost/preprocessor/repetition/enum.hpp>
-#include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/preprocessor/repetition/enum_params_with_a_default.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 #include <boost/preprocessor/seq/for_each_i.hpp>
@@ -165,7 +162,6 @@ namespace pstade {
             >(BOOST_PP_ENUM_PARAMS(n, a)); \
         } \
     /**/
-    #define PSTADE_meta_argument(Z, N, _)     typename callable_detail::meta_argument<BOOST_PP_CAT(A, N)>::type
     #define PSTADE_arg_type(R, _, Index, Bit) BOOST_PP_COMMA_IF(Index) BOOST_PP_CAT(PSTADE_ac, Bit)(BOOST_PP_CAT(A, Index)) &
     #define PSTADE_param(R, _, Index, Bit)    BOOST_PP_COMMA_IF(Index) BOOST_PP_CAT(A, Index) BOOST_PP_CAT(PSTADE_c, Bit) & BOOST_PP_CAT(a, Index)
     #define PSTADE_c0
@@ -182,7 +178,6 @@ namespace pstade {
     #undef  PSTADE_c0
     #undef  PSTADE_param
     #undef  PSTADE_arg_type
-    #undef  PSTADE_meta_argument
     #undef  PSTADE_call_operator_aux
     #undef  PSTADE_call_operator
 
@@ -266,7 +261,7 @@ private:
     template< BOOST_PP_ENUM_PARAMS(n, class A) >
     struct BOOST_PP_CAT(result, n) :
         Derived::BOOST_NESTED_TEMPLATE apply< Derived,
-            BOOST_PP_ENUM(n, PSTADE_meta_argument, ~)
+            PSTADE_PP_ENUM_PARAMS_WITH(n, typename callable_detail::meta_argument<A, >::type)
         >
     { };
 

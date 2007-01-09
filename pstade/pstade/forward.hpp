@@ -30,6 +30,7 @@
 
 
 #include <boost/preprocessor/iteration/iterate.hpp>
+#include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
@@ -183,13 +184,13 @@ template< class Myself, BOOST_PP_ENUM_PARAMS(n, class A) >
 struct apply< Myself, BOOST_PP_ENUM_PARAMS(n, A) > :
     result_of_aux< ResultType,
         Function(
-            PSTADE_PP_ENUM_REFS(n, A)
+            PSTADE_PP_ENUM_PARAMS_WITH(n, A, &)
         )
     >
 { };
 
 template< class Result, BOOST_PP_ENUM_PARAMS(n, class A) >
-Result call( PSTADE_PP_ENUM_REF_PARAMS(n, A, a) ) const
+Result call( BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a) ) const
 {
     return
         m_fun(

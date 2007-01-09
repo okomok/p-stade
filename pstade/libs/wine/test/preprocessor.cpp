@@ -21,29 +21,14 @@
 
 
 template< BOOST_PP_ENUM_PARAMS(5, class A) >
-void foo( PSTADE_PP_ENUM_REF_PARAMS(5, A, a) )
-{
-    pstade::unused(a0, a1, a2, a3, a4);
-    return;
-}
-
-template< BOOST_PP_ENUM_PARAMS(5, class A) >
-void foo_( PSTADE_PP_ENUM_REFS(5, A) )
+void foo_( PSTADE_PP_ENUM_PARAMS_WITH(5, A, &) )
 {
     return;
 }
 
 
 template< BOOST_PP_ENUM_PARAMS(5, class A) >
-void cfoo( PSTADE_PP_ENUM_CREF_PARAMS(5, A, a) )
-{
-    pstade::unused(a0, a1, a2, a3, a4);
-    return;
-}
-
-
-template< BOOST_PP_ENUM_PARAMS(5, class A) >
-void cfoo_( PSTADE_PP_ENUM_CREFS(5, A) )
+void cfoo_( PSTADE_PP_ENUM_PARAMS_WITH(5, A, const&) )
 {
     return;
 }
@@ -98,10 +83,8 @@ void to_seq2( BOOST_PP_SEQ_ENUM( PSTADE_PP_SEQ_MAYBE_TO((A)(A), (A)) ) )
 void test()
 {
     int i = 0;
-    ::foo(i, i, i, i, i);
     ::foo_(i, i, i, i, i);
 
-    ::cfoo(1, 1, 1, 1, 1);
     ::cfoo_(1, 1, 1, 1, 1);
 
     ::rfoo(1, 1, 1, 1, 1);
@@ -111,6 +94,8 @@ void test()
 
     ::to_seq(1);
     ::to_seq2(1, 1);
+
+    BOOST_CHECK( PSTADE_PP_INT6 == 6 );
 }
 
 

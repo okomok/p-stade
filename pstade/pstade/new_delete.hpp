@@ -16,6 +16,7 @@
 #include <boost/checked_delete.hpp>
 #include <boost/pointee.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
+#include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/shared_array.hpp>
 #include <boost/shared_ptr.hpp>
@@ -25,7 +26,6 @@
 #include <pstade/compose.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/construct.hpp>
-#include <pstade/preprocessor.hpp>
 
 
 namespace pstade {
@@ -162,7 +162,7 @@ PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE((pstade)(op_new_shared), 1)
 
 
 template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
-Result call(PSTADE_PP_ENUM_REF_PARAMS(n, A, a)) const
+Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
 {
     return new X(BOOST_PP_ENUM_PARAMS(n, a));
 }

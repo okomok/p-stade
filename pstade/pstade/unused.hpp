@@ -13,9 +13,9 @@
 
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
-#include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <pstade/constant.hpp>
+#include <pstade/preprocessor.hpp>
 
 
 #if !defined(PSTADE_UNUSED_MAX_ARITY)
@@ -39,13 +39,9 @@ namespace pstade {
         void operator()(A0 const&) const
         { }
 
-        // 2ary -
-        #define PSTADE_UNUSED_arg(Z, N, _) BOOST_PP_CAT(A, N) const&
-
+        // 2ary-
         #define BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_UNUSED_MAX_ARITY, <pstade/unused.hpp>))
         #include BOOST_PP_ITERATE()
-
-        #undef PSTADE_UNUSED_arg
     };
 
 
@@ -60,8 +56,8 @@ namespace pstade {
 #define n BOOST_PP_ITERATION()
 
 
-template< BOOST_PP_ENUM_PARAMS(n, class A) >
-void operator()( BOOST_PP_ENUM(n, PSTADE_UNUSED_arg, ~) ) const
+template<BOOST_PP_ENUM_PARAMS(n, class A)>
+void operator()(PSTADE_PP_ENUM_PARAMS_WITH(n, A, const&)) const
 { }
 
 

@@ -13,7 +13,6 @@
 
 #include <boost/mpl/int.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
-#include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <boost/utility/result_of.hpp>
@@ -21,6 +20,7 @@
 #include <pstade/at.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/object_generator.hpp>
+#include <pstade/preprocessor.hpp>
 #include <pstade/unused.hpp>
 
 
@@ -64,33 +64,11 @@ namespace pstade {
         }
 
 
-        // 1ary
-
-        template< class Function, class FusionSeq >
-        struct apply_impl< Function, FusionSeq, int_<1> > :
-            boost::result_of< Function(
-                typename boost::result_of<op_at< int_<0> >(FusionSeq&)>::type
-            ) >
-        { };
-
-        template< class Result, class Function, class FusionSeq > inline
-        Result call_impl(Function const& fun, FusionSeq& seq, int_<1>)
-        {
-            return fun(
-                pstade::at< int_<0> >(seq)
-            );
-        }
-
-
-        // 2ary-
+        // 1ary-
 
     #define PSTADE_max_arity 10
-    #define PSTADE_result_of_at(Z, N, _) typename boost::result_of<op_at< int_<N> >(FusionSeq&)>::type
-    #define PSTADE_at(Z, N, _)           pstade::at< int_<N> >(seq)
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_max_arity, <pstade/fuse.hpp>))
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_max_arity, <pstade/fuse.hpp>))
         #include BOOST_PP_ITERATE()
-    #undef  PSTADE_at
-    #undef  PSTADE_result_of_at
     #undef  PSTADE_max_arity
 
 
@@ -148,7 +126,7 @@ namespace pstade {
 template< class Function, class FusionSeq >
 struct apply_impl< Function, FusionSeq, int_< n > > :
     boost::result_of< Function(
-        BOOST_PP_ENUM(n, PSTADE_result_of_at, ~)
+        PSTADE_PP_ENUM_PARAMS_WITH(n, typename boost::result_of<op_at_c<PSTADE_PP_INT, >(FusionSeq&)>::type)
     ) >
 { };
 
@@ -156,7 +134,7 @@ template< class Result, class Function, class FusionSeq > inline
 Result call_impl(Function const& fun, FusionSeq& seq, int_< n >)
 {
     return fun(
-        BOOST_PP_ENUM(n, PSTADE_at, ~)
+        PSTADE_PP_ENUM_PARAMS_WITH(n, pstade::at_c<PSTADE_PP_INT, >(seq))
     );
 }
 

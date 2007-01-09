@@ -14,11 +14,11 @@
 #include <boost/lambda/bind.hpp>
 #include <boost/lambda/core.hpp> // placeholders
 #include <boost/preprocessor/iteration/iterate.hpp>
+#include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/type_traits/remove_const.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
-#include <pstade/preprocessor.hpp>
 
 
 namespace pstade {
@@ -81,7 +81,7 @@ struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)>
 };
 
 template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
-Result call(PSTADE_PP_ENUM_REF_PARAMS(n, A, a)) const
+Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
 {
     return PSTADE_lambda_functor_base(n)(
         PSTADE_bind_tuple_mapper(n)(

@@ -22,6 +22,7 @@
 
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/punctuation/comma_if.hpp>
+#include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_params_with_a_default.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
@@ -38,7 +39,7 @@
     struct BOOST_PP_CAT(op_, Xxx) : \
         ::pstade::callable<BOOST_PP_CAT(op_, Xxx)> \
     { \
-        template< class Myself, class Range, BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(5, class A, void) > \
+        template< class Myself, class Range, PSTADE_PP_ENUM_PARAMS_WITH(5, class A, = void) > \
         struct apply : \
             PSTADE_UNPARENTHESIZE(ResultFun) \
         { }; \
@@ -52,7 +53,7 @@
 
     #define PSTADE_OVEN_DETAIL_RANGE_BASED_call(R, IterBased, Size) \
         template< class Result, class Range BOOST_PP_COMMA_IF(Size) BOOST_PP_ENUM_PARAMS(Size, class A) > \
-        Result call(Range& rng BOOST_PP_COMMA_IF(Size) PSTADE_PP_ENUM_REF_PARAMS(Size, A, a)) const \
+        Result call(Range& rng BOOST_PP_COMMA_IF(Size) BOOST_PP_ENUM_BINARY_PARAMS(Size, A, & a)) const \
         { \
             return IterBased(::boost::begin(rng), ::boost::end(rng) \
                 BOOST_PP_COMMA_IF(Size) BOOST_PP_ENUM_PARAMS(Size, a)); \
@@ -65,7 +66,7 @@
     struct BOOST_PP_CAT(op_, Xxx) : \
         ::pstade::callable<BOOST_PP_CAT(op_, Xxx)> \
     { \
-        template< class Myself, class Range1, class Range2, BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(5, class A, void) > \
+        template< class Myself, class Range1, class Range2, PSTADE_PP_ENUM_PARAMS_WITH(5, class A, = void) > \
         struct apply : \
             PSTADE_UNPARENTHESIZE(ResultFun) \
         { }; \
@@ -79,7 +80,7 @@
 
     #define PSTADE_OVEN_DETAIL_RANGE_BASED_BINARY_call(R, IterBased, Size) \
         template< class Result, class Range1, class Range2 BOOST_PP_COMMA_IF(Size) BOOST_PP_ENUM_PARAMS(Size, class A) > \
-        Result call(Range1& rng1, Range2& rng2 BOOST_PP_COMMA_IF(Size) PSTADE_PP_ENUM_REF_PARAMS(Size, A, a)) const \
+        Result call(Range1& rng1, Range2& rng2 BOOST_PP_COMMA_IF(Size) BOOST_PP_ENUM_BINARY_PARAMS(Size, A, & a)) const \
         { \
             return IterBased(::boost::begin(rng1), ::boost::end(rng1), ::boost::begin(rng2), ::boost::end(rng2) \
                 BOOST_PP_COMMA_IF(Size) BOOST_PP_ENUM_PARAMS(Size, a)); \

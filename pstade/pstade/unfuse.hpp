@@ -18,6 +18,7 @@
 
 
 #include <boost/preprocessor/iteration/iterate.hpp>
+#include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
@@ -99,12 +100,12 @@ PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE((pstade)(unfuse_detail)(op_result), 2
 template<class Myself, BOOST_PP_ENUM_PARAMS(n, class A)>
 struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
     boost::result_of<Function(
-        typename boost::result_of<Pack(PSTADE_PP_ENUM_REFS(n, A))>::type
+        typename boost::result_of<Pack(PSTADE_PP_ENUM_PARAMS_WITH(n, A, &))>::type
     )>
 { };
 
 template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
-Result call(PSTADE_PP_ENUM_REF_PARAMS(n, A, a)) const
+Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
 {
     return m_fun(
         m_pack(BOOST_PP_ENUM_PARAMS(n, a))

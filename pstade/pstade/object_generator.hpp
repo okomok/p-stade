@@ -17,8 +17,8 @@
 #include <boost/mpl/placeholders.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
+#include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/preprocessor/repetition/enum_params_with_a_default.hpp>
 #include <boost/type_traits/add_reference.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/remove_cv.hpp>
@@ -112,7 +112,7 @@ namespace pstade {
 
         template<
             class Lambda,
-            BOOST_PP_ENUM_PARAMS_WITH_A_DEFAULT(PSTADE_CALLABLE_MAX_ARITY, class A, void)
+            PSTADE_PP_ENUM_PARAMS_WITH(PSTADE_CALLABLE_MAX_ARITY, class A, = void)
         >
         struct meta_make
         {
@@ -209,7 +209,7 @@ struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
 { };
 
 template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
-Result call(PSTADE_PP_ENUM_REF_PARAMS(n, A, a)) const
+Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
 {
     return Result(
         BOOST_PP_ENUM_PARAMS(n, a)

@@ -79,6 +79,9 @@ void test()
     tup_t t(p.first, 1.0);
     BOOST_CHECK( is_same(boost::get<0>(t), pstade::at<boost::mpl::int_<0> >(t)) );
     BOOST_CHECK( is_same(boost::get<1>(t), pstade::at<boost::mpl::int_<1> >(t)) );
+
+    BOOST_CHECK( is_same(boost::get<0>(t), pstade::at_c<0>(t)) );
+    BOOST_CHECK( is_same(boost::get<1>(t), pstade::at_c<1>(t)) );
 }
 
 
