@@ -24,7 +24,7 @@
 
 
 #define PSTADE_UNPARENTHESIZE(TQ) \
-    ::pstade::unparenthesize_detail::aux< void (::pstade::unparenthesize_detail::klass::*) TQ >::type \
+    pstade::unparenthesize_detail::aux< void (::pstade::unparenthesize_detail::klass::*) TQ >::type \
 /**/
 
 
