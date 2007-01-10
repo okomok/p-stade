@@ -14,8 +14,6 @@
 // unqualified 'begin/end', then unintentional ADL is triggered.
 // GCC may find the name 'mpl::begin' and fail to compile.
 // Though 'mpl::begin' isn't a function, this behavior seems conforming.
-// On the other hand, VC++ sometimes regards a function *object*
-// as function, then, he tries to trigger ADL...Duh!
 
 
 #include <boost/range/result_iterator.hpp>

@@ -23,6 +23,11 @@
 #include <pstade/unused.hpp>
 
 
+#if !defined(PSTADE_FUSE_MAX_ARITY)
+    #define PSTADE_FUSE_MAX_ARITY 10 // follows 'boost::tuple' for now.
+#endif
+
+
 namespace pstade {
 
 
@@ -51,25 +56,21 @@ namespace pstade {
 
         template<class Function, class FusionSeq>
         struct apply_impl< Function, FusionSeq, int_<0> > :
-            boost::result_of< Function(
-            ) >
+            boost::result_of<Function()>
         { };
 
         template<class Result, class Function, class FusionSeq> inline
-        Result call_impl(Function const& fun, FusionSeq& seq, int_<0>)
+        Result call_impl(Function& fun, FusionSeq& seq, int_<0>)
         {
-            pstade::unused(seq);
-            return fun(
-            );
+            unused(seq);
+            return fun();
         }
 
 
         // 1ary-
 
-    #define PSTADE_max_arity 10
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_max_arity, <pstade/fuse.hpp>))
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_FUSE_MAX_ARITY, <pstade/fuse.hpp>))
         #include BOOST_PP_ITERATE()
-    #undef  PSTADE_max_arity
 
 
         template<class Function>
@@ -128,7 +129,7 @@ struct apply_impl< Function, FusionSeq, int_<n> > :
 { };
 
 template<class Result, class Function, class FusionSeq> inline
-Result call_impl(Function const& fun, FusionSeq& seq, int_<n>)
+Result call_impl(Function& fun, FusionSeq& seq, int_<n>)
 {
     return fun(
         PSTADE_PP_ENUM_PARAMS_WITH(n, pstade::at_c<PSTADE_PP_INT_, >(seq))

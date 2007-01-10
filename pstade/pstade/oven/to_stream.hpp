@@ -12,8 +12,11 @@
 
 #include <iosfwd> // basic_ostream/streambuf
 #include <iterator>
+#include <boost/type_traits/remove_pointer.hpp>
 #include <boost/utility/addressof.hpp>
 #include <boost/utility/result_of.hpp>
+#include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/function.hpp>
 #include "./function_output_iterator.hpp"
 
@@ -23,44 +26,99 @@ namespace pstade { namespace oven {
 
 // 'Traits' should be deduced,
 // so we define...
+
+
+// to_ostream
 //
 
-template< class Value, class CharT, class Traits > inline
-std::ostream_iterator<Value, CharT, Traits> const
-to_ostream(std::basic_ostream<CharT, Traits>& os)
+template< class Value >
+struct op_to_ostream :
+    callable< op_to_ostream<Value> >
 {
-    return std::ostream_iterator<Value, CharT, Traits>(os);
+    template< class Myself, class OStream, class Delim = void >
+    struct apply
+    {
+        typedef
+            std::ostream_iterator<
+                Value,
+                typename OStream::char_type,
+                typename OStream::traits_type
+            > const
+        type;
+    };
+
+    template< class Result, class OStream >
+    Result call(OStream& os) const
+    {
+        return Result(os);
+    }
+
+    template< class Result, class OStream, class CharT >
+    Result call(OStream& os, CharT const *delim) const
+    {
+        return Result(os, delim);
+    }
+};
+
+template< class Value, class OStream > inline
+typename boost::result_of<op_to_ostream<Value>(OStream&)>::type
+to_ostream(OStream& os)
+{
+    return op_to_ostream<Value>()(os);
 }
 
-template< class Value, class CharT, class Traits > inline
-std::ostream_iterator<Value, CharT, Traits> const
-to_ostream(std::basic_ostream<CharT, Traits>& os, CharT const *delim)
+template< class Value, class OStream, class CharT > inline
+typename boost::result_of<op_to_ostream<Value>(OStream&)>::type
+to_ostream(OStream& os, CharT const* delim)
 {
-    return std::ostream_iterator<Value, CharT, Traits>(os, delim);
+    return op_to_ostream<Value>()(os, delim);
 }
 
 
-template< class CharT, class Traits > inline
-std::ostreambuf_iterator<CharT, Traits> const
-to_ostreambuf(std::basic_ostream<CharT, Traits>& os)
+// to_ostreambuf
+//
+
+struct op_to_ostreambuf :
+    callable<op_to_ostreambuf>
 {
-    return std::ostreambuf_iterator<CharT, Traits>(os);
-}
+    template< class Myself, class OStreamOrStreamBufPtr >
+    struct apply
+    {
+        typedef typename
+            boost::remove_pointer<OStreamOrStreamBufPtr>::type
+        stream_t;
+
+        typedef
+            std::ostreambuf_iterator<
+                typename stream_t::char_type,
+                typename stream_t::traits_type
+            > const
+        type;
+    };
+
+    template< class Result, class CharT, class Traits >
+    Result call(std::basic_ostream<CharT, Traits>& os) const
+    {
+        return Result(os);
+    }
+
+    template< class Result, class CharT, class Traits >
+    Result call(std::basic_streambuf<CharT, Traits> *pb) const
+    {
+        return Result(pb);
+    }
+};
+
+PSTADE_CONSTANT(to_ostreambuf, (op_to_ostreambuf))
 
 
-template< class CharT, class Traits > inline
-std::ostreambuf_iterator<CharT, Traits> const
-to_ostreambuf(std::basic_streambuf<CharT, Traits> *pb)
-{
-    return std::ostreambuf_iterator<CharT, Traits>(pb);
-}
-
+// to_stream
+//
 
 // Note:
 // 'Value' is the type of dereference of iterator,
 // which can be a type that is *convertible* to 'value_type'.
 // In such case, 'to_ostream' above is preferable.
-//
 
 template< class Stream >
 struct op_stream_output
@@ -96,7 +154,6 @@ struct op_stream_output
 private:
     Stream *m_ps; // be a pointer for Assignable.
 };
-
 
 template< class Stream >
 struct baby_to_stream

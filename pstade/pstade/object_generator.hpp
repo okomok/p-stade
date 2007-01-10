@@ -114,7 +114,7 @@ namespace pstade {
             class Lambda,
             PSTADE_PP_ENUM_PARAMS_WITH(PSTADE_CALLABLE_MAX_ARITY, class A, = void)
         >
-        struct meta_make
+        struct object_of
         {
             typedef typename
                 boost::remove_cv<Lambda>::type // MPL needs this.
@@ -140,7 +140,7 @@ namespace pstade {
     struct object_generator :
         callable<
             object_generator<Lambda>,
-            typename object_generator_detail::meta_make<Lambda>::type
+            typename object_generator_detail::object_of<Lambda>::type
         > 
     {
         template<class Myself, PSTADE_CALLABLE_APPLY_PARAMS(A)>
@@ -202,7 +202,7 @@ PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE((pstade)(object_generator), 1)
 
 template<class Myself, BOOST_PP_ENUM_PARAMS(n, class A)>
 struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
-    object_generator_detail::meta_make<
+    object_generator_detail::object_of<
         Lambda,
         BOOST_PP_ENUM_PARAMS(n, A)
     >

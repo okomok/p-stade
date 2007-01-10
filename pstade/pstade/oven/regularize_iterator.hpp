@@ -73,6 +73,7 @@ public:
         m_pimpl(op_new_auto<Iterator>()(it))
     { }
 
+#if 0 // needs something like 'enable_if_clone_convertible'?
 template< class > friend struct regularize_iterator;
     template< class Iterator_ >
     regularize_iterator(
@@ -81,6 +82,7 @@ template< class > friend struct regularize_iterator;
     ) :
         m_pimpl(other.m_pimpl)
     { }
+#endif
 
 // as adaptor
     typedef Iterator base_type;

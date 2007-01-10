@@ -19,7 +19,7 @@
 
 // What:
 //
-// The ODR violation buster.
+// Defines the object which is shared by all the translation units.
 
 
 // Usage:
@@ -39,11 +39,11 @@
 //
 // You can prefer
 //     PSTADE_CONSTANT(O1, (T))
-//     PSTADE_CONSTANT(O2, (T))
+//     PSTADE_CONSTANT(O2, (T)) // is_same(O1, O2) == true.
 // to
 //     PSTADE_INSTANCE((T) const, O1, value)
-//     PSTADE_INSTANCE((T) const, O2, value)
-// , because the const object can be shared.
+//     PSTADE_INSTANCE((T) const, O2, value) // is_same(O1, O2) == false.
+// , because the const default-constructed object can be the same.
 
 
 #include <boost/config.hpp> // BOOST_MSVC

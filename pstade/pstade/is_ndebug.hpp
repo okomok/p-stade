@@ -10,6 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Note:
+//
+// Will be rejected.
+
+
 #include <boost/mpl/bool.hpp>
 
 

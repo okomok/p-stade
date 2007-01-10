@@ -31,13 +31,33 @@ std::stringstream g_ss;
 
 void test()
 {
-    std::string const src("hello,to_function");
+    std::string const src("abcdefg");
 
     {
         g_ss.str("");
         std::stringstream& ss = oven::adapted_to<std::stringstream&>( oven::copy(src, oven::to_stream(g_ss)) );
         BOOST_CHECK( oven::equals(g_ss.str(), src) );
         BOOST_CHECK( pstade::is_same(ss, g_ss) );
+    }
+    {
+        g_ss.str("");
+        oven::copy(src, oven::to_ostream<char>(g_ss));
+        BOOST_CHECK( oven::equals(g_ss.str(), src) );
+    }
+    {
+        g_ss.str("");
+        oven::copy(src, oven::to_ostream<char>(g_ss, ","));
+        BOOST_CHECK( oven::equals(g_ss.str(), std::string("a,b,c,d,e,f,g,")) );
+    }
+    {
+        g_ss.str("");
+        oven::copy(src, oven::to_ostreambuf(g_ss));
+        BOOST_CHECK( oven::equals(g_ss.str(), src) );
+    }
+    {
+        g_ss.str("");
+        oven::copy(src, oven::to_ostreambuf(g_ss.rdbuf()));
+        BOOST_CHECK( oven::equals(g_ss.str(), src) );
     }
 #if 0 // seems not to be able to support reference type as 'to_base' target.
     {
