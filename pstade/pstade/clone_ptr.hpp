@@ -98,19 +98,7 @@ struct clone_ptr :
         m_ptr(other ? clone_ptr_detail::new_(*other) : PSTADE_NULLPTR)
     { }
 
-    template< class Other >
-    explicit clone_ptr(Other const& other) :
-        m_ptr(other ? clone_ptr_detail::new_(*other) : PSTADE_NULLPTR)
-    { }
-
     type& operator=(type const& other)
-    {
-        type(other).swap(*this);
-        return *this;
-    }
-
-    template< class Other >
-    type& operator=(Other const& other)
     {
         type(other).swap(*this);
         return *this;
