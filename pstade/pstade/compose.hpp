@@ -41,7 +41,7 @@ namespace pstade {
                 typedef typename boost::result_of<op_fuse(G&)>::type fused_g;
                 typedef typename boost::result_of<fused_g(Arguments&)>::type result_of_fused_g;
 
-                // It should be 'boost::result_of<F const(..)>', but
+                // Should it be 'boost::result_of<F const(..)>'?, but
                 // 'boost::result_of' lacks the specializations of function const pointers.
                 typedef typename boost::result_of<F(result_of_fused_g)>::type type;
             };

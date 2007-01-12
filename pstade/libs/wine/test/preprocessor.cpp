@@ -48,9 +48,19 @@ params<int, 3> g_params;
 PSTADE_PP_DECLARE_TYPE(struct, (aaa))
 PSTADE_PP_DECLARE_TYPE(struct, (naaa)(nbbb)(ccc))
 
+struct aaa { };
+
+
 PSTADE_PP_DECLARE_TEMPLATE(struct, (taaa), (class)(int)(char))
 PSTADE_PP_DECLARE_TEMPLATE(struct, (naaa)(nbbb)(tccc1), 3)
 PSTADE_PP_DECLARE_TEMPLATE(struct, (naaa)(nbbb)(tccc2), (class)(int)(unsigned int))
+
+namespace naaa { namespace nbbb {
+
+    template<class T, int I, unsigned int UI>
+    struct tccc2 { };
+
+} }
 
 
 template< class A >
@@ -96,6 +106,11 @@ void test()
     ::to_seq2(1, 1);
 
     BOOST_CHECK( PSTADE_PP_INT_6 == 6 );
+
+    PSTADE_PP_FULLNAME((aaa)) aaa_obj;
+    (void)aaa_obj;
+    PSTADE_PP_FULLNAME((naaa)(nbbb)(tccc2))<int, 10, 12> tccc_obj;
+    (void)tccc_obj;
 }
 
 

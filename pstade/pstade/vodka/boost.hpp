@@ -19,5 +19,6 @@
 #include "./boost/ptr_container_ptr_vector.hpp"
 #include "./boost/concept_check.hpp"
 #include "./boost/iterator_iterator_concept.hpp"
+#include "./boost/iterator_new_iterator_tests.hpp"
 
 #endif
