@@ -76,7 +76,7 @@ struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)>
     typedef
         boost::lambda::lambda_functor<
             PSTADE_lambda_functor_base(n)
-        > const
+        > // const
     type;
 };
 

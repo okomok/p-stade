@@ -74,7 +74,7 @@ namespace pstade { namespace const_overloaded_detail {
 
     template<PSTADE_PP_ENUM_PARAMS_WITH(10, class T, = void)>
     struct contains_const :
-        or10<PSTADE_PP_ENUM_PARAMS_WITH(10, boost::is_const<T, >)>
+        or10< PSTADE_PP_ENUM_PARAMS_WITH(10, boost::is_const<T, >) >
     { };
 
 
