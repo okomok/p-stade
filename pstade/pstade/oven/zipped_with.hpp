@@ -42,7 +42,7 @@ struct op_make_zipped_with :
             boost::result_of<
                 op_make_transformed<Reference, Value>(
                     typename boost::result_of<op_make_zipped(RangeTuple&)>::type,
-                    typename boost::result_of<op_fuse(Function const&)>::type
+                    typename boost::result_of<op_fuse(Function&)>::type
                 )
             >::type
         type;

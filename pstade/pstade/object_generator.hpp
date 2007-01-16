@@ -180,15 +180,6 @@ namespace pstade {
     /**/
 
 
-    // eats unused arguments passed to constructor.
-    struct used_only_to_deduce
-    {
-        template< class T >
-        used_only_to_deduce(T const&)
-        { }
-    };
-
-
 } // namespace pstade
 
 

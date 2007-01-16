@@ -20,7 +20,7 @@
 #include <vector>
 #include <list>
 #include <boost/range.hpp>
-#include <pstade/oven/identity_range.hpp>
+#include <pstade/oven/identities.hpp>
 #include <pstade/oven/regularize_iterator.hpp>
 #include <pstade/oven/functions.hpp>
 #include <pstade/unused.hpp>

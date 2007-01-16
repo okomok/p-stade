@@ -29,8 +29,8 @@
 #include <pstade/oven/mfc.hpp>
 
 
-#include <pstade/oven/direct_range.hpp>
-#include <pstade/oven/const_lvalue_range.hpp>
+#include <pstade/oven/directed.hpp>
+#include <pstade/oven/const_lvalues.hpp>
 
 
 namespace oven = pstade::oven;

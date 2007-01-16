@@ -11,7 +11,7 @@
 
 
 #include <pstade/oven/tests.hpp>
-#include <pstade/oven/mb_decode_range.hpp>
+#include <pstade/oven/mb_decoded.hpp>
 
 
 #include <string>

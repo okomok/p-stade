@@ -20,9 +20,11 @@
 #include <boost/array.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/range/begin.hpp>
+#include <boost/utility/result_of.hpp>
 #include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/oven/null_terminated.hpp>
+#include <pstade/reference.hpp>
 #include <pstade/require.hpp>
 #include <pstade/static_c.hpp>
 #include "../access.hpp"
@@ -36,10 +38,12 @@ namespace pstade { namespace tomato {
 namespace class_name_detail {
 
 
-    typedef static_c<std::size_t, 256>
+    typedef
+        static_c<std::size_t, 256>
     buffer_size;
 
-    typedef boost::array<TCHAR, buffer_size::value>
+    typedef
+        boost::array<TCHAR, buffer_size::value>
     buffer_t;
 
 
@@ -63,12 +67,11 @@ namespace class_name_detail {
 
 
     template< class = void >
-    struct super_
-    {
-        typedef oven::null_terminate_range<
-            class_name_detail::buffer_t const // constant range!
-        > type;
-    };
+    struct super_ :
+        boost::result_of<
+            oven::op_make_null_terminated(buffer_t const&)
+        >
+    { };
 
 
 } // namespace class_name_detail
@@ -86,7 +89,7 @@ private:
 public:
     explicit class_name(window_ref wnd) :
         init_t(wnd),
-        super_t(m_buf)
+        super_t(m_buf|to_const_reference)
     { }
 
     friend

@@ -47,15 +47,17 @@ struct op_make_indirected :
         PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
 
         typedef
-            iter_range<
-                boost::indirect_iterator<
-                    typename range_iterator<Range>::type,
-                    Value,
-                    CategoryOrTraversal,
-                    Reference,
-                    Difference
-                >
-            > const
+            boost::indirect_iterator<
+                typename range_iterator<Range>::type,
+                Value,
+                CategoryOrTraversal,
+                Reference,
+                Difference
+            >
+        iter_t;
+
+        typedef
+            iter_range<iter_t> const
         type;
     };
 
@@ -65,6 +67,7 @@ struct op_make_indirected :
         return Result(rng);
     }
 };
+
 
 PSTADE_CONSTANT(make_indirected, (op_make_indirected<>))
 PSTADE_PIPABLE(indirected, (op_make_indirected<>))

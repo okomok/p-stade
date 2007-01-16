@@ -87,11 +87,13 @@ struct op_make_transformed :
         ref_t;
 
         typedef
-            iter_range<
-                boost::transform_iterator<
-                    fun_t, base_iter_t, ref_t, Value
-                >
-            > const
+            boost::transform_iterator<
+                fun_t, base_iter_t, ref_t, Value
+            >
+        iter_t;
+
+        typedef
+            iter_range<iter_t> const
         type;
     };
 

@@ -33,12 +33,14 @@ struct op_make_identities :
         PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
 
         typedef
-            iter_range<
-                identity_iterator<
-                    typename range_iterator<Range>::type,
-                    typename pass_by_value<Traversal>::type
-                >
-            > const
+            identity_iterator<
+                typename range_iterator<Range>::type,
+                typename pass_by_value<Traversal>::type
+            >
+        iter_t;
+
+        typedef
+            iter_range<iter_t> const
         type;
     };
 

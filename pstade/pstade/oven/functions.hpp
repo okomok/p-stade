@@ -27,6 +27,7 @@
 // #include "./compile.hpp"
 #include "./counting.hpp"
 #include "./generation.hpp"
+#include "./indexing.hpp"
 #include "./iteration.hpp"
 // #include "./paralell.hpp"
 #include "./stream_input.hpp"

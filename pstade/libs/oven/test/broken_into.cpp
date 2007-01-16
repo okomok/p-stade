@@ -11,13 +11,11 @@
 
 
 #include <pstade/oven/tests.hpp>
-#include <pstade/oven/xpressive_matches.hpp>
+#include <pstade/oven/broken_into.hpp>
 
 
 #include <string>
 #include <vector>
-#include <boost/xpressive/xpressive.hpp>
-#include <boost/range.hpp>
 #include <pstade/oven/functions.hpp>
 
 
@@ -27,14 +25,18 @@ void test()
     using namespace oven;
 
     {
-        std::string input("This is his face");
-        boost::xpressive::sregex re = +boost::xpressive::_w; // a word
-
-        bool f = false;
-        if (f) {
-            input|xpressive_matches(re);
-            input|xpressive_matches(re, boost::xpressive::regex_constants::match_default);
+        int const offsets[] = { 2,2,4 };
+        std::string src("12252001");
+        std::vector<std::string> expected; {
+            expected.push_back("12");
+            expected.push_back("25");
+            expected.push_back("2001");
         }
+
+        BOOST_CHECK( oven::test_Forward_Readable(
+            src|broken_into<std::string>(boost::offset_separator(offsets, offsets+3)),
+            expected
+        ) );
     }
 }
 

@@ -11,7 +11,7 @@
 
 
 #include <pstade/oven/tests.hpp>
-#include <pstade/oven/c_str.hpp>
+#include <pstade/oven/as_c_str.hpp>
 
 
 #include <string>
@@ -24,12 +24,12 @@ void test()
     using namespace oven;
 
     {
-        boost::result_of<op_c_str(char const*)>::type rng = c_str("hello\0range");
+        boost::result_of<op_make_as_c_str(char const*)>::type rng = make_as_c_str("hello\0range");
         std::vector<char> expected = std::string("hello")|copied;
         BOOST_CHECK( oven::test_RandomAccess_Readable(rng, expected) );
     }
     {
-        boost::result_of<op_c_str(char const*)>::type rng = c_str("hello\0range");
+        boost::result_of<op_make_as_c_str(char const*)>::type rng = make_as_c_str("hello\0range");
         BOOST_CHECK( oven::equals(rng, std::string("hello")) );
     }
     {

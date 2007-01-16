@@ -20,7 +20,7 @@
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/to_utf8_encoder.hpp>
 #include <pstade/oven/adapted_to_base.hpp>
-#include <pstade/oven/unique_range.hpp>
+#include <pstade/oven/uniqued.hpp>
 #include <pstade/unused.hpp>
 
 

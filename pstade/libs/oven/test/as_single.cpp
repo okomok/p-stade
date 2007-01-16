@@ -11,7 +11,7 @@
 
 
 #include <pstade/oven/tests.hpp>
-#include <pstade/oven/single.hpp>
+#include <pstade/oven/as_single.hpp>
 
 
 #include <string>
@@ -27,14 +27,14 @@ void test()
     std::string ans("a");
 
     {
-        BOOST_CHECK( oven::equals(oven::make_single('a'), ans) );
+        BOOST_CHECK( oven::equals(oven::make_as_single('a'), ans) );
     }
     {
         BOOST_CHECK( oven::equals('a'|as_single, ans) );
     }
     {
         char ch = 'a';
-        BOOST_CHECK( oven::equals(oven::make_single(ch), ans) );
+        BOOST_CHECK( oven::equals(oven::make_as_single(ch), ans) );
     }
 }
 

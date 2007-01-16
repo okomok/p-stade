@@ -13,9 +13,9 @@
 #include <boost/utility/result_of.hpp>
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
+#include "./as_single.hpp"
 #include "./concepts.hpp"
 #include "./jointed.hpp"
-#include "./single.hpp"
 
 
 namespace pstade { namespace oven {
@@ -25,19 +25,19 @@ namespace prepended_detail {
 
 
     template< class Range, class Value >
-    struct baby_make_prepended
+    struct baby
     {
         PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
 
         typedef typename
             boost::result_of<
-                op_make_jointed(typename boost::result_of<op_make_single(Value&)>::type, Range&)
+                op_make_jointed(typename boost::result_of<op_make_as_single(Value&)>::type, Range&)
             >::type
         result;
 
         result call(Range& rng, Value& v)
         {
-            return make_jointed(make_single(v), rng);
+            return make_jointed(make_as_single(v), rng);
         }
     };
 

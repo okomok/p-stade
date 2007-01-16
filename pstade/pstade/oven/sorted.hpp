@@ -65,9 +65,13 @@ struct op_make_sorted :
         PSTADE_CONCEPT_ASSERT((Forward<Range>));
         // PSTADE_CONCEPT_ASSERT((Readable<Range>));
 
+        typedef
+            sorted_detail::op_sort<typename pass_by_value<Compare>::type>
+        fun_t;
+
         typedef typename
             boost::result_of<
-                op_make_outplaced(Range&, sorted_detail::op_sort<typename pass_by_value<Compare>::type>)
+                op_make_outplaced(Range&, fun_t)
             >::type
         type;
     };
@@ -75,7 +79,8 @@ struct op_make_sorted :
     template< class Result, class Range, class Compare >
     Result call(Range& rng, Compare& comp) const
     {
-        return make_outplaced(rng, sorted_detail::op_sort<typename pass_by_value<Compare>::type>(comp));
+        typedef typename apply<void, Range, Compare>::fun_t fun_t;
+        return make_outplaced(rng, fun_t(comp));
     }
 
     template< class Result, class Range >

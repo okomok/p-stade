@@ -20,7 +20,7 @@
 #include <boost/range.hpp>
 #include <pstade/functional.hpp>
 #include <pstade/oven/functions.hpp>
-#include <pstade/oven/take_while_range.hpp>
+#include <pstade/oven/taken_while.hpp>
 
 
 void test()

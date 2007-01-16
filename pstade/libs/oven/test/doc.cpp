@@ -76,9 +76,9 @@ void test_stl_algorithms()
 
 void test_copied()
 {
-    std::vector<int> vec = oven::make_count_range(3, 9)|copied;
+    std::vector<int> vec = oven::counting(3, 9)|copied;
     vec.push_back(9);
-    BOOST_CHECK( oven::equals(vec, oven::make_count_range(3, 10)) );
+    BOOST_CHECK( oven::equals(vec, oven::counting(3, 10)) );
 }
 
 
@@ -114,7 +114,7 @@ void test_array_range()
 void test_count_range()
 {
     int ints[] = { 2, 3, 4, 5, 6 };
-    BOOST_CHECK( oven::equal(oven::make_count_range(2, 7), ints) );
+    BOOST_CHECK( oven::equal(oven::counting(2, 7), ints) );
 }
 
 
@@ -146,7 +146,7 @@ void test_istream_range()
     ss << src;
 
     std::string result;
-    oven::copy(oven::make_istream_range<char>(ss), std::back_inserter(result));
+    oven::copy(oven::stream_input<char>(ss), std::back_inserter(result));
 
     BOOST_CHECK( oven::equals(result, src) );
 }
@@ -154,7 +154,7 @@ void test_istream_range()
 
 void test_single_range()
 {
-    BOOST_CHECK( oven::equals(oven::make_single('a'), std::string("a")) );
+    BOOST_CHECK( oven::equals(oven::make_as_single('a'), std::string("a")) );
 }
 
 
@@ -390,7 +390,7 @@ void test_memoized()
     ss << "hello, memoized!";
 
     ::very_complicated_algorithm(
-        oven::make_istream_range<char>(ss)
+        oven::stream_input<char>(ss)
             | memoized
             | directed
             | indirected

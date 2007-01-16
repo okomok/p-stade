@@ -23,7 +23,7 @@
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/copy_range.hpp>
 #include <pstade/oven/single.hpp>
-#include <pstade/oven/reverse_range.hpp>
+#include <pstade/oven/reversed.hpp>
 
 
 void test()

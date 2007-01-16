@@ -14,14 +14,14 @@
 
 
 #include <pstade/oven/tests.hpp>
-#include <pstade/oven/constant.hpp>
+#include <pstade/oven/constants.hpp>
 
 
 #include <string>
 #include <vector>
 #include <boost/range.hpp>
 #include <pstade/oven/functions.hpp>
-#include <pstade/oven/identity_range.hpp>
+#include <pstade/oven/identities.hpp>
 
 
 namespace oven = pstade::oven;

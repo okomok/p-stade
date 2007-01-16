@@ -30,7 +30,7 @@ void test()
         std::vector<int> expected = ans|copied;
 
         BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
-            A|through_window(3, 8),
+            A|window(3, 8),
             expected
         ) );
     }
@@ -40,7 +40,7 @@ void test()
         std::vector<int> expected = A|copied;
 
         BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
-            A|through_window(3, 8)|through_window(-3, 5+2),
+            A|window(3, 8)|window(-3, 5+2),
             expected
         ) );
     }
@@ -50,7 +50,7 @@ void test()
     }
 
     {
-        BOOST_CHECK( oven::equals(src|through_window(1, 6), std::string("12345")) );
+        BOOST_CHECK( oven::equals(src|window(1, 6), std::string("12345")) );
     }
 }
 

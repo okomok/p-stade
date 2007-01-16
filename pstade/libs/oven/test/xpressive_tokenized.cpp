@@ -11,7 +11,7 @@
 
 
 #include <pstade/oven/tests.hpp>
-#include <pstade/oven/xpressive_token_range.hpp>
+#include <pstade/oven/xpressive_tokenized.hpp>
 
 
 #include <string>
@@ -19,7 +19,7 @@
 #include <boost/xpressive/xpressive.hpp>
 #include <boost/range.hpp>
 #include <pstade/oven/functions.hpp>
-#include <pstade/oven/concatenate_range.hpp>
+#include <pstade/oven/concatenated.hpp>
 
 
 void test()

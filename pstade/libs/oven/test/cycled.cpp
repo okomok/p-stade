@@ -21,7 +21,7 @@
 #include <boost/range.hpp>
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/distance.hpp>
-#include <pstade/oven/reverse_range.hpp>
+#include <pstade/oven/reversed.hpp>
 #include <boost/iterator/counting_iterator.hpp>
 
 

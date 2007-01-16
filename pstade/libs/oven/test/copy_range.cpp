@@ -18,8 +18,8 @@
 #include <string>
 #include <vector>
 #include <pstade/oven/functions.hpp>
-#include <pstade/oven/count_range.hpp>
-#include <pstade/oven/istream_range.hpp>
+#include <pstade/oven/counting.hpp>
+#include <pstade/oven/stream_input.hpp>
 
 
 void test()

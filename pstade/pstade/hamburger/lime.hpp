@@ -16,7 +16,7 @@
 #include <pstade/lime/save.hpp> // save_default
 #include <pstade/oven/copy_range.hpp>
 #include <pstade/oven/equals.hpp>
-#include <pstade/oven/function_output_iterator.hpp>
+#include <pstade/oven/to_function.hpp>
 #include <pstade/unused.hpp>
 #include <pstade/ustring.hpp>
 #include "./element.hpp"

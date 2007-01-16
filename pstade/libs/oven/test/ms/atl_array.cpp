@@ -19,8 +19,8 @@
 #include <string>
 #include <vector>
 #include <boost/range.hpp>
-#include <pstade/oven/transform_range.hpp>
-#include <pstade/oven/const_lvalue_range.hpp>
+#include <pstade/oven/transformed.hpp>
+#include <pstade/oven/const_lvalues.hpp>
 
 
 #include <pstade/apple/atl/config.hpp> // ATL_VER

@@ -21,7 +21,7 @@
 namespace pstade { namespace oven {
 
 
-namespace unique_detail {
+namespace uniqued_detail {
 
 
     template< class Range >
@@ -42,7 +42,7 @@ namespace unique_detail {
     };
 
 
-} // namespace unique_detail
+} // namespace uniqued_detail
 
 
 PSTADE_FUNCTION(make_uniqued, (uniqued_detail::baby<_>))

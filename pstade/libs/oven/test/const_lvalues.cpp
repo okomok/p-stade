@@ -20,9 +20,9 @@
 #include <pstade/oven/metafunctions.hpp>
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/copy_range.hpp>
-#include <pstade/oven/filter_range.hpp>
-#include <pstade/oven/transform_range.hpp>
-#include <pstade/oven/regularize_range.hpp>
+#include <pstade/oven/filtered.hpp>
+#include <pstade/oven/transformed.hpp>
+#include <pstade/oven/regularized.hpp>
 
 #include <iterator>
 #include <boost/static_assert.hpp>

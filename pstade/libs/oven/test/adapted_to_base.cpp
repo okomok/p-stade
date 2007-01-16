@@ -18,9 +18,9 @@
 #include <boost/lambda/core.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <pstade/is_same.hpp>
-#include <pstade/oven/filter_range.hpp>
+#include <pstade/oven/filtered.hpp>
 #include <pstade/oven/functions.hpp>
-#include <pstade/oven/regularize_range.hpp>
+#include <pstade/oven/regularized.hpp>
 
 
 void test()

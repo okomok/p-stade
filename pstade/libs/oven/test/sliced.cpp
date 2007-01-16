@@ -19,7 +19,7 @@
 #include <boost/foreach.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <pstade/oven/count_range.hpp>
+#include <pstade/oven/counting.hpp>
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/metafunctions.hpp>
 #include <pstade/oven/advanced.hpp>

@@ -18,8 +18,8 @@
 #include <sstream>
 #include <boost/range.hpp>
 #include <pstade/oven/functions.hpp>
-#include <pstade/oven/filter_range.hpp>
-#include <pstade/oven/regularize_range.hpp>
+#include <pstade/oven/filtered.hpp>
+#include <pstade/oven/regularized.hpp>
 #include <pstade/locale.hpp>
 
 

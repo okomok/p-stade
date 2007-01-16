@@ -13,7 +13,7 @@
 #include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/oven/algorithm.hpp> // copy
-#include <pstade/oven/array_protected.hpp>
+#include <pstade/oven/as_array.hpp>
 #include <pstade/oven/begin_end.hpp> // begins
 #include <pstade/oven/null_terminated.hpp>
 #include <pstade/require.hpp>
@@ -48,7 +48,7 @@ LOGFONT get_logfont(Profile& pr, HDC hDC = NULL)
     LOGFONT lf = { 0 };
 
     oven::copy(pizza::string(pr, _T("logfont.lfFaceName")), lf.lfFaceName|oven::array_protected|oven::begins);
-    PSTADE_REQUIRE(oven::is_null_terminated(lf.lfFaceName|oven::array_protected));
+    PSTADE_REQUIRE(oven::is_null_terminated(lf.lfFaceName|oven::as_array));
     DWORD dwHeight =    pizza::integer(pr, _T("logfont.decipointHeight"));
     lf.lfHeight =       tomato::font_height_from_decipoint(dwHeight, hDC);
     lf.lfWeight =       pizza::integer(pr, _T("logfont.lfWeight"));

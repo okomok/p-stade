@@ -17,7 +17,7 @@
 #include <pstade/lime/load.hpp>
 #include <pstade/lime/save.hpp>
 #include <pstade/oven/algorithm.hpp> // copy
-#include <pstade/oven/function_output_iterator.hpp>
+#include <pstade/oven/to_function.hpp>
 #include <pstade/oven/utf8_decoded.hpp>
 #include <pstade/tomato/file_range.hpp>
 #include <pstade/tomato/tstring.hpp>

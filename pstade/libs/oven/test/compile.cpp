@@ -19,8 +19,8 @@
 #include <vector>
 #include <pstade/oven/equals.hpp>
 #include <pstade/oven/copy_range.hpp>
-#include <pstade/oven/take_range.hpp>
-#include <pstade/oven/identity_range.hpp>
+#include <pstade/oven/taken.hpp>
+#include <pstade/oven/identities.hpp>
 
 
 void test()

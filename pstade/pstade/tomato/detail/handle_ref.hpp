@@ -11,6 +11,8 @@
 
 
 #include <boost/assert.hpp>
+#include <boost/type_traits/is_convertible.hpp>
+#include <pstade/enable_if.hpp>
 #include <pstade/nonassignable.hpp>
 
 
@@ -23,6 +25,13 @@ struct handle_ref :
 {
     /*implicit*/ handle_ref(Handle handle) :
         m_handle(handle)
+    {
+        BOOST_ASSERT(invariant());
+    }
+
+    template< class X > // for 'WTL::CHandleXXX'
+    handle_ref(X const& x, typename enable_if< boost::is_convertible<X, Handle> >::type = 0) :
+        m_handle(x)
     {
         BOOST_ASSERT(invariant());
     }

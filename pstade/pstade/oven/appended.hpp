@@ -37,7 +37,7 @@ namespace appended_detail {
 
         result call(Range& rng, Value& v)
         {
-            return make_jointed(rng, make_single(v));
+            return make_jointed(rng, make_as_single(v));
         }
     };
 

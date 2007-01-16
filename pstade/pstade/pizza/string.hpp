@@ -21,6 +21,7 @@
 #include <boost/range/end.hpp>
 #include <boost/scoped_ptr.hpp>
 #include <boost/throw_exception.hpp>
+#include <boost/utility/result_of.hpp>
 #include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/oven/array_range.hpp>
@@ -146,7 +147,7 @@ namespace string_detail {
 
 struct string :
     private string_detail::buffer_init,
-    oven::null_terminate_range<string_detail::buffer_t>,
+    boost::result_of<oven::op_make_null_terminated(string_detail::buffer_t&)>::type,
     private oven::range_constantable<string, TCHAR const *>,
     private boost::noncopyable
 {
@@ -154,7 +155,7 @@ struct string :
 
 private:
     typedef string_detail::buffer_init init_t; 
-    typedef oven::null_terminate_range<string_detail::buffer_t> super_t;
+    typedef boost::result_of<oven::op_make_null_terminated(string_detail::buffer_t&)>::type super_t;
 
 public:
     template< class Profile, class CStringizable >

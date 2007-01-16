@@ -26,11 +26,13 @@
 #include <boost/assert.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/range/begin.hpp>
+#include <boost/utility/result_of.hpp>
 #include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/oven/array_range.hpp>
 #include <pstade/oven/distance.hpp>
 #include <pstade/oven/null_terminated.hpp>
+#include <pstade/reference.hpp>
 #include "./window_ref.hpp"
 
 
@@ -65,12 +67,11 @@ namespace window_text_detail {
 
 
     template< class = void >
-    struct super_
-    {
-        typedef oven::null_terminate_range<
-            window_text_detail::buffer_t const // constant range!
-        > type;
-    };
+    struct super_ :
+        boost::result_of<
+            oven::op_make_null_terminated(buffer_t const&)
+        >
+    { };
 
 
 } // namespace window_text_detail
@@ -88,7 +89,7 @@ private:
 public:
     explicit window_text(window_ref wnd) :
         init_t(wnd),
-        super_t(m_buf)
+        super_t(m_buf|to_const_reference)
     { }
 
     friend

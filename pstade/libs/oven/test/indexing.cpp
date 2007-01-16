@@ -11,15 +11,30 @@
 
 
 #include <pstade/oven/tests.hpp>
-#include <pstade/oven/xpressive_matches.hpp>
+#include <pstade/oven/indexing.hpp>
 
 
+#include <iterator>
 #include <string>
 #include <vector>
-#include <boost/xpressive/xpressive.hpp>
 #include <boost/range.hpp>
 #include <pstade/oven/functions.hpp>
 
+
+std::vector<char> g_vec;
+
+
+struct vec_get
+{
+    typedef char result_type;
+
+    template< class Size >
+    char operator()(Size i) const
+    {
+        return g_vec[i];
+    }
+};
+    
 
 void test()
 {
@@ -27,14 +42,13 @@ void test()
     using namespace oven;
 
     {
-        std::string input("This is his face");
-        boost::xpressive::sregex re = +boost::xpressive::_w; // a word
+        std::string ans("11111234516313!");
+        oven::copy(ans, std::back_inserter(g_vec));
 
-        bool f = false;
-        if (f) {
-            input|xpressive_matches(re);
-            input|xpressive_matches(re, boost::xpressive::regex_constants::match_default);
-        }
+        BOOST_CHECK( oven::test_RandomAccess_Readable(
+            oven::indexing(0, ans.size(), vec_get()),
+            g_vec
+        ) );
     }
 }
 

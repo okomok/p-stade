@@ -11,7 +11,7 @@
 
 
 #include <pstade/oven/tests.hpp>
-#include <pstade/oven/move_range.hpp>
+#include <pstade/oven/moved.hpp>
 
 
 #include <string>

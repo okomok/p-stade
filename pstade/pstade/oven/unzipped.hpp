@@ -56,7 +56,8 @@ struct op_unzipped_at :
     template< class Result, class TupleRange >
     Result call(TupleRange& rng) const
     {
-        return op_make_transformed<typename apply<void, TupleRange>::ref_t>()(rng, op_at<N>());
+        typedef typename apply<void, TupleRange>::ref_t ref_t;
+        return op_make_transformed<ref_t>()(rng, op_at<N>());
     };
 };
 
