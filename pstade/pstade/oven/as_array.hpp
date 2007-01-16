@@ -10,15 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// What:
-//
-// See http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html#as-array
-// Under below Boost 1.34, char array is regarded as null-terminated.
-
-
 #include <cstddef> // size_t
-#include <boost/range/iterator_range.hpp>
-#include <pstade/egg/pipable.hpp>
+#include <boost/type_traits/remove_extent.hpp>
+#include <pstade/function.hpp>
+#include <pstade/pipable.hpp>
+#include "./iter_range.hpp"
 
 
 namespace pstade { namespace oven {
@@ -27,21 +23,18 @@ namespace pstade { namespace oven {
 namespace as_array_detail {
 
 
+    template< class Array >
     struct baby
     {
-        template< class Unused, class Array >
-        struct apply;
+        typedef
+            iter_range<typename boost::remove_extent<Array>::type *> const
+        result;
 
-        template< class Unused, class T, std::size_t sz >
-        struct apply< Unused, T [sz] >
+        template< class T, std::size_t sz >
+        result call(T (&arr)[sz])
         {
-            typedef boost::iterator_range<T *> const type;
-        };
-
-        template< class Result, class T, std::size_t sz >
-        Result call(T (&arr)[sz])
-        {
-            return Result(arr, static_cast<T *>(arr) + sz);
+            // cast precisely for enabler.
+            return result(static_cast<T *>(arr), static_cast<T *>(arr) + sz);
         }
     };
 
@@ -49,7 +42,8 @@ namespace as_array_detail {
 } // namespace as_array_detail
 
 
-PSTADE_EGG_PIPABLE(as_array, as_array_detail::baby)
+PSTADE_FUNCTION(make_as_array, (as_array_detail::baby<_>))
+PSTADE_PIPABLE(as_array, (op_make_as_array))
 
 
 } } // namespace pstade::oven

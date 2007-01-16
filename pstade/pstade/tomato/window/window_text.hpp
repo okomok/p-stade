@@ -30,7 +30,7 @@
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/oven/array_range.hpp>
 #include <pstade/oven/distance.hpp>
-#include <pstade/oven/null_terminate_range.hpp>
+#include <pstade/oven/null_terminated.hpp>
 #include "./window_ref.hpp"
 
 

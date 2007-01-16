@@ -14,7 +14,7 @@
 #include <string>
 #include <pstade/oven/algorithm.hpp> // copy
 #include <pstade/oven/file_range.hpp>
-#include <pstade/oven/utf8_decode_range.hpp>
+#include <pstade/oven/utf8_decoded.hpp>
 #include <pstade/ustring.hpp> // utf8cp_t
 #include "./load.hpp"
 

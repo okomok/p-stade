@@ -34,20 +34,13 @@
 namespace pstade {
 
 
-    // at_first/second
+    // at_first
 
 
     template<class Pair>
     struct value_at_first
     {
         typedef typename Pair::first_type type;
-    };
-
-
-    template<class Pair>
-    struct value_at_second
-    {
-        typedef typename Pair::second_type type;
     };
 
 
@@ -67,6 +60,16 @@ namespace pstade {
     };
 
     PSTADE_CONSTANT(at_first, (op_at_first))
+
+
+    // at_second
+
+
+    template<class Pair>
+    struct value_at_second
+    {
+        typedef typename Pair::second_type type;
+    };
 
 
     struct op_at_second :

@@ -13,9 +13,10 @@
 #include <cstddef> // size_t
 #include <cstring> // strlen
 #include <cwchar>  // wcslen
-#include <boost/range/iterator_range.hpp>
-#include <pstade/egg/pipable.hpp>
+#include <pstade/function.hpp>
 #include <pstade/pass_by.hpp>
+#include <pstade/pipable.hpp>
+#include "./iter_range.hpp"
 
 
 namespace pstade { namespace oven {
@@ -31,7 +32,6 @@ namespace as_c_str_detail {
         return strlen(psz);
     }
 
-
     inline
     std::size_t length(wchar_t const *psz)
     {
@@ -40,19 +40,20 @@ namespace as_c_str_detail {
     }
 
 
+    template< class CString >
     struct baby
     {
-        template< class Unused, class CString >
-        struct apply
-        {
-            typedef typename pass_by_value<CString>::type ptr_t;
-            typedef boost::iterator_range<ptr_t> const type;
-        };
+        typedef typename
+            pass_by_value<CString>::type
+        char_ptr_t;
 
-        template< class Result, class CString >
-        Result call(CString psz)
+        typedef
+            iter_range<char_ptr_t> const
+        result;
+
+        result call(char_ptr_t psz)
         {
-            return Result(psz, psz + length(psz));
+            return result(psz, psz + length(psz));
         }
     };
 
@@ -60,7 +61,8 @@ namespace as_c_str_detail {
 } // namespace as_c_str_detail
 
 
-PSTADE_EGG_PIPABLE(as_c_str, as_c_str_detail::baby)
+PSTADE_FUNCTION(make_as_c_str, (as_c_str_detail::baby<_>))
+PSTADE_PIPABLE(as_c_str, (op_make_as_c_str))
 
 
 } } // namespace pstade::oven

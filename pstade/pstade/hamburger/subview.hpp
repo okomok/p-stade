@@ -12,7 +12,7 @@
 
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/ketchup/core.hpp>
-#include <pstade/oven/sort_range.hpp>
+#include <pstade/oven/sorted.hpp>
 #include <pstade/statement.hpp>
 #include <pstade/tomato/rgb.hpp>
 #include "./detail/background.hpp"

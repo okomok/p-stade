@@ -43,6 +43,7 @@ namespace pstade {
                 boost::tuples::length<
                     typename boost::remove_cv<Tuple>::type // Boost.Tuple needs 'remove_cv'.
                 >::value
+                // will be 'boost::fusion::result_of::size<FusionSeq>::value'.
             >
         { };
 

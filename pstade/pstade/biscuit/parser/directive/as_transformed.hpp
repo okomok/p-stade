@@ -12,8 +12,9 @@
 
 #include <iterator> // distance
 #include <boost/mpl/apply.hpp>
+#include <boost/utility/result_of.hpp>
 #include <pstade/oven/sub_range_base.hpp>
-#include <pstade/oven/transform_range.hpp>
+#include <pstade/oven/transformed.hpp>
 #include "../../state/class_type.hpp"
 #include "../../state/match_results_type.hpp"
 
@@ -35,8 +36,10 @@ struct as_transformed
         typedef typename oven::sub_range_base<State>::type iter_rng_t;
         iter_rng_t rng(s.get_cur(), boost::end(s));
 
-        typedef oven::transform_range<iter_rng_t, UnaryFun, Reference, Value> trns_rng_t;
-        trns_rng_t trns_rng(rng, UnaryFun());
+        typedef typename boost::result_of<oven::op_make_transformed<Reference, Value>(iter_rng_t&, UnaryFun)>::type
+            trns_rng_t;
+
+        trns_rng_t trns_rng = oven::op_make_transformed<Reference, Value>()(rng, UnaryFun());
 
         typedef typename state_class<State>::type state_class_t;
         typedef typename state_match_results<State>::type results_t;

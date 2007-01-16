@@ -15,7 +15,7 @@
 #include <pstade/for_debug.hpp>
 #include <pstade/unused.hpp>
 #include "../algorithm.hpp" // find
-#include "../direct_range.hpp"
+#include "../directed.hpp"
 #include "../range_category.hpp"
 
 

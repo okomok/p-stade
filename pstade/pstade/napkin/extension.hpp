@@ -17,7 +17,7 @@
 #include <boost/mpl/identity.hpp>
 #include <pstade/apple/is_sequence.hpp>
 #include <pstade/has_xxx.hpp>
-#include <pstade/oven/c_str_range.hpp>
+#include <pstade/oven/as_c_str.hpp>
 
 
 namespace pstade_napkin_extension {

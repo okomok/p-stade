@@ -18,7 +18,7 @@
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/function.hpp>
-#include "./function_output_iterator.hpp"
+#include "./to_function.hpp"
 
 
 namespace pstade { namespace oven {

@@ -21,11 +21,11 @@
 #include <pstade/constant.hpp>
 #include "./algorithm.hpp" // for_each
 #include "./distance.hpp"
-#include "./drop_range.hpp"
+#include "./dropped.hpp"
 #include "./concepts.hpp"
 #include "./range_difference.hpp"
 #include "./sub_range_base.hpp"
-#include "./take_range.hpp"
+#include "./taken.hpp"
 
 
 namespace pstade { namespace oven {

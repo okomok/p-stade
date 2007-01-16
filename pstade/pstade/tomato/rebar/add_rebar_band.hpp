@@ -17,12 +17,12 @@
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/apple/wtl/ctrls.hpp> // CReBarCtrl
 #include <pstade/candy/set.hpp>
-#include <pstade/oven/append_range.hpp>
+#include <pstade/oven/appended.hpp>
+#include <pstade/oven/as_c_str.hpp>
 #include <pstade/oven/begin_end.hpp>
-#include <pstade/oven/c_str_range.hpp>
 #include <pstade/oven/copy_range.hpp>
-#include <pstade/oven/null_terminate_range.hpp>
-#include <pstade/oven/point_range.hpp>
+#include <pstade/oven/null_terminated.hpp>
+#include <pstade/oven/pointed.hpp>
 #include <pstade/require.hpp>
 #include "../c_str.hpp"
 #include "../size_initialize.hpp"

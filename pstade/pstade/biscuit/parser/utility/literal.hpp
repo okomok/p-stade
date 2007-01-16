@@ -11,7 +11,7 @@
 
 
 #include <pstade/oven/algorithm.hpp> // find
-#include <pstade/oven/literal_range.hpp>
+#include <pstade/oven/as_literal.hpp>
 #include <pstade/unused.hpp>
 #include "../../config/nullary_parser.hpp"
 #include "../../state/increment.hpp"

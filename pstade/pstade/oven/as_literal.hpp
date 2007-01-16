@@ -13,18 +13,20 @@
 // What:
 //
 // http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html#as-literal
-// Oven's 'as_literal' supports only array types.
+// Oven's 'as_literal' supports only const array types.
 // Consider "hello\0secret".
 // What should 'boost::to_upper("hello\0secret")' do?
 // So Oven has another function 'as_c_str'.
-// 'equals(std::string("hello\0secret"), "hello\0secret"|as_literal);'
-// 'equals(std::string("hello"), "hello\0secret"|as_literal|taken_while(_1 != 0));'
-// 'equals(std::string("hello"), "hello\0secret"|as_c_str);' // optimized shortcut for above.
+// "hello\0secret"|as_literal      == *hello\0secret*
+// "hello\0secret"|as_c_str        == *hello*
+// "hello\0secret"|array_protected == *hello\0secret\0*
 
 
-#include <boost/range/iterator_range.hpp>
-#include <pstade/egg/pipable.hpp>
-#include "./sub_range_result.hpp"
+#include <cstddef> // size_t
+#include <boost/type_traits/remove_extent.hpp>
+#include <pstade/function.hpp>
+#include <pstade/pipable.hpp>
+#include "./iter_range.hpp"
 
 
 namespace pstade { namespace oven {
@@ -33,29 +35,27 @@ namespace pstade { namespace oven {
 namespace as_literal_detail {
 
 
+    template< class Array >
     struct baby
     {
-        template< class Unused, class Range >
-        struct apply;
+        typedef
+            iter_range<typename boost::remove_extent<Array>::type *> const
+        result;
 
-        template< class Unused, class T, std::size_t sz >
-        struct apply< Unused, T [sz] >
+        template< class T, std::size_t sz >
+        result call(T (&arr)[sz])
         {
-            typedef boost::iterator_range<T *> const type;
-        };
-
-        template< class Result, class T, std::size_t sz >
-        Result call(T (&arr)[sz])
-        {
-            return Result(arr, static_cast<T *>(arr) + sz - 1);
+            // cast precisely for enabler.
+            return result(static_cast<T *>(arr), static_cast<T *>(arr) + sz - 1);
         }
     };
 
 
-} // namespace as_literal_range_detail
+} // namespace as_literal_detail
 
 
-PSTADE_EGG_PIPABLE(as_literal, as_literal_detail::baby)
+PSTADE_FUNCTION(make_as_literal, (as_literal_detail::baby<_>))
+PSTADE_PIPABLE(as_literal, (op_make_as_literal))
 
 
 } } // namespace pstade::oven

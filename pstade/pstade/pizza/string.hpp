@@ -24,7 +24,7 @@
 #include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/oven/array_range.hpp>
-#include <pstade/oven/null_terminate_range.hpp>
+#include <pstade/oven/null_terminated.hpp>
 #include <pstade/oven/range_constantable.hpp>
 #include "./access.hpp"
 #include "./detail/has_pstade_pizza_profile.hpp"

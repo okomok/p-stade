@@ -18,7 +18,7 @@
 #include <boost/optional.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/oven/copy_range.hpp>
-#include <pstade/oven/drop_range.hpp>
+#include <pstade/oven/dropped.hpp>
 
 
 namespace pstade { namespace tomato {

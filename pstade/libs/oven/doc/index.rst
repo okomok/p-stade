@@ -60,15 +60,18 @@ Oven provides some range-based algorithms.
 
 STL Algorithms
 ^^^^^^^^^^^^^^
-Oven has all the range-based STL algorithms which are ported from `Boost.RangeEx`_ with some compiler workarounds::
+Oven has all the range-based STL algorithms as FunctionObjects, which are ported from `Boost.RangeEx`_ with some compiler workarounds::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\stl_algorithms.ipp
 
 
 - Header: ``<pstade/oven/algorithm.hpp>``
-- Valid expression: ``oven::algo(rng,a0,a1,...,aN);``
-- Precondition: ``std::algo(boost::begin(rng),boost::end(rng),a0,a1,...,aN);`` is a valid expression, where ``algo`` is one of the STL algorithms.
-- Returns: ``std::algo(boost::begin(rng),boost::end(rng),a0,a1,...,aN);``
+- Valid expression: ``algo(rng,a0,a1,...,aN)``, where ``algo`` is a FunctionObject.
+- Precondition: ``std::algo(boost::begin(rng),boost::end(rng),a0,a1,...,aN)`` is a valid expression, where ``algo`` is one of the STL algorithms.
+- Returns: ``std::algo(boost::begin(rng),boost::end(rng),a0,a1,...,aN)``
+
+
+Note that all the FunctionObject supports ``result_of`` and the return type deduction of Boost.Lambda.
 
 
 ``adapted_to/to_base``
@@ -355,7 +358,7 @@ the function on the first argument, the second item by applying the function on 
 
 
 - Header: ``<pstade/oven/single_range.hpp>``
-- Valid expression: ``single_range<T> rng(v);``, ``oven::make_single_range(v)`` and ``v|as_single``.
+- Valid expression: ``single_range<T> rng(v);``, ``oven::make_single(v)`` and ``v|as_single``.
 - Precondition: The type of ``v`` is ``T``.
 
 
@@ -389,20 +392,20 @@ Instead, add ``&`` to make it a function **pointer**.
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\adjacent_filtered.ipp
 
 
-- Header: ``<pstade/oven/adjacent_filter_range.hpp>``
+- Header: ``<pstade/oven/adjacent_filtered.hpp>``
 - See: `Range Library Proposal`_.
 
 
 ``adjacent_transformed``
 ^^^^^^^^^^^^^^^^^^^^^^^^
-- Header: ``<pstade/oven/adjacent_transform_range.hpp>``
+- Header: ``<pstade/oven/adjacent_transformed.hpp>``
 - Valid expression: ``fwdRng|adjacent_transformed(rfun)``
 - Returns: A range where adjacent pairs of ``fwdRng`` are transformed by using ``rfun``.
 
 
 ``advanced``
 ^^^^^^^^^^^^
-- Header: ``<pstade/oven/advance_range.hpp>``
+- Header: ``<pstade/oven/advanced.hpp>``
 - Valid expression: ``fwdRng|advanced(d1,d2)``
 - Precondition: ``fwdRng`` must be a `Bidirectional Range`_ if either ``d1`` or ``d2`` is negative.
 - Returns: ``[boost::next(boost::begin(fwdRng),d1),boost::next(boost::end(fwdRng),d2))``.
@@ -415,7 +418,7 @@ Instead, add ``&`` to make it a function **pointer**.
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\always.ipp
 
 
-- Header: ``<pstade/oven/always_range.hpp>``
+- Header: ``<pstade/oven/always.hpp>``
 - Valid expression: ``unusedRng|always(rng)``
 - Returns: ``[boost::begin(rng),boost::end(rng))``.
 
@@ -429,22 +432,20 @@ Instead, add ``&`` to make it a function **pointer**.
 
 - Header: ``<pstade/oven/append_range.hpp>``
 - Valid expression: ``rng|appended(v)``
-- Returns: ``rng|jointed(oven::make_single_range(v))``.
+- Returns: ``rng|jointed(oven::make_single(v))``.
 
 
 ``applied``
 ^^^^^^^^^^^
-``applied`` puts an algorithm into a range, intended to be used with Boost.Phoenix version2::
+``applied``, taking a FunctionObject which represents an algorithm, creates the range adaptor::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\applied.ipp
 
 
 - Header: ``<pstade/oven/apply_range.hpp>``
-- Valid expression: ``rng|applied(f1,f2)``
-- Precondition: ``f1(rng)`` and ``f2(rng)`` return iterators that are convertible to ``rng``\'s.
-- Returns: ``[f1(rng),f2(rng))``.
-
-``rng1`` is the same as ``phoenix::arg1``.
+- Valid expression1: ``rng|applied(f1,f2)``, where ``f1(rng)`` and ``f2(rng)`` must return iterators that are convertible to ``rng``\'s.
+- Valid expression2: ``rng|applied(f)``, where ``f(rng)`` must return a range whose iterators are convertible to  ``rng``\'s.
+- Returns: ``[f1(rng),f2(rng))``, or ``[boost::begin(r),boost::end(r))`` where ``r = f(rng)``, respectively.
 
 
 ``broken_into``
@@ -750,7 +751,7 @@ Note that ``memoized`` can return a `Forward Range`_ even if its base range is a
 ^^^^^^^^^^^^^
 - Header: ``<pstade/oven/prepend_range.hpp>``
 - Valid expression: ``rng|prepended(v)``
-- Returns: ``oven::make_single_range(v)|jointed(rng)``.
+- Returns: ``oven::make_single(v)|jointed(rng)``.
 
 
 ``regularized``

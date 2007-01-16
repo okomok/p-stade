@@ -67,6 +67,7 @@
 #include "./unfuse.hpp"
 #include "./unparenthesize.hpp"
 #include "./unused.hpp"
+#include "./unused_parameter.hpp"
 #include "./unused_to_copy.hpp"
 #include "./use_default.hpp"
 #include "./used.hpp"

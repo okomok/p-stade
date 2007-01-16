@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include "./oven/adaptors.hpp"
 #include "./oven/functions.hpp"
 #include "./oven/metafunctions.hpp"
 

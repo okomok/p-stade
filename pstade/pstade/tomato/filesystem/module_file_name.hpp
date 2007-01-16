@@ -20,12 +20,14 @@
 #include <boost/assert.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/range/begin.hpp>
+#include <boost/utility/result_of.hpp>
 #include <pstade/apple/atl/module.hpp>
 #include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/oven/iter_range.hpp>
-#include <pstade/oven/null_terminate_range.hpp>
+#include <pstade/oven/null_terminated.hpp>
 #include <pstade/oven/sub_range_result.hpp>
+#include <pstade/reference.hpp>
 #include <pstade/require.hpp>
 #include "./max_path.hpp"
 #include "./path_find_extension.hpp"
@@ -38,7 +40,8 @@ namespace pstade { namespace tomato {
 namespace module_file_name_detail {
 
 
-    typedef boost::array<TCHAR, max_path::value>
+    typedef
+        boost::array<TCHAR, max_path::value>
     buffer_t;
 
 
@@ -66,9 +69,11 @@ namespace module_file_name_detail {
     template< class = void >
     struct super_
     {
-        typedef oven::null_terminate_range<
-            module_file_name_detail::buffer_t const // constant range!
-        > type;
+        typedef typename
+            boost::result_of<
+                oven::op_make_null_terminated(module_file_name_detail::buffer_t const&)
+            >::type
+        type;
     };
 
 
@@ -88,7 +93,7 @@ private:
 public:
     explicit module_file_name(HINSTANCE hInst = _Module.GetModuleInstance()) :
         init_t(hInst),
-        super_t(m_buf)
+        super_t(m_buf|to_const_reference)
     {
         BOOST_ASSERT(oven::is_null_terminated(m_buf));
     }

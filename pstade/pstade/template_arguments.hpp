@@ -85,7 +85,7 @@ template<
     template<BOOST_PP_ENUM_PARAMS(n, class _)> class X,
     BOOST_PP_ENUM_PARAMS(n, class T)
 >
-struct template_arguments_of<X<BOOST_PP_ENUM_PARAMS(n, T)> PSTADE_arity(n)>
+struct template_arguments_of< X<BOOST_PP_ENUM_PARAMS(n, T)> PSTADE_arity(n) >
 {
     // must be the numbered form for MPL PlaceholderExpression.
     typedef boost::mpl::BOOST_PP_CAT(vector, n)<BOOST_PP_ENUM_PARAMS(n, T)> type;
@@ -97,7 +97,7 @@ template<
     template<BOOST_PP_ENUM_PARAMS(n, class _)> class X,
     BOOST_PP_ENUM_PARAMS(n, class T)
 >
-struct template_arguments_copy<ArgumentSeq, X<BOOST_PP_ENUM_PARAMS(n, T)> PSTADE_arity(n)>
+struct template_arguments_copy< ArgumentSeq, X<BOOST_PP_ENUM_PARAMS(n, T)> PSTADE_arity(n) >
 {
     typedef X<BOOST_PP_ENUM(n, PSTADE_at_c, ~)> type;
 };

@@ -13,9 +13,9 @@
 #include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/oven/algorithm.hpp> // copy
-#include <pstade/oven/array_protect_range.hpp>
+#include <pstade/oven/array_protected.hpp>
 #include <pstade/oven/begin_end.hpp> // begins
-#include <pstade/oven/null_terminate_range.hpp>
+#include <pstade/oven/null_terminated.hpp>
 #include <pstade/require.hpp>
 #include <pstade/tomato/gdi/decipoint_font_height.hpp>
 #include <pstade/tomato/gdi/font_height_from_decipoint.hpp>

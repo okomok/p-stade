@@ -10,12 +10,17 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/oven/tests.hpp>
 #include <pstade/oven/as_literal.hpp>
 
 
+#include <vector>
 #include <string>
 #include <boost/range.hpp>
 #include <pstade/oven/functions.hpp>
+#include <pstade/oven/jointed.hpp>
+#include <pstade/oven/single.hpp>
+#include <pstade/oven/c_str.hpp>
 
 
 void test()
@@ -24,11 +29,35 @@ void test()
     using namespace oven;
 
     {
+        std::vector<char> expected = std::string("hello range")|copied;
+        BOOST_CHECK( oven::test_RandomAccess_Readable(
+            "hello range"|as_literal,
+            expected
+        ) );
+    }
+#if 0
+    {
+        literal_range<char> rng("hello range");
+        BOOST_CHECK( oven::equals(rng, std::string("hello range")) );
+    }
+#endif
+    {
         BOOST_CHECK( oven::equals("hello range"|as_literal, std::string("hello range")) );
     }
     {
         wchar_t const str[] = L"hello range";
         BOOST_CHECK( oven::equals(str|as_literal, std::wstring(L"hello range")) );
+    }
+
+    {
+        BOOST_CHECK( oven::equals(
+            "hello\0range"|as_c_str,
+            std::string("hello")
+        ) );
+        BOOST_CHECK( oven::equals(
+            "hello\0range"|as_literal,
+            std::string("hello")|jointed('\0'|as_single)|jointed(std::string("range"))
+        ) );
     }
 }
 

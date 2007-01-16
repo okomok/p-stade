@@ -22,11 +22,19 @@
 //
 // 'callable' is more generic than this whose 'Baby' can't
 // have members, but the definition of 'Baby' can be simpler.
+//
+// Now 'NullaryResult' must be passed explicitly.
+// Something like 'has_nullary_result' would instantiate
+// the invalid type with placeholders.
+//
+// As the result of overload resolution and 'mpl::apply',
+// the both const-qualified and non-const-qualified argument type are
+// always passed to Baby, and then the Baby is *instantiated*;
+// even if the either is never called.
+// This could be avoided by using 'template_arguments', though.
 
 
 #include <boost/mpl/apply.hpp>
-#include <boost/mpl/eval_if.hpp>
-#include <boost/mpl/identity.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
@@ -34,39 +42,15 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
-#include <pstade/has_xxx.hpp>
 #include <pstade/unparenthesize.hpp>
 
 
 namespace pstade {
 
 
-    namespace function_detail {
-
-
-        PSTADE_HAS_TYPE(nullary_result)
-
-        template<class Baby>
-        struct nullary_result
-        {
-            typedef typename Baby::nullary_result type;
-        };
-
-        template<class Baby>
-        struct nullary_result_of :
-            boost::mpl::eval_if< has_nullary_result<Baby>,
-                nullary_result<Baby>,
-                boost::mpl::identity<boost::use_default>
-            >
-        { };
-
-
-    } // namespace function_detail
-
-
-    template<class Baby>
+    template<class Baby, class NullaryResult = boost::use_default>
     struct function :
-        callable<function<Baby>, typename function_detail::nullary_result_of<Baby>::type>
+        callable<function<Baby, NullaryResult>, NullaryResult>
     {
         template<class Myself, PSTADE_CALLABLE_APPLY_PARAMS(A)>
         struct apply
@@ -91,14 +75,14 @@ namespace pstade {
             typedef ::pstade::function<PSTADE_UNPARENTHESIZE(Baby)> op; \
         } \
         typedef BOOST_PP_CAT(pstade_function_workarea_of_, Object)::op BOOST_PP_CAT(op_, Object); \
-        PSTADE_CONSTANT( Object, (BOOST_PP_CAT(op_, Object)) ) \
+        PSTADE_CONSTANT(Object, (BOOST_PP_CAT(op_, Object))) \
     /**/
 
 
 } // namespace pstade
 
 
-PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE((pstade)(function), 1)
+PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE((pstade)(function), 2)
 
 
 #endif

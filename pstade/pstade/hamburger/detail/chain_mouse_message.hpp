@@ -13,8 +13,8 @@
 #include <boost/foreach.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/oven/copy_range.hpp>
-#include <pstade/oven/reverse_range.hpp>
-#include <pstade/oven/sort_range.hpp>
+#include <pstade/oven/reversed.hpp>
+#include <pstade/oven/sorted.hpp>
 #include <pstade/tomato/boolean_cast.hpp>
 #include <pstade/tomato/get.hpp>
 #include <pstade/tomato/make.hpp>

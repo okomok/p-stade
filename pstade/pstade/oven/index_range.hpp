@@ -14,9 +14,9 @@
 #include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
 #include "./as_lightweight_proxy.hpp"
-#include "./count_range.hpp"
+#include "./counting.hpp"
 #include "./range_base.hpp"
-#include "./transform_range.hpp"
+#include "./transformed.hpp"
 
 
 namespace pstade { namespace oven {

@@ -154,7 +154,7 @@ void test_istream_range()
 
 void test_single_range()
 {
-    BOOST_CHECK( oven::equals(oven::make_single_range('a'), std::string("a")) );
+    BOOST_CHECK( oven::equals(oven::make_single('a'), std::string("a")) );
 }
 
 

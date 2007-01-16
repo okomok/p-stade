@@ -13,13 +13,27 @@
 #include "./algorithm.hpp"
 #include "./numeric.hpp"
 
+
 #include "./adapted_to_base.hpp"
 #include "./begin_end.hpp"
 #include "./copy_range.hpp"
 #include "./distance.hpp"
 #include "./equals.hpp"
 
+
+#include "./as_array.hpp"
+#include "./as_literal.hpp"
+#include "./as_single.hpp"
+// #include "./compile.hpp"
+#include "./counting.hpp"
+#include "./generation.hpp"
+#include "./iteration.hpp"
+// #include "./paralell.hpp"
+#include "./stream_input.hpp"
+
+
 #include "./to_counter.hpp"
+#include "./to_function.hpp"
 #include "./to_stream.hpp"
 #include "./to_utf8_encoder.hpp"
 

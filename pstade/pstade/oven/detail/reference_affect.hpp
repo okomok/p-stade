@@ -12,7 +12,7 @@
 
 // See:
 //
-// The Note of "../transform_range.hpp".
+// The Note of "../transformed.hpp".
 
 
 #include <boost/mpl/apply.hpp>

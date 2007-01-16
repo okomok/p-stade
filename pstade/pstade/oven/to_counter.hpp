@@ -13,7 +13,7 @@
 #include <boost/utility/result_of.hpp>
 #include <pstade/function.hpp>
 #include <pstade/pass_by.hpp>
-#include "./function_output_iterator.hpp"
+#include "./to_function.hpp"
 
 
 namespace pstade { namespace oven {
