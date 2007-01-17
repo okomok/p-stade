@@ -18,8 +18,8 @@
 #include <functional>
 #include <string>
 #include <boost/range.hpp>
-#include <pstade/oven/literal_range.hpp>
-#include <pstade/oven/transform_range.hpp>
+#include <pstade/oven/as_literal.hpp>
+#include <pstade/oven/transformed.hpp>
 
 
 using namespace pstade;

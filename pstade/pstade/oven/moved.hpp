@@ -22,7 +22,7 @@
 
 #include <boost/move.hpp>
 #include <boost/mpl/if.hpp>
-#include <pstade/object_generator.hpp>
+#include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
 #include "./concepts.hpp"
 #include "./range_value.hpp"
@@ -62,7 +62,7 @@ namespace moved_detail {
 
         typedef typename
             boost::result_of<
-                op_make_transformed(Range&, fun_t)
+                op_make_transformed<>(Range&, fun_t)
             >::type
         result;
 
@@ -76,7 +76,7 @@ namespace moved_detail {
 } // namespace moved_detail
 
 
-PSTADE_OBJECT_GENERATOR(make_moved, (moved_detail::baby<_>))
+PSTADE_FUNCTION(make_moved, (moved_detail::baby<_>))
 PSTADE_PIPABLE(moved, (op_make_moved))
 
 

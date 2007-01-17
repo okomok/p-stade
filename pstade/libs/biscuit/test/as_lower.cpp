@@ -17,7 +17,7 @@
 #include <string>
 #include <vector>
 #include <pstade/oven/algorithm.hpp> // copy
-#include <pstade/oven/literal_range.hpp>
+#include <pstade/oven/as_literal.hpp>
 
 
 void test()

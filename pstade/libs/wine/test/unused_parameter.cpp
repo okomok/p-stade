@@ -2,7 +2,7 @@
 #include <boost/test/minimal.hpp>
 
 
-// PStade.Oven
+// PStade.Wine
 //
 // Copyright Shunsuke Sogame 2005-2006.
 // Distributed under the Boost Software License, Version 1.0.
@@ -10,22 +10,22 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/tests.hpp>
-#include <pstade/oven/constants.hpp>
+#include <pstade/unused_parameter.hpp>
 
 
-#include <boost/range/begin.hpp>
+using namespace pstade;
+
+
+void foo(unused_parameter = 0, unused_parameter = 0)
+{
+}
 
 
 void test()
 {
-    namespace oven = pstade::oven;
-    using namespace oven;
-
-    {
-        std::string rng("abc");
-        *boost::begin(rng|constants) = 'z';
-    }
+    ::foo();
+    ::foo(1);
+    ::foo('a', 1.0);
 }
 
 

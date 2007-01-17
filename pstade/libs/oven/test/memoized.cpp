@@ -40,7 +40,7 @@ void test()
         ss << ans;
         std::vector<char> expected = ans|copied;
         BOOST_CHECK( oven::test_Forward_Readable(
-            oven::make_istream_range<char>(ss)|memoized,
+            oven::stream_input<char>(ss)|memoized,
             expected
         ) );
     }

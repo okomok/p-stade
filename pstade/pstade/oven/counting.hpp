@@ -11,17 +11,40 @@
 
 
 #include <limits> // numeric_limits
+#include <boost/assert.hpp>
 #include <boost/iterator/counting_iterator.hpp>
+#include <boost/iterator/iterator_categories.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/function.hpp>
 #include <pstade/pass_by.hpp>
+#include <pstade/unused.hpp>
 #include <pstade/use_default.hpp>
 #include "./iter_range.hpp"
 
 
 namespace pstade { namespace oven {
+
+
+namespace counting_detail {
+
+
+    template< class I, class J > inline
+    bool is_valid(I& i, J& j, boost::single_pass_traversal_tag)
+    {
+        unused(i, j);
+        return true;
+    }
+
+    template< class I, class J > inline
+    bool is_valid(I& i, J& j, boost::random_access_traversal_tag)
+    {
+        return J(i) <= j;
+    }
+
+
+} // namespace counting_detail
 
 
 template<
@@ -42,13 +65,15 @@ struct op_counting :
         inc_t;
 
         typedef
-            iter_range<
-                boost::counting_iterator<
-                    inc_t,
-                    CategoryOrTraversal,
-                    Difference
-                >
-            > const
+            boost::counting_iterator<
+                inc_t,
+                CategoryOrTraversal,
+                Difference
+            >
+        iter_t;
+
+        typedef
+            iter_range<iter_t> const
         type;
     };
 
@@ -56,6 +81,8 @@ struct op_counting :
     Result call(I& i, J& j) const
     {
         typedef typename Result::iterator iter_t;
+        typedef typename boost::iterator_traversal<iter_t>::type trv_t;
+        BOOST_ASSERT( counting_detail::is_valid(i, j, trv_t()) );
         return Result(iter_t(i), iter_t(j));
     }
 };

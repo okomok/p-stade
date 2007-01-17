@@ -11,8 +11,9 @@
 
 
 #include <pstade/oven/tests.hpp>
+#if defined(BOOST_MSVC)
 #include <pstade/oven/mb_decoded.hpp>
-
+#endif
 
 #include <string>
 #include <boost/range.hpp>

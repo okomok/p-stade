@@ -43,19 +43,19 @@ void test()
     {
         int const ans[] = { 0,4,8,12 };
         BOOST_CHECK( oven::equals(ans,
-            oven::count_to(16)|sliced(0, 4)
+            oven::counting(0, 16)|sliced(0, 4)
         ) );
 
-        BOOST_FOREACH (int x, oven::count_to(16)|sliced(0, 4)) {
+        BOOST_FOREACH (int x, oven::counting(0, 16)|sliced(0, 4)) {
             std::cout << x << std::endl;
         }
 #if 0
         BOOST_CHECK( 4 ==
-            (oven::count_to(16)|sliced(0, 4)).stride()
+            (oven::counting(0, 16)|sliced(0, 4)).stride()
         );
 
         BOOST_CHECK( 0 ==
-            (oven::count_to(16)|sliced(0, 4)).start()
+            (oven::counting(0, 16)|sliced(0, 4)).start()
         );
 #endif
     }
@@ -63,21 +63,21 @@ void test()
     {
         int const ans[] = { 2,6,10,14 };
         BOOST_CHECK( oven::equals(ans,
-            oven::count_to(16)|advanced(2, 2)|sliced(0, 4)
+            oven::counting(0, 16)|advanced(2, 2)|sliced(0, 4)
         ) );
     }
 
     {
         int const answer[] = { 2,6,10,14 };
         BOOST_CHECK( oven::equals(answer,
-            oven::make_count_range(0, 16)|sliced(2, 4)
+            oven::counting(0, 16)|sliced(2, 4)
         ) );
     }
 
     {
         int const answer[] = { 2,6,10,14 };
         BOOST_CHECK( oven::equals(answer,
-            oven::make_count_range(0, 16)|sliced(2, 4)
+            oven::counting(0, 16)|sliced(2, 4)
         ) );
     }
 }

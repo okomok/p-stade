@@ -22,7 +22,7 @@
 #include <boost/range.hpp>
 #include <boost/noncopyable.hpp>
 #include <pstade/oven/functions.hpp>
-#include <pstade/oven/function_output_iterator.hpp>
+#include <pstade/oven/to_function.hpp>
 #include <pstade/oven/counting.hpp>
 #include <pstade/nullptr.hpp>
 

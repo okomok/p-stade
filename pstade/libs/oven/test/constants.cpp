@@ -41,7 +41,7 @@ void legacy_way(Range const& rng)
 template< class Range >
 void modern_way(Range& rng)
 {
-    typename boost::result_of<op_make_constant(Range&)>::type safe_rng
+    typename boost::result_of<op_make_constants(Range&)>::type safe_rng
         = make_constants(rng);
     *boost::begin(safe_rng) = 'x';
 }

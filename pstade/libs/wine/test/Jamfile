@@ -68,6 +68,7 @@ test-suite wine :
     [ wine-test unfuse ]
     [ wine-test unparenthesize ]
     [ wine-test unused ]
+    [ wine-test unused_parameter ]
     [ wine-test unused_to_copy ]
     [ wine-test use_default ]
     [ wine-test value ]

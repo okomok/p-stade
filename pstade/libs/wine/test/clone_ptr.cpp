@@ -33,7 +33,7 @@
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/core.hpp>
 #include <boost/optional.hpp>
-#include <pstade/oven/indirect_range.hpp>
+#include <pstade/oven/indirected.hpp>
 #include <pstade/new_delete.hpp>
 #include <pstade/nonassignable.hpp>
 

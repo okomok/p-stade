@@ -161,7 +161,7 @@ public:
     template< class Profile, class CStringizable >
     string(Profile& pr, CStringizable const& valueName, std::ptrdiff_t bufsz = 256) :
         init_t(pr, tomato::c_str(valueName), bufsz),
-        super_t(m_buf)
+        super_t(oven::make_null_terminated(m_buf))
     { }
 
     friend

@@ -101,7 +101,7 @@ void test()
         int const ans[] = { 5,4,3,2,1,0 };
         BOOST_CHECK((
             oven::equals(
-                oven::count_to(6)|reversed,
+                oven::counting(0, 6)|reversed,
                 ans
             )
         ));

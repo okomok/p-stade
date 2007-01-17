@@ -28,9 +28,9 @@ void test()
     using namespace oven;
 
     {
-        std::vector<int> vec = oven::make_count_range(3, 9)|copied;
+        std::vector<int> vec = oven::counting(3, 9)|copied;
         vec.push_back(9);
-        BOOST_CHECK( oven::equals(vec, oven::make_count_range(3, 10)) );
+        BOOST_CHECK( oven::equals(vec, oven::counting(3, 10)) );
     }
 
     {
@@ -104,7 +104,7 @@ std::vector<char> fun()
 {
     using namespace pstade;
     using namespace oven;
-    return oven::make_count_range(3, 10)|copied;
+    return oven::counting(3, 10)|copied;
 }
 
 

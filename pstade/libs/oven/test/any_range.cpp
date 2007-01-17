@@ -33,6 +33,8 @@
 #include <pstade/locale.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/core.hpp>
+#include <pstade/oven/identities.hpp>
+#include <pstade/oven/const_lvalues.hpp>
 
 
 template< class AnyIter1, class AnyIter2 >

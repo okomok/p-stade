@@ -19,8 +19,8 @@
 #include <boost/range.hpp>
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/jointed.hpp>
-#include <pstade/oven/single.hpp>
-#include <pstade/oven/c_str.hpp>
+#include <pstade/oven/as_single.hpp>
+#include <pstade/oven/as_c_str.hpp>
 
 
 void test()

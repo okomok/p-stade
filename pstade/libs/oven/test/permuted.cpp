@@ -41,7 +41,7 @@ void test()
         // 'permute_iterator' can work with 'counting_iterator'
         // which manage reference by itself.
         BOOST_CHECK( oven::test_RandomAccess_Readable(
-            oven::count_to(10)|permuted(ind),
+            oven::counting(0, 10)|permuted(ind),
             expected
         ) );
     }

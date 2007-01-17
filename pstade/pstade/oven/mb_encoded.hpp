@@ -38,7 +38,7 @@ namespace mb_encoded_detail {
 
         result call(Range& rng)
         {
-            returnr result(rng);
+            return result(rng);
         }
     };
 

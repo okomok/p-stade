@@ -15,8 +15,8 @@
 
 #include <string>
 #include <pstade/oven/functions.hpp>
-#include <pstade/oven/filter_range.hpp>
-#include <pstade/oven/transform_range.hpp>
+#include <pstade/oven/filtered.hpp>
+#include <pstade/oven/transformed.hpp>
 
 
 void test()

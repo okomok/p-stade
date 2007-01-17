@@ -17,6 +17,7 @@
 
 #include <boost/range/empty.hpp>
 #include <boost/thread/thread.hpp>
+#include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include "./algorithm.hpp" // for_each
@@ -57,8 +58,8 @@ namespace parallel_detail {
             // We don't need to call 'adapted_to' or something.
             // 'taken' and 'dropped' applied to ForwardRange
             // fortunately return a type convertible to 'IterRange'.
-            take_range<IterRange> rngL(m_rng, dist/2);
-            drop_range<IterRange> rngR(m_rng, dist/2);
+            typename boost::result_of<op_make_taken(IterRange&)>::type rngL = make_taken(m_rng, dist/2);
+            typename boost::result_of<op_make_dropped(IterRange&>::type rngR = make_dropped(m_rng, dist/2);
 
             boost::thread thrdL(op_for_each(rngL, m_fun, m_grain));
             boost::thread thrdR(op_for_each(rngR, m_fun, m_grain));

@@ -46,7 +46,7 @@ namespace sub_set_detail {
 
     template< class Range >
     struct super_ :
-        boost::result_of<op_make_indirected(typename storage<Range>::type&)>
+        boost::result_of<op_make_indirected<>(typename storage<Range>::type&)>
     { };
 
 

@@ -11,7 +11,7 @@
 
 
 #include <pstade/oven/tests.hpp>
-#include <pstade/oven/function_output_iterator.hpp>
+#include <pstade/oven/to_function.hpp>
 
 
 #include <iterator>

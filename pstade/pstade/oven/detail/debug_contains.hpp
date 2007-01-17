@@ -12,6 +12,7 @@
 
 #include <iterator> // tags
 #include <boost/range/end.hpp>
+#include <boost/utility/result_of.hpp>
 #include <pstade/for_debug.hpp>
 #include <pstade/unused.hpp>
 #include "../algorithm.hpp" // find
@@ -36,7 +37,7 @@ bool debug_contains_aux(Range& rng, Iterator const& it, std::forward_iterator_ta
     if (it == boost::end(rng))
         return true;
 
-    direct_range<Range> drng(rng);
+    typename boost::result_of<op_make_directed(Range&)>::type drng = make_directed(rng);
     return oven::find(drng, it) != boost::end(drng);
 }
 

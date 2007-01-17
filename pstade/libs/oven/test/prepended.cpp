@@ -17,7 +17,7 @@
 #include <string>
 #include <vector>
 #include <pstade/oven/functions.hpp>
-#include <pstade/oven/single.hpp>
+#include <pstade/oven/as_single.hpp>
 
 
 void test()

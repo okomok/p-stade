@@ -19,7 +19,7 @@
 #include <boost/foreach.hpp>
 #include <boost/range.hpp>
 #include <pstade/oven/functions.hpp>
-#include <pstade/oven/literal_range.hpp>
+#include <pstade/oven/as_literal.hpp>
 
 
 using namespace pstade;
