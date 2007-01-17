@@ -33,6 +33,9 @@ void test()
     {
         BOOST_CHECK(oven::test_RandomAccess_Readable("hello, array_protect_range"|as_array, expected));
     }
+    {
+        BOOST_CHECK(oven::equals(std::string("abcd"), std::string("abcd")|as_array));
+    }
 }
 
 

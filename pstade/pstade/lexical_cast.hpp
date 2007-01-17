@@ -11,6 +11,7 @@
 
 
 #include <boost/lexical_cast.hpp>
+#include <boost/utility/result_of.hpp>
 #include <pstade/automatic.hpp>
 #include <pstade/pipable.hpp>
 
@@ -31,7 +32,15 @@ namespace pstade {
     };
 
 
-    PSTADE_PIPABLE(lexicalized, (automatic<op_lexical_cast<boost::mpl::_1> >))
+    template<class To, class From> inline
+    typename boost::result_of<op_lexical_cast<To>(From const&)>::type
+    lexical_cast(From const& from)
+    {
+        return op_lexical_cast<To>()(from);
+    }
+
+
+    PSTADE_PIPABLE(lexicalized, (automatic< op_lexical_cast<boost::mpl::_> >))
 
 
 } // namespace pstade

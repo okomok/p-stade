@@ -30,9 +30,7 @@
 namespace pstade { namespace oven {
 
 
-template<
-    class Type
->
+template< class Type >
 struct op_make_broken_into :
     callable< op_make_broken_into<Type> >
 {

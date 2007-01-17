@@ -2,7 +2,7 @@ std::stringstream ss;
 ss << "hello, memoized!";
 
 ::very_complicated_algorithm(
-    oven::make_istream_range<char>(ss)
+    oven::stream_input<char>(ss)
         | memoized
         | directed
         | indirected

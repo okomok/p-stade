@@ -53,7 +53,7 @@ void test()
 
         BOOST_CHECK((
             boost::lexical_cast<int, std::string>(
-                boost::lexical_cast<int, std::string>(
+                pstade::lexical_cast<int, std::string>(
                     12|lexicalized
                 )|lexicalized
             ) == 12

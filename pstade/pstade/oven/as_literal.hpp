@@ -13,19 +13,16 @@
 // What:
 //
 // http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html#as-literal
-// Oven's 'as_literal' supports only const array types.
-// Consider "hello\0secret".
-// What should 'boost::to_upper("hello\0secret")' do?
-// So Oven has another function 'as_c_str'.
-// "hello\0secret"|as_literal      == *hello\0secret*
-// "hello\0secret"|as_c_str        == *hello*
-// "hello\0secret"|array_protected == *hello\0secret\0*
+//
+// "hello\0secret"|as_literal == *hello\0secret*
+// "hello\0secret"|as_c_str   == *hello*
+// "hello\0secret"|as_array   == *hello\0secret\0*
 
 
 #include <cstddef> // size_t
-#include <boost/type_traits/remove_extent.hpp>
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
+#include "./as_array.hpp" // to_range
 #include "./iter_range.hpp"
 
 
@@ -35,11 +32,11 @@ namespace pstade { namespace oven {
 namespace as_literal_detail {
 
 
-    template< class Array >
+    template< class MaybeArray >
     struct baby
     {
-        typedef
-            iter_range<typename boost::remove_extent<Array>::type *> const
+        typedef typename
+            as_array_detail::to_range<MaybeArray>::type
         result;
 
         template< class T, std::size_t sz >
@@ -47,6 +44,12 @@ namespace as_literal_detail {
         {
             // cast precisely for enabler.
             return result(static_cast<T *>(arr), static_cast<T *>(arr) + sz - 1);
+        }
+
+        template< class Range >
+        result call(Range& rng)
+        {
+            return rng;
         }
     };
 

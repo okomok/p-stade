@@ -44,7 +44,7 @@ namespace pstade {
     }
 
 
-    PSTADE_PIPABLE(to_integer, (automatic< op_integral_cast<boost::mpl::_1> >))
+    PSTADE_PIPABLE(to_integer, (automatic< op_integral_cast<boost::mpl::_> >))
 
 
 } // namespace pstade

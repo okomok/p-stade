@@ -59,6 +59,9 @@ void test()
             std::string("hello")|jointed('\0'|as_single)|jointed(std::string("range"))
         ) );
     }
+    {
+        BOOST_CHECK(oven::equals(std::string("abcd"), std::string("abcd")|as_literal));
+    }
 }
 
 
