@@ -30,8 +30,6 @@ namespace adjacent_filtered_detail {
     template< class Range, class BinaryPred >
     struct baby
     {
-        PSTADE_CONCEPT_ASSERT((Forward<Range>));
-
         typedef
             adjacent_filter_iterator<
                 typename range_iterator<Range>::type,
@@ -45,6 +43,8 @@ namespace adjacent_filtered_detail {
 
         result call(Range& rng, BinaryPred& pred)
         {
+            PSTADE_CONCEPT_ASSERT((Forward<Range>));
+
             return result(
                iter_t(boost::begin(rng), pred, boost::begin(rng), boost::end(rng)),
                iter_t(boost::end(rng),   pred, boost::begin(rng), boost::end(rng))

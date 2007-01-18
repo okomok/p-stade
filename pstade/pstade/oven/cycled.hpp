@@ -31,8 +31,6 @@ namespace cycled_detail {
     template< class Range, class Size >
     struct baby
     {
-        PSTADE_CONCEPT_ASSERT((Forward<Range>));
-
         typedef
             cycle_iterator<
                 typename range_iterator<Range>::type,
@@ -46,6 +44,8 @@ namespace cycled_detail {
 
         result call(Range& rng, Size& sz)
         {
+            PSTADE_CONCEPT_ASSERT((Forward<Range>));
+    
             return result(
                 iter_t(boost::begin(rng), 0,  boost::begin(rng), boost::end(rng)),
                 iter_t(boost::begin(rng), sz, boost::begin(rng), boost::end(rng))

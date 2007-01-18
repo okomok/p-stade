@@ -33,14 +33,13 @@ namespace popped_detail {
     template< class Range >
     struct baby
     {
-        PSTADE_CONCEPT_ASSERT((Forward<Range>));
-
         typedef typename
             sub_range_result<Range>::type
         result;
 
         result call(Range& rng)
         {
+            PSTADE_CONCEPT_ASSERT((Forward<Range>));
             return result(boost::begin(rng), detail::range_prior(rng));
         }
     };

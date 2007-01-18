@@ -32,9 +32,6 @@ struct op_make_utf8_decoded :
     template< class Myself, class Range >
     struct apply
     {
-        PSTADE_CONCEPT_ASSERT((Bidirectional<Range>));
-        // PSTADE_CONCEPT_ASSERT((Readable<Range>));
-
         typedef
             iter_range<
                 boost::u8_to_u32_iterator<
@@ -48,6 +45,8 @@ struct op_make_utf8_decoded :
     template< class Result, class Range >
     Result call(Range& rng) const
     {
+        PSTADE_CONCEPT_ASSERT((Bidirectional<Range>));
+        // PSTADE_CONCEPT_ASSERT((Readable<Range>));
         return Result(rng);
     }
 };

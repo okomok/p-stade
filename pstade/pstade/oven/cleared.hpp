@@ -26,14 +26,13 @@ namespace cleared_detail {
     template< class Range >
     struct baby
     {
-        PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-
         typedef typename
             sub_range_result<Range>::type
         result;
 
         result call(Range& rng)
         {
+            PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
             return result(boost::end(rng), boost::end(rng));
         }
     };

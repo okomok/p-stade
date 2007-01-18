@@ -23,34 +23,41 @@
 namespace pstade { namespace oven {
 
 
-template< class ElementRange, class IndexRange >
-struct baby_make_permuted
-{
-    PSTADE_CONCEPT_ASSERT((RandomAccess<ElementRange>));
-    PSTADE_CONCEPT_ASSERT((SinglePass<IndexRange>));
-    // PSTADE_CONCEPT_ASSERT((Readable<IndexRange>));
+namespace permuted_detail {
 
-    typedef
-        permute_iterator<
-            typename range_iterator<ElementRange>::type,
-            typename range_iterator<IndexRange>::type
-        >
-    iter_t;
-    
-    typedef
-        iter_range<iter_t> const
-    result;
 
-    result call(ElementRange& erng, IndexRange& irng)
+    template< class ElementRange, class IndexRange >
+    struct baby
     {
-        return result(
-            iter_t(boost::begin(erng), boost::begin(irng)),
-            iter_t(boost::begin(erng), boost::end(irng)) // never pass 'boost::end(erng)'.
-        );
-    }
-};
+        typedef
+            permute_iterator<
+                typename range_iterator<ElementRange>::type,
+                typename range_iterator<IndexRange>::type
+            >
+        iter_t;
+        
+        typedef
+            iter_range<iter_t> const
+        result;
 
-PSTADE_FUNCTION(make_permuted, (baby_make_permuted<_, _>))
+        result call(ElementRange& erng, IndexRange& irng)
+        {
+            PSTADE_CONCEPT_ASSERT((RandomAccess<ElementRange>));
+            PSTADE_CONCEPT_ASSERT((SinglePass<IndexRange>));
+            // PSTADE_CONCEPT_ASSERT((Readable<IndexRange>));
+
+            return result(
+                iter_t(boost::begin(erng), boost::begin(irng)),
+                iter_t(boost::begin(erng), boost::end(irng)) // never pass 'boost::end(erng)'.
+            );
+        }
+    };
+
+
+} // namespace permuted_detail
+
+
+PSTADE_FUNCTION(make_permuted, (permuted_detail::baby<_, _>))
 PSTADE_PIPABLE(permuted, (op_make_permuted))
 
 

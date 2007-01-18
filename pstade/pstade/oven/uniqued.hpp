@@ -27,8 +27,6 @@ namespace uniqued_detail {
     template< class Range >
     struct baby
     {
-        PSTADE_CONCEPT_ASSERT((Forward<Range>));
-
         typedef typename
             boost::result_of<
                 op_make_adjacent_filtered(Range&, typename boost::result_of<op_not(op_equal_to const&)>::type)
@@ -37,6 +35,7 @@ namespace uniqued_detail {
 
         result call(Range& rng)
         {
+            PSTADE_CONCEPT_ASSERT((Forward<Range>));
 	        return make_adjacent_filtered(rng, not_(equal_to));
         }
     };

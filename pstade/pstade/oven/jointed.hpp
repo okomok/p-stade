@@ -29,9 +29,6 @@ namespace jointed_detail {
     template< class RangeL, class RangeR >
     struct baby
     {
-        PSTADE_CONCEPT_ASSERT((Forward<RangeL>));
-        PSTADE_CONCEPT_ASSERT((Forward<RangeR>));
-
         typedef
             joint_iterator<
                 typename range_iterator<RangeL>::type,
@@ -45,6 +42,9 @@ namespace jointed_detail {
 
         result call(RangeL& rngL, RangeR& rngR)
         {
+            PSTADE_CONCEPT_ASSERT((Forward<RangeL>));
+            PSTADE_CONCEPT_ASSERT((Forward<RangeR>));
+
             return result(
                 oven::make_joint_left_iterator(boost::begin(rngL), boost::end(rngL), boost::begin(rngR)),
                 oven::make_joint_right_iterator(boost::end(rngL), boost::begin(rngR), boost::end(rngR))

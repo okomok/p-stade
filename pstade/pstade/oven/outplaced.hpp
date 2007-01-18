@@ -49,24 +49,21 @@ struct op_make_outplaced :
     };
 
     template< class Myself, class Range, class UnaryFun = op_unused >
-    struct apply
-    {
-        PSTADE_CONCEPT_ASSERT((Forward<Range>));
-
-        typedef
-            typename boost::result_of<
-                op_make_indirected<>(
-                    typename boost::result_of<
-                        op_make_shared(typename iter_sequence<Range>::type *)
-                    >::type
-                )
-            >::type
-        type;
-    };
+    struct apply :
+        boost::result_of<
+            op_make_indirected<>(
+                typename boost::result_of<
+                    op_make_shared(typename iter_sequence<Range>::type *)
+                >::type
+            )
+        >
+    { };
 
     template< class Result, class Range, class UnaryFun >
     Result call(Range& rng, UnaryFun& fun) const
     {
+        PSTADE_CONCEPT_ASSERT((Forward<Range>));
+
         typedef typename iter_sequence<Range>::type iter_seq_t;
 
         // 'shared' range size never be affected by its holding sequence

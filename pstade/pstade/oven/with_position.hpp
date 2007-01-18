@@ -30,9 +30,6 @@ struct op_make_with_position :
     template< class Myself, class Range, class PositionT = boost::spirit::file_position >
     struct apply
     {
-        PSTADE_CONCEPT_ASSERT((Forward<Range>));
-        // PSTADE_CONCEPT_ASSERT((Readable<Range>));
-
         typedef
             iter_range<
                 boost::spirit::position_iterator2< // 2!
@@ -46,6 +43,9 @@ struct op_make_with_position :
     template< class Result, class Range, class PositionT >
     Result call(Range& rng, PositionT const& pos, int tabchars = 4) const
     {
+        PSTADE_CONCEPT_ASSERT((Forward<Range>));
+        // PSTADE_CONCEPT_ASSERT((Readable<Range>));
+
         typedef typename Result::iterator iter_t;
         iter_t first(boost::begin(rng), boost::end(rng), pos);
         first.set_tabchars(tabchars);

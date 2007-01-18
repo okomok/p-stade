@@ -11,12 +11,19 @@
 
 
 #include <pstade/oven/tests.hpp>
-#include <pstade/oven/sub_set.hpp>
 
 
 #include <string>
-#include <vector>
-#include <pstade/oven/functions.hpp>
+#include <boost/utility/result_of.hpp>
+#include <pstade/locale.hpp>
+#include <pstade/oven/equals.hpp>
+#include <pstade/oven/filtered.hpp>
+
+
+bool is_upper(char ch)
+{
+    return pstade::is_upper(ch);
+}
 
 
 void test()
@@ -24,12 +31,11 @@ void test()
     namespace oven = pstade::oven;
     using namespace oven;
 
-    {
-        std::string src("abcde");
-        std::string::iterator its[] = { boost::begin(src), boost::begin(src)+2, boost::begin(src)+4 };
-        oven::sub_set<std::string> ss2(its);
-        BOOST_CHECK( oven::equals(ss2, std::string("ace")) );
-    }
+    std::string src("hello, specification");
+
+    boost::result_of<op_make_filtered(std::string&, bool(*)(char))>::type result
+        = make_filtered(src, &is_upper);
+    BOOST_CHECK( equals(result, src|filtered(&is_upper)) );
 }
 
 

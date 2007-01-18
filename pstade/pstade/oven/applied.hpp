@@ -31,19 +31,19 @@ struct op_make_applied :
     template< class Myself, class Range, class, class = void >
     struct apply :
         sub_range_result<Range>
-    {
-        PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-    };
+    { };
 
     template< class Result, class Range, class Begin, class End >
     Result call(Range& rng, Begin& begin, End& end) const
     {
+        PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
         return Result(begin(rng), end(rng));
     }
 
     template< class Result, class Range, class MakeRange >
     Result call(Range& rng, MakeRange& make) const
     {
+        PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
         return Result(make(rng));
     }
 };

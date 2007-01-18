@@ -31,9 +31,6 @@ struct op_make_xpressive_tokenized :
     template< class Myself, class Range, class Regex, class SubMatches = void >
     struct apply
     {
-        PSTADE_CONCEPT_ASSERT((Bidirectional<Range>));
-        // PSTADE_CONCEPT_ASSERT((Readable<Range>));
-
         typedef
             boost::xpressive::regex_token_iterator<
                 // Xpressive seems not to support a mutable iterator.
@@ -50,6 +47,9 @@ struct op_make_xpressive_tokenized :
     template< class Result, class Range, class Regex >
     Result call(Range& rng, Regex& re) const
     {
+        PSTADE_CONCEPT_ASSERT((Bidirectional<Range>));
+        // PSTADE_CONCEPT_ASSERT((Readable<Range>));
+
         typedef typename Result::iterator iter_t;
         return Result(
             iter_t(boost::begin(rng), boost::end(rng), re),

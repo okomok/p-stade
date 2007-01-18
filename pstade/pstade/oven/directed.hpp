@@ -29,8 +29,6 @@ namespace directed_detail {
     template< class Range >
     struct baby
     {
-        PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-
         typedef typename
             range_iterator<Range>::type
         iter_t;
@@ -43,6 +41,7 @@ namespace directed_detail {
 
         result call(Range& rng)
         {
+            PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
             return counting(boost::begin(rng), boost::end(rng));
         }
     };

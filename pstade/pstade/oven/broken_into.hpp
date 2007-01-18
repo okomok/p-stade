@@ -37,8 +37,6 @@ struct op_make_broken_into :
     template< class Myself, class Range, class TokenizerFun >
     struct apply
     {
-        PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-
         typedef
             boost::token_iterator<
                 typename pass_by_value<TokenizerFun>::type,
@@ -55,6 +53,8 @@ struct op_make_broken_into :
     template< class Result, class Range, class TokenizerFun >
     Result call(Range& rng, TokenizerFun& fun) const
     {
+        PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+
         typedef typename Result::iterator iter_t;
         return Result(
             iter_t(fun, boost::begin(rng), boost::end(rng)),

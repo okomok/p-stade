@@ -44,8 +44,6 @@ struct op_make_adjacent_transformed :
     template< class Myself, class Range, class BinaryFun >
     struct apply
     {
-        PSTADE_CONCEPT_ASSERT((Forward<Range>));
-
         typedef
             adjacent_transform_iterator<
                 typename range_iterator<Range>::type,
@@ -61,6 +59,8 @@ struct op_make_adjacent_transformed :
     template< class Result, class Range, class BinaryFun >
     Result call(Range& rng, BinaryFun& fun) const
     {
+        PSTADE_CONCEPT_ASSERT((Forward<Range>));
+
         return Result(
             oven::make_adjacent_transform_begin_iterator<Reference, Value>(boost::begin(rng), boost::end(rng), fun),
             oven::make_adjacent_transform_end_iterator  <Reference, Value>(boost::begin(rng), boost::end(rng), fun)

@@ -29,8 +29,6 @@ namespace rotated_detail {
     template< class Range, class >
     struct baby
     {
-        PSTADE_CONCEPT_ASSERT((Forward<Range>));
-
         typedef typename
             sub_range_base<Range>::type
         rng_t;
@@ -44,6 +42,8 @@ namespace rotated_detail {
         template< class MiddleFun >
         result call(Range& rng, MiddleFun& fun)
         {
+            PSTADE_CONCEPT_ASSERT((Forward<Range>));
+
             typename range_iterator<Range>::type mid = fun(rng);
             return make_jointed(rng_t(mid, boost::end(rng)), rng_t(boost::begin(rng), mid));
         }

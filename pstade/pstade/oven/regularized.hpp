@@ -26,9 +26,6 @@ namespace regularized_detail {
     template< class Range >
     struct baby
     {
-        // Iterator here can be neither Assignable nor DefaultConstructible.
-        // PSTADE_CONCEPT_ASSERT((*Broken*SinglePass<Range>));
-
         typedef
             regularize_iterator<
                 typename range_iterator<Range>::type
@@ -41,6 +38,9 @@ namespace regularized_detail {
 
         result call(Range& rng)
         {
+            // Iterator here can be neither Assignable nor DefaultConstructible.
+            // PSTADE_CONCEPT_ASSERT((*Broken*SinglePass<Range>));
+
             return result(rng);
         }
     };

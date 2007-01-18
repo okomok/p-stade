@@ -36,8 +36,6 @@ namespace seconds_detail {
     template< class PairRange >
     struct baby
     {
-        PSTADE_CONCEPT_ASSERT((SinglePass<PairRange>));
-
         typedef typename
             detail::reference_affect<
                 PairRange,
@@ -53,6 +51,7 @@ namespace seconds_detail {
 
         result call(PairRange& rng)
         {
+            PSTADE_CONCEPT_ASSERT((SinglePass<PairRange>));
             return op_make_transformed<ref_t>()(rng, at_second);
         }
     };

@@ -39,8 +39,6 @@ namespace sliced_detail {
     template< class Range, class, class >
     struct baby
     {
-        PSTADE_CONCEPT_ASSERT((RandomAccess<Range>));
-
         typedef
             slice_iterator<
                 typename range_iterator<Range>::type
@@ -54,6 +52,7 @@ namespace sliced_detail {
         template< class Difference >
         result call(Range& rng, Difference start, Difference stride)
         {
+            PSTADE_CONCEPT_ASSERT((RandomAccess<Range>));
             BOOST_ASSERT((is_sliceable_with)(rng, stride));
 
             return result(

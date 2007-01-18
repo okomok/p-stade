@@ -32,8 +32,6 @@ namespace pointed_detail {
     template< class ContiguousRange >
     struct baby
     {
-        PSTADE_CONCEPT_ASSERT((RandomAccess<ContiguousRange>));
-
         typedef
             typename range_pointer<ContiguousRange>::type
         ptr_t;
@@ -44,6 +42,8 @@ namespace pointed_detail {
 
         result call(ContiguousRange& rng)
         {
+            PSTADE_CONCEPT_ASSERT((RandomAccess<ContiguousRange>));
+    
             if (boost::empty(rng))
                 return result(ptr_t(PSTADE_NULLPTR), ptr_t(PSTADE_NULLPTR));
 

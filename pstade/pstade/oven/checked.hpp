@@ -29,8 +29,6 @@ namespace checked_detail {
     template< class Range >
     struct baby
     {
-        PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-
         typedef
             check_iterator<typename range_iterator<Range>::type>
         iter_t;
@@ -41,6 +39,8 @@ namespace checked_detail {
 
         result call(Range& rng)
         {
+            PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+
             return result(
                 iter_t(boost::begin(rng), boost::begin(rng), boost::end(rng)),
                 iter_t(boost::end(rng),   boost::begin(rng), boost::end(rng))

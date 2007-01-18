@@ -29,16 +29,16 @@ namespace pstade { namespace oven {
 namespace as_single_detail {
 
 
-    template< class Value >
+    template< class X >
     struct baby
     {
         typedef
-            iter_range<Value *> const
+            iter_range<X *> const
         result;
 
-        result call(Value& v)
+        result call(X& x)
         {
-            return result(boost::addressof(v), boost::addressof(v) + 1);
+            return result(boost::addressof(x), boost::addressof(x) + 1);
         }
     };
 

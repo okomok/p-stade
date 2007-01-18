@@ -110,11 +110,6 @@ namespace generate_iterator_detail {
     template< class Generator, class Traversal >
     struct super_
     {
-        BOOST_MPL_ASSERT(( boost::mpl::or_<
-            boost::is_same<Traversal, boost::single_pass_traversal_tag>,
-            boost::is_same<Traversal, boost::forward_traversal_tag>
-        > ));
-
         typedef typename generator_result<Generator>::type result_t;
         typedef typename indirect_reference<result_t>::type ref_t;
         typedef typename remove_cvr<ref_t>::type val_t;
@@ -156,6 +151,11 @@ public:
     generate_iterator(Generator gen, boost::mpl::true_) :
         m_gen(gen), m_result()
     {
+        BOOST_MPL_ASSERT(( boost::mpl::or_<
+            boost::is_same<Traversal, boost::single_pass_traversal_tag>,
+            boost::is_same<Traversal, boost::forward_traversal_tag>
+        > ));
+
         generate();
     }
 

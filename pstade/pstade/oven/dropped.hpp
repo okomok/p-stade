@@ -28,8 +28,6 @@ namespace dropped_detail {
     template< class Range, class >
     struct baby
     {
-        PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-
         typedef typename
             sub_range_result<Range>::type
         result;
@@ -37,6 +35,8 @@ namespace dropped_detail {
         template< class Difference >
         result call(Range& rng, Difference& d)
         {
+            PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+
             BOOST_ASSERT(detail::debug_in_distance(d, rng));
             return result(detail::next(boost::begin(rng), d), boost::end(rng));
         }

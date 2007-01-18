@@ -36,11 +36,6 @@ namespace merged_detail {
         template< class Myself, class Range1, class Range2, class Compare = op_less >
         struct apply
         {
-            PSTADE_CONCEPT_ASSERT((SinglePass<Range1>));
-            // PSTADE_CONCEPT_ASSERT((Readable<Range1>));
-            PSTADE_CONCEPT_ASSERT((SinglePass<Range2>));
-            // PSTADE_CONCEPT_ASSERT((Readable<Range2>));
-
             typedef
                 merge_iterator<
                     typename range_iterator<Range1>::type,
@@ -58,6 +53,11 @@ namespace merged_detail {
         template< class Result, class Range1, class Range2, class Compare >
         Result call(Range1& rng1, Range2& rng2, Compare& comp) const
         {
+            PSTADE_CONCEPT_ASSERT((SinglePass<Range1>));
+            // PSTADE_CONCEPT_ASSERT((Readable<Range1>));
+            PSTADE_CONCEPT_ASSERT((SinglePass<Range2>));
+            // PSTADE_CONCEPT_ASSERT((Readable<Range2>));
+
             typedef typename Result::iterator iter_t;
             return Result(
                 iter_t(boost::begin(rng1), boost::end(rng1), boost::begin(rng2), boost::end(rng2), comp),

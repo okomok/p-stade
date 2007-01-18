@@ -118,8 +118,6 @@ namespace memoized_detail {
     template< class Range >
     struct baby
     {
-        PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-
         typedef typename
             boost::result_of<
                 op_make_multi_passed<input>(typename boost::result_of<op_make_checked(Range&)>::type)
@@ -128,6 +126,7 @@ namespace memoized_detail {
 
         result call(Range& rng)
         {
+            PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
             return op_make_multi_passed<input>()(make_checked(rng));
         }
     };

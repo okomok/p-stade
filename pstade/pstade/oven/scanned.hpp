@@ -32,9 +32,6 @@ struct op_make_scanned :
     template< class Myself, class Range, class State, class BinaryFun = op_plus >
     struct apply
     {
-        PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-        // PSTADE_CONCEPT_ASSERT((Readable<Range>));
-
         typedef
             iter_range<
                 scan_iterator<
@@ -49,6 +46,9 @@ struct op_make_scanned :
     template< class Result, class Range, class State, class BinaryFun >
     Result call(Range& rng, State& init, BinaryFun& fun) const
     {
+        PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+        // PSTADE_CONCEPT_ASSERT((Readable<Range>));
+
         typedef typename Result::iterator iter_t;
         return Result(
             iter_t(boost::begin(rng), init, fun),

@@ -27,8 +27,6 @@ namespace appended_detail {
     template< class Range, class Value >
     struct baby
     {
-        PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-
         typedef typename
             boost::result_of<
                 op_make_jointed(Range&, typename boost::result_of<op_make_as_single(Value&)>::type)
@@ -37,6 +35,7 @@ namespace appended_detail {
 
         result call(Range& rng, Value& v)
         {
+            PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
             return make_jointed(rng, make_as_single(v));
         }
     };

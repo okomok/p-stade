@@ -38,9 +38,6 @@ namespace filtered_detail {
     template< class Range, class Predicate >
     struct baby
     {
-        PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-        // PSTADE_CONCEPT_ASSERT((Readable<Range>));
-
         typedef
             boost::filter_iterator<
                 typename pass_by_value<Predicate>::type,
@@ -54,6 +51,9 @@ namespace filtered_detail {
 
         result call(Range& rng, Predicate& pred)
         {
+            PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+            // PSTADE_CONCEPT_ASSERT((Readable<Range>));
+         
             return result(
                 iter_t(pred, boost::begin(rng), boost::end(rng)),
                 iter_t(pred, boost::end(rng),   boost::end(rng))

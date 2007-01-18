@@ -33,9 +33,6 @@ namespace xpressive_matches_detail {
     template< class Range >
     struct baby
     {
-        PSTADE_CONCEPT_ASSERT((Bidirectional<Range>));
-        // PSTADE_CONCEPT_ASSERT((Readable<Range>));
-
         typedef
             boost::xpressive::regex_iterator<
                 // Xpressive seems not to support a mutable iterator.
@@ -51,6 +48,9 @@ namespace xpressive_matches_detail {
         result call(Range& rng, Regex& re,
             regex_constants::match_flag_type flag = regex_constants::match_default)
         {
+            PSTADE_CONCEPT_ASSERT((Bidirectional<Range>));
+            // PSTADE_CONCEPT_ASSERT((Readable<Range>));
+
             return result(
                 iter_t(boost::begin(rng), boost::end(rng), re, flag),
                 iter_t()

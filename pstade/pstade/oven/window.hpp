@@ -29,8 +29,6 @@ namespace window_detail {
     template< class Range, class, class >
     struct baby
     {
-        PSTADE_CONCEPT_ASSERT((Forward<Range>));
-
         typedef typename
             sub_range_result<Range>::type
         result;
@@ -38,6 +36,8 @@ namespace window_detail {
         template< class Difference >
         result call(Range& rng, Difference n, Difference m)
         {
+            PSTADE_CONCEPT_ASSERT((Forward<Range>));
+
             // Should a "bigger" window be allowed?
             // BOOST_ASSERT(0 <= n && n <= m && m <= oven::distance(rng));
 

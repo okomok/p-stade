@@ -37,8 +37,6 @@ namespace reversed_detail {
     template< class Range >
     struct baby
     {
-        PSTADE_CONCEPT_ASSERT((Bidirectional<Range>));
-
         typedef
             reverse_iterator<
                 typename range_iterator<Range>::type
@@ -51,6 +49,7 @@ namespace reversed_detail {
 
         result call(Range& rng)
         {
+            PSTADE_CONCEPT_ASSERT((Bidirectional<Range>));
             return result(boost::end(rng), boost::begin(rng)); // take care of the order!
         }
     };

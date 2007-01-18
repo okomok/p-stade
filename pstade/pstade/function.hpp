@@ -31,7 +31,7 @@
 // the both const-qualified and non-const-qualified argument type are
 // always passed to Baby, and then the Baby is *instantiated*;
 // even if the either is never called.
-// This could be avoided by using 'template_arguments', though.
+// This might be avoided by using 'template_arguments', though.
 
 
 #include <boost/mpl/apply.hpp>

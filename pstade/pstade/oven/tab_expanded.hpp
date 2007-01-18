@@ -29,9 +29,6 @@ namespace tab_expanded_detail {
     template< class Range, class >
     struct baby
     {
-        PSTADE_CONCEPT_ASSERT((Forward<Range>));
-        // PSTADE_CONCEPT_ASSERT((Readable<Range>));
-
         typedef
             tab_expand_iterator<
                 typename range_iterator<Range>::type
@@ -44,6 +41,9 @@ namespace tab_expanded_detail {
 
         result call(Range& rng, int tabsize)
         {
+            PSTADE_CONCEPT_ASSERT((Forward<Range>));
+            // PSTADE_CONCEPT_ASSERT((Readable<Range>));
+
             return result(
                 iter_t(boost::begin(rng), tabsize),
                 iter_t(boost::end(rng),   tabsize)

@@ -169,7 +169,6 @@ struct merge_iterator :
 private:
     typedef typename merge_iterator_detail::super_<Iterator1, Iterator2, Compare, MergeRoutine>::type super_t;
     typedef typename super_t::reference ref_t;
-    BOOST_MPL_ASSERT((detail::reference_is_convertible_aux<typename boost::iterator_reference<Iterator2>::type, ref_t>));
 
 public:
     merge_iterator()
@@ -184,9 +183,10 @@ public:
         m_it2(it2),   m_last2(last2),
         m_comp(comp)
     {
+        BOOST_MPL_ASSERT((detail::reference_is_convertible_aux<typename boost::iterator_reference<Iterator2>::type, ref_t>));
         BOOST_ASSERT(detail::debug_is_sorted(it1, last1, comp));
         BOOST_ASSERT(detail::debug_is_sorted(it2, last2, comp));
-
+ 
         MergeRoutine::before_yield(
             this->base_reference(), m_last1, m_it2, m_last2, m_comp);
     }

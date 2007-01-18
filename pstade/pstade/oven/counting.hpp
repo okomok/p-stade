@@ -20,7 +20,6 @@
 #include <pstade/function.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/unused.hpp>
-#include <pstade/use_default.hpp>
 #include "./iter_range.hpp"
 
 
@@ -48,25 +47,20 @@ namespace counting_detail {
 
 
 template<
-    class Incrementable       = boost::use_default,
     class CategoryOrTraversal = boost::use_default,
     class Difference          = boost::use_default
 >
 struct op_counting :
-    callable< op_counting<Incrementable, CategoryOrTraversal, Difference> >
+    callable< op_counting<CategoryOrTraversal, Difference> >
 {
     template< class Myself, class I, class J >
     struct apply
     {
-        typedef typename
-            // prefer 'J' in order to suppress "loss of data" warning;
-            // [0:int, size():uint) is so common.
-            use_default_eval_to< Incrementable, pass_by_value<J> >::type
-        inc_t;
-
         typedef
             boost::counting_iterator<
-                inc_t,
+                // prefer 'J' in order to suppress "loss of data" warning;
+                // [0:int, size():uint) is so common.
+                typename pass_by_value<J>::type,
                 CategoryOrTraversal,
                 Difference
             >
@@ -81,8 +75,7 @@ struct op_counting :
     Result call(I& i, J& j) const
     {
         typedef typename Result::iterator iter_t;
-        typedef typename boost::iterator_traversal<iter_t>::type trv_t;
-        BOOST_ASSERT( counting_detail::is_valid(i, j, trv_t()) );
+        BOOST_ASSERT(counting_detail::is_valid(i, j, typename boost::iterator_traversal<iter_t>::type()));
         return Result(iter_t(i), iter_t(j));
     }
 };

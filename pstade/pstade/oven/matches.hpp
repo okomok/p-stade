@@ -36,8 +36,6 @@ struct op_make_matches :
     template< class Myself, class Range, class Regex, class Flag = void >
     struct apply
     {
-        PSTADE_CONCEPT_ASSERT((Bidirectional<Range>));
-
         typedef typename use_default_eval_to< CharT, range_value<Range> >::type char_t;
         typedef typename use_default_to< Traits, boost::regex_traits<char_t> >::type traits_t;
 
@@ -56,6 +54,8 @@ struct op_make_matches :
     Result call(Range& rng, Regex const& re,
         boost::regex_constants::match_flag_type flag = boost::regex_constants::match_default) const
     {
+        PSTADE_CONCEPT_ASSERT((Bidirectional<Range>));
+
         typedef typename Result::iterator iter_t;
         return Result(
             iter_t(boost::begin(rng), boost::end(rng), re, flag),

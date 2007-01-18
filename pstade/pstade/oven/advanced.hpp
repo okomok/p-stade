@@ -37,8 +37,6 @@ namespace advanced_detail {
     template< class Range, class, class >
     struct baby
     {
-        PSTADE_CONCEPT_ASSERT((Forward<Range>));
-
         typedef typename
             sub_range_result<Range>::type
         result;
@@ -46,6 +44,7 @@ namespace advanced_detail {
         template< class Difference >
         result call(Range& rng, Difference dfirst, Difference dlast)
         {
+            PSTADE_CONCEPT_ASSERT((Forward<Range>));
             BOOST_ASSERT(0 + dfirst <= oven::distance(rng) + dlast);
 
 	        return result(

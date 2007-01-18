@@ -57,9 +57,6 @@ namespace null_terminated_detail {
     template< class Range >
     struct baby
     {
-        PSTADE_CONCEPT_ASSERT((Forward<Range>));
-        // PSTADE_CONCEPT_ASSERT((Readable<Range>));
-
         typedef typename
             boost::result_of<
                 op_make_taken_while(Range&, typename boost::result_of<op_not(op_equal_to_0 const&)>::type)
@@ -68,6 +65,9 @@ namespace null_terminated_detail {
 
         result call(Range& rng)
         {
+            PSTADE_CONCEPT_ASSERT((Forward<Range>));
+            // PSTADE_CONCEPT_ASSERT((Readable<Range>));
+
             BOOST_ASSERT(oven::is_null_terminated(rng));
             return make_taken_while(rng, not_(equal_to_0));
         }

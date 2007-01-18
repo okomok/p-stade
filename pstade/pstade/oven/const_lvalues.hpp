@@ -28,8 +28,6 @@ namespace const_lvalues_detail {
     template< class Range >
     struct baby
     {
-        PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-
         typedef
             const_lvalue_iterator<typename range_iterator<Range>::type>
         iter_t;
@@ -40,6 +38,7 @@ namespace const_lvalues_detail {
 
         result call(Range& rng)
         {
+            PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
             return result(rng);
         }
     };

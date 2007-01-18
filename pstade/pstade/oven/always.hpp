@@ -25,14 +25,13 @@ namespace always_detail {
     template< class Unused, class Range >
     struct baby
     {
-        PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-
         typedef typename
             sub_range_result<Range>::type
         result;
 
         result call(Unused&, Range& rng)
         {
+            PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
             return result(rng);
         }
     };

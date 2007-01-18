@@ -37,8 +37,6 @@ struct op_unzipped_at :
     template< class Myself, class TupleRange >
     struct apply
     {
-        PSTADE_CONCEPT_ASSERT((SinglePass<TupleRange>));
-
         typedef typename
             detail::reference_affect<
                 TupleRange,
@@ -56,6 +54,8 @@ struct op_unzipped_at :
     template< class Result, class TupleRange >
     Result call(TupleRange& rng) const
     {
+        PSTADE_CONCEPT_ASSERT((SinglePass<TupleRange>));
+
         typedef typename apply<void, TupleRange>::ref_t ref_t;
         return op_make_transformed<ref_t>()(rng, op_at<N>());
     };

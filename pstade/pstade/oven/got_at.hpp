@@ -57,8 +57,6 @@ struct op_make_got_at :
     template< class Myself, class FusionSeqRange >
     struct apply
     {
-        PSTADE_CONCEPT_ASSERT((SinglePass<FusionSeqRange>));
-
         typedef typename
             detail::reference_affect<
                 FusionSeqRange,
@@ -76,6 +74,8 @@ struct op_make_got_at :
     template< class Result, class FusionSeqRange >
     Result call(FusionSeqRange& rng) const
     {
+        PSTADE_CONCEPT_ASSERT((SinglePass<FusionSeqRange>));
+
         typedef typename apply<void, FusionSeqRange>::type ref_t;
         return op_make_transformed<ref_t>()(rng, got_at_detail::op_at<N>());
     }

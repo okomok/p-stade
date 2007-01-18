@@ -28,8 +28,6 @@ namespace constants_detail {
     template< class Range >
     struct baby
     {
-        PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-
         typedef typename
             detail::constant_reference<
                 typename range_iterator<Range>::type
@@ -44,6 +42,7 @@ namespace constants_detail {
 
         result call(Range& rng)
         {
+            PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
             return op_make_transformed<ref_t>()(rng, identity);
         }
     };

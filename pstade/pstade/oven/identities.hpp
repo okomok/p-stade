@@ -30,8 +30,6 @@ struct op_make_identities :
     template< class Myself, class Range, class Traversal = boost::use_default >
     struct apply
     {
-        PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-
         typedef
             identity_iterator<
                 typename range_iterator<Range>::type,
@@ -47,6 +45,7 @@ struct op_make_identities :
     template< class Result, class Range >
     Result call(Range& rng, unused_parameter = 0) const
     {
+        PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
         return Result(rng);
     }
 };

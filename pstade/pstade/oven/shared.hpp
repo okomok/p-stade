@@ -44,8 +44,6 @@ struct op_make_shared
             boost::pointee<typename remove_cvr<Pointer>::type>::type
         rng_t;
 
-        PSTADE_CONCEPT_ASSERT((SinglePass<rng_t>));
-
         typedef
             iter_range<
                 share_iterator<rng_t>
@@ -57,6 +55,8 @@ struct op_make_shared
     typename result<op_make_shared(Range *)>::type
     operator()(Range *prng) const
     {
+        PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+
         typedef typename result<op_make_shared(Range *)>::type result_t;
         typedef typename result_t::iterator iter_t;
 

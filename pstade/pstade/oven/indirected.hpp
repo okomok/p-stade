@@ -44,8 +44,6 @@ struct op_make_indirected :
     template< class Myself, class Range >
     struct apply
     {
-        PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-
         typedef
             boost::indirect_iterator<
                 typename range_iterator<Range>::type,
@@ -64,6 +62,7 @@ struct op_make_indirected :
     template< class Result, class Range >
     Result call(Range& rng) const
     {
+        PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
         return Result(rng);
     }
 };

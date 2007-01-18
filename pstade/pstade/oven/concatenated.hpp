@@ -30,9 +30,6 @@ namespace concatenated_detail {
     template< class SegmentRange >
     struct baby
     {
-        PSTADE_CONCEPT_ASSERT((SinglePass<SegmentRange>));
-        PSTADE_CONCEPT_ASSERT((SinglePass<typename range_value<SegmentRange>::type>));
-
         typedef
             concatenate_iterator<typename range_iterator<SegmentRange>::type>
         iter_t;
@@ -42,7 +39,10 @@ namespace concatenated_detail {
         result;
 
         result call(SegmentRange& rngs)
-        {        
+        {
+            PSTADE_CONCEPT_ASSERT((SinglePass<SegmentRange>));
+            PSTADE_CONCEPT_ASSERT((SinglePass<typename range_value<SegmentRange>::type>));
+
             return result(
                 iter_t(boost::begin(rngs), boost::end(rngs)),
                 iter_t(boost::end(rngs),   boost::end(rngs))

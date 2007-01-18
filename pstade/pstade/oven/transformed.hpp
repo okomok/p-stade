@@ -70,8 +70,6 @@ struct op_make_transformed :
     template< class Myself, class Range, class UnaryFun >
     struct apply
     {
-        PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-
         typedef typename range_iterator<Range>::type base_iter_t;
         typedef typename pass_by_value<UnaryFun>::type fun_t;
 
@@ -100,6 +98,8 @@ struct op_make_transformed :
     template< class Result, class Range, class UnaryFun >
     Result call(Range& rng, UnaryFun& fun) const
     {
+        PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+
         typedef typename Result::iterator iter_t;
         return Result(
             iter_t(boost::begin(rng), fun),

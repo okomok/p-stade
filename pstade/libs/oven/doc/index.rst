@@ -53,19 +53,21 @@ Tested Under
 
 Specification
 -------------
-This document is based on the following specification.
+This document is based on the following specifications.
 
 - ``rng``: any range
 - ``fwdRng``: any `Forward Range`_
 - ``biRng``: any `Bidirectional Range`_
 - ``rndRng``: any `Random Access Range`_
 - ``pred``: any `Predicate`_
-- ``rfun``: any `Functor`_ which can be used with ``boost::result_of``.
-- If ``a0|xxx(a1,..,aN)`` is a valid expression, then  ``make_xxx(a0,..,aN)`` too is a valid expression.
-- If a valid expression ``yyy(a1,..,aN)`` is not one of the `Range Adaptors`_, ``yyy`` is a FunctionObject
+- ``rfun``: any `Function Object`_ which can be used with ``boost::result_of``.
+- If ``a0|xxx(a1,..,aN)`` is a valid expression, then  ``make_xxx(a0,..,aN)`` too is a valid expression which has the same effect.
+- If a valid expression ``yyy(a1,..,aN)`` is not one of the `Range Adaptors`_, ``yyy`` is a `Function Object`_
   whose type name is ``op_yyy`` to support ``boost::result_of`` and Boost.Lambda.
 
-Note that the function type is not supported as ``rfun``. Instead, add ``&`` to make it a function **pointer**.
+Note that the function type is not supported as ``rfun``. Instead, add ``&`` to make it a function **pointer**::
+
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\specification.ipp
 
 
 
@@ -83,7 +85,7 @@ Oven has all the range-based STL algorithms, which are ported from `Boost.RangeE
 
 
 - Header: ``<pstade/oven/algorithm.hpp>`` and ``<pstade/oven/numeric.hpp>``
-- Valid expression: ``algo(rng,a0,a1,..,aN)``, where ``algo`` is a FunctionObject.
+- Valid expression: ``algo(rng,a0,a1,..,aN)``, where ``algo`` is a `Function Object`_.
 - Precondition: ``std::algo(boost::begin(rng),boost::end(rng),a0,a1,..,aN)`` is a valid expression, where ``algo`` is one of the STL algorithms.
 - Returns: ``std::algo(boost::begin(rng),boost::end(rng),a0,a1,..,aN)``
 
@@ -118,6 +120,24 @@ Oven has all the range-based STL algorithms, which are ported from `Boost.RangeE
 ``compile``
 ^^^^^^^^^^^
 Pending...
+
+
+``copied``
+^^^^^^^^^^
+``copied`` adds the automatic type deduction to `copy_range`_ which
+calls the range constructor of the STL Sequences::
+
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\copied.ipp
+
+.. _copy_range: http://www.boost.org/libs/range/doc/utility_class.html#copy_range
+
+
+- Header: ``<pstade/oven/copy_range.hpp>``
+- Valid expression: ``Seq seq = rng|copied;``
+- Precondition: ``Seq seq = boost::copy_range<Seq>(rng);`` is a valid expression.
+- Effect: ``Seq seq = boost::copy_range<Seq>(rng);``
+
+Note that ``Seq seq(rng|copied);`` is not a valid expression.
 
 
 ``distance``
@@ -230,6 +250,7 @@ __ http://www.boost.org/libs/spirit/doc/file_iterator.html
 Range Makers
 ------------
 Oven provides some predefined functions which produce a range.
+All the range returned from the following makers are CopyConstructible and Inheritable.
 ``<pstade/oven/functions.hpp>`` includes every maker header unless otherwise specified.
 
 
@@ -282,24 +303,6 @@ __ http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html#as-literal
 - Header: ``<pstade/oven/single_range.hpp>``
 - Valid expression: ``v|as_single``.
 - Returns: A range which behaves as if it were ``[&v, &v+1)``.
-
-
-``copied``
-^^^^^^^^^^
-``copied`` adds the automatic type deduction to `copy_range`_ which
-calls the range constructor of the STL Sequences::
-
-	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\copied.ipp
-
-.. _copy_range: http://www.boost.org/libs/range/doc/utility_class.html#copy_range
-
-
-- Header: ``<pstade/oven/copy_range.hpp>``
-- Valid expression: ``Seq seq = rng|copied;``
-- Precondition: ``Seq seq = boost::copy_range<Seq>(rng);`` is a valid expression.
-- Effect: ``Seq seq = boost::copy_range<Seq>(rng);``
-
-Note that ``Seq seq(rng|copied);`` is not a valid expression.
 
 
 ``counting``
@@ -389,6 +392,7 @@ Range Adaptors
 A Range Adaptor delivers an altered presentation of one or more underlying ranges.
 Range Adaptors are lazy, meaning that their elements are only computed on demand.
 The underlying ranges are not modified.
+All the range returned from the following adaptors are CopyConstructible and Inheritable.
 Additional information is available at `Range Library Proposal`_.
 ``<pstade/oven/adaptors.hpp>`` includes all the following Range Adaptors unless otherwise specified.
 
@@ -421,7 +425,7 @@ Additional information is available at `Range Library Proposal`_.
 
 ``always``
 ^^^^^^^^^^^^^
-``always`` returns a range which does not change as its base range vary::
+``always`` returns a range which does not change as the base range vary::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\always.ipp
 
@@ -445,7 +449,7 @@ Additional information is available at `Range Library Proposal`_.
 
 ``applied``
 ^^^^^^^^^^^
-``applied``, taking a FunctionObject which represents an algorithm, creates the range adaptor::
+``applied``, taking a `Function Object`_ which represents an algorithm, creates the range adaptor::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\applied.ipp
 
@@ -470,7 +474,7 @@ Additional information is available at `Range Library Proposal`_.
 
 ``checked``
 ^^^^^^^^^^^
-``checked`` adds the bounds checking ability to its base range::
+``checked`` adds the bounds checking ability to the base range::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\checked.ipp
 
@@ -535,7 +539,7 @@ Thus, STL that doesn't know traversal concepts can choose effective algorithms.
 
 ``copied_out``
 ^^^^^^^^^^^^^^
-``copied_out`` makes a side-effect that copies its base range to its argument::
+``copied_out`` makes a side-effect that copies the base range to its argument::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\copied_out.ipp
 
@@ -549,7 +553,7 @@ Thus, STL that doesn't know traversal concepts can choose effective algorithms.
 
 ``cycled``
 ^^^^^^^^^^^^
-``cycled`` creates a circular range from its base range::
+``cycled`` creates a circular range from the base range::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\cycled.ipp
 
@@ -559,9 +563,23 @@ Thus, STL that doesn't know traversal concepts can choose effective algorithms.
 - Returns: A constant range that repeats ``[boost::begin(rng),boost::end(rng))`` ``n`` times.
 
 
+``delimited``
+^^^^^^^^^^^^^
+``delimited`` adds a delimiter to the base range::
+
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\delimited.ipp
+
+
+- Header: ``<pstade/oven/delimited.hpp>``
+- Valid expression: ``rngs|delimited(delim)``, where ``delim`` is a Range to specify the delimiter.
+- Returns: A range which behaves as if it were ``rngs|transformed(with)|concatenated``, where ``with`` is a `Function Object`_ which calls ``make_jointed`` to joint ``delim``.
+
+Note that ``delimited`` prepends the delimiter to the base range. You can call ``dropped`` to remove it.
+
+
 ``directed``
 ^^^^^^^^^^^^
-``directed`` returns a range whose values are iterators of its base range::
+``directed`` returns a range whose values are iterators of the base range::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\directed.ipp
 
@@ -573,7 +591,7 @@ Thus, STL that doesn't know traversal concepts can choose effective algorithms.
 
 ``dropped``
 ^^^^^^^^^^^
-``dropped`` returns the suffix of its base range after the first ``n`` elements::
+``dropped`` returns the suffix of the base range after the first ``n`` elements::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\dropped.ipp
 
@@ -586,7 +604,7 @@ Thus, STL that doesn't know traversal concepts can choose effective algorithms.
 
 ``dropped_while``
 ^^^^^^^^^^^^^^^^^
-``dropped_while`` returns the remaining suffix of its base range of elements that satisfy `Predicate`_::
+``dropped_while`` returns the remaining suffix of the base range of elements that satisfy `Predicate`_::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\dropped_while.ipp
 
@@ -627,7 +645,7 @@ Pending...
 
 ``identities``
 ^^^^^^^^^^^^^^
-``identities`` returns a range which is identical to its base range::
+``identities`` returns a range which is identical to the base range::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\identities.ipp
 
@@ -640,7 +658,7 @@ Pending...
 
 ``indirected``
 ^^^^^^^^^^^^^^
-``indirected`` adapts its base range by applying an extra dereference inside of ``operator*()``::
+``indirected`` adapts the base range by applying an extra dereference inside of ``operator*()``::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\indirected.ipp
 
@@ -658,13 +676,13 @@ Pending...
 
 - Header: ``<pstade/oven/jointed.hpp>``
 - Valid expression: ``rng1|jointed(rng2)``
-- Precondition: The ``reference`` type of ``rng2`` is convertible to ``rng1``\'s without creating rvalue.
+- Precondition: The ``reference`` type of ``rng2`` is convertible to ``rng1``\'s without creating a rvalue.
 - Returns: A range that joints ``[boost::begin(rng1),boost::end(rng1))`` and ``[boost::begin(rng2),boost::end(rng2))``.
 
 
 ``map_keys``
 ^^^^^^^^^^^^
-``map_keys`` returns a range whose values are the keys of its base associative container::
+``map_keys`` returns a range whose values are the keys of the base associative container::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\map_keys.ipp
 
@@ -675,7 +693,7 @@ Pending...
 
 ``map_values``
 ^^^^^^^^^^^^^^
-``map_values`` returns a range whose values are the mapped values of its base associative container::
+``map_values`` returns a range whose values are the mapped values of the base associative container::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\map_values.ipp
 
@@ -694,7 +712,7 @@ Pending...
 ``memoized``
 ^^^^^^^^^^^^
 ``memoized`` returns a range whose values are cached for speed, preparing repeated dereferences.
-Note that ``memoized`` can return a `Forward Range`_ even if its base range is a `Single Pass Range`_::
+Note that ``memoized`` can return a `Forward Range`_ even if the base range is a `Single Pass Range`_::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\memoized.ipp
 
@@ -820,7 +838,7 @@ An iterator holding such a functor cannot conform to even InputIterator.
 
 ``scanned``
 ^^^^^^^^^^^
-``scanned`` is similar to ``oven::accumulate``, but returns a range of successive reduced values from its base range::
+``scanned`` is similar to ``oven::accumulate``, but returns a range of successive reduced values from the base range::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\scanned.ipp
 
@@ -846,7 +864,7 @@ An iterator holding such a functor cannot conform to even InputIterator.
 
 ``sliced``
 ^^^^^^^^^^
-``sliced`` provides the column view of its base range::
+``sliced`` provides the column view of the base range::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\sliced.ipp
 
@@ -873,7 +891,7 @@ Note that this effect is different from `Range Library Proposal`_\'s, which is t
 
 ``taken``
 ^^^^^^^^^
-``taken``, applied to its base range, returns the prefix of the range of length ``n``::
+``taken``, applied to the base range, returns the prefix of the range of length ``n``::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\taken.ipp
 
@@ -886,7 +904,7 @@ Note that this effect is different from `Range Library Proposal`_\'s, which is t
 
 ``taken_while``
 ^^^^^^^^^^^^^^^
-``taken_while``, applied to a `Predicate`_ and its base range, returns the longest
+``taken_while``, applied to a `Predicate`_ and the base range, returns the longest
 prefix (possibly empty) of the range of elements that satisfy `Predicate`_::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\taken_while.ipp
@@ -970,12 +988,12 @@ If one input range is short, excess elements of the longer range are discarded.
 - Valid expression: ``pstade::pack(rng1,rng2,..rngN)|zipped``, where ``N <= 5``.
 - Returns: A range whose iterators behave as if they were the original iterators wrapped in ``boost::zip_iterator``.
 
-If the base ranges are neither const-reference nor rvalue, you can use ``boost::tie`` instead of ``pstade::pack``.
+If the base ranges are neither const-reference nor rvalues, you can use ``boost::tie`` instead of ``pstade::pack``.
 
 
 ``zipped_with``
 ^^^^^^^^^^^^^^^
-``zipped_with`` generalises ``zipped`` by zipping with the functor,
+``zipped_with`` generalises ``zipped`` by zipping with the `Function Object`_,
 given as the first argument, instead of a tupling::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\zipped_with.ipp
@@ -1192,6 +1210,6 @@ Version 0.92.0 - 0.92.3
 Version 0.93.0
 ^^^^^^^^^^^^^^
 - Changed the names of some functions and headers.
-
+- Added ``delimited``.
 
 
