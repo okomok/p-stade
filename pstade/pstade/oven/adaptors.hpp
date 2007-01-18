@@ -22,6 +22,7 @@
 #include "./concatenated.hpp"
 #include "./const_lvalues.hpp"
 #include "./cycled.hpp"
+#include "./delimited.hpp"
 #include "./directed.hpp"
 #include "./dropped.hpp"
 #include "./dropped_while.hpp"

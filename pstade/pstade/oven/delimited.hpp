@@ -69,13 +69,13 @@ namespace delimited_detail {
             >::type
         result;
 
-        result call(SegmentRange& rng, Delimiter& delim)
+        result call(SegmentRange& rngs, Delimiter& delim)
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<SegmentRange>));
             PSTADE_CONCEPT_ASSERT((SinglePass<Delimiter>));
 
             return make_concatenated(
-                make_transformed(rng, with<Delimiter>(delim))
+                make_transformed(rngs, with<Delimiter>(delim))
             );
         }
     };

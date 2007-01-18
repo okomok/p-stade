@@ -14,10 +14,9 @@ bool is_prime(int x)
 
 range primes = iteration(1, lambda::_1 + 1)|regularized|filtered(&is_prime);
 
-pstade::op_lexical_cast<std::string> to_string;
-
 int main()
 {
+    pstade::op_lexical_cast<std::string> to_string;
     BOOST_FOREACH (std::string p, primes|taken(500)|transformed(to_string))
         std::cout << p << ',';
 }

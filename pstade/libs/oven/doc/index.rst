@@ -61,7 +61,7 @@ This document is based on the following specifications.
 - ``rndRng``: any `Random Access Range`_
 - ``pred``: any `Predicate`_
 - ``rfun``: any `Function Object`_ which can be used with ``boost::result_of``.
-- If ``a0|xxx(a1,..,aN)`` is a valid expression, then  ``make_xxx(a0,..,aN)`` too is a valid expression which has the same effect.
+- If ``a0|xxx(a1,..,aN)`` is a valid expression, then  ``make_xxx(a0,..,aN)`` too is a valid expression which has the same effect; unless otherwise specified.
 - If a valid expression ``yyy(a1,..,aN)`` is not one of the `Range Adaptors`_, ``yyy`` is a `Function Object`_
   whose type name is ``op_yyy`` to support ``boost::result_of`` and Boost.Lambda.
 
@@ -177,22 +177,23 @@ Oven provides some predefined range types.
 
 ``any_range``
 ^^^^^^^^^^^^^
-``any_range`` is a range whose iterators behave as if they were the original iterators wrapped in
-`any_iterator`__::
+Though Oven supports ``boost::result_of``, it is sometimes cumbersome to get the type of
+the adapted range. ``any_range`` behaves as the type erasure of ranges::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\any_range.ipp
 
 
-__ http://thbecker.net/free_software_utilities/type_erasure_for_cpp_iterators/start_page.html
-
 - Header: ``<pstade/oven/any_range.hpp>``
 - Valid expression: ``any_range<Value,TraversalTag> any_(rng);`` and ``any_range<Value,TraversalTag> any_ = rng;``
   , where the iterators of ``any_`` are ``Interoperatable`` if and only if ``rng``\s are the same type.
+- Returns: A range whose iterators behave as if they were the original iterators wrapped in `any_iterator`__
+
+__ http://thbecker.net/free_software_utilities/type_erasure_for_cpp_iterators/start_page.html
 
 
 ``array_range``
 ^^^^^^^^^^^^^^^
-``array_range`` is a model of `Random Access Range`_ which delivers
+``array_range`` is a non-Copyable `Random Access Range`_ which delivers
 a range presentation of dynamically allocated arrays::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\array_range.ipp
@@ -205,18 +206,18 @@ a range presentation of dynamically allocated arrays::
 
 ``directory_range``
 ^^^^^^^^^^^^^^^^^^^
-``directory_range`` is a range whose iterators behave as if
-they were the original iterators wrapped in `directory_iterator`__::
+``directory_range`` is a `Single Pass Range`_ which accesses the contents of a directory::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\directory_range.ipp
-
-__ http://www.boost.org/libs/filesystem/doc/operations.htm#directory_iterator
 
 
 - Header: ``<pstade/oven/directory_range.hpp>``; not included by ``<pstade/oven/ranges.hpp>``
 - Valid expression: ``directory_range rng(p);`` and ``wdirectory_range wrng(wp);``
 - Precondition: The type of ``p`` is ``boost::filesystem::path`` and
   the type of ``wp`` is ``boost::filesystem::wpath``.
+- Returns: A range whose iterators behave as if they were the original iterators wrapped in `directory_iterator`__
+
+__ http://www.boost.org/libs/filesystem/doc/operations.htm#directory_iterator
 
 
 ``empty_range``
@@ -232,19 +233,20 @@ __ http://www.boost.org/libs/filesystem/doc/operations.htm#directory_iterator
 
 ``file_range``
 ^^^^^^^^^^^^^^
-``file_range`` is a range whose iterators behave as if they were the original iterators wrapped in `file_iterator`__.
-The member ``is_open()`` returns ``true`` if and only if the file opening is succeeded.
-If ``is_open()`` is not ``true``, the range is empty::
+``file_range`` is a constant `Random Access Range`_ for files::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\file_range.ipp
-
-__ http://www.boost.org/libs/spirit/doc/file_iterator.html
 
 
 - Header: ``<pstade/oven/file_range.hpp>``
 - Valid expression: ``file_range<C> rng;`` and ``rng.is_open();``
 - Precondition: ``boost::spirit::file_iterator<C>`` is a valid expression.
+- Returns: A range whose iterators behave as if they were the original iterators wrapped in `file_iterator`__
 
+__ http://www.boost.org/libs/spirit/doc/file_iterator.html
+
+The member ``is_open()`` returns ``true`` if and only if the file opening is succeeded.
+If ``is_open()`` is not ``true``, the range is empty.
 
 
 Range Makers
@@ -307,18 +309,16 @@ __ http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html#as-literal
 
 ``counting``
 ^^^^^^^^^^^^
-``counting`` makes a range whose iterators behave as if
-they were the original iterators wrapped in `counting_iterator`__.
-Note that this range introduces the replacement of ``for`` loop::
+``counting`` introduces the replacement of ``for`` loop::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\counting.ipp
-
-__ http://www.boost.org/libs/iterator/doc/counting_iterator.html
 
 
 - Header: ``<pstade/oven/counting.hpp>``
 - Valid expression: ``counting(n, m)``, where ``n`` and ``m`` is Incrementable.
-- Returns: A range whose iterators behave as if they were the original iterators wrapped in ``boost::counting_iterator``
+- Returns: A range whose iterators behave as if they were the original iterators wrapped in `counting_iterator`__
+
+__ http://www.boost.org/libs/iterator/doc/counting_iterator.html
 
 
 ``generation``
@@ -331,7 +331,7 @@ they were the original iterators wrapped in `generator_iterator`__::
 __ http://www.boost.org/libs/utility/generator_iterator.htm
 
 
-- Header: ``<pstade/oven/generate_range.hpp>``
+- Header: ``<pstade/oven/generation.hpp>``
 - Valid expression: ``generation(rfun)`` or ``generation_copied(rfun)``
 - Precondition:``rfun`` call returns initialized ``boost::optional`` if range is not end; Otherwise, returns uninitialized one.
 - Returns: A `Single Pass Range`_ whose values are the results of invoking ``rfun``, where ``rfun`` is copied in the latter valid expression.
@@ -574,7 +574,7 @@ Thus, STL that doesn't know traversal concepts can choose effective algorithms.
 - Valid expression: ``rngs|delimited(delim)``, where ``delim`` is a Range to specify the delimiter.
 - Returns: A range which behaves as if it were ``rngs|transformed(with)|concatenated``, where ``with`` is a `Function Object`_ which calls ``make_jointed`` to joint ``delim``.
 
-Note that ``delimited`` prepends the delimiter to the base range. You can call ``dropped`` to remove it.
+Note that ``delimited`` prepends the delimiter. ``dropped`` is useful to remove it.
 
 
 ``directed``
@@ -711,7 +711,7 @@ Pending...
 
 ``memoized``
 ^^^^^^^^^^^^
-``memoized`` returns a range whose values are cached for speed, preparing repeated dereferences.
+``memoized`` returns a range whose values are cached for speed, preparing for repeated dereferences.
 Note that ``memoized`` can return a `Forward Range`_ even if the base range is a `Single Pass Range`_::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\memoized.ipp

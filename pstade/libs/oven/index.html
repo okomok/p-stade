@@ -178,10 +178,9 @@ range denominators(<span class="cpp_keyword">int </span>x)
 
 range primes = iteration(<span class="cpp_number_literal">1</span>, lambda::_1 + <span class="cpp_number_literal">1</span>)|regularized|filtered(&amp;is_prime);
 
-pstade::op_lexical_cast&lt;std::string&gt; to_string;
-
 <span class="cpp_keyword">int </span>main()
 {
+    pstade::op_lexical_cast&lt;std::string&gt; to_string;
     BOOST_FOREACH (std::string p, primes|taken(<span class="cpp_number_literal">500</span>)|transformed(to_string))
         std::cout &lt;&lt; p &lt;&lt; <span class="cpp_string_literal">','</span>;
 }</pre>
@@ -214,7 +213,7 @@ unless otherwise specified.</p>
 <li><tt class="docutils literal"><span class="pre">rndRng</span></tt>: any <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#random_access_range">Random Access Range</a></li>
 <li><tt class="docutils literal"><span class="pre">pred</span></tt>: any <a class="reference" href="http://www.sgi.com/tech/stl/Predicate.html">Predicate</a></li>
 <li><tt class="docutils literal"><span class="pre">rfun</span></tt>: any <a class="reference" href="http://www.sgi.com/tech/stl/functors.html">Function Object</a> which can be used with <tt class="docutils literal"><span class="pre">boost::result_of</span></tt>.</li>
-<li>If <tt class="docutils literal"><span class="pre">a0|xxx(a1,..,aN)</span></tt> is a valid expression, then  <tt class="docutils literal"><span class="pre">make_xxx(a0,..,aN)</span></tt> too is a valid expression which has the same effect.</li>
+<li>If <tt class="docutils literal"><span class="pre">a0|xxx(a1,..,aN)</span></tt> is a valid expression, then  <tt class="docutils literal"><span class="pre">make_xxx(a0,..,aN)</span></tt> too is a valid expression which has the same effect; unless otherwise specified.</li>
 <li>If a valid expression <tt class="docutils literal"><span class="pre">yyy(a1,..,aN)</span></tt> is not one of the <a class="reference" href="#range-adaptors">Range Adaptors</a>, <tt class="docutils literal"><span class="pre">yyy</span></tt> is a <a class="reference" href="http://www.sgi.com/tech/stl/functors.html">Function Object</a>
 whose type name is <tt class="docutils literal"><span class="pre">op_yyy</span></tt> to support <tt class="docutils literal"><span class="pre">boost::result_of</span></tt> and Boost.Lambda.</li>
 </ul>
@@ -352,8 +351,8 @@ BOOST_CHECK( oven::equals(str, vec) );</pre>
 <tt class="docutils literal"><span class="pre">&lt;pstade/oven/ranges.hpp&gt;</span></tt> includes every range header unless otherwise specified.</p>
 <div class="section">
 <h2><a class="toc-backref" href="#id36" id="any-range" name="any-range">6.1&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">any_range</span></tt></a></h2>
-<p><tt class="docutils literal"><span class="pre">any_range</span></tt> is a range whose iterators behave as if they were the original iterators wrapped in
-<a class="reference" href="http://thbecker.net/free_software_utilities/type_erasure_for_cpp_iterators/start_page.html">any_iterator</a>:</p>
+<p>Though Oven supports <tt class="docutils literal"><span class="pre">boost::result_of</span></tt>, it is sometimes cumbersome to get the type of
+the adapted range. <tt class="docutils literal"><span class="pre">any_range</span></tt> behaves as the type erasure of ranges:</p>
 <pre class="cpp_source">
 std::string rng(<span class="cpp_string_literal">&quot;hello! any_range!&quot;</span>);
 any_range&lt;<span class="cpp_keyword">char </span><span class="cpp_keyword">const</span>, boost::bidirectional_traversal_tag&gt; any_ =
@@ -365,11 +364,12 @@ BOOST_CHECK( oven::equals(any_, std::string(<span class="cpp_string_literal">&qu
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/any_range.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">any_range&lt;Value,TraversalTag&gt;</span> <span class="pre">any_(rng);</span></tt> and <tt class="docutils literal"><span class="pre">any_range&lt;Value,TraversalTag&gt;</span> <span class="pre">any_</span> <span class="pre">=</span> <span class="pre">rng;</span></tt>
 , where the iterators of <tt class="docutils literal"><span class="pre">any_</span></tt> are <tt class="docutils literal"><span class="pre">Interoperatable</span></tt> if and only if <tt class="docutils literal"><span class="pre">rng</span></tt>s are the same type.</li>
+<li>Returns: A range whose iterators behave as if they were the original iterators wrapped in <a class="reference" href="http://thbecker.net/free_software_utilities/type_erasure_for_cpp_iterators/start_page.html">any_iterator</a></li>
 </ul>
 </div>
 <div class="section">
 <h2><a class="toc-backref" href="#id37" id="array-range" name="array-range">6.2&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">array_range</span></tt></a></h2>
-<p><tt class="docutils literal"><span class="pre">array_range</span></tt> is a model of <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#random_access_range">Random Access Range</a> which delivers
+<p><tt class="docutils literal"><span class="pre">array_range</span></tt> is a non-Copyable <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#random_access_range">Random Access Range</a> which delivers
 a range presentation of dynamically allocated arrays:</p>
 <pre class="cpp_source">
 std::string str(<span class="cpp_string_literal">&quot;hello, array_range!&quot;</span>);
@@ -388,8 +388,7 @@ BOOST_CHECK( oven::equals(sarr, darr) );</pre>
 </div>
 <div class="section">
 <h2><a class="toc-backref" href="#id38" id="directory-range" name="directory-range">6.3&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">directory_range</span></tt></a></h2>
-<p><tt class="docutils literal"><span class="pre">directory_range</span></tt> is a range whose iterators behave as if
-they were the original iterators wrapped in <a class="reference" href="http://www.boost.org/libs/filesystem/doc/operations.htm#directory_iterator">directory_iterator</a>:</p>
+<p><tt class="docutils literal"><span class="pre">directory_range</span></tt> is a <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#single_pass_range">Single Pass Range</a> which accesses the contents of a directory:</p>
 <pre class="cpp_source">
 BOOST_FOREACH (
     filesystem::path <span class="cpp_keyword">const</span>&amp; pt,
@@ -403,6 +402,7 @@ BOOST_FOREACH (
 <li>Valid expression: <tt class="docutils literal"><span class="pre">directory_range</span> <span class="pre">rng(p);</span></tt> and <tt class="docutils literal"><span class="pre">wdirectory_range</span> <span class="pre">wrng(wp);</span></tt></li>
 <li>Precondition: The type of <tt class="docutils literal"><span class="pre">p</span></tt> is <tt class="docutils literal"><span class="pre">boost::filesystem::path</span></tt> and
 the type of <tt class="docutils literal"><span class="pre">wp</span></tt> is <tt class="docutils literal"><span class="pre">boost::filesystem::wpath</span></tt>.</li>
+<li>Returns: A range whose iterators behave as if they were the original iterators wrapped in <a class="reference" href="http://www.boost.org/libs/filesystem/doc/operations.htm#directory_iterator">directory_iterator</a></li>
 </ul>
 </div>
 <div class="section">
@@ -418,9 +418,7 @@ BOOST_CHECK( boost::empty(empty_range&lt;<span class="cpp_keyword">int</span>&gt
 </div>
 <div class="section">
 <h2><a class="toc-backref" href="#id40" id="file-range" name="file-range">6.5&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">file_range</span></tt></a></h2>
-<p><tt class="docutils literal"><span class="pre">file_range</span></tt> is a range whose iterators behave as if they were the original iterators wrapped in <a class="reference" href="http://www.boost.org/libs/spirit/doc/file_iterator.html">file_iterator</a>.
-The member <tt class="docutils literal"><span class="pre">is_open()</span></tt> returns <tt class="docutils literal"><span class="pre">true</span></tt> if and only if the file opening is succeeded.
-If <tt class="docutils literal"><span class="pre">is_open()</span></tt> is not <tt class="docutils literal"><span class="pre">true</span></tt>, the range is empty:</p>
+<p><tt class="docutils literal"><span class="pre">file_range</span></tt> is a constant <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#random_access_range">Random Access Range</a> for files:</p>
 <pre class="cpp_source">
 std::vector&lt;<span class="cpp_keyword">char</span>&gt; vec;
 oven::copy(file_range&lt;<span class="cpp_keyword">char</span>&gt;(<span class="cpp_string_literal">&quot;data.txt&quot;</span>), std::back_inserter(vec));</pre>
@@ -429,7 +427,10 @@ oven::copy(file_range&lt;<span class="cpp_keyword">char</span>&gt;(<span class="
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/file_range.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">file_range&lt;C&gt;</span> <span class="pre">rng;</span></tt> and <tt class="docutils literal"><span class="pre">rng.is_open();</span></tt></li>
 <li>Precondition: <tt class="docutils literal"><span class="pre">boost::spirit::file_iterator&lt;C&gt;</span></tt> is a valid expression.</li>
+<li>Returns: A range whose iterators behave as if they were the original iterators wrapped in <a class="reference" href="http://www.boost.org/libs/spirit/doc/file_iterator.html">file_iterator</a></li>
 </ul>
+<p>The member <tt class="docutils literal"><span class="pre">is_open()</span></tt> returns <tt class="docutils literal"><span class="pre">true</span></tt> if and only if the file opening is succeeded.
+If <tt class="docutils literal"><span class="pre">is_open()</span></tt> is not <tt class="docutils literal"><span class="pre">true</span></tt>, the range is empty.</p>
 </div>
 </div>
 <div class="section">
@@ -506,9 +507,7 @@ BOOST_CHECK( oven::equals(<span class="cpp_string_literal">'a'</span>|as_single,
 </div>
 <div class="section">
 <h2><a class="toc-backref" href="#id46" id="counting" name="counting">7.5&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">counting</span></tt></a></h2>
-<p><tt class="docutils literal"><span class="pre">counting</span></tt> makes a range whose iterators behave as if
-they were the original iterators wrapped in <a class="reference" href="http://www.boost.org/libs/iterator/doc/counting_iterator.html">counting_iterator</a>.
-Note that this range introduces the replacement of <tt class="docutils literal"><span class="pre">for</span></tt> loop:</p>
+<p><tt class="docutils literal"><span class="pre">counting</span></tt> introduces the replacement of <tt class="docutils literal"><span class="pre">for</span></tt> loop:</p>
 <pre class="cpp_source">
 <span class="cpp_keyword">int </span>ans[] = { <span class="cpp_number_literal">2</span>, <span class="cpp_number_literal">3</span>, <span class="cpp_number_literal">4</span>, <span class="cpp_number_literal">5</span>, <span class="cpp_number_literal">6 </span>};
 BOOST_CHECK( oven::equal(counting(<span class="cpp_number_literal">2</span>, <span class="cpp_number_literal">7</span>), ans) );
@@ -521,7 +520,7 @@ BOOST_FOREACH (<span class="cpp_keyword">int </span>i, counting(<span class="cpp
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/counting.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">counting(n,</span> <span class="pre">m)</span></tt>, where <tt class="docutils literal"><span class="pre">n</span></tt> and <tt class="docutils literal"><span class="pre">m</span></tt> is Incrementable.</li>
-<li>Returns: A range whose iterators behave as if they were the original iterators wrapped in <tt class="docutils literal"><span class="pre">boost::counting_iterator</span></tt></li>
+<li>Returns: A range whose iterators behave as if they were the original iterators wrapped in <a class="reference" href="http://www.boost.org/libs/iterator/doc/counting_iterator.html">counting_iterator</a></li>
 </ul>
 </div>
 <div class="section">
@@ -552,7 +551,7 @@ they were the original iterators wrapped in <a class="reference" href="http://ww
 }</pre>
 
 <ul class="simple">
-<li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/generate_range.hpp&gt;</span></tt></li>
+<li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/generation.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">generation(rfun)</span></tt> or <tt class="docutils literal"><span class="pre">generation_copied(rfun)</span></tt></li>
 <li>Precondition:<tt class="docutils literal"><span class="pre">rfun</span></tt> call returns initialized <tt class="docutils literal"><span class="pre">boost::optional</span></tt> if range is not end; Otherwise, returns uninitialized one.</li>
 <li>Returns: A <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#single_pass_range">Single Pass Range</a> whose values are the results of invoking <tt class="docutils literal"><span class="pre">rfun</span></tt>, where <tt class="docutils literal"><span class="pre">rfun</span></tt> is copied in the latter valid expression.</li>
@@ -906,7 +905,7 @@ BOOST_CHECK( oven::equals(
 <li>Valid expression: <tt class="docutils literal"><span class="pre">rngs|delimited(delim)</span></tt>, where <tt class="docutils literal"><span class="pre">delim</span></tt> is a Range to specify the delimiter.</li>
 <li>Returns: A range which behaves as if it were <tt class="docutils literal"><span class="pre">rngs|transformed(with)|concatenated</span></tt>, where <tt class="docutils literal"><span class="pre">with</span></tt> is a <a class="reference" href="http://www.sgi.com/tech/stl/functors.html">Function Object</a> which calls <tt class="docutils literal"><span class="pre">make_jointed</span></tt> to joint <tt class="docutils literal"><span class="pre">delim</span></tt>.</li>
 </ul>
-<p>Note that <tt class="docutils literal"><span class="pre">delimited</span></tt> prepends the delimiter to the base range. You can call <tt class="docutils literal"><span class="pre">dropped</span></tt> to remove it.</p>
+<p>Note that <tt class="docutils literal"><span class="pre">delimited</span></tt> prepends the delimiter. <tt class="docutils literal"><span class="pre">dropped</span></tt> is useful to remove it.</p>
 </div>
 <div class="section">
 <h2><a class="toc-backref" href="#id69" id="directed" name="directed">8.16&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">directed</span></tt></a></h2>
@@ -1105,7 +1104,7 @@ BOOST_CHECK( m[<span class="cpp_number_literal">99</span>] == <span class="cpp_s
 </div>
 <div class="section">
 <h2><a class="toc-backref" href="#id81" id="memoized" name="memoized">8.28&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">memoized</span></tt></a></h2>
-<p><tt class="docutils literal"><span class="pre">memoized</span></tt> returns a range whose values are cached for speed, preparing repeated dereferences.
+<p><tt class="docutils literal"><span class="pre">memoized</span></tt> returns a range whose values are cached for speed, preparing for repeated dereferences.
 Note that <tt class="docutils literal"><span class="pre">memoized</span></tt> can return a <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#forward_range">Forward Range</a> even if the base range is a <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#single_pass_range">Single Pass Range</a>:</p>
 <pre class="cpp_source">
 std::stringstream ss;
@@ -1165,7 +1164,7 @@ BOOST_CHECK( oven::equals(A1|merged(A2, &amp;::lt_nocase), AA) );</pre>
 <h2><a class="toc-backref" href="#id85" id="pointed" name="pointed">8.32&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">pointed</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">pointed</span></tt> provides an interface to have a conversation with legacy APIs:</p>
 <pre class="cpp_source">
-std::string <span class="cpp_keyword">const </span>src(<span class="cpp_string_literal">&quot;hello, point_range&quot;</span>);
+std::string <span class="cpp_keyword">const </span>src(<span class="cpp_string_literal">&quot;hello, pointed&quot;</span>);
 std::vector&lt;<span class="cpp_keyword">char</span>&gt; vec;
 vec.resize(oven::distance(src) + <span class="cpp_number_literal">1</span>);
 std::strcpy(boost::begin(vec|pointed), src.c_str());
@@ -1333,7 +1332,7 @@ BOOST_CHECK( oven::equals(answer,
 <h2><a class="toc-backref" href="#id101" id="taken" name="taken">8.48&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">taken</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">taken</span></tt>, applied to the base range, returns the prefix of the range of length <tt class="docutils literal"><span class="pre">n</span></tt>:</p>
 <pre class="cpp_source">
-std::string src(<span class="cpp_string_literal">&quot;hello, take_range!&quot;</span>);
+std::string src(<span class="cpp_string_literal">&quot;hello, taken!&quot;</span>);
 std::string ans(<span class="cpp_string_literal">&quot;hello&quot;</span>);
 BOOST_CHECK( oven::equals(src|taken(<span class="cpp_number_literal">7</span>)|taken(<span class="cpp_number_literal">5</span>), ans) );
 </pre>
@@ -1715,7 +1714,7 @@ See <a class="reference" href="./doc/ms/mfc_atl.html">Oven Range MFC/ATL Extensi
 <div class="footer">
 <hr class="footer" />
 <a class="reference" href="doc/index.rst">View document source</a>.
-Generated on: 2007-01-18 19:27 UTC.
+Generated on: 2007-01-18 21:24 UTC.
 Generated by <a class="reference" href="http://docutils.sourceforge.net/">Docutils</a> from <a class="reference" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a> source.
 
 </div>
