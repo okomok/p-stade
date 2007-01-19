@@ -82,7 +82,7 @@ PSTADE_ADL_BARRIER(functional) {
                 return *m_px;
             }
 
-            explicit op_result() // for ForwardIterator
+            explicit op_result()
             { }
 
             explicit op_result(T& x) :
@@ -141,7 +141,7 @@ PSTADE_ADL_BARRIER(functional) {
                 return !m_pred(a0, a1);
             }
 
-            explicit op_result() // for ForwardIterator
+            explicit op_result()
             { }
 
             explicit op_result(Predicate const& pred) :
@@ -304,7 +304,7 @@ PSTADE_ADL_BARRIER(functional) {
                 return m_fun(a1, a0);
             }
 
-            explicit op_result() // for ForwardIterator
+            explicit op_result()
             { }
 
             explicit op_result(BinaryFun const& fun) :

@@ -89,7 +89,7 @@ namespace pstade {
                 return fuse_detail::call_impl<Result>(m_fun, seq, typename meta_size<FusionSeq>::type());
             }
 
-            explicit op_result() // for ForwardIterator
+            explicit op_result()
             { }
 
             explicit op_result(Function const& fun) :

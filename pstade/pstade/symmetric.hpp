@@ -67,16 +67,16 @@ namespace pstade {
 
         template<class A, class UnaryFun> inline
         typename boost::result_of<right<UnaryFun>(A&)>::type
-        operator|(A& a, right<UnaryFun> const& pi)
+        operator|(A& a, right<UnaryFun> const& r)
         {
-            return pi(a);
+            return r(a);
         };
 
         template<class A, class UnaryFun> inline
         typename boost::result_of<right<UnaryFun>(PSTADE_DEDUCED_CONST(A)&)>::type
-        operator|(A const& a, right<UnaryFun> const& pi)
+        operator|(A const& a, right<UnaryFun> const& r)
         {
-            return pi(a);
+            return r(a);
         };
 
 

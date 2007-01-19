@@ -84,7 +84,7 @@ void test()
     {
         std::string str;
         str |
-            transformed(pstade::value) |
+            transformed(pstade::as_value) |
             // transformed(pstade::identity); // dangling!
             transformed(pstade::forward<char>(pstade::identity));
     }

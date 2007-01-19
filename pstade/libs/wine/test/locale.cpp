@@ -22,38 +22,41 @@
 void test()
 {
     using namespace pstade;
-    using namespace oven;
 
+    {
+        BOOST_CHECK(to_upper('a') == 'A');
+        BOOST_CHECK(to_lower('A') == 'a');
+    }
     {
         BOOST_CHECK( oven::equals(
             std::string("ABCDE"),
-            std::string("abCde")|transformed(to_upper)
+            std::string("abCde")|oven::transformed(to_upper)
         ));
     }
     {
         BOOST_CHECK( oven::equals(
             std::string("abcde"),
-            std::string("AbCdE")|transformed(to_lower)
+            std::string("AbCdE")|oven::transformed(to_lower)
         ));
     }
     {
         BOOST_CHECK( oven::equals(
             std::string("abcde"),
             std::string("AbCdE")
-                |transformed(to_lower)|transformed(to_upper)|transformed(to_lower)
+                |oven::transformed(to_lower)|oven::transformed(to_upper)|oven::transformed(to_lower)
         ));
     }
 
     {
         BOOST_CHECK( oven::equals(
             std::string("abcde"),
-            std::string("a1b23c4d5e")|filtered(is_alpha)
+            std::string("a1b23c4d5e")|oven::filtered(is_alpha)
         ));
     }
     {
         BOOST_CHECK( oven::equals(
             std::string("12345"),
-            std::string("a1b23c4d5e")|filtered(is_digit)
+            std::string("a1b23c4d5e")|oven::filtered(is_digit)
         ));
     }
 }

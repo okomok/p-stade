@@ -75,7 +75,7 @@ namespace pstade {
             #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_CALLABLE_MAX_ARITY, <pstade/forward.hpp>))
             #include BOOST_PP_ITERATE()
 
-            explicit op_result() // for ForwardIterator
+            explicit op_result()
             { }
 
             explicit op_result(Function const& fun) :

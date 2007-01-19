@@ -94,7 +94,7 @@ namespace pstade {
             #include BOOST_PP_ITERATE()
 
 
-            explicit pipe() // for ForwardIterator
+            explicit pipe()
             { }
 
             explicit pipe(Function const& fun, Arguments const& args = Arguments()) :

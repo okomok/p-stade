@@ -52,7 +52,7 @@ namespace pstade {
                 return m_f(fuse(m_g)(args));
             }
 
-            base_op_result() // for ForwardIterator
+            base_op_result()
             { }
 
             base_op_result(F const& f, G const& g) :
