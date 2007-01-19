@@ -25,7 +25,7 @@
 #include <pstade/oven/regularized.hpp>
 #include <pstade/lambda_result_of.hpp>
 #include <boost/lambda/lambda.hpp>
-#include <pstade/reference.hpp>
+#include <pstade/as.hpp>
 #include <pstade/pack.hpp>
 
 

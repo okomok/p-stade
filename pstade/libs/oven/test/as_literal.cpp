@@ -45,6 +45,9 @@ void test()
         BOOST_CHECK( oven::equals("hello range"|as_literal, std::string("hello range")) );
     }
     {
+        BOOST_CHECK( oven::equals(as_literal("hello range"), std::string("hello range")) );
+    }
+    {
         wchar_t const str[] = L"hello range";
         BOOST_CHECK( oven::equals(str|as_literal, std::wstring(L"hello range")) );
     }

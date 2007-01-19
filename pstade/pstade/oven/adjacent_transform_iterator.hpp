@@ -14,7 +14,7 @@
 #include <boost/iterator/iterator_traits.hpp> // iterator_reference
 #include <boost/optional.hpp>
 #include <boost/utility/result_of.hpp>
-#include <pstade/reference.hpp>
+#include <pstade/as.hpp>
 #include <pstade/unused.hpp>
 #include <pstade/use_default.hpp>
 #include "./detail/next_prior.hpp" // next
@@ -114,7 +114,7 @@ friend class boost::iterator_core_access;
         if (!m_cache)
             m_cache = detail::next(this->base());
 
-        return m_fun(*this->base()|to_reference, **m_cache|to_reference);
+        return m_fun(as_ref(*this->base()), as_ref(**m_cache));
     }
 
     void increment()

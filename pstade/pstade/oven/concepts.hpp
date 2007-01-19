@@ -36,8 +36,8 @@
 #include <boost/range/iterator.hpp>
 #include <boost/range/size_type.hpp>
 #include <boost/type_traits/remove_const.hpp>
+#include <pstade/as.hpp> // as_cref
 #include <pstade/concept.hpp>
-#include <pstade/reference.hpp>
 #include <pstade/unused.hpp>
 #include "./detail/config.hpp" // PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR
 #include "./range_iterator.hpp"
@@ -117,8 +117,8 @@ struct SinglePass
 
         mutable_iterator f = boost::begin(rng);
         mutable_iterator l = boost::end(rng);
-        constant_iterator cf = boost::begin(const_reference(rng));
-        constant_iterator cl = boost::end(const_reference(rng));
+        constant_iterator cf = boost::begin(as_cref(rng));
+        constant_iterator cl = boost::end(as_cref(rng));
 
         unused(f, l, cf, cl);
     }

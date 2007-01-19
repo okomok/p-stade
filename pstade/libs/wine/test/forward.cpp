@@ -17,7 +17,7 @@
 #include <boost/lambda/bind.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <boost/utility/result_of.hpp>
-#include <pstade/reference.hpp>
+#include <pstade/as.hpp>
 
 #include <pstade/lambda_result_of.hpp>
 
@@ -83,7 +83,7 @@ void test()
 #endif
     {
         BOOST_CHECK( 3 ==
-            lambda::bind( pstade::op_forward<int>()(my_fun), lambda::_1, lambda::_2 )(1|to_reference, 2|to_reference)
+            lambda::bind( pstade::op_forward<int>()(my_fun), lambda::_1, lambda::_2 )(1|as_ref, 2|as_ref)
         );
     }
     { // make lambda perfect!

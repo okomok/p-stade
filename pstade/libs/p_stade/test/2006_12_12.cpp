@@ -5,7 +5,7 @@
 #include <boost/lambda/core.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/forward.hpp>
-#include <pstade/reference.hpp>
+#include <pstade/as.hpp>
 #include <pstade/lambda_result_of.hpp>
 
 
@@ -16,7 +16,7 @@ namespace lambda = boost::lambda;
 void test()
 {
     // lambda::_1(12); // error
-    lambda::_1(12|to_reference); // ok
+    lambda::_1(12|as_ref); // ok
 
     boost::result_of<
         boost::result_of<op::forward(op_lambda_1)>::type(int)

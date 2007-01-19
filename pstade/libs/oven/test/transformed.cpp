@@ -22,7 +22,7 @@
 #include <boost/range.hpp>
 #include <pstade/oven/functions.hpp>
 #include <functional>
-#include <pstade/value.hpp>
+#include <pstade/as.hpp>
 #include <pstade/functional.hpp>
 #include <pstade/forward.hpp>
 

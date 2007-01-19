@@ -32,7 +32,7 @@
 #include <pstade/oven/array_range.hpp>
 #include <pstade/oven/distance.hpp>
 #include <pstade/oven/null_terminated.hpp>
-#include <pstade/reference.hpp>
+#include <pstade/as.hpp>
 #include "./window_ref.hpp"
 
 
@@ -89,7 +89,7 @@ private:
 public:
     explicit window_text(window_ref wnd) :
         init_t(wnd),
-        super_t(m_buf|to_const_reference)
+        super_t(as_cref(m_buf))
     { }
 
     friend

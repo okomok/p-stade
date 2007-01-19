@@ -15,7 +15,7 @@
 
 #include <boost/utility/result_of.hpp>
 #include <pstade/functional.hpp>
-#include <pstade/reference.hpp>
+#include <pstade/as.hpp>
 
 
 using namespace pstade;
@@ -27,7 +27,7 @@ void test()
         boost::result_of<op_lambda_bind(op_plus, op_lambda_1, int)>::type b =
             lambda_bind(plus, lambda_1, 10);
 
-        BOOST_CHECK( b(20|to_reference) == 30 );
+        BOOST_CHECK( b(20|as_ref) == 30 );
     }
 }
 

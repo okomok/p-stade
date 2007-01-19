@@ -32,7 +32,7 @@ void test()
         std::string delim("xyz");
         std::string src("12345678");
 
-        std::vector<int> expected = std::string("xyz12xyz34xyz56xyz78")|copied;
+        std::vector<char> expected = std::string("xyz12xyz34xyz56xyz78")|copied;
 
         BOOST_CHECK( oven::test_Forward_Readable(
             src|biscuit::tokenized< biscuit::seq<biscuit::any, biscuit::any> >()|delimited(delim),

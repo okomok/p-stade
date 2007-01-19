@@ -40,7 +40,7 @@
 #include <pstade/nonassignable.hpp>
 #include <pstade/object_generator.hpp>
 #include <pstade/preprocessor.hpp>
-#include <pstade/remove_cvr.hpp>
+#include <pstade/unparenthesize.hpp>
 
 
 namespace pstade {
@@ -130,38 +130,29 @@ namespace pstade {
 
 
         template< class A, class Function, class Arguments >
-        struct result_of_output
-        {
-            typedef typename boost::result_of<op_fuse(Function)>::type fused_f;
-            typedef boost::tuples::cons<A&, Arguments> args_t;
-            typedef typename boost::result_of<fused_f(args_t)>::type type;
-        };
-
-        template< class Result, class A, class Pipe > inline
-        Result output(A& a, Pipe const& pi)
-        {
-            return pstade::fuse(pi.base())(
-                pipable_detail::push_front(pi.arguments(), a)
-            );
-        }
+        struct result_of_output :
+            boost::result_of<
+                typename boost::result_of<op_fuse(Function const&)>::type(boost::tuples::cons<A&, Arguments>)
+            >
+        { };
 
 
         template< class A, class Function, class Arguments > inline
         typename result_of_output<A, Function, Arguments>::type
         operator|(A& a, pipe<Function, Arguments> const& pi)
         {
-            return pipable_detail::output<
-                typename result_of_output<A, Function, Arguments>::type
-            >(a, pi);
+            return pstade::fuse(pi.base())(
+                pipable_detail::push_front(pi.arguments(), a)
+            );
         };
 
         template< class A, class Function, class Arguments > inline
         typename result_of_output<PSTADE_DEDUCED_CONST(A), Function, Arguments>::type
         operator|(A const& a, pipe<Function, Arguments> const& pi)
         {
-            return pipable_detail::output<
-                typename result_of_output<PSTADE_DEDUCED_CONST(A), Function, Arguments>::type
-            >(a, pi);
+            return pstade::fuse(pi.base())(
+                pipable_detail::push_front(pi.arguments(), a)
+            );
         };
 
 
@@ -172,25 +163,9 @@ namespace pstade {
 
 
     #define PSTADE_PIPABLE(Object, Function) \
-        PSTADE_CONSTANT( Object, (::boost::result_of< ::pstade::op_pipable(Function) >::type) ) \
+        PSTADE_CONSTANT( Object, \
+            (::boost::result_of< ::pstade::op_pipable(PSTADE_UNPARENTHESIZE(Function)) >::type) ) \
     /**/
-
-
-    template< class T >
-    struct is_pipe_impl :
-        boost::mpl::false_
-    { };
-
-    template< class Function, class Arguments >
-    struct is_pipe_impl< pipable_detail::pipe<Function, Arguments> > :
-        boost::mpl::true_
-    { };
-
-
-    template< class T >
-    struct is_pipe :
-        is_pipe_impl< remove_cvr<T> >
-    { };
 
 
 } // namespace pstade

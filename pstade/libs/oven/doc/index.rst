@@ -261,7 +261,7 @@ All the range returned from the following makers are CopyConstructible and Inher
 The current Boost.Range regards char array as literal, which ``as_array`` works around.
 
 - Header: ``<pstade/oven/as_array.hpp>``
-- Valid expression: ``arr|as_array``
+- Valid expression: ``as_array(arr)`` and ``arr|as_array``
 - Effect: same as `TR2 as_array`__
 
 __ http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html#as-array
@@ -275,7 +275,7 @@ __ http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html#as-array
 
 
 - Header: ``<pstade/oven/as_c_str.hpp>``
-- Valid expression: ``psz|as_c_str``, where ``psz`` is convertible to a pointer to a null-terminated array.
+- Valid expression: ``as_c_str(psz)`` and ``psz|as_c_str``, where ``psz`` is convertible to a pointer to a null-terminated array.
 - Returns: ``[psz,psz+strlen(psz))``. 
 
 
@@ -287,7 +287,7 @@ __ http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html#as-array
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\as_literal.ipp
 
 - Header: ``<pstade/oven/as_literal.hpp>``
-- Valid expression: ``arr|as_literal``.
+- Valid expression: ``as_literal(arr)`` and ``arr|as_literal``
 - Returns: ``[p,p+sz-1)``, where ``p`` is ``&arr[0]`` and ``sz`` is the size of ``arr``.
 
 That is, ``as_literal`` doesn't use ``strlen``. `TR2 as_literal`__ does.
@@ -302,8 +302,8 @@ __ http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html#as-literal
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\as_single.ipp
 
 
-- Header: ``<pstade/oven/single_range.hpp>``
-- Valid expression: ``v|as_single``.
+- Header: ``<pstade/oven/as_single.hpp>``
+- Valid expression: ``as_single(v)`` and ``v|as_single``
 - Returns: A range which behaves as if it were ``[&v, &v+1)``.
 
 

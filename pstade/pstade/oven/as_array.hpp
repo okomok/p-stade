@@ -15,8 +15,9 @@
 #include <boost/type_traits/add_reference.hpp>
 #include <boost/type_traits/is_array.hpp>
 #include <boost/type_traits/remove_extent.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/function.hpp>
-#include <pstade/pipable.hpp>
+#include <pstade/symmetric.hpp>
 #include "./iter_range.hpp"
 
 
@@ -69,8 +70,10 @@ namespace as_array_detail {
 } // namespace as_array_detail
 
 
-PSTADE_FUNCTION(make_as_array, (as_array_detail::baby<_>))
-PSTADE_PIPABLE(as_array, (op_make_as_array))
+PSTADE_SYMMETRIC(as_array, (function< as_array_detail::baby<boost::mpl::_> >))
+
+typedef op_as_array op_make_as_array;
+PSTADE_CONSTANT(make_as_array, (op_make_as_array))
 
 
 } } // namespace pstade::oven

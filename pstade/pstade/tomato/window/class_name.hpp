@@ -23,8 +23,8 @@
 #include <boost/utility/result_of.hpp>
 #include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/apple/sdk/windows.hpp>
+#include <pstade/as.hpp>
 #include <pstade/oven/null_terminated.hpp>
-#include <pstade/reference.hpp>
 #include <pstade/require.hpp>
 #include <pstade/static_c.hpp>
 #include "../access.hpp"
@@ -89,7 +89,7 @@ private:
 public:
     explicit class_name(window_ref wnd) :
         init_t(wnd),
-        super_t(m_buf|to_const_reference)
+        super_t(as_cref(m_buf))
     { }
 
     friend

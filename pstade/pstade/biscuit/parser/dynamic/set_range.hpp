@@ -14,7 +14,7 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/const_iterator.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/reference.hpp>
+#include <pstade/as.hpp>
 #include "../../state/increment.hpp"
 #include "../../state/is_end.hpp"
 #include "../../state/parse.hpp"
@@ -53,7 +53,7 @@ struct set_range
         if (biscuit::state_is_end(s))
             return false;
 
-        if (!set_range_detail::find(RangeFtor()(us)|to_reference, *s.get_cur()))
+        if (!set_range_detail::find(RangeFtor()(us)|as_ref, *s.get_cur()))
             return false;
 
         biscuit::state_increment(s);

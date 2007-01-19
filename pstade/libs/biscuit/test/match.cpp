@@ -16,7 +16,7 @@
 
 #include <string>
 #include <pstade/oven/as_literal.hpp>
-#include <pstade/reference.hpp>
+#include <pstade/as.hpp>
 
 
 using namespace pstade;
@@ -65,7 +65,7 @@ void test()
     }
     {
         std::string str("<!-- hello, xml comment -->");
-        BOOST_CHECK( biscuit::match<xml_comment>(pstade::const_reference(str)) );
+        BOOST_CHECK( biscuit::match<xml_comment>(pstade::as_cref(str)) );
     }
 
     {

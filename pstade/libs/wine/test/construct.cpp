@@ -14,7 +14,7 @@
 #include <pstade/construct.hpp>
 
 
-#include <pstade/value.hpp>
+#include <pstade/as.hpp>
 #include <string>
 #include <boost/utility/result_of.hpp>
 #include <utility>
@@ -78,7 +78,7 @@ void test()
 {
     {
         boost::result_of<op_construct<std::string>(char const*)>::type
-            x = op_construct<std::string>()("hello"|to_value);
+            x = op_construct<std::string>()("hello"|as_value);
         BOOST_CHECK( x == std::string("hello") );
     }
     {

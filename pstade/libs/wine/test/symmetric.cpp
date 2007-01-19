@@ -10,10 +10,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/pipable.hpp>
+#include <pstade/symmetric.hpp>
 
 
-struct my_fun_t
+#include <pstade/test.hpp>
+
+
+struct our_fun_t
 {
     typedef int result_type;
 
@@ -23,30 +26,17 @@ struct my_fun_t
     }
 };
 
-PSTADE_PIPABLE(my_fun, (my_fun_t))
+PSTADE_SYMMETRIC(our_fun, (our_fun_t))
 
 
-struct your_fun_t
-{
-    typedef int result_type;
-
-    int operator()(std::string str, int x, int y) const
-    {
-        return x + y;
-    }
-};
-
-PSTADE_PIPABLE(your_fun, (your_fun_t))
+PSTADE_TEST_IS_RESULT_OF((int), op_our_fun(int))
 
 
 void test()
 {
-    BOOST_CHECK( (3|my_fun) == 4 );
-    BOOST_CHECK( (3|my_fun()) == 4 );
-
-    BOOST_CHECK( ("hello"| pstade::pipable(your_fun_t())(1, 2)) == 3 );
-
-    BOOST_CHECK( ("hello"|your_fun(1, 2)) == 3 );
+    BOOST_CHECK( our_fun(3) == 4 );
+    BOOST_CHECK( (3|our_fun) == 4 );
+    BOOST_CHECK( (3|our_fun()) == 4 );
 }
 
 

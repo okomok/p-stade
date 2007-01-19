@@ -24,10 +24,10 @@
 #include <pstade/apple/atl/module.hpp>
 #include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/apple/sdk/windows.hpp>
+#include <pstade/as.hpp>
 #include <pstade/oven/iter_range.hpp>
 #include <pstade/oven/null_terminated.hpp>
 #include <pstade/oven/sub_range_result.hpp>
-#include <pstade/reference.hpp>
 #include <pstade/require.hpp>
 #include "./max_path.hpp"
 #include "./path_find_extension.hpp"
@@ -93,7 +93,7 @@ private:
 public:
     explicit module_file_name(HINSTANCE hInst = _Module.GetModuleInstance()) :
         init_t(hInst),
-        super_t(m_buf|to_const_reference)
+        super_t(as_cref(m_buf))
     {
         BOOST_ASSERT(oven::is_null_terminated(m_buf));
     }

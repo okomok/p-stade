@@ -16,7 +16,7 @@
 #include <string>
 #include <boost/mpl/assert.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <pstade/value.hpp>
+#include <pstade/as.hpp>
 
 
 std::string g_str("x");
@@ -64,7 +64,7 @@ BOOST_MPL_ASSERT((
 void test()
 {
     {
-        BOOST_CHECK( compose(value, bar_fun())('c') == std::string("x") );
+        BOOST_CHECK( compose(as_value, bar_fun())('c') == std::string("x") );
     }
     {
         BOOST_CHECK( compose(&increment, &make_zero)() == 1 );
