@@ -544,7 +544,7 @@ Thus, STL that doesn't know traversal concepts can choose effective algorithms.
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\copied_out.ipp
 
 
-- Header: ``<pstade/oven/copy_range.hpp>``
+- Header: ``<pstade/oven/copied_out.hpp>``
 - Valid expression: ``rng|copied_out(it)``
 - Precondition: ``oven::copy(rng,it)`` is a valid expression.
 - Effect: ``oven::copy(rng,it)``

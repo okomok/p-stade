@@ -28,7 +28,7 @@ namespace pstade { namespace oven {
 struct op_make_xpressive_tokenized :
     callable<op_make_xpressive_tokenized>
 {
-    template< class Myself, class Range, class Regex, class SubMatches = void >
+    template< class Myself, class Range, class Regex, class SubMatches = void, class Flag = void >
     struct apply
     {
         typedef
@@ -36,7 +36,7 @@ struct op_make_xpressive_tokenized :
                 // Xpressive seems not to support a mutable iterator.
                 typename range_iterator<PSTADE_DEDUCED_CONST(Range)>::type
             >
-        iter_t
+        iter_t;
 
         typedef
             iter_range<iter_t> const
@@ -70,7 +70,7 @@ struct op_make_xpressive_tokenized :
 };
 
 
-PSTADE_CONSTANT(make_xpressive_tokenized, (op_make_expressive_tokenized))
+PSTADE_CONSTANT(make_xpressive_tokenized, (op_make_xpressive_tokenized))
 PSTADE_PIPABLE(xpressive_tokenized, (op_make_xpressive_tokenized))
 
 

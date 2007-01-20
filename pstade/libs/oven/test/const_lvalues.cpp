@@ -20,6 +20,7 @@
 #include <pstade/oven/metafunctions.hpp>
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/copy_range.hpp>
+#include <pstade/oven/copied_out.hpp>
 #include <pstade/oven/filtered.hpp>
 #include <pstade/oven/transformed.hpp>
 #include <pstade/oven/regularized.hpp>

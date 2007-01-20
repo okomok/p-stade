@@ -60,6 +60,7 @@ test-suite oven :
     [ oven-test const_lvalues ]
     [ oven-test constants ]
     [ oven-compile-fail constants_fail ]
+    [ oven-test copied_out ]
     [ oven-test copy_range ]
     [ oven-test counting ]
     [ oven-test cycled ]

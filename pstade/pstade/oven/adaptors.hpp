@@ -21,6 +21,7 @@
 #include "./cleared.hpp"
 #include "./concatenated.hpp"
 #include "./const_lvalues.hpp"
+#include "./copied_out.hpp"
 #include "./cycled.hpp"
 #include "./delimited.hpp"
 #include "./directed.hpp"

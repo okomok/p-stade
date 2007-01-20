@@ -11,6 +11,7 @@
 
 
 #include <pstade/oven/copy_range.hpp>
+#include <pstade/oven/copied_out.hpp>
 
 
 #include <iterator>
