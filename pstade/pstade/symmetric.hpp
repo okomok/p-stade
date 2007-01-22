@@ -41,7 +41,7 @@ namespace pstade {
                 boost::result_of<UnaryFun(A&)>
             { };
 
-            template<class Result >
+            template<class Result>
             Result call() const
             {
                 return *this;
