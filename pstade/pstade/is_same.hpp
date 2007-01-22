@@ -21,8 +21,8 @@ namespace pstade {
     {
         typedef bool result_type;
 
-        template< class T >
-        bool operator()(T const& x, T const& y) const
+        template<class X, class Y>
+        bool operator()(X const& x, Y const& y) const
         {
             return boost::addressof(x) == boost::addressof(y);
         }
