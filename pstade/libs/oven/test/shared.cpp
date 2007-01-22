@@ -20,6 +20,7 @@
 #include <boost/noncopyable.hpp>
 #include <pstade/new_delete.hpp>
 #include <pstade/oven/functions.hpp>
+#include <pstade/oven/identities.hpp>
 
 
 struct xxx :
@@ -80,6 +81,18 @@ void test()
         BOOST_CHECK( oven::equals(x1, std::string("def")) );
     }
 #endif
+    {
+#if 0
+        BOOST_FOREACH (char ch, std::string("dangling")|identities) {
+            // 'std::string' object doesn't exist anymore. 
+            std::cout << ch;
+        }
+#endif
+        BOOST_FOREACH (char ch, new std::string("ok")|shared|identities) {
+            // works fine.
+            std::cout << ch;
+        }
+    }
 }
 
 

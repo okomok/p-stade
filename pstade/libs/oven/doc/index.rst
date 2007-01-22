@@ -323,8 +323,7 @@ __ http://www.boost.org/libs/iterator/doc/counting_iterator.html
 
 ``generation``
 ^^^^^^^^^^^^^^^^^^
-``generation`` returns a `Single Pass Range`_ whose iterators behave as if
-they were the original iterators wrapped in `generator_iterator`__::
+``generation`` returns a `Single Pass Range`_ whose iterators were originally written as `generator_iterator`__::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\generation.ipp
 
@@ -368,15 +367,15 @@ the function on the first argument, the second item by applying the function on 
 
 ``stream_input``
 ^^^^^^^^^^^^^^^^
-``stream_input`` makes a range whose iterators behave as if they were the original iterators wrapped in `istream_iterator`__::
+``stream_input`` makes a `Single Pass Range`_ from ``std::cout`` etc::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\stream_input.ipp
 
 
-__ http://www.sgi.com/tech/stl/istream_iterator.html
-
 - Valid expression: ``oven::stream_input<V>(stm)``
-- Returns: A range whose iterators behave as if they were the original iterators wrapped in ``istream_iterator``
+- Returns: A range whose iterators behave as if they were the original iterators wrapped in `istream_iterator`__
+
+__ http://www.sgi.com/tech/stl/istream_iterator.html
 
 
 ``streambuf_input``
@@ -857,9 +856,17 @@ An iterator holding such a functor cannot conform to even InputIterator.
 
 ``shared``
 ^^^^^^^^^^
+``shared``, taking a pointer to heap-allocated range, makes a range whose iterators manages the lifetime of the range::
+
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\shared.ipp
+
 - Header: ``<pstade/oven/shared.hpp>``
 - Valid expression: ``new Range|shared``
-- Returns: A range whose iterators behave as if they were the original iterators wrapped in ``boost::shared_container_iterator``.
+- Returns: A range whose iterators behave as if they were the original iterators wrapped in `shared_container_iterator`__.
+
+__ http://www.boost.org/libs/utility/shared_container_iterator.html
+
+You can find a more elaborate example at ``<pstade/oven/sorted.hpp>``.
 
 
 ``sliced``
