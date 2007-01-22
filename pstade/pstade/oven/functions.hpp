@@ -30,6 +30,7 @@
 #include "./indexing.hpp"
 #include "./iteration.hpp"
 // #include "./paralell.hpp"
+#include "./repeated.hpp"
 #include "./stream_input.hpp"
 
 

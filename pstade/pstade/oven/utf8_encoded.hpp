@@ -23,9 +23,7 @@
 namespace pstade { namespace oven {
 
 
-template<
-    class U8T = boost::uint8_t
->
+template< class U8T = boost::uint8_t >
 struct op_make_utf8_encoded :
     callable< op_make_utf8_encoded<U8T> >
 {
@@ -33,12 +31,14 @@ struct op_make_utf8_encoded :
     struct apply
     {
         typedef
-            iter_range<
-                boost::u32_to_u8_iterator<
-                    typename range_iterator<Range>::type,
-                    U8T
-                >
-            > const
+            boost::u32_to_u8_iterator<
+                typename range_iterator<Range>::type,
+                U8T
+            >
+        iter_t;
+
+        typedef
+            iter_range<iter_t> const
         type;
     };
 

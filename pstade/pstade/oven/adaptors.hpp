@@ -49,7 +49,6 @@
 #include "./popped.hpp"
 #include "./prepended.hpp"
 #include "./regularized.hpp"
-#include "./repeated.hpp"
 #include "./reversed.hpp"
 #include "./rotated.hpp"
 #include "./scanned.hpp"

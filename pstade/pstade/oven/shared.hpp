@@ -29,7 +29,7 @@ namespace pstade { namespace oven {
 
 // 'callable/function' is useless here,
 // because a temporary 'auto_ptr' is const-qualified
-// then the ownership cannot be moved. So make it by scratch.
+// then the ownership cannot be moved. So make it from scratch.
 
 
 struct op_make_shared
@@ -45,14 +45,16 @@ struct op_make_shared
         rng_t;
 
         typedef
-            iter_range<
-                share_iterator<rng_t>
-            > const
+            share_iterator<rng_t>
+        iter_t;
+
+        typedef
+            iter_range<iter_t> const
         type;
     };
 
     template< class Range >
-    typename result<op_make_shared(Range *)>::type
+    typename result<void(Range *)>::type
     operator()(Range *prng) const
     {
         PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
@@ -68,7 +70,7 @@ struct op_make_shared
     }
 
     template< class X >
-    typename result<op_make_shared(std::auto_ptr<X>)>::type
+    typename result<void(std::auto_ptr<X>)>::type
     operator()(std::auto_ptr<X> prng) const
     {
         return (*this)(prng.release());

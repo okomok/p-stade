@@ -16,8 +16,8 @@
 
 
 #include <cstddef>  // ptrdiff_t
-#include <typeinfo> // bad_cast
 #include <boost/assert.hpp>
+#include <boost/cast.hpp> // polymorphic_downcast
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/iterator/iterator_traits.hpp>
@@ -45,17 +45,10 @@ namespace any_iterator_detail {
 
 
     template< class To, class From > inline
-    To const& down_cast(From const& from)
+    To const& downcast(From const& from)
     {
-#if !defined(NDEBUG)
-        try {
-            dynamic_cast<To const&>(from);
-        }
-        catch (std::bad_cast const&) {
-            BOOST_ASSERT("'Iterator_' types must be the same." && false);
-        }
-#endif
-        return static_cast<To const&>(from);
+        // 'Iterator_' types must be the same.
+        return *boost::polymorphic_downcast<To const *>(&from);
     }
 
 
@@ -177,7 +170,7 @@ namespace any_iterator_detail {
 
         virtual bool equal(placeholder_t const& other) const
         {
-            return m_held == any_iterator_detail::down_cast<self_t>(other).m_held;
+            return m_held == any_iterator_detail::downcast<self_t>(other).m_held;
         }
 
         virtual void increment()
@@ -198,7 +191,7 @@ namespace any_iterator_detail {
         virtual Difference difference_to(placeholder_t const& other) const
         {
             return any_iterator_detail::difference_to_aux<Difference>(
-                m_held, any_iterator_detail::down_cast<self_t>(other).m_held, Traversal());
+                m_held, any_iterator_detail::downcast<self_t>(other).m_held, Traversal());
         }
     };
 
@@ -261,7 +254,7 @@ public:
     template< class Iterator_ >
     Iterator_ const& base() const
     {
-        return any_iterator_detail::down_cast<
+        return any_iterator_detail::downcast<
             any_iterator_detail::holder<Iterator_, Traversal, Reference, Difference>
         >(*m_pimpl).held();
     }
