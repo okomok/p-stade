@@ -20,9 +20,9 @@
 
 
 #include <cstddef> // size_t
+#include <pstade/auxiliary.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/function.hpp>
-#include <pstade/symmetric.hpp>
 #include "./as_array.hpp" // to_range
 #include "./iter_range.hpp"
 
@@ -58,7 +58,7 @@ namespace as_literal_detail {
 } // namespace as_literal_detail
 
 
-PSTADE_SYMMETRIC(as_literal, (function< as_literal_detail::baby<boost::mpl::_> >))
+PSTADE_AUXILIARY0(as_literal, (function< as_literal_detail::baby<boost::mpl::_> >))
 
 typedef op_as_literal op_make_as_literal;
 PSTADE_CONSTANT(make_as_literal, (op_make_as_literal))

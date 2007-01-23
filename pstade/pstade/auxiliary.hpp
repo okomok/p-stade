@@ -40,17 +40,14 @@ namespace pstade {
 
         template<class UnaryFun>
         struct op_result0 :
-            callable<
-                op_result0<UnaryFun>,
-                typename boost::result_of<op_pipable(UnaryFun const&)>::type
-            >
+            callable<op_result0<UnaryFun>, op_result0<UnaryFun> const&>
         {
             // as pipe
 
             template<class Result>
             Result call() const
             {
-                return pipable(m_fun);
+                return *this;
             };
 
             // as function call
@@ -123,6 +120,9 @@ namespace pstade {
 } // namespace pstade
 
 
+PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE((pstade)(auxiliary_detail)(op_result0), 1)
+
+
 #endif
 #else
 #define n BOOST_PP_ITERATION()
@@ -191,7 +191,6 @@ namespace auxiliary_detail {
     };
 
 } // namespace auxiliary_detail
-
 
 PSTADE_OBJECT_GENERATOR(BOOST_PP_CAT(auxiliary, n),
     (auxiliary_detail::BOOST_PP_CAT(op_result, n)< deduce<_1, to_value> >))

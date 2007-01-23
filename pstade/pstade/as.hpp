@@ -10,11 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/auxiliary.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/function.hpp>
 #include <pstade/pass_by.hpp>
-#include <pstade/symmetric.hpp>
 
 
 namespace pstade {
@@ -50,8 +50,8 @@ namespace pstade {
     } // namespace as_ref_detail
 
 
-    PSTADE_SYMMETRIC(as_ref,  (function< as_ref_detail::baby <boost::mpl::_1> >))
-    PSTADE_SYMMETRIC(as_cref, (function< as_ref_detail::cbaby<boost::mpl::_1> >))
+    PSTADE_AUXILIARY0(as_ref,  (function< as_ref_detail::baby <boost::mpl::_1> >))
+    PSTADE_AUXILIARY0(as_cref, (function< as_ref_detail::cbaby<boost::mpl::_1> >))
 
 
     // Define 'as_value' without 'callable', 'function' nor 'symmetric'.

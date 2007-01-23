@@ -66,7 +66,6 @@ test-suite wine :
     [ wine-test require ]
     [ wine-test statement ]
     [ wine-test static_c ]
-    [ wine-test symmetric ]
     [ wine-test template_arguments ]
     [ wine-test unfuse ]
     [ wine-test unparenthesize ]

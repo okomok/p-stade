@@ -18,8 +18,8 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/adl_barrier.hpp>
+#include <pstade/auxiliary.hpp>
 #include <pstade/function.hpp>
-#include <pstade/symmetric.hpp>
 #include "./range_iterator.hpp"
 
 
@@ -62,8 +62,8 @@ namespace begin_end_detail {
 
 PSTADE_ADL_BARRIER(begin_end) { // for Boost v1.33 'const_begin/end'
 
-PSTADE_SYMMETRIC(begin, (function< begin_end_detail::baby_begin<boost::mpl::_> >))
-PSTADE_SYMMETRIC(end, (function< begin_end_detail::baby_end<boost::mpl::_> >))
+PSTADE_AUXILIARY0(begin, (function< begin_end_detail::baby_begin<boost::mpl::_> >))
+PSTADE_AUXILIARY0(end, (function< begin_end_detail::baby_end<boost::mpl::_> >))
 
 } // ADL barrier
 
