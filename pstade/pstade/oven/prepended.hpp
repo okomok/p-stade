@@ -29,14 +29,14 @@ namespace prepended_detail {
     {
         typedef typename
             boost::result_of<
-                op_make_jointed(typename boost::result_of<op_make_as_single(Value&)>::type, Range&)
+                op_make_jointed(typename boost::result_of<op_as_single(Value&)>::type, Range&)
             >::type
         result;
 
         result call(Range& rng, Value& v)
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-            return make_jointed(make_as_single(v), rng);
+            return make_jointed(as_single(v), rng);
         }
     };
 

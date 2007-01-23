@@ -36,23 +36,21 @@ struct op_make_zipped_with :
     callable< op_make_zipped_with<Reference, Value> >
 {
     template< class Myself, class RangeTuple, class Function >
-    struct apply
-    {
-        typedef typename
-            boost::result_of<
-                op_make_transformed<Reference, Value>(
-                    typename boost::result_of<op_make_zipped(RangeTuple&)>::type,
-                    typename boost::result_of<op_fuse(Function&)>::type
-                )
-            >::type
-        type;
-    };
+    struct apply :
+        boost::result_of<
+            op_make_transformed<Reference, Value>(
+                typename boost::result_of<op_make_zipped(RangeTuple&)>::type,
+                typename boost::result_of<op_fuse(Function&)>::type
+            )
+        >
+    { };
 
     template< class Result, class RangeTuple, class Function >
     Result call(RangeTuple& tup, Function& fun) const
     {
         return op_make_transformed<Reference, Value>()(
-            make_zipped(tup), fuse(fun)
+            make_zipped(tup),
+            fuse(fun)
         );
     }
 };

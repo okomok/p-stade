@@ -104,15 +104,15 @@ Oven has all the range-based STL algorithms, which are ported from `Boost.RangeE
 ``to_base`` adds the automatic type deduction to ``adapted_to``.
 
 
-``begins/ends``
-^^^^^^^^^^^^^^^
-``begins/ends`` is a pipable version of ``boost::begin/end``::
+``begin/end``
+^^^^^^^^^^^^^
+``begin/end`` is a pipable version of ``boost::begin/end``::
 
-	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\begins_ends.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\begin_end.ipp
 
 
 - Header: ``<pstade/oven/begin_end.hpp>``
-- Valid expression: ``rng|begins`` and ``rng|ends``.
+- Valid expression: ``rng|begin`` and ``rng|end``
 - Precondition: ``boost::begin(rng)`` and ``boost::end(rng)`` is a valid expression.
 - Returns: ``boost::begin(rng)`` and ``boost::end(rng)`` respectively.
 
@@ -1178,7 +1178,7 @@ Version 0.91.0 - 0.91.3
 - Added ``literal_range`` and ``c_str_range``.
 - `null_terminated`_ no longer supports c-string.
 - Added ``as_single`` to ``single_range``'\s valid expressions.
-- Added `begins/ends`_.
+- Added ``begins/ends``.
 - Added ``merged``, ``set_cup``, ``set_cap``, ``set_minus`` and ``set_delta``.
 - Added ``rotated``.
 - Removed ``stridden`` and changed effects of ``sliced``.
@@ -1219,4 +1219,7 @@ Version 0.93.0
 - Changed the names of some functions and headers.
 - Added ``delimited``.
 
+Version 0.93.1
+^^^^^^^^^^^^^^
+- Renamed ``begins/ends`` to ``begin/end``.
 

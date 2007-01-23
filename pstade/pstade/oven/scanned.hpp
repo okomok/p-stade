@@ -33,13 +33,15 @@ struct op_make_scanned :
     struct apply
     {
         typedef
-            iter_range<
-                scan_iterator<
-                    typename range_iterator<Range>::type,
-                    typename pass_by_value<State>::type,
-                    typename pass_by_value<BinaryFun>::type
-                >
-            > const
+            scan_iterator<
+                typename range_iterator<Range>::type,
+                typename pass_by_value<State>::type,
+                typename pass_by_value<BinaryFun>::type
+            >
+        iter_t;
+
+        typedef
+            iter_range<iter_t> const
         type;
     };
 

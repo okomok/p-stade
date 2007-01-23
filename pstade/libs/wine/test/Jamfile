@@ -22,6 +22,7 @@ test-suite wine :
     [ wine-tets as ]
     [ wine-test at ]
     [ wine-test automatic ]
+    [ wine-test auxiliary ]
     [ wine-test base_to_derived ]
     [ wine-test callable ]
     [ wine-test check ]

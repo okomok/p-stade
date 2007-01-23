@@ -34,7 +34,7 @@ namespace taken_detail {
     template< class Difference >
     struct count_down
     {
-        explicit count_down(Difference d) :
+        explicit count_down(Difference const& d) :
             m_d(d)
         { }
     
@@ -51,7 +51,7 @@ namespace taken_detail {
 
 
     template< class Result, class Range, class Difference > inline
-    Result aux(Range& rng, Difference d, boost::forward_traversal_tag)
+    Result aux(Range& rng, Difference const& d, boost::forward_traversal_tag)
     {
         PSTADE_CONCEPT_ASSERT((Forward<Range>));
         BOOST_ASSERT(0 <= d); // '&& d <= oven::distance(rng));' makes an eternal range hung up!
@@ -62,13 +62,11 @@ namespace taken_detail {
         );
     }
 
-    template< class Result, class Range, class Difference > inline
-    Result aux(Range& rng, Difference d, boost::single_pass_traversal_tag)
+    template< class Result, class Difference, class Range > inline
+    Result aux(Range& rng, Difference const& d, boost::single_pass_traversal_tag)
     {
         PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-
-        typedef typename range_difference<Range>::type diff_t;
-        return make_taken_while(rng, count_down<diff_t>(d));
+        return make_taken_while(rng, count_down<Difference>(d));
     }
 
 
@@ -76,20 +74,25 @@ namespace taken_detail {
     struct baby
     {
         typedef typename
+            range_difference<Range>::type
+        diff_t;
+
+        typedef typename
             boost::mpl::eval_if<
                 boost::is_convertible<
                     typename range_traversal<Range>::type,
                     boost::forward_traversal_tag
                 >,
                 sub_range_result<Range>,
-                boost::result_of<op_make_taken_while(Range&, count_down<typename range_difference<Range>::type>)>
+                boost::result_of<op_make_taken_while(Range&, count_down<diff_t>)>
             >::type
         result;
 
-        template< class Difference >
-        result call(Range& rng, Difference d)
+        result call(Range& rng, diff_t const& d)
         {
-            return taken_detail::aux<result>(rng, d, typename range_traversal<Range>::type());
+            return taken_detail::aux<result, diff_t>(
+                rng, d, typename range_traversal<Range>::type()
+            );
         }
     };
 

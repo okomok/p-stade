@@ -45,7 +45,7 @@ namespace sorted_detail {
         template< class Range >
         void operator()(Range& its) const
         {
-            oven::sort(its, boost::make_indirect_fun(m_comp));
+            sort(its, boost::make_indirect_fun(m_comp));
         }
 
     private:

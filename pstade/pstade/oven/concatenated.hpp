@@ -31,7 +31,9 @@ namespace concatenated_detail {
     struct baby
     {
         typedef
-            concatenate_iterator<typename range_iterator<SegmentRange>::type>
+            concatenate_iterator<
+                typename range_iterator<SegmentRange>::type
+            >
         iter_t;
 
         typedef

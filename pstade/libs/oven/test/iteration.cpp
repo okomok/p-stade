@@ -44,7 +44,7 @@ void test()
         int ans[]  = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, };
 
         BOOST_CHECK( oven::equal( // not 'equal*s*'
-            ans, iteration(0, &increment)|begins
+            ans, iteration(0, &increment)|begin
         ) );
 
         BOOST_CHECK( oven::equals(

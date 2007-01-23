@@ -20,6 +20,7 @@
 #include <boost/config.hpp> // BOOST_MSVC
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
+#include <pstade/object_generator.hpp>
 #include "./detail/constant_reference.hpp"
 
 
@@ -100,7 +101,7 @@ public:
     cycle_iterator()
     { }
 
-    cycle_iterator(ForwardIter const& it, Size index, ForwardIter const& first, ForwardIter const& last) :
+    cycle_iterator(ForwardIter const& it, Size const& index, ForwardIter const& first, ForwardIter const& last) :
         super_t(it), m_index(index),
         m_first(first), m_last(last)
     { }
@@ -237,14 +238,8 @@ private:
 };
 
 
-template< class ForwardIter, class Size > inline
-cycle_iterator<ForwardIter, Size> const
-make_cycle_iterator(
-    ForwardIter const& it, Size index,
-    ForwardIter const& first, ForwardIter const& last)
-{
-    return cycle_iterator<ForwardIter, Size>(it, index, first, last);
-}
+PSTADE_OBJECT_GENERATOR(make_cycle_iterator,
+    (cycle_iterator< deduce<_1, to_value>, deduce<_2, to_value> >) const)
 
 
 } } // namespace pstade::oven

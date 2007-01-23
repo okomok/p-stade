@@ -18,6 +18,7 @@
 #include "./concepts.hpp"
 #include "./distance.hpp"
 #include "./iter_range.hpp"
+#include "./range_difference.hpp"
 #include "./range_iterator.hpp"
 #include "./slice_iterator.hpp"
 
@@ -29,9 +30,9 @@ namespace sliced_detail {
 
 
     template< class Range, class Difference > inline
-    bool is_sliceable_with(Range& rng, Difference stride)
+    bool is_sliceable_with(Range& rng, Difference const& stride)
     {
-        Difference d = oven::distance(rng);
+        Difference d = distance(rng);
         return d == 0 || d % stride == 0;
     }
 
@@ -39,6 +40,10 @@ namespace sliced_detail {
     template< class Range, class, class >
     struct baby
     {
+        typedef typename
+            range_difference<Range>::type
+        diff_t;
+
         typedef
             slice_iterator<
                 typename range_iterator<Range>::type
@@ -49,8 +54,7 @@ namespace sliced_detail {
             iter_range<iter_t> const
         result;
 
-        template< class Difference >
-        result call(Range& rng, Difference start, Difference stride)
+        result call(Range& rng, diff_t const& start, diff_t const& stride)
         {
             PSTADE_CONCEPT_ASSERT((RandomAccess<Range>));
             BOOST_ASSERT((is_sliceable_with)(rng, stride));

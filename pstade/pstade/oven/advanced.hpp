@@ -25,6 +25,7 @@
 #include "./concepts.hpp"
 #include "./detail/next_prior.hpp" // next
 #include "./distance.hpp"
+#include "./range_difference.hpp"
 #include "./sub_range_result.hpp"
 
 
@@ -38,11 +39,14 @@ namespace advanced_detail {
     struct baby
     {
         typedef typename
+            range_difference<Range>::type
+        diff_t;
+
+        typedef typename
             sub_range_result<Range>::type
         result;
 
-        template< class Difference >
-        result call(Range& rng, Difference dfirst, Difference dlast)
+        result call(Range& rng, diff_t const& dfirst, diff_t const& dlast)
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
             BOOST_ASSERT(0 + dfirst <= oven::distance(rng) + dlast);

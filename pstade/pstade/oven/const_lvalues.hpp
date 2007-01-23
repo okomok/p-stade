@@ -29,7 +29,9 @@ namespace const_lvalues_detail {
     struct baby
     {
         typedef
-            const_lvalue_iterator<typename range_iterator<Range>::type>
+            const_lvalue_iterator<
+                typename range_iterator<Range>::type
+            >
         iter_t;
 
         typedef

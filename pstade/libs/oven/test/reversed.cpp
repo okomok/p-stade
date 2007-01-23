@@ -111,7 +111,7 @@ void test()
         using pstade::to_upper;
         std::string src("abcDefg");
         // oven::copy_backward(src|transformed(to_upper), boost::end(src)); can be replaced with...        
-        oven::copy(src|reversed|transformed(to_upper), src|reversed|begins);
+        oven::copy(src|reversed|transformed(to_upper), src|reversed|begin);
         BOOST_CHECK( oven::equals(src, std::string("ABCDEFG")) );
     }
 }

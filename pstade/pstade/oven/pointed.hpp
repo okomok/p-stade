@@ -32,8 +32,8 @@ namespace pointed_detail {
     template< class ContiguousRange >
     struct baby
     {
-        typedef
-            typename range_pointer<ContiguousRange>::type
+        typedef typename
+            range_pointer<ContiguousRange>::type
         ptr_t;
 
         typedef

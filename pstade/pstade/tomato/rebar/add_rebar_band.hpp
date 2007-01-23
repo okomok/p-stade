@@ -63,7 +63,7 @@ void add_rebar_band(window_ref rebar, window_ref child, UINT fStyle, CStringizab
             candy::set(info.fMask, RBBIM_TEXT);
         
         info.fStyle = fStyle;
-        info.lpText = text|oven::pointed|oven::begins;
+        info.lpText = text|oven::pointed|oven::begin;
         info.hwndChild = child;
         info.wID = ::GetDlgCtrlID(child); // how's that
 

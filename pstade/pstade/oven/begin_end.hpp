@@ -18,9 +18,8 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/adl_barrier.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
-#include <pstade/pipable.hpp>
+#include <pstade/function.hpp>
+#include <pstade/symmetric.hpp>
 #include "./range_iterator.hpp"
 
 
@@ -30,51 +29,43 @@ namespace pstade { namespace oven {
 namespace begin_end_detail {
 
 
-    struct with_apply
+    template< class Range >
+    struct baby_begin
     {
-        template< class Myself, class Range >
-        struct apply :
-            range_iterator<Range>
-        { };
+        typedef typename
+            range_iterator<Range>::type
+        result;
+
+        result call(Range& rng)
+        {
+            return boost::begin(rng);
+        }
+    };
+
+
+    template< class Range >
+    struct baby_end
+    {
+        typedef typename
+            range_iterator<Range>::type
+        result;
+
+        result call(Range& rng)
+        {
+            return boost::end(rng);
+        }
     };
 
 
 } // namespace begin_end_detail
 
 
-struct op_begin :
-    begin_end_detail::with_apply,
-    callable<op_begin>
-{
-    template< class Result, class Range >
-    Result call(Range& rng) const
-    {
-        return boost::begin(rng);
-    }
-};
+PSTADE_ADL_BARRIER(begin_end) { // for Boost v1.33 'const_begin/end'
 
-struct op_end   :
-    begin_end_detail::with_apply,
-    callable<op_end>
-{
-    template< class Result, class Range >
-    Result call(Range& rng) const
-    {
-        return boost::end(rng);
-    }
-};
-
-
-PSTADE_ADL_BARRIER(begin_end) { // for Boost v1.33 'boost::const_begin/end'
-
-PSTADE_CONSTANT(begin, (op_begin))
-PSTADE_CONSTANT(end, (op_end))
+PSTADE_SYMMETRIC(begin, (function< begin_end_detail::baby_begin<boost::mpl::_> >))
+PSTADE_SYMMETRIC(end, (function< begin_end_detail::baby_end<boost::mpl::_> >))
 
 } // ADL barrier
-
-
-PSTADE_PIPABLE(begins, (op_begin))
-PSTADE_PIPABLE(ends, (op_end))
 
 
 } } // namespace pstade::oven

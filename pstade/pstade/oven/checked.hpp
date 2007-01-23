@@ -30,7 +30,9 @@ namespace checked_detail {
     struct baby
     {
         typedef
-            check_iterator<typename range_iterator<Range>::type>
+            check_iterator<
+                typename range_iterator<Range>::type
+            >
         iter_t;
 
         typedef

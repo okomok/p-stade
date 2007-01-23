@@ -29,13 +29,13 @@ namespace repeated_detail {
     {
         typedef typename
             boost::result_of<
-                op_make_cycled(typename boost::result_of<op_make_as_single(Value&)>::type, Size&)
+                op_make_cycled(typename boost::result_of<op_as_single(Value&)>::type, Size&)
             >::type
         result;
 
         result call(Value& v, Size& sz)
         {
-            return make_cycled(make_as_single(v), sz);
+            return make_cycled(as_single(v), sz);
         }
     };
 

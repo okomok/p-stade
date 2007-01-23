@@ -27,7 +27,7 @@ void test()
     {
         std::vector<char> expected = std::string("hello, array_range")|copied;
         array_range<char> rng(oven::distance(expected));
-        oven::copy(expected, rng|begins);
+        oven::copy(expected, rng|begin);
 
         BOOST_CHECK(oven::test_RandomAccess_Readable_Writable(rng, expected));
     }

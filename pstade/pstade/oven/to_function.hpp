@@ -93,7 +93,7 @@ namespace to_function_detail {
             UnaryFun& m_fun;
         };
 
-        reference operator *() const { return reference(m_fun); }   // 'const' for adaptors.
+        reference operator *() const { return reference(m_fun); } // 'const' for adaptors.
         output_iterator& operator++() { return *this; }
         output_iterator& operator++(int) { return *this; } // must return reference.
     };

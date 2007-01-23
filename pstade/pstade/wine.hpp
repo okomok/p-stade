@@ -16,6 +16,7 @@
 #include "./as.hpp"
 #include "./at.hpp"
 #include "./automatic.hpp"
+#include "./auxiliary.hpp"
 #include "./base_from.hpp"
 #include "./base_to_derived.hpp"
 #include "./callable.hpp"

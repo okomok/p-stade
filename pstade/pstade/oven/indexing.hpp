@@ -30,14 +30,18 @@ struct op_indexing :
     template< class Myself, class I, class J, class UnaryFun >
     struct apply :
         boost::result_of<
-            op_make_transformed<Reference, Value>(typename boost::result_of<op_counting<>(I&, J&)>::type, UnaryFun&)
+            op_make_transformed<Reference, Value>(
+                typename boost::result_of<op_counting<>(I&, J&)>::type, UnaryFun&
+            )
         >
     { };
 
     template< class Result, class I, class J, class UnaryFun >
     Result call(I& i, J& j, UnaryFun& fun) const
     {
-        return op_make_transformed<Reference, Value>()(counting(i, j), fun);
+        return op_make_transformed<Reference, Value>()(
+            counting(i, j), fun
+        );
     }
 };
 

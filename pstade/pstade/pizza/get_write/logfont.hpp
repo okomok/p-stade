@@ -14,7 +14,7 @@
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/oven/algorithm.hpp> // copy
 #include <pstade/oven/as_array.hpp>
-#include <pstade/oven/begin_end.hpp> // begins
+#include <pstade/oven/begin_end.hpp> // begin
 #include <pstade/oven/null_terminated.hpp>
 #include <pstade/require.hpp>
 #include <pstade/tomato/gdi/decipoint_font_height.hpp>
@@ -47,7 +47,7 @@ LOGFONT get_logfont(Profile& pr, HDC hDC = NULL)
 {
     LOGFONT lf = { 0 };
 
-    oven::copy(pizza::string(pr, _T("logfont.lfFaceName")), lf.lfFaceName|oven::array_protected|oven::begins);
+    oven::copy(pizza::string(pr, _T("logfont.lfFaceName")), lf.lfFaceName|oven::array_protected|oven::begin);
     PSTADE_REQUIRE(oven::is_null_terminated(lf.lfFaceName|oven::as_array));
     DWORD dwHeight =    pizza::integer(pr, _T("logfont.decipointHeight"));
     lf.lfHeight =       tomato::font_height_from_decipoint(dwHeight, hDC);

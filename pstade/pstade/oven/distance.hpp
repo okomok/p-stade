@@ -54,7 +54,7 @@ namespace distance_detail {
     // Topic:
     // This is 'std::distance' requirement. (24.1/6)
     template< class Difference > inline
-    Difference assert_reachable(Difference d)
+    Difference const& assert_reachable(Difference const& d)
     {
         BOOST_ASSERT(d >= 0);
         return d;
@@ -77,8 +77,9 @@ struct op_distance :
         ((SinglePass<Range>)),
     (Result)) call(Range& rng) const
     {
-        typedef typename range_traversal<Range>::type trv_t;
-        return distance_detail::assert_reachable( distance_detail::aux<Result>(rng, trv_t()) );
+        return distance_detail::assert_reachable(
+            distance_detail::aux<Result>(rng, typename range_traversal<Range>::type())
+        );
     }
 };
 

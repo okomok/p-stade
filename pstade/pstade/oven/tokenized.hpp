@@ -44,13 +44,15 @@ struct op_make_tokenized :
         typedef typename use_default_to< Traits, boost::regex_traits<char_t> >::type traits_t;
 
         typedef
-            iter_range<
-                boost::regex_token_iterator<
-                    typename range_iterator<Range>::type,
-                    char_t,
-                    traits_t                
-                >
-            > const
+            boost::regex_token_iterator<
+                typename range_iterator<Range>::type,
+                char_t,
+                traits_t                
+            >
+        iter_t;
+
+        typedef
+            iter_range<iter_t> const
         type;
     };
 

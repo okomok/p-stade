@@ -17,7 +17,9 @@
 #include "./concepts.hpp"
 #include "./detail/next_prior.hpp" // next
 #include "./distance.hpp"
-#include "./sub_range_result.hpp"
+#include "./iter_range.hpp"
+#include "./range_difference.hpp"
+#include "./range_iterator.hpp"
 
 
 namespace pstade { namespace oven {
@@ -30,18 +32,24 @@ namespace window_detail {
     struct baby
     {
         typedef typename
-            sub_range_result<Range>::type
+            range_difference<Range>::type
+        diff_t;
+
+        typedef typename
+            range_iterator<Range>::type
+        iter_t;
+
+        typedef
+            iter_range<iter_t> const
         result;
 
-        template< class Difference >
-        result call(Range& rng, Difference n, Difference m)
+        result call(Range& rng, diff_t const& n, diff_t const& m)
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
 
             // Should a "bigger" window be allowed?
             // BOOST_ASSERT(0 <= n && n <= m && m <= oven::distance(rng));
 
-            typedef typename result::iterator iter_t;
             iter_t first = detail::next(boost::begin(rng), n);
             return result(first, detail::next(first, m - n));
         }
