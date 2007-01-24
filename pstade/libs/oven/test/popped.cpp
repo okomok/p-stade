@@ -44,6 +44,9 @@ void test()
             expected
         ) );
     }
+    {
+        BOOST_CHECK( boost::empty(std::string()|popped) );
+    }
 }
 
 

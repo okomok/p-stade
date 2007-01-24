@@ -54,7 +54,7 @@ namespace pstade {
     PSTADE_AUXILIARY0(as_cref, (function< as_ref_detail::cbaby<boost::mpl::_1> >))
 
 
-    // Define 'as_value' without 'callable', 'function' nor 'symmetric'.
+    // Define 'as_value' without 'callable', 'function' nor 'auxiliary0'.
     // They would turn the argument into reference;
     // that's the dark-side of the language in the case of
     // function reference, which 'as_value' will work around.

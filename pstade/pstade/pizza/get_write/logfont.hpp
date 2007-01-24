@@ -47,7 +47,7 @@ LOGFONT get_logfont(Profile& pr, HDC hDC = NULL)
 {
     LOGFONT lf = { 0 };
 
-    oven::copy(pizza::string(pr, _T("logfont.lfFaceName")), lf.lfFaceName|oven::array_protected|oven::begin);
+    oven::copy(pizza::string(pr, _T("logfont.lfFaceName")), lf.lfFaceName|oven::as_array|oven::begin);
     PSTADE_REQUIRE(oven::is_null_terminated(lf.lfFaceName|oven::as_array));
     DWORD dwHeight =    pizza::integer(pr, _T("logfont.decipointHeight"));
     lf.lfHeight =       tomato::font_height_from_decipoint(dwHeight, hDC);

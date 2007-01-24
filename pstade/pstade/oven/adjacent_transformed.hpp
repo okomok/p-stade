@@ -14,21 +14,21 @@
 //
 // Adjacent convenience - algorithms on adjacent pairs
 // http://groups.google.com/group/comp.lang.c++.moderated/browse_frm/thread/df2bf11921c91fad/
-//
-// You may say this range could be implemented by 'transform_range' and 'zip_range'
-// without a specific iterator. But such implementation would not be so simple.
 
 
-#include <boost/range/begin.hpp>
-#include <boost/range/end.hpp>
+#include <boost/assert.hpp>
+#include <boost/range/empty.hpp>
+#include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
-#include <pstade/pass_by.hpp>
+#include <pstade/fuse.hpp>
+#include <pstade/pack.hpp>
 #include <pstade/pipable.hpp>
-#include "./adjacent_transform_iterator.hpp"
 #include "./concepts.hpp"
-#include "./iter_range.hpp"
-#include "./range_iterator.hpp"
+#include "./dropped.hpp"
+#include "./popped.hpp"
+#include "./transformed.hpp"
+#include "./zipped.hpp"
 
 
 namespace pstade { namespace oven {
@@ -42,28 +42,35 @@ struct op_make_adjacent_transformed :
     callable< op_make_adjacent_transformed<Reference, Value> >
 {
     template< class Myself, class Range, class BinaryFun >
-    struct apply
-    {
-        typedef
-            adjacent_transform_iterator<
-                typename range_iterator<Range>::type,
-                typename pass_by_value<BinaryFun>::type
-            >
-        iter_t;
-
-        typedef
-            iter_range<iter_t> const
-        type;
-    };
+    struct apply :
+        boost::result_of<
+            op_make_transformed<Reference, Value>(
+                typename boost::result_of<
+                    op_make_zipped(
+                        typename boost::result_of<
+                            op_pack(
+                                typename boost::result_of<op_make_popped(Range&)>::type,
+                                typename boost::result_of<op_make_dropped(Range&, int)>::type
+                            )
+                        >::type
+                    )
+                >::type,
+                typename boost::result_of<op_fuse(BinaryFun&)>::type
+            )
+        >
+    { };
 
     template< class Result, class Range, class BinaryFun >
     Result call(Range& rng, BinaryFun& fun) const
     {
         PSTADE_CONCEPT_ASSERT((Forward<Range>));
+        BOOST_ASSERT(!boost::empty(rng));
 
-        return Result(
-            oven::make_adjacent_transform_begin_iterator<Reference, Value>(boost::begin(rng), boost::end(rng), fun),
-            oven::make_adjacent_transform_end_iterator  <Reference, Value>(boost::begin(rng), boost::end(rng), fun)
+        return op_make_transformed<Reference, Value>()(
+            make_zipped(
+                pack(make_popped(rng), make_dropped(rng, 1))
+            ),
+            fuse(fun)
         );
     }
 };

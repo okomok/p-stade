@@ -65,6 +65,7 @@ struct op_make_scanned :
     }
 };
 
+
 PSTADE_CONSTANT(make_scanned, (op_make_scanned))
 PSTADE_PIPABLE(scanned, (op_make_scanned))
 

@@ -46,6 +46,7 @@ void test()
             expected
         ) );
     }
+#if 0 // now empty range not supported.
     {
         std::vector<int> nothing;
 
@@ -59,6 +60,7 @@ void test()
                 adjacent_transformed(pstade::plus)
         ) );
     }
+#endif
     {
         int const nothing[] = { 1 };
 

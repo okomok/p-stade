@@ -11,7 +11,6 @@
 
 
 #include "./adjacent_filter_iterator.hpp"
-#include "./adjacent_transform_iterator.hpp"
 #include "./any_iterator.hpp"
 #include "./check_iterator.hpp"
 #include "./concatenate_iterator.hpp"
