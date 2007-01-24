@@ -37,7 +37,9 @@ namespace taken_detail {
         explicit count_down(Difference const& d) :
             m_d(d)
         { }
-    
+
+        // 'take_while_iterator', which is used on single pass,
+        // does not require call-operator to be 'const'.
         template< class T >
         bool operator()(T const&)
         {
@@ -50,7 +52,7 @@ namespace taken_detail {
     };
 
 
-    template< class Result, class Range, class Difference > inline
+    template< class Result, class Difference, class Range > inline
     Result aux(Range& rng, Difference const& d, boost::forward_traversal_tag)
     {
         PSTADE_CONCEPT_ASSERT((Forward<Range>));
