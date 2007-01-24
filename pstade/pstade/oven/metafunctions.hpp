@@ -12,7 +12,6 @@
 
 #include "./iterator_base.hpp"
 
-#include "./range_base.hpp"
 #include "./range_category.hpp"
 #include "./range_constant_iterator.hpp"
 #include "./range_iterator.hpp"
