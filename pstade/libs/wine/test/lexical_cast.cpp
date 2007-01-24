@@ -13,6 +13,9 @@
 #include <pstade/lexical_cast.hpp>
 
 
+#include <pstade/test.hpp>
+
+
 template< class T >
 void foo(T& x)
 {
@@ -62,6 +65,16 @@ void test()
 
     ::foo(12|lexicalized);
     ::bar(12|lexicalized);
+
+    {
+        using namespace pstade;
+        BOOST_CHECK(to_string(1) == std::string("1"));
+        BOOST_CHECK((1|to_string) == std::string("1"));
+#if defined(BOOST_MSVC)
+        BOOST_CHECK((1|to_wstring) == std::wstring(L"1"));
+        BOOST_CHECK(to_wstring(1) == std::wstring(L"1"));
+#endif
+    }
 }
 
 

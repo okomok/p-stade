@@ -10,10 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <string>
 #include <boost/lexical_cast.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/automatic.hpp>
-#include <pstade/pipable.hpp>
+#include <pstade/auxiliary.hpp>
 
 
 namespace pstade {
@@ -40,7 +41,11 @@ namespace pstade {
     }
 
 
-    PSTADE_PIPABLE(lexicalized, (automatic< op_lexical_cast<boost::mpl::_> >))
+    PSTADE_AUXILIARY0(lexicalized, (automatic< op_lexical_cast<boost::mpl::_> >))
+
+
+    PSTADE_AUXILIARY0(to_string, (op_lexical_cast<std::string>))
+    PSTADE_AUXILIARY0(to_wstring, (op_lexical_cast<std::wstring>))
 
 
 } // namespace pstade

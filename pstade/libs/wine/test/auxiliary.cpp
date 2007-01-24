@@ -15,6 +15,7 @@
 
 #include <string>
 #include <pstade/constant.hpp>
+#include <pstade/test.hpp>
 
 
 using namespace pstade;
@@ -58,6 +59,8 @@ struct impl_interface4
 
 PSTADE_CONSTANT(interface4, (boost::result_of<op_auxiliary4(impl_interface4)>::type))
 
+
+PSTADE_TEST_IS_RESULT_OF((std::string), op_interface0(std::string))
 
 
 void test()

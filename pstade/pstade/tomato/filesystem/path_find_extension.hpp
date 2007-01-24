@@ -36,7 +36,7 @@ namespace pstade { namespace tomato {
     template< class CStringizable > inline
     TCHAR const *path_find_extension(CStringizable const& path)
     {
-        return ::PathFindExtension(path|to_c_str);
+        return ::PathFindExtension(path|c_str);
     }
 
 
@@ -46,7 +46,7 @@ namespace pstade { namespace tomato {
     template< class CStringizable > inline
     TCHAR const *path_find_extension(CStringizable const& path)
     {
-        TCHAR const *psz = path|to_c_str;
+        TCHAR const *psz = path|c_str;
         for ( ; *psz != _T('\0'); psz = ::CharNext(psz)) {
             if (*psz == _T('.'))
                 break;

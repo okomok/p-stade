@@ -15,7 +15,7 @@
 #include <boost/type_traits/is_integral.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/automatic.hpp>
-#include <pstade/pipable.hpp>
+#include <pstade/auxiliary.hpp>
 
 
 namespace pstade {
@@ -44,7 +44,7 @@ namespace pstade {
     }
 
 
-    PSTADE_PIPABLE(to_integer, (automatic< op_integral_cast<boost::mpl::_> >))
+    PSTADE_AUXILIARY0(to_integer, (automatic< op_integral_cast<boost::mpl::_> >))
 
 
 } // namespace pstade

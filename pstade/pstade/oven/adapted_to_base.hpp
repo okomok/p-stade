@@ -36,8 +36,8 @@
 #include <boost/type_traits/is_const.hpp>
 #include <boost/type_traits/is_convertible.hpp>
 #include <pstade/automatic.hpp>
+#include <pstade/auxiliary.hpp>
 #include <pstade/enable_if.hpp>
-#include <pstade/pipable.hpp>
 
 
 namespace pstade { namespace oven {
@@ -93,7 +93,7 @@ struct op_adapted_to
     }
 };
 
-PSTADE_PIPABLE(to_base, (automatic< op_adapted_to<boost::mpl::_1> >))
+PSTADE_AUXILIARY0(to_base, (automatic< op_adapted_to<boost::mpl::_1> >))
 
 
 } } // namespace pstade::oven

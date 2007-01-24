@@ -19,7 +19,6 @@
 
 #include <boost/utility/addressof.hpp>
 #include <pstade/auxiliary.hpp>
-#include <pstade/constant.hpp>
 #include <pstade/function.hpp>
 #include "./iter_range.hpp"
 
@@ -47,11 +46,7 @@ namespace as_single_detail {
 } // namespace as_single_detail
 
 
-
 PSTADE_AUXILIARY0(as_single, (function< as_single_detail::baby<boost::mpl::_> >))
-
-typedef op_as_single op_make_as_single;
-PSTADE_CONSTANT(make_as_single, (op_make_as_single))
 
 
 } } // namespace pstade::oven

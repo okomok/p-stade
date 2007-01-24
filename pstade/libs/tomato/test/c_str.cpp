@@ -39,25 +39,25 @@ void test()
         BOOST_CHECK( ans == tomato::c_str(str) );
 
         // maybe rejected. op()| can be ambiguous. 
-        BOOST_CHECK( ans == (str|to_c_str) );
+        BOOST_CHECK( ans == (str|c_str) );
     }
     
     {
         TCHAR str[] = _T("abcde");
         BOOST_CHECK( ans == tomato::c_str(str) );
-        BOOST_CHECK( ans == (str|to_c_str) );
+        BOOST_CHECK( ans == (str|c_str) );
     }
 
     {
         WTL::CString str(_T("abcde"));
         BOOST_CHECK( ans == tomato::c_str(str) );
-        BOOST_CHECK( ans == (str|to_c_str) );
+        BOOST_CHECK( ans == (str|c_str) );
     }
 
     {
         HWND hWnd = ::GetForegroundWindow();
         std::cout << tomato::c_str(tomato::window_text(hWnd)) << std::endl;
-        std::cout << (tomato::window_text(hWnd)|to_c_str) << std::endl;
+        std::cout << (tomato::window_text(hWnd)|c_str) << std::endl;
     }
 
     {

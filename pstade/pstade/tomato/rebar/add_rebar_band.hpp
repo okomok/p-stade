@@ -42,7 +42,7 @@ void add_rebar_band(window_ref rebar, window_ref child, UINT fStyle, CStringizab
     // info.lpText is not 'const'. 'const_cast' is dangerous,
     // so that, copy it.
     std::vector<TCHAR> text; {
-        text = str|to_c_str|oven::as_c_str
+        text = str|c_str|oven::as_c_str
             |oven::appended(_T('\0'))|oven::copied;
         BOOST_ASSERT(oven::is_null_terminated(text));
     }

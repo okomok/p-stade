@@ -28,7 +28,7 @@ namespace pstade { namespace tomato {
     template< class CStringizable > inline
     TCHAR const *path_find_file_name(CStringizable const& path)
     {
-        return ::PathFindFileName(path|to_c_str);
+        return ::PathFindFileName(path|c_str);
     }
 
 
@@ -38,7 +38,7 @@ namespace pstade { namespace tomato {
     template< class CStringizable > inline
     TCHAR const *path_find_file_name(CStringizable const& path)
     {
-        TCHAR const *pszPath = path|to_c_str;
+        TCHAR const *pszPath = path|c_str;
         TCHAR const *pszFileName = pszPath; // beginning of the path if failed
 
         for (TCHAR const *psz = pszPath; *psz != _T('\0'); psz = ::CharNext(psz)) {

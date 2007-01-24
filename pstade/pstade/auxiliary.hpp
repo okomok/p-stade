@@ -29,6 +29,7 @@
 #include <pstade/object_generator.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/preprocessor.hpp>
+#include <pstade/unparenthesize.hpp>
 
 
 namespace pstade {
@@ -48,7 +49,7 @@ namespace pstade {
             Result call() const
             {
                 return *this;
-            };
+            }
 
             // as function call
 

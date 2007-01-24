@@ -43,8 +43,8 @@ tstring_to(tstring const& from)
 }
 
 
-struct op_to_string :
-    callable<op_to_string>
+struct op_to_tstring :
+    callable<op_to_tstring>
 {
     template< class Myself, class WideCharSeq >
     struct apply
@@ -64,7 +64,7 @@ struct op_to_string :
 };
 
 
-PSTADE_PIPABLE(to_tstring, (op_to_string))
+PSTADE_PIPABLE(to_tstring, (op_to_tstring))
 
 
 } } // namespace pstade::tomato

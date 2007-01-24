@@ -14,9 +14,9 @@
 #include <pstade/apple/atl/config.hpp> // ATL_VER
 #include <pstade/apple/atl/conv.hpp>
 #include <pstade/automatic.hpp>
+#include <pstade/auxiliary.hpp>
 #include <pstade/oven/as_c_str.hpp>
 #include <pstade/oven/copy_range.hpp>
-#include <pstade/pipable.hpp>
 
 
 namespace pstade { namespace tomato {
@@ -57,7 +57,7 @@ struct op_widechar_to
     }
 };
 
-PSTADE_PIPABLE(to_multibyte, (automatic<op_widechar_to<boost::mpl::_1> >))
+PSTADE_AUXILIARY0(to_multibyte, (automatic<op_widechar_to<boost::mpl::_1> >))
 
 
 } } // namespace pstade::tomato

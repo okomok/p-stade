@@ -21,11 +21,11 @@ void test()
     int i = 0;
     pstade::verify( (++i, true) );
     BOOST_CHECK(i == 1);
-    BOOST_CHECK( (i|pstade::verified) == 1 );
+    BOOST_CHECK( (i|pstade::verify) == 1 );
     BOOST_CHECK( pstade::is_same(i, pstade::verify(i)) );
-    BOOST_CHECK( pstade::is_same(i, i|pstade::verified) );
-    BOOST_CHECK( true || false | pstade::verified );
-    BOOST_CHECK( true && true | pstade::verified );
+    BOOST_CHECK( pstade::is_same(i, i|pstade::verify) );
+    BOOST_CHECK( true || false | pstade::verify );
+    BOOST_CHECK( true && true | pstade::verify );
 }
 
 

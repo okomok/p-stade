@@ -14,7 +14,6 @@
 #include <cstring> // strlen
 #include <cwchar>  // wcslen
 #include <pstade/auxiliary.hpp>
-#include <pstade/constant.hpp>
 #include <pstade/function.hpp>
 #include <pstade/pass_by.hpp>
 #include "./iter_range.hpp"
@@ -63,9 +62,6 @@ namespace as_c_str_detail {
 
 
 PSTADE_AUXILIARY0(as_c_str, (function< as_c_str_detail::baby<boost::mpl::_> >))
-
-typedef op_as_c_str op_make_as_c_str;
-PSTADE_CONSTANT(make_as_c_str, (op_make_as_c_str))
 
 
 } } // namespace pstade::oven

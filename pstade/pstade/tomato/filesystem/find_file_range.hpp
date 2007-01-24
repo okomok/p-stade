@@ -51,7 +51,7 @@ namespace find_file_range_detail {
         ~init()
         {
             if (m_hFind != INVALID_HANDLE_VALUE)
-                ::FindClose(m_hFind)|verified;
+                ::FindClose(m_hFind)|verify;
         }
     };
 
@@ -80,7 +80,7 @@ private:
 public:
     template< class CStringizable >
     explicit find_file_range(CStringizable const& str) :
-        init_t(str|to_c_str),
+        init_t(str|c_str),
         super_t(iter_t(m_hFind, m_data), iter_t())
     { }
 };
