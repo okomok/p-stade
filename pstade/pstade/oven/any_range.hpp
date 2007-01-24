@@ -10,8 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <cstddef> // ptrdiff_t
-#include <boost/type_traits/is_same.hpp>
 #include <pstade/unused_to_copy.hpp>
 #include "./any_iterator.hpp"
 #include "./as_lightweight_proxy.hpp"
@@ -25,34 +23,37 @@ namespace any_range_detail {
 
 
     template<
-        class Value,
-        class Traversal,
         class Reference,
+        class Traversal,
+        class Value,
         class Difference
     >
-    struct super_ :
-        iter_range<
-            any_iterator<Value, Traversal, Reference, Difference>
-        >
-    { };
+    struct super_
+    {
+        typedef
+            iter_range<
+                any_iterator<Reference, Traversal, Value, Difference>
+            >
+        type;
+    };
 
 
 } // namespace any_range_detail
 
 
 template<
-    class Value,
+    class Reference,
     class Traversal,
-    class Reference  = Value&,
-    class Difference = std::ptrdiff_t
+    class Value      = boost::use_default,
+    class Difference = boost::use_default
 >
 struct any_range :
-    any_range_detail::super_<Value, Traversal, Reference, Difference>::type,
-    private as_lightweight_proxy< any_range<Value, Traversal, Reference, Difference> >
+    any_range_detail::super_<Reference, Traversal, Value, Difference>::type,
+    private as_lightweight_proxy< any_range<Reference, Traversal, Value, Difference> >
 {
 private:
     typedef any_range self_t;
-    typedef typename any_range_detail::super_<Value, Traversal, Reference, Difference>::type super_t;
+    typedef typename any_range_detail::super_<Reference, Traversal, Value, Difference>::type super_t;
 
 public:
 // structors

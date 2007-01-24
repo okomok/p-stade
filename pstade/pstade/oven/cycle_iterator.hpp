@@ -178,7 +178,7 @@ friend class boost::iterator_core_access;
 
     // seems a stupid implementation...
     //
-    void advance(diff_t d)
+    void advance(diff_t const& d)
     {
         BOOST_ASSERT(m_index >= 0);
 
@@ -201,7 +201,7 @@ friend class boost::iterator_core_access;
     }
 
 private:
-    void advance_to_right(diff_t d)
+    void advance_to_right(diff_t const& d)
     {
         BOOST_ASSERT(d >= 0);
 
@@ -214,7 +214,7 @@ private:
         m_index += count;
     }
 
-    void advance_to_left(diff_t d)
+    void advance_to_left(diff_t const& d)
     {
         BOOST_ASSERT(d >= 0);
 

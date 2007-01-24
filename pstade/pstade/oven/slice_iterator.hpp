@@ -65,7 +65,7 @@ public:
     slice_iterator()
     { }
 
-    slice_iterator(RandIter const& it, diff_t start, diff_t stride) :
+    slice_iterator(RandIter const& it, diff_t const& start, diff_t const& stride) :
         super_t(it), m_start(start), m_stride(stride)
     {
         BOOST_ASSERT(is_valid_start());
@@ -136,7 +136,7 @@ friend class boost::iterator_core_access;
         m_cache.reset();
     }
 
-    void advance(diff_t d)
+    void advance(diff_t const& d)
     {
         this->base_reference() += d * m_stride;
         m_cache.reset();

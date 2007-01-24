@@ -96,7 +96,7 @@ friend class boost::iterator_core_access;
     }
 
     template< class Difference >
-    void advance(Difference d)
+    void advance(Difference const& d)
     {
         this->base_reference() += d;
         m_value.reset();

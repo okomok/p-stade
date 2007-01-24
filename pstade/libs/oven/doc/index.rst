@@ -61,9 +61,8 @@ This document is based on the following specifications.
 - ``rndRng``: any `Random Access Range`_
 - ``pred``: any `Predicate`_
 - ``rfun``: any `Function Object`_ which can be used with ``boost::result_of``.
-- If ``a0|xxx(a1,..,aN)`` is a valid expression, then  ``make_xxx(a0,..,aN)`` too is a valid expression which has the same effect; unless otherwise specified.
-- If a valid expression ``yyy(a1,..,aN)`` is not one of the `Range Adaptors`_, ``yyy`` is a `Function Object`_
-  whose type name is ``op_yyy`` to support ``boost::result_of`` and Boost.Lambda.
+- If ``xxx(a1,..,aN)`` is a valid expression and ``xxx`` is not a type name, ``xxx`` is a `Function Object`_
+  whose type name is ``op_xxx`` to support ``boost::result_of`` and Boost.Lambda.
 
 Note that the function type is not supported as ``rfun``. Instead, add ``&`` to make it a function **pointer**::
 
@@ -184,7 +183,7 @@ the adapted range. ``any_range`` behaves as the type erasure of ranges::
 
 
 - Header: ``<pstade/oven/any_range.hpp>``
-- Valid expression: ``any_range<Value,TraversalTag> any_(rng);`` and ``any_range<Value,TraversalTag> any_ = rng;``
+- Valid expression: ``any_range<Reference,TraversalTag> any_(rng);`` and ``any_range<Reference,TraversalTag> any_ = rng;``
   , where the iterators of ``any_`` are ``Interoperatable`` if and only if ``rng``\s are the same type.
 - Returns: A range whose iterators behave as if they were the original iterators wrapped in `any_iterator`__
 
@@ -395,6 +394,9 @@ All the range returned from the following adaptors are CopyConstructible and Inh
 Additional information is available at `Range Library Proposal`_.
 ``<pstade/oven/adaptors.hpp>`` includes all the following Range Adaptors unless otherwise specified.
 
+If ``a0|xxx(a1,..,aN)`` is a valid expression, then  ``make_xxx(a0,..,aN)`` too is a valid expression
+which has the same effect; unless otherwise specified.
+
 
 ``adjacent_filtered``
 ^^^^^^^^^^^^^^^^^^^^^
@@ -411,6 +413,7 @@ Additional information is available at `Range Library Proposal`_.
 ^^^^^^^^^^^^^^^^^^^^^^^^
 - Header: ``<pstade/oven/adjacent_transformed.hpp>``
 - Valid expression: ``fwdRng|adjacent_transformed(rfun)``
+- Precondition: ``boost::empty(fwdRng) == false``
 - Returns: A range where adjacent pairs of ``fwdRng`` are transformed by using ``rfun``.
 
 
@@ -856,7 +859,7 @@ An iterator holding such a functor cannot conform to even InputIterator.
 
 ``shared``
 ^^^^^^^^^^
-``shared``, taking a pointer to heap-allocated range, makes a range whose iterators manages the lifetime of the range::
+``shared``, taking a pointer to heap-allocated range, makes a range whose iterators manage its lifetime::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\shared.ipp
 
@@ -1222,4 +1225,7 @@ Version 0.93.0
 Version 0.93.1
 ^^^^^^^^^^^^^^
 - Renamed ``begins/ends`` to ``begin/end``.
+- ``adjacent_transformed`` rejects empty range.
+- Changed template parameter of ``any_range``.
+
 

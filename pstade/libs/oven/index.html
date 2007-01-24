@@ -164,7 +164,7 @@
 <p>Oven provides an experimental Range Adaptor implementation of <a class="reference" href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1871.html">Range Library Proposal</a>:</p>
 <pre class="cpp_source">
 <span class="cpp_keyword">typedef
-    </span>any_range&lt;<span class="cpp_keyword">int</span>, boost::single_pass_traversal_tag, <span class="cpp_keyword">int</span>&gt;
+    </span>any_range&lt;<span class="cpp_keyword">int</span>, boost::single_pass_traversal_tag&gt;
 range;
 
 range denominators(<span class="cpp_keyword">int </span>x)
@@ -214,9 +214,8 @@ unless otherwise specified.</p>
 <li><tt class="docutils literal"><span class="pre">rndRng</span></tt>: any <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#random_access_range">Random Access Range</a></li>
 <li><tt class="docutils literal"><span class="pre">pred</span></tt>: any <a class="reference" href="http://www.sgi.com/tech/stl/Predicate.html">Predicate</a></li>
 <li><tt class="docutils literal"><span class="pre">rfun</span></tt>: any <a class="reference" href="http://www.sgi.com/tech/stl/functors.html">Function Object</a> which can be used with <tt class="docutils literal"><span class="pre">boost::result_of</span></tt>.</li>
-<li>If <tt class="docutils literal"><span class="pre">a0|xxx(a1,..,aN)</span></tt> is a valid expression, then  <tt class="docutils literal"><span class="pre">make_xxx(a0,..,aN)</span></tt> too is a valid expression which has the same effect; unless otherwise specified.</li>
-<li>If a valid expression <tt class="docutils literal"><span class="pre">yyy(a1,..,aN)</span></tt> is not one of the <a class="reference" href="#range-adaptors">Range Adaptors</a>, <tt class="docutils literal"><span class="pre">yyy</span></tt> is a <a class="reference" href="http://www.sgi.com/tech/stl/functors.html">Function Object</a>
-whose type name is <tt class="docutils literal"><span class="pre">op_yyy</span></tt> to support <tt class="docutils literal"><span class="pre">boost::result_of</span></tt> and Boost.Lambda.</li>
+<li>If <tt class="docutils literal"><span class="pre">xxx(a1,..,aN)</span></tt> is a valid expression and <tt class="docutils literal"><span class="pre">xxx</span></tt> is not a type name, <tt class="docutils literal"><span class="pre">xxx</span></tt> is a <a class="reference" href="http://www.sgi.com/tech/stl/functors.html">Function Object</a>
+whose type name is <tt class="docutils literal"><span class="pre">op_xxx</span></tt> to support <tt class="docutils literal"><span class="pre">boost::result_of</span></tt> and Boost.Lambda.</li>
 </ul>
 <p>Note that the function type is not supported as <tt class="docutils literal"><span class="pre">rfun</span></tt>. Instead, add <tt class="docutils literal"><span class="pre">&amp;</span></tt> to make it a function <strong>pointer</strong>:</p>
 <pre class="cpp_source">
@@ -356,14 +355,14 @@ BOOST_CHECK( oven::equals(str, vec) );</pre>
 the adapted range. <tt class="docutils literal"><span class="pre">any_range</span></tt> behaves as the type erasure of ranges:</p>
 <pre class="cpp_source">
 std::string rng(<span class="cpp_string_literal">&quot;hello! any_range!&quot;</span>);
-any_range&lt;<span class="cpp_keyword">char </span><span class="cpp_keyword">const</span>, boost::bidirectional_traversal_tag&gt; any_ =
+any_range&lt;<span class="cpp_keyword">char </span><span class="cpp_keyword">const</span>&amp;, boost::bidirectional_traversal_tag&gt; any_ =
     rng|transformed(to_upper)|const_lvalues|filtered(lambda::_1 != <span class="cpp_string_literal">'!'</span>)|regularized;
 
 BOOST_CHECK( oven::equals(any_, std::string(<span class="cpp_string_literal">&quot;HELLO ANY_RANGE&quot;</span>)) );</pre>
 
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/any_range.hpp&gt;</span></tt></li>
-<li>Valid expression: <tt class="docutils literal"><span class="pre">any_range&lt;Value,TraversalTag&gt;</span> <span class="pre">any_(rng);</span></tt> and <tt class="docutils literal"><span class="pre">any_range&lt;Value,TraversalTag&gt;</span> <span class="pre">any_</span> <span class="pre">=</span> <span class="pre">rng;</span></tt>
+<li>Valid expression: <tt class="docutils literal"><span class="pre">any_range&lt;Reference,TraversalTag&gt;</span> <span class="pre">any_(rng);</span></tt> and <tt class="docutils literal"><span class="pre">any_range&lt;Reference,TraversalTag&gt;</span> <span class="pre">any_</span> <span class="pre">=</span> <span class="pre">rng;</span></tt>
 , where the iterators of <tt class="docutils literal"><span class="pre">any_</span></tt> are <tt class="docutils literal"><span class="pre">Interoperatable</span></tt> if and only if <tt class="docutils literal"><span class="pre">rng</span></tt>s are the same type.</li>
 <li>Returns: A range whose iterators behave as if they were the original iterators wrapped in <a class="reference" href="http://thbecker.net/free_software_utilities/type_erasure_for_cpp_iterators/start_page.html">any_iterator</a></li>
 </ul>
@@ -628,6 +627,8 @@ The underlying ranges are not modified.
 All the range returned from the following adaptors are CopyConstructible and Inheritable.
 Additional information is available at <a class="reference" href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1871.html">Range Library Proposal</a>.
 <tt class="docutils literal"><span class="pre">&lt;pstade/oven/adaptors.hpp&gt;</span></tt> includes all the following Range Adaptors unless otherwise specified.</p>
+<p>If <tt class="docutils literal"><span class="pre">a0|xxx(a1,..,aN)</span></tt> is a valid expression, then  <tt class="docutils literal"><span class="pre">make_xxx(a0,..,aN)</span></tt> too is a valid expression
+which has the same effect; unless otherwise specified.</p>
 <div class="section">
 <h2><a class="toc-backref" href="#id55" id="adjacent-filtered" name="adjacent-filtered">8.1&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">adjacent_filtered</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">adjacent_filtered</span></tt> returns a range where adjacent pairs of base range are filtered by using a <a class="reference" href="http://www.sgi.com/tech/stl/Predicate.html">Predicate</a>:</p>
@@ -650,6 +651,7 @@ BOOST_CHECK( oven::equals(
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/adjacent_transformed.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">fwdRng|adjacent_transformed(rfun)</span></tt></li>
+<li>Precondition: <tt class="docutils literal"><span class="pre">boost::empty(fwdRng)</span> <span class="pre">==</span> <span class="pre">false</span></tt></li>
 <li>Returns: A range where adjacent pairs of <tt class="docutils literal"><span class="pre">fwdRng</span></tt> are transformed by using <tt class="docutils literal"><span class="pre">rfun</span></tt>.</li>
 </ul>
 </div>
@@ -1290,7 +1292,7 @@ std::string stringize(std::string <span class="cpp_keyword">const</span>&amp; st
 </div>
 <div class="section">
 <h2><a class="toc-backref" href="#id98" id="shared" name="shared">8.44&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">shared</span></tt></a></h2>
-<p><tt class="docutils literal"><span class="pre">shared</span></tt>, taking a pointer to heap-allocated range, makes a range whose iterators manages the lifetime of the range:</p>
+<p><tt class="docutils literal"><span class="pre">shared</span></tt>, taking a pointer to heap-allocated range, makes a range whose iterators manage its lifetime:</p>
 <pre class="cpp_source">
 BOOST_FOREACH (<span class="cpp_keyword">char </span>ch, std::string(<span class="cpp_string_literal">&quot;dangling&quot;</span>)|identities) {
     <span class="cpp_comment">// will crash; 'std::string' object doesn't exist anymore. 
@@ -1726,6 +1728,8 @@ See <a class="reference" href="./doc/ms/mfc_atl.html">Oven Range MFC/ATL Extensi
 <h2><a class="toc-backref" href="#id131" id="version-0-93-1" name="version-0-93-1">13.8&nbsp;&nbsp;&nbsp;Version 0.93.1</a></h2>
 <ul class="simple">
 <li>Renamed <tt class="docutils literal"><span class="pre">begins/ends</span></tt> to <tt class="docutils literal"><span class="pre">begin/end</span></tt>.</li>
+<li><tt class="docutils literal"><span class="pre">adjacent_transformed</span></tt> rejects empty range.</li>
+<li>Changed template parameter of <tt class="docutils literal"><span class="pre">any_range</span></tt>.</li>
 </ul>
 </div>
 </div>
@@ -1733,7 +1737,7 @@ See <a class="reference" href="./doc/ms/mfc_atl.html">Oven Range MFC/ATL Extensi
 <div class="footer">
 <hr class="footer" />
 <a class="reference" href="doc/index.rst">View document source</a>.
-Generated on: 2007-01-23 01:29 UTC.
+Generated on: 2007-01-24 21:24 UTC.
 Generated by <a class="reference" href="http://docutils.sourceforge.net/">Docutils</a> from <a class="reference" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a> source.
 
 </div>

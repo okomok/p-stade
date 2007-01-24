@@ -122,7 +122,7 @@ friend class boost::iterator_core_access;
         --base_reference();
     }
 
-    void advance(diff_t d)
+    void advance(diff_t const& d)
     {
         base_reference() += d;
     }

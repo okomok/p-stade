@@ -29,14 +29,20 @@ namespace uniqued_detail {
     {
         typedef typename
             boost::result_of<
-                op_make_adjacent_filtered(Range&, typename boost::result_of<op_not(op_equal_to const&)>::type)
+                op_make_adjacent_filtered(
+                    Range&,
+                    typename boost::result_of<op_not(op_equal_to const&)>::type
+                )
             >::type
         result;
 
         result call(Range& rng)
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
-	        return make_adjacent_filtered(rng, not_(equal_to));
+	        return make_adjacent_filtered(
+                rng,
+                not_(equal_to)
+            );
         }
     };
 

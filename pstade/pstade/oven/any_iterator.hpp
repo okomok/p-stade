@@ -15,7 +15,7 @@
 // Is it possible to support OutputIterator?
 
 
-#include <cstddef>  // ptrdiff_t
+#include <cstddef> // ptrdiff_t
 #include <boost/assert.hpp>
 #include <boost/cast.hpp> // polymorphic_downcast
 #include <boost/iterator/iterator_categories.hpp>
@@ -26,16 +26,19 @@
 #include <boost/type_traits/is_convertible.hpp>
 #include <pstade/clone_ptr.hpp>
 #include <pstade/new_delete.hpp>
+#include <pstade/remove_cvr.hpp>
 #include <pstade/unused.hpp>
+#include <pstade/use_default.hpp>
+#include "./detail/reference_is_convertible.hpp"
 
 
 namespace pstade { namespace oven {
 
 
 template<
-    class Value,
-    class Traversal,
     class Reference,
+    class Traversal,
+    class Value,
     class Difference
 >
 struct any_iterator;
@@ -66,7 +69,7 @@ namespace any_iterator_detail {
         virtual bool equal(placeholder const& other) const = 0;
         virtual void increment() = 0;
         virtual void decrement() = 0;
-        virtual void advance(Difference d) = 0;
+        virtual void advance(Difference const& d) = 0;
         virtual Difference difference_to(placeholder const& other) const = 0;
     };
 
@@ -99,14 +102,14 @@ namespace any_iterator_detail {
 
 
     template< class Iterator, class Difference > inline
-    void advance_aux(Iterator& it, Difference d, boost::single_pass_traversal_tag)
+    void advance_aux(Iterator& it, Difference const& d, boost::single_pass_traversal_tag)
     {
         BOOST_ASSERT(false);
         pstade::unused(it, d);
     }
 
     template< class Iterator, class Difference > inline
-    void advance_aux(Iterator& it, Difference d, boost::random_access_traversal_tag)
+    void advance_aux(Iterator& it, Difference const& d, boost::random_access_traversal_tag)
     {
         it += d;
     }
@@ -129,16 +132,16 @@ namespace any_iterator_detail {
 
     template<
         class Iterator,
-        class Traversal,
         class Reference,
+        class Traversal,
         class Difference
     >
     struct holder :
         placeholder<Reference, Difference>
     {
     private:
+        BOOST_MPL_ASSERT((detail::reference_is_convertible_aux<typename boost::iterator_reference<Iterator>::type, Reference>));
         BOOST_MPL_ASSERT((boost::is_convertible<typename boost::iterator_traversal<Iterator>::type,  Traversal>));
-        BOOST_MPL_ASSERT((boost::is_convertible<typename boost::iterator_reference<Iterator>::type,  Reference>));
         BOOST_MPL_ASSERT((boost::is_convertible<typename boost::iterator_difference<Iterator>::type, Difference>));
 
         typedef holder self_t;
@@ -183,7 +186,7 @@ namespace any_iterator_detail {
             any_iterator_detail::decrement_aux(m_held, Traversal());
         }
 
-        virtual void advance(Difference d)
+        virtual void advance(Difference const& d)
         {
             any_iterator_detail::advance_aux(m_held, d, Traversal());
         }
@@ -197,20 +200,30 @@ namespace any_iterator_detail {
 
 
     template<
-        class Value,
-        class Traversal,
         class Reference,
+        class Traversal,
+        class Value,
         class Difference
     >
     struct super_
     {
-        typedef boost::iterator_facade<
-            any_iterator<Value, Traversal, Reference, Difference>,
-            Value,
-            Traversal,
-            Reference,
-            Difference
-        > type;
+        typedef typename
+            use_default_eval_to< Value, remove_cvr<Reference> >::type
+        value_t;
+
+        typedef typename
+            use_default_to<Difference, std::ptrdiff_t>::type
+        diff_t;
+
+        typedef
+            boost::iterator_facade<
+                any_iterator<Reference, Traversal, Value, Difference>,
+                value_t,
+                Traversal,
+                Reference,
+                diff_t
+            >
+        type;
     };
 
 
@@ -218,19 +231,20 @@ namespace any_iterator_detail {
 
 
 template<
-    class Value,
+    class Reference,
     class Traversal,
-    class Reference  = Value&,
-    class Difference = std::ptrdiff_t
+    class Value      = boost::use_default,
+    class Difference = boost::use_default
 >
 struct any_iterator :
-    any_iterator_detail::super_<Value, Traversal, Reference, Difference>::type
+    any_iterator_detail::super_<Reference, Traversal, Value, Difference>::type
 {
 private:
-    typedef typename any_iterator_detail::super_<Value, Traversal, Reference, Difference>::type super_t;
+    typedef typename any_iterator_detail::super_<Reference, Traversal, Value, Difference>::type super_t;
     typedef typename super_t::reference ref_t;
+    typedef typename boost::iterator_category_to_traversal<typename super_t::iterator_category>::type trv_t;
     typedef typename super_t::difference_type diff_t;
-    typedef any_iterator_detail::placeholder<Reference, Difference> placeholder_t;
+    typedef any_iterator_detail::placeholder<ref_t, diff_t> placeholder_t;
 
 public:
     explicit any_iterator()
@@ -247,7 +261,7 @@ public:
     template< class Iterator_ >
     explicit any_iterator(Iterator_ const& it) :
         m_pimpl(op_new_auto<
-            any_iterator_detail::holder<Iterator_, Traversal, Reference, Difference>
+            any_iterator_detail::holder<Iterator_, ref_t, trv_t, diff_t>
         >()(it))
     { }
 
@@ -255,7 +269,7 @@ public:
     Iterator_ const& base() const
     {
         return any_iterator_detail::downcast<
-            any_iterator_detail::holder<Iterator_, Traversal, Reference, Difference>
+            any_iterator_detail::holder<Iterator_, ref_t, trv_t, diff_t>
         >(*m_pimpl).held();
     }
 
@@ -284,7 +298,7 @@ friend class boost::iterator_core_access;
         m_pimpl->decrement();
     }
 
-    void advance(diff_t d)
+    void advance(diff_t const& d)
     {
         m_pimpl->advance(d);
     }

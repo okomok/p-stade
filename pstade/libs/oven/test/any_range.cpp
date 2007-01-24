@@ -57,7 +57,7 @@ void test()
         std::string rng("8frj91j81hf891y2");
         std::vector<char> expected = rng|copied;
 
-        any_range<char, boost::random_access_traversal_tag> any_(rng);
+        any_range<char&, boost::random_access_traversal_tag> any_(rng);
         any_ = rng;
         BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
             any_,
@@ -66,23 +66,23 @@ void test()
     }
     {
         std::string str;
-        any_range<char, boost::random_access_traversal_tag> any_rng(str|identities);
+        any_range<char&, boost::random_access_traversal_tag> any_rng(str|identities);
     }
     {
         std::string rng("hello! any_range!");
-        any_range<char const, boost::bidirectional_traversal_tag> any_ =
+        any_range<char const&, boost::bidirectional_traversal_tag> any_ =
             rng|transformed(to_upper)|const_lvalues|filtered(lambda::_1 != '!')|regularized;
 
         BOOST_CHECK( oven::equals(any_, std::string("HELLO ANY_RANGE")) );
     }
     {
         BOOST_CHECK( oven::test_lightweight_proxy(
-            any_range<char const, boost::random_access_traversal_tag>(std::string("rng"))
+            any_range<char const&, boost::random_access_traversal_tag>(std::string("rng"))
         ) );
     }
     {
         std::string rng("abcd");
-        typedef any_iterator<char, boost::random_access_traversal_tag> many_iter;
+        typedef any_iterator<char&, boost::random_access_traversal_tag> many_iter;
         many_iter many(boost::begin(rng));
         // many.base<char *>(); // bad_cast!
         many.base<std::string::iterator>();

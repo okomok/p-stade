@@ -24,7 +24,7 @@ namespace lambda = boost::lambda;
 using namespace pstade::oven;
 
 typedef
-    any_range<int, boost::single_pass_traversal_tag, int>
+    any_range<int, boost::single_pass_traversal_tag>
 range;
 
 range denominators(int x)
@@ -38,6 +38,7 @@ bool is_prime(int x)
 }
 
 range primes = iteration(1, lambda::_1 + 1)|regularized|filtered(&is_prime);
+
 
 int main()
 {

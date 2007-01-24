@@ -20,13 +20,6 @@
 
 // Note:
 //
-// Boost.Iterator doesn't use 'result_of'.
-// 'result_of' seems to have many problems
-// even under modern compilers. But we must go!
-
-
-// Note:
-//
 // Consider the following simple functor.
 //
 // struct id
