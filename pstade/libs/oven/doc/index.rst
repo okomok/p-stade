@@ -177,6 +177,7 @@ An iterator holding such a functor cannot conform to even InputIterator.
 - Valid expression: ``regular(lambdaFunctor)``
 - Returns: A `Function Object`_ which is DefaultConstructible and CopyAssignable.
 
+In principle, call ``regular`` before a lambda functor is passed to `Range Adaptors`_.
 
 
 Ranges
@@ -1010,7 +1011,7 @@ given as the first argument, instead of a tupling::
 
 - Header: ``<pstade/oven/zipped_with.hpp>``
 - Valid expression: ``pstade::pack(rng1,rng2,..rngN)|zipped_with(rfun)``, where ``N <= 5``.
-- Precondition: The arity of ``rfun`` is ``N``.
+- Precondition1: The arity of ``rfun`` is ``N``.
 - Returns: A range whose values are zipped by using ``rfun``.
 
 

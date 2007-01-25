@@ -13,7 +13,7 @@
 // What:
 //
 // Replaces 'boost::function_output_iterator',
-// which is not adaptable using 'iterator_adaptor',
+// which is not adaptable to 'iterator_adaptor',
 // and has no way to access its functor.
 // Note that OutputIterator cannot always be implemented by using
 // 'iterator_facade', because of the postfix-increment implementation.

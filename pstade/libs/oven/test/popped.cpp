@@ -44,9 +44,11 @@ void test()
             expected
         ) );
     }
+#if 0 // now empty range not supported
     {
         BOOST_CHECK( boost::empty(std::string()|popped) );
     }
+#endif
 }
 
 

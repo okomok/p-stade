@@ -24,6 +24,8 @@
 #include <boost/range.hpp>
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/regular.hpp>
+#include <boost/lambda/core.hpp>
+#include <boost/lambda/lambda.hpp>
 
 
 int minus(int state, int x)

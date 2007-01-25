@@ -17,6 +17,8 @@
 #include <vector>
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/regular.hpp>
+#include <boost/lambda/core.hpp>
+#include <boost/lambda/lambda.hpp>
 
 
 struct is_not_divisor

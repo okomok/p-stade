@@ -26,6 +26,8 @@
 #include <pstade/functional.hpp>
 #include <pstade/forward.hpp>
 #include <pstade/oven/regular.hpp>
+#include <boost/lambda/core.hpp>
+#include <boost/lambda/lambda.hpp>
 
 
 struct multiply2 :
