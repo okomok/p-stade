@@ -18,7 +18,7 @@
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/function.hpp>
-#include <pstade/lambda_result_of.hpp>
+#include <pstade/lambda_result_of.hpp> // inclusion guaranteed
 #include <pstade/pass_by.hpp>
 #include <pstade/preprocessor.hpp>
 
@@ -29,19 +29,19 @@ namespace pstade { namespace oven {
 namespace regular_detail {
 
 
-    template<class Function>
+    template< class Function >
     struct op_result :
         callable<
             op_result<Function>,
             typename boost::result_of<Function()>::type
         >
     {
-        template<class Myself, PSTADE_CALLABLE_APPLY_PARAMS(A)>
+        template< class Myself, PSTADE_CALLABLE_APPLY_PARAMS(A) >
         struct apply
         { }; // complete for SFINAE.
 
         // 0ary
-        template<class Result>
+        template< class Result >
         Result call() const
         {
             return (*m_pfun)();
@@ -75,14 +75,14 @@ namespace regular_detail {
     };
 
 
-    // If 'is_assignable' etc were possible,
-    // we could make a functor be regular automagically.
-    // Note 'is_lambda_functor' can't work around;
-    // e.g. 'forward(lambda::_1)' is neither assignable
-    // nor a lambd functor.
+    // Neither 'is_assignable' nor 'is_default_constructible'
+    // seems impossible to implement.
+    // Notice that 'is_lambda_functor' can't be the detection;
+    // e.g. 'forward(lambda::_1)', which is neither assignable
+    // nor a lambda functor.
 
 
-    template<class Function>
+    template< class Function >
     struct baby
     {
         typedef
@@ -115,12 +115,12 @@ PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE((pstade)(oven)(regular_detail)(op_res
 #define n BOOST_PP_ITERATION()
 
 
-template<class Myself, BOOST_PP_ENUM_PARAMS(n, class A)>
+template< class Myself, BOOST_PP_ENUM_PARAMS(n, class A) >
 struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
     boost::result_of<Function(PSTADE_PP_ENUM_PARAMS_WITH(n, A, &))>
 { };
 
-template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
+template< class Result, BOOST_PP_ENUM_PARAMS(n, class A) >
 Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
 {
     return (*m_pfun)(BOOST_PP_ENUM_PARAMS(n, a));

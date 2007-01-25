@@ -17,6 +17,7 @@
 #include <iterator>
 #include <string>
 #include <pstade/oven/functions.hpp>
+#include <pstade/is_same.hpp>
 
 
 void test()
@@ -25,7 +26,7 @@ void test()
     using namespace oven;
 
     {
-        std::string   in("hello, copied!");
+        std::string   in("hello, copied_out!");
         std::string out1;
         std::string out2;
         std::string out3;
@@ -34,6 +35,8 @@ void test()
         BOOST_CHECK( oven::equals(in, out1) );
         BOOST_CHECK( oven::equals(in, out2) );
         BOOST_CHECK( oven::equals(in, out3) );
+
+        BOOST_CHECK( pstade::is_same(in, in|copied_out(std::back_inserter(out1))) );
     }
 }
 
