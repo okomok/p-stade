@@ -19,7 +19,6 @@
 #include <boost/range.hpp>
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/filtered.hpp>
-#include <pstade/oven/regularized.hpp>
 #include <pstade/locale.hpp>
 
 
@@ -65,7 +64,7 @@ void test()
     }
 #if 0 // rejected
     {
-        oven::iter_range<std::string::iterator> rng = src|filtered(pstade::is_alpha)|regularized;
+        oven::iter_range<std::string::iterator> rng = src|filtered(pstade::is_alpha);
         BOOST_CHECK( oven::equals(rng, src) );
     }
 #endif

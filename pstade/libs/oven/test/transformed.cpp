@@ -25,6 +25,7 @@
 #include <pstade/as.hpp>
 #include <pstade/functional.hpp>
 #include <pstade/forward.hpp>
+#include <pstade/oven/regular.hpp>
 
 
 struct multiply2 :
@@ -59,6 +60,12 @@ void test()
 
         BOOST_CHECK( oven::test_RandomAccess_Readable(
             rng|transformed(::multiply2()),
+            expected
+        ) );
+
+        namespace lambda = boost::lambda;
+        BOOST_CHECK( oven::test_RandomAccess_Readable(
+            rng|transformed(regular(lambda::_1 * 2)),
             expected
         ) );
     }

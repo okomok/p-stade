@@ -18,7 +18,6 @@
 #include <sstream>
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/filtered.hpp>
-#include <pstade/oven/regularized.hpp>
 #include <pstade/locale.hpp>
 
 
@@ -65,7 +64,7 @@ void test()
     }
 #if 0 // rejected
     {
-        oven::sub_range<std::string> rng = src|filtered(pstade::is_alnum)|regularized;
+        oven::sub_range<std::string> rng = src|filtered(pstade::is_alnum);
         BOOST_CHECK( oven::equals(rng, src) );
     }
 #endif

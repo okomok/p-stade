@@ -22,7 +22,6 @@
 #include <pstade/oven/copied_out.hpp>
 #include <pstade/oven/filtered.hpp>
 #include <pstade/oven/stream_input.hpp>
-#include <pstade/oven/regularized.hpp>
 
 #include <iterator>
 #include <boost/lambda/core.hpp>
@@ -55,12 +54,10 @@ void test()
         BOOST_CHECK((
             oven::equals(answer,
                 src |
-                    filtered(bll::_1 != 'x') |
-                    regularized |
+                    filtered(regular(bll::_1 != 'x')) |
                     memoized |
                     copied_out(std::back_inserter(s1)) |
-                    filtered(bll::_1 != 'a') |
-                    regularized |
+                    filtered(regular(bll::_1 != 'a')) |
                     memoized |
                     copied_out(std::back_inserter(s2))
             )

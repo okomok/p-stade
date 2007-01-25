@@ -22,7 +22,6 @@
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/taken_while.hpp>
 #include <pstade/oven/transformed.hpp>
-#include <pstade/oven/regularized.hpp>
 #include <pstade/lambda_result_of.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <pstade/as.hpp>
@@ -98,8 +97,8 @@ void test()
 
         oven::copy(
             oven::counting_from(1)|
-                transformed(lambda::_1 * 30)|regularized|
-                taken_while(lambda::_1 < 1000),
+                transformed(regular(lambda::_1 * 30))|
+                taken_while(regular(lambda::_1 < 1000)),
             oven::to_ostream<int>(std::cout, ",")
         );
     }

@@ -12,22 +12,16 @@
 
 // What:
 //
-// Replaces 'boost::function_output_iterator'.
-// 'regularize_iterator' for Boost.Lambda functors
-// requires this iterator be *adaptable*.
-// That is, the nested typedef's may not be 'void'.
-// Also, 'boost::function_output_iterator' doesn't provide a way
-// to access its functor.
+// Replaces 'boost::function_output_iterator',
+// which is not adaptable using 'iterator_adaptor',
+// and has no way to access its functor.
 // Note that OutputIterator cannot always be implemented by using
 // 'iterator_facade', because of the postfix-increment implementation.
 
 
-#include <boost/mpl/void.hpp>
-#include <boost/utility/result_of.hpp>
 #include <iterator> // output_iterator_tag
-#include <pstade/function.hpp>
+#include <boost/mpl/void.hpp>
 #include <pstade/object_generator.hpp>
-#include "./regularize_iterator.hpp"
 
 
 namespace pstade { namespace oven {
@@ -103,31 +97,6 @@ namespace to_function_detail {
 
 
 PSTADE_OBJECT_GENERATOR(to_function, (to_function_detail::output_iterator< deduce<_1, to_value> >) const)
-
-
-namespace to_regularized_function_detail {
-
-
-    template< class UnaryFun >
-    struct baby
-    {
-        typedef typename
-            boost::result_of<
-                op_make_regularize_iterator(typename boost::result_of<op_to_function(UnaryFun&)>::type)
-            >::type
-        result;
-
-        result call(UnaryFun& fun)
-        {
-            return make_regularize_iterator(to_function(fun));
-        }
-    };
-
-
-} // namespace to_regularized_function_detail
-
-
-PSTADE_FUNCTION(to_regularized_function, (to_regularized_function_detail::baby<_>))
 
 
 } } // namespace pstade::oven

@@ -2,10 +2,8 @@ std::string src("cjaigvwzenqhe");
 std::string::iterator it = oven::adapted_to<std::string::iterator>(
     oven::max_element(
         src
-            | filtered(lambda::_1 != 'z')
-            | regularized
-            | filtered(lambda::_1 != 'w')
-            | regularized
+            | filtered(regular(lambda::_1 != 'z'))
+            | filtered(regular(lambda::_1 != 'w'))
     )
 );
 

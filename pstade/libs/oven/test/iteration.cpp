@@ -21,7 +21,6 @@
 
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/core.hpp>
-#include <pstade/oven/regularized.hpp>
 
 
 int increment(int x)
@@ -64,7 +63,7 @@ void test()
         namespace lambda = boost::lambda;
         int answer[] = { 1,2,4,8,16 };
         BOOST_CHECK( oven::equals(answer,
-            oven::iteration(1, lambda::_1 * 2)|regularized|oven::taken(5)
+            oven::iteration(1, regular(lambda::_1 * 2))|oven::taken(5)
         ) );
     }
 }

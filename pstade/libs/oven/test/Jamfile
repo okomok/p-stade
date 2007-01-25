@@ -100,7 +100,7 @@ test-suite oven :
     [ oven-test popped ]
     [ oven-test prepended ]
     [ oven-test reference_is_convertible ]
-    [ oven-test regularized ]
+    [ oven-test regular ]
     [ oven-test repeated ]
     [ oven-test reversed ]
     [ oven-test rotated ]

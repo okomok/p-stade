@@ -139,13 +139,13 @@ void test()
 
     {
         BOOST_CHECK(( oven::equals(
-            make_as_single('x')|jointed(std::string("yz")), std::string("xyz")
+            as_single('x')|jointed(std::string("yz")), std::string("xyz")
         ) ));
     }
 
     {
         BOOST_CHECK(( oven::equals(
-            std::string("xy")|jointed(make_as_single('z')), std::string("xyz")
+            std::string("xy")|jointed(as_single('z')), std::string("xyz")
         ) ));
     }
 

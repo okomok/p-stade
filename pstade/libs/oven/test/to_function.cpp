@@ -21,7 +21,6 @@
 #include <list>
 #include <boost/range.hpp>
 #include <pstade/oven/identities.hpp>
-#include <pstade/oven/regularize_iterator.hpp>
 #include <pstade/oven/functions.hpp>
 #include <pstade/unused.hpp>
 #include <pstade/oven/iterators.hpp>
@@ -55,12 +54,7 @@ void test()
     }
     {
         g_ss.str("");
-        oven::copy(src, oven::make_regularize_iterator(oven::to_function(&::to_ss)));
-        BOOST_CHECK( oven::equals(g_ss.str(), src) );
-    }
-    {
-        g_ss.str("");
-        oven::copy(src, oven::to_regularized_function(&::to_ss));
+        oven::copy(src, oven::to_function(regular(&::to_ss)));
         BOOST_CHECK( oven::equals(g_ss.str(), src) );
     }
     {

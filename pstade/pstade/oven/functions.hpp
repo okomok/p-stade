@@ -40,4 +40,7 @@
 #include "./to_utf8_encoder.hpp"
 
 
+#include "./regular.hpp"
+
+
 #endif

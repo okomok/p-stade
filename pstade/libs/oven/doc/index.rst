@@ -7,7 +7,7 @@ The Oven Range Library
 :Author: Shunsuke Sogame
 :Contact: pstade.mb@gmail.com
 :License: Distributed under the `Boost Software License Version 1.0`_
-:Version: 0.93.0
+:Version: 0.93.1
 
 
 
@@ -165,6 +165,17 @@ Note that the size of two ranges is also checked out::
 - Valid expression: ``equals(rng1,rng2);``
 - Precondition: ``equal(rng1,boost::begin(rng2));`` is a valid expression.
 - Returns: ``true`` if and only if the ``oven::equal(rng1,boost::begin(rng2))`` and ``boost::size(rng1) == boost::size(rng2)`` returns ``true``.
+
+
+``regular``
+^^^^^^^^^^^
+Boost.Lambda functors are neither DefaultConstructible nor CopyAssignable.
+An iterator holding such a functor cannot conform to even InputIterator.
+``regular`` converts it to comfortable one for iterators.
+
+- Header: ``<pstade/oven/regular.hpp>``
+- Valid expression: ``regular(lambdaFunctor)``
+- Returns: A `Function Object`_ which is DefaultConstructible and CopyAssignable.
 
 
 
@@ -360,8 +371,8 @@ the function on the first argument, the second item by applying the function on 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\repeated.ipp
 
 - Header: ``<pstade/oven/repeated.hpp>``
-- Valid expression: ``v|repeated(c)``
-- Returns: A range which behaves as if it were ``v|as_single|cycled(c)``.
+- Valid expression: ``v|repeated(c)`` and ``make_repeated(v, c)``
+- Returns: A range which behaves as if it were ``as_single(v)|cycled(c)``.
 
 
 ``stream_input``
@@ -390,12 +401,12 @@ Range Adaptors
 A Range Adaptor delivers an altered presentation of one or more underlying ranges.
 Range Adaptors are lazy, meaning that their elements are only computed on demand.
 The underlying ranges are not modified.
-All the range returned from the following adaptors are CopyConstructible and Inheritable.
 Additional information is available at `Range Library Proposal`_.
 ``<pstade/oven/adaptors.hpp>`` includes all the following Range Adaptors unless otherwise specified.
 
-If ``a0|xxx(a1,..,aN)`` is a valid expression, then  ``make_xxx(a0,..,aN)`` too is a valid expression
-which has the same effect; unless otherwise specified.
+Note that all the range returned from the following adaptors are CopyConstructible and Inheritable.
+Also, if ``a0|xxx(a1,..,aN)`` is a valid expression, then  ``make_xxx(a0,..,aN)`` too is a valid expression
+which has the same effect.
 
 
 ``adjacent_filtered``
@@ -446,7 +457,7 @@ which has the same effect; unless otherwise specified.
 
 - Header: ``<pstade/oven/appended.hpp>``
 - Valid expression: ``rng|appended(v)``
-- Returns: A range which behaves as if it were ``rng|jointed(v|as_single)``.
+- Returns: A range which behaves as if it were ``rng|jointed(as_single(v))``.
 
 
 ``applied``
@@ -623,7 +634,7 @@ Note that ``delimited`` prepends the delimiter. ``dropped`` is useful to remove 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\filtered.ipp
 
 Note that a non-assignable lambda functor makes ``filtered`` non-conforming, so
-it needs `regularized`_ that makes it assignable and then conforming.
+it needs `regular`_ to be applied before it is passed.
 
 
 - Header: ``<pstade/oven/filtered.hpp>``
@@ -778,19 +789,7 @@ Note that ``memoized`` can return a `Forward Range`_ even if the base range is a
 ^^^^^^^^^^^^^
 - Header: ``<pstade/oven/prepended.hpp>``
 - Valid expression: ``rng|prepended(v)``
-- Returns: A range which behaves as if it were ``v|as_single|jointed(rng)``.
-
-
-``regularized``
-^^^^^^^^^^^^^^^
-Boost.Lambda functors are neither DefaultConstructible nor CopyAssignable.
-An iterator holding such a functor cannot conform to even InputIterator.
-``regularized`` converts such a broken iterator to conforming one.
-
-
-- Header: ``<pstade/oven/regularized.hpp>``
-- Valid expression: ``rng|regularized``
-- Returns: ``[boost::begin(rng),boost::end(rng))``, which is a conforming range, even if iterators of ``rng`` are not assignable.
+- Returns: A range which behaves as if it were ``as_single(v)|jointed(rng)``.
 
 
 ``rotated``
@@ -1040,7 +1039,7 @@ with some workarounds.
 __ http://www.boost.org/libs/iterator/doc/function_output_iterator.html
 
 - Header: ``<pstade/oven/to_function.hpp>``
-- Valid expression: ``to_function(fun)`` and ``to_regularized_function(lambda)``
+- Valid expression: ``to_function(fun)``
 - Returns: An ``OutputIterator`` which behaves as if it were ``boost::function_output_iterator``.
 
 
@@ -1227,5 +1226,6 @@ Version 0.93.1
 - Renamed ``begins/ends`` to ``begin/end``.
 - ``adjacent_transformed`` rejects empty range.
 - Changed template parameter of ``any_range``.
-
+- Replaced ``regularized`` with ``regular``.
+- Removed ``to_regularized_function``.
 

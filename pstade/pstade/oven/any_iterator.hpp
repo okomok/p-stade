@@ -22,7 +22,6 @@
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/mpl/assert.hpp>
-#include <boost/mpl/bool.hpp>
 #include <boost/type_traits/is_convertible.hpp>
 #include <pstade/clone_ptr.hpp>
 #include <pstade/new_delete.hpp>

@@ -16,6 +16,7 @@
 
 #include <vector>
 #include <pstade/oven/functions.hpp>
+#include <pstade/oven/regular.hpp>
 
 
 struct is_not_divisor
@@ -59,6 +60,12 @@ void test()
 
         BOOST_CHECK( oven::test_Bidirectional_Readable(
             src|adjacent_filtered(not_equal_to()),
+            expected
+        ) );
+
+        namespace lambda = boost::lambda;
+        BOOST_CHECK( oven::test_Bidirectional_Readable(
+            src|adjacent_filtered(regular(lambda::_1 != lambda::_2)),
             expected
         ) );
     }

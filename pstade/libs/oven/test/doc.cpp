@@ -43,11 +43,9 @@ void test_introduction()
         BOOST_FOREACH (char ch,
             new std::string("!ExGNxxAR ,xOLxLExH")
                 | shared
-                | filtered(lambda::_1 != 'x')
-                | regularized
+                | filtered(regular(lambda::_1 != 'x'))
                 | reversed
                 | transformed(pstade::to_lower)
-                | regularized
                 | memoized
         ) {
             out.push_back(ch);
@@ -154,7 +152,7 @@ void test_istream_range()
 
 void test_single_range()
 {
-    BOOST_CHECK( oven::equals(oven::make_as_single('a'), std::string("a")) );
+    BOOST_CHECK( oven::equals(oven::as_single('a'), std::string("a")) );
 }
 
 
@@ -258,11 +256,9 @@ void test_copied_as_adaptor()
 
     BOOST_CHECK( oven::equals(
         src
-            | filtered(lambda::_1 != 'x')
-            | regularized
+            | filtered(regular(lambda::_1 != 'x'))
             | copied_out(std::back_inserter(snapshot))
-            | filtered(lambda::_1 != 'a')
-            | regularized,
+            | filtered(regular(lambda::_1 != 'a')),
         answer
     ) );
 
@@ -313,7 +309,7 @@ void test_filtered()
     int src[]    = { 2,5,2,6,1,3,2 };
     int answer[] = { 0,5,0,6,1,3,0 };
 
-    BOOST_FOREACH (int& i, src|filtered(lambda::_1 == 2)|regularized) {
+    BOOST_FOREACH (int& i, src|filtered(regular(lambda::_1 == 2))) {
         i = 0;
     }
 

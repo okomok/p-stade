@@ -19,6 +19,7 @@
 #include <pstade/functional.hpp>
 #include <pstade/oven/const_lvalues.hpp>
 #include <pstade/oven/identities.hpp>
+#include <pstade/oven/regular.hpp>
 
 
 void test()
@@ -43,6 +44,13 @@ void test()
         BOOST_CHECK( oven::test_Forward_Readable(
             src | identities(boost::forward_traversal_tag()) |
                 adjacent_transformed(pstade::plus) | const_lvalues,
+            expected
+        ) );
+
+        namespace lambda = boost::lambda;
+        BOOST_CHECK( oven::test_RandomAccess_Readable(
+            src |
+                adjacent_transformed(regular(lambda::_1 + lambda::_2)) | const_lvalues,
             expected
         ) );
     }

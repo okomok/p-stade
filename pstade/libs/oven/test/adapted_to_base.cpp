@@ -21,7 +21,6 @@
 #include <pstade/is_same.hpp>
 #include <pstade/oven/filtered.hpp>
 #include <pstade/oven/functions.hpp>
-#include <pstade/oven/regularized.hpp>
 
 
 void test()
@@ -47,10 +46,8 @@ void test()
         std::string::iterator it = oven::adapted_to<std::string::iterator>(
             oven::max_element(
                 src
-                    | filtered(lambda::_1 != 'z')
-                    | regularized
-                    | filtered(lambda::_1 != 'w')
-                    | regularized
+                    | filtered(regular(lambda::_1 != 'z'))
+                    | filtered(regular(lambda::_1 != 'w'))
             )
         );
 
@@ -63,10 +60,8 @@ void test()
         std::string::const_iterator it =
             oven::max_element(
                 src
-                    | filtered(lambda::_1 != 'z')
-                    | regularized
-                    | filtered(lambda::_1 != 'w')
-                    | regularized
+                    | filtered(regular(lambda::_1 != 'z'))
+                    | filtered(regular(lambda::_1 != 'w'))
             )|to_base;
 
         BOOST_CHECK( *it == 'v' );

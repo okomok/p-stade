@@ -33,9 +33,6 @@ void test()
         BOOST_CHECK( oven::equals(as_single('a'), ans) );
     }
     {
-        BOOST_CHECK( oven::equals(make_as_single('a'), ans) );
-    }
-    {
         char ch = 'a';
         BOOST_CHECK( oven::equals(oven::make_as_single(ch), ans) );
     }

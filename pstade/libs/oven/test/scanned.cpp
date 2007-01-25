@@ -23,6 +23,7 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/range.hpp>
 #include <pstade/oven/functions.hpp>
+#include <pstade/oven/regular.hpp>
 
 
 int minus(int state, int x)
@@ -49,6 +50,12 @@ void test()
 
         BOOST_CHECK( oven::test_Forward_Readable(
             rng|scanned(0),
+            expected
+        ) );
+
+        namespace lambda = boost::lambda;
+        BOOST_CHECK( oven::test_Forward_Readable(
+            rng|scanned(0, regular(lambda::_1 + lambda::_2)),
             expected
         ) );
     }
