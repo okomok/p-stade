@@ -27,7 +27,7 @@ namespace pstade { namespace oven {
 struct op_make_with_position :
     callable<op_make_with_position>
 {
-    template< class Myself, class Range, class PositionT = boost::spirit::file_position >
+    template< class Myself, class Range, class PositionT = boost::spirit::file_position, class Int = void >
     struct apply
     {
         typedef

@@ -13,9 +13,9 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/xpressive/regex_token_iterator.hpp>
-#include <pstade/deduced_const.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
+#include <pstade/deduced_const.hpp>
 #include <pstade/pipable.hpp>
 #include "./concepts.hpp"
 #include "./iter_range.hpp"

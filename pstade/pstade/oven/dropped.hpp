@@ -36,8 +36,8 @@ namespace dropped_detail {
         result call(Range& rng, Difference& d)
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-
             BOOST_ASSERT(detail::debug_in_distance(d, rng));
+
             return result(detail::next(boost::begin(rng), d), boost::end(rng));
         }
     };

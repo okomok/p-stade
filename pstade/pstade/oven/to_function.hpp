@@ -13,10 +13,10 @@
 // What:
 //
 // Replaces 'boost::function_output_iterator',
-// which is not adaptable to 'iterator_adaptor',
+// which is not adaptable using 'iterator_adaptor',
 // and has no way to access its functor.
 // Note that OutputIterator cannot always be implemented by using
-// 'iterator_facade', because of the postfix-increment implementation.
+// 'iterator_facade'; because of the postfix-increment implementation.
 
 
 #include <iterator> // output_iterator_tag
@@ -47,7 +47,7 @@ namespace to_function_detail {
             return m_fun;
         }
 
-    // as "adaptor", 'oven::adapted_to' kicks in!
+        // as "adaptor"; 'oven::adapted_to' kicks in!
         UnaryFun const& base() const
         {
             return m_fun;
@@ -96,7 +96,8 @@ namespace to_function_detail {
 } // namespace to_function_detail
 
 
-PSTADE_OBJECT_GENERATOR(to_function, (to_function_detail::output_iterator< deduce<_1, to_value> >) const)
+PSTADE_OBJECT_GENERATOR(to_function,
+    (to_function_detail::output_iterator< deduce<_1, to_value> >) const)
 
 
 } } // namespace pstade::oven

@@ -13,8 +13,7 @@
 // Note:
 //
 // The constant-iterator is the same as the mutable-iterator.
-// Const-ness of this range muste be independent from
-// const-ness of the 'Value'.
+// Const-ness of this range must be independent from const-ness of the 'X'.
 
 
 #include <boost/utility/addressof.hpp>

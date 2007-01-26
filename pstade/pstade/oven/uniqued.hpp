@@ -39,7 +39,7 @@ namespace uniqued_detail {
         result call(Range& rng)
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
-	        return make_adjacent_filtered(
+            return make_adjacent_filtered(
                 rng,
                 not_(equal_to)
             );
