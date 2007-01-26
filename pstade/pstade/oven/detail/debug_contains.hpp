@@ -45,7 +45,7 @@ bool debug_contains_aux(Range& rng, Iterator const& it, std::forward_iterator_ta
 template< class Range, class Iterator > inline
 bool debug_contains_aux(Range& rng, Iterator const& it, std::input_iterator_tag)
 {
-    pstade::unused(rng, it);
+    unused(rng, it);
     return true;
 }
 
@@ -53,7 +53,7 @@ bool debug_contains_aux(Range& rng, Iterator const& it, std::input_iterator_tag)
 template< class Range, class Iterator > inline
 bool debug_contains(Range const& rng, Iterator const& it)
 {
-    pstade::for_debug();
+    for_debug();
 
     typedef typename range_category<Range>::type cat_t;
     return detail::debug_contains_aux(rng, it, cat_t());

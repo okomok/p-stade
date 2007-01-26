@@ -81,7 +81,7 @@ namespace pstade { namespace oven {
             template< class Result, class Expr, class State, class Visitor >
             Result call_(Expr const& expr, State const& state, Visitor& visitor)
             {
-                pstade::unused(state, visitor);
+                unused(state, visitor);
                 return proto::arg(expr);
             }
         };

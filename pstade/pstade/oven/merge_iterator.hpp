@@ -109,7 +109,7 @@ namespace merge_iterator_detail {
                     break;
             }
             */
-            pstade::unused(first1, last1, first2, last2, comp);
+            unused(first1, last1, first2, last2, comp);
         }
 
         template< class Reference, class Iterator1, class Iterator2, class Compare >

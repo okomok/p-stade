@@ -115,60 +115,64 @@ PSTADE_CONSTANT(to_ostreambuf, (op_to_ostreambuf))
 // to_stream
 //
 
-// Note:
-// 'Value' is the type of dereference of iterator,
-// which can be a type that is *convertible* to 'value_type'.
-// In such case, 'to_ostream' above is preferable.
+namespace to_stream_detail {
 
-template< class Stream >
-struct op_stream_output
-{
-    typedef Stream stream_type;
-    typedef void result_type;
+    // 'Value' is the type of dereference of iterator,
+    // which can be a type that is *convertible* to 'value_type'.
+    // In such case, 'to_ostream' above is preferable.
 
-    // Note:
-    // DefaultConstructible is not required
-    // as OutputIterator is not.
-
-    explicit op_stream_output(Stream& s) :
-        m_ps(boost::addressof(s))
-    { }
-
-    template< class Value >
-    void operator()(Value const& val) const
+    template< class Stream >
+    struct op_output
     {
-        *m_ps << val;
-    }
+        typedef Stream stream_type;
+        typedef void result_type;
 
-    Stream& stream() const
+        // DefaultConstructible is not required
+        // as OutputIterator is not.
+
+        explicit op_output(Stream& s) :
+            m_ps(boost::addressof(s))
+        { }
+
+        template< class Value >
+        void operator()(Value const& val) const
+        {
+            *m_ps << val;
+        }
+
+        Stream& stream() const
+        {
+            return *m_ps;
+        }
+
+        // as "adaptor"; 'oven::adapted_to' kicks in!
+        Stream& base() const
+        {
+            return *m_ps;
+        }
+
+    private:
+        Stream *m_ps; // be a pointer for Assignable.
+    };
+
+    template< class Stream >
+    struct baby
     {
-        return *m_ps;
-    }
+        typedef typename
+            boost::result_of<
+                op_to_function(op_output<Stream>)
+            >::type
+        result;
 
-// as "adaptor", 'oven::adapted_to' kicks in!
-    Stream& base() const
-    {
-        return *m_ps;
-    }
+        result call(Stream& s)
+        {
+            return to_function(op_output<Stream>(s));
+        }
+    };
 
-private:
-    Stream *m_ps; // be a pointer for Assignable.
-};
+} // namespace to_stream_detail
 
-template< class Stream >
-struct baby_to_stream
-{
-    typedef typename
-        boost::result_of<op_to_function(op_stream_output<Stream>)>::type
-    result;
-
-    result call(Stream& s)
-    {
-        return result(typename result::function_type(s));
-    }
-};
-
-PSTADE_FUNCTION(to_stream, (baby_to_stream<_>))
+PSTADE_FUNCTION(to_stream, (to_stream_detail::baby<_>))
 
 
 } } // namespace pstade::oven

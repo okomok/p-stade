@@ -19,53 +19,64 @@
 namespace pstade { namespace oven {
 
 
-template< class Incrementable >
-struct op_increment
-{
-    typedef void result_type;
+namespace to_counter_detail  {
 
-    explicit op_increment(Incrementable const& i) :
-        m_i(i)
-    { }
 
-    template< class Value >
-    void operator()(Value const&)
+    template< class Incrementable >
+    struct op_inc
     {
-        ++m_i;
-    }
+        typedef void result_type;
 
-    Incrementable const& incrementable() const
+        explicit op_inc(Incrementable const& i) :
+            m_i(i)
+        { }
+
+        template< class Value >
+        void operator()(Value const&)
+        {
+            ++m_i;
+        }
+
+        Incrementable const& incrementable() const
+        {
+            return m_i;
+        }
+
+        // as "adaptor"; 'oven::adapted_to' kicks in!
+        Incrementable const& base() const
+        {
+            return m_i;
+        }
+
+    private:
+        Incrementable m_i;
+    };
+
+
+    template< class Incrementable >
+    struct baby
     {
-        return m_i;
-    }
+        typedef typename
+            pass_by_value<Incrementable>::type
+        i_t;
 
-// as "adaptor", 'oven::adapted_to' kicks in!
-    Incrementable const& base() const
-    {
-        return m_i;
-    }
+        typedef typename
+            boost::result_of<
+                op_to_function(op_inc<i_t>)
+            >::type
+        result;
 
-private:
-    Incrementable m_i;
-};
+        result call(Incrementable& i)
+        {
+            return to_function(op_inc<i_t>(i));
+        }
+    };
 
 
-template< class Incrementable >
-struct baby_to_counter
-{
-    typedef typename
-        boost::result_of<op_to_function(
-            op_increment<typename pass_by_value<Incrementable>::type>
-        )>::type
-    result;
+} // namespace to_counter_detail
 
-    result call(Incrementable& i)
-    {
-        return result(typename result::function_type(i));
-    }
-};
 
-PSTADE_FUNCTION(to_counter, (baby_to_counter<_>))
+PSTADE_FUNCTION(to_counter, (to_counter_detail::baby<_>))
 
 
 } } // namespace pstade::oven

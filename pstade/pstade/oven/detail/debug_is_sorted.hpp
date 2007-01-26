@@ -50,7 +50,7 @@ template< class ForwardIter, class Compare > inline
 bool debug_is_sorted_aux(ForwardIter first, ForwardIter last, Compare comp,
     boost::single_pass_traversal_tag)
 {
-    pstade::unused(first, last, comp);
+    unused(first, last, comp);
     return true;
 }
 
@@ -58,7 +58,7 @@ bool debug_is_sorted_aux(ForwardIter first, ForwardIter last, Compare comp,
 template< class ForwardIter, class Compare > inline
 bool debug_is_sorted(ForwardIter first, ForwardIter last, Compare comp)
 {
-    pstade::for_debug();
+    for_debug();
 
     typedef typename boost::iterator_traversal<ForwardIter>::type trv_t;
     return detail::debug_is_sorted_aux(first, last, comp, trv_t());

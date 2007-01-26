@@ -35,7 +35,7 @@ struct my_type
 typedef object_generator< my_type< deduce<boost::mpl::_1, deducers::to_value> > > op_make_my_type_v;
 PSTADE_CONSTANT(make_my_type_v, (op_make_my_type_v))
 
-typedef object_generator< my_type< deduce<boost::mpl::_1, deducers::as_ref> > > op_make_my_type_r;
+typedef object_generator< my_type< deduce<boost::mpl::_1, deducers::to_reference> > > op_make_my_type_r;
 PSTADE_CONSTANT(make_my_type_r, (op_make_my_type_r))
 
 typedef object_generator< my_type< deduce<boost::mpl::_1, deducers::to_qualified> > > op_make_my_type_q;

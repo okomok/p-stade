@@ -25,7 +25,7 @@ namespace pstade { namespace oven { namespace detail {
 template< class ForwardIter > inline
 ForwardIter range_prior_aux(ForwardIter first, ForwardIter const& last, boost::bidirectional_traversal_tag)
 {
-    pstade::unused(first);
+    unused(first);
     return detail::prior(last);
 }
 

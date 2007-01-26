@@ -89,14 +89,11 @@ PSTADE_PIPABLE(merged, (op_make_merged))
         ::pstade::callable<BOOST_PP_CAT(op_make_, Name)> \
     { \
         template< class Myself, class Range1, class Range2, class Compare = ::pstade::op_less > \
-        struct apply \
-        { \
-            typedef typename \
-                ::boost::result_of< \
-                    ::pstade::oven::merged_detail::op_make< MergeRoutine >(Range1&, Range2&, Compare&) \
-                >::type \
-            type; \
-        }; \
+        struct apply : \
+            ::boost::result_of< \
+                ::pstade::oven::merged_detail::op_make< MergeRoutine >(Range1&, Range2&, Compare&) \
+            > \
+        { }; \
         \
         template< class Result, class Range1, class Range2, class Compare > \
         Result call(Range1& rng1, Range2& rng2, Compare& comp) const \

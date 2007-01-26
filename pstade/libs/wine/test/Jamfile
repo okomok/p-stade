@@ -19,7 +19,7 @@ test-suite wine :
     [ wine-test adl_barrier ]
     [ wine-test affect ]
     [ wine-test arraya ]
-    [ wine-tets as ]
+    [ wine-test as ]
     [ wine-test at ]
     [ wine-test automatic ]
     [ wine-test auxiliary ]

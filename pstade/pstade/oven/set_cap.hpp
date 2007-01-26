@@ -50,7 +50,7 @@ namespace set_cap_detail {
             Iterator2 const& first2, Iterator2 const& last2,
             Compare& comp)
         {
-            pstade::unused(last1, first2, last2, comp);
+            unused(last1, first2, last2, comp);
             return *first1;
         }
 
@@ -60,7 +60,7 @@ namespace set_cap_detail {
             Iterator2& first2, Iterator2 const& last2,
             Compare& comp)
         {
-            pstade::unused(last1, last2, comp);
+            unused(last1, last2, comp);
             ++first1;
             ++first2;
         }
