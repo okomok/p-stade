@@ -44,7 +44,7 @@ namespace dropped_while_detail {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
             // PSTADE_CONCEPT_ASSERT((Readable<Range>));
 
-            return result(oven::find_if(rng, not_(pred)), boost::end(rng));
+            return result(find_if(rng, not_(pred)), boost::end(rng));
         }
     };
 

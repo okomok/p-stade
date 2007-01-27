@@ -146,7 +146,7 @@ namespace pstade { namespace oven { namespace extension_detail {
         template< class Result, class T >
         Result call(T const& x) const
         {
-            return oven::distance(x);
+            return distance(x);
         }
     };
 

@@ -41,13 +41,15 @@ namespace scan_iterator_detail {
     template< class Iterator, class State, class BinaryFun >
     struct super_
     {
-        typedef boost::iterator_adaptor<
-            scan_iterator<Iterator, State, BinaryFun>,
-            Iterator,
-            State,
-            typename traversal<Iterator>::type,
-            State const& // can be reference thanks to 'm_cache'.
-        > type;
+        typedef
+            boost::iterator_adaptor<
+                scan_iterator<Iterator, State, BinaryFun>,
+                Iterator,
+                State,
+                typename traversal<Iterator>::type,
+                State const& // can be reference thanks to 'm_cache'.
+            >
+        type;
     };
 
 
@@ -58,8 +60,6 @@ template< class Iterator, class State, class BinaryFun >
 struct scan_iterator :
     scan_iterator_detail::super_<Iterator, State, BinaryFun>::type
 {
-    typedef scan_iterator type;
-
 private:
     typedef typename scan_iterator_detail::super_<Iterator, State, BinaryFun>::type super_t;
     typedef typename super_t::reference ref_t;

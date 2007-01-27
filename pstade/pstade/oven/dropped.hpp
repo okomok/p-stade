@@ -10,6 +10,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Note:
+//
+// 'dropped' can walk on SinglePassRange.
+// As the price of it, 'd' must be in the distance.
+
+
 #include <boost/range/end.hpp>
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>

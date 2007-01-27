@@ -36,10 +36,12 @@ namespace reverse_iterator_detail {
     template< class BidiIter >
     struct super_
     {
-        typedef boost::iterator_adaptor<
-            reverse_iterator<BidiIter>,
-            BidiIter
-        > type;
+        typedef
+            boost::iterator_adaptor<
+                reverse_iterator<BidiIter>,
+                BidiIter
+            >
+        type;
     };
 
 
@@ -50,8 +52,6 @@ template< class BidiIter >
 struct reverse_iterator :
     reverse_iterator_detail::super_<BidiIter>::type
 {
-    typedef reverse_iterator type;
-
 private:
     typedef typename reverse_iterator_detail::super_<BidiIter>::type super_t;
     typedef typename super_t::reference ref_t;

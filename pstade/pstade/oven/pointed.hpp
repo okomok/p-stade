@@ -49,7 +49,7 @@ namespace pointed_detail {
 
             return result(
                 boost::addressof( *boost::begin(rng) ),
-                boost::addressof( *boost::begin(rng) ) + oven::distance(rng)
+                boost::addressof( *boost::begin(rng) ) + distance(rng)
             );
         }
     };

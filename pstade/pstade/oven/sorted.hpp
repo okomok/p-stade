@@ -59,7 +59,7 @@ namespace sorted_detail {
 struct op_make_sorted :
     callable<op_make_sorted>
 {
-    template< class Myself, class Range, class Compare = op_less >
+    template< class Myself, class Range, class Compare = op_less const >
     struct apply
     {
         typedef

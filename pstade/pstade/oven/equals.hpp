@@ -45,10 +45,10 @@ namespace equals_detail {
     bool aux(Range1& rng1, Range2& rng2, BinaryPred& pred,
         boost::random_access_traversal_tag)
     {
-        if (oven::distance(rng1) != oven::distance(rng2))
+        if (distance(rng1) != distance(rng2))
             return false;
 
-        return oven::equal(rng1, boost::begin(rng2), pred);
+        return equal(rng1, boost::begin(rng2), pred);
     }
 
 

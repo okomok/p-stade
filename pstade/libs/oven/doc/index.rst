@@ -412,10 +412,7 @@ which has the same effect.
 
 ``adjacent_filtered``
 ^^^^^^^^^^^^^^^^^^^^^
-``adjacent_filtered`` returns a range where adjacent pairs of base range are filtered by using a `Predicate`_::
-
-	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\adjacent_filtered.ipp
-
+Pending...
 
 - Header: ``<pstade/oven/adjacent_filtered.hpp>``
 - See: `Range Library Proposal`_.
@@ -1229,4 +1226,6 @@ Version 0.93.1
 - Changed template parameter of ``any_range``.
 - Replaced ``regularized`` with ``regular``.
 - Removed ``to_regularized_function``.
+- ``scanned`` range contains the ``init`` as the first element.
+
 

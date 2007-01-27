@@ -641,16 +641,7 @@ Also, if <tt class="docutils literal"><span class="pre">a0|xxx(a1,..,aN)</span><
 which has the same effect.</p>
 <div class="section">
 <h2><a class="toc-backref" href="#id56" id="adjacent-filtered" name="adjacent-filtered">8.1&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">adjacent_filtered</span></tt></a></h2>
-<p><tt class="docutils literal"><span class="pre">adjacent_filtered</span></tt> returns a range where adjacent pairs of base range are filtered by using a <a class="reference" href="http://www.sgi.com/tech/stl/Predicate.html">Predicate</a>:</p>
-<pre class="cpp_source">
-<span class="cpp_keyword">int </span>src[] = { <span class="cpp_number_literal">2</span>, <span class="cpp_number_literal">2</span>, <span class="cpp_number_literal">4</span>, <span class="cpp_number_literal">4</span>, <span class="cpp_number_literal">6</span>, <span class="cpp_number_literal">8</span>, <span class="cpp_number_literal">8</span>, <span class="cpp_number_literal">10</span>, <span class="cpp_number_literal">10</span>, <span class="cpp_number_literal">20</span>, <span class="cpp_number_literal">40</span>, <span class="cpp_number_literal">80</span>, <span class="cpp_number_literal">120 </span>};
-<span class="cpp_keyword">int </span>answer[] = { <span class="cpp_number_literal">2</span>, <span class="cpp_number_literal">6</span>, <span class="cpp_number_literal">8</span>, <span class="cpp_number_literal">10</span>, <span class="cpp_number_literal">120 </span>};
-
-BOOST_CHECK( oven::equals(
-    src|adjacent_filtered(::not_divisor()),
-    answer
-) );</pre>
-
+<p>Pending...</p>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/adjacent_filtered.hpp&gt;</span></tt></li>
 <li>See: <a class="reference" href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1871.html">Range Library Proposal</a>.</li>
@@ -1258,20 +1249,13 @@ BOOST_CHECK(( oven::equals(vec|null_terminated, src) ));</pre>
 <h2><a class="toc-backref" href="#id96" id="scanned" name="scanned">8.41&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">scanned</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">scanned</span></tt> is similar to <tt class="docutils literal"><span class="pre">oven::accumulate</span></tt>, but returns a range of successive reduced values from the base range:</p>
 <pre class="cpp_source">
-std::string stringize(std::string <span class="cpp_keyword">const</span>&amp; state, <span class="cpp_keyword">int </span>i)
-{
-    <span class="cpp_keyword">return </span>state + boost::lexical_cast&lt;std::string&gt;(i);
+<span class="cpp_keyword">int </span><span class="cpp_keyword">const </span>src[] = { <span class="cpp_number_literal">1</span>,<span class="cpp_number_literal">2</span>,<span class="cpp_number_literal">3</span>,<span class="cpp_number_literal">4</span>,<span class="cpp_number_literal">5 </span>};
+std::string null;
+
+BOOST_FOREACH (std::string str, src|scanned(null, &amp;::stringize)) {
+    std::cout &lt;&lt; <span class="cpp_string_literal">&quot;\&quot;&quot;</span> &lt;&lt; str &lt;&lt; <span class="cpp_string_literal">&quot;\&quot; &quot;</span>;
 }
-
-<span class="cpp_keyword">void </span>test()
-{
-    <span class="cpp_keyword">int </span><span class="cpp_keyword">const </span>src[] = { <span class="cpp_number_literal">1</span>,<span class="cpp_number_literal">2</span>,<span class="cpp_number_literal">3</span>,<span class="cpp_number_literal">4</span>,<span class="cpp_number_literal">5 </span>};
-
-    BOOST_FOREACH (std::string str, src|scanned(std::string(), ::stringize)) {
-        std::cout &lt;&lt; <span class="cpp_string_literal">&quot;\&quot;&quot;</span> &lt;&lt; str &lt;&lt; <span class="cpp_string_literal">&quot;\&quot; &quot;</span>;
-    }
-    <span class="cpp_comment">// outputs: &quot;1&quot; &quot;12&quot; &quot;123&quot; &quot;1234&quot; &quot;12345&quot;
-</span>}</pre>
+<span class="cpp_comment">// outputs: &quot;&quot; &quot;1&quot; &quot;12&quot; &quot;123&quot; &quot;1234&quot; &quot;12345&quot;</span></pre>
 
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/scanned.hpp&gt;</span></tt></li>
@@ -1729,6 +1713,7 @@ See <a class="reference" href="./doc/ms/mfc_atl.html">Oven Range MFC/ATL Extensi
 <li>Changed template parameter of <tt class="docutils literal"><span class="pre">any_range</span></tt>.</li>
 <li>Replaced <tt class="docutils literal"><span class="pre">regularized</span></tt> with <tt class="docutils literal"><span class="pre">regular</span></tt>.</li>
 <li>Removed <tt class="docutils literal"><span class="pre">to_regularized_function</span></tt>.</li>
+<li><tt class="docutils literal"><span class="pre">scanned</span></tt> range contains the <tt class="docutils literal"><span class="pre">init</span></tt> as the first element.</li>
 </ul>
 </div>
 </div>
@@ -1736,7 +1721,7 @@ See <a class="reference" href="./doc/ms/mfc_atl.html">Oven Range MFC/ATL Extensi
 <div class="footer">
 <hr class="footer" />
 <a class="reference" href="doc/index.rst">View document source</a>.
-Generated on: 2007-01-25 02:16 UTC.
+Generated on: 2007-01-27 05:51 UTC.
 Generated by <a class="reference" href="http://docutils.sourceforge.net/">Docutils</a> from <a class="reference" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a> source.
 
 </div>

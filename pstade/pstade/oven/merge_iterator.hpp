@@ -67,13 +67,15 @@ namespace merge_iterator_detail {
     >
     struct super_
     {
-        typedef boost::iterator_adaptor<
-            merge_iterator<Iterator1, Iterator2, Compare, MergeRoutine>,
-            Iterator1,
-            boost::use_default,
-            typename traversal<Iterator1, Iterator2>::type,
-            typename detail::constant_reference<Iterator1>::type
-        > type;
+        typedef
+            boost::iterator_adaptor<
+                merge_iterator<Iterator1, Iterator2, Compare, MergeRoutine>,
+                Iterator1,
+                boost::use_default,
+                typename traversal<Iterator1, Iterator2>::type,
+                typename detail::constant_reference<Iterator1>::type
+            >
+        type;
     };
 
 
@@ -164,8 +166,6 @@ template<
 struct merge_iterator :
     merge_iterator_detail::super_<Iterator1, Iterator2, Compare, MergeRoutine>::type
 {
-    typedef merge_iterator type;
-
 private:
     typedef typename merge_iterator_detail::super_<Iterator1, Iterator2, Compare, MergeRoutine>::type super_t;
     typedef typename super_t::reference ref_t;
@@ -184,8 +184,10 @@ public:
         m_comp(comp)
     {
         BOOST_MPL_ASSERT((detail::reference_is_convertible_aux<typename boost::iterator_reference<Iterator2>::type, ref_t>));
+    #if defined(PSTADE_OVEN_MERGE_DEBUG_IS_SORTED) // ranges may be too long to diagnose.
         BOOST_ASSERT(detail::debug_is_sorted(it1, last1, comp));
         BOOST_ASSERT(detail::debug_is_sorted(it2, last2, comp));
+    #endif
  
         MergeRoutine::before_yield(
             this->base_reference(), m_last1, m_it2, m_last2, m_comp);

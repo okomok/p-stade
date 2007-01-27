@@ -114,12 +114,14 @@ namespace generate_iterator_detail {
         typedef typename indirect_reference<result_t>::type ref_t;
         typedef typename remove_cvr<ref_t>::type val_t;
 
-        typedef boost::iterator_facade<
-            generate_iterator<Generator, Traversal>,
-            val_t,
-            typename traversal<Generator, Traversal>::type,
-            ref_t
-        > type;
+        typedef
+            boost::iterator_facade<
+                generate_iterator<Generator, Traversal>,
+                val_t,
+                typename traversal<Generator, Traversal>::type,
+                ref_t
+            >
+        type;
     };
 
 

@@ -34,12 +34,14 @@ namespace take_while_iterator_detail {
     template< class Iterator, class Predicate >
     struct super_
     {
-        typedef boost::iterator_adaptor<
-            take_while_iterator<Iterator, Predicate>,
-            Iterator,
-            boost::use_default,
-            boost::single_pass_traversal_tag
-        > type;
+        typedef
+            boost::iterator_adaptor<
+                take_while_iterator<Iterator, Predicate>,
+                Iterator,
+                boost::use_default,
+                boost::single_pass_traversal_tag
+            >
+        type;
     };
 
 
@@ -50,8 +52,6 @@ template< class Iterator, class Predicate >
 struct take_while_iterator :
     take_while_iterator_detail::super_<Iterator, Predicate>::type
 {
-    typedef take_while_iterator type;
-
 private:
     typedef typename take_while_iterator_detail::super_<Iterator, Predicate>::type super_t;
     typedef typename super_t::reference ref_t;

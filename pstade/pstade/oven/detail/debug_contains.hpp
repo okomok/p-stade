@@ -32,18 +32,18 @@ namespace pstade { namespace oven { namespace detail {
 //
 
 template< class Range, class Iterator >
-bool debug_contains_aux(Range& rng, Iterator const& it, std::forward_iterator_tag)
+bool debug_contains_aux(Range& rng, Iterator it, std::forward_iterator_tag)
 {
     if (it == boost::end(rng))
         return true;
 
     typename boost::result_of<op_make_directed(Range&)>::type drng = make_directed(rng);
-    return oven::find(drng, it) != boost::end(drng);
+    return find(drng, it) != boost::end(drng);
 }
 
 
 template< class Range, class Iterator > inline
-bool debug_contains_aux(Range& rng, Iterator const& it, std::input_iterator_tag)
+bool debug_contains_aux(Range& rng, Iterator it, std::input_iterator_tag)
 {
     unused(rng, it);
     return true;
@@ -51,12 +51,10 @@ bool debug_contains_aux(Range& rng, Iterator const& it, std::input_iterator_tag)
 
 
 template< class Range, class Iterator > inline
-bool debug_contains(Range const& rng, Iterator const& it)
+bool debug_contains(Range const& rng, Iterator it)
 {
     for_debug();
-
-    typedef typename range_category<Range>::type cat_t;
-    return detail::debug_contains_aux(rng, it, cat_t());
+    return (debug_contains_aux)(rng, it, typename range_category<Range>::type());
 }
 
 

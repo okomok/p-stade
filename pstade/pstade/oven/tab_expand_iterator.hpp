@@ -44,12 +44,14 @@ namespace tab_expand_iterator_detail {
     template< class ForwardIter >
     struct super_
     {
-        typedef boost::iterator_adaptor<
-            tab_expand_iterator<ForwardIter>,
-            ForwardIter,
-            boost::use_default,
-            boost::forward_traversal_tag
-        > type;
+        typedef
+            boost::iterator_adaptor<
+                tab_expand_iterator<ForwardIter>,
+                ForwardIter,
+                boost::use_default,
+                boost::forward_traversal_tag
+            >
+        type;
     };
 
 
@@ -60,8 +62,6 @@ template< class ForwardIter >
 struct tab_expand_iterator :
     tab_expand_iterator_detail::super_<ForwardIter>::type
 {
-    typedef tab_expand_iterator type;
-
 private:
     typedef typename tab_expand_iterator_detail::super_<ForwardIter>::type super_t;
     typedef typename super_t::difference_type diff_t;

@@ -37,12 +37,14 @@ namespace identity_iterator_detail {
         typedef typename use_default_to<Traversal, base_trv_t>::type trv_t;
         BOOST_MPL_ASSERT((boost::is_convertible<base_trv_t, trv_t>));
 
-        typedef boost::iterator_adaptor<
-            identity_iterator<Iterator, Traversal>,
-            Iterator,
-            boost::use_default,
-            trv_t
-        > type;
+        typedef
+            boost::iterator_adaptor<
+                identity_iterator<Iterator, Traversal>,
+                Iterator,
+                boost::use_default,
+                trv_t
+            >
+        type;
     };
 
 

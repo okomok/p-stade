@@ -16,6 +16,7 @@
 #include <boost/range/empty.hpp>
 #include <boost/range/end.hpp>
 #include <boost/utility/result_of.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/deduced_const.hpp>
 #include <pstade/function.hpp>
 #include <pstade/functional.hpp> // not_, equal_to_0
@@ -28,27 +29,41 @@
 namespace pstade { namespace oven {
 
 
-template< class Range >
-PSTADE_CONCEPT_WHERE(
-    ((Forward<Range>)), // ((Readable<PSTADE_DEDUCED_CONST(Range)>)),
-(bool)) is_null_terminated(Range const& rng)
+struct op_is_null_terminated
 {
-    typedef typename range_iterator<PSTADE_DEDUCED_CONST(Range)>::type iter_t;
+    typedef bool result_type;
 
-    iter_t first = boost::begin(rng);
-    iter_t last = boost::end(rng);
-    iter_t it = std::find(first, last, 0);
+    template< class Range >
+    PSTADE_CONCEPT_WHERE(
+        ((Forward<Range>)), // ((Readable<PSTADE_DEDUCED_CONST(Range)>)),
+    (bool)) operator()(Range const& rng) const
+    {
+        typedef typename range_iterator<PSTADE_DEDUCED_CONST(Range)>::type iter_t;
 
-    return it != last;
-}
+        iter_t first = boost::begin(rng);
+        iter_t last = boost::end(rng);
+        iter_t it = std::find(first, last, 0);
+
+        return it != last;
+    }
+};
+
+PSTADE_CONSTANT(is_null_terminated, (op_is_null_terminated))
 
 
-template< class Range > inline
-void null_terminate(Range& rng)
+struct op_null_terminate
 {
-    BOOST_ASSERT(!boost::empty(rng));
-    *boost::begin(rng) = 0;
-}
+    typedef void result_type;
+
+    template< class Range > inline
+    void operator()(Range& rng) const
+    {
+        BOOST_ASSERT(!boost::empty(rng));
+        *boost::begin(rng) = 0;
+    }
+};
+
+PSTADE_CONSTANT(null_terminate, (op_null_terminate))
 
 
 namespace null_terminated_detail {
@@ -67,8 +82,8 @@ namespace null_terminated_detail {
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
             // PSTADE_CONCEPT_ASSERT((Readable<Range>));
+            BOOST_ASSERT(is_null_terminated(rng)); 
 
-            BOOST_ASSERT(oven::is_null_terminated(rng));
             return make_taken_while(rng, not_(equal_to_0));
         }
     };

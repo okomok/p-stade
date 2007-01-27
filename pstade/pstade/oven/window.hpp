@@ -48,7 +48,7 @@ namespace window_detail {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
 
             // Should a "bigger" window be allowed?
-            // BOOST_ASSERT(0 <= n && n <= m && m <= oven::distance(rng));
+            // BOOST_ASSERT(0 <= n && n <= m && m <= distance(rng));
 
             iter_t first = detail::next(boost::begin(rng), n);
             return result(first, detail::next(first, m - n));

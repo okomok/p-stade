@@ -10,6 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// What:
+//
+// Not clear yet...
+
+
 // Note:
 //
 // This iterator can't be Mutable, because
@@ -54,13 +59,15 @@ namespace adjacent_filter_iterator_detail {
     template< class ForwardIter, class BinaryPred >
     struct super_
     {
-        typedef boost::iterator_adaptor<
-            adjacent_filter_iterator<ForwardIter, BinaryPred>,
-            ForwardIter,
-            boost::use_default,
-            typename traversal<ForwardIter>::type,
-            typename detail::constant_reference<ForwardIter>::type
-        > type;
+        typedef
+            boost::iterator_adaptor<
+                adjacent_filter_iterator<ForwardIter, BinaryPred>,
+                ForwardIter,
+                boost::use_default,
+                typename traversal<ForwardIter>::type,
+                typename detail::constant_reference<ForwardIter>::type
+            >
+        type;
     };
 
 
@@ -87,8 +94,6 @@ template< class ForwardIter, class BinaryPred >
 struct adjacent_filter_iterator :
     adjacent_filter_iterator_detail::super_<ForwardIter, BinaryPred>::type
 {
-    typedef adjacent_filter_iterator type;
-
 private:
     typedef typename adjacent_filter_iterator_detail::super_<ForwardIter, BinaryPred>::type super_t;
     typedef typename super_t::reference ref_t;
@@ -168,10 +173,10 @@ friend class boost::iterator_core_access;
 
         namespace lambda = boost::lambda;
 
-        // if you pass 'this->base()' instead of 'm_first', overflow(1-step) comes.
+        // if you pass 'this->base()' instead of 'm_first', out-of-range(1-step) comes.
         this->base_reference() = adjacent_filter_iterator_detail::next(
-            oven::make_reverse_iterator(this->base()),
-            oven::make_reverse_iterator(m_first),
+            make_reverse_iterator(this->base()),
+            make_reverse_iterator(m_first),
             lambda::bind<bool>(m_pred, lambda::_2, lambda::_1)
         ).base();
     }

@@ -19,6 +19,7 @@
 #include <pstade/oven/functions.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/core.hpp>
+#include <pstade/oven/identities.hpp>
 
 
 void test()
@@ -46,12 +47,40 @@ void test()
 
         BOOST_CHECK( oven::equals(
             src|taken_while(lambda::_1 == '9'),
-            std::string("")
+            std::string()
         ) );
 
         BOOST_CHECK( oven::equals(
             src|taken_while(lambda::_1 != '9'),
             src
+        ) );
+
+        BOOST_CHECK( oven::equals(
+            std::string()|taken_while(lambda::_1 != '9'),
+            std::string()
+        ) );
+    }
+    {// If SinglePass, they needs 'take_while_iterator'. So, lambda must be regular...
+        std::string src("11111234516313!");
+
+        BOOST_CHECK( oven::equals(
+            src|identities(boost::single_pass_traversal_tag())|taken_while(regular(lambda::_1 == '1')),
+            std::string("11111")
+        ) );
+
+        BOOST_CHECK( oven::equals(
+            src|identities(boost::single_pass_traversal_tag())|taken_while(regular(lambda::_1 == '9')),
+            std::string()
+        ) );
+
+        BOOST_CHECK( oven::equals(
+            src|identities(boost::single_pass_traversal_tag())|taken_while(regular(lambda::_1 != '9')),
+            src
+        ) );
+
+        BOOST_CHECK( oven::equals(
+            std::string()|identities(boost::single_pass_traversal_tag())|taken_while(regular(lambda::_1 != '9')),
+            std::string()
         ) );
     }
 }

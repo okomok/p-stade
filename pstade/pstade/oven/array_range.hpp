@@ -27,9 +27,11 @@ namespace array_range_detail {
     template< class Value >
     struct init
     {
-        typedef boost::base_from_member<
-            boost::scoped_array<Value>
-        > type;
+        typedef
+            boost::base_from_member<
+                boost::scoped_array<Value>
+            >
+        type;
     };
 
 

@@ -23,8 +23,8 @@
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
 #include "./concepts.hpp"
+#include "./detail/debug_in_distance.hpp"
 #include "./detail/next_prior.hpp" // next
-#include "./distance.hpp"
 #include "./range_difference.hpp"
 #include "./sub_range_result.hpp"
 
@@ -49,7 +49,7 @@ namespace advanced_detail {
         result call(Range& rng, diff_t const& dfirst, diff_t const& dlast)
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
-            BOOST_ASSERT(0 + dfirst <= oven::distance(rng) + dlast);
+            BOOST_ASSERT(detail::debug_in_distance(dfirst - dlast, rng));
 
 	        return result(
                 detail::next(boost::begin(rng), dfirst),

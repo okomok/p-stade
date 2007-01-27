@@ -30,10 +30,12 @@ namespace tab_unexpand_iterator_detail {
     template< class ForwardIter >
     struct super_
     {
-        typedef boost::iterator_adaptor<
-            tab_unexpand_iterator<ForwardIter>,
-            tab_expand_iterator<ForwardIter> // look!
-        > type;
+        typedef
+            boost::iterator_adaptor<
+                tab_unexpand_iterator<ForwardIter>,
+                tab_expand_iterator<ForwardIter> // look!
+            >
+        type;
     };
 
 
@@ -44,8 +46,6 @@ template< class ForwardIter >
 struct tab_unexpand_iterator :
     tab_unexpand_iterator_detail::super_<ForwardIter>::type
 {
-    typedef tab_unexpand_iterator type;
-
 private:
     typedef typename tab_unexpand_iterator_detail::super_<ForwardIter>::type super_t;
     typedef typename super_t::base_type base_t;

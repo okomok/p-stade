@@ -48,10 +48,10 @@ namespace parallel_detail {
             if (boost::empty(m_rng))
                 return;
 
-            Difference dist = oven::distance(m_rng);
+            Difference dist = distance(m_rng);
 
             if (dist <= m_grain) {
-                oven::for_each(m_rng, m_fun);
+                for_each(m_rng, m_fun);
                 return;
             }
 

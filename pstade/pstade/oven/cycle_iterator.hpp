@@ -43,13 +43,15 @@ namespace cycle_iterator_detail {
     template< class ForwardIter, class Size >
     struct super_
     {
-        typedef boost::iterator_adaptor<
-            cycle_iterator<ForwardIter, Size>,
-            ForwardIter,
-            boost::use_default,
-            boost::use_default,
-            typename detail::constant_reference<ForwardIter>::type
-        > type;
+        typedef
+            boost::iterator_adaptor<
+                cycle_iterator<ForwardIter, Size>,
+                ForwardIter,
+                boost::use_default,
+                boost::use_default,
+                typename detail::constant_reference<ForwardIter>::type
+            >
+        type;
     };
 
 

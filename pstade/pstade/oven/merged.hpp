@@ -33,7 +33,7 @@ namespace merged_detail {
     struct op_make :
         callable< op_make<MergeRoutine> >
     {
-        template< class Myself, class Range1, class Range2, class Compare = op_less >
+        template< class Myself, class Range1, class Range2, class Compare = op_less const >
         struct apply
         {
             typedef

@@ -36,10 +36,12 @@ namespace share_iterator_detail {
     template< class Range >
     struct super_
     {
-        typedef boost::iterator_adaptor<
-            share_iterator<Range>,
-            typename range_iterator<Range>::type
-        > type;
+        typedef
+            boost::iterator_adaptor<
+                share_iterator<Range>,
+                typename range_iterator<Range>::type
+            >
+        type;
     };
 
 

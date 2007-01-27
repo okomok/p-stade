@@ -42,12 +42,14 @@ namespace joint_iterator_detail {
     template< class IteratorL, class IteratorR >
     struct super_
     {
-        typedef boost::iterator_adaptor<
-            joint_iterator<IteratorL, IteratorR>,
-            IteratorL,
-            boost::use_default,
-            typename traversal<IteratorL, IteratorR>::type
-        > type;
+        typedef
+            boost::iterator_adaptor<
+                joint_iterator<IteratorL, IteratorR>,
+                IteratorL,
+                boost::use_default,
+                typename traversal<IteratorL, IteratorR>::type
+            >
+        type;
     };
 
 
@@ -62,7 +64,7 @@ namespace joint_iterator_detail {
 
 
     template< class Difference, class IteratorL, class IteratorR >
-    void advance(IteratorL& itL, IteratorR& itR, Difference diff, IteratorL const& lastL)
+    void advance(IteratorL& itL, IteratorR& itR, Difference const& diff, IteratorL const& lastL)
     {
         BOOST_ASSERT(diff >= 0);
 
@@ -170,14 +172,14 @@ friend class boost::iterator_core_access;
     {
         BOOST_ASSERT(invariant());
 
-        oven::reverse_iterator<IteratorR> itL(m_itR), lastL(m_firstR);
-        oven::reverse_iterator<IteratorL> itR(this->base());
+        reverse_iterator<IteratorR> itL(m_itR), lastL(m_firstR);
+        reverse_iterator<IteratorL> itR(this->base());
         joint_iterator_detail::increment(itL, itR, lastL);
         this->base_reference() = itR.base();
         m_itR = itL.base();
     }
 
-    void advance(diff_t d)
+    void advance(diff_t const& d)
     {
         BOOST_ASSERT(invariant());
 
@@ -185,8 +187,8 @@ friend class boost::iterator_core_access;
             joint_iterator_detail::advance(this->base_reference(), m_itR, d, m_lastL);
         }
         else {
-            oven::reverse_iterator<IteratorR> ritL(m_itR), rlastL(m_firstR);
-            oven::reverse_iterator<IteratorL> ritR(this->base());
+            reverse_iterator<IteratorR> ritL(m_itR), rlastL(m_firstR);
+            reverse_iterator<IteratorL> ritR(this->base());
             joint_iterator_detail::advance(ritL, ritR, -d, rlastL);
             this->base_reference() = ritR.base();
             m_itR = ritL.base();

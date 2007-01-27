@@ -26,6 +26,7 @@
 #include <pstade/oven/regular.hpp>
 #include <boost/lambda/core.hpp>
 #include <boost/lambda/lambda.hpp>
+#include <pstade/oven/dropped.hpp>
 
 
 int minus(int state, int x)
@@ -47,7 +48,7 @@ void test()
 
     {
         int rng[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9,10};
-        int ans[] = { 1, 3, 6,10,15,21,28,36,45,55};
+        int ans[] = { 0, 1, 3, 6,10,15,21,28,36,45,55};
         std::vector<int> expected = ans|copied;
 
         BOOST_CHECK( oven::test_Forward_Readable(
@@ -66,13 +67,13 @@ void test()
         std::vector<int> ans;
         std::partial_sum(boost::begin(rng), boost::end(rng), std::back_inserter(ans));
         BOOST_CHECK( oven::equals(
-            rng|scanned(0),
+            rng|scanned(0)|dropped(1),
             ans
         ) );
     }
     {
         int src[]  = { 1, 2, 3, 4, 5, 6, 7, 8, 9,10};
-        int ans1[] = { 1, 3, 6,10,15,21,28,36,45,55};
+        int ans1[] = { 0, 1, 3, 6,10,15,21,28,36,45,55};
 
         BOOST_CHECK( oven::equals(
             src|scanned(0),
@@ -82,7 +83,7 @@ void test()
 
     {
         int src[] = { 1, 2, 3, 4 };
-        int ans[] = { 9, 7, 4, 0 }; 
+        int ans[] = { 10, 9, 7, 4, 0 }; 
 
         BOOST_CHECK( oven::equals(
             src|scanned(10, &::minus),
@@ -92,11 +93,12 @@ void test()
 
     {
         int const src[] = { 1,2,3,4,5 };
+        std::string null;
 
-        BOOST_FOREACH (std::string str, src|scanned(std::string(), &::stringize)) {
+        BOOST_FOREACH (std::string str, src|scanned(null, &::stringize)) {
             std::cout << "\"" << str << "\" ";
         }
-        // outputs: "1" "12" "123" "1234" "12345"
+        // outputs: "" "1" "12" "123" "1234" "12345"
     }
 }
 

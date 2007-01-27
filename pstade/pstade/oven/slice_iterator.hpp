@@ -40,10 +40,12 @@ namespace slice_iterator_detail {
     template< class RandIter >
     struct super_
     {
-        typedef boost::iterator_adaptor<
-            slice_iterator<RandIter>,
-            RandIter
-        > type;
+        typedef
+            boost::iterator_adaptor<
+                slice_iterator<RandIter>,
+                RandIter
+            >
+        type;
     };
 
 
@@ -54,8 +56,6 @@ template< class RandIter >
 struct slice_iterator :
     slice_iterator_detail::super_<RandIter>::type
 {
-    typedef slice_iterator type;
-
 private:
     typedef typename slice_iterator_detail::super_<RandIter>::type super_t;
     typedef typename super_t::difference_type diff_t;

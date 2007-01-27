@@ -17,8 +17,8 @@
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
 #include "./concepts.hpp"
+#include "./detail/debug_in_distance.hpp"
 #include "./detail/next_prior.hpp" // next
-#include "./distance.hpp"
 #include "./range_difference.hpp"
 #include "./range_traversal.hpp"
 #include "./sub_range_result.hpp"
@@ -56,7 +56,7 @@ namespace taken_detail {
     Result aux(Range& rng, Difference const& d, boost::forward_traversal_tag)
     {
         PSTADE_CONCEPT_ASSERT((Forward<Range>));
-        BOOST_ASSERT(0 <= d); // '&& d <= oven::distance(rng));' makes an eternal range hung up!
+        BOOST_ASSERT(detail::debug_in_distance(d, rng));
 
         return Result(
             boost::begin(rng),

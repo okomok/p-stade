@@ -33,13 +33,15 @@ namespace const_lvalue_iterator_detail {
     {
         typedef typename boost::iterator_value<Iterator>::type val_t;
 
-        typedef boost::iterator_adaptor<
-            const_lvalue_iterator<Iterator>,
-            Iterator,
-            val_t,
-            typename detail::pure_traversal<Iterator>::type, // *pure* makes 'facade_iterator_category' recompute.
-            val_t const&
-        > type;
+        typedef
+            boost::iterator_adaptor<
+                const_lvalue_iterator<Iterator>,
+                Iterator,
+                val_t,
+                typename detail::pure_traversal<Iterator>::type, // *pure* makes 'facade_iterator_category' recompute.
+                val_t const&
+            >
+        type;
     };
 
 

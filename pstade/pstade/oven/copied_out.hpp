@@ -32,7 +32,7 @@ namespace copied_out_detail {
         result call(Range& rng, OutIter& to)
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-            oven::copy(rng, to);
+            copy(rng, to);
             return rng;
         }
     };

@@ -47,6 +47,10 @@ void test()
         BOOST_CHECK( oven::test_empty(
             rng|dropped_while(lambda::_1 != '9')
         ) );
+
+        BOOST_CHECK( oven::test_empty(
+            std::string()|dropped_while(lambda::_1 != '9')
+        ) );
     }
 
 

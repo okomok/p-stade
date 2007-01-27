@@ -20,12 +20,13 @@
 namespace pstade { namespace oven { namespace detail {
 
 
+// cannot check it on ForwardRange;
+// 'rng' may be too long to diagnose.
 template< class Difference, class Range > inline
-bool debug_in_distance_aux(Difference d, Range& rng, boost::forward_traversal_tag)
+bool debug_in_distance_aux(Difference d, Range& rng, boost::random_access_traversal_tag)
 {
-    return 0 <= d && d <= oven::distance(rng);
+    return 0 <= d && d <= distance(rng);
 }
-
 
 template< class Difference, class Range > inline
 bool debug_in_distance_aux(Difference d, Range& rng, boost::single_pass_traversal_tag)
@@ -39,9 +40,7 @@ template< class Difference, class Range > inline
 bool debug_in_distance(Difference d, Range const& rng)
 {
     for_debug();
-
-    typedef typename range_traversal<Range>::type trv_t;
-    return detail::debug_in_distance_aux(d, rng, trv_t());
+    return (debug_in_distance_aux)(d, rng, typename range_traversal<Range>::type());
 }
 
 

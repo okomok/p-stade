@@ -36,13 +36,15 @@ namespace permute_iterator_detail {
     template< class ElementIter, class IndexIter >
     struct super_
     {
-        typedef boost::iterator_adaptor<
-            permute_iterator<ElementIter, IndexIter>,
-            IndexIter,
-            typename boost::iterator_value<ElementIter>::type,
-            boost::use_default,
-            typename boost::iterator_reference<ElementIter>::type
-        > type;
+        typedef
+            boost::iterator_adaptor<
+                permute_iterator<ElementIter, IndexIter>,
+                IndexIter,
+                typename boost::iterator_value<ElementIter>::type,
+                boost::use_default,
+                typename boost::iterator_reference<ElementIter>::type
+            >
+        type;
     };
 
 
@@ -53,8 +55,6 @@ template< class ElementIter, class IndexIter >
 struct permute_iterator :
     permute_iterator_detail::super_<ElementIter, IndexIter>::type
 {
-    typedef permute_iterator type;
-
 private:
     typedef typename permute_iterator_detail::super_<ElementIter, IndexIter>::type super_t;
     typedef typename super_t::reference ref_t;

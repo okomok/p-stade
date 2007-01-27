@@ -48,10 +48,11 @@ struct op_make_zipped_with :
     template< class Result, class RangeTuple, class Function >
     Result call(RangeTuple& tup, Function& fun) const
     {
-        return op_make_transformed<Reference, Value>()(
-            make_zipped(tup),
-            fuse(fun)
-        );
+        return
+            op_make_transformed<Reference, Value>()(
+                make_zipped(tup),
+                fuse(fun)
+            );
     }
 };
 

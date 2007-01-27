@@ -10,10 +10,17 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// See:
+// What:
 //
-// Adjacent convenience - algorithms on adjacent pairs
-// http://groups.google.com/group/comp.lang.c++.moderated/browse_frm/thread/df2bf11921c91fad/
+// The Adaptor version of 'std::adjacent_difference'.
+
+
+// Question:
+//
+// Should this contain the first value of base range?
+// This is symmetrical to 'scanned', which requires
+// the first value to be passed. So, it's intuitive
+// not to contain the first value of base range, IMO.
 
 
 #include <boost/assert.hpp>
@@ -66,12 +73,13 @@ struct op_make_adjacent_transformed :
         PSTADE_CONCEPT_ASSERT((Forward<Range>));
         BOOST_ASSERT(!boost::empty(rng));
 
-        return op_make_transformed<Reference, Value>()(
-            make_zipped(
-                pack(make_popped(rng), make_dropped(rng, 1))
-            ),
-            fuse(fun)
-        );
+        return
+            op_make_transformed<Reference, Value>()(
+                make_zipped(
+                    pack(make_popped(rng), make_dropped(rng, 1))
+                ),
+                fuse(fun)
+            );
     }
 };
 

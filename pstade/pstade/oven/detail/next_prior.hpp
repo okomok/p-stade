@@ -24,13 +24,13 @@ namespace pstade { namespace oven { namespace detail {
 
 
 template< class Iterator, class Difference > inline
-void traversal_advance(Iterator& it, Difference d, boost::random_access_traversal_tag)
+void traversal_advance(Iterator& it, Difference const& d, boost::random_access_traversal_tag)
 {
     it += d;
 }
 
 template< class Iterator, class Difference > inline
-void traversal_advance(Iterator& it, Difference d, boost::single_pass_traversal_tag)
+void traversal_advance(Iterator& it, Difference const& d, boost::single_pass_traversal_tag)
 {
     std::advance(it, d);
 }
@@ -43,10 +43,9 @@ Iterator next(Iterator it)
 }
 
 template< class Iterator, class Difference > inline
-Iterator next(Iterator it, Difference d)
+Iterator next(Iterator it, Difference const& d)
 {
-    typedef typename boost::iterator_traversal<Iterator>::type trv_t;
-    detail::traversal_advance(it, d, trv_t());
+    (traversal_advance)(it, d, typename boost::iterator_traversal<Iterator>::type());
     return it;
 }
 
@@ -58,10 +57,9 @@ Iterator prior(Iterator it)
 }
 
 template< class Iterator, class Difference > inline
-Iterator prior(Iterator it, Difference d)
+Iterator prior(Iterator it, Difference const& d)
 {
-    typedef typename boost::iterator_traversal<Iterator>::type trv_t;
-    detail::traversal_advance(it, -d, trv_t());
+    (traversal_advance)(it, -d, typename boost::iterator_traversal<Iterator>::type());
     return it;
 }
 

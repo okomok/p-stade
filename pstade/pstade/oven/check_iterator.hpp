@@ -45,10 +45,12 @@ namespace check_iterator_detail {
     template< class Iterator >
     struct super_
     {
-        typedef boost::iterator_adaptor<
-            check_iterator<Iterator>,
-            Iterator
-        > type;
+        typedef
+            boost::iterator_adaptor<
+                check_iterator<Iterator>,
+                Iterator
+            >
+        type;
     };
 
 
@@ -87,8 +89,6 @@ template< class Iterator >
 struct check_iterator :
     check_iterator_detail::super_<Iterator>::type
 {
-    typedef check_iterator type;
-
 private:
     typedef typename check_iterator_detail::super_<Iterator>::type super_t;
     typedef typename super_t::reference ref_t;
