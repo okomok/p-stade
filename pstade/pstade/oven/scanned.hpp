@@ -53,7 +53,6 @@ struct op_make_scanned :
     Result call(Range& rng, State const& init, BinaryFun& fun) const
     {
         PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-        // PSTADE_CONCEPT_ASSERT((Readable<Range>));
 
         return
             make_prepended(
@@ -75,6 +74,8 @@ struct op_make_scanned :
 
 PSTADE_CONSTANT(make_scanned, (op_make_scanned))
 PSTADE_PIPABLE(scanned, (op_make_scanned))
+
+
 
 
 } } // namespace pstade::oven

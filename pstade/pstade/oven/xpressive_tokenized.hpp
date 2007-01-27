@@ -48,7 +48,6 @@ struct op_make_xpressive_tokenized :
     Result call(Range& rng, Regex& re) const
     {
         PSTADE_CONCEPT_ASSERT((Bidirectional<Range>));
-        // PSTADE_CONCEPT_ASSERT((Readable<Range>));
 
         typedef typename Result::iterator iter_t;
         return Result(

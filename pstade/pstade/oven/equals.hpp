@@ -80,8 +80,8 @@ struct op_equals
 
     template< class Range1, class Range2, class BinaryPred >
     PSTADE_CONCEPT_WHERE(
-        ((SinglePass<Range1>))  // ((Readable<PSTADE_DEDUCED_CONST(Range1)>))
-        ((SinglePass<Range2>)), // ((Readable<PSTADE_DEDUCED_CONST(Range2)>)),
+        ((SinglePass<Range1>))
+        ((SinglePass<Range2>)),
     (bool)) operator()(Range1 const& rng1, Range2 const& rng2, BinaryPred pred) const
     {
         typedef typename boost::detail::minimum_category<

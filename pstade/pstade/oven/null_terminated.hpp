@@ -35,7 +35,7 @@ struct op_is_null_terminated
 
     template< class Range >
     PSTADE_CONCEPT_WHERE(
-        ((Forward<Range>)), // ((Readable<PSTADE_DEDUCED_CONST(Range)>)),
+        ((Forward<Range>)),
     (bool)) operator()(Range const& rng) const
     {
         typedef typename range_iterator<PSTADE_DEDUCED_CONST(Range)>::type iter_t;
@@ -81,7 +81,6 @@ namespace null_terminated_detail {
         result call(Range& rng)
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
-            // PSTADE_CONCEPT_ASSERT((Readable<Range>));
             BOOST_ASSERT(is_null_terminated(rng)); 
 
             return make_taken_while(rng, not_(equal_to_0));

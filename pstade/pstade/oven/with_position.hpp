@@ -44,7 +44,6 @@ struct op_make_with_position :
     Result call(Range& rng, PositionT const& pos, int tabchars = 4) const
     {
         PSTADE_CONCEPT_ASSERT((Forward<Range>));
-        // PSTADE_CONCEPT_ASSERT((Readable<Range>));
 
         typedef typename Result::iterator iter_t;
         iter_t first(boost::begin(rng), boost::end(rng), pos);

@@ -49,7 +49,6 @@ namespace xpressive_matches_detail {
             regex_constants::match_flag_type flag = regex_constants::match_default)
         {
             PSTADE_CONCEPT_ASSERT((Bidirectional<Range>));
-            // PSTADE_CONCEPT_ASSERT((Readable<Range>));
 
             return result(
                 iter_t(boost::begin(rng), boost::end(rng), re, flag),

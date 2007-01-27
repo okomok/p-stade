@@ -77,7 +77,6 @@ struct op_make_sorted :
     Result call(Range& rng, Compare& comp) const
     {
         PSTADE_CONCEPT_ASSERT((Forward<Range>));
-        // PSTADE_CONCEPT_ASSERT((Readable<Range>));
 
         typedef typename apply<void, Range, Compare>::fun_t fun_t;
         return make_outplaced(rng, fun_t(comp));

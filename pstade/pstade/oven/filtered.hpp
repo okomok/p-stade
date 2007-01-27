@@ -52,7 +52,6 @@ namespace filtered_detail {
         result call(Range& rng, Predicate& pred)
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-            // PSTADE_CONCEPT_ASSERT((Readable<Range>));
          
             return result(
                 iter_t(pred, boost::begin(rng), boost::end(rng)),

@@ -44,7 +44,6 @@ namespace permuted_detail {
         {
             PSTADE_CONCEPT_ASSERT((RandomAccess<ElementRange>));
             PSTADE_CONCEPT_ASSERT((SinglePass<IndexRange>));
-            // PSTADE_CONCEPT_ASSERT((Readable<IndexRange>));
 
             return result(
                 iter_t(boost::begin(erng), boost::begin(irng)),

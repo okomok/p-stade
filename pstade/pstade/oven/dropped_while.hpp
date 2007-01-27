@@ -42,7 +42,6 @@ namespace dropped_while_detail {
         result call(Range& rng, Predicate& pred)
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-            // PSTADE_CONCEPT_ASSERT((Readable<Range>));
 
             return result(find_if(rng, not_(pred)), boost::end(rng));
         }

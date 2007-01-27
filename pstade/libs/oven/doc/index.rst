@@ -744,7 +744,7 @@ Note that ``memoized`` can return a `Forward Range`_ even if the base range is a
 - Header: ``<pstade/oven/merged.hpp>``
 - Valid expression: ``rng1|merged(rng2)`` and ``rng1|merged(rng2,pred)``
 - Precondition: ``rng1`` and ``rng2`` are sorted.
-- Returns: A constant `Forward Range`_ which behaves as if they were made by ``std::merge``.
+- Returns: A constant range up to `Forward Range`_ which behaves as if they were made by ``std::merge``.
 
 
 ``null_terminated``
@@ -803,38 +803,6 @@ Note that ``memoized`` can return a `Forward Range`_ even if the base range is a
 - See: `Range Library Proposal`_.
 
 
-``set_cap``
-^^^^^^^^^^^
-- Header: ``<pstade/oven/set_cap.hpp>``
-- Valid expression: ``rng1|set_cap(rng2)`` and ``rng1|set_cap(rng2,pred)``
-- Precondition: ``rng1`` and ``rng2`` are sorted.
-- Returns: A constant `Forward Range`_ which behaves as if they were made by ``std::set_intersection``.
-
-
-``set_cup``
-^^^^^^^^^^^
-- Header: ``<pstade/oven/set_cup.hpp>``
-- Valid expression: ``rng1|set_cup(rng2)`` and ``rng1|set_cup(rng2,pred)``
-- Precondition: ``rng1`` and ``rng2`` are sorted.
-- Returns: A constant `Forward Range`_ which behaves as if they were made by ``std::set_union``.
-
-
-``set_delta``
-^^^^^^^^^^^^^
-- Header: ``<pstade/oven/set_delta.hpp>``
-- Valid expression: ``rng1|set_delta(rng2)`` and ``rng1|set_delta(rng2,pred)``
-- Precondition: ``rng1`` and ``rng2`` are sorted.
-- Returns: A constant `Forward Range`_ which behaves as if they were made by ``std::set_symmetric_difference``.
-
-
-``set_minus``
-^^^^^^^^^^^^^
-- Header: ``<pstade/oven/set_minus.hpp>``
-- Valid expression: ``rng1|set_minus(rng2)`` and ``rng1|set_minus(rng2,pred)``
-- Precondition: ``rng1`` and ``rng2`` are sorted.
-- Returns: A constant `Forward Range`_ which behaves as if they were made by ``std::set_difference``.
-
-
 ``scanned``
 ^^^^^^^^^^^
 ``scanned`` is similar to ``oven::accumulate``, but returns a range of successive reduced values from the base range::
@@ -843,8 +811,9 @@ Note that ``memoized`` can return a `Forward Range`_ even if the base range is a
 
 
 - Header: ``<pstade/oven/scanned.hpp>``
-- Valid expression: ``rng|scanned(init,fun)``
+- Valid expression: ``rng|scanned(init,fun)``, where the type of ``init`` is DefaultConstructible, CopyConstructible and CopyAssignable.
 - Precondition: ``fun(s,r)`` is a valid expression, where the type of ``s`` is the same as ``init`` and ``r`` is the iterator dereference of ``rng``.
+- Returns: A range up to `Forward Range`_ which behaves as if it were made by ``std::partial_sum``.
 
 
 ``seconds``
@@ -852,6 +821,38 @@ Note that ``memoized`` can return a `Forward Range`_ even if the base range is a
 - Header: ``<pstade/oven/seconds.hpp>``
 - Valid expression: ``rng|seconds``
 - Returns: A range which behave as if it were ``rng|map_values``.
+
+
+``set_cap``
+^^^^^^^^^^^
+- Header: ``<pstade/oven/set_cap.hpp>``
+- Valid expression: ``rng1|set_cap(rng2)`` and ``rng1|set_cap(rng2,pred)``
+- Precondition: ``rng1`` and ``rng2`` are sorted.
+- Returns: A constant range up to `Forward Range`_ which behaves as if they were made by ``std::set_intersection``.
+
+
+``set_cup``
+^^^^^^^^^^^
+- Header: ``<pstade/oven/set_cup.hpp>``
+- Valid expression: ``rng1|set_cup(rng2)`` and ``rng1|set_cup(rng2,pred)``
+- Precondition: ``rng1`` and ``rng2`` are sorted.
+- Returns: A constant range up to `Forward Range`_ which behaves as if they were made by ``std::set_union``.
+
+
+``set_delta``
+^^^^^^^^^^^^^
+- Header: ``<pstade/oven/set_delta.hpp>``
+- Valid expression: ``rng1|set_delta(rng2)`` and ``rng1|set_delta(rng2,pred)``
+- Precondition: ``rng1`` and ``rng2`` are sorted.
+- Returns: A constant range up to `Forward Range`_ which behaves as if they were made by ``std::set_symmetric_difference``.
+
+
+``set_minus``
+^^^^^^^^^^^^^
+- Header: ``<pstade/oven/set_minus.hpp>``
+- Valid expression: ``rng1|set_minus(rng2)`` and ``rng1|set_minus(rng2,pred)``
+- Precondition: ``rng1`` and ``rng2`` are sorted.
+- Returns: A constant range up to `Forward Range`_ which behaves as if they were made by ``std::set_difference``.
 
 
 ``shared``

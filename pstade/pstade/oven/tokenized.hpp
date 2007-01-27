@@ -64,7 +64,6 @@ struct op_make_tokenized :
     ) const
     {
         PSTADE_CONCEPT_ASSERT((Bidirectional<Range>));
-        // PSTADE_CONCEPT_ASSERT((Readable<Range>));
 
         typedef typename Result::iterator iter_t;
         return Result(
@@ -82,7 +81,6 @@ struct op_make_tokenized :
     ) const
     {
         PSTADE_CONCEPT_ASSERT((Bidirectional<Range>));
-        // PSTADE_CONCEPT_ASSERT((Readable<Range>));
 
         typedef typename Result::iterator iter_t;
         return Result(

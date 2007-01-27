@@ -56,12 +56,14 @@ struct list_iterator_super
         pstade::use_default_to<Traversal, boost::bidirectional_traversal_tag>::type
     trv_t;
 
-    typedef boost::iterator_facade<
-        list_iterator<List, Value, Reference, Traversal, GetAt>,
-        Value,
-        trv_t,
-        ref_t
-    > type;
+    typedef
+        boost::iterator_facade<
+            list_iterator<List, Value, Reference, Traversal, GetAt>,
+            Value,
+            trv_t,
+            ref_t
+        >
+    type;
 };
 
 

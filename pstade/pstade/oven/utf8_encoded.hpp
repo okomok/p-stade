@@ -46,7 +46,6 @@ struct op_make_utf8_encoded :
     Result call(Range& rng) const
     {
         PSTADE_CONCEPT_ASSERT((Bidirectional<Range>));
-        // PSTADE_CONCEPT_ASSERT((Readable<Range>));
         return Result(rng);
     }
 };

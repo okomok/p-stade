@@ -54,9 +54,7 @@ namespace merged_detail {
         Result call(Range1& rng1, Range2& rng2, Compare& comp) const
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range1>));
-            // PSTADE_CONCEPT_ASSERT((Readable<Range1>));
             PSTADE_CONCEPT_ASSERT((SinglePass<Range2>));
-            // PSTADE_CONCEPT_ASSERT((Readable<Range2>));
 
             typedef typename Result::iterator iter_t;
             return Result(

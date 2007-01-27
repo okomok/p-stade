@@ -42,7 +42,6 @@ namespace tab_expanded_detail {
         result call(Range& rng, int tabsize)
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
-            // PSTADE_CONCEPT_ASSERT((Readable<Range>));
 
             return result(
                 iter_t(boost::begin(rng), tabsize),
