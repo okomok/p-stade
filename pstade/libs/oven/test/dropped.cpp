@@ -18,6 +18,7 @@
 #include <vector>
 #include <boost/range.hpp>
 #include <pstade/oven/functions.hpp>
+#include <pstade/oven/identities.hpp>
 
 
 void test()
@@ -28,12 +29,29 @@ void test()
     {
         std::string rng("hello, drop_range!");
         std::vector<char> expected = std::string("range!")|copied;
-        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(rng|dropped(7)|dropped(5), expected) );
+
+        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
+            rng|dropped(7)|dropped(5), expected
+        ) );
+
+        BOOST_CHECK( oven::test_empty(
+            rng|dropped(7)|dropped(500)
+        ) );
+
+        BOOST_CHECK( oven::test_empty(
+            rng|dropped(distance(rng))
+        ) );
     }
     {
         std::string src("hello, drop_range!");
-        std::string ans("range!");
-        BOOST_CHECK( oven::equals(src|dropped(7)|dropped(5), ans) );
+        BOOST_CHECK( oven::equals(src|dropped(7)|dropped(5), std::string("range!")) );
+        BOOST_CHECK( oven::equals(src|dropped(7000), std::string()) );
+    }
+    {
+        std::string src("hello, drop_range!");
+        BOOST_CHECK( oven::equals(src|identities(single_pass_tag)|dropped(7)|dropped(5), std::string("range!")) );
+        BOOST_CHECK( oven::equals(src|identities(single_pass_tag)|dropped(7000), std::string()) );
+        BOOST_CHECK( oven::equals(src|identities(single_pass_tag)|dropped(distance(src)), std::string()) );
     }
 }
 

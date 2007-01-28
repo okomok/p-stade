@@ -7,7 +7,7 @@ The Oven Range Library
 :Author: Shunsuke Sogame
 :Contact: pstade.mb@gmail.com
 :License: Distributed under the `Boost Software License Version 1.0`_
-:Version: 0.93.1
+:Version: 0.93.2
 
 
 
@@ -609,8 +609,8 @@ Note that ``delimited`` prepends the delimiter. ``dropped`` is useful to remove 
 
 - Header: ``<pstade/oven/dropped.hpp>``
 - Valid expression: ``rng|dropped(n)``
-- Precondition: ``0 <= n && n <= oven::distance(rng)``
-- Returns: ``[f,boost::end(rng))``, where ``f = boost::begin(rng); std::advance(f,n);``.
+- Precondition: ``0 <= n``
+- Returns: ``[boost::next(boost::begin(rng),std::min(n, distance(rng))),boost::end(rng))``
 
 
 ``dropped_while``
@@ -622,7 +622,7 @@ Note that ``delimited`` prepends the delimiter. ``dropped`` is useful to remove 
 
 - Header: ``<pstade/oven/dropped_while.hpp>``
 - Valid expression: ``rng|dropped_while(pred)``
-- Returns: ``[f,boost::end(rng))``, where ``f = oven::find_if(f,not_(pred));``
+- Returns: ``[oven::find_if(rng, not_(pred)),boost::end(rng))``
 
 
 ``filtered``
@@ -906,9 +906,8 @@ Note that this effect is different from `Range Library Proposal`_\'s, which is t
 
 - Header: ``<pstade/oven/taken.hpp>``
 - Valid expression: ``rng|taken(n)``
-- Precondition: ``0 <= n && n <= oven::distance(rng)``
-- Returns: A range which behaves as if it were ``[boost::begin(rng),l)``, where ``l = boost::begin(rng); std::advance(l,n);``.
-
+- Precondition: ``0 <= n``
+- Returns: A range up to `Forward Range`_ which behaves as if it were ``[boost::begin(rng),boost::next(boost::begin(rng),std::min(n, distance(rng))))``.
 
 ``taken_while``
 ^^^^^^^^^^^^^^^
@@ -920,7 +919,7 @@ prefix (possibly empty) of the range of elements that satisfy `Predicate`_::
 
 - Header: ``<pstade/oven/taken_while.hpp>``
 - Valid expression: ``rng|taken_while(pred)``
-- Returns: A range which behaves as if it were ``[boost::begin(rng),oven::find_if(rng,not_(pred)))``
+- Returns: A range up to `Forward Range`_ which behaves as if it were ``[boost::begin(rng),oven::find_if(rng,not_(pred)))``
 
 
 ``tokenized``
@@ -1228,5 +1227,11 @@ Version 0.93.1
 - Replaced ``regularized`` with ``regular``.
 - Removed ``to_regularized_function``.
 - ``scanned`` range contains the ``init`` as the first element.
+
+Version 0.93.2
+^^^^^^^^^^^^^^
+- ``taken`` and ``taken_while`` behave lazily.
+- ``taken`` and ``taken_while`` now return only up to ForwardRange.
+- ``dropped`` and ``taken`` accept ``n`` which is larger than the distance.
 
 

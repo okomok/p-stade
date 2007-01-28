@@ -29,16 +29,35 @@ void test()
         std::string rng("hello, take_range!");
         std::vector<char> expected = std::string("hello")|copied;
 
-        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
-            rng|taken(7)|taken(5),
+        BOOST_CHECK( oven::test_Forward_Readable_Writable(
+            rng|identities(forward_tag)|taken(5),
+            expected
+        ) );
+
+        BOOST_CHECK( oven::test_Forward_Readable_Writable(
+            rng|taken(5000)|taken(5),
             expected
         ) );
     }
     {
-        std::string src("hello, take_range!");
-        std::string ans("hello");
-        BOOST_CHECK( oven::equals(src|taken(7)|taken(5), ans) );
-        BOOST_CHECK( oven::equals(src|identities(boost::single_pass_traversal_tag())|taken(7)|taken(5), ans) );
+        std::string rng("hello, take_range!");
+        std::vector<char> expected = rng|copied;
+
+        BOOST_CHECK( oven::test_Forward_Readable_Writable(
+            rng|identities(forward_tag)|taken(5000),
+            expected
+        ) );
+    }
+    {
+        std::string rng("hello, take_range!");
+
+        BOOST_CHECK( oven::test_empty(
+            rng|taken(0)
+        ) );
+
+        BOOST_CHECK( oven::test_empty(
+            rng|identities(forward_tag)|taken(0)
+        ) );
     }
 }
 

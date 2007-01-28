@@ -10,18 +10,15 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Note:
-//
-// 'dropped' can walk on SinglePassRange.
-// As the price of it, 'd' must be in the distance.
-
-
+#include <algorithm> // min
+#include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
 #include "./concepts.hpp"
-#include "./detail/debug_in_distance.hpp"
 #include "./detail/next_prior.hpp" // next
+#include "./range_difference.hpp"
+#include "./range_traversal.hpp"
 #include "./sub_range_result.hpp"
 
 
@@ -31,20 +28,45 @@ namespace pstade { namespace oven {
 namespace dropped_detail {
 
 
+    template< class Result, class Difference, class Iterator > inline
+    Result aux(Iterator const& first, Iterator const& last, Difference const& d,
+        boost::random_access_traversal_tag)
+    {
+        return Result(detail::next(first, (std::min)(last - first, d)), last);
+    }
+
+    template< class Result, class Difference, class Iterator >
+    Result aux(Iterator first, Iterator const& last, Difference d,
+        boost::single_pass_traversal_tag)
+    {
+        while (first != last && d != 0) {
+            ++first; --d;
+        }
+
+        return Result(first, last);
+    }
+
+
     template< class Range, class >
     struct baby
     {
         typedef typename
+            range_difference<Range>::type
+        diff_t;
+
+        typedef typename
             sub_range_result<Range>::type
         result;
 
-        template< class Difference >
-        result call(Range& rng, Difference& d)
+        result call(Range& rng, diff_t const& d)
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-            BOOST_ASSERT(detail::debug_in_distance(d, rng));
+            BOOST_ASSERT(0 <= d);
 
-            return result(detail::next(boost::begin(rng), d), boost::end(rng));
+            return dropped_detail::aux<result, diff_t>(
+                boost::begin(rng), boost::end(rng), d,
+                typename range_traversal<Range>::type()
+            );
         }
     };
 

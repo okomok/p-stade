@@ -11,17 +11,11 @@
 
 
 #include <boost/assert.hpp>
-#include <boost/mpl/identity.hpp>
-#include <boost/range/begin.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
 #include "./concepts.hpp"
-#include "./detail/debug_in_distance.hpp"
-#include "./detail/next_prior.hpp" // next
 #include "./range_difference.hpp"
-#include "./range_traversal.hpp"
-#include "./sub_range_result.hpp"
 #include "./taken_while.hpp"
 
 
@@ -34,12 +28,6 @@ namespace taken_detail {
     template< class Difference >
     struct count_down
     {
-        explicit count_down(Difference const& d) :
-            m_d(d)
-        { }
-
-        // 'take_while_iterator', which is used on single pass,
-        // does not require call-operator to be 'const'.
         template< class T >
         bool operator()(T const&)
         {
@@ -47,29 +35,16 @@ namespace taken_detail {
                 != 0; // suppress a VC++ warning.
         }
 
+        explicit count_down()
+        { }
+
+        explicit count_down(Difference const& d) :
+            m_d(d)
+        { }
+
     private:
         Difference m_d;
     };
-
-
-    template< class Result, class Difference, class Range > inline
-    Result aux(Range& rng, Difference const& d, boost::forward_traversal_tag)
-    {
-        PSTADE_CONCEPT_ASSERT((Forward<Range>));
-        BOOST_ASSERT(detail::debug_in_distance(d, rng));
-
-        return Result(
-            boost::begin(rng),
-            detail::next(boost::begin(rng), d)
-        );
-    }
-
-    template< class Result, class Difference, class Range > inline
-    Result aux(Range& rng, Difference const& d, boost::single_pass_traversal_tag)
-    {
-        PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-        return make_taken_while(rng, count_down<Difference>(d));
-    }
 
 
     template< class Range, class >
@@ -80,21 +55,17 @@ namespace taken_detail {
         diff_t;
 
         typedef typename
-            boost::mpl::eval_if<
-                boost::is_convertible<
-                    typename range_traversal<Range>::type,
-                    boost::forward_traversal_tag
-                >,
-                sub_range_result<Range>,
-                boost::result_of<op_make_taken_while(Range&, count_down<diff_t>)>
+            boost::result_of<
+                op_make_taken_while(Range&, count_down<diff_t>)
             >::type
         result;
 
         result call(Range& rng, diff_t const& d)
         {
-            return taken_detail::aux<result, diff_t>(
-                rng, d, typename range_traversal<Range>::type()
-            );
+            PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+            BOOST_ASSERT(0 <= d);
+
+            return make_taken_while(rng, count_down<diff_t>(d));
         }
     };
 

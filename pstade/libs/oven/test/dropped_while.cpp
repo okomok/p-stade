@@ -52,8 +52,6 @@ void test()
             std::string()|dropped_while(lambda::_1 != '9')
         ) );
     }
-
-
     {
         std::string src("11111234516313!");
 

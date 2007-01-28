@@ -10,15 +10,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Note:
-//
-// Intended to be used only on SinglePassRange.
-
-
 #include <boost/assert.hpp>
+#include <boost/iterator/detail/minimum_category.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <pstade/as.hpp>
 #include <pstade/object_generator.hpp>
+#include "./detail/pure_traversal.hpp"
 
 
 namespace pstade { namespace oven {
@@ -39,7 +36,10 @@ namespace take_while_iterator_detail {
                 take_while_iterator<Iterator, Predicate>,
                 Iterator,
                 boost::use_default,
-                boost::single_pass_traversal_tag
+                typename boost::detail::minimum_category<
+                    boost::forward_traversal_tag,
+                    typename detail::pure_traversal<Iterator>::type
+                >::type
             >
         type;
     };

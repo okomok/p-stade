@@ -27,7 +27,7 @@
 <tr class="field"><th class="docinfo-name">License:</th><td class="field-body">Distributed under the <a class="reference" href="http://www.boost.org/LICENSE_1_0.txt">Boost Software License Version 1.0</a></td>
 </tr>
 <tr><th class="docinfo-name">Version:</th>
-<td>0.93.1</td></tr>
+<td>0.93.2</td></tr>
 </tbody>
 </table>
 <blockquote class="epigraph">
@@ -155,6 +155,7 @@
 <li><a class="reference" href="#version-0-92-0-0-92-3" id="id129" name="id129">13.6&nbsp;&nbsp;&nbsp;Version 0.92.0 - 0.92.3</a></li>
 <li><a class="reference" href="#version-0-93-0" id="id130" name="id130">13.7&nbsp;&nbsp;&nbsp;Version 0.93.0</a></li>
 <li><a class="reference" href="#version-0-93-1" id="id131" name="id131">13.8&nbsp;&nbsp;&nbsp;Version 0.93.1</a></li>
+<li><a class="reference" href="#version-0-93-2" id="id132" name="id132">13.9&nbsp;&nbsp;&nbsp;Version 0.93.2</a></li>
 </ul>
 </li>
 </ul>
@@ -939,8 +940,8 @@ BOOST_CHECK( oven::equals(
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/dropped.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">rng|dropped(n)</span></tt></li>
-<li>Precondition: <tt class="docutils literal"><span class="pre">0</span> <span class="pre">&lt;=</span> <span class="pre">n</span> <span class="pre">&amp;&amp;</span> <span class="pre">n</span> <span class="pre">&lt;=</span> <span class="pre">oven::distance(rng)</span></tt></li>
-<li>Returns: <tt class="docutils literal"><span class="pre">[f,boost::end(rng))</span></tt>, where <tt class="docutils literal"><span class="pre">f</span> <span class="pre">=</span> <span class="pre">boost::begin(rng);</span> <span class="pre">std::advance(f,n);</span></tt>.</li>
+<li>Precondition: <tt class="docutils literal"><span class="pre">0</span> <span class="pre">&lt;=</span> <span class="pre">n</span></tt></li>
+<li>Returns: <tt class="docutils literal"><span class="pre">[boost::next(boost::begin(rng),std::min(n,</span> <span class="pre">distance(rng))),boost::end(rng))</span></tt></li>
 </ul>
 </div>
 <div class="section">
@@ -957,7 +958,7 @@ BOOST_CHECK( oven::equals(
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/dropped_while.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">rng|dropped_while(pred)</span></tt></li>
-<li>Returns: <tt class="docutils literal"><span class="pre">[f,boost::end(rng))</span></tt>, where <tt class="docutils literal"><span class="pre">f</span> <span class="pre">=</span> <span class="pre">oven::find_if(f,not_(pred));</span></tt></li>
+<li>Returns: <tt class="docutils literal"><span class="pre">[oven::find_if(rng,</span> <span class="pre">not_(pred)),boost::end(rng))</span></tt></li>
 </ul>
 </div>
 <div class="section">
@@ -1337,8 +1338,8 @@ BOOST_CHECK( oven::equals(src|taken(<span class="cpp_number_literal">7</span>)|t
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/taken.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">rng|taken(n)</span></tt></li>
-<li>Precondition: <tt class="docutils literal"><span class="pre">0</span> <span class="pre">&lt;=</span> <span class="pre">n</span> <span class="pre">&amp;&amp;</span> <span class="pre">n</span> <span class="pre">&lt;=</span> <span class="pre">oven::distance(rng)</span></tt></li>
-<li>Returns: A range which behaves as if it were <tt class="docutils literal"><span class="pre">[boost::begin(rng),l)</span></tt>, where <tt class="docutils literal"><span class="pre">l</span> <span class="pre">=</span> <span class="pre">boost::begin(rng);</span> <span class="pre">std::advance(l,n);</span></tt>.</li>
+<li>Precondition: <tt class="docutils literal"><span class="pre">0</span> <span class="pre">&lt;=</span> <span class="pre">n</span></tt></li>
+<li>Returns: A range up to <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#forward_range">Forward Range</a> which behaves as if it were <tt class="docutils literal"><span class="pre">[boost::begin(rng),boost::next(boost::begin(rng),std::min(n,</span> <span class="pre">distance(rng))))</span></tt>.</li>
 </ul>
 </div>
 <div class="section">
@@ -1356,7 +1357,7 @@ BOOST_CHECK( oven::equals(
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/taken_while.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">rng|taken_while(pred)</span></tt></li>
-<li>Returns: A range which behaves as if it were <tt class="docutils literal"><span class="pre">[boost::begin(rng),oven::find_if(rng,not_(pred)))</span></tt></li>
+<li>Returns: A range up to <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#forward_range">Forward Range</a> which behaves as if it were <tt class="docutils literal"><span class="pre">[boost::begin(rng),oven::find_if(rng,not_(pred)))</span></tt></li>
 </ul>
 </div>
 <div class="section">
@@ -1717,12 +1718,20 @@ See <a class="reference" href="./doc/ms/mfc_atl.html">Oven Range MFC/ATL Extensi
 <li><tt class="docutils literal"><span class="pre">scanned</span></tt> range contains the <tt class="docutils literal"><span class="pre">init</span></tt> as the first element.</li>
 </ul>
 </div>
+<div class="section">
+<h2><a class="toc-backref" href="#id132" id="version-0-93-2" name="version-0-93-2">13.9&nbsp;&nbsp;&nbsp;Version 0.93.2</a></h2>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">taken</span></tt> and <tt class="docutils literal"><span class="pre">taken_while</span></tt> behave lazily.</li>
+<li><tt class="docutils literal"><span class="pre">taken</span></tt> and <tt class="docutils literal"><span class="pre">taken_while</span></tt> now return only up to ForwardRange.</li>
+<li><tt class="docutils literal"><span class="pre">dropped</span></tt> and <tt class="docutils literal"><span class="pre">taken</span></tt> accept <tt class="docutils literal"><span class="pre">n</span></tt> which is larger than the distance.</li>
+</ul>
+</div>
 </div>
 </div>
 <div class="footer">
 <hr class="footer" />
 <a class="reference" href="doc/index.rst">View document source</a>.
-Generated on: 2007-01-27 09:35 UTC.
+Generated on: 2007-01-28 13:14 UTC.
 Generated by <a class="reference" href="http://docutils.sourceforge.net/">Docutils</a> from <a class="reference" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a> source.
 
 </div>
