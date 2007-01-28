@@ -194,9 +194,9 @@ public:
     }
 
 template< class, class, class, class > friend struct merge_iterator;
-    template< class Iterator1_, class Iterator2_, class Compare_ >
+    template< class Iterator1_, class Iterator2_ >
     merge_iterator(
-        merge_iterator<Iterator1_, Iterator2_, Compare_> const& other,
+        merge_iterator<Iterator1_, Iterator2_, Compare> const& other,
         typename boost::enable_if_convertible<Iterator1_, Iterator1>::type * = 0,
         typename boost::enable_if_convertible<Iterator2_, Iterator2>::type * = 0
     ) :

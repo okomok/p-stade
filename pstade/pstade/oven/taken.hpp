@@ -10,6 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Note:
+//
+// This could return RandomAccess, but can't return Bidirectional...
+
+
 #include <boost/assert.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/function.hpp>

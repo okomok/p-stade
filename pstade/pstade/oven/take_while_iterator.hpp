@@ -67,9 +67,9 @@ public:
         check_predicate();
     }
 
-    template< class Iterator_, class Predicate_ >
+    template< class Iterator_ >
     take_while_iterator(
-        take_while_iterator<Iterator_, Predicate_> const& other,
+        take_while_iterator<Iterator_, Predicate> const& other,
         typename boost::enable_if_convertible<Iterator_, Iterator>::type * = 0
     ) :
         super_t(other.base()), m_last(other.end()), m_pred(other.predicate())

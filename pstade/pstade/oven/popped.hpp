@@ -10,10 +10,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Question:
+// Note:
 //
-// 'rng|applied(pop);' is better?
-// But Haskell provides one named 'init' as primitive.
+// This never accepts an empty range --
+// following Container and Haskell's 'init'.
 
 
 #include <boost/assert.hpp>

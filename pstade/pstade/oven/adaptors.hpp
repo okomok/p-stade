@@ -59,6 +59,8 @@
 #include "./shared.hpp"
 #include "./sliced.hpp"
 #include "./sorted.hpp"
+#include "./spanned.hpp"
+#include "./split_at.hpp2
 #include "./string_found.hpp"
 #include "./string_split.hpp"
 #include "./tab_expanded.hpp"

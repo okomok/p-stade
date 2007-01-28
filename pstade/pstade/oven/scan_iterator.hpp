@@ -72,9 +72,9 @@ public:
         super_t(it), m_state(init), m_fun(fun)
     { }
 
-    template< class Iterator_, class State_, class BinaryFun_ >
+    template< class Iterator_, class State_ >
     scan_iterator(
-        scan_iterator<Iterator_, State_, BinaryFun_> const& other,
+        scan_iterator<Iterator_, State_, BinaryFun> const& other,
         typename boost::enable_if_convertible<Iterator_, Iterator>::type * = 0,
         typename boost::enable_if_convertible<State_, State>::type       * = 0
     ) :

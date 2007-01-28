@@ -110,9 +110,9 @@ public:
         m_first(first), m_last(last)
     { }
 
-    template< class ForwardIter_, class BinaryPred_ >
+    template< class ForwardIter_ >
     adjacent_filter_iterator(
-        adjacent_filter_iterator<ForwardIter_, BinaryPred_> const& other,
+        adjacent_filter_iterator<ForwardIter_, BinaryPred> const& other,
         typename boost::enable_if_convertible<ForwardIter_, ForwardIter>::type * = 0
     ) :
         super_t(other.base()), m_pred(other.predicate()),

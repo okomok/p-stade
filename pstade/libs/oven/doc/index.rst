@@ -780,7 +780,8 @@ Note that ``memoized`` can return a `Forward Range`_ even if the base range is a
 ^^^^^^^^^^
 - Header: ``<pstade/oven/popped.hpp>``
 - Valid expression: ``fwdRng|popped``
-- Returns: A range which behaves as if it were ``[boost::begin(fwdRng),boost::next(boost::begin(fwdRng),oven::distance(fwdRng)-1))``
+- Precondition: ``boost::empty(fwdRng) == true``
+- Returns: ``[boost::begin(fwdRng),boost::next(boost::begin(fwdRng),oven::distance(fwdRng)-1))``
 
 
 ``prepended``

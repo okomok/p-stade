@@ -28,7 +28,7 @@ namespace dropped_detail {
 
 
     template< class Result, class Difference, class Iterator > inline
-    Result aux(Iterator const& first, Iterator const& last, Difference const& d,
+    Result aux(Iterator first, Iterator const& last, Difference d,
         boost::random_access_traversal_tag)
     {
         return Result(first + (std::min)(last - first, d), last);

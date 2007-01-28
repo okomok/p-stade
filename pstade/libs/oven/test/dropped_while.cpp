@@ -32,41 +32,41 @@ void test()
     {
         std::vector<char> expected = std::string("234516313!")|copied;
         BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
-            rng|dropped_while(lambda::_1 == '1'),
+            rng|dropped_while(regular(lambda::_1 == '1')),
             expected
         ) );
     }
     {
         std::vector<char> expected = rng|copied;
         BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
-            rng|dropped_while(lambda::_1 == '9'),
+            rng|dropped_while(regular(lambda::_1 == '9')),
             expected
         ) );
     }
     {
         BOOST_CHECK( oven::test_empty(
-            rng|dropped_while(lambda::_1 != '9')
+            rng|dropped_while(regular(lambda::_1 != '9'))
         ) );
 
         BOOST_CHECK( oven::test_empty(
-            std::string()|dropped_while(lambda::_1 != '9')
+            std::string()|dropped_while(regular(lambda::_1 != '9'))
         ) );
     }
     {
         std::string src("11111234516313!");
 
         BOOST_CHECK( oven::equals(
-            src|dropped_while(lambda::_1 == '1'),
+            src|dropped_while(regular(lambda::_1 == '1')),
             std::string("234516313!")
         ) );
 
         BOOST_CHECK( oven::equals(
-            src|dropped_while(lambda::_1 == '9'),
+            src|dropped_while(regular(lambda::_1 == '9')),
             src
         ) );
 
         BOOST_CHECK( oven::equals(
-            src|dropped_while(lambda::_1 != '9'),
+            src|dropped_while(regular(lambda::_1 != '9')),
             std::string("")
         ) );
     }

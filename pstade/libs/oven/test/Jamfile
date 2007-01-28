@@ -112,6 +112,8 @@ test-suite oven :
     [ oven-test shared ]
     [ oven-test sliced ]
     [ oven-test sorted ]
+    [ oven-test spanned ]
+    [ oven-test split_at ]
     [ oven-test stream_input ]
     [ oven-test streambuf_input ]
     [ oven-test string_found ]

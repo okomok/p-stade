@@ -53,6 +53,28 @@ void test()
         BOOST_CHECK( oven::equals(src|identities(single_pass_tag)|dropped(7000), std::string()) );
         BOOST_CHECK( oven::equals(src|identities(single_pass_tag)|dropped(distance(src)), std::string()) );
     }
+    {
+        BOOST_CHECK( oven::test_empty(
+            std::string()|dropped(0)
+        ) );
+        BOOST_CHECK( oven::test_empty(
+            std::string()|dropped(1)
+        ) );
+        BOOST_CHECK( oven::test_empty(
+            std::string()|dropped(100)
+        ) );
+    }
+    {
+        BOOST_CHECK( oven::test_empty(
+            std::string()|identities(single_pass_tag)|dropped(0)
+        ) );
+        BOOST_CHECK( oven::test_empty(
+            std::string()|identities(single_pass_tag)|dropped(1)
+        ) );
+        BOOST_CHECK( oven::test_empty(
+            std::string()|identities(single_pass_tag)|dropped(100)
+        ) );
+    }
 }
 
 
