@@ -16,7 +16,6 @@
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
 #include "./concepts.hpp"
-#include "./detail/next_prior.hpp" // next
 #include "./range_difference.hpp"
 #include "./range_traversal.hpp"
 #include "./sub_range_result.hpp"
@@ -32,7 +31,7 @@ namespace dropped_detail {
     Result aux(Iterator const& first, Iterator const& last, Difference const& d,
         boost::random_access_traversal_tag)
     {
-        return Result(detail::next(first, (std::min)(last - first, d)), last);
+        return Result(first + (std::min)(last - first, d), last);
     }
 
     template< class Result, class Difference, class Iterator >
