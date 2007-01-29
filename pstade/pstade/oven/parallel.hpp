@@ -15,18 +15,19 @@
 // http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2104.pdf
 
 
+#include <boost/mpl/int.hpp>
+#include <boost/range/begin.hpp>
 #include <boost/range/empty.hpp>
 #include <boost/thread/thread.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include "./algorithm.hpp" // for_each
+#include "./concepts.hpp"
 #include "./distance.hpp"
 #include "./dropped.hpp"
-#include "./concepts.hpp"
 #include "./range_difference.hpp"
 #include "./sub_range_base.hpp"
-#include "./taken.hpp"
 
 
 namespace pstade { namespace oven {
@@ -38,11 +39,6 @@ namespace parallel_detail {
     template< class IterRange, class UnaryFun, class Difference >
     struct op_for_each
     {
-        template< class Range >
-        op_for_each(Range& rng, UnaryFun const& fun, Difference grain) :
-            m_rng(rng), m_fun(fun), m_grain(grain)
-        { }
-
         void operator()()
         {
             if (boost::empty(m_rng))
@@ -55,20 +51,23 @@ namespace parallel_detail {
                 return;
             }
 
-            // We don't need to call 'adapted_to' or something.
-            // 'taken' and 'dropped' applied to ForwardRange
-            // fortunately return a type convertible to 'IterRange'.
-            typename boost::result_of<op_make_taken(IterRange&, Difference)>::type rngL
-                = make_taken(m_rng, dist/2);
-            typename boost::result_of<op_make_dropped(IterRange&, Difference)>::type rngR
-                = make_dropped(m_rng, dist/2);
+            // Type must be reduced to 'IterRange',
+            // otherwise the template instantiation recursion never stops.
+            // Thus, 'split_at' is useless here.
+            IterRange second_rng = make_dropped(m_rng, dist/2);
+            IterRange first_rng(boost::begin(m_rng), boost::begin(second_rng));
 
-            boost::thread thrdL(op_for_each(rngL, m_fun, m_grain));
-            boost::thread thrdR(op_for_each(rngR, m_fun, m_grain));
+            boost::thread thrdL(op_for_each(first_rng,  m_fun, m_grain));
+            boost::thread thrdR(op_for_each(second_rng, m_fun, m_grain));
 
             thrdL.join();
             thrdR.join();
         }
+
+        template< class Range >
+        op_for_each(Range& rng, UnaryFun const& fun, Difference grain) :
+            m_rng(rng), m_fun(fun), m_grain(grain)
+        { }
 
     private:
         IterRange  m_rng;

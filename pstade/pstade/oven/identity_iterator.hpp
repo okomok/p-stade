@@ -10,10 +10,14 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/config.hpp>
+#include <boost/detail/workaround.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_categories.hpp> // iterator_traversal
 #include <boost/mpl/assert.hpp>
 #include <boost/type_traits/is_convertible.hpp>
+#include <pstade/object_generator.hpp>
+#include <pstade/unused_parameter.hpp>
 #include <pstade/use_default.hpp>
 
 
@@ -35,8 +39,9 @@ namespace identity_iterator_detail {
     {
         typedef typename boost::iterator_traversal<Iterator>::type base_trv_t;
         typedef typename use_default_to<Traversal, base_trv_t>::type trv_t;
+    #if !BOOST_WORKAROUND(BOOST_MSVC, == 1310) // for weird VC7.1
         BOOST_MPL_ASSERT((boost::is_convertible<base_trv_t, trv_t>));
-
+    #endif
         typedef
             boost::iterator_adaptor<
                 identity_iterator<Iterator, Traversal>,
@@ -65,7 +70,7 @@ public:
     explicit identity_iterator()
     { }
 
-    explicit identity_iterator(Iterator const& it) :
+    explicit identity_iterator(Iterator const& it, unused_parameter = 0) :
         super_t(it)
     { }
 
@@ -82,12 +87,8 @@ friend class boost::iterator_core_access;
 };
 
 
-template< class Traversal, class Iterator > inline
-identity_iterator<Iterator, Traversal> const
-make_identity_iterator(Iterator const& it)
-{
-    return identity_iterator<Iterator, Traversal>(it);
-}
+PSTADE_OBJECT_GENERATOR(make_identity_iterator,
+    (identity_iterator< deduce<_1, to_value>, deduce<_2, to_value> >) const)
 
 
 } } // namespace pstade::oven

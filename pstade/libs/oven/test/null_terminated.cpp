@@ -29,7 +29,7 @@ void test()
         int ans[] = { 11,5,1,2,60,51 };
         std::vector<int> expected = ans|copied;
 
-        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
+        BOOST_CHECK( oven::test_Forward_Readable_Writable(
             rng|null_terminated,
             expected
         ) );

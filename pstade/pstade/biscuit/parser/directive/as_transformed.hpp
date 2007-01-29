@@ -13,6 +13,8 @@
 #include <iterator> // distance
 #include <boost/mpl/apply.hpp>
 #include <boost/utility/result_of.hpp>
+#include <pstade/oven/adapted_to_base.hpp>
+#include <pstade/oven/range_iterator.hpp>
 #include <pstade/oven/sub_range_base.hpp>
 #include <pstade/oven/transformed.hpp>
 #include "../../state/class_type.hpp"
@@ -50,7 +52,7 @@ struct as_transformed
         if (!Parser::parse(tmp, us))
             return false;
 
-        s.set_cur( tmp.get_cur().base() );
+        s.set_cur( oven::adapted_to<typename oven::range_iterator<State>::type>(tmp.get_cur()) );
         return true;
     }
 };

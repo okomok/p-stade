@@ -33,11 +33,17 @@
 
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/not.hpp>
+#include <boost/range/begin.hpp>
+#include <boost/range/end.hpp>
 #include <boost/type_traits/is_const.hpp>
 #include <boost/type_traits/is_convertible.hpp>
+#include <boost/utility/result_of.hpp>
 #include <pstade/automatic.hpp>
 #include <pstade/auxiliary.hpp>
+#include <pstade/const_overloaded.hpp>
+#include <pstade/deduced_const.hpp>
 #include <pstade/enable_if.hpp>
+#include "./range_iterator.hpp"
 
 
 namespace pstade { namespace oven {
@@ -70,10 +76,8 @@ Base adapted_to(Adapted const& ad,
 }
 
 
-// Note:
 // This cannot support a reference type as 'Base',
 // because of the weird compiler behavior...
-//
 
 template< class To >
 struct op_adapted_to
@@ -94,6 +98,54 @@ struct op_adapted_to
 };
 
 PSTADE_AUXILIARY0(to_base, (automatic< op_adapted_to<boost::mpl::_1> >))
+
+
+// for range
+//
+
+template< class To >
+struct op_adapted_range_to
+{
+    typedef To result_type;
+
+    template< class From >
+    To aux(From& from) const
+    {
+        typedef typename range_iterator<To>::type iter_t;
+        return To(
+            op_adapted_to<iter_t>()(boost::begin(from)),
+            op_adapted_to<iter_t>()(boost::end(from))
+        );
+    }
+
+    template< class From >
+    To operator()(From& from) const
+    {
+        return aux(from);
+    }
+
+    template< class From >
+    To operator()(From const& from) const
+    {
+        return aux(from);
+    }
+};
+
+template< class To, class From > inline
+typename boost::result_of<op_adapted_range_to<To>(From&)>::type
+adapted_range_to(From& from PSTADE_CONST_OVERLOADED(From))
+{
+    return op_adapted_range_to<To>()(from);
+}
+
+template< class To, class From > inline
+typename boost::result_of<op_adapted_range_to<To>(PSTADE_DEDUCED_CONST(From)&)>::type
+adapted_range_to(From const& from)
+{
+    return op_adapted_range_to<To>()(from);
+}
+
+PSTADE_AUXILIARY0(to_base_range, (automatic< op_adapted_range_to<boost::mpl::_1> >))
 
 
 } } // namespace pstade::oven

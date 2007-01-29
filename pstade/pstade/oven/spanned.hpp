@@ -50,13 +50,12 @@ namespace spanned_detail {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
 
             rng_t second = make_dropped_while(rng, pred);
-            return
-                make_zipped(
-                    tuple_t(
-                        rng_t(boost::begin(rng), boost::begin(second)),
-                        second
-                    )
-                );
+            return make_zipped(
+                tuple_t(
+                    rng_t(boost::begin(rng), boost::begin(second)),
+                    second
+                )
+            );
         }
     };
 
