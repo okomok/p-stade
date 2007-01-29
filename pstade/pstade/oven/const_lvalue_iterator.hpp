@@ -31,14 +31,16 @@ namespace const_lvalue_iterator_detail {
     template< class Iterator >
     struct super_
     {
-        typedef typename boost::iterator_value<Iterator>::type val_t;
+        typedef
+            typename boost::iterator_value<Iterator>::type
+        val_t;
 
         typedef
             boost::iterator_adaptor<
                 const_lvalue_iterator<Iterator>,
                 Iterator,
                 val_t,
-                typename detail::pure_traversal<Iterator>::type, // *pure* makes 'facade_iterator_category' recompute.
+                typename detail::pure_traversal<Iterator>::type,
                 val_t const&
             >
         type;

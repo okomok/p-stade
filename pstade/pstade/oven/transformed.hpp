@@ -49,7 +49,6 @@
 #include "./identities.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
-#include "./range_traversal.hpp"
 
 
 namespace pstade { namespace oven {
@@ -89,16 +88,13 @@ struct op_make_transformed :
             iter_range<iter_t> const
         rng_t;
 
-        // force to recompute IteratorCategory using 'identities'.
+        // Recompute IteratorCategory using 'identities'.
         // 'fun' may resurrect lvalue-ness of the base range,
-        // then a RandomAccess*Input* Iterator turns into the RandomAccess!
-        typedef typename
-            range_pure_traversal<Range>::type
-        trv_t;
-
+        // then a RandomAccess*Input* Iterator turns into the RandomAccess.
+        // e.g. applying 'at' to a tuple of reference.
         typedef typename
             boost::result_of<
-                op_make_identities(rng_t, trv_t)
+                op_make_identities(rng_t)
             >::type
         type;
     };
@@ -113,8 +109,7 @@ struct op_make_transformed :
             typename apply_t::rng_t(
                 typename apply_t::iter_t(boost::begin(rng), fun),
                 typename apply_t::iter_t(boost::end(rng),   fun)
-            ),
-            typename apply_t::trv_t()
+            )
         );
     }
 };

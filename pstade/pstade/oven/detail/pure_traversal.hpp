@@ -10,6 +10,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// What:
+//
+// Useful when you want 'facade_iterator_category'
+// to recompute IteratorCategory.
+// Also, 'minimum_category' needs this.
+
+
 #include <boost/iterator/iterator_categories.hpp>
 
 
