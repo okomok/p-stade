@@ -103,8 +103,6 @@ adapted_to(Adapted const& ad)
 }
 
 
-// This cannot support a reference type as 'Base',
-// because of the weird compiler behavior...
 PSTADE_AUXILIARY0(to_base, (automatic< op_adapted_to<boost::mpl::_1> >))
 
 

@@ -10,6 +10,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Note:
+//
+// This couldn't support the reference type as 'To',
+// because the behavior of conversion-operator template
+// varies from compiler to compiler...
+
+
 #include <boost/mpl/apply.hpp>
 #include <boost/mpl/placeholders.hpp> // inclusion guaranteed
 #include <boost/preprocessor/cat.hpp>
