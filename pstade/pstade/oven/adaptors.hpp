@@ -42,7 +42,6 @@
 #include "./merged.hpp"
 // #include "./moved.hpp"
 #include "./multi_passed.hpp"
-#include "./null_terminated.hpp"
 #include "./outplaced.hpp"
 #include "./permuted.hpp"
 #include "./pointed.hpp"

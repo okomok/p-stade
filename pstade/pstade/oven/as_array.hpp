@@ -49,7 +49,7 @@ namespace as_array_detail {
     {
         typedef typename
             to_range<MaybeArray>::type
-        result;            
+        result;
 
         template< class T, std::size_t sz >
         result call(T (&arr)[sz])

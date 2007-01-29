@@ -25,7 +25,7 @@
 #include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/oven/array_range.hpp>
-#include <pstade/oven/null_terminated.hpp>
+#include <pstade/oven/as_c_str.hpp>
 #include <pstade/oven/range_constantable.hpp>
 #include "./access.hpp"
 #include "./detail/has_pstade_pizza_profile.hpp"
@@ -133,7 +133,7 @@ namespace string_detail {
             if (!m_ptr->query_string(pszValueName, boost::begin(m_buf), boost::end(m_buf)))
                 string_detail::throw_error(pszValueName);
 
-            BOOST_ASSERT(oven::is_null_terminated(m_buf));
+            BOOST_ASSERT(oven::contains_zero(m_buf));
         }
 
     protected:
@@ -147,7 +147,7 @@ namespace string_detail {
 
 struct string :
     private string_detail::buffer_init,
-    boost::result_of<oven::op_make_null_terminated(string_detail::buffer_t&)>::type,
+    boost::result_of<oven::op_as_c_str(string_detail::buffer_t&)>::type,
     private oven::range_constantable<string, TCHAR const *>,
     private boost::noncopyable
 {
@@ -155,13 +155,13 @@ struct string :
 
 private:
     typedef string_detail::buffer_init init_t; 
-    typedef boost::result_of<oven::op_make_null_terminated(string_detail::buffer_t&)>::type super_t;
+    typedef boost::result_of<oven::op_as_c_str(string_detail::buffer_t&)>::type super_t;
 
 public:
     template< class Profile, class CStringizable >
     string(Profile& pr, CStringizable const& valueName, std::ptrdiff_t bufsz = 256) :
         init_t(pr, tomato::c_str(valueName), bufsz),
-        super_t(oven::make_null_terminated(m_buf))
+        super_t(oven::as_c_str(m_buf))
     { }
 
     friend

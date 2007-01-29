@@ -92,7 +92,6 @@ test-suite oven :
     [ oven-test memoized ]
     [ oven-test merged ]
     [ oven-test moved ]
-    [ oven-test null_terminated ]
     [ oven-test outplaced ]
     [ oven-compile parallel ]
     [ oven-test permuted ]

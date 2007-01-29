@@ -25,8 +25,8 @@
 #include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/as.hpp>
+#include <pstade/oven/as_c_str.hpp>
 #include <pstade/oven/iter_range.hpp>
-#include <pstade/oven/null_terminated.hpp>
 #include <pstade/oven/sub_range_result.hpp>
 #include <pstade/require.hpp>
 #include "./max_path.hpp"
@@ -58,7 +58,7 @@ namespace module_file_name_detail {
                 ::GetModuleFileName(hInst, boost::begin(m_buf), max_path::value)
             );
 
-            BOOST_ASSERT(oven::is_null_terminated(m_buf));
+            BOOST_ASSERT(oven::contains_zero(m_buf));
         }
 
     protected:
@@ -71,7 +71,7 @@ namespace module_file_name_detail {
     {
         typedef typename
             boost::result_of<
-                oven::op_make_null_terminated(module_file_name_detail::buffer_t const&)
+                oven::op_as_c_str(module_file_name_detail::buffer_t const&)
             >::type
         type;
     };
@@ -93,9 +93,9 @@ private:
 public:
     explicit module_file_name(HINSTANCE hInst = _Module.GetModuleInstance()) :
         init_t(hInst),
-        super_t(as_cref(m_buf))
+        super_t(m_buf|as_cref|oven::as_c_str)
     {
-        BOOST_ASSERT(oven::is_null_terminated(m_buf));
+        BOOST_ASSERT(oven::contains_zero(m_buf));
     }
 
     const_sub_range_t folder() const

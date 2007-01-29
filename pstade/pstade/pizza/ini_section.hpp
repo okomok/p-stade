@@ -31,7 +31,6 @@
 #include <pstade/oven/copy_range.hpp>
 #include <pstade/oven/distance.hpp>
 #include <pstade/oven/equals.hpp>
-#include <pstade/oven/null_terminated.hpp>
 #include <pstade/require.hpp>
 #include <pstade/tomato/filesystem/module_file_name.hpp>
 #include <pstade/tomato/c_str.hpp>
@@ -64,7 +63,7 @@ namespace ini_section_detail {
                 boost::begin(buf), oven::distance(buf)|to_integer,
                 pszFileName);
 
-            if (oven::equals(buf|oven::null_terminated, magicStr))
+            if (oven::equals(buf|oven::as_c_str, magicStr))
                 return false;
         }
 

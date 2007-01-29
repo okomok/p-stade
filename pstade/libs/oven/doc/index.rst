@@ -286,8 +286,8 @@ __ http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html#as-array
 
 
 - Header: ``<pstade/oven/as_c_str.hpp>``
-- Valid expression: ``as_c_str(psz)`` and ``psz|as_c_str``, where ``psz`` is convertible to a pointer to a null-terminated array.
-- Returns: ``[psz,psz+strlen(psz))``. 
+- Valid expression2: ``as_c_str(x)`` and ``x|as_c_str``.
+- Returns: If  ``x`` is convertible to a char pointer, ``[x,x+strlen(psz))``; otherwise, ``[boost::begin(x),oven::find(x,0))``.
 
 
 ``as_literal``
@@ -298,10 +298,10 @@ __ http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html#as-array
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\as_literal.ipp
 
 - Header: ``<pstade/oven/as_literal.hpp>``
-- Valid expression: ``as_literal(arr)`` and ``arr|as_literal``
-- Returns: ``[p,p+sz-1)``, where ``p`` is ``&arr[0]`` and ``sz`` is the size of ``arr``.
+- Valid expression1: ``as_literal(x)`` and ``x|as_literal``
+- Returns:If ``x`` is an array,  ``[&x[0],&x[0]+sz-1)`` where ``sz`` is the size of ``arr``; otherwise, ``x`` as is.
 
-That is, ``as_literal`` doesn't use ``strlen``. `TR2 as_literal`__ does.
+Note that ``as_literal`` doesn't use ``strlen``. `TR2 as_literal`__ does.
 
 __ http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html#as-literal
 
@@ -747,14 +747,6 @@ Note that ``memoized`` can return a `Forward Range`_ even if the base range is a
 - Returns: A constant range up to `Forward Range`_ which behaves as if they were made by ``std::merge``.
 
 
-``null_terminated``
-^^^^^^^^^^^^^^^^^^^
-- Header: ``<pstade/oven/null_terminated.hpp>``
-- Valid expression: ``fwdRng|null_terminated``
-- Precondition: ``fwdRng`` has a value which is convertible to ``0``.
-- Returns: A range which behaves as if it were ``fwdRng|taken_while(_1 != 0)``.
-
-
 ``permuted``
 ^^^^^^^^^^^^
 - Header: ``<pstade/oven/permuted.hpp>``
@@ -1177,7 +1169,7 @@ Version 0.91.0 - 0.91.3
 - Added `Extending Boost.Range`_.
 - Rejected ``out_placed`` and ``sorted``.
 - Added ``literal_range`` and ``c_str_range``.
-- `null_terminated`_ no longer supports c-string.
+- ``null_terminated`` no longer supports c-string.
 - Added ``as_single`` to ``single_range``'\s valid expressions.
 - Added ``begins/ends``.
 - Added ``merged``, ``set_cup``, ``set_cap``, ``set_minus`` and ``set_delta``.
@@ -1234,5 +1226,5 @@ Version 0.93.2
 - ``taken`` and ``taken_while`` behave lazily.
 - ``taken`` and ``taken_while`` now return only up to ForwardRange.
 - ``dropped`` and ``taken`` accept ``n`` which is larger than the distance.
-
-
+- Removed ``null_terminated``.
+- ``as_c_str`` accepts a range.

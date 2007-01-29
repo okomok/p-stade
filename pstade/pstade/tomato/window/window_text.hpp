@@ -30,8 +30,8 @@
 #include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/oven/array_range.hpp>
+#include <pstade/oven/as_c_str.hpp>
 #include <pstade/oven/distance.hpp>
-#include <pstade/oven/null_terminated.hpp>
 #include <pstade/as.hpp>
 #include "./window_ref.hpp"
 
@@ -58,7 +58,7 @@ namespace window_text_detail {
                 boost::begin(m_buf), static_cast<int>(oven::distance(m_buf))
             );
 
-            BOOST_ASSERT(oven::is_null_terminated(m_buf));
+            BOOST_ASSERT(oven::contains_zero(m_buf));
         }
 
     protected:
@@ -69,7 +69,7 @@ namespace window_text_detail {
     template< class = void >
     struct super_ :
         boost::result_of<
-            oven::op_make_null_terminated(buffer_t const&)
+            oven::op_as_c_str(buffer_t const&)
         >
     { };
 
@@ -89,7 +89,7 @@ private:
 public:
     explicit window_text(window_ref wnd) :
         init_t(wnd),
-        super_t(as_cref(m_buf))
+        super_t(m_buf|as_cref|oven::as_c_str)
     { }
 
     friend

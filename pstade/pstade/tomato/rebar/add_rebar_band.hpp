@@ -21,7 +21,6 @@
 #include <pstade/oven/as_c_str.hpp>
 #include <pstade/oven/begin_end.hpp>
 #include <pstade/oven/copy_range.hpp>
-#include <pstade/oven/null_terminated.hpp>
 #include <pstade/oven/pointed.hpp>
 #include <pstade/require.hpp>
 #include "../c_str.hpp"
@@ -44,10 +43,10 @@ void add_rebar_band(window_ref rebar, window_ref child, UINT fStyle, CStringizab
     std::vector<TCHAR> text; {
         text = str|c_str|oven::as_c_str
             |oven::appended(_T('\0'))|oven::copied;
-        BOOST_ASSERT(oven::is_null_terminated(text));
+        BOOST_ASSERT(oven::contains_zero(text));
     }
 
-    bool hasTitle = !boost::empty(text|oven::null_terminated);
+    bool hasTitle = !boost::empty(text|oven::as_c_str);
 
 
     REBARBANDINFO info; {

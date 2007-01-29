@@ -23,7 +23,6 @@
 #include <pstade/oven/distance.hpp>
 #include <pstade/oven/equals.hpp>
 #include <pstade/oven/iter_range.hpp>
-#include <pstade/oven/null_terminated.hpp>
 #include <pstade/require.hpp>
 #include <pstade/static_c.hpp>
 #include "../c_str.hpp"
@@ -46,7 +45,7 @@ void set_window_text(window_ref wnd, CStringizable const& str)
     // fast check to see if text really changes (reduces flash in controls)
     if (newLen > bufLen::value ||
         ::GetWindowText(wnd, boost::begin(bufOld), bufOld.static_size) != newLen ||
-        !oven::equals(bufOld|oven::null_terminated, rngNew))
+        !oven::equals(bufOld|oven::as_c_str, rngNew))
     {
         PSTADE_REQUIRE(::SetWindowText(wnd, pszNew));
     }
