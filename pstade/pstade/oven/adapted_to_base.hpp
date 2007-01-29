@@ -31,6 +31,8 @@
 // type as 'Base'. Any pitfalls?
 
 
+#include <boost/config.hpp>
+#include <boost/detail/workaround.hpp>
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/not.hpp>
 #include <boost/range/begin.hpp>
@@ -49,101 +51,109 @@
 namespace pstade { namespace oven {
 
 
-template< class Base, class Adapted > inline
-Base adapted_to(Adapted& ad,
-    typename enable_if<
-        boost::mpl::and_<
-            boost::is_convertible<Adapted&, Base>,
-            boost::mpl::not_< boost::is_const<Adapted> > // seems needed.
-        >
-    >::type = 0)
+template< class Base >
+struct op_adapted_to
 {
-    return ad;
+    typedef Base result_type;
+
+    template< class Adapted >
+    Base operator()(Adapted& ad,
+        typename enable_if<
+#if BOOST_WORKAROUND(BOOST_MSVC, == 1310) // for weird VC7.1
+            boost::mpl::and_<
+                boost::is_convertible<Adapted&, Base>,
+                boost::mpl::not_< boost::is_const<Adapted> >
+            >
+#else
+            boost::is_convertible<Adapted&, Base>
+#endif
+        >::type = 0) const
+    {
+        return ad;
+    }
+
+    template< class Adapted >
+    Base operator()(Adapted const& ad,
+        typename enable_if< boost::is_convertible<Adapted const&, Base> >::type = 0) const
+    {
+        return ad;
+    }
+
+    template< class Adapted >
+    Base operator()(Adapted const& ad,
+        typename disable_if<boost::is_convertible<Adapted const&, Base> >::type = 0) const
+    {
+        return (*this)(ad.base());
+    }
+};
+
+
+template< class Base, class Adapted > inline
+typename boost::result_of<op_adapted_to<Base>(Adapted&)>::type
+adapted_to(Adapted& ad PSTADE_CONST_OVERLOADED(Adapted))
+{
+    return op_adapted_to<Base>()(ad);
 }
 
 template< class Base, class Adapted > inline
-Base adapted_to(Adapted const& ad,
-    typename enable_if< boost::is_convertible<Adapted const&, Base> >::type = 0)
+typename boost::result_of<op_adapted_to<Base>(Adapted const&)>::type
+adapted_to(Adapted const& ad)
 {
-    return ad;
-}
-
-template< class Base, class Adapted > inline
-Base adapted_to(Adapted const& ad,
-    typename disable_if<boost::is_convertible<Adapted const&, Base> >::type = 0)
-{
-    return oven::adapted_to<Base>(ad.base());
+    return op_adapted_to<Base>()(ad);
 }
 
 
 // This cannot support a reference type as 'Base',
 // because of the weird compiler behavior...
-
-template< class To >
-struct op_adapted_to
-{
-    typedef To result_type;
-
-    template< class From >
-    To operator()(From& from) const
-    {
-        return oven::adapted_to<To>(from);
-    }
-
-    template< class From >
-    To operator()(From const& from) const
-    {
-        return oven::adapted_to<To>(from);
-    }
-};
-
 PSTADE_AUXILIARY0(to_base, (automatic< op_adapted_to<boost::mpl::_1> >))
 
 
 // for range
 //
 
-template< class To >
+template< class Base >
 struct op_adapted_range_to
 {
-    typedef To result_type;
+    typedef Base result_type;
 
-    template< class From >
-    To aux(From& from) const
+    template< class Adapted >
+    Base aux(Adapted& ad) const
     {
-        typedef typename range_iterator<To>::type iter_t;
-        return To(
-            op_adapted_to<iter_t>()(boost::begin(from)),
-            op_adapted_to<iter_t>()(boost::end(from))
+        typedef typename range_iterator<Base>::type iter_t;
+        return Base(
+            op_adapted_to<iter_t>()(boost::begin(ad)),
+            op_adapted_to<iter_t>()(boost::end(ad))
         );
     }
 
-    template< class From >
-    To operator()(From& from) const
+    template< class Adapted >
+    Base operator()(Adapted& ad) const
     {
-        return aux(from);
+        return aux(ad);
     }
 
-    template< class From >
-    To operator()(From const& from) const
+    template< class Adapted >
+    Base operator()(Adapted const& ad) const
     {
-        return aux(from);
+        return aux(ad);
     }
 };
 
-template< class To, class From > inline
-typename boost::result_of<op_adapted_range_to<To>(From&)>::type
-adapted_range_to(From& from PSTADE_CONST_OVERLOADED(From))
+
+template< class Base, class Adapted > inline
+typename boost::result_of<op_adapted_range_to<Base>(Adapted&)>::type
+adapted_range_to(Adapted& ad PSTADE_CONST_OVERLOADED(Adapted))
 {
-    return op_adapted_range_to<To>()(from);
+    return op_adapted_range_to<Base>()(ad);
 }
 
-template< class To, class From > inline
-typename boost::result_of<op_adapted_range_to<To>(PSTADE_DEDUCED_CONST(From)&)>::type
-adapted_range_to(From const& from)
+template< class Base, class Adapted > inline
+typename boost::result_of<op_adapted_range_to<Base>(PSTADE_DEDUCED_CONST(Adapted)&)>::type
+adapted_range_to(Adapted const& ad)
 {
-    return op_adapted_range_to<To>()(from);
+    return op_adapted_range_to<Base>()(ad);
 }
+
 
 PSTADE_AUXILIARY0(to_base_range, (automatic< op_adapted_range_to<boost::mpl::_1> >))
 

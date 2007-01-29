@@ -25,26 +25,52 @@
 
 void test()
 {
-    using namespace pstade;   
+    namespace oven = pstade::oven;  
     using namespace oven;
+    namespace lambda = boost::lambda;
 
+    {// as is.
+        std::string src("abc");
+        typedef std::string::iterator iter_t;
+        iter_t a = boost::begin(src);
+
+        {
+            // rvalue
+            BOOST_CHECK(a == oven::adapted_to<iter_t>(boost::begin(src)));
+            iter_t it = boost::begin(src)|to_base;
+            BOOST_CHECK(a == it);
+        }
+        {
+            // lvalue
+            iter_t it = boost::begin(src);
+            BOOST_CHECK(a == oven::adapted_to<iter_t>(it));
+            iter_t it_ = it|to_base;
+            BOOST_CHECK(a == it_);
+        }
+        {
+            // const-lvalue
+            iter_t const it = boost::begin(src);
+            BOOST_CHECK(a == oven::adapted_to<iter_t>(it));
+            iter_t it_ = it|to_base;
+            BOOST_CHECK(a == it_);
+        }
+    }
     {
         std::string src("cjaigzenqhe");
-        std::string::iterator it = oven::max_element(src)|to_base;
+        std::string::iterator it = max_element(src)|to_base;
         BOOST_CHECK( *it == 'z' );
     }
 
     {
         std::string src("cjaigzenqhe");
-        std::string::const_iterator it = oven::max_element(src)|to_base;
+        std::string::const_iterator it = max_element(src)|to_base;
         BOOST_CHECK( *it == 'z' );
     }
 
     {
-        using namespace boost;
         std::string src("cjaigvwzenqhe");
         std::string::iterator it = oven::adapted_to<std::string::iterator>(
-            oven::max_element(
+            max_element(
                 src
                     | filtered(regular(lambda::_1 != 'z'))
                     | filtered(regular(lambda::_1 != 'w'))
@@ -55,10 +81,9 @@ void test()
     }
 
     {
-        using namespace boost;
         std::string src("cjaigvwzenqhe");
         std::string::const_iterator it =
-            oven::max_element(
+            max_element(
                 src
                     | filtered(regular(lambda::_1 != 'z'))
                     | filtered(regular(lambda::_1 != 'w'))
@@ -66,6 +91,22 @@ void test()
 
         BOOST_CHECK( *it == 'v' );
     }
+
+    { // nothing but compile check.
+        std::string src("cjaigvwzenqhe");
+        std::string dst = src
+                    | filtered(regular(lambda::_1 != 'z'))
+                    | filtered(regular(lambda::_1 != 'w'))
+                    | to_base_range;
+        BOOST_CHECK( equals(src, dst) );
+
+        dst = adapted_range_to<std::string>(src
+                    | filtered(regular(lambda::_1 != 'z'))
+                    | filtered(regular(lambda::_1 != 'w'))
+              );
+        BOOST_CHECK( equals(src, dst) );
+    }
+
 }
 
 
