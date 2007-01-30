@@ -41,7 +41,7 @@ struct screen_dc_if_null :
         BOOST_ASSERT(tomato::is_dc(m_hDC));
 
         if (m_managed)
-            ::DeleteDC(m_hDC)|verify;
+            ::DeleteDC(m_hDC)|verified;
     }
 
     HDC handle() const

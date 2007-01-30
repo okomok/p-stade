@@ -10,45 +10,42 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// What:
-//
-// Never throws, use in destructors.
-// 'x || (assert(false), false);' is better?
-
-
 #include <boost/assert.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/auxiliary.hpp>
+#include <pstade/constant.hpp>
+#include <pstade/pipable.hpp>
 
 
 namespace pstade {
 
 
-    namespace verify_detail {
-
-
-        struct op :
-            callable<op>
+    struct op_verify :
+        callable<op_verify>
+    {
+        template<class Myself, class X, class Assert = void>
+        struct apply
         {
-            template<class Myself, class T>
-            struct apply
-            {
-                typedef T& type;
-            };
-
-            template<class Result, class T>
-            Result call(T& x) const // doesn't add 'const' to 'T'.
-            {
-                BOOST_ASSERT(!!x); // 'operator!' is safer.
-                return x;
-            }
+            typedef X& type;
         };
 
+        template<class Result, class X, class Assert>
+        Result call(X& x, Assert& a) const
+        {
+            a(x);
+            return x;
+        }
 
-    } // namespace verify_detail
+        template<class Result, class X>
+        Result call(X& x) const
+        {
+            BOOST_ASSERT(!!x); // 'operator!' is safer.
+            return x;
+        }
+    };
 
 
-    PSTADE_AUXILIARY0(verify, (verify_detail::op))
+    PSTADE_CONSTANT(verify, (op_verify))
+    PSTADE_PIPABLE(verified, (op_verify))
 
 
 } // namespace pstade

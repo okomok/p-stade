@@ -47,7 +47,7 @@ namespace split_at_detail {
 
         result call(Range& rng, Difference& d)
         {
-            PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+            PSTADE_CONCEPT_ASSERT((Forward<Range>));
 
             rng_t second = make_dropped(rng, d);
             return make_zipped(

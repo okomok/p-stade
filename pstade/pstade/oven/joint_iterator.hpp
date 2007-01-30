@@ -15,6 +15,7 @@
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/mpl/assert.hpp>
+#include <pstade/object_generator.hpp>
 #include "./detail/pure_traversal.hpp"
 #include "./detail/reference_is_convertible.hpp"
 #include "./reverse_iterator.hpp"
@@ -217,20 +218,8 @@ friend class boost::iterator_core_access;
 };
 
 
-template< class IteratorL, class IteratorR > inline
-joint_iterator<IteratorL, IteratorR> const
-make_joint_left_iterator(IteratorL const& itL, IteratorL const& lastL, IteratorR const& firstR)
-{
-    return joint_iterator<IteratorL, IteratorR>(itL, lastL, firstR, firstR);
-}
-
-
-template< class IteratorL, class IteratorR > inline
-joint_iterator<IteratorL, IteratorR> const
-make_joint_right_iterator(IteratorL const& lastL, IteratorR const& firstR, IteratorR const& itR)
-{
-    return joint_iterator<IteratorL, IteratorR>(lastL, lastL, firstR, itR);
-}
+PSTADE_OBJECT_GENERATOR(make_joint_iterator,
+    (joint_iterator< deduce<_2, to_value>, deduce<_3, to_value> >) const)
 
 
 } } // namespace pstade::oven

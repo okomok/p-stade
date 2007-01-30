@@ -16,16 +16,33 @@
 #include <pstade/is_same.hpp>
 
 
+using namespace pstade;
+
+void is_6000(int x)
+{
+    if (x != 6000)
+        throw 0;
+}
+
+
 void test()
 {
     int i = 0;
-    pstade::verify( (++i, true) );
+    verify( (++i, true) );
     BOOST_CHECK(i == 1);
-    BOOST_CHECK( (i|pstade::verify) == 1 );
-    BOOST_CHECK( pstade::is_same(i, pstade::verify(i)) );
-    BOOST_CHECK( pstade::is_same(i, i|pstade::verify) );
-    BOOST_CHECK( true || false | pstade::verify );
-    BOOST_CHECK( true && true | pstade::verify );
+    BOOST_CHECK( (i|verified) == 1 );
+    BOOST_CHECK( is_same(i, verify(i)) );
+    BOOST_CHECK( is_same(i, i|verified) );
+    BOOST_CHECK( true || false | verified );
+    BOOST_CHECK( true && true | verified );
+
+    try {
+        int j = 0;
+        j|verified(&is_6000);
+    } catch (int) {
+        return;
+    }
+    BOOST_CHECK(false);
 }
 
 

@@ -42,12 +42,12 @@ namespace jointed_detail {
 
         result call(RangeL& rngL, RangeR& rngR)
         {
-            PSTADE_CONCEPT_ASSERT((Forward<RangeL>));
-            PSTADE_CONCEPT_ASSERT((Forward<RangeR>));
+            PSTADE_CONCEPT_ASSERT((SinglePass<RangeL>));
+            PSTADE_CONCEPT_ASSERT((SinglePass<RangeR>));
 
             return result(
-                oven::make_joint_left_iterator(boost::begin(rngL), boost::end(rngL), boost::begin(rngR)),
-                oven::make_joint_right_iterator(boost::end(rngL), boost::begin(rngR), boost::end(rngR))
+                iter_t(boost::begin(rngL), boost::end(rngL), boost::begin(rngR), boost::begin(rngR)),
+                iter_t(boost::end(rngL),   boost::end(rngL), boost::begin(rngR), boost::end(rngR))
             );
         }
     };

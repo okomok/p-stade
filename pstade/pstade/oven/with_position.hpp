@@ -31,12 +31,14 @@ struct op_make_with_position :
     struct apply
     {
         typedef
-            iter_range<
-                boost::spirit::position_iterator2< // 2!
-                    typename range_iterator<Range>::type,
-                    typename pass_by_value<PositionT>::type
-                >
-            > const
+            boost::spirit::position_iterator2< // 2!
+                typename range_iterator<Range>::type,
+                typename pass_by_value<PositionT>::type
+            >
+        iter_t;
+
+        typedef
+            iter_range<iter_t> const
         type;
     };
 

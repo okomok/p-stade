@@ -47,7 +47,7 @@ namespace spanned_detail {
 
         result call(Range& rng, Predicate& pred)
         {
-            PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+            PSTADE_CONCEPT_ASSERT((Forward<Range>));
 
             rng_t second = make_dropped_while(rng, pred);
             return make_zipped(
