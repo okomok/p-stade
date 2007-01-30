@@ -15,7 +15,6 @@
 #include "./check_iterator.hpp"
 #include "./concatenate_iterator.hpp"
 #include "./const_lvalue_iterator.hpp"
-#include "./constant_iterator.hpp"
 #include "./cycle_iterator.hpp"
 #include "./generate_iterator.hpp"
 #include "./identity_iterator.hpp"

@@ -13,8 +13,8 @@
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/type_traits/is_convertible.hpp>
+#include <pstade/dont_care.hpp>
 #include <pstade/object_generator.hpp>
-#include <pstade/unused_parameter.hpp>
 #include <pstade/use_default.hpp>
 #include "./detail/pure_traversal.hpp"
 
@@ -67,7 +67,7 @@ public:
     explicit identity_iterator()
     { }
 
-    explicit identity_iterator(Iterator const& it, unused_parameter = 0) :
+    explicit identity_iterator(Iterator const& it, dont_care = 0) :
         super_t(it)
     { }
 

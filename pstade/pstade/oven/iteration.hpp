@@ -18,8 +18,8 @@
 #include <boost/optional.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
+#include <pstade/dont_care.hpp>
 #include <pstade/pass_by.hpp>
-#include <pstade/unused_parameter.hpp>
 #include "./generation.hpp"
 
 
@@ -80,7 +80,7 @@ struct op_iteration :
     };
 
     template< class Result, class State, class UnaryFun >
-    Result call(State const& init, UnaryFun fun, unused_parameter = 0) const
+    Result call(State const& init, UnaryFun fun, dont_care = 0) const
     {
         return generation_copied(iteration_detail::do_it<State, UnaryFun>(init, fun));
     }

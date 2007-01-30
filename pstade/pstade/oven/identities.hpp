@@ -13,9 +13,9 @@
 #include <boost/iterator/iterator_categories.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
+#include <pstade/dont_care.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/unused_parameter.hpp>
 #include "./concepts.hpp"
 #include "./identity_iterator.hpp"
 #include "./iter_range.hpp"
@@ -44,7 +44,7 @@ struct op_make_identities :
     };
 
     template< class Result, class Range >
-    Result call(Range& rng, unused_parameter = 0) const
+    Result call(Range& rng, dont_care = 0) const
     {
         PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
         return Result(rng);
