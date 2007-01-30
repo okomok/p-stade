@@ -56,8 +56,8 @@ PSTADE_CONSTANT(make_identities, (op_make_identities))
 PSTADE_PIPABLE(identities, (op_make_identities))
 
 
-PSTADE_CONSTANT(single_pass_tag, (boost::single_pass_traversal_tag))
-PSTADE_CONSTANT(forward_tag, (boost::forward_traversal_tag))
+PSTADE_CONSTANT(single_pass_tag,   (boost::single_pass_traversal_tag))
+PSTADE_CONSTANT(forward_tag,       (boost::forward_traversal_tag))
 PSTADE_CONSTANT(bidirectional_tag, (boost::bidirectional_traversal_tag))
 PSTADE_CONSTANT(random_access_tag, (boost::random_access_traversal_tag))
 

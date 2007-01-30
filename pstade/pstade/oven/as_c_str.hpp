@@ -13,11 +13,11 @@
 #include <cstddef> // size_t
 #include <cstring> // strlen
 #include <cwchar>  // wcslen
-#include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/or.hpp>
 #include <boost/type_traits/is_convertible.hpp>
 #include <pstade/auxiliary.hpp>
 #include <pstade/constant.hpp>
+#include <pstade/enable_if.hpp>
 #include <pstade/function.hpp>
 #include <pstade/pass_by.hpp>
 #include "./algorithm.hpp" // find
@@ -48,6 +48,14 @@ namespace as_c_str_detail {
     }
 
 
+    template< class X >
+    struct is_cstring :
+       boost::mpl::or_<
+            boost::is_convertible<X, char const *>,
+            boost::is_convertible<X, wchar_t const *>
+        >
+    { };
+
     template< class CString >
     struct cstring_to_range
     {
@@ -55,19 +63,6 @@ namespace as_c_str_detail {
             iter_range<typename pass_by_value<CString>::type> const
         type;
     };
-
-
-    template< class MaybeCString >
-    struct to_range :
-        boost::mpl::eval_if<
-            boost::mpl::or_<
-                boost::is_convertible<MaybeCString, char const *>,
-                boost::is_convertible<MaybeCString, wchar_t const *>
-            >,
-            cstring_to_range<MaybeCString>,
-            sub_range_result<MaybeCString>
-        >
-    { };
 
 
     // suppres warning: comparison between signed and unsigned integer
@@ -79,28 +74,31 @@ namespace as_c_str_detail {
     }
 
 
-    template< class MaybeCString >
+    template< class Range, class = enabler >
     struct baby
     {
         typedef typename
-            to_range<MaybeCString>::type
+            sub_range_result<Range>::type
         result;
 
-        result call(char const *psz)
-        {
-            return result(psz, psz + length(psz));
-        }
-
-        result call(wchar_t const *psz)
-        {
-            return result(psz, psz + length(psz));
-        }
-
-        template< class Range >
         result call(Range& rng)
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
             return result(boost::begin(rng), find(rng, zero<Range>()));
+        }
+    };
+
+    template< class CString >
+    struct baby<CString, typename enable_if< is_cstring<CString> >::type>
+    {
+        typedef typename
+            cstring_to_range<CString>::type
+        result;
+
+        template< class Char >
+        result call(Char *psz)
+        {
+            return result(psz, psz + length(psz));
         }
     };
 

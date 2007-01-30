@@ -10,12 +10,19 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Note:
+//
+// Without a specific iterator, this could be implemented by
+// using 'transformed' and 'op_identity', but 'constant_iterator' seems useful.
+
+
+#include <boost/range/begin.hpp>
+#include <boost/range/end.hpp>
 #include <pstade/function.hpp>
-#include <pstade/functional.hpp> // identity
 #include <pstade/pipable.hpp>
 #include "./concepts.hpp"
-#include "./detail/constant_reference.hpp"
-#include "./transformed.hpp"
+#include "./constant_iterator.hpp"
+#include "./iter_range.hpp"
 #include "./range_iterator.hpp"
 
 
@@ -28,22 +35,20 @@ namespace constants_detail {
     template< class Range >
     struct baby
     {
-        typedef typename
-            detail::constant_reference<
+        typedef
+            constant_iterator<
                 typename range_iterator<Range>::type
-            >::type
-        ref_t;
+            >
+        iter_t;
 
-        typedef typename
-            boost::result_of<
-                op_make_transformed<ref_t>(Range&, op_identity const&)
-            >::type
+        typedef
+            iter_range<iter_t> const
         result;
 
         result call(Range& rng)
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-            return op_make_transformed<ref_t>()(rng, identity);
+            return result(boost::begin(rng), boost::end(rng));
         }
     };
 

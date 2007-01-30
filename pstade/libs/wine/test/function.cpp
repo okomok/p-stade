@@ -14,6 +14,8 @@
 
 
 #include <string>
+#include <boost/type_traits/is_convertible.hpp>
+#include <pstade/enable_if.hpp>
 #include <pstade/test.hpp>
 
 
@@ -77,6 +79,36 @@ PSTADE_TEST_IS_RESULT_OF((double), op_bar(double&))
 PSTADE_TEST_IS_RESULT_OF((std::string), op_bar())
 
 
+#if 1 // !BOOST_WORKAROUND(BOOST_MSVC, == 1310) // VC7.1 ICE if 'boost::is_convertible' for enabling.
+
+template<class A0, class A1 = pstade::enabler>
+struct baby_buz
+{
+    typedef int result;
+    result call(A0&)
+    {
+        return 13;
+    }
+};
+
+template<class A0>
+struct baby_buz<A0, typename pstade::enable_if<boost::is_same<A0, const std::string> >::type>
+{
+    typedef std::string result;
+    result call(std::string s)
+    {
+        return s;
+    }
+};
+
+PSTADE_FUNCTION(buz, (baby_buz<_>))
+
+PSTADE_TEST_IS_RESULT_OF((int), op_buz(int&))
+PSTADE_TEST_IS_RESULT_OF((std::string), op_buz(std::string))
+
+#endif
+
+
 void test()
 {
     {
@@ -96,6 +128,14 @@ void test()
         boost::result_of<op_bar()>::type x = bar();
         BOOST_CHECK( x == "nullary" );
     }
+#if 1 // !BOOST_WORKAROUND(BOOST_MSVC, == 1310) // VC7.1 ICE if 'boost::is_convertible' for enabling.
+    {
+        boost::result_of<op_buz(int)>::type x = buz(1);
+        BOOST_CHECK( x == 13 );
+        boost::result_of<op_buz(std::string)>::type y = buz(std::string("abc"));
+        BOOST_CHECK( y == "abc" );
+    }
+#endif
 }
 
 

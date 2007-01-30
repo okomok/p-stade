@@ -22,6 +22,7 @@
 #include <boost/range.hpp>
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/identities.hpp>
+#include <pstade/is_same.hpp>
 
 
 namespace oven = pstade::oven;
@@ -46,6 +47,7 @@ void modern_way(Range& rng)
     *boost::begin(safe_rng) = 'x';
 }
 
+
 void test()
 {
     {
@@ -59,6 +61,7 @@ void test()
         std::string rng("urifoqjfoqnfeionfqo");
         std::vector<char> expected = rng|copied;
         BOOST_CHECK(oven::test_RandomAccess_Readable(rng, expected));
+        BOOST_CHECK( equals(rng, rng|constants, pstade::is_same) );
     }
 }
 

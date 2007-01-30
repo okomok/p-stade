@@ -330,7 +330,7 @@ PSTADE_ADL_BARRIER(functional) {
         template< class X >
         bool operator()(X const& x) const
         {
-            return x == 0;
+            return x == X(0);
         }
     };
 

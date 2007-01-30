@@ -13,25 +13,30 @@
 // What:
 //
 // A helper metafunction to implement constant iterators.
-// This seems more useful rather than something like
-// 'constant_iterator' which makes coding cumbersome.
-// See "../merge_iterator.hpp" or "../cycle_iterator".
 
 
 #include <boost/iterator/iterator_traits.hpp>
 #include <pstade/affect.hpp>
+#include <pstade/remove_cvr.hpp>
 
 
 namespace pstade { namespace oven { namespace detail {
 
 
 template< class Iterator >
-struct constant_reference :
-    affect<
-        typename boost::iterator_reference<Iterator>::type,
-        typename boost::iterator_value<Iterator>::type const
-    >
-{ };
+struct constant_reference
+{
+    typedef typename
+        boost::iterator_reference<Iterator>::type
+    ref_t;
+
+    typedef typename
+        affect<
+            ref_t,
+            typename remove_cvr<ref_t>::type const
+        >::type
+    type;
+};
 
 
 } } } // namespace pstade::oven::detail
