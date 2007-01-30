@@ -15,7 +15,7 @@
 // Differently from 'taken_while', this adaptor is not lazy.
 // I can't imagine the benefit of something like 'drop_while_iterator'.
 // With such iterator, an expression:
-// 'counting(1, 10^10)|identities(forward_tag)|dropped(10^10 - 1)|reversed;'
+// 'counting(1, 10^10)|identities(in_forward)|dropped(10^10 - 1)|reversed;'
 // won't hang up. But once you call 'copy', it would be inevitable to hang up.
 
 

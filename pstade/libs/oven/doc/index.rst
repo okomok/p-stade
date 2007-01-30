@@ -936,12 +936,14 @@ prefix (possibly empty) of the range of elements that satisfy `Predicate`_::
 
 ``unzipped``
 ^^^^^^^^^^^^
-Pending...
+``unzipped`` reverses ``zipped``::
+
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\unzipped.ipp
+
 
 - Header: ``<pstade/oven/unzipped.hpp>``
-- Valid expression: ``zipped_rng|unzipped_at<N>()`` or ``zipped_range|unzipped``
-- Precondition: ``N`` is a integral constant specifying the index.
-- Returns: A range which is unzipped the `zipped`_ range.
+- Valid expression: ``tuples|unzipped``, where ``tuples`` is a range whose value_type is ``boost::tuple``.
+- Returns: A ``boost::tuple`` whose elements are unzipped ranges.
 
 
 ``utf8_decoded``
@@ -982,7 +984,10 @@ Pending...
 ``zipped``
 ^^^^^^^^^^
 ``zipped`` takes a tuple of ranges and returns a range of corresponding tuples.
-If one input range is short, excess elements of the longer range are discarded.
+If one input range is short, excess elements of the longer range are discarded::
+
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\zipped.ipp
+
 
 - Header: ``<pstade/oven/zipped.hpp>``
 - Valid expression: ``pstade::pack(rng1,rng2,..rngN)|zipped``, where ``N <= 5``.

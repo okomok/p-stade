@@ -11,14 +11,23 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Note:
+//
+// Neither 'is_assignable' nor 'is_default_constructible'
+// seems impossible to implement.
+// Notice that 'is_lambda_functor' can't be the detection;
+// e.g. 'forward(lambda::_1)', which is neither assignable
+// nor a lambda functor.
+
+
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/function.hpp>
 #include <pstade/lambda_result_of.hpp> // inclusion guaranteed
+#include <pstade/object_generator.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/preprocessor.hpp>
 
@@ -75,33 +84,10 @@ namespace regular_detail {
     };
 
 
-    // Neither 'is_assignable' nor 'is_default_constructible'
-    // seems impossible to implement.
-    // Notice that 'is_lambda_functor' can't be the detection;
-    // e.g. 'forward(lambda::_1)', which is neither assignable
-    // nor a lambda functor.
-
-
-    template< class Function >
-    struct baby
-    {
-        typedef
-            op_result<
-                typename pass_by_value<Function>::type
-            >
-        result;
-
-        result call(Function& fun)
-        {
-            return result(fun);
-        }
-    };
-
-
 } // namespace regular_detail
 
 
-PSTADE_FUNCTION(regular, (regular_detail::baby<boost::mpl::_1>))
+PSTADE_OBJECT_GENERATOR(regular, (regular_detail::op_result< deduce<_1, to_value> >))
 
 
 } } // namespace pstade::oven

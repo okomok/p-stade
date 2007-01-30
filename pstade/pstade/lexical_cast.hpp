@@ -15,6 +15,7 @@
 #include <boost/utility/result_of.hpp>
 #include <pstade/automatic.hpp>
 #include <pstade/auxiliary.hpp>
+#include <pstade/deduced_const.hpp>
 
 
 namespace pstade {
@@ -34,7 +35,7 @@ namespace pstade {
 
 
     template<class To, class From> inline
-    typename boost::result_of<op_lexical_cast<To>(From const&)>::type
+    typename boost::result_of<op_lexical_cast<To>(PSTADE_DEDUCED_CONST(From)&)>::type
     lexical_cast(From const& from)
     {
         return op_lexical_cast<To>()(from);

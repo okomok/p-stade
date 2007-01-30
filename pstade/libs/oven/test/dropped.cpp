@@ -49,9 +49,9 @@ void test()
     }
     {
         std::string src("hello, drop_range!");
-        BOOST_CHECK( oven::equals(src|identities(single_pass_tag)|dropped(7)|dropped(5), std::string("range!")) );
-        BOOST_CHECK( oven::equals(src|identities(single_pass_tag)|dropped(7000), std::string()) );
-        BOOST_CHECK( oven::equals(src|identities(single_pass_tag)|dropped(distance(src)), std::string()) );
+        BOOST_CHECK( oven::equals(src|identities(in_single_pass)|dropped(7)|dropped(5), std::string("range!")) );
+        BOOST_CHECK( oven::equals(src|identities(in_single_pass)|dropped(7000), std::string()) );
+        BOOST_CHECK( oven::equals(src|identities(in_single_pass)|dropped(distance(src)), std::string()) );
     }
     {
         BOOST_CHECK( oven::test_empty(
@@ -66,13 +66,13 @@ void test()
     }
     {
         BOOST_CHECK( oven::test_empty(
-            std::string()|identities(single_pass_tag)|dropped(0)
+            std::string()|identities(in_single_pass)|dropped(0)
         ) );
         BOOST_CHECK( oven::test_empty(
-            std::string()|identities(single_pass_tag)|dropped(1)
+            std::string()|identities(in_single_pass)|dropped(1)
         ) );
         BOOST_CHECK( oven::test_empty(
-            std::string()|identities(single_pass_tag)|dropped(100)
+            std::string()|identities(in_single_pass)|dropped(100)
         ) );
     }
 }

@@ -22,6 +22,7 @@
 #include <boost/range.hpp>
 #include <pstade/oven/functions.hpp>
 #include <pstade/pack.hpp>
+#include <pstade/at.hpp>
 
 
 void test()
@@ -29,6 +30,23 @@ void test()
     namespace oven = pstade::oven;
     using namespace oven;
 
+    {
+        std::string rng0("01234567");
+        int rng1[] = { 0,1,2,3,4,5,6,7 };
+
+        std::vector<char> ans0 = rng0|copied;
+        std::vector<int> ans1  = rng1|copied;
+
+        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
+            pstade::at_c<0>(pstade::pack(rng0, rng1)|zipped|unzipped),
+            ans0
+        ) );
+
+        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
+            pstade::at_c<1>(pstade::pack(rng0, rng1)|zipped|unzipped),
+            ans1
+        ) );
+    }
     {
         std::string src0("0123456");
         std::string ans0("0123556");

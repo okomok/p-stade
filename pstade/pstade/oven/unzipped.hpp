@@ -31,8 +31,8 @@ namespace pstade { namespace oven {
 
 
 template< class N >
-struct op_unzipped_at :
-    callable< op_unzipped_at<N> >
+struct op_make_unzipped_at :
+    callable< op_make_unzipped_at<N> >
 {
     template< class Myself, class TupleRange >
     struct apply
@@ -74,18 +74,18 @@ namespace unzipped_at_detail {
 
 
     template< class TupleRange, class N > inline
-    typename boost::result_of<op_unzipped_at<N>(TupleRange&)>::type
+    typename boost::result_of<op_make_unzipped_at<N>(TupleRange&)>::type
     operator|(TupleRange& rng, unzipped_at<N> const&)
     {
-        return op_unzipped_at<N>()(rng);
+        return op_make_unzipped_at<N>()(rng);
     }
 
 
     template< class TupleRange, class N > inline
-    typename boost::result_of<op_unzipped_at<N>(PSTADE_DEDUCED_CONST(TupleRange)&)>::type
+    typename boost::result_of<op_make_unzipped_at<N>(PSTADE_DEDUCED_CONST(TupleRange)&)>::type
     operator|(TupleRange const& rng, unzipped_at<N> const&)
     {
-        return op_unzipped_at<N>()(rng);
+        return op_make_unzipped_at<N>()(rng);
     }
 
 
@@ -134,14 +134,16 @@ namespace unzipped_detail {
     {
         template< class N >
         struct apply :
-            boost::result_of<op_unzipped_at<N>(TupleRange&)>
+            boost::result_of<
+                op_make_unzipped_at<N>(TupleRange&)
+            >
         { };
 
         template< class N >
         typename apply<N>::type
         operator()(N const&) const
         {
-            return op_unzipped_at<N>()(m_rng);
+            return op_make_unzipped_at<N>()(m_rng);
         }
 
         explicit make_at_range(TupleRange& rng) :
@@ -167,8 +169,8 @@ namespace unzipped_detail {
 } // namespace unzipped_detail
 
 
-struct op_unzipped :
-    callable<op_unzipped>
+struct op_make_unzipped :
+    callable<op_make_unzipped>
 {
     template< class Myself, class TupleRange >
     struct apply
@@ -186,7 +188,8 @@ struct op_unzipped :
 };
 
 
-PSTADE_PIPABLE(unzipped, (op_unzipped))
+PSTADE_CONSTANT(make_unzipped, (op_make_unzipped))
+PSTADE_PIPABLE(unzipped, (op_make_unzipped))
 
 
 } } // namespace pstade::oven

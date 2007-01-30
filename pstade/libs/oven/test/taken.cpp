@@ -30,7 +30,7 @@ void test()
         std::vector<char> expected = std::string("hello")|copied;
 
         BOOST_CHECK( oven::test_Forward_Readable_Writable(
-            rng|identities(forward_tag)|taken(5),
+            rng|identities(in_forward)|taken(5),
             expected
         ) );
 
@@ -44,7 +44,7 @@ void test()
         std::vector<char> expected = rng|copied;
 
         BOOST_CHECK( oven::test_Forward_Readable_Writable(
-            rng|identities(forward_tag)|taken(5000),
+            rng|identities(in_forward)|taken(5000),
             expected
         ) );
     }
@@ -56,7 +56,7 @@ void test()
         ) );
 
         BOOST_CHECK( oven::test_empty(
-            rng|identities(forward_tag)|taken(0)
+            rng|identities(in_forward)|taken(0)
         ) );
     }
 }
