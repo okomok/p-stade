@@ -16,13 +16,18 @@
 // Const-ness of this range must be independent from const-ness of the 'X'.
 
 
+#include <memory> // auto_ptr
 #include <vector>
+#include <boost/pointee.hpp>
+#include <boost/shared_ptr.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <boost/utility/addressof.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/affect.hpp>
 #include <pstade/auxiliary.hpp>
-#include <pstade/function.hpp>
+#include <pstade/constant.hpp>
+#include <pstade/pass_by.hpp>
+#include "./indirected.hpp"
 #include "./iter_range.hpp"
 #include "./shared.hpp"
 
@@ -56,35 +61,77 @@ PSTADE_AUXILIARY0(as_single, (function< as_single_detail::baby<boost::mpl::_> >)
 namespace as_shared_single_detail {
 
 
-    template< class X >
-    struct baby
+    // As mentioned at "./shared.hpp", we must implement
+    // something like 'auxiliary0' from scratch.
+
+
+    struct op_as_shared_single
     {
-        typedef typename
-            affect<
-                X,
-                std::vector<typename boost::remove_cv<X>::type>
-            >::type
-        rng_t;
+        template< class FunCall >
+        struct result;
 
-        typedef typename
-            boost::result_of<
-                op_make_shared(rng_t *)
-            >::type
-        result;
-
-        result call(X& x)
+        template< class Fun, class Pointer >
+        struct result<Fun(Pointer)>
         {
-            return make_shared(
-                new rng_t(boost::addressof(x), boost::addressof(x) + 1)
-            );
+            typedef
+                boost::shared_ptr<
+                    typename boost::pointee<
+                        typename pass_by_value<Pointer>::type
+                    >::type
+                >
+            sp_t;
+
+            typedef
+                std::vector<sp_t>
+            rng_t;
+
+            typedef
+                typename boost::result_of<
+                    op_make_indirected<>(
+                        typename boost::result_of<
+                            op_make_shared(rng_t *)
+                        >::type
+                    )
+                >::type
+            type;
+        };
+
+        template< class X >
+        typename result<void(X *)>::type
+        operator()(X *p) const
+        {
+            typedef result<void(X *)> result_t;
+            typename result_t::sp_t sp(p);
+            return
+                make_indirected(
+                    make_shared(
+                        new typename result_t::rng_t(boost::addressof(sp), boost::addressof(sp) + 1)
+                    )
+                );
+        }
+
+        template< class X >
+        typename result<void(std::auto_ptr<X>)>::type
+        operator()(std::auto_ptr<X> ap) const
+        {
+            return (*this)(ap.release());
         }
     };
 
 
-} // namespace as_shard_single_detail
+    template< class Pointer > inline
+    typename boost::result_of<op_as_shared_single(Pointer&)>::type
+    operator|(Pointer p, op_as_shared_single const& fun)
+    {
+        return fun(p);
+    }
 
 
-PSTADE_AUXILIARY0(as_shared_single, (function< as_shared_single_detail::baby<boost::mpl::_> >))
+} // namespace as_shared_single_detail
+
+
+using as_shared_single_detail::op_as_shared_single;
+PSTADE_CONSTANT(as_shared_single, (op_as_shared_single))
 
 
 } } // namespace pstade::oven

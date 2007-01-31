@@ -31,12 +31,13 @@ struct op_make_scanned :
 {
     // Prefer const-qualified 'State';
     // It's common that 'rng' is constant but 'init' isn't 'const'.
+    // As 'scan_iterator' is constant, 'make_jointed' won't work in such case.
     template< class Myself, class Range, class State, class BinaryFun = op_plus const >
     struct apply :
         boost::result_of<
             op_make_jointed(
                 typename boost::result_of<
-                    op_as_shared_single(State const&)
+                    op_as_shared_single(State const *)
                 >::type,
                 typename boost::result_of<
                     op_make_iter_range(
@@ -59,7 +60,7 @@ struct op_make_scanned :
 
         return
             make_jointed(
-                as_shared_single(init),
+                as_shared_single(new State const(init)),
                 make_iter_range(
                     make_scan_iterator(begin(rng), init, fun),
                     make_scan_iterator(end(rng), init, fun)

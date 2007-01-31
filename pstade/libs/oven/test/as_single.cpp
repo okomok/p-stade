@@ -14,9 +14,11 @@
 #include <pstade/oven/as_single.hpp>
 
 
+#include <memory>
 #include <string>
 #include <vector>
 #include <pstade/oven/functions.hpp>
+#include <pstade/new_delete.hpp>
 
 
 void test()
@@ -38,9 +40,14 @@ void test()
     }
 
     {
-        char ch = 'a';
-        BOOST_CHECK( oven::equals(oven::as_shared_single(ch), ans) );
+        BOOST_CHECK( oven::equals(new char('a')|as_shared_single, ans) );
     }
+
+    {
+        BOOST_CHECK( oven::equals(as_shared_single(pstade::op_new_auto<char>()('a')), ans) );
+        BOOST_CHECK( oven::equals(pstade::op_new_auto<char>()('a')|as_shared_single, ans) );
+    }
+
 }
 
 
