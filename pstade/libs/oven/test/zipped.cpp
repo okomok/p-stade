@@ -47,13 +47,6 @@ void test()
             rng0|pstade::packed(rng1)|zipped,
             expected
         ) );
-
-#if 0 // rejected
-        BOOST_CHECK( oven::test_RandomAccess_Readable(
-            rng0|zipped(rng1), // will be rejected?
-            expected
-        ) );
-#endif
     }
     {
         std::string rng0("0123");
@@ -106,11 +99,37 @@ void test()
         BOOST_CHECK(( oven::equals(src0, ans0) ));
         BOOST_CHECK(( oven::equals(src1, ans1) ));
     }
-#if 1 // When tuple will become a fusion sequence...
     {
-        boost::make_tuple(std::string(), std::string())|zipped;
+        // tuple contains value.
+        std::string src0("0123456");
+        std::string ans0("0123556");
+
+        std::vector<int> src1; {
+            int tmp[] = { 0,1,2,3,4,5,6 };
+            oven::copy(tmp, std::back_inserter(src1));
+        }
+        std::vector<int> ans1; {
+            int tmp[] = { 0,1,2,3,5,5,6 };
+            oven::copy(tmp, std::back_inserter(ans1));
+        }
+
+        boost::tuple< std::string, std::vector<int> > z(src0, src1);
+        BOOST_FOREACH (
+            PSTADE_UNPARENTHESIZE((boost::tuple<char&, int&>)) t,
+            z|zipped
+        ) {
+            char& ch = boost::get<0>(t);
+            if (ch == '4')
+                ch = '5';
+
+            int& i = boost::get<1>(t);
+            if (i == 4)
+                i = 5;
+        }
+    
+        BOOST_CHECK(( oven::equals(boost::get<0>(z), ans0) ));
+        BOOST_CHECK(( oven::equals(boost::get<1>(z), ans1) ));
     }
-#endif
 }
 
 

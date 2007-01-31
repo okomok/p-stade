@@ -1,0 +1,26 @@
+
+subproject libs/oven/example ;
+
+import testing ;
+
+
+DEPENDS all : test ;
+
+
+rule oven-example-test ( name )
+{
+    return [
+        run $(name).cpp
+        : : :
+        <include>$(PSTADE_ROOT)
+        <include>$(BOOST_ROOT)
+    ] ;
+}
+
+
+test-suite range :
+    [ oven-example-test adjacent_difference ]
+    [ oven-example-test duplicates ]
+    [ oven-example-test specification ]
+    [ oven-example-test zip ]
+    ;
