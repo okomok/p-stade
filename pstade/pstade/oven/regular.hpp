@@ -26,8 +26,11 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
+#include <pstade/enable_if.hpp>
 #include <pstade/lambda_result_of.hpp> // inclusion guaranteed
 #include <pstade/object_generator.hpp>
+#include <pstade/to_shared_ptr.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/preprocessor.hpp>
 
@@ -63,6 +66,13 @@ namespace regular_detail {
         explicit op_result()
         { }
 
+        template< class Pointer >
+        explicit op_result(Pointer p,
+            typename enable_if< is_shared_ptr_constructible<Function, Pointer> >::type = 0
+        ) :
+            m_pfun(to_shared_ptr(p))
+        { }
+
         explicit op_result(Function const& fun) :
             m_pfun(new Function(fun))
         { }
@@ -88,6 +98,34 @@ namespace regular_detail {
 
 
 PSTADE_OBJECT_GENERATOR(regular, (regular_detail::op_result< deduce<_1, to_value> >))
+
+
+// This must be made from scrach; see "./shared.hpp"
+
+struct op_shared_regular
+{
+    template< class FunCall >
+    struct result;
+
+    template< class Fun, class Pointer >
+    struct result<Fun(Pointer)>
+    {
+        typedef
+            regular_detail::op_result<
+                typename shared_pointee<Pointer>::type
+            >
+        type;
+    };
+
+    template< class Pointer >
+    typename result<void(Pointer)>::type
+    operator()(Pointer p) const
+    {
+        return typename result<void(Pointer)>::type(p);
+    }
+};
+
+PSTADE_CONSTANT(shared_regular, (op_shared_regular))
 
 
 } } // namespace pstade::oven

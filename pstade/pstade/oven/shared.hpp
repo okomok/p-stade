@@ -10,15 +10,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <memory> // auto_ptr
 #include <boost/noncopyable.hpp>
-#include <boost/pointee.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/constant.hpp>
-#include <pstade/remove_cvr.hpp>
+#include <pstade/to_shared_ptr.hpp>
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
 #include "./share_iterator.hpp"
@@ -41,7 +39,7 @@ struct op_make_shared
     struct result<Fun(Pointer)>
     {
         typedef typename
-            boost::pointee<typename remove_cvr<Pointer>::type>::type
+            shared_pointee<Pointer>::type
         rng_t;
 
         typedef
@@ -53,27 +51,18 @@ struct op_make_shared
         type;
     };
 
-    template< class Range >
-    typename result<void(Range *)>::type
-    operator()(Range *prng) const
+    template< class Pointer >
+    typename result<void(Pointer)>::type
+    operator()(Pointer prng) const
     {
-        PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+        typedef result<void(Pointer)> result_;
+        PSTADE_CONCEPT_ASSERT((SinglePass<typename result_::rng_t>));
 
-        typedef typename result<op_make_shared(Range *)>::type result_t;
-        typedef typename result_t::iterator iter_t;
-
-        boost::shared_ptr<Range> sprng(prng);
-        return result_t(
-            iter_t(boost::begin(*sprng), sprng),
-            iter_t(boost::end(*sprng),   sprng)
+        boost::shared_ptr<typename result_::rng_t> sprng(to_shared_ptr(prng));
+        return typename result_::type(
+            typename result_::iter_t(boost::begin(*sprng), sprng),
+            typename result_::iter_t(boost::end(*sprng),   sprng)
         );
-    }
-
-    template< class X >
-    typename result<void(std::auto_ptr<X>)>::type
-    operator()(std::auto_ptr<X> prng) const
-    {
-        return (*this)(prng.release());
     }
 };
 

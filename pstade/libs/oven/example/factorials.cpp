@@ -20,7 +20,6 @@
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/core.hpp>
 #include <boost/tuple/tuple_io.hpp>
-#include <pstade/oven/recursion.hpp>
 
 
 namespace assign = boost::assign;
@@ -33,15 +32,13 @@ typedef
 range;
 
 
-range factorials(int n)
-{
-    return counting(1, n)|
+range factorials =
+    counting_from(1) |
         scanned(1, // '1' is shared, so no dangling.
             regular(lambda::_1 * lambda::_2));
-}
 
 
 int main()
 {
-    std::cout << ::factorials(10);
+    std::cout << (::factorials|taken(10));
 }

@@ -66,8 +66,8 @@ struct rand_generator
 
 
 #if 0 // impossible
-// copy of an iterator would copy the address into itself.
-// That's the dangling pointer!
+// copy of an iterator would copy the address of 'm_state'
+// into the iterator. That's the dangling pointer!
 struct ptr_generator :
     private boost::noncopyable
 {
@@ -139,30 +139,30 @@ void test()
 #endif
 
     {
-        my_generator X(10);
+        boost::shared_ptr<my_generator> pX( new my_generator(10) );
 
-        BOOST_FOREACH (int x, oven::generation(X)) {
+        BOOST_FOREACH (int x, oven::generation(shared_regular(pX))) {
             std::cout << x << std::endl;
         }
 
-        BOOST_CHECK(X.m_state == 0);
+        BOOST_CHECK(pX->m_state == 0);
     }
 
     {
-        my_generator X(10);
+        boost::shared_ptr<my_generator> pX( new my_generator(10) );
         int ans[] = { 9,8,7,6,5,4,3,2,1 };
         std::vector<int> expected = ans|copied;
 
         BOOST_CHECK( oven::test_SinglePass_Readable(
-            oven::generation(X),
+            oven::generation(shared_regular(pX)),
             expected
         ));
 
-        BOOST_CHECK(X.m_state == 0);
+        BOOST_CHECK(pX->m_state == 0);
     }
 
     {
-        BOOST_FOREACH (long x, oven::generation_copied(rand_generator())) {
+        BOOST_FOREACH (long x, oven::generation(rand_generator())) {
             std::cout << x << std::endl;
         }
     }
@@ -193,7 +193,7 @@ void test()
         ss << src;
         from_istream<char, char> X(ss);
 
-        BOOST_CHECK( oven::equals(oven::generation(X), src) );
+        BOOST_CHECK( oven::equals(oven::generation(regular(X)), src) );
     }
 }
 

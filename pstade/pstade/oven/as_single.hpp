@@ -16,17 +16,13 @@
 // Const-ness of this range must be independent from const-ness of the 'X'.
 
 
-#include <memory> // auto_ptr
 #include <vector>
-#include <boost/pointee.hpp>
 #include <boost/shared_ptr.hpp>
-#include <boost/type_traits/remove_cv.hpp>
 #include <boost/utility/addressof.hpp>
 #include <boost/utility/result_of.hpp>
-#include <pstade/affect.hpp>
 #include <pstade/auxiliary.hpp>
 #include <pstade/constant.hpp>
-#include <pstade/pass_by.hpp>
+#include <pstade/to_shared_ptr.hpp>
 #include "./indirected.hpp"
 #include "./iter_range.hpp"
 #include "./shared.hpp"
@@ -75,9 +71,7 @@ namespace as_shared_single_detail {
         {
             typedef
                 boost::shared_ptr<
-                    typename boost::pointee<
-                        typename pass_by_value<Pointer>::type
-                    >::type
+                    typename shared_pointee<Pointer>::type
                 >
             sp_t;
 
@@ -96,25 +90,18 @@ namespace as_shared_single_detail {
             type;
         };
 
-        template< class X >
-        typename result<void(X *)>::type
-        operator()(X *p) const
+        template< class Pointer >
+        typename result<void(Pointer)>::type
+        operator()(Pointer p) const
         {
-            typedef result<void(X *)> result_t;
-            typename result_t::sp_t sp(p);
+            typedef result<void(Pointer)> result_;
+            typename result_::sp_t sp(to_shared_ptr(p));
             return
                 make_indirected(
                     make_shared(
-                        new typename result_t::rng_t(boost::addressof(sp), boost::addressof(sp) + 1)
+                        new typename result_::rng_t(boost::addressof(sp), boost::addressof(sp) + 1)
                     )
                 );
-        }
-
-        template< class X >
-        typename result<void(std::auto_ptr<X>)>::type
-        operator()(std::auto_ptr<X> ap) const
-        {
-            return (*this)(ap.release());
         }
     };
 

@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/oven/tests.hpp>
 #include <pstade/oven/iteration.hpp>
 
 
@@ -18,6 +19,7 @@
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/taken.hpp>
 #include <pstade/oven/taken_while.hpp>
+#include <pstade/oven/const_lvalues.hpp>
 
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/core.hpp>

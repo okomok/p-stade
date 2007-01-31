@@ -20,6 +20,7 @@
 #include <pstade/oven/filtered.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/core.hpp>
+#include <pstade/new_delete.hpp>
 
 
 template< class F >
@@ -40,6 +41,8 @@ void test()
     {
         ::regular_check(regular(lambda::_1 != 'c'));
         ::regular_check(regular(lambda::_1 += 1 ));
+        ::regular_check(shared_regular(new pstade::op_less()));
+        ::regular_check(shared_regular(pstade::op_new_auto<pstade::op_less>()()));
     }
     {
         std::string rng("abcABc12c");

@@ -17,8 +17,7 @@
 
 #include <boost/optional.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
-#include <pstade/dont_care.hpp>
+#include <pstade/function.hpp>
 #include <pstade/pass_by.hpp>
 #include "./generation.hpp"
 
@@ -30,9 +29,11 @@ namespace iteration_detail {
 
 
     template< class State, class UnaryFun >
-    struct do_it
+    struct op_gen
     {
-        typedef boost::optional<State> result_type;
+        typedef
+            boost::optional<State>
+        result_type;
 
         result_type operator()()
         {
@@ -45,7 +46,7 @@ namespace iteration_detail {
             return m_state;
         }
 
-        do_it(State const& init, UnaryFun const& fun) :
+        op_gen(State const& init, UnaryFun const& fun) :
             m_state(init), m_fun(fun), m_beginning(true)
         { }
 
@@ -56,17 +57,11 @@ namespace iteration_detail {
     };
 
 
-} // namespace iteration_detail
-
-
-struct op_iteration :
-    callable<op_iteration>
-{
-    template< class Myself, class State, class UnaryFun, class Traversal = boost::single_pass_traversal_tag >
-    struct apply
+    template< class State, class UnaryFun >
+    struct baby
     {
         typedef
-            iteration_detail::do_it<
+            iteration_detail::op_gen<
                 typename pass_by_value<State>::type,
                 typename pass_by_value<UnaryFun>::type
             >
@@ -74,20 +69,21 @@ struct op_iteration :
 
         typedef typename
             boost::result_of<
-                op_generation_copied(gen_t)
+                op_generation(gen_t)
             >::type
-        type;
+        result;
+
+        result call(State& init, UnaryFun& fun)
+        {
+            return generation(gen_t(init, fun));
+        }
     };
 
-    template< class Result, class State, class UnaryFun >
-    Result call(State const& init, UnaryFun fun, dont_care = 0) const
-    {
-        return generation_copied(iteration_detail::do_it<State, UnaryFun>(init, fun));
-    }
-};
+
+} // namespace iteration_detail
 
 
-PSTADE_CONSTANT(iteration, (op_iteration))
+PSTADE_FUNCTION(iteration, (iteration_detail::baby<_, _>))
 
 
 } } // namespace pstade::oven

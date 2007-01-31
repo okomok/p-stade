@@ -167,7 +167,7 @@ void test()
     test_suite *
     init_unit_test_suite(int argc, char *argv[])
     {
-        test_suite *test = BOOST_TEST_SUITE("Oven Test Suite");
+        test_suite *test = BOOST_TEST_SUITE("Wine Test Suite");
         test->add(BOOST_TEST_CASE(&::test));
 
         (void)argc, (void)argv; // unused
