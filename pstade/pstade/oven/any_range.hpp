@@ -57,6 +57,9 @@ private:
 
 public:
 // structors
+    any_range()
+    { }
+
     template< class Range >
     any_range(Range& rng, typename unused_to_copy<self_t, Range>::type = 0) :
         super_t(boost::begin(rng), boost::end(rng))

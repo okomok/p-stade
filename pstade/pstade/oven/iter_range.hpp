@@ -194,7 +194,9 @@ template< class Iterator, class CharT, class Traits > inline
 std::basic_ostream<CharT, Traits>&
 operator<<(std::basic_ostream<CharT, Traits>& os, iter_range<Iterator> const& ir)
 {
-    oven::copy(ir, to_ostream<typename boost::iterator_value<Iterator>::type>(os));
+    os << '{';
+    oven::copy(ir, to_ostream<typename boost::iterator_value<Iterator>::type>(os, ","));
+    os << '}';
     return os;
 }
 

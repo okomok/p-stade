@@ -36,6 +36,11 @@ void test()
         char ch = 'a';
         BOOST_CHECK( oven::equals(oven::as_single(ch), ans) );
     }
+
+    {
+        char ch = 'a';
+        BOOST_CHECK( oven::equals(oven::as_shared_single(ch), ans) );
+    }
 }
 
 

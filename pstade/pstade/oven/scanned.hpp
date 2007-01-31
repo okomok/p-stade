@@ -15,10 +15,11 @@
 #include <pstade/constant.hpp>
 #include <pstade/functional.hpp> // plus
 #include <pstade/pipable.hpp>
+#include "./as_single.hpp"
 #include "./begin_end.hpp"
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
-#include "./prepended.hpp"
+#include "./jointed.hpp"
 #include "./scan_iterator.hpp"
 
 
@@ -33,7 +34,10 @@ struct op_make_scanned :
     template< class Myself, class Range, class State, class BinaryFun = op_plus const >
     struct apply :
         boost::result_of<
-            op_make_prepended(
+            op_make_jointed(
+                typename boost::result_of<
+                    op_as_shared_single(State const&)
+                >::type,
                 typename boost::result_of<
                     op_make_iter_range(
                         typename boost::result_of<
@@ -43,8 +47,7 @@ struct op_make_scanned :
                             op_make_scan_iterator(typename boost::result_of<op_end(Range&)>::type, State const&, BinaryFun&)
                         >::type
                     )
-                >::type,
-                State const&
+                >::type
             )
         >
     { };
@@ -55,12 +58,12 @@ struct op_make_scanned :
         PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
 
         return
-            make_prepended(
+            make_jointed(
+                as_shared_single(init),
                 make_iter_range(
                     make_scan_iterator(begin(rng), init, fun),
                     make_scan_iterator(end(rng), init, fun)
-                ),
-                init
+                )
             );
     }
 

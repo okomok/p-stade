@@ -990,10 +990,8 @@ If one input range is short, excess elements of the longer range are discarded::
 
 
 - Header: ``<pstade/oven/zipped.hpp>``
-- Valid expression: ``pstade::pack(rng1,rng2,..rngN)|zipped``, where ``N <= 5``.
+- Valid expression: ``rngs|zipped``, where ``rngs`` is a ``boost::tuple`` of ranges.
 - Returns: A range whose iterators behave as if they were the original iterators wrapped in ``boost::zip_iterator``.
-
-If the base ranges are neither const-reference nor rvalues, you can use ``boost::tie`` instead of ``pstade::pack``.
 
 
 ``zipped_with``
@@ -1005,8 +1003,8 @@ given as the first argument, instead of a tupling::
 
 
 - Header: ``<pstade/oven/zipped_with.hpp>``
-- Valid expression: ``pstade::pack(rng1,rng2,..rngN)|zipped_with(rfun)``, where ``N <= 5``.
-- Precondition1: The arity of ``rfun`` is ``N``.
+- Valid expression: ``rngs|zipped_with(rfun)``, where ``rngs`` is a ``boost::tuple`` of ranges.
+- Precondition1: The arity of ``rfun`` is the length of ``rngs``.
 - Returns: A range whose values are zipped by using ``rfun``.
 
 
@@ -1233,3 +1231,5 @@ Version 0.93.2
 - ``dropped`` and ``taken`` accept ``n`` which is larger than the distance.
 - Removed ``null_terminated``.
 - ``as_c_str`` accepts a range.
+- ``zipped`` and ``zipped_with`` accept any tuple.
+

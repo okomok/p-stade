@@ -16,10 +16,15 @@
 // Const-ness of this range must be independent from const-ness of the 'X'.
 
 
+#include <vector>
+#include <boost/type_traits/remove_cv.hpp>
 #include <boost/utility/addressof.hpp>
+#include <boost/utility/result_of.hpp>
+#include <pstade/affect.hpp>
 #include <pstade/auxiliary.hpp>
 #include <pstade/function.hpp>
 #include "./iter_range.hpp"
+#include "./shared.hpp"
 
 
 namespace pstade { namespace oven {
@@ -46,6 +51,40 @@ namespace as_single_detail {
 
 
 PSTADE_AUXILIARY0(as_single, (function< as_single_detail::baby<boost::mpl::_> >))
+
+
+namespace as_shared_single_detail {
+
+
+    template< class X >
+    struct baby
+    {
+        typedef typename
+            affect<
+                X,
+                std::vector<typename boost::remove_cv<X>::type>
+            >::type
+        rng_t;
+
+        typedef typename
+            boost::result_of<
+                op_make_shared(rng_t *)
+            >::type
+        result;
+
+        result call(X& x)
+        {
+            return make_shared(
+                new rng_t(boost::addressof(x), boost::addressof(x) + 1)
+            );
+        }
+    };
+
+
+} // namespace as_shard_single_detail
+
+
+PSTADE_AUXILIARY0(as_shared_single, (function< as_shared_single_detail::baby<boost::mpl::_> >))
 
 
 } } // namespace pstade::oven
