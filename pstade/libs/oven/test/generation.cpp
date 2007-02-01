@@ -92,11 +92,23 @@ struct ptr_generator :
 };
 #endif
 
+
+struct rock
 #if 0
-// After all 'rock' must be assignable.
-struct rock :
-    boost::noncopyable
+    // Hmm, 'iterator_facade' requires 'value_type' to be CopyConstructible...
+    : private boost::noncopyable
+#endif
 {
+
+    rock(rock const&) {
+        BOOST_CHECK(false);
+    }
+    rock& operator=(rock const&)
+    {
+        BOOST_CHECK(false);
+        return *this;
+    }
+
     explicit rock(int i) : m_i(i) { }
     int m_i;
 };
@@ -123,7 +135,6 @@ struct rock_generator
 
     int m_state;
 };
-#endif
 
 template< class T, class CharT, class Traits = std::char_traits<CharT> >
 struct from_istream
@@ -156,21 +167,6 @@ void test()
     namespace oven = pstade::oven;
     using namespace oven;
 
-#if 0 // rejected interface
-    {
-        // Workaround:
-        // GCC cannot order const and non-const reference to function,
-        // with 'std::'.
-        // (Note that const-qualified function type is illegal, but GCC allows.)
-        // Now it seems impossible to support a function reference...
-        using std::rand;
-
-        BOOST_FOREACH (long x, oven::count_to(10)|generation(rand)) {
-            std::cout << x << std::endl;
-        }
-    }
-#endif
-
     {
         boost::shared_ptr<my_generator> pX( new my_generator(10) );
 
@@ -181,17 +177,17 @@ void test()
         BOOST_CHECK(pX->m_state == 0);
     }
 
-#if 0
     {
         ::rock_generator gen(10);
+        oven::generation(gen);
 
+        // Note: rock range is not Readable but Lvalue range.
         BOOST_FOREACH (::rock& r, oven::generation(gen)) {
             std::cout << r.m_i << std::endl;
         }
 
-        BOOST_CHECK(gen.m_state == 0);
+        BOOST_CHECK(gen.m_state == 10); // gen is copied. STL's way.
     }
-#endif
 
     {
         boost::shared_ptr<my_generator> pX( new my_generator(10) );

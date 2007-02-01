@@ -334,7 +334,7 @@ __ http://www.boost.org/libs/iterator/doc/counting_iterator.html
 
 ``generation``
 ^^^^^^^^^^^^^^^^^^
-``generation`` returns a `Single Pass Range`_ whose iterators were originally written as `generator_iterator`__::
+``generation`` returns a range whose iterators were originally written as `generator_iterator`__::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\generation.ipp
 
@@ -342,9 +342,9 @@ __ http://www.boost.org/libs/utility/generator_iterator.htm
 
 
 - Header: ``<pstade/oven/generation.hpp>``
-- Valid expression: ``generation(rfun)`` or ``generation_copied(rfun)``
+- Valid expression: ``generation(rfun)``
 - Precondition:``rfun`` call returns initialized ``boost::optional`` if range is not end; Otherwise, returns uninitialized one.
-- Returns: A `Single Pass Range`_ whose values are the results of invoking ``rfun``, where ``rfun`` is copied in the latter valid expression.
+- Returns: A `Single Pass Range`_ whose values are the results of invoking ``rfun``.
 
 
 ``indexing``
@@ -1232,4 +1232,4 @@ Version 0.93.2
 - Removed ``null_terminated``.
 - ``as_c_str`` accepts a range.
 - ``zipped`` and ``zipped_with`` accept any tuple.
-
+- Removed ``generation_copied``.

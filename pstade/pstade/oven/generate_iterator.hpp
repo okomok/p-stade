@@ -11,12 +11,14 @@
 
 
 #include <boost/assert.hpp>
+#include <boost/indirect_reference.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/optional.hpp>
 #include <boost/type_traits/add_reference.hpp>
 #include <boost/utility/result_of.hpp>
+#include <pstade/object_generator.hpp>
 #include <pstade/remove_cvr.hpp>
 
 
@@ -33,7 +35,9 @@ namespace generate_iterator_detail {
     // "Optional" becomes a new concept?
 
     template< class X >
-    struct indirect_reference;
+    struct indirect_reference :
+        boost::indirect_reference<X>
+    { };
 
     template< class T >
     struct indirect_reference< boost::optional<T> > :
@@ -49,9 +53,11 @@ namespace generate_iterator_detail {
         result_t;
 
         typedef typename
-            remove_cvr<
-                typename indirect_reference<result_t>::type
-            >::type
+            indirect_reference<result_t>::type
+        ref_t;
+
+        typedef typename
+            remove_cvr<ref_t>::type
         val_t;
 
         typedef
@@ -59,7 +65,7 @@ namespace generate_iterator_detail {
                 generate_iterator<Generator>,
                 val_t,
                 boost::single_pass_traversal_tag,
-                val_t const&
+                ref_t
             >
         type;
     };
@@ -102,7 +108,8 @@ public:
 
 private:
     Generator m_gen;
-    typename boost::result_of<Generator()>::type m_result;
+    // 'mutable' needed; const-ness of 'optional' affects its element.
+    mutable typename boost::result_of<Generator()>::type m_result;
 
     void generate()
     {
@@ -127,6 +134,10 @@ friend class boost::iterator_core_access;
         generate();
     }
 };
+
+
+PSTADE_OBJECT_GENERATOR(make_generate_iterator,
+    (generate_iterator< deduce<_1, to_value> >) const)
 
 
 } } // namespace pstade::oven

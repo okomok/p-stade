@@ -32,8 +32,8 @@ namespace scan_iterator_detail {
     template< class Iterator >
     struct traversal :
         boost::detail::minimum_category<
-            typename detail::pure_traversal<Iterator>::type,
-            boost::forward_traversal_tag
+            boost::forward_traversal_tag,
+            typename detail::pure_traversal<Iterator>::type
         >
     { };
 

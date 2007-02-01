@@ -50,8 +50,8 @@ namespace adjacent_filter_iterator_detail {
     template< class ForwardIter >
     struct traversal :
         boost::detail::minimum_category<
-            typename detail::pure_traversal<ForwardIter>::type,
-            boost::bidirectional_traversal_tag
+            boost::bidirectional_traversal_tag,
+            typename detail::pure_traversal<ForwardIter>::type
         >
     { };
 

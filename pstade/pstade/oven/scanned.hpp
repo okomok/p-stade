@@ -45,7 +45,7 @@ struct op_make_scanned :
                             op_make_scan_iterator(typename boost::result_of<op_begin(Range&)>::type, State const&, BinaryFun&)
                         >::type,
                         typename boost::result_of<
-                            op_make_scan_iterator(typename boost::result_of<op_end(Range&)>::type, State const&, BinaryFun&)
+                            op_make_scan_iterator(typename boost::result_of<op_end(Range&)>::type,   State const&, BinaryFun&)
                         >::type
                     )
                 >::type
@@ -63,7 +63,7 @@ struct op_make_scanned :
                 as_shared_single(new State const(init)),
                 make_iter_range(
                     make_scan_iterator(begin(rng), init, fun),
-                    make_scan_iterator(end(rng), init, fun)
+                    make_scan_iterator(end(rng),   init, fun)
                 )
             );
     }

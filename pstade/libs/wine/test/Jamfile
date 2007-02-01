@@ -68,6 +68,7 @@ test-suite wine :
     [ wine-test statement ]
     [ wine-test static_c ]
     [ wine-test template_arguments ]
+    [ wine-test to_shared_ptr ]
     [ wine-test unfuse ]
     [ wine-test unparenthesize ]
     [ wine-test unused ]
