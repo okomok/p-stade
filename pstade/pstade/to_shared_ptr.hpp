@@ -10,6 +10,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// What:
+//
+// Passes a pointer to 'shared_ptr' constructor.
+// Boost1.34 will make this deprecated.
+
+
 #include <memory> // auto_ptr
 #include <boost/mpl/bool.hpp>
 #include <boost/pointee.hpp>
@@ -38,7 +44,7 @@ namespace pstade {
         template<class Fun, class X>
         struct result<Fun(X *)>
         {
-            typedef boost::shared_ptr<X> type;
+            typedef X *type;
         };
 
         template<class Fun, class X>
@@ -50,22 +56,21 @@ namespace pstade {
         template<class Fun, class X>
         struct result<Fun(std::auto_ptr<X>)>
         {
-            typedef boost::shared_ptr<X> type;
+            typedef X *type;
         };
 
         template<class Pointer>
         typename result<void(Pointer)>::type
         operator()(Pointer p) const
         {
-            return typename result<void(Pointer)>::type(p);
+            return p;
         }
 
-        // needed until Boost1.34 comes.
         template<class X>
         typename result<void(std::auto_ptr<X>)>::type
         operator()(std::auto_ptr<X> ap) const
         {
-            return typename result<void(std::auto_ptr<X>)>::type(ap.release());
+            return ap.release();
         }
     };
 

@@ -11,7 +11,6 @@
 
 
 #include <boost/assert.hpp>
-#include <boost/config.hpp> // BOOST_NESTED_TEMPLATE
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/mpl/bool.hpp>
@@ -31,9 +30,9 @@ struct generate_iterator;
 namespace generate_iterator_detail {
 
 
-    // "Optional" seems to be a new concept?
+    // "Optional" becomes a new concept?
 
-    template< class T >
+    template< class X >
     struct indirect_reference;
 
     template< class T >

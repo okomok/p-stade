@@ -56,11 +56,11 @@ void test()
         BOOST_CHECK( !(rng1 != rng2 ) );
     }
     {
+        std::string src("abc");
         std::stringstream ss;
         oven::iter_range<std::string::iterator> rng(src);
         ss << rng;
-        std::string str = ss.str();
-        BOOST_CHECK( src == str );
+        BOOST_CHECK( ss.str() == "{a,b,c,}" );
     }
 #if 0 // rejected
     {

@@ -20,6 +20,7 @@
 #include <sstream>
 #include <boost/foreach.hpp>
 #include <boost/range.hpp>
+#include <boost/shared_ptr.hpp>
 #include <boost/noncopyable.hpp>
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/to_function.hpp>
@@ -91,6 +92,38 @@ struct ptr_generator :
 };
 #endif
 
+#if 0
+// After all 'rock' must be assignable.
+struct rock :
+    boost::noncopyable
+{
+    explicit rock(int i) : m_i(i) { }
+    int m_i;
+};
+
+struct rock_generator
+{
+    rock_generator(int last) :
+        m_state(last)
+    { }
+
+    typedef
+        boost::shared_ptr<rock>
+    result_type;
+
+    result_type operator()()
+    {
+        --m_state;
+
+        if (m_state == 0)
+            return result_type();
+
+        return result_type(new rock(m_state));
+    }
+
+    int m_state;
+};
+#endif
 
 template< class T, class CharT, class Traits = std::char_traits<CharT> >
 struct from_istream
@@ -147,6 +180,18 @@ void test()
 
         BOOST_CHECK(pX->m_state == 0);
     }
+
+#if 0
+    {
+        ::rock_generator gen(10);
+
+        BOOST_FOREACH (::rock& r, oven::generation(gen)) {
+            std::cout << r.m_i << std::endl;
+        }
+
+        BOOST_CHECK(gen.m_state == 0);
+    }
+#endif
 
     {
         boost::shared_ptr<my_generator> pX( new my_generator(10) );
