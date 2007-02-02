@@ -14,12 +14,12 @@
 #include <boost/indirect_reference.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/mpl/assert.hpp>
-#include <boost/mpl/bool.hpp>
 #include <boost/optional.hpp>
 #include <boost/type_traits/add_reference.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/object_generator.hpp>
 #include <pstade/remove_cvr.hpp>
+#include "./begin_end.hpp"
 
 
 namespace pstade { namespace oven {
@@ -79,7 +79,6 @@ struct generate_iterator :
     generate_iterator_detail::super_<Generator>::type
 {
 private:
-    typedef generate_iterator self_t;
     typedef typename generate_iterator_detail::super_<Generator>::type super_t;
     typedef typename super_t::reference ref_t;
 
@@ -87,17 +86,17 @@ public:
     // If default-constructed one plays the end iterator role,
     // it would require 'Generator' to be DefaultConstructible.
     // But SinglePassIterator is not required to be.
-    // So, prefer the constructor with 'mpl::true_/false_'.
+    // So, specify it by using 'op_begin/op_end'.
     generate_iterator()
     { }
 
-    generate_iterator(Generator const& gen, boost::mpl::true_) :
+    generate_iterator(Generator const& gen, op_begin) :
         m_gen(gen), m_result()
     {
         generate();
     }
 
-    generate_iterator(Generator const& gen, boost::mpl::false_) : // end iterator
+    generate_iterator(Generator const& gen, op_end) :
         m_gen(gen), m_result()
     { }
 
@@ -123,7 +122,7 @@ friend class boost::iterator_core_access;
         return *m_result;
     }
 
-    bool equal(self_t const& other) const
+    bool equal(generate_iterator const& other) const
     {
         return is_end() && other.is_end();
     }

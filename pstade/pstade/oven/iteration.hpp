@@ -29,7 +29,7 @@ namespace iteration_detail {
 
 
     template< class State, class UnaryFun >
-    struct op_gen
+    struct op_iterate
     {
         typedef
             boost::optional<State>
@@ -46,7 +46,7 @@ namespace iteration_detail {
             return m_state;
         }
 
-        op_gen(State const& init, UnaryFun const& fun) :
+        op_iterate(State const& init, UnaryFun const& fun) :
             m_state(init), m_fun(fun), m_beginning(true)
         { }
 
@@ -61,7 +61,7 @@ namespace iteration_detail {
     struct baby
     {
         typedef
-            iteration_detail::op_gen<
+            op_iterate<
                 typename pass_by_value<State>::type,
                 typename pass_by_value<UnaryFun>::type
             >

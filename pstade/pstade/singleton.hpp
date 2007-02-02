@@ -37,7 +37,6 @@ namespace pstade {
 } // namespace pstade
 
 
-
 #define PSTADE_SINGLETON(O, T) \
     PSTADE_SINGLETON_aux(O, PSTADE_UNPARENTHESIZE(T)) \
 /**/

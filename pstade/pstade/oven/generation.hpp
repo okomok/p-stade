@@ -37,10 +37,7 @@ namespace generation_detail {
 
         result call(Generator& gen)
         {
-            return result(
-                iter_t(gen, boost::mpl::true_()),
-                iter_t(gen, boost::mpl::false_())
-            );
+            return result(iter_t(gen, begin), iter_t(gen, end));
         }
     };
 
