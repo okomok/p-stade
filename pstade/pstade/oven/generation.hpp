@@ -10,6 +10,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/optional.hpp>
+#include <boost/utility/result_of.hpp>
 #include <pstade/function.hpp>
 #include <pstade/object_generator.hpp>
 #include <pstade/pass_by.hpp>
@@ -52,12 +54,12 @@ PSTADE_FUNCTION(generation, (generation_detail::baby<_>))
 namespace innumerable_detail {
 
 
-    template< class StdGenerator >
+    template< class Generator_ >
     struct op_result
     {
         typedef
             boost::optional<
-                typename boost::result_of<StdGenerator()>::type
+                typename boost::result_of<Generator_()>::type
             >
         result_type;
 
@@ -66,12 +68,12 @@ namespace innumerable_detail {
             return result_type(m_gen());
         }
 
-        explicit op_result(StdGenerator const& gen) :
+        explicit op_result(Generator_ const& gen) :
             m_gen(gen)
         { }
 
     private:
-        StdGenerator m_gen;        
+        Generator_ m_gen;        
     };
 
 
