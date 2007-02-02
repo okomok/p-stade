@@ -83,12 +83,11 @@ private:
     typedef typename super_t::reference ref_t;
 
 public:
+
     // If default-constructed one plays the end iterator role,
     // it would require 'Generator' to be DefaultConstructible.
     // But SinglePassIterator is not required to be.
     // So, specify it by using 'op_begin/op_end'.
-    generate_iterator()
-    { }
 
     generate_iterator(Generator const& gen, op_begin) :
         m_gen(gen), m_result()

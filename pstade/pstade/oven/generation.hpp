@@ -11,6 +11,7 @@
 
 
 #include <pstade/function.hpp>
+#include <pstade/object_generator.hpp>
 #include <pstade/pass_by.hpp>
 #include "./generate_iterator.hpp"
 #include "./iter_range.hpp"
@@ -46,6 +47,39 @@ namespace generation_detail {
 
 
 PSTADE_FUNCTION(generation, (generation_detail::baby<_>))
+
+
+namespace innumerable_detail {
+
+
+    template< class StdGenerator >
+    struct op_result
+    {
+        typedef
+            boost::optional<
+                typename boost::result_of<StdGenerator()>::type
+            >
+        result_type;
+
+        result_type operator()()
+        {
+            return result_type(m_gen());
+        }
+
+        explicit op_result(StdGenerator const& gen) :
+            m_gen(gen)
+        { }
+
+    private:
+        StdGenerator m_gen;        
+    };
+
+
+} // namespace innumerable_detail
+
+
+PSTADE_OBJECT_GENERATOR(innumerable,
+    (innumerable_detail::op_result< deduce<_1, to_value> >))
 
 
 } } // namespace pstade::oven

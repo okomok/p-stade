@@ -167,6 +167,23 @@ Note that the size of two ranges is also checked out::
 - Returns: ``true`` if and only if the ``oven::equal(rng1,boost::begin(rng2))`` and ``boost::size(rng1) == boost::size(rng2)`` returns ``true``.
 
 
+Utilities
+---------
+Some helper function objects are given to fill the gap between Oven and other libraries.
+
+
+``innumerable``
+^^^^^^^^^^^^^^^
+As discribed below, the function object `generation`_ needs is slightly different from
+the Generator concept defined by the Standard.
+``innumerable`` turns the Generator function object into the one,
+which creates an infinite range, working with `generation`_.
+
+- Header: ``<pstade/oven/generation.hpp>``
+- Valid expression: ``innumerable(rfun)``
+- Returns: A `generation`_ conforming function object.
+
+
 ``regular``
 ^^^^^^^^^^^
 Boost.Lambda functors are neither DefaultConstructible nor CopyAssignable.
@@ -178,6 +195,17 @@ An iterator holding such a functor cannot conform to even InputIterator.
 - Returns: A `Function Object`_ which is DefaultConstructible and CopyAssignable.
 
 In principle, call ``regular`` before a lambda functor is passed to `Range Adaptors`_.
+
+
+``shared_regular``
+^^^^^^^^^^^^^^^^^^
+``shared_regular`` converts a non-Copyable function object type to Copyable one.
+
+- Header: ``<pstade/oven/regular.hpp>``
+- Valid expression: ``shared_regular(ptr)``.
+- Precondition: ``boost::shared_ptr<F> f(ptr);`` is a valid expression.
+- Returns: A `Function Object`_ which is DefaultConstructible and CopyAssignable.
+
 
 
 Ranges
@@ -318,6 +346,11 @@ __ http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html#as-literal
 - Returns: A range which behaves as if it were ``[&v, &v+1)``.
 
 
+``as_shared_single``
+^^^^^^^^^^^^^^^^^^^^
+Pending...
+
+
 ``counting``
 ^^^^^^^^^^^^
 ``counting`` introduces the replacement of ``for`` loop::
@@ -345,6 +378,8 @@ __ http://www.boost.org/libs/utility/generator_iterator.htm
 - Valid expression: ``generation(rfun)``
 - Precondition:``rfun`` call returns initialized ``boost::optional`` if range is not end; Otherwise, returns uninitialized one.
 - Returns: A `Single Pass Range`_ whose values are the results of invoking ``rfun``.
+
+If you have a standard conforming Generator, you can convert it to ``generation`` conforming one by using `innumerable`_.
 
 
 ``indexing``
@@ -1233,3 +1268,5 @@ Version 0.93.2
 - ``as_c_str`` accepts a range.
 - ``zipped`` and ``zipped_with`` accept any tuple.
 - Removed ``generation_copied``.
+- Added ``shared_regular`` and ``innumerable``.
+

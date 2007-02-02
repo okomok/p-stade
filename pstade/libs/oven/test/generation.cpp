@@ -23,6 +23,7 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/noncopyable.hpp>
 #include <pstade/oven/functions.hpp>
+#include <pstade/oven/taken.hpp>
 #include <pstade/oven/to_function.hpp>
 #include <pstade/oven/counting.hpp>
 #include <pstade/nullptr.hpp>
@@ -136,6 +137,7 @@ struct rock_generator
     int m_state;
 };
 
+
 template< class T, class CharT, class Traits = std::char_traits<CharT> >
 struct from_istream
 {
@@ -170,23 +172,31 @@ void test()
     {
         boost::shared_ptr<my_generator> pX( new my_generator(10) );
 
-        BOOST_FOREACH (int x, oven::generation(shared_regular(pX))) {
-            std::cout << x << std::endl;
+        BOOST_FOREACH (int x, generation(shared_regular(pX))) {
+            std::cout << "," << x;
         }
 
         BOOST_CHECK(pX->m_state == 0);
+        std::cout << std::endl;
+    }
+
+    {
+        BOOST_FOREACH (long x, generation(innumerable(&std::rand))|taken(30)) {
+            std::cout << "," << x;
+        }
+        std::cout << std::endl;
     }
 
     {
         ::rock_generator gen(10);
-        oven::generation(gen);
 
         // Note: rock range is not Readable but Lvalue range.
-        BOOST_FOREACH (::rock& r, oven::generation(gen)) {
-            std::cout << r.m_i << std::endl;
+        BOOST_FOREACH (::rock& r, generation(gen)) {
+            std::cout << "," << r.m_i;
         }
 
         BOOST_CHECK(gen.m_state == 10); // gen is copied. STL's way.
+        std::cout << std::endl;
     }
 
     {
@@ -203,9 +213,10 @@ void test()
     }
 
     {
-        BOOST_FOREACH (long x, oven::generation(rand_generator())) {
-            std::cout << x << std::endl;
+        BOOST_FOREACH (long x, generation(::rand_generator())) {
+            std::cout << ", " << x;
         }
+        std::cout << std::endl;
     }
 
 #if 0 // impossible
