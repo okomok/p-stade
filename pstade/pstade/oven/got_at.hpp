@@ -13,10 +13,9 @@
 #include <boost/fusion/sequence/intrinsic/at.hpp>
 #include <boost/fusion/sequence/intrinsic/value_at.hpp>
 #include <boost/mpl/int.hpp>
-#include <boost/mpl/placeholders.hpp>
+#include <boost/mpl/placeholders.hpp> // _1
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/const_overloaded.hpp>
 #include <pstade/deduced_const.hpp>
 #include <pstade/nonassignable.hpp>
 #include "./concepts.hpp"
@@ -82,14 +81,22 @@ struct op_make_got_at :
 };
 
 
-template< class N >
-struct got_at;
-
-
 namespace got_at_detail {
 
 
-    struct adl_marker
+    template< class N >
+    struct got_at :
+        private nonassignable
+        // Topic:
+        // 'noncopyable' is allowed here by the latest standard draft,
+        // but GCC doesn't follow it yet.
+        // http://www.codecomments.com/archive324-2006-4-888159.html
+    { };
+
+
+    template< int N >
+    struct got_at_c :
+        got_at< boost::mpl::int_<N> >
     { };
 
 
@@ -99,7 +106,6 @@ namespace got_at_detail {
     {
         return op_make_got_at<N>()(rng);
     }
-
 
     template< class FusionSeqRange, class N > inline
     typename boost::result_of<op_make_got_at<N>(PSTADE_DEDUCED_CONST(FusionSeqRange)&)>::type
@@ -112,21 +118,8 @@ namespace got_at_detail {
 } // namespace got_at_detail
 
 
-template< class N >
-struct got_at :
-    got_at_detail::adl_marker,
-    private nonassignable
-    // Topic:
-    // 'noncopyable' is allowed here by the latest standard draft,
-    // but GCC doesn't follow it yet.
-    // http://www.codecomments.com/archive324-2006-4-888159.html
-{ };
-
-
-template< int N >
-struct got_at_c :
-    got_at< boost::mpl::int_<N> >
-{ };
+using got_at_detail::got_at;
+using got_at_detail::got_at_c;
 
 
 } } // namespace pstade::oven

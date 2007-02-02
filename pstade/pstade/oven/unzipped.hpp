@@ -17,13 +17,13 @@
 #include <boost/utility/result_of.hpp>
 #include <pstade/at.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/const_overloaded.hpp>
 #include <pstade/deduced_const.hpp>
+#include <pstade/function.hpp>
 #include <pstade/nonassignable.hpp>
 #include <pstade/pipable.hpp>
 #include "./concepts.hpp"
 #include "./detail/reference_affect.hpp"
-#include "./range_reference.hpp"
+#include "./range_value.hpp"
 #include "./transformed.hpp"
 
 
@@ -62,14 +62,18 @@ struct op_make_unzipped_at :
 };
 
 
-template< class N >
-struct unzipped_at;
-
-
 namespace unzipped_at_detail {
 
 
-    struct adl_marker
+    template< class N >
+    struct unzipped_at :
+        private nonassignable
+    { };
+
+
+    template< int N >
+    struct unzipped_at_c :
+        unzipped_at< boost::mpl::int_<N> >
     { };
 
 
@@ -79,7 +83,6 @@ namespace unzipped_at_detail {
     {
         return op_make_unzipped_at<N>()(rng);
     }
-
 
     template< class TupleRange, class N > inline
     typename boost::result_of<op_make_unzipped_at<N>(PSTADE_DEDUCED_CONST(TupleRange)&)>::type
@@ -92,17 +95,8 @@ namespace unzipped_at_detail {
 } // namespace unzipped_at_detail
 
 
-template< class N >
-struct unzipped_at :
-    unzipped_at_detail::adl_marker,
-    private nonassignable
-{ };
-
-
-template< int N >
-struct unzipped_at_c :
-    unzipped_at< boost::mpl::int_<N> >
-{ };
+using unzipped_at_detail::unzipped_at;
+using unzipped_at_detail::unzipped_at_c;
 
 
 // unzipped
@@ -126,6 +120,21 @@ namespace unzipped_detail {
     struct counting_tuple<To, To>
     {
         typedef boost::tuples::null_type type;
+    };
+
+
+    template< class TupleRange >
+    struct to_counting_tuple
+    {
+        typedef typename
+            range_value<TupleRange>::type
+        tup_t;
+
+        typedef typename
+            counting_tuple<
+                0, boost::tuples::length<tup_t>::value
+            >::type
+        type;
     };
 
 
@@ -155,40 +164,38 @@ namespace unzipped_detail {
     };
 
 
-    namespace impl = boost::detail::tuple_impl_specific;
+    using boost::detail::tuple_impl_specific::tuple_meta_transform;
+    using boost::detail::tuple_impl_specific::tuple_transform;
 
 
     template< class TupleRange >
-    struct to_counting_tuple
-    {
-        typedef typename range_value<TupleRange>::type tup_t;
-        typedef typename counting_tuple<0, boost::tuples::length<tup_t>::value>::type type;
+    struct baby
+    { 
+        typedef typename
+            to_counting_tuple<TupleRange>::type
+        counting_tup_t;
+
+        typedef typename
+            tuple_meta_transform<
+                counting_tup_t,
+                make_at_range<TupleRange>
+            >::type
+        result;
+
+        result call(TupleRange& rng)
+        {
+            return (tuple_transform)(
+                counting_tup_t(),
+                make_at_range<TupleRange>(rng)
+            );
+        }
     };
 
 
 } // namespace unzipped_detail
 
 
-struct op_make_unzipped :
-    callable<op_make_unzipped>
-{
-    template< class Myself, class TupleRange >
-    struct apply
-    {
-        typedef typename unzipped_detail::to_counting_tuple<TupleRange>::type counting_tup_t;
-        typedef typename unzipped_detail::impl::tuple_meta_transform<counting_tup_t, unzipped_detail::make_at_range<TupleRange> >::type type;
-    };
-
-    template< class Result, class TupleRange >
-    Result call(TupleRange& rng) const
-    {
-        typedef typename unzipped_detail::to_counting_tuple<TupleRange>::type counting_tup_t;
-        return unzipped_detail::impl::tuple_transform(counting_tup_t(), unzipped_detail::make_at_range<TupleRange>(rng));
-    }
-};
-
-
-PSTADE_CONSTANT(make_unzipped, (op_make_unzipped))
+PSTADE_FUNCTION(make_unzipped, (unzipped_detail::baby<_>))
 PSTADE_PIPABLE(unzipped, (op_make_unzipped))
 
 
