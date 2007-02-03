@@ -447,8 +447,6 @@ which has the same effect.
 
 ``adjacent_filtered``
 ^^^^^^^^^^^^^^^^^^^^^
-Pending...
-
 - Header: ``<pstade/oven/adjacent_filtered.hpp>``
 - See: `Range Library Proposal`_.
 

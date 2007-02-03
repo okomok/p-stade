@@ -21,6 +21,7 @@
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include <pstade/as.hpp>
+#include <pstade/if_debug.hpp>
 #include <pstade/object_generator.hpp>
 #include "./detail/constant_reference.hpp"
 #include "./detail/pure_traversal.hpp"
@@ -124,7 +125,9 @@ friend class boost::iterator_core_access;
     void increment()
     {
         BOOST_ASSERT("out of range" && this->base() != m_last);
+        PSTADE_IF_DEBUG( ForwardIter saved(this->base()); )
         this->base_reference() = m_council(this->base(), as_cref(m_last));
+        PSTADE_IF_DEBUG( BOOST_ASSERT(saved != this->base_reference()); )
     }
 };
 

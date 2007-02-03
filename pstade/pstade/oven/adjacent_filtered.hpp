@@ -34,10 +34,10 @@ namespace adjacent_filtered_detail {
             ForwardIter next(first);
             while (++next != last) {
                 if (m_pred(as_ref(*first), as_ref(*next)))
-                    return next;
+                    break;
             }
 
-            return last;
+            return next;
         }
 
         explicit filter()
