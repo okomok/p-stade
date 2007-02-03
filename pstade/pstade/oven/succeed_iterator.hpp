@@ -75,8 +75,8 @@ public:
     succeed_iterator()
     { }
 
-    succeed_iterator(ForwardIter const& it, BinaryFun const& succeed, ForwardIter const& last) :
-        super_t(it), m_succeed(succeed), m_last(last)
+    succeed_iterator(ForwardIter const& it, BinaryFun const& council, ForwardIter const& last) :
+        super_t(it), m_council(council), m_last(last)
     { }
 
     template< class ForwardIter_ >
@@ -84,12 +84,12 @@ public:
         succeed_iterator<ForwardIter_, BinaryFun> const& other,
         typename boost::enable_if_convertible<ForwardIter_, ForwardIter>::type * = 0
     ) :
-        super_t(other.base()), m_succeed(other.succeed()), m_last(other.end())
+        super_t(other.base()), m_council(other.council()), m_last(other.end())
     { }
 
-    BinaryFun const& succeed() const
+    BinaryFun const& council() const
     {
-        return m_succeed;
+        return m_council;
     }
 
     ForwardIter const& end() const
@@ -98,7 +98,7 @@ public:
     }
 
 private:
-    BinaryFun m_succeed;
+    BinaryFun m_council;
     ForwardIter m_last;
 
     template< class Other >
@@ -124,7 +124,7 @@ friend class boost::iterator_core_access;
     void increment()
     {
         BOOST_ASSERT("out of range" && this->base() != m_last);
-        this->base_reference() = m_succeed(this->base(), as_cref(m_last));
+        this->base_reference() = m_council(this->base(), as_cref(m_last));
     }
 };
 

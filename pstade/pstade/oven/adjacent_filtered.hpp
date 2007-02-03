@@ -59,18 +59,18 @@ namespace adjacent_filtered_detail {
             filter<
                 typename pass_by_value<BinaryPred>::type
             >
-        finder_t;
+        fun_t;
 
         typedef typename
             boost::result_of<
-                op_make_successors(Range&, finder_t)
+                op_make_successors(Range&, fun_t)
             >::type
         result;
 
         result call(Range& rng, BinaryPred& pred)
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
-            return make_successors(rng, finder_t(pred));
+            return make_successors(rng, fun_t(pred));
         }
     };
 

@@ -27,13 +27,13 @@ namespace pstade { namespace oven {
 namespace successors_detail {
 
 
-    template< class Range, class Finder >
+    template< class Range, class BinaryFun >
     struct baby
     {
         typedef
             succeed_iterator<
                 typename range_iterator<Range>::type,
-                typename pass_by_value<Finder>::type
+                typename pass_by_value<BinaryFun>::type
             >
         iter_t;
 
@@ -41,13 +41,13 @@ namespace successors_detail {
             iter_range<iter_t> const
         result;
 
-        result call(Range& rng, Finder& finder)
+        result call(Range& rng, BinaryFun& council)
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
 
             return result(
-               iter_t(boost::begin(rng), finder, boost::end(rng)),
-               iter_t(boost::end(rng),   finder, boost::end(rng))
+               iter_t(boost::begin(rng), council, boost::end(rng)),
+               iter_t(boost::end(rng),   council, boost::end(rng))
             );
         }
     };
