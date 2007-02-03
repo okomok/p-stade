@@ -16,7 +16,7 @@
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
 #include "./concepts.hpp"
-#include "./found.hpp"
+#include "./successors.hpp"
 
 
 namespace pstade { namespace oven {
@@ -63,14 +63,14 @@ namespace adjacent_filtered_detail {
 
         typedef typename
             boost::result_of<
-                op_make_found(Range&, finder_t)
+                op_make_successors(Range&, finder_t)
             >::type
         result;
 
         result call(Range& rng, BinaryPred& pred)
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
-            return make_found(rng, finder_t(pred));
+            return make_successors(rng, finder_t(pred));
         }
     };
 

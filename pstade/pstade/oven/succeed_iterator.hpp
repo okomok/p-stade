@@ -1,5 +1,5 @@
-#ifndef PSTADE_OVEN_FIND_ITERATOR_HPP
-#define PSTADE_OVEN_FIND_ITERATOR_HPP
+#ifndef PSTADE_OVEN_SUCCEED_ITERATOR_HPP
+#define PSTADE_OVEN_SUCCEED_ITERATOR_HPP
 
 
 // PStade.Oven
@@ -29,11 +29,11 @@
 namespace pstade { namespace oven {
 
 
-template< class ForwardIter, class Finder >
-struct find_iterator;
+template< class ForwardIter, class BinaryFun >
+struct succeed_iterator;
 
 
-namespace find_iterator_detail {
+namespace succeed_iterator_detail {
 
 
     template< class ForwardIter >
@@ -45,12 +45,12 @@ namespace find_iterator_detail {
     { };
 
 
-    template< class ForwardIter, class Finder >
+    template< class ForwardIter, class BinaryFun >
     struct super_
     {
         typedef
             boost::iterator_adaptor<
-                find_iterator<ForwardIter, Finder>,
+                succeed_iterator<ForwardIter, BinaryFun>,
                 ForwardIter,
                 boost::use_default,
                 typename traversal<ForwardIter>::type,
@@ -60,36 +60,36 @@ namespace find_iterator_detail {
     };
 
 
-} // namespace find_iterator_detail
+} // namespace succeed_iterator_detail
 
 
-template< class ForwardIter, class Finder >
-struct find_iterator :
-    find_iterator_detail::super_<ForwardIter, Finder>::type
+template< class ForwardIter, class BinaryFun >
+struct succeed_iterator :
+    succeed_iterator_detail::super_<ForwardIter, BinaryFun>::type
 {
 private:
-    typedef typename find_iterator_detail::super_<ForwardIter, Finder>::type super_t;
+    typedef typename succeed_iterator_detail::super_<ForwardIter, BinaryFun>::type super_t;
     typedef typename super_t::reference ref_t;
 
 public:
-    find_iterator()
+    succeed_iterator()
     { }
 
-    find_iterator(ForwardIter const& it, Finder const& finder, ForwardIter const& last) :
-        super_t(it), m_finder(finder), m_last(last)
+    succeed_iterator(ForwardIter const& it, BinaryFun const& succeed, ForwardIter const& last) :
+        super_t(it), m_succeed(succeed), m_last(last)
     { }
 
     template< class ForwardIter_ >
-    find_iterator(
-        find_iterator<ForwardIter_, Finder> const& other,
+    succeed_iterator(
+        succeed_iterator<ForwardIter_, BinaryFun> const& other,
         typename boost::enable_if_convertible<ForwardIter_, ForwardIter>::type * = 0
     ) :
-        super_t(other.base()), m_finder(other.finder()), m_last(other.end())
+        super_t(other.base()), m_succeed(other.succeed()), m_last(other.end())
     { }
 
-    Finder const& finder() const
+    BinaryFun const& succeed() const
     {
-        return m_finder;
+        return m_succeed;
     }
 
     ForwardIter const& end() const
@@ -98,7 +98,7 @@ public:
     }
 
 private:
-    Finder m_finder;
+    BinaryFun m_succeed;
     ForwardIter m_last;
 
     template< class Other >
@@ -124,13 +124,13 @@ friend class boost::iterator_core_access;
     void increment()
     {
         BOOST_ASSERT("out of range" && this->base() != m_last);
-        this->base_reference() = m_finder(this->base(), as_cref(m_last));
+        this->base_reference() = m_succeed(this->base(), as_cref(m_last));
     }
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_find_iterator,
-    (find_iterator< deduce<_1, to_value>, deduce<_2, to_value> >) const)
+PSTADE_OBJECT_GENERATOR(make_succeed_iterator,
+    (succeed_iterator< deduce<_1, to_value>, deduce<_2, to_value> >) const)
 
 
 } } // namespace pstade::oven

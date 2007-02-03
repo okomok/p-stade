@@ -36,24 +36,31 @@ template< class BinaryPred >
 struct finder
 {
     template< class ForwardIter >
-    ForwardIter operator()(ForwardIter first, ForwardIter last)
+    ForwardIter operator()(ForwardIter first, ForwardIter last) const
     {
-        ForwardIter prev(first);
-        while (++first != last) {
-            if (m_pred(prev, first)) { // duplicated
-
-            } else {
-                return first;
-            }
+        ForwardIter next(first);
+        while (++next != last) {
+            if (m_pred(*first, *next))
+                return next;
+            else // skip
+                first = next;
         }
 
         return last;
     }
 
+    explicit finder() 
+    { }
 
+    explicit finder(BinaryPred const& pred) :
+        m_pred(pred)
+    { }
 
-
+private:
+    BinaryPred m_pred;
 };
+
+
 
 template<typename Range>
 typename boost::result_of<
@@ -61,7 +68,7 @@ typename boost::result_of<
         typename boost::result_of<
             op_make_dropped(
                 typename boost::result_of<
-                    op_make_adjacent_filtered(Range&, pstade::op_equal_to const&)
+                    op_make_successors(Range&, ::finder<pstade::op_equal_to>)
                 >::type,
                 int
             )
@@ -73,22 +80,18 @@ make_duplicates(Range& rng)
     return
         make_uniqued(
             make_dropped(
-                make_adjacent_filtered(rng, pstade::equal_to),
+                make_successors(rng, ::finder<pstade::op_equal_to>(pstade::equal_to)),
                 1
             )
         );
 }
 
 
+
 void test()
 {
     std::string src("11223444445");
-    copy(src|adjacent_filtered(pstade::equal_to), to_stream(std::cout));
-
-    BOOST_CHECK( equals(
-        std::string("11223444445")|adjacent_filtered(pstade::equal_to)|dropped(1)|uniqued,
-        std::string("124")
-    ) );
+    std::cout << ::make_duplicates(src);
 
     BOOST_CHECK( equals(
         ::make_duplicates(std::string("1223444445")|pstade::as_ref),

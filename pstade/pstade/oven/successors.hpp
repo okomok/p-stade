@@ -1,5 +1,5 @@
-#ifndef PSTADE_OVEN_FOUND_HPP
-#define PSTADE_OVEN_FOUND_HPP
+#ifndef PSTADE_OVEN_SUCCESORS_HPP
+#define PSTADE_OVEN_SUCCESORS_HPP
 
 
 // PStade.Oven
@@ -16,22 +16,22 @@
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
 #include "./concepts.hpp"
-#include "./find_iterator.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
+#include "./succeed_iterator.hpp"
 
 
 namespace pstade { namespace oven {
 
 
-namespace found_detail {
+namespace successors_detail {
 
 
     template< class Range, class Finder >
     struct baby
     {
         typedef
-            find_iterator<
+            succeed_iterator<
                 typename range_iterator<Range>::type,
                 typename pass_by_value<Finder>::type
             >
@@ -53,11 +53,11 @@ namespace found_detail {
     };
 
 
-} // namespace found_detail
+} // namespace successors_detail
 
 
-PSTADE_FUNCTION(make_found, (found_detail::baby<_, _>))
-PSTADE_PIPABLE(found, (op_make_found))
+PSTADE_FUNCTION(make_successors, (successors_detail::baby<_, _>))
+PSTADE_PIPABLE(successors, (op_make_successors))
 
 
 } } // namespace pstade::oven
