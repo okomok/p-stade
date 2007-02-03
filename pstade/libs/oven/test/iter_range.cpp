@@ -45,9 +45,9 @@ void test()
     }
     {
         oven::iter_range<std::string::iterator> rng1(src);
-        oven::iter_range<std::string::iterator> rng2 = src;
+        oven::iter_range<std::string::iterator> rng2(src);
         oven::iter_range<std::string::iterator> rng3(rng1);
-        oven::iter_range<std::string::iterator> rng4 = rng3;
+        oven::iter_range<std::string::iterator> rng4(rng3);
         oven::iter_range<std::string::iterator> rng5;
         BOOST_CHECK( rng1 == rng4 );
         BOOST_CHECK( !(rng1 != rng4 ) );
@@ -62,12 +62,6 @@ void test()
         ss << rng;
         BOOST_CHECK( ss.str() == "{a,b,c,}" );
     }
-#if 0 // rejected
-    {
-        oven::iter_range<std::string::iterator> rng = src|filtered(pstade::is_alpha);
-        BOOST_CHECK( oven::equals(rng, src) );
-    }
-#endif
 }
 
 

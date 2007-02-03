@@ -21,6 +21,7 @@
 #include <pstade/is_same.hpp>
 #include <pstade/oven/filtered.hpp>
 #include <pstade/oven/functions.hpp>
+#include <pstade/oven/sub_range.hpp>
 
 
 void test()
@@ -92,7 +93,8 @@ void test()
         BOOST_CHECK( *it == 'v' );
     }
 
-    { // nothing but compile check.
+    // range version
+    {
         std::string src("cjaigvwzenqhe");
         std::string dst = src
                     | filtered(regular(lambda::_1 != 'z'))
@@ -106,7 +108,27 @@ void test()
               );
         BOOST_CHECK( equals(src, dst) );
     }
+    {
+        std::string src("jioyhaogihehiqgnqongeqongoq");
+        sub_range<std::string> rng = src|identities|identities|identities|to_base_range;
+        BOOST_CHECK( equals(src, rng) );
+        rng = adapted_range_to< sub_range<std::string> >(src|identities|identities|identities);
+        BOOST_CHECK( equals(src, rng) );
+    }
+    {
+        std::string src("cjaigvwzenqhe");
+        sub_range<std::string> dst = src
+                    | filtered(regular(lambda::_1 != 'z'))
+                    | filtered(regular(lambda::_1 != 'w'))
+                    | to_base_range;
+        BOOST_CHECK( equals(src, dst) );
 
+        sub_range<std::string const> cdst = src
+                    | filtered(regular(lambda::_1 != 'z'))
+                    | filtered(regular(lambda::_1 != 'w'))
+                    | to_base_range;
+        BOOST_CHECK( equals(src, cdst) );
+    }
 }
 
 

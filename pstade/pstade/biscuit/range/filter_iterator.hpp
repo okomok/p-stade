@@ -93,7 +93,7 @@ private:
 
         // get a next submatch
         oven::iter_range<ForwardIter> tr(this->base(), m_last);
-        oven::iter_range<ForwardIter> sr = biscuit::search<Parser>(tr, *m_pus);
+        oven::iter_range<ForwardIter> sr(biscuit::search<Parser>(tr, *m_pus));
 
         if (boost::begin(sr) == m_last) {
             // not found

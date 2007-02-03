@@ -33,7 +33,7 @@ using namespace oven;
 
 
 template< class BinaryPred >
-struct finder
+struct skip_unique
 {
     template< class ForwardIter >
     ForwardIter operator()(ForwardIter first, ForwardIter last) const
@@ -49,10 +49,10 @@ struct finder
         return last;
     }
 
-    explicit finder() 
+    explicit skip_unique() 
     { }
 
-    explicit finder(BinaryPred const& pred) :
+    explicit skip_unique(BinaryPred const& pred) :
         m_pred(pred)
     { }
 
@@ -68,7 +68,7 @@ typename boost::result_of<
         typename boost::result_of<
             op_make_dropped(
                 typename boost::result_of<
-                    op_make_successors(Range&, ::finder<pstade::op_equal_to>)
+                    op_make_successors(Range&, ::skip_unique<pstade::op_equal_to>)
                 >::type,
                 int
             )
@@ -80,7 +80,7 @@ make_duplicates(Range& rng)
     return
         make_uniqued(
             make_dropped(
-                make_successors(rng, ::finder<pstade::op_equal_to>(pstade::equal_to)),
+                make_successors(rng, ::skip_unique<pstade::op_equal_to>(pstade::equal_to)),
                 1
             )
         );

@@ -10,6 +10,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Note:
+//
+// The template-constructor is now explicit,
+// which seems politically correct and enables 'to_base_range'.
+
+
 #include <pstade/implicitly_defined.hpp>
 #include <pstade/unused_to_copy.hpp>
 #include "./as_lightweight_proxy.hpp"
@@ -32,21 +38,25 @@ struct sub_range :
     typedef typename range_constant_iterator<Range>::type const_iterator; // constantable
 
 // structors
-    sub_range()
+    explicit sub_range()
     { }
 
-    template< class Range_ >
-    sub_range(Range_& rng, typename unused_to_copy<type, Range>::type = 0) :
+    /*implicit*/ sub_range(Range& rng) :
         base(rng)
     { }
 
     template< class Range_ >
-    sub_range(Range_ const& rng) :
+    explicit sub_range(Range_& rng, typename unused_to_copy<type, Range>::type = 0) :
+        base(rng)
+    { }
+
+    template< class Range_ >
+    explicit sub_range(Range_ const& rng) :
         base(rng)
     { }
 
     template< class Iterator >
-    sub_range(Iterator const& first, Iterator const& last) :
+    explicit sub_range(Iterator const& first, Iterator const& last) :
         base(first, last)
     { }
 
@@ -69,9 +79,7 @@ struct sub_range :
     // calls template constructor of 'iter_range'. Then,
     // sub_range<string> const rng1(str);
     // sub_range<string> rng2(rng1);
-    // doesn't compile. So define it by scratch using this macro.
-    // As for the range adaptors of oven, VC8 optimizer fortunately
-    // seems to generate the same code as expected without this.
+    // doesn't compile. So define it from scratch using this macro.
     PSTADE_IMPLICITLY_DEFINED_COPY_TO_BASE(sub_range, base)
 };
 

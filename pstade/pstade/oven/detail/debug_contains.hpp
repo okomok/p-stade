@@ -41,7 +41,6 @@ bool debug_contains_aux(Range& rng, Iterator it, std::forward_iterator_tag)
     return find(drng, it) != boost::end(drng);
 }
 
-
 template< class Range, class Iterator > inline
 bool debug_contains_aux(Range& rng, Iterator it, std::input_iterator_tag)
 {

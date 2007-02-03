@@ -16,6 +16,7 @@
 // This range has...
 //   no deep equality-comparison.
 //   neither 'front', 'back' nor 'operator[]'.
+//   no implicit-template-constructor.
 //
 // Note that it is impossible to implement 'back' and 'operator[]' safely,
 // which was overlooked by 'boost::iterator_range'.
@@ -79,21 +80,21 @@ public:
     typedef iter_range type;
 
 // structors
-    iter_range()
+    explicit iter_range()
     { }
 
     template< class Iterator_ >
-    iter_range(Iterator_ const& first, Iterator_ const& last) :
+    explicit iter_range(Iterator_ const& first, Iterator_ const& last) :
         m_first(first), m_last(last)
     { }
 
     template< class Range_ >
-    iter_range(Range_& rng, typename unused_to_copy<type, Range_>::type = 0) :
+    explicit iter_range(Range_& rng, typename unused_to_copy<type, Range_>::type = 0) :
         m_first(boost::begin(rng)), m_last(boost::end(rng))
     { }
 
     template< class Range_ >
-    iter_range(Range_ const& rng) :
+    explicit iter_range(Range_ const& rng) :
         m_first(boost::begin(rng)), m_last(boost::end(rng))
     { }
 

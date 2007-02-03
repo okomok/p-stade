@@ -61,12 +61,12 @@ public:
     { }
 
     template< class Range >
-    any_range(Range& rng, typename unused_to_copy<self_t, Range>::type = 0) :
+    /*implicit*/ any_range(Range& rng, typename unused_to_copy<self_t, Range>::type = 0) :
         super_t(boost::begin(rng), boost::end(rng))
     { }
 
     template< class Range >
-    any_range(Range const& rng) :
+    /*implicit*/ any_range(Range const& rng) :
         super_t(boost::begin(rng), boost::end(rng))
     { }
 
