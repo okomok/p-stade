@@ -10,12 +10,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./adjacent_filter_iterator.hpp"
 #include "./any_iterator.hpp"
 #include "./check_iterator.hpp"
 #include "./concatenate_iterator.hpp"
 #include "./const_lvalue_iterator.hpp"
 #include "./cycle_iterator.hpp"
+#include "./find_iterator.hpp"
 #include "./generate_iterator.hpp"
 #include "./identity_iterator.hpp"
 #include "./joint_iterator.hpp"

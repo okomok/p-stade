@@ -32,6 +32,29 @@ namespace oven = pstade::oven;
 using namespace oven;
 
 
+template< class BinaryPred >
+struct finder
+{
+    template< class ForwardIter >
+    ForwardIter operator()(ForwardIter first, ForwardIter last)
+    {
+        ForwardIter prev(first);
+        while (++first != last) {
+            if (m_pred(prev, first)) { // duplicated
+
+            } else {
+                return first;
+            }
+        }
+
+        return last;
+    }
+
+
+
+
+};
+
 template<typename Range>
 typename boost::result_of<
     op_make_uniqued(

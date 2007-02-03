@@ -20,7 +20,7 @@ rule oven-example-test ( name )
 
 test-suite range :
     [ oven-example-test adjacent_difference ]
-    [ oven-example-test duplicates ]
+    # [ oven-example-test duplicates ]
     [ oven-example-test specification ]
     [ oven-example-test zip ]
     ;

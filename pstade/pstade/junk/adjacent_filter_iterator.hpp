@@ -10,23 +10,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// What:
-//
-// Not clear yet...
-
-
 // Note:
 //
 // This iterator can't be Mutable, because
 // the 'next' function depends on the value referenced.
-//
-// Conforming to bidirectional iterator seems to need 'm_first'.
-// Am I right?
 
 
 #include <boost/assert.hpp>
-#include <boost/lambda/bind.hpp>
-#include <boost/lambda/core.hpp> // _1, _2
 #include <boost/iterator/detail/minimum_category.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_categories.hpp>
@@ -34,7 +24,6 @@
 #include <pstade/object_generator.hpp>
 #include "./detail/constant_reference.hpp"
 #include "./detail/pure_traversal.hpp"
-#include "./reverse_iterator.hpp"
 
 
 namespace pstade { namespace oven {
@@ -50,7 +39,7 @@ namespace adjacent_filter_iterator_detail {
     template< class ForwardIter >
     struct traversal :
         boost::detail::minimum_category<
-            boost::bidirectional_traversal_tag,
+            boost::forward_traversal_tag,
             typename detail::pure_traversal<ForwardIter>::type
         >
     { };
@@ -72,15 +61,14 @@ namespace adjacent_filter_iterator_detail {
 
 
     template< class ForwardIter, class BinaryPred >
-    ForwardIter next(ForwardIter first, ForwardIter const& last, BinaryPred pred)
-    { // See: std::adjacent_find
+    ForwardIter next(ForwardIter const& first, ForwardIter const& last, BinaryPred pred)
+    {
         BOOST_ASSERT(first != last);
 
-        ForwardIter next = first;
+        ForwardIter next(first);
         while (++next != last) {
             if (pred(as_ref(*first), as_ref(*next)))
                 return next;
-            first = next;
         }
 
         return last;
@@ -102,12 +90,8 @@ public:
     adjacent_filter_iterator()
     { }
 
-    adjacent_filter_iterator(
-        ForwardIter const& it, BinaryPred const& pred,
-        ForwardIter const& first, ForwardIter const& last
-    ) :
-        super_t(it), m_pred(pred),
-        m_first(first), m_last(last)
+    adjacent_filter_iterator(ForwardIter const& it, BinaryPred const& pred, ForwardIter const& last) :
+        super_t(it), m_pred(pred), m_last(last)
     { }
 
     template< class ForwardIter_ >
@@ -115,18 +99,12 @@ public:
         adjacent_filter_iterator<ForwardIter_, BinaryPred> const& other,
         typename boost::enable_if_convertible<ForwardIter_, ForwardIter>::type * = 0
     ) :
-        super_t(other.base()), m_pred(other.predicate()),
-        m_first(other.begin()), m_last(other.end())
+        super_t(other.base()), m_pred(other.predicate()), m_last(other.end())
     { }
 
     BinaryPred const& predicate() const
     {
         return m_pred;
-    }
-
-    ForwardIter const& begin() const
-    {
-        return m_first;
     }
 
     ForwardIter const& end() const
@@ -136,12 +114,12 @@ public:
 
 private:
     BinaryPred m_pred;
-    ForwardIter m_first, m_last;
+    ForwardIter m_last;
 
     template< class Other >
     bool is_compatible(Other const& other) const
     {
-        return m_first == other.begin() && m_last == other.end();
+        return m_last == other.end();
     }
 
 friend class boost::iterator_core_access;
@@ -161,24 +139,9 @@ friend class boost::iterator_core_access;
     void increment()
     {
         BOOST_ASSERT("out of range" && this->base() != m_last);
-
         this->base_reference() = adjacent_filter_iterator_detail::next(
             this->base(), m_last, m_pred
         );
-    }
-
-    void decrement()
-    {
-        BOOST_ASSERT("out of range" && this->base() != m_first);
-
-        namespace lambda = boost::lambda;
-
-        // if you pass 'this->base()' instead of 'm_first', out-of-range(1-step) comes.
-        this->base_reference() = adjacent_filter_iterator_detail::next(
-            make_reverse_iterator(this->base()),
-            make_reverse_iterator(m_first),
-            lambda::bind<bool>(m_pred, lambda::_2, lambda::_1)
-        ).base();
     }
 };
 

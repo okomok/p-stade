@@ -63,7 +63,9 @@ struct op_make_sorted :
     struct apply
     {
         typedef
-            sorted_detail::op_sort<typename pass_by_value<Compare>::type>
+            sorted_detail::op_sort<
+                typename pass_by_value<Compare>::type
+            >
         fun_t;
 
         typedef typename

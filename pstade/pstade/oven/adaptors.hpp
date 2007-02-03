@@ -29,6 +29,7 @@
 #include "./dropped_while.hpp"
 #include "./filtered.hpp"
 #include "./firsts.hpp"
+#include "./found.hpp"
 // #include "./got_at.hpp"
 #include "./identities.hpp"
 #include "./indirected.hpp"

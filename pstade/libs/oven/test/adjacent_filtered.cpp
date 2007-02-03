@@ -21,10 +21,10 @@
 #include <boost/lambda/lambda.hpp>
 
 
-struct is_not_divisor
+struct is_divisor
 {
     bool operator()(int x, int y) const
-    { return (y % x) != 0; }
+    { return (y % x) == 0; }
 };
 
 
@@ -43,16 +43,16 @@ void test()
     int const src[] = { 2, 2, 4, 4, 6, 8, 8, 10, 10, 20, 40, 80, 120 };
 
     {
-        int ans[] = { 2, 6, 8, 10, 120 };
+        int ans[] = { 2, 2, 4, 4, 8, 8, 40, 80 };
         std::vector<int> expected = ans|copied;
 
-        BOOST_CHECK( oven::test_Bidirectional_Readable(
-            src|adjacent_filtered(is_not_divisor()),
+        BOOST_CHECK( oven::test_Forward_Readable(
+            src|adjacent_filtered(::is_divisor()),
             expected
         ) );
 
-        BOOST_CHECK( oven::test_Bidirectional_Readable(
-            oven::make_adjacent_filtered(src, is_not_divisor()),
+        BOOST_CHECK( oven::test_Forward_Readable(
+            oven::make_adjacent_filtered(src, ::is_divisor()),
             expected
         ) );
     }
@@ -60,23 +60,14 @@ void test()
         int ans[] = { 2, 4, 6, 8, 10, 20, 40, 80, 120 };
         std::vector<int> expected = ans|copied;
 
-        BOOST_CHECK( oven::test_Bidirectional_Readable(
-            src|adjacent_filtered(not_equal_to()),
+        BOOST_CHECK( oven::test_Forward_Readable(
+            src|adjacent_filtered(::not_equal_to()),
             expected
         ) );
 
         namespace lambda = boost::lambda;
-        BOOST_CHECK( oven::test_Bidirectional_Readable(
+        BOOST_CHECK( oven::test_Forward_Readable(
             src|adjacent_filtered(regular(lambda::_1 != lambda::_2)),
-            expected
-        ) );
-    }
-    {
-        int ans[] = { 2, 8, 10 };
-        std::vector<int> expected = ans|copied;
-
-        BOOST_CHECK( oven::test_Bidirectional_Readable(
-            src|adjacent_filtered(is_not_divisor())|adjacent_filtered(is_not_divisor()),
             expected
         ) );
     }

@@ -10,15 +10,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/range/begin.hpp>
-#include <boost/range/end.hpp>
+#include <boost/utility/result_of.hpp>
+#include <pstade/as.hpp>
 #include <pstade/function.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
-#include "./adjacent_filter_iterator.hpp"
 #include "./concepts.hpp"
-#include "./iter_range.hpp"
-#include "./range_iterator.hpp"
+#include "./found.hpp"
 
 
 namespace pstade { namespace oven {
@@ -27,28 +25,52 @@ namespace pstade { namespace oven {
 namespace adjacent_filtered_detail {
 
 
+    template< class BinaryPred >
+    struct filter
+    {
+        template< class ForwardIter >
+        ForwardIter operator()(ForwardIter const& first, ForwardIter const& last) const
+        {
+            ForwardIter next(first);
+            while (++next != last) {
+                if (m_pred(as_ref(*first), as_ref(*next)))
+                    return next;
+            }
+
+            return last;
+        }
+
+        explicit filter()
+        { }
+
+        explicit filter(BinaryPred const& pred) :
+            m_pred(pred)
+        { }
+
+    private:
+        BinaryPred m_pred;
+    };
+
+
     template< class Range, class BinaryPred >
     struct baby
     {
         typedef
-            adjacent_filter_iterator<
-                typename range_iterator<Range>::type,
+            filter<
                 typename pass_by_value<BinaryPred>::type
             >
-        iter_t;
+        finder_t;
 
-        typedef
-            iter_range<iter_t> const
+        typedef typename
+            boost::result_of<
+                op_make_found(Range&, finder_t)
+            >::type
         result;
 
         result call(Range& rng, BinaryPred& pred)
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
-
-            return result(
-               iter_t(boost::begin(rng), pred, boost::begin(rng), boost::end(rng)),
-               iter_t(boost::end(rng),   pred, boost::begin(rng), boost::end(rng))
-            );
+            return make_found(rng, finder_t(pred));
         }
     };
 
