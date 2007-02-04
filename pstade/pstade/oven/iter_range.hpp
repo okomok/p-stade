@@ -208,7 +208,7 @@ operator<<(std::basic_ostream<CharT, Traits>& os, iter_range<Iterator> const& rn
     bool is_beginning = true;
     Iterator const last(boost::end(rng));
 
-    for (Iterator first(boost::begin(rng)); first!= last; ++first) {
+    for (Iterator it(boost::begin(rng)); it != last; ++it) {
         if (!is_beginning)
             os << ',';
         else
@@ -217,7 +217,7 @@ operator<<(std::basic_ostream<CharT, Traits>& os, iter_range<Iterator> const& rn
         os <<
             boost::implicit_cast<
                 typename boost::iterator_value<Iterator>::type const&
-            >(*first);
+            >(*it);
     }
 
     os << '}';
