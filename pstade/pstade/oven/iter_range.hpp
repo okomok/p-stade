@@ -26,6 +26,7 @@
 #include <algorithm> // swap
 #include <cstddef> // size_t
 #include <iosfwd> // basic_ostream
+#include <boost/implicit_cast.hpp>
 #include <boost/iterator/iterator_categories.hpp> // iterator_traversal
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/operators.hpp> // equality_comparable
@@ -39,7 +40,6 @@
 #include <pstade/unused_to_copy.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./range_iterator.hpp"
-#include "./to_stream.hpp"
 
 
 namespace pstade { namespace oven {
@@ -165,11 +165,16 @@ struct op_make_iter_range :
     template< class Myself, class Iterator, class Iterator_ = void >
     struct apply
     {
-        typedef iter_range<typename boost::remove_cv<Iterator>::type> const type;
+        typedef
+            iter_range<
+                typename boost::remove_cv<Iterator>::type
+            > const
+        type;
     };
 
+    // two Iterators may have different cv-qualifier.
     template< class Result, class Iterator, class Iterator_ >
-    Result call(Iterator& first, Iterator_& last) const // two Iterators may have different cv-qualifier.
+    Result call(Iterator& first, Iterator_& last) const
     {
         return Result(first, last);
     }
@@ -177,7 +182,11 @@ struct op_make_iter_range :
     template< class Myself, class Range >
     struct apply<Myself, Range>
     {
-        typedef iter_range<typename range_iterator<Range>::type> const type;
+        typedef
+            iter_range<
+                typename range_iterator<Range>::type
+            > const
+        type;
     };
 
     template< class Result, class Range >
@@ -196,16 +205,19 @@ operator<<(std::basic_ostream<CharT, Traits>& os, iter_range<Iterator> const& rn
 {
     os << '{';
 
-    bool is_first = true;
+    bool is_beginning = true;
     Iterator const last(boost::end(rng));
 
     for (Iterator first(boost::begin(rng)); first!= last; ++first) {
-        if (!is_first)
+        if (!is_beginning)
             os << ',';
         else
-            is_first = false;
+            is_beginning = false;
 
-        os << *first;
+        os <<
+            boost::implicit_cast<
+                typename boost::iterator_value<Iterator>::type const&
+            >(*first);
     }
 
     os << '}';
