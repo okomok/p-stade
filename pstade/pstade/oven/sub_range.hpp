@@ -45,6 +45,10 @@ struct sub_range :
         base(rng)
     { }
 
+    /*implicit*/ sub_range(base const& rng) :
+        base(rng)
+    { }
+
     template< class Range_ >
     explicit sub_range(Range_& rng, typename unused_to_copy<type, Range>::type = 0) :
         base(rng)

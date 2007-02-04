@@ -23,9 +23,29 @@
 // PSTADE_UNPARENTHESIZE((T)cv-qualifier), where cv-qualifier is optional.
 
 
-#define PSTADE_UNPARENTHESIZE(TQ) \
-    pstade::unparenthesize_detail::aux< void (::pstade::unparenthesize_detail::klass::*) TQ >::type \
-/**/
+#include <boost/config.hpp>
+#include <boost/detail/workaround.hpp>
+#include <boost/preprocessor/cat.hpp>
+#include <boost/preprocessor/punctuation/comma.hpp>
+
+
+#if !BOOST_WORKAROUND(__BORLANDC__, < 0x600)
+
+    #define PSTADE_UNPARENTHESIZE(TQ) \
+        pstade::unparenthesize_detail::aux<void(::pstade::unparenthesize_detail::klass::*)TQ>::type \
+    /**/
+
+#else
+
+    #define PSTADE_UNPARENTHESIZE(TQ) \
+        pstade::unparenthesize_detail::aux<void(*)TQ ## _PSTADE_UNPARENTHESIZE_cv \
+    /**/
+
+    #define _PSTADE_UNPARENTHESIZE_cv         >::type
+    #define const_PSTADE_UNPARENTHESIZE_cv    >::type_const
+    #define volatile_PSTADE_UNPARENTHESIZE_cv >::type_volatile
+
+#endif
 
 
 namespace pstade { namespace unparenthesize_detail {
@@ -34,39 +54,62 @@ namespace pstade { namespace unparenthesize_detail {
     struct klass;
 
 
-    template< class Signature >
+    template<class Signature>
     struct aux;
 
 
-    template< class T >
-    struct aux< void (klass::*)(T) >
+#if !BOOST_WORKAROUND(__BORLANDC__, < 0x600)
+
+
+    template<class T>
+    struct aux<void (klass::*)(T)>
     {
         typedef T type;
     };
 
     template< >
-    struct aux< void (klass::*)(void) >
+    struct aux<void (klass::*)(void)>
     {
         typedef void type;
     };
 
-    template< class T >
-    struct aux< void (klass::*)(T) const >
+    template<class T>
+    struct aux<void (klass::*)(T) const>
     {
         typedef T const type;
     };
 
-    template< class T >
-    struct aux< void (klass::*)(T) volatile >
+    template<class T>
+    struct aux<void (klass::*)(T) volatile>
     {
         typedef T volatile type;
     };
 
-    template< class T >
-    struct aux< void (klass::*)(T) const volatile >
+    template<class T>
+    struct aux<void (klass::*)(T) const volatile>
     {
         typedef T const volatile type;
     };
+
+#else
+
+    template< class T >
+    struct aux<void (*)(T)>
+    {
+        typedef T type;
+        typedef T const type_const;
+        typedef T volatile type_volatile;
+    };
+
+    template<class CV >
+    struct aux<void (*)(void)>
+    {
+        typedef void type;
+        typedef void type_const;
+        typedef void type_volatile;
+    };
+
+#endif
 
 
 } } // namespace pstade::unparenthesize_detail

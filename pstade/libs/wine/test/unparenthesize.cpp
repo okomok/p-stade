@@ -29,8 +29,9 @@ typedef pair_t const volatile cv_pair_t;
 BOOST_MPL_ASSERT(( boost::is_same< PSTADE_UNPARENTHESIZE((std::pair<int, double>)), pair_t >));
 BOOST_MPL_ASSERT(( boost::is_same< PSTADE_UNPARENTHESIZE((std::pair<int, double>) const), c_pair_t >));
 BOOST_MPL_ASSERT(( boost::is_same< PSTADE_UNPARENTHESIZE((std::pair<int, double>) volatile), v_pair_t >));
-BOOST_MPL_ASSERT(( boost::is_same< PSTADE_UNPARENTHESIZE((std::pair<int, double>) const volatile), cv_pair_t >));
-
+#if !BOOST_WORKAROUND(__BORLANDC__, < 0x600)
+    BOOST_MPL_ASSERT(( boost::is_same< PSTADE_UNPARENTHESIZE((std::pair<int, double>) const volatile), cv_pair_t >));
+#endif
 BOOST_MPL_ASSERT(( boost::is_same< PSTADE_UNPARENTHESIZE((void)), void >));
 
 
@@ -46,6 +47,7 @@ BOOST_MPL_ASSERT(( boost::is_same< PSTADE_UNPARENTHESIZE((void)), void >));
 template< class T >
 void test_dependent()
 {
+#if !BOOST_WORKAROUND(__BORLANDC__, < 0x600)
     BOOST_FOREACH (
         typename PSTADE_UNPARENTHESIZE((std::pair<int, T>)) p,
         PSTADE_WINE_TEST_TYPENAME PSTADE_UNPARENTHESIZE((std::map<int, T>))()
@@ -53,6 +55,7 @@ void test_dependent()
         (void)p;
         BOOST_CHECK(false);
     }
+#endif
 }
 
 
@@ -60,6 +63,7 @@ void test()
 {
     using namespace pstade;
 
+#if !BOOST_WORKAROUND(__BORLANDC__, < 0x600)
     BOOST_FOREACH (
         PSTADE_UNPARENTHESIZE((std::pair<int, int>)) p,
         PSTADE_UNPARENTHESIZE((std::map<int, int>))()
@@ -67,6 +71,7 @@ void test()
         (void)p;
         BOOST_CHECK(false);
     }
+#endif
 
     ::test_dependent<int>();
 }

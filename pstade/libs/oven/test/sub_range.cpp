@@ -39,11 +39,13 @@ void test()
         oven::sub_range<std::string> rng2 = src;
         oven::sub_range<std::string> rng3(rng1);
         oven::sub_range<std::string> rng4 = rng3;
+        oven::sub_range<std::string> rng5 = make_iter_range(src);
         BOOST_CHECK( rng1 == rng4 );
         BOOST_CHECK( !(rng1 != rng4 ) );
         rng2 = src;
         BOOST_CHECK( rng1 == rng2 );
         BOOST_CHECK( !(rng1 != rng2 ) );
+        BOOST_CHECK( rng1 == rng5 );
     }
     {
         std::string src("abc");

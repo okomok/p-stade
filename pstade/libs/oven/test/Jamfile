@@ -119,6 +119,7 @@ test-suite oven :
     [ oven-test string_split ]
     [ oven-test sub_range ]
     [ oven-test sub_set ]
+    [ oven-test successors ]
     [ oven-test tab_expanded ]
     [ oven-test tab_unexpanded ]
     [ oven-test taken ]

@@ -16,7 +16,7 @@
 // This range has...
 //   no deep equality-comparison.
 //   neither 'front', 'back' nor 'operator[]'.
-//   no implicit-template-constructor.
+//   no implicit template-constructor.
 //
 // Note that it is impossible to implement 'back' and 'operator[]' safely,
 // which was overlooked by 'boost::iterator_range'.
