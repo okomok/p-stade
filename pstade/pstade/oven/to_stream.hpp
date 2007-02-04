@@ -81,11 +81,11 @@ to_ostream(OStream& os, CharT const* delim)
 struct op_to_ostreambuf :
     callable<op_to_ostreambuf>
 {
-    template< class Myself, class OStreamOrStreamBufPtr >
+    template< class Myself, class OStream >
     struct apply
     {
         typedef typename
-            boost::remove_pointer<OStreamOrStreamBufPtr>::type
+            boost::remove_pointer<OStream>::type
         stream_t;
 
         typedef

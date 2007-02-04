@@ -291,7 +291,7 @@ If ``is_open()`` is not ``true``, the range is empty.
 Range Makers
 ------------
 Oven provides some predefined functions which produce a range.
-All the range returned from the following makers are CopyConstructible and Inheritable.
+All the range returned from the following makers are CopyConstructible, Inheritable and OutputStreamable.
 ``<pstade/oven/functions.hpp>`` includes every maker header unless otherwise specified.
 
 
@@ -440,7 +440,7 @@ The underlying ranges are not modified.
 Additional information is available at `Range Library Proposal`_.
 ``<pstade/oven/adaptors.hpp>`` includes all the following Range Adaptors unless otherwise specified.
 
-Note that all the range returned from the following adaptors are CopyConstructible and Inheritable.
+Note that all the range returned from the following adaptors are CopyConstructible, Inheritable and OutputStreamable.
 Also, if ``a0|xxx(a1,..,aN)`` is a valid expression, then  ``make_xxx(a0,..,aN)`` too is a valid expression
 which has the same effect.
 
@@ -975,7 +975,7 @@ prefix (possibly empty) of the range of elements that satisfy `Predicate`_::
 ``utf8_decoded``
 ^^^^^^^^^^^^^^^^
 - Header: ``<pstade/oven/utf8_decoded.hpp>``
-- Valid expression: ``biRng|utf8_decoded`` or ``biRng|utf8_decoded(u32)``
+- Valid expression: ``biRng|utf8_decoded``
 - Returns: A `Bidirectional Range`_ whose iterators behave as if they were the original iterators wrapped in ``boost::u8_to_u32_iterator``.
 
 

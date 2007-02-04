@@ -2,8 +2,6 @@
 From cvs head
     "./concept"
     "./concept_check.hpp"
-    "./mpl/"
-    "./parameter/"
 
 From sandbox
     "./has_swap.hpp"
@@ -12,7 +10,10 @@ From sandbox
 From RC_1_34
     "./foreach.hpp"
     "./iterator/"
+    "./mpl/"
+    "./parameter/"
     "./range/"
+    "./spirit/"
     "./type_traits/"
 
 From vault
