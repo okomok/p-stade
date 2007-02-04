@@ -469,13 +469,13 @@ namespace pstade_oven_extension {
         friend class boost::iterator_core_access;
             ref_t dereference() const
             {
-                BOOST_ASSERT(m_pp != 0 && "out of range");
+                BOOST_ASSERT("out of range" && m_pp != 0);
                 return *m_pp;
             }
 
             void increment()
             {
-                BOOST_ASSERT(m_pp != 0 && "out of range");
+                BOOST_ASSERT("out of range" && m_pp != 0);
                 m_pp = m_pmap->PGetNextAssoc(m_pp);
             }
 

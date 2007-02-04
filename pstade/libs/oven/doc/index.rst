@@ -556,13 +556,6 @@ which has the same effect.
 
 ``constants``
 ^^^^^^^^^^^^^
-In spite of STL designers effort, the ``const_iterator`` is not so useful as expected.
-An adapted range loses the difference between the mutable and constant.
-That's why ``constants`` returns a range whose iterators dereference cannot be modified::
-
-	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\constants.ipp
-
-
 - Header: ``<pstade/oven/constants.hpp>``
 - Valid expression: ``rng|constants``
 - Returns: ``[boost::end(rng),boost::end(rng))`` whose iterators are constant.
@@ -1143,12 +1136,14 @@ Acknowledgments
 - `Range Library Core`__
 - `Range Library Proposal`_
 - `Proposal for new string algorithms in TR2`__
+- `Cradle - A C++ Sandbox`__
 - `RangeLib - The Boost Iterable Range Library`__
 - `VTL (View Template Library)`__
 
 __ http://www.flll.jku.at/staff/private/roland/view/
 __ http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2068.html
 __ http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html
+__ http://sourceforge.jp/projects/cradle/
 __ http://www.torjo.com/rangelib/index.html
 __ http://www.zib.de/weiser/vtl/
 

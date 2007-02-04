@@ -37,7 +37,6 @@
 #include <pstade/radish/bool_testable.hpp>
 #include <pstade/radish/swappable.hpp>
 #include <pstade/unused_to_copy.hpp>
-#include "./algorithm.hpp" // copy
 #include "./as_lightweight_proxy.hpp"
 #include "./range_iterator.hpp"
 #include "./to_stream.hpp"
@@ -191,12 +190,24 @@ struct op_make_iter_range :
 PSTADE_CONSTANT(make_iter_range, (op_make_iter_range))
 
 
-template< class Iterator, class CharT, class Traits > inline
+template< class Iterator, class CharT, class Traits >
 std::basic_ostream<CharT, Traits>&
-operator<<(std::basic_ostream<CharT, Traits>& os, iter_range<Iterator> const& ir)
+operator<<(std::basic_ostream<CharT, Traits>& os, iter_range<Iterator> const& rng)
 {
     os << '{';
-    oven::copy(ir, to_ostream<typename boost::iterator_value<Iterator>::type>(os, ","));
+
+    bool is_first = true;
+    Iterator const last(boost::end(rng));
+
+    for (Iterator first(boost::begin(rng)); first!= last; ++first) {
+        if (!is_first)
+            os << ',';
+        else
+            is_first = false;
+
+        os << *first;
+    }
+
     os << '}';
     return os;
 }

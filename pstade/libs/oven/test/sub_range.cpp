@@ -52,7 +52,7 @@ void test()
         std::stringstream ss;
         oven::sub_range<std::string> rng(src);
         ss << rng;
-        BOOST_CHECK( ss.str() == "{a,b,c,}" );
+        BOOST_CHECK( ss.str() == "{a,b,c}" );
     }
     {
         oven::sub_range<std::string> const rng1(src);

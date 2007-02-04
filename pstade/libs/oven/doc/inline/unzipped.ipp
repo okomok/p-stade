@@ -7,4 +7,4 @@ std::cout <<
             | unzipped
     );
 
-// output> (123 234)
+// output> ({1,2,3} {2,3,4})

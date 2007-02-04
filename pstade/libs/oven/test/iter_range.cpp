@@ -60,7 +60,7 @@ void test()
         std::stringstream ss;
         oven::iter_range<std::string::iterator> rng(src);
         ss << rng;
-        BOOST_CHECK( ss.str() == "{a,b,c,}" );
+        BOOST_CHECK( ss.str() == "{a,b,c}" );
     }
 }
 

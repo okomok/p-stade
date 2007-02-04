@@ -38,8 +38,6 @@ int main()
         )
               << std::endl;
 
-    // output> (1 2)(2 3)(3 4)
-
     std::cout <<
         (
             assign::list_of
@@ -50,5 +48,4 @@ int main()
         )
               << std::endl;
 
-    // output> (123 234)
 }

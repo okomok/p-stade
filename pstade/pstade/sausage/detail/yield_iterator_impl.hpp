@@ -93,7 +93,7 @@ public:
 
         BOOST_ASSERT(m_presult != PSTADE_NULLPTR);
         BOOST_ASSERT(!m_status.test(is_incrementing::value));
-        BOOST_ASSERT(!m_status.test(is_end::value) && "out of range access");
+        BOOST_ASSERT("out of range access" && !m_status.test(is_end::value));
 
         return *m_presult;
     }
@@ -102,7 +102,7 @@ public:
     {
         boost::mutex::scoped_lock lock(m_mutex);
 
-        BOOST_ASSERT(!m_status.test(is_end::value) && "out of range");
+        BOOST_ASSERT("out of range" && !m_status.test(is_end::value));
 
         m_status.set(is_incrementing::value);
         m_cond.notify_one();
