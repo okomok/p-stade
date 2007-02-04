@@ -75,7 +75,7 @@ struct op_make_got_at :
     {
         PSTADE_CONCEPT_ASSERT((SinglePass<FusionSeqRange>));
 
-        typedef typename apply<void, FusionSeqRange>::type ref_t;
+        typedef typename apply<void, FusionSeqRange>::ref_t ref_t;
         return op_make_transformed<ref_t>()(rng, got_at_detail::op_at<N>());
     }
 };

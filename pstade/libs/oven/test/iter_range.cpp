@@ -62,6 +62,16 @@ void test()
         ss << rng;
         BOOST_CHECK( ss.str() == "{a,b,c}" );
     }
+    {
+        std::stringstream ss;
+        ss << make_iter_range(std::string());
+        BOOST_CHECK( ss.str() == "{}" );
+    }
+    {
+        std::stringstream ss;
+        ss << make_iter_range(std::string("a"));
+        BOOST_CHECK( ss.str() == "{a}" );
+    }
 }
 
 
