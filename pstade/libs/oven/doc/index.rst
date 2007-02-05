@@ -177,7 +177,7 @@ Some helper function objects are given to fill the gap between Oven and other li
 ^^^^^^^^^^^^^^^
 As discribed below, the function object `generation`_ needs is slightly different from
 the Generator concept defined by the Standard.
-``innumerable`` turns the Generator function object into the one,
+``innumerable`` turns the Generator function object into the Standard conforming one,
 which creates an infinite range, working with `generation`_.
 
 - Header: ``<pstade/oven/generation.hpp>``
@@ -349,7 +349,10 @@ __ http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html#as-literal
 
 ``as_shared_single``
 ^^^^^^^^^^^^^^^^^^^^
-Pending...
+- Header: ``<pstade/oven/as_single.hpp>``
+- Valid expression: ``as_shared_single(p)`` and ``p|as_shared_single``
+- Precondition: ``boost::shared_ptr`` is constructible from ``p``.
+- Returns: A range which behaves as if it were ``[&*p, &*p+1)``.
 
 
 ``counting``
@@ -380,7 +383,7 @@ __ http://www.boost.org/libs/utility/generator_iterator.htm
 - Precondition:``rfun`` call returns initialized ``boost::optional`` if range is not end; Otherwise, returns uninitialized one.
 - Returns: A `Single Pass Range`_ whose values are the results of invoking ``rfun``.
 
-If you have a standard conforming Generator, you can convert it to ``generation`` conforming one by using `innumerable`_.
+If you have a Standard conforming Generator, you can convert it to ``generation`` conforming one by using `innumerable`_.
 
 
 ``indexing``
@@ -882,7 +885,8 @@ Note that ``memoized`` can return a `Forward Range`_ even if the base range is a
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\shared.ipp
 
 - Header: ``<pstade/oven/shared.hpp>``
-- Valid expression: ``new Range|shared``
+- Valid expression: ``p|shared``
+- Precondition: ``boost::shared_ptr`` is constructible from ``p``.
 - Returns: A range whose iterators behave as if they were the original iterators wrapped in `shared_container_iterator`__.
 
 __ http://www.boost.org/libs/utility/shared_container_iterator.html

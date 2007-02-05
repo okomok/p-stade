@@ -16,14 +16,14 @@
 // <boost/fusion/sequence/io.hpp>
 
 
-#include <iosfwd>
 #include <locale> // isspace
+#include <iosfwd>
 #include <boost/assert.hpp>
+#include <boost/implicit_cast.hpp>
+#include <boost/iterator/iterator_traits.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/implicit_cast.hpp>
-#include <boost/iterator/iterator_traits.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/function.hpp>
 #include <pstade/nonassignable.hpp>
