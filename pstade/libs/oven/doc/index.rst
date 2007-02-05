@@ -68,6 +68,7 @@ Note that the function type is not supported as ``rfun``. Instead, add ``&`` to 
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\specification.ipp
 
+All the ranges Oven defines are InputStreamable and OutputStreamable if ``<pstade/oven/io.hpp>`` is included.
 
 
 Range Algorithms
@@ -291,7 +292,7 @@ If ``is_open()`` is not ``true``, the range is empty.
 Range Makers
 ------------
 Oven provides some predefined functions which produce a range.
-All the range returned from the following makers are CopyConstructible, Inheritable and OutputStreamable.
+All the range returned from the following makers are CopyConstructible and Inheritable.
 ``<pstade/oven/functions.hpp>`` includes every maker header unless otherwise specified.
 
 
@@ -440,7 +441,7 @@ The underlying ranges are not modified.
 Additional information is available at `Range Library Proposal`_.
 ``<pstade/oven/adaptors.hpp>`` includes all the following Range Adaptors unless otherwise specified.
 
-Note that all the range returned from the following adaptors are CopyConstructible, Inheritable and OutputStreamable.
+Note that all the range returned from the following adaptors are CopyConstructible and Inheritable.
 Also, if ``a0|xxx(a1,..,aN)`` is a valid expression, then  ``make_xxx(a0,..,aN)`` too is a valid expression
 which has the same effect.
 

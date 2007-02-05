@@ -15,7 +15,6 @@
 
 
 #include <string>
-#include <sstream>
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/filtered.hpp>
 #include <pstade/locale.hpp>
@@ -46,13 +45,6 @@ void test()
         BOOST_CHECK( rng1 == rng2 );
         BOOST_CHECK( !(rng1 != rng2 ) );
         BOOST_CHECK( rng1 == rng5 );
-    }
-    {
-        std::string src("abc");
-        std::stringstream ss;
-        oven::sub_range<std::string> rng(src);
-        ss << rng;
-        BOOST_CHECK( ss.str() == "{a,b,c}" );
     }
     {
         oven::sub_range<std::string> const rng1(src);

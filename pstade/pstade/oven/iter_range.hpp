@@ -25,8 +25,6 @@
 
 #include <algorithm> // swap
 #include <cstddef> // size_t
-#include <iosfwd> // basic_ostream
-#include <boost/implicit_cast.hpp>
 #include <boost/iterator/iterator_categories.hpp> // iterator_traversal
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/operators.hpp> // equality_comparable
@@ -196,33 +194,8 @@ struct op_make_iter_range :
     }
 };
 
+
 PSTADE_CONSTANT(make_iter_range, (op_make_iter_range))
-
-
-template< class Iterator, class CharT, class Traits >
-std::basic_ostream<CharT, Traits>&
-operator<<(std::basic_ostream<CharT, Traits>& os, iter_range<Iterator> const& rng)
-{
-    os << '{';
-
-    bool is_beginning = true;
-    Iterator const last(boost::end(rng));
-
-    for (Iterator it(boost::begin(rng)); it != last; ++it) {
-        if (!is_beginning)
-            os << ',';
-        else
-            is_beginning = false;
-
-        os <<
-            boost::implicit_cast<
-                typename boost::iterator_value<Iterator>::type const&
-            >(*it);
-    }
-
-    os << '}';
-    return os;
-}
 
 
 } } // namespace pstade::oven

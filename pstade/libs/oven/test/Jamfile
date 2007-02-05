@@ -81,6 +81,7 @@ test-suite oven :
     [ oven-test identities ]
     [ oven-test indexing ]
     [ oven-test indirected ]
+    [ oven-test io ]
     [ oven-test iter_range ]
     [ oven-test iteration ]
     [ oven-test jointed ]

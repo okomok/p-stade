@@ -15,6 +15,9 @@
 // #include "./directory_range.hpp"
 #include "./empty_range.hpp"
 #include "./file_range.hpp"
+#include "./io.hpp"
+#include "./iter_range.hpp"
+#include "./sub_range.hpp"
 #include "./sub_set.hpp"
 
 
