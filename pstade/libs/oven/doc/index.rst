@@ -203,8 +203,8 @@ In principle, call ``regular`` before a lambda functor is passed to `Range Adapt
 ``shared_regular`` converts a non-Copyable function object type to Copyable one.
 
 - Header: ``<pstade/oven/regular.hpp>``
-- Valid expression: ``shared_regular(ptr)``.
-- Precondition: ``boost::shared_ptr<F> f(ptr);`` is a valid expression.
+- Valid expression: ``shared_regular(p)``.
+- Precondition: ``boost::shared_ptr`` is constructible from ``p``.
 - Returns: A `Function Object`_ which is DefaultConstructible and CopyAssignable.
 
 
@@ -344,7 +344,7 @@ __ http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html#as-literal
 
 - Header: ``<pstade/oven/as_single.hpp>``
 - Valid expression: ``as_single(v)`` and ``v|as_single``
-- Returns: A range which behaves as if it were ``[&v, &v+1)``.
+- Returns: A range which behaves as if it were ``[&v,&v+1)``.
 
 
 ``as_shared_single``
@@ -352,7 +352,7 @@ __ http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html#as-literal
 - Header: ``<pstade/oven/as_single.hpp>``
 - Valid expression: ``as_shared_single(p)`` and ``p|as_shared_single``
 - Precondition: ``boost::shared_ptr`` is constructible from ``p``.
-- Returns: A range which behaves as if it were ``[&*p, &*p+1)``.
+- Returns: A range which behaves as if it were ``[&*p,&*p+1)``.
 
 
 ``counting``
@@ -640,7 +640,7 @@ Note that ``delimited`` prepends the delimiter. ``dropped`` is useful to remove 
 - Header: ``<pstade/oven/dropped.hpp>``
 - Valid expression: ``rng|dropped(n)``
 - Precondition: ``0 <= n``
-- Returns: ``[boost::next(boost::begin(rng),std::min(n, distance(rng))),boost::end(rng))``
+- Returns: ``[boost::next(boost::begin(rng),std::min(n,distance(rng))),boost::end(rng))``
 
 
 ``dropped_while``
@@ -802,7 +802,7 @@ Note that ``memoized`` can return a `Forward Range`_ even if the base range is a
 ^^^^^^^^^^
 - Header: ``<pstade/oven/popped.hpp>``
 - Valid expression: ``fwdRng|popped``
-- Precondition: ``boost::empty(fwdRng) == true``
+- Precondition: ``boost::empty(fwdRng) == false``
 - Returns: ``[boost::begin(fwdRng),boost::next(boost::begin(fwdRng),oven::distance(fwdRng)-1))``
 
 

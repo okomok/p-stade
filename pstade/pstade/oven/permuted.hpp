@@ -35,7 +35,7 @@ namespace permuted_detail {
                 typename range_iterator<IndexRange>::type
             >
         iter_t;
-        
+
         typedef
             iter_range<iter_t> const
         result;
