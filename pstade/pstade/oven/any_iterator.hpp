@@ -22,9 +22,10 @@
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/mpl/assert.hpp>
+#include <boost/mpl/if.hpp>
+#include <boost/shared_ptr.hpp>
 #include <boost/type_traits/is_convertible.hpp>
 #include <pstade/clone_ptr.hpp>
-#include <pstade/new_delete.hpp>
 #include <pstade/remove_cvr.hpp>
 #include <pstade/unused.hpp>
 #include <pstade/use_default.hpp>
@@ -226,6 +227,16 @@ namespace any_iterator_detail {
     };
 
 
+    // Hmm, 'shared_ptr' causes infinite 'recursion'.
+    template< class Traversal, class PlaceHolder >
+    struct smart_ptr :
+        boost::mpl::if_< boost::is_convertible<Traversal, boost::forward_traversal_tag>,
+            clone_ptr<PlaceHolder>,
+            boost::shared_ptr<PlaceHolder>
+        >
+    { };
+
+
 } // namespace any_iterator_detail
 
 
@@ -259,9 +270,9 @@ public:
 
     template< class Iterator_ >
     explicit any_iterator(Iterator_ const& it) :
-        m_pimpl(op_new_auto<
+        m_pimpl(new
             any_iterator_detail::holder<Iterator_, ref_t, trv_t, diff_t>
-        >()(it))
+        (it))
     { }
 
     template< class Iterator_ >
@@ -273,6 +284,7 @@ public:
     }
 
 private:
+    // typename any_iterator_detail::smart_ptr<trv_t, placeholder_t>::type m_pimpl;
     clone_ptr<placeholder_t> m_pimpl;
 
 friend class boost::iterator_core_access;

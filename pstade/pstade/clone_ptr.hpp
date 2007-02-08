@@ -89,6 +89,11 @@ struct clone_ptr :
     }
 
     template< class Clonable_ >
+    explicit clone_ptr(Clonable_ *p) :
+        m_ptr(p)
+    { }
+
+    template< class Clonable_ >
     explicit clone_ptr(std::auto_ptr<Clonable_> ap) :
         m_ptr(ap.release())
     { }

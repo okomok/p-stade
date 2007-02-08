@@ -48,5 +48,5 @@ int main()
             )
     ;
 
-    std::cout << (fibs|taken(20));
+    std::cout << (fibs|taken(32));
 }
