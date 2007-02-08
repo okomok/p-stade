@@ -31,7 +31,7 @@ namespace pstade { namespace oven {
 namespace recursion_detail {
 
 
-    template< class Iterator >
+    template< class Range >
     struct lazy_iterator;
 
 
