@@ -17,6 +17,7 @@
 #include "./file_range.hpp"
 #include "./io.hpp"
 #include "./iter_range.hpp"
+#include "./recursion.hpp"
 #include "./sub_range.hpp"
 #include "./sub_set.hpp"
 

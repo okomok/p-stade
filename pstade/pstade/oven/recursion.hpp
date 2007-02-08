@@ -14,7 +14,6 @@
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/optional.hpp>
 #include <boost/range/begin.hpp>
-#include <boost/utility/result_of.hpp>
 #include <pstade/function.hpp>
 #include <pstade/is_same.hpp>
 #include "./begin_end.hpp"
@@ -23,7 +22,6 @@
 #include "./iter_range.hpp"
 #include "./range_difference.hpp"
 #include "./range_reference.hpp"
-#include "./range_traversal.hpp"
 #include "./range_value.hpp"
 
 
@@ -34,15 +32,15 @@ namespace recursion_detail {
 
 
     template< class Iterator >
-    struct delay_iterator;
+    struct lazy_iterator;
 
 
     template< class Range >
-    struct delay_iterator_super
+    struct lazy_iterator_super
     {
         typedef
             boost::iterator_facade<
-                delay_iterator<Range>,
+                lazy_iterator<Range>,
                 typename range_value<Range>::type,
                 boost::single_pass_traversal_tag,
                 typename range_reference<Range>::type,
@@ -53,24 +51,24 @@ namespace recursion_detail {
 
 
     template< class Range >
-    struct delay_iterator :
-        delay_iterator_super<Range>::type
+    struct lazy_iterator :
+        lazy_iterator_super<Range>::type
     {
     private:
-        typedef typename delay_iterator_super<Range>::type super_t;
+        typedef typename lazy_iterator_super<Range>::type super_t;
         typedef typename super_t::reference ref_t;
         typedef typename super_t::difference_type diff_t;
 
     public:
-        delay_iterator()
+        lazy_iterator()
         { }
 
-    template< class > friend struct delay_iterator;
-        delay_iterator(Range& rng, op_begin) :
+    template< class > friend struct lazy_iterator;
+        lazy_iterator(Range& rng, op_begin) :
             m_prng(boost::addressof(rng)), m_initialDiff(0)
         { }
 
-        delay_iterator(Range& rng, op_end) :
+        lazy_iterator(Range& rng, op_end) :
             m_prng(boost::addressof(rng)), m_initialDiff((std::numeric_limits<diff_t>::max)())
         { }
 
@@ -151,7 +149,7 @@ namespace recursion_detail {
     struct baby
     {
         typedef
-            delay_iterator<Range>
+            lazy_iterator<Range>
         iter_t;
 
         typedef
