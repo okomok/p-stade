@@ -14,13 +14,11 @@
 #include <iostream>
 #include <pstade/lexical_cast.hpp>
 #include <pstade/oven.hpp>
-#include <pstade/as.hpp>
-#include <pstade/pack.hpp>
 #include <boost/assign/list_of.hpp>
 #include <boost/foreach.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/core.hpp>
-#include <boost/tuple/tuple_io.hpp>
+
 #include <pstade/oven/recursion.hpp>
 
 
@@ -30,23 +28,16 @@ using namespace pstade::oven;
 
 
 typedef
-    any_range<int, boost::single_pass_traversal_tag>
+    any_range<int const&, boost::single_pass_traversal_tag>
 range;
 
 
 int main()
 {
+    range ones;
+
     int const one = 1;
+    ones = recursion(ones)|prepended(one);
 
-    range fibs;
-
-    fibs =
-        as_single(one)|appended(one)|transformed(pstade::as_value)|
-            jointed(
-                pstade::pack(recursion(fibs), recursion(fibs)|dropped(1))|
-                    zipped_with(regular(lambda::_1 + lambda::_2))
-            )
-    ;
-
-    std::cout << (fibs|taken(20));
+    std::cout << (ones|taken(8));
 }
