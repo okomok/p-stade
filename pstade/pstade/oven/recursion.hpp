@@ -15,7 +15,6 @@
 #include <boost/optional.hpp>
 #include <boost/range/begin.hpp>
 #include <pstade/function.hpp>
-#include <pstade/is_same.hpp>
 #include "./begin_end.hpp"
 #include "./concepts.hpp"
 #include "./detail/next_prior.hpp" // next
@@ -50,6 +49,13 @@ namespace recursion_detail {
     };
 
 
+    template< class Difference > inline
+    Difference limits_max()
+    {
+        return (std::numeric_limits<Difference>::max)();
+    }
+
+
     template< class Range >
     struct lazy_iterator :
         lazy_iterator_super<Range>::type
@@ -69,7 +75,7 @@ namespace recursion_detail {
         { }
 
         lazy_iterator(Range& rng, op_end) :
-            m_prng(boost::addressof(rng)), m_initialDiff((std::numeric_limits<diff_t>::max)())
+            m_prng(boost::addressof(rng)), m_initialDiff(limits_max<diff_t>())
         { }
 
         typedef typename range_iterator<Range>::type base_type;
@@ -102,12 +108,12 @@ namespace recursion_detail {
         template< class Other >
         bool is_compatible(Other const& other) const
         {
-            return is_same(*m_prng, *other.m_prng);
+            return m_prng == other.m_prng;
         }
 
         bool is_end() const
         {
-            return m_initialDiff == (std::numeric_limits<diff_t>::max)();
+            return m_initialDiff == limits_max<diff_t>();
         }
 
     friend class boost::iterator_core_access;
