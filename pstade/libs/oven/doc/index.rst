@@ -185,6 +185,20 @@ which creates an infinite range, working with `generation`_.
 - Returns: A `generation`_ conforming function object.
 
 
+``recursion``
+^^^^^^^^^^^^^
+Pending...
+
+``recursion``, collaborating with `any_range`_, creates a recursive range::
+
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\recursion.ipp
+
+
+- Header: ``<pstade/oven/recursion.hpp>``
+- Valid expression: ``recursion(anyRng)``, where ``anyRng`` is an ``any_range`` object.
+- Returns: A `Single Pass Range`_.
+
+
 ``regular``
 ^^^^^^^^^^^
 Boost.Lambda functors are neither DefaultConstructible nor CopyAssignable.
@@ -813,17 +827,17 @@ Note that ``memoized`` can return a `Forward Range`_ even if the base range is a
 - Returns: A range which behaves as if it were ``as_single(v)|jointed(rng)``.
 
 
+``reversed``
+^^^^^^^^^^^^
+- Header: ``<pstade/oven/reversed.hpp>``
+- See: `Range Library Proposal`_.
+
+
 ``rotated``
 ^^^^^^^^^^^
 - Header: ``<pstade/oven/rotated.hpp>``
 - Valid expression: ``fwdRng|rotated(fun)``
 - Returns: ``[fun(fwdRng),boost::end(fwdRng))|jointed([boost::begin(fwdRng),fun(fwdRng)))``
-
-
-``reversed``
-^^^^^^^^^^^^
-- Header: ``<pstade/oven/reversed.hpp>``
-- See: `Range Library Proposal`_.
 
 
 ``scanned``
