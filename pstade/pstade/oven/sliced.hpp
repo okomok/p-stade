@@ -57,7 +57,11 @@ namespace sliced_detail {
         result call(Range& rng, diff_t const& start, diff_t const& stride)
         {
             PSTADE_CONCEPT_ASSERT((RandomAccess<Range>));
+
+            // 'rng' can be infinite?
+        #if defined(PSTADE_OVEN_SLICED_DEBUG_IS_SLICEABLE)
             BOOST_ASSERT((is_sliceable_with)(rng, stride));
+        #endif
 
             return result(
                 iter_t(boost::begin(rng), start, stride),

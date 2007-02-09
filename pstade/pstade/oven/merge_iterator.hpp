@@ -184,7 +184,7 @@ public:
         m_comp(comp)
     {
         BOOST_MPL_ASSERT((detail::reference_is_convertible_aux<typename boost::iterator_reference<Iterator2>::type, ref_t>));
-    #if defined(PSTADE_OVEN_MERGE_DEBUG_IS_SORTED) // ranges may be too long to diagnose.
+    #if defined(PSTADE_OVEN_MERGED_DEBUG_IS_SORTED) // ranges may be too long to diagnose.
         BOOST_ASSERT(detail::debug_is_sorted(it1, last1, comp));
         BOOST_ASSERT(detail::debug_is_sorted(it2, last2, comp));
     #endif

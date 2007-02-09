@@ -413,7 +413,7 @@ the function on the first argument, the second item by applying the function on 
 
 - Header: ``<pstade/oven/recursion.hpp>``
 - Valid expression: ``recursion(anyRng)``, where ``anyRng`` is an ``any_range`` object.
-- Returns: A `Single Pass Range`_.
+- Returns: An infinite range up to  `Bidirectional Range`_.
 
 
 ``repeated``

@@ -22,6 +22,7 @@ test-suite range :
     [ oven-example-test adjacent_difference ]
     [ oven-example-test duplicates ]
     [ oven-example-test factorials ]
+    [ oven-example-test fibonacci ]
     [ oven-example-test primes ]
     [ oven-example-test specification ]
     [ oven-example-test zip ]

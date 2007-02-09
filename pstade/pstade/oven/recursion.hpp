@@ -10,6 +10,17 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Note:
+//
+// 'lazy_iterator' might be non-conforming.
+// The time of dereference never be constant.
+//
+// I didn't implement RandomAccess members,
+// because the distance of range is infinite and undefined,
+// which seems to be strange for RandomAccessRange.
+
+
+#include <boost/assert.hpp>
 #include <boost/iterator/detail/minimum_category.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/optional.hpp>

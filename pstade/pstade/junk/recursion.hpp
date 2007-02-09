@@ -10,14 +10,15 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/function.hpp>
+#include <boost/assert.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/optional.hpp>
-#include <boost/utility/result_of.hpp>
+#include <boost/range/begin.hpp>
+#include <boost/range/end.hpp>
+#include <pstade/for_debug.hpp>
 #include <pstade/function.hpp>
-#include <pstade/is_same.hpp>
-#include "./begin_end.hpp"
 #include "./concepts.hpp"
+#include "./detail/next_prior.hpp" // next
 #include "./iter_range.hpp"
 #include "./range_difference.hpp"
 #include "./range_reference.hpp"
@@ -31,16 +32,16 @@ namespace pstade { namespace oven {
 namespace recursion_detail {
 
 
-    template< class Iterator >
-    struct delay_iterator;
+    template< class Range >
+    struct lazy_iterator;
 
 
     template< class Range >
-    struct delay_iterator_super
+    struct lazy_iterator_super
     {
         typedef
             boost::iterator_facade<
-                delay_iterator<Range>,
+                lazy_iterator<Range>,
                 typename range_value<Range>::type,
                 typename range_pure_traversal<Range>::type,
                 typename range_reference<Range>::type,
@@ -51,28 +52,29 @@ namespace recursion_detail {
 
 
     template< class Range >
-    struct delay_iterator :
-        delay_iterator_super<Range>::type
+    struct lazy_iterator :
+        lazy_iterator_super<Range>::type
     {
     private:
-        typedef typename delay_iterator_super<Range>::type super_t;
+        typedef typename lazy_iterator_super<Range>::type super_t;
         typedef typename super_t::reference ref_t;
         typedef typename super_t::difference_type diff_t;
 
     public:
-        delay_iterator()
+        lazy_iterator()
         { }
 
-        template< class GetIter >
-        delay_iterator(Range& rng, GetIter const& getIter) :
-            m_prng(boost::addressof(rng)), m_getIter(getIter)
+    template< class > friend struct lazy_iterator;
+        lazy_iterator(Range& rng, bool is_end) :
+            m_prng(boost::addressof(rng)), m_is_from_end(is_end), m_saved_diff(0)
         { }
 
         typedef typename range_iterator<Range>::type base_type;
 
         base_type const& base() const
         {
-            return base_reference();
+            init_base();
+            return *m_obase;
         }
 
         Range& base_range() const
@@ -82,67 +84,96 @@ namespace recursion_detail {
 
     private:
         Range *m_prng;
-        boost::function<base_type(Range&)> m_getIter;
+        bool m_is_from_end;
+        diff_t m_saved_diff;
         mutable boost::optional<base_type> m_obase;
+
+        void init_base() const
+        {
+            if (m_obase)
+                return;
+
+            m_obase = !m_is_from_end ? boost::begin(*m_prng) : boost::end(*m_prng);
+            m_obase = detail::next(*m_obase, m_saved_diff);
+        }
 
         template< class Other >
         bool is_compatible(Other const& other) const
         {
-            return is_same(*m_prng, other.base_range());
+            for_debug();
+            return m_prng == other.m_prng;
         }
 
-        void init_base() const
+        bool is_maybe_non_end() const
         {
-            if (!m_obase)
-                m_obase = m_getIter(*m_prng);
-        }
+            for_debug();
 
-        base_type& base_reference()
-        {
-            init_base();
-            return *m_obase;
-        }
+            if (m_obase) // non-checkable
+                return true; 
 
-        base_type const& base_reference() const
-        {
-            init_base();
-            return *m_obase;
+            return m_is_from_end ? m_saved_diff < 0 : true;
         }
 
     friend class boost::iterator_core_access;
         ref_t dereference() const
         {
+            BOOST_ASSERT(is_maybe_non_end());
+
+            init_base();
             return *base();
         }
 
         template< class Other >
         bool equal(Other const& other) const
         {
-            return false;
-            //BOOST_ASSERT(is_compatible(other));
-            //return base() == other.base();
+            BOOST_ASSERT(is_compatible(other));
+
+            // They never meet in infinite range.
+            if (m_is_from_end != other.m_is_from_end)
+                return false;
+
+            if (m_obase || other.m_obase)
+                return base() == other.base();
+            else
+                return m_saved_diff == other.m_saved_diff;
         }
 
         void increment()
         {
-            ++base_reference();
+            BOOST_ASSERT(is_maybe_non_end());
+
+            if (m_obase)
+                ++*m_obase;
+            else
+                ++m_saved_diff;
         }
 
         void decrement()
         {
-            --base_reference();
+            if (m_obase)
+                --*m_obase;
+            else
+                --m_saved_diff;
         }
 
         void advance(diff_t const& d)
         {
-            base_reference() += d;
+            if (m_obase)
+                *m_obase += d;
+            else
+                m_saved_diff += d;
         }
 
         template< class Other >
         diff_t distance_to(Other const& other) const
         {
             BOOST_ASSERT(is_compatible(other));
-            return other.base() - base();
+            BOOST_ASSERT("infinite difference" && m_is_from_end == other.m_is_from_end);
+
+            if (m_obase || other.m_obase)
+                return other.base() - base();
+            else
+                return other.m_saved_diff - m_saved_diff;
         }
     };
 
@@ -151,7 +182,7 @@ namespace recursion_detail {
     struct baby
     {
         typedef
-            delay_iterator<Range>
+            lazy_iterator<Range>
         iter_t;
 
         typedef
@@ -161,7 +192,7 @@ namespace recursion_detail {
         result call(Range& rng)
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-            return result(iter_t(rng, begin), iter_t(rng, end));
+            return result(iter_t(rng, false), iter_t(rng, true));
         }
     };
 
