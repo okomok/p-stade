@@ -7,7 +7,7 @@ The Oven Range Library
 :Author: Shunsuke Sogame
 :Contact: pstade.mb@gmail.com
 :License: Distributed under the `Boost Software License Version 1.0`_
-:Version: 0.93.2
+:Version: 0.93.3
 
 
 
@@ -183,20 +183,6 @@ which creates an infinite range, working with `generation`_.
 - Header: ``<pstade/oven/generation.hpp>``
 - Valid expression: ``innumerable(rfun)``
 - Returns: A `generation`_ conforming function object.
-
-
-``recursion``
-^^^^^^^^^^^^^
-Pending...
-
-``recursion``, collaborating with `any_range`_, creates a recursive range::
-
-	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\recursion.ipp
-
-
-- Header: ``<pstade/oven/recursion.hpp>``
-- Valid expression: ``recursion(anyRng)``, where ``anyRng`` is an ``any_range`` object.
-- Returns: A `Single Pass Range`_.
 
 
 ``regular``
@@ -418,6 +404,18 @@ the function on the first argument, the second item by applying the function on 
 - Returns: An infinite `Single Pass Range`_ of repeated applications of ``fun`` to ``x``.
 
 
+``recursion``
+^^^^^^^^^^^^^
+``recursion``, collaborating with `any_range`_, creates a recursive range::
+
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\recursion.ipp
+
+
+- Header: ``<pstade/oven/recursion.hpp>``
+- Valid expression: ``recursion(anyRng)``, where ``anyRng`` is an ``any_range`` object.
+- Returns: A `Single Pass Range`_.
+
+
 ``repeated``
 ^^^^^^^^^^^^
 ``repeated`` makes a `Random Access Range`_ where all values are the first argument::
@@ -425,7 +423,7 @@ the function on the first argument, the second item by applying the function on 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\repeated.ipp
 
 - Header: ``<pstade/oven/repeated.hpp>``
-- Valid expression: ``v|repeated(c)`` and ``make_repeated(v, c)``
+- Valid expression: ``v|repeated(c)`` and ``make_repeated(v,c)``
 - Returns: A range which behaves as if it were ``as_single(v)|cycled(c)``.
 
 
@@ -1281,4 +1279,9 @@ Version 0.93.2
 - ``zipped`` and ``zipped_with`` accept any tuple.
 - Removed ``generation_copied``.
 - Added ``shared_regular`` and ``innumerable``.
+
+Version 0.93.3
+^^^^^^^^^^^^^^
+- Added ``recursion``.
+
 

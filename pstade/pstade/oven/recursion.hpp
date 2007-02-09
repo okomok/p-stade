@@ -10,17 +10,19 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <limits> // numeric_limits
+#include <boost/iterator/detail/minimum_category.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/optional.hpp>
 #include <boost/range/begin.hpp>
+#include <boost/range/end.hpp>
+#include <pstade/for_debug.hpp>
 #include <pstade/function.hpp>
-#include "./begin_end.hpp"
 #include "./concepts.hpp"
 #include "./detail/next_prior.hpp" // next
 #include "./iter_range.hpp"
 #include "./range_difference.hpp"
 #include "./range_reference.hpp"
+#include "./range_traversal.hpp"
 #include "./range_value.hpp"
 
 
@@ -41,19 +43,15 @@ namespace recursion_detail {
             boost::iterator_facade<
                 lazy_iterator<Range>,
                 typename range_value<Range>::type,
-                boost::single_pass_traversal_tag,
+                typename boost::detail::minimum_category<
+                    boost::bidirectional_traversal_tag,
+                    typename range_pure_traversal<Range>::type
+                >::type,
                 typename range_reference<Range>::type,
                 typename range_difference<Range>::type
             >
         type;
     };
-
-
-    template< class Difference > inline
-    Difference limits_max()
-    {
-        return (std::numeric_limits<Difference>::max)();
-    }
 
 
     template< class Range >
@@ -70,12 +68,8 @@ namespace recursion_detail {
         { }
 
     template< class > friend struct lazy_iterator;
-        lazy_iterator(Range& rng, op_begin) :
-            m_prng(boost::addressof(rng)), m_initialDiff(0)
-        { }
-
-        lazy_iterator(Range& rng, op_end) :
-            m_prng(boost::addressof(rng)), m_initialDiff(limits_max<diff_t>())
+        lazy_iterator(Range& rng, bool is_end) :
+            m_prng(boost::addressof(rng)), m_is_from_end(is_end), m_saved_diff(0)
         { }
 
         typedef typename range_iterator<Range>::type base_type;
@@ -93,33 +87,40 @@ namespace recursion_detail {
 
     private:
         Range *m_prng;
+        bool m_is_from_end;
+        diff_t m_saved_diff;
         mutable boost::optional<base_type> m_obase;
-        diff_t m_initialDiff;
 
         void init_base() const
         {
             if (m_obase)
                 return;
 
-            m_obase = boost::begin(*m_prng);
-            m_obase = detail::next(*m_obase, m_initialDiff);
+            m_obase = !m_is_from_end ? boost::begin(*m_prng) : boost::end(*m_prng);
+            m_obase = detail::next(*m_obase, m_saved_diff);
         }
 
         template< class Other >
         bool is_compatible(Other const& other) const
         {
+            for_debug();
             return m_prng == other.m_prng;
         }
 
-        bool is_end() const
+        bool is_maybe_non_end() const
         {
-            return m_initialDiff == limits_max<diff_t>();
+            for_debug();
+
+            if (m_obase) // non-checkable
+                return true; 
+
+            return m_is_from_end ? m_saved_diff < 0 : true;
         }
 
     friend class boost::iterator_core_access;
         ref_t dereference() const
         {
-            BOOST_ASSERT(!is_end());
+            BOOST_ASSERT(is_maybe_non_end());
 
             init_base();
             return *base();
@@ -130,23 +131,32 @@ namespace recursion_detail {
         {
             BOOST_ASSERT(is_compatible(other));
 
-            if (is_end() != other.is_end())
+            // They never meet in infinite range.
+            if (m_is_from_end != other.m_is_from_end)
                 return false;
 
             if (m_obase || other.m_obase)
                 return base() == other.base();
             else
-                return m_initialDiff == other.m_initialDiff;
+                return m_saved_diff == other.m_saved_diff;
         }
 
         void increment()
         {
-            BOOST_ASSERT(!is_end());
+            BOOST_ASSERT(is_maybe_non_end());
 
             if (m_obase)
                 ++*m_obase;
             else
-                ++m_initialDiff;
+                ++m_saved_diff;
+        }
+
+        void decrement()
+        {
+            if (m_obase)
+                --*m_obase;
+            else
+                --m_saved_diff;
         }
     };
 
@@ -165,7 +175,7 @@ namespace recursion_detail {
         result call(Range& rng)
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-            return result(iter_t(rng, begin), iter_t(rng, end));
+            return result(iter_t(rng, false), iter_t(rng, true));
         }
     };
 

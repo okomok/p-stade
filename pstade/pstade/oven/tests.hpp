@@ -62,6 +62,12 @@ bool test_SinglePass_Readable(Range& rng, Vector const& expected)
     PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
     PSTADE_CONCEPT_ASSERT((Readable<Range>));
 
+    typedef typename range_iterator<Range>::type iter_t;
+    iter_t first = boost::begin(rng);
+    iter_t last  = boost::end(rng);
+    BOOST_ASSERT(first == first);
+    BOOST_ASSERT(last == last);
+
     if (!oven::equals(rng, expected)) { // In fact, Incrementable only.
         BOOST_ASSERT(false);
         return false;
