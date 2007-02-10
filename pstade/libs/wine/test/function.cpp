@@ -73,7 +73,6 @@ struct baby_bar
 typedef pstade::function<baby_bar, std::string> op_bar;
 PSTADE_CONSTANT(bar, (op_bar))
 
-
 PSTADE_TEST_IS_RESULT_OF((int), op_bar(int&, char))
 PSTADE_TEST_IS_RESULT_OF((double), op_bar(double&))
 PSTADE_TEST_IS_RESULT_OF((std::string), op_bar())

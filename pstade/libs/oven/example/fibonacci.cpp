@@ -45,7 +45,7 @@ using namespace pstade::oven;
 void test()
 {
     {
-        any_range<int, boost::single_pass_traversal_tag> fibs;
+        any_range<int, recursive<boost::single_pass_traversal_tag> > fibs;
         int const start[] = { 1, 1 };
         fibs =
             start|transformed(pstade::as_value)|
@@ -57,23 +57,6 @@ void test()
 
         std::cout << (fibs|taken(20));
     }
-
-#if 0
-    {
-        // dereference is not random access, of course.
-        any_range<int, boost::random_access_traversal_tag> fibs;
-        int const start[] = { 1, 1 };
-        fibs =
-            start|transformed(pstade::as_value)|
-                jointed(
-                    boost::make_tuple(recursion(fibs), recursion(fibs)|dropped(1))|
-                        zipped_with(regular(lambda::_1 + lambda::_2))
-                )
-        ;
-
-        std::cout << (fibs|sliced(0, 2)|taken(20));
-    }
-#endif 
 }
 
 

@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/iterator/iterator_categories.hpp>
 #include <pstade/unused_to_copy.hpp>
 #include "./any_iterator.hpp"
 #include "./as_lightweight_proxy.hpp"
@@ -43,7 +44,7 @@ namespace any_range_detail {
 
 template<
     class Reference,
-    class Traversal,
+    class Traversal  = boost::single_pass_traversal_tag,
     class Value      = boost::use_default,
     class Difference = boost::use_default
 >

@@ -19,6 +19,7 @@
 #include "./copy_range.hpp"
 #include "./distance.hpp"
 #include "./equals.hpp"
+#include "./front_back.hpp"
 
 
 #include "./as_array.hpp"
@@ -30,7 +31,6 @@
 #include "./indexing.hpp"
 #include "./iteration.hpp"
 // #include "./paralell.hpp"
-#include "./recursion.hpp"
 #include "./repeated.hpp"
 #include "./stream_input.hpp"
 

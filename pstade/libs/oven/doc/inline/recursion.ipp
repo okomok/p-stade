@@ -1,4 +1,4 @@
-any_range<int, boost::single_pass_traversal_tag> fibs;
+any_range< int, recursive<boost::single_pass_traversal_tag> > fibs;
 int const start[] = { 1, 1 };
 fibs =
     start|transformed(pstade::as_value)|

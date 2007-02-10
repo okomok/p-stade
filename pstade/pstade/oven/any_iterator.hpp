@@ -23,6 +23,7 @@
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/mpl/if.hpp>
+#include <boost/mpl/or.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/type_traits/is_convertible.hpp>
 #include <pstade/clone_ptr.hpp>
@@ -30,6 +31,7 @@
 #include <pstade/unused.hpp>
 #include <pstade/use_default.hpp>
 #include "./detail/reference_is_convertible.hpp"
+#include "./traversal_tags.hpp" // recursive_tag
 
 
 namespace pstade { namespace oven {
@@ -141,7 +143,7 @@ namespace any_iterator_detail {
     {
     private:
         BOOST_MPL_ASSERT((detail::reference_is_convertible_aux<typename boost::iterator_reference<Iterator>::type, Reference>));
-        BOOST_MPL_ASSERT((boost::is_convertible<typename boost::iterator_traversal<Iterator>::type,  Traversal>));
+        BOOST_MPL_ASSERT((boost::is_convertible<typename boost::iterator_traversal<Iterator>::type, Traversal>));
         BOOST_MPL_ASSERT((boost::is_convertible<typename boost::iterator_difference<Iterator>::type, Difference>));
 
         typedef holder self_t;
@@ -208,6 +210,11 @@ namespace any_iterator_detail {
     struct super_
     {
         typedef typename
+            // strip 'recursive' for 'iterator_facade'. 
+            boost::detail::pure_traversal_tag<Traversal>::type
+        trv_t;
+
+        typedef typename
             use_default_eval_to< Value, remove_cvr<Reference> >::type
         value_t;
 
@@ -219,7 +226,7 @@ namespace any_iterator_detail {
             boost::iterator_facade<
                 any_iterator<Reference, Traversal, Value, Difference>,
                 value_t,
-                Traversal,
+                trv_t,
                 Reference,
                 diff_t
             >
@@ -227,10 +234,13 @@ namespace any_iterator_detail {
     };
 
 
-    // Hmm, 'shared_ptr' causes infinite 'recursion'.
     template< class Traversal, class PlaceHolder >
     struct smart_ptr :
-        boost::mpl::if_< boost::is_convertible<Traversal, boost::forward_traversal_tag>,
+        boost::mpl::if_< 
+            boost::mpl::or_<
+                boost::is_convertible<Traversal, boost::forward_traversal_tag>,
+                boost::is_convertible<Traversal, recursive_tag>
+            >,
             clone_ptr<PlaceHolder>,
             boost::shared_ptr<PlaceHolder>
         >
@@ -251,10 +261,8 @@ struct any_iterator :
 {
 private:
     typedef typename any_iterator_detail::super_<Reference, Traversal, Value, Difference>::type super_t;
-    typedef typename super_t::reference ref_t;
-    typedef typename boost::iterator_category_to_traversal<typename super_t::iterator_category>::type trv_t;
     typedef typename super_t::difference_type diff_t;
-    typedef any_iterator_detail::placeholder<ref_t, diff_t> placeholder_t;
+    typedef any_iterator_detail::placeholder<Reference, diff_t> placeholder_t;
 
 public:
     explicit any_iterator()
@@ -271,7 +279,7 @@ public:
     template< class Iterator_ >
     explicit any_iterator(Iterator_ const& it) :
         m_pimpl(new
-            any_iterator_detail::holder<Iterator_, ref_t, trv_t, diff_t>
+            any_iterator_detail::holder<Iterator_, Reference, Traversal, diff_t>
         (it))
     { }
 
@@ -279,16 +287,15 @@ public:
     Iterator_ const& base() const
     {
         return any_iterator_detail::downcast<
-            any_iterator_detail::holder<Iterator_, ref_t, trv_t, diff_t>
+            any_iterator_detail::holder<Iterator_, Reference, Traversal, diff_t>
         >(*m_pimpl).held();
     }
 
 private:
-    // typename any_iterator_detail::smart_ptr<trv_t, placeholder_t>::type m_pimpl;
-    clone_ptr<placeholder_t> m_pimpl;
+    typename any_iterator_detail::smart_ptr<Traversal, placeholder_t>::type m_pimpl;
 
 friend class boost::iterator_core_access;
-    ref_t dereference() const
+    Reference dereference() const
     {
         return m_pimpl->dereference();
     }

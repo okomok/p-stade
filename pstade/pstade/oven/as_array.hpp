@@ -65,11 +65,13 @@ namespace as_array_detail {
         }
     };
 
+    PSTADE_FUNCTION(normal, (baby<_>))
+
 
 } // namespace as_array_detail
 
 
-PSTADE_AUXILIARY0(as_array, (function< as_array_detail::baby<boost::mpl::_> >))
+PSTADE_AUXILIARY0(as_array, (as_array_detail::op_normal))
 
 
 } } // namespace pstade::oven

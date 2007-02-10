@@ -10,7 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/iterator/iterator_categories.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/dont_care.hpp>
@@ -20,6 +19,7 @@
 #include "./identity_iterator.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
+#include "./traversal_tags.hpp" // inclusion guaranteed
 
 
 namespace pstade { namespace oven {
@@ -54,12 +54,6 @@ struct op_make_identities :
 
 PSTADE_CONSTANT(make_identities, (op_make_identities))
 PSTADE_PIPABLE(identities, (op_make_identities))
-
-
-PSTADE_CONSTANT(in_single_pass,   (boost::single_pass_traversal_tag))
-PSTADE_CONSTANT(in_forward,       (boost::forward_traversal_tag))
-PSTADE_CONSTANT(in_bidirectional, (boost::bidirectional_traversal_tag))
-PSTADE_CONSTANT(in_random_access, (boost::random_access_traversal_tag))
 
 
 } } // namespace pstade::oven

@@ -47,11 +47,13 @@ namespace as_single_detail {
         }
     };
 
+    PSTADE_FUNCTION(normal, (baby<_>))
+
 
 } // namespace as_single_detail
 
 
-PSTADE_AUXILIARY0(as_single, (function< as_single_detail::baby<boost::mpl::_> >))
+PSTADE_AUXILIARY0(as_single, (as_single_detail::op_normal))
 
 
 namespace as_shared_single_detail {

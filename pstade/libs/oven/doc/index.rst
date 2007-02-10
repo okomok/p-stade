@@ -121,7 +121,15 @@ Oven has all the range-based STL algorithms, which are ported from `Boost.RangeE
 
 ``compile``
 ^^^^^^^^^^^
-Pending...
+`Pending...`
+
+``compile`` introduces the syntax sugar for ``jointed`` etc::
+
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\compile.ipp
+
+
+- Header: ``<pstade/oven/compile.hpp>``
+- Valid expression: ``compile(rngExpr)``
 
 
 ``copied``
@@ -151,8 +159,8 @@ The upcoming `Boost.Range`_ will replace ``boost::size`` by ``boost::distance``.
 
 
 - Header: ``<pstade/oven/distance.hpp>``
-- Valid expression: ``distance(rng);``
-- Precondition: ``std::distance(boost::begin(rng),boost::end(rng));`` is a valid expression.
+- Valid expression: ``distance(rng)``
+- Precondition: ``std::distance(boost::begin(rng),boost::end(rng))`` is a valid expression.
 - Returns: ``std::distance(boost::begin(rng),boost::end(rng))``
 
 
@@ -164,11 +172,22 @@ The upcoming `Boost.Range`_ will replace ``boost::size`` by ``boost::distance``.
 
 
 - Header: ``<pstade/oven/equals.hpp>``
-- Valid expression: ``equals(rng1,rng2);``
-- Precondition: ``equal(rng1,boost::begin(rng2));`` is a valid expression.
+- Valid expression: ``equals(rng1,rng2)``
+- Precondition: ``equal(rng1,boost::begin(rng2))`` is a valid expression.
 - Returns: ``true`` if and only if the ``oven::equal(rng1,boost::begin(rng2))`` and ``boost::size(rng1) == boost::size(rng2)`` returns ``true``. [#]_
 
 .. [#] The size of two ranges too is checked.
+
+
+``front/back``
+^^^^^^^^^^^^^^
+- Header: ``<pstade/oven/front_back.hpp>``
+- Valid expression: ``front(rng)`` and ``back(biRng)``.
+- Precondition: ``boost::range_value`` of ``rng`` is CopyConstructible.
+- Returns:  ``V(*boost::begin(rng))`` and ``V(*--boost::end(biRng))`` respectively, where ``V`` is ``boost::range_value`` of ``rng``. [#]_
+
+.. [#] They don't return references because of 24.1/9.
+
 
 
 Utilities
@@ -220,18 +239,21 @@ Oven provides some predefined range types.
 
 ``any_range``
 ^^^^^^^^^^^^^
-Though Oven supports ``boost::result_of``, it is sometimes cumbersome to get the type of
+Oven supports ``boost::result_of``, but it is sometimes cumbersome to get the type of
 the adapted range. ``any_range`` behaves as the type erasure of ranges::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\any_range.ipp
 
 
 - Header: ``<pstade/oven/any_range.hpp>``
-- Valid expression: ``any_range<Reference,TraversalTag> any_(rng);`` and ``any_range<Reference,TraversalTag> any_ = rng;``
+- Valid expression: ``any_range<R> any_;``,  ``any_range<R> any_(rng);`` and ``any_range<R> any_ = rng;``
   , where the iterators of ``any_`` are ``Interoperatable`` if and only if ``rng``\s are the same type.
-- Returns: A range whose iterators behave as if they were the original iterators wrapped in `any_iterator`__
+- Precondition: ``boost::range_reference`` of ``rng`` is convertible to ``R`` without creating rvalue.
+- Returns: A `Single Pass Range`_ [#]_ whose iterators behave as if they were the original iterators wrapped in `any_iterator`__
 
 __ http://thbecker.net/free_software_utilities/type_erasure_for_cpp_iterators/start_page.html
+
+.. [#] Though ``any_range`` has the extra template parameter for other traversal tags, it is rejected for now because of the bad performance.
 
 
 ``array_range``
@@ -372,6 +394,13 @@ __ http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html#as-literal
 __ http://www.boost.org/libs/iterator/doc/counting_iterator.html
 
 
+``counting_from``
+^^^^^^^^^^^^^^^^^
+- Header: ``<pstade/oven/counting.hpp>``
+- Valid expression: ``counting_from(n)``, where ``n`` is Incrementable.
+- Returns: A range which behaves as if ``counting(n,std::numeric_limits<N>::max())``, where ``N`` is the type of ``n``.
+
+
 ``generation``
 ^^^^^^^^^^^^^^^^^^
 ``generation`` returns a range whose iterators were originally written as `generator_iterator`__::
@@ -391,7 +420,7 @@ If you have a Standard conforming Generator, you can convert it to ``generation`
 
 ``indexing``
 ^^^^^^^^^^^^
-Pending...
+`Pending...`
 
 
 ``iteration``
@@ -411,6 +440,8 @@ the function on the first argument, the second item by applying the function on 
 
 ``recursion``
 ^^^^^^^^^^^^^
+`Pending...`
+
 ``recursion``, collaborating with `any_range`_, creates a recursive range::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\recursion.ipp
@@ -733,7 +764,7 @@ Pending...
 
 - Header: ``<pstade/oven/jointed.hpp>``
 - Valid expression: ``rng1|jointed(rng2)``
-- Precondition: The ``reference`` type of ``rng2`` is convertible to ``rng1``\'s without creating a rvalue.
+- Precondition: The ``boost::range_reference`` of ``rng2`` is convertible to ``rng1``\'s without creating a rvalue.
 - Returns: A range that joints ``[boost::begin(rng1),boost::end(rng1))`` and ``[boost::begin(rng2),boost::end(rng2))``.
 
 
@@ -1089,8 +1120,8 @@ __ http://www.boost.org/libs/iterator/doc/function_output_iterator.html
 ^^^^^^^^^^^^^
 ``to_stream`` returns an ``OutputItertor`` which is a shorthand version of ``std::ostream_iterator``.
 It needs no an explicit template parameter to specify the ``value_type`` to output,
-but one precondition below must be kept. Generally, the ``reference`` of ``InputIterator`` must be
-the same as ``value_type`` of it.
+but one precondition below must be kept. Generally, the ``boost::iterator_reference`` of ``InputIterator`` must be
+the same as ``value_type`` of it except for reference qualifier.
 
 
 - Header: ``<pstade/oven/to_stream.hpp>``
@@ -1287,6 +1318,9 @@ Version 0.93.2
 
 Version 0.93.3
 ^^^^^^^^^^^^^^
-- Added ``recursion``.
 - Fixed a bug of ``generation``.
+- Added ``front`` and ``back``.
+- ``any_range`` became a `Single Pass Range`_.
+
+
 

@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/implicitly_defined.hpp>
 #include <pstade/nullptr.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./iter_range.hpp"
@@ -35,6 +36,8 @@ public:
     empty_range() :
         super_t(iter_t(PSTADE_NULLPTR), iter_t(PSTADE_NULLPTR))
     { }
+
+    PSTADE_IMPLICITLY_DEFINED_COPY_TO_BASE(empty_range, super_t)
 };
 
 

@@ -27,12 +27,7 @@ namespace lambda = boost::lambda;
 using namespace pstade::oven;
 
 
-typedef
-    any_range<int, boost::single_pass_traversal_tag>
-range;
-
-
-range factorials =
+any_range<int> factorials =
     counting_from(1) |
         scanned(1, // '1' is shared, so no dangling.
             regular(lambda::_1 * lambda::_2));

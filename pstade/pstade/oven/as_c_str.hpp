@@ -102,11 +102,13 @@ namespace as_c_str_detail {
         }
     };
 
+    PSTADE_FUNCTION(normal, (baby<_>))
+
 
 } // namespace as_c_str_detail
 
 
-PSTADE_AUXILIARY0(as_c_str, (function< as_c_str_detail::baby<boost::mpl::_> >))
+PSTADE_AUXILIARY0(as_c_str, (as_c_str_detail::op_normal))
 
 
 struct op_contains_zero

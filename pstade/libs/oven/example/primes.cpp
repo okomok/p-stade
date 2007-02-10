@@ -9,40 +9,24 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#define PSTADE_CONCEPT_CHECK
-#include <string>
 #include <iostream>
-#include <pstade/lexical_cast.hpp>
 #include <pstade/oven.hpp>
-#include <boost/assign/list_of.hpp>
-#include <boost/foreach.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/core.hpp>
 
-namespace assign = boost::assign;
 namespace lambda = boost::lambda;
 using namespace pstade::oven;
 
-typedef
-    any_range<int, boost::single_pass_traversal_tag>
-range;
+typedef any_range<int> range;
 
-range denominators(int x)
+range sieve(range rng)
 {
-    return counting(1, x+1)|filtered(regular(x % lambda::_1 == 0));
+    return rng|dropped(1)|filtered(regular(lambda::_1 % front(rng) != 0));
 }
 
-bool is_prime(int x)
-{
-    return equals(denominators(x), assign::list_of(1)(x));
-}
-
-range primes = iteration(1, regular(lambda::_1 + 1))|filtered(&is_prime);
-
+range primes = iteration(range(counting_from(2)), &::sieve)|transformed(front);
 
 int main()
 {
-    pstade::op_lexical_cast<std::string> to_string;
-    BOOST_FOREACH (std::string p, primes|taken(500)|transformed(to_string))
-        std::cout << p << ',';
+    std::cout << (primes|taken(200));
 }

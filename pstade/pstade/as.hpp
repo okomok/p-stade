@@ -47,11 +47,15 @@ namespace pstade {
         };
 
 
+        PSTADE_FUNCTION(normal,  (baby <_>))
+        PSTADE_FUNCTION(cnormal, (cbaby<_>))
+
+
     } // namespace as_ref_detail
 
 
-    PSTADE_AUXILIARY0(as_ref,  (function< as_ref_detail::baby <boost::mpl::_1> >))
-    PSTADE_AUXILIARY0(as_cref, (function< as_ref_detail::cbaby<boost::mpl::_1> >))
+    PSTADE_AUXILIARY0(as_ref,  (as_ref_detail::op_normal))
+    PSTADE_AUXILIARY0(as_cref, (as_ref_detail::op_cnormal))
 
 
     // Define 'as_value' without 'callable', 'function' nor 'auxiliary0'.

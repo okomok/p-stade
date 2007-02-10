@@ -1,22 +1,13 @@
-typedef
-    any_range<int, boost::single_pass_traversal_tag>
-range;
+typedef any_range<int> range;
 
-range denominators(int x)
+range sieve(range rng)
 {
-    return counting(1, x+1)|filtered(regular(x % lambda::_1 == 0));
+    return rng|dropped(1)|filtered(regular(lambda::_1 % front(rng) != 0));
 }
 
-bool is_prime(int x)
-{
-    return equals(denominators(x), assign::list_of(1)(x));
-}
-
-range primes = iteration(1, regular(lambda::_1 + 1))|filtered(&is_prime);
+range primes = iteration(range(counting_from(2)), &::sieve)|transformed(front);
 
 int main()
 {
-    pstade::op_lexical_cast<std::string> to_string;
-    BOOST_FOREACH (std::string p, primes|taken(500)|transformed(to_string))
-        std::cout << p << ',';
+    std::cout << (primes|taken(500));
 }

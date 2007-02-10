@@ -11,6 +11,7 @@
 
 
 #include <boost/spirit/iterator/file_iterator.hpp>
+#include <pstade/implicitly_defined.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./iter_range.hpp"
 
@@ -22,11 +23,14 @@ namespace file_range_detail {
 
 
     template< class CharT >
-    struct super_ :
-        iter_range<
-            boost::spirit::file_iterator<CharT>
-        >
-    { };
+    struct super_
+    {
+        typedef
+            iter_range<
+                boost::spirit::file_iterator<CharT>
+            >
+        type;
+    };
 
 
     template< class Super, class CharT >
@@ -62,6 +66,8 @@ public:
     {
         return this->begin();
     }
+
+    PSTADE_IMPLICITLY_DEFINED_COPY_TO_BASE(file_range, super_t)
 };
 
 

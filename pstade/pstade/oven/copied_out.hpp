@@ -37,11 +37,13 @@ namespace copied_out_detail {
         }
     };
 
+    PSTADE_FUNCTION(normal, (baby<_, _>))
+
 
 } // namespace copied_out_detail
 
 
-PSTADE_PIPABLE(copied_out, (function< copied_out_detail::baby<boost::mpl::_, boost::mpl::_> >))
+PSTADE_PIPABLE(copied_out, (copied_out_detail::op_normal))
 
 
 } } // namespace pstade::oven

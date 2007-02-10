@@ -34,6 +34,8 @@
 // This might be avoided by using 'template_arguments', though.
 
 
+#include <boost/config.hpp>
+#include <boost/detail/workaround.hpp>
 #include <boost/mpl/apply.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <boost/preprocessor/cat.hpp>
@@ -72,11 +74,23 @@ namespace pstade {
     #define PSTADE_FUNCTION(Object, Baby) \
         namespace BOOST_PP_CAT(pstade_function_workarea_of_, Object) { \
             using ::boost::mpl::_; \
-            typedef ::pstade::function<PSTADE_UNPARENTHESIZE(Baby)> op; \
+            PSTADE_FUNCTION_typedef_op(Baby) \
         } \
         typedef BOOST_PP_CAT(pstade_function_workarea_of_, Object)::op BOOST_PP_CAT(op_, Object); \
         PSTADE_CONSTANT(Object, (BOOST_PP_CAT(op_, Object))) \
     /**/
+
+    #if BOOST_WORKAROUND(BOOST_MSVC, == 1400)
+        // VC8 would break 'mpl::apply' without a derived type.
+        // 'PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE' must be defined by your hand...
+        #define PSTADE_FUNCTION_typedef_op(Baby) \
+            struct op : ::pstade::function<PSTADE_UNPARENTHESIZE(Baby)> { };
+        /**/
+    #else
+        #define PSTADE_FUNCTION_typedef_op(Baby) \
+            typedef ::pstade::function<PSTADE_UNPARENTHESIZE(Baby)> op;
+        /**/
+    #endif
 
 
 } // namespace pstade

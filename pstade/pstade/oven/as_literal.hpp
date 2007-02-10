@@ -53,11 +53,13 @@ namespace as_literal_detail {
         }
     };
 
+    PSTADE_FUNCTION(normal, (baby<_>))
+
 
 } // namespace as_literal_detail
 
 
-PSTADE_AUXILIARY0(as_literal, (function< as_literal_detail::baby<boost::mpl::_> >))
+PSTADE_AUXILIARY0(as_literal, (as_literal_detail::op_normal))
 
 
 } } // namespace pstade::oven

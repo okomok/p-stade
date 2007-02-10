@@ -42,7 +42,7 @@ using namespace pstade::oven;
 
 
 typedef
-    any_range<int const&, boost::forward_traversal_tag>
+    any_range<int const&, recursive<boost::forward_traversal_tag> >
 range;
 
 
@@ -72,7 +72,7 @@ void test()
         ) );
     }
     { // reverse
-        any_range<int const&, boost::bidirectional_traversal_tag> ones;
+        any_range<int const&, recursive<boost::bidirectional_traversal_tag> > ones;
 
         int const one = 1;
         ones = recursion(ones)|appended(one);
