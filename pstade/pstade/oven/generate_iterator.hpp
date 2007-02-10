@@ -123,7 +123,7 @@ friend class boost::iterator_core_access;
 
     bool equal(generate_iterator const& other) const
     {
-        return is_end() && other.is_end();
+        return is_end() == other.is_end();
     }
 
     void increment()

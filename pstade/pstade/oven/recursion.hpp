@@ -14,10 +14,9 @@
 //
 // 'lazy_iterator' might be non-conforming.
 // The time of dereference never be constant.
-//
-// I didn't implement RandomAccess members,
-// because the distance of range is infinite and undefined,
-// which seems to be strange for RandomAccessRange.
+// Also, Member functions for RandomAccess wasn't implemented,
+// because the distance of range would be infinite and undefined,
+// which is too strange for RandomAccessRange.
 
 
 #include <boost/assert.hpp>

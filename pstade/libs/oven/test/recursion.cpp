@@ -42,7 +42,7 @@ using namespace pstade::oven;
 
 
 typedef
-    any_range<int const&, boost::single_pass_traversal_tag>
+    any_range<int const&, boost::forward_traversal_tag>
 range;
 
 
@@ -66,7 +66,7 @@ void test()
 
         int const ans_[] = { 1,1,1,1,1,1,1,1 };
         std::vector<int> ans = ans_|copied;
-        BOOST_CHECK( oven::test_SinglePass_Readable(
+        BOOST_CHECK( oven::test_Forward_Readable(
             ones|taken(8),
             ans
         ) );
@@ -79,7 +79,7 @@ void test()
 
         int const ans_[] = { 1,1,1,1,1,1,1,1 };
         std::vector<int> ans = ans_|copied;
-        BOOST_CHECK( oven::test_SinglePass_Readable(
+        BOOST_CHECK( oven::test_Forward_Readable(
             ones|reversed|taken(8),
             ans
         ) );
@@ -87,7 +87,7 @@ void test()
     {
         int const ans_[] = { 1,1,1,1,1,1,1,1 };
         std::vector<int> ans = ans_|copied;
-        BOOST_CHECK( oven::test_SinglePass_Readable(
+        BOOST_CHECK( oven::test_Forward_Readable(
             ::make_ones()|taken(8),
             ans
         ) );
@@ -103,7 +103,7 @@ void test()
     test_suite *
     init_unit_test_suite(int argc, char *argv[])
     {
-        test_suite *test = BOOST_TEST_SUITE("Wine Test Suite");
+        test_suite *test = BOOST_TEST_SUITE("Oven Test Suite");
         test->add(BOOST_TEST_CASE(&::test));
 
         (void)argc, (void)argv; // unused

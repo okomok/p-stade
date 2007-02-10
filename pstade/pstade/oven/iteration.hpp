@@ -13,6 +13,9 @@
 // Note:
 //
 // The argument order follows 'std::accumulate'.
+//
+// 'scanned' with 'counting' can't implement this,
+// because 'counting' can't represent "infinity".
 
 
 #include <boost/optional.hpp>

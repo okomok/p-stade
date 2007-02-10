@@ -60,15 +60,17 @@ This document is based on the following specifications.
 - ``biRng``: any `Bidirectional Range`_
 - ``rndRng``: any `Random Access Range`_
 - ``pred``: any `Predicate`_
-- ``rfun``: any `Function Object`_ which can be used with ``boost::result_of``.
+- ``rfun``: any `Function Object`_ [#]_ which can be used with ``boost::result_of``.
 - If ``xxx(a1,..,aN)`` is a valid expression and ``xxx`` is not a type name, ``xxx`` is a `Function Object`_
   whose type name is ``op_xxx`` to support ``boost::result_of`` and Boost.Lambda.
 
-Note that the function type is not supported as ``rfun``. Instead, add ``&`` to make it a function **pointer**::
+::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\specification.ipp
 
 All the ranges Oven defines are InputStreamable and OutputStreamable if ``<pstade/oven/io.hpp>`` is included.
+
+.. [#] The function type is not supported as ``rfun``. Instead, add ``&`` to make it a function **pointer**
 
 
 Range Algorithms
@@ -98,10 +100,10 @@ Oven has all the range-based STL algorithms, which are ported from `Boost.RangeE
 
 
 - Header: ``<pstade/oven/adapted_to_base.hpp>``
-- Valid expression: ``base = oven::adapted_to<BaseIter>(it);`` or ``BaseIter base = it|to_base;``
+- Valid expression: ``base = oven::adapted_to<BaseIter>(it);`` or ``BaseIter base = it|to_base;`` [#]_
 - Precondition: The type of ``base`` is ``BaseIter``, and ``it`` is an adapted iterator.
 
-``to_base`` adds the automatic type deduction to ``adapted_to``.
+.. [#] ``to_base`` adds the automatic type deduction to ``adapted_to``.
 
 
 ``begin/end``
@@ -133,11 +135,11 @@ calls the range constructor of the STL Sequences::
 
 
 - Header: ``<pstade/oven/copy_range.hpp>``
-- Valid expression: ``Seq seq = rng|copied;``
+- Valid expression: ``Seq seq = rng|copied;`` [#]_
 - Precondition: ``Seq seq = boost::copy_range<Seq>(rng);`` is a valid expression.
 - Effect: ``Seq seq = boost::copy_range<Seq>(rng);``
 
-Note that ``Seq seq(rng|copied);`` is not a valid expression.
+.. [#] ``Seq seq(rng|copied);`` is not a valid expression.
 
 
 ``distance``
@@ -156,8 +158,7 @@ The upcoming `Boost.Range`_ will replace ``boost::size`` by ``boost::distance``.
 
 ``equals``
 ^^^^^^^^^^
-``equals`` is the range-based ``std::equal`` that takes two ranges as the arguments.
-Note that the size of two ranges is also checked out::
+``equals`` is the range-based ``std::equal`` that takes two ranges as the arguments::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\equals.ipp
 
@@ -165,7 +166,9 @@ Note that the size of two ranges is also checked out::
 - Header: ``<pstade/oven/equals.hpp>``
 - Valid expression: ``equals(rng1,rng2);``
 - Precondition: ``equal(rng1,boost::begin(rng2));`` is a valid expression.
-- Returns: ``true`` if and only if the ``oven::equal(rng1,boost::begin(rng2))`` and ``boost::size(rng1) == boost::size(rng2)`` returns ``true``.
+- Returns: ``true`` if and only if the ``oven::equal(rng1,boost::begin(rng2))`` and ``boost::size(rng1) == boost::size(rng2)`` returns ``true``. [#]_
+
+.. [#] The size of two ranges too is checked.
 
 
 Utilities
@@ -328,9 +331,9 @@ __ http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html#as-array
 
 - Header: ``<pstade/oven/as_literal.hpp>``
 - Valid expression1: ``as_literal(x)`` and ``x|as_literal``
-- Returns:If ``x`` is an array,  ``[&x[0],&x[0]+sz-1)`` where ``sz`` is the size of ``arr``; otherwise, ``x`` as is.
+- Returns:If ``x`` is an array,  ``[&x[0],&x[0]+sz-1)`` where ``sz`` is the size of ``arr``; otherwise, ``x`` as is. [#]_
 
-Note that ``as_literal`` doesn't use ``strlen``. `TR2 as_literal`__ does.
+.. [#] ``as_literal`` doesn't use ``strlen``. `TR2 as_literal`__ does.
 
 __ http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html#as-literal
 
@@ -401,7 +404,9 @@ the function on the first argument, the second item by applying the function on 
 
 - Header: ``<pstade/oven/iteration.hpp>``
 - Valid expression: ``iteration(x,fun)``
-- Returns: An infinite `Single Pass Range`_ of repeated applications of ``fun`` to ``x``.
+- Returns: An infinite `Single Pass Range`_ [#]_ of repeated applications of ``fun`` to ``x``.
+
+.. [#] Strictly speaking, the `Single Pass Range`_ concept doesn't allow an infinite range. So assume here the end iterator is reachable from the begin iterator in the googolplex number of increments.
 
 
 ``recursion``
@@ -625,9 +630,9 @@ Thus, STL that doesn't know traversal concepts can choose effective algorithms.
 
 - Header: ``<pstade/oven/delimited.hpp>``
 - Valid expression: ``rngs|delimited(delim)``, where ``delim`` is a Range to specify the delimiter.
-- Returns: A range which behaves as if it were ``rngs|transformed(with)|concatenated``, where ``with`` is a `Function Object`_ which calls ``make_jointed`` to joint ``delim``.
+- Returns: A range which behaves as if it were ``rngs|transformed(with)|concatenated``, where ``with`` is a `Function Object`_ which calls ``make_jointed`` to joint ``delim``. [#]_
 
-Note that ``delimited`` prepends the delimiter. ``dropped`` is useful to remove it.
+.. [#]  ``delimited`` prepends the delimiter. ``dropped`` is useful to remove it.
 
 
 ``directed``
@@ -669,16 +674,15 @@ Note that ``delimited`` prepends the delimiter. ``dropped`` is useful to remove 
 
 ``filtered``
 ^^^^^^^^^^^^
-``filtered`` returns a range which is filtered by using a `Predicate`_::
+``filtered`` returns a range which is filtered by using a `Predicate`_ [#]_ ::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\filtered.ipp
-
-Note that a non-assignable lambda functor makes ``filtered`` non-conforming, so
-it needs `regular`_ to be applied before it is passed.
 
 
 - Header: ``<pstade/oven/filtered.hpp>``
 - See: `Range Library Proposal`_.
+
+.. [#] A non-assignable lambda functor makes ``filtered`` non-conforming, so it needs `regular`_ to be applied before it is passed.
 
 
 ``firsts``
@@ -764,8 +768,7 @@ Pending...
 
 ``memoized``
 ^^^^^^^^^^^^
-``memoized`` returns a range whose values are cached for speed, preparing for repeated dereferences.
-Note that ``memoized`` can return a `Forward Range`_ even if the base range is a `Single Pass Range`_::
+``memoized`` returns a range whose values are cached for speed, preparing for repeated dereferences::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\memoized.ipp
 
@@ -773,7 +776,9 @@ Note that ``memoized`` can return a `Forward Range`_ even if the base range is a
 - Header: ``<pstade/oven/memoized.hpp>``
 - Valid expression: ``rng|memoized``
 - Precondition: ``rng`` is referentially transparent.
-- Returns: A `Forward Range`_ whose values are memoized.
+- Returns: A `Forward Range`_ whose values are memoized. [#]_
+
+.. [#] ``memoized`` can return a `Forward Range`_ even if the base range is a `Single Pass Range`_
 
 
 ``merged``
@@ -908,7 +913,7 @@ You can find a more elaborate example at ``<pstade/oven/sorted.hpp>``.
 
 ``sliced``
 ^^^^^^^^^^
-``sliced`` provides the column view of the base range::
+``sliced`` [#]_ provides the column view of the base range::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\sliced.ipp
 
@@ -916,7 +921,7 @@ You can find a more elaborate example at ``<pstade/oven/sorted.hpp>``.
 - Valid expression: ``rndRng|sliced(start,stride)``
 - Precondition: ``d == 0 || d % stride == 0`` and ``0 <= start && start < stride``, where ``d = oven::distance(rndRng);``
 
-Note that this effect is different from `Range Library Proposal`_\'s, which is the role of `advanced`_ or `window`_.
+.. [#] This name is different from `Range Library Proposal`_\'s, which is the role of `advanced`_ or `window`_.
 
 
 ``string_found``
@@ -1283,5 +1288,5 @@ Version 0.93.2
 Version 0.93.3
 ^^^^^^^^^^^^^^
 - Added ``recursion``.
-
+- Fixed a bug of ``generation``.
 
