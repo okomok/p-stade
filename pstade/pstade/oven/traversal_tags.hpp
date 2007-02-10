@@ -30,6 +30,7 @@ struct recursive :
     recursive()
     { }
 
+    // Workaround:
     // VC7.1 'is_convertible' needs 'const&'.
     recursive(Traversal const&)
     { }
