@@ -235,7 +235,7 @@ namespace any_iterator_detail {
 
 
     template< class Traversal, class PlaceHolder >
-    struct smart_ptr :
+    struct pimpl_of :
         boost::mpl::if_< 
             boost::mpl::or_<
                 boost::is_convertible<Traversal, boost::forward_traversal_tag>,
@@ -263,12 +263,13 @@ private:
     typedef typename any_iterator_detail::super_<Reference, Traversal, Value, Difference>::type super_t;
     typedef typename super_t::difference_type diff_t;
     typedef any_iterator_detail::placeholder<Reference, diff_t> placeholder_t;
+    typedef typename any_iterator_detail::pimpl_of<Traversal, placeholder_t>::type pimpl_t;
 
 public:
     explicit any_iterator()
     { }
 
-    // There is no implicit constructor which can be used to convert.
+    // There is no implicit constructor.
     // 'm_pimpl' must hold the same 'Iterator_' type which enables
     // 'holder::equals/difference_to' to downcast properly.
     // But there is no way to know the 'Iterator_' type beforehand,
@@ -292,7 +293,7 @@ public:
     }
 
 private:
-    typename any_iterator_detail::smart_ptr<Traversal, placeholder_t>::type m_pimpl;
+    pimpl_t m_pimpl;
 
 friend class boost::iterator_core_access;
     Reference dereference() const

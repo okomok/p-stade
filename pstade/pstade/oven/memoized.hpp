@@ -14,8 +14,9 @@
 #include <boost/checked_delete.hpp>
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/utility/result_of.hpp>
+#include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/nullptr.hpp>
-#include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
 #include "./checked.hpp"
 #include "./concepts.hpp"
@@ -30,7 +31,7 @@ namespace memoized_detail {
 
     // See:
     // boost::spirit::multi_pass_policies::input_iterator
-    //
+
     struct input
     {
         template< class Iterator >
@@ -115,27 +116,53 @@ namespace memoized_detail {
     }; // input
 
 
-    template< class Range >
-    struct baby
-    {
-        typedef typename
-            boost::result_of<
-                op_make_multi_passed<input>(typename boost::result_of<op_make_checked(Range&)>::type)
-            >::type
-        result;
-
-        result call(Range& rng)
-        {
-            PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-            return op_make_multi_passed<input>()(make_checked(rng));
-        }
-    };
-
-
 } // namespace memoized_detail
 
 
-PSTADE_FUNCTION(make_memoized, (memoized_detail::baby<_>))
+struct op_make_memoized :
+    callable<op_make_memoized>
+{
+    template< class Myself, class Range, class MemoTable = void >
+    struct apply :
+        boost::result_of<
+            op_make_multi_passed<
+                memoized_detail::input,
+                boost::spirit::multi_pass_policies::first_owner
+            >(typename boost::result_of<op_make_checked(Range&)>::type)
+        >
+    { };
+
+    template< class Result, class Range >
+    Result call(Range& rng, memo_table& tb) const
+    {
+        PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+        return op_make_multi_passed<
+            memoized_detail::input,
+            boost::spirit::multi_pass_policies::first_owner
+        >()(make_checked(rng), tb);
+    }
+
+    template< class Myself, class Range >
+    struct apply<Myself, Range> :
+        boost::result_of<
+            op_make_multi_passed<
+                memoized_detail::input
+            >(typename boost::result_of<op_make_checked(Range&)>::type)
+        >
+    { };
+
+    template< class Result, class Range >
+    Result call(Range& rng) const
+    {
+        PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+        return op_make_multi_passed<
+            memoized_detail::input
+        >()(make_checked(rng));
+    }
+};
+
+
+PSTADE_CONSTANT(make_memoized, (op_make_memoized))
 PSTADE_PIPABLE(memoized, (op_make_memoized))
 
 

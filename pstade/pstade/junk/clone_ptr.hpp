@@ -4,225 +4,294 @@
 
 // PStade.Wine
 //
-// Copyright MB 2005-2006.
+// Copyright Shunsuke Sogame 2005-2006.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// What:
+// See: Clonable
 //
-// Makes a copy-constructible type assignable and default-constructible.
-
-
-// See:
-//
-// http://d.hatena.ne.jp/Cryolite/20060108
-
-
-// Question:
-//
-// The default-constructibility seems to increase complexity.
-//
+// http://www.boost.org/libs/ptr_container/doc/reference.html#the-clonable-concept
+// T:CopyConstructible implies T:Clonable for any type T.
 
 
 #include <algorithm> // swap
-#include <iosfwd> // basic_ostream
+#include <memory> // auto_ptr
 #include <boost/assert.hpp>
+#include <boost/operators.hpp> // totally_ordered
 #include <boost/ptr_container/clone_allocator.hpp>
-#include <boost/shared_ptr.hpp>
 #include <pstade/nullptr.hpp>
+#include <pstade/radish/bool_testable.hpp>
+#include <pstade/radish/pointable.hpp>
+#include <pstade/radish/swappable.hpp>
 
 
 namespace pstade {
 
 
+// clone_ptr
+//
+
+template< class Clonable >
+struct clone_ptr;
+
+
 namespace clone_ptr_detail {
 
 
-    struct deallocate
+    template< class T > inline
+    T *new_(T const& x)
     {
-        virtual ~deallocate() // not required, in fact.
-        { }
+        return boost::heap_clone_allocator::allocate_clone(x);
+    }
 
-        virtual void call(void *p) const = 0;
-    };
-
-
-    template< class T, class CloneAllocator >
-    struct deallocate_impl :
-        deallocate
+    template< class T > inline
+    void delete_(T *ptr)
     {
-        void call(void *p) const // override
-        {
-            CloneAllocator::deallocate_clone( static_cast<T *>(p) );
-        }
+        return boost::heap_clone_allocator::deallocate_clone(ptr);
+    }
+
+
+    template< class Clonable >
+    struct super_
+    {
+        typedef
+            radish::bool_testable < clone_ptr<Clonable>,
+            radish::pointable     < clone_ptr<Clonable>, Clonable,
+            radish::swappable     < clone_ptr<Clonable>,
+            boost::totally_ordered< clone_ptr<Clonable>
+            > > > >
+        type;
     };
 
 
 } // namespace clone_ptr_detail
 
 
-template<
-    class T,
-    class CloneAllocator = boost::heap_clone_allocator
->
-struct clone_ptr
+template< class Clonable >
+struct clone_ptr :
+    clone_ptr_detail::super_<Clonable>::type
 {
-    // structors
-    //
+    typedef clone_ptr self_t;
+
+// structors
     clone_ptr() :
         m_ptr(PSTADE_NULLPTR)
     { }
 
-    clone_ptr(clone_ptr const& other) :
-        m_ptr(CloneAllocator::allocate_clone(*other)),
-        m_pda(new clone_ptr_detail::deallocate_impl<T, CloneAllocator>())
-    { }
-
-    template< class T_ >
-    explicit clone_ptr(T_ const& x) :
-        m_ptr(CloneAllocator::allocate_clone(x)),
-        m_pda(new clone_ptr_detail::deallocate_impl<T_, CloneAllocator>())
-    { }
-
     ~clone_ptr()
     {
-        if (m_ptr != PSTADE_NULLPTR)
-            m_pda->call(m_ptr);
+        clone_ptr_detail::delete_(m_ptr);
     }
 
-    // modifiers
-    //
-    clone_ptr& operator=(clone_ptr const& other)
+    template< class Clonable_ >
+    explicit clone_ptr(Clonable_ *p) :
+        m_ptr(p)
+    { }
+
+    template< class Clonable_ >
+    explicit clone_ptr(std::auto_ptr<Clonable_> ap) :
+        m_ptr(ap.release())
+    { }
+
+// copy
+    clone_ptr(self_t const& other) :
+        m_ptr(other ? clone_ptr_detail::new_(*other) : PSTADE_NULLPTR)
+    { }
+
+    self_t& operator=(self_t const& other)
     {
-        clone_ptr(other).swap(*this);
+        self_t(other).swap(*this);
         return *this;
     }
 
-    void reset()
+    template< class Clonable_ >
+    self_t& operator=(Clonable_ *p)
     {
-        clone_ptr().swap(*this);
+        self_t(p).swap(*this);
+        return *this;
     }
 
-    void reset(T const& x)
+    template< class Clonable_ >
+    self_t& operator=(std::auto_ptr<Clonable_> ap)
     {
-        clone_ptr(x).swap(*this);
+        self_t(ap).swap(*this);
+        return *this;
     }
 
-    void swap(clone_ptr& other)
+// bool_testable
+    operator radish::safe_bool() const
+    {
+        return radish::make_safe_bool(m_ptr);
+    }
+
+// pointable
+    Clonable *operator->() const
+    {
+        BOOST_ASSERT(m_ptr);
+        return m_ptr;
+    }
+
+    Clonable *get() const
+    {
+        return m_ptr;
+    }
+
+// swappable
+    void swap(self_t& other)
     {
         std::swap(m_ptr, other.m_ptr);
-        boost::swap(m_pda, other.m_pda);
     }
 
-    // accessors
-    //
-    T& operator*() const
+// totally_ordered
+    bool operator< (self_t const& other) const
     {
-        BOOST_ASSERT(m_ptr != PSTADE_NULLPTR);
-        return *m_ptr;
+        return m_ptr < other.m_ptr;
     }
 
-    T *operator->() const
+    bool operator==(self_t const& other) const
     {
-        BOOST_ASSERT(m_ptr != PSTADE_NULLPTR);
-        return m_ptr;
+        return m_ptr == other.m_ptr;
     }
 
-    T *get() const
+// release/reset
+    std::auto_ptr<Clonable> release()
     {
-        return m_ptr;
-    }
-
-    typedef T element_type;
-    typedef T value_type;
-    typedef T *pointer;
-    typedef typename boost::shared_ptr<T>::reference reference;
-
-    // utilities
-    //
-    operator bool() const
-    {
-        return m_ptr != PSTADE_NULLPTR;
-    }
-
-    bool operator!() const
-    {
-        return m_ptr == PSTADE_NULLPTR;
+        std::auto_ptr<Clonable> ap(m_ptr);
+        m_ptr = PSTADE_NULLPTR;
+        return ap;
     }
 
 private:
-    T *m_ptr;
-    boost::shared_ptr<clone_ptr_detail::deallocate> m_pda;
+    Clonable *m_ptr;
 };
 
 
-template< class T1, class CloneAllocator1, class T2, class CloneAllocator2 >
-bool operator==(clone_ptr<T1, CloneAllocator1> const& p1, clone_ptr<T2, CloneAllocator2> const& p2)
+// clone_on_get_ptr
+//
+
+template< class Clonable >
+struct clone_on_get_ptr;
+
+
+namespace clone_on_get_ptr_detail {
+
+
+    template< class Clonable >
+    struct super_
+    {
+        typedef
+            radish::bool_testable < clone_on_get_ptr<Clonable>,
+            radish::pointable     < clone_on_get_ptr<Clonable>, Clonable,
+            radish::swappable     < clone_on_get_ptr<Clonable>,
+            boost::totally_ordered< clone_on_get_ptr<Clonable>
+            > > > >
+        type;
+    };
+
+
+} // namespace clone_on_get_ptr_detail
+
+
+template< class Clonable >
+struct clone_on_get_ptr :
+    clone_on_get_ptr_detail::super_<Clonable>::type
 {
-    if (!p1 && !p2) // both are null
-        return true;
-    else if (!p1 ^ !p2) // one is null, one isn't
-        return false;
-    else
-        return *p1 == *p2;
-}
+    typedef clone_on_get_ptr self_t;
 
+// structors
+    clone_on_get_ptr()
+    { }
 
-template< class T1, class CloneAllocator1, class T2, class CloneAllocator2 > inline
-bool operator!=(clone_ptr<T1, CloneAllocator1> const& p1, clone_ptr<T2, CloneAllocator2> const& p2)
-{
-    return !(p1 == p2);
-}
+    template< class Clonable_ >
+    explicit clone_on_get_ptr(Clonable_ *p) :
+        m_sp(p)
+    { }
 
+    template< class Clonable_ >
+    explicit clone_on_get_ptr(std::auto_ptr<Clonable_> ap) :
+        m_sp(ap.release())
+    { }
 
-template< class T1, class CloneAllocator1, class T2, class CloneAllocator2 >
-bool operator<(clone_ptr<T1, CloneAllocator1> const& p1, clone_ptr<T2, CloneAllocator2> const& p2)
-{
-    if (!p1 && !p2)
-        return false;
-    else if (!p1 && p2)
-        return true;
-    else if (p1 && !p2)
-        return false;
-    else
-        return *p1 < *p2;
-}
+// copy
+    template< class Clonable_ >
+    self_t& operator=(Clonable *p)
+    {
+        self_t(p).swap(*this);
+        return *this;
+    }
 
+    template< class Clonable_ >
+    self_t& operator=(std::auto_ptr<Clonable_> ap)
+    {
+        self_t(ap).swap(*this);
+        return *this;
+    }
 
-template< class T1, class CloneAllocator1, class T2, class CloneAllocator2 >inline
-void swap(clone_ptr<T1, CloneAllocator1>& p1, clone_ptr<T2, CloneAllocator2>& p2)
-{
-    p1.swap(p2);
-}
+// bool_testable
+    operator radish::safe_bool() const
+    {
+        return m_sp || m_cp;
+    }
 
+// pointable
+    Clonable *operator->() const
+    {
+        BOOST_ASSERT(m_sp || m_cp);
+        return get();
+    }
 
-template< class T, class CloneAllocator > inline
-T *get_pointer(clone_ptr<T, CloneAllocator> const& p)
-{
-    return p.get();
-}
+    Clonable *get() const
+    {
+        on_get();
+        return m_cp.get();
+    }
 
+// swappable
+    void swap(self_t& other)
+    {
+        m_cp.swap(other.m_cp);
+        m_sp.swap(other.m_sp);
+    }
 
-template< class CharT, class Traits, class T, class CloneAllocator >
-std::basic_ostream<CharT, Traits>&
-operator<<(std::basic_ostream<CharT, Traits>& os, clone_ptr<T, CloneAllocator> const& p)
-{
-    if (p)
-        os << *p;
-    else
-        os << p.get();
+// totally_ordered
+    bool operator< (self_t const& other) const
+    {
+        if (!m_cp)
+            return m_sp < other.m_sp;
+        else
+            return m_cp < other.m_cp;
+    }
 
-    return os;
-}
+    bool operator==(self_t const& other) const
+    {
+        if (!m_cp)
+            return m_sp == other.m_sp;
+        else
+            return m_cp == other.m_cp;
+    }
 
+// release/reset
+    std::auto_ptr<Clonable> release()
+    {
+        get();
+        return m_cp.release();
+    }
 
-template< class T > inline
-clone_ptr<T> make_clone_ptr(T const& x)
-{
-    return clone_ptr<T>(x);
-}
+private:
+    mutable clone_ptr<Clonable> m_cp;
+    mutable boost::shared_ptr<Clonable> m_sp;
+
+    void on_get() const
+    {
+        if (!m_cp) {
+            m_cp = m_sp.get();
+            m_sp.reset();
+        }
+    }
+};
+
 
 
 } // namespace pstade

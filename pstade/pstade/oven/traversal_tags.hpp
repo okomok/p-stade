@@ -20,7 +20,7 @@ namespace pstade { namespace oven {
 struct recursive_tag
 { };
 
-template< class Traversal >
+template< class Traversal = boost::single_pass_traversal_tag >
 struct recursive :
     Traversal,
     recursive_tag
