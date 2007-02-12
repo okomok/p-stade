@@ -37,140 +37,140 @@
 <div class="contents topic">
 <p class="topic-title first"><a id="table-of-contents" name="table-of-contents"><strong>Table of Contents</strong></a></p>
 <ul class="auto-toc simple">
-<li><a class="reference" href="#introduction" id="id49" name="id49">1&nbsp;&nbsp;&nbsp;Introduction</a></li>
-<li><a class="reference" href="#requirements" id="id50" name="id50">2&nbsp;&nbsp;&nbsp;Requirements</a></li>
-<li><a class="reference" href="#tested-under" id="id51" name="id51">3&nbsp;&nbsp;&nbsp;Tested Under</a></li>
-<li><a class="reference" href="#specification" id="id52" name="id52">4&nbsp;&nbsp;&nbsp;Specification</a></li>
-<li><a class="reference" href="#range-algorithms" id="id53" name="id53">5&nbsp;&nbsp;&nbsp;Range Algorithms</a><ul class="auto-toc">
-<li><a class="reference" href="#stl-algorithms" id="id54" name="id54">5.1&nbsp;&nbsp;&nbsp;STL Algorithms</a></li>
-<li><a class="reference" href="#adapted-to-to-base" id="id55" name="id55">5.2&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">adapted_to/to_base</span></tt></a></li>
-<li><a class="reference" href="#begin-end" id="id56" name="id56">5.3&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">begin/end</span></tt></a></li>
-<li><a class="reference" href="#compile" id="id57" name="id57">5.4&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">compile</span></tt></a></li>
-<li><a class="reference" href="#copied" id="id58" name="id58">5.5&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">copied</span></tt></a></li>
-<li><a class="reference" href="#distance" id="id59" name="id59">5.6&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">distance</span></tt></a></li>
-<li><a class="reference" href="#equals" id="id60" name="id60">5.7&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">equals</span></tt></a></li>
-<li><a class="reference" href="#front-back" id="id61" name="id61">5.8&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">front/back</span></tt></a></li>
+<li><a class="reference" href="#introduction" id="id53" name="id53">1&nbsp;&nbsp;&nbsp;Introduction</a></li>
+<li><a class="reference" href="#requirements" id="id54" name="id54">2&nbsp;&nbsp;&nbsp;Requirements</a></li>
+<li><a class="reference" href="#tested-under" id="id55" name="id55">3&nbsp;&nbsp;&nbsp;Tested Under</a></li>
+<li><a class="reference" href="#specification" id="id56" name="id56">4&nbsp;&nbsp;&nbsp;Specification</a></li>
+<li><a class="reference" href="#range-algorithms" id="id57" name="id57">5&nbsp;&nbsp;&nbsp;Range Algorithms</a><ul class="auto-toc">
+<li><a class="reference" href="#stl-algorithms" id="id58" name="id58">5.1&nbsp;&nbsp;&nbsp;STL Algorithms</a></li>
+<li><a class="reference" href="#adapted-to-to-base" id="id59" name="id59">5.2&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">adapted_to/to_base</span></tt></a></li>
+<li><a class="reference" href="#begin-end" id="id60" name="id60">5.3&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">begin/end</span></tt></a></li>
+<li><a class="reference" href="#compile" id="id61" name="id61">5.4&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">compile</span></tt></a></li>
+<li><a class="reference" href="#copied" id="id62" name="id62">5.5&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">copied</span></tt></a></li>
+<li><a class="reference" href="#distance" id="id63" name="id63">5.6&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">distance</span></tt></a></li>
+<li><a class="reference" href="#equals" id="id64" name="id64">5.7&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">equals</span></tt></a></li>
+<li><a class="reference" href="#front-back" id="id65" name="id65">5.8&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">front/back</span></tt></a></li>
 </ul>
 </li>
-<li><a class="reference" href="#utilities" id="id62" name="id62">6&nbsp;&nbsp;&nbsp;Utilities</a><ul class="auto-toc">
-<li><a class="reference" href="#innumerable" id="id63" name="id63">6.1&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">innumerable</span></tt></a></li>
-<li><a class="reference" href="#regular" id="id64" name="id64">6.2&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">regular</span></tt></a></li>
-<li><a class="reference" href="#shared-regular" id="id65" name="id65">6.3&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">shared_regular</span></tt></a></li>
+<li><a class="reference" href="#utilities" id="id66" name="id66">6&nbsp;&nbsp;&nbsp;Utilities</a><ul class="auto-toc">
+<li><a class="reference" href="#innumerable" id="id67" name="id67">6.1&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">innumerable</span></tt></a></li>
+<li><a class="reference" href="#regular" id="id68" name="id68">6.2&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">regular</span></tt></a></li>
+<li><a class="reference" href="#shared-regular" id="id69" name="id69">6.3&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">shared_regular</span></tt></a></li>
 </ul>
 </li>
-<li><a class="reference" href="#ranges" id="id66" name="id66">7&nbsp;&nbsp;&nbsp;Ranges</a><ul class="auto-toc">
-<li><a class="reference" href="#any-range" id="id67" name="id67">7.1&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">any_range</span></tt></a></li>
-<li><a class="reference" href="#array-range" id="id68" name="id68">7.2&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">array_range</span></tt></a></li>
-<li><a class="reference" href="#directory-range" id="id69" name="id69">7.3&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">directory_range</span></tt></a></li>
-<li><a class="reference" href="#empty-range" id="id70" name="id70">7.4&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">empty_range</span></tt></a></li>
-<li><a class="reference" href="#file-range" id="id71" name="id71">7.5&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">file_range</span></tt></a></li>
+<li><a class="reference" href="#ranges" id="id70" name="id70">7&nbsp;&nbsp;&nbsp;Ranges</a><ul class="auto-toc">
+<li><a class="reference" href="#any-range" id="id71" name="id71">7.1&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">any_range</span></tt></a></li>
+<li><a class="reference" href="#array-range" id="id72" name="id72">7.2&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">array_range</span></tt></a></li>
+<li><a class="reference" href="#directory-range" id="id73" name="id73">7.3&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">directory_range</span></tt></a></li>
+<li><a class="reference" href="#empty-range" id="id74" name="id74">7.4&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">empty_range</span></tt></a></li>
+<li><a class="reference" href="#file-range" id="id75" name="id75">7.5&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">file_range</span></tt></a></li>
 </ul>
 </li>
-<li><a class="reference" href="#range-makers" id="id72" name="id72">8&nbsp;&nbsp;&nbsp;Range Makers</a><ul class="auto-toc">
-<li><a class="reference" href="#as-array" id="id73" name="id73">8.1&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">as_array</span></tt></a></li>
-<li><a class="reference" href="#as-c-str" id="id74" name="id74">8.2&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">as_c_str</span></tt></a></li>
-<li><a class="reference" href="#as-literal" id="id75" name="id75">8.3&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">as_literal</span></tt></a></li>
-<li><a class="reference" href="#as-single" id="id76" name="id76">8.4&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">as_single</span></tt></a></li>
-<li><a class="reference" href="#as-shared-single" id="id77" name="id77">8.5&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">as_shared_single</span></tt></a></li>
-<li><a class="reference" href="#counting" id="id78" name="id78">8.6&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">counting</span></tt></a></li>
-<li><a class="reference" href="#counting-from" id="id79" name="id79">8.7&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">counting_from</span></tt></a></li>
-<li><a class="reference" href="#generation" id="id80" name="id80">8.8&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">generation</span></tt></a></li>
-<li><a class="reference" href="#indexing" id="id81" name="id81">8.9&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">indexing</span></tt></a></li>
-<li><a class="reference" href="#iteration" id="id82" name="id82">8.10&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">iteration</span></tt></a></li>
-<li><a class="reference" href="#recursion" id="id83" name="id83">8.11&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">recursion</span></tt></a></li>
-<li><a class="reference" href="#repeated" id="id84" name="id84">8.12&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">repeated</span></tt></a></li>
-<li><a class="reference" href="#stream-input" id="id85" name="id85">8.13&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">stream_input</span></tt></a></li>
-<li><a class="reference" href="#streambuf-input" id="id86" name="id86">8.14&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">streambuf_input</span></tt></a></li>
+<li><a class="reference" href="#range-makers" id="id76" name="id76">8&nbsp;&nbsp;&nbsp;Range Makers</a><ul class="auto-toc">
+<li><a class="reference" href="#as-array" id="id77" name="id77">8.1&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">as_array</span></tt></a></li>
+<li><a class="reference" href="#as-c-str" id="id78" name="id78">8.2&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">as_c_str</span></tt></a></li>
+<li><a class="reference" href="#as-literal" id="id79" name="id79">8.3&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">as_literal</span></tt></a></li>
+<li><a class="reference" href="#as-single" id="id80" name="id80">8.4&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">as_single</span></tt></a></li>
+<li><a class="reference" href="#as-shared-single" id="id81" name="id81">8.5&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">as_shared_single</span></tt></a></li>
+<li><a class="reference" href="#counting" id="id82" name="id82">8.6&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">counting</span></tt></a></li>
+<li><a class="reference" href="#counting-from" id="id83" name="id83">8.7&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">counting_from</span></tt></a></li>
+<li><a class="reference" href="#generation" id="id84" name="id84">8.8&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">generation</span></tt></a></li>
+<li><a class="reference" href="#indexing" id="id85" name="id85">8.9&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">indexing</span></tt></a></li>
+<li><a class="reference" href="#iteration" id="id86" name="id86">8.10&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">iteration</span></tt></a></li>
+<li><a class="reference" href="#recursion" id="id87" name="id87">8.11&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">recursion</span></tt></a></li>
+<li><a class="reference" href="#repeated" id="id88" name="id88">8.12&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">repeated</span></tt></a></li>
+<li><a class="reference" href="#stream-input" id="id89" name="id89">8.13&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">stream_input</span></tt></a></li>
+<li><a class="reference" href="#streambuf-input" id="id90" name="id90">8.14&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">streambuf_input</span></tt></a></li>
 </ul>
 </li>
-<li><a class="reference" href="#range-adaptors" id="id87" name="id87">9&nbsp;&nbsp;&nbsp;Range Adaptors</a><ul class="auto-toc">
-<li><a class="reference" href="#adjacent-filtered" id="id88" name="id88">9.1&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">adjacent_filtered</span></tt></a></li>
-<li><a class="reference" href="#adjacent-transformed" id="id89" name="id89">9.2&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">adjacent_transformed</span></tt></a></li>
-<li><a class="reference" href="#advanced" id="id90" name="id90">9.3&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">advanced</span></tt></a></li>
-<li><a class="reference" href="#always" id="id91" name="id91">9.4&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">always</span></tt></a></li>
-<li><a class="reference" href="#appended" id="id92" name="id92">9.5&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">appended</span></tt></a></li>
-<li><a class="reference" href="#applied" id="id93" name="id93">9.6&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">applied</span></tt></a></li>
-<li><a class="reference" href="#broken-into" id="id94" name="id94">9.7&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">broken_into</span></tt></a></li>
-<li><a class="reference" href="#checked" id="id95" name="id95">9.8&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">checked</span></tt></a></li>
-<li><a class="reference" href="#cleared" id="id96" name="id96">9.9&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">cleared</span></tt></a></li>
-<li><a class="reference" href="#concatenated" id="id97" name="id97">9.10&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">concatenated</span></tt></a></li>
-<li><a class="reference" href="#constants" id="id98" name="id98">9.11&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">constants</span></tt></a></li>
-<li><a class="reference" href="#const-lvalues" id="id99" name="id99">9.12&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">const_lvalues</span></tt></a></li>
-<li><a class="reference" href="#copied-out" id="id100" name="id100">9.13&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">copied_out</span></tt></a></li>
-<li><a class="reference" href="#cycled" id="id101" name="id101">9.14&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">cycled</span></tt></a></li>
-<li><a class="reference" href="#delimited" id="id102" name="id102">9.15&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">delimited</span></tt></a></li>
-<li><a class="reference" href="#directed" id="id103" name="id103">9.16&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">directed</span></tt></a></li>
-<li><a class="reference" href="#dropped" id="id104" name="id104">9.17&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">dropped</span></tt></a></li>
-<li><a class="reference" href="#dropped-while" id="id105" name="id105">9.18&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">dropped_while</span></tt></a></li>
-<li><a class="reference" href="#filtered" id="id106" name="id106">9.19&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">filtered</span></tt></a></li>
-<li><a class="reference" href="#firsts" id="id107" name="id107">9.20&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">firsts</span></tt></a></li>
-<li><a class="reference" href="#got-at" id="id108" name="id108">9.21&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">got_at</span></tt></a></li>
-<li><a class="reference" href="#identities" id="id109" name="id109">9.22&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">identities</span></tt></a></li>
-<li><a class="reference" href="#indirected" id="id110" name="id110">9.23&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">indirected</span></tt></a></li>
-<li><a class="reference" href="#jointed" id="id111" name="id111">9.24&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">jointed</span></tt></a></li>
-<li><a class="reference" href="#map-keys" id="id112" name="id112">9.25&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">map_keys</span></tt></a></li>
-<li><a class="reference" href="#map-values" id="id113" name="id113">9.26&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">map_values</span></tt></a></li>
-<li><a class="reference" href="#matches" id="id114" name="id114">9.27&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">matches</span></tt></a></li>
-<li><a class="reference" href="#memoized" id="id115" name="id115">9.28&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">memoized</span></tt></a></li>
-<li><a class="reference" href="#merged" id="id116" name="id116">9.29&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">merged</span></tt></a></li>
-<li><a class="reference" href="#permuted" id="id117" name="id117">9.30&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">permuted</span></tt></a></li>
-<li><a class="reference" href="#pointed" id="id118" name="id118">9.31&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">pointed</span></tt></a></li>
-<li><a class="reference" href="#popped" id="id119" name="id119">9.32&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">popped</span></tt></a></li>
-<li><a class="reference" href="#prepended" id="id120" name="id120">9.33&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">prepended</span></tt></a></li>
-<li><a class="reference" href="#reversed" id="id121" name="id121">9.34&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">reversed</span></tt></a></li>
-<li><a class="reference" href="#rotated" id="id122" name="id122">9.35&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">rotated</span></tt></a></li>
-<li><a class="reference" href="#scanned" id="id123" name="id123">9.36&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">scanned</span></tt></a></li>
-<li><a class="reference" href="#seconds" id="id124" name="id124">9.37&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">seconds</span></tt></a></li>
-<li><a class="reference" href="#set-cap" id="id125" name="id125">9.38&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">set_cap</span></tt></a></li>
-<li><a class="reference" href="#set-cup" id="id126" name="id126">9.39&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">set_cup</span></tt></a></li>
-<li><a class="reference" href="#set-delta" id="id127" name="id127">9.40&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">set_delta</span></tt></a></li>
-<li><a class="reference" href="#set-minus" id="id128" name="id128">9.41&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">set_minus</span></tt></a></li>
-<li><a class="reference" href="#shared" id="id129" name="id129">9.42&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">shared</span></tt></a></li>
-<li><a class="reference" href="#sliced" id="id130" name="id130">9.43&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">sliced</span></tt></a></li>
-<li><a class="reference" href="#string-found" id="id131" name="id131">9.44&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">string_found</span></tt></a></li>
-<li><a class="reference" href="#string-split" id="id132" name="id132">9.45&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">string_split</span></tt></a></li>
-<li><a class="reference" href="#taken" id="id133" name="id133">9.46&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">taken</span></tt></a></li>
-<li><a class="reference" href="#taken-while" id="id134" name="id134">9.47&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">taken_while</span></tt></a></li>
-<li><a class="reference" href="#tokenized" id="id135" name="id135">9.48&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">tokenized</span></tt></a></li>
-<li><a class="reference" href="#transformed" id="id136" name="id136">9.49&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">transformed</span></tt></a></li>
-<li><a class="reference" href="#uniqued" id="id137" name="id137">9.50&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">uniqued</span></tt></a></li>
-<li><a class="reference" href="#unzipped" id="id138" name="id138">9.51&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">unzipped</span></tt></a></li>
-<li><a class="reference" href="#utf8-decoded" id="id139" name="id139">9.52&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">utf8_decoded</span></tt></a></li>
-<li><a class="reference" href="#window" id="id140" name="id140">9.53&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">window</span></tt></a></li>
-<li><a class="reference" href="#with-position" id="id141" name="id141">9.54&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">with_position</span></tt></a></li>
-<li><a class="reference" href="#xpressive-matches" id="id142" name="id142">9.55&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">xpressive_matches</span></tt></a></li>
-<li><a class="reference" href="#xpressive-tokenized" id="id143" name="id143">9.56&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">xpressive_tokenized</span></tt></a></li>
-<li><a class="reference" href="#zipped" id="id144" name="id144">9.57&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">zipped</span></tt></a></li>
-<li><a class="reference" href="#zipped-with" id="id145" name="id145">9.58&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">zipped_with</span></tt></a></li>
+<li><a class="reference" href="#range-adaptors" id="id91" name="id91">9&nbsp;&nbsp;&nbsp;Range Adaptors</a><ul class="auto-toc">
+<li><a class="reference" href="#adjacent-filtered" id="id92" name="id92">9.1&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">adjacent_filtered</span></tt></a></li>
+<li><a class="reference" href="#adjacent-transformed" id="id93" name="id93">9.2&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">adjacent_transformed</span></tt></a></li>
+<li><a class="reference" href="#advanced" id="id94" name="id94">9.3&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">advanced</span></tt></a></li>
+<li><a class="reference" href="#always" id="id95" name="id95">9.4&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">always</span></tt></a></li>
+<li><a class="reference" href="#appended" id="id96" name="id96">9.5&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">appended</span></tt></a></li>
+<li><a class="reference" href="#applied" id="id97" name="id97">9.6&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">applied</span></tt></a></li>
+<li><a class="reference" href="#broken-into" id="id98" name="id98">9.7&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">broken_into</span></tt></a></li>
+<li><a class="reference" href="#checked" id="id99" name="id99">9.8&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">checked</span></tt></a></li>
+<li><a class="reference" href="#cleared" id="id100" name="id100">9.9&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">cleared</span></tt></a></li>
+<li><a class="reference" href="#concatenated" id="id101" name="id101">9.10&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">concatenated</span></tt></a></li>
+<li><a class="reference" href="#constants" id="id102" name="id102">9.11&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">constants</span></tt></a></li>
+<li><a class="reference" href="#const-lvalues" id="id103" name="id103">9.12&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">const_lvalues</span></tt></a></li>
+<li><a class="reference" href="#copied-out" id="id104" name="id104">9.13&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">copied_out</span></tt></a></li>
+<li><a class="reference" href="#cycled" id="id105" name="id105">9.14&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">cycled</span></tt></a></li>
+<li><a class="reference" href="#delimited" id="id106" name="id106">9.15&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">delimited</span></tt></a></li>
+<li><a class="reference" href="#directed" id="id107" name="id107">9.16&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">directed</span></tt></a></li>
+<li><a class="reference" href="#dropped" id="id108" name="id108">9.17&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">dropped</span></tt></a></li>
+<li><a class="reference" href="#dropped-while" id="id109" name="id109">9.18&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">dropped_while</span></tt></a></li>
+<li><a class="reference" href="#filtered" id="id110" name="id110">9.19&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">filtered</span></tt></a></li>
+<li><a class="reference" href="#firsts" id="id111" name="id111">9.20&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">firsts</span></tt></a></li>
+<li><a class="reference" href="#got-at" id="id112" name="id112">9.21&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">got_at</span></tt></a></li>
+<li><a class="reference" href="#identities" id="id113" name="id113">9.22&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">identities</span></tt></a></li>
+<li><a class="reference" href="#indirected" id="id114" name="id114">9.23&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">indirected</span></tt></a></li>
+<li><a class="reference" href="#jointed" id="id115" name="id115">9.24&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">jointed</span></tt></a></li>
+<li><a class="reference" href="#map-keys" id="id116" name="id116">9.25&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">map_keys</span></tt></a></li>
+<li><a class="reference" href="#map-values" id="id117" name="id117">9.26&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">map_values</span></tt></a></li>
+<li><a class="reference" href="#matches" id="id118" name="id118">9.27&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">matches</span></tt></a></li>
+<li><a class="reference" href="#memoized" id="id119" name="id119">9.28&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">memoized</span></tt></a></li>
+<li><a class="reference" href="#merged" id="id120" name="id120">9.29&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">merged</span></tt></a></li>
+<li><a class="reference" href="#permuted" id="id121" name="id121">9.30&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">permuted</span></tt></a></li>
+<li><a class="reference" href="#pointed" id="id122" name="id122">9.31&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">pointed</span></tt></a></li>
+<li><a class="reference" href="#popped" id="id123" name="id123">9.32&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">popped</span></tt></a></li>
+<li><a class="reference" href="#prepended" id="id124" name="id124">9.33&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">prepended</span></tt></a></li>
+<li><a class="reference" href="#reversed" id="id125" name="id125">9.34&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">reversed</span></tt></a></li>
+<li><a class="reference" href="#rotated" id="id126" name="id126">9.35&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">rotated</span></tt></a></li>
+<li><a class="reference" href="#scanned" id="id127" name="id127">9.36&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">scanned</span></tt></a></li>
+<li><a class="reference" href="#seconds" id="id128" name="id128">9.37&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">seconds</span></tt></a></li>
+<li><a class="reference" href="#set-cap" id="id129" name="id129">9.38&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">set_cap</span></tt></a></li>
+<li><a class="reference" href="#set-cup" id="id130" name="id130">9.39&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">set_cup</span></tt></a></li>
+<li><a class="reference" href="#set-delta" id="id131" name="id131">9.40&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">set_delta</span></tt></a></li>
+<li><a class="reference" href="#set-minus" id="id132" name="id132">9.41&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">set_minus</span></tt></a></li>
+<li><a class="reference" href="#shared" id="id133" name="id133">9.42&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">shared</span></tt></a></li>
+<li><a class="reference" href="#sliced" id="id134" name="id134">9.43&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">sliced</span></tt></a></li>
+<li><a class="reference" href="#string-found" id="id135" name="id135">9.44&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">string_found</span></tt></a></li>
+<li><a class="reference" href="#string-split" id="id136" name="id136">9.45&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">string_split</span></tt></a></li>
+<li><a class="reference" href="#taken" id="id137" name="id137">9.46&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">taken</span></tt></a></li>
+<li><a class="reference" href="#taken-while" id="id138" name="id138">9.47&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">taken_while</span></tt></a></li>
+<li><a class="reference" href="#tokenized" id="id139" name="id139">9.48&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">tokenized</span></tt></a></li>
+<li><a class="reference" href="#transformed" id="id140" name="id140">9.49&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">transformed</span></tt></a></li>
+<li><a class="reference" href="#uniqued" id="id141" name="id141">9.50&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">uniqued</span></tt></a></li>
+<li><a class="reference" href="#unzipped" id="id142" name="id142">9.51&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">unzipped</span></tt></a></li>
+<li><a class="reference" href="#utf8-decoded" id="id143" name="id143">9.52&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">utf8_decoded</span></tt></a></li>
+<li><a class="reference" href="#window" id="id144" name="id144">9.53&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">window</span></tt></a></li>
+<li><a class="reference" href="#with-position" id="id145" name="id145">9.54&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">with_position</span></tt></a></li>
+<li><a class="reference" href="#xpressive-matches" id="id146" name="id146">9.55&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">xpressive_matches</span></tt></a></li>
+<li><a class="reference" href="#xpressive-tokenized" id="id147" name="id147">9.56&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">xpressive_tokenized</span></tt></a></li>
+<li><a class="reference" href="#zipped" id="id148" name="id148">9.57&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">zipped</span></tt></a></li>
+<li><a class="reference" href="#zipped-with" id="id149" name="id149">9.58&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">zipped_with</span></tt></a></li>
 </ul>
 </li>
-<li><a class="reference" href="#output-iterator-adaptors" id="id146" name="id146">10&nbsp;&nbsp;&nbsp;Output Iterator Adaptors</a><ul class="auto-toc">
-<li><a class="reference" href="#to-counter" id="id147" name="id147">10.1&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">to_counter</span></tt></a></li>
-<li><a class="reference" href="#to-function" id="id148" name="id148">10.2&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">to_function</span></tt></a></li>
-<li><a class="reference" href="#to-stream" id="id149" name="id149">10.3&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">to_stream</span></tt></a></li>
-<li><a class="reference" href="#to-utf8-encoder" id="id150" name="id150">10.4&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">to_utf8_encoder</span></tt></a></li>
+<li><a class="reference" href="#output-iterator-adaptors" id="id150" name="id150">10&nbsp;&nbsp;&nbsp;Output Iterator Adaptors</a><ul class="auto-toc">
+<li><a class="reference" href="#to-counter" id="id151" name="id151">10.1&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">to_counter</span></tt></a></li>
+<li><a class="reference" href="#to-function" id="id152" name="id152">10.2&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">to_function</span></tt></a></li>
+<li><a class="reference" href="#to-stream" id="id153" name="id153">10.3&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">to_stream</span></tt></a></li>
+<li><a class="reference" href="#to-utf8-encoder" id="id154" name="id154">10.4&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">to_utf8_encoder</span></tt></a></li>
 </ul>
 </li>
-<li><a class="reference" href="#extending-boost-range" id="id151" name="id151">11&nbsp;&nbsp;&nbsp;Extending Boost.Range</a></li>
-<li><a class="reference" href="#mfc-atl-extension" id="id152" name="id152">12&nbsp;&nbsp;&nbsp;MFC/ATL Extension</a></li>
-<li><a class="reference" href="#acknowledgments" id="id153" name="id153">13&nbsp;&nbsp;&nbsp;Acknowledgments</a></li>
-<li><a class="reference" href="#release-notes" id="id154" name="id154">14&nbsp;&nbsp;&nbsp;Release Notes</a><ul class="auto-toc">
-<li><a class="reference" href="#version-0-90-0" id="id155" name="id155">14.1&nbsp;&nbsp;&nbsp;Version 0.90.0</a></li>
-<li><a class="reference" href="#version-0-90-1-0-90-6" id="id156" name="id156">14.2&nbsp;&nbsp;&nbsp;Version 0.90.1 - 0.90.6</a></li>
-<li><a class="reference" href="#version-0-90-7-0-90-9" id="id157" name="id157">14.3&nbsp;&nbsp;&nbsp;Version 0.90.7 - 0.90.9</a></li>
-<li><a class="reference" href="#version-0-91-0-0-91-3" id="id158" name="id158">14.4&nbsp;&nbsp;&nbsp;Version 0.91.0 - 0.91.3</a></li>
-<li><a class="reference" href="#version-0-91-4-0-91-9" id="id159" name="id159">14.5&nbsp;&nbsp;&nbsp;Version 0.91.4 - 0.91.9</a></li>
-<li><a class="reference" href="#version-0-92-0-0-92-3" id="id160" name="id160">14.6&nbsp;&nbsp;&nbsp;Version 0.92.0 - 0.92.3</a></li>
-<li><a class="reference" href="#version-0-93-0" id="id161" name="id161">14.7&nbsp;&nbsp;&nbsp;Version 0.93.0</a></li>
-<li><a class="reference" href="#version-0-93-1" id="id162" name="id162">14.8&nbsp;&nbsp;&nbsp;Version 0.93.1</a></li>
-<li><a class="reference" href="#version-0-93-2" id="id163" name="id163">14.9&nbsp;&nbsp;&nbsp;Version 0.93.2</a></li>
-<li><a class="reference" href="#version-0-93-3" id="id164" name="id164">14.10&nbsp;&nbsp;&nbsp;Version 0.93.3</a></li>
+<li><a class="reference" href="#extending-boost-range" id="id155" name="id155">11&nbsp;&nbsp;&nbsp;Extending Boost.Range</a></li>
+<li><a class="reference" href="#mfc-atl-extension" id="id156" name="id156">12&nbsp;&nbsp;&nbsp;MFC/ATL Extension</a></li>
+<li><a class="reference" href="#acknowledgments" id="id157" name="id157">13&nbsp;&nbsp;&nbsp;Acknowledgments</a></li>
+<li><a class="reference" href="#release-notes" id="id158" name="id158">14&nbsp;&nbsp;&nbsp;Release Notes</a><ul class="auto-toc">
+<li><a class="reference" href="#version-0-90-0" id="id159" name="id159">14.1&nbsp;&nbsp;&nbsp;Version 0.90.0</a></li>
+<li><a class="reference" href="#version-0-90-1-0-90-6" id="id160" name="id160">14.2&nbsp;&nbsp;&nbsp;Version 0.90.1 - 0.90.6</a></li>
+<li><a class="reference" href="#version-0-90-7-0-90-9" id="id161" name="id161">14.3&nbsp;&nbsp;&nbsp;Version 0.90.7 - 0.90.9</a></li>
+<li><a class="reference" href="#version-0-91-0-0-91-3" id="id162" name="id162">14.4&nbsp;&nbsp;&nbsp;Version 0.91.0 - 0.91.3</a></li>
+<li><a class="reference" href="#version-0-91-4-0-91-9" id="id163" name="id163">14.5&nbsp;&nbsp;&nbsp;Version 0.91.4 - 0.91.9</a></li>
+<li><a class="reference" href="#version-0-92-0-0-92-3" id="id164" name="id164">14.6&nbsp;&nbsp;&nbsp;Version 0.92.0 - 0.92.3</a></li>
+<li><a class="reference" href="#version-0-93-0" id="id165" name="id165">14.7&nbsp;&nbsp;&nbsp;Version 0.93.0</a></li>
+<li><a class="reference" href="#version-0-93-1" id="id166" name="id166">14.8&nbsp;&nbsp;&nbsp;Version 0.93.1</a></li>
+<li><a class="reference" href="#version-0-93-2" id="id167" name="id167">14.9&nbsp;&nbsp;&nbsp;Version 0.93.2</a></li>
+<li><a class="reference" href="#version-0-93-3" id="id168" name="id168">14.10&nbsp;&nbsp;&nbsp;Version 0.93.3</a></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="section">
-<h1><a class="toc-backref" href="#id49" id="introduction" name="introduction">1&nbsp;&nbsp;&nbsp;Introduction</a></h1>
+<h1><a class="toc-backref" href="#id53" id="introduction" name="introduction">1&nbsp;&nbsp;&nbsp;Introduction</a></h1>
 <p>Oven provides an experimental Range Adaptor implementation of <a class="reference" href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1871.html">Range Library Proposal</a>:</p>
 <pre class="cpp_source">
 <span class="cpp_keyword">typedef </span>any_range&lt;<span class="cpp_keyword">int</span>&gt; range;
@@ -192,14 +192,14 @@ range primes = iteration(range(counting_from(<span class="cpp_number_literal">2<
 unless otherwise specified.</p>
 </div>
 <div class="section">
-<h1><a class="toc-backref" href="#id50" id="requirements" name="requirements">2&nbsp;&nbsp;&nbsp;Requirements</a></h1>
+<h1><a class="toc-backref" href="#id54" id="requirements" name="requirements">2&nbsp;&nbsp;&nbsp;Requirements</a></h1>
 <ul class="simple">
 <li><a class="reference" href="http://www.boost.org/">Boost C++ Libraries Version 1.33.1</a> or later (no compilation required)</li>
 <li><a class="reference" href="http://sourceforge.net/project/showfiles.php?group_id=141222&amp;package_id=173059">P-Stade C++ Libraries Version 1.02.0</a> or later (no compilation required, give a higher priority than Boost headers)</li>
 </ul>
 </div>
 <div class="section">
-<h1><a class="toc-backref" href="#id51" id="tested-under" name="tested-under">3&nbsp;&nbsp;&nbsp;Tested Under</a></h1>
+<h1><a class="toc-backref" href="#id55" id="tested-under" name="tested-under">3&nbsp;&nbsp;&nbsp;Tested Under</a></h1>
 <ul class="simple">
 <li>Microsoft Visual C++ 2005 Express Edition SP1</li>
 <li>Microsoft Visual C++ .NET Version 7.1 SP1</li>
@@ -207,7 +207,7 @@ unless otherwise specified.</p>
 </ul>
 </div>
 <div class="section">
-<h1><a class="toc-backref" href="#id52" id="specification" name="specification">4&nbsp;&nbsp;&nbsp;Specification</a></h1>
+<h1><a class="toc-backref" href="#id56" id="specification" name="specification">4&nbsp;&nbsp;&nbsp;Specification</a></h1>
 <p>This document is based on the following specifications.</p>
 <ul class="simple">
 <li><tt class="docutils literal"><span class="pre">rng</span></tt>: any range</li>
@@ -226,7 +226,7 @@ boost::result_of&lt;op_make_filtered(std::string&amp;, <span class="cpp_keyword"
     result = make_filtered(src, &amp;is_upper);
 BOOST_CHECK( equals(result, src|filtered(&amp;is_upper)) );</pre>
 
-<p>All the ranges Oven defines are InputStreamable and OutputStreamable if <tt class="docutils literal"><span class="pre">&lt;pstade/oven/io.hpp&gt;</span></tt> is included.</p>
+<p>All the ranges Oven defines are <tt class="docutils literal"><span class="pre">InputStreamable</span></tt> and <tt class="docutils literal"><span class="pre">OutputStreamable</span></tt> if <tt class="docutils literal"><span class="pre">&lt;pstade/oven/io.hpp&gt;</span></tt> is included.</p>
 <table class="docutils footnote" frame="void" id="id6" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
@@ -235,11 +235,11 @@ BOOST_CHECK( equals(result, src|filtered(&amp;is_upper)) );</pre>
 </table>
 </div>
 <div class="section">
-<h1><a class="toc-backref" href="#id53" id="range-algorithms" name="range-algorithms">5&nbsp;&nbsp;&nbsp;Range Algorithms</a></h1>
+<h1><a class="toc-backref" href="#id57" id="range-algorithms" name="range-algorithms">5&nbsp;&nbsp;&nbsp;Range Algorithms</a></h1>
 <p>Oven provides some range-based algorithms.
 <tt class="docutils literal"><span class="pre">&lt;pstade/oven/functions.hpp&gt;</span></tt> includes all the following functions unless otherwise specified.</p>
 <div class="section">
-<h2><a class="toc-backref" href="#id54" id="stl-algorithms" name="stl-algorithms">5.1&nbsp;&nbsp;&nbsp;STL Algorithms</a></h2>
+<h2><a class="toc-backref" href="#id58" id="stl-algorithms" name="stl-algorithms">5.1&nbsp;&nbsp;&nbsp;STL Algorithms</a></h2>
 <p>Oven has all the range-based STL algorithms, which are ported from <a class="reference" href="http://boost-consulting.com/vault/index.php?&amp;directory=Algorithms">Boost.RangeEx</a> with some compiler workarounds:</p>
 <pre class="cpp_source">
 std::string str;
@@ -262,7 +262,7 @@ BOOST_CHECK( str == <span class="cpp_string_literal">&quot;abcdefg&quot;</span> 
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id55" id="adapted-to-to-base" name="adapted-to-to-base">5.2&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">adapted_to/to_base</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id59" id="adapted-to-to-base" name="adapted-to-to-base">5.2&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">adapted_to/to_base</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">adapted_to</span></tt> gets the <tt class="docutils literal"><span class="pre">base_type</span></tt> iterator of adapted iterators:</p>
 <pre class="cpp_source">
 std::string src(<span class="cpp_string_literal">&quot;cjaigvwzenqhe&quot;</span>);
@@ -289,7 +289,7 @@ BOOST_CHECK( *it == <span class="cpp_string_literal">'v'</span> );</pre>
 </table>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id56" id="begin-end" name="begin-end">5.3&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">begin/end</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id60" id="begin-end" name="begin-end">5.3&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">begin/end</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">begin/end</span></tt> is a pipable version of <tt class="docutils literal"><span class="pre">boost::begin/end</span></tt>:</p>
 <pre class="cpp_source">
 std::string src(<span class="cpp_string_literal">&quot;abcDefg&quot;</span>);   
@@ -304,7 +304,7 @@ BOOST_CHECK( oven::equals(src, std::string(<span class="cpp_string_literal">&quo
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id57" id="compile" name="compile">5.4&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">compile</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id61" id="compile" name="compile">5.4&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">compile</span></tt></a></h2>
 <p><cite>Pending...</cite></p>
 <p><tt class="docutils literal"><span class="pre">compile</span></tt> introduces the syntax sugar for <tt class="docutils literal"><span class="pre">jointed</span></tt> etc:</p>
 <pre class="cpp_source">
@@ -323,7 +323,7 @@ BOOST_CHECK( equals(
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id58" id="copied" name="copied">5.5&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">copied</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id62" id="copied" name="copied">5.5&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">copied</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">copied</span></tt> adds the automatic type deduction to <a class="reference" href="http://www.boost.org/libs/range/doc/utility_class.html#copy_range">copy_range</a> which
 calls the range constructor of the STL Sequences:</p>
 <pre class="cpp_source">
@@ -345,7 +345,7 @@ BOOST_CHECK( oven::equals(vec, oven::counting(<span class="cpp_number_literal">3
 </table>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id59" id="distance" name="distance">5.6&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">distance</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id63" id="distance" name="distance">5.6&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">distance</span></tt></a></h2>
 <p>The upcoming <a class="reference" href="http://www.boost.org/libs/range/">Boost.Range</a> will replace <tt class="docutils literal"><span class="pre">boost::size</span></tt> by <tt class="docutils literal"><span class="pre">boost::distance</span></tt>.
 <tt class="docutils literal"><span class="pre">oven::distance</span></tt> that is the same as <tt class="docutils literal"><span class="pre">boost::distance</span></tt> makes your code portable:</p>
 <pre class="cpp_source">
@@ -360,7 +360,7 @@ BOOST_CHECK( oven::distance(str) == <span class="cpp_number_literal">6 </span>);
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id60" id="equals" name="equals">5.7&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">equals</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id64" id="equals" name="equals">5.7&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">equals</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">equals</span></tt> is the range-based <tt class="docutils literal"><span class="pre">std::equal</span></tt> that takes two ranges as the arguments:</p>
 <pre class="cpp_source">
 std::string str(<span class="cpp_string_literal">&quot;hello, equals&quot;</span>);
@@ -381,11 +381,11 @@ BOOST_CHECK( oven::equals(str, vec) );</pre>
 </table>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id61" id="front-back" name="front-back">5.8&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">front/back</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id65" id="front-back" name="front-back">5.8&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">front/back</span></tt></a></h2>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/front_back.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">front(rng)</span></tt> and <tt class="docutils literal"><span class="pre">back(biRng)</span></tt>.</li>
-<li>Precondition: <tt class="docutils literal"><span class="pre">boost::range_value</span></tt> of <tt class="docutils literal"><span class="pre">rng</span></tt> is CopyConstructible.</li>
+<li>Precondition: <tt class="docutils literal"><span class="pre">boost::range_value</span></tt> of <tt class="docutils literal"><span class="pre">rng</span></tt> is <tt class="docutils literal"><span class="pre">CopyConstructible</span></tt>.</li>
 <li>Returns:  <tt class="docutils literal"><span class="pre">V(*boost::begin(rng))</span></tt> and <tt class="docutils literal"><span class="pre">V(*--boost::end(biRng))</span></tt> respectively, where <tt class="docutils literal"><span class="pre">V</span></tt> is <tt class="docutils literal"><span class="pre">boost::range_value</span></tt> of <tt class="docutils literal"><span class="pre">rng</span></tt>. <a class="footnote-reference" href="#id14" id="id13" name="id13">[5]</a></li>
 </ul>
 <table class="docutils footnote" frame="void" id="id14" rules="none">
@@ -397,10 +397,10 @@ BOOST_CHECK( oven::equals(str, vec) );</pre>
 </div>
 </div>
 <div class="section">
-<h1><a class="toc-backref" href="#id62" id="utilities" name="utilities">6&nbsp;&nbsp;&nbsp;Utilities</a></h1>
+<h1><a class="toc-backref" href="#id66" id="utilities" name="utilities">6&nbsp;&nbsp;&nbsp;Utilities</a></h1>
 <p>Some helper function objects are given to fill the gap between Oven and other libraries.</p>
 <div class="section">
-<h2><a class="toc-backref" href="#id63" id="innumerable" name="innumerable">6.1&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">innumerable</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id67" id="innumerable" name="innumerable">6.1&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">innumerable</span></tt></a></h2>
 <p>As discribed below, the function object <a class="reference" href="#generation">generation</a> needs is slightly different from
 the Generator concept defined by the Standard.
 <tt class="docutils literal"><span class="pre">innumerable</span></tt> turns the Generator function object into the Standard conforming one,
@@ -412,34 +412,34 @@ which creates an infinite range, working with <a class="reference" href="#genera
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id64" id="regular" name="regular">6.2&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">regular</span></tt></a></h2>
-<p>Boost.Lambda functors are neither DefaultConstructible nor CopyAssignable.
-An iterator holding such a functor cannot conform to even InputIterator.
+<h2><a class="toc-backref" href="#id68" id="regular" name="regular">6.2&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">regular</span></tt></a></h2>
+<p>Boost.Lambda functors are neither <tt class="docutils literal"><span class="pre">DefaultConstructible</span></tt> nor <tt class="docutils literal"><span class="pre">CopyAssignable</span></tt>.
+An iterator holding such a functor cannot conform to even <tt class="docutils literal"><span class="pre">InputIterator</span></tt>.
 <tt class="docutils literal"><span class="pre">regular</span></tt> converts it to comfortable one for iterators.</p>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/regular.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">regular(lambdaFunctor)</span></tt></li>
-<li>Returns: A <a class="reference" href="http://www.sgi.com/tech/stl/functors.html">Function Object</a> which is DefaultConstructible and CopyAssignable.</li>
+<li>Returns: A <a class="reference" href="http://www.sgi.com/tech/stl/functors.html">Function Object</a> which is <tt class="docutils literal"><span class="pre">DefaultConstructible</span></tt> and <tt class="docutils literal"><span class="pre">CopyAssignable</span></tt>.</li>
 </ul>
 <p>In principle, call <tt class="docutils literal"><span class="pre">regular</span></tt> before a lambda functor is passed to <a class="reference" href="#range-adaptors">Range Adaptors</a>.</p>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id65" id="shared-regular" name="shared-regular">6.3&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">shared_regular</span></tt></a></h2>
-<p><tt class="docutils literal"><span class="pre">shared_regular</span></tt> converts a non-Copyable function object type to Copyable one.</p>
+<h2><a class="toc-backref" href="#id69" id="shared-regular" name="shared-regular">6.3&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">shared_regular</span></tt></a></h2>
+<p><tt class="docutils literal"><span class="pre">shared_regular</span></tt> converts a noncopyable function object type to copyable one.</p>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/regular.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">shared_regular(p)</span></tt>.</li>
 <li>Precondition: <tt class="docutils literal"><span class="pre">boost::shared_ptr</span></tt> is constructible from <tt class="docutils literal"><span class="pre">p</span></tt>.</li>
-<li>Returns: A <a class="reference" href="http://www.sgi.com/tech/stl/functors.html">Function Object</a> which is DefaultConstructible and CopyAssignable.</li>
+<li>Returns: A <a class="reference" href="http://www.sgi.com/tech/stl/functors.html">Function Object</a> which is <tt class="docutils literal"><span class="pre">DefaultConstructible</span></tt> and <tt class="docutils literal"><span class="pre">CopyAssignable</span></tt>.</li>
 </ul>
 </div>
 </div>
 <div class="section">
-<h1><a class="toc-backref" href="#id66" id="ranges" name="ranges">7&nbsp;&nbsp;&nbsp;Ranges</a></h1>
+<h1><a class="toc-backref" href="#id70" id="ranges" name="ranges">7&nbsp;&nbsp;&nbsp;Ranges</a></h1>
 <p>Oven provides some predefined range types.
 <tt class="docutils literal"><span class="pre">&lt;pstade/oven/ranges.hpp&gt;</span></tt> includes every range header unless otherwise specified.</p>
 <div class="section">
-<h2><a class="toc-backref" href="#id67" id="any-range" name="any-range">7.1&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">any_range</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id71" id="any-range" name="any-range">7.1&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">any_range</span></tt></a></h2>
 <p>Oven supports <tt class="docutils literal"><span class="pre">boost::result_of</span></tt>, but it is sometimes cumbersome to get the type of
 the adapted range. <tt class="docutils literal"><span class="pre">any_range</span></tt> behaves as the type erasure of ranges:</p>
 <pre class="cpp_source">
@@ -451,20 +451,21 @@ BOOST_CHECK( oven::equals(any_, std::string(<span class="cpp_string_literal">&qu
 
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/any_range.hpp&gt;</span></tt></li>
-<li>Valid expression: <tt class="docutils literal"><span class="pre">any_range&lt;R&gt;</span> <span class="pre">any_;</span></tt>,  <tt class="docutils literal"><span class="pre">any_range&lt;R&gt;</span> <span class="pre">any_(rng);</span></tt> and <tt class="docutils literal"><span class="pre">any_range&lt;R&gt;</span> <span class="pre">any_</span> <span class="pre">=</span> <span class="pre">rng;</span></tt>
+<li>Valid expression: <tt class="docutils literal"><span class="pre">any_range&lt;R,T&gt;</span> <span class="pre">any_;</span></tt>, <tt class="docutils literal"><span class="pre">any_range&lt;R,T&gt;</span> <span class="pre">any_(rng);</span></tt> and <tt class="docutils literal"><span class="pre">any_range&lt;R,T&gt;</span> <span class="pre">any_</span> <span class="pre">=</span> <span class="pre">rng;</span></tt>
 , where the iterators of <tt class="docutils literal"><span class="pre">any_</span></tt> are <tt class="docutils literal"><span class="pre">Interoperatable</span></tt> if and only if <tt class="docutils literal"><span class="pre">rng</span></tt>s are the same type.</li>
-<li>Precondition: <tt class="docutils literal"><span class="pre">boost::range_reference</span></tt> of <tt class="docutils literal"><span class="pre">rng</span></tt> is convertible to <tt class="docutils literal"><span class="pre">R</span></tt> without creating rvalue.</li>
-<li>Returns: A <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#single_pass_range">Single Pass Range</a> <a class="footnote-reference" href="#id17" id="id15" name="id15">[6]</a> whose iterators behave as if they were the original iterators wrapped in <a class="reference" href="http://thbecker.net/free_software_utilities/type_erasure_for_cpp_iterators/start_page.html">any_iterator</a></li>
+<li>Precondition: <tt class="docutils literal"><span class="pre">boost::range_reference</span></tt> of <tt class="docutils literal"><span class="pre">rng</span></tt> is convertible to <tt class="docutils literal"><span class="pre">R</span></tt> without creating rvalue.
+<tt class="docutils literal"><span class="pre">T</span></tt> is a <tt class="docutils literal"><span class="pre">TraversalTag</span></tt>; <tt class="docutils literal"><span class="pre">T</span></tt> is <tt class="docutils literal"><span class="pre">boost::single_pass_traversal_tag</span></tt> if omitted. <a class="footnote-reference" href="#id17" id="id15" name="id15">[6]</a></li>
+<li>Returns: A range whose iterators behave as if they were the original iterators wrapped in <a class="reference" href="http://thbecker.net/free_software_utilities/type_erasure_for_cpp_iterators/start_page.html">any_iterator</a></li>
 </ul>
 <table class="docutils footnote" frame="void" id="id17" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id15" name="id17">[6]</a></td><td>Though <tt class="docutils literal"><span class="pre">any_range</span></tt> has the extra template parameter for other traversal tags, it is rejected for now because of the bad performance.</td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id15" name="id17">[6]</a></td><td>You should prefer <tt class="docutils literal"><span class="pre">boost::single_pass_traversal_tag</span></tt> everywhere possible; it is the most efficient.</td></tr>
 </tbody>
 </table>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id68" id="array-range" name="array-range">7.2&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">array_range</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id72" id="array-range" name="array-range">7.2&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">array_range</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">array_range</span></tt> is a non-Copyable <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#random_access_range">Random Access Range</a> which delivers
 a range presentation of dynamically allocated arrays:</p>
 <pre class="cpp_source">
@@ -483,7 +484,7 @@ BOOST_CHECK( oven::equals(sarr, darr) );</pre>
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id69" id="directory-range" name="directory-range">7.3&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">directory_range</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id73" id="directory-range" name="directory-range">7.3&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">directory_range</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">directory_range</span></tt> is a <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#single_pass_range">Single Pass Range</a> which accesses the contents of a directory:</p>
 <pre class="cpp_source">
 BOOST_FOREACH (
@@ -502,7 +503,7 @@ the type of <tt class="docutils literal"><span class="pre">wp</span></tt> is <tt
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id70" id="empty-range" name="empty-range">7.4&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">empty_range</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id74" id="empty-range" name="empty-range">7.4&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">empty_range</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">empty_range</span></tt> is a <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#random_access_range">Random Access Range</a> which is always empty:</p>
 <pre class="cpp_source">
 BOOST_CHECK( boost::empty(empty_range&lt;<span class="cpp_keyword">int</span>&gt;()) );</pre>
@@ -513,7 +514,7 @@ BOOST_CHECK( boost::empty(empty_range&lt;<span class="cpp_keyword">int</span>&gt
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id71" id="file-range" name="file-range">7.5&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">file_range</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id75" id="file-range" name="file-range">7.5&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">file_range</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">file_range</span></tt> is a constant <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#random_access_range">Random Access Range</a> for files:</p>
 <pre class="cpp_source">
 std::vector&lt;<span class="cpp_keyword">char</span>&gt; vec;
@@ -530,12 +531,12 @@ If <tt class="docutils literal"><span class="pre">is_open()</span></tt> is not <
 </div>
 </div>
 <div class="section">
-<h1><a class="toc-backref" href="#id72" id="range-makers" name="range-makers">8&nbsp;&nbsp;&nbsp;Range Makers</a></h1>
+<h1><a class="toc-backref" href="#id76" id="range-makers" name="range-makers">8&nbsp;&nbsp;&nbsp;Range Makers</a></h1>
 <p>Oven provides some predefined functions which produce a range.
-All the range returned from the following makers are CopyConstructible and Inheritable.
+All the range returned from the following makers are <tt class="docutils literal"><span class="pre">CopyConstructible</span></tt> and <tt class="docutils literal"><span class="pre">Inheritable</span></tt>.
 <tt class="docutils literal"><span class="pre">&lt;pstade/oven/functions.hpp&gt;</span></tt> includes every maker header unless otherwise specified.</p>
 <div class="section">
-<h2><a class="toc-backref" href="#id73" id="as-array" name="as-array">8.1&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">as_array</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id77" id="as-array" name="as-array">8.1&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">as_array</span></tt></a></h2>
 <p>The current Boost.Range regards char array as literal, which <tt class="docutils literal"><span class="pre">as_array</span></tt> works around.</p>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/as_array.hpp&gt;</span></tt></li>
@@ -544,7 +545,7 @@ All the range returned from the following makers are CopyConstructible and Inher
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id74" id="as-c-str" name="as-c-str">8.2&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">as_c_str</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id78" id="as-c-str" name="as-c-str">8.2&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">as_c_str</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">as_c_str</span></tt> makes a <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#random_access_range">Random Access Range</a> from null-terminated c-style string:</p>
 <pre class="cpp_source">
 {
@@ -563,7 +564,7 @@ All the range returned from the following makers are CopyConstructible and Inher
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id75" id="as-literal" name="as-literal">8.3&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">as_literal</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id79" id="as-literal" name="as-literal">8.3&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">as_literal</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">as_literal</span></tt> makes a <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#random_access_range">Random Access Range</a> from character array.
 <tt class="docutils literal"><span class="pre">as_literal</span></tt> doesn't support any pointer type but array type. So it is safe and fast. Compare it with <tt class="docutils literal"><span class="pre">as_c_str</span></tt>:</p>
 <pre class="cpp_source">
@@ -594,7 +595,7 @@ All the range returned from the following makers are CopyConstructible and Inher
 </table>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id76" id="as-single" name="as-single">8.4&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">as_single</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id80" id="as-single" name="as-single">8.4&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">as_single</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">as_single</span></tt> makes a <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#random_access_range">Random Access Range</a> which delivers a range presentation of one object:</p>
 <pre class="cpp_source">
 BOOST_CHECK( oven::equals(<span class="cpp_string_literal">'a'</span>|as_single, std::string(<span class="cpp_string_literal">&quot;a&quot;</span>)) );
@@ -607,7 +608,7 @@ BOOST_CHECK( oven::equals(<span class="cpp_string_literal">'a'</span>|as_single,
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id77" id="as-shared-single" name="as-shared-single">8.5&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">as_shared_single</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id81" id="as-shared-single" name="as-shared-single">8.5&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">as_shared_single</span></tt></a></h2>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/as_single.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">as_shared_single(p)</span></tt> and <tt class="docutils literal"><span class="pre">p|as_shared_single</span></tt></li>
@@ -616,7 +617,7 @@ BOOST_CHECK( oven::equals(<span class="cpp_string_literal">'a'</span>|as_single,
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id78" id="counting" name="counting">8.6&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">counting</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id82" id="counting" name="counting">8.6&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">counting</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">counting</span></tt> introduces the replacement of <tt class="docutils literal"><span class="pre">for</span></tt> loop:</p>
 <pre class="cpp_source">
 <span class="cpp_keyword">int </span>ans[] = { <span class="cpp_number_literal">2</span>, <span class="cpp_number_literal">3</span>, <span class="cpp_number_literal">4</span>, <span class="cpp_number_literal">5</span>, <span class="cpp_number_literal">6 </span>};
@@ -629,20 +630,20 @@ BOOST_FOREACH (<span class="cpp_keyword">int </span>i, counting(<span class="cpp
 
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/counting.hpp&gt;</span></tt></li>
-<li>Valid expression: <tt class="docutils literal"><span class="pre">counting(n,</span> <span class="pre">m)</span></tt>, where <tt class="docutils literal"><span class="pre">n</span></tt> and <tt class="docutils literal"><span class="pre">m</span></tt> is Incrementable.</li>
+<li>Valid expression: <tt class="docutils literal"><span class="pre">counting(n,</span> <span class="pre">m)</span></tt>, where <tt class="docutils literal"><span class="pre">n</span></tt> and <tt class="docutils literal"><span class="pre">m</span></tt> is <tt class="docutils literal"><span class="pre">Incrementable</span></tt>.</li>
 <li>Returns: A range whose iterators behave as if they were the original iterators wrapped in <a class="reference" href="http://www.boost.org/libs/iterator/doc/counting_iterator.html">counting_iterator</a></li>
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id79" id="counting-from" name="counting-from">8.7&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">counting_from</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id83" id="counting-from" name="counting-from">8.7&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">counting_from</span></tt></a></h2>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/counting.hpp&gt;</span></tt></li>
-<li>Valid expression: <tt class="docutils literal"><span class="pre">counting_from(n)</span></tt>, where <tt class="docutils literal"><span class="pre">n</span></tt> is Incrementable.</li>
+<li>Valid expression: <tt class="docutils literal"><span class="pre">counting_from(n)</span></tt>, where <tt class="docutils literal"><span class="pre">n</span></tt> is <tt class="docutils literal"><span class="pre">Incrementable</span></tt>.</li>
 <li>Returns: A range which behaves as if <tt class="docutils literal"><span class="pre">counting(n,std::numeric_limits&lt;N&gt;::max())</span></tt>, where <tt class="docutils literal"><span class="pre">N</span></tt> is the type of <tt class="docutils literal"><span class="pre">n</span></tt>.</li>
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id80" id="generation" name="generation">8.8&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">generation</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id84" id="generation" name="generation">8.8&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">generation</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">generation</span></tt> returns a range whose iterators were originally written as <a class="reference" href="http://www.boost.org/libs/utility/generator_iterator.htm">generator_iterator</a>:</p>
 <pre class="cpp_source">
 <span class="cpp_keyword">struct </span>rand_generator
@@ -676,11 +677,11 @@ BOOST_FOREACH (<span class="cpp_keyword">int </span>i, counting(<span class="cpp
 <p>If you have a Standard conforming Generator, you can convert it to <tt class="docutils literal"><span class="pre">generation</span></tt> conforming one by using <a class="reference" href="#innumerable">innumerable</a>.</p>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id81" id="indexing" name="indexing">8.9&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">indexing</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id85" id="indexing" name="indexing">8.9&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">indexing</span></tt></a></h2>
 <p><cite>Pending...</cite></p>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id82" id="iteration" name="iteration">8.10&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">iteration</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id86" id="iteration" name="iteration">8.10&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">iteration</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">iteration</span></tt> makes an infinite range where the first item is calculated by applying
 the function on the first argument, the second item by applying the function on the previous result and so on:</p>
 <pre class="cpp_source">
@@ -702,30 +703,44 @@ BOOST_CHECK( oven::equals(answer,
 </table>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id83" id="recursion" name="recursion">8.11&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">recursion</span></tt></a></h2>
-<p><cite>Pending...</cite></p>
-<p><tt class="docutils literal"><span class="pre">recursion</span></tt>, collaborating with <a class="reference" href="#any-range">any_range</a>, creates a recursive range:</p>
+<h2><a class="toc-backref" href="#id87" id="recursion" name="recursion">8.11&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">recursion</span></tt></a></h2>
+<p><tt class="docutils literal"><span class="pre">recursion</span></tt>, collaborating with <a class="reference" href="#any-range">any_range</a> <a class="footnote-reference" href="#id30" id="id28" name="id28">[9]</a>, creates a recursive <a class="footnote-reference" href="#id31" id="id29" name="id29">[10]</a> range:</p>
 <pre class="cpp_source">
-any_range&lt; <span class="cpp_keyword">int</span>, recursive&lt;boost::single_pass_traversal_tag&gt; &gt; fibs;
+<span class="cpp_keyword">typedef </span>any_range&lt; <span class="cpp_keyword">int</span>, recursive&lt;&gt; &gt; range_t;
+memo_table to_table;
+range_t fibs;
 <span class="cpp_keyword">int </span><span class="cpp_keyword">const </span>start[] = { <span class="cpp_number_literal">1</span>, <span class="cpp_number_literal">1 </span>};
 fibs =
     start|transformed(pstade::as_value)|
         jointed(
             boost::make_tuple(recursion(fibs), recursion(fibs)|dropped(<span class="cpp_number_literal">1</span>))|
-                zipped_with(regular(lambda::_1 + lambda::_2))
+            zipped_with(regular(lambda::_1 + lambda::_2))
         )
+         | memoized(to_table)
 ;
 
-std::cout &lt;&lt; (fibs|taken(<span class="cpp_number_literal">20</span>));</pre>
+std::cout &lt;&lt; (fibs|taken(<span class="cpp_number_literal">30</span>));</pre>
 
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/recursion.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">recursion(anyRng)</span></tt>, where <tt class="docutils literal"><span class="pre">anyRng</span></tt> is an <tt class="docutils literal"><span class="pre">any_range</span></tt> object.</li>
 <li>Returns: An infinite range up to  <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#bidirectional_range">Bidirectional Range</a>.</li>
 </ul>
+<table class="docutils footnote" frame="void" id="id30" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id28" name="id30">[9]</a></td><td>A <tt class="docutils literal"><span class="pre">TraversalTag</span></tt> passed to <tt class="docutils literal"><span class="pre">any_range</span></tt> shall be wrapped around with <tt class="docutils literal"><span class="pre">recursive</span></tt>; it is a <tt class="docutils literal"><span class="pre">boost::single_pass_traversal_tag</span></tt> if omitted.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id31" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id29" name="id31">[10]</a></td><td>A recursive range may be very inefficient without <tt class="docutils literal"><span class="pre">memoized</span></tt>, then a named lvalue <tt class="docutils literal"><span class="pre">memo_table</span></tt> object shall be passed to <tt class="docutils literal"><span class="pre">memoized</span></tt>.</td></tr>
+</tbody>
+</table>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id84" id="repeated" name="repeated">8.12&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">repeated</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id88" id="repeated" name="repeated">8.12&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">repeated</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">repeated</span></tt> makes a <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#random_access_range">Random Access Range</a> where all values are the first argument:</p>
 <pre class="cpp_source">
 BOOST_CHECK( oven::equals(
@@ -740,7 +755,7 @@ BOOST_CHECK( oven::equals(
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id85" id="stream-input" name="stream-input">8.13&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">stream_input</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id89" id="stream-input" name="stream-input">8.13&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">stream_input</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">stream_input</span></tt> makes a <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#single_pass_range">Single Pass Range</a> from <tt class="docutils literal"><span class="pre">std::cout</span></tt> etc:</p>
 <pre class="cpp_source">
 std::string src(<span class="cpp_string_literal">&quot;hello,stream_input!&quot;</span>);
@@ -759,7 +774,7 @@ BOOST_CHECK( oven::equals(result, src) );</pre>
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id86" id="streambuf-input" name="streambuf-input">8.14&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">streambuf_input</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id90" id="streambuf-input" name="streambuf-input">8.14&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">streambuf_input</span></tt></a></h2>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/stream_input.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">oven::streambuf_input(stm)</span></tt></li>
@@ -768,24 +783,24 @@ BOOST_CHECK( oven::equals(result, src) );</pre>
 </div>
 </div>
 <div class="section">
-<h1><a class="toc-backref" href="#id87" id="range-adaptors" name="range-adaptors">9&nbsp;&nbsp;&nbsp;Range Adaptors</a></h1>
+<h1><a class="toc-backref" href="#id91" id="range-adaptors" name="range-adaptors">9&nbsp;&nbsp;&nbsp;Range Adaptors</a></h1>
 <p>A Range Adaptor delivers an altered presentation of one or more underlying ranges.
 Range Adaptors are lazy, meaning that their elements are only computed on demand.
 The underlying ranges are not modified.
 Additional information is available at <a class="reference" href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1871.html">Range Library Proposal</a>.
 <tt class="docutils literal"><span class="pre">&lt;pstade/oven/adaptors.hpp&gt;</span></tt> includes all the following Range Adaptors unless otherwise specified.</p>
-<p>Note that all the range returned from the following adaptors are CopyConstructible and Inheritable.
+<p>Note that all the range returned from the following adaptors are <tt class="docutils literal"><span class="pre">CopyConstructible</span></tt> and <tt class="docutils literal"><span class="pre">Inheritable</span></tt>.
 Also, if <tt class="docutils literal"><span class="pre">a0|xxx(a1,..,aN)</span></tt> is a valid expression, then  <tt class="docutils literal"><span class="pre">make_xxx(a0,..,aN)</span></tt> too is a valid expression
 which has the same effect.</p>
 <div class="section">
-<h2><a class="toc-backref" href="#id88" id="adjacent-filtered" name="adjacent-filtered">9.1&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">adjacent_filtered</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id92" id="adjacent-filtered" name="adjacent-filtered">9.1&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">adjacent_filtered</span></tt></a></h2>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/adjacent_filtered.hpp&gt;</span></tt></li>
 <li>See: <a class="reference" href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1871.html">Range Library Proposal</a>.</li>
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id89" id="adjacent-transformed" name="adjacent-transformed">9.2&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">adjacent_transformed</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id93" id="adjacent-transformed" name="adjacent-transformed">9.2&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">adjacent_transformed</span></tt></a></h2>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/adjacent_transformed.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">fwdRng|adjacent_transformed(rfun)</span></tt></li>
@@ -794,7 +809,7 @@ which has the same effect.</p>
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id90" id="advanced" name="advanced">9.3&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">advanced</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id94" id="advanced" name="advanced">9.3&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">advanced</span></tt></a></h2>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/advanced.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">fwdRng|advanced(d1,d2)</span></tt></li>
@@ -803,7 +818,7 @@ which has the same effect.</p>
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id91" id="always" name="always">9.4&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">always</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id95" id="always" name="always">9.4&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">always</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">always</span></tt> returns a range which does not change as the base range vary:</p>
 <pre class="cpp_source">
 BOOST_CHECK( oven::equals(
@@ -820,7 +835,7 @@ BOOST_CHECK( oven::equals(
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id92" id="appended" name="appended">9.5&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">appended</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id96" id="appended" name="appended">9.5&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">appended</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">appended</span></tt> returns a range which is appended with its argument:</p>
 <pre class="cpp_source">
 std::string <span class="cpp_keyword">const </span>str(<span class="cpp_string_literal">&quot;hello, appen&quot;</span>);
@@ -837,7 +852,7 @@ BOOST_CHECK( oven::equals(
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id93" id="applied" name="applied">9.6&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">applied</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id97" id="applied" name="applied">9.6&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">applied</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">applied</span></tt>, taking a <a class="reference" href="http://www.sgi.com/tech/stl/functors.html">Function Object</a> which represents an algorithm, creates the range adaptor:</p>
 <pre class="cpp_source">
 <span class="cpp_keyword">namespace </span>lambda = boost::lambda;
@@ -858,7 +873,7 @@ BOOST_CHECK((
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id94" id="broken-into" name="broken-into">9.7&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">broken_into</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id98" id="broken-into" name="broken-into">9.7&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">broken_into</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">broken_into</span></tt> is the adaptor version of <tt class="docutils literal"><span class="pre">boost::tokenizer</span></tt>:</p>
 <pre class="cpp_source">
 <span class="cpp_keyword">int </span><span class="cpp_keyword">const </span>offsets[] = { <span class="cpp_number_literal">2</span>,<span class="cpp_number_literal">2</span>,<span class="cpp_number_literal">4 </span>};
@@ -881,7 +896,7 @@ BOOST_CHECK( oven::equals(
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id95" id="checked" name="checked">9.8&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">checked</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id99" id="checked" name="checked">9.8&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">checked</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">checked</span></tt> adds the bounds checking ability to the base range:</p>
 <pre class="cpp_source">
 std::string in(<span class="cpp_string_literal">&quot;012345&quot;</span>);
@@ -904,7 +919,7 @@ BOOST_CHECK(<span class="cpp_keyword">false</span>);</pre>
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id96" id="cleared" name="cleared">9.9&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">cleared</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id100" id="cleared" name="cleared">9.9&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">cleared</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">cleared</span></tt> returns a range which is always empty:</p>
 <pre class="cpp_source">
 BOOST_CHECK( boost::empty(
@@ -920,7 +935,7 @@ BOOST_CHECK( boost::empty(
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id97" id="concatenated" name="concatenated">9.10&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">concatenated</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id101" id="concatenated" name="concatenated">9.10&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">concatenated</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">concatenated</span></tt> accepts a range whose <tt class="docutils literal"><span class="pre">value_type</span></tt> is a range and concatenates them:</p>
 <pre class="cpp_source">
 std::string input(<span class="cpp_string_literal">&quot;This is his face&quot;</span>);
@@ -938,7 +953,7 @@ BOOST_CHECK( oven::equals(
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id98" id="constants" name="constants">9.11&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">constants</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id102" id="constants" name="constants">9.11&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">constants</span></tt></a></h2>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/constants.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">rng|constants</span></tt></li>
@@ -946,19 +961,19 @@ BOOST_CHECK( oven::equals(
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id99" id="const-lvalues" name="const-lvalues">9.12&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">const_lvalues</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id103" id="const-lvalues" name="const-lvalues">9.12&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">const_lvalues</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">const_lvalues</span></tt> turns the associated <tt class="docutils literal"><span class="pre">reference</span></tt> type of the base range into reference type,
-which makes iterators of <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#forward_range">Forward Range</a> conform to Forward Iterator.
+which makes iterators of <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#forward_range">Forward Range</a> conform to <tt class="docutils literal"><span class="pre">ForwardIterator</span></tt>.
 Thus, STL that doesn't know traversal concepts can choose effective algorithms.</p>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/const_lvalues.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">rng|const_lvalues</span></tt></li>
-<li>Precondition: <tt class="docutils literal"><span class="pre">value_type</span></tt> of <tt class="docutils literal"><span class="pre">rng</span></tt> is CopyConstructible, Assignable and DefaultConstructible.</li>
+<li>Precondition: <tt class="docutils literal"><span class="pre">value_type</span></tt> of <tt class="docutils literal"><span class="pre">rng</span></tt> is <tt class="docutils literal"><span class="pre">CopyConstructible</span></tt>, <tt class="docutils literal"><span class="pre">Assignable</span></tt> and <tt class="docutils literal"><span class="pre">DefaultConstructible</span></tt>.</li>
 <li>Returns: <tt class="docutils literal"><span class="pre">[boost::begin(rng),boost::end(rng))</span></tt> whose iterators are constant.</li>
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id100" id="copied-out" name="copied-out">9.13&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">copied_out</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id104" id="copied-out" name="copied-out">9.13&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">copied_out</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">copied_out</span></tt> makes a side-effect that copies the base range to its argument:</p>
 <pre class="cpp_source">
 std::string src(<span class="cpp_string_literal">&quot;axaxaxbxbxbx&quot;</span>);
@@ -984,7 +999,7 @@ BOOST_CHECK( snapshot == <span class="cpp_string_literal">&quot;aaabbb&quot;</sp
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id101" id="cycled" name="cycled">9.14&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">cycled</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id105" id="cycled" name="cycled">9.14&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">cycled</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">cycled</span></tt> creates a circular range from the base range:</p>
 <pre class="cpp_source">
 BOOST_CHECK( oven::equals(
@@ -1000,7 +1015,7 @@ BOOST_CHECK( oven::equals(
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id102" id="delimited" name="delimited">9.15&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">delimited</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id106" id="delimited" name="delimited">9.15&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">delimited</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">delimited</span></tt> adds a delimiter to the base range:</p>
 <pre class="cpp_source">
 BOOST_CHECK( equals(
@@ -1012,17 +1027,17 @@ BOOST_CHECK( equals(
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/delimited.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">rngs|delimited(delim)</span></tt>, where <tt class="docutils literal"><span class="pre">delim</span></tt> is a Range to specify the delimiter.</li>
-<li>Returns: A range which behaves as if it were <tt class="docutils literal"><span class="pre">rngs|transformed(with)|concatenated</span></tt>, where <tt class="docutils literal"><span class="pre">with</span></tt> is a <a class="reference" href="http://www.sgi.com/tech/stl/functors.html">Function Object</a> which calls <tt class="docutils literal"><span class="pre">make_jointed</span></tt> to joint <tt class="docutils literal"><span class="pre">delim</span></tt>. <a class="footnote-reference" href="#id30" id="id29" name="id29">[9]</a></li>
+<li>Returns: A range which behaves as if it were <tt class="docutils literal"><span class="pre">rngs|transformed(with)|concatenated</span></tt>, where <tt class="docutils literal"><span class="pre">with</span></tt> is a <a class="reference" href="http://www.sgi.com/tech/stl/functors.html">Function Object</a> which calls <tt class="docutils literal"><span class="pre">make_jointed</span></tt> to joint <tt class="docutils literal"><span class="pre">delim</span></tt>. <a class="footnote-reference" href="#id34" id="id33" name="id33">[11]</a></li>
 </ul>
-<table class="docutils footnote" frame="void" id="id30" rules="none">
+<table class="docutils footnote" frame="void" id="id34" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id29" name="id30">[9]</a></td><td><tt class="docutils literal"><span class="pre">delimited</span></tt> prepends the delimiter. <tt class="docutils literal"><span class="pre">dropped</span></tt> is useful to remove it.</td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id33" name="id34">[11]</a></td><td><tt class="docutils literal"><span class="pre">delimited</span></tt> prepends the delimiter. <tt class="docutils literal"><span class="pre">dropped</span></tt> is useful to remove it.</td></tr>
 </tbody>
 </table>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id103" id="directed" name="directed">9.16&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">directed</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id107" id="directed" name="directed">9.16&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">directed</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">directed</span></tt> returns a range whose values are iterators of the base range:</p>
 <pre class="cpp_source">
 std::string <span class="cpp_keyword">const </span>str(<span class="cpp_string_literal">&quot;gefadcb&quot;</span>);
@@ -1041,7 +1056,7 @@ BOOST_CHECK( oven::equals(iters|indirected, answer) );</pre>
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id104" id="dropped" name="dropped">9.17&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">dropped</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id108" id="dropped" name="dropped">9.17&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">dropped</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">dropped</span></tt> returns the suffix of the base range after the first <tt class="docutils literal"><span class="pre">n</span></tt> elements:</p>
 <pre class="cpp_source">
 BOOST_CHECK( oven::equals(
@@ -1057,7 +1072,7 @@ BOOST_CHECK( oven::equals(
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id105" id="dropped-while" name="dropped-while">9.18&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">dropped_while</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id109" id="dropped-while" name="dropped-while">9.18&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">dropped_while</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">dropped_while</span></tt> returns the remaining suffix of the base range of elements that satisfy <a class="reference" href="http://www.sgi.com/tech/stl/Predicate.html">Predicate</a>:</p>
 <pre class="cpp_source">
 std::string src(<span class="cpp_string_literal">&quot;11111234516313!&quot;</span>);
@@ -1074,8 +1089,8 @@ BOOST_CHECK( oven::equals(
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id106" id="filtered" name="filtered">9.19&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">filtered</span></tt></a></h2>
-<p><tt class="docutils literal"><span class="pre">filtered</span></tt> returns a range which is filtered by using a <a class="reference" href="http://www.sgi.com/tech/stl/Predicate.html">Predicate</a> <a class="footnote-reference" href="#id32" id="id31" name="id31">[10]</a></p>
+<h2><a class="toc-backref" href="#id110" id="filtered" name="filtered">9.19&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">filtered</span></tt></a></h2>
+<p><tt class="docutils literal"><span class="pre">filtered</span></tt> returns a range which is filtered by using a <a class="reference" href="http://www.sgi.com/tech/stl/Predicate.html">Predicate</a> <a class="footnote-reference" href="#id36" id="id35" name="id35">[12]</a></p>
 <pre class="cpp_source">
 <span class="cpp_keyword">int </span>src[]    = { <span class="cpp_number_literal">2</span>,<span class="cpp_number_literal">5</span>,<span class="cpp_number_literal">2</span>,<span class="cpp_number_literal">6</span>,<span class="cpp_number_literal">1</span>,<span class="cpp_number_literal">3</span>,<span class="cpp_number_literal">2 </span>};
 <span class="cpp_keyword">int </span>answer[] = { <span class="cpp_number_literal">0</span>,<span class="cpp_number_literal">5</span>,<span class="cpp_number_literal">0</span>,<span class="cpp_number_literal">6</span>,<span class="cpp_number_literal">1</span>,<span class="cpp_number_literal">3</span>,<span class="cpp_number_literal">0 </span>};
@@ -1090,15 +1105,15 @@ BOOST_CHECK( oven::equals(answer, src) );</pre>
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/filtered.hpp&gt;</span></tt></li>
 <li>See: <a class="reference" href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1871.html">Range Library Proposal</a>.</li>
 </ul>
-<table class="docutils footnote" frame="void" id="id32" rules="none">
+<table class="docutils footnote" frame="void" id="id36" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id31" name="id32">[10]</a></td><td>A non-assignable lambda functor makes <tt class="docutils literal"><span class="pre">filtered</span></tt> non-conforming, so it needs <a class="reference" href="#regular">regular</a> to be applied before it is passed.</td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id35" name="id36">[12]</a></td><td>A non-assignable lambda functor makes <tt class="docutils literal"><span class="pre">filtered</span></tt> non-conforming, so it needs <a class="reference" href="#regular">regular</a> to be applied before it is passed.</td></tr>
 </tbody>
 </table>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id107" id="firsts" name="firsts">9.20&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">firsts</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id111" id="firsts" name="firsts">9.20&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">firsts</span></tt></a></h2>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/firsts.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">rng|firsts</span></tt></li>
@@ -1106,7 +1121,7 @@ BOOST_CHECK( oven::equals(answer, src) );</pre>
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id108" id="got-at" name="got-at">9.21&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">got_at</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id112" id="got-at" name="got-at">9.21&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">got_at</span></tt></a></h2>
 <p>Pending...</p>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/got_at.hpp&gt;</span></tt></li>
@@ -1114,7 +1129,7 @@ BOOST_CHECK( oven::equals(answer, src) );</pre>
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id109" id="identities" name="identities">9.22&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">identities</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id113" id="identities" name="identities">9.22&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">identities</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">identities</span></tt> returns a range which is identical to the base range:</p>
 <pre class="cpp_source">
 BOOST_CHECK( oven::equals(
@@ -1130,7 +1145,7 @@ BOOST_CHECK( oven::equals(
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id110" id="indirected" name="indirected">9.23&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">indirected</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id114" id="indirected" name="indirected">9.23&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">indirected</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">indirected</span></tt> adapts the base range by applying an extra dereference inside of <tt class="docutils literal"><span class="pre">operator*()</span></tt>:</p>
 <pre class="cpp_source">
 <span class="cpp_keyword">int </span>src[]    = { <span class="cpp_number_literal">1</span>,<span class="cpp_number_literal">2</span>,<span class="cpp_number_literal">0</span>,<span class="cpp_number_literal">4</span>,<span class="cpp_number_literal">5 </span>};
@@ -1150,7 +1165,7 @@ BOOST_CHECK( oven::equals(src, answer) );</pre>
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id111" id="jointed" name="jointed">9.24&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">jointed</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id115" id="jointed" name="jointed">9.24&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">jointed</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">jointed</span></tt> returns a range which is jointed with its argument:</p>
 <pre class="cpp_source">
 std::string str0(<span class="cpp_string_literal">&quot;every range&quot;</span>);
@@ -1170,7 +1185,7 @@ BOOST_CHECK( oven::equals(
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id112" id="map-keys" name="map-keys">9.25&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">map_keys</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id116" id="map-keys" name="map-keys">9.25&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">map_keys</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">map_keys</span></tt> returns a range whose values are the keys of the base associative container:</p>
 <pre class="cpp_source">
 std::map&lt;<span class="cpp_keyword">int</span>, std::string&gt; m;
@@ -1190,7 +1205,7 @@ BOOST_FOREACH (<span class="cpp_keyword">int </span>k, m|map_keys) {
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id113" id="map-values" name="map-values">9.26&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">map_values</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id117" id="map-values" name="map-values">9.26&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">map_values</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">map_values</span></tt> returns a range whose values are the mapped values of the base associative container:</p>
 <pre class="cpp_source">
 std::map&lt;<span class="cpp_keyword">int</span>, std::string&gt; m;
@@ -1213,7 +1228,7 @@ BOOST_CHECK( m[<span class="cpp_number_literal">99</span>] == <span class="cpp_s
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id114" id="matches" name="matches">9.27&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">matches</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id118" id="matches" name="matches">9.27&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">matches</span></tt></a></h2>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/matches.hpp&gt;</span></tt>; not included by <tt class="docutils literal"><span class="pre">&lt;pstade/oven/ranges.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">biRng|matches(re)</span></tt> or <tt class="docutils literal"><span class="pre">biRng|matches(re,flag)</span></tt></li>
@@ -1221,7 +1236,7 @@ BOOST_CHECK( m[<span class="cpp_number_literal">99</span>] == <span class="cpp_s
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id115" id="memoized" name="memoized">9.28&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">memoized</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id119" id="memoized" name="memoized">9.28&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">memoized</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">memoized</span></tt> returns a range whose values are cached for speed, preparing for repeated dereferences:</p>
 <pre class="cpp_source">
 std::stringstream ss;
@@ -1238,19 +1253,18 @@ ss &lt;&lt; <span class="cpp_string_literal">&quot;hello, memoized!&quot;</span>
 
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/memoized.hpp&gt;</span></tt></li>
-<li>Valid expression: <tt class="docutils literal"><span class="pre">rng|memoized</span></tt></li>
-<li>Precondition: <tt class="docutils literal"><span class="pre">rng</span></tt> is referentially transparent.</li>
-<li>Returns: A <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#forward_range">Forward Range</a> whose values are memoized. <a class="footnote-reference" href="#id34" id="id33" name="id33">[11]</a></li>
+<li>Valid expression: <tt class="docutils literal"><span class="pre">rng|memoized</span></tt> and <tt class="docutils literal"><span class="pre">rng|memoized(tb)</span></tt>, where <tt class="docutils literal"><span class="pre">tb</span></tt> is a <tt class="docutils literal"><span class="pre">memo_table</span></tt> object.</li>
+<li>Returns: A <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#forward_range">Forward Range</a> <a class="footnote-reference" href="#id38" id="id37" name="id37">[13]</a> with the first valid expression, and a <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#single_pass_range">Single Pass Range</a> with the second one, whose values are memoized.</li>
 </ul>
-<table class="docutils footnote" frame="void" id="id34" rules="none">
+<table class="docutils footnote" frame="void" id="id38" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id33" name="id34">[11]</a></td><td><tt class="docutils literal"><span class="pre">memoized</span></tt> can return a <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#forward_range">Forward Range</a> even if the base range is a <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#single_pass_range">Single Pass Range</a></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id37" name="id38">[13]</a></td><td><tt class="docutils literal"><span class="pre">memoized</span></tt> with the first valid expression can return a <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#forward_range">Forward Range</a> even if the base range is a <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#single_pass_range">Single Pass Range</a></td></tr>
 </tbody>
 </table>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id116" id="merged" name="merged">9.29&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">merged</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id120" id="merged" name="merged">9.29&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">merged</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">merged</span></tt> combines two sorted ranges into a single sorted range:</p>
 <pre class="cpp_source">
 std::string A1(<span class="cpp_string_literal">&quot;abbbfH&quot;</span>);
@@ -1266,7 +1280,7 @@ BOOST_CHECK( oven::equals(A1|merged(A2, &amp;::lt_nocase), AA) );</pre>
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id117" id="permuted" name="permuted">9.30&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">permuted</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id121" id="permuted" name="permuted">9.30&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">permuted</span></tt></a></h2>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/permuted.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">rndRng|permuted(rng)</span></tt></li>
@@ -1275,7 +1289,7 @@ BOOST_CHECK( oven::equals(A1|merged(A2, &amp;::lt_nocase), AA) );</pre>
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id118" id="pointed" name="pointed">9.31&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">pointed</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id122" id="pointed" name="pointed">9.31&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">pointed</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">pointed</span></tt> provides an interface to have a conversation with legacy APIs:</p>
 <pre class="cpp_source">
 std::string <span class="cpp_keyword">const </span>src(<span class="cpp_string_literal">&quot;hello, pointed&quot;</span>);
@@ -1292,7 +1306,7 @@ BOOST_CHECK(( oven::equals(vec|null_terminated, src) ));</pre>
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id119" id="popped" name="popped">9.32&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">popped</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id123" id="popped" name="popped">9.32&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">popped</span></tt></a></h2>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/popped.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">fwdRng|popped</span></tt></li>
@@ -1301,7 +1315,7 @@ BOOST_CHECK(( oven::equals(vec|null_terminated, src) ));</pre>
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id120" id="prepended" name="prepended">9.33&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">prepended</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id124" id="prepended" name="prepended">9.33&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">prepended</span></tt></a></h2>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/prepended.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">rng|prepended(v)</span></tt></li>
@@ -1309,14 +1323,14 @@ BOOST_CHECK(( oven::equals(vec|null_terminated, src) ));</pre>
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id121" id="reversed" name="reversed">9.34&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">reversed</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id125" id="reversed" name="reversed">9.34&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">reversed</span></tt></a></h2>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/reversed.hpp&gt;</span></tt></li>
 <li>See: <a class="reference" href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1871.html">Range Library Proposal</a>.</li>
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id122" id="rotated" name="rotated">9.35&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">rotated</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id126" id="rotated" name="rotated">9.35&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">rotated</span></tt></a></h2>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/rotated.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">fwdRng|rotated(fun)</span></tt></li>
@@ -1324,7 +1338,7 @@ BOOST_CHECK(( oven::equals(vec|null_terminated, src) ));</pre>
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id123" id="scanned" name="scanned">9.36&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">scanned</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id127" id="scanned" name="scanned">9.36&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">scanned</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">scanned</span></tt> is similar to <tt class="docutils literal"><span class="pre">oven::accumulate</span></tt>, but returns a range of successive reduced values from the base range:</p>
 <pre class="cpp_source">
 <span class="cpp_keyword">int </span><span class="cpp_keyword">const </span>src[] = { <span class="cpp_number_literal">1</span>,<span class="cpp_number_literal">2</span>,<span class="cpp_number_literal">3</span>,<span class="cpp_number_literal">4</span>,<span class="cpp_number_literal">5 </span>};
@@ -1337,13 +1351,13 @@ BOOST_FOREACH (std::string str, src|scanned(null, &amp;::stringize)) {
 
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/scanned.hpp&gt;</span></tt></li>
-<li>Valid expression: <tt class="docutils literal"><span class="pre">rng|scanned(init,fun)</span></tt>, where the type of <tt class="docutils literal"><span class="pre">init</span></tt> is DefaultConstructible, CopyConstructible and CopyAssignable.</li>
+<li>Valid expression: <tt class="docutils literal"><span class="pre">rng|scanned(init,fun)</span></tt>, where the type of <tt class="docutils literal"><span class="pre">init</span></tt> is <tt class="docutils literal"><span class="pre">DefaultConstructible</span></tt>, <tt class="docutils literal"><span class="pre">CopyConstructible</span></tt> and <tt class="docutils literal"><span class="pre">CopyAssignable</span></tt>.</li>
 <li>Precondition: <tt class="docutils literal"><span class="pre">fun(s,r)</span></tt> is a valid expression, where the type of <tt class="docutils literal"><span class="pre">s</span></tt> is the same as <tt class="docutils literal"><span class="pre">init</span></tt> and <tt class="docutils literal"><span class="pre">r</span></tt> is the iterator dereference of <tt class="docutils literal"><span class="pre">rng</span></tt>.</li>
 <li>Returns: A range up to <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#forward_range">Forward Range</a> which behaves as if it were made by <tt class="docutils literal"><span class="pre">std::partial_sum</span></tt>.</li>
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id124" id="seconds" name="seconds">9.37&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">seconds</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id128" id="seconds" name="seconds">9.37&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">seconds</span></tt></a></h2>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/seconds.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">rng|seconds</span></tt></li>
@@ -1351,7 +1365,7 @@ BOOST_FOREACH (std::string str, src|scanned(null, &amp;::stringize)) {
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id125" id="set-cap" name="set-cap">9.38&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">set_cap</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id129" id="set-cap" name="set-cap">9.38&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">set_cap</span></tt></a></h2>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/set_cap.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">rng1|set_cap(rng2)</span></tt> and <tt class="docutils literal"><span class="pre">rng1|set_cap(rng2,pred)</span></tt></li>
@@ -1360,7 +1374,7 @@ BOOST_FOREACH (std::string str, src|scanned(null, &amp;::stringize)) {
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id126" id="set-cup" name="set-cup">9.39&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">set_cup</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id130" id="set-cup" name="set-cup">9.39&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">set_cup</span></tt></a></h2>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/set_cup.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">rng1|set_cup(rng2)</span></tt> and <tt class="docutils literal"><span class="pre">rng1|set_cup(rng2,pred)</span></tt></li>
@@ -1369,7 +1383,7 @@ BOOST_FOREACH (std::string str, src|scanned(null, &amp;::stringize)) {
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id127" id="set-delta" name="set-delta">9.40&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">set_delta</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id131" id="set-delta" name="set-delta">9.40&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">set_delta</span></tt></a></h2>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/set_delta.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">rng1|set_delta(rng2)</span></tt> and <tt class="docutils literal"><span class="pre">rng1|set_delta(rng2,pred)</span></tt></li>
@@ -1378,7 +1392,7 @@ BOOST_FOREACH (std::string str, src|scanned(null, &amp;::stringize)) {
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id128" id="set-minus" name="set-minus">9.41&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">set_minus</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id132" id="set-minus" name="set-minus">9.41&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">set_minus</span></tt></a></h2>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/set_minus.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">rng1|set_minus(rng2)</span></tt> and <tt class="docutils literal"><span class="pre">rng1|set_minus(rng2,pred)</span></tt></li>
@@ -1387,7 +1401,7 @@ BOOST_FOREACH (std::string str, src|scanned(null, &amp;::stringize)) {
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id129" id="shared" name="shared">9.42&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">shared</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id133" id="shared" name="shared">9.42&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">shared</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">shared</span></tt>, taking a pointer to heap-allocated range, makes a range whose iterators manage its lifetime:</p>
 <pre class="cpp_source">
 BOOST_FOREACH (<span class="cpp_keyword">char </span>ch, std::string(<span class="cpp_string_literal">&quot;dangling&quot;</span>)|identities) {
@@ -1409,8 +1423,8 @@ BOOST_FOREACH (<span class="cpp_keyword">char </span>ch, <span class="cpp_keywor
 <p>You can find a more elaborate example at <tt class="docutils literal"><span class="pre">&lt;pstade/oven/sorted.hpp&gt;</span></tt>.</p>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id130" id="sliced" name="sliced">9.43&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">sliced</span></tt></a></h2>
-<p><tt class="docutils literal"><span class="pre">sliced</span></tt> <a class="footnote-reference" href="#id37" id="id36" name="id36">[12]</a> provides the column view of the base range:</p>
+<h2><a class="toc-backref" href="#id134" id="sliced" name="sliced">9.43&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">sliced</span></tt></a></h2>
+<p><tt class="docutils literal"><span class="pre">sliced</span></tt> <a class="footnote-reference" href="#id41" id="id40" name="id40">[14]</a> provides the column view of the base range:</p>
 <pre class="cpp_source">
 <span class="cpp_keyword">int </span><span class="cpp_keyword">const </span>answer[] = { <span class="cpp_number_literal">2</span>,<span class="cpp_number_literal">6</span>,<span class="cpp_number_literal">10</span>,<span class="cpp_number_literal">14 </span>};
 BOOST_CHECK( oven::equals(answer,
@@ -1422,15 +1436,15 @@ BOOST_CHECK( oven::equals(answer,
 <li>Valid expression: <tt class="docutils literal"><span class="pre">rndRng|sliced(start,stride)</span></tt></li>
 <li>Precondition: <tt class="docutils literal"><span class="pre">d</span> <span class="pre">==</span> <span class="pre">0</span> <span class="pre">||</span> <span class="pre">d</span> <span class="pre">%</span> <span class="pre">stride</span> <span class="pre">==</span> <span class="pre">0</span></tt> and <tt class="docutils literal"><span class="pre">0</span> <span class="pre">&lt;=</span> <span class="pre">start</span> <span class="pre">&amp;&amp;</span> <span class="pre">start</span> <span class="pre">&lt;</span> <span class="pre">stride</span></tt>, where <tt class="docutils literal"><span class="pre">d</span> <span class="pre">=</span> <span class="pre">oven::distance(rndRng);</span></tt></li>
 </ul>
-<table class="docutils footnote" frame="void" id="id37" rules="none">
+<table class="docutils footnote" frame="void" id="id41" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id36" name="id37">[12]</a></td><td>This name is different from <a class="reference" href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1871.html">Range Library Proposal</a>'s, which is the role of <a class="reference" href="#advanced">advanced</a> or <a class="reference" href="#window">window</a>.</td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id40" name="id41">[14]</a></td><td>This name is different from <a class="reference" href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1871.html">Range Library Proposal</a>'s, which is the role of <a class="reference" href="#advanced">advanced</a> or <a class="reference" href="#window">window</a>.</td></tr>
 </tbody>
 </table>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id131" id="string-found" name="string-found">9.44&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">string_found</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id135" id="string-found" name="string-found">9.44&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">string_found</span></tt></a></h2>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/string_found.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">rng|string_found(finder)</span></tt></li>
@@ -1438,7 +1452,7 @@ BOOST_CHECK( oven::equals(answer,
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id132" id="string-split" name="string-split">9.45&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">string_split</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id136" id="string-split" name="string-split">9.45&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">string_split</span></tt></a></h2>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/string_split.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">rng|string_split(finder)</span></tt></li>
@@ -1446,7 +1460,7 @@ BOOST_CHECK( oven::equals(answer,
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id133" id="taken" name="taken">9.46&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">taken</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id137" id="taken" name="taken">9.46&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">taken</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">taken</span></tt>, applied to the base range, returns the prefix of the range of length <tt class="docutils literal"><span class="pre">n</span></tt>:</p>
 <pre class="cpp_source">
 std::string src(<span class="cpp_string_literal">&quot;hello, taken!&quot;</span>);
@@ -1462,7 +1476,7 @@ BOOST_CHECK( oven::equals(src|taken(<span class="cpp_number_literal">7</span>)|t
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id134" id="taken-while" name="taken-while">9.47&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">taken_while</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id138" id="taken-while" name="taken-while">9.47&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">taken_while</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">taken_while</span></tt>, applied to a <a class="reference" href="http://www.sgi.com/tech/stl/Predicate.html">Predicate</a> and the base range, returns the longest
 prefix (possibly empty) of the range of elements that satisfy <a class="reference" href="http://www.sgi.com/tech/stl/Predicate.html">Predicate</a>:</p>
 <pre class="cpp_source">
@@ -1480,14 +1494,14 @@ BOOST_CHECK( oven::equals(
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id135" id="tokenized" name="tokenized">9.48&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">tokenized</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id139" id="tokenized" name="tokenized">9.48&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">tokenized</span></tt></a></h2>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/tokenized.hpp&gt;</span></tt>; not included by <tt class="docutils literal"><span class="pre">&lt;pstade/oven/ranges.hpp&gt;</span></tt></li>
 <li>See: <a class="reference" href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1871.html">Range Library Proposal</a>.</li>
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id136" id="transformed" name="transformed">9.49&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">transformed</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id140" id="transformed" name="transformed">9.49&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">transformed</span></tt></a></h2>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/transormed.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">rng|transformed(rfun)</span></tt></li>
@@ -1495,14 +1509,14 @@ BOOST_CHECK( oven::equals(
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id137" id="uniqued" name="uniqued">9.50&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">uniqued</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id141" id="uniqued" name="uniqued">9.50&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">uniqued</span></tt></a></h2>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/uniqued.hpp&gt;</span></tt></li>
 <li>See: <a class="reference" href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1871.html">Range Library Proposal</a>.</li>
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id138" id="unzipped" name="unzipped">9.51&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">unzipped</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id142" id="unzipped" name="unzipped">9.51&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">unzipped</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">unzipped</span></tt> reverses <tt class="docutils literal"><span class="pre">zipped</span></tt>:</p>
 <pre class="cpp_source">
 std::cout &lt;&lt;
@@ -1523,7 +1537,7 @@ std::cout &lt;&lt;
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id139" id="utf8-decoded" name="utf8-decoded">9.52&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">utf8_decoded</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id143" id="utf8-decoded" name="utf8-decoded">9.52&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">utf8_decoded</span></tt></a></h2>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/utf8_decoded.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">biRng|utf8_decoded</span></tt></li>
@@ -1531,7 +1545,7 @@ std::cout &lt;&lt;
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id140" id="window" name="window">9.53&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">window</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id144" id="window" name="window">9.53&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">window</span></tt></a></h2>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/window.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">fwdRng|window(n,m)</span></tt></li>
@@ -1539,7 +1553,7 @@ std::cout &lt;&lt;
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id141" id="with-position" name="with-position">9.54&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">with_position</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id145" id="with-position" name="with-position">9.54&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">with_position</span></tt></a></h2>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/with_position.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">rng|with_position</span></tt></li>
@@ -1547,7 +1561,7 @@ std::cout &lt;&lt;
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id142" id="xpressive-matches" name="xpressive-matches">9.55&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">xpressive_matches</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id146" id="xpressive-matches" name="xpressive-matches">9.55&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">xpressive_matches</span></tt></a></h2>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/xpressive_matches.hpp&gt;</span></tt>; not included by <tt class="docutils literal"><span class="pre">&lt;pstade/oven/ranges.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">biRng|xpressive_matches(re)</span></tt> or <tt class="docutils literal"><span class="pre">biRng|xpressive_matches(re,flag)</span></tt></li>
@@ -1555,7 +1569,7 @@ std::cout &lt;&lt;
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id143" id="xpressive-tokenized" name="xpressive-tokenized">9.56&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">xpressive_tokenized</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id147" id="xpressive-tokenized" name="xpressive-tokenized">9.56&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">xpressive_tokenized</span></tt></a></h2>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/xpressive_tokenized.hpp&gt;</span></tt>; not included by <tt class="docutils literal"><span class="pre">&lt;pstade/oven/ranges.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">biRng|xpressive_tokenized(re)</span></tt> or <tt class="docutils literal"><span class="pre">biRng|xpressive_tokenized(re,subMatches,flag)</span></tt></li>
@@ -1563,7 +1577,7 @@ std::cout &lt;&lt;
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id144" id="zipped" name="zipped">9.57&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">zipped</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id148" id="zipped" name="zipped">9.57&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">zipped</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">zipped</span></tt> takes a tuple of ranges and returns a range of corresponding tuples.
 If one input range is short, excess elements of the longer range are discarded:</p>
 <pre class="cpp_source">
@@ -1586,7 +1600,7 @@ std::cout &lt;&lt;
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id145" id="zipped-with" name="zipped-with">9.58&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">zipped_with</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id149" id="zipped-with" name="zipped-with">9.58&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">zipped_with</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">zipped_with</span></tt> generalises <tt class="docutils literal"><span class="pre">zipped</span></tt> by zipping with the <a class="reference" href="http://www.sgi.com/tech/stl/functors.html">Function Object</a>,
 given as the first argument, instead of a tupling:</p>
 <pre class="cpp_source">
@@ -1609,9 +1623,9 @@ BOOST_CHECK( oven::equals(
 </div>
 </div>
 <div class="section">
-<h1><a class="toc-backref" href="#id146" id="output-iterator-adaptors" name="output-iterator-adaptors">10&nbsp;&nbsp;&nbsp;Output Iterator Adaptors</a></h1>
+<h1><a class="toc-backref" href="#id150" id="output-iterator-adaptors" name="output-iterator-adaptors">10&nbsp;&nbsp;&nbsp;Output Iterator Adaptors</a></h1>
 <div class="section">
-<h2><a class="toc-backref" href="#id147" id="to-counter" name="to-counter">10.1&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">to_counter</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id151" id="to-counter" name="to-counter">10.1&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">to_counter</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">to_counter</span></tt> takes an initial count and increments it every output.
 <a class="reference" href="#adapted-to-to-base">adapted_to/to_base</a> can extract the result of the counting:</p>
 <pre class="cpp_source">
@@ -1628,7 +1642,7 @@ BOOST_CHECK( <span class="cpp_number_literal">7 </span>== oven::adapted_to&lt;<s
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id148" id="to-function" name="to-function">10.2&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">to_function</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id152" id="to-function" name="to-function">10.2&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">to_function</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">to_function</span></tt> returns an <tt class="docutils literal"><span class="pre">OutputIterator</span></tt> which is a port of <a class="reference" href="http://www.boost.org/libs/iterator/doc/function_output_iterator.html">boost::function_output_iterator</a>
 with some workarounds.</p>
 <ul class="simple">
@@ -1638,7 +1652,7 @@ with some workarounds.</p>
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id149" id="to-stream" name="to-stream">10.3&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">to_stream</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id153" id="to-stream" name="to-stream">10.3&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">to_stream</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">to_stream</span></tt> returns an <tt class="docutils literal"><span class="pre">OutputItertor</span></tt> which is a shorthand version of <tt class="docutils literal"><span class="pre">std::ostream_iterator</span></tt>.
 It needs no an explicit template parameter to specify the <tt class="docutils literal"><span class="pre">value_type</span></tt> to output,
 but one precondition below must be kept. Generally, the <tt class="docutils literal"><span class="pre">boost::iterator_reference</span></tt> of <tt class="docutils literal"><span class="pre">InputIterator</span></tt> must be
@@ -1651,7 +1665,7 @@ the same as <tt class="docutils literal"><span class="pre">value_type</span></tt
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id150" id="to-utf8-encoder" name="to-utf8-encoder">10.4&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">to_utf8_encoder</span></tt></a></h2>
+<h2><a class="toc-backref" href="#id154" id="to-utf8-encoder" name="to-utf8-encoder">10.4&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">to_utf8_encoder</span></tt></a></h2>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/to_utf8_encoder.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">to_utf8_encoder(oit)</span></tt>, where <tt class="docutils literal"><span class="pre">oit</span></tt> is an <tt class="docutils literal"><span class="pre">OutputIterator</span></tt>.</li>
@@ -1660,9 +1674,9 @@ the same as <tt class="docutils literal"><span class="pre">value_type</span></tt
 </div>
 </div>
 <div class="section">
-<h1><a class="toc-backref" href="#id151" id="extending-boost-range" name="extending-boost-range">11&nbsp;&nbsp;&nbsp;Extending Boost.Range</a></h1>
-<p><a class="reference" href="http://www.boost.org/libs/range/doc/boost_range.html#minimal_interface">The extension way of Boost.Range</a> seems to assume future C++ ability <tt class="docutils literal"><span class="pre">decltype</span></tt>.
-For now, it is not practical to apply the way to the large library something like MFC.
+<h1><a class="toc-backref" href="#id155" id="extending-boost-range" name="extending-boost-range">11&nbsp;&nbsp;&nbsp;Extending Boost.Range</a></h1>
+<p><a class="reference" href="http://www.boost.org/libs/range/doc/boost_range.html#minimal_interface">The extension way of Boost.Range</a> seems to assume the future C++ ability <tt class="docutils literal"><span class="pre">decltype</span></tt>.
+For now, it is not practical to apply the way to a large library something like MFC.
 Oven provides yet another extension way, which is similar to
 <a class="reference" href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2049.pdf">Conceptualizing the Range-Based for Loop</a> proposal to simplify the Boost.Range one:</p>
 <pre class="cpp_source">
@@ -1726,12 +1740,12 @@ Also, <tt class="docutils literal"><span class="pre">Range</span></tt> has the s
 </ul>
 </div>
 <div class="section">
-<h1><a class="toc-backref" href="#id152" id="mfc-atl-extension" name="mfc-atl-extension">12&nbsp;&nbsp;&nbsp;MFC/ATL Extension</a></h1>
+<h1><a class="toc-backref" href="#id156" id="mfc-atl-extension" name="mfc-atl-extension">12&nbsp;&nbsp;&nbsp;MFC/ATL Extension</a></h1>
 <p>Oven provides <a class="reference" href="http://www.boost.org/libs/range/">Boost.Range</a> support for MFC/ATL collection and string types.
 See <a class="reference" href="./doc/ms/mfc_atl.html">Oven Range MFC/ATL Extension</a>.</p>
 </div>
 <div class="section">
-<h1><a class="toc-backref" href="#id153" id="acknowledgments" name="acknowledgments">13&nbsp;&nbsp;&nbsp;Acknowledgments</a></h1>
+<h1><a class="toc-backref" href="#id157" id="acknowledgments" name="acknowledgments">13&nbsp;&nbsp;&nbsp;Acknowledgments</a></h1>
 <ul class="simple">
 <li><a class="reference" href="http://p-stade.sourceforge.net/">P-Stade</a></li>
 <li><a class="reference" href="http://www.boost.org/">Boost C++ Libraries</a></li>
@@ -1747,15 +1761,15 @@ See <a class="reference" href="./doc/ms/mfc_atl.html">Oven Range MFC/ATL Extensi
 </ul>
 </div>
 <div class="section">
-<h1><a class="toc-backref" href="#id154" id="release-notes" name="release-notes">14&nbsp;&nbsp;&nbsp;Release Notes</a></h1>
+<h1><a class="toc-backref" href="#id158" id="release-notes" name="release-notes">14&nbsp;&nbsp;&nbsp;Release Notes</a></h1>
 <div class="section">
-<h2><a class="toc-backref" href="#id155" id="version-0-90-0" name="version-0-90-0">14.1&nbsp;&nbsp;&nbsp;Version 0.90.0</a></h2>
+<h2><a class="toc-backref" href="#id159" id="version-0-90-0" name="version-0-90-0">14.1&nbsp;&nbsp;&nbsp;Version 0.90.0</a></h2>
 <ul class="simple">
 <li>Released initial version.</li>
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id156" id="version-0-90-1-0-90-6" name="version-0-90-1-0-90-6">14.2&nbsp;&nbsp;&nbsp;Version 0.90.1 - 0.90.6</a></h2>
+<h2><a class="toc-backref" href="#id160" id="version-0-90-1-0-90-6" name="version-0-90-1-0-90-6">14.2&nbsp;&nbsp;&nbsp;Version 0.90.1 - 0.90.6</a></h2>
 <ul class="simple">
 <li>Updated this document.</li>
 <li>Implemented <a class="reference" href="#range-algorithms">Range Algorithms</a>.</li>
@@ -1777,7 +1791,7 @@ See <a class="reference" href="./doc/ms/mfc_atl.html">Oven Range MFC/ATL Extensi
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id157" id="version-0-90-7-0-90-9" name="version-0-90-7-0-90-9">14.3&nbsp;&nbsp;&nbsp;Version 0.90.7 - 0.90.9</a></h2>
+<h2><a class="toc-backref" href="#id161" id="version-0-90-7-0-90-9" name="version-0-90-7-0-90-9">14.3&nbsp;&nbsp;&nbsp;Version 0.90.7 - 0.90.9</a></h2>
 <ul class="simple">
 <li>Added <tt class="docutils literal"><span class="pre">matched</span></tt>, <tt class="docutils literal"><span class="pre">xpressive_matched</span></tt> and <tt class="docutils literal"><span class="pre">xpressive_tokenized</span></tt>.</li>
 <li>Renamed <tt class="docutils literal"><span class="pre">base_iterator</span></tt> to <tt class="docutils literal"><span class="pre">to_base</span></tt>.</li>
@@ -1791,7 +1805,7 @@ See <a class="reference" href="./doc/ms/mfc_atl.html">Oven Range MFC/ATL Extensi
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id158" id="version-0-91-0-0-91-3" name="version-0-91-0-0-91-3">14.4&nbsp;&nbsp;&nbsp;Version 0.91.0 - 0.91.3</a></h2>
+<h2><a class="toc-backref" href="#id162" id="version-0-91-0-0-91-3" name="version-0-91-0-0-91-3">14.4&nbsp;&nbsp;&nbsp;Version 0.91.0 - 0.91.3</a></h2>
 <ul class="simple">
 <li>Added <a class="reference" href="#output-iterator-adaptors">Output Iterator Adaptors</a>.</li>
 <li>Renamed <tt class="docutils literal"><span class="pre">generated</span></tt> to <tt class="docutils literal"><span class="pre">generation</span></tt>.</li>
@@ -1815,7 +1829,7 @@ See <a class="reference" href="./doc/ms/mfc_atl.html">Oven Range MFC/ATL Extensi
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id159" id="version-0-91-4-0-91-9" name="version-0-91-4-0-91-9">14.5&nbsp;&nbsp;&nbsp;Version 0.91.4 - 0.91.9</a></h2>
+<h2><a class="toc-backref" href="#id163" id="version-0-91-4-0-91-9" name="version-0-91-4-0-91-9">14.5&nbsp;&nbsp;&nbsp;Version 0.91.4 - 0.91.9</a></h2>
 <ul class="simple">
 <li>Added <tt class="docutils literal"><span class="pre">any_range</span></tt>.</li>
 <li>Removed <tt class="docutils literal"><span class="pre">popped</span></tt> and changed the valid expression of <tt class="docutils literal"><span class="pre">advanced</span></tt>.</li>
@@ -1834,7 +1848,7 @@ See <a class="reference" href="./doc/ms/mfc_atl.html">Oven Range MFC/ATL Extensi
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id160" id="version-0-92-0-0-92-3" name="version-0-92-0-0-92-3">14.6&nbsp;&nbsp;&nbsp;Version 0.92.0 - 0.92.3</a></h2>
+<h2><a class="toc-backref" href="#id164" id="version-0-92-0-0-92-3" name="version-0-92-0-0-92-3">14.6&nbsp;&nbsp;&nbsp;Version 0.92.0 - 0.92.3</a></h2>
 <ul class="simple">
 <li>Renamed <tt class="docutils literal"><span class="pre">counting_range</span></tt> to <tt class="docutils literal"><span class="pre">count_range</span></tt>, and added a valid expression.</li>
 <li>Removed the valid expression <tt class="docutils literal"><span class="pre">advanced(d)</span></tt>.</li>
@@ -1845,14 +1859,14 @@ See <a class="reference" href="./doc/ms/mfc_atl.html">Oven Range MFC/ATL Extensi
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id161" id="version-0-93-0" name="version-0-93-0">14.7&nbsp;&nbsp;&nbsp;Version 0.93.0</a></h2>
+<h2><a class="toc-backref" href="#id165" id="version-0-93-0" name="version-0-93-0">14.7&nbsp;&nbsp;&nbsp;Version 0.93.0</a></h2>
 <ul class="simple">
 <li>Changed the names of some functions and headers.</li>
 <li>Added <tt class="docutils literal"><span class="pre">delimited</span></tt>.</li>
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id162" id="version-0-93-1" name="version-0-93-1">14.8&nbsp;&nbsp;&nbsp;Version 0.93.1</a></h2>
+<h2><a class="toc-backref" href="#id166" id="version-0-93-1" name="version-0-93-1">14.8&nbsp;&nbsp;&nbsp;Version 0.93.1</a></h2>
 <ul class="simple">
 <li>Renamed <tt class="docutils literal"><span class="pre">begins/ends</span></tt> to <tt class="docutils literal"><span class="pre">begin/end</span></tt>.</li>
 <li><tt class="docutils literal"><span class="pre">adjacent_transformed</span></tt> rejects empty range.</li>
@@ -1863,7 +1877,7 @@ See <a class="reference" href="./doc/ms/mfc_atl.html">Oven Range MFC/ATL Extensi
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id163" id="version-0-93-2" name="version-0-93-2">14.9&nbsp;&nbsp;&nbsp;Version 0.93.2</a></h2>
+<h2><a class="toc-backref" href="#id167" id="version-0-93-2" name="version-0-93-2">14.9&nbsp;&nbsp;&nbsp;Version 0.93.2</a></h2>
 <ul class="simple">
 <li><tt class="docutils literal"><span class="pre">taken</span></tt> and <tt class="docutils literal"><span class="pre">taken_while</span></tt> behave lazily.</li>
 <li><tt class="docutils literal"><span class="pre">taken</span></tt> and <tt class="docutils literal"><span class="pre">taken_while</span></tt> now return only up to ForwardRange.</li>
@@ -1876,11 +1890,11 @@ See <a class="reference" href="./doc/ms/mfc_atl.html">Oven Range MFC/ATL Extensi
 </ul>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id164" id="version-0-93-3" name="version-0-93-3">14.10&nbsp;&nbsp;&nbsp;Version 0.93.3</a></h2>
+<h2><a class="toc-backref" href="#id168" id="version-0-93-3" name="version-0-93-3">14.10&nbsp;&nbsp;&nbsp;Version 0.93.3</a></h2>
 <ul class="simple">
 <li>Fixed a bug of <tt class="docutils literal"><span class="pre">generation</span></tt>.</li>
 <li>Added <tt class="docutils literal"><span class="pre">front</span></tt> and <tt class="docutils literal"><span class="pre">back</span></tt>.</li>
-<li><tt class="docutils literal"><span class="pre">any_range</span></tt> became a <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#single_pass_range">Single Pass Range</a>.</li>
+<li>Added <tt class="docutils literal"><span class="pre">recursion</span></tt>.</li>
 </ul>
 </div>
 </div>
@@ -1888,7 +1902,7 @@ See <a class="reference" href="./doc/ms/mfc_atl.html">Oven Range MFC/ATL Extensi
 <div class="footer">
 <hr class="footer" />
 <a class="reference" href="doc/index.rst">View document source</a>.
-Generated on: 2007-02-10 19:03 UTC.
+Generated on: 2007-02-12 02:56 UTC.
 Generated by <a class="reference" href="http://docutils.sourceforge.net/">Docutils</a> from <a class="reference" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a> source.
 
 </div>

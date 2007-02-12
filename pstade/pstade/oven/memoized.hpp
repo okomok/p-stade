@@ -20,6 +20,7 @@
 #include <pstade/pipable.hpp>
 #include "./checked.hpp"
 #include "./concepts.hpp"
+#include "./identities.hpp"
 #include "./multi_passed.hpp"
 
 
@@ -29,8 +30,9 @@ namespace pstade { namespace oven {
 namespace memoized_detail {
 
 
-    // See:
-    // boost::spirit::multi_pass_policies::input_iterator
+    // For no reason, 'multi_pass_policies::input_iterator'
+    // regards the default-constructed iterator as the end iterator,
+    // which is not preferable. So by using 'check_iterator'...
 
     struct input
     {
@@ -122,13 +124,23 @@ namespace memoized_detail {
 struct op_make_memoized :
     callable<op_make_memoized>
 {
+    // If 'multi_pass_policies::first_owner' is passed,
+    // it is impossible to be a conforming ForwardRange;
+    // a singular iterator may take over the ownership,
+    // which seems a bug of 'boost::multi_pass'.
+    // The only workaround is applying 'memoized' twice!?
     template< class Myself, class Range, class MemoTable = void >
     struct apply :
         boost::result_of<
-            op_make_multi_passed<
-                memoized_detail::input,
-                boost::spirit::multi_pass_policies::first_owner
-            >(typename boost::result_of<op_make_checked(Range&)>::type)
+            op_make_identities(
+                typename boost::result_of<
+                    op_make_multi_passed<
+                        memoized_detail::input,
+                        boost::spirit::multi_pass_policies::first_owner
+                    >(typename boost::result_of<op_make_checked(Range&)>::type)
+                >::type,
+                boost::single_pass_traversal_tag
+            )
         >
     { };
 
@@ -136,10 +148,15 @@ struct op_make_memoized :
     Result call(Range& rng, memo_table& tb) const
     {
         PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-        return op_make_multi_passed<
-            memoized_detail::input,
-            boost::spirit::multi_pass_policies::first_owner
-        >()(make_checked(rng), tb);
+
+        return
+            make_identities(
+                op_make_multi_passed<
+                    memoized_detail::input,
+                    boost::spirit::multi_pass_policies::first_owner
+                >()(make_checked(rng), tb),
+                boost::single_pass_traversal_tag()
+            );
     }
 
     template< class Myself, class Range >
@@ -155,9 +172,11 @@ struct op_make_memoized :
     Result call(Range& rng) const
     {
         PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-        return op_make_multi_passed<
-            memoized_detail::input
-        >()(make_checked(rng));
+
+        return
+            op_make_multi_passed<
+                memoized_detail::input
+            >()(make_checked(rng));
     }
 };
 

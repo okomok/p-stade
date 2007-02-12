@@ -44,8 +44,7 @@ namespace memo_table_detail {
         { }
 
     private:
-        std::auto_ptr<Iterator> m_pfirst;
-        std::auto_ptr<Iterator> m_plast;
+        std::auto_ptr<Iterator> m_pfirst, m_plast;
     };
     
 
@@ -56,7 +55,7 @@ struct memo_table :
     private boost::noncopyable
 {
     template< class Iterator >
-    void set(std::auto_ptr<Iterator> pfirst, std::auto_ptr<Iterator> plast)
+    void detail_set(std::auto_ptr<Iterator> pfirst, std::auto_ptr<Iterator> plast)
     {
         m_pimpl.reset(new memo_table_detail::holder<Iterator>(pfirst, plast));
     }
@@ -75,17 +74,19 @@ template<
 struct op_make_multi_passed :
     callable< op_make_multi_passed<InputPolicy, OwnershipPolicy, CheckingPolicy, StoragePolicy> >
 {
-    template< class Myself, class InputIterRange, class FirstOwners = void >
+    template< class Myself, class InputIterRange, class MemoTable = void >
     struct apply
     {
-        // InputIterRange seems the undocumented concept by Boost.Spirit.
-
         typedef
             boost::spirit::multi_pass<
                 typename range_iterator<InputIterRange>::type,
                 typename use_default_to<InputPolicy,     boost::spirit::multi_pass_policies::input_iterator>::type,
                 typename use_default_to<OwnershipPolicy, boost::spirit::multi_pass_policies::ref_counted>::type,
+            #if defined(NDEBUG)
+                typename use_default_to<CheckingPolicy,  boost::spirit::multi_pass_policies::no_check>::type,
+            #else
                 typename use_default_to<CheckingPolicy,  boost::spirit::multi_pass_policies::buf_id_check>::type,
+            #endif
                 typename use_default_to<StoragePolicy,   boost::spirit::multi_pass_policies::std_deque>::type
             >
         iter_t;
@@ -107,12 +108,12 @@ struct op_make_multi_passed :
         typedef typename Result::iterator iter_t;
 
         // first owners
-        std::auto_ptr<iter_t> pfirst( new iter_t(boost::begin(rng)) );
-        std::auto_ptr<iter_t> plast ( new iter_t(boost::end(rng)) );
+        std::auto_ptr<iter_t>
+            pfirst( new iter_t(boost::begin(rng)) ),
+            plast ( new iter_t(boost::end(rng)) );
 
         Result result(*pfirst, *plast);
-        tb.set(pfirst, plast);
-
+        tb.detail_set(pfirst, plast);
         return result;
     }
 };

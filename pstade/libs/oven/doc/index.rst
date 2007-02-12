@@ -68,7 +68,7 @@ This document is based on the following specifications.
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\specification.ipp
 
-All the ranges Oven defines are InputStreamable and OutputStreamable if ``<pstade/oven/io.hpp>`` is included.
+All the ranges Oven defines are ``InputStreamable`` and ``OutputStreamable`` if ``<pstade/oven/io.hpp>`` is included.
 
 .. [#] The function type is not supported as ``rfun``. Instead, add ``&`` to make it a function **pointer**
 
@@ -183,7 +183,7 @@ The upcoming `Boost.Range`_ will replace ``boost::size`` by ``boost::distance``.
 ^^^^^^^^^^^^^^
 - Header: ``<pstade/oven/front_back.hpp>``
 - Valid expression: ``front(rng)`` and ``back(biRng)``.
-- Precondition: ``boost::range_value`` of ``rng`` is CopyConstructible.
+- Precondition: ``boost::range_value`` of ``rng`` is ``CopyConstructible``.
 - Returns:  ``V(*boost::begin(rng))`` and ``V(*--boost::end(biRng))`` respectively, where ``V`` is ``boost::range_value`` of ``rng``. [#]_
 
 .. [#] They don't return references because of 24.1/9.
@@ -209,25 +209,25 @@ which creates an infinite range, working with `generation`_.
 
 ``regular``
 ^^^^^^^^^^^
-Boost.Lambda functors are neither DefaultConstructible nor CopyAssignable.
-An iterator holding such a functor cannot conform to even InputIterator.
+Boost.Lambda functors are neither ``DefaultConstructible`` nor ``CopyAssignable``.
+An iterator holding such a functor cannot conform to even ``InputIterator``.
 ``regular`` converts it to comfortable one for iterators.
 
 - Header: ``<pstade/oven/regular.hpp>``
 - Valid expression: ``regular(lambdaFunctor)``
-- Returns: A `Function Object`_ which is DefaultConstructible and CopyAssignable.
+- Returns: A `Function Object`_ which is ``DefaultConstructible`` and ``CopyAssignable``.
 
 In principle, call ``regular`` before a lambda functor is passed to `Range Adaptors`_.
 
 
 ``shared_regular``
 ^^^^^^^^^^^^^^^^^^
-``shared_regular`` converts a non-Copyable function object type to Copyable one.
+``shared_regular`` converts a noncopyable function object type to copyable one.
 
 - Header: ``<pstade/oven/regular.hpp>``
 - Valid expression: ``shared_regular(p)``.
 - Precondition: ``boost::shared_ptr`` is constructible from ``p``.
-- Returns: A `Function Object`_ which is DefaultConstructible and CopyAssignable.
+- Returns: A `Function Object`_ which is ``DefaultConstructible`` and ``CopyAssignable``.
 
 
 
@@ -246,14 +246,15 @@ the adapted range. ``any_range`` behaves as the type erasure of ranges::
 
 
 - Header: ``<pstade/oven/any_range.hpp>``
-- Valid expression: ``any_range<R> any_;``,  ``any_range<R> any_(rng);`` and ``any_range<R> any_ = rng;``
+- Valid expression: ``any_range<R,T> any_;``, ``any_range<R,T> any_(rng);`` and ``any_range<R,T> any_ = rng;``
   , where the iterators of ``any_`` are ``Interoperatable`` if and only if ``rng``\s are the same type.
 - Precondition: ``boost::range_reference`` of ``rng`` is convertible to ``R`` without creating rvalue.
-- Returns: A `Single Pass Range`_ [#]_ whose iterators behave as if they were the original iterators wrapped in `any_iterator`__
+  ``T`` is a ``TraversalTag``; ``T`` is ``boost::single_pass_traversal_tag`` if omitted. [#]_
+- Returns: A range whose iterators behave as if they were the original iterators wrapped in `any_iterator`__
 
 __ http://thbecker.net/free_software_utilities/type_erasure_for_cpp_iterators/start_page.html
 
-.. [#] Though ``any_range`` has the extra template parameter for other traversal tags, it is rejected for now because of the bad performance.
+.. [#] You should prefer ``boost::single_pass_traversal_tag`` everywhere possible; it is the most efficient.
 
 
 ``array_range``
@@ -317,7 +318,7 @@ If ``is_open()`` is not ``true``, the range is empty.
 Range Makers
 ------------
 Oven provides some predefined functions which produce a range.
-All the range returned from the following makers are CopyConstructible and Inheritable.
+All the range returned from the following makers are ``CopyConstructible`` and ``Inheritable``.
 ``<pstade/oven/functions.hpp>`` includes every maker header unless otherwise specified.
 
 
@@ -388,7 +389,7 @@ __ http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html#as-literal
 
 
 - Header: ``<pstade/oven/counting.hpp>``
-- Valid expression: ``counting(n, m)``, where ``n`` and ``m`` is Incrementable.
+- Valid expression: ``counting(n, m)``, where ``n`` and ``m`` is ``Incrementable``.
 - Returns: A range whose iterators behave as if they were the original iterators wrapped in `counting_iterator`__
 
 __ http://www.boost.org/libs/iterator/doc/counting_iterator.html
@@ -397,7 +398,7 @@ __ http://www.boost.org/libs/iterator/doc/counting_iterator.html
 ``counting_from``
 ^^^^^^^^^^^^^^^^^
 - Header: ``<pstade/oven/counting.hpp>``
-- Valid expression: ``counting_from(n)``, where ``n`` is Incrementable.
+- Valid expression: ``counting_from(n)``, where ``n`` is ``Incrementable``.
 - Returns: A range which behaves as if ``counting(n,std::numeric_limits<N>::max())``, where ``N`` is the type of ``n``.
 
 
@@ -440,9 +441,7 @@ the function on the first argument, the second item by applying the function on 
 
 ``recursion``
 ^^^^^^^^^^^^^
-`Pending...`
-
-``recursion``, collaborating with `any_range`_, creates a recursive range::
+``recursion``, collaborating with `any_range`_ [#]_, creates a recursive [#]_ range::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\recursion.ipp
 
@@ -450,6 +449,9 @@ the function on the first argument, the second item by applying the function on 
 - Header: ``<pstade/oven/recursion.hpp>``
 - Valid expression: ``recursion(anyRng)``, where ``anyRng`` is an ``any_range`` object.
 - Returns: An infinite range up to  `Bidirectional Range`_.
+
+.. [#] A ``TraversalTag`` passed to ``any_range`` shall be wrapped around with ``recursive``; it is a ``boost::single_pass_traversal_tag`` if omitted.
+.. [#] A recursive range may be very inefficient without ``memoized``, then a named lvalue ``memo_table`` object shall be passed to ``memoized``.
 
 
 ``repeated``
@@ -492,7 +494,7 @@ The underlying ranges are not modified.
 Additional information is available at `Range Library Proposal`_.
 ``<pstade/oven/adaptors.hpp>`` includes all the following Range Adaptors unless otherwise specified.
 
-Note that all the range returned from the following adaptors are CopyConstructible and Inheritable.
+Note that all the range returned from the following adaptors are ``CopyConstructible`` and ``Inheritable``.
 Also, if ``a0|xxx(a1,..,aN)`` is a valid expression, then  ``make_xxx(a0,..,aN)`` too is a valid expression
 which has the same effect.
 
@@ -616,13 +618,13 @@ which has the same effect.
 ``const_lvalues``
 ^^^^^^^^^^^^^^^^^
 ``const_lvalues`` turns the associated ``reference`` type of the base range into reference type,
-which makes iterators of `Forward Range`_ conform to Forward Iterator.
+which makes iterators of `Forward Range`_ conform to ``ForwardIterator``.
 Thus, STL that doesn't know traversal concepts can choose effective algorithms.
 
 
 - Header: ``<pstade/oven/const_lvalues.hpp>``
 - Valid expression: ``rng|const_lvalues``
-- Precondition: ``value_type`` of ``rng`` is CopyConstructible, Assignable and DefaultConstructible.
+- Precondition: ``value_type`` of ``rng`` is ``CopyConstructible``, ``Assignable`` and ``DefaultConstructible``.
 - Returns: ``[boost::begin(rng),boost::end(rng))`` whose iterators are constant.
 
 
@@ -805,11 +807,10 @@ Pending...
 
 
 - Header: ``<pstade/oven/memoized.hpp>``
-- Valid expression: ``rng|memoized``
-- Precondition: ``rng`` is referentially transparent.
-- Returns: A `Forward Range`_ whose values are memoized. [#]_
+- Valid expression: ``rng|memoized`` and ``rng|memoized(tb)``, where ``tb`` is a ``memo_table`` object.
+- Returns: A `Forward Range`_ [#]_ with the first valid expression, and a `Single Pass Range`_ with the second one, whose values are memoized.
 
-.. [#] ``memoized`` can return a `Forward Range`_ even if the base range is a `Single Pass Range`_
+.. [#] ``memoized`` with the first valid expression can return a `Forward Range`_ even if the base range is a `Single Pass Range`_
 
 
 ``merged``
@@ -882,7 +883,7 @@ Pending...
 
 
 - Header: ``<pstade/oven/scanned.hpp>``
-- Valid expression: ``rng|scanned(init,fun)``, where the type of ``init`` is DefaultConstructible, CopyConstructible and CopyAssignable.
+- Valid expression: ``rng|scanned(init,fun)``, where the type of ``init`` is ``DefaultConstructible``, ``CopyConstructible`` and ``CopyAssignable``.
 - Precondition: ``fun(s,r)`` is a valid expression, where the type of ``s`` is the same as ``init`` and ``r`` is the iterator dereference of ``rng``.
 - Returns: A range up to `Forward Range`_ which behaves as if it were made by ``std::partial_sum``.
 
@@ -1140,8 +1141,8 @@ the same as ``value_type`` of it except for reference qualifier.
 
 Extending Boost.Range
 ---------------------
-`The extension way of Boost.Range`__ seems to assume future C++ ability ``decltype``.
-For now, it is not practical to apply the way to the large library something like MFC.
+`The extension way of Boost.Range`__ seems to assume the future C++ ability ``decltype``.
+For now, it is not practical to apply the way to a large library something like MFC.
 Oven provides yet another extension way, which is similar to
 `Conceptualizing the Range-Based for Loop`__ proposal to simplify the Boost.Range one::
 
@@ -1320,7 +1321,7 @@ Version 0.93.3
 ^^^^^^^^^^^^^^
 - Fixed a bug of ``generation``.
 - Added ``front`` and ``back``.
-- ``any_range`` became a `Single Pass Range`_.
+- Added ``recursion``.
 
 
 
