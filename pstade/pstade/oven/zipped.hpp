@@ -10,6 +10,14 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Note:
+//
+// For some reason, 'boost::zip_iterator' doesn't use
+// *pure* traversal_tag with 'minimum_category'.
+// Thus, you have to use 'const_lvalues' before 'zipped'
+// if the base range is something like RandomAccess*Input*Range.
+
+
 #include <boost/iterator/zip_iterator.hpp>
 #include <boost/type_traits/remove_const.hpp>
 #include <boost/utility/result_of.hpp>

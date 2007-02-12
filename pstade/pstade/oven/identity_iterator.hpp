@@ -85,7 +85,7 @@ friend class boost::iterator_core_access;
 
 
 PSTADE_OBJECT_GENERATOR(make_identity_iterator,
-    (identity_iterator< deduce<_1, to_value>, deduce<_2, to_value> >) const)
+    (identity_iterator< deduce<_1, to_value>, deduce<_2, to_value, boost::use_default> >) const)
 
 
 } } // namespace pstade::oven

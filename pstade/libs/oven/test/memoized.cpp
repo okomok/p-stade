@@ -63,20 +63,8 @@ void test()
         memo_table to_table;
         ss << ans;
         std::vector<char> expected = ans|copied;
-        BOOST_CHECK( oven::test_SinglePass_Readable(
-            oven::stream_input<char>(ss)|memoized(to_table),
-            expected
-        ) );
-    }
-    {
-        // seems stupid :-(
-        std::string ans("18284610528192");
-        std::stringstream ss;
-        memo_table to_table;
-        ss << ans;
-        std::vector<char> expected = ans|copied;
         BOOST_CHECK( oven::test_Forward_Readable(
-            oven::stream_input<char>(ss)|memoized(to_table)|memoized,
+            oven::stream_input<char>(ss)|memoized(to_table),
             expected
         ) );
     }

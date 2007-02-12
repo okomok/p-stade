@@ -22,7 +22,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#define PSTADE_CONCEPT_CHECK
+#include <pstade/oven/tests.hpp>
+
+
 #include <string>
 #include <iostream>
 #include <pstade/lexical_cast.hpp>
@@ -39,11 +41,14 @@
 
 namespace assign = boost::assign;
 namespace lambda = boost::lambda;
-using namespace pstade::oven;
+namespace oven = pstade::oven;
+using namespace oven;
 
 
 void test()
 {
+    int howMany = 30;
+    std::vector<int> expected;
     {
         typedef any_range< int, recursive<> > range_t;
         memo_table to_table;
@@ -58,7 +63,24 @@ void test()
                  | memoized(to_table)
         ;
 
-        std::cout << (fibs|taken(30));
+        std::cout << (fibs|taken(howMany));
+        expected = oven::copy_range<std::vector<int> >(fibs|taken(howMany));
+    }
+    {
+        typedef any_range< int, recursive<boost::forward_traversal_tag> > range_t;
+        memo_table to_table;
+        range_t fibs;
+        int const start[] = { 1, 1 };
+        fibs =
+            start|transformed(pstade::as_value)|
+                jointed(
+                    boost::make_tuple(recursion(fibs)|const_lvalues, recursion(fibs)|dropped(1)|const_lvalues)|
+                    zipped_with(regular(lambda::_1 + lambda::_2))
+                )
+                 | memoized(to_table)
+        ;
+
+        BOOST_CHECK( oven::test_Forward_Readable( fibs|taken(howMany), expected ) );
     }
 }
 

@@ -20,6 +20,7 @@
 #include "./joint_iterator.hpp"
 #include "./merge_iterator.hpp"
 #include "./permute_iterator.hpp"
+#include "./regularize_iterator.hpp"
 #include "./reverse_iterator.hpp"
 #include "./scan_iterator.hpp"
 #include "./share_iterator.hpp"

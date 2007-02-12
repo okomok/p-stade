@@ -20,8 +20,8 @@
 #include <pstade/pipable.hpp>
 #include "./checked.hpp"
 #include "./concepts.hpp"
-#include "./identities.hpp"
 #include "./multi_passed.hpp"
+#include "./regularized.hpp"
 
 
 namespace pstade { namespace oven {
@@ -124,22 +124,20 @@ namespace memoized_detail {
 struct op_make_memoized :
     callable<op_make_memoized>
 {
-    // If 'multi_pass_policies::first_owner' is passed,
-    // it is impossible to be a conforming ForwardRange;
-    // a singular iterator may take over the ownership,
-    // which seems a bug of 'boost::multi_pass'.
-    // The only workaround is applying 'memoized' twice!?
+    // If 'spirit::multi_pass' with 'multi_pass_policies::first_owner'
+    // is default-constructed, it is marked as *first* owner.
+    // Then its assignment-operator would take over the ownership.
+    // This seems a bug, which 'regularized' can work around.
     template< class Myself, class Range, class MemoTable = void >
     struct apply :
         boost::result_of<
-            op_make_identities(
+            op_make_regularized(
                 typename boost::result_of<
                     op_make_multi_passed<
                         memoized_detail::input,
                         boost::spirit::multi_pass_policies::first_owner
                     >(typename boost::result_of<op_make_checked(Range&)>::type)
-                >::type,
-                boost::single_pass_traversal_tag
+                >::type
             )
         >
     { };
@@ -150,12 +148,11 @@ struct op_make_memoized :
         PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
 
         return
-            make_identities(
+            make_regularized(
                 op_make_multi_passed<
                     memoized_detail::input,
                     boost::spirit::multi_pass_policies::first_owner
-                >()(make_checked(rng), tb),
-                boost::single_pass_traversal_tag()
+                >()(make_checked(rng), tb)
             );
     }
 

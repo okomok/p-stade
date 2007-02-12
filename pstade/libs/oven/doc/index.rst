@@ -451,7 +451,8 @@ the function on the first argument, the second item by applying the function on 
 - Returns: An infinite range up to  `Bidirectional Range`_.
 
 .. [#] A ``TraversalTag`` passed to ``any_range`` shall be wrapped around with ``recursive``; it is a ``boost::single_pass_traversal_tag`` if omitted.
-.. [#] A recursive range may be very inefficient without ``memoized``, then a named lvalue ``memo_table`` object shall be passed to ``memoized``.
+
+.. [#] ``memoized`` requires a named lvalue of ``memo_table`` in a recursive range.
 
 
 ``repeated``
@@ -808,9 +809,9 @@ Pending...
 
 - Header: ``<pstade/oven/memoized.hpp>``
 - Valid expression: ``rng|memoized`` and ``rng|memoized(tb)``, where ``tb`` is a ``memo_table`` object.
-- Returns: A `Forward Range`_ [#]_ with the first valid expression, and a `Single Pass Range`_ with the second one, whose values are memoized.
+- Returns: A `Forward Range`_ [#]_ whose values are memoized.
 
-.. [#] ``memoized`` with the first valid expression can return a `Forward Range`_ even if the base range is a `Single Pass Range`_
+.. [#] ``memoized`` can return a `Forward Range`_ even if the base range is a `Single Pass Range`_
 
 
 ``merged``
