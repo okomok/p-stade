@@ -17,26 +17,6 @@
 namespace pstade { namespace oven {
 
 
-struct recursive_tag
-{ };
-
-template< class Traversal = boost::single_pass_traversal_tag >
-struct recursive :
-    Traversal,
-    recursive_tag
-{
-    typedef Traversal type;
-
-    recursive()
-    { }
-
-    // Workaround:
-    // VC7.1 'is_convertible' needs 'const&'.
-    recursive(Traversal const&)
-    { }
-};
-
-
 PSTADE_CONSTANT(in_single_pass,   (boost::single_pass_traversal_tag))
 PSTADE_CONSTANT(in_forward,       (boost::forward_traversal_tag))
 PSTADE_CONSTANT(in_bidirectional, (boost::bidirectional_traversal_tag))

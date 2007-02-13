@@ -10,170 +10,134 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/assert.hpp>
-#include <boost/checked_delete.hpp>
-#include <boost/iterator/iterator_traits.hpp>
-#include <boost/utility/result_of.hpp>
+#include <memory> // auto_ptr
+#include <boost/mpl/bool.hpp>
+#include <boost/range/begin.hpp>
+#include <boost/range/end.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
-#include <pstade/nullptr.hpp>
 #include <pstade/pipable.hpp>
-#include "./checked.hpp"
 #include "./concepts.hpp"
-#include "./multi_passed.hpp"
-#include "./regularized.hpp"
+#include "./iter_range.hpp"
+#include "./memoize_iterator.hpp"
+#include "./range_iterator.hpp"
 
 
 namespace pstade { namespace oven {
 
 
-namespace memoized_detail {
+namespace memo_table_detail {
 
 
-    // For no reason, 'multi_pass_policies::input_iterator'
-    // regards the default-constructed iterator as the end iterator,
-    // which is not preferable. So by using 'check_iterator'...
-
-    struct input
+    struct auto_ptr_placeholder
     {
-        template< class Iterator >
-        struct inner
+        virtual ~auto_ptr_placeholder()
+        { }
+    };
+
+    template< class X >
+    struct auto_ptr_holder :
+        auto_ptr_placeholder
+    {
+        auto_ptr_holder(std::auto_ptr<X> px) :
+            m_px(px)
+        { }
+
+    private:
+        std::auto_ptr<X> m_px;
+    };
+
+
+    struct any_auto_ptr
+    {
+        template< class X >
+        void reset(std::auto_ptr<X> px)
         {
-            typedef typename boost::iterator_value<Iterator>::type value_type;
-            typedef typename boost::iterator_difference<Iterator>::type difference_type;
-            typedef typename boost::iterator_pointer<Iterator>::type pointer;
-            typedef typename boost::iterator_reference<Iterator>::type reference;
+            m_pimpl.reset(new auto_ptr_holder<X>(px));
+        }
 
-        private:
-            struct data_t
-            {
-                data_t(Iterator const& it) :
-                    m_it(it), m_initialized(false)
-                { }
+    private:
+        std::auto_ptr<auto_ptr_placeholder> m_pimpl;
+    };
+    
 
-                Iterator m_it;
-                bool m_initialized;
-                value_type m_value;
-            };
-
-           friend struct data_t;
-
-        protected:
-            explicit inner() :
-                m_pdata(PSTADE_NULLPTR)
-            { }
-
-            explicit inner(Iterator const& it) :
-                m_pdata(new data_t(it))
-            { }
-
-            void destroy()
-            {
-                boost::checked_delete(m_pdata);
-                m_pdata = PSTADE_NULLPTR;
-            }
-
-            bool same_input(inner const& other) const
-            {
-                return m_pdata == other.m_pdata;
-            }
-
-            void swap(inner& other)
-            {
-                boost::spirit::impl::mp_swap(m_pdata, other.m_pdata);
-            }
-
-        private:
-            void initialize() const
-            {
-                if (m_pdata && !m_pdata->m_initialized) {
-                    m_pdata->m_value = *m_pdata->m_it;
-                    m_pdata->m_initialized = true;
-                }
-            }
-
-        public:
-            reference get_input() const
-            {
-                BOOST_ASSERT(m_pdata != PSTADE_NULLPTR);
-                initialize();
-                return m_pdata->m_value;
-            }
-
-            void advance_input()
-            {
-                BOOST_ASSERT(m_pdata != PSTADE_NULLPTR);
-                m_pdata->m_initialized = false;
-                ++m_pdata->m_it;
-            }
-
-            bool input_at_eof() const
-            {
-                return !m_pdata || m_pdata->m_it.is_end();
-            }
-
-        private:
-            data_t *m_pdata;
-        }; // inner
-    }; // input
+} // namespace memo_table_detail
 
 
-} // namespace memoized_detail
+struct memo_table :
+    private boost::noncopyable
+{
+    memo_table()
+    { }
+
+    template< class Iterator >
+    void detail_reset(std::auto_ptr<Iterator> pfirst, std::auto_ptr<Iterator> plast)
+    {
+        m_pfirst.reset(pfirst);
+        m_plast.reset(plast);
+    }
+
+private:
+    memo_table_detail::any_auto_ptr m_pfirst;
+    memo_table_detail::any_auto_ptr m_plast;
+};
 
 
 struct op_make_memoized :
     callable<op_make_memoized>
 {
-    // If 'spirit::multi_pass' with 'multi_pass_policies::first_owner'
-    // is default-constructed, it is marked as *first* owner.
-    // Then its assignment-operator would take over the ownership.
-    // This seems a bug, which 'regularized' can work around.
     template< class Myself, class Range, class MemoTable = void >
-    struct apply :
-        boost::result_of<
-            op_make_regularized(
-                typename boost::result_of<
-                    op_make_multi_passed<
-                        memoized_detail::input,
-                        boost::spirit::multi_pass_policies::first_owner
-                    >(typename boost::result_of<op_make_checked(Range&)>::type)
-                >::type
-            )
-        >
-    { };
+    struct apply
+    {
+        typedef
+            memoize_iterator<
+                typename range_iterator<Range>::type,
+                boost::mpl::true_ // recursive
+            >
+        iter_t;
+
+        typedef
+            iter_range<iter_t> const
+        type;
+    };
 
     template< class Result, class Range >
     Result call(Range& rng, memo_table& tb) const
     {
         PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
 
-        return
-            make_regularized(
-                op_make_multi_passed<
-                    memoized_detail::input,
-                    boost::spirit::multi_pass_policies::first_owner
-                >()(make_checked(rng), tb)
-            );
+        typedef typename Result::iterator iter_t;
+        typedef typename iter_t::base_type base_iter_t;
+
+        // They live outside of recursive cycles.
+        std::auto_ptr<base_iter_t>
+            pfirst( new base_iter_t(boost::begin(rng)) ),
+            plast ( new base_iter_t(boost::end(rng)) );
+
+        Result ret(iter_t(pfirst.get()), iter_t(plast.get()));
+        tb.detail_reset(pfirst, plast);
+        return ret;
     }
 
     template< class Myself, class Range >
-    struct apply<Myself, Range> :
-        boost::result_of<
-            op_make_multi_passed<
-                memoized_detail::input
-            >(typename boost::result_of<op_make_checked(Range&)>::type)
-        >
-    { };
+    struct apply<Myself, Range>
+    {
+        typedef
+            memoize_iterator<
+                typename range_iterator<Range>::type
+            >
+        iter_t;
+
+        typedef
+            iter_range<iter_t> const
+        type;
+    };
 
     template< class Result, class Range >
     Result call(Range& rng) const
     {
         PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-
-        return
-            op_make_multi_passed<
-                memoized_detail::input
-            >()(make_checked(rng));
+        return Result(rng);
     }
 };
 

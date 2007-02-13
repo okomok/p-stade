@@ -35,6 +35,7 @@
 #include <pstade/oven/shared.hpp>
 #include <pstade/oven/jointed.hpp>
 #include <pstade/oven/as_single.hpp>
+#include <pstade/oven/memoized.hpp>
 
 
 namespace oven = pstade::oven;
@@ -42,7 +43,7 @@ using namespace pstade::oven;
 
 
 typedef
-    any_range<int const&, recursive<boost::forward_traversal_tag> >
+    any_range<int const&, boost::forward_traversal_tag>
 range;
 
 
@@ -71,8 +72,37 @@ void test()
             ans
         ) );
     }
+    { // recursive memoized
+        range ones;
+        memo_table tb;
+
+        int const one = 1;
+        ones = recursion(ones)|prepended(one)|memoized(tb);
+
+        int const ans_[] = { 1,1,1,1,1,1,1,1 };
+        std::vector<int> ans = ans_|copied;
+        BOOST_CHECK( oven::test_Forward_Readable(
+            ones|taken(8),
+            ans
+        ) );
+    }
+
+    { // recursive memoized
+        range x;
+        memo_table tb;
+
+        int const a1_7[] = { 1,2,3,4,5,6 };
+        x = a1_7|jointed(recursion(x))|memoized(tb);
+
+        int const ans_[] = { 1,2,3,4,5 };
+        std::vector<int> ans = ans_|copied;
+        BOOST_CHECK( oven::test_Forward_Readable(
+            x|taken(5),
+            ans
+        ) );
+    }
     { // reverse
-        any_range<int const&, recursive<boost::bidirectional_traversal_tag> > ones;
+        any_range<int const&, boost::bidirectional_traversal_tag> ones;
 
         int const one = 1;
         ones = recursion(ones)|appended(one);

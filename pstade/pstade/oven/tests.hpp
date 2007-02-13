@@ -69,7 +69,7 @@ bool test_SinglePass_Readable(Range& rng, Vector const& expected)
     BOOST_ASSERT(last == last);
 
     if (!oven::equals(rng, expected)) { // In fact, Incrementable only.
-        BOOST_ASSERT(false);
+        BOOST_ASSERT("test_SinglePass_Readable failed." && false);
         return false;
     }
 

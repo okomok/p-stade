@@ -44,7 +44,7 @@ namespace any_range_detail {
 
 template<
     class Reference,
-    class Traversal  = boost::single_pass_traversal_tag,
+    class Traversal,
     class Value      = boost::use_default,
     class Difference = boost::use_default
 >

@@ -184,7 +184,7 @@ namespace recursion_detail {
 
         result call(Range& rng)
         {
-            PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+            PSTADE_CONCEPT_ASSERT((Forward<Range>));
             return result(iter_t(rng, false), iter_t(rng, true));
         }
     };

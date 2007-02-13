@@ -249,12 +249,10 @@ the adapted range. ``any_range`` behaves as the type erasure of ranges::
 - Valid expression: ``any_range<R,T> any_;``, ``any_range<R,T> any_(rng);`` and ``any_range<R,T> any_ = rng;``
   , where the iterators of ``any_`` are ``Interoperatable`` if and only if ``rng``\s are the same type.
 - Precondition: ``boost::range_reference`` of ``rng`` is convertible to ``R`` without creating rvalue.
-  ``T`` is a ``TraversalTag``; ``T`` is ``boost::single_pass_traversal_tag`` if omitted. [#]_
+  ``T`` is a ``TraversalTag``.
 - Returns: A range whose iterators behave as if they were the original iterators wrapped in `any_iterator`__
 
 __ http://thbecker.net/free_software_utilities/type_erasure_for_cpp_iterators/start_page.html
-
-.. [#] You should prefer ``boost::single_pass_traversal_tag`` everywhere possible; it is the most efficient.
 
 
 ``array_range``
@@ -441,18 +439,16 @@ the function on the first argument, the second item by applying the function on 
 
 ``recursion``
 ^^^^^^^^^^^^^
-``recursion``, collaborating with `any_range`_ [#]_, creates a recursive [#]_ range::
+``recursion``, collaborating with `any_range`_, creates a recursive [#]_ range::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\recursion.ipp
 
 
 - Header: ``<pstade/oven/recursion.hpp>``
-- Valid expression: ``recursion(anyRng)``, where ``anyRng`` is an ``any_range`` object.
+- Valid expression: ``recursion(fwdRng)``, where ``fwdRng`` is an ``any_range`` object.
 - Returns: An infinite range up to  `Bidirectional Range`_.
 
-.. [#] A ``TraversalTag`` passed to ``any_range`` shall be wrapped around with ``recursive``; it is a ``boost::single_pass_traversal_tag`` if omitted.
-
-.. [#] ``memoized`` requires a named lvalue of ``memo_table`` in a recursive range.
+.. [#] In a recursive range, you must use ``memoized`` with a ``memo_table`` object. A recursive range tends to be inefficient without memoization.
 
 
 ``repeated``
@@ -802,13 +798,13 @@ Pending...
 
 ``memoized``
 ^^^^^^^^^^^^
-``memoized`` returns a range whose values are cached for speed, preparing for repeated dereferences::
+``memoized`` returns a range whose values are cached for speed, preparing for repeated accesses::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\memoized.ipp
 
 
 - Header: ``<pstade/oven/memoized.hpp>``
-- Valid expression: ``rng|memoized`` and ``rng|memoized(tb)``, where ``tb`` is a ``memo_table`` object.
+- Valid expression: ``rng|memoized`` and ``rng|memoized(tb)``, where ``tb`` is a named ``memo_table`` object.
 - Returns: A `Forward Range`_ [#]_ whose values are memoized.
 
 .. [#] ``memoized`` can return a `Forward Range`_ even if the base range is a `Single Pass Range`_
@@ -1322,7 +1318,6 @@ Version 0.93.3
 ^^^^^^^^^^^^^^
 - Fixed a bug of ``generation``.
 - Added ``front`` and ``back``.
-- Added ``recursion``.
-
+- Added ``recursion`` and ``recursive_memoized``.
 
 

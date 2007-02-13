@@ -47,12 +47,14 @@ using namespace oven;
 
 void test()
 {
-    int howMany = 30;
-    std::vector<int> expected;
+    int const howMany = 30;
+    int answer[howMany] = {1,1,2,3,5,8,13,21,34,55,89,144,233,377, 610,987,1597,2584,4181,6765,10946,17711,28657,46368,75025,121393,196418,317811,514229,832040};
+    std::vector<int> expected = answer|copied;
+
     {
-        typedef any_range< int, recursive<> > range_t;
-        memo_table to_table;
+        typedef any_range<int const&, boost::forward_traversal_tag> range_t;
         range_t fibs;
+        memo_table tb;
         int const start[] = { 1, 1 };
         fibs =
             start|transformed(pstade::as_value)|
@@ -60,27 +62,11 @@ void test()
                     boost::make_tuple(recursion(fibs), recursion(fibs)|dropped(1))|
                     zipped_with(regular(lambda::_1 + lambda::_2))
                 )
-                 | memoized(to_table)
+                 | const_lvalues
+                 | memoized(tb)
         ;
 
-        std::cout << (fibs|taken(howMany));
-        expected = oven::copy_range<std::vector<int> >(fibs|taken(howMany));
-    }
-    {
-        typedef any_range< int, recursive<boost::forward_traversal_tag> > range_t;
-        memo_table to_table;
-        range_t fibs;
-        int const start[] = { 1, 1 };
-        fibs =
-            start|transformed(pstade::as_value)|
-                jointed(
-                    boost::make_tuple(recursion(fibs)|const_lvalues, recursion(fibs)|dropped(1)|const_lvalues)|
-                    zipped_with(regular(lambda::_1 + lambda::_2))
-                )
-                 | memoized(to_table)
-        ;
-
-        BOOST_CHECK( oven::test_Forward_Readable( fibs|taken(howMany), expected ) );
+        BOOST_CHECK( oven::test_Forward_Readable(fibs|taken(howMany), expected) );
     }
 }
 

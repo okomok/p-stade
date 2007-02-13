@@ -23,7 +23,6 @@
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/mpl/if.hpp>
-#include <boost/mpl/or.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/type_traits/is_convertible.hpp>
 #include <pstade/clone_ptr.hpp>
@@ -31,7 +30,6 @@
 #include <pstade/unused.hpp>
 #include <pstade/use_default.hpp>
 #include "./detail/reference_is_convertible.hpp"
-#include "./traversal_tags.hpp" // recursive_tag
 
 
 namespace pstade { namespace oven {
@@ -210,11 +208,6 @@ namespace any_iterator_detail {
     struct super_
     {
         typedef typename
-            // strip 'recursive' for 'iterator_facade'. 
-            boost::detail::pure_traversal_tag<Traversal>::type
-        trv_t;
-
-        typedef typename
             use_default_eval_to< Value, remove_cvr<Reference> >::type
         value_t;
 
@@ -226,7 +219,7 @@ namespace any_iterator_detail {
             boost::iterator_facade<
                 any_iterator<Reference, Traversal, Value, Difference>,
                 value_t,
-                trv_t,
+                Traversal,
                 Reference,
                 diff_t
             >
@@ -234,13 +227,11 @@ namespace any_iterator_detail {
     };
 
 
+    // As a recursive range is Forward, 'shared_ptr' isn't used.
+    // Hence there is no reference cycles.
     template< class Traversal, class PlaceHolder >
-    struct pimpl_of :
-        boost::mpl::if_< 
-            boost::mpl::or_<
-                boost::is_convertible<Traversal, boost::forward_traversal_tag>,
-                boost::is_convertible<Traversal, recursive_tag>
-            >,
+    struct smart_ptr :
+        boost::mpl::if_< boost::is_convertible<Traversal, boost::forward_traversal_tag>,
             clone_ptr<PlaceHolder>,
             boost::shared_ptr<PlaceHolder>
         >
@@ -263,7 +254,7 @@ private:
     typedef typename any_iterator_detail::super_<Reference, Traversal, Value, Difference>::type super_t;
     typedef typename super_t::difference_type diff_t;
     typedef any_iterator_detail::placeholder<Reference, diff_t> placeholder_t;
-    typedef typename any_iterator_detail::pimpl_of<Traversal, placeholder_t>::type pimpl_t;
+    typedef typename any_iterator_detail::smart_ptr<Traversal, placeholder_t>::type pimpl_t;
 
 public:
     explicit any_iterator()
