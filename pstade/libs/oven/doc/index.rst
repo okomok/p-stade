@@ -448,7 +448,7 @@ the function on the first argument, the second item by applying the function on 
 - Valid expression: ``recursion(fwdRng)``, where ``fwdRng`` is an ``any_range`` object.
 - Returns: An infinite range up to  `Bidirectional Range`_.
 
-.. [#] In a recursive range, you must use ``memoized`` with a ``memo_table`` object. A recursive range tends to be inefficient without memoization.
+.. [#] In a recursive range, ``memoized`` must take a named ``memo_table`` object. A recursive range tends to be inefficient without memoization.
 
 
 ``repeated``

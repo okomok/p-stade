@@ -16,7 +16,6 @@
 
 
 #include <deque>
-#include <boost/any.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/mpl/assert.hpp>
@@ -39,6 +38,111 @@ struct memoize_iterator;
 namespace memoize_iterator_detail {
 
 
+    template< class Iterator >
+    struct data_super
+    {
+        typedef typename boost::iterator_value<Iterator>::type value_type;
+        typedef std::deque<value_type> table_type;
+        typedef typename table_type::size_type index_type;
+
+        bool is_in_table(index_type const& i) const
+        {
+            return i != m_table.size();
+        }
+
+        value_type const& table(index_type const& i) const
+        {
+            return m_table[i];
+        }
+
+    protected:
+        boost::optional<value_type> m_ovalue; // must be shared to boost the speed!
+        table_type m_table;
+    };
+
+
+    template< class Iterator >
+    struct single_pass_data :
+        data_super<Iterator>
+    {
+        typedef data_super<Iterator> super_t;
+
+        explicit single_pass_data(Iterator const& it) :
+            m_base(it)
+        { }
+
+        Iterator const& base() const
+        {
+            return m_base;
+        }
+
+        void increment()
+        {
+            this->m_table.push_back(*m_base);
+            ++m_base;
+            this->m_ovalue.reset();
+        }
+
+        typename super_t::value_type const& dereference()
+        {
+            if (!this->m_ovalue)
+                this->m_ovalue = *m_base;
+
+            return *this->m_ovalue;
+        }
+
+    private:
+        Iterator m_base;
+    };
+
+
+    // In a recursive range, as 'Iterator' must live outside
+    // of the range in order to avoid reference-cycles.
+
+    template< class Iterator >
+    struct recursive_data :
+        data_super<Iterator>
+    {
+        typedef data_super<Iterator> super_t;
+
+        explicit recursive_data(Iterator *pit) :
+            m_pbase(pit)
+        { }
+
+        Iterator const& base() const
+        {
+            return *m_pbase;
+        }
+
+        void increment()
+        {
+            this->m_table.push_back(**m_pbase);
+            ++*m_pbase;
+            this->m_ovalue.reset();
+        }
+
+        typename super_t::value_type const& dereference()
+        {
+            if (!this->m_ovalue)
+                this->m_ovalue = **m_pbase;
+
+            return *this->m_ovalue;
+        }
+
+    private:
+        Iterator *m_pbase;
+    };
+
+
+    template< class Iterator, class IsRecursive >
+    struct data_of :
+        boost::mpl::if_< IsRecursive,
+            recursive_data<Iterator>,
+            single_pass_data<Iterator>
+        >
+    { };
+
+
     template< class Iterator, class IsRecursive >
     struct super_
     {
@@ -58,19 +162,6 @@ namespace memoize_iterator_detail {
     };
 
 
-    // A smart pointer is needed, because 'Iterator' may
-    // be neither DefaultConstructible nor CopyAssignable.
-    // In a recursive range, as 'Iterator' must live outside
-    // of the range in order to avoid reference-cycles.
-    template< class Iterator, class IsRecursive >
-    struct smart_ptr :
-        boost::mpl::if_< IsRecursive,
-            Iterator *,
-            boost::shared_ptr<Iterator>
-        >            
-    { };
-
-
 } // namespace memoize_iterator_detail
 
 
@@ -81,10 +172,7 @@ struct memoize_iterator :
 private:
     typedef typename memoize_iterator_detail::super_<Iterator, IsRecursive>::type super_t;
     typedef typename super_t::reference ref_t;
-    typedef typename super_t::value_type val_t;
-    typedef typename memoize_iterator_detail::smart_ptr<Iterator, IsRecursive>::type pbase_t;
-    typedef std::deque<val_t> table_t;
-    typedef typename table_t::size_type index_t;
+    typedef typename memoize_iterator_detail::data_of<Iterator, IsRecursive>::type data_t;
 
 public:
     explicit memoize_iterator()
@@ -92,15 +180,15 @@ public:
 
 template< class, class > friend struct memoize_iterator;
     explicit memoize_iterator(Iterator const& it) :
-        m_pbase(new Iterator(it)),
-        m_ptable(new table_t()), m_index(0)
+        m_pdata(new data_t(it)),
+        m_index(0)
     {
         BOOST_MPL_ASSERT_NOT((IsRecursive));
     }
 
     explicit memoize_iterator(Iterator *pit) :
-        m_pbase(pit),
-        m_ptable(new table_t()), m_index(0)
+        m_pdata(new data_t(pit)),
+        m_index(0)
     {
         BOOST_MPL_ASSERT((IsRecursive));
     }
@@ -110,40 +198,25 @@ template< class, class > friend struct memoize_iterator;
 
     Iterator const& base() const
     {
-        return *m_pbase;
+        return m_pdata->base();
     }
 
 private:
-    pbase_t m_pbase;
-    boost::shared_ptr<table_t> m_ptable;
-    typename table_t::size_type m_index;
-    mutable boost::optional<val_t> m_cached_value;
-
-    Iterator& base_reference()
-    {
-        return *m_pbase;
-    }
+    boost::shared_ptr<data_t> m_pdata;
+    typename data_t::index_type m_index;
 
     bool is_in_table() const
     {
-        return m_index != m_ptable->size();
-    }
-
-    val_t const& cached_value() const
-    {
-        if (!m_cached_value)
-            m_cached_value = *base();
-
-        return *m_cached_value;        
+        return m_pdata->is_in_table(m_index);
     }
 
 friend class boost::iterator_core_access;
     ref_t dereference() const
     {
-        if (is_in_table())
-            return (*m_ptable)[m_index];
+        if (m_pdata->is_in_table(m_index))
+            return m_pdata->table(m_index);
         else
-            return cached_value();
+            return m_pdata->dereference();
     }
 
     template< class Other >
@@ -164,10 +237,8 @@ friend class boost::iterator_core_access;
             ++m_index;
         }
         else {
-            m_ptable->push_back(cached_value());
-            ++base_reference();
+            m_pdata->increment();
             ++m_index;
-            m_cached_value.reset();
         }
     }
 };

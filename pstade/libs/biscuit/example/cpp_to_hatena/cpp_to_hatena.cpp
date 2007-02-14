@@ -80,7 +80,6 @@ int main(int argc, char *argv[])
     BOOST_FOREACH (int i, oven::counting(1, argc)) {
 
         try {
-
             std::string iname(argv[i]);
             std::cout << "<input-file>" << iname << "</input-file>";
 
@@ -100,7 +99,8 @@ int main(int argc, char *argv[])
                     | biscuit::tokenized< or_<wnewline, any> >()         // 改行とそうでないものに分ける
                     | oven::transformed(::newline_cvter())               // 改行なら'\n'に変換する
                     | oven::tab_expanded(::tabsize<>::value)             // タブを空白にする
-                    | oven::memoized,                                    // 速くするためキャッシュする
+                    | oven::memoized
+                    ,                                    // 速くするためキャッシュする
                 oven::to_utf8_encoder(oven::to_stream(fout))|as_ref// UTF-8に戻して出力
             );
 

@@ -137,6 +137,8 @@ struct op_make_memoized :
     Result call(Range& rng) const
     {
         PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+
+        typedef typename Result::iterator iter_t;
         return Result(rng);
     }
 };
