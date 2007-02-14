@@ -159,7 +159,7 @@ private:
 friend class boost::iterator_core_access;
     ref_t dereference() const
     {
-        if (m_pdata->is_in_table(m_index))
+        if (is_in_table())
             return m_pdata->table(m_index);
         else
             return m_pdata->dereference();
@@ -170,11 +170,10 @@ friend class boost::iterator_core_access;
     {
         if (is_in_table() && other.is_in_table())
             return m_index == other.m_index;
-
-        if (!is_in_table() && !other.is_in_table())
+        else if (!is_in_table() && !other.is_in_table())
             return base() == other.base();
-
-        return false;
+        else
+            return false;
     }
 
     void increment()
