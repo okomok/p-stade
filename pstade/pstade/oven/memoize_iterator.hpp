@@ -10,9 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// See:
+// Port of: <boost/spirit/iterator/multi_pass.hpp>
 //
-// <boost/spirit/iterator/multi_pass.hpp>
+// Differences:
+//   No unique-check; rarely unique in range.
+//   No end-iterator-check; it seems redundant.
 
 
 #include <deque>
@@ -24,8 +26,6 @@
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
 #include <boost/shared_ptr.hpp>
-#include <pstade/clone_ptr.hpp>
-#include <pstade/object_generator.hpp>
 
 
 namespace pstade { namespace oven {
@@ -35,112 +35,56 @@ template< class Iterator, class IsRecursive >
 struct memoize_iterator;
 
 
+template< class Iterator >
+struct single_pass_data :
+    private boost::noncopyable
+{
+    typedef typename boost::iterator_value<Iterator>::type value_t;
+    typedef std::deque<value_t> table_t;
+    typedef typename table_t::size_type index_type;
+
+    explicit single_pass_data(Iterator const& it) :
+        m_base(it)
+    { }
+
+    bool is_in_table(index_type const& i) const
+    {
+        return i != m_table.size();
+    }
+
+    value_t const& table(index_type const& i) const
+    {
+        return m_table[i];
+    }
+
+    Iterator const& base() const
+    {
+        return m_base;
+    }
+
+    void increment()
+    {
+        m_table.push_back(dereference());
+        ++m_base;
+        m_ovalue.reset();
+    }
+
+    value_t const& dereference()
+    {
+        if (!this->m_ovalue)
+            this->m_ovalue = *m_base;
+
+        return *this->m_ovalue;
+    }
+
+private:
+    Iterator m_base;
+    boost::optional<value_t> m_ovalue; // must be shared to boost the speed!
+    table_t m_table;
+};
+
+
 namespace memoize_iterator_detail {
-
-
-    template< class Iterator >
-    struct data_super
-    {
-        typedef typename boost::iterator_value<Iterator>::type value_type;
-        typedef std::deque<value_type> table_type;
-        typedef typename table_type::size_type index_type;
-
-        bool is_in_table(index_type const& i) const
-        {
-            return i != m_table.size();
-        }
-
-        value_type const& table(index_type const& i) const
-        {
-            return m_table[i];
-        }
-
-    protected:
-        boost::optional<value_type> m_ovalue; // must be shared to boost the speed!
-        table_type m_table;
-    };
-
-
-    template< class Iterator >
-    struct single_pass_data :
-        data_super<Iterator>
-    {
-        typedef data_super<Iterator> super_t;
-
-        explicit single_pass_data(Iterator const& it) :
-            m_base(it)
-        { }
-
-        Iterator const& base() const
-        {
-            return m_base;
-        }
-
-        void increment()
-        {
-            this->m_table.push_back(*m_base);
-            ++m_base;
-            this->m_ovalue.reset();
-        }
-
-        typename super_t::value_type const& dereference()
-        {
-            if (!this->m_ovalue)
-                this->m_ovalue = *m_base;
-
-            return *this->m_ovalue;
-        }
-
-    private:
-        Iterator m_base;
-    };
-
-
-    // In a recursive range, as 'Iterator' must live outside
-    // of the range in order to avoid reference-cycles.
-
-    template< class Iterator >
-    struct recursive_data :
-        data_super<Iterator>
-    {
-        typedef data_super<Iterator> super_t;
-
-        explicit recursive_data(Iterator *pit) :
-            m_pbase(pit)
-        { }
-
-        Iterator const& base() const
-        {
-            return *m_pbase;
-        }
-
-        void increment()
-        {
-            this->m_table.push_back(**m_pbase);
-            ++*m_pbase;
-            this->m_ovalue.reset();
-        }
-
-        typename super_t::value_type const& dereference()
-        {
-            if (!this->m_ovalue)
-                this->m_ovalue = **m_pbase;
-
-            return *this->m_ovalue;
-        }
-
-    private:
-        Iterator *m_pbase;
-    };
-
-
-    template< class Iterator, class IsRecursive >
-    struct data_of :
-        boost::mpl::if_< IsRecursive,
-            recursive_data<Iterator>,
-            single_pass_data<Iterator>
-        >
-    { };
 
 
     template< class Iterator, class IsRecursive >
@@ -148,18 +92,29 @@ namespace memoize_iterator_detail {
     {
         typedef typename
             boost::iterator_value<Iterator>::type
-        val_t;
+        value_t;
 
         typedef
             boost::iterator_facade<
                 memoize_iterator<Iterator, IsRecursive>,
-                val_t,
+                value_t,
                 boost::forward_traversal_tag,
-                val_t const&,
+                value_t const&,
                 typename boost::iterator_difference<Iterator>::type
             >
         type;
     };
+
+
+    // In a recursive range, 'Iterator' must live outside
+    // of the range in order to avoid reference-cycles.
+    template< class Data, class IsRecursive >
+    struct pointer_of :
+        boost::mpl::if_< IsRecursive,
+            Data *,
+            boost::shared_ptr<Data>
+        >
+    { };
 
 
 } // namespace memoize_iterator_detail
@@ -172,26 +127,17 @@ struct memoize_iterator :
 private:
     typedef typename memoize_iterator_detail::super_<Iterator, IsRecursive>::type super_t;
     typedef typename super_t::reference ref_t;
-    typedef typename memoize_iterator_detail::data_of<Iterator, IsRecursive>::type data_t;
+    typedef single_pass_data<Iterator> data_t;
+    typedef typename memoize_iterator_detail::pointer_of<data_t, IsRecursive>::type pdata_t;
 
 public:
     explicit memoize_iterator()
     { }
 
 template< class, class > friend struct memoize_iterator;
-    explicit memoize_iterator(Iterator const& it) :
-        m_pdata(new data_t(it)),
-        m_index(0)
-    {
-        BOOST_MPL_ASSERT_NOT((IsRecursive));
-    }
-
-    explicit memoize_iterator(Iterator *pit) :
-        m_pdata(new data_t(pit)),
-        m_index(0)
-    {
-        BOOST_MPL_ASSERT((IsRecursive));
-    }
+    explicit memoize_iterator(pdata_t const& pdata) :
+        m_pdata(pdata), m_index(0)
+    { }
 
 // as adaptor
     typedef Iterator base_type;
@@ -202,7 +148,7 @@ template< class, class > friend struct memoize_iterator;
     }
 
 private:
-    boost::shared_ptr<data_t> m_pdata;
+    pdata_t m_pdata;
     typename data_t::index_type m_index;
 
     bool is_in_table() const
@@ -242,10 +188,6 @@ friend class boost::iterator_core_access;
         }
     }
 };
-
-
-PSTADE_OBJECT_GENERATOR(make_memoize_iterator,
-    (memoize_iterator< deduce<_1, to_value> >) const)
 
 
 } } // namespace pstade::oven

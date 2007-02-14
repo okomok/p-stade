@@ -14,6 +14,7 @@
 #include <boost/mpl/bool.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
+#include <boost/shared_ptr.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>
@@ -70,16 +71,16 @@ struct memo_table :
     memo_table()
     { }
 
-    template< class Iterator >
-    void detail_reset(std::auto_ptr<Iterator> pfirst, std::auto_ptr<Iterator> plast)
+    template< class Data >
+    void detail_reset(std::auto_ptr<Data> pfirstData, std::auto_ptr<Data> plastData)
     {
-        m_pfirst.reset(pfirst);
-        m_plast.reset(plast);
+        m_pfirstData.reset(pfirstData);
+        m_plastData.reset(plastData);
     }
 
 private:
-    memo_table_detail::any_auto_ptr m_pfirst;
-    memo_table_detail::any_auto_ptr m_plast;
+    memo_table_detail::any_auto_ptr m_pfirstData;
+    memo_table_detail::any_auto_ptr m_plastData;
 };
 
 
@@ -108,14 +109,15 @@ struct op_make_memoized :
 
         typedef typename Result::iterator iter_t;
         typedef typename iter_t::base_type base_iter_t;
+        typedef single_pass_data<base_iter_t> data_t;
 
         // They live outside of recursive cycles.
-        std::auto_ptr<base_iter_t>
-            pfirst( new base_iter_t(boost::begin(rng)) ),
-            plast ( new base_iter_t(boost::end(rng)) );
+        std::auto_ptr<data_t>
+            pfirstData( new data_t(boost::begin(rng)) ),
+            plastData ( new data_t(boost::end(rng)) );
 
-        Result ret(iter_t(pfirst.get()), iter_t(plast.get()));
-        tb.detail_reset(pfirst, plast);
+        Result ret(iter_t(pfirstData.get()), iter_t(plastData.get()));
+        tb.detail_reset(pfirstData, plastData);
         return ret;
     }
 
@@ -139,7 +141,14 @@ struct op_make_memoized :
         PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
 
         typedef typename Result::iterator iter_t;
-        return Result(rng);
+        typedef typename iter_t::base_type base_iter_t;
+        typedef single_pass_data<base_iter_t> data_t;
+
+        boost::shared_ptr<data_t>
+            pfirstData( new data_t(boost::begin(rng)) ),
+            plastData ( new data_t(boost::end(rng)) );
+
+        return Result(iter_t(pfirstData), iter_t(plastData));
     }
 };
 
