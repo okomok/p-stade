@@ -44,64 +44,56 @@ template< class Iterator, class IsRecursive >
 struct memoize_iterator;
 
 
-template< class Iterator >
-struct single_pass_data :
-    private boost::noncopyable
-{
-    typedef typename
-        boost::iterator_value<Iterator>::type
-    value_t;
-
-    typedef
-        std::deque<value_t>
-    table_t;
-
-    typedef typename
-        table_t::size_type
-    index_type;
-
-    explicit single_pass_data(Iterator const& it) :
-        m_base(it)
-    { }
-
-    bool is_in_table(index_type const& i) const
-    {
-        return i != m_table.size();
-    }
-
-    value_t const& table(index_type const& i) const
-    {
-        return m_table[i];
-    }
-
-    Iterator const& base() const
-    {
-        return m_base;
-    }
-
-    void increment()
-    {
-        m_table.push_back(dereference());
-        ++m_base;
-        m_ovalue.reset();
-    }
-
-    value_t const& dereference()
-    {
-        if (!this->m_ovalue)
-            this->m_ovalue = *m_base;
-
-        return *this->m_ovalue;
-    }
-
-private:
-    Iterator m_base;
-    boost::optional<value_t> m_ovalue; // must be shared to boost the speed!
-    table_t m_table;
-};
-
-
 namespace memoize_iterator_detail {
+
+
+    template< class Iterator >
+    struct single_pass_data :
+        private boost::noncopyable
+    {
+        typedef typename boost::iterator_value<Iterator>::type value_t;
+        typedef std::deque<value_t> table_t;
+        typedef typename table_t::size_type index_type;
+
+        explicit single_pass_data(Iterator const& it) :
+            m_base(it)
+        { }
+
+        bool is_in_table(index_type const& i) const
+        {
+            return i != m_table.size();
+        }
+
+        value_t const& table(index_type const& i) const
+        {
+            return m_table[i];
+        }
+
+        Iterator const& base() const
+        {
+            return m_base;
+        }
+
+        void increment()
+        {
+            m_table.push_back(dereference());
+            ++m_base;
+            m_ovalue.reset();
+        }
+
+        value_t const& dereference()
+        {
+            if (!this->m_ovalue)
+                this->m_ovalue = *m_base;
+
+            return *this->m_ovalue;
+        }
+
+    private:
+        Iterator m_base;
+        boost::optional<value_t> m_ovalue; // must be shared to boost the speed!
+        table_t m_table;
+    };
 
 
     template< class Iterator, class IsRecursive >
@@ -142,16 +134,18 @@ struct memoize_iterator :
     memoize_iterator_detail::super_<Iterator, IsRecursive>::type
 {
 private:
+    typedef memoize_iterator self_t;
     typedef typename memoize_iterator_detail::super_<Iterator, IsRecursive>::type super_t;
     typedef typename super_t::reference ref_t;
-    typedef single_pass_data<Iterator> data_t;
+    typedef memoize_iterator_detail::single_pass_data<Iterator> data_t;
     typedef typename memoize_iterator_detail::pointer_of<data_t, IsRecursive>::type pdata_t;
 
 public:
+    typedef data_t data_type;
+
     explicit memoize_iterator()
     { }
 
-template< class, class > friend struct memoize_iterator;
     explicit memoize_iterator(pdata_t const& pdata) :
         m_pdata(pdata), m_index(0)
     { }
@@ -182,8 +176,7 @@ friend class boost::iterator_core_access;
             return m_pdata->dereference();
     }
 
-    template< class Other >
-    bool equal(Other const& other) const
+    bool equal(self_t const& other) const
     {
         if (is_in_table() && other.is_in_table())
             return m_index == other.m_index;

@@ -51,7 +51,6 @@ namespace memo_table_detail {
         Value m_value;
     };
 
-
     struct any_value
     {
         template< class Value >
@@ -74,16 +73,16 @@ struct memo_table :
     memo_table()
     { }
 
-    template< class Data >
-    void detail_reset(std::auto_ptr<Data> pfirstData, std::auto_ptr<Data> plastData)
+    template< class V, class W >
+    void detail_reset(V v, W w)
     {
-        m_pfirstData.reset(pfirstData);
-        m_plastData.reset(plastData);
+        m_v.reset(v);
+        m_w.reset(w);
     }
 
 private:
-    memo_table_detail::any_value m_pfirstData;
-    memo_table_detail::any_value m_plastData;
+    memo_table_detail::any_value m_v;
+    memo_table_detail::any_value m_w;
 };
 
 
@@ -111,8 +110,7 @@ struct op_make_memoized :
         PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
 
         typedef typename Result::iterator iter_t;
-        typedef typename iter_t::base_type base_iter_t;
-        typedef single_pass_data<base_iter_t> data_t;
+        typedef typename iter_t::data_type data_t;
 
         // They live outside of recursive cycles.
         std::auto_ptr<data_t>
@@ -144,8 +142,7 @@ struct op_make_memoized :
         PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
 
         typedef typename Result::iterator iter_t;
-        typedef typename iter_t::base_type base_iter_t;
-        typedef single_pass_data<base_iter_t> data_t;
+        typedef typename iter_t::data_type data_t;
 
         boost::shared_ptr<data_t>
             pfirstData( new data_t(boost::begin(rng)) ),
