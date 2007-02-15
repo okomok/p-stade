@@ -805,9 +805,9 @@ Pending...
 
 - Header: ``<pstade/oven/memoized.hpp>``
 - Valid expression: ``rng|memoized`` and ``rng|memoized(tb)``, where ``tb`` is a named ``memo_table`` object.
-- Returns: A `Forward Range`_ [#]_ whose values are memoized.
+- Returns: A `Forward Range`_ [#]_ up to `Bidirectional Range`_ whose values are memoized.
 
-.. [#] ``memoized`` can return a `Forward Range`_ even if the base range is a `Single Pass Range`_
+.. [#] ``memoized`` can return a `Forward Range`_ even if the base range is a `Single Pass Range`_.
 
 
 ``merged``
@@ -1318,6 +1318,7 @@ Version 0.93.3
 ^^^^^^^^^^^^^^
 - Fixed a bug of ``generation``.
 - Added ``front`` and ``back``.
-- Added ``recursion`` and ``recursive_memoized``.
+- Added ``recursion``.
+- ``memoized`` can return `Bidirectional Range`_.
 
 

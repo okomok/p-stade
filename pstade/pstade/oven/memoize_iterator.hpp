@@ -12,20 +12,36 @@
 
 // Port of: <boost/spirit/iterator/multi_pass.hpp>
 //
+/*=============================================================================
+    Copyright (c) 2001, Daniel C. Nuffer
+    http://spirit.sourceforge.net/
+
+    Use, modification and distribution is subject to the Boost Software
+    License, Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
+    http://www.boost.org/LICENSE_1_0.txt)
+=============================================================================*/
+//
 // Differences:
 //   No unique-check; rarely unique in range.
 //   No end-iterator-check; it seems redundant.
 
 
 #include <deque>
+#include <boost/iterator/detail/minimum_category.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/mpl/bool.hpp>
+#include <boost/mpl/eval_if.hpp>
+#include <boost/mpl/identity.hpp>
 #include <boost/mpl/if.hpp>
+#include <boost/mpl/not.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
 #include <boost/shared_ptr.hpp>
+#include <boost/type_traits/is_convertible.hpp>
+#include "./detail/indexed_deque.hpp"
+#include "./detail/pure_traversal.hpp"
 
 
 namespace pstade { namespace oven {
@@ -39,9 +55,17 @@ template< class Iterator >
 struct single_pass_data :
     private boost::noncopyable
 {
-    typedef typename boost::iterator_value<Iterator>::type value_t;
-    typedef std::deque<value_t> table_t;
-    typedef typename table_t::size_type index_type;
+    typedef typename
+        boost::iterator_value<Iterator>::type
+    value_t;
+
+    typedef
+        detail::indexed_deque<value_t>
+    table_t;
+
+    typedef typename
+        table_t::index_type
+    index_type;
 
     explicit single_pass_data(Iterator const& it) :
         m_base(it)
@@ -49,7 +73,7 @@ struct single_pass_data :
 
     bool is_in_table(index_type const& i) const
     {
-        return i != m_table.size();
+        return m_table.is_in_range(i);
     }
 
     value_t const& table(index_type const& i) const
@@ -64,8 +88,15 @@ struct single_pass_data :
 
     void increment()
     {
-        m_table.push_back(dereference());
+        m_table.positive_push(dereference());
         ++m_base;
+        m_ovalue.reset();
+    }
+
+    void decrement()
+    {
+        m_table.negative_push(dereference());
+        --m_base;
         m_ovalue.reset();
     }
 
@@ -87,6 +118,25 @@ private:
 namespace memoize_iterator_detail {
 
 
+    template< class Iterator >
+    struct traversal
+    {
+        typedef typename
+            detail::pure_traversal<Iterator>::type
+        trv_t;
+
+        typedef typename
+            boost::mpl::eval_if<
+                boost::mpl::not_<
+                    boost::is_convertible<trv_t, boost::forward_traversal_tag>
+                >,
+                boost::mpl::identity<boost::forward_traversal_tag>,
+                boost::detail::minimum_category<trv_t, boost::bidirectional_traversal_tag>
+            >::type
+        type;
+    };
+
+
     template< class Iterator, class IsRecursive >
     struct super_
     {
@@ -98,7 +148,7 @@ namespace memoize_iterator_detail {
             boost::iterator_facade<
                 memoize_iterator<Iterator, IsRecursive>,
                 value_t,
-                boost::forward_traversal_tag,
+                typename traversal<Iterator>::type,
                 value_t const&,
                 typename boost::iterator_difference<Iterator>::type
             >
@@ -184,6 +234,17 @@ friend class boost::iterator_core_access;
         else {
             m_pdata->increment();
             ++m_index;
+        }
+    }
+
+    void decrement()
+    {
+        if (is_in_table()) {
+            --m_index;
+        }
+        else {
+            m_pdata->decrement();
+            --m_index;
         }
     }
 };

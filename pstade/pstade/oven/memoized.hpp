@@ -114,7 +114,7 @@ struct op_make_memoized :
         // They live outside of recursive cycles.
         std::auto_ptr<data_t>
             pfirstData( new data_t(boost::begin(rng)) ),
-            plastData ( new data_t(boost::end(rng)) );
+            plastData ( new data_t(boost::end(rng))   );
 
         Result ret(iter_t(pfirstData.get()), iter_t(plastData.get()));
         tb.detail_reset(pfirstData, plastData);
@@ -146,7 +146,7 @@ struct op_make_memoized :
 
         boost::shared_ptr<data_t>
             pfirstData( new data_t(boost::begin(rng)) ),
-            plastData ( new data_t(boost::end(rng)) );
+            plastData ( new data_t(boost::end(rng))   );
 
         return Result(iter_t(pfirstData), iter_t(plastData));
     }

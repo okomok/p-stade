@@ -67,7 +67,7 @@ void test()
 
         int const ans[] = { 1,2,5,3,6 };
         std::vector<int> expected = ans|copied;
-        BOOST_CHECK( oven::test_Forward_Readable(
+        BOOST_CHECK( oven::test_Bidirectional_Readable(
             src|memoized(tb)|taken(5),
             expected
         ) );
@@ -77,24 +77,11 @@ void test()
         memo_table tb;
 
         std::vector<char> expected = ans|copied;
-        BOOST_CHECK( oven::test_Forward_Readable(
+        BOOST_CHECK( oven::test_Bidirectional_Readable(
             ans|memoized(tb),
             expected
         ) );
     }
-#if 0 // legacy
-    {
-        std::string ans("18284610528192");
-        std::stringstream ss;
-        memo_table to_table;
-        ss << ans;
-        std::vector<char> expected = ans|copied;
-        BOOST_CHECK( oven::test_Forward_Readable(
-            oven::stream_input<char>(ss)|memoized(to_table),
-            expected
-        ) );
-    }
-#endif
     {
         std::string src("axaxaxbxbxbx");
         std::string s1; // snapshot
