@@ -70,7 +70,7 @@ This document is based on the following specifications.
 
 All the ranges Oven defines are ``InputStreamable`` and ``OutputStreamable`` if ``<pstade/oven/io.hpp>`` is included.
 
-.. [#] The function type is not supported as ``rfun``. Instead, add ``&`` to make it a function **pointer**
+.. [#] The function type is not supported as ``rfun``. Instead, add ``&`` to make a function **pointer**.
 
 
 Range Algorithms
@@ -211,13 +211,15 @@ which creates an infinite range, working with `generation`_.
 ^^^^^^^^^^^
 Boost.Lambda functors are neither ``DefaultConstructible`` nor ``CopyAssignable``.
 An iterator holding such a functor cannot conform to even ``InputIterator``.
-``regular`` converts it to comfortable one for iterators.
+So that, ``regular`` converts it to comfortable one for iterators. [#]_
 
 - Header: ``<pstade/oven/regular.hpp>``
 - Valid expression: ``regular(lambdaFunctor)``
-- Returns: A `Function Object`_ which is ``DefaultConstructible`` and ``CopyAssignable``.
+- Returns: A ``rfun`` which is ``DefaultConstructible`` and ``CopyAssignable``.
 
 In principle, call ``regular`` before a lambda functor is passed to `Range Adaptors`_.
+
+.. [#] ``regular`` incidentally converts the functor into the one which can take non-const rvalues.
 
 
 ``shared_regular``
@@ -227,7 +229,7 @@ In principle, call ``regular`` before a lambda functor is passed to `Range Adapt
 - Header: ``<pstade/oven/regular.hpp>``
 - Valid expression: ``shared_regular(p)``.
 - Precondition: ``boost::shared_ptr`` is constructible from ``p``.
-- Returns: A `Function Object`_ which is ``DefaultConstructible`` and ``CopyAssignable``.
+- Returns: A ``rfun`` which is ``DefaultConstructible`` and ``CopyAssignable``.
 
 
 
@@ -432,7 +434,7 @@ the function on the first argument, the second item by applying the function on 
 
 - Header: ``<pstade/oven/iteration.hpp>``
 - Valid expression: ``iteration(x,fun)``
-- Returns: An infinite `Single Pass Range`_ [#]_ of repeated applications of ``fun`` to ``x``.
+- Returns: An infinite [#]_ `Single Pass Range`_ of repeated applications of ``fun`` to ``x``.
 
 .. [#] Strictly speaking, the `Single Pass Range`_ concept doesn't allow an infinite range. So assume here the end iterator is reachable from the begin iterator in the googolplex number of increments.
 
@@ -798,14 +800,15 @@ Pending...
 
 ``memoized``
 ^^^^^^^^^^^^
-``memoized`` returns a range whose values are cached for speed, preparing for repeated accesses::
+``memoized`` returns a range whose values are cached for speed, preparing for repeated dereferences::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\memoized.ipp
 
 
 - Header: ``<pstade/oven/memoized.hpp>``
 - Valid expression: ``rng|memoized`` and ``rng|memoized(tb)``, where ``tb`` is a named ``memo_table`` object.
-- Returns: A `Forward Range`_ [#]_ up to `Bidirectional Range`_ whose values are memoized.
+- Precondition: ``boost::range_value`` of ``rng`` is ``CopyConstructible``. ``tb`` has longer lifetime than the use of returned range.
+- Returns: A `Forward Range`_ [#]_ whose values are memoized.
 
 .. [#] ``memoized`` can return a `Forward Range`_ even if the base range is a `Single Pass Range`_.
 
@@ -1319,6 +1322,5 @@ Version 0.93.3
 - Fixed a bug of ``generation``.
 - Added ``front`` and ``back``.
 - Added ``recursion``.
-- ``memoized`` can return `Bidirectional Range`_.
 
 

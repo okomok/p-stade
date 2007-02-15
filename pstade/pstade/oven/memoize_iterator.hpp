@@ -51,8 +51,11 @@ namespace memoize_iterator_detail {
     struct memo :
         private boost::noncopyable
     {
+    private:
         typedef typename boost::iterator_value<Iterator>::type value_t;
         typedef std::deque<value_t> table_t;
+
+    public:
         typedef typename table_t::size_type index_type;
 
         explicit memo(Iterator const& it) :
@@ -117,11 +120,11 @@ namespace memoize_iterator_detail {
 
     // In a recursive range, 'Iterator' must live outside
     // of the range in order to avoid reference-cycles.
-    template< class Data, class IsRecursive >
+    template< class Memo, class IsRecursive >
     struct pointer_of :
         boost::mpl::if_< IsRecursive,
-            Data *,
-            boost::shared_ptr<Data>
+            Memo *,
+            boost::shared_ptr<Memo>
         >
     { };
 
