@@ -13,7 +13,7 @@
 // Note:
 //
 // 'lazy_iterator' might be non-conforming.
-// The time of dereference never be constant.
+// The time of the initial dereference never be constant.
 // Also, Member functions for RandomAccess were not implemented,
 // because the distance of range would be infinite and undefined,
 // which is too strange for RandomAccessRange.

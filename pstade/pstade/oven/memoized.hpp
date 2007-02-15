@@ -30,39 +30,40 @@ namespace pstade { namespace oven {
 namespace memo_table_detail {
 
 
-    // 'boost::any' takes argument as const-reference,
-    // which makes 'auto_ptr' unmovable. So we define...
+    // 'boost::any' requires a held type to be CopyConstructible,
+    // 'auto_ptr' is not. In detail, 'boost::any' takes it
+    // as const-reference, hence it becomes unmovable. So we define...
 
-    struct value_placeholder
+    struct placeholder
     {
-        virtual ~value_placeholder()
+        virtual ~placeholder()
         { }
     };
 
-    template< class Value >
-    struct value_holder :
-        value_placeholder
+    template< class X >
+    struct holder :
+        placeholder
     {
-        explicit value_holder(Value value) :
-            m_value(value)
+        explicit holder(X x) :
+            m_x(x)
         { }
 
     private:
-        Value m_value;
+        X m_x;
     };
 
-    struct any_value
+    struct any
     {
-        template< class Value >
-        void reset(Value value)
+        template< class X >
+        void reset(X x)
         {
-            m_pcontent.reset(new value_holder<Value>(value));
+            m_px.reset(new holder<X>(x));
         }
 
     private:
-        std::auto_ptr<value_placeholder> m_pcontent;
+        std::auto_ptr<placeholder> m_px;
     };
-    
+
 
 } // namespace memo_table_detail
 
@@ -70,9 +71,6 @@ namespace memo_table_detail {
 struct memo_table :
     private boost::noncopyable
 {
-    memo_table()
-    { }
-
     template< class V, class W >
     void detail_reset(V v, W w)
     {
@@ -81,8 +79,8 @@ struct memo_table :
     }
 
 private:
-    memo_table_detail::any_value m_v;
-    memo_table_detail::any_value m_w;
+    memo_table_detail::any m_v;
+    memo_table_detail::any m_w;
 };
 
 
