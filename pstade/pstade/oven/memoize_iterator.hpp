@@ -48,14 +48,14 @@ namespace memoize_iterator_detail {
 
 
     template< class Iterator >
-    struct single_pass_data :
+    struct memo :
         private boost::noncopyable
     {
         typedef typename boost::iterator_value<Iterator>::type value_t;
         typedef std::deque<value_t> table_t;
         typedef typename table_t::size_type index_type;
 
-        explicit single_pass_data(Iterator const& it) :
+        explicit memo(Iterator const& it) :
             m_base(it)
         { }
 
@@ -137,17 +137,17 @@ private:
     typedef memoize_iterator self_t;
     typedef typename memoize_iterator_detail::super_<Iterator, IsRecursive>::type super_t;
     typedef typename super_t::reference ref_t;
-    typedef memoize_iterator_detail::single_pass_data<Iterator> data_t;
-    typedef typename memoize_iterator_detail::pointer_of<data_t, IsRecursive>::type pdata_t;
+    typedef memoize_iterator_detail::memo<Iterator> memo_t;
+    typedef typename memoize_iterator_detail::pointer_of<memo_t, IsRecursive>::type pmemo_t;
 
 public:
-    typedef data_t data_type;
+    typedef memo_t memo_type;
 
     explicit memoize_iterator()
     { }
 
-    explicit memoize_iterator(pdata_t const& pdata) :
-        m_pdata(pdata), m_index(0)
+    explicit memoize_iterator(pmemo_t const& pmemo) :
+        m_pmemo(pmemo), m_index(0)
     { }
 
 // as adaptor
@@ -155,25 +155,25 @@ public:
 
     Iterator const& base() const
     {
-        return m_pdata->base();
+        return m_pmemo->base();
     }
 
 private:
-    pdata_t m_pdata;
-    typename data_t::index_type m_index;
+    pmemo_t m_pmemo;
+    typename memo_t::index_type m_index;
 
     bool is_in_table() const
     {
-        return m_pdata->is_in_table(m_index);
+        return m_pmemo->is_in_table(m_index);
     }
 
 friend class boost::iterator_core_access;
     ref_t dereference() const
     {
         if (is_in_table())
-            return m_pdata->table(m_index);
+            return m_pmemo->table(m_index);
         else
-            return m_pdata->dereference();
+            return m_pmemo->dereference();
     }
 
     bool equal(self_t const& other) const
@@ -192,7 +192,7 @@ friend class boost::iterator_core_access;
             ++m_index;
         }
         else {
-            m_pdata->increment();
+            m_pmemo->increment();
             ++m_index;
         }
     }

@@ -110,12 +110,12 @@ struct op_make_memoized :
         PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
 
         typedef typename Result::iterator iter_t;
-        typedef typename iter_t::data_type data_t;
+        typedef typename iter_t::memo_type memo_t;
 
         // They live outside of recursive cycles.
-        std::auto_ptr<data_t>
-            pfirstData( new data_t(boost::begin(rng)) ),
-            plastData ( new data_t(boost::end(rng))   );
+        std::auto_ptr<memo_t>
+            pfirstData( new memo_t(boost::begin(rng)) ),
+            plastData ( new memo_t(boost::end(rng))   );
 
         Result ret(iter_t(pfirstData.get()), iter_t(plastData.get()));
         tb.detail_reset(pfirstData, plastData);
@@ -142,11 +142,11 @@ struct op_make_memoized :
         PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
 
         typedef typename Result::iterator iter_t;
-        typedef typename iter_t::data_type data_t;
+        typedef typename iter_t::memo_type memo_t;
 
-        boost::shared_ptr<data_t>
-            pfirstData( new data_t(boost::begin(rng)) ),
-            plastData ( new data_t(boost::end(rng))   );
+        boost::shared_ptr<memo_t>
+            pfirstData( new memo_t(boost::begin(rng)) ),
+            plastData ( new memo_t(boost::end(rng))   );
 
         return Result(iter_t(pfirstData), iter_t(plastData));
     }
