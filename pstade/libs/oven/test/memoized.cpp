@@ -51,6 +51,7 @@ void test()
     using namespace oven;
     namespace bll = boost::lambda;
 
+#if 0
     {
         std::string ans("18284610528192");
         std::stringstream ss;
@@ -67,17 +68,18 @@ void test()
 
         int const ans[] = { 1,2,5,3,6 };
         std::vector<int> expected = ans|copied;
-        BOOST_CHECK( oven::test_Bidirectional_Readable(
+        BOOST_CHECK( oven::test_Forward_Readable(
             src|memoized(tb)|taken(5),
             expected
         ) );
     }
+#endif
     {
         std::string ans("18284610528192");
         memo_table tb;
 
         std::vector<char> expected = ans|copied;
-        BOOST_CHECK( oven::test_Bidirectional_Readable(
+        BOOST_CHECK( oven::test_Forward_Readable(
             ans|memoized(tb),
             expected
         ) );

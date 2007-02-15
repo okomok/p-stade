@@ -30,35 +30,38 @@ namespace pstade { namespace oven {
 namespace memo_table_detail {
 
 
-    struct auto_ptr_placeholder
+    // 'boost::any' takes argument as const-reference,
+    // which makes 'auto_ptr' unmovable. So we define...
+
+    struct value_placeholder
     {
-        virtual ~auto_ptr_placeholder()
+        virtual ~value_placeholder()
         { }
     };
 
-    template< class X >
-    struct auto_ptr_holder :
-        auto_ptr_placeholder
+    template< class Value >
+    struct value_holder :
+        value_placeholder
     {
-        auto_ptr_holder(std::auto_ptr<X> px) :
-            m_px(px)
+        explicit value_holder(Value value) :
+            m_value(value)
         { }
 
     private:
-        std::auto_ptr<X> m_px;
+        Value m_value;
     };
 
 
-    struct any_auto_ptr
+    struct any_value
     {
-        template< class X >
-        void reset(std::auto_ptr<X> px)
+        template< class Value >
+        void reset(Value value)
         {
-            m_pimpl.reset(new auto_ptr_holder<X>(px));
+            m_pcontent.reset(new value_holder<Value>(value));
         }
 
     private:
-        std::auto_ptr<auto_ptr_placeholder> m_pimpl;
+        std::auto_ptr<value_placeholder> m_pcontent;
     };
     
 
@@ -79,8 +82,8 @@ struct memo_table :
     }
 
 private:
-    memo_table_detail::any_auto_ptr m_pfirstData;
-    memo_table_detail::any_auto_ptr m_plastData;
+    memo_table_detail::any_value m_pfirstData;
+    memo_table_detail::any_value m_plastData;
 };
 
 

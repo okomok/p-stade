@@ -127,15 +127,15 @@ namespace tests_detail {
         PSTADE_CONCEPT_ASSERT((Forward<Range>));
         PSTADE_CONCEPT_ASSERT((Readable<Range>));
 
-        if (!oven::test_SinglePass_Readable(rng, expected)) {
-            BOOST_ASSERT(false);
-            return false;
-        }
-
         boost::forward_readable_iterator_test(
             boost::begin(rng), boost::next(boost::begin(rng)),
             expected[0], expected[1]
         );
+
+        if (!oven::test_SinglePass_Readable(rng, expected)) {
+            BOOST_ASSERT(false);
+            return false;
+        }
 
         if (!oven::equals(
             tests_detail::make_searched(rng,      tests_detail::make_sub(expected)),
@@ -275,15 +275,15 @@ namespace tests_detail {
         PSTADE_CONCEPT_ASSERT((Bidirectional<Range>));
         PSTADE_CONCEPT_ASSERT((Readable<Range>));
 
-        if (!oven::test_Forward_Readable(rng, expected)) {
-            BOOST_ASSERT(false);
-            return false;
-        }
-
         boost::bidirectional_readable_iterator_test(
             boost::begin(rng),
             expected[0], expected[1]
         );
+
+        if (!oven::test_Forward_Readable(rng, expected)) {
+            BOOST_ASSERT(false);
+            return false;
+        }
 
         // Todo: add good test here
         //

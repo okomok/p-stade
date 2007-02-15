@@ -80,7 +80,6 @@ test-suite oven :
     # [ oven-test got_at ]
     [ oven-test headers ]
     [ oven-test identities ]
-    [ oven-test indexed_deque ]
     [ oven-test indexing ]
     [ oven-test indirected ]
     [ oven-test io ]
