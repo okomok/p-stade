@@ -808,7 +808,7 @@ Pending...
 - Header: ``<pstade/oven/memoized.hpp>``
 - Valid expression: ``rng|memoized`` and ``rng|memoized(tb)``, where ``tb`` is a named ``memo_table`` object.
 - Precondition: ``boost::range_value`` of ``rng`` is ``CopyConstructible``. ``tb`` has longer lifetime than the use of returned range.
-- Returns: A `Forward Range`_ [#]_ whose values are memoized.
+- Returns: A `Forward Range`_ whose values are memoized. [#]_
 
 .. [#] ``memoized`` can return a `Forward Range`_ even if the base range is a `Single Pass Range`_.
 

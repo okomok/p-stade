@@ -1,5 +1,3 @@
-std::string rng("hello! any_range!");
-any_range<char const&> any_ =
-    rng|transformed(to_upper)|const_lvalues|filtered(regular(lambda::_1 != '!'));
-
-BOOST_CHECK( oven::equals(any_, std::string("HELLO ANY_RANGE")) );
+any_range<int, boost::single_pass_traversal_tag> factorials =
+    counting_from(1) |
+        scanned(1, regular(lambda::_1 * lambda::_2));

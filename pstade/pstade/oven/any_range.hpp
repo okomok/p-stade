@@ -11,6 +11,7 @@
 
 
 #include <boost/iterator/iterator_categories.hpp>
+#include <pstade/implicitly_defined.hpp>
 #include <pstade/unused_to_copy.hpp>
 #include "./any_iterator.hpp"
 #include "./as_lightweight_proxy.hpp"
@@ -85,6 +86,8 @@ public:
         super_t::operator=(rng);
         return *this;
     }
+
+    PSTADE_IMPLICITLY_DEFINED_COPY_TO_BASE(any_range, super_t)
 };
 
 

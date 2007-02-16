@@ -29,7 +29,6 @@
 #include <deque>
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/iterator/iterator_traits.hpp>
-#include <boost/mpl/assert.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/noncopyable.hpp>
@@ -94,7 +93,7 @@ namespace memoize_iterator_detail {
 
     private:
         Iterator m_base;
-        boost::optional<value_t> m_ovalue; // must be shared to boost the speed!
+        boost::optional<value_t> m_ovalue; // shared to boost the speed!
         table_t m_table;
     };
 
