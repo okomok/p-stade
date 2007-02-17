@@ -62,10 +62,11 @@ namespace any_iterator_detail {
     struct placeholder :
         private boost::noncopyable
     {
+        virtual ~placeholder() { }
+
         // Dr.Becker's way!
         typedef placeholder<Reference, Traversal_, Difference> most_derived_t;
 
-        virtual ~placeholder() { }
         virtual Reference dereference() const = 0;
         virtual bool equal(most_derived_t const& other) const = 0;
         virtual void increment() = 0;
@@ -138,8 +139,7 @@ namespace any_iterator_detail {
     private:
         Iterator m_held;
 
-    // It depends on the base 'placeholder' whether or not these are virtual.
-        placeholder_t *clone() const
+        placeholder_t *clone() const // may be 'virtual' or not.
         {
             return new self_t(m_held);
         }
@@ -205,15 +205,22 @@ namespace any_iterator_detail {
     };
 
 
-    // As a recursive range is Forward, 'shared_ptr' isn't used.
-    // Hence there is no reference-cycles.
-    template< class Traversal, class PlaceHolder >
-    struct pimpl_of :
-        boost::mpl::if_< boost::is_same<Traversal, boost::single_pass_traversal_tag>,
-            boost::shared_ptr<PlaceHolder>,
-            clone_ptr<PlaceHolder>
-        >
-    { };
+    template< class Reference, class Traversal, class Difference >
+    struct pimpl_of
+    {
+        typedef
+            placeholder<Reference, Traversal, Difference>
+        placeholder_t;
+
+        // As a recursive range is Forward, 'shared_ptr' isn't used.
+        // Hence there is no reference-cycles.
+        typedef typename
+            boost::mpl::if_< boost::is_same<Traversal, boost::single_pass_traversal_tag>,
+                boost::shared_ptr<placeholder_t>,
+                clone_ptr<placeholder_t>
+            >::type
+        type;
+    };
 
 
 } // namespace any_iterator_detail
@@ -231,8 +238,7 @@ struct any_iterator :
 private:
     typedef typename any_iterator_detail::super_<Reference, Traversal, Value, Difference>::type super_t;
     typedef typename super_t::difference_type diff_t;
-    typedef any_iterator_detail::placeholder<Reference, Traversal, diff_t> placeholder_t;
-    typedef typename any_iterator_detail::pimpl_of<Traversal, placeholder_t>::type pimpl_t;
+    typedef typename any_iterator_detail::pimpl_of<Reference, Traversal, diff_t>::type pimpl_t;
 
 public:
     explicit any_iterator()
