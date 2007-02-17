@@ -57,6 +57,16 @@ void test()
         std::vector<char> expected = rng|copied;
 
         any_range<char&, boost::random_access_traversal_tag> any_(rng);
+        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
+            any_,
+            expected
+        ) );
+    }
+    {
+        std::string rng("8frj91j81hf891y2");
+        std::vector<char> expected = rng|copied;
+
+        any_range<char&, boost::random_access_traversal_tag> any_;
         any_ = rng;
         BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
             any_,
@@ -64,8 +74,39 @@ void test()
         ) );
     }
     {
+        std::string rng("8frj91j81hf891y2");
+        std::vector<char> expected = rng|copied;
+
+        any_range<char&, boost::bidirectional_traversal_tag> any_(rng|identities(boost::bidirectional_traversal_tag()));
+        BOOST_CHECK( oven::test_Bidirectional_Readable_Writable(
+            any_,
+            expected
+        ) );
+    }
+    {
+        std::string rng("8frj91j81hf891y2");
+        std::vector<char> expected = rng|copied;
+
+        any_range<char&, boost::forward_traversal_tag> any_(rng|identities(boost::forward_traversal_tag()));
+        BOOST_CHECK( oven::test_Forward_Readable_Writable(
+            any_,
+            expected
+        ) );
+    }
+    {
+        std::string rng("8frj91j81hf891y2");
+        std::vector<char> expected = rng|copied;
+
+        any_range<char&, boost::single_pass_traversal_tag> any_(rng|identities(boost::single_pass_traversal_tag()));
+        BOOST_CHECK( oven::test_SinglePass_Readable(
+            any_,
+            expected
+        ) );
+    }
+    {
         std::string str;
-        any_range<char&, boost::random_access_traversal_tag> any_rng(str|identities);
+        any_range<char&, boost::random_access_traversal_tag> any_(str|identities);
+        BOOST_CHECK( oven::test_empty(any_) );
     }
     {
         std::string rng("hello! any_range!");
