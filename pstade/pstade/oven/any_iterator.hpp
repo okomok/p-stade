@@ -62,6 +62,8 @@ namespace any_iterator_detail {
     struct placeholder :
         private boost::noncopyable
     {
+        // In fact, 'shared_ptr' needs no virtual destructor,
+        // but there is no way to suppress GCC warning.
         virtual ~placeholder() { }
 
         // Dr.Becker's way!
@@ -128,7 +130,7 @@ namespace any_iterator_detail {
 
     public:
         explicit holder(Iterator const& held) :
-          m_held(held)
+            m_held(held)
         { }
 
         Iterator const& held() const
@@ -139,7 +141,9 @@ namespace any_iterator_detail {
     private:
         Iterator m_held;
 
-        placeholder_t *clone() const // may be 'virtual' or not.
+    // These may be 'virtual', depending on the base 'placeholder'.
+
+        placeholder_t *clone() const
         {
             return new self_t(m_held);
         }
@@ -246,6 +250,7 @@ public:
 
     // There is no implicit constructor.
     // Dr.Becker's implemenation tells why.
+    // Anyway, we have the 'any_range'!
 
     template< class Iterator_ >
     explicit any_iterator(Iterator_ const& it) :
