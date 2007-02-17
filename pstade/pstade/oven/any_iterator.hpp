@@ -12,12 +12,11 @@
 
 // What:
 //
-// Waiting for Thomas Becker's implementation to come into the Boost...
+// Waiting for Dr.Becker's implementation to come into the Boost...
 // http://thbecker.net/free_software_utilities/type_erasure_for_cpp_iterators/start_page.html
 
 
 #include <cstddef> // ptrdiff_t
-#include <boost/assert.hpp>
 #include <boost/cast.hpp> // polymorphic_downcast
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_facade.hpp>
@@ -63,14 +62,21 @@ namespace any_iterator_detail {
     struct placeholder :
         private boost::noncopyable
     {
+        // Dr.Becker's way!
         typedef placeholder<Reference, Traversal_, Difference> most_derived_t;
 
         virtual ~placeholder() { }
-        virtual most_derived_t *clone() const = 0;
-
         virtual Reference dereference() const = 0;
         virtual bool equal(most_derived_t const& other) const = 0;
         virtual void increment() = 0;
+    };
+
+    template< class Reference, class Difference, class Traversal_ >
+    struct placeholder<Reference, boost::forward_traversal_tag, Difference, Traversal_> :
+        placeholder<Reference, boost::single_pass_traversal_tag, Difference, Traversal_>
+    {
+        typedef placeholder<Reference, Traversal_, Difference> most_derived_t;
+        virtual most_derived_t *clone() const = 0;
     };
 
     template< class Reference, class Difference, class Traversal_ >
@@ -99,7 +105,7 @@ namespace any_iterator_detail {
 
 
     template< class Iterator, class Traversal, class Difference >
-    struct difference_is_convertible :
+    struct is_valid_difference :
         boost::mpl::eval_if< boost::is_same<Traversal, boost::random_access_traversal_tag>,
             boost::is_convertible<typename boost::iterator_difference<Iterator>::type, Difference>,
             boost::mpl::true_
@@ -114,7 +120,7 @@ namespace any_iterator_detail {
     private:
         BOOST_MPL_ASSERT((detail::reference_is_convertible_aux<typename boost::iterator_reference<Iterator>::type, Reference>));
         BOOST_MPL_ASSERT((boost::is_convertible<typename boost::iterator_traversal<Iterator>::type, Traversal>));
-        BOOST_MPL_ASSERT((difference_is_convertible<Iterator, Traversal, Difference>));
+        BOOST_MPL_ASSERT((is_valid_difference<Iterator, Traversal, Difference>));
 
         typedef holder self_t;
         typedef placeholder<Reference, Traversal, Difference> placeholder_t;
@@ -132,14 +138,13 @@ namespace any_iterator_detail {
     private:
         Iterator m_held;
 
+    // It depends on the base 'placeholder' whether or not these are virtual.
         placeholder_t *clone() const
         {
             return new self_t(m_held);
         }
 
     public:
-        // It depends on the 'placeholder' whether or not these are 'virtual'.
-
         Reference dereference() const
         {
             return *m_held;
@@ -201,7 +206,7 @@ namespace any_iterator_detail {
 
 
     // As a recursive range is Forward, 'shared_ptr' isn't used.
-    // Hence there is no reference cycles.
+    // Hence there is no reference-cycles.
     template< class Traversal, class PlaceHolder >
     struct pimpl_of :
         boost::mpl::if_< boost::is_same<Traversal, boost::single_pass_traversal_tag>,
@@ -234,7 +239,7 @@ public:
     { }
 
     // There is no implicit constructor.
-    // The implementation by Thomas Becker tells why.
+    // Dr.Becker's implemenation tells why.
 
     template< class Iterator_ >
     explicit any_iterator(Iterator_ const& it) :
