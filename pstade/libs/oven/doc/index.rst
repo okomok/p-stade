@@ -7,7 +7,7 @@ The Oven Range Library
 :Author: Shunsuke Sogame
 :Contact: pstade.mb@gmail.com
 :License: Distributed under the `Boost Software License Version 1.0`_
-:Version: 0.93.3
+:Version: 0.93.4
 
 
 
@@ -1192,6 +1192,7 @@ Acknowledgments
 - `Proposal for new string algorithms in TR2`__
 - `Cradle - A C++ Sandbox`__
 - `RangeLib - The Boost Iterable Range Library`__
+- `Type Erasure for C++ Iterators`__
 - `VTL (View Template Library)`__
 
 __ http://www.flll.jku.at/staff/private/roland/view/
@@ -1199,6 +1200,7 @@ __ http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2068.html
 __ http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html
 __ http://sourceforge.jp/projects/cradle/
 __ http://www.torjo.com/rangelib/index.html
+__ http://thbecker.net/free_software_utilities/type_erasure_for_cpp_iterators/start_page.html
 __ http://www.zib.de/weiser/vtl/
 
 
@@ -1322,5 +1324,9 @@ Version 0.93.3
 - Fixed a bug of ``generation``.
 - Added ``front`` and ``back``.
 - Added ``recursion``.
+
+Version 0.93.4
+^^^^^^^^^^^^^^
+- Optimized ``any_range``; thanks to Dr.Thomas Becker.
 
 

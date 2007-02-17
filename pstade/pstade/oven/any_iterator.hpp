@@ -60,10 +60,7 @@ namespace any_iterator_detail {
 
 
     template< class Reference, class Traversal, class Difference, class Traversal_ = Traversal >
-    struct placeholder;
-
-    template< class Reference, class Difference, class Traversal_ >
-    struct placeholder<Reference, boost::single_pass_traversal_tag, Difference, Traversal_> :
+    struct placeholder :
         private boost::noncopyable
     {
         typedef placeholder<Reference, Traversal_, Difference> most_derived_t;
@@ -75,11 +72,6 @@ namespace any_iterator_detail {
         virtual bool equal(most_derived_t const& other) const = 0;
         virtual void increment() = 0;
     };
-
-    template< class Reference, class Difference, class Traversal_ >
-    struct placeholder<Reference, boost::forward_traversal_tag, Difference, Traversal_> :
-        placeholder<Reference, boost::single_pass_traversal_tag, Difference, Traversal_>
-    { };
 
     template< class Reference, class Difference, class Traversal_ >
     struct placeholder<Reference, boost::bidirectional_traversal_tag, Difference, Traversal_> :
