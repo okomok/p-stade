@@ -56,7 +56,7 @@ namespace any_iterator_detail {
     }
 
 
-    template< class Reference, class Traversal, class Difference, class Traversal_ = Traversal >
+    template< class Reference, class Traversal, class Difference, class T = Traversal >
     struct placeholder :
         private boost::noncopyable
     {
@@ -65,38 +65,38 @@ namespace any_iterator_detail {
         virtual ~placeholder() { }
 
         // Dr.Becker's way!
-        typedef placeholder<Reference, Traversal_, Difference> most_derived_t;
+        typedef placeholder<Reference, T, Difference> most_derived_t;
 
         virtual Reference dereference() const = 0;
         virtual bool equal(most_derived_t const& other) const = 0;
         virtual void increment() = 0;
     };
 
-    template< class Reference, class Difference, class Traversal_ >
-    struct placeholder<Reference, boost::forward_traversal_tag, Difference, Traversal_> :
-        placeholder<Reference, boost::single_pass_traversal_tag, Difference, Traversal_>
+    template< class Reference, class Difference, class T >
+    struct placeholder<Reference, boost::forward_traversal_tag, Difference, T> :
+        placeholder<Reference, boost::single_pass_traversal_tag, Difference, T>
     {
-        typedef placeholder<Reference, Traversal_, Difference> most_derived_t;
+        typedef placeholder<Reference, T, Difference> most_derived_t;
         virtual most_derived_t *clone() const = 0;
     };
 
-    template< class Reference, class Difference, class Traversal_ >
-    struct placeholder<Reference, boost::bidirectional_traversal_tag, Difference, Traversal_> :
-        placeholder<Reference, boost::forward_traversal_tag, Difference, Traversal_>
+    template< class Reference, class Difference, class T >
+    struct placeholder<Reference, boost::bidirectional_traversal_tag, Difference, T> :
+        placeholder<Reference, boost::forward_traversal_tag, Difference, T>
     {
         virtual void decrement() = 0;
     };
 
-    template< class Reference, class Difference, class Traversal_ >
-    struct placeholder<Reference, boost::random_access_traversal_tag, Difference, Traversal_> :
-        placeholder<Reference, boost::bidirectional_traversal_tag, Difference, Traversal_>
+    template< class Reference, class Difference, class T >
+    struct placeholder<Reference, boost::random_access_traversal_tag, Difference, T> :
+        placeholder<Reference, boost::bidirectional_traversal_tag, Difference, T>
     {
         virtual void advance(Difference const& d) = 0;
         virtual Difference difference_to(placeholder const& other) const = 0;
     };
 
 
-    // Clonable concept
+    // Be a model of Clonable for 'clone_ptr'.
     template< class Reference, class Traversal, class Difference > inline
     placeholder<Reference, Traversal, Difference> *
     new_clone(placeholder<Reference, Traversal, Difference> const& ph)
