@@ -16,7 +16,6 @@
 // http://thbecker.net/free_software_utilities/type_erasure_for_cpp_iterators/start_page.html
 
 
-#include <cstddef> // ptrdiff_t
 #include <boost/cast.hpp> // polymorphic_downcast
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_facade.hpp>
@@ -52,7 +51,7 @@ namespace any_iterator_detail {
     template< class To, class From > inline
     To const& downcast(From const& from)
     {
-        // 'Iterator_' types must be the same.
+        // 'Iterator' types must be the same.
         return *boost::polymorphic_downcast<To const *>(&from);
     }
 
@@ -239,13 +238,13 @@ public:
     explicit any_iterator()
     { }
 
-    // The constructor from 'Iterator_' isn't implicit.
+    // The constructor from 'Iterator' isn't implicit.
     // 'UglyIssue.txt' of Dr.Becker's implemenation tells why.
 
-    template< class Iterator_ >
-    explicit any_iterator(Iterator_ const& it) :
+    template< class Iterator >
+    explicit any_iterator(Iterator const& it) :
         m_pimpl(new
-            any_iterator_detail::holder<Iterator_, Reference, Traversal, Difference>
+            any_iterator_detail::holder<Iterator, Reference, Traversal, Difference>
         (it))
     { }
 
@@ -261,11 +260,11 @@ template< class, class, class, class > friend struct any_iterator;
         (other))
     { }
 
-    template< class Iterator_ >
-    Iterator_ const& base() const
+    template< class Iterator >
+    Iterator const& base() const
     {
         return any_iterator_detail::downcast<
-            any_iterator_detail::holder<Iterator_, Reference, Traversal, Difference>
+            any_iterator_detail::holder<Iterator, Reference, Traversal, Difference>
         >(*m_pimpl).held();
     }
 
@@ -278,8 +277,7 @@ friend class boost::iterator_core_access;
         return m_pimpl->dereference();
     }
 
-    // This can't take 'any_iterator<R, T, V, D>' without implicit conversion,
-    // because 'placeholder' type is farely different.
+    // Can't be a template; 'placeholder' type is farely different.
     bool equal(self_t const& other) const
     {
         return m_pimpl->equal(*other.m_pimpl);

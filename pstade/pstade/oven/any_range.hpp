@@ -11,7 +11,6 @@
 
 
 #include <cstddef> // ptrdiff_t
-#include <boost/iterator/iterator_categories.hpp>
 #include <pstade/implicitly_defined.hpp>
 #include <pstade/remove_cvr.hpp>
 #include <pstade/use_default.hpp>
