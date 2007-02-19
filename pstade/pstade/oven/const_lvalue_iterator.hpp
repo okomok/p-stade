@@ -67,10 +67,9 @@ public:
         super_t(it)
     { }
 
-    template< class Iterator_ >
-    const_lvalue_iterator(
-        const_lvalue_iterator<Iterator_> const& other,
-        typename boost::enable_if_convertible<Iterator_, Iterator>::type * = 0
+    template< class I >
+    const_lvalue_iterator(const_lvalue_iterator<I> const& other,
+        typename boost::enable_if_convertible<I, Iterator>::type * = 0
     ) :
         super_t(other.base())
     { }

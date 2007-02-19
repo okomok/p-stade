@@ -174,6 +174,11 @@ void test()
         //BOOST_CHECK( boost::const_begin(rng) == any_ );
     }
 #endif
+    {
+        std::string str("jgi8e8qnboie");
+        any_range_of<std::string>::type any_ = str;
+        BOOST_CHECK( oven::equals(str, any_) );
+    }
 }
 
 

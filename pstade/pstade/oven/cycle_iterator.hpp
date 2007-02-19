@@ -112,11 +112,10 @@ public:
     { }
 
 template< class, class > friend struct cycle_iterator;
-    template< class ForwardIter_, class Size_ >
-    cycle_iterator(
-        cycle_iterator<ForwardIter_, Size_> const& other,
-        typename boost::enable_if_convertible<ForwardIter_, ForwardIter>::type * = 0,
-        typename boost::enable_if_convertible<Size_, Size>::type * = 0
+    template< class F, class S >
+    cycle_iterator(cycle_iterator<F, S> const& other,
+        typename boost::enable_if_convertible<F, ForwardIter>::type * = 0,
+        typename boost::enable_if_convertible<S, Size>::type * = 0
     ) :
         super_t(other.base()), m_index(other.m_index),
         m_first(other.m_first), m_last(other.m_last)
@@ -139,8 +138,8 @@ friend class boost::iterator_core_access;
         return *this->base();
     }
 
-    template< class ForwardIter_, class Size_ >
-    bool equal(cycle_iterator<ForwardIter_, Size_> const& other) const
+    template< class F, class S >
+    bool equal(cycle_iterator<F, S> const& other) const
     {
         BOOST_ASSERT(m_index >= 0);
         BOOST_ASSERT(is_compatible(other));
@@ -180,8 +179,8 @@ friend class boost::iterator_core_access;
         BOOST_ASSERT(m_index >= 0);
     }
 
-    template< class ForwardIter_, class Size_ >
-    diff_t distance_to(cycle_iterator<ForwardIter_, Size_> const& other) const
+    template< class F, class S >
+    diff_t distance_to(cycle_iterator<F, S> const& other) const
     {
         BOOST_ASSERT(is_compatible(other));
 

@@ -64,10 +64,9 @@ public:
     { }
 
 template< class > friend struct tab_unexpand_iterator;
-    template< class ForwardIter_ >
-    tab_unexpand_iterator(
-        tab_unexpand_iterator<ForwardIter_> const& other,
-        typename boost::enable_if_convertible<ForwardIter_, ForwardIter>::type * = 0
+    template< class F >
+    tab_unexpand_iterator(tab_unexpand_iterator<F> const& other,
+        typename boost::enable_if_convertible<F, ForwardIter>::type * = 0
     ) :
         super_t(other.base()),
         m_last(other.end()), m_sol(other.m_sol), 
@@ -146,8 +145,8 @@ friend class boost::iterator_core_access;
         return *this->base();
     }
 
-    template< class ForwardIter_ >
-    bool equal(tab_unexpand_iterator<ForwardIter_> const& other) const
+    template< class F >
+    bool equal(tab_unexpand_iterator<F> const& other) const
     {
         BOOST_ASSERT(is_compatible(other));
         return this->base() == other.base();

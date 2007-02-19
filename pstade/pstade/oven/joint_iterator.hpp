@@ -110,11 +110,10 @@ public:
     { }
 
 template< class, class > friend struct joint_iterator;
-    template< class IteratorL_, class IteratorR_ >
-    joint_iterator(
-        joint_iterator<IteratorL_, IteratorR_> const& other,
-        typename boost::enable_if_convertible<IteratorL_, IteratorL>::type * = 0,
-        typename boost::enable_if_convertible<IteratorR_, IteratorR>::type * = 0
+    template< class IL, class IR >
+    joint_iterator(joint_iterator<IL, IR> const& other,
+        typename boost::enable_if_convertible<IL, IteratorL>::type * = 0,
+        typename boost::enable_if_convertible<IR, IteratorR>::type * = 0
     ) :
         super_t(other.base()), m_lastL(other.m_lastL), 
         m_firstR(other.m_firstR), m_itR(other.m_itR)
@@ -152,8 +151,8 @@ friend class boost::iterator_core_access;
             return *m_itR;
     }
 
-    template< class IteratorL_, class IteratorR_ >
-    bool equal(joint_iterator<IteratorL_, IteratorR_> const& other) const
+    template< class IL, class IR >
+    bool equal(joint_iterator<IL, IR> const& other) const
     {
         BOOST_ASSERT(invariant());
         BOOST_ASSERT(other.invariant());
@@ -196,8 +195,8 @@ friend class boost::iterator_core_access;
         }
     }
 
-    template< class IteratorL_, class IteratorR_ >
-    diff_t distance_to(joint_iterator<IteratorL_, IteratorR_> const& other) const
+    template< class IL, class IR >
+    diff_t distance_to(joint_iterator<IL, IR> const& other) const
     {
         BOOST_ASSERT(invariant());
         BOOST_ASSERT(is_compatible(other));

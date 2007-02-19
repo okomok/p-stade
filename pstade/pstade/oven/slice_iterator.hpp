@@ -71,10 +71,9 @@ public:
         BOOST_ASSERT(is_valid_start());
     }
 
-    template< class RandIter_ >
-    slice_iterator(
-        slice_iterator<RandIter_> const& other,
-        typename boost::enable_if_convertible<RandIter_, RandIter>::type * = 0
+    template< class R >
+    slice_iterator(slice_iterator<R> const& other,
+        typename boost::enable_if_convertible<R, RandIter>::type * = 0
     ) :
         super_t(other.base()), m_start(other.start()), m_stride(other.stride())
     {
@@ -117,8 +116,8 @@ friend class boost::iterator_core_access;
         return **m_cache;
     }
 
-    template< class RandIter_ >
-    bool equal(slice_iterator<RandIter_> const& other) const
+    template< class R >
+    bool equal(slice_iterator<R> const& other) const
     {
         BOOST_ASSERT(is_compatible(other));
         return this->base() == other.base();
@@ -142,8 +141,8 @@ friend class boost::iterator_core_access;
         m_cache.reset();
     }
 
-    template< class RandIter_ >
-    diff_t distance_to(slice_iterator<RandIter_> const& other) const
+    template< class R >
+    diff_t distance_to(slice_iterator<R> const& other) const
     {
         BOOST_ASSERT(is_compatible(other));
         return (other.base() - this->base()) / m_stride;

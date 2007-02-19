@@ -105,10 +105,9 @@ public:
         m_singular(false)
     { }
 
-    template< class Iterator_ >
-    check_iterator(
-        check_iterator<Iterator_> const& other,
-        typename boost::enable_if_convertible<Iterator_, Iterator>::type * = 0
+    template< class I >
+    check_iterator(check_iterator<I> const& other,
+        typename boost::enable_if_convertible<I, Iterator>::type * = 0
     ) :
         super_t(other.base()),
         m_first(other.begin()), m_last(other.end()),
@@ -161,8 +160,8 @@ friend class boost::iterator_core_access;
         return *this->base();
     }
 
-    template< class Iterator_ >
-    bool equal(check_iterator<Iterator_> const& other) const
+    template< class I >
+    bool equal(check_iterator<I> const& other) const
     {
         check_iterator_detail::check_singularity(*this);
         check_iterator_detail::check_singularity(other);
@@ -205,8 +204,8 @@ friend class boost::iterator_core_access;
         this->base_reference() += d;
     }
 
-    template< class Iterator_ >
-    diff_t distance_to(check_iterator<Iterator_> const& other) const
+    template< class I >
+    diff_t distance_to(check_iterator<I> const& other) const
     {
         check_iterator_detail::check_singularity(*this);
         check_iterator_detail::check_singularity(other);

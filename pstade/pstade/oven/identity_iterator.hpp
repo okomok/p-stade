@@ -71,10 +71,9 @@ public:
         super_t(it)
     { }
 
-    template< class Iterator_, class Traversal_ >
-    identity_iterator(
-        identity_iterator<Iterator_, Traversal_> const& other,
-        typename boost::enable_if_convertible<Iterator_, Iterator>::type * = 0
+    template< class I, class T >
+    identity_iterator(identity_iterator<I, T> const& other,
+        typename boost::enable_if_convertible<I, Iterator>::type * = 0
     ) :
         super_t(other.base())
     { }

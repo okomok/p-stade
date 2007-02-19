@@ -66,11 +66,11 @@ public:
     { }
 
 template< class > friend struct share_iterator;
-    template< class Range_ >
-    share_iterator(share_iterator<Range_> const& other,
-        typename boost::enable_if_convertible<typename range_iterator<Range_>::type, iter_t>::type * = 0,
+    template< class R >
+    share_iterator(share_iterator<R> const& other,
+        typename boost::enable_if_convertible<typename range_iterator<R>::type, iter_t>::type * = 0,
         // Prefer pointer type; 'shared_ptr' convertibility seems over-optimistic.
-        typename boost::enable_if_convertible<Range_ *, Range *>::type * = 0
+        typename boost::enable_if_convertible<R *, Range *>::type * = 0
     ) :
         super_t(other.base()), m_prng(other.m_prng)
     { }

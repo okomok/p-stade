@@ -67,10 +67,9 @@ public:
         check_predicate();
     }
 
-    template< class Iterator_ >
-    take_while_iterator(
-        take_while_iterator<Iterator_, Predicate> const& other,
-        typename boost::enable_if_convertible<Iterator_, Iterator>::type * = 0
+    template< class I >
+    take_while_iterator(take_while_iterator<I, Predicate> const& other,
+        typename boost::enable_if_convertible<I, Iterator>::type * = 0
     ) :
         super_t(other.base()), m_last(other.end()), m_pred(other.predicate())
     { }
@@ -116,8 +115,8 @@ friend class boost::iterator_core_access;
         return *this->base();
     }
 
-    template< class Iterator_ >
-    bool equal(take_while_iterator<Iterator_, Predicate> const& other) const
+    template< class I >
+    bool equal(take_while_iterator<I, Predicate> const& other) const
     {
         BOOST_ASSERT(is_compatible(other));
         return this->base() == other.base();

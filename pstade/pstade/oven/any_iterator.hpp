@@ -22,6 +22,8 @@
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/mpl/assert.hpp>
+#include <boost/mpl/bool.hpp>
+#include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/shared_ptr.hpp>
@@ -106,6 +108,15 @@ namespace any_iterator_detail {
     }
 
 
+    template< class Iterator, class Traversal, class Difference >
+    struct is_valid_difference :
+        boost::mpl::eval_if< boost::is_same<Traversal, boost::random_access_traversal_tag>,
+            boost::is_convertible<typename boost::iterator_difference<Iterator>::type, Difference>,
+            boost::mpl::true_
+        >
+    { };
+
+
     template< class Iterator, class Reference, class Traversal, class Difference >
     struct holder :
         placeholder<Reference, Traversal, Difference>
@@ -113,6 +124,7 @@ namespace any_iterator_detail {
     private:
         BOOST_MPL_ASSERT((detail::reference_is_convertible_aux<typename boost::iterator_reference<Iterator>::type, Reference>));
         BOOST_MPL_ASSERT((boost::is_convertible<typename boost::iterator_traversal<Iterator>::type, Traversal>));
+        BOOST_MPL_ASSERT((is_valid_difference<Iterator, Traversal, Difference>));
 
         typedef holder self_t;
         typedef placeholder<Reference, Traversal, Difference> placeholder_t;
@@ -160,13 +172,11 @@ namespace any_iterator_detail {
 
         void advance(Difference const& d)
         {
-            BOOST_MPL_ASSERT((boost::is_convertible<typename boost::iterator_difference<Iterator>::type, Difference>));
             m_held += d;
         }
 
         Difference difference_to(placeholder_t const& other) const
         {
-            BOOST_MPL_ASSERT((boost::is_convertible<typename boost::iterator_difference<Iterator>::type, Difference>));
             return any_iterator_detail::downcast<self_t>(other).m_held - m_held;
         }
     };

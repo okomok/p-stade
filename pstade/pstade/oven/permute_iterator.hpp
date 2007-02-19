@@ -68,11 +68,10 @@ public:
     { }
 
 template< class, class > friend struct permute_iterator;
-    template< class ElementIter_, class IndexIter_ >
-    permute_iterator(
-        permute_iterator<ElementIter_, IndexIter_> const& other,
-        typename boost::enable_if_convertible<ElementIter_, ElementIter>::type * = 0,
-        typename boost::enable_if_convertible<IndexIter_, IndexIter>::type * = 0
+    template< class E, class I >
+    permute_iterator(permute_iterator<E, I> const& other,
+        typename boost::enable_if_convertible<E, ElementIter>::type * = 0,
+        typename boost::enable_if_convertible<I, IndexIter>::type   * = 0
     ) :
         super_t(other.base()), m_elemIter(other.m_elemIter)
     { }

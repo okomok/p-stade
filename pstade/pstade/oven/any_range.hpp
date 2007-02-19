@@ -16,6 +16,10 @@
 #include "./any_iterator.hpp"
 #include "./as_lightweight_proxy.hpp"
 #include "./iter_range.hpp"
+#include "./range_difference.hpp"
+#include "./range_reference.hpp"
+#include "./range_traversal.hpp"
+#include "./range_value.hpp"
 
 
 namespace pstade { namespace oven {
@@ -88,6 +92,20 @@ public:
     }
 
     PSTADE_IMPLICITLY_DEFINED_COPY_TO_BASE(any_range, super_t)
+};
+
+
+template< class Range >
+struct any_range_of
+{
+    typedef
+        any_range<
+            typename range_reference<Range>::type,
+            typename range_pure_traversal<Range>::type,
+            typename range_value<Range>::type,
+            typename range_difference<Range>::type
+        >
+    type;
 };
 
 

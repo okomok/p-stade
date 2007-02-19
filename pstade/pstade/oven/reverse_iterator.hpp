@@ -65,10 +65,9 @@ public:
         super_t(it)
     { }
 
-    template< class BidiIter_ >
-    reverse_iterator(
-        reverse_iterator<BidiIter_> const& other,
-        typename boost::enable_if_convertible<BidiIter_, BidiIter>::type * = 0
+    template< class B >
+    reverse_iterator(reverse_iterator<B> const& other,
+        typename boost::enable_if_convertible<B, BidiIter>::type * = 0
     ) :
         super_t(other.base())
     { }
@@ -103,8 +102,8 @@ friend class boost::iterator_core_access;
         m_cache.reset();
     }
 
-    template< class BidiIter_ >
-    diff_t distance_to(reverse_iterator<BidiIter_> const& other) const
+    template< class B >
+    diff_t distance_to(reverse_iterator<B> const& other) const
     {
         return this->base() - other.base();
     }

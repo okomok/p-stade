@@ -80,10 +80,9 @@ public:
         super_t(it), m_council(council), m_last(last)
     { }
 
-    template< class ForwardIter_ >
-    succeed_iterator(
-        succeed_iterator<ForwardIter_, BinaryFun> const& other,
-        typename boost::enable_if_convertible<ForwardIter_, ForwardIter>::type * = 0
+    template< class F >
+    succeed_iterator(succeed_iterator<F, BinaryFun> const& other,
+        typename boost::enable_if_convertible<F, ForwardIter>::type * = 0
     ) :
         super_t(other.base()), m_council(other.council()), m_last(other.end())
     { }
@@ -115,8 +114,8 @@ friend class boost::iterator_core_access;
         return *this->base();
     }
 
-    template< class ForwardIter_ >
-    bool equal(succeed_iterator<ForwardIter_, BinaryFun> const& other) const
+    template< class F >
+    bool equal(succeed_iterator<F, BinaryFun> const& other) const
     {
         BOOST_ASSERT(is_compatible(other));
         return this->base() == other.base();
