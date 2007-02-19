@@ -195,7 +195,7 @@ public:
 
 template< class, class, class, class > friend struct merge_iterator;
     template< class I1, class I2 >
-    merge_iterator(merge_iterator<I1, I2, Compare> const& other,
+    merge_iterator(merge_iterator<I1, I2, Compare, MergeRoutine> const& other,
         typename boost::enable_if_convertible<I1, Iterator1>::type * = 0,
         typename boost::enable_if_convertible<I2, Iterator2>::type * = 0
     ) :
@@ -234,7 +234,7 @@ friend class boost::iterator_core_access;
     }
 
     template< class I1, class I2 >
-    bool equal(merge_iterator<I1, I2, Compare> const& other) const
+    bool equal(merge_iterator<I1, I2, Compare, MergeRoutine> const& other) const
     {
         BOOST_ASSERT(is_compatible(other));
         return this->base() == other.base() && m_it2 == other.m_it2;

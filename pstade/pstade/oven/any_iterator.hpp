@@ -248,7 +248,6 @@ public:
         (it))
     { }
 
-template< class, class, class, class > friend struct any_iterator;
     template< class R, class T, class V, class D >
     any_iterator(any_iterator<R, T, V, D> const& other,
         typename enable_if< boost::is_convertible<R, Reference>  >::type = 0,
