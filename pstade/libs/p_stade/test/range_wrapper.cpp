@@ -5,11 +5,16 @@
 #include <boost/range.hpp>
 #include <boost/iterator/permutation_iterator.hpp>
 #include <boost/algorithm/string.hpp>
+#include <boost/utility/result_of.hpp>
+#include <boost/type_traits/remove_reference.hpp>
+#include <boost/type_traits/add_const.hpp>
 
 
 template<class A>
 struct detail_argument :
-    boost::remove_reference<A const>
+    boost::remove_reference<
+        typename boost::add_const<A>::type
+    >
 { };
 
 
@@ -26,7 +31,7 @@ struct op_make_permuted
                 typename boost::range_result_iterator<
                     typename detail_argument<Elements>::type
                 >::type,
-                typename boost::range_result_iterator<
+                typename boost::range_const_iterator<
                     typename detail_argument<Indices>::type
                 >::type
             >
@@ -71,7 +76,9 @@ void test()
     std::string es("abcdefghijklmn");
     int is[] = { 3, 8, 5, 1 };
 
-    BOOST_CHECK( boost::equals(::make_permuted(es, is), std::string("difb")) );
+    boost::result_of< ::op_make_permuted(std::string&, int(&)[4]) >::type
+        result = ::make_permuted(es, is);
+    BOOST_CHECK( boost::equals(result, std::string("difb")) );
 }
 
 
