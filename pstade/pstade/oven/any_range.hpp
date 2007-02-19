@@ -10,8 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <cstddef> // ptrdiff_t
 #include <boost/iterator/iterator_categories.hpp>
 #include <pstade/implicitly_defined.hpp>
+#include <pstade/remove_cvr.hpp>
+#include <pstade/use_default.hpp>
 #include <pstade/unused_to_copy.hpp>
 #include "./any_iterator.hpp"
 #include "./as_lightweight_proxy.hpp"
@@ -38,7 +41,12 @@ namespace any_range_detail {
     {
         typedef
             iter_range<
-                any_iterator<Reference, Traversal, Value, Difference>
+                any_iterator<
+                    Reference,
+                    Traversal,
+                    typename use_default_eval_to< Value, remove_cvr<Reference> >::type,
+                    typename use_default_to<Difference, std::ptrdiff_t>::type
+                >
             >
         type;
     };

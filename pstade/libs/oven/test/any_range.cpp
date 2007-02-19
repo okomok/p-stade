@@ -52,13 +52,13 @@ void test_iterator()
 
     std::string src("abc");
     {
-        any_iterator<char&, boost::forward_traversal_tag> it1(boost::begin(src));
-        any_iterator<char const&, boost::single_pass_traversal_tag> it2 = it1; // implicit conversion.
+        any_iterator<char&, boost::forward_traversal_tag, char, std::ptrdiff_t> it1(boost::begin(src));
+        any_iterator<char const&, boost::single_pass_traversal_tag, char, std::ptrdiff_t> it2 = it1; // implicit conversion.
         BOOST_CHECK( it2 == it1 );
     }
     {
-        any_iterator<char&, boost::random_access_traversal_tag> it1(boost::begin(src));
-        any_iterator<char const&, boost::random_access_traversal_tag, boost::use_default, int> it2 = it1; // implicit conversion.
+        any_iterator<char&, boost::random_access_traversal_tag, char, std::ptrdiff_t> it1(boost::begin(src));
+        any_iterator<char const&, boost::random_access_traversal_tag, char, int> it2 = it1; // implicit conversion.
         BOOST_CHECK( it2 == it1 );
         BOOST_CHECK( (it2 - it1) == 0 );
     }
@@ -144,7 +144,7 @@ void test()
     }
     {
         std::string rng("abcd");
-        typedef any_iterator<char&, boost::random_access_traversal_tag> many_iter;
+        typedef any_iterator<char&, boost::random_access_traversal_tag, char, std::ptrdiff_t> many_iter;
         many_iter many(boost::begin(rng));
         // many.base<char *>(); // bad_cast!
         many.base<std::string::iterator>();

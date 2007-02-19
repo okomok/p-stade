@@ -31,8 +31,6 @@
 #include <boost/type_traits/is_same.hpp>
 #include <pstade/clone_ptr.hpp>
 #include <pstade/enable_if.hpp>
-#include <pstade/remove_cvr.hpp>
-#include <pstade/use_default.hpp>
 #include "./detail/reference_is_convertible.hpp"
 
 
@@ -109,7 +107,7 @@ namespace any_iterator_detail {
 
 
     template< class Iterator, class Traversal, class Difference >
-    struct is_valid_difference :
+    struct has_convertible_difference :
         boost::mpl::eval_if< boost::is_same<Traversal, boost::random_access_traversal_tag>,
             boost::is_convertible<typename boost::iterator_difference<Iterator>::type, Difference>,
             boost::mpl::true_
@@ -124,7 +122,7 @@ namespace any_iterator_detail {
     private:
         BOOST_MPL_ASSERT((detail::reference_is_convertible_aux<typename boost::iterator_reference<Iterator>::type, Reference>));
         BOOST_MPL_ASSERT((boost::is_convertible<typename boost::iterator_traversal<Iterator>::type, Traversal>));
-        BOOST_MPL_ASSERT((is_valid_difference<Iterator, Traversal, Difference>));
+        BOOST_MPL_ASSERT((has_convertible_difference<Iterator, Traversal, Difference>));
 
         typedef holder self_t;
         typedef placeholder<Reference, Traversal, Difference> placeholder_t;
@@ -190,21 +188,13 @@ namespace any_iterator_detail {
     >
     struct super_
     {
-        typedef typename
-            use_default_eval_to< Value, remove_cvr<Reference> >::type
-        value_t;
-
-        typedef typename
-            use_default_to<Difference, std::ptrdiff_t>::type
-        diff_t;
-
         typedef
             boost::iterator_facade<
                 any_iterator<Reference, Traversal, Value, Difference>,
-                value_t,
+                Value,
                 Traversal,
                 Reference,
-                diff_t
+                Difference
             >
         type;
     };
@@ -234,8 +224,8 @@ namespace any_iterator_detail {
 template<
     class Reference,
     class Traversal,
-    class Value      = boost::use_default,
-    class Difference = boost::use_default
+    class Value,
+    class Difference
 >
 struct any_iterator :
     any_iterator_detail::super_<Reference, Traversal, Value, Difference>::type
@@ -243,8 +233,7 @@ struct any_iterator :
 private:
     typedef any_iterator self_t;
     typedef typename any_iterator_detail::super_<Reference, Traversal, Value, Difference>::type super_t;
-    typedef typename super_t::difference_type diff_t;
-    typedef typename any_iterator_detail::pimpl_of<Reference, Traversal, diff_t>::type pimpl_t;
+    typedef typename any_iterator_detail::pimpl_of<Reference, Traversal, Difference>::type pimpl_t;
 
 public:
     explicit any_iterator()
@@ -256,19 +245,19 @@ public:
     template< class Iterator_ >
     explicit any_iterator(Iterator_ const& it) :
         m_pimpl(new
-            any_iterator_detail::holder<Iterator_, Reference, Traversal, diff_t>
+            any_iterator_detail::holder<Iterator_, Reference, Traversal, Difference>
         (it))
     { }
 
 template< class, class, class, class > friend struct any_iterator;
     template< class R, class T, class V, class D >
     any_iterator(any_iterator<R, T, V, D> const& other,
-        typename enable_if< boost::is_convertible<R, Reference> >::type = 0,
-        typename enable_if< boost::is_convertible<T, Traversal> >::type = 0,
-        typename enable_if< boost::is_convertible<typename any_iterator<R, T, V, D>::diff_t, diff_t> >::type = 0
+        typename enable_if< boost::is_convertible<R, Reference>  >::type = 0,
+        typename enable_if< boost::is_convertible<T, Traversal>  >::type = 0,
+        typename enable_if< boost::is_convertible<D, Difference> >::type = 0
     ) :
         m_pimpl(new
-            any_iterator_detail::holder<any_iterator<R, T, V, D>, Reference, Traversal, diff_t>
+            any_iterator_detail::holder<any_iterator<R, T, V, D>, Reference, Traversal, Difference>
         (other))
     { }
 
@@ -276,7 +265,7 @@ template< class, class, class, class > friend struct any_iterator;
     Iterator_ const& base() const
     {
         return any_iterator_detail::downcast<
-            any_iterator_detail::holder<Iterator_, Reference, Traversal, diff_t>
+            any_iterator_detail::holder<Iterator_, Reference, Traversal, Difference>
         >(*m_pimpl).held();
     }
 
@@ -306,12 +295,12 @@ friend class boost::iterator_core_access;
         m_pimpl->decrement();
     }
 
-    void advance(diff_t const& d)
+    void advance(Difference const& d)
     {
         m_pimpl->advance(d);
     }
 
-    diff_t distance_to(self_t const& other) const
+    Difference distance_to(self_t const& other) const
     {
         return m_pimpl->difference_to(*other.m_pimpl);
     }
