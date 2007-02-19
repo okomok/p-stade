@@ -136,7 +136,6 @@ struct memoize_iterator :
     memoize_iterator_detail::super_<Iterator, IsRecursive>::type
 {
 private:
-    typedef memoize_iterator self_t;
     typedef typename memoize_iterator_detail::super_<Iterator, IsRecursive>::type super_t;
     typedef typename super_t::reference ref_t;
     typedef memoize_iterator_detail::memo<Iterator> memo_t;
@@ -178,7 +177,7 @@ friend class boost::iterator_core_access;
             return m_pmemo->dereference();
     }
 
-    bool equal(self_t const& other) const
+    bool equal(memoize_iterator const& other) const
     {
         if (is_in_table() && other.is_in_table())
             return m_index == other.m_index;

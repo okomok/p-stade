@@ -130,12 +130,15 @@ public:
         reset_local_forward();
     }
 
-
 template< class > friend struct concatenate_iterator;
     template< class SegmentIter_ >
     concatenate_iterator(
         concatenate_iterator<SegmentIter_> const& other,
-        typename boost::enable_if_convertible<SegmentIter_, SegmentIter>::type * = 0
+        typename boost::enable_if_convertible<SegmentIter_, SegmentIter>::type * = 0,
+        typename boost::enable_if_convertible<
+            typename concatenate_iterator<SegmentIter_>::local_iterator,
+            local_iterator
+        >::type * = 0
     ) :
         super_t(other.base()), m_last(other.m_last),
         m_local(other.m_local)
@@ -212,8 +215,8 @@ friend class boost::iterator_core_access;
         return *m_local;
     }
 
-    template< class Other >
-    bool equal(Other const& other) const
+    template< class SegmentIter_ >
+    bool equal(concatenate_iterator<SegmentIter_> const& other) const
     {
         PSTADE_PRECONDITION (
             (is_compatible(other))

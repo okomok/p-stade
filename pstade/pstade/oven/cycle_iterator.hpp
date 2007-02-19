@@ -17,8 +17,8 @@
 // Also note <boost-sandbox/boost/view/cyclic_iterator.hpp>.
 
 
-#include <boost/config.hpp> // BOOST_MSVC
 #include <boost/assert.hpp>
+#include <boost/config.hpp> // BOOST_MSVC
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <pstade/object_generator.hpp>
 #include "./detail/constant_reference.hpp"
@@ -103,7 +103,10 @@ public:
     cycle_iterator()
     { }
 
-    cycle_iterator(ForwardIter const& it, Size const& index, ForwardIter const& first, ForwardIter const& last) :
+    cycle_iterator(
+        ForwardIter const& it, Size const& index,
+        ForwardIter const& first, ForwardIter const& last
+    ) :
         super_t(it), m_index(index),
         m_first(first), m_last(last)
     { }
@@ -115,24 +118,9 @@ template< class, class > friend struct cycle_iterator;
         typename boost::enable_if_convertible<ForwardIter_, ForwardIter>::type * = 0,
         typename boost::enable_if_convertible<Size_, Size>::type * = 0
     ) :
-        super_t(other.base()), m_index(other.index()),
-        m_first(other.m_first()), m_last(other.m_last())
+        super_t(other.base()), m_index(other.m_index),
+        m_first(other.m_first), m_last(other.m_last)
     { }
-
-    ForwardIter const& sbegin() const
-    {
-        return m_first;
-    }
-
-    ForwardIter const& send() const
-    {
-        return m_last;
-    }
-
-    Size index() const
-    {
-        return m_index;
-    }
 
 private:
     Size m_index;
@@ -151,8 +139,8 @@ friend class boost::iterator_core_access;
         return *this->base();
     }
 
-    template< class Other >
-    bool equal(Other const& other) const
+    template< class ForwardIter_, class Size_ >
+    bool equal(cycle_iterator<ForwardIter_, Size_> const& other) const
     {
         BOOST_ASSERT(m_index >= 0);
         BOOST_ASSERT(is_compatible(other));
@@ -192,13 +180,13 @@ friend class boost::iterator_core_access;
         BOOST_ASSERT(m_index >= 0);
     }
 
-    template< class Other >
-    diff_t distance_to(Other const& other) const
+    template< class ForwardIter_, class Size_ >
+    diff_t distance_to(cycle_iterator<ForwardIter_, Size_> const& other) const
     {
         BOOST_ASSERT(is_compatible(other));
 
         return
-            cycle_iterator_detail::pseudo_pos<diff_t>(other.base(), other.index(), other.m_first, other.m_last)
+            cycle_iterator_detail::pseudo_pos<diff_t>(other.base(), other.m_index, other.m_first, other.m_last)
             - cycle_iterator_detail::pseudo_pos<diff_t>(this->base(), m_index, m_first, m_last);
     }
 

@@ -149,8 +149,8 @@ friend class boost::iterator_core_access;
         return *this->base();
     }
 
-    template< class Other >
-    bool equal(Other const& other) const
+    template< class ForwardIter_ >
+    bool equal(tab_expand_iterator<ForwardIter_> const& other) const
     {
         BOOST_ASSERT(is_compatible(other));
 

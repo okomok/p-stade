@@ -26,6 +26,7 @@
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/noncopyable.hpp>
+#include <boost/pointee.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/type_traits/is_convertible.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -240,6 +241,7 @@ struct any_iterator :
     any_iterator_detail::super_<Reference, Traversal, Value, Difference>::type
 {
 private:
+    typedef any_iterator self_t;
     typedef typename any_iterator_detail::super_<Reference, Traversal, Value, Difference>::type super_t;
     typedef typename super_t::difference_type diff_t;
     typedef typename any_iterator_detail::pimpl_of<Reference, Traversal, diff_t>::type pimpl_t;
@@ -248,9 +250,8 @@ public:
     explicit any_iterator()
     { }
 
-    // There is no implicit constructor.
-    // Dr.Becker's implemenation tells why.
-    // Anyway, we have the 'any_range'!
+    // The constructor from 'Iterator_' isn't implicit.
+    // 'UglyIssue.txt' of Dr.Becker's implemenation tells why.
 
     template< class Iterator_ >
     explicit any_iterator(Iterator_ const& it) :
@@ -276,8 +277,7 @@ friend class boost::iterator_core_access;
         return m_pimpl->dereference();
     }
 
-    template< class Other >
-    bool equal(Other const& other) const
+    bool equal(self_t const& other) const
     {
         return m_pimpl->equal(*other.m_pimpl);
     }
@@ -297,8 +297,7 @@ friend class boost::iterator_core_access;
         m_pimpl->advance(d);
     }
 
-    template< class Other >
-    diff_t distance_to(Other const& other) const
+    diff_t distance_to(self_t const& other) const
     {
         return m_pimpl->difference_to(*other.m_pimpl);
     }

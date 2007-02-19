@@ -234,8 +234,8 @@ friend class boost::iterator_core_access;
             this->base(), m_last1, m_it2, m_last2, m_comp);
     }
 
-    template< class Other >
-    bool equal(Other const& other) const
+    template< class Iterator1_, class Iterator2_ >
+    bool equal(merge_iterator<Iterator1_, Iterator2_, Compare> const& other) const
     {
         BOOST_ASSERT(is_compatible(other));
         return this->base() == other.base() && m_it2 == other.m_it2;

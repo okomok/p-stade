@@ -161,8 +161,8 @@ friend class boost::iterator_core_access;
         return *this->base();
     }
 
-    template< class Other >
-    bool equal(Other const& other) const
+    template< class Iterator_ >
+    bool equal(check_iterator<Iterator_> const& other) const
     {
         check_iterator_detail::check_singularity(*this);
         check_iterator_detail::check_singularity(other);
@@ -191,7 +191,7 @@ friend class boost::iterator_core_access;
         --this->base_reference();
     }
 
-    void advance(diff_t d)
+    void advance(diff_t const& d)
     {
         check_iterator_detail::check_singularity(*this);
 
@@ -205,8 +205,8 @@ friend class boost::iterator_core_access;
         this->base_reference() += d;
     }
 
-    template< class Other >
-    diff_t distance_to(Other const& other) const
+    template< class Iterator_ >
+    diff_t distance_to(check_iterator<Iterator_> const& other) const
     {
         check_iterator_detail::check_singularity(*this);
         check_iterator_detail::check_singularity(other);

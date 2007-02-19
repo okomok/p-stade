@@ -20,6 +20,7 @@
 #include <boost/range/end.hpp>
 #include <pstade/auxiliary.hpp>
 #include <pstade/function.hpp>
+#include "./concepts.hpp"
 #include "./detail/next_prior.hpp" // prior
 #include "./range_value.hpp"
 
@@ -39,6 +40,7 @@ namespace front_back_detail {
 
         result call(Range& rng)
         {
+            PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
             return *boost::begin(rng);
         }
     };
@@ -53,6 +55,7 @@ namespace front_back_detail {
 
         result call(Range& rng)
         {
+            PSTADE_CONCEPT_ASSERT((Bidirectional<Range>));
             return *detail::prior(boost::end(rng));
         }
     };

@@ -45,6 +45,23 @@ bool equals(AnyIter1 it1, AnyIter2 it2)
 }
 
 
+#if 0
+void test_iterator()
+{
+    namespace oven = pstade::oven;
+    using namespace oven;
+
+    std::string src("abc");
+    any_iterator<char&, boost::forward_traversal_tag> it1(boost::begin(src));
+
+    // farely difficult to achieve;
+    // because 'placeholder' hierarchy is not so simple,
+    // hence, pointee of 'pimpl_t' hierarchy is not so simple.
+    any_iterator<char&, boost::single_pass_traversal_tag> it2 = it1; // implicit conversion.
+}
+#endif
+
+
 void test()
 {
     namespace lambda = boost::lambda;

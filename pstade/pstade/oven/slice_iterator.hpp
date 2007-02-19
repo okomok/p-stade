@@ -81,12 +81,12 @@ public:
         BOOST_ASSERT(is_valid_start());
     }
 
-    diff_t start() const
+    diff_t const& start() const
     {
         return m_start;
     }
 
-    diff_t stride() const
+    diff_t const& stride() const
     {
         return m_stride;
     }
@@ -117,8 +117,8 @@ friend class boost::iterator_core_access;
         return **m_cache;
     }
 
-    template< class Other >
-    bool equal(Other const& other) const
+    template< class RandIter_ >
+    bool equal(slice_iterator<RandIter_> const& other) const
     {
         BOOST_ASSERT(is_compatible(other));
         return this->base() == other.base();
@@ -142,8 +142,8 @@ friend class boost::iterator_core_access;
         m_cache.reset();
     }
 
-    template< class Other >
-    diff_t distance_to(Other const& other) const
+    template< class RandIter_ >
+    diff_t distance_to(slice_iterator<RandIter_> const& other) const
     {
         BOOST_ASSERT(is_compatible(other));
         return (other.base() - this->base()) / m_stride;

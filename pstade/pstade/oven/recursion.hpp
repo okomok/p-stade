@@ -25,6 +25,8 @@
 #include <boost/optional.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
+#include <boost/type_traits/is_convertible.hpp>
+#include <pstade/enable_if.hpp>
 #include <pstade/for_debug.hpp>
 #include <pstade/function.hpp>
 #include "./concepts.hpp"
@@ -74,15 +76,23 @@ namespace recursion_detail {
         typedef typename super_t::difference_type diff_t;
 
     public:
+        typedef typename range_iterator<Range>::type base_type;
+
         lazy_iterator()
         { }
 
-    template< class > friend struct lazy_iterator;
         lazy_iterator(Range& rng, bool is_end) :
             m_prng(boost::addressof(rng)), m_is_from_end(is_end), m_saved_diff(0)
         { }
 
-        typedef typename range_iterator<Range>::type base_type;
+    template< class > friend struct lazy_iterator;
+        template< class Range_ >
+        lazy_iterator(lazy_iterator<Range_> const& other,
+            typename enable_if< boost::is_convertible<Range_*, Range *> >::type = 0,
+            typename enable_if< boost::is_convertible<typename lazy_iterator<Range_>::base_type, base_type> >::type = 0
+        ) :
+            m_prng(other.m_prng), m_is_from_end(other.m_is_from_end), m_saved_diff(other.m_saved_diff), m_obase(other.m_obase)
+        { }
 
         base_type const& base() const
         {
@@ -136,8 +146,8 @@ namespace recursion_detail {
             return *base();
         }
 
-        template< class Other >
-        bool equal(Other const& other) const
+        template< class Range_ >
+        bool equal(lazy_iterator<Range_> const& other) const
         {
             BOOST_ASSERT(is_compatible(other));
 

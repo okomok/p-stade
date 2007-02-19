@@ -97,14 +97,14 @@ friend class boost::iterator_core_access;
         m_cache.reset();
     }
 
-    void advance(diff_t d)
+    void advance(diff_t const& d)
     {
         this->base_reference() += -d;
         m_cache.reset();
     }
 
-    template< class Other >
-    diff_t distance_to(Other const& other) const
+    template< class BidiIter_ >
+    diff_t distance_to(reverse_iterator<BidiIter_> const& other) const
     {
         return this->base() - other.base();
     }

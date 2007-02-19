@@ -116,8 +116,8 @@ friend class boost::iterator_core_access;
         return *this->base();
     }
 
-    template< class Other >
-    bool equal(Other const& other) const
+    template< class Iterator_ >
+    bool equal(take_while_iterator<Iterator_, Predicate> const& other) const
     {
         BOOST_ASSERT(is_compatible(other));
         return this->base() == other.base();

@@ -21,6 +21,8 @@
 #include <boost/assert.hpp>
 #include <boost/operators.hpp> // totally_ordered
 #include <boost/ptr_container/clone_allocator.hpp>
+#include <boost/type_traits/is_convertible.hpp>
+#include <pstade/enable_if.hpp>
 #include <pstade/nullptr.hpp>
 #include <pstade/radish/bool_testable.hpp>
 #include <pstade/radish/pointable.hpp>
@@ -82,6 +84,17 @@ struct clone_ptr :
         clone_ptr_detail::delete_(m_ptr);
     }
 
+    clone_ptr(self_t const& other) :
+        m_ptr(other ? clone_ptr_detail::new_(*other) : PSTADE_NULLPTR)
+    { }
+
+    template< class Clonable_ >
+    clone_ptr(clone_ptr<Clonable_> const& other,
+        typename enable_if< boost::is_convertible<Clonable_ *, Clonable *> >::type = 0
+    ) :
+        m_ptr(other ? clone_ptr_detail::new_(*other) : PSTADE_NULLPTR)
+    { }
+
     template< class Clonable_ >
     explicit clone_ptr(Clonable_ *p) :
         m_ptr(p)
@@ -92,12 +105,15 @@ struct clone_ptr :
         m_ptr(ap.release())
     { }
 
-// copy
-    clone_ptr(self_t const& other) :
-        m_ptr(other ? clone_ptr_detail::new_(*other) : PSTADE_NULLPTR)
-    { }
-
+// copy-assignments
     self_t& operator=(self_t const& other)
+    {
+        self_t(other).swap(*this);
+        return *this;
+    }
+
+    template< class Clonable_ >
+    self_t& operator=(clone_ptr<Clonable_> const& other)
     {
         self_t(other).swap(*this);
         return *this;

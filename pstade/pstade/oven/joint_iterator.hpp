@@ -152,8 +152,8 @@ friend class boost::iterator_core_access;
             return *m_itR;
     }
 
-    template< class Other >
-    bool equal(Other const& other) const
+    template< class IteratorL_, class IteratorR_ >
+    bool equal(joint_iterator<IteratorL_, IteratorR_> const& other) const
     {
         BOOST_ASSERT(invariant());
         BOOST_ASSERT(other.invariant());
@@ -196,8 +196,8 @@ friend class boost::iterator_core_access;
         }
     }
 
-    template< class Other >
-    diff_t distance_to(Other const& other) const
+    template< class IteratorL_, class IteratorR_ >
+    diff_t distance_to(joint_iterator<IteratorL_, IteratorR_> const& other) const
     {
         BOOST_ASSERT(invariant());
         BOOST_ASSERT(is_compatible(other));

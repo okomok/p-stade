@@ -94,7 +94,6 @@ void check_regular(T x)
 
 void test()
 {
-    using namespace boost;
     using namespace pstade;
 
     ::xxx x(3);
@@ -103,26 +102,26 @@ void test()
         typedef clone_ptr< ::xxx > val_t;
         std::vector< val_t > xs;
 
-        val_t v1(pstade::op_new_auto< ::xxx>()(3));
-        val_t v2(pstade::op_new_auto< ::yyy>()(5));
+        val_t v1(op_new_auto< ::xxx>()(3));
+        val_t v2(op_new_auto< ::yyy>()(5));
         xs.push_back( v1 );
         xs.push_back( v2 );
-        xs.push_back( val_t(pstade::op_new_auto< ::xxx>()(9)) );
+        xs.push_back( val_t(op_new_auto< ::xxx>()(9)) );
         xs.push_back( val_t(v1) );
-        xs.push_back( val_t(pstade::op_new_auto< ::yyy>()(6)) );
-        xs.push_back( val_t(pstade::op_new_auto< ::xxx>()(7)) );
-        xs.push_back( val_t(pstade::op_new_auto< ::xxx>()(12)) );
+        xs.push_back( val_t(op_new_auto< ::yyy>()(6)) );
+        xs.push_back( val_t(op_new_auto< ::xxx>()(7)) );
+        xs.push_back( val_t(op_new_auto< ::xxx>()(12)) );
         xs.push_back( val_t(v2) );
 
         std::sort(xs.begin(), xs.end());
 
-        BOOST_FOREACH( ::xxx& x, xs|oven::indirected) {
+        BOOST_FOREACH (::xxx& x, xs|oven::indirected) {
             (void)x;
         }
     }
 
     {
-        clone_ptr< ::xxx > ax(pstade::op_new_auto< ::xxx>()(5));
+        clone_ptr< ::xxx > ax(op_new_auto< ::xxx>()(5));
         *ax;
         ax->m_i;
         ::check_clone_ptr(ax);
@@ -130,7 +129,7 @@ void test()
     }
 
     {
-        clone_ptr< ::zzz > az(pstade::op_new_auto< ::zzz>()(3));
+        clone_ptr< ::zzz > az(op_new_auto< ::zzz>()(3));
     }
 
     {
@@ -139,13 +138,36 @@ void test()
         // ss << ac; // rejected
         get_pointer(ac);
         swap(ac, bc);
-        ac = pstade::op_new_auto<char>()('a');
+        ac = op_new_auto<char>()('a');
         ac.release();
     }
 
     {
         clone_ptr< ::no_ass > a;
         ::check_clone_ptr(a);
+    }
+
+    {
+        {
+            // from pointer
+            clone_ptr< ::xxx > pxx(new ::xxx(10));
+            clone_ptr< ::xxx > pxy(new ::yyy(10));
+            pxx = new ::xxx(10);
+            pxy = new ::yyy(10);
+        }
+        {
+            // from auto_ptr
+            clone_ptr< ::xxx > pxx(pstade::op_new_auto< ::xxx >()(10));
+            clone_ptr< ::xxx > pxy(pstade::op_new_auto< ::yyy >()(10));
+            pxx = op_new_auto< ::xxx >()(10);
+            pxy = op_new_auto< ::yyy> ()(10);
+        }
+        {
+            // from convertible
+            clone_ptr< ::yyy > pyy(new ::yyy(10));
+            clone_ptr< ::xxx > pxy(pyy);
+            pxy = pyy;
+        }
     }
 }
 

@@ -20,6 +20,7 @@
 
 #include <boost/iterator_adaptors.hpp>
 #include <boost/shared_ptr.hpp>
+#include <boost/utility/addressof.hpp>
 #include "./range_iterator.hpp"
 
 
@@ -62,6 +63,16 @@ public:
 
     share_iterator(iter_t const& it, boost::shared_ptr<Range> const& prng) :
         super_t(it), m_prng(prng)
+    { }
+
+template< class > friend struct share_iterator;
+    template< class Range_ >
+    share_iterator(share_iterator<Range_> const& other,
+        typename boost::enable_if_convertible<typename range_iterator<Range_>::type, iter_t>::type * = 0,
+        // Prefer pointer type; 'shared_ptr' convertibility seems over-optimistic.
+        typename boost::enable_if_convertible<Range_ *, Range *>::type * = 0
+    ) :
+        super_t(other.base()), m_prng(other.m_prng)
     { }
 
     Range& range() const
