@@ -11,6 +11,7 @@
 
 
 #include <cstddef> // ptrdiff_t
+#include <boost/iterator/iterator_categories.hpp>
 #include <pstade/implicitly_defined.hpp>
 #include <pstade/remove_cvr.hpp>
 #include <pstade/use_default.hpp>
@@ -62,7 +63,7 @@ template<
 >
 struct any_range :
     any_range_detail::super_<Reference, Traversal, Value, Difference>::type,
-    private as_lightweight_proxy< any_range<Reference, Traversal, Value, Difference> >
+    private as_lightweight_proxy< any_range<Reference, boost::single_pass_traversal_tag, Value, Difference> >
 {
 private:
     typedef any_range self_t;

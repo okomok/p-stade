@@ -32,6 +32,8 @@ void test()
         BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
             rng, expected
         ) );
+
+        BOOST_CHECK( oven::test_is_lightweight_proxy(rng) );
     }
     {
         oven::sub_range<std::string> rng1(src);

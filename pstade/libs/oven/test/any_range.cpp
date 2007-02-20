@@ -83,6 +83,8 @@ void test()
             any_,
             expected
         ) );
+
+        BOOST_CHECK( !oven::test_is_lightweight_proxy(any_) );
     }
     {
         std::string rng("8frj91j81hf891y2");
@@ -124,6 +126,8 @@ void test()
             any_,
             expected
         ) );
+
+        BOOST_CHECK( oven::test_is_lightweight_proxy(any_) );
     }
     {
         std::string str;
@@ -136,11 +140,6 @@ void test()
             rng|transformed(to_upper)|const_lvalues|filtered(regular(lambda::_1 != '!'));
 
         BOOST_CHECK( oven::equals(any_, std::string("HELLO ANY_RANGE")) );
-    }
-    {
-        BOOST_CHECK( oven::test_lightweight_proxy(
-            any_range<char const&, boost::random_access_traversal_tag>(std::string("rng"))
-        ) );
     }
     {
         std::string rng("abcd");

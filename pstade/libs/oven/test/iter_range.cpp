@@ -41,6 +41,8 @@ void test()
         BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
             oven::make_iter_range(boost::begin(src), boost::end(src)), expected
         ) );
+
+        BOOST_CHECK( oven::test_is_lightweight_proxy(rng) );
     }
     {
         oven::iter_range<std::string::iterator> rng1(src);

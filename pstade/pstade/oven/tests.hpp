@@ -601,14 +601,9 @@ namespace tests_detail {
 
 
 template< class Range > inline
-bool test_lightweight_proxy(Range const& rng)
+bool test_is_lightweight_proxy(Range const& rng)
 {
-    if (!tests_detail::is_lightweight_proxy(BOOST_FOREACH_IS_LIGHTWEIGHT_PROXY(rng))) {
-        BOOST_ASSERT(false);
-        return false;
-    }
-
-    return true;
+    return tests_detail::is_lightweight_proxy(BOOST_FOREACH_IS_LIGHTWEIGHT_PROXY(rng));
 }
 
 
