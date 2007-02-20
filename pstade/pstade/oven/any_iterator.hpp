@@ -276,7 +276,7 @@ friend class boost::iterator_core_access;
         return m_pimpl->dereference();
     }
 
-    // Can't be a template; 'placeholder' type is farely different.
+    // Can't be a template; 'placeholder' type is fairly different.
     bool equal(self_t const& other) const
     {
         return m_pimpl->equal(*other.m_pimpl);
