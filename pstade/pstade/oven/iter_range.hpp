@@ -30,9 +30,11 @@
 #include <boost/operators.hpp> // equality_comparable
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
+#include <boost/type_traits/is_convertible.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
+#include <pstade/enable_if.hpp>
 #include <pstade/radish/bool_testable.hpp>
 #include <pstade/radish/swappable.hpp>
 #include <pstade/unused_to_copy.hpp>
@@ -71,42 +73,48 @@ struct iter_range :
     private as_lightweight_proxy< iter_range<Iterator> >
 {
 private:
+    typedef iter_range self_t;
     typedef typename iter_range_detail::super_<Iterator>::type super_t;
 
 public:
-    typedef iter_range type;
-
 // structors
-    explicit iter_range()
+    iter_range()
+    { }
+
+    template< class I >
+    iter_range(iter_range<I> const& other,
+        typename enable_if< boost::is_convertible<I, Iterator> >::type = 0
+    ) :
+        m_first(boost::begin(other)), m_last(boost::end(other))
     { }
 
     template< class Iterator_ >
-    explicit iter_range(Iterator_ const& first, Iterator_ const& last) :
+    iter_range(Iterator_ const& first, Iterator_ const& last) :
         m_first(first), m_last(last)
     { }
 
-    template< class Range_ >
-    explicit iter_range(Range_& rng, typename unused_to_copy<type, Range_>::type = 0) :
+    template< class Range >
+    explicit iter_range(Range& rng, typename unused_to_copy<self_t, Range>::type = 0) :
         m_first(boost::begin(rng)), m_last(boost::end(rng))
     { }
 
-    template< class Range_ >
-    explicit iter_range(Range_ const& rng) :
+    template< class Range >
+    explicit iter_range(Range const& rng) :
         m_first(boost::begin(rng)), m_last(boost::end(rng))
     { }
 
 // copy-assignments
-    template< class Range_ >
-    typename unused_to_copy_assign<type, Range_>::type operator=(Range_& rng)
+    template< class Range >
+    typename unused_to_copy_assign<self_t, Range>::type operator=(Range& rng)
     {
-        type(rng).swap(*this);
+        self_t(rng).swap(*this);
         return *this;
     }
 
-    template< class Range_ >
-    type& operator=(Range_ const& rng)
+    template< class Range >
+    self_t& operator=(Range const& rng)
     {
-        type(rng).swap(*this);
+        self_t(rng).swap(*this);
         return *this;
     }
 
@@ -126,6 +134,7 @@ public:
     }
 
 // convenience
+    typedef self_t type;
     typedef typename boost::iterator_category<Iterator>::type   iterator_category;
     typedef typename boost::iterator_value<Iterator>::type      value_type;
     typedef typename boost::iterator_difference<Iterator>::type difference_type;
@@ -140,13 +149,13 @@ public:
     }
 
 // equality_comparable
-    bool operator==(type const& other) const
+    bool operator==(self_t const& other) const
     {
         return m_first == other.m_first && m_last == other.m_last;
     }
 
 // swappable
-    void swap(type& other)
+    void swap(self_t& other)
     {
         std::swap(m_first, other.m_first);
         std::swap(m_last, other.m_last);
@@ -157,20 +166,35 @@ private:
 };
 
 
+template< class Range >
+struct iter_range_of
+{
+    typedef typename
+        range_iterator<Range>::type
+    iter_t;
+
+    typedef
+        iter_range<iter_t>
+    type;
+};
+
+
 struct op_make_iter_range :
     callable<op_make_iter_range>
 {
     template< class Myself, class Iterator, class Iterator_ = void >
     struct apply
     {
+        typedef typename
+            boost::remove_cv<Iterator>::type
+        iter_t;
+
         typedef
-            iter_range<
-                typename boost::remove_cv<Iterator>::type
-            > const
+            iter_range<iter_t> const
         type;
     };
 
-    // two Iterators may have different cv-qualifier.
+    // Two iterators may have different cv-qualifier.
     template< class Result, class Iterator, class Iterator_ >
     Result call(Iterator& first, Iterator_& last) const
     {
@@ -180,10 +204,8 @@ struct op_make_iter_range :
     template< class Myself, class Range >
     struct apply<Myself, Range>
     {
-        typedef
-            iter_range<
-                typename range_iterator<Range>::type
-            > const
+        typedef typename
+            iter_range_of<Range>::type const
         type;
     };
 

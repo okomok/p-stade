@@ -11,6 +11,7 @@
 
 
 #include <boost/assert.hpp>
+#include <boost/iterator/iterator_adaptor.hpp> // enable_if_convertible
 #include <boost/iterator/iterator_categories.hpp> // forward_traversal_tag
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/range/begin.hpp>

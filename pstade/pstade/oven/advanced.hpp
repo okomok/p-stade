@@ -25,8 +25,8 @@
 #include "./concepts.hpp"
 #include "./detail/debug_in_distance.hpp"
 #include "./detail/next_prior.hpp" // next
+#include "./iter_range.hpp"
 #include "./range_difference.hpp"
-#include "./sub_range_result.hpp"
 
 
 namespace pstade { namespace oven {
@@ -43,7 +43,7 @@ namespace advanced_detail {
         diff_t;
 
         typedef typename
-            sub_range_result<Range>::type
+            iter_range_of<Range>::type const
         result;
 
         result call(Range& rng, diff_t const& dfirst, diff_t const& dlast)

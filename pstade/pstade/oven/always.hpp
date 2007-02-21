@@ -13,7 +13,7 @@
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
 #include "./concepts.hpp"
-#include "./sub_range_result.hpp"
+#include "./iter_range.hpp"
 
 
 namespace pstade { namespace oven {
@@ -26,7 +26,7 @@ namespace always_detail {
     struct baby
     {
         typedef typename
-            sub_range_result<Range>::type
+            iter_range_of<Range>::type const
         result;
 
         result call(Unused&, Range& rng)

@@ -14,6 +14,8 @@
 //
 // They can't return the references;
 // http://std.dkuug.dk/jtc1/sc22/wg21/docs/lwg-defects.html#198
+//
+// '*boost::begin(rng)' and '*boost::prior(rng)' can return reference.
 
 
 #include <boost/range/begin.hpp>

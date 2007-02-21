@@ -13,8 +13,8 @@
 #include <boost/noncopyable.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
+#include <pstade/oven/iter_range.hpp>
 #include <pstade/oven/range_iterator.hpp>
-#include <pstade/oven/sub_range_base.hpp>
 
 
 namespace pstade { namespace biscuit {
@@ -27,10 +27,10 @@ struct the_state_class
     template< class ParsingRange, class MatchResults >
     struct state :
         private boost::noncopyable,
-        oven::sub_range_base<ParsingRange>::type
+        oven::iter_range_of<ParsingRange>::type
     {
     private:
-        typedef typename oven::sub_range_base<ParsingRange>::type super_t;
+        typedef typename oven::iter_range_of<ParsingRange>::type super_t;
         typedef typename oven::range_iterator<super_t>::type iter_t;
 
     public:

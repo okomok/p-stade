@@ -14,8 +14,7 @@
 #include <map>
 #include <boost/assert.hpp>
 #include <boost/range/empty.hpp>
-#include <boost/range/sub_range.hpp>
-#include <pstade/oven/sub_range_base.hpp>
+#include <pstade/oven/iter_range.hpp>
 #include <pstade/unused.hpp>
 
 
@@ -24,7 +23,7 @@ namespace pstade { namespace biscuit {
 
 template< class ParsingRange >
 struct null_match_results :
-    std::map< int, typename oven::sub_range_base<ParsingRange>::type, std::less<int> > // always empty
+    std::map< int, typename oven::iter_range_of<ParsingRange>::type, std::less<int> > // always empty
 {
     typedef ParsingRange pstade_biscuit_match_results_parsing_range_type;
 

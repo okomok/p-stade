@@ -24,7 +24,6 @@
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
 #include "./range_value.hpp"
-#include "./sub_range_result.hpp"
 
 
 namespace pstade { namespace oven {
@@ -78,7 +77,7 @@ namespace as_c_str_detail {
     struct baby
     {
         typedef typename
-            sub_range_result<Range>::type
+            iter_range_of<Range>::type const
         result;
 
         result call(Range& rng)

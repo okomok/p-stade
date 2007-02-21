@@ -13,6 +13,7 @@
 #include <pstade/oven/copy_range.hpp>
 #include <iostream>
 #include <string>
+#include <boost/range/sub_range.hpp>
 
 
 namespace calculator

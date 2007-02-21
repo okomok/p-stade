@@ -75,25 +75,25 @@ public:
     { }
 
     template< class Range >
-    /*implicit*/ any_range(Range& rng, typename unused_to_copy<self_t, Range>::type = 0) :
+    any_range(Range& rng, typename unused_to_copy<self_t, Range>::type = 0) :
         super_t(boost::begin(rng), boost::end(rng))
     { }
 
     template< class Range >
-    /*implicit*/ any_range(Range const& rng) :
+    any_range(Range const& rng) :
         super_t(boost::begin(rng), boost::end(rng))
     { }
 
 // copy-assignments
-    template< class Range_ >
-    typename unused_to_copy_assign<self_t, Range_>::type operator=(Range_& rng)
+    template< class Range >
+    typename unused_to_copy_assign<self_t, Range>::type operator=(Range& rng)
     {
         super_t::operator=(rng);
         return *this;
     }
 
-    template< class Range_ >
-    self_t& operator=(Range_ const& rng)
+    template< class Range >
+    self_t& operator=(Range const& rng)
     {
         super_t::operator=(rng);
         return *this;

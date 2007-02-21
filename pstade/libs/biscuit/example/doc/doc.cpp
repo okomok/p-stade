@@ -18,6 +18,7 @@
 #include <pstade/biscuit.hpp>
 #include <pstade/check.hpp>
 #include <pstade/oven.hpp>
+#include <boost/range/sub_range.hpp>
 
 
 using namespace pstade;

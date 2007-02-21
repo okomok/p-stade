@@ -33,11 +33,11 @@
 #include "./concepts.hpp"
 #include "./distance.hpp"
 #include "./equals.hpp"
+#include "./iter_range.hpp"
 #include "./range_difference.hpp"
 #include "./range_iterator.hpp"
 #include "./range_reference.hpp"
 #include "./range_value.hpp"
-#include "./sub_range_base.hpp"
 
 // you need not include them.
 #include <vector>
@@ -609,11 +609,11 @@ bool test_is_lightweight_proxy(Range const& rng)
 
 template< class Range >
 struct test_noncopyable_range :
-    sub_range_base<Range>::type,
+    iter_range_of<Range>::type,
     private boost::noncopyable
 {
 private:
-    typedef typename sub_range_base<Range>::type super_t;
+    typedef typename iter_range_of<Range>::type super_t;
 
 public:
     explicit test_noncopyable_range(Range& rng) :

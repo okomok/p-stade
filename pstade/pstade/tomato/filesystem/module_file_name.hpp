@@ -27,7 +27,6 @@
 #include <pstade/as.hpp>
 #include <pstade/oven/as_c_str.hpp>
 #include <pstade/oven/iter_range.hpp>
-#include <pstade/oven/sub_range_result.hpp>
 #include <pstade/require.hpp>
 #include "./max_path.hpp"
 #include "./path_find_extension.hpp"
@@ -88,7 +87,7 @@ struct module_file_name :
 private:
     typedef module_file_name_detail::init<>::type init_t; 
     typedef module_file_name_detail::super_<>::type super_t;
-    typedef oven::sub_range_result<module_file_name const>::type const_sub_range_t;
+    typedef oven::iter_range_of<module_file_name const>::type const const_sub_range_t;
 
 public:
     explicit module_file_name(HINSTANCE hInst = _Module.GetModuleInstance()) :

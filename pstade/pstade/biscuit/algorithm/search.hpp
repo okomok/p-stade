@@ -16,7 +16,6 @@
 #include <pstade/deduced_const.hpp>
 #include <pstade/oven/iter_range.hpp>
 #include <pstade/oven/range_iterator.hpp>
-#include <pstade/oven/sub_range_result.hpp>
 #include "../match_results/default_type.hpp"
 #include "../state/increment.hpp"
 #include "../state/is_end.hpp"
@@ -31,7 +30,7 @@ namespace search_detail {
 
 
     template< class Parser, class ParsingRange, class MatchResults, class UserState >
-    typename oven::sub_range_result<ParsingRange>::type
+    typename oven::iter_range_of<ParsingRange>::type const
     aux(ParsingRange& r, MatchResults& rs, UserState& us)
     {
         typedef typename parsing_range_state<ParsingRange, MatchResults>::type state_t;
@@ -53,7 +52,7 @@ namespace search_detail {
 
 
 template< class Parser, class ForwardRange, class UserState > inline
-typename oven::sub_range_result<ForwardRange>::type
+typename oven::iter_range_of<ForwardRange>::type const
 search(ForwardRange& r, UserState& us PSTADE_CONST_OVERLOADED(ForwardRange))
 {
     typedef typename match_results_default<Parser, ForwardRange>::type results_t;
@@ -62,7 +61,7 @@ search(ForwardRange& r, UserState& us PSTADE_CONST_OVERLOADED(ForwardRange))
 }
 
     template< class Parser, class ForwardRange, class UserState > inline
-    typename oven::sub_range_result<PSTADE_DEDUCED_CONST(ForwardRange)>::type
+    typename oven::iter_range_of<PSTADE_DEDUCED_CONST(ForwardRange)>::type const
     search(ForwardRange const& r, UserState& us)
     {
         typedef typename match_results_default<Parser, PSTADE_DEDUCED_CONST(ForwardRange)>::type results_t;
@@ -73,7 +72,7 @@ search(ForwardRange& r, UserState& us PSTADE_CONST_OVERLOADED(ForwardRange))
 
 // no user-state
 template< class Parser, class ForwardRange > inline
-typename oven::sub_range_result<ForwardRange>::type
+typename oven::iter_range_of<ForwardRange>::type const
 search(ForwardRange& r PSTADE_CONST_OVERLOADED(ForwardRange))
 {
     typedef typename match_results_default<Parser, ForwardRange>::type results_t;
@@ -82,7 +81,7 @@ search(ForwardRange& r PSTADE_CONST_OVERLOADED(ForwardRange))
 }
 
     template< class Parser, class ForwardRange > inline
-    typename oven::sub_range_result<PSTADE_DEDUCED_CONST(ForwardRange)>::type
+    typename oven::iter_range_of<PSTADE_DEDUCED_CONST(ForwardRange)>::type const
     search(ForwardRange const& r)
     {
         typedef typename match_results_default<Parser, PSTADE_DEDUCED_CONST(ForwardRange)>::type results_t;
@@ -92,14 +91,14 @@ search(ForwardRange& r PSTADE_CONST_OVERLOADED(ForwardRange))
 
 
 template< class Parser, class ForwardRange, class MatchResults, class UserState > inline
-typename oven::sub_range_result<ForwardRange>::type
+typename oven::iter_range_of<ForwardRange>::type const
 results_search(ForwardRange& r, MatchResults& rs, UserState& us PSTADE_CONST_OVERLOADED(ForwardRange))
 {
     return search_detail::aux<Parser>(r, rs, us);
 }
 
     template< class Parser, class ForwardRange, class MatchResults, class UserState > inline
-    typename oven::sub_range_result<PSTADE_DEDUCED_CONST(ForwardRange)>::type
+    typename oven::iter_range_of<PSTADE_DEDUCED_CONST(ForwardRange)>::type const
     results_search(ForwardRange const& r, MatchResults& rs, UserState& us)
     {
         return search_detail::aux<Parser>(r, rs, us);
@@ -108,14 +107,14 @@ results_search(ForwardRange& r, MatchResults& rs, UserState& us PSTADE_CONST_OVE
 
 // no user-state
 template< class Parser, class MatchResults, class ForwardRange > inline
-typename oven::sub_range_result<ForwardRange>::type
+typename oven::iter_range_of<ForwardRange>::type const
 results_search(ForwardRange& r, MatchResults& rs PSTADE_CONST_OVERLOADED(ForwardRange))
 {
     return search_detail::aux<Parser>(r, rs, null_state);
 }
 
     template< class Parser, class MatchResults, class ForwardRange > inline
-    typename oven::sub_range_result<PSTADE_DEDUCED_CONST(ForwardRange)>::type
+    typename oven::iter_range_of<PSTADE_DEDUCED_CONST(ForwardRange)>::type const
     results_search(ForwardRange const& r, MatchResults& rs)
     {
         return search_detail::aux<Parser>(r, rs, null_state);

@@ -56,6 +56,11 @@ void test()
         BOOST_CHECK( oven::equals(rng1, rng2) );
         BOOST_CHECK( oven::equals(rng1, rng3) );
     }
+    {
+        iter_range<std::string::iterator> irng(src);
+        sub_range<std::string> srng = irng; // implicit conversion
+        BOOST_CHECK( equals(irng, srng) );
+    }
 }
 
 

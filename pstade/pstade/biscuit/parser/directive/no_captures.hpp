@@ -12,7 +12,7 @@
 
 #include <boost/mpl/apply.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/oven/sub_range_base.hpp>
+#include <pstade/oven/iter_range.hpp>
 #include "../../match_results/null_match_results.hpp"
 #include "../../match_results/parsing_range_type.hpp"
 #include "../../state/class_type.hpp"
@@ -28,7 +28,7 @@ struct no_captures
     template< class State, class UserState >
     static bool parse(State& s, UserState& us)
     {
-        typedef typename oven::sub_range_base<State>::type iter_rng_t;
+        typedef typename oven::iter_range_of<State>::type iter_rng_t;
         iter_rng_t rng(s.get_cur(), boost::end(s));
         
         typedef typename state_match_results<State>::type results_t;

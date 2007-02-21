@@ -19,7 +19,7 @@
 #include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>
 #include "./concepts.hpp"
-#include "./sub_range_result.hpp"
+#include "./iter_range.hpp"
 
 
 namespace pstade { namespace oven {
@@ -29,9 +29,12 @@ struct op_make_applied :
     callable<op_make_applied>
 {
     template< class Myself, class Range, class, class = void >
-    struct apply :
-        sub_range_result<Range>
-    { };
+    struct apply
+    {
+        typedef typename
+            iter_range_of<Range>::type const
+        type;
+    };
 
     template< class Result, class Range, class Begin, class End >
     Result call(Range& rng, Begin& begin, End& end) const

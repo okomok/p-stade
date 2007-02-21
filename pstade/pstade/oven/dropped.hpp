@@ -16,9 +16,9 @@
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
 #include "./concepts.hpp"
+#include "./iter_range.hpp"
 #include "./range_difference.hpp"
 #include "./range_traversal.hpp"
-#include "./sub_range_result.hpp"
 
 
 namespace pstade { namespace oven {
@@ -54,7 +54,7 @@ namespace dropped_detail {
         diff_t;
 
         typedef typename
-            sub_range_result<Range>::type
+            iter_range_of<Range>::type const
         result;
 
         result call(Range& rng, diff_t const& d)

@@ -14,8 +14,8 @@
 #include <map>
 #include <utility> // std::pair
 #include <boost/range/end.hpp>
+#include <pstade/oven/iter_range.hpp>
 #include <pstade/oven/range_iterator.hpp>
-#include <pstade/oven/sub_range_base.hpp>
 
 
 namespace pstade { namespace biscuit {
@@ -23,10 +23,10 @@ namespace pstade { namespace biscuit {
 
 template< class ParsingRange >
 struct match_results :
-    std::map< int, typename oven::sub_range_base<ParsingRange>::type, std::less<int> >
+    std::map< int, typename oven::iter_range_of<ParsingRange>::type, std::less<int> >
 {
 private:
-    typedef typename oven::sub_range_base<ParsingRange>::type stored_range_t;
+    typedef typename oven::iter_range_of<ParsingRange>::type stored_range_t;
     typedef std::map< int, stored_range_t, std::less<int> > super_t;
 
 public:

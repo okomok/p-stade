@@ -15,9 +15,9 @@
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
 #include "./concepts.hpp"
+#include "./iter_range.hpp"
 #include "./jointed.hpp"
 #include "./range_iterator.hpp"
-#include "./sub_range_base.hpp"
 
 
 namespace pstade { namespace oven {
@@ -30,7 +30,7 @@ namespace rotated_detail {
     struct baby
     {
         typedef typename
-            sub_range_base<Range>::type
+            iter_range_of<Range>::type
         rng_t;
 
         typedef typename

@@ -14,8 +14,8 @@
 #include <boost/mpl/apply.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/oven/adapted_to_base.hpp>
+#include <pstade/oven/iter_range.hpp>
 #include <pstade/oven/range_iterator.hpp>
-#include <pstade/oven/sub_range_base.hpp>
 #include <pstade/oven/transformed.hpp>
 #include "../../state/class_type.hpp"
 #include "../../state/match_results_type.hpp"
@@ -35,7 +35,7 @@ struct as_transformed
     template< class State, class UserState >
     static bool parse(State& s, UserState& us)
     {
-        typedef typename oven::sub_range_base<State>::type iter_rng_t;
+        typedef typename oven::iter_range_of<State>::type iter_rng_t;
         iter_rng_t rng(s.get_cur(), boost::end(s));
 
         typedef typename boost::result_of<oven::op_make_transformed<Reference, Value>(iter_rng_t&, UnaryFun)>::type

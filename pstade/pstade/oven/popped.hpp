@@ -26,7 +26,7 @@
 #include <pstade/unused.hpp>
 #include "./concepts.hpp"
 #include "./detail/next_prior.hpp" // prior
-#include "./sub_range_result.hpp"
+#include "./iter_range.hpp"
 
 
 namespace pstade { namespace oven {
@@ -67,7 +67,7 @@ namespace popped_detail {
     struct baby
     {
         typedef typename
-            sub_range_result<Range>::type
+            iter_range_of<Range>::type const
         result;
 
         result call(Range& rng)

@@ -16,12 +16,14 @@
 // which seems politically correct and enables 'to_base_range'.
 
 
+#include <boost/type_traits/is_convertible.hpp>
+#include <pstade/enable_if.hpp>
 #include <pstade/implicitly_defined.hpp>
 #include <pstade/unused_to_copy.hpp>
 #include "./as_lightweight_proxy.hpp"
+#include "./iter_range.hpp"
 #include "./range_constant_iterator.hpp"
 #include "./range_constantable.hpp"
-#include "./sub_range_base.hpp"
 
 
 namespace pstade { namespace oven {
@@ -29,53 +31,62 @@ namespace pstade { namespace oven {
 
 template< class Range >
 struct sub_range :
-    sub_range_base<Range>::type,
+    iter_range_of<Range>::type,
     private range_constantable<sub_range<Range>, typename range_constant_iterator<Range>::type>,
     private as_lightweight_proxy< sub_range<Range> >
 {
-    typedef sub_range type;
-    typedef typename sub_range_base<Range>::type base;
+private:
+    typedef sub_range self_t;
+    typedef typename iter_range_of<Range>::type super_t;
+
+public:
+    typedef self_t type;
+    typedef super_t base;
     typedef typename range_constant_iterator<Range>::type const_iterator; // constantable
 
+public:
 // structors
-    explicit sub_range()
+    sub_range()
     { }
 
-    /*implicit*/ sub_range(Range& rng) :
-        base(rng)
+    sub_range(Range& rng) :
+        super_t(rng)
     { }
 
-    /*implicit*/ sub_range(base const& rng) :
-        base(rng)
+    template< class I >
+    sub_range(iter_range<I> const& rng,
+        typename enable_if< boost::is_convertible<iter_range<I>, super_t> >::type = 0
+    ) :
+        super_t(rng)
+    { }
+
+    template< class Iterator >
+    sub_range(Iterator const& first, Iterator const& last) :
+        super_t(first, last)
     { }
 
     template< class Range_ >
-    explicit sub_range(Range_& rng, typename unused_to_copy<type, Range>::type = 0) :
-        base(rng)
+    explicit sub_range(Range_& rng, typename unused_to_copy<self_t, Range>::type = 0) :
+        super_t(rng)
     { }
 
     template< class Range_ >
     explicit sub_range(Range_ const& rng) :
-        base(rng)
-    { }
-
-    template< class Iterator >
-    explicit sub_range(Iterator const& first, Iterator const& last) :
-        base(first, last)
+        super_t(rng)
     { }
 
 // copy-assignments
     template< class Range_ >
-    typename unused_to_copy_assign<type, Range_>::type operator=(Range_& rng)
+    typename unused_to_copy_assign<self_t, Range_>::type operator=(Range_& rng)
     {
-        base::operator=(rng);
+        super_t::operator=(rng);
         return *this;
     }
 
     template< class Range_ >
-    type& operator=(Range_ const& rng)
+    self_t& operator=(Range_ const& rng)
     {
-        base::operator=(rng);
+        super_t::operator=(rng);
         return *this;
     }
 
@@ -84,7 +95,7 @@ struct sub_range :
     // sub_range<string> const rng1(str);
     // sub_range<string> rng2(rng1);
     // doesn't compile. So define it from scratch using this macro.
-    PSTADE_IMPLICITLY_DEFINED_COPY_TO_BASE(sub_range, base)
+    PSTADE_IMPLICITLY_DEFINED_COPY_TO_BASE(sub_range, super_t)
 };
 
 

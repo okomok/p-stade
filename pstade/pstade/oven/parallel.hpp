@@ -26,8 +26,8 @@
 #include "./concepts.hpp"
 #include "./distance.hpp"
 #include "./dropped.hpp"
+#include "./iter_range.hpp"
 #include "./range_difference.hpp"
-#include "./sub_range_base.hpp"
 
 
 namespace pstade { namespace oven {
@@ -100,7 +100,7 @@ struct op_parallel_for_each :
 
         // Range type must be "erased" to avoid infinite recursion
         // of 'op_for_each' template-instantiation.
-        typedef typename sub_range_base<Range>::type base_t;
+        typedef typename iter_range_of<Range>::type base_t;
 
         parallel_detail::op_for_each<base_t, UnaryFun, diff_t>(rng, fun, grain)();
     }

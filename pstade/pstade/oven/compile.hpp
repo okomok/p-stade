@@ -30,9 +30,9 @@
 #include <pstade/pipable.hpp>
 #include <pstade/unused.hpp>
 #include "./cycle_range.hpp"
+#include "./iter_range.hpp"
 #include "./joint_range.hpp"
 #include "./range_iterator.hpp"
-#include "./sub_range_result.hpp"
 
 
 namespace pstade { namespace oven {
@@ -74,9 +74,12 @@ namespace pstade { namespace oven {
             compiler<terminal_compiler>
         {
             template< class Expr, class State, class Visitor >
-            struct apply :
-                sub_range_result<PSTADE_DEDUCED_CONST(typename Expr::arg0_type)>
-            { };
+            struct apply
+            {
+                typedef typename
+                    iter_range_of<PSTADE_DEDUCED_CONST(typename Expr::arg0_type)> const
+                type;
+            };
 
             template< class Result, class Expr, class State, class Visitor >
             Result call_(Expr const& expr, State const& state, Visitor& visitor)
