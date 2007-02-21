@@ -66,10 +66,9 @@ public:
         search_submatch(); // trigger!
     }
 
-    template< class ForwardIter_ >
-    filter_iterator(
-        filter_iterator<Parser, ForwardIter_, UserState> const& other,
-        typename boost::enable_if_convertible<ForwardIter_, ForwardIter>::type * = 0
+    template< class F >
+    filter_iterator(filter_iterator<Parser, F, UserState> const& other,
+        typename boost::enable_if_convertible<F, ForwardIter>::type * = 0
     ) :
         super_t(other.base()), m_submatch_last(other.submatch_end()), m_last(other.end()),
         m_pus( boost::addressof(other.user_state()) )

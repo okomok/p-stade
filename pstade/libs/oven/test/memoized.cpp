@@ -24,7 +24,6 @@
 
 #include <pstade/oven/tests.hpp>
 #include <pstade/oven/memoized.hpp>
-#include <pstade/oven/memoize_iterator.hpp>
 
 
 #include <string>

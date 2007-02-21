@@ -107,10 +107,15 @@ private:
         return m_last == other.end();
     }
 
+    bool is_end() const
+    {
+        return this->base() == m_last;
+    }
+
 friend class boost::iterator_core_access;
     ref_t dereference() const
     {
-        BOOST_ASSERT("out of range" && this->base() != m_last);
+        BOOST_ASSERT(!is_end());
         return *this->base();
     }
 
@@ -123,10 +128,10 @@ friend class boost::iterator_core_access;
 
     void increment()
     {
-        BOOST_ASSERT("out of range" && this->base() != m_last);
-        PSTADE_IF_DEBUG( ForwardIter saved(this->base()); )
+        BOOST_ASSERT(!is_end());
+    PSTADE_IF_DEBUG( ForwardIter saved(this->base()); )
         this->base_reference() = m_council(this->base(), as_cref(m_last));
-        PSTADE_IF_DEBUG( BOOST_ASSERT(saved != this->base_reference()); )
+    PSTADE_IF_DEBUG( BOOST_ASSERT(saved != this->base_reference()); )
     }
 };
 

@@ -11,12 +11,13 @@
 
 
 #include <boost/assert.hpp>
-#include <boost/iterator/iterator_adaptor.hpp> // enable_if_convertible
-#include <boost/iterator/iterator_categories.hpp> // forward_traversal_tag
+#include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
+#include <boost/type_traits/is_convertible.hpp>
 #include <boost/utility/addressof.hpp>
+#include <pstade/enable_if.hpp>
 #include <pstade/oven/iter_range.hpp>
 #include "../algorithm/search.hpp"
 
@@ -64,10 +65,9 @@ public:
         search_submatch(); // trigger!
     }
 
-    template< class ForwardIter_ >
-    token_iterator(
-        token_iterator<Parser, ForwardIter_, UserState> const& other,
-        typename boost::enable_if_convertible<ForwardIter_, ForwardIter>::type * = 0
+    template< class F >
+    token_iterator(token_iterator<Parser, F, UserState> const& other,
+        typename enable_if< boost::is_convertible<F, ForwardIter> >::type = 0
     ) :
         super_t(other.base()), m_submatch(other.submatch()), m_last(other.end()),
         m_pus( boost::addressof(other.user_state()) )
@@ -112,8 +112,8 @@ friend class boost::iterator_core_access;
         return m_submatch;
     }
 
-    template< class OtherIter >
-    bool equal(OtherIter const& other) const
+    template< class F >
+    bool equal(token_iterator<Parser, F, UserState> const& other) const
     {
         BOOST_ASSERT(is_compatible(other));
         return m_submatch == other.submatch();
