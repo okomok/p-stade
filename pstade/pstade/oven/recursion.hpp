@@ -86,10 +86,10 @@ namespace recursion_detail {
         { }
 
     template< class > friend struct lazy_iterator;
-        template< class Range_ >
-        lazy_iterator(lazy_iterator<Range_> const& other,
-            typename enable_if< boost::is_convertible<Range_*, Range *> >::type = 0,
-            typename enable_if< boost::is_convertible<typename lazy_iterator<Range_>::base_type, base_type> >::type = 0
+        template< class R >
+        lazy_iterator(lazy_iterator<R> const& other,
+            typename enable_if< boost::is_convertible<R*, Range *> >::type = 0,
+            typename enable_if< boost::is_convertible<typename lazy_iterator<R>::base_type, base_type> >::type = 0
         ) :
             m_prng(other.m_prng), m_is_from_end(other.m_is_from_end), m_saved_diff(other.m_saved_diff), m_obase(other.m_obase)
         { }

@@ -75,7 +75,7 @@ template< class > friend struct share_iterator;
         super_t(other.base()), m_prng(other.m_prng)
     { }
 
-    Range& range() const
+    Range& base_range() const
     {
         return *m_prng;
     }

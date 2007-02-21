@@ -15,6 +15,7 @@
 
 #include <pstade/oven/tests.hpp>
 #include <pstade/oven/constants.hpp>
+// #include <pstade/oven/constant_iterator.hpp>
 
 
 #include <string>
@@ -46,6 +47,17 @@ void modern_way(Range& rng)
         = make_constants(rng);
     *boost::begin(safe_rng) = 'x';
 }
+
+#if 0
+void test_iterator()
+{
+    std::string rng("abc");
+    std::string::iterator it = boost::begin(rng);
+    constant_iterator<std::string::iterator> cit = it;
+    BOOST_CHECK( cit == it );
+    BOOST_CHECK( *cit == 'a' );
+}
+#endif
 
 
 void test()

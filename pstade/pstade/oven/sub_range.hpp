@@ -14,6 +14,8 @@
 //
 // The template-constructor is now explicit,
 // which seems politically correct and enables 'to_base_range'.
+//
+// I doubt this range is necessary.
 
 
 #include <boost/type_traits/is_convertible.hpp>
@@ -66,7 +68,7 @@ public:
     { }
 
     template< class Range_ >
-    explicit sub_range(Range_& rng, typename unused_to_copy<self_t, Range>::type = 0) :
+    explicit sub_range(Range_& rng, typename unused_to_copy<self_t, Range_>::type = 0) :
         super_t(rng)
     { }
 

@@ -29,8 +29,12 @@ namespace as_array_detail {
     template< class Array >
     struct array_to_range
     {
+        typedef typename
+            boost::remove_extent<Array>::type *
+        iter_t;
+
         typedef
-            iter_range<typename boost::remove_extent<Array>::type *> const
+            iter_range<iter_t> const
         type;
     };
 

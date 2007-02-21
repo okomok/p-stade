@@ -47,6 +47,11 @@ void test()
             new std::string("hello, share_range")|shared,
             expected
         ) );
+
+        BOOST_CHECK( oven::test_RandomAccess_Readable(
+            new std::string const("hello, share_range")|shared,
+            expected
+        ) );
     }
     {
         boost::shared_ptr<std::string> p(new std::string());

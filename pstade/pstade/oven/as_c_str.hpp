@@ -58,8 +58,12 @@ namespace as_c_str_detail {
     template< class CString >
     struct cstring_to_range
     {
+        typedef typename
+            pass_by_value<CString>::type
+        iter_t;
+
         typedef
-            iter_range<typename pass_by_value<CString>::type> const
+            iter_range<iter_t> const
         type;
     };
 
