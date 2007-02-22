@@ -96,7 +96,7 @@ namespace any_iterator_detail {
     };
 
 
-    // Be a model of Clonable for 'clone_ptr'.
+    // customizes Clonable for 'clone_ptr'.
     template< class Reference, class Traversal, class Difference > inline
     placeholder<Reference, Traversal, Difference> *
     new_clone(placeholder<Reference, Traversal, Difference> const& ph)
@@ -238,9 +238,9 @@ public:
     explicit any_iterator()
     { }
 
-    // The constructor from 'Iterator' isn't implicit.
-    // 'UglyIssue.txt' in Dr.Becker's implemenation tells why.
-
+    // This constructor can't be implicit.
+    // A Copyable type must correctly implement 'is_convertible'.
+    // Dr.Becker's 'UglyIssue.txt' tells in detail.
     template< class Iterator >
     explicit any_iterator(Iterator const& it) :
         m_pimpl(new
@@ -276,7 +276,7 @@ friend class boost::iterator_core_access;
         return m_pimpl->dereference();
     }
 
-    // Can't be a template; 'placeholder' type is fairly different.
+    // can't be a template; 'placeholder' type is fairly different.
     bool equal(self_t const& other) const
     {
         return m_pimpl->equal(*other.m_pimpl);
