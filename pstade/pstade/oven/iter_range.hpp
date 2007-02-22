@@ -31,13 +31,13 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/type_traits/is_convertible.hpp>
-#include <boost/type_traits/remove_cv.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
+#include <pstade/disable_if_copy.hpp>
 #include <pstade/enable_if.hpp>
+#include <pstade/pass_by.hpp>
 #include <pstade/radish/bool_testable.hpp>
 #include <pstade/radish/swappable.hpp>
-#include <pstade/unused_to_copy.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./range_iterator.hpp"
 
@@ -94,7 +94,7 @@ public:
     { }
 
     template< class Range >
-    explicit iter_range(Range& rng, typename unused_to_copy<self_t, Range>::type = 0) :
+    explicit iter_range(Range& rng, typename disable_if_copy<self_t, Range>::type = 0) :
         m_first(boost::begin(rng)), m_last(boost::end(rng))
     { }
 
@@ -103,9 +103,9 @@ public:
         m_first(boost::begin(rng)), m_last(boost::end(rng))
     { }
 
-// copy-assignments
+// assignments
     template< class Range >
-    typename unused_to_copy_assign<self_t, Range>::type operator=(Range& rng)
+    typename disable_if_copy_assign<self_t, Range>::type operator=(Range& rng)
     {
         self_t(rng).swap(*this);
         return *this;
@@ -186,7 +186,7 @@ struct op_make_iter_range :
     struct apply
     {
         typedef typename
-            boost::remove_cv<Iterator>::type
+            pass_by_value<Iterator>::type
         iter_t;
 
         typedef

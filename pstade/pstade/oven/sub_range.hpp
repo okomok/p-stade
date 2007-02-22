@@ -19,9 +19,9 @@
 
 
 #include <boost/type_traits/is_convertible.hpp>
+#include <pstade/disable_if_copy.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/implicitly_defined.hpp>
-#include <pstade/unused_to_copy.hpp>
 #include "./as_lightweight_proxy.hpp"
 #include "./iter_range.hpp"
 #include "./range_constant_iterator.hpp"
@@ -68,7 +68,7 @@ public:
     { }
 
     template< class Range_ >
-    explicit sub_range(Range_& rng, typename unused_to_copy<self_t, Range_>::type = 0) :
+    explicit sub_range(Range_& rng, typename disable_if_copy<self_t, Range_>::type = 0) :
         super_t(rng)
     { }
 
@@ -77,9 +77,9 @@ public:
         super_t(rng)
     { }
 
-// copy-assignments
+// assignments
     template< class Range_ >
-    typename unused_to_copy_assign<self_t, Range_>::type operator=(Range_& rng)
+    typename disable_if_copy_assign<self_t, Range_>::type operator=(Range_& rng)
     {
         super_t::operator=(rng);
         return *this;

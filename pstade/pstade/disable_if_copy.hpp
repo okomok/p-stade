@@ -1,5 +1,5 @@
-#ifndef PSTADE_UNUSED_TO_COPY_HPP
-#define PSTADE_UNUSED_TO_COPY_HPP
+#ifndef PSTADE_DISABLE_IF_COPY_HPP
+#define PSTADE_DISABLE_IF_COPY_HPP
 
 
 // PStade.Wine
@@ -25,7 +25,7 @@ namespace pstade {
 
 
     template< class T, class A >
-    struct unused_to_copy :
+    struct disable_if_copy :
         disable_if<
             boost::is_same<T, A>
         >
@@ -33,7 +33,7 @@ namespace pstade {
 
 
     template< class T, class A >
-    struct unused_to_copy_assign :
+    struct disable_if_copy_assign :
         disable_if<
             boost::is_same<T, A>,
             T&

@@ -12,10 +12,10 @@
 
 #include <cstddef> // ptrdiff_t
 #include <boost/iterator/iterator_categories.hpp>
+#include <pstade/disable_if_copy.hpp>
 #include <pstade/implicitly_defined.hpp>
 #include <pstade/remove_cvr.hpp>
 #include <pstade/use_default.hpp>
-#include <pstade/unused_to_copy.hpp>
 #include "./any_iterator.hpp"
 #include "./as_lightweight_proxy.hpp"
 #include "./iter_range.hpp"
@@ -75,7 +75,7 @@ public:
     { }
 
     template< class Range >
-    any_range(Range& rng, typename unused_to_copy<self_t, Range>::type = 0) :
+    any_range(Range& rng, typename disable_if_copy<self_t, Range>::type = 0) :
         super_t(boost::begin(rng), boost::end(rng))
     { }
 
@@ -84,9 +84,9 @@ public:
         super_t(boost::begin(rng), boost::end(rng))
     { }
 
-// copy-assignments
+// assignments
     template< class Range >
-    typename unused_to_copy_assign<self_t, Range>::type operator=(Range& rng)
+    typename disable_if_copy_assign<self_t, Range>::type operator=(Range& rng)
     {
         super_t::operator=(rng);
         return *this;
