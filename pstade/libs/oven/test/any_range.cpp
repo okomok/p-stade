@@ -55,12 +55,16 @@ void test_iterator()
         any_iterator<char&, boost::forward_traversal_tag, char, std::ptrdiff_t> it1(boost::begin(src));
         any_iterator<char const&, boost::single_pass_traversal_tag, char, std::ptrdiff_t> it2 = it1; // implicit conversion.
         BOOST_CHECK( it2 == it1 );
+        it2 = it1;
+        BOOST_CHECK( it2 == it1 );
     }
     {
         any_iterator<char&, boost::random_access_traversal_tag, char, std::ptrdiff_t> it1(boost::begin(src));
         any_iterator<char const&, boost::random_access_traversal_tag, char, int> it2 = it1; // implicit conversion.
         BOOST_CHECK( it2 == it1 );
         BOOST_CHECK( (it2 - it1) == 0 );
+        it2 = it1;
+        BOOST_CHECK( it2 == it1 );
     }
 }
 
@@ -90,7 +94,7 @@ void test()
         std::string rng("8frj91j81hf891y2");
         std::vector<char> expected = rng|copied;
 
-        any_range<char&, boost::random_access_traversal_tag> any_;
+        any_range<char&, boost::random_access_traversal_tag> any_; // DefaultConstructible
         any_ = rng;
         BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
             any_,

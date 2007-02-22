@@ -1327,6 +1327,6 @@ Version 0.93.3
 
 Version 0.93.4
 ^^^^^^^^^^^^^^
-- Optimized ``any_range``; thanks to Dr.Thomas Becker.
+- Optimized ``any_range``.
 
 

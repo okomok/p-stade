@@ -239,7 +239,7 @@ public:
     { }
 
     // The constructor from 'Iterator' isn't implicit.
-    // 'UglyIssue.txt' of Dr.Becker's implemenation tells why.
+    // 'UglyIssue.txt' in Dr.Becker's implemenation tells why.
 
     template< class Iterator >
     explicit any_iterator(Iterator const& it) :
