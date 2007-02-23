@@ -20,6 +20,7 @@
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/iterator/iterator_traits.hpp>
+#include <boost/mpl/and.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/mpl/eval_if.hpp>
@@ -31,6 +32,7 @@
 #include <pstade/clone_ptr.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/is_returnable.hpp>
+#include "./detail/pure_traversal.hpp"
 
 
 namespace pstade { namespace oven {
@@ -105,10 +107,10 @@ namespace any_iterator_detail {
     }
 
 
-    template< class Iterator, class Traversal, class Difference >
-    struct has_convertible_difference :
+    template< class From, class To, class Traversal >
+    struct is_convertible_difference :
         boost::mpl::eval_if< boost::is_same<Traversal, boost::random_access_traversal_tag>,
-            boost::is_convertible<typename boost::iterator_difference<Iterator>::type, Difference>,
+            boost::is_convertible<From, To>,
             boost::mpl::true_
         >
     { };
@@ -121,8 +123,8 @@ namespace any_iterator_detail {
     private:
         BOOST_MPL_ASSERT((is_returnable<typename boost::iterator_reference<Iterator>::type, Reference>));
         BOOST_MPL_ASSERT((boost::is_convertible<typename boost::iterator_traversal<Iterator>::type, Traversal>));
-        BOOST_MPL_ASSERT((has_convertible_difference<Iterator, Traversal, Difference>));
-
+        BOOST_MPL_ASSERT((is_convertible_difference<typename boost::iterator_difference<Iterator>::type, Difference, Traversal>));
+ 
         typedef holder self_t;
         typedef placeholder<Reference, Traversal, Difference> placeholder_t;
 
@@ -220,6 +222,25 @@ namespace any_iterator_detail {
 } // namespace any_iterator_detail
 
 
+template< class Iterator, class AnyIterator >
+struct is_convertible_to_any_iterator :
+    boost::mpl::and_<
+        is_returnable<
+            typename boost::iterator_reference<Iterator>::type,
+            typename AnyIterator::reference
+        >,
+        boost::is_convertible<
+            typename boost::iterator_traversal<Iterator>::type,
+            typename detail::pure_traversal<AnyIterator>::type
+        >,
+        any_iterator_detail::is_convertible_difference<
+            typename boost::iterator_difference<Iterator>::type,
+            typename AnyIterator::difference_type, typename detail::pure_traversal<AnyIterator>::type
+        >
+    >
+{ };
+
+
 template<
     class Reference,
     class Traversal,
@@ -250,9 +271,7 @@ public:
 
     template< class R, class T, class V, class D >
     any_iterator(any_iterator<R, T, V, D> const& other,
-        typename enable_if< is_returnable<R, Reference> >::type = 0,
-        typename enable_if< boost::is_convertible<T, Traversal> >::type = 0,
-        typename enable_if< boost::is_convertible<D, Difference> >::type = 0
+        typename enable_if< is_convertible_to_any_iterator<any_iterator<R, T, V, D>, self_t> >::type = 0
     ) :
         m_pimpl(new
             any_iterator_detail::holder<any_iterator<R, T, V, D>, Reference, Traversal, Difference>

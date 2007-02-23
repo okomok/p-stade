@@ -75,9 +75,7 @@ struct any_range :
 private:
     typedef any_range self_t;
     typedef typename any_range_detail::super_<Reference, Traversal, Value, Difference>::type super_t;
-    typedef typename super_t::reference ref_t;
-    typedef typename super_t::iterator_category cat_t;
-    typedef typename super_t::difference_type diff_t;
+    typedef typename super_t::iterator iter_t;
 
 public:
 // structors
@@ -86,18 +84,14 @@ public:
 
     template< class R, class T, class V, class D, class B >
     any_range(any_range<R, T, V, D, B> const& other,
-        typename enable_if< is_returnable<typename any_range<R, T, V, D, B>::reference, ref_t> >::type = 0,
-        typename enable_if< boost::is_convertible<typename any_range<R, T, V, D, B>::iterator_category, cat_t> >::type = 0,
-        typename enable_if< boost::is_convertible<typename any_range<R, T, V, D, B>::difference_type, diff_t> >::type = 0
+        typename enable_if< is_convertible_to_any_iterator<typename any_range<R, T, V, D, B>::iterator, iter_t> >::type = 0
     ) :
         super_t(boost::begin(other), boost::end(other))
     { }
 
     template< class I >
     any_range(iter_range<I> const& rng,
-        typename enable_if< is_returnable<typename iter_range<I>::reference, ref_t> >::type = 0,
-        typename enable_if< boost::is_convertible<typename iter_range<I>::iterator_category, cat_t> >::type = 0,
-        typename enable_if< boost::is_convertible<typename iter_range<I>::difference_type, diff_t> >::type = 0
+        typename enable_if< is_convertible_to_any_iterator<typename iter_range<I>::iterator, iter_t> >::type = 0
     ) :
         super_t(boost::begin(rng), boost::end(rng))
     { }

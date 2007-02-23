@@ -14,6 +14,7 @@
 
 
 #include <boost/mpl/assert.hpp>
+#include <boost/noncopyable.hpp>
 
 
 using pstade::is_returnable;
@@ -21,7 +22,6 @@ using pstade::is_returnable;
 
 struct base { };
 struct derived : base { };
-
 
 BOOST_MPL_ASSERT_NOT(( is_returnable<int, int&> ));
 BOOST_MPL_ASSERT_NOT(( is_returnable<int, int const&> ));
@@ -39,7 +39,6 @@ BOOST_MPL_ASSERT_NOT(( is_returnable<derived const*, base*> ));
 BOOST_MPL_ASSERT_NOT(( is_returnable<derived*&, base*&> ));
 BOOST_MPL_ASSERT_NOT(( is_returnable<derived**, base**> ));
 
-
 BOOST_MPL_ASSERT(( is_returnable<int, int> ));
 BOOST_MPL_ASSERT(( is_returnable<int, int const> ));
 BOOST_MPL_ASSERT(( is_returnable<double, int> ));
@@ -53,6 +52,20 @@ BOOST_MPL_ASSERT(( is_returnable<derived*&, base*> ));
 BOOST_MPL_ASSERT(( is_returnable<derived*, base const*> ));
 BOOST_MPL_ASSERT(( is_returnable<derived*&, derived*&> ));
 BOOST_MPL_ASSERT(( is_returnable<derived*&, derived*> ));
+
+
+struct nbase : private boost::noncopyable { };
+struct nderived : nbase { };
+
+BOOST_MPL_ASSERT_NOT(( is_returnable<nbase const&, nbase&> ));
+BOOST_MPL_ASSERT_NOT(( is_returnable<nderived const&, nbase&> ));
+BOOST_MPL_ASSERT_NOT(( is_returnable<nbase&, nderived&> ));
+BOOST_MPL_ASSERT_NOT(( is_returnable<nbase&, nderived const&> ));
+
+BOOST_MPL_ASSERT(( is_returnable<nbase&, nbase&> ));
+BOOST_MPL_ASSERT(( is_returnable<nderived&, nbase&> ));
+BOOST_MPL_ASSERT(( is_returnable<nderived&, nbase const&> ));
+BOOST_MPL_ASSERT(( is_returnable<nderived const&, nbase const&> ));
 
 
 void test()
