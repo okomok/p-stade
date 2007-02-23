@@ -15,8 +15,8 @@
 // Returns true iif 'To foo() { return from; }' is well-defined.
 // Precondition: 'To' is a reference or CopyConstructible.
 //
-// Strictly speaking, this is overly negative.
-// Consider 'struct From { operator To&() { return g_to; } };'.
+// In general, this is overly negative.
+// Consider 'struct From { operator To&() { return m_to; } };'.
 
 
 #include <boost/mpl/and.hpp>
