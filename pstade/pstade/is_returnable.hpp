@@ -24,6 +24,7 @@
 #include <boost/type_traits/is_convertible.hpp>
 #include <boost/type_traits/is_reference.hpp>
 #include <boost/type_traits/is_same.hpp>
+#include <boost/version.hpp>
 #include <pstade/remove_cvr.hpp>
 
 
@@ -35,25 +36,29 @@ namespace pstade {
 
         template<class From, class To>
         struct is_convertible :
-        #if BOOST_WORKAROUND(BOOST_MSVC, == 1310) // VC7.1
+    #if BOOST_WORKAROUND(BOOST_MSVC, == 1310) // VC7.1
             // See the implementation of 'boost::enable_if_convertible'.
             // Just to be safe; 'is_returnable' is often used in 'enable_if'.
             boost::mpl::or_<
                 boost::is_same<From, To>,
                 boost::is_convertible<From, To>
             >
-        #else
+    #else
             boost::is_convertible<From, To>
-        #endif
+    #endif
         { };
 
 
         template<class X, class Y>
-        struct is_same_or_base_of :
+        struct is_base_of :
+    #if BOOST_VERSION < 103400
             boost::mpl::or_<
                 boost::is_same<X, Y>,
                 boost::is_base_of<X, Y>
             >
+    #else
+            boost::is_base_of<X, Y>
+    #endif
         { };
 
 
@@ -68,7 +73,7 @@ namespace pstade {
                 boost::mpl::not_< boost::is_reference<To> >,
                 boost::mpl::and_<
                     boost::is_reference<From>,
-                    is_returnable_detail::is_same_or_base_of<
+                    is_returnable_detail::is_base_of<
                         typename remove_cvr<To>::type,
                         typename remove_cvr<From>::type
                     >
