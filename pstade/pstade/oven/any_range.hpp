@@ -12,11 +12,9 @@
 
 #include <cstddef> // ptrdiff_t
 #include <boost/iterator/iterator_categories.hpp>
-#include <boost/type_traits/is_convertible.hpp>
 #include <pstade/disable_if_copy.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/implicitly_defined.hpp>
-#include <pstade/is_returnable.hpp>
 #include <pstade/remove_cvr.hpp>
 #include <pstade/use_default.hpp>
 #include "./any_iterator.hpp"

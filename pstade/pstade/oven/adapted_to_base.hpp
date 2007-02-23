@@ -61,7 +61,7 @@ struct op_adapted_to
         typename enable_if<
 #if BOOST_WORKAROUND(BOOST_MSVC, == 1310) // for weird VC7.1
             boost::mpl::and_<
-                boost::is_convertible<Adapted&, Base>,
+                is_convertible_in_enable_if<Adapted&, Base>,
                 boost::mpl::not_< boost::is_const<Adapted> >
             >
 #else

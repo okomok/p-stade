@@ -16,16 +16,14 @@
 // Precondition: 'To' is a reference or CopyConstructible.
 
 
-#include <boost/config.hpp>
-#include <boost/detail/workaround.hpp>
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/not.hpp>
 #include <boost/mpl/or.hpp>
 #include <boost/type_traits/is_base_of.hpp>
-#include <boost/type_traits/is_convertible.hpp>
 #include <boost/type_traits/is_reference.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/version.hpp>
+#include <pstade/enable_if.hpp>
 #include <pstade/remove_cvr.hpp>
 
 
@@ -33,21 +31,6 @@ namespace pstade {
 
 
     namespace is_returnable_detail {
-
-
-        template<class From, class To>
-        struct is_convertible :
-        #if BOOST_WORKAROUND(BOOST_MSVC, == 1310) // VC7.1
-            // See the implementation of 'boost::enable_if_convertible'.
-            // Just to be safe; 'is_returnable' is often used in 'enable_if'.
-            boost::mpl::or_<
-                boost::is_same<From, To>,
-                boost::is_convertible<From, To>
-            >
-        #else
-            boost::is_convertible<From, To>
-        #endif
-        { };
 
 
         template<class X, class Y>
@@ -85,7 +68,7 @@ namespace pstade {
     template<class From, class To>
     struct is_returnable :
         boost::mpl::and_<
-            is_returnable_detail::is_convertible<From, To>,
+            is_convertible_in_enable_if<From, To>,
             is_returnable_detail::not_return_reference_to_temporary<From, To>
         >
     { };

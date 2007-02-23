@@ -110,7 +110,7 @@ namespace any_iterator_detail {
     template< class From, class To, class Traversal >
     struct is_convertible_difference :
         boost::mpl::eval_if< boost::is_same<Traversal, boost::random_access_traversal_tag>,
-            boost::is_convertible<From, To>,
+            is_convertible_in_enable_if<From, To>,
             boost::mpl::true_
         >
     { };
@@ -229,7 +229,7 @@ struct is_convertible_to_any_iterator :
             typename boost::iterator_reference<Iterator>::type,
             typename AnyIterator::reference
         >,
-        boost::is_convertible<
+        is_convertible_in_enable_if<
             typename boost::iterator_traversal<Iterator>::type,
             typename detail::pure_traversal<AnyIterator>::type
         >,

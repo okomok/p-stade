@@ -14,7 +14,6 @@
 #include <cstring> // strlen
 #include <cwchar>  // wcslen
 #include <boost/mpl/or.hpp>
-#include <boost/type_traits/is_convertible.hpp>
 #include <pstade/auxiliary.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/enable_if.hpp>
@@ -50,8 +49,8 @@ namespace as_c_str_detail {
     template< class X >
     struct is_cstring :
        boost::mpl::or_<
-            boost::is_convertible<X, char const *>,
-            boost::is_convertible<X, wchar_t const *>
+            is_convertible_in_enable_if<X, char const *>,
+            is_convertible_in_enable_if<X, wchar_t const *>
         >
     { };
 
