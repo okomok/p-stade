@@ -16,6 +16,8 @@
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/mpl/assert.hpp>
+#include <boost/static_warning.hpp>
+#include <boost/type_traits/is_convertible.hpp>
 #include <pstade/is_returnable.hpp>
 #include <pstade/object_generator.hpp>
 #include "./detail/pure_traversal.hpp"
@@ -126,11 +128,6 @@ private:
 
     bool invariant() const
     {
-        BOOST_MPL_ASSERT((is_returnable<
-            typename boost::iterator_reference<IteratorR>::type,
-            typename boost::iterator_reference<IteratorL>::type
-        >));
-
         return (!is_in_rangeL() || m_itR == m_firstR);
     }
 
@@ -149,6 +146,19 @@ friend class boost::iterator_core_access;
     ref_t dereference() const
     {
         BOOST_ASSERT(invariant());
+
+        // An iterator behaves also as "metafunction"
+        // which is called in overload-resolution.
+        // So, this must be placed at function scope.
+        BOOST_MPL_ASSERT((boost::is_convertible<
+            typename boost::iterator_reference<IteratorR>::type,
+            typename boost::iterator_reference<IteratorL>::type
+        >));
+
+        BOOST_STATIC_WARNING((is_returnable<
+            typename boost::iterator_reference<IteratorR>::type,
+            typename boost::iterator_reference<IteratorL>::type
+        >::value));
 
         if (this->base() != m_lastL)
             return *this->base();

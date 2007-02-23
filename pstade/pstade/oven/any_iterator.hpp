@@ -27,6 +27,7 @@
 #include <boost/mpl/if.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/shared_ptr.hpp>
+#include <boost/static_warning.hpp>
 #include <boost/type_traits/is_convertible.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <pstade/clone_ptr.hpp>
@@ -121,7 +122,7 @@ namespace any_iterator_detail {
         placeholder<Reference, Traversal, Difference>
     {
     private:
-        BOOST_MPL_ASSERT((is_returnable<typename boost::iterator_reference<Iterator>::type, Reference>));
+        BOOST_MPL_ASSERT((boost::is_convertible<typename boost::iterator_reference<Iterator>::type, Reference>));
         BOOST_MPL_ASSERT((boost::is_convertible<typename boost::iterator_traversal<Iterator>::type, Traversal>));
         BOOST_MPL_ASSERT((is_convertible_difference<typename boost::iterator_difference<Iterator>::type, Difference, Traversal>));
  
@@ -131,7 +132,10 @@ namespace any_iterator_detail {
     public:
         explicit holder(Iterator const& held) :
             m_held(held)
-        { }
+        {
+            // VC7.1 complains if this is at class scope.
+            BOOST_STATIC_WARNING((is_returnable<typename boost::iterator_reference<Iterator>::type, Reference>::value)); 
+        }
 
         Iterator const& held() const
         {
@@ -225,7 +229,7 @@ namespace any_iterator_detail {
 template< class Iterator, class AnyIterator >
 struct is_convertible_to_any_iterator :
     boost::mpl::and_<
-        is_returnable<
+        is_convertible_in_enable_if<
             typename boost::iterator_reference<Iterator>::type,
             typename AnyIterator::reference
         >,

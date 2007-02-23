@@ -14,6 +14,8 @@
 //
 // Returns true iif 'To foo() { return from; }' is well-defined.
 // Precondition: 'To' is a reference or CopyConstructible.
+//
+// 'struct From { To& operator() { return to; } };' is out of sight.
 
 
 #include <boost/mpl/and.hpp>
@@ -48,7 +50,7 @@ namespace pstade {
 
 
         template<class From, class To>
-        struct not_return_reference_to_temporary :
+        struct not_return_address_of_temporary :
             boost::mpl::or_<
                 boost::mpl::not_< boost::is_reference<To> >,
                 boost::mpl::and_<
@@ -69,7 +71,7 @@ namespace pstade {
     struct is_returnable :
         boost::mpl::and_<
             is_convertible_in_enable_if<From, To>,
-            is_returnable_detail::not_return_reference_to_temporary<From, To>
+            is_returnable_detail::not_return_address_of_temporary<From, To>
         >
     { };
 

@@ -25,6 +25,8 @@
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/mpl/assert.hpp>
+#include <boost/static_warning.hpp>
+#include <boost/type_traits/is_convertible.hpp>
 #include <pstade/functional.hpp> // less
 #include <pstade/is_returnable.hpp>
 #include <pstade/object_generator.hpp>
@@ -183,7 +185,10 @@ public:
         m_it2(it2),   m_last2(last2),
         m_comp(comp)
     {
-        BOOST_MPL_ASSERT((is_returnable<typename boost::iterator_reference<Iterator2>::type, ref_t>));
+        // "./joint_iterator.hpp" tells why this is at function scope.
+        BOOST_MPL_ASSERT((boost::is_convertible<typename boost::iterator_reference<Iterator2>::type, ref_t>));
+        BOOST_STATIC_WARNING((is_returnable<typename boost::iterator_reference<Iterator2>::type, ref_t>::value));
+
     #if defined(PSTADE_OVEN_MERGED_DEBUG_IS_SORTED) // ranges may be too long to diagnose.
         BOOST_ASSERT(detail::debug_is_sorted(it1, last1, comp));
         BOOST_ASSERT(detail::debug_is_sorted(it2, last2, comp));
