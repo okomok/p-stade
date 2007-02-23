@@ -12,8 +12,11 @@
 
 #include <cstddef> // ptrdiff_t
 #include <boost/iterator/iterator_categories.hpp>
+#include <boost/type_traits/is_convertible.hpp>
 #include <pstade/disable_if_copy.hpp>
+#include <pstade/enable_if.hpp>
 #include <pstade/implicitly_defined.hpp>
+#include <pstade/is_returnable.hpp>
 #include <pstade/remove_cvr.hpp>
 #include <pstade/use_default.hpp>
 #include "./any_iterator.hpp"
@@ -52,6 +55,9 @@ namespace any_range_detail {
     };
 
 
+    struct nobody;
+
+
 } // namespace any_range_detail
 
 
@@ -59,7 +65,8 @@ template<
     class Reference,
     class Traversal,
     class Value      = boost::use_default,
-    class Difference = boost::use_default
+    class Difference = boost::use_default,
+    class BaseRange  = any_range_detail::nobody 
 >
 struct any_range :
     any_range_detail::super_<Reference, Traversal, Value, Difference>::type,
@@ -68,19 +75,44 @@ struct any_range :
 private:
     typedef any_range self_t;
     typedef typename any_range_detail::super_<Reference, Traversal, Value, Difference>::type super_t;
+    typedef typename super_t::reference ref_t;
+    typedef typename super_t::iterator_category cat_t;
+    typedef typename super_t::difference_type diff_t;
 
 public:
 // structors
     any_range()
     { }
 
-    template< class Range >
-    any_range(Range& rng, typename disable_if_copy<self_t, Range>::type = 0) :
+    template< class R, class T, class V, class D, class B >
+    any_range(any_range<R, T, V, D, B> const& other,
+        typename enable_if< is_returnable<typename any_range<R, T, V, D, B>::reference, ref_t> >::type = 0,
+        typename enable_if< boost::is_convertible<typename any_range<R, T, V, D, B>::iterator_category, cat_t> >::type = 0,
+        typename enable_if< boost::is_convertible<typename any_range<R, T, V, D, B>::difference_type, diff_t> >::type = 0
+    ) :
+        super_t(boost::begin(other), boost::end(other))
+    { }
+
+    template< class I >
+    any_range(iter_range<I> const& rng,
+        typename enable_if< is_returnable<typename iter_range<I>::reference, ref_t> >::type = 0,
+        typename enable_if< boost::is_convertible<typename iter_range<I>::iterator_category, cat_t> >::type = 0,
+        typename enable_if< boost::is_convertible<typename iter_range<I>::difference_type, diff_t> >::type = 0
+    ) :
+        super_t(boost::begin(rng), boost::end(rng))
+    { }
+
+    any_range(BaseRange& rng) :
         super_t(boost::begin(rng), boost::end(rng))
     { }
 
     template< class Range >
-    any_range(Range const& rng) :
+    explicit any_range(Range& rng, typename disable_if_copy<self_t, Range>::type = 0) :
+        super_t(boost::begin(rng), boost::end(rng))
+    { }
+
+    template< class Range >
+    explicit any_range(Range const& rng) :
         super_t(boost::begin(rng), boost::end(rng))
     { }
 
@@ -111,7 +143,8 @@ struct any_range_of
             typename range_reference<Range>::type,
             typename range_pure_traversal<Range>::type,
             typename range_value<Range>::type,
-            typename range_difference<Range>::type
+            typename range_difference<Range>::type,
+            Range
         >
     type;
 };

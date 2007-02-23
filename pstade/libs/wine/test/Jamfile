@@ -48,6 +48,7 @@ test-suite wine :
     [ wine-test instance ]
     [ wine-test integral_cast ]
     [ wine-test is_ndebug ]
+    [ wine-test is_returnable ]
     [ wine-test is_same ]
     [ wine-test lambda_bind ]
     [ wine-test lambda_result_of ]

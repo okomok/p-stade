@@ -30,7 +30,7 @@
 #include <boost/type_traits/is_same.hpp>
 #include <pstade/clone_ptr.hpp>
 #include <pstade/enable_if.hpp>
-#include "./detail/reference_is_convertible.hpp"
+#include <pstade/is_returnable.hpp>
 
 
 namespace pstade { namespace oven {
@@ -119,7 +119,7 @@ namespace any_iterator_detail {
         placeholder<Reference, Traversal, Difference>
     {
     private:
-        BOOST_MPL_ASSERT((detail::reference_is_convertible_aux<typename boost::iterator_reference<Iterator>::type, Reference>));
+        BOOST_MPL_ASSERT((is_returnable<typename boost::iterator_reference<Iterator>::type, Reference>));
         BOOST_MPL_ASSERT((boost::is_convertible<typename boost::iterator_traversal<Iterator>::type, Traversal>));
         BOOST_MPL_ASSERT((has_convertible_difference<Iterator, Traversal, Difference>));
 
@@ -239,8 +239,8 @@ public:
     { }
 
     // This constructor can't be implicit.
-    // A Copyable type must correctly implement 'is_convertible'.
-    // Dr.Becker's 'UglyIssue.txt' tells in detail.
+    // An iterator must correctly implement 'is_convertible'.
+    // Dr.Becker's "UglyIssue.txt" tells in detail.
     template< class Iterator >
     explicit any_iterator(Iterator const& it) :
         m_pimpl(new
@@ -250,8 +250,8 @@ public:
 
     template< class R, class T, class V, class D >
     any_iterator(any_iterator<R, T, V, D> const& other,
-        typename enable_if< boost::is_convertible<R, Reference>  >::type = 0,
-        typename enable_if< boost::is_convertible<T, Traversal>  >::type = 0,
+        typename enable_if< is_returnable<R, Reference> >::type = 0,
+        typename enable_if< boost::is_convertible<T, Traversal> >::type = 0,
         typename enable_if< boost::is_convertible<D, Difference> >::type = 0
     ) :
         m_pimpl(new

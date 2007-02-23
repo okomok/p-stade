@@ -53,14 +53,14 @@ void test_iterator()
     std::string src("abc");
     {
         any_iterator<char&, boost::forward_traversal_tag, char, std::ptrdiff_t> it1(boost::begin(src));
-        any_iterator<char const&, boost::single_pass_traversal_tag, char, std::ptrdiff_t> it2 = it1; // implicit conversion.
+        any_iterator<char const&, boost::single_pass_traversal_tag, char, std::ptrdiff_t> it2 = it1; // copy-initialization.
         BOOST_CHECK( it2 == it1 );
         it2 = it1;
         BOOST_CHECK( it2 == it1 );
     }
     {
         any_iterator<char&, boost::random_access_traversal_tag, char, std::ptrdiff_t> it1(boost::begin(src));
-        any_iterator<char const&, boost::random_access_traversal_tag, char, int> it2 = it1; // implicit conversion.
+        any_iterator<char const&, boost::random_access_traversal_tag, char, int> it2 = it1; // copy-initialization.
         BOOST_CHECK( it2 == it1 );
         BOOST_CHECK( (it2 - it1) == 0 );
         it2 = it1;
@@ -105,6 +105,22 @@ void test()
         std::string rng("8frj91j81hf891y2");
         std::vector<char> expected = rng|copied;
 
+        any_range<char&, boost::random_access_traversal_tag> any_ = rng|identities; // copy-initializable with 'iter_range'.
+        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
+            any_,
+            expected
+        ) );
+
+        any_range<char, boost::single_pass_traversal_tag> any2 = any_; // copy-initializable with 'any_range'.
+        BOOST_CHECK( oven::test_SinglePass_Readable(
+            any2,
+            expected
+        ) );
+    }
+    {
+        std::string rng("8frj91j81hf891y2");
+        std::vector<char> expected = rng|copied;
+
         any_range<char&, boost::bidirectional_traversal_tag> any_(rng|identities(boost::bidirectional_traversal_tag()));
         BOOST_CHECK( oven::test_Bidirectional_Readable_Writable(
             any_,
@@ -140,8 +156,9 @@ void test()
     }
     {
         std::string rng("hello! any_range!");
-        any_range<char const&, boost::bidirectional_traversal_tag> any_ =
-            rng|transformed(to_upper)|const_lvalues|filtered(regular(lambda::_1 != '!'));
+        any_range<char const&, boost::bidirectional_traversal_tag> any_(
+            rng|transformed(to_upper)|const_lvalues|filtered(regular(lambda::_1 != '!'))
+        );
 
         BOOST_CHECK( oven::equals(any_, std::string("HELLO ANY_RANGE")) );
     }
@@ -179,7 +196,7 @@ void test()
 #endif
     {
         std::string str("jgi8e8qnboie");
-        any_range_of<std::string>::type any_ = str;
+        any_range_of<std::string>::type any_ = str; // copy-initializable
         BOOST_CHECK( oven::equals(str, any_) );
     }
 }

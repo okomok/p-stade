@@ -248,10 +248,10 @@ the adapted range. ``any_range`` behaves as the type erasure of ranges::
 
 
 - Header: ``<pstade/oven/any_range.hpp>``
-- Valid expression: ``any_range<R,T> any_;``, ``any_range<R,T> any_(rng);`` and ``any_range<R,T> any_ = rng;``
+- Valid expression: ``any_range<R,T> any_;``, ``any_range<R,T> any_(rng);`` and ``any_range<R,T> any_ = ovenRng;``
   , where the iterators of ``any_`` are ``Interoperatable`` if and only if ``rng``\s are the same type.
 - Precondition: ``boost::range_reference`` of ``rng`` is convertible to ``R`` without creating rvalue.
-  ``T`` is a ``TraversalTag``.
+  ``T`` is a ``TraversalTag``. ``ovenRng`` is a range which the functions of Oven return.
 - Returns: A range whose iterators behave as if they were the original iterators wrapped in `any_iterator`__
 
 __ http://thbecker.net/free_software_utilities/type_erasure_for_cpp_iterators/start_page.html
@@ -1328,5 +1328,7 @@ Version 0.93.3
 Version 0.93.4
 ^^^^^^^^^^^^^^
 - Optimized ``any_range``.
+- Some ``any_range`` constructors are now explicit.
+
 
 

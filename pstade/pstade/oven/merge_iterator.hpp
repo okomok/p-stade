@@ -26,12 +26,12 @@
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/mpl/assert.hpp>
 #include <pstade/functional.hpp> // less
+#include <pstade/is_returnable.hpp>
 #include <pstade/object_generator.hpp>
 #include <pstade/unused.hpp>
 #include "./detail/constant_reference.hpp"
 #include "./detail/debug_is_sorted.hpp"
 #include "./detail/pure_traversal.hpp"
-#include "./detail/reference_is_convertible.hpp"
 
 
 namespace pstade { namespace oven {
@@ -183,7 +183,7 @@ public:
         m_it2(it2),   m_last2(last2),
         m_comp(comp)
     {
-        BOOST_MPL_ASSERT((detail::reference_is_convertible_aux<typename boost::iterator_reference<Iterator2>::type, ref_t>));
+        BOOST_MPL_ASSERT((is_returnable<typename boost::iterator_reference<Iterator2>::type, ref_t>));
     #if defined(PSTADE_OVEN_MERGED_DEBUG_IS_SORTED) // ranges may be too long to diagnose.
         BOOST_ASSERT(detail::debug_is_sorted(it1, last1, comp));
         BOOST_ASSERT(detail::debug_is_sorted(it2, last2, comp));
