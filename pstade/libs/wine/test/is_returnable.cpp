@@ -24,19 +24,34 @@ struct derived : base { };
 
 
 BOOST_MPL_ASSERT_NOT(( is_returnable<int, int&> ));
+BOOST_MPL_ASSERT_NOT(( is_returnable<int, int const&> ));
 BOOST_MPL_ASSERT_NOT(( is_returnable<int, int*> ));
+BOOST_MPL_ASSERT_NOT(( is_returnable<int, int const*> ));
 BOOST_MPL_ASSERT_NOT(( is_returnable<int&, const double&> ));
 BOOST_MPL_ASSERT_NOT(( is_returnable<int*, const double*> ));
 BOOST_MPL_ASSERT_NOT(( is_returnable<base, derived> ));
 BOOST_MPL_ASSERT_NOT(( is_returnable<derived, base&> ));
+BOOST_MPL_ASSERT_NOT(( is_returnable<derived, base const&> ));
 BOOST_MPL_ASSERT_NOT(( is_returnable<derived, base*> ));
+BOOST_MPL_ASSERT_NOT(( is_returnable<derived, base const*> ));
+BOOST_MPL_ASSERT_NOT(( is_returnable<derived const&, base&> ));
+BOOST_MPL_ASSERT_NOT(( is_returnable<derived const*, base*> ));
+BOOST_MPL_ASSERT_NOT(( is_returnable<derived*&, base*&> ));
+BOOST_MPL_ASSERT_NOT(( is_returnable<derived**, base**> ));
 
+
+BOOST_MPL_ASSERT(( is_returnable<int, int> ));
 BOOST_MPL_ASSERT(( is_returnable<double, int> ));
+BOOST_MPL_ASSERT(( is_returnable<base, base> ));
+BOOST_MPL_ASSERT(( is_returnable<derived, base> ));
 BOOST_MPL_ASSERT(( is_returnable<derived&, base> ));
 BOOST_MPL_ASSERT(( is_returnable<derived&, base&> ));
 BOOST_MPL_ASSERT(( is_returnable<derived&, base const&> ));
 BOOST_MPL_ASSERT(( is_returnable<derived*, base*> ));
+BOOST_MPL_ASSERT(( is_returnable<derived*&, base*> ));
 BOOST_MPL_ASSERT(( is_returnable<derived*, base const*> ));
+BOOST_MPL_ASSERT(( is_returnable<derived*&, derived*&> ));
+BOOST_MPL_ASSERT(( is_returnable<derived*&, derived*> ));
 
 
 void test()

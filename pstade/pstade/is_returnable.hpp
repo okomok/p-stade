@@ -48,12 +48,6 @@ namespace pstade {
         { };
 
 
-        template<class P, class Q>
-        struct implies :
-            boost::mpl::or_<boost::mpl::not_<P>, Q>
-        { };
-
-
         template<class X, class Y>
         struct is_same_or_base_of :
             boost::mpl::or_<
@@ -73,10 +67,7 @@ namespace pstade {
             boost::mpl::or_<
                 boost::mpl::not_< boost::is_reference<To> >,
                 boost::mpl::and_<
-                    is_returnable_detail::implies<
-                        boost::is_reference<To>,
-                        boost::is_reference<From>
-                    >,
+                    boost::is_reference<From>,
                     is_returnable_detail::is_same_or_base_of<
                         typename remove_cvr<To>::type,
                         typename remove_cvr<From>::type
