@@ -96,7 +96,7 @@ namespace regular_detail {
 
         typedef Function base_type;
 
-        Function const& base() const
+        Function& base() const
         {
             return *m_pfun;
         }
@@ -106,31 +106,13 @@ namespace regular_detail {
     };
 
 
-    template< class Function >
-    struct baby
+    template< class Function, class PtrTag >
+    struct baby_new
     {
         typedef
             op_result<
                 typename pass_by_value<Function>::type,
-                clone_ptr_tag
-            >
-        result;
-
-        result call(Function& fun)
-        {
-            typedef typename result::base_type fun_t;
-            return result(new fun_t(fun));
-        }
-    };
-
-
-    template< class Function >
-    struct baby_stateless
-    {
-        typedef
-            op_result<
-                typename pass_by_value<Function>::type,
-                shared_ptr_tag
+                PtrTag
             >
         result;
 
@@ -162,8 +144,8 @@ namespace regular_detail {
 } // namespace regular_detail
 
 
-PSTADE_FUNCTION(regular, (regular_detail::baby<_>))
-PSTADE_FUNCTION(regular_stateless, (regular_detail::baby_stateless<_>))
+PSTADE_FUNCTION(regular, (regular_detail::baby_new<_, regular_detail::clone_ptr_tag>))
+PSTADE_FUNCTION(regular_stateless, (regular_detail::baby_new<_, regular_detail::shared_ptr_tag>))
 PSTADE_FUNCTION(regular_ref, (regular_detail::baby_ref<_>))
 
 
