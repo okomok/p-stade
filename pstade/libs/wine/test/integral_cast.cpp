@@ -37,6 +37,7 @@ void test_()
     try {
         boost::result_of<op_integral_cast<short>(long)>::type
             s = pstade::integral_cast<short>(70000L);
+            (void)s;
     }
     catch (boost::bad_numeric_cast)
     {
