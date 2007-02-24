@@ -170,13 +170,13 @@ void test()
     using namespace oven;
 
     {
-        boost::shared_ptr<my_generator> pX( new my_generator(10) );
+        my_generator X(10);
 
-        BOOST_FOREACH (int x, generation(shared_regular(pX))) {
+        BOOST_FOREACH (int x, generation(regular_ref(X))) {
             std::cout << "," << x;
         }
 
-        BOOST_CHECK(pX->m_state == 0);
+        BOOST_CHECK(X.m_state == 0);
         std::cout << std::endl;
     }
 
@@ -200,16 +200,16 @@ void test()
     }
 
     {
-        boost::shared_ptr<my_generator> pX( new my_generator(10) );
+        my_generator X(10);
         int ans[] = { 9,8,7,6,5,4,3,2,1 };
         std::vector<int> expected = ans|copied;
 
         BOOST_CHECK( oven::test_SinglePass_Readable(
-            oven::generation(shared_regular(pX)),
+            oven::generation(regular_ref(X)),
             expected
         ));
 
-        BOOST_CHECK(pX->m_state == 0);
+        BOOST_CHECK(X.m_state == 0);
     }
 
     {

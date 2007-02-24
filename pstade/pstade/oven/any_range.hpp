@@ -64,11 +64,11 @@ template<
     class Traversal,
     class Value      = boost::use_default,
     class Difference = boost::use_default,
-    class BaseRange  = any_range_detail::nobody 
+    class BaseRange  = any_range_detail::nobody // for implicit conversion
 >
 struct any_range :
     any_range_detail::super_<Reference, Traversal, Value, Difference>::type,
-    private as_lightweight_proxy< any_range<Reference, boost::single_pass_traversal_tag, Value, Difference> >
+    private as_lightweight_proxy< any_range<Reference, boost::single_pass_traversal_tag, Value, Difference, BaseRange> >
 {
 private:
     typedef any_range self_t;
@@ -89,7 +89,7 @@ public:
 
     template< class I >
     any_range(iter_range<I> const& rng,
-        typename enable_if< is_convertible_to_any_iterator<typename iter_range<I>::iterator, iter_t> >::type = 0
+        typename enable_if< is_convertible_to_any_iterator<I, iter_t> >::type = 0
     ) :
         super_t(boost::begin(rng), boost::end(rng))
     { }
@@ -127,16 +127,16 @@ public:
 };
 
 
-template< class Range >
+template< class BaseRange >
 struct any_range_of
 {
     typedef
         any_range<
-            typename range_reference<Range>::type,
-            typename range_pure_traversal<Range>::type,
-            typename range_value<Range>::type,
-            typename range_difference<Range>::type,
-            Range
+            typename range_reference<BaseRange>::type,
+            typename range_pure_traversal<BaseRange>::type,
+            typename range_value<BaseRange>::type,
+            typename range_difference<BaseRange>::type,
+            BaseRange
         >
     type;
 };

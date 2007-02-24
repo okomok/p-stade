@@ -69,7 +69,7 @@ BOOST_MPL_ASSERT(( is_returnable<nderived&, nbase const&> ));
 BOOST_MPL_ASSERT(( is_returnable<nderived const&, nbase const&> ));
 
 
-BOOST_STATIC_WARNING(( is_returnable<nbase&, nderived const&>::value ));
+// BOOST_STATIC_WARNING(( is_returnable<nbase&, nderived const&>::value ));
 
 
 void test()

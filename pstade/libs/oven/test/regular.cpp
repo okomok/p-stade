@@ -1,5 +1,17 @@
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
+
+
+#if defined(__MINGW32__)
+    #define PSTADE_OVEN_TEST_MINIMAL
+#endif
+
+#if !defined(PSTADE_OVEN_TEST_MINIMAL)
+    #include <boost/test/test_tools.hpp>
+    #define BOOST_LIB_NAME boost_test_exec_monitor
+    #include <boost/config/auto_link.hpp>
+#else
+    #include <boost/test/minimal.hpp>
+#endif
 
 
 // PStade.Oven
@@ -20,6 +32,7 @@
 #include <pstade/oven/filtered.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/core.hpp>
+#include <boost/noncopyable.hpp>
 #include <pstade/new_delete.hpp>
 
 
@@ -32,6 +45,18 @@ void regular_check(F f)
 }
 
 
+struct not_equal_to_c :
+    private boost::noncopyable
+{
+    typedef bool result_type;
+
+    bool operator()(char ch)
+    {
+        return ch != 'c';
+    }
+};
+
+
 void test()
 {
     namespace lambda = boost::lambda;
@@ -40,9 +65,9 @@ void test()
 
     {
         ::regular_check(regular(lambda::_1 != 'c'));
-        ::regular_check(regular(lambda::_1 += 1 ));
-        ::regular_check(shared_regular(new pstade::op_less()));
-        ::regular_check(shared_regular(pstade::op_new_auto<pstade::op_less>()()));
+        ::regular_check(regular(lambda::_1 += 1));
+        ::regular_check(regular_stateless(pstade::op_less()));
+        ::regular_check(regular_ref(pstade::less));
     }
     {
         std::string rng("abcABc12c");
@@ -50,6 +75,18 @@ void test()
 
         BOOST_CHECK( oven::test_Bidirectional_Readable(
             rng|filtered(regular(lambda::_1 != 'c')),
+            expected
+        ) );
+
+        BOOST_CHECK( oven::test_Bidirectional_Readable(
+            rng|filtered(regular_stateless(lambda::_1 != 'c')),
+            expected
+        ) );
+
+
+        ::not_equal_to_c nonC;
+        BOOST_CHECK( oven::test_Bidirectional_Readable(
+            rng|filtered(regular_ref(nonC)),
             expected
         ) );
     }
@@ -64,8 +101,27 @@ void test()
 }
 
 
-int test_main(int, char*[])
-{
-    ::test();
-    return 0;
-}
+#if !defined(PSTADE_OVEN_TEST_MINIMAL)
+
+    #include <boost/test/unit_test.hpp>
+    using boost::unit_test::test_suite;
+
+    test_suite *
+    init_unit_test_suite(int argc, char *argv[])
+    {
+        test_suite *test = BOOST_TEST_SUITE("Oven Test Suite");
+        test->add(BOOST_TEST_CASE(&::test));
+
+        (void)argc, (void)argv; // unused
+        return test;
+    }
+
+#else
+
+    int test_main(int, char*[])
+    {
+        ::test();
+        return 0;
+    }
+
+#endif

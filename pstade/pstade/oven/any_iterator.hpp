@@ -264,7 +264,7 @@ public:
     { }
 
     // This constructor can't be implicit.
-    // An iterator must correctly implement 'is_convertible'.
+    // Use 'is_convertible_to_any_iterator' instead.
     // Dr.Becker's "UglyIssue.txt" tells in detail.
     template< class Iterator >
     explicit any_iterator(Iterator const& it) :

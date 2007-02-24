@@ -215,21 +215,20 @@ So that, ``regular`` converts it to comfortable one for iterators. [#]_
 
 - Header: ``<pstade/oven/regular.hpp>``
 - Valid expression: ``regular(lambdaFunctor)``
-- Returns: A ``rfun`` which is ``DefaultConstructible`` and ``CopyAssignable``.
+- Returns: A `Function Object`_ which is ``DefaultConstructible`` and ``CopyAssignable``.
 
 In principle, call ``regular`` before a lambda functor is passed to `Range Adaptors`_.
 
 .. [#] ``regular`` incidentally converts the functor into the one which can take non-const rvalues.
 
 
-``shared_regular``
-^^^^^^^^^^^^^^^^^^
-``shared_regular`` converts a noncopyable function object type to copyable one.
+``regular_ref``
+^^^^^^^^^^^^^^^
+``regular_ref``, holding a reference to noncopyable function, behaves as copyable one.
 
 - Header: ``<pstade/oven/regular.hpp>``
-- Valid expression: ``shared_regular(p)``.
-- Precondition: ``boost::shared_ptr`` is constructible from ``p``.
-- Returns: A ``rfun`` which is ``DefaultConstructible`` and ``CopyAssignable``.
+- Valid expression: ``regular_ref(rfun)``
+- Returns: A `Function Object`_ which is ``DefaultConstructible`` and ``CopyAssignable``, where all the function call are forwarded to ``rfun``.
 
 
 
@@ -1329,6 +1328,6 @@ Version 0.93.4
 ^^^^^^^^^^^^^^
 - Optimized ``any_range``.
 - Some ``any_range`` constructors are now explicit.
-
+- Replaced ``shared_regular`` with ``regular_ref``.
 
 
