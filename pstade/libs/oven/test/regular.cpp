@@ -67,7 +67,7 @@ void test()
     {
         ::regular_check(regular(lambda::_1 != 'c'));
         ::regular_check(regular(lambda::_1 += 1));
-        ::regular_check(regular_const(pstade::op_less()));
+        ::regular_check(regular_c(pstade::op_less()));
         ::regular_check(regular_ref(pstade::less));
     }
     {
@@ -80,7 +80,7 @@ void test()
         ) );
 
         BOOST_CHECK( oven::test_Bidirectional_Readable(
-            rng|filtered(regular_const(lambda::_1 != 'c')),
+            rng|filtered(regular_c(lambda::_1 != 'c')),
             expected
         ) );
 

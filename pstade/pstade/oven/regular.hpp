@@ -16,7 +16,7 @@
 // We can't determine whether or not a lambda functor is
 // sharable or not. ('boost::is_stateless' is too strict.)
 // So, it is cloned by default. If you know it's stateless
-// and want to optimize copying, use 'regular_const'.
+// and want to optimize copying, use 'regular_c'.
 //
 // Neither 'is_assignable' nor 'is_default_constructible'
 // seems impossible to implement.
@@ -138,7 +138,7 @@ namespace regular_detail {
 
 
 PSTADE_FUNCTION(regular, (regular_detail::baby<_, regular_detail::clone_ptr_tag>))
-PSTADE_FUNCTION(regular_const, (regular_detail::baby<_, regular_detail::shared_ptr_tag>))
+PSTADE_FUNCTION(regular_c, (regular_detail::baby<_, regular_detail::shared_ptr_tag>))
 PSTADE_FUNCTION(regular_ref, (regular_detail::baby_ref<_>))
 
 
