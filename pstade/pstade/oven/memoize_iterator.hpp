@@ -120,7 +120,7 @@ namespace memoize_iterator_detail {
     // In a recursive range, 'Iterator' must live outside
     // of the range in order to avoid reference-cycles.
     template< class Memo, class IsRecursive >
-    struct pointer_of :
+    struct ptr_of :
         boost::mpl::if_< IsRecursive,
             Memo *,
             boost::shared_ptr<Memo>
@@ -139,7 +139,7 @@ private:
     typedef typename memoize_iterator_detail::super_<Iterator, IsRecursive>::type super_t;
     typedef typename super_t::reference ref_t;
     typedef memoize_iterator_detail::memo<Iterator> memo_t;
-    typedef typename memoize_iterator_detail::pointer_of<memo_t, IsRecursive>::type pmemo_t;
+    typedef typename memoize_iterator_detail::ptr_of<memo_t, IsRecursive>::type pmemo_t;
 
 public:
     typedef memo_t memo_type;

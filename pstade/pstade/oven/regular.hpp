@@ -13,21 +13,20 @@
 
 // Note:
 //
-// This is essentially same as what Boost.Function does.
+// We can't determine whether or not a lambda functor is
+// sharable or not. ('boost::is_stateless' is too strict.)
+// So, it is cloned by default. If you know it's stateless
+// and want to optimize copying, use 'regular_const'.
 //
 // Neither 'is_assignable' nor 'is_default_constructible'
 // seems impossible to implement.
 // Notice that 'is_lambda_functor' can't be the detection;
 // e.g. 'forward(lambda::_1)', which is neither assignable
 // nor a lambda functor.
-//
-// You can't determine whether or not a lambda functor is
-// sharable or not. ('boost::is_stateless' is too strict.)
-// So, it is cloned by default. If you know it's stateless
-// and want to optimize copying, use 'regular_stateless'.
 
 
-#include <boost/mpl/if.hpp>
+#include <boost/mpl/eval_if.hpp>
+#include <boost/mpl/identity.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
@@ -55,12 +54,12 @@ namespace regular_detail {
 
     template< class Function, class PtrTag >
     struct ptr_of :
-        boost::mpl::if_< boost::is_same<PtrTag, raw_ptr_tag>,
-            Function *,
-            typename boost::mpl::if_< boost::is_same<PtrTag, clone_ptr_tag>,
-                clone_ptr<Function>,
-                boost::shared_ptr<Function>
-            >::type
+        boost::mpl::eval_if< boost::is_same<PtrTag, raw_ptr_tag>,
+            boost::mpl::identity<Function *>,
+            boost::mpl::eval_if< boost::is_same<PtrTag, shared_ptr_tag>,
+                boost::mpl::identity< boost::shared_ptr<Function> >,
+                boost::mpl::identity< clone_ptr<Function> >
+            >
         >
     { };
 
@@ -139,7 +138,7 @@ namespace regular_detail {
 
 
 PSTADE_FUNCTION(regular, (regular_detail::baby<_, regular_detail::clone_ptr_tag>))
-PSTADE_FUNCTION(regular_stateless, (regular_detail::baby<_, regular_detail::shared_ptr_tag>))
+PSTADE_FUNCTION(regular_const, (regular_detail::baby<_, regular_detail::shared_ptr_tag>))
 PSTADE_FUNCTION(regular_ref, (regular_detail::baby_ref<_>))
 
 

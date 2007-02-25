@@ -27,6 +27,7 @@
 #include <boost/lambda/core.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <pstade/oven/dropped.hpp>
+#include <pstade/functional.hpp> // plus
 
 
 int minus(int state, int x)
@@ -52,7 +53,7 @@ void test()
         std::vector<int> expected = ans|copied;
 
         BOOST_CHECK( oven::test_Forward_Readable(
-            rng|scanned(0),
+            rng|scanned(0, pstade::plus),
             expected
         ) );
 
@@ -64,10 +65,20 @@ void test()
     }
     {
         int rng[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9,10};
+        int ans[] = { 1, 3, 6,10,15,21,28,36,45,55};
+        std::vector<int> expected = ans|copied;
+
+        BOOST_CHECK( oven::test_Forward_Readable(
+            rng|scanned(pstade::plus),
+            expected
+        ) );
+    }
+    {
+        int rng[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9,10};
         std::vector<int> ans;
         std::partial_sum(boost::begin(rng), boost::end(rng), std::back_inserter(ans));
         BOOST_CHECK( oven::equals(
-            rng|scanned(0)|dropped(1),
+            rng|scanned(0, pstade::plus)|dropped(1),
             ans
         ) );
     }
@@ -76,11 +87,20 @@ void test()
         int ans1[] = { 0, 1, 3, 6,10,15,21,28,36,45,55};
 
         BOOST_CHECK( oven::equals(
-            src|scanned(0),
+            src|scanned(0, pstade::plus),
             ans1
         ) );
     }
-
+    {
+        std::vector<int> src;
+        BOOST_CHECK( distance(src|scanned(10, pstade::plus)) == 1 );
+        BOOST_CHECK( front(src|scanned(10, pstade::plus)) == 10 );
+    }
+    {
+        int src[] = { 12 };
+        BOOST_CHECK( distance(src|scanned(pstade::plus)) == 1 );
+        BOOST_CHECK( front(src|scanned(pstade::plus)) == 12 );
+    }
     {
         int src[] = { 1, 2, 3, 4 };
         int ans[] = { 10, 9, 7, 4, 0 }; 

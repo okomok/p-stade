@@ -126,7 +126,7 @@ namespace pstade {
         push_front(Arguments const& args, A& a)
         {
             return boost::tuples::cons<A&, Arguments>(a, args);
-        };
+        }
 
 
         template< class A, class Function, class Arguments >
@@ -144,7 +144,7 @@ namespace pstade {
             return pstade::fuse(pi.base())(
                 pipable_detail::push_front(pi.arguments(), a)
             );
-        };
+        }
 
         template< class A, class Function, class Arguments > inline
         typename result_of_output<PSTADE_DEDUCED_CONST(A), Function, Arguments>::type
@@ -153,7 +153,7 @@ namespace pstade {
             return pstade::fuse(pi.base())(
                 pipable_detail::push_front(pi.arguments(), a)
             );
-        };
+        }
 
 
     } // namespace pipable_detail
