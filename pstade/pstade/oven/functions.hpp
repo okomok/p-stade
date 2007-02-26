@@ -13,7 +13,6 @@
 #include "./algorithm.hpp"
 #include "./numeric.hpp"
 
-
 #include "./adapted_to_base.hpp"
 #include "./begin_end.hpp"
 #include "./copy_range.hpp"
@@ -21,8 +20,8 @@
 #include "./equals.hpp"
 #include "./front_back.hpp"
 
-
 #include "./as_array.hpp"
+#include "./as_c_str.hpp"
 #include "./as_literal.hpp"
 #include "./as_single.hpp"
 // #include "./compile.hpp"
@@ -34,14 +33,15 @@
 #include "./repeated.hpp"
 #include "./stream_input.hpp"
 
-
 #include "./to_counter.hpp"
 #include "./to_function.hpp"
 #include "./to_stream.hpp"
 #include "./to_utf8_encoder.hpp"
 
-
 #include "./regular.hpp"
+
+#include "./range_based1.hpp"
+#include "./range_based2.hpp"
 
 
 #endif

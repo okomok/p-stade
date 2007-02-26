@@ -10,24 +10,61 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <numeric>
+#include <numeric> // inner_product
+#include <boost/lambda/numeric.hpp>
+#include <boost/preprocessor/seq/for_each.hpp>
 #include <pstade/adl_barrier.hpp>
+#include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/pass_by.hpp>
-#include "./detail/range_based.hpp"
+#include "./detail/range_based_sig_fun.hpp"
 
 
 namespace pstade { namespace oven {
 
+
+#define PSTADE_numeric \
+    (accumulate)(partial_sum)(adjacent_difference) \
+/**/
+
+
 PSTADE_ADL_BARRIER(numeric) {
+    
+
+    BOOST_PP_SEQ_FOR_EACH(PSTADE_OVEN_DETAIL_RANGE_BASED1_SIG_FUN, ~, PSTADE_numeric)
 
 
-    PSTADE_OVEN_DETAIL_RANGE_BASED(accumulate,          std::accumulate,          (pass_by_value<A0>), (1)(2))
-    PSTADE_OVEN_DETAIL_RANGE_BASED(inner_product,       std::inner_product,       (pass_by_value<A1>), (2)(4))
-    PSTADE_OVEN_DETAIL_RANGE_BASED(partial_sum,         std::partial_sum,         (pass_by_value<A0>), (1)(2))
-    PSTADE_OVEN_DETAIL_RANGE_BASED(adjacent_difference, std::adjacent_difference, (pass_by_value<A0>), (1)(2))
+    // The arity of 'inner_product' is too many.
+
+    struct op_inner_product :
+        callable<op_inner_product>
+    {
+        template< class Myself, class Range1, class InputIter2, class T, class BinaryOp1 = void, class BinaryOp2 = void >
+        struct apply :
+            pass_by_value<T>
+        { };
+
+        template< class Result, class Range1, class InputIter2, class T, class BinaryOp1, class BinaryOp2 >
+        Result call(Range1& rng1, InputIter2& first2, T& init, BinaryOp1& op1, BinaryOp2& op2) const
+        {
+            return std::inner_product(boost::begin(rng1), boost::end(rng1), first2, init, op1, op2);
+        }
+
+        template< class Result, class Range1, class InputIter2, class T >
+        Result call(Range1& rng1, InputIter2& first2, T& init) const
+        {
+            return std::inner_product(boost::begin(rng1), boost::end(rng1), first2, init);
+        }
+    };
+   
+    PSTADE_CONSTANT(inner_product, (op_inner_product))
 
 
 } // ADL barrier
+
+
+#undef  PSTADE_numeric
+
 
 } } // namespace pstade::oven
 
