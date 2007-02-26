@@ -57,13 +57,13 @@ namespace pstade { namespace oven {
 /**/
 
 
-#define PSTADE_use_middle \
+#define PSTADE_partial_sort_form \
     (partial_sort)(nth_element)(inplace_merge) \
 /**/
 
 
 // The arity of 'merge' family is too many.
-#define PSTADE_def_merge(R, _, Name) \
+#define PSTADE_range_based_merge(R, _, Name) \
     struct BOOST_PP_CAT(op_, Name) : \
         callable<BOOST_PP_CAT(op_, Name)> \
     { \
@@ -90,7 +90,7 @@ namespace pstade { namespace oven {
 
 
 // Some algorithms use "middle".
-#define PSTADE_def_use_middle(R, _, Name) \
+#define PSTADE_range_based_partial_sort(R, _, Name) \
     struct BOOST_PP_CAT(op_, Name) : \
         callable<BOOST_PP_CAT(op_, Name)> \
     { \
@@ -125,8 +125,8 @@ PSTADE_ADL_BARRIER(algorithm) {
     BOOST_PP_SEQ_FOR_EACH(PSTADE_OVEN_DETAIL_RANGE_BASED1_SIG_FUN, ~, PSTADE_mutating1)
     BOOST_PP_SEQ_FOR_EACH(PSTADE_OVEN_DETAIL_RANGE_BASED1_SIG_FUN, ~, PSTADE_sorting_and_related1)
     BOOST_PP_SEQ_FOR_EACH(PSTADE_OVEN_DETAIL_RANGE_BASED2_SIG_FUN, ~, PSTADE_sorting_and_related2)
-    BOOST_PP_SEQ_FOR_EACH(PSTADE_def_merge, ~, PSTADE_merge)
-    BOOST_PP_SEQ_FOR_EACH(PSTADE_def_use_middle, ~, PSTADE_use_middle)
+    BOOST_PP_SEQ_FOR_EACH(PSTADE_range_based_merge, ~, PSTADE_merge)
+    BOOST_PP_SEQ_FOR_EACH(PSTADE_range_based_partial_sort, ~, PSTADE_partial_sort_form)
 
 
     struct op_rotate :
@@ -169,8 +169,8 @@ PSTADE_ADL_BARRIER(algorithm) {
 } // ADL barrier
 
 
-#undef  PSTADE_def_use_middle
-#undef  PSTADE_def_merge
+#undef  PSTADE_range_based_partial_sort
+#undef  PSTADE_range_based_merge
 #undef  PSTADE_sorting_and_related2
 #undef  PSTADE_sorting_and_related1
 #undef  PSTADE_mutating1

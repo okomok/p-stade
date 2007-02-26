@@ -51,6 +51,8 @@ private:
 };
 
 
+// This converts a poor functor type holding 'sig'
+// into the function which supports 'boost::result_of'.
 PSTADE_OBJECT_GENERATOR(sig_forward, (sig_forward_result< deduce<_1, to_value> >))
 
 
@@ -63,6 +65,11 @@ struct range_based1_sig_fun :
     >
 { };
 
+#define PSTADE_OVEN_DETAIL_RANGE_BASED1_SIG_FUN(R, _, Name) \
+    PSTADE_CONSTANT(Name, (::pstade::oven::detail::range_based1_sig_fun< ::boost::lambda::ll::Name >::type)) \
+/**/
+
+
 template< class SigFun >
 struct range_based2_sig_fun :
     boost::result_of<
@@ -71,11 +78,6 @@ struct range_based2_sig_fun :
         )
     >
 { };
-
-
-#define PSTADE_OVEN_DETAIL_RANGE_BASED1_SIG_FUN(R, _, Name) \
-    PSTADE_CONSTANT(Name, (::pstade::oven::detail::range_based1_sig_fun< ::boost::lambda::ll::Name >::type)) \
-/**/
 
 #define PSTADE_OVEN_DETAIL_RANGE_BASED2_SIG_FUN(R, _, Name) \
     PSTADE_CONSTANT(Name, (::pstade::oven::detail::range_based2_sig_fun< ::boost::lambda::ll::Name >::type)) \
