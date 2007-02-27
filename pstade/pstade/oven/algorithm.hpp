@@ -21,9 +21,9 @@
 // Note:
 //
 // I doubt the optimization using member functions is useful.
+// Adaptors easily erase the base range type.
 
 
-#include <boost/lambda/algorithm.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
 #include <boost/range/begin.hpp>
@@ -33,6 +33,17 @@
 #include <pstade/constant.hpp>
 #include <pstade/pass_by.hpp>
 #include "./detail/range_based_ll.hpp"
+
+// <boost/lambda/core.hpp> is too big.
+#include <boost/tuple/tuple.hpp>
+#include <boost/type_traits/remove_const.hpp>
+#if !defined(BOOST_LAMBDA_CORE_HPP)
+    #define BOOST_LAMBDA_CORE_HPP
+    #include <boost/lambda/algorithm.hpp>
+    #undef  BOOST_LAMBDA_CORE_HPP
+#else
+    #include <boost/lambda/algorithm.hpp>
+#endif
 
 
 namespace pstade { namespace oven {
@@ -74,7 +85,7 @@ namespace pstade { namespace oven {
 /**/
 
 
-// Some algorithms use "middle".
+// 'partial_sort' etc use "middle".
 #define PSTADE_range_based_partial_sort(R, _, Name) \
     struct BOOST_PP_CAT(op_, Name) : \
         callable<BOOST_PP_CAT(op_, Name)> \
