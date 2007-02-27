@@ -15,6 +15,10 @@
 //
 // Converts a poor functor type holding 'sig'
 // into the function which supports 'boost::result_of'.
+//
+// For "big" arity, this can't use 'callable' hence
+// can't take non-const-rvalue. But this is always
+// called from 'range_basedN' with 'as_cref'.
 
 
 #include <boost/config.hpp> // BOOST_NESTED_TEMPLATE
@@ -23,11 +27,12 @@
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/tuple/tuple.hpp>
+#include <boost/type_traits/add_const.hpp>
 #include <boost/type_traits/remove_reference.hpp>
+#include <pstade/object_generator.hpp>
 #include <pstade/preprocessor.hpp>
 
 
-// For this big arity, we can't use 'callable'.
 #if !defined(PSTADE_OVEN_DETAIL_SIG_FORWARD_MAX_ARITY)
     #define PSTADE_OVEN_DETAIL_SIG_FORWARD_MAX_ARITY 6
 #endif
@@ -37,12 +42,11 @@ namespace pstade { namespace oven { namespace detail {
 
 
 template< class A >
-struct sig_forward_argument
-{
-    typedef typename
-        boost::remove_reference<A>::type const
-    type;
-};
+struct sig_forward_argument :
+    boost::remove_reference<
+        typename boost::add_const<A>::type
+    >
+{ };
 
 
 template< class SigFun >
@@ -75,6 +79,9 @@ private:
 };
 
 
+PSTADE_OBJECT_GENERATOR(sig_forward, (sig_forward_result< deduce<_1, to_value> >))
+
+
 } } } // namespace pstade::oven::detail
 
 
@@ -101,8 +108,8 @@ public:
     { };
 
     template< BOOST_PP_ENUM_PARAMS(n, class A) >
-    typename BOOST_PP_CAT(result, n)<BOOST_PP_ENUM_PARAMS(n, A)>::type
-    operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, a)) const
+    typename BOOST_PP_CAT(result, n)<PSTADE_PP_ENUM_PARAMS_WITH(n, A, &)>::type
+    operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
     {
         return m_fun(BOOST_PP_ENUM_PARAMS(n, a));
     }

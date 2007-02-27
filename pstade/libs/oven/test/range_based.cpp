@@ -67,7 +67,8 @@ void test()
 
     {
         std::string rng("edcbagf");
-        detail::sig_forward_result<lambda::ll::for_each>()(boost::begin(rng), boost::end(rng), do_nothing());
+        detail::sig_forward_result<lambda::ll::for_each>()(boost::begin(rng)|pstade::as_ref, boost::end(rng)|pstade::as_ref, do_nothing()|pstade::as_ref);
+        oven::range_based1(detail::sig_forward(lambda::ll::for_each()))(rng, do_nothing());
         oven::range_based1(detail::sig_forward_result<lambda::ll::for_each>())(rng, do_nothing());
         oven::range_based1(detail::sig_forward_result<lambda::ll::sort>())(rng);
         oven::range_based1(detail::sig_forward_result<lambda::ll::sort>())(rng, pstade::less);

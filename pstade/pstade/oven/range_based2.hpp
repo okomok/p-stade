@@ -18,6 +18,7 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/utility/result_of.hpp>
+#include <pstade/as.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/object_generator.hpp>
 #include <pstade/preprocessor.hpp>
@@ -43,10 +44,10 @@ namespace range_based2_detail {
         struct apply<Myself, Range0, Range1> :
             boost::result_of<
                 IterBased(
-                    typename range_iterator<Range0>::type,
-                    typename range_iterator<Range0>::type,
-                    typename range_iterator<Range1>::type,
-                    typename range_iterator<Range1>::type
+                    typename range_iterator<Range0>::type const&,
+                    typename range_iterator<Range0>::type const&,
+                    typename range_iterator<Range1>::type const&,
+                    typename range_iterator<Range1>::type const&
                 )
             >
         { };
@@ -55,10 +56,10 @@ namespace range_based2_detail {
         Result call(Range0& rng0, Range1& rng1) const
         {
             return m_fun(
-                boost::begin(rng0),
-                boost::end(rng0),
-                boost::begin(rng1),
-                boost::end(rng1)
+                as_cref(boost::begin(rng0)),
+                as_cref(boost::end(rng0)),
+                as_cref(boost::begin(rng1)),
+                as_cref(boost::end(rng1))
             );
         }
 
@@ -105,10 +106,10 @@ template< class Myself, class Range0, class Range1, BOOST_PP_ENUM_PARAMS(n, clas
 struct apply<Myself, Range0, Range1, BOOST_PP_ENUM_PARAMS(n, A)> :
     boost::result_of<
         IterBased(
-            typename range_iterator<Range0>::type,
-            typename range_iterator<Range0>::type,
-            typename range_iterator<Range1>::type,
-            typename range_iterator<Range1>::type,
+            typename range_iterator<Range0>::type const&,
+            typename range_iterator<Range0>::type const&,
+            typename range_iterator<Range1>::type const&,
+            typename range_iterator<Range1>::type const&,
             PSTADE_PP_ENUM_PARAMS_WITH(n, A, &)
         )
     >
@@ -118,10 +119,10 @@ template< class Result, class Range0, class Range1, BOOST_PP_ENUM_PARAMS(n, clas
 Result call(Range0& rng0, Range1& rng1, BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
 {
     return m_fun(
-        boost::begin(rng0),
-        boost::end(rng0),
-        boost::begin(rng1),
-        boost::end(rng1),
+        as_cref(boost::begin(rng0)),
+        as_cref(boost::end(rng0)),
+        as_cref(boost::begin(rng1)),
+        as_cref(boost::end(rng1)),
         BOOST_PP_ENUM_PARAMS(n, a)
     );
 }

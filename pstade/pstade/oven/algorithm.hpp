@@ -50,10 +50,10 @@ namespace pstade { namespace oven {
 #define PSTADE_mutating1 \
     (copy)(copy_backward)(swap_ranges)(transform)(replace)(replace_if)(replace_copy)(replace_copy_if) \
     (fill)(generate)(remove)(remove_if)(remove_copy)(remove_copy_if)(unique)(unique_copy) \
-    (reverse)(reverse_copy)(partition)(stable_partition) \
+    (reverse)(reverse_copy)(random_shuffle)(partition)(stable_partition) \
 /**/
     // rejected.. fill_n, generate_n
-    // strange... rotate, rotate_copy, random_shuffle
+    // strange... rotate, rotate_copy
 
 
 #define PSTADE_sorting_and_related1 \
@@ -149,33 +149,6 @@ PSTADE_ADL_BARRIER(algorithm) {
     };
 
     PSTADE_CONSTANT(rotate_copy, (op_rotate_copy))
-
-
-    // 'random_shuffle' takes Generator as reference.
-
-    struct op_random_shuffle :
-        callable<op_random_shuffle>
-    {
-        template< class Myself, class Range, class Generator = void >
-        struct apply
-        {
-            typedef void type;
-        };
-
-        template< class Result, class Range, class Generator >
-        Result call(Range& rng, Generator& rand) const
-        {
-            return std::random_shuffle(boost::begin(rng), boost::end(rng), rand);
-        }
-
-        template< class Result, class Range >
-        Result call(Range& rng) const
-        {
-            return std::random_shuffle(boost::begin(rng), boost::end(rng));
-        }
-    };
-
-    PSTADE_CONSTANT(random_shuffle, (op_random_shuffle))
 
 
 } // ADL barrier
