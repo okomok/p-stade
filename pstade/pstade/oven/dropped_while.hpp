@@ -19,11 +19,12 @@
 // won't hang up. But once you call 'copy', it would be inevitable to hang up.
 
 
+#include <algorithm> // find_if
+#include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/function.hpp>
 #include <pstade/functional.hpp> // not_
 #include <pstade/pipable.hpp>
-#include "./algorithm.hpp" // find_if
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
 
@@ -45,7 +46,10 @@ namespace dropped_while_detail {
         result call(Range& rng, Predicate& pred)
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-            return result(find_if(rng, not_(pred)), boost::end(rng));
+            return result(
+                std::find_if(boost::begin(rng), boost::end(rng), not_(pred)),
+                boost::end(rng)
+            );
         }
     };
 

@@ -15,14 +15,15 @@
 // http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2104.pdf
 
 
+#include <algorithm> // for_each
 #include <boost/mpl/int.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/empty.hpp>
+#include <boost/range/end.hpp>
 #include <boost/thread/thread.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
-#include "./algorithm.hpp" // for_each
 #include "./concepts.hpp"
 #include "./distance.hpp"
 #include "./dropped.hpp"
@@ -47,7 +48,7 @@ namespace parallel_detail {
             Difference dist = distance(m_rng);
 
             if (dist <= m_grain) {
-                for_each(m_rng, m_fun);
+                std::for_each(boost::begin(m_rng), boost::end(m_rng), m_fun);
                 return;
             }
 

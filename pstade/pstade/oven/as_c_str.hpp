@@ -10,16 +10,18 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <cstddef> // size_t
-#include <cstring> // strlen
-#include <cwchar>  // wcslen
+#include <algorithm> // find
+#include <cstddef>   // size_t
+#include <cstring>   // strlen
+#include <cwchar>    // wcslen
 #include <boost/mpl/or.hpp>
+#include <boost/range/begin.hpp>
+#include <boost/range/end.hpp>
 #include <pstade/auxiliary.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/function.hpp>
 #include <pstade/pass_by.hpp>
-#include "./algorithm.hpp" // find
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
 #include "./range_value.hpp"
@@ -67,7 +69,7 @@ namespace as_c_str_detail {
     };
 
 
-    // suppres warning: comparison between signed and unsigned integer
+    // suppress warning: comparison between signed and unsigned integer
     template< class Range > inline
     typename range_value<Range>::type
     zero()
@@ -86,7 +88,10 @@ namespace as_c_str_detail {
         result call(Range& rng)
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
-            return result(boost::begin(rng), find(rng, zero<Range>()));
+            return result(
+                boost::begin(rng),
+                std::find(boost::begin(rng), boost::end(rng), zero<Range>())
+            );
         }
     };
 
@@ -121,7 +126,8 @@ struct op_contains_zero
     bool operator()(Range const& rng) const
     {
         PSTADE_CONCEPT_ASSERT((Forward<Range>));
-        return find(rng, as_c_str_detail::zero<Range>()) != boost::end(rng);
+        return boost::end(rng) !=
+            std::find(boost::begin(rng), boost::end(rng), as_c_str_detail::zero<Range>());
     }
 };
 

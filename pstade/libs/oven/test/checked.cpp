@@ -17,6 +17,7 @@
 #include <string>
 #include <boost/range.hpp>
 #include <pstade/oven/functions.hpp>
+#include <pstade/oven/algorithm.hpp>
 #include <pstade/as.hpp>
 #include <pstade/unused.hpp>
 #include <pstade/if_debug.hpp>

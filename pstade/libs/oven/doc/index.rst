@@ -86,7 +86,7 @@ Oven contains most of all the range-based STL algorithms [#]_ which were ported 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\stl_algorithms.ipp
 
 
-- Header: ``<pstade/oven/algorithm.hpp>`` and ``<pstade/oven/numeric.hpp>``
+- Header: ``<pstade/oven/algorithm.hpp>`` and ``<pstade/oven/numeric.hpp>``;  not included by ``<pstade/oven/functions.hpp>``
 - Valid expression: ``algo(rng,a0,a1,..,aN)``, where ``algo`` is a `Function Object`_.
 - Precondition: ``std::algo(boost::begin(rng),boost::end(rng),a0,a1,..,aN)`` is a valid expression, where ``algo`` is one of the STL algorithms.
 - Returns: ``std::algo(boost::begin(rng),boost::end(rng),a0,a1,..,aN)``
@@ -1336,4 +1336,6 @@ Version 0.93.4
 - Replaced ``shared_regular`` with ``regular_ref``.
 - `STL Algorithms`_ excluded ``fill_n`` and ``generate_n``.
 - `STL Algorithms`_ changed signature of ``rotate`` etc.
+- ``algorithm.hpp`` and ``numeric.hpp`` not included by ``functions.hpp``.
+
 

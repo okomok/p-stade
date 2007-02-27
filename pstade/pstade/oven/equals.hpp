@@ -18,6 +18,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <algorithm> // equal
 #include <boost/iterator/detail/minimum_category.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/range/begin.hpp>
@@ -26,7 +27,6 @@
 #include <pstade/constant.hpp>
 #include <pstade/deduced_const.hpp>
 #include <pstade/functional.hpp> // equal_to
-#include "./algorithm.hpp" // equal
 #include "./concepts.hpp"
 #include "./distance.hpp"
 #include "./range_iterator.hpp"
@@ -48,7 +48,7 @@ namespace equals_detail {
         if (distance(rng1) != distance(rng2))
             return false;
 
-        return equal(rng1, boost::begin(rng2), pred);
+        return std::equal(boost::begin(rng1), boost::end(rng1), boost::begin(rng2), pred);
     }
 
 

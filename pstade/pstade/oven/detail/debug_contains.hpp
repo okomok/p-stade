@@ -10,12 +10,14 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+
+#include <algorithm> // find
 #include <iterator> // tags
+#include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/for_debug.hpp>
 #include <pstade/unused.hpp>
-#include "../algorithm.hpp" // find
 #include "../directed.hpp"
 #include "../range_category.hpp"
 
@@ -38,7 +40,7 @@ bool debug_contains_aux(Range& rng, Iterator it, std::forward_iterator_tag)
         return true;
 
     typename boost::result_of<op_make_directed(Range&)>::type drng = make_directed(rng);
-    return find(drng, it) != boost::end(drng);
+    return boost::end(drng) != std::find(boost::begin(drng), boost::end(drng), it);
 }
 
 template< class Range, class Iterator > inline

@@ -15,6 +15,7 @@
 
 
 #include <vector>
+#include <pstade/oven/algorithm.hpp>
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/file_range.hpp> // VC++ does *using namespace std* here; Boost1.34 will work around this bug.
 #include <pstade/oven/utf8_decoded.hpp>

@@ -12,13 +12,14 @@
 
 #include <pstade/oven/range_based1.hpp>
 #include <pstade/oven/range_based2.hpp>
-#include <pstade/oven/detail/range_based_sig_fun.hpp>
+#include <pstade/oven/detail/sig_forward.hpp>
 
 
 #include <algorithm>
 #include <string>
 #include <pstade/functional.hpp>
 #include <boost/lambda/lambda.hpp>
+#include <boost/lambda/numeric.hpp>
 #include <boost/lambda/core.hpp>
 #include <boost/lambda/algorithm.hpp>
 #include <pstade/lambda_result_of.hpp>
@@ -66,9 +67,10 @@ void test()
 
     {
         std::string rng("edcbagf");
-        oven::range_based1(detail::sig_forward(lambda::ll::for_each()))(rng, do_nothing());
-        oven::range_based1(detail::sig_forward(lambda::ll::sort()))(rng);
-        oven::range_based1(detail::sig_forward(lambda::ll::sort()))(rng, pstade::less);
+        detail::sig_forward_result<lambda::ll::for_each>()(boost::begin(rng), boost::end(rng), do_nothing());
+        oven::range_based1(detail::sig_forward_result<lambda::ll::for_each>())(rng, do_nothing());
+        oven::range_based1(detail::sig_forward_result<lambda::ll::sort>())(rng);
+        oven::range_based1(detail::sig_forward_result<lambda::ll::sort>())(rng, pstade::less);
         BOOST_CHECK( rng == "abcdefg" );
     }
     {
@@ -82,6 +84,14 @@ void test()
         oven::range_based2(::op_sort2())(rng, rng_);
         BOOST_CHECK( rng == "abcdefg" );
         BOOST_CHECK( rng_ == "123456" );
+    }
+    { // big arity check
+        std::string rng;
+        bool never = false;
+        if (never) {
+            oven::range_based1(detail::sig_forward_result<lambda::ll::inner_product>())(rng, boost::begin(rng), 'c', pstade::plus, pstade::plus);
+            oven::range_based2(detail::sig_forward_result<lambda::ll::merge>())(rng, rng, boost::begin(rng), pstade::less);
+        }
     }
 }
 

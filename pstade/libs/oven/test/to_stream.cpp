@@ -17,6 +17,7 @@
 #include <sstream>
 #include <string>
 #include <boost/range.hpp>
+#include <pstade/oven/algorithm.hpp>
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/to_utf8_encoder.hpp>
 #include <pstade/is_same.hpp>

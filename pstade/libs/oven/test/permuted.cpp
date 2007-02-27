@@ -18,6 +18,7 @@
 #include <string>
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/counting.hpp>
+#include <pstade/oven/algorithm.hpp>
 #include <pstade/oven/reversed.hpp>
 
 

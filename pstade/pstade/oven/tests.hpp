@@ -29,7 +29,6 @@
 #include <boost/next_prior.hpp>
 #include <pstade/as.hpp>
 #include <pstade/object_generator.hpp>
-#include "./algorithm.hpp"
 #include "./concepts.hpp"
 #include "./distance.hpp"
 #include "./equals.hpp"
@@ -88,7 +87,7 @@ namespace tests_detail {
     make_removed(Range& rng, Value const& v)
     {
         return boost::iterator_range<typename range_iterator<Range>::type>(
-            boost::begin(rng), oven::remove(rng, v)
+            boost::begin(rng), std::remove(boost::begin(rng), boost::end(rng), v)
         );
     }
 
@@ -106,7 +105,7 @@ namespace tests_detail {
     make_searched(Range1& rng1, Range2 const& rng2)
     {
         return boost::iterator_range<typename range_iterator<Range1>::type>(
-            boost::begin(rng1), oven::search(rng1, rng2)
+            boost::begin(rng1), std::search(boost::begin(rng1), boost::end(rng1), boost::begin(rng2), boost::end(rng2))
         );
     }
 
@@ -161,7 +160,7 @@ namespace tests_detail {
             return false;
         }
 
-        oven::copy(expected, boost::begin(rng)); // restore
+        std::copy(boost::begin(expected), boost::end(expected), boost::begin(rng)); // restore
         return true;
     }
 
@@ -303,14 +302,14 @@ namespace tests_detail {
         }
 
         Vector exp = expected;
-        oven::stable_partition(exp, tests_detail::make_less_than(tests_detail::make_pivot(expected)));
-        oven::stable_partition(rng, tests_detail::make_less_than(tests_detail::make_pivot(expected)));
+        std::stable_partition(boost::begin(exp), boost::end(exp), tests_detail::make_less_than(tests_detail::make_pivot(expected)));
+        std::stable_partition(boost::begin(rng), boost::end(rng), tests_detail::make_less_than(tests_detail::make_pivot(expected)));
         if (!oven::equals(rng, exp)) { // strictly speaking, can fail :-)
             BOOST_ASSERT(false);
             return false;
         }
 
-        oven::copy(expected, boost::begin(rng)); // restore
+        std::copy(boost::begin(expected), boost::end(expected), boost::begin(rng)); // restore
         return true;
     }
 
@@ -331,7 +330,7 @@ bool test_Bidirectional_Readable(Range& rng, Vector const& expected)
         }
 
         Vector expRev = expected;
-        oven::reverse(expRev); // vector needed instead iterator_range.
+        std::reverse(boost::begin(expRev), boost::end(expRev));// vector needed instead iterator_range.
         if (!tests_detail::bidirectional_r(tests_detail::make_reversed(rng), expRev)) {
             BOOST_ASSERT(false);
             return false;
@@ -345,7 +344,7 @@ bool test_Bidirectional_Readable(Range& rng, Vector const& expected)
         }
 
         Vector expRev = expected;
-        oven::reverse(expRev);
+        std::reverse(boost::begin(expRev), boost::end(expRev));
         if (!tests_detail::bidirectional_r(tests_detail::make_reversed(rng|as_cref), expRev)) {
             BOOST_ASSERT(false);
             return false;
@@ -374,7 +373,7 @@ bool test_Bidirectional_Readable_Writable(Range& rng, Vector const& expected)
         }
 
         Vector expRev = expected;
-        oven::reverse(expRev);
+        std::reverse(boost::begin(expRev), boost::end(expRev));
         if (!tests_detail::bidirectional_rw(tests_detail::make_reversed(rng), expRev)) {
             BOOST_ASSERT(false);
             return false;
@@ -422,23 +421,23 @@ namespace tests_detail {
 
         Vector exp = expected;
 
-        oven::sort(exp);
-        oven::sort(rng);
+        std::sort(boost::begin(exp), boost::end(exp));
+        std::sort(boost::begin(rng), boost::end(rng));
         if (!oven::equals(rng, exp)) {
             BOOST_ASSERT(false);
             return false;
         }
 
-        oven::random_shuffle(exp);
-        oven::random_shuffle(rng);
-        oven::stable_sort(exp);
-        oven::stable_sort(rng);
+        std::random_shuffle(boost::begin(exp), boost::end(exp));
+        std::random_shuffle(boost::begin(rng), boost::end(rng));
+        std::stable_sort(boost::begin(exp), boost::end(exp));
+        std::stable_sort(boost::begin(rng), boost::end(rng));
         if (!oven::equals(rng, exp)) {
             BOOST_ASSERT(false);
             return false;
         }
 
-        oven::copy(expected, boost::begin(rng)); // restore
+        std::copy(boost::begin(expected), boost::end(expected), boost::begin(rng)); // restore
         return true;
     }
 
@@ -459,7 +458,7 @@ bool test_RandomAccess_Readable(Range& rng, Vector const& expected)
         }
 
         Vector expRev = expected;
-        oven::reverse(expRev);
+        std::reverse(boost::begin(expRev), boost::end(expRev));
         if (!tests_detail::random_access_r(tests_detail::make_reversed(rng), expRev)) {
             BOOST_ASSERT(false);
             return false;
@@ -473,7 +472,7 @@ bool test_RandomAccess_Readable(Range& rng, Vector const& expected)
         }
 
         Vector expRev = expected;
-        oven::reverse(expRev);
+        std::reverse(boost::begin(expRev), boost::end(expRev));
         if (!tests_detail::random_access_r(tests_detail::make_reversed(rng|as_cref), expRev)) {
             BOOST_ASSERT(false);
             return false;
@@ -511,7 +510,7 @@ bool test_RandomAccess_Readable_Writable(Range& rng, Vector const& expected)
         }
 
         Vector expRev = expected;
-        oven::reverse(expRev);
+        std::reverse(boost::begin(expRev), boost::end(expRev));
         if (!tests_detail::random_access_rw(tests_detail::make_reversed(rng), expRev)) {
             BOOST_ASSERT(false);
             return false;

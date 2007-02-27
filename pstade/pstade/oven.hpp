@@ -17,5 +17,8 @@
 #include "./oven/iterators.hpp"
 #include "./oven/ranges.hpp"
 
+#include "./oven/algorithm.hpp"
+#include "./oven/numeric.hpp"
+
 
 #endif

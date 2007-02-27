@@ -19,6 +19,7 @@
 #include <vector>
 #include <boost/foreach.hpp>
 #include <boost/range.hpp>
+#include <pstade/oven/algorithm.hpp>
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/taken_while.hpp>
 #include <pstade/oven/transformed.hpp>

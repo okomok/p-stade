@@ -10,9 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <algorithm> // copy
+#include <boost/range/begin.hpp>
+#include <boost/range/end.hpp>
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
-#include "./algorithm.hpp" // copy
 #include "./concepts.hpp"
 
 
@@ -32,7 +34,7 @@ namespace copied_out_detail {
         result call(Range& rng, OutIter& to)
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-            copy(rng, to);
+            std::copy(boost::begin(rng), boost::end(rng), to);
             return rng;
         }
     };

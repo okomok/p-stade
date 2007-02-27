@@ -20,6 +20,7 @@
 #include <vector>
 #include <list>
 #include <boost/range.hpp>
+#include <pstade/oven/algorithm.hpp>
 #include <pstade/oven/identities.hpp>
 #include <pstade/oven/functions.hpp>
 #include <pstade/unused.hpp>

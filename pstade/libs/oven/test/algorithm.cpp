@@ -111,13 +111,13 @@ void test_random_algorithms(Rng & rng, std::random_access_iterator_tag)
 
         oven::stable_sort(rng);
         oven::stable_sort(rng, std::less<value_type>());
-#if 1
+
         oven::partial_sort(rng, oven::begin);
         oven::partial_sort(rng, oven::begin, std::less<value_type>());
 
         oven::nth_element(rng, oven::begin);
         oven::nth_element(rng, oven::begin, std::less<value_type>());
-#endif
+
         oven::push_heap(rng);
         oven::push_heap(rng, std::less<value_type>());
 
@@ -229,10 +229,10 @@ void test_algorithms(Rng & rng)
         oven::reverse(rng);
 
         o = oven::reverse_copy(rng, boost::begin(out));
-#if 1
+
         oven::rotate(rng, oven::begin);
         o = oven::rotate_copy(rng, oven::begin, boost::begin(out));
-#endif
+
         i = oven::partition(rng, null_pred());
         i = oven::stable_partition(rng, null_pred());
 
@@ -251,10 +251,10 @@ void test_algorithms(Rng & rng)
 
         b = oven::binary_search(rng, val);
         b = oven::binary_search(rng, val, std::less<value_type>());
-#if 1
+
         oven::inplace_merge(rng, oven::begin);
         oven::inplace_merge(rng, oven::begin, std::less<value_type>());
-#endif
+
         b = oven::includes(rng, rng2);
         b = oven::includes(rng, rng2, std::equal_to<value_type>());
 

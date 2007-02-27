@@ -18,13 +18,15 @@
 // this may be still useful. So I don't remove...
 
 
+#include <algorithm> // sort
 #include <boost/ptr_container/indirect_fun.hpp>
+#include <boost/range/begin.hpp>
+#include <boost/range/end.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/functional.hpp> // less
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
-#include "./algorithm.hpp" // sort
 #include "./concepts.hpp"
 #include "./outplaced.hpp"
 
@@ -45,7 +47,7 @@ namespace sorted_detail {
         template< class Range >
         void operator()(Range& its) const
         {
-            sort(its, boost::make_indirect_fun(m_comp));
+            std::sort(boost::begin(its), boost::end(its), boost::make_indirect_fun(m_comp));
         }
 
     private:
