@@ -81,7 +81,7 @@ Oven provides some range-based algorithms.
 
 STL Algorithms
 ^^^^^^^^^^^^^^
-Oven has all the range-based STL algorithms, which are ported from `Boost.RangeEx`_ with some compiler workarounds::
+Oven contains most of all the range-based STL algorithms [#]_ which were ported from `Boost.RangeEx`_ with some modifications [#]_ ::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\stl_algorithms.ipp
 
@@ -90,6 +90,10 @@ Oven has all the range-based STL algorithms, which are ported from `Boost.RangeE
 - Valid expression: ``algo(rng,a0,a1,..,aN)``, where ``algo`` is a `Function Object`_.
 - Precondition: ``std::algo(boost::begin(rng),boost::end(rng),a0,a1,..,aN)`` is a valid expression, where ``algo`` is one of the STL algorithms.
 - Returns: ``std::algo(boost::begin(rng),boost::end(rng),a0,a1,..,aN)``
+
+.. [#] As ``fill_n`` and ``generate_n`` are not considered as a range algorithm, they are excluded.
+.. [#] ``rotate``, ``rotate_copy``, ``partial_sort``, ``nth_element`` and ``inplace_merge`` take not a middle iterator but a `Function Object`_ to return the middle iterator.
+
 
 
 ``adapted_to/to_base``
@@ -228,7 +232,8 @@ In principle, call ``regular`` before a lambda functor is passed to `Range Adapt
 
 - Header: ``<pstade/oven/regular.hpp>``
 - Valid expression: ``regular_ref(rfun)``
-- Returns: A `Function Object`_ which is ``DefaultConstructible`` and ``CopyAssignable``, where all the function call are forwarded to ``rfun``.
+- Precondition: The lifetime of ``rfun`` is longer than the use of the object ``ragular_ref(rfun)`` returns.
+- Returns: A `Function Object`_ which is ``DefaultConstructible`` and ``CopyAssignable``, where all the function calls are forwarded to ``rfun``.
 
 
 
@@ -341,7 +346,7 @@ __ http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html#as-array
 
 - Header: ``<pstade/oven/as_c_str.hpp>``
 - Valid expression2: ``as_c_str(x)`` and ``x|as_c_str``.
-- Returns: If  ``x`` is convertible to a char pointer, ``[x,x+strlen(psz))``; otherwise, ``[boost::begin(x),oven::find(x,0))``.
+- Returns: If  ``x`` is convertible to a ``char`` pointer, ``[x,x+strlen(psz))``; otherwise, ``[boost::begin(x),oven::find(x,0))``.
 
 
 ``as_literal``
@@ -1329,5 +1334,6 @@ Version 0.93.4
 - Optimized ``any_range``.
 - Some ``any_range`` constructors are now explicit.
 - Replaced ``shared_regular`` with ``regular_ref``.
-
+- `STL Algorithms`_ excluded ``fill_n`` and ``generate_n``.
+- `STL Algorithms`_ changed signature of ``rotate`` etc.
 

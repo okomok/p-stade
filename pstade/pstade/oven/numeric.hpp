@@ -31,7 +31,7 @@ namespace pstade { namespace oven {
 PSTADE_ADL_BARRIER(numeric) {
     
 
-    BOOST_PP_SEQ_FOR_EACH(PSTADE_OVEN_DETAIL_RANGE_BASED1_SIG_FUN, ~, PSTADE_numeric)
+    BOOST_PP_SEQ_FOR_EACH(PSTADE_OVEN_DETAIL_RANGE_BASED1_LL, ~, PSTADE_numeric)
 
 
     // The arity of 'inner_product' is too many.
@@ -39,24 +39,24 @@ PSTADE_ADL_BARRIER(numeric) {
     struct op_inner_product :
         callable<op_inner_product>
     {
-        template< class Myself, class Range1, class InputIter2, class T, class BinaryOp1 = void, class BinaryOp2 = void >
+        template< class Myself, class Range0, class InputIter1, class T, class BinaryOp0 = void, class BinaryOp1 = void >
         struct apply :
             pass_by_value<T>
         { };
 
-        template< class Result, class Range1, class InputIter2, class T, class BinaryOp1, class BinaryOp2 >
-        Result call(Range1& rng1, InputIter2& first2, T& init, BinaryOp1& op1, BinaryOp2& op2) const
+        template< class Result, class Range0, class InputIter1, class T, class BinaryOp0, class BinaryOp1 >
+        Result call(Range0& rng0, InputIter1& first1, T& init, BinaryOp0& op0, BinaryOp1& op1) const
         {
-            return std::inner_product(boost::begin(rng1), boost::end(rng1), first2, init, op1, op2);
+            return std::inner_product(boost::begin(rng0), boost::end(rng0), first1, init, op0, op1);
         }
 
-        template< class Result, class Range1, class InputIter2, class T >
-        Result call(Range1& rng1, InputIter2& first2, T& init) const
+        template< class Result, class Range0, class InputIter1, class T >
+        Result call(Range0& rng0, InputIter1& first1, T& init) const
         {
-            return std::inner_product(boost::begin(rng1), boost::end(rng1), first2, init);
+            return std::inner_product(boost::begin(rng0), boost::end(rng0), first1, init);
         }
     };
-   
+
     PSTADE_CONSTANT(inner_product, (op_inner_product))
 
 

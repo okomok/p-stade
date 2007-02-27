@@ -11,12 +11,17 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// What:
+//
+// Converts a poor functor type holding 'sig'
+// into the function which supports 'boost::result_of'.
+
+
 #include <boost/config.hpp> // BOOST_NESTED_TEMPLATE
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/tuple/tuple.hpp>
-#include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/object_generator.hpp>
@@ -46,40 +51,44 @@ struct sig_forward_result :
         m_fun(fun)
     { }
 
+    typedef SigFun base_type;
+
+    SigFun const& base() const
+    {
+        return m_fun;
+    }
+
 private:
     SigFun m_fun;
 };
 
 
-// This converts a poor functor type holding 'sig'
-// into the function which supports 'boost::result_of'.
 PSTADE_OBJECT_GENERATOR(sig_forward, (sig_forward_result< deduce<_1, to_value> >))
 
 
-template< class SigFun >
-struct range_based1_sig_fun :
-    boost::result_of<
-        op_range_based1(
-            typename boost::result_of<op_sig_forward(SigFun)>::type
-        )
-    >
-{ };
+// Specify the result without object generators; for faster compiling.
 
-#define PSTADE_OVEN_DETAIL_RANGE_BASED1_SIG_FUN(R, _, Name) \
+template< class SigFun >
+struct range_based1_sig_fun
+{
+    typedef
+        range_based1_detail::op_result< sig_forward_result<SigFun> >
+    type;
+};
+
+template< class SigFun >
+struct range_based2_sig_fun
+{
+    typedef
+        range_based2_detail::op_result< sig_forward_result<SigFun> >
+    type;
+};
+
+#define PSTADE_OVEN_DETAIL_RANGE_BASED1_LL(R, _, Name) \
     PSTADE_CONSTANT(Name, (::pstade::oven::detail::range_based1_sig_fun< ::boost::lambda::ll::Name >::type)) \
 /**/
 
-
-template< class SigFun >
-struct range_based2_sig_fun :
-    boost::result_of<
-        op_range_based2(
-            typename boost::result_of<op_sig_forward(SigFun)>::type
-        )
-    >
-{ };
-
-#define PSTADE_OVEN_DETAIL_RANGE_BASED2_SIG_FUN(R, _, Name) \
+#define PSTADE_OVEN_DETAIL_RANGE_BASED2_LL(R, _, Name) \
     PSTADE_CONSTANT(Name, (::pstade::oven::detail::range_based2_sig_fun< ::boost::lambda::ll::Name >::type)) \
 /**/
 

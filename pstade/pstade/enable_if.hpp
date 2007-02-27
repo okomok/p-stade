@@ -21,6 +21,7 @@
 #include <boost/detail/workaround.hpp>
 #include <boost/mpl/or.hpp>
 #include <boost/type_traits/is_convertible.hpp>
+#include <boost/type_traits/is_same.hpp>
 #include <boost/utility/enable_if.hpp>
 
 

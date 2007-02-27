@@ -10,6 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Note:
+//
+// I doubt the optimization using member functions is useful.
+
+
 #include <boost/lambda/algorithm.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
@@ -120,11 +125,11 @@ namespace pstade { namespace oven {
 PSTADE_ADL_BARRIER(algorithm) {
 
 
-    BOOST_PP_SEQ_FOR_EACH(PSTADE_OVEN_DETAIL_RANGE_BASED1_SIG_FUN, ~, PSTADE_nonmodifying1)
-    BOOST_PP_SEQ_FOR_EACH(PSTADE_OVEN_DETAIL_RANGE_BASED2_SIG_FUN, ~, PSTADE_nonmodifying2)
-    BOOST_PP_SEQ_FOR_EACH(PSTADE_OVEN_DETAIL_RANGE_BASED1_SIG_FUN, ~, PSTADE_mutating1)
-    BOOST_PP_SEQ_FOR_EACH(PSTADE_OVEN_DETAIL_RANGE_BASED1_SIG_FUN, ~, PSTADE_sorting_and_related1)
-    BOOST_PP_SEQ_FOR_EACH(PSTADE_OVEN_DETAIL_RANGE_BASED2_SIG_FUN, ~, PSTADE_sorting_and_related2)
+    BOOST_PP_SEQ_FOR_EACH(PSTADE_OVEN_DETAIL_RANGE_BASED1_LL, ~, PSTADE_nonmodifying1)
+    BOOST_PP_SEQ_FOR_EACH(PSTADE_OVEN_DETAIL_RANGE_BASED2_LL, ~, PSTADE_nonmodifying2)
+    BOOST_PP_SEQ_FOR_EACH(PSTADE_OVEN_DETAIL_RANGE_BASED1_LL, ~, PSTADE_mutating1)
+    BOOST_PP_SEQ_FOR_EACH(PSTADE_OVEN_DETAIL_RANGE_BASED1_LL, ~, PSTADE_sorting_and_related1)
+    BOOST_PP_SEQ_FOR_EACH(PSTADE_OVEN_DETAIL_RANGE_BASED2_LL, ~, PSTADE_sorting_and_related2)
     BOOST_PP_SEQ_FOR_EACH(PSTADE_range_based_merge, ~, PSTADE_merge)
     BOOST_PP_SEQ_FOR_EACH(PSTADE_range_based_partial_sort, ~, PSTADE_partial_sort_form)
 
@@ -171,6 +176,8 @@ PSTADE_ADL_BARRIER(algorithm) {
 
 #undef  PSTADE_range_based_partial_sort
 #undef  PSTADE_range_based_merge
+#undef  PSTADE_partial_sort_form
+#undef  PSTADE_merge
 #undef  PSTADE_sorting_and_related2
 #undef  PSTADE_sorting_and_related1
 #undef  PSTADE_mutating1

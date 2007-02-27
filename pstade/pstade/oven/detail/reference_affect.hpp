@@ -27,7 +27,9 @@ namespace pstade { namespace oven { namespace detail {
 template< class Range, class Lambda >
 struct reference_affect
 {
-    typedef typename range_reference<Range>::type ref_t;
+    typedef typename
+        range_reference<Range>::type
+    ref_t;
 
     typedef typename
         affect<

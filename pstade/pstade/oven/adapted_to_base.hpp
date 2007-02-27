@@ -20,7 +20,7 @@
 
 // Question:
 //
-// 'is_convertible' is too permissive?
+// 'is_convertible' is over-optimistic?
 // Meanwhile, 'iterator_cast' uses 'is_same'.
 //
 // Can this function be used for more generic usage?
