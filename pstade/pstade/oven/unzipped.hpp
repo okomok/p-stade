@@ -40,13 +40,13 @@ struct op_make_unzipped_at :
         typedef typename
             detail::reference_affect<
                 TupleRange,
-                value_at<boost::mpl::_1, N>
+                tuple_value_at<boost::mpl::_1, N>
             >::type
         ref_t;
 
         typedef typename
             boost::result_of<
-                op_make_transformed<ref_t>(TupleRange&, op_at<N>)
+                op_make_transformed<ref_t>(TupleRange&, op_tuple_at<N>)
             >::type
         type;
     };
@@ -57,7 +57,7 @@ struct op_make_unzipped_at :
         PSTADE_CONCEPT_ASSERT((SinglePass<TupleRange>));
 
         typedef typename apply<void, TupleRange>::ref_t ref_t;
-        return op_make_transformed<ref_t>()(rng, op_at<N>());
+        return op_make_transformed<ref_t>()(rng, op_tuple_at<N>());
     };
 };
 

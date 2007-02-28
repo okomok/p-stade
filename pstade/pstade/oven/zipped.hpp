@@ -101,7 +101,7 @@ namespace zipped_detail {
     template< class RangeTuple >
     struct with_apply
     {
-        template< class Range > // 'Range' is what 'value_at' returns.
+        template< class Range > // 'Range' is what 'tuple_value_at' returns.
         struct apply :
             boost::result_of<
                 op_begin(typename affect<RangeTuple&, Range>::type)

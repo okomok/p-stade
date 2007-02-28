@@ -125,7 +125,7 @@ namespace pstade {
 template<class Function, class FusionSeq>
 struct apply_impl< Function, FusionSeq, int_<n> > :
     boost::result_of<Function(
-        PSTADE_PP_ENUM_PARAMS_WITH(n, typename boost::result_of<op_at_c<PSTADE_PP_INT_, >(FusionSeq&)>::type)
+        PSTADE_PP_ENUM_PARAMS_WITH(n, typename boost::result_of<op_tuple_at_c<PSTADE_PP_INT_, >(FusionSeq&)>::type)
     )>
 { };
 
@@ -133,7 +133,7 @@ template<class Result, class Function, class FusionSeq> inline
 Result call_impl(Function& fun, FusionSeq& seq, int_<n>)
 {
     return fun(
-        PSTADE_PP_ENUM_PARAMS_WITH(n, pstade::at_c<PSTADE_PP_INT_, >(seq))
+        PSTADE_PP_ENUM_PARAMS_WITH(n, pstade::tuple_at_c<PSTADE_PP_INT_, >(seq))
     );
 }
 

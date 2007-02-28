@@ -6,16 +6,19 @@
 //
 // Copyright Shunsuke Sogame 2005-2006.
 // Distributed under the Boost Software License, Version 1.0.
-// (See accompanying file LICENSE_1_0.txt or copy at
+// (See accompanying file LICENSE_1_0.txt or copy tuple_at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
 // What:
 //
-// Provides Boost.Fusion-like interfaces to Boost.Tuple.
-// 'value_at', whose funny name comes from Boost.Fusion,
+// Provides Boost.Fusion-like interfaces to Boost.Tuple,
+// which maybe will come with Boost v1.35.
+//
+// 'tuple_value_at', whose funny name comes from Boost.Fusion,
 // can return reference type.
-// Note that 'std::pair' can't hold reference type
+//
+// 'std::pair' can't hold reference type
 // because of the reference-to-reference problem.
 
 
@@ -90,22 +93,22 @@ namespace pstade {
     PSTADE_CONSTANT(at_second, (op_at_second))
 
 
-    // at
+    // tuple_at
 
 
     template<class Tuple, class N>
-    struct value_at :
+    struct tuple_value_at :
         boost::tuples::element<N::value, typename boost::remove_cv<Tuple>::type>
     { };
 
 
     template<class N>
-    struct op_at :
-        callable< op_at<N> >
+    struct op_tuple_at :
+        callable< op_tuple_at<N> >
     {
         template<class Myself, class Tuple>
         struct apply :
-            affect<Tuple&, typename value_at<Tuple, N>::type>
+            affect<Tuple&, typename tuple_value_at<Tuple, N>::type>
         { };
 
         template<class Result, class Tuple>
@@ -117,47 +120,47 @@ namespace pstade {
 
 
     template<class N, class Tuple> inline
-    typename boost::result_of<op_at<N>(Tuple&)>::type
-    at(Tuple& t PSTADE_CONST_OVERLOADED(Tuple))
+    typename boost::result_of<op_tuple_at<N>(Tuple&)>::type
+    tuple_at(Tuple& t PSTADE_CONST_OVERLOADED(Tuple))
     {
-        return op_at<N>()(t);
+        return op_tuple_at<N>()(t);
     }
 
     template<class N, class Tuple> inline
-    typename boost::result_of<op_at<N>(PSTADE_DEDUCED_CONST(Tuple)&)>::type
-    at(Tuple const& t)
+    typename boost::result_of<op_tuple_at<N>(PSTADE_DEDUCED_CONST(Tuple)&)>::type
+    tuple_at(Tuple const& t)
     {
-        return op_at<N>()(t);
+        return op_tuple_at<N>()(t);
     }
 
 
-    // at_c
+    // tuple_at_c
 
 
     template<class Tuple, int N>
-    struct value_at_c :
-        value_at< Tuple, boost::mpl::int_<N> >
+    struct tuple_value_at_c :
+        tuple_value_at< Tuple, boost::mpl::int_<N> >
     { };
 
 
     template<int N>
-    struct op_at_c :
-        op_at< boost::mpl::int_<N> >
+    struct op_tuple_at_c :
+        op_tuple_at< boost::mpl::int_<N> >
     { };
 
 
     template<int N, class Tuple> inline
-    typename boost::result_of<op_at_c<N>(Tuple&)>::type
-    at_c(Tuple& t PSTADE_CONST_OVERLOADED(Tuple))
+    typename boost::result_of<op_tuple_at_c<N>(Tuple&)>::type
+    tuple_at_c(Tuple& t PSTADE_CONST_OVERLOADED(Tuple))
     {
-        return op_at_c<N>()(t);
+        return op_tuple_at_c<N>()(t);
     }
 
     template<int N, class Tuple> inline
-    typename boost::result_of<op_at_c<N>(PSTADE_DEDUCED_CONST(Tuple)&)>::type
-    at_c(Tuple const& t)
+    typename boost::result_of<op_tuple_at_c<N>(PSTADE_DEDUCED_CONST(Tuple)&)>::type
+    tuple_at_c(Tuple const& t)
     {
-        return op_at_c<N>()(t);
+        return op_tuple_at_c<N>()(t);
     }
 
 

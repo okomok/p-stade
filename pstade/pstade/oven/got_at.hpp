@@ -30,8 +30,8 @@ namespace got_at_detail {
 
 
     template< class N >
-    struct op_at :
-        callable< op_at<N> >
+    struct op_fusion_at :
+        callable< op_fusion_at<N> >
     {
         template< class Myself, class FusionSeq >
         struct apply :
@@ -65,7 +65,7 @@ struct op_make_got_at :
 
         typedef typename
             boost::result_of<
-                op_make_transformed<ref_t>(FusionSeqRange&, got_at_detail::op_at<N>)
+                op_make_transformed<ref_t>(FusionSeqRange&, got_at_detail::op_fusion_at<N>)
             >::type
         type;
     };
@@ -76,7 +76,7 @@ struct op_make_got_at :
         PSTADE_CONCEPT_ASSERT((SinglePass<FusionSeqRange>));
 
         typedef typename apply<void, FusionSeqRange>::ref_t ref_t;
-        return op_make_transformed<ref_t>()(rng, got_at_detail::op_at<N>());
+        return op_make_transformed<ref_t>()(rng, got_at_detail::op_fusion_at<N>());
     }
 };
 

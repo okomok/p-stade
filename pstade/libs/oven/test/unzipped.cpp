@@ -39,12 +39,12 @@ void test()
         std::vector<int> ans1  = rng1|copied;
 
         BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
-            pstade::at_c<0>(pstade::pack(rng0, rng1)|zipped|unzipped),
+            pstade::tuple_at_c<0>(pstade::pack(rng0, rng1)|zipped|unzipped),
             ans0
         ) );
 
         BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
-            pstade::at_c<1>(pstade::pack(rng0, rng1)|zipped|unzipped),
+            pstade::tuple_at_c<1>(pstade::pack(rng0, rng1)|zipped|unzipped),
             ans1
         ) );
     }
