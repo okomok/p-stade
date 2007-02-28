@@ -15,7 +15,7 @@
 // http://msdn2.microsoft.com/en-us/library/at797xz3.aspx
 
 
-#include <stdexcept> // range_error
+#include <stdexcept> // out_of_range
 #include <string>
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
@@ -31,10 +31,10 @@ struct check_iterator;
 
 
 struct check_error :
-    std::range_error
+    std::out_of_range
 {
     explicit check_error(std::string const& msg) :
-        std::range_error(msg)
+        std::out_of_range(msg)
     { }
 };
 

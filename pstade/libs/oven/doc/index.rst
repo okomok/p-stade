@@ -110,6 +110,18 @@ Oven contains most of all the range-based STL algorithms [#]_ which were ported 
 .. [#] ``to_base`` adds the automatic type deduction to ``adapted_to``.
 
 
+``at``
+^^^^^^
+- Header: ``<pstade/oven/at.hpp>``
+- Valid expression: ``at(rndRng,d)`` and ``rndRng|at(d)``, where ``d`` is convertible to ``boost::range_difference`` of ``rndRng``.
+- Precondition: ``0 <= d && d < oven::distance(rndRng)`` [#]_
+- Returns: ``V(*(boost::begin(rndRng)+d))``, where ``V`` is ``boost::range_value`` of ``rndRng``. [#]_
+
+.. [#] If you want exceptions to be thrown in release mode, use ``at(rndRng|checked,d)``.
+.. [#] It can't return reference because of 24.1/9.
+
+
+
 ``begin/end``
 ^^^^^^^^^^^^^
 ``begin/end`` is a pipable version of ``boost::begin/end``::
@@ -188,9 +200,7 @@ The upcoming `Boost.Range`_ will replace ``boost::size`` by ``boost::distance``.
 - Header: ``<pstade/oven/front_back.hpp>``
 - Valid expression: ``front(rng)`` and ``back(biRng)``.
 - Precondition: ``boost::range_value`` of ``rng`` is ``CopyConstructible``.
-- Returns:  ``V(*boost::begin(rng))`` and ``V(*--boost::end(biRng))`` respectively, where ``V`` is ``boost::range_value`` of ``rng``. [#]_
-
-.. [#] They don't return references because of 24.1/9.
+- Returns:  ``V(*boost::begin(rng))`` and ``V(*--boost::end(biRng))`` respectively, where ``V`` is ``boost::range_value`` of ``rng``.
 
 
 
@@ -582,7 +592,7 @@ which has the same effect.
 
 - Header: ``<pstade/oven/checked.hpp>``
 - Valid expression: ``rng|checked``
-- Effect: Throws ``check_error`` derived from ``std::range_error`` if iterators go out of ``rng``.
+- Effect: Throws ``check_error`` derived from ``std::out_of_range`` if iterators go out of ``rng``.
 - Returns: ``[boost::begin(rng),boost::end(rng))``
 
 
@@ -846,9 +856,11 @@ Pending...
 
 
 - Header: ``<pstade/oven/pointed.hpp>``
-- Valid expression: ``vec|pointed``
-- Precondition: ``vec`` is a template instantiation of ``std::vector``.
-- Returns:  ``[&*boost::begin(vec),&*boost::begin(vec)+oven::distance(vec))`` if ``vec`` is not empty; otherwise, ``[0,0)``.
+- Valid expression: ``v|pointed``
+- Precondition: ``v`` is a ``std::vector`` or ``std::basic_string`` object. [#]_
+- Returns:  ``[&*boost::begin(v),&*boost::begin(v)+oven::distance(v))`` if ``v`` is not empty; otherwise, ``[0,0)``.
+
+.. [#] Though the Standard doesn't clearly specify that ``std::basic_string`` is contiguously allocated, it can be "mathematically" proved.
 
 
 ``popped``
@@ -1337,5 +1349,5 @@ Version 0.93.4
 - `STL Algorithms`_ excluded ``fill_n`` and ``generate_n``.
 - `STL Algorithms`_ changed signature of ``rotate`` etc.
 - ``algorithm.hpp`` and ``numeric.hpp`` not included by ``functions.hpp``.
-
-
+- ``check_error`` derived from ``std::out_of_range``.
+- Added ``at``.

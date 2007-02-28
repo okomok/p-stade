@@ -24,14 +24,18 @@ namespace pstade { namespace oven { namespace detail {
 template< class SigFun >
 struct range_based1_sig_fun :
     boost::result_of<
-        op_range_based1(sig_forward_result<SigFun>)
+        op_range_based1(
+            typename boost::result_of<op_sig_forward(SigFun)>::type
+        )
     >
 { };
 
 template< class SigFun >
 struct range_based2_sig_fun :
     boost::result_of<
-        op_range_based2(sig_forward_result<SigFun>)
+        op_range_based2(
+            typename boost::result_of<op_sig_forward(SigFun)>::type
+        )
     >
 { };
 

@@ -43,7 +43,7 @@ void test()
         try {
             oven::equal( in, boost::begin(out|checked) );
         }
-        catch (check_error const& ) {
+        catch (std::out_of_range const& ) {
             thrown = true;
         }
 
@@ -65,7 +65,7 @@ void test()
         try {
             (boost::begin(out|checked) + 5) - 6;
         }
-        catch (check_error const& ) {
+        catch (std::out_of_range const& ) {
             thrown = true;
         }
 

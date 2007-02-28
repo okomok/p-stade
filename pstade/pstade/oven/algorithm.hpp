@@ -63,8 +63,8 @@ namespace pstade { namespace oven {
     (fill)(generate)(remove)(remove_if)(remove_copy)(remove_copy_if)(unique)(unique_copy) \
     (reverse)(reverse_copy)(random_shuffle)(partition)(stable_partition) \
 /**/
-    // rejected.. fill_n, generate_n
-    // strange... rotate, rotate_copy
+    // rejected... fill_n, generate_n
+    // see below.. rotate, rotate_copy
 
 
 #define PSTADE_sorting_and_related1 \
@@ -99,13 +99,13 @@ namespace pstade { namespace oven {
         template< class Result, class Range, class MiddleFun, class Compare > \
         Result call(Range& rng, MiddleFun& fun, Compare& comp) const \
         { \
-            return ::std::Name(boost::begin(rng), fun(rng), boost::end(rng), comp); \
+            return std::Name(boost::begin(rng), fun(rng), boost::end(rng), comp); \
         } \
         \
         template< class Result, class Range, class MiddleFun > \
         Result call(Range& rng, MiddleFun& fun) const \
         { \
-            return ::std::Name(boost::begin(rng), fun(rng), boost::end(rng)); \
+            return std::Name(boost::begin(rng), fun(rng), boost::end(rng)); \
         } \
     }; \
     \

@@ -51,6 +51,7 @@ test-suite oven :
     [ oven-test as_lightweight_proxy ]
     [ oven-test as_literal ]
     [ oven-test as_single ]
+    [ oven-test at ]
     [ oven-test begin_end ]
     [ oven-test broken_into ]
     [ oven-test checked ]
