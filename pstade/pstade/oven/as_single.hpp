@@ -53,7 +53,7 @@ namespace as_single_detail {
 } // namespace as_single_detail
 
 
-PSTADE_AUXILIARY0(as_single, (as_single_detail::op_normal))
+PSTADE_AUXILIARY(0, as_single, (as_single_detail::op_normal))
 
 
 namespace as_shared_single_detail {

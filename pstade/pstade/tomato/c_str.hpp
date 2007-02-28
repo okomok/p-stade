@@ -133,7 +133,7 @@ namespace c_str_detail {
 } // namespace c_str_detail
 
 
-PSTADE_AUXILIARY0(c_str, (c_str_detail::op))
+PSTADE_AUXILIARY(0, c_str, (c_str_detail::op))
 
 
 } } // namespace pstade::tomato

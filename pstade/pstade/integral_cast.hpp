@@ -44,7 +44,7 @@ namespace pstade {
     }
 
 
-    PSTADE_AUXILIARY0(to_integer, (automatic< op_integral_cast<boost::mpl::_> >))
+    PSTADE_AUXILIARY(0, to_integer, (automatic< op_integral_cast<boost::mpl::_> >))
 
 
 } // namespace pstade

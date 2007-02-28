@@ -115,7 +115,7 @@ namespace as_c_str_detail {
 } // namespace as_c_str_detail
 
 
-PSTADE_AUXILIARY0(as_c_str, (as_c_str_detail::op_normal))
+PSTADE_AUXILIARY(0, as_c_str, (as_c_str_detail::op_normal))
 
 
 struct op_contains_zero

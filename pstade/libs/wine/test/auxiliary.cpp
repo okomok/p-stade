@@ -31,7 +31,7 @@ struct impl_interface0
     }
 };
 
-PSTADE_AUXILIARY0(interface0, (impl_interface0))
+PSTADE_AUXILIARY(0, interface0, (impl_interface0))
 
 
 struct impl_interface1

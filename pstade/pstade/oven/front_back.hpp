@@ -70,8 +70,8 @@ namespace front_back_detail {
 } // namespace front_back_detail
 
 
-PSTADE_AUXILIARY0(front, (front_back_detail::op_normal_front))
-PSTADE_AUXILIARY0(back,  (front_back_detail::op_normal_back))
+PSTADE_AUXILIARY(0, front, (front_back_detail::op_normal_front))
+PSTADE_AUXILIARY(0, back,  (front_back_detail::op_normal_back))
 
 
 } } // namespace pstade::oven

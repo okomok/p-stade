@@ -75,7 +75,7 @@ namespace as_array_detail {
 } // namespace as_array_detail
 
 
-PSTADE_AUXILIARY0(as_array, (as_array_detail::op_normal))
+PSTADE_AUXILIARY(0, as_array, (as_array_detail::op_normal))
 
 
 } } // namespace pstade::oven

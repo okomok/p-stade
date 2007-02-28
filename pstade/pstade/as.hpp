@@ -54,8 +54,8 @@ namespace pstade {
     } // namespace as_ref_detail
 
 
-    PSTADE_AUXILIARY0(as_ref,  (as_ref_detail::op_normal))
-    PSTADE_AUXILIARY0(as_cref, (as_ref_detail::op_cnormal))
+    PSTADE_AUXILIARY(0, as_ref,  (as_ref_detail::op_normal))
+    PSTADE_AUXILIARY(0, as_cref, (as_ref_detail::op_cnormal))
 
 
     // Define 'as_value' without 'callable', 'function' nor 'auxiliary0'.

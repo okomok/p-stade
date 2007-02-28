@@ -101,14 +101,6 @@ namespace pstade {
     PSTADE_OBJECT_GENERATOR(auxiliary0,
         (auxiliary_detail::op_result0< deduce<_1, to_value> >))
 
-    #define PSTADE_AUXILIARY0(Object, UnaryFun) \
-        typedef \
-            ::boost::result_of< ::pstade::op_auxiliary0(PSTADE_UNPARENTHESIZE(UnaryFun)) >::type \
-        BOOST_PP_CAT(op_, Object); \
-        \
-        PSTADE_CONSTANT(Object, (BOOST_PP_CAT(op_, Object))) \
-    /**/
-
 
     // 1ary-
 
@@ -116,6 +108,15 @@ namespace pstade {
     #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_max_arity, <pstade/auxiliary.hpp>))
     #include BOOST_PP_ITERATE()
 #undef  PSTADE_max_arity
+
+
+    #define PSTADE_AUXILIARY(N, Object, UnaryFun) \
+        typedef \
+            ::boost::result_of< ::pstade::BOOST_PP_CAT(op_auxiliary, N)(PSTADE_UNPARENTHESIZE(UnaryFun)) >::type \
+        BOOST_PP_CAT(op_, Object); \
+        \
+        PSTADE_CONSTANT(Object, (BOOST_PP_CAT(op_, Object))) \
+    /**/
 
 
 } // namespace pstade

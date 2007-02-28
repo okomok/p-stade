@@ -103,7 +103,7 @@ adapted_to(Adapted const& ad)
 }
 
 
-PSTADE_AUXILIARY0(to_base, (automatic< op_adapted_to<boost::mpl::_1> >))
+PSTADE_AUXILIARY(0, to_base, (automatic< op_adapted_to<boost::mpl::_1> >))
 
 
 // for range
@@ -153,7 +153,7 @@ adapted_range_to(Adapted const& ad)
 }
 
 
-PSTADE_AUXILIARY0(to_base_range, (automatic< op_adapted_range_to<boost::mpl::_1> >))
+PSTADE_AUXILIARY(0, to_base_range, (automatic< op_adapted_range_to<boost::mpl::_1> >))
 
 
 } } // namespace pstade::oven

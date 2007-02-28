@@ -20,7 +20,6 @@
 #include <boost/range/begin.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/auxiliary.hpp>
-#include <pstade/constant.hpp>
 #include <pstade/function.hpp>
 #include "./concepts.hpp"
 #include "./distance.hpp"
@@ -59,8 +58,7 @@ namespace at_detail {
 } // namespace at_detail
 
 
-typedef boost::result_of<op_auxiliary1(at_detail::op_normal)>::type op_at;
-PSTADE_CONSTANT(at, (op_at))
+PSTADE_AUXILIARY(1, at, (at_detail::op_normal))
 
 
 } } // namespace pstade::oven
