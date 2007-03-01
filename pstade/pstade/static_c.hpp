@@ -14,6 +14,8 @@
 //
 // Strictly speaking, the standard doesn't say
 // when the definition of 'value' is needed.
+//
+// It's been fixed by Working Draft (3.2/2).
 
 
 // See:

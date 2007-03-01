@@ -30,7 +30,7 @@
 #include <pstade/for_debug.hpp>
 #include <pstade/function.hpp>
 #include "./concepts.hpp"
-#include "./detail/next_prior.hpp" // next
+#include "./next_prior.hpp" // next
 #include "./iter_range.hpp"
 #include "./range_difference.hpp"
 #include "./range_reference.hpp"
@@ -117,7 +117,7 @@ namespace recursion_detail {
                 return;
 
             m_obase = !m_is_from_end ? boost::begin(*m_prng) : boost::end(*m_prng);
-            m_obase = detail::next(*m_obase, m_saved_diff);
+            m_obase = next(*m_obase, m_saved_diff);
         }
 
         template< class Other >

@@ -20,7 +20,7 @@
 #include <boost/optional.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/object_generator.hpp>
-#include "./detail/next_prior.hpp" // prior
+#include "./next_prior.hpp" // prior
 
 
 namespace pstade { namespace oven {
@@ -79,7 +79,7 @@ friend class boost::iterator_core_access;
     ref_t dereference() const
     {
         if (!m_cache)
-            m_cache = detail::prior(this->base());
+            m_cache = prior(this->base());
 
         return **m_cache;
     }

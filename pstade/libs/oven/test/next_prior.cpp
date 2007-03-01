@@ -10,31 +10,34 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/oven/tests.hpp>
 #include <pstade/oven/next_prior.hpp>
 
 
 #include <string>
-#include <boost/range.hpp>
-#include <pstade/oven/functions.hpp>
+#include <boost/range/begin.hpp>
+#include <boost/range/end.hpp>
 
 
 void test()
 {
-    using namespace pstade;
+    namespace oven = pstade::oven;
     using namespace oven;
 
     {
-        std::string src("0123456789");
+        std::string str("f12344513215b");
 
-        BOOST_CHECK( *oven::next_begin(src) == '1' );
-        BOOST_CHECK( *oven::prior_end(src) == '9' );
-        BOOST_CHECK( *(src|next_begins) == '1' );
-        BOOST_CHECK( *(src|prior_ends) == '9' );
+        BOOST_CHECK( *next(boost::begin(str)) == '1' );
+        BOOST_CHECK( *prior(boost::end(str))  == 'b' );
 
-        BOOST_CHECK( *oven::next_begin(src, 3) == '3' );
-        BOOST_CHECK( *oven::prior_end(src, 3) == '7' );
-        BOOST_CHECK( *(src|next_begins(3)) == '3' );
-        BOOST_CHECK( *(src|prior_ends(3)) == '7' );
+        BOOST_CHECK( *next(boost::begin(str), 3) == '3' );
+        BOOST_CHECK( *prior(boost::end(str), 2)  == '5' );
+
+        BOOST_CHECK( *next_begin(str) == '1' );
+        BOOST_CHECK( *prior_end(str)  == 'b' );
+
+        BOOST_CHECK( *next_begin(str, 3) == '3' );
+        BOOST_CHECK( *prior_end(str, 2)  == '5' );
     }
 }
 

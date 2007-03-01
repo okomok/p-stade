@@ -17,6 +17,7 @@
 #include "./distance.hpp"
 #include "./equals.hpp"
 #include "./front_back.hpp"
+#include "./next_prior.hpp"
 
 #include "./as_array.hpp"
 #include "./as_c_str.hpp"

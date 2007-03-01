@@ -15,9 +15,9 @@
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
 #include "./concepts.hpp"
-#include "./detail/next_prior.hpp" // next
 #include "./distance.hpp"
 #include "./iter_range.hpp"
+#include "./next_prior.hpp" // next
 #include "./range_difference.hpp"
 #include "./range_iterator.hpp"
 
@@ -50,8 +50,8 @@ namespace window_detail {
             // Should a "bigger" window be allowed?
             // BOOST_ASSERT(0 <= n && n <= m && m <= distance(rng));
 
-            iter_t first = detail::next(boost::begin(rng), n);
-            return result_type(first, detail::next(first, m - n));
+            iter_t first = next(boost::begin(rng), n);
+            return result_type(first, next(first, m - n));
         }
     };
 

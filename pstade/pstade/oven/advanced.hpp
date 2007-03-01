@@ -24,8 +24,8 @@
 #include <pstade/pipable.hpp>
 #include "./concepts.hpp"
 #include "./detail/debug_in_distance.hpp"
-#include "./detail/next_prior.hpp" // next
 #include "./iter_range.hpp"
+#include "./next_prior.hpp" // next
 #include "./range_difference.hpp"
 
 
@@ -52,8 +52,8 @@ namespace advanced_detail {
             BOOST_ASSERT(detail::debug_in_distance(dfirst - dlast, rng));
 
 	        return result_type(
-                detail::next(boost::begin(rng), dfirst),
-                detail::next(boost::end(rng), dlast)
+                next(boost::begin(rng), dfirst),
+                next(boost::end(rng), dlast)
             );
         }
     };

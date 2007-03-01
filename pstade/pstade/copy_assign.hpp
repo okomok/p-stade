@@ -15,6 +15,7 @@
 // Lets "./automatic.hpp" work with 'operator='.
 
 
+#include <pstade/auxiliary.hpp>
 #include <pstade/function.hpp>
 
 
@@ -36,11 +37,13 @@ namespace pstade {
             }
         };
 
+        PSTADE_FUNCTION(normal, (baby<_, _>))
+
 
     } // namespace copy_assign_detail
 
 
-    PSTADE_FUNCTION(copy_assign, (copy_assign_detail::baby<_, _>))
+    PSTADE_AUXILIARY(1, copy_assign, (copy_assign_detail::op_normal))
 
 
 } // namespace pstade

@@ -25,7 +25,7 @@
 #include <pstade/pipable.hpp>
 #include <pstade/unused.hpp>
 #include "./concepts.hpp"
-#include "./detail/next_prior.hpp" // prior
+#include "./next_prior.hpp" // prior
 #include "./iter_range.hpp"
 
 
@@ -36,15 +36,15 @@ namespace popped_detail {
 
 
     template< class ForwardIter > inline
-    ForwardIter prior_aux(ForwardIter first, ForwardIter const& last,
+    ForwardIter range_prior_aux(ForwardIter first, ForwardIter const& last,
         boost::bidirectional_traversal_tag)
     {
         unused(first);
-        return detail::prior(last);
+        return prior(last);
     }
 
     template< class ForwardIter >
-    ForwardIter prior_aux(ForwardIter first, ForwardIter const& last,
+    ForwardIter range_prior_aux(ForwardIter first, ForwardIter const& last,
         boost::forward_traversal_tag)
     {
         ForwardIter prev(first);
@@ -56,9 +56,9 @@ namespace popped_detail {
 
 
     template< class ForwardIter > inline
-    ForwardIter prior(ForwardIter const& first, ForwardIter const& last)
+    ForwardIter range_prior(ForwardIter const& first, ForwardIter const& last)
     {
-        return (prior_aux)(first, last,
+        return (range_prior_aux)(first, last,
             typename boost::iterator_traversal<ForwardIter>::type());
     }
 
@@ -77,7 +77,7 @@ namespace popped_detail {
 
             return result_type(
                 boost::begin(rng),
-                (prior)(boost::begin(rng), boost::end(rng))
+                (range_prior)(boost::begin(rng), boost::end(rng))
             );
         }
     };

@@ -23,7 +23,7 @@
 #include <pstade/auxiliary.hpp>
 #include <pstade/function.hpp>
 #include "./concepts.hpp"
-#include "./detail/next_prior.hpp" // prior
+#include "./next_prior.hpp" // prior
 #include "./range_value.hpp"
 
 
@@ -58,7 +58,7 @@ namespace front_back_detail {
         result_type operator()(Range& rng) const
         {
             PSTADE_CONCEPT_ASSERT((Bidirectional<Range>));
-            return *detail::prior(boost::end(rng));
+            return *prior(boost::end(rng));
         }
     };
 
