@@ -41,9 +41,9 @@ namespace window_detail {
 
         typedef
             iter_range<iter_t> const
-        result;
+        result_type;
 
-        result call(Range& rng, diff_t const& n, diff_t const& m)
+        result_type operator()(Range& rng, diff_t const& n, diff_t const& m) const
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
 
@@ -51,7 +51,7 @@ namespace window_detail {
             // BOOST_ASSERT(0 <= n && n <= m && m <= distance(rng));
 
             iter_t first = detail::next(boost::begin(rng), n);
-            return result(first, detail::next(first, m - n));
+            return result_type(first, detail::next(first, m - n));
         }
     };
 

@@ -39,11 +39,11 @@ namespace as_single_detail {
     {
         typedef
             iter_range<X *> const
-        result;
+        result_type;
 
-        result call(X& x)
+        result_type operator()(X& x) const
         {
-            return result(boost::addressof(x), boost::addressof(x) + 1);
+            return result_type(boost::addressof(x), boost::addressof(x) + 1);
         }
     };
 

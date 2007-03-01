@@ -26,9 +26,9 @@ namespace pstade {
         template<class X>
         struct baby
         {
-            typedef X& result;
+            typedef X& result_type;
 
-            result call(X& x)
+            result_type operator()(X& x) const
             {
                 return x;
             }
@@ -38,9 +38,9 @@ namespace pstade {
         template<class X>
         struct cbaby
         {
-            typedef X const& result;
+            typedef X const& result_type;
 
-            result call(X const& x)
+            result_type operator()(X const& x) const
             {
                 return x;
             }

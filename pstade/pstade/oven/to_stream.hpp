@@ -162,9 +162,9 @@ namespace to_stream_detail {
             boost::result_of<
                 op_to_function(op_output<Stream>)
             >::type
-        result;
+        result_type;
 
-        result call(Stream& s)
+        result_type operator()(Stream& s) const
         {
             return to_function(op_output<Stream>(s));
         }

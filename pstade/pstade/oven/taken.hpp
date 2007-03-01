@@ -63,9 +63,9 @@ namespace taken_detail {
             boost::result_of<
                 op_make_taken_while(Range&, count_down<diff_t>)
             >::type
-        result;
+        result_type;
 
-        result call(Range& rng, diff_t const& d)
+        result_type operator()(Range& rng, diff_t const& d) const
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
             BOOST_ASSERT(0 <= d);

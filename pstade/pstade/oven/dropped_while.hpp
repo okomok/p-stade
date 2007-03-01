@@ -40,13 +40,13 @@ namespace dropped_while_detail {
     {
         typedef typename
             iter_range_of<Range>::type const
-        result;
+        result_type;
 
         template< class Predicate >
-        result call(Range& rng, Predicate& pred)
+        result_type operator()(Range& rng, Predicate& pred) const
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-            return result(
+            return result_type(
                 std::find_if(boost::begin(rng), boost::end(rng), not_(pred)),
                 boost::end(rng)
             );

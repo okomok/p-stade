@@ -34,11 +34,11 @@ namespace mb_decoded_detail {
 
         typedef
             iter_range<iter_t> const
-        result;
+        result_type;
 
-        result call(Range& rng)
+        result_type operator()(Range& rng) const
         {
-            return result(rng);
+            return result_type(rng);
         }
     };
 

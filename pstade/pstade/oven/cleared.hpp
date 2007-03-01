@@ -28,12 +28,12 @@ namespace cleared_detail {
     {
         typedef typename
             iter_range_of<Range>::type const
-        result;
+        result_type;
 
-        result call(Range& rng)
+        result_type operator()(Range& rng) const
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-            return result(boost::end(rng), boost::end(rng));
+            return result_type(boost::end(rng), boost::end(rng));
         }
     };
 

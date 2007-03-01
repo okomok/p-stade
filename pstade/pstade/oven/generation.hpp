@@ -36,11 +36,11 @@ namespace generation_detail {
 
         typedef
             iter_range<iter_t> const
-        result;
+        result_type;
 
-        result call(Generator& gen)
+        result_type operator()(Generator& gen) const
         {
-            return result(iter_t(gen, begin), iter_t(gen, end));
+            return result_type(iter_t(gen, begin), iter_t(gen, end));
         }
     };
 

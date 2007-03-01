@@ -38,14 +38,14 @@ namespace permuted_detail {
 
         typedef
             iter_range<iter_t> const
-        result;
+        result_type;
 
-        result call(ElementRange& erng, IndexRange& irng)
+        result_type operator()(ElementRange& erng, IndexRange& irng) const
         {
             PSTADE_CONCEPT_ASSERT((RandomAccess<ElementRange>));
             PSTADE_CONCEPT_ASSERT((SinglePass<IndexRange>));
 
-            return result(
+            return result_type(
                 iter_t(boost::begin(erng), boost::begin(irng)),
                 iter_t(boost::begin(erng), boost::end(irng)) // never pass 'boost::end(erng)'.
             );

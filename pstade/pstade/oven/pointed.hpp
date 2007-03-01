@@ -38,16 +38,16 @@ namespace pointed_detail {
 
         typedef
             iter_range<ptr_t> const
-        result;
+        result_type;
 
-        result call(ContiguousRange& rng)
+        result_type operator()(ContiguousRange& rng) const
         {
             PSTADE_CONCEPT_ASSERT((RandomAccess<ContiguousRange>));
     
             if (boost::empty(rng))
-                return result(ptr_t(PSTADE_NULLPTR), ptr_t(PSTADE_NULLPTR));
+                return result_type(ptr_t(PSTADE_NULLPTR), ptr_t(PSTADE_NULLPTR));
 
-            return result(
+            return result_type(
                 boost::addressof( *boost::begin(rng) ),
                 boost::addressof( *boost::begin(rng) ) + distance(rng)
             );

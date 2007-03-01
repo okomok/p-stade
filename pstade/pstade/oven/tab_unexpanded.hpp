@@ -37,13 +37,13 @@ namespace tab_unexpanded_detail {
 
         typedef
             iter_range<iter_t> const
-        result;
+        result_type;
 
-        result call(Range& rng, int tabsize)
+        result_type operator()(Range& rng, int tabsize) const
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
 
-            return result(
+            return result_type(
                 iter_t(boost::begin(rng), boost::end(rng), tabsize),
                 iter_t(boost::end(rng),   boost::end(rng), tabsize)
             );

@@ -64,9 +64,9 @@ namespace to_counter_detail  {
             boost::result_of<
                 op_to_function(op_inc<i_t>)
             >::type
-        result;
+        result_type;
 
-        result call(Incrementable& i)
+        result_type operator()(Incrementable& i) const
         {
             return to_function(op_inc<i_t>(i));
         }

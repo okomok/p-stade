@@ -62,7 +62,7 @@ namespace pstade {
         template<class Result>
         Result call() const
         {
-            return Baby().call();
+            return Baby()();
         }
 
         // 1ary-
@@ -108,14 +108,14 @@ template<class Myself, BOOST_PP_ENUM_PARAMS(n, class A)>
 struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)>
 {
     typedef typename boost::mpl::BOOST_PP_CAT(apply, n)<Baby, BOOST_PP_ENUM_PARAMS(n, A)>::type baby_t;
-    typedef typename baby_t::result type;
+    typedef typename baby_t::result_type type;
 };
 
 template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
 Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
 {
     typedef typename boost::mpl::BOOST_PP_CAT(apply, n)<Baby, BOOST_PP_ENUM_PARAMS(n, A)>::type baby_t;
-    return baby_t().call(BOOST_PP_ENUM_PARAMS(n, a));
+    return baby_t()(BOOST_PP_ENUM_PARAMS(n, a));
 }
 
 

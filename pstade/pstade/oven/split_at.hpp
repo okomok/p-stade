@@ -43,9 +43,9 @@ namespace split_at_detail {
             boost::result_of<
                 op_make_zipped(tuple_t)
             >::type
-        result;
+        result_type;
 
-        result call(Range& rng, Difference& d)
+        result_type operator()(Range& rng, Difference& d) const
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
 

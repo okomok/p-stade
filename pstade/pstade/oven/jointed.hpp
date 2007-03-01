@@ -38,14 +38,14 @@ namespace jointed_detail {
 
         typedef
             iter_range<iter_t> const
-        result;
+        result_type;
 
-        result call(RangeL& rngL, RangeR& rngR)
+        result_type operator()(RangeL& rngL, RangeR& rngR) const
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<RangeL>));
             PSTADE_CONCEPT_ASSERT((SinglePass<RangeR>));
 
-            return result(
+            return result_type(
                 iter_t(boost::begin(rngL), boost::end(rngL), boost::begin(rngR), boost::begin(rngR)),
                 iter_t(boost::end(rngL),   boost::end(rngL), boost::begin(rngR), boost::end(rngR))
             );

@@ -40,13 +40,13 @@ namespace cycled_detail {
 
         typedef
             iter_range<iter_t> const
-        result;
+        result_type;
 
-        result call(Range& rng, Size& sz)
+        result_type operator()(Range& rng, Size& sz) const
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
     
-            return result(
+            return result_type(
                 iter_t(boost::begin(rng), 0,  boost::begin(rng), boost::end(rng)),
                 iter_t(boost::begin(rng), sz, boost::begin(rng), boost::end(rng))
             );

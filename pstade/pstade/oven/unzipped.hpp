@@ -180,9 +180,9 @@ namespace unzipped_detail {
                 counting_tup_t,
                 make_at_range<TupleRange>
             >::type
-        result;
+        result_type;
 
-        result call(TupleRange& rng)
+        result_type operator()(TupleRange& rng) const
         {
             return (tuple_transform)(
                 counting_tup_t(),

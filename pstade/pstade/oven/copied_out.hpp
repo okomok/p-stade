@@ -29,9 +29,9 @@ namespace copied_out_detail {
     {
         typedef
             Range&
-        result;
+        result_type;
 
-        result call(Range& rng, OutIter& to)
+        result_type operator()(Range& rng, OutIter& to) const
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
             std::copy(boost::begin(rng), boost::end(rng), to);

@@ -65,9 +65,9 @@ namespace adjacent_filtered_detail {
             boost::result_of<
                 op_make_successors(Range&, fun_t)
             >::type
-        result;
+        result_type;
 
-        result call(Range& rng, BinaryPred& pred)
+        result_type operator()(Range& rng, BinaryPred& pred) const
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
             return make_successors(rng, fun_t(pred));

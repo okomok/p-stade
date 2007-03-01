@@ -39,13 +39,13 @@ namespace successors_detail {
 
         typedef
             iter_range<iter_t> const
-        result;
+        result_type;
 
-        result call(Range& rng, BinaryFun& council)
+        result_type operator()(Range& rng, BinaryFun& council) const
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
 
-            return result(
+            return result_type(
                iter_t(boost::begin(rng), council, boost::end(rng)),
                iter_t(boost::end(rng),   council, boost::end(rng))
             );

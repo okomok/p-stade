@@ -34,12 +34,12 @@ namespace string_found_detail {
 
         typedef
             iter_range<iter_t> const
-        result;
+        result_type;
 
         template< class FinderT >
-        result call(Range& rng, FinderT& f)
+        result_type operator()(Range& rng, FinderT& f) const
         {
-            return result(iter_t(rng, f), iter_t());
+            return result_type(iter_t(rng, f), iter_t());
         }
     };
 

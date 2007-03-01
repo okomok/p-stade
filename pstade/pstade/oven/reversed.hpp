@@ -45,12 +45,12 @@ namespace reversed_detail {
 
         typedef
             iter_range<iter_t> const
-        result;
+        result_type;
 
-        result call(Range& rng)
+        result_type operator()(Range& rng) const
         {
             PSTADE_CONCEPT_ASSERT((Bidirectional<Range>));
-            return result(boost::end(rng), boost::begin(rng)); // take care of the order!
+            return result_type(boost::end(rng), boost::begin(rng)); // take care of the order!
         }
     };
 

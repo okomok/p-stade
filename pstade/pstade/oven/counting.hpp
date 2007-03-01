@@ -94,9 +94,9 @@ namespace counting_from_detail {
             boost::result_of<
                 op_counting<>(I&, I)
             >::type
-        result;
+        result_type;
 
-        result call(I& i)
+        result_type operator()(I& i) const
         {
             return counting(i, (std::numeric_limits<typename pass_by_value<I>::type>::max)());
         }

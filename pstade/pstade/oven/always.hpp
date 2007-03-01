@@ -27,12 +27,12 @@ namespace always_detail {
     {
         typedef typename
             iter_range_of<Range>::type const
-        result;
+        result_type;
 
-        result call(Unused&, Range& rng)
+        result_type operator()(Unused&, Range& rng) const
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-            return result(rng);
+            return result_type(rng);
         }
     };
 

@@ -55,14 +55,14 @@ namespace dropped_detail {
 
         typedef typename
             iter_range_of<Range>::type const
-        result;
+        result_type;
 
-        result call(Range& rng, diff_t const& d)
+        result_type operator()(Range& rng, diff_t const& d) const
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
             BOOST_ASSERT(0 <= d);
 
-            return dropped_detail::aux<result>(
+            return dropped_detail::aux<result_type>(
                 boost::begin(rng), boost::end(rng), d,
                 typename range_traversal<Range>::type()
             );

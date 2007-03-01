@@ -42,15 +42,15 @@ namespace xpressive_matches_detail {
 
         typedef
             iter_range<iter_t> const
-        result;
+        result_type;
 
         template< class Regex >
-        result call(Range& rng, Regex& re,
-            regex_constants::match_flag_type flag = regex_constants::match_default)
+        result_type operator()(Range& rng, Regex& re,
+            regex_constants::match_flag_type flag = regex_constants::match_default) const
         {
             PSTADE_CONCEPT_ASSERT((Bidirectional<Range>));
 
-            return result(
+            return result_type(
                 iter_t(boost::begin(rng), boost::end(rng), re, flag),
                 iter_t()
             );

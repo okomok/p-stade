@@ -34,9 +34,9 @@ namespace uniqued_detail {
                     typename boost::result_of<op_not(op_equal_to const&)>::type
                 )
             >::type
-        result;
+        result_type;
 
-        result call(Range& rng)
+        result_type operator()(Range& rng) const
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
             return make_adjacent_filtered(

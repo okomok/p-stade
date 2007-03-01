@@ -74,9 +74,9 @@ namespace iteration_detail {
             boost::result_of<
                 op_generation(gen_t)
             >::type
-        result;
+        result_type;
 
-        result call(State& init, UnaryFun& fun)
+        result_type operator()(State& init, UnaryFun& fun) const
         {
             return generation(gen_t(init, fun));
         }

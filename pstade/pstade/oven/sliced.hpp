@@ -52,14 +52,14 @@ namespace sliced_detail {
 
         typedef
             iter_range<iter_t> const
-        result;
+        result_type;
 
-        result call(Range& rng, diff_t const& start, diff_t const& stride)
+        result_type operator()(Range& rng, diff_t const& start, diff_t const& stride) const
         {
             PSTADE_CONCEPT_ASSERT((RandomAccess<Range>));
             BOOST_ASSERT((is_sliceable_with)(rng, stride));
 
-            return result(
+            return result_type(
                 iter_t(boost::begin(rng), start, stride),
                 iter_t(boost::end(rng),   start, stride)
             );

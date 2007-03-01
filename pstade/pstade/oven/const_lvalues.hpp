@@ -36,12 +36,12 @@ namespace const_lvalues_detail {
 
         typedef
             iter_range<iter_t> const
-        result;
+        result_type;
 
-        result call(Range& rng)
+        result_type operator()(Range& rng) const
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-            return result(rng);
+            return result_type(rng);
         }
     };
 

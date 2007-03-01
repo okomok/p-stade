@@ -37,13 +37,13 @@ namespace checked_detail {
 
         typedef
             iter_range<iter_t> const
-        result;
+        result_type;
 
-        result call(Range& rng)
+        result_type operator()(Range& rng) const
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
 
-            return result(
+            return result_type(
                 iter_t(boost::begin(rng), boost::begin(rng), boost::end(rng)),
                 iter_t(boost::end(rng),   boost::begin(rng), boost::end(rng))
             );

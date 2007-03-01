@@ -37,17 +37,17 @@ namespace as_literal_detail {
     {
         typedef typename
             as_array_detail::to_range<MaybeArray>::type
-        result;
+        result_type;
 
         template< class T, std::size_t sz >
-        result call(T (&arr)[sz])
+        result_type operator()(T (&arr)[sz]) const
         {
             // cast precisely for enabler.
-            return result(static_cast<T *>(arr), static_cast<T *>(arr) + sz - 1);
+            return result_type(static_cast<T *>(arr), static_cast<T *>(arr) + sz - 1);
         }
 
         template< class Range >
-        result call(Range& rng)
+        result_type operator()(Range& rng) const
         {
             return rng;
         }

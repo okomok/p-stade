@@ -31,9 +31,9 @@ namespace appended_detail {
             boost::result_of<
                 op_make_jointed(Range&, typename boost::result_of<op_as_single(Value&)>::type)
             >::type
-        result;
+        result_type;
 
-        result call(Range& rng, Value& v)
+        result_type operator()(Range& rng, Value& v) const
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
             return make_jointed(rng, as_single(v));

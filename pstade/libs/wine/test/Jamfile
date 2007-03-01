@@ -34,6 +34,7 @@ test-suite wine :
     [ wine-test const_overloaded ]
     [ wine-test construct ]
     [ wine-test contract ]
+    [ wine-test copy_assign ]
     [ wine-test deduced_const ]
     [ wine-test disable_if_copy ]
     [ wine-test dont_care ]

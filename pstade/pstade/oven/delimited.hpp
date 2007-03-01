@@ -67,9 +67,9 @@ namespace delimited_detail {
                     >::type
                 )
             >::type
-        result;
+        result_type;
 
-        result call(SegmentRange& rngs, Delimiter& delim)
+        result_type operator()(SegmentRange& rngs, Delimiter& delim) const
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<SegmentRange>));
             PSTADE_CONCEPT_ASSERT((SinglePass<Delimiter>));

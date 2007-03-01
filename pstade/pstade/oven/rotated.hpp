@@ -37,10 +37,10 @@ namespace rotated_detail {
             boost::result_of<
                 op_make_jointed(rng_t, rng_t)
             >::type
-        result;
+        result_type;
 
         template< class MiddleFun >
-        result call(Range& rng, MiddleFun& fun)
+        result_type operator()(Range& rng, MiddleFun& fun) const
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
 

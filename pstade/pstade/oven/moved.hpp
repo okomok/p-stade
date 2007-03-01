@@ -64,9 +64,9 @@ namespace moved_detail {
             boost::result_of<
                 op_make_transformed<>(Range&, fun_t)
             >::type
-        result;
+        result_type;
 
-        result call(Range& rng)
+        result_type operator()(Range& rng) const
         {
             return make_transformed(rng, fun_t());
         }

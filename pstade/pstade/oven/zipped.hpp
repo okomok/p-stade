@@ -150,11 +150,11 @@ namespace zipped_detail {
 
         typedef
             iter_range<iter_t> const
-        result;
+        result_type;
 
-        result call(RangeTuple& tup)
+        result_type operator()(RangeTuple& tup) const
         {
-            return result(
+            return result_type(
                 iter_t( (tuple_transform)(tup, begin_fun<RangeTuple>()) ),
                 iter_t( (tuple_transform)(tup, end_fun<RangeTuple>()) )
             );

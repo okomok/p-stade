@@ -42,9 +42,9 @@ namespace at_detail {
 
         typedef typename
             range_value<Range>::type
-        result;
+        result_type;
 
-        result call(Range& rng, diff_t const& d)
+        result_type operator()(Range& rng, diff_t const& d) const
         {
             PSTADE_CONCEPT_ASSERT((RandomAccess<Range>));
             BOOST_ASSERT(0 <= d && d < distance(rng));

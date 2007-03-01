@@ -47,9 +47,9 @@ namespace firsts_detail {
             boost::result_of<
                 op_make_transformed<ref_t>(PairRange&, op_at_first const&)
             >::type
-        result;
+        result_type;
 
-        result call(PairRange& rng)
+        result_type operator()(PairRange& rng) const
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<PairRange>));
             return op_make_transformed<ref_t>()(rng, at_first);

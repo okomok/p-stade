@@ -110,12 +110,12 @@ namespace regular_detail {
     {
         typedef
             op_result<typename pass_by_value<Function>::type, PtrTag>
-        result;
+        result_type;
 
-        result call(Function& fun)
+        result_type operator()(Function& fun) const
         {
-            typedef typename result::base_type fun_t;
-            return result(new fun_t(fun));
+            typedef typename result_type::base_type fun_t;
+            return result_type(new fun_t(fun));
         }
     };
 
@@ -125,11 +125,11 @@ namespace regular_detail {
     {
         typedef
             op_result<Function, raw_ptr_tag>
-        result;
+        result_type;
 
-        result call(Function& fun)
+        result_type operator()(Function& fun) const
         {
-            return result(&fun);
+            return result_type(&fun);
         }
     };
 

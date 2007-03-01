@@ -44,14 +44,14 @@ namespace advanced_detail {
 
         typedef typename
             iter_range_of<Range>::type const
-        result;
+        result_type;
 
-        result call(Range& rng, diff_t const& dfirst, diff_t const& dlast)
+        result_type operator()(Range& rng, diff_t const& dfirst, diff_t const& dlast) const
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
             BOOST_ASSERT(detail::debug_in_distance(dfirst - dlast, rng));
 
-	        return result(
+	        return result_type(
                 detail::next(boost::begin(rng), dfirst),
                 detail::next(boost::end(rng), dlast)
             );

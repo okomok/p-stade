@@ -180,11 +180,11 @@ namespace io_detail {
             manipulator< \
                 typename boost::remove_cv<CharT>::type \
             > const \
-        result; \
+        result_type; \
         \
-        result call(CharT& ch) \
+        result_type operator()(CharT& ch) const \
         { \
-            return result(BOOST_PP_CAT(mn_, Name), ch); \
+            return result_type(BOOST_PP_CAT(mn_, Name), ch); \
         } \
     }; \
 /**/

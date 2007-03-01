@@ -22,9 +22,9 @@
 template<class A0, class A1>
 struct baby_foo
 {
-    typedef A0& result;
+    typedef A0& result_type;
 
-    result call(A0& a0, A1& a1)
+    result_type operator()(A0& a0, A1& a1) const
     {
         a0 += a1;
         return a0;
@@ -44,9 +44,9 @@ struct baby_bar
     struct apply
     {
         typedef apply type;
-        typedef A0 result;
+        typedef A0 result_type;
 
-        result call(A0& a0, A1& a1)
+        result_type operator()(A0& a0, A1& a1) const
         {
             return a0 + a1;
         }
@@ -56,15 +56,15 @@ struct baby_bar
     struct apply<A0>
     {
         typedef apply type;
-        typedef A0 result;
+        typedef A0 result_type;
 
-        result call(A0& a0)
+        result_type operator()(A0& a0) const
         {
             return a0;
         }
     };
 
-    std::string call()
+    std::string operator()() const
     {
         return "nullary";
     }
@@ -83,8 +83,8 @@ PSTADE_TEST_IS_RESULT_OF((std::string), op_bar())
 template<class A0, class A1 = pstade::enabler>
 struct baby_buz
 {
-    typedef int result;
-    result call(A0&)
+    typedef int result_type;
+    result_type operator()(A0&) const
     {
         return 13;
     }
@@ -93,8 +93,8 @@ struct baby_buz
 template<class A0>
 struct baby_buz<A0, typename pstade::enable_if<boost::is_same<A0, const std::string> >::type>
 {
-    typedef std::string result;
-    result call(std::string s)
+    typedef std::string result_type;
+    result_type operator()(std::string s) const
     {
         return s;
     }

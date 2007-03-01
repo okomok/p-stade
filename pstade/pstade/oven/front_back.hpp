@@ -38,9 +38,9 @@ namespace front_back_detail {
     {
         typedef typename
             range_value<Range>::type
-        result;
+        result_type;
 
-        result call(Range& rng)
+        result_type operator()(Range& rng) const
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
             return *boost::begin(rng);
@@ -53,9 +53,9 @@ namespace front_back_detail {
     {
         typedef typename
             range_value<Range>::type
-        result;
+        result_type;
 
-        result call(Range& rng)
+        result_type operator()(Range& rng) const
         {
             PSTADE_CONCEPT_ASSERT((Bidirectional<Range>));
             return *detail::prior(boost::end(rng));

@@ -110,9 +110,9 @@ namespace pstade {
 #undef  PSTADE_max_arity
 
 
-    #define PSTADE_AUXILIARY(N, Object, UnaryFun) \
+    #define PSTADE_AUXILIARY(N, Object, Function) \
         typedef \
-            ::boost::result_of< ::pstade::BOOST_PP_CAT(op_auxiliary, N)(PSTADE_UNPARENTHESIZE(UnaryFun)) >::type \
+            ::boost::result_of< ::pstade::BOOST_PP_CAT(op_auxiliary, N)(PSTADE_UNPARENTHESIZE(Function)) >::type \
         BOOST_PP_CAT(op_, Object); \
         \
         PSTADE_CONSTANT(Object, (BOOST_PP_CAT(op_, Object))) \

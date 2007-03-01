@@ -38,9 +38,9 @@ namespace constants_detail {
             boost::result_of<
                 op_make_transformed<ref_t>(Range&, op_identity const&)
             >::type
-        result;
+        result_type;
 
-        result call(Range& rng)
+        result_type operator()(Range& rng) const
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
             return op_make_transformed<ref_t>()(rng, identity);

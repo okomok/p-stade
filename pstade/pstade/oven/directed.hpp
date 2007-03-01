@@ -37,9 +37,9 @@ namespace directed_detail {
             boost::result_of<
                 op_counting<>(iter_t, iter_t)
             >::type
-        result;
+        result_type;
 
-        result call(Range& rng)
+        result_type operator()(Range& rng) const
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
             return counting(boost::begin(rng), boost::end(rng));

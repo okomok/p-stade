@@ -190,12 +190,12 @@ namespace recursion_detail {
 
         typedef
             iter_range<iter_t> const
-        result;
+        result_type;
 
-        result call(Range& rng)
+        result_type operator()(Range& rng) const
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
-            return result(iter_t(rng, false), iter_t(rng, true));
+            return result_type(iter_t(rng, false), iter_t(rng, true));
         }
     };
 

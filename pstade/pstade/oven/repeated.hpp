@@ -31,9 +31,9 @@ namespace repeated_detail {
             boost::result_of<
                 op_make_cycled(typename boost::result_of<op_as_single(Value&)>::type, Size&)
             >::type
-        result;
+        result_type;
 
-        result call(Value& v, Size& sz)
+        result_type operator()(Value& v, Size& sz) const
         {
             return make_cycled(as_single(v), sz);
         }

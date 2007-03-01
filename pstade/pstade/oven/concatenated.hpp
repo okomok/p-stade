@@ -38,14 +38,14 @@ namespace concatenated_detail {
 
         typedef
             iter_range<iter_t> const
-        result;
+        result_type;
 
-        result call(SegmentRange& rngs)
+        result_type operator()(SegmentRange& rngs) const
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<SegmentRange>));
             PSTADE_CONCEPT_ASSERT((SinglePass<typename range_value<SegmentRange>::type>));
 
-            return result(
+            return result_type(
                 iter_t(boost::begin(rngs), boost::end(rngs)),
                 iter_t(boost::end(rngs),   boost::end(rngs))
             );

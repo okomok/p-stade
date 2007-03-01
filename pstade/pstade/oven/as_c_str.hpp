@@ -83,12 +83,12 @@ namespace as_c_str_detail {
     {
         typedef typename
             iter_range_of<Range>::type const
-        result;
+        result_type;
 
-        result call(Range& rng)
+        result_type operator()(Range& rng) const
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
-            return result(
+            return result_type(
                 boost::begin(rng),
                 std::find(boost::begin(rng), boost::end(rng), zero<Range>())
             );
@@ -100,12 +100,12 @@ namespace as_c_str_detail {
     {
         typedef typename
             cstring_to_range<CString>::type
-        result;
+        result_type;
 
         template< class Char >
-        result call(Char *psz)
+        result_type operator()(Char *psz) const
         {
-            return result(psz, psz + length(psz));
+            return result_type(psz, psz + length(psz));
         }
     };
 

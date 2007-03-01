@@ -43,9 +43,9 @@ namespace spanned_detail {
             boost::result_of<
                 op_make_zipped(tuple_t)
             >::type
-        result;
+        result_type;
 
-        result call(Range& rng, Predicate& pred)
+        result_type operator()(Range& rng, Predicate& pred) const
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
 

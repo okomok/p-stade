@@ -34,9 +34,9 @@ namespace begin_end_detail {
     {
         typedef typename
             range_iterator<Range>::type
-        result;
+        result_type;
 
-        result call(Range& rng)
+        result_type operator()(Range& rng) const
         {
             return boost::begin(rng);
         }
@@ -48,9 +48,9 @@ namespace begin_end_detail {
     {
         typedef typename
             range_iterator<Range>::type
-        result;
+        result_type;
 
-        result call(Range& rng)
+        result_type operator()(Range& rng) const
         {
             return boost::end(rng);
         }
