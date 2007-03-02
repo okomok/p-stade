@@ -21,6 +21,7 @@
 #include <boost/utility/addressof.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/auxiliary.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/to_shared_ptr.hpp>
 #include "./indirected.hpp"
@@ -34,26 +35,29 @@ namespace pstade { namespace oven {
 namespace as_single_detail {
 
 
-    template< class X >
-    struct baby
+    struct op :
+        callable<op>
     {
-        typedef
-            iter_range<X *> const
-        result_type;
-
-        result_type operator()(X& x) const
+        template< class Myself, class X >
+        struct apply
         {
-            return result_type(boost::addressof(x), boost::addressof(x) + 1);
+            typedef
+                iter_range<X *> const
+            type;
+        };
+
+        template< class Result, class X >
+        Result call(X& x) const
+        {
+            return Result(boost::addressof(x), boost::addressof(x) + 1);
         }
     };
-
-    PSTADE_FUNCTION(normal, (baby<_>))
 
 
 } // namespace as_single_detail
 
 
-PSTADE_AUXILIARY(0, as_single, (as_single_detail::op_normal))
+PSTADE_AUXILIARY(0, as_single, (as_single_detail::op))
 
 
 namespace as_shared_single_detail {
@@ -63,17 +67,17 @@ namespace as_shared_single_detail {
     // something like 'auxiliary0' from scratch.
 
 
-    struct op_as_shared_single
+    struct op
     {
         template< class FunCall >
         struct result;
 
-        template< class Fun, class Pointer >
-        struct result<Fun(Pointer)>
+        template< class Fun, class Ptr >
+        struct result<Fun(Ptr)>
         {
             typedef
                 boost::shared_ptr<
-                    typename shared_pointee<Pointer>::type
+                    typename shared_pointee<Ptr>::type
                 >
             sp_t;
 
@@ -81,36 +85,31 @@ namespace as_shared_single_detail {
                 std::vector<sp_t>
             rng_t;
 
-            typedef
-                typename boost::result_of<
+            typedef typename
+                boost::result_of<
                     op_make_indirected<>(
-                        typename boost::result_of<
-                            op_make_shared(rng_t *)
-                        >::type
+                        typename boost::result_of<op_make_shared(rng_t *)>::type
                     )
                 >::type
             type;
         };
 
-        template< class Pointer >
-        typename result<void(Pointer)>::type
-        operator()(Pointer p) const
+        template< class Ptr >
+        typename result<void(Ptr)>::type
+        operator()(Ptr p) const
         {
-            typedef result<void(Pointer)> result_;
+            typedef result<void(Ptr)> result_;
             typename result_::sp_t sp(to_shared_ptr(p));
-            return
-                make_indirected(
-                    make_shared(
-                        new typename result_::rng_t(boost::addressof(sp), boost::addressof(sp) + 1)
-                    )
-                );
+            return make_indirected(
+                make_shared(new typename result_::rng_t(boost::addressof(sp), boost::addressof(sp) + 1))
+            );
         }
     };
 
 
-    template< class Pointer > inline
-    typename boost::result_of<op_as_shared_single(Pointer&)>::type
-    operator|(Pointer p, op_as_shared_single const& fun)
+    template< class Ptr > inline
+    typename boost::result_of<op(Ptr&)>::type
+    operator|(Ptr p, op const& fun)
     {
         return fun(p);
     }
@@ -119,7 +118,7 @@ namespace as_shared_single_detail {
 } // namespace as_shared_single_detail
 
 
-using as_shared_single_detail::op_as_shared_single;
+typedef as_shared_single_detail::op op_as_shared_single;
 PSTADE_CONSTANT(as_shared_single, (op_as_shared_single))
 
 

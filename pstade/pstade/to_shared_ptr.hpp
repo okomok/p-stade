@@ -28,7 +28,7 @@ namespace pstade {
 
 
     // Avoid to use 'callable/function', which adds
-    // cosnt-qualifier to 'auto_ptr', then it becomes non-movable. 
+    // const-qualifier to 'auto_ptr', then it becomes non-movable. 
 
 
     struct op_to_shared_ptr
@@ -36,9 +36,9 @@ namespace pstade {
         template<class FunCall>
         struct result;
 
-        template<class Fun, class Pointer>
-        struct result<Fun(Pointer)> :
-            result<Fun(typename pass_by_value<Pointer>::type)>
+        template<class Fun, class Ptr>
+        struct result<Fun(Ptr)> :
+            result<Fun(typename pass_by_value<Ptr>::type)>
         { };
 
         template<class Fun, class X>
@@ -59,9 +59,9 @@ namespace pstade {
             typedef X *type;
         };
 
-        template<class Pointer>
-        typename result<void(Pointer)>::type
-        operator()(Pointer p) const
+        template<class Ptr>
+        typename result<void(Ptr)>::type
+        operator()(Ptr p) const
         {
             return p;
         }
@@ -78,7 +78,7 @@ namespace pstade {
     PSTADE_CONSTANT(to_shared_ptr, (op_to_shared_ptr))
 
 
-    template<class X, class Pointer>
+    template<class X, class Ptr>
     struct is_shared_ptr_constructible :
         boost::mpl::false_
     { };

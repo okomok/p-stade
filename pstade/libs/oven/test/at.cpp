@@ -33,6 +33,16 @@ void test()
         BOOST_CHECK( (str|at(0)) == 'f' );
         BOOST_CHECK( (str|at(4)) == '4' );
 
+
+        BOOST_CHECK( value_at(str, 0) == 'f' );
+        BOOST_CHECK( value_at(str, 4) == '4' );
+        BOOST_CHECK( (str|value_at(0)) == 'f' );
+        BOOST_CHECK( (str|value_at(4)) == '4' );
+
+        at(str, 0) = 'g';
+        at(str, 4) = '5';
+        BOOST_CHECK( str == "g12354513215b" );
+
         try {
             at(str|checked, 70);
         }

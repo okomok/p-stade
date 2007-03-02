@@ -17,7 +17,6 @@
 #include "./distance.hpp"
 #include "./equals.hpp"
 #include "./front_back.hpp"
-#include "./next_prior.hpp"
 
 #include "./as_array.hpp"
 #include "./as_c_str.hpp"
@@ -38,6 +37,9 @@
 #include "./to_utf8_encoder.hpp"
 
 #include "./regular.hpp"
+
+#include "./dereference.hpp"
+#include "./next_prior.hpp"
 
 #include "./range_based1.hpp"
 #include "./range_based2.hpp"

@@ -10,20 +10,16 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Note:
-//
-// "./front_back.hpp" tells why this can't return reference.
-// If you want bounds-checking, use 'at(rng|checked, d)'.
-
-
 #include <boost/assert.hpp>
 #include <boost/range/begin.hpp>
-#include <boost/utility/result_of.hpp>
+#include <boost/mpl/apply.hpp>
+#include <boost/mpl/placeholders.hpp>
 #include <pstade/auxiliary.hpp>
-#include <pstade/function.hpp>
+#include <pstade/callable.hpp>
 #include "./concepts.hpp"
 #include "./distance.hpp"
 #include "./range_difference.hpp"
+#include "./range_reference.hpp"
 #include "./range_value.hpp"
 
 
@@ -33,18 +29,17 @@ namespace pstade { namespace oven {
 namespace at_detail {
 
 
-    template< class Range >
-    struct baby
+    template< class Lambda >
+    struct op :
+        callable< op<Lambda> >
     {
-        typedef typename
-            range_difference<Range>::type
-        diff_t;
+        template< class Myself, class Range, class Difference >
+        struct apply :
+            boost::mpl::apply1<Lambda, Range>
+        { };
 
-        typedef typename
-            range_value<Range>::type
-        result_type;
-
-        result_type operator()(Range& rng, diff_t const& d) const
+        template< class Result, class Range >
+        Result call(Range& rng, typename range_difference<Range>::type const& d) const
         {
             PSTADE_CONCEPT_ASSERT((RandomAccess<Range>));
             BOOST_ASSERT(0 <= d && d < distance(rng));
@@ -52,13 +47,21 @@ namespace at_detail {
         }
     };
 
-    PSTADE_FUNCTION(normal, (baby<_>))
 
+    struct msvc8_op :
+        op< range_reference<boost::mpl::_> >
+    { };
+
+    struct msvc8_value_op  :
+        op< range_value<boost::mpl::_> >
+    { };
+    
 
 } // namespace at_detail
 
 
-PSTADE_AUXILIARY(1, at, (at_detail::op_normal))
+PSTADE_AUXILIARY(1, at,       (at_detail::msvc8_op))
+PSTADE_AUXILIARY(1, value_at, (at_detail::msvc8_value_op))
 
 
 } } // namespace pstade::oven

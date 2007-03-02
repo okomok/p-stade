@@ -35,11 +35,11 @@ struct op_make_shared
     template< class FunCall >
     struct result;
 
-    template< class Fun, class Pointer >
-    struct result<Fun(Pointer)>
+    template< class Fun, class Ptr >
+    struct result<Fun(Ptr)>
     {
         typedef typename
-            shared_pointee<Pointer>::type
+            shared_pointee<Ptr>::type
         rng_t;
 
         typedef
@@ -51,11 +51,11 @@ struct op_make_shared
         type;
     };
 
-    template< class Pointer >
-    typename result<void(Pointer)>::type
-    operator()(Pointer prng) const
+    template< class Ptr >
+    typename result<void(Ptr)>::type
+    operator()(Ptr prng) const
     {
-        typedef result<void(Pointer)> result_;
+        typedef result<void(Ptr)> result_;
         PSTADE_CONCEPT_ASSERT((SinglePass<typename result_::rng_t>));
 
         boost::shared_ptr<typename result_::rng_t> sprng(to_shared_ptr(prng));
@@ -78,9 +78,9 @@ namespace shared_detail {
     { };
 
 
-    template< class Pointer > inline
-    typename boost::result_of<op_make_shared(Pointer)>::type
-    operator|(Pointer prng, pipe const&)
+    template< class Ptr > inline
+    typename boost::result_of<op_make_shared(Ptr)>::type
+    operator|(Ptr prng, pipe const&)
     {
         return make_shared(prng);
     }

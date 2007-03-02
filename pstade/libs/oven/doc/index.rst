@@ -114,11 +114,12 @@ Oven contains most of all the range-based STL algorithms [#]_ which were ported 
 ^^^^^^
 - Header: ``<pstade/oven/at.hpp>``
 - Valid expression: ``at(rndRng,d)`` and ``rndRng|at(d)``, where ``d`` is convertible to ``boost::range_difference`` of ``rndRng``.
-- Precondition: ``0 <= d && d < oven::distance(rndRng)`` [#]_
-- Returns: ``V(*(boost::begin(rndRng)+d))``, where ``V`` is ``boost::range_value`` of ``rndRng``. [#]_
+- Precondition1: Destruction of an iterator doesn't invalidate references previously obtained from that iterator. [#]_
+- Predondition2: ``0 <= d && d < oven::distance(rndRng)`` [#]_
+- Returns: ``*(boost::begin(rndRng)+d)``.
 
+.. [#] If this cannot be guaranteed, use ``value_at``. See also (24.1/9).
 .. [#] If you want exceptions to be thrown in release mode, use ``at(rndRng|checked,d)``.
-.. [#] It can't return reference because of 24.1/9.
 
 
 
@@ -199,8 +200,27 @@ The upcoming `Boost.Range`_ will replace ``boost::size`` by ``boost::distance``.
 ^^^^^^^^^^^^^^
 - Header: ``<pstade/oven/front_back.hpp>``
 - Valid expression: ``front(rng)`` and ``back(biRng)``.
-- Precondition: ``boost::range_value`` of ``rng`` is ``CopyConstructible``.
-- Returns:  ``V(*boost::begin(rng))`` and ``V(*--boost::end(biRng))`` respectively, where ``V`` is ``boost::range_value`` of ``rng``.
+- Precondition1: Destruction of an iterator doesn't invalidate references previously obtained from that iterator.
+- Preconditnio2: ``boost::empty(rng) == false``
+- Returns:  ``*boost::begin(rng)`` and ``*--boost::end(biRng)`` respectively.
+
+
+``value_at``
+^^^^^^^^^^^^
+- Header: ``<pstade/oven/at.hpp>``
+- Valid expression: ``at(rndRng,d)`` and ``rndRng|at(d)``, where ``d`` is convertible to ``boost::range_difference`` of ``rndRng``.
+- Precondition1: ``boost::range_value`` of ``rndRng`` is ``CopyConstructible``.
+- Precondition2: ``0 <= d && d < oven::distance(rndRng)``
+- Returns: ``V(*(boost::begin(rndRng)+d))``, where ``V`` is ``boost::range_value`` of ``rndRng``.
+
+
+``value_front/value_back``
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+- Header: ``<pstade/oven/front_back.hpp>``
+- Valid expression: ``front(rng)`` and ``back(biRng)``.
+- Precondition1: ``boost::range_value`` of ``rng`` is ``CopyConstructible``.
+- Predondition2: ``boost::empty(rng) == false``
+- Returns:  ``V(*boost::begin(rng))`` and ``V(*--boost::end(biRng))`` respectively, where ``V`` is ``boost::range_value`` of them.
 
 
 
@@ -592,7 +612,7 @@ which has the same effect.
 
 - Header: ``<pstade/oven/checked.hpp>``
 - Valid expression: ``rng|checked``
-- Effect: Throws ``check_error`` derived from ``std::out_of_range`` if iterators go out of ``rng``.
+- Effect: Throws ``std::out_of_range`` if iterators go out of ``rng``.
 - Returns: ``[boost::begin(rng),boost::end(rng))``
 
 
@@ -1349,5 +1369,7 @@ Version 0.93.4
 - `STL Algorithms`_ excluded ``fill_n`` and ``generate_n``.
 - `STL Algorithms`_ changed signature of ``rotate`` etc.
 - ``algorithm.hpp`` and ``numeric.hpp`` not included by ``functions.hpp``.
-- ``check_error`` derived from ``std::out_of_range``.
-- Added ``at``.
+- ``checked`` throws ``std::out_of_range``.
+- Added ``at/value_at``.
+- ``value_front/value_back`` replaced ``front/back``.
+

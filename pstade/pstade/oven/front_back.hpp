@@ -10,20 +10,17 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Note:
-//
-// They can't return the references;
-// http://std.dkuug.dk/jtc1/sc22/wg21/docs/lwg-defects.html#198
-//
-// '*boost::begin(rng)' and '*boost::prior(rng)' can return reference.
-
-
+#include <boost/assert.hpp>
+#include <boost/mpl/apply.hpp>
+#include <boost/mpl/placeholders.hpp>
 #include <boost/range/begin.hpp>
+#include <boost/range/empty.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/auxiliary.hpp>
-#include <pstade/function.hpp>
+#include <pstade/callable.hpp>
 #include "./concepts.hpp"
 #include "./next_prior.hpp" // prior
+#include "./range_reference.hpp"
 #include "./range_value.hpp"
 
 
@@ -33,45 +30,68 @@ namespace pstade { namespace oven {
 namespace front_back_detail {
 
 
-    template< class Range >
-    struct baby_front
+    template< class Lambda >
+    struct op_front :
+        callable< op_front<Lambda> >
     {
-        typedef typename
-            range_value<Range>::type
-        result_type;
+        template< class Myself, class Range >
+        struct apply :
+            boost::mpl::apply1<Lambda, Range>
+        { };
 
-        result_type operator()(Range& rng) const
+        template< class Result, class Range >
+        Result call(Range& rng) const
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+            BOOST_ASSERT(!boost::empty(rng));
             return *boost::begin(rng);
         }
     };
 
 
-    template< class Range >
-    struct baby_back
+    template< class Lambda >
+    struct op_back :
+        callable< op_back<Lambda> >
     {
-        typedef typename
-            range_value<Range>::type
-        result_type;
+        template< class Myself, class Range >
+        struct apply :
+            boost::mpl::apply1<Lambda, Range>
+        { };
 
-        result_type operator()(Range& rng) const
+        template< class Result, class Range >
+        Result call(Range& rng) const
         {
             PSTADE_CONCEPT_ASSERT((Bidirectional<Range>));
+            BOOST_ASSERT(!boost::empty(rng));
             return *prior(boost::end(rng));
         }
     };
 
 
-    PSTADE_FUNCTION(normal_front, (baby_front<_>))
-    PSTADE_FUNCTION(normal_back,  (baby_back<_>))
+    struct msvc8_op_front :
+        op_front< range_reference< boost::mpl::_> >
+    { };
+
+    struct msvc8_op_back :
+        op_back<  range_reference< boost::mpl::_> >
+    { };
+
+    struct msvc8_op_value_front :
+        op_front< range_value<boost::mpl::_> >
+    { };
+
+    struct msvc8_op_value_back :
+        op_back<  range_value<boost::mpl::_> >
+    { };
 
 
 } // namespace front_back_detail
 
 
-PSTADE_AUXILIARY(0, front, (front_back_detail::op_normal_front))
-PSTADE_AUXILIARY(0, back,  (front_back_detail::op_normal_back))
+PSTADE_AUXILIARY(0, front,       (front_back_detail::msvc8_op_front))
+PSTADE_AUXILIARY(0, back,        (front_back_detail::msvc8_op_back))
+PSTADE_AUXILIARY(0, value_front, (front_back_detail::msvc8_op_value_front))
+PSTADE_AUXILIARY(0, value_back,  (front_back_detail::msvc8_op_value_back))
 
 
 } } // namespace pstade::oven

@@ -15,8 +15,8 @@
 
 
 #include <string>
-#include <boost/range/begin.hpp>
-#include <boost/range/end.hpp>
+#include <pstade/oven/functions.hpp>
+#include <pstade/compose.hpp>
 
 
 void test()
@@ -27,17 +27,14 @@ void test()
     {
         std::string str("f12344513215b");
 
-        BOOST_CHECK( *next(boost::begin(str)) == '1' );
-        BOOST_CHECK( *prior(boost::end(str))  == 'b' );
+        BOOST_CHECK( *next(begin(str)) == '1' );
+        BOOST_CHECK( *prior(end(str))  == 'b' );
 
-        BOOST_CHECK( *next(boost::begin(str), 3) == '3' );
-        BOOST_CHECK( *prior(boost::end(str), 2)  == '5' );
+        BOOST_CHECK( *next(begin(str), 3) == '3' );
+        BOOST_CHECK( *prior(end(str), 2)  == '5' );
 
-        BOOST_CHECK( *next_begin(str) == '1' );
-        BOOST_CHECK( *prior_end(str)  == 'b' );
-
-        BOOST_CHECK( *next_begin(str, 3) == '3' );
-        BOOST_CHECK( *prior_end(str, 2)  == '5' );
+        BOOST_CHECK( *pstade::compose(next, begin)(str) == '1' );
+        BOOST_CHECK( *pstade::compose(prior, end)(str)  == 'b' );
     }
 }
 

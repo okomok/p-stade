@@ -20,8 +20,10 @@
 
 
 #include <cstddef> // size_t
+#include <boost/type_traits/is_array.hpp>
 #include <pstade/auxiliary.hpp>
-#include <pstade/function.hpp>
+#include <pstade/callable.hpp>
+#include <pstade/enable_if.hpp>
 #include "./as_array.hpp" // to_range
 #include "./iter_range.hpp"
 
@@ -32,34 +34,34 @@ namespace pstade { namespace oven {
 namespace as_literal_detail {
 
 
-    template< class MaybeArray >
-    struct baby
+    struct op :
+        callable<op>
     {
-        typedef typename
-            as_array_detail::to_range<MaybeArray>::type
-        result_type;
+        template< class Myself, class MaybeArray >
+        struct apply :
+            as_array_detail::to_range<MaybeArray>
+        { };
 
-        template< class T, std::size_t sz >
-        result_type operator()(T (&arr)[sz]) const
+        template< class Result, class T, std::size_t sz >
+        Result call(T (&arr)[sz]) const
         {
             // cast precisely for enabler.
-            return result_type(static_cast<T *>(arr), static_cast<T *>(arr) + sz - 1);
+            return Result(static_cast<T *>(arr), static_cast<T *>(arr) + sz - 1);
         }
 
-        template< class Range >
-        result_type operator()(Range& rng) const
+        template< class Result, class Range >
+        Result call(Range& rng,
+            typename disable_if< boost::is_array<Range> >::type = 0) const
         {
             return rng;
         }
     };
 
-    PSTADE_FUNCTION(normal, (baby<_>))
-
 
 } // namespace as_literal_detail
 
 
-PSTADE_AUXILIARY(0, as_literal, (as_literal_detail::op_normal))
+PSTADE_AUXILIARY(0, as_literal, (as_literal_detail::op))
 
 
 } } // namespace pstade::oven

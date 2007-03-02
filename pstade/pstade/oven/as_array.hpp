@@ -16,7 +16,8 @@
 #include <boost/type_traits/is_array.hpp>
 #include <boost/type_traits/remove_extent.hpp>
 #include <pstade/auxiliary.hpp>
-#include <pstade/function.hpp>
+#include <pstade/callable.hpp>
+#include <pstade/enable_if.hpp>
 #include "./iter_range.hpp"
 
 
@@ -48,34 +49,34 @@ namespace as_array_detail {
     { };
 
 
-    template< class MaybeArray >
-    struct baby
+    struct op :
+        callable<op>
     {
-        typedef typename
-            to_range<MaybeArray>::type
-        result_type;
+        template< class Myself, class MaybeArray >
+        struct apply :
+            to_range<MaybeArray>
+        { };
 
-        template< class T, std::size_t sz >
-        result_type operator()(T (&arr)[sz]) const
+        template< class Result, class T, std::size_t sz >
+        Result call(T (&arr)[sz]) const
         {
             // cast precisely for enabler.
-            return result_type(static_cast<T *>(arr), static_cast<T *>(arr) + sz);
+            return Result(static_cast<T *>(arr), static_cast<T *>(arr) + sz);
         }
 
-        template< class Range >
-        result_type operator()(Range& rng) const
+        template< class Result, class Range >
+        Result call(Range& rng,
+            typename disable_if< boost::is_array<Range> >::type = 0) const
         {
             return rng;
         }
     };
 
-    PSTADE_FUNCTION(normal, (baby<_>))
-
 
 } // namespace as_array_detail
 
 
-PSTADE_AUXILIARY(0, as_array, (as_array_detail::op_normal))
+PSTADE_AUXILIARY(0, as_array, (as_array_detail::op))
 
 
 } } // namespace pstade::oven

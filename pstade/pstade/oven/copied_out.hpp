@@ -13,7 +13,7 @@
 #include <algorithm> // copy
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/function.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/pipable.hpp>
 #include "./concepts.hpp"
 
@@ -24,14 +24,17 @@ namespace pstade { namespace oven {
 namespace copied_out_detail {
 
 
-    template< class Range, class OutIter >
-    struct baby
+    struct op :
+        callable<op>
     {
-        typedef
-            Range&
-        result_type;
+        template< class Myself, class Range, class OutIter >
+        struct apply
+        {
+            typedef Range& type;
+        };
 
-        result_type operator()(Range& rng, OutIter& to) const
+        template< class Result, class Range, class OutIter >
+        Result call(Range& rng, OutIter& to) const
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
             std::copy(boost::begin(rng), boost::end(rng), to);
@@ -39,13 +42,11 @@ namespace copied_out_detail {
         }
     };
 
-    PSTADE_FUNCTION(normal, (baby<_, _>))
-
 
 } // namespace copied_out_detail
 
 
-PSTADE_PIPABLE(copied_out, (copied_out_detail::op_normal))
+PSTADE_PIPABLE(copied_out, (copied_out_detail::op))
 
 
 } } // namespace pstade::oven

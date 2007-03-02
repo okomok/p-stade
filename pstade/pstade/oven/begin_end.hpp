@@ -19,7 +19,7 @@
 #include <boost/range/end.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/auxiliary.hpp>
-#include <pstade/function.hpp>
+#include <pstade/callable.hpp>
 #include "./range_iterator.hpp"
 
 
@@ -29,36 +29,36 @@ namespace pstade { namespace oven {
 namespace begin_end_detail {
 
 
-    template< class Range >
-    struct baby_begin
+    struct op_begin :
+        callable<op_begin>
     {
-        typedef typename
-            range_iterator<Range>::type
-        result_type;
+        template< class Myself, class Range >
+        struct apply :
+            range_iterator<Range>
+        { };
 
-        result_type operator()(Range& rng) const
+        template< class Result, class Range >
+        Result call(Range& rng) const
         {
             return boost::begin(rng);
         }
     };
 
 
-    template< class Range >
-    struct baby_end
+    struct op_end :
+        callable<op_end>
     {
-        typedef typename
-            range_iterator<Range>::type
-        result_type;
+        template< class Myself, class Range >
+        struct apply :
+            range_iterator<Range>
+        { };
 
-        result_type operator()(Range& rng) const
+        template< class Result, class Range >
+        Result call(Range& rng) const
         {
             return boost::end(rng);
         }
     };
-
-
-    PSTADE_FUNCTION(normal_begin, (baby_begin<_>))
-    PSTADE_FUNCTION(normal_end,   (baby_end<_>))
 
 
 } // namespace begin_end_detail
@@ -66,8 +66,8 @@ namespace begin_end_detail {
 
 PSTADE_ADL_BARRIER(begin_end) { // for Boost v1.33 'const_begin/end'
 
-PSTADE_AUXILIARY(0, begin, (begin_end_detail::op_normal_begin))
-PSTADE_AUXILIARY(0, end,   (begin_end_detail::op_normal_end))
+PSTADE_AUXILIARY(0, begin, (begin_end_detail::op_begin))
+PSTADE_AUXILIARY(0, end,   (begin_end_detail::op_end))
 
 } // ADL barrier
 

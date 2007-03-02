@@ -73,6 +73,7 @@ test-suite oven :
     [ oven-test dropped_while ]
     [ oven-test empty_range ]
     [ oven-test extension ]
+    [ oven-test dereference ]
     [ oven-test file_range ]
     [ oven-test filtered ]
     [ oven-test front_back ]

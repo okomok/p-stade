@@ -13,6 +13,7 @@
 // What:
 //
 // Intended to replace the infamous 'alloca'.
+// If you want more generic one, see 'auto_buffer' at stlsoft.
 
 
 #include <cstddef> // size_t, ptrdiff_t

@@ -40,6 +40,7 @@ void test()
 
         bool thrown = false;
 
+        // out of range
         try {
             oven::equal( in, boost::begin(out|checked) );
         }
@@ -52,25 +53,19 @@ void test()
 
         (boost::begin(out|checked) + 5) - 5;
 
+        // singular iterator
         try {
-            boost::begin(out|checked) + 6;
+            boost::result_of<op_make_checked(std::string&)>::type srng;
+            *boost::begin(srng);
         }
-        catch (check_error const& ) {
+        catch (singular_iterator_operation const& ) {
             thrown = true;
         }
 
         BOOST_CHECK(thrown);
         thrown = false;
 
-        try {
-            (boost::begin(out|checked) + 5) - 6;
-        }
-        catch (std::out_of_range const& ) {
-            thrown = true;
-        }
-
-        BOOST_CHECK(thrown);
-        thrown = false;
+        // incompatible iterator check is implementation-defined.
     }
 
     {

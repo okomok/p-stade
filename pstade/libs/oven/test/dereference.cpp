@@ -11,10 +11,11 @@
 
 
 #include <pstade/oven/tests.hpp>
-#include <pstade/oven/front_back.hpp>
+#include <pstade/oven/dereference.hpp>
 
 
 #include <string>
+#include <boost/range/begin.hpp>
 
 
 void test()
@@ -23,15 +24,9 @@ void test()
     using namespace oven;
 
     {
-        std::string str("f12344513215b");
-        BOOST_CHECK( front(str) == 'f' );
-        BOOST_CHECK( back(str)  == 'b' );
-        BOOST_CHECK( value_front(str) == 'f' );
-        BOOST_CHECK( value_back(str)  == 'b' );
-
-        front(str) = 'g';
-        back(str) = 'c';
-        BOOST_CHECK( str == "g12344513215c" );
+        std::string str("123");
+        dereference(boost::begin(str)) = 'a';
+        BOOST_CHECK( str == "a23" );
     }
 }
 

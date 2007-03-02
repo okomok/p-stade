@@ -98,7 +98,7 @@ struct op_make_scanned :
         boost::result_of<
             op_make_scanned(
                 typename boost::result_of<op_make_dropped(Range&, int)>::type,
-                typename boost::result_of<op_front(Range&)>::type,
+                typename boost::result_of<op_value_front(Range&)>::type,
                 BinaryFun&
             )
         >
@@ -108,7 +108,7 @@ struct op_make_scanned :
     Result call(Range& rng, BinaryFun& fun) const
     {
         BOOST_ASSERT(!boost::empty(rng));
-        return (*this)(make_dropped(rng, 1), front(rng), fun);
+        return (*this)(make_dropped(rng, 1), value_front(rng), fun);
     }
 };
 

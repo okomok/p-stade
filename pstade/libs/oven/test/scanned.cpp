@@ -94,12 +94,12 @@ void test()
     {
         std::vector<int> src;
         BOOST_CHECK( distance(src|scanned(10, pstade::plus)) == 1 );
-        BOOST_CHECK( front(src|scanned(10, pstade::plus)) == 10 );
+        BOOST_CHECK( value_front(src|scanned(10, pstade::plus)) == 10 );
     }
     {
         int src[] = { 12 };
         BOOST_CHECK( distance(src|scanned(pstade::plus)) == 1 );
-        BOOST_CHECK( front(src|scanned(pstade::plus)) == 12 );
+        BOOST_CHECK( value_front(src|scanned(pstade::plus)) == 12 );
     }
     {
         int src[] = { 1, 2, 3, 4 };

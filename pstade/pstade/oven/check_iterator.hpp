@@ -15,9 +15,8 @@
 // http://msdn2.microsoft.com/en-us/library/at797xz3.aspx
 
 
-#include <stdexcept> // out_of_range
+#include <stdexcept> // logic_error, out_of_range
 #include <string>
-#include <boost/assert.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/throw_exception.hpp>
 #include <pstade/object_generator.hpp>
@@ -30,11 +29,19 @@ template< class Iterator >
 struct check_iterator;
 
 
-struct check_error :
-    std::out_of_range
+struct singular_iterator_operation :
+    std::logic_error
 {
-    explicit check_error(std::string const& msg) :
-        std::out_of_range(msg)
+    explicit singular_iterator_operation(std::string const& msg) :
+        std::logic_error(msg)
+    { }
+};
+
+struct incompatible_iterators :
+    std::logic_error
+{
+    explicit incompatible_iterators(std::string const& msg) :
+        std::logic_error(msg)
     { }
 };
 
@@ -57,7 +64,7 @@ namespace check_iterator_detail {
     inline
     void throw_out_of_range()
     {
-        check_error err("out of 'check_iterator' range");
+        std::out_of_range err("out of 'check_iterator' range");
         boost::throw_exception(err);
     }
 
@@ -66,7 +73,7 @@ namespace check_iterator_detail {
     void check_singularity(CheckIterator const& it)
     {
         if (it.is_singular()) {
-            check_error err("operation on default-constructed 'check_iterator'");
+            singular_iterator_operation err("operation on default-constructed 'check_iterator'");
             boost::throw_exception(err);
         }
     }
@@ -76,7 +83,7 @@ namespace check_iterator_detail {
     void check_compatibility(CheckIterator const& it, CheckIterator_ const& it_)
     {
         if (it.begin() != it_.begin() || it.end() != it_.end()) {
-            check_error err("incompatible iterators of 'check_iterator'");
+            incompatible_iterators err("incompatible iterators of 'check_iterator'");
             boost::throw_exception(err);
         }
     }

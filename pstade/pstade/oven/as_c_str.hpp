@@ -10,17 +10,25 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Note:
+//
+// 'taken_while(_1 != 0)' is useless if you want
+// null-terminated string, because it can't return
+// RandomAccessRange. Thus, 'as_c_str' kicks in.
+
+
 #include <algorithm> // find
 #include <cstddef>   // size_t
 #include <cstring>   // strlen
 #include <cwchar>    // wcslen
+#include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/or.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/auxiliary.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/enable_if.hpp>
-#include <pstade/function.hpp>
 #include <pstade/pass_by.hpp>
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
@@ -56,6 +64,7 @@ namespace as_c_str_detail {
         >
     { };
 
+
     template< class CString >
     struct cstring_to_range
     {
@@ -69,6 +78,24 @@ namespace as_c_str_detail {
     };
 
 
+    template< class Range >
+    struct iter_const_range_of
+    {
+        typedef typename
+            iter_range_of<Range>::type const
+        type;
+    };
+
+
+    template< class MaybeCString >
+    struct to_range :
+        boost::mpl::eval_if< is_cstring<MaybeCString>,
+            cstring_to_range<MaybeCString>,
+            iter_const_range_of<MaybeCString>
+        >
+    { };
+
+
     // suppress warning: comparison between signed and unsigned integer
     template< class Range > inline
     typename range_value<Range>::type
@@ -78,44 +105,37 @@ namespace as_c_str_detail {
     }
 
 
-    template< class Range, class = enabler >
-    struct baby
+    struct op :
+        callable<op>
     {
-        typedef typename
-            iter_range_of<Range>::type const
-        result_type;
+        template< class Myself, class MaybeCString >
+        struct apply :
+            to_range<MaybeCString>
+        { };
 
-        result_type operator()(Range& rng) const
+        template< class Result, class Char >
+        Result call(Char *psz) const
+        {
+            return Result(psz, psz + (length)(psz));
+        }
+
+        template< class Result, class Range >
+        Result call(Range& rng,
+            typename disable_if< is_cstring<Range> >::type = 0) const
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
-            return result_type(
+            return Result(
                 boost::begin(rng),
                 std::find(boost::begin(rng), boost::end(rng), zero<Range>())
             );
         }
     };
 
-    template< class CString >
-    struct baby<CString, typename enable_if< is_cstring<CString> >::type>
-    {
-        typedef typename
-            cstring_to_range<CString>::type
-        result_type;
-
-        template< class Char >
-        result_type operator()(Char *psz) const
-        {
-            return result_type(psz, psz + length(psz));
-        }
-    };
-
-    PSTADE_FUNCTION(normal, (baby<_>))
-
 
 } // namespace as_c_str_detail
 
 
-PSTADE_AUXILIARY(0, as_c_str, (as_c_str_detail::op_normal))
+PSTADE_AUXILIARY(0, as_c_str, (as_c_str_detail::op))
 
 
 struct op_contains_zero
