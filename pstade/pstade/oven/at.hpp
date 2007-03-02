@@ -12,8 +12,6 @@
 
 #include <boost/assert.hpp>
 #include <boost/range/begin.hpp>
-#include <boost/mpl/apply.hpp>
-#include <boost/mpl/placeholders.hpp>
 #include <pstade/auxiliary.hpp>
 #include <pstade/callable.hpp>
 #include "./concepts.hpp"
@@ -29,13 +27,13 @@ namespace pstade { namespace oven {
 namespace at_detail {
 
 
-    template< class Lambda >
+    template< template< class > class F >
     struct op :
-        callable< op<Lambda> >
+        callable< op<F> >
     {
         template< class Myself, class Range, class Difference >
         struct apply :
-            boost::mpl::apply1<Lambda, Range>
+            F<Range>
         { };
 
         template< class Result, class Range >
@@ -43,25 +41,17 @@ namespace at_detail {
         {
             PSTADE_CONCEPT_ASSERT((RandomAccess<Range>));
             BOOST_ASSERT(0 <= d && d < distance(rng));
+
             return *(boost::begin(rng) + d);
         }
     };
 
 
-    struct msvc8_op :
-        op< range_reference<boost::mpl::_> >
-    { };
-
-    struct msvc8_value_op  :
-        op< range_value<boost::mpl::_> >
-    { };
-    
-
 } // namespace at_detail
 
 
-PSTADE_AUXILIARY(1, at,       (at_detail::msvc8_op))
-PSTADE_AUXILIARY(1, value_at, (at_detail::msvc8_value_op))
+PSTADE_AUXILIARY(1, at,       (at_detail::op<range_reference>))
+PSTADE_AUXILIARY(1, value_at, (at_detail::op<range_value>))
 
 
 } } // namespace pstade::oven
