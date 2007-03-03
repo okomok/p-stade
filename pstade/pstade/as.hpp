@@ -13,7 +13,6 @@
 #include <pstade/auxiliary.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
-#include <pstade/function.hpp>
 #include <pstade/pass_by.hpp>
 
 
@@ -23,39 +22,45 @@ namespace pstade {
     namespace as_ref_detail {
 
 
-        template<class X>
-        struct baby
+        struct op :
+            callable<op>
         {
-            typedef X& result_type;
+            template< class Myself, class X >
+            struct apply
+            {
+                typedef X& type;
+            };
 
-            result_type operator()(X& x) const
+            template< class Result, class X >
+            Result call(X& x) const
             {
                 return x;
             }
         };
 
 
-        template<class X>
-        struct cbaby
+        struct op_c :
+            callable<op_c>
         {
-            typedef X const& result_type;
+            template< class Myself, class X >
+            struct apply
+            {
+                typedef X const& type;
+            };
 
-            result_type operator()(X const& x) const
+            template< class Result, class X >
+            Result call(X const& x) const
             {
                 return x;
             }
         };
-
-
-        PSTADE_FUNCTION(normal,  (baby <_>))
-        PSTADE_FUNCTION(cnormal, (cbaby<_>))
 
 
     } // namespace as_ref_detail
 
 
-    PSTADE_AUXILIARY(0, as_ref,  (as_ref_detail::op_normal))
-    PSTADE_AUXILIARY(0, as_cref, (as_ref_detail::op_cnormal))
+    PSTADE_AUXILIARY(0, as_ref,  (as_ref_detail::op))
+    PSTADE_AUXILIARY(0, as_cref, (as_ref_detail::op_c))
 
 
     // Define 'as_value' without 'callable', 'function' nor 'auxiliary0'.

@@ -91,7 +91,7 @@ struct op_boolean_cast
     }
 };
 
-PSTADE_AUXILIARY(0, booleanized, (automatic<op_boolean_cast<boost::mpl::_1> >))
+PSTADE_AUXILIARY(0, booleanized, (automatic< op_boolean_cast<boost::mpl::_1> >))
 
 
 } } // namespace pstade::tomato

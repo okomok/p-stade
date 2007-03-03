@@ -57,7 +57,7 @@ struct op_widechar_to
     }
 };
 
-PSTADE_AUXILIARY(0, to_multibyte, (automatic<op_widechar_to<boost::mpl::_1> >))
+PSTADE_AUXILIARY(0, to_multibyte, (automatic< op_widechar_to<boost::mpl::_1> >))
 
 
 } } // namespace pstade::tomato

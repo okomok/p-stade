@@ -34,17 +34,15 @@
 // This might be avoided by using 'template_arguments', though.
 
 
-#include <boost/config.hpp>
-#include <boost/detail/workaround.hpp>
 #include <boost/mpl/apply.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
+#include <pstade/as_mpl_lambda.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
-#include <pstade/unparenthesize.hpp>
 
 
 namespace pstade {
@@ -74,23 +72,11 @@ namespace pstade {
     #define PSTADE_FUNCTION(Object, Baby) \
         namespace BOOST_PP_CAT(pstade_function_workarea_of_, Object) { \
             using ::boost::mpl::_; \
-            PSTADE_FUNCTION_typedef_op(Baby) \
+            typedef ::pstade::function<PSTADE_AS_MPL_LAMBDA(Baby)> op; \
         } \
         typedef BOOST_PP_CAT(pstade_function_workarea_of_, Object)::op BOOST_PP_CAT(op_, Object); \
         PSTADE_CONSTANT(Object, (BOOST_PP_CAT(op_, Object))) \
     /**/
-
-    #if BOOST_WORKAROUND(BOOST_MSVC, == 1400)
-        // VC8 would break 'mpl::apply' without a derived type.
-        // 'PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE' must be defined by your hand...
-        #define PSTADE_FUNCTION_typedef_op(Baby) \
-            struct op : ::pstade::function<PSTADE_UNPARENTHESIZE(Baby)> { };
-        /**/
-    #else
-        #define PSTADE_FUNCTION_typedef_op(Baby) \
-            typedef ::pstade::function<PSTADE_UNPARENTHESIZE(Baby)> op;
-        /**/
-    #endif
 
 
 } // namespace pstade

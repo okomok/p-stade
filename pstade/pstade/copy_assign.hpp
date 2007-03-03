@@ -16,7 +16,7 @@
 
 
 #include <pstade/auxiliary.hpp>
-#include <pstade/function.hpp>
+#include <pstade/callable.hpp>
 
 
 namespace pstade {
@@ -25,25 +25,28 @@ namespace pstade {
     namespace copy_assign_detail {
 
 
-        template<class To, class From>
-        struct baby
+        struct op :
+            callable<op>
         {
-            typedef To& result_type;
+            template< class Myself, class To, class From >
+            struct apply
+            {
+                typedef To& type;
+            };
 
-            result_type operator()(To& to, From& from) const
+            template< class Result, class To, class From >
+            Result call(To& to, From& from) const
             {
                 to.operator=(static_cast<To const&>(from));
                 return to;
             }
         };
 
-        PSTADE_FUNCTION(normal, (baby<_, _>))
-
 
     } // namespace copy_assign_detail
 
 
-    PSTADE_AUXILIARY(1, copy_assign, (copy_assign_detail::op_normal))
+    PSTADE_AUXILIARY(1, copy_assign, (copy_assign_detail::op))
 
 
 } // namespace pstade
