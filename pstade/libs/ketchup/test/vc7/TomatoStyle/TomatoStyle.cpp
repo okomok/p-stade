@@ -14,7 +14,9 @@
 #include "aboutdlg.h"
 #include "MainFrm.h"
 
-#include <pstade/tomato.hpp>
+#include <pstade/tomato/message_loop.hpp>
+#include <pstade/tomato/co_init.hpp>
+#include <pstade/tomato/module_init.hpp>
 #include <pstade/tomato/alias.hpp>
 
 WTL::CAppModule _Module;

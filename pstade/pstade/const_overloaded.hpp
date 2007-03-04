@@ -20,6 +20,9 @@
 //
 // comp.lang.c++.moderated
 // "Forwarding Function Template Resolution and Explicit Template Argument"
+//
+// After all, GCC overload-resolution is broken with explicit template argument.
+// We sooner or later need 'ARRAY_OVERLOADED', too.
 
 
 #include <boost/mpl/or.hpp>

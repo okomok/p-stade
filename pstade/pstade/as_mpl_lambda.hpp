@@ -12,17 +12,16 @@
 
 // What:
 //
-// Works around a VC8 bug that 'mpl::apply' occasionally
-// fails in the instantiation process of 'boost::result_of'.
+// Works around a VC8 bug that 'mpl::apply<PlaceholderExpression,..>'
+// occasionally fails in the instantiation process of 'boost::result_of'.
 //
 // These workarounds are known:
-//   1. Force FunctionObject instantiation using inheritance like <boost/numeric/functinal.hpp>.
-//   2. Call 'mpl::lambda' in non-deduced context like the following macro.
-//   3. Don't use 'mpl::apply' when possible.
+//   1. Don't use 'mpl::apply' when possible.
+//   2. Hide PlaceholderExpression by using inheritance like <boost/numeric/functional.hpp>.
+//   3. Call 'mpl::lambda' in non-deduced context like the following macro. 
 //
-// If a LambdaExpression doesn't have a dependent nested 'type',
-// that is to say, it is not a Metafunction with placeholder,
-// 'mpl::lambda' seems *not* to fail.
+// If a PlaceholderExpression doesn't have a dependent nested 'type',
+// that is to say, it is not a Metafunction with placeholder, 'mpl::apply' seems *not* to fail.
 
 
 #include <boost/config.hpp>
@@ -34,15 +33,13 @@
 
     #include <boost/mpl/lambda.hpp>
 
-    #define PSTADE_AS_MPL_LAMBDA(Lambda) \
-        boost::mpl::lambda< PSTADE_UNPARENTHESIZE(Lambda) >::type \
+    #define PSTADE_AS_MPL_LAMBDA(PlaceholderExpr) \
+        boost::mpl::lambda< PSTADE_UNPARENTHESIZE(PlaceholderExpr) >::type \
     /**/
 
 #else
 
-    #define PSTADE_AS_MPL_LAMBDA(Lambda) \
-        PSTADE_UNPARENTHESIZE(Lambda) \
-    /**/
+    #define PSTADE_AS_MPL_LAMBDA PSTADE_UNPARENTHESIZE
 
 #endif
 
