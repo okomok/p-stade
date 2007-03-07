@@ -16,6 +16,7 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/constant.hpp>
+#include <pstade/lambda_sig.hpp>
 #include <pstade/to_shared_ptr.hpp>
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
@@ -30,7 +31,8 @@ namespace pstade { namespace oven {
 // then the ownership cannot be moved. So make it from scratch.
 
 
-struct op_make_shared
+struct op_make_shared :
+    lambda_sig
 {
     template< class FunCall >
     struct result;

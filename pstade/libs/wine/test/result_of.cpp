@@ -163,7 +163,7 @@ void test()
         (void)result;
     }
 #endif
-#if 0
+#if 1
     {
         int i = 10;
         boost::result_of<chat_monchy_<int>(int&)>::type result

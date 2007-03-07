@@ -29,6 +29,7 @@
 #include <boost/tuple/tuple.hpp>
 #include <boost/type_traits/add_const.hpp>
 #include <boost/type_traits/remove_reference.hpp>
+#include <pstade/lambda_sig.hpp>
 #include <pstade/object_generator.hpp>
 #include <pstade/preprocessor.hpp>
 
@@ -50,7 +51,8 @@ struct sig_forward_argument :
 
 
 template< class SigFun >
-struct sig_forward_result
+struct sig_forward_result :
+    lambda_sig
 {
     template< class FunCall >
     struct result

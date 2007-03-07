@@ -23,6 +23,7 @@
 #include <pstade/auxiliary.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
+#include <pstade/lambda_sig.hpp>
 #include <pstade/to_shared_ptr.hpp>
 #include "./indirected.hpp"
 #include "./iter_range.hpp"
@@ -67,7 +68,8 @@ namespace as_shared_single_detail {
     // something like 'auxiliary0' from scratch.
 
 
-    struct op
+    struct op :
+        lambda_sig
     {
         template< class FunCall >
         struct result;

@@ -7,7 +7,7 @@ The Oven Range Library
 :Author: Shunsuke Sogame
 :Contact: pstade.mb@gmail.com
 :License: Distributed under the `Boost Software License Version 1.0`_
-:Version: 0.93.4
+:Version: 0.93.5
 
 
 
@@ -1372,4 +1372,9 @@ Version 0.93.4
 - ``checked`` throws ``std::out_of_range``.
 - Added ``at/value_at``.
 - ``value_front/value_back`` replaced ``front/back``.
+
+Version 0.93.5
+^^^^^^^^^^^^^^
+- Fixed missing Boost.Lambda support.
+
 

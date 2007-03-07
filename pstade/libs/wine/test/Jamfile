@@ -20,6 +20,7 @@ test-suite wine :
     [ wine-test affect ]
     [ wine-test arraya ]
     [ wine-test as ]
+    [ wine-test as_mpl_lambda ]
     [ wine-test at ]
     [ wine-test automatic ]
     [ wine-test auxiliary ]

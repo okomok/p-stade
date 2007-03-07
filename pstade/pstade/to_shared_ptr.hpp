@@ -21,6 +21,7 @@
 #include <boost/pointee.hpp>
 #include <boost/shared_ptr.hpp>
 #include <pstade/constant.hpp>
+#include <pstade/lambda_sig.hpp>
 #include <pstade/pass_by.hpp>
 
 
@@ -31,47 +32,51 @@ namespace pstade {
     // const-qualifier to 'auto_ptr', then it becomes non-movable. 
 
 
-    struct op_to_shared_ptr
+    struct op_to_shared_ptr :
+        lambda_sig
     {
-        template<class FunCall>
-        struct result;
+        template<class A>
+        struct result_impl;
 
-        template<class Fun, class Ptr>
-        struct result<Fun(Ptr)> :
-            result<Fun(typename pass_by_value<Ptr>::type)>
-        { };
-
-        template<class Fun, class X>
-        struct result<Fun(X *)>
+        template<class X>
+        struct result_impl<X *>
         {
             typedef X *type;
         };
 
-        template<class Fun, class X>
-        struct result<Fun(boost::shared_ptr<X>)>
+        template<class X>
+        struct result_impl< boost::shared_ptr<X> >
         {
             typedef boost::shared_ptr<X> type;
         };
 
-        template<class Fun, class X>
-        struct result<Fun(std::auto_ptr<X>)>
+        template<class X>
+        struct result_impl< std::auto_ptr<X> >
         {
             typedef X *type;
         };
 
         template<class Ptr>
-        typename result<void(Ptr)>::type
+        typename result_impl<Ptr>::type
         operator()(Ptr p) const
         {
             return p;
         }
 
         template<class X>
-        typename result<void(std::auto_ptr<X>)>::type
+        typename result_impl< std::auto_ptr<X> >::type
         operator()(std::auto_ptr<X> ap) const
         {
             return ap.release();
         }
+
+        template<class FunCall>
+        struct result;
+
+        template<class Fun, class Ptr>
+        struct result<Fun(Ptr)> :
+            result_impl<typename pass_by_value<Ptr>::type>
+        { };
     };
 
 
