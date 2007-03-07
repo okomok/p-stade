@@ -32,27 +32,27 @@
 namespace pstade {
 
 
-template< class Clonable >
+template<class Clonable>
 struct clone_ptr;
 
 
 namespace clone_ptr_detail {
 
 
-    template< class T > inline
+    template<class T> inline
     T *new_(T const& x)
     {
         return boost::heap_clone_allocator::allocate_clone(x);
     }
 
-    template< class T > inline
+    template<class T> inline
     void delete_(T *ptr)
     {
         return boost::heap_clone_allocator::deallocate_clone(ptr);
     }
 
 
-    template< class Clonable >
+    template<class Clonable>
     struct super_
     {
         typedef
@@ -68,7 +68,7 @@ namespace clone_ptr_detail {
 } // namespace clone_ptr_detail
 
 
-template< class Clonable >
+template<class Clonable>
 struct clone_ptr :
     clone_ptr_detail::super_<Clonable>::type
 {
@@ -88,48 +88,50 @@ struct clone_ptr :
         m_ptr(other ? clone_ptr_detail::new_(*other) : PSTADE_NULLPTR)
     { }
 
-    template< class Clonable_ >
-    clone_ptr(clone_ptr<Clonable_> const& other,
-        typename enable_if< boost::is_convertible<Clonable_ *, Clonable *> >::type = 0
+    template<class C>
+    clone_ptr(clone_ptr<C> const& other,
+        typename enable_if< boost::is_convertible<C *, Clonable *> >::type = 0
     ) :
         m_ptr(other ? clone_ptr_detail::new_(*other) : PSTADE_NULLPTR)
     { }
 
-    template< class Clonable_ >
-    explicit clone_ptr(Clonable_ *p) :
-        m_ptr(p)
-    { }
-
-    template< class Clonable_ >
-    explicit clone_ptr(std::auto_ptr<Clonable_> ap) :
+    template<class C>
+    clone_ptr(std::auto_ptr<C> ap,
+        typename enable_if< boost::is_convertible<C *, Clonable *> >::type = 0
+    ) :
         m_ptr(ap.release())
     { }
 
-// copy-assignments
+    template<class C>
+    explicit clone_ptr(C *p) :
+        m_ptr(p)
+    { }
+
+// assignments
     self_t& operator=(self_t const& other)
     {
         self_t(other).swap(*this);
         return *this;
     }
 
-    template< class Clonable_ >
-    self_t& operator=(clone_ptr<Clonable_> const& other)
+    template<class C>
+    self_t& operator=(clone_ptr<C> const& other)
     {
         self_t(other).swap(*this);
         return *this;
     }
 
-    template< class Clonable_ >
-    self_t& operator=(Clonable_ *p)
+    template<class C>
+    self_t& operator=(std::auto_ptr<C> ap)
     {
-        self_t(p).swap(*this);
+        self_t(ap).swap(*this);
         return *this;
     }
 
-    template< class Clonable_ >
-    self_t& operator=(std::auto_ptr<Clonable_> ap)
+    template<class C>
+    self_t& operator=(C *p)
     {
-        self_t(ap).swap(*this);
+        self_t(p).swap(*this);
         return *this;
     }
 
