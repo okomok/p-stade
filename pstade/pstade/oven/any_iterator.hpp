@@ -33,6 +33,7 @@
 #include <pstade/clone_ptr.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/is_returnable.hpp>
+#include <pstade/radish/swappable.hpp>
 #include "./detail/pure_traversal.hpp"
 
 
@@ -252,7 +253,8 @@ template<
     class Difference
 >
 struct any_iterator :
-    any_iterator_detail::super_<Reference, Traversal, Value, Difference>::type
+    any_iterator_detail::super_<Reference, Traversal, Value, Difference>::type,
+    radish::swappable< any_iterator<Reference, Traversal, Value, Difference> >
 {
 private:
     typedef any_iterator self_t;
@@ -260,6 +262,7 @@ private:
     typedef typename any_iterator_detail::pimpl_of<Reference, Traversal, Difference>::type pimpl_t;
 
 public:
+// structors
     explicit any_iterator()
     { }
 
@@ -288,6 +291,19 @@ public:
         return any_iterator_detail::downcast<
             any_iterator_detail::holder<Iterator, Reference, Traversal, Difference>
         >(*m_pimpl).held();
+    }
+
+// assignments
+    template< class From >
+    self_t& operator=(From const& from)
+    {
+        self_t(from).swap(*this);
+        return *this;
+    }
+
+    void swap(self_t& other)
+    {
+        return m_pimpl.swap(other.m_pimpl);
     }
 
 private:
