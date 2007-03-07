@@ -57,20 +57,14 @@
 namespace pstade {
 
 
-    namespace callable_detail {
-
-
-        // Add const-qualifier if rvalue is specified.
-        template< class A >
-        struct meta_argument :
-            boost::remove_reference<
-                // VC++ warns against 'A const' if 'A' is reference, so...
-                typename boost::add_const<A>::type
-            >
-        { };
-
-
-    } // namespace callable_detail
+    // Add const-qualifier if rvalue is specified.
+    template< class A >
+    struct callable_argument :
+        boost::remove_reference<
+            // VC++ warns against 'A const' if 'A' is reference, so...
+            typename boost::add_const<A>::type
+        >
+    { };
 
 
     template< class Function > // for cute error message.
@@ -112,7 +106,7 @@ namespace pstade {
         template< class A0 >
         struct result1 : // Prefer inheritance for SFINAE.
             Derived::BOOST_NESTED_TEMPLATE apply< Derived,
-                typename callable_detail::meta_argument<A0>::type
+                typename callable_argument<A0>::type
             >
         { };
 
@@ -261,7 +255,7 @@ private:
     template< BOOST_PP_ENUM_PARAMS(n, class A) >
     struct BOOST_PP_CAT(result, n) :
         Derived::BOOST_NESTED_TEMPLATE apply< Derived,
-            PSTADE_PP_ENUM_PARAMS_WITH(n, typename callable_detail::meta_argument<A, >::type)
+            PSTADE_PP_ENUM_PARAMS_WITH(n, typename callable_argument<A, >::type)
         >
     { };
 

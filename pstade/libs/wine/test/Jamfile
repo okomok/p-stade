@@ -18,6 +18,7 @@ rule wine-test ( name )
 test-suite wine :
     [ wine-test adl_barrier ]
     [ wine-test affect ]
+    [ wine-test any_movable ]
     [ wine-test arraya ]
     [ wine-test as ]
     [ wine-test as_mpl_lambda ]

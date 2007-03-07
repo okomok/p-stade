@@ -21,6 +21,7 @@
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/counting.hpp>
 #include <pstade/oven/stream_input.hpp>
+#include <pstade/copy_assign.hpp>
 
 
 void test()
@@ -43,6 +44,13 @@ void test()
     {
         std::string rng("abcdefg");
         std::vector<char> vec = rng|copied;
+        BOOST_CHECK( oven::equals(vec, rng) );
+    }
+
+    {
+        std::string rng("abcdefg");
+        std::vector<char> vec;
+        pstade::copy_assign(vec, rng|copied);
         BOOST_CHECK( oven::equals(vec, rng) );
     }
 

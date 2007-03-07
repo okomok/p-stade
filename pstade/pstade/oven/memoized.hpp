@@ -15,6 +15,7 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/shared_ptr.hpp>
+#include <pstade/any_movable.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>
@@ -25,47 +26,6 @@
 
 
 namespace pstade { namespace oven {
-
-
-namespace memo_table_detail {
-
-
-    // 'boost::any' requires a held type to be CopyConstructible,
-    // 'auto_ptr' is not. In detail, 'boost::any' takes it
-    // as const-reference, hence it becomes unmovable. So we define...
-
-    struct placeholder
-    {
-        virtual ~placeholder()
-        { }
-    };
-
-    template< class X >
-    struct holder :
-        placeholder
-    {
-        explicit holder(X x) :
-            m_x(x)
-        { }
-
-    private:
-        X m_x;
-    };
-
-    struct any
-    {
-        template< class X >
-        void reset(X x)
-        {
-            m_px.reset(new holder<X>(x));
-        }
-
-    private:
-        std::auto_ptr<placeholder> m_px;
-    };
-
-
-} // namespace memo_table_detail
 
 
 struct memo_table :
@@ -79,8 +39,8 @@ struct memo_table :
     }
 
 private:
-    memo_table_detail::any m_v;
-    memo_table_detail::any m_w;
+    any_movable m_v;
+    any_movable m_w;
 };
 
 

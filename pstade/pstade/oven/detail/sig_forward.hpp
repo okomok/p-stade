@@ -27,8 +27,7 @@
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/tuple/tuple.hpp>
-#include <boost/type_traits/add_const.hpp>
-#include <boost/type_traits/remove_reference.hpp>
+#include <pstade/callable.hpp> // callable_argument
 #include <pstade/lambda_sig.hpp>
 #include <pstade/object_generator.hpp>
 #include <pstade/preprocessor.hpp>
@@ -40,14 +39,6 @@
 
 
 namespace pstade { namespace oven { namespace detail {
-
-
-template< class A >
-struct sig_forward_argument :
-    boost::remove_reference<
-        typename boost::add_const<A>::type
-    >
-{ };
 
 
 template< class SigFun >
@@ -98,7 +89,7 @@ private:
         SigFun::BOOST_NESTED_TEMPLATE sig<
             boost::tuples::tuple<
                 SigFun,
-                PSTADE_PP_ENUM_PARAMS_WITH(n, typename sig_forward_argument<A, >::type)
+                PSTADE_PP_ENUM_PARAMS_WITH(n, typename callable_argument<A, >::type)
             >
         >
     { };

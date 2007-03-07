@@ -147,6 +147,8 @@ void test()
         std::auto_ptr< ::B > apB_((op_new_auto< ::D >())());
     #endif
     }
+
+// shared_object
     {
         boost::shared_ptr<int> p = shared_object(3);
         BOOST_CHECK( *p == 3 );
@@ -155,6 +157,26 @@ void test()
     }
     {
         boost::shared_array<std::string> p = op_new_shared<std::string[]>()(12);
+    }
+
+// auto_object
+    {
+        std::auto_ptr<int> p = auto_object(3);
+        BOOST_CHECK( *p == 3 );
+    }
+#if 0 // seems impossible.
+    {
+        std::auto_ptr<int> p = auto_object;
+        BOOST_CHECK( *p == 0 );
+    }
+#endif
+    {
+        std::auto_ptr<int> p = auto_object();
+        BOOST_CHECK( *p == 0 );
+    }
+    {
+        std::auto_ptr<std::string> p = auto_object("hello");
+        BOOST_CHECK( *p == "hello" );
     }
 }
 

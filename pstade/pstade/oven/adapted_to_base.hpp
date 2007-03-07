@@ -42,6 +42,7 @@
 #include <boost/utility/result_of.hpp>
 #include <pstade/automatic.hpp>
 #include <pstade/auxiliary.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/const_overloaded.hpp>
 #include <pstade/deduced_const.hpp>
 #include <pstade/enable_if.hpp>
@@ -106,34 +107,27 @@ adapted_to(Adapted const& ad)
 PSTADE_AUXILIARY(0, to_base, (automatic< op_adapted_to<boost::mpl::_1> >))
 
 
-// for range
+// range version
 //
 
 template< class Base >
-struct op_adapted_range_to
+struct op_adapted_range_to :
+    callable< op_adapted_range_to<Base> >
 {
-    typedef Base result_type;
-
-    template< class Adapted >
-    Base aux(Adapted& ad) const
+    template< class Myself, class Adapted >
+    struct apply
     {
-        typedef typename range_iterator<Base>::type iter_t;
-        return Base(
+        typedef Base type;
+    };
+
+    template< class Result, class Adapted >
+    Result call(Adapted& ad) const
+    {
+        typedef typename range_iterator<Result>::type iter_t;
+        return Result(
             op_adapted_to<iter_t>()(boost::begin(ad)),
             op_adapted_to<iter_t>()(boost::end(ad))
         );
-    }
-
-    template< class Adapted >
-    Base operator()(Adapted& ad) const
-    {
-        return aux(ad);
-    }
-
-    template< class Adapted >
-    Base operator()(Adapted const& ad) const
-    {
-        return aux(ad);
     }
 };
 

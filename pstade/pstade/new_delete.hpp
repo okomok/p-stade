@@ -13,6 +13,7 @@
 
 #include <cstddef> // size_t
 #include <memory> // auto_ptr
+#include <boost/any.hpp>
 #include <boost/checked_delete.hpp>
 #include <boost/pointee.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
@@ -21,11 +22,15 @@
 #include <boost/shared_array.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/utility/result_of.hpp>
+#include <pstade/any_movable.hpp>
 #include <pstade/automatic.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/compose.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/construct.hpp>
+#include <pstade/fuse.hpp>
+#include <pstade/nonassignable.hpp>
+#include <pstade/unfuse.hpp>
 
 
 namespace pstade {
@@ -62,7 +67,7 @@ namespace pstade {
     {
         typedef X *result_type;
 
-        X *operator()(std::size_t n) const
+        result_type operator()(std::size_t n) const
         {
             return new X[n];
         }
@@ -109,10 +114,12 @@ namespace pstade {
 
     template<class P>
     struct op_new_ptr :
-        boost::result_of<op_compose(
-            op_construct<P>,
-            op_new<typename boost::pointee<P>::type>
-        )>::type
+        boost::result_of<
+            op_compose(
+                op_construct<P>,
+                op_new<typename boost::pointee<P>::type>
+            )
+        >::type
     { };
 
 
@@ -120,6 +127,58 @@ namespace pstade {
     struct op_new_auto :
         op_new_ptr< std::auto_ptr<X> >
     { };
+
+
+    namespace auto_object_detail {
+
+        // 'PSTADE_AUTOMATIC(auto_object, (op_new_auto< boost::pointee<_> >))'
+        // doesn't work -- 'auto_ptr' is not CopyConstructible.
+        // 'operator auto_ptr_ref<X>()' can't be of help, because
+        // some implementations require "move sequence" to be in the same scope.
+        // After all, we need a conversion operator to return lvalue.
+
+        template<class Arguments>
+        struct temp :
+            private nonassignable
+        {
+            explicit temp(Arguments const& args) :
+                m_args(args)
+            { }
+
+            template<class X>
+            operator std::auto_ptr<X>& ()
+            {
+                typedef std::auto_ptr<X> auto_ptr_t;
+                auto_ptr_t ptr(fuse(op_new<X>())(m_args));
+                m_ptr.reset(ptr);
+                return m_ptr.base<auto_ptr_t>();
+            }
+
+        private:
+            Arguments m_args;
+            any_movable m_ptr;
+        };
+
+        struct base_op :
+            callable<base_op>
+        {
+            template<class Myself, class Arguments>
+            struct apply
+            {
+                typedef temp<Arguments> type;
+            };
+
+            template<class Result, class Arguments>
+            Result call(Arguments& args) const
+            {
+                return Result(args); 
+            }
+        };
+
+    } // namespace auto_object_detail
+
+    typedef boost::result_of<op_unfuse(auto_object_detail::base_op)>::type op_auto_object;
+    PSTADE_CONSTANT(auto_object, (op_auto_object))
 
 
     template<class X>

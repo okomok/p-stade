@@ -71,7 +71,8 @@ namespace pstade {
         }
 
         template<class FunCall>
-        struct result;
+        struct result
+        { };
 
         template<class Fun, class Ptr>
         struct result<Fun(Ptr)> :

@@ -4,7 +4,7 @@
 
 // PStade.Wine
 //
-// Copyright Shunsuke Sogame 2005-2006.
+// Copyright Shunsuke Sogame 2005-2007.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -15,7 +15,9 @@
 #include <boost/mpl/assert.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/type_traits/is_base_of.hpp>
+#include <boost/type_traits/remove_cv.hpp>
 #include <boost/utility/addressof.hpp>
+#include <boost/utility/result_of.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/nonassignable.hpp>
 
@@ -39,11 +41,29 @@
 namespace pstade {
 
 
-template< class Derived, class Base > inline
-Derived& base_to(Base& base)
+template< class Derived >
+struct op_base_to
 {
-    BOOST_MPL_ASSERT((boost::is_base_of<Base, Derived>));
-    return static_cast<Derived&>(base);
+    typedef Derived& result_type;
+
+    template< class Base >
+    result_type operator()(Base& base) const
+    {
+        BOOST_MPL_ASSERT((boost::is_base_of<
+            typename boost::remove_cv<Base>::type,
+            typename boost::remove_cv<Derived>::type
+        >));
+
+        return static_cast<Derived&>(base);
+    }
+};
+
+
+template< class Derived, class Base > inline
+typename boost::result_of<op_base_to<Derived>(Base&)>::type
+base_to(Base& base)
+{
+    return op_base_to<Derived>()(base);
 }
 
 
@@ -66,14 +86,14 @@ namespace to_derived_detail {
         template< class Derived >
         operator Derived& () const
         {
-            return pstade::base_to<Derived>(m_base);
+            return op_base_to<Derived>()(m_base);
         }
 
     #if !defined(PSTADE_TO_DERIVED_NO_POINTER_CONVERSION)
         template< class Derived >
         operator Derived *() const
         {
-            return boost::addressof( pstade::base_to<Derived>(m_base) );
+            return boost::addressof(op_base_to<Derived>()(m_base));
         }
     #endif
 
