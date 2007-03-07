@@ -11,6 +11,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Note:
+//
+// Yet another implementation using 'fuse/unfuse' and
+// Boost.Fusion will be interesting.
+
+
 #include <boost/preprocessor/arithmetic/dec.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>

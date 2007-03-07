@@ -148,15 +148,14 @@ namespace pstade {
             template<class X>
             operator std::auto_ptr<X>& ()
             {
-                typedef std::auto_ptr<X> auto_ptr_t;
-                auto_ptr_t ptr(fuse(op_new<X>())(m_args));
-                m_ptr.reset(ptr);
-                return m_ptr.base<auto_ptr_t>();
+                std::auto_ptr<X> ptr(fuse(op_new<X>())(m_args));
+                m_any = ptr;
+                return m_any.base< std::auto_ptr<X> >();
             }
 
         private:
             Arguments m_args;
-            any_movable m_ptr;
+            any_movable m_any;
         };
 
         struct base_op :

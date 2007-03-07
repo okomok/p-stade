@@ -17,8 +17,11 @@
 // as const-reference, hence it becomes unmovable. So we define...
 
 
+#include <typeinfo>
 #include <boost/cast.hpp> // polymorphic_downcast
 #include <boost/shared_ptr.hpp>
+#include <boost/utility/result_of.hpp>
+#include <pstade/radish/swappable.hpp>
 
 
 namespace pstade {
@@ -29,8 +32,8 @@ namespace pstade {
 
         struct placeholder
         {
-            virtual ~placeholder()
-            { }
+            virtual ~placeholder() { }
+            virtual std::type_info const& type() const = 0;
         };
 
 
@@ -45,6 +48,11 @@ namespace pstade {
             X& held()
             {
                 return m_x;
+            }
+
+            virtual std::type_info const& type() const
+            {
+                return typeid(X);
             }
 
         private:
@@ -62,20 +70,26 @@ namespace pstade {
     } // namespace any_movable_detail
 
 
-    struct any_movable
+    struct any_movable :
+        private radish::swappable<any_movable>
     {
-        explicit any_movable()
+    private:
+        typedef any_movable self_t;
+
+    public:
+        any_movable()
         { }
 
         template<class X>
-        explicit any_movable(X x) :
+        any_movable(X x) :
             m_px(new any_movable_detail::holder<X>(x))
         { }
 
-        template<class X>
-        void reset(X x)
+        template< class X >
+        self_t& operator=(X x)
         {
-            m_px.reset(new any_movable_detail::holder<X>(x));
+            self_t(x).swap(*this);
+            return *this;
         }
 
         template<class X>
@@ -86,9 +100,43 @@ namespace pstade {
             >(*m_px).held();
         }
 
+        bool empty() const
+        {
+            return !m_px;
+        }
+
+        std::type_info const& type() const
+        {
+            return m_px ? m_px->type() : typeid(void);
+        }
+
+        void swap(self_t& other)
+        {
+            m_px.swap(other.m_px);
+        }
+
     private:
         boost::shared_ptr<any_movable_detail::placeholder> m_px;
     };
+
+
+    template<class X>
+    struct op_any_movable_cast
+    {
+        typedef X& result_type;
+
+        result_type operator()(any_movable const& a) const
+        {
+            return a.base<X>();
+        }
+    };
+
+    template<class X> inline
+    typename boost::result_of<op_any_movable_cast<X>(any_movable const&)>::type
+    any_movable_cast(any_movable const& a)
+    {
+        return op_any_movable_cast<X>()(a);
+    }
 
 
 } // namespace pstade

@@ -34,8 +34,8 @@ struct memo_table :
     template< class V, class W >
     void detail_reset(V v, W w)
     {
-        m_v.reset(v);
-        m_w.reset(w);
+        m_v = v;
+        m_w = w;
     }
 
 private:

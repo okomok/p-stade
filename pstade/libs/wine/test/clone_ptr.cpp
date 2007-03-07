@@ -158,7 +158,7 @@ void test()
         {
             // from auto_ptr
             clone_ptr< ::xxx > pxx(pstade::op_new_auto< ::xxx >()(10));
-            clone_ptr< ::xxx > pxy(pstade::op_new_auto< ::yyy >()(10));
+            clone_ptr< ::xxx > pxy = pstade::op_new_auto< ::yyy >()(10); // convertible
             pxx = op_new_auto< ::xxx >()(10);
             pxy = op_new_auto< ::yyy> ()(10);
         }

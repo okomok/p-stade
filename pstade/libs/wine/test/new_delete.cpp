@@ -164,7 +164,7 @@ void test()
         std::auto_ptr<int> p = auto_object(3);
         BOOST_CHECK( *p == 3 );
     }
-#if 0 // seems impossible.
+#if 0 // seems impossible because 'm_any' is required everytime.
     {
         std::auto_ptr<int> p = auto_object;
         BOOST_CHECK( *p == 0 );
