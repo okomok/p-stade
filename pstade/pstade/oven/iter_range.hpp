@@ -25,7 +25,6 @@
 
 #include <algorithm> // swap
 #include <cstddef> // size_t
-#include <boost/iterator/iterator_categories.hpp> // iterator_traversal
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/operators.hpp> // equality_comparable
 #include <boost/range/begin.hpp>
@@ -38,7 +37,7 @@
 #include <pstade/pass_by.hpp>
 #include <pstade/radish/bool_testable.hpp>
 #include <pstade/radish/swappable.hpp>
-#include "./as_lightweight_proxy.hpp"
+#include "./lightweight_copyable.hpp"
 #include "./range_iterator.hpp"
 
 
@@ -51,30 +50,25 @@ struct iter_range;
 
 namespace iter_range_detail {
 
-
-    template< class Iterator >
-    struct super_
-    {
-        typedef
-            boost::equality_comparable< iter_range<Iterator>,
-            radish::bool_testable     < iter_range<Iterator>,
-            radish::swappable         < iter_range<Iterator>
-            > > >
-        type;
-    };
-
+    // VC7.1 complains if class hierarchy has two or more
+    // private base. 'iter_range' is often used as base,
+    // so it is better to use unique type just in case.
+    struct empty_base { };
 
 } // namespace iter_range_detail
 
 
 template< class Iterator >
 struct iter_range :
-    iter_range_detail::super_<Iterator>::type,
-    private as_lightweight_proxy< iter_range<Iterator> >
+    private
+        boost::equality_comparable< iter_range<Iterator>,
+        radish::bool_testable     < iter_range<Iterator>,
+        radish::swappable         < iter_range<Iterator>,
+        lightweight_copyable      < iter_range<Iterator>,
+        iter_range_detail::empty_base > > > >
 {
 private:
     typedef iter_range self_t;
-    typedef typename iter_range_detail::super_<Iterator>::type super_t;
 
 public:
 // structors
@@ -135,12 +129,9 @@ public:
 
 // convenience
     typedef self_t type;
-    typedef typename boost::iterator_category<Iterator>::type   iterator_category;
     typedef typename boost::iterator_value<Iterator>::type      value_type;
     typedef typename boost::iterator_difference<Iterator>::type difference_type;
-    typedef typename boost::iterator_pointer<Iterator>::type    pointer;
     typedef typename boost::iterator_reference<Iterator>::type  reference;
-    typedef typename boost::iterator_traversal<Iterator>::type  iterator_traversal;
 
 // bool_testable
     operator radish::safe_bool() const

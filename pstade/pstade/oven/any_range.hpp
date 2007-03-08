@@ -18,8 +18,8 @@
 #include <pstade/remove_cvr.hpp>
 #include <pstade/use_default.hpp>
 #include "./any_iterator.hpp"
-#include "./as_lightweight_proxy.hpp"
 #include "./iter_range.hpp"
+#include "./lightweight_copyable.hpp"
 #include "./range_difference.hpp"
 #include "./range_reference.hpp"
 #include "./range_traversal.hpp"
@@ -68,7 +68,7 @@ template<
 >
 struct any_range :
     any_range_detail::super_<Reference, Traversal, Value, Difference>::type,
-    private as_lightweight_proxy< any_range<Reference, boost::single_pass_traversal_tag, Value, Difference, BaseRange> >
+    private lightweight_copyable< any_range<Reference, boost::single_pass_traversal_tag, Value, Difference, BaseRange> >
 {
 private:
     typedef any_range self_t;

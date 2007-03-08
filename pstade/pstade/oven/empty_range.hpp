@@ -12,8 +12,8 @@
 
 #include <pstade/implicitly_defined.hpp>
 #include <pstade/nullptr.hpp>
-#include "./as_lightweight_proxy.hpp"
 #include "./iter_range.hpp"
+#include "./lightweight_copyable.hpp"
 #include "./range_constantable.hpp"
 
 
@@ -23,8 +23,9 @@ namespace pstade { namespace oven {
 template< class Value >
 struct empty_range :
     iter_range<Value *>::type,
-    private range_constantable<empty_range<Value>, Value const *>,
-    private as_lightweight_proxy< empty_range<Value> >
+    private
+        range_constantable<empty_range<Value>, Value const *,
+        lightweight_copyable< empty_range<Value> > >
 {
     typedef Value const *const_iterator;
 

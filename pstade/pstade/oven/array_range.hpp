@@ -42,8 +42,9 @@ template< class Value >
 struct array_range :
     private array_range_detail::init<Value>::type,
     iter_range<Value *>::type,
-    private range_constantable<array_range<Value>, Value const *>,
-    private boost::noncopyable
+    private
+        range_constantable<array_range<Value>, Value const *,
+        boost::noncopyable>
 {
     typedef Value const *const_iterator; // "override" it!
 

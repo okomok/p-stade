@@ -22,8 +22,8 @@
 #include <pstade/disable_if_copy.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/implicitly_defined.hpp>
-#include "./as_lightweight_proxy.hpp"
 #include "./iter_range.hpp"
+#include "./lightweight_copyable.hpp"
 #include "./range_constant_iterator.hpp"
 #include "./range_constantable.hpp"
 
@@ -34,8 +34,9 @@ namespace pstade { namespace oven {
 template< class Range >
 struct sub_range :
     iter_range_of<Range>::type,
-    private range_constantable<sub_range<Range>, typename range_constant_iterator<Range>::type>,
-    private as_lightweight_proxy< sub_range<Range> >
+    private
+        range_constantable  < sub_range<Range>, typename range_constant_iterator<Range>::type,
+        lightweight_copyable< sub_range<Range> > >
 {
 private:
     typedef sub_range self_t;

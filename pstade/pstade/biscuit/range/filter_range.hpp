@@ -13,8 +13,8 @@
 #include <pstade/const_overloaded.hpp>
 #include <pstade/deduced_const.hpp>
 #include <pstade/nonassignable.hpp>
-#include <pstade/oven/as_lightweight_proxy.hpp>
 #include <pstade/oven/iter_range.hpp>
+#include <pstade/oven/lightweight_copyable.hpp>
 #include <pstade/oven/range_iterator.hpp>
 #include "../state/null_state.hpp"
 #include "./filter_iterator.hpp"
@@ -48,7 +48,7 @@ namespace filter_range_detail {
 template< class Parser, class ForwardRange, class UserState = null_state_type >
 struct filter_range :
     filter_range_detail::super_<Parser, ForwardRange, UserState>::type,
-    private oven::as_lightweight_proxy< filter_range<Parser, ForwardRange, UserState> >
+    private oven::lightweight_copyable< filter_range<Parser, ForwardRange, UserState> >
 {
 private:
     typedef typename filter_range_detail::super_<Parser, ForwardRange, UserState>::type super_t;

@@ -13,8 +13,8 @@
 #include <boost/filesystem/operations.hpp> // basic_directory_iterator
 #include <boost/version.hpp>
 #include <pstade/implicitly_defined.hpp>
-#include "./as_lightweight_proxy.hpp"
 #include "./iter_range.hpp"
+#include "./lightweight_copyable.hpp"
 
 
 #if (BOOST_VERSION < 103400)
@@ -48,7 +48,7 @@ namespace pstade { namespace oven {
     template< class Path >
     struct basic_directory_range :
         directory_range_detail::super_<Path>::type,
-        private as_lightweight_proxy< basic_directory_range<Path> >
+        private lightweight_copyable< basic_directory_range<Path> >
     {
     private:
         typedef typename directory_range_detail::super_<Path>::type super_t;
@@ -97,7 +97,7 @@ namespace pstade { namespace oven {
 
     struct directory_range :
         directory_range_detail::super_<>::type,
-        private as_lightweight_proxy<directory_range>
+        private lightweight_copyable<directory_range>
     {
     private:
         typedef directory_range_detail::super_<>::type super_t;

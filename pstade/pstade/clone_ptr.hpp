@@ -52,28 +52,20 @@ namespace clone_ptr_detail {
     }
 
 
-    template<class Clonable>
-    struct super_
-    {
-        typedef
-            radish::bool_testable < clone_ptr<Clonable>,
-            radish::pointable     < clone_ptr<Clonable>, Clonable,
-            radish::swappable     < clone_ptr<Clonable>,
-            boost::totally_ordered< clone_ptr<Clonable>
-            > > > >
-        type;
-    };
-
-
 } // namespace clone_ptr_detail
 
 
 template<class Clonable>
 struct clone_ptr :
-    clone_ptr_detail::super_<Clonable>::type
+    radish::bool_testable < clone_ptr<Clonable>,
+    radish::pointable     < clone_ptr<Clonable>, Clonable,
+    radish::swappable     < clone_ptr<Clonable>,
+    boost::totally_ordered< clone_ptr<Clonable> > > > >
 {
+private:
     typedef clone_ptr self_t;
 
+public:
 // structors
     clone_ptr() :
         m_ptr(PSTADE_NULLPTR)

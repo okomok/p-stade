@@ -33,7 +33,6 @@
 #include <pstade/clone_ptr.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/is_returnable.hpp>
-#include <pstade/radish/swappable.hpp>
 #include "./detail/pure_traversal.hpp"
 
 
@@ -253,8 +252,8 @@ template<
     class Difference
 >
 struct any_iterator :
-    any_iterator_detail::super_<Reference, Traversal, Value, Difference>::type,
-    radish::swappable< any_iterator<Reference, Traversal, Value, Difference> >
+    any_iterator_detail::super_<Reference, Traversal, Value, Difference>::type
+
 {
 private:
     typedef any_iterator self_t;
@@ -341,6 +340,15 @@ friend class boost::iterator_core_access;
         return m_pimpl->difference_to(*other.m_pimpl);
     }
 };
+
+
+// It is unfamillier to apply EBO of 'radish::swappable'
+// to 'boost::iterator_facade', so we simply define this..
+template< class R, class T, class V, class D > inline
+void swap(any_iterator<R, T, V, D>& x, any_iterator<R, T, V, D>& y)
+{
+    x.swap(y);
+}
 
 
 } } // namespace pstade::oven

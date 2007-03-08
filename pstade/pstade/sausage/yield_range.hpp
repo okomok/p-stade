@@ -11,8 +11,8 @@
 
 
 #include <pstade/object_generator.hpp>
-#include <pstade/oven/as_lightweight_proxy.hpp>
 #include <pstade/oven/iter_range.hpp>
+#include <pstade/oven/lightweight_copyable.hpp>
 #include <pstade/pipable.hpp>
 #include "./yield_iterator.hpp"
 
@@ -37,7 +37,7 @@ namespace yield_range_detail {
 template< class Routine >
 struct yield_range :
     yield_range_detail::super_<Routine>::type,
-    private oven::as_lightweight_proxy< yield_range<Routine> >
+    private oven::lightweight_copyable< yield_range<Routine> >
 {
     typedef yield_range type;
 

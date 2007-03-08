@@ -12,8 +12,8 @@
 
 #include <boost/spirit/iterator/file_iterator.hpp>
 #include <pstade/implicitly_defined.hpp>
-#include "./as_lightweight_proxy.hpp"
 #include "./iter_range.hpp"
+#include "./lightweight_copyable.hpp"
 
 
 namespace pstade { namespace oven {
@@ -50,7 +50,7 @@ namespace file_range_detail {
 template< class CharT = char >
 struct file_range :
     file_range_detail::super_<CharT>::type,
-    private as_lightweight_proxy< file_range<CharT> >
+    private lightweight_copyable< file_range<CharT> >
 {
     typedef CharT char_type;
 

@@ -27,10 +27,10 @@ namespace pstade { namespace oven {
 template<
     class T,
     class ConstantIter,
-    class Base = boost::mpl::empty_base
+    class Injector = boost::mpl::empty_base
 >
 struct range_constantable :
-    Base
+    Injector
 {
     // Note:
     // You must define this in 'T' in order to avoid ambiguity.
