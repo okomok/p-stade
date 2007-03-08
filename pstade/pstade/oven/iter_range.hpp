@@ -17,13 +17,8 @@
 //   no deep equality-comparison.
 //   neither 'front', 'back' nor 'operator[]'.
 //   no implicit template-constructor.
-//
-// Note that it is impossible to implement 'back' and 'operator[]' safely,
-// which was overlooked by 'boost::iterator_range'.
-// Also, the copy-constructor of 'boost::iterator_range' is sub-optimal.
 
 
-#include <algorithm> // swap
 #include <cstddef> // size_t
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/operators.hpp> // equality_comparable
@@ -36,16 +31,11 @@
 #include <pstade/enable_if.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/radish/bool_testable.hpp>
-#include <pstade/radish/swappable.hpp>
 #include "./lightweight_copyable.hpp"
 #include "./range_iterator.hpp"
 
 
 namespace pstade { namespace oven {
-
-
-template< class Iterator >
-struct iter_range;
 
 
 namespace iter_range_detail {
@@ -63,9 +53,8 @@ struct iter_range :
     private
         boost::equality_comparable< iter_range<Iterator>,
         radish::bool_testable     < iter_range<Iterator>,
-        radish::swappable         < iter_range<Iterator>,
         lightweight_copyable      < iter_range<Iterator>,
-        iter_range_detail::empty_base > > > >
+        iter_range_detail::empty_base > > >
 {
 private:
     typedef iter_range self_t;
@@ -101,14 +90,16 @@ public:
     template< class Range >
     typename disable_if_copy_assign<self_t, Range>::type operator=(Range& rng)
     {
-        self_t(rng).swap(*this);
+        m_first = boost::begin(rng);
+        m_last  = boost::end(rng);
         return *this;
     }
 
     template< class Range >
     self_t& operator=(Range const& rng)
     {
-        self_t(rng).swap(*this);
+        m_first = boost::begin(rng);
+        m_last  = boost::end(rng);
         return *this;
     }
 
@@ -143,13 +134,6 @@ public:
     bool operator==(self_t const& other) const
     {
         return m_first == other.m_first && m_last == other.m_last;
-    }
-
-// swappable
-    void swap(self_t& other)
-    {
-        std::swap(m_first, other.m_first);
-        std::swap(m_last, other.m_last);
     }
 
 private:

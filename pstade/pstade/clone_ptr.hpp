@@ -32,10 +32,6 @@
 namespace pstade {
 
 
-template<class Clonable>
-struct clone_ptr;
-
-
 namespace clone_ptr_detail {
 
 
@@ -117,13 +113,6 @@ public:
     self_t& operator=(std::auto_ptr<C> ap)
     {
         self_t(ap).swap(*this);
-        return *this;
-    }
-
-    template<class C>
-    self_t& operator=(C *p)
-    {
-        self_t(p).swap(*this);
         return *this;
     }
 

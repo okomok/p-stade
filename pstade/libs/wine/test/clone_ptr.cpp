@@ -152,8 +152,6 @@ void test()
             // from pointer
             clone_ptr< ::xxx > pxx(new ::xxx(10));
             clone_ptr< ::xxx > pxy(new ::yyy(10));
-            pxx = new ::xxx(10);
-            pxy = new ::yyy(10);
         }
         {
             // from auto_ptr

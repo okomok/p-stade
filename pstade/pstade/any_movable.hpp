@@ -21,7 +21,6 @@
 #include <boost/cast.hpp> // polymorphic_downcast
 #include <boost/shared_ptr.hpp>
 #include <boost/utility/result_of.hpp>
-#include <pstade/radish/swappable.hpp>
 
 
 namespace pstade {
@@ -70,8 +69,7 @@ namespace pstade {
     } // namespace any_movable_detail
 
 
-    struct any_movable :
-        private radish::swappable<any_movable>
+    struct any_movable
     {
     private:
         typedef any_movable self_t;
@@ -84,13 +82,6 @@ namespace pstade {
         any_movable(X x) :
             m_px(new any_movable_detail::holder<X>(x))
         { }
-
-        template< class X >
-        self_t& operator=(X x)
-        {
-            self_t(x).swap(*this);
-            return *this;
-        }
 
         template<class X>
         X& base() const
@@ -108,11 +99,6 @@ namespace pstade {
         std::type_info const& type() const
         {
             return m_px ? m_px->type() : typeid(void);
-        }
-
-        void swap(self_t& other)
-        {
-            m_px.swap(other.m_px);
         }
 
     private:

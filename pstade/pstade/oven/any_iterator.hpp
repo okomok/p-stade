@@ -16,6 +16,7 @@
 // http://thbecker.net/free_software_utilities/type_erasure_for_cpp_iterators/start_page.html
 
 
+#include <memory> // auto_ptr
 #include <boost/cast.hpp> // polymorphic_downcast
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_facade.hpp>
@@ -223,6 +224,15 @@ namespace any_iterator_detail {
     };
 
 
+    // 'shared_ptr' with Boost v1.34 needs lvalue 'auto_ptr'.
+    template< class T, class Ptr, class A > inline
+    void ptr_assign(Ptr& p, A const& a)
+    {
+        std::auto_ptr<T> ap(new T(a));
+        p = ap;
+    }
+
+
 } // namespace any_iterator_detail
 
 
@@ -260,9 +270,15 @@ private:
     typedef typename any_iterator_detail::super_<Reference, Traversal, Value, Difference>::type super_t;
     typedef typename any_iterator_detail::pimpl_of<Reference, Traversal, Difference>::type pimpl_t;
 
+    template< class Iterator >
+    struct holder_of
+    {
+        typedef any_iterator_detail::holder<Iterator, Reference, Traversal, Difference> type;
+    };
+
 public:
 // structors
-    explicit any_iterator()
+    any_iterator()
     { }
 
     // This constructor can't be implicit.
@@ -270,39 +286,29 @@ public:
     // Dr.Becker's "UglyIssue.txt" tells in detail.
     template< class Iterator >
     explicit any_iterator(Iterator const& it) :
-        m_pimpl(new
-            any_iterator_detail::holder<Iterator, Reference, Traversal, Difference>
-        (it))
+        m_pimpl(new typename holder_of<Iterator>::type(it))
     { }
 
     template< class R, class T, class V, class D >
     any_iterator(any_iterator<R, T, V, D> const& other,
         typename enable_if< is_convertible_to_any_iterator<any_iterator<R, T, V, D>, self_t> >::type = 0
     ) :
-        m_pimpl(new
-            any_iterator_detail::holder<any_iterator<R, T, V, D>, Reference, Traversal, Difference>
-        (other))
+        m_pimpl(new typename holder_of< any_iterator<R, T, V, D> >::type(other))
     { }
 
     template< class Iterator >
     Iterator const& base() const
     {
-        return any_iterator_detail::downcast<
-            any_iterator_detail::holder<Iterator, Reference, Traversal, Difference>
-        >(*m_pimpl).held();
+        return any_iterator_detail::downcast<typename holder_of<Iterator>::type>(*m_pimpl).held();
     }
 
-// assignments
-    template< class From >
-    self_t& operator=(From const& from)
+// assignment to work around 'explicit' above
+    template< class Iterator >
+    typename disable_if<boost::is_convertible<Iterator, self_t>, self_t&>::type
+    operator=(Iterator const& it)
     {
-        self_t(from).swap(*this);
+        any_iterator_detail::ptr_assign<typename holder_of<Iterator>::type>(m_pimpl, it);
         return *this;
-    }
-
-    void swap(self_t& other)
-    {
-        return m_pimpl.swap(other.m_pimpl);
     }
 
 private:
@@ -340,15 +346,6 @@ friend class boost::iterator_core_access;
         return m_pimpl->difference_to(*other.m_pimpl);
     }
 };
-
-
-// It is unfamillier to apply EBO of 'radish::swappable'
-// to 'boost::iterator_facade', so we simply define this..
-template< class R, class T, class V, class D > inline
-void swap(any_iterator<R, T, V, D>& x, any_iterator<R, T, V, D>& y)
-{
-    x.swap(y);
-}
 
 
 } } // namespace pstade::oven
