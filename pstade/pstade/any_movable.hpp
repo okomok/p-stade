@@ -71,10 +71,6 @@ namespace pstade {
 
     struct any_movable
     {
-    private:
-        typedef any_movable self_t;
-
-    public:
         any_movable()
         { }
 
