@@ -60,6 +60,15 @@ namespace any_iterator_detail {
     }
 
 
+    template< class T, class A, class Ptr > inline
+    void assign_new(A const& a, Ptr& p)
+    {
+        // Boost v1.34 'shared_ptr' needs lvalue 'auto_ptr'.
+        std::auto_ptr<T> ap(new T(a));
+        p = ap;
+    }
+
+
     template< class Reference, class Traversal, class Difference, class T = Traversal >
     struct placeholder :
         private boost::noncopyable
@@ -224,15 +233,6 @@ namespace any_iterator_detail {
     };
 
 
-    // 'shared_ptr' with Boost v1.34 needs lvalue 'auto_ptr'.
-    template< class T, class Ptr, class A > inline
-    void ptr_assign(Ptr& p, A const& a)
-    {
-        std::auto_ptr<T> ap(new T(a));
-        p = ap;
-    }
-
-
 } // namespace any_iterator_detail
 
 
@@ -307,7 +307,7 @@ public:
     typename disable_if<boost::is_convertible<Iterator, self_t>, self_t&>::type
     operator=(Iterator const& it)
     {
-        any_iterator_detail::ptr_assign<typename holder_of<Iterator>::type>(m_pimpl, it);
+        any_iterator_detail::assign_new<typename holder_of<Iterator>::type>(it, m_pimpl);
         return *this;
     }
 

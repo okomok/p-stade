@@ -42,8 +42,7 @@ namespace scoped_handle_detail {
 
     template< class NullHandle >
     struct basic :
-        radish::bool_testable< basic<NullHandle> >,
-        private boost::noncopyable
+        radish::bool_testable<basic<NullHandle>, boost::noncopyable>
     {
         explicit basic(HANDLE h = NullHandle::value())
         {

@@ -14,7 +14,6 @@
 #include <string>
 #include <boost/foreach.hpp>
 #include <boost/mpl/identity.hpp>
-#include <boost/noncopyable.hpp>
 #include <boost/optional.hpp>
 #include <boost/ptr_container/ptr_list.hpp>
 #include <boost/range/end.hpp>
@@ -74,9 +73,13 @@ namespace pstade { namespace lime {
 
     template< class Derived >
     struct node_facade :
-        boost::ptr_list<Derived>,
-        private boost::noncopyable
+        boost::ptr_list<Derived>
     {
+    private: // noncopyable
+        node_facade(node_facade const&);
+        node_facade const& operator=(node_facade const&);
+
+    public:
         typedef std::map<ustring, ustring> attributes_type;
 
     // structors

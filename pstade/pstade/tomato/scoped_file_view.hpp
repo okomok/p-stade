@@ -47,8 +47,7 @@ namespace scoped_file_view_detail {
 
 
 struct scoped_file_view :
-    radish::bool_testable<scoped_file_view>,
-    private boost::noncopyable
+    radish::bool_testable<scoped_file_view, boost::noncopyable>
 {
     explicit scoped_file_view(LPVOID pView = NULL)
     {
