@@ -17,8 +17,10 @@
 //   no deep equality-comparison.
 //   neither 'front', 'back' nor 'operator[]'.
 //   no implicit template-constructor.
+//   strong guarantee assignment.
 
 
+#include <algorithm> // swap
 #include <cstddef> // size_t
 #include <utility> // pair
 #include <boost/iterator/iterator_traits.hpp>
@@ -33,6 +35,7 @@
 #include <pstade/enable_if.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/radish/bool_testable.hpp>
+#include <pstade/radish/swappable.hpp>
 #include "./lightweight_copyable.hpp"
 #include "./range_iterator.hpp"
 
@@ -55,8 +58,9 @@ struct iter_range :
     private
         boost::equality_comparable< iter_range<Iterator>,
         radish::bool_testable     < iter_range<Iterator>,
+        radish::swappable         < iter_range<Iterator>,
         lightweight_copyable      < iter_range<Iterator>,
-        iter_range_detail::empty_base > > >
+        iter_range_detail::empty_base > > > >
 {
 private:
     typedef iter_range self_t;
@@ -92,16 +96,16 @@ public:
     template< class Range >
     typename disable_if_copy_assign<self_t, Range>::type operator=(Range& rng)
     {
-        m_first = boost::begin(rng);
-        m_last = boost::end(rng);
+        // While no copy/assign of iterator throws (23.1/11),
+        // 'begin/end' can throw (http://tinyurl.com/2ov9mw).
+        self_t(rng).swap(*this);
         return *this;
     }
 
     template< class Range >
     self_t& operator=(Range const& rng)
     {
-        m_first = boost::begin(rng);
-        m_last = boost::end(rng);
+        self_t(rng).swap(*this);
         return *this;
     }
 
@@ -141,16 +145,23 @@ public:
     typedef typename boost::iterator_difference<Iterator>::type difference_type;
     typedef typename boost::iterator_reference<Iterator>::type reference;
 
+// equality_comparable
+    bool operator==(self_t const& other) const
+    {
+        return m_first == other.m_first && m_last == other.m_last;
+    }
+
 // bool_testable
     operator radish::safe_bool() const
     {
         return radish::make_safe_bool(m_first != m_last);
     }
 
-// equality_comparable
-    bool operator==(self_t const& other) const
+// swappable
+    void swap(self_t& other)
     {
-        return m_first == other.m_first && m_last == other.m_last;
+        std::swap(m_first, other.m_first);
+        std::swap(m_last,  other.m_last);
     }
 
 private:
