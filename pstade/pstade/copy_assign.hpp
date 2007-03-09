@@ -15,6 +15,7 @@
 // Lets "./automatic.hpp" work with 'operator='.
 
 
+#include <boost/implicit_cast.hpp>
 #include <pstade/auxiliary.hpp>
 #include <pstade/callable.hpp>
 
@@ -37,7 +38,7 @@ namespace pstade {
             template< class Result, class To, class From >
             Result call(To& to, From& from) const
             {
-                to.operator=(static_cast<To const&>(from));
+                to.operator=(boost::implicit_cast<To const&>(from));
                 return to;
             }
         };

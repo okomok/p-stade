@@ -216,7 +216,7 @@ namespace any_iterator_detail {
 
 
     template< class Reference, class Traversal, class Difference >
-    struct pimpl_of
+    struct content_of
     {
         typedef
             placeholder<Reference, Traversal, Difference>
@@ -268,7 +268,7 @@ struct any_iterator :
 private:
     typedef any_iterator self_t;
     typedef typename any_iterator_detail::super_<Reference, Traversal, Value, Difference>::type super_t;
-    typedef typename any_iterator_detail::pimpl_of<Reference, Traversal, Difference>::type pimpl_t;
+    typedef typename any_iterator_detail::content_of<Reference, Traversal, Difference>::type content_t;
 
     template< class Iterator >
     struct holder_of
@@ -286,20 +286,20 @@ public:
     // Dr.Becker's "UglyIssue.txt" tells in detail.
     template< class Iterator >
     explicit any_iterator(Iterator const& it) :
-        m_pimpl(new typename holder_of<Iterator>::type(it))
+        m_content(new typename holder_of<Iterator>::type(it))
     { }
 
     template< class R, class T, class V, class D >
     any_iterator(any_iterator<R, T, V, D> const& other,
         typename enable_if< is_convertible_to_any_iterator<any_iterator<R, T, V, D>, self_t> >::type = 0
     ) :
-        m_pimpl(new typename holder_of< any_iterator<R, T, V, D> >::type(other))
+        m_content(new typename holder_of< any_iterator<R, T, V, D> >::type(other))
     { }
 
     template< class Iterator >
     Iterator const& base() const
     {
-        return any_iterator_detail::downcast<typename holder_of<Iterator>::type>(*m_pimpl).held();
+        return any_iterator_detail::downcast<typename holder_of<Iterator>::type>(*m_content).held();
     }
 
 // assignment to work around 'explicit' above
@@ -307,43 +307,43 @@ public:
     typename disable_if<boost::is_convertible<Iterator, self_t>, self_t&>::type
     operator=(Iterator const& it)
     {
-        any_iterator_detail::assign_new<typename holder_of<Iterator>::type>(it, m_pimpl);
+        any_iterator_detail::assign_new<typename holder_of<Iterator>::type>(it, m_content);
         return *this;
     }
 
 private:
-    pimpl_t m_pimpl;
+    content_t m_content;
 
 friend class boost::iterator_core_access;
     Reference dereference() const
     {
-        return m_pimpl->dereference();
+        return m_content->dereference();
     }
 
     // can't be a template; 'placeholder' type is fairly different.
     bool equal(self_t const& other) const
     {
-        return m_pimpl->equal(*other.m_pimpl);
+        return m_content->equal(*other.m_content);
     }
 
     void increment()
     {
-        m_pimpl->increment();
+        m_content->increment();
     }
 
     void decrement()
     {
-        m_pimpl->decrement();
+        m_content->decrement();
     }
 
     void advance(Difference const& d)
     {
-        m_pimpl->advance(d);
+        m_content->advance(d);
     }
 
     Difference distance_to(self_t const& other) const
     {
-        return m_pimpl->difference_to(*other.m_pimpl);
+        return m_content->difference_to(*other.m_content);
     }
 };
 

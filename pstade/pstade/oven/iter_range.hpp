@@ -20,10 +20,12 @@
 
 
 #include <cstddef> // size_t
+#include <utility> // pair
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/operators.hpp> // equality_comparable
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
+#include <boost/range/iterator_range.hpp>
 #include <boost/type_traits/is_convertible.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
@@ -91,7 +93,7 @@ public:
     typename disable_if_copy_assign<self_t, Range>::type operator=(Range& rng)
     {
         m_first = boost::begin(rng);
-        m_last  = boost::end(rng);
+        m_last = boost::end(rng);
         return *this;
     }
 
@@ -99,9 +101,24 @@ public:
     self_t& operator=(Range const& rng)
     {
         m_first = boost::begin(rng);
-        m_last  = boost::end(rng);
+        m_last = boost::end(rng);
         return *this;
     }
+
+// for "third-party" libraries
+    template< class I >
+    iter_range(std::pair<I, I> const& rng,
+        typename enable_if< boost::is_convertible<I, Iterator> >::type = 0
+    ) :
+        m_first(boost::begin(rng)), m_last(boost::end(rng))
+    { }
+
+    template< class I >
+    iter_range(boost::iterator_range<I> const& rng,
+        typename enable_if< boost::is_convertible<I, Iterator> >::type = 0
+    ) :
+        m_first(boost::begin(rng)), m_last(boost::end(rng))
+    { }
 
 // range implementation
     typedef Iterator iterator;
@@ -120,9 +137,9 @@ public:
 
 // convenience
     typedef self_t type;
-    typedef typename boost::iterator_value<Iterator>::type      value_type;
+    typedef typename boost::iterator_value<Iterator>::type value_type;
     typedef typename boost::iterator_difference<Iterator>::type difference_type;
-    typedef typename boost::iterator_reference<Iterator>::type  reference;
+    typedef typename boost::iterator_reference<Iterator>::type reference;
 
 // bool_testable
     operator radish::safe_bool() const

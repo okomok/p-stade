@@ -22,6 +22,7 @@
 
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
+#include <boost/implicit_cast.hpp>
 
 
 #if BOOST_WORKAROUND(BOOST_MSVC, <= 1400)
@@ -33,14 +34,14 @@
 
     #define PSTADE_IMPLICITLY_DEFINED_COPY_CONSTRUCTOR_TO_BASE(T, Base) \
         T(T const& x) : \
-            Base(static_cast<Base const&>(x)) \
+            Base(boost::implicit_cast<Base const&>(x)) \
         { } \
     /**/
 
     #define PSTADE_IMPLICITLY_DEFINED_COPY_ASSIGNMENT_TO_BASE(T, Base) \
         T& operator=(T const& x) \
         { \
-            Base::operator=(static_cast<Base const&>(x)); \
+            Base::operator=(boost::implicit_cast<Base const&>(x)); \
             return *this; \
         } \
     /**/

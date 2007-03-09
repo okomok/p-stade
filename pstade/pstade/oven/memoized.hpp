@@ -34,13 +34,11 @@ struct memo_table :
     template< class V, class W >
     void detail_reset(V v, W w)
     {
-        m_v = v;
-        m_w = w;
+        m_v = v; m_w = w;
     }
 
 private:
-    any_movable m_v;
-    any_movable m_w;
+    any_movable m_v, m_w;
 };
 
 

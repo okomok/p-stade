@@ -20,6 +20,7 @@
 #include <pstade/apple/basic_ostream_fwd.hpp>
 #include <pstade/apple/is_boost_range.hpp>
 #include <pstade/apple/is_sequence.hpp>
+#include <pstade/as.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/oven/copy_range.hpp>
 
@@ -92,12 +93,12 @@ public:
     //
     template< std::size_t sz >
     ustring(char const (&arr)[sz]) :
-        super_t(static_cast<char const *>(arr), static_cast<char const*>(arr) + sz - 1)
+        super_t(as_value(arr), as_value(arr) + sz - 1)
     { }
 
     template< std::size_t sz >
     ustring(wchar_t const (&arr)[sz]) :
-        super_t(static_cast<wchar_t const *>(arr), static_cast<wchar_t const *>(arr) + sz - 1)
+        super_t(as_value(arr), as_value(arr) + sz - 1)
     { }
 };
 

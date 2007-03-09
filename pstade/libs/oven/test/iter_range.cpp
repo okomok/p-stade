@@ -61,6 +61,16 @@ void test()
         iter_range<std::string::const_iterator> rng2 = rng1; // implicit conversion
         BOOST_CHECK( equals(rng1, rng2) );
     }
+    {
+        boost::iterator_range<std::string::iterator> rng1(src);
+        iter_range<std::string::const_iterator> rng2 = rng1; // implicit conversion
+        BOOST_CHECK( equals(rng1, rng2) );
+    }
+    {
+        std::pair<std::string::iterator, std::string::iterator> rng1(src.begin(), src.end());
+        iter_range<std::string::const_iterator> rng2 = rng1; // implicit conversion
+        BOOST_CHECK( equals(rng1, rng2) );
+    }
 }
 
 

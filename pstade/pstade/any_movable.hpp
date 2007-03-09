@@ -14,7 +14,10 @@
 //
 // 'boost::any' requires a held type to be CopyConstructible,
 // but 'auto_ptr' etc is not. In detail, 'boost::any' takes it
-// as const-reference, hence it becomes unmovable. So we define...
+// as const-reference, hence it becomes unmovable.
+// you can wrap non-Copyable object with 'boost::shared_ptr';
+//   'any = shared_ptr< auto_ptr<int> >(..);'
+// But it is cumbersome and inefficient. So we define...
 
 
 #include <typeinfo>
@@ -76,7 +79,7 @@ namespace pstade {
 
         template<class X>
         any_movable(X x) :
-            m_px(new any_movable_detail::holder<X>(x))
+            m_content(new any_movable_detail::holder<X>(x))
         { }
 
         template<class X>
@@ -84,21 +87,21 @@ namespace pstade {
         {
             return any_movable_detail::downcast<
                 any_movable_detail::holder<X>
-            >(*m_px).held();
+            >(*m_content).held();
         }
 
         bool empty() const
         {
-            return !m_px;
+            return !m_content;
         }
 
         std::type_info const& type() const
         {
-            return m_px ? m_px->type() : typeid(void);
+            return m_content ? m_content->type() : typeid(void);
         }
 
     private:
-        boost::shared_ptr<any_movable_detail::placeholder> m_px;
+        boost::shared_ptr<any_movable_detail::placeholder> m_content;
     };
 
 

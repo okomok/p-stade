@@ -21,6 +21,7 @@
 
 #include <cstddef> // size_t
 #include <boost/type_traits/is_array.hpp>
+#include <pstade/as.hpp>
 #include <pstade/auxiliary.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/enable_if.hpp>
@@ -45,8 +46,7 @@ namespace as_literal_detail {
         template< class Result, class T, std::size_t sz >
         Result call(T (&arr)[sz]) const
         {
-            // cast precisely for enabler.
-            return Result(static_cast<T *>(arr), static_cast<T *>(arr) + sz - 1);
+            return Result(as_value(arr), as_value(arr) + sz - 1);
         }
 
         template< class Result, class Range >

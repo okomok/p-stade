@@ -91,7 +91,7 @@ struct op_make_transformed :
         // Recompute IteratorCategory using 'identities'.
         // 'fun' may resurrect lvalue-ness of the base range,
         // then a RandomAccess*Input* Iterator turns into the RandomAccess.
-        // e.g. applying 'at' to a tuple of reference.
+        // e.g. applying 'tuple_at' to a tuple of reference.
         typedef typename
             boost::result_of<
                 op_make_identities(rng_t)
@@ -104,11 +104,11 @@ struct op_make_transformed :
     {
         PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
 
-        typedef apply<void, Range, UnaryFun> apply_t;
+        typedef apply<void, Range, UnaryFun> apply_;
         return make_identities(
-            typename apply_t::rng_t(
-                typename apply_t::iter_t(boost::begin(rng), fun),
-                typename apply_t::iter_t(boost::end(rng),   fun)
+            typename apply_::rng_t(
+                typename apply_::iter_t(boost::begin(rng), fun),
+                typename apply_::iter_t(boost::end(rng),   fun)
             )
         );
     }

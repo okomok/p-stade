@@ -15,6 +15,7 @@
 #include <boost/type_traits/add_reference.hpp>
 #include <boost/type_traits/is_array.hpp>
 #include <boost/type_traits/remove_extent.hpp>
+#include <pstade/as.hpp>
 #include <pstade/auxiliary.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/enable_if.hpp>
@@ -60,8 +61,7 @@ namespace as_array_detail {
         template< class Result, class T, std::size_t sz >
         Result call(T (&arr)[sz]) const
         {
-            // cast precisely for enabler.
-            return Result(static_cast<T *>(arr), static_cast<T *>(arr) + sz);
+            return Result(as_value(arr), as_value(arr) + sz);
         }
 
         template< class Result, class Range >

@@ -33,6 +33,7 @@
 #include "./next_prior.hpp" // next
 #include "./iter_range.hpp"
 #include "./range_difference.hpp"
+#include "./range_iterator.hpp"
 #include "./range_reference.hpp"
 #include "./range_traversal.hpp"
 #include "./range_value.hpp"
@@ -146,8 +147,8 @@ namespace recursion_detail {
             return *base();
         }
 
-        template< class Range_ >
-        bool equal(lazy_iterator<Range_> const& other) const
+        template< class R >
+        bool equal(lazy_iterator<R> const& other) const
         {
             BOOST_ASSERT(is_compatible(other));
 

@@ -25,6 +25,7 @@
 #include <pstade/new_delete.hpp>
 
 
+#include <utility>
 #include <pstade/test.hpp>
 #include <boost/smart_ptr.hpp>
 #include <boost/mpl/assert.hpp>
@@ -158,6 +159,11 @@ void test()
     {
         boost::shared_array<std::string> p = op_new_shared<std::string[]>()(12);
     }
+    {
+        boost::shared_ptr< std::pair<int, char> > p = shared_object(3, 'c');
+        BOOST_CHECK( p->first == 3 );
+        BOOST_CHECK( p->second == 'c' );
+    }
 
 // auto_object
     {
@@ -177,6 +183,11 @@ void test()
     {
         std::auto_ptr<std::string> p = auto_object("hello");
         BOOST_CHECK( *p == "hello" );
+    }
+    {
+        std::auto_ptr< std::pair<int, char> > p = auto_object(3, 'c');
+        BOOST_CHECK( p->first == 3 );
+        BOOST_CHECK( p->second == 'c' );
     }
 }
 
