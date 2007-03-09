@@ -95,7 +95,7 @@ namespace pstade {
         operator()() const
         {
             return derived().BOOST_NESTED_TEMPLATE call<
-                NullaryResult
+                nullary_result_type
             >();
         }
 
