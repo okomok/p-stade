@@ -39,6 +39,7 @@ test-suite wine :
     [ wine-test copy_assign ]
     [ wine-test deduced_const ]
     [ wine-test disable_if_copy ]
+    [ wine-test do_swap ]
     [ wine-test dont_care ]
     [ wine-test enable_if ]
     [ wine-test for_debug ]

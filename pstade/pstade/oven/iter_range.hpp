@@ -31,11 +31,11 @@
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/disable_if_copy.hpp>
+#include <pstade/do_swap.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/radish/bool_testable.hpp>
 #include <pstade/radish/swappable.hpp>
-#include <pstade/do_swap.hpp>
 #include "./lightweight_copyable.hpp"
 #include "./range_iterator.hpp"
 
@@ -45,10 +45,23 @@ namespace pstade { namespace oven {
 
 namespace iter_range_detail {
 
+
     // VC7.1 complains if class hierarchy has two or more
     // private base. 'iter_range' is often used as base,
     // so it is better to use unique type just in case.
     struct empty_base { };
+
+
+    // While no copy/assign of iterator throws (23.1/11),
+    // 'begin/end' can throw (http://tinyurl.com/2ov9mw).
+    template< class Iterator, class Range > inline
+    void assign(Iterator& first, Iterator& last, Range& rng)
+    {
+        Iterator l(boost::end(rng));
+        first = boost::begin(rng);
+        last  = l;
+    }
+
 
 } // namespace iter_range_detail
 
@@ -96,20 +109,14 @@ public:
     template< class Range >
     typename disable_if_copy_assign<self_t, Range>::type operator=(Range& rng)
     {
-        // While no copy/assign of iterator throws (23.1/11),
-        // 'begin/end' can throw (http://tinyurl.com/2ov9mw).
-        Iterator last(boost::end(rng));
-        m_first = boost::begin(rng);
-        m_last  = last;
+        iter_range_detail::assign(m_first, m_last, rng);
         return *this;
     }
 
     template< class Range >
     self_t& operator=(Range const& rng)
     {
-        Iterator last(boost::end(rng));
-        m_first = boost::begin(rng);
-        m_last  = last;
+        iter_range_detail::assign(m_first, m_last, rng);
         return *this;
     }
 
