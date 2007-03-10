@@ -33,6 +33,7 @@
 #include "./copy_assign.hpp"
 #include "./deduced_const.hpp"
 #include "./disable_if_copy.hpp"
+#include "./do_swap.hpp"
 #include "./dont_care.hpp"
 #include "./enable_if.hpp"
 #include "./for_debug.hpp"

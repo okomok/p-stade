@@ -16,12 +16,12 @@
 // T:CopyConstructible implies T:Clonable for any type T.
 
 
-#include <algorithm> // swap
 #include <memory> // auto_ptr
 #include <boost/assert.hpp>
 #include <boost/operators.hpp> // totally_ordered
 #include <boost/ptr_container/clone_allocator.hpp>
 #include <boost/type_traits/is_convertible.hpp>
+#include <pstade/do_swap.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/nullptr.hpp>
 #include <pstade/radish/bool_testable.hpp>
@@ -137,7 +137,7 @@ public:
 // swappable
     void swap(self_t& other)
     {
-        std::swap(m_ptr, other.m_ptr);
+        do_swap(m_ptr, other.m_ptr);
     }
 
 // totally_ordered

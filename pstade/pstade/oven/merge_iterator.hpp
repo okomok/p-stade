@@ -18,7 +18,6 @@
 // Then, the iterators become incompatible.
 
 
-#include <algorithm> // swap
 #include <boost/assert.hpp>
 #include <boost/config.hpp> // BOOST_NESTED_TEMPLATE
 #include <boost/iterator/detail/minimum_category.hpp>
@@ -27,6 +26,7 @@
 #include <boost/mpl/assert.hpp>
 #include <boost/static_warning.hpp>
 #include <boost/type_traits/is_convertible.hpp>
+#include <pstade/do_swap.hpp>
 #include <pstade/functional.hpp> // less
 #include <pstade/is_returnable.hpp>
 #include <pstade/object_generator.hpp>
@@ -255,8 +255,8 @@ friend class boost::iterator_core_access;
         MergeRoutine::after_yield( first1, m_last1, first2, m_last2, m_comp);
         MergeRoutine::before_yield(first1, m_last1, first2, m_last2, m_comp);
 
-        std::swap(first1, this->base_reference());
-        std::swap(first2, m_it2);
+        do_swap(first1, this->base_reference());
+        do_swap(first2, m_it2);
     }
 };
 

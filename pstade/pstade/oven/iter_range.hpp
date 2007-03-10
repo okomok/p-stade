@@ -20,7 +20,6 @@
 //   strong guarantee assignment.
 
 
-#include <algorithm> // swap
 #include <cstddef> // size_t
 #include <utility> // pair
 #include <boost/iterator/iterator_traits.hpp>
@@ -36,6 +35,7 @@
 #include <pstade/pass_by.hpp>
 #include <pstade/radish/bool_testable.hpp>
 #include <pstade/radish/swappable.hpp>
+#include <pstade/do_swap.hpp>
 #include "./lightweight_copyable.hpp"
 #include "./range_iterator.hpp"
 
@@ -98,14 +98,18 @@ public:
     {
         // While no copy/assign of iterator throws (23.1/11),
         // 'begin/end' can throw (http://tinyurl.com/2ov9mw).
-        self_t(rng).swap(*this);
+        Iterator last(boost::end(rng));
+        m_first = boost::begin(rng);
+        m_last  = last;
         return *this;
     }
 
     template< class Range >
     self_t& operator=(Range const& rng)
     {
-        self_t(rng).swap(*this);
+        Iterator last(boost::end(rng));
+        m_first = boost::begin(rng);
+        m_last  = last;
         return *this;
     }
 
@@ -160,8 +164,8 @@ public:
 // swappable
     void swap(self_t& other)
     {
-        std::swap(m_first, other.m_first);
-        std::swap(m_last,  other.m_last);
+        do_swap(m_first, other.m_first);
+        do_swap(m_last,  other.m_last);
     }
 
 private:
