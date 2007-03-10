@@ -19,6 +19,10 @@
 namespace pstade { namespace oven {
 
 
+template< class CharT >
+struct file_range;
+
+
 namespace file_range_detail {
 
 
@@ -26,8 +30,8 @@ namespace file_range_detail {
     struct super_
     {
         typedef
-            iter_range<
-                boost::spirit::file_iterator<CharT>
+            iter_range<boost::spirit::file_iterator<CharT>,
+                lightweight_copyable< file_range<CharT> >
             >
         type;
     };
@@ -49,8 +53,7 @@ namespace file_range_detail {
 
 template< class CharT = char >
 struct file_range :
-    file_range_detail::super_<CharT>::type,
-    private lightweight_copyable< file_range<CharT> >
+    file_range_detail::super_<CharT>::type
 {
     typedef CharT char_type;
 

@@ -66,14 +66,17 @@ namespace iter_range_detail {
 } // namespace iter_range_detail
 
 
-template< class Iterator >
+template<
+    class Iterator,
+    class Injector = iter_range_detail::empty_base
+>
 struct iter_range :
     private
-        boost::equality_comparable< iter_range<Iterator>,
-        radish::bool_testable     < iter_range<Iterator>,
-        radish::swappable         < iter_range<Iterator>,
-        lightweight_copyable      < iter_range<Iterator>,
-        iter_range_detail::empty_base > > > >
+        boost::equality_comparable< iter_range<Iterator, Injector>,
+        radish::bool_testable     < iter_range<Iterator, Injector>,
+        radish::swappable         < iter_range<Iterator, Injector>,
+        lightweight_copyable      < iter_range<Iterator, Injector>,
+        Injector > > > >
 {
 private:
     typedef iter_range self_t;
@@ -83,8 +86,8 @@ public:
     iter_range()
     { }
 
-    template< class I >
-    iter_range(iter_range<I> const& other,
+    template< class I, class In >
+    iter_range(iter_range<I, In> const& other,
         typename enable_if< boost::is_convertible<I, Iterator> >::type = 0
     ) :
         m_first(boost::begin(other)), m_last(boost::end(other))
@@ -140,21 +143,21 @@ public:
     typedef Iterator const_iterator;
     typedef std::size_t size_type;
 
-    Iterator begin() const
+    Iterator const& begin() const
     {
         return m_first;
     }
 
-    Iterator end() const
+    Iterator const& end() const
     {
         return m_last;
     }
 
 // convenience
     typedef self_t type;
-    typedef typename boost::iterator_value<Iterator>::type value_type;
+    typedef typename boost::iterator_value<Iterator>::type      value_type;
     typedef typename boost::iterator_difference<Iterator>::type difference_type;
-    typedef typename boost::iterator_reference<Iterator>::type reference;
+    typedef typename boost::iterator_reference<Iterator>::type  reference;
 
 // equality_comparable
     bool operator==(self_t const& other) const
@@ -180,7 +183,10 @@ private:
 };
 
 
-template< class Range >
+template<
+    class Range,
+    class Injector = iter_range_detail::empty_base
+>
 struct iter_range_of
 {
     typedef typename
@@ -188,7 +194,7 @@ struct iter_range_of
     iter_t;
 
     typedef
-        iter_range<iter_t>
+        iter_range<iter_t, Injector>
     type;
 };
 

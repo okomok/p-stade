@@ -210,7 +210,11 @@ void test()
 #endif
     {
         std::string str("jgi8e8qnboie");
-        any_range_of<std::string>::type any_ = str; // copy-initializable
+
+        // rejected:
+        // any_range_of<std::string>::type any_ = str; // copy-initializable
+        
+        any_range_of<std::string>::type any_(str); // copy-initializable
         BOOST_CHECK( oven::equals(str, any_) );
     }
 }

@@ -28,6 +28,10 @@ namespace pstade { namespace oven {
 #if !defined(PSTADE_OVEN_NO_BASIC_DIRECTORY_RANGE)
 
 
+    template< class Path >
+    struct basic_directory_range;
+
+
     namespace directory_range_detail {
 
 
@@ -35,8 +39,8 @@ namespace pstade { namespace oven {
         struct super_
         {
             typedef
-                iter_range<
-                    boost::filesystem::basic_directory_iterator<Path>
+                iter_range<boost::filesystem::basic_directory_iterator<Path>,
+                    lightweight_copyable< basic_directory_range<Path> >
                 >
             type;
         };
@@ -47,8 +51,7 @@ namespace pstade { namespace oven {
 
     template< class Path >
     struct basic_directory_range :
-        directory_range_detail::super_<Path>::type,
-        private lightweight_copyable< basic_directory_range<Path> >
+        directory_range_detail::super_<Path>::type
     {
     private:
         typedef typename directory_range_detail::super_<Path>::type super_t;
@@ -81,12 +84,15 @@ namespace pstade { namespace oven {
     namespace directory_range_detail {
 
 
+        struct directory_range;
+
+
         template< class = void >
         struct super_
         {
             typedef
-                iter_range<
-                    boost::filesystem::directory_iterator
+                iter_range<boost::filesystem::directory_iterator,
+                    lightweight_copyable<directory_range>
                 >
             type;
         };
@@ -96,8 +102,7 @@ namespace pstade { namespace oven {
 
 
     struct directory_range :
-        directory_range_detail::super_<>::type,
-        private lightweight_copyable<directory_range>
+        directory_range_detail::super_<>::type
     {
     private:
         typedef directory_range_detail::super_<>::type super_t;

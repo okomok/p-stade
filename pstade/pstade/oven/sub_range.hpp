@@ -32,20 +32,36 @@ namespace pstade { namespace oven {
 
 
 template< class Range >
+struct sub_range;
+
+
+namespace sub_range_detail {
+
+
+    template< class Range >
+    struct super_ :
+        iter_range_of<Range,
+            range_constantable  < sub_range<Range>, typename range_constant_iterator<Range>::type,
+            lightweight_copyable< sub_range<Range> > >           
+        >
+    { };
+
+
+} // namespace sub_range_detail
+
+
+template< class Range >
 struct sub_range :
-    iter_range_of<Range>::type,
-    private
-        range_constantable  < sub_range<Range>, typename range_constant_iterator<Range>::type,
-        lightweight_copyable< sub_range<Range> > >
+    sub_range_detail::super_<Range>::type
 {
 private:
     typedef sub_range self_t;
-    typedef typename iter_range_of<Range>::type super_t;
+    typedef typename sub_range_detail::super_<Range>::type super_t;
 
 public:
     typedef self_t type;
     typedef super_t base;
-    typedef typename range_constant_iterator<Range>::type const_iterator; // constantable
+    typedef typename range_constant_iterator<Range>::type const_iterator;
 
 public:
 // structors

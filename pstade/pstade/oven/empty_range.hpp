@@ -21,16 +21,35 @@ namespace pstade { namespace oven {
 
 
 template< class Value >
+struct empty_range;
+
+
+namespace empty_range_detail {
+
+
+    template< class Value >
+    struct super_
+    {
+        typedef
+            iter_range<Value *,
+                range_constantable<   empty_range<Value>, Value const *,
+                lightweight_copyable< empty_range<Value> > >
+            >
+        type;
+    };
+
+
+} // namespace empty_range_detail
+
+
+template< class Value >
 struct empty_range :
-    iter_range<Value *>::type,
-    private
-        range_constantable<empty_range<Value>, Value const *,
-        lightweight_copyable< empty_range<Value> > >
+    empty_range_detail::super_<Value>::type 
 {
     typedef Value const *const_iterator;
 
 private:
-    typedef typename iter_range<Value *>::type super_t;
+    typedef typename empty_range_detail::super_<Value>::type super_t;
     typedef typename super_t::iterator iter_t;
 
 public:

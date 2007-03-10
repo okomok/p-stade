@@ -29,15 +29,14 @@
 namespace pstade { namespace oven {
 
 
+template< class Reference, class Traversal, class Value, class Difference >
+struct any_range;
+
+
 namespace any_range_detail {
 
 
-    template<
-        class Reference,
-        class Traversal,
-        class Value,
-        class Difference
-    >
+    template< class Reference, class Traversal, class Value, class Difference >
     struct super_
     {
         typedef
@@ -47,13 +46,14 @@ namespace any_range_detail {
                     Traversal,
                     typename use_default_eval_to< Value, remove_cvr<Reference> >::type,
                     typename use_default_to<Difference, std::ptrdiff_t>::type
+                >,
+                // Copying ForwardRange needs 'new', hence not considered "lightweight".
+                lightweight_copyable<
+                    any_range<Reference, boost::single_pass_traversal_tag, Value, Difference>
                 >
             >
         type;
     };
-
-
-    struct nobody;
 
 
 } // namespace any_range_detail
@@ -63,12 +63,10 @@ template<
     class Reference,
     class Traversal,
     class Value      = boost::use_default,
-    class Difference = boost::use_default,
-    class BaseRange  = any_range_detail::nobody // for implicit conversion
+    class Difference = boost::use_default
 >
 struct any_range :
-    any_range_detail::super_<Reference, Traversal, Value, Difference>::type,
-    private lightweight_copyable< any_range<Reference, boost::single_pass_traversal_tag, Value, Difference, BaseRange> >
+    any_range_detail::super_<Reference, Traversal, Value, Difference>::type
 {
 private:
     typedef any_range self_t;
@@ -80,9 +78,9 @@ public:
     any_range()
     { }
 
-    template< class R, class T, class V, class D, class B >
-    any_range(any_range<R, T, V, D, B> const& other,
-        typename enable_if< is_convertible_to_any_iterator<typename any_range<R, T, V, D, B>::iterator, iter_t> >::type = 0
+    template< class R, class T, class V, class D >
+    any_range(any_range<R, T, V, D> const& other,
+        typename enable_if< is_convertible_to_any_iterator<typename any_range<R, T, V, D>::iterator, iter_t> >::type = 0
     ) :
         super_t(boost::begin(other), boost::end(other))
     { }
@@ -91,10 +89,6 @@ public:
     any_range(iter_range<I> const& rng,
         typename enable_if< is_convertible_to_any_iterator<I, iter_t> >::type = 0
     ) :
-        super_t(boost::begin(rng), boost::end(rng))
-    { }
-
-    any_range(BaseRange& rng) :
         super_t(boost::begin(rng), boost::end(rng))
     { }
 
@@ -127,16 +121,15 @@ public:
 };
 
 
-template< class BaseRange >
+template< class Range >
 struct any_range_of
 {
     typedef
         any_range<
-            typename range_reference<BaseRange>::type,
-            typename range_pure_traversal<BaseRange>::type,
-            typename range_value<BaseRange>::type,
-            typename range_difference<BaseRange>::type,
-            BaseRange
+            typename range_reference<Range>::type,
+            typename range_pure_traversal<Range>::type,
+            typename range_value<Range>::type,
+            typename range_difference<Range>::type
         >
     type;
 };
