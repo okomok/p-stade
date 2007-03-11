@@ -62,7 +62,8 @@ namespace pstade { namespace oven {
             super_t(iter_t(dir), iter_t())
         { }
 
-        explicit basic_directory_range(Path const& dir, boost::filesystem::system_error_type& ec) :
+        template< class ErrorCode >
+        explicit basic_directory_range(Path const& dir, ErrorCode& ec) :
             super_t(iter_t(dir, ec), iter_t())
         { }
 
@@ -70,21 +71,19 @@ namespace pstade { namespace oven {
     };
 
 
-    typedef basic_directory_range<boost::filesystem::path>
-    directory_range;
+    typedef basic_directory_range<boost::filesystem::path> directory_range;
+#if !defined(BOOST_FILESYSTEM_NARROW_ONLY)
+    typedef basic_directory_range<boost::filesystem::wpath> wdirectory_range;
+#endif
 
 
-    typedef basic_directory_range<boost::filesystem::wpath>
-    wdirectory_range;
+#else // !defined(PSTADE_OVEN_NO_BASIC_DIRECTORY_RANGE)
 
 
-#else
+    struct directory_range;
 
 
     namespace directory_range_detail {
-
-
-        struct directory_range;
 
 
         template< class = void >
