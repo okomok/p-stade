@@ -32,7 +32,7 @@ namespace empty_range_detail {
     {
         typedef
             iter_range<Value *,
-                range_constantable<   empty_range<Value>, Value const *,
+                range_constantable  < empty_range<Value>, Value const *,
                 lightweight_copyable< empty_range<Value> > >
             >
         type;

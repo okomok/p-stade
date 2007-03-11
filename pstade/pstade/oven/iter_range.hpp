@@ -71,12 +71,11 @@ template<
     class Injector = iter_range_detail::empty_base
 >
 struct iter_range :
-    private
-        boost::equality_comparable< iter_range<Iterator, Injector>,
-        radish::bool_testable     < iter_range<Iterator, Injector>,
-        radish::swappable         < iter_range<Iterator, Injector>,
-        lightweight_copyable      < iter_range<Iterator, Injector>,
-        Injector > > > >
+    boost::equality_comparable< iter_range<Iterator, Injector>,
+    radish::bool_testable     < iter_range<Iterator, Injector>,
+    radish::swappable         < iter_range<Iterator, Injector>,
+    lightweight_copyable      < iter_range<Iterator, Injector>,
+    Injector > > > >
 {
 private:
     typedef iter_range self_t;
