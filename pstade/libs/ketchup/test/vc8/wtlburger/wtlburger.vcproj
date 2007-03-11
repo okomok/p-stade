@@ -137,7 +137,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/Zm200"
+				AdditionalOptions="/Zm236&#x0D;&#x0A;"
 				Optimization="1"
 				FavorSizeOrSpeed="2"
 				PreprocessorDefinitions="WIN32;_WINDOWS;STRICT;NDEBUG"
