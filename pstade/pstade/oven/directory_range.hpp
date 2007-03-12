@@ -11,6 +11,7 @@
 
 
 #include <boost/filesystem/operations.hpp> // basic_directory_iterator
+#include <boost/filesystem/path.hpp>
 #include <boost/version.hpp>
 #include <pstade/implicitly_defined.hpp>
 #include "./iter_range.hpp"
