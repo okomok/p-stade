@@ -25,7 +25,7 @@
 #include <functional>
 #include <pstade/as.hpp>
 #include <pstade/functional.hpp>
-#include <pstade/forward.hpp>
+#include <pstade/perfect.hpp>
 #include <pstade/oven/regular.hpp>
 #include <boost/lambda/core.hpp>
 #include <boost/lambda/lambda.hpp>
@@ -96,7 +96,7 @@ void test()
         str |
             transformed(pstade::as_value) |
             // transformed(pstade::identity); // dangling!
-            transformed(pstade::forward<char>(pstade::identity));
+            transformed(pstade::perfect<char>(pstade::identity));
     }
 }
 

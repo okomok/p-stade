@@ -21,7 +21,7 @@
 // Neither 'is_assignable' nor 'is_default_constructible'
 // seems impossible to implement.
 // Notice that 'is_lambda_functor' can't be the detection;
-// e.g. 'forward(lambda::_1)', which is neither assignable
+// e.g. 'perfect(lambda::_1)', which is neither assignable
 // nor a lambda functor.
 
 
