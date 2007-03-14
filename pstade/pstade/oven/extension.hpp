@@ -31,12 +31,33 @@
 namespace pstade_oven_extension {
 
 
+    // If it is already a Range, but not CopyableRange_,
+    // use the following customization point.
+
+    template< class To >
+    struct copy_range
+    { };
+
+    template< class To, class From > inline
+    To pstade_oven_(copy_range<To>, From& rng)
+    {
+        return To(boost::begin(rng), boost::end(rng));
+    }
+
+    template< class To, class From > inline
+    To pstade_oven_copy_range(To *&, From& rng)
+    {
+        return pstade_oven_(copy_range<To>(), rng);
+    }
+
+
     struct range_copyable
     {
         template< class X, class From >
         X copy(From& rng)
         {
-            return X(boost::begin(rng), boost::end(rng));
+            X *px;
+            return pstade_oven_copy_range(px, rng);
         }
     };
 

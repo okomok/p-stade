@@ -56,4 +56,39 @@ PSTADE_PIPABLE(copied, (automatic< op_copy_range<boost::mpl::_1> >))
 } } // namespace pstade::oven
 
 
+// Makes 'boost::array' CopyableRange_.
+//
+
+
+#include <cstddef> // size_t
+#include <boost/array.hpp>
+#include <boost/range/begin.hpp>
+#include <boost/range/end.hpp>
+#include "./range_iterator.hpp"
+
+
+namespace pstade_oven_extension {
+
+
+    template< class T, std::size_t N, class Range >
+    boost::array<T, N> pstade_oven_(copy_range< boost::array<T, N> >, Range& from)
+    {
+        typename pstade::oven::range_iterator<Range>::type
+            it(boost::begin(from)), last(boost::end(from));
+
+        boost::array<T, N> arr;
+        std::size_t i = 0;
+
+        for(; it != last; ++it, ++i)
+            arr.at(i) = *it;
+        for(; i != N; ++i)
+            arr.at(i) = T();
+
+        return arr; 
+    }
+
+
+} // namespace pstade_oven_extension
+
+
 #endif

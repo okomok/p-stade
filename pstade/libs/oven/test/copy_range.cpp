@@ -105,6 +105,12 @@ void test()
         BOOST_CHECK( oven::equals(vec, rng) );
     }
 #endif
+    { // 'boost::array'
+        int const src[3] = { 1,2,3 };
+        int const ans[5] = { 1,2,3,0,0 };
+        boost::array<int, 5> arr = src|copied;
+        BOOST_CHECK( oven::equals(arr, ans) );
+    }
 }
 
 

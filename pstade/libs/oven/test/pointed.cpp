@@ -20,7 +20,7 @@
 #include <boost/range.hpp>
 #include <pstade/functional.hpp>
 #include <pstade/oven/functions.hpp>
-#include <pstade/oven/taken_while.hpp>
+#include <pstade/oven/as_c_str.hpp>
 
 
 void test()
@@ -46,7 +46,7 @@ void test()
         std::vector<char> vec;
         vec.resize(oven::distance(src) + 1);
         std::strcpy(vec|pointed|begin, src.c_str());
-        BOOST_CHECK(( oven::equals(vec|taken_while(pstade::not_(pstade::equal_to_0)), src) ));
+        BOOST_CHECK(( oven::equals(vec|as_c_str, src) ));
     }
 #if 1 // 'std::string' isn't guaranteed to be contiguous by the standard, but always works.
     {
