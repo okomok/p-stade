@@ -1,10 +1,9 @@
 
-#include <boost/range.hpp>
-
+#include <pstade/oven/any_range.hpp>
+#include <iostream>
 
 int main()
 {
-    std::string rng;
-    boost::iterator_range<std::string::iterator> iter_rng1(rng);
-    boost::iterator_range<std::string::iterator> iter_rng2 = iter_rng1;
+    typedef pstade::oven::any_range<int, boost::forward_traversal_tag>::iterator it_t;
+    std::cout << sizeof(it_t);
 }

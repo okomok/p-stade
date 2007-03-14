@@ -11,6 +11,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// What:
+//
+// Simple version of 'boost::assign::cref_list_of'.
+// A1-AN must be convertible to A0.
+
+
 #include <cstddef> // size_t
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>

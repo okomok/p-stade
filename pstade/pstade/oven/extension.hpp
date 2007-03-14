@@ -31,7 +31,7 @@
 namespace pstade_oven_extension {
 
 
-    // If it is already a Range, but not CopyableRange_,
+    // If it is already a Range, but not CopyableRange,
     // use the following customization point.
 
     template< class To >

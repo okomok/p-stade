@@ -21,6 +21,7 @@
 #include <boost/utility/result_of.hpp>
 #include <pstade/unused.hpp>
 #include <pstade/copy_assign.hpp>
+#include <pstade/oven/jointed.hpp>
 
 
 void test()
@@ -60,6 +61,23 @@ void test()
         boost::result_of<op_initial_values(int,int,int)>::type result = { { 1,2,3 } };
         boost::result_of<op_initial_values()>::type nullary_result = { };
         pstade::unused(result, nullary_result);
+    }
+    {
+        typedef std::vector<int>  row;
+        typedef std::vector<row>  matrix;
+
+        matrix m = initial_values(
+            initial_values(1,2,3),
+            initial_values(4,5,6),
+            initial_values(7,8,9)
+        );
+
+        BOOST_CHECK( m[1][2] == 6 );
+    }
+    {
+        int const ans[] = { 1,5,3,6,1,3,7,1,4,2,2 };
+        std::vector<int> vec = initial_values(1,5,3,6,1)|jointed(initial_values(3,7,1,4,2,2))|copied;
+        BOOST_CHECK( equals(vec, ans) );
     }
 }
 

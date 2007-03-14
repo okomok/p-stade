@@ -10,41 +10,86 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/config.hpp> // BOOST_NESTED_TEMPLATE
+#include <boost/config.hpp> // BOOST_MSVC, BOOST_NESTED_TEMPLATE
 #include <boost/utility/result_of.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/automatic.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/deduced_const.hpp>
+#include <pstade/functional.hpp> // identity
 #include <pstade/pipable.hpp>
+#include <pstade/remove_cvr.hpp>
 #include "./concepts.hpp"
 #include "./extension.hpp"
+#include "./range_reference.hpp"
+#include "./range_value.hpp"
+#include "./transformed.hpp"
 
 
 namespace pstade { namespace oven {
 
 
-template< class CopyableRange_ >
+namespace copy_range_detail {
+
+
+    // Force to convert dereference into 'range_value<To>';
+    // Standard seems not to guarantee copy-initialization.
+    // GCC actually triggers direct-initialization, hence
+    // the overload-resolution may fail because of ambiguity.
+    template< class ValueFrom, class ValueTo >
+    struct to_strictly_convertibles
+    {
+        template< class From >
+        static typename boost::result_of<
+            op_make_transformed<ValueTo>(From&, op_identity const&)
+        >::type call(From& from)
+        {
+            return op_make_transformed<ValueTo>()(from, identity);
+        }
+    };
+
+
+    template< class ValueTo >
+    struct to_strictly_convertibles<ValueTo, ValueTo>
+    {
+        template< class From >
+        static From& call(From& from)
+        {
+            return from;
+        }
+    };
+
+
+} // namespace copy_range_detail
+
+
+template< class To >
 struct op_copy_range
 {
-    typedef CopyableRange_ result_type;
+    typedef To result_type;
 
-    template< class Range >
-    result_type operator()(Range const& from) const
+    template< class From >
+    result_type operator()(From const& from) const
     {
-        PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-        return pstade_oven_extension::Range<CopyableRange_>().
-            BOOST_NESTED_TEMPLATE copy<CopyableRange_>(from);
+        PSTADE_CONCEPT_ASSERT((SinglePass<From>));
+        return pstade_oven_extension::Range<To>().
+            BOOST_NESTED_TEMPLATE copy<To>(
+                copy_range_detail::to_strictly_convertibles<
+                    typename remove_cvr<typename range_reference<From>::type>::type,
+                    typename range_value<To>::type
+                >::call(from)
+        );
     }
 };
 
 
 PSTADE_ADL_BARRIER(copy_range) { // for Boost
 
-template< class CopyableRange_, class Range > inline
-typename boost::result_of<op_copy_range<CopyableRange_>(PSTADE_DEDUCED_CONST(Range)&)>::type
-copy_range(Range const& from)
+template< class To, class From > inline
+typename boost::result_of<op_copy_range<To>(PSTADE_DEDUCED_CONST(From)&)>::type
+copy_range(From const& from)
 {
-    return op_copy_range<CopyableRange_>()(from);
+    return op_copy_range<To>()(from);
 }
 
 } // ADL barrier
@@ -56,7 +101,7 @@ PSTADE_PIPABLE(copied, (automatic< op_copy_range<boost::mpl::_1> >))
 } } // namespace pstade::oven
 
 
-// Makes 'boost::array' CopyableRange_.
+// Make 'boost::array' CopyableRange.
 //
 
 
@@ -70,22 +115,31 @@ PSTADE_PIPABLE(copied, (automatic< op_copy_range<boost::mpl::_1> >))
 namespace pstade_oven_extension {
 
 
-    template< class T, std::size_t N, class Range >
-    boost::array<T, N> pstade_oven_(copy_range< boost::array<T, N> >, Range& from)
+#if defined(BOOST_MSVC)
+    #pragma warning(push)
+    #pragma warning(disable: 4701) // Potentially uninitialized local variable 'arr' used
+#endif
+
+    template< class T, std::size_t N, class From >
+    boost::array<T, N> pstade_oven_(copy_range< boost::array<T, N> >, From& from)
     {
-        typename pstade::oven::range_iterator<Range>::type
+        typename pstade::oven::range_iterator<From>::type
             it(boost::begin(from)), last(boost::end(from));
 
         boost::array<T, N> arr;
         std::size_t i = 0;
 
         for(; it != last; ++it, ++i)
-            arr.at(i) = *it;
+            arr[i] = *it;
         for(; i != N; ++i)
-            arr.at(i) = T();
+            arr[i] = T();
 
         return arr; 
     }
+
+#if defined(BOOST_MSVC)
+    #pragma warning(pop)
+#endif
 
 
 } // namespace pstade_oven_extension

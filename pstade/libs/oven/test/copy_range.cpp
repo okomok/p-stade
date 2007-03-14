@@ -24,6 +24,16 @@
 #include <pstade/copy_assign.hpp>
 
 
+struct convertible_to_any
+{
+    template< class To >
+    operator To() const
+    {
+        return To();
+    }
+};
+
+
 void test()
 {
     namespace oven = pstade::oven;
@@ -111,13 +121,24 @@ void test()
         boost::array<int, 5> arr = src|copied;
         BOOST_CHECK( oven::equals(arr, ans) );
     }
+
+    {
+        typedef std::vector<int>  row;
+        typedef std::vector<row>  matrix;
+
+        ::convertible_to_any x;
+#if 0 // not guaranteed to compile. GCC actually fails.
+        matrix m(&x, &x+1);
+#endif
+        matrix m = make_iter_range(&x, &x+1)|copied;
+    }
 }
 
 
 inline
-std::vector<char> fun()
+std::vector<int> fun()
 {
-    using namespace pstade;
+    namespace oven = pstade::oven;
     using namespace oven;
     return oven::counting(3, 10)|copied;
 }
@@ -146,9 +167,30 @@ namespace pstade_oven_extension {
             (void)rng;
             return xxx::X();
         }
+
+        template< class X >
+        struct associate
+        {
+            typedef int *mutable_iterator;
+            typedef int *constant_iterator;
+        };
+
+        template< class Iterator, class X >
+        Iterator begin(X&)
+        {
+            return 0;
+        }
+
+        template< class Iterator, class X >
+        Iterator end(X&)
+        {
+            return 0;
+        }
     };
 
 }
+
+PSTADE_OVEN_EXTENSION_OF_TYPE((xxx)(X))
 
 
 void test_extension()

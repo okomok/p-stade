@@ -15,6 +15,7 @@
 #include "./boost/detail_is_incrementable.hpp"
 #include "./boost/lexical_cast.hpp"
 #include "./boost/numeric_conversion_cast.hpp"
+#include "./boost/iterator_iterator_adaptor.hpp"
 #include "./boost/range_size.hpp"
 #include "./boost/ptr_container_ptr_vector.hpp"
 #include "./boost/concept_check.hpp"
