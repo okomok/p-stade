@@ -7,7 +7,7 @@ The Oven Range Library
 :Author: Shunsuke Sogame
 :Contact: pstade.mb@gmail.com
 :License: Distributed under the `Boost Software License Version 1.0`_
-:Version: 0.93.5
+:Version: 0.93.6
 
 
 
@@ -456,6 +456,14 @@ If you have a Standard conforming Generator, you can convert it to ``generation`
 ``indexing``
 ^^^^^^^^^^^^
 `Pending...`
+
+
+``initial_values``
+^^^^^^^^^^^^^^^^^^
+- Header: ``<pstade/oven/initial_values.hpp>``
+- Valid expression: ``initial_values(a1,..,aN)``, where ``1 <= N && N <= 20``.
+- Precondition: ``boost::assign::cref_list_of<N>(a1)..(aN)`` is a valid expression.
+- Returns: A constant `Random Access Range`_ which behaves as if it were returned by ``boost::assign::cref_list_of<N>(a1)..(aN)``.
 
 
 ``iteration``
@@ -1376,5 +1384,9 @@ Version 0.93.4
 Version 0.93.5
 ^^^^^^^^^^^^^^
 - Fixed missing Boost.Lambda support.
+
+Version 0.93.6
+^^^^^^^^^^^^^^
+- Added ``initial_values``.
 
 

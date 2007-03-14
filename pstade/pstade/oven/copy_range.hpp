@@ -32,10 +32,11 @@ namespace pstade { namespace oven {
 namespace copy_range_detail {
 
 
-    // Force to convert dereference into 'range_value<To>';
-    // Standard seems not to guarantee copy-initialization.
-    // GCC actually triggers direct-initialization, hence
-    // the overload-resolution may fail because of ambiguity.
+    // Force copy-initialization to disambiguate overload-resolution;
+    // Standard seems not to guarantee that range-constructor of
+    // Sequence is copy-initialization. GCC actually triggers
+    // direct-initialization, hence the overload-resolution may fail
+    // if 'ValueFrom' has a template conversion operator.
     template< class ValueFrom, class ValueTo >
     struct to_strictly_convertibles
     {
@@ -72,13 +73,19 @@ struct op_copy_range
     result_type operator()(From const& from) const
     {
         PSTADE_CONCEPT_ASSERT((SinglePass<From>));
-        return pstade_oven_extension::Range<To>().
-            BOOST_NESTED_TEMPLATE copy<To>(
-                copy_range_detail::to_strictly_convertibles<
-                    typename remove_cvr<typename range_reference<From>::type>::type,
-                    typename range_value<To>::type
-                >::call(from)
+
+        return pstade_oven_extension::Range<To>().BOOST_NESTED_TEMPLATE copy<To>(
+            copy_range_detail::to_strictly_convertibles<
+                typename remove_cvr<typename range_reference<From>::type>::type,
+                typename range_value<To>::type
+            >::call(from)
         );
+    }
+
+    // 'To' is sometimes the same as 'From', then easy to copy.
+    result_type operator()(To const& from) const
+    {
+        return from;
     }
 };
 
@@ -117,7 +124,7 @@ namespace pstade_oven_extension {
 
 #if defined(BOOST_MSVC)
     #pragma warning(push)
-    #pragma warning(disable: 4701) // Potentially uninitialized local variable 'arr' used
+    #pragma warning(disable: 4701) // potentially uninitialized local variable 'arr' used
 #endif
 
     template< class T, std::size_t N, class From >

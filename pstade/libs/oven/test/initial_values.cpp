@@ -22,13 +22,58 @@
 #include <pstade/unused.hpp>
 #include <pstade/copy_assign.hpp>
 #include <pstade/oven/jointed.hpp>
+#include <pstade/used.hpp>
+#include <boost/array.hpp>
+
+
+namespace oven = pstade::oven;
+using namespace oven;
+
+
+struct array_init
+{
+    // 'boost::array' is Aggregate, hence direct-initialization is always ok.
+    array_init() :
+        m_arr(initial_values(1,2,3,4,5))
+    {
+        int const ans[5] = { 1,2,3,4,5 };
+        BOOST_CHECK(equals(m_arr, ans));
+    }
+
+private:
+    boost::array<int, 5> m_arr;
+};
 
 
 void test()
 {
-    namespace oven = pstade::oven;
-    using namespace oven;
+    {
+        ::array_init arr_init_test;
+    }
+    {// which is faster?
+        //boost::array<int, 4> arr(initial_values(1,2,3,4));
+        /*
+	        mov	ebp, 1
+	        lea	ecx, DWORD PTR [ebp+1]
+	        lea	eax, DWORD PTR [ebp+2]
+	        lea	edx, DWORD PTR [ebp+3]
+	        mov	DWORD PTR _arr$202789[esp+772], eax
+	        mov	DWORD PTR _arr$202789[esp+776], edx
 
+        */
+
+        boost::array<int, 4> arr = { { 1,2,3,4 } };
+        /*
+	        mov	ebp, 1
+	        mov	ecx, 2
+	        mov	eax, 3
+	        mov	edx, 4
+	        mov	DWORD PTR _arr$202739[esp+764], eax
+	        mov	DWORD PTR _arr$202739[esp+768], edx
+        */
+
+        pstade::used(arr);
+    }
     {
         int const ans[] = { 1,5,3,6,1,3,7,1,4,2,2 };
         std::vector<int> vec = initial_values(1,5,3,6,1,3,7,1,4,2,2);
@@ -53,14 +98,16 @@ void test()
             expected
         ) );
     }
+#if 0 // rejected; nullary cannot be a range.
     {
         std::vector<int> vec = initial_values();
         BOOST_CHECK( boost::empty(vec) );
     }
+#endif
     {
         boost::result_of<op_initial_values(int,int,int)>::type result = { { 1,2,3 } };
-        boost::result_of<op_initial_values()>::type nullary_result = { };
-        pstade::unused(result, nullary_result);
+        // boost::result_of<op_initial_values()>::type nullary_result = { };
+        pstade::unused(result); //, nullary_result);
     }
     {
         typedef std::vector<int>  row;

@@ -18,11 +18,11 @@
 
 
 #include <cstddef> // size_t
+#include <boost/array.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include <pstade/callable.hpp> // NULLARY_RESULT_OF_TYPE
 #include <pstade/constant.hpp>
 #include <pstade/lambda_sig.hpp>
 #include <pstade/pass_by.hpp>
@@ -41,25 +41,18 @@ namespace pstade { namespace oven {
 namespace initial_values_detail {
 
 
-    struct temp0
-    {
-        template< class To >
-        operator To() const
-        {
-            return To();
-        }
-    };
-
-
     template< class Value, std::size_t N >
-    struct temp
+    struct result_range
     {
-        Value m_elems[N];
+        // Prefer 'boost::array' to built-in array;
+        // It's common that 'To' also is 'boost::array',
+        // then 'copy_range' can return without assignments.
+        boost::array<Value, N> m_array;
 
         template< class To >
         operator To() const
         {
-            return oven::copy_range<To>(m_elems);
+            return oven::copy_range<To>(m_array);
         }
 
     // as range
@@ -69,12 +62,12 @@ namespace initial_values_detail {
 
         iterator begin() const
         {
-            return m_elems;
+            return m_array.begin();
         }
 
         iterator end() const
         {
-            return m_elems + N;
+            return m_array.end();
         }
 
         size_type size() const
@@ -90,17 +83,6 @@ namespace initial_values_detail {
 struct op_initial_values :
     lambda_sig
 {
-// 0ary
-    typedef
-        initial_values_detail::temp0 const
-    nullary_result_type;
-
-    nullary_result_type operator()() const
-    {
-        return nullary_result_type();
-    }
-
-// 1ary-
     template< class FunCall >
     struct result;
 
@@ -115,9 +97,6 @@ PSTADE_CONSTANT(initial_values, (op_initial_values))
 } } // namespace pstade::oven
 
 
-PSTADE_CALLABLE_NULLARY_RESULT_OF_TYPE((pstade)(oven)(op_initial_values))
-
-
 #endif
 #else
 #define n BOOST_PP_ITERATION()
@@ -128,7 +107,7 @@ private:
     struct BOOST_PP_CAT(result, n)
     {
         typedef
-            initial_values_detail::temp<
+            initial_values_detail::result_range<
                 typename pass_by_value<A0>::type, n
             > const
         type;
@@ -144,8 +123,8 @@ public:
     typename BOOST_PP_CAT(result, n)<PSTADE_PP_ENUM_PARAMS_WITH(n, A, const&)>::type
     operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, const& a)) const
     {
-        typedef typename BOOST_PP_CAT(result, n)<PSTADE_PP_ENUM_PARAMS_WITH(n, A, &)>::type result_t;
-        result_t result = { { BOOST_PP_ENUM_PARAMS(n, a) } };
+        typedef typename BOOST_PP_CAT(result, n)<PSTADE_PP_ENUM_PARAMS_WITH(n, A, &)>::type result_range;
+        result_range result = { { { BOOST_PP_ENUM_PARAMS(n, a) } } };
         return result;
     }
 

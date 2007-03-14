@@ -35,7 +35,7 @@ struct vec_get
         return g_vec[i];
     }
 };
-    
+
 
 void test()
 {

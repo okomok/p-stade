@@ -29,6 +29,7 @@
 #include <boost/next_prior.hpp>
 #include <pstade/as.hpp>
 #include <pstade/object_generator.hpp>
+#include <pstade/unused.hpp>
 #include "./concepts.hpp"
 #include "./distance.hpp"
 #include "./equals.hpp"
@@ -66,6 +67,7 @@ bool test_SinglePass_Readable(Range& rng, Vector const& expected)
     iter_t last  = boost::end(rng);
     BOOST_ASSERT(first == first);
     BOOST_ASSERT(last == last);
+    pstade::unused(first, last);
 
     if (!oven::equals(rng, expected)) { // In fact, Incrementable only.
         BOOST_ASSERT("test_SinglePass_Readable failed." && false);
