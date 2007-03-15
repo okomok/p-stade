@@ -18,7 +18,7 @@ namespace pstade_oven_extension {
 
 
     template< class Iter >
-    struct Range< boost::tuple<Iter, Iter> >
+    struct Range< boost::tuples::tuple<Iter, Iter> >
     {
         template< class X >
         struct associate
