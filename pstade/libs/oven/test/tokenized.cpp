@@ -12,6 +12,7 @@
 
 #include <pstade/oven/tests.hpp>
 #include <pstade/oven/tokenized.hpp>
+#include <pstade/oven/sub_match.hpp>
 
 
 #include <string>
