@@ -36,6 +36,9 @@ namespace pstade { namespace oven {
 namespace io_detail {
 
 
+    namespace here = io_detail;
+
+
     enum mn_t
     {
         mn_open, mn_close, mn_delimiter, mn_SIZE
@@ -90,7 +93,7 @@ namespace io_detail {
     template< class IStream >
     void eat_mn_char(IStream& is, mn_t const& mn)
     {
-        typename IStream::char_type const ch = (get_mn_char)(is, mn);
+        typename IStream::char_type const ch = here::get_mn_char(is, mn);
 
         if (std::isspace(ch, is.getloc()))
             return;
@@ -108,7 +111,7 @@ namespace io_detail {
         bool is_beginning = true;
         for ( ; first != last; ++first) {
             if (!is_beginning)
-                (eat_mn_char)(is, mn_delimiter);
+                here::eat_mn_char(is, mn_delimiter);
             else
                 is_beginning = false;
 
@@ -126,7 +129,7 @@ namespace io_detail {
     template< class OStream, class Iterator >
     void out(OStream& os, Iterator first, Iterator const& last)
     {
-        typename OStream::char_type const delim = (get_mn_char)(os, mn_delimiter);
+        typename OStream::char_type const delim = here::get_mn_char(os, mn_delimiter);
 
         bool is_beginning = true;
         for ( ; first != last; ++first) {
@@ -159,7 +162,7 @@ namespace io_detail {
     std::basic_istream<CharT, Traits>&
     operator>>(std::basic_istream<CharT, Traits>& is, manipulator<CharT> const& m) 
     {
-        io_detail::set_mn_char(is, m.m_mn, m.m_ch);
+        here::set_mn_char(is, m.m_mn, m.m_ch);
         return is;
     }
 
@@ -167,7 +170,7 @@ namespace io_detail {
     std::basic_ostream<CharT, Traits>&
     operator<<(std::basic_ostream<CharT, Traits>& os, manipulator<CharT> const& m)
     {
-        io_detail::set_mn_char(os, m.m_mn, m.m_ch);
+        here::set_mn_char(os, m.m_mn, m.m_ch);
         return os;
     }
 

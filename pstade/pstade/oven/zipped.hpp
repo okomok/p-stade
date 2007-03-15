@@ -38,6 +38,7 @@ namespace zipped_detail {
     using boost::detail::tuple_impl_specific::tuple_meta_transform;
     namespace mpl = boost::mpl;
     namespace tuples = boost::tuples;
+    namespace here = zipped_detail;
 
 
     // The parameter of 'detail::tuple_meta_transform' is const-qualified,
@@ -74,7 +75,7 @@ namespace zipped_detail {
              >::type
            , transformed_tail_type
         >( 
-            f(boost::tuples::get<0>(t)), (tuple_transform)(t.get_tail(), f) // FIXED
+            f(boost::tuples::get<0>(t)), here::tuple_transform(t.get_tail(), f) // FIXED
         );
       }
 
@@ -90,7 +91,7 @@ namespace zipped_detail {
         Fun f
       )
       {
-          return (tuple_transform_impl)(t, f, 1); // FIXED
+          return here::tuple_transform_impl(t, f, 1); // FIXED
       }
 #endif
 
@@ -155,8 +156,8 @@ namespace zipped_detail {
         result_type operator()(RangeTuple& tup) const
         {
             return result_type(
-                iter_t( (tuple_transform)(tup, begin_fun<RangeTuple>()) ),
-                iter_t( (tuple_transform)(tup, end_fun<RangeTuple>()) )
+                iter_t( here::tuple_transform(tup, begin_fun<RangeTuple>()) ),
+                iter_t( here::tuple_transform(tup, end_fun<RangeTuple>()) )
             );
         }
     };

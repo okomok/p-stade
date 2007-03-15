@@ -40,7 +40,7 @@ template< class Difference, class Range > inline
 bool debug_in_distance(Difference d, Range const& rng)
 {
     for_debug();
-    return (debug_in_distance_aux)(d, rng, typename range_traversal<Range>::type());
+    return detail::debug_in_distance_aux(d, rng, typename range_traversal<Range>::type());
 }
 
 

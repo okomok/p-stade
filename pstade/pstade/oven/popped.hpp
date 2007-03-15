@@ -35,6 +35,9 @@ namespace pstade { namespace oven {
 namespace popped_detail {
 
 
+    namespace here = popped_detail;
+
+
     template< class ForwardIter > inline
     ForwardIter range_prior_aux(ForwardIter first, ForwardIter const& last,
         boost::bidirectional_traversal_tag)
@@ -58,7 +61,7 @@ namespace popped_detail {
     template< class ForwardIter > inline
     ForwardIter range_prior(ForwardIter const& first, ForwardIter const& last)
     {
-        return (range_prior_aux)(first, last,
+        return here::range_prior_aux(first, last,
             typename boost::iterator_traversal<ForwardIter>::type());
     }
 
@@ -77,7 +80,7 @@ namespace popped_detail {
 
             return result_type(
                 boost::begin(rng),
-                (range_prior)(boost::begin(rng), boost::end(rng))
+                here::range_prior(boost::begin(rng), boost::end(rng))
             );
         }
     };

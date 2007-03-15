@@ -10,25 +10,35 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/oven/tests.hpp>
 #include <pstade/oven/distance.hpp>
 #include <pstade/oven/equals.hpp>
 
 
 #include <string>
+#include <boost/utility/result_of.hpp>
+#include <pstade/test.hpp>
+
+
+namespace oven = pstade::oven;
+using namespace oven;
+
+
+PSTADE_TEST_IS_RESULT_OF((bool), op_equals(std::string&, std::string&))
+PSTADE_TEST_IS_RESULT_OF((range_difference<std::string>::type), op_distance(std::string&))
+
 
 void test()
 {
-    namespace oven = pstade::oven;
-    using namespace oven;
-
     std::string src1("abcde");
     std::string src2("abcde");
-
     {
-        BOOST_CHECK( oven::equals(src1, src2) );
+        boost::result_of<op_equals(std::string&, std::string&)>::type b = equals(src1, src2);
+        BOOST_CHECK( b );
     }
     {
-        BOOST_CHECK( oven::distance(src1) == 5 );
+        boost::result_of<op_distance(std::string&)>::type d = distance(src1);
+        BOOST_CHECK( d == 5 );
     }
 }
 

@@ -55,7 +55,7 @@ template< class Range, class Iterator > inline
 bool debug_contains(Range const& rng, Iterator it)
 {
     for_debug();
-    return (debug_contains_aux)(rng, it, typename range_category<Range>::type());
+    return detail::debug_contains_aux(rng, it, typename range_category<Range>::type());
 }
 
 

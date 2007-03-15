@@ -50,6 +50,9 @@ struct merge_iterator;
 namespace merge_iterator_detail {
 
 
+    namespace here = merge_iterator_detail;
+
+
     template< class Iterator1, class Iterator2 >
     struct traversal :
         boost::detail::minimum_category<
@@ -129,7 +132,7 @@ namespace merge_iterator_detail {
                 return *first1;
 
             // while phase
-            return (min_)(*first1, *first2, comp);
+            return here::min_(*first1, *first2, comp);
         }
 
         template< class Iterator1, class Iterator2, class Compare >

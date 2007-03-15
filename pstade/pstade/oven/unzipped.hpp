@@ -105,6 +105,9 @@ using unzipped_at_detail::unzipped_at_c;
 namespace unzipped_detail {
 
 
+    namespace here = unzipped_detail;
+
+
     template< int From, int To >
     struct counting_tuple
     {
@@ -184,7 +187,7 @@ namespace unzipped_detail {
 
         result_type operator()(TupleRange& rng) const
         {
-            return (tuple_transform)(
+            return here::tuple_transform(
                 counting_tup_t(),
                 make_at_range<TupleRange>(rng)
             );

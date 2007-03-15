@@ -21,7 +21,6 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/adl_barrier.hpp>
-#include <pstade/constant.hpp>
 #include <pstade/function.hpp>
 #include "./concepts.hpp"
 #include "./range_difference.hpp"
@@ -32,6 +31,9 @@ namespace pstade { namespace oven {
 
 
 namespace distance_detail {
+
+
+    namespace here = distance_detail;
 
 
     // Note:
@@ -71,8 +73,8 @@ namespace distance_detail {
         result_type operator()(Range& rng) const
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-            return (assert_reachable)(
-                (aux<result_type>)(rng, typename range_traversal<Range>::type())
+            return here::assert_reachable(
+                here::aux<result_type>(rng, typename range_traversal<Range>::type())
             );
         }
     };
@@ -81,7 +83,7 @@ namespace distance_detail {
 } // namespace distance_detail
 
 
-PSTADE_ADL_BARRIER(distance) { // for Boost and Std
+PSTADE_ADL_BARRIER(distance) { // for 'boost' and 'std'
 
 PSTADE_FUNCTION(distance, (distance_detail::baby<_>))
 

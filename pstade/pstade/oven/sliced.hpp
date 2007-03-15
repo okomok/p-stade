@@ -29,6 +29,9 @@ namespace pstade { namespace oven {
 namespace sliced_detail {
 
 
+    namespace here = sliced_detail;
+
+
     template< class Range, class Difference > inline
     bool is_sliceable_with(Range& rng, Difference const& stride)
     {
@@ -57,7 +60,7 @@ namespace sliced_detail {
         result_type operator()(Range& rng, diff_t const& start, diff_t const& stride) const
         {
             PSTADE_CONCEPT_ASSERT((RandomAccess<Range>));
-            BOOST_ASSERT((is_sliceable_with)(rng, stride));
+            BOOST_ASSERT(here::is_sliceable_with(rng, stride));
 
             return result_type(
                 iter_t(boost::begin(rng), start, stride),
