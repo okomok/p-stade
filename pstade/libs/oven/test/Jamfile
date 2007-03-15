@@ -136,6 +136,7 @@ test-suite oven :
     [ oven-test to_utf8_encoder ]
     [ oven-compile tokenized ]
     [ oven-test transformed ]
+    [ oven-test tuple ]
     [ oven-test uniqued ]
     [ oven-test unzipped ]
     [ oven-test utf8_encoded_decoded ]
