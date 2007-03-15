@@ -79,11 +79,11 @@ struct op_equals
     typedef bool result_type;
 
     template< class Range1, class Range2, class BinaryPred >
-    PSTADE_CONCEPT_WHERE(
-        ((SinglePass<Range1>))
-        ((SinglePass<Range2>)),
-    (bool)) operator()(Range1 const& rng1, Range2 const& rng2, BinaryPred pred) const
+    bool operator()(Range1 const& rng1, Range2 const& rng2, BinaryPred pred) const
     {
+        PSTADE_CONCEPT_ASSERT((SinglePass<Range1>));
+        PSTADE_CONCEPT_ASSERT((SinglePass<Range2>));
+
         typedef typename boost::detail::minimum_category<
             // 'minimum_category' needs *pure*.
             typename range_pure_traversal<Range1>::type,

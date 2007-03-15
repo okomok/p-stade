@@ -90,15 +90,11 @@ struct op_parallel_for_each :
     };
 
     template< class Result, class Range, class UnaryFun, class Difference >
-    // Workaround:
-    // Compilers complain about "return void"
-    // if you write not 'void' but 'Result'.
-    PSTADE_CONCEPT_WHERE(
-        ((Forward<Range>)),
-    (void)) call(Range& rng, UnaryFun fun, Difference grain) const
+    void call(Range& rng, UnaryFun fun, Difference grain) const
     {
-        typedef typename range_difference<Range>::type diff_t;
+        PSTADE_CONCEPT_ASSERT((Forward<Range>));
 
+        typedef typename range_difference<Range>::type diff_t;
         // Range type must be "erased" to avoid infinite recursion
         // of 'op_for_each' template-instantiation.
         typedef typename iter_range_of<Range>::type base_t;

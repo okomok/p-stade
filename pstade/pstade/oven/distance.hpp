@@ -21,8 +21,8 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/adl_barrier.hpp>
-#include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
+#include <pstade/function.hpp>
 #include "./concepts.hpp"
 #include "./range_difference.hpp"
 #include "./range_traversal.hpp"
@@ -61,32 +61,29 @@ namespace distance_detail {
     }
 
 
-} // namespace distance_detail
-
-
-struct op_distance :
-    callable<op_distance>
-{
-    template< class Myself, class Range >
-    struct apply :
-        range_difference<Range>
-    { };
-
-    template< class Result, class Range >
-    PSTADE_CONCEPT_WHERE(
-        ((SinglePass<Range>)),
-    (Result)) call(Range& rng) const
+    template< class Range >
+    struct baby
     {
-        return distance_detail::assert_reachable(
-            distance_detail::aux<Result>(rng, typename range_traversal<Range>::type())
-        );
-    }
-};
+        typedef typename
+            range_difference<Range>::type
+        result_type;
+
+        result_type operator()(Range& rng) const
+        {
+            PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+            return (assert_reachable)(
+                (aux<result_type>)(rng, typename range_traversal<Range>::type())
+            );
+        }
+    };
+
+
+} // namespace distance_detail
 
 
 PSTADE_ADL_BARRIER(distance) { // for Boost and Std
 
-PSTADE_CONSTANT(distance, (op_distance))
+PSTADE_FUNCTION(distance, (distance_detail::baby<_>))
 
 } // ADL barrier
 

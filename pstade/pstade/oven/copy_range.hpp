@@ -70,7 +70,7 @@ struct op_copy_range
     typedef To result_type;
 
     template< class From >
-    result_type operator()(From const& from) const
+    To operator()(From const& from) const
     {
         PSTADE_CONCEPT_ASSERT((SinglePass<From>));
 
@@ -83,7 +83,7 @@ struct op_copy_range
     }
 
     // 'To' is sometimes the same as 'From', then easy to copy.
-    result_type operator()(To const& from) const
+    To operator()(To const& from) const
     {
         return from;
     }
