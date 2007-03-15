@@ -73,7 +73,7 @@ PSTADE_ADL_BARRIER(functional) {
     namespace always_detail {
 
         template< class T >
-        struct op_result
+        struct return_op
         {
             typedef T& result_type;
 
@@ -82,10 +82,10 @@ PSTADE_ADL_BARRIER(functional) {
                 return *m_px;
             }
 
-            explicit op_result()
+            explicit return_op()
             { }
 
-            explicit op_result(T& x) :
+            explicit return_op(T& x) :
                 m_px(boost::addressof(x))
             { }
 
@@ -101,7 +101,7 @@ PSTADE_ADL_BARRIER(functional) {
         template< class Myself, class T >
         struct apply
         {
-            typedef always_detail::op_result<T> type;
+            typedef always_detail::return_op<T> type;
         };
 
         template< class Result, class T >
@@ -120,8 +120,8 @@ PSTADE_ADL_BARRIER(functional) {
     namespace not_detail {
 
         template< class Predicate >
-        struct op_result :
-            callable< op_result<Predicate> > 
+        struct return_op :
+            callable< return_op<Predicate> > 
         {
             template< class Myself, class T0, class T1 = void >
             struct apply
@@ -141,10 +141,10 @@ PSTADE_ADL_BARRIER(functional) {
                 return !m_pred(a0, a1);
             }
 
-            explicit op_result()
+            explicit return_op()
             { }
 
-            explicit op_result(Predicate const& pred) :
+            explicit return_op(Predicate const& pred) :
                 m_pred(pred)
             { }
 
@@ -154,7 +154,7 @@ PSTADE_ADL_BARRIER(functional) {
 
     } // namespace not_detail
 
-    PSTADE_OBJECT_GENERATOR(not_, (not_detail::op_result< deduce<_1, to_value> >))
+    PSTADE_OBJECT_GENERATOR(not_, (not_detail::return_op< deduce<_1, to_value> >))
     typedef op_not_ op_not;
 
 
@@ -290,8 +290,8 @@ PSTADE_ADL_BARRIER(functional) {
     namespace flip_detail {
 
         template< class BinaryFun >
-        struct op_result :
-            callable< op_result<BinaryFun> >
+        struct return_op :
+            callable< return_op<BinaryFun> >
         {
             template< class Myself, class A0, class A1 >
             struct apply :
@@ -304,10 +304,10 @@ PSTADE_ADL_BARRIER(functional) {
                 return m_fun(a1, a0);
             }
 
-            explicit op_result()
+            explicit return_op()
             { }
 
-            explicit op_result(BinaryFun const& fun) :
+            explicit return_op(BinaryFun const& fun) :
                 m_fun(fun)
             { }
 
@@ -317,7 +317,7 @@ PSTADE_ADL_BARRIER(functional) {
 
     } // namespace flip_detail
 
-    PSTADE_OBJECT_GENERATOR(flip, (flip_detail::op_result< deduce<_1, to_value> >))
+    PSTADE_OBJECT_GENERATOR(flip, (flip_detail::return_op< deduce<_1, to_value> >))
 
 
     // equal_to_0

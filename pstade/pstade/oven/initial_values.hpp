@@ -13,8 +13,8 @@
 
 // What:
 //
-// Simple version of 'boost::assign::cref_list_of'.
-// A1-AN must be convertible to A0.
+// Simpler/faster version of 'boost::assign::cref_list_of'.
+// A1-AN must be convertible to A1.
 
 
 #include <cstddef> // size_t
@@ -42,11 +42,11 @@ namespace initial_values_detail {
 
 
     template< class Value, std::size_t N >
-    struct result_range
+    struct return_range
     {
         // Prefer 'boost::array' to built-in array;
-        // It's common that 'To' also is 'boost::array',
-        // then 'copy_range' can return without assignments.
+        // If 'To' also is 'boost::array', the initialization can be
+        // efficient because 'copy_range' can return without assignments.
         boost::array<Value, N> m_array;
 
         template< class To >
@@ -107,7 +107,7 @@ private:
     struct BOOST_PP_CAT(result, n)
     {
         typedef
-            initial_values_detail::result_range<
+            initial_values_detail::return_range<
                 typename pass_by_value<A0>::type, n
             > const
         type;
@@ -123,8 +123,8 @@ public:
     typename BOOST_PP_CAT(result, n)<PSTADE_PP_ENUM_PARAMS_WITH(n, A, const&)>::type
     operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, const& a)) const
     {
-        typedef typename BOOST_PP_CAT(result, n)<PSTADE_PP_ENUM_PARAMS_WITH(n, A, &)>::type result_range;
-        result_range result = { { { BOOST_PP_ENUM_PARAMS(n, a) } } };
+        typedef typename BOOST_PP_CAT(result, n)<PSTADE_PP_ENUM_PARAMS_WITH(n, A, &)>::type return_range;
+        return_range result = { { { BOOST_PP_ENUM_PARAMS(n, a) } } };
         return result;
     }
 

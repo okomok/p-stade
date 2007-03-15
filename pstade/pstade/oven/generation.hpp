@@ -55,7 +55,7 @@ namespace innumerable_detail {
 
 
     template< class Generator_ >
-    struct op_result
+    struct return_op
     {
         typedef
             boost::optional<
@@ -68,7 +68,7 @@ namespace innumerable_detail {
             return result_type(m_gen());
         }
 
-        explicit op_result(Generator_ const& gen) :
+        explicit return_op(Generator_ const& gen) :
             m_gen(gen)
         { }
 
@@ -81,7 +81,7 @@ namespace innumerable_detail {
 
 
 PSTADE_OBJECT_GENERATOR(innumerable,
-    (innumerable_detail::op_result< deduce<_1, to_value> >))
+    (innumerable_detail::return_op< deduce<_1, to_value> >))
 
 
 } } // namespace pstade::oven

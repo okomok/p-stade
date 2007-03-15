@@ -40,8 +40,8 @@ namespace pstade {
     namespace auxiliary_detail {
 
         template<class UnaryFun>
-        struct op_result0 :
-            callable<op_result0<UnaryFun>, op_result0<UnaryFun> const&>
+        struct return_op0 :
+            callable<return_op0<UnaryFun>, return_op0<UnaryFun> const&>
         {
             // as pipe
 
@@ -64,10 +64,10 @@ namespace pstade {
                 return m_fun(a0);
             }
 
-            explicit op_result0()
+            explicit return_op0()
             { }
 
-            explicit op_result0(UnaryFun const& fun) :
+            explicit return_op0(UnaryFun const& fun) :
                 m_fun(fun)
             { }
 
@@ -83,15 +83,15 @@ namespace pstade {
         };
 
         template<class A0, class UnaryFun> inline
-        typename boost::result_of<op_result0<UnaryFun>(A0&)>::type
-        operator|(A0& a0, op_result0<UnaryFun> const& op)
+        typename boost::result_of<return_op0<UnaryFun>(A0&)>::type
+        operator|(A0& a0, return_op0<UnaryFun> const& op)
         {
             return op(a0);
         }
 
         template<class A0, class UnaryFun> inline
-        typename boost::result_of<op_result0<UnaryFun>(PSTADE_DEDUCED_CONST(A0)&)>::type
-        operator|(A0 const& a0, op_result0<UnaryFun> const& op)
+        typename boost::result_of<return_op0<UnaryFun>(PSTADE_DEDUCED_CONST(A0)&)>::type
+        operator|(A0 const& a0, return_op0<UnaryFun> const& op)
         {
             return op(a0);
         }
@@ -99,7 +99,7 @@ namespace pstade {
     } // namespace auxiliary_detail
 
     PSTADE_OBJECT_GENERATOR(auxiliary0,
-        (auxiliary_detail::op_result0< deduce<_1, to_value> >))
+        (auxiliary_detail::return_op0< deduce<_1, to_value> >))
 
 
     // 1ary-
@@ -122,7 +122,7 @@ namespace pstade {
 } // namespace pstade
 
 
-PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE((pstade)(auxiliary_detail)(op_result0), 1)
+PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE((pstade)(auxiliary_detail)(return_op0), 1)
 
 
 #endif
@@ -133,8 +133,8 @@ PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE((pstade)(auxiliary_detail)(op_result0
 namespace auxiliary_detail {
 
     template<class Function>
-    struct BOOST_PP_CAT(op_result, n) :
-        callable< BOOST_PP_CAT(op_result, n)<Function> >
+    struct BOOST_PP_CAT(return_op, n) :
+        callable< BOOST_PP_CAT(return_op, n)<Function> >
     {
         template<class Myself, PSTADE_CALLABLE_APPLY_PARAMS(A)>
         struct apply
@@ -174,10 +174,10 @@ namespace auxiliary_detail {
             return m_fun(BOOST_PP_ENUM_PARAMS(BOOST_PP_INC(n), a));
         }
 
-        explicit BOOST_PP_CAT(op_result, n)()
+        explicit BOOST_PP_CAT(return_op, n)()
         { }
 
-        explicit BOOST_PP_CAT(op_result, n)(Function const& fun) :
+        explicit BOOST_PP_CAT(return_op, n)(Function const& fun) :
             m_fun(fun)
         { }
 
@@ -195,7 +195,7 @@ namespace auxiliary_detail {
 } // namespace auxiliary_detail
 
 PSTADE_OBJECT_GENERATOR(BOOST_PP_CAT(auxiliary, n),
-    (auxiliary_detail::BOOST_PP_CAT(op_result, n)< deduce<_1, to_value> >))
+    (auxiliary_detail::BOOST_PP_CAT(return_op, n)< deduce<_1, to_value> >))
 
 
 #undef n

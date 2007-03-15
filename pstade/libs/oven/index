@@ -176,25 +176,9 @@
 <div class="section">
 <h1><a class="toc-backref" href="#id62" id="introduction" name="introduction">1&nbsp;&nbsp;&nbsp;Introduction</a></h1>
 <p>Oven provides an experimental Range Adaptor implementation of <a class="reference" href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1871.html">Range Library Proposal</a>:</p>
-<pre class="cpp_source">
-<span class="cpp_keyword">typedef
-    </span>any_range&lt;<span class="cpp_keyword">int</span>, boost::single_pass_traversal_tag&gt;
-range;
-
-range sieve(range rng)
-{
-    <span class="cpp_keyword">return </span>rng|dropped(<span class="cpp_number_literal">1</span>)|filtered(regular(lambda::_1 % front(rng) != <span class="cpp_number_literal">0</span>));
-}
-
-range primes
-    = iteration(range(counting_from(<span class="cpp_number_literal">2</span>)), &amp;::sieve)|transformed(front);
-
-<span class="cpp_keyword">int </span>main()
-{
-    std::cout &lt;&lt; (primes|taken(<span class="cpp_number_literal">200</span>));
-}
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\introduction.ipp
 </pre>
-
 <p>All the types and functions are defined in <tt class="docutils literal"><span class="pre">namespace</span> <span class="pre">pstade::oven</span></tt> at <tt class="docutils literal"><span class="pre">&lt;pstade/oven.hpp&gt;</span></tt>
 unless otherwise specified.</p>
 </div>
@@ -226,13 +210,9 @@ unless otherwise specified.</p>
 <li>If <tt class="docutils literal"><span class="pre">xxx(a1,..,aN)</span></tt> is a valid expression and <tt class="docutils literal"><span class="pre">xxx</span></tt> is not a type name, <tt class="docutils literal"><span class="pre">xxx</span></tt> is a <a class="reference" href="http://www.sgi.com/tech/stl/functors.html">Function Object</a>
 whose type name is <tt class="docutils literal"><span class="pre">op_xxx</span></tt> to support <tt class="docutils literal"><span class="pre">boost::result_of</span></tt> and Boost.Lambda.</li>
 </ul>
-<pre class="cpp_source">
-std::string src(<span class="cpp_string_literal">&quot;hello, specification&quot;</span>);
-
-boost::result_of&lt;op_make_filtered(std::string&amp;, <span class="cpp_keyword">bool</span>(*)(<span class="cpp_keyword">char</span>))&gt;::type
-    result = make_filtered(src, &amp;is_upper);
-BOOST_CHECK( equals(result, src|filtered(&amp;is_upper)) );</pre>
-
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\specification.ipp
+</pre>
 <p>All the ranges Oven defines are <tt class="docutils literal"><span class="pre">InputStreamable</span></tt> and <tt class="docutils literal"><span class="pre">OutputStreamable</span></tt> if <tt class="docutils literal"><span class="pre">&lt;pstade/oven/io.hpp&gt;</span></tt> is included.</p>
 <table class="docutils footnote" frame="void" id="id6" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
@@ -248,19 +228,9 @@ BOOST_CHECK( equals(result, src|filtered(&amp;is_upper)) );</pre>
 <div class="section">
 <h2><a class="toc-backref" href="#id67" id="stl-algorithms" name="stl-algorithms">5.1&nbsp;&nbsp;&nbsp;STL Algorithms</a></h2>
 <p>Oven contains most of all the range-based STL algorithms <a class="footnote-reference" href="#id9" id="id7" name="id7">[2]</a> which were ported from <a class="reference" href="http://boost-consulting.com/vault/index.php?&amp;directory=Algorithms">Boost.RangeEx</a> with some modifications <a class="footnote-reference" href="#id10" id="id8" name="id8">[3]</a></p>
-<pre class="cpp_source">
-std::string str;
-
-<span class="cpp_comment">// iterator-based
-</span>str = <span class="cpp_string_literal">&quot;gfedcba&quot;</span>;
-std::sort(str.begin(), str.end());
-BOOST_CHECK( str == <span class="cpp_string_literal">&quot;abcdefg&quot;</span> );
-
-<span class="cpp_comment">// Oven range-based
-</span>str = <span class="cpp_string_literal">&quot;gfedcba&quot;</span>;
-oven::sort(str);
-BOOST_CHECK( str == <span class="cpp_string_literal">&quot;abcdefg&quot;</span> );</pre>
-
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\stl_algorithms.ipp
+</pre>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/algorithm.hpp&gt;</span></tt> and <tt class="docutils literal"><span class="pre">&lt;pstade/oven/numeric.hpp&gt;</span></tt>;  not included by <tt class="docutils literal"><span class="pre">&lt;pstade/oven/functions.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">algo(rng,a0,a1,..,aN)</span></tt>, where <tt class="docutils literal"><span class="pre">algo</span></tt> is a <a class="reference" href="http://www.sgi.com/tech/stl/functors.html">Function Object</a>.</li>
@@ -283,18 +253,9 @@ BOOST_CHECK( str == <span class="cpp_string_literal">&quot;abcdefg&quot;</span> 
 <div class="section">
 <h2><a class="toc-backref" href="#id68" id="adapted-to-to-base" name="adapted-to-to-base">5.2&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">adapted_to/to_base</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">adapted_to</span></tt> gets the <tt class="docutils literal"><span class="pre">base_type</span></tt> iterator of adapted iterators:</p>
-<pre class="cpp_source">
-std::string src(<span class="cpp_string_literal">&quot;cjaigvwzenqhe&quot;</span>);
-std::string::iterator it = oven::adapted_to&lt;std::string::iterator&gt;(
-    oven::max_element(
-        src
-            | filtered(regular(lambda::_1 != <span class="cpp_string_literal">'z'</span>))
-            | filtered(regular(lambda::_1 != <span class="cpp_string_literal">'w'</span>))
-    )
-);
-
-BOOST_CHECK( *it == <span class="cpp_string_literal">'v'</span> );</pre>
-
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\adapted_to_base.ipp
+</pre>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/adapted_to_base.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">base</span> <span class="pre">=</span> <span class="pre">oven::adapted_to&lt;BaseIter&gt;(it);</span></tt> or <tt class="docutils literal"><span class="pre">BaseIter</span> <span class="pre">base</span> <span class="pre">=</span> <span class="pre">it|to_base;</span></tt> <a class="footnote-reference" href="#id12" id="id11" name="id11">[4]</a></li>
@@ -332,11 +293,9 @@ BOOST_CHECK( *it == <span class="cpp_string_literal">'v'</span> );</pre>
 <div class="section">
 <h2><a class="toc-backref" href="#id70" id="begin-end" name="begin-end">5.4&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">begin/end</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">begin/end</span></tt> is a pipable version of <tt class="docutils literal"><span class="pre">boost::begin/end</span></tt>:</p>
-<pre class="cpp_source">
-std::string src(<span class="cpp_string_literal">&quot;abcDefg&quot;</span>);   
-oven::copy(src|reversed|transformed(to_upper), src|reversed|begin);
-BOOST_CHECK( oven::equals(src, std::string(<span class="cpp_string_literal">&quot;ABCDEFG&quot;</span>)) );</pre>
-
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\begin_end.ipp
+</pre>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/begin_end.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">rng|begin</span></tt> and <tt class="docutils literal"><span class="pre">rng|end</span></tt></li>
@@ -348,16 +307,9 @@ BOOST_CHECK( oven::equals(src, std::string(<span class="cpp_string_literal">&quo
 <h2><a class="toc-backref" href="#id71" id="compile" name="compile">5.5&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">compile</span></tt></a></h2>
 <p><cite>Pending...</cite></p>
 <p><tt class="docutils literal"><span class="pre">compile</span></tt> introduces the syntax sugar for <tt class="docutils literal"><span class="pre">jointed</span></tt> etc:</p>
-<pre class="cpp_source">
-std::string       rng1(<span class="cpp_string_literal">&quot;12&quot;</span>);
-std::list&lt;<span class="cpp_keyword">char</span>&gt;   rng2 = std::string(<span class="cpp_string_literal">&quot;34&quot;</span>)|copied;
-std::vector&lt;<span class="cpp_keyword">char</span>&gt; rng3 = std::string(<span class="cpp_string_literal">&quot;56&quot;</span>)|copied;
-
-BOOST_CHECK( equals(
-    compile( +(rng1 &gt;&gt; (rng2|as_term) &gt;&gt; rng3) ) | taken(<span class="cpp_number_literal">17</span>),
-    std::string(<span class="cpp_string_literal">&quot;12345612345612345&quot;</span>)
-) );</pre>
-
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\compile.ipp
+</pre>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/compile.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">compile(rngExpr)</span></tt></li>
@@ -367,11 +319,9 @@ BOOST_CHECK( equals(
 <h2><a class="toc-backref" href="#id72" id="copied" name="copied">5.6&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">copied</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">copied</span></tt> adds the automatic type deduction to <a class="reference" href="http://www.boost.org/libs/range/doc/utility_class.html#copy_range">copy_range</a> which
 calls the range constructor of the STL Sequences:</p>
-<pre class="cpp_source">
-std::vector&lt;<span class="cpp_keyword">int</span>&gt; vec = oven::counting(<span class="cpp_number_literal">3</span>, <span class="cpp_number_literal">9</span>)|copied;
-vec.push_back(<span class="cpp_number_literal">9</span>);
-BOOST_CHECK( oven::equals(vec, oven::counting(<span class="cpp_number_literal">3</span>, <span class="cpp_number_literal">10</span>)) );</pre>
-
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\copied.ipp
+</pre>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/copy_range.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">Seq</span> <span class="pre">seq</span> <span class="pre">=</span> <span class="pre">rng|copied;</span></tt> <a class="footnote-reference" href="#id18" id="id17" name="id17">[7]</a></li>
@@ -389,10 +339,9 @@ BOOST_CHECK( oven::equals(vec, oven::counting(<span class="cpp_number_literal">3
 <h2><a class="toc-backref" href="#id73" id="distance" name="distance">5.7&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">distance</span></tt></a></h2>
 <p>The upcoming <a class="reference" href="http://www.boost.org/libs/range/">Boost.Range</a> will replace <tt class="docutils literal"><span class="pre">boost::size</span></tt> by <tt class="docutils literal"><span class="pre">boost::distance</span></tt>.
 <tt class="docutils literal"><span class="pre">oven::distance</span></tt> that is the same as <tt class="docutils literal"><span class="pre">boost::distance</span></tt> makes your code portable:</p>
-<pre class="cpp_source">
-std::string str(<span class="cpp_string_literal">&quot;012345&quot;</span>);
-BOOST_CHECK( oven::distance(str) == <span class="cpp_number_literal">6 </span>);</pre>
-
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\distance.ipp
+</pre>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/distance.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">distance(rng)</span></tt></li>
@@ -403,11 +352,9 @@ BOOST_CHECK( oven::distance(str) == <span class="cpp_number_literal">6 </span>);
 <div class="section">
 <h2><a class="toc-backref" href="#id74" id="equals" name="equals">5.8&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">equals</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">equals</span></tt> is the range-based <tt class="docutils literal"><span class="pre">std::equal</span></tt> that takes two ranges as the arguments:</p>
-<pre class="cpp_source">
-std::string str(<span class="cpp_string_literal">&quot;hello, equals&quot;</span>);
-std::vector&lt;<span class="cpp_keyword">char</span>&gt; vec = str|copied;
-BOOST_CHECK( oven::equals(str, vec) );</pre>
-
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\equals.ipp
+</pre>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/equals.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">equals(rng1,rng2)</span></tt></li>
@@ -504,11 +451,9 @@ So that, <tt class="docutils literal"><span class="pre">regular</span></tt> conv
 <h2><a class="toc-backref" href="#id83" id="any-range" name="any-range">7.1&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">any_range</span></tt></a></h2>
 <p>Oven supports <tt class="docutils literal"><span class="pre">boost::result_of</span></tt>, but it is sometimes cumbersome to get the type of
 the adapted range. <tt class="docutils literal"><span class="pre">any_range</span></tt> behaves as the type erasure of ranges:</p>
-<pre class="cpp_source">
-any_range&lt;<span class="cpp_keyword">int</span>, boost::single_pass_traversal_tag&gt; factorials =
-    counting_from(<span class="cpp_number_literal">1</span>) |
-        scanned(<span class="cpp_number_literal">1</span>, regular(lambda::_1 * lambda::_2));</pre>
-
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\any_range.ipp
+</pre>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/any_range.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">any_range&lt;R,T&gt;</span> <span class="pre">any_;</span></tt>, <tt class="docutils literal"><span class="pre">any_range&lt;R,T&gt;</span> <span class="pre">any_(rng);</span></tt> and <tt class="docutils literal"><span class="pre">any_range&lt;R,T&gt;</span> <span class="pre">any_</span> <span class="pre">=</span> <span class="pre">ovenRng;</span></tt>
@@ -522,15 +467,9 @@ any_range&lt;<span class="cpp_keyword">int</span>, boost::single_pass_traversal_
 <h2><a class="toc-backref" href="#id84" id="array-range" name="array-range">7.2&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">array_range</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">array_range</span></tt> is a non-Copyable <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#random_access_range">Random Access Range</a> which delivers
 a range presentation of dynamically allocated arrays:</p>
-<pre class="cpp_source">
-std::string str(<span class="cpp_string_literal">&quot;hello, array_range!&quot;</span>);
-boost::array&lt;<span class="cpp_keyword">char</span>, <span class="cpp_number_literal">19</span>&gt; sarr;
-oven::copy(str, sarr|begin);
-oven::array_range&lt;<span class="cpp_keyword">char</span>&gt; darr(<span class="cpp_number_literal">19</span>);
-oven::copy(str, darr|begin);
-
-BOOST_CHECK( oven::equals(sarr, darr) );</pre>
-
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\array_range.ipp
+</pre>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/array_range.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">array_range&lt;T&gt;</span> <span class="pre">rng(sz);</span></tt></li>
@@ -540,14 +479,9 @@ BOOST_CHECK( oven::equals(sarr, darr) );</pre>
 <div class="section">
 <h2><a class="toc-backref" href="#id85" id="directory-range" name="directory-range">7.3&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">directory_range</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">directory_range</span></tt> is a <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#single_pass_range">Single Pass Range</a> which accesses the contents of a directory:</p>
-<pre class="cpp_source">
-BOOST_FOREACH (
-    filesystem::path <span class="cpp_keyword">const</span>&amp; pt,
-    directory_range(filesystem::current_path()))
-{
-    std::cout &lt;&lt; pt.leaf() &lt;&lt; std::endl;
-}</pre>
-
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\directory_range.ipp
+</pre>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/directory_range.hpp&gt;</span></tt>; not included by <tt class="docutils literal"><span class="pre">&lt;pstade/oven/ranges.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">directory_range</span> <span class="pre">rng(p);</span></tt> and <tt class="docutils literal"><span class="pre">wdirectory_range</span> <span class="pre">wrng(wp);</span></tt></li>
@@ -559,9 +493,9 @@ the type of <tt class="docutils literal"><span class="pre">wp</span></tt> is <tt
 <div class="section">
 <h2><a class="toc-backref" href="#id86" id="empty-range" name="empty-range">7.4&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">empty_range</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">empty_range</span></tt> is a <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#random_access_range">Random Access Range</a> which is always empty:</p>
-<pre class="cpp_source">
-BOOST_CHECK( boost::empty(empty_range&lt;<span class="cpp_keyword">int</span>&gt;()) );</pre>
-
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\empty_range.ipp
+</pre>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/empty_range.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">empty_range&lt;T&gt;</span> <span class="pre">rng;</span></tt></li>
@@ -570,10 +504,9 @@ BOOST_CHECK( boost::empty(empty_range&lt;<span class="cpp_keyword">int</span>&gt
 <div class="section">
 <h2><a class="toc-backref" href="#id87" id="file-range" name="file-range">7.5&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">file_range</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">file_range</span></tt> is a constant <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#random_access_range">Random Access Range</a> for files:</p>
-<pre class="cpp_source">
-std::vector&lt;<span class="cpp_keyword">char</span>&gt; vec;
-oven::copy(file_range&lt;<span class="cpp_keyword">char</span>&gt;(<span class="cpp_string_literal">&quot;data.txt&quot;</span>), std::back_inserter(vec));</pre>
-
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\file_range.ipp
+</pre>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/file_range.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">file_range&lt;C&gt;</span> <span class="pre">rng;</span></tt> and <tt class="docutils literal"><span class="pre">rng.is_open();</span></tt></li>
@@ -601,16 +534,9 @@ All the range returned from the following makers are <tt class="docutils literal
 <div class="section">
 <h2><a class="toc-backref" href="#id90" id="as-c-str" name="as-c-str">8.2&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">as_c_str</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">as_c_str</span></tt> makes a <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#random_access_range">Random Access Range</a> from null-terminated c-style string:</p>
-<pre class="cpp_source">
-{
-    <span class="cpp_keyword">wchar_t </span><span class="cpp_keyword">const </span>*psz = L<span class="cpp_string_literal">&quot;hello range&quot;</span>;
-    BOOST_CHECK( oven::equals(psz|as_c_str, std::wstring(L<span class="cpp_string_literal">&quot;hello range&quot;</span>)) );
-}
-{
-    std::string src(<span class="cpp_string_literal">&quot;hello range&quot;</span>);
-    BOOST_CHECK( oven::equals(src.c_str()|as_c_str, src) );
-}</pre>
-
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\as_c_str.ipp
+</pre>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/as_c_str.hpp&gt;</span></tt></li>
 <li>Valid expression2: <tt class="docutils literal"><span class="pre">as_c_str(x)</span></tt> and <tt class="docutils literal"><span class="pre">x|as_c_str</span></tt>.</li>
@@ -621,21 +547,9 @@ All the range returned from the following makers are <tt class="docutils literal
 <h2><a class="toc-backref" href="#id91" id="as-literal" name="as-literal">8.3&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">as_literal</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">as_literal</span></tt> makes a <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#random_access_range">Random Access Range</a> from character array.
 <tt class="docutils literal"><span class="pre">as_literal</span></tt> doesn't support any pointer type but array type. So it is safe and fast. Compare it with <tt class="docutils literal"><span class="pre">as_c_str</span></tt>:</p>
-<pre class="cpp_source">
-{
-    BOOST_CHECK( oven::equals(<span class="cpp_string_literal">&quot;hello range&quot;</span>|as_literal, std::string(<span class="cpp_string_literal">&quot;hello range&quot;</span>)) );
-}
-{
-    BOOST_CHECK( oven::equals(
-        <span class="cpp_string_literal">&quot;hello\0range&quot;</span>|as_c_str,
-        std::string(<span class="cpp_string_literal">&quot;hello&quot;</span>)
-    ) );
-    BOOST_CHECK( oven::equals(
-        <span class="cpp_string_literal">&quot;hello\0range&quot;</span>|as_literal,
-        std::string(<span class="cpp_string_literal">&quot;hello&quot;</span>)|jointed(<span class="cpp_string_literal">'\0'</span>|as_single)|jointed(std::string(<span class="cpp_string_literal">&quot;range&quot;</span>))
-    ) );
-}</pre>
-
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\as_literal.ipp
+</pre>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/as_literal.hpp&gt;</span></tt></li>
 <li>Valid expression1: <tt class="docutils literal"><span class="pre">as_literal(x)</span></tt> and <tt class="docutils literal"><span class="pre">x|as_literal</span></tt></li>
@@ -651,10 +565,9 @@ All the range returned from the following makers are <tt class="docutils literal
 <div class="section">
 <h2><a class="toc-backref" href="#id92" id="as-single" name="as-single">8.4&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">as_single</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">as_single</span></tt> makes a <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#random_access_range">Random Access Range</a> which delivers a range presentation of one object:</p>
-<pre class="cpp_source">
-BOOST_CHECK( oven::equals(<span class="cpp_string_literal">'a'</span>|as_single, std::string(<span class="cpp_string_literal">&quot;a&quot;</span>)) );
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\as_single.ipp
 </pre>
-
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/as_single.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">as_single(v)</span></tt> and <tt class="docutils literal"><span class="pre">v|as_single</span></tt></li>
@@ -673,15 +586,9 @@ BOOST_CHECK( oven::equals(<span class="cpp_string_literal">'a'</span>|as_single,
 <div class="section">
 <h2><a class="toc-backref" href="#id94" id="counting" name="counting">8.6&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">counting</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">counting</span></tt> introduces the replacement of <tt class="docutils literal"><span class="pre">for</span></tt> loop:</p>
-<pre class="cpp_source">
-<span class="cpp_keyword">int </span>ans[] = { <span class="cpp_number_literal">2</span>, <span class="cpp_number_literal">3</span>, <span class="cpp_number_literal">4</span>, <span class="cpp_number_literal">5</span>, <span class="cpp_number_literal">6 </span>};
-BOOST_CHECK( oven::equal(counting(<span class="cpp_number_literal">2</span>, <span class="cpp_number_literal">7</span>), ans) );
-
-std::vector&lt;<span class="cpp_keyword">int</span>&gt; vec;
-BOOST_FOREACH (<span class="cpp_keyword">int </span>i, counting(<span class="cpp_number_literal">0</span>, <span class="cpp_number_literal">5</span>)) {
-    vec.push_back(i);
-}</pre>
-
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\counting.ipp
+</pre>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/counting.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">counting(n,</span> <span class="pre">m)</span></tt>, where <tt class="docutils literal"><span class="pre">n</span></tt> and <tt class="docutils literal"><span class="pre">m</span></tt> is <tt class="docutils literal"><span class="pre">Incrementable</span></tt>.</li>
@@ -699,29 +606,9 @@ BOOST_FOREACH (<span class="cpp_keyword">int </span>i, counting(<span class="cpp
 <div class="section">
 <h2><a class="toc-backref" href="#id96" id="generation" name="generation">8.8&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">generation</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">generation</span></tt> returns a range whose iterators were originally written as <a class="reference" href="http://www.boost.org/libs/utility/generator_iterator.htm">generator_iterator</a>:</p>
-<pre class="cpp_source">
-<span class="cpp_keyword">struct </span>rand_generator
-{
-    <span class="cpp_keyword">typedef </span>boost::optional&lt;<span class="cpp_keyword">long</span>&gt; result_type;
-
-    result_type <span class="cpp_keyword">operator</span>()()
-    {
-        <span class="cpp_keyword">long </span>result = std::rand();
-        <span class="cpp_keyword">if </span>(result % <span class="cpp_number_literal">3 </span>== <span class="cpp_number_literal">0</span>)
-            <span class="cpp_keyword">return </span>result_type(); <span class="cpp_comment">// range is end.
-
-        </span><span class="cpp_keyword">return </span>result;
-    }
-};
-
-<span class="cpp_keyword">void </span>test()
-{
-    rand_generator X;
-    BOOST_FOREACH (<span class="cpp_keyword">long </span>x, oven::generation(X)) {
-        std::cout &lt;&lt; x &lt;&lt; std::endl;
-    }
-}</pre>
-
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\generation.ipp
+</pre>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/generation.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">generation(rfun)</span></tt></li>
@@ -737,11 +624,9 @@ BOOST_FOREACH (<span class="cpp_keyword">int </span>i, counting(<span class="cpp
 <div class="section">
 <h2><a class="toc-backref" href="#id98" id="initial-values" name="initial-values">8.10&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">initial_values</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">initial_values</span></tt> emulates initializer-lists:</p>
-<pre class="cpp_source">
-<span class="cpp_keyword">int </span><span class="cpp_keyword">const </span>ans[] = { <span class="cpp_number_literal">1</span>,<span class="cpp_number_literal">5</span>,<span class="cpp_number_literal">3</span>,<span class="cpp_number_literal">6</span>,<span class="cpp_number_literal">1</span>,<span class="cpp_number_literal">3</span>,<span class="cpp_number_literal">7</span>,<span class="cpp_number_literal">1</span>,<span class="cpp_number_literal">4</span>,<span class="cpp_number_literal">2</span>,<span class="cpp_number_literal">2 </span>};
-std::vector&lt;<span class="cpp_keyword">int</span>&gt; vec = initial_values(<span class="cpp_number_literal">1</span>,<span class="cpp_number_literal">5</span>,<span class="cpp_number_literal">3</span>,<span class="cpp_number_literal">6</span>,<span class="cpp_number_literal">1</span>,<span class="cpp_number_literal">3</span>,<span class="cpp_number_literal">7</span>,<span class="cpp_number_literal">1</span>,<span class="cpp_number_literal">4</span>,<span class="cpp_number_literal">2</span>,<span class="cpp_number_literal">2</span>);
-BOOST_CHECK( equals(vec, ans) );</pre>
-
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\initial_values.ipp
+</pre>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/initial_values.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">initial_values(a1,..,aN)</span></tt>, where <tt class="docutils literal"><span class="pre">1</span> <span class="pre">&lt;=</span> <span class="pre">N</span> <span class="pre">&amp;&amp;</span> <span class="pre">N</span> <span class="pre">&lt;=</span> <span class="pre">20</span></tt>.</li>
@@ -759,12 +644,9 @@ BOOST_CHECK( equals(vec, ans) );</pre>
 <h2><a class="toc-backref" href="#id99" id="iteration" name="iteration">8.11&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">iteration</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">iteration</span></tt> makes an infinite range where the first item is calculated by applying
 the function on the first argument, the second item by applying the function on the previous result and so on:</p>
-<pre class="cpp_source">
-<span class="cpp_keyword">int </span>answer[] = { <span class="cpp_number_literal">1</span>,<span class="cpp_number_literal">2</span>,<span class="cpp_number_literal">4</span>,<span class="cpp_number_literal">8</span>,<span class="cpp_number_literal">16 </span>};
-BOOST_CHECK( oven::equals(answer,
-    oven::iteration(<span class="cpp_number_literal">1</span>, regular(lambda::_1 * <span class="cpp_number_literal">2</span>))|oven::taken(<span class="cpp_number_literal">5</span>)
-) );</pre>
-
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\iteration.ipp
+</pre>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/iteration.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">iteration(x,fun)</span></tt></li>
@@ -780,23 +662,9 @@ BOOST_CHECK( oven::equals(answer,
 <div class="section">
 <h2><a class="toc-backref" href="#id100" id="recursion" name="recursion">8.12&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">recursion</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">recursion</span></tt>, collaborating with <a class="reference" href="#any-range">any_range</a>, creates a recursive <a class="footnote-reference" href="#id37" id="id36" name="id36">[13]</a> range:</p>
-<pre class="cpp_source">
-<span class="cpp_keyword">typedef </span>any_range&lt;<span class="cpp_keyword">int </span><span class="cpp_keyword">const</span>&amp;, boost::forward_traversal_tag&gt; range_t;
-range_t fibs;
-memo_table tb;
-<span class="cpp_keyword">int </span><span class="cpp_keyword">const </span>start[] = { <span class="cpp_number_literal">1</span>, <span class="cpp_number_literal">1 </span>};
-fibs =
-    start
-        | transformed(pstade::as_value)
-        | jointed(
-            boost::make_tuple(recursion(fibs), recursion(fibs)|dropped(<span class="cpp_number_literal">1</span>))
-                | zipped_with(regular(lambda::_1 + lambda::_2))
-            )
-        | memoized(tb)
-;
-
-std::cout &lt;&lt; (fibs|taken(howMany));</pre>
-
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\recursion.ipp
+</pre>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/recursion.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">recursion(fwdRng)</span></tt>, where <tt class="docutils literal"><span class="pre">fwdRng</span></tt> is an <tt class="docutils literal"><span class="pre">any_range</span></tt> object.</li>
@@ -812,12 +680,9 @@ std::cout &lt;&lt; (fibs|taken(howMany));</pre>
 <div class="section">
 <h2><a class="toc-backref" href="#id101" id="repeated" name="repeated">8.13&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">repeated</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">repeated</span></tt> makes a <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#random_access_range">Random Access Range</a> where all values are the first argument:</p>
-<pre class="cpp_source">
-BOOST_CHECK( oven::equals(
-    <span class="cpp_string_literal">'A'</span>|repeated(<span class="cpp_number_literal">6</span>),
-    std::string(<span class="cpp_string_literal">&quot;AAAAAA&quot;</span>)
-) );</pre>
-
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\repeated.ipp
+</pre>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/repeated.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">v|repeated(c)</span></tt> and <tt class="docutils literal"><span class="pre">make_repeated(v,c)</span></tt></li>
@@ -827,17 +692,9 @@ BOOST_CHECK( oven::equals(
 <div class="section">
 <h2><a class="toc-backref" href="#id102" id="stream-input" name="stream-input">8.14&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">stream_input</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">stream_input</span></tt> makes a <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#single_pass_range">Single Pass Range</a> from <tt class="docutils literal"><span class="pre">std::cout</span></tt> etc:</p>
-<pre class="cpp_source">
-std::string src(<span class="cpp_string_literal">&quot;hello,stream_input!&quot;</span>);
-
-std::stringstream ss;
-ss &lt;&lt; src;
-
-std::string result;
-oven::copy(oven::stream_input&lt;<span class="cpp_keyword">char</span>&gt;(ss), std::back_inserter(result));
-
-BOOST_CHECK( oven::equals(result, src) );</pre>
-
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\stream_input.ipp
+</pre>
 <ul class="simple">
 <li>Valid expression: <tt class="docutils literal"><span class="pre">oven::stream_input&lt;V&gt;(stm)</span></tt></li>
 <li>Returns: A range whose iterators behave as if they were the original iterators wrapped in <a class="reference" href="http://www.sgi.com/tech/stl/istream_iterator.html">istream_iterator</a></li>
@@ -890,14 +747,9 @@ which has the same effect.</p>
 <div class="section">
 <h2><a class="toc-backref" href="#id108" id="always" name="always">9.4&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">always</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">always</span></tt> returns a range which does not change as the base range vary:</p>
-<pre class="cpp_source">
-BOOST_CHECK( oven::equals(
-    std::string(<span class="cpp_string_literal">&quot;labor&quot;</span>)
-        | jointed(std::string(<span class="cpp_string_literal">&quot;will be&quot;</span>))
-        | always(<span class="cpp_string_literal">&quot;lost&quot;</span>),
-    std::string(<span class="cpp_string_literal">&quot;lost&quot;</span>)
-) );</pre>
-
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\always.ipp
+</pre>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/always.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">unusedRng|always(rng)</span></tt></li>
@@ -907,14 +759,9 @@ BOOST_CHECK( oven::equals(
 <div class="section">
 <h2><a class="toc-backref" href="#id109" id="appended" name="appended">9.5&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">appended</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">appended</span></tt> returns a range which is appended with its argument:</p>
-<pre class="cpp_source">
-std::string <span class="cpp_keyword">const </span>str(<span class="cpp_string_literal">&quot;hello, appen&quot;</span>);
-
-BOOST_CHECK( oven::equals(
-    str|appended(<span class="cpp_string_literal">'d'</span>)|appended(<span class="cpp_string_literal">'e'</span>)|appended(<span class="cpp_string_literal">'d'</span>)|appended(<span class="cpp_string_literal">'!'</span>),
-    std::string(<span class="cpp_string_literal">&quot;hello, appended!&quot;</span>)
-) );</pre>
-
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\appended.ipp
+</pre>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/appended.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">rng|appended(v)</span></tt></li>
@@ -924,17 +771,9 @@ BOOST_CHECK( oven::equals(
 <div class="section">
 <h2><a class="toc-backref" href="#id110" id="applied" name="applied">9.6&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">applied</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">applied</span></tt>, taking a <a class="reference" href="http://www.sgi.com/tech/stl/functors.html">Function Object</a> which represents an algorithm, creates the range adaptor:</p>
-<pre class="cpp_source">
-<span class="cpp_keyword">namespace </span>lambda = boost::lambda;
-std::string src(<span class="cpp_string_literal">&quot;abcdefghijk&quot;</span>);
-std::string s1(<span class="cpp_string_literal">&quot;efg&quot;</span>);
-BOOST_CHECK((
-    oven::equals(
-        std::string(<span class="cpp_string_literal">&quot;efghijk&quot;</span>),
-        src|applied(lambda::bind(oven::search, lambda::_1, s1), oven::end)
-    )
-));</pre>
-
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\applied.ipp
+</pre>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/applied.hpp&gt;</span></tt></li>
 <li>Valid expression1: <tt class="docutils literal"><span class="pre">rng|applied(f1,f2)</span></tt>, where <tt class="docutils literal"><span class="pre">f1(rng)</span></tt> and <tt class="docutils literal"><span class="pre">f2(rng)</span></tt> must return iterators that are convertible to <tt class="docutils literal"><span class="pre">rng</span></tt>'s.</li>
@@ -945,20 +784,9 @@ BOOST_CHECK((
 <div class="section">
 <h2><a class="toc-backref" href="#id111" id="broken-into" name="broken-into">9.7&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">broken_into</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">broken_into</span></tt> is the adaptor version of <tt class="docutils literal"><span class="pre">boost::tokenizer</span></tt>:</p>
-<pre class="cpp_source">
-<span class="cpp_keyword">int </span><span class="cpp_keyword">const </span>offsets[] = { <span class="cpp_number_literal">2</span>,<span class="cpp_number_literal">2</span>,<span class="cpp_number_literal">4 </span>};
-std::string src(<span class="cpp_string_literal">&quot;12252001&quot;</span>);
-std::vector&lt;std::string&gt; ans; {
-    ans.push_back(<span class="cpp_string_literal">&quot;12&quot;</span>);
-    ans.push_back(<span class="cpp_string_literal">&quot;25&quot;</span>);
-    ans.push_back(<span class="cpp_string_literal">&quot;2001&quot;</span>);
-}
-
-BOOST_CHECK( oven::equals(
-    ans,
-    src|broken_into&lt;std::string&gt;(boost::offset_separator(offsets, offsets+<span class="cpp_number_literal">3</span>))
-) );</pre>
-
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\broken_into.ipp
+</pre>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/broken_into.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">rng|broken_into&lt;t&gt;(f)</span></tt>, where <tt class="docutils literal"><span class="pre">f</span></tt> is a <tt class="docutils literal"><span class="pre">TokenizerFunction</span></tt>.</li>
@@ -968,19 +796,9 @@ BOOST_CHECK( oven::equals(
 <div class="section">
 <h2><a class="toc-backref" href="#id112" id="checked" name="checked">9.8&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">checked</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">checked</span></tt> adds the bounds checking ability to the base range:</p>
-<pre class="cpp_source">
-std::string in(<span class="cpp_string_literal">&quot;012345&quot;</span>);
-std::string out(<span class="cpp_string_literal">&quot;01234&quot;</span>);
-
-<span class="cpp_keyword">try </span>{
-    oven::copy(in, boost::begin(out|checked));
-}
-<span class="cpp_keyword">catch </span>(check_error <span class="cpp_keyword">const</span>&amp; ) {
-    <span class="cpp_keyword">return</span>;
-}
-
-BOOST_CHECK(<span class="cpp_keyword">false</span>);</pre>
-
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\checked.ipp
+</pre>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/checked.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">rng|checked</span></tt></li>
@@ -991,13 +809,9 @@ BOOST_CHECK(<span class="cpp_keyword">false</span>);</pre>
 <div class="section">
 <h2><a class="toc-backref" href="#id113" id="cleared" name="cleared">9.9&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">cleared</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">cleared</span></tt> returns a range which is always empty:</p>
-<pre class="cpp_source">
-BOOST_CHECK( boost::empty(
-    std::string(<span class="cpp_string_literal">&quot;labor&quot;</span>)
-        | jointed(std::string(<span class="cpp_string_literal">&quot;lost&quot;</span>))
-        | cleared
-) );</pre>
-
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\cleared.ipp
+</pre>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/cleared.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">rng|cleared</span></tt></li>
@@ -1007,14 +821,9 @@ BOOST_CHECK( boost::empty(
 <div class="section">
 <h2><a class="toc-backref" href="#id114" id="concatenated" name="concatenated">9.10&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">concatenated</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">concatenated</span></tt> accepts a range whose <tt class="docutils literal"><span class="pre">value_type</span></tt> is a range and concatenates them:</p>
-<pre class="cpp_source">
-std::string input(<span class="cpp_string_literal">&quot;This is his face&quot;</span>);
-boost::regex re(<span class="cpp_string_literal">&quot;\\w+&quot;</span>);
-BOOST_CHECK( oven::equals(
-    input|tokenized(re)|concatenated,
-    std::string(<span class="cpp_string_literal">&quot;Thisishisface&quot;</span>)
-) );</pre>
-
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\concatenated.ipp
+</pre>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/concatenated.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">rngs|concatenated</span></tt></li>
@@ -1045,21 +854,9 @@ Thus, STL that doesn't know traversal concepts can choose effective algorithms.<
 <div class="section">
 <h2><a class="toc-backref" href="#id117" id="copied-out" name="copied-out">9.13&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">copied_out</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">copied_out</span></tt> makes a side-effect that copies the base range to its argument:</p>
-<pre class="cpp_source">
-std::string src(<span class="cpp_string_literal">&quot;axaxaxbxbxbx&quot;</span>);
-std::string snapshot;
-std::string answer(<span class="cpp_string_literal">&quot;bbb&quot;</span>);
-
-BOOST_CHECK( oven::equals(
-    src
-        | filtered(regular(lambda::_1 != <span class="cpp_string_literal">'x'</span>))
-        | copied_out(std::back_inserter(snapshot))
-        | filtered(regular(lambda::_1 != <span class="cpp_string_literal">'a'</span>)),
-    answer
-) );
-
-BOOST_CHECK( snapshot == <span class="cpp_string_literal">&quot;aaabbb&quot;</span> );</pre>
-
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\copied_out.ipp
+</pre>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/copied_out.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">rng|copied_out(it)</span></tt></li>
@@ -1071,13 +868,9 @@ BOOST_CHECK( snapshot == <span class="cpp_string_literal">&quot;aaabbb&quot;</sp
 <div class="section">
 <h2><a class="toc-backref" href="#id118" id="cycled" name="cycled">9.14&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">cycled</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">cycled</span></tt> creates a circular range from the base range:</p>
-<pre class="cpp_source">
-BOOST_CHECK( oven::equals(
-    std::string(<span class="cpp_string_literal">&quot;xyz&quot;</span>)|cycled(<span class="cpp_number_literal">3</span>),
-    std::string(<span class="cpp_string_literal">&quot;xyzxyzxyz&quot;</span>)
-) );
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\cycled.ipp
 </pre>
-
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/cycled.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">rng|cycled(n)</span></tt></li>
@@ -1087,13 +880,9 @@ BOOST_CHECK( oven::equals(
 <div class="section">
 <h2><a class="toc-backref" href="#id119" id="delimited" name="delimited">9.15&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">delimited</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">delimited</span></tt> adds a delimiter to the base range:</p>
-<pre class="cpp_source">
-BOOST_CHECK( equals(
-    std::string(<span class="cpp_string_literal">&quot;abcde&quot;</span>)|transformed(as_single)|
-        delimited(<span class="cpp_string_literal">&quot;--&quot;</span>|as_literal)|dropped(<span class="cpp_number_literal">2</span>),
-    std::string(<span class="cpp_string_literal">&quot;a--b--c--d--e&quot;</span>)
-) );</pre>
-
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\delimited.ipp
+</pre>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/delimited.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">rngs|delimited(delim)</span></tt>, where <tt class="docutils literal"><span class="pre">delim</span></tt> is a Range to specify the delimiter.</li>
@@ -1109,16 +898,9 @@ BOOST_CHECK( equals(
 <div class="section">
 <h2><a class="toc-backref" href="#id120" id="directed" name="directed">9.16&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">directed</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">directed</span></tt> returns a range whose values are iterators of the base range:</p>
-<pre class="cpp_source">
-std::string <span class="cpp_keyword">const </span>str(<span class="cpp_string_literal">&quot;gefadcb&quot;</span>);
-std::string <span class="cpp_keyword">const </span>answer(<span class="cpp_string_literal">&quot;abcdefg&quot;</span>);
-
-std::vector&lt;std::string::const_iterator&gt; iters;
-oven::copy(str|directed, std::back_inserter(iters));
-oven::sort( iters, boost::make_indirect_fun(::less_than()) );
-
-BOOST_CHECK( oven::equals(iters|indirected, answer) );</pre>
-
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\directed.ipp
+</pre>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/directed.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">rng|directed</span></tt></li>
@@ -1128,12 +910,9 @@ BOOST_CHECK( oven::equals(iters|indirected, answer) );</pre>
 <div class="section">
 <h2><a class="toc-backref" href="#id121" id="dropped" name="dropped">9.17&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">dropped</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">dropped</span></tt> returns the suffix of the base range after the first <tt class="docutils literal"><span class="pre">n</span></tt> elements:</p>
-<pre class="cpp_source">
-BOOST_CHECK( oven::equals(
-    std::string(<span class="cpp_string_literal">&quot;hello, dropped!&quot;</span>)|dropped(<span class="cpp_number_literal">7</span>),
-    std::string(<span class="cpp_string_literal">&quot;dropped!&quot;</span>)
-) );</pre>
-
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\dropped.ipp
+</pre>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/dropped.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">rng|dropped(n)</span></tt></li>
@@ -1144,14 +923,9 @@ BOOST_CHECK( oven::equals(
 <div class="section">
 <h2><a class="toc-backref" href="#id122" id="dropped-while" name="dropped-while">9.18&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">dropped_while</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">dropped_while</span></tt> returns the remaining suffix of the base range of elements that satisfy <a class="reference" href="http://www.sgi.com/tech/stl/Predicate.html">Predicate</a>:</p>
-<pre class="cpp_source">
-std::string src(<span class="cpp_string_literal">&quot;11111234516313!&quot;</span>);
-
-BOOST_CHECK( oven::equals(
-    src|dropped_while(lambda::_1 == <span class="cpp_string_literal">'1'</span>),
-    std::string(<span class="cpp_string_literal">&quot;234516313!&quot;</span>)
-) );</pre>
-
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\dropped_while.ipp
+</pre>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/dropped_while.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">rng|dropped_while(pred)</span></tt></li>
@@ -1161,16 +935,9 @@ BOOST_CHECK( oven::equals(
 <div class="section">
 <h2><a class="toc-backref" href="#id123" id="filtered" name="filtered">9.19&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">filtered</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">filtered</span></tt> returns a range which is filtered by using a <a class="reference" href="http://www.sgi.com/tech/stl/Predicate.html">Predicate</a> <a class="footnote-reference" href="#id42" id="id41" name="id41">[15]</a></p>
-<pre class="cpp_source">
-<span class="cpp_keyword">int </span>src[]    = { <span class="cpp_number_literal">2</span>,<span class="cpp_number_literal">5</span>,<span class="cpp_number_literal">2</span>,<span class="cpp_number_literal">6</span>,<span class="cpp_number_literal">1</span>,<span class="cpp_number_literal">3</span>,<span class="cpp_number_literal">2 </span>};
-<span class="cpp_keyword">int </span>answer[] = { <span class="cpp_number_literal">0</span>,<span class="cpp_number_literal">5</span>,<span class="cpp_number_literal">0</span>,<span class="cpp_number_literal">6</span>,<span class="cpp_number_literal">1</span>,<span class="cpp_number_literal">3</span>,<span class="cpp_number_literal">0 </span>};
-
-BOOST_FOREACH (<span class="cpp_keyword">int</span>&amp; i, src|filtered(regular(lambda::_1 == <span class="cpp_number_literal">2</span>))) {
-    i = <span class="cpp_number_literal">0</span>;
-}
-
-BOOST_CHECK( oven::equals(answer, src) );</pre>
-
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\filtered.ipp
+</pre>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/filtered.hpp&gt;</span></tt></li>
 <li>See: <a class="reference" href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1871.html">Range Library Proposal</a>.</li>
@@ -1201,12 +968,9 @@ BOOST_CHECK( oven::equals(answer, src) );</pre>
 <div class="section">
 <h2><a class="toc-backref" href="#id126" id="identities" name="identities">9.22&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">identities</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">identities</span></tt> returns a range which is identical to the base range:</p>
-<pre class="cpp_source">
-BOOST_CHECK( oven::equals(
-    std::string(<span class="cpp_string_literal">&quot;hello, identities!&quot;</span>)|identities,
-    std::string(<span class="cpp_string_literal">&quot;hello, identities!&quot;</span>)
-) );</pre>
-
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\identities.ipp
+</pre>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/identities.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">rng|identities</span></tt> and <tt class="docutils literal"><span class="pre">rng|identities(trv)</span></tt>, where <tt class="docutils literal"><span class="pre">trv</span></tt> is a traversal tag object.</li>
@@ -1217,18 +981,9 @@ BOOST_CHECK( oven::equals(
 <div class="section">
 <h2><a class="toc-backref" href="#id127" id="indirected" name="indirected">9.23&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">indirected</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">indirected</span></tt> adapts the base range by applying an extra dereference inside of <tt class="docutils literal"><span class="pre">operator*()</span></tt>:</p>
-<pre class="cpp_source">
-<span class="cpp_keyword">int </span>src[]    = { <span class="cpp_number_literal">1</span>,<span class="cpp_number_literal">2</span>,<span class="cpp_number_literal">0</span>,<span class="cpp_number_literal">4</span>,<span class="cpp_number_literal">5 </span>};
-<span class="cpp_keyword">int </span>answer[] = { <span class="cpp_number_literal">1</span>,<span class="cpp_number_literal">2</span>,<span class="cpp_number_literal">3</span>,<span class="cpp_number_literal">4</span>,<span class="cpp_number_literal">5 </span>};
-<span class="cpp_keyword">int </span>*ptrs[]  = {&amp;src[<span class="cpp_number_literal">0</span>],&amp;src[<span class="cpp_number_literal">1</span>],&amp;src[<span class="cpp_number_literal">2</span>],&amp;src[<span class="cpp_number_literal">3</span>],&amp;src[<span class="cpp_number_literal">4</span>]};
-
-BOOST_FOREACH (<span class="cpp_keyword">int</span>&amp; i, ptrs|indirected) {
-    <span class="cpp_keyword">if </span>(i == <span class="cpp_number_literal">0</span>)
-        i = <span class="cpp_number_literal">3</span>;
-}
-
-BOOST_CHECK( oven::equals(src, answer) );</pre>
-
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\indirected.ipp
+</pre>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/indirected.hpp&gt;</span></tt></li>
 <li>See: <a class="reference" href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1871.html">Range Library Proposal</a>.</li>
@@ -1237,16 +992,9 @@ BOOST_CHECK( oven::equals(src, answer) );</pre>
 <div class="section">
 <h2><a class="toc-backref" href="#id128" id="jointed" name="jointed">9.24&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">jointed</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">jointed</span></tt> returns a range which is jointed with its argument:</p>
-<pre class="cpp_source">
-std::string str0(<span class="cpp_string_literal">&quot;every range&quot;</span>);
-std::vector&lt;<span class="cpp_keyword">char</span>&gt; str1 = std::string(<span class="cpp_string_literal">&quot; is&quot;</span>)|copied;
-std::list&lt;<span class="cpp_keyword">char</span>&gt; str2 = std::string(<span class="cpp_string_literal">&quot; string!?&quot;</span>)|copied;
-
-BOOST_CHECK( oven::equals(
-    str0|jointed(str1)|jointed(str2),
-    std::string(<span class="cpp_string_literal">&quot;every range is string!?&quot;</span>)
-) );</pre>
-
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\jointed.ipp
+</pre>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/jointed.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">rng1|jointed(rng2)</span></tt></li>
@@ -1257,18 +1005,9 @@ BOOST_CHECK( oven::equals(
 <div class="section">
 <h2><a class="toc-backref" href="#id129" id="map-keys" name="map-keys">9.25&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">map_keys</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">map_keys</span></tt> returns a range whose values are the keys of the base associative container:</p>
-<pre class="cpp_source">
-std::map&lt;<span class="cpp_keyword">int</span>, std::string&gt; m;
-m[<span class="cpp_number_literal">12</span>] = <span class="cpp_string_literal">&quot;hello&quot;</span>;
-m[<span class="cpp_number_literal">4</span>]  = <span class="cpp_string_literal">&quot;map&quot;</span>;
-m[<span class="cpp_number_literal">99</span>] = <span class="cpp_string_literal">&quot;keys&quot;</span>;
-
-BOOST_FOREACH (<span class="cpp_keyword">int </span>k, m|map_keys) {
-    BOOST_CHECK( k != <span class="cpp_number_literal">12 </span>|| m[k] == <span class="cpp_string_literal">&quot;hello&quot;</span> );
-    BOOST_CHECK( k != <span class="cpp_number_literal">4  </span>|| m[k] == <span class="cpp_string_literal">&quot;map&quot;</span> );
-    BOOST_CHECK( k != <span class="cpp_number_literal">99 </span>|| m[k] == <span class="cpp_string_literal">&quot;keys&quot;</span> );
-}</pre>
-
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\map_keys.ipp
+</pre>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/map_keys.hpp&gt;</span></tt></li>
 <li>See: <a class="reference" href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1871.html">Range Library Proposal</a>.</li>
@@ -1277,21 +1016,9 @@ BOOST_FOREACH (<span class="cpp_keyword">int </span>k, m|map_keys) {
 <div class="section">
 <h2><a class="toc-backref" href="#id130" id="map-values" name="map-values">9.26&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">map_values</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">map_values</span></tt> returns a range whose values are the mapped values of the base associative container:</p>
-<pre class="cpp_source">
-std::map&lt;<span class="cpp_keyword">int</span>, std::string&gt; m;
-m[<span class="cpp_number_literal">12</span>] = <span class="cpp_string_literal">&quot;hello&quot;</span>;
-m[<span class="cpp_number_literal">4</span>]  = <span class="cpp_string_literal">&quot;map&quot;</span>;
-m[<span class="cpp_number_literal">99</span>] = <span class="cpp_string_literal">&quot;keys&quot;</span>;
-
-BOOST_FOREACH (std::string&amp; v, m|map_values) {
-    <span class="cpp_keyword">if </span>(v == <span class="cpp_string_literal">&quot;keys&quot;</span>)
-        v = <span class="cpp_string_literal">&quot;values&quot;</span>;
-}
-
-BOOST_CHECK( m[<span class="cpp_number_literal">12</span>] == <span class="cpp_string_literal">&quot;hello&quot;</span> );
-BOOST_CHECK( m[<span class="cpp_number_literal">4</span>]  == <span class="cpp_string_literal">&quot;map&quot;</span> );
-BOOST_CHECK( m[<span class="cpp_number_literal">99</span>] == <span class="cpp_string_literal">&quot;values&quot;</span> );</pre>
-
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\map_values.ipp
+</pre>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/map_values.hpp&gt;</span></tt></li>
 <li>See: <a class="reference" href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1871.html">Range Library Proposal</a>.</li>
@@ -1308,19 +1035,9 @@ BOOST_CHECK( m[<span class="cpp_number_literal">99</span>] == <span class="cpp_s
 <div class="section">
 <h2><a class="toc-backref" href="#id132" id="memoized" name="memoized">9.28&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">memoized</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">memoized</span></tt> returns a range whose values are cached for speed, preparing for repeated dereferences:</p>
-<pre class="cpp_source">
-std::stringstream ss;
-ss &lt;&lt; <span class="cpp_string_literal">&quot;hello, memoized!&quot;</span>;
-
-::very_complicated_algorithm(
-    oven::stream_input&lt;<span class="cpp_keyword">char</span>&gt;(ss)
-        | memoized
-        | directed
-        | indirected
-        | sorted
-        | memoized
-);</pre>
-
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\memoized.ipp
+</pre>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/memoized.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">rng|memoized</span></tt> and <tt class="docutils literal"><span class="pre">rng|memoized(tb)</span></tt>, where <tt class="docutils literal"><span class="pre">tb</span></tt> is a named <tt class="docutils literal"><span class="pre">memo_table</span></tt> object.</li>
@@ -1337,12 +1054,9 @@ ss &lt;&lt; <span class="cpp_string_literal">&quot;hello, memoized!&quot;</span>
 <div class="section">
 <h2><a class="toc-backref" href="#id133" id="merged" name="merged">9.29&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">merged</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">merged</span></tt> combines two sorted ranges into a single sorted range:</p>
-<pre class="cpp_source">
-std::string A1(<span class="cpp_string_literal">&quot;abbbfH&quot;</span>);
-std::string A2(<span class="cpp_string_literal">&quot;ABbCDFFhh&quot;</span>);
-std::string AA(<span class="cpp_string_literal">&quot;aAbbbBbCDfFFHhh&quot;</span>);
-BOOST_CHECK( oven::equals(A1|merged(A2, &amp;::lt_nocase), AA) );</pre>
-
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\merged.ipp
+</pre>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/merged.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">rng1|merged(rng2)</span></tt> and <tt class="docutils literal"><span class="pre">rng1|merged(rng2,pred)</span></tt></li>
@@ -1362,13 +1076,9 @@ BOOST_CHECK( oven::equals(A1|merged(A2, &amp;::lt_nocase), AA) );</pre>
 <div class="section">
 <h2><a class="toc-backref" href="#id135" id="pointed" name="pointed">9.31&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">pointed</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">pointed</span></tt> provides an interface to have a conversation with legacy APIs:</p>
-<pre class="cpp_source">
-std::string <span class="cpp_keyword">const </span>src(<span class="cpp_string_literal">&quot;hello, pointed&quot;</span>);
-std::vector&lt;<span class="cpp_keyword">char</span>&gt; vec;
-vec.resize(oven::distance(src) + <span class="cpp_number_literal">1</span>);
-std::strcpy(boost::begin(vec|pointed), src.c_str());
-BOOST_CHECK(( oven::equals(vec|as_c_str, src) ));</pre>
-
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\pointed.ipp
+</pre>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/pointed.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">v|pointed</span></tt></li>
@@ -1417,15 +1127,9 @@ BOOST_CHECK(( oven::equals(vec|as_c_str, src) ));</pre>
 <div class="section">
 <h2><a class="toc-backref" href="#id140" id="scanned" name="scanned">9.36&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">scanned</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">scanned</span></tt> is similar to <tt class="docutils literal"><span class="pre">oven::accumulate</span></tt>, but returns a range of successive reduced values from the base range:</p>
-<pre class="cpp_source">
-<span class="cpp_keyword">int </span><span class="cpp_keyword">const </span>src[] = { <span class="cpp_number_literal">1</span>,<span class="cpp_number_literal">2</span>,<span class="cpp_number_literal">3</span>,<span class="cpp_number_literal">4</span>,<span class="cpp_number_literal">5 </span>};
-std::string null;
-
-BOOST_FOREACH (std::string str, src|scanned(null, &amp;::stringize)) {
-    std::cout &lt;&lt; <span class="cpp_string_literal">&quot;\&quot;&quot;</span> &lt;&lt; str &lt;&lt; <span class="cpp_string_literal">&quot;\&quot; &quot;</span>;
-}
-<span class="cpp_comment">// outputs: &quot;&quot; &quot;1&quot; &quot;12&quot; &quot;123&quot; &quot;1234&quot; &quot;12345&quot;</span></pre>
-
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\scanned.ipp
+</pre>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/scanned.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">rng|scanned(init,fun)</span></tt>, where the type of <tt class="docutils literal"><span class="pre">init</span></tt> is <tt class="docutils literal"><span class="pre">DefaultConstructible</span></tt>, <tt class="docutils literal"><span class="pre">CopyConstructible</span></tt> and <tt class="docutils literal"><span class="pre">CopyAssignable</span></tt>.</li>
@@ -1480,17 +1184,9 @@ BOOST_FOREACH (std::string str, src|scanned(null, &amp;::stringize)) {
 <div class="section">
 <h2><a class="toc-backref" href="#id146" id="shared" name="shared">9.42&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">shared</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">shared</span></tt>, taking a pointer to heap-allocated range, makes a range whose iterators manage its lifetime:</p>
-<pre class="cpp_source">
-BOOST_FOREACH (<span class="cpp_keyword">char </span>ch, std::string(<span class="cpp_string_literal">&quot;dangling&quot;</span>)|identities) {
-    <span class="cpp_comment">// will crash; 'std::string' object doesn't exist anymore. 
-    </span>std::cout &lt;&lt; ch;
-}
-
-BOOST_FOREACH (<span class="cpp_keyword">char </span>ch, <span class="cpp_keyword">new </span>std::string(<span class="cpp_string_literal">&quot;ok&quot;</span>)|shared|identities) {
-    <span class="cpp_comment">// works fine.
-    </span>std::cout &lt;&lt; ch;
-}</pre>
-
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\shared.ipp
+</pre>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/shared.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">p|shared</span></tt></li>
@@ -1502,12 +1198,9 @@ BOOST_FOREACH (<span class="cpp_keyword">char </span>ch, <span class="cpp_keywor
 <div class="section">
 <h2><a class="toc-backref" href="#id147" id="sliced" name="sliced">9.43&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">sliced</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">sliced</span></tt> <a class="footnote-reference" href="#id49" id="id48" name="id48">[18]</a> provides the column view of the base range:</p>
-<pre class="cpp_source">
-<span class="cpp_keyword">int </span><span class="cpp_keyword">const </span>answer[] = { <span class="cpp_number_literal">2</span>,<span class="cpp_number_literal">6</span>,<span class="cpp_number_literal">10</span>,<span class="cpp_number_literal">14 </span>};
-BOOST_CHECK( oven::equals(answer,
-    counting(<span class="cpp_number_literal">0</span>, <span class="cpp_number_literal">16</span>)|sliced(<span class="cpp_number_literal">2</span>, <span class="cpp_number_literal">4</span>)
-) );</pre>
-
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\sliced.ipp
+</pre>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/sliced.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">rndRng|sliced(start,stride)</span></tt></li>
@@ -1539,12 +1232,9 @@ BOOST_CHECK( oven::equals(answer,
 <div class="section">
 <h2><a class="toc-backref" href="#id150" id="taken" name="taken">9.46&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">taken</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">taken</span></tt>, applied to the base range, returns the prefix of the range of length <tt class="docutils literal"><span class="pre">n</span></tt>:</p>
-<pre class="cpp_source">
-std::string src(<span class="cpp_string_literal">&quot;hello, taken!&quot;</span>);
-std::string ans(<span class="cpp_string_literal">&quot;hello&quot;</span>);
-BOOST_CHECK( oven::equals(src|taken(<span class="cpp_number_literal">7</span>)|taken(<span class="cpp_number_literal">5</span>), ans) );
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\taken.ipp
 </pre>
-
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/taken.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">rng|taken(n)</span></tt></li>
@@ -1556,14 +1246,9 @@ BOOST_CHECK( oven::equals(src|taken(<span class="cpp_number_literal">7</span>)|t
 <h2><a class="toc-backref" href="#id151" id="taken-while" name="taken-while">9.47&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">taken_while</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">taken_while</span></tt>, applied to a <a class="reference" href="http://www.sgi.com/tech/stl/Predicate.html">Predicate</a> and the base range, returns the longest
 prefix (possibly empty) of the range of elements that satisfy <a class="reference" href="http://www.sgi.com/tech/stl/Predicate.html">Predicate</a>:</p>
-<pre class="cpp_source">
-std::string src(<span class="cpp_string_literal">&quot;11111234516313!&quot;</span>);
-
-BOOST_CHECK( oven::equals(
-    src|taken_while(lambda::_1 == <span class="cpp_string_literal">'1'</span>),
-    std::string(<span class="cpp_string_literal">&quot;11111&quot;</span>)
-) );</pre>
-
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\taken_while.ipp
+</pre>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/taken_while.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">rng|taken_while(pred)</span></tt></li>
@@ -1595,18 +1280,9 @@ BOOST_CHECK( oven::equals(
 <div class="section">
 <h2><a class="toc-backref" href="#id155" id="unzipped" name="unzipped">9.51&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">unzipped</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">unzipped</span></tt> reverses <tt class="docutils literal"><span class="pre">zipped</span></tt>:</p>
-<pre class="cpp_source">
-std::cout &lt;&lt;
-    (
-        assign::list_of
-            (boost::make_tuple(<span class="cpp_number_literal">1</span>,<span class="cpp_number_literal">2</span>))
-            (boost::make_tuple(<span class="cpp_number_literal">2</span>,<span class="cpp_number_literal">3</span>))
-            (boost::make_tuple(<span class="cpp_number_literal">3</span>,<span class="cpp_number_literal">4</span>))
-            | unzipped
-    );
-
-<span class="cpp_comment">// output&gt; ({1,2,3} {2,3,4})</span></pre>
-
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\unzipped.ipp
+</pre>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/unzipped.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">tuples|unzipped</span></tt>, where <tt class="docutils literal"><span class="pre">tuples</span></tt> is a range whose value_type is <tt class="docutils literal"><span class="pre">boost::tuple</span></tt>.</li>
@@ -1657,19 +1333,9 @@ std::cout &lt;&lt;
 <h2><a class="toc-backref" href="#id161" id="zipped" name="zipped">9.57&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">zipped</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">zipped</span></tt> takes a tuple of ranges and returns a range of corresponding tuples.
 If one input range is short, excess elements of the longer range are discarded:</p>
-<pre class="cpp_source">
-std::cout &lt;&lt;
-    (
-        boost::make_tuple(
-            assign::list_of(<span class="cpp_number_literal">1</span>)(<span class="cpp_number_literal">2</span>)(<span class="cpp_number_literal">3</span>),
-            assign::list_of(<span class="cpp_number_literal">2</span>)(<span class="cpp_number_literal">3</span>)(<span class="cpp_number_literal">4</span>)
-        )
-            | zipped
-    );
-
-<span class="cpp_comment">// output&gt; {(1 2),(2 3),(3 4)}
-</span></pre>
-
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\zipped.ipp
+</pre>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/zipped.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">rngs|zipped</span></tt>, where <tt class="docutils literal"><span class="pre">rngs</span></tt> is a <tt class="docutils literal"><span class="pre">boost::tuple</span></tt> of ranges.</li>
@@ -1680,17 +1346,9 @@ std::cout &lt;&lt;
 <h2><a class="toc-backref" href="#id162" id="zipped-with" name="zipped-with">9.58&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">zipped_with</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">zipped_with</span></tt> generalises <tt class="docutils literal"><span class="pre">zipped</span></tt> by zipping with the <a class="reference" href="http://www.sgi.com/tech/stl/functors.html">Function Object</a>,
 given as the first argument, instead of a tupling:</p>
-<pre class="cpp_source">
-<span class="cpp_keyword">int </span>xs[]  = { <span class="cpp_number_literal">0</span>, <span class="cpp_number_literal">1</span>, <span class="cpp_number_literal">2</span>, <span class="cpp_number_literal">3</span>, <span class="cpp_number_literal">4</span>, <span class="cpp_number_literal">5</span>, <span class="cpp_number_literal">6 </span>};
-<span class="cpp_keyword">int </span>ys[]  = { <span class="cpp_number_literal">1</span>, <span class="cpp_number_literal">6</span>, <span class="cpp_number_literal">1</span>, <span class="cpp_number_literal">2</span>, <span class="cpp_number_literal">7</span>, <span class="cpp_number_literal">8</span>, <span class="cpp_number_literal">3 </span>};
-<span class="cpp_keyword">int </span>ans[] = { <span class="cpp_number_literal">1</span>, <span class="cpp_number_literal">7</span>, <span class="cpp_number_literal">3</span>, <span class="cpp_number_literal">5</span>,<span class="cpp_number_literal">11</span>,<span class="cpp_number_literal">13</span>, <span class="cpp_number_literal">9 </span>};
-
-BOOST_CHECK( oven::equals(
-    boost::tie(xs, ys)|zipped_with(::plus()),
-    ans
-) );
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\zipped_with.ipp
 </pre>
-
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/zipped_with.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">rngs|zipped_with(rfun)</span></tt>, where <tt class="docutils literal"><span class="pre">rngs</span></tt> is a <tt class="docutils literal"><span class="pre">boost::tuple</span></tt> of ranges.</li>
@@ -1705,13 +1363,9 @@ BOOST_CHECK( oven::equals(
 <h2><a class="toc-backref" href="#id164" id="to-counter" name="to-counter">10.1&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">to_counter</span></tt></a></h2>
 <p><tt class="docutils literal"><span class="pre">to_counter</span></tt> takes an initial count and increments it every output.
 <a class="reference" href="#adapted-to-to-base">adapted_to/to_base</a> can extract the result of the counting:</p>
-<pre class="cpp_source">
-<span class="cpp_keyword">int </span><span class="cpp_keyword">const </span>rng[] = { <span class="cpp_number_literal">0</span>,<span class="cpp_number_literal">0</span>,<span class="cpp_number_literal">1</span>,<span class="cpp_number_literal">1</span>,<span class="cpp_number_literal">2</span>,<span class="cpp_number_literal">3</span>,<span class="cpp_number_literal">3</span>,<span class="cpp_number_literal">3</span>,<span class="cpp_number_literal">4</span>,<span class="cpp_number_literal">4</span>,<span class="cpp_number_literal">4</span>,<span class="cpp_number_literal">4</span>,<span class="cpp_number_literal">4</span>,<span class="cpp_number_literal">5</span>,<span class="cpp_number_literal">5 </span>};
-<span class="cpp_keyword">int </span>i = oven::copy(rng|uniqued, oven::to_counter(<span class="cpp_number_literal">0</span>))|to_base;
-BOOST_CHECK( i == <span class="cpp_number_literal">6 </span>);
-
-BOOST_CHECK( <span class="cpp_number_literal">7 </span>== oven::adapted_to&lt;<span class="cpp_keyword">int</span>&gt;(oven::unique_copy(rng, oven::to_counter(<span class="cpp_number_literal">1</span>))) );</pre>
-
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\to_counter.ipp
+</pre>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/to_counter.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">to_counter(i)</span></tt>, where <tt class="docutils literal"><span class="pre">i</span></tt> is an <tt class="docutils literal"><span class="pre">Incrementable</span></tt>.</li>
@@ -1756,50 +1410,9 @@ the same as <tt class="docutils literal"><span class="pre">value_type</span></tt
 For now, it is not practical to apply the way to a large library something like MFC.
 Oven provides yet another extension way, which is similar to
 <a class="reference" href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2049.pdf">Conceptualizing the Range-Based for Loop</a> proposal to simplify the Boost.Range one:</p>
-<pre class="cpp_source">
-<span class="cpp_keyword">namespace </span>Foo {
-
-    <span class="cpp_keyword">template</span>&lt; <span class="cpp_keyword">class </span>T &gt;
-    <span class="cpp_keyword">struct </span>Pair
-    {
-        T first, last;
-    };
-
-} <span class="cpp_comment">// namespace Foo
-
-</span><span class="cpp_keyword">namespace </span>pstade_oven_extension {
-
-    <span class="cpp_keyword">template</span>&lt; <span class="cpp_keyword">class </span>T &gt;
-    <span class="cpp_keyword">struct </span>Range&lt; Foo::Pair&lt;T&gt; &gt;
-    {
-        <span class="cpp_comment">// X == Foo::Pair&lt;T&gt;
-        </span><span class="cpp_keyword">template</span>&lt; <span class="cpp_keyword">class </span>X &gt;
-        <span class="cpp_keyword">struct </span>associate
-        {
-            <span class="cpp_keyword">typedef </span>T mutable_iterator;
-            <span class="cpp_keyword">typedef </span>T constant_iterator;
-        };
-
-        <span class="cpp_comment">// if X is not const, Iterator == mutable_iterator;
-        </span><span class="cpp_comment">// otherwise, Iterator == constant_iterator.
-        </span><span class="cpp_keyword">template</span>&lt; <span class="cpp_keyword">class </span>Iterator, <span class="cpp_keyword">class </span>X &gt;
-        Iterator begin(X&amp; x)
-        {
-            <span class="cpp_keyword">return </span>x.first;
-        }
-
-        <span class="cpp_keyword">template</span>&lt; <span class="cpp_keyword">class </span>Iterator, <span class="cpp_keyword">class </span>X &gt;
-        Iterator end(X&amp; x)
-        {
-            <span class="cpp_keyword">return </span>x.last;
-        }
-    };
-
-} <span class="cpp_comment">// namespace pstade_oven_extension
-
-</span>PSTADE_OVEN_EXTENSION_OF_TEMPLATE((Foo)(Pair), (<span class="cpp_keyword">class</span>))
-<span class="cpp_comment">// PSTADE_OVEN_EXTENSION_OF_TEMPLATE((Foo)(Pair), 1) // also ok.</span></pre>
-
+<pre class="literal-block">
+E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\extension.ipp
+</pre>
 <ol class="arabic simple">
 <li>Specialize <tt class="docutils literal"><span class="pre">::pstade_oven_extension::Range</span></tt>.</li>
 <li>Define template <tt class="docutils literal"><span class="pre">associate</span></tt>, <tt class="docutils literal"><span class="pre">begin</span></tt> and <tt class="docutils literal"><span class="pre">end</span></tt>.</li>

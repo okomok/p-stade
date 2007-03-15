@@ -32,8 +32,8 @@ namespace range_based2_detail {
 
 
     template< class IterBased >
-    struct op_result :
-        callable< op_result<IterBased> >
+    struct return_op :
+        callable< return_op<IterBased> >
     {
         template< class Myself, class Range0, class Range1, PSTADE_PP_ENUM_PARAMS_WITH(PSTADE_CALLABLE_MAX_ARITY, class A, = void) >
         struct apply
@@ -69,10 +69,10 @@ namespace range_based2_detail {
         #include BOOST_PP_ITERATE()
     #undef  PSTADE_max_arity
 
-        explicit op_result()
+        explicit return_op()
         { }
 
-        explicit op_result(IterBased const& fun) :
+        explicit return_op(IterBased const& fun) :
             m_fun(fun)
         { }
 
@@ -91,7 +91,7 @@ namespace range_based2_detail {
 } // namespace range_based2_detail
 
 
-PSTADE_OBJECT_GENERATOR(range_based2, (range_based2_detail::op_result< deduce<_1, to_value> >))
+PSTADE_OBJECT_GENERATOR(range_based2, (range_based2_detail::return_op< deduce<_1, to_value> >))
 
 
 } } // namespace pstade::oven

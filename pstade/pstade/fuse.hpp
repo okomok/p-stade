@@ -75,8 +75,8 @@ namespace pstade {
 
 
         template<class Function>
-        struct op_result :
-            callable< op_result<Function> >
+        struct return_op :
+            callable< return_op<Function> >
         {
             template<class Myself, class FusionSeq>
             struct apply :
@@ -89,10 +89,10 @@ namespace pstade {
                 return fuse_detail::call_impl<Result>(m_fun, seq, typename meta_size<FusionSeq>::type());
             }
 
-            explicit op_result()
+            explicit return_op()
             { }
 
-            explicit op_result(Function const& fun) :
+            explicit return_op(Function const& fun) :
                 m_fun(fun)
             { }
 
@@ -111,7 +111,7 @@ namespace pstade {
     } // namespace fuse_detail
 
 
-    PSTADE_OBJECT_GENERATOR(fuse, (fuse_detail::op_result< deduce<_1, to_value> >))
+    PSTADE_OBJECT_GENERATOR(fuse, (fuse_detail::return_op< deduce<_1, to_value> >))
 
 
 } // namespace pstade

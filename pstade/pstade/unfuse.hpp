@@ -34,9 +34,9 @@ namespace pstade {
 
 
         template<class Function, class Pack = op_pack>
-        struct op_result :
+        struct return_op :
             callable<
-                op_result<Function, Pack>,
+                return_op<Function, Pack>,
                 typename boost::result_of<Function(
                     typename boost::result_of<Pack()>::type
                 )>::type
@@ -59,10 +59,10 @@ namespace pstade {
             #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_CALLABLE_MAX_ARITY, <pstade/unfuse.hpp>))
             #include BOOST_PP_ITERATE()
 
-            explicit op_result()
+            explicit return_op()
             { }
 
-            explicit op_result(Function const& f, Pack const& p = pack) :
+            explicit return_op(Function const& f, Pack const& p = pack) :
                 m_fun(f), m_pack(p)
             { }
 
@@ -83,13 +83,13 @@ namespace pstade {
 
 
     PSTADE_OBJECT_GENERATOR(unfuse,
-        (unfuse_detail::op_result< deduce<_1, to_value>, deduce<_2, to_value, op_pack> >))
+        (unfuse_detail::return_op< deduce<_1, to_value>, deduce<_2, to_value, op_pack> >))
 
 
 } // namespace pstade
 
 
-PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE((pstade)(unfuse_detail)(op_result), 2)
+PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE((pstade)(unfuse_detail)(return_op), 2)
 
 
 #endif

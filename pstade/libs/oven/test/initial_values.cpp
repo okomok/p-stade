@@ -50,8 +50,8 @@ void test()
     {
         ::array_init arr_init_test;
     }
-    {// which is faster?
-        //boost::array<int, 4> arr(initial_values(1,2,3,4));
+    {// which is faster? (under VC8)
+        boost::array<int, 4> arr(initial_values(1,2,3,4));
         /*
 	        mov	ebp, 1
 	        lea	ecx, DWORD PTR [ebp+1]
@@ -60,9 +60,15 @@ void test()
 	        mov	DWORD PTR _arr$202789[esp+772], eax
 	        mov	DWORD PTR _arr$202789[esp+776], edx
 
+	        lea	esi, DWORD PTR _arr$202789[esp+764]
+	        mov	DWORD PTR _arr$202789[esp+768], ecx
+	        mov	BYTE PTR $T424376[esp+764], 0
+	        mov	DWORD PTR _arr$202789[esp+764], ebp
+
+	        mov	DWORD PTR _p$424394[esp+764], esi
         */
 
-        boost::array<int, 4> arr = { { 1,2,3,4 } };
+        // boost::array<int, 4> arr = { { 1,2,3,4 } };
         /*
 	        mov	ebp, 1
 	        mov	ecx, 2
@@ -70,6 +76,12 @@ void test()
 	        mov	edx, 4
 	        mov	DWORD PTR _arr$202739[esp+764], eax
 	        mov	DWORD PTR _arr$202739[esp+768], edx
+
+	        lea	esi, DWORD PTR _arr$202739[esp+756]
+	        mov	DWORD PTR _arr$202739[esp+760], ecx
+	        mov	DWORD PTR _arr$202739[esp+756], ebp
+
+	        mov	DWORD PTR _p$424103[esp+756], esi
         */
 
         pstade::used(arr);

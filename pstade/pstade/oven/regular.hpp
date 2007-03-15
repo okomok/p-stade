@@ -65,9 +65,9 @@ namespace regular_detail {
 
 
     template< class Function, class PtrTag >
-    struct op_result :
+    struct return_op :
         callable<
-            op_result<Function, PtrTag>,
+            return_op<Function, PtrTag>,
             typename boost::result_of<Function()>::type
         >
     {
@@ -86,10 +86,10 @@ namespace regular_detail {
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_CALLABLE_MAX_ARITY, <pstade/oven/regular.hpp>))
         #include BOOST_PP_ITERATE()
 
-        explicit op_result()
+        explicit return_op()
         { }
 
-        explicit op_result(Function *pfun) :
+        explicit return_op(Function *pfun) :
             m_pfun(pfun)
         { }
 
@@ -109,7 +109,7 @@ namespace regular_detail {
     struct baby
     {
         typedef
-            op_result<typename pass_by_value<Function>::type, PtrTag>
+            return_op<typename pass_by_value<Function>::type, PtrTag>
         result_type;
 
         result_type operator()(Function& fun) const
@@ -124,7 +124,7 @@ namespace regular_detail {
     struct baby_ref
     {
         typedef
-            op_result<Function, raw_ptr_tag>
+            return_op<Function, raw_ptr_tag>
         result_type;
 
         result_type operator()(Function& fun) const
@@ -145,7 +145,7 @@ PSTADE_FUNCTION(regular_ref, (regular_detail::baby_ref<_>))
 } } // namespace pstade::oven
 
 
-PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE((pstade)(oven)(regular_detail)(op_result), 2)
+PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE((pstade)(oven)(regular_detail)(return_op), 2)
 
 
 #endif

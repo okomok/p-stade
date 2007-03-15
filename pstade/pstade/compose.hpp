@@ -32,8 +32,8 @@ namespace pstade {
 
 
         template<class F, class G>
-        struct base_op_result :
-            callable<base_op_result<F, G> >
+        struct base_return_op :
+            callable<base_return_op<F, G> >
         {
             template<class Myself, class Arguments>
             struct apply
@@ -52,10 +52,10 @@ namespace pstade {
                 return m_f(fuse(m_g)(args));
             }
 
-            base_op_result()
+            base_return_op()
             { }
 
-            base_op_result(F const& f, G const& g) :
+            base_return_op(F const& f, G const& g) :
                 m_f(f), m_g(g)
             { }
 
@@ -75,7 +75,7 @@ namespace pstade {
         struct apply
         {
             typedef
-                compose_detail::base_op_result<
+                compose_detail::base_return_op<
                     typename pass_by_value<F>::type,
                     typename pass_by_value<G>::type
                 >

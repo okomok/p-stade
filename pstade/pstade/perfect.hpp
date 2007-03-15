@@ -54,9 +54,9 @@ namespace pstade {
 
 
         template<class Function, class ResultType = boost::use_default>
-        struct op_result :
+        struct return_op :
             callable<
-                op_result<Function, ResultType>,
+                return_op<Function, ResultType>,
                 typename result_of_aux<ResultType, Function()>::type
             >
         {
@@ -75,10 +75,10 @@ namespace pstade {
             #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_CALLABLE_MAX_ARITY, <pstade/perfect.hpp>))
             #include BOOST_PP_ITERATE()
 
-            explicit op_result()
+            explicit return_op()
             { }
 
-            explicit op_result(Function const& fun) :
+            explicit return_op(Function const& fun) :
                 m_fun(fun)
             { }
 
@@ -103,7 +103,7 @@ namespace pstade {
         struct apply
         {
             typedef
-                perfect_detail::op_result<
+                perfect_detail::return_op<
                     typename pass_by_value<Function>::type,
                     ResultType
                 >
@@ -136,7 +136,7 @@ namespace pstade {
 } // namespace pstade
 
 
-PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE((pstade)(perfect_detail)(op_result), 2)
+PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE((pstade)(perfect_detail)(return_op), 2)
 
 
 #endif

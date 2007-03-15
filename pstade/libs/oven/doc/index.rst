@@ -460,10 +460,17 @@ If you have a Standard conforming Generator, you can convert it to ``generation`
 
 ``initial_values``
 ^^^^^^^^^^^^^^^^^^
+``initial_values`` emulates initializer-lists::
+
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\initial_values.ipp
+
+
 - Header: ``<pstade/oven/initial_values.hpp>``
 - Valid expression: ``initial_values(a1,..,aN)``, where ``1 <= N && N <= 20``.
 - Precondition: ``boost::assign::cref_list_of<N>(a1)..(aN)`` is a valid expression.
-- Returns: A constant `Random Access Range`_ which behaves as if it were returned by ``boost::assign::cref_list_of<N>(a1)..(aN)``.
+- Returns: A constant `Random Access Range`_ which behaves as if it were returned by ``boost::assign::cref_list_of<N>(a1)..(aN)``. [#]_
+
+.. [#] ``initial_values`` trades unlimited arity for the lightweight initialization of ``boost::array``.
 
 
 ``iteration``
@@ -1338,22 +1345,16 @@ Version 0.92.0 - 0.92.3
 - Renamed `Extending Boost.Range`_ macros.
 - Renamed ``adaptor_to`` to ``adapted_to``.
 
-Version 0.93.0
-^^^^^^^^^^^^^^
+Version 0.93.0 - 0.93.3
+^^^^^^^^^^^^^^^^^^^^^^^
 - Changed the names of some functions and headers.
 - Added ``delimited``.
-
-Version 0.93.1
-^^^^^^^^^^^^^^
 - Renamed ``begins/ends`` to ``begin/end``.
 - ``adjacent_transformed`` rejects empty range.
 - Changed template parameter of ``any_range``.
 - Replaced ``regularized`` with ``regular``.
 - Removed ``to_regularized_function``.
 - ``scanned`` range contains the ``init`` as the first element.
-
-Version 0.93.2
-^^^^^^^^^^^^^^
 - ``taken`` and ``taken_while`` behave lazily.
 - ``taken`` and ``taken_while`` now return only up to ForwardRange.
 - ``dropped`` and ``taken`` accept ``n`` which is larger than the distance.
@@ -1362,9 +1363,6 @@ Version 0.93.2
 - ``zipped`` and ``zipped_with`` accept any tuple.
 - Removed ``generation_copied``.
 - Added ``shared_regular`` and ``innumerable``.
-
-Version 0.93.3
-^^^^^^^^^^^^^^
 - Fixed a bug of ``generation``.
 - Added ``front`` and ``back``.
 - Added ``recursion``.
