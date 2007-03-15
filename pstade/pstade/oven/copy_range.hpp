@@ -108,7 +108,7 @@ PSTADE_PIPABLE(copied, (automatic< op_copy_range<boost::mpl::_1> >))
 } } // namespace pstade::oven
 
 
-// Make 'boost::array' CopyableRange.
+// Let 'boost::array' CopyableRange.
 //
 
 

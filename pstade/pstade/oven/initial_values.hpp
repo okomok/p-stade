@@ -55,7 +55,7 @@ namespace initial_values_detail {
             return oven::copy_range<To>(m_array);
         }
 
-    // as range
+    // range implementation
         typedef Value const *iterator;
         typedef iterator     const_iterator;
         typedef std::size_t  size_type;
@@ -123,9 +123,9 @@ public:
     typename BOOST_PP_CAT(result, n)<PSTADE_PP_ENUM_PARAMS_WITH(n, A, const&)>::type
     operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, const& a)) const
     {
-        typedef typename BOOST_PP_CAT(result, n)<PSTADE_PP_ENUM_PARAMS_WITH(n, A, &)>::type return_range;
-        return_range result = { { { BOOST_PP_ENUM_PARAMS(n, a) } } };
-        return result;
+        typename BOOST_PP_CAT(result, n)<PSTADE_PP_ENUM_PARAMS_WITH(n, A, const&)>::type
+            r = { { { BOOST_PP_ENUM_PARAMS(n, a) } } };
+        return r;
     }
 
 
