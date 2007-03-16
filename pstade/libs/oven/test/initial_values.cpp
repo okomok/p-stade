@@ -21,6 +21,7 @@
 #include <boost/utility/result_of.hpp>
 #include <pstade/unused.hpp>
 #include <pstade/copy_assign.hpp>
+#include <pstade/copy_construct.hpp>
 #include <pstade/oven/jointed.hpp>
 #include <pstade/used.hpp>
 #include <boost/array.hpp>
@@ -126,13 +127,26 @@ void test()
         typedef std::vector<row>  matrix;
 
         matrix m = initial_values(
-            // These arity must be the same.
-            initial_values(1,2,3),
-            initial_values(4,5,6),
-            initial_values(7,8,9)
+            // 2nd and 3rd must be convertible 1st, hence arity must be the same.
+            initial_values(1,2,3), // 1st
+            initial_values(4,5,6), // 2nd
+            initial_values(7,8,9)  // 3rd
         );
 
         BOOST_CHECK( m[1][2] == 6 );
+    }
+    {
+        typedef std::vector<int>  row;
+        typedef std::vector<row>  matrix;
+
+        matrix m = initial_values(
+            // row(initial_values(1,2,3)), // direct-initialization may fail. (GCC actually fails.)
+            pstade::copy_construct<row>(initial_values(1,2,3)), // force copy-initialization.
+            initial_values(4,5),
+            initial_values(7)
+        );
+
+        BOOST_CHECK( m[1][0] == 4 );
     }
     {
         int const ans[] = { 1,5,3,6,1,3,7,1,4,2,2 };

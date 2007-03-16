@@ -61,7 +61,7 @@
         typename PSTADE_UNPARENTHESIZE(Result) \
     /**/
 
-#endif // !defined(PSTADE_CONCEPT_OFF)
+#endif // !defined(NDEBUG) && defined(PSTADE_CONCEPT_CHECK)
 
 
 #include <boost/assert.hpp>
