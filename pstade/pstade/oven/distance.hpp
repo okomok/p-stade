@@ -40,16 +40,16 @@ namespace distance_detail {
     // It is possible for an iterator to be marked as RandomAccessTraversal
     // but to model InputIterator, which may trigger a slower 'std::distance',
     // because STL doesn't know the traversal concept yet. So hook it!
-    template< class Result, class Range > inline
-    Result aux(Range& rng, boost::random_access_traversal_tag)
+    template< class Result, class Iterator > inline
+    Result aux(Iterator const& first, Iterator const& last, boost::random_access_traversal_tag)
     {
-        return boost::end(rng) - boost::begin(rng);
+        return last - first;
     }
 
-    template< class Result, class Range > inline
-    Result aux(Range& rng, boost::single_pass_traversal_tag)
+    template< class Result, class Iterator > inline
+    Result aux(Iterator const& first, Iterator const& last, boost::single_pass_traversal_tag)
     {
-        return std::distance(boost::begin(rng), boost::end(rng));
+        return std::distance(first, last);
     }
 
 
@@ -58,7 +58,7 @@ namespace distance_detail {
     template< class Difference > inline
     Difference const& assert_reachable(Difference const& d)
     {
-        BOOST_ASSERT(d >= 0);
+        BOOST_ASSERT(0 <= d);
         return d;
     }
 
@@ -73,9 +73,10 @@ namespace distance_detail {
         result_type operator()(Range& rng) const
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-            return here::assert_reachable(
-                here::aux<result_type>(rng, typename range_traversal<Range>::type())
-            );
+
+            return here::assert_reachable( here::aux<result_type>(
+                boost::begin(rng), boost::end(rng), typename range_traversal<Range>::type()
+            ) );
         }
     };
 

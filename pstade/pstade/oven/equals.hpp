@@ -28,8 +28,6 @@
 #include <pstade/deduced_const.hpp>
 #include <pstade/functional.hpp> // equal_to
 #include "./concepts.hpp"
-#include "./distance.hpp"
-#include "./range_iterator.hpp"
 #include "./range_traversal.hpp"
 
 
@@ -41,33 +39,31 @@ namespace equals_detail {
 
     // Question:
     // Boost doesn't have this overload. Faster or slower?
-    template< class Range1, class Range2, class BinaryPred >
-    bool aux(Range1& rng1, Range2& rng2, BinaryPred& pred,
+    template< class Iterator1, class Iterator2, class BinaryPred >
+    bool aux(
+        Iterator1 first1, Iterator1 const& last1,
+        Iterator2 first2, Iterator2 const& last2, BinaryPred& pred,
         boost::random_access_traversal_tag)
     {
-        if (distance(rng1) != distance(rng2))
+        if ((last1 - first1) != (last2 - first2))
             return false;
 
-        return std::equal(boost::begin(rng1), boost::end(rng1), boost::begin(rng2), pred);
+        return std::equal(first1, last1, first2, pred);
     }
 
 
-    template< class Range1, class Range2, class BinaryPred >
-    bool aux(Range1& rng1, Range2& rng2, BinaryPred& pred,
+    template< class Iterator1, class Iterator2, class BinaryPred >
+    bool aux(
+        Iterator1 first1, Iterator1 const& last1,
+        Iterator2 first2, Iterator2 const& last2, BinaryPred& pred,
         boost::single_pass_traversal_tag)
     {
-        typedef typename range_iterator<Range1>::type iter1_t;
-        typedef typename range_iterator<Range2>::type iter2_t;
-
-        iter1_t it1 = boost::begin(rng1), last1 = boost::end(rng1);
-        iter2_t it2 = boost::begin(rng2), last2 = boost::end(rng2);
-
-        for (; it1 != last1 && it2 != last2; ++it1, ++it2) {
-            if (!pred(*it1, *it2))
+        for (; first1 != last1 && first2 != last2; ++first1, ++first2) {
+            if (!pred(*first1, *first2))
                 return false;
         }
 
-        return (it2 == last2) && (it1 == last1);
+        return (first2 == last2) && (first1 == last1);
     }
 
 
@@ -90,7 +86,11 @@ struct op_equals
             typename range_pure_traversal<Range2>::type
         >::type trv_t;
 
-        return equals_detail::aux(rng1, rng2, pred, trv_t());
+        return equals_detail::aux(
+            boost::begin(rng1), boost::end(rng1),
+            boost::begin(rng2), boost::end(rng2), pred,
+            trv_t()
+        );
     }
 
     template< class Range1, class Range2 >

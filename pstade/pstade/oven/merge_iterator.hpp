@@ -32,8 +32,8 @@
 #include <pstade/object_generator.hpp>
 #include <pstade/unused.hpp>
 #include "./detail/constant_reference.hpp"
-#include "./detail/debug_is_sorted.hpp"
 #include "./detail/pure_traversal.hpp"
+#include "./is_sorted.hpp"
 
 
 namespace pstade { namespace oven {
@@ -192,10 +192,9 @@ public:
         BOOST_MPL_ASSERT((boost::is_convertible<typename boost::iterator_reference<Iterator2>::type, ref_t>));
         BOOST_STATIC_WARNING((is_returnable<typename boost::iterator_reference<Iterator2>::type, ref_t>::value));
 
-    #if defined(PSTADE_OVEN_MERGED_DEBUG_IS_SORTED) // ranges may be too long to diagnose.
-        BOOST_ASSERT(detail::debug_is_sorted(it1, last1, comp));
-        BOOST_ASSERT(detail::debug_is_sorted(it2, last2, comp));
-    #endif
+        // ranges may be too long to diagnose.
+        // BOOST_ASSERT(is_sorted(it1, last1, comp));
+        // BOOST_ASSERT(is_sorted(it2, last2, comp));
  
         MergeRoutine::before_yield(
             this->base_reference(), m_last1, m_it2, m_last2, m_comp);

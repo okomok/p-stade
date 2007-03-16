@@ -38,7 +38,7 @@
 #include <pstade/contract.hpp>
 #include <pstade/object_generator.hpp>
 #include "./begin_end.hpp" // op_begin
-#include "./detail/debug_contains.hpp"
+#include "./detail/maybe_contains.hpp"
 #include "./range_iterator.hpp"
 
 
@@ -200,7 +200,7 @@ private:
     (
         // 'm_local' is undefined if 'segment_is_end'.
         (!segment_is_end() ?
-            detail::debug_contains(local_range(), m_local) : true)
+            detail::maybe_contains(local_range(), m_local) : true)
     )
 
 friend class boost::iterator_core_access;

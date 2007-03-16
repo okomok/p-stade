@@ -114,8 +114,12 @@ PSTADE_PIPABLE(copied, (automatic< op_copy_range<boost::mpl::_1> >))
 
 #include <cstddef> // size_t
 #include <boost/array.hpp>
+#include <boost/assert.hpp>
+#include <boost/numeric/conversion/cast.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
+#include "./detail/is_random_access.hpp"
+#include "./distance.hpp"
 #include "./range_iterator.hpp"
 
 
@@ -130,9 +134,13 @@ namespace pstade_oven_extension {
     template< class T, std::size_t N, class From >
     boost::array<T, N> pstade_oven_(copy_range< boost::array<T, N> >, From& from)
     {
-        typename pstade::oven::range_iterator<From>::type
-            it(boost::begin(from)), last(boost::end(from));
+        using namespace pstade::oven;
 
+        BOOST_ASSERT(detail::is_random_access(from) ?
+            boost::numeric_cast<std::size_t>(distance(from)) <= N : true);
+
+        typename range_iterator<From>::type
+            it(boost::begin(from)), last(boost::end(from));
         boost::array<T, N> arr;
         std::size_t i = 0;
 

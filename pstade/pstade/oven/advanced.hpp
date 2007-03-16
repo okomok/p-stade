@@ -23,7 +23,8 @@
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
 #include "./concepts.hpp"
-#include "./detail/debug_in_distance.hpp"
+#include "./detail/is_random_access.hpp"
+#include "./distance.hpp"
 #include "./iter_range.hpp"
 #include "./next_prior.hpp" // next
 #include "./range_difference.hpp"
@@ -49,7 +50,8 @@ namespace advanced_detail {
         result_type operator()(Range& rng, diff_t const& dfirst, diff_t const& dlast) const
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
-            BOOST_ASSERT(detail::debug_in_distance(dfirst - dlast, rng));
+            BOOST_ASSERT(0 <= dfirst - dlast);
+            BOOST_ASSERT(detail::is_random_access(rng) ? (dfirst - dlast <= distance(rng)) : true);
 
 	        return result_type(
                 next(boost::begin(rng), dfirst),

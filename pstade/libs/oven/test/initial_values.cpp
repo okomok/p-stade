@@ -126,6 +126,7 @@ void test()
         typedef std::vector<row>  matrix;
 
         matrix m = initial_values(
+            // These arity must be the same.
             initial_values(1,2,3),
             initial_values(4,5,6),
             initial_values(7,8,9)
