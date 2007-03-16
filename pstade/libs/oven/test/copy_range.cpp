@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/oven/tests.hpp>
 #include <pstade/oven/copy_range.hpp>
 #include <pstade/oven/copied_out.hpp>
 

@@ -68,10 +68,10 @@ void test()
         }
     }
 
-    // 'detail::is_random_access' test
+    // 'is_random_access' test
     {
-        BOOST_CHECK( detail::is_random_access(std::string()) );
-        BOOST_CHECK(!detail::is_random_access(std::string()|identities(in_single_pass)));
+        BOOST_CHECK( is_random_access(std::string()) );
+        BOOST_CHECK(!is_random_access(std::string()|identities(in_single_pass)));
     }
 }
 

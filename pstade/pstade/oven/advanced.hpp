@@ -23,11 +23,11 @@
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
 #include "./concepts.hpp"
-#include "./detail/is_random_access.hpp"
 #include "./distance.hpp"
 #include "./iter_range.hpp"
 #include "./next_prior.hpp" // next
 #include "./range_difference.hpp"
+#include "./traversal_tags.hpp" // is_random_access
 
 
 namespace pstade { namespace oven {
@@ -51,7 +51,7 @@ namespace advanced_detail {
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
             BOOST_ASSERT(0 <= dfirst - dlast);
-            BOOST_ASSERT(detail::is_random_access(rng) ? (dfirst - dlast <= distance(rng)) : true);
+            BOOST_ASSERT(is_random_access(rng) ? dfirst - dlast <= distance(rng) : true);
 
 	        return result_type(
                 next(boost::begin(rng), dfirst),

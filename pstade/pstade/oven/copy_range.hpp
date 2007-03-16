@@ -87,7 +87,6 @@ struct op_copy_range
     // 'To' is sometimes the same as 'From', then easy to copy.
     To operator()(To const& from) const
     {
-        PSTADE_CONCEPT_ASSERT((SinglePass<From>));
         return from;
     }
 };
@@ -118,12 +117,12 @@ PSTADE_PIPABLE(copied, (automatic< op_copy_range<boost::mpl::_1> >))
 #include <cstddef> // size_t
 #include <boost/array.hpp>
 #include <boost/assert.hpp>
-#include <boost/numeric/conversion/cast.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include "./detail/is_random_access.hpp"
+#include <pstade/integral_cast.hpp>
 #include "./distance.hpp"
 #include "./range_iterator.hpp"
+#include "./traversal_tags.hpp" // is_random_access
 
 
 namespace pstade_oven_extension {
@@ -139,8 +138,8 @@ namespace pstade_oven_extension {
     {
         using namespace pstade::oven;
 
-        BOOST_ASSERT(detail::is_random_access(from) ?
-            boost::numeric_cast<std::size_t>(distance(from)) <= N : true);
+        BOOST_ASSERT(is_random_access(from) ?
+            pstade::integral_cast<std::size_t>(distance(from)) <= N : true);
 
         typename range_iterator<From>::type
             it(boost::begin(from)), last(boost::end(from));

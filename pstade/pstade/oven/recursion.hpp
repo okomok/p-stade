@@ -27,7 +27,6 @@
 #include <boost/range/end.hpp>
 #include <boost/type_traits/is_convertible.hpp>
 #include <pstade/enable_if.hpp>
-#include <pstade/for_debug.hpp>
 #include <pstade/function.hpp>
 #include "./concepts.hpp"
 #include "./next_prior.hpp" // next
@@ -124,14 +123,11 @@ namespace recursion_detail {
         template< class Other >
         bool is_compatible(Other const& other) const
         {
-            for_debug();
             return m_prng == other.m_prng;
         }
 
         bool is_maybe_non_end() const
         {
-            for_debug();
-
             if (m_obase) // non-checkable
                 return true; 
 
