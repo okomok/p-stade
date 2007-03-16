@@ -79,7 +79,7 @@
 <li><a class="reference" href="#counting-from" id="id95" name="id95">8.7&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">counting_from</span></tt></a></li>
 <li><a class="reference" href="#generation" id="id96" name="id96">8.8&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">generation</span></tt></a></li>
 <li><a class="reference" href="#indexing" id="id97" name="id97">8.9&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">indexing</span></tt></a></li>
-<li><a class="reference" href="#initial-values" id="id98" name="id98">8.10&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">initial_values</span></tt></a></li>
+<li><a class="reference" href="#initializers" id="id98" name="id98">8.10&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">initializers</span></tt></a></li>
 <li><a class="reference" href="#iteration" id="id99" name="id99">8.11&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">iteration</span></tt></a></li>
 <li><a class="reference" href="#recursion" id="id100" name="id100">8.12&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">recursion</span></tt></a></li>
 <li><a class="reference" href="#repeated" id="id101" name="id101">8.13&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">repeated</span></tt></a></li>
@@ -735,23 +735,23 @@ BOOST_FOREACH (<span class="cpp_keyword">int </span>i, counting(<span class="cpp
 <p><cite>Pending...</cite></p>
 </div>
 <div class="section">
-<h2><a class="toc-backref" href="#id98" id="initial-values" name="initial-values">8.10&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">initial_values</span></tt></a></h2>
-<p><tt class="docutils literal"><span class="pre">initial_values</span></tt> emulates initializer-lists:</p>
+<h2><a class="toc-backref" href="#id98" id="initializers" name="initializers">8.10&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">initializers</span></tt></a></h2>
+<p><tt class="docutils literal"><span class="pre">initializers</span></tt> emulates initializer-lists:</p>
 <pre class="cpp_source">
 <span class="cpp_keyword">int </span><span class="cpp_keyword">const </span>ans[] = { <span class="cpp_number_literal">1</span>,<span class="cpp_number_literal">5</span>,<span class="cpp_number_literal">3</span>,<span class="cpp_number_literal">6</span>,<span class="cpp_number_literal">1</span>,<span class="cpp_number_literal">3</span>,<span class="cpp_number_literal">7</span>,<span class="cpp_number_literal">1</span>,<span class="cpp_number_literal">4</span>,<span class="cpp_number_literal">2</span>,<span class="cpp_number_literal">2 </span>};
-std::vector&lt;<span class="cpp_keyword">int</span>&gt; vec = initial_values(<span class="cpp_number_literal">1</span>,<span class="cpp_number_literal">5</span>,<span class="cpp_number_literal">3</span>,<span class="cpp_number_literal">6</span>,<span class="cpp_number_literal">1</span>,<span class="cpp_number_literal">3</span>,<span class="cpp_number_literal">7</span>,<span class="cpp_number_literal">1</span>,<span class="cpp_number_literal">4</span>,<span class="cpp_number_literal">2</span>,<span class="cpp_number_literal">2</span>);
+std::vector&lt;<span class="cpp_keyword">int</span>&gt; vec = initializers(<span class="cpp_number_literal">1</span>,<span class="cpp_number_literal">5</span>,<span class="cpp_number_literal">3</span>,<span class="cpp_number_literal">6</span>,<span class="cpp_number_literal">1</span>,<span class="cpp_number_literal">3</span>,<span class="cpp_number_literal">7</span>,<span class="cpp_number_literal">1</span>,<span class="cpp_number_literal">4</span>,<span class="cpp_number_literal">2</span>,<span class="cpp_number_literal">2</span>);
 BOOST_CHECK( equals(vec, ans) );</pre>
 
 <ul class="simple">
-<li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/initial_values.hpp&gt;</span></tt></li>
-<li>Valid expression: <tt class="docutils literal"><span class="pre">initial_values(a1,..,aN)</span></tt>, where <tt class="docutils literal"><span class="pre">1</span> <span class="pre">&lt;=</span> <span class="pre">N</span> <span class="pre">&amp;&amp;</span> <span class="pre">N</span> <span class="pre">&lt;=</span> <span class="pre">20</span></tt>.</li>
+<li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/initializers.hpp&gt;</span></tt></li>
+<li>Valid expression: <tt class="docutils literal"><span class="pre">initializers(a1,..,aN)</span></tt>, where <tt class="docutils literal"><span class="pre">1</span> <span class="pre">&lt;=</span> <span class="pre">N</span> <span class="pre">&amp;&amp;</span> <span class="pre">N</span> <span class="pre">&lt;=</span> <span class="pre">20</span></tt>.</li>
 <li>Precondition: <tt class="docutils literal"><span class="pre">boost::assign::cref_list_of&lt;N&gt;(a1)..(aN)</span></tt> is a valid expression.</li>
 <li>Returns: A constant <a class="reference" href="http://www.boost.org/libs/range/doc/range.html#random_access_range">Random Access Range</a> which behaves as if it were returned by <tt class="docutils literal"><span class="pre">boost::assign::cref_list_of&lt;N&gt;(a1)..(aN)</span></tt>. <a class="footnote-reference" href="#id33" id="id32" name="id32">[11]</a></li>
 </ul>
 <table class="docutils footnote" frame="void" id="id33" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id32" name="id33">[11]</a></td><td><tt class="docutils literal"><span class="pre">initial_values</span></tt> trades unlimited arity for the lightweight initialization of <tt class="docutils literal"><span class="pre">boost::array</span></tt>.</td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id32" name="id33">[11]</a></td><td><tt class="docutils literal"><span class="pre">initializers</span></tt> trades unlimited arity for the lightweight initialization of <tt class="docutils literal"><span class="pre">boost::array</span></tt>.</td></tr>
 </tbody>
 </table>
 </div>
@@ -1983,7 +1983,7 @@ See <a class="reference" href="./doc/ms/mfc_atl.html">Oven Range MFC/ATL Extensi
 <div class="section">
 <h2><a class="toc-backref" href="#id181" id="version-0-93-6" name="version-0-93-6">14.10&nbsp;&nbsp;&nbsp;Version 0.93.6</a></h2>
 <ul class="simple">
-<li>Added <tt class="docutils literal"><span class="pre">initial_values</span></tt>.</li>
+<li>Added <tt class="docutils literal"><span class="pre">initializers</span></tt>.</li>
 </ul>
 </div>
 </div>
@@ -1991,7 +1991,7 @@ See <a class="reference" href="./doc/ms/mfc_atl.html">Oven Range MFC/ATL Extensi
 <div class="footer">
 <hr class="footer" />
 <a class="reference" href="doc/index.rst">View document source</a>.
-Generated on: 2007-03-15 23:42 UTC.
+Generated on: 2007-03-16 19:38 UTC.
 Generated by <a class="reference" href="http://docutils.sourceforge.net/">Docutils</a> from <a class="reference" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a> source.
 
 </div>

@@ -458,19 +458,19 @@ If you have a Standard conforming Generator, you can convert it to ``generation`
 `Pending...`
 
 
-``initial_values``
-^^^^^^^^^^^^^^^^^^
-``initial_values`` emulates initializer-lists::
+``initializers``
+^^^^^^^^^^^^^^^^
+``initializers`` emulates initializer-lists::
 
-	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\initial_values.ipp
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\initializers.ipp
 
 
-- Header: ``<pstade/oven/initial_values.hpp>``
-- Valid expression: ``initial_values(a1,..,aN)``, where ``1 <= N && N <= 20``.
+- Header: ``<pstade/oven/initializers.hpp>``
+- Valid expression: ``initializers(a1,..,aN)``, where ``1 <= N && N <= 20``.
 - Precondition: ``boost::assign::cref_list_of<N>(a1)..(aN)`` is a valid expression.
 - Returns: A constant `Random Access Range`_ which behaves as if it were returned by ``boost::assign::cref_list_of<N>(a1)..(aN)``. [#]_
 
-.. [#] ``initial_values`` trades unlimited arity for the lightweight initialization of ``boost::array``.
+.. [#] ``initializers`` trades unlimited arity for the lightweight initialization of ``boost::array``.
 
 
 ``iteration``
@@ -1385,6 +1385,6 @@ Version 0.93.5
 
 Version 0.93.6
 ^^^^^^^^^^^^^^
-- Added ``initial_values``.
+- Added ``initializers``.
 
 
