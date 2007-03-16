@@ -25,6 +25,7 @@
 #include <pstade/oven/jointed.hpp>
 #include <pstade/used.hpp>
 #include <boost/array.hpp>
+#include <boost/implicit_cast.hpp>
 
 
 namespace oven = pstade::oven;
@@ -141,7 +142,7 @@ void test()
 
         matrix m = initial_values(
             // row(initial_values(1,2,3)), // direct-initialization may fail. (GCC actually fails.)
-            pstade::copy_construct<row>(initial_values(1,2,3)), // force copy-initialization.
+            boost::implicit_cast<row>(initial_values(1,2,3)), // force copy-initialization.
             initial_values(4,5),
             initial_values(7)
         );

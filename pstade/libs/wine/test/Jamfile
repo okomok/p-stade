@@ -37,7 +37,6 @@ test-suite wine :
     [ wine-test construct ]
     [ wine-test contract ]
     [ wine-test copy_assign ]
-    [ wine-test copy_construct ]
     [ wine-test deduced_const ]
     [ wine-test disable_if_copy ]
     [ wine-test do_swap ]
