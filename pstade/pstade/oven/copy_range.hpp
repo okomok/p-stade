@@ -67,6 +67,8 @@ namespace copy_range_detail {
 template< class To >
 struct op_copy_range
 {
+    PSTADE_CONCEPT_ASSERT((SinglePass<To>));
+
     typedef To result_type;
 
     template< class From >
@@ -85,6 +87,7 @@ struct op_copy_range
     // 'To' is sometimes the same as 'From', then easy to copy.
     To operator()(To const& from) const
     {
+        PSTADE_CONCEPT_ASSERT((SinglePass<From>));
         return from;
     }
 };

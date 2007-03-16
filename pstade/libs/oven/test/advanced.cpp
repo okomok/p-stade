@@ -16,6 +16,7 @@
 
 #include <boost/range.hpp>
 #include <pstade/oven/functions.hpp>
+#include <pstade/oven/identities.hpp>
 
 
 void test()
@@ -65,6 +66,12 @@ void test()
                 std::string("12345678")
             ) );
         }
+    }
+
+    // 'detail::is_random_access' test
+    {
+        BOOST_CHECK( detail::is_random_access(std::string()) );
+        BOOST_CHECK(!detail::is_random_access(std::string()|identities(in_single_pass)));
     }
 }
 

@@ -12,7 +12,8 @@
 
 // What:
 //
-// A non-RandomAccessRange may be too long to apply 'distance'.
+// A non-RandomAccessRange may be too long to diagnose.
+// See "../advanced.hpp".
 
 
 #include <boost/iterator/iterator_categories.hpp>
