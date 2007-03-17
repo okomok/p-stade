@@ -38,7 +38,6 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/type_traits/is_const.hpp>
-#include <boost/type_traits/is_convertible.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/automatic.hpp>
 #include <pstade/auxiliary.hpp>
@@ -46,6 +45,7 @@
 #include <pstade/const_overloaded.hpp>
 #include <pstade/deduced_const.hpp>
 #include <pstade/enable_if.hpp>
+#include <pstade/is_convertible.hpp>
 #include "./range_iterator.hpp"
 
 
@@ -62,11 +62,11 @@ struct op_adapted_to
         typename enable_if<
 #if BOOST_WORKAROUND(BOOST_MSVC, == 1310) // for weird VC7.1
             boost::mpl::and_<
-                is_convertible_in_enable_if<Adapted&, Base>,
+                is_convertible<Adapted&, Base>,
                 boost::mpl::not_< boost::is_const<Adapted> >
             >
 #else
-            boost::is_convertible<Adapted&, Base>
+            is_convertible<Adapted&, Base>
 #endif
         >::type = 0) const
     {
@@ -75,14 +75,14 @@ struct op_adapted_to
 
     template< class Adapted >
     Base operator()(Adapted const& ad,
-        typename enable_if< boost::is_convertible<Adapted const&, Base> >::type = 0) const
+        typename enable_if< is_convertible<Adapted const&, Base> >::type = 0) const
     {
         return ad;
     }
 
     template< class Adapted >
     Base operator()(Adapted const& ad,
-        typename disable_if<boost::is_convertible<Adapted const&, Base> >::type = 0) const
+        typename disable_if<is_convertible<Adapted const&, Base> >::type = 0) const
     {
         return (*this)(ad.base());
     }

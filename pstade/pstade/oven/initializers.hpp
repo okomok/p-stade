@@ -27,6 +27,7 @@
 #include <pstade/lambda_sig.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/preprocessor.hpp>
+#include "./concepts.hpp"
 #include "./copy_range.hpp"
 
 
@@ -49,10 +50,12 @@ namespace initializers_detail {
         // efficient because 'copy_range' can return without assignments.
         boost::array<Value, N> m_array;
 
-        template< class To >
-        operator To() const
+        // convertible to CopyableRange
+        template< class Range >
+        operator Range() const
         {
-            return oven::copy_range<To>(m_array);
+            PSTADE_CONCEPT_ASSERT((Copyable<Range>));
+            return oven::copy_range<Range>(m_array);
         }
 
     // range implementation
@@ -75,6 +78,15 @@ namespace initializers_detail {
             return N;
         }
     };
+
+
+    // 'return_range' also is CopyableRange.
+    template< class Value, std::size_t N, class From > inline
+    return_range<Value, N> pstade_oven_copy_range(return_range<Value, N> *&, From& from)
+    {
+        return_range<Value, N> r = { oven::copy_range< boost::array<Value, N> >(from) };
+        return r;
+    }
 
 
 } // namespace initializers_detail

@@ -17,11 +17,6 @@
 // then, 'void *' that can eat any pointer would be dangerous.
 
 
-#include <boost/config.hpp>
-#include <boost/detail/workaround.hpp>
-#include <boost/mpl/or.hpp>
-#include <boost/type_traits/is_convertible.hpp>
-#include <boost/type_traits/is_same.hpp>
 #include <boost/utility/enable_if.hpp>
 
 
@@ -60,27 +55,6 @@ namespace pstade {
     template< class Cond, class F > 
     struct lazy_disable_if :
         boost::lazy_disable_if<Cond, F>
-    { };
-
-
-    // Prefer this if indirectly called from 'enable_if'.
-    template< class From, class To >
-    struct is_convertible_in_enable_if :
-#if BOOST_WORKAROUND(BOOST_MSVC, == 1310) // VC7.1
-        // See the implementation of 'boost::enable_if_convertible'.
-        boost::mpl::or_<
-            boost::is_same<From, To>,
-            boost::is_convertible<From, To>
-        >
-#else
-        boost::is_convertible<From, To>
-#endif
-    { };
-
-
-    template< class From, class To >
-    struct enable_if< boost::is_convertible<From, To> > :
-        enable_if< is_convertible_in_enable_if<From, To> >
     { };
 
 

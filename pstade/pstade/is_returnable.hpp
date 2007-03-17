@@ -26,7 +26,7 @@
 #include <boost/type_traits/is_reference.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/version.hpp>
-#include <pstade/enable_if.hpp>
+#include <pstade/is_convertible.hpp>
 #include <pstade/remove_cvr.hpp>
 
 
@@ -71,7 +71,7 @@ namespace pstade {
     template<class From, class To>
     struct is_returnable :
         boost::mpl::and_<
-            is_convertible_in_enable_if<From, To>,
+            is_convertible<From, To>,
             is_returnable_detail::not_return_address_of_temporary<From, To>
         >
     { };

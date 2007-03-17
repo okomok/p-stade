@@ -29,6 +29,7 @@
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/enable_if.hpp>
+#include <pstade/is_convertible.hpp>
 #include <pstade/pass_by.hpp>
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
@@ -59,8 +60,8 @@ namespace as_c_str_detail {
     template< class X >
     struct is_cstring :
        boost::mpl::or_<
-            is_convertible_in_enable_if<X, char const *>,
-            is_convertible_in_enable_if<X, wchar_t const *>
+            is_convertible<X, char const *>,
+            is_convertible<X, wchar_t const *>
         >
     { };
 

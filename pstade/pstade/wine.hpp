@@ -46,6 +46,7 @@
 #include "./instance.hpp"
 #include "./integral_cast.hpp"
 // #include "./ios_init.hpp"
+#include "./is_convertible.hpp"
 #include "./is_ndebug.hpp"
 #include "./is_returnable.hpp"
 #include "./is_same.hpp"

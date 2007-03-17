@@ -11,6 +11,7 @@
 
 
 #include <boost/config.hpp> // BOOST_MSVC, BOOST_NESTED_TEMPLATE
+#include <boost/type_traits/remove_const.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/automatic.hpp>
@@ -21,6 +22,7 @@
 #include <pstade/remove_cvr.hpp>
 #include "./concepts.hpp"
 #include "./extension.hpp"
+#include "./identities.hpp"
 #include "./range_reference.hpp"
 #include "./range_value.hpp"
 #include "./transformed.hpp"
@@ -85,6 +87,8 @@ struct op_copy_range
     }
 
     // 'To' is sometimes the same as 'From', then easy to copy.
+    // Ideally, 'is_convertible' should kick in, but many types
+    // doesn't or cannot correctly implement the convertibility.
     To operator()(To const& from) const
     {
         return from;
@@ -105,6 +109,20 @@ copy_range(From const& from)
 
 
 PSTADE_PIPABLE(copied, (automatic< op_copy_range<boost::mpl::_1> >))
+
+
+template< class Range >
+struct Copyable :
+    SinglePass<Range>
+{
+    typedef typename boost::remove_const<Range>::type rng_t;
+
+    PSTADE_CONCEPT_USAGE(Copyable)
+    {
+        rng_t& from = unknown_lvalue<rng_t>();
+        rng_t rng = oven::copy_range<rng_t>(make_identities(from)); 
+    }
+};
 
 
 } } // namespace pstade::oven

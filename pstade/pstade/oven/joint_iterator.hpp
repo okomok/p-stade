@@ -17,7 +17,7 @@
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/static_warning.hpp>
-#include <boost/type_traits/is_convertible.hpp>
+#include <pstade/is_convertible.hpp>
 #include <pstade/is_returnable.hpp>
 #include <pstade/object_generator.hpp>
 #include "./detail/pure_traversal.hpp"
@@ -150,7 +150,7 @@ friend class boost::iterator_core_access;
         // An iterator behaves also as "metafunction"
         // which is called in overload-resolution.
         // So, this must be placed at function scope.
-        BOOST_MPL_ASSERT((boost::is_convertible<
+        BOOST_MPL_ASSERT((is_convertible<
             typename boost::iterator_reference<IteratorR>::type,
             typename boost::iterator_reference<IteratorL>::type
         >));

@@ -20,9 +20,9 @@
 #include <boost/assert.hpp>
 #include <boost/operators.hpp> // totally_ordered
 #include <boost/ptr_container/clone_allocator.hpp>
-#include <boost/type_traits/is_convertible.hpp>
 #include <pstade/do_swap.hpp>
 #include <pstade/enable_if.hpp>
+#include <pstade/is_convertible.hpp>
 #include <pstade/nullptr.hpp>
 #include <pstade/radish/bool_testable.hpp>
 #include <pstade/radish/pointable.hpp>
@@ -78,14 +78,14 @@ public:
 
     template<class C>
     clone_ptr(clone_ptr<C> const& other,
-        typename enable_if< boost::is_convertible<C *, Clonable *> >::type = 0
+        typename enable_if< is_convertible<C *, Clonable *> >::type = 0
     ) :
         m_ptr(other ? clone_ptr_detail::new_(*other) : PSTADE_NULLPTR)
     { }
 
     template<class C>
     clone_ptr(std::auto_ptr<C> ap,
-        typename enable_if< boost::is_convertible<C *, Clonable *> >::type = 0
+        typename enable_if< is_convertible<C *, Clonable *> >::type = 0
     ) :
         m_ptr(ap.release())
     { }

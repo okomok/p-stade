@@ -27,12 +27,12 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
-#include <boost/type_traits/is_convertible.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/disable_if_copy.hpp>
 #include <pstade/do_swap.hpp>
 #include <pstade/enable_if.hpp>
+#include <pstade/is_convertible.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/radish/bool_testable.hpp>
 #include <pstade/radish/swappable.hpp>
@@ -87,7 +87,7 @@ public:
 
     template< class I, class In >
     iter_range(iter_range<I, In> const& other,
-        typename enable_if< boost::is_convertible<I, Iterator> >::type = 0
+        typename enable_if< is_convertible<I, Iterator> >::type = 0
     ) :
         m_first(boost::begin(other)), m_last(boost::end(other))
     { }
@@ -125,14 +125,14 @@ public:
 // for "third-party" libraries
     template< class I >
     iter_range(std::pair<I, I> const& rng,
-        typename enable_if< boost::is_convertible<I, Iterator> >::type = 0
+        typename enable_if< is_convertible<I, Iterator> >::type = 0
     ) :
         m_first(boost::begin(rng)), m_last(boost::end(rng))
     { }
 
     template< class I >
     iter_range(boost::iterator_range<I> const& rng,
-        typename enable_if< boost::is_convertible<I, Iterator> >::type = 0
+        typename enable_if< is_convertible<I, Iterator> >::type = 0
     ) :
         m_first(boost::begin(rng)), m_last(boost::end(rng))
     { }

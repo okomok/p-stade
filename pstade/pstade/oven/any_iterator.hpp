@@ -29,10 +29,10 @@
 #include <boost/noncopyable.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/static_warning.hpp>
-#include <boost/type_traits/is_convertible.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <pstade/clone_ptr.hpp>
 #include <pstade/enable_if.hpp>
+#include <pstade/is_convertible.hpp>
 #include <pstade/is_returnable.hpp>
 #include "./detail/pure_traversal.hpp"
 
@@ -121,7 +121,7 @@ namespace any_iterator_detail {
     template< class From, class To, class Traversal >
     struct is_convertible_difference :
         boost::mpl::eval_if< boost::is_same<Traversal, boost::random_access_traversal_tag>,
-            is_convertible_in_enable_if<From, To>,
+            is_convertible<From, To>,
             boost::mpl::true_
         >
     { };
@@ -132,8 +132,8 @@ namespace any_iterator_detail {
         placeholder<Reference, Traversal, Difference>
     {
     private:
-        BOOST_MPL_ASSERT((boost::is_convertible<typename boost::iterator_reference<Iterator>::type, Reference>));
-        BOOST_MPL_ASSERT((boost::is_convertible<typename boost::iterator_traversal<Iterator>::type, Traversal>));
+        BOOST_MPL_ASSERT((is_convertible<typename boost::iterator_reference<Iterator>::type, Reference>));
+        BOOST_MPL_ASSERT((is_convertible<typename boost::iterator_traversal<Iterator>::type, Traversal>));
         BOOST_MPL_ASSERT((is_convertible_difference<typename boost::iterator_difference<Iterator>::type, Difference, Traversal>));
  
         typedef holder self_t;
@@ -239,11 +239,11 @@ namespace any_iterator_detail {
 template< class Iterator, class AnyIterator >
 struct is_convertible_to_any_iterator :
     boost::mpl::and_<
-        is_convertible_in_enable_if<
+        is_convertible<
             typename boost::iterator_reference<Iterator>::type,
             typename AnyIterator::reference
         >,
-        is_convertible_in_enable_if<
+        is_convertible<
             typename boost::iterator_traversal<Iterator>::type,
             typename detail::pure_traversal<AnyIterator>::type
         >,
@@ -304,7 +304,7 @@ public:
 
 // assignment to work around 'explicit' above
     template< class Iterator >
-    typename disable_if<boost::is_convertible<Iterator, self_t>, self_t&>::type
+    typename disable_if<is_convertible<Iterator, self_t>, self_t&>::type
     operator=(Iterator const& it)
     {
         any_iterator_detail::assign_new<typename holder_of<Iterator>::type>(it, m_content);

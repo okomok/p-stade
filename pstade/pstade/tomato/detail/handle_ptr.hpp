@@ -11,10 +11,10 @@
 
 
 #include <boost/operators.hpp> // totally_ordered
-#include <boost/type_traits/is_convertible.hpp>
 #include <pstade/apple/sdk/windows.hpp> // NULL
 #include <pstade/contract.hpp>
 #include <pstade/enable_if.hpp>
+#include <pstade/is_convertible.hpp>
 #include <pstade/radish/bool_testable.hpp>
 
 
@@ -54,7 +54,7 @@ public:
     }
 
     template< class X > // for 'WTL::CHandleXXX'
-    handle_ptr(X const& x, typename enable_if< boost::is_convertible<X, Handle> >::type = 0) :
+    handle_ptr(X const& x, typename enable_if< is_convertible<X, Handle> >::type = 0) :
         m_handle(x)
     {
         PSTADE_CONSTRUCTOR_PRECONDITION (~

@@ -18,10 +18,10 @@
 // I doubt this range is necessary.
 
 
-#include <boost/type_traits/is_convertible.hpp>
 #include <pstade/disable_if_copy.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/implicitly_defined.hpp>
+#include <pstade/is_convertible.hpp>
 #include "./iter_range.hpp"
 #include "./lightweight_copyable.hpp"
 #include "./range_constant_iterator.hpp"
@@ -74,7 +74,7 @@ public:
 
     template< class I >
     sub_range(iter_range<I> const& rng,
-        typename enable_if< boost::is_convertible<iter_range<I>, super_t> >::type = 0
+        typename enable_if< is_convertible<iter_range<I>, super_t> >::type = 0
     ) :
         super_t(rng)
     { }

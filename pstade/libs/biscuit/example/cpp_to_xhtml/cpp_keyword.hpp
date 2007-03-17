@@ -15,7 +15,7 @@
 
 namespace {
     
-    using namespace pstade;
+    namespace biscuit = pstade::biscuit;
     using namespace biscuit;
 
     struct cpp_keyword0 :

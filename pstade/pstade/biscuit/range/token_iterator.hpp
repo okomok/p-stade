@@ -15,9 +15,9 @@
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/type_traits/is_convertible.hpp>
 #include <boost/utility/addressof.hpp>
 #include <pstade/enable_if.hpp>
+#include <pstade/is_convertible.hpp>
 #include <pstade/oven/iter_range.hpp>
 #include "../algorithm/search.hpp"
 
@@ -67,7 +67,7 @@ public:
 
     template< class F >
     token_iterator(token_iterator<Parser, F, UserState> const& other,
-        typename enable_if< boost::is_convertible<F, ForwardIter> >::type = 0
+        typename enable_if< is_convertible<F, ForwardIter> >::type = 0
     ) :
         super_t(other.base()), m_submatch(other.submatch()), m_last(other.end()),
         m_pus( boost::addressof(other.user_state()) )

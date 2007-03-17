@@ -128,13 +128,26 @@ void test()
         typedef std::vector<row>  matrix;
 
         matrix m = initializers(
-            // 2nd and 3rd must be convertible 1st, hence arity must be the same.
-            initializers(1,2,3), // 1st
-            initializers(4,5,6), // 2nd
-            initializers(7,8,9)  // 3rd
+            initializers(1,2,3),
+            initializers(4,5,6),
+            initializers(7,8,9)
         );
 
         BOOST_CHECK( m[1][2] == 6 );
+    }
+    {
+        typedef std::vector<int>  row;
+        typedef std::vector<row>  matrix;
+
+        matrix m = initializers(
+            // 2nd and 3rd must be convertible 1st,
+            // hence these arity must be smaller than 1st's.
+            initializers(1,2,3), // 1st
+            initializers(4,5), // 2nd
+            initializers(7)  // 3rd
+        );
+
+        BOOST_CHECK( m[2][0] == 7 );
     }
     {
         typedef std::vector<int>  row;

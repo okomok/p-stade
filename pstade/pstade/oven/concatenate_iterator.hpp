@@ -36,6 +36,7 @@
 #include <boost/range/end.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/contract.hpp>
+#include <pstade/is_convertible.hpp>
 #include <pstade/object_generator.hpp>
 #include "./begin_end.hpp" // op_begin
 #include "./detail/maybe_contains.hpp"
@@ -70,12 +71,12 @@ namespace concatenate_iterator_detail {
         typedef typename
             boost::mpl::eval_if<
                 boost::mpl::and_<
-                    boost::is_convertible<segment_trv_t, boost::bidirectional_traversal_tag>,
-                    boost::is_convertible<local_trv_t, boost::bidirectional_traversal_tag>
+                    is_convertible<segment_trv_t, boost::bidirectional_traversal_tag>,
+                    is_convertible<local_trv_t, boost::bidirectional_traversal_tag>
                 >,
                 boost::mpl::identity<boost::bidirectional_traversal_tag>,
                 boost::mpl::eval_if<
-                    boost::is_convertible<local_trv_t, boost::forward_traversal_tag>,
+                    is_convertible<local_trv_t, boost::forward_traversal_tag>,
                     boost::mpl::identity<boost::forward_traversal_tag>,
                     boost::mpl::identity<local_trv_t>
                 >

@@ -25,9 +25,9 @@
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/static_warning.hpp>
-#include <boost/type_traits/is_convertible.hpp>
 #include <pstade/do_swap.hpp>
 #include <pstade/functional.hpp> // less
+#include <pstade/is_convertible.hpp>
 #include <pstade/is_returnable.hpp>
 #include <pstade/object_generator.hpp>
 #include <pstade/unused.hpp>
@@ -189,7 +189,7 @@ public:
         m_comp(comp)
     {
         // "./joint_iterator.hpp" tells why this is at function scope.
-        BOOST_MPL_ASSERT((boost::is_convertible<typename boost::iterator_reference<Iterator2>::type, ref_t>));
+        BOOST_MPL_ASSERT((is_convertible<typename boost::iterator_reference<Iterator2>::type, ref_t>));
         BOOST_STATIC_WARNING((is_returnable<typename boost::iterator_reference<Iterator2>::type, ref_t>::value));
 
         // ranges may be too long to diagnose.
