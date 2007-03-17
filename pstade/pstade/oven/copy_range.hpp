@@ -120,7 +120,7 @@ struct Copyable :
     PSTADE_CONCEPT_USAGE(Copyable)
     {
         rng_t& from = unknown_lvalue<rng_t>();
-        rng_t rng = oven::copy_range<rng_t>(make_identities(from)); 
+        rng_t rng = op_copy_range<rng_t>()(make_identities(from)); 
     }
 };
 

@@ -65,12 +65,12 @@ namespace initializers_detail {
 
         iterator begin() const
         {
-            return m_array.begin();
+            return m_array.data();
         }
 
         iterator end() const
         {
-            return m_array.end();
+            return m_array.data() + N;
         }
 
         size_type size() const
