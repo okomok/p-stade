@@ -25,6 +25,7 @@
 #include <pstade/any_movable.hpp>
 #include <pstade/automatic.hpp>
 #include <pstade/callable.hpp>
+#include <pstade/cast_function.hpp>
 #include <pstade/compose.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/construct.hpp>
@@ -74,8 +75,9 @@ namespace pstade {
     };
 
 
-    // There is no 'new_' yet.
+    // 'new_' isn't fully implemented yet.
     // Yet another 63 functions seems bad?
+    PSTADE_CAST_FUNCTION(new_, op_new, class)
 
 
     // delete

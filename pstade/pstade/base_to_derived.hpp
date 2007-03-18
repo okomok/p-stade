@@ -17,7 +17,7 @@
 #include <boost/type_traits/is_base_of.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <boost/utility/addressof.hpp>
-#include <boost/utility/result_of.hpp>
+#include <pstade/cast_function.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/nonassignable.hpp>
 
@@ -59,12 +59,7 @@ struct op_base_to
 };
 
 
-template< class Derived, class Base > inline
-typename boost::result_of<op_base_to<Derived>(Base&)>::type
-base_to(Base& base)
-{
-    return op_base_to<Derived>()(base);
-}
+PSTADE_CAST_FUNCTION(base_to, op_base_to, class)
 
 
 // Note:

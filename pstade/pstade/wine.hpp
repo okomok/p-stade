@@ -22,6 +22,7 @@
 #include "./base_from.hpp"
 #include "./base_to_derived.hpp"
 #include "./callable.hpp"
+#include "./cast_function.hpp"
 #include "./check.hpp"
 #include "./clone_ptr.hpp"
 #include "./compose.hpp"

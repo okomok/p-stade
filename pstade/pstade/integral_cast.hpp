@@ -13,9 +13,9 @@
 #include <boost/mpl/assert.hpp>
 #include <boost/numeric/conversion/cast.hpp> // numeric_cast
 #include <boost/type_traits/is_integral.hpp>
-#include <boost/utility/result_of.hpp>
 #include <pstade/automatic.hpp>
 #include <pstade/auxiliary.hpp>
+#include <pstade/cast_function.hpp>
 
 
 namespace pstade {
@@ -36,14 +36,7 @@ namespace pstade {
     };
 
 
-    template<class To, class From> inline
-    typename boost::result_of<op_integral_cast<To>(From const&)>::type
-    integral_cast(From const& from)
-    {
-        return op_integral_cast<To>()(from);
-    }
-
-
+    PSTADE_CAST_FUNCTION(integral_cast, op_integral_cast, class)
     PSTADE_AUXILIARY(0, to_integer, (automatic< op_integral_cast<boost::mpl::_> >))
 
 

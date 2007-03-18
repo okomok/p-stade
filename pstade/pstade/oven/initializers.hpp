@@ -23,6 +23,7 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/type.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/lambda_sig.hpp>
 #include <pstade/pass_by.hpp>
@@ -82,7 +83,7 @@ namespace initializers_detail {
 
     // 'return_range' also is CopyableRange.
     template< class Value, std::size_t N, class From > inline
-    return_range<Value, N> pstade_oven_copy_range(return_range<Value, N> *&, From& from)
+    return_range<Value, N> pstade_oven_copy_range(boost::type< return_range<Value, N> >, From& from)
     {
         return_range<Value, N> r = { oven::copy_range< boost::array<Value, N> >(from) };
         return r;

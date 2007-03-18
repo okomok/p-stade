@@ -12,10 +12,9 @@
 
 #include <string>
 #include <boost/lexical_cast.hpp>
-#include <boost/utility/result_of.hpp>
 #include <pstade/automatic.hpp>
 #include <pstade/auxiliary.hpp>
-#include <pstade/deduced_const.hpp>
+#include <pstade/cast_function.hpp>
 
 
 namespace pstade {
@@ -34,14 +33,7 @@ namespace pstade {
     };
 
 
-    template<class To, class From> inline
-    typename boost::result_of<op_lexical_cast<To>(PSTADE_DEDUCED_CONST(From)&)>::type
-    lexical_cast(From const& from)
-    {
-        return op_lexical_cast<To>()(from);
-    }
-
-
+    PSTADE_CAST_FUNCTION(lexical_cast, op_lexical_cast, class)
     PSTADE_AUXILIARY(0, lexicalized, (automatic< op_lexical_cast<boost::mpl::_> >))
 
 

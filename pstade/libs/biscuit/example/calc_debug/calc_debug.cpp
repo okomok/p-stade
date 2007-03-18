@@ -24,7 +24,8 @@
 
 namespace calculator_debug 
 {
-    using namespace pstade;
+    namespace biscuit = pstade::biscuit;
+    namespace oven = pstade::oven;
     using namespace biscuit;
 
     struct push_int
@@ -33,7 +34,7 @@ namespace calculator_debug
         void operator()(Range& rng, std::stack<long>& eval)
         {
             std::string s = rng|oven::copied;
-            long n = s|lexicalized; // or std::strtol(chseq, 0, 10);
+            long n = s|pstade::lexicalized; // or std::strtol(chseq, 0, 10);
             eval.push(n);
             std::cout << "push\t" << long(n) << std::endl;
         }

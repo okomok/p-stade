@@ -16,7 +16,7 @@
 #include <pstade/adl_barrier.hpp>
 #include <pstade/automatic.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/deduced_const.hpp>
+#include <pstade/cast_function.hpp>
 #include <pstade/functional.hpp> // identity
 #include <pstade/pipable.hpp>
 #include <pstade/remove_cvr.hpp>
@@ -88,7 +88,7 @@ struct op_copy_range
 
     // 'To' is sometimes the same as 'From', then easy to copy.
     // Ideally, 'is_convertible' should kick in, but many types
-    // doesn't or cannot correctly implement the convertibility.
+    // don't or cannot correctly implement the convertibility.
     To operator()(To const& from) const
     {
         return from;
@@ -96,18 +96,9 @@ struct op_copy_range
 };
 
 
-PSTADE_ADL_BARRIER(copy_range) { // for Boost
-
-template< class To, class From > inline
-typename boost::result_of<op_copy_range<To>(PSTADE_DEDUCED_CONST(From)&)>::type
-copy_range(From const& from)
-{
-    return op_copy_range<To>()(from);
+PSTADE_ADL_BARRIER(copy_range) { // for 'boost'
+    PSTADE_CAST_FUNCTION(copy_range, op_copy_range, class)
 }
-
-} // ADL barrier
-
-
 PSTADE_PIPABLE(copied, (automatic< op_copy_range<boost::mpl::_1> >))
 
 

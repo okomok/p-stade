@@ -18,6 +18,7 @@
 #include <boost/range/end.hpp>
 #include <boost/range/iterator.hpp>
 #include <boost/range/size_type.hpp>
+#include <boost/type.hpp>
 #include <boost/type_traits/is_const.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/callable.hpp>
@@ -45,7 +46,7 @@ namespace pstade_oven_extension {
     }
 
     template< class To, class From > inline
-    To pstade_oven_copy_range(To *&, From& rng)
+    To pstade_oven_copy_range(boost::type<To>, From& rng)
     {
         return pstade_oven_(copy_range<To>(), rng);
     }
@@ -56,8 +57,7 @@ namespace pstade_oven_extension {
         template< class X, class From >
         X copy(From& rng)
         {
-            X *px;
-            return pstade_oven_copy_range(px, rng);
+            return pstade_oven_copy_range(boost::type<X>(), rng);
         }
     };
 

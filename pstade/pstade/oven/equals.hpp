@@ -25,7 +25,6 @@
 #include <boost/range/end.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/constant.hpp>
-#include <pstade/deduced_const.hpp>
 #include <pstade/functional.hpp> // equal_to
 #include "./concepts.hpp"
 #include "./range_traversal.hpp"

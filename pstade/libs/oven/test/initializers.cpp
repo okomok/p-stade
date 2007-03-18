@@ -21,7 +21,6 @@
 #include <boost/utility/result_of.hpp>
 #include <pstade/unused.hpp>
 #include <pstade/copy_assign.hpp>
-#include <pstade/copy_construct.hpp>
 #include <pstade/oven/jointed.hpp>
 #include <pstade/used.hpp>
 #include <boost/array.hpp>
@@ -140,8 +139,8 @@ void test()
         typedef std::vector<row>  matrix;
 
         matrix m = initializers(
-            // 2nd and 3rd must be convertible 1st,
-            // hence these arity must be smaller than 1st's.
+            // 2nd and 3rd must be convertible to 1st,
+            // hence their arity must be smaller than 1st's.
             initializers(1,2,3), // 1st
             initializers(4,5), // 2nd
             initializers(7)  // 3rd

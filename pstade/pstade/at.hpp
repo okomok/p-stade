@@ -25,13 +25,10 @@
 #include <boost/mpl/int.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <boost/type_traits/remove_cv.hpp>
-#include <boost/utility/result_of.hpp>
 #include <pstade/affect.hpp>
-#include <pstade/apple/pair_fwd.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/const_overloaded.hpp>
 #include <pstade/constant.hpp>
-#include <pstade/deduced_const.hpp>
+#include <pstade/cast_function.hpp>
 
 
 namespace pstade {
@@ -39,13 +36,11 @@ namespace pstade {
 
     // at_first
 
-
     template<class Pair>
     struct value_at_first
     {
         typedef typename Pair::first_type type;
     };
-
 
     struct op_at_first :
         callable<op_at_first>
@@ -67,13 +62,11 @@ namespace pstade {
 
     // at_second
 
-
     template<class Pair>
     struct value_at_second
     {
         typedef typename Pair::second_type type;
     };
-
 
     struct op_at_second :
         callable<op_at_second>
@@ -95,12 +88,10 @@ namespace pstade {
 
     // tuple_at
 
-
     template<class Tuple, class N>
     struct tuple_value_at :
         boost::tuples::element<N::value, typename boost::remove_cv<Tuple>::type>
     { };
-
 
     template<class N>
     struct op_tuple_at :
@@ -118,50 +109,22 @@ namespace pstade {
         }
     };
 
-
-    template<class N, class Tuple> inline
-    typename boost::result_of<op_tuple_at<N>(Tuple&)>::type
-    tuple_at(Tuple& t PSTADE_CONST_OVERLOADED(Tuple))
-    {
-        return op_tuple_at<N>()(t);
-    }
-
-    template<class N, class Tuple> inline
-    typename boost::result_of<op_tuple_at<N>(PSTADE_DEDUCED_CONST(Tuple)&)>::type
-    tuple_at(Tuple const& t)
-    {
-        return op_tuple_at<N>()(t);
-    }
+    PSTADE_CAST_FUNCTION(tuple_at, op_tuple_at, class)
 
 
     // tuple_at_c
-
 
     template<class Tuple, int N>
     struct tuple_value_at_c :
         tuple_value_at< Tuple, boost::mpl::int_<N> >
     { };
 
-
     template<int N>
     struct op_tuple_at_c :
         op_tuple_at< boost::mpl::int_<N> >
     { };
 
-
-    template<int N, class Tuple> inline
-    typename boost::result_of<op_tuple_at_c<N>(Tuple&)>::type
-    tuple_at_c(Tuple& t PSTADE_CONST_OVERLOADED(Tuple))
-    {
-        return op_tuple_at_c<N>()(t);
-    }
-
-    template<int N, class Tuple> inline
-    typename boost::result_of<op_tuple_at_c<N>(PSTADE_DEDUCED_CONST(Tuple)&)>::type
-    tuple_at_c(Tuple const& t)
-    {
-        return op_tuple_at_c<N>()(t);
-    }
+    PSTADE_CAST_FUNCTION(tuple_at_c, op_tuple_at_c, int)
 
 
 } // namespace pstade

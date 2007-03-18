@@ -38,12 +38,10 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/type_traits/is_const.hpp>
-#include <boost/utility/result_of.hpp>
 #include <pstade/automatic.hpp>
 #include <pstade/auxiliary.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/const_overloaded.hpp>
-#include <pstade/deduced_const.hpp>
+#include <pstade/cast_function.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/is_convertible.hpp>
 #include "./range_iterator.hpp"
@@ -88,22 +86,7 @@ struct op_adapted_to
     }
 };
 
-
-template< class Base, class Adapted > inline
-typename boost::result_of<op_adapted_to<Base>(Adapted&)>::type
-adapted_to(Adapted& ad PSTADE_CONST_OVERLOADED(Adapted))
-{
-    return op_adapted_to<Base>()(ad);
-}
-
-template< class Base, class Adapted > inline
-typename boost::result_of<op_adapted_to<Base>(Adapted const&)>::type
-adapted_to(Adapted const& ad)
-{
-    return op_adapted_to<Base>()(ad);
-}
-
-
+PSTADE_CAST_FUNCTION(adapted_to, op_adapted_to, class)
 PSTADE_AUXILIARY(0, to_base, (automatic< op_adapted_to<boost::mpl::_1> >))
 
 
@@ -131,22 +114,7 @@ struct op_adapted_range_to :
     }
 };
 
-
-template< class Base, class Adapted > inline
-typename boost::result_of<op_adapted_range_to<Base>(Adapted&)>::type
-adapted_range_to(Adapted& ad PSTADE_CONST_OVERLOADED(Adapted))
-{
-    return op_adapted_range_to<Base>()(ad);
-}
-
-template< class Base, class Adapted > inline
-typename boost::result_of<op_adapted_range_to<Base>(PSTADE_DEDUCED_CONST(Adapted)&)>::type
-adapted_range_to(Adapted const& ad)
-{
-    return op_adapted_range_to<Base>()(ad);
-}
-
-
+PSTADE_CAST_FUNCTION(adapted_range_to, op_adapted_range_to, class)
 PSTADE_AUXILIARY(0, to_base_range, (automatic< op_adapted_range_to<boost::mpl::_1> >))
 
 

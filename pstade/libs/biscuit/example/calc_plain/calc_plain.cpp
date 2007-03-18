@@ -19,6 +19,7 @@
 namespace calculator
 {
     namespace biscuit = pstade::biscuit;
+    namespace oven = pstade::oven;
     using namespace biscuit;
 
     struct do_int

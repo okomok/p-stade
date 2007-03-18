@@ -189,6 +189,12 @@ void test()
         BOOST_CHECK( p->first == 3 );
         BOOST_CHECK( p->second == 'c' );
     }
+
+    // new_
+    {
+        std::auto_ptr<A1> p1(pstade::new_<A1>(i));
+        std::auto_ptr<A1> p2(pstade::new_<A1>(c));
+    }
 }
 
 
