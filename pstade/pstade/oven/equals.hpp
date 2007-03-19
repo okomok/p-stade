@@ -100,11 +100,9 @@ struct op_equals
 };
 
 
-PSTADE_ADL_BARRIER(equals) { // for Boost
-
-PSTADE_CONSTANT(equals, (op_equals))
-
-} // ADL barrier
+PSTADE_ADL_BARRIER(equals) { // for 'boost'
+    PSTADE_CONSTANT(equals, (op_equals))
+}
 
 
 } } // namespace pstade::oven

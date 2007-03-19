@@ -85,10 +85,8 @@ namespace distance_detail {
 
 
 PSTADE_ADL_BARRIER(distance) { // for 'boost' and 'std'
-
-PSTADE_FUNCTION(distance, (distance_detail::baby<_>))
-
-} // ADL barrier
+    PSTADE_FUNCTION(distance, (distance_detail::baby<_>))
+}
 
 
 } } // namespace pstade::oven

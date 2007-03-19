@@ -65,11 +65,9 @@ namespace begin_end_detail {
 
 
 PSTADE_ADL_BARRIER(begin_end) { // for Boost v1.33 'const_begin/end'
-
-PSTADE_AUXILIARY(0, begin, (begin_end_detail::op_begin))
-PSTADE_AUXILIARY(0, end,   (begin_end_detail::op_end))
-
-} // ADL barrier
+    PSTADE_AUXILIARY(0, begin, (begin_end_detail::op_begin))
+    PSTADE_AUXILIARY(0, end,   (begin_end_detail::op_end))
+}
 
 
 } } // namespace pstade::oven

@@ -10,8 +10,18 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Port of: <boost-sandbox/boost/sequence_algo/algorithm.hpp>
+//
+// (C) Copyright Jeremy Siek 2001. Permission to copy, use, modify,
+// sell and distribute this software is granted provided this
+// copyright notice appears in all copies. This software is provided
+// "as is" without express or implied warranty, and with no claim as
+// to its suitability for any purpose.
+
+
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
+#include <pstade/adl_barrier.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/functional.hpp> // less
 #include "./concepts.hpp"
@@ -26,9 +36,6 @@ namespace is_sorted_detail {
     template< class ForwardIter, class Compare >
     bool aux(ForwardIter first, ForwardIter const& last, Compare& comp)
     {
-        // See:
-        // <boost-sandbox/boost/sequence_algo/algorithm.hpp>
-
         if (first == last)
             return true;
 
@@ -63,7 +70,9 @@ struct op_is_sorted
 };
 
 
-PSTADE_CONSTANT(is_sorted, (op_is_sorted))
+PSTADE_ADL_BARRIER(is_sorted) { // for 'std'
+    PSTADE_CONSTANT(is_sorted, (op_is_sorted))
+}
 
 
 } } // namespace pstade::oven

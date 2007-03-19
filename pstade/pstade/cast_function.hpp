@@ -19,15 +19,15 @@
 #include <pstade/deduced_const.hpp>
 
 
-#define PSTADE_CAST_FUNCTION(Name, Op, Param) \
-    template<Param pstade_To, class pstade_From> inline \
+#define PSTADE_CAST_FUNCTION(Name, Op, Class) \
+    template<Class pstade_To, class pstade_From> inline \
     typename ::boost::result_of<Op<pstade_To>(pstade_From&)>::type \
     Name(pstade_From& from PSTADE_CONST_OVERLOADED(pstade_From)) \
     { \
         return Op<pstade_To>()(from); \
     } \
     \
-    template<Param pstade_To, class pstade_From> inline \
+    template<Class pstade_To, class pstade_From> inline \
     typename ::boost::result_of<Op<pstade_To>(PSTADE_DEDUCED_CONST(pstade_From)&)>::type \
     Name(pstade_From const& from) \
     { \

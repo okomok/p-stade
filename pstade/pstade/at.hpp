@@ -27,8 +27,8 @@
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/affect.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
 #include <pstade/cast_function.hpp>
+#include <pstade/constant.hpp>
 
 
 namespace pstade {
