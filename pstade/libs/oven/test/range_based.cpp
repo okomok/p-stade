@@ -23,6 +23,7 @@
 #include <boost/lambda/core.hpp>
 #include <boost/lambda/algorithm.hpp>
 #include <pstade/lambda_result_of.hpp>
+#include <pstade/test.hpp>
 
 
 struct do_nothing
@@ -55,6 +56,26 @@ struct op_sort2
     {
         std::sort(f, l);
         std::sort(f_, l_);
+    }
+};
+
+
+struct nullary_sig
+{
+    template< class Sig >
+    struct sig
+    {
+        typedef int type;
+    };
+
+    int operator()() const
+    {
+        return 10;
+    }
+
+    int operator()(int i) const
+    {
+        return i + 10;
     }
 };
 
@@ -94,6 +115,16 @@ void test()
             oven::range_based2(detail::good_sig_return_op<lambda::ll::merge>())(rng, rng, boost::begin(rng), pstade::less);
         }
     }
+    { // nullary
+        typedef boost::result_of<detail::op_good_nullary_sig(::nullary_sig)>::type good_t;
+        PSTADE_TEST_IS_RESULT_OF((int), good_t(int))
+        PSTADE_TEST_IS_RESULT_OF((int), good_t())
+        int const i = 1;
+        BOOST_CHECK( detail::good_nullary_sig(nullary_sig())() == 10 );
+        BOOST_CHECK( detail::good_nullary_sig(nullary_sig())(i) == 11 );
+        BOOST_CHECK( detail::good_sig(nullary_sig())(i) == 11 );
+    }
+
 }
 
 

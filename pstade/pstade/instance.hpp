@@ -26,6 +26,11 @@
 //
 // PSTADE_INSTANCE((int), i, value) // value-initialize
 // PSTADE_INSTANCE((string), s, ("hello"))
+//
+// Precondition:
+// A program 'Type x(args); int main() { }' is well-defined.
+// If the constructor of 'Type' accesses another translation unit object,
+// it results in undefined-behavior because of the famous initialization order issue.
 
 
 // Reason why 'ValueOrArgSeq' is checked:

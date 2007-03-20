@@ -21,7 +21,6 @@
 #include <boost/utility/result_of.hpp>
 #include <pstade/unused.hpp>
 #include <pstade/copy_assign.hpp>
-#include <pstade/copy_construct.hpp>
 #include <pstade/oven/jointed.hpp>
 #include <pstade/used.hpp>
 #include <boost/array.hpp>
@@ -106,6 +105,16 @@ void test()
     }
     {
         int const ans[] = { 1,5,3,6,1,3,7,1,4,2,2 };
+        std::vector<int> vec(oven::copy_range< std::vector<int> >(initial_values(1,5,3,6,1,3,7,1,4,2,2)));
+        BOOST_CHECK( equals(vec, ans) );
+    }
+    {
+        int const ans[11] = { 1,5,3,6,1,3,7,1,4,2,2 };
+        boost::array<int, 11> vec = initial_values(1,5,3,6,1,3,7,1,4,2,2)|copied;
+        BOOST_CHECK( equals(vec, ans) );
+    }
+    {
+        int const ans[] = { 1,5,3,6,1,3,7,1,4,2,2 };
         std::vector<int> expected = ans|copied;
         BOOST_CHECK( oven::test_RandomAccess_Readable(
             initial_values(1,5,3,6,1,3,7,1,4,2,2),
@@ -119,8 +128,8 @@ void test()
     }
 #endif
     {
-        boost::result_of<op_initial_values(int,int,int)>::type result = { { 1,2,3 } };
-        // boost::result_of<op_initial_values()>::type nullary_result = { };
+        boost::result_of<op_initial_values<>(int,int,int)>::type result = { { 1,2,3 } };
+        // boost::result_of<op_initial_values<>()>::type nullary_result = { };
         pstade::unused(result); //, nullary_result);
     }
     {
@@ -128,10 +137,9 @@ void test()
         typedef std::vector<row>  matrix;
 
         matrix m = initial_values(
-            // 2nd and 3rd must be convertible 1st, hence arity must be the same.
-            initial_values(1,2,3), // 1st
-            initial_values(4,5,6), // 2nd
-            initial_values(7,8,9)  // 3rd
+            initial_values(1,2,3),
+            initial_values(4,5,6),
+            initial_values(7,8,9)
         );
 
         BOOST_CHECK( m[1][2] == 6 );
@@ -141,8 +149,34 @@ void test()
         typedef std::vector<row>  matrix;
 
         matrix m = initial_values(
+            // 2nd and 3rd must be convertible to 1st,
+            // hence their arity must be smaller than 1st's.
+            initial_values(1,2,3), // 1st
+            initial_values(4,5), // 2nd
+            initial_values(7)  // 3rd
+        );
+
+        BOOST_CHECK( m[2][0] == 7 );
+    }
+    {
+        typedef std::vector<int>  row;
+        typedef std::vector<row>  matrix;
+
+        matrix m = initial_values(
             // row(initial_values(1,2,3)), // direct-initialization may fail. (GCC actually fails.)
             boost::implicit_cast<row>(initial_values(1,2,3)), // force copy-initialization.
+            initial_values(4,5),
+            initial_values(7)
+        );
+
+        BOOST_CHECK( m[1][0] == 4 );
+    }
+    { // explicit call
+        typedef std::vector<int>  row;
+        typedef std::vector<row>  matrix;
+
+        matrix m = op_initial_values<row>()(
+            initial_values(1,2,3),
             initial_values(4,5),
             initial_values(7)
         );

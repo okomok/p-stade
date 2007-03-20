@@ -17,6 +17,11 @@
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) 
 
 
+// Precondition:
+//
+// A program 'T x; int main() { }' is well-defined.
+
+
 #include <pstade/unparenthesize.hpp>
 
 

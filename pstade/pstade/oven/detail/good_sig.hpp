@@ -19,15 +19,21 @@
 // For "big" arity, this can't use 'callable' hence
 // can't take non-const-rvalue. But this is always
 // called from 'range_basedN' with 'as_cref'.
+//
+// As we can't detect the arity without 'bind',
+// a nullary-callable function must be identified by 'good_nullary_sig'.
 
 
 #include <boost/config.hpp> // BOOST_NESTED_TEMPLATE
+#include <boost/mpl/bool.hpp>
+#include <boost/mpl/eval_if.hpp>
+#include <boost/mpl/identity.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/tuple/tuple.hpp>
-#include <pstade/callable.hpp> // callable_argument
+#include <pstade/callable.hpp>
 #include <pstade/lambda_sig.hpp>
 #include <pstade/object_generator.hpp>
 #include <pstade/preprocessor.hpp>
@@ -42,17 +48,42 @@ namespace pstade { namespace oven { namespace detail {
 
 
 template< class SigFun >
+struct good_sig_error_non_nullary;
+
+
+template< class SigFun, class IsNullary = boost::mpl::false_ >
 struct good_sig_return_op :
     lambda_sig
 {
+// 0ary
+    template< class SigFun_ >
+    struct result0 :
+        SigFun_::BOOST_NESTED_TEMPLATE sig<
+            boost::tuples::tuple<SigFun_>
+        >
+    { };
+
+    typedef typename
+        boost::mpl::eval_if< IsNullary,
+            result0<SigFun>,
+            boost::mpl::identity< good_sig_error_non_nullary<SigFun> >
+        >::type
+    nullary_result_type; // for 'callable' macro.
+
+    nullary_result_type operator()() const
+    {
+        return m_fun();
+    }
+
+// 1ary-
     template< class FunCall >
     struct result
     { }; // complete for SFINAE.
 
-    // 1ary-
     #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_OVEN_DETAIL_GOOD_SIG_MAX_ARITY, <pstade/oven/detail/good_sig.hpp>))
     #include BOOST_PP_ITERATE()
 
+// members
     explicit good_sig_return_op()
     { }
 
@@ -72,10 +103,14 @@ private:
 };
 
 
-PSTADE_OBJECT_GENERATOR(good_sig, (good_sig_return_op< deduce<_1, to_value> >))
+PSTADE_OBJECT_GENERATOR(good_sig,         (good_sig_return_op< deduce<_1, to_value> >))
+PSTADE_OBJECT_GENERATOR(good_nullary_sig, (good_sig_return_op< deduce<_1, to_value>, boost::mpl::true_ >))
 
 
 } } } // namespace pstade::oven::detail
+
+
+PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE((pstade)(oven)(detail)(good_sig_return_op), 2)
 
 
 #endif
