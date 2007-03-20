@@ -16,6 +16,9 @@
 // T:CopyConstructible implies T:Clonable for any type T.
 
 
+// Todo: COW? Movable?
+
+
 #include <memory> // auto_ptr
 #include <boost/assert.hpp>
 #include <boost/operators.hpp> // totally_ordered
@@ -35,14 +38,14 @@ namespace pstade {
 namespace clone_ptr_detail {
 
 
-    template<class T> inline
-    T *new_(T const& x)
+    template<class X> inline
+    X *new_(X const& x)
     {
         return boost::heap_clone_allocator::allocate_clone(x);
     }
 
-    template<class T> inline
-    void delete_(T *ptr)
+    template<class X> inline
+    void delete_(X *ptr)
     {
         return boost::heap_clone_allocator::deallocate_clone(ptr);
     }

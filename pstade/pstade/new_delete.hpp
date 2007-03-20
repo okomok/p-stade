@@ -77,7 +77,7 @@ namespace pstade {
 
     // 'new_' isn't fully implemented yet.
     // Yet another 63 functions seems bad?
-    PSTADE_CAST_FUNCTION(new_, op_new, class)
+    PSTADE_CAST_FUNCTION1(new_, op_new, 1)
 
 
     // delete

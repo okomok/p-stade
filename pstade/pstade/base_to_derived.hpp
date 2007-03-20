@@ -59,7 +59,7 @@ struct op_base_to
 };
 
 
-PSTADE_CAST_FUNCTION(base_to, op_base_to, class)
+PSTADE_CAST_FUNCTION1(base_to, op_base_to, 1)
 
 
 // Note:

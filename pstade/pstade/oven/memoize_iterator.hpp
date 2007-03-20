@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Port of: <boost/spirit/iterator/multi_pass.hpp>
+// Modeled after: <boost/spirit/iterator/multi_pass.hpp>
 //
 /*=============================================================================
     Copyright (c) 2001, Daniel C. Nuffer
@@ -119,6 +119,7 @@ namespace memoize_iterator_detail {
 
     // In a recursive range, 'Iterator' must live outside
     // of the range in order to avoid reference-cycles.
+    // Todo: 'xpressive::detail::tracking_ptr' can kick in?
     template< class Memo, class IsRecursive >
     struct ptr_of :
         boost::mpl::if_< IsRecursive,

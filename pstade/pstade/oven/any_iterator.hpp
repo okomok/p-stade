@@ -222,8 +222,8 @@ namespace any_iterator_detail {
             placeholder<Reference, Traversal, Difference>
         placeholder_t;
 
-        // As a recursive range is Forward, 'shared_ptr' isn't used.
-        // Hence there is no reference-cycles.
+        // A recursive range must be Forward.
+        // Hence there is no reference-cycles by 'shared_ptr'.
         typedef typename
             boost::mpl::if_< boost::is_same<Traversal, boost::single_pass_traversal_tag>,
                 boost::shared_ptr<placeholder_t>,
@@ -267,7 +267,6 @@ struct any_iterator :
 {
 private:
     typedef any_iterator self_t;
-    typedef typename any_iterator_detail::super_<Reference, Traversal, Value, Difference>::type super_t;
     typedef typename any_iterator_detail::content_of<Reference, Traversal, Difference>::type content_t;
 
     template< class Iterator >

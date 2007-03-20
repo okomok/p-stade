@@ -109,7 +109,7 @@ namespace pstade {
         }
     };
 
-    PSTADE_CAST_FUNCTION(tuple_at, op_tuple_at, class)
+    PSTADE_CAST_FUNCTION1(tuple_at, op_tuple_at, 1)
 
 
     // tuple_at_c
@@ -124,7 +124,7 @@ namespace pstade {
         op_tuple_at< boost::mpl::int_<N> >
     { };
 
-    PSTADE_CAST_FUNCTION(tuple_at_c, op_tuple_at_c, int)
+    PSTADE_CAST_FUNCTION1(tuple_at_c, op_tuple_at_c, (int))
 
 
 } // namespace pstade

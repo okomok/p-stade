@@ -24,7 +24,7 @@ PSTADE_CONSTANT(in_bidirectional, (boost::bidirectional_traversal_tag))
 PSTADE_CONSTANT(in_random_access, (boost::random_access_traversal_tag))
 
 
-// A non-RandomAccessRange may be too long to diagnose.
+// A range may be too long to diagnose.
 // You should guarantee RandomAccess before applying 'distance'.
 
 struct op_is_random_access

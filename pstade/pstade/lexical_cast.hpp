@@ -33,7 +33,7 @@ namespace pstade {
     };
 
 
-    PSTADE_CAST_FUNCTION(lexical_cast, op_lexical_cast, class)
+    PSTADE_CAST_FUNCTION1(lexical_cast, op_lexical_cast, 1)
     PSTADE_AUXILIARY(0, lexicalized, (automatic< op_lexical_cast<boost::mpl::_> >))
 
 

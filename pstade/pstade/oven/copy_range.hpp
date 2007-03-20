@@ -97,7 +97,7 @@ struct op_copy_range
 
 
 PSTADE_ADL_BARRIER(copy_range) { // for 'boost'
-    PSTADE_CAST_FUNCTION(copy_range, op_copy_range, class)
+    PSTADE_CAST_FUNCTION1(copy_range, op_copy_range, 1)
 }
 PSTADE_PIPABLE(copied, (automatic< op_copy_range<boost::mpl::_1> >))
 
@@ -155,9 +155,9 @@ namespace pstade_oven_extension {
         boost::array<T, N> arr;
         std::size_t i = 0;
 
-        for(; it != last; ++it, ++i)
+        for (; it != last; ++it, ++i)
             arr[i] = *it;
-        for(; i != N; ++i)
+        for (; i != N; ++i)
             arr[i] = T();
 
         return arr; 

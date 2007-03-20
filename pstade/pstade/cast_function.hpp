@@ -17,23 +17,63 @@
 #include <boost/utility/result_of.hpp>
 #include <pstade/const_overloaded.hpp>
 #include <pstade/deduced_const.hpp>
+#include <pstade/preprocessor.hpp>
 
 
-#define PSTADE_CAST_FUNCTION(Name, Op, Class) \
-    template<Class pstade_To, class pstade_From> inline \
-    typename ::boost::result_of<Op<pstade_To>(pstade_From&)>::type \
-    Name(pstade_From& from PSTADE_CONST_OVERLOADED(pstade_From)) \
-    { \
-        return Op<pstade_To>()(from); \
-    } \
-    \
-    template<Class pstade_To, class pstade_From> inline \
-    typename ::boost::result_of<Op<pstade_To>(PSTADE_DEDUCED_CONST(pstade_From)&)>::type \
-    Name(pstade_From const& from) \
-    { \
-        return Op<pstade_To>()(from); \
-    } \
+#define PSTADE_CAST_FUNCTION1(Name, Op, ParamSeqOrCount) \
+    PSTADE_CAST_FUNCTION1_aux(Name, Op, PSTADE_PP_TO_TEMPLATE_PARAM_SEQ(ParamSeqOrCount)) \
 /**/
+
+    #define PSTADE_CAST_FUNCTION1_aux(Name, Op, Seq) \
+        template<PSTADE_PP_TO_TEMPLATE_PARAMS(Seq, X), class A0> inline \
+        typename ::boost::result_of<Op<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, X)>(A0&)>::type \
+        Name(A0& a0 PSTADE_CONST_OVERLOADED(A0)) \
+        { \
+            return Op<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, X)>()(a0); \
+        } \
+        \
+        template<PSTADE_PP_TO_TEMPLATE_PARAMS(Seq, X), class A0> inline \
+        typename ::boost::result_of<Op<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, X)>(PSTADE_DEDUCED_CONST(A0)&)>::type \
+        Name(A0 const& a0) \
+        { \
+            return Op<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, X)>()(a0); \
+        } \
+    /**/
+
+
+#define PSTADE_CAST_FUNCTION2(Name, Op, ParamSeqOrCount) \
+    PSTADE_CAST_FUNCTION2_aux(Name, Op, PSTADE_PP_TO_TEMPLATE_PARAM_SEQ(ParamSeqOrCount)) \
+/**/
+
+    #define PSTADE_CAST_FUNCTION2_aux(Name, Op, Seq) \
+        template<PSTADE_PP_TO_TEMPLATE_PARAMS(Seq, X), class A0, class A1> inline \
+        typename ::boost::result_of<Op<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, X)>(A0&, A1&)>::type \
+        Name(A0& a0, A1& a1 PSTADE_CONST_OVERLOADED_SEQ((A0)(A1))) \
+        { \
+            return Op<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, X)>()(a0, a1); \
+        } \
+        \
+        template<PSTADE_PP_TO_TEMPLATE_PARAMS(Seq, X), class A0, class A1> inline \
+        typename ::boost::result_of<Op<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, X)>(A0&, PSTADE_DEDUCED_CONST(A1)&)>::type \
+        Name(A0& a0, A1 const& a1 PSTADE_CONST_OVERLOADED_SEQ((A0)(A1))) \
+        { \
+            return Op<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, X)>()(a0, a1); \
+        } \
+        \
+        template<PSTADE_PP_TO_TEMPLATE_PARAMS(Seq, X), class A0, class A1> inline \
+        typename ::boost::result_of<Op<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, X)>(PSTADE_DEDUCED_CONST(A0)&, A1&)>::type \
+        Name(A0 const& a0, A1& a1 PSTADE_CONST_OVERLOADED_SEQ((A0)(A1))) \
+        { \
+            return Op<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, X)>()(a0, a1); \
+        } \
+        \
+        template<PSTADE_PP_TO_TEMPLATE_PARAMS(Seq, X), class A0, class A1> inline \
+        typename ::boost::result_of<Op<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, X)>(PSTADE_DEDUCED_CONST(A0)&, PSTADE_DEDUCED_CONST(A1)&)>::type \
+        Name(A0 const& a0, A1 const& a1 PSTADE_CONST_OVERLOADED_SEQ((A0)(A1))) \
+        { \
+            return Op<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, X)>()(a0, a1); \
+        } \
+    /**/
 
 
 #endif

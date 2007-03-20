@@ -33,7 +33,7 @@ protected:
     { }
 
 private:
-    nonassignable const& operator=(nonassignable const&);
+    nonassignable& operator=(nonassignable const&);
 };
 
 

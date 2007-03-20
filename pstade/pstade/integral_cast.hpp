@@ -36,7 +36,7 @@ namespace pstade {
     };
 
 
-    PSTADE_CAST_FUNCTION(integral_cast, op_integral_cast, class)
+    PSTADE_CAST_FUNCTION1(integral_cast, op_integral_cast, 1)
     PSTADE_AUXILIARY(0, to_integer, (automatic< op_integral_cast<boost::mpl::_> >))
 
 

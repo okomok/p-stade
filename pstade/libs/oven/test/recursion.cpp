@@ -94,10 +94,10 @@ void test()
         int const a1_7[] = { 1,2,3,4,5,6 };
         x = a1_7|jointed(recursion(x))|memoized(tb);
 
-        int const ans_[] = { 1,2,3,4,5 };
+        int const ans_[] = { 1,2,3,4,5,6,1,2 };
         std::vector<int> ans = ans_|copied;
         BOOST_CHECK( oven::test_Forward_Readable(
-            x|taken(5),
+            x|taken(8),
             ans
         ) );
     }
