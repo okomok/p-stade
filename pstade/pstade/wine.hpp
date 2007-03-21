@@ -52,6 +52,7 @@
 #include "./is_returnable.hpp"
 #include "./is_same.hpp"
 #include "./lambda_bind.hpp"
+#include "./lambda_provide_result.hpp"
 // #include "./lambda_result_of.hpp"
 #include "./lambda_sig.hpp"
 #include "./lexical_cast.hpp"

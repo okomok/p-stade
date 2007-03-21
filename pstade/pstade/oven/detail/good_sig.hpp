@@ -56,16 +56,15 @@ struct good_sig_return_op :
     lambda_sig
 {
 // 0ary
-    template< class SigFun_ >
     struct result0 :
-        SigFun_::BOOST_NESTED_TEMPLATE sig<
-            boost::tuples::tuple<SigFun_>
+        SigFun::BOOST_NESTED_TEMPLATE sig<
+            boost::tuples::tuple<SigFun>
         >
     { };
 
     typedef typename
         boost::mpl::eval_if< IsNullary,
-            result0<SigFun>,
+            result0,
             boost::mpl::identity< good_sig_error_non_nullary<SigFun> >
         >::type
     nullary_result_type; // for 'callable' macro.

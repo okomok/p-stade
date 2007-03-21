@@ -55,6 +55,7 @@ test-suite wine :
     [ wine-test is_returnable ]
     [ wine-test is_same ]
     [ wine-test lambda_bind ]
+    [ wine-test lambda_provide_result ]
     [ wine-test lambda_result_of ]
     [ wine-test lambda_sig ]
     [ wine-test lexical_cast ]
