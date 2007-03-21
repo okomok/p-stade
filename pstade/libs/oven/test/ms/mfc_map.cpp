@@ -33,7 +33,7 @@
 
 #include <pstade/oven/metafunctions.hpp>
 #include <pstade/oven/functions.hpp>
-#include <pstade/oven/directed.hpp>
+#include <pstade/oven/outdirected.hpp>
 #include <pstade/oven/const_lvalues.hpp>
 
 

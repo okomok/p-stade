@@ -17,7 +17,7 @@
 #include <boost/range/end.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/unused.hpp>
-#include "../directed.hpp"
+#include "../outdirected.hpp"
 #include "../range_category.hpp"
 
 
@@ -37,7 +37,7 @@ bool maybe_contains_aux(Range& rng, Iterator const& it, std::forward_iterator_ta
     if (it == boost::end(rng))
         return true;
 
-    typename boost::result_of<op_make_directed(Range&)>::type drng = make_directed(rng);
+    typename boost::result_of<op_make_outdirected(Range&)>::type drng = make_outdirected(rng);
     return boost::end(drng) != std::find(boost::begin(drng), boost::end(drng), it);
 }
 

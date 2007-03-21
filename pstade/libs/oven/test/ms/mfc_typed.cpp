@@ -29,7 +29,7 @@
 #include <pstade/oven/mfc.hpp>
 
 
-#include <pstade/oven/directed.hpp>
+#include <pstade/oven/outdirected.hpp>
 #include <pstade/oven/const_lvalues.hpp>
 
 
@@ -41,7 +41,7 @@ void test()
 {
     { // CTypedPtrArray
         int src[] = { 0,1,2,3,4,5,6,7 };
-        std::vector<int *> expected = src|directed|copied;
+        std::vector<int *> expected = src|outdirected|copied;
 
         CTypedPtrArray<CPtrArray, int *> rng; {
             rng.Add(expected[0]), rng.Add(expected[1]), rng.Add(expected[2]), rng.Add(expected[3]),
@@ -61,7 +61,7 @@ void test()
     }
     { // CTypedPtrList
         int src[] = { 0,1,2,3,4,5,6,7 };
-        std::vector<int *> expected = src|directed|copied;
+        std::vector<int *> expected = src|outdirected|copied;
 
         CTypedPtrList<CPtrList, int *> rng; {
             rng.AddTail(expected[0]), rng.AddTail(expected[1]), rng.AddTail(expected[2]), rng.AddTail(expected[3]),

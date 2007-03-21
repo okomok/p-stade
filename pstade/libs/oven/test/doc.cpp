@@ -280,7 +280,7 @@ struct less_than
 };
 
 
-void test_directed()
+void test_outdirected()
 {
     using namespace boost;
 
@@ -288,7 +288,7 @@ void test_directed()
     std::string const answer("abcdefg");
 
     std::vector<std::string::const_iterator> iters;
-    oven::copy(str|directed, std::back_inserter(iters));
+    oven::copy(str|outdirected, std::back_inserter(iters));
     oven::sort( iters, boost::make_indirect_fun(::less_than()) );
 
     BOOST_CHECK( oven::equals(iters|indirected, answer) );
@@ -390,7 +390,7 @@ void test_memoized()
     ::very_complicated_algorithm(
         oven::stream_input<char>(ss)
             | memoized
-            | directed
+            | outdirected
             | indirected
             | sorted
             | memoized
@@ -464,7 +464,7 @@ int test_main(int, char*[])
     ::test_cleared();
     ::test_always();
     ::test_copied_as_adaptor();
-    ::test_directed();
+    ::test_outdirected();
     ::test_dropped();
     ::test_filtered();
     ::test_identities();

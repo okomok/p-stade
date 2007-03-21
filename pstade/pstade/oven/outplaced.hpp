@@ -29,8 +29,8 @@
 #include <pstade/unused.hpp>
 #include "./copy_range.hpp"
 #include "./concepts.hpp"
-#include "./directed.hpp"
 #include "./indirected.hpp"
+#include "./outdirected.hpp"
 #include "./range_iterator.hpp"
 #include "./shared.hpp"
 
@@ -70,7 +70,7 @@ struct op_make_outplaced :
         // once constructed. So, first of all, you must initialize the sequence
         // before passing it to 'make_shared'.
         std::auto_ptr<iter_seq_t> pseq(new iter_seq_t());
-        *pseq = oven::copy_range<iter_seq_t>(rng|directed);
+        *pseq = oven::copy_range<iter_seq_t>(rng|outdirected);
 
         // Question:
         // What should be passed to 'fun'?

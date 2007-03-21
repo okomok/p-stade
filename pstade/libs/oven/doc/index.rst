@@ -716,18 +716,6 @@ Thus, STL that doesn't know traversal concepts can choose effective algorithms.
 .. [#]  ``delimited`` prepends the delimiter. ``dropped`` is useful to remove it.
 
 
-``directed``
-^^^^^^^^^^^^
-``directed`` returns a range whose values are iterators of the base range::
-
-	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\directed.ipp
-
-
-- Header: ``<pstade/oven/directed.hpp>``
-- Valid expression: ``rng|directed``
-- Returns: A range which behaves as if it were ``counting(boost::begin(rng),boost::end(rng))``.
-
-
 ``dropped``
 ^^^^^^^^^^^
 ``dropped`` returns the suffix of the base range after the first ``n`` elements::
@@ -873,6 +861,18 @@ Pending...
 - Valid expression: ``rng1|merged(rng2)`` and ``rng1|merged(rng2,pred)``
 - Precondition: ``rng1`` and ``rng2`` are sorted.
 - Returns: A constant range up to `Forward Range`_ which behaves as if they were made by ``std::merge``.
+
+
+``outdirected``
+^^^^^^^^^^^^^^^
+``outdirected`` returns a range whose values are iterators of the base range::
+
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\outdirected.ipp
+
+
+- Header: ``<pstade/oven/outdirected.hpp>``
+- Valid expression: ``rng|outdirected``
+- Returns: A range which behaves as if it were ``counting(boost::begin(rng),boost::end(rng))``.
 
 
 ``permuted``
@@ -1389,7 +1389,7 @@ Version 0.93.6
 
 Version 0.93.7
 ^^^^^^^^^^^^^^
-- Renamed ``initializers`` to ``initial_values``
-
+- Renamed ``directed`` to ``outdirected``.
+- Renamed ``initializers`` to ``initial_values``.
 
 
