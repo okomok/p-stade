@@ -52,7 +52,7 @@ namespace pstade {
 } // namespace pstade
 
 
-PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE((pstade)(op_construct), 1)
+PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE(pstade::op_construct, 1)
 
 
 #endif

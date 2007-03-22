@@ -118,7 +118,7 @@ namespace pstade {
 } // namespace pstade
 
 
-PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE((pstade)(automatic), 1)
+PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE(pstade::automatic, 1)
 
 
 #endif

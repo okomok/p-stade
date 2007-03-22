@@ -82,7 +82,7 @@ namespace pstade {
 } // namespace pstade
 
 
-PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE((pstade)(function), 2)
+PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE(pstade::function, 2)
 
 
 #endif

@@ -69,6 +69,12 @@ void test()
         BOOST_CHECK( copy_assign(x, auto_cast0).m == 10 ); // ok.
         BOOST_CHECK( (x|copy_assign(auto_cast0)).m == 10 ); // ok.
     }
+    {
+        int i = 0;
+        BOOST_CHECK( copy_assign(i, 3) == 3 );
+        BOOST_CHECK( (i|copy_assign(4)) == 4 );
+        BOOST_CHECK( i == 4 );
+    }
 }
 
 

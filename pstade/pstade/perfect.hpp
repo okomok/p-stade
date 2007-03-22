@@ -136,7 +136,7 @@ namespace pstade {
 } // namespace pstade
 
 
-PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE((pstade)(perfect_detail)(return_op), 2)
+PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE(pstade::perfect_detail::return_op, 2)
 
 
 #endif

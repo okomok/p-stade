@@ -145,7 +145,7 @@ PSTADE_FUNCTION(regular_ref, (regular_detail::baby_ref<_>))
 } } // namespace pstade::oven
 
 
-PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE((pstade)(oven)(regular_detail)(return_op), 2)
+PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE(pstade::oven::regular_detail::return_op, 2)
 
 
 #endif

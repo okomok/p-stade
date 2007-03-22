@@ -208,12 +208,12 @@ namespace pstade {
 // nullary results
 //
 
-PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE((pstade)(op_new), 1)
+PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE(pstade::op_new, 1)
 
 // These macros work if 'nullary_result_type' is declared.
-PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE((pstade)(op_new_ptr), 1)
-PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE((pstade)(op_new_auto), 1)
-PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE((pstade)(op_new_shared), 1)
+PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE(pstade::op_new_ptr, 1)
+PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE(pstade::op_new_auto, 1)
+PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE(pstade::op_new_shared, 1)
 
 
 #endif

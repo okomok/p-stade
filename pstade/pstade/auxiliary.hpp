@@ -122,7 +122,7 @@ namespace pstade {
 } // namespace pstade
 
 
-PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE((pstade)(auxiliary_detail)(return_op0), 1)
+PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE(pstade::auxiliary_detail::return_op0, 1)
 
 
 #endif

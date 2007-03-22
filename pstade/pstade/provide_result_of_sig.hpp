@@ -46,45 +46,42 @@ PSTADE_ADL_BARRIER(provide_result_of_sig) {
 } // ADL barrier
 
 
-#define PSTADE_NULLARY_RESULT_OF_SIG_TYPE(NameSeq) \
-    PSTADE_NULLARY_RESULT_OF_SIG_TYPE_aux(PSTADE_PP_FULLNAME(NameSeq)) \
+#define PSTADE_NULLARY_RESULT_OF_SIG_TYPE(X) \
+    namespace boost { \
+        \
+        template< > \
+        struct result_of< X(void) > : \
+            X::sig< \
+                tuples::tuple< X > \
+            > \
+        { }; \
+        \
+        template< > \
+        struct result_of< X const(void) > : \
+               result_of< X(void) > \
+        { }; \
+        \
+    } \
 /**/
 
-    #define PSTADE_NULLARY_RESULT_OF_SIG_TYPE_aux(Fullname) \
+
+#define PSTADE_NULLARY_RESULT_OF_SIG_TEMPLATE(X, SeqOrNum) \
+    PSTADE_NULLARY_RESULT_OF_SIG_TEMPLATE_aux(X, PSTADE_PP_TO_TEMPLATE_PARAM_SEQ(SeqOrNum)) \
+/**/
+
+    #define PSTADE_NULLARY_RESULT_OF_SIG_TEMPLATE_aux(X, Seq) \
         namespace boost { \
             \
-            template< > \
-            struct result_of< Fullname(void) > \
-            { \
-                typedef Fullname::sig< boost::tuples::tuple< Fullname > >::type type; \
-            }; \
-            \
-            template< > \
-            struct result_of< Fullname const(void) > : \
-                   result_of< Fullname(void) > \
+            template< PSTADE_PP_TO_TEMPLATE_PARAMS(Seq, T) > \
+            struct result_of< X< PSTADE_PP_TO_TEMPLATE_ARGS(Seq, T) >(void) > : \
+                X< PSTADE_PP_TO_TEMPLATE_ARGS(Seq, T) >::BOOST_NESTED_TEMPLATE sig< \
+                    tuples::tuple< X< PSTADE_PP_TO_TEMPLATE_ARGS(Seq, T) > > \
+                > \
             { }; \
             \
-        } \
-    /**/
-
-
-#define PSTADE_NULLARY_RESULT_OF_SIG_TEMPLATE(NameSeq, ParamSeqOrCount) \
-    PSTADE_NULLARY_RESULT_OF_SIG_TEMPLATE_aux(PSTADE_PP_FULLNAME(NameSeq), PSTADE_PP_TO_TEMPLATE_PARAM_SEQ(ParamSeqOrCount)) \
-/**/
-
-    #define PSTADE_NULLARY_RESULT_OF_SIG_TEMPLATE_aux(Fullname, ParamSeq) \
-        namespace boost { \
-            \
-            template< PSTADE_PP_TO_TEMPLATE_PARAMS(ParamSeq, T) > \
-            struct result_of< Fullname< PSTADE_PP_TO_TEMPLATE_ARGS(ParamSeq, T) >(void) > \
-            { \
-                typedef Fullname< PSTADE_PP_TO_TEMPLATE_ARGS(ParamSeq, T) > sig_fun_t; \
-                typedef typename sig_fun_t::BOOST_NESTED_TEMPLATE sig< boost::tuples::tuple< sig_fun_t > >::type type; \
-            }; \
-            \
-            template< PSTADE_PP_TO_TEMPLATE_PARAMS(ParamSeq, T) > \
-            struct result_of< Fullname< PSTADE_PP_TO_TEMPLATE_ARGS(ParamSeq, T) > const(void) > : \
-                   result_of< Fullname< PSTADE_PP_TO_TEMPLATE_ARGS(ParamSeq, T) >(void) > \
+            template< PSTADE_PP_TO_TEMPLATE_PARAMS(Seq, T) > \
+            struct result_of< X< PSTADE_PP_TO_TEMPLATE_ARGS(Seq, T) > const(void) > : \
+                   result_of< X< PSTADE_PP_TO_TEMPLATE_ARGS(Seq, T) >(void) > \
             { }; \
             \
          } \

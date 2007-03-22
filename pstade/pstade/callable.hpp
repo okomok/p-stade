@@ -192,48 +192,44 @@ namespace pstade {
 // 'boost::result_of' directly. These macros help.
 
 
-#define PSTADE_CALLABLE_NULLARY_RESULT_OF_TYPE(NameSeq) \
-    PSTADE_CALLABLE_NULLARY_RESULT_OF_TYPE_aux(PSTADE_PP_FULLNAME(NameSeq)) \
-/**/
-
-#define PSTADE_CALLABLE_NULLARY_RESULT_OF_TYPE_aux(Fullname) \
+#define PSTADE_CALLABLE_NULLARY_RESULT_OF_TYPE(X) \
     namespace boost { \
         \
         template< > \
-        struct result_of< Fullname(void) > \
+        struct result_of< X(void) > \
         { \
-            typedef Fullname::nullary_result_type type; \
+            typedef X::nullary_result_type type; \
         }; \
         \
         template< > \
-        struct result_of< Fullname const(void) > : \
-               result_of< Fullname(void) > \
+        struct result_of< X const(void) > : \
+               result_of< X(void) > \
         { }; \
         \
     } \
 /**/
 
 
-#define PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE(NameSeq, ParamSeqOrCount) \
-    PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE_aux(PSTADE_PP_FULLNAME(NameSeq), PSTADE_PP_TO_TEMPLATE_PARAM_SEQ(ParamSeqOrCount)) \
+#define PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE(X, SeqOrNum) \
+    PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE_aux(X, PSTADE_PP_TO_TEMPLATE_PARAM_SEQ(SeqOrNum)) \
 /**/
 
-#define PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE_aux(Fullname, ParamSeq) \
-    namespace boost { \
-        \
-        template< PSTADE_PP_TO_TEMPLATE_PARAMS(ParamSeq, T) > \
-        struct result_of< Fullname< PSTADE_PP_TO_TEMPLATE_ARGS(ParamSeq, T) >(void) > \
-        { \
-            typedef typename Fullname< PSTADE_PP_TO_TEMPLATE_ARGS(ParamSeq, T) >::nullary_result_type type; \
-        }; \
-        \
-        template< PSTADE_PP_TO_TEMPLATE_PARAMS(ParamSeq, T) > \
-        struct result_of< Fullname< PSTADE_PP_TO_TEMPLATE_ARGS(ParamSeq, T) > const(void) > : \
-               result_of< Fullname< PSTADE_PP_TO_TEMPLATE_ARGS(ParamSeq, T) >(void) > \
-        { }; \
-        \
-     } \
-/**/
+    #define PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE_aux(X, Seq) \
+        namespace boost { \
+            \
+            template< PSTADE_PP_TO_TEMPLATE_PARAMS(Seq, T) > \
+            struct result_of< X< PSTADE_PP_TO_TEMPLATE_ARGS(Seq, T) >(void) > \
+            { \
+                typedef typename X< PSTADE_PP_TO_TEMPLATE_ARGS(Seq, T) >::nullary_result_type type; \
+            }; \
+            \
+            template< PSTADE_PP_TO_TEMPLATE_PARAMS(Seq, T) > \
+            struct result_of< X< PSTADE_PP_TO_TEMPLATE_ARGS(Seq, T) > const(void) > : \
+                   result_of< X< PSTADE_PP_TO_TEMPLATE_ARGS(Seq, T) >(void) > \
+            { }; \
+            \
+         } \
+    /**/
 
 
 #define PSTADE_CALLABLE_APPLY_PARAMS(A) \

@@ -12,7 +12,7 @@
 
 // What:
 //
-// Lets "./automatic.hpp" work with 'operator='.
+// Calls copy-assignment explicitly.
 
 
 #include <boost/implicit_cast.hpp>
@@ -38,7 +38,7 @@ namespace pstade {
             template< class Result, class To, class From >
             Result call(To& to, From& from) const
             {
-                to.operator=(boost::implicit_cast<To const&>(from));
+                to = boost::implicit_cast<To const&>(from);
                 return to;
             }
         };

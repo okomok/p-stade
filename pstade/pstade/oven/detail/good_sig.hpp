@@ -109,7 +109,7 @@ PSTADE_OBJECT_GENERATOR(good_nullary_sig, (good_sig_return_op< deduce<_1, to_val
 } } } // namespace pstade::oven::detail
 
 
-PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE((pstade)(oven)(detail)(good_sig_return_op), 2)
+PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE(pstade::oven::detail::good_sig_return_op, 2)
 
 
 #endif

@@ -37,8 +37,10 @@ template<class T> struct constructor
   }
 };
 
-PSTADE_NULLARY_RESULT_OF_SIG_TEMPLATE((constructor), 1)
+PSTADE_NULLARY_RESULT_OF_SIG_TEMPLATE(constructor, 1)
 
+
+namespace my {
 
 struct something
     : pstade::provide_result_of_sig
@@ -56,14 +58,16 @@ struct something
     }
 };
 
-PSTADE_NULLARY_RESULT_OF_SIG_TYPE((something))
+} // namespace my
+
+PSTADE_NULLARY_RESULT_OF_SIG_TYPE(my::something)
 
 
 PSTADE_TEST_IS_RESULT_OF((int), ::constructor<int>())
 PSTADE_TEST_IS_RESULT_OF((int), ::constructor<int>(int))
 
-PSTADE_TEST_IS_RESULT_OF((int), ::something())
-PSTADE_TEST_IS_RESULT_OF((int), ::something(int, int))
+PSTADE_TEST_IS_RESULT_OF((int), ::my::something())
+PSTADE_TEST_IS_RESULT_OF((int), ::my::something(int, int))
 
 
 void test()
@@ -78,13 +82,13 @@ void test()
         BOOST_CHECK(result == 10);
     }
     {
-        boost::result_of< ::something()>::type result = ::something()();
+        boost::result_of< ::my::something()>::type result = ::my::something()();
         BOOST_CHECK(result == 12);
     }
 
     {
         int const i = 10;
-        boost::result_of< ::something(int const&, int const&)>::type result = ::something()(i, i);
+        boost::result_of< ::my::something(int const&, int const&)>::type result = ::my::something()(i, i);
         BOOST_CHECK(result == 20);
     }
 }

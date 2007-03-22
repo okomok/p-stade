@@ -119,7 +119,7 @@ namespace pstade {
 } // namespace pstade
 
 
-PSTADE_CALLABLE_NULLARY_RESULT_OF_TYPE((pstade)(as_value_detail)(op))
+PSTADE_CALLABLE_NULLARY_RESULT_OF_TYPE(pstade::as_value_detail::op)
 
 
 #endif
