@@ -3,7 +3,7 @@
 
 #define PSTADE_CONCEPT_CHECK
 #include <iostream>
-#include <pstade/lambda_result_of.hpp>
+#include <pstade/result_of_lambda.hpp>
 #include <pstade/oven.hpp>
 #include <boost/assign/list_of.hpp>
 #include <boost/lambda/core.hpp>

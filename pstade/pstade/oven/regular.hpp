@@ -36,9 +36,9 @@
 #include <pstade/callable.hpp>
 #include <pstade/clone_ptr.hpp>
 #include <pstade/function.hpp>
-#include <pstade/lambda_result_of.hpp> // inclusion guaranteed
 #include <pstade/pass_by.hpp>
 #include <pstade/preprocessor.hpp>
+#include <pstade/result_of_lambda.hpp> // inclusion guaranteed
 
 
 namespace pstade { namespace oven {

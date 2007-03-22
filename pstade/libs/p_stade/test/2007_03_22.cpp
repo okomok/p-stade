@@ -2,7 +2,7 @@
 #include <boost/lambda/bind.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <boost/utility/result_of.hpp>
-#include <pstade/lambda_result_of.hpp>
+#include <pstade/result_of_lambda.hpp>
 #include <pstade/lambda_bind.hpp>
 #include <pstade/oven/detail/good_sig.hpp>
 

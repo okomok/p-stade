@@ -6,7 +6,7 @@
 #include <boost/utility/result_of.hpp>
 #include <pstade/forward.hpp>
 #include <pstade/as.hpp>
-#include <pstade/lambda_result_of.hpp>
+#include <pstade/result_of_lambda.hpp>
 
 
 using namespace pstade;

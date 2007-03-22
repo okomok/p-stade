@@ -11,7 +11,7 @@
 
 
 #include <pstade/lambda_bind.hpp>
-#include <pstade/lambda_result_of.hpp>
+#include <pstade/result_of_lambda.hpp>
 
 
 #include <boost/utility/result_of.hpp>

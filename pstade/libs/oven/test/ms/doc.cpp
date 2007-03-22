@@ -36,7 +36,7 @@
 #include <pstade/oven/mfc.hpp>
 #include <pstade/oven/ranges.hpp>
 #include <pstade/oven/wtl.hpp>
-#include <pstade/lambda_result_of.hpp> // thanks to uskz
+#include <pstade/result_of_lambda.hpp> // thanks to uskz
 
 
 void test()

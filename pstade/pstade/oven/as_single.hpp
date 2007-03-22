@@ -23,7 +23,7 @@
 #include <pstade/auxiliary.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
-#include <pstade/lambda_sig.hpp>
+#include <pstade/provide_sig.hpp>
 #include <pstade/to_shared_ptr.hpp>
 #include "./indirected.hpp"
 #include "./iter_range.hpp"
@@ -69,7 +69,7 @@ namespace as_shared_single_detail {
 
 
     struct op :
-        lambda_sig
+        provide_sig
     {
         template< class FunCall >
         struct result;

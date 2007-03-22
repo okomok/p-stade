@@ -44,8 +44,8 @@
 #include <boost/utility/result_of.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/deduced_const.hpp>
-#include <pstade/lambda_sig.hpp>
 #include <pstade/preprocessor.hpp>
+#include <pstade/provide_sig.hpp>
 #include <pstade/use_default.hpp>
 
 
@@ -76,7 +76,7 @@ namespace pstade {
 
     template< class Derived, class NullaryResult = boost::use_default >
     struct callable :
-        lambda_sig
+        provide_sig
     {
 
         typedef typename

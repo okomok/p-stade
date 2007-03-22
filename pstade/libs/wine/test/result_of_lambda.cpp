@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/lambda_result.hpp>
+#include <pstade/result_of_lambda.hpp>
 
 
 #include <vector>
@@ -18,6 +18,7 @@
 #include <boost/lambda/lambda.hpp>
 #include <boost/iterator/iterator_traits.hpp>
 #include <pstade/functional.hpp>
+#include <pstade/lambda_bind.hpp>
 
 
 template< class Iterator, class Function >

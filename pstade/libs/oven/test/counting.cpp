@@ -23,7 +23,7 @@
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/taken_while.hpp>
 #include <pstade/oven/transformed.hpp>
-#include <pstade/lambda_result_of.hpp>
+#include <pstade/result_of_lambda.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <pstade/as.hpp>
 #include <pstade/pack.hpp>

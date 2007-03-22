@@ -34,9 +34,9 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/lambda_sig.hpp>
 #include <pstade/object_generator.hpp>
 #include <pstade/preprocessor.hpp>
+#include <pstade/provide_sig.hpp>
 
 
 #if !defined(PSTADE_OVEN_DETAIL_GOOD_SIG_MAX_ARITY)
@@ -53,7 +53,7 @@ struct good_sig_error_non_nullary;
 
 template< class SigFun, class IsNullary = boost::mpl::false_ >
 struct good_sig_return_op :
-    lambda_sig
+    provide_sig
 {
 // 0ary
     struct result0 :

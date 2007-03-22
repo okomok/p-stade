@@ -25,9 +25,9 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/type.hpp>
 #include <pstade/constant.hpp>
-#include <pstade/lambda_sig.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/preprocessor.hpp>
+#include <pstade/provide_sig.hpp>
 #include <pstade/use_default.hpp>
 #include "./concepts.hpp"
 #include "./copy_range.hpp"
@@ -96,7 +96,7 @@ namespace initial_values_detail {
 
 template< class Value = boost::use_default >
 struct op_initial_values :
-    lambda_sig
+    provide_sig
 {
     template< class FunCall >
     struct result;

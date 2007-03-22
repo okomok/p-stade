@@ -13,8 +13,8 @@
 #include <pstade/auxiliary.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
-#include <pstade/lambda_sig.hpp>
 #include <pstade/pass_by.hpp>
+#include <pstade/provide_sig.hpp>
 
 
 namespace pstade {
@@ -74,7 +74,7 @@ namespace pstade {
 
 
         struct op :
-            lambda_sig
+            provide_sig
         {
             typedef // for callable macro
                 op const&
