@@ -5,7 +5,7 @@
 
 // PStade.Wine
 //
-// Copyright Shunsuke Sogame 2005-2006.
+// Copyright Shunsuke Sogame 2005-2007.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -24,58 +24,51 @@
 #include <pstade/adl_barrier.hpp>
 
 
+#if !defined(PSTADE_PROVIDE_SIG_MAX_ARITY)
+    #define PSTADE_PROVIDE_SIG_MAX_ARITY 10 // follows 'tuple'.
+#endif
+
+
 namespace pstade {
+
 
 PSTADE_ADL_BARRIER(provide_sig) {
 
 
-struct provide_sig
-{
-private:
-    template< class F, class Args, int Arity >
-    struct sig_impl;
+    struct provide_sig
+    {
+    private:
+        template<class Fun, class Args, int Arity>
+        struct sig_aux;
 
-    // 0ary
-    template< class F, class Args >
-    struct sig_impl< F, Args, 0 > :
-        boost::result_of<
-            F(
-            )
-        >
-    { };
+        // 0ary
+        template<class Fun, class Args>
+        struct sig_aux<Fun, Args, 0> :
+            boost::result_of<
+                Fun()
+            >
+        { };
 
-    // 1ary
-    template< class F, class Args >
-    struct sig_impl< F, Args, 1 > :
-        boost::result_of<
-            F(
-                typename boost::tuples::element< 0, Args >::type &
-            )
-        >
-    { };
+        // 1ary-
+    #define PSTADE_element(Z, N, _) typename boost::tuples::element<N, Args>::type &
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_PROVIDE_SIG_MAX_ARITY, <pstade/provide_sig.hpp>))
+        #include BOOST_PP_ITERATE()
+    #undef  PSTADE_element
 
-    // 2ary-
-#define PSTADE_max_arity 3 // undocumented?
-#define PSTADE_element(Z, N, _) typename boost::tuples::element< N, Args >::type &
-    #define BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_max_arity, <pstade/provide_sig.hpp>))
-    #include BOOST_PP_ITERATE()
-#undef PSTADE_element
-#undef PSTADE_max_arity
-
-public:
-    template< class SigArgs >
-    struct sig :
-        sig_impl<
-            typename SigArgs::head_type, // function
-            typename SigArgs::tail_type, // argument tuple
-            boost::tuples::length< SigArgs >::value - 1
-        >
-    { };
-
-}; // struct provide_sig
+    public:
+        template<class SigArgs>
+        struct sig :
+            sig_aux<
+                typename SigArgs::head_type, // function
+                typename SigArgs::tail_type, // argument tuple
+                boost::tuples::length<SigArgs>::value - 1
+            >
+        { };
+    };
 
 
 } // ADL barrier
+
 
 } // namespace pstade
 
@@ -85,14 +78,12 @@ public:
 #define n BOOST_PP_ITERATION()
 
 
-    template< class F, class Args >
-    struct sig_impl< F, Args, n > :
-        boost::result_of<
-            F(
-                BOOST_PP_ENUM(n, PSTADE_element, ~)
-            )
-        >
-    { };
+template<class Fun, class Args>
+struct sig_aux<Fun, Args, n> :
+    boost::result_of<
+        Fun(BOOST_PP_ENUM(n, PSTADE_element, ~))
+    >
+{ };
 
 
 #undef n

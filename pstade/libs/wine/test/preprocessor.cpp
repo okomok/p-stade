@@ -89,6 +89,10 @@ template< class A >
 void to_seq2( BOOST_PP_SEQ_ENUM( PSTADE_PP_SEQ_MAYBE_TO((A)(A), (A)) ) )
 { }
 
+template< BOOST_PP_SEQ_ENUM(PSTADE_PP_SEQ_PARAMS(3, class A)) >
+void seq_params3( BOOST_PP_SEQ_ENUM(PSTADE_PP_SEQ_PARAMS(3, A)) )
+{ }
+
 
 void test()
 {
@@ -104,6 +108,7 @@ void test()
 
     ::to_seq(1);
     ::to_seq2(1, 1);
+    ::seq_params3(1, 1, 1);
 
     BOOST_CHECK( PSTADE_PP_INT_6 == 6 );
 

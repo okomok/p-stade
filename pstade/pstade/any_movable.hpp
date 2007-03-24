@@ -24,6 +24,7 @@
 #include <boost/cast.hpp> // polymorphic_downcast
 #include <boost/shared_ptr.hpp>
 #include <boost/utility/result_of.hpp>
+#include <pstade/cast_function.hpp>
 
 
 namespace pstade {
@@ -110,18 +111,13 @@ namespace pstade {
     {
         typedef X& result_type;
 
-        result_type operator()(any_movable const& a) const
+        X& operator()(any_movable const& a) const
         {
             return a.base<X>();
         }
     };
 
-    template<class X> inline
-    typename boost::result_of<op_any_movable_cast<X>(any_movable const&)>::type
-    any_movable_cast(any_movable const& a)
-    {
-        return op_any_movable_cast<X>()(a);
-    }
+    PSTADE_CAST_FUNCTION1(any_movable_cast, op_any_movable_cast, 1)
 
 
 } // namespace pstade

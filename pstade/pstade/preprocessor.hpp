@@ -71,6 +71,15 @@
 /**/
 
 
+#define PSTADE_PP_SEQ_PARAMS(N, A) \
+    BOOST_PP_REPEAT(N, PSTADE_PP_SEQ_params, A) \
+/**/
+
+    #define PSTADE_PP_SEQ_params(z, N, A) \
+        (BOOST_PP_CAT(A, N)) \
+    /**/
+
+
 #define PSTADE_PP_SEQ_RANGE(N, M) \
     BOOST_PP_REPEAT_FROM_TO(N, M, PSTADE_PP_SEQ_range, ~) \
 /**/
@@ -122,6 +131,7 @@
 /**/
 
 
+// Same as 'BOOST_TYPEOF_TOSEQ' at <boost/typeof/template_encoding.hpp>
 // (class)(int) -> as is; 2 -> (class)(class)
 #define PSTADE_PP_TO_TEMPLATE_PARAM_SEQ(ParamSeqOrCount) \
     BOOST_PP_IIF( PSTADE_PP_SEQ_IS_SEQ(ParamSeqOrCount), \

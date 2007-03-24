@@ -22,6 +22,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#define PSTADE_NEW_AUTO_FUNCTION
 #include <pstade/new_delete.hpp>
 
 
@@ -190,11 +191,14 @@ void test()
         BOOST_CHECK( p->second == 'c' );
     }
 
-    // new_
+#if defined(PSTADE_NEW_AUTO_FUNCTION)
     {
-        std::auto_ptr<A1> p1(pstade::new_<A1>(i));
-        std::auto_ptr<A1> p2(pstade::new_<A1>(c));
+        std::auto_ptr<int> p0(pstade::new_auto<int>());
+        std::auto_ptr<A3> p3 (pstade::new_auto<A3>(i,c,i));
+        std::auto_ptr<A3> p3_(pstade::new_auto<A3>(i,i,i));
+        std::auto_ptr<A5> p5 (pstade::new_auto<A5>(i,i,i,i,i));
     }
+#endif
 }
 
 

@@ -31,6 +31,7 @@
 #include <pstade/construct.hpp>
 #include <pstade/fuse.hpp>
 #include <pstade/nonassignable.hpp>
+#include <pstade/preprocessor.hpp> // SEQ_RANGE
 #include <pstade/unfuse.hpp>
 
 
@@ -73,11 +74,6 @@ namespace pstade {
             return new X[n];
         }
     };
-
-
-    // 'new_' isn't fully implemented yet.
-    // Yet another 63 functions seems bad?
-    PSTADE_CAST_FUNCTION1(new_, op_new, 1)
 
 
     // delete
@@ -129,6 +125,12 @@ namespace pstade {
     struct op_new_auto :
         op_new_ptr< std::auto_ptr<X> >
     { };
+
+#if defined(PSTADE_NEW_AUTO_FUNCTION)
+    PSTADE_CAST_FUNCTION0(new_auto, op_new_auto, 1)
+    #define PSTADE_CAST_FUNCTION_PARAMS (new_auto, PSTADE_PP_SEQ_RANGE(1, 6), op_new_auto, 1)
+    #include <pstade/cast_function.hpp>
+#endif
 
 
     namespace auto_object_detail {

@@ -72,19 +72,19 @@ PSTADE_ADL_BARRIER(provide_result_of_sig) {
     #define PSTADE_NULLARY_RESULT_OF_SIG_TEMPLATE_aux(X, Seq) \
         namespace boost { \
             \
-            template< PSTADE_PP_TO_TEMPLATE_PARAMS(Seq, T) > \
-            struct result_of< X< PSTADE_PP_TO_TEMPLATE_ARGS(Seq, T) >(void) > : \
-                X< PSTADE_PP_TO_TEMPLATE_ARGS(Seq, T) >::BOOST_NESTED_TEMPLATE sig< \
-                    tuples::tuple< X< PSTADE_PP_TO_TEMPLATE_ARGS(Seq, T) > > \
+            template<PSTADE_PP_TO_TEMPLATE_PARAMS(Seq, T)> \
+            struct result_of< X<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, T)>(void) > : \
+                X<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, T)>::BOOST_NESTED_TEMPLATE sig< \
+                    tuples::tuple< X<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, T)> > \
                 > \
             { }; \
             \
-            template< PSTADE_PP_TO_TEMPLATE_PARAMS(Seq, T) > \
-            struct result_of< X< PSTADE_PP_TO_TEMPLATE_ARGS(Seq, T) > const(void) > : \
-                   result_of< X< PSTADE_PP_TO_TEMPLATE_ARGS(Seq, T) >(void) > \
+            template<PSTADE_PP_TO_TEMPLATE_PARAMS(Seq, T)> \
+            struct result_of< X<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, T)> const(void) > : \
+                   result_of< X<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, T)>(void) > \
             { }; \
             \
-         } \
+        } \
     /**/
 
 

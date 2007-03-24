@@ -51,6 +51,10 @@ struct x
         : m_i(i+j)
     { }
 
+    x(int i, int j, int k)
+        : m_i(i+j+k)
+    { }
+
     int m_i;
 };
 
@@ -60,21 +64,42 @@ struct op_my_make
     typedef X result_type;
 
     template< class A0 >
-    X operator()(A0& a0)
+    X operator()(A0& a0) const
     {
         return X(a0);
     }
 
     template< class A0, class A1 >
-    X operator()(A0& a0, A1& a1)
+    X operator()(A0& a0, A1& a1) const
     {
         return X(a0, a1);
     }
 };
 
-PSTADE_CAST_FUNCTION1(my_make, op_my_make, 1)
-PSTADE_CAST_FUNCTION2(my_make, op_my_make, 1)
+#define PSTADE_CAST_FUNCTION_PARAMS (my_make, (1)(2), op_my_make, 1)
+#include <pstade/cast_function.hpp>
 
+
+template<class X, int N>
+struct op_my_make_1_3
+{
+    typedef X result_type;
+
+    template< class A0 >
+    X operator()(A0& a0) const
+    {
+        return X(a0);
+    }
+
+    template< class A0, class A1, class A2 >
+    X operator()(A0& a0, A1& a1, A2& a2) const
+    {
+        return X(a0, a1, a2);
+    }
+};
+
+#define PSTADE_CAST_FUNCTION_PARAMS (my_make_1_3, (3)(1), op_my_make_1_3, (class)(int))
+#include <pstade/cast_function.hpp>
 
 
 void test()
@@ -86,6 +111,11 @@ void test()
     {
         BOOST_CHECK( ::my_make< ::x >(3).m_i == 3 );
         BOOST_CHECK( ::my_make< ::x >(3, 4).m_i == 7 );
+    }
+
+    {
+        BOOST_CHECK(( ::my_make_1_3< ::x, 0 >(3).m_i == 3 ));
+        BOOST_CHECK(( ::my_make_1_3< ::x, 0 >(3, 4, 5).m_i == 12 ));
     }
 }
 

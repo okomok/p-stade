@@ -21,6 +21,11 @@
 struct chat_monchy
     : pstade::provide_sig
 {
+    char operator()() const
+    {
+        return 'a';
+    }
+
     template< class Sig >
     struct result;
 
@@ -47,12 +52,30 @@ struct chat_monchy
     }
 };
 
+namespace boost {
+    template<>
+    struct result_of< ::chat_monchy(void) >
+    {
+        typedef char type;
+    };
+    template<>
+    struct result_of< ::chat_monchy const(void) >
+    {
+        typedef char type;
+    };
+}
+
 
 void test()
 {
     using namespace pstade;
     namespace lambda = boost::lambda;
 
+    {
+        BOOST_CHECK( 'a' ==
+            lambda::bind(chat_monchy())()
+        );
+    }
     {
         int i = 12;
         BOOST_CHECK( i ==
