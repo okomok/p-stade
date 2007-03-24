@@ -8,6 +8,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// See: <boost/detail/function_n.hpp>
+//
+// Copyright David Abrahams 2006. Distributed under the Boost
+// Software License, Version 1.0. (See accompanying
+// file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+
+
 // What:
 //
 // Does perfect forwarding for cast form functions.
@@ -15,7 +22,7 @@
 
 // Usage: (not recommended because this makes many functions.)
 //
-// #include <pstade/cast_function.hpp>
+// #include <pstade/cast_function.hpp> // Don't forget.
 // namespace my {
 //     template<class T> struct op_my_cast { .. };
 //     #define PSTADE_CAST_FUNCTION_PARAMS (my_cast, (1)(3), op_my_cast, (class)(int))
@@ -132,6 +139,7 @@
     #undef  PSTADE_op
     #undef  PSTADE_args
     #undef  PSTADE_name
+
 
     #undef  PSTADE_CAST_FUNCTION_PARAMS
 
