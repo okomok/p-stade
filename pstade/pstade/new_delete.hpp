@@ -16,6 +16,7 @@
 #include <boost/any.hpp>
 #include <boost/checked_delete.hpp>
 #include <boost/pointee.hpp>
+#include <boost/preprocessor/arithmetic/inc.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
@@ -127,8 +128,8 @@ namespace pstade {
     { };
 
 #if defined(PSTADE_NEW_AUTO_FUNCTION)
-    PSTADE_CAST_FUNCTION0(new_auto, op_new_auto, 1)
-    #define PSTADE_CAST_FUNCTION_PARAMS (new_auto, PSTADE_PP_SEQ_RANGE(1, 6), op_new_auto, 1)
+    #define PSTADE_CAST_FUNCTION_PARAMS \
+        (new_auto, PSTADE_PP_SEQ_RANGE(0, BOOST_PP_INC(PSTADE_CALLABLE_MAX_ARITY)), op_new_auto, 1)
     #include <pstade/cast_function.hpp>
 #endif
 

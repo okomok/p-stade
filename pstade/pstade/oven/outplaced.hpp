@@ -12,7 +12,7 @@
 
 // Rejected...
 //
-// See "./sort_range.hpp"
+// See "./sorted.hpp"
 
 
 // Note:

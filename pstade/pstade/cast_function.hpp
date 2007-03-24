@@ -25,7 +25,7 @@
 // #include <pstade/cast_function.hpp> // Don't forget.
 // namespace my {
 //     template<class T> struct op_my_cast { .. };
-//     #define PSTADE_CAST_FUNCTION_PARAMS (my_cast, (1)(3), op_my_cast, (class)(int))
+//     #define PSTADE_CAST_FUNCTION_PARAMS (my_cast, (1)(3), op_my_cast, (class))
 //     #include <pstade/cast_function.hpp>
 // }
 
@@ -38,6 +38,7 @@
 
 
     #include <boost/preprocessor/cat.hpp>
+    #include <boost/preprocessor/control/if.hpp>
     #include <boost/preprocessor/iteration/iterate.hpp>
     #include <boost/preprocessor/punctuation/comma_if.hpp>
     #include <boost/preprocessor/repetition/repeat.hpp>
@@ -106,24 +107,28 @@
         ) \
     /**/
     #define PSTADE_call_operator_aux(ArgTypes, Params, N) \
-        template<PSTADE_PP_TO_TEMPLATE_PARAMS(PSTADE_classes, X), BOOST_PP_ENUM_PARAMS(N, class A)> \
+        template<PSTADE_PP_TO_TEMPLATE_PARAMS(PSTADE_classes, X), BOOST_PP_ENUM_PARAMS(N, class A)> inline \
         typename ::boost::result_of< PSTADE_op<PSTADE_PP_TO_TEMPLATE_ARGS(PSTADE_classes, X)>(ArgTypes) >::type \
         PSTADE_name( Params PSTADE_CONST_OVERLOADED_SEQ(PSTADE_PP_SEQ_PARAMS(N, A)) ) \
         { \
             return PSTADE_op<PSTADE_PP_TO_TEMPLATE_ARGS(PSTADE_classes, X)>()(BOOST_PP_ENUM_PARAMS(N, a)); \
         } \
     /**/
-    #define PSTADE_arg_type(R, _, Index, Bit) BOOST_PP_COMMA_IF(Index) BOOST_PP_CAT(PSTADE_ac, Bit)(BOOST_PP_CAT(A, Index)) &
-    #define PSTADE_param(R, _, Index, Bit)    BOOST_PP_COMMA_IF(Index) BOOST_PP_CAT(A, Index) BOOST_PP_CAT(PSTADE_c, Bit) & BOOST_PP_CAT(a, Index)
+    #define PSTADE_arg_type(R, _, I, Bit) BOOST_PP_COMMA_IF(I) BOOST_PP_CAT(PSTADE_ac, Bit)(BOOST_PP_CAT(A, I)) &
+    #define PSTADE_param(R, _, I, Bit)    BOOST_PP_COMMA_IF(I) BOOST_PP_CAT(A, I) BOOST_PP_CAT(PSTADE_c, Bit) & BOOST_PP_CAT(a, I)
     #define PSTADE_c0
     #define PSTADE_c1 const
-    #define PSTADE_ac0(X) X
-    #define PSTADE_ac1(X) PSTADE_DEDUCED_CONST(X)
+    #define PSTADE_ac0(A) A
+    #define PSTADE_ac1(A) PSTADE_DEDUCED_CONST(A)
     #define PSTADE_bits(Z, N, _) ((0)(1))
 
-    #define PSTADE_gen_operator(R, _, N) BOOST_PP_SEQ_FOR_EACH_PRODUCT_R(R, PSTADE_call_operator, BOOST_PP_REPEAT(N, PSTADE_bits, ~))
+    #define PSTADE_gen_operator0(R, _, N) PSTADE_CAST_FUNCTION0_aux(PSTADE_name, PSTADE_op, PSTADE_classes)
+    #define PSTADE_gen_operatorN(R, _, N) BOOST_PP_SEQ_FOR_EACH_PRODUCT_R(R, PSTADE_call_operator, BOOST_PP_REPEAT(N, PSTADE_bits, ~))
+    #define PSTADE_gen_operator(R, _, N)  BOOST_PP_IF(N, PSTADE_gen_operatorN, PSTADE_gen_operator0)(R, _, N)
         BOOST_PP_SEQ_FOR_EACH(PSTADE_gen_operator, ~, PSTADE_args)
     #undef  PSTADE_gen_operator
+    #undef  PSTADE_gen_operatorN
+    #undef  PSTADE_gen_operator0
 
     #undef  PSTADE_bits
     #undef  PSTADE_ac1

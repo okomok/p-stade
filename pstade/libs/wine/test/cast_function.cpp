@@ -43,6 +43,9 @@ PSTADE_CAST_FUNCTION1(my_cast_, op_my_cast_, (class)(int))
 
 struct x
 {
+    x() : m_i(7)
+    { }
+
     explicit x(int i) 
         : m_i(i) 
     { }
@@ -81,9 +84,14 @@ struct op_my_make
 
 
 template<class X, int N>
-struct op_my_make_1_3
+struct op_my_make_0_3
 {
     typedef X result_type;
+
+    X operator()() const
+    {
+        return X();
+    }
 
     template< class A0 >
     X operator()(A0& a0) const
@@ -98,7 +106,7 @@ struct op_my_make_1_3
     }
 };
 
-#define PSTADE_CAST_FUNCTION_PARAMS (my_make_1_3, (3)(1), op_my_make_1_3, (class)(int))
+#define PSTADE_CAST_FUNCTION_PARAMS (my_make_0_3, (3)(0)(1), op_my_make_0_3, (class)(int))
 #include <pstade/cast_function.hpp>
 
 
@@ -114,8 +122,9 @@ void test()
     }
 
     {
-        BOOST_CHECK(( ::my_make_1_3< ::x, 0 >(3).m_i == 3 ));
-        BOOST_CHECK(( ::my_make_1_3< ::x, 0 >(3, 4, 5).m_i == 12 ));
+        BOOST_CHECK(( ::my_make_0_3< ::x, 0 >().m_i == 7 ));
+        BOOST_CHECK(( ::my_make_0_3< ::x, 0 >(3).m_i == 3 ));
+        BOOST_CHECK(( ::my_make_0_3< ::x, 0 >(3, 4, 5).m_i == 12 ));
     }
 }
 
