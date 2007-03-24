@@ -99,6 +99,7 @@
     #define PSTADE_op   BOOST_PP_TUPLE_ELEM(4, 2, PSTADE_CAST_FUNCTION_PARAMS)
     #define PSTADE_classes PSTADE_PP_TO_TEMPLATE_PARAM_SEQ(BOOST_PP_TUPLE_ELEM(4, 3, PSTADE_CAST_FUNCTION_PARAMS))
 
+
     #define PSTADE_call_operator(R, BitSeq) \
         PSTADE_call_operator_aux( \
             BOOST_PP_SEQ_FOR_EACH_I_R(R, PSTADE_arg_type, ~, BitSeq), \
@@ -122,9 +123,9 @@
     #define PSTADE_ac1(A) PSTADE_DEDUCED_CONST(A)
     #define PSTADE_bits(Z, N, _) ((0)(1))
 
-    #define PSTADE_gen_operator0(R, _, N) PSTADE_CAST_FUNCTION0_aux(PSTADE_name, PSTADE_op, PSTADE_classes)
-    #define PSTADE_gen_operatorN(R, _, N) BOOST_PP_SEQ_FOR_EACH_PRODUCT_R(R, PSTADE_call_operator, BOOST_PP_REPEAT(N, PSTADE_bits, ~))
-    #define PSTADE_gen_operator(R, _, N)  BOOST_PP_IF(N, PSTADE_gen_operatorN, PSTADE_gen_operator0)(R, _, N)
+    #define PSTADE_gen_operator0(R, N) PSTADE_CAST_FUNCTION0_aux(PSTADE_name, PSTADE_op, PSTADE_classes)
+    #define PSTADE_gen_operatorN(R, N) BOOST_PP_SEQ_FOR_EACH_PRODUCT_R(R, PSTADE_call_operator, BOOST_PP_REPEAT(N, PSTADE_bits, ~))
+    #define PSTADE_gen_operator(R, _, N)  BOOST_PP_IF(N, PSTADE_gen_operatorN, PSTADE_gen_operator0)(R, N)
         BOOST_PP_SEQ_FOR_EACH(PSTADE_gen_operator, ~, PSTADE_args)
     #undef  PSTADE_gen_operator
     #undef  PSTADE_gen_operatorN
@@ -139,6 +140,7 @@
     #undef  PSTADE_arg_type
     #undef  PSTADE_call_operator_aux
     #undef  PSTADE_call_operator
+
 
     #undef  PSTADE_classes
     #undef  PSTADE_op

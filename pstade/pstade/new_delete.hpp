@@ -127,7 +127,7 @@ namespace pstade {
         op_new_ptr< std::auto_ptr<X> >
     { };
 
-#if defined(PSTADE_NEW_AUTO_FUNCTION)
+#if defined(PSTADE_NEW_AUTO_FUNCTION) // probably rejected; this would generate 68 functions.
     #define PSTADE_CAST_FUNCTION_PARAMS \
         (new_auto, PSTADE_PP_SEQ_RANGE(0, BOOST_PP_INC(PSTADE_CALLABLE_MAX_ARITY)), op_new_auto, 1)
     #include <pstade/cast_function.hpp>
