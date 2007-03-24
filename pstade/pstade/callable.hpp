@@ -68,7 +68,7 @@ namespace pstade {
     { };
 
 
-    template<class Function> // for cute error message.
+    template<class Function> // for cute error message
     struct callable_error_non_nullary;
 
 
@@ -87,7 +87,7 @@ PSTADE_ADL_BARRIER(callable) {
 
         template<class FunCall>
         struct result
-        { }; // complete for SFINAE.
+        { }; // complete for SFINAE
 
 
         // 0ary
@@ -144,7 +144,7 @@ PSTADE_ADL_BARRIER(callable) {
     #define PSTADE_call_operator(R, BitSeq) \
         PSTADE_call_operator_aux( \
             BOOST_PP_SEQ_FOR_EACH_I_R(R, PSTADE_arg_type, ~, BitSeq), \
-            BOOST_PP_SEQ_FOR_EACH_I_R(R, PSTADE_param, ~, BitSeq) \
+            BOOST_PP_SEQ_FOR_EACH_I_R(R, PSTADE_param,    ~, BitSeq) \
         ) \
     /**/
     #define PSTADE_call_operator_aux(ArgTypes, Params) \

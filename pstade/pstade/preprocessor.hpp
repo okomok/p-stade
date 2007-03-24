@@ -83,6 +83,7 @@
     /**/
 
 
+// (1, 5) -> (1)(2)(3)(4)
 #define PSTADE_PP_SEQ_RANGE(N, M) \
     BOOST_PP_REPEAT_FROM_TO(N, M, PSTADE_PP_SEQ_range, ~) \
 /**/
