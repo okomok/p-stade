@@ -41,7 +41,6 @@
     #include <boost/preprocessor/control/if.hpp>
     #include <boost/preprocessor/iteration/iterate.hpp>
     #include <boost/preprocessor/punctuation/comma_if.hpp>
-    #include <boost/preprocessor/repetition/repeat.hpp>
     #include <boost/preprocessor/seq/for_each.hpp>
     #include <boost/preprocessor/seq/for_each_i.hpp>
     #include <boost/preprocessor/seq/for_each_product.hpp>
@@ -121,17 +120,15 @@
     #define PSTADE_c1 const
     #define PSTADE_ac0(A) A
     #define PSTADE_ac1(A) PSTADE_DEDUCED_CONST(A)
-    #define PSTADE_bits(Z, N, _) ((0)(1))
 
     #define PSTADE_gen_operator0(R, N) PSTADE_CAST_FUNCTION0_aux(PSTADE_name, PSTADE_op, PSTADE_classes)
-    #define PSTADE_gen_operatorN(R, N) BOOST_PP_SEQ_FOR_EACH_PRODUCT_R(R, PSTADE_call_operator, BOOST_PP_REPEAT(N, PSTADE_bits, ~))
+    #define PSTADE_gen_operatorN(R, N) BOOST_PP_SEQ_FOR_EACH_PRODUCT_R(R, PSTADE_call_operator, PSTADE_PP_SEQ_REPEAT((0)(1), N))
     #define PSTADE_gen_operator(R, _, N)  BOOST_PP_IF(N, PSTADE_gen_operatorN, PSTADE_gen_operator0)(R, N)
         BOOST_PP_SEQ_FOR_EACH(PSTADE_gen_operator, ~, PSTADE_args)
     #undef  PSTADE_gen_operator
     #undef  PSTADE_gen_operatorN
     #undef  PSTADE_gen_operator0
 
-    #undef  PSTADE_bits
     #undef  PSTADE_ac1
     #undef  PSTADE_ac0
     #undef  PSTADE_c1

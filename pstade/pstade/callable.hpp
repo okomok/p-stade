@@ -5,7 +5,7 @@
 
 // PStade.Wine
 //
-// Copyright Shunsuke Sogame 2005-2006.
+// Copyright Shunsuke Sogame 2005-2007.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -37,7 +37,6 @@
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/punctuation/comma_if.hpp>
-#include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 #include <boost/preprocessor/seq/for_each_i.hpp>
 #include <boost/preprocessor/seq/for_each_product.hpp>
@@ -60,7 +59,7 @@ namespace pstade {
 
 
     // Add const-qualifier if rvalue is specified.
-    template< class A >
+    template<class A>
     struct callable_argument :
         boost::remove_reference<
             // VC++ warns against 'A const' if 'A' is reference, so...
@@ -69,14 +68,14 @@ namespace pstade {
     { };
 
 
-    template< class Function > // for cute error message.
+    template<class Function> // for cute error message.
     struct callable_error_non_nullary;
 
 
-    PSTADE_ADL_BARRIER(callable) {
+PSTADE_ADL_BARRIER(callable) {
 
 
-    template< class Derived, class NullaryResult = boost::use_default >
+    template<class Derived, class NullaryResult = boost::use_default>
     struct callable :
         provide_sig
     {
@@ -86,7 +85,7 @@ namespace pstade {
         nullary_result_type;
 
 
-        template< class Signature >
+        template<class FunCall>
         struct result
         { }; // complete for SFINAE.
 
@@ -105,7 +104,7 @@ namespace pstade {
         // 1ary
 
     private:
-        template< class A0 >
+        template<class A0>
         struct result1 : // Prefer inheritance for SFINAE.
             Derived::BOOST_NESTED_TEMPLATE apply< Derived,
                 typename callable_argument<A0>::type
@@ -113,15 +112,15 @@ namespace pstade {
         { };
 
     public:
-        template< class Self, class A0 >
-        struct result<Self(A0)> :
+        template<class Fun, class A0>
+        struct result<Fun(A0)> :
             result1<A0>
         { };
 
         // Workaround:
         // Never call 'result<callable(A0&,..)>' directly;
         // a signature form makes VC7.1 fall into ETI.
-        template< class A0 >
+        template<class A0>
         typename result1<A0&>::type
         operator()(A0& a0) const
         {
@@ -130,7 +129,7 @@ namespace pstade {
             >(a0);
         }
 
-        template< class A0 >
+        template<class A0>
         typename result1<PSTADE_DEDUCED_CONST(A0)&>::type
         operator()(A0 const& a0) const
         {
@@ -149,25 +148,23 @@ namespace pstade {
         ) \
     /**/
     #define PSTADE_call_operator_aux(ArgTypes, Params) \
-        template< BOOST_PP_ENUM_PARAMS(n, class A) > \
-        typename BOOST_PP_CAT(result, n)< ArgTypes >::type \
-        operator()( Params ) const \
+        template<BOOST_PP_ENUM_PARAMS(n, class A)> \
+        typename BOOST_PP_CAT(result, n)<ArgTypes>::type \
+        operator()(Params) const \
         { \
             return derived().BOOST_NESTED_TEMPLATE call< \
-                typename BOOST_PP_CAT(result, n)< ArgTypes >::type \
+                typename BOOST_PP_CAT(result, n)<ArgTypes>::type \
             >(BOOST_PP_ENUM_PARAMS(n, a)); \
         } \
     /**/
-    #define PSTADE_arg_type(R, _, Index, Bit) BOOST_PP_COMMA_IF(Index) BOOST_PP_CAT(PSTADE_ac, Bit)(BOOST_PP_CAT(A, Index)) &
-    #define PSTADE_param(R, _, Index, Bit)    BOOST_PP_COMMA_IF(Index) BOOST_PP_CAT(A, Index) BOOST_PP_CAT(PSTADE_c, Bit) & BOOST_PP_CAT(a, Index)
+    #define PSTADE_arg_type(R, _, I, Bit) BOOST_PP_COMMA_IF(I) BOOST_PP_CAT(PSTADE_ac, Bit)(BOOST_PP_CAT(A, I)) &
+    #define PSTADE_param(R, _, I, Bit)    BOOST_PP_COMMA_IF(I) BOOST_PP_CAT(A, I) BOOST_PP_CAT(PSTADE_c, Bit) & BOOST_PP_CAT(a, I)
     #define PSTADE_c0
     #define PSTADE_c1 const
     #define PSTADE_ac0(X) X
     #define PSTADE_ac1(X) PSTADE_DEDUCED_CONST(X)
-    #define PSTADE_bits(Z, N, _) ((0)(1))
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_CALLABLE_MAX_ARITY, <pstade/callable.hpp>))
         #include BOOST_PP_ITERATE()
-    #undef  PSTADE_bits
     #undef  PSTADE_ac1
     #undef  PSTADE_ac0
     #undef  PSTADE_c1
@@ -187,7 +184,7 @@ namespace pstade {
     }; // struct callable
 
 
-    } // ADL barrier
+} // ADL barrier
 
 
 // A nullary polymorphic function shall specialize
@@ -219,15 +216,15 @@ namespace pstade {
     #define PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE_aux(X, Seq) \
         namespace boost { \
             \
-            template< PSTADE_PP_TO_TEMPLATE_PARAMS(Seq, T) > \
-            struct result_of< X< PSTADE_PP_TO_TEMPLATE_ARGS(Seq, T) >(void) > \
+            template<PSTADE_PP_TO_TEMPLATE_PARAMS(Seq, T)> \
+            struct result_of< X<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, T)>(void) > \
             { \
-                typedef typename X< PSTADE_PP_TO_TEMPLATE_ARGS(Seq, T) >::nullary_result_type type; \
+                typedef typename X<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, T)>::nullary_result_type type; \
             }; \
             \
-            template< PSTADE_PP_TO_TEMPLATE_PARAMS(Seq, T) > \
-            struct result_of< X< PSTADE_PP_TO_TEMPLATE_ARGS(Seq, T) > const(void) > : \
-                   result_of< X< PSTADE_PP_TO_TEMPLATE_ARGS(Seq, T) >(void) > \
+            template<PSTADE_PP_TO_TEMPLATE_PARAMS(Seq, T)> \
+            struct result_of< X<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, T)> const(void) > : \
+                   result_of< X<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, T)>(void) > \
             { }; \
             \
          } \
@@ -250,7 +247,7 @@ namespace pstade {
 
 
 private:
-    template< BOOST_PP_ENUM_PARAMS(n, class A) >
+    template<BOOST_PP_ENUM_PARAMS(n, class A)>
     struct BOOST_PP_CAT(result, n) :
         Derived::BOOST_NESTED_TEMPLATE apply< Derived,
             PSTADE_PP_ENUM_PARAMS_WITH(n, typename callable_argument<A, >::type)
@@ -258,18 +255,15 @@ private:
     { };
 
 public:
-    template< class Self, BOOST_PP_ENUM_PARAMS(n, class A) >
-    struct result<Self(BOOST_PP_ENUM_PARAMS(n, A))> :
+    template<class Fun, BOOST_PP_ENUM_PARAMS(n, class A)>
+    struct result<Fun(BOOST_PP_ENUM_PARAMS(n, A))> :
         BOOST_PP_CAT(result, n)<
             BOOST_PP_ENUM_PARAMS(n, A)
         >
     { };
 
 
-    BOOST_PP_SEQ_FOR_EACH_PRODUCT(
-        PSTADE_call_operator,
-        BOOST_PP_REPEAT(n, PSTADE_bits, ~)
-    )
+    BOOST_PP_SEQ_FOR_EACH_PRODUCT(PSTADE_call_operator, PSTADE_PP_SEQ_REPEAT((0)(1), n))
 
 
 #undef n

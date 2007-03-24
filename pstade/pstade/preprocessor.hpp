@@ -57,6 +57,7 @@
 /**/
 
 
+// Seq -> Seq Seq .. Seq
 #define PSTADE_PP_SEQ_CYCLE(Seq, Size) \
     BOOST_PP_REPEAT(Size, PSTADE_PP_SEQ_cycle, Seq) \
 /**/
@@ -66,11 +67,13 @@
     /**/
 
 
+// A -> (A)(A)..(A)
 #define PSTADE_PP_SEQ_REPEAT(A, Size) \
     PSTADE_PP_SEQ_CYCLE((A), Size) \
 /**/
 
 
+// A -> (A0)(A1)..(AN)
 #define PSTADE_PP_SEQ_PARAMS(N, A) \
     BOOST_PP_REPEAT(N, PSTADE_PP_SEQ_params, A) \
 /**/
