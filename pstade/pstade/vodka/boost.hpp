@@ -10,8 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// This order matters!
-//
+// Sort them in the dependency order.
 #include "./boost/detail_is_incrementable.hpp"
 #include "./boost/lexical_cast.hpp"
 #include "./boost/numeric_conversion_cast.hpp"
@@ -20,6 +19,7 @@
 #include "./boost/ptr_container_ptr_vector.hpp"
 #include "./boost/concept_check.hpp"
 #include "./boost/iterator_iterator_concept.hpp"
+#include "./boost/detail_lightweight_test.hpp"
 #include "./boost/iterator_new_iterator_tests.hpp"
 
 #endif

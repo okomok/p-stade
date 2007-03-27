@@ -14,13 +14,13 @@
 
 
 #include <pstade/concept.hpp>
-#include <boost/concept_check.hpp> // Convertible
+#include <boost/concept_check.hpp> // ConvertibleConcept
 
 
 template< class U, class T >
 PSTADE_CONCEPT_WHERE(
-    ((boost::Convertible<T, U>))
-    ((boost::Convertible<T, U>)),
+    ((boost::ConvertibleConcept<T, U>))
+    ((boost::ConvertibleConcept<T, U>)),
 (U)) return_dependent(T const& x)
 {
     return static_cast<U>(x);
@@ -28,8 +28,8 @@ PSTADE_CONCEPT_WHERE(
 
 template< class U, class T >
 PSTADE_CONCEPT_WHERE(
-    ((boost::Convertible<T, U>))
-    ((boost::Convertible<T, U>)),
+    ((boost::ConvertibleConcept<T, U>))
+    ((boost::ConvertibleConcept<T, U>)),
 (U)) const return_const(T const& x)
 {
     return static_cast<U>(x);
@@ -37,8 +37,8 @@ PSTADE_CONCEPT_WHERE(
 
 template< class U, class T >
 PSTADE_CONCEPT_WHERE(
-    ((boost::Convertible<T, U>))
-    ((boost::Convertible<T, U>)),
+    ((boost::ConvertibleConcept<T, U>))
+    ((boost::ConvertibleConcept<T, U>)),
 (int)) return_non_dependent(T const& x)
 {
     return static_cast<int>(x);
@@ -46,8 +46,8 @@ PSTADE_CONCEPT_WHERE(
 
 template< class U, class T >
 PSTADE_CONCEPT_WHERE(
-    ((boost::Convertible<T, U>))
-    ((boost::Convertible<T, U>)),
+    ((boost::ConvertibleConcept<T, U>))
+    ((boost::ConvertibleConcept<T, U>)),
 (void)) return_void(T const&)
 {
 }

@@ -1,5 +1,10 @@
 
 
+// missing headers
+#include <boost/mpl/and.hpp>
+#include <boost/mpl/bool.hpp>
+
+
 #if defined(_MSC_VER)
     #pragma warning(push)
     #pragma warning(disable: 4100) // unreferenced formal parameter

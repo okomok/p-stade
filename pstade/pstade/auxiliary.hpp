@@ -43,16 +43,14 @@ namespace pstade {
         struct return_op0 :
             callable<return_op0<UnaryFun>, return_op0<UnaryFun> const&>
         {
-            // as pipe
-
+        // as pipe
             template<class Result>
             Result call() const
             {
                 return *this;
             }
 
-            // as function call
-
+        // as function call
             template<class Myself, class A0>
             struct apply :
                 boost::result_of<UnaryFun(A0&)>
@@ -64,6 +62,7 @@ namespace pstade {
                 return m_fun(a0);
             }
 
+        // members
             explicit return_op0()
             { }
 
@@ -140,8 +139,7 @@ namespace auxiliary_detail {
         struct apply
         { };
 
-        // as pipe
-
+    // as pipe
         template<class Myself, BOOST_PP_ENUM_PARAMS(n, class A)>
         struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
             boost::result_of<
@@ -159,8 +157,7 @@ namespace auxiliary_detail {
             );
         }
 
-        // as function call
-
+    // as function call
         template<class Myself, BOOST_PP_ENUM_PARAMS(BOOST_PP_INC(n), class A)>
         struct apply<Myself, BOOST_PP_ENUM_PARAMS(BOOST_PP_INC(n), A)> :
             boost::result_of<
@@ -174,6 +171,7 @@ namespace auxiliary_detail {
             return m_fun(BOOST_PP_ENUM_PARAMS(BOOST_PP_INC(n), a));
         }
 
+    // members
         explicit BOOST_PP_CAT(return_op, n)()
         { }
 

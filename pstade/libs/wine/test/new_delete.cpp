@@ -1,17 +1,4 @@
-#include <pstade/vodka/drink.hpp>
-
-
-#if defined(__MINGW32__)
-    #define PSTADE_WINE_TEST_MINIMAL
-#endif
-
-#if !defined(PSTADE_WINE_TEST_MINIMAL)
-    #include <boost/test/test_tools.hpp>
-    #define BOOST_LIB_NAME boost_test_exec_monitor
-    #include <boost/config/auto_link.hpp>
-#else
-    #include <boost/test/minimal.hpp>
-#endif
+#include <pstade/unit_test.hpp>
 
 
 // PStade.Wine
@@ -74,7 +61,7 @@ PSTADE_TEST_IS_RESULT_OF((void), pstade::op_delete(int*))
 PSTADE_TEST_IS_RESULT_OF((void), pstade::op_delete_array(int*))
 
 
-void test()
+void pstade_unit_test()
 {
     int i = 12;
     int const c = 13;
@@ -128,7 +115,7 @@ void test()
     {
         std::auto_ptr<A2> ap(op_new_auto<A2>()(i,i));
         boost::scoped_ptr<A3> cp(op_new_auto<A3>()(i,i,i));
-        // boost::shared_ptr<A4> sp(op_new_auto<A4>()(i,i,i,i)); // Boost v1.34 -
+        boost::shared_ptr<A4> sp(op_new_auto<A4>()(i,i,i,i)); // Boost v1.34 -
     }
     {
         boost::shared_ptr<A5> p1(op_new_shared<A5>()(c,i,i,i,c));
@@ -200,30 +187,3 @@ void test()
     }
 #endif
 }
-
-
-#if !defined(PSTADE_WINE_TEST_MINIMAL)
-
-    #include <boost/test/unit_test.hpp>
-    using boost::unit_test::test_suite;
-
-    test_suite *
-    init_unit_test_suite(int argc, char *argv[])
-    {
-        test_suite *test = BOOST_TEST_SUITE("Wine Test Suite");
-        test->add(BOOST_TEST_CASE(&::test));
-
-        (void)argc, (void)argv; // unused
-        return test;
-    }
-
-#else
-
-    int test_main(int, char*[])
-    {
-        ::test();
-        return 0;
-    }
-
-#endif
-

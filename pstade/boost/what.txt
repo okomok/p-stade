@@ -8,18 +8,9 @@ From sandbox
     "./has_swap.hpp"
     "./move.hpp"
 
-From RC_1_34
-    "./foreach.hpp"
-    "./iterator/"
-    "./mpl/"
-    "./parameter/"
-    "./range/"
-    "./spirit/"
-    "./type_traits/"
-
 From vault
     "./binary_literal.hpp"
 
 
 No files are modified.
-
+P-Stade should work without these.

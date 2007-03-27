@@ -1,0 +1,13 @@
+# (C) Copyright 2007: Shunsuke Sogame
+# Distributed under the Boost Software License, Version 1.0.
+# (See accompanying file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+
+import testing ;
+
+test-suite "tomato-window" :
+    [ run class_name.cpp ]
+    [ run for_each_child_window.cpp ]
+    [ run register_window_message.cpp ]
+    [ run window_text.cpp ]
+    ;
+

@@ -1,20 +1,13 @@
 
-subproject libs/biscuit/test ;
 
 import testing ;
 
-DEPENDS all : test ;
 
-rule biscuit-test ( name )
-{
-    return [
-        run $(name).cpp
-        : : :
-        <include>$(PSTADE_ROOT)
-        <include>$(BOOST_ROOT)
-        <include>$(MINGW_INCLUDE_DIRECTORY)
-    ] ;
-}
+project
+    : requirements
+      <library>/boost/test//boost_unit_test_framework/<link>static
+    ;
+
 
 test-suite biscuit :
     [ biscuit-test actor ]

@@ -20,7 +20,7 @@
 // Does perfect forwarding for cast form functions.
 
 
-// Usage: (not recommended because this makes many functions.)
+// Usage:
 //
 // #include <pstade/cast_function.hpp> // Don't forget.
 // namespace my {
@@ -28,6 +28,8 @@
 //     #define PSTADE_CAST_FUNCTION_PARAMS (my_cast, (1)(3), op_my_cast, (class))
 //     #include <pstade/cast_function.hpp>
 // }
+//
+// Not recommended in fact; this tends to make so many functions.
 
 
 #if !defined(PSTADE_CAST_FUNCTION_PARAMS)
@@ -50,6 +52,9 @@
     #include <pstade/const_overloaded.hpp>
     #include <pstade/deduced_const.hpp>
     #include <pstade/preprocessor.hpp>
+
+
+    // Prefer these in the case of small arity.
 
 
     #define PSTADE_CAST_FUNCTION0(Name, Op, SeqOrNum) \

@@ -161,8 +161,8 @@ PSTADE_ADL_BARRIER(callable) {
     #define PSTADE_param(R, _, I, Bit)    BOOST_PP_COMMA_IF(I) BOOST_PP_CAT(A, I) BOOST_PP_CAT(PSTADE_c, Bit) & BOOST_PP_CAT(a, I)
     #define PSTADE_c0
     #define PSTADE_c1 const
-    #define PSTADE_ac0(X) X
-    #define PSTADE_ac1(X) PSTADE_DEDUCED_CONST(X)
+    #define PSTADE_ac0(A) A
+    #define PSTADE_ac1(A) PSTADE_DEDUCED_CONST(A)
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_CALLABLE_MAX_ARITY, <pstade/callable.hpp>))
         #include BOOST_PP_ITERATE()
     #undef  PSTADE_ac1
