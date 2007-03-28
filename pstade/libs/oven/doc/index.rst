@@ -26,7 +26,7 @@ The Oven Range Library
 
 Introduction
 ------------
-Oven provides an experimental Range Adaptor implementation of `Range Library Proposal`_::
+Oven is a header-only template library which provides an experimental Range Adaptor implementation of `Range Library Proposal`_::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\introduction.ipp
 
@@ -36,8 +36,8 @@ unless otherwise specified.
 
 Requirements
 ------------
-- `Boost C++ Libraries Version 1.33.1`__ or later (no compilation required)
-- `P-Stade C++ Libraries Version 1.02.0`__ or later (no compilation required, give a higher priority than Boost headers)
+- `Boost C++ Libraries Version 1.34.0`__ or later (no compilation required)
+- `P-Stade C++ Libraries Version 1.03.0`__ or later (no compilation required)
 
 __ Boost_
 __ http://sourceforge.net/project/showfiles.php?group_id=141222&package_id=173059
@@ -55,7 +55,7 @@ Specification
 -------------
 This document is based on the following specifications.
 
-- ``rng``: any range
+- ``rng``: any `Single Pass Range`_
 - ``fwdRng``: any `Forward Range`_
 - ``biRng``: any `Bidirectional Range`_
 - ``rndRng``: any `Random Access Range`_
@@ -70,7 +70,7 @@ This document is based on the following specifications.
 
 All the ranges Oven defines are ``InputStreamable`` and ``OutputStreamable`` if ``<pstade/oven/io.hpp>`` is included.
 
-.. [#] The function type is not supported as ``rfun``. Instead, add ``&`` to make a function **pointer**.
+.. [#] Function types are not supported as ``rfun``. Instead, add ``&`` to make a function **pointer**.
 
 
 Range Algorithms
@@ -1391,5 +1391,6 @@ Version 0.93.7
 ^^^^^^^^^^^^^^
 - Renamed ``directed`` to ``outdirected``.
 - Renamed ``initializers`` to ``initial_values``.
+- Ported to Boost v1.34 (Requirements were slightly weakened).
 
 

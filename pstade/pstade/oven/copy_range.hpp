@@ -17,9 +17,9 @@
 #include <pstade/automatic.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/cast_function.hpp>
-#include <pstade/convert.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/remove_cvr.hpp>
+#include <pstade/value_convert.hpp>
 #include "./concepts.hpp"
 #include "./extension.hpp"
 #include "./identities.hpp"
@@ -44,10 +44,10 @@ namespace copy_range_detail {
     {
         template< class From >
         static typename boost::result_of<
-            op_make_transformed<>(From&, op_convert<ValueTo>)
+            op_make_transformed<>(From&, op_value_convert<ValueTo>)
         >::type call(From& from)
         {
-            return make_transformed(from, op_convert<ValueTo>());
+            return make_transformed(from, op_value_convert<ValueTo>());
         }
     };
 
@@ -69,13 +69,12 @@ namespace copy_range_detail {
 template< class To >
 struct op_copy_range
 {
-    PSTADE_CONCEPT_ASSERT((SinglePass<To>));
-
     typedef To result_type;
 
     template< class From >
     To operator()(From const& from) const
     {
+        PSTADE_CONCEPT_ASSERT((SinglePass<To>));
         PSTADE_CONCEPT_ASSERT((SinglePass<From>));
 
         return pstade_oven_extension::Range<To>().BOOST_NESTED_TEMPLATE copy<To>(
@@ -91,6 +90,7 @@ struct op_copy_range
     // don't or cannot correctly implement the convertibility.
     To operator()(To const& from) const
     {
+        PSTADE_CONCEPT_ASSERT((SinglePass<To>));
         return from;
     }
 };

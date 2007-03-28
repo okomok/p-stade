@@ -31,7 +31,6 @@
 #include "./constant.hpp"
 #include "./construct.hpp"
 #include "./contract.hpp"
-#include "./convert.hpp"
 #include "./copy_assign.hpp"
 #include "./deduced_const.hpp"
 #include "./disable_if_copy.hpp"
@@ -84,6 +83,8 @@
 #include "./use_default.hpp"
 #include "./used.hpp"
 #include "./ustring.hpp"
+#include "./value_convert.hpp"
+#include "./verify.hpp"
 #include "./what.hpp"
 #include "./yes_no.hpp"
 

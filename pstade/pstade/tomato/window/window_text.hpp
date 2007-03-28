@@ -29,10 +29,11 @@
 #include <boost/utility/result_of.hpp>
 #include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/apple/sdk/windows.hpp>
+#include <pstade/as.hpp>
 #include <pstade/oven/array_range.hpp>
 #include <pstade/oven/as_c_str.hpp>
 #include <pstade/oven/distance.hpp>
-#include <pstade/as.hpp>
+#include <pstade/value_convert.hpp>
 #include "./window_ref.hpp"
 
 
@@ -55,7 +56,7 @@ namespace window_text_detail {
             m_buf(1 + ::GetWindowTextLength(wnd))
         {
             ::GetWindowText(wnd,
-                boost::begin(m_buf), static_cast<int>(oven::distance(m_buf))
+                boost::begin(m_buf), pstade::value_convert<int>(oven::distance(m_buf))
             );
 
             BOOST_ASSERT(oven::contains_zero(m_buf));
