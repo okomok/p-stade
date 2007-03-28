@@ -65,6 +65,7 @@
 #include "./pause.hpp"
 #include "./perfect.hpp"
 #include "./pipable.hpp"
+#include "./possible_loss_cast.hpp"
 #include "./preprocessor.hpp"
 #include "./provide_result_of_sig.hpp"
 #include "./provide_sig.hpp"

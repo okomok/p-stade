@@ -64,6 +64,7 @@ test-suite "wine" :
     [ run pause.cpp ]
     [ run perfect.cpp ]
     [ run pipable.cpp ]
+    [ run possible_loss_cast.cpp ]
     [ run preprocessor.cpp ]
     [ run provide_result_of_sig.cpp ]
     [ run provide_sig.cpp ]

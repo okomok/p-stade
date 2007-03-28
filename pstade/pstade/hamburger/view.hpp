@@ -20,6 +20,7 @@
 #include <pstade/apple/wtl/frame.hpp> // CMessageFilter, CIdleHandler
 #include <pstade/instance.hpp>
 #include <pstade/ketchup/core.hpp>
+#include <pstade/lime/traverse.hpp>
 #include <pstade/oven/sorted.hpp>
 #include <pstade/tomato/idle_handling.hpp>
 #include <pstade/tomato/message_filtering.hpp>

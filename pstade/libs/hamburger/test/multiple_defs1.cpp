@@ -1,5 +1,9 @@
+#define _WIN32_WINNT 0x0500
 #include <pstade/vodka/drink.hpp>
 #include <boost/test/minimal.hpp>
+
+#include <pstade/apple/wtl/app.hpp>
+WTL::CAppModule _Module;
 
 
 // PStade.Hamburger

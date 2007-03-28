@@ -10,10 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/integral_cast.hpp>
+#include <pstade/possible_loss_cast.hpp>
 
 
 #include <boost/utility/result_of.hpp>
+
 
 using namespace pstade;
 
@@ -30,25 +31,15 @@ struct my
 
 void test()
 {
-    unsigned int ui = 0;
-    signed int i = 0;
-
-    ui = pstade::op_integral_cast<signed int>()(i);
-    ui = pstade::integral_cast<signed int>(i);
-
-    ui = i|to_integer;
-}
-
-
-void test_()
-{
-    try {
-        boost::result_of<op_integral_cast<short>(long)>::type
-            s = pstade::integral_cast<short>(70000L);
-            (void)s;
-    }
-    catch (boost::bad_numeric_cast)
     {
+        boost::result_of<op_possible_loss_cast<my>(int)>::type
+            r = pstade::possible_loss_cast<my>(10);
+        BOOST_CHECK(r.m_i == 10);
+    }
+    {
+        boost::result_of<op_possible_loss_cast<char>(int)>::type
+            r = pstade::possible_loss_cast<char>(10);
+        BOOST_CHECK(r == char(10));
     }
 }
 

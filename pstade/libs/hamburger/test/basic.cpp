@@ -1,4 +1,9 @@
+#define _WIN32_WINNT 0x0500
 #include <pstade/unit_test.hpp>
+
+
+#include <pstade/apple/wtl/app.hpp>
+WTL::CAppModule _Module;
 
 
 // PStade.Lime
@@ -19,11 +24,7 @@
 #include <string>
 #include <pstade/oven.hpp>
 #include <pstade/wine.hpp>
-#include <pstade/melon.hpp>
 #include <pstade/lime.hpp>
-
-
-WTL::CAppModule _Module;
 
 
 void pstade_unit_test()
@@ -49,12 +50,12 @@ void pstade_unit_test()
 			);
 		}
 
-        hamburger::unknown root;
+        hamburger::element root;
         lime::load(root, tmp);
 
 		lime::save(
 			root.front(),
-			oven::to_utf8_encoder(oven::to_stream(fout)))
+			oven::to_utf8_encoder(oven::to_stream(fout))
 		);
 
 	}
