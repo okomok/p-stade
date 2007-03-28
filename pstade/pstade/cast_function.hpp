@@ -25,11 +25,11 @@
 // #include <pstade/cast_function.hpp> // Don't forget.
 // namespace my {
 //     template<class T> struct op_my_cast { .. };
-//     #define PSTADE_CAST_FUNCTION_PARAMS (my_cast, (1)(3), op_my_cast, (class))
+//     #define PSTADE_CAST_FUNCTION_PARAMS ((1)(3), my_cast, op_my_cast, (class))
 //     #include <pstade/cast_function.hpp>
 // }
 //
-// Not recommended in fact; this tends to make so many functions.
+// 5 or more arity is not recommended; it tends to make so many functions.
 
 
 #if !defined(PSTADE_CAST_FUNCTION_PARAMS)
@@ -98,8 +98,8 @@
 #else // !defined(PSTADE_CAST_FUNCTION_PARAMS)
 
 
-    #define PSTADE_name BOOST_PP_TUPLE_ELEM(4, 0, PSTADE_CAST_FUNCTION_PARAMS)
-    #define PSTADE_args BOOST_PP_TUPLE_ELEM(4, 1, PSTADE_CAST_FUNCTION_PARAMS)
+    #define PSTADE_args BOOST_PP_TUPLE_ELEM(4, 0, PSTADE_CAST_FUNCTION_PARAMS)
+    #define PSTADE_name BOOST_PP_TUPLE_ELEM(4, 1, PSTADE_CAST_FUNCTION_PARAMS)
     #define PSTADE_op   BOOST_PP_TUPLE_ELEM(4, 2, PSTADE_CAST_FUNCTION_PARAMS)
     #define PSTADE_classes PSTADE_PP_TO_TEMPLATE_PARAM_SEQ(BOOST_PP_TUPLE_ELEM(4, 3, PSTADE_CAST_FUNCTION_PARAMS))
 

@@ -1,5 +1,4 @@
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
 
 
 // PStade.Wine
@@ -13,18 +12,7 @@
 #include "./statement.hpp"
 
 
-bool test_m2();
-
-
-void test_m1()
+bool test_m2()
 {
-    BOOST_CHECK(x == 4);
-}
-
-
-int test_main(int, char*[])
-{
-    ::test_m1();
-    BOOST_CHECK(::test_m2());
-    return 0;
+    return x == 4;
 }

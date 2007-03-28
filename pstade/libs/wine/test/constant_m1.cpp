@@ -10,21 +10,22 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./statement.hpp"
+#include "./constant_m.hpp"
 
 
-bool test_m2();
+bool test_constant_m2();
 
 
-void test_m1()
+void test()
 {
-    BOOST_CHECK(x == 4);
+    BOOST_CHECK(::g_int == 0);
+    BOOST_CHECK(::g_vector.empty());
+    BOOST_CHECK(::test_constant_m2());
 }
 
 
 int test_main(int, char*[])
 {
-    ::test_m1();
-    BOOST_CHECK(::test_m2());
+    ::test();
     return 0;
 }

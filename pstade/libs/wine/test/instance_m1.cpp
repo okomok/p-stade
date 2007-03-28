@@ -10,21 +10,22 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./statement.hpp"
+#include "./instance_m.hpp"
 
 
-bool test_m2();
-
-
-void test_m1()
-{
-    BOOST_CHECK(x == 4);
-}
+bool instance_m2_test();
 
 
 int test_main(int, char*[])
 {
-    ::test_m1();
-    BOOST_CHECK(::test_m2());
+    BOOST_CHECK(g_int == 12);
+    BOOST_CHECK(g_char == 'a');
+    g_int = 24;
+    BOOST_CHECK(g_vector.empty());
+    ::g_vector.push_back(g_int);
+
+    BOOST_CHECK(::instance_m2_test());
+
+    BOOST_CHECK(g_vector.size() == 2);
     return 0;
 }

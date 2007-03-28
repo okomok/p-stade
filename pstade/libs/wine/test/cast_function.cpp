@@ -79,7 +79,7 @@ struct op_my_make
     }
 };
 
-#define PSTADE_CAST_FUNCTION_PARAMS (my_make, (1)(2), op_my_make, 1)
+#define PSTADE_CAST_FUNCTION_PARAMS ((1)(2), my_make, op_my_make, 1)
 #include <pstade/cast_function.hpp>
 
 
@@ -106,7 +106,7 @@ struct op_my_make_0_3
     }
 };
 
-#define PSTADE_CAST_FUNCTION_PARAMS (my_make_0_3, (3)(0)(1), op_my_make_0_3, (class)(int))
+#define PSTADE_CAST_FUNCTION_PARAMS ((3)(0)(1), my_make_0_3, op_my_make_0_3, (class)(int))
 #include <pstade/cast_function.hpp>
 
 
