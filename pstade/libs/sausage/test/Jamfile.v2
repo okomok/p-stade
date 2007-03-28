@@ -12,4 +12,6 @@ project
 
 test-suite "sausage" :
     [ run basic.cpp ]
+    [ link multiple_defs1.cpp multiple_defs2.cpp : : multiple_defs ]
     ;
+

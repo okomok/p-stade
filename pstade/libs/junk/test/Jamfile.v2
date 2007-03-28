@@ -4,7 +4,7 @@
 
 import testing ;
 
-project pstade/junk
+project
     : requirements
       <library>/boost/test//boost_unit_test_framework/<link>static
     ;
@@ -12,3 +12,4 @@ project pstade/junk
 test-suite "junk" :
     [ run auto.cpp ]
     ;
+

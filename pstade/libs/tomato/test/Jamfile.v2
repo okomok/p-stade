@@ -12,4 +12,6 @@ test-suite "tomato" :
     [ run size_initialize.cpp ]
     [ run tstring.cpp ]
     [ run widechar_to_multibyte.cpp ]
+    [ link multiple_defs1.cpp multiple_defs2.cpp : : multiple_defs ]
     ;
+

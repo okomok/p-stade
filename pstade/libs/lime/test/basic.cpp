@@ -1,5 +1,4 @@
-#include <pstade/vodka/drink.hpp>
-#include <boost/test/test_tools.hpp>
+#include <pstade/unit_test.hpp>
 
 
 // PStade.Lime
@@ -22,7 +21,7 @@
 #include <pstade/wine.hpp>
 
 
-void test()
+void pstade_unit_test()
 {
     using namespace pstade;
 
@@ -60,20 +59,3 @@ void test()
     std::cout << "</lime_test>";
 }
 
-
-#define BOOST_LIB_NAME boost_unit_test_framework
-#define BOOST_LIB_DIAGNOSTIC yes
-#include <boost/config/auto_link.hpp>
-#include <boost/test/unit_test.hpp>
-using boost::unit_test::test_suite;
-
-
-test_suite* init_unit_test_suite(int, char *[])
-{
-    test_suite* test = BOOST_TEST_SUITE( "Lime Basic Test Suite" );
-
-    test->add( BOOST_TEST_CASE( &::test ) );
-
-
-    return test;
-}

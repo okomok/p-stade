@@ -11,6 +11,7 @@ project
 
 test-suite lime :
     #[ run basic.cpp ]
-    [ run header.cpp ]
     [ run node.cpp ]
+    [ link multiple_defs1.cpp multiple_defs2.cpp : : multiple_defs ]
     ;
+

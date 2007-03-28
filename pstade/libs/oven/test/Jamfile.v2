@@ -52,7 +52,6 @@ test-suite "oven" :
     [ run functions.cpp ]
     [ run generation.cpp ]
     # [ run got_at.cpp ]
-    [ run headers.cpp ]
     [ run identities.cpp ]
     [ run indexing.cpp ]
     [ run indirected.cpp ]
@@ -120,5 +119,6 @@ test-suite "oven" :
     [ run xpressive_tokenized.cpp ]
     [ run zipped.cpp ]
     [ run zipped_with.cpp ]
+    [ link multiple_defs1.cpp multiple_defs2.cpp : : multiple_defs ]
     ;
 

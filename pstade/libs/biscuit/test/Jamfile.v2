@@ -1,0 +1,37 @@
+# (C) Copyright 2007: Shunsuke Sogame
+# Distributed under the Boost Software License, Version 1.0.
+# (See accompanying file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+
+import testing ;
+
+test-suite "biscuit" :
+    [ run actor.cpp ]
+    [ run and.cpp ]
+    [ run any.cpp ]
+    [ run as_lower.cpp ]
+    [ run before_after.cpp ]
+    [ run begin_end.cpp ]
+    [ run capture.cpp ]
+    [ run control.cpp ]
+    [ run debug.cpp ]
+    [ run eps.cpp ]
+    [ run error.cpp ]
+    [ run filter_range.cpp ]
+    [ run ichseq.cpp ]
+    [ run identity.cpp ]
+    [ run impossible.cpp ]
+    [ run literal.cpp ]
+    [ run match.cpp ]
+    [ run min_max_repeat.cpp ]
+    [ run rngseq.cpp ]
+    [ run rngset.cpp ]
+    [ run repeat.cpp ]
+    [ run require.cpp ]
+    [ run search.cpp ]
+    [ run shortest_longest.cpp ]
+    [ run sol_eol.cpp ]
+    [ run symbols.cpp ]
+    [ run token_range.cpp ]
+    [ link multiple_defs1.cpp multiple_defs2.cpp : : multiple_defs ]
+    ;
+

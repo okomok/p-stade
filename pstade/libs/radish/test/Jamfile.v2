@@ -6,7 +6,7 @@ import testing ;
 
 test-suite "radish" :
     [ run bool_testable.cpp ]
-    [ run header.cpp ]
     [ run input_output_streamable.cpp ]
+    [ link multiple_defs1.cpp multiple_defs2.cpp : : multiple_defs ]
     ;
 

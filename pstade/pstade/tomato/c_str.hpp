@@ -145,6 +145,7 @@ PSTADE_AUXILIARY(0, c_str, (c_str_detail::op))
 namespace pstade_tomato_extension {
 
 
+    inline
     TCHAR const *
     pstade_tomato_(c_str, WTL::CString const& str)
     {

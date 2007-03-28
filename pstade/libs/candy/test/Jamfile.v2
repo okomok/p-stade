@@ -6,5 +6,6 @@ import testing ;
 
 test-suite "candy" :
     [ run basic.cpp ]
-    [ run header.cpp ]
+    [ link multiple_defs1.cpp multiple_defs2.cpp : : multiple_defs ]
     ;
+

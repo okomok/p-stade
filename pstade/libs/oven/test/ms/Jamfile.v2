@@ -20,4 +20,6 @@ test-suite "oven-ms" :
     [ run mfc_string.cpp ]
     [ run mfc_typed.cpp ]
     [ run wtl.cpp ]
+    [ link multiple_defs1.cpp multiple_defs2.cpp : : multiple_defs ]
     ;
+

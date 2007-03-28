@@ -6,6 +6,6 @@ import testing ;
 
 test-suite "pizza" :
     [ run functions.cpp ]
-    [ run header.cpp ]
+    [ link multiple_defs1.cpp multiple_defs2.cpp : : multiple_defs ]
     ;
 

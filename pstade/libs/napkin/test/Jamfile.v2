@@ -8,5 +8,6 @@ test-suite napkin :
     [ run basic.cpp ]
     [ run doc.cpp ]
     [ run format.cpp ]
+    [ link multiple_defs1.cpp multiple_defs2.cpp : : multiple_defs ]
     ;
 
