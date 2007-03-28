@@ -17,8 +17,8 @@
 #include <pstade/automatic.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/cast_function.hpp>
+#include <pstade/convert.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/possible_loss_cast.hpp>
 #include <pstade/remove_cvr.hpp>
 #include "./concepts.hpp"
 #include "./extension.hpp"
@@ -44,10 +44,10 @@ namespace copy_range_detail {
     {
         template< class From >
         static typename boost::result_of<
-            op_make_transformed<>(From&, op_possible_loss_cast<ValueTo>)
+            op_make_transformed<>(From&, op_convert<ValueTo>)
         >::type call(From& from)
         {
-            return make_transformed(from, op_possible_loss_cast<ValueTo>());
+            return make_transformed(from, op_convert<ValueTo>());
         }
     };
 
