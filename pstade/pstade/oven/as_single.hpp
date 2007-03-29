@@ -17,6 +17,7 @@
 
 
 #include <vector>
+#include <boost/pointee.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/utility/addressof.hpp>
 #include <boost/utility/result_of.hpp>
@@ -69,18 +70,19 @@ namespace as_shared_single_detail {
     struct op_new_single_vector :
         callable<op_new_single_vector>
     {
-        template< class Myself, class Value >
+        template< class Myself, class X >
         struct apply
         {
             typedef
-                std::vector<typename pass_by_value<Value>::type> *
+                std::vector<typename pass_by_value<X>::type> *
             type;
         };
 
-        template< class Result, class Value >
-        Result call(Value const& v) const
+        template< class Result, class X >
+        Result call(X& x) const
         {
-            return new std::vector<Value>(boost::addressof(v), boost::addressof(v) + 1);
+            typedef typename boost::pointee<Result>::type vec_t;
+            return new vec_t(boost::addressof(x), boost::addressof(x) + 1);
         }
     };
 
