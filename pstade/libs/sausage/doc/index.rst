@@ -7,7 +7,7 @@ The Sausage Coroutine Iteration Library
 :Author: Shunsuke Sogame
 :Contact: pstade.mb@gmail.com
 :License: Distributed under the `Boost Software License Version 1.0`_
-:Version: 0.90.0
+:Version: 0.90.1
 
 
 
@@ -35,8 +35,8 @@ All the types, functions and objects are defined in ``namespace pstade::sausage`
 Requirements
 ------------
 
-- `Boost C++ Libraries Version 1.33.1`__ or later (Boost.Thread compilation required)
-- `P-Stade C++ Libraries Version 1.01.7`__ or later (no compilation required, give a higher priority than Boost headers)
+- `Boost C++ Libraries Version 1.34.0`__ or later (Boost.Thread compilation required)
+- `P-Stade C++ Libraries Version 1.03.5`__ or later (no compilation required)
 
 __ Boost_
 __ http://sourceforge.net/project/showfiles.php?group_id=141222&package_id=173059
@@ -123,5 +123,9 @@ Release Notes
 Version 0.90.0
 ^^^^^^^^^^^^^^
 - Released initial version.
+
+Version 0.90.1
+^^^^^^^^^^^^^^
+- Ported to Boost v1.34.
 
 

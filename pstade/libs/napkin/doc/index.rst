@@ -7,7 +7,7 @@ The Napkin Trace Library
 :Author: Shunsuke Sogame
 :Contact: pstade.mb@gmail.com
 :License: Distributed under the `Boost Software License Version 1.0`_
-:Version: 0.90.3
+:Version: 0.90.4
 
 
 
@@ -36,8 +36,8 @@ All the types, functions and objects are defined in namespace ``pstade::napkin``
 
 Requirements
 ------------
-- `Boost C++ Libraries Version 1.33.1`__ or later (no compilation required)
-- `P-Stade C++ Libraries Version 0.98.0`__ or later (no compilation required, give a higher priority than Boost headers)
+- `Boost C++ Libraries Version 1.34.0`__ or later (no compilation required)
+- `P-Stade C++ Libraries Version 1.05.3`__ or later (no compilation required)
 
 __ Boost_
 __ http://sourceforge.net/project/showfiles.php?group_id=141222&package_id=173059
@@ -264,4 +264,9 @@ Version 0.90.3
 ^^^^^^^^^^^^^^
 - Updated document.
 - Added `lock_ostream`_ and `lock_wostream`_.
+
+Version 0.90.4
+^^^^^^^^^^^^^^
+- Ported to Boost v1.34.
+
 

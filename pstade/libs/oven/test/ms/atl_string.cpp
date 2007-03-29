@@ -25,6 +25,7 @@
 #include <pstade/apple/atl/simpstr.hpp>
 #include <pstade/apple/atl/str.hpp>
 #include <pstade/apple/atl/cstringt.hpp>
+#include <pstade/oven/as_c_str.hpp>
 
 
 namespace oven = pstade::oven;
@@ -41,7 +42,7 @@ void test()
     {
         typedef ATL::CAtlString rng_t;
 
-        BOOST_CHECK(( oven::test_Copyable<rng_t>(sample) ));
+        BOOST_CHECK(( oven::test_Copyable<rng_t>(expected) ));
         rng_t rng = sample|copied;
 
         BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
@@ -52,7 +53,7 @@ void test()
     {
         typedef ATL::CFixedStringT<ATL::CAtlString, 60> rng_t;
 
-        BOOST_CHECK(( oven::test_Copyable<rng_t>(sample) ));
+        BOOST_CHECK(( oven::test_Copyable<rng_t>(expected) ));
         rng_t rng = sample|copied;
 
         BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
@@ -64,12 +65,14 @@ void test()
 #endif // (_ATL_VER >= 0x0700)
 
     {
+        std::vector<OLECHAR> expected = OLESTR("abcdefgh")|as_c_str|copied;
+
         typedef ATL::CComBSTR rng_t;
 
         rng_t rng(OLESTR("abcdefgh"));
         // CComBSTR overloads operator&..., so,
         // strictly speaking, he seems not 'CopyConstructible'.
-        BOOST_CHECK(( oven::test_Copyable<rng_t>(sample) ));
+        BOOST_CHECK(( oven::test_Copyable<rng_t>(expected) ));
         BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
             rng,
             expected

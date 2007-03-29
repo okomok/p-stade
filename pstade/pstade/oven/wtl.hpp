@@ -17,10 +17,7 @@
 
 
 #include <pstade/apple/wtl/ctrlw_fwd.hpp> // CSimpleStack
-
-namespace WTL {
-    class CString;
-}
+#include <pstade/apple/wtl/misc.hpp> // CString
 
 
 

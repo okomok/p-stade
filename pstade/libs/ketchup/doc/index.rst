@@ -7,7 +7,7 @@ The Ketchup Message Map Library
 :Author: Shunsuke Sogame
 :Contact: pstade.mb@gmail.com
 :License: Distributed under the `Boost Software License Version 1.0`_
-:Version: 1.01.6
+:Version: 1.01.7
 
 
 
@@ -66,8 +66,8 @@ is approximated using Ketchup's facilities as seen in this code snippet::
 Requirements
 ------------
 - `WTL Version 7.5`__
-- `Boost C++ Libraries Version 1.33.1`__ or later (no compilation required)
-- `P-Stade C++ Libraries Version 0.98.x`__ or later (no compilation required, give a higher priority than Boost headers)
+- `Boost C++ Libraries Version 1.34.0`__ or later (no compilation required)
+- `P-Stade C++ Libraries Version 1.03.5`__ or later (no compilation required)
 
 __ WTL_
 __ Boost_
@@ -365,5 +365,9 @@ Version 1.01.5
 Version 1.01.6
 ^^^^^^^^^^^^^^
 - Accepted ``set_msg_handled``.
+
+Version 1.01.7
+^^^^^^^^^^^^^^
+- Ported to Boost v1.34.
 
 

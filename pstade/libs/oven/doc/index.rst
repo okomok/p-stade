@@ -1391,6 +1391,6 @@ Version 0.93.7
 ^^^^^^^^^^^^^^
 - Renamed ``directed`` to ``outdirected``.
 - Renamed ``initializers`` to ``initial_values``.
-- Ported to Boost v1.34 (Requirements were slightly weakened).
+- Ported to Boost v1.34.
 
 

@@ -17,6 +17,7 @@
 #include <pstade/candy/remove.hpp>
 #include <pstade/require.hpp>
 #include "../size_initialize.hpp"
+#include "../window/window_ptr.hpp"
 #include "../window/window_ref.hpp"
 
 

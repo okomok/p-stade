@@ -26,7 +26,7 @@
 #include <boost/utility/result_of.hpp>
 #include <pstade/as.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/const_function.hpp>
+#include <pstade/const_fun.hpp>
 #include <pstade/object_generator.hpp>
 #include <pstade/preprocessor.hpp>
 #include "./range_iterator.hpp"
@@ -50,7 +50,7 @@ namespace range_based1_detail {
         template< class Myself, class Range0 >
         struct apply<Myself, Range0> :
             boost::result_of<
-                PSTADE_CONST_FUNCTION(IterBased)(
+                PSTADE_DEDUCED_CONST_FUN(IterBased)(
                     typename range_iterator<Range0>::type const&,
                     typename range_iterator<Range0>::type const&
                 )
@@ -108,7 +108,7 @@ PSTADE_OBJECT_GENERATOR(range_based1, (range_based1_detail::return_op< deduce<_1
 template< class Myself, class Range0, BOOST_PP_ENUM_PARAMS(n, class A) >
 struct apply<Myself, Range0, BOOST_PP_ENUM_PARAMS(n, A)> :
     boost::result_of<
-        PSTADE_CONST_FUNCTION(IterBased)(
+        PSTADE_DEDUCED_CONST_FUN(IterBased)(
             typename range_iterator<Range0>::type const&,
             typename range_iterator<Range0>::type const&,
             PSTADE_PP_ENUM_PARAMS_WITH(n, A, &)

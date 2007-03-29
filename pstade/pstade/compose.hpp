@@ -18,7 +18,7 @@
 
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/const_function.hpp>
+#include <pstade/const_fun.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/fuse.hpp>
 #include <pstade/pass_by.hpp>
@@ -41,7 +41,7 @@ namespace pstade {
             {
                 typedef typename boost::result_of<op_fuse(G&)>::type fused_g;
                 typedef typename boost::result_of<fused_g(Arguments&)>::type result_of_fused_g;
-                typedef typename boost::result_of<PSTADE_CONST_FUNCTION(F)(result_of_fused_g)>::type type;
+                typedef typename boost::result_of<PSTADE_DEDUCED_CONST_FUN(F)(result_of_fused_g)>::type type;
             };
 
             template<class Result, class Arguments>

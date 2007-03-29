@@ -24,7 +24,7 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/const_function.hpp>
+#include <pstade/const_fun.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/deduced_const.hpp>
 #include <pstade/object_generator.hpp>
@@ -54,7 +54,7 @@ namespace pstade {
         // as function call
             template<class Myself, class A0>
             struct apply :
-                boost::result_of<PSTADE_CONST_FUNCTION(UnaryFun)(A0&)>
+                boost::result_of<PSTADE_DEDUCED_CONST_FUN(UnaryFun)(A0&)>
             { };
 
             template<class Result, class A0>
@@ -162,7 +162,7 @@ namespace auxiliary_detail {
         template<class Myself, BOOST_PP_ENUM_PARAMS(BOOST_PP_INC(n), class A)>
         struct apply<Myself, BOOST_PP_ENUM_PARAMS(BOOST_PP_INC(n), A)> :
             boost::result_of<
-                PSTADE_CONST_FUNCTION(Function)(PSTADE_PP_ENUM_PARAMS_WITH(BOOST_PP_INC(n), A, &))
+                PSTADE_DEDUCED_CONST_FUN(Function)(PSTADE_PP_ENUM_PARAMS_WITH(BOOST_PP_INC(n), A, &))
             >
         { };    
 

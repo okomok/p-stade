@@ -27,7 +27,7 @@ test-suite "wine" :
     [ run compose.cpp ]
     [ run concept_off.cpp ]
     [ run concept_on.cpp ]
-    [ run const_function.cpp ]
+    [ run const_fun.cpp ]
     [ run const_overloaded.cpp ]
     [ run constant.cpp ]
     [ compile-fail constant_fail.cpp ]

@@ -6,7 +6,7 @@ The Biscuit Parser Library
 :Author: Shunsuke Sogame and Christopher Diggins(original author)
 :Contact: pstade.mb@gmail.com
 :License: Distributed under the `Boost Software License Version 1.0`_
-:Version: 1.02.8
+:Version: 1.02.9
 
 
 
@@ -70,8 +70,8 @@ Note that left-recursions are not allowed, though compilers might detect them if
 
 Requirements
 ------------
-- `Boost C++ Libraries Version 1.33.1`__ or later (no compilation required)
-- `P-Stade C++ Libraries Version 0.97.x`__ or later (no compilation required, give a higher priority than Boost headers)
+- `Boost C++ Libraries Version 1.34.0`__ or later (no compilation required)
+- `P-Stade C++ Libraries Version 1.03.5`__ or later (no compilation required)
 
 __ Boost_
 __ http://sourceforge.net/project/showfiles.php?group_id=141222&package_id=173059
@@ -583,6 +583,10 @@ Version 1.02.8
 - Renamed ``PSTADE_BISCUIT_SYMBOL`` to ``PSTADE_BISCUIT_SEQ_LITERAL``.
 - Fixed a few bugs.
 - Deprecated ``biscuit::iterate``.
+
+Version 1.02.9
+^^^^^^^^^^^^^^
+- Ported to Boost v1.34.
 
 
 .. include:: ../../doc/refs.rst

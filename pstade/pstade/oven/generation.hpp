@@ -12,7 +12,7 @@
 
 #include <boost/optional.hpp>
 #include <boost/utility/result_of.hpp>
-#include <pstade/const_function.hpp>
+#include <pstade/const_fun.hpp>
 #include <pstade/function.hpp>
 #include <pstade/object_generator.hpp>
 #include <pstade/pass_by.hpp>
@@ -60,7 +60,7 @@ namespace innumerable_detail {
     {
         typedef
             boost::optional<
-                typename boost::result_of<PSTADE_CONST_FUNCTION(Generator_)()>::type
+                typename boost::result_of<PSTADE_DEDUCED_CONST_FUN(Generator_)()>::type
             >
         result_type;
 

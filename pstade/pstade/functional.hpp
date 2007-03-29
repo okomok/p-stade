@@ -34,7 +34,7 @@
 #include <boost/utility/result_of.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/const_function.hpp>
+#include <pstade/const_fun.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/enable_if.hpp> // disable_if
 #include <pstade/object_generator.hpp>
@@ -296,7 +296,7 @@ PSTADE_ADL_BARRIER(functional) {
         {
             template< class Myself, class A0, class A1 >
             struct apply :
-                boost::result_of<PSTADE_CONST_FUNCTION(BinaryFun)(A1&, A0&)>
+                boost::result_of<PSTADE_DEDUCED_CONST_FUN(BinaryFun)(A1&, A0&)>
             { };
 
             template< class Result, class A0, class A1 >
