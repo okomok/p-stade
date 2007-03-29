@@ -27,6 +27,7 @@
 #include "./clone_ptr.hpp"
 #include "./compose.hpp"
 #include "./concept.hpp"
+#include "./const_function.hpp"
 #include "./const_overloaded.hpp"
 #include "./constant.hpp"
 #include "./construct.hpp"

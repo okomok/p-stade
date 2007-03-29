@@ -18,7 +18,6 @@
 // warranty, and with no claim as to its suitability for any purpose.
 
 
-#include <boost/indirect_reference.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/pointee.hpp>
 #include <pstade/object_generator.hpp>
@@ -73,15 +72,16 @@ public:
 template< class > friend struct share_iterator;
     template< class P >
     share_iterator(share_iterator<P> const& other,
-        // Use raw pointer type; 'boost::shared_ptr' convertibility is over-optimistic.
+        typename boost::enable_if_convertible<typename share_iterator<P>::iter_t, iter_t>::type * = 0,
         typename boost::enable_if_convertible<
+            // Use raw pointer type; 'boost::shared_ptr' convertibility is over-optimistic.
             typename boost::pointee<P>::type *, typename boost::pointee<Ptr>::type *
         >::type * = 0
     ) :
         super_t(other.base()), m_prng(other.m_prng)
     { }
 
-    typename boost::indirect_reference<Ptr>::type base_range() const
+    typename boost::pointee<Ptr>::type& base_range() const
     {
         return *m_prng;
     }

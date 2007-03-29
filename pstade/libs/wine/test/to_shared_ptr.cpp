@@ -16,6 +16,8 @@
 #include <boost/shared_ptr.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/new_delete.hpp>
+#include <pstade/test.hpp>
+#include <boost/utility/result_of.hpp>
 
 
 using namespace pstade;
@@ -32,6 +34,11 @@ struct my_ptr
 
     boost::shared_ptr<T> m_ptr;
 };
+
+
+PSTADE_TEST_IS_RESULT_OF((boost::shared_ptr<int>), to_shared_ptr(int *))
+PSTADE_TEST_IS_RESULT_OF((boost::shared_ptr<int>), to_shared_ptr(std::auto_ptr<int>))
+PSTADE_TEST_IS_RESULT_OF((boost::shared_ptr<int>), to_shared_ptr(boost::shared_ptr<int>))
 
 
 void test()
