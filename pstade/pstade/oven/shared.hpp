@@ -16,6 +16,7 @@
 #include <boost/range/end.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/constant.hpp>
+#include <pstade/pass_by.hpp>
 #include <pstade/provide_sig.hpp>
 #include <pstade/to_shared_ptr.hpp>
 #include "./concepts.hpp"
@@ -34,14 +35,11 @@ namespace pstade { namespace oven {
 struct op_make_shared :
     provide_sig
 {
-    template< class FunCall >
-    struct result;
-
-    template< class Fun, class Ptr >
-    struct result<Fun(Ptr)>
+    template< class Ptr >
+    struct result_aux
     {
         typedef typename
-            boost::result_of<op_to_shared_ptr(Ptr)>::type
+            boost::result_of<op_to_shared_ptr(Ptr&)>::type
         sprng_t;
 
         typedef
@@ -54,18 +52,29 @@ struct op_make_shared :
     };
 
     template< class Ptr >
-    typename result<void(Ptr)>::type
+    typename result_aux<Ptr>::type
     operator()(Ptr prng) const
     {
         PSTADE_CONCEPT_ASSERT((SinglePass<typename boost::pointee<Ptr>::type>));
 
-        typename boost::result_of<op_to_shared_ptr(Ptr)>::type
-            sprng = to_shared_ptr(prng);
+        typedef typename
+            boost::result_of<op_to_shared_ptr(Ptr&)>::type
+        sprng_t;
+
+        sprng_t sprng = to_shared_ptr(prng);
         return make_iter_range(
             make_share_iterator(boost::begin(*sprng), sprng),
             make_share_iterator(boost::end(*sprng),   sprng)
         );
     }
+
+    template< class FunCall >
+    struct result;
+
+    template< class Fun, class Ptr >
+    struct result<Fun(Ptr)> :
+        result_aux<typename pass_by_value<Ptr>::type>
+    { };
 };
 
 
@@ -81,7 +90,7 @@ namespace shared_detail {
 
 
     template< class Ptr > inline
-    typename boost::result_of<op_make_shared(Ptr)>::type
+    typename boost::result_of<op_make_shared(Ptr&)>::type
     operator|(Ptr prng, pipe const&)
     {
         return make_shared(prng);

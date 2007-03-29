@@ -23,6 +23,7 @@
 #include <pstade/auxiliary.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
+#include <pstade/pass_by.hpp>
 #include <pstade/provide_sig.hpp>
 #include <pstade/to_shared_ptr.hpp>
 #include "./indirected.hpp"
@@ -71,14 +72,11 @@ namespace as_shared_single_detail {
     struct op :
         provide_sig
     {
-        template< class FunCall >
-        struct result;
-
-        template< class Fun, class Ptr >
-        struct result<Fun(Ptr)>
+        template< class Ptr >
+        struct result_aux
         {
             typedef typename
-                boost::result_of<op_to_shared_ptr(Ptr)>::type
+                boost::result_of<op_to_shared_ptr(Ptr&)>::type
             sp_t;
 
             typedef
@@ -95,11 +93,11 @@ namespace as_shared_single_detail {
         };
 
         template< class Ptr >
-        typename result<void(Ptr)>::type
+        typename result_aux<Ptr>::type
         operator()(Ptr p) const
         {
             typedef typename
-                boost::result_of<op_to_shared_ptr(Ptr)>::type
+                boost::result_of<op_to_shared_ptr(Ptr&)>::type
             sp_t;
 
             sp_t sp = to_shared_ptr(p);
@@ -107,6 +105,14 @@ namespace as_shared_single_detail {
                 make_shared(new std::vector<sp_t>(boost::addressof(sp), boost::addressof(sp) + 1))
             );
         }
+
+        template< class FunCall >
+        struct result;
+
+        template< class Fun, class Ptr >
+        struct result<Fun(Ptr)> :
+            result_aux<typename pass_by_value<Ptr>::type>
+        { };
     };
 
 

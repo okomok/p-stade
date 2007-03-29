@@ -35,19 +35,11 @@ namespace pstade {
     struct op_to_shared_ptr :
         provide_sig
     {
-        template<class FunCall>
-        struct result
-        { };
-
-        template<class Fun, class Ptr>
-        struct result<Fun(Ptr)>
+        template<class Ptr>
+        struct result_aux
         {
             typedef
-                boost::shared_ptr<
-                    typename boost::pointee<
-                        typename pass_by_value<Ptr>::type
-                    >::type
-                >
+                boost::shared_ptr<typename boost::pointee<Ptr>::type>
             type;
 
             // Topic:
@@ -57,11 +49,19 @@ namespace pstade {
         };
 
         template<class Ptr>
-        typename result<void(Ptr)>::type
+        typename result_aux<Ptr>::type
         operator()(Ptr p) const
         {
-            return typename result<void(Ptr)>::type(p);
+            return typename result_aux<Ptr>::type(p);
         }
+
+        template<class FunCall>
+        struct result;
+
+        template<class Fun, class Ptr>
+        struct result<Fun(Ptr)> :
+            result_aux<typename pass_by_value<Ptr>::type>
+        { };
     };
 
 

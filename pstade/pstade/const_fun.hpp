@@ -13,6 +13,7 @@
 // What:
 //
 // Works around a bug that 'boost::result_of<const function-pointer(..)>' doesn't work.
+// If a function object may be a pointer, use this macro...
 
 
 #include <boost/mpl/if.hpp>

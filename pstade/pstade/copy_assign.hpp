@@ -12,7 +12,7 @@
 
 // What:
 //
-// Calls copy-assignment explicitly.
+// The ambiguity buster; call copy-assignment explicitly.
 
 
 #include <boost/implicit_cast.hpp>
