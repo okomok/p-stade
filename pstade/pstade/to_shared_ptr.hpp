@@ -4,7 +4,7 @@
 
 // PStade.Wine
 //
-// Copyright Shunsuke Sogame 2005-2006.
+// Copyright Shunsuke Sogame 2005-2007.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -12,8 +12,8 @@
 
 // What:
 //
-// Passes a pointer to 'shared_ptr' constructor.
-// Boost1.34 will make this deprecated.
+// Makes 'shared_ptr' from a pointer.
+// "make_shared_ptr" is reserved for the same function as 'pstade::new_shared'.
 
 
 #include <memory> // auto_ptr
@@ -35,49 +35,33 @@ namespace pstade {
     struct op_to_shared_ptr :
         provide_sig
     {
-        template<class A>
-        struct result_impl;
-
-        template<class X>
-        struct result_impl<X *>
-        {
-            typedef X *type;
-        };
-
-        template<class X>
-        struct result_impl< boost::shared_ptr<X> >
-        {
-            typedef boost::shared_ptr<X> type;
-        };
-
-        template<class X>
-        struct result_impl< std::auto_ptr<X> >
-        {
-            typedef X *type;
-        };
-
-        template<class Ptr>
-        typename result_impl<Ptr>::type
-        operator()(Ptr p) const
-        {
-            return p;
-        }
-
-        template<class X>
-        typename result_impl< std::auto_ptr<X> >::type
-        operator()(std::auto_ptr<X> ap) const
-        {
-            return ap.release();
-        }
-
         template<class FunCall>
         struct result
         { };
 
         template<class Fun, class Ptr>
-        struct result<Fun(Ptr)> :
-            result_impl<typename pass_by_value<Ptr>::type>
-        { };
+        struct result<Fun(Ptr)>
+        {
+            typedef
+                boost::shared_ptr<
+                    typename boost::pointee<
+                        typename pass_by_value<Ptr>::type
+                    >::type
+                >
+            type;
+
+            // Topic:
+            // If 'result_of' returns const-qualified type,
+            // 'remove_cv' is often cumbersome especially if the result type has value-semantics.
+            // Actually pstade higher-order functions don't return const-qualified functors.
+        };
+
+        template<class Ptr>
+        typename result<void(Ptr)>::type
+        operator()(Ptr p) const
+        {
+            return typename result<void(Ptr)>::type(p);
+        }
     };
 
 
@@ -85,32 +69,25 @@ namespace pstade {
 
 
     template<class X, class Ptr>
-    struct is_shared_ptr_constructible :
+    struct is_to_shared_ptr_param :
         boost::mpl::false_
     { };
 
     template<class X>
-    struct is_shared_ptr_constructible< X, X * > :
+    struct is_to_shared_ptr_param< X, X * > :
         boost::mpl::true_
     { };
 
     template<class X>
-    struct is_shared_ptr_constructible< X, boost::shared_ptr<X> > :
+    struct is_to_shared_ptr_param< X, boost::shared_ptr<X> > :
         boost::mpl::true_
     { };
 
     template<class X>
-    struct is_shared_ptr_constructible< X, std::auto_ptr<X> > :
+    struct is_to_shared_ptr_param< X, std::auto_ptr<X> > :
         boost::mpl::true_
     { };
 
-
-    template<class X>
-    struct shared_pointee :
-        boost::pointee<
-            typename pass_by_value<X>::type
-        >
-    { };
 
 
 } // namespace pstade

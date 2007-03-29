@@ -11,9 +11,9 @@
 
 
 #include <boost/noncopyable.hpp>
+#include <boost/pointee.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/shared_ptr.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/provide_sig.hpp>
@@ -41,11 +41,11 @@ struct op_make_shared :
     struct result<Fun(Ptr)>
     {
         typedef typename
-            shared_pointee<Ptr>::type
-        rng_t;
+            boost::result_of<op_to_shared_ptr(Ptr)>::type
+        sprng_t;
 
         typedef
-            share_iterator<rng_t>
+            share_iterator<sprng_t>
         iter_t;
 
         typedef
@@ -57,13 +57,13 @@ struct op_make_shared :
     typename result<void(Ptr)>::type
     operator()(Ptr prng) const
     {
-        typedef result<void(Ptr)> result_;
-        PSTADE_CONCEPT_ASSERT((SinglePass<typename result_::rng_t>));
+        PSTADE_CONCEPT_ASSERT((SinglePass<typename boost::pointee<Ptr>::type>));
 
-        boost::shared_ptr<typename result_::rng_t> sprng(to_shared_ptr(prng));
-        return typename result_::type(
-            typename result_::iter_t(boost::begin(*sprng), sprng),
-            typename result_::iter_t(boost::end(*sprng),   sprng)
+        typename boost::result_of<op_to_shared_ptr(Ptr)>::type
+            sprng = to_shared_ptr(prng);
+        return make_iter_range(
+            make_share_iterator(boost::begin(*sprng), sprng),
+            make_share_iterator(boost::end(*sprng),   sprng)
         );
     }
 };

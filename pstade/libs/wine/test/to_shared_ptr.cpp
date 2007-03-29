@@ -26,7 +26,7 @@ struct my_ptr
 {
     template<class P>
     explicit my_ptr(P p,
-        typename enable_if< is_shared_ptr_constructible<T, P> >::type = 0)
+        typename enable_if< is_to_shared_ptr_param<T, P> >::type = 0)
         : m_ptr(to_shared_ptr(p))
     { }
 

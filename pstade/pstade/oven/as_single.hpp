@@ -77,10 +77,8 @@ namespace as_shared_single_detail {
         template< class Fun, class Ptr >
         struct result<Fun(Ptr)>
         {
-            typedef
-                boost::shared_ptr<
-                    typename shared_pointee<Ptr>::type
-                >
+            typedef typename
+                boost::result_of<op_to_shared_ptr(Ptr)>::type
             sp_t;
 
             typedef
@@ -100,10 +98,13 @@ namespace as_shared_single_detail {
         typename result<void(Ptr)>::type
         operator()(Ptr p) const
         {
-            typedef result<void(Ptr)> result_;
-            typename result_::sp_t sp(to_shared_ptr(p));
+            typedef typename
+                boost::result_of<op_to_shared_ptr(Ptr)>::type
+            sp_t;
+
+            sp_t sp = to_shared_ptr(p);
             return make_indirected(
-                make_shared(new typename result_::rng_t(boost::addressof(sp), boost::addressof(sp) + 1))
+                make_shared(new std::vector<sp_t>(boost::addressof(sp), boost::addressof(sp) + 1))
             );
         }
     };

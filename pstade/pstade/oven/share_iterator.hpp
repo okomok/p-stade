@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Port of: <boost/shared_container_iterator.hpp>
+// Modeled after: <boost/shared_container_iterator.hpp>
 //
 // (C) Copyright Ronald Garcia 2002. Permission to copy, use, modify, sell and
 // distribute this software is granted provided this copyright notice appears
@@ -18,29 +18,34 @@
 // warranty, and with no claim as to its suitability for any purpose.
 
 
-#include <boost/iterator_adaptors.hpp>
-#include <boost/shared_ptr.hpp>
-#include <boost/utility/addressof.hpp>
+#include <boost/indirect_reference.hpp>
+#include <boost/iterator/iterator_adaptor.hpp>
+#include <boost/pointee.hpp>
+#include <pstade/object_generator.hpp>
 #include "./range_iterator.hpp"
 
 
 namespace pstade { namespace oven {
 
 
-template< class Range >
+template< class Ptr >
 struct share_iterator;
 
 
 namespace share_iterator_detail {
 
 
-    template< class Range >
+    template< class Ptr >
     struct super_
     {
+        typedef typename
+            boost::pointee<Ptr>::type
+        rng_t;
+
         typedef
             boost::iterator_adaptor<
-                share_iterator<Range>,
-                typename range_iterator<Range>::type
+                share_iterator<Ptr>,
+                typename range_iterator<rng_t>::type
             >
         type;
     };
@@ -49,50 +54,45 @@ namespace share_iterator_detail {
 } // namespace share_iterator_detail
 
 
-template< class Range >
+template< class Ptr >
 struct share_iterator :
-    share_iterator_detail::super_<Range>::type
+    share_iterator_detail::super_<Ptr>::type
 {
 private:
-    typedef typename share_iterator_detail::super_<Range>::type super_t;
+    typedef typename share_iterator_detail::super_<Ptr>::type super_t;
     typedef typename super_t::base_type iter_t;
 
 public:
     share_iterator()
     { }
 
-    share_iterator(iter_t const& it, boost::shared_ptr<Range> const& prng) :
+    share_iterator(iter_t const& it, Ptr const& prng) :
         super_t(it), m_prng(prng)
     { }
 
 template< class > friend struct share_iterator;
-    template< class R >
-    share_iterator(share_iterator<R> const& other,
-        typename boost::enable_if_convertible<typename range_iterator<R>::type, iter_t>::type * = 0,
-        // Prefer pointer type; 'shared_ptr' convertibility seems over-optimistic.
-        typename boost::enable_if_convertible<R *, Range *>::type * = 0
+    template< class P >
+    share_iterator(share_iterator<P> const& other,
+        // Use raw pointer type; 'boost::shared_ptr' convertibility is over-optimistic.
+        typename boost::enable_if_convertible<
+            typename boost::pointee<P>::type *, typename boost::pointee<Ptr>::type *
+        >::type * = 0
     ) :
         super_t(other.base()), m_prng(other.m_prng)
     { }
 
-    Range& base_range() const
+    typename boost::indirect_reference<Ptr>::type base_range() const
     {
         return *m_prng;
     }
 
 private:
-    boost::shared_ptr<Range> m_prng;
+    Ptr m_prng;
 };
 
 
-template< class Range > inline
-share_iterator<Range> const
-make_share_iterator(
-    typename range_iterator<Range>::type const& it,
-    boost::shared_ptr<Range> const& prng)
-{
-    return share_iterator<Range>(it, prng);
-}
+PSTADE_OBJECT_GENERATOR(make_share_iterator,
+    (share_iterator< deduce<_2, to_value> >) const)
 
 
 } } // namespace pstade::oven
