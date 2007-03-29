@@ -65,45 +65,65 @@ PSTADE_AUXILIARY(0, as_single, (as_single_detail::op))
 namespace as_shared_single_detail {
 
 
+    // Make one element vector.
+    struct op_new_single_vector :
+        callable<op_new_single_vector>
+    {
+        template< class Myself, class Value >
+        struct apply
+        {
+            typedef
+                std::vector<typename pass_by_value<Value>::type> *
+            type;
+        };
+
+        template< class Result, class Value >
+        Result call(Value const& v) const
+        {
+            return new std::vector<Value>(boost::addressof(v), boost::addressof(v) + 1);
+        }
+    };
+
+    PSTADE_CONSTANT(new_single_vector, (op_new_single_vector))
+
+
     // As mentioned at "./shared.hpp", we must implement
     // something like 'auxiliary0' from scratch.
-
 
     struct op :
         provide_sig
     {
         template< class Ptr >
-        struct result_aux
-        {
-            typedef typename
-                boost::result_of<op_to_shared_ptr(Ptr&)>::type
-            sp_t;
-
-            typedef
-                std::vector<sp_t>
-            rng_t;
-
-            typedef typename
-                boost::result_of<
-                    op_make_indirected<>(
-                        typename boost::result_of<op_make_shared(rng_t *)>::type
-                    )
-                >::type
-            type;
-        };
+        struct result_aux :
+            boost::result_of<
+                op_make_indirected<>(
+                    typename boost::result_of<
+                        op_make_shared(
+                            typename boost::result_of<
+                                op_new_single_vector(
+                                    typename boost::result_of<
+                                        op_to_shared_ptr(Ptr&)
+                                    >::type
+                                )
+                            >::type
+                        )
+                    >::type
+                )
+            >
+        { };
 
         template< class Ptr >
         typename result_aux<Ptr>::type
         operator()(Ptr p) const
         {
-            typedef typename
-                boost::result_of<op_to_shared_ptr(Ptr&)>::type
-            sp_t;
-
-            sp_t sp = to_shared_ptr(p);
-            return make_indirected(
-                make_shared(new std::vector<sp_t>(boost::addressof(sp), boost::addressof(sp) + 1))
-            );
+            return
+                make_indirected(
+                    make_shared(
+                        new_single_vector(
+                            to_shared_ptr(p)
+                        )
+                    )
+                );
         }
 
         template< class FunCall >
