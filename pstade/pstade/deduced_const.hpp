@@ -16,6 +16,8 @@
 // VC7.1 type system is broken by the syntax 'T const'.
 // So prefer 'boost::add_const', or
 // you can use this macro to say the bug loudly!
+//
+// See also "./static_downcast.hpp".
 
 
 #include <boost/config.hpp>

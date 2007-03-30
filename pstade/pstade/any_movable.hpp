@@ -21,10 +21,10 @@
 
 
 #include <typeinfo>
-#include <boost/cast.hpp> // polymorphic_downcast
 #include <boost/shared_ptr.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/cast_function.hpp>
+#include <pstade/static_downcast.hpp>
 
 
 namespace pstade {
@@ -63,13 +63,6 @@ namespace pstade {
         };
 
 
-        template<class To, class From> inline
-        To& downcast(From& from)
-        {
-            return *boost::polymorphic_downcast<To *>(&from);
-        }
-
-
     } // namespace any_movable_detail
 
 
@@ -86,7 +79,7 @@ namespace pstade {
         template<class X>
         X& base() const
         {
-            return any_movable_detail::downcast<
+            return pstade::static_downcast<
                 any_movable_detail::holder<X>
             >(*m_content).held();
         }

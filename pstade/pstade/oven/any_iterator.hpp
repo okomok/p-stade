@@ -17,7 +17,6 @@
 
 
 #include <memory> // auto_ptr
-#include <boost/cast.hpp> // polymorphic_downcast
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/iterator/iterator_traits.hpp>
@@ -34,6 +33,7 @@
 #include <pstade/enable_if.hpp>
 #include <pstade/is_convertible.hpp>
 #include <pstade/is_returnable.hpp>
+#include <pstade/static_downcast.hpp>
 #include "./detail/pure_traversal.hpp"
 
 
@@ -50,14 +50,6 @@ struct any_iterator;
 
 
 namespace any_iterator_detail {
-
-
-    template< class To, class From > inline
-    To const& downcast(From const& from)
-    {
-        // 'Iterator' types must be the same.
-        return *boost::polymorphic_downcast<To const *>(&from);
-    }
 
 
     template< class T, class A, class Ptr > inline
@@ -170,7 +162,7 @@ namespace any_iterator_detail {
 
         bool equal(placeholder_t const& other) const
         {
-            return m_held == any_iterator_detail::downcast<self_t>(other).m_held;
+            return m_held == pstade::static_downcast<self_t>(other).m_held;
         }
 
         void increment()
@@ -190,7 +182,7 @@ namespace any_iterator_detail {
 
         Difference difference_to(placeholder_t const& other) const
         {
-            return any_iterator_detail::downcast<self_t>(other).m_held - m_held;
+            return pstade::static_downcast<self_t>(other).m_held - m_held;
         }
     };
 
@@ -298,7 +290,7 @@ public:
     template< class Iterator >
     Iterator const& base() const
     {
-        return any_iterator_detail::downcast<typename holder_of<Iterator>::type>(*m_content).held();
+        return pstade::static_downcast<typename holder_of<Iterator>::type>(*m_content).held();
     }
 
 // assignment to work around 'explicit' above

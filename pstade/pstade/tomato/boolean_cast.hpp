@@ -46,6 +46,8 @@ namespace pstade { namespace tomato {
             static BOOL false_() { return FALSE; }
         };
 
+        // It is actually dangerous to apply 'static_cast' to VARIANT_TRUE,
+        // because the definition is '#define VARIANT_TRUE ((VARIANT_BOOL)-1)'.
         template< >
         struct values_of<VARIANT_BOOL>
         {
