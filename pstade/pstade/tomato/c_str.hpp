@@ -50,7 +50,7 @@ namespace c_str_detail {
     {
     #if !(PSTADE_APPLE_ATL_VER < 0x0700)
 
-        return ATL::AtlIsValidString(psz)|booleanized;
+        return ATL::AtlIsValidString(psz)|to_boolean;
 
     #else
 

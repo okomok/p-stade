@@ -43,7 +43,7 @@ private:
 
     void find_next_file()
     {
-        m_found = ::FindNextFile(m_hFind, m_pdata)|booleanized;
+        m_found = ::FindNextFile(m_hFind, m_pdata)|to_boolean;
 
         if (!m_found)
             BOOST_ASSERT(::GetLastError() == ERROR_NO_MORE_FILES);

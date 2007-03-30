@@ -26,7 +26,7 @@ struct op_is_window
     bool operator()(HWND hWnd) const
     {
         pstade::for_debug();
-        return ::IsWindow(hWnd)|booleanized;
+        return ::IsWindow(hWnd)|to_boolean;
     }
 };
 

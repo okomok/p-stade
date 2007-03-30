@@ -100,7 +100,7 @@ namespace pstade { namespace hamburger {
 
         bool process_message(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, LRESULT& lResult, DWORD dwMsgMapID = 0)
         {
-            return ProcessWindowMessage(hWnd, uMsg, wParam, lParam, lResult, dwMsgMapID)|tomato::booleanized;
+            return ProcessWindowMessage(hWnd, uMsg, wParam, lParam, lResult, dwMsgMapID)|tomato::to_boolean;
         }
 
         // overridables

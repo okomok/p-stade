@@ -133,64 +133,64 @@ void test_booleanized()
 
     {
         bool t, f;
-        t = true|booleanized;
-        f = false|booleanized;
+        t = true|to_boolean;
+        f = false|to_boolean;
         BOOST_CHECK( t == true );
         BOOST_CHECK( f == false );
-        t = TRUE|booleanized;
-        f = FALSE|booleanized;
+        t = TRUE|to_boolean;
+        f = FALSE|to_boolean;
         BOOST_CHECK( t == true );
         BOOST_CHECK( f == false );
-        t = VARIANT_TRUE|booleanized;
-        f = VARIANT_FALSE|booleanized;
+        t = VARIANT_TRUE|to_boolean;
+        f = VARIANT_FALSE|to_boolean;
         BOOST_CHECK( t == true );
         BOOST_CHECK( f == false );
     }
 
     {
         BOOL t, f;
-        t = true|booleanized;
-        f = false|booleanized;
+        t = true|to_boolean;
+        f = false|to_boolean;
         BOOST_CHECK( t == TRUE );
         BOOST_CHECK( f == FALSE );
-        t = TRUE|booleanized;
-        f = FALSE|booleanized;
+        t = TRUE|to_boolean;
+        f = FALSE|to_boolean;
         BOOST_CHECK( t == TRUE );
         BOOST_CHECK( f == FALSE );
-        t = VARIANT_TRUE|booleanized;
-        f = VARIANT_FALSE|booleanized;
+        t = VARIANT_TRUE|to_boolean;
+        f = VARIANT_FALSE|to_boolean;
         BOOST_CHECK( t == TRUE );
         BOOST_CHECK( f == FALSE );
     }
 
     {
         VARIANT_BOOL t, f;
-        t = true|booleanized;
-        f = false|booleanized;
+        t = true|to_boolean;
+        f = false|to_boolean;
         BOOST_CHECK( t == VARIANT_TRUE );
         BOOST_CHECK( f == VARIANT_FALSE );
-        t = TRUE|booleanized;
-        f = FALSE|booleanized;
+        t = TRUE|to_boolean;
+        f = FALSE|to_boolean;
         BOOST_CHECK( t == VARIANT_TRUE );
         BOOST_CHECK( f == VARIANT_FALSE );
-        t = VARIANT_TRUE|booleanized;
-        f = VARIANT_FALSE|booleanized;
+        t = VARIANT_TRUE|to_boolean;
+        f = VARIANT_FALSE|to_boolean;
         BOOST_CHECK( t == VARIANT_TRUE );
         BOOST_CHECK( f == VARIANT_FALSE );
     }
 
     {
         BOOLEAN t, f;
-        t = true|booleanized;
-        f = false|booleanized;
+        t = true|to_boolean;
+        f = false|to_boolean;
         BOOST_CHECK( t == TRUE );
         BOOST_CHECK( f == FALSE );
-        t = TRUE|booleanized;
-        f = FALSE|booleanized;
+        t = TRUE|to_boolean;
+        f = FALSE|to_boolean;
         BOOST_CHECK( t == TRUE );
         BOOST_CHECK( f == FALSE );
-        t = VARIANT_TRUE|booleanized;
-        f = VARIANT_FALSE|booleanized;
+        t = VARIANT_TRUE|to_boolean;
+        f = VARIANT_FALSE|to_boolean;
         BOOST_CHECK( t == TRUE );
         BOOST_CHECK( f == FALSE );
     }
@@ -208,7 +208,7 @@ void test_compare()
 
     bool t1 = tomato::boolean_cast<bool>(b); // faster than 't0' code.
     bool t2 = tomato::boolean(b); // has function call.
-    bool t3 = b|booleanized; // nearly same as above.
+    bool t3 = b|to_boolean; // nearly same as above.
 
     std::cout << t0 << t1 << t2 << t3;
 #endif

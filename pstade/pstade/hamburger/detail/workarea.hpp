@@ -28,7 +28,7 @@ namespace pstade { namespace hamburger { namespace detail {
         if (!::SystemParametersInfo(SPI_GETWORKAREA, 0, &rc, 0))
             return true;
 
-        return rc.PtInRect(pt)|tomato::booleanized;
+        return rc.PtInRect(pt)|tomato::to_boolean;
     }
 
 
@@ -39,7 +39,7 @@ namespace pstade { namespace hamburger { namespace detail {
         if (!::SystemParametersInfo(SPI_GETWORKAREA, 0, &w, 0))
             return true;
 
-        return !(rc & w).IsRectEmpty()|tomato::booleanized;
+        return !(rc & w).IsRectEmpty()|tomato::to_boolean;
     }
 
 

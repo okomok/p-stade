@@ -35,7 +35,7 @@ bool modify_menu(menu_ref menu,
 {
 #if !defined(_WIN32_WCE)
 
-    return ::ModifyMenu(menu, uPosition, uFlags, uIDNewItem, lpNewItem)|booleanized;
+    return ::ModifyMenu(menu, uPosition, uFlags, uIDNewItem, lpNewItem)|to_boolean;
 
 #else
 
@@ -56,7 +56,7 @@ bool modify_menu(menu_ref menu,
     if (!::DeleteMenu(menu, uPosition, uFlags))
         return false;
 
-    return ::InsertMenu(menu, uPosition, uFlags, uIDNewItem, lpNewItem)|booleanized;
+    return ::InsertMenu(menu, uPosition, uFlags, uIDNewItem, lpNewItem)|to_boolean;
 
 #endif // !defined(_WIN32_WCE)
 }

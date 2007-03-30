@@ -24,7 +24,7 @@ struct op_is_menu
     bool operator()(HMENU hMenu) const
     {
         pstade::for_debug();
-        return ::IsMenu(hMenu)|booleanized;
+        return ::IsMenu(hMenu)|to_boolean;
     }
 };
 

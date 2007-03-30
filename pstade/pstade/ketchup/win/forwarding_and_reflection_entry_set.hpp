@@ -59,7 +59,7 @@ struct forwarding_and_reflection_entry_set
         {
             pstade::unused(derived, hWnd, uMsg, wParam, lParam, lResult, dwMsgMapID);
 
-            return Derived::DefaultReflectionHandler(hWnd, uMsg, wParam, lParam, lResult)|tomato::booleanized;
+            return Derived::DefaultReflectionHandler(hWnd, uMsg, wParam, lParam, lResult)|tomato::to_boolean;
         }
     };
 

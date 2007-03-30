@@ -1,13 +1,13 @@
+#include <pstade/vodka/drink.hpp>
+
+
 #define _WIN32_WINNT 0x0400 // for <boost/test/minimal.hpp>
 #define _AFXDLL
 #include <pstade/apple/mfc/afx.hpp> // must be included first.
 
 
-#include <pstade/vodka/drink.hpp>
-
-
 #include <pstade/apple/wtl/app.hpp>
-WTL::CAppModule _Module;
+extern WTL::CAppModule _Module;
 
 
 // PStade.Oven

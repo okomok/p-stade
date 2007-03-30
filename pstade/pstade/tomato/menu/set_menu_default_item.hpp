@@ -25,7 +25,7 @@ bool set_menu_default_item(menu_ref menu,
 {
 #if !defined(_WIN32_WCE)
 
-    return ::SetMenuDefaultItem(menu, uItem, pstade::value_convert<UINT>(by_position))|booleanized;
+    return ::SetMenuDefaultItem(menu, uItem, pstade::value_convert<UINT>(by_position))|to_boolean;
 
 #else
 

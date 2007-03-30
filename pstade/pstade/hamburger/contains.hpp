@@ -24,7 +24,7 @@ namespace pstade { namespace hamburger {
     bool contains(const element& elem, point const& in_elem)
     {
         rectangle rc(origin, hamburger::size(elem));
-        return rc.PtInRect(in_elem)|tomato::booleanized;
+        return rc.PtInRect(in_elem)|tomato::to_boolean;
     }
 
 

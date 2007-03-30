@@ -147,7 +147,7 @@ namespace pstade { namespace hamburger { namespace detail {
             }
 
             pstade::unused(hWnd, dwMsgMapID);
-            return bHandled|tomato::booleanized;
+            return bHandled|tomato::to_boolean;
         }
     };
 

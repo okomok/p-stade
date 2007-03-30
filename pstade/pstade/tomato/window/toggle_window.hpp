@@ -24,7 +24,7 @@ bool toggle_window(window_ref wnd)
     BOOL bVisible = !::IsWindowVisible(wnd);
     ::ShowWindow(wnd, bVisible ? SW_SHOWNOACTIVATE : SW_HIDE);
 
-    return bVisible|booleanized;
+    return bVisible|to_boolean;
 }
 
 

@@ -57,14 +57,11 @@ struct op_make_shared :
     {
         PSTADE_CONCEPT_ASSERT((SinglePass<typename boost::pointee<Ptr>::type>));
 
-        typedef typename
-            boost::result_of<op_to_shared_ptr(Ptr&)>::type
-        sprng_t;
-
-        sprng_t sprng = to_shared_ptr(prng);
-        return make_iter_range(
-            make_share_iterator(boost::begin(*sprng), sprng),
-            make_share_iterator(boost::end(*sprng),   sprng)
+        typedef result_aux<Ptr> aux_;
+        typename aux_::sprng_t sprng = to_shared_ptr(prng);
+        return typename aux_::type(
+            typename aux_::iter_t(boost::begin(*sprng), sprng),
+            typename aux_::iter_t(boost::end(*sprng),   sprng)
         );
     }
 

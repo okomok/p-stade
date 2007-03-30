@@ -25,13 +25,13 @@ public:
     template< class T > static
     BOOL detail_on_idle(T& x)
     {
-        return x.on_idle()|booleanized;
+        return x.on_idle()|to_boolean;
     }
 
     template< class T > static
     BOOL detail_pre_translate_message(T& x, MSG *pMsg)
     {
-        return x.pre_translate_message(*pMsg)|booleanized;
+        return x.pre_translate_message(*pMsg)|to_boolean;
     }
 };
 

@@ -28,7 +28,7 @@ struct op_is_dc
         pstade::for_debug();
 
         POINT pt = { 0 };
-        return ::DPtoLP(hDC, &pt, 1)|booleanized;
+        return ::DPtoLP(hDC, &pt, 1)|to_boolean;
     }
 };
 

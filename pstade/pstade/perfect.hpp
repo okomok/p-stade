@@ -49,9 +49,9 @@ namespace pstade {
     namespace perfect_detail {
 
 
-        template<class ResultType, class Signature>
+        template<class ResultType, class FunCall>
         struct result_of_aux :
-            use_default_eval_to< ResultType, boost::result_of<Signature> >
+            use_default_eval_to< ResultType, boost::result_of<FunCall> >
         { };
 
 
@@ -59,7 +59,10 @@ namespace pstade {
         struct return_op :
             callable<
                 return_op<Function, ResultType>,
-                typename result_of_aux<ResultType, PSTADE_DEDUCED_CONST_FUN(Function)()>::type
+                typename result_of_aux<
+                    ResultType,
+                    PSTADE_DEDUCED_CONST_FUN(Function)()
+                >::type
             >
         {
             template<class Myself, PSTADE_CALLABLE_APPLY_PARAMS(A)>
@@ -148,7 +151,10 @@ PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE(pstade::perfect_detail::return_op, 2)
 
 template<class Myself, BOOST_PP_ENUM_PARAMS(n, class A)>
 struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
-    result_of_aux<ResultType, PSTADE_DEDUCED_CONST_FUN(Function)(PSTADE_PP_ENUM_PARAMS_WITH(n, A, &))>
+    result_of_aux<
+        ResultType,
+        PSTADE_DEDUCED_CONST_FUN(Function)(PSTADE_PP_ENUM_PARAMS_WITH(n, A, &))
+    >
 { };
 
 template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>

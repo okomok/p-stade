@@ -49,7 +49,7 @@ public:
     {
         pstade::unused(processor);
 
-        return processor.end_msg_map.process(derived, hWnd, uMsg, wParam, lParam, lResult, dwMsgMapID)|tomato::booleanized;
+        return processor.end_msg_map.process(derived, hWnd, uMsg, wParam, lParam, lResult, dwMsgMapID)|tomato::to_boolean;
     }
 
     // Note:
@@ -63,7 +63,7 @@ public:
     {
         pstade::unused(dwMsgMapID);
 
-        return derived.ChainClass::ProcessWindowMessage(hWnd, uMsg, wParam, lParam, lResult, msgMapID_t::value)|tomato::booleanized;
+        return derived.ChainClass::ProcessWindowMessage(hWnd, uMsg, wParam, lParam, lResult, msgMapID_t::value)|tomato::to_boolean;
     }
 
     // Note:
@@ -76,7 +76,7 @@ public:
     {
         pstade::unused(dwMsgMapID);
 
-        return derived.ATL::CDynamicChain::CallChain(dynaChainID_t::value, hWnd, uMsg, wParam, lParam, lResult)|tomato::booleanized;
+        return derived.ATL::CDynamicChain::CallChain(dynaChainID_t::value, hWnd, uMsg, wParam, lParam, lResult)|tomato::to_boolean;
     }
 
 }; // class access

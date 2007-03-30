@@ -188,7 +188,7 @@ public:
 
 	void OnUpdateFileNew(cmd_ui& ui)
 	{
-		ui.set_radio(::IsWindowVisible(m_hWndStatusBar)|tomato::booleanized);
+		ui.set_radio(::IsWindowVisible(m_hWndStatusBar)|tomato::to_boolean);
 	}
 
 	begin_msg_map
