@@ -54,7 +54,7 @@ namespace pstade {
         // as function call
             template<class Myself, class A0>
             struct apply :
-                boost::result_of<PSTADE_DEDUCED_CONST_FUN(UnaryFun)(A0&)>
+                boost::result_of<PSTADE_CONST_FUN_TPL(UnaryFun)(A0&)>
             { };
 
             template<class Result, class A0>
@@ -162,7 +162,7 @@ namespace auxiliary_detail {
         template<class Myself, BOOST_PP_ENUM_PARAMS(BOOST_PP_INC(n), class A)>
         struct apply<Myself, BOOST_PP_ENUM_PARAMS(BOOST_PP_INC(n), A)> :
             boost::result_of<
-                PSTADE_DEDUCED_CONST_FUN(Function)(PSTADE_PP_ENUM_PARAMS_WITH(BOOST_PP_INC(n), A, &))
+                PSTADE_CONST_FUN_TPL(Function)(PSTADE_PP_ENUM_PARAMS_WITH(BOOST_PP_INC(n), A, &))
             >
         { };    
 

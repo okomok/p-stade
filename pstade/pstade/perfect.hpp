@@ -61,7 +61,7 @@ namespace pstade {
                 return_op<Function, ResultType>,
                 typename result_of_aux<
                     ResultType,
-                    PSTADE_DEDUCED_CONST_FUN(Function)()
+                    PSTADE_CONST_FUN_TPL(Function)()
                 >::type
             >
         {
@@ -153,7 +153,7 @@ template<class Myself, BOOST_PP_ENUM_PARAMS(n, class A)>
 struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
     result_of_aux<
         ResultType,
-        PSTADE_DEDUCED_CONST_FUN(Function)(PSTADE_PP_ENUM_PARAMS_WITH(n, A, &))
+        PSTADE_CONST_FUN_TPL(Function)(PSTADE_PP_ENUM_PARAMS_WITH(n, A, &))
     >
 { };
 

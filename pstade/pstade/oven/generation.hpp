@@ -60,7 +60,7 @@ namespace innumerable_detail {
     {
         typedef
             boost::optional<
-                typename boost::result_of<PSTADE_DEDUCED_CONST_FUN(Generator_)()>::type
+                typename boost::result_of<PSTADE_CONST_FUN_TPL(Generator_)()>::type
             >
         result_type;
 

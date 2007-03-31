@@ -49,7 +49,7 @@ void test_dependent()
 {
 #if !BOOST_WORKAROUND(__BORLANDC__, < 0x600)
     BOOST_FOREACH (
-        typename PSTADE_UNPARENTHESIZE((std::pair<int, T>)) p,
+        PSTADE_UNPARENTHESIZE_TPL((std::pair<int, T>)) p,
         PSTADE_WINE_TEST_TYPENAME PSTADE_UNPARENTHESIZE((std::map<int, T>))()
     ) {
         (void)p;

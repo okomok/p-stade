@@ -41,7 +41,7 @@ namespace pstade {
             {
                 typedef typename boost::result_of<op_fuse(G&)>::type fused_g;
                 typedef typename boost::result_of<fused_g(Arguments&)>::type result_of_fused_g;
-                typedef typename boost::result_of<PSTADE_DEDUCED_CONST_FUN(F)(result_of_fused_g)>::type type;
+                typedef typename boost::result_of<PSTADE_CONST_FUN_TPL(F)(result_of_fused_g)>::type type;
             };
 
             template<class Result, class Arguments>

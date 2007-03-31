@@ -50,7 +50,7 @@ namespace range_based1_detail {
         template< class Myself, class Range0 >
         struct apply<Myself, Range0> :
             boost::result_of<
-                PSTADE_DEDUCED_CONST_FUN(IterBased)(
+                PSTADE_CONST_FUN_TPL(IterBased)(
                     typename range_iterator<Range0>::type const&,
                     typename range_iterator<Range0>::type const&
                 )
@@ -108,7 +108,7 @@ PSTADE_OBJECT_GENERATOR(range_based1, (range_based1_detail::return_op< deduce<_1
 template< class Myself, class Range0, BOOST_PP_ENUM_PARAMS(n, class A) >
 struct apply<Myself, Range0, BOOST_PP_ENUM_PARAMS(n, A)> :
     boost::result_of<
-        PSTADE_DEDUCED_CONST_FUN(IterBased)(
+        PSTADE_CONST_FUN_TPL(IterBased)(
             typename range_iterator<Range0>::type const&,
             typename range_iterator<Range0>::type const&,
             PSTADE_PP_ENUM_PARAMS_WITH(n, A, &)

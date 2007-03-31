@@ -28,7 +28,7 @@
         >::type \
     /**/
 
-    #define PSTADE_DEDUCED_CONST_FUN(F) \
+    #define PSTADE_CONST_FUN_TPL(F) \
         typename PSTADE_CONST_FUN(F) \
     /**/
 
@@ -36,7 +36,7 @@
 
     // Someday...
     #define PSTADE_CONST_FUN(F) F const
-    #define PSTADE_DEDUCED_CONST_FUN(F) F const
+    #define PSTADE_CONST_FUN_TPL(F) F const
 
 #endif
 

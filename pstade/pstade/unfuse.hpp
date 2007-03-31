@@ -39,9 +39,9 @@ namespace pstade {
             callable<
                 return_op<Function, Pack>,
                 typename boost::result_of<
-                    PSTADE_DEDUCED_CONST_FUN(Function)(
+                    PSTADE_CONST_FUN_TPL(Function)(
                         typename boost::result_of<
-                            PSTADE_DEDUCED_CONST_FUN(Pack)()
+                            PSTADE_CONST_FUN_TPL(Pack)()
                         >::type
                     )
                 >::type
@@ -105,9 +105,9 @@ PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE(pstade::unfuse_detail::return_op, 2)
 template<class Myself, BOOST_PP_ENUM_PARAMS(n, class A)>
 struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
     boost::result_of<
-        PSTADE_DEDUCED_CONST_FUN(Function)(
+        PSTADE_CONST_FUN_TPL(Function)(
             typename boost::result_of<
-                PSTADE_DEDUCED_CONST_FUN(Pack)(PSTADE_PP_ENUM_PARAMS_WITH(n, A, &))
+                PSTADE_CONST_FUN_TPL(Pack)(PSTADE_PP_ENUM_PARAMS_WITH(n, A, &))
             >::type
         )
     >

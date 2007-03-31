@@ -296,7 +296,7 @@ PSTADE_ADL_BARRIER(functional) {
         {
             template< class Myself, class A0, class A1 >
             struct apply :
-                boost::result_of<PSTADE_DEDUCED_CONST_FUN(BinaryFun)(A1&, A0&)>
+                boost::result_of<PSTADE_CONST_FUN_TPL(BinaryFun)(A1&, A0&)>
             { };
 
             template< class Result, class A0, class A1 >

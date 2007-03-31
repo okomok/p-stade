@@ -46,7 +46,7 @@ int my_fun(int i)
 template<class F>
 void call(F const f)
 {
-    typename boost::result_of<PSTADE_DEDUCED_CONST_FUN(F)(int)>::type
+    typename boost::result_of<PSTADE_CONST_FUN_TPL(F)(int)>::type
         r = f(10);
     BOOST_CHECK(r == 10);
 }

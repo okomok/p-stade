@@ -58,7 +58,7 @@
     // 'typename' is legal here even if 'Result' is not dependent,
     // because this macro appears in a template. (C++98 14.6/5)
     #define PSTADE_CONCEPT_WHERE(Models, Result) \
-        typename PSTADE_UNPARENTHESIZE(Result) \
+        PSTADE_UNPARENTHESIZE_TPL(Result) \
     /**/
 
 #endif // !defined(NDEBUG) && defined(PSTADE_CONCEPT_CHECK)
