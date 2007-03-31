@@ -13,6 +13,9 @@
 // Note:
 //
 // RTTI(/GR option) is required in debug mode.
+//
+// 'Derived& d = automatic_downcast(b);' seems impossible.
+// According to 8.5.3/5, the initializer must be lvalue for "bind directly".
 
 
 #include <boost/cast.hpp> // polymorphic_downcast
@@ -87,6 +90,7 @@ namespace pstade {
         }
     };
 
+    // This is the same as 'boost::smart_cast' without "crosscast".
     template<class Derived>
     struct op_downcast :
         callable< op_downcast<Derived> >
