@@ -17,7 +17,7 @@
 // So prefer 'boost::add_const', or
 // you can use this macro to say the bug loudly!
 //
-// See also "./static_downcast.hpp".
+// See also "./downcast.hpp".
 
 
 #include <boost/config.hpp>

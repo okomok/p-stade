@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include <pstade/static_downcast.hpp>
+#include <pstade/downcast.hpp>
 #include <pstade/ketchup.hpp>
 
 template< class D >

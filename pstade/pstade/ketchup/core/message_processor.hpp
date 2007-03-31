@@ -17,7 +17,7 @@
 #include <boost/preprocessor/repeat.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/apple/sdk/windows.hpp>
-#include <pstade/static_downcast.hpp>
+#include <pstade/downcast.hpp>
 #include "../cmd_ui/cmd_ui.hpp"
 #include "../cmd_ui/dependent_value.hpp"
 #include "../config/limit_message_processor_base_size.hpp"

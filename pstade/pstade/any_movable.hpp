@@ -24,7 +24,7 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/cast_function.hpp>
-#include <pstade/static_downcast.hpp>
+#include <pstade/downcast.hpp>
 
 
 namespace pstade {
@@ -79,7 +79,7 @@ namespace pstade {
         template<class X>
         X& base() const
         {
-            return pstade::static_downcast<
+            return pstade::polymorphic_downcast<
                 any_movable_detail::holder<X>
             >(*m_content).held();
         }
