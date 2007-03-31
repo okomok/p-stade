@@ -94,6 +94,7 @@
 				RuntimeLibrary="3"
 				TreatWChar_tAsBuiltInType="TRUE"
 				ForceConformanceInForLoopScope="TRUE"
+				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="3"
 				PrecompiledHeaderThrough="stdafx.h"
 				PrecompiledHeaderFile=".\Debug/MDI.pch"
@@ -203,10 +204,10 @@
 				RelativePath=".\res\MDI.exe.manifest">
 			</File>
 			<File
-				RelativePath=".\res\MDI.ico">
+				RelativePath=".\Mdi.ico">
 			</File>
 			<File
-				RelativePath=".\Mdi.ico">
+				RelativePath=".\res\MDI.ico">
 			</File>
 			<File
 				RelativePath=".\res\MDIDoc.ico">

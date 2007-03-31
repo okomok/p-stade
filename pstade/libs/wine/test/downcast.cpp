@@ -37,7 +37,7 @@ struct WindowBase
     {
         BOOST_CHECK( pstade::static_downcast<Derived>(*this).create_impl() == derived_create_value );
 
-        Derived& d = *this|static_downcasted;
+        Derived& d = *this|to_derived;
         BOOST_CHECK( d.create_impl() == derived_create_value );
     }
 
@@ -46,13 +46,13 @@ struct WindowBase
         // const-qualifier is optional here.
         BOOST_CHECK( pstade::static_downcast<Derived>(*this).show_impl() == derived_show_value );
 
-        const Derived& d = *this|static_downcasted;
+        const Derived& d = *this|to_derived;
         BOOST_CHECK( d.show_impl() == derived_show_value );
     }
 
     void move()
     {
-        Derived& d = *this|static_downcasted;
+        Derived& d = *this|to_derived;
         BOOST_CHECK( d.move_impl() == base_move_value );
     }
 
@@ -108,7 +108,7 @@ void test_cast()
 void test_auto()
 {
     Base b;
-    Derived& d = b|static_downcasted;
+    Derived& d = b|to_derived;
     std::cout << &d;
 }
 
@@ -126,43 +126,136 @@ void test()
     dlg.move();
 
     Base b;
-    Derived& d = b|static_downcasted;
+    Derived& d = b|to_derived;
     (void)d;
 }
 
 
+struct static_base_t { };
+struct static_derived_t : static_base_t { };
 
-struct polym_base { virtual ~polym_base() { } };
-struct polym_derived : polym_base { };
+void test_static()
+{
+    {
+        static_derived_t d;
+        static_base_t& rb = d;
+
+        static_derived_t& rd = pstade::static_downcast<static_derived_t>(rb);
+        BOOST_CHECK( is_same(d, rd) );
+    }
+    {
+        static_derived_t const d = static_derived_t();
+        static_base_t const& rb = d;
+
+        static_derived_t const& rd = pstade::static_downcast<static_derived_t>(rb);
+        BOOST_CHECK( is_same(d, rd) );
+    }
+    {
+        static_derived_t d;
+        static_base_t& rb = d;
+
+        static_derived_t& rd = rb|to_derived;
+        BOOST_CHECK( is_same(d, rd) );
+    }
+    {
+        static_derived_t const d = static_derived_t();
+        static_base_t const& rb = d;
+
+        static_derived_t const& rd = rb|to_derived;
+        BOOST_CHECK( is_same(d, rd) );
+    }
+    {
+        static_derived_t d;
+        static_base_t& rb = d;
+
+        static_derived_t& rd = rb|to_derived();
+        BOOST_CHECK( is_same(d, rd) );
+    }
+    {
+        static_derived_t const d = static_derived_t();
+        static_base_t const& rb = d;
+
+        static_derived_t const& rd = rb|to_derived();
+        BOOST_CHECK( is_same(d, rd) );
+    }
+    {
+        static_derived_t d;
+        static_base_t& rb = d;
+
+        static_derived_t& rd = to_derived(rb);
+        BOOST_CHECK( is_same(d, rd) );
+    }
+    {
+        static_derived_t const d = static_derived_t();
+        static_base_t const& rb = d;
+
+        static_derived_t const& rd = to_derived(rb);
+        BOOST_CHECK( is_same(d, rd) );
+    }
+};
+
+
+struct polym_base_t { virtual ~polym_base_t() { } };
+struct polym_derived_t : polym_base_t { };
+
+BOOST_MPL_ASSERT((boost::is_polymorphic<polym_base_t>));
 
 void test_polymorphic()
 {
     {
-        polym_derived d;
-        polym_base& rb = d;
+        polym_derived_t d;
+        polym_base_t& rb = d;
 
-        polym_derived& rd = pstade::polymorphic_downcast<polym_derived>(rb);
+        polym_derived_t& rd = pstade::polymorphic_downcast<polym_derived_t>(rb);
         BOOST_CHECK( is_same(d, rd) );
     }
     {
-        polym_derived const d = polym_derived();
-        polym_base const& rb = d;
+        polym_derived_t const d = polym_derived_t();
+        polym_base_t const& rb = d;
 
-        polym_derived const& rd = pstade::polymorphic_downcast<polym_derived>(rb);
+        polym_derived_t const& rd = pstade::polymorphic_downcast<polym_derived_t>(rb);
         BOOST_CHECK( is_same(d, rd) );
     }
     {
-        polym_derived d;
-        polym_base& rb = d;
+        polym_derived_t d;
+        polym_base_t& rb = d;
 
-        polym_derived& rd = rb|polymorphic_downcasted;
+        polym_derived_t& rd = rb|to_derived;
         BOOST_CHECK( is_same(d, rd) );
     }
     {
-        polym_derived const d = polym_derived();
-        polym_base const& rb = d;
+        polym_derived_t const d = polym_derived_t();
+        polym_base_t const& rb = d;
 
-        polym_derived const& rd = rb|polymorphic_downcasted;
+        polym_derived_t const& rd = rb|to_derived;
+        BOOST_CHECK( is_same(d, rd) );
+    }
+    {
+        polym_derived_t d;
+        polym_base_t& rb = d;
+
+        polym_derived_t& rd = rb|to_derived();
+        BOOST_CHECK( is_same(d, rd) );
+    }
+    {
+        polym_derived_t const d = polym_derived_t();
+        polym_base_t const& rb = d;
+
+        polym_derived_t const& rd = rb|to_derived();
+        BOOST_CHECK( is_same(d, rd) );
+    }
+    {
+        polym_derived_t d;
+        polym_base_t& rb = d;
+
+        polym_derived_t& rd = to_derived(rb);
+        BOOST_CHECK( is_same(d, rd) );
+    }
+    {
+        polym_derived_t const d = polym_derived_t();
+        polym_base_t const& rb = d;
+
+        polym_derived_t const& rd = to_derived(rb);
         BOOST_CHECK( is_same(d, rd) );
     }
 };
@@ -173,6 +266,7 @@ int test_main(int, char*[])
     ::test();
     ::test_cast();
     ::test_auto();
+    ::test_static();
     ::test_polymorphic();
     return 0;
 }

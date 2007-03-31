@@ -10,10 +10,17 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Note:
+//
+// RTTI(/GR option) is required in debug mode.
+
+
 #include <boost/cast.hpp> // polymorphic_downcast
 #include <boost/mpl/assert.hpp>
+#include <boost/mpl/if.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/type_traits/is_base_of.hpp>
+#include <boost/type_traits/is_polymorphic.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 #include <boost/utility/addressof.hpp>
@@ -24,11 +31,13 @@
 #include <pstade/cast_function.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/nonassignable.hpp>
+#include <pstade/provide_sig.hpp>
+#include <pstade/unused.hpp>
 
 
 #if defined(__GNUC__)
     // Without a named object, GCC3.4.4 tries to convert 'Base' to
-    // 'downcasted_detail::temp' using the conversion operator template.
+    // 'to_derived_detail::temp' using the conversion operator template.
     #define PSTADE_DOWNCAST_AUTOMATIC_CONVERSION_NEEDS_NRV
 #endif
 
@@ -97,20 +106,15 @@ PSTADE_ADL_BARRIER(polymorphic_downcast) { // for 'boost'
 }
 
 
-    // "./pipable.hpp" doesn't support reference conversion.
-    // So we have to define from scratch...
+    // "./automatic.hpp" doesn't support reference conversion.
+    // Also, PSTADE_DOWNCAST_AUTOMATIC_CONVERSION_NEEDS_NRV makes
+    // "./callable.hpp" useless. So we must define everything from scratch...
 
 
-    namespace downcasted_detail {
+    namespace to_derived_detail {
 
 
-        struct static_pipe :
-            private boost::noncopyable
-        { };
-
-        struct polymorphic_pipe :
-            private boost::noncopyable
-        { };
+        // See also <boost/smart_cast.hpp>.
 
 
         template<class Base, template<class> class Cast>
@@ -135,39 +139,69 @@ PSTADE_ADL_BARRIER(polymorphic_downcast) { // for 'boost'
         };
 
 
+        struct op :
+            provide_sig
+        {
+
+            typedef // for callable macro
+                op const&
+            nullary_result_type;
+
+            op const& operator()() const
+            {
+                return *this;
+            }
+
+            template<class FunCall>
+            struct result;
+
+            template<class Fun, class Base>
+            struct result<Fun(Base&)> :
+                boost::mpl::if_< boost::is_polymorphic<typename boost::remove_cv<Base>::type>,
+                     temp<Base, op_polymorphic_downcast> const,
+                     temp<Base, op_static_downcast> const
+                >
+            { };
+
+            template<class Base>
+            typename result<void(Base&)>::type operator()(Base& base) const
+            {
+                typedef typename result<void(Base&)>::type result_t;
+
+        #if !defined(PSTADE_DOWNCAST_AUTOMATIC_CONVERSION_NEEDS_NRV)
+                return result_t(base);
+        #else
+                result_t nrv(base);
+                return nrv;
+        #endif
+            }
+        };
+
+
         template<class Base> inline
-        temp<Base, op_static_downcast> const
-        operator|(Base& base, static_pipe const&)
+        typename boost::result_of<op(Base&)>::type
+        operator|(Base& base, op const& f)
         {
         #if !defined(PSTADE_DOWNCAST_AUTOMATIC_CONVERSION_NEEDS_NRV)
-            return temp<Base, op_static_downcast>(base);
+            return f(base);
         #else
-            temp<Base, op_static_downcast> nrv(base);
+            unused(f);
+            typename boost::result_of<op(Base&)>::type nrv(base);
             return nrv;
         #endif
         }
 
-        template<class Base> inline
-        temp<Base, op_polymorphic_downcast> const
-        operator|(Base& base, polymorphic_pipe const&)
-        {
-        #if !defined(PSTADE_DOWNCAST_AUTOMATIC_CONVERSION_NEEDS_NRV)
-            return temp<Base, op_polymorphic_downcast>(base);
-        #else
-            temp<Base, op_polymorphic_downcast> nrv(base);
-            return nrv;
-        #endif
-        }
+
+    } // namespace to_derived_detail
 
 
-    } // namespace downcasted_detail
-
-
-    PSTADE_CONSTANT(static_downcasted, (downcasted_detail::static_pipe))
-    PSTADE_CONSTANT(polymorphic_downcasted, (downcasted_detail::polymorphic_pipe))
+    PSTADE_CONSTANT(to_derived, (to_derived_detail::op))
 
 
 } // namespace pstade
+
+
+PSTADE_CALLABLE_NULLARY_RESULT_OF_TYPE(pstade::to_derived_detail::op)
 
 
 #endif

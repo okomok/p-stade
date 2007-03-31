@@ -89,7 +89,7 @@ struct op_make_transformed :
         rng_t;
 
         // Recompute IteratorCategory using 'identities'.
-        // 'fun' may resurrect lvalue-ness of the base range,
+        // 'UnaryFun' may resurrect lvalue-ness of the base range,
         // then a RandomAccess*Input* Iterator turns into the RandomAccess.
         // e.g. applying 'tuple_at' to a tuple of reference.
         typedef typename
