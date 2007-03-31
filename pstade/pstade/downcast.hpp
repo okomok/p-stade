@@ -35,16 +35,16 @@
     // 'boost::result_of' fails to 'add_const' under weird situation.
     // That is to say, array type prefers 'add_const<Array>::type' to 'Array const',
     // while 'boost::result_of' prefers 'Array const' to 'add_const<Array>::type'.
-    // It is a dead-end. Hence, We have to define cast-function from scratch'.
+    // It is a dead-end. Hence, We have to define cast-function from scratch.
     // Fortunately, this bug seems to occur only in namespace scope; class scope is fine.
-    #define PSTADE_DOWNCAST_RESULT_OF_NEEDS_CONST_QUALIFIED_PARAM
+    #define PSTADE_DOWNCAST_RESULT_OF_FUN_PARAM_IGNORES_ADD_CONST
 #endif
 
 
 #if defined(__GNUC__)
     // Without a named object, GCC3.4.4 tries to convert 'Base' to
     // 'downcasted_detail::temp' using the conversion operator template.
-    #define PSTADE_DOWNCASTED_NEEDS_NAMED_RETURN_VALUE
+    #define PSTADE_DOWNCAST_AUTOMATIC_CONVERSION_NEEDS_NRV
 #endif
 
 
@@ -106,7 +106,7 @@ namespace pstade {
     };
 
 
-#if !defined(PSTADE_DOWNCAST_RESULT_OF_NEEDS_CONST_QUALIFIED_PARAM)
+#if !defined(PSTADE_DOWNCAST_RESULT_OF_FUN_PARAM_IGNORES_ADD_CONST)
     PSTADE_CAST_FUNCTION1(static_downcast, op_static_downcast, 1)
     PSTADE_CAST_FUNCTION1(polymorphic_downcast, op_polymorphic_downcast, 1)
 #else
@@ -126,7 +126,7 @@ namespace pstade {
 #endif
 
 
-    // 'PSTADE_DOWNCASTED_NEEDS_NAMED_RETURN_VALUE' makes "./pipable.hpp" useless.
+    // 'PSTADE_DOWNCAST_AUTOMATIC_CONVERSION_NEEDS_NRV' makes "./pipable.hpp" useless.
     // So we have to define from scratch...
 
 
@@ -168,7 +168,7 @@ namespace pstade {
         temp<Base, op_static_downcast> const
         operator|(Base& base, static_pipe const&)
         {
-        #if !defined(PSTADE_DOWNCASTED_NEEDS_NAMED_RETURN_VALUE)
+        #if !defined(PSTADE_DOWNCAST_AUTOMATIC_CONVERSION_NEEDS_NRV)
             return temp<Base, op_static_downcast>(base);
         #else
             temp<Base, op_static_downcast> nrv(base);
@@ -180,7 +180,7 @@ namespace pstade {
         temp<Base, op_polymorphic_downcast> const
         operator|(Base& base, polymorphic_pipe const&)
         {
-        #if !defined(PSTADE_DOWNCASTED_NEEDS_NAMED_RETURN_VALUE)
+        #if !defined(PSTADE_DOWNCAST_AUTOMATIC_CONVERSION_NEEDS_NRV)
             return temp<Base, op_polymorphic_downcast>(base);
         #else
             temp<Base, op_polymorphic_downcast> nrv(base);
