@@ -126,7 +126,7 @@ namespace pstade {
 #endif
 
 
-    // 'PSTADE_DOWNCAST_AUTOMATIC_CONVERSION_NEEDS_NRV' makes "./pipable.hpp" useless.
+    // "./pipable.hpp" doesn't support reference conversion.
     // So we have to define from scratch...
 
 
