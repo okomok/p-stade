@@ -56,6 +56,9 @@ void test_dependent()
         BOOST_CHECK(false);
     }
 #endif
+
+    typedef PSTADE_UNPARENTHESIZE_TPL((std::pair<int, T>)) my_pair;
+    typedef typename my_pair::first_type first_t;
 }
 
 

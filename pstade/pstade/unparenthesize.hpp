@@ -27,6 +27,10 @@
     pstade::unparenthesize_detail::aux< void (::pstade::unparenthesize_detail::klass::*) TQ >::type \
 /**/
 
+#define PSTADE_UNPARENTHESIZE_TPL \
+    typename PSTADE_UNPARENTHESIZE \
+/**/
+
 
 namespace pstade { namespace unparenthesize_detail {
 

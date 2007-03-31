@@ -28,8 +28,8 @@
         >::type \
     /**/
 
-    #define PSTADE_CONST_FUN_TPL(F) \
-        typename PSTADE_CONST_FUN(F) \
+    #define PSTADE_CONST_FUN_TPL \
+        typename PSTADE_CONST_FUN \
     /**/
 
 #else
