@@ -11,8 +11,6 @@
 
 
 #include <boost/cast.hpp> // polymorphic_downcast
-#include <boost/config.hpp>
-#include <boost/detail/workaround.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/type_traits/is_base_of.hpp>
@@ -20,25 +18,12 @@
 #include <boost/type_traits/remove_reference.hpp>
 #include <boost/utility/addressof.hpp>
 #include <boost/utility/result_of.hpp>
+#include <pstade/adl_barrier.hpp>
 #include <pstade/affect.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/cast_function.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/nonassignable.hpp>
-
-
-#if BOOST_WORKAROUND(BOOST_MSVC, == 1310) // VC7.1
-    // VC7.1 occasionally fails if using 'PSTADE_CAST_FUNCTION1'.
-    // I couldn't find a minimal condition of this behavior,
-    // though the unit test of 'oven::any_range' actually failed.
-    // The problem seems around 'PSTADE_DEDUCED_CONST', which calls 'add_const'.
-    // 'boost::result_of' fails to 'add_const' under weird situation.
-    // That is to say, array type prefers 'add_const<Array>::type' to 'Array const',
-    // while 'boost::result_of' prefers 'Array const' to 'add_const<Array>::type'.
-    // It is a dead-end. Hence, We have to define cast-function from scratch.
-    // Fortunately, this bug seems to occur only in namespace scope; class scope is fine.
-    #define PSTADE_DOWNCAST_RESULT_OF_FUN_PARAM_IGNORES_ADD_CONST
-#endif
 
 
 #if defined(__GNUC__)
@@ -106,24 +91,10 @@ namespace pstade {
     };
 
 
-#if !defined(PSTADE_DOWNCAST_RESULT_OF_FUN_PARAM_IGNORES_ADD_CONST)
     PSTADE_CAST_FUNCTION1(static_downcast, op_static_downcast, 1)
+PSTADE_ADL_BARRIER(polymorphic_downcast) { // for 'boost'
     PSTADE_CAST_FUNCTION1(polymorphic_downcast, op_polymorphic_downcast, 1)
-#else
-    template<class Derived, class Base> inline
-    typename boost::result_of<op_static_downcast<Derived>(Base&)>::type
-    static_downcast(Base& base)
-    {
-        return op_static_downcast<Derived>()(base);
-    }
-
-    template<class Derived, class Base> inline
-    typename boost::result_of<op_polymorphic_downcast<Derived>(Base&)>::type
-    polymorphic_downcast(Base& base)
-    {
-        return op_polymorphic_downcast<Derived>()(base);
-    }
-#endif
+}
 
 
     // "./pipable.hpp" doesn't support reference conversion.
@@ -157,7 +128,7 @@ namespace pstade {
             }
 
             // No pointer-style conversion; VC7.1 can't compile.
-            // template< class Derived > operator Derived *() const;
+            // template<class Derived> operator Derived *() const;
 
         private:
             Base& m_base;

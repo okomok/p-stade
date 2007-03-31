@@ -166,11 +166,7 @@ namespace pstade {
             using ::pstade::deducers::to_value; \
             using ::pstade::deducers::to_reference; \
             using ::pstade::deducers::to_qualified; \
-            using ::boost::mpl::_1; \
-            using ::boost::mpl::_2; \
-            using ::boost::mpl::_3; \
-            using ::boost::mpl::_4; \
-            using ::boost::mpl::_5; \
+            using namespace ::boost::mpl::placeholders; \
             \
             typedef ::pstade::object_generator<PSTADE_UNPARENTHESIZE(Lambda)> op; \
         } \

@@ -86,12 +86,31 @@
             } \
             \
             template<PSTADE_PP_TO_TEMPLATE_PARAMS(Seq, X), class A0> inline \
-            typename ::boost::result_of<Op<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, X)>(PSTADE_DEDUCED_CONST(A0)&)>::type \
+            typename ::pstade::cast_function_detail::result_of1_const1<Op<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, X)>, A0>::type \
             Name(A0 const& a0) \
             { \
                 return Op<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, X)>()(a0); \
             } \
         /**/
+
+
+    namespace pstade { namespace cast_function_detail {
+
+
+        // VC7.1 'boost::result_of' fails to 'add_const' under weird situation.
+        // (I couldn't find a minimal condition of this behavior,
+        // though the unit test of 'oven::any_range' using "./downcast.hpp" actually failed.)
+        // The problem is; VC7.1 array type prefers 'add_const<Array>::type' to 'Array const',
+        // while VC7.1 'boost::result_of' prefers 'Array const' to 'add_const<Array>::type'.
+        // So, delay to const-qualify for array, then instantiate 'result_of' without 'add_const'.
+        // Fortunately, this bug seems to occur only in namespace scope; class scope is fine.
+        template<class Fun, class A0>
+        struct result_of1_const1 :
+            boost::result_of<Fun(A0 const&)>
+        { };
+
+
+    } } // namespace pstade::cast_function_detail
 
 
     #endif // PSTADE_CAST_FUNCTION_HEADER_PART

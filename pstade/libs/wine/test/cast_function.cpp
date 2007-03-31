@@ -13,6 +13,10 @@
 #include <pstade/cast_function.hpp>
 
 
+#include <boost/mpl/if.hpp>
+#include <boost/type_traits/is_const.hpp>
+
+
 template<class X>
 struct op_my_cast
 {
@@ -110,6 +114,49 @@ struct op_my_make_0_3
 #include <pstade/cast_function.hpp>
 
 
+struct const_ { };
+struct mutable_ { };
+
+
+template<class X>
+struct op_array_check
+{
+    template<class FunCall>
+    struct result;
+
+    template<class Fun, class Array>
+    struct result<Fun(Array&)> :
+        boost::mpl::if_< boost::is_const<Array>,
+            const_, mutable_
+        >
+    { };
+
+#if 0 // cannot specialze 'Array const' under VC7.1 
+    template<class Fun, class Array>
+    struct result<Fun(Array const&)>
+    {
+        typedef const_ type;
+    };
+#endif
+
+    template<class Array>
+    mutable_ operator()(Array& ) const
+    {
+        return mutable_();
+    }
+
+    template<class Array>
+    const_ operator()(Array const& ) const
+    {
+        return const_();
+    }
+
+    op_array_check() { } // for Boost v1.33 result_of
+};
+
+PSTADE_CAST_FUNCTION1(array_check, op_array_check, 1)
+
+
 void test()
 {
     {
@@ -120,11 +167,20 @@ void test()
         BOOST_CHECK( ::my_make< ::x >(3).m_i == 3 );
         BOOST_CHECK( ::my_make< ::x >(3, 4).m_i == 7 );
     }
-
     {
         BOOST_CHECK(( ::my_make_0_3< ::x, 0 >().m_i == 7 ));
         BOOST_CHECK(( ::my_make_0_3< ::x, 0 >(3).m_i == 3 ));
         BOOST_CHECK(( ::my_make_0_3< ::x, 0 >(3, 4, 5).m_i == 12 ));
+    }
+    {
+        int arr[10] = { };
+        mutable_ m = ::array_check<int>(arr);
+        (void)m;
+    }
+    {
+        int const arr[10] = { };
+        const_ c = ::array_check<int>(arr);
+        (void)c;
     }
 }
 

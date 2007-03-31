@@ -71,7 +71,7 @@ namespace pstade {
 
     #define PSTADE_FUNCTION(Object, Baby) \
         namespace BOOST_PP_CAT(pstade_function_workarea_of_, Object) { \
-            using ::boost::mpl::_; \
+            using namespace ::boost::mpl::placeholders; \
             typedef ::pstade::function<PSTADE_AS_MPL_LAMBDA(Baby)> op; \
         } \
         typedef BOOST_PP_CAT(pstade_function_workarea_of_, Object)::op BOOST_PP_CAT(op_, Object); \
