@@ -35,7 +35,7 @@
     // 'boost::result_of' fails to 'add_const' under weird situation.
     // That is to say, array type prefers 'add_const<Array>::type' to 'Array const',
     // while 'boost::result_of' prefers 'Array const' to 'add_const<Array>::type'.
-    // It is a dead-end. Hence, We have to define this from scratch'.
+    // It is a dead-end. Hence, We have to define cast-function from scratch'.
     // Fortunately, this bug seems to occur only in namespace scope; class scope is fine.
     #define PSTADE_DOWNCAST_RESULT_OF_NEEDS_CONST_QUALIFIED_PARAM
 #endif
@@ -127,7 +127,7 @@ namespace pstade {
 
 
     // 'PSTADE_DOWNCASTED_NEEDS_NAMED_RETURN_VALUE' makes "./pipable.hpp" useless.
-    // So we must define from scratch...
+    // So we have to define from scratch...
 
 
     namespace downcasted_detail {
@@ -142,7 +142,7 @@ namespace pstade {
         { };
 
 
-        template<class Base, template<class> class F>
+        template<class Base, template<class> class Cast>
         struct temp :
             private nonassignable
         {
@@ -153,7 +153,7 @@ namespace pstade {
             template<class Derived>
             operator Derived& () const
             {
-                return F<Derived>()(m_base);
+                return Cast<Derived>()(m_base);
             }
 
             // No pointer-style conversion; VC7.1 can't compile.
