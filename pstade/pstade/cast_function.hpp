@@ -18,6 +18,8 @@
 // What:
 //
 // Does perfect forwarding for cast form functions.
+// The "result_of revolution" turns a namespace scope function
+// into nothing but a syntax sugar, though.
 
 
 // Usage:
