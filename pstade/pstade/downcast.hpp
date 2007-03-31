@@ -142,7 +142,6 @@ PSTADE_ADL_BARRIER(polymorphic_downcast) { // for 'boost'
         struct op :
             provide_sig
         {
-
             typedef // for callable macro
                 op const&
             nullary_result_type;

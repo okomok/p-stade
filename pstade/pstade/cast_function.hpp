@@ -86,7 +86,7 @@
             } \
             \
             template<PSTADE_PP_TO_TEMPLATE_PARAMS(Seq, X), class A0> inline \
-            typename ::pstade::cast_function_detail::result_of1_const1<Op<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, X)>, A0>::type \
+            typename ::pstade::cast_function_detail::result_of1_const0<Op<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, X)>, A0>::type \
             Name(A0 const& a0) \
             { \
                 return Op<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, X)>()(a0); \
@@ -105,7 +105,7 @@
         // So, delay to const-qualify for array, then instantiate 'result_of' without 'add_const'.
         // Fortunately, this bug seems to occur only in namespace scope; class scope is fine.
         template<class Fun, class A0>
-        struct result_of1_const1 :
+        struct result_of1_const0 :
             boost::result_of<Fun(A0 const&)>
         { };
 
