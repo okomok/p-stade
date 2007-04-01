@@ -33,16 +33,19 @@ namespace pstade {
 
 
         template<class F, class G>
-        struct base_return_op :
-            callable<base_return_op<F, G> >
+        struct fused_return_op :
+            callable< fused_return_op<F, G> >
         {
             template<class Myself, class Arguments>
-            struct apply
-            {
-                typedef typename boost::result_of<op_fuse(G&)>::type fused_g;
-                typedef typename boost::result_of<fused_g(Arguments&)>::type result_of_fused_g;
-                typedef typename boost::result_of<PSTADE_CONST_FUN_TPL(F)(result_of_fused_g)>::type type;
-            };
+            struct apply :
+                boost::result_of<
+                    PSTADE_CONST_FUN_TPL(F)(
+                        typename boost::result_of<
+                            typename boost::result_of<op_fuse(G const&)>::type(Arguments&)
+                        >::type
+                    )
+                >
+            { };
 
             template<class Result, class Arguments>
             Result call(Arguments& args) const
@@ -50,16 +53,15 @@ namespace pstade {
                 return m_f(fuse(m_g)(args));
             }
 
-            base_return_op()
+            fused_return_op()
             { }
 
-            base_return_op(F const& f, G const& g) :
+            fused_return_op(F const& f, G const& g) :
                 m_f(f), m_g(g)
             { }
 
         private:
-            F m_f;
-            G m_g;
+            F m_f; G m_g;
         };
 
 
@@ -73,22 +75,22 @@ namespace pstade {
         struct apply
         {
             typedef
-                compose_detail::base_return_op<
+                compose_detail::fused_return_op<
                     typename pass_by_value<F>::type,
                     typename pass_by_value<G>::type
                 >
-            base_t;
+            fused_return_op_t;
 
             typedef typename
-                boost::result_of<op_unfuse(base_t)>::type
+                boost::result_of<op_unfuse(fused_return_op_t)>::type
             type;
         };
 
         template<class Result, class F, class G>
         Result call(F& f, G& g) const
         {
-            typedef typename Result::base_type base_t;
-            return unfuse(base_t(f, g));
+            typedef typename Result::base_type fused_return_op_t;
+            return unfuse(fused_return_op_t(f, g));
         }
     };
 
