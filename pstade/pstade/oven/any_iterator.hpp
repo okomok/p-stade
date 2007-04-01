@@ -30,10 +30,10 @@
 #include <boost/static_warning.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <pstade/clone_ptr.hpp>
-#include <pstade/downcast.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/is_convertible.hpp>
 #include <pstade/is_returnable.hpp>
+#include <pstade/static_downcast.hpp>
 #include "./detail/pure_traversal.hpp"
 
 
@@ -162,7 +162,7 @@ namespace any_iterator_detail {
 
         bool equal(placeholder_t const& other) const
         {
-            return m_held == pstade::polymorphic_downcast<self_t>(other).m_held;
+            return m_held == pstade::static_downcast<self_t>(other).m_held;
         }
 
         void increment()
@@ -182,7 +182,7 @@ namespace any_iterator_detail {
 
         Difference difference_to(placeholder_t const& other) const
         {
-            return pstade::polymorphic_downcast<self_t>(other).m_held - m_held;
+            return pstade::static_downcast<self_t>(other).m_held - m_held;
         }
     };
 
@@ -290,7 +290,7 @@ public:
     template< class Iterator >
     Iterator const& base() const
     {
-        return pstade::polymorphic_downcast<typename holder_of<Iterator>::type>(*m_content).held();
+        return pstade::static_downcast<typename holder_of<Iterator>::type>(*m_content).held();
     }
 
 // assignment to work around 'explicit' above

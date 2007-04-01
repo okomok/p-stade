@@ -16,6 +16,7 @@
 #include <iostream>
 #include <boost/noncopyable.hpp>
 #include <pstade/unused.hpp>
+#include <pstade/is_same.hpp>
 
 
 using namespace pstade;
@@ -36,22 +37,21 @@ struct WindowBase
     {
         BOOST_CHECK( pstade::static_downcast<Derived>(*this).create_impl() == derived_create_value );
 
-        Derived& d = *this|static_downcasted;
+        Derived& d = pstade::static_downcast<Derived>(*this);
         BOOST_CHECK( d.create_impl() == derived_create_value );
     }
 
     void show() const
     {
-        // const-qualifier is optional here.
         BOOST_CHECK( pstade::static_downcast<Derived>(*this).show_impl() == derived_show_value );
 
-        const Derived& d = *this|static_downcasted;
+        const Derived& d = pstade::static_downcast<Derived>(*this);
         BOOST_CHECK( d.show_impl() == derived_show_value );
     }
 
     void move()
     {
-        Derived& d = *this|static_downcasted;
+        Derived& d = pstade::static_downcast<Derived>(*this);
         BOOST_CHECK( d.move_impl() == base_move_value );
     }
 
@@ -96,23 +96,7 @@ struct Base { };
 struct Derived : Base { };
 
 
-void test_cast()
-{
-    Base b;
-    Derived& d = pstade::static_downcast<Derived>(b);
-    std::cout << &d;
-}
-
-
-void test_auto()
-{
-    Base b;
-    Derived& d = b|static_downcasted;
-    std::cout << &d;
-}
-
-
-void test()
+void test_crtp()
 {
     Window wnd;
     wnd.create();
@@ -125,15 +109,66 @@ void test()
     dlg.move();
 
     Base b;
-    Derived& d = b|static_downcasted;
+    Derived& d = pstade::static_downcast<Derived>(b);
     (void)d;
+}
+
+
+struct static_base_t : boost::noncopyable { };
+struct static_derived_t : static_base_t { };
+
+void test_static()
+{
+    static_derived_t D;
+    static_base_t& rB = D;
+    static_base_t const& crB = D;
+    {
+        static_derived_t& rD = pstade::static_downcast<static_derived_t>(rB);
+        BOOST_CHECK( is_same(D, rD) );
+        static_derived_t const& crD = pstade::static_downcast<static_derived_t>(rB);
+        BOOST_CHECK( is_same(D, crD) );
+        static_derived_t const& crD_ = pstade::static_downcast<static_derived_t const>(rB);
+        BOOST_CHECK( is_same(D, crD_) );
+    }
+    {
+        static_derived_t const& crD = pstade::static_downcast<static_derived_t>(crB);
+        BOOST_CHECK( is_same(D, crD) );
+        static_derived_t const& crD_ = pstade::static_downcast<static_derived_t const>(crB);
+        BOOST_CHECK( is_same(D, crD_) );
+    }
+}
+
+
+struct polymorphic_base_t : boost::noncopyable { virtual ~polymorphic_base_t() { } };
+struct polymorphic_derived_t : polymorphic_base_t { };
+BOOST_MPL_ASSERT((boost::is_polymorphic<polymorphic_base_t>));
+
+void test_polymorphic()
+{
+    polymorphic_derived_t D;
+    polymorphic_base_t& rB = D;
+    polymorphic_base_t const& crB = D;
+    {
+        polymorphic_derived_t& rD = pstade::static_downcast<polymorphic_derived_t>(rB);
+        BOOST_CHECK( is_same(D, rD) );
+        polymorphic_derived_t const& crD = pstade::static_downcast<polymorphic_derived_t>(rB);
+        BOOST_CHECK( is_same(D, crD) );
+        polymorphic_derived_t const& crD_ = pstade::static_downcast<polymorphic_derived_t const>(rB);
+        BOOST_CHECK( is_same(D, crD_) );
+    }
+    {
+        polymorphic_derived_t const& crD = pstade::static_downcast<polymorphic_derived_t>(crB);
+        BOOST_CHECK( is_same(D, crD) );
+        polymorphic_derived_t const& crD_ = pstade::static_downcast<polymorphic_derived_t const>(crB);
+        BOOST_CHECK( is_same(D, crD_) );
+    }
 }
 
 
 int test_main(int, char*[])
 {
-    ::test();
-    ::test_cast();
-    ::test_auto();
+    ::test_crtp();
+    ::test_static();
+    ::test_polymorphic();
     return 0;
 }

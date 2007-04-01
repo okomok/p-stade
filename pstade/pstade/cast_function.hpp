@@ -101,7 +101,7 @@
 
         // VC7.1 'boost::result_of' fails to 'add_const' under weird situation.
         // (I couldn't find a minimal condition of this behavior,
-        // though the unit test of 'oven::any_range' using "./downcast.hpp" actually failed.)
+        // though the unit test of 'oven::any_range' using "./static_downcast.hpp" actually failed.)
         // The problem is; VC7.1 array type prefers 'add_const<Array>::type' to 'Array const',
         // while VC7.1 'boost::result_of' prefers 'Array const' to 'add_const<Array>::type'.
         // So, delay to const-qualify for array, then instantiate 'result_of' without 'add_const'.

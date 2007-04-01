@@ -17,7 +17,7 @@
 #include <boost/preprocessor/repeat.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/apple/sdk/windows.hpp>
-#include <pstade/downcast.hpp>
+#include <pstade/static_downcast.hpp>
 #include "../cmd_ui/cmd_ui.hpp"
 #include "../cmd_ui/dependent_value.hpp"
 #include "../config/limit_message_processor_base_size.hpp"
@@ -101,7 +101,7 @@ struct message_processor :
     BOOL ProcessWindowMessage(HWND hWnd, UINT uMsg,
         WPARAM wParam, LPARAM lParam, LRESULT& lResult, DWORD dwMsgMapID = 0)
     {
-        Derived& d = pstade::downcast<Derived>(*this);
+        Derived& d = pstade::static_downcast<Derived>(*this);
 
         return ketchup::process_window_message(d, hWnd, uMsg,
             wParam, lParam, lResult, dwMsgMapID);
