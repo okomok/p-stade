@@ -40,9 +40,9 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include <pstade/as_mpl_lambda.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
+#include "./detail/as_mpl_lambda.hpp"
 
 
 namespace pstade {
@@ -72,7 +72,7 @@ namespace pstade {
     #define PSTADE_FUNCTION(Object, Baby) \
         namespace BOOST_PP_CAT(pstade_function_workarea_of_, Object) { \
             using namespace ::boost::mpl::placeholders; \
-            typedef ::pstade::function<PSTADE_AS_MPL_LAMBDA(Baby)> op; \
+            typedef ::pstade::function<PSTADE_DETAIL_AS_MPL_LAMBDA(Baby)> op; \
         } \
         typedef BOOST_PP_CAT(pstade_function_workarea_of_, Object)::op BOOST_PP_CAT(op_, Object); \
         PSTADE_CONSTANT(Object, (BOOST_PP_CAT(op_, Object))) \

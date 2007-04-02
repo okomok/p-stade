@@ -32,6 +32,7 @@
 // }
 //
 // 5 or more arity is not recommended; it tends to make so many functions.
+// Moreover, because of VC7.1 bug, it may be rejected.
 
 
 #if !defined(PSTADE_CAST_FUNCTION_PARAMS)
@@ -56,6 +57,7 @@
     #include <pstade/const_overloaded.hpp>
     #include <pstade/deduced_const.hpp>
     #include <pstade/preprocessor.hpp>
+    #include "./detail/result_of.hpp"
 
 
     // Prefer these in the case of small arity.
@@ -81,38 +83,19 @@
 
         #define PSTADE_CAST_FUNCTION1_aux(Name, Op, Seq) \
             template<PSTADE_PP_TO_TEMPLATE_PARAMS(Seq, X), class A0> inline \
-            typename ::boost::result_of<Op<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, X)>(A0&)>::type \
+            PSTADE_DETAIL_RESULT_OF((Op<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, X)>), (A0&)) \
             Name(A0& a0 PSTADE_CONST_OVERLOADED(A0)) \
             { \
                 return Op<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, X)>()(a0); \
             } \
             \
             template<PSTADE_PP_TO_TEMPLATE_PARAMS(Seq, X), class A0> inline \
-            typename ::pstade::cast_function_detail::result_of1_const0<Op<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, X)>, A0>::type \
+            PSTADE_DETAIL_RESULT_OF((Op<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, X)>), (PSTADE_DETAIL_CONST_REF(A0))) \
             Name(A0 const& a0) \
             { \
                 return Op<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, X)>()(a0); \
             } \
         /**/
-
-
-    namespace pstade { namespace cast_function_detail {
-
-
-        // VC7.1 'boost::result_of' fails to 'add_const' under weird situation.
-        // (I couldn't find a minimal condition of this behavior,
-        // though the unit test of 'oven::any_range' using "./static_downcast.hpp" actually failed.)
-        // The problem is; VC7.1 array type prefers 'add_const<Array>::type' to 'Array const',
-        // while VC7.1 'boost::result_of' prefers 'Array const' to 'add_const<Array>::type'.
-        // So, delay to const-qualify for array, then instantiate 'result_of' without 'add_const'.
-        // Fortunately, this bug seems to occur only in namespace scope; class scope is fine.
-        template<class Fun, class A0>
-        struct result_of1_const0 :
-            boost::result_of<Fun(A0 const&)>
-        { };
-
-
-    } } // namespace pstade::cast_function_detail
 
 
     #endif // PSTADE_CAST_FUNCTION_HEADER_PART
@@ -136,18 +119,18 @@
     /**/
     #define PSTADE_call_operator_aux(ArgTypes, Params, N) \
         template<PSTADE_PP_TO_TEMPLATE_PARAMS(PSTADE_classes, X), BOOST_PP_ENUM_PARAMS(N, class A)> inline \
-        typename ::boost::result_of< PSTADE_op<PSTADE_PP_TO_TEMPLATE_ARGS(PSTADE_classes, X)>(ArgTypes) >::type \
+        PSTADE_DETAIL_RESULT_OF( (PSTADE_op<PSTADE_PP_TO_TEMPLATE_ARGS(PSTADE_classes, X)>), ArgTypes ) \
         PSTADE_name( Params PSTADE_CONST_OVERLOADED_SEQ(PSTADE_PP_SEQ_PARAMS(N, A)) ) \
         { \
             return PSTADE_op<PSTADE_PP_TO_TEMPLATE_ARGS(PSTADE_classes, X)>()(BOOST_PP_ENUM_PARAMS(N, a)); \
         } \
     /**/
-    #define PSTADE_arg_type(R, _, I, Bit) BOOST_PP_COMMA_IF(I) BOOST_PP_CAT(PSTADE_ac, Bit)(BOOST_PP_CAT(A, I)) &
+    #define PSTADE_arg_type(R, _, I, Bit) ( BOOST_PP_CAT(PSTADE_ac, Bit)(BOOST_PP_CAT(A, I)) )
     #define PSTADE_param(R, _, I, Bit)    BOOST_PP_COMMA_IF(I) BOOST_PP_CAT(A, I) BOOST_PP_CAT(PSTADE_c, Bit) & BOOST_PP_CAT(a, I)
     #define PSTADE_c0
     #define PSTADE_c1 const
-    #define PSTADE_ac0(A) A
-    #define PSTADE_ac1(A) PSTADE_DEDUCED_CONST(A)
+    #define PSTADE_ac0(A) A&
+    #define PSTADE_ac1(A) PSTADE_DETAIL_CONST_REF(A)
 
     #define PSTADE_gen_operator0(R, N) PSTADE_CAST_FUNCTION0_aux(PSTADE_name, PSTADE_op, PSTADE_classes)
     #define PSTADE_gen_operatorN(R, N) BOOST_PP_SEQ_FOR_EACH_PRODUCT_R(R, PSTADE_call_operator, PSTADE_PP_SEQ_REPEAT((0)(1), N))

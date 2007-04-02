@@ -15,7 +15,6 @@
 #include "./any_movable.hpp"
 #include "./arraya.hpp"
 #include "./as.hpp"
-#include "./as_mpl_lambda.hpp"
 #include "./at.hpp"
 #include "./automatic.hpp"
 #include "./auxiliary.hpp"
