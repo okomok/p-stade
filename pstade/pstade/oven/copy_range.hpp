@@ -16,9 +16,9 @@
 #include <pstade/adl_barrier.hpp>
 #include <pstade/automatic.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/cast_function.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/remove_cvr.hpp>
+#include <pstade/specified.hpp>
 #include <pstade/value_convert.hpp>
 #include "./concepts.hpp"
 #include "./extension.hpp"
@@ -97,7 +97,7 @@ struct op_copy_range
 
 
 PSTADE_ADL_BARRIER(copy_range) { // for 'boost'
-    PSTADE_CAST_FUNCTION1(copy_range, op_copy_range, 1)
+    PSTADE_SPECIFIED1(copy_range, op_copy_range, 1)
 }
 PSTADE_PIPABLE(copied, (automatic< op_copy_range<boost::mpl::_1> >))
 

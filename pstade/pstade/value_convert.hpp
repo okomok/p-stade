@@ -25,7 +25,7 @@
 #include <boost/type_traits/is_floating_point.hpp>
 #include <boost/type_traits/is_integral.hpp>
 #include <boost/type_traits/is_reference.hpp>
-#include <pstade/cast_function.hpp>
+#include <pstade/specified.hpp>
 
 
 namespace pstade {
@@ -81,7 +81,7 @@ namespace pstade {
     };
 
 
-    PSTADE_CAST_FUNCTION1(value_convert, op_value_convert, 1)
+    PSTADE_SPECIFIED1(value_convert, op_value_convert, 1)
 
 
 } // namespace pstade

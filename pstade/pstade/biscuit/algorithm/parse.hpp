@@ -12,8 +12,8 @@
 
 #include <boost/range/begin.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/cast_function.hpp>
 #include <pstade/oven/iter_range.hpp>
+#include <pstade/specified.hpp>
 #include "../match_results/default_type.hpp"
 #include "../state/null_state.hpp"
 #include "../state/parsing_range_state_type.hpp"
@@ -51,8 +51,8 @@ struct op_results_parse :
     }
 };
 
-#define PSTADE_CAST_FUNCTION_PARAMS ((2)(3), results_parse, op_results_parse, 1)
-#include <pstade/cast_function.hpp>
+#define PSTADE_SPECIFIED_PARAMS ((2)(3), results_parse, op_results_parse, 1)
+#include <pstade/specified.hpp>
 
 
 template< class Parser >
@@ -83,8 +83,8 @@ struct op_parse :
     }
 };
 
-#define PSTADE_CAST_FUNCTION_PARAMS ((1)(2), parse, op_parse, 1)
-#include <pstade/cast_function.hpp>
+#define PSTADE_SPECIFIED_PARAMS ((1)(2), parse, op_parse, 1)
+#include <pstade/specified.hpp>
 
 
 } } // namespace pstade::biscuit

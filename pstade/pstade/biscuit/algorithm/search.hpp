@@ -13,9 +13,9 @@
 #include <boost/assert.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/cast_function.hpp>
 #include <pstade/oven/iter_range.hpp>
 #include <pstade/oven/range_iterator.hpp>
+#include <pstade/specified.hpp>
 #include "../match_results/default_type.hpp"
 #include "../state/increment.hpp"
 #include "../state/is_end.hpp"
@@ -62,8 +62,8 @@ struct op_results_search :
     }
 };
 
-#define PSTADE_CAST_FUNCTION_PARAMS ((2)(3), results_search, op_results_search, 1)
-#include <pstade/cast_function.hpp>
+#define PSTADE_SPECIFIED_PARAMS ((2)(3), results_search, op_results_search, 1)
+#include <pstade/specified.hpp>
 
 
 template< class Parser >
@@ -94,8 +94,8 @@ struct op_search :
     }
 };
 
-#define PSTADE_CAST_FUNCTION_PARAMS ((1)(2), search, op_search, 1)
-#include <pstade/cast_function.hpp>
+#define PSTADE_SPECIFIED_PARAMS ((1)(2), search, op_search, 1)
+#include <pstade/specified.hpp>
 
 
 } } // namespace pstade::biscuit

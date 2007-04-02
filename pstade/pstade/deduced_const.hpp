@@ -17,7 +17,7 @@
 // So prefer 'boost::add_const', or
 // you can use this macro to say the bug loudly!
 //
-// See also "./cast_function.hpp".
+// See also "./detail/msvc71_result_of.hpp".
 
 
 #include <boost/config.hpp>

@@ -15,7 +15,7 @@
 #include <pstade/adl_barrier.hpp>
 #include <pstade/automatic.hpp>
 #include <pstade/auxiliary.hpp>
-#include <pstade/cast_function.hpp>
+#include <pstade/specified.hpp>
 
 
 namespace pstade {
@@ -35,7 +35,7 @@ namespace pstade {
 
 
 PSTADE_ADL_BARRIER(lexical_cast) { // for 'boost'
-    PSTADE_CAST_FUNCTION1(lexical_cast, op_lexical_cast, 1)
+    PSTADE_SPECIFIED1(lexical_cast, op_lexical_cast, 1)
 }
     PSTADE_AUXILIARY(0, lexicalized, (automatic< op_lexical_cast<boost::mpl::_> >))
 

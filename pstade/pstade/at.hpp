@@ -27,8 +27,8 @@
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/affect.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/cast_function.hpp>
 #include <pstade/constant.hpp>
+#include <pstade/specified.hpp>
 
 
 namespace pstade {
@@ -109,7 +109,7 @@ namespace pstade {
         }
     };
 
-    PSTADE_CAST_FUNCTION1(tuple_at, op_tuple_at, 1)
+    PSTADE_SPECIFIED1(tuple_at, op_tuple_at, 1)
 
 
     // tuple_at_c
@@ -124,7 +124,7 @@ namespace pstade {
         op_tuple_at< boost::mpl::int_<N> >
     { };
 
-    PSTADE_CAST_FUNCTION1(tuple_at_c, op_tuple_at_c, (int))
+    PSTADE_SPECIFIED1(tuple_at_c, op_tuple_at_c, (int))
 
 
 } // namespace pstade

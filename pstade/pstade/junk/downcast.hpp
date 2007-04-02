@@ -31,7 +31,7 @@
 #include <pstade/adl_barrier.hpp>
 #include <pstade/affect.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/cast_function.hpp>
+#include <pstade/specified.hpp>
 
 
 namespace pstade {
@@ -139,11 +139,11 @@ namespace pstade {
     };
 
 
-    PSTADE_CAST_FUNCTION1(static_downcast, op_static_downcast, 1)
+    PSTADE_SPECIFIED1(static_downcast, op_static_downcast, 1)
 PSTADE_ADL_BARRIER(polymorphic_downcast) { // for 'boost'
-    PSTADE_CAST_FUNCTION1(polymorphic_downcast, op_polymorphic_downcast, 1)
+    PSTADE_SPECIFIED1(polymorphic_downcast, op_polymorphic_downcast, 1)
 }
-    PSTADE_CAST_FUNCTION1(downcast, op_downcast, 1)
+    PSTADE_SPECIFIED1(downcast, op_downcast, 1)
 
 
 } // namespace pstade

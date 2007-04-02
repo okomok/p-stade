@@ -18,7 +18,7 @@
 #include <boost/utility/addressof.hpp>
 #include <pstade/affect.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/cast_function.hpp>
+#include <pstade/specified.hpp>
 
 
 namespace pstade {
@@ -68,7 +68,7 @@ namespace pstade {
     };
 
 
-    PSTADE_CAST_FUNCTION1(crosscast, op_crosscast, 1)
+    PSTADE_SPECIFIED1(crosscast, op_crosscast, 1)
 
 
 } // namespace pstade

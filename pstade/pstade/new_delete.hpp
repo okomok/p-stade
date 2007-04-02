@@ -26,13 +26,13 @@
 #include <pstade/any_movable.hpp>
 #include <pstade/automatic.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/cast_function.hpp>
 #include <pstade/compose.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/construct.hpp>
 #include <pstade/fuse.hpp>
 #include <pstade/nonassignable.hpp>
 #include <pstade/preprocessor.hpp> // SEQ_RANGE
+#include <pstade/specified.hpp>
 #include <pstade/unfuse.hpp>
 
 
@@ -128,9 +128,9 @@ namespace pstade {
     { };
 
 #if defined(PSTADE_NEW_AUTO_FUNCTION) // probably rejected; this would generate 68 functions.
-    #define PSTADE_CAST_FUNCTION_PARAMS \
+    #define PSTADE_SPECIFIED_PARAMS \
         (PSTADE_PP_SEQ_RANGE(0, BOOST_PP_INC(PSTADE_CALLABLE_MAX_ARITY)), new_auto, op_new_auto, 1)
-    #include <pstade/cast_function.hpp>
+    #include <pstade/specified.hpp>
 #endif
 
 

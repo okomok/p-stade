@@ -23,7 +23,7 @@
 #include <typeinfo>
 #include <boost/shared_ptr.hpp>
 #include <boost/utility/result_of.hpp>
-#include <pstade/cast_function.hpp>
+#include <pstade/specified.hpp>
 #include <pstade/static_downcast.hpp>
 
 
@@ -108,7 +108,7 @@ namespace pstade {
         }
     };
 
-    PSTADE_CAST_FUNCTION1(any_movable_cast, op_any_movable_cast, 1)
+    PSTADE_SPECIFIED1(any_movable_cast, op_any_movable_cast, 1)
 
 
 } // namespace pstade

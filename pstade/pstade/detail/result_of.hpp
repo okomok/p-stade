@@ -12,7 +12,7 @@
 
 // What:
 //
-// Used with "../cast_function.hpp".
+// Used with "../specified.hpp".
 // This is required only in namespace scope.
 // See "./msvc71_result_of.hpp" in detail.
 
@@ -24,19 +24,7 @@
 #include <pstade/unparenthesize.hpp>
 
 
-#if !BOOST_WORKAROUND(BOOST_MSVC, == 1310)
-
-    #define PSTADE_DETAIL_RESULT_OF(F, ArgSeq) \
-        typename boost::result_of< \
-            PSTADE_UNPARENTHESIZE_TPL(F)(BOOST_PP_SEQ_ENUM(ArgSeq)) \
-        >::type \
-    /**/
-
-    #define PSTADE_DETAIL_CONST_REF(A) \
-        A const& \
-    /**/
-
-#else
+#if BOOST_WORKAROUND(BOOST_MSVC, == 1310) // msvc-7.1
 
     #include <boost/preprocessor/seq/size.hpp>
     #include "./msvc71_result_of.hpp"
@@ -49,6 +37,18 @@
 
     #define PSTADE_DETAIL_CONST_REF(A) \
         pstade::detail_msvc71::const_ref< A > \
+    /**/
+
+#else
+
+    #define PSTADE_DETAIL_RESULT_OF(F, ArgSeq) \
+        typename boost::result_of< \
+            PSTADE_UNPARENTHESIZE_TPL(F)(BOOST_PP_SEQ_ENUM(ArgSeq)) \
+        >::type \
+    /**/
+
+    #define PSTADE_DETAIL_CONST_REF(A) \
+        A const& \
     /**/
 
 #endif

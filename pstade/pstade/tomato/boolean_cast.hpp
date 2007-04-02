@@ -19,7 +19,7 @@
 #include <pstade/apple/sdk/wtypes.hpp> // VARIANT_BOOL
 #include <pstade/automatic.hpp>
 #include <pstade/auxiliary.hpp>
-#include <pstade/cast_function.hpp>
+#include <pstade/specified.hpp>
 
 
 namespace pstade { namespace tomato {
@@ -86,7 +86,7 @@ namespace pstade { namespace tomato {
         }
     };
 
-    PSTADE_CAST_FUNCTION1(boolean_cast, op_boolean_cast, 1)
+    PSTADE_SPECIFIED1(boolean_cast, op_boolean_cast, 1)
     PSTADE_AUXILIARY(0, to_boolean, (automatic< op_boolean_cast<boost::mpl::_1> >))
 
 

@@ -41,9 +41,9 @@
 #include <pstade/automatic.hpp>
 #include <pstade/auxiliary.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/cast_function.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/is_convertible.hpp>
+#include <pstade/specified.hpp>
 #include "./range_iterator.hpp"
 
 
@@ -86,7 +86,7 @@ struct op_adapted_to
     }
 };
 
-PSTADE_CAST_FUNCTION1(adapted_to, op_adapted_to, 1)
+PSTADE_SPECIFIED1(adapted_to, op_adapted_to, 1)
 PSTADE_AUXILIARY(0, to_base, (automatic< op_adapted_to<boost::mpl::_1> >))
 
 
@@ -114,7 +114,7 @@ struct op_adapted_range_to :
     }
 };
 
-PSTADE_CAST_FUNCTION1(adapted_range_to, op_adapted_range_to, 1)
+PSTADE_SPECIFIED1(adapted_range_to, op_adapted_range_to, 1)
 PSTADE_AUXILIARY(0, to_base_range, (automatic< op_adapted_range_to<boost::mpl::_1> >))
 
 
