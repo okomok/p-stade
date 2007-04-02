@@ -32,7 +32,6 @@
 // }
 //
 // 5 or more arity is not recommended; it tends to make so many functions.
-// Moreover, because of VC7.1 bug, it may be rejected.
 
 
 #if !defined(PSTADE_CAST_FUNCTION_PARAMS)
@@ -55,7 +54,6 @@
     #include <boost/preprocessor/tuple/elem.hpp>
     #include <boost/utility/result_of.hpp>
     #include <pstade/const_overloaded.hpp>
-    #include <pstade/deduced_const.hpp>
     #include <pstade/preprocessor.hpp>
     #include "./detail/result_of.hpp"
 

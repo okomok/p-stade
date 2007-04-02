@@ -11,8 +11,8 @@
 
 
 #include <boost/range/begin.hpp>
-#include <pstade/const_overloaded.hpp>
-#include <pstade/deduced_const.hpp>
+#include <pstade/callable.hpp>
+#include <pstade/cast_function.hpp>
 #include <pstade/oven/iter_range.hpp>
 #include "../match_results/default_type.hpp"
 #include "../state/null_state.hpp"
@@ -22,92 +22,69 @@
 namespace pstade { namespace biscuit {
 
 
-namespace parse_detail {
+template< class Parser >
+struct op_results_parse :
+    callable< op_results_parse<Parser> >
+{
+    template< class Myself, class ParsingRange, class MatchResults, class UserState = void >
+    struct apply
+    {
+        typedef typename
+            oven::iter_range_of<ParsingRange>::type const
+        type;
+    };
 
-
-    template< class Parser, class ParsingRange, class MatchResults, class UserState >
-    typename oven::iter_range_of<ParsingRange>::type const
-    aux(ParsingRange& r, MatchResults& rs, UserState& us)
+    template< class Result, class ParsingRange, class MatchResults, class UserState >
+    Result call(ParsingRange& r, MatchResults& rs, UserState& us) const
     {
         typedef typename parsing_range_state<ParsingRange, MatchResults>::type state_t;
 
         state_t s(r, rs);
         Parser::parse(s, us);
-        return oven::make_iter_range(boost::begin(s), s.get_cur());
+        return Result(boost::begin(s), s.get_cur());
     }
 
-
-} // namespace parse_detail
-
-
-template< class Parser, class ForwardRange, class UserState > inline
-typename oven::iter_range_of<ForwardRange>::type const
-parse(ForwardRange& r, UserState& us PSTADE_CONST_OVERLOADED(ForwardRange))
-{
-    typedef typename match_results_default<Parser, ForwardRange>::type results_t;
-    results_t rs;
-    return parse_detail::aux<Parser>(r, rs, us);
-}
-
-    template< class Parser, class ForwardRange, class UserState > inline
-    typename oven::iter_range_of<PSTADE_DEDUCED_CONST(ForwardRange)>::type const
-    parse(ForwardRange const& r, UserState& us)
+    template< class Result, class ParsingRange, class MatchResults >
+    Result parse(ParsingRange& r, MatchResults& rs) const
     {
-        typedef typename match_results_default<Parser, PSTADE_DEDUCED_CONST(ForwardRange)>::type results_t;
+        return (*this)(r, rs, null_state);
+    }
+};
+
+#define PSTADE_CAST_FUNCTION_PARAMS ((2)(3), results_parse, op_results_parse, 1)
+#include <pstade/cast_function.hpp>
+
+
+template< class Parser >
+struct op_parse :
+    callable< op_parse<Parser> >
+{
+    template< class Myself, class ParsingRange, class UserState = void >
+    struct apply
+    {
+        typedef typename
+            oven::iter_range_of<ParsingRange>::type const
+        type;
+    };
+
+    template< class Result, class ParsingRange, class UserState >
+    Result call(ParsingRange& r, UserState& us) const
+    {
+        typedef typename match_results_default<Parser, ParsingRange>::type results_t;
+
         results_t rs;
-        return parse_detail::aux<Parser>(r, rs, us);
+        return op_results_parse<Parser>()(r, rs, us);
     }
 
-
-// no user-state
-template< class Parser, class ForwardRange > inline
-typename oven::iter_range_of<ForwardRange>::type const
-parse(ForwardRange& r PSTADE_CONST_OVERLOADED(ForwardRange))
-{
-    typedef typename match_results_default<Parser, ForwardRange>::type results_t;
-    results_t rs;
-    return parse_detail::aux<Parser>(r, rs, null_state);
-}
-
-    template< class Parser, class ForwardRange > inline
-    typename oven::iter_range_of<PSTADE_DEDUCED_CONST(ForwardRange)>::type const
-    parse(ForwardRange const& r)
+    template< class Result, class ParsingRange >
+    Result call(ParsingRange& r) const
     {
-        typedef typename match_results_default<Parser, PSTADE_DEDUCED_CONST(ForwardRange)>::type results_t;
-        results_t rs;
-        return parse_detail::aux<Parser>(r, rs, null_state);
+        return (*this)(r, null_state);
     }
+};
 
-
-template< class Parser, class ForwardRange, class MatchResults, class UserState > inline
-typename oven::iter_range_of<ForwardRange>::type const
-results_parse(ForwardRange& r, MatchResults& rs, UserState& us PSTADE_CONST_OVERLOADED(ForwardRange))
-{
-    return parse_detail::aux<Parser>(r, rs, us);
-}
-
-    template< class Parser, class ForwardRange, class MatchResults, class UserState > inline 
-    typename oven::iter_range_of<PSTADE_DEDUCED_CONST(ForwardRange)>::type const
-    results_parse(ForwardRange const& r, MatchResults& rs, UserState& us)
-    {
-        return parse_detail::aux<Parser>(r, rs, us);
-    }
-
-
-// no user-state
-template< class Parser, class ForwardRange, class MatchResults > inline
-typename oven::iter_range_of<ForwardRange>::type const
-results_parse(ForwardRange& r, MatchResults& rs PSTADE_CONST_OVERLOADED(ForwardRange))
-{
-    return parse_detail::aux<Parser>(r, rs, null_state);
-}
-
-    template< class Parser, class ForwardRange, class MatchResults > inline
-    typename oven::iter_range_of<PSTADE_DEDUCED_CONST(ForwardRange)>::type const
-    results_parse(ForwardRange const& r, MatchResults& rs)
-    {
-        return parse_detail::aux<Parser>(r, rs, null_state);
-    }
+#define PSTADE_CAST_FUNCTION_PARAMS ((1)(2), parse, op_parse, 1)
+#include <pstade/cast_function.hpp>
 
 
 } } // namespace pstade::biscuit

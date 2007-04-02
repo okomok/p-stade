@@ -13,6 +13,7 @@
 // What:
 //
 // Used with "../cast_function.hpp".
+// This is required only in namespace scope.
 // See "./msvc71_result_of.hpp" in detail.
 
 

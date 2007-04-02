@@ -20,8 +20,9 @@
 // But, only in namespace scope, msvc-7.1 (fairly infrequently) fails to const-qualify 'A'
 // in 'boost::result_of' parameter types if a metafunction is used:
 //     template<class A> // 'add_const' below is ignored.
-//     typename boost::result_of<F(typename boost::add_const<A>::type&)>::type foo(A& a, F) { }
+//     typename boost::result_of<F(typename add_const<A>::type&)>::type foo(A& a, F) { }
 // So, we must delay to write 'const' for array types, then instantiate 'result_of' using 'const'.
+// Fortunately, this bug doesn't occur in class scope.
 
 
 #include <boost/preprocessor/cat.hpp>
@@ -58,7 +59,7 @@ namespace pstade { namespace detail_msvc71 {
     // Delay to const-qualify for array type.
     template<class Fun, class A0>
     struct result_of1< Fun, const_ref<A0> > :
-        boost::result_of<Fun(A0 const&)>
+        boost::result_of<Fun(A0 const&)> // Write 'const' without metafuntion for 'result_of'.
     { };
 
 
