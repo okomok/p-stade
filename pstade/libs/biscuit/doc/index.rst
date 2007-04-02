@@ -587,6 +587,7 @@ Version 1.02.8
 Version 1.02.9
 ^^^^^^^^^^^^^^
 - Ported to Boost v1.34.
+- `Algorithms`_ can take non-const rvalue `User State`_.
 
 
 .. include:: ../../doc/refs.rst

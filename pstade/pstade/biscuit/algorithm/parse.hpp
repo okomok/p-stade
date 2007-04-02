@@ -14,9 +14,9 @@
 #include <pstade/callable.hpp>
 #include <pstade/oven/iter_range.hpp>
 #include <pstade/specified.hpp>
-#include "../match_results/default_type.hpp"
 #include "../state/null_state.hpp"
 #include "../state/parsing_range_state_type.hpp"
+#include "./detail/without_results.hpp"
 
 
 namespace pstade { namespace biscuit {
@@ -57,31 +57,8 @@ struct op_results_parse :
 
 template< class Parser >
 struct op_parse :
-    callable< op_parse<Parser> >
-{
-    template< class Myself, class ParsingRange, class UserState = void >
-    struct apply
-    {
-        typedef typename
-            oven::iter_range_of<ParsingRange>::type const
-        type;
-    };
-
-    template< class Result, class ParsingRange, class UserState >
-    Result call(ParsingRange& r, UserState& us) const
-    {
-        typedef typename match_results_default<Parser, ParsingRange>::type results_t;
-
-        results_t rs;
-        return op_results_parse<Parser>()(r, rs, us);
-    }
-
-    template< class Result, class ParsingRange >
-    Result call(ParsingRange& r) const
-    {
-        return (*this)(r, null_state);
-    }
-};
+    detail::op_without_results<op_results_parse, Parser>
+{ };
 
 #define PSTADE_SPECIFIED_PARAMS ((1)(2), parse, op_parse, 1)
 #include <pstade/specified.hpp>

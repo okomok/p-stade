@@ -124,7 +124,7 @@
         } \
     /**/
     #define PSTADE_arg_type(R, _, I, Bit) ( BOOST_PP_CAT(PSTADE_ac, Bit)(BOOST_PP_CAT(A, I)) )
-    #define PSTADE_param(R, _, I, Bit)    BOOST_PP_COMMA_IF(I) BOOST_PP_CAT(A, I) BOOST_PP_CAT(PSTADE_c, Bit) & BOOST_PP_CAT(a, I)
+    #define PSTADE_param(R, _, I, Bit) BOOST_PP_COMMA_IF(I) BOOST_PP_CAT(A, I) BOOST_PP_CAT(PSTADE_c, Bit) & BOOST_PP_CAT(a, I)
     #define PSTADE_c0
     #define PSTADE_c1 const
     #define PSTADE_ac0(A) A&
@@ -132,7 +132,7 @@
 
     #define PSTADE_gen_function0(R, N) PSTADE_SPECIFIED0_aux(PSTADE_name, PSTADE_op, PSTADE_params)
     #define PSTADE_gen_functionN(R, N) BOOST_PP_SEQ_FOR_EACH_PRODUCT_R(R, PSTADE_function, PSTADE_PP_SEQ_REPEAT((0)(1), N))
-    #define PSTADE_gen_function(R, _, N)  BOOST_PP_IF(N, PSTADE_gen_functionN, PSTADE_gen_function0)(R, N)
+    #define PSTADE_gen_function(R, _, N) BOOST_PP_IF(N, PSTADE_gen_functionN, PSTADE_gen_function0)(R, N)
         BOOST_PP_SEQ_FOR_EACH(PSTADE_gen_function, ~, PSTADE_arities)
     #undef  PSTADE_gen_function
     #undef  PSTADE_gen_functionN

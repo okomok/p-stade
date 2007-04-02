@@ -16,7 +16,6 @@
 #include "./oven/metafunctions.hpp"
 #include "./oven/numeric.hpp"
 #include "./oven/ranges.hpp"
-#include "./oven/typeof.hpp"
 
 
 #endif

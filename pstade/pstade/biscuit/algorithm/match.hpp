@@ -13,9 +13,9 @@
 #include <boost/range/end.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/specified.hpp>
-#include "../match_results/default_type.hpp"
 #include "../state/null_state.hpp"
 #include "../state/parsing_range_state_type.hpp"
+#include "./detail/without_results.hpp"
 
 
 namespace pstade { namespace biscuit {
@@ -53,29 +53,8 @@ struct op_results_match :
 
 template< class Parser >
 struct op_match :
-    callable< op_match<Parser> >
-{
-    template< class Myself, class ParsingRange, class UserState = void >
-    struct apply
-    {
-        typedef bool type;
-    };
-
-    template< class Result, class ParsingRange, class UserState >
-    Result call(ParsingRange& r, UserState& us) const
-    {
-        typedef typename match_results_default<Parser, ParsingRange>::type results_t;
-
-        results_t rs;
-        return op_results_match<Parser>()(r, rs, us);
-    }
-
-    template< class Result, class ParsingRange >
-    Result call(ParsingRange& r) const
-    {
-        return (*this)(r, null_state);
-    }
-};
+    detail::op_without_results<op_results_match, Parser>
+{ };
 
 #define PSTADE_SPECIFIED_PARAMS ((1)(2), match, op_match, 1)
 #include <pstade/specified.hpp>
