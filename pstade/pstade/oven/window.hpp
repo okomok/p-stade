@@ -20,6 +20,7 @@
 #include "./next_prior.hpp" // next
 #include "./range_difference.hpp"
 #include "./range_iterator.hpp"
+#include "./traversal_tags.hpp" // is_bidirectional
 
 
 namespace pstade { namespace oven {
@@ -46,9 +47,11 @@ namespace window_detail {
         result_type operator()(Range& rng, diff_t const& n, diff_t const& m) const
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
+            BOOST_ASSERT(n < 0 ? is_bidirectional(rng) : true);
+            BOOST_ASSERT(n <= m);
 
-            // Should a "bigger" window be allowed?
-            // BOOST_ASSERT(0 <= n && n <= m && m <= distance(rng));
+            // A "bigger" window is allowed.
+            // 'n < 0' or 'distance(rng) < m' is ok.
 
             iter_t first = next(boost::begin(rng), n);
             return result_type(first, next(first, m - n));

@@ -109,6 +109,7 @@ test-suite "oven" :
     [ run to_utf8_encoder.cpp ]
     [ compile tokenized.cpp ]
     [ run transformed.cpp ]
+    [ run traversal_tags.cpp ]
     [ run tuple.cpp ]
     [ run uniqued.cpp ]
     [ run unzipped.cpp ]

@@ -27,7 +27,7 @@
 #include "./iter_range.hpp"
 #include "./next_prior.hpp" // next
 #include "./range_difference.hpp"
-#include "./traversal_tags.hpp" // is_random_access
+#include "./traversal_tags.hpp" // is_random_access, is_bidirectional
 
 
 namespace pstade { namespace oven {
@@ -50,6 +50,8 @@ namespace advanced_detail {
         result_type operator()(Range& rng, diff_t const& dfirst, diff_t const& dlast) const
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
+            BOOST_ASSERT(dfirst < 0 ? is_bidirectional(rng) : true);
+            BOOST_ASSERT(dlast  < 0 ? is_bidirectional(rng) : true);
             BOOST_ASSERT(is_random_access(rng) ? dfirst <= distance(rng) + dlast : true);
 
 	        return result_type(
