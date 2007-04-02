@@ -87,7 +87,7 @@ namespace pstade { namespace tomato {
     };
 
     PSTADE_SPECIFIED1(boolean_cast, op_boolean_cast, 1)
-    PSTADE_AUXILIARY(0, to_boolean, (automatic< op_boolean_cast<boost::mpl::_1> >))
+    PSTADE_AUXILIARY(0, to_boolean, (automatic< op_boolean_cast<_> >))
 
 
 } } // namespace pstade::tomato

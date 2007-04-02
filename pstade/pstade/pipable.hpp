@@ -28,6 +28,7 @@
 
 
 #include <boost/mpl/bool.hpp>
+#include <boost/mpl/placeholders.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
@@ -163,8 +164,11 @@ namespace pstade {
 
 
     #define PSTADE_PIPABLE(Object, Function) \
-        PSTADE_CONSTANT( Object, \
-            (::boost::result_of< ::pstade::op_pipable(PSTADE_UNPARENTHESIZE(Function)) >::type) ) \
+        namespace BOOST_PP_CAT(pstade_pipable_workarea_of_, Object) { \
+            using namespace ::boost::mpl::placeholders; \
+            typedef ::boost::result_of< ::pstade::op_pipable(PSTADE_UNPARENTHESIZE(Function)) >::type pipe; \
+        } \
+        PSTADE_CONSTANT(Object, (BOOST_PP_CAT(pstade_pipable_workarea_of_, Object)::pipe)) \
     /**/
 
 

@@ -16,6 +16,7 @@
 // http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2004/n1742.pdf
 
 
+#include <boost/mpl/placeholders.hpp>
 #include <boost/preprocessor/arithmetic/dec.hpp>
 #include <boost/preprocessor/arithmetic/inc.hpp>
 #include <boost/preprocessor/cat.hpp>
@@ -111,10 +112,11 @@ namespace pstade {
 
 
     #define PSTADE_AUXILIARY(N, Object, Function) \
-        typedef \
-            ::boost::result_of< ::pstade::BOOST_PP_CAT(op_auxiliary, N)(PSTADE_UNPARENTHESIZE(Function)) >::type \
-        BOOST_PP_CAT(op_, Object); \
-        \
+        namespace BOOST_PP_CAT(pstade_auxiliary_workarea_of_, Object) { \
+            using namespace ::boost::mpl::placeholders; \
+            typedef ::boost::result_of< ::pstade::BOOST_PP_CAT(op_auxiliary, N)(PSTADE_UNPARENTHESIZE(Function)) >::type op; \
+        } \
+        typedef BOOST_PP_CAT(pstade_auxiliary_workarea_of_, Object)::op BOOST_PP_CAT(op_, Object); \
         PSTADE_CONSTANT(Object, (BOOST_PP_CAT(op_, Object))) \
     /**/
 

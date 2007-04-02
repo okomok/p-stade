@@ -18,7 +18,7 @@
 
 
 #include <boost/mpl/apply.hpp>
-#include <boost/mpl/placeholders.hpp> // inclusion guaranteed
+#include <boost/mpl/placeholders.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>

@@ -99,7 +99,7 @@ struct op_copy_range
 PSTADE_ADL_BARRIER(copy_range) { // for 'boost'
     PSTADE_SPECIFIED1(copy_range, op_copy_range, 1)
 }
-PSTADE_PIPABLE(copied, (automatic< op_copy_range<boost::mpl::_1> >))
+PSTADE_PIPABLE(copied, (automatic< op_copy_range<_> >))
 
 
 template< class Range >

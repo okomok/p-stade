@@ -87,7 +87,7 @@ struct op_adapted_to
 };
 
 PSTADE_SPECIFIED1(adapted_to, op_adapted_to, 1)
-PSTADE_AUXILIARY(0, to_base, (automatic< op_adapted_to<boost::mpl::_1> >))
+PSTADE_AUXILIARY(0, to_base, (automatic< op_adapted_to<_> >))
 
 
 // range version
@@ -115,7 +115,7 @@ struct op_adapted_range_to :
 };
 
 PSTADE_SPECIFIED1(adapted_range_to, op_adapted_range_to, 1)
-PSTADE_AUXILIARY(0, to_base_range, (automatic< op_adapted_range_to<boost::mpl::_1> >))
+PSTADE_AUXILIARY(0, to_base_range, (automatic< op_adapted_range_to<_> >))
 
 
 } } // namespace pstade::oven
