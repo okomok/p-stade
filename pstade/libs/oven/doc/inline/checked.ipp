@@ -4,7 +4,7 @@ std::string out("01234");
 try {
     oven::copy(in, boost::begin(out|checked));
 }
-catch (check_error const& ) {
+catch (std::out_of_range const& ) {
     return;
 }
 

@@ -24,7 +24,7 @@ template< template< class > class Op, class Parser >
 struct op_without_results :
     callable< op_without_results<Op, Parser> >
 {
-    template< class Myself, class ParsingRange, class UserState = null_state_t const >
+    template< class Myself, class ParsingRange, class UserState = null_state_t >
     struct apply
     {
         typedef typename

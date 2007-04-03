@@ -12,6 +12,8 @@
 
 #include <cstddef> // ptrdiff_t
 #include <boost/iterator/iterator_categories.hpp>
+#include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/disable_if_copy.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/implicitly_defined.hpp>
@@ -133,6 +135,31 @@ struct any_range_of
         >
     type;
 };
+
+
+// This falls into ETI.
+// PSTADE_OBJECT_GENERATOR(make_any_range,
+//     (any_range< range_reference<_1>, range_pure_traversal<_1>, range_value<_1>, range_difference<_1> >) const)
+
+struct op_make_any_range :
+    callable<op_make_any_range>
+{
+    template< class Myself, class Range >
+    struct apply
+    {
+        typedef typename
+            any_range_of<Range>::type const
+        type;
+    };
+
+    template< class Result, class Range >
+    Result call(Range& rng) const
+    {
+        return Result(rng);
+    }
+};
+
+PSTADE_CONSTANT(make_any_range, (op_make_any_range))
 
 
 } } // namespace pstade::oven

@@ -291,6 +291,22 @@ the adapted range. ``any_range`` behaves as the type erasure of ranges::
 __ http://thbecker.net/free_software_utilities/type_erasure_for_cpp_iterators/start_page.html
 
 
+``AUTO/AUTO_TPL``
+^^^^^^^^^^^^^^^^^
+Unfortunately, ``any_range`` incurs a significant overhead, because it requires a ``virtual`` function call every iterator operation.
+The overhead can be removed with the help of `Boost.Typeof`_ if your compiler supports the native typeof::
+
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\typeof.ipp
+
+- Header: ``<pstade/oven/typeof.hpp>``
+- Valid expression: ``PSTADE_OVEN_AUTO(var,rng);``
+- Precondition: ``boost::range_value``, ``boost::range_reference`` and ``boost::range_difference`` of the ``rng`` type are registered to `Boost.Typeof`_.
+- Effect: ``unspecified_range_type var = rng;``, where ``var`` behaves as if it were ``rng``.
+
+This macro is portable even if your compiler doesn't have the native typeof support.
+If you want to use auto in a template-context, use ``PSTADE_OVEN_AUTO_TPL``.
+
+
 ``array_range``
 ^^^^^^^^^^^^^^^
 ``array_range`` is a non-Copyable `Random Access Range`_ which delivers
@@ -1392,5 +1408,7 @@ Version 0.93.7
 - Renamed ``directed`` to ``outdirected``.
 - Renamed ``initializers`` to ``initial_values``.
 - Ported to Boost v1.34.
+- Added ``PSTADE_OVEN_AUTO/PSTADE_OVEN_AUTO_TPL``.
+
 
 

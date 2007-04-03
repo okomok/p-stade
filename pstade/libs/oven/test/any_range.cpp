@@ -70,6 +70,21 @@ void test_iterator()
 }
 
 
+void test_make()
+{
+    namespace oven = pstade::oven;
+    using namespace oven;
+
+    {
+        std::string str("abcdefg");
+        boost::result_of<op_make_any_range(std::string&)>::type
+            r = make_any_range(str);
+
+        BOOST_CHECK( oven::equals(str, r) );
+    }
+}
+
+
 void pstade_unit_test()
 {
     ::test_iterator();
@@ -204,5 +219,6 @@ void pstade_unit_test()
         any_range_of<std::string>::type any_(str); // copy-initializable
         BOOST_CHECK( oven::equals(str, any_) );
     }
-}
 
+    ::test_make();
+}

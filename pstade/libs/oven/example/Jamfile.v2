@@ -11,6 +11,7 @@ project
 
 test-suite range :
     [ run adjacent_difference.cpp ]
+    [ run auto_factorials.cpp ]
     [ run duplicates.cpp ]
     [ run factorials.cpp ]
     [ run fibonacci.cpp ]

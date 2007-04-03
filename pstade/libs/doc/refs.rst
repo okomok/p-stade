@@ -54,6 +54,7 @@
 .. _Boost.Spirit: http://spirit.sourceforge.net/
 .. _Boost.Test: http://www.boost.org/libs/test/doc/
 .. _Boost.Thread: http://www.boost.org/doc/html/threads.html
+.. _Boost.Typeof: http://www.boost.org/regression-logs/cs-win32_metacomm/doc/html/typeof.html
 .. _Boost.Wave: http://www.codeproject.com/cpp/wave_preprocessor.asp
 .. _Boost.Xpressive: http://boost-sandbox.sourceforge.net/libs/xpressive/doc/html/index.html
 
