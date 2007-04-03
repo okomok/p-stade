@@ -1,4 +1,4 @@
-#include <pstade/unit_test.hpp>
+#include <pstade/vodka/drink.hpp>
 
 
 // PStade.p_stade;
@@ -9,8 +9,29 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-void pstade_unit_test()
+#include <pstade/static_downcast.hpp>
+#include <boost/utility/result_of.hpp>
+
+using namespace pstade;
+
+struct base
 {
+};
 
+struct derived : base
+{
+    derived() { }
+    void foo() const { }
+};
 
+int main()
+{
+    derived const D;
+    base const& crB = D;
+
+    boost::result_of<
+        op_static_downcast<derived>(base const&)
+    >::type d = pstade::static_downcast<derived>(crB);
+
+    pstade::static_downcast<derived>(crB).foo();
 }

@@ -9,7 +9,8 @@ project
       <library>/boost/test//boost_unit_test_framework/<link>static
     ;
 
-test-suite "p_stade" :
+# For some reason, bjam needs a trailing "_".
+test-suite "p_stade_" :
     [ run p_stade.cpp ]
     ;
 

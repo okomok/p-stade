@@ -47,8 +47,8 @@ namespace window_detail {
         result_type operator()(Range& rng, diff_t const& n, diff_t const& m) const
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
-            BOOST_ASSERT(n < 0 ? is_bidirectional(rng) : true);
             BOOST_ASSERT(n <= m);
+            BOOST_ASSERT(n < 0 ? is_bidirectional(rng) : true);
 
             // A "bigger" window is allowed.
             // 'n < 0' or 'distance(rng) < m' is ok.
