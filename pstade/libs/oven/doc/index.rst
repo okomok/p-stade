@@ -301,7 +301,7 @@ The overhead can be removed with the help of `Boost.Typeof`_ if your compiler su
 - Header: ``<pstade/oven/typeof.hpp>``
 - Valid expression: ``PSTADE_OVEN_AUTO(var,rng);``
 - Precondition: ``boost::range_value``, ``boost::range_reference`` and ``boost::range_difference`` of the ``rng`` type are registered to `Boost.Typeof`_.
-- Effect: ``unspecified_range_type var = rng;``, where ``var`` behaves as if it were ``rng``.
+- Effect: ``unspecified_range_type var = rng;``, where ``var`` behaves as if it were ``[boost::begin(rng),boost::end(rng))``.
 
 This macro is portable even if your compiler doesn't have the native typeof support.
 If you want to use auto in a template-context, use ``PSTADE_OVEN_AUTO_TPL``.
