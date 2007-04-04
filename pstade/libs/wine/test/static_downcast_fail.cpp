@@ -32,6 +32,7 @@ void test()
     polymorphic_base_t const& rB = B;
     {
         polymorphic_derived_t const& rD = pstade::static_downcast<polymorphic_derived_t>(rB);
+        (void)rD;
     }
 }
 

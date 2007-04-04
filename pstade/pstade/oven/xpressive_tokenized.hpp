@@ -43,7 +43,6 @@ struct op_make_xpressive_tokenized :
         type;
     };
 
-
     template< class Result, class Range, class Regex >
     Result call(Range& rng, Regex& re) const
     {

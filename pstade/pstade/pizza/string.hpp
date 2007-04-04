@@ -24,6 +24,7 @@
 #include <boost/utility/result_of.hpp>
 #include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/apple/sdk/windows.hpp>
+#include <pstade/detail/overload.hpp>
 #include <pstade/oven/array_range.hpp>
 #include <pstade/oven/as_c_str.hpp>
 #include <pstade/oven/range_constantable.hpp>
@@ -62,7 +63,7 @@ namespace string_detail {
         template< class Profile > static
         bool call(Profile& pr, TCHAR const *pszValueName, TCHAR *pFirst, TCHAR *pLast)
         {
-            return pstade_pizza_query_string(pr, pszValueName, pFirst, pLast, overload<>());
+            return pstade_pizza_query_string(pr, pszValueName, pFirst, pLast, pstade::detail::overload<>());
         }
     };
 

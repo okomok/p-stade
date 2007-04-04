@@ -122,6 +122,7 @@ void test()
     {
         derived const d = derived();;
         int i = ::algo5<int>(d);
+        (void)i;
     }
 }
 

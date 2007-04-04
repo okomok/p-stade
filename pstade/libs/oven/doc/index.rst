@@ -293,7 +293,7 @@ __ http://thbecker.net/free_software_utilities/type_erasure_for_cpp_iterators/st
 
 ``AUTO/AUTO_TPL``
 ^^^^^^^^^^^^^^^^^
-Unfortunately, ``any_range`` incurs a significant overhead, because it requires a ``virtual`` function call every iterator operation.
+Unfortunately, ``any_range`` incurs a significant overhead for calling a ``virtual`` function every iterator operation.
 The overhead can be removed with the help of `Boost.Typeof`_ if your compiler supports the native typeof::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\typeof.ipp

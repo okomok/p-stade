@@ -12,7 +12,7 @@
 
 #include <boost/mpl/if.hpp>
 #include <pstade/apple/sdk/tchar.hpp>
-#include <pstade/overload.hpp>
+#include <pstade/detail/overload.hpp>
 #include <pstade/tomato/c_str.hpp>
 #include "./access.hpp"
 #include "./detail/has_pstade_pizza_profile.hpp"
@@ -39,7 +39,7 @@ namespace delete_detail {
         template< class Profile > static
         void call(Profile& pr, TCHAR const *pszValueName)
         {
-            pstade_pizza_delete(pr, pszValueName, overload<>());
+            pstade_pizza_delete(pr, pszValueName, pstade::detail::overload<>());
         }
     };
 
