@@ -40,7 +40,7 @@
 
     #if BOOST_WORKAROUND(__GNUC__, <= 3)
         // GCC seems to require the members be DefaultConstructible
-        // without constructor. 'BOOST_CONCEPT_USAGE' will work around?
+        // without constructor. "./unevaluated.hpp" too can work around.
         #define PSTADE_CONCEPT_USAGE(Model) Model(); BOOST_CONCEPT_USAGE(Model)
     #else
         #define PSTADE_CONCEPT_USAGE BOOST_CONCEPT_USAGE

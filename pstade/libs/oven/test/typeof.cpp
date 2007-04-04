@@ -18,6 +18,7 @@
 #include <pstade/oven/equals.hpp>
 #include <pstade/oven/identities.hpp>
 #include <boost/typeof/typeof.hpp>
+#include <pstade/unevaluated.hpp>
 
 
 namespace oven = pstade::oven;
@@ -43,7 +44,7 @@ test_type()
 template<class Range>
 struct result_of_test_template
 {
-    typedef BOOST_TYPEOF_NESTED_TYPEDEF_TPL(nested, expression(pstade::unknown_lvalue<Range>()|identities|identities))
+    typedef BOOST_TYPEOF_NESTED_TYPEDEF_TPL(nested, expression(pstade::unevaluated<Range&>()|identities|identities))
     typedef typename nested::type type;
 };
 
@@ -58,6 +59,7 @@ test_template(Range& rng)
 
     return expression(rng|identities|identities);
 }
+
 
 int test_main(int, char*[])
 {

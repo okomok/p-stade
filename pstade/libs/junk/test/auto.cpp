@@ -8,6 +8,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/../libs/wine/test/clone_ptr.cpp>
-
-
+//#include <pstade/../libs/wine/test/specified.cpp>
+//#include <pstade/../libs/oven/test/typeof.cpp>
+#include <pstade/../libs/oven/example/auto_factorials.cpp>
+//#include <pstade/../libs/biscuit/test/capture.cpp>
+//#include <pstade/../libs/oven/test/ms/atl_string.cpp>
+//#include <pstade/../libs/tomato/test/boolean_cast.cpp>
+//#include <pstade/detail/result_of.hpp>

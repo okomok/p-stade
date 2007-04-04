@@ -19,7 +19,7 @@
 #include <pstade/pipable.hpp>
 #include <pstade/remove_cvr.hpp>
 #include <pstade/specified.hpp>
-#include <pstade/unknown_lvalue.hpp>
+#include <pstade/unevaluated.hpp>
 #include <pstade/value_convert.hpp>
 #include "./concepts.hpp"
 #include "./extension.hpp"
@@ -111,7 +111,7 @@ struct Copyable :
 
     PSTADE_CONCEPT_USAGE(Copyable)
     {
-        rng_t& from = unknown_lvalue<rng_t>();
+        rng_t& from = unevaluated<rng_t&>();
         rng_t rng = op_copy_range<rng_t>()(make_identities(from)); 
     }
 };

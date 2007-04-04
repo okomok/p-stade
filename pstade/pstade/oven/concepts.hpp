@@ -38,7 +38,7 @@
 #include <boost/type_traits/remove_const.hpp>
 #include <pstade/as.hpp> // as_cref
 #include <pstade/concept.hpp>
-#include <pstade/unknown_lvalue.hpp>
+#include <pstade/unevaluated.hpp>
 #include <pstade/unused.hpp>
 #include "./detail/config.hpp" // PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR
 #include "./range_iterator.hpp"
@@ -114,7 +114,7 @@ struct SinglePass
         PSTADE_CONCEPT_ASSERT((boost_concepts::SinglePassIteratorConcept<constant_iterator>));
         PSTADE_CONCEPT_ASSERT((boost_concepts::InteroperableIteratorConcept<mutable_iterator, constant_iterator>));
 
-        rng_t& rng = unknown_lvalue<rng_t>();
+        rng_t& rng = unevaluated<rng_t&>();
 
         mutable_iterator f = boost::begin(rng);
         mutable_iterator l = boost::end(rng);
