@@ -47,8 +47,8 @@ struct op_results_match :
     }
 };
 
-#define PSTADE_SPECIFIED_PARAMS ((2)(3), results_match, op_results_match, 1)
-#include <pstade/specified.hpp>
+#define  PSTADE_SPECIFIED_PARAMS ((2)(3), results_match, op_results_match, 1)
+#include PSTADE_SPECIFIED()
 
 
 template< class Parser >
@@ -56,8 +56,8 @@ struct op_match :
     detail::op_without_results<op_results_match, Parser>
 { };
 
-#define PSTADE_SPECIFIED_PARAMS ((1)(2), match, op_match, 1)
-#include <pstade/specified.hpp>
+#define  PSTADE_SPECIFIED_PARAMS ((1)(2), match, op_match, 1)
+#include PSTADE_SPECIFIED()
 
 
 } } // namespace pstade::biscuit

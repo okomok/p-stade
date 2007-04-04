@@ -64,20 +64,4 @@
 #endif // !defined(NDEBUG) && defined(PSTADE_CONCEPT_CHECK)
 
 
-#include <boost/assert.hpp>
-
-namespace pstade {
-
-    // If you dislike to declare members...,
-    // (also, this can work around GCC bug mentioned above.)
-    template<class X> inline
-    X& unknown_lvalue()
-    { 
-        BOOST_ASSERT(false); 
-        throw "never link 'pstade::unknown_lvalue'!";
-    }
-
-} // namespace pstade
-
-
 #endif

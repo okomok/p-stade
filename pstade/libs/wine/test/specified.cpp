@@ -83,8 +83,8 @@ struct op_my_make
     }
 };
 
-#define PSTADE_SPECIFIED_PARAMS ((1)(2), my_make, op_my_make, 1)
-#include <pstade/specified.hpp>
+#define  PSTADE_SPECIFIED_PARAMS ((1)(2), my_make, op_my_make, 1)
+#include PSTADE_SPECIFIED()
 
 
 template<class X, int N>
@@ -110,8 +110,8 @@ struct op_my_make_0_3
     }
 };
 
-#define PSTADE_SPECIFIED_PARAMS ((3)(0)(1), my_make_0_3, op_my_make_0_3, (class)(int))
-#include <pstade/specified.hpp>
+#define  PSTADE_SPECIFIED_PARAMS ((3)(0)(1), my_make_0_3, op_my_make_0_3, (class)(int))
+#include PSTADE_SPECIFIED()
 
 
 struct const_ { };

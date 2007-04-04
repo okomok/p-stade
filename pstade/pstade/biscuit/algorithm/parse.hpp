@@ -51,8 +51,8 @@ struct op_results_parse :
     }
 };
 
-#define PSTADE_SPECIFIED_PARAMS ((2)(3), results_parse, op_results_parse, 1)
-#include <pstade/specified.hpp>
+#define  PSTADE_SPECIFIED_PARAMS ((2)(3), results_parse, op_results_parse, 1)
+#include PSTADE_SPECIFIED()
 
 
 template< class Parser >
@@ -60,8 +60,8 @@ struct op_parse :
     detail::op_without_results<op_results_parse, Parser>
 { };
 
-#define PSTADE_SPECIFIED_PARAMS ((1)(2), parse, op_parse, 1)
-#include <pstade/specified.hpp>
+#define  PSTADE_SPECIFIED_PARAMS ((1)(2), parse, op_parse, 1)
+#include PSTADE_SPECIFIED()
 
 
 } } // namespace pstade::biscuit

@@ -128,9 +128,9 @@ namespace pstade {
     { };
 
 #if defined(PSTADE_NEW_AUTO_FUNCTION) // probably rejected; this would generate 68 functions.
-    #define PSTADE_SPECIFIED_PARAMS \
+    #define  PSTADE_SPECIFIED_PARAMS \
         (PSTADE_PP_SEQ_RANGE(0, BOOST_PP_INC(PSTADE_CALLABLE_MAX_ARITY)), new_auto, op_new_auto, 1)
-    #include <pstade/specified.hpp>
+    #include PSTADE_SPECIFIED()
 #endif
 
 

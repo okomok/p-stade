@@ -24,11 +24,10 @@
 
 // Usage:
 //
-// #include <pstade/specified.hpp> // Don't forget.
 // namespace my {
 //     template<class T> struct op_my_cast { .. };
-//     #define PSTADE_SPECIFIED_PARAMS ((1)(3), my_cast, op_my_cast, (class))
-//     #include <pstade/specified.hpp>
+//     #define  PSTADE_SPECIFIED_PARAMS ((1)(3), my_cast, op_my_cast, (class))
+//     #include PSTADE_SPECIFIED()
 // }
 //
 // 5 or more arity is not recommended; it tends to make so many functions.
@@ -56,6 +55,9 @@
     #include <pstade/const_overloaded.hpp>
     #include <pstade/preprocessor.hpp>
     #include "./detail/result_of.hpp"
+
+
+    #define PSTADE_SPECIFIED() <pstade/specified.hpp>
 
 
     // Prefer these in the case of small arity.

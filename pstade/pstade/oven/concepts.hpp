@@ -38,6 +38,7 @@
 #include <boost/type_traits/remove_const.hpp>
 #include <pstade/as.hpp> // as_cref
 #include <pstade/concept.hpp>
+#include <pstade/unknown_lvalue.hpp>
 #include <pstade/unused.hpp>
 #include "./detail/config.hpp" // PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR
 #include "./range_iterator.hpp"

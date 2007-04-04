@@ -19,6 +19,7 @@
 #include <pstade/pipable.hpp>
 #include <pstade/remove_cvr.hpp>
 #include <pstade/specified.hpp>
+#include <pstade/unknown_lvalue.hpp>
 #include <pstade/value_convert.hpp>
 #include "./concepts.hpp"
 #include "./extension.hpp"

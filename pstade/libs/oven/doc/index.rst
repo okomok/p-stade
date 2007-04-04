@@ -229,6 +229,22 @@ Utilities
 Some helper function objects are given to fill the gap between Oven and other libraries.
 
 
+``expression``
+^^^^^^^^^^^^^^
+`any_range`_ incurs an overhead for calling a ``virtual`` function every iterator operation.
+But, the overhead can be removed with the help of `Boost.Typeof`_ if your compiler supports the native typeof.
+``expression`` converts a range into Boost.Typeof compatible one, then removes the overhead if possible::
+
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\typeof.ipp
+
+- Header: ``<pstade/oven/typeof.hpp>``
+- Valid expression: ``expression(rng)``
+- Precondition: ``boost::range_value``, ``boost::range_reference`` and ``boost::range_difference`` of the ``rng`` type are registered to `Boost.Typeof`_. [#]_
+- Returns: ``[boost::begin(rng),boost::end(rng))``.
+
+.. [#] As far as the three types are registered, ``expression`` with Boost.Typeof macros is portable even where native typedef isn't available.
+
+
 ``innumerable``
 ^^^^^^^^^^^^^^^
 As discribed below, the function object `generation`_ needs is slightly different from
@@ -290,21 +306,6 @@ the adapted range. ``any_range`` behaves as the type erasure of ranges::
 
 __ http://thbecker.net/free_software_utilities/type_erasure_for_cpp_iterators/start_page.html
 
-
-``AUTO/AUTO_TPL``
-^^^^^^^^^^^^^^^^^
-Unfortunately, ``any_range`` incurs a significant overhead for calling a ``virtual`` function every iterator operation.
-The overhead can be removed with the help of `Boost.Typeof`_ if your compiler supports the native typeof::
-
-	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\typeof.ipp
-
-- Header: ``<pstade/oven/typeof.hpp>``
-- Valid expression: ``PSTADE_OVEN_AUTO(var,rng);``
-- Precondition: ``boost::range_value``, ``boost::range_reference`` and ``boost::range_difference`` of the ``rng`` type are registered to `Boost.Typeof`_.
-- Effect: ``unspecified_range_type var = rng;``, where ``var`` behaves as if it were ``[boost::begin(rng),boost::end(rng))``.
-
-This macro is portable even if your compiler doesn't have the native typeof support.
-If you want to use auto in a template-context, use ``PSTADE_OVEN_AUTO_TPL``.
 
 
 ``array_range``
@@ -1408,7 +1409,7 @@ Version 0.93.7
 - Renamed ``directed`` to ``outdirected``.
 - Renamed ``initializers`` to ``initial_values``.
 - Ported to Boost v1.34.
-- Added ``PSTADE_OVEN_AUTO/PSTADE_OVEN_AUTO_TPL``.
+- Added ``expression``.
 
 
 
