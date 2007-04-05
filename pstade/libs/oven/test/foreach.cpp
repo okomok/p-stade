@@ -41,7 +41,7 @@ template<class Range>
 void test_template(Range& rng)
 {
     std::string out;
-    PSTADE_OVEN_FOREACH (it, rng|identities|identities) {
+    PSTADE_OVEN_FOREACH_TPL (it, rng|identities|identities) {
         out.push_back(*it);
     }
 

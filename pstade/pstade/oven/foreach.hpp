@@ -18,24 +18,39 @@
 
 
 #define PSTADE_OVEN_FOREACH(It, Rng) \
-    for (bool pstade_oven_foreach_continue = true; pstade_oven_foreach_continue; ) \
-        for ( \
-            BOOST_AUTO(pstade_oven_foreach_rng, pstade::oven::expression(Rng)); \
-            pstade_oven_foreach_continue; \
-            pstade_oven_foreach_continue = false \
-        ) \
-            for ( \
-                PSTADE_OVEN_FOREACH_auto( \
-                    It, boost::begin(pstade_oven_foreach_rng), \
-                    pstade_oven_foreach_last, boost::end(pstade_oven_foreach_rng) \
-                ); \
-                It != pstade_oven_foreach_last; \
-                ++It \
-            ) \
+    PSTADE_OVEN_FOREACH_aux(BOOST_TYPEOF, It, Rng) \
 /**/
 
-    #define PSTADE_OVEN_FOREACH_auto(Var1, From1, Var2, From2) \
-        BOOST_TYPEOF(From1) Var1(From1), Var2(From2) \
+#define PSTADE_OVEN_FOREACH_TPL(It, Rng) \
+    PSTADE_OVEN_FOREACH_aux(BOOST_TYPEOF_TPL, It, Rng) \
+/**/
+
+    #define PSTADE_OVEN_FOREACH_aux(Typeof, It, Rng) \
+        PSTADE_OVEN_FOREACH_local_begin() \
+        PSTADE_OVEN_FOREACH_local( PSTADE_OVEN_FOREACH_auto1(Typeof, pstade_oven_rng, pstade::oven::expression(Rng)) ) \
+        PSTADE_OVEN_FOREACH_local_end() \
+        for (PSTADE_OVEN_FOREACH_auto2(Typeof, It, boost::begin(pstade_oven_rng), pstade_oven_last, boost::end(pstade_oven_rng)); \
+            It != pstade_oven_last; ++It) \
+    /**/
+
+    #define PSTADE_OVEN_FOREACH_local_begin() \
+        for (bool pstade_oven_continue = true; pstade_oven_continue; ) \
+    /**/
+
+    #define PSTADE_OVEN_FOREACH_local_end() \
+        for ( ; pstade_oven_continue; pstade_oven_continue = false) \
+    /**/
+
+    #define PSTADE_OVEN_FOREACH_local(Decl) \
+        for (Decl; pstade_oven_continue; ) \
+    /**/
+
+    #define PSTADE_OVEN_FOREACH_auto1(Typeof, Var1, From1) \
+        Typeof(From1) Var1(From1) \
+    /**/
+
+    #define PSTADE_OVEN_FOREACH_auto2(Typeof, Var1, From1, Var2, From2) \
+        Typeof(From1) Var1(From1), Var2(From2) \
     /**/
 
 
