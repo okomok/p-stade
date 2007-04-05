@@ -30,6 +30,7 @@
 #include <boost/static_warning.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <pstade/clone_ptr.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/is_convertible.hpp>
 #include <pstade/is_returnable.hpp>
@@ -40,12 +41,7 @@
 namespace pstade { namespace oven {
 
 
-template<
-    class Reference,
-    class Traversal,
-    class Value,
-    class Difference
->
+template< class Reference, class Traversal, class Value, class Difference >
 struct any_iterator;
 
 
@@ -187,12 +183,7 @@ namespace any_iterator_detail {
     };
 
 
-    template<
-        class Reference,
-        class Traversal,
-        class Value,
-        class Difference
-    >
+    template< class Reference, class Traversal, class Value, class Difference >
     struct super_
     {
         typedef
@@ -247,15 +238,9 @@ struct is_convertible_to_any_iterator :
 { };
 
 
-template<
-    class Reference,
-    class Traversal,
-    class Value,
-    class Difference
->
+template< class Reference, class Traversal, class Value, class Difference >
 struct any_iterator :
     any_iterator_detail::super_<Reference, Traversal, Value, Difference>::type
-
 {
 private:
     typedef any_iterator self_t;

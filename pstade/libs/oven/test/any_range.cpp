@@ -105,6 +105,7 @@ void pstade_unit_test()
         ) );
 
         BOOST_CHECK( !oven::test_is_lightweight_proxy(any_) );
+        BOOST_CHECK( any_ ); // bool-testable check
     }
     {
         std::string rng("8frj91j81hf891y2");
@@ -169,6 +170,7 @@ void pstade_unit_test()
         std::string str;
         any_range<char&, boost::random_access_traversal_tag> any_(str|identities);
         BOOST_CHECK( oven::test_empty(any_) );
+        BOOST_CHECK( !any_ ); // bool-testable check
     }
     {
         std::string rng("hello! any_range!");

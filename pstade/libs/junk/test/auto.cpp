@@ -8,9 +8,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+//#define BOOST_TYPEOF_EMULATION
+
 //#include <pstade/../libs/wine/test/specified.cpp>
-//#include <pstade/../libs/oven/test/typeof.cpp>
-#include <pstade/../libs/oven/example/auto_factorials.cpp>
+#include <pstade/../libs/oven/test/foreach.cpp>
+//#include <pstade/../libs/oven/example/auto_factorials.cpp>
 //#include <pstade/../libs/biscuit/test/capture.cpp>
 //#include <pstade/../libs/oven/test/ms/atl_string.cpp>
 //#include <pstade/../libs/tomato/test/boolean_cast.cpp>

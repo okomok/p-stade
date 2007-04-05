@@ -47,5 +47,8 @@
 #include "./range_based1.hpp"
 #include "./range_based2.hpp"
 
+#include "./expression.hpp"
+#include "./foreach.hpp"
+
 
 #endif

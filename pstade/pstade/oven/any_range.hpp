@@ -129,7 +129,7 @@ struct any_range_of
     typedef
         any_range<
             typename range_reference<Range>::type,
-            typename range_pure_traversal<Range>::type,
+            typename range_pure_traversal<Range>::type, // should be "pure"; that's type-erasure!
             typename range_value<Range>::type,
             typename range_difference<Range>::type
         >

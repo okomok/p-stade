@@ -232,17 +232,27 @@ Some helper function objects are given to fill the gap between Oven and other li
 ``expression``
 ^^^^^^^^^^^^^^
 `any_range`_ incurs an overhead for calling a ``virtual`` function every iterator operation.
-But, the overhead can be removed with the help of `Boost.Typeof`_ if your compiler supports the native typeof.
-``expression`` converts a range into Boost.Typeof compatible one, then removes the overhead if possible::
+But, the overhead can be removed with the help of `Boost.Typeof`_ if your compiler supports the native ``typeof``.
+``expression`` converts a range into `Boost.Typeof`_ compatible one, then removes the overhead if possible::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\typeof.ipp
 
-- Header: ``<pstade/oven/typeof.hpp>``
+- Header: ``<pstade/oven/expression.hpp>``
 - Valid expression: ``expression(rng)``
 - Precondition: ``boost::range_value``, ``boost::range_reference`` and ``boost::range_difference`` of the ``rng`` type are registered to `Boost.Typeof`_. [#]_
 - Returns: ``[boost::begin(rng),boost::end(rng))``.
 
-.. [#] As far as the three types are registered, ``expression`` with Boost.Typeof macros is portable even where native typedef isn't available.
+.. [#] As far as the three types are registered, ``expression`` with `Boost.Typeof`_ macros is portable even where native ``typeof`` isn't available.
+
+
+``FOREACH``
+^^^^^^^^^^^
+`Pending...`
+
+- Header: ``<pstade/oven/foreach.hpp>``
+- Valid expression: ``PSTADE_OVEN_FOREACH(it,rng)``
+- Precondition: ``expression(rng)`` is a valid expression.
+- Effect: Behaves as if it were ``auto __rng = expression(rng); for (auto it = boost::begin(__rng) ,__end = boost::end(__rng); it != __end; ++it)``
 
 
 ``innumerable``
@@ -1409,7 +1419,6 @@ Version 0.93.7
 - Renamed ``directed`` to ``outdirected``.
 - Renamed ``initializers`` to ``initial_values``.
 - Ported to Boost v1.34.
-- Added ``expression``.
-
+- Added ``expression`` and ``PSTADE_OVEN_FOREACH``.
 
 
