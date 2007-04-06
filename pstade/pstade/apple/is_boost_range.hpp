@@ -10,6 +10,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Note:
+//
+// Will be deprecated; after all, this is useless.
+// "../copy_assign.hpp" is much better.
+
+
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/or.hpp>
 #include <boost/type_traits/is_array.hpp>

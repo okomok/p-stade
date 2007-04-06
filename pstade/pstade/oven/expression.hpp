@@ -12,7 +12,11 @@
 
 // Note:
 //
-// 'range_value', 'range_reference' and 'range_difference' must be registered.
+// As Boost.Typeof can't support nested iterator types,
+// 'BOOST_TYPEOF(rng)' is impossible if 'rng' is 'iterator_range'.
+//
+// Precondition:
+// 'range_value/range_reference/range_difference<Range>::type' are registered.
 
 
 #include <boost/typeof/typeof.hpp>
@@ -31,7 +35,8 @@ namespace pstade { namespace oven {
 #if !defined(BOOST_TYPEOF_NATIVE)
     typedef op_make_any_range  op_expression;
 #else
-    typedef op_make_iter_range op_expression; // 'op_identity' would be inconsistent.
+    // 'op_identity' would be inconsistent.
+    typedef op_make_iter_range op_expression;
 #endif
 
 PSTADE_CONSTANT(expression, (op_expression))

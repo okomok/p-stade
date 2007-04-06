@@ -163,8 +163,8 @@ namespace pstade {
             any_movable m_any;
         };
 
-        struct base_op :
-            callable<base_op>
+        struct fused_op :
+            callable<fused_op>
         {
             template<class Myself, class Arguments>
             struct apply
@@ -181,7 +181,7 @@ namespace pstade {
 
     } // namespace auto_object_detail
 
-    typedef boost::result_of<op_unfuse(auto_object_detail::base_op)>::type op_auto_object;
+    typedef boost::result_of<op_unfuse(auto_object_detail::fused_op)>::type op_auto_object;
     PSTADE_CONSTANT(auto_object, (op_auto_object))
 
 

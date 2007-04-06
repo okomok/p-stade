@@ -60,8 +60,8 @@ namespace pstade {
 
 
         template<class Lambda>
-        struct base_op :
-            callable<base_op<Lambda> >
+        struct fused_op :
+            callable< fused_op<Lambda> >
         {
             template<class Myself, class Arguments>
             struct apply
@@ -90,7 +90,7 @@ namespace pstade {
 
     template<class Lambda>
     struct automatic :
-        boost::result_of<op_unfuse(automatic_detail::base_op<Lambda>)>::type
+        boost::result_of<op_unfuse(automatic_detail::fused_op<Lambda>)>::type
     {
         template<class To>
         operator To() const

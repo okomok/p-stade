@@ -12,6 +12,7 @@
 
 #include <memory> // auto_ptr
 #include <boost/mpl/bool.hpp>
+#include <boost/noncopyable.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/shared_ptr.hpp>
