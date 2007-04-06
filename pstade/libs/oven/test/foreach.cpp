@@ -89,6 +89,23 @@ void test_no_copying()
     }
 }
 
+#if !defined(BOOST_FOREACH_NO_CONST_RVALUE_DETECTION)
+    std::vector<int> const get_rvalue_vector()
+    {
+        return std::vector<int>(4, 4);
+    }
+    void test_nonlightweight_rvalue()
+    {
+        int counter = 0;
+
+        PSTADE_OVEN_FOREACH (i, get_rvalue_vector())
+        {
+            counter += *i;
+        }
+
+        BOOST_CHECK(16 == counter);
+    }
+#endif
 
 int test_main(int, char*[])
 {
@@ -97,5 +114,6 @@ int test_main(int, char*[])
     ::test_empty();
     ::test_call_once();
     ::test_no_copying();
+    ::test_nonlightweight_rvalue();
     return 0;
 }
