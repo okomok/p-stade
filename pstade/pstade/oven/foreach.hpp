@@ -36,7 +36,7 @@
         BOOST_FOREACH_PREAMBLE() \
         for( bool pstade_oven_continue = true; pstade_oven_continue; ) \
         \
-        for( boost::foreach_detail_::auto_any_t pstade_oven_ref = BOOST_FOREACH_CONTAIN(Rng);                     pstade_oven_continue; ) \
+        for( boost::foreach_detail_::auto_any_t pstade_oven_ref = PSTADE_OVEN_FOREACH_keep_alive(Rng);            pstade_oven_continue; ) \
         for( Auto(pstade_oven_rng, pstade::oven::expression(PSTADE_OVEN_FOREACH_referent(pstade_oven_ref, Rng))); pstade_oven_continue; ) \
         for( Auto(It, boost::begin(pstade_oven_rng));                                                             pstade_oven_continue; ) \
         for( Auto(pstade_oven_end, boost::end(pstade_oven_rng));                                                  pstade_oven_continue; ) \
@@ -44,6 +44,10 @@
         for( ; pstade_oven_continue; pstade_oven_continue = false) \
         \
             for (; It != pstade_oven_end; ++It) \
+    /**/
+
+    #define PSTADE_OVEN_FOREACH_keep_alive \
+        BOOST_FOREACH_CONTAIN \
     /**/
 
     #define PSTADE_OVEN_FOREACH_referent(Ref, Rng) \
