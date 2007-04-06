@@ -74,7 +74,7 @@ namespace pstade { namespace oven { namespace foreach_detail {
     }
 
 #if defined(BOOST_FOREACH_RUN_TIME_CONST_RVALUE_DETECTION)
-    template< class T, class C > inline
+    template< class T > inline
     T const&
     referent(there::auto_any_t ref, there::type2type<T, there::const_> *, bool *)
     {
