@@ -22,7 +22,7 @@
 #include <pstade/oven/counting.hpp>
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/metafunctions.hpp>
-#include <pstade/oven/advanced.hpp>
+#include <pstade/oven/offset.hpp>
 
 
 void test()
@@ -63,7 +63,7 @@ void test()
     {
         int const ans[] = { 2,6,10,14 };
         BOOST_CHECK( oven::equals(ans,
-            oven::counting(0, 16)|advanced(2, 2)|sliced(0, 4)
+            oven::counting(0, 16)|offset(2, 2)|sliced(0, 4)
         ) );
     }
 

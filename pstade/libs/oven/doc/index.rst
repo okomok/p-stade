@@ -252,7 +252,7 @@ But, the overhead can be removed with the help of `Boost.Typeof`_ if your compil
 - Header: ``<pstade/oven/foreach.hpp>``
 - Valid expression: ``PSTADE_OVEN_FOREACH(it,rng)``
 - Precondition: ``expression(rng)`` is a valid expression.
-- Effect: Behaves as if it were ``auto __rng = expression(rng); for (auto it = boost::begin(__rng) ,__end = boost::end(__rng); it != __end; ++it)``
+- Effect: Behaves as if it were ``auto __rng = expression(rng); for (auto it = boost::begin(__rng), __end = boost::end(__rng); it != __end; ++it)``
 
 
 ``innumerable``
@@ -402,7 +402,7 @@ __ http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html#as-array
 
 
 - Header: ``<pstade/oven/as_c_str.hpp>``
-- Valid expression2: ``as_c_str(x)`` and ``x|as_c_str``.
+- Valid expression: ``as_c_str(x)`` and ``x|as_c_str``.
 - Returns: If  ``x`` is convertible to a ``char`` pointer, ``[x,x+strlen(psz))``; otherwise, ``[boost::begin(x),oven::find(x,0))``.
 
 
@@ -414,10 +414,10 @@ __ http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html#as-array
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\as_literal.ipp
 
 - Header: ``<pstade/oven/as_literal.hpp>``
-- Valid expression1: ``as_literal(x)`` and ``x|as_literal``
+- Valid expression: ``as_literal(x)`` and ``x|as_literal``
 - Returns:If ``x`` is an array,  ``[&x[0],&x[0]+sz-1)`` where ``sz`` is the size of ``arr``; otherwise, ``x`` as is. [#]_
 
-.. [#] ``as_literal`` doesn't use ``strlen``. `TR2 as_literal`__ does.
+.. [#] ``as_literal`` doesn't use ``strlen``, while `TR2 as_literal`__ does.
 
 __ http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html#as-literal
 
@@ -586,14 +586,6 @@ which has the same effect.
 - Valid expression: ``fwdRng|adjacent_transformed(rfun)``
 - Precondition: ``boost::empty(fwdRng) == false``
 - Returns: A range where adjacent pairs of ``fwdRng`` are transformed by using ``rfun``.
-
-
-``advanced``
-^^^^^^^^^^^^
-- Header: ``<pstade/oven/advanced.hpp>``
-- Valid expression: ``fwdRng|advanced(d1,d2)``
-- Precondition: ``fwdRng`` must be a `Bidirectional Range`_ if either ``d1`` or ``d2`` is negative.
-- Returns: ``[boost::next(boost::begin(fwdRng),d1),boost::next(boost::end(fwdRng),d2))``.
 
 
 ``always``
@@ -790,7 +782,7 @@ Thus, STL that doesn't know traversal concepts can choose effective algorithms.
 
 ``got_at``
 ^^^^^^^^^^
-Pending...
+`Pending...`
 
 - Header: ``<pstade/oven/got_at.hpp>``
 - Valid expression: ``rng|got_at<N>()`` or ``rng|got_at_c<N>()``, where ``value_type`` of ``rng`` is a Fusion Sequence.
@@ -888,6 +880,14 @@ Pending...
 - Valid expression: ``rng1|merged(rng2)`` and ``rng1|merged(rng2,pred)``
 - Precondition: ``rng1`` and ``rng2`` are sorted.
 - Returns: A constant range up to `Forward Range`_ which behaves as if they were made by ``std::merge``.
+
+
+``offset``
+^^^^^^^^^^
+- Header: ``<pstade/oven/offset.hpp>``
+- Valid expression: ``fwdRng|offset(d1,d2)``
+- Precondition: ``fwdRng`` must be a `Bidirectional Range`_ if either ``d1`` or ``d2`` is negative.
+- Returns: ``[boost::next(boost::begin(fwdRng),d1),boost::next(boost::end(fwdRng),d2))``.
 
 
 ``outdirected``
@@ -1031,7 +1031,7 @@ You can find a more elaborate example at ``<pstade/oven/sorted.hpp>``.
 - Valid expression: ``rndRng|sliced(start,stride)``
 - Precondition: ``d == 0 || d % stride == 0`` and ``0 <= start && start < stride``, where ``d = oven::distance(rndRng);``
 
-.. [#] This name is different from `Range Library Proposal`_\'s, which is the role of `advanced`_ or `window`_.
+.. [#] This name is different from `Range Library Proposal`_\'s, which is the role of `offset`_ or `window`_.
 
 
 ``string_found``
@@ -1416,6 +1416,7 @@ Version 0.93.6
 
 Version 0.93.7
 ^^^^^^^^^^^^^^
+- Renamed ``advanced`` to ``offset``.
 - Renamed ``directed`` to ``outdirected``.
 - Renamed ``initializers`` to ``initial_values``.
 - Ported to Boost v1.34.

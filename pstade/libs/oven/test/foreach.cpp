@@ -20,11 +20,21 @@
 #include <pstade/oven/identities.hpp>
 
 
+std::string str("abcdefg");
+
+
+void test_namespace()
+{
+    std::string out;
+    PSTADE_OVEN_FOREACH (it, str|pstade::oven::identities|pstade::oven::identities)
+        out.push_back(*it);
+
+    BOOST_CHECK( str == out );
+}
+
+
 namespace oven = pstade::oven;
 using namespace oven;
-
-
-std::string str("abcdefg");
 
 
 void test_type()
@@ -109,6 +119,7 @@ void test_no_copying()
 
 int test_main(int, char*[])
 {
+    ::test_namespace();
     ::test_type();
     ::test_template(str);
     ::test_empty();

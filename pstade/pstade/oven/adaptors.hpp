@@ -12,7 +12,6 @@
 
 #include "./adjacent_filtered.hpp"
 #include "./adjacent_transformed.hpp"
-#include "./advanced.hpp"
 #include "./always.hpp"
 #include "./appended.hpp"
 #include "./applied.hpp"
@@ -41,6 +40,7 @@
 #include "./memoized.hpp"
 #include "./merged.hpp"
 // #include "./moved.hpp"
+#include "./offset.hpp"
 #include "./outdirected.hpp"
 #include "./outplaced.hpp"
 #include "./permuted.hpp"
