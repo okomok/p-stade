@@ -9,29 +9,17 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/static_downcast.hpp>
-#include <boost/utility/result_of.hpp>
+#include <boost/mpl/assert.hpp>
+#include <boost/type_traits/is_volatile.hpp>
+#include <pstade/value_convert.hpp>
 
-using namespace pstade;
-
-struct base
+template<class T>
+void foo(T const&)
 {
-};
-
-struct derived : base
-{
-    derived() { }
-    void foo() const { }
-};
+    BOOST_MPL_ASSERT((boost::is_volatile<T>));
+}
 
 int main()
 {
-    derived const D;
-    base const& crB = D;
-
-    boost::result_of<
-        op_static_downcast<derived>(base const&)
-    >::type d = pstade::static_downcast<derived>(crB);
-
-    pstade::static_downcast<derived>(crB).foo();
+    int i = boost::numeric_cast<int>(10);
 }

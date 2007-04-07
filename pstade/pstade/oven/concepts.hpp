@@ -35,7 +35,7 @@
 #include <boost/range/end.hpp>
 #include <boost/range/iterator.hpp>
 #include <boost/range/size_type.hpp>
-#include <boost/type_traits/remove_const.hpp>
+#include <boost/type_traits/remove_cv.hpp>
 #include <pstade/as.hpp> // as_cref
 #include <pstade/concept.hpp>
 #include <pstade/unevaluated.hpp>
@@ -104,7 +104,7 @@ struct Lvalue
 template< class Range >
 struct SinglePass
 {
-    typedef typename boost::remove_const<Range>::type rng_t;
+    typedef typename boost::remove_cv<Range>::type rng_t;
     typedef typename boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<rng_t>::type mutable_iterator;
     typedef typename boost::range_const_iterator<rng_t>::type constant_iterator;
 
@@ -130,7 +130,7 @@ template< class Range >
 struct Forward :
     SinglePass<Range>
 {
-    typedef typename boost::remove_const<Range>::type rng_t;
+    typedef typename boost::remove_cv<Range>::type rng_t;
     typedef typename boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<rng_t>::type mutable_iterator;
     typedef typename boost::range_const_iterator<rng_t>::type constant_iterator;
 
@@ -146,7 +146,7 @@ template< class Range >
 struct Bidirectional :
     Forward<Range>
 {
-    typedef typename boost::remove_const<Range>::type rng_t;
+    typedef typename boost::remove_cv<Range>::type rng_t;
     typedef typename boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<rng_t>::type mutable_iterator;
     typedef typename boost::range_const_iterator<rng_t>::type constant_iterator;
 
@@ -162,7 +162,7 @@ template< class Range >
 struct RandomAccess :
     Bidirectional<Range>
 {
-    typedef typename boost::remove_const<Range>::type rng_t;
+    typedef typename boost::remove_cv<Range>::type rng_t;
     typedef typename boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<rng_t>::type mutable_iterator;
     typedef typename boost::range_const_iterator<rng_t>::type constant_iterator;
     typedef typename boost::range_size<rng_t>::type size_type; // seems redundant, IMO.

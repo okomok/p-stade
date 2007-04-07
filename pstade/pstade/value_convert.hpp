@@ -17,6 +17,8 @@
 // loss of range when a numeric type is converted.
 
 
+#include <boost/config.hpp>
+#include <boost/detail/workaround.hpp>
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/mpl/bool.hpp>
@@ -27,6 +29,8 @@
 #include <boost/type_traits/is_reference.hpp>
 #include <pstade/specified.hpp>
 
+
+#define PSTADE_VALUE_CONVERT(From, To)
 
 namespace pstade {
 
@@ -54,11 +58,11 @@ namespace pstade {
         template<class From>
         To aux(From const& from, boost::mpl::true_) const
         {
-    #if !defined(NDEBUG)
+#if !defined(NDEBUG)
             return boost::numeric_cast<To>(from);
-    #else
+#else
             return static_cast<To>(from); // suppress "loss of data" warning.
-    #endif
+#endif
         }
 
         template<class From>
@@ -79,10 +83,15 @@ namespace pstade {
             return aux(from, is_numeric_castable());
         }
 
+#if !BOOST_WORKAROUND(BOOST_MSVC, == 1310)
+        // For some reason, msvc-7.1 linker is confused by this non-template.
+        // (Anyway he works thanks to 'numeric_cast' without this.)
+        // Note that 'enable_if' with template also can work around this bug.
         To operator()(To const& from) const
         {
             return from;
         }
+#endif
     };
 
 

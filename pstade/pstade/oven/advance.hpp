@@ -42,7 +42,7 @@ namespace advance_detail {
 
         result_type operator()(result_type it, diff_t const& d) const
         {
-            aux(it, d, typename boost::iterator_traversal<Iterator>::type());
+            aux(it, d, typename boost::iterator_traversal<result_type>::type());
             return it;
         }
 

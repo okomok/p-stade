@@ -27,10 +27,10 @@
 
 struct convertible_to_any
 {
-    template< class To >
-    operator To() const
+    template< class To_ >
+    operator To_() const
     {
-        return To();
+        return To_();
     }
 };
 

@@ -20,6 +20,7 @@
 #include <pstade/function.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/unused.hpp>
+#include <pstade/value_convert.hpp>
 #include "./iter_range.hpp"
 
 
@@ -30,16 +31,16 @@ namespace counting_detail {
 
 
     template< class I, class J > inline
-    bool is_valid(I& i, J& j, boost::single_pass_traversal_tag)
+    bool is_valid(I i, J j, boost::single_pass_traversal_tag)
     {
         unused(i, j);
         return true;
     }
 
     template< class I, class J > inline
-    bool is_valid(I& i, J& j, boost::random_access_traversal_tag)
+    bool is_valid(I i, J j, boost::random_access_traversal_tag)
     {
-        return J(i) <= j;
+        return pstade::value_convert<J>(i) <= j;
     }
 
 
@@ -58,8 +59,7 @@ struct op_counting :
     {
         typedef
             boost::counting_iterator<
-                // prefer 'J' in order to suppress "loss of data" warning;
-                // [0:int, size():uint) is so common.
+                // Prefer 'J' to 'I'; [0:int, size():uint) often happens.
                 typename pass_by_value<J>::type,
                 CategoryOrTraversal,
                 Difference
@@ -75,8 +75,16 @@ struct op_counting :
     Result call(I& i, J& j) const
     {
         typedef typename Result::iterator iter_t;
-        BOOST_ASSERT(counting_detail::is_valid(i, j, typename boost::iterator_traversal<iter_t>::type()));
-        return Result(iter_t(i), iter_t(j));
+        typedef typename iter_t::base_type j_t;
+
+        BOOST_ASSERT(counting_detail::is_valid(
+            i, j, typename boost::iterator_traversal<iter_t>::type()
+        ));
+
+        return Result(
+            iter_t(pstade::value_convert<j_t>(i)),
+            iter_t(j)
+        );
     }
 };
 
@@ -91,14 +99,18 @@ namespace counting_from_detail {
     struct baby
     {
         typedef typename
+            pass_by_value<I>::type
+        i_t;
+
+        typedef typename
             boost::result_of<
-                op_counting<>(I&, I)
+                op_counting<>(I&, i_t)
             >::type
         result_type;
 
         result_type operator()(I& i) const
         {
-            return counting(i, (std::numeric_limits<typename pass_by_value<I>::type>::max)());
+            return counting(i, (std::numeric_limits<i_t>::max)());
         }
     };
 
