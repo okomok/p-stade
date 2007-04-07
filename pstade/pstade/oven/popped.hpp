@@ -17,6 +17,7 @@
 
 
 #include <boost/assert.hpp>
+#include <boost/next_prior.hpp> // prior
 #include <boost/range/begin.hpp>
 #include <boost/range/empty.hpp>
 #include <boost/range/end.hpp>
@@ -25,7 +26,6 @@
 #include <pstade/pipable.hpp>
 #include <pstade/unused.hpp>
 #include "./concepts.hpp"
-#include "./next_prior.hpp" // prior
 #include "./iter_range.hpp"
 
 
@@ -43,7 +43,7 @@ namespace popped_detail {
         boost::bidirectional_traversal_tag)
     {
         unused(first);
-        return prior(last);
+        return boost::prior(last);
     }
 
     template< class ForwardIter >

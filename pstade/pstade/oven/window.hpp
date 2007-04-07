@@ -14,10 +14,10 @@
 #include <boost/range/begin.hpp>
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
+#include "./advance.hpp"
 #include "./concepts.hpp"
 #include "./distance.hpp"
 #include "./iter_range.hpp"
-#include "./next_prior.hpp" // next
 #include "./range_difference.hpp"
 #include "./range_iterator.hpp"
 #include "./traversal_tags.hpp" // is_bidirectional
@@ -53,8 +53,8 @@ namespace window_detail {
             // A "bigger" window is allowed.
             // 'n < 0' or 'distance(rng) < m' is ok.
 
-            iter_t first = next(boost::begin(rng), n);
-            return result_type(first, next(first, m - n));
+            iter_t first = advance(boost::begin(rng), n);
+            return result_type(first, advance(first, m - n));
         }
     };
 

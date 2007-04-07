@@ -17,35 +17,31 @@
 // Also note <boost-sandbox/boost/view/cyclic_iterator.hpp>.
 
 
+#include <utility> // pair
 #include <boost/assert.hpp>
-#include <boost/config.hpp> // BOOST_MSVC
 #include <boost/iterator/iterator_adaptor.hpp>
+#include <boost/next_prior.hpp> // prior
 #include <pstade/object_generator.hpp>
+#include <pstade/value_convert.hpp>
 #include "./detail/constant_reference.hpp"
-
-
-#if defined(BOOST_MSVC)
-    #pragma warning(push)
-    #pragma warning(disable: 4244) // possible loss of data
-#endif
 
 
 namespace pstade { namespace oven {
 
 
-template< class ForwardIter, class Size >
+template< class ForwardIter, class Incrementable >
 struct cycle_iterator;
 
 
 namespace cycle_iterator_detail {
 
 
-    template< class ForwardIter, class Size >
+    template< class ForwardIter, class Incrementable >
     struct super_
     {
         typedef
             boost::iterator_adaptor<
-                cycle_iterator<ForwardIter, Size>,
+                cycle_iterator<ForwardIter, Incrementable>,
                 ForwardIter,
                 boost::use_default,
                 boost::use_default,
@@ -55,74 +51,71 @@ namespace cycle_iterator_detail {
     };
 
 
-    template< class ForwardIter, class Size >
-    void increment(ForwardIter& it, Size& index, ForwardIter const& first, ForwardIter const& last)
+    // by Christopher Eltschka
+
+    inline
+    bool under_positive_remainder_system()
     {
-        if (++it == last) {
-            it = first;
-            ++index;
-        }
+        return (-1 % 2) == 1;
     }
 
-
-    template< class BidiIter, class Size >
-    void decrement(BidiIter& it, Size& index, BidiIter const& first, BidiIter last)
+    template< class N > inline
+    std::pair<N, N> positive_remainder_div(N const& a, N const& b)
     {
-        if (it != first) {
-            --it;
-        }
-        else {
-            it = --last;
-            --index;
-        }
-    }
+        BOOST_ASSERT(b >= 0);
 
-
-    template< class Difference, class RandIter, class Size >
-    Difference pseudo_pos(RandIter const& it, Size const& index, RandIter const& first, RandIter const& last)
-    {
-        Difference srcSize = last - first;
-        Difference srcDiff = it - first;
-        return (srcSize * index) + srcDiff;
+        N const q = a / b;
+        N const r = a % b;
+        if (under_positive_remainder_system())
+            return std::make_pair(q, r);
+        else
+            return r < 0 ? std::make_pair(q - 1, r + b) : std::make_pair(q, r);
     }
 
 
 } // namespace cycle_iterator_detail
 
 
-template< class ForwardIter, class Size >
+template< class ForwardIter, class Incrementable >
 struct cycle_iterator :
-    cycle_iterator_detail::super_<ForwardIter, Size>::type
+    cycle_iterator_detail::super_<ForwardIter, Incrementable>::type
 {
 private:
-    typedef typename cycle_iterator_detail::super_<ForwardIter, Size>::type super_t;
+    typedef typename cycle_iterator_detail::super_<ForwardIter, Incrementable>::type super_t;
     typedef typename super_t::difference_type diff_t;
     typedef typename super_t::reference ref_t;
 
 public:
+    typedef Incrementable count_type;
+
     cycle_iterator()
     { }
 
     cycle_iterator(
-        ForwardIter const& it, Size const& index,
+        ForwardIter const& it, Incrementable const& count,
         ForwardIter const& first, ForwardIter const& last
     ) :
-        super_t(it), m_index(index),
+        super_t(it), m_count(count),
         m_first(first), m_last(last)
     { }
 
 template< class, class > friend struct cycle_iterator;
-    template< class F, class S >
-    cycle_iterator(cycle_iterator<F, S> const& other,
+    template< class F, class I >
+    cycle_iterator(cycle_iterator<F, I> const& other,
         typename boost::enable_if_convertible<F, ForwardIter>::type * = 0,
-        typename boost::enable_if_convertible<S, Size>::type * = 0
+        typename boost::enable_if_convertible<I, Incrementable>::type * = 0
     ) :
-        super_t(other.base()), m_index(other.m_index),
+        super_t(other.base()), m_count(other.m_count),
         m_first(other.m_first), m_last(other.m_last)
     { }
 
+    count_type const& count() const
+    {
+        return m_count;
+    }
+
 private:
-    Size m_index;
+    Incrementable m_count;
     ForwardIter m_first, m_last;
 
     template< class Other >
@@ -134,95 +127,49 @@ private:
 friend class boost::iterator_core_access;
     ref_t dereference() const
     {
-        BOOST_ASSERT(m_index >= 0);
         return *this->base();
     }
 
-    template< class F, class S >
-    bool equal(cycle_iterator<F, S> const& other) const
+    template< class F, class I >
+    bool equal(cycle_iterator<F, I> const& other) const
     {
-        BOOST_ASSERT(m_index >= 0);
         BOOST_ASSERT(is_compatible(other));
-
-        return this->base() == other.base() && m_index == other.m_index;
+        return this->base() == other.base() && m_count == other.m_count;
     }
 
     void increment()
     {
-        BOOST_ASSERT(m_index >= 0);
-
-        cycle_iterator_detail::increment(this->base_reference(), m_index, m_first, m_last);
-
-        BOOST_ASSERT(m_index >= 0);
+        if (++this->base_reference() == m_last) {
+            this->base_reference() = m_first;
+            ++m_count;
+        }
     }
 
     void decrement()
     {
-        BOOST_ASSERT(m_index >= 0);
-
-        cycle_iterator_detail::decrement(this->base_reference(), m_index, m_first, m_last);
-
-        BOOST_ASSERT(m_index >= 0);
-    }
-
-    // seems a stupid implementation...
-    //
-    void advance(diff_t const& d)
-    {
-        BOOST_ASSERT(m_index >= 0);
-
-        if (d >= 0)
-            advance_to_right(d);
-        else
-            advance_to_left(-d);
-
-        BOOST_ASSERT(m_index >= 0);
-    }
-
-    template< class F, class S >
-    diff_t distance_to(cycle_iterator<F, S> const& other) const
-    {
-        BOOST_ASSERT(is_compatible(other));
-
-        return
-            cycle_iterator_detail::pseudo_pos<diff_t>(other.base(), other.m_index, other.m_first, other.m_last)
-            - cycle_iterator_detail::pseudo_pos<diff_t>(this->base(), m_index, m_first, m_last);
-    }
-
-private:
-    void advance_to_right(diff_t const& d)
-    {
-        BOOST_ASSERT(d >= 0);
-
-        diff_t srcSize = m_last - m_first;
-        diff_t srcDiff = this->base() - m_first;
-        diff_t tmpDiff = srcDiff + d;
-        this->base_reference() = m_first;
-        this->base_reference() += tmpDiff % srcSize;
-        diff_t count = tmpDiff / srcSize;
-        m_index += count;
-    }
-
-    void advance_to_left(diff_t const& d)
-    {
-        BOOST_ASSERT(d >= 0);
-
-        diff_t srcSize = m_last - m_first;
-        diff_t srcDiff = m_last - this->base();
-        diff_t tmpDiff = d + srcDiff;
-        diff_t rem = (tmpDiff % srcSize);
-        if (rem == 0) {
-            this->base_reference() = m_first;
+        if (this->base() != m_first) {
+            --this->base_reference();
         }
         else {
-            this->base_reference() = m_last;
-            this->base_reference() += -rem;
+            this->base_reference() = boost::prior(m_last);
+            --m_count;
         }
-        diff_t count = tmpDiff / srcSize;
-        if (rem == 0)
-            m_index -= (count - 1);
-        else
-            m_index -= count;
+    }
+
+    void advance(diff_t const& d)
+    {
+        std::pair<diff_t, diff_t> const q_r =
+            cycle_iterator_detail::positive_remainder_div((this->base() - m_first) + d, m_last - m_first);
+
+        this->base_reference() = m_first + q_r.second;
+        m_count += pstade::value_convert<count_type>(q_r.first);
+    }
+
+    template< class F, class I >
+    diff_t distance_to(cycle_iterator<F, I> const& other) const
+    {
+        BOOST_ASSERT(is_compatible(other));
+        return ((m_last - m_first) * (other.m_count - m_count)) + (other.base() - this->base());
     }
 };
 
@@ -232,11 +179,6 @@ PSTADE_OBJECT_GENERATOR(make_cycle_iterator,
 
 
 } } // namespace pstade::oven
-
-
-#if defined(BOOST_MSVC)
-    #pragma warning(pop)
-#endif
 
 
 #endif

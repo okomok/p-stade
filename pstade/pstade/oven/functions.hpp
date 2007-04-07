@@ -41,8 +41,8 @@
 
 #include "./regular.hpp"
 
+#include "./advance.hpp"
 #include "./dereference.hpp"
-#include "./next_prior.hpp"
 
 #include "./range_based1.hpp"
 #include "./range_based2.hpp"

@@ -11,7 +11,8 @@
 
 
 #include <boost/utility/result_of.hpp>
-#include <pstade/function.hpp>
+#include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
 #include "./as_single.hpp"
@@ -21,29 +22,39 @@
 namespace pstade { namespace oven {
 
 
-namespace repeated_detail {
+struct op_make_repeated :
+    callable<op_make_repeated>
+{
+    template< class Myself, class Value, class Incrementable = void >
+    struct apply :
+        boost::result_of<
+            op_make_cycled(
+                typename boost::result_of<op_as_single(Value&)>::type, int, Incrementable&)
+        >
+    { };
 
-
-    template< class Value, class Size >
-    struct baby
+    template< class Result, class Value, class Incrementable >
+    Result call(Value& v, Incrementable& n) const
     {
-        typedef typename
-            boost::result_of<
-                op_make_cycled(typename boost::result_of<op_as_single(Value&)>::type, Size&)
-            >::type
-        result_type;
+        return make_cycled(as_single(v), 0, n);
+    }
 
-        result_type operator()(Value& v, Size& sz) const
-        {
-            return make_cycled(as_single(v), sz);
-        }
-    };
+    template< class Myself, class Value >
+    struct apply<Myself, Value> :
+        boost::result_of<
+            op_make_cycled(typename boost::result_of<op_as_single(Value&)>::type)
+        >
+    { };
+
+    template< class Result, class Value >
+    Result call(Value& v) const
+    {
+        return make_cycled(as_single(v));
+    }
+};
 
 
-} // namespace repeated_detail
-
-
-PSTADE_FUNCTION(make_repeated, (repeated_detail::baby<_, _>))
+PSTADE_CONSTANT(make_repeated, (op_make_repeated))
 PSTADE_PIPABLE(repeated, (op_make_repeated))
 
 

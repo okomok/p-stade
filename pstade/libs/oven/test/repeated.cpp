@@ -17,6 +17,7 @@
 #include <string>
 #include <boost/range.hpp>
 #include <pstade/oven/functions.hpp>
+#include <pstade/oven/taken.hpp>
 
 
 void test()
@@ -30,6 +31,15 @@ void test()
 
         BOOST_CHECK( oven::test_RandomAccess_Readable(
             '1'|repeated(4),
+            expected
+        ) );
+    }
+    {
+        std::string ans("1111");
+        std::vector<char> expected = ans|copied;
+
+        BOOST_CHECK( oven::test_Forward_Readable(
+            '1'|repeated|taken(4),
             expected
         ) );
     }

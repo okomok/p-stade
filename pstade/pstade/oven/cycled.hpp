@@ -10,12 +10,15 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <cstddef> // size_t
+#include <cstddef> // ptrdiff_t
+#include <limits>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/function.hpp>
+#include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/value_convert.hpp>
 #include "./concepts.hpp"
 #include "./cycle_iterator.hpp"
 #include "./iter_range.hpp"
@@ -25,39 +28,45 @@
 namespace pstade { namespace oven {
 
 
-namespace cycled_detail {
-
-
-    template< class Range, class Size >
-    struct baby
+struct op_make_cycled :
+    callable<op_make_cycled>
+{
+    template< class Myself, class Range, class I = void, class J = std::ptrdiff_t >
+    struct apply
     {
-        typedef
+        typedef 
             cycle_iterator<
                 typename range_iterator<Range>::type,
-                typename pass_by_value<Size>::type
+                typename pass_by_value<J>::type // Prefer 'J' to 'I'; see "./counting.hpp".
             >
         iter_t;
 
         typedef
             iter_range<iter_t> const
-        result_type;
-
-        result_type operator()(Range& rng, Size& sz) const
-        {
-            PSTADE_CONCEPT_ASSERT((Forward<Range>));
-    
-            return result_type(
-                iter_t(boost::begin(rng), 0,  boost::begin(rng), boost::end(rng)),
-                iter_t(boost::begin(rng), sz, boost::begin(rng), boost::end(rng))
-            );
-        }
+        type;
     };
 
+    template< class Result, class Range, class I, class J >
+    Result call(Range& rng, I& i, J& j) const
+    {
+        PSTADE_CONCEPT_ASSERT((Forward<Range>));
+        typedef typename Result::iterator iter_t;
+        typedef typename iter_t::count_type cnt_t;
+        return Result(
+            iter_t(boost::begin(rng), pstade::value_convert<cnt_t>(i), boost::begin(rng), boost::end(rng)),
+            iter_t(boost::begin(rng), j,                               boost::begin(rng), boost::end(rng))
+        );
+    }
 
-} // namespace cycled_detail
+    template< class Result, class Range >
+    Result call(Range& rng) const
+    {
+        return (*this)(rng, 0, (std::numeric_limits<std::ptrdiff_t>::max)());
+    }
+};
 
 
-PSTADE_FUNCTION(make_cycled, (cycled_detail::baby<_, _>))
+PSTADE_CONSTANT(make_cycled, (op_make_cycled))
 PSTADE_PIPABLE(cycled, (op_make_cycled))
 
 

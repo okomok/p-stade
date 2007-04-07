@@ -78,6 +78,11 @@ namespace pstade {
             >::type is_numeric_castable;
             return aux(from, is_numeric_castable());
         }
+
+        To operator()(To const& from) const
+        {
+            return from;
+        }
     };
 
 

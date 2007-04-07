@@ -11,13 +11,13 @@
 
 
 #include <boost/assert.hpp>
+#include <boost/next_prior.hpp> // prior
 #include <boost/range/begin.hpp>
 #include <boost/range/empty.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/auxiliary.hpp>
 #include <pstade/callable.hpp>
 #include "./concepts.hpp"
-#include "./next_prior.hpp" // prior
 #include "./range_reference.hpp"
 #include "./range_value.hpp"
 
@@ -63,7 +63,7 @@ namespace front_back_detail {
             PSTADE_CONCEPT_ASSERT((Bidirectional<Range>));
             BOOST_ASSERT(!boost::empty(rng));
 
-            return *prior(boost::end(rng));
+            return *boost::prior(boost::end(rng));
         }
     };
 

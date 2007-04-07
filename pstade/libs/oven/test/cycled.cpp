@@ -22,6 +22,8 @@
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/distance.hpp>
 #include <pstade/oven/reversed.hpp>
+#include <pstade/oven/offset.hpp>
+#include <pstade/oven/taken.hpp>
 #include <boost/iterator/counting_iterator.hpp>
 
 
@@ -36,45 +38,48 @@ void test()
         std::vector<char> expected = ans|copied;
 
         BOOST_CHECK( oven::test_RandomAccess_Readable(
-            rng|cycled(4)|cycled(2),
+            rng|cycled(0, 4)|cycled(0, 2),
             expected
         ) );
     }
-
-#if 0
     {
-        std::string ans("xyzxyzxyz");
-        std::string src("xyz");
-        cycle_range<std::string> vrng1(src, 3);
-        BOOST_CHECK( oven::equals(vrng1.source(), src) );
+        std::string rng("12345*");
+        std::string ans("345*12345*12345*12");
+        std::vector<char> expected = ans|copied;
 
-        cycle_range<std::string> vrng2 = vrng1;
-        BOOST_CHECK( oven::equals(vrng1, ans) );
-        BOOST_CHECK( oven::equals(vrng2, ans) );
-
-        vrng2 = oven::make_cycled(src, std::size_t(3));
-        BOOST_CHECK( oven::equals(vrng2, ans) );
+        BOOST_CHECK( oven::test_RandomAccess_Readable(
+            rng|cycled(0, 2)|offset(-4, 2),
+            expected
+        ) );
     }
-#endif
+    {
+        std::string rng("12345*");
+        std::string ans("12345*12345*12345*12345*12345*123");
+        std::vector<char> expected = ans|copied;
 
+        BOOST_CHECK( oven::test_Forward_Readable(
+            rng|cycled|taken(6*5+3),
+            expected
+        ) );
+    }
     {
         BOOST_CHECK( oven::equals(
-            std::string("xyz")|cycled(3),
+            std::string("xyz")|cycled(0, 3),
             std::string("xyzxyzxyz")
         ) );
 
         BOOST_CHECK( oven::equals(
-            std::string("xyz")|cycled(2)|cycled(3),
-            std::string("xyz")|cycled(3)|cycled(2)
+            std::string("xyz")|cycled(0, 2)|cycled(0, 3),
+            std::string("xyz")|cycled(0, 3)|cycled(0, 2)
         ) );
 
         BOOST_CHECK( oven::equals(
-            std::string("xyz")|cycled(2)|cycled(3)|cycled(5),
-            std::string("xyz")|cycled(3)|cycled(10)
+            std::string("xyz")|cycled(0, 2)|cycled(0, 3)|cycled(0, 5),
+            std::string("xyz")|cycled(0, 3)|cycled(0, 10)
         ) );
 
         BOOST_CHECK( 3*30 ==
-            oven::distance(std::string("xyz")|cycled(2)|cycled(3)|cycled(5))
+            oven::distance(std::string("xyz")|cycled(0, 2)|cycled(0, 3)|cycled(0, 5))
         );
     }
 
@@ -86,20 +91,20 @@ void test()
         ) );
 */
         std::string src("abcd");
-        BOOST_FOREACH (char ch, src|cycled(5)|reversed) {
+        BOOST_FOREACH (char ch, src|cycled(0, 5)|reversed) {
             std::cout << ch << std::endl;;
         }
 
         BOOST_CHECK( oven::equals(
-            std::string("xyz")|cycled(2)|cycled(3)|reversed,
-            std::string("xyz")|cycled(3)|cycled(2)|reversed
+            std::string("xyz")|cycled(0, 2)|cycled(0, 3)|reversed,
+            std::string("xyz")|cycled(0, 3)|cycled(0, 2)|reversed
         ) );
     }
 
     {
         std::string src("abcdefg");
-        BOOST_CHECK( (src|cycled(5)).begin()[8] == 'b' );
-        BOOST_CHECK( (src|cycled(5)|reversed).begin()[8] == 'f' );
+        BOOST_CHECK( (src|cycled(0, 5)).begin()[8] == 'b' );
+        BOOST_CHECK( (src|cycled(0, 5)|reversed).begin()[8] == 'f' );
     }
 }
 

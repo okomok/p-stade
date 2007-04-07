@@ -22,10 +22,10 @@
 #include <boost/range/end.hpp>
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
+#include "./advance.hpp"
 #include "./concepts.hpp"
 #include "./distance.hpp"
 #include "./iter_range.hpp"
-#include "./next_prior.hpp" // next
 #include "./range_difference.hpp"
 #include "./traversal_tags.hpp" // is_bidirectional, is_random_access
 
@@ -55,8 +55,8 @@ namespace offset_detail {
             BOOST_ASSERT(dlast  < 0 ? is_bidirectional(rng) : true);
 
 	        return result_type(
-                next(boost::begin(rng), dfirst),
-                next(boost::end(rng), dlast)
+                advance(boost::begin(rng), dfirst),
+                advance(boost::end(rng), dlast)
             );
         }
     };
