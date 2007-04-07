@@ -15,6 +15,7 @@ test-suite range :
     [ run duplicates.cpp ]
     [ run factorials.cpp ]
     [ run fibonacci.cpp ]
+    [ run one_year.cpp ]
     [ run primes.cpp ]
     [ run specification.cpp ]
     [ run zip.cpp ]

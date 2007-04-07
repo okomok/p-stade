@@ -41,6 +41,11 @@ void test()
             r = pstade::value_convert<char>(10);
         BOOST_CHECK(r == char(10));
     }
+    { // same type (does nothing)
+        boost::result_of<op_value_convert<int>(int)>::type
+            r = pstade::value_convert<int>(10);
+        BOOST_CHECK(r == 10);
+    }
 }
 
 

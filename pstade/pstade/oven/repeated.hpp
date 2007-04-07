@@ -29,7 +29,8 @@ struct op_make_repeated :
     struct apply :
         boost::result_of<
             op_make_cycled(
-                typename boost::result_of<op_as_single(Value&)>::type, int, Incrementable&)
+                typename boost::result_of<op_as_single(Value&)>::type, int, Incrementable&
+            )
         >
     { };
 
@@ -42,7 +43,9 @@ struct op_make_repeated :
     template< class Myself, class Value >
     struct apply<Myself, Value> :
         boost::result_of<
-            op_make_cycled(typename boost::result_of<op_as_single(Value&)>::type)
+            op_make_cycled(
+                typename boost::result_of<op_as_single(Value&)>::type
+            )
         >
     { };
 

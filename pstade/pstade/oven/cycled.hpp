@@ -50,6 +50,7 @@ struct op_make_cycled :
     Result call(Range& rng, I& i, J& j) const
     {
         PSTADE_CONCEPT_ASSERT((Forward<Range>));
+
         typedef typename Result::iterator iter_t;
         typedef typename iter_t::count_type cnt_t;
         return Result(

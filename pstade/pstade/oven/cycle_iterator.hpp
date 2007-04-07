@@ -51,25 +51,17 @@ namespace cycle_iterator_detail {
     };
 
 
-    // by Christopher Eltschka
-
-    inline
-    bool under_positive_remainder_system()
-    {
-        return (-1 % 2) == 1;
-    }
-
-    template< class N > inline
-    std::pair<N, N> positive_remainder_div(N const& a, N const& b)
+    template< class Difference > inline
+    std::pair<Difference, Difference> positive_rem_div(Difference const& a, Difference const& b)
     {
         BOOST_ASSERT(b >= 0);
 
-        N const q = a / b;
-        N const r = a % b;
-        if (under_positive_remainder_system())
-            return std::make_pair(q, r);
+        Difference const q = a / b;
+        Difference const r = a % b;
+        if (r < 0)
+            return std::make_pair(q - 1, r + b);
         else
-            return r < 0 ? std::make_pair(q - 1, r + b) : std::make_pair(q, r);
+            return std::make_pair(q, r);
     }
 
 
@@ -115,7 +107,7 @@ template< class, class > friend struct cycle_iterator;
     }
 
 private:
-    Incrementable m_count;
+    count_type m_count;
     ForwardIter m_first, m_last;
 
     template< class Other >
@@ -159,7 +151,8 @@ friend class boost::iterator_core_access;
     void advance(diff_t const& d)
     {
         std::pair<diff_t, diff_t> const q_r =
-            cycle_iterator_detail::positive_remainder_div((this->base() - m_first) + d, m_last - m_first);
+            cycle_iterator_detail::positive_rem_div((this->base() - m_first) + d, m_last - m_first);
+        BOOST_ASSERT(q_r.second >= 0);
 
         this->base_reference() = m_first + q_r.second;
         m_count += pstade::value_convert<count_type>(q_r.first);

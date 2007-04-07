@@ -717,8 +717,8 @@ Thus, STL that doesn't know traversal concepts can choose effective algorithms.
 
 
 - Header: ``<pstade/oven/cycled.hpp>``
-- Valid expression: ``rng|cycled(n)``
-- Returns: A constant range that repeats ``[boost::begin(rng),boost::end(rng))`` ``n`` times.
+- Valid expression: ``rng|cycled(n,m)``
+- Returns: A constant range that repeats ``[boost::begin(rng),boost::end(rng))`` ``m-n`` times.
 
 
 ``delimited``
@@ -1421,5 +1421,7 @@ Version 0.93.7
 - Renamed ``initializers`` to ``initial_values``.
 - Ported to Boost v1.34.
 - Added ``expression`` and ``PSTADE_OVEN_FOREACH``.
+- Changed ``cycled`` interface.
+
 
 
