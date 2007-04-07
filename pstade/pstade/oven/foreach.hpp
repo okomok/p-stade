@@ -32,19 +32,28 @@
     PSTADE_OVEN_FOREACH_aux(It, Rng, BOOST_AUTO_TPL) \
 /**/
 
-    // A "third-party" macro expansion may include a comma, hence avoid to define elaborate macros.
+    // A "third-party" macro expansion may contain a comma, so avoid to use elaborate macros.
     #define PSTADE_OVEN_FOREACH_aux(It, Rng, Auto) \
+        PSTADE_OVEN_FOREACH_local_begin() \
+        PSTADE_OVEN_FOREACH_local( boost::foreach_detail_::auto_any_t pstade_oven_ref = BOOST_FOREACH_CONTAIN(Rng)                     ) \
+        PSTADE_OVEN_FOREACH_local( Auto(pstade_oven_rng, pstade::oven::expression(PSTADE_OVEN_FOREACH_referent(pstade_oven_ref, Rng))) ) \
+        PSTADE_OVEN_FOREACH_local( Auto(It, boost::begin(pstade_oven_rng))                                                             ) \
+        PSTADE_OVEN_FOREACH_local( Auto(pstade_oven_end, boost::end(pstade_oven_rng))                                                  ) \
+        PSTADE_OVEN_FOREACH_local_end() \
+        for (; It != pstade_oven_end; ++It) \
+    /**/
+
+    #define PSTADE_OVEN_FOREACH_local_begin() \
         BOOST_FOREACH_PREAMBLE() \
-        for( bool pstade_oven_continue = true; pstade_oven_continue; ) \
-        \
-        for( boost::foreach_detail_::auto_any_t pstade_oven_ref = BOOST_FOREACH_CONTAIN(Rng);                     pstade_oven_continue; ) \
-        for( Auto(pstade_oven_rng, pstade::oven::expression(PSTADE_OVEN_FOREACH_referent(pstade_oven_ref, Rng))); pstade_oven_continue; ) \
-        for( Auto(It, boost::begin(pstade_oven_rng));                                                             pstade_oven_continue; ) \
-        for( Auto(pstade_oven_end, boost::end(pstade_oven_rng));                                                  pstade_oven_continue; ) \
-        \
-        for( ; pstade_oven_continue; pstade_oven_continue = false) \
-        \
-            for (; It != pstade_oven_end; ++It) \
+        for (bool pstade_oven_continue = true; pstade_oven_continue; ) \
+    /**/
+
+    #define PSTADE_OVEN_FOREACH_local(Decl) \
+        for (Decl; pstade_oven_continue; ) \
+    /**/
+
+    #define PSTADE_OVEN_FOREACH_local_end() \
+        for (; pstade_oven_continue; pstade_oven_continue = false) \
     /**/
 
     #define PSTADE_OVEN_FOREACH_referent(Ref, Rng) \
