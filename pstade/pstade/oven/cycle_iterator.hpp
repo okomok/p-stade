@@ -21,7 +21,9 @@
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/next_prior.hpp> // prior
+#include <pstade/for_debug.hpp>
 #include <pstade/object_generator.hpp>
+#include <pstade/unused.hpp>
 #include <pstade/value_convert.hpp>
 #include "./detail/constant_reference.hpp"
 
@@ -51,7 +53,7 @@ namespace cycle_iterator_detail {
     };
 
 
-    template< class Difference > inline
+    template< class Difference >
     std::pair<Difference, Difference> positive_rem_div(Difference const& a, Difference const& b)
     {
         BOOST_ASSERT(b >= 0);
@@ -62,6 +64,20 @@ namespace cycle_iterator_detail {
             return std::make_pair(q - 1, r + b);
         else
             return std::make_pair(q, r);
+    }
+
+
+    template< class Iterator >
+    bool iter_find(Iterator first, Iterator const& last, Iterator const& val)
+    {
+        for_debug();
+
+        for (; first != last; ++first) {
+            if (first == val)
+                return true;
+        }
+
+        return false;
     }
 
 
@@ -110,6 +126,16 @@ private:
     count_type m_count;
     ForwardIter m_first, m_last;
 
+    bool invariant() const
+    {
+#if defined(PSTADE_OVEN_CYCLED_DEBUG)
+        return cycle_iterator_detail::iter_find(m_first, m_last, this->base());
+#else
+        // The range may be too long to diagnose.
+        return true;
+#endif
+    }
+
     template< class Other >
     bool is_compatible(Other const& other) const
     {
@@ -119,18 +145,25 @@ private:
 friend class boost::iterator_core_access;
     ref_t dereference() const
     {
+        BOOST_ASSERT(invariant());
+        BOOST_ASSERT(this->base() != m_last);
+
         return *this->base();
     }
 
     template< class F, class I >
     bool equal(cycle_iterator<F, I> const& other) const
     {
+        BOOST_ASSERT(invariant());
         BOOST_ASSERT(is_compatible(other));
+
         return this->base() == other.base() && m_count == other.m_count;
     }
 
     void increment()
     {
+        BOOST_ASSERT(invariant());
+
         if (++this->base_reference() == m_last) {
             this->base_reference() = m_first;
             ++m_count;
@@ -139,6 +172,8 @@ friend class boost::iterator_core_access;
 
     void decrement()
     {
+        BOOST_ASSERT(invariant());
+
         if (this->base() != m_first) {
             --this->base_reference();
         }
@@ -150,9 +185,12 @@ friend class boost::iterator_core_access;
 
     void advance(diff_t const& d)
     {
+        BOOST_ASSERT(invariant());
+
         std::pair<diff_t, diff_t> const q_r =
             cycle_iterator_detail::positive_rem_div((this->base() - m_first) + d, m_last - m_first);
-        BOOST_ASSERT(q_r.second >= 0);
+        BOOST_ASSERT(0 <= q_r.second);
+        BOOST_ASSERT(q_r.second < m_last - m_first);
 
         this->base_reference() = m_first + q_r.second;
         m_count += pstade::value_convert<count_type>(q_r.first);
@@ -161,7 +199,9 @@ friend class boost::iterator_core_access;
     template< class F, class I >
     diff_t distance_to(cycle_iterator<F, I> const& other) const
     {
+        BOOST_ASSERT(invariant());
         BOOST_ASSERT(is_compatible(other));
+
         return ((m_last - m_first) * (other.m_count - m_count)) + (other.base() - this->base());
     }
 };

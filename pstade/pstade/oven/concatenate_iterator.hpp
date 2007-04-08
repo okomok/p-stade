@@ -197,12 +197,17 @@ private:
         return m_last == other.m_last;
     }
 
-    PSTADE_CLASS_INVARIANT
-    (
+#if defined(PSTADE_OVEN_CONCATENATED_DEBUG)
+    PSTADE_CLASS_INVARIANT (
         // 'm_local' is undefined if 'segment_is_end'.
         (!segment_is_end() ?
             detail::maybe_contains(local_range(), m_local) : true)
     )
+#else
+    // The range may be too long to diagnose.
+    PSTADE_CLASS_INVARIANT (~
+    )
+#endif
 
 friend class boost::iterator_core_access;
     ref_t dereference() const

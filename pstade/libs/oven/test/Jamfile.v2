@@ -50,8 +50,6 @@ test-suite "oven" :
     [ run dereference.cpp ]
     [ run file_range.cpp ]
     [ run filtered.cpp ]
-    [ run foreach.cpp ]
-    [ run foreach.cpp : : : <define>BOOST_TYPEOF_EMULATION : foreach_emulation ]
     [ run front_back.cpp ]
     [ run functions.cpp ]
     [ run generation.cpp ]

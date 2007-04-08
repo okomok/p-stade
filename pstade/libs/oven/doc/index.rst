@@ -245,16 +245,6 @@ But, the overhead can be removed with the help of `Boost.Typeof`_ if your compil
 .. [#] As far as the three types are registered, ``expression`` with `Boost.Typeof`_ macros is portable even where native ``typeof`` isn't available.
 
 
-``FOREACH``
-^^^^^^^^^^^
-`Pending...`
-
-- Header: ``<pstade/oven/foreach.hpp>``
-- Valid expression: ``PSTADE_OVEN_FOREACH(it,rng)``
-- Precondition: ``expression(rng)`` is a valid expression.
-- Effect: Behaves as if it were ``auto __rng = expression(rng); for (auto it = boost::begin(__rng), __end = boost::end(__rng); it != __end; ++it)``
-
-
 ``innumerable``
 ^^^^^^^^^^^^^^^
 As discribed below, the function object `generation`_ needs is slightly different from
@@ -1420,7 +1410,7 @@ Version 0.93.7
 - Renamed ``directed`` to ``outdirected``.
 - Renamed ``initializers`` to ``initial_values``.
 - Ported to Boost v1.34.
-- Added ``expression`` and ``PSTADE_OVEN_FOREACH``.
+- Added ``expression``.
 - Changed ``cycled`` interface.
 
 

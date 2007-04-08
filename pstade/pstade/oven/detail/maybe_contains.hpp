@@ -16,6 +16,7 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/utility/result_of.hpp>
+#include <pstade/for_debug.hpp>
 #include <pstade/unused.hpp>
 #include "../outdirected.hpp"
 #include "../range_category.hpp"
@@ -52,6 +53,7 @@ bool maybe_contains_aux(Range& rng, Iterator const& it, std::input_iterator_tag)
 template< class Range, class Iterator > inline
 bool maybe_contains(Range const& rng, Iterator const& it)
 {
+    for_debug();
     return detail::maybe_contains_aux(rng, it, typename range_category<Range>::type());
 }
 

@@ -75,8 +75,8 @@
 #include "./utf8_encoded.hpp"
 #include "./window.hpp"
 #include "./with_position.hpp"
-// #include "./xpressive_matches.hpp"
-// #include "./xpressive_tokenized.hpp"
+#include "./xpressive_matches.hpp"
+#include "./xpressive_tokenized.hpp"
 #include "./zipped.hpp"
 #include "./zipped_with.hpp"
 
