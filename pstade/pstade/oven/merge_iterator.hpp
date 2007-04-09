@@ -20,7 +20,6 @@
 
 #include <boost/assert.hpp>
 #include <boost/config.hpp> // BOOST_NESTED_TEMPLATE
-#include <boost/iterator/detail/minimum_category.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/mpl/assert.hpp>
@@ -32,7 +31,7 @@
 #include <pstade/object_generator.hpp>
 #include <pstade/unused.hpp>
 #include "./detail/constant_reference.hpp"
-#include "./detail/pure_traversal.hpp"
+#include "./detail/minimum_pure.hpp"
 #include "./is_sorted.hpp"
 
 
@@ -55,11 +54,11 @@ namespace merge_iterator_detail {
 
     template< class Iterator1, class Iterator2 >
     struct traversal :
-        boost::detail::minimum_category<
+        detail::minimum_pure<
             boost::forward_traversal_tag,
-            typename boost::detail::minimum_category<
-                typename detail::pure_traversal<Iterator1>::type,
-                typename detail::pure_traversal<Iterator2>::type
+            typename detail::minimum_pure<
+                typename boost::iterator_traversal<Iterator1>::type,
+                typename boost::iterator_traversal<Iterator2>::type
             >::type
         >
     { };

@@ -11,7 +11,6 @@
 
 
 #include <boost/assert.hpp>
-#include <boost/iterator/detail/minimum_category.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_traits.hpp>
@@ -20,7 +19,7 @@
 #include <pstade/is_convertible.hpp>
 #include <pstade/is_returnable.hpp>
 #include <pstade/object_generator.hpp>
-#include "./detail/pure_traversal.hpp"
+#include "./detail/minimum_pure.hpp"
 #include "./reverse_iterator.hpp"
 
 
@@ -35,15 +34,6 @@ namespace joint_iterator_detail {
 
 
     template< class IteratorL, class IteratorR >
-    struct traversal :
-        boost::detail::minimum_category<
-            typename detail::pure_traversal<IteratorL>::type,
-            typename detail::pure_traversal<IteratorR>::type
-        >
-    { };
-
-
-    template< class IteratorL, class IteratorR >
     struct super_
     {
         typedef
@@ -51,7 +41,10 @@ namespace joint_iterator_detail {
                 joint_iterator<IteratorL, IteratorR>,
                 IteratorL,
                 boost::use_default,
-                typename traversal<IteratorL, IteratorR>::type
+                typename detail::minimum_pure<
+                    typename boost::iterator_traversal<IteratorL>::type,
+                    typename boost::iterator_traversal<IteratorR>::type
+                >::type
             >
         type;
     };

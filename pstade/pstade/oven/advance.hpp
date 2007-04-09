@@ -19,6 +19,7 @@
 #include <iterator> // advance
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_traits.hpp>
+#include <pstade/adl_barrier.hpp>
 #include <pstade/function.hpp>
 #include <pstade/pass_by.hpp>
 
@@ -61,7 +62,9 @@ namespace advance_detail {
 } // namespace advance_detail
 
 
-PSTADE_FUNCTION(advance, (advance_detail::baby<_, _>))
+PSTADE_ADL_BARRIER(advance) { // for 'std'
+    PSTADE_FUNCTION(advance, (advance_detail::baby<_, _>))
+}
 
 
 } } // namespace pstade::oven

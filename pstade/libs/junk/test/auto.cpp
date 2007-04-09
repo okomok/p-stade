@@ -7,11 +7,10 @@
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
-
 //#define BOOST_TYPEOF_EMULATION
 
-//#include <pstade/../libs/wine/test/specified.cpp>
-#include <pstade/../libs/oven/test/foreach.cpp>
+//#include <pstade/../libs/wine/test/is_old_of.cpp>
+#include <pstade/../libs/oven/test/steps.cpp>
 //#include <pstade/../libs/oven/example/auto_factorials.cpp>
 //#include <pstade/../libs/biscuit/test/capture.cpp>
 //#include <pstade/../libs/oven/test/ms/atl_string.cpp>

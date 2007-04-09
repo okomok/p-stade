@@ -9,9 +9,13 @@
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
+// Note:
+//
+// It seems impossible to be Bidirectional;
+// how to step backward from the end iterator?
+
 
 #include <algorithm> // min
-#include <boost/iterator/detail/minimum_category.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/function.hpp>
@@ -30,33 +34,23 @@ namespace steps_detail {
     template< class Difference >
     struct step
     {
-        // It seems impossible to be Bidirectional;
-        // how to step backward from the end iterator?
-        template< class BaseTraversal >
-        struct traversal :
-            boost::detail::minimum_category<
-                boost::forward_traversal_tag,
-                BaseTraversal
-            >
-        { };
-
         template< class Iterator >
-        Iterator increment(Iterator const& first, Iterator const& last) const
+        Iterator operator()(Iterator const& first, Iterator const& last) const
         {
-            return increment_aux(first, last,
+            return aux(first, last,
                 typename boost::iterator_traversal<Iterator>::type()
             );
         }
 
         template< class Iterator >
-        Iterator increment_aux(Iterator first, Iterator const& last,
+        Iterator aux(Iterator first, Iterator const& last,
             boost::random_access_traversal_tag) const
         {
             return first + (std::min)(last - first, m_stride);
         }
 
         template< class Iterator >
-        Iterator increment_aux(Iterator first, Iterator const& last,
+        Iterator aux(Iterator first, Iterator const& last,
             boost::single_pass_traversal_tag) const
         {
             Difference d = m_stride;

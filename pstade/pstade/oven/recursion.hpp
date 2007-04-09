@@ -20,7 +20,6 @@
 
 
 #include <boost/assert.hpp>
-#include <boost/iterator/detail/minimum_category.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/optional.hpp>
 #include <boost/range/begin.hpp>
@@ -30,6 +29,7 @@
 #include <pstade/is_convertible.hpp>
 #include "./advance.hpp"
 #include "./concepts.hpp"
+#include "./detail/minimum_pure.hpp"
 #include "./iter_range.hpp"
 #include "./range_difference.hpp"
 #include "./range_iterator.hpp"
@@ -55,9 +55,9 @@ namespace recursion_detail {
             boost::iterator_facade<
                 lazy_iterator<Range>,
                 typename range_value<Range>::type,
-                typename boost::detail::minimum_category<
+                typename detail::minimum_pure<
                     boost::bidirectional_traversal_tag,
-                    typename range_pure_traversal<Range>::type
+                    typename range_traversal<Range>::type
                 >::type,
                 typename range_reference<Range>::type,
                 typename range_difference<Range>::type

@@ -11,12 +11,11 @@
 
 
 #include <boost/assert.hpp>
-#include <boost/iterator/detail/minimum_category.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include <pstade/as.hpp>
 #include <pstade/object_generator.hpp>
-#include "./detail/pure_traversal.hpp"
+#include "./detail/minimum_pure.hpp"
 
 
 namespace pstade { namespace oven {
@@ -37,9 +36,9 @@ namespace take_while_iterator_detail {
                 take_while_iterator<Iterator, Predicate>,
                 Iterator,
                 boost::use_default,
-                typename boost::detail::minimum_category<
+                typename detail::minimum_pure<
                     boost::forward_traversal_tag,
-                    typename detail::pure_traversal<Iterator>::type
+                    typename boost::iterator_traversal<Iterator>::type
                 >::type
             >
         type;

@@ -19,7 +19,6 @@
 
 
 #include <algorithm> // equal
-#include <boost/iterator/detail/minimum_category.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
@@ -27,6 +26,7 @@
 #include <pstade/constant.hpp>
 #include <pstade/functional.hpp> // equal_to
 #include "./concepts.hpp"
+#include "./detail/minimum_pure.hpp"
 #include "./range_traversal.hpp"
 
 
@@ -79,10 +79,9 @@ struct op_equals
         PSTADE_CONCEPT_ASSERT((SinglePass<Range1>));
         PSTADE_CONCEPT_ASSERT((SinglePass<Range2>));
 
-        typedef typename boost::detail::minimum_category<
-            // 'minimum_category' needs *pure*.
-            typename range_pure_traversal<Range1>::type,
-            typename range_pure_traversal<Range2>::type
+        typedef typename detail::minimum_pure<
+            typename range_traversal<Range1>::type,
+            typename range_traversal<Range2>::type
         >::type trv_t;
 
         return equals_detail::aux(

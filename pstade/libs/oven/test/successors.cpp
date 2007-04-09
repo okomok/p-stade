@@ -15,43 +15,18 @@
 
 
 #include <pstade/oven/functions.hpp>
+#include <pstade/oven/identities.hpp>
 
 
 struct father_to_son
 {
-    template< class BaseTraversal >
-    struct traversal
-    {
-        typedef BaseTraversal type;
-    };
-
     template< class Iter >
-    Iter increment(Iter king, Iter last) const
+    Iter operator()(Iter king, Iter last) const
     {
         BOOST_CHECK(king != last);
 
         (void)last;
         return ++king;
-    }
-
-    template< class Iter >
-    Iter decrement(Iter king, Iter last) const
-    {
-        (void)last;
-        return --king;
-    }
-
-    template< class Diff, class Iter >
-    Iter advance(Iter king, Diff d, Iter last) const
-    {
-        return king + d;
-    }
-
-    template< class Diff, class Iter >
-    Diff difference(Iter king1, Iter king2, Iter last) const
-    {
-        (void)last;
-        return king2 - king1;
     }
 };
 
@@ -66,11 +41,10 @@ void test()
     {
         std::vector<int> expected = src|copied;
 
-        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
+        BOOST_CHECK( oven::test_Forward_Readable_Writable(
             src|successors(::father_to_son()),
             expected
         ) );
-
     }
 }
 

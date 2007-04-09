@@ -10,8 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/iterator/detail/minimum_category.hpp>
-#include <boost/mpl/bool.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/as.hpp>
 #include <pstade/function.hpp>
@@ -32,14 +30,8 @@ namespace adjacent_filtered_detail {
     {
         typedef filter is_constant;
 
-        template< class BaseTraversal >
-        struct traversal
-        {
-            typedef boost::forward_traversal_tag type;
-        };
-
         template< class ForwardIter >
-        ForwardIter increment(ForwardIter const& first, ForwardIter const& last) const
+        ForwardIter operator()(ForwardIter const& first, ForwardIter const& last) const
         {
             ForwardIter next = first;
             while (++next != last) {

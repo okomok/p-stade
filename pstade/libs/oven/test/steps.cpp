@@ -34,7 +34,7 @@ void test()
         ) );
 
         BOOST_CHECK( oven::test_Forward_Readable_Writable(
-            src|identities(in_forward)|steps(1),
+            src|steps(1)|steps(1),
             expected
         ) );
     }

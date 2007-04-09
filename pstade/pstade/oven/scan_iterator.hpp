@@ -10,13 +10,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/iterator/detail/minimum_category.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/optional.hpp>
 #include <pstade/as.hpp>
 #include <pstade/object_generator.hpp>
-#include "./detail/pure_traversal.hpp"
+#include "./detail/minimum_pure.hpp"
 
 
 namespace pstade { namespace oven {
@@ -29,15 +28,6 @@ struct scan_iterator;
 namespace scan_iterator_detail {
 
 
-    template< class Iterator >
-    struct traversal :
-        boost::detail::minimum_category<
-            boost::forward_traversal_tag,
-            typename detail::pure_traversal<Iterator>::type
-        >
-    { };
-
-
     template< class Iterator, class State, class BinaryFun >
     struct super_
     {
@@ -46,7 +36,10 @@ namespace scan_iterator_detail {
                 scan_iterator<Iterator, State, BinaryFun>,
                 Iterator,
                 State,
-                typename traversal<Iterator>::type,
+                typename detail::minimum_pure<
+                    boost::forward_traversal_tag,
+                    typename boost::iterator_traversal<Iterator>::type
+                >::type,
                 State const& // can be reference thanks to 'm_cache'.
             >
         type;
