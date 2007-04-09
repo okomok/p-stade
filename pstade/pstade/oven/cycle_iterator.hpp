@@ -24,7 +24,7 @@
 #include <pstade/for_debug.hpp>
 #include <pstade/object_generator.hpp>
 #include <pstade/unused.hpp>
-#include <pstade/value_convert.hpp>
+#include <pstade/value_cast.hpp>
 #include "./detail/constant_reference.hpp"
 
 
@@ -193,7 +193,7 @@ friend class boost::iterator_core_access;
         BOOST_ASSERT(q_r.second < m_last - m_first);
 
         this->base_reference() = m_first + q_r.second;
-        m_count += pstade::value_convert<count_type>(q_r.first);
+        m_count += pstade::value_cast<count_type>(q_r.first);
     }
 
     template< class F, class I >

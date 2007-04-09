@@ -18,7 +18,7 @@
 #include <pstade/constant.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/value_convert.hpp>
+#include <pstade/value_cast.hpp>
 #include "./concepts.hpp"
 #include "./cycle_iterator.hpp"
 #include "./iter_range.hpp"
@@ -54,8 +54,8 @@ struct op_make_cycled :
         typedef typename Result::iterator iter_t;
         typedef typename iter_t::count_type cnt_t;
         return Result(
-            iter_t(boost::begin(rng), pstade::value_convert<cnt_t>(i), boost::begin(rng), boost::end(rng)),
-            iter_t(boost::begin(rng), j,                               boost::begin(rng), boost::end(rng))
+            iter_t(boost::begin(rng), pstade::value_cast<cnt_t>(i), boost::begin(rng), boost::end(rng)),
+            iter_t(boost::begin(rng), j,                            boost::begin(rng), boost::end(rng))
         );
     }
 

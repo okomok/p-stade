@@ -33,7 +33,7 @@
 #include <pstade/oven/array_range.hpp>
 #include <pstade/oven/as_c_str.hpp>
 #include <pstade/oven/distance.hpp>
-#include <pstade/value_convert.hpp>
+#include <pstade/value_cast.hpp>
 #include "./window_ref.hpp"
 
 
@@ -56,7 +56,7 @@ namespace window_text_detail {
             m_buf(1 + ::GetWindowTextLength(wnd))
         {
             ::GetWindowText(wnd,
-                boost::begin(m_buf), pstade::value_convert<int>(oven::distance(m_buf))
+                boost::begin(m_buf), pstade::value_cast<int>(oven::distance(m_buf))
             );
 
             BOOST_ASSERT(oven::contains_zero(m_buf));

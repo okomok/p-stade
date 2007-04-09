@@ -17,15 +17,41 @@
 #include <pstade/oven/functions.hpp>
 
 
-struct increment
+struct father_to_son
 {
+    template< class BaseTraversal >
+    struct traversal
+    {
+        typedef BaseTraversal type;
+    };
+
     template< class Iter >
-    Iter operator()(Iter king, Iter last) const
+    Iter increment(Iter king, Iter last) const
     {
         BOOST_CHECK(king != last);
 
         (void)last;
         return ++king;
+    }
+
+    template< class Iter >
+    Iter decrement(Iter king, Iter last) const
+    {
+        (void)last;
+        return --king;
+    }
+
+    template< class Diff, class Iter >
+    Iter advance(Iter king, Diff d, Iter last) const
+    {
+        return king + d;
+    }
+
+    template< class Diff, class Iter >
+    Diff difference(Iter king1, Iter king2, Iter last) const
+    {
+        (void)last;
+        return king2 - king1;
     }
 };
 
@@ -35,13 +61,13 @@ void test()
     namespace oven = pstade::oven;
     using namespace oven;
 
-    int const src[] = { 1,3,5,7,9,12,3,1,2,3,4,5,6,1,2,3,23 };
+    int src[] = { 1,3,5,7,9,12,3,1,2,3,4,5,6,1,2,3,23 };
 
     {
         std::vector<int> expected = src|copied;
 
-        BOOST_CHECK( oven::test_Forward_Readable(
-            src|successors(::increment()),
+        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
+            src|successors(::father_to_son()),
             expected
         ) );
 

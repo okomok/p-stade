@@ -20,7 +20,7 @@
 #include <pstade/function.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/unused.hpp>
-#include <pstade/value_convert.hpp>
+#include <pstade/value_cast.hpp>
 #include "./iter_range.hpp"
 
 
@@ -40,7 +40,7 @@ namespace counting_detail {
     template< class I, class J > inline
     bool is_valid(I i, J j, boost::random_access_traversal_tag)
     {
-        return pstade::value_convert<J>(i) <= j;
+        return pstade::value_cast<J>(i) <= j;
     }
 
 
@@ -82,7 +82,7 @@ struct op_counting :
         ));
 
         return Result(
-            iter_t(pstade::value_convert<j_t>(i)),
+            iter_t(pstade::value_cast<j_t>(i)),
             iter_t(j)
         );
     }

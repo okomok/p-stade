@@ -60,6 +60,7 @@
 #include "./sorted.hpp"
 #include "./spanned.hpp"
 #include "./split_at.hpp"
+#include "./steps.hpp"
 #include "./string_found.hpp"
 #include "./string_split.hpp"
 #include "./successors.hpp"

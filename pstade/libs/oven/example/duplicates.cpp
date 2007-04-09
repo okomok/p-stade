@@ -35,8 +35,16 @@ using namespace oven;
 template< class BinaryPred >
 struct skip_unique
 {
+    typedef skip_unique is_constant;
+
+    template< class BaseTraversal >
+    struct traversal
+    {
+        typedef boost::forward_traversal_tag type;
+    };
+
     template< class ForwardIter >
-    ForwardIter operator()(ForwardIter first, ForwardIter last) const
+    ForwardIter increment(ForwardIter first, ForwardIter last) const
     {
         ForwardIter next(first);
         while (++next != last) {

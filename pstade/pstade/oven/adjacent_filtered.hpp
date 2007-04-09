@@ -10,6 +10,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/iterator/detail/minimum_category.hpp>
+#include <boost/mpl/bool.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/as.hpp>
 #include <pstade/function.hpp>
@@ -28,10 +30,18 @@ namespace adjacent_filtered_detail {
     template< class BinaryPred >
     struct filter
     {
-        template< class ForwardIter >
-        ForwardIter operator()(ForwardIter const& first, ForwardIter const& last) const
+        typedef filter is_constant;
+
+        template< class BaseTraversal >
+        struct traversal
         {
-            ForwardIter next(first);
+            typedef boost::forward_traversal_tag type;
+        };
+
+        template< class ForwardIter >
+        ForwardIter increment(ForwardIter const& first, ForwardIter const& last) const
+        {
+            ForwardIter next = first;
             while (++next != last) {
                 if (m_pred(as_ref(*first), as_ref(*next)))
                     break;
@@ -55,22 +65,20 @@ namespace adjacent_filtered_detail {
     template< class Range, class BinaryPred >
     struct baby
     {
-        typedef
-            filter<
-                typename pass_by_value<BinaryPred>::type
-            >
-        fun_t;
+        typedef typename
+            pass_by_value<BinaryPred>::type
+        pred_t;
 
         typedef typename
             boost::result_of<
-                op_make_successors(Range&, fun_t)
+                op_make_successors(Range&, filter<pred_t>)
             >::type
         result_type;
 
         result_type operator()(Range& rng, BinaryPred& pred) const
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
-            return make_successors(rng, fun_t(pred));
+            return make_successors(rng, filter<pred_t>(pred));
         }
     };
 
