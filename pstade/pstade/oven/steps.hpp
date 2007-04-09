@@ -30,7 +30,8 @@ namespace steps_detail {
     template< class Difference >
     struct step
     {
-        // It seems impossible to be Bidirectional.
+        // It seems impossible to be Bidirectional;
+        // how to step backward from the end iterator?
         template< class BaseTraversal >
         struct traversal :
             boost::detail::minimum_category<
@@ -60,8 +61,9 @@ namespace steps_detail {
         {
             Difference d = m_stride;
             do {
-                ++first; --d;
-            } while (first != last && d != 0);
+                ++first;
+                --d;
+            } while (d != 0 && first != last);
 
             return first;
         }

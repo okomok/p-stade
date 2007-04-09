@@ -115,7 +115,7 @@ Oven contains most of all the range-based STL algorithms [#]_ which were ported 
 - Header: ``<pstade/oven/at.hpp>``
 - Valid expression: ``at(rndRng,d)`` and ``rndRng|at(d)``, where ``d`` is convertible to ``boost::range_difference`` of ``rndRng``.
 - Precondition1: Destruction of an iterator doesn't invalidate references previously obtained from that iterator. [#]_
-- Predondition2: ``0 <= d && d < oven::distance(rndRng)`` [#]_
+- Predondition2: ``0 <= d && d < distance(rndRng)`` [#]_
 - Returns: ``*(boost::begin(rndRng)+d)``.
 
 .. [#] If this cannot be guaranteed, use ``value_at``. See also (24.1/9).
@@ -191,7 +191,7 @@ The upcoming `Boost.Range`_ will replace ``boost::size`` by ``boost::distance``.
 - Header: ``<pstade/oven/equals.hpp>``
 - Valid expression: ``equals(rng1,rng2)``
 - Precondition: ``equal(rng1,boost::begin(rng2))`` is a valid expression.
-- Returns: ``true`` if and only if the ``oven::equal(rng1,boost::begin(rng2))`` and ``boost::size(rng1) == boost::size(rng2)`` returns ``true``. [#]_
+- Returns: ``true`` if and only if the ``equal(rng1,boost::begin(rng2))`` and ``boost::size(rng1) == boost::size(rng2)`` returns ``true``. [#]_
 
 .. [#] The size of two ranges too is checked.
 
@@ -210,7 +210,7 @@ The upcoming `Boost.Range`_ will replace ``boost::size`` by ``boost::distance``.
 - Header: ``<pstade/oven/at.hpp>``
 - Valid expression: ``at(rndRng,d)`` and ``rndRng|at(d)``, where ``d`` is convertible to ``boost::range_difference`` of ``rndRng``.
 - Precondition1: ``boost::range_value`` of ``rndRng`` is ``CopyConstructible``.
-- Precondition2: ``0 <= d && d < oven::distance(rndRng)``
+- Precondition2: ``0 <= d && d < distance(rndRng)``
 - Returns: ``V(*(boost::begin(rndRng)+d))``, where ``V`` is ``boost::range_value`` of ``rndRng``.
 
 
@@ -393,7 +393,7 @@ __ http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html#as-array
 
 - Header: ``<pstade/oven/as_c_str.hpp>``
 - Valid expression: ``as_c_str(x)`` and ``x|as_c_str``.
-- Returns: If  ``x`` is convertible to a ``char`` pointer, ``[x,x+strlen(psz))``; otherwise, ``[boost::begin(x),oven::find(x,0))``.
+- Returns: If  ``x`` is convertible to a ``char`` pointer, ``[x,x+strlen(psz))``; otherwise, ``[boost::begin(x),find(x,0))``.
 
 
 ``as_literal``
@@ -694,8 +694,8 @@ Thus, STL that doesn't know traversal concepts can choose effective algorithms.
 
 - Header: ``<pstade/oven/copied_out.hpp>``
 - Valid expression: ``rng|copied_out(it)``
-- Precondition: ``oven::copy(rng,it)`` is a valid expression.
-- Effect: ``oven::copy(rng,it)``
+- Precondition: ``copy(rng,it)`` is a valid expression.
+- Effect: ``copy(rng,it)``
 - Returns: ``rng``.
 
 
@@ -747,7 +747,7 @@ Thus, STL that doesn't know traversal concepts can choose effective algorithms.
 
 - Header: ``<pstade/oven/dropped_while.hpp>``
 - Valid expression: ``rng|dropped_while(pred)``
-- Returns: ``[oven::find_if(rng, not_(pred)),boost::end(rng))``
+- Returns: ``[find_if(rng, not_(pred)),boost::end(rng))``
 
 
 ``filtered``
@@ -910,7 +910,7 @@ Thus, STL that doesn't know traversal concepts can choose effective algorithms.
 - Header: ``<pstade/oven/pointed.hpp>``
 - Valid expression: ``v|pointed``
 - Precondition: ``v`` is a ``std::vector`` or ``std::basic_string`` object. [#]_
-- Returns:  ``[&*boost::begin(v),&*boost::begin(v)+oven::distance(v))`` if ``v`` is not empty; otherwise, ``[0,0)``.
+- Returns:  ``[&*boost::begin(v),&*boost::begin(v)+distance(v))`` if ``v`` is not empty; otherwise, ``[0,0)``.
 
 .. [#] Though the Standard doesn't clearly specify that ``std::basic_string`` is contiguously allocated, it can be "mathematically" proved.
 
@@ -920,7 +920,7 @@ Thus, STL that doesn't know traversal concepts can choose effective algorithms.
 - Header: ``<pstade/oven/popped.hpp>``
 - Valid expression: ``fwdRng|popped``
 - Precondition: ``boost::empty(fwdRng) == false``
-- Returns: ``[boost::begin(fwdRng),boost::next(boost::begin(fwdRng),oven::distance(fwdRng)-1))``
+- Returns: ``[boost::begin(fwdRng),boost::next(boost::begin(fwdRng),distance(fwdRng)-1))``
 
 
 ``prepended``
@@ -945,7 +945,7 @@ Thus, STL that doesn't know traversal concepts can choose effective algorithms.
 
 ``scanned``
 ^^^^^^^^^^^
-``scanned`` is similar to ``oven::accumulate``, but returns a range of successive reduced values from the base range::
+``scanned`` is similar to ``accumulate``, but returns a range of successive reduced values from the base range::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\scanned.ipp
 
@@ -1019,9 +1019,22 @@ You can find a more elaborate example at ``<pstade/oven/sorted.hpp>``.
 
 - Header: ``<pstade/oven/sliced.hpp>``
 - Valid expression: ``rndRng|sliced(start,stride)``
-- Precondition: ``d == 0 || d % stride == 0`` and ``0 <= start && start < stride``, where ``d = oven::distance(rndRng);``
+- Precondition: ``d == 0 || d % stride == 0`` and ``0 <= start && start < stride``, where ``d = distance(rndRng);``
 
 .. [#] This name is different from `Range Library Proposal`_\'s, which is the role of `offset`_ or `window`_.
+
+
+``steps``
+^^^^^^^^^
+``steps``, unlike `sliced`_, allows ``distance(rng) % stride != 0``::
+
+	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\steps.ipp
+
+
+- Header: ``<pstade/oven/steps.hpp>``
+- Valid expression: ``rng|steps(stride)``
+- Precondition: ``1 <= stride``
+- Returns: A range up to `Forward Range`_ which behaves as if it were an indirected range of ``{it(0),it(1),it(2),..,it(N)}``, where ``it(M) == boost::next(boost::begin(rng),stride*M)`` and ``it(N)`` is the last iterator which is not out of ``rng``. 
 
 
 ``string_found``
@@ -1060,7 +1073,7 @@ prefix (possibly empty) of the range of elements that satisfy `Predicate`_::
 
 - Header: ``<pstade/oven/taken_while.hpp>``
 - Valid expression: ``rng|taken_while(pred)``
-- Returns: A range up to `Forward Range`_ which behaves as if it were ``[boost::begin(rng),oven::find_if(rng,not_(pred)))``
+- Returns: A range up to `Forward Range`_ which behaves as if it were ``[boost::begin(rng),find_if(rng,not_(pred)))``
 
 
 ``tokenized``
@@ -1412,6 +1425,6 @@ Version 0.93.7
 - Ported to Boost v1.34.
 - Added ``expression``.
 - Changed ``cycled`` interface.
-
+- Added ``steps``.
 
 

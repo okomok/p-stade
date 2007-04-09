@@ -38,8 +38,9 @@ namespace dropped_detail {
     Result aux(Iterator first, Iterator const& last, Difference d,
         boost::single_pass_traversal_tag)
     {
-        while (first != last && d != 0) {
-            ++first; --d;
+        while (d != 0 && first != last) {
+            ++first;
+            --d;
         }
 
         return Result(first, last);

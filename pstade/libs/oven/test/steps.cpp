@@ -57,6 +57,13 @@ void test()
         BOOST_CHECK( oven::test_empty(std::string()|steps(3)) );
         BOOST_CHECK( distance(src|steps(90)) == 1 );
     }
+    {
+        int const answer[] = { 0, 40, 80 };
+        BOOST_CHECK( equals(
+            counting(0, 100)|steps(10)|steps(4),
+            answer
+        ) );
+    }
 }
 
 
