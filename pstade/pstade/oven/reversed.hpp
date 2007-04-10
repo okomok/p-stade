@@ -146,6 +146,10 @@ PSTADE_FUNCTION(make_reversed, (reversed_detail::baby<_>))
 PSTADE_PIPABLE(reversed, (op_make_reversed))
 
 
+// This seems too primitive to hide.
+using reversed_detail::reverse_iterator;
+
+
 } } // namespace pstade::oven
 
 

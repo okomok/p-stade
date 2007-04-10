@@ -62,7 +62,7 @@ struct op_make_unzipped_at :
 };
 
 
-namespace unzipped_at_detail {
+namespace unzipped_at_detail_ {
 
 
     template< class N >
@@ -92,11 +92,11 @@ namespace unzipped_at_detail {
     }
 
 
-} // namespace unzipped_at_detail
+} // namespace unzipped_at_detail_
 
 
-using unzipped_at_detail::unzipped_at;
-using unzipped_at_detail::unzipped_at_c;
+using unzipped_at_detail_::unzipped_at;
+using unzipped_at_detail_::unzipped_at_c;
 
 
 // unzipped

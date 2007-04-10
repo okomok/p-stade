@@ -64,7 +64,7 @@ struct op_make_broken_into :
 };
 
 
-namespace broken_into_detail {
+namespace broken_into_detail_ {
 
 
     template< class Type, class TokenizerFun  >
@@ -94,14 +94,14 @@ namespace broken_into_detail {
     }
 
 
-} // namespace broken_into_detail
+} // namespace broken_into_detail_
 
 
 template< class Type, class TokenizerFun > inline
-broken_into_detail::pipe<Type, TokenizerFun> const
+broken_into_detail_::pipe<Type, TokenizerFun> const
 broken_into(TokenizerFun const& fun)
 {
-    return broken_into_detail::pipe<Type, TokenizerFun>(fun);
+    return broken_into_detail_::pipe<Type, TokenizerFun>(fun);
 }
 
 

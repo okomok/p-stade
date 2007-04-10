@@ -10,9 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#define PSTADE_OVEN_STABLE_PARTITION_WORKAROUND
-
-
 #include <pstade/oven/tests.hpp>
 #include <pstade/oven/sliced.hpp>
 
@@ -26,19 +23,7 @@
 #include <pstade/oven/functions.hpp>
 #include <pstade/oven/metafunctions.hpp>
 #include <pstade/oven/offset.hpp>
-
-
-template< class Range >
-void test_diff_t(Range const&)
-{
-    namespace oven = pstade::oven;
-    using namespace oven;
-
-    BOOST_MPL_ASSERT((boost::is_same<
-        typename range_difference<Range>::type,
-        std::ptrdiff_t
-    >));
-}
+#include <pstade/oven/before_stable_partition.hpp>
 
 
 void test()
@@ -51,17 +36,15 @@ void test()
         int ans[] = { 2,6,10,14 };
         std::vector<char> expected = ans|copied;
 
-        // ::test_diff_t(rng|sliced(2, 4));
-
         BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
-            rng|sliced(2, 4),
+            rng|sliced(2, 4) PSTADE_OVEN_BEFORE_STABLE_PARTITION,
             expected
         ) );
     }
     {
         int const ans[] = { 0,4,8,12 };
         BOOST_CHECK( oven::equals(ans,
-            oven::counting(0, 16)|sliced(0, 4)
+            oven::counting(0, 16)|sliced(0, 4) PSTADE_OVEN_BEFORE_STABLE_PARTITION
         ) );
 
         BOOST_FOREACH (int x, oven::counting(0, 16)|sliced(0, 4)) {

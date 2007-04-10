@@ -1034,7 +1034,7 @@ You can find a more elaborate example at ``<pstade/oven/sorted.hpp>``.
 - Header: ``<pstade/oven/steps.hpp>``
 - Valid expression: ``rng|steps(stride)``
 - Precondition: ``1 <= stride``, and the type of ``stride`` is convertible to ``boost::range_difference`` of ``rng``.
-- Returns: A range up to `Forward Range`_ which behaves as if it were an indirected range of ``{it(0),it(1),it(2),..,it(N)}``, where ``it(M) == boost::next(boost::begin(rng),stride*M)`` and ``it(N)`` is the last iterator which is not out of ``rng``. 
+- Returns: A range up to `Forward Range`_ which behaves as if it were ``{*it(0),*it(1),*it(2),..,*it(N)}``, where ``it(M) == boost::next(boost::begin(rng),stride*M)`` and ``it(N)`` is the last iterator which is not out of ``rng``. 
 
 
 ``string_found``

@@ -94,7 +94,7 @@ make_filter_range(ForwardRange& r PSTADE_CONST_OVERLOADED(ForwardRange))
     }
 
 
-namespace filter_range_detail {
+namespace filter_range_detail_ {
 
 
     template< class Parser, class UserState >
@@ -124,22 +124,22 @@ namespace filter_range_detail {
         }
 
 
-} // namespace filter_range_detail
+} // namespace filter_range_detail_
 
 
 template< class Parser, class UserState > inline
-filter_range_detail::pipe<Parser, UserState> const
+filter_range_detail_::pipe<Parser, UserState> const
 filtered(UserState& us)
 {
-    return filter_range_detail::pipe<Parser, UserState>(us);
+    return filter_range_detail_::pipe<Parser, UserState>(us);
 }
 
 // no user-state
 template< class Parser > inline
-filter_range_detail::pipe<Parser, null_state_type> const
+filter_range_detail_::pipe<Parser, null_state_type> const
 filtered()
 {
-    return filter_range_detail::pipe<Parser, null_state_type>(null_state);
+    return filter_range_detail_::pipe<Parser, null_state_type>(null_state);
 }
 
 

@@ -54,7 +54,7 @@ namespace offset_detail {
             BOOST_ASSERT(dfirst < 0 ? is_bidirectional(rng) : true);
             BOOST_ASSERT(dlast  < 0 ? is_bidirectional(rng) : true);
 
-	        return result_type(
+            return result_type(
                 advance(boost::begin(rng), dfirst),
                 advance(boost::end(rng), dlast)
             );

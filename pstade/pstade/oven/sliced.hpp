@@ -22,17 +22,6 @@
 #include "./transformed.hpp"
 
 
-// 'stable_partition_adaptive' of some STLs doesn't compile
-// unless the iterator 'differnce_type' is the same as 'std::ptrdiff_t'.
-#if defined(PSTADE_OVEN_STABLE_PARTITION_WORKAROUND)
-    #if !defined(_ALGORITHM_) && !defined(PSTADE_OVEN_STABLE_PARTITION_IS_BROKEN)
-        // except for VC++ STL
-        #define PSTADE_OVEN_STABLE_PARTITION_IS_BROKEN
-        #include <cstddef> // ptrdiff_t
-    #endif
-#endif
-
-
 namespace pstade { namespace oven {
 
 
@@ -79,21 +68,13 @@ namespace sliced_detail {
             range_difference<Range>::type
         diff_t;
 
-        typedef
-#if !defined(PSTADE_OVEN_STABLE_PARTITION_IS_BROKEN)
-            op_counting<>
-#else
-            op_counting<boost::use_default, std::ptrdiff_t>
-#endif
-        counting_t;
-
         typedef typename
             boost::result_of<
                 op_make_permuted(
                     Range&,
                     typename boost::result_of<
                         op_make_transformed<>(
-                            typename boost::result_of<counting_t(int, diff_t)>::type,
+                            typename boost::result_of<op_counting<>(int, diff_t)>::type,
                             to_index<diff_t>
                         )
                     >::type
@@ -109,7 +90,7 @@ namespace sliced_detail {
             return make_permuted(
                 rng,
                 make_transformed(
-                    counting_t()(0, distance(rng)/stride),
+                    counting(0, distance(rng)/stride),
                     to_index<diff_t>(start, stride)
                 )
             );

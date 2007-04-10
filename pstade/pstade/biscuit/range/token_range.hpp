@@ -94,7 +94,7 @@ make_token_range(ForwardRange& r PSTADE_CONST_OVERLOADED(ForwardRange))
     }
 
 
-namespace token_range_detail {
+namespace token_range_detail_ {
 
 
     template< class Parser, class UserState >
@@ -124,22 +124,22 @@ namespace token_range_detail {
         }
 
 
-} // namespace token_range_detail
+} // namespace token_range_detail_
 
 
 template< class Parser, class UserState > inline
-token_range_detail::pipe<Parser, UserState> const
+token_range_detail_::pipe<Parser, UserState> const
 tokenized(UserState& us)
 {
-    return token_range_detail::pipe<Parser, UserState>(us);
+    return token_range_detail_::pipe<Parser, UserState>(us);
 }
 
 // no user-state
 template< class Parser > inline
-token_range_detail::pipe<Parser, null_state_type> const
+token_range_detail_::pipe<Parser, null_state_type> const
 tokenized()
 {
-    return token_range_detail::pipe<Parser, null_state_type>(null_state);
+    return token_range_detail_::pipe<Parser, null_state_type>(null_state);
 }
 
 

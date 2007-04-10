@@ -54,11 +54,6 @@ void test()
         ) );
     }
     {
-        boost::shared_ptr<std::string> p(new std::string());
-        make_share_iterator(p->begin(), p);
-    }
-
-    {
         BOOST_CHECK( oven::equals(oven::make_shared(new xxx("0123")), ans) );
     }
 
@@ -75,17 +70,6 @@ void test()
            std::cout << ch;
         }
     }
-
-#if 0
-    {
-        share_range<xxx> x1(new xxx("abc"));
-        share_range<xxx> x2(new xxx("def"));
-        *x1;
-        x1 = x2;
-
-        BOOST_CHECK( oven::equals(x1, std::string("def")) );
-    }
-#endif
     {
 #if 0
         BOOST_FOREACH (char ch, std::string("dangling")|identities) {

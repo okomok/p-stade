@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/noncopyable.hpp>
 #include <boost/pointee.hpp>
 #include <boost/range/begin.hpp>
@@ -21,10 +22,77 @@
 #include <pstade/to_shared_ptr.hpp>
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
-#include "./share_iterator.hpp"
+#include "./range_iterator.hpp"
 
 
 namespace pstade { namespace oven {
+
+
+namespace shared_detail {
+
+
+    // The Range version of 'boost::shared_container_iterator'
+
+
+    template< class Ptr >
+    struct share_iterator;
+
+
+    template< class Ptr >
+    struct share_iterator_super
+    {
+        typedef typename
+            boost::pointee<Ptr>::type
+        rng_t;
+
+        typedef
+            boost::iterator_adaptor<
+                share_iterator<Ptr>,
+                typename range_iterator<rng_t>::type
+            >
+        type;
+    };
+
+
+    template< class Ptr >
+    struct share_iterator :
+        share_iterator_super<Ptr>::type
+    {
+    private:
+        typedef typename share_iterator_super<Ptr>::type super_t;
+        typedef typename super_t::base_type iter_t;
+
+    public:
+        share_iterator()
+        { }
+
+        share_iterator(iter_t const& it, Ptr const& prng) :
+            super_t(it), m_prng(prng)
+        { }
+
+    template< class > friend struct share_iterator;
+        template< class P >
+        share_iterator(share_iterator<P> const& other,
+            typename boost::enable_if_convertible<typename share_iterator<P>::iter_t, iter_t>::type * = 0,
+            typename boost::enable_if_convertible<
+                // Use raw pointer type; 'boost::shared_ptr' convertibility is over-optimistic.
+                typename boost::pointee<P>::type *, typename boost::pointee<Ptr>::type *
+            >::type * = 0
+        ) :
+            super_t(other.base()), m_prng(other.m_prng)
+        { }
+
+        typename boost::pointee<Ptr>::type& base_range() const
+        {
+            return *m_prng;
+        }
+
+    private:
+        Ptr m_prng;
+    };
+
+
+} // namespace shared_detail
 
 
 // 'callable/function' is useless here,
@@ -43,7 +111,7 @@ struct op_make_shared :
         sprng_t;
 
         typedef
-            share_iterator<sprng_t>
+            shared_detail::share_iterator<sprng_t>
         iter_t;
 
         typedef
@@ -78,7 +146,13 @@ struct op_make_shared :
 PSTADE_CONSTANT(make_shared, (op_make_shared))
 
 
-namespace shared_detail {
+// A pipe must have its own namespace.
+// The overload resolution falls into compile error
+// while getting the result type; even if never called.
+// See also "./joint_iterator.hpp"
+
+
+namespace shared_detail_ {
 
 
     struct pipe :
@@ -94,10 +168,10 @@ namespace shared_detail {
     }
 
 
-} // namespace shared_detail
+} // namespace shared_detail_
 
 
-PSTADE_CONSTANT(shared, (shared_detail::pipe))
+PSTADE_CONSTANT(shared, (shared_detail_::pipe))
 
 
 } } // namespace pstade::oven

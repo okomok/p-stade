@@ -20,7 +20,7 @@
 #include <pstade/is_returnable.hpp>
 #include <pstade/object_generator.hpp>
 #include "./detail/minimum_pure.hpp"
-#include "./reverse_iterator.hpp"
+#include "./reversed.hpp" // reverse_iterator
 
 
 namespace pstade { namespace oven {

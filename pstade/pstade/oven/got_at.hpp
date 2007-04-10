@@ -81,7 +81,7 @@ struct op_make_got_at :
 };
 
 
-namespace got_at_detail {
+namespace got_at_detail_ {
 
 
     template< class N >
@@ -115,11 +115,11 @@ namespace got_at_detail {
     }
 
 
-} // namespace got_at_detail
+} // namespace got_at_detail_
 
 
-using got_at_detail::got_at;
-using got_at_detail::got_at_c;
+using got_at_detail_::got_at;
+using got_at_detail_::got_at_c;
 
 
 } } // namespace pstade::oven

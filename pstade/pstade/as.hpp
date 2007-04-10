@@ -70,7 +70,7 @@ namespace pstade {
     // function reference, which 'as_value' will work around.
 
 
-    namespace as_value_detail {
+    namespace as_value_detail_ {
 
 
         struct op :
@@ -109,17 +109,17 @@ namespace pstade {
         }
 
 
-    } // namespace as_value_detail
+    } // namespace as_value_detail_
 
 
-    typedef as_value_detail::op op_as_value;
+    typedef as_value_detail_::op op_as_value;
     PSTADE_CONSTANT(as_value, (op_as_value))
 
 
 } // namespace pstade
 
 
-PSTADE_CALLABLE_NULLARY_RESULT_OF_TYPE(pstade::as_value_detail::op)
+PSTADE_CALLABLE_NULLARY_RESULT_OF_TYPE(pstade::as_value_detail_::op)
 
 
 #endif

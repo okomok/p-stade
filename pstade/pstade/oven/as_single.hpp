@@ -63,7 +63,7 @@ namespace as_single_detail {
 PSTADE_AUXILIARY(0, as_single, (as_single_detail::op))
 
 
-namespace as_shared_single_detail {
+namespace as_shared_single_detail_ {
 
 
     // Make one element vector.
@@ -146,10 +146,10 @@ namespace as_shared_single_detail {
     }
 
 
-} // namespace as_shared_single_detail
+} // namespace as_shared_single_detail_
 
 
-typedef as_shared_single_detail::op op_as_shared_single;
+typedef as_shared_single_detail_::op op_as_shared_single;
 PSTADE_CONSTANT(as_shared_single, (op_as_shared_single))
 
 
