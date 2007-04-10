@@ -1,5 +1,5 @@
-#ifndef PSTADE_OVEN_SUCCESORS_HPP
-#define PSTADE_OVEN_SUCCESORS_HPP
+#ifndef PSTADE_OVEN_SUCCESSORS_HPP
+#define PSTADE_OVEN_SUCCESSORS_HPP
 
 
 // PStade.Oven
@@ -27,6 +27,7 @@
 #include "./concepts.hpp"
 #include "./detail/constant_reference.hpp"
 #include "./detail/minimum_pure.hpp"
+#include "./detail/pure_traversal.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
 
@@ -38,34 +39,6 @@ namespace successors_detail {
 
 
     namespace here = successors_detail;
-
-
-    template< class Iterator, class BinaryFun >
-    struct succeed_iterator;
-
-
-    PSTADE_HAS_TYPE(is_constant)
-
-
-    template< class Iterator, class BinaryFun >
-    struct succeed_iterator_super
-    {
-        typedef
-            boost::iterator_adaptor<
-                succeed_iterator<Iterator, BinaryFun>,
-                Iterator,
-                boost::use_default,
-                typename detail::minimum_pure<
-                    boost::forward_traversal_tag,
-                    typename boost::iterator_traversal<Iterator>::type
-                >::type,
-                typename boost::mpl::eval_if< has_is_constant<BinaryFun>,
-                    detail::constant_reference<Iterator>,
-                    boost::mpl::identity<boost::use_default>
-                >::type
-            >
-        type;
-    };
 
 
     template< class Iterator, class Traversal = typename detail::pure_traversal<Iterator>::type >
@@ -106,6 +79,34 @@ namespace successors_detail {
         return identity;
     }
 #endif
+
+
+    template< class Iterator, class BinaryFun >
+    struct succeed_iterator;
+
+
+    PSTADE_HAS_TYPE(is_constant)
+
+
+    template< class Iterator, class BinaryFun >
+    struct succeed_iterator_super
+    {
+        typedef
+            boost::iterator_adaptor<
+                succeed_iterator<Iterator, BinaryFun>,
+                Iterator,
+                boost::use_default,
+                typename detail::minimum_pure<
+                    boost::forward_traversal_tag,
+                    typename boost::iterator_traversal<Iterator>::type
+                >::type,
+                typename boost::mpl::eval_if< has_is_constant<BinaryFun>,
+                    detail::constant_reference<Iterator>,
+                    boost::mpl::identity<boost::use_default>
+                >::type
+            >
+        type;
+    };
 
 
     template< class Iterator, class BinaryFun >

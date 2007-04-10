@@ -1019,21 +1019,21 @@ You can find a more elaborate example at ``<pstade/oven/sorted.hpp>``.
 
 - Header: ``<pstade/oven/sliced.hpp>``
 - Valid expression: ``rndRng|sliced(start,stride)``
-- Precondition: ``d == 0 || d % stride == 0`` and ``0 <= start && start < stride``, where ``d = distance(rndRng);``
+- Precondition: ``d == 0 || d % stride == 0`` and ``0 <= start && start < stride``, where ``d = distance(rndRng);``, and the type of ``start`` and ``stride`` is convertible to ``boost::range_difference`` of ``rng``.
 
 .. [#] This name is different from `Range Library Proposal`_\'s, which is the role of `offset`_ or `window`_.
 
 
 ``steps``
 ^^^^^^^^^
-``steps``, unlike `sliced`_, allows ``distance(rng) % stride != 0``::
+``steps``, unlike `sliced`_, allows `Single Pass Range`_ and ``distance(rng) % stride != 0``::
 
 	E:\p-stade.sourceforge.net\pstade\libs\oven\doc\inline\steps.ipp
 
 
 - Header: ``<pstade/oven/steps.hpp>``
 - Valid expression: ``rng|steps(stride)``
-- Precondition: ``1 <= stride``
+- Precondition: ``1 <= stride``, and the type of ``stride`` is convertible to ``boost::range_difference`` of ``rng``.
 - Returns: A range up to `Forward Range`_ which behaves as if it were an indirected range of ``{it(0),it(1),it(2),..,it(N)}``, where ``it(M) == boost::next(boost::begin(rng),stride*M)`` and ``it(N)`` is the last iterator which is not out of ``rng``. 
 
 

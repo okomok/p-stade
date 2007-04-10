@@ -47,8 +47,8 @@ void test()
             expected
         ) );
 
-        BOOST_CHECK( oven::test_Forward_Readable_Writable(
-            src|identities(in_forward)|steps(3),
+        BOOST_CHECK( oven::test_SinglePass_Readable(
+            src|identities(in_single_pass)|steps(3),
             expected
         ) );
     }

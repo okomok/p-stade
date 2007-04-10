@@ -10,13 +10,16 @@
 
 
 #include <boost/mpl/assert.hpp>
-#include <boost/type_traits/is_same.hpp>
-#include <pstade/oven/metafunctions.hpp>
+#include <boost/type_traits/is_volatile.hpp>
+#include <pstade/value_convert.hpp>
 
-BOOST_MPL_ASSERT_NOT((boost::is_same<int, ptrdiff_t>));
-BOOST_MPL_ASSERT((boost::is_same< pstade::oven::range_difference<int [10]>::type, int> ));
-
+template<class T>
+void foo(T const&)
+{
+    BOOST_MPL_ASSERT((boost::is_volatile<T>));
+}
 
 int main()
 {
+    int i = boost::numeric_cast<int>(10);
 }

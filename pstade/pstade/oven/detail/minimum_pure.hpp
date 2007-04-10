@@ -14,7 +14,6 @@
 #include <boost/mpl/placeholders.hpp> // missing from 'minimum_category.hpp'
 #include <boost/iterator/detail/minimum_category.hpp>
 #include <boost/iterator/iterator_categories.hpp>
-#include "./pure_traversal.hpp"
 
 
 namespace pstade { namespace oven { namespace detail {
