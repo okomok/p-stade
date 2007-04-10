@@ -10,6 +10,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Note:
+//
+// This range is Constant;
+// the iteration depends on the referent values.
+
+
 #include <boost/utility/result_of.hpp>
 #include <pstade/as.hpp>
 #include <pstade/function.hpp>

@@ -69,7 +69,7 @@ namespace successors_detail {
 
 
     template< class Iterator, class Traversal = typename detail::pure_traversal<Iterator>::type >
-    struct op_assert_not_old
+    struct assert_not_old_return_op
     {
         Iterator operator()(Iterator const& now) const
         {
@@ -77,7 +77,7 @@ namespace successors_detail {
             return now;
         }
 
-        explicit op_assert_not_old(Iterator const& old) :
+        explicit assert_not_old_return_op(Iterator const& old) :
             m_old(old)
         { }
 
@@ -86,18 +86,18 @@ namespace successors_detail {
     };
 
     template< class Iterator >
-    struct op_assert_not_old<Iterator, boost::single_pass_traversal_tag> :
+    struct assert_not_old_return_op<Iterator, boost::single_pass_traversal_tag> :
         op_identity
     {
-        explicit op_assert_not_old(Iterator const&)
+        explicit assert_not_old_return_op(Iterator const&)
         { }
     };
 
 #if !defined(NDEBUG)
     template< class Iterator > inline
-    op_assert_not_old<Iterator> assert_not_old(Iterator const& old)
+    assert_not_old_return_op<Iterator> assert_not_old(Iterator const& old)
     {
-        return op_assert_not_old<Iterator>(old);
+        return assert_not_old_return_op<Iterator>(old);
     }
 #else
     template< class Iterator> inline
