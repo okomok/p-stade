@@ -9,10 +9,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-template<class FunCall>
-struct f;
+#include <boost/mpl/assert.hpp>
+#include <boost/type_traits/is_same.hpp>
+#include <pstade/oven/metafunctions.hpp>
 
-typedef f<double(char(int))> pp;
+BOOST_MPL_ASSERT_NOT((boost::is_same<int, ptrdiff_t>));
+BOOST_MPL_ASSERT((boost::is_same< pstade::oven::range_difference<int [10]>::type, int> ));
+
 
 int main()
 {

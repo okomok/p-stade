@@ -14,14 +14,30 @@
 //
 // Works around a bug that SGI STL 'stable_partition'
 // requires the 'difference_type' of iterator to be 'ptrdiff_t'.
+// See 'stable_partition_adaptive' and 'Temporary_buffer::size()'.
 
 
 #include <algorithm>
 #if !defined(_ALGORITHM_) // except for VC++ STL
-    #include "./detail/by_ptrdiff.hpp"
-    #define PSTADE_OVEN_BEFORE_STABLE_PARTITION | ::pstade::oven::detail::by_ptrdiff
+
+    #include <cstddef> // ptrdiff_t
+    #include <pstade/pipable.hpp>
+    #include "./identities.hpp"
+
+    namespace pstade { namespace oven {
+
+        PSTADE_PIPABLE(before_stable_partition, (op_make_identities<std::ptrdiff_t>))
+
+    } }
+
+    #define PSTADE_OVEN_BEFORE_STABLE_PARTITION \
+        | ::pstade::oven::before_stable_partition \
+    /**/
+
 #else
+
     #define PSTADE_OVEN_BEFORE_STABLE_PARTITION
+
 #endif
 
 

@@ -27,9 +27,4 @@
 #endif
 
 
-#if !defined(PSTADE_OVEN_RANGE_ADAPTOR_MAX_ARITY)
-    #define PSTADE_OVEN_RANGE_ADAPTOR_MAX_ARITY 3
-#endif
-
-
 #endif

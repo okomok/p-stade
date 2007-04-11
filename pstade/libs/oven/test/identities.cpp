@@ -31,11 +31,19 @@ void test()
     }
     {
         std::string str("hello, identity_range");
-        BOOST_CHECK(oven::equals(str, str|identities|identities));
+        BOOST_CHECK( oven::equals(str, str|identities|identities) );
     }
     {
         std::string str("hello, identity_range");
-        BOOST_CHECK(oven::equals(str, str|identities(boost::single_pass_traversal_tag())));
+        BOOST_CHECK( oven::equals(str, str|identities(boost::single_pass_traversal_tag())) );
+    }
+    {
+        std::string str("hello, identity_range");
+        BOOST_CHECK( oven::equals(str, op_make_identities<int>()(str)) );
+    }
+    {
+        std::string str("hello, identity_range");
+        BOOST_CHECK( oven::equals(str, op_make_identities<int>()(str, in_single_pass)) );
     }
 }
 

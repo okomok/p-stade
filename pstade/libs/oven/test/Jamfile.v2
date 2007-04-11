@@ -25,6 +25,7 @@ test-suite "oven" :
     [ run as_literal.cpp ]
     [ run as_single.cpp ]
     [ run at.cpp ]
+    [ run before_stable_partition.cpp ]
     [ run begin_end.cpp ]
     [ run broken_into.cpp ]
     [ run checked.cpp ]

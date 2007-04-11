@@ -46,7 +46,7 @@ namespace successors_detail {
     {
         Iterator operator()(Iterator const& now) const
         {
-            BOOST_ASSERT(m_old != now);
+            BOOST_ASSERT("iterator must be advanced." && m_old != now);
             return now;
         }
 
