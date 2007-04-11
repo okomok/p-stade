@@ -20,7 +20,7 @@
 #include <pstade/is_returnable.hpp>
 #include <pstade/object_generator.hpp>
 #include "./detail/minimum_pure.hpp"
-#include "./reversed.hpp" // reverse_iterator
+#include "./reverse_iterator.hpp"
 
 
 namespace pstade { namespace oven {
@@ -121,7 +121,7 @@ private:
 
     bool invariant() const
     {
-        return (!is_in_rangeL() || m_itR == m_firstR);
+        return is_in_rangeL() ? (m_itR == m_firstR) : true;
     }
 
     bool is_in_rangeL() const
@@ -215,11 +215,9 @@ friend class boost::iterator_core_access;
             return other.m_itR - m_itR;
         else if (is_in_rangeL())
             return (m_lastL - this->base()) + (other.m_itR - other.m_firstR);
-        else if (!is_in_rangeL())
-            return (m_firstR - m_itR) + (other.base() - other.m_lastL);
         else {
-            BOOST_ASSERT(false);
-            return 0;
+            BOOST_ASSERT(!is_in_rangeL());
+            return (m_firstR - m_itR) + (other.base() - other.m_lastL);
         }
     }
 };
