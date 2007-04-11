@@ -11,26 +11,114 @@
 
 
 #include <boost/assert.hpp>
+#include <boost/iterator/iterator_adaptor.hpp>
+#include <boost/iterator/iterator_categories.hpp>
+#include <boost/optional.hpp>
 #include <boost/range/empty.hpp>
 #include <boost/utility/result_of.hpp>
+#include <pstade/as.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
 #include "./as_single.hpp"
 #include "./concepts.hpp"
+#include "./detail/minimum_pure.hpp"
 #include "./dropped.hpp"
 #include "./front_back.hpp"
 #include "./iter_range.hpp"
 #include "./jointed.hpp"
 #include "./range_iterator.hpp"
-#include "./scan_iterator.hpp"
 
 
 namespace pstade { namespace oven {
 
 
 namespace scanned_detail {
+
+
+    template< class Iterator, class State, class BinaryFun >
+    struct scan_iterator;
+
+
+    template< class Iterator, class State, class BinaryFun >
+    struct scan_iterator_super
+    {
+        typedef
+            boost::iterator_adaptor<
+                scan_iterator<Iterator, State, BinaryFun>,
+                Iterator,
+                State,
+                typename detail::minimum_pure<
+                    boost::forward_traversal_tag,
+                    typename boost::iterator_traversal<Iterator>::type
+                >::type,
+                State const& // can be reference thanks to 'm_cache'.
+            >
+        type;
+    };
+
+
+    template< class Iterator, class State, class BinaryFun >
+    struct scan_iterator :
+        scan_iterator_super<Iterator, State, BinaryFun>::type
+    {
+    private:
+        typedef typename scan_iterator_super<Iterator, State, BinaryFun>::type super_t;
+        typedef typename super_t::reference ref_t;
+
+    public:
+        scan_iterator()
+        { }
+
+        scan_iterator(Iterator const& it, State const& init, BinaryFun const& fun) :
+            super_t(it), m_state(init), m_fun(fun)
+        { }
+
+        template< class I, class S >
+        scan_iterator(scan_iterator<I, S, BinaryFun> const& other,
+            typename boost::enable_if_convertible<I, Iterator>::type * = 0,
+            typename boost::enable_if_convertible<S, State>::type    * = 0
+        ) :
+            super_t(other.base()), m_state(other.state()), m_fun(other.function())
+        { }
+
+        State const& state() const
+        {
+            return m_state;
+        }
+
+        BinaryFun const& function() const
+        {
+            return m_fun;
+        }
+
+    private:
+        State m_state;
+        BinaryFun m_fun;
+        mutable boost::optional<State> m_cache;
+
+        State call_fun() const
+        {
+            return m_fun(m_state, as_ref(*this->base()));
+        }
+
+    friend class boost::iterator_core_access;
+        ref_t dereference() const
+        {
+            if (!m_cache)
+                m_cache = call_fun();
+
+            return *m_cache;
+        }
+
+        void increment()
+        {
+            m_state = call_fun();
+            ++this->base_reference();
+            m_cache.reset();
+        }
+    };
 
 
     struct op_make :

@@ -20,7 +20,7 @@ namespace set_cup_detail {
 
 
     struct merge_routine :
-        merge_iterator_detail::merge_routine
+        merged_detail::merge_routine
     {
         template< class Iterator1, class Iterator2, class Compare >
         static void after_yield(

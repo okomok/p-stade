@@ -66,7 +66,7 @@ namespace identities_detail {
         explicit identity_iterator()
         { }
 
-        explicit identity_iterator(Iterator const& it, dont_care = 0, dont_care = 0) :
+        explicit identity_iterator(Iterator const& it) :
             super_t(it)
         { }
 

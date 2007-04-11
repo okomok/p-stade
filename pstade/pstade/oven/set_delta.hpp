@@ -58,7 +58,7 @@ namespace set_delta_detail {
                 return *first1;
 
             // while phase
-            return merge_iterator_detail::min_(*first1, *first2, comp);
+            return merged_detail::min_(*first1, *first2, comp);
         }
 
         template< class Iterator1, class Iterator2, class Compare >

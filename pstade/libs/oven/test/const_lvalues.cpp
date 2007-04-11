@@ -100,7 +100,7 @@ typedef boost::transform_iterator< ::inc, iter_t > inc_tr_iter_t;
     > ));
 
 
-typedef pstade::oven::const_lvalue_iterator< inc_tr_iter_t > lvalue_iter_t;
+    typedef pstade::oven::const_lvalues_detail::const_lvalue_iterator< inc_tr_iter_t > lvalue_iter_t;
 
     BOOST_MPL_ASSERT(( boost::is_same<
         ::pure_traversal<lvalue_iter_t>::type,
@@ -184,10 +184,13 @@ void test()
         BOOST_CHECK( (it1 == it2) == (&*it1 == &*it2) );
     }
 #endif
+
+#if 0
     {
         std::string str;
         oven::make_const_lvalue_iterator(boost::begin(str));
     }
+#endif
 }
 
 

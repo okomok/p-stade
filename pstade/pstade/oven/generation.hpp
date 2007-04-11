@@ -10,13 +10,19 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/assert.hpp>
+#include <boost/indirect_reference.hpp>
+#include <boost/iterator/iterator_facade.hpp>
+#include <boost/mpl/assert.hpp>
 #include <boost/optional.hpp>
+#include <boost/type_traits/add_reference.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/const_fun.hpp>
 #include <pstade/function.hpp>
 #include <pstade/object_generator.hpp>
 #include <pstade/pass_by.hpp>
-#include "./generate_iterator.hpp"
+#include <pstade/remove_cvr.hpp>
+#include "./begin_end.hpp"
 #include "./iter_range.hpp"
 
 
@@ -27,10 +33,113 @@ namespace generation_detail {
 
 
     template< class Generator >
+    struct generator_iterator;
+
+
+    // "Optional" becomes a new concept?
+
+    template< class X >
+    struct indirect_reference :
+        boost::indirect_reference<X>
+    { };
+
+    template< class T >
+    struct indirect_reference< boost::optional<T> > :
+        boost::add_reference<T>
+    { };
+
+
+    template< class Generator >
+    struct generator_iterator_super
+    {
+        typedef typename
+            boost::result_of<Generator()>::type
+        result_t;
+
+        typedef typename
+            indirect_reference<result_t>::type
+        ref_t;
+
+        typedef typename
+            remove_cvr<ref_t>::type
+        val_t;
+
+        typedef
+            boost::iterator_facade<
+                generator_iterator<Generator>,
+                val_t,
+                boost::single_pass_traversal_tag,
+                ref_t
+            >
+        type;
+    };
+
+
+    template< class Generator >
+    struct generator_iterator :
+        generator_iterator_super<Generator>::type
+    {
+    private:
+        typedef typename generator_iterator_super<Generator>::type super_t;
+        typedef typename super_t::reference ref_t;
+
+    public:
+
+        // If default-constructed one plays the end iterator role,
+        // it would require 'Generator' to be DefaultConstructible.
+        // But SinglePassIterator is not required to be.
+        // So, specify it by using 'op_begin/op_end'.
+
+        generator_iterator(Generator const& gen, op_begin) :
+            m_gen(gen), m_result()
+        {
+            generate();
+        }
+
+        generator_iterator(Generator const& gen, op_end) :
+            m_gen(gen), m_result()
+        { }
+
+        bool is_end() const
+        {
+            return !m_result;
+        }
+
+    private:
+        Generator m_gen;
+        // 'mutable' needed; const-ness of 'optional' affects its element.
+        mutable typename boost::result_of<Generator()>::type m_result;
+
+        void generate()
+        {
+            m_result = m_gen();
+        }
+
+    friend class boost::iterator_core_access;
+        ref_t dereference() const
+        {
+            BOOST_ASSERT(!is_end());
+            return *m_result;
+        }
+
+        bool equal(generator_iterator const& other) const
+        {
+            return is_end() == other.is_end();
+        }
+
+        void increment()
+        {
+            BOOST_ASSERT(!is_end());
+            generate();
+        }
+    };
+
+
+    template< class Generator >
     struct baby
     {
         typedef
-            generate_iterator<
+            generator_iterator<
                 typename pass_by_value<Generator>::type
             >
         iter_t;
@@ -60,7 +169,9 @@ namespace innumerable_detail {
     {
         typedef
             boost::optional<
-                typename boost::result_of<PSTADE_CONST_FUN_TPL(Generator_)()>::type
+                typename boost::result_of<
+                    PSTADE_CONST_FUN_TPL(Generator_)()
+                >::type
             >
         result_type;
 

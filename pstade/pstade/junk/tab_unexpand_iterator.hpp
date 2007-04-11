@@ -1,5 +1,5 @@
-#ifndef PSTADE_OVEN_JOINT_ITERATOR_HPP
-#define PSTADE_OVEN_JOINT_ITERATOR_HPP
+#ifndef PSTADE_OVEN_TAB_UNEXPAND_ITERATOR_HPP
+#define PSTADE_OVEN_TAB_UNEXPAND_ITERATOR_HPP
 
 
 // PStade.Oven
@@ -17,9 +17,8 @@ namespace pstade { namespace oven {
 
 
 
-
-PSTADE_OBJECT_GENERATOR(make_joint_iterator,
-    (joint_iterator< deduce<_2, to_value>, deduce<_3, to_value> >) const)
+PSTADE_OBJECT_GENERATOR(make_tab_unexpand_iterator,
+    (tab_unexpand_iterator< deduce<_1, to_value> >) const)
 
 
 } } // namespace pstade::oven

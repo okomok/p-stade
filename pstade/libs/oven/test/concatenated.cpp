@@ -81,10 +81,6 @@ void test()
             expected
         ) );
     }
-    {
-        std::vector<std::string> rng;
-        oven::make_concatenate_iterator(boost::begin(rng), boost::end(rng));
-    }
 }
 
 
