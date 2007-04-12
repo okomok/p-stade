@@ -71,7 +71,7 @@ namespace scanned_detail {
         scan_iterator()
         { }
 
-        scan_iterator(Iterator const& it, State const& init, BinaryFun const& fun) :
+        scan_iterator(Iterator it, State init, BinaryFun fun) :
             super_t(it), m_state(init), m_fun(fun)
         { }
 
@@ -83,12 +83,12 @@ namespace scanned_detail {
             super_t(other.base()), m_state(other.state()), m_fun(other.function())
         { }
 
-        State const& state() const
+        State state() const
         {
             return m_state;
         }
 
-        BinaryFun const& function() const
+        BinaryFun function() const
         {
             return m_fun;
         }

@@ -39,7 +39,7 @@ namespace jointed_detail {
 
 
     template< class IteratorL, class IteratorR >
-    void increment(IteratorL& itL, IteratorR& itR, IteratorL const& lastL)
+    void increment(IteratorL& itL, IteratorR& itR, IteratorL lastL)
     {
         if (itL != lastL)
             ++itL;
@@ -49,22 +49,22 @@ namespace jointed_detail {
 
 
     template< class Difference, class IteratorL, class IteratorR >
-    void advance_(IteratorL& itL, IteratorR& itR, Difference const& diff, IteratorL const& lastL)
+    void advance_(IteratorL& itL, IteratorR& itR, Difference n, IteratorL lastL)
     {
-        BOOST_ASSERT(diff >= 0);
+        BOOST_ASSERT(n >= 0);
 
         if (itL != lastL) {
             Difference dL = lastL - itL;
-            if (diff > dL) {
+            if (n > dL) {
                 itL = lastL;
-                itR += diff - dL;
+                itR += n - dL;
             }
             else {
-                itL += diff;
+                itL += n;
             }
         }
         else {
-            itR += diff;
+            itR += n;
         }
     }
 
@@ -104,8 +104,8 @@ namespace jointed_detail {
         { }
 
         joint_iterator(
-            IteratorL const& itL, IteratorL const& lastL,
-            IteratorR const& firstR, IteratorR const& itR
+            IteratorL itL, IteratorL lastL,
+            IteratorR firstR, IteratorR itR
         ) :
             super_t(itL), m_lastL(lastL),
             m_firstR(firstR), m_itR(itR)
@@ -193,17 +193,17 @@ namespace jointed_detail {
             m_itR = itL.base();
         }
 
-        void advance(diff_t const& d)
+        void advance(diff_t n)
         {
             BOOST_ASSERT(invariant());
 
-            if (d >= 0) {
-                here::advance_(this->base_reference(), m_itR, d, m_lastL);
+            if (n >= 0) {
+                here::advance_(this->base_reference(), m_itR, n, m_lastL);
             }
             else {
                 reverse_iterator<IteratorR> ritL(m_itR), rlastL(m_firstR);
                 reverse_iterator<IteratorL> ritR(this->base());
-                here::advance_(ritL, ritR, -d, rlastL);
+                here::advance_(ritL, ritR, -n, rlastL);
                 this->base_reference() = ritR.base();
                 m_itR = ritL.base();
             }

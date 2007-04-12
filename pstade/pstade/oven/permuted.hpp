@@ -31,7 +31,7 @@ namespace permuted_detail {
 
     // This replaces 'boost::permutation_iterator' for
     // http://std.dkuug.dk/jtc1/sc22/wg21/docs/lwg-defects.html#198
-    // See also "./reversed.hpp"
+    // See also "./reverse_iterator.hpp".
 
 
     template< class ElementIter, class IndexIter >
@@ -65,7 +65,7 @@ namespace permuted_detail {
         permutation_iterator()
         { }
 
-        permutation_iterator(ElementIter const& e, IndexIter const& i) :
+        permutation_iterator(ElementIter e, IndexIter i) :
             super_t(i), m_elemIter(e)
         { }
 
@@ -104,9 +104,9 @@ namespace permuted_detail {
         }
 
         template< class Difference >
-        void advance(Difference const& d)
+        void advance(Difference n)
         {
-            this->base_reference() += d;
+            this->base_reference() += n;
             m_cache.reset();
         }
     };
@@ -126,14 +126,14 @@ namespace permuted_detail {
             iter_range<iter_t> const
         result_type;
 
-        result_type operator()(ElementRange& erng, IndexRange& irng) const
+        result_type operator()(ElementRange& es, IndexRange& is) const
         {
             PSTADE_CONCEPT_ASSERT((RandomAccess<ElementRange>));
             PSTADE_CONCEPT_ASSERT((SinglePass<IndexRange>));
 
             return result_type(
-                iter_t(boost::begin(erng), boost::begin(irng)),
-                iter_t(boost::begin(erng), boost::end(irng)) // never pass 'boost::end(erng)'.
+                iter_t(boost::begin(es), boost::begin(is)),
+                iter_t(boost::begin(es), boost::end(is)) // never pass 'boost::end(es)'.
             );
         }
     };

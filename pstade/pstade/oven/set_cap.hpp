@@ -24,8 +24,8 @@ namespace set_cap_detail {
     {
         template< class Iterator1, class Iterator2, class Compare >
         static void before_yield(
-            Iterator1& first1, Iterator1 const& last1,
-            Iterator2& first2, Iterator2 const& last2,
+            Iterator1& first1, Iterator1 last1,
+            Iterator2& first2, Iterator2 last2,
             Compare comp)
         {
             while (first1 != last1 && first2 != last2)  {
@@ -46,9 +46,9 @@ namespace set_cap_detail {
         
         template< class Reference, class Iterator1, class Iterator2, class Compare >
         static Reference yield(
-            Iterator1 const& first1, Iterator1 const& last1,
-            Iterator2 const& first2, Iterator2 const& last2,
-            Compare& comp)
+            Iterator1 first1, Iterator1 last1,
+            Iterator2 first2, Iterator2 last2,
+            Compare comp)
         {
             unused(last1, first2, last2, comp);
             return *first1;
@@ -56,9 +56,9 @@ namespace set_cap_detail {
 
         template< class Iterator1, class Iterator2, class Compare >
         static void after_yield(
-            Iterator1& first1, Iterator1 const& last1,
-            Iterator2& first2, Iterator2 const& last2,
-            Compare& comp)
+            Iterator1& first1, Iterator1 last1,
+            Iterator2& first2, Iterator2 last2,
+            Compare comp)
         {
             unused(last1, last2, comp);
             ++first1;

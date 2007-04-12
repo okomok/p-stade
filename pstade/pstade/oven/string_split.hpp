@@ -37,7 +37,7 @@ namespace string_split_detail {
         result_type;
 
         template< class FinderT >
-        result_type operator()(Range& rng, FinderT& f) const
+        result_type operator()(Range& rng, FinderT f) const
         {
             return result_type(iter_t(rng, f), iter_t());
         }

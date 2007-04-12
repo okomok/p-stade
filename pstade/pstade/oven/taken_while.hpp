@@ -10,6 +10,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// References:
+//
+// [1] Robert Ramey, head_iterator, Boost.Serialization
+// [2] John Torjo and Matthew Wilson, break_iterator, Iterable Range Library
+
+
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_categories.hpp>
@@ -64,7 +70,7 @@ namespace taken_while_detail {
         take_while_iterator()
         { }
 
-        take_while_iterator(Iterator const& it, Iterator const& last, Predicate const& pred) :
+        take_while_iterator(Iterator it, Iterator last, Predicate pred) :
             super_t(it), m_last(last), m_pred(pred)
         {
             check_predicate();
@@ -77,12 +83,12 @@ namespace taken_while_detail {
             super_t(other.base()), m_last(other.end()), m_pred(other.predicate())
         { }
 
-        Iterator const& end() const
+        Iterator end() const
         {
             return m_last;
         }
 
-        Predicate const& predicate() const
+        Predicate predicate() const
         {
             return m_pred;
         }

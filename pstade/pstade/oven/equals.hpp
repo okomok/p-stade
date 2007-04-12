@@ -40,8 +40,8 @@ namespace equals_detail {
     // Boost doesn't have this overload. Faster or slower?
     template< class Iterator1, class Iterator2, class BinaryPred >
     bool aux(
-        Iterator1 first1, Iterator1 const& last1,
-        Iterator2 first2, Iterator2 const& last2, BinaryPred& pred,
+        Iterator1 first1, Iterator1 last1,
+        Iterator2 first2, Iterator2 last2, BinaryPred pred,
         boost::random_access_traversal_tag)
     {
         if ((last1 - first1) != (last2 - first2))
@@ -53,8 +53,8 @@ namespace equals_detail {
 
     template< class Iterator1, class Iterator2, class BinaryPred >
     bool aux(
-        Iterator1 first1, Iterator1 const& last1,
-        Iterator2 first2, Iterator2 const& last2, BinaryPred& pred,
+        Iterator1 first1, Iterator1 last1,
+        Iterator2 first2, Iterator2 last2, BinaryPred pred,
         boost::single_pass_traversal_tag)
     {
         for (; first1 != last1 && first2 != last2; ++first1, ++first2) {

@@ -96,7 +96,7 @@ namespace transformed_detail {
         transform_iterator()
         { }
 
-        transform_iterator(Iterator const& it, UnaryFun const& fun) :
+        transform_iterator(Iterator it, UnaryFun fun) :
             super_t(it), m_fun(fun)
         { }
 
@@ -107,13 +107,13 @@ namespace transformed_detail {
             super_t(other.base()), m_fun(other.function())
         { }
 
-        UnaryFun const& function() const
+        UnaryFun function() const
         {
             return m_fun;
         }
 
         // boost compatible
-        UnaryFun const& functor() const
+        UnaryFun functor() const
         {
             return function();
         }

@@ -40,7 +40,7 @@ namespace rotated_detail {
         result_type;
 
         template< class MiddleFun >
-        result_type operator()(Range& rng, MiddleFun& fun) const
+        result_type operator()(Range& rng, MiddleFun fun) const
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
 

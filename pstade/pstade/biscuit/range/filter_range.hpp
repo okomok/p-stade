@@ -111,14 +111,14 @@ namespace filter_range_detail_ {
 
     template< class Parser, class ForwardRange, class UserState > inline
     filter_range<Parser, ForwardRange, UserState> const
-    operator|(ForwardRange& rng, pipe<Parser, UserState> const& pi)
+    operator|(ForwardRange& rng, pipe<Parser, UserState> pi)
     {
         return biscuit::make_filter_range<Parser>(rng, pi.m_us);
     }
 
         template< class Parser, class ForwardRange, class UserState > inline
         filter_range<Parser, PSTADE_DEDUCED_CONST(ForwardRange), UserState> const
-        operator|(ForwardRange const& rng, pipe<Parser, UserState> const& pi)
+        operator|(ForwardRange const& rng, pipe<Parser, UserState> pi)
         {
             return biscuit::make_filter_range<Parser>(rng, pi.m_us);
         }

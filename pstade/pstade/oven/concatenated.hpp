@@ -108,7 +108,7 @@ namespace concatenated_detail {
         concatenate_iterator()
         { }
 
-        concatenate_iterator(SegmentIter const& it, SegmentIter const& last) :
+        concatenate_iterator(SegmentIter it, SegmentIter last) :
             super_t(it), m_last(last)
         {
             PSTADE_CONSTRUCTOR_PRECONDITION (~
@@ -132,12 +132,12 @@ namespace concatenated_detail {
             )
         }
 
-        SegmentIter const& segment() const
+        SegmentIter segment() const
         {
             return this->base();
         }
 
-        local_iterator const& local() const
+        local_iterator local() const
         {
             return m_local;
         }

@@ -12,7 +12,6 @@
 
 #include <boost/range/iterator.hpp>
 #include <boost/range/result_iterator.hpp>
-#include <boost/type_traits/remove_volatile.hpp>
 #include "./detail/config.hpp" // PSTADE_OVEN_BOOST_RANGE_VERSION_1
 
 
@@ -22,9 +21,9 @@ namespace pstade { namespace oven {
 template< class Range >
 struct range_iterator :
 #if !defined(PSTADE_OVEN_BOOST_RANGE_VERSION_1)
-    boost::range_iterator<typename boost::remove_volatile<Range>::type>
+    boost::range_iterator<Range>
 #else
-    boost::range_result_iterator<typename boost::remove_volatile<Range>::type>
+    boost::range_result_iterator<Range>
 #endif
 { };
 

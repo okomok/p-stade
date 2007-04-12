@@ -113,13 +113,13 @@ Oven contains most of all the range-based STL algorithms [#]_ which were ported 
 ``at``
 ^^^^^^
 - Header: ``<pstade/oven/at.hpp>``
-- Valid expression: ``at(rndRng,d)`` and ``rndRng|at(d)``, where ``d`` is convertible to ``boost::range_difference`` of ``rndRng``.
+- Valid expression: ``at(rndRng,n)`` and ``rndRng|at(n)``, where ``n`` is convertible to ``boost::range_difference`` of ``rndRng``.
 - Precondition1: Destruction of an iterator doesn't invalidate references previously obtained from that iterator. [#]_
-- Predondition2: ``0 <= d && d < distance(rndRng)`` [#]_
-- Returns: ``*(boost::begin(rndRng)+d)``.
+- Predondition2: ``0 <= n && n < distance(rndRng)`` [#]_
+- Returns: ``*(boost::begin(rndRng)+n)``.
 
 .. [#] If this cannot be guaranteed, use ``value_at``. See also (24.1/9).
-.. [#] If you want exceptions to be thrown in release mode, use ``at(rndRng|checked,d)``.
+.. [#] If you want exceptions to be thrown in release mode, use ``at(rndRng|checked,n)``.
 
 
 
@@ -208,16 +208,16 @@ The upcoming `Boost.Range`_ will replace ``boost::size`` by ``boost::distance``.
 ``value_at``
 ^^^^^^^^^^^^
 - Header: ``<pstade/oven/at.hpp>``
-- Valid expression: ``at(rndRng,d)`` and ``rndRng|at(d)``, where ``d`` is convertible to ``boost::range_difference`` of ``rndRng``.
+- Valid expression: ``value_at(rndRng,n)`` and ``rndRng|value_at(n)``, where ``n`` is convertible to ``boost::range_difference`` of ``rndRng``.
 - Precondition1: ``boost::range_value`` of ``rndRng`` is ``CopyConstructible``.
-- Precondition2: ``0 <= d && d < distance(rndRng)``
-- Returns: ``V(*(boost::begin(rndRng)+d))``, where ``V`` is ``boost::range_value`` of ``rndRng``.
+- Precondition2: ``0 <= n && n < distance(rndRng)``
+- Returns: ``V(*(boost::begin(rndRng)+n))``, where ``V`` is ``boost::range_value`` of ``rndRng``.
 
 
 ``value_front/value_back``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 - Header: ``<pstade/oven/front_back.hpp>``
-- Valid expression: ``front(rng)`` and ``back(biRng)``.
+- Valid expression: ``value_front(rng)`` and ``value_back(biRng)``.
 - Precondition1: ``boost::range_value`` of ``rng`` is ``CopyConstructible``.
 - Predondition2: ``boost::empty(rng) == false``
 - Returns:  ``V(*boost::begin(rng))`` and ``V(*--boost::end(biRng))`` respectively, where ``V`` is ``boost::range_value`` of them.
@@ -1019,7 +1019,7 @@ You can find a more elaborate example at ``<pstade/oven/sorted.hpp>``.
 
 - Header: ``<pstade/oven/sliced.hpp>``
 - Valid expression: ``rndRng|sliced(start,stride)``
-- Precondition: ``d == 0 || d % stride == 0`` and ``0 <= start && start < stride``, where ``d = distance(rndRng);``, and the type of ``start`` and ``stride`` is convertible to ``boost::range_difference`` of ``rng``.
+- Precondition: ``n == 0 || n % stride == 0`` and ``0 <= start && start < stride``, where ``n = distance(rndRng);``, and the type of ``start`` and ``stride`` is convertible to ``boost::range_difference`` of ``rng``.
 
 .. [#] This name is different from `Range Library Proposal`_\'s, which is the role of `offset`_ or `window`_.
 
@@ -1369,7 +1369,7 @@ Version 0.91.4 - 0.91.9
 Version 0.92.0 - 0.92.3
 ^^^^^^^^^^^^^^^^^^^^^^^
 - Renamed ``counting_range`` to ``count_range``, and added a valid expression.
-- Removed the valid expression ``advanced(d)``.
+- Removed the valid expression ``advanced(n)``.
 - Renamed ``tie`` to ``pack``.
 - Added ``boost::result_of`` support to range-based algorithms.
 - Renamed `Extending Boost.Range`_ macros.

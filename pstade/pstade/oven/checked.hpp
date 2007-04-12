@@ -36,7 +36,7 @@ namespace pstade { namespace oven {
 struct singular_iterator_operation :
     std::logic_error
 {
-    explicit singular_iterator_operation(std::string const& msg) :
+    explicit singular_iterator_operation(std::string msg) :
         std::logic_error(msg)
     { }
 };
@@ -44,7 +44,7 @@ struct singular_iterator_operation :
 struct incompatible_iterators :
     std::logic_error
 {
-    explicit incompatible_iterators(std::string const& msg) :
+    explicit incompatible_iterators(std::string msg) :
         std::logic_error(msg)
     { }
 };
@@ -65,7 +65,7 @@ namespace checked_detail {
 
 
     template< class CheckIterator >
-    void check_singularity(CheckIterator const& it)
+    void check_singularity(CheckIterator it)
     {
         if (it.is_singular()) {
             singular_iterator_operation err("operation on default-constructed 'check_iterator'");
@@ -74,10 +74,10 @@ namespace checked_detail {
     }
 
 
-    template< class CheckIterator, class CheckIterator_ >
-    void check_compatibility(CheckIterator const& it, CheckIterator_ const& it_)
+    template< class CheckIterator1, class CheckIterator2 >
+    void check_compatibility(CheckIterator1 it1, CheckIterator2 it2)
     {
-        if (it.begin() != it_.begin() || it.end() != it_.end()) {
+        if (it1.begin() != it2.begin() || it1.end() != it2.end()) {
             incompatible_iterators err("incompatible iterators of 'check_iterator'");
             boost::throw_exception(err);
         }
@@ -114,7 +114,7 @@ namespace checked_detail {
             m_singular(true)
         { }
 
-        check_iterator(Iterator const& it, Iterator const& first, Iterator const& last) :
+        check_iterator(Iterator it, Iterator first, Iterator last) :
             super_t(it),
             m_first(first), m_last(last),
             m_singular(false)
@@ -131,13 +131,13 @@ namespace checked_detail {
             here::check_singularity(*this);
         }
 
-        Iterator const& begin() const
+        Iterator begin() const
         {
             here::check_singularity(*this);
             return m_first;
         }
 
-        Iterator const& end() const
+        Iterator end() const
         {
             here::check_singularity(*this);
             return m_last;
@@ -205,18 +205,18 @@ namespace checked_detail {
             --this->base_reference();
         }
 
-        void advance(diff_t const& d)
+        void advance(diff_t n)
         {
             here::check_singularity(*this);
 
             if (
-                ( d >= 0 &&  d > ( m_last - this->base()  ) ) ||
-                ( d <  0 && -d > ( this->base() - m_first ) )
+                ( n >= 0 &&  n > ( m_last - this->base()  ) ) ||
+                ( n <  0 && -n > ( this->base() - m_first ) )
             ) {
                 here::throw_out_of_range();
             }
 
-            this->base_reference() += d;
+            this->base_reference() += n;
         }
 
         template< class I >

@@ -27,6 +27,7 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/static_warning.hpp>
+#include <pstade/as.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/do_swap.hpp>
@@ -72,9 +73,9 @@ namespace merged_detail {
     {
         template< class Iterator1, class Iterator2, class Compare >
         static void before_yield(
-            Iterator1& first1, Iterator1 const& last1,
-            Iterator2& first2, Iterator2 const& last2,
-            Compare& comp)
+            Iterator1& first1, Iterator1 last1,
+            Iterator2& first2, Iterator2 last2,
+            Compare comp)
         {
             /* has no effect.
             while (first1 != last1 && first2 != last2) {
@@ -89,9 +90,9 @@ namespace merged_detail {
 
         template< class Reference, class Iterator1, class Iterator2, class Compare >
         static Reference yield(
-            Iterator1 const& first1, Iterator1 const& last1,
-            Iterator2 const& first2, Iterator2 const& last2,
-            Compare& comp)
+            Iterator1 first1, Iterator1 last1,
+            Iterator2 first2, Iterator2 last2,
+            Compare comp)
         {
             // copy-copy phase
             if (first1 == last1)
@@ -105,8 +106,8 @@ namespace merged_detail {
 
         template< class Iterator1, class Iterator2, class Compare >
         static void after_yield(
-            Iterator1& first1, Iterator1 const& last1,
-            Iterator2& first2, Iterator2 const& last2,
+            Iterator1& first1, Iterator1 last1,
+            Iterator2& first2, Iterator2 last2,
             Compare comp)
         {
             // copy-copy phase
@@ -184,9 +185,9 @@ namespace merged_detail {
         { }
 
         merge_iterator(
-            Iterator1 const& it1, Iterator1 const& last1,
-            Iterator2 const& it2, Iterator2 const& last2,
-            Compare const& comp = less
+            Iterator1 it1, Iterator1 last1,
+            Iterator2 it2, Iterator2 last2,
+            Compare comp = less
         ) :
             super_t(it1), m_last1(last1),
             m_it2(it2),   m_last2(last2),
@@ -201,7 +202,7 @@ namespace merged_detail {
             // BOOST_ASSERT(is_sorted(it2, last2, comp));
      
             MergeRoutine::before_yield(
-                this->base_reference(), m_last1, m_it2, m_last2, m_comp);
+                this->base_reference(), as_cref(m_last1), m_it2, as_cref(m_last2), as_cref(m_comp));
         }
 
     template< class, class, class, class > friend struct merge_iterator;
@@ -258,8 +259,8 @@ namespace merged_detail {
             Iterator1 first1(this->base()); // for exception safety
             Iterator2 first2(m_it2);        //
 
-            MergeRoutine::after_yield( first1, m_last1, first2, m_last2, m_comp);
-            MergeRoutine::before_yield(first1, m_last1, first2, m_last2, m_comp);
+            MergeRoutine::after_yield( first1, as_cref(m_last1), first2, as_cref(m_last2), as_cref(m_comp));
+            MergeRoutine::before_yield(first1, as_cref(m_last1), first2, as_cref(m_last2), as_cref(m_comp));
 
             do_swap(first1, this->base_reference());
             do_swap(first2, m_it2);

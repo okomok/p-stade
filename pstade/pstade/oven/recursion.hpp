@@ -27,7 +27,7 @@
 #include <pstade/enable_if.hpp>
 #include <pstade/function.hpp>
 #include <pstade/is_convertible.hpp>
-#include "./advance.hpp"
+#include "./advance_from.hpp"
 #include "./concepts.hpp"
 #include "./detail/minimum_pure.hpp"
 #include "./iter_range.hpp"
@@ -94,7 +94,7 @@ namespace recursion_detail {
             m_prng(other.m_prng), m_is_from_end(other.m_is_from_end), m_saved_diff(other.m_saved_diff), m_obase(other.m_obase)
         { }
 
-        base_type const& base() const
+        base_type base() const
         {
             init_base();
             return *m_obase;
@@ -117,7 +117,7 @@ namespace recursion_detail {
                 return;
 
             m_obase = !m_is_from_end ? boost::begin(*m_prng) : boost::end(*m_prng);
-            m_obase = advance(*m_obase, m_saved_diff);
+            m_obase = advance_from(*m_obase, m_saved_diff);
         }
 
         template< class Other >

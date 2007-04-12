@@ -86,13 +86,13 @@ struct good_sig_return_op :
     explicit good_sig_return_op()
     { }
 
-    explicit good_sig_return_op(SigFun const& fun) :
+    explicit good_sig_return_op(SigFun fun) :
         m_fun(fun)
     { }
 
     typedef SigFun base_type;
 
-    SigFun const& base() const
+    SigFun base() const
     {
         return m_fun;
     }

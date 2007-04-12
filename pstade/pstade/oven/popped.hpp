@@ -39,7 +39,7 @@ namespace popped_detail {
 
 
     template< class ForwardIter > inline
-    ForwardIter range_prior_aux(ForwardIter first, ForwardIter const& last,
+    ForwardIter prior_of_end_aux(ForwardIter first, ForwardIter last,
         boost::bidirectional_traversal_tag)
     {
         unused(first);
@@ -47,7 +47,7 @@ namespace popped_detail {
     }
 
     template< class ForwardIter >
-    ForwardIter range_prior_aux(ForwardIter first, ForwardIter const& last,
+    ForwardIter prior_of_end_aux(ForwardIter first, ForwardIter last,
         boost::forward_traversal_tag)
     {
         ForwardIter prev(first);
@@ -59,9 +59,9 @@ namespace popped_detail {
 
 
     template< class ForwardIter > inline
-    ForwardIter range_prior(ForwardIter const& first, ForwardIter const& last)
+    ForwardIter prior_of_end(ForwardIter first, ForwardIter last)
     {
-        return here::range_prior_aux(first, last,
+        return here::prior_of_end_aux(first, last,
             typename boost::iterator_traversal<ForwardIter>::type());
     }
 
@@ -80,7 +80,7 @@ namespace popped_detail {
 
             return result_type(
                 boost::begin(rng),
-                here::range_prior(boost::begin(rng), boost::end(rng))
+                here::prior_of_end(boost::begin(rng), boost::end(rng))
             );
         }
     };

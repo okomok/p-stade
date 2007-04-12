@@ -75,13 +75,13 @@ namespace range_based1_detail {
         explicit return_op()
         { }
 
-        explicit return_op(IterBased const& fun) :
+        explicit return_op(IterBased fun) :
             m_fun(fun)
         { }
 
         typedef IterBased base_type;
 
-        IterBased const& base() const
+        IterBased base() const
         {
             return m_fun;
         }

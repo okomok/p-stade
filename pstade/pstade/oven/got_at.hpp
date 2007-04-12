@@ -102,14 +102,14 @@ namespace got_at_detail_ {
 
     template< class FusionSeqRange, class N > inline
     typename boost::result_of<op_make_got_at<N>(FusionSeqRange&)>::type
-    operator|(FusionSeqRange& rng, got_at<N> const&)
+    operator|(FusionSeqRange& rng, got_at<N>)
     {
         return op_make_got_at<N>()(rng);
     }
 
     template< class FusionSeqRange, class N > inline
     typename boost::result_of<op_make_got_at<N>(PSTADE_DEDUCED_CONST(FusionSeqRange)&)>::type
-    operator|(FusionSeqRange const& rng, got_at<N> const&)
+    operator|(FusionSeqRange const& rng, got_at<N>)
     {
         return op_make_got_at<N>()(rng);
     }

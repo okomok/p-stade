@@ -32,7 +32,7 @@ namespace sliced_detail {
 
 
     template< class Range, class Difference > inline
-    bool is_sliceable_with(Range& rng, Difference const& stride)
+    bool is_sliceable_with(Range& rng, Difference stride)
     {
         Difference d = distance(rng);
         return d == 0 || d % stride == 0;
@@ -44,7 +44,7 @@ namespace sliced_detail {
     {
         typedef I result_type;
 
-        I operator()(I const& i) const
+        I operator()(I i) const
         {
             return m_start + (i * m_stride);
         }
@@ -52,7 +52,7 @@ namespace sliced_detail {
         to_index()
         { }
 
-        to_index(I const& start, I const& stride) :
+        to_index(I start, I stride) :
             m_start(start), m_stride(stride)
         { }
 
@@ -82,7 +82,7 @@ namespace sliced_detail {
             >::type
         result_type;
 
-        result_type operator()(Range& rng, diff_t const& start, diff_t const& stride) const
+        result_type operator()(Range& rng, diff_t start, diff_t stride) const
         {
             PSTADE_CONCEPT_ASSERT((RandomAccess<Range>));
             BOOST_ASSERT(here::is_sliceable_with(rng, stride));

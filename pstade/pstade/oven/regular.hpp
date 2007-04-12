@@ -95,6 +95,7 @@ namespace regular_detail {
 
         typedef Function base_type;
 
+        // 'Function' may be NonCopyable.
         Function& base() const
         {
             return *m_pfun;

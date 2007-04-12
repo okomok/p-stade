@@ -43,7 +43,7 @@ namespace dropped_while_detail {
         result_type;
 
         template< class Predicate >
-        result_type operator()(Range& rng, Predicate& pred) const
+        result_type operator()(Range& rng, Predicate pred) const
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
             return result_type(

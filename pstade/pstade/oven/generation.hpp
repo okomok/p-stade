@@ -17,7 +17,6 @@
 #include <boost/optional.hpp>
 #include <boost/type_traits/add_reference.hpp>
 #include <boost/utility/result_of.hpp>
-#include <pstade/const_fun.hpp>
 #include <pstade/function.hpp>
 #include <pstade/object_generator.hpp>
 #include <pstade/pass_by.hpp>
@@ -90,19 +89,24 @@ namespace generation_detail {
         // But SinglePassIterator is not required to be.
         // So, specify it by using 'op_begin/op_end'.
 
-        generator_iterator(Generator const& gen, op_begin) :
+        generator_iterator(Generator gen, op_begin) :
             m_gen(gen), m_result()
         {
             generate();
         }
 
-        generator_iterator(Generator const& gen, op_end) :
+        generator_iterator(Generator gen, op_end) :
             m_gen(gen), m_result()
         { }
 
         bool is_end() const
         {
             return !m_result;
+        }
+
+        Generator generator() const
+        {
+            return m_gen;
         }
 
     private:
@@ -169,9 +173,7 @@ namespace innumerable_detail {
     {
         typedef
             boost::optional<
-                typename boost::result_of<
-                    PSTADE_CONST_FUN_TPL(Generator_)()
-                >::type
+                typename boost::result_of<Generator_()>::type
             >
         result_type;
 
@@ -180,7 +182,7 @@ namespace innumerable_detail {
             return result_type(m_gen());
         }
 
-        explicit return_op(Generator_ const& gen) :
+        explicit return_op(Generator_ gen) :
             m_gen(gen)
         { }
 

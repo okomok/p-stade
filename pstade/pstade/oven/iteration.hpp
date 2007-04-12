@@ -49,7 +49,7 @@ namespace iteration_detail {
             return m_state;
         }
 
-        op_iterate(State const& init, UnaryFun const& fun) :
+        op_iterate(State init, UnaryFun fun) :
             m_state(init), m_fun(fun), m_beginning(true)
         { }
 

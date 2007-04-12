@@ -24,8 +24,8 @@ namespace set_cup_detail {
     {
         template< class Iterator1, class Iterator2, class Compare >
         static void after_yield(
-            Iterator1& first1, Iterator1 const& last1,
-            Iterator2& first2, Iterator2 const& last2,
+            Iterator1& first1, Iterator1 last1,
+            Iterator2& first2, Iterator2 last2,
             Compare comp)
         {
             // copy-copy phase

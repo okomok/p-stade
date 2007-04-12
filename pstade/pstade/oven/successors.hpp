@@ -44,13 +44,13 @@ namespace successors_detail {
     template< class Iterator, class Traversal = typename detail::pure_traversal<Iterator>::type >
     struct assert_not_old_return_op
     {
-        Iterator operator()(Iterator const& now) const
+        Iterator operator()(Iterator now) const
         {
             BOOST_ASSERT("iterator must be advanced." && m_old != now);
             return now;
         }
 
-        explicit assert_not_old_return_op(Iterator const& old) :
+        explicit assert_not_old_return_op(Iterator old) :
             m_old(old)
         { }
 
@@ -62,19 +62,19 @@ namespace successors_detail {
     struct assert_not_old_return_op<Iterator, boost::single_pass_traversal_tag> :
         op_identity
     {
-        explicit assert_not_old_return_op(Iterator const&)
+        explicit assert_not_old_return_op(Iterator)
         { }
     };
 
 #if !defined(NDEBUG)
     template< class Iterator > inline
-    assert_not_old_return_op<Iterator> assert_not_old(Iterator const& old)
+    assert_not_old_return_op<Iterator> assert_not_old(Iterator old)
     {
         return assert_not_old_return_op<Iterator>(old);
     }
 #else
     template< class Iterator> inline
-    op_identity const& assert_not_old(Iterator const&)
+    op_identity const& assert_not_old(Iterator)
     {
         return identity;
     }
@@ -121,29 +121,29 @@ namespace successors_detail {
         succeed_iterator()
         { }
 
-        succeed_iterator(Iterator const& it, BinaryFun const& elector, Iterator const& last) :
-            super_t(it), m_elector(elector), m_last(last)
+        succeed_iterator(Iterator it, BinaryFun elect, Iterator last) :
+            super_t(it), m_elect(elect), m_last(last)
         { }
 
         template< class F >
         succeed_iterator(succeed_iterator<F, BinaryFun> const& other,
             typename boost::enable_if_convertible<F, Iterator>::type * = 0
         ) :
-            super_t(other.base()), m_elector(other.elector()), m_last(other.end())
+            super_t(other.base()), m_elect(other.elect()), m_last(other.end())
         { }
 
-        BinaryFun const& elector() const
+        BinaryFun elect() const
         {
-            return m_elector;
+            return m_elect;
         }
 
-        Iterator const& end() const
+        Iterator end() const
         {
             return m_last;
         }
 
     private:
-        BinaryFun m_elector;
+        BinaryFun m_elect;
         Iterator m_last;
 
         template< class Other >
@@ -175,7 +175,7 @@ namespace successors_detail {
         {
             BOOST_ASSERT(!is_end());
             this->base_reference() = here::assert_not_old(this->base())(
-                m_elector(this->base(), as_cref(m_last))
+                m_elect(this->base(), as_cref(m_last))
             );
         }
     };
@@ -195,13 +195,13 @@ namespace successors_detail {
             iter_range<iter_t> const
         result_type;
 
-        result_type operator()(Range& rng, BinaryFun& elector) const
+        result_type operator()(Range& rng, BinaryFun& elect) const
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
 
             return result_type(
-               iter_t(boost::begin(rng), elector, boost::end(rng)),
-               iter_t(boost::end(rng),   elector, boost::end(rng))
+               iter_t(boost::begin(rng), elect, boost::end(rng)),
+               iter_t(boost::end(rng),   elect, boost::end(rng))
             );
         }
     };

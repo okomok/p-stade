@@ -14,7 +14,7 @@
 #include <boost/range/begin.hpp>
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
-#include "./advance.hpp"
+#include "./advance_from.hpp"
 #include "./concepts.hpp"
 #include "./distance.hpp"
 #include "./iter_range.hpp"
@@ -44,7 +44,7 @@ namespace window_detail {
             iter_range<iter_t> const
         result_type;
 
-        result_type operator()(Range& rng, diff_t const& n, diff_t const& m) const
+        result_type operator()(Range& rng, diff_t n, diff_t m) const
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
             BOOST_ASSERT(n <= m);
@@ -53,8 +53,8 @@ namespace window_detail {
             // A "bigger" window is allowed.
             // 'n < 0' or 'distance(rng) < m' is ok.
 
-            iter_t first = advance(boost::begin(rng), n);
-            return result_type(first, advance(first, m - n));
+            iter_t first = advance_from(boost::begin(rng), n);
+            return result_type(first, advance_from(first, m - n));
         }
     };
 

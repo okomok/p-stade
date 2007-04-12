@@ -16,6 +16,7 @@
 #include <boost/type_traits/is_pod.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/utility/result_of.hpp>
+#include <pstade/unused.hpp>
 
 
 struct op_foo :
@@ -177,6 +178,36 @@ struct error_msg_check :
 };
 
 
+struct my_identity :
+    pstade::callable<my_identity>
+{
+    template< class Myself, class A0 >
+    struct apply
+    {
+        typedef A0& type;
+    };
+
+    template< class Result, class A0 >
+    Result call(A0& a0) const
+    {
+        return a0;
+    }
+};
+
+struct A { A() { } A(A const volatile&) { } };
+
+A volatile get_volatile()
+{
+    A volatile a;
+    return a;
+}
+
+A const volatile get_cv()
+{
+    A const volatile a;
+    return a;
+}
+
 
 void test()
 {
@@ -222,6 +253,27 @@ void test()
 #if 0
     {
         error_msg_check()();
+    }
+#endif
+
+    {
+        int volatile x = 0;
+        int volatile &x_ = ::my_identity()(x);
+        pstade::unused(x, x_);
+    }
+    {
+        int const volatile x = 0;
+        int const volatile &x_ = ::my_identity()(x);
+        pstade::unused(x, x_);
+    }
+#if !defined(__GNUC__)
+    {
+        ::A const volatile &x_ = ::my_identity()(::get_volatile());
+        pstade::unused(x_);
+    }
+    {
+        ::A const volatile &x_ = ::my_identity()(::get_cv());
+        pstade::unused(x_);
     }
 #endif
 }

@@ -140,7 +140,7 @@ namespace as_shared_single_detail_ {
 
     template< class Ptr > inline
     typename boost::result_of<op(Ptr&)>::type
-    operator|(Ptr p, op const& fun)
+    operator|(Ptr p, op fun)
     {
         return fun(p);
     }

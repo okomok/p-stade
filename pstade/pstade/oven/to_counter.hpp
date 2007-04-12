@@ -27,7 +27,7 @@ namespace to_counter_detail  {
     {
         typedef void result_type;
 
-        explicit op_inc(Incrementable const& i) :
+        explicit op_inc(Incrementable i) :
             m_i(i)
         { }
 
@@ -37,13 +37,13 @@ namespace to_counter_detail  {
             ++m_i;
         }
 
-        Incrementable const& incrementable() const
+        Incrementable incrementable() const
         {
             return m_i;
         }
 
         // as "adaptor"; 'oven::adapted_to' kicks in!
-        Incrementable const& base() const
+        Incrementable base() const
         {
             return m_i;
         }

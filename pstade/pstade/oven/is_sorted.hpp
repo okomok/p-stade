@@ -34,7 +34,7 @@ namespace is_sorted_detail {
 
 
     template< class ForwardIter, class Compare >
-    bool aux(ForwardIter first, ForwardIter const& last, Compare& comp)
+    bool aux(ForwardIter first, ForwardIter last, Compare comp)
     {
         if (first == last)
             return true;

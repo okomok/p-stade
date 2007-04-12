@@ -36,19 +36,19 @@ namespace taken_detail {
         template< class T >
         bool operator()(T const&)
         {
-            return m_d--
+            return m_n--
                 != 0; // suppress a VC++ warning.
         }
 
         explicit count_down()
         { }
 
-        explicit count_down(Difference const& d) :
-            m_d(d)
+        explicit count_down(Difference n) :
+            m_n(n)
         { }
 
     private:
-        Difference m_d;
+        Difference m_n;
     };
 
 
@@ -65,12 +65,12 @@ namespace taken_detail {
             >::type
         result_type;
 
-        result_type operator()(Range& rng, diff_t const& d) const
+        result_type operator()(Range& rng, diff_t n) const
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-            BOOST_ASSERT(0 <= d);
+            BOOST_ASSERT(0 <= n);
 
-            return make_taken_while(rng, count_down<diff_t>(d));
+            return make_taken_while(rng, count_down<diff_t>(n));
         }
     };
 

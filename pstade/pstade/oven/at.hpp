@@ -37,12 +37,12 @@ namespace at_detail {
         { };
 
         template< class Result, class Range >
-        Result call(Range& rng, typename range_difference<Range>::type const& d) const
+        Result call(Range& rng, typename range_difference<Range>::type n) const
         {
             PSTADE_CONCEPT_ASSERT((RandomAccess<Range>));
-            BOOST_ASSERT(0 <= d && d < distance(rng));
+            BOOST_ASSERT(0 <= n && n < distance(rng));
 
-            return *(boost::begin(rng) + d);
+            return *(boost::begin(rng) + n);
         }
     };
 

@@ -64,7 +64,7 @@ namespace const_lvalues_detail {
         explicit const_lvalue_iterator()
         { }
 
-        explicit const_lvalue_iterator(Iterator const& it) :
+        explicit const_lvalue_iterator(Iterator it) :
             super_t(it)
         { }
 
@@ -100,9 +100,9 @@ namespace const_lvalues_detail {
         }
 
         template< class Difference >
-        void advance(Difference const& d)
+        void advance(Difference n)
         {
-            this->base_reference() += d;
+            this->base_reference() += n;
             m_value.reset();
         }
     };

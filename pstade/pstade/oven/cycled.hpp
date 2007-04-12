@@ -103,8 +103,8 @@ namespace cycled_detail {
         { }
 
         cycle_iterator(
-            ForwardIter const& it, Incrementable const& count,
-            ForwardIter const& first, ForwardIter const& last
+            ForwardIter it, Incrementable count,
+            ForwardIter first, ForwardIter last
         ) :
             super_t(it), m_count(count),
             m_first(first), m_last(last)
@@ -186,12 +186,12 @@ namespace cycled_detail {
             }
         }
 
-        void advance(diff_t const& d)
+        void advance(diff_t n)
         {
             BOOST_ASSERT(invariant());
 
             std::pair<diff_t, diff_t> const q_r =
-                here::positive_rem_div((this->base() - m_first) + d, m_last - m_first);
+                here::positive_rem_div((this->base() - m_first) + n, m_last - m_first);
             BOOST_ASSERT(0 <= q_r.second);
             BOOST_ASSERT(q_r.second < m_last - m_first);
 

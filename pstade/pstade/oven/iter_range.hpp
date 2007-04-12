@@ -93,7 +93,7 @@ public:
     { }
 
     template< class Iterator_ >
-    iter_range(Iterator_ const& first, Iterator_ const& last) :
+    iter_range(Iterator_ first, Iterator_ last) :
         m_first(first), m_last(last)
     { }
 
@@ -142,12 +142,12 @@ public:
     typedef Iterator const_iterator;
     typedef std::size_t size_type;
 
-    Iterator const& begin() const
+    Iterator begin() const
     {
         return m_first;
     }
 
-    Iterator const& end() const
+    Iterator end() const
     {
         return m_last;
     }

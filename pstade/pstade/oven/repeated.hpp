@@ -35,9 +35,9 @@ struct op_make_repeated :
     { };
 
     template< class Result, class Value, class Incrementable >
-    Result call(Value& v, Incrementable& n) const
+    Result call(Value& v, Incrementable& i) const
     {
-        return make_cycled(as_single(v), 0, n);
+        return make_cycled(as_single(v), 0, i);
     }
 
     template< class Myself, class Value >

@@ -38,7 +38,7 @@ namespace is_heap_detail {
 
 
     template< class RandomAccessIter, class Compare >
-    bool aux(RandomAccessIter first, RandomAccessIter last, Compare& comp)
+    bool aux(RandomAccessIter first, RandomAccessIter last, Compare comp)
     {
         typedef typename boost::iterator_difference<RandomAccessIter>::type diff_t;
 

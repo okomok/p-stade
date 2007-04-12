@@ -98,14 +98,14 @@ namespace pstade {
             explicit pipe()
             { }
 
-            explicit pipe(Function const& fun, Arguments const& args = Arguments()) :
+            explicit pipe(Function fun, Arguments const& args = Arguments()) :
                 m_fun(fun), m_args(args)
             { }
 
             typedef Function base_type;
             typedef Arguments arguments_type;
 
-            Function const& base() const
+            Function base() const
             {
                 return m_fun;
             }

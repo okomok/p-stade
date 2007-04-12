@@ -79,14 +79,14 @@ namespace unzipped_at_detail_ {
 
     template< class TupleRange, class N > inline
     typename boost::result_of<op_make_unzipped_at<N>(TupleRange&)>::type
-    operator|(TupleRange& rng, unzipped_at<N> const&)
+    operator|(TupleRange& rng, unzipped_at<N>)
     {
         return op_make_unzipped_at<N>()(rng);
     }
 
     template< class TupleRange, class N > inline
     typename boost::result_of<op_make_unzipped_at<N>(PSTADE_DEDUCED_CONST(TupleRange)&)>::type
-    operator|(TupleRange const& rng, unzipped_at<N> const&)
+    operator|(TupleRange const& rng, unzipped_at<N>)
     {
         return op_make_unzipped_at<N>()(rng);
     }
@@ -153,7 +153,7 @@ namespace unzipped_detail {
 
         template< class N >
         typename apply<N>::type
-        operator()(N const&) const
+        operator()(N) const
         {
             return op_make_unzipped_at<N>()(m_rng);
         }

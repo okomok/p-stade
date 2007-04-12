@@ -83,11 +83,11 @@ namespace pstade {
             explicit return_op()
             { }
 
-            explicit return_op(Function const& fun) :
+            explicit return_op(Function fun) :
                 m_fun(fun)
             { }
 
-            Function const& base() const
+            Function base() const
             {
                 return m_fun;
             }

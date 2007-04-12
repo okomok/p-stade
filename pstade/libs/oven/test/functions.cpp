@@ -48,6 +48,12 @@ void test()
         BOOST_CHECK( distance(src1|identities(in_single_pass)) == 5 );
     }
     {
+        BOOST_CHECK( (src1|distance) == 5 );
+        BOOST_CHECK( (src1|identities(in_single_pass)|distance) == 5 );
+        BOOST_CHECK( (src1|distance()) == 5 );
+        BOOST_CHECK( (src1|identities(in_single_pass)|distance()) == 5 );
+    }
+    {
         int const rng[] = { 5,6,7,8,9,10,11,13,16 };
         int const rng_[]= { 0,3,7,1,3,6,1,3,3,6,1 };
         BOOST_CHECK( is_sorted(rng) );

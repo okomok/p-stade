@@ -10,18 +10,14 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Question:
-//
-// Requires ForwardRange?
-
-
 #include <iterator> // distance
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/adl_barrier.hpp>
-#include <pstade/function.hpp>
+#include <pstade/auxiliary.hpp>
+#include <pstade/callable.hpp>
 #include "./concepts.hpp"
 #include "./range_difference.hpp"
 #include "./range_traversal.hpp"
@@ -36,48 +32,47 @@ namespace distance_detail {
     namespace here = distance_detail;
 
 
-    // Note:
-    // It is possible for an iterator to be marked as RandomAccessTraversal
-    // but to model InputIterator, which may trigger a slower 'std::distance',
-    // because STL doesn't know the traversal concept yet. So hook it!
+    // STL regards a non-lvalue RandomAccess as InputIterator, hence hook it before.
     template< class Result, class Iterator > inline
-    Result aux(Iterator const& first, Iterator const& last, boost::random_access_traversal_tag)
+    Result aux(Iterator first, Iterator last, boost::random_access_traversal_tag)
     {
         return last - first;
     }
 
     template< class Result, class Iterator > inline
-    Result aux(Iterator const& first, Iterator const& last, boost::single_pass_traversal_tag)
+    Result aux(Iterator first, Iterator last, boost::single_pass_traversal_tag)
     {
         return std::distance(first, last);
     }
 
 
-    // Topic:
     // This is 'std::distance' requirement. (24.1/6)
     template< class Difference > inline
-    Difference const& assert_reachable(Difference const& d)
+    Difference assert_reachable(Difference n)
     {
-        BOOST_ASSERT(0 <= d);
-        return d;
+        BOOST_ASSERT(0 <= n);
+        return n;
     }
 
 
-    template< class Range >
-    struct baby
+    struct op :
+        callable<op>
     {
-        typedef typename
-            range_difference<Range>::type
-        result_type;
+        template< class Myself, class Range >
+        struct apply :
+            range_difference<Range>
+        { };
 
-        result_type operator()(Range& rng) const
+        template< class Result, class Range >
+        Result call(Range& rng) const
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
 
-            return here::assert_reachable( here::aux<result_type>(
+            return here::assert_reachable( here::aux<Result>(
                 boost::begin(rng), boost::end(rng), typename range_traversal<Range>::type()
             ) );
         }
+
     };
 
 
@@ -85,7 +80,7 @@ namespace distance_detail {
 
 
 PSTADE_ADL_BARRIER(distance) { // for 'boost' and 'std'
-    PSTADE_FUNCTION(distance, (distance_detail::baby<_>))
+    PSTADE_AUXILIARY(0, distance, (distance_detail::op))
 }
 
 

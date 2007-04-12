@@ -56,7 +56,7 @@ namespace pstade {
             fused_return_op()
             { }
 
-            fused_return_op(F const& f, G const& g) :
+            fused_return_op(F f, G g) :
                 m_f(f), m_g(g)
             { }
 

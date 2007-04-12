@@ -40,7 +40,7 @@ namespace sorted_detail {
     template< class Compare >
     struct op_sort
     {
-        explicit op_sort(Compare const& comp) :
+        explicit op_sort(Compare comp) :
             m_comp(comp)
         { }
 

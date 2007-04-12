@@ -22,7 +22,7 @@
 #include <boost/range/end.hpp>
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
-#include "./advance.hpp"
+#include "./advance_from.hpp"
 #include "./concepts.hpp"
 #include "./distance.hpp"
 #include "./iter_range.hpp"
@@ -47,16 +47,16 @@ namespace offset_detail {
             iter_range_of<Range>::type const
         result_type;
 
-        result_type operator()(Range& rng, diff_t const& dfirst, diff_t const& dlast) const
+        result_type operator()(Range& rng, diff_t n1, diff_t n2) const
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
-            BOOST_ASSERT(is_random_access(rng) ? dfirst <= distance(rng) + dlast : true);
-            BOOST_ASSERT(dfirst < 0 ? is_bidirectional(rng) : true);
-            BOOST_ASSERT(dlast  < 0 ? is_bidirectional(rng) : true);
+            BOOST_ASSERT(is_random_access(rng) ? n1 <= distance(rng) + n2 : true);
+            BOOST_ASSERT(n1 < 0 ? is_bidirectional(rng) : true);
+            BOOST_ASSERT(n2 < 0 ? is_bidirectional(rng) : true);
 
             return result_type(
-                advance(boost::begin(rng), dfirst),
-                advance(boost::end(rng), dlast)
+                advance_from(boost::begin(rng), n1),
+                advance_from(boost::end(rng),   n2)
             );
         }
     };

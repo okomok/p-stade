@@ -61,7 +61,7 @@ public:
     explicit reverse_iterator()
     { }
 
-    explicit reverse_iterator(BidiIter const& it) :
+    explicit reverse_iterator(BidiIter it) :
         super_t(it)
     { }
 
@@ -96,9 +96,9 @@ friend class boost::iterator_core_access;
         m_cache.reset();
     }
 
-    void advance(diff_t const& d)
+    void advance(diff_t n)
     {
-        this->base_reference() += -d;
+        this->base_reference() += -n;
         m_cache.reset();
     }
 

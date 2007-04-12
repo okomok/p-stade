@@ -66,7 +66,7 @@ namespace parallel_detail {
         }
 
         template< class Range >
-        op_for_each(Range& rng, UnaryFun const& fun, Difference grain) :
+        op_for_each(Range& rng, UnaryFun fun, Difference grain) :
             m_rng(rng), m_fun(fun), m_grain(grain)
         { }
 

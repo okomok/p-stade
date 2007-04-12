@@ -71,24 +71,24 @@ namespace broken_into_detail_ {
     struct pipe :
         private nonassignable
     {
-        explicit pipe(TokenizerFun const& fun) :
+        explicit pipe(TokenizerFun fun) :
             m_fun(fun)
         { }
 
-        TokenizerFun const& m_fun;
+        TokenizerFun m_fun;
     };
 
 
     template< class Range, class TokenizerFun, class Type > inline
-    typename boost::result_of<op_make_broken_into<Type>(Range&, TokenizerFun const&)>::type
-    operator|(Range& rng, pipe<Type, TokenizerFun> const& pi)
+    typename boost::result_of<op_make_broken_into<Type>(Range&, TokenizerFun&)>::type
+    operator|(Range& rng, pipe<Type, TokenizerFun> pi)
     {
         return op_make_broken_into<Type>()(rng, pi.m_fun);
     }
 
     template< class Range, class TokenizerFun, class Type > inline
-    typename boost::result_of<op_make_broken_into<Type>(PSTADE_DEDUCED_CONST(Range)&, TokenizerFun const&)>::type
-    operator|(Range const& rng, pipe<Type, TokenizerFun> const& pi)
+    typename boost::result_of<op_make_broken_into<Type>(PSTADE_DEDUCED_CONST(Range)&, TokenizerFun&)>::type
+    operator|(Range const& rng, pipe<Type, TokenizerFun> pi)
     {
         return op_make_broken_into<Type>()(rng, pi.m_fun);
     }
@@ -99,7 +99,7 @@ namespace broken_into_detail_ {
 
 template< class Type, class TokenizerFun > inline
 broken_into_detail_::pipe<Type, TokenizerFun> const
-broken_into(TokenizerFun const& fun)
+broken_into(TokenizerFun fun)
 {
     return broken_into_detail_::pipe<Type, TokenizerFun>(fun);
 }

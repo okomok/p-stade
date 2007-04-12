@@ -63,21 +63,21 @@ namespace memoized_detail {
     public:
         typedef typename table_t::size_type index_type;
 
-        explicit memo(Iterator const& it) :
+        explicit memo(Iterator it) :
             m_base(it)
         { }
 
-        bool is_in_table(index_type const& i) const
+        bool is_in_table(index_type i) const
         {
             return i != m_table.size();
         }
 
-        value_t const& table(index_type const& i) const
+        value_t const& table(index_type i) const
         {
             return m_table[i];
         }
 
-        Iterator const& base() const
+        Iterator base() const
         {
             return m_base;
         }
@@ -162,7 +162,7 @@ namespace memoized_detail {
     // as adaptor
         typedef Iterator base_type;
 
-        Iterator const& base() const
+        Iterator base() const
         {
             return m_pmemo->base();
         }

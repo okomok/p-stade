@@ -36,23 +36,19 @@ namespace steps_detail {
     struct step
     {
         template< class Iterator >
-        Iterator operator()(Iterator const& first, Iterator const& last) const
+        Iterator operator()(Iterator first, Iterator last) const
         {
-            return aux(first, last,
-                typename boost::iterator_traversal<Iterator>::type()
-            );
+            return aux(first, last, typename boost::iterator_traversal<Iterator>::type());
         }
 
         template< class Iterator >
-        Iterator aux(Iterator first, Iterator const& last,
-            boost::random_access_traversal_tag) const
+        Iterator aux(Iterator first, Iterator last, boost::random_access_traversal_tag) const
         {
             return first + (std::min)(last - first, m_stride);
         }
 
         template< class Iterator >
-        Iterator aux(Iterator first, Iterator const& last,
-            boost::single_pass_traversal_tag) const
+        Iterator aux(Iterator first, Iterator last, boost::single_pass_traversal_tag) const
         {
             Difference d = m_stride;
             do {
@@ -66,7 +62,7 @@ namespace steps_detail {
         explicit step()
         { }
 
-        explicit step(Difference const& stride) :
+        explicit step(Difference stride) :
             m_stride(stride)
         { }
 
@@ -88,7 +84,7 @@ namespace steps_detail {
             >::type
         result_type;
 
-        result_type operator()(Range& rng, diff_t const& stride) const
+        result_type operator()(Range& rng, diff_t stride) const
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
             BOOST_ASSERT(1 <= stride);

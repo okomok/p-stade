@@ -128,14 +128,14 @@ namespace any_iterator_detail {
         typedef placeholder<Reference, Traversal, Difference> placeholder_t;
 
     public:
-        explicit holder(Iterator const& held) :
+        explicit holder(Iterator held) :
             m_held(held)
         {
             // VC7.1 complains if this is at class scope.
             BOOST_STATIC_WARNING((is_returnable<typename boost::iterator_reference<Iterator>::type, Reference>::value)); 
         }
 
-        Iterator const& held() const
+        Iterator held() const
         {
             return m_held;
         }
@@ -171,9 +171,9 @@ namespace any_iterator_detail {
             --m_held;
         }
 
-        void advance(Difference const& d)
+        void advance(Difference n)
         {
-            m_held += d;
+            m_held += n;
         }
 
         Difference difference_to(placeholder_t const& other) const
@@ -261,7 +261,7 @@ public:
     // Use 'is_convertible_to_any_iterator' instead.
     // Dr.Becker's "UglyIssue.txt" tells in detail.
     template< class Iterator >
-    explicit any_iterator(Iterator const& it) :
+    explicit any_iterator(Iterator it) :
         m_content(new typename holder_of<Iterator>::type(it))
     { }
 
@@ -273,7 +273,7 @@ public:
     { }
 
     template< class Iterator >
-    Iterator const& base() const
+    Iterator base() const
     {
         return pstade::static_downcast<typename holder_of<Iterator>::type>(*m_content).held();
     }
@@ -312,9 +312,9 @@ friend class boost::iterator_core_access;
         m_content->decrement();
     }
 
-    void advance(Difference const& d)
+    void advance(Difference n)
     {
-        m_content->advance(d);
+        m_content->advance(n);
     }
 
     Difference distance_to(self_t const& other) const

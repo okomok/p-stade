@@ -33,7 +33,7 @@ namespace pstade { namespace oven { namespace detail {
 
 
 template< class Range, class Iterator >
-bool maybe_contains_aux(Range& rng, Iterator const& it, std::forward_iterator_tag)
+bool maybe_contains_aux(Range& rng, Iterator it, std::forward_iterator_tag)
 {
     if (it == boost::end(rng))
         return true;
@@ -43,7 +43,7 @@ bool maybe_contains_aux(Range& rng, Iterator const& it, std::forward_iterator_ta
 }
 
 template< class Range, class Iterator > inline
-bool maybe_contains_aux(Range& rng, Iterator const& it, std::input_iterator_tag)
+bool maybe_contains_aux(Range& rng, Iterator it, std::input_iterator_tag)
 {
     unused(rng, it);
     return true;
@@ -51,7 +51,7 @@ bool maybe_contains_aux(Range& rng, Iterator const& it, std::input_iterator_tag)
 
 
 template< class Range, class Iterator > inline
-bool maybe_contains(Range const& rng, Iterator const& it)
+bool maybe_contains(Range const& rng, Iterator it)
 {
     for_debug();
     return detail::maybe_contains_aux(rng, it, typename range_category<Range>::type());

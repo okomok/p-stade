@@ -66,7 +66,7 @@ namespace shared_detail {
         share_iterator()
         { }
 
-        share_iterator(iter_t const& it, Ptr const& prng) :
+        share_iterator(iter_t it, Ptr prng) :
             super_t(it), m_prng(prng)
         { }
 
@@ -162,7 +162,7 @@ namespace shared_detail_ {
 
     template< class Ptr > inline
     typename boost::result_of<op_make_shared(Ptr&)>::type
-    operator|(Ptr prng, pipe const&)
+    operator|(Ptr prng, pipe)
     {
         return make_shared(prng);
     }

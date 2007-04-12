@@ -308,7 +308,7 @@ PSTADE_ADL_BARRIER(functional) {
             explicit return_op()
             { }
 
-            explicit return_op(BinaryFun const& fun) :
+            explicit return_op(BinaryFun fun) :
                 m_fun(fun)
             { }
 

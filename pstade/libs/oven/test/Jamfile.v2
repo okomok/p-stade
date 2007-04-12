@@ -13,7 +13,7 @@ test-suite "oven" :
     [ run adapted_to_base.cpp ]
     [ run adjacent_filtered.cpp ]
     [ run adjacent_transformed.cpp ]
-    [ run advance.cpp ]
+    [ run advance_from.cpp ]
     [ run algorithm.cpp ]
     [ run always.cpp ]
     [ run any_range.cpp ]

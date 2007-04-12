@@ -67,13 +67,13 @@ namespace pstade {
             explicit return_op()
             { }
 
-            explicit return_op(Function const& f, Pack const& p = pack) :
+            explicit return_op(Function f, Pack p = pack) :
                 m_fun(f), m_pack(p)
             { }
 
             typedef Function base_type;
 
-            Function const& base() const
+            Function base() const
             {
                 return m_fun;
             }

@@ -314,10 +314,10 @@ BOOST_CHECK( *it == <span class="cpp_string_literal">'v'</span> );</pre>
 <h2><a class="toc-backref" href="#id71" id="at" name="at">5.3&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">at</span></tt></a></h2>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/at.hpp&gt;</span></tt></li>
-<li>Valid expression: <tt class="docutils literal"><span class="pre">at(rndRng,d)</span></tt> and <tt class="docutils literal"><span class="pre">rndRng|at(d)</span></tt>, where <tt class="docutils literal"><span class="pre">d</span></tt> is convertible to <tt class="docutils literal"><span class="pre">boost::range_difference</span></tt> of <tt class="docutils literal"><span class="pre">rndRng</span></tt>.</li>
+<li>Valid expression: <tt class="docutils literal"><span class="pre">at(rndRng,n)</span></tt> and <tt class="docutils literal"><span class="pre">rndRng|at(n)</span></tt>, where <tt class="docutils literal"><span class="pre">n</span></tt> is convertible to <tt class="docutils literal"><span class="pre">boost::range_difference</span></tt> of <tt class="docutils literal"><span class="pre">rndRng</span></tt>.</li>
 <li>Precondition1: Destruction of an iterator doesn't invalidate references previously obtained from that iterator. <a class="footnote-reference" href="#id15" id="id13" name="id13">[5]</a></li>
-<li>Predondition2: <tt class="docutils literal"><span class="pre">0</span> <span class="pre">&lt;=</span> <span class="pre">d</span> <span class="pre">&amp;&amp;</span> <span class="pre">d</span> <span class="pre">&lt;</span> <span class="pre">distance(rndRng)</span></tt> <a class="footnote-reference" href="#id16" id="id14" name="id14">[6]</a></li>
-<li>Returns: <tt class="docutils literal"><span class="pre">*(boost::begin(rndRng)+d)</span></tt>.</li>
+<li>Predondition2: <tt class="docutils literal"><span class="pre">0</span> <span class="pre">&lt;=</span> <span class="pre">n</span> <span class="pre">&amp;&amp;</span> <span class="pre">n</span> <span class="pre">&lt;</span> <span class="pre">distance(rndRng)</span></tt> <a class="footnote-reference" href="#id16" id="id14" name="id14">[6]</a></li>
+<li>Returns: <tt class="docutils literal"><span class="pre">*(boost::begin(rndRng)+n)</span></tt>.</li>
 </ul>
 <table class="docutils footnote" frame="void" id="id15" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
@@ -328,7 +328,7 @@ BOOST_CHECK( *it == <span class="cpp_string_literal">'v'</span> );</pre>
 <table class="docutils footnote" frame="void" id="id16" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id14" name="id16">[6]</a></td><td>If you want exceptions to be thrown in release mode, use <tt class="docutils literal"><span class="pre">at(rndRng|checked,d)</span></tt>.</td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id14" name="id16">[6]</a></td><td>If you want exceptions to be thrown in release mode, use <tt class="docutils literal"><span class="pre">at(rndRng|checked,n)</span></tt>.</td></tr>
 </tbody>
 </table>
 </div>
@@ -438,17 +438,17 @@ BOOST_CHECK( oven::equals(str, vec) );</pre>
 <h2><a class="toc-backref" href="#id78" id="value-at" name="value-at">5.10&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">value_at</span></tt></a></h2>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/at.hpp&gt;</span></tt></li>
-<li>Valid expression: <tt class="docutils literal"><span class="pre">at(rndRng,d)</span></tt> and <tt class="docutils literal"><span class="pre">rndRng|at(d)</span></tt>, where <tt class="docutils literal"><span class="pre">d</span></tt> is convertible to <tt class="docutils literal"><span class="pre">boost::range_difference</span></tt> of <tt class="docutils literal"><span class="pre">rndRng</span></tt>.</li>
+<li>Valid expression: <tt class="docutils literal"><span class="pre">value_at(rndRng,n)</span></tt> and <tt class="docutils literal"><span class="pre">rndRng|value_at(n)</span></tt>, where <tt class="docutils literal"><span class="pre">n</span></tt> is convertible to <tt class="docutils literal"><span class="pre">boost::range_difference</span></tt> of <tt class="docutils literal"><span class="pre">rndRng</span></tt>.</li>
 <li>Precondition1: <tt class="docutils literal"><span class="pre">boost::range_value</span></tt> of <tt class="docutils literal"><span class="pre">rndRng</span></tt> is <tt class="docutils literal"><span class="pre">CopyConstructible</span></tt>.</li>
-<li>Precondition2: <tt class="docutils literal"><span class="pre">0</span> <span class="pre">&lt;=</span> <span class="pre">d</span> <span class="pre">&amp;&amp;</span> <span class="pre">d</span> <span class="pre">&lt;</span> <span class="pre">distance(rndRng)</span></tt></li>
-<li>Returns: <tt class="docutils literal"><span class="pre">V(*(boost::begin(rndRng)+d))</span></tt>, where <tt class="docutils literal"><span class="pre">V</span></tt> is <tt class="docutils literal"><span class="pre">boost::range_value</span></tt> of <tt class="docutils literal"><span class="pre">rndRng</span></tt>.</li>
+<li>Precondition2: <tt class="docutils literal"><span class="pre">0</span> <span class="pre">&lt;=</span> <span class="pre">n</span> <span class="pre">&amp;&amp;</span> <span class="pre">n</span> <span class="pre">&lt;</span> <span class="pre">distance(rndRng)</span></tt></li>
+<li>Returns: <tt class="docutils literal"><span class="pre">V(*(boost::begin(rndRng)+n))</span></tt>, where <tt class="docutils literal"><span class="pre">V</span></tt> is <tt class="docutils literal"><span class="pre">boost::range_value</span></tt> of <tt class="docutils literal"><span class="pre">rndRng</span></tt>.</li>
 </ul>
 </div>
 <div class="section">
 <h2><a class="toc-backref" href="#id79" id="value-front-value-back" name="value-front-value-back">5.11&nbsp;&nbsp;&nbsp;<tt class="docutils literal"><span class="pre">value_front/value_back</span></tt></a></h2>
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/front_back.hpp&gt;</span></tt></li>
-<li>Valid expression: <tt class="docutils literal"><span class="pre">front(rng)</span></tt> and <tt class="docutils literal"><span class="pre">back(biRng)</span></tt>.</li>
+<li>Valid expression: <tt class="docutils literal"><span class="pre">value_front(rng)</span></tt> and <tt class="docutils literal"><span class="pre">value_back(biRng)</span></tt>.</li>
 <li>Precondition1: <tt class="docutils literal"><span class="pre">boost::range_value</span></tt> of <tt class="docutils literal"><span class="pre">rng</span></tt> is <tt class="docutils literal"><span class="pre">CopyConstructible</span></tt>.</li>
 <li>Predondition2: <tt class="docutils literal"><span class="pre">boost::empty(rng)</span> <span class="pre">==</span> <span class="pre">false</span></tt></li>
 <li>Returns:  <tt class="docutils literal"><span class="pre">V(*boost::begin(rng))</span></tt> and <tt class="docutils literal"><span class="pre">V(*--boost::end(biRng))</span></tt> respectively, where <tt class="docutils literal"><span class="pre">V</span></tt> is <tt class="docutils literal"><span class="pre">boost::range_value</span></tt> of them.</li>
@@ -1536,7 +1536,7 @@ BOOST_CHECK( oven::equals(answer,
 <ul class="simple">
 <li>Header: <tt class="docutils literal"><span class="pre">&lt;pstade/oven/sliced.hpp&gt;</span></tt></li>
 <li>Valid expression: <tt class="docutils literal"><span class="pre">rndRng|sliced(start,stride)</span></tt></li>
-<li>Precondition: <tt class="docutils literal"><span class="pre">d</span> <span class="pre">==</span> <span class="pre">0</span> <span class="pre">||</span> <span class="pre">d</span> <span class="pre">%</span> <span class="pre">stride</span> <span class="pre">==</span> <span class="pre">0</span></tt> and <tt class="docutils literal"><span class="pre">0</span> <span class="pre">&lt;=</span> <span class="pre">start</span> <span class="pre">&amp;&amp;</span> <span class="pre">start</span> <span class="pre">&lt;</span> <span class="pre">stride</span></tt>, where <tt class="docutils literal"><span class="pre">d</span> <span class="pre">=</span> <span class="pre">distance(rndRng);</span></tt>, and the type of <tt class="docutils literal"><span class="pre">start</span></tt> and <tt class="docutils literal"><span class="pre">stride</span></tt> is convertible to <tt class="docutils literal"><span class="pre">boost::range_difference</span></tt> of <tt class="docutils literal"><span class="pre">rng</span></tt>.</li>
+<li>Precondition: <tt class="docutils literal"><span class="pre">n</span> <span class="pre">==</span> <span class="pre">0</span> <span class="pre">||</span> <span class="pre">n</span> <span class="pre">%</span> <span class="pre">stride</span> <span class="pre">==</span> <span class="pre">0</span></tt> and <tt class="docutils literal"><span class="pre">0</span> <span class="pre">&lt;=</span> <span class="pre">start</span> <span class="pre">&amp;&amp;</span> <span class="pre">start</span> <span class="pre">&lt;</span> <span class="pre">stride</span></tt>, where <tt class="docutils literal"><span class="pre">n</span> <span class="pre">=</span> <span class="pre">distance(rndRng);</span></tt>, and the type of <tt class="docutils literal"><span class="pre">start</span></tt> and <tt class="docutils literal"><span class="pre">stride</span></tt> is convertible to <tt class="docutils literal"><span class="pre">boost::range_difference</span></tt> of <tt class="docutils literal"><span class="pre">rng</span></tt>.</li>
 </ul>
 <table class="docutils footnote" frame="void" id="id51" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
@@ -1971,7 +1971,7 @@ See <a class="reference" href="./doc/ms/mfc_atl.html">Oven Range MFC/ATL Extensi
 <h2><a class="toc-backref" href="#id181" id="version-0-92-0-0-92-3" name="version-0-92-0-0-92-3">14.6&nbsp;&nbsp;&nbsp;Version 0.92.0 - 0.92.3</a></h2>
 <ul class="simple">
 <li>Renamed <tt class="docutils literal"><span class="pre">counting_range</span></tt> to <tt class="docutils literal"><span class="pre">count_range</span></tt>, and added a valid expression.</li>
-<li>Removed the valid expression <tt class="docutils literal"><span class="pre">advanced(d)</span></tt>.</li>
+<li>Removed the valid expression <tt class="docutils literal"><span class="pre">advanced(n)</span></tt>.</li>
 <li>Renamed <tt class="docutils literal"><span class="pre">tie</span></tt> to <tt class="docutils literal"><span class="pre">pack</span></tt>.</li>
 <li>Added <tt class="docutils literal"><span class="pre">boost::result_of</span></tt> support to range-based algorithms.</li>
 <li>Renamed <a class="reference" href="#extending-boost-range">Extending Boost.Range</a> macros.</li>
@@ -2045,7 +2045,7 @@ See <a class="reference" href="./doc/ms/mfc_atl.html">Oven Range MFC/ATL Extensi
 <div class="footer">
 <hr class="footer" />
 <a class="reference" href="doc/index.rst">View document source</a>.
-Generated on: 2007-04-10 08:13 UTC.
+Generated on: 2007-04-12 11:46 UTC.
 Generated by <a class="reference" href="http://docutils.sourceforge.net/">Docutils</a> from <a class="reference" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a> source.
 
 </div>

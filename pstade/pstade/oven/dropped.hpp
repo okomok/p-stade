@@ -28,19 +28,19 @@ namespace dropped_detail {
 
 
     template< class Result, class Iterator, class Difference > inline
-    Result aux(Iterator first, Iterator const& last, Difference d,
+    Result aux(Iterator first, Iterator last, Difference n,
         boost::random_access_traversal_tag)
     {
-        return Result(first + (std::min)(last - first, d), last);
+        return Result(first + (std::min)(last - first, n), last);
     }
 
     template< class Result, class Iterator, class Difference >
-    Result aux(Iterator first, Iterator const& last, Difference d,
+    Result aux(Iterator first, Iterator last, Difference n,
         boost::single_pass_traversal_tag)
     {
-        while (d != 0 && first != last) {
+        while (n != 0 && first != last) {
             ++first;
-            --d;
+            --n;
         }
 
         return Result(first, last);
@@ -58,13 +58,13 @@ namespace dropped_detail {
             iter_range_of<Range>::type const
         result_type;
 
-        result_type operator()(Range& rng, diff_t const& d) const
+        result_type operator()(Range& rng, diff_t n) const
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-            BOOST_ASSERT(0 <= d);
+            BOOST_ASSERT(0 <= n);
 
             return dropped_detail::aux<result_type>(
-                boost::begin(rng), boost::end(rng), d,
+                boost::begin(rng), boost::end(rng), n,
                 typename range_traversal<Range>::type()
             );
         }

@@ -61,7 +61,7 @@ namespace tab_unexpanded_detail {
         tab_unexpand_iterator()
         { }
 
-        tab_unexpand_iterator(ForwardIter const& it, ForwardIter const& last, diff_t const& tabsize) :
+        tab_unexpand_iterator(ForwardIter it, ForwardIter last, diff_t tabsize) :
             super_t(base_t(it, tabsize)),
             m_last(last, tabsize), m_sol(it, tabsize),
             m_tabsize(tabsize), m_tab_ch(PSTADE_OVEN_DEBUG_TAB_CH)
@@ -191,7 +191,7 @@ namespace tab_unexpanded_detail {
             iter_range<iter_t> const
         result_type;
 
-        result_type operator()(Range& rng, diff_t const& tabsize) const
+        result_type operator()(Range& rng, diff_t tabsize) const
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
 

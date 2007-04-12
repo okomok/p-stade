@@ -38,17 +38,17 @@ namespace to_function_detail {
         explicit output_iterator()
         { }
 
-        explicit output_iterator(UnaryFun const& fun) :
+        explicit output_iterator(UnaryFun fun) :
             m_fun(fun)
         { }
 
-        UnaryFun const& function() const
+        UnaryFun function() const
         {
             return m_fun;
         }
 
         // as "adaptor"; 'oven::adapted_to' kicks in!
-        UnaryFun const& base() const
+        UnaryFun base() const
         {
             return m_fun;
         }

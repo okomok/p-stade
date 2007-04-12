@@ -68,13 +68,13 @@ namespace pstade {
             explicit return_op0()
             { }
 
-            explicit return_op0(UnaryFun const& fun) :
+            explicit return_op0(UnaryFun fun) :
                 m_fun(fun)
             { }
 
             typedef UnaryFun base_type;
 
-            UnaryFun const& base() const
+            UnaryFun base() const
             {
                 return m_fun;
             }
@@ -85,14 +85,14 @@ namespace pstade {
 
         template<class A0, class UnaryFun> inline
         typename boost::result_of<return_op0<UnaryFun>(A0&)>::type
-        operator|(A0& a0, return_op0<UnaryFun> const& op)
+        operator|(A0& a0, return_op0<UnaryFun> op)
         {
             return op(a0);
         }
 
         template<class A0, class UnaryFun> inline
         typename boost::result_of<return_op0<UnaryFun>(PSTADE_DEDUCED_CONST(A0)&)>::type
-        operator|(A0 const& a0, return_op0<UnaryFun> const& op)
+        operator|(A0 const& a0, return_op0<UnaryFun> op)
         {
             return op(a0);
         }
@@ -178,13 +178,13 @@ namespace PSTADE_PP_CAT3(auxiliary, n, _detail) {
         explicit BOOST_PP_CAT(return_op, n)()
         { }
 
-        explicit BOOST_PP_CAT(return_op, n)(Function const& fun) :
+        explicit BOOST_PP_CAT(return_op, n)(Function fun) :
             m_fun(fun)
         { }
 
         typedef Function base_type;
 
-        Function const& base() const
+        Function base() const
         {
             return m_fun;
         }

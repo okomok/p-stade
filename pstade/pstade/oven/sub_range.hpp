@@ -80,7 +80,7 @@ public:
     { }
 
     template< class Iterator >
-    sub_range(Iterator const& first, Iterator const& last) :
+    sub_range(Iterator first, Iterator last) :
         super_t(first, last)
     { }
 

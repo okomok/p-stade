@@ -13,7 +13,7 @@
 // Note:
 //
 // This range is Constant;
-// the iteration depends on the referent values.
+// the iteration depends on the "previous" values.
 
 
 #include <boost/utility/result_of.hpp>
@@ -37,7 +37,7 @@ namespace adjacent_filtered_detail {
         typedef filter is_constant;
 
         template< class ForwardIter >
-        ForwardIter operator()(ForwardIter const& first, ForwardIter const& last) const
+        ForwardIter operator()(ForwardIter first, ForwardIter last) const
         {
             ForwardIter next = first;
             while (++next != last) {
@@ -51,7 +51,7 @@ namespace adjacent_filtered_detail {
         explicit filter()
         { }
 
-        explicit filter(BinaryPred const& pred) :
+        explicit filter(BinaryPred pred) :
             m_pred(pred)
         { }
 
