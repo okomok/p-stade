@@ -16,6 +16,7 @@
 // http://thbecker.net/free_software_utilities/type_erasure_for_cpp_iterators/start_page.html
 
 
+#include <cstddef> // ptrdiff_t
 #include <memory> // auto_ptr
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_facade.hpp>
@@ -34,7 +35,9 @@
 #include <pstade/enable_if.hpp>
 #include <pstade/is_convertible.hpp>
 #include <pstade/is_returnable.hpp>
+#include <pstade/remove_cvr.hpp>
 #include <pstade/static_downcast.hpp>
+#include <pstade/use_default.hpp>
 #include "./detail/pure_traversal.hpp"
 
 
@@ -92,7 +95,7 @@ namespace any_iterator_detail {
     struct placeholder<Reference, boost::random_access_traversal_tag, Difference, T> :
         placeholder<Reference, boost::bidirectional_traversal_tag, Difference, T>
     {
-        virtual void advance(Difference const& d) = 0;
+        virtual void advance(Difference n) = 0;
         virtual Difference difference_to(placeholder const& other) const = 0;
     };
 
@@ -189,10 +192,10 @@ namespace any_iterator_detail {
         typedef
             boost::iterator_facade<
                 any_iterator<Reference, Traversal, Value, Difference>,
-                Value,
+                typename use_default_eval_to< Value, remove_cvr<Reference> >::type,
                 Traversal,
                 Reference,
-                Difference
+                typename use_default_to<Difference, std::ptrdiff_t>::type
             >
         type;
     };
@@ -214,6 +217,14 @@ namespace any_iterator_detail {
             >::type
         type;
     };
+
+
+    template< class Category >
+    struct category_to_pure_traversal :
+        boost::detail::pure_traversal_tag<
+            typename boost::iterator_category_to_traversal<Category>::type
+        >
+    { };
 
 
 } // namespace any_iterator_detail
@@ -238,18 +249,27 @@ struct is_convertible_to_any_iterator :
 { };
 
 
-template< class Reference, class Traversal, class Value, class Difference >
+template<
+    class Reference,
+    class Traversal,
+    class Value      = boost::use_default,
+    class Difference = boost::use_default
+>
 struct any_iterator :
     any_iterator_detail::super_<Reference, Traversal, Value, Difference>::type
 {
 private:
     typedef any_iterator self_t;
-    typedef typename any_iterator_detail::content_of<Reference, Traversal, Difference>::type content_t;
+    typedef typename any_iterator_detail::super_<Reference, Traversal, Value, Difference>::type super_t;
+    typedef typename super_t::reference ref_t;
+    typedef typename any_iterator_detail::category_to_pure_traversal<typename super_t::iterator_category>::type trv_t;
+    typedef typename super_t::difference_type diff_t;
+    typedef typename any_iterator_detail::content_of<ref_t, trv_t, diff_t>::type content_t;
 
     template< class Iterator >
     struct holder_of
     {
-        typedef any_iterator_detail::holder<Iterator, Reference, Traversal, Difference> type;
+        typedef any_iterator_detail::holder<Iterator, ref_t, trv_t, diff_t> type;
     };
 
 public:
@@ -281,7 +301,7 @@ public:
 // assignment to work around 'explicit' above
     template< class Iterator >
     typename disable_if<is_convertible<Iterator, self_t>, self_t&>::type
-    operator=(Iterator const& it)
+    operator=(Iterator it)
     {
         any_iterator_detail::assign_new<typename holder_of<Iterator>::type>(it, m_content);
         return *this;
@@ -291,7 +311,7 @@ private:
     content_t m_content;
 
 friend class boost::iterator_core_access;
-    Reference dereference() const
+    ref_t dereference() const
     {
         return m_content->dereference();
     }
@@ -312,12 +332,12 @@ friend class boost::iterator_core_access;
         m_content->decrement();
     }
 
-    void advance(Difference n)
+    void advance(diff_t n)
     {
         m_content->advance(n);
     }
 
-    Difference distance_to(self_t const& other) const
+    diff_t distance_to(self_t const& other) const
     {
         return m_content->difference_to(*other.m_content);
     }

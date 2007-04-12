@@ -10,15 +10,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <cstddef> // ptrdiff_t
 #include <boost/iterator/iterator_categories.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/disable_if_copy.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/implicitly_defined.hpp>
-#include <pstade/remove_cvr.hpp>
-#include <pstade/use_default.hpp>
 #include "./any_iterator.hpp"
 #include "./iter_range.hpp"
 #include "./lightweight_copyable.hpp"
@@ -43,12 +40,7 @@ namespace any_range_detail {
     {
         typedef
             iter_range<
-                any_iterator<
-                    Reference,
-                    Traversal,
-                    typename use_default_eval_to< Value, remove_cvr<Reference> >::type,
-                    typename use_default_to<Difference, std::ptrdiff_t>::type
-                >,
+                any_iterator<Reference, Traversal, Value, Difference>,
                 // Copying ForwardRange needs 'new', hence not considered "lightweight".
                 lightweight_copyable<
                     any_range<Reference, boost::single_pass_traversal_tag, Value, Difference>

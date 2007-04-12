@@ -18,6 +18,7 @@
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
+#include <pstade/specified.hpp>
 #include "./iter_range.hpp"
 
 
@@ -59,12 +60,7 @@ struct op_stream_input :
     }
 };
 
-template< class Value, class IStream > inline
-typename boost::result_of<op_stream_input<Value>(IStream&)>::type
-stream_input(IStream& is)
-{
-    return op_stream_input<Value>()(is);
-}
+PSTADE_SPECIFIED1(stream_input, op_stream_input, 1)
 
 
 // streambuf_input

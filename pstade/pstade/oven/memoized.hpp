@@ -139,7 +139,7 @@ namespace memoized_detail {
     };
 
 
-    template< class Iterator, class IsRecursive = boost::mpl::false_ >
+    template< class Iterator, class IsRecursive >
     struct memoize_iterator :
         memoize_iterator_super<Iterator, IsRecursive>::type
     {
@@ -234,7 +234,7 @@ struct op_make_memoized :
         typedef
             memoized_detail::memoize_iterator<
                 typename range_iterator<Range>::type,
-                boost::mpl::true_ // recursive
+                boost::mpl::true_
             >
         iter_t;
 
@@ -266,7 +266,8 @@ struct op_make_memoized :
     {
         typedef
             memoized_detail::memoize_iterator<
-                typename range_iterator<Range>::type
+                typename range_iterator<Range>::type,
+                boost::mpl::false_
             >
         iter_t;
 

@@ -39,12 +39,12 @@ namespace sliced_detail {
     }
 
 
-    template< class I >
+    template< class Difference >
     struct to_index
     {
-        typedef I result_type;
+        typedef Difference result_type;
 
-        I operator()(I i) const
+        Difference operator()(Difference i) const
         {
             return m_start + (i * m_stride);
         }
@@ -52,12 +52,12 @@ namespace sliced_detail {
         to_index()
         { }
 
-        to_index(I start, I stride) :
+        to_index(Difference start, Difference stride) :
             m_start(start), m_stride(stride)
         { }
 
     private:
-        I m_start, m_stride;
+        Difference m_start, m_stride;
     };
 
 

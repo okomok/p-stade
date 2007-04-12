@@ -41,7 +41,7 @@ namespace cycled_detail {
 
 
     template< class Difference >
-    std::pair<Difference, Difference> positive_rem_div(Difference const& a, Difference const& b)
+    std::pair<Difference, Difference> positive_rem_div(Difference a, Difference b)
     {
         BOOST_ASSERT(b >= 0);
 

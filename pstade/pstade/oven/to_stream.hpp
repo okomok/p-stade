@@ -18,6 +18,7 @@
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/function.hpp>
+#include <pstade/specified.hpp>
 #include "./to_function.hpp"
 
 
@@ -60,19 +61,8 @@ struct op_to_ostream :
     }
 };
 
-template< class Value, class OStream > inline
-typename boost::result_of<op_to_ostream<Value>(OStream&)>::type
-to_ostream(OStream& os)
-{
-    return op_to_ostream<Value>()(os);
-}
-
-template< class Value, class OStream, class CharT > inline
-typename boost::result_of<op_to_ostream<Value>(OStream&)>::type
-to_ostream(OStream& os, CharT const* delim)
-{
-    return op_to_ostream<Value>()(os, delim);
-}
+#define  PSTADE_SPECIFIED_PARAMS ((1)(2), to_ostream, op_to_ostream, 1)
+#include PSTADE_SPECIFIED()
 
 
 // to_ostreambuf

@@ -49,8 +49,8 @@ namespace set_delta_detail {
 
         template< class Reference, class Iterator1, class Iterator2, class Compare >
         static Reference yield(
-            Iterator1 const& first1, Iterator1 last1,
-            Iterator2 const& first2, Iterator2 last2,
+            Iterator1 first1, Iterator1 last1,
+            Iterator2 first2, Iterator2 last2,
             Compare comp)
         {
             // copy-copy phase

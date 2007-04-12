@@ -170,8 +170,8 @@ namespace merged_detail {
 
     template<
         class Iterator1, class Iterator2,
-        class Compare      = op_less,
-        class MergeRoutine = merge_routine
+        class Compare,
+        class MergeRoutine
     >
     struct merge_iterator :
         merge_iterator_super<Iterator1, Iterator2, Compare, MergeRoutine>::type
@@ -196,6 +196,7 @@ namespace merged_detail {
             // "./jointed.hpp" tells why this is at function scope.
             BOOST_MPL_ASSERT((is_convertible<typename boost::iterator_reference<Iterator2>::type, ref_t>));
             BOOST_STATIC_WARNING((is_returnable<typename boost::iterator_reference<Iterator2>::type, ref_t>::value));
+
 #if defined(PSTADE_OVEN_TESTS_SAMPLE_RANGES)
             BOOST_ASSERT(is_sorted(make_iter_range(it1, last1), comp));
             BOOST_ASSERT(is_sorted(make_iter_range(it2, last2), comp));
