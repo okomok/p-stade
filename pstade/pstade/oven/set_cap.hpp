@@ -10,6 +10,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/constant.hpp>
+#include <pstade/pipable.hpp>
 #include <pstade/unused.hpp>
 #include "./merged.hpp"
 
@@ -70,7 +72,9 @@ namespace set_cap_detail {
 } // namespace set_cap_detail
 
 
-PSTADE_OVEN_DETAIL_MERGE_ADAPTOR(set_cap, set_cap_detail::merge_routine)
+typedef op_make_merged<set_cap_detail::merge_routine> op_make_set_cap;
+PSTADE_CONSTANT(make_set_cap, (op_make_set_cap))
+PSTADE_PIPABLE(set_cap, (op_make_set_cap))
 
 
 } } // namespace pstade::oven

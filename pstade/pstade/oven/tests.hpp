@@ -15,6 +15,13 @@
 #define PSTADE_CONCEPT_CHECK
 #endif
 
+// A range may be too long to diagnose.
+// So some assertions cannot be in use code.
+#if !defined(PSTADE_OVEN_TESTS_SAMPLE_RANGES) \
+    && !defined(PSTADE_OVEN_TESTS_NO_SAMPLE_RANGES)
+#define PSTADE_OVEN_TESTS_SAMPLE_RANGES
+#endif
+
 
 #include <algorithm>
 #include <boost/assert.hpp>

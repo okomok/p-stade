@@ -36,7 +36,7 @@ bool lt_nocase(char c1, char c2)
 
 
 template<class Range1, class Range2>
-typename boost::result_of<op_make_merged(Range1&, Range2&)>::type
+typename boost::result_of<op_make_merged<>(Range1&, Range2&)>::type
 make_merge_range_(Range1& rng1, Range2& rng2)
 {
     return oven::make_merged(rng1, rng2);

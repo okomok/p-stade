@@ -55,7 +55,7 @@ namespace cycled_detail {
 
 
     template< class Iterator >
-    bool iter_find(Iterator first, Iterator const& last, Iterator const& val)
+    bool iter_find(Iterator first, Iterator last, Iterator val)
     {
         for_debug();
 
@@ -131,12 +131,11 @@ namespace cycled_detail {
 
         bool invariant() const
         {
-    #if defined(PSTADE_OVEN_CYCLED_DEBUG)
+#if defined(PSTADE_OVEN_TESTS_SAMPLE_RANGES)
             return here::iter_find(m_first, m_last, this->base());
-    #else
-            // The range may be too long to diagnose.
+#else
             return true;
-    #endif
+#endif
         }
 
         template< class Other >

@@ -57,13 +57,13 @@ namespace io_detail {
 
 
     template< class Stream, class CharT >
-    void set_mn_char(Stream& s, mn_t const& mn, CharT const& ch)
+    void set_mn_char(Stream& s, mn_t mn, CharT ch)
     {
         s.iword(mn_id(mn)) = static_cast<long>(ch);
     }
 
     template< class Stream >
-    typename Stream::char_type get_mn_char(Stream& s, mn_t const& mn)
+    typename Stream::char_type get_mn_char(Stream& s, mn_t mn)
     {
         typedef typename Stream::char_type char_t;
         char_t ch = static_cast<char_t>( s.iword(mn_id(mn)) );
@@ -91,7 +91,7 @@ namespace io_detail {
     }
 
     template< class IStream >
-    void eat_mn_char(IStream& is, mn_t const& mn)
+    void eat_mn_char(IStream& is, mn_t mn)
     {
         typename IStream::char_type const ch = here::get_mn_char(is, mn);
 
@@ -106,7 +106,7 @@ namespace io_detail {
 
 
     template< class IStream, class Iterator >
-    void in(IStream& is, Iterator first, Iterator const& last)
+    void in(IStream& is, Iterator first, Iterator last)
     {
         bool is_beginning = true;
         for ( ; first != last; ++first) {
@@ -127,7 +127,7 @@ namespace io_detail {
 
 
     template< class OStream, class Iterator >
-    void out(OStream& os, Iterator first, Iterator const& last)
+    void out(OStream& os, Iterator first, Iterator last)
     {
         typename OStream::char_type const delim = here::get_mn_char(os, mn_delimiter);
 
@@ -150,7 +150,7 @@ namespace io_detail {
     struct manipulator :
         private nonassignable
     {
-        manipulator(mn_t const& mn, CharT const& ch) :
+        manipulator(mn_t mn, CharT ch) :
             m_mn(mn), m_ch(ch)
         { }
 
@@ -160,7 +160,7 @@ namespace io_detail {
 
     template< class CharT, class Traits > inline
     std::basic_istream<CharT, Traits>&
-    operator>>(std::basic_istream<CharT, Traits>& is, manipulator<CharT> const& m) 
+    operator>>(std::basic_istream<CharT, Traits>& is, manipulator<CharT> m) 
     {
         here::set_mn_char(is, m.m_mn, m.m_ch);
         return is;
@@ -168,7 +168,7 @@ namespace io_detail {
 
     template< class CharT, class Traits > inline
     std::basic_ostream<CharT, Traits>&
-    operator<<(std::basic_ostream<CharT, Traits>& os, manipulator<CharT> const& m)
+    operator<<(std::basic_ostream<CharT, Traits>& os, manipulator<CharT> m)
     {
         here::set_mn_char(os, m.m_mn, m.m_ch);
         return os;

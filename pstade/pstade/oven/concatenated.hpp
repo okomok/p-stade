@@ -183,17 +183,16 @@ namespace concatenated_detail {
             return m_last == other.m_last;
         }
 
-    #if defined(PSTADE_OVEN_CONCATENATED_DEBUG)
+#if defined(PSTADE_OVEN_TESTS_SAMPLE_RANGES)
         PSTADE_CLASS_INVARIANT (
             // 'm_local' is undefined if 'segment_is_end'.
             (!segment_is_end() ?
                 detail::maybe_contains(local_range(), m_local) : true)
         )
-    #else
-        // The range may be too long to diagnose.
+#else
         PSTADE_CLASS_INVARIANT (~
         )
-    #endif
+#endif
 
     friend class boost::iterator_core_access;
         ref_t dereference() const

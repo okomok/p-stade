@@ -10,7 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#define PSTADE_OVEN_CONCATENATED_DEBUG
 #include <pstade/oven/tests.hpp>
 #include <pstade/oven/concatenated.hpp>
 

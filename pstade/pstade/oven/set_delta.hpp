@@ -16,6 +16,8 @@
 // works fine, but requires the ranges to be Forward.
 
 
+#include <pstade/constant.hpp>
+#include <pstade/pipable.hpp>
 #include "./merged.hpp"
 
 
@@ -89,7 +91,9 @@ namespace set_delta_detail {
 } // namespace set_delta_detail
 
 
-PSTADE_OVEN_DETAIL_MERGE_ADAPTOR(set_delta, set_delta_detail::merge_routine)
+typedef op_make_merged<set_delta_detail::merge_routine> op_make_set_delta;
+PSTADE_CONSTANT(make_set_delta, (op_make_set_delta))
+PSTADE_PIPABLE(set_delta, (op_make_set_delta))
 
 
 } } // namespace pstade::oven
