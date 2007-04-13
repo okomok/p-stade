@@ -71,7 +71,7 @@ namespace steps_detail {
     };
 
 
-    template< class Range, class >
+    template< class Range >
     struct baby
     {
         typedef typename
@@ -96,7 +96,7 @@ namespace steps_detail {
 } // namespace steps_detail
 
 
-PSTADE_FUNCTION(make_steps, (steps_detail::baby<_, _>))
+PSTADE_FUNCTION(make_steps, (steps_detail::baby<_>))
 PSTADE_PIPABLE(steps, (op_make_steps))
 
 

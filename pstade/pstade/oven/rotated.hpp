@@ -26,7 +26,7 @@ namespace pstade { namespace oven {
 namespace rotated_detail {
 
 
-    template< class Range, class >
+    template< class Range >
     struct baby
     {
         typedef typename
@@ -53,7 +53,7 @@ namespace rotated_detail {
 } // namespace rotated_detail
 
 
-PSTADE_FUNCTION(make_rotated, (rotated_detail::baby<_, _>))
+PSTADE_FUNCTION(make_rotated, (rotated_detail::baby<_>))
 PSTADE_PIPABLE(rotated, (op_make_rotated))
 
 

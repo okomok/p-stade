@@ -29,7 +29,7 @@ namespace pstade { namespace oven {
 namespace window_detail {
 
 
-    template< class Range, class, class >
+    template< class Range >
     struct baby
     {
         typedef typename
@@ -62,7 +62,7 @@ namespace window_detail {
 } // namespace window_detail
 
 
-PSTADE_FUNCTION(make_window, (window_detail::baby<_, _, _>))
+PSTADE_FUNCTION(make_window, (window_detail::baby<_>))
 PSTADE_PIPABLE(window, (op_make_window))
 
 

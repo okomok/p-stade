@@ -31,7 +31,7 @@ namespace pstade { namespace oven {
 namespace advance_from_detail {
 
 
-    template< class Iterator, class >
+    template< class Iterator >
     struct baby
     {
         typedef typename
@@ -69,7 +69,7 @@ namespace advance_from_detail {
 } // namespace advance_from_detail
 
 
-PSTADE_FUNCTION(advance_from, (advance_from_detail::baby<_, _>))
+PSTADE_FUNCTION(advance_from, (advance_from_detail::baby<_>))
 
 
 } } // namespace pstade::oven

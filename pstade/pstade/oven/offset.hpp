@@ -36,7 +36,7 @@ namespace pstade { namespace oven {
 namespace offset_detail {
 
 
-    template< class Range, class, class >
+    template< class Range >
     struct baby
     {
         typedef typename
@@ -65,7 +65,7 @@ namespace offset_detail {
 } // namespace offset_detail
 
 
-PSTADE_FUNCTION(make_offset, (offset_detail::baby<_, _, _>))
+PSTADE_FUNCTION(make_offset, (offset_detail::baby<_>))
 PSTADE_PIPABLE(offset, (op_make_offset))
 
 

@@ -155,7 +155,7 @@ PSTADE_CONSTANT(make_shared, (op_make_shared))
 // A pipe must have its own namespace.
 // The overload resolution may fall into compile error,
 // while getting the result type; even if never called.
-// See also "./joint_iterator.hpp"
+// See also "./jointed.hpp".
 
 
 namespace shared_detail_ {

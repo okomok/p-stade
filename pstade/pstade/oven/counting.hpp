@@ -30,17 +30,17 @@ namespace pstade { namespace oven {
 namespace counting_detail {
 
 
-    template< class I, class J > inline
-    bool is_valid(I i, J j, boost::single_pass_traversal_tag)
+    template< class Incrementable1, class Incrementable2 > inline
+    bool is_valid(Incrementable1 i, Incrementable2 j, boost::single_pass_traversal_tag)
     {
         unused(i, j);
         return true;
     }
 
-    template< class I, class J > inline
-    bool is_valid(I i, J j, boost::random_access_traversal_tag)
+    template< class Incrementable1, class Incrementable2 > inline
+    bool is_valid(Incrementable1 i, Incrementable2 j, boost::random_access_traversal_tag)
     {
-        return pstade::value_cast<J>(i) <= j;
+        return pstade::value_cast<Incrementable2>(i) <= j;
     }
 
 
@@ -54,13 +54,13 @@ template<
 struct op_counting :
     callable< op_counting<CategoryOrTraversal, Difference> >
 {
-    template< class Myself, class I, class J >
+    template< class Myself, class Incrementable1, class Incrementable2 >
     struct apply
     {
         typedef
             boost::counting_iterator<
-                // Prefer 'J' to 'I'; [0:int, size():uint) often happens.
-                typename pass_by_value<J>::type,
+                // Prefer 'Incrementable2'; [0:int, size():uint) often happens.
+                typename pass_by_value<Incrementable2>::type,
                 CategoryOrTraversal,
                 Difference
             >
@@ -71,18 +71,18 @@ struct op_counting :
         type;
     };
 
-    template< class Result, class I, class J >
-    Result call(I& i, J& j) const
+    template< class Result, class Incrementable1, class Incrementable2 >
+    Result call(Incrementable1& i, Incrementable2& j) const
     {
         typedef typename Result::iterator iter_t;
-        typedef typename iter_t::base_type j_t;
+        typedef typename iter_t::base_type inc2_t;
 
         BOOST_ASSERT(counting_detail::is_valid(
             i, j, typename boost::iterator_traversal<iter_t>::type()
         ));
 
         return Result(
-            iter_t(pstade::value_cast<j_t>(i)),
+            iter_t(pstade::value_cast<inc2_t>(i)),
             iter_t(j)
         );
     }
@@ -95,22 +95,22 @@ PSTADE_CONSTANT(counting, (op_counting<>))
 namespace counting_from_detail {
 
 
-    template< class I >
+    template< class Incrementable >
     struct baby
     {
         typedef typename
-            pass_by_value<I>::type
-        i_t;
+            pass_by_value<Incrementable>::type
+        inc_t;
 
         typedef typename
             boost::result_of<
-                op_counting<>(I&, i_t)
+                op_counting<>(Incrementable&, inc_t)
             >::type
         result_type;
 
-        result_type operator()(I& i) const
+        result_type operator()(Incrementable& i) const
         {
-            return counting(i, (std::numeric_limits<i_t>::max)());
+            return counting(i, (std::numeric_limits<inc_t>::max)());
         }
     };
 

@@ -61,7 +61,7 @@ namespace sliced_detail {
     };
 
 
-    template< class Range, class, class >
+    template< class Range >
     struct baby
     {
         typedef typename
@@ -101,7 +101,7 @@ namespace sliced_detail {
 } // namespace sliced_detail
 
 
-PSTADE_FUNCTION(make_sliced, (sliced_detail::baby<_, _, _>))
+PSTADE_FUNCTION(make_sliced, (sliced_detail::baby<_>))
 PSTADE_PIPABLE(sliced, (op_make_sliced))
 
 

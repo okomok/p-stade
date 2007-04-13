@@ -47,7 +47,7 @@ namespace dropped_detail {
     }
 
 
-    template< class Range, class >
+    template< class Range >
     struct baby
     {
         typedef typename
@@ -74,7 +74,7 @@ namespace dropped_detail {
 } // namespace dropped_detail
 
 
-PSTADE_FUNCTION(make_dropped, (dropped_detail::baby<_, _>))
+PSTADE_FUNCTION(make_dropped, (dropped_detail::baby<_>))
 PSTADE_PIPABLE(dropped, (op_make_dropped))
 
 

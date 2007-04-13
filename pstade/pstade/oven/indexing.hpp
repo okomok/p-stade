@@ -27,17 +27,17 @@ template<
 struct op_indexing :
     callable< op_indexing<Reference, Value> >
 {
-    template< class Myself, class I, class J, class UnaryFun >
+    template< class Myself, class Incrementable1, class Incrementable2, class UnaryFun >
     struct apply :
         boost::result_of<
             op_make_transformed<Reference, Value>(
-                typename boost::result_of<op_counting<>(I&, J&)>::type, UnaryFun&
+                typename boost::result_of<op_counting<>(Incrementable1&, Incrementable2&)>::type, UnaryFun&
             )
         >
     { };
 
-    template< class Result, class I, class J, class UnaryFun >
-    Result call(I& i, J& j, UnaryFun& fun) const
+    template< class Result, class Incrementable1, class Incrementable2, class UnaryFun >
+    Result call(Incrementable1& i, Incrementable2& j, UnaryFun& fun) const
     {
         return op_make_transformed<Reference, Value>()(
             counting(i, j), fun

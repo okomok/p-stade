@@ -215,13 +215,14 @@ namespace cycled_detail {
 struct op_make_cycled :
     callable<op_make_cycled>
 {
-    template< class Myself, class Range, class I = void, class J = std::ptrdiff_t >
+    template< class Myself, class Range, class Incrementable1 = void, class Incrementable2 = std::ptrdiff_t >
     struct apply
     {
         typedef 
             cycled_detail::cycle_iterator<
                 typename range_iterator<Range>::type,
-                typename pass_by_value<J>::type // Prefer 'J' to 'I'; see "./counting.hpp".
+                 // Prefer 'Incrementable2'; see "./counting.hpp".
+                typename pass_by_value<Incrementable2>::type
             >
         iter_t;
 
@@ -230,8 +231,8 @@ struct op_make_cycled :
         type;
     };
 
-    template< class Result, class Range, class I, class J >
-    Result call(Range& rng, I& i, J& j) const
+    template< class Result, class Range, class Incrementable1, class Incrementable2 >
+    Result call(Range& rng, Incrementable1& i, Incrementable2& j) const
     {
         PSTADE_CONCEPT_ASSERT((Forward<Range>));
 

@@ -174,7 +174,7 @@ namespace tab_unexpanded_detail {
     };
 
 
-    template< class Range, class >
+    template< class Range >
     struct baby
     {
         typedef typename
@@ -206,7 +206,7 @@ namespace tab_unexpanded_detail {
 } // namespace tab_unexpanded_detail
 
 
-PSTADE_FUNCTION(make_tab_unexpanded, (tab_unexpanded_detail::baby<_, _>))
+PSTADE_FUNCTION(make_tab_unexpanded, (tab_unexpanded_detail::baby<_>))
 PSTADE_PIPABLE(tab_unexpanded, (op_make_tab_unexpanded))
 
 

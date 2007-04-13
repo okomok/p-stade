@@ -35,7 +35,7 @@ namespace pstade { namespace oven {
 namespace dropped_while_detail {
 
 
-    template< class Range, class >
+    template< class Range >
     struct baby
     {
         typedef typename
@@ -57,7 +57,7 @@ namespace dropped_while_detail {
 } // namespace dropped_while_detail
 
 
-PSTADE_FUNCTION(make_dropped_while, (dropped_while_detail::baby<_, _>))
+PSTADE_FUNCTION(make_dropped_while, (dropped_while_detail::baby<_>))
 PSTADE_PIPABLE(dropped_while, (op_make_dropped_while))
 
 

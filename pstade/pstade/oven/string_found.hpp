@@ -23,7 +23,7 @@ namespace pstade { namespace oven {
 namespace string_found_detail {
 
 
-    template< class Range, class >
+    template< class Range >
     struct baby
     {
         typedef
@@ -47,7 +47,7 @@ namespace string_found_detail {
 } // namespace string_found_detail
 
 
-PSTADE_FUNCTION(make_string_found, (string_found_detail::baby<_, _>))
+PSTADE_FUNCTION(make_string_found, (string_found_detail::baby<_>))
 PSTADE_PIPABLE(string_found, (op_make_string_found))
 
 

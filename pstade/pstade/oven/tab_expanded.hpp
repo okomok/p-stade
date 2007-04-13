@@ -182,7 +182,7 @@ namespace tab_expanded_detail {
     };
 
 
-    template< class Range, class >
+    template< class Range >
     struct baby
     {
         typedef typename
@@ -214,7 +214,7 @@ namespace tab_expanded_detail {
 } // namespace tab_expanded_detail
 
 
-PSTADE_FUNCTION(make_tab_expanded, (tab_expanded_detail::baby<_, _>))
+PSTADE_FUNCTION(make_tab_expanded, (tab_expanded_detail::baby<_>))
 PSTADE_PIPABLE(tab_expanded, (op_make_tab_expanded))
 
 

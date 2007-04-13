@@ -52,7 +52,7 @@ namespace taken_detail {
     };
 
 
-    template< class Range, class >
+    template< class Range >
     struct baby
     {
         typedef typename
@@ -78,7 +78,7 @@ namespace taken_detail {
 } // namespace taken_detail
 
 
-PSTADE_FUNCTION(make_taken, (taken_detail::baby<_, _>))
+PSTADE_FUNCTION(make_taken, (taken_detail::baby<_>))
 PSTADE_PIPABLE(taken, (op_make_taken))
 
 
