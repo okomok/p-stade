@@ -10,13 +10,19 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// References:
+//
+// [1] Ronald Garcia, shared_container_iterator, Boost.Utility
+// [2] Eric Niebler, BOOST_FOREACH, Boost.Foreach
+
+
 #include <boost/iterator/iterator_adaptor.hpp>
-#include <boost/noncopyable.hpp>
 #include <boost/pointee.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/constant.hpp>
+#include <pstade/nonassignable.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/provide_sig.hpp>
 #include <pstade/to_shared_ptr.hpp>
@@ -35,11 +41,11 @@ namespace shared_detail {
 
 
     template< class Ptr >
-    struct share_iterator;
+    struct shared_range_iterator;
 
 
     template< class Ptr >
-    struct share_iterator_super
+    struct shared_range_iterator_super
     {
         typedef typename
             boost::pointee<Ptr>::type
@@ -47,7 +53,7 @@ namespace shared_detail {
 
         typedef
             boost::iterator_adaptor<
-                share_iterator<Ptr>,
+                shared_range_iterator<Ptr>,
                 typename range_iterator<rng_t>::type
             >
         type;
@@ -55,25 +61,25 @@ namespace shared_detail {
 
 
     template< class Ptr >
-    struct share_iterator :
-        share_iterator_super<Ptr>::type
+    struct shared_range_iterator :
+        shared_range_iterator_super<Ptr>::type
     {
     private:
-        typedef typename share_iterator_super<Ptr>::type super_t;
+        typedef typename shared_range_iterator_super<Ptr>::type super_t;
         typedef typename super_t::base_type iter_t;
 
     public:
-        share_iterator()
+        shared_range_iterator()
         { }
 
-        share_iterator(iter_t it, Ptr prng) :
+        shared_range_iterator(iter_t it, Ptr prng) :
             super_t(it), m_prng(prng)
         { }
 
-    template< class > friend struct share_iterator;
+    template< class > friend struct shared_range_iterator;
         template< class P >
-        share_iterator(share_iterator<P> const& other,
-            typename boost::enable_if_convertible<typename share_iterator<P>::iter_t, iter_t>::type * = 0,
+        shared_range_iterator(shared_range_iterator<P> const& other,
+            typename boost::enable_if_convertible<typename shared_range_iterator<P>::iter_t, iter_t>::type * = 0,
             typename boost::enable_if_convertible<
                 // Use raw pointer type; 'boost::shared_ptr' convertibility is over-optimistic.
                 typename boost::pointee<P>::type *, typename boost::pointee<Ptr>::type *
@@ -111,7 +117,7 @@ struct op_make_shared :
         sprng_t;
 
         typedef
-            shared_detail::share_iterator<sprng_t>
+            shared_detail::shared_range_iterator<sprng_t>
         iter_t;
 
         typedef
@@ -147,7 +153,7 @@ PSTADE_CONSTANT(make_shared, (op_make_shared))
 
 
 // A pipe must have its own namespace.
-// The overload resolution falls into compile error
+// The overload resolution may fall into compile error,
 // while getting the result type; even if never called.
 // See also "./joint_iterator.hpp"
 
@@ -156,7 +162,7 @@ namespace shared_detail_ {
 
 
     struct pipe :
-        private boost::noncopyable
+        private pstade::nonassignable
     { };
 
 
