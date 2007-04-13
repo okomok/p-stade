@@ -57,7 +57,11 @@ void test()
     }
     {
         int ans[] = { 3,4,5,6,7 };
-        BOOST_CHECK( oven::equals(counting(3, max_)|taken(5), ans) );
+        BOOST_CHECK( oven::equals(counting(3, max_count)|taken(5), ans) );
+    }
+
+    {
+        BOOST_CHECK( oven::distance(counting(min_count, 0)|taken(5)) == 5 );
     }
     {
         std::vector<int> vec;

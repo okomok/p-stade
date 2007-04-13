@@ -83,8 +83,8 @@ namespace counting_detail {
     };
 
 
-    struct max_tag { };
-    struct min_tag { };
+    struct max_count_tag { };
+    struct min_count_tag { };
 
 
 } // namespace counting_detail
@@ -112,28 +112,28 @@ struct op_counting :
     }
 
     template< class Incrementable >
-    struct apply_aux<Incrementable, counting_detail::max_tag> :
+    struct apply_aux<Incrementable, counting_detail::max_count_tag> :
         boost::result_of<
             counting_detail::op<Traversal, Difference>(Incrementable&, Incrementable)
         >
     { };
 
     template< class Result, class Incrementable >
-    Result call_aux(Incrementable i, counting_detail::max_tag, boost::type<Result>) const
+    Result call_aux(Incrementable i, counting_detail::max_count_tag, boost::type<Result>) const
     {
         return
             counting_detail::op<Traversal, Difference>()(i, (std::numeric_limits<Incrementable>::max)());
     }
 
     template< class Incrementable >
-    struct apply_aux<counting_detail::min_tag, Incrementable> :
+    struct apply_aux<counting_detail::min_count_tag, Incrementable> :
         boost::result_of<
             counting_detail::op<Traversal, Difference>(Incrementable, Incrementable&)
         >
     { };
 
     template< class Result, class Incrementable >
-    Result call_aux(counting_detail::min_tag, Incrementable j, boost::type<Result>) const
+    Result call_aux(counting_detail::min_count_tag, Incrementable j, boost::type<Result>) const
     {
         return
             counting_detail::op<Traversal, Difference>()((std::numeric_limits<Incrementable>::min)(), j);
@@ -157,8 +157,8 @@ struct op_counting :
 
 
 PSTADE_CONSTANT(counting, (op_counting<>))
-PSTADE_CONSTANT(max_, (counting_detail::max_tag))
-PSTADE_CONSTANT(min_, (counting_detail::min_tag))
+PSTADE_CONSTANT(max_count, (counting_detail::max_count_tag))
+PSTADE_CONSTANT(min_count, (counting_detail::min_count_tag))
 
 
 namespace counting_from_detail {

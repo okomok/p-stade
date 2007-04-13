@@ -54,7 +54,7 @@ struct op_make_outplaced :
         typedef std::vector<iter_t> type;
     };
 
-    template< class Myself, class Range, class UnaryFun = op_unused >
+    template< class Myself, class Range, class UnaryFun = op_unused const >
     struct apply :
         boost::result_of<
             op_make_indirected<>(

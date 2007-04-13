@@ -28,7 +28,7 @@ using namespace pstade::oven;
 
 
 any_range<int, boost::single_pass_traversal_tag> factorials =
-    counting(1, max_) |
+    counting(1, max_count) |
         scanned(1, // '1' is shared, so no dangling.
             regular(lambda::_1 * lambda::_2));
 
