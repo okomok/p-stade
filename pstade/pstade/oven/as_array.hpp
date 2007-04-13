@@ -10,6 +10,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// References:
+//
+// [1] Pavol Droba, as_array, Proposal for new string algorithms in TR2, 2006.
+//     http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html
+
+
 #include <cstddef> // size_t
 #include <boost/mpl/eval_if.hpp>
 #include <boost/type_traits/add_reference.hpp>

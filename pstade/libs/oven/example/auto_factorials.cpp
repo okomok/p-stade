@@ -21,7 +21,7 @@ using namespace pstade::oven;
 void test()
 {
     BOOST_AUTO(factorials,
-        expression(counting_from(1)|scanned(1, regular(lambda::_1 * lambda::_2))) );
+        expression(counting(1, max_)|scanned(1, regular(lambda::_1 * lambda::_2))) );
 
     int const answer[] = { 1,1,2,6,24,120,720,5040,40320,362880 };
     BOOST_CHECK( equals(factorials|taken(10), answer) );

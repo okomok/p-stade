@@ -10,12 +10,18 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Port of: 'equals' at Boost.StringAlgorithm
-//
 // Copyright Pavol Droba 2002-2003. Use, modification and
 // distribution is subject to the Boost Software License, Version
 // 1.0. (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
+
+
+// References:
+//
+// [1] Pavol Droba, equals, Proposal for new string algorithms in TR2, 2006.
+//     http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html
+// [2] Pavol Droba, equals, Boost.StringAlgorithm, 2002-2004.
+//     http://www.boost.org/doc/html/string_algo.html
 
 
 #include <algorithm> // equal

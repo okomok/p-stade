@@ -10,8 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Modeled after: <boost/spirit/iterator/multi_pass.hpp>
-//
 /*=============================================================================
     Copyright (c) 2001, Daniel C. Nuffer
     http://spirit.sourceforge.net/
@@ -20,10 +18,18 @@
     License, Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
     http://www.boost.org/LICENSE_1_0.txt)
 =============================================================================*/
+
+
+// References:
 //
-// Differences:
-//   No unique-check; rarely unique in range.
-//   No end-iterator-check; it seems redundant.
+// [1] Daniel C. Nuffer, multi_pass iterator, Boost.Spirit, 2001.
+//     http://www.boost.org/libs/spirit/doc/multi_pass.html
+
+
+// Differences from References[1]:
+//
+// 1. No unique-check; rarely unique in range.
+// 2. No end-iterator-check; it seems redundant.
 
 
 #include <deque>

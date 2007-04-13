@@ -215,7 +215,7 @@ namespace cycled_detail {
 struct op_make_cycled :
     callable<op_make_cycled>
 {
-    template< class Myself, class Range, class Incrementable1 = void, class Incrementable2 = std::ptrdiff_t >
+    template< class Myself, class Range, class Incrementable1 = int const, class Incrementable2 = std::ptrdiff_t const >
     struct apply
     {
         typedef 

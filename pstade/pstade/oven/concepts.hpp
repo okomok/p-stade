@@ -10,8 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Port of: <boost/range/concepts.hpp> at CVS
-//
 //  Copyright Daniel Walker 2006. Use, modification and distribution
 //  are subject to the Boost Software License, Version 1.0. (See
 //  accompanying file LICENSE_1_0.txt or copy at
@@ -21,12 +19,6 @@
 // Copyright Eric Niebler 2006. Distributed under the Boost 
 // Software License, Version 1.0. (See accompanying 
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) 
-
-
-// Note:
-//
-// Some metafunctions and 'boost::size' are no longer
-// requirements but client functions.
 
 
 #include <boost/iterator/iterator_concepts.hpp> // boost_concepts

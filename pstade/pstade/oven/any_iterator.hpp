@@ -10,10 +10,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// What:
+// References:
 //
-// Waiting for Dr.Becker's implementation to come into the Boost...
-// http://thbecker.net/free_software_utilities/type_erasure_for_cpp_iterators/start_page.html
+// [1] Thomas Becker, Type Erasure for C++ Iterators, 2007.
+//     http://thbecker.net/free_software_utilities/type_erasure_for_cpp_iterators/start_page.html
 
 
 #include <cstddef> // ptrdiff_t
@@ -279,7 +279,7 @@ public:
 
     // This constructor can't be implicit.
     // Use 'is_convertible_to_any_iterator' instead.
-    // Dr.Becker's "UglyIssue.txt" tells in detail.
+    // "UglyIssue.txt" of References[1] tells in detail.
     template< class Iterator >
     explicit any_iterator(Iterator it) :
         m_content(new typename holder_of<Iterator>::type(it))

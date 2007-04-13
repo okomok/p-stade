@@ -10,12 +10,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Port of: Boost.RangeEx
+// References:
 //
-// Copyright 2004 Eric Niebler.
-// Distributed under the Boost Software License, Version 1.0.
-// (See accompanying file LICENSE_1_0.txt or copy at
-// http://www.boost.org/LICENSE_1_0.txt)
+// [1] Eric Niebler, reverse_range, Boost.RangeEx, 2004.
+//     http://www.boost-consulting.com/vault/index.php?directory=Algorithms
 
 
 #include <boost/range/begin.hpp>

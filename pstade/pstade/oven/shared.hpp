@@ -12,8 +12,10 @@
 
 // References:
 //
-// [1] Ronald Garcia, shared_container_iterator, Boost.Utility
-// [2] Eric Niebler, BOOST_FOREACH, Boost.Foreach
+// [1] Ronald Garcia, shared_container_iterator, Boost.Utility, 2002.
+//     http://www.boost.org/libs/utility/shared_container_iterator.html
+// [2] Eric Niebler, BOOST_FOREACH, Boost.Foreach, 2004.
+//     http://www.boost.org/regression-logs/cs-win32_metacomm/doc/html/foreach.html
 
 
 #include <boost/iterator/iterator_adaptor.hpp>

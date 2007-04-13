@@ -12,8 +12,10 @@
 
 // References:
 //
-// [1] Robert Ramey, head_iterator, Boost.Serialization
-// [2] John Torjo and Matthew Wilson, break_iterator, Iterable Range Library
+// [1] Robert Ramey, head_iterator, Boost.Serialization, 2002.
+//     http://www.boost.org/libs/serialization/doc/dataflow.html
+// [2] John Torjo and Matthew Wilson, break_iterator, Iterable Range Library, 2004.
+//     http://www.torjo.com/rangelib/index.html
 
 
 #include <boost/assert.hpp>

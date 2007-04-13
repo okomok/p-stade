@@ -10,14 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Modeled after: Boost.RangeEx
-//
-// Copyright 2004 Eric Niebler.
-// Distributed under the Boost Software License, Version 1.0.
-// (See accompanying file LICENSE_1_0.txt or copy at
-// http://www.boost.org/LICENSE_1_0.txt)
-
-
 // Note:
 //
 // Consider the following simple functor.
@@ -33,6 +25,12 @@
 // cannot work with this functor because of dangling reference.
 // A transformed range's 'reference' type is sometimes
 // orthogonal to functor's 'result_type'.
+
+
+// References:
+//
+// [1] Eric Niebler, transform_range, Boost.RangeEx, 2004.
+// [2] David Abrahams, Jeremy Siek, Thomas Witt, transform_iterator, Boost.Iterator, 2003.
 
 
 #include <boost/iterator/iterator_adaptor.hpp>

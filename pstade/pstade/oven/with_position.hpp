@@ -15,7 +15,6 @@
 #include <pstade/constant.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/static_c.hpp>
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
@@ -27,7 +26,7 @@ namespace pstade { namespace oven {
 struct op_make_with_position :
     callable<op_make_with_position>
 {
-    template< class Myself, class Range, class PositionT = boost::spirit::file_position, class Int = void >
+    template< class Myself, class Range, class PositionT = boost::spirit::file_position const, class Int = void >
     struct apply
     {
         typedef
@@ -43,7 +42,7 @@ struct op_make_with_position :
     };
 
     template< class Result, class Range, class PositionT >
-    Result call(Range& rng, PositionT const& pos, int tabchars = 4) const
+    Result call(Range& rng, PositionT& pos, int tabchars = 4) const
     {
         PSTADE_CONCEPT_ASSERT((Forward<Range>));
 

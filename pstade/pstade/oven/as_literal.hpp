@@ -10,13 +10,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// What:
+// References:
 //
-// http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html#as-literal
-//
-// "hello\0secret"|as_literal == *hello\0secret*
-// "hello\0secret"|as_c_str   == *hello*
-// "hello\0secret"|as_array   == *hello\0secret\0*
+// [1] Pavol Droba, as_literal, Proposal for new string algorithms in TR2, 2006.
+//     http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html
 
 
 #include <cstddef> // size_t

@@ -10,10 +10,14 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// What:
+// References:
 //
-// Replaces 'boost::reverse_iterator' for
-// http://std.dkuug.dk/jtc1/sc22/wg21/docs/lwg-defects.html#198
+// [1] C++ Standard Library Defect Report List #198, 1999.
+//     http://anubis.dkuug.dk/jtc1/sc22/wg21/docs/lwg-defects.html
+// [2] Working Draft, Standard for Programming Language C++ (24.1/9), 2006.
+//     http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2134.pdf
+// [3] David Abrahams, Jeremy Siek and Thomas Witt, reverse_iterator, Boost.Iterator, 2004.
+//     http://www.boost.org/libs/iterator/doc/reverse_iterator.html
 
 
 #include <boost/iterator/iterator_adaptor.hpp>

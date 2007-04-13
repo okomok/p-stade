@@ -21,6 +21,7 @@
 #include <boost/range.hpp>
 #include <pstade/oven/algorithm.hpp>
 #include <pstade/oven/functions.hpp>
+#include <pstade/oven/taken.hpp>
 #include <pstade/oven/taken_while.hpp>
 #include <pstade/oven/transformed.hpp>
 #include <pstade/result_of_lambda.hpp>
@@ -54,7 +55,10 @@ void test()
         int ans[] = { 0, 1, 2, 3, 4 };
         BOOST_CHECK( oven::equal(oven::counting(0, 5), ans) );
     }
-
+    {
+        int ans[] = { 3,4,5,6,7 };
+        BOOST_CHECK( oven::equals(counting(3, max_)|taken(5), ans) );
+    }
     {
         std::vector<int> vec;
         int ans[] = { 0, 1, 2, 3, 4 };

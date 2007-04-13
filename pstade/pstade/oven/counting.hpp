@@ -14,6 +14,7 @@
 #include <boost/assert.hpp>
 #include <boost/iterator/counting_iterator.hpp>
 #include <boost/iterator/iterator_categories.hpp>
+#include <boost/type.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
@@ -30,6 +31,9 @@ namespace pstade { namespace oven {
 namespace counting_detail {
 
 
+    namespace here = counting_detail;
+
+
     template< class Incrementable1, class Incrementable2 > inline
     bool is_valid(Incrementable1 i, Incrementable2 j, boost::single_pass_traversal_tag)
     {
@@ -44,52 +48,117 @@ namespace counting_detail {
     }
 
 
+    template< class Traversal, class Difference >
+    struct op :
+        callable< op<Traversal, Difference> >
+    {
+        template< class Myself, class Incrementable1, class Incrementable2 >
+        struct apply
+        {
+            typedef
+                boost::counting_iterator<
+                    // Prefer 'Incrementable2'; [0:int, size():uint) often happens.
+                    typename pass_by_value<Incrementable2>::type,
+                    Traversal,
+                    Difference
+                >
+            iter_t;
+
+            typedef
+                iter_range<iter_t> const
+            type;
+        };
+
+        template< class Result, class Incrementable1, class Incrementable2 >
+        Result call(Incrementable1& i, Incrementable2 j) const
+        {
+            typedef typename Result::iterator iter_t;
+            BOOST_ASSERT(here::is_valid(i, j, typename boost::iterator_traversal<iter_t>::type()));
+
+            return Result(
+                iter_t(pstade::value_cast<Incrementable2>(i)), 
+                iter_t(j)
+            );
+        }
+    };
+
+
+    struct max_tag { };
+    struct min_tag { };
+
+
 } // namespace counting_detail
 
 
 template<
-    class CategoryOrTraversal = boost::use_default,
-    class Difference          = boost::use_default
+    class Traversal  = boost::use_default,
+    class Difference = boost::use_default
 >
 struct op_counting :
-    callable< op_counting<CategoryOrTraversal, Difference> >
+    callable< op_counting<Traversal, Difference> >
 {
-    template< class Myself, class Incrementable1, class Incrementable2 >
-    struct apply
-    {
-        typedef
-            boost::counting_iterator<
-                // Prefer 'Incrementable2'; [0:int, size():uint) often happens.
-                typename pass_by_value<Incrementable2>::type,
-                CategoryOrTraversal,
-                Difference
-            >
-        iter_t;
+    template< class Incrementable1, class Incrementable2 >
+    struct apply_aux :
+        boost::result_of<
+            counting_detail::op<Traversal, Difference>(Incrementable1&, Incrementable2&)
+        >
+    { };
 
-        typedef
-            iter_range<iter_t> const
-        type;
-    };
+    template< class Result, class Incrementable1, class Incrementable2 >
+    Result call_aux(Incrementable1 i, Incrementable2 j, boost::type<Result>) const
+    {
+        return
+            counting_detail::op<Traversal, Difference>()(i, j);
+    }
+
+    template< class Incrementable >
+    struct apply_aux<Incrementable, counting_detail::max_tag> :
+        boost::result_of<
+            counting_detail::op<Traversal, Difference>(Incrementable&, Incrementable)
+        >
+    { };
+
+    template< class Result, class Incrementable >
+    Result call_aux(Incrementable i, counting_detail::max_tag, boost::type<Result>) const
+    {
+        return
+            counting_detail::op<Traversal, Difference>()(i, (std::numeric_limits<Incrementable>::max)());
+    }
+
+    template< class Incrementable >
+    struct apply_aux<counting_detail::min_tag, Incrementable> :
+        boost::result_of<
+            counting_detail::op<Traversal, Difference>(Incrementable, Incrementable&)
+        >
+    { };
+
+    template< class Result, class Incrementable >
+    Result call_aux(counting_detail::min_tag, Incrementable j, boost::type<Result>) const
+    {
+        return
+            counting_detail::op<Traversal, Difference>()((std::numeric_limits<Incrementable>::min)(), j);
+    }
+
+    template< class Myself, class Incrementable1, class Incrementable2 >
+    struct apply :
+        apply_aux<
+            typename pass_by_value<Incrementable1>::type,
+            typename pass_by_value<Incrementable2>::type
+        >
+    { };
 
     template< class Result, class Incrementable1, class Incrementable2 >
     Result call(Incrementable1& i, Incrementable2& j) const
     {
-        typedef typename Result::iterator iter_t;
-        typedef typename iter_t::base_type inc2_t;
-
-        BOOST_ASSERT(counting_detail::is_valid(
-            i, j, typename boost::iterator_traversal<iter_t>::type()
-        ));
-
-        return Result(
-            iter_t(pstade::value_cast<inc2_t>(i)),
-            iter_t(j)
-        );
+        // Use type holder for GCC; see <pstade/const_overloaded.hpp>.
+        return call_aux(i, j, boost::type<Result>());
     }
 };
 
 
 PSTADE_CONSTANT(counting, (op_counting<>))
+PSTADE_CONSTANT(max_, (counting_detail::max_tag))
+PSTADE_CONSTANT(min_, (counting_detail::min_tag))
 
 
 namespace counting_from_detail {

@@ -18,6 +18,12 @@
 // this may be still useful. So I don't remove...
 
 
+// References:
+//
+// [1] Gabhan Berry, C++ View Objects, Dr.Dobb's Portal, 2006.
+//     http://www.ddj.com/dept/cpp/196513737
+
+
 #include <algorithm> // sort
 #include <boost/ptr_container/indirect_fun.hpp>
 #include <boost/range/begin.hpp>

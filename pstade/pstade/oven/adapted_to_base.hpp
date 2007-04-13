@@ -10,14 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Port of: 'iterator_cast' of Boost.RangeEx
-//
-// Copyright 2004 Eric Niebler.
-// Distributed under the Boost Software License, Version 1.0.
-// (See accompanying file LICENSE_1_0.txt or copy at
-// http://www.boost.org/LICENSE_1_0.txt)
-
-
 // Question:
 //
 // 'is_convertible' is over-optimistic?
@@ -29,6 +21,12 @@
 // This implementation is slightly complicated than
 // 'iterator_cast' in order to support a reference
 // type as 'Base'. Any pitfalls?
+
+
+// References:
+//
+// [1] Eric Niebler, iterator_cast, Boost.RangeEx, 2004.
+//     http://www.boost-consulting.com/vault/index.php?directory=Algorithms
 
 
 #include <boost/config.hpp>

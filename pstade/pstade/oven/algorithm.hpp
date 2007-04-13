@@ -10,18 +10,16 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Modeled after: Boost.RangeEx
-//
-// Copyright 2004 Eric Niebler.
-// Distributed under the Boost Software License, Version 1.0. (See
-// accompanying file LICENSE_1_0.txt or copy at
-// http://www.boost.org/LICENSE_1_0.txt)
-
-
 // Note:
 //
 // I doubt the optimization using member functions is useful.
-// Adaptors easily erase the base range type.
+// Adaptors easily loses the base range type.
+
+
+// References:
+//
+// [1] Eric Niebler, Boost.RangeEx, 2004.
+//     http://www.boost-consulting.com/vault/index.php?directory=Algorithms
 
 
 #include <boost/preprocessor/cat.hpp>

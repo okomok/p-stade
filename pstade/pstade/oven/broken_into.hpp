@@ -10,11 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Note:
-//
-// The name 'tokenized' is reserved by Boost.Regex.
-
-
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/token_iterator.hpp>

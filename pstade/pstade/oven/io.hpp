@@ -10,10 +10,19 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// See:
+// Copyright (C) 2001 Jaakko Jarvi (jaakko.jarvi@cs.utu.fi)
+//               2001 Gary Powell (gary.powell@sierra.com)
 //
-// <boost/tuple/tuple_io.hpp>
-// <boost/fusion/sequence/io.hpp>
+// Distributed under the Boost Software License, Version 1.0. (See
+// accompanying file LICENSE_1_0.txt or copy at
+// http://www.boost.org/LICENSE_1_0.txt)
+// For more information, see http://www.boost.org 
+
+
+// References:
+//
+// [1] <boost/tuple/tuple_io.hpp>
+// [2] <boost/fusion/sequence/io.hpp>
 
 
 #include <locale> // isspace

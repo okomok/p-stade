@@ -16,6 +16,12 @@
 // This function doesn't modify the argument iterator.
 
 
+// References:
+//
+// [1] Dave Abrahams and Daniel Walker, next and prior, Boost.Utility, 2003.
+//     http://www.boost.org/libs/utility/utility.htm
+
+
 #include <iterator> // advance
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_categories.hpp>

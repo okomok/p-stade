@@ -10,6 +10,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// References:
+//
+// [1] Jens Maurer, generator_iterator, Boost.Utility, 2001.
+//     http://www.boost.org/libs/utility/generator_iterator.htm
+
+
 #include <boost/assert.hpp>
 #include <boost/indirect_reference.hpp>
 #include <boost/iterator/iterator_facade.hpp>
@@ -21,7 +27,6 @@
 #include <pstade/object_generator.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/remove_cvr.hpp>
-#include "./begin_end.hpp"
 #include "./iter_range.hpp"
 
 
@@ -74,6 +79,10 @@ namespace generation_detail {
     };
 
 
+    struct begin_tag { };
+    struct end_tag { };
+
+
     template< class Generator >
     struct generator_iterator :
         generator_iterator_super<Generator>::type
@@ -86,16 +95,15 @@ namespace generation_detail {
 
         // If default-constructed one plays the end iterator role,
         // it would require 'Generator' to be DefaultConstructible.
-        // But SinglePassIterator is not required to be.
-        // So, specify it by using 'op_begin/op_end'.
+        // But SinglePassIterator is not required to be. So use tags.
 
-        generator_iterator(Generator gen, op_begin) :
+        generator_iterator(Generator gen, begin_tag) :
             m_gen(gen), m_result()
         {
             generate();
         }
 
-        generator_iterator(Generator gen, op_end) :
+        generator_iterator(Generator gen, end_tag) :
             m_gen(gen), m_result()
         { }
 
@@ -154,7 +162,10 @@ namespace generation_detail {
 
         result_type operator()(Generator& gen) const
         {
-            return result_type(iter_t(gen, begin), iter_t(gen, end));
+            return result_type(
+                iter_t(gen, begin_tag()),
+                iter_t(gen, end_tag())
+            );
         }
     };
 
@@ -168,12 +179,12 @@ PSTADE_FUNCTION(generation, (generation_detail::baby<_>))
 namespace innumerable_detail {
 
 
-    template< class Generator_ >
+    template< class StdGenerator >
     struct return_op
     {
         typedef
             boost::optional<
-                typename boost::result_of<Generator_()>::type
+                typename boost::result_of<StdGenerator()>::type
             >
         result_type;
 
@@ -182,12 +193,12 @@ namespace innumerable_detail {
             return result_type(m_gen());
         }
 
-        explicit return_op(Generator_ gen) :
+        explicit return_op(StdGenerator gen) :
             m_gen(gen)
         { }
 
     private:
-        Generator_ m_gen;        
+        StdGenerator m_gen;        
     };
 
 

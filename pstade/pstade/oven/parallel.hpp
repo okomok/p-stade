@@ -10,9 +10,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// See:
+// References:
 //
-// http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2104.pdf
+// [1] Arch D. Robison, A Proposal to Add Parallel Iteration to the Standard Library, 2006.
+//     http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2104.pdf
 
 
 #include <algorithm> // for_each

@@ -20,6 +20,12 @@
 // Iterators manage temporary container for BOOST_FOREACH.
 
 
+// References:
+//
+// [1] Gabhan Berry, C++ View Objects, Dr.Dobb's Portal, 2006.
+//     http://www.ddj.com/dept/cpp/196513737
+
+
 #include <memory> // auto_ptr
 #include <vector>
 #include <boost/utility/result_of.hpp>

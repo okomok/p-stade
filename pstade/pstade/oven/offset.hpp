@@ -14,7 +14,7 @@
 //
 // This range had the name 'shift_range',
 // which is reserved to "logical shift operation" for someday.
-// 'cshift_range'(cyclic shift operation) is also a candidate. 
+// 'cshift_range'(cyclic shift operation) is also a candidate.
 
 
 #include <boost/assert.hpp>

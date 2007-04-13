@@ -10,9 +10,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// See: 'stdext::checked_iterator'
+// References:
 //
-// http://msdn2.microsoft.com/en-us/library/at797xz3.aspx
+// [1] Microsoft, checked_iterator, Standard C++ Library.
+//     http://msdn2.microsoft.com/en-us/library/aa985943(VS.80).aspx
 
 
 #include <stdexcept> // logic_error, out_of_range
@@ -30,8 +31,6 @@
 
 namespace pstade { namespace oven {
 
-
-// exceptions
 
 struct singular_iterator_operation :
     std::logic_error

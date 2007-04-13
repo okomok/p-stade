@@ -14,7 +14,15 @@
 // What:
 //
 // Simpler/faster version of 'boost::assign::cref_list_of'.
-// A2-AN must be convertible to A1.
+// Precondition: A2-AN must be convertible to A1.
+
+
+// References:
+//
+// [1] Bjarne Stroustrup and Gabriel Dos Reis, Initializer Lists, 2006.
+//     http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2100.pdf
+// [2] Thorsten Ottosen, Boost.Assign, 2002-2004.
+//     http://www.boost.org/libs/assign/doc/index.html
 
 
 #include <cstddef> // size_t

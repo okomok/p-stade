@@ -10,6 +10,14 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// References:
+//
+// [1] M. H. Austern, Segmented Iterators and Hierarchical Algorithms, 2001.
+//     http://lafstern.org/matt/segmented.pdf
+// [2] Adobe, segmented_iterator, Adobe Open Source, 2007.
+//     http://opensource.adobe.com/classadobe_1_1segmented__iterator.html
+
+
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_traits.hpp>
