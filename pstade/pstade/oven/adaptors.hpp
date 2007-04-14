@@ -26,6 +26,7 @@
 #include "./delimited.hpp"
 #include "./dropped.hpp"
 #include "./dropped_while.hpp"
+#include "./duplicates.hpp"
 #include "./filtered.hpp"
 #include "./firsts.hpp"
 // #include "./got_at.hpp"
