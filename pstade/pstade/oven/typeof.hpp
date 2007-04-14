@@ -30,6 +30,7 @@ struct any_range;
 
 BOOST_TYPEOF_REGISTER_TEMPLATE(pstade::oven::any_iterator, 4)
 BOOST_TYPEOF_REGISTER_TEMPLATE(pstade::oven::any_range, 4)
+
 #if !defined(PSTADE_OVEN_NO_TYPEOF_REGISTRATION_OF_TRAVERSAL_TAGS)
     BOOST_TYPEOF_REGISTER_TYPE(boost::incrementable_traversal_tag)
     BOOST_TYPEOF_REGISTER_TYPE(boost::single_pass_traversal_tag)

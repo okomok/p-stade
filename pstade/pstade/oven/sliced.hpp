@@ -90,7 +90,7 @@ namespace sliced_detail {
             return make_permuted(
                 rng,
                 make_transformed(
-                    counting(0, distance(rng)/stride),
+                    counting(0, distance(rng) / stride),
                     to_index<diff_t>(start, stride)
                 )
             );

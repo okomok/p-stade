@@ -10,13 +10,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/utility/addressof.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
 #include "./concatenated.hpp"
 #include "./concepts.hpp"
+#include "./iter_range.hpp" // iter_range_of
 #include "./jointed.hpp"
 #include "./transformed.hpp"
 
@@ -31,28 +31,33 @@ namespace delimited_detail {
     struct with :
         callable< with<Delimiter> >
     {
+        // Hold the base range by value.
+        typedef typename
+            iter_range_of<Delimiter>::type
+        delim_t;
+
         template< class Myself, class LocalRange >
         struct apply :
             boost::result_of<
-                op_make_jointed(Delimiter&, LocalRange&)
+                op_make_jointed(delim_t&, LocalRange&)
             >
         { };
 
         template< class Result, class LocalRange >
         Result call(LocalRange& local) const
         {
-            return make_jointed(*m_pdelim, local);
+            return make_jointed(m_delim, local);
         }
 
         explicit with()
         { }
 
         explicit with(Delimiter& delim) :
-            m_pdelim(boost::addressof(delim))
+            m_delim(delim)
         { }
 
     private:
-        Delimiter *m_pdelim;
+        delim_t m_delim;
     };
 
 

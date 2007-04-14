@@ -16,7 +16,8 @@
 // I can't imagine the benefit of something like 'drop_while_iterator'.
 // With such iterator, an expression:
 // 'counting(1, 10^10)|identities(in_forward)|dropped(10^10 - 1)|reversed;'
-// won't hang up. But once you call 'copy', it would be inevitable to hang up.
+// won't hang up. But once you call 'copy', it is inevitable to hang up.
+// After all, this behavior follows 'boost::filter_iterator'.
 
 
 #include <algorithm> // find_if

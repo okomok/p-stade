@@ -9,35 +9,22 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/junk/eval_of.hpp>
-#include <boost/static_assert.hpp>
-#include <boost/mpl/int.hpp>
-#include <boost/mpl/plus.hpp>
-#include <boost/mpl/quote.hpp>
-#include <boost/mpl/minus.hpp>
-#include <boost/mpl/lambda.hpp>
-#include <boost/mpl/identity.hpp>
-#include <boost/mpl/placeholders.hpp>
+#include <boost/mpl/assert.hpp>
+#include <boost/type_traits/is_same.hpp>
+#include <pstade/pass_by.hpp>
+#include <pstade/callable.hpp>
+#include <pstade/oven/reverse_iterator.hpp>
+#include <vector>
 
+typedef pstade::oven::reverse_iterator<std::_Vector_iterator<int,std::allocator<int> > > iter_t;
 
-using namespace boost::mpl::placeholders;
-namespace mpl = boost::mpl;
-
-typedef mpl::lambda< mpl::plus<_, _> >::type plus;
-typedef mpl::lambda< mpl::minus<_, _> >::type minus;
-
-
-typedef
-    pstade::eval_of<
-        plus(
-            plus(mpl::int_<2>, minus(mpl::int_<3>, mpl::int_<1>)),
-            plus(mpl::int_<5>, mpl::int_<10>)
-        )
-    >::type
-result;
+//BOOST_MPL_ASSERT((boost::is_same< int, boost::detail::iterator_traits<iter_t>::value_type>));
+BOOST_MPL_ASSERT((boost::is_same<__w64 int, pstade::callable_argument<__w64 int&>::type>));
 
 
 int main()
 {
-    BOOST_STATIC_ASSERT(( result::value == 19 ));
+    iter_t it;
+    boost::detail::iterator_traits<iter_t>::value_type v = 0;
+    *it = v;
 }
