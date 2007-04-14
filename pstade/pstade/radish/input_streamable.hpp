@@ -16,8 +16,8 @@
 
 
 #include <iosfwd> // basic_istream
-#include <boost/mpl/empty_base.hpp>
 #include <pstade/adl_barrier.hpp>
+#include "./null_injector.hpp"
 
 
 namespace pstade { namespace radish {
@@ -26,16 +26,16 @@ PSTADE_ADL_BARRIER(input_streamable) {
 
 
 template<
-    class T,
-    class Base = boost::mpl::empty_base
+    class Derived,
+    class Injector = null_injector<Derived>
 >
 struct input_streamable :
-    Base
+    Injector
 {
     template< class CharT, class Traits >
     friend
     std::basic_istream<CharT, Traits>&
-    operator>>(std::basic_istream<CharT, Traits>& is, T& x)
+    operator>>(std::basic_istream<CharT, Traits>& is, Derived& x)
     {
         pstade_radish_input(x, is);
         return is;

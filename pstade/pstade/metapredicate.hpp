@@ -16,9 +16,9 @@
 
 
 #include <boost/mpl/bool.hpp>
-#include <boost/mpl/empty_base.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/type.hpp>
+#include <pstade/radish/null_injector.hpp>
 #include <pstade/yes_no.hpp>
 
 
@@ -41,8 +41,8 @@
         ::boost::mpl::bool_< BOOST_PP_CAT(detail_is_, Trait)<T>::value > \
     { }; \
     \
-    template< class T, class Base = boost::mpl::empty_base > \
-    struct BOOST_PP_CAT(as_, Trait) \
+    template< class T, class Injector = ::pstade::radish::null_injector<T> > \
+    struct BOOST_PP_CAT(as_, Trait) : Injector \
     { \
         friend /* needs definition to suppress GCC waring. */ \
         ::pstade::yes \

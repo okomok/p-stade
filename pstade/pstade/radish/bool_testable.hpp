@@ -19,9 +19,9 @@
 
 
 #include <boost/mpl/assert.hpp>
-#include <boost/mpl/empty_base.hpp>
 #include <boost/type_traits/is_convertible.hpp>
 #include <pstade/adl_barrier.hpp>
+#include "./null_injector.hpp"
 #include "./safe_bool.hpp"
 
 
@@ -31,11 +31,11 @@ PSTADE_ADL_BARRIER(bool_testable) {
 
 
 template<
-    class T,
-    class Base = boost::mpl::empty_base
+    class Derived,
+    class Injector = null_injector<Derived>
 >
 struct bool_testable :
-    Base
+    Injector
 {
 private:
     void does_not_support_comparisons() const;
@@ -43,16 +43,17 @@ private:
 public:
     bool_testable()
     {
-        // Your type is already bool-testable.
         // In fact, these assertions seem not to work.
-        // BOOST_MPL_ASSERT_NOT((boost::is_convertible<T, char>));
-        // BOOST_MPL_ASSERT_NOT((boost::is_convertible<T, int short>));
+        //
+        // Your type is already bool-testable.
+        // BOOST_MPL_ASSERT_NOT((boost::is_convertible<Derived, char>));
+        // BOOST_MPL_ASSERT_NOT((boost::is_convertible<Derived, int short>));
     }
 
     // Prefer 'friend' to member for disambiguity.
     // One of base classes may have its own member 'operator!()'.
     friend
-    bool operator !(T const& x)
+    bool operator !(Derived const& x)
     {
         return !(x.operator safe_bool());
     }
@@ -61,15 +62,15 @@ public:
 
 // You must win the overloading race against...
 //
-template< class T, class U > inline
-bool operator==(bool_testable<T> const& x, bool_testable<U> const&)
+template< class D1, class I1, class D2, class I2 > inline
+bool operator==(bool_testable<D1, I1> const& x, bool_testable<D2, I2> const&)
 {
     x.does_not_support_comparisons();
     return false;
 }
 
-template< class T, class U > inline
-bool operator!=(bool_testable<T> const& x, bool_testable<U> const&)
+template< class D1, class I1, class D2, class I2 > inline
+bool operator!=(bool_testable<D1, I1> const& x, bool_testable<D2, I2> const&)
 {
     x.does_not_support_comparisons();
     return false;

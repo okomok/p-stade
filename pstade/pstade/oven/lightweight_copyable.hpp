@@ -12,13 +12,16 @@
 
 #include <boost/foreach.hpp> // foreach::tag
 #include <boost/mpl/bool.hpp>
-#include <boost/mpl/empty_base.hpp>
+#include <pstade/radish/null_injector.hpp>
 
 
 namespace pstade { namespace oven {
 
 
-template< class Range, class Injector = boost::mpl::empty_base >
+template<
+    class Range,
+    class Injector = radish::null_injector<Range>
+>
 struct lightweight_copyable :
     Injector
 {

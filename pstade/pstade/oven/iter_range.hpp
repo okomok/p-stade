@@ -46,12 +46,6 @@ namespace pstade { namespace oven {
 namespace iter_range_detail {
 
 
-    // VC7.1 complains if class hierarchy has two or more
-    // private base. 'iter_range' is often used as base,
-    // so it is better to use unique type just in case.
-    struct empty_base { };
-
-
     // While no copy/assign of iterator throws (23.1/11),
     // 'begin/end' can throw (http://tinyurl.com/2ov9mw).
     template< class Iterator, class Range > inline
@@ -63,12 +57,16 @@ namespace iter_range_detail {
     }
 
 
+    // See <pstade/radish/null_injector.hpp>.
+    struct null_injector { };
+
+
 } // namespace iter_range_detail
 
 
 template<
     class Iterator,
-    class Injector = iter_range_detail::empty_base
+    class Injector = iter_range_detail::null_injector
 >
 struct iter_range :
     boost::equality_comparable< iter_range<Iterator, Injector>,
@@ -184,7 +182,7 @@ private:
 
 template<
     class Range,
-    class Injector = iter_range_detail::empty_base
+    class Injector = iter_range_detail::null_injector
 >
 struct iter_range_of
 {

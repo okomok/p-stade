@@ -17,7 +17,7 @@
 // See 'array_range' for the usage.
 
 
-#include <boost/mpl/empty_base.hpp>
+#include <pstade/radish/null_injector.hpp>
 #include "./detail/config.hpp" // PSTADE_OVEN_BOOST_RANGE_BEGIN/END
 
 
@@ -27,7 +27,7 @@ namespace pstade { namespace oven {
 template<
     class T,
     class ConstantIter,
-    class Injector = boost::mpl::empty_base
+    class Injector = radish::null_injector<T>
 >
 struct range_constantable :
     Injector

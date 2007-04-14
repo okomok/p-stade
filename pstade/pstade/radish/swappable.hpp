@@ -10,8 +10,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/mpl/empty_base.hpp>
 #include <pstade/adl_barrier.hpp>
+#include "./null_injector.hpp"
 
 
 namespace pstade { namespace radish {
@@ -20,14 +20,14 @@ PSTADE_ADL_BARRIER(swappable) {
 
 
 template<
-    class T,
-    class Base = boost::mpl::empty_base
+    class Derived,
+    class Injector = null_injector<Derived>
 >
 struct swappable :
-    Base
+    Injector
 {
     friend
-    void swap(T& x, T& y)
+    void swap(Derived& x, Derived& y)
     {
         x.swap(y);
     }

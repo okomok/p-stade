@@ -13,6 +13,7 @@
 #include <boost/assert.hpp>
 #include <boost/mpl/empty_base.hpp>
 #include <pstade/adl_barrier.hpp>
+#include "./null_injector.hpp"
 
 
 namespace pstade { namespace radish {
@@ -21,27 +22,27 @@ PSTADE_ADL_BARRIER(pointable) {
 
 
 template<
-    class T, class Element,
-    class Base = boost::mpl::empty_base
+    class Derived, class Element,
+    class Injector = null_injector<Derived>
 >
 struct pointable :
-    Base
+    Injector
 {
     typedef Element element_type; // for 'boost::pointee'.
 
     // Note:
-    // 'operator->()' must be defined in 'T' by hand;
+    // 'operator->()' must be defined in 'Derived' by hand;
     // for avoiding multiple-inheritance ambiguity.
 
     friend
-    Element& operator *(T const& x)
+    Element& operator *(Derived const& x)
     {
         BOOST_ASSERT(x.operator->());
         return *(x.operator->());
     }
 
     friend
-    Element *get_pointer(T const& x) // for Boost.Bind
+    Element *get_pointer(Derived const& x) // for Boost.Bind
     {
         // can't call 'operator->()' which has usually assertion.
         return x.get();
