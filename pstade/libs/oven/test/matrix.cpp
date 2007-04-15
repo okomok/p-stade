@@ -14,6 +14,7 @@
 #include <pstade/oven/matrix.hpp>
 
 
+#include <boost/foreach.hpp>
 #include <pstade/oven/at.hpp>
 #include <pstade/oven/before_stable_partition.hpp>
 #include <pstade/oven/io.hpp>
@@ -143,6 +144,28 @@ void test_3d()
         BOOST_CHECK( (rng|matrix(3, 5, 7)|at(1)|at(2)|at(3)) == arr[1][2][3] );
         BOOST_CHECK( (rng|matrix(3, 5, 7))[1][2][3] == arr[1][2][3] );
         BOOST_CHECK( arr[1][2][3] == 86 );
+    }
+    {
+        std::vector<int> rng = src|copied;
+
+        typedef boost::
+            result_of<op_make_matrix(std::vector<int>&, int, int, int)>::type
+        rng3d_t;
+        rng3d_t rng3d = make_matrix(rng, 3, 5, 7);
+
+        int i = 0;
+        BOOST_FOREACH (range_value<rng3d_t>::type rng2d, rng3d) {
+            int j = 0;
+            BOOST_FOREACH (range_value<range_value<rng3d_t>::type>::type rng1d, rng2d) {
+                int k = 0;
+                BOOST_FOREACH (int& x, rng1d) {
+                    BOOST_CHECK(x == arr[i][j][k]);
+                    ++k;
+                }
+                ++j;
+            }
+            ++i;
+        }
     }
 }
 
