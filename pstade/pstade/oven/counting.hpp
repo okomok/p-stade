@@ -70,14 +70,18 @@ namespace counting_detail {
         };
 
         template< class Result, class Incrementable1, class Incrementable2 >
-        Result call(Incrementable1& i, Incrementable2 j) const
+        Result call(Incrementable1& i, Incrementable2& j) const
         {
             typedef typename Result::iterator iter_t;
             BOOST_ASSERT(here::is_valid(i, j, typename boost::iterator_traversal<iter_t>::type()));
 
+            // Through metafunctions, '__w64 int(msvc)' and 'ptrdiff_t(gcc)'
+            // sometimes turn into 'int' and passed to 'counting_iterator' above.
+            // All we can do is cast, and suppress the "loss of data" warning.
+            typedef typename iter_t::base_type count_t;
             return Result(
-                iter_t(pstade::value_cast<Incrementable2>(i)), 
-                iter_t(j)
+                iter_t(pstade::value_cast<count_t>(i)), 
+                iter_t(pstade::value_cast<count_t>(j))
             );
         }
     };
