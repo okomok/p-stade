@@ -21,13 +21,11 @@
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/unused.hpp>
-#include <pstade/value_cast.hpp>
 #include "./concepts.hpp"
 #include "./counting.hpp"
 #include "./distance.hpp"
 #include "./iter_range.hpp"
 #include "./range_difference.hpp"
-#include "./range_value.hpp"
 #include "./sliced.hpp"
 #include "./transformed.hpp"
 #include "./window.hpp"
@@ -39,7 +37,7 @@ namespace pstade { namespace oven {
 namespace rows_detail {
 
 
-    template< class Range, class Count >
+    template< class Range, class Difference >
     struct to_row
     {
         // Hold the base range by value for 3d or more.
@@ -49,11 +47,11 @@ namespace rows_detail {
 
         typedef typename
             boost::result_of<
-                op_make_window(rng_t const&, Count, Count)
+                op_make_window(rng_t const&, Difference, Difference)
             >::type
         result_type;
 
-        result_type operator()(Count i) const
+        result_type operator()(Difference i) const
         {
             return make_window(m_rng, i*m_d2, (i+1)*m_d2);
         }
@@ -61,13 +59,13 @@ namespace rows_detail {
         to_row()
         { }
 
-        to_row(Range& rng, Count d2) :
+        to_row(Range& rng, Difference d2) :
             m_rng(rng), m_d2(d2)
         { }
 
     private:
         rng_t m_rng;
-        Count m_d2;
+        Difference m_d2;
     };
 
 
@@ -79,20 +77,10 @@ namespace rows_detail {
         diff_t;
 
         typedef typename
-            boost::result_of<op_counting<>(int, diff_t&)>::type
-        counting_t;
-
-        // 'count_t' is not always same as 'diff_t'.
-        // See a comment around 'value_cast' at "./counting.hpp".
-        typedef typename
-            range_value<counting_t>::type
-        count_t;
-
-        typedef typename
             boost::result_of<
                 op_make_transformed<>(
-                    counting_t,
-                    to_row<Range, count_t>
+                    typename boost::result_of<op_counting<>(int, diff_t&)>::type,
+                    to_row<Range, diff_t>
                 )
             >::type
         result_type;
@@ -104,7 +92,7 @@ namespace rows_detail {
 
             return make_transformed(
                 counting(0, d1),
-                to_row<Range, count_t>(rng, pstade::value_cast<count_t>(d2))
+                to_row<Range, diff_t>(rng, d2)
             );
         }
     };
@@ -120,7 +108,7 @@ PSTADE_PIPABLE(rows, (op_make_rows))
 namespace columns_detail {
 
 
-    template< class Range, class Count >
+    template< class Range, class Difference >
     struct to_column
     {
         typedef typename
@@ -129,11 +117,11 @@ namespace columns_detail {
 
         typedef typename
             boost::result_of<
-                op_make_sliced(rng_t const&, Count&, Count const&)
+                op_make_sliced(rng_t const&, Difference&, Difference const&)
             >::type
         result_type;
 
-        result_type operator()(Count j) const
+        result_type operator()(Difference j) const
         {
             return make_sliced(m_rng, j, m_d2);
         }
@@ -141,13 +129,13 @@ namespace columns_detail {
         to_column()
         { }
 
-        to_column(Range& rng, Count d2) :
+        to_column(Range& rng, Difference d2) :
             m_rng(rng), m_d2(d2)
         { }
 
     private:
         rng_t m_rng;
-        Count m_d2;
+        Difference m_d2;
     };
 
 
@@ -159,18 +147,10 @@ namespace columns_detail {
         diff_t;
 
         typedef typename
-            boost::result_of<op_counting<>(int, diff_t&)>::type
-        counting_t;
-
-        typedef typename
-            range_value<counting_t>::type
-        count_t;
-
-        typedef typename
             boost::result_of<
                 op_make_transformed<>(
-                    counting_t,
-                    to_column<Range, count_t>
+                    typename boost::result_of<op_counting<>(int, diff_t&)>::type,
+                    to_column<Range, diff_t>
                 )
             >::type
         result_type;
@@ -183,7 +163,7 @@ namespace columns_detail {
 
             return make_transformed(
                 counting(0, d2),
-                to_column<Range, count_t>(rng, pstade::value_cast<count_t>(d2))
+                to_column<Range, diff_t>(rng, d2)
             );
         }
     };
@@ -199,7 +179,7 @@ PSTADE_PIPABLE(columns, (op_make_columns))
 namespace matrix3_detail {
 
 
-    template< class Range, class Count >
+    template< class Range, class Difference >
     struct to_rows
     {
         typedef typename
@@ -209,13 +189,13 @@ namespace matrix3_detail {
         typedef typename
             boost::result_of<
                 op_make_rows(
-                    typename boost::result_of<op_make_window(rng_t const&, Count, Count)>::type,
-                    Count&, Count&
+                    typename boost::result_of<op_make_window(rng_t const&, Difference, Difference)>::type,
+                    Difference&, Difference&
                 )
             >::type
         result_type;
 
-        result_type operator()(Count i) const
+        result_type operator()(Difference i) const
         {
             return make_rows(
                 make_window(m_rng, i*m_d2*m_d3, (i+1)*m_d2*m_d3),
@@ -226,13 +206,13 @@ namespace matrix3_detail {
         to_rows()
         { }
 
-        to_rows(Range& rng, Count d2, Count d3) :
+        to_rows(Range& rng, Difference d2, Difference d3) :
             m_rng(rng), m_d2(d2), m_d3(d3)
         { }
 
     private:
         rng_t m_rng;
-        Count m_d2, m_d3;
+        Difference m_d2, m_d3;
     };
 
 
@@ -244,18 +224,10 @@ namespace matrix3_detail {
         diff_t;
 
         typedef typename
-            boost::result_of<op_counting<>(int, diff_t&)>::type
-        counting_t;
-
-        typedef typename
-            range_value<counting_t>::type
-        count_t;
-
-        typedef typename
             boost::result_of<
                 op_make_transformed<>(
-                    counting_t,
-                    to_rows<Range, count_t>
+                typename boost::result_of<op_counting<>(int, diff_t&)>::type,
+                    to_rows<Range, diff_t>
                 )
             >::type
         result_type;
@@ -267,7 +239,7 @@ namespace matrix3_detail {
 
             return make_transformed(
                 counting(0, d1),
-                to_rows<Range, count_t>(rng, pstade::value_cast<count_t>(d2), pstade::value_cast<count_t>(d3))
+                to_rows<Range, diff_t>(rng, d2, d3)
             );
         }
     };

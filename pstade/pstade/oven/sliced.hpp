@@ -19,7 +19,6 @@
 #include "./distance.hpp"
 #include "./permuted.hpp"
 #include "./range_difference.hpp"
-#include "./range_value.hpp"
 #include "./transformed.hpp"
 
 
@@ -40,12 +39,12 @@ namespace sliced_detail {
     }
 
 
-    template< class Count >
+    template< class Difference >
     struct to_index
     {
-        typedef Count result_type;
+        typedef Difference result_type;
 
-        Count operator()(Count i) const
+        Difference operator()(Difference i) const
         {
             return m_start + (i * m_stride);
         }
@@ -53,12 +52,12 @@ namespace sliced_detail {
         to_index()
         { }
 
-        to_index(Count start, Count stride) :
+        to_index(Difference start, Difference stride) :
             m_start(start), m_stride(stride)
         { }
 
     private:
-        Count m_start, m_stride;
+        Difference m_start, m_stride;
     };
 
 
@@ -70,23 +69,13 @@ namespace sliced_detail {
         diff_t;
 
         typedef typename
-            boost::result_of<op_counting<>(int, diff_t)>::type
-        counting_t;
-
-        // 'count_t' is not always same as 'diff_t'.
-        // See a comment around 'value_cast' at "./counting.hpp".
-        typedef typename
-            range_value<counting_t>::type
-        count_t;
-
-        typedef typename
             boost::result_of<
                 op_make_permuted(
                     Range&,
                     typename boost::result_of<
                         op_make_transformed<>(
-                            counting_t,
-                            to_index<count_t>
+                            typename boost::result_of<op_counting<>(int, diff_t)>::type,
+                            to_index<diff_t>
                         )
                     >::type
                 )
@@ -102,7 +91,7 @@ namespace sliced_detail {
                 rng,
                 make_transformed(
                     counting(0, distance(rng) / stride),
-                    to_index<count_t>(pstade::value_cast<count_t>(start), pstade::value_cast<count_t>(stride))
+                    to_index<diff_t>(start, stride)
                 )
             );
         }
