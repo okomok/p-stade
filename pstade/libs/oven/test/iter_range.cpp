@@ -43,6 +43,9 @@ void test()
         ) );
 
         BOOST_CHECK( oven::test_is_lightweight_proxy(rng) );
+        BOOST_CHECK( oven::make_iter_range(src)[4] == 'o' );
+        BOOST_CHECK( oven::make_iter_range(src)[4] = 'o' );
+        BOOST_CHECK( oven::make_iter_range(src)[4] == 'o' );
     }
     {
         oven::iter_range<std::string::iterator> rng1(src);

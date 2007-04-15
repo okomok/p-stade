@@ -15,7 +15,7 @@
 // The minimal "iterator_range".
 // This range has...
 //   no deep equality-comparison.
-//   neither 'front', 'back' nor 'operator[]'.
+//   neither 'front' nor 'back'.
 //   no implicit template-constructor.
 //   strong guarantee assignment.
 
@@ -36,6 +36,7 @@
 #include <pstade/pass_by.hpp>
 #include <pstade/radish/bool_testable.hpp>
 #include <pstade/radish/swappable.hpp>
+#include "./concepts.hpp"
 #include "./lightweight_copyable.hpp"
 #include "./range_iterator.hpp"
 
@@ -155,6 +156,14 @@ public:
     typedef typename boost::iterator_value<Iterator>::type      value_type;
     typedef typename boost::iterator_difference<Iterator>::type difference_type;
     typedef typename boost::iterator_reference<Iterator>::type  reference;
+
+    reference operator[](difference_type n) const
+    {
+        PSTADE_CONCEPT_ASSERT((RandomAccess<self_t>));
+        BOOST_ASSERT(0 <= n);
+        BOOST_ASSERT(n < m_last - m_first);
+        return m_first[n];
+    }
 
 // equality_comparable
     bool operator==(self_t const& other) const

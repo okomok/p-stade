@@ -16,7 +16,7 @@
 #include <pstade/pipable.hpp>
 #include "./concatenated.hpp"
 #include "./concepts.hpp"
-#include "./iter_range.hpp" // iter_range_of
+#include "./iter_range.hpp"
 #include "./jointed.hpp"
 #include "./transformed.hpp"
 
@@ -39,7 +39,7 @@ namespace delimited_detail {
         template< class Myself, class LocalRange >
         struct apply :
             boost::result_of<
-                op_make_jointed(delim_t&, LocalRange&)
+                op_make_jointed(delim_t const&, LocalRange&)
             >
         { };
 

@@ -10,6 +10,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Pending...
+//
+
+
 #include <boost/assert.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
@@ -20,7 +24,7 @@
 #include "./concepts.hpp"
 #include "./counting.hpp"
 #include "./distance.hpp"
-#include "./iter_range.hpp" // iter_range_of
+#include "./iter_range.hpp"
 #include "./range_difference.hpp"
 #include "./sliced.hpp"
 #include "./transformed.hpp"
@@ -43,7 +47,7 @@ namespace rows_detail {
 
         typedef typename
             boost::result_of<
-                op_make_window(rng_t&, Difference, Difference)
+                op_make_window(rng_t const&, Difference, Difference)
             >::type
         result_type;
 
@@ -52,10 +56,10 @@ namespace rows_detail {
             return make_window(m_rng, i*m_d2, (i+1)*m_d2);
         }
 
-        explicit to_row()
+        to_row()
         { }
 
-        explicit to_row(Range& rng, Difference d2) :
+        to_row(Range& rng, Difference d2) :
             m_rng(rng), m_d2(d2)
         { }
 
@@ -113,7 +117,7 @@ namespace columns_detail {
 
         typedef typename
             boost::result_of<
-                op_make_sliced(rng_t&, Difference&, Difference&)
+                op_make_sliced(rng_t const&, Difference&, Difference const&)
             >::type
         result_type;
 
@@ -122,10 +126,10 @@ namespace columns_detail {
             return make_sliced(m_rng, j, m_d2);
         }
 
-        explicit to_column()
+        to_column()
         { }
 
-        explicit to_column(Range& rng, Difference d2) :
+        to_column(Range& rng, Difference d2) :
             m_rng(rng), m_d2(d2)
         { }
 
@@ -185,7 +189,7 @@ namespace matrix3_detail {
         typedef typename
             boost::result_of<
                 op_make_rows(
-                    typename boost::result_of<op_make_window(rng_t&, Difference, Difference)>::type,
+                    typename boost::result_of<op_make_window(rng_t const&, Difference, Difference)>::type,
                     Difference&, Difference&
                 )
             >::type
@@ -199,10 +203,10 @@ namespace matrix3_detail {
             );
         }
 
-        explicit to_rows()
+        to_rows()
         { }
 
-        explicit to_rows(Range& rng, Difference d2, Difference d3) :
+        to_rows(Range& rng, Difference d2, Difference d3) :
             m_rng(rng), m_d2(d2), m_d3(d3)
         { }
 

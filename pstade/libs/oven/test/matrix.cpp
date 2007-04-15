@@ -54,6 +54,7 @@ void test_2d()
         ) );
 
         BOOST_CHECK( (rng|rows(5, 7)|at(2)|at(5)) == arr[2][5] );
+        BOOST_CHECK( (rng|rows(5, 7))[2][5] == arr[2][5] );
         BOOST_CHECK( arr[2][5] == 12 );
     }
     {
@@ -140,6 +141,7 @@ void test_3d()
         ) );
 
         BOOST_CHECK( (rng|matrix(3, 5, 7)|at(1)|at(2)|at(3)) == arr[1][2][3] );
+        BOOST_CHECK( (rng|matrix(3, 5, 7))[1][2][3] == arr[1][2][3] );
         BOOST_CHECK( arr[1][2][3] == 86 );
     }
 }
