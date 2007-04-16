@@ -6,7 +6,10 @@ import testing ;
 
 project
     : requirements
+      <library>/boost/filesystem//boost_filesystem/<link>static
+      <library>/boost/regex//boost_regex/<link>static
       <library>/boost/test//boost_unit_test_framework/<link>static
+      <library>/boost/thread//boost_thread/<link>static
     ;
 
 test-suite "oven" :
@@ -30,7 +33,7 @@ test-suite "oven" :
     [ run broken_into.cpp ]
     [ run checked.cpp ]
     [ run cleared.cpp ]
-    # [ run compile.cpp ]
+    [ run compile.cpp ]
     [ run concatenated.cpp ]
     [ run const_lvalues.cpp ]
     [ run constants.cpp ]
@@ -40,7 +43,7 @@ test-suite "oven" :
     [ run counting.cpp ]
     [ run cycled.cpp ]
     [ run delimited.cpp ]
-    [ compile directory_range.cpp ]
+    [ run directory_range.cpp ]
     [ run doc.cpp ]
     [ run dropped.cpp ]
     [ run dropped_while.cpp ]
@@ -67,7 +70,7 @@ test-suite "oven" :
     [ run jointed.cpp ]
     [ run map_keys.cpp ]
     [ run map_values.cpp ]
-    [ compile matches.cpp ]
+    [ run matches.cpp ]
     [ run matrix.cpp ]
     [ run mb_decoded.cpp ]
     [ run mb_encoded.cpp ]
@@ -77,7 +80,7 @@ test-suite "oven" :
     [ run offset.cpp ]
     [ run outdirected.cpp ]
     [ run outplaced.cpp ]
-    [ compile parallel.cpp ]
+    [ run parallel.cpp ]
     [ run permuted.cpp ]
     [ run pointed.cpp ]
     [ run popped.cpp ]
@@ -113,7 +116,7 @@ test-suite "oven" :
     [ run to_function.cpp ]
     [ run to_stream.cpp ]
     [ run to_utf8_encoder.cpp ]
-    [ compile tokenized.cpp ]
+    [ run tokenized.cpp ]
     [ run transformed.cpp ]
     [ run traversal_tags.cpp ]
     [ run tuple.cpp ]

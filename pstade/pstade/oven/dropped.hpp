@@ -27,16 +27,17 @@ namespace pstade { namespace oven {
 namespace dropped_detail {
 
 
+    namespace here = dropped_detail;
+
+
     template< class Result, class Iterator, class Difference > inline
-    Result aux(Iterator first, Iterator last, Difference n,
-        boost::random_access_traversal_tag)
+    Result aux(Iterator first, Iterator last, Difference n, boost::random_access_traversal_tag)
     {
         return Result(first + (std::min)(last - first, n), last);
     }
 
     template< class Result, class Iterator, class Difference >
-    Result aux(Iterator first, Iterator last, Difference n,
-        boost::single_pass_traversal_tag)
+    Result aux(Iterator first, Iterator last, Difference n, boost::single_pass_traversal_tag)
     {
         while (n != 0 && first != last) {
             ++first;
@@ -63,9 +64,8 @@ namespace dropped_detail {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
             BOOST_ASSERT(0 <= n);
 
-            return dropped_detail::aux<result_type>(
-                boost::begin(rng), boost::end(rng), n,
-                typename range_traversal<Range>::type()
+            return here::aux<result_type>(
+                boost::begin(rng), boost::end(rng), n, typename range_traversal<Range>::type()
             );
         }
     };

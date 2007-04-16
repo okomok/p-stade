@@ -15,11 +15,10 @@
 #include <boost/xpressive/regex_token_iterator.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
-#include <pstade/deduced_const.hpp>
 #include <pstade/pipable.hpp>
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
-#include "./range_iterator.hpp"
+#include "./range_constant_iterator.hpp"
 
 
 namespace pstade { namespace oven {
@@ -34,7 +33,7 @@ struct op_make_xpressive_tokenized :
         typedef
             boost::xpressive::regex_token_iterator<
                 // Xpressive seems not to support a mutable iterator.
-                typename range_iterator<PSTADE_DEDUCED_CONST(Range)>::type
+                typename range_constant_iterator<Range>::type
             >
         iter_t;
 

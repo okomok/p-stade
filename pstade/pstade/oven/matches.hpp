@@ -36,8 +36,13 @@ struct op_make_matches :
     template< class Myself, class Range, class Regex, class Flag = void >
     struct apply
     {
-        typedef typename use_default_eval_to< CharT, range_value<Range> >::type char_t;
-        typedef typename use_default_to< Traits, boost::regex_traits<char_t> >::type traits_t;
+        typedef typename
+            use_default_eval_to< CharT, range_value<Range> >::type
+        char_t;
+
+        typedef typename
+            use_default_to< Traits, boost::regex_traits<char_t> >::type
+        traits_t;
 
         typedef
             boost::regex_iterator<

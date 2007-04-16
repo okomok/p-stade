@@ -27,13 +27,13 @@ namespace pstade { namespace oven {
 namespace delimited_detail {
 
 
-    template< class Delimiter >
+    template< class DelimiterRange >
     struct with :
-        callable< with<Delimiter> >
+        callable< with<DelimiterRange> >
     {
-        // Hold the base range by value.
+        // Hold the base range by value for copying to outer scope.
         typedef typename
-            iter_range_of<Delimiter>::type
+            iter_range_of<DelimiterRange>::type
         delim_t;
 
         template< class Myself, class LocalRange >
@@ -52,7 +52,7 @@ namespace delimited_detail {
         explicit with()
         { }
 
-        explicit with(Delimiter& delim) :
+        explicit with(DelimiterRange& delim) :
             m_delim(delim)
         { }
 
@@ -61,26 +61,26 @@ namespace delimited_detail {
     };
 
 
-    template< class SegmentRange, class Delimiter >
+    template< class SegmentRange, class DelimiterRange >
     struct baby
     {
         typedef
             typename boost::result_of<
                 op_make_concatenated(
                     typename boost::result_of<
-                        op_make_transformed<>(SegmentRange&, with<Delimiter>)
+                        op_make_transformed<>(SegmentRange&, with<DelimiterRange>)
                     >::type
                 )
             >::type
         result_type;
 
-        result_type operator()(SegmentRange& rngs, Delimiter& delim) const
+        result_type operator()(SegmentRange& rngs, DelimiterRange& delim) const
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<SegmentRange>));
-            PSTADE_CONCEPT_ASSERT((SinglePass<Delimiter>));
+            PSTADE_CONCEPT_ASSERT((SinglePass<DelimiterRange>));
 
             return make_concatenated(
-                make_transformed(rngs, with<Delimiter>(delim))
+                make_transformed(rngs, with<DelimiterRange>(delim))
             );
         }
     };

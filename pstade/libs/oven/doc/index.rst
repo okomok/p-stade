@@ -661,8 +661,9 @@ which has the same effect.
 - Header: ``<pstade/oven/concatenated.hpp>``
 - Valid expression: ``rngs|concatenated``
 - Specification: ``SegmentIterator`` is an iterator of ``rngs``, and ``LocalIterator`` is an iterator of the range which the dereference of ``SegmentIterator`` returns.
-- Precondition: The ``LocalIterator`` must be valid after copying of ``SegmentIterator``.
+- Precondition: The ``LocalIterator`` must be valid after copying of ``SegmentIterator``. [#]_
 
+.. [#] Thus, ``concatenated`` can't accept a range returned from ``broken_into`` and ``xpressive_tokenized``, while ``tokenized`` works fine with it.
 
 
 ``constants``

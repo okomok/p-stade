@@ -13,12 +13,11 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/xpressive/regex_iterator.hpp>
-#include <pstade/deduced_const.hpp>
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
-#include "./range_iterator.hpp"
+#include "./range_constant_iterator.hpp"
 
 
 namespace pstade { namespace oven {
@@ -36,7 +35,7 @@ namespace xpressive_matches_detail {
         typedef
             boost::xpressive::regex_iterator<
                 // Xpressive seems not to support a mutable iterator.
-                typename range_iterator<PSTADE_DEDUCED_CONST(Range)>::type
+                typename range_constant_iterator<Range>::type
             >
         iter_t;
 

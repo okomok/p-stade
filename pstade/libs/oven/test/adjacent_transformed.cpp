@@ -56,6 +56,8 @@ void test()
                 adjacent_transformed(regular(lambda::_1 + lambda::_2)) | const_lvalues,
             expected
         ) );
+
+        test_never_copy|adjacent_transformed(pstade::plus);
     }
 #if 0 // now empty range not supported.
     {

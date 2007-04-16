@@ -35,6 +35,7 @@
 #include <boost/iterator/new_iterator_tests.hpp>
 #include <boost/next_prior.hpp>
 #include <pstade/as.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/object_generator.hpp>
 #include <pstade/unused.hpp>
 #include "./concepts.hpp"
@@ -628,6 +629,27 @@ public:
         super_t(rng)
     { };
 };
+
+
+namespace tests_detail {
+
+
+    struct a_noncopyable_range :
+        std::vector<int>,
+        private boost::noncopyable
+    {
+        a_noncopyable_range()
+        {
+            // Some adaptors dislike an empty range.
+            push_back(1); push_back(2); push_back(3);
+        }
+    };
+
+
+} // namespace tests_detail
+
+
+PSTADE_CONSTANT(test_never_copy, (tests_detail::a_noncopyable_range))
 
 
 } } // namespace pstade::oven

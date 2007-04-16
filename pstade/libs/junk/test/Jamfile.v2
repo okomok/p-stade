@@ -6,7 +6,10 @@ import testing ;
 
 project
     : requirements
+      <library>/boost/filesystem//boost_filesystem/<link>static
+      <library>/boost/regex//boost_regex/<link>static
       <library>/boost/test//boost_unit_test_framework/<link>static
+      <library>/boost/thread//boost_thread/<link>static
     ;
 
 test-suite "junk" :

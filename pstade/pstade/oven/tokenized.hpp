@@ -39,9 +39,13 @@ struct op_make_tokenized :
     template< class Myself, class Range, class Regex, class IntOrRandRange = void, class Flag  = void >
     struct apply
     {
+        typedef typename
+            use_default_eval_to< CharT, range_value<Range> >::type
+        char_t;
 
-        typedef typename use_default_eval_to< CharT, range_value<Range> >::type char_t;
-        typedef typename use_default_to< Traits, boost::regex_traits<char_t> >::type traits_t;
+        typedef typename
+            use_default_to< Traits, boost::regex_traits<char_t> >::type
+        traits_t;
 
         typedef
             boost::regex_token_iterator<
@@ -76,8 +80,10 @@ struct op_make_tokenized :
     Result call(
         Range& rng, Regex& re,
         RandRange const& submatches,
-        boost::regex_constants::match_flag_type flag = boost::regex_constants::match_default,
-        typename disable_if< boost::is_same<int, RandRange> >::type = 0 // GCC needs this.
+        boost::regex_constants::match_flag_type flag = boost::regex_constants::match_default
+#if defined(__GNUC__) // See <pstade/const_overloaded.hpp>.
+        , typename disable_if< boost::is_same<int, RandRange> >::type = 0
+#endif
     ) const
     {
         PSTADE_CONCEPT_ASSERT((Bidirectional<Range>));

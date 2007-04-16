@@ -40,7 +40,7 @@ namespace rows_detail {
     template< class Range, class Difference >
     struct to_row
     {
-        // Hold the base range by value for 3d or more.
+        // Hold the base range by value for copying to outer scope.
         typedef typename
             iter_range_of<Range>::type
         rng_t;
