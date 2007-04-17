@@ -14,12 +14,12 @@
 #include <boost/mpl/assert.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
+#include <pstade/copy_construct.hpp>
 #include <pstade/dont_care.hpp>
 #include <pstade/is_convertible.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/use_default.hpp>
-#include <pstade/value_cast.hpp>
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
 #include "./range_difference.hpp"
@@ -81,7 +81,7 @@ namespace identities_detail {
         template< class I, class T, class D >
         diff_t distance_to(identity_iterator<I, T, D> const& other) const
         {
-            return pstade::value_cast<diff_t>(other.base() - this->base());
+            return pstade::copy_construct<diff_t>(other.base() - this->base());
         }
     };
 

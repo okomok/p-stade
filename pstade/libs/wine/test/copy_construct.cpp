@@ -4,7 +4,7 @@
 
 // PStade.Wine
 //
-// Copyright Shunsuke Sogame 2005-2007.
+// Copyright Shunsuke Sogame 2005-2006.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
@@ -13,6 +13,7 @@
 #include <pstade/copy_construct.hpp>
 
 
+#include <boost/utility/result_of.hpp>
 #include <pstade/automatic.hpp>
 
 
@@ -47,7 +48,7 @@ struct xxx
 };
 
 
-void test()
+void test_automatic()
 {
     {
         xxx x = auto_cast0; // copy-initialization
@@ -63,8 +64,39 @@ void test()
 }
 
 
+struct my
+{
+    /*implicit*/ my(int i)
+        : m_i(i)
+    { }
+
+    int m_i;
+};
+
+
+void test()
+{
+    {
+        boost::result_of<op_copy_construct<my>(int)>::type
+            r = pstade::copy_construct<my>(10);
+        BOOST_CHECK(r.m_i == 10);
+    }
+    {
+        boost::result_of<op_copy_construct<char>(int)>::type
+            r = pstade::copy_construct<char>(10);
+        BOOST_CHECK(r == char(10));
+    }
+    { // same type (does nothing)
+        boost::result_of<op_copy_construct<int>(int)>::type
+            r = pstade::copy_construct<int>(10);
+        BOOST_CHECK(r == 10);
+    }
+}
+
+
 int test_main(int, char*[])
 {
     ::test();
+    ::test_automatic();
     return 0;
 }

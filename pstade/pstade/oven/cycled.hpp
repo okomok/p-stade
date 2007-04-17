@@ -20,11 +20,11 @@
 #include <boost/range/end.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
+#include <pstade/copy_construct.hpp>
 #include <pstade/for_debug.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/unused.hpp>
-#include <pstade/value_cast.hpp>
 #include "./concepts.hpp"
 #include "./detail/constant_reference.hpp"
 #include "./iter_range.hpp"
@@ -195,7 +195,7 @@ namespace cycled_detail {
             BOOST_ASSERT(q_r.second < m_last - m_first);
 
             this->base_reference() = m_first + q_r.second;
-            m_count += pstade::value_cast<count_type>(q_r.first);
+            m_count += pstade::copy_construct<count_type>(q_r.first);
         }
 
         template< class F, class I >
@@ -239,7 +239,7 @@ struct op_make_cycled :
         typedef typename Result::iterator iter_t;
         typedef typename iter_t::count_type cnt_t;
         return Result(
-            iter_t(boost::begin(rng), pstade::value_cast<cnt_t>(i), boost::begin(rng), boost::end(rng)),
+            iter_t(boost::begin(rng), pstade::copy_construct<cnt_t>(i), boost::begin(rng), boost::end(rng)),
             iter_t(boost::begin(rng), j,                            boost::begin(rng), boost::end(rng))
         );
     }

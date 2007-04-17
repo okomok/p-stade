@@ -11,8 +11,8 @@
 
 
 #include <pstade/apple/sdk/windows.hpp>
+#include <pstade/copy_construct.hpp>
 #include <pstade/unused.hpp>
-#include <pstade/value_cast.hpp>
 #include "../boolean_cast.hpp"
 
 
@@ -25,7 +25,7 @@ bool set_menu_default_item(menu_ref menu,
 {
 #if !defined(_WIN32_WCE)
 
-    return ::SetMenuDefaultItem(menu, uItem, pstade::value_cast<UINT>(by_position))|to_boolean;
+    return ::SetMenuDefaultItem(menu, uItem, pstade::copy_construct<UINT>(by_position))|to_boolean;
 
 #else
 

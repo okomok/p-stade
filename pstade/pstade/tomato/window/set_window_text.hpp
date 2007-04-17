@@ -19,13 +19,13 @@
 #include <boost/range/begin.hpp>
 #include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/apple/sdk/windows.hpp>
+#include <pstade/copy_construct.hpp>
 #include <pstade/oven/as_c_str.hpp>
 #include <pstade/oven/distance.hpp>
 #include <pstade/oven/equals.hpp>
 #include <pstade/oven/iter_range.hpp>
 #include <pstade/require.hpp>
 #include <pstade/static_c.hpp>
-#include <pstade/value_cast.hpp>
 #include "../c_str.hpp"
 #include "./window_ref.hpp"
 
@@ -38,7 +38,7 @@ void set_window_text(window_ref wnd, CStringizable const& str)
 {
     TCHAR const *pszNew = str|c_str;
     oven::iter_range<TCHAR const *> rngNew(pszNew|oven::as_c_str);
-    int newLen = pstade::value_cast<int>(oven::distance(rngNew));
+    int newLen = pstade::copy_construct<int>(oven::distance(rngNew));
 
     typedef static_c<int, 255> bufLen;
     boost::array<TCHAR, 1 + bufLen::value> bufOld;

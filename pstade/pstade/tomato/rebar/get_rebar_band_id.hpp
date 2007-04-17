@@ -14,8 +14,8 @@
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/apple/wtl/ctrls.hpp> // CReBarCtrl
 #include <pstade/contract.hpp>
+#include <pstade/copy_construct.hpp>
 #include <pstade/require.hpp>
-#include <pstade/value_cast.hpp>
 #include "../window/window_ref.hpp"
 #include "../size_initialize.hpp"
 
@@ -30,7 +30,7 @@ UINT get_rebar_band_id(window_ref rebar, int index)
 
     PSTADE_PRECONDITION (
         (0 <= index)
-        (pstade::value_cast<UINT>(index) < rebars.GetBandCount())
+        (pstade::copy_construct<UINT>(index) < rebars.GetBandCount())
     )
 
     REBARBANDINFO info; {

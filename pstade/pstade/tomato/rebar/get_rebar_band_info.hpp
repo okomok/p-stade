@@ -21,8 +21,8 @@
 
 
 #include <pstade/apple/sdk/windows.hpp>
+#include <pstade/copy_construct.hpp>
 #include <pstade/require.hpp>
-#include <pstade/value_cast.hpp>
 #include "../window/window_ref.hpp"
 
 
@@ -35,7 +35,7 @@ namespace get_rebar_band_info_detail {
     inline
     int get_button_count(window_ref wnd)
     {
-        return pstade::value_cast<int>(::SendMessage(wnd, TB_BUTTONCOUNT, 0, 0L));
+        return pstade::copy_construct<int>(::SendMessage(wnd, TB_BUTTONCOUNT, 0, 0L));
     }
 
 

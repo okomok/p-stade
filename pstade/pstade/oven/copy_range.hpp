@@ -16,11 +16,11 @@
 #include <pstade/adl_barrier.hpp>
 #include <pstade/automatic.hpp>
 #include <pstade/callable.hpp>
+#include <pstade/copy_construct.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/remove_cvr.hpp>
 #include <pstade/specified.hpp>
 #include <pstade/unevaluated.hpp>
-#include <pstade/value_cast.hpp>
 #include "./concepts.hpp"
 #include "./extension.hpp"
 #include "./identities.hpp"
@@ -45,10 +45,10 @@ namespace copy_range_detail {
     {
         template< class From >
         static typename boost::result_of<
-            op_make_transformed<>(From&, op_value_cast<ValueTo>)
+            op_make_transformed<>(From&, op_copy_construct<ValueTo>)
         >::type call(From& from)
         {
-            return make_transformed(from, op_value_cast<ValueTo>());
+            return make_transformed(from, op_copy_construct<ValueTo>());
         }
     };
 
