@@ -30,6 +30,7 @@
 #include "./construct.hpp"
 #include "./contract.hpp"
 #include "./copy_assign.hpp"
+#include "./copy_construct.hpp"
 #include "./deduced_const.hpp"
 #include "./disable_if_copy.hpp"
 #include "./do_swap.hpp"

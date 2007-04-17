@@ -20,6 +20,7 @@
 
 
 #include <string> // basic_string
+#include <pstade/copy_construct.hpp>
 #include <pstade/lexical_cast.hpp>
 
 
@@ -35,8 +36,9 @@ struct basic_placeholder
     template< class OutputStreamable >
     void output(const OutputStreamable& x)
     {
-        std::basic_string<CharT> tmp = x|lexicalized;
-        override_output(tmp.c_str());
+        override_output(
+            pstade::copy_construct< std::basic_string<CharT> >(x|lexicalized).c_str()
+        );
     }
 
 protected:

@@ -18,6 +18,7 @@
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/apple/wtl/gdi.hpp> // CPaintDC
 #include <pstade/apple/wtl/frame.hpp> // CMessageFilter, CIdleHandler
+#include <pstade/copy_assign.hpp>
 #include <pstade/instance.hpp>
 #include <pstade/ketchup/core.hpp>
 #include <pstade/lime/traverse.hpp>
@@ -173,10 +174,10 @@ namespace pstade { namespace hamburger {
             set_msg_handled(false);
 
             rectangle rc = bounds();
-            *this%Name_left   = rc.left    |lexicalized;
-            *this%Name_top    = rc.top     |lexicalized;
-            *this%Name_width  = rc.Width() |lexicalized;
-            *this%Name_height = rc.Height()|lexicalized;
+            copy_assign(*this%Name_left,   rc.left    |lexicalized);
+            copy_assign(*this%Name_top,    rc.top     |lexicalized);
+            copy_assign(*this%Name_width,  rc.Width() |lexicalized);
+            copy_assign(*this%Name_height, rc.Height()|lexicalized);
         }
 
         void on_paint(HDC)

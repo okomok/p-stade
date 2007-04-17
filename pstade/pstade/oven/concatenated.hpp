@@ -60,7 +60,7 @@ namespace concatenated_detail {
     // See:
     // http://opensource.adobe.com/iterator_8hpp-source.html#l00087
     template< class SegmentIter, class LocalIter >
-    struct traversal
+    struct traversal_of
     {
         typedef typename boost::iterator_traversal<SegmentIter>::type segment_trv_t;
         typedef typename boost::iterator_traversal<LocalIter>::type local_trv_t;
@@ -92,7 +92,7 @@ namespace concatenated_detail {
                 concatenate_iterator<SegmentIter>,
                 SegmentIter,
                 typename boost::iterator_value<local_iter_t>::type,
-                typename traversal<SegmentIter, local_iter_t>::type,
+                typename traversal_of<SegmentIter, local_iter_t>::type,
                 typename boost::iterator_reference<local_iter_t>::type,
                 typename boost::iterator_difference<local_iter_t>::type
             >

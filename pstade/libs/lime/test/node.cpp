@@ -55,7 +55,7 @@ void test()
             root/"parent"/"child" += "grandchild";
         }
 
-        root/"parent"/"child"/"grandchild"%"age" = 12|lexicalized;
+        copy_assign(root/"parent"/"child"/"grandchild"%"age", 12|lexicalized);
         int i = root/"parent"/"child"/"grandchild"%"age"|lexicalized;
         BOOST_CHECK( i == 12 );
     }

@@ -40,19 +40,19 @@ namespace advance_from_detail {
     namespace here = advance_from_detail;
 
 
-    template< class Iterator, class Difference >
+    template< class Iterator, class Difference > inline
     void aux(Iterator& it, Difference n, boost::random_access_traversal_tag)
     {
         it += n;
     }
 
-    template< class Iterator, class Difference >
+    template< class Iterator, class Difference > inline
     void aux(Iterator& it, Difference n, boost::bidirectional_traversal_tag)
     {
         std::advance(it, n);
     }
 
-    template< class Iterator, class Difference >
+    template< class Iterator, class Difference > inline
     void aux(Iterator& it, Difference n, boost::single_pass_traversal_tag)
     {
         BOOST_ASSERT(0 <= n);

@@ -44,9 +44,9 @@ namespace sorted_detail {
 
 
     template< class Compare >
-    struct op_sort
+    struct sort_
     {
-        explicit op_sort(Compare comp) :
+        explicit sort_(Compare comp) :
             m_comp(comp)
         { }
 
@@ -71,7 +71,7 @@ struct op_make_sorted :
     struct apply
     {
         typedef
-            sorted_detail::op_sort<
+            sorted_detail::sort_<
                 typename pass_by_value<Compare>::type
             >
         fun_t;

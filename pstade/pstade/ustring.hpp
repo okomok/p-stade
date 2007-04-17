@@ -18,7 +18,6 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/apple/basic_ostream_fwd.hpp>
-#include <pstade/apple/is_boost_range.hpp>
 #include <pstade/apple/is_sequence.hpp>
 #include <pstade/as.hpp>
 #include <pstade/enable_if.hpp>
@@ -53,6 +52,7 @@ struct ustring :
     ustring_detail::super_<>::type
 {
 private:
+    typedef ustring self_t;
     typedef ustring_detail::super_<>::type super_t;
 
 public:
@@ -68,8 +68,8 @@ public:
     { }
 
     template< class Iterator >
-    explicit ustring(Iterator f, Iterator l) :
-        super_t(f, l)
+    explicit ustring(Iterator first, Iterator last) :
+        super_t(first, last)
     { }
 
     template< class Range >
@@ -77,11 +77,8 @@ public:
         super_t(boost::begin(rng), boost::end(rng))
     { }
 
-    // The copy-initialization prefers copy constructor and converts argument to ustring.
-    // But operator= doesn't, so be strict.
     template< class Range > 
-    typename enable_if<apple::is_boost_range<Range>,
-    ustring&>::type operator=(Range const& rng)
+    self_t& operator=(Range const& rng)
     {
         assign(boost::begin(rng), boost::end(rng));
         return *this;

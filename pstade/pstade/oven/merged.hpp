@@ -138,7 +138,7 @@ namespace merged_detail {
 
 
     template< class Iterator1, class Iterator2 >
-    struct traversal :
+    struct traversal_of :
         detail::minimum_pure<
             boost::forward_traversal_tag,
             typename detail::minimum_pure<
@@ -161,7 +161,7 @@ namespace merged_detail {
                 merge_iterator<Iterator1, Iterator2, Compare, MergeRoutine>,
                 Iterator1,
                 boost::use_default,
-                typename traversal<Iterator1, Iterator2>::type,
+                typename traversal_of<Iterator1, Iterator2>::type,
                 typename detail::constant_reference<Iterator1>::type
             >
         type;

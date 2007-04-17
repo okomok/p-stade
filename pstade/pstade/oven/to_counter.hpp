@@ -23,11 +23,11 @@ namespace to_counter_detail  {
 
 
     template< class Incrementable >
-    struct op_inc
+    struct increment
     {
         typedef void result_type;
 
-        explicit op_inc(Incrementable i) :
+        explicit increment(Incrementable i) :
             m_i(i)
         { }
 
@@ -62,13 +62,13 @@ namespace to_counter_detail  {
 
         typedef typename
             boost::result_of<
-                op_to_function(op_inc<i_t>)
+                op_to_function(increment<i_t>)
             >::type
         result_type;
 
         result_type operator()(Incrementable& i) const
         {
-            return to_function(op_inc<i_t>(i));
+            return to_function(increment<i_t>(i));
         }
     };
 

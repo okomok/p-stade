@@ -33,7 +33,7 @@ test-suite "oven" :
     [ run broken_into.cpp ]
     [ run checked.cpp ]
     [ run cleared.cpp ]
-    [ run compile.cpp ]
+    # [ run compile.cpp ]
     [ run concatenated.cpp ]
     [ run const_lvalues.cpp ]
     [ run constants.cpp ]

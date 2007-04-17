@@ -32,6 +32,7 @@ test-suite "wine" :
     [ run construct.cpp ]
     [ run contract.cpp ]
     [ run copy_assign.cpp ]
+    [ run copy_construct.cpp ]
     [ run deduced_const.cpp ]
     [ run detail_as_mpl_lambda.cpp ]
     [ run detail_overload.cpp ]

@@ -1,30 +1,36 @@
-#include <pstade/vodka/drink.hpp>
 
+#include <string>
+#include <boost/lexical_cast.hpp>
+#include <boost/regex.hpp>
+#include <cassert>
 
-// PStade.p_stade;
-//
-// Copyright Shunsuke Sogame 2005-2007.
-// Distributed under the Boost Software License, Version 1.0.
-// (See accompanying file LICENSE_1_0.txt or copy at
-// http://www.boost.org/LICENSE_1_0.txt)
+using std::string;
 
-
-#include <boost/mpl/assert.hpp>
-#include <boost/type_traits/is_same.hpp>
-#include <pstade/pass_by.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/oven/reverse_iterator.hpp>
-#include <vector>
-
-typedef pstade::oven::reverse_iterator<std::_Vector_iterator<int,std::allocator<int> > > iter_t;
-
-//BOOST_MPL_ASSERT((boost::is_same< int, boost::detail::iterator_traits<iter_t>::value_type>));
-BOOST_MPL_ASSERT((boost::is_same<__w64 int, pstade::callable_argument<__w64 int&>::type>));
-
-
-int main()
+class regex_callback
 {
-    iter_t it;
-    boost::detail::iterator_traits<iter_t>::value_type v = 0;
-    *it = v;
+    int m_sum;
+public:
+    regex_callback() : m_sum(0) {}
+
+    template <typename T> void operator()(const T& what)
+    { m_sum += boost::lexical_cast<int>(what[1].str().c_str()); }
+
+    int sum() const { return m_sum; } 
+};
+ int main()
+{
+    boost::regex reg("(\\d+),?");
+    string s = "1,1,2,3,5,8,13,21";
+
+    boost::sregex_iterator it(s.begin(), s.end(), reg);
+    // Is end initialized to anything here? 
+    boost::sregex_iterator end;
+
+    regex_callback c;
+
+    // How is end valid here?
+    int sum = for_each(it, end, c).sum();
+    assert(sum == 54);
+
+    return 0;
 }
