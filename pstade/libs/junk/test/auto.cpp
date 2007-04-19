@@ -9,9 +9,9 @@
 
 //#define BOOST_TYPEOF_EMULATION
 
-//#include <pstade/../libs/wine/test/is_old_of.cpp>
-#include <pstade/../libs/oven/test/steps.cpp>
-//#include <pstade/../libs/oven/example/auto_factorials.cpp>
+//#include <pstade/../libs/wine/test/concept_on.cpp>
+#include <pstade/../libs/oven/test/transformed.cpp>
+//#include <pstade/../libs/oven/example/primes.cpp>
 //#include <pstade/../libs/biscuit/test/capture.cpp>
 //#include <pstade/../libs/oven/test/ms/atl_string.cpp>
 //#include <pstade/../libs/tomato/test/boolean_cast.cpp>

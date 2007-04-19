@@ -20,7 +20,7 @@
 // 'transformed(move)' seems enough?
 
 
-#include <boost/move.hpp>
+#include <pstade/miniboost/move.hpp>
 #include <boost/mpl/if.hpp>
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>

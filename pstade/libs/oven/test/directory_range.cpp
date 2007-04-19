@@ -25,10 +25,18 @@ void test()
     using namespace oven;
 
     {
-        BOOST_FOREACH (const fs::path& pt, oven::directory_range(fs::current_path())) {
+        BOOST_FOREACH (const fs::path& pt, oven::directory_range(fs::current_path<fs::path>())) {
             std::cout << pt.leaf() << std::endl;
         }
     }
+
+#if !defined(BOOST_FILESYSTEM_NARROW_ONLY)
+    {
+        BOOST_FOREACH (const fs::wpath& pt, oven::wdirectory_range(fs::current_path<fs::wpath>())) {
+            std::wcout << pt.leaf() << std::endl;
+        }
+    }
+#endif
 }
 
 

@@ -1,0 +1,65 @@
+[section Range Makers]
+
+
+[section as_array]
+
+[h3 Description]
+Some versions of _boost_range_ regard `char` array as literal, which `as_array` works around.
+
+[h3 Header]
+* `<pstade/oven/as_array.hpp>`
+
+[h3 Model of]
+* _auxiliary_interface_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`as_array(arr)`]
+        [[@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html#as-array TR2] `as_array(arr)`]
+    ]
+]
+
+[h3 Preconditions]
+* `arr` is an array.
+
+[endsect]
+
+
+[section generation]
+
+[h3 Description]
+`generation` makes a _single_pass_range_ from a _stoppable_generator_.
+
+[h3 Header]
+* `<pstade/oven/generation.hpp>`
+
+[h3 Model of]
+* _operatable_object_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`generation(g)`]
+        [
+            returns a _single_pass_range_ whose iterators behaves as if it were wrapped in
+            [@http://www.boost.org/libs/utility/generator_iterator.htm generator_iterator].
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* `g` is a _stoppable_generator_.
+
+[endsect]
+
+
+[endsect]

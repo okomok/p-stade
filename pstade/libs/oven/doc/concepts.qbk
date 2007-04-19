@@ -1,0 +1,158 @@
+[section Concepts]
+
+
+[section Callable Object]
+
+[h3 Description]
+A _callable_object_ is a _function_object_ which can be used with _boost_result_of_.
+
+[h3 Refinement of]
+* _function_object_
+
+[h3 Requirements]
+In addition to the requirements defined in _function_object_,
+for any _callable_object_ `f` the following must be met:
+
+* The type of `f` can be used with _boost_result_of_ to get the result type of function call `f`.
+
+[h3 Models]
+* Any function poiner
+* Any _function_object_ of Oven
+
+[endsect]
+
+
+[section Operatable Object]
+
+[h3 Description]
+An _operatable_object_ is a _callable_object_ which can specify the type of itself using prefix `op_`.
+
+[h3 Refinement of]
+* _callable_object_
+
+[h3 Requirements]
+In addition to the requirements defined in _callable_object_,
+for any _operatable_object_ `f` the following must be met:
+
+* `op_f` is the type of `f`.
+
+[h3 Models]
+* [link oven.filtered make_filtered]
+* [link oven.generation generation]
+
+
+[endsect]
+
+
+[section Auxiliary Interface]
+
+[h3 Description]
+An _auxiliary_interface_ is a _operatable_object_ which supports also the pipable syntax
+used as if it were a member function.
+
+[h3 Refinement of]
+_operatable_object_
+
+[h3 Requirements]
+In addition to the requirements defined in _operatable_object_,
+for any _auxiliary_interface_ `i` the following must be met:
+
+* `a|i(a0,..,aN)` is a valid exression if and only if `i(a, a0,..,aN)` is a valid expression.
+* `a|i(a0,..aN)` and `i(a, a0,..,aN)` have the same effects.
+* If `N==0`, `a|i()` and `a|i` are valid expressions which have the same effects.
+
+[h3 Models]
+* [link oven.as_array as_array]
+* [link oven.begin_end begin]
+
+[endsect]
+
+
+[section Stoppable Generator]
+
+[h3 Description]
+A _stoppable_generator_ is a _generator_ which can specify the stop of generating using _boost_optional_.
+
+[h3 Refinement of]
+* _generator_
+* _callable_object_
+
+[h3 Requirements]
+In addition to the requirements defined in _generator_ and _callable_object_,
+for any _stoppable_generator_ `g` the following must be met:
+
+* The result type of function call `g` is a _boost_optional_ template specialization.
+* An /uninitialized/ result object is considered as the stop of generating.
+
+[h3 Models]
+
+[endsect]
+
+
+[section Constant Range]
+
+[h3 Description]
+A _constant_range_ is a _range_ whose iterators are constant.
+
+[h3 Refinement of]
+* _range_
+
+[h3 Requirements]
+In addition to the requirements defined in _range_,
+for any _constant_range_ `r` whose type is `Rng` the following must be met:
+
+* `boost::remove_reference<boost::range_reference<Rng>::type>::type` is const-qualified.
+
+[h3 Models]
+* `std::list<int> const`
+* `int const [12]`
+
+[endsect]
+
+
+[section Contiguous Range]
+
+[h3 Description]
+A _contiguous_range_ is a _random_access_range_ whose elements are stored contiguously.
+
+[h3 Refinement of]
+* _random_access_range_
+
+[h3 Requirements]
+In addition to the requirements defined in _random_access_range_,
+for any _contiguous_range_ `r` the following must be met:
+
+* `&*(boost::begin(r) + n) == &*(boost::begin(r)) + n` for all `n` such that `0 <= n &&  n < boost::end(r) - boost::begin(r)`.
+
+[h3 Models]
+* `std::vector<int>`
+* `boost::array<char, 50>`
+
+[endsect]
+
+
+[section Range Adaptor]
+
+[h3 Description]
+A _range_adaptor_ delivers an altered presentation of underlying _range_.
+
+[h3 Refinement of]
+* _callable_object_
+
+[h3 Requirements]
+In addition to the requirements defined in _callable_object_,
+for any _range_adaptor_ `x` the following must be met:
+
+* `rng|x(a0,..,aN)` is a valid expression.
+* `make_x(rng, a0,..,aN)` also is a valid expression that has the same effects, and `make_x` is a model of _callable_object_.
+* `make_x` is a model of _operatable_object_ unless `op_make_x` is specified as a class template.
+* `rng|x(a0,..,aN)` returns a _range_ that is the same traversal concept of `rng` unless otherwise specified.
+
+[h3 Models]
+* [link oven.filtered filtered]
+* [link oven.transformed transformed]
+
+[endsect]
+
+
+[endsect]

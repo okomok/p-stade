@@ -1,0 +1,246 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Ranges</title>
+<link rel="stylesheet" href="../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.72.0">
+<link rel="start" href="../index.html" title="Chapter 1. Oven 0.93.7">
+<link rel="up" href="../index.html" title="Chapter 1. Oven 0.93.7">
+<link rel="prev" href="range_algorithms.html" title="Range Algorithms">
+<link rel="next" href="range_makers.html" title="Range Makers">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><td valign="top"><img alt="pstade" width="200" height="164" src="../../../../../doc/pstade.png"></td></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="range_algorithms.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="range_makers.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="oven.ranges"></a>Ranges</h2></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="ranges.html#oven.any_range">any_range</a></span></dt>
+<dt><span class="section"><a href="ranges.html#oven.array_range">array_range</a></span></dt>
+<dt><span class="section"><a href="ranges.html#oven.directory_range">directory_range</a></span></dt>
+</dl></div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.any_range"></a>any_range</h3></div></div></div>
+<a name="any_range.description"></a><h4>
+<a name="id507153"></a>
+        Description
+      </h4>
+<p>
+        Though Oven supports <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">result_of</span></code>,
+        it is often cumbersome to get the type of the adapted range. <code class="computeroutput"><span class="identifier">any_range</span></code> behaves as the type erasure of
+        ranges.
+      </p>
+<a name="any_range.header"></a><h4>
+<a name="id507203"></a>
+        Header
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">any_range</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="any_range.model_of"></a><h4>
+<a name="id507273"></a>
+        Model of
+      </h4>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
+          whose traversal category varies according to the template argument.
+        </li>
+<li><a href="http://boost.org/doc/html/Assignable.html" target="_top">Assignable</a></li>
+<li><a href="http://boost.org/doc/html/DefaultConstructible.html" target="_top">Default
+          Constructible</a></li>
+</ul></div>
+<a name="any_range.valid_expressions"></a><h4>
+<a name="id507325"></a>
+        Valid expressions
+      </h4>
+<div class="informaltable">
+<h5>
+<a name="id507336"></a>
+        </h5>
+<table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th><span class="bold"><strong>Valid expression</strong></span></th>
+<th><span class="bold"><strong>Semantics</strong></span></th>
+</tr></thead>
+<tbody>
+<tr>
+<td><code class="computeroutput"><span class="identifier">any_range</span><span class="special">&lt;</span><span class="identifier">Ref</span><span class="special">,</span> <span class="identifier">Trv</span><span class="special">&gt;</span> <span class="identifier">any</span><span class="special">(</span><span class="identifier">rng</span><span class="special">);</span></code></td>
+<td>
+              defines a <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
+              whose iterators behave as if they were original iterators wrapped in
+              <a href="http://thbecker.net/free_software_utilities/type_erasure_for_cpp_iterators/start_page.html" target="_top">any_iterator</a>.
+              </td>
+</tr>
+<tr>
+<td><code class="computeroutput"><span class="identifier">any_range</span><span class="special">&lt;</span><span class="identifier">Ref</span><span class="special">,</span> <span class="identifier">Trv</span><span class="special">&gt;</span> <span class="identifier">any</span> <span class="special">=</span> <span class="identifier">rngV</span><span class="special">;</span></code></td>
+<td><code class="computeroutput"><span class="identifier">any_range</span><span class="special">&lt;</span><span class="identifier">Ref</span><span class="special">,</span> <span class="identifier">Trv</span><span class="special">&gt;</span> <span class="identifier">any</span><span class="special">(</span><span class="identifier">rngV</span><span class="special">);</span></code></td>
+</tr>
+<tr>
+<td><code class="computeroutput"><span class="identifier">any_range</span><span class="special">&lt;</span><span class="identifier">Ref</span><span class="special">,</span> <span class="identifier">Trv</span><span class="special">&gt;</span> <span class="identifier">any</span><span class="special">;</span> <span class="identifier">any</span> <span class="special">=</span> <span class="identifier">rng</span><span class="special">;</span></code></td>
+<td><code class="computeroutput"><span class="identifier">any_range</span><span class="special">&lt;</span><span class="identifier">Ref</span><span class="special">,</span> <span class="identifier">Trv</span><span class="special">&gt;</span> <span class="identifier">any</span><span class="special">(</span><span class="identifier">rng</span><span class="special">);</span></code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<a name="any_range.preconditions"></a><h4>
+<a name="id507720"></a>
+        Preconditions
+      </h4>
+<p>
+        Assume the type of <code class="computeroutput"><span class="identifier">rng</span></code> or
+        <code class="computeroutput"><span class="identifier">rngV</span></code> is <code class="computeroutput"><span class="identifier">Rng</span></code>.
+      </p>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">range_reference</span><span class="special">&lt;</span><span class="identifier">Rng</span><span class="special">&gt;::</span><span class="identifier">type</span></code> is convertible to <code class="computeroutput"><span class="identifier">Ref</span></code> without binding reference to rvalue.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">Trv</span></code> is convertible to
+          <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">single_pass_traversal_tag</span></code>.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">range_traversal</span><span class="special">&lt;</span><span class="identifier">Rng</span><span class="special">&gt;::</span><span class="identifier">type</span></code> is convertible to <code class="computeroutput"><span class="identifier">Trv</span></code>.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">rngV</span></code> is a <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
+          which <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function Object</a>
+          of Oven returns, or a template specialization of <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">iterator_range</span></code>.
+        </li>
+</ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.array_range"></a>array_range</h3></div></div></div>
+<a name="array_range.description"></a><h4>
+<a name="id507980"></a>
+        Description
+      </h4>
+<p>
+        <code class="computeroutput"><span class="identifier">array_range</span></code> is a non-Copyable
+        <a href="http://www.boost.org/libs/range/doc/range.html#random_access_range" target="_top">Random
+        Access Range</a> which delivers a range presentation of dynamically allocated
+        arrays.
+      </p>
+<a name="array_range.header"></a><h4>
+<a name="id508017"></a>
+        Header
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">array_range</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="array_range.model_of"></a><h4>
+<a name="id508088"></a>
+        Model of
+      </h4>
+<div class="itemizedlist"><ul type="disc">
+<li><a href="http://www.boost.org/libs/range/doc/range.html#random_access_range" target="_top">Random
+          Access Range</a></li>
+<li><a href="concepts.html#oven.contiguous_range" title="Contiguous Range">Contiguous Range</a></li>
+</ul></div>
+<a name="array_range.valid_expressions"></a><h4>
+<a name="id508129"></a>
+        Valid expressions
+      </h4>
+<div class="informaltable">
+<h5>
+<a name="id508140"></a>
+        </h5>
+<table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th><span class="bold"><strong>Valid expression</strong></span></th>
+<th><span class="bold"><strong>Semantics</strong></span></th>
+</tr></thead>
+<tbody><tr>
+<td><code class="computeroutput"><span class="identifier">array_range</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">&gt;</span> <span class="identifier">r</span><span class="special">(</span><span class="identifier">sz</span><span class="special">);</span></code></td>
+<td> </td>
+</tr></tbody>
+</table>
+</div>
+<a name="array_range.preconditions"></a><h4>
+<a name="id508239"></a>
+        Preconditions
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li>
+<code class="computeroutput"><span class="keyword">new</span> <span class="identifier">T</span><span class="special">[</span><span class="identifier">sz</span><span class="special">]</span></code>
+          is a valid expression.
+        </li></ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.directory_range"></a>directory_range</h3></div></div></div>
+<a name="directory_range.description"></a><h4>
+<a name="id508304"></a>
+        Description
+      </h4>
+<p>
+        <code class="computeroutput"><span class="identifier">directory_range</span></code> is a <a href="http://www.boost.org/libs/range/doc/range.html#single_pass_range" target="_top">Single
+        Pass Range</a> which accesses the contents of a directory.
+      </p>
+<a name="directory_range.header"></a><h4>
+<a name="id508341"></a>
+        Header
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">directory_range</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="directory_range.model_of"></a><h4>
+<a name="id508412"></a>
+        Model of
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li><a href="http://www.boost.org/libs/range/doc/range.html#single_pass_range" target="_top">Single
+          Pass Range</a></li></ul></div>
+<a name="directory_range.valid_expressions"></a><h4>
+<a name="id508441"></a>
+        Valid expressions
+      </h4>
+<div class="informaltable">
+<h5>
+<a name="id508452"></a>
+        </h5>
+<table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th><span class="bold"><strong>Valid expression</strong></span></th>
+<th><span class="bold"><strong>Semantics</strong></span></th>
+</tr></thead>
+<tbody><tr>
+<td><code class="computeroutput"><span class="identifier">directory_range</span> <span class="identifier">r</span><span class="special">(</span><span class="identifier">p</span><span class="special">);</span></code></td>
+<td>
+              defines a <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
+              whose iterators behave as if they were original iterators wrapped in
+              <a href="http://www.boost.org/libs/filesystem/doc/operations.htm#directory_iterator" target="_top">directory_iterator</a>.
+              </td>
+</tr></tbody>
+</table>
+</div>
+<a name="directory_range.preconditions"></a><h4>
+<a name="id508553"></a>
+        Preconditions
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li>
+<code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">filesystem</span><span class="special">::</span><span class="identifier">directory_iterator</span> <span class="identifier">it</span><span class="special">(</span><span class="identifier">p</span><span class="special">);</span></code>
+          is a valid expression.
+        </li></ul></div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><small>Copyright © 2007 Shunsuke Sogame</small></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="range_algorithms.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="range_makers.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

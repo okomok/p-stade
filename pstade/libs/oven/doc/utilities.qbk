@@ -1,0 +1,146 @@
+[section Utilities]
+
+
+[section expression]
+
+[h3 Description]
+[link oven.any_range any_range] incurs an overhead for calling a `virtual` function every iterator operation.
+The overhead can be removed with the help of _boost_typeof_ if your compiler supports the native typeof.
+`expression` converts a range into _boost_typeof_ compatible one, then removes the overhead if possible.
+
+[h3 Header]
+* `<pstade/oven/expression.hpp>`
+
+[h3 Model of]
+* _operatable_object_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`expression(rng)`]
+        [returns a _range_ which can be used with _boost_typeof_ macros.]
+    ]
+]
+
+[h3 Preconditions]
+Assume the type of `rng` is `Rng`.
+
+* `boost::range_value<Rng>::type` and `boost::range_difference<Rng>::type` are registered to _boost_typeof_.
+
+[note As far as the two types are registered, `expression` with _boost_typeof_ macros is portable
+ even where native typeof isn't available.]
+
+[h3 Example]
+    BOOST_AUTO(factorials,
+        expression(counting_from(1)|scanned(1, regular(lambda::_1 * lambda::_2))) );
+
+[endsect]
+
+
+[section io]
+
+[h3 Description]
+The header `<pstade/oven/io.hpp>` implements _input_streamable_ and _output_streamable_ _range_.
+
+[h3 Header]
+* `<pstade/oven/io.hpp>`
+
+[h3 Effects]
+* All the _range_ Oven defines and returns become a model of _input_streamable_ and _output_streamable_.
+
+[endsect]
+
+
+[section nonstop]
+
+[h3 Description]
+The _stoppable_generator_ concept which [link oven.generation generation] requires is slightly different
+from the _generator_ concept. `nonstop` turns a _generator_ into a [link oven.generation generation] conforming one.
+
+[h3 Header]
+* `<pstade/oven/generation.hpp>`
+
+[h3 Model of]
+* _operatable_object_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`nonstop(g)`]
+        [converts `g` into a _stoppable_generator_.]
+    ]
+]
+
+[h3 Preconditions]
+* `g` is a  _generator_ and _callable_object_.
+
+[endsect]
+
+
+[section regular]
+
+[h3 Description]
+A _boost_lambda_ functor is neither _default_constructible_ nor _assignable_.
+An iterator holding such a functor can't conform to even _input_iterator_.
+`regular` converts it to comfortable one for iterators.
+
+[h3 Header]
+* `<pstade/oven/regular.hpp>`
+
+[h3 Model of]
+* _operatable_object_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`regular(f)`]
+        [converts `f` into a _callable_object_ which is _default_constructible_ and _assignable_.]
+    ]
+]
+
+[h3 Preconditions]
+* `f` is a _boost_lambda_ functor or _callable_object_.
+
+[endsect]
+
+
+[section regular_ref]
+
+[h3 Description]
+A _callable_object_ like a random number generator may not be copyable, while many algorithms require to be.
+`regular_ref`, holding a reference to noncopyable _callable_object_, behaves as copyable one.
+
+[h3 Header]
+* `<pstade/oven/regular.hpp>`
+
+[h3 Model of]
+* _operatable_object_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`regular_ref(fun)`]
+        [converts `fun` into a copyable _callable_object_. All the calls are forwarded to `fun`.]
+    ]
+]
+
+[endsect]
+
+
+[endsect]

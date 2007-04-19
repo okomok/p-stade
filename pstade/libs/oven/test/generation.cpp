@@ -181,7 +181,7 @@ void test()
     }
 
     {
-        BOOST_FOREACH (long x, generation(innumerable(&std::rand))|taken(30)) {
+        BOOST_FOREACH (long x, generation(nonstop(&std::rand))|taken(30)) {
             std::cout << "," << x;
         }
         std::cout << std::endl;

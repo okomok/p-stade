@@ -1,0 +1,260 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Range Adaptors</title>
+<link rel="stylesheet" href="../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.72.0">
+<link rel="start" href="../index.html" title="Chapter 1. Oven 0.93.7">
+<link rel="up" href="../index.html" title="Chapter 1. Oven 0.93.7">
+<link rel="prev" href="range_makers.html" title="Range Makers">
+<link rel="next" href="utilities.html" title="Utilities">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><td valign="top"><img alt="pstade" width="200" height="164" src="../../../../../doc/pstade.png"></td></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="range_makers.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="utilities.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="oven.range_adaptors"></a>Range Adaptors</h2></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="range_adaptors.html#oven.notation_of_range_adaptor"> Notation</a></span></dt>
+<dt><span class="section"><a href="range_adaptors.html#oven.filtered">filtered</a></span></dt>
+<dt><span class="section"><a href="range_adaptors.html#oven.transformed">transformed</a></span></dt>
+</dl></div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.notation_of_range_adaptor"></a> Notation</h3></div></div></div>
+<p>
+        This document uses the following notation:
+      </p>
+<div class="informaltable">
+<h5>
+<a name="id509277"></a>
+        </h5>
+<table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th><span class="bold"><strong>Object</strong></span></th>
+<th><span class="bold"><strong>Model of</strong></span></th>
+</tr></thead>
+<tbody>
+<tr>
+<td><code class="computeroutput"><span class="identifier">rng</span></code></td>
+<td>Any
+              <a href="http://www.boost.org/libs/range/doc/range.html#single_pass_range" target="_top">Single
+              Pass Range</a>, that is, any <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
+</td>
+</tr>
+<tr>
+<td><code class="computeroutput"><span class="identifier">Rng</span></code></td>
+<td>The
+              type of <code class="computeroutput"><span class="identifier">rng</span></code>
+</td>
+</tr>
+<tr>
+<td><code class="computeroutput"><span class="identifier">fwdrng</span></code></td>
+<td>Any
+              <a href="http://www.boost.org/libs/range/doc/range.html#forward_range" target="_top">Forward
+              Range</a>
+</td>
+</tr>
+<tr>
+<td><code class="computeroutput"><span class="identifier">bidrng</span></code></td>
+<td>Any
+              <a href="http://www.boost.org/libs/range/doc/range.html#bidirectional_range" target="_top">Bidirectional
+              Range</a>
+</td>
+</tr>
+<tr>
+<td><code class="computeroutput"><span class="identifier">rndrng</span></code></td>
+<td>Any
+              <a href="http://www.boost.org/libs/range/doc/range.html#random_access_range" target="_top">Random
+              Access Range</a>
+</td>
+</tr>
+<tr>
+<td><code class="computeroutput"><span class="identifier">fo</span></code></td>
+<td>Any
+              <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function Object</a>
+</td>
+</tr>
+<tr>
+<td><code class="computeroutput"><span class="identifier">pr</span></code></td>
+<td>Any
+              <a href="http://www.sgi.com/tech/stl/Predicate.html" target="_top">Predicate</a>
+</td>
+</tr>
+<tr>
+<td><code class="computeroutput"><span class="identifier">co</span></code></td>
+<td>Any
+              <a href="concepts.html#oven.callable_object" title="Callable Object">Callable Object</a>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.filtered"></a>filtered</h3></div></div></div>
+<a name="filtered.description"></a><h4>
+<a name="id509535"></a>
+        Description
+      </h4>
+<a name="filtered.header"></a><h4>
+<a name="id509548"></a>
+        Header
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">filtered</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="filtered.model_of"></a><h4>
+<a name="id509619"></a>
+        Model of
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.range_adaptor" title="Range Adaptor">Range Adaptor</a></li></ul></div>
+<a name="filtered.valid_expressions"></a><h4>
+<a name="id509648"></a>
+        Valid expressions
+      </h4>
+<div class="informaltable">
+<h5>
+<a name="id509659"></a>
+        </h5>
+<table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th><span class="bold"><strong>Valid expression</strong></span></th>
+<th><span class="bold"><strong>Semantics</strong></span></th>
+</tr></thead>
+<tbody><tr>
+<td><code class="computeroutput"><span class="identifier">rng</span><span class="special">|</span><span class="identifier">filtered</span><span class="special">(</span><span class="identifier">pr</span><span class="special">)</span></code></td>
+<td>
+              returns a <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
+              whose iterators behave as if they were the original iterators wrapped
+              in <a href="http://www.boost.org/libs/iterator/doc/filter_iterator.html" target="_top">filter_iterator</a>.
+              </td>
+</tr></tbody>
+</table>
+</div>
+<a name="filtered.preconditions"></a><h4>
+<a name="id509762"></a>
+        Preconditions
+      </h4>
+<a name="filtered.example"></a><h4>
+<a name="id509776"></a>
+        Example
+      </h4>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.transformed"></a>transformed</h3></div></div></div>
+<a name="transformed.description"></a><h4>
+<a name="id509801"></a>
+        Description
+      </h4>
+<a name="transformed.header"></a><h4>
+<a name="id509815"></a>
+        Header
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">transformed</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="transformed.model_of"></a><h4>
+<a name="id509885"></a>
+        Model of
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.range_adaptor" title="Range Adaptor">Range Adaptor</a></li></ul></div>
+<a name="transformed.valid_expressions"></a><h4>
+<a name="id509915"></a>
+        Valid expressions
+      </h4>
+<div class="informaltable">
+<h5>
+<a name="id509926"></a>
+        </h5>
+<table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th><span class="bold"><strong>Valid expression</strong></span></th>
+<th><span class="bold"><strong>Semantics</strong></span></th>
+</tr></thead>
+<tbody>
+<tr>
+<td><code class="computeroutput"><span class="identifier">op_make_transformed</span><span class="special">&lt;</span><span class="identifier">Ref</span><span class="special">&gt;</span></code></td>
+<td> A type of <a href="concepts.html#oven.callable_object" title="Callable Object">Callable Object</a> which can make
+              a <a href="http://www.boost.org/libs/iterator/doc/transform_iterator.html" target="_top">transform_iterator</a>
+              range whose <code class="computeroutput"><span class="identifier">reference</span></code>
+              is <code class="computeroutput"><span class="identifier">Ref</span></code> from a <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function Object</a>.
+              </td>
+</tr>
+<tr>
+<td><code class="computeroutput"><span class="identifier">op_make_transformed</span><span class="special">&lt;</span><span class="identifier">Ref</span><span class="special">&gt;()(</span><span class="identifier">rng</span><span class="special">,</span> <span class="identifier">fo</span><span class="special">)</span></code></td>
+<td> Returns a <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
+              whose iterators behaves as if it were originally wrapped in <a href="http://www.boost.org/libs/iterator/doc/transform_iterator.html" target="_top">transform_iterator</a>.
+              </td>
+</tr>
+<tr>
+<td><code class="computeroutput"><span class="identifier">op_make_transformed</span><span class="special">&lt;&gt;</span></code></td>
+<td> A type of <a href="concepts.html#oven.callable_object" title="Callable Object">Callable Object</a> which can make
+              a <a href="http://www.boost.org/libs/iterator/doc/transform_iterator.html" target="_top">transform_iterator</a>
+              range from a <a href="concepts.html#oven.callable_object" title="Callable Object">Callable Object</a>.
+              </td>
+</tr>
+<tr>
+<td><code class="computeroutput"><span class="identifier">op_make_transformed</span><span class="special">&lt;&gt;()(</span><span class="identifier">rng</span><span class="special">,</span> <span class="identifier">co</span><span class="special">)</span></code></td>
+<td> Returns a <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
+              whose iterators behaves as if it were originally wrapped in <a href="http://www.boost.org/libs/iterator/doc/transform_iterator.html" target="_top">transform_iterator</a>.
+              </td>
+</tr>
+<tr>
+<td><code class="computeroutput"><span class="identifier">make_transformed</span></code></td>
+<td>
+              <code class="computeroutput"><span class="identifier">op_make_transformed</span><span class="special">&lt;&gt;()</span></code> </td>
+</tr>
+<tr>
+<td><code class="computeroutput"><span class="identifier">rng</span><span class="special">|</span><span class="identifier">transformed</span><span class="special">(</span><span class="identifier">co</span><span class="special">)</span></code></td>
+<td>
+              <code class="computeroutput"><span class="identifier">make_transformed</span><span class="special">(</span><span class="identifier">rng</span><span class="special">,</span> <span class="identifier">co</span><span class="special">)</span></code>
+              </td>
+</tr>
+</tbody>
+</table>
+</div>
+<a name="transformed.preconditions"></a><h4>
+<a name="id510339"></a>
+        Preconditions
+      </h4>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="identifier">fo</span><span class="special">(*</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">begin</span><span class="special">(</span><span class="identifier">rng</span><span class="special">))</span></code>
+          is a valid expression.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">co</span><span class="special">(*</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">begin</span><span class="special">(</span><span class="identifier">rng</span><span class="special">))</span></code>
+          is a valid expression.
+        </li>
+</ul></div>
+<a name="transformed.example"></a><h4>
+<a name="id510454"></a>
+        Example
+      </h4>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><small>Copyright © 2007 Shunsuke Sogame</small></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="range_makers.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="utilities.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

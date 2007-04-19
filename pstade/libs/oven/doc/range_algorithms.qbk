@@ -1,0 +1,217 @@
+[section Range Algorithms]
+
+
+[section STL Algorithms]
+
+[h3 Description]
+Oven provides most of all the STL algorithms as range-based functions which take a range instead of two iterators.
+
+[h3 Header]
+* `<pstade/oven/algorithm.hpp>`
+
+[h3 Model of]
+* _operatable_object_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`algo(rng, a0,..,aN)`]
+        [`std::algo(boost::begin(rng), boost::end(rng), a0,..,aN)`]
+    ]
+]
+
+[h3 Preconditions]
+* `algo` is one of the function names defined in `<algorithm>` except for...
+    * `fill_n`, `generate_n`, `rotate`, `rotate_copy`, `partial_sort`, `nth_element` and `inplace_merge`.
+* `std::algo(boost::begin(rng), boost::end(rng), a0,..,aN)` is a valid exression.
+
+[note Unfortunately, Oven STL algorithms are not traversal-aware, that is to say,
+a _random_access_range_ whose iterator is not _lvalue_iterator_ is regarded as an _input_iterator_ range.]
+
+[h3 Example]
+    std::string str;
+
+    // iterator-based
+    str = "gfedcba";
+    std::sort(str.begin(), str.end());
+    BOOST_CHECK( str == "abcdefg" );
+
+    // Oven range-based
+    str = "gfedcba";
+    sort(str);
+    BOOST_CHECK( str == "abcdefg" );
+
+[endsect]
+
+
+[section STL Numerics]
+
+[h3 Header]
+* `<pstade/oven/numeric.hpp>`
+
+[h3 Model of]
+* _operatable_object_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`algo(rng, a0,..,aN)`]
+        [`std::algo(boost::begin(rng), boost::end(rng), a0,..,aN)`]
+    ]
+]
+
+[h3 Preconditions]
+* `algo` is one of the function names defined in `<numeric>`.
+* `std::algo(boost::begin(rng), boost::end(rng), a0,..,aN)` is a valid expression.
+
+[endsect]
+
+
+[section at]
+
+[h3 Header]
+* `<pstade/oven/at.hpp>`
+
+[h3 Model of]
+* _auxiliary_interface_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`at(rndrng, n)`]
+        [`boost::begin(rndrng)[n]`]
+    ]
+]
+
+[h3 Preconditions]
+* `0 <= n && n < distance(rndrng)`
+* Destruction of an iterator doesn't invalidate references previously obtained from that iterator.
+
+[note you must use `value_at` if an iterator invalidates references after the destruction.]
+
+[endsect]
+
+
+[section begin/end]
+
+[h3 Header]
+* `<pstade/oven/begin_end.hpp>`
+
+[h3 Model of]
+* _auxiliary_interface_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`begin(rng)`]
+        [`boost::begin(rng)`]
+    ]
+    [
+        [`end(rng)`]
+        [`boost::end(rng)`]
+    ]
+]
+
+[h3 Example]
+    std::string src("abcDefg");   
+    oven::copy(src|reversed|transformed(to_upper), src|reversed|begin);
+    BOOST_CHECK( oven::equals(src, std::string("ABCDEFG")) );
+    
+[endsect]
+
+
+[section copied]
+
+[h3 Header]
+* `<pstade/oven/copy_range.hpp>`
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`Rng1 rng1 = rng2|copied;`]
+        [`Rng1 rng1 = boost::copy_range<Rng1>(rng2);`]
+    ]
+]
+
+[h3 Preconditions]
+* `Rng1 rng1 = boost::copy_range<Rng1>(rng2);` is a valid expression.
+* `copied` isn't placed in a function default argument list.
+
+[note The valid expression implies you can place `copied` everywhere it is used in /copy-initialization/, e.g. `return` statement.
+The second precondition comes from a GCC bug. Notice that `Rng1 rng1(rng2|copied);` is not listed in valid expressions.]
+
+
+[endsect]
+
+
+[section distance]
+
+[h3 Header]
+* `<pstade/oven/distance.hpp>`
+
+[h3 Model of]
+* _auxiliary_interface_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`distance(rng)`]
+        [`std::distance(boost::begin(rng), boost::end(rng))`]
+    ]
+]
+
+[endsect]
+
+
+[section equals]
+
+[h3 Header]
+* `<pstade/oven/equals.hpp>`
+
+[h3 Model of]
+* _callable_object_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`equals(rng1, rng2)`]
+        [`boost::equals(rng1, rng2)`]
+    ]
+    [
+        [`equals(rng1, rng2, pr)`]
+        [`boost::equals(rng1, rng2, pr)`]
+    ]
+]
+
+[endsect]
+
+
+[endsect]

@@ -129,7 +129,7 @@ struct Copyable :
 #include <boost/assert.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/integral_cast.hpp>
+#include <pstade/copy_construct.hpp>
 #include "./distance.hpp"
 #include "./range_iterator.hpp"
 #include "./traversal_tags.hpp" // is_random_access
@@ -149,7 +149,7 @@ namespace pstade_oven_extension {
         using namespace pstade::oven;
 
         BOOST_ASSERT(is_random_access(from) ?
-            pstade::integral_cast<std::size_t>(distance(from)) <= N : true);
+            pstade::copy_construct<std::size_t>(distance(from)) <= N : true);
 
         typename range_iterator<From>::type
             it(boost::begin(from)), last(boost::end(from));

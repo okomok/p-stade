@@ -1,0 +1,53 @@
+[section Preface]
+
+
+[:["Oh Paulie!]\n[*['-- Adrian]]]
+
+
+[h2 Introduction]
+
+Oven is a highly preliminary implementation of _proposal_:
+
+    namespace lambda = boost::lambda;
+    using namespace pstade::oven;
+
+    typedef
+        any_range<int, boost::single_pass_traversal_tag>
+    range;
+
+    range sieve(range rng)
+    {
+        return rng|dropped(1)|filtered(regular(lambda::_1 % value_front(rng) != 0));
+    }
+
+    range primes
+        = iteration(range(counting(2, max_count)), &::sieve)|transformed(value_front);
+
+    int main()
+    {
+        std::cout << (primes|taken(200));
+    }
+
+All the types, functions and objects are defined in namespace `pstade::oven` unless otherwise specified.
+
+
+[h2 Requirements]
+
+* _boost_ Version 1.34.0 or later
+* _pstade_release_ Version 1.03.1 or later (build not required)
+
+Oven is a header-only library and usually uses header-only libraries of _boost_.
+For now, `directory_range` requires _boost_filesystem_ to be built, and
+ `matches` and `tokenized` requires _boost_regex_ to be built.
+
+
+[h2 Portability]
+
+Oven is known to work under the following platforms:
+
+* Microsoft Visual C++ 2005 Express Edition SP1
+* Microsoft Visual C++ .NET Version 7.1 SP1
+* GCC 3.4.4
+
+
+[endsect]

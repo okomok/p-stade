@@ -1,0 +1,150 @@
+[section Range Adaptors]
+
+[section:notation_of_range_adaptor Notation]
+
+This section uses the following notation:
+
+[table
+    [
+        [[*Object]]
+        [[*Model of]]
+    ]
+    [
+        [`rng`]
+        [Any _single_pass_range_, that is, any _range_]
+    ]
+    [
+        [`Rng`]
+        [The type of `rng`]
+    ]
+    [
+        [`fwdrng`]
+        [Any _forward_range_]
+    ]
+    [
+        [`bidrng`]
+        [Any _bidirectional_range_]
+    ]
+    [
+        [`rndrng`]
+        [Any _random_access_range_]
+    ]
+    [
+        [`fo`]
+        [Any _function_object_]
+    ]
+    [
+        [`pr`]
+        [Any _predicate_]
+    ]
+    [
+        [`co`]
+        [Any _callable_object_]
+    ]
+]
+
+[endsect]
+
+
+[section filtered]
+
+[h3 Description]
+
+[h3 Header]
+* `<pstade/oven/filtered.hpp>`
+
+[h3 Model of]
+* _range_adaptor_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`rng|filtered(pr)`]
+        [
+            returns a _range_ whose iterators behave as if they were the original iterators wrapped in
+            [@http://www.boost.org/libs/iterator/doc/filter_iterator.html filter_iterator].
+        ]
+    ]
+]
+
+[h3 Preconditions]
+
+[h3 Example]
+
+[endsect]
+
+
+[section transformed]
+
+[h3 Description]
+
+[h3 Header]
+* `<pstade/oven/transformed.hpp>`
+
+[h3 Model of]
+* _range_adaptor_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`op_make_transformed<Ref>`]
+        [
+           A type of _callable_object_ which can make a
+           [@http://www.boost.org/libs/iterator/doc/transform_iterator.html transform_iterator]
+           range whose `reference` is `Ref` from a _function_object_.
+        ]
+    ]
+    [
+        [`op_make_transformed<Ref>()(rng, fo)`]
+        [
+            Returns a _range_ whose iterators behaves as if it were originally wrapped in
+            [@http://www.boost.org/libs/iterator/doc/transform_iterator.html transform_iterator].
+        ]
+    ]
+    [
+        [`op_make_transformed<>`]
+        [
+           A type of _callable_object_ which can make a
+           [@http://www.boost.org/libs/iterator/doc/transform_iterator.html transform_iterator]
+           range from a _callable_object_.
+        ]
+    ]
+    [
+        [`op_make_transformed<>()(rng, co)`]
+        [
+            Returns a _range_ whose iterators behaves as if it were originally wrapped in
+            [@http://www.boost.org/libs/iterator/doc/transform_iterator.html transform_iterator].
+        ]
+    ]
+    [
+        [`make_transformed`]
+        [
+            `op_make_transformed<>()`
+        ]
+    ]
+    [
+        [`rng|transformed(co)`]
+        [
+            `make_transformed(rng, co)`
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* `fo(*boost::begin(rng))` is a valid expression.
+* `co(*boost::begin(rng))` is a valid expression.
+
+[h3 Example]
+
+[endsect]
+
+
+[endsect]

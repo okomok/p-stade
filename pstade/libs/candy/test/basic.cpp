@@ -13,7 +13,7 @@
 #include <pstade/candy.hpp>
 
 
-#include <boost/binary_literal.hpp>
+#include <pstade/miniboost/binary_literal.hpp>
 
 
 void test()

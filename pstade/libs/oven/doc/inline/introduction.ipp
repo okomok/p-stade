@@ -4,7 +4,7 @@ range;
 
 range sieve(range rng)
 {
-    return rng|dropped(1)|filtered(regular(lambda::_1 % front(rng) != 0));
+    return rng|dropped(1)|filtered(regular(lambda::_1 % value_front(rng) != 0));
 }
 
 range primes

@@ -36,7 +36,7 @@ namespace pstade { namespace oven {
 namespace generation_detail {
 
 
-    template< class Generator >
+    template< class StoppableGenerator >
     struct generator_iterator;
 
 
@@ -53,11 +53,11 @@ namespace generation_detail {
     { };
 
 
-    template< class Generator >
+    template< class StoppableGenerator >
     struct generator_iterator_super
     {
         typedef typename
-            boost::result_of<Generator()>::type
+            boost::result_of<StoppableGenerator()>::type
         result_t;
 
         typedef typename
@@ -70,7 +70,7 @@ namespace generation_detail {
 
         typedef
             boost::iterator_facade<
-                generator_iterator<Generator>,
+                generator_iterator<StoppableGenerator>,
                 val_t,
                 boost::single_pass_traversal_tag,
                 ref_t
@@ -83,27 +83,27 @@ namespace generation_detail {
     struct end_tag { };
 
 
-    template< class Generator >
+    template< class StoppableGenerator >
     struct generator_iterator :
-        generator_iterator_super<Generator>::type
+        generator_iterator_super<StoppableGenerator>::type
     {
     private:
-        typedef typename generator_iterator_super<Generator>::type super_t;
+        typedef typename generator_iterator_super<StoppableGenerator>::type super_t;
         typedef typename super_t::reference ref_t;
 
     public:
 
         // If default-constructed one plays the end iterator role,
-        // it would require 'Generator' to be DefaultConstructible.
+        // it would require 'StoppableGenerator' to be DefaultConstructible.
         // But SinglePassIterator is not required to be. So use tags.
 
-        generator_iterator(Generator gen, begin_tag) :
+        generator_iterator(StoppableGenerator gen, begin_tag) :
             m_gen(gen), m_result()
         {
             generate();
         }
 
-        generator_iterator(Generator gen, end_tag) :
+        generator_iterator(StoppableGenerator gen, end_tag) :
             m_gen(gen), m_result()
         { }
 
@@ -112,15 +112,15 @@ namespace generation_detail {
             return !m_result;
         }
 
-        Generator generator() const
+        StoppableGenerator generator() const
         {
             return m_gen;
         }
 
     private:
-        Generator m_gen;
+        StoppableGenerator m_gen;
         // 'mutable' needed; const-ness of 'optional' affects its element.
-        mutable typename boost::result_of<Generator()>::type m_result;
+        mutable typename boost::result_of<StoppableGenerator()>::type m_result;
 
         void generate()
         {
@@ -147,12 +147,12 @@ namespace generation_detail {
     };
 
 
-    template< class Generator >
+    template< class StoppableGenerator >
     struct baby
     {
         typedef
             generator_iterator<
-                typename pass_by_value<Generator>::type
+                typename pass_by_value<StoppableGenerator>::type
             >
         iter_t;
 
@@ -160,7 +160,7 @@ namespace generation_detail {
             iter_range<iter_t> const
         result_type;
 
-        result_type operator()(Generator& gen) const
+        result_type operator()(StoppableGenerator& gen) const
         {
             return result_type(
                 iter_t(gen, begin_tag()),
@@ -176,15 +176,15 @@ namespace generation_detail {
 PSTADE_FUNCTION(generation, (generation_detail::baby<_>))
 
 
-namespace innumerable_detail {
+namespace nonstop_detail {
 
 
-    template< class StdGenerator >
+    template< class Generator >
     struct return_op
     {
         typedef
             boost::optional<
-                typename boost::result_of<StdGenerator()>::type
+                typename boost::result_of<Generator()>::type
             >
         result_type;
 
@@ -193,20 +193,20 @@ namespace innumerable_detail {
             return result_type(m_gen());
         }
 
-        explicit return_op(StdGenerator gen) :
+        explicit return_op(Generator gen) :
             m_gen(gen)
         { }
 
     private:
-        StdGenerator m_gen;        
+        Generator m_gen;        
     };
 
 
-} // namespace innumerable_detail
+} // namespace nonstop_detail
 
 
-PSTADE_OBJECT_GENERATOR(innumerable,
-    (innumerable_detail::return_op< deduce<_1, to_value> >))
+PSTADE_OBJECT_GENERATOR(nonstop,
+    (nonstop_detail::return_op< deduce<_1, to_value> >))
 
 
 } } // namespace pstade::oven

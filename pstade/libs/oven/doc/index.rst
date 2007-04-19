@@ -34,10 +34,11 @@ All the types and functions are defined in ``namespace pstade::oven`` at ``<psta
 unless otherwise specified.
 
 
+
 Requirements
 ------------
-- `Boost C++ Libraries Version 1.34.0`__ or later (no compilation required)
-- `P-Stade C++ Libraries Version 1.03.0`__ or later (no compilation required)
+- `Boost C++ Libraries Version 1.34.0`__ or later (build not required)
+- `P-Stade C++ Libraries Version 1.03.0`__ or later (build not required)
 
 __ Boost_
 __ http://sourceforge.net/project/showfiles.php?group_id=141222&package_id=173059
@@ -49,6 +50,7 @@ Tested Under
 - Microsoft Visual C++ 2005 Express Edition SP1
 - Microsoft Visual C++ .NET Version 7.1 SP1
 - GCC 3.4.4
+
 
 
 Specification
@@ -71,6 +73,7 @@ This document is based on the following specifications.
 All the ranges Oven defines are ``InputStreamable`` and ``OutputStreamable`` if ``<pstade/oven/io.hpp>`` is included.
 
 .. [#] Function types are not supported as ``rfun``. Instead, add ``&`` to make a function **pointer**.
+
 
 
 Range Algorithms

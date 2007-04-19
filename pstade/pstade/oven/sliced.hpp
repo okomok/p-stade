@@ -10,6 +10,21 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Note:
+//
+// The term "slice" comes from <valarray>.
+
+
+// References:
+//
+// [1] yotto-k, stride_iterator, 2006.
+//     http://d.hatena.ne.jp/yotto-k/20060725
+// [2] Lubomir Bourdev and Hailin Jin, step_iterator, GIL, 2005-2007.
+//     http://opensource.adobe.com/gil/html/step__iterator_8hpp.html
+// [3] Roland Richter, step_iterator, 2003.
+//     <boost-sandbox/boost/view/step_iterator.hpp>
+
+
 #include <boost/assert.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/function.hpp>
