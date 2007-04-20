@@ -1,49 +1,6 @@
 [section Range Adaptors]
 
-[section:notation_of_range_adaptor Notation]
 
-This section uses the following notation:
-
-[table
-    [
-        [[*Object]]
-        [[*Model of]]
-    ]
-    [
-        [`rng`]
-        [Any _single_pass_range_, that is, any _range_]
-    ]
-    [
-        [`Rng`]
-        [The type of `rng`]
-    ]
-    [
-        [`fwdrng`]
-        [Any _forward_range_]
-    ]
-    [
-        [`bidrng`]
-        [Any _bidirectional_range_]
-    ]
-    [
-        [`rndrng`]
-        [Any _random_access_range_]
-    ]
-    [
-        [`fo`]
-        [Any _function_object_]
-    ]
-    [
-        [`pr`]
-        [Any _predicate_]
-    ]
-    [
-        [`co`]
-        [Any _callable_object_]
-    ]
-]
-
-[endsect]
 
 
 [section filtered]
@@ -54,7 +11,7 @@ This section uses the following notation:
 * `<pstade/oven/filtered.hpp>`
 
 [h3 Model of]
-* _range_adaptor_
+* _pipable_object_
 
 [h3 Valid expressions]
 [table 
@@ -63,19 +20,24 @@ This section uses the following notation:
         [[*Semantics]]
     ]
     [
-        [`rng|filtered(pr)`]
+        [`rng|filtered(prd)`]
         [
-            returns a _range_ whose iterators behave as if they were the original iterators wrapped in
-            [@http://www.boost.org/libs/iterator/doc/filter_iterator.html filter_iterator].
+            `[T(prd, boost::begin(rng), boost::end(rng)), T(prd, boos::end(rng), boost::end(rng)))`
         ]
     ]
 ]
 
 [h3 Preconditions]
+* `T` is `boost::filter_iterator<typeof(prd), typeof(boost::begin(rng))>` such that `T(prd, boost::begin(rng), boost::end(rng))` is a valid expression.
 
 [h3 Example]
 
+[h3 See also]
+* [@http://www.boost.org/libs/iterator/doc/filter_iterator.html filter_iterator]
+
 [endsect]
+
+
 
 
 [section transformed]
@@ -86,7 +48,6 @@ This section uses the following notation:
 * `<pstade/oven/transformed.hpp>`
 
 [h3 Model of]
-* _range_adaptor_
 
 [h3 Valid expressions]
 [table 
@@ -95,56 +56,52 @@ This section uses the following notation:
         [[*Semantics]]
     ]
     [
-        [`op_make_transformed<Ref>`]
+        [`op_make_transformed<R>`]
         [
-           A type of _callable_object_ which can make a
-           [@http://www.boost.org/libs/iterator/doc/transform_iterator.html transform_iterator]
-           range whose `reference` is `Ref` from a _function_object_.
+           A _callable_object_ type
         ]
     ]
     [
-        [`op_make_transformed<Ref>()(rng, fo)`]
+        [`op_make_transformed<R>()(rng, fun)`]
         [
-            Returns a _range_ whose iterators behaves as if it were originally wrapped in
-            [@http://www.boost.org/libs/iterator/doc/transform_iterator.html transform_iterator].
+            `[T(boost::begin(rng), fun), T(boost::end(rng), fun))`
         ]
     ]
     [
         [`op_make_transformed<>`]
         [
-           A type of _callable_object_ which can make a
-           [@http://www.boost.org/libs/iterator/doc/transform_iterator.html transform_iterator]
-           range from a _callable_object_.
+           A type whose object is a _callable_object_.
         ]
     ]
     [
-        [`op_make_transformed<>()(rng, co)`]
+        [`op_make_transformed<>()(rng, cal)`]
         [
-            Returns a _range_ whose iterators behaves as if it were originally wrapped in
-            [@http://www.boost.org/libs/iterator/doc/transform_iterator.html transform_iterator].
+            `[U(boost::begin(rng), cal), U(boost::end(rng), cal))`
         ]
     ]
     [
-        [`make_transformed`]
+        [`make_transformed(rng, cal)`]
         [
-            `op_make_transformed<>()`
+            `op_make_transformed<>()(rng, cal)`
         ]
     ]
     [
-        [`rng|transformed(co)`]
+        [`rng|transformed(cal)`]
         [
-            `make_transformed(rng, co)`
+            `make_transformed(rng, cal)`
         ]
     ]
 ]
 
 [h3 Preconditions]
-* `fo(*boost::begin(rng))` is a valid expression.
-* `co(*boost::begin(rng))` is a valid expression.
+* `T` is `boost::transform_iterator<typeof(fun), typeof(boost::begin(rng)), R>` such that `T(boost::begin(rng), fun)` is a valid expression.
+* `U` is `boost::transform_iterator<typeof(cal), typeof(boost::begin(rng)), boost::result_of<typeof(cal)(*boost::begin(rng))>::type>` such that `U(boost::begin(rng), cal)` is a valid expression.
 
 [h3 Example]
 
 [endsect]
+
+
 
 
 [endsect]

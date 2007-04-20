@@ -1,6 +1,8 @@
 [section Concepts]
 
 
+
+
 [section Callable Object]
 
 [h3 Description]
@@ -13,13 +15,15 @@ A _callable_object_ is a _function_object_ which can be used with _boost_result_
 In addition to the requirements defined in _function_object_,
 for any _callable_object_ `f` the following must be met:
 
-* The type of `f` can be used with _boost_result_of_ to get the result type of function call `f`.
+* `typeof(f)` can be used with _boost_result_of_ to get the result type of function call `f`.
 
 [h3 Models]
 * Any function poiner
 * Any _function_object_ of Oven
 
 [endsect]
+
+
 
 
 [section Operatable Object]
@@ -34,7 +38,7 @@ An _operatable_object_ is a _callable_object_ which can specify the type of itse
 In addition to the requirements defined in _callable_object_,
 for any _operatable_object_ `f` the following must be met:
 
-* `op_f` is the type of `f`.
+* `op_f` is the `typeof(f)`.
 
 [h3 Models]
 * [link oven.filtered make_filtered]
@@ -42,6 +46,32 @@ for any _operatable_object_ `f` the following must be met:
 
 
 [endsect]
+
+
+
+
+[section Pipable Object]
+
+[h3 Description]
+A _pipable_object_ supports a pipable syntax and has the associated _operatable_object_ using prefix `make_`.
+
+[h3 Refinement of]
+
+[h3 Requirements]
+For any _pipable_object_ `p` the following must be met:
+
+* `a|p(a0,..,aN)` is a valid expression if and only if `make_p(a, a0,..aN)` is a valid expression.
+* `a|p(a0,..,aN)` and `make_p(a, a0,..aN)` have the same effects.
+* `make_p` is a _operatable_object_.
+* If `N == 0`, `a|p` and `make_p(a)` are valid expressions which have the same effects.
+
+[h3 Models]
+* [link oven.filtered filtered]
+* [link oven.repeated repeated]
+
+[endsect]
+
+
 
 
 [section Auxiliary Interface]
@@ -59,13 +89,15 @@ for any _auxiliary_interface_ `i` the following must be met:
 
 * `a|i(a0,..,aN)` is a valid exression if and only if `i(a, a0,..,aN)` is a valid expression.
 * `a|i(a0,..aN)` and `i(a, a0,..,aN)` have the same effects.
-* If `N==0`, `a|i()` and `a|i` are valid expressions which have the same effects.
+* If `N == 0`, `a|i()` and `a|i` are valid expressions which have the same effects.
 
 [h3 Models]
 * [link oven.as_array as_array]
 * [link oven.begin_end begin]
 
 [endsect]
+
+
 
 
 [section Stoppable Generator]
@@ -81,33 +113,39 @@ A _stoppable_generator_ is a _generator_ which can specify the stop of generatin
 In addition to the requirements defined in _generator_ and _callable_object_,
 for any _stoppable_generator_ `g` the following must be met:
 
-* The result type of function call `g` is a _boost_optional_ template specialization.
-* An /uninitialized/ result object is considered as the stop of generating.
+* `typeof(g())` is a `boost::optional` specialization.
+* An /uninitialized/ result is considered as the stop of generating.
 
 [h3 Models]
+* Any _callable_object_ [link oven.nonstop nonstop] returns
 
 [endsect]
+
+
 
 
 [section Constant Range]
 
 [h3 Description]
-A _constant_range_ is a _range_ whose iterators are constant.
+A _constant_range_ is a _range_ whose iterators are constant, meaning that
+the iterator referents are not modifiable.
 
 [h3 Refinement of]
-* _range_
+* _single_pass_range_
 
 [h3 Requirements]
-In addition to the requirements defined in _range_,
-for any _constant_range_ `r` whose type is `Rng` the following must be met:
+In addition to the requirements defined in _single_pass_range_,
+for any _constant_range_ `r` whose type is `R` the following must be met:
 
-* `boost::remove_reference<boost::range_reference<Rng>::type>::type` is const-qualified.
+* `boost::remove_reference<boost::range_reference<R>::type>::type` is const-qualified.
 
 [h3 Models]
 * `std::list<int> const`
 * `int const [12]`
 
 [endsect]
+
+
 
 
 [section Contiguous Range]
@@ -131,28 +169,6 @@ for any _contiguous_range_ `r` the following must be met:
 [endsect]
 
 
-[section Range Adaptor]
-
-[h3 Description]
-A _range_adaptor_ delivers an altered presentation of underlying _range_.
-
-[h3 Refinement of]
-* _callable_object_
-
-[h3 Requirements]
-In addition to the requirements defined in _callable_object_,
-for any _range_adaptor_ `x` the following must be met:
-
-* `rng|x(a0,..,aN)` is a valid expression.
-* `make_x(rng, a0,..,aN)` also is a valid expression that has the same effects, and `make_x` is a model of _callable_object_.
-* `make_x` is a model of _operatable_object_ unless `op_make_x` is specified as a class template.
-* `rng|x(a0,..,aN)` returns a _range_ that is the same traversal concept of `rng` unless otherwise specified.
-
-[h3 Models]
-* [link oven.filtered filtered]
-* [link oven.transformed transformed]
-
-[endsect]
 
 
 [endsect]

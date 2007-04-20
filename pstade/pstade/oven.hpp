@@ -13,6 +13,7 @@
 #include "./oven/adaptors.hpp"
 #include "./oven/algorithm.hpp"
 #include "./oven/functions.hpp"
+#include "./oven/locale.hpp"
 #include "./oven/metafunctions.hpp"
 #include "./oven/numeric.hpp"
 #include "./oven/ranges.hpp"

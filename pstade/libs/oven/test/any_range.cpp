@@ -23,6 +23,7 @@
 #include <pstade/oven/identities.hpp>
 #include <pstade/oven/const_lvalues.hpp>
 #include <pstade/oven/filtered.hpp>
+#include <pstade/oven/locale.hpp>
 
 
 template< class AnyIter1, class AnyIter2 >
@@ -92,7 +93,6 @@ void pstade_unit_test()
     namespace lambda = boost::lambda;
     namespace oven = pstade::oven;
     using namespace oven;
-    using pstade::to_upper;
 
     {
         std::string rng("8frj91j81hf891y2");

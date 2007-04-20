@@ -4,6 +4,11 @@
 [:["Oh Paulie!]\n[*['-- Adrian]]]
 
 
+[h2 Disclaimer]
+
+Oven is not a part of _boost_.
+
+
 [h2 Introduction]
 
 Oven is a highly preliminary implementation of _proposal_:
@@ -28,7 +33,7 @@ Oven is a highly preliminary implementation of _proposal_:
         std::cout << (primes|taken(200));
     }
 
-All the types, functions and objects are defined in namespace `pstade::oven` unless otherwise specified.
+All the types, functions and objects are defined in `namespace pstade::oven` unless otherwise specified.
 
 
 [h2 Requirements]
@@ -48,6 +53,64 @@ Oven is known to work under the following platforms:
 * Microsoft Visual C++ 2005 Express Edition SP1
 * Microsoft Visual C++ .NET Version 7.1 SP1
 * GCC 3.4.4
+
+
+[h2 Notation]
+
+This document uses the following notation:
+
+[table
+    [
+        [[*Expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`typeof`]
+        [An imaginary operator which returns the type of expression.]
+    ]
+    [
+        [`rng`]
+        [A _single_pass_range_, that is to say, any _range_.]
+    ]
+    [
+        [`fwdrng`]
+        [A _forward_range_]
+    ]
+    [
+        [`bidrng`]
+        [A _bidirectional_range_]
+    ]
+    [
+        [`rndrng`]
+        [A _random_access_range_]
+    ]
+    [
+        [`fun`]
+        [A _function_object_]
+    ]
+    [
+        [`cal`]
+        [A _callable_object_]
+    ]
+    [
+        [`prd`]
+        [A _predicate_]
+    ]
+    [
+        [`[i, j)`]
+        [A _range_ which behaves as if `i = boost::begin([i, j))` and `j = boost::end([i, j))`.]
+    ]
+    [
+        [`{a0,a1,a2, ..,aN}`]
+        [A _range_]
+    ]
+    [
+        [`(a0 a1 a2 .. aN)`]
+        [A `boost::tuple`]
+    ]
+]
+
+Also, assume that every expression is placed after `using namespace pstade::oven`.
 
 
 [endsect]

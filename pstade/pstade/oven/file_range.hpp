@@ -10,6 +10,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Note:
+//
+// This range could be just a function.
+// But this is "conceptually" a noncopyable range.
+
+
 #include <boost/spirit/iterator/file_iterator.hpp>
 #include <pstade/implicitly_defined.hpp>
 #include "./iter_range.hpp"

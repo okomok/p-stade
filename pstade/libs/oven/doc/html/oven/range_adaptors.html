@@ -19,110 +19,33 @@
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="oven.range_adaptors"></a>Range Adaptors</h2></div></div></div>
 <div class="toc"><dl>
-<dt><span class="section"><a href="range_adaptors.html#oven.notation_of_range_adaptor"> Notation</a></span></dt>
 <dt><span class="section"><a href="range_adaptors.html#oven.filtered">filtered</a></span></dt>
 <dt><span class="section"><a href="range_adaptors.html#oven.transformed">transformed</a></span></dt>
 </dl></div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="oven.notation_of_range_adaptor"></a> Notation</h3></div></div></div>
-<p>
-        This document uses the following notation:
-      </p>
-<div class="informaltable">
-<h5>
-<a name="id509277"></a>
-        </h5>
-<table class="table">
-<colgroup>
-<col>
-<col>
-</colgroup>
-<thead><tr>
-<th><span class="bold"><strong>Object</strong></span></th>
-<th><span class="bold"><strong>Model of</strong></span></th>
-</tr></thead>
-<tbody>
-<tr>
-<td><code class="computeroutput"><span class="identifier">rng</span></code></td>
-<td>Any
-              <a href="http://www.boost.org/libs/range/doc/range.html#single_pass_range" target="_top">Single
-              Pass Range</a>, that is, any <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
-</td>
-</tr>
-<tr>
-<td><code class="computeroutput"><span class="identifier">Rng</span></code></td>
-<td>The
-              type of <code class="computeroutput"><span class="identifier">rng</span></code>
-</td>
-</tr>
-<tr>
-<td><code class="computeroutput"><span class="identifier">fwdrng</span></code></td>
-<td>Any
-              <a href="http://www.boost.org/libs/range/doc/range.html#forward_range" target="_top">Forward
-              Range</a>
-</td>
-</tr>
-<tr>
-<td><code class="computeroutput"><span class="identifier">bidrng</span></code></td>
-<td>Any
-              <a href="http://www.boost.org/libs/range/doc/range.html#bidirectional_range" target="_top">Bidirectional
-              Range</a>
-</td>
-</tr>
-<tr>
-<td><code class="computeroutput"><span class="identifier">rndrng</span></code></td>
-<td>Any
-              <a href="http://www.boost.org/libs/range/doc/range.html#random_access_range" target="_top">Random
-              Access Range</a>
-</td>
-</tr>
-<tr>
-<td><code class="computeroutput"><span class="identifier">fo</span></code></td>
-<td>Any
-              <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function Object</a>
-</td>
-</tr>
-<tr>
-<td><code class="computeroutput"><span class="identifier">pr</span></code></td>
-<td>Any
-              <a href="http://www.sgi.com/tech/stl/Predicate.html" target="_top">Predicate</a>
-</td>
-</tr>
-<tr>
-<td><code class="computeroutput"><span class="identifier">co</span></code></td>
-<td>Any
-              <a href="concepts.html#oven.callable_object" title="Callable Object">Callable Object</a>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="section" lang="en">
-<div class="titlepage"><div><div><h3 class="title">
 <a name="oven.filtered"></a>filtered</h3></div></div></div>
 <a name="filtered.description"></a><h4>
-<a name="id509535"></a>
+<a name="id523973"></a>
         Description
       </h4>
 <a name="filtered.header"></a><h4>
-<a name="id509548"></a>
+<a name="id523987"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">filtered</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="filtered.model_of"></a><h4>
-<a name="id509619"></a>
+<a name="id524058"></a>
         Model of
       </h4>
-<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.range_adaptor" title="Range Adaptor">Range Adaptor</a></li></ul></div>
+<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_object" title="Pipable Object">Pipable Object</a></li></ul></div>
 <a name="filtered.valid_expressions"></a><h4>
-<a name="id509648"></a>
+<a name="id524087"></a>
         Valid expressions
       </h4>
 <div class="informaltable">
 <h5>
-<a name="id509659"></a>
+<a name="id524098"></a>
         </h5>
 <table class="table">
 <colgroup>
@@ -134,48 +57,52 @@
 <th><span class="bold"><strong>Semantics</strong></span></th>
 </tr></thead>
 <tbody><tr>
-<td><code class="computeroutput"><span class="identifier">rng</span><span class="special">|</span><span class="identifier">filtered</span><span class="special">(</span><span class="identifier">pr</span><span class="special">)</span></code></td>
+<td><code class="computeroutput"><span class="identifier">rng</span><span class="special">|</span><span class="identifier">filtered</span><span class="special">(</span><span class="identifier">prd</span><span class="special">)</span></code></td>
 <td>
-              returns a <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
-              whose iterators behave as if they were the original iterators wrapped
-              in <a href="http://www.boost.org/libs/iterator/doc/filter_iterator.html" target="_top">filter_iterator</a>.
-              </td>
+              <code class="computeroutput"><span class="special">[</span><span class="identifier">T</span><span class="special">(</span><span class="identifier">prd</span><span class="special">,</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">begin</span><span class="special">(</span><span class="identifier">rng</span><span class="special">),</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">end</span><span class="special">(</span><span class="identifier">rng</span><span class="special">)),</span> <span class="identifier">T</span><span class="special">(</span><span class="identifier">prd</span><span class="special">,</span> <span class="identifier">boos</span><span class="special">::</span><span class="identifier">end</span><span class="special">(</span><span class="identifier">rng</span><span class="special">),</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">end</span><span class="special">(</span><span class="identifier">rng</span><span class="special">)))</span></code> </td>
 </tr></tbody>
 </table>
 </div>
 <a name="filtered.preconditions"></a><h4>
-<a name="id509762"></a>
+<a name="id524359"></a>
         Preconditions
       </h4>
+<div class="itemizedlist"><ul type="disc"><li>
+<code class="computeroutput"><span class="identifier">T</span></code> is <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">filter_iterator</span><span class="special">&lt;</span><span class="identifier">typeof</span><span class="special">(</span><span class="identifier">prd</span><span class="special">),</span> <span class="identifier">typeof</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">begin</span><span class="special">(</span><span class="identifier">rng</span><span class="special">))&gt;</span></code> such that <code class="computeroutput"><span class="identifier">T</span><span class="special">(</span><span class="identifier">prd</span><span class="special">,</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">begin</span><span class="special">(</span><span class="identifier">rng</span><span class="special">),</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">end</span><span class="special">(</span><span class="identifier">rng</span><span class="special">))</span></code> is a valid expression.
+        </li></ul></div>
 <a name="filtered.example"></a><h4>
-<a name="id509776"></a>
+<a name="id524564"></a>
         Example
       </h4>
+<a name="filtered.see_also"></a><h4>
+<a name="id524577"></a>
+        See also
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li><a href="http://www.boost.org/libs/iterator/doc/filter_iterator.html" target="_top">filter_iterator</a></li></ul></div>
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.transformed"></a>transformed</h3></div></div></div>
 <a name="transformed.description"></a><h4>
-<a name="id509801"></a>
+<a name="id524617"></a>
         Description
       </h4>
 <a name="transformed.header"></a><h4>
-<a name="id509815"></a>
+<a name="id524630"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">transformed</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="transformed.model_of"></a><h4>
-<a name="id509885"></a>
+<a name="id524701"></a>
         Model of
       </h4>
-<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.range_adaptor" title="Range Adaptor">Range Adaptor</a></li></ul></div>
 <a name="transformed.valid_expressions"></a><h4>
-<a name="id509915"></a>
+<a name="id524716"></a>
         Valid expressions
       </h4>
 <div class="informaltable">
 <h5>
-<a name="id509926"></a>
+<a name="id524727"></a>
         </h5>
 <table class="table">
 <colgroup>
@@ -188,62 +115,53 @@
 </tr></thead>
 <tbody>
 <tr>
-<td><code class="computeroutput"><span class="identifier">op_make_transformed</span><span class="special">&lt;</span><span class="identifier">Ref</span><span class="special">&gt;</span></code></td>
-<td> A type of <a href="concepts.html#oven.callable_object" title="Callable Object">Callable Object</a> which can make
-              a <a href="http://www.boost.org/libs/iterator/doc/transform_iterator.html" target="_top">transform_iterator</a>
-              range whose <code class="computeroutput"><span class="identifier">reference</span></code>
-              is <code class="computeroutput"><span class="identifier">Ref</span></code> from a <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function Object</a>.
-              </td>
+<td><code class="computeroutput"><span class="identifier">op_make_transformed</span><span class="special">&lt;</span><span class="identifier">R</span><span class="special">&gt;</span></code></td>
+<td> A <a href="concepts.html#oven.callable_object" title="Callable Object">Callable
+              Object</a> type </td>
 </tr>
 <tr>
-<td><code class="computeroutput"><span class="identifier">op_make_transformed</span><span class="special">&lt;</span><span class="identifier">Ref</span><span class="special">&gt;()(</span><span class="identifier">rng</span><span class="special">,</span> <span class="identifier">fo</span><span class="special">)</span></code></td>
-<td> Returns a <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
-              whose iterators behaves as if it were originally wrapped in <a href="http://www.boost.org/libs/iterator/doc/transform_iterator.html" target="_top">transform_iterator</a>.
+<td><code class="computeroutput"><span class="identifier">op_make_transformed</span><span class="special">&lt;</span><span class="identifier">R</span><span class="special">&gt;()(</span><span class="identifier">rng</span><span class="special">,</span> <span class="identifier">fun</span><span class="special">)</span></code></td>
+<td> <code class="computeroutput"><span class="special">[</span><span class="identifier">T</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">begin</span><span class="special">(</span><span class="identifier">rng</span><span class="special">),</span> <span class="identifier">fun</span><span class="special">),</span> <span class="identifier">T</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">end</span><span class="special">(</span><span class="identifier">rng</span><span class="special">),</span> <span class="identifier">fun</span><span class="special">))</span></code>
               </td>
 </tr>
 <tr>
 <td><code class="computeroutput"><span class="identifier">op_make_transformed</span><span class="special">&lt;&gt;</span></code></td>
-<td> A type of <a href="concepts.html#oven.callable_object" title="Callable Object">Callable Object</a> which can make
-              a <a href="http://www.boost.org/libs/iterator/doc/transform_iterator.html" target="_top">transform_iterator</a>
-              range from a <a href="concepts.html#oven.callable_object" title="Callable Object">Callable Object</a>.
+<td> A type whose
+              object is a <a href="concepts.html#oven.callable_object" title="Callable Object">Callable Object</a>.
               </td>
 </tr>
 <tr>
-<td><code class="computeroutput"><span class="identifier">op_make_transformed</span><span class="special">&lt;&gt;()(</span><span class="identifier">rng</span><span class="special">,</span> <span class="identifier">co</span><span class="special">)</span></code></td>
-<td> Returns a <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
-              whose iterators behaves as if it were originally wrapped in <a href="http://www.boost.org/libs/iterator/doc/transform_iterator.html" target="_top">transform_iterator</a>.
+<td><code class="computeroutput"><span class="identifier">op_make_transformed</span><span class="special">&lt;&gt;()(</span><span class="identifier">rng</span><span class="special">,</span> <span class="identifier">cal</span><span class="special">)</span></code></td>
+<td> <code class="computeroutput"><span class="special">[</span><span class="identifier">U</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">begin</span><span class="special">(</span><span class="identifier">rng</span><span class="special">),</span> <span class="identifier">cal</span><span class="special">),</span> <span class="identifier">U</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">end</span><span class="special">(</span><span class="identifier">rng</span><span class="special">),</span> <span class="identifier">cal</span><span class="special">))</span></code>
               </td>
 </tr>
 <tr>
-<td><code class="computeroutput"><span class="identifier">make_transformed</span></code></td>
-<td>
-              <code class="computeroutput"><span class="identifier">op_make_transformed</span><span class="special">&lt;&gt;()</span></code> </td>
+<td><code class="computeroutput"><span class="identifier">make_transformed</span><span class="special">(</span><span class="identifier">rng</span><span class="special">,</span> <span class="identifier">cal</span><span class="special">)</span></code></td>
+<td> <code class="computeroutput"><span class="identifier">op_make_transformed</span><span class="special">&lt;&gt;()(</span><span class="identifier">rng</span><span class="special">,</span> <span class="identifier">cal</span><span class="special">)</span></code> </td>
 </tr>
 <tr>
-<td><code class="computeroutput"><span class="identifier">rng</span><span class="special">|</span><span class="identifier">transformed</span><span class="special">(</span><span class="identifier">co</span><span class="special">)</span></code></td>
+<td><code class="computeroutput"><span class="identifier">rng</span><span class="special">|</span><span class="identifier">transformed</span><span class="special">(</span><span class="identifier">cal</span><span class="special">)</span></code></td>
 <td>
-              <code class="computeroutput"><span class="identifier">make_transformed</span><span class="special">(</span><span class="identifier">rng</span><span class="special">,</span> <span class="identifier">co</span><span class="special">)</span></code>
+              <code class="computeroutput"><span class="identifier">make_transformed</span><span class="special">(</span><span class="identifier">rng</span><span class="special">,</span> <span class="identifier">cal</span><span class="special">)</span></code>
               </td>
 </tr>
 </tbody>
 </table>
 </div>
 <a name="transformed.preconditions"></a><h4>
-<a name="id510339"></a>
+<a name="id525324"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
 <li>
-<code class="computeroutput"><span class="identifier">fo</span><span class="special">(*</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">begin</span><span class="special">(</span><span class="identifier">rng</span><span class="special">))</span></code>
-          is a valid expression.
+<code class="computeroutput"><span class="identifier">T</span></code> is <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">transform_iterator</span><span class="special">&lt;</span><span class="identifier">typeof</span><span class="special">(</span><span class="identifier">fun</span><span class="special">),</span> <span class="identifier">typeof</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">begin</span><span class="special">(</span><span class="identifier">rng</span><span class="special">)),</span> <span class="identifier">R</span><span class="special">&gt;</span></code> such that <code class="computeroutput"><span class="identifier">T</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">begin</span><span class="special">(</span><span class="identifier">rng</span><span class="special">),</span> <span class="identifier">fun</span><span class="special">)</span></code> is a valid expression.
         </li>
 <li>
-<code class="computeroutput"><span class="identifier">co</span><span class="special">(*</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">begin</span><span class="special">(</span><span class="identifier">rng</span><span class="special">))</span></code>
-          is a valid expression.
+<code class="computeroutput"><span class="identifier">U</span></code> is <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">transform_iterator</span><span class="special">&lt;</span><span class="identifier">typeof</span><span class="special">(</span><span class="identifier">cal</span><span class="special">),</span> <span class="identifier">typeof</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">begin</span><span class="special">(</span><span class="identifier">rng</span><span class="special">)),</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">result_of</span><span class="special">&lt;</span><span class="identifier">typeof</span><span class="special">(</span><span class="identifier">cal</span><span class="special">)(*</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">begin</span><span class="special">(</span><span class="identifier">rng</span><span class="special">))&gt;::</span><span class="identifier">type</span><span class="special">&gt;</span></code> such that <code class="computeroutput"><span class="identifier">U</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">begin</span><span class="special">(</span><span class="identifier">rng</span><span class="special">),</span> <span class="identifier">cal</span><span class="special">)</span></code> is a valid expression.
         </li>
 </ul></div>
 <a name="transformed.example"></a><h4>
-<a name="id510454"></a>
+<a name="id525748"></a>
         Example
       </h4>
 </div>

@@ -1,6 +1,8 @@
 [section Range Makers]
 
 
+
+
 [section as_array]
 
 [h3 Description]
@@ -19,15 +21,227 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
         [[*Semantics]]
     ]
     [
-        [`as_array(arr)`]
-        [[@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html#as-array TR2] `as_array(arr)`]
+        [`as_array(a)`]
+        [
+            `as_array(a)` of
+            [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html#as-array Proposal for new string algorithms in TR2].
+        ]
     ]
 ]
 
 [h3 Preconditions]
-* `arr` is an array.
+* `a` is an array.
 
 [endsect]
+
+
+
+
+[section as_c_str]
+
+[h3 Description]
+`as_c_str` makes a _random_access_range_ from null-terminated c-style string.
+
+[h3 Header]
+* `<pstade/oven/as_c_str.hpp>`
+
+[h3 Model of]
+* _auxiliary_interface_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`as_c_str(s)`]
+        [
+            `[s, s + strlen(s))`
+        ]
+    ]
+    [
+        [`as_c_str(rng)`]
+        [
+            `[boost::begin(rng), std::find(boost::begin(rng), boost::end(rng), 0))`
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* `typeof(s)` is convertible to `char *` or `char const *`.
+* `typeof(rng)` is not convertible to `char *` nor `char const *`.
+
+[endsect]
+
+
+
+
+[section as_literal]
+
+[h3 Description]
+`as_literal` makes a _random_access_range_ from character array.
+
+[h3 Header]
+* `<pstade/oven/as_literal.hpp>`
+
+[h3 Model of]
+* _auxiliary_interface_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`as_literal(a)`]
+        [
+            `[&a[0], &a[0]+sz-1)`, where `sz` is the size of array `a`.
+        ]
+    ]
+    [
+        [`as_literal(x)`]
+        [
+            `x`
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* `a` is an array.
+* `x` is not an array.
+
+[note `as_literal` doesn't use `strlen`,
+      while [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html#as-array Proposal for new string algorithms in TR2] does.]
+
+[endsect]
+
+
+
+
+[section as_single]
+
+[h3 Description]
+`as_single` makes a _random_access_range_ which delivers a _range_ presentation of one object.
+
+[h3 Header]
+* `<pstade/oven/as_single.hpp>`
+
+[h3 Model of]
+* _auxiliary_interface_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`as_single(x)`]
+        [`[&x, &x+1)`]
+    ]
+]
+
+[h3 Example]
+    BOOST_CHECK( equals('a'|as_single, std::string("a")) );
+
+[endsect]
+
+
+
+
+[section as_shared_single]
+
+[h3 Header]
+* `<pstade/oven/as_single.hpp>`
+
+[h3 Model of]
+* _auxiliary_interface_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`as_shared_single(p)`]
+        [`[&*p, &*p+1)`]
+    ]
+]
+
+[h3 Preconditions]
+* `boost::shared_ptr` is constructible from `p`.
+
+[endsect]
+
+
+
+
+[section counting]
+
+[h3 Header]
+* `<pstade/oven/counting.hpp>`
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`op_counting<C, D>`]
+        [
+            A _callable_object_ type
+        ]
+    ]
+    [
+        [`op_counting<C, D>()(i, j)`]
+        [
+            `[T(i), T(j))`
+        ]
+    ]
+    [
+        [`op_counting<C>`]
+        [
+            `op_counting<C, boost::use_default>`
+        ]
+    ]
+    [
+        [`op_counting<>`]
+        [
+            `op_counting<boost::use_default, boost::use_default>`
+        ]
+    ]
+    [
+    	[`counting(i, j)`]
+    	[`op_counting<>()(i, j)`]
+    ]
+    [
+    	[`counting(i, count_max)`]
+    	[`op_counting<>()(i, std::numeric_limits<typeof(i)>::max())`]
+    ]
+]
+
+[h3 Preconditions]
+* `T` is `boost::counting_iterator<typeof(j), C, D>` such that `T(i)` and `T(j)` is a valid expression.
+
+[h3 Example]
+	int ans[] = { 2, 3, 4, 5, 6 };
+	BOOST_CHECK( equal(counting(2, 7), ans) );
+
+	std::vector<int> vec;
+	BOOST_FOREACH (int i, counting(0, 5)) {
+	    vec.push_back(i);
+	}
+
+[h3 See also]
+* [@http://www.boost.org/libs/iterator/doc/counting_iterator.html counting_iterator]
+
+[endsect]
+
+
 
 
 [section generation]
@@ -50,7 +264,7 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
     [
         [`generation(g)`]
         [
-            returns a _single_pass_range_ whose iterators behaves as if it were wrapped in
+            Returns a _single_pass_range_ whose iterators behaves as if it were wrapped in
             [@http://www.boost.org/libs/utility/generator_iterator.htm generator_iterator].
         ]
     ]
@@ -60,6 +274,341 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 * `g` is a _stoppable_generator_.
 
 [endsect]
+
+
+
+
+[section initial_values]
+
+[h3 Description]
+`initial_values` emulates initializer-lists.
+
+[h3 Header]
+* `<pstade/oven/initial_values.hpp>`
+
+[h3 Model of]
+* _operatable_object_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`initial_values(a1,..,aN)`]
+        [
+            `boost::assign::cref_list_of<N>(a1)..(aN)`
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* `1 <= N && N <= 20`
+* `boost::assign::cref_list_of<N>(a1)..(aN)` is a valid expression.
+
+[note `initial_values` trades unlimited arity for the lightweight initialization of boost::array.]
+
+[h3 Example]
+	int const ans[] = { 1,5,3,6,1,3,7,1,4,2,2 };
+	std::vector<int> vec = initializers(1,5,3,6,1,3,7,1,4,2,2);
+	BOOST_CHECK( equals(vec, ans) );
+
+[endsect]
+
+
+
+
+[section iteration]
+
+[h3 Description]
+`iteration` makes an infinite _single_pass_range_ where the first item is calculated by applying the function
+on the first argument, the second item by applying the function on the previous result and so on.
+
+[note Strictly speaking, the _range_ concept doesn't allow an infinite range.
+      So assume here the end iterator is reachable from the begin iterator in the googolplex number of increments.]
+
+[h3 Header]
+* `<pstade/oven/iteration.hpp>`
+
+[h3 Model of]
+* _operatable_object_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`iteration(x, fun)`]
+        [
+            Returns an infinite _single_pass_range_ which behaves as if it were
+            `{ x, fun(x), fun(fun(x)), fun(fun(fun(x))), ... }` 
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* `fun(x)` is a valid expression.
+
+[h3 Example]
+	int answer[] = { 1,2,4,8,16 };
+	BOOST_CHECK( equals(answer,
+	    iteration(1, regular(boost::lambda::_1 * 2))|taken(5)
+	) );
+
+[endsect]
+
+
+
+
+[section recursion]
+
+[h3 Description]
+`recursion`, collaborating with [link oven.any_range any_range], creates a recursive range.
+
+[note In a recursive range, `memoized` must take a named `memo_table` object.
+      A recursive range tends to be inefficient without memoization.]
+
+[h3 Header]
+* `<pstade/oven/recursion.hpp>`
+
+[h3 Model of]
+* _operatable_object_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`recursion(fwdrng)`]
+        [
+            Returns an infinite _range_ up to _bidirectional_range_. 
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* `fwdrng` is an `any_range`.
+
+[h3 Example]
+	typedef any_range<int const&, boost::forward_traversal_tag> range_t;
+	range_t fibs;
+	memo_table tb;
+	int const start[] = { 1, 1 };
+	fibs =
+	    start
+	        | transformed(pstade::as_value)
+	        | jointed(
+	            boost::make_tuple(recursion(fibs), recursion(fibs)|dropped(1))
+	                | zipped_with(regular(boost::lambda::_1 + boost::lambda::_2))
+	            )
+	        | memoized(tb)
+	;
+
+	std::cout << (fibs|taken(howMany));
+
+[h3 See also]
+* [link oven.any_range any_range]
+
+[endsect]
+
+
+
+
+
+
+[section repeated]
+
+[h3 Description]
+`repeated` makes a _random_access_range_ where all values are the first argument.
+
+[h3 Header]
+* `<pstade/oven/repeated.hpp>`
+
+[h3 Model of]
+* _pipable_object_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`x|repeated(n)`]
+        [
+            `as_single(x)|cycled(0, n)`
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* `as_single(x)|cycled(0, n)` is a valid expression.
+
+[h3 Example]
+	BOOST_CHECK( equals(
+	    'A'|repeated(6),
+	    std::string("AAAAAA")
+	) );
+
+[h3 See also]
+
+[endsect]
+
+
+
+
+[section shared]
+
+[h3 Description]
+`shared` makes a _range_ from a pointer to a heap allocated _range_,
+and the iterators manage the allocation.
+
+[h3 Header]
+* `<pstade/oven/shared.hpp>`
+
+[h3 Model of]
+* _pipable_object_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`p|shared`]
+        [
+            `[T(), T())`
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* `boost::shared_ptr` is constructible from `p`.
+
+[h3 Example]
+	BOOST_FOREACH (char ch, std::string("dangling")|identities) {
+	    // will crash; 'std::string' object doesn't exist anymore. 
+	    std::cout << ch;
+	}
+
+	BOOST_FOREACH (char ch, new std::string("ok")|shared|identities) {
+	    // works fine.
+	    std::cout << ch;
+	}
+
+[h3 See also]
+* [@http://www.boost.org/libs/utility/shared_container_iterator.html shared_container_iterator]
+
+[endsect]
+
+
+
+
+[section stream_input]
+
+[h3 Description]
+`stream_input` makes a _single_pass_range_ from `std::cout` etc.
+
+[h3 Header]
+* `<pstade/oven/stream_input.hpp>`
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`op_stream_input<V, D>`]
+        [
+            A  _callable_object_ type
+        ]
+    ]
+    [
+        [`op_stream_input<V>`]
+        [
+            `op_stream_input<V, std::ptrdiff_t>`
+        ]
+    ]
+    [
+        [`op_stream_input<V, D>()(s)`]
+        [
+        	`[T(s), T())`
+        ]
+    ]
+    [
+        [`oven::stream_input<V>(s)`]
+        [
+            `op_stream_input<V>()(s)`
+        ]
+    ]
+]
+
+[note Notice that `stream_input<V>(s)` is qualified with `oven::`.]
+
+[h3 Preconditions]
+* `T` is `std::istream_iterator<V, typeof(s)::char_type, typeof(s)::traits_type, D>` suct that `T(s)` is a valid expression.
+
+[h3 Example]
+	std::string src("hello,stream_input!");
+
+	std::stringstream ss;
+	ss << src;
+
+	std::string result;
+	copy(oven::stream_input<char>(ss), std::back_inserter(result));
+
+	BOOST_CHECK( equals(result, src) );
+
+[h3 See also]
+* [@http://www.sgi.com/tech/stl/istream_iterator.html istream_iterator]
+
+[endsect]
+
+
+
+
+[section streambuf_input]
+
+[h3 Header]
+* `<pstade/oven/stream_input.hpp>`
+
+[h3 Model of]
+* _operatable_object_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`streambuf_input(s)`]
+        [
+            `[T(s), T())`
+        ]
+    ]
+    [
+        [`streambuf_input(p)`]
+        [
+            `[U(p), U())`
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* `T` is `std::istreambuf_iterator<typeof(s)::char_type, typeof(s)::traits_type>` such that `T(s)` is a valid expression.
+* `U` is `std::istreambuf_iterator<typeof(*p)::char_type, typeof(*p)::traits_type>` such that `U(p)` is a valid expression.
+
+[endsect]
+
+
 
 
 [endsect]

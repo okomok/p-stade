@@ -1,5 +1,7 @@
 [section Ranges]
 
+
+
 [section any_range]
 
 [h3 Description]
@@ -10,7 +12,7 @@ Though Oven supports `boost::result_of`, it is often cumbersome to get the type 
 * `<pstade/oven/any_range.hpp>`
 
 [h3 Model of]
-* _range_ whose traversal category varies according to the template argument.
+* _range_ whose traversal category varies according to the template argument `T`.
 * _assignable_
 * _default_constructible_
 
@@ -21,31 +23,39 @@ Though Oven supports `boost::result_of`, it is often cumbersome to get the type 
         [[*Semantics]]
     ]
     [
-        [`any_range<Ref, Trv> any(rng);`]
+        [`any_range<R, T>(rng)`]
         [
-            defines a _range_ whose iterators behave as if they were original iterators wrapped in
+            A _range_ whose iterators behave as if they were original iterators wrapped in
             [@http://thbecker.net/free_software_utilities/type_erasure_for_cpp_iterators/start_page.html any_iterator].
         ]
     ]
     [
-        [`any_range<Ref, Trv> any = rngV;`]
-        [`any_range<Ref, Trv> any(rngV);`]
+        [`any_range<R, T> any = rng_;`]
+        [`any_range<R, T> any(rng_);`]
     ]
     [
-        [`any_range<Ref, Trv> any; any = rng;`]
-        [`any_range<Ref, Trv> any(rng);`]
+        [`any_range<R, T> any; any = rng;`]
+        [`any_range<R, T> any(rng);`]
     ]
 ]
 
 [h3 Preconditions]
-Assume the type of `rng` or `rngV` is `Rng`.
+* `boost::range_reference<typeof(rng)>::type` is convertible to `R` without binding reference to rvalue.
+* `T` is convertible to `boost::single_pass_traversal_tag`.
+* `boost::range_traversal<typeof(rng)>::type` is convertible to `T`.
+* `rng_` is a _range_ returned from Oven _function_object_.
 
-* `boost::range_reference<Rng>::type` is convertible to `Ref` without binding reference to rvalue.
-* `Trv` is convertible to `boost::single_pass_traversal_tag`.
-* `boost::range_traversal<Rng>::type` is convertible to `Trv`.
-* `rngV` is a _range_ which _function_object_ of Oven returns, or a template specialization of `boost::iterator_range`.
+[h3 Example]
+    any_range<int, boost::single_pass_traversal_tag> factorials =
+        counting(1, 500) |
+            scanned(1, regular(lambda::_1 * lambda::_2));
+
+[h3 See also]
+* [link oven.expression expression]
 
 [endsect]
+
+
 
 
 [section array_range]
@@ -69,14 +79,25 @@ a range presentation of dynamically allocated arrays.
     ]
     [
         [`array_range<T> r(sz);`]
-        [ ]
+        [Defines a _range_ `r` which behaves as if it were `[x, x + sz)`, where `x = new T[sz]`.]
     ]
 ]
 
 [h3 Preconditions]
 * `new T[sz]` is a valid expression.
 
+[h3 Example]
+    std::string str("hello, array_range!");
+    boost::array<char, 19> sarr;
+    copy(str, sarr|begin);
+    array_range<char> darr(19);
+    copy(str, darr|begin);
+
+    BOOST_CHECK( equals(sarr, darr) );
+
 [endsect]
+
+
 
 
 [section directory_range]
@@ -97,18 +118,127 @@ a range presentation of dynamically allocated arrays.
         [[*Semantics]]
     ]
     [
-        [`directory_range r(p);`]
+        [`basic_directory_range<P>(p)`]
         [
-            defines a _range_ whose iterators behave as if they were original iterators wrapped in
-            [@http://www.boost.org/libs/filesystem/doc/operations.htm#directory_iterator directory_iterator].
+            `[T(p), T())`
+        ]
+    ]
+    [
+        [`directory_range(p)`]
+        [
+            `basic_directory_range<boost::filesystem::path>(p)`
+        ]
+    ]
+    [
+        [`wdirectory_range(p)`]
+        [
+            `basic_directory_range<boost::filesystem::wpath>(p)`
         ]
     ]
 ]
 
 [h3 Preconditions]
-* `boost::filesystem::directory_iterator it(p);` is a valid expression.
+* `T` is `boost::filesystem::basic_directory_iterator<P>` such that `T(p)` is a valid expression.
+
+[h3 Example]
+    BOOST_FOREACH (
+        boost::filesystem::path const& pt,
+        directory_range(boost::filesystem::current_path()))
+    {
+        std::cout << pt.leaf() << std::endl;
+    }
+
+[h3 See also]
+* [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1841.html#Class-template-basic_directory_iterator basic_director_iterator]
 
 [endsect]
+
+
+
+[section empty_range]
+
+[h3 Description]
+`empty_range` is a _range_ which is always empty.
+
+[h3 Header]
+* `<pstade/oven/empty_range.hpp>`
+
+[h3 Model of]
+* _random_access_range_
+* _contiguous_range_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`empty_range<V>()`]
+        [`[(V *)0, (V *)0)`]
+    ]
+]
+
+[h3 Example]
+    BOOST_CHECK( boost::empty(empty_range<int>()) );
+
+[endsect]
+
+
+
+
+[section file_range]
+
+[h3 Description]
+`file_range` is a constant _random_access_range_ for files.
+If the file opening failed, the range is empty.
+
+[h3 Header]
+* `<pstade/oven/file_range.hpp>`
+
+[h3 Model of]
+* _random_access_range_
+* _constant_range_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`file_range<C>(s)`]
+        [
+            `[T(s), T())`
+        ]
+    ]
+    [
+        [`file_range<>(s)`]
+        [`file_range<char>(s)`]
+    ]
+    [
+    	[`r.is_open()`]
+    	[Returns `true` if and only if the file opening is succeeded.]
+    ]
+]
+
+[h3 Invariants]
+* `!r.is_open() ? boost::empty(r) : true`
+
+[h3 Preconditions]
+* `T` is `boost::spirit::file_iterator<C>` such that `T(s)` is a valid expression.
+* `r` is a `file_range`.
+
+[h3 Example]
+    std::vector<char> vec;
+    copy(file_range<char>("data.txt"), std::back_inserter(vec));
+
+[h3 See also]
+* [@http://www.boost.org/libs/spirit/doc/file_iterator.html file_iterator]
+
+[endsect]
+
+
 
 
 [endsect]

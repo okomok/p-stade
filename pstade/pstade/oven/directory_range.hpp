@@ -10,6 +10,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Note:
+//
+// This range could be just a function.
+// But this is "conceptually" a noncopyable range.
+
+
 #include <boost/filesystem/operations.hpp> // basic_directory_iterator
 #include <boost/filesystem/path.hpp>
 #include <pstade/implicitly_defined.hpp>
