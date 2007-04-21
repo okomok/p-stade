@@ -65,43 +65,55 @@ This document uses the following notation:
         [[*Semantics]]
     ]
     [
-        [`typeof`]
+        [`_typeof`]
         [An imaginary operator which returns the type of expression.]
     ]
     [
-        [`rng`]
-        [A _single_pass_range_, that is to say, any _range_.]
+        [`_rng`]
+        [Any _single_pass_range_, that is to say, any _range_.]
     ]
     [
-        [`fwdrng`]
-        [A _forward_range_]
+        [`_fwdrng`]
+        [Any _forward_range_]
     ]
     [
-        [`bidrng`]
-        [A _bidirectional_range_]
+        [`_bidrng`]
+        [Any _bidirectional_range_]
     ]
     [
-        [`rndrng`]
-        [A _random_access_range_]
+        [`_rndrng`]
+        [Any _random_access_range_]
     ]
     [
-        [`fun`]
-        [A _function_object_]
+        [`_fun`]
+        [Any _function_object_]
     ]
     [
-        [`cal`]
-        [A _callable_object_]
+        [`_cal`]
+        [Any _callable_object_]
     ]
     [
-        [`prd`]
-        [A _predicate_]
+        [`_prd`]
+        [Any _predicate_]
+    ]
+    [
+        [`_begin`]
+        [`boost::begin`]
+    ]
+    [
+        [`_end`]
+        [`boost::end`]
+    ]
+    [
+        [`_iter_of`]
+        [`boost::range_result_iterator`]
     ]
     [
         [`[i, j)`]
         [A _range_ which behaves as if `i = boost::begin([i, j))` and `j = boost::end([i, j))`.]
     ]
     [
-        [`{a0,a1,a2, ..,aN}`]
+        [`{a0,a1,a2,..,aN}`]
         [A _range_]
     ]
     [

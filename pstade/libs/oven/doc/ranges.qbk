@@ -23,27 +23,26 @@ Though Oven supports `boost::result_of`, it is often cumbersome to get the type 
         [[*Semantics]]
     ]
     [
-        [`any_range<R, T>(rng)`]
+        [`any_range<R, T>(_rng)`]
         [
-            A _range_ whose iterators behave as if they were original iterators wrapped in
-            [@http://thbecker.net/free_software_utilities/type_erasure_for_cpp_iterators/start_page.html any_iterator].
+            `[_begin(_rng), _end(_rng))` whose `boost::range_reference` type is `R`.
         ]
     ]
     [
-        [`any_range<R, T> any = rng_;`]
-        [`any_range<R, T> any(rng_);`]
+        [`any_range<R, T> any = _rng0;`]
+        [`any_range<R, T> any(_rng0);`]
     ]
     [
-        [`any_range<R, T> any; any = rng;`]
-        [`any_range<R, T> any(rng);`]
+        [`any_range<R, T> any; any = _rng;`]
+        [`any_range<R, T> any(_rng);`]
     ]
 ]
 
 [h3 Preconditions]
-* `boost::range_reference<typeof(rng)>::type` is convertible to `R` without binding reference to rvalue.
+* `boost::range_reference<_typeof(_rng)>::type` is convertible to `R` without binding reference to rvalue.
 * `T` is convertible to `boost::single_pass_traversal_tag`.
-* `boost::range_traversal<typeof(rng)>::type` is convertible to `T`.
-* `rng_` is a _range_ returned from Oven _function_object_.
+* `boost::range_traversal<_typeof(_rng)>::type` is convertible to `T`.
+* `_rng0` is a range returned from Oven _function_object_ and meets the preconditions of `_rng`.
 
 [h3 Example]
     any_range<int, boost::single_pass_traversal_tag> factorials =
@@ -51,6 +50,7 @@ Though Oven supports `boost::result_of`, it is often cumbersome to get the type 
             scanned(1, regular(lambda::_1 * lambda::_2));
 
 [h3 See also]
+* [@http://thbecker.net/free_software_utilities/type_erasure_for_cpp_iterators/start_page.html any_iterator]
 * [link oven.expression expression]
 
 [endsect]
@@ -61,7 +61,7 @@ Though Oven supports `boost::result_of`, it is often cumbersome to get the type 
 [section array_range]
 
 [h3 Description]
-`array_range` is a non-Copyable _random_access_range_ which delivers
+`array_range` is a noncopyable _random_access_range_ which delivers
 a range presentation of dynamically allocated arrays.
 
 [h3 Header]
@@ -78,8 +78,8 @@ a range presentation of dynamically allocated arrays.
         [[*Semantics]]
     ]
     [
-        [`array_range<T> r(sz);`]
-        [Defines a _range_ `r` which behaves as if it were `[x, x + sz)`, where `x = new T[sz]`.]
+        [`array_range<T>(sz)`]
+        [`[x, x + sz)`, where `x = new T[sz]`.]
     ]
 ]
 
@@ -158,7 +158,7 @@ a range presentation of dynamically allocated arrays.
 [section empty_range]
 
 [h3 Description]
-`empty_range` is a _range_ which is always empty.
+`empty_range` is a _random_access_range_ which is always empty.
 
 [h3 Header]
 * `<pstade/oven/empty_range.hpp>`
@@ -207,14 +207,10 @@ If the file opening failed, the range is empty.
         [[*Semantics]]
     ]
     [
-        [`file_range<C>(s)`]
+        [`file_range<X1,..,XN>(s)`]
         [
             `[T(s), T())`
         ]
-    ]
-    [
-        [`file_range<>(s)`]
-        [`file_range<char>(s)`]
     ]
     [
     	[`r.is_open()`]
@@ -226,7 +222,7 @@ If the file opening failed, the range is empty.
 * `!r.is_open() ? boost::empty(r) : true`
 
 [h3 Preconditions]
-* `T` is `boost::spirit::file_iterator<C>` such that `T(s)` is a valid expression.
+* `T` is `boost::spirit::file_iterator<X1,..,XN>` such that `T(s)` is a valid expression.
 * `r` is a `file_range`.
 
 [h3 Example]
@@ -234,7 +230,8 @@ If the file opening failed, the range is empty.
     copy(file_range<char>("data.txt"), std::back_inserter(vec));
 
 [h3 See also]
-* [@http://www.boost.org/libs/spirit/doc/file_iterator.html file_iterator]
+* [@http://www.boost.org/libs/spirit/doc/file_iterator.html boost::spirit::file_iterator]
+* [link oven.stream_input stream_input]
 
 [endsect]
 

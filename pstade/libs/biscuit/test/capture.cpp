@@ -35,7 +35,8 @@
 
 void test()
 {
-    using namespace pstade;
+    namespace biscuit = pstade::biscuit;
+    namespace oven = pstade::oven;
     using namespace biscuit;
 
     // normal parsers

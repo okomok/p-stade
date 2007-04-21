@@ -29,15 +29,16 @@ struct op_make_repeated :
     struct apply :
         boost::result_of<
             op_make_cycled(
-                typename boost::result_of<op_as_single(Value&)>::type, int, Incrementable&
+                typename boost::result_of<op_as_single(Value&)>::type,
+                Incrementable&
             )
         >
     { };
 
     template< class Result, class Value, class Incrementable >
-    Result call(Value& v, Incrementable& i) const
+    Result call(Value& v, Incrementable& n) const
     {
-        return make_cycled(as_single(v), 0, i);
+        return make_cycled(as_single(v), n);
     }
 
     template< class Myself, class Value >

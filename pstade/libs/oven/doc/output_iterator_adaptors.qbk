@@ -1,0 +1,128 @@
+[section Output Iterator Adaptors]
+
+
+
+
+[section to_counter]
+
+[h3 Description]
+`to_counter` takes an initial count and increments it every output.
+`adapted_to` or `to_base` can extract the result of the counting.
+
+[h3 Header]
+* `<pstade/oven/to_counter.hpp>`
+
+[h3 Model of]
+* _operatable_object_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`to_counter(i)`]
+        [
+            Returns an _output_iterator_ which behaves as if `counting_output_iterator`.
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* `i` is an Incrementable.
+
+[h3 Example]
+	int const rng[] = { 0,0,1,1,2,3,3,3,4,4,4,4,4,5,5 };
+	int i = oven::copy(rng|uniqued, oven::to_counter(0))|to_base;
+	BOOST_CHECK( i == 6 );
+
+	BOOST_CHECK( 7 == oven::adapted_to<int>(oven::unique_copy(rng, oven::to_counter(1))) );
+
+[h3 See also]
+* [@http://opensource.adobe.com/classadobe_1_1counting__output__iterator.html counting_output_iterator]
+* [link oven.counting counting]
+
+[endsect]
+
+
+
+
+[section to_function]
+
+[h3 Description]
+
+[h3 Header]
+* `<pstade/oven/to_function.hpp>`
+
+[h3 Model of]
+* _operatable_object_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`to_function(_fun)`]
+        [
+            Returns an _output_iterator_ which behaves as if it were `T(_fun)`.
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* `T` is `boost::function_output_iterator<typeof(_fun)>` such that `T(_fun)` is a valid expression.
+
+[h3 Example]
+
+[h3 See also]
+* [@http://www.boost.org/libs/iterator/doc/function_output_iterator.html boost::function_output_iterator]
+
+[endsect]
+
+
+
+
+[section to_stream]
+
+[h3 Description]
+`to_stream` returns an _output_iterator_ which is a shorthand version of `std::ostream_iterator`.
+It needs no an explicit template parameter to specify the value_type to output,
+but one precondition below must be kept.
+
+[h3 Header]
+* `<pstade/oven/to_stream.hpp>`
+
+[h3 Model of]
+* _operatable_object_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`to_stream(s)`]
+        [
+            Returns an _output_iterator_ which behaves as if it were `std::ostream_iterator`.
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* An object which is passed to `typeof(to_stream(s))::operator=` is an _output_streamable_.
+
+[h3 Example]
+
+[h3 See also]
+* [@http://www.sgi.com/tech/stl/ostream_iterator.html std::ostream_iterator]
+
+[endsect]
+
+
+
+
+[endsect]

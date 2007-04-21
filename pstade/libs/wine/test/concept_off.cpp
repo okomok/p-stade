@@ -16,6 +16,7 @@
 #include <pstade/concept.hpp>
 #include <boost/concept_check.hpp> // ConvertibleConcept
 
+#if 0
 
 template< class U, class T >
 PSTADE_CONCEPT_WHERE(
@@ -52,13 +53,28 @@ PSTADE_CONCEPT_WHERE(
 {
 }
 
+#endif
+
+
+template< class U, class T >
+U return_dependent(T const& x)
+{
+    PSTADE_CONCEPT_ASSERT((boost::ConvertibleConcept<T, U>));
+    PSTADE_CONCEPT_ASSERT((boost::ConvertibleConcept<T, U>));
+    return static_cast<U>(x);
+}
+
 
 void test()
 {
+#if 0
     ::return_dependent<float>(17);
     ::return_non_dependent<float>(17);
     ::return_const<float>(17);
     return ::return_void<float>(17);
+#endif
+
+    ::return_dependent<float>(17);
 }
 
 

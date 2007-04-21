@@ -128,6 +128,7 @@ test-suite "oven" :
     [ run xpressive_matches.cpp ]
     [ run xpressive_tokenized.cpp ]
     [ run zipped.cpp ]
+    [ run zipped_with.cpp ]
     [ link multiple_defs1.cpp multiple_defs2.cpp : : multiple_defs ]
     ;
 

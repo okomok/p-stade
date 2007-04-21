@@ -28,6 +28,7 @@
 #include "./concepts.hpp"
 #include "./detail/constant_reference.hpp"
 #include "./iter_range.hpp"
+#include "./range_difference.hpp"
 #include "./range_iterator.hpp"
 
 
@@ -120,7 +121,7 @@ namespace cycled_detail {
             m_first(other.m_first), m_last(other.m_last)
         { }
 
-        count_type const& count() const
+        count_type count() const
         {
             return m_count;
         }
@@ -195,7 +196,7 @@ namespace cycled_detail {
             BOOST_ASSERT(q_r.second < m_last - m_first);
 
             this->base_reference() = m_first + q_r.second;
-            m_count += pstade::copy_construct<count_type>(q_r.first);
+            m_count += /*pstade::copy_construct<count_type>*/(q_r.first);
         }
 
         template< class F, class I >
@@ -209,45 +210,85 @@ namespace cycled_detail {
     };
 
 
+    template< class Range, class Incrementable1, class Incrementable2 >
+    struct baby
+    {
+        typedef typename
+            // Prefer 'Incrementable2'; see "./counting.hpp".
+            pass_by_value<Incrementable2>::type
+        inc_t;
+
+        typedef 
+            cycle_iterator<
+                typename range_iterator<Range>::type,
+                inc_t
+            >
+        iter_t;
+
+        typedef
+            iter_range<iter_t> const
+        result_type;
+
+        result_type operator()(Range& rng, Incrementable1& i, Incrementable2& j) const
+        {
+            PSTADE_CONCEPT_ASSERT((Forward<Range>));
+            return result_type(
+                iter_t(boost::begin(rng), pstade::copy_construct<inc_t>(i), boost::begin(rng), boost::end(rng)),
+                iter_t(boost::begin(rng), j,                                boost::begin(rng), boost::end(rng))
+            );
+        }
+    };
+
+
 } // namespace cycled_detail
 
 
 struct op_make_cycled :
     callable<op_make_cycled>
 {
-    template< class Myself, class Range, class Incrementable1 = int const, class Incrementable2 = std::ptrdiff_t const >
+    template< class Myself, class Range, class Incrementable1 = void, class Incrementable2 = void >
     struct apply
     {
-        typedef 
-            cycled_detail::cycle_iterator<
-                typename range_iterator<Range>::type,
-                 // Prefer 'Incrementable2'; see "./counting.hpp".
-                typename pass_by_value<Incrementable2>::type
-            >
-        iter_t;
-
-        typedef
-            iter_range<iter_t> const
+        typedef typename
+            cycled_detail::baby<Range, Incrementable1, Incrementable2>::result_type
         type;
     };
 
     template< class Result, class Range, class Incrementable1, class Incrementable2 >
     Result call(Range& rng, Incrementable1& i, Incrementable2& j) const
     {
-        PSTADE_CONCEPT_ASSERT((Forward<Range>));
-
-        typedef typename Result::iterator iter_t;
-        typedef typename iter_t::count_type cnt_t;
-        return Result(
-            iter_t(boost::begin(rng), pstade::copy_construct<cnt_t>(i), boost::begin(rng), boost::end(rng)),
-            iter_t(boost::begin(rng), j,                            boost::begin(rng), boost::end(rng))
-        );
+        return
+            cycled_detail::baby<Range, Incrementable1, Incrementable2>()(rng, i, j);
     }
+
+    template< class Myself, class Range, class Difference >
+    struct apply<Myself, Range, Difference>
+    {
+        typedef typename
+            cycled_detail::baby<Range, int const, typename range_difference<Range>::type>::result_type
+        type;
+    };
+
+    template< class Result, class Range >
+    Result call(Range& rng, typename range_difference<Range>::type n) const
+    {
+        return
+            cycled_detail::baby<Range, int const, typename range_difference<Range>::type>()(rng, 0, n);
+    }
+
+    template< class Myself, class Range >
+    struct apply<Myself, Range>
+    {
+        typedef typename
+            cycled_detail::baby<Range, int const, std::ptrdiff_t const>::result_type
+        type;
+    };
 
     template< class Result, class Range >
     Result call(Range& rng) const
     {
-        return (*this)(rng, 0, (std::numeric_limits<std::ptrdiff_t>::max)());
+        return
+            cycled_detail::baby<Range, int const, std::ptrdiff_t const>()(rng, 0, (std::numeric_limits<std::ptrdiff_t>::max)());
     }
 };
 

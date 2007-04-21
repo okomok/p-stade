@@ -21,7 +21,7 @@ Some helper _function_object_s are given to fill the gap between Oven and other 
     ]
     [
         [`oven::adapted_to<B>(a)`]
-        [Calls `a.base()` until `typeof(a.base())` becomes the same as `B`.]
+        [Calls `a.base()` until `_typeof(a.base())` becomes the same as `B`.]
     ]
     [
         [`B b = x|to_base;`]
@@ -31,8 +31,8 @@ Some helper _function_object_s are given to fill the gap between Oven and other 
 
 [h3 Preconditions]
 * `B` is _copy_constructible_.
-* `typeof(a)` correctly works with `boost::is_convertible`.
-* There is a (possibly empty) sequence `{ base(), .., base() }` such that `typeof(a.base().base()...base())` is `B`.
+* `_typeof(a)` correctly works with `boost::is_convertible`.
+* There is a (possibly empty) sequence `{ base(), .., base() }` such that `_typeof(a.base().base()...base())` is `B`.
 
 [h3 Example]
     std::string src("cjaigvwzenqhe");
@@ -70,13 +70,13 @@ The overhead can be removed with the help of _boost_typeof_ if your compiler sup
         [[*Semantics]]
     ]
     [
-        [`expression(rng)`]
+        [`expression(_rng)`]
         [Returns a _range_ which can be used with _boost_typeof_ macros.]
     ]
 ]
 
 [h3 Preconditions]
-* `boost::range_value<typeof(rng)>::type` and `boost::range_difference<typeof(rng)>::type` are registered to _boost_typeof_.
+* `boost::range_value<_typeof(_rng)>::type` and `boost::range_difference<_typeof(_rng)>::type` are registered to _boost_typeof_.
 
 [note As far as the two types are registered, `expression` with _boost_typeof_ macros is portable
  even where native typeof isn't available.]
@@ -201,6 +201,9 @@ An iterator holding such a functor can't conform to even _input_iterator_.
         std::string("abdeg")
     ) );
 
+[he See also]
+* _boost_lambda_
+
 [endsect]
 
 
@@ -225,8 +228,8 @@ A _callable_object_ like a random number generator may not be copyable, while ma
         [[*Semantics]]
     ]
     [
-        [`regular_ref(fun)`]
-        [Converts `fun` into a copyable _callable_object_. All the calls are forwarded to `fun`.]
+        [`regular_ref(_fun)`]
+        [Converts `_fun` into a copyable _callable_object_. All the calls are forwarded to `_fun`.]
     ]
 ]
 
@@ -272,7 +275,7 @@ A _callable_object_ like a random number generator may not be copyable, while ma
 
 [h3 Preconditions]
 * `std::to_upper(c, l)` is a valid expression.
-* `std::to_upper(c_)` is a valid expression.
+* `std::to_upper(c_, std::locale())` is a valid expression.
 
 [h3 Example]
     BOOST_CHECK( equals(
@@ -309,16 +312,16 @@ A _callable_object_ like a random number generator may not be copyable, while ma
         [[*Semantics]]
     ]
     [
-        [`rng|unzipped`]
+        [`_rng|unzipped`]
         [
-            `({x11,x21,..,xM1} {x12,x22,..xM2} .. {x1N,x2N,xMN})`
+            `({a11,a21,..,aM1} {a12,a22,..,aM2} .. {a1N,a2N,..,aMN})`
         ]
     ]
 ]
 
 [h3 Preconditions]
-* `boost::range_value<typeof(rng)>::type` is a `boost::tuple`.
-* There is a `xIJ` such that `{(x11,x12,..x1N),(x21,x22,..,x2N),..,(xM1,xM2,..,xMN)}` is `rng`.
+* `boost::range_value<_typeof(_rng)>::type` is a `boost::tuple`.
+* There is a `a` such that `{(a11 a12 .. a1N),(a21 a22 .. a2N),..,(aM1 aM2 .. aMN)}` is `_rng`.
 
 [h3 Example]
 	std::cout <<
@@ -362,14 +365,14 @@ If one input _range_ is short, excess elements of the longer range are discarded
     [
         [`u|zipped`]
         [
-            `[T(boost::make_tuple(boost::begin(rng1),..,boost::begin(rngN))), T(boost::make_tuple(boost::end(rng1),..,boost::end(rngN))))`
+            `[T(boost::make_tuple(_begin(_rng1),..,_begin(_rngN))), T(boost::make_tuple(_end(_rng1),..,_end(_rngN))))`
         ]
     ]
 ]
 
 [h3 Preconditions]
-* `u` is a `boost::tuple` such that `(rng1 rng2 rngN)`.
-* `T` is `boost::zip_iterator<typeof(boost::make_tuple(boost::begin(rng1),..,boost::begin(rngN)))>` such that `T(boost::make_tuple(boost::begin(rng1),..,boost::begin(rngN)))` is a valid expression.
+* `u` is a `boost::tuple` such that `(_rng1 _rng2 .. _rngN)`.
+* `T` is `boost::zip_iterator<_typeof(boost::make_tuple(_begin(_rng1),..,_begin(_rngN)))>` such that `T(boost::make_tuple(_begin(_rng1),..,_begin(_rngN)))` is a valid expression.
 
 [h3 Example]
 	std::cout <<
@@ -400,7 +403,7 @@ Though `zipped` accepts a function taking a `boost::tuple` as the parameter, it 
 `zipped_with` accepts a "normal" function, then turns it into comfortable one for `zipped` before passing.
 
 [h3 Header]
-* `<pstade/oven/zipped.hpp>`
+* `<pstade/oven/zipped_with.hpp>`
 
 [h3 Valid expressions]
 [table 
@@ -415,29 +418,29 @@ Though `zipped` accepts a function taking a `boost::tuple` as the parameter, it 
         ]
     ]
     [
-        [`op_make_zipped_with<R>()(u, fun)`]
+        [`op_make_zipped_with<R>()(u, _fun)`]
         [
-            `u|zipped|op_make_transformed<R>()(fuse(fun))`
+            `u|zipped|op_make_transformed<R>()(fuse(_fun))`
         ]
     ]
     [
-        [`op_make_zipped_with<>()(u, cal)`]
+        [`op_make_zipped_with<>()(u, _cal)`]
         [
-            `u|zipped|op_make_transformed<>()(fuse(cal))`
+            `u|zipped|op_make_transformed<>()(fuse(_cal))`
         ]
     ]
     [
-        [`u|zipped_with(cal)`]
+        [`u|zipped_with(_cal)`]
         [
-            `op_make_zipped_with<>()(u, cal)`
+            `op_make_zipped_with<>()(u, _cal)`
         ]
     ]
 ]
 
 [h3 Preconditions]
-* `u|zipped|op_make_transformed<R>(fuse(fun))` is a valid expressin.
-* `u|zipped|transformed(fuse(cal))` is a valid expressin.
-* `fuse` is a imaginary function which turns a _function_object_ into the one taking a `boost::tuple` as the parameter.
+* `u|zipped|op_make_transformed<R>(fuse(_fun))` is a valid expressin.
+* `u|zipped|transformed(fuse(_cal))` is a valid expressin.
+* `fuse` is an imaginary function which turns a _function_object_ into the one taking a `boost::tuple` as the parameter.
 
 [endsect]
 

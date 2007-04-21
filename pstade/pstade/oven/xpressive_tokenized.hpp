@@ -58,6 +58,8 @@ struct op_make_xpressive_tokenized :
     Result call(Range& rng, Regex& re, SubMatches& submatches,
         boost::xpressive::regex_constants::match_flag_type flag = boost::xpressive::regex_constants::match_default) const
     {
+        PSTADE_CONCEPT_ASSERT((Bidirectional<Range>));
+
         typedef typename Result::iterator iter_t;
         return Result(
             iter_t(boost::begin(rng), boost::end(rng), re, submatches, flag),

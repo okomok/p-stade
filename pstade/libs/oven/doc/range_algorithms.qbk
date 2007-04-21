@@ -23,29 +23,29 @@ Oven provides range-based algorithms using a _range_ instead of two iterators.
         [[*Semantics]]
     ]
     [
-        [`algo1(rng, a0,..,aN)`]
-        [`std::algo1(boost::begin(rng), boost::end(rng), a0,..,aN)`]
+        [`algo1(_rng, x1,..,xN)`]
+        [`std::algo1(_begin(_rng), _end(_rng), x1,..,xN)`]
     ]
     [
-        [`algo2(rng1, rng2, a0,..,aN)`]
-        [`std::algo2(boost::begin(rng1), boost::end(rng1), boost::begin(rng2), boost::end(rng2), a0,..,aN)`]
+        [`algo2(_rng1, _rng2, x1,..,xN)`]
+        [`std::algo2(_begin(_rng1), _end(_rng1), _begin(_rng2), _end(_rng2), x1,..,xN)`]
     ]
     [
-        [`algoM(rng, fo, a0,..,aN)`]
-        [`std::algoM(boost::begin(rng), fo(rng), boost::end(rng), a0,..,aN)`]
+        [`algoM(_rng, _fun, x1,..,xN)`]
+        [`std::algoM(_begin(_rng), _fun(_rng), _end(_rng), x1,..,xN)`]
     ]
 ]
 
 [h3 Preconditions]
 * `algo1` and `algo2` is one of the function names defined in `<algorithm>` except for...
     * `fill_n`, `generate_n`, `rotate`, `rotate_copy`, `partial_sort`, `nth_element` and `inplace_merge`.
-* `std::algo1(boost::begin(rng), boost::end(rng), a0,..,aN)` is a valid exression.
-* `std::algo2(boost::begin(rng1), boost::end(rng1), boost::begin(rng2), boost::end(rng2), a0,..,aN)` is a valid expression.
+* `std::algo1(_begin(_rng), _end(_rng), x1,..,xN)` is a valid exression.
+* `std::algo2(_begin(_rng1), _end(_rng1), _begin(_rng2), _end(_rng2), x1,..,xN)` is a valid expression.
 * `algoM` is one of the following names...
     * `rotate`, `rotate_copy`, `partial_sort`, `nth_element` and `inplace_merge`.
-* `std::algoM(boost::begin(rng), m, boost::end(rng), a0,..,aN)` is a valid expression.
-* `fun(rng)` is a valid expression.
-* `typeof(fun(rng))` is `boost::range_iterator<typeof(rng)>::type`.
+* `std::algoM(_begin(_rng), m, _end(_rng), x1,..,xN)` is a valid expression.
+* `_fun(_rng)` is a valid expression.
+* `_typeof(_fun(_rng))` is `_iter_of<_typeof(_rng)>::type`.
 
 [note `fill_n` and `generate_n` are not considered as range algorithm, so they are excluded.]
 
@@ -85,14 +85,14 @@ Oven provides range-based algorithms using a _range_ instead of two iterators.
         [[*Semantics]]
     ]
     [
-        [`algo(rng, a0,..,aN)`]
-        [`std::algo(boost::begin(rng), boost::end(rng), a0,..,aN)`]
+        [`algo(_rng, x1,..,xN)`]
+        [`std::algo(_begin(_rng), _end(_rng), x1,..,xN)`]
     ]
 ]
 
 [h3 Preconditions]
 * `algo` is one of the function names defined in `<numeric>`.
-* `std::algo(boost::begin(rng), boost::end(rng), a0,..,aN)` is a valid expression.
+* `std::algo(_begin(_rng), _end(_rng), x1,..,xN)` is a valid expression.
 
 [endsect]
 
@@ -118,14 +118,14 @@ A _random_access_range_ whose iterator is not _lvalue_iterator_ is regarded as a
         [[*Semantics]]
     ]
     [
-        [`at(rndrng, n)`]
-        [`*(boost::begin(rndrng) + n)`]
+        [`at(_rndrng, n)`]
+        [`*(_begin(_rndrng) + n)`]
     ]
 ]
 
 [h3 Preconditions]
-* `typeof(n)` is convertible to `boost::range_difference<typeof(rndrng)>::type`.
-* `0 <= n && n < distance(rndrng)`
+* `_typeof(n)` is convertible to `boost::range_difference<_typeof(_rndrng)>::type`.
+* `0 <= n && n < distance(_rndrng)`
 * Destruction of an iterator doesn't invalidate references previously obtained from that iterator.
 
 [note you must use [link oven.value_at value_at] if an iterator invalidates references after the destruction.]
@@ -146,7 +146,7 @@ A _random_access_range_ whose iterator is not _lvalue_iterator_ is regarded as a
 [section begin/end]
 
 [h3 Description]
-`begin` and `end` is the _auxiliary_interface_ version of `boost::begin` and `boost::end` respectively.
+`begin` and `end` is the _auxiliary_interface_ version of `_begin` and `_end` respectively.
 
 [h3 Header]
 * `<pstade/oven/begin_end.hpp>`
@@ -161,12 +161,12 @@ A _random_access_range_ whose iterator is not _lvalue_iterator_ is regarded as a
         [[*Semantics]]
     ]
     [
-        [`begin(rng)`]
-        [`boost::begin(rng)`]
+        [`begin(_rng)`]
+        [`_begin(_rng)`]
     ]
     [
-        [`end(rng)`]
-        [`boost::end(rng)`]
+        [`end(_rng)`]
+        [`_end(_rng)`]
     ]
 ]
 
@@ -195,22 +195,22 @@ A _random_access_range_ whose iterator is not _lvalue_iterator_ is regarded as a
         [[*Semantics]]
     ]
     [
-        [`Rng1 rng1 = rng2|copied;`]
-        [`Rng1 rng1 = boost::copy_range<Rng1>(rng2);`]
+        [`Rng1 _rng1 = _rng2|copied;`]
+        [`Rng1 _rng1 = boost::copy_range<Rng1>(_rng2);`]
     ]
 ]
 
 [h3 Preconditions]
-* `Rng1 rng1 = boost::copy_range<Rng1>(rng2);` is a valid expression.
+* `Rng1 _rng1 = boost::copy_range<Rng1>(_rng2);` is a valid expression.
 * `copied` isn't placed in a function default argument list.
 
 [note The valid expression implies you can place `copied` everywhere it is used in /copy-initialization/, e.g. `return` statement.
-The second precondition comes from a GCC bug. Notice that `Rng1 rng1(rng2|copied);` is not listed in valid expressions.]
+The second precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied);` is not listed in valid expressions.]
 
 [h3 Example]
-    std::string rng("abcdefg");
-    std::vector<char> vec = rng|copied;
-    BOOST_CHECK( equals(vec, rng) );
+    std::string _rng("abcdefg");
+    std::vector<char> vec = _rng|copied;
+    BOOST_CHECK( equals(vec, _rng) );
 
 [endsect]
 
@@ -235,8 +235,8 @@ The second precondition comes from a GCC bug. Notice that `Rng1 rng1(rng2|copied
         [[*Semantics]]
     ]
     [
-        [`distance(rng)`]
-        [`std::distance(boost::begin(rng), boost::end(rng))`]
+        [`distance(_rng)`]
+        [`std::distance(_begin(_rng), _end(_rng))`]
     ]
 ]
 
@@ -263,12 +263,12 @@ The second precondition comes from a GCC bug. Notice that `Rng1 rng1(rng2|copied
         [[*Semantics]]
     ]
     [
-        [`equals(rng1, rng2, pr)`]
-        [`distance(rng1) == distance(rng2) ? std::equal(boost::begin(rng1), boost::end(rng1), boost::begin(rng2), pr) : false`]
+        [`equals(_rng1, _rng2, _prd)`]
+        [`distance(_rng1) == distance(_rng2) ? std::equal(_begin(_rng1), _end(_rng1), _begin(_rng2), _prd) : false`]
     ]
     [
-        [`equals(rng1, rng2)`]
-        [`equals(rng1, rng2, boost::lambda::_1 == boost::lambda::_2)`]
+        [`equals(_rng1, _rng2)`]
+        [`equals(_rng1, _rng2, boost::lambda::_1 == boost::lambda::_2)`]
     ]
 ]
 
@@ -294,18 +294,18 @@ The second precondition comes from a GCC bug. Notice that `Rng1 rng1(rng2|copied
         [[*Semantics]]
     ]
     [
-        [`front(rng)`]
-        [`*boost::begin(rng)`]
+        [`front(_rng)`]
+        [`*_begin(_rng)`]
     ]
     [
-        [`back(bidrng)`]
-        [`*boost::prior(bidrng)`]
+        [`back(_bidrng)`]
+        [`*boost::prior(_bidrng)`]
     ]
 ]
 
 [h3 Preconditions]
-* `!boost::empty(rng)`
-* `!boost::empty(bidrng)`
+* `!boost::empty(_rng)`
+* `!boost::empty(_bidrng)`
 * Destruction of an iterator doesn't invalidate references previously obtained from that iterator.
 
 [h3 See also]
@@ -333,15 +333,15 @@ The second precondition comes from a GCC bug. Notice that `Rng1 rng1(rng2|copied
         [[*Semantics]]
     ]
     [
-        [`value_at(rndrng, n)`]
-        [`boost::range_value<typeof(rndrng)>::type(*(boost::begin(rndrng) + n))`]
+        [`value_at(_rndrng, n)`]
+        [`boost::range_value<_typeof(_rndrng)>::type(*(_begin(_rndrng) + n))`]
     ]
 ]
 
 [h3 Preconditions]
-* `boost::range_value<typeof(rndrng)>::type` is _copy_constructible_.
-* `typeof(n)` is convertible to `boost::range_difference<typeof(rndrng)>::type`.
-* `0 <= n && n < distance(rndrng)`
+* `boost::range_value<_typeof(_rndrng)>::type` is _copy_constructible_.
+* `_typeof(n)` is convertible to `boost::range_difference<_typeof(_rndrng)>::type`.
+* `0 <= n && n < distance(_rndrng)`
 
 [h3 See also]
 * [link oven.at at]
@@ -368,20 +368,20 @@ The second precondition comes from a GCC bug. Notice that `Rng1 rng1(rng2|copied
         [[*Semantics]]
     ]
     [
-        [`value_front(rng)`]
-        [`boost::range_value<typeof(rng)>::type(*boost::begin(rng))`]
+        [`value_front(_rng)`]
+        [`boost::range_value<_typeof(_rng)>::type(*_begin(_rng))`]
     ]
     [
-        [`value_back(bidrng)`]
-        [`boost::range_value<typeof(bidrng)>::type(*boost::prior(bidrng))`]
+        [`value_back(_bidrng)`]
+        [`boost::range_value<_typeof(_bidrng)>::type(*boost::prior(_bidrng))`]
     ]
 ]
 
 [h3 Preconditions]
-* `boost::range_value<typeof(rng)>::type` is _copy_constructible_.
-* `boost::range_value<typeof(bidrng)>::type` is _copy_constructible_.
-* `!boost::empty(rng)`
-* `!boost::empty(bidrng)`
+* `boost::range_value<_typeof(_rng)>::type` is _copy_constructible_.
+* `boost::range_value<_typeof(_bidrng)>::type` is _copy_constructible_.
+* `!boost::empty(_rng)`
+* `!boost::empty(_bidrng)`
 
 [h3 See also]
 * [link oven.front_back front/back]

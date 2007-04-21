@@ -5,3 +5,5 @@ oven/ranges.html
 oven/range_makers.html
 oven/range_adaptors.html
 oven/utilities.html
+oven/output_iterator_adaptors.html
+oven/extending_boost_range.html

@@ -15,7 +15,7 @@ A _callable_object_ is a _function_object_ which can be used with _boost_result_
 In addition to the requirements defined in _function_object_,
 for any _callable_object_ `f` the following must be met:
 
-* `typeof(f)` can be used with _boost_result_of_ to get the result type of function call `f`.
+* `_typeof(f)` can be used with _boost_result_of_ to get the result type of function call `f`.
 
 [h3 Models]
 * Any function poiner
@@ -38,7 +38,7 @@ An _operatable_object_ is a _callable_object_ which can specify the type of itse
 In addition to the requirements defined in _callable_object_,
 for any _operatable_object_ `f` the following must be met:
 
-* `op_f` is the `typeof(f)`.
+* `op_f` is the `_typeof(f)`.
 
 [h3 Models]
 * [link oven.filtered make_filtered]
@@ -113,7 +113,7 @@ A _stoppable_generator_ is a _generator_ which can specify the stop of generatin
 In addition to the requirements defined in _generator_ and _callable_object_,
 for any _stoppable_generator_ `g` the following must be met:
 
-* `typeof(g())` is a `boost::optional` specialization.
+* `_typeof(g())` is a `boost::optional`.
 * An /uninitialized/ result is considered as the stop of generating.
 
 [h3 Models]
@@ -160,7 +160,7 @@ A _contiguous_range_ is a _random_access_range_ whose elements are stored contig
 In addition to the requirements defined in _random_access_range_,
 for any _contiguous_range_ `r` the following must be met:
 
-* `&*(boost::begin(r) + n) == &*(boost::begin(r)) + n` for all `n` such that `0 <= n &&  n < boost::end(r) - boost::begin(r)`.
+* `&*(_begin(r) + n) == &*(_begin(r)) + n` for all `n` such that `0 <= n &&  n < _end(r) - _begin(r)`.
 
 [h3 Models]
 * `std::vector<int>`
