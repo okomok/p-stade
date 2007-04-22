@@ -33,11 +33,11 @@
 * `i` is an Incrementable.
 
 [h3 Example]
-	int const rng[] = { 0,0,1,1,2,3,3,3,4,4,4,4,4,5,5 };
-	int i = oven::copy(rng|uniqued, oven::to_counter(0))|to_base;
-	BOOST_CHECK( i == 6 );
+    int const rng[] = { 0,0,1,1,2,3,3,3,4,4,4,4,4,5,5 };
+    int i = oven::copy(rng|uniqued, oven::to_counter(0))|to_base;
+    BOOST_CHECK( i == 6 );
 
-	BOOST_CHECK( 7 == oven::adapted_to<int>(oven::unique_copy(rng, oven::to_counter(1))) );
+    BOOST_CHECK( 7 == oven::adapted_to<int>(oven::unique_copy(rng, oven::to_counter(1))) );
 
 [h3 See also]
 * [@http://opensource.adobe.com/classadobe_1_1counting__output__iterator.html counting_output_iterator]
@@ -89,7 +89,7 @@
 
 [h3 Description]
 `to_stream` returns an _output_iterator_ which is a shorthand version of `std::ostream_iterator`.
-It needs no an explicit template parameter to specify the value_type to output,
+It needs no an explicit template parameter to specify the `value_type` to output,
 but one precondition below must be kept.
 
 [h3 Header]
@@ -113,7 +113,7 @@ but one precondition below must be kept.
 ]
 
 [h3 Preconditions]
-* An object which is passed to `typeof(to_stream(s))::operator=` is an _output_streamable_.
+* An object which is passed to `typeof(to_stream(s))::operator=` is _output_streamable_.
 
 [h3 Example]
 

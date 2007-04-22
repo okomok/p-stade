@@ -20,9 +20,10 @@
 #include <boost/foreach.hpp>
 #include <boost/range.hpp>
 #include <pstade/oven/algorithm.hpp>
-#include <pstade/oven/functions.hpp>
+#include "./core.hpp"
 #include <pstade/oven/taken.hpp>
 #include <pstade/oven/taken_while.hpp>
+#include <pstade/oven/to_stream.hpp>
 #include <pstade/oven/transformed.hpp>
 #include <pstade/result_of_lambda.hpp>
 #include <boost/lambda/lambda.hpp>

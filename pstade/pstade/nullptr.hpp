@@ -10,9 +10,34 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// After the many other implementations...,
-//
-#define PSTADE_NULLPTR 0
+#include <boost/mpl/assert.hpp>
+#include <boost/type_traits/is_pointer.hpp>
+
+
+namespace pstade {
+
+
+    // "generic"
+    #define PSTADE_NULLPTR 0
+
+
+    template<class T> inline
+    T *nullptr_()
+    {
+        return 0;
+    }
+
+
+    // better than 'boost::zero<Pointer>::value'?
+    template<class Pointer> inline
+    Pointer null_()
+    {
+        BOOST_MPL_ASSERT((boost::is_pointer<Pointer>));
+        return 0;
+    }
+
+
+} // namespace pstade
 
 
 #endif

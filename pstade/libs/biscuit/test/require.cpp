@@ -15,7 +15,8 @@
 
 
 #include <boost/config.hpp>
-#include <pstade/oven/functions.hpp>
+#include <pstade/oven/algorithm.hpp>
+#include <pstade/biscuit/alias.hpp>
 #include <string>
 
 
@@ -31,9 +32,6 @@ struct is_abc
 
 void test()
 {
-    using namespace pstade;
-    using namespace biscuit;
-
     {
         std::string text("abc");
         BOOST_CHECK(( biscuit::match< require< repeat<any, 3>, is_abc > >(text) ));

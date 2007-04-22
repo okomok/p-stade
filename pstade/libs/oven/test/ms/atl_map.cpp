@@ -19,7 +19,7 @@
 #include <map>
 #include <string>
 #include <boost/range.hpp>
-#include <pstade/oven/metafunctions.hpp>
+#include "../core.hpp"
 #include <pstade/oven/reversed.hpp>
 
 

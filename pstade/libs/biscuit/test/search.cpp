@@ -16,11 +16,8 @@
 
 #include <string>
 #include <boost/range.hpp>
-#include <pstade/oven/functions.hpp>
-
-
-using namespace pstade;
-using namespace biscuit;
+#include <pstade/biscuit/alias.hpp>
+#include <pstade/oven/equals.hpp>
 
 
 struct c_comment :

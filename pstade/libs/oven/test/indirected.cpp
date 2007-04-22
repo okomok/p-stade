@@ -18,7 +18,7 @@
 #include <string>
 #include <boost/foreach.hpp>
 #include <boost/range.hpp>
-#include <pstade/oven/functions.hpp>
+#include "./core.hpp"
 #include <pstade/oven/algorithm.hpp>
 
 

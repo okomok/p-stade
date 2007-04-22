@@ -34,6 +34,8 @@
 
 #include <pstade/biscuit.hpp>
 #include <pstade/oven.hpp>
+#include <pstade/oven/utf8_decoded.hpp>
+#include <pstade/oven/utf8_encoded.hpp>
 #include <pstade/wine.hpp>
 #include "./start.hpp"
 #include "./hatena_mode.hpp"

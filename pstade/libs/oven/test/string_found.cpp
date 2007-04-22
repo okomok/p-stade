@@ -24,7 +24,7 @@
 #include <vector>
 #include <boost/foreach.hpp>
 #include <pstade/oven/algorithm.hpp>
-#include <pstade/oven/functions.hpp>
+#include "./core.hpp"
 #include <pstade/oven/as_literal.hpp>
 #include <pstade/oven/copy_range.hpp>
 

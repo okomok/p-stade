@@ -31,6 +31,14 @@
 <p><b>Table of Contents</b></p>
 <dl>
 <dt><span class="section"><a href="index.html#oven.preface">Preface</a></span></dt>
+<dd><dl>
+<dt><span class="section"><a href="index.html#oven.introduction">Introduction</a></span></dt>
+<dt><span class="section"><a href="index.html#oven.requirements">Requirements</a></span></dt>
+<dt><span class="section"><a href="index.html#oven.portability">Portability</a></span></dt>
+<dt><span class="section"><a href="index.html#oven.rationale">Rationale</a></span></dt>
+<dt><span class="section"><a href="index.html#oven.related_work">Related Work</a></span></dt>
+<dt><span class="section"><a href="index.html#oven.notation">Notation</a></span></dt>
+</dl></dd>
 <dt><span class="section"><a href="oven/concepts.html">Concepts</a></span></dt>
 <dd><dl>
 <dt><span class="section"><a href="oven/concepts.html#oven.callable_object">Callable Object</a></span></dt>
@@ -121,6 +129,7 @@
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.set_delta">set_delta</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.set_minus">set_minus</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.sliced">sliced</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.steps">steps</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.string_found">string_found</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.string_split">string_split</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.taken">taken</a></span></dt>
@@ -163,24 +172,24 @@
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="oven.preface"></a>Preface</h2></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="index.html#oven.introduction">Introduction</a></span></dt>
+<dt><span class="section"><a href="index.html#oven.requirements">Requirements</a></span></dt>
+<dt><span class="section"><a href="index.html#oven.portability">Portability</a></span></dt>
+<dt><span class="section"><a href="index.html#oven.rationale">Rationale</a></span></dt>
+<dt><span class="section"><a href="index.html#oven.related_work">Related Work</a></span></dt>
+<dt><span class="section"><a href="index.html#oven.notation">Notation</a></span></dt>
+</dl></div>
 <div class="blockquote"><blockquote class="blockquote"><p>
         &#8220;<span class="quote">Oh Paulie!</span>&#8221;<br> <span class="bold"><strong><span class="emphasis"><em>-- Adrian</em></span></strong></span>
       </p></blockquote></div>
-<a name="preface.disclaimer"></a><h3>
-<a name="id501912"></a>
-      Disclaimer
-    </h3>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.introduction"></a>Introduction</h3></div></div></div>
 <p>
-      Oven is not a part of <a href="http://www.boost.org" target="_top">Boost C++ Libraries</a>.
-    </p>
-<a name="preface.introduction"></a><h3>
-<a name="id501935"></a>
-      Introduction
-    </h3>
-<p>
-      Oven is a highly preliminary implementation of <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1871.html" target="_top">Range
-      Library Proposal</a>:
-    </p>
+        Oven is a highly preliminary implementation of <a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1871.html" target="_top">Range
+        Library Proposal</a>:
+      </p>
 <pre class="programlisting">
 <span class="keyword">namespace</span> <span class="identifier">lambda</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">;</span>
 <span class="keyword">using</span> <span class="keyword">namespace</span> <span class="identifier">pstade</span><span class="special">::</span><span class="identifier">oven</span><span class="special">;</span>
@@ -203,57 +212,101 @@
 <span class="special">}</span>
 </pre>
 <p>
-      All the types, functions and objects are defined in <code class="computeroutput"><span class="keyword">namespace</span> <span class="identifier">pstade</span><span class="special">::</span><span class="identifier">oven</span></code> unless otherwise specified.
-    </p>
-<a name="preface.requirements"></a><h3>
-<a name="id432357"></a>
-      Requirements
-    </h3>
+        All the types, functions and objects are defined in <code class="computeroutput"><span class="keyword">namespace</span> <span class="identifier">pstade</span><span class="special">::</span><span class="identifier">oven</span></code>.
+      </p>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.requirements"></a>Requirements</h3></div></div></div>
 <div class="itemizedlist"><ul type="disc">
 <li>
 <a href="http://www.boost.org" target="_top">Boost C++ Libraries</a> Version 1.34.0
-        or later
-      </li>
+          or later
+        </li>
 <li>
 <a href="http://sourceforge.net/project/showfiles.php?group_id=141222&amp;package_id=173059" target="_top">P-Stade
-        C++ Libraries</a> Version 1.03.1 or later (build not required)
-      </li>
+          C++ Libraries</a> Version 1.03.1 or later (build not required)
+        </li>
 </ul></div>
 <p>
-      Oven is a header-only library and usually uses header-only libraries of <a href="http://www.boost.org" target="_top">Boost C++ Libraries</a>. For now, <code class="computeroutput"><span class="identifier">directory_range</span></code> requires <a href="http://www.boost.org/libs/filesystem/index.html" target="_top">Boost.Filesystem</a>
-      to be built, and <code class="computeroutput"><span class="identifier">matches</span></code> and
-      <code class="computeroutput"><span class="identifier">tokenized</span></code> requires <a href="http://boost.org/libs/regex/doc/index.html" target="_top">Boost.Regex</a>
-      to be built.
-    </p>
-<a name="preface.portability"></a><h3>
-<a name="id432453"></a>
-      Portability
-    </h3>
+        Oven is a header-only library and usually uses header-only libraries of
+        <a href="http://www.boost.org" target="_top">Boost C++ Libraries</a>. For now,
+        <code class="computeroutput"><span class="identifier">directory_range</span></code> requires
+        <a href="http://www.boost.org/libs/filesystem/index.html" target="_top">Boost.Filesystem</a>
+        to be built, and <code class="computeroutput"><span class="identifier">matches</span></code>
+        and <code class="computeroutput"><span class="identifier">tokenized</span></code> requires <a href="http://boost.org/libs/regex/doc/index.html" target="_top">Boost.Regex</a> to be
+        built.
+      </p>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.portability"></a>Portability</h3></div></div></div>
 <p>
-      Oven is known to work under the following platforms:
-    </p>
+        Oven is known to work under the following platforms:
+      </p>
 <div class="itemizedlist"><ul type="disc">
 <li>
-        Microsoft Visual C++ 2005 Express Edition SP1
-      </li>
+          Microsoft Visual C++ 2005 Express Edition SP1
+        </li>
 <li>
-        Microsoft Visual C++ .NET Version 7.1 SP1
-      </li>
+          Microsoft Visual C++ .NET Version 7.1 SP1
+        </li>
 <li>
-        GCC 3.4.4
-      </li>
+          GCC 3.4.4
+        </li>
 </ul></div>
-<a name="preface.notation"></a><h3>
-<a name="id432488"></a>
-      Notation
-    </h3>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.rationale"></a>Rationale</h3></div></div></div>
+<div class="itemizedlist"><ul type="disc">
+<li>
+          Oven is functional; by using <a href="http://www.boost.org/libs/utility/utility.htm#result_of" target="_top">boost::result_of</a>,
+          the inferface is more simplified than using unnecessary types and templates.
+        </li>
+<li>
+          Oven is expression-oriented; as far as the expression is valid, you don't
+          need to learn C++!?
+        </li>
+<li>
+          Oven is lightweight; never tries to do something like copying a <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span></code>.
+        </li>
+<li>
+          Oven supports an iterator such that destruction of it may invalidate pointers
+          and references previously obtained from that iterator (24.1.9).
+        </li>
+<li>
+          Oven doesn't figure out the <code class="computeroutput"><span class="identifier">distance</span></code>
+          of non-<a href="http://www.boost.org/libs/range/doc/range.html#random_access_range" target="_top">Random
+          Access Range</a>; in order to allow a very long (or complicated) range.
+        </li>
+</ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.related_work"></a>Related Work</h3></div></div></div>
+<div class="itemizedlist"><ul type="disc">
+<li><a href="http://boost-consulting.com/vault/index.php?&amp;directory=Algorithms" target="_top">Boost.RangeEx</a></li>
+<li><a href="http://boost.cvs.sourceforge.net/boost-sandbox/boost-sandbox/boost/view/" target="_top">Boost.View</a></li>
+<li><a href="http://sourceforge.jp/projects/cradle/" target="_top">Cradle - A C++ Sandbox</a></li>
+<li><a href="http://www.ddj.com/dept/cpp/196513737" target="_top">C++ View Objects</a></li>
+<li><a href="http://www.torjo.com/rangelib/index.html" target="_top">RangeLib - The Boost
+          Iterable Range Library</a></li>
+<li><a href="http://www.zib.de/weiser/vtl/" target="_top">VTL (View Template Library)</a></li>
+<li><a href="http://www.zeta.org.au/~jon/STL/views/doc/views.html" target="_top">Views
+          - a C++ Standard Library extension</a></li>
+</ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.notation"></a>Notation</h3></div></div></div>
 <p>
-      This document uses the following notation:
-    </p>
+        This document uses the following notation:
+      </p>
 <div class="informaltable">
 <h5>
-<a name="id431241"></a>
-      </h5>
+<a name="id431390"></a>
+        </h5>
 <table class="table">
 <colgroup>
 <col>
@@ -267,51 +320,51 @@
 <tr>
 <td><code class="computeroutput"><span class="identifier">_typeof</span></code></td>
 <td>An
-            imaginary operator which returns the type of expression.</td>
+              imaginary operator which returns the type of expression.</td>
 </tr>
 <tr>
 <td><code class="computeroutput"><span class="identifier">_rng</span></code></td>
 <td>Any
-            <a href="http://www.boost.org/libs/range/doc/range.html#single_pass_range" target="_top">Single
-            Pass Range</a>, that is to say, any <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>.</td>
+              <a href="http://www.boost.org/libs/range/doc/range.html#single_pass_range" target="_top">Single
+              Pass Range</a>, that is to say, any <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>.</td>
 </tr>
 <tr>
 <td><code class="computeroutput"><span class="identifier">_fwdrng</span></code></td>
 <td>Any
-            <a href="http://www.boost.org/libs/range/doc/range.html#forward_range" target="_top">Forward
-            Range</a>
+              <a href="http://www.boost.org/libs/range/doc/range.html#forward_range" target="_top">Forward
+              Range</a>
 </td>
 </tr>
 <tr>
 <td><code class="computeroutput"><span class="identifier">_bidrng</span></code></td>
 <td>Any
-            <a href="http://www.boost.org/libs/range/doc/range.html#bidirectional_range" target="_top">Bidirectional
-            Range</a>
+              <a href="http://www.boost.org/libs/range/doc/range.html#bidirectional_range" target="_top">Bidirectional
+              Range</a>
 </td>
 </tr>
 <tr>
 <td><code class="computeroutput"><span class="identifier">_rndrng</span></code></td>
 <td>Any
-            <a href="http://www.boost.org/libs/range/doc/range.html#random_access_range" target="_top">Random
-            Access Range</a>
+              <a href="http://www.boost.org/libs/range/doc/range.html#random_access_range" target="_top">Random
+              Access Range</a>
 </td>
 </tr>
 <tr>
 <td><code class="computeroutput"><span class="identifier">_fun</span></code></td>
 <td>Any
-            <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function Object</a>
+              <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function Object</a>
 </td>
 </tr>
 <tr>
 <td><code class="computeroutput"><span class="identifier">_cal</span></code></td>
 <td>Any
-            <a href="oven/concepts.html#oven.callable_object" title="Callable Object">Callable Object</a>
+              <a href="oven/concepts.html#oven.callable_object" title="Callable Object">Callable Object</a>
 </td>
 </tr>
 <tr>
 <td><code class="computeroutput"><span class="identifier">_prd</span></code></td>
 <td>Any
-            <a href="http://www.sgi.com/tech/stl/Predicate.html" target="_top">Predicate</a>
+              <a href="http://www.sgi.com/tech/stl/Predicate.html" target="_top">Predicate</a>
 </td>
 </tr>
 <tr>
@@ -329,7 +382,7 @@
 <tr>
 <td><code class="computeroutput"><span class="special">[</span><span class="identifier">i</span><span class="special">,</span> <span class="identifier">j</span><span class="special">)</span></code></td>
 <td>A <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
-            which behaves as if <code class="computeroutput"><span class="identifier">i</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">begin</span><span class="special">([</span><span class="identifier">i</span><span class="special">,</span> <span class="identifier">j</span><span class="special">))</span></code> and <code class="computeroutput"><span class="identifier">j</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">end</span><span class="special">([</span><span class="identifier">i</span><span class="special">,</span> <span class="identifier">j</span><span class="special">))</span></code>.</td>
+              which behaves as if <code class="computeroutput"><span class="identifier">i</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">begin</span><span class="special">([</span><span class="identifier">i</span><span class="special">,</span> <span class="identifier">j</span><span class="special">))</span></code> and <code class="computeroutput"><span class="identifier">j</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">end</span><span class="special">([</span><span class="identifier">i</span><span class="special">,</span> <span class="identifier">j</span><span class="special">))</span></code>.</td>
 </tr>
 <tr>
 <td><code class="computeroutput"><span class="special">{</span><span class="identifier">a0</span><span class="special">,</span><span class="identifier">a1</span><span class="special">,</span><span class="identifier">a2</span><span class="special">,..,</span><span class="identifier">aN</span><span class="special">}</span></code></td>
@@ -345,12 +398,13 @@
 </table>
 </div>
 <p>
-      Also, assume that every expression is placed after <code class="computeroutput"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="identifier">pstade</span><span class="special">::</span><span class="identifier">oven</span></code>.
-    </p>
+        Also, assume that every expression is placed after <code class="computeroutput"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="identifier">pstade</span><span class="special">::</span><span class="identifier">oven</span></code>.
+      </p>
+</div>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><small><p>Last revised: April 21, 2007 at 15:18:16 GMT</p></small></td>
+<td align="left"><small><p>Last revised: April 22, 2007 at 06:19:08 GMT</p></small></td>
 <td align="right"><small></small></td>
 </tr></table>
 <hr>

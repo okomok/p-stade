@@ -16,7 +16,7 @@
 
 #include <iostream>
 #include <boost/foreach.hpp>
-#include <pstade/oven/functions.hpp>
+#include "./core.hpp"
 #include <pstade/oven/taken.hpp>
 #include <pstade/oven/taken_while.hpp>
 #include <pstade/oven/const_lvalues.hpp>

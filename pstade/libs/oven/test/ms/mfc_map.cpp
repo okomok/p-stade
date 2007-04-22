@@ -31,8 +31,7 @@
 #include <pstade/oven/mfc.hpp>
 
 
-#include <pstade/oven/metafunctions.hpp>
-#include <pstade/oven/functions.hpp>
+#include "../core.hpp"
 #include <pstade/oven/outdirected.hpp>
 #include <pstade/oven/const_lvalues.hpp>
 

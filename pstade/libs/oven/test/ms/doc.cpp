@@ -32,9 +32,10 @@
 #include <boost/tuple/tuple.hpp>
 #include <pstade/lexical_cast.hpp> // thanks to cryolite
 #include <pstade/oven/atl.hpp>
-#include <pstade/oven/functions.hpp>
 #include <pstade/oven/mfc.hpp>
-#include <pstade/oven/ranges.hpp>
+#include <pstade/oven/transformed.hpp>
+#include <pstade/oven/copy_range.hpp>
+#include <pstade/oven/zipped_with.hpp>
 #include <pstade/oven/wtl.hpp>
 #include <pstade/result_of_lambda.hpp> // thanks to uskz
 

@@ -15,7 +15,7 @@
 
 
 #include <boost/range/empty.hpp>
-#include <pstade/oven/functions.hpp>
+#include "./core.hpp"
 
 
 void test()

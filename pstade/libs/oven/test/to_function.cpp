@@ -22,7 +22,8 @@
 #include <boost/range.hpp>
 #include <pstade/oven/algorithm.hpp>
 #include <pstade/oven/identities.hpp>
-#include <pstade/oven/functions.hpp>
+#include <pstade/oven/to_stream.hpp>
+#include "./core.hpp"
 #include <pstade/unused.hpp>
 
 

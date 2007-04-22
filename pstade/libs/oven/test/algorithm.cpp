@@ -13,7 +13,8 @@
 #include <pstade/oven/algorithm.hpp>
 #include <pstade/oven/numeric.hpp>
 
-#include <pstade/oven/functions.hpp>
+#include "./core.hpp"
+#include <pstade/oven/as_c_str.hpp>
 
 
 //  (C) Copyright Eric Niebler 2004.

@@ -17,7 +17,7 @@
 #include <vector>
 #include <boost/foreach.hpp>
 #include <boost/range.hpp>
-#include <pstade/oven/functions.hpp>
+#include "./core.hpp"
 
 
 struct is_positive

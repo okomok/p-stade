@@ -10,10 +10,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <cstddef> // ptrdiff_t
 #include <boost/mpl/assert.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/empty.hpp>
 #include <boost/utility/addressof.hpp>
+#include <pstade/copy_construct.hpp>
 #include <pstade/function.hpp>
 #include <pstade/nullptr.hpp>
 #include <pstade/pipable.hpp>
@@ -45,11 +47,11 @@ namespace pointed_detail {
             PSTADE_CONCEPT_ASSERT((RandomAccess<ContiguousRange>));
     
             if (boost::empty(rng))
-                return result_type(ptr_t(PSTADE_NULLPTR), ptr_t(PSTADE_NULLPTR));
+                return result_type(null_<ptr_t>(), null_<ptr_t>());
 
             return result_type(
-                boost::addressof( *boost::begin(rng) ),
-                boost::addressof( *boost::begin(rng) ) + distance(rng)
+                boost::addressof(*boost::begin(rng)),
+                boost::addressof(*boost::begin(rng)) + pstade::copy_construct<std::ptrdiff_t>(distance(rng))
             );
         }
     };

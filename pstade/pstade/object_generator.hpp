@@ -136,12 +136,12 @@ namespace pstade {
     } // namespace object_generator_detail
 
 
-    template<class Lambda>
+    // Even if using 'to_alternative', 'NullaryResult' must be explicitly specified.
+    // E.g. 'my< some_metafunction<_1> >' where 'some_metafunction<void>::type' is ill-formed.
+
+    template<class Lambda, class NullaryResult = boost::use_default>
     struct object_generator :
-        callable<
-            object_generator<Lambda>,
-            typename object_generator_detail::object_of<Lambda>::type
-        > 
+        callable<object_generator<Lambda, NullaryResult>, NullaryResult>
     {
         template<class Myself, PSTADE_CALLABLE_APPLY_PARAMS(A)>
         struct apply
@@ -179,7 +179,7 @@ namespace pstade {
 } // namespace pstade
 
 
-PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE(pstade::object_generator, 1)
+PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE(pstade::object_generator, 2)
 
 
 #endif

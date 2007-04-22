@@ -15,7 +15,7 @@
 
 
 #include <string>
-#include <pstade/oven/functions.hpp>
+#include "./core.hpp"
 #include <pstade/oven/dropped.hpp>
 #include <pstade/oven/as_literal.hpp>
 #include <pstade/oven/as_single.hpp>

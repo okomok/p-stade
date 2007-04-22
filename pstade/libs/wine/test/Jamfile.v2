@@ -10,6 +10,7 @@ project
     ;
 
 test-suite "wine" :
+    [ run adaptable.cpp ]
     [ run adl_barrier.cpp ]
     [ run affect.cpp ]
     [ run any_movable.cpp ]

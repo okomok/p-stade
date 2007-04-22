@@ -50,11 +50,10 @@ struct empty_range :
 
 private:
     typedef typename empty_range_detail::super_<Value>::type super_t;
-    typedef typename super_t::iterator iter_t;
 
 public:
     empty_range() :
-        super_t(iter_t(PSTADE_NULLPTR), iter_t(PSTADE_NULLPTR))
+        super_t(null_<Value *>(), null_<Value *>())
     { }
 
     PSTADE_IMPLICITLY_DEFINED_COPY_TO_BASE(empty_range, super_t)

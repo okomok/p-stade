@@ -57,7 +57,7 @@ namespace pstade {
     } // namespace pack_detail
 
 
-    typedef object_generator<pack_detail::klass> op_pack;
+    typedef object_generator< pack_detail::klass, boost::tuples::tuple<> > op_pack;
     PSTADE_CONSTANT(pack, (op_pack))
     PSTADE_PIPABLE(packed, (op_pack))
 

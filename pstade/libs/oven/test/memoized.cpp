@@ -17,7 +17,7 @@
 #include <iostream>
 #include <sstream>
 #include <boost/range.hpp>
-#include <pstade/oven/functions.hpp>
+#include "./core.hpp"
 #include <pstade/oven/copy_range.hpp>
 #include <pstade/oven/copied_out.hpp>
 #include <pstade/oven/filtered.hpp>

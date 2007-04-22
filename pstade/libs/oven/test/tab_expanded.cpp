@@ -19,7 +19,7 @@
 #include <iterator>
 #include <string>
 #include <boost/range.hpp>
-#include <pstade/oven/functions.hpp>
+#include "./core.hpp"
 #include <pstade/oven/file_range.hpp>
 
 

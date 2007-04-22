@@ -149,7 +149,7 @@ a range presentation of dynamically allocated arrays.
     }
 
 [h3 See also]
-* [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1841.html#Class-template-basic_directory_iterator basic_director_iterator]
+* [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1841.html#Class-template-basic_directory_iterator basic_directory_iterator]
 
 [endsect]
 
@@ -213,8 +213,8 @@ If the file opening failed, the range is empty.
         ]
     ]
     [
-    	[`r.is_open()`]
-    	[Returns `true` if and only if the file opening is succeeded.]
+        [`r.is_open()`]
+        [Returns `true` if and only if the file opening is succeeded.]
     ]
 ]
 

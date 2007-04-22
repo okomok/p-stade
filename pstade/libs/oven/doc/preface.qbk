@@ -4,12 +4,9 @@
 [:["Oh Paulie!]\n[*['-- Adrian]]]
 
 
-[h2 Disclaimer]
-
-Oven is not a part of _boost_.
 
 
-[h2 Introduction]
+[section Introduction]
 
 Oven is a highly preliminary implementation of _proposal_:
 
@@ -33,10 +30,14 @@ Oven is a highly preliminary implementation of _proposal_:
         std::cout << (primes|taken(200));
     }
 
-All the types, functions and objects are defined in `namespace pstade::oven` unless otherwise specified.
+All the types, functions and objects are defined in `namespace pstade::oven`.
+
+[endsect]
 
 
-[h2 Requirements]
+
+
+[section Requirements]
 
 * _boost_ Version 1.34.0 or later
 * _pstade_release_ Version 1.03.1 or later (build not required)
@@ -45,8 +46,12 @@ Oven is a header-only library and usually uses header-only libraries of _boost_.
 For now, `directory_range` requires _boost_filesystem_ to be built, and
  `matches` and `tokenized` requires _boost_regex_ to be built.
 
+[endsect]
 
-[h2 Portability]
+
+
+
+[section Portability]
 
 Oven is known to work under the following platforms:
 
@@ -54,8 +59,40 @@ Oven is known to work under the following platforms:
 * Microsoft Visual C++ .NET Version 7.1 SP1
 * GCC 3.4.4
 
+[endsect]
 
-[h2 Notation]
+
+
+
+[section Rationale]
+
+* Oven is functional; by using _boost_result_of_, the inferface is more simplified than using unnecessary types and templates.
+* Oven is expression-oriented; as far as the expression is valid, you don't need to learn C++!?
+* Oven is lightweight; never tries to do something like copying a `std::vector`.
+* Oven supports an iterator such that destruction of it may invalidate pointers and references previously obtained from that iterator (24.1.9).
+* Oven doesn't figure out the `distance` of non-_random_access_range_; in order to allow a very long (or complicated) range.
+
+[endsect]
+
+
+
+
+[section Related Work]
+
+* [@http://boost-consulting.com/vault/index.php?&directory=Algorithms Boost.RangeEx]
+* [@http://boost.cvs.sourceforge.net/boost-sandbox/boost-sandbox/boost/view/ Boost.View]
+* [@http://sourceforge.jp/projects/cradle/ Cradle - A C++ Sandbox]
+* [@http://www.ddj.com/dept/cpp/196513737 C++ View Objects]
+* [@http://www.torjo.com/rangelib/index.html RangeLib - The Boost Iterable Range Library]
+* [@http://www.zib.de/weiser/vtl/ VTL (View Template Library)]
+* [@http://www.zeta.org.au/~jon/STL/views/doc/views.html Views - a C++ Standard Library extension]
+
+[endsect]
+
+
+
+
+[section Notation]
 
 This document uses the following notation:
 
@@ -123,6 +160,10 @@ This document uses the following notation:
 ]
 
 Also, assume that every expression is placed after `using namespace pstade::oven`.
+
+[endsect]
+
+
 
 
 [endsect]

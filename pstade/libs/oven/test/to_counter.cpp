@@ -18,7 +18,7 @@
 #include <boost/range.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/oven/algorithm.hpp>
-#include <pstade/oven/functions.hpp>
+#include "./core.hpp"
 #include <pstade/oven/to_utf8_encoder.hpp>
 #include <pstade/oven/adapted_to_base.hpp>
 #include <pstade/oven/uniqued.hpp>

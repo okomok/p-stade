@@ -19,7 +19,7 @@
 #include <sstream>
 #include <string>
 #include <vector>
-#include <pstade/oven/functions.hpp>
+#include "./core.hpp"
 #include <pstade/oven/counting.hpp>
 #include <pstade/oven/stream_input.hpp>
 #include <pstade/copy_assign.hpp>

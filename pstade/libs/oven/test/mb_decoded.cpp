@@ -18,7 +18,7 @@
 #include <string>
 #include <boost/range.hpp>
 #include <pstade/locale_saver.hpp>
-#include <pstade/oven/functions.hpp>
+#include "./core.hpp"
 
 
 void test()

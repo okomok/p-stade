@@ -21,7 +21,7 @@
 #include <boost/range.hpp>
 #include <pstade/unparenthesize.hpp>
 #include <pstade/oven/algorithm.hpp>
-#include <pstade/oven/functions.hpp>
+#include "./core.hpp"
 #include <pstade/pack.hpp>
 
 

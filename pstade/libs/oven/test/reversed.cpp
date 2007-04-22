@@ -21,7 +21,7 @@
 #include <boost/foreach.hpp>
 #include <boost/range.hpp>
 #include <pstade/oven/counting.hpp>
-#include <pstade/oven/functions.hpp>
+#include "./core.hpp"
 #include <pstade/oven/algorithm.hpp>
 #include <pstade/oven/memoized.hpp>
 #include <pstade/oven/transformed.hpp>

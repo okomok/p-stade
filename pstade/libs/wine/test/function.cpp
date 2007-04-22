@@ -108,6 +108,27 @@ PSTADE_TEST_IS_RESULT_OF((std::string), op_buz(std::string))
 #endif
 
 
+
+template<class X, class A0>
+struct specified_baby
+{
+    typedef A0& result_type;
+
+    result_type operator()(A0& a) const
+    {
+        return a;
+    }
+};
+
+template<class X>
+struct op_specified :
+    pstade::function< specified_baby<X, boost::mpl::_1> >
+{ };
+
+PSTADE_TEST_IS_RESULT_OF((int&), op_specified<double>(int&))
+
+
+
 void test()
 {
     {
@@ -135,6 +156,10 @@ void test()
         BOOST_CHECK( y == "abc" );
     }
 #endif
+    {
+        int i = 12;
+        BOOST_CHECK( op_specified<double>()(i) == 12 );
+    }
 }
 
 

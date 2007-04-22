@@ -26,7 +26,7 @@
 #include <string>
 #include <vector>
 #include <pstade/oven/algorithm.hpp>
-#include <pstade/oven/functions.hpp>
+#include "./core.hpp"
 #include <pstade/functional.hpp>
 #include <pstade/lambda_bind.hpp>
 

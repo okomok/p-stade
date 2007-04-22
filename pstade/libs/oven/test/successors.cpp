@@ -14,7 +14,7 @@
 #include <pstade/oven/successors.hpp>
 
 
-#include <pstade/oven/functions.hpp>
+#include "./core.hpp"
 #include <pstade/oven/identities.hpp>
 
 

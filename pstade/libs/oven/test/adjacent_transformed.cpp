@@ -15,12 +15,13 @@
 
 
 #include <iostream>
-#include <pstade/oven/functions.hpp>
+#include "./core.hpp"
 #include <pstade/functional.hpp>
 #include <pstade/oven/const_lvalues.hpp>
 #include <pstade/oven/identities.hpp>
 #include <pstade/oven/regular.hpp>
 #include <pstade/oven/algorithm.hpp>
+#include <pstade/oven/to_stream.hpp>
 #include <boost/lambda/core.hpp>
 #include <boost/lambda/lambda.hpp>
 

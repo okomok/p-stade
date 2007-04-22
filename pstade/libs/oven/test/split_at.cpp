@@ -15,7 +15,7 @@
 
 
 #include <string>
-#include <pstade/oven/functions.hpp>
+#include "./core.hpp"
 #include <pstade/oven/unzipped.hpp>
 #include <pstade/oven/spanned.hpp>
 

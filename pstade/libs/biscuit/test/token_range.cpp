@@ -18,12 +18,9 @@
 #include <string>
 #include <boost/foreach.hpp>
 #include <boost/range.hpp>
-#include <pstade/oven/functions.hpp>
+#include <pstade/biscuit/alias.hpp>
+#include <pstade/oven/equals.hpp>
 #include <pstade/oven/as_literal.hpp>
-
-
-using namespace pstade;
-using namespace pstade::biscuit;
 
 
 struct c_comment :

@@ -16,6 +16,7 @@
 #include <pstade/disable_if_copy.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/implicitly_defined.hpp>
+#include <pstade/object_generator.hpp>
 #include "./any_iterator.hpp"
 #include "./iter_range.hpp"
 #include "./lightweight_copyable.hpp"
@@ -129,29 +130,9 @@ struct any_range_of
 };
 
 
-// This falls into ETI.
-// PSTADE_OBJECT_GENERATOR(make_any_range,
-//     (any_range< range_reference<_1>, range_pure_traversal<_1>, range_value<_1>, range_difference<_1> >) const)
+PSTADE_OBJECT_GENERATOR(make_any_range,
+     (any_range< range_reference<_1>, range_pure_traversal<_1>, range_value<_1>, range_difference<_1> >) const)
 
-struct op_make_any_range :
-    callable<op_make_any_range>
-{
-    template< class Myself, class Range >
-    struct apply
-    {
-        typedef typename
-            any_range_of<Range>::type const
-        type;
-    };
-
-    template< class Result, class Range >
-    Result call(Range& rng) const
-    {
-        return Result(rng);
-    }
-};
-
-PSTADE_CONSTANT(make_any_range, (op_make_any_range))
 
 
 } } // namespace pstade::oven

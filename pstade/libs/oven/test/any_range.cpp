@@ -15,8 +15,7 @@
 
 #include <string>
 #include <boost/range.hpp>
-#include <pstade/oven/functions.hpp>
-#include <pstade/oven/ranges.hpp>
+#include "./core.hpp"
 #include <pstade/locale.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/core.hpp>

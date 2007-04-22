@@ -14,8 +14,9 @@
 #include <pstade/oven/steps.hpp>
 
 
-#include <pstade/oven/functions.hpp>
+#include "./core.hpp"
 #include <pstade/oven/identities.hpp>
+#include <pstade/oven/counting.hpp>
 
 
 void test()

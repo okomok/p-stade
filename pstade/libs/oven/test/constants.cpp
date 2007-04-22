@@ -21,7 +21,7 @@
 #include <string>
 #include <vector>
 #include <boost/range.hpp>
-#include <pstade/oven/functions.hpp>
+#include "./core.hpp"
 #include <pstade/oven/identities.hpp>
 #include <pstade/is_same.hpp>
 

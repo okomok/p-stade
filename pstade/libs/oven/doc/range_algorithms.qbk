@@ -268,9 +268,12 @@ The second precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copi
     ]
     [
         [`equals(_rng1, _rng2)`]
-        [`equals(_rng1, _rng2, boost::lambda::_1 == boost::lambda::_2)`]
+        [`equals(_rng1, _rng2, equal_to)`]
     ]
 ]
+
+[h3 Preconditions]
+* `equal_to = (boost::lambda::_1 == boost::lambda::_2)`
 
 [endsect]
 

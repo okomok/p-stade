@@ -15,7 +15,7 @@
 
 
 #include <string>
-#include <pstade/oven/functions.hpp>
+#include "./core.hpp"
 #include <pstade/oven/filtered.hpp>
 #include <pstade/locale.hpp>
 

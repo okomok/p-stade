@@ -15,7 +15,7 @@
 
 #include <string>
 #include <pstade/functional.hpp>
-#include <pstade/oven/functions.hpp>
+#include "./core.hpp"
 #include <pstade/oven/filtered.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/core.hpp>

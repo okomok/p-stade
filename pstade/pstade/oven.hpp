@@ -10,14 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./oven/adaptors.hpp"
-#include "./oven/algorithm.hpp"
-#include "./oven/functions.hpp"
-#include "./oven/locale.hpp"
-#include "./oven/metafunctions.hpp"
-#include "./oven/numeric.hpp"
-#include "./oven/ranges.hpp"
-#include "./oven/typeof.hpp"
+#include "./oven/oven.hpp"
 
 
 #endif

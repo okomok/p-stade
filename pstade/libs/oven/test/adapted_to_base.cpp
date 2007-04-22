@@ -21,7 +21,7 @@
 #include <pstade/is_same.hpp>
 #include <pstade/oven/algorithm.hpp>
 #include <pstade/oven/filtered.hpp>
-#include <pstade/oven/functions.hpp>
+#include "./core.hpp"
 #include <pstade/oven/sub_range.hpp>
 
 

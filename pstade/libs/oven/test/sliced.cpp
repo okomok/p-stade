@@ -20,8 +20,7 @@
 #include <boost/mpl/assert.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <pstade/oven/counting.hpp>
-#include <pstade/oven/functions.hpp>
-#include <pstade/oven/metafunctions.hpp>
+#include "./core.hpp"
 #include <pstade/oven/offset.hpp>
 #include <pstade/oven/before_stable_partition.hpp>
 

@@ -18,7 +18,7 @@
 #include <string>
 #include <boost/range.hpp>
 #include <boost/utility/result_of.hpp>
-#include <pstade/oven/functions.hpp>
+#include "./core.hpp"
 #include <pstade/test.hpp>
 
 

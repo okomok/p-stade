@@ -17,7 +17,7 @@
 #include <cctype> // tolower
 #include <iostream>
 #include <string>
-#include <pstade/oven/functions.hpp>
+#include "./core.hpp"
 #include <pstade/oven/tests.hpp>
 #include <pstade/oven/to_stream.hpp>
 #include <pstade/oven/as_c_str.hpp>

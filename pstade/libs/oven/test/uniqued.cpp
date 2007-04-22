@@ -14,7 +14,7 @@
 #include <pstade/oven/uniqued.hpp>
 
 
-#include <pstade/oven/functions.hpp>
+#include "./core.hpp"
 
 
 void test()

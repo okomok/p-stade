@@ -15,8 +15,7 @@
 
 
 #include <boost/range.hpp>
-#include <pstade/oven/functions.hpp>
-#include <pstade/oven/metafunctions.hpp>
+#include "./core.hpp"
 
 
 namespace oven = pstade::oven;

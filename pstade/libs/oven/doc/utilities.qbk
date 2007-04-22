@@ -21,7 +21,7 @@ Some helper _function_object_s are given to fill the gap between Oven and other 
     ]
     [
         [`oven::adapted_to<B>(a)`]
-        [Calls `a.base()` until `_typeof(a.base())` becomes the same as `B`.]
+        [Returns the shortest `a.base().base()...base()` such that `_typeof(a.base().base()...base())` is convertible to `B`.]
     ]
     [
         [`B b = x|to_base;`]
@@ -201,8 +201,10 @@ An iterator holding such a functor can't conform to even _input_iterator_.
         std::string("abdeg")
     ) );
 
-[he See also]
+[h3 See also]
 * _boost_lambda_
+* [link oven.filtered filtered]
+* [link oven.transformed transformed]
 
 [endsect]
 
@@ -324,16 +326,16 @@ A _callable_object_ like a random number generator may not be copyable, while ma
 * There is a `a` such that `{(a11 a12 .. a1N),(a21 a22 .. a2N),..,(aM1 aM2 .. aMN)}` is `_rng`.
 
 [h3 Example]
-	std::cout <<
-	    (
-	        boost::assign::list_of
-	            (boost::make_tuple(1,2))
-	            (boost::make_tuple(2,3))
-	            (boost::make_tuple(3,4))
-	            | unzipped
-	    );
+    std::cout <<
+        (
+            boost::assign::list_of
+                (boost::make_tuple(1,2))
+                (boost::make_tuple(2,3))
+                (boost::make_tuple(3,4))
+                | unzipped
+        );
 
-	// output> ({1,2,3} {2,3,4})
+    // output> ({1,2,3} {2,3,4})
 
 
 [h3 See also]
@@ -375,16 +377,16 @@ If one input _range_ is short, excess elements of the longer range are discarded
 * `T` is `boost::zip_iterator<_typeof(boost::make_tuple(_begin(_rng1),..,_begin(_rngN)))>` such that `T(boost::make_tuple(_begin(_rng1),..,_begin(_rngN)))` is a valid expression.
 
 [h3 Example]
-	std::cout <<
-	    (
-	        boost::make_tuple(
-	            boost::assign::list_of(1)(2)(3),
-	            boost::assign::list_of(2)(3)(4)
-	        )
-	            | zipped
-	    );
+    std::cout <<
+        (
+            boost::make_tuple(
+                boost::assign::list_of(1)(2)(3),
+                boost::assign::list_of(2)(3)(4)
+            )
+                | zipped
+        );
 
-	// output> {(1 2),(2 3),(3 4)}
+    // output> {(1 2),(2 3),(3 4)}
 
 [h3 See also]
 * [@http://www.boost.org/libs/iterator/doc/zip_iterator.html zip_iterator]

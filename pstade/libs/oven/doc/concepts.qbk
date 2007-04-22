@@ -24,6 +24,9 @@ for any _callable_object_ `f` the following must be met:
 [endsect]
 
 
+[note All the _function_object_ Oven defines are _assignable_ and _default_constructible_.]
+
+
 
 
 [section Operatable Object]

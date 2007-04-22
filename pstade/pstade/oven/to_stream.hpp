@@ -112,7 +112,7 @@ namespace to_stream_detail {
     // In such case, 'to_ostream' above is preferable.
 
     template< class Stream >
-    struct op_output
+    struct output
     {
         typedef Stream stream_type;
         typedef void result_type;
@@ -120,7 +120,7 @@ namespace to_stream_detail {
         // DefaultConstructible is not required
         // as OutputIterator is not.
 
-        explicit op_output(Stream& s) :
+        explicit output(Stream& s) :
             m_ps(boost::addressof(s))
         { }
 
@@ -150,13 +150,13 @@ namespace to_stream_detail {
     {
         typedef typename
             boost::result_of<
-                op_to_function(op_output<Stream>)
+                op_to_function(output<Stream>)
             >::type
         result_type;
 
         result_type operator()(Stream& s) const
         {
-            return to_function(op_output<Stream>(s));
+            return to_function(output<Stream>(s));
         }
     };
 

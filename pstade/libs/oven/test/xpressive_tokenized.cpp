@@ -18,7 +18,7 @@
 #include <vector>
 #include <boost/xpressive/xpressive.hpp>
 #include <boost/range.hpp>
-#include <pstade/oven/functions.hpp>
+#include "./core.hpp"
 #include <pstade/oven/concatenated.hpp>
 
 

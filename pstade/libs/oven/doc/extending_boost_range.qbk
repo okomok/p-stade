@@ -31,48 +31,48 @@ Oven emulates a Concept-like extension way for _boost_range_.
 * If `X` is a template, `PSTADE_OVEN_EXTENSION_OF_TEMPLATE(XS, N)` or `PSTADE_OVEN_EXTENSION_OF_TEMPLATE(XS, S)` is placed in the global namespace.
 
 [h3 Example]
-	namespace Foo {
+    namespace Foo {
 
-	    template< class T >
-	    struct Pair
-	    {
-	        T first, last;
-	    };
+        template< class T >
+        struct Pair
+        {
+            T first, last;
+        };
 
-	} // namespace Foo
+    } // namespace Foo
 
-	namespace pstade_oven_extension {
+    namespace pstade_oven_extension {
 
-	    template< class T >
-	    struct Range< Foo::Pair<T> >
-	    {
-	        // X == Foo::Pair<T>
-	        template< class X >
-	        struct associate
-	        {
-	            typedef T mutable_iterator;
-	            typedef T constant_iterator;
-	        };
+        template< class T >
+        struct Range< Foo::Pair<T> >
+        {
+            // X == Foo::Pair<T>
+            template< class X >
+            struct associate
+            {
+                typedef T mutable_iterator;
+                typedef T constant_iterator;
+            };
 
-	        // if X is not const, Iterator == mutable_iterator;
-	        // otherwise, Iterator == constant_iterator.
-	        template< class Iterator, class X >
-	        Iterator begin(X& x)
-	        {
-	            return x.first;
-	        }
+            // if X is not const, Iterator == mutable_iterator;
+            // otherwise, Iterator == constant_iterator.
+            template< class Iterator, class X >
+            Iterator begin(X& x)
+            {
+                return x.first;
+            }
 
-	        template< class Iterator, class X >
-	        Iterator end(X& x)
-	        {
-	            return x.last;
-	        }
-	    };
+            template< class Iterator, class X >
+            Iterator end(X& x)
+            {
+                return x.last;
+            }
+        };
 
-	} // namespace pstade_oven_extension
+    } // namespace pstade_oven_extension
 
-	PSTADE_OVEN_EXTENSION_OF_TEMPLATE((Foo)(Pair), (class))
-	// PSTADE_OVEN_EXTENSION_OF_TEMPLATE((Foo)(Pair), 1) // also ok.
+    PSTADE_OVEN_EXTENSION_OF_TEMPLATE((Foo)(Pair), (class))
+    // PSTADE_OVEN_EXTENSION_OF_TEMPLATE((Foo)(Pair), 1) // also ok.
 
 [h3 See also]
 * [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2196.html Wording for range-based for-loop]
