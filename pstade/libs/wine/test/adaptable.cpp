@@ -41,13 +41,13 @@ void test()
 {
     {
         int i = 10;
-        BOOST_CHECK( pstade::adaptable1<int>(identity)(i) == 10 );
-        ::test_identity( pstade::adaptable1<int>(identity) );
+        BOOST_CHECK( pstade::adaptable_unary<int>(identity)(i) == 10 );
+        ::test_identity( pstade::adaptable_unary<int>(identity) );
     }
     {
         int i = 10;
-        BOOST_CHECK(( pstade::adaptable2<int, int const>(plus)(i, 4) == 14 ));
-        ::test_plus( pstade::adaptable2<int, int const>(plus) );
+        BOOST_CHECK(( pstade::adaptable_binary<int, int const>(plus)(i, 4) == 14 ));
+        ::test_plus( pstade::adaptable_binary<int, int const>(plus) );
     }
 }
 

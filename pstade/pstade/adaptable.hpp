@@ -70,9 +70,9 @@ namespace pstade {
     } // namespace adaptable_detail
 
 
-    // Let adaptable1 adaptable.
+    // Let adaptable_unary adaptable.
     template<class A0, class Callable>
-    struct adaptable1_base
+    struct adaptable_unary_base
     {
         typedef typename
             adaptable_detail::return_op1<A0, Callable>
@@ -85,16 +85,16 @@ namespace pstade {
     };
 
     template<class A0>
-    struct op_adaptable1 :
-        function< adaptable1_base<A0, boost::mpl::_1> >
+    struct op_adaptable_unary :
+        function< adaptable_unary_base<A0, boost::mpl::_1> >
     { };
 
-    PSTADE_SPECIFIED1(adaptable1, op_adaptable1, 1)
+    PSTADE_SPECIFIED1(adaptable_unary, op_adaptable_unary, 1)
 
 
     // Let 'adaptabe2' adaptable.
     template<class A0, class A1, class Callable>
-    struct adaptable2_base
+    struct adaptable_binary_base
     {
         typedef typename
             adaptable_detail::return_op2<A0, A1, Callable>
@@ -107,11 +107,11 @@ namespace pstade {
     };
 
     template<class A0, class A1>
-    struct op_adaptable2 :
-        function< adaptable2_base<A0, A1, boost::mpl::_1> >
+    struct op_adaptable_binary :
+        function< adaptable_binary_base<A0, A1, boost::mpl::_1> >
     { };
 
-    PSTADE_SPECIFIED1(adaptable2, op_adaptable2, 2)
+    PSTADE_SPECIFIED1(adaptable_binary, op_adaptable_binary, 2)
 
 
 } // namespace pstade
