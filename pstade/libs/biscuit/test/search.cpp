@@ -16,8 +16,12 @@
 
 #include <string>
 #include <boost/range.hpp>
-#include <pstade/biscuit/alias.hpp>
 #include <pstade/oven/equals.hpp>
+#include <pstade/oven/alias.hpp>
+#include <pstade/biscuit/alias.hpp>
+
+
+using namespace biscuit;
 
 
 struct c_comment :

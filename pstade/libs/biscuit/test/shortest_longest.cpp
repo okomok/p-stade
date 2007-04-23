@@ -15,13 +15,14 @@
 
 
 #include <string>
+#include <pstade/biscuit/alias.hpp>
+
+
+using namespace biscuit;
 
 
 void test()
 {
-    using namespace pstade;
-    using namespace biscuit;
-
     {
         std::string text("xxx");
         typedef longest3< chseq1<'x'>, chseq3<'x','x','x'>, chseq2<'x','x'> > longp;

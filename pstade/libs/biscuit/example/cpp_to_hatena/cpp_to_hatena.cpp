@@ -34,8 +34,10 @@
 
 #include <pstade/biscuit.hpp>
 #include <pstade/oven.hpp>
+#include <pstade/oven/tab_expanded.hpp>
 #include <pstade/oven/utf8_decoded.hpp>
 #include <pstade/oven/utf8_encoded.hpp>
+#include <pstade/oven/utf8_encoder.hpp>
 #include <pstade/wine.hpp>
 #include "./start.hpp"
 #include "./hatena_mode.hpp"
@@ -90,7 +92,7 @@ int main(int argc, char *argv[])
             pstade::require(fout, "good output file: " + oname);
 
             oven::copy("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\" ?>"
-                "<pre class=\"cpp_source\">"|oven::as_literal, oven::to_stream(fout));
+                "<pre class=\"cpp_source\">"|oven::as_literal, oven::writer(fout));
 
             biscuit::match<
                 iteration<cpp_to_hatena::start, cpp_to_hatena::act_line_escape>
@@ -103,10 +105,10 @@ int main(int argc, char *argv[])
                     | oven::tab_expanded(::tabsize<>::value)             // タブを空白にする
                     | oven::memoized
                     ,                                    // 速くするためキャッシュする
-                oven::to_utf8_encoder(oven::to_stream(fout))|as_ref// UTF-8に戻して出力
+                oven::utf8_encoder(oven::writer(fout))|as_ref// UTF-8に戻して出力
             );
 
-            oven::copy("</pre>"|oven::as_literal, oven::to_stream(fout));
+            oven::copy("</pre>"|oven::as_literal, oven::writer(fout));
 
             std::cout << "<output-file>" << oname << "</output-file>";
 

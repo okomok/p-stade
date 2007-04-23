@@ -24,7 +24,6 @@
 #include <boost/noncopyable.hpp>
 #include "./core.hpp"
 #include <pstade/oven/taken.hpp>
-#include <pstade/oven/to_function.hpp>
 #include <pstade/oven/counting.hpp>
 #include <pstade/nullptr.hpp>
 

@@ -19,9 +19,9 @@
 #include <boost/range.hpp>
 #include "./core.hpp"
 #include <pstade/oven/copy_range.hpp>
-#include <pstade/oven/copied_out.hpp>
+#include <pstade/oven/copied_to.hpp>
 #include <pstade/oven/filtered.hpp>
-#include <pstade/oven/stream_input.hpp>
+#include <pstade/oven/reading.hpp>
 #include <pstade/oven/io.hpp>
 #include <pstade/oven/taken.hpp>
 
@@ -44,7 +44,7 @@ void pstade_unit_test()
         ss << ans;
         std::vector<char> expected = ans|copied;
         BOOST_CHECK( oven::test_Forward_Readable(
-            oven::stream_input<char>(ss)|memoized,
+            oven::reading<char>(ss)|memoized,
             expected
         ) );
     }
@@ -81,10 +81,10 @@ void pstade_unit_test()
                 src |
                     filtered(regular(bll::_1 != 'x')) |
                     memoized |
-                    copied_out(std::back_inserter(s1)) |
+                    copied_to(std::back_inserter(s1)) |
                     filtered(regular(bll::_1 != 'a')) |
                     memoized |
-                    copied_out(std::back_inserter(s2))
+                    copied_to(std::back_inserter(s2))
             )
         ));
 

@@ -513,13 +513,13 @@ Additional information is available at _proposal_.
 
 
 
-[section copied_out]
+[section copied_to]
 
 [h3 Description]
-`copied_out` makes a side-effect that copies the base range to its argument iterator.
+`copied_to` makes a side-effect that copies the base range to its argument iterator.
 
 [h3 Header]
-* `<pstade/oven/copied_out.hpp>`
+* `<pstade/oven/copied_to.hpp>`
 
 [h3 Model of]
 * _pipable_object_
@@ -531,18 +531,18 @@ Additional information is available at _proposal_.
         [[*Semantics]]
     ]
     [
-        [`_rng|copied_out(t)`]
+        [`_fwdrng|copied_to(t)`]
         [
-            `[_begin(_rng), _end(_rng))`
+            `[_begin(_fwdrng), _end(_fwdrng))`
         ]
     ]
 ]
 
 [h3 Effects]
-* `std::copy(_begin(_rng), _end(_rng), t)`
+* `std::copy(_begin(_fwdrng), _end(_fwdrng), t)`
 
 [h3 Preconditions]
-* `std::copy(_begin(_rng), _end(_rng), t)` is a valid expression.
+* `std::copy(_begin(_fwdrng), _end(_fwdrng), t)` is a valid expression.
 
 [h3 Example]
 
@@ -625,8 +625,7 @@ Additional information is available at _proposal_.
 
 [h3 Preconditions]
 * `make_jointed(_rng2, *_begin(_rng1))` is well-formed.
-* `join` is `regular(boost::lambda::bind(make_jointed, _rng2,
-  boost::lambda::_1))`.
+* `join` is `regular(boost::lambda::bind(make_jointed, _rng2, boost::lambda::_1))`.
 
 [note `delimited` prepends the delimiter. `dropped` is useful to remove it.]
 
@@ -641,6 +640,7 @@ Additional information is available at _proposal_.
 [h3 See also]
 * [link oven.dropped dropped]
 * [link oven.tokenized tokenized]
+* [link oven.writer writer]
 
 [endsect]
 

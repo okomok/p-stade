@@ -17,7 +17,7 @@
 #include <pstade/lime/load.hpp>
 #include <pstade/lime/save.hpp>
 #include <pstade/oven/algorithm.hpp> // copy
-#include <pstade/oven/to_function.hpp>
+#include <pstade/oven/passer.hpp>
 #include <pstade/oven/utf8_decoded.hpp>
 #include <pstade/tomato/file_range.hpp>
 #include <pstade/tomato/tstring.hpp>
@@ -47,7 +47,7 @@ namespace pstade { namespace hamburger {
     template< class Node > inline
     void save(Node& node)
     {
-        lime::save(node, oven::to_function(unused));
+        lime::save(node, oven::passer(unused));
     }
 
 
@@ -56,7 +56,7 @@ namespace pstade { namespace hamburger {
     {
         std::vector<utf8cp_t> tmp;
         lime::copy_XMLDecl(std::back_inserter(tmp));
-        lime::save_default(node, oven::to_utf8_encoder(std::back_inserter(tmp)));
+        lime::save_default(node, oven::utf8_encoder(std::back_inserter(tmp)));
 
         tomato::ofile_range<utf8cp_t> orng(path|tomato::to_tstring, tmp.size());
         oven::copy(tmp, boost::begin(orng));

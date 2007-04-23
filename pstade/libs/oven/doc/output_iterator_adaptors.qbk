@@ -3,14 +3,14 @@
 
 
 
-[section to_counter]
+[section counter]
 
 [h3 Description]
-`to_counter` takes an initial count and increments it every output.
+`counter` takes an initial count and increments it every output.
 `adapted_to` or `to_base` can extract the result of the counting.
 
 [h3 Header]
-* `<pstade/oven/to_counter.hpp>`
+* `<pstade/oven/counter.hpp>`
 
 [h3 Model of]
 * _operatable_object_
@@ -22,9 +22,9 @@
         [[*Semantics]]
     ]
     [
-        [`to_counter(i)`]
+        [`counter(i)`]
         [
-            Returns an _output_iterator_ which behaves as if `counting_output_iterator`.
+            Returns an _output_iterator_ which behaves as if `hamigaki::counting_output_iterator`.
         ]
     ]
 ]
@@ -34,13 +34,13 @@
 
 [h3 Example]
     int const rng[] = { 0,0,1,1,2,3,3,3,4,4,4,4,4,5,5 };
-    int i = oven::copy(rng|uniqued, oven::to_counter(0))|to_base;
+    int i = copy(rng|uniqued, counter(0))|to_base;
     BOOST_CHECK( i == 6 );
 
-    BOOST_CHECK( 7 == oven::adapted_to<int>(oven::unique_copy(rng, oven::to_counter(1))) );
+    BOOST_CHECK( 7 == oven::adapted_to<int>(oven::unique_copy(rng, counter(1))) );
 
 [h3 See also]
-* [@http://opensource.adobe.com/classadobe_1_1counting__output__iterator.html counting_output_iterator]
+* [@http://hamigaki.sourceforge.jp/doc/html/counting_output_iterator.html hamigaki::counting_output_iterator]
 * [link oven.counting counting]
 
 [endsect]
@@ -48,12 +48,13 @@
 
 
 
-[section to_function]
+[section passer]
 
 [h3 Description]
+`passer` returns an _output_iterator_ which passes each item assigned as an argument to the unary function.
 
 [h3 Header]
-* `<pstade/oven/to_function.hpp>`
+* `<pstade/oven/passer.hpp>`
 
 [h3 Model of]
 * _operatable_object_
@@ -65,7 +66,7 @@
         [[*Semantics]]
     ]
     [
-        [`to_function(_fun)`]
+        [`passer(_fun)`]
         [
             Returns an _output_iterator_ which behaves as if it were `T(_fun)`.
         ]
@@ -85,15 +86,13 @@
 
 
 
-[section to_stream]
+[section utf8_encoder]
 
 [h3 Description]
-`to_stream` returns an _output_iterator_ which is a shorthand version of `std::ostream_iterator`.
-It needs no an explicit template parameter to specify the `value_type` to output,
-but one precondition below must be kept.
+Pending...
 
 [h3 Header]
-* `<pstade/oven/to_stream.hpp>`
+* `<pstade/oven/utf8_encoder.hpp>`
 
 [h3 Model of]
 * _operatable_object_
@@ -105,9 +104,53 @@ but one precondition below must be kept.
         [[*Semantics]]
     ]
     [
-        [`to_stream(s)`]
+        [`utf8_encoder(i)`]
+        [
+            Returns an _output_iterator_ which behaves as if it were `utf8_output_iterator`.
+        ]
+    ]
+]
+
+[h3 Preconditions]
+
+[h3 Example]
+
+[h3 See also]
+
+[endsect]
+
+
+
+
+[section writer]
+
+[h3 Description]
+`writer` returns an _output_iterator_ which is a shorthand version of `std::ostream_iterator`.
+It needs no an explicit template parameter to specify the `value_type` to output,
+but one precondition below must be kept. It can be easily guaranteed by using `transformed`, though.
+
+[h3 Header]
+* `<pstade/oven/writer.hpp>`
+
+[h3 Model of]
+* _operatable_object_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`writer(s)`]
         [
             Returns an _output_iterator_ which behaves as if it were `std::ostream_iterator`.
+        ]
+    ]
+    [
+        [`writer(s, d)`]
+        [
+            Returns an _output_iterator_ which behaves as if it were `hamigaki::ostream_iterator` using a delimiter `d`.
         ]
     ]
 ]
@@ -118,7 +161,11 @@ but one precondition below must be kept.
 [h3 Example]
 
 [h3 See also]
+* [@http://hamigaki.sourceforge.jp/doc/html/ostream_iterator.html hamigaki::ostream_iteraotor]
 * [@http://www.sgi.com/tech/stl/ostream_iterator.html std::ostream_iterator]
+* [link oven.delimited delimited]
+* [link oven.reading reading]
+* [link oven.transformed transformed]
 
 [endsect]
 

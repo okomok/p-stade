@@ -16,15 +16,14 @@
 
 
 #include <string>
-#include <pstade/oven.hpp>
+#include <pstade/biscuit/alias.hpp>
 
 
-using namespace pstade;
 using namespace biscuit;
 
 
 struct infinite :
-    biscuit::identity<infinite>
+    identity<infinite>
 { };
 
 

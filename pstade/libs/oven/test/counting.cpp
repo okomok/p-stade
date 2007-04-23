@@ -23,7 +23,7 @@
 #include "./core.hpp"
 #include <pstade/oven/taken.hpp>
 #include <pstade/oven/taken_while.hpp>
-#include <pstade/oven/to_stream.hpp>
+#include <pstade/oven/writer.hpp>
 #include <pstade/oven/transformed.hpp>
 #include <pstade/result_of_lambda.hpp>
 #include <boost/lambda/lambda.hpp>
@@ -109,7 +109,7 @@ void test()
             oven::counting_from(1)|
                 transformed(regular(lambda::_1 * 30))|
                 taken_while(regular(lambda::_1 < 1000)),
-            oven::to_ostream<int>(std::cout, ",")
+                std::ostream_iterator<int>(std::cout, ",")
         );
     }
 }

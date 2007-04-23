@@ -83,7 +83,7 @@ namespace scanned_detail {
             super_t(other.base()), m_state(other.state()), m_fun(other.function())
         { }
 
-        State const& state() const
+        State state() const
         {
             return m_state;
         }
@@ -121,30 +121,24 @@ namespace scanned_detail {
     };
 
 
-    struct op_make :
-        callable<op_make>
+    template< class Range, class State, class BinaryFun >
+    struct baby
     {
-        template< class Myself, class Range, class State, class BinaryFun >
-        struct apply
-        {
-            typedef
-                scan_iterator<
-                    typename range_iterator<Range>::type,
-                    typename pass_by_value<State>::type,
-                    typename pass_by_value<BinaryFun>::type
-                >
-            iter_t;
+        typedef
+            scan_iterator<
+                typename range_iterator<Range>::type,
+                typename pass_by_value<State>::type,
+                typename pass_by_value<BinaryFun>::type
+            >
+        iter_t;
 
-            typedef
-                iter_range<iter_t> const
-            type;
-        };
+        typedef
+            iter_range<iter_t> const
+        result_type;
 
-        template< class Result, class Range, class State, class BinaryFun >
-        Result call(Range& rng, State& init, BinaryFun& fun) const
+        result_type operator()(Range& rng, State& init, BinaryFun& fun) const
         {
-            typedef typename Result::iterator iter_t;
-            return Result(
+            return result_type(
                 iter_t(boost::begin(rng), init, fun),
                 iter_t(boost::end(rng),   init, fun)
             );
@@ -163,21 +157,22 @@ struct op_make_scanned :
         boost::result_of<
             op_make_jointed(
                 typename boost::result_of<op_as_shared_single(State const *)>::type,
-                typename boost::result_of<scanned_detail::op_make(Range&, State&, BinaryFun&)>::type
+                typename scanned_detail::baby<Range, State, BinaryFun>::result_type
             )
         >
     { };
 
     template< class Result, class Range, class State, class BinaryFun >
-    Result call(Range& rng, State const& init, BinaryFun& fun) const
+    Result call(Range& rng, State& init, BinaryFun& fun) const
     {
         PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+
         // Prefer const-qualified 'State';
         // It's common that 'rng' is constant but 'init' isn't 'const'.
         // As 'scan_iterator' is constant, 'make_jointed' won't work in such case.
         return make_jointed(
             as_shared_single(new State const(init)),
-            scanned_detail::op_make()(rng, init, fun)
+            scanned_detail::baby<Range, State, BinaryFun>()(rng, init, fun)
         );
     }
 

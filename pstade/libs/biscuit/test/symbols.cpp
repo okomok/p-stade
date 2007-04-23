@@ -1,3 +1,4 @@
+
 #include <pstade/vodka/drink.hpp>
 #include <boost/test/minimal.hpp>
 
@@ -17,9 +18,9 @@
 
 #include <string>
 #include <vector>
+#include <pstade/biscuit/alias.hpp>
 
 
-using namespace pstade;
 using namespace biscuit;
 
 

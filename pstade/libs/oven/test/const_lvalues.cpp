@@ -20,7 +20,7 @@
 #include <pstade/oven/range_category.hpp>
 #include "./core.hpp"
 #include <pstade/oven/copy_range.hpp>
-#include <pstade/oven/copied_out.hpp>
+#include <pstade/oven/copied_to.hpp>
 #include <pstade/oven/filtered.hpp>
 #include <pstade/oven/transformed.hpp>
 
@@ -148,9 +148,9 @@ void test()
             oven::equals(answer,
                 src |
                     filtered(regular(bll::_1 != 'x'))  |
-                    copied_out(std::back_inserter(s1)) |
+                    copied_to(std::back_inserter(s1)) |
                     filtered(regular(bll::_1 != 'a'))  |
-                    copied_out(std::back_inserter(s2)) |
+                    copied_to(std::back_inserter(s2)) |
                     const_lvalues
             )
         ));

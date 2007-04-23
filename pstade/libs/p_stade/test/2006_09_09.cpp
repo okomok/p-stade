@@ -15,13 +15,13 @@
 
 #include <pstade/oven/algorithm.hpp> // copy
 #include <pstade/oven/equals.hpp>
-#include <pstade/oven/function_output_iterator.hpp> // to_function, to_regularized_function
+#include <pstade/oven/function_output_iterator.hpp> // passer, to_regularized_function
 #include <pstade/oven/file_range.hpp>
 #include <pstade/oven/filter_range.hpp>
 #include <pstade/oven/identity_range.hpp>
 #include <pstade/oven/regularize_range.hpp>
-#include <pstade/oven/to_stream.hpp>
-#include <pstade/oven/to_utf8_encoder.hpp>
+#include <pstade/oven/writer.hpp>
+#include <pstade/oven/utf8_encoder.hpp>
 #include <pstade/oven/utf8_decode_range.hpp>
 #include <pstade/oven/utf8_encode_range.hpp>
 #include <pstade/new.hpp>
@@ -49,7 +49,7 @@ void test()
 
     oven::copy(
         file_range<uint8_t>("x.txt")|utf8_decoded|filtered(&is_z)|utf8_encoded,
-        to_stream(*op_new<std::ofstream>("z.txt"))
+        writer(*op_new<std::ofstream>("z.txt"))
     );
 
 
@@ -58,7 +58,7 @@ void test()
     {
         oven::copy(
             file_range<uint8_t>("y.txt")|utf8_decoded|filtered(lambda::_1 == 0x7aU)|regularized,
-            to_utf8_encoder(to_regularized_function(z << lambda::_1))
+            utf8_encoder(to_regularized_function(z << lambda::_1))
         );
     }
 

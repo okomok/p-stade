@@ -16,10 +16,11 @@
 
 
 #include <string>
-#include <pstade/oven.hpp>
+#include <pstade/oven/alias.hpp>
+#include <pstade/oven/equals.hpp>
+#include <pstade/biscuit/alias.hpp>
 
 
-using namespace pstade;
 using namespace biscuit;
 
 

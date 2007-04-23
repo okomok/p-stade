@@ -231,7 +231,7 @@ If the file opening failed, the range is empty.
 
 [h3 See also]
 * [@http://www.boost.org/libs/spirit/doc/file_iterator.html boost::spirit::file_iterator]
-* [link oven.stream_input stream_input]
+* [link oven.reading reading]
 
 [endsect]
 

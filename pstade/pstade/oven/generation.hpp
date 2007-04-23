@@ -193,6 +193,9 @@ namespace nonstop_detail {
             return result_type(m_gen());
         }
 
+        explicit return_op()
+        { }
+
         explicit return_op(Generator gen) :
             m_gen(gen)
         { }

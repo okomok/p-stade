@@ -20,6 +20,9 @@
 #include <string>
 
 
+using namespace biscuit;
+
+
 struct is_abc
 {
     template< class Range, class US >

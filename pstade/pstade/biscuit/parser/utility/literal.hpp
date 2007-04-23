@@ -61,8 +61,8 @@ namespace literal_detail {
         template< class State, class UserState > \
         static bool parse(State& s, UserState& us) \
         { \
-            pstade::unused(us); \
-            return literal_detail::seq(s, psz|oven::as_literal); \
+            ::pstade::unused(us); \
+            return ::pstade::biscuit::literal_detail::seq(s, psz|::pstade::oven::as_literal); \
         } \
     }; \
 /**/
@@ -74,8 +74,8 @@ namespace literal_detail {
         template< class State, class UserState > \
         static bool parse(State& s, UserState& us) \
         { \
-            pstade::unused(us); \
-            return literal_detail::set(s, psz|oven::as_literal); \
+            ::pstade::unused(us); \
+            return ::pstade::biscuit::literal_detail::set(s, psz|::pstade::oven::as_literal); \
         } \
     }; \
 /**/

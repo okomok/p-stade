@@ -15,13 +15,14 @@
 
 
 #include <string>
+#include <pstade/biscuit/alias.hpp>
+
+
+using namespace biscuit;
 
 
 void test()
 {
-    using namespace pstade;
-    using namespace biscuit;
-
     {
         std::string text("xxxxx");
         BOOST_CHECK(( biscuit::match< repeat< chseq1<'x'>, 4, 6 > >(text) ));

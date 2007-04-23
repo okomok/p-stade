@@ -78,14 +78,16 @@
 <dt><span class="section"><a href="oven/range_makers.html#oven.as_single">as_single</a></span></dt>
 <dt><span class="section"><a href="oven/range_makers.html#oven.as_shared_single">as_shared_single</a></span></dt>
 <dt><span class="section"><a href="oven/range_makers.html#oven.counting">counting</a></span></dt>
+<dt><span class="section"><a href="oven/range_makers.html#oven.expression">expression</a></span></dt>
 <dt><span class="section"><a href="oven/range_makers.html#oven.generation">generation</a></span></dt>
 <dt><span class="section"><a href="oven/range_makers.html#oven.initial_values">initial_values</a></span></dt>
 <dt><span class="section"><a href="oven/range_makers.html#oven.iteration">iteration</a></span></dt>
+<dt><span class="section"><a href="oven/range_makers.html#oven.line_reading">line_reading</a></span></dt>
+<dt><span class="section"><a href="oven/range_makers.html#oven.reading">reading</a></span></dt>
+<dt><span class="section"><a href="oven/range_makers.html#oven.reading_buf">reading_buf</a></span></dt>
 <dt><span class="section"><a href="oven/range_makers.html#oven.recursion">recursion</a></span></dt>
 <dt><span class="section"><a href="oven/range_makers.html#oven.repeated">repeated</a></span></dt>
 <dt><span class="section"><a href="oven/range_makers.html#oven.shared">shared</a></span></dt>
-<dt><span class="section"><a href="oven/range_makers.html#oven.stream_input">stream_input</a></span></dt>
-<dt><span class="section"><a href="oven/range_makers.html#oven.streambuf_input">streambuf_input</a></span></dt>
 </dl></dd>
 <dt><span class="section"><a href="oven/range_adaptors.html">Range Adaptors</a></span></dt>
 <dd><dl>
@@ -100,7 +102,7 @@
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.concatenated">concatenated</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.constants">constants</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.const_lvalues">const_lvalues</a></span></dt>
-<dt><span class="section"><a href="oven/range_adaptors.html#oven.copied_out">copied_out</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.copied_to">copied_to</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.cycled">cycled</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.delimited">delimited</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.dropped">dropped</a></span></dt>
@@ -144,7 +146,6 @@
 <dt><span class="section"><a href="oven/utilities.html">Utilities</a></span></dt>
 <dd><dl>
 <dt><span class="section"><a href="oven/utilities.html#oven.adapted_to_base"> adapted_to/to_base</a></span></dt>
-<dt><span class="section"><a href="oven/utilities.html#oven.expression">expression</a></span></dt>
 <dt><span class="section"><a href="oven/utilities.html#oven.io_hpp">io.hpp</a></span></dt>
 <dt><span class="section"><a href="oven/utilities.html#oven.nonstop">nonstop</a></span></dt>
 <dt><span class="section"><a href="oven/utilities.html#oven.regular">regular</a></span></dt>
@@ -156,9 +157,10 @@
 </dl></dd>
 <dt><span class="section"><a href="oven/output_iterator_adaptors.html">Output Iterator Adaptors</a></span></dt>
 <dd><dl>
-<dt><span class="section"><a href="oven/output_iterator_adaptors.html#oven.to_counter">to_counter</a></span></dt>
-<dt><span class="section"><a href="oven/output_iterator_adaptors.html#oven.to_function">to_function</a></span></dt>
-<dt><span class="section"><a href="oven/output_iterator_adaptors.html#oven.to_stream">to_stream</a></span></dt>
+<dt><span class="section"><a href="oven/output_iterator_adaptors.html#oven.counter">counter</a></span></dt>
+<dt><span class="section"><a href="oven/output_iterator_adaptors.html#oven.passer">passer</a></span></dt>
+<dt><span class="section"><a href="oven/output_iterator_adaptors.html#oven.utf8_encoder">utf8_encoder</a></span></dt>
+<dt><span class="section"><a href="oven/output_iterator_adaptors.html#oven.writer">writer</a></span></dt>
 </dl></dd>
 <dt><span class="section"><a href="oven/extending_boost_range.html">Extending Boost.Range</a></span></dt>
 <dd><dl>
@@ -290,6 +292,8 @@
 <li><a href="http://boost.cvs.sourceforge.net/boost-sandbox/boost-sandbox/boost/view/" target="_top">Boost.View</a></li>
 <li><a href="http://sourceforge.jp/projects/cradle/" target="_top">Cradle - A C++ Sandbox</a></li>
 <li><a href="http://www.ddj.com/dept/cpp/196513737" target="_top">C++ View Objects</a></li>
+<li><a href="http://hamigaki.sourceforge.jp/doc/html/index.html" target="_top">Hamigaki
+          C++ Libraries</a></li>
 <li><a href="http://www.torjo.com/rangelib/index.html" target="_top">RangeLib - The Boost
           Iterable Range Library</a></li>
 <li><a href="http://www.zib.de/weiser/vtl/" target="_top">VTL (View Template Library)</a></li>
@@ -305,7 +309,7 @@
       </p>
 <div class="informaltable">
 <h5>
-<a name="id431390"></a>
+<a name="id431401"></a>
         </h5>
 <table class="table">
 <colgroup>
@@ -404,7 +408,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><small><p>Last revised: April 22, 2007 at 06:19:08 GMT</p></small></td>
+<td align="left"><small><p>Last revised: April 22, 2007 at 23:30:15 GMT</p></small></td>
 <td align="right"><small></small></td>
 </tr></table>
 <hr>

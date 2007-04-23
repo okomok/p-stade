@@ -120,7 +120,7 @@ for any _stoppable_generator_ `g` the following must be met:
 * An /uninitialized/ result is considered as the stop of generating.
 
 [h3 Models]
-* Any _callable_object_ [link oven.nonstop nonstop] returns
+* Any _callable_object_ which [link oven.nonstop nonstop] returns.
 
 [endsect]
 

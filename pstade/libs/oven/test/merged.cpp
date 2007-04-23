@@ -20,7 +20,7 @@
 #include "./core.hpp"
 #include <pstade/oven/algorithm.hpp>
 #include <pstade/oven/tests.hpp>
-#include <pstade/oven/to_stream.hpp>
+#include <pstade/oven/writer.hpp>
 #include <pstade/oven/as_c_str.hpp>
 #include <pstade/test.hpp>
 
@@ -74,16 +74,16 @@ void test()
         int AA[] = {1,1,1,2,3,3,5,5,7,8,9,11,13};
 
         BOOST_CHECK( oven::equals(A1|merged(A2), AA) );
-        oven::copy(A1|merged(A2), to_stream(std::cout));
+        oven::copy(A1|merged(A2), writer(std::cout));
     }
     {
         std::string A1("abbbfH");
         std::string A2("ABbCDFFhh");
         std::string AA("aAbbbBbCDfFFHhh");
         BOOST_CHECK( oven::equals(A1|merged(A2, &::lt_nocase), AA) );
-        oven::copy(A1|merged(A2, &::lt_nocase), to_stream(std::cout));
+        oven::copy(A1|merged(A2, &::lt_nocase), writer(std::cout));
         // std::cout << std::endl;
-        // oven::merge(A1, A2, to_stream(std::cout), &lt_nocase); 
+        // oven::merge(A1, A2, writer(std::cout), &lt_nocase); 
     }
 }
 

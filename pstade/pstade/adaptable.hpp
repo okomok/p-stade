@@ -10,10 +10,16 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// What:
+//
+// Converts a FunctionObject supporting 'result_of' into an Adaptable one.
+
+
 #include <functional>
 #include <boost/utility/result_of.hpp>
+#include <pstade/callable.hpp>
 #include <pstade/const_fun.hpp>
-#include <pstade/function.hpp>
+#include <pstade/pass_by.hpp>
 #include <pstade/specified.hpp>
 
 
@@ -23,8 +29,8 @@ namespace pstade {
     namespace adaptable_detail {
 
 
-        template<class A0, class Callable>
-        struct return_op1 :
+        template<class Callable, class A0>
+        struct return_fun1 :
             std::unary_function<
                 A0,
                 typename boost::result_of<PSTADE_CONST_FUN_TPL(Callable)(A0&)>::type
@@ -36,7 +42,7 @@ namespace pstade {
                 return m_fun(a0);
             }
 
-            explicit return_op1(Callable fun) :
+            explicit return_fun1(Callable fun) :
                 m_fun(fun)
             { }
 
@@ -45,8 +51,8 @@ namespace pstade {
         };
 
 
-        template<class A0, class A1, class Callable>
-        struct return_op2 :
+        template<class Callable, class A0, class A1>
+        struct return_fun2 :
             std::binary_function<
                 A0, A1,
                 typename boost::result_of<PSTADE_CONST_FUN_TPL(Callable)(A0&, A1&)>::type
@@ -58,7 +64,7 @@ namespace pstade {
                 return m_fun(a0, a1);
             }
 
-            explicit return_op2(Callable fun) :
+            explicit return_fun2(Callable fun) :
                 m_fun(fun)
             { }
 
@@ -70,46 +76,52 @@ namespace pstade {
     } // namespace adaptable_detail
 
 
-    // Let adaptable_unary adaptable.
-    template<class A0, class Callable>
-    struct adaptable_unary_base
-    {
-        typedef typename
-            adaptable_detail::return_op1<A0, Callable>
-        result_type;
-
-        result_type operator()(Callable& fun) const
-        {
-            return result_type(fun);
-        }
-    };
-
     template<class A0>
     struct op_adaptable_unary :
-        function< adaptable_unary_base<A0, boost::mpl::_1> >
-    { };
+        callable< op_adaptable_unary<A0> >
+    { 
+        template<class Myself, class Callable>
+        struct apply
+        {
+            typedef
+                adaptable_detail::return_fun1<
+                    typename pass_by_value<Callable>::type,
+                    A0
+                >
+            type;
+        };
+
+        template<class Result, class Callable>
+        Result call(Callable& fun) const
+        {
+            return Result(fun);
+        }    
+    };
 
     PSTADE_SPECIFIED1(adaptable_unary, op_adaptable_unary, 1)
 
 
-    // Let 'adaptabe2' adaptable.
-    template<class A0, class A1, class Callable>
-    struct adaptable_binary_base
-    {
-        typedef typename
-            adaptable_detail::return_op2<A0, A1, Callable>
-        result_type;
-
-        result_type operator()(Callable& fun) const
-        {
-            return result_type(fun);
-        }
-    };
-
     template<class A0, class A1>
     struct op_adaptable_binary :
-        function< adaptable_binary_base<A0, A1, boost::mpl::_1> >
-    { };
+        callable< op_adaptable_binary<A0, A1> >
+    { 
+        template<class Myself, class Callable>
+        struct apply
+        {
+            typedef
+                adaptable_detail::return_fun2<
+                    typename pass_by_value<Callable>::type,
+                    A0, A1
+                >
+            type;
+        };
+
+        template<class Result, class Callable>
+        Result call(Callable& fun) const
+        {
+            return Result(fun);
+        }    
+    };
 
     PSTADE_SPECIFIED1(adaptable_binary, op_adaptable_binary, 2)
 

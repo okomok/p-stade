@@ -15,9 +15,9 @@
 
 
 #include <string>
+#include <pstade/biscuit/alias.hpp>
 
 
-using namespace pstade;
 using namespace biscuit;
 
 

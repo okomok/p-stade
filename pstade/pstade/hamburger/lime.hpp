@@ -16,7 +16,7 @@
 #include <pstade/lime/save.hpp> // save_default
 #include <pstade/oven/copy_range.hpp>
 #include <pstade/oven/equals.hpp>
-#include <pstade/oven/to_function.hpp>
+#include <pstade/oven/passer.hpp>
 #include <pstade/unused.hpp>
 #include <pstade/ustring.hpp>
 #include "./element.hpp"
@@ -50,7 +50,7 @@ namespace pstade_lime_extension {
             return lime::save_default(node, out);
 
         if (!oven::equals(node%Name_serializable, Value_true))
-            return lime::save_default(node, oven::to_function(pstade::unused));
+            return lime::save_default(node, oven::passer(pstade::unused));
 
         try {
             hamburger::save(node, node%Name_includedHref);

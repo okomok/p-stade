@@ -15,13 +15,14 @@
 
 #include <string>
 #include <pstade/biscuit/algorithm/match.hpp>
+#include <pstade/biscuit/alias.hpp>
+
+
+using namespace biscuit;
 
 
 void test()
 {
-    using namespace pstade;
-    using namespace biscuit;
-
     {
         BOOST_CHECK(( biscuit::match< or_<char_<'a'>, impossible> >(std::string("a")) ));
     }

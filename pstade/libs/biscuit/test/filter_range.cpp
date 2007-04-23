@@ -20,10 +20,11 @@
 #include <boost/range.hpp>
 #include <pstade/oven/as_literal.hpp>
 #include <pstade/oven/transformed.hpp>
+#include <pstade/oven/alias.hpp>
+#include <pstade/biscuit/alias.hpp>
 
 
-using namespace pstade;
-using namespace pstade::biscuit;
+using namespace biscuit;
 
 
 struct toupper_ :

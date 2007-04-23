@@ -14,7 +14,7 @@
 
 
 #include <boost/utility/result_of.hpp>
-#include <pstade/oven/metafunctions.hpp>
+#include <pstade/oven/range_iterator.hpp>
 #include <pstade/const_overloaded.hpp>
 #include <pstade/oven/begin_end.hpp>
 #include <boost/mpl/assert.hpp>

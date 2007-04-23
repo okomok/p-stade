@@ -55,7 +55,7 @@ void pstade_unit_test()
 
 		lime::save(
 			root.front(),
-			oven::to_utf8_encoder(oven::to_stream(fout))
+			oven::utf8_encoder(oven::writer(fout))
 		);
 
 	}
