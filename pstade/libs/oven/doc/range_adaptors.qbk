@@ -11,13 +11,17 @@ Additional information is available at _proposal_.
 [section adjacent_filtered]
 
 [h3 Description]
-`adjacent_filtered` skips elements while a _predicate_ applied to adjacent pairs doesn't satisfy.
+`adjacent_filtered` skips elements while a predicate applied to adjacent pairs doesn't satisfy.
 
 [h3 Header]
 * `<pstade/oven/adjacent_filtered.hpp>`
 
 [h3 Model of]
 * _pipable_object_
+
+[h3 Notation]
+* `{a0,a1,a2,a3,..,aN}` is `_fwdrng`.
+* `{b0,b1,b2,..,bM}` is a sub sequence of `{a0,a1,a2,a3,..,aN}`.
 
 [h3 Valid expressions]
 [table 
@@ -34,9 +38,7 @@ Additional information is available at _proposal_.
 ]
 
 [h3 Preconditions]
-* `{a0,a1,a2,a3,..,aN}` is `_fwdrng`.
 * `_prd(*_begin(_fwdrng), *_begin(_fwdrng))` is a well-formed.
-* `{b0,b1,b2,..,bM}` is a subset of `{a0,a1,a2,a3,..,aN}`.
 * `_prd(b0, b1)`, `_prd(b1, b2)`, .., `_prd(bM-1, bM)` are `true`.
 * The distance from `bI` to `bJ` is minimum for all `(bI, bJ)`.
 * `_prd` is _assignable_ and _default_constructible_.
@@ -59,7 +61,8 @@ Additional information is available at _proposal_.
 [h3 Header]
 * `<pstade/oven/adjacent_transformed.hpp>`
 
-[h3 Model of]
+[h3 Notation]
+* `{a0,a1,a2,a3,..,aN}` is `_fwdrng`.
 
 [h3 Valid expressions]
 [table 
@@ -95,7 +98,6 @@ Additional information is available at _proposal_.
 
 [h3 Preconditions]
 * `!boost::empty(_fwdrng)`
-* `{a0,a1,a2,a3,..,aN}` is `_fwdrng`.
 * `_fun(*_begin(_fwdrng), *_begin(_fwdrng))` is well-formed.
 * `_fun` is _assignable_ and _default_constructible_.
 * `_cal` meets the preconditions of `_fun`.
@@ -399,6 +401,11 @@ Additional information is available at _proposal_.
 [h3 Model of]
 * _pipable_object_
 
+[h3 Notation]
+* `SegmentIterator` is `_iter_of<_typeof(_rng)>::type`.
+* `LocalIterator` is `_iter_of<_typeof(*_begin(_rng))>::type`.
+* `{aI1,aI2,..aIMI}` is `*boost::next(_begin(_rng)`, I)`.
+
 [h3 Valid expressions]
 [table 
     [
@@ -408,18 +415,13 @@ Additional information is available at _proposal_.
     [
         [`_rng|concatenated`]
         [
-            A _range_ up to _bidirectional_range_ `{a11,a12,..,a1M1,a21,a22,..,a2M2,..,aN1,aN2,..,aMN}`.
+            A range up to _bidirectional_range_ `{a11,a12,..,a1M1,a21,a22,..,a2M2,..,aN1,aN2,..,aMN}`.
         ]
     ]
 ]
 
-[h3 Specification]
-* `SegmentIterator` is an iterator of `_rng`.
-* `LocalIterator` is an iterator of `*_begin(_rng)`.
-
 [h3 Preconditions]
 * `range_value<_typeof(_rng)>::type` is a _range_.
-* `{a11,a12,..a1MI}` is `*_begin(_rng)`, `{a21,a22,..a2M2}` is `*boost::next(_begin(_rng), 1)`, and so on.
 * A `LocalIterator` must be valid after copying of `SegmentIterator`.
 
 [note The last precondition implies `broken_into` and `xpressive_tokenized` can't work with `concatenated`.]
@@ -496,7 +498,7 @@ Additional information is available at _proposal_.
     [
         [`_rng|cleared`]
         [
-            A _constant_range_ `[_begin(_rng), _end(_rng))` whose `boost::range_reference` type is reference.
+            A _constant_range_ `[_begin(_rng), _end(_rng))` whose `boost::range_reference` type is a /reference/.
         ]
     ]
 ]
@@ -516,7 +518,7 @@ Additional information is available at _proposal_.
 [section copied_to]
 
 [h3 Description]
-`copied_to` makes a side-effect that copies the base range to its argument iterator.
+`copied_to` makes a side-effect that copies the base range to an _output_iterator_.
 
 [h3 Header]
 * `<pstade/oven/copied_to.hpp>`
@@ -531,7 +533,7 @@ Additional information is available at _proposal_.
         [[*Semantics]]
     ]
     [
-        [`_fwdrng|copied_to(t)`]
+        [`_fwdrng|copied_to(x)`]
         [
             `[_begin(_fwdrng), _end(_fwdrng))`
         ]
@@ -539,10 +541,10 @@ Additional information is available at _proposal_.
 ]
 
 [h3 Effects]
-* `std::copy(_begin(_fwdrng), _end(_fwdrng), t)`
+* `std::copy(_begin(_fwdrng), _end(_fwdrng), x)`
 
 [h3 Preconditions]
-* `std::copy(_begin(_fwdrng), _end(_fwdrng), t)` is a valid expression.
+* `std::copy(_begin(_fwdrng), _end(_fwdrng), x)` is a valid expression.
 
 [h3 Example]
 
@@ -564,6 +566,9 @@ Additional information is available at _proposal_.
 [h3 Model of]
 * _pipable_object_
 
+[h3 Notation]
+* `{a0,..aN}` is `_rng`.
+
 [h3 Valid expressions]
 [table 
     [
@@ -579,9 +584,8 @@ Additional information is available at _proposal_.
 ]
 
 [h3 Preconditions]
-* `typeof(c)` is convertible to `boost::range_difference<typeof(_rng)>::type`.
+* `_typeof(c)` is convertible to `boost::range_difference<_typeof(_rng)>::type`.
 * `0 <= c`
-* `{a0,..aN}` is `_rng`.
 
 [h3 Example]
     BOOST_CHECK( equals(
@@ -609,6 +613,9 @@ Additional information is available at _proposal_.
 [h3 Model of]
 * _pipable_object_
 
+[h3 Notation]
+* `join` is `regular(boost::lambda::bind(make_jointed, _rng2, boost::lambda::_1))`.
+
 [h3 Valid expressions]
 [table 
     [
@@ -625,7 +632,6 @@ Additional information is available at _proposal_.
 
 [h3 Preconditions]
 * `make_jointed(_rng2, *_begin(_rng1))` is well-formed.
-* `join` is `regular(boost::lambda::bind(make_jointed, _rng2, boost::lambda::_1))`.
 
 [note `delimited` prepends the delimiter. `dropped` is useful to remove it.]
 
@@ -673,7 +679,7 @@ Additional information is available at _proposal_.
 ]
 
 [h3 Preconditions]
-* `typeof(n)` is convertible to `boost::range_difference<typeof(_rng)>::type`.
+* `_typeof(n)` is convertible to `boost::range_difference<typeof(_rng)>::type`.
 * `0 <= n`
 
 [h3 Example]
@@ -702,6 +708,9 @@ Additional information is available at _proposal_.
 [h3 Model of]
 * _pipable_object_
 
+[h3 Notation]
+* `not_` is an imaginary predicate to negate `_prd`.
+
 [h3 Valid expressions]
 [table 
     [
@@ -717,7 +726,6 @@ Additional information is available at _proposal_.
 ]
 
 [h3 Preconditions]
-* `not_` is an imaginary _predicate_ to negate `_prd`.
 
 [h3 Example]
     std::string src("11111234516313!");
@@ -787,6 +795,9 @@ Additional information is available at _proposal_.
 [h3 Model of]
 * _pipable_object_
 
+[h3 Notation]
+* `first_of` is an imaginary function which returns a member `first`.
+
 [h3 Valid expressions]
 [table 
     [
@@ -803,7 +814,6 @@ Additional information is available at _proposal_.
 
 [h3 Preconditions]
 * `range_value<_typeof(_rng)>::type` is a `std::pair`.
-* `first_of` is an imaginary function which returns a member `first`.
 * `_rng|transformed(first_of)` is a valid expression.
 
 [h3 Example]
@@ -933,7 +943,7 @@ Additional information is available at _proposal_.
     BOOST_CHECK( equals(src, answer) );
 
 [h3 See also]
-* [@http://www.boost.org/libs/iterator/doc/indirect_iterator.html indirect_iterator]
+* [@http://www.boost.org/libs/iterator/doc/indirect_iterator.html boost::indirect_iterator]
 * [link oven.outdirected outdirected]
 
 [endsect]
@@ -952,6 +962,10 @@ Additional information is available at _proposal_.
 [h3 Model of]
 * _pipable_object_
 
+[h3 Notation]
+* `{a0,..,aN}` is `_rng1`.
+* `{b1,..,bM}` is `_rng2`.
+
 [h3 Valid expressions]
 [table 
     [
@@ -967,7 +981,6 @@ Additional information is available at _proposal_.
 ]
 
 [h3 Preconditions]
-* `{a0,..,aN}` is `_rng1`, and `{b1,..,bM}` is `_rng2`.
 
 [h3 Example]
     std::string str0("every range");
@@ -1178,7 +1191,7 @@ Additional information is available at _proposal_.
     ss << "hello, memoized!";
 
     ::very_complicated_algorithm(
-        oven::stream_input<char>(ss)
+        oven::reading<char>(ss)
             | memoized
             | directed
             | indirected
@@ -1204,6 +1217,9 @@ Additional information is available at _proposal_.
 * `<pstade/oven/merged.hpp>`
 
 [h3 Model of]
+
+[h3 Notation]
+* `less` is `regular(boost::lambda::_1 < boost::lambda::_2)`.
 
 [h3 Valid expressions]
 [table 
@@ -1247,7 +1263,6 @@ Additional information is available at _proposal_.
 * `_rng1` and `_rng2` are sorted.
 * `_prd` is _assignable_.
 * If `_rng1` and `_rng2` are _forward_range_s, `_prd` is _default_constructible_.
-* `less = regular(boost::lambda::_1 < boost::lambda::_2)`
 
 [h3 Example]
     std::string A1("abbbfH");
@@ -1343,6 +1358,8 @@ Additional information is available at _proposal_.
     BOOST_CHECK( equals(iters|indirected, answer) );
 
 [h3 See also]
+* [link oven.indirected indirected]
+* [link oven.pointed pointed]
 
 [endsect]
 
@@ -1382,6 +1399,7 @@ That is, the view includes every element of the given range but in a potentially
 
 [h3 See also]
 * [@http://www.boost.org/libs/iterator/doc/permutation_iterator.html boost::permutation_iterator]
+* [link oven.sliced sliced]
 
 [endsect]
 
@@ -1431,6 +1449,7 @@ That is, the view includes every element of the given range but in a potentially
     BOOST_CHECK(( equals(vec|as_c_str, src) ));
 
 [h3 See also]
+* [link oven.outdirected outdirected]
 
 [endsect]
 
@@ -1457,7 +1476,7 @@ That is, the view includes every element of the given range but in a potentially
     [
         [`_fwdrng|popped`]
         [
-            `[_begin(_fwdrng), boost::next(_begin(_fwdrng), oven::distance(_fwdrng)-1))`
+            `[_begin(_fwdrng), boost::next(_begin(_fwdrng), distance(_fwdrng) - 1))`
         ]
     ]
 ]
@@ -1505,6 +1524,8 @@ That is, the view includes every element of the given range but in a potentially
 [h3 Example]
 
 [h3 See also]
+* [link oven.as_single as_single]
+* [link oven.jointed jointed]
 
 [endsect]
 
@@ -1529,15 +1550,15 @@ A range returned from `reversed` iterates in the opposite direction.
         [[*Semantics]]
     ]
     [
-        [`_rng|reversed`]
+        [`_bidrng|reversed`]
         [
-            `[T(boost:end(_rng)), T(_begin(_rng)))`
+            `[T(boost:end(_bidrng)), T(_begin(_bidrng)))`
         ]
     ]
 ]
 
 [h3 Preconditions]
-* `T` is `boost::reverse_iterator<boost::_iter_of<_typeof(_rng)>::type>` such that `T(_begin(_rng))` is a valid expression.
+* `T` is `boost::reverse_iterator<boost::_iter_of<_typeof(_bidrng)>::type>` such that `T(_begin(_bidrng))` is a valid expression.
 
 [h3 Example]
 
@@ -1559,6 +1580,10 @@ A range returned from `reversed` iterates in the opposite direction.
 
 [h3 Model of]
 * _pipable_object_
+
+[h3 Notation]
+* `{a0,a1,a2,..,aN}` is `_rng`.
+* `{b1,b2,b3,..,bM}` is `_rng1`.
 
 [h3 Valid expressions]
 [table 
@@ -1582,10 +1607,8 @@ A range returned from `reversed` iterates in the opposite direction.
 
 [h3 Preconditions]
 * `_typeof(s)` is _assignable_, _copy_constructible_ and _default_constructible_.
-* `{a0,a1,a2,..,aN}` is `_rng`.
 * `_fun(_fun(s, a), a)` is well-formed, where `a = *_begin(_rng))`.
 * `range_value<_typeof(_rng1)>::type` is _assignable_, _copy_constructible_ and _default_constructible_.
-* `{b1,b2,b3,..,bM}` is `_rng1`.
 * `_fun1(_fun1(b, b), b)` is well-formed, where `b = *_begin(_rng))`.
 * `!boost::empty(_rng1)`
 * `_fun` and `_fun1` are _assignable_.
@@ -1620,6 +1643,9 @@ A range returned from `reversed` iterates in the opposite direction.
 [h3 Model of]
 * _pipable_object_
 
+[h3 Notation]
+* `second_of` is an imaginary function which returns a member `second`.
+
 [h3 Valid expressions]
 [table 
     [
@@ -1627,7 +1653,7 @@ A range returned from `reversed` iterates in the opposite direction.
         [[*Semantics]]
     ]
     [
-        [`_rng|firsts`]
+        [`_rng|seconds`]
         [
             `_rng|transformed(second_of)`
         ]
@@ -1636,7 +1662,6 @@ A range returned from `reversed` iterates in the opposite direction.
 
 [h3 Preconditions]
 * `range_value<_typeof(_rng)>::type` is a `std::pair`.
-* `second_of` is an imaginary function which returns a member `second`.
 * `_rng|transformed(second_of)` is a valid expression.
 
 [h3 Example]
@@ -1846,6 +1871,9 @@ A range returned from `reversed` iterates in the opposite direction.
 [h3 Model of]
 * _pipable_object_
 
+[h3 Notation]
+* `f` is `_begin(_rndrng)`.
+
 [h3 Valid expressions]
 [table 
     [
@@ -1862,9 +1890,7 @@ A range returned from `reversed` iterates in the opposite direction.
 
 [h3 Preconditions]
 * `_typeof(s)` and `_typeof(t)` are convertible to `boost::range_difference<typeof(_rndrng)>::type`.
-* `f = _begin(_rndrng)`
-* `n = distance(_rndrng) / t`
-* `n == 0 || n % t == 0`
+* `n` is `distance(_rndrng) / t` such that `n == 0 || n % t == 0`.
 * `0 <= s && s < t`
 
 [h3 Example]
@@ -1894,6 +1920,9 @@ A range returned from `reversed` iterates in the opposite direction.
 [h3 Model of]
 * _pipable_object_
 
+[h3 Notation]
+* `iK = boost::next(boost::begin(_rng), w*K))`
+
 [h3 Valid expressions]
 [table 
     [
@@ -1903,16 +1932,15 @@ A range returned from `reversed` iterates in the opposite direction.
     [
         [`_rng|steps(w)`]
         [
-            A _range_ up to _forward_range_ `{*i0,*i1,*i2,*i3,..,*iM}`.
+            A range up to _forward_range_ `{*i0,*i1,*i2,*i3,..,*iM}`.
         ]
     ]
 ]
 
 [h3 Preconditions]
-* `typeof(w)` is convertible to `boost::range_difference<typeof(_rng)>::type`.
+* `_typeof(w)` is convertible to `boost::range_difference<_typeof(_rng)>::type`.
 * `1 <= w`
-* `iK = boost::next(boost::begin(_rng), w*K))`
-* `M` is the largest number such that `iM < boost::end(_rng)`.
+* `M` is the largest number such that `iM < _end(_rng)`.
 
 [h3 Example]
     int const answer[] = { 0, 40, 80 };
@@ -2026,7 +2054,7 @@ A range returned from `reversed` iterates in the opposite direction.
     [
         [`_rng|taken(n)`]
         [
-            A _range_ up to _forward_range_ `[_begin(_rng), boost::next(_begin(_rng), std::min(n, distance(_rng))))`.
+            A range up to _forward_range_ `[_begin(_rng), boost::next(_begin(_rng), std::min(n, distance(_rng))))`.
         ]
     ]
 ]
@@ -2057,6 +2085,9 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
 [h3 Model of]
 * _pipable_object_
 
+[h3 Notation]
+* `not_` is an imaginary predicate to negate `_prd`.
+
 [h3 Valid expressions]
 [table 
     [
@@ -2066,14 +2097,13 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
     [
         [`_rng|taken_while(_prd)`]
         [
-            A _range_ up to _forward_range_ `[_begin(_rng), std::find_if(_begin(_rng), _end(_rng), not_(_prd)))`.
+            A range up to _forward_range_ `[_begin(_rng), std::find_if(_begin(_rng), _end(_rng), not_(_prd)))`.
         ]
     ]
 ]
 
 [h3 Preconditions]
 * `_typeof(n)` is convertible to `range_difference<_typeof(_rng)>::type`.
-* `not_` is an imaginary _predicate_ to negate `_prd`.
 * `_prd` is _assignable_.
 * If `_rng` is a _forward_range_, `_prd` is _default_constructible_.
 
@@ -2214,6 +2244,9 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
 [h3 Model of]
 * _pipable_object_
 
+[h3 Notation]
+* `not_equal_to` is `regular(boost::lambda::_1 != boost::lambda::_2)`.
+
 [h3 Valid expressions]
 [table 
     [
@@ -2229,8 +2262,6 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
 ]
 
 [h3 Preconditions]
-* `not_equal_to =
-  regular(boost::lambda::_1 != boost::lambda::_2)`
 * `_fwdrng|adjacent_filtered(not_equal_to)` is a valid expression.
 
 [h3 Example]
@@ -2313,6 +2344,7 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
 [h3 Example]
 
 [h3 See also]
+* [@http://boost-sandbox.sourceforge.net/libs/xpressive/doc/html/header/boost/xpressive/regex_iterator/hpp.html boost::xpressive::regex_iterator]
 * [link oven.matches matches]
 * [link oven.xpressive_tokenized xpressive_tokenized]
 
@@ -2352,6 +2384,7 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
 [h3 Example]
 
 [h3 See also]
+* [@http://boost-sandbox.sourceforge.net/libs/xpressive/doc/html/header/boost/xpressive/regex_token_iterator/hpp.html boost::xpressive::regex_token_iterator]
 * [link oven.tokenized tokenized]
 * [link oven.xpressive_matches xpressive_matches]
 

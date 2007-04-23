@@ -41,7 +41,7 @@ An _operatable_object_ is a _callable_object_ which can specify the type of itse
 In addition to the requirements defined in _callable_object_,
 for any _operatable_object_ `f` the following must be met:
 
-* `op_f` is the `_typeof(f)`.
+* `op_f` is `_typeof(f)`.
 
 [h3 Models]
 * [link oven.filtered make_filtered]
@@ -65,7 +65,7 @@ For any _pipable_object_ `p` the following must be met:
 
 * `a|p(a0,..,aN)` is a valid expression if and only if `make_p(a, a0,..aN)` is a valid expression.
 * `a|p(a0,..,aN)` and `make_p(a, a0,..aN)` have the same effects.
-* `make_p` is a _operatable_object_.
+* `make_p` is an _operatable_object_.
 * If `N == 0`, `a|p` and `make_p(a)` are valid expressions which have the same effects.
 
 [h3 Models]

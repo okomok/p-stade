@@ -40,11 +40,9 @@ All the types, functions and objects are defined in `namespace pstade::oven`.
 [section Requirements]
 
 * _boost_ Version 1.34.0 or later
+    * [link oven.directory_range directory_range] requires _boost_filesystem_ to be built.
+    * [link oven.matches matches] and [link oven.tokenized tokenized] requires _boost_regex_ to be built.
 * _pstade_release_ Version 1.03.1 or later (build not required)
-
-Oven is a header-only library and usually uses header-only libraries of _boost_.
-For now, `directory_range` requires _boost_filesystem_ to be built, and
- `matches` and `tokenized` requires _boost_regex_ to be built.
 
 [endsect]
 
@@ -65,10 +63,6 @@ Oven is known to work under the following platforms:
 
 
 [section Rationale]
-
-* Oven is functional; by using _boost_result_of_, the inferface is more simplified than using unnecessary types and templates.
-* Oven is expression-oriented; as far as the expression is valid, you don't need to learn C++!?
-* Oven is lightweight; never tries to do something like copying a `std::vector`.
 * Oven supports an iterator such that destruction of it may invalidate pointers and references previously obtained from that iterator (24.1.9).
 * Oven doesn't figure out the `distance` of non-_random_access_range_; in order to allow a very long (or complicated) range.
 
@@ -104,7 +98,7 @@ This document uses the following notation:
     ]
     [
         [`_typeof`]
-        [An imaginary operator which returns the type of expression.]
+        [An imaginary operator to get the type of an expression.]
     ]
     [
         [`_rng`]

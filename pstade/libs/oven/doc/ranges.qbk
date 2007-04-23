@@ -12,7 +12,7 @@ Though Oven supports `boost::result_of`, it is often cumbersome to get the type 
 * `<pstade/oven/any_range.hpp>`
 
 [h3 Model of]
-* _range_ whose traversal category varies according to the template argument `T`.
+* _range_ whose traversal category varies according to the template argument `C`.
 * _assignable_
 * _default_constructible_
 
@@ -23,25 +23,25 @@ Though Oven supports `boost::result_of`, it is often cumbersome to get the type 
         [[*Semantics]]
     ]
     [
-        [`any_range<R, T>(_rng)`]
+        [`any_range<R, C>(_rng)`]
         [
             `[_begin(_rng), _end(_rng))` whose `boost::range_reference` type is `R`.
         ]
     ]
     [
-        [`any_range<R, T> any = _rng0;`]
-        [`any_range<R, T> any(_rng0);`]
+        [`any_range<R, C> any = _rng0;`]
+        [`any_range<R, C> any(_rng0);`]
     ]
     [
-        [`any_range<R, T> any; any = _rng;`]
-        [`any_range<R, T> any(_rng);`]
+        [`any_range<R, C> any; any = _rng;`]
+        [`any_range<R, C> any(_rng);`]
     ]
 ]
 
 [h3 Preconditions]
 * `boost::range_reference<_typeof(_rng)>::type` is convertible to `R` without binding reference to rvalue.
-* `T` is convertible to `boost::single_pass_traversal_tag`.
-* `boost::range_traversal<_typeof(_rng)>::type` is convertible to `T`.
+* `C` is convertible to `boost::single_pass_traversal_tag`.
+* `boost::range_traversal<_typeof(_rng)>::type` is convertible to `C`.
 * `_rng0` is a range returned from Oven _function_object_ and meets the preconditions of `_rng`.
 
 [h3 Example]
@@ -50,7 +50,7 @@ Though Oven supports `boost::result_of`, it is often cumbersome to get the type 
             scanned(1, regular(lambda::_1 * lambda::_2));
 
 [h3 See also]
-* [@http://thbecker.net/free_software_utilities/type_erasure_for_cpp_iterators/start_page.html any_iterator]
+* [@http://thbecker.net/free_software_utilities/type_erasure_for_cpp_iterators/start_page.html Type Erasure for C++ Iterators]
 * [link oven.expression expression]
 
 [endsect]
@@ -94,6 +94,9 @@ a range presentation of dynamically allocated arrays.
     copy(str, darr|begin);
 
     BOOST_CHECK( equals(sarr, darr) );
+
+[h3 See also]
+* Boost.Array
 
 [endsect]
 
@@ -200,6 +203,9 @@ If the file opening failed, the range is empty.
 * _random_access_range_
 * _constant_range_
 
+[h3 Notation]
+* `r` is a `file_range`.
+
 [h3 Valid expressions]
 [table 
     [
@@ -223,7 +229,6 @@ If the file opening failed, the range is empty.
 
 [h3 Preconditions]
 * `T` is `boost::spirit::file_iterator<X1,..,XN>` such that `T(s)` is a valid expression.
-* `r` is a `file_range`.
 
 [h3 Example]
     std::vector<char> vec;

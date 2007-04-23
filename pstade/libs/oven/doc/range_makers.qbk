@@ -1,6 +1,9 @@
 [section Range Makers]
 
 
+Before applying a [link oven.range_adaptors range apdator], you must prepare a range by using the following functions.
+
+
 
 
 [section as_array]
@@ -390,11 +393,19 @@ The overhead can be removed with the help of _boost_typeof_ if your compiler sup
             Returns a _random_access_range_ `{a1,..,aN}`.
         ]
     ]
+    [
+        [`Rng rng = initial_values(b1,..,bN);`]
+        [
+            `Rng rng = initial_values(b1,..,bN)|copied;`
+        ]
+    ]
 ]
 
 [h3 Preconditions]
 * `1 <= N && N <= 20`
-* `boost::assign::cref_list_of<N>(a1)..(aN)` is a valid expression.
+* `_typeof(aK)` is convertible to `typeof(a1)` for all `K` such that `2 <= K && K <= N`.
+* `b` meets the preconditions of `a`.
+* `Rng rng = initial_values(b1,..,bN)|copied;` is a valid expression.
 
 [note `initial_values` trades unlimited arity for the lightweight initialization of `boost::array`.]
 
@@ -584,7 +595,7 @@ on the first argument, the second item by applying the function on the previous 
 
 
 
-[section reading_buf]
+[section readingbuf]
 
 [h3 Header]
 * `<pstade/oven/reading.hpp>`
@@ -599,13 +610,13 @@ on the first argument, the second item by applying the function on the previous 
         [[*Semantics]]
     ]
     [
-        [`reading_buf(s)`]
+        [`readingbuf(s)`]
         [
             `[T(s), T())`
         ]
     ]
     [
-        [`reading_buf(p)`]
+        [`readingbuf(p)`]
         [
             `[U(p), U())`
         ]
@@ -641,14 +652,14 @@ on the first argument, the second item by applying the function on the previous 
     [
         [`recursion(_fwdrng)`]
         [
-            Returns an infinite _range_ up to _bidirectional_range_ such that `[_begin(_fwdrng), _end(fwdrng))`.
+            Returns an infinite range up to _bidirectional_range_ `[_begin(_fwdrng), _end(_fwdrng))`.
         ]
     ]
 ]
 
 [h3 Preconditions]
 * `_fwdrng` is an `any_range`.
-* Every `memoized` in the base range takes a `memo_table`.
+* Every `memoized` in the base range takes its own `memo_table`.
 
 [h3 Example]
     typedef any_range<int const&, boost::forward_traversal_tag> range_t;

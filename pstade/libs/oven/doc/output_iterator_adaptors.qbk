@@ -24,20 +24,20 @@
     [
         [`counter(i)`]
         [
-            Returns an _output_iterator_ which behaves as if `hamigaki::counting_output_iterator`.
+            Returns an _output_iterator_ which behaves as if it were `T(i)`.
         ]
     ]
 ]
 
 [h3 Preconditions]
-* `i` is an Incrementable.
+* `T` is `hamigaki::counting_output_iterator<_typeof(i)>` such that `T(i)` is a valid expression.
 
 [h3 Example]
     int const rng[] = { 0,0,1,1,2,3,3,3,4,4,4,4,4,5,5 };
     int i = copy(rng|uniqued, counter(0))|to_base;
     BOOST_CHECK( i == 6 );
 
-    BOOST_CHECK( 7 == oven::adapted_to<int>(oven::unique_copy(rng, counter(1))) );
+    BOOST_CHECK( 7 == oven::adapted_to<int>(unique_copy(rng, counter(1))) );
 
 [h3 See also]
 * [@http://hamigaki.sourceforge.jp/doc/html/counting_output_iterator.html hamigaki::counting_output_iterator]
@@ -104,14 +104,15 @@ Pending...
         [[*Semantics]]
     ]
     [
-        [`utf8_encoder(i)`]
+        [`utf8_encoder(x)`]
         [
-            Returns an _output_iterator_ which behaves as if it were `utf8_output_iterator`.
+            Returns an _output_iterator_ which behaves as if it were `T(x)`.
         ]
     ]
 ]
 
 [h3 Preconditions]
+* `T` is `boost::utf8_output_iterator<typeof(x)>` such that `T(x)` is a valid expression.
 
 [h3 Example]
 
@@ -127,7 +128,7 @@ Pending...
 [h3 Description]
 `writer` returns an _output_iterator_ which is a shorthand version of `std::ostream_iterator`.
 It needs no an explicit template parameter to specify the `value_type` to output,
-but one precondition below must be kept. It can be easily guaranteed by using `transformed`, though.
+but one extra precondition below must be kept. It can be easily guaranteed by using `transformed`, though.
 
 [h3 Header]
 * `<pstade/oven/writer.hpp>`
@@ -142,23 +143,41 @@ but one precondition below must be kept. It can be easily guaranteed by using `t
         [[*Semantics]]
     ]
     [
-        [`writer(s)`]
+        [`writer(s, d)`]
         [
-            Returns an _output_iterator_ which behaves as if it were `std::ostream_iterator`.
+            Returns an _output_iterator_ which behaves as if it were `T(s, d)`.
         ]
     ]
     [
-        [`writer(s, d)`]
+        [`writer(s)`]
         [
-            Returns an _output_iterator_ which behaves as if it were `hamigaki::ostream_iterator` using a delimiter `d`.
+            `writer(s, 0)`
         ]
     ]
 ]
 
+[note `writer` doesn't write an extra delimiter after the last element.]
+
 [h3 Preconditions]
-* An object which is passed to `typeof(to_stream(s))::operator=` is _output_streamable_.
+* `T` is `hamigaki::ostream_iterator<unspecified, _typeof(s)::char_type, _typeof(s)::traits_type>` such that `T(s, d)` is a valid expressin.
+* An object which is passed to `_typeof(writer(s))::operator=` is _output_streamable_.
 
 [h3 Example]
+    std::vector<std::string> sample
+        = initial_values("hello", "oven", "writer");
+
+    {
+        std::ofstream fout("read.txt");
+        copy(sample, writer(fout, " "));
+    }
+
+    {
+        std::ifstream fin("read.txt");
+        BOOST_CHECK( equals(
+            oven::reading<std::string>(fin),
+            sample
+        ) );
+    }
 
 [h3 See also]
 * [@http://hamigaki.sourceforge.jp/doc/html/ostream_iterator.html hamigaki::ostream_iteraotor]

@@ -59,7 +59,7 @@ void test_buf()
         std::vector<char> expected = answer|copied;
 
         BOOST_CHECK( oven::test_SinglePass_Readable(
-            oven::reading_buf(ss),
+            oven::readingbuf(ss),
             expected
         ) );
     }
@@ -67,14 +67,14 @@ void test_buf()
     {
         std::stringstream ss;
         ss << answer;
-        std::string result = oven::reading_buf(ss)|copied;
+        std::string result = oven::readingbuf(ss)|copied;
         BOOST_CHECK( oven::equals(result, answer) );
     }
 
     {
         std::stringstream ss;
         ss << answer;
-        std::string result = oven::reading_buf(ss.rdbuf())|copied;
+        std::string result = oven::readingbuf(ss.rdbuf())|copied;
         BOOST_CHECK( oven::equals(result, answer) );
     }
 }

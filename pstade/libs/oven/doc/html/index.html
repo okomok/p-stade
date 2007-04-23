@@ -18,9 +18,9 @@
 <div><div class="author"><h3 class="author">
 <span class="firstname">Shunsuke</span> <span class="surname">Sogame</span>
 </h3></div></div>
-<div><p class="copyright">Copyright © 2007 Shunsuke Sogame</p></div>
+<div><p class="copyright">Copyright © 2005 -2007 Shunsuke Sogame</p></div>
 <div><div class="legalnotice">
-<a name="id431220"></a><p>
+<a name="id431221"></a><p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">
         http://www.boost.org/LICENSE_1_0.txt </a>)
@@ -84,7 +84,7 @@
 <dt><span class="section"><a href="oven/range_makers.html#oven.iteration">iteration</a></span></dt>
 <dt><span class="section"><a href="oven/range_makers.html#oven.line_reading">line_reading</a></span></dt>
 <dt><span class="section"><a href="oven/range_makers.html#oven.reading">reading</a></span></dt>
-<dt><span class="section"><a href="oven/range_makers.html#oven.reading_buf">reading_buf</a></span></dt>
+<dt><span class="section"><a href="oven/range_makers.html#oven.readingbuf">readingbuf</a></span></dt>
 <dt><span class="section"><a href="oven/range_makers.html#oven.recursion">recursion</a></span></dt>
 <dt><span class="section"><a href="oven/range_makers.html#oven.repeated">repeated</a></span></dt>
 <dt><span class="section"><a href="oven/range_makers.html#oven.shared">shared</a></span></dt>
@@ -146,7 +146,7 @@
 <dt><span class="section"><a href="oven/utilities.html">Utilities</a></span></dt>
 <dd><dl>
 <dt><span class="section"><a href="oven/utilities.html#oven.adapted_to_base"> adapted_to/to_base</a></span></dt>
-<dt><span class="section"><a href="oven/utilities.html#oven.io_hpp">io.hpp</a></span></dt>
+<dt><span class="section"><a href="oven/utilities.html#oven.io">io</a></span></dt>
 <dt><span class="section"><a href="oven/utilities.html#oven.nonstop">nonstop</a></span></dt>
 <dt><span class="section"><a href="oven/utilities.html#oven.regular">regular</a></span></dt>
 <dt><span class="section"><a href="oven/utilities.html#oven.regular_ref">regular_ref</a></span></dt>
@@ -169,6 +169,7 @@
 <dt><span class="section"><a href="oven/extending_boost_range.html#oven.mfc_extension">MFC extension</a></span></dt>
 <dt><span class="section"><a href="oven/extending_boost_range.html#oven.wtl_extension">WTL extension</a></span></dt>
 </dl></dd>
+<dt><span class="section"><a href="oven/version_history.html">Version History</a></span></dt>
 </dl>
 </div>
 <div class="section" lang="en">
@@ -224,21 +225,24 @@
 <li>
 <a href="http://www.boost.org" target="_top">Boost C++ Libraries</a> Version 1.34.0
           or later
-        </li>
+          <div class="itemizedlist"><ul type="circle">
+<li>
+<a href="oven/ranges.html#oven.directory_range" title="directory_range">directory_range</a> requires
+              <a href="http://www.boost.org/libs/filesystem/index.html" target="_top">Boost.Filesystem</a>
+              to be built.
+            </li>
+<li>
+<a href="oven/range_adaptors.html#oven.matches" title="matches">matches</a> and <a href="oven/range_adaptors.html#oven.tokenized" title="tokenized">tokenized</a>
+              requires <a href="http://boost.org/libs/regex/doc/index.html" target="_top">Boost.Regex</a>
+              to be built.
+            </li>
+</ul></div>
+</li>
 <li>
 <a href="http://sourceforge.net/project/showfiles.php?group_id=141222&amp;package_id=173059" target="_top">P-Stade
           C++ Libraries</a> Version 1.03.1 or later (build not required)
         </li>
 </ul></div>
-<p>
-        Oven is a header-only library and usually uses header-only libraries of
-        <a href="http://www.boost.org" target="_top">Boost C++ Libraries</a>. For now,
-        <code class="computeroutput"><span class="identifier">directory_range</span></code> requires
-        <a href="http://www.boost.org/libs/filesystem/index.html" target="_top">Boost.Filesystem</a>
-        to be built, and <code class="computeroutput"><span class="identifier">matches</span></code>
-        and <code class="computeroutput"><span class="identifier">tokenized</span></code> requires <a href="http://boost.org/libs/regex/doc/index.html" target="_top">Boost.Regex</a> to be
-        built.
-      </p>
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
@@ -262,17 +266,6 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.rationale"></a>Rationale</h3></div></div></div>
 <div class="itemizedlist"><ul type="disc">
-<li>
-          Oven is functional; by using <a href="http://www.boost.org/libs/utility/utility.htm#result_of" target="_top">boost::result_of</a>,
-          the inferface is more simplified than using unnecessary types and templates.
-        </li>
-<li>
-          Oven is expression-oriented; as far as the expression is valid, you don't
-          need to learn C++!?
-        </li>
-<li>
-          Oven is lightweight; never tries to do something like copying a <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span></code>.
-        </li>
 <li>
           Oven supports an iterator such that destruction of it may invalidate pointers
           and references previously obtained from that iterator (24.1.9).
@@ -309,7 +302,7 @@
       </p>
 <div class="informaltable">
 <h5>
-<a name="id431401"></a>
+<a name="id431458"></a>
         </h5>
 <table class="table">
 <colgroup>
@@ -324,7 +317,7 @@
 <tr>
 <td><code class="computeroutput"><span class="identifier">_typeof</span></code></td>
 <td>An
-              imaginary operator which returns the type of expression.</td>
+              imaginary operator to get the type of an expression.</td>
 </tr>
 <tr>
 <td><code class="computeroutput"><span class="identifier">_rng</span></code></td>
@@ -408,7 +401,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><small><p>Last revised: April 22, 2007 at 23:30:15 GMT</p></small></td>
+<td align="left"><small><p>Last revised: April 23, 2007 at 11:37:18 GMT</p></small></td>
 <td align="right"><small></small></td>
 </tr></table>
 <hr>

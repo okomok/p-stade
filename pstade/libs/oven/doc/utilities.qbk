@@ -50,26 +50,16 @@ Some helper _function_object_s are given to fill the gap between Oven and other 
 
 
 
-[section io.hpp]
+[section io]
 
 [h3 Description]
-The header `<pstade/oven/io.hpp>` lets _range_s Oven returns be _input_streamable_ and _output_streamable_.
+The header `<pstade/oven/io.hpp>` lets Oven ranges be _input_streamable_ and _output_streamable_.
 
 [h3 Header]
 * `<pstade/oven/io.hpp>`
 
-
-[h3 Valid expressions]
-[table 
-    [
-        [[*Valid expression]]
-        [[*Semantics]]
-    ]
-    [
-        [`#include <pstade/oven/io.hpp>`]
-        [All the _range_ Oven defines and returns become a model of _input_streamable_ and _output_streamable_.]
-    ]
-]
+[h3 Effects]
+All the ranges which Oven defines and returns become _input_streamable_ and _output_streamable_.
 
 [h3 Example]
     std::string src("abc");
@@ -364,6 +354,9 @@ Though `zipped` accepts a function taking a `boost::tuple` as the parameter, it 
 [h3 Header]
 * `<pstade/oven/zipped_with.hpp>`
 
+[h3 Notation]
+* `fuse` is an imaginary function which turns a _function_object_ into the one taking a `boost::tuple` as the parameter.
+
 [h3 Valid expressions]
 [table 
     [
@@ -399,7 +392,6 @@ Though `zipped` accepts a function taking a `boost::tuple` as the parameter, it 
 [h3 Preconditions]
 * `u|zipped|op_make_transformed<R>(fuse(_fun))` is a valid expressin.
 * `u|zipped|transformed(fuse(_cal))` is a valid expressin.
-* `fuse` is an imaginary function which turns a _function_object_ into the one taking a `boost::tuple` as the parameter.
 
 [endsect]
 

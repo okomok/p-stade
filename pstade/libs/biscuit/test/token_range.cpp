@@ -20,11 +20,11 @@
 #include <boost/range.hpp>
 #include <pstade/oven/equals.hpp>
 #include <pstade/oven/as_literal.hpp>
-#include <pstade/oven/alias.hpp>
 #include <pstade/oven/distance.hpp>
+
+
+#include <pstade/oven/alias.hpp>
 #include <pstade/biscuit/alias.hpp>
-
-
 using namespace biscuit;
 
 

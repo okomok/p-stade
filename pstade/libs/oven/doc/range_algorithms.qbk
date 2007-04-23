@@ -1,6 +1,6 @@
 [section Range Algorithms]
 
-Oven provides range-based algorithms using a _range_ instead of two iterators.
+Oven provides range-based algorithms taking a range instead of two iterators.
 
 
 
@@ -8,7 +8,7 @@ Oven provides range-based algorithms using a _range_ instead of two iterators.
 [section STL Algorithms]
 
 [h3 Description]
-`algorithm.hpp` is considered as range-based `<algorithm>`.
+`algorithm.hpp` is provided as range-based `<algorithm>`.
 
 [h3 Header]
 * `<pstade/oven/algorithm.hpp>`
@@ -39,10 +39,10 @@ Oven provides range-based algorithms using a _range_ instead of two iterators.
 [h3 Preconditions]
 * `f1` and `f2` is one of the function names defined in `<algorithm>` except for...
     * `fill_n`, `generate_n`, `rotate`, `rotate_copy`, `partial_sort`, `nth_element` and `inplace_merge`.
-* `std::f1(_begin(_rng), _end(_rng), x1,..,xN)` is a valid exression.
-* `std::f2(_begin(_rng1), _end(_rng1), _begin(_rng2), _end(_rng2), x1,..,xN)` is a valid expression.
 * `f3` is one of the following names...
     * `rotate`, `rotate_copy`, `partial_sort`, `nth_element` and `inplace_merge`.
+* `std::f1(_begin(_rng), _end(_rng), x1,..,xN)` is a valid exression.
+* `std::f2(_begin(_rng1), _end(_rng1), _begin(_rng2), _end(_rng2), x1,..,xN)` is a valid expression.
 * `std::f3(_begin(_rng), m, _end(_rng), x1,..,xN)` is a valid expression.
 * `_fun(_rng)` is a valid expression.
 * `_typeof(_fun(_rng))` is `_iter_of<_typeof(_rng)>::type`.
@@ -70,7 +70,7 @@ Oven provides range-based algorithms using a _range_ instead of two iterators.
 [section STL Numerics]
 
 [h3 Description]
-`numeric.hpp` is considered as range-based `<numeric>`.
+`numeric.hpp` is provided as range-based `<numeric>`.
 
 [h3 Header]
 * `<pstade/oven/numeric.hpp>`
@@ -146,7 +146,7 @@ A _random_access_range_ whose iterator is not _lvalue_iterator_ is regarded as a
 [section begin/end]
 
 [h3 Description]
-`begin` and `end` is the _auxiliary_interface_ version of `_begin` and `_end` respectively.
+`begin` and `end` is the _auxiliary_interface_ version of `boost::begin` and `boost::end` respectively.
 
 [h3 Header]
 * `<pstade/oven/begin_end.hpp>`
@@ -183,10 +183,14 @@ A _random_access_range_ whose iterator is not _lvalue_iterator_ is regarded as a
 [section copied]
 
 [h3 Description]
-`copied` automagically calls `boost::copy_range` without specifying the return type.
+`copied` automagically calls the range-constructor of the target range without specifying the type.
 
 [h3 Header]
 * `<pstade/oven/copy_range.hpp>`
+
+[h3 Notation]
+* `V1` is `boost::range_value<_typeof(_rng1)>::type`.
+* `to_v1` is `regular(boost::lambda::ll_static_cast<V1>(boost::lambda::_1))`.
 
 [h3 Valid expressions]
 [table 
@@ -196,21 +200,25 @@ A _random_access_range_ whose iterator is not _lvalue_iterator_ is regarded as a
     ]
     [
         [`Rng1 _rng1 = _rng2|copied;`]
-        [`Rng1 _rng1 = boost::copy_range<Rng1>(_rng2);`]
+        [`Rng1 _rng1(_begin(r), _end(r))`, where `r = _rng2|transformed(to_v1)`.]
     ]
 ]
 
-[h3 Preconditions]
-* `Rng1 _rng1 = boost::copy_range<Rng1>(_rng2);` is a valid expression.
-* `copied` isn't placed in a function default argument list.
-
 [note The valid expression implies you can place `copied` everywhere it is used in /copy-initialization/, e.g. `return` statement.
-The second precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied);` is not listed in valid expressions.]
+The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied);` is not listed in valid expressions.]
+
+[h3 Preconditions]
+
+* `boost::range_value<_typeof(_rng2)>::type` is convertible to `V1`.
+* `copied` isn't placed in a function default argument list.
 
 [h3 Example]
     std::string _rng("abcdefg");
     std::vector<char> vec = _rng|copied;
     BOOST_CHECK( equals(vec, _rng) );
+
+[h3 See also]
+* [link oven.transformed transformed]
 
 [endsect]
 
@@ -240,6 +248,9 @@ The second precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copi
     ]
 ]
 
+[h3 Preconditions]
+* `std::distance(_begin(_rng), _end(_rng))` is a valid expression.
+
 [endsect]
 
 
@@ -256,6 +267,9 @@ The second precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copi
 [h3 Model of]
 * _callable_object_
 
+[h3 Notation]
+* `eq` is `(boost::lambda::_1 == boost::lambda::_2)`.
+
 [h3 Valid expressions]
 [table 
     [
@@ -268,12 +282,9 @@ The second precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copi
     ]
     [
         [`equals(_rng1, _rng2)`]
-        [`equals(_rng1, _rng2, equal_to)`]
+        [`equals(_rng1, _rng2, eq)`]
     ]
 ]
-
-[h3 Preconditions]
-* `equal_to = (boost::lambda::_1 == boost::lambda::_2)`
 
 [endsect]
 
@@ -309,7 +320,7 @@ The second precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copi
 [h3 Preconditions]
 * `!boost::empty(_rng)`
 * `!boost::empty(_bidrng)`
-* Destruction of an iterator of `_rng` doesn't invalidate references previously obtained from that iterator.
+* Destruction of an iterator of `_bidrng` doesn't invalidate references previously obtained from that iterator.
 
 [h3 See also]
 * [link oven.value_front_value_back value_front/value_back]
@@ -329,6 +340,9 @@ The second precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copi
 [h3 Model of]
 * _auxiliary_interface_
 
+[h3 Notation]
+`V` is `boost::range_value<_typeof(_rndrng)>::type`.
+
 [h3 Valid expressions]
 [table 
     [
@@ -337,12 +351,12 @@ The second precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copi
     ]
     [
         [`value_at(_rndrng, n)`]
-        [`boost::range_value<_typeof(_rndrng)>::type(*(_begin(_rndrng) + n))`]
+        [`V(*(_begin(_rndrng) + n))`]
     ]
 ]
 
 [h3 Preconditions]
-* `boost::range_value<_typeof(_rndrng)>::type` is _copy_constructible_.
+* `V` is _copy_constructible_.
 * `_typeof(n)` is convertible to `boost::range_difference<_typeof(_rndrng)>::type`.
 * `0 <= n && n < distance(_rndrng)`
 
@@ -364,6 +378,10 @@ The second precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copi
 [h3 Model of]
 * _auxiliary_interface_
 
+[h3 Notation]
+* `V1` is `boost::range_value<_typeof(_rng)>::type`.
+* `V2` is `boost::range_value<_typeof(_bidrng)>::type`.
+
 [h3 Valid expressions]
 [table 
     [
@@ -372,17 +390,17 @@ The second precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copi
     ]
     [
         [`value_front(_rng)`]
-        [`boost::range_value<_typeof(_rng)>::type(*_begin(_rng))`]
+        [`V1(*_begin(_rng))`]
     ]
     [
         [`value_back(_bidrng)`]
-        [`boost::range_value<_typeof(_bidrng)>::type(*boost::prior(_bidrng))`]
+        [`V2(*boost::prior(_bidrng))`]
     ]
 ]
 
 [h3 Preconditions]
-* `boost::range_value<_typeof(_rng)>::type` is _copy_constructible_.
-* `boost::range_value<_typeof(_bidrng)>::type` is _copy_constructible_.
+* `V1` is _copy_constructible_.
+* `V2` is _copy_constructible_.
 * `!boost::empty(_rng)`
 * `!boost::empty(_bidrng)`
 

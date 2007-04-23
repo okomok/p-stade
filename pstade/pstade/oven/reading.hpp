@@ -64,11 +64,11 @@ struct op_reading :
 PSTADE_SPECIFIED1(reading, op_reading, 1)
 
 
-// reading_buf
+// readingbuf
 //
 
-struct op_reading_buf :
-    callable<op_reading_buf>
+struct op_readingbuf :
+    callable<op_readingbuf>
 {
     template< class Myself, class IStream >
     struct apply
@@ -104,7 +104,7 @@ struct op_reading_buf :
     }
 };
 
-PSTADE_CONSTANT(reading_buf, (op_reading_buf))
+PSTADE_CONSTANT(readingbuf, (op_readingbuf))
 
 
 // line_reading
