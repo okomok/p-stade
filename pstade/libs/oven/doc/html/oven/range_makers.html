@@ -486,14 +486,13 @@
 <td><code class="computeroutput"><span class="identifier">generation</span><span class="special">(</span><span class="identifier">g</span><span class="special">)</span></code></td>
 <td>
               The longest <a href="http://www.boost.org/libs/range/doc/range.html#single_pass_range" target="_top">Single
-              Pass Range</a> <code class="computeroutput"><span class="special">{*</span><span class="identifier">g</span><span class="special">(),*</span><span class="identifier">g</span><span class="special">(),*</span><span class="identifier">g</span><span class="special">(),..,*</span><span class="identifier">g</span><span class="special">()}</span></code>
-              such that <code class="computeroutput"><span class="identifier">g</span><span class="special">()</span></code>
-              is not <span class="emphasis"><em>uninitialized</em></span>. </td>
+              Pass</a> <code class="computeroutput"><span class="special">{*</span><span class="identifier">g</span><span class="special">(),*</span><span class="identifier">g</span><span class="special">(),*</span><span class="identifier">g</span><span class="special">(),..,*</span><span class="identifier">g</span><span class="special">()}</span></code> such that <code class="computeroutput"><span class="identifier">g</span><span class="special">()</span></code> is not <span class="emphasis"><em>uninitialized</em></span>.
+              </td>
 </tr></tbody>
 </table>
 </div>
 <a name="generation.preconditions"></a><h4>
-<a name="id519749"></a>
+<a name="id519750"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -551,7 +550,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.initial_values"></a>initial_values</h3></div></div></div>
 <a name="initial_values.description"></a><h4>
-<a name="id520339"></a>
+<a name="id520340"></a>
         Description
       </h4>
 <p>
@@ -573,7 +572,7 @@
       </h4>
 <div class="informaltable">
 <h5>
-<a name="id520478"></a>
+<a name="id520479"></a>
         </h5>
 <table class="table">
 <colgroup>
@@ -588,7 +587,7 @@
 <tr>
 <td><code class="computeroutput"><span class="identifier">initial_values</span><span class="special">(</span><span class="identifier">a1</span><span class="special">,..,</span><span class="identifier">aN</span><span class="special">)</span></code></td>
 <td> A <a href="http://www.boost.org/libs/range/doc/range.html#random_access_range" target="_top">Random
-              Access Range</a> <code class="computeroutput"><span class="special">{</span><span class="identifier">a1</span><span class="special">,..,</span><span class="identifier">aN</span><span class="special">}</span></code>
+              Access</a> <code class="computeroutput"><span class="special">{</span><span class="identifier">a1</span><span class="special">,..,</span><span class="identifier">aN</span><span class="special">}</span></code>
               </td>
 </tr>
 <tr>
@@ -703,8 +702,7 @@
 <td><code class="computeroutput"><span class="identifier">iteration</span><span class="special">(</span><span class="identifier">x</span><span class="special">,</span> <span class="identifier">_fun</span><span class="special">)</span></code></td>
 <td>
               An infinite <a href="http://www.boost.org/libs/range/doc/range.html#single_pass_range" target="_top">Single
-              Pass Range</a> <code class="computeroutput"><span class="special">{</span><span class="identifier">x</span><span class="special">,</span><span class="identifier">_fun</span><span class="special">(</span><span class="identifier">x</span><span class="special">),</span><span class="identifier">_fun</span><span class="special">(</span><span class="identifier">_fun</span><span class="special">(</span><span class="identifier">x</span><span class="special">)),</span><span class="identifier">_fun</span><span class="special">(</span><span class="identifier">_fun</span><span class="special">(</span><span class="identifier">_fun</span><span class="special">(</span><span class="identifier">x</span><span class="special">))),...}</span></code>
-              </td>
+              Pass</a> <code class="computeroutput"><span class="special">{</span><span class="identifier">x</span><span class="special">,</span><span class="identifier">_fun</span><span class="special">(</span><span class="identifier">x</span><span class="special">),</span><span class="identifier">_fun</span><span class="special">(</span><span class="identifier">_fun</span><span class="special">(</span><span class="identifier">x</span><span class="special">)),</span><span class="identifier">_fun</span><span class="special">(</span><span class="identifier">_fun</span><span class="special">(</span><span class="identifier">_fun</span><span class="special">(</span><span class="identifier">x</span><span class="special">))),...}</span></code> </td>
 </tr></tbody>
 </table>
 </div>
@@ -1029,13 +1027,13 @@
 <tbody><tr>
 <td><code class="computeroutput"><span class="identifier">recursion</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">)</span></code></td>
 <td>
-              An infinite range up to <a href="http://www.boost.org/libs/range/doc/range.html#bidirectional_range" target="_top">Bidirectional
-              Range</a> <code class="computeroutput"><span class="special">[</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">),</span> <span class="identifier">_end</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">))</span></code> </td>
+              <code class="computeroutput"><span class="special">[</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">),</span> <span class="identifier">_end</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">))</span></code> up to <a href="http://www.boost.org/libs/range/doc/range.html#bidirectional_range" target="_top">Bidirectional</a>.
+              </td>
 </tr></tbody>
 </table>
 </div>
 <a name="recursion.preconditions"></a><h4>
-<a name="id524922"></a>
+<a name="id524921"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -1080,7 +1078,7 @@
         </p></td></tr>
 </table></div>
 <a name="recursion.see_also"></a><h4>
-<a name="id525543"></a>
+<a name="id525542"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -1100,22 +1098,22 @@
         Access Range</a> where all values are the first argument.
       </p>
 <a name="repeated.header"></a><h4>
-<a name="id525632"></a>
+<a name="id525631"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">repeated</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="repeated.model_of"></a><h4>
-<a name="id525703"></a>
+<a name="id525702"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_object" title="Pipable Object">Pipable Object</a></li></ul></div>
 <a name="repeated.valid_expressions"></a><h4>
-<a name="id525733"></a>
+<a name="id525732"></a>
         Valid expressions
       </h4>
 <div class="informaltable">
 <h5>
-<a name="id525744"></a>
+<a name="id525743"></a>
         </h5>
 <table class="table">
 <colgroup>
@@ -1135,7 +1133,7 @@
 </table>
 </div>
 <a name="repeated.preconditions"></a><h4>
-<a name="id525877"></a>
+<a name="id525876"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -1143,7 +1141,7 @@
           is a valid expression.
         </li></ul></div>
 <a name="repeated.example"></a><h4>
-<a name="id525942"></a>
+<a name="id525941"></a>
         Example
       </h4>
 <pre class="programlisting">
@@ -1153,7 +1151,7 @@
 <span class="special">)</span> <span class="special">);</span>
 </pre>
 <a name="repeated.see_also"></a><h4>
-<a name="id526058"></a>
+<a name="id526057"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -1165,7 +1163,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.shared"></a>shared</h3></div></div></div>
 <a name="shared.description"></a><h4>
-<a name="id526113"></a>
+<a name="id526112"></a>
         Description
       </h4>
 <p>
@@ -1173,22 +1171,22 @@
         a pointer to a heap allocated range, and the iterators manage the allocation.
       </p>
 <a name="shared.header"></a><h4>
-<a name="id526140"></a>
+<a name="id526139"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">shared</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="shared.model_of"></a><h4>
-<a name="id526210"></a>
+<a name="id526209"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_object" title="Pipable Object">Pipable Object</a></li></ul></div>
 <a name="shared.valid_expressions"></a><h4>
-<a name="id526239"></a>
+<a name="id526238"></a>
         Valid expressions
       </h4>
 <div class="informaltable">
 <h5>
-<a name="id526251"></a>
+<a name="id526250"></a>
         </h5>
 <table class="table">
 <colgroup>
@@ -1206,7 +1204,7 @@
 </table>
 </div>
 <a name="shared.preconditions"></a><h4>
-<a name="id526416"></a>
+<a name="id526415"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -1227,7 +1225,7 @@
         </li>
 </ul></div>
 <a name="shared.example"></a><h4>
-<a name="id526659"></a>
+<a name="id526658"></a>
         Example
       </h4>
 <pre class="programlisting">
@@ -1254,7 +1252,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.single"></a>single</h3></div></div></div>
 <a name="single.description"></a><h4>
-<a name="id526991"></a>
+<a name="id526990"></a>
         Description
       </h4>
 <p>
@@ -1272,12 +1270,12 @@
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.auxiliary_interface" title="Auxiliary Interface">Auxiliary Interface</a></li></ul></div>
 <a name="single.valid_expressions"></a><h4>
-<a name="id527127"></a>
+<a name="id527126"></a>
         Valid expressions
       </h4>
 <div class="informaltable">
 <h5>
-<a name="id527138"></a>
+<a name="id527137"></a>
         </h5>
 <table class="table">
 <colgroup>
@@ -1305,7 +1303,7 @@
         </p></td></tr>
 </table></div>
 <a name="single.example"></a><h4>
-<a name="id527289"></a>
+<a name="id527288"></a>
         Example
       </h4>
 <pre class="programlisting">
@@ -1316,7 +1314,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.shared_single"></a>shared_single</h3></div></div></div>
 <a name="shared_single.description"></a><h4>
-<a name="id527400"></a>
+<a name="id527399"></a>
         Description
       </h4>
 <p>
@@ -1339,7 +1337,7 @@
       </h4>
 <div class="informaltable">
 <h5>
-<a name="id527542"></a>
+<a name="id527541"></a>
         </h5>
 <table class="table">
 <colgroup>
@@ -1357,7 +1355,7 @@
 </table>
 </div>
 <a name="shared_single.preconditions"></a><h4>
-<a name="id527665"></a>
+<a name="id527664"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -1365,7 +1363,7 @@
           a valid expression.
         </li></ul></div>
 <a name="shared_single.example"></a><h4>
-<a name="id527742"></a>
+<a name="id527741"></a>
         Example
       </h4>
 <pre class="programlisting">

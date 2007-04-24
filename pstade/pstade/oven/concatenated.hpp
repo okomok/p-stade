@@ -10,6 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Note:
+//
+// A LocalIterator must be valid after copying of SegmentIterator.
+
+
 // References:
 //
 // [1] M. H. Austern, Segmented Iterators and Hierarchical Algorithms, 2001.

@@ -257,7 +257,7 @@ The overhead can be removed with the help of _boost_typeof_ if your compiler sup
     [
         [`generation(g)`]
         [
-            The longest _single_pass_range_ `{*g(),*g(),*g(),..,*g()}` such that `g()` is not /uninitialized/.
+            The longest _single_pass_ `{*g(),*g(),*g(),..,*g()}` such that `g()` is not /uninitialized/.
         ]
     ]
 ]
@@ -321,7 +321,7 @@ The overhead can be removed with the help of _boost_typeof_ if your compiler sup
     [
         [`initial_values(a1,..,aN)`]
         [
-            A _random_access_range_ `{a1,..,aN}`
+            A _random_access_ `{a1,..,aN}`
         ]
     ]
     [
@@ -378,7 +378,7 @@ on the first argument, the second item by applying the function on the previous 
     [
         [`iteration(x, _fun)`]
         [
-            An infinite _single_pass_range_ `{x,_fun(x),_fun(_fun(x)),_fun(_fun(_fun(x))),...}`
+            An infinite _single_pass_ `{x,_fun(x),_fun(_fun(x)),_fun(_fun(_fun(x))),...}`
         ]
     ]
 ]
@@ -583,7 +583,7 @@ on the first argument, the second item by applying the function on the previous 
     [
         [`recursion(_fwdrng)`]
         [
-            An infinite range up to _bidirectional_range_ `[_begin(_fwdrng), _end(_fwdrng))`
+            `[_begin(_fwdrng), _end(_fwdrng))` up to _bidirectional_.
         ]
     ]
 ]
@@ -777,7 +777,6 @@ and the iterators manage the allocation.
 
 [h3 Example]
     BOOST_CHECK( equals(new char('a')|shared_single, std::string("a")) );
-
 
 [endsect]
 
