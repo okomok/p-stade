@@ -105,7 +105,7 @@
 #include "./reading.hpp"
 #include "./recursion.hpp"
 #include "./regular.hpp"
-#include "./repeated.hpp"
+#include "./repeat.hpp"
 #include "./reverse_iterator.hpp"
 #include "./reversed.hpp"
 #include "./rotated.hpp"

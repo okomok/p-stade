@@ -173,7 +173,7 @@
       </h4>
 <div class="itemizedlist"><ul type="disc">
 <li><a href="range_adaptors.html#oven.filtered" title="filtered">filtered</a></li>
-<li><a href="range_makers.html#oven.repeated" title="repeated">repeated</a></li>
+<li><a href="range_makers.html#oven.repeat" title="repeat">repeat</a></li>
 </ul></div>
 </div>
 <div class="section" lang="en">
@@ -189,14 +189,14 @@
         supports also a pipe-like syntax used as if it were a member function.
       </p>
 <a name="auxiliary_interface.refinement_of"></a><h4>
-<a name="id503462"></a>
+<a name="id503463"></a>
         Refinement of
       </h4>
 <p>
         <a href="concepts.html#oven.operatable_object" title="Operatable Object">Operatable Object</a>
       </p>
 <a name="auxiliary_interface.requirements"></a><h4>
-<a name="id503488"></a>
+<a name="id503489"></a>
         Requirements
       </h4>
 <p>
@@ -233,7 +233,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.stoppable_generator"></a>Stoppable Generator</h3></div></div></div>
 <a name="stoppable_generator.description"></a><h4>
-<a name="id503842"></a>
+<a name="id503843"></a>
         Description
       </h4>
 <p>
@@ -242,7 +242,7 @@
         which can specify the stop of generating using <a href="http://boost.org/libs/optional/doc/optional.html" target="_top">Boost.Optional</a>.
       </p>
 <a name="stoppable_generator.refinement_of"></a><h4>
-<a name="id503884"></a>
+<a name="id503885"></a>
         Refinement of
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -250,7 +250,7 @@
 <li><a href="concepts.html#oven.callable_object" title="Callable Object">Callable Object</a></li>
 </ul></div>
 <a name="stoppable_generator.requirements"></a><h4>
-<a name="id503924"></a>
+<a name="id503925"></a>
         Requirements
       </h4>
 <p>
@@ -290,13 +290,13 @@
         modifiable.
       </p>
 <a name="constant_range.refinement_of"></a><h4>
-<a name="id504119"></a>
+<a name="id504120"></a>
         Refinement of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.boost.org/libs/range/doc/range.html#single_pass_range" target="_top">Single
           Pass Range</a></li></ul></div>
 <a name="constant_range.requirements"></a><h4>
-<a name="id504144"></a>
+<a name="id504145"></a>
         Requirements
       </h4>
 <p>
@@ -310,7 +310,7 @@
           Iterator</a>.
         </li></ul></div>
 <a name="constant_range.models"></a><h4>
-<a name="id504243"></a>
+<a name="id504244"></a>
         Models
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -322,7 +322,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.contiguous_range"></a>Contiguous Range</h3></div></div></div>
 <a name="contiguous_range.description"></a><h4>
-<a name="id504350"></a>
+<a name="id504351"></a>
         Description
       </h4>
 <p>
@@ -330,13 +330,13 @@
         Access Range</a> whose elements are stored contiguously.
       </p>
 <a name="contiguous_range.refinement_of"></a><h4>
-<a name="id504383"></a>
+<a name="id504384"></a>
         Refinement of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.boost.org/libs/range/doc/range.html#random_access_range" target="_top">Random
           Access Range</a></li></ul></div>
 <a name="contiguous_range.requirements"></a><h4>
-<a name="id504409"></a>
+<a name="id504410"></a>
         Requirements
       </h4>
 <p>
@@ -350,7 +350,7 @@
           for all <code class="computeroutput"><span class="identifier">n</span></code> such that <code class="computeroutput"><span class="number">0</span> <span class="special">&lt;=</span> <span class="identifier">n</span> <span class="special">&amp;&amp;</span> <span class="identifier">n</span> <span class="special">&lt;</span> <span class="identifier">_end</span><span class="special">(</span><span class="identifier">r</span><span class="special">)</span> <span class="special">-</span> <span class="identifier">_begin</span><span class="special">(</span><span class="identifier">r</span><span class="special">)</span></code>.
         </li></ul></div>
 <a name="contiguous_range.models"></a><h4>
-<a name="id504654"></a>
+<a name="id504655"></a>
         Models
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -362,7 +362,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.lvalue_range"></a>Lvalue Range</h3></div></div></div>
 <a name="lvalue_range.description"></a><h4>
-<a name="id504769"></a>
+<a name="id504770"></a>
         Description
       </h4>
 <p>
@@ -370,7 +370,7 @@
         whose iterator referent type is a <span class="emphasis"><em>reference</em></span>.
       </p>
 <a name="lvalue_range.refinement_of"></a><h4>
-<a name="id504806"></a>
+<a name="id504807"></a>
         Refinement of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.boost.org/libs/range/doc/range.html#single_pass_range" target="_top">Single
@@ -388,7 +388,7 @@
           Iterator</a>.
         </li></ul></div>
 <a name="lvalue_range.models"></a><h4>
-<a name="id504930"></a>
+<a name="id504931"></a>
         Models
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -413,13 +413,13 @@
         whose iterator referents live outside of the iterators.
       </p>
 <a name="independent_range.refinement_of"></a><h4>
-<a name="id505038"></a>
+<a name="id505039"></a>
         Refinement of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.boost.org/libs/range/doc/range.html#single_pass_range" target="_top">Single
           Pass Range</a></li></ul></div>
 <a name="independent_range.requirements"></a><h4>
-<a name="id505063"></a>
+<a name="id505064"></a>
         Requirements
       </h4>
 <p>
@@ -434,7 +434,7 @@
           and references previously obtained from that iterator.
         </li></ul></div>
 <a name="independent_range.models"></a><h4>
-<a name="id505137"></a>
+<a name="id505138"></a>
         Models
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -447,7 +447,7 @@
         </li>
 </ul></div>
 <a name="independent_range.see_also"></a><h4>
-<a name="id505220"></a>
+<a name="id505221"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>

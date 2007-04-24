@@ -20,6 +20,7 @@
 #include <boost/range.hpp>
 #include "./core.hpp"
 #include <pstade/oven/concatenated.hpp>
+#include <pstade/oven/memoized.hpp>
 
 
 void test()
@@ -38,11 +39,12 @@ void test()
             input|xpressive_tokenized(re, std::vector<int>(), boost::xpressive::regex_constants::match_default);
         }
 
-#if 0
+#if 1
         // oops, concatenated cannot support xpressive_token_iterator and boost::token_iterator.
+        // Hence, turn it into Independent using memoized.
         std::vector<char> expected = std::string("Thisishisface")|copied;
         BOOST_CHECK( oven::test_Forward_Readable(
-            input|xpressive_tokenized(re)|concatenated,
+            input|xpressive_tokenized(re)|memoized|concatenated,
             expected
         ) );
 #endif

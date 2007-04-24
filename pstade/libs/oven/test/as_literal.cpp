@@ -59,7 +59,7 @@ void test()
         ) );
         BOOST_CHECK( oven::equals(
             "hello\0range"|as_literal,
-            std::string("hello")|jointed('\0'|single)|jointed(std::string("range"))
+            std::string("hello")|jointed(single('\0'))|jointed(std::string("range"))
         ) );
     }
     {

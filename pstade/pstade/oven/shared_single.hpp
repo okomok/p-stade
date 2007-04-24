@@ -25,7 +25,7 @@
 namespace pstade { namespace oven {
 
 
-namespace shared_single_detail_ {
+namespace shared_single_detail {
 
 
     struct new_array1 :
@@ -49,67 +49,58 @@ namespace shared_single_detail_ {
     };
 
 
-    // As mentioned at "./shared.hpp", we must implement
-    // something like 'auxiliary0' from scratch.
+} // namespace shared_single_detail
 
-    struct op :
-        provide_sig
-    {
-        template< class Ptr >
-        struct result_aux :
-            boost::result_of<
-                op_make_indirected<>(
-                    typename boost::result_of<
-                        op_make_shared(
-                            typename boost::result_of<
-                                new_array1(
-                                    typename boost::result_of<
-                                        op_to_shared_ptr(Ptr&)
-                                    >::type
-                                )
-                            >::type
-                        )
-                    >::type
-                )
-            >
-        { };
 
-        template< class Ptr >
-        typename result_aux<Ptr>::type
-        operator()(Ptr p) const
-        {
-            return
-                make_indirected(
-                    make_shared(
-                        new_array1()(
-                            to_shared_ptr(p)
-                        )
+// As mentioned at "./shared.hpp", we must implement
+// something like 'auxiliary0' from scratch.
+
+struct op_shared_single :
+    provide_sig
+{
+    template< class Ptr >
+    struct result_aux :
+        boost::result_of<
+            op_make_indirected<>(
+                typename boost::result_of<
+                    op_make_shared(
+                        typename boost::result_of<
+                            shared_single_detail::new_array1(
+                                typename boost::result_of<
+                                    op_to_shared_ptr(Ptr&)
+                                >::type
+                            )
+                        >::type
                     )
-                );
-        }
+                >::type
+            )
+        >
+    { };
 
-        template< class FunCall >
-        struct result;
-
-        template< class Fun, class Ptr >
-        struct result<Fun(Ptr)> :
-            result_aux<typename pass_by_value<Ptr>::type>
-        { };
-    };
-
-
-    template< class Ptr > inline
-    typename boost::result_of<op(Ptr&)>::type
-    operator|(Ptr p, op fun)
+    template< class Ptr >
+    typename result_aux<Ptr>::type
+    operator()(Ptr p) const
     {
-        return fun(p);
+        return
+            make_indirected(
+                make_shared(
+                    shared_single_detail::new_array1()(
+                        to_shared_ptr(p)
+                    )
+                )
+            );
     }
 
+    template< class FunCall >
+    struct result;
 
-} // namespace shared_single_detail_
+    template< class Fun, class Ptr >
+    struct result<Fun(Ptr)> :
+        result_aux<typename pass_by_value<Ptr>::type>
+    { };
+};
 
 
-typedef shared_single_detail_::op op_shared_single;
 PSTADE_CONSTANT(shared_single, (op_shared_single))
 
 

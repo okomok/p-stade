@@ -90,7 +90,7 @@ test-suite "oven" :
     [ run reading.cpp ]
     [ run recursion.cpp ]
     [ run regular.cpp ]
-    [ run repeated.cpp ]
+    [ run repeat.cpp ]
     [ run reversed.cpp ]
     [ run rotated.cpp ]
     [ run scanned.cpp ]

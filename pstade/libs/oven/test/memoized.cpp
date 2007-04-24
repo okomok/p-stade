@@ -29,6 +29,7 @@
 #include <iterator>
 #include <boost/lambda/core.hpp>
 #include <boost/lambda/lambda.hpp>
+#include <iostream>
 
 
 void pstade_unit_test()
@@ -37,7 +38,6 @@ void pstade_unit_test()
     using namespace oven;
     namespace bll = boost::lambda;
 
-#if 0
     {
         std::string ans("18284610528192");
         std::stringstream ss;
@@ -50,6 +50,11 @@ void pstade_unit_test()
     }
     {
         int const src[] = { 1,2,5,3,6,8,6,1 };
+        std::cout << (src|memoized);
+    }
+
+    {
+        int const src[] = { 1,2,5,3,6,8,6,1 };
         memo_table tb;
 
         int const ans[] = { 1,2,5,3,6 };
@@ -59,7 +64,6 @@ void pstade_unit_test()
             expected
         ) );
     }
-#endif
     {
         std::string ans("18284610528192");
         memo_table tb;

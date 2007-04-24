@@ -23,7 +23,6 @@
 #include <pstade/oven/counting.hpp>
 #include "./core.hpp"
 #include <pstade/oven/algorithm.hpp>
-#include <pstade/oven/memoized.hpp>
 #include <pstade/oven/transformed.hpp>
 #include <boost/iterator/reverse_iterator.hpp>
 #include <pstade/locale.hpp>

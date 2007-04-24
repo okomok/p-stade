@@ -17,8 +17,7 @@
 
 
 #include <boost/utility/addressof.hpp>
-#include <pstade/auxiliary.hpp>
-#include <pstade/callable.hpp>
+#include <pstade/function.hpp>
 #include "./iter_range.hpp"
 
 
@@ -28,21 +27,16 @@ namespace pstade { namespace oven {
 namespace single_detail {
 
 
-    struct op :
-        callable<op>
+    template< class X >
+    struct baby
     {
-        template< class Myself, class X >
-        struct apply
-        {
-            typedef
-                iter_range<X *> const
-            type;
-        };
+        typedef
+            iter_range<X *> const
+        result_type;
 
-        template< class Result, class X >
-        Result call(X& x) const
+        result_type operator()(X& x) const
         {
-            return Result(boost::addressof(x), boost::addressof(x) + 1);
+            return result_type(boost::addressof(x), boost::addressof(x) + 1);
         }
     };
 
@@ -50,7 +44,7 @@ namespace single_detail {
 } // namespace single_detail
 
 
-PSTADE_AUXILIARY(0, single, (single_detail::op))
+PSTADE_FUNCTION(single, (single_detail::baby<_>))
 
 
 } } // namespace pstade::oven

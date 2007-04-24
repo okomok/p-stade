@@ -38,7 +38,7 @@ range make_ones()
 {
     range *pones = new range();
 
-    *pones = new int const(1)|shared_single|jointed(recursion(*pones));
+    *pones = shared_single(new int const(1))|jointed(recursion(*pones));
 
     return pones|shared;
 }
@@ -69,7 +69,7 @@ void pstade_unit_test()
         int const ans_[] = { 1,1,1,1,1,1,1,1 };
         std::vector<int> ans = ans_|copied;
         BOOST_CHECK( oven::test_Forward_Readable(
-            ones|taken(8),
+            ones|memoized|taken(8),
             ans
         ) );
     }

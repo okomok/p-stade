@@ -70,7 +70,7 @@ For any _pipable_object_ `p` the following must be met:
 
 [h3 Models]
 * [link oven.filtered filtered]
-* [link oven.repeated repeated]
+* [link oven.repeat repeat]
 
 [endsect]
 

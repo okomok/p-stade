@@ -37,25 +37,21 @@ void pstade_unit_test()
     std::string ans("a");
 
     {
-        BOOST_CHECK( oven::equals('a'|single, ans) );
-    }
-    {
-        BOOST_CHECK( oven::equals(single('a'), ans) );
+        BOOST_CHECK( equals(single('a'), ans) );
     }
     {
         char ch = 'a';
-        BOOST_CHECK( oven::equals(single(ch), ans) );
+        BOOST_CHECK( equals(single(ch), ans) );
     }
 
     {
-        BOOST_CHECK( oven::equals(new char('a')|shared_single, ans) );
+        BOOST_CHECK( equals(shared_single(new char('a')), ans) );
     }
     {
-        BOOST_CHECK( oven::equals(::make_rng(), ans) );
+        BOOST_CHECK( equals(::make_rng(), ans) );
     }
     {
-        BOOST_CHECK( oven::equals(shared_single(pstade::op_new_auto<char>()('a')), ans) );
-        BOOST_CHECK( oven::equals(pstade::op_new_auto<char>()('a')|shared_single, ans) );
+        BOOST_CHECK( equals(shared_single(pstade::op_new_auto<char>()('a')), ans) );
     }
 }
 
