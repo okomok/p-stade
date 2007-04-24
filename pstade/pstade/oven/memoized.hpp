@@ -34,12 +34,12 @@
 
 #include <deque>
 #include <memory> // auto_ptr
+#include <boost/assert.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/noncopyable.hpp>
-#include <boost/optional.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/shared_ptr.hpp>
@@ -70,17 +70,42 @@ namespace memoized_detail {
         typedef typename table_t::size_type index_type;
 
         explicit memo(Iterator it) :
-            m_base(it)
+            m_base(it), m_position(0)
         { }
 
         bool is_in_table(index_type i) const
         {
+            BOOST_ASSERT(0 <= i && i <= m_position);
             return i != m_table.size();
         }
 
-        value_t const& table(index_type i) const
+        value_t const& deref(index_type i)
         {
+            BOOST_ASSERT(0 <= i && i <= m_position);
+            BOOST_ASSERT(invariant());
+
+            if (!is_in_table(i)) {
+                BOOST_ASSERT(i == m_position && m_position == m_table.size());
+                m_table.push_back(*m_base);
+            }
+
             return m_table[i];
+        }
+
+        index_type next(index_type i)
+        {
+            BOOST_ASSERT(0 <= i && i <= m_position);
+            BOOST_ASSERT(invariant());
+
+            if (i == m_position) {
+                if (m_position == m_table.size())
+                        m_table.push_back(*m_base);
+
+                ++m_base;
+                ++m_position;
+            }
+
+            return i + 1;
         }
 
         Iterator base() const
@@ -88,25 +113,15 @@ namespace memoized_detail {
             return m_base;
         }
 
-        void increment()
-        {
-            m_table.push_back(dereference());
-            ++m_base;
-            m_ovalue.reset();
-        }
-
-        value_t const& dereference()
-        {
-            if (!this->m_ovalue)
-                this->m_ovalue = *m_base;
-
-            return *this->m_ovalue;
-        }
-
     private:
         Iterator m_base;
-        boost::optional<value_t> m_ovalue; // shared to boost the speed!
+        index_type m_position;
         table_t m_table;
+
+        bool invariant() const
+        {
+            return m_position == m_table.size() || m_position + 1 == m_table.size();
+        }
     };
 
 
@@ -185,10 +200,7 @@ namespace memoized_detail {
     friend class boost::iterator_core_access;
         ref_t dereference() const
         {
-            if (is_in_table())
-                return m_pmemo->table(m_index);
-            else
-                return m_pmemo->dereference();
+            return m_pmemo->deref(m_index);
         }
 
         bool equal(memoize_iterator const& other) const
@@ -203,13 +215,7 @@ namespace memoized_detail {
 
         void increment()
         {
-            if (is_in_table()) {
-                ++m_index;
-            }
-            else {
-                m_pmemo->increment();
-                ++m_index;
-            }
+            m_index = m_pmemo->next(m_index);
         }
     };
 
