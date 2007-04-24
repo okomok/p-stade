@@ -120,6 +120,7 @@
 * Added `initializers`.
 
 [h2 Version 0.93.7]
+* Ported to QuickBook.
 * Renamed `advanced` to `offset`.
 * Renamed `directed` to `outdirected`.
 * Renamed `initializers` to `initial_values`.
@@ -128,8 +129,8 @@
 * Changed `cycled` interface.
 * Added `steps`.
 * Renamed `stream_input` to `reading`.
-* Renamed Output Iterator Adaptors.
-* This document was ported to QuickBook.
+* Renamed `Output Iterator Adaptors`.
+* Renamed `as_single` to `single`.
 
 
 

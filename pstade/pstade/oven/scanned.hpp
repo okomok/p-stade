@@ -21,7 +21,6 @@
 #include <pstade/constant.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
-#include "./as_single.hpp"
 #include "./concepts.hpp"
 #include "./detail/minimum_pure.hpp"
 #include "./dropped.hpp"
@@ -29,6 +28,7 @@
 #include "./iter_range.hpp"
 #include "./jointed.hpp"
 #include "./range_iterator.hpp"
+#include "./shared_single.hpp"
 
 
 namespace pstade { namespace oven {
@@ -156,7 +156,7 @@ struct op_make_scanned :
     struct apply :
         boost::result_of<
             op_make_jointed(
-                typename boost::result_of<op_as_shared_single(State const *)>::type,
+                typename boost::result_of<op_shared_single(State const *)>::type,
                 typename scanned_detail::baby<Range, State, BinaryFun>::result_type
             )
         >
@@ -171,7 +171,7 @@ struct op_make_scanned :
         // It's common that 'rng' is constant but 'init' isn't 'const'.
         // As 'scan_iterator' is constant, 'make_jointed' won't work in such case.
         return make_jointed(
-            as_shared_single(new State const(init)),
+            shared_single(new State const(init)),
             scanned_detail::baby<Range, State, BinaryFun>()(rng, init, fun)
         );
     }

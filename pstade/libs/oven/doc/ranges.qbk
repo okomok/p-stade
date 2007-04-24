@@ -5,7 +5,7 @@
 [section any_range]
 
 [h3 Description]
-Though Oven supports `boost::result_of`, it is often cumbersome to get the type of the adapted range.
+Though Oven supports _boost_result_of_, it is often cumbersome to get the type of the adapted range.
 `any_range` behaves as the type erasure of ranges.
 
 [h3 Header]
@@ -25,7 +25,7 @@ Though Oven supports `boost::result_of`, it is often cumbersome to get the type 
     [
         [`any_range<R, C>(_rng)`]
         [
-            `[_begin(_rng), _end(_rng))` whose `boost::range_reference` type is `R`.
+            `[_begin(_rng), _end(_rng))`, whose `boost::range_reference` type is `R`.
         ]
     ]
     [
@@ -96,7 +96,7 @@ a range presentation of dynamically allocated arrays.
     BOOST_CHECK( equals(sarr, darr) );
 
 [h3 See also]
-* Boost.Array
+* _boost_array_
 
 [endsect]
 
@@ -220,7 +220,7 @@ If the file opening failed, the range is empty.
     ]
     [
         [`r.is_open()`]
-        [Returns `true` if and only if the file opening is succeeded.]
+        [Returns `true` if and only if the file has successfully been opened.]
     ]
 ]
 

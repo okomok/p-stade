@@ -1,7 +1,7 @@
 [section Range Makers]
 
 
-Before applying a [link oven.range_adaptors range apdator], you must prepare a range by using the following functions.
+Before applying a [link oven.range_adaptors range adaptor], you can prepare the base range by using the following functions.
 
 
 
@@ -136,75 +136,6 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 
 
 
-[section as_single]
-
-[h3 Description]
-`as_single` makes a _random_access_range_ which delivers a range presentation of one object.
-
-[h3 Header]
-* `<pstade/oven/as_single.hpp>`
-
-[h3 Model of]
-* _auxiliary_interface_
-
-[h3 Valid expressions]
-[table 
-    [
-        [[*Valid expression]]
-        [[*Semantics]]
-    ]
-    [
-        [`as_single(x)`]
-        [`[&x, &x + 1)`]
-    ]
-]
-
-[note As the semantics implies, the iterators are valid as long as `x` is not destructed.
-      If you want the iterators to manage the base object lifetime, use [link oven.as_shared_single as_shared_single].]
-
-[h3 Example]
-    BOOST_CHECK( equals('a'|as_single, std::string("a")) );
-
-[endsect]
-
-
-
-
-[section as_shared_single]
-
-[h3 Description]
-`as_shared_single`, given a pointer to a heap allocated object, delivers a range presentation of the pointee.
-
-[h3 Header]
-* `<pstade/oven/as_single.hpp>`
-
-[h3 Model of]
-* _auxiliary_interface_
-
-[h3 Valid expressions]
-[table 
-    [
-        [[*Valid expression]]
-        [[*Semantics]]
-    ]
-    [
-        [`as_shared_single(p)`]
-        [`[&*p, &*p + 1)`]
-    ]
-]
-
-[h3 Preconditions]
-* `boost::shared_ptr<_typeof(*p)>(p)` is a valid expression.
-
-[h3 Example]
-    BOOST_CHECK( equals(new char('a')|as_shared_single, std::string("a")) );
-
-
-[endsect]
-
-
-
-
 [section counting]
 
 [h3 Description]
@@ -284,7 +215,7 @@ The overhead can be removed with the help of _boost_typeof_ if your compiler sup
     ]
     [
         [`expression(_rng)`]
-        [Returns a _range_ which can be used with _boost_typeof_ macros.]
+        [`[_begin(_rng), _end(_rng))` which can be used with _boost_typeof_ macros.]
     ]
 ]
 
@@ -326,7 +257,7 @@ The overhead can be removed with the help of _boost_typeof_ if your compiler sup
     [
         [`generation(g)`]
         [
-            Returns the longest _single_pass_range_ `{*g(),*g(),*g(),..,*g()}` such that `g()` is not /uninitialized/.
+            The longest _single_pass_range_ `{*g(),*g(),*g(),..,*g()}` such that `g()` is not /uninitialized/.
         ]
     ]
 ]
@@ -390,7 +321,7 @@ The overhead can be removed with the help of _boost_typeof_ if your compiler sup
     [
         [`initial_values(a1,..,aN)`]
         [
-            Returns a _random_access_range_ `{a1,..,aN}`.
+            A _random_access_range_ `{a1,..,aN}`
         ]
     ]
     [
@@ -447,7 +378,7 @@ on the first argument, the second item by applying the function on the previous 
     [
         [`iteration(x, _fun)`]
         [
-            Returns an infinite _single_pass_range_ `{x,_fun(x),_fun(_fun(x)),_fun(_fun(_fun(x))),...}`.
+            An infinite _single_pass_range_ `{x,_fun(x),_fun(_fun(x)),_fun(_fun(_fun(x))),...}`
         ]
     ]
 ]
@@ -652,7 +583,7 @@ on the first argument, the second item by applying the function on the previous 
     [
         [`recursion(_fwdrng)`]
         [
-            Returns an infinite range up to _bidirectional_range_ `[_begin(_fwdrng), _end(_fwdrng))`.
+            An infinite range up to _bidirectional_range_ `[_begin(_fwdrng), _end(_fwdrng))`
         ]
     ]
 ]
@@ -693,7 +624,7 @@ on the first argument, the second item by applying the function on the previous 
 [section repeated]
 
 [h3 Description]
-`repeated` makes a _random_access_range_ where all values are the first argument.
+`repeat` makes a _random_access_range_ where all values are the first argument.
 
 [h3 Header]
 * `<pstade/oven/repeated.hpp>`
@@ -708,15 +639,15 @@ on the first argument, the second item by applying the function on the previous 
         [[*Semantics]]
     ]
     [
-        [`x|repeated(n)`]
+        [`repeated(x, n)`]
         [
-            `as_single(x)|cycled(n)`
+            `single(x)|cycled(n)`
         ]
     ]
 ]
 
 [h3 Preconditions]
-* `as_single(x)|cycled(n)` is a valid expression.
+* `single(x)|cycled(n)` is a valid expression.
 
 [h3 Example]
     BOOST_CHECK( equals(
@@ -725,7 +656,7 @@ on the first argument, the second item by applying the function on the previous 
     ) );
 
 [h3 See also]
-* [link oven.as_single as_single]
+* [link oven.single single]
 * [link oven.cycled cycled]
 
 [endsect]
@@ -777,7 +708,76 @@ and the iterators manage the allocation.
 
 [h3 See also]
 * [@http://www.boost.org/libs/utility/shared_container_iterator.html shared_container_iterator]
-* [link oven.as_shared_single as_shared_single]
+* [link oven.shared_single shared_single]
+
+[endsect]
+
+
+
+
+[section single]
+
+[h3 Description]
+`single` makes a _random_access_range_ which delivers a range presentation of one object.
+
+[h3 Header]
+* `<pstade/oven/single.hpp>`
+
+[h3 Model of]
+* _auxiliary_interface_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`single(x)`]
+        [`[&x, &x + 1)`]
+    ]
+]
+
+[note As the semantics implies, the iterators are valid as long as `x` is not destructed.
+      If you want the iterators to manage the base object lifetime, use [link oven.shared_single shared_single].]
+
+[h3 Example]
+    BOOST_CHECK( equals('a'|single, std::string("a")) );
+
+[endsect]
+
+
+
+
+[section shared_single]
+
+[h3 Description]
+`shared_single`, given a pointer to a heap allocated object, delivers a range presentation of the pointee.
+
+[h3 Header]
+* `<pstade/oven/shared_single.hpp>`
+
+[h3 Model of]
+* _auxiliary_interface_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`shared_single(p)`]
+        [`[&*p, &*p + 1)`]
+    ]
+]
+
+[h3 Preconditions]
+* `boost::shared_ptr<_typeof(*p)>(p)` is a valid expression.
+
+[h3 Example]
+    BOOST_CHECK( equals(new char('a')|shared_single, std::string("a")) );
+
 
 [endsect]
 

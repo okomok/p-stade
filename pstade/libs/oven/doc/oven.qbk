@@ -45,6 +45,7 @@
 [def _predicate_             [@http://www.sgi.com/tech/stl/Predicate.html Predicate]]
 [def _input_iterator_        [@http://www.sgi.com/tech/stl/InputIterator.html Input Iterator]]
 [def _output_iterator_       [@http://www.sgi.com/tech/stl/OutputIterator.html Output Iterator]]
+[def _writable_iterator_     [@http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#writable-iterators-lib-writable-iterators Writable Iterator]]
 [def _lvalue_iterator_       [@http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#lvalue-iterators-lib-lvalue-iterators Lvalue Iterator]]
 
 [def _range_                 [@http://www.boost.org/libs/range/doc/range.html Range]]
@@ -64,6 +65,8 @@
 [def _stoppable_generator_   [link oven.stoppable_generator Stoppable Generator]]
 [def _constant_range_        [link oven.constant_range Constant Range]]
 [def _contiguous_range_      [link oven.contiguous_range Contiguous Range]]
+[def _lvalue_range_          [link oven.lvalue_range Lvalue Range]]
+[def _independent_range_     [link oven.independent_range Independent Range]]
 
 
 [include preface.qbk]

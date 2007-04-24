@@ -22,7 +22,7 @@
 #include <boost/range.hpp>
 #include "./core.hpp"
 #include <pstade/oven/copy_range.hpp>
-#include <pstade/oven/as_single.hpp>
+#include <pstade/oven/single.hpp>
 #include <pstade/oven/reversed.hpp>
 
 
@@ -139,13 +139,13 @@ void test()
 
     {
         BOOST_CHECK(( oven::equals(
-            as_single('x')|jointed(std::string("yz")), std::string("xyz")
+            single('x')|jointed(std::string("yz")), std::string("xyz")
         ) ));
     }
 
     {
         BOOST_CHECK(( oven::equals(
-            std::string("xy")|jointed(as_single('z')), std::string("xyz")
+            std::string("xy")|jointed(single('z')), std::string("xyz")
         ) ));
     }
 

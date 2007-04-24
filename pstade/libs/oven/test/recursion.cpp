@@ -21,7 +21,7 @@
 #include <pstade/oven/copy_range.hpp>
 #include <pstade/oven/shared.hpp>
 #include <pstade/oven/jointed.hpp>
-#include <pstade/oven/as_single.hpp>
+#include <pstade/oven/shared_single.hpp>
 #include <pstade/oven/memoized.hpp>
 
 
@@ -38,7 +38,7 @@ range make_ones()
 {
     range *pones = new range();
 
-    *pones = new int const(1)|as_shared_single|jointed(recursion(*pones));
+    *pones = new int const(1)|shared_single|jointed(recursion(*pones));
 
     return pones|shared;
 }

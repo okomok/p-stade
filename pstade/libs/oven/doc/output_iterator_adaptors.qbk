@@ -24,7 +24,7 @@
     [
         [`counter(i)`]
         [
-            Returns an _output_iterator_ which behaves as if it were `T(i)`.
+            An _output_iterator_ which behaves as if it were `T(i)`.
         ]
     ]
 ]
@@ -68,7 +68,7 @@
     [
         [`passer(_fun)`]
         [
-            Returns an _output_iterator_ which behaves as if it were `T(_fun)`.
+            An _output_iterator_ which behaves as if it were `T(_fun)`.
         ]
     ]
 ]
@@ -106,7 +106,7 @@ Pending...
     [
         [`utf8_encoder(x)`]
         [
-            Returns an _output_iterator_ which behaves as if it were `T(x)`.
+            An _output_iterator_ which behaves as if it were `T(x)`.
         ]
     ]
 ]
@@ -145,7 +145,7 @@ but one extra precondition below must be kept. It can be easily guaranteed by us
     [
         [`writer(s, d)`]
         [
-            Returns an _output_iterator_ which behaves as if it were `T(s, d)`.
+            An _output_iterator_ which behaves as if it were `T(s, d)`.
         ]
     ]
     [

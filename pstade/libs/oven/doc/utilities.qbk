@@ -296,7 +296,7 @@ A _callable_object_ like a random number generator may not be copyable, while ma
 [section zipped]
 
 [h3 Description]
-`zipped` takes a tuple of ranges and returns a _range_ of corresponding tuples.
+`zipped` takes a tuple of ranges and returns a range of corresponding tuples.
 If one input _range_ is short, excess elements of the longer range are discarded.
 
 [h3 Header]

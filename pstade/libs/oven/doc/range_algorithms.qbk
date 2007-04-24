@@ -98,7 +98,7 @@ Oven provides range-based algorithms taking a range instead of two iterators.
 
 
 [note Unfortunately, Oven STL Algorithms and Numerics are not traversal-aware.
-A _random_access_range_ whose iterator is not _lvalue_iterator_ is regarded as an _input_iterator_ range.]
+A _random_access_range_ but not _lvalue_range_ is regarded as an _input_iterator_ range.]
 
 
 
@@ -124,11 +124,11 @@ A _random_access_range_ whose iterator is not _lvalue_iterator_ is regarded as a
 ]
 
 [h3 Preconditions]
+* `_rndrng` is an _independent_range_.
 * `_typeof(n)` is convertible to `boost::range_difference<_typeof(_rndrng)>::type`.
 * `0 <= n && n < distance(_rndrng)`
-* Destruction of an iterator of `_rndrng` doesn't invalidate references previously obtained from that iterator.
 
-[note you must use [link oven.value_at value_at] if an iterator invalidates references after the destruction.]
+[note you must use [link oven.value_at value_at] if the first precondition can't be met.]
 
 [h3 Example]
     std::string str("f12344513215b");
@@ -204,13 +204,13 @@ A _random_access_range_ whose iterator is not _lvalue_iterator_ is regarded as a
     ]
 ]
 
-[note The valid expression implies you can place `copied` everywhere it is used in /copy-initialization/, e.g. `return` statement.
-The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied);` is not listed in valid expressions.]
-
 [h3 Preconditions]
 
 * `boost::range_value<_typeof(_rng2)>::type` is convertible to `V1`.
 * `copied` isn't placed in a function default argument list.
+
+[note The valid expression implies you can place `copied` everywhere it is used in /copy-initialization/, e.g. `return` statement.
+The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied);` is not listed in valid expressions.]
 
 [h3 Example]
     std::string _rng("abcdefg");
@@ -318,9 +318,8 @@ The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied
 ]
 
 [h3 Preconditions]
-* `!boost::empty(_rng)`
-* `!boost::empty(_bidrng)`
-* Destruction of an iterator of `_bidrng` doesn't invalidate references previously obtained from that iterator.
+* `_rng` is an _independent_range_ such that `!boost::empty(_rng)`.
+* `_bidrng` is an _independent_range_ such that `!boost::empty(_bidrng)`.
 
 [h3 See also]
 * [link oven.value_front_value_back value_front/value_back]
@@ -400,8 +399,8 @@ The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied
 
 [h3 Preconditions]
 * `V1` is _copy_constructible_.
-* `V2` is _copy_constructible_.
 * `!boost::empty(_rng)`
+* `V2` is _copy_constructible_.
 * `!boost::empty(_bidrng)`
 
 [h3 See also]

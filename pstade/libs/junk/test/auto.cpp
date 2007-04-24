@@ -10,8 +10,8 @@
 //#define BOOST_TYPEOF_EMULATION
 
 
-#include <pstade/../libs/wine/test/deduced_const.cpp>
-//#include <pstade/../libs/oven/test/copied_to.cpp>
+//#include <pstade/../libs/wine/test/deduced_const.cpp>
+#include <pstade/../libs/oven/test/single.cpp>
 //#include <pstade/../libs/oven/example/primes.cpp>
 //#include <pstade/../libs/biscuit/test/capture.cpp>
 //#include <pstade/../libs/oven/test/ms/atl_string.cpp>

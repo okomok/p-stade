@@ -19,7 +19,7 @@
 #include <boost/range.hpp>
 #include "./core.hpp"
 #include <pstade/oven/jointed.hpp>
-#include <pstade/oven/as_single.hpp>
+#include <pstade/oven/single.hpp>
 #include <pstade/oven/as_c_str.hpp>
 
 
@@ -59,7 +59,7 @@ void test()
         ) );
         BOOST_CHECK( oven::equals(
             "hello\0range"|as_literal,
-            std::string("hello")|jointed('\0'|as_single)|jointed(std::string("range"))
+            std::string("hello")|jointed('\0'|single)|jointed(std::string("range"))
         ) );
     }
     {

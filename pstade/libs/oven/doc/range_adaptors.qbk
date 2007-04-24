@@ -56,7 +56,7 @@ Additional information is available at _proposal_.
 [section adjacent_transformed]
 
 [h3 Description]
-`adjacent_transformed` passes adjacent pairs to a _function_object_ repeatedly.
+`adjacent_transformed` passes adjacent pairs to a function to transform repeatedly.
 
 [h3 Header]
 * `<pstade/oven/adjacent_transformed.hpp>`
@@ -155,7 +155,6 @@ Additional information is available at _proposal_.
 [section appended]
 
 [h3 Description]
-`appended` returns a range which is appended with its argument.
 
 [h3 Header]
 * `<pstade/oven/appended.hpp>`
@@ -172,13 +171,18 @@ Additional information is available at _proposal_.
     [
         [`_rng|appended(x)`]
         [
-            `_rng|jointed(as_single(x))`
+            `_rng|jointed(single(x))`
         ]
     ]
 ]
 
 [h3 Preconditions]
-* `_rng|jointed(as_single(x))` is a valid expression.
+* `_rng|jointed(single(x))` is a valid expression.
+
+[h3 See also]
+* [link oven.single single]
+* [link oven.jointed jointed]
+* [link oven.prepended prepended]
 
 [endsect]
 
@@ -188,7 +192,7 @@ Additional information is available at _proposal_.
 [section applied]
 
 [h3 Description]
-`applied`, given a _function_object_ which represents an algorithm, creates an adaptor.
+`applied`, given a function object which represents an algorithm, creates an adaptor.
 
 [h3 Header]
 * `<pstade/oven/applied.hpp>`
@@ -481,7 +485,7 @@ Additional information is available at _proposal_.
 [section const_lvalues]
 
 [h3 Description]
-`const_lvalues` converts the base range into a constant _lvalue_iterator_ range.
+`const_lvalues` converts the base range into a constant _lvalue_range_.
 
 [h3 Header]
 * `<pstade/oven/const_lvalues.hpp>`
@@ -498,7 +502,7 @@ Additional information is available at _proposal_.
     [
         [`_rng|cleared`]
         [
-            A _constant_range_ `[_begin(_rng), _end(_rng))` whose `boost::range_reference` type is a /reference/.
+            A constant _lvalue_range_ `[_begin(_rng), _end(_rng))`
         ]
     ]
 ]
@@ -593,9 +597,8 @@ Additional information is available at _proposal_.
         std::string("xyzxyzxyz")
     ) );
 
-
 [h3 See also]
-[link oven.repeated repeated]
+* [link oven.repeated repeated]
 
 [endsect]
 
@@ -638,7 +641,7 @@ Additional information is available at _proposal_.
 
 [h3 Example]
     BOOST_CHECK( equals(
-        std::string("abcde")|transformed(as_single)|
+        std::string("abcde")|transformed(single)|
             delimited("--"|as_literal)|dropped(2),
         std::string("a--b--c--d--e")
     ) );
@@ -835,6 +838,9 @@ Additional information is available at _proposal_.
 
 [h3 Model of]
 
+[h3 Notation]
+* `traversal` is an imaginary metafunction which returns a traversal tag type known as `boost::xxx_traversal_tag`.
+
 [h3 Valid expressions]
 [table 
     [
@@ -856,7 +862,7 @@ Additional information is available at _proposal_.
     [
         [`op_make_identities<>()(_rng, t)`]
         [
-            `[_begin(_rng), _end(_rng))` whose `boost::range_traversal` type is `_typeof(t)`.
+            `[_begin(_rng), _end(_rng))` whose `traversal` type is `_typeof(t)`.
         ]
     ]
     [
@@ -874,7 +880,8 @@ Additional information is available at _proposal_.
 ]
 
 [h3 Preconditions]
-* `_typeof(t)` is convertible to `boost::single_pass_traversal_tag`.
+* There is a `xxx` such that `_typeof(t)` is `boost::xxx_traversal_tag`.
+* `traversal<_typeof(_rng)>::type` is convertible to `_typeof(t)`.
 
 [h3 Example]
 
@@ -981,6 +988,8 @@ Additional information is available at _proposal_.
 ]
 
 [h3 Preconditions]
+* `boost::range_reference<_typeof(_rng2)>::type` is convertible to `boost::range_reference<_typeof(_rng1)>::type`
+  without binding reference to rvalue.
 
 [h3 Example]
     std::string str0("every range");
@@ -1260,6 +1269,8 @@ Additional information is available at _proposal_.
 ]
 
 [h3 Preconditions]
+* `boost::range_reference<_typeof(_rng2)>::type` is convertible to `boost::range_reference<_typeof(_rng1)>::type`
+  without binding reference to rvalue.
 * `_rng1` and `_rng2` are sorted.
 * `_prd` is _assignable_.
 * If `_rng1` and `_rng2` are _forward_range_s, `_prd` is _default_constructible_.
@@ -1513,18 +1524,19 @@ That is, the view includes every element of the given range but in a potentially
     [
         [`_rng|prepended`]
         [
-            `as_single(v)|jointed(_rng)`
+            `single(v)|jointed(_rng)`
         ]
     ]
 ]
 
 [h3 Preconditions]
-* `as_single(v)|jointed(_rng)` is a valid expression.
+* `single(v)|jointed(_rng)` is a valid expression.
 
 [h3 Example]
 
 [h3 See also]
-* [link oven.as_single as_single]
+* [link oven.appended appended]
+* [link oven.single single]
 * [link oven.jointed jointed]
 
 [endsect]
@@ -2076,8 +2088,8 @@ A range returned from `reversed` iterates in the opposite direction.
 [section taken_while]
 
 [h3 Description]
-`taken_while`, applied to a _predicate_ and the base range,
-returns the longest prefix (possibly empty) of the range of elements that satisfy _predicate_:
+`taken_while`, applied to a predicate and the base range,
+returns the longest prefix (possibly empty) of the range of elements that satisfy the predicate.
 
 [h3 Header]
 * `<pstade/oven/taken_while.hpp>`
@@ -2171,6 +2183,7 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
 [section transformed]
 
 [h3 Description]
+`transformed` returns a `transform_iterator` range.
 
 [h3 Header]
 * `<pstade/oven/transformed.hpp>`
@@ -2228,6 +2241,9 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
 * If `_rng` is a _forward_range_, `_fun` and `_cal` are _default_constructible_.
 
 [h3 Example]
+
+[h3 See also]
+* [@http://www.boost.org/libs/iterator/doc/transform_iterator.html boost::transform_iterator]
 
 [endsect]
 

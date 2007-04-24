@@ -18,7 +18,7 @@
 #include "./core.hpp"
 #include <pstade/oven/dropped.hpp>
 #include <pstade/oven/as_literal.hpp>
-#include <pstade/oven/as_single.hpp>
+#include <pstade/oven/single.hpp>
 #include <pstade/oven/transformed.hpp>
 #include <pstade/biscuit/parser.hpp>
 #include <pstade/biscuit/range/token_range.hpp>
@@ -50,7 +50,7 @@ void test()
     }
     {
         BOOST_CHECK( equals(
-            std::string("abcde")|transformed(as_single)|
+            std::string("abcde")|transformed(single)|
                 delimited("--"|as_literal)|dropped(2),
             std::string("a--b--c--d--e")
         ) );

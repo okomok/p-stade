@@ -56,17 +56,17 @@ for any _operatable_object_ `f` the following must be met:
 [section Pipable Object]
 
 [h3 Description]
-A _pipable_object_ supports a pipable syntax and has the associated _operatable_object_ using prefix `make_`.
+A _pipable_object_ supports a pipe-like syntax using `operator|` and has the associated _operatable_object_ using prefix `make_`.
 
 [h3 Refinement of]
 
 [h3 Requirements]
 For any _pipable_object_ `p` the following must be met:
 
-* `a|p(a0,..,aN)` is a valid expression if and only if `make_p(a, a0,..aN)` is a valid expression.
-* `a|p(a0,..,aN)` and `make_p(a, a0,..aN)` have the same effects.
+* `x|p(x0,..,xN)` is a valid expression if and only if `make_p(x, x0,..xN)` is a valid expression.
+* `x|p(x0,..,xN)` and `make_p(x, x0,..xN)` have the same effects.
 * `make_p` is an _operatable_object_.
-* If `N == 0`, `a|p` and `make_p(a)` are valid expressions which have the same effects.
+* If `N` is `0`, `x|p` and `make_p(x)` are valid expressions which have the same effects.
 
 [h3 Models]
 * [link oven.filtered filtered]
@@ -80,7 +80,7 @@ For any _pipable_object_ `p` the following must be met:
 [section Auxiliary Interface]
 
 [h3 Description]
-An _auxiliary_interface_ is a _operatable_object_ which supports also the pipable syntax
+An _auxiliary_interface_ is an _operatable_object_ which supports also a pipe-like syntax
 used as if it were a member function.
 
 [h3 Refinement of]
@@ -90,9 +90,9 @@ _operatable_object_
 In addition to the requirements defined in _operatable_object_,
 for any _auxiliary_interface_ `i` the following must be met:
 
-* `a|i(a0,..,aN)` is a valid exression if and only if `i(a, a0,..,aN)` is a valid expression.
-* `a|i(a0,..aN)` and `i(a, a0,..,aN)` have the same effects.
-* If `N == 0`, `a|i()` and `a|i` are valid expressions which have the same effects.
+* `x|i(x0,..,xN)` is a valid exression if and only if `i(x, x0,..,xN)` is a valid expression.
+* `x|i(x0,..xN)` and `i(x, x0,..,xN)` have the same effects.
+* If `N` is `0`, `x|i()` and `x|i` are valid expressions which have the same effects.
 
 [h3 Models]
 * [link oven.as_array as_array]
@@ -138,9 +138,9 @@ the iterator referents are not modifiable.
 
 [h3 Requirements]
 In addition to the requirements defined in _single_pass_range_,
-for any _constant_range_ `r` whose type is `R` the following must be met:
+for any _constant_range_ `r` the following must be met:
 
-* `boost::remove_reference<boost::range_reference<R>::type>::type` is const-qualified.
+* `_iter_of<_typeof(r)>::type` is not _writable_iterator_.
 
 [h3 Models]
 * `std::list<int> const`
@@ -168,6 +168,56 @@ for any _contiguous_range_ `r` the following must be met:
 [h3 Models]
 * `std::vector<int>`
 * `boost::array<char, 50>`
+
+[endsect]
+
+
+
+
+[section Lvalue Range]
+
+[h3 Description]
+A _lvalue_range_ is a _range_ whose iterator referent type is a /reference/.
+
+[h3 Refinement of]
+* _single_pass_range_
+
+[h3 Requirements]
+In addition to the requirements defined in _single_pass_range_,
+for any _lvalue_range_ `r` the following must be met:
+
+* `_iter_of<_typeof(r)>::type` is _lvalue_iterator_.
+
+[h3 Models]
+* Any `std::vector`
+* Any `boost::counting_iterator`
+
+[endsect]
+
+
+
+
+[section Independent Range]
+
+[h3 Description]
+An _independent_range_ is a _range_ whose iterator referents live outside of the iterators.
+
+[h3 Refinement of]
+* _single_pass_range_
+
+[h3 Requirements]
+In addition to the requirements defined in _single_pass_range_,
+for any _independent_range_ `r` the following must be met:
+
+* If `r` is a _lvalue_range_, destruction of an iterator shall not invalidate pointers and references previously obtained from that iterator.
+
+[h3 Models]
+* Any range which is not a _lvalue_range_.
+* `std::vector<int>`
+* Any range which [link oven.shared shared] returns.
+
+[h3 See also]
+* C++ Standard 24.1/9
 
 [endsect]
 

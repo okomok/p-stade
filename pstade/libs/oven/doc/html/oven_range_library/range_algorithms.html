@@ -4,8 +4,8 @@
 <title>Range Algorithms</title>
 <link rel="stylesheet" href="../boostbook.css" type="text/css">
 <meta name="generator" content="DocBook XSL Stylesheets V1.72.0">
-<link rel="start" href="../index.html" title="Chapter 1. Oven 0.93.7">
-<link rel="up" href="../index.html" title="Chapter 1. Oven 0.93.7">
+<link rel="start" href="../index.html" title="Chapter 1. Oven Range Library 0.93.7">
+<link rel="up" href="../index.html" title="Chapter 1. Oven Range Library 0.93.7">
 <link rel="prev" href="concepts.html" title="Concepts">
 <link rel="next" href="ranges.html" title="Ranges">
 </head>
@@ -17,49 +17,49 @@
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
-<a name="oven.range_algorithms"></a>Range Algorithms</h2></div></div></div>
+<a name="oven_range_library.range_algorithms"></a>Range Algorithms</h2></div></div></div>
 <div class="toc"><dl>
-<dt><span class="section"><a href="range_algorithms.html#oven.stl_algorithms">STL Algorithms</a></span></dt>
-<dt><span class="section"><a href="range_algorithms.html#oven.stl_numerics">STL Numerics</a></span></dt>
-<dt><span class="section"><a href="range_algorithms.html#oven.at">at</a></span></dt>
-<dt><span class="section"><a href="range_algorithms.html#oven.begin_end">begin/end</a></span></dt>
-<dt><span class="section"><a href="range_algorithms.html#oven.copied">copied</a></span></dt>
-<dt><span class="section"><a href="range_algorithms.html#oven.distance">distance</a></span></dt>
-<dt><span class="section"><a href="range_algorithms.html#oven.equals">equals</a></span></dt>
-<dt><span class="section"><a href="range_algorithms.html#oven.front_back">front/back</a></span></dt>
-<dt><span class="section"><a href="range_algorithms.html#oven.value_at">value_at</a></span></dt>
-<dt><span class="section"><a href="range_algorithms.html#oven.value_front_value_back">value_front/value_back</a></span></dt>
+<dt><span class="section"><a href="range_algorithms.html#oven_range_library.stl_algorithms">STL Algorithms</a></span></dt>
+<dt><span class="section"><a href="range_algorithms.html#oven_range_library.stl_numerics">STL Numerics</a></span></dt>
+<dt><span class="section"><a href="range_algorithms.html#oven_range_library.at">at</a></span></dt>
+<dt><span class="section"><a href="range_algorithms.html#oven_range_library.begin_end">begin/end</a></span></dt>
+<dt><span class="section"><a href="range_algorithms.html#oven_range_library.copied">copied</a></span></dt>
+<dt><span class="section"><a href="range_algorithms.html#oven_range_library.distance">distance</a></span></dt>
+<dt><span class="section"><a href="range_algorithms.html#oven_range_library.equals">equals</a></span></dt>
+<dt><span class="section"><a href="range_algorithms.html#oven_range_library.front_back">front/back</a></span></dt>
+<dt><span class="section"><a href="range_algorithms.html#oven_range_library.value_at">value_at</a></span></dt>
+<dt><span class="section"><a href="range_algorithms.html#oven_range_library.value_front_value_back">value_front/value_back</a></span></dt>
 </dl></div>
 <p>
       Oven provides range-based algorithms taking a range instead of two iterators.
     </p>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="oven.stl_algorithms"></a>STL Algorithms</h3></div></div></div>
+<a name="oven_range_library.stl_algorithms"></a>STL Algorithms</h3></div></div></div>
 <a name="stl_algorithms.description"></a><h4>
-<a name="id505271"></a>
+<a name="id504810"></a>
         Description
       </h4>
 <p>
         <code class="computeroutput"><span class="identifier">algorithm</span><span class="special">.</span><span class="identifier">hpp</span></code> is provided as range-based <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">algorithm</span><span class="special">&gt;</span></code>.
       </p>
 <a name="stl_algorithms.header"></a><h4>
-<a name="id505329"></a>
+<a name="id504867"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">algorithm</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="stl_algorithms.model_of"></a><h4>
-<a name="id505400"></a>
+<a name="id504938"></a>
         Model of
       </h4>
-<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.operatable_object" title="Operatable Object">Operatable Object</a></li></ul></div>
+<div class="itemizedlist"><ul type="disc"><li><a href="../">Operatable Object</a></li></ul></div>
 <a name="stl_algorithms.valid_expressions"></a><h4>
-<a name="id505429"></a>
+<a name="id504966"></a>
         Valid expressions
       </h4>
 <div class="informaltable">
 <h5>
-<a name="id505440"></a>
+<a name="id504977"></a>
         </h5>
 <table class="table">
 <colgroup>
@@ -87,7 +87,7 @@
 </table>
 </div>
 <a name="stl_algorithms.preconditions"></a><h4>
-<a name="id505986"></a>
+<a name="id505521"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -138,7 +138,7 @@
         </p></td></tr>
 </table></div>
 <a name="stl_algorithms.example"></a><h4>
-<a name="id506668"></a>
+<a name="id506202"></a>
         Example
       </h4>
 <pre class="programlisting">
@@ -157,31 +157,31 @@
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="oven.stl_numerics"></a>STL Numerics</h3></div></div></div>
+<a name="oven_range_library.stl_numerics"></a>STL Numerics</h3></div></div></div>
 <a name="stl_numerics.description"></a><h4>
-<a name="id506939"></a>
+<a name="id506474"></a>
         Description
       </h4>
 <p>
         <code class="computeroutput"><span class="identifier">numeric</span><span class="special">.</span><span class="identifier">hpp</span></code> is provided as range-based <code class="computeroutput"><span class="special">&lt;</span><span class="identifier">numeric</span><span class="special">&gt;</span></code>.
       </p>
 <a name="stl_numerics.header"></a><h4>
-<a name="id506997"></a>
+<a name="id506532"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">numeric</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="stl_numerics.model_of"></a><h4>
-<a name="id507067"></a>
+<a name="id506602"></a>
         Model of
       </h4>
-<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.operatable_object" title="Operatable Object">Operatable Object</a></li></ul></div>
+<div class="itemizedlist"><ul type="disc"><li><a href="../">Operatable Object</a></li></ul></div>
 <a name="stl_numerics.valid_expressions"></a><h4>
-<a name="id507097"></a>
+<a name="id506631"></a>
         Valid expressions
       </h4>
 <div class="informaltable">
 <h5>
-<a name="id507108"></a>
+<a name="id506642"></a>
         </h5>
 <table class="table">
 <colgroup>
@@ -199,7 +199,7 @@
 </table>
 </div>
 <a name="stl_numerics.preconditions"></a><h4>
-<a name="id507290"></a>
+<a name="id506825"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -220,31 +220,31 @@
 <tr><td align="left" valign="top"><p>
         Unfortunately, Oven STL Algorithms and Numerics are not traversal-aware.
         A <a href="http://www.boost.org/libs/range/doc/range.html#random_access_range" target="_top">Random
-        Access Range</a> but not <a href="concepts.html#oven.lvalue_range" title="Lvalue Range">Lvalue Range</a>
-        is regarded as an <a href="http://www.sgi.com/tech/stl/InputIterator.html" target="_top">Input
+        Access Range</a> whose iterator is not <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#lvalue-iterators-lib-lvalue-iterators" target="_top">Lvalue
+        Iterator</a> is regarded as an <a href="http://www.sgi.com/tech/stl/InputIterator.html" target="_top">Input
         Iterator</a> range.
       </p></td></tr>
 </table></div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="oven.at"></a>at</h3></div></div></div>
+<a name="oven_range_library.at"></a>at</h3></div></div></div>
 <a name="at.header"></a><h4>
-<a name="id507477"></a>
+<a name="id507011"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">at</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="at.model_of"></a><h4>
-<a name="id507547"></a>
+<a name="id507081"></a>
         Model of
       </h4>
-<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.auxiliary_interface" title="Auxiliary Interface">Auxiliary Interface</a></li></ul></div>
+<div class="itemizedlist"><ul type="disc"><li><a href="../">Auxiliary Interface</a></li></ul></div>
 <a name="at.valid_expressions"></a><h4>
-<a name="id507577"></a>
+<a name="id507111"></a>
         Valid expressions
       </h4>
 <div class="informaltable">
 <h5>
-<a name="id507588"></a>
+<a name="id507122"></a>
         </h5>
 <table class="table">
 <colgroup>
@@ -262,19 +262,19 @@
 </table>
 </div>
 <a name="at.preconditions"></a><h4>
-<a name="id507720"></a>
+<a name="id507254"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
-<li>
-<code class="computeroutput"><span class="identifier">_rndrng</span></code> is an <a href="concepts.html#oven.independent_range" title="Independent Range">Independent
-          Range</a>.
-        </li>
 <li>
 <code class="computeroutput"><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">n</span><span class="special">)</span></code> is
           convertible to <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">range_difference</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_rndrng</span><span class="special">)&gt;::</span><span class="identifier">type</span></code>.
         </li>
 <li><code class="computeroutput"><span class="number">0</span> <span class="special">&lt;=</span> <span class="identifier">n</span> <span class="special">&amp;&amp;</span> <span class="identifier">n</span> <span class="special">&lt;</span> <span class="identifier">distance</span><span class="special">(</span><span class="identifier">_rndrng</span><span class="special">)</span></code></li>
+<li>
+          Destruction of an iterator of <code class="computeroutput"><span class="identifier">_rndrng</span></code>
+          doesn't invalidate references previously obtained from that iterator.
+        </li>
 </ul></div>
 <div class="note"><table border="0" summary="Note">
 <tr>
@@ -282,12 +282,12 @@
 <th align="left">Note</th>
 </tr>
 <tr><td align="left" valign="top"><p>
-          you must use <a href="range_algorithms.html#oven.value_at" title="value_at">value_at</a> if the first
-          precondition can't be met.
+          you must use <a href="../">value_at</a> if an iterator
+          invalidates references after the destruction.
         </p></td></tr>
 </table></div>
 <a name="at.example"></a><h4>
-<a name="id507925"></a>
+<a name="id507453"></a>
         Example
       </h4>
 <pre class="programlisting">
@@ -296,40 +296,40 @@
 <span class="identifier">BOOST_CHECK</span><span class="special">(</span> <span class="special">(</span><span class="identifier">str</span><span class="special">|</span><span class="identifier">at</span><span class="special">(</span><span class="number">4</span><span class="special">))</span> <span class="special">==</span> <span class="char">'4'</span> <span class="special">);</span>
 </pre>
 <a name="at.see_also"></a><h4>
-<a name="id508106"></a>
+<a name="id507634"></a>
         See also
       </h4>
-<div class="itemizedlist"><ul type="disc"><li><a href="range_algorithms.html#oven.value_at" title="value_at">value_at</a></li></ul></div>
+<div class="itemizedlist"><ul type="disc"><li><a href="../">value_at</a></li></ul></div>
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="oven.begin_end"></a>begin/end</h3></div></div></div>
+<a name="oven_range_library.begin_end"></a>begin/end</h3></div></div></div>
 <a name="begin_end.description"></a><h4>
-<a name="id508146"></a>
+<a name="id507676"></a>
         Description
       </h4>
 <p>
         <code class="computeroutput"><span class="identifier">begin</span></code> and <code class="computeroutput"><span class="identifier">end</span></code>
-        is the <a href="concepts.html#oven.auxiliary_interface" title="Auxiliary Interface">Auxiliary Interface</a>
+        is the <a href="../">Auxiliary Interface</a>
         version of <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">begin</span></code> and <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">end</span></code> respectively.
       </p>
 <a name="begin_end.header"></a><h4>
-<a name="id508235"></a>
+<a name="id507764"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">begin_end</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="begin_end.model_of"></a><h4>
-<a name="id508305"></a>
+<a name="id507834"></a>
         Model of
       </h4>
-<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.auxiliary_interface" title="Auxiliary Interface">Auxiliary Interface</a></li></ul></div>
+<div class="itemizedlist"><ul type="disc"><li><a href="../">Auxiliary Interface</a></li></ul></div>
 <a name="begin_end.valid_expressions"></a><h4>
-<a name="id508334"></a>
+<a name="id507863"></a>
         Valid expressions
       </h4>
 <div class="informaltable">
 <h5>
-<a name="id508345"></a>
+<a name="id507874"></a>
         </h5>
 <table class="table">
 <colgroup>
@@ -353,7 +353,7 @@
 </table>
 </div>
 <a name="begin_end.example"></a><h4>
-<a name="id508500"></a>
+<a name="id508028"></a>
         Example
       </h4>
 <pre class="programlisting">
@@ -364,9 +364,9 @@
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="oven.copied"></a>copied</h3></div></div></div>
+<a name="oven_range_library.copied"></a>copied</h3></div></div></div>
 <a name="copied.description"></a><h4>
-<a name="id508740"></a>
+<a name="id508269"></a>
         Description
       </h4>
 <p>
@@ -374,12 +374,12 @@
         the range-constructor of the target range without specifying the type.
       </p>
 <a name="copied.header"></a><h4>
-<a name="id508768"></a>
+<a name="id508297"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">copy_range</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="copied.notation"></a><h4>
-<a name="id508838"></a>
+<a name="id508367"></a>
         Notation
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -391,12 +391,12 @@
         </li>
 </ul></div>
 <a name="copied.valid_expressions"></a><h4>
-<a name="id509019"></a>
+<a name="id508548"></a>
         Valid expressions
       </h4>
 <div class="informaltable">
 <h5>
-<a name="id509030"></a>
+<a name="id508560"></a>
         </h5>
 <table class="table">
 <colgroup>
@@ -415,19 +415,6 @@
 </tr></tbody>
 </table>
 </div>
-<a name="copied.preconditions"></a><h4>
-<a name="id509236"></a>
-        Preconditions
-      </h4>
-<div class="itemizedlist"><ul type="disc">
-<li>
-<code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">range_value</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_rng2</span><span class="special">)&gt;::</span><span class="identifier">type</span></code> is convertible to <code class="computeroutput"><span class="identifier">V1</span></code>.
-        </li>
-<li>
-<code class="computeroutput"><span class="identifier">copied</span></code> isn't placed in
-          a function default argument list.
-        </li>
-</ul></div>
 <div class="note"><table border="0" summary="Note">
 <tr>
 <td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/note.png"></td>
@@ -441,8 +428,21 @@
           is not listed in valid expressions.
         </p></td></tr>
 </table></div>
+<a name="copied.preconditions"></a><h4>
+<a name="id508843"></a>
+        Preconditions
+      </h4>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">range_value</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_rng2</span><span class="special">)&gt;::</span><span class="identifier">type</span></code> is convertible to <code class="computeroutput"><span class="identifier">V1</span></code>.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">copied</span></code> isn't placed in
+          a function default argument list.
+        </li>
+</ul></div>
 <a name="copied.example"></a><h4>
-<a name="id509410"></a>
+<a name="id508939"></a>
         Example
       </h4>
 <pre class="programlisting">
@@ -451,16 +451,16 @@
 <span class="identifier">BOOST_CHECK</span><span class="special">(</span> <span class="identifier">equals</span><span class="special">(</span><span class="identifier">vec</span><span class="special">,</span> <span class="identifier">_rng</span><span class="special">)</span> <span class="special">);</span>
 </pre>
 <a name="copied.see_also"></a><h4>
-<a name="id509580"></a>
+<a name="id509109"></a>
         See also
       </h4>
-<div class="itemizedlist"><ul type="disc"><li><a href="range_adaptors.html#oven.transformed" title="transformed">transformed</a></li></ul></div>
+<div class="itemizedlist"><ul type="disc"><li><a href="../">transformed</a></li></ul></div>
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="oven.distance"></a>distance</h3></div></div></div>
+<a name="oven_range_library.distance"></a>distance</h3></div></div></div>
 <a name="distance.description"></a><h4>
-<a name="id509622"></a>
+<a name="id509153"></a>
         Description
       </h4>
 <p>
@@ -468,22 +468,22 @@
         <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">distance</span></code> but traversal-aware.
       </p>
 <a name="distance.header"></a><h4>
-<a name="id509669"></a>
+<a name="id509200"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">distance</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="distance.model_of"></a><h4>
-<a name="id509740"></a>
+<a name="id509271"></a>
         Model of
       </h4>
-<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.auxiliary_interface" title="Auxiliary Interface">Auxiliary Interface</a></li></ul></div>
+<div class="itemizedlist"><ul type="disc"><li><a href="../">Auxiliary Interface</a></li></ul></div>
 <a name="distance.valid_expressions"></a><h4>
-<a name="id509770"></a>
+<a name="id509300"></a>
         Valid expressions
       </h4>
 <div class="informaltable">
 <h5>
-<a name="id509781"></a>
+<a name="id509312"></a>
         </h5>
 <table class="table">
 <colgroup>
@@ -501,7 +501,7 @@
 </table>
 </div>
 <a name="distance.preconditions"></a><h4>
-<a name="id509923"></a>
+<a name="id509453"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -511,9 +511,9 @@
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="oven.equals"></a>equals</h3></div></div></div>
+<a name="oven_range_library.equals"></a>equals</h3></div></div></div>
 <a name="equals.description"></a><h4>
-<a name="id510022"></a>
+<a name="id509554"></a>
         Description
       </h4>
 <p>
@@ -521,29 +521,29 @@
         <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">equal</span></code> but sensitive to the distances.
       </p>
 <a name="equals.header"></a><h4>
-<a name="id510069"></a>
+<a name="id509602"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">equals</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="equals.model_of"></a><h4>
-<a name="id510139"></a>
+<a name="id509671"></a>
         Model of
       </h4>
-<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.callable_object" title="Callable Object">Callable Object</a></li></ul></div>
+<div class="itemizedlist"><ul type="disc"><li><a href="../">Callable Object</a></li></ul></div>
 <a name="equals.notation"></a><h4>
-<a name="id510168"></a>
+<a name="id509700"></a>
         Notation
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="identifier">eq</span></code> is <code class="computeroutput"><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">_1</span> <span class="special">==</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">_2</span><span class="special">)</span></code>.
         </li></ul></div>
 <a name="equals.valid_expressions"></a><h4>
-<a name="id510271"></a>
+<a name="id509804"></a>
         Valid expressions
       </h4>
 <div class="informaltable">
 <h5>
-<a name="id510283"></a>
+<a name="id509816"></a>
         </h5>
 <table class="table">
 <colgroup>
@@ -569,28 +569,28 @@
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="oven.front_back"></a>front/back</h3></div></div></div>
+<a name="oven_range_library.front_back"></a>front/back</h3></div></div></div>
 <a name="front_back.description"></a><h4>
-<a name="id510649"></a>
+<a name="id510182"></a>
         Description
       </h4>
 <a name="front_back.header"></a><h4>
-<a name="id510662"></a>
+<a name="id510195"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">front_back</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="front_back.model_of"></a><h4>
-<a name="id510732"></a>
+<a name="id510266"></a>
         Model of
       </h4>
-<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.auxiliary_interface" title="Auxiliary Interface">Auxiliary Interface</a></li></ul></div>
+<div class="itemizedlist"><ul type="disc"><li><a href="../">Auxiliary Interface</a></li></ul></div>
 <a name="front_back.valid_expressions"></a><h4>
-<a name="id510762"></a>
+<a name="id510296"></a>
         Valid expressions
       </h4>
 <div class="informaltable">
 <h5>
-<a name="id510774"></a>
+<a name="id510307"></a>
         </h5>
 <table class="table">
 <colgroup>
@@ -614,56 +614,54 @@
 </table>
 </div>
 <a name="front_back.preconditions"></a><h4>
-<a name="id510947"></a>
+<a name="id510481"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
+<li><code class="computeroutput"><span class="special">!</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">empty</span><span class="special">(</span><span class="identifier">_rng</span><span class="special">)</span></code></li>
+<li><code class="computeroutput"><span class="special">!</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">empty</span><span class="special">(</span><span class="identifier">_bidrng</span><span class="special">)</span></code></li>
 <li>
-<code class="computeroutput"><span class="identifier">_rng</span></code> is an <a href="concepts.html#oven.independent_range" title="Independent Range">Independent
-          Range</a> such that <code class="computeroutput"><span class="special">!</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">empty</span><span class="special">(</span><span class="identifier">_rng</span><span class="special">)</span></code>.
-        </li>
-<li>
-<code class="computeroutput"><span class="identifier">_bidrng</span></code> is an <a href="concepts.html#oven.independent_range" title="Independent Range">Independent
-          Range</a> such that <code class="computeroutput"><span class="special">!</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">empty</span><span class="special">(</span><span class="identifier">_bidrng</span><span class="special">)</span></code>.
+          Destruction of an iterator of <code class="computeroutput"><span class="identifier">_bidrng</span></code>
+          doesn't invalidate references previously obtained from that iterator.
         </li>
 </ul></div>
 <a name="front_back.see_also"></a><h4>
-<a name="id511089"></a>
+<a name="id510600"></a>
         See also
       </h4>
-<div class="itemizedlist"><ul type="disc"><li><a href="range_algorithms.html#oven.value_front_value_back" title="value_front/value_back">value_front/value_back</a></li></ul></div>
+<div class="itemizedlist"><ul type="disc"><li><a href="../">value_front/value_back</a></li></ul></div>
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="oven.value_at"></a>value_at</h3></div></div></div>
+<a name="oven_range_library.value_at"></a>value_at</h3></div></div></div>
 <a name="value_at.description"></a><h4>
-<a name="id511132"></a>
+<a name="id510644"></a>
         Description
       </h4>
 <a name="value_at.header"></a><h4>
-<a name="id511144"></a>
+<a name="id510657"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">at</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="value_at.model_of"></a><h4>
-<a name="id511214"></a>
+<a name="id510727"></a>
         Model of
       </h4>
-<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.auxiliary_interface" title="Auxiliary Interface">Auxiliary Interface</a></li></ul></div>
+<div class="itemizedlist"><ul type="disc"><li><a href="../">Auxiliary Interface</a></li></ul></div>
 <a name="value_at.notation"></a><h4>
-<a name="id511245"></a>
+<a name="id510757"></a>
         Notation
       </h4>
 <p>
         <code class="computeroutput"><span class="identifier">V</span></code> is <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">range_value</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_rndrng</span><span class="special">)&gt;::</span><span class="identifier">type</span></code>.
       </p>
 <a name="value_at.valid_expressions"></a><h4>
-<a name="id511322"></a>
+<a name="id510835"></a>
         Valid expressions
       </h4>
 <div class="informaltable">
 <h5>
-<a name="id511334"></a>
+<a name="id510846"></a>
         </h5>
 <table class="table">
 <colgroup>
@@ -681,7 +679,7 @@
 </table>
 </div>
 <a name="value_at.preconditions"></a><h4>
-<a name="id511472"></a>
+<a name="id510985"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -696,30 +694,30 @@
 <li><code class="computeroutput"><span class="number">0</span> <span class="special">&lt;=</span> <span class="identifier">n</span> <span class="special">&amp;&amp;</span> <span class="identifier">n</span> <span class="special">&lt;</span> <span class="identifier">distance</span><span class="special">(</span><span class="identifier">_rndrng</span><span class="special">)</span></code></li>
 </ul></div>
 <a name="value_at.see_also"></a><h4>
-<a name="id511657"></a>
+<a name="id511170"></a>
         See also
       </h4>
-<div class="itemizedlist"><ul type="disc"><li><a href="range_algorithms.html#oven.at" title="at">at</a></li></ul></div>
+<div class="itemizedlist"><ul type="disc"><li><a href="../">at</a></li></ul></div>
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="oven.value_front_value_back"></a>value_front/value_back</h3></div></div></div>
+<a name="oven_range_library.value_front_value_back"></a>value_front/value_back</h3></div></div></div>
 <a name="value_front_value_back.description"></a><h4>
-<a name="id511700"></a>
+<a name="id511213"></a>
         Description
       </h4>
 <a name="value_front_value_back.header"></a><h4>
-<a name="id511714"></a>
+<a name="id511228"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">front_back</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="value_front_value_back.model_of"></a><h4>
-<a name="id511785"></a>
+<a name="id511299"></a>
         Model of
       </h4>
-<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.auxiliary_interface" title="Auxiliary Interface">Auxiliary Interface</a></li></ul></div>
+<div class="itemizedlist"><ul type="disc"><li><a href="../">Auxiliary Interface</a></li></ul></div>
 <a name="value_front_value_back.notation"></a><h4>
-<a name="id511815"></a>
+<a name="id511328"></a>
         Notation
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -731,12 +729,12 @@
         </li>
 </ul></div>
 <a name="value_front_value_back.valid_expressions"></a><h4>
-<a name="id511963"></a>
+<a name="id511476"></a>
         Valid expressions
       </h4>
 <div class="informaltable">
 <h5>
-<a name="id511973"></a>
+<a name="id511486"></a>
         </h5>
 <table class="table">
 <colgroup>
@@ -760,7 +758,7 @@
 </table>
 </div>
 <a name="value_front_value_back.preconditions"></a><h4>
-<a name="id512158"></a>
+<a name="id511671"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -768,18 +766,18 @@
 <code class="computeroutput"><span class="identifier">V1</span></code> is <a href="http://boost.org/doc/html/CopyConstructible.html" target="_top">Copy
           Constructible</a>.
         </li>
-<li><code class="computeroutput"><span class="special">!</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">empty</span><span class="special">(</span><span class="identifier">_rng</span><span class="special">)</span></code></li>
 <li>
 <code class="computeroutput"><span class="identifier">V2</span></code> is <a href="http://boost.org/doc/html/CopyConstructible.html" target="_top">Copy
           Constructible</a>.
         </li>
+<li><code class="computeroutput"><span class="special">!</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">empty</span><span class="special">(</span><span class="identifier">_rng</span><span class="special">)</span></code></li>
 <li><code class="computeroutput"><span class="special">!</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">empty</span><span class="special">(</span><span class="identifier">_bidrng</span><span class="special">)</span></code></li>
 </ul></div>
 <a name="value_front_value_back.see_also"></a><h4>
-<a name="id512306"></a>
+<a name="id511819"></a>
         See also
       </h4>
-<div class="itemizedlist"><ul type="disc"><li><a href="range_algorithms.html#oven.front_back" title="front/back">front/back</a></li></ul></div>
+<div class="itemizedlist"><ul type="disc"><li><a href="../">front/back</a></li></ul></div>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
