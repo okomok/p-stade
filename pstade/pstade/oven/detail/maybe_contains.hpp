@@ -10,6 +10,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Note:
+//
+// Has no any guarantee. usually works, though; for debug only.
+
 
 #include <algorithm> // find
 #include <iterator> // tags
@@ -23,13 +27,6 @@
 
 
 namespace pstade { namespace oven { namespace detail {
-
-
-// A ForwardIterator conforms to (24.1.3/1) "is_same(*it1, *it2) => it1 == it2",
-// so we can check the containment (am I right?).
-// Also note that many ForwardIterators (counting_iterator etc.)
-// cannot conform to "is_same(*it1, *it2) <= it1 == it2",
-// which also is a requirement of ForwardIterator.
 
 
 template< class Range, class Iterator >

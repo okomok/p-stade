@@ -70,22 +70,22 @@ namespace memoized_detail {
         typedef typename table_t::size_type index_type;
 
         explicit memo(Iterator it) :
-            m_base(it), m_position(0)
+            m_base(it), m_baseIndex(0)
         { }
 
         bool is_in_table(index_type i) const
         {
-            BOOST_ASSERT(0 <= i && i <= m_position);
+            BOOST_ASSERT(0 <= i && i <= m_baseIndex);
             return i != m_table.size();
         }
 
         value_t const& deref(index_type i)
         {
-            BOOST_ASSERT(0 <= i && i <= m_position);
+            BOOST_ASSERT(0 <= i && i <= m_baseIndex);
             BOOST_ASSERT(invariant());
 
             if (!is_in_table(i)) {
-                BOOST_ASSERT(i == m_position && m_position == m_table.size());
+                BOOST_ASSERT(i == m_baseIndex && m_baseIndex == m_table.size());
                 m_table.push_back(*m_base);
             }
 
@@ -94,15 +94,15 @@ namespace memoized_detail {
 
         index_type next(index_type i)
         {
-            BOOST_ASSERT(0 <= i && i <= m_position);
+            BOOST_ASSERT(0 <= i && i <= m_baseIndex);
             BOOST_ASSERT(invariant());
 
-            if (i == m_position) {
-                if (m_position == m_table.size())
+            if (i == m_baseIndex) {
+                if (m_baseIndex == m_table.size())
                         m_table.push_back(*m_base);
 
                 ++m_base;
-                ++m_position;
+                ++m_baseIndex;
             }
 
             return i + 1;
@@ -115,12 +115,12 @@ namespace memoized_detail {
 
     private:
         Iterator m_base;
-        index_type m_position;
+        index_type m_baseIndex;
         table_t m_table;
 
         bool invariant() const
         {
-            return m_position == m_table.size() || m_position + 1 == m_table.size();
+            return m_baseIndex == m_table.size() || m_baseIndex + 1 == m_table.size();
         }
     };
 
