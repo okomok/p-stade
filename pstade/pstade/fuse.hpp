@@ -114,7 +114,7 @@ namespace pstade {
     } // namespace fuse_detail
 
 
-    PSTADE_OBJECT_GENERATOR(fuse, (fuse_detail::return_op< deduce<_1, to_value> >))
+    PSTADE_OBJECT_GENERATOR(fuse, (fuse_detail::return_op< deduce<_1, as_value> >))
 
 
 } // namespace pstade

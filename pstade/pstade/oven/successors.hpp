@@ -18,12 +18,12 @@
 #include <boost/mpl/identity.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/as.hpp>
 #include <pstade/function.hpp>
 #include <pstade/functional.hpp> // identity
 #include <pstade/has_xxx.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/to_ref.hpp>
 #include "./concepts.hpp"
 #include "./detail/constant_reference.hpp"
 #include "./detail/minimum_pure.hpp"
@@ -175,7 +175,7 @@ namespace successors_detail {
         {
             BOOST_ASSERT(!is_end());
             this->base_reference() = here::assert_not_old(this->base())(
-                m_elect(this->base(), as_cref(m_last))
+                m_elect(this->base(), to_cref(m_last))
             );
         }
     };

@@ -15,7 +15,7 @@
 
 
 #include <string>
-#include <pstade/as.hpp>
+#include <pstade/to_ref.hpp>
 
 
 void test()
@@ -28,7 +28,7 @@ void test()
         std::vector<char> expected = src|copied;
 
         BOOST_CHECK( oven::test_RandomAccess_Readable(
-            boost::tuples::make_tuple(src.begin(), src.end())|pstade::as_ref,
+            boost::tuples::make_tuple(src.begin(), src.end())|pstade::to_ref,
             expected
         ) );
     }

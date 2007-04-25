@@ -18,7 +18,6 @@
 #include <boost/type_traits/is_const.hpp>
 #include <boost/mpl/assert.hpp>
 #include <pstade/unparenthesize.hpp>
-#include <pstade/as.hpp>
 
 
 using namespace pstade;
@@ -32,17 +31,17 @@ struct my_type
 };
 
 
-typedef object_generator< my_type< deduce<boost::mpl::_1, deducers::to_value> > > op_make_my_type_v;
+typedef object_generator< my_type< deduce<boost::mpl::_1, deducers::as_value> > > op_make_my_type_v;
 PSTADE_CONSTANT(make_my_type_v, (op_make_my_type_v))
 
-typedef object_generator< my_type< deduce<boost::mpl::_1, deducers::to_reference> > > op_make_my_type_r;
+typedef object_generator< my_type< deduce<boost::mpl::_1, deducers::as_reference> > > op_make_my_type_r;
 PSTADE_CONSTANT(make_my_type_r, (op_make_my_type_r))
 
-typedef object_generator< my_type< deduce<boost::mpl::_1, deducers::to_qualified> > > op_make_my_type_q;
+typedef object_generator< my_type< deduce<boost::mpl::_1, deducers::as_qualified> > > op_make_my_type_q;
 PSTADE_CONSTANT(make_my_type_q, (op_make_my_type_q))
 
 
-typedef object_generator< my_type< deduce<boost::mpl::_1, deducers::to_value>, deduce<boost::mpl::_2, deducers::to_value, char> > > op_make_my_type_v_d;
+typedef object_generator< my_type< deduce<boost::mpl::_1, deducers::as_value>, deduce<boost::mpl::_2, deducers::as_value, char> > > op_make_my_type_v_d;
 PSTADE_CONSTANT(make_my_type_v_d, (op_make_my_type_v_d))
 
 
@@ -53,7 +52,7 @@ struct your_type
     { };
 };
 
-PSTADE_OBJECT_GENERATOR(make_your_type, (your_type< deduce<_1, to_value> >))
+PSTADE_OBJECT_GENERATOR(make_your_type, (your_type< deduce<_1, as_value> >))
 
 
 
@@ -66,7 +65,7 @@ struct gcc_bug // Boost1.33 only; Boost1.34 fixed this!
     { };
 };
 
-PSTADE_OBJECT_GENERATOR(make_gcc_bug, (gcc_bug< deduce<_1, to_value> >))
+PSTADE_OBJECT_GENERATOR(make_gcc_bug, (gcc_bug< deduce<_1, as_value> >))
 
 
 template< class A0 >
@@ -76,7 +75,7 @@ struct return_const
     { }
 };
 
-PSTADE_OBJECT_GENERATOR(make_return_const, (return_const< deduce<_1, to_value> >) const)
+PSTADE_OBJECT_GENERATOR(make_return_const, (return_const< deduce<_1, as_value> >) const)
 
 
 template< class A0, class A1, class A2 >
@@ -91,9 +90,9 @@ struct A {};
 struct B {};
 struct C {};
 
-PSTADE_OBJECT_GENERATOR( make_number312, (number< deduce<_3, to_value>, deduce<_1, to_value>, deduce<_2, to_value> >) )
-PSTADE_OBJECT_GENERATOR( make_number111, (number< deduce<_1, to_value>, deduce<_1, to_value>, deduce<_1, to_value> >) )
-PSTADE_OBJECT_GENERATOR( make_number213, (number< deduce<_2, to_value>, deduce<_1, to_value>, deduce<_3, to_value> >) )
+PSTADE_OBJECT_GENERATOR( make_number312, (number< deduce<_3, as_value>, deduce<_1, as_value>, deduce<_2, as_value> >) )
+PSTADE_OBJECT_GENERATOR( make_number111, (number< deduce<_1, as_value>, deduce<_1, as_value>, deduce<_1, as_value> >) )
+PSTADE_OBJECT_GENERATOR( make_number213, (number< deduce<_2, as_value>, deduce<_1, as_value>, deduce<_3, as_value> >) )
 
 
 struct H
@@ -122,7 +121,7 @@ struct deduce_to_hello :
     >
 { };
 
-typedef object_generator< needs_all_param< deduce<boost::mpl::_1, deducers::to_value>, deduce_to_hello<boost::mpl::_1, boost::mpl::_2> > > op_make_nap;
+typedef object_generator< needs_all_param< deduce<boost::mpl::_1, deducers::as_value>, deduce_to_hello<boost::mpl::_1, boost::mpl::_2> > > op_make_nap;
 #if !defined(__GNUC__) // GCC3.4.4; internal compiler error: in lookup_member, at cp/search.c:1296
     PSTADE_CONSTANT(make_nap, (op_make_nap))
 #endif

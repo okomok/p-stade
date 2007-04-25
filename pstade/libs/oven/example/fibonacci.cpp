@@ -17,7 +17,7 @@
 #include <iostream>
 #include <pstade/lexical_cast.hpp>
 #include <pstade/oven.hpp>
-#include <pstade/as.hpp>
+#include <pstade/to_value.hpp>
 #include <pstade/pack.hpp>
 #include <boost/assign/list_of.hpp>
 #include <boost/foreach.hpp>
@@ -46,7 +46,7 @@ void pstade_unit_test()
         int const start[] = { 1, 1 };
         fibs =
             start
-                | transformed(pstade::as_value)
+                | transformed(pstade::to_value)
                 | jointed(
                     boost::make_tuple(recursion(fibs), recursion(fibs)|dropped(1))|
                         zipped_with(regular(lambda::_1 + lambda::_2))

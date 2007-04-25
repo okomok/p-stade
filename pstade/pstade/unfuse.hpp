@@ -88,7 +88,7 @@ namespace pstade {
 
 
     PSTADE_OBJECT_GENERATOR(unfuse,
-        (unfuse_detail::return_op< deduce<_1, to_value>, deduce<_2, to_value, op_pack> >))
+        (unfuse_detail::return_op< deduce<_1, as_value>, deduce<_2, as_value, op_pack> >))
 
 
 } // namespace pstade

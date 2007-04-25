@@ -155,7 +155,7 @@ PSTADE_ADL_BARRIER(functional) {
 
     } // namespace not_detail
 
-    PSTADE_OBJECT_GENERATOR(not_, (not_detail::return_op< deduce<_1, to_value> >))
+    PSTADE_OBJECT_GENERATOR(not_, (not_detail::return_op< deduce<_1, as_value> >))
     typedef op_not_ op_not;
 
 
@@ -318,7 +318,7 @@ PSTADE_ADL_BARRIER(functional) {
 
     } // namespace flip_detail
 
-    PSTADE_OBJECT_GENERATOR(flip, (flip_detail::return_op< deduce<_1, to_value> >))
+    PSTADE_OBJECT_GENERATOR(flip, (flip_detail::return_op< deduce<_1, as_value> >))
 
 
     // equal_to_0

@@ -18,7 +18,7 @@ namespace pstade { namespace oven {
 
 
 PSTADE_OBJECT_GENERATOR(utf8_encoder,
-    (boost::utf8_output_iterator< deduce<_1, to_value> >) const)
+    (boost::utf8_output_iterator< deduce<_1, as_value> >) const)
 
 
 } } // namespace pstade::oven

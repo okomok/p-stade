@@ -18,10 +18,10 @@
 
 #include <cstddef> // size_t
 #include <boost/type_traits/is_array.hpp>
-#include <pstade/as.hpp>
 #include <pstade/auxiliary.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/enable_if.hpp>
+#include <pstade/to_value.hpp>
 #include "./as_array.hpp" // to_range
 #include "./iter_range.hpp"
 
@@ -43,7 +43,7 @@ namespace as_literal_detail {
         template< class Result, class T, std::size_t sz >
         Result call(T (&arr)[sz]) const
         {
-            return Result(as_value(arr), as_value(arr) + sz - 1);
+            return Result(to_value(arr), to_value(arr) + sz - 1);
         }
 
         template< class Result, class Range >

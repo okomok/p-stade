@@ -24,6 +24,7 @@
 #include <boost/lambda/algorithm.hpp>
 #include <pstade/result_of_lambda.hpp>
 #include <pstade/test.hpp>
+#include <pstade/to_ref.hpp>
 
 
 struct do_nothing
@@ -88,7 +89,7 @@ void test()
 
     {
         std::string rng("edcbagf");
-        detail::good_sig_return_op<lambda::ll::for_each>()(boost::begin(rng)|pstade::as_ref, boost::end(rng)|pstade::as_ref, do_nothing()|pstade::as_ref);
+        detail::good_sig_return_op<lambda::ll::for_each>()(boost::begin(rng)|pstade::to_ref, boost::end(rng)|pstade::to_ref, do_nothing()|pstade::to_ref);
         oven::range_based1(detail::good_sig(lambda::ll::for_each()))(rng, do_nothing());
         oven::range_based1(detail::good_sig_return_op<lambda::ll::for_each>())(rng, do_nothing());
         oven::range_based1(detail::good_sig_return_op<lambda::ll::sort>())(rng);

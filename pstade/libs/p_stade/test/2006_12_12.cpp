@@ -16,7 +16,7 @@ namespace lambda = boost::lambda;
 void test()
 {
     // lambda::_1(12); // error
-    lambda::_1(12|as_ref); // ok
+    lambda::_1(12|to_ref); // ok
 
     boost::result_of<
         boost::result_of<op::forward(op_lambda_1)>::type(int)

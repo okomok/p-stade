@@ -23,7 +23,7 @@
 #include <pstade/oven/algorithm.hpp>
 #include "./core.hpp"
 #include <functional>
-#include <pstade/as.hpp>
+#include <pstade/to_value.hpp>
 #include <pstade/functional.hpp>
 #include <pstade/perfect.hpp>
 #include <pstade/oven/regular.hpp>
@@ -94,7 +94,7 @@ void test()
     {
         std::string str;
         str |
-            transformed(pstade::as_value) |
+            transformed(pstade::to_value) |
             // transformed(pstade::identity); // dangling!
             transformed(pstade::perfect<char>(pstade::identity));
     }

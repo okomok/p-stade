@@ -52,7 +52,7 @@ namespace pstade {
     namespace deducers {
 
 
-        struct to_value
+        struct as_value
         {
             template<class A>
             struct apply :
@@ -61,7 +61,7 @@ namespace pstade {
         };
 
 
-        struct to_reference
+        struct as_reference
         {
             template<class A>
             struct apply :
@@ -70,7 +70,7 @@ namespace pstade {
         };
 
 
-        struct to_qualified
+        struct as_qualified
         {
             template<class A>
             struct apply :
@@ -163,9 +163,7 @@ namespace pstade {
     #define PSTADE_OBJECT_GENERATOR(G, Lambda) \
         namespace BOOST_PP_CAT(pstade_object_generator_workarea_of_, G) { \
             using ::pstade::deduce; \
-            using ::pstade::deducers::to_value; \
-            using ::pstade::deducers::to_reference; \
-            using ::pstade::deducers::to_qualified; \
+            using namespace ::pstade::deducers; \
             using namespace ::boost::mpl::placeholders; \
             \
             typedef ::pstade::object_generator<PSTADE_UNPARENTHESIZE(Lambda)> op; \

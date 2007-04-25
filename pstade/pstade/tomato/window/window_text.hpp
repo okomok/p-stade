@@ -29,11 +29,11 @@
 #include <boost/utility/result_of.hpp>
 #include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/apple/sdk/windows.hpp>
-#include <pstade/as.hpp>
 #include <pstade/copy_construct.hpp>
 #include <pstade/oven/array_range.hpp>
 #include <pstade/oven/as_c_str.hpp>
 #include <pstade/oven/distance.hpp>
+#include <pstade/to_ref.hpp>
 #include "./window_ref.hpp"
 
 
@@ -90,7 +90,7 @@ private:
 public:
     explicit window_text(window_ref wnd) :
         init_t(wnd),
-        super_t(m_buf|as_cref|oven::as_c_str)
+        super_t(m_buf|to_cref|oven::as_c_str)
     { }
 
     friend

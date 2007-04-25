@@ -23,10 +23,10 @@
 #include <boost/utility/result_of.hpp>
 #include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/apple/sdk/windows.hpp>
-#include <pstade/as.hpp>
 #include <pstade/oven/as_c_str.hpp>
 #include <pstade/require.hpp>
 #include <pstade/static_c.hpp>
+#include <pstade/to_ref.hpp>
 #include "../access.hpp"
 #include "../c_str.hpp"
 #include "./window_ref.hpp"
@@ -89,7 +89,7 @@ private:
 public:
     explicit class_name(window_ref wnd) :
         init_t(wnd),
-        super_t(m_buf|as_cref|oven::as_c_str)
+        super_t(m_buf|to_cref|oven::as_c_str)
     { }
 
     friend

@@ -18,7 +18,7 @@
 //
 // For "big" arity, this can't use 'callable' hence
 // can't take non-const-rvalue. But this is always
-// called from 'range_basedN' with 'as_cref'.
+// called from 'range_basedN' with 'to_cref'.
 //
 // As we can't detect the arity without 'bind',
 // a nullary-callable function must be identified by 'good_nullary_sig'.
@@ -102,8 +102,8 @@ private:
 };
 
 
-PSTADE_OBJECT_GENERATOR(good_sig,         (good_sig_return_op< deduce<_1, to_value> >))
-PSTADE_OBJECT_GENERATOR(good_nullary_sig, (good_sig_return_op< deduce<_1, to_value>, boost::mpl::true_ >))
+PSTADE_OBJECT_GENERATOR(good_sig,         (good_sig_return_op< deduce<_1, as_value> >))
+PSTADE_OBJECT_GENERATOR(good_nullary_sig, (good_sig_return_op< deduce<_1, as_value>, boost::mpl::true_ >))
 
 
 } } } // namespace pstade::oven::detail

@@ -14,7 +14,6 @@
 #include <iostream>
 #include <pstade/lexical_cast.hpp>
 #include <pstade/oven.hpp>
-#include <pstade/as.hpp>
 #include <boost/assign/list_of.hpp>
 #include <boost/foreach.hpp>
 #include <boost/lambda/lambda.hpp>

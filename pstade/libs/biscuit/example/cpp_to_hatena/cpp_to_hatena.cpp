@@ -105,7 +105,7 @@ int main(int argc, char *argv[])
                     | oven::tab_expanded(::tabsize<>::value)             // タブを空白にする
                     | oven::memoized
                     ,                                    // 速くするためキャッシュする
-                oven::utf8_encoder(oven::writer(fout))|as_ref// UTF-8に戻して出力
+                oven::utf8_encoder(oven::writer(fout))|to_ref// UTF-8に戻して出力
             );
 
             oven::copy("</pre>"|oven::as_literal, oven::writer(fout));

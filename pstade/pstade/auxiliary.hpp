@@ -100,7 +100,7 @@ namespace pstade {
     } // namespace auxiliary0_detail
 
     PSTADE_OBJECT_GENERATOR(auxiliary0,
-        (auxiliary0_detail::return_op0< deduce<_1, to_value> >))
+        (auxiliary0_detail::return_op0< deduce<_1, as_value> >))
 
 
     // 1ary-
@@ -196,7 +196,7 @@ namespace PSTADE_PP_CAT3(auxiliary, n, _detail) {
 } // namespace auxiliary_detail
 
 PSTADE_OBJECT_GENERATOR(BOOST_PP_CAT(auxiliary, n),
-    (PSTADE_PP_CAT3(auxiliary, n, _detail)::BOOST_PP_CAT(return_op, n)< deduce<_1, to_value> >))
+    (PSTADE_PP_CAT3(auxiliary, n, _detail)::BOOST_PP_CAT(return_op, n)< deduce<_1, as_value> >))
 
 
 #undef n

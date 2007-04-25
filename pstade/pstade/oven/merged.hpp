@@ -27,7 +27,6 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/static_warning.hpp>
-#include <pstade/as.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/do_swap.hpp>
@@ -35,6 +34,7 @@
 #include <pstade/is_convertible.hpp>
 #include <pstade/is_returnable.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/to_ref.hpp>
 #include <pstade/unused.hpp>
 #include "./concepts.hpp"
 #include "./detail/constant_reference.hpp"
@@ -203,7 +203,7 @@ namespace merged_detail {
 #endif
 
             MergeRoutine::before_yield(
-                this->base_reference(), as_cref(m_last1), m_it2, as_cref(m_last2), as_cref(m_comp));
+                this->base_reference(), to_cref(m_last1), m_it2, to_cref(m_last2), to_cref(m_comp));
         }
 
     template< class, class, class, class > friend struct merge_iterator;
@@ -260,8 +260,8 @@ namespace merged_detail {
             Iterator1 first1(this->base()); // for exception safety
             Iterator2 first2(m_it2);        //
 
-            MergeRoutine::after_yield( first1, as_cref(m_last1), first2, as_cref(m_last2), as_cref(m_comp));
-            MergeRoutine::before_yield(first1, as_cref(m_last1), first2, as_cref(m_last2), as_cref(m_comp));
+            MergeRoutine::after_yield( first1, to_cref(m_last1), first2, to_cref(m_last2), to_cref(m_comp));
+            MergeRoutine::before_yield(first1, to_cref(m_last1), first2, to_cref(m_last2), to_cref(m_comp));
 
             do_swap(first1, this->base_reference());
             do_swap(first2, m_it2);

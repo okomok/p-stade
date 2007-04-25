@@ -27,7 +27,6 @@
 #include <pstade/oven/transformed.hpp>
 #include <pstade/result_of_lambda.hpp>
 #include <boost/lambda/lambda.hpp>
-#include <pstade/as.hpp>
 #include <pstade/pack.hpp>
 
 

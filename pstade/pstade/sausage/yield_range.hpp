@@ -53,7 +53,7 @@ public:
 
 
 PSTADE_OBJECT_GENERATOR(make_yield_range,
-    (yield_range< deduce<_1, to_value> >) const)
+    (yield_range< deduce<_1, as_value> >) const)
 PSTADE_PIPABLE(yielded, (op_make_yield_range))
 
 

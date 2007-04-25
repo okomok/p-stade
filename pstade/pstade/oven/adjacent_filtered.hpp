@@ -17,10 +17,10 @@
 
 
 #include <boost/utility/result_of.hpp>
-#include <pstade/as.hpp>
 #include <pstade/function.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/to_ref.hpp>
 #include "./concepts.hpp"
 #include "./successors.hpp"
 
@@ -41,7 +41,7 @@ namespace adjacent_filtered_detail {
         {
             ForwardIter next = first;
             while (++next != last) {
-                if (m_pred(as_ref(*first), as_ref(*next)))
+                if (m_pred(to_ref(*first), to_ref(*next)))
                     break;
             }
 

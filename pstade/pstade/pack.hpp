@@ -37,7 +37,7 @@ namespace pstade {
         struct klass
         {
         #define PSTADE_deduce(Z, N, _) \
-            typename deduce<BOOST_PP_CAT(A, N), deducers::to_reference, boost::tuples::null_type>::type \
+            typename deduce<BOOST_PP_CAT(A, N), deducers::as_reference, boost::tuples::null_type>::type \
         /**/
 
             template<BOOST_PP_ENUM_PARAMS(PSTADE_CALLABLE_MAX_ARITY, class A)>

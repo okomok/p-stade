@@ -24,11 +24,11 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/utility/result_of.hpp>
-#include <pstade/as.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/const_fun.hpp>
 #include <pstade/object_generator.hpp>
 #include <pstade/preprocessor.hpp>
+#include <pstade/to_ref.hpp>
 #include "./range_iterator.hpp"
 
 
@@ -61,8 +61,8 @@ namespace range_based1_detail {
         Result call(Range0& rng0) const
         {
             return m_fun(
-                as_cref(boost::begin(rng0)),
-                as_cref(boost::end(rng0))
+                to_cref(boost::begin(rng0)),
+                to_cref(boost::end(rng0))
             );
         }
 
@@ -94,7 +94,7 @@ namespace range_based1_detail {
 } // namespace range_based1_detail
 
 
-PSTADE_OBJECT_GENERATOR(range_based1, (range_based1_detail::return_op< deduce<_1, to_value> >))
+PSTADE_OBJECT_GENERATOR(range_based1, (range_based1_detail::return_op< deduce<_1, as_value> >))
 
 
 } } // namespace pstade::oven
@@ -120,8 +120,8 @@ template< class Result, class Range0, BOOST_PP_ENUM_PARAMS(n, class A) >
 Result call(Range0& rng0, BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
 {
     return m_fun(
-        as_cref(boost::begin(rng0)),
-        as_cref(boost::end(rng0)),
+        to_cref(boost::begin(rng0)),
+        to_cref(boost::end(rng0)),
         BOOST_PP_ENUM_PARAMS(n, a)
     );
 }

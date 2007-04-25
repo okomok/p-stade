@@ -97,7 +97,7 @@ namespace passer_detail {
 
 
 PSTADE_OBJECT_GENERATOR(passer,
-    (passer_detail::function_output_iterator< deduce<_1, to_value> >) const)
+    (passer_detail::function_output_iterator< deduce<_1, as_value> >) const)
 
 
 } } // namespace pstade::oven

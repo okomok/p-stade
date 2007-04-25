@@ -18,7 +18,7 @@
 #include <boost/range.hpp>
 #include "./core.hpp"
 #include <pstade/oven/algorithm.hpp>
-#include <pstade/as.hpp>
+#include <pstade/to_ref.hpp>
 #include <pstade/unused.hpp>
 #include <pstade/if_debug.hpp>
 
@@ -72,7 +72,7 @@ void test()
         pstade::unused(
             std::string()
 PSTADE_IF_DEBUG(| checked)
-                | pstade::as_ref,
+                | pstade::to_ref,
             12
         );
     }

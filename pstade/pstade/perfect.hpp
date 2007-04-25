@@ -16,7 +16,7 @@
 // Works around the forwarding problem.
 // You can choose:
 //     perfect(lambda::_1)(1); or
-//     lambda::_1(1|as_ref);
+//     lambda::_1(1|to_ref);
 //
 // Also, this can add 'boost::result_of/lambda::sig' support
 // by passing the extra argument, as 'lambda::ret' does.

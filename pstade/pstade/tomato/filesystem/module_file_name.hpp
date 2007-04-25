@@ -24,10 +24,10 @@
 #include <pstade/apple/atl/module.hpp>
 #include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/apple/sdk/windows.hpp>
-#include <pstade/as.hpp>
 #include <pstade/oven/as_c_str.hpp>
 #include <pstade/oven/iter_range.hpp>
 #include <pstade/require.hpp>
+#include <pstade/to_ref.hpp>
 #include "./max_path.hpp"
 #include "./path_find_extension.hpp"
 #include "./path_find_file_name.hpp"
@@ -92,7 +92,7 @@ private:
 public:
     explicit module_file_name(HINSTANCE hInst = _Module.GetModuleInstance()) :
         init_t(hInst),
-        super_t(m_buf|as_cref|oven::as_c_str)
+        super_t(m_buf|to_cref|oven::as_c_str)
     {
         BOOST_ASSERT(oven::contains_zero(m_buf));
     }

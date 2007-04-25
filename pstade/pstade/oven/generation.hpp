@@ -209,7 +209,7 @@ namespace nonstop_detail {
 
 
 PSTADE_OBJECT_GENERATOR(nonstop,
-    (nonstop_detail::return_op< deduce<_1, to_value> >))
+    (nonstop_detail::return_op< deduce<_1, as_value> >))
 
 
 } } // namespace pstade::oven
