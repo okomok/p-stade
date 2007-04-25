@@ -22,6 +22,13 @@
 #define PSTADE_OVEN_TESTS_SAMPLE_RANGES
 #endif
 
+// It may make "memoized" range test be trivial to call 'distance'.
+#if !defined(PSTADE_OVEN_TESTS_DONT_CALL_DISTANCE)
+    #define PSTADE_OVEN_TESTS_DISTANCE_ASSERT BOOST_ASSERT
+#else
+    #define PSTADE_OVEN_TESTS_DISTANCE_ASSERT(X)
+#endif
+
 
 #include <algorithm>
 #include <boost/assert.hpp>
@@ -181,8 +188,8 @@ namespace tests_detail {
 template< class Range, class Vector >
 bool test_Forward_Readable(Range& rng, Vector const& expected)
 {
-    BOOST_ASSERT(oven::distance(expected) >= 3);
-    BOOST_ASSERT(oven::distance(rng) == oven::distance(expected));
+    PSTADE_OVEN_TESTS_DISTANCE_ASSERT(oven::distance(expected) >= 3);
+    PSTADE_OVEN_TESTS_DISTANCE_ASSERT(oven::distance(rng) == oven::distance(expected));
 
     {
         if (!tests_detail::forward_r(rng, expected)) {
@@ -205,8 +212,8 @@ bool test_Forward_Readable(Range& rng, Vector const& expected)
 template< class Range, class Vector >
 bool test_Forward_Readable_Writable(Range& rng, Vector const& expected)
 {
-    BOOST_ASSERT(oven::distance(expected) >= 3);
-    BOOST_ASSERT(oven::distance(rng) == oven::distance(expected));
+    PSTADE_OVEN_TESTS_DISTANCE_ASSERT(oven::distance(expected) >= 3);
+    PSTADE_OVEN_TESTS_DISTANCE_ASSERT(oven::distance(rng) == oven::distance(expected));
 
     if (!oven::test_Forward_Readable(rng, expected)) {
             BOOST_ASSERT(false);
@@ -330,8 +337,8 @@ namespace tests_detail {
 template< class Range, class Vector >
 bool test_Bidirectional_Readable(Range& rng, Vector const& expected)
 {
-    BOOST_ASSERT(oven::distance(expected) >= 3);
-    BOOST_ASSERT(oven::distance(rng) == oven::distance(expected));
+    PSTADE_OVEN_TESTS_DISTANCE_ASSERT(oven::distance(expected) >= 3);
+    PSTADE_OVEN_TESTS_DISTANCE_ASSERT(oven::distance(rng) == oven::distance(expected));
 
     {
         if (!tests_detail::bidirectional_r(rng, expected)) {
@@ -368,8 +375,8 @@ bool test_Bidirectional_Readable(Range& rng, Vector const& expected)
 template< class Range, class Vector >
 bool test_Bidirectional_Readable_Writable(Range& rng, Vector const& expected)
 {
-    BOOST_ASSERT(oven::distance(expected) >= 3);
-    BOOST_ASSERT(oven::distance(rng) == oven::distance(expected));
+    PSTADE_OVEN_TESTS_DISTANCE_ASSERT(oven::distance(expected) >= 3);
+    PSTADE_OVEN_TESTS_DISTANCE_ASSERT(oven::distance(rng) == oven::distance(expected));
 
     if (!oven::test_Bidirectional_Readable(rng, expected)) {
             BOOST_ASSERT(false);
@@ -458,8 +465,8 @@ namespace tests_detail {
 template< class Range, class Vector >
 bool test_RandomAccess_Readable(Range& rng, Vector const& expected)
 {
-    BOOST_ASSERT(oven::distance(expected) >= 3);
-    BOOST_ASSERT(oven::distance(rng) == oven::distance(expected));
+    PSTADE_OVEN_TESTS_DISTANCE_ASSERT(oven::distance(expected) >= 3);
+    PSTADE_OVEN_TESTS_DISTANCE_ASSERT(oven::distance(rng) == oven::distance(expected));
 
     {
         if (!tests_detail::random_access_r(rng, expected)) {
@@ -496,7 +503,7 @@ bool test_RandomAccess_Readable(Range& rng, Vector const& expected)
 template< class Range, class Vector >
 bool test_RandomAccess_Readable_Writable(Range& rng, Vector const& expected)
 {
-    BOOST_ASSERT(oven::distance(expected) >= 3);
+    PSTADE_OVEN_TESTS_DISTANCE_ASSERT(oven::distance(expected) >= 3);
 
 #if BOOST_WORKAROUND(BOOST_MSVC, == 1310) && !defined(PSTADE_CONCEPT_CHECK) && !defined(NDEBUG)
     // Workaround:
@@ -508,7 +515,7 @@ bool test_RandomAccess_Readable_Writable(Range& rng, Vector const& expected)
     // from the 'oven::distance' implementation.
 #endif
 
-    BOOST_ASSERT(oven::distance(rng) == oven::distance(expected));
+    PSTADE_OVEN_TESTS_DISTANCE_ASSERT(oven::distance(rng) == oven::distance(expected));
 
     if (!oven::test_RandomAccess_Readable(rng, expected))
         return false;

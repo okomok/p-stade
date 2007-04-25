@@ -9,6 +9,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#define PSTADE_OVEN_TESTS_DONT_CALL_DISTANCE
 #include <pstade/oven/tests.hpp>
 #include <pstade/oven/memoized.hpp>
 
@@ -94,6 +95,17 @@ void pstade_unit_test()
 
         BOOST_CHECK( s1 == "aaabbb" );
         BOOST_CHECK( s2 == answer );
+    }
+    {
+        BOOST_CHECK(( oven::test_empty(std::string()|memoized) ));
+    }
+    {
+        memo_table tb;
+        BOOST_CHECK(( oven::test_empty(std::string()|memoized(tb)) ));
+    }
+    {
+        std::string src("aaaaaaaaaaaaaaaa");
+        BOOST_CHECK(( oven::test_empty(src|filtered(regular(bll::_1 == 'b'))|memoized) ));
     }
 }
 

@@ -70,7 +70,7 @@ For any _pipable_object_ `p` the following must be met:
 
 [h3 Models]
 * [link oven.filtered filtered]
-* [link oven.repeat repeat]
+* [link oven.transformed transformed]
 
 [endsect]
 
@@ -96,7 +96,10 @@ for any _auxiliary_interface_ `i` the following must be met:
 
 [h3 Models]
 * [link oven.as_array as_array]
-* [link oven.begin_end begin]
+* [link oven.begin_end begin/end]
+
+[h3 See also]
+* [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2004/n1742.pdf Auxiliary class interfaces]
 
 [endsect]
 
@@ -140,11 +143,38 @@ the iterator referents are not modifiable.
 In addition to the requirements defined in _single_pass_range_,
 for any _constant_range_ `r` the following must be met:
 
-* `_iter_of<_typeof(r)>::type` is not _writable_iterator_.
+* `boost::remove_reference<boost::range_reference<_typeof(r)>::type>::type` is const-qualified.
 
 [h3 Models]
 * `std::list<int> const`
 * `int const [12]`
+
+[endsect]
+
+
+
+
+[section Lvalue Range]
+
+[h3 Description]
+A _lvalue_range_ is a _range_ whose iterator referents live outside of the iterators.
+
+[h3 Refinement of]
+* _single_pass_range_
+
+[h3 Requirements]
+In addition to the requirements defined in _single_pass_range_,
+for any _lvalue_range_ `r` the following must be met:
+
+* `_iter_of<_typeof(r)>::type` is _lvalue_iterator_.
+
+[h3 Models]
+* `std::vector<int>`
+* Any range which [link oven.memoized memoized] returns.
+
+[h3 See also]
+* _lvalue_iterator_ Concept
+* C++ Standard 24.1/9
 
 [endsect]
 
@@ -168,56 +198,6 @@ for any _contiguous_range_ `r` the following must be met:
 [h3 Models]
 * `std::vector<int>`
 * `boost::array<char, 50>`
-
-[endsect]
-
-
-
-
-[section Lvalue Range]
-
-[h3 Description]
-A _lvalue_range_ is a _range_ whose iterator referent type is a /reference/.
-
-[h3 Refinement of]
-* _single_pass_range_
-
-[h3 Requirements]
-In addition to the requirements defined in _single_pass_range_,
-for any _lvalue_range_ `r` the following must be met:
-
-* `_iter_of<_typeof(r)>::type` is _lvalue_iterator_.
-
-[h3 Models]
-* Any `std::vector`
-* Any `boost::counting_iterator`
-
-[endsect]
-
-
-
-
-[section Independent Range]
-
-[h3 Description]
-An _independent_range_ is a _range_ whose iterator referents live outside of the iterators.
-
-[h3 Refinement of]
-* _single_pass_range_
-
-[h3 Requirements]
-In addition to the requirements defined in _single_pass_range_,
-for any _independent_range_ `r` the following must be met:
-
-* If `r` is a _lvalue_range_, destruction of an iterator shall not invalidate pointers and references previously obtained from that iterator.
-
-[h3 Models]
-* Any range which is not a _lvalue_range_.
-* `std::vector<int>`
-* Any range which [link oven.shared shared] returns.
-
-[h3 See also]
-* C++ Standard 24.1/9
 
 [endsect]
 

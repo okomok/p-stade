@@ -9,6 +9,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#define PSTADE_OVEN_TESTS_DONT_CALL_DISTANCE
 #include <pstade/oven/tests.hpp>
 
 

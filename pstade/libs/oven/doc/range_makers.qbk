@@ -403,7 +403,7 @@ on the first argument, the second item by applying the function on the previous 
 ]
 
 [h3 Preconditions]
-* `T` is `hamigaki::istream_line_iterator< _typeof(s)::char_type, _typeof(s)::traits_type, std::allocator<_typeof(s)::char_type> >` suct that `T(s)` is a valid expression.
+* `T` is `hamigaki::istream_line_iterator<_typeof(s)::char_type, _typeof(s)::traits_type, A>` suct that `T(s)` is a valid expression.
 
 [h3 Example]
 
@@ -540,7 +540,7 @@ on the first argument, the second item by applying the function on the previous 
     [
         [`recursion(_fwdrng)`]
         [
-            `[_begin(_fwdrng), _end(_fwdrng))` up to _bidirectional_.
+            An up-to-_bidirectional_ `[_begin(_fwdrng), _end(_fwdrng))`
         ]
     ]
 ]
@@ -631,7 +631,11 @@ and the iterators manage the allocation.
 * `<pstade/oven/shared.hpp>`
 
 [h3 Model of]
-* _pipable_object_
+* _operatable_object_
+
+[h3 Notation]
+* `shared_range_iterator` is an imaginary iterator which works like
+  `boost::shared_container_iterator` but uses a range instead of a container.
 
 [h3 Valid expressions]
 [table 
@@ -640,7 +644,7 @@ and the iterators manage the allocation.
         [[*Semantics]]
     ]
     [
-        [`p|shared`]
+        [`shared(p)`]
         [
             `[T(_begin(*p), sp), T(_end(*p), sp))`
         ]
@@ -650,7 +654,6 @@ and the iterators manage the allocation.
 [h3 Preconditions]
 * `sp` is a `boost::shared_ptr<_typeof(*p)>(p)` such that `sp(p)` is a valid expression.
 * `T` is a `shared_range_iterator<_typeof(*p)>` such that `T(_begin(*p), sp)` is a valid expression.
-* `shared_range_iterator` is an imaginary iterator which works like `boost::shared_container_iterator` but uses a range instead of a container.
 
 [h3 Example]
     BOOST_FOREACH (char ch, std::string("dangling")|identities) {
@@ -658,7 +661,7 @@ and the iterators manage the allocation.
         std::cout << ch;
     }
 
-    BOOST_FOREACH (char ch, new std::string("ok")|shared|identities) {
+    BOOST_FOREACH (char ch, shared(new std::string("ok"))|identities) {
         // works fine.
         std::cout << ch;
     }

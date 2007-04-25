@@ -433,7 +433,7 @@ Additional information is available at _proposal_.
 
 [note The last precondition implies that `SegmentIterator` isn't allowed to manage the lifetime of `LocalIterator` referents.
       Hence `broken_into` and `xpressive_tokenized` can't meets the precondition.
-      Fortunately, `memoized` turns them into _independent_range_, which can work with `concatenated`.]
+      Fortunately, `memoized` can turn them into _lvalue_range_, which works with `concatenated`.]
 
 [h3 Example]
     std::string input("This is his face");
@@ -445,6 +445,7 @@ Additional information is available at _proposal_.
 
 [h3 See also]
 * [link oven.broken_into broken_into]
+* [link oven.memoized memoized]
 * [link oven.tokenized tokenized]
 * [link oven.xpressive_tokenized xpressive_tokenized]
 
@@ -492,7 +493,7 @@ Additional information is available at _proposal_.
 [section const_lvalues]
 
 [h3 Description]
-`const_lvalues` converts the base range into a constant _lvalue_range_.
+`const_lvalues` converts the base range into a _constant_range_ whose associated reference type is a /reference type/.
 
 [h3 Header]
 * `<pstade/oven/const_lvalues.hpp>`
@@ -507,9 +508,9 @@ Additional information is available at _proposal_.
         [[*Semantics]]
     ]
     [
-        [`_rng|cleared`]
+        [`_rng|const_lvalues`]
         [
-            A _constant_ _lvalue_ non-_independent_ `[_begin(_rng), _end(_rng))`
+            A _constant_ `[_begin(_rng), _end(_rng))`  whose `boost::range_reference` type is a /reference type/.
         ]
     ]
 ]
@@ -578,7 +579,7 @@ Additional information is available at _proposal_.
 * _pipable_object_
 
 [h3 Notation]
-* `{a0,..aN}` is `_rng`.
+* `{a0,..,aN}` is `_rng`.
 
 [h3 Valid expressions]
 [table 
@@ -589,7 +590,7 @@ Additional information is available at _proposal_.
     [
         [`_rng|cycled(c)`]
         [
-            `{a0,..,aN,a0,..aN,..,a0,..aN}` where `a0,..,aN` appears `c` times.
+            `{a0,..,aN,a0,..aN,..,a0,..,aN}` where `a0,..,aN` appears `c` times.
         ]
     ]
 ]
@@ -997,7 +998,7 @@ Additional information is available at _proposal_.
 
 [h3 Preconditions]
 * `boost::range_reference<_typeof(_rng2)>::type` is convertible to `boost::range_reference<_typeof(_rng1)>::type`
-  without binding reference to rvalue.
+  without binding /reference/ to /rvalue/.
 
 [h3 Example]
     std::string str0("every range");
@@ -1142,21 +1143,21 @@ Additional information is available at _proposal_.
         ]
     ]
     [
-        [`op_make_matches<X0,..,XN>()(_bidrng, y0,..yM)`]
+        [`op_make_matches<X0,..,XN>()(_bidrng, y0,..,yM)`]
         [
-            `[T(_begin(_rng), _end(_rng), y0,..yM), T())`
+            `[T(_begin(_rng), _end(_rng), y0,..,yM), T())`
         ]
     ]
     [
-        [`_bidrng|matches(y0,..yM)`]
+        [`_bidrng|matches(y0,..,yM)`]
         [
-            `op_make_tokenized<>()(_bidrng, y0,..yM)`
+            `op_make_tokenized<>()(_bidrng, y0,..,yM)`
         ]
     ]
 ]
 
 [h3 Preconditions]
-* `T` is `boost::regex_iterator<_iter_of<_typeof(_rng)>::type, X0,..XN>` such that `T(_begin(_rng), _end(_rng), y0,..yM)` is a valid expression.
+* `T` is `boost::regex_iterator<_iter_of<_typeof(_rng)>::type, X0,..,XN>` such that `T(_begin(_rng), _end(_rng), y0,..,yM)` is a valid expression.
 
 [h3 Example]
 
@@ -1189,7 +1190,7 @@ Additional information is available at _proposal_.
     [
         [`_rng|memoized`]
         [
-            A _forward_ _constant_ _independent_ `[_begin(_rng), _end(_rng))`
+            A _forward_ _constant_ _lvalue_ `[_begin(_rng), _end(_rng))`
         ]
     ]
     [
@@ -1200,7 +1201,7 @@ Additional information is available at _proposal_.
     ]
 ]
 
-[note `memoized` always returns a _forward_range_ even if the base range is a _single_pass_range_.]
+[note `memoized` can return a _forward_range_ even if the base range is a _single_pass_range_.]
 
 [h3 Preconditions]
 * `boost::range_value<_typeof(_rng)>::type` is _assignable_ and _copy_constructible_.
@@ -1281,7 +1282,7 @@ Additional information is available at _proposal_.
 
 [h3 Preconditions]
 * `boost::range_reference<_typeof(_rng2)>::type` is convertible to `boost::range_reference<_typeof(_rng1)>::type`
-  without binding reference to rvalue.
+  without binding /reference/ to /rvalue/.
 * `_rng1` and `_rng2` are sorted.
 * `_prd` is _assignable_.
 * If `_rng1` and `_rng2` are _forward_range_s, `_prd` is _default_constructible_.
@@ -1624,7 +1625,7 @@ A range returned from `reversed` iterates in the opposite direction.
     [
         [`_rng1|scanned(_fun1)`]
         [
-            An up-to-_forward_ `{b1,_fun1(b1, b2),_fun1(_fun(b1, b2), b3),_fun1(_fun1(_fun1(b1, b2), b3), b4),..bM)}`
+            An up-to-_forward_ `{b1,_fun1(b1, b2),_fun1(_fun(b1, b2), b3),_fun1(_fun1(_fun1(b1, b2), b3), b4),..,bM)}`
         ]
     ]
 ]
@@ -1885,7 +1886,7 @@ A range returned from `reversed` iterates in the opposite direction.
 [section sliced]
 
 [h3 Description]
-`sliced` provides the column view of the base range.
+`sliced` provides a column view of the base range.
 
 [note This name comes from `std::slice` and different from _proposal_, which is the role of `offset` or `window`.]
 
@@ -2165,21 +2166,21 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
         ]
     ]
     [
-        [`op_make_tokenized<Y1,..,YN>()(_bidrng, x1,..xM)`]
+        [`op_make_tokenized<Y1,..,YN>()(_bidrng, x1,..,xM)`]
         [
-            `[T(_begin(_rng), _end(_rng), x1,..xM), T())`
+            `[T(_begin(_rng), _end(_rng), x1,..,xM), T())`
         ]
     ]
     [
-        [`_bidrng|tokenized(x1,..xM)`]
+        [`_bidrng|tokenized(x1,..,xM)`]
         [
-            `op_make_tokenized<>()(_bidrng, x1,..xM)`
+            `op_make_tokenized<>()(_bidrng, x1,..,xM)`
         ]
     ]
 ]
 
 [h3 Preconditions]
-* `T` is `boost::regex_token_iterator<_iter_of<_typeof(_rng)>::type, Y1,..YN>` such that `T(_begin(_rng), _end(_rng), x1,..xM)` is a valid expression.
+* `T` is `boost::regex_token_iterator<_iter_of<_typeof(_rng)>::type, Y1,..,YN>` such that `T(_begin(_rng), _end(_rng), x1,..,xM)` is a valid expression.
 
 [h3 Example]
 
@@ -2273,7 +2274,7 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
 * _pipable_object_
 
 [h3 Notation]
-* `not_eq` is `regular(boost::lambda::_1 != boost::lambda::_2)`.
+* `not_eq_` is `regular(boost::lambda::_1 != boost::lambda::_2)`.
 
 [h3 Valid expressions]
 [table 
@@ -2284,13 +2285,13 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
     [
         [`_fwdrng|uniqued`]
         [
-            `_fwdrng|adjacent_filtered(not_eq)`
+            `_fwdrng|adjacent_filtered(not_eq_)`
         ]
     ]
 ]
 
 [h3 Preconditions]
-* `_fwdrng|adjacent_filtered(not_eq)` is a valid expression.
+* `_fwdrng|adjacent_filtered(not_eq_)` is a valid expression.
 
 [h3 Example]
 
@@ -2359,15 +2360,15 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
         [[*Semantics]]
     ]
     [
-        [`_bidrng|xpressive_matches(x0,..xN)`]
+        [`_bidrng|xpressive_matches(x0,..,xN)`]
         [
-            `[T(_begin(_bidrng), _end(_bidrng), x0,..xN), T())`
+            `[T(_begin(_bidrng), _end(_bidrng), x0,..,xN), T())`
         ]
     ]
 ]
 
 [h3 Preconditions]
-* `T` is `boost::xpressive::regex_iterator<boost::range_const_iterator<_typeof(_bidrng)>::type>` such that `T(_begin(_bidrng), _end(_bidrng), x0,..xN)` is a valid expression.
+* `T` is `boost::xpressive::regex_iterator<boost::range_const_iterator<_typeof(_bidrng)>::type>` such that `T(_begin(_bidrng), _end(_bidrng), x0,..,xN)` is a valid expression.
 
 [h3 Example]
 
@@ -2399,15 +2400,15 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
         [[*Semantics]]
     ]
     [
-        [`_bidrng|xpressive_tokenized(x0,..xN)`]
+        [`_bidrng|xpressive_tokenized(x0,..,xN)`]
         [
-            `[T(_begin(_bidrng), _end(_bidrng), x0,..xN), T())`
+            `[T(_begin(_bidrng), _end(_bidrng), x0,..,xN), T())`
         ]
     ]
 ]
 
 [h3 Preconditions]
-* `T` is `boost::xpressive::regex_token_iterator<boost::range_const_iterator<_typeof(_bidrng)>::type>` such that `T(_begin(_bidrng), _end(_bidrng), x0,..xN)` is a valid expression.
+* `T` is `boost::xpressive::regex_token_iterator<boost::range_const_iterator<_typeof(_bidrng)>::type>` such that `T(_begin(_bidrng), _end(_bidrng), x0,..,xN)` is a valid expression.
 
 [h3 Example]
 

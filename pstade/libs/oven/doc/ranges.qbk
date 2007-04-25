@@ -39,7 +39,7 @@ Though Oven supports _boost_result_of_, it is often cumbersome to get the type o
 ]
 
 [h3 Preconditions]
-* `boost::range_reference<_typeof(_rng)>::type` is convertible to `R` without binding reference to rvalue.
+* `boost::range_reference<_typeof(_rng)>::type` is convertible to `R` without binding /reference/ to /rvalue/.
 * `C` is convertible to `boost::single_pass_traversal_tag`.
 * `boost::range_traversal<_typeof(_rng)>::type` is convertible to `C`.
 * `_rng0` is a range returned from Oven _function_object_ and meets the preconditions of `_rng`.
@@ -193,8 +193,10 @@ a range presentation of dynamically allocated arrays.
 [section file_range]
 
 [h3 Description]
-`file_range` is a constant _random_access_range_ for files.
+`file_range` is a _constant_ _random_access_range_ for files.
 If the file opening failed, the range is empty.
+
+[note `file_range` is "binary"; any automatic conversion isn't performed.]
 
 [h3 Header]
 * `<pstade/oven/file_range.hpp>`

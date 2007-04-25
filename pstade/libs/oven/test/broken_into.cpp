@@ -10,12 +10,15 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#define PSTADE_OVEN_TESTS_DONT_CALL_DISTANCE
 #include <pstade/oven/tests.hpp>
 #include <pstade/oven/broken_into.hpp>
 
 
 #include <string>
 #include <vector>
+#include <pstade/oven/memoized.hpp>
+#include <pstade/oven/concatenated.hpp>
 #include "./core.hpp"
 
 
@@ -36,6 +39,12 @@ void test()
         BOOST_CHECK( oven::test_Forward_Readable(
             src|broken_into<std::string>(boost::offset_separator(offsets, offsets+3)),
             expected
+        ) );
+
+        std::vector<char> expected2 = src|copied;
+        BOOST_CHECK( oven::test_Forward_Readable(
+            src|broken_into<std::string>(boost::offset_separator(offsets, offsets+3))|memoized|concatenated,
+            expected2
         ) );
     }
 }

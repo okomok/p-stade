@@ -21,6 +21,7 @@
 #include <boost/utility/result_of.hpp>
 #include <pstade/unused.hpp>
 #include <pstade/copy_assign.hpp>
+#include <pstade/copy_construct.hpp>
 #include <pstade/oven/jointed.hpp>
 #include <pstade/used.hpp>
 #include <boost/array.hpp>
@@ -187,6 +188,22 @@ void test()
         int const ans[] = { 1,5,3,6,1,3,7,1,4,2,2 };
         std::vector<int> vec = initial_values(1,5,3,6,1)|jointed(initial_values(3,7,1,4,2,2))|copied;
         BOOST_CHECK( equals(vec, ans) );
+    }
+    {
+        std::vector<int> vec = initial_values(1,2,3,4,5);
+        BOOST_CHECK( equals(
+            vec,
+            boost::implicit_cast< std::vector<int> >(initial_values(1,2,3,4,5))
+        ) );
+
+        pstade::copy_assign(vec, initial_values(1,2,3,4,5));
+    }
+    {
+        std::vector<int> vec = initial_values(1,2,3,4,5);
+        BOOST_CHECK( equals(
+            boost::implicit_cast< std::vector<int> >(initial_values(1,2,3,4,5)),
+            pstade::copy_construct< std::vector<int> >(initial_values(1,2,3,4,5))
+        ) );
     }
 }
 

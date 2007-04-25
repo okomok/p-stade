@@ -63,7 +63,7 @@ Oven is known to work under the following platforms:
 
 
 [section Rationale]
-* Oven supports an iterator such that destruction of it may invalidate pointers and references previously obtained from that iterator (24.1.9).
+* Oven supports an iterator such that destruction of it may invalidate pointers and references previously obtained from that iterator (24.1/9).
 * Oven doesn't figure out the `distance` of non-_random_access_range_; in order to allow a very long (or complicated) range.
 
 [endsect]

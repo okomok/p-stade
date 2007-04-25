@@ -19,8 +19,8 @@
 
 
 #if !defined(NDEBUG) \
-    && BOOST_VERSION >= 103500 \
-    && defined(PSTADE_CONCEPT_CHECK)
+    && defined(PSTADE_CONCEPT_CHECK) \
+    // && BOOST_VERSION >= 103500
 
     #include <boost/config.hpp>
     #include <boost/detail/workaround.hpp>

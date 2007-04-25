@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#define PSTADE_OVEN_TESTS_DONT_CALL_DISTANCE
 #include <pstade/oven/tests.hpp>
 #include <pstade/oven/xpressive_tokenized.hpp>
 
@@ -39,7 +40,6 @@ void test()
             input|xpressive_tokenized(re, std::vector<int>(), boost::xpressive::regex_constants::match_default);
         }
 
-#if 1
         // oops, concatenated cannot support xpressive_token_iterator and boost::token_iterator.
         // Hence, turn it into Independent using memoized.
         std::vector<char> expected = std::string("Thisishisface")|copied;
@@ -47,7 +47,6 @@ void test()
             input|xpressive_tokenized(re)|memoized|concatenated,
             expected
         ) );
-#endif
     }
 }
 

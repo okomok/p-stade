@@ -25,9 +25,8 @@
 <dt><span class="section"><a href="concepts.html#oven.auxiliary_interface">Auxiliary Interface</a></span></dt>
 <dt><span class="section"><a href="concepts.html#oven.stoppable_generator">Stoppable Generator</a></span></dt>
 <dt><span class="section"><a href="concepts.html#oven.constant_range">Constant Range</a></span></dt>
-<dt><span class="section"><a href="concepts.html#oven.contiguous_range">Contiguous Range</a></span></dt>
 <dt><span class="section"><a href="concepts.html#oven.lvalue_range">Lvalue Range</a></span></dt>
-<dt><span class="section"><a href="concepts.html#oven.independent_range">Independent Range</a></span></dt>
+<dt><span class="section"><a href="concepts.html#oven.contiguous_range">Contiguous Range</a></span></dt>
 </dl></div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
@@ -173,7 +172,7 @@
       </h4>
 <div class="itemizedlist"><ul type="disc">
 <li><a href="range_adaptors.html#oven.filtered" title="filtered">filtered</a></li>
-<li><a href="range_makers.html#oven.repeat" title="repeat">repeat</a></li>
+<li><a href="range_adaptors.html#oven.transformed" title="transformed">transformed</a></li>
 </ul></div>
 </div>
 <div class="section" lang="en">
@@ -226,14 +225,20 @@
       </h4>
 <div class="itemizedlist"><ul type="disc">
 <li><a href="range_makers.html#oven.as_array" title="as_array">as_array</a></li>
-<li><a href="range_algorithms.html#oven.begin_end" title="begin/end">begin</a></li>
+<li><a href="range_algorithms.html#oven.begin_end" title="begin/end">begin/end</a></li>
 </ul></div>
+<a name="auxiliary_interface.see_also"></a><h4>
+<a name="id503832"></a>
+        See also
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2004/n1742.pdf" target="_top">Auxiliary
+          class interfaces</a></li></ul></div>
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.stoppable_generator"></a>Stoppable Generator</h3></div></div></div>
 <a name="stoppable_generator.description"></a><h4>
-<a name="id503843"></a>
+<a name="id503869"></a>
         Description
       </h4>
 <p>
@@ -242,7 +247,7 @@
         which can specify the stop of generating using <a href="http://boost.org/libs/optional/doc/optional.html" target="_top">Boost.Optional</a>.
       </p>
 <a name="stoppable_generator.refinement_of"></a><h4>
-<a name="id503885"></a>
+<a name="id503911"></a>
         Refinement of
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -250,7 +255,7 @@
 <li><a href="concepts.html#oven.callable_object" title="Callable Object">Callable Object</a></li>
 </ul></div>
 <a name="stoppable_generator.requirements"></a><h4>
-<a name="id503925"></a>
+<a name="id503951"></a>
         Requirements
       </h4>
 <p>
@@ -269,7 +274,7 @@
         </li>
 </ul></div>
 <a name="stoppable_generator.models"></a><h4>
-<a name="id504036"></a>
+<a name="id504062"></a>
         Models
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -281,7 +286,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.constant_range"></a>Constant Range</h3></div></div></div>
 <a name="constant_range.description"></a><h4>
-<a name="id504085"></a>
+<a name="id504112"></a>
         Description
       </h4>
 <p>
@@ -290,13 +295,13 @@
         modifiable.
       </p>
 <a name="constant_range.refinement_of"></a><h4>
-<a name="id504120"></a>
+<a name="id504146"></a>
         Refinement of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.boost.org/libs/range/doc/range.html#single_pass_range" target="_top">Single
           Pass Range</a></li></ul></div>
 <a name="constant_range.requirements"></a><h4>
-<a name="id504145"></a>
+<a name="id504171"></a>
         Requirements
       </h4>
 <p>
@@ -306,11 +311,10 @@
         must be met:
       </p>
 <div class="itemizedlist"><ul type="disc"><li>
-<code class="computeroutput"><span class="identifier">_iter_of</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">r</span><span class="special">)&gt;::</span><span class="identifier">type</span></code> is not <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#writable-iterators-lib-writable-iterators" target="_top">Writable
-          Iterator</a>.
+<code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">remove_reference</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">range_reference</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">r</span><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">&gt;::</span><span class="identifier">type</span></code> is const-qualified.
         </li></ul></div>
 <a name="constant_range.models"></a><h4>
-<a name="id504244"></a>
+<a name="id504305"></a>
         Models
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -320,9 +324,62 @@
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
+<a name="oven.lvalue_range"></a>Lvalue Range</h3></div></div></div>
+<a name="lvalue_range.description"></a><h4>
+<a name="id504412"></a>
+        Description
+      </h4>
+<p>
+        A <a href="concepts.html#oven.lvalue_range" title="Lvalue Range">Lvalue Range</a> is a <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
+        whose iterator referents live outside of the iterators.
+      </p>
+<a name="lvalue_range.refinement_of"></a><h4>
+<a name="id504445"></a>
+        Refinement of
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li><a href="http://www.boost.org/libs/range/doc/range.html#single_pass_range" target="_top">Single
+          Pass Range</a></li></ul></div>
+<a name="lvalue_range.requirements"></a><h4>
+<a name="id504470"></a>
+        Requirements
+      </h4>
+<p>
+        In addition to the requirements defined in <a href="http://www.boost.org/libs/range/doc/range.html#single_pass_range" target="_top">Single
+        Pass Range</a>, for any <a href="concepts.html#oven.lvalue_range" title="Lvalue Range">Lvalue Range</a> <code class="computeroutput"><span class="identifier">r</span></code> the following must be met:
+      </p>
+<div class="itemizedlist"><ul type="disc"><li>
+<code class="computeroutput"><span class="identifier">_iter_of</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">r</span><span class="special">)&gt;::</span><span class="identifier">type</span></code> is <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#lvalue-iterators-lib-lvalue-iterators" target="_top">Lvalue
+          Iterator</a>.
+        </li></ul></div>
+<a name="lvalue_range.models"></a><h4>
+<a name="id504568"></a>
+        Models
+      </h4>
+<div class="itemizedlist"><ul type="disc">
+<li><code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;</span></code></li>
+<li>
+          Any range which <a href="range_adaptors.html#oven.memoized" title="memoized">memoized</a> returns.
+        </li>
+</ul></div>
+<a name="lvalue_range.see_also"></a><h4>
+<a name="id504637"></a>
+        See also
+      </h4>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#lvalue-iterators-lib-lvalue-iterators" target="_top">Lvalue
+          Iterator</a> Concept
+        </li>
+<li>
+          C++ Standard 24.1/9
+        </li>
+</ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
 <a name="oven.contiguous_range"></a>Contiguous Range</h3></div></div></div>
 <a name="contiguous_range.description"></a><h4>
-<a name="id504351"></a>
+<a name="id504678"></a>
         Description
       </h4>
 <p>
@@ -330,13 +387,13 @@
         Access Range</a> whose elements are stored contiguously.
       </p>
 <a name="contiguous_range.refinement_of"></a><h4>
-<a name="id504384"></a>
+<a name="id504710"></a>
         Refinement of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.boost.org/libs/range/doc/range.html#random_access_range" target="_top">Random
           Access Range</a></li></ul></div>
 <a name="contiguous_range.requirements"></a><h4>
-<a name="id504410"></a>
+<a name="id504736"></a>
         Requirements
       </h4>
 <p>
@@ -350,109 +407,13 @@
           for all <code class="computeroutput"><span class="identifier">n</span></code> such that <code class="computeroutput"><span class="number">0</span> <span class="special">&lt;=</span> <span class="identifier">n</span> <span class="special">&amp;&amp;</span> <span class="identifier">n</span> <span class="special">&lt;</span> <span class="identifier">_end</span><span class="special">(</span><span class="identifier">r</span><span class="special">)</span> <span class="special">-</span> <span class="identifier">_begin</span><span class="special">(</span><span class="identifier">r</span><span class="special">)</span></code>.
         </li></ul></div>
 <a name="contiguous_range.models"></a><h4>
-<a name="id504655"></a>
+<a name="id504981"></a>
         Models
       </h4>
 <div class="itemizedlist"><ul type="disc">
 <li><code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;</span></code></li>
 <li><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">array</span><span class="special">&lt;</span><span class="keyword">char</span><span class="special">,</span> <span class="number">50</span><span class="special">&gt;</span></code></li>
 </ul></div>
-</div>
-<div class="section" lang="en">
-<div class="titlepage"><div><div><h3 class="title">
-<a name="oven.lvalue_range"></a>Lvalue Range</h3></div></div></div>
-<a name="lvalue_range.description"></a><h4>
-<a name="id504770"></a>
-        Description
-      </h4>
-<p>
-        A <a href="concepts.html#oven.lvalue_range" title="Lvalue Range">Lvalue Range</a> is a <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
-        whose iterator referent type is a <span class="emphasis"><em>reference</em></span>.
-      </p>
-<a name="lvalue_range.refinement_of"></a><h4>
-<a name="id504807"></a>
-        Refinement of
-      </h4>
-<div class="itemizedlist"><ul type="disc"><li><a href="http://www.boost.org/libs/range/doc/range.html#single_pass_range" target="_top">Single
-          Pass Range</a></li></ul></div>
-<a name="lvalue_range.requirements"></a><h4>
-<a name="id504832"></a>
-        Requirements
-      </h4>
-<p>
-        In addition to the requirements defined in <a href="http://www.boost.org/libs/range/doc/range.html#single_pass_range" target="_top">Single
-        Pass Range</a>, for any <a href="concepts.html#oven.lvalue_range" title="Lvalue Range">Lvalue Range</a> <code class="computeroutput"><span class="identifier">r</span></code> the following must be met:
-      </p>
-<div class="itemizedlist"><ul type="disc"><li>
-<code class="computeroutput"><span class="identifier">_iter_of</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">r</span><span class="special">)&gt;::</span><span class="identifier">type</span></code> is <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#lvalue-iterators-lib-lvalue-iterators" target="_top">Lvalue
-          Iterator</a>.
-        </li></ul></div>
-<a name="lvalue_range.models"></a><h4>
-<a name="id504931"></a>
-        Models
-      </h4>
-<div class="itemizedlist"><ul type="disc">
-<li>
-          Any <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span></code>
-</li>
-<li>
-          Any <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">counting_iterator</span></code>
-</li>
-</ul></div>
-</div>
-<div class="section" lang="en">
-<div class="titlepage"><div><div><h3 class="title">
-<a name="oven.independent_range"></a>Independent Range</h3></div></div></div>
-<a name="independent_range.description"></a><h4>
-<a name="id505005"></a>
-        Description
-      </h4>
-<p>
-        An <a href="concepts.html#oven.independent_range" title="Independent Range">Independent Range</a> is a
-        <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
-        whose iterator referents live outside of the iterators.
-      </p>
-<a name="independent_range.refinement_of"></a><h4>
-<a name="id505039"></a>
-        Refinement of
-      </h4>
-<div class="itemizedlist"><ul type="disc"><li><a href="http://www.boost.org/libs/range/doc/range.html#single_pass_range" target="_top">Single
-          Pass Range</a></li></ul></div>
-<a name="independent_range.requirements"></a><h4>
-<a name="id505064"></a>
-        Requirements
-      </h4>
-<p>
-        In addition to the requirements defined in <a href="http://www.boost.org/libs/range/doc/range.html#single_pass_range" target="_top">Single
-        Pass Range</a>, for any <a href="concepts.html#oven.independent_range" title="Independent Range">Independent
-        Range</a> <code class="computeroutput"><span class="identifier">r</span></code> the following
-        must be met:
-      </p>
-<div class="itemizedlist"><ul type="disc"><li>
-          If <code class="computeroutput"><span class="identifier">r</span></code> is a <a href="concepts.html#oven.lvalue_range" title="Lvalue Range">Lvalue
-          Range</a>, destruction of an iterator shall not invalidate pointers
-          and references previously obtained from that iterator.
-        </li></ul></div>
-<a name="independent_range.models"></a><h4>
-<a name="id505138"></a>
-        Models
-      </h4>
-<div class="itemizedlist"><ul type="disc">
-<li>
-          Any range which is not a <a href="concepts.html#oven.lvalue_range" title="Lvalue Range">Lvalue Range</a>.
-        </li>
-<li><code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;</span></code></li>
-<li>
-          Any range which <a href="range_makers.html#oven.shared" title="shared">shared</a> returns.
-        </li>
-</ul></div>
-<a name="independent_range.see_also"></a><h4>
-<a name="id505221"></a>
-        See also
-      </h4>
-<div class="itemizedlist"><ul type="disc"><li>
-          C++ Standard 24.1/9
-        </li></ul></div>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
