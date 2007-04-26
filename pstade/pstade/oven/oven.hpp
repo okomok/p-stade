@@ -62,6 +62,7 @@
 // #include "./got_at.hpp"
 #include "./identities.hpp"
 #include "./indexing.hpp"
+#include "./indirect_then.hpp"
 #include "./indirected.hpp"
 #include "./initial_values.hpp"
 #include "./io.hpp"

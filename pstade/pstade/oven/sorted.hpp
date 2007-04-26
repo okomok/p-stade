@@ -11,7 +11,6 @@
 
 
 #include <algorithm> // sort
-#include <boost/ptr_container/indirect_fun.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/utility/result_of.hpp>
@@ -19,8 +18,10 @@
 #include <pstade/constant.hpp>
 #include <pstade/functional.hpp> // less
 #include <pstade/pass_by.hpp>
+#include <pstade/perfect.hpp>
 #include <pstade/pipable.hpp>
 #include "./concepts.hpp"
+#include "./indirect_then.hpp"
 #include "./indirected.hpp"
 #include "./outplaced.hpp"
 
@@ -45,7 +46,7 @@ struct op_make_sorted :
     {
         PSTADE_CONCEPT_ASSERT((Forward<Range>));
         typename boost::result_of<op_make_outplaced(Range&)>::type its = make_outplaced(rng);
-        std::sort(boost::begin(its), boost::end(its), boost::make_indirect_fun(comp));
+        std::sort(boost::begin(its), boost::end(its), indirect_then(pstade::perfect<bool>(comp)));
         return make_indirected(its);
     }
 

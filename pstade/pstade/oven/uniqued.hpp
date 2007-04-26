@@ -11,8 +11,10 @@
 
 
 #include <boost/utility/result_of.hpp>
-#include <pstade/function.hpp>
+#include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
 #include <pstade/functional.hpp> // equal_to, not_
+#include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
 #include "./adjacent_filtered.hpp"
 #include "./concepts.hpp"
@@ -21,36 +23,37 @@
 namespace pstade { namespace oven {
 
 
-namespace uniqued_detail {
+struct op_make_uniqued :
+    callable<op_make_uniqued>
+{
+    template< class Myself, class Range, class BinaryPred = op_equal_to const >
+    struct apply :
+        boost::result_of<
+            op_make_adjacent_filtered(
+                Range&,
+                typename boost::result_of<
+                    op_not(typename pass_by_value<BinaryPred>::type)
+                >::type
+            )
+        >
+    { };
 
-
-    template< class Range >
-    struct baby
+    template< class Result, class Range, class BinaryPred >
+    Result call(Range& rng, BinaryPred& pred) const
     {
-        typedef typename
-            boost::result_of<
-                op_make_adjacent_filtered(
-                    Range&,
-                    typename boost::result_of<op_not(op_equal_to const&)>::type
-                )
-            >::type
-        result_type;
+        PSTADE_CONCEPT_ASSERT((Forward<Range>));
+        return make_adjacent_filtered(rng, not_(pred));
+    }
 
-        result_type operator()(Range& rng) const
-        {
-            PSTADE_CONCEPT_ASSERT((Forward<Range>));
-            return make_adjacent_filtered(
-                rng,
-                not_(equal_to)
-            );
-        }
-    };
+    template< class Result, class Range >
+    Result call(Range& rng) const
+    {
+        return (*this)(rng, equal_to);
+    }
+};
 
 
-} // namespace uniqued_detail
-
-
-PSTADE_FUNCTION(make_uniqued, (uniqued_detail::baby<_>))
+PSTADE_CONSTANT(make_uniqued, (op_make_uniqued))
 PSTADE_PIPABLE(uniqued, (op_make_uniqued))
 
 

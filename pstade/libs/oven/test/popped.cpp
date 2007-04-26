@@ -49,6 +49,11 @@ void test()
         BOOST_CHECK( boost::empty(std::string()|popped) );
     }
 #endif
+    {
+        std::string str("a");
+        BOOST_CHECK( oven::test_empty(str|popped) );
+        BOOST_CHECK( oven::test_empty(str|identities(in_forward)|popped) );
+    }
 }
 
 

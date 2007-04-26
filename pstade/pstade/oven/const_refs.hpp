@@ -29,11 +29,11 @@ namespace const_refs_detail {
 
 
     template< class Iterator >
-    struct const_lvalue_iterator;
+    struct const_ref_iterator;
 
 
     template< class Iterator >
-    struct const_lvalue_iterator_super
+    struct const_ref_iterator_super
     {
         typedef
             typename boost::iterator_value<Iterator>::type
@@ -41,7 +41,7 @@ namespace const_refs_detail {
 
         typedef
             boost::iterator_adaptor<
-                const_lvalue_iterator<Iterator>,
+                const_ref_iterator<Iterator>,
                 Iterator,
                 val_t,
                 typename detail::pure_traversal<Iterator>::type,
@@ -52,24 +52,24 @@ namespace const_refs_detail {
 
 
     template< class Iterator >
-    struct const_lvalue_iterator :
-        const_lvalue_iterator_super<Iterator>::type
+    struct const_ref_iterator :
+        const_ref_iterator_super<Iterator>::type
     {
     private:
-        typedef typename const_lvalue_iterator_super<Iterator>::type super_t;
+        typedef typename const_ref_iterator_super<Iterator>::type super_t;
         typedef typename super_t::reference ref_t;
         typedef typename super_t::value_type val_t;
 
     public:
-        explicit const_lvalue_iterator()
+        explicit const_ref_iterator()
         { }
 
-        explicit const_lvalue_iterator(Iterator it) :
+        explicit const_ref_iterator(Iterator it) :
             super_t(it)
         { }
 
         template< class I >
-        const_lvalue_iterator(const_lvalue_iterator<I> const& other,
+        const_ref_iterator(const_ref_iterator<I> const& other,
             typename boost::enable_if_convertible<I, Iterator>::type * = 0
         ) :
             super_t(other.base())
@@ -112,7 +112,7 @@ namespace const_refs_detail {
     struct baby
     {
         typedef
-            const_lvalue_iterator<
+            const_ref_iterator<
                 typename range_iterator<Range>::type
             >
         iter_t;

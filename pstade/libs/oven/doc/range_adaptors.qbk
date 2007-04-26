@@ -2,8 +2,10 @@
 
 A Range Adaptor delivers an altered presentation of one or more underlying ranges.
 Range Adaptors are lazy, meaning that their elements are only computed on demand.
-The underlying ranges are not modified, and the traversal category is the same unless otherwise specified.
-Additional information is available at _proposal_.
+Range Adaptors meet the following requirements unless otherwise specified:
+
+* The complexity is `O(1)`, meanig that they returns in constant time.
+* They doesn't modify `iterator_traits` of the base range iterators.
 
 
 
@@ -20,8 +22,8 @@ Additional information is available at _proposal_.
 * _pipable_object_
 
 [h3 Notation]
-* `{a0,a1,a2,a3,..,aN}` is `_fwdrng`.
-* `{b0,b1,b2,..,bM}` is a sub sequence of `{a0,a1,a2,a3,..,aN}`.
+* `{a1,..,aN}` is `_fwdrng`.
+* `{b1,..,bM}` is a [@http://en.wikipedia.org/wiki/Subsequence subsequence] of `{a1,..,aN}`.
 
 [h3 Valid expressions]
 [table 
@@ -32,16 +34,19 @@ Additional information is available at _proposal_.
     [
         [`_fwdrng|adjacent_filtered(_prd)`]
         [
-            A _forward_ non-_writable_ `{b0,b1,b2,..,bM}`
+            A _forward_ non-_writable_ `{b1,..,bM}`
         ]
     ]
 ]
 
 [h3 Preconditions]
 * `_prd(*_begin(_fwdrng), *_begin(_fwdrng))` is a well-formed.
-* `_prd(b0, b1)`, `_prd(b1, b2)`, .., `_prd(bM-1, bM)` are `true`.
+* `_prd(b1, b2)`, `_prd(b2, b3)`, .., `_prd(bM-1, bM)` are `true`.
 * The distance from `bI` to `bJ` is minimum for all `(bI, bJ)`.
 * `_prd` is _assignable_ and _default_constructible_.
+
+[h3 Complexity]
+* At most `distance(_fwdrng)` applications of the corresponding `_prd`.
 
 [h3 Example]
 
@@ -62,7 +67,7 @@ Additional information is available at _proposal_.
 * `<pstade/oven/adjacent_transformed.hpp>`
 
 [h3 Notation]
-* `{a0,a1,a2,a3,..,aN}` is `_fwdrng`.
+* `{a1,..,aN}` is `_fwdrng`.
 
 [h3 Valid expressions]
 [table 
@@ -79,13 +84,13 @@ Additional information is available at _proposal_.
     [
         [`op_make_adjacent_transformed<R>()(_fwdrng, _fun)`]
         [
-            `{_fun(a0,a1),_fun(a1,a2),_fun(a2,a3),..,_fun(aN-1,aN)}` whose `boost::range_reference` type is `R`.
+            `{_fun(a1,a2),_fun(a2,a3),..,_fun(aN-1,aN)}` whose `boost::range_reference` type is `R`.
         ]
     ]
     [
         [`op_make_adjacent_transformed<>()(_fwdrng, _cal)`]
         [
-            `{_cal(a0,a1),_cal(a1,a2),_cal(a2,a3),..,_cal(aN-1,aN)}`
+            `{_cal(a1,a2),_cal(a2,a3),..,_cal(aN-1,aN)}`
         ]
     ]
     [
@@ -225,6 +230,9 @@ Additional information is available at _proposal_.
 * `_iter_of<_typeof(fun3(_rng))>::type` is convertible to `_iter_of<_typeof(_rng)>::type`.
 * `[_fun1(_rng), _fun2(_rng))` is a _range_.
 * `[_begin(r), _end(_rng))`, where `r = _fun3(_rng)`, is a _range_.
+
+[h3 Complexity]
+* Depends on `_fun1`, `_fun2` and `_fun3`.
 
 
 [h3 Example]
@@ -561,6 +569,9 @@ then pretends to be a range of _forward_iterator_.
 [h3 Preconditions]
 * `std::copy(_begin(_fwdrng), _end(_fwdrng), x)` is a valid expression.
 
+[h3 Complexity]
+* Depends on the `std::copy`.
+
 [h3 Example]
 
 [h3 See also]
@@ -582,7 +593,7 @@ then pretends to be a range of _forward_iterator_.
 * _pipable_object_
 
 [h3 Notation]
-* `{a0,..,aN}` is `_rng`.
+* `{a1,..,aN}` is `_rng`.
 
 [h3 Valid expressions]
 [table 
@@ -593,7 +604,7 @@ then pretends to be a range of _forward_iterator_.
     [
         [`_rng|cycled(c)`]
         [
-            `{a0,..,aN,a0,..aN,..,a0,..,aN}` where `a0,..,aN` appears `c` times.
+            `{a1,..,aN,a1,..aN,..,a1,..,aN}` where `a1,..,aN` appears `c` times.
         ]
     ]
 ]
@@ -696,6 +707,9 @@ then pretends to be a range of _forward_iterator_.
 * `_typeof(n)` is convertible to `boost::range_difference<typeof(_rng)>::type`.
 * `0 <= n`
 
+[h3 Complexity]
+* `O(1)` if `_rng` is a _random_access_ _range_, and `O(n)` otherwise.
+
 [h3 Example]
     BOOST_CHECK( equals(
         std::string("hello, dropped!")|dropped(7),
@@ -740,6 +754,9 @@ then pretends to be a range of _forward_iterator_.
 ]
 
 [h3 Preconditions]
+
+[h3 Complexity]
+* At most `distance(_rng)` applications of the corresponding `_prd`.
 
 [h3 Example]
     std::string src("11111234516313!");
@@ -788,6 +805,9 @@ then pretends to be a range of _forward_iterator_.
 * `T` is `boost::filter_iterator<_typeof(_prd), _typeof(_begin(_rng))>` such that `T(_prd, _begin(_rng), _end(_rng))` is a valid expression.
 * `_prd` is _assignable_.
 * If `_rng` is a _forward_ _range_, `_prd` is _default_constructible_.
+
+[h3 Complexity]
+* At most `distance(_rng)` applications of the corresponding `_prd`.
 
 [h3 Example]
 
@@ -922,13 +942,13 @@ then pretends to be a range of _forward_iterator_.
         [[*Semantics]]
     ]
     [
-        [`op_make_indirected<A0,..,AN>`]
+        [`op_make_indirected<X1,..,XN>`]
         [
             A _callable_object_ type
         ]
     ]
     [
-        [`op_make_indirected<A0,..,AN>()(_rng)`]
+        [`op_make_indirected<X1,..,XN>()(_rng)`]
         [
             `[T(_begin(_rng), T(_end(_rng)))`
         ]
@@ -948,7 +968,7 @@ then pretends to be a range of _forward_iterator_.
 ]
 
 [h3 Preconditions]
-* `T` is `boost::indirect_iterator<_iter_of<_typeof(_rng)>::type, A0,..,AN>` such that `T(_begin(_rng))` is a valid expression.
+* `T` is `boost::indirect_iterator<_iter_of<_typeof(_rng)>::type, X1,..,XN>` such that `T(_begin(_rng))` is a valid expression.
 
 [h3 Example]
     int src[]    = { 1,2,0,4,5 };
@@ -983,7 +1003,7 @@ then pretends to be a range of _forward_iterator_.
 * _pipable_object_
 
 [h3 Notation]
-* `{a0,..,aN}` is `_rng1`.
+* `{a1,..,aN}` is `_rng1`.
 * `{b1,..,bM}` is `_rng2`.
 
 [h3 Valid expressions]
@@ -995,7 +1015,7 @@ then pretends to be a range of _forward_iterator_.
     [
         [`_rng1|jointed(_rng2)`]
         [
-            `{a0,..aN,b0,..bM}`
+            `{a1,..aN,b1,..bM}`
         ]
     ]
 ]
@@ -1141,27 +1161,27 @@ then pretends to be a range of _forward_iterator_.
         [[*Semantics]]
     ]
     [
-        [`op_make_matches<X0,..,XN>`]
+        [`op_make_matches<X1,..,XN>`]
         [
             A _callable_object_ type
         ]
     ]
     [
-        [`op_make_matches<X0,..,XN>()(_bidrng, y0,..,yM)`]
+        [`op_make_matches<X1,..,XN>()(_bidrng, y1,..,yM)`]
         [
-            `[T(_begin(_rng), _end(_rng), y0,..,yM), T())`
+            `[T(_begin(_rng), _end(_rng), y1,..,yM), T())`
         ]
     ]
     [
-        [`_bidrng|matches(y0,..,yM)`]
+        [`_bidrng|matches(y1,..,yM)`]
         [
-            `op_make_tokenized<>()(_bidrng, y0,..,yM)`
+            `op_make_tokenized<>()(_bidrng, y1,..,yM)`
         ]
     ]
 ]
 
 [h3 Preconditions]
-* `T` is `boost::regex_iterator<_iter_of<_typeof(_rng)>::type, X0,..,XN>` such that `T(_begin(_rng), _end(_rng), y0,..,yM)` is a valid expression.
+* `T` is `boost::regex_iterator<_iter_of<_typeof(_rng)>::type, X1,..,XN>` such that `T(_begin(_rng), _end(_rng), y0,..,yM)` is a valid expression.
 
 [h3 Example]
 
@@ -1335,6 +1355,10 @@ then pretends to be a range of _forward_iterator_.
 [h3 Preconditions]
 * `boost::next(_begin(_fwdrng), n)` is a valid expression.
 * `boost::next(_end(_fwdrng), m)` is a valid expression.
+* `n <= distance(_fwdrng) + m`
+
+[h3 Complexity]
+* `O(1)` if `_fwdrng` is a _random_access_ _range_, and `O(n)+O(m)` otherwise.
 
 [h3 Example]
 
@@ -1424,6 +1448,9 @@ then pretends to be a range of _forward_iterator_.
 ]
 
 [h3 Preconditions]
+
+[h3 Complexity]
+* `O(N)`
 
 [h3 Example]
     std::list<int> lst = initial_values(6,1,3,2,5,4);
@@ -1658,8 +1685,8 @@ A range returned from `reversed` iterates in the opposite direction.
 * _pipable_object_
 
 [h3 Notation]
-* `{a0,a1,a2,..,aN}` is `_rng`.
-* `{b1,b2,b3,..,bM}` is `_rng1`.
+* `{a1,a2,..,aN}` is `_rng`.
+* `{b1,b2,..,bM}` is `_rng1`.
 * `S1` is `range_value<_typeof(_rng1)>::type`.
 
 [h3 Valid expressions]
@@ -1671,7 +1698,7 @@ A range returned from `reversed` iterates in the opposite direction.
     [
         [`_rng|scanned(s, _fun)`]
         [
-            An up-to-_forward_ `{s,_fun(s, a0),_fun(_fun(s, a0), a1),_fun(_fun(_fun(s, a0), a1), a2),..,aN)}`
+            An up-to-_forward_ `{s,_fun(s, a1),_fun(_fun(s, a1), a2),_fun(_fun(_fun(s, a1), a2), a3),..,aN)}`
         ]
     ]
     [
@@ -2025,6 +2052,9 @@ A range returned from `reversed` iterates in the opposite direction.
 
 [h3 Preconditions]
 
+[h3 Complexity]
+* `O(N) + O(NlogN)`, where `N` is `distance(_fwdrng)`.
+
 [h3 Example]
     std::stringstream in;
     in << "cefabd";
@@ -2051,7 +2081,7 @@ A range returned from `reversed` iterates in the opposite direction.
 * _pipable_object_
 
 [h3 Notation]
-* `iK = boost::next(boost::begin(_rng), w*K))`
+* `iK = boost::next(boost::begin(_rng), w*K-1))`
 
 [h3 Valid expressions]
 [table 
@@ -2062,7 +2092,7 @@ A range returned from `reversed` iterates in the opposite direction.
     [
         [`_rng|steps(w)`]
         [
-            An up-to-_forward_ `{*i0,*i1,*i2,*i3,..,*iM}`
+            An up-to-_forward_ `{*i1,*i1,*i2,*i3,..,*iM}`
         ]
     ]
 ]
@@ -2105,7 +2135,7 @@ A range returned from `reversed` iterates in the opposite direction.
         [[*Semantics]]
     ]
     [
-        [`_rng|string_found`]
+        [`_rng|string_found(f)`]
         [
             `[T(_rng, f), T())`
         ]
@@ -2143,7 +2173,7 @@ A range returned from `reversed` iterates in the opposite direction.
         [[*Semantics]]
     ]
     [
-        [`_rng|string_split`]
+        [`_rng|string_split(f)`]
         [
             `[T(_rng, f), T())`
         ]
@@ -2189,6 +2219,10 @@ A range returned from `reversed` iterates in the opposite direction.
     ]
 ]
 
+[note `taken` can't return a _bidirectional_-or-more _range_; for the laziness, meaning that `taken` returns in constant time.
+      If you don't want to reduce the traversal category, use `window` or `offset`, which doesn't return in constant-time
+      unless the base range is a _random_access_ _range_.]
+
 [h3 Preconditions]
 * `_typeof(n)` is convertible to `range_difference<_typeof(_rng)>::type`.
 
@@ -2196,7 +2230,10 @@ A range returned from `reversed` iterates in the opposite direction.
 
 [h3 See also]
 * [link oven.dropped dropped]
+* [link oven.offset offset]
+* [link oven.sliced sliced]
 * [link oven.taken_while taken_while]
+* [link oven.window window]
 
 [endsect]
 
@@ -2379,7 +2416,8 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
 * _pipable_object_
 
 [h3 Notation]
-* `not_eq_` is `regular(boost::lambda::_1 != boost::lambda::_2)`.
+* `not_` is `regular(!boost::lambda::_1)`.
+* `eq` is `regular(boost::lambda::_1 == boost::lambda::_2)`.
 
 [h3 Valid expressions]
 [table 
@@ -2388,15 +2426,24 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
         [[*Semantics]]
     ]
     [
+        [`_fwdrng|uniqued(_prd)`]
+        [
+            `_fwdrng|adjacent_filtered(not_(_prd))`
+        ]
+    ]
+    [
         [`_fwdrng|uniqued`]
         [
-            `_fwdrng|adjacent_filtered(not_eq_)`
+            `_fwdrng|uniqued(eq)`
         ]
     ]
 ]
 
 [h3 Preconditions]
-* `_fwdrng|adjacent_filtered(not_eq_)` is a valid expression.
+* `_fwdrng|adjacent_filtered(not_(_prd))` is a valid expression.
+
+[h3 Complexity]
+* At most `distance(_fwdrng)` applications of the corresponding `_prd`.
 
 [h3 Example]
 
@@ -2437,6 +2484,9 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
 * `boost::next(_begin(_fwdrng), m)` is a valid expression.
 * `n <= m`
 
+[h3 Complexity]
+* `O(1)` if `_fwdrng` is a _random_access_ _range_, and `O(m)` otherwise.
+
 [h3 Example]
 
 [h3 See also]
@@ -2466,15 +2516,15 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
         [[*Semantics]]
     ]
     [
-        [`_bidrng|xpressive_matches(x0,..,xN)`]
+        [`_bidrng|xpressive_matches(x1,..,xN)`]
         [
-            `[T(_begin(_bidrng), _end(_bidrng), x0,..,xN), T())`
+            `[T(_begin(_bidrng), _end(_bidrng), x1,..,xN), T())`
         ]
     ]
 ]
 
 [h3 Preconditions]
-* `T` is `boost::xpressive::regex_iterator<boost::range_const_iterator<_typeof(_bidrng)>::type>` such that `T(_begin(_bidrng), _end(_bidrng), x0,..,xN)` is a valid expression.
+* `T` is `boost::xpressive::regex_iterator<boost::range_const_iterator<_typeof(_bidrng)>::type>` such that `T(_begin(_bidrng), _end(_bidrng), x1,..,xN)` is a valid expression.
 
 [h3 Example]
 
@@ -2506,15 +2556,15 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
         [[*Semantics]]
     ]
     [
-        [`_bidrng|xpressive_tokenized(x0,..,xN)`]
+        [`_bidrng|xpressive_tokenized(x1,..,xN)`]
         [
-            `[T(_begin(_bidrng), _end(_bidrng), x0,..,xN), T())`
+            `[T(_begin(_bidrng), _end(_bidrng), x1,..,xN), T())`
         ]
     ]
 ]
 
 [h3 Preconditions]
-* `T` is `boost::xpressive::regex_token_iterator<boost::range_const_iterator<_typeof(_bidrng)>::type>` such that `T(_begin(_bidrng), _end(_bidrng), x0,..,xN)` is a valid expression.
+* `T` is `boost::xpressive::regex_token_iterator<boost::range_const_iterator<_typeof(_bidrng)>::type>` such that `T(_begin(_bidrng), _end(_bidrng), x1,..,xN)` is a valid expression.
 
 [h3 Example]
 

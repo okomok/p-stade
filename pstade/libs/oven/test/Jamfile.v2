@@ -61,6 +61,7 @@ test-suite "oven" :
     # [ run got_at.cpp ]
     [ run identities.cpp ]
     [ run indexing.cpp ]
+    [ run indirect_then.cpp ]
     [ run indirected.cpp ]
     [ run initial_values.cpp ]
     [ run io.cpp ]

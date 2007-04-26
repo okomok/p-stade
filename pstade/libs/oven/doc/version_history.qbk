@@ -133,6 +133,7 @@
 * Renamed `as_single` to `single`.
 * Renamed `const_lvalues` to `const_refs`.
 * Fixed a bug that `memoized` is not conforming `lvalue` range.
+* `popped` returns in constant time.
 
 
 
