@@ -19,7 +19,6 @@
 #include "./core.hpp"
 #include <pstade/oven/taken.hpp>
 #include <pstade/oven/taken_while.hpp>
-#include <pstade/oven/const_lvalues.hpp>
 #include <pstade/oven/algorithm.hpp>
 
 #include <boost/lambda/lambda.hpp>

@@ -20,7 +20,7 @@
 #include <vector>
 #include <boost/range.hpp>
 #include <pstade/oven/transformed.hpp>
-#include <pstade/oven/const_lvalues.hpp>
+#include <pstade/oven/const_refs.hpp>
 
 
 #include <pstade/apple/atl/config.hpp> // ATL_VER
@@ -90,7 +90,7 @@ void test()
         }
 
         BOOST_CHECK( oven::test_RandomAccess_Readable(
-            rng|transformed(make_CAdapt)|const_lvalues,
+            rng|transformed(make_CAdapt)|const_refs,
             expected
         ) );
     }

@@ -25,7 +25,7 @@ int main()
             | shared
             | filtered(lambda::_1 != 'x') | regularized
             | reversed
-            | transformed(loc::to_lower)  | const_lvalues
+            | transformed(loc::to_lower)  | const_refs
             | jointed(", range!\0secret"|as_c_str)
             | memoized
     ) {

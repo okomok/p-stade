@@ -14,6 +14,7 @@
 #include <pstade/oven/sorted.hpp>
 
 
+#include <sstream>
 #include <iterator>
 #include <string>
 #include <vector>
@@ -22,6 +23,8 @@
 #include "./core.hpp"
 #include <pstade/oven/reversed.hpp>
 #include <pstade/functional.hpp>
+#include <pstade/oven/reading.hpp>
+#include <pstade/oven/memoized.hpp>
 
 
 void test()
@@ -67,6 +70,12 @@ void test()
     }
 
     BOOST_CHECK( oven::equals( src, std::string("26534") ) );
+
+    {
+        std::stringstream in;
+        in << "cefabd";
+        BOOST_CHECK( equals(oven::reading<char>(in)|memoized|sorted, std::string("abcdef")) );
+    }
 }
 
 

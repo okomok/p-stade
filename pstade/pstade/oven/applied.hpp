@@ -37,10 +37,10 @@ struct op_make_applied :
     };
 
     template< class Result, class Range, class Begin, class End >
-    Result call(Range& rng, Begin& begin, End& end) const
+    Result call(Range& rng, Begin& b, End& e) const
     {
         PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-        return Result(begin(rng), end(rng));
+        return Result(b(rng), e(rng));
     }
 
     template< class Result, class Range, class MakeRange >

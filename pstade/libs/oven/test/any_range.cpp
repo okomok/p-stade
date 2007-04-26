@@ -20,7 +20,7 @@
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/core.hpp>
 #include <pstade/oven/identities.hpp>
-#include <pstade/oven/const_lvalues.hpp>
+#include <pstade/oven/const_refs.hpp>
 #include <pstade/oven/filtered.hpp>
 #include <pstade/oven/locale.hpp>
 
@@ -174,7 +174,7 @@ void pstade_unit_test()
     {
         std::string rng("hello! any_range!");
         any_range<char const&, boost::bidirectional_traversal_tag> any_(
-            rng|transformed(to_upper)|const_lvalues|filtered(regular(lambda::_1 != '!'))
+            rng|transformed(to_upper)|const_refs|filtered(regular(lambda::_1 != '!'))
         );
 
         BOOST_CHECK( oven::equals(any_, std::string("HELLO ANY_RANGE")) );

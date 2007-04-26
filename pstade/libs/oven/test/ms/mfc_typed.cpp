@@ -30,7 +30,7 @@
 
 
 #include <pstade/oven/outdirected.hpp>
-#include <pstade/oven/const_lvalues.hpp>
+#include <pstade/oven/const_refs.hpp>
 
 
 namespace oven = pstade::oven;
@@ -53,9 +53,9 @@ void test()
             expected
         ) );
 
-        // 'const_lvalues' removes "Input" from "RandomAccsssInput".
+        // 'const_refs' removes "Input" from "RandomAccsssInput".
         BOOST_CHECK( oven::test_RandomAccess_Readable(
-            rng|const_lvalues,
+            rng|const_refs,
             expected
         ) );
     }
@@ -74,7 +74,7 @@ void test()
         ) );
 
         BOOST_CHECK( oven::test_Bidirectional_Readable(
-            rng|const_lvalues,
+            rng|const_refs,
             expected
         ) );
     }

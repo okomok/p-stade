@@ -17,7 +17,7 @@
 #include <iostream>
 #include "./core.hpp"
 #include <pstade/functional.hpp>
-#include <pstade/oven/const_lvalues.hpp>
+#include <pstade/oven/const_refs.hpp>
 #include <pstade/oven/identities.hpp>
 #include <pstade/oven/regular.hpp>
 #include <pstade/oven/algorithm.hpp>
@@ -41,20 +41,20 @@ void test()
 
         BOOST_CHECK( oven::test_RandomAccess_Readable(
             src |
-                adjacent_transformed(pstade::plus) | const_lvalues,
+                adjacent_transformed(pstade::plus) | const_refs,
             expected
         ) );
 
         BOOST_CHECK( oven::test_Forward_Readable(
             src | identities(boost::forward_traversal_tag()) |
-                adjacent_transformed(pstade::plus) | const_lvalues,
+                adjacent_transformed(pstade::plus) | const_refs,
             expected
         ) );
 
         namespace lambda = boost::lambda;
         BOOST_CHECK( oven::test_RandomAccess_Readable(
             src |
-                adjacent_transformed(regular(lambda::_1 + lambda::_2)) | const_lvalues,
+                adjacent_transformed(regular(lambda::_1 + lambda::_2)) | const_refs,
             expected
         ) );
 

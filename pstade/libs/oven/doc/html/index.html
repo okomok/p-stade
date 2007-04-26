@@ -46,8 +46,6 @@
 <dt><span class="section"><a href="oven/concepts.html#oven.pipable_object">Pipable Object</a></span></dt>
 <dt><span class="section"><a href="oven/concepts.html#oven.auxiliary_interface">Auxiliary Interface</a></span></dt>
 <dt><span class="section"><a href="oven/concepts.html#oven.stoppable_generator">Stoppable Generator</a></span></dt>
-<dt><span class="section"><a href="oven/concepts.html#oven.constant_range">Constant Range</a></span></dt>
-<dt><span class="section"><a href="oven/concepts.html#oven.lvalue_range">Lvalue Range</a></span></dt>
 <dt><span class="section"><a href="oven/concepts.html#oven.contiguous_range">Contiguous Range</a></span></dt>
 </dl></dd>
 <dt><span class="section"><a href="oven/range_algorithms.html">Range Algorithms</a></span></dt>
@@ -101,7 +99,7 @@
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.cleared">cleared</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.concatenated">concatenated</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.constants">constants</a></span></dt>
-<dt><span class="section"><a href="oven/range_adaptors.html#oven.const_lvalues">const_lvalues</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.const_refs">const_refs</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.copied_to">copied_to</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.cycled">cycled</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.delimited">delimited</a></span></dt>
@@ -119,6 +117,7 @@
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.merged">merged</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.offset">offset</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.outdirected">outdirected</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.outplaced">outplaced</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.permuted">permuted</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.pointed">pointed</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.popped">popped</a></span></dt>
@@ -131,6 +130,7 @@
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.set_delta">set_delta</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.set_minus">set_minus</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.sliced">sliced</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.sorted">sorted</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.steps">steps</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.string_found">string_found</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.string_split">string_split</a></span></dt>
@@ -202,7 +202,7 @@
     <span class="identifier">any_range</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">,</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">single_pass_traversal_tag</span><span class="special">&gt;</span>
 <span class="identifier">range</span><span class="special">;</span>
 
-<span class="identifier">range</span> <span class="identifier">sieve</span><span class="special">(</span><span class="identifier">range</span> <span class="identifier">rng</span><span class="special">)</span>
+<span class="identifier">range</span> <span class="identifier">sieve</span><span class="special">(</span><a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a> <span class="identifier">rng</span><span class="special">)</span>
 <span class="special">{</span>
     <span class="keyword">return</span> <span class="identifier">rng</span><span class="special">|</span><span class="identifier">dropped</span><span class="special">(</span><span class="number">1</span><span class="special">)|</span><span class="identifier">filtered</span><span class="special">(</span><span class="identifier">regular</span><span class="special">(</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">_1</span> <span class="special">%</span> <span class="identifier">value_front</span><span class="special">(</span><span class="identifier">rng</span><span class="special">)</span> <span class="special">!=</span> <span class="number">0</span><span class="special">));</span>
 <span class="special">}</span>
@@ -273,8 +273,9 @@
         </li>
 <li>
           Oven doesn't figure out the <code class="computeroutput"><span class="identifier">distance</span></code>
-          of non-<a href="http://www.boost.org/libs/range/doc/range.html#random_access_range" target="_top">Random
-          Access Range</a>; in order to allow a very long (or complicated) range.
+          of non-<a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#random-access-traversal-iterators-lib-random-access-traversal-iterators" target="_top">Random
+          Access</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>;
+          in order to allow a very long (or complicated) <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>.
         </li>
 </ul></div>
 </div>
@@ -303,7 +304,7 @@
       </p>
 <div class="informaltable">
 <h5>
-<a name="id431458"></a>
+<a name="id431474"></a>
         </h5>
 <table class="table">
 <colgroup>
@@ -323,28 +324,27 @@
 <tr>
 <td><code class="computeroutput"><span class="identifier">_rng</span></code></td>
 <td>Any
-              <a href="http://www.boost.org/libs/range/doc/range.html#single_pass_range" target="_top">Single
-              Pass Range</a>, that is to say, any <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>.</td>
+              <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#single-pass-iterators-lib-single-pass-iterators" target="_top">Single
+              Pass</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>,
+              that is to say, any <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>.</td>
 </tr>
 <tr>
 <td><code class="computeroutput"><span class="identifier">_fwdrng</span></code></td>
 <td>Any
-              <a href="http://www.boost.org/libs/range/doc/range.html#forward_range" target="_top">Forward
-              Range</a>
+              <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#forward-traversal-iterators-lib-forward-traversal-iterators" target="_top">Forward</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
 </td>
 </tr>
 <tr>
 <td><code class="computeroutput"><span class="identifier">_bidrng</span></code></td>
 <td>Any
-              <a href="http://www.boost.org/libs/range/doc/range.html#bidirectional_range" target="_top">Bidirectional
-              Range</a>
+              <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#bidirectional-traversal-iterators-lib-bidirectional-traversal-iterators" target="_top">Bidirectional</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
 </td>
 </tr>
 <tr>
 <td><code class="computeroutput"><span class="identifier">_rndrng</span></code></td>
 <td>Any
-              <a href="http://www.boost.org/libs/range/doc/range.html#random_access_range" target="_top">Random
-              Access Range</a>
+              <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#random-access-traversal-iterators-lib-random-access-traversal-iterators" target="_top">Random
+              Access</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
 </td>
 </tr>
 <tr>
@@ -375,7 +375,7 @@
 </tr>
 <tr>
 <td><code class="computeroutput"><span class="identifier">_iter_of</span></code></td>
-<td><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">range_result_iterator</span></code></td>
+<td><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a><span class="identifier">_result_iterator</span></code></td>
 </tr>
 <tr>
 <td><code class="computeroutput"><span class="special">[</span><span class="identifier">i</span><span class="special">,</span> <span class="identifier">j</span><span class="special">)</span></code></td>
@@ -402,7 +402,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><small><p>Last revised: April 25, 2007 at 16:36:49 GMT</p></small></td>
+<td align="left"><small><p>Last revised: April 26, 2007 at 07:16:28 GMT</p></small></td>
 <td align="right"><small></small></td>
 </tr></table>
 <hr>

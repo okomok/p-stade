@@ -98,7 +98,7 @@ Oven provides range-based algorithms taking a range instead of two iterators.
 
 
 [note Unfortunately, Oven STL Algorithms and Numerics are not traversal-aware.
-A _random_access_range_ but not _lvalue_range_ is regarded as an _input_iterator_ range.]
+A _random_access_ _range_ but not _lvalue_ _range_ is regarded as an _input_iterator_ range.]
 
 
 
@@ -124,7 +124,7 @@ A _random_access_range_ but not _lvalue_range_ is regarded as an _input_iterator
 ]
 
 [h3 Preconditions]
-* If `boost::range_reference<_typeof(_rndrng)>::type` is a /reference type/, `_rndrng` is a _lvalue_range_.
+* If `boost::range_reference<_typeof(_rndrng)>::type` is a /reference type/, `_rndrng` is a _lvalue_ _range_.
 * `_typeof(n)` is convertible to `boost::range_difference<_typeof(_rndrng)>::type`.
 * `0 <= n && n < distance(_rndrng)`
 
@@ -318,9 +318,9 @@ The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied
 ]
 
 [h3 Preconditions]
-* If `boost::range_reference<_typeof(_rng)>::type` is a /reference type/, `_rng` is a _lvalue_range_.
+* If `boost::range_reference<_typeof(_rng)>::type` is a /reference type/, `_rng` is a _lvalue_ _range_.
 * `!boost::empty(_rng)`
-* If `boost::range_reference<_typeof(_bidrng)>::type` is a /reference type/, `_bidrng` is a _lvalue_range_.
+* If `boost::range_reference<_typeof(_bidrng)>::type` is a /reference type/, `_bidrng` is a _lvalue_ _range_.
 * `!boost::empty(_bidrng)`
 
 [h3 See also]

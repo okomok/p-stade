@@ -34,7 +34,7 @@ test-suite "oven" :
     [ run cleared.cpp ]
     # [ run compile.cpp ]
     [ run concatenated.cpp ]
-    [ run const_lvalues.cpp ]
+    [ run const_refs.cpp ]
     [ run constants.cpp ]
     [ compile-fail constants_fail.cpp ]
     [ run copied_to.cpp ]

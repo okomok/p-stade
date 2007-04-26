@@ -45,15 +45,19 @@
 [def _predicate_             [@http://www.sgi.com/tech/stl/Predicate.html Predicate]]
 [def _input_iterator_        [@http://www.sgi.com/tech/stl/InputIterator.html Input Iterator]]
 [def _output_iterator_       [@http://www.sgi.com/tech/stl/OutputIterator.html Output Iterator]]
-[def _readable_iterator_     [@http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#readable-iterators-lib-readable-iterators Readable Iterator]]
-[def _writable_iterator_     [@http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#writable-iterators-lib-writable-iterators Writable Iterator]]
-[def _lvalue_iterator_       [@http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#lvalue-iterators-lib-lvalue-iterators Lvalue Iterator]]
+[def _forward_iterator_      [@http://www.sgi.com/tech/stl/ForwardIterator.html Forward Iterator]]
+
+
+[def _single_pass_           [@http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#single-pass-iterators-lib-single-pass-iterators Single Pass]]
+[def _forward_               [@http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#forward-traversal-iterators-lib-forward-traversal-iterators Forward]]
+[def _bidirectional_         [@http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#bidirectional-traversal-iterators-lib-bidirectional-traversal-iterators Bidirectional]]
+[def _random_access_         [@http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#random-access-traversal-iterators-lib-random-access-traversal-iterators Random Access]]
+[def _readable_              [@http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#readable-iterators-lib-readable-iterators Readable]]
+[def _writable_              [@http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#writable-iterators-lib-writable-iterators Writable]]
+[def _lvalue_                [@http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#lvalue-iterators-lib-lvalue-iterators Lvalue]]
+[def _contiguous_            [link oven.contiguous_range Contiguous]]
 
 [def _range_                 [@http://www.boost.org/libs/range/doc/range.html Range]]
-[def _single_pass_range_     [@http://www.boost.org/libs/range/doc/range.html#single_pass_range Single Pass Range]]
-[def _forward_range_         [@http://www.boost.org/libs/range/doc/range.html#forward_range Forward Range]]
-[def _bidirectional_range_   [@http://www.boost.org/libs/range/doc/range.html#bidirectional_range Bidirectional Range]]
-[def _random_access_range_   [@http://www.boost.org/libs/range/doc/range.html#random_access_range Random Access Range]]
 
 [def _input_streamable_      [@http://www.boost.org/libs/conversion/lexical_cast.htm Input Streamable]]
 [def _output_streamable_     [@http://www.boost.org/libs/conversion/lexical_cast.htm Output Streamable]]
@@ -64,16 +68,6 @@
 [def _pipable_object_        [link oven.pipable_object Pipable Object]]
 [def _auxiliary_interface_   [link oven.auxiliary_interface Auxiliary Interface]]
 [def _stoppable_generator_   [link oven.stoppable_generator Stoppable Generator]]
-[def _lvalue_range_          [link oven.lvalue_range Lvalue Range]]
-[def _constant_range_        [link oven.constant_range Constant Range]]
-[def _contiguous_range_      [link oven.contiguous_range Contiguous Range]]
-
-[def _single_pass_           [@http://www.boost.org/libs/range/doc/range.html#single_pass_range Single Pass]]
-[def _forward_               [@http://www.boost.org/libs/range/doc/range.html#forward_range Forward]]
-[def _bidirectional_         [@http://www.boost.org/libs/range/doc/range.html#bidirectional_range Bidirectional]]
-[def _random_access_         [@http://www.boost.org/libs/range/doc/range.html#random_access_range Random Access]]
-[def _lvalue_                [link oven.lvalue_range Lvalue]]
-[def _constant_              [link oven.constant_range Constant]]
 
 
 [include preface.qbk]

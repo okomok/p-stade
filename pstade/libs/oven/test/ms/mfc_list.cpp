@@ -34,7 +34,7 @@
 #include <pstade/oven/mfc.hpp>
 
 
-#include <pstade/oven/const_lvalues.hpp>
+#include <pstade/oven/const_refs.hpp>
 
 
 namespace oven = pstade::oven;
@@ -58,9 +58,9 @@ void test()
         ) );
 #else
         // In fact, it is *Bidirectional Input* which 'test_xxx' cannot handle yet.
-        // So remove *Input* ness by using 'const_lvalues'.
+        // So remove *Input* ness by using 'const_refs'.
         BOOST_CHECK( oven::test_Bidirectional_Readable(
-            rng|const_lvalues,
+            rng|const_refs,
             expected
         ) );
 #endif
@@ -84,7 +84,7 @@ void test()
         ) );
 #else
         BOOST_CHECK( oven::test_Bidirectional_Readable(
-            rng|const_lvalues,
+            rng|const_refs,
             expected
         ) );
 #endif
@@ -110,7 +110,7 @@ void test()
         ) );
 #else
         BOOST_CHECK( oven::test_Bidirectional_Readable(
-            rng|const_lvalues,
+            rng|const_refs,
             expected
         ) );
 #endif
@@ -133,7 +133,7 @@ void test()
         ) );
 #else
         BOOST_CHECK( oven::test_Bidirectional_Readable(
-            rng|const_lvalues,
+            rng|const_refs,
             expected
         ) );
 #endif

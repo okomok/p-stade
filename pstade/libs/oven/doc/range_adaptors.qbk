@@ -32,7 +32,7 @@ Additional information is available at _proposal_.
     [
         [`_fwdrng|adjacent_filtered(_prd)`]
         [
-            A _forward_ _constant_ `{b0,b1,b2,..,bM}`
+            A _forward_ non-_writable_ `{b0,b1,b2,..,bM}`
         ]
     ]
 ]
@@ -223,8 +223,8 @@ Additional information is available at _proposal_.
 [h3 Preconditions]
 * `_typeof(_fun1(_rng))` and `_typeof(_fun2(_rng))` are convertible to `_iter_of<_typeof(_rng)>::type`.
 * `_iter_of<_typeof(fun3(_rng))>::type` is convertible to `_iter_of<_typeof(_rng)>::type`.
-* `[_fun1(_rng), _fun2(_rng))` is a valid _range_.
-* `[_begin(r), _end(_rng))`, where `r = _fun3(_rng)`, is a valid _range_.
+* `[_fun1(_rng), _fun2(_rng))` is a _range_.
+* `[_begin(r), _end(_rng))`, where `r = _fun3(_rng)`, is a _range_.
 
 
 [h3 Example]
@@ -433,7 +433,7 @@ Additional information is available at _proposal_.
 
 [note The last precondition implies that `SegmentIterator` isn't allowed to manage the lifetime of `LocalIterator` referents.
       Hence `broken_into` and `xpressive_tokenized` can't meets the precondition.
-      Fortunately, `memoized` can turn them into _lvalue_range_, which works with `concatenated`.]
+      Fortunately, `memoized` can turn them into _lvalue_ _range_ which meets it trivially.]
 
 [h3 Example]
     std::string input("This is his face");
@@ -457,7 +457,7 @@ Additional information is available at _proposal_.
 [section constants]
 
 [h3 Description]
-`constants` converts the base range into a _constant_range_.
+`constants` converts the base range into a non-_writable_ _range_.
 
 [h3 Header]
 * `<pstade/oven/constants.hpp>`
@@ -474,7 +474,7 @@ Additional information is available at _proposal_.
     [
         [`_rng|constants`]
         [
-            A _constant_ `[_begin(_rng), _end(_rng))`
+            A non-_writable_ `[_begin(_rng), _end(_rng))`
         ]
     ]
 ]
@@ -490,10 +490,13 @@ Additional information is available at _proposal_.
 
 
 
-[section const_lvalues]
+[section const_refs]
 
 [h3 Description]
-`const_lvalues` converts the base range into a _constant_range_ whose associated reference type is a /reference type/.
+`const_refs` converts the base range into a range of /const reference/,
+then pretends to be a range of _forward_iterator_.
+
+[note Strictly speaking, an iterator obtained is not a conforming _forward_iterator_.]
 
 [h3 Header]
 * `<pstade/oven/const_lvalues.hpp>`
@@ -508,9 +511,9 @@ Additional information is available at _proposal_.
         [[*Semantics]]
     ]
     [
-        [`_rng|const_lvalues`]
+        [`_rng|const_refs`]
         [
-            A _constant_ `[_begin(_rng), _end(_rng))`  whose `boost::range_reference` type is a /reference type/.
+            A non-_writable_ `[_begin(_rng), _end(_rng))`  whose `boost::range_reference` type is a /reference type/.
         ]
     ]
 ]
@@ -748,6 +751,7 @@ Additional information is available at _proposal_.
 
 [h3 See also]
 * [link oven.dropped dropped]
+* [link oven.filtered filtered]
 * [link oven.taken_while taken_while]
 
 [endsect]
@@ -783,7 +787,7 @@ Additional information is available at _proposal_.
 [h3 Preconditions]
 * `T` is `boost::filter_iterator<_typeof(_prd), _typeof(_begin(_rng))>` such that `T(_prd, _begin(_rng), _end(_rng))` is a valid expression.
 * `_prd` is _assignable_.
-* If `_rng` is a _forward_range_, `_prd` is _default_constructible_.
+* If `_rng` is a _forward_ _range_, `_prd` is _default_constructible_.
 
 [h3 Example]
 
@@ -1190,7 +1194,7 @@ Additional information is available at _proposal_.
     [
         [`_rng|memoized`]
         [
-            A _forward_ _constant_ _lvalue_ `[_begin(_rng), _end(_rng))`
+            A _forward_ non-_writable_ _lvalue_ `[_begin(_rng), _end(_rng))`
         ]
     ]
     [
@@ -1201,7 +1205,7 @@ Additional information is available at _proposal_.
     ]
 ]
 
-[note `memoized` can return a _forward_range_ even if the base range is a _single_pass_range_.]
+[note `memoized` can return a _forward_ _range_ even if the base range is a _single_pass_ _range_.]
 
 [h3 Preconditions]
 * `boost::range_value<_typeof(_rng)>::type` is _assignable_ and _copy_constructible_.
@@ -1257,7 +1261,7 @@ Additional information is available at _proposal_.
     [
         [`op_make_merged<>()(_rng1, _rng2, _prd)`]
         [
-            An up-to-_forward_ _constant_range_ which behaves as if it were made by `merge(_rng1, _rng2, _prd)`.
+            An up-to-_forward_ non-_writable_ _range_ which behaves as if it were made by `merge(_rng1, _rng2, _prd)`.
         ]
     ]
     [
@@ -1285,7 +1289,7 @@ Additional information is available at _proposal_.
   without binding /reference/ to /rvalue/.
 * `_rng1` and `_rng2` are sorted.
 * `_prd` is _assignable_.
-* If `_rng1` and `_rng2` are _forward_range_s, `_prd` is _default_constructible_.
+* If `_rng1` and `_rng2` are _forward_ _range_s, `_prd` is _default_constructible_.
 
 [h3 Example]
     std::string A1("abbbfH");
@@ -1382,7 +1386,55 @@ Additional information is available at _proposal_.
 
 [h3 See also]
 * [link oven.indirected indirected]
+* [link oven.outplaced outplaced]
 * [link oven.pointed pointed]
+
+[endsect]
+
+
+
+
+[section outplaced]
+
+[h3 Description]
+`outplaced` returns a _writable_ _lvalue_ _random_access_ _range_ whose values are iterators of the base range.
+
+[h3 Header]
+* `<pstade/oven/outplaced.hpp>`
+
+[h3 Model of]
+* _pipable_object_
+
+[h3 Notation]
+* `itK = boost::next(boost::begin(_fwdrng), K-1)`
+* `N` is `distance(_fwdrng)`.
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_fwdrng|outplaced`]
+        [
+            A _writable_ _lvalue_ _random_access_ `{i1,..,iN}`
+        ]
+    ]
+]
+
+[h3 Preconditions]
+
+[h3 Example]
+    std::list<int> lst = initial_values(6,1,3,2,5,4);
+    sort(lst|outplaced|indirected);
+    BOOST_CHECK( equals(lst, initial_values(1,2,3,4,5,6)) );
+
+[h3 See also]
+* [link oven.indirected indirected]
+* [link oven.outdirected outdirected]
+* [link oven.pointed pointed]
+* [link oven.sorted sorted]
 
 [endsect]
 
@@ -1461,8 +1513,8 @@ That is, the view includes every element of the given range but in a potentially
 ]
 
 [h3 Preconditions]
-* `r` is a _contiguous_range_ such that `!boost::empty(r)`.
-* `q` is a _contiguous_range_ such that `boost::empty(q)`.
+* `r` is a _contiguous_ _range_ such that `!boost::empty(r)`.
+* `q` is a _contiguous_ _range_ such that `boost::empty(q)`.
 
 [h3 Example]
     std::string const src("hello, pointed");
@@ -1637,8 +1689,8 @@ A range returned from `reversed` iterates in the opposite direction.
 * `_fun1(_fun1(b, b), b)` is well-formed, where `b = *_begin(_rng))`.
 * `!boost::empty(_rng1)`
 * `_fun` and `_fun1` are _assignable_.
-* If `_rng` is a _forward_range_, `_fun` and `_typeof(s)` are _default_constructible_.
-* If `_rng1` is a _forward_range_, `_fun1` ard `S1` are _default_constructible_.
+* If `_rng` is a _forward_ _range_, `_fun` and `_typeof(s)` are _default_constructible_.
+* If `_rng1` is a _forward_ _range_, `_fun1` ard `S1` are _default_constructible_.
 
 [h3 Example]
     int const src[] = { 1,2,3,4,5 };
@@ -1718,7 +1770,7 @@ A range returned from `reversed` iterates in the opposite direction.
     [
         [`_rng1|set_cap(_rng2, _prd)`]
         [
-            An up-to-_forward_ _constant_range_ which behaves as if it were made by `set_intersection(_rng1, _rng2, _prd)`.
+            An up-to-_forward_ non-_writable_ _range_ which behaves as if it were made by `set_intersection(_rng1, _rng2, _prd)`.
         ]
     ]
     [
@@ -1764,7 +1816,7 @@ A range returned from `reversed` iterates in the opposite direction.
     [
         [`_rng1|set_cup(_rng2, _prd)`]
         [
-            An up-to-_forward_ _constant_range_ which behaves as if it were made by `set_union(_rng1, _rng2, _prd)`.
+            An up-to-_forward_ non-_writable_ _range_ which behaves as if it were made by `set_union(_rng1, _rng2, _prd)`.
         ]
     ]
     [
@@ -1810,7 +1862,7 @@ A range returned from `reversed` iterates in the opposite direction.
     [
         [`_rng1|set_delta(_rng2, _prd)`]
         [
-            An up-to-_forward_ _constant_range_ which behaves as if it were made by `set_symmetric_difference(_rng1, _rng2, _prd)`.
+            An up-to-_forward_ non-_writable_ _range_ which behaves as if it were made by `set_symmetric_difference(_rng1, _rng2, _prd)`.
         ]
     ]
     [
@@ -1856,7 +1908,7 @@ A range returned from `reversed` iterates in the opposite direction.
     [
         [`_rng1|set_minus(_rng2, _prd)`]
         [
-            An up-to-_forward_ _constant_range_ which behaves as if it were made by `set_difference(_rng1, _rng2, _prd)`.
+            An up-to-_forward_ non-_writable_ _range_ which behaves as if it were made by `set_difference(_rng1, _rng2, _prd)`.
         ]
     ]
     [
@@ -1934,10 +1986,63 @@ A range returned from `reversed` iterates in the opposite direction.
 
 
 
+[section sorted]
+
+[h3 Description]
+`sorted` provides a sorted view of the base range.
+
+[note Though `sorted` can accept (possibly non-_writable_) _forward_ _range_,
+      it may be considered expensive in some applications.]
+
+[h3 Header]
+* `<pstade/oven/sorted.hpp>`
+
+[h3 Model of]
+* _pipable_object_
+
+[h3 Notation]
+* `less` is `boost::lambda::_1 < boost::lambda::_2`.
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_fwdrng|sorted(_prd)`]
+        [
+            A range which behaves as it were made by `sort(_fwdrng, _prd)`.
+        ]
+    ]
+    [
+        [`_fwdrng|sorted`]
+        [
+            `_fwdrng|sorted(less)`
+        ]
+    ]
+]
+
+[h3 Preconditions]
+
+[h3 Example]
+    std::stringstream in;
+    in << "cefabd";
+    BOOST_CHECK( equals(oven::reading<char>(in)|memoized|sorted, std::string("abcdef")) );
+
+[h3 See also]
+* [@http://www.ddj.com/dept/cpp/196513737 C++ View Objects]
+* [link oven.outplaced outplaced]
+
+[endsect]
+
+
+
+
 [section steps]
 
 [h3 Description]
-`steps`, though it can't return _bidirectional_range_, relaxes the preconditions of `sliced` and accepts a _single_pass_range_.
+`steps`, though it can't return _bidirectional_ _range_, relaxes the preconditions of `sliced` and accepts a _single_pass_ _range_.
 
 [h3 Header]
 * `<pstade/oven/steps.hpp>`
@@ -2130,7 +2235,7 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
 [h3 Preconditions]
 * `_typeof(n)` is convertible to `range_difference<_typeof(_rng)>::type`.
 * `_prd` is _assignable_.
-* If `_rng` is a _forward_range_, `_prd` is _default_constructible_.
+* If `_rng` is a _forward_ _range_, `_prd` is _default_constructible_.
 
 [h3 Example]
 
@@ -2251,7 +2356,7 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
 * `T` is `boost::transform_iterator<_typeof(_fun), _typeof(_begin(_rng)), R>` such that `T(_begin(_rng), _fun)` is a valid expression.
 * `U` is `boost::transform_iterator<_typeof(_cal), _typeof(_begin(_rng)), boost::result_of<_typeof(_cal)(*_begin(_rng))>::type>` such that `U(_begin(_rng), _cal)` is a valid expression.
 * `_fun` and `_cal` are _assignable_.
-* If `_rng` is a _forward_range_, `_fun` and `_cal` are _default_constructible_.
+* If `_rng` is a _forward_ _range_, `_fun` and `_cal` are _default_constructible_.
 
 [h3 Example]
 

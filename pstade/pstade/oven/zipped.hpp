@@ -20,7 +20,7 @@
 //
 // For some reason, 'boost::zip_iterator' doesn't use
 // *pure* traversal_tag with 'minimum_category'.
-// Thus, you have to use 'const_lvalues' before 'zipped'
+// Thus, you have to use 'const_refs' before 'zipped'
 // if the base range is something like RandomAccess*Input*Range.
 
 

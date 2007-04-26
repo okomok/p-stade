@@ -12,6 +12,7 @@
 
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
+#include <pstade/pass_by.hpp>
 
 
 namespace pstade {

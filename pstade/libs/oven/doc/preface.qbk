@@ -17,7 +17,7 @@ Oven is a highly preliminary implementation of _proposal_:
         any_range<int, boost::single_pass_traversal_tag>
     range;
 
-    range sieve(range rng)
+    range sieve(_range_ rng)
     {
         return rng|dropped(1)|filtered(regular(lambda::_1 % value_front(rng) != 0));
     }
@@ -64,7 +64,7 @@ Oven is known to work under the following platforms:
 
 [section Rationale]
 * Oven supports an iterator such that destruction of it may invalidate pointers and references previously obtained from that iterator (24.1/9).
-* Oven doesn't figure out the `distance` of non-_random_access_range_; in order to allow a very long (or complicated) range.
+* Oven doesn't figure out the `distance` of non-_random_access_ _range_; in order to allow a very long (or complicated) _range_.
 
 [endsect]
 
@@ -102,19 +102,19 @@ This document uses the following notation:
     ]
     [
         [`_rng`]
-        [Any _single_pass_range_, that is to say, any _range_.]
+        [Any _single_pass_ _range_, that is to say, any _range_.]
     ]
     [
         [`_fwdrng`]
-        [Any _forward_range_]
+        [Any _forward_ _range_]
     ]
     [
         [`_bidrng`]
-        [Any _bidirectional_range_]
+        [Any _bidirectional_ _range_]
     ]
     [
         [`_rndrng`]
-        [Any _random_access_range_]
+        [Any _random_access_ _range_]
     ]
     [
         [`_fun`]
@@ -138,7 +138,7 @@ This document uses the following notation:
     ]
     [
         [`_iter_of`]
-        [`boost::range_result_iterator`]
+        [`boost::_range__result_iterator`]
     ]
     [
         [`[i, j)`]

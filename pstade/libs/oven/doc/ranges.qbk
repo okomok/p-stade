@@ -61,15 +61,15 @@ Though Oven supports _boost_result_of_, it is often cumbersome to get the type o
 [section array_range]
 
 [h3 Description]
-`array_range` is a noncopyable _random_access_range_ which delivers
+`array_range` is a noncopyable _random_access_ _range_ which delivers
 a range presentation of dynamically allocated arrays.
 
 [h3 Header]
 * `<pstade/oven/array_range.hpp>`
 
 [h3 Model of]
-* _random_access_range_
-* _contiguous_range_
+* _random_access_ _range_
+* _contiguous_ _range_
 
 [h3 Valid expressions]
 [table 
@@ -106,13 +106,13 @@ a range presentation of dynamically allocated arrays.
 [section directory_range]
 
 [h3 Description]
-`directory_range` is a _single_pass_range_ which accesses the contents of a directory.
+`directory_range` is a _single_pass_ _range_ which accesses the contents of a directory.
 
 [h3 Header]
 * `<pstade/oven/directory_range.hpp>`
 
 [h3 Model of]
-* _single_pass_range_
+* _single_pass_ _range_
 
 [h3 Valid expressions]
 [table 
@@ -161,14 +161,14 @@ a range presentation of dynamically allocated arrays.
 [section empty_range]
 
 [h3 Description]
-`empty_range` is a _random_access_range_ which is always empty.
+`empty_range` is a _random_access_ _range_ which is always empty.
 
 [h3 Header]
 * `<pstade/oven/empty_range.hpp>`
 
 [h3 Model of]
-* _random_access_range_
-* _contiguous_range_
+* _random_access_ _range_
+* _contiguous_ _range_
 
 [h3 Valid expressions]
 [table 
@@ -193,7 +193,7 @@ a range presentation of dynamically allocated arrays.
 [section file_range]
 
 [h3 Description]
-`file_range` is a _constant_ _random_access_range_ for files.
+`file_range` is a non-_writable_ _random_access_ _range_ for files.
 If the file opening failed, the range is empty.
 
 [note `file_range` is "binary"; any automatic conversion isn't performed.]
@@ -202,8 +202,8 @@ If the file opening failed, the range is empty.
 * `<pstade/oven/file_range.hpp>`
 
 [h3 Model of]
-* _random_access_range_
-* _constant_range_
+* _random_access_ _range_
+* non-_writable_ _range_
 
 [h3 Notation]
 * `r` is a `file_range`.

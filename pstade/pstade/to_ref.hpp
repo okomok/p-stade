@@ -13,7 +13,6 @@
 #include <pstade/auxiliary.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
-#include <pstade/pass_by.hpp>
 #include <pstade/provide_sig.hpp>
 
 

@@ -24,15 +24,13 @@
 <dt><span class="section"><a href="concepts.html#oven.pipable_object">Pipable Object</a></span></dt>
 <dt><span class="section"><a href="concepts.html#oven.auxiliary_interface">Auxiliary Interface</a></span></dt>
 <dt><span class="section"><a href="concepts.html#oven.stoppable_generator">Stoppable Generator</a></span></dt>
-<dt><span class="section"><a href="concepts.html#oven.constant_range">Constant Range</a></span></dt>
-<dt><span class="section"><a href="concepts.html#oven.lvalue_range">Lvalue Range</a></span></dt>
 <dt><span class="section"><a href="concepts.html#oven.contiguous_range">Contiguous Range</a></span></dt>
 </dl></div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.callable_object"></a>Callable Object</h3></div></div></div>
 <a name="callable_object.description"></a><h4>
-<a name="id502544"></a>
+<a name="id502599"></a>
         Description
       </h4>
 <p>
@@ -40,12 +38,12 @@
         can be used with <a href="http://www.boost.org/libs/utility/utility.htm#result_of" target="_top">Boost.ResultOf</a>.
       </p>
 <a name="callable_object.refinement_of"></a><h4>
-<a name="id502583"></a>
+<a name="id502638"></a>
         Refinement of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function Object</a></li></ul></div>
 <a name="callable_object.requirements"></a><h4>
-<a name="id502609"></a>
+<a name="id502663"></a>
         Requirements
       </h4>
 <p>
@@ -58,7 +56,7 @@
           to get the result type of function call <code class="computeroutput"><span class="identifier">f</span></code>.
         </li></ul></div>
 <a name="callable_object.models"></a><h4>
-<a name="id502703"></a>
+<a name="id502757"></a>
         Models
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -87,7 +85,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.operatable_object"></a>Operatable Object</h3></div></div></div>
 <a name="operatable_object.description"></a><h4>
-<a name="id502775"></a>
+<a name="id502829"></a>
         Description
       </h4>
 <p>
@@ -96,12 +94,12 @@
         the type of itself using prefix <code class="computeroutput"><span class="identifier">op_</span></code>.
       </p>
 <a name="operatable_object.refinement_of"></a><h4>
-<a name="id502820"></a>
+<a name="id502874"></a>
         Refinement of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.callable_object" title="Callable Object">Callable Object</a></li></ul></div>
 <a name="operatable_object.requirements"></a><h4>
-<a name="id502846"></a>
+<a name="id502900"></a>
         Requirements
       </h4>
 <p>
@@ -114,7 +112,7 @@
 <code class="computeroutput"><span class="identifier">op_f</span></code> is <code class="computeroutput"><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">f</span><span class="special">)</span></code>.
         </li></ul></div>
 <a name="operatable_object.models"></a><h4>
-<a name="id502932"></a>
+<a name="id502986"></a>
         Models
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -126,7 +124,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.pipable_object"></a>Pipable Object</h3></div></div></div>
 <a name="pipable_object.description"></a><h4>
-<a name="id502984"></a>
+<a name="id503038"></a>
         Description
       </h4>
 <p>
@@ -136,11 +134,11 @@
         Object</a> using prefix <code class="computeroutput"><span class="identifier">make_</span></code>.
       </p>
 <a name="pipable_object.refinement_of"></a><h4>
-<a name="id503044"></a>
+<a name="id503098"></a>
         Refinement of
       </h4>
 <a name="pipable_object.requirements"></a><h4>
-<a name="id503055"></a>
+<a name="id503109"></a>
         Requirements
       </h4>
 <p>
@@ -167,7 +165,7 @@
         </li>
 </ul></div>
 <a name="pipable_object.models"></a><h4>
-<a name="id503376"></a>
+<a name="id503431"></a>
         Models
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -179,7 +177,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.auxiliary_interface"></a>Auxiliary Interface</h3></div></div></div>
 <a name="auxiliary_interface.description"></a><h4>
-<a name="id503426"></a>
+<a name="id503480"></a>
         Description
       </h4>
 <p>
@@ -188,14 +186,14 @@
         supports also a pipe-like syntax used as if it were a member function.
       </p>
 <a name="auxiliary_interface.refinement_of"></a><h4>
-<a name="id503463"></a>
+<a name="id503517"></a>
         Refinement of
       </h4>
 <p>
         <a href="concepts.html#oven.operatable_object" title="Operatable Object">Operatable Object</a>
       </p>
 <a name="auxiliary_interface.requirements"></a><h4>
-<a name="id503489"></a>
+<a name="id503543"></a>
         Requirements
       </h4>
 <p>
@@ -220,7 +218,7 @@
         </li>
 </ul></div>
 <a name="auxiliary_interface.models"></a><h4>
-<a name="id503791"></a>
+<a name="id503845"></a>
         Models
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -228,7 +226,7 @@
 <li><a href="range_algorithms.html#oven.begin_end" title="begin/end">begin/end</a></li>
 </ul></div>
 <a name="auxiliary_interface.see_also"></a><h4>
-<a name="id503832"></a>
+<a name="id503886"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2004/n1742.pdf" target="_top">Auxiliary
@@ -238,7 +236,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.stoppable_generator"></a>Stoppable Generator</h3></div></div></div>
 <a name="stoppable_generator.description"></a><h4>
-<a name="id503869"></a>
+<a name="id503923"></a>
         Description
       </h4>
 <p>
@@ -247,7 +245,7 @@
         which can specify the stop of generating using <a href="http://boost.org/libs/optional/doc/optional.html" target="_top">Boost.Optional</a>.
       </p>
 <a name="stoppable_generator.refinement_of"></a><h4>
-<a name="id503911"></a>
+<a name="id503965"></a>
         Refinement of
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -255,7 +253,7 @@
 <li><a href="concepts.html#oven.callable_object" title="Callable Object">Callable Object</a></li>
 </ul></div>
 <a name="stoppable_generator.requirements"></a><h4>
-<a name="id503951"></a>
+<a name="id504005"></a>
         Requirements
       </h4>
 <p>
@@ -274,7 +272,7 @@
         </li>
 </ul></div>
 <a name="stoppable_generator.models"></a><h4>
-<a name="id504062"></a>
+<a name="id504116"></a>
         Models
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -284,130 +282,40 @@
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="oven.constant_range"></a>Constant Range</h3></div></div></div>
-<a name="constant_range.description"></a><h4>
-<a name="id504112"></a>
-        Description
-      </h4>
-<p>
-        A <a href="concepts.html#oven.constant_range" title="Constant Range">Constant Range</a> is a <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
-        whose iterators are constant, meaning that the iterator referents are not
-        modifiable.
-      </p>
-<a name="constant_range.refinement_of"></a><h4>
-<a name="id504146"></a>
-        Refinement of
-      </h4>
-<div class="itemizedlist"><ul type="disc"><li><a href="http://www.boost.org/libs/range/doc/range.html#single_pass_range" target="_top">Single
-          Pass Range</a></li></ul></div>
-<a name="constant_range.requirements"></a><h4>
-<a name="id504171"></a>
-        Requirements
-      </h4>
-<p>
-        In addition to the requirements defined in <a href="http://www.boost.org/libs/range/doc/range.html#single_pass_range" target="_top">Single
-        Pass Range</a>, for any <a href="concepts.html#oven.constant_range" title="Constant Range">Constant
-        Range</a> <code class="computeroutput"><span class="identifier">r</span></code> the following
-        must be met:
-      </p>
-<div class="itemizedlist"><ul type="disc"><li>
-<code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">remove_reference</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">range_reference</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">r</span><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">&gt;::</span><span class="identifier">type</span></code> is const-qualified.
-        </li></ul></div>
-<a name="constant_range.models"></a><h4>
-<a name="id504305"></a>
-        Models
-      </h4>
-<div class="itemizedlist"><ul type="disc">
-<li><code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">list</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;</span> <span class="keyword">const</span></code></li>
-<li><code class="computeroutput"><span class="keyword">int</span> <span class="keyword">const</span> <span class="special">[</span><span class="number">12</span><span class="special">]</span></code></li>
-</ul></div>
-</div>
-<div class="section" lang="en">
-<div class="titlepage"><div><div><h3 class="title">
-<a name="oven.lvalue_range"></a>Lvalue Range</h3></div></div></div>
-<a name="lvalue_range.description"></a><h4>
-<a name="id504412"></a>
-        Description
-      </h4>
-<p>
-        A <a href="concepts.html#oven.lvalue_range" title="Lvalue Range">Lvalue Range</a> is a <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
-        whose iterator referents live outside of the iterators.
-      </p>
-<a name="lvalue_range.refinement_of"></a><h4>
-<a name="id504445"></a>
-        Refinement of
-      </h4>
-<div class="itemizedlist"><ul type="disc"><li><a href="http://www.boost.org/libs/range/doc/range.html#single_pass_range" target="_top">Single
-          Pass Range</a></li></ul></div>
-<a name="lvalue_range.requirements"></a><h4>
-<a name="id504470"></a>
-        Requirements
-      </h4>
-<p>
-        In addition to the requirements defined in <a href="http://www.boost.org/libs/range/doc/range.html#single_pass_range" target="_top">Single
-        Pass Range</a>, for any <a href="concepts.html#oven.lvalue_range" title="Lvalue Range">Lvalue Range</a> <code class="computeroutput"><span class="identifier">r</span></code> the following must be met:
-      </p>
-<div class="itemizedlist"><ul type="disc"><li>
-<code class="computeroutput"><span class="identifier">_iter_of</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">r</span><span class="special">)&gt;::</span><span class="identifier">type</span></code> is <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#lvalue-iterators-lib-lvalue-iterators" target="_top">Lvalue
-          Iterator</a>.
-        </li></ul></div>
-<a name="lvalue_range.models"></a><h4>
-<a name="id504568"></a>
-        Models
-      </h4>
-<div class="itemizedlist"><ul type="disc">
-<li><code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">vector</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">&gt;</span></code></li>
-<li>
-          Any range which <a href="range_adaptors.html#oven.memoized" title="memoized">memoized</a> returns.
-        </li>
-</ul></div>
-<a name="lvalue_range.see_also"></a><h4>
-<a name="id504637"></a>
-        See also
-      </h4>
-<div class="itemizedlist"><ul type="disc">
-<li>
-<a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#lvalue-iterators-lib-lvalue-iterators" target="_top">Lvalue
-          Iterator</a> Concept
-        </li>
-<li>
-          C++ Standard 24.1/9
-        </li>
-</ul></div>
-</div>
-<div class="section" lang="en">
-<div class="titlepage"><div><div><h3 class="title">
 <a name="oven.contiguous_range"></a>Contiguous Range</h3></div></div></div>
 <a name="contiguous_range.description"></a><h4>
-<a name="id504678"></a>
+<a name="id504166"></a>
         Description
       </h4>
 <p>
-        A <a href="concepts.html#oven.contiguous_range" title="Contiguous Range">Contiguous Range</a> is a <a href="http://www.boost.org/libs/range/doc/range.html#random_access_range" target="_top">Random
-        Access Range</a> whose elements are stored contiguously.
+        A <a href="concepts.html#oven.contiguous_range" title="Contiguous Range">Contiguous</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
+        is a <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#random-access-traversal-iterators-lib-random-access-traversal-iterators" target="_top">Random
+        Access</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
+        whose elements are stored contiguously.
       </p>
 <a name="contiguous_range.refinement_of"></a><h4>
-<a name="id504710"></a>
+<a name="id504215"></a>
         Refinement of
       </h4>
-<div class="itemizedlist"><ul type="disc"><li><a href="http://www.boost.org/libs/range/doc/range.html#random_access_range" target="_top">Random
-          Access Range</a></li></ul></div>
+<div class="itemizedlist"><ul type="disc"><li>
+<a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#random-access-traversal-iterators-lib-random-access-traversal-iterators" target="_top">Random
+          Access</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
+</li></ul></div>
 <a name="contiguous_range.requirements"></a><h4>
-<a name="id504736"></a>
+<a name="id504249"></a>
         Requirements
       </h4>
 <p>
-        In addition to the requirements defined in <a href="http://www.boost.org/libs/range/doc/range.html#random_access_range" target="_top">Random
-        Access Range</a>, for any <a href="concepts.html#oven.contiguous_range" title="Contiguous Range">Contiguous
-        Range</a> <code class="computeroutput"><span class="identifier">r</span></code> the following
-        must be met:
+        In addition to the requirements defined in <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#random-access-traversal-iterators-lib-random-access-traversal-iterators" target="_top">Random
+        Access</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>,
+        for any <a href="concepts.html#oven.contiguous_range" title="Contiguous Range">Contiguous</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a> <code class="computeroutput"><span class="identifier">r</span></code> the following must be met:
       </p>
 <div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="special">&amp;*(</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">r</span><span class="special">)</span> <span class="special">+</span> <span class="identifier">n</span><span class="special">)</span> <span class="special">==</span> <span class="special">&amp;*(</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">r</span><span class="special">))</span> <span class="special">+</span> <span class="identifier">n</span></code>
           for all <code class="computeroutput"><span class="identifier">n</span></code> such that <code class="computeroutput"><span class="number">0</span> <span class="special">&lt;=</span> <span class="identifier">n</span> <span class="special">&amp;&amp;</span> <span class="identifier">n</span> <span class="special">&lt;</span> <span class="identifier">_end</span><span class="special">(</span><span class="identifier">r</span><span class="special">)</span> <span class="special">-</span> <span class="identifier">_begin</span><span class="special">(</span><span class="identifier">r</span><span class="special">)</span></code>.
         </li></ul></div>
 <a name="contiguous_range.models"></a><h4>
-<a name="id504981"></a>
+<a name="id504511"></a>
         Models
       </h4>
 <div class="itemizedlist"><ul type="disc">

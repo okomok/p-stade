@@ -130,68 +130,17 @@ for any _stoppable_generator_ `g` the following must be met:
 
 
 
-[section Constant Range]
-
-[h3 Description]
-A _constant_range_ is a _range_ whose iterators are constant, meaning that
-the iterator referents are not modifiable.
-
-[h3 Refinement of]
-* _single_pass_range_
-
-[h3 Requirements]
-In addition to the requirements defined in _single_pass_range_,
-for any _constant_range_ `r` the following must be met:
-
-* `boost::remove_reference<boost::range_reference<_typeof(r)>::type>::type` is const-qualified.
-
-[h3 Models]
-* `std::list<int> const`
-* `int const [12]`
-
-[endsect]
-
-
-
-
-[section Lvalue Range]
-
-[h3 Description]
-A _lvalue_range_ is a _range_ whose iterator referents live outside of the iterators.
-
-[h3 Refinement of]
-* _single_pass_range_
-
-[h3 Requirements]
-In addition to the requirements defined in _single_pass_range_,
-for any _lvalue_range_ `r` the following must be met:
-
-* `_iter_of<_typeof(r)>::type` is _lvalue_iterator_.
-
-[h3 Models]
-* `std::vector<int>`
-* Any range which [link oven.memoized memoized] returns.
-
-[h3 See also]
-* _lvalue_iterator_ Concept
-* C++ Standard 24.1/9
-
-[endsect]
-
-
-
-
 [section Contiguous Range]
 
 [h3 Description]
-A _contiguous_range_ is a _random_access_range_ whose elements are stored contiguously.
+A _contiguous_ _range_ is a _random_access_ _range_ whose elements are stored contiguously.
 
 [h3 Refinement of]
-* _random_access_range_
+* _random_access_ _range_
 
 [h3 Requirements]
-In addition to the requirements defined in _random_access_range_,
-for any _contiguous_range_ `r` the following must be met:
+In addition to the requirements defined in _random_access_ _range_,
+for any _contiguous_ _range_ `r` the following must be met:
 
 * `&*(_begin(r) + n) == &*(_begin(r)) + n` for all `n` such that `0 <= n &&  n < _end(r) - _begin(r)`.
 

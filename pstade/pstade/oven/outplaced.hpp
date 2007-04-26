@@ -10,16 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// Rejected...
-//
-// See "./sorted.hpp"
-
-
-// Note:
-//
-// Iterators manage temporary container for BOOST_FOREACH.
-
-
 // References:
 //
 // [1] Gabhan Berry, C++ View Objects, Dr.Dobb's Portal, 2006.
@@ -28,14 +18,12 @@
 
 #include <memory> // auto_ptr
 #include <vector>
+#include <boost/range/begin.hpp>
+#include <boost/range/end.hpp>
 #include <boost/utility/result_of.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
+#include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/unused.hpp>
-#include "./copy_range.hpp"
 #include "./concepts.hpp"
-#include "./indirected.hpp"
 #include "./outdirected.hpp"
 #include "./range_iterator.hpp"
 #include "./shared.hpp"
@@ -44,9 +32,9 @@
 namespace pstade { namespace oven {
 
 
-struct op_make_outplaced :
-    callable<op_make_outplaced>
-{
+namespace outplaced_detail {
+
+
     template< class Range >
     struct iter_sequence
     {   
@@ -54,46 +42,34 @@ struct op_make_outplaced :
         typedef std::vector<iter_t> type;
     };
 
-    template< class Myself, class Range, class UnaryFun = op_unused const >
-    struct apply :
-        boost::result_of<
-            op_make_indirected<>(
-                typename boost::result_of<
-                    op_make_shared(typename iter_sequence<Range>::type *)
-                >::type
-            )
-        >
-    { };
 
-    template< class Result, class Range, class UnaryFun >
-    Result call(Range& rng, UnaryFun& fun) const
+    template< class Range >
+    struct baby
     {
-        PSTADE_CONCEPT_ASSERT((Forward<Range>));
+        typedef typename
+            iter_sequence<Range>::type
+        iter_seq_t;
 
-        typedef typename iter_sequence<Range>::type iter_seq_t;
+        typedef typename
+            boost::result_of<
+                op_make_shared(iter_seq_t *)
+            >::type
+        result_type;
 
-        // 'shared' range size never be affected by its holding sequence
-        // once constructed. So, first of all, you must initialize the sequence
-        // before passing it to 'make_shared'.
-        std::auto_ptr<iter_seq_t> pseq(new iter_seq_t());
-        *pseq = oven::copy_range<iter_seq_t>(rng|outdirected);
-
-        // Question:
-        // What should be passed to 'fun'?
-        fun(*pseq);
-
-        return make_indirected(make_shared(pseq.release()));
-    }
-
-    template< class Result, class Range >
-    Result call(Range& rng) const
-    {
-        return (*this)(rng, unused);
-    }
-};
+        result_type operator()(Range& rng) const
+        {
+            PSTADE_CONCEPT_ASSERT((Forward<Range>));
+            typename boost::result_of<op_make_outdirected(Range&)>::type its = make_outdirected(rng);
+            std::auto_ptr<iter_seq_t> pseq( new iter_seq_t(boost::begin(its), boost::end(its)) );
+            return make_shared(pseq.release());
+        }
+    };
 
 
-PSTADE_CONSTANT(make_outplaced, (op_make_outplaced))
+} // namespace outplaced_detail
+
+
+PSTADE_FUNCTION(make_outplaced, (outplaced_detail::baby<_>))
 PSTADE_PIPABLE(outplaced, (op_make_outplaced))
 
 
