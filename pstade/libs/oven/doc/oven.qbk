@@ -41,11 +41,12 @@
 [def _default_constructible_ [@http://boost.org/doc/html/DefaultConstructible.html Default Constructible]]
 [def _function_object_       [@http://www.sgi.com/tech/stl/functors.html Function Object]]
 [def _generator_             [@http://www.sgi.com/tech/stl/Generator.html Generator]]
+[def _equality_comparable_   [@http://boost.org/doc/html/EqualityComparable.html Equality Comparable]]
 
 [def _predicate_             [@http://www.sgi.com/tech/stl/Predicate.html Predicate]]
-[def _input_iterator_        [@http://www.sgi.com/tech/stl/InputIterator.html Input Iterator]]
-[def _output_iterator_       [@http://www.sgi.com/tech/stl/OutputIterator.html Output Iterator]]
-[def _forward_iterator_      [@http://www.sgi.com/tech/stl/ForwardIterator.html Forward Iterator]]
+[def _input_iterator_        [@http://boost.org/doc/html/InputIterator.html Input Iterator]]
+[def _output_iterator_       [@http://boost.org/doc/html/OutputIterator.html Output Iterator]]
+[def _forward_iterator_      [@http://boost.org/doc/html/ForwardIterator.html Forward Iterator]]
 
 [def _single_pass_           [@http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#single-pass-iterators-lib-single-pass-iterators Single Pass]]
 [def _forward_               [@http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#forward-traversal-iterators-lib-forward-traversal-iterators Forward]]

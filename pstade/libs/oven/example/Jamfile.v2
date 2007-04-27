@@ -14,6 +14,7 @@ test-suite range :
     [ run auto_factorials.cpp ]
     [ run factorials.cpp ]
     [ run fibonacci.cpp ]
+    [ run newton.cpp ]
     [ run one_year.cpp ]
     [ run primes.cpp ]
     [ run read.cpp ]

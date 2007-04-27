@@ -24,7 +24,7 @@
     [
         [`counter(i)`]
         [
-            An _output_iterator_ which behaves as if it were `T(i)`.
+            `T(i)`
         ]
     ]
 ]
@@ -68,7 +68,7 @@
     [
         [`passer(_fun)`]
         [
-            An _output_iterator_ which behaves as if it were `T(_fun)`.
+            `T(_fun)`
         ]
     ]
 ]
@@ -106,7 +106,7 @@ Pending...
     [
         [`utf8_encoder(x)`]
         [
-            An _output_iterator_ which behaves as if it were `T(x)`.
+            `T(x)`
         ]
     ]
 ]
@@ -128,7 +128,7 @@ Pending...
 [h3 Description]
 `writer` returns an _output_iterator_ which is a shorthand version of `std::ostream_iterator`.
 It needs no an explicit template parameter to specify the `value_type` to output,
-but one extra precondition below must be kept. It can be easily guaranteed by using `transformed`, though.
+but one extra precondition below must be met. It can be easily guaranteed by using `transformed`, though.
 
 [h3 Header]
 * `<pstade/oven/writer.hpp>`
@@ -145,7 +145,7 @@ but one extra precondition below must be kept. It can be easily guaranteed by us
     [
         [`writer(s, d)`]
         [
-            An _output_iterator_ which behaves as if it were `T(s, d)`.
+            `T(s, d)`
         ]
     ]
     [

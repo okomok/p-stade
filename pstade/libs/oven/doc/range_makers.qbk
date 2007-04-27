@@ -314,7 +314,7 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 [section iteration]
 
 [h3 Description]
-`iteration` makes an infinite _single_pass_ _range_ where the first item is calculated by applying the function
+`iteration` makes an infinite _forward_ _range_ where the first item is calculated by applying the function
 on the first argument, the second item by applying the function on the previous result and so on.
 
 [note Strictly speaking, the range concept doesn't allow an infinite range.
@@ -335,14 +335,16 @@ on the first argument, the second item by applying the function on the previous 
     [
         [`iteration(x, _fun)`]
         [
-            An infinite _single_pass_ `{x,_fun(x),_fun(_fun(x)),_fun(_fun(_fun(x))),...}`
+            An infinite _forward_ `{x,_fun(x),_fun(_fun(x)),_fun(_fun(_fun(x))),...}`
         ]
     ]
 ]
 
 [h3 Preconditions]
+* `x` is _assignable_, _default_constructible_, _copy_constructible_, and _equality_comparable_.
 * `_fun(_fun(x))` is a valid expression.
-* `_fun` is _assignable_.
+* `_fun` is _assignable_ and _default_constructible_.
+* `_fun` is a [@http://mathworld.wolfram.com/Map.html Map], meaning that `a == b` implies `_fun(a) == _fun(b)`.
 
 [h3 Example]
     int answer[] = { 1,2,4,8,16 };

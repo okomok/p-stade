@@ -70,7 +70,7 @@ void pstade_unit_test()
         int const ans_[] = { 1,1,1,1,1,1,1,1 };
         std::vector<int> ans = ans_|copied;
         BOOST_CHECK( oven::test_Forward_Readable(
-            ones|memoized|taken(8),
+            ones|taken(8),
             ans
         ) );
     }

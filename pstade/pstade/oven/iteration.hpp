@@ -32,15 +32,15 @@ namespace iteration_detail {
 
 
     template< class State, class UnaryFun >
-    struct iterative_iterator;
+    struct iterate_iterator;
 
 
     template< class State, class UnaryFun >
-    struct iterative_iterator_super
+    struct iterate_iterator_super
     {
         typedef
             boost::iterator_facade<
-                iterative_iterator<State, UnaryFun>,
+                iterate_iterator<State, UnaryFun>,
                 State const,
                 boost::forward_traversal_tag
             >
@@ -49,19 +49,19 @@ namespace iteration_detail {
 
 
     template< class State, class UnaryFun >
-    struct iterative_iterator :
-        iterative_iterator_super<State, UnaryFun>::type
+    struct iterate_iterator :
+        iterate_iterator_super<State, UnaryFun>::type
     {
     private:
-        typedef iterative_iterator self_t;
-        typedef typename iterative_iterator_super<State, UnaryFun>::type super_t;
+        typedef iterate_iterator self_t;
+        typedef typename iterate_iterator_super<State, UnaryFun>::type super_t;
         typedef typename super_t::reference ref_t;
 
     public:
-        iterative_iterator()
+        iterate_iterator()
         { }
 
-        iterative_iterator(State const& init, UnaryFun fun, bool is_end) :
+        iterate_iterator(State const& init, UnaryFun fun, bool is_end) :
             m_state(init), m_fun(fun), m_is_end(is_end)
         { }
 
@@ -100,7 +100,7 @@ namespace iteration_detail {
     struct baby
     {
         typedef
-            iterative_iterator<
+            iterate_iterator<
                 typename pass_by_value<State>::type,
                 typename pass_by_value<UnaryFun>::type
             >

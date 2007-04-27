@@ -5,7 +5,7 @@ Range Adaptors are lazy, meaning that their elements are only computed on demand
 A Range Adaptor meets the following requirements unless otherwise specified:
 
 * The complexity is `O(1)`, meanig that it returns in constant time.
-* It doesn't modify `iterator_traits` of the base range iterators.
+* It doesn't modify _range_ concepts to which the base range conforms.
 
 
 
@@ -51,6 +51,7 @@ A Range Adaptor meets the following requirements unless otherwise specified:
 [h3 Example]
 
 [h3 See also]
+* [link oven.filtered filtered]
 * [link oven.uniqued uniqued]
 
 [endsect]
@@ -407,7 +408,7 @@ A Range Adaptor meets the following requirements unless otherwise specified:
 [section concatenated]
 
 [h3 Description]
-`concatenated`, given a range whose `value_type` is a range, concatenates them.
+`concatenated`, given a range whose values are ranges, concatenates them.
 
 [h3 Header]
 * `<pstade/oven/concatenated.hpp>`
@@ -436,7 +437,7 @@ A Range Adaptor meets the following requirements unless otherwise specified:
 ]
 
 [h3 Preconditions]
-* `LocalRange` is a _range_.
+* `LocalRange` is _range_.
 * Destruction of a `SegmentIterator` doesn't invalidate the `LocalIterator` previously obtained from that iterator.
 
 [note The last precondition implies that `SegmentIterator` isn't allowed to manage the lifetime of `LocalIterator` referents.
@@ -507,7 +508,7 @@ then pretends to be a range of _forward_iterator_.
 [note Strictly speaking, an iterator obtained is not a conforming _forward_iterator_.]
 
 [h3 Header]
-* `<pstade/oven/const_lvalues.hpp>`
+* `<pstade/oven/const_refs.hpp>`
 
 [h3 Model of]
 * _pipable_object_
@@ -1309,7 +1310,7 @@ then pretends to be a range of _forward_iterator_.
   without binding /reference/ to /rvalue/.
 * `_rng1` and `_rng2` are sorted.
 * `_prd` is _assignable_.
-* If `_rng1` and `_rng2` are _forward_ _range_s, `_prd` is _default_constructible_.
+* If `_rng1` and `_rng2` are _forward_ _range_, `_prd` is _default_constructible_.
 
 [h3 Example]
     std::string A1("abbbfH");
@@ -1421,7 +1422,7 @@ then pretends to be a range of _forward_iterator_.
 [section outplaced]
 
 [h3 Description]
-`outplaced` returns a _writable_ _lvalue_ _random_access_ _range_ whose values are iterators of the base range.
+`outplaced` provides a _random_access_ view through the base range iterators.
 
 [h3 Header]
 * `<pstade/oven/outplaced.hpp>`
@@ -1430,7 +1431,7 @@ then pretends to be a range of _forward_iterator_.
 * _pipable_object_
 
 [h3 Notation]
-* `itK = boost::next(boost::begin(_fwdrng), K-1)`
+* `iK = boost::next(boost::begin(_fwdrng), K-1)`
 * `N` is `distance(_fwdrng)`.
 
 [h3 Valid expressions]
@@ -1442,7 +1443,7 @@ then pretends to be a range of _forward_iterator_.
     [
         [`_fwdrng|outplaced`]
         [
-            A _writable_ _lvalue_ _random_access_ `{i1,..,iN}`
+            A _random_access_ _writable_ _lvalue_ `{i1,..,iN}`
         ]
     ]
 ]
@@ -1710,13 +1711,13 @@ A range returned from `reversed` iterates in the opposite direction.
 ]
 
 [h3 Preconditions]
-* `_typeof(s)` is _assignable_ and _copy_constructible_.
+* `s` is _assignable_ and _copy_constructible_.
 * `_fun(_fun(s, a), a)` is well-formed, where `a = *_begin(_rng))`.
 * `S1` is _assignable_ and _copy_constructible_.
 * `_fun1(_fun1(b, b), b)` is well-formed, where `b = *_begin(_rng))`.
 * `!boost::empty(_rng1)`
 * `_fun` and `_fun1` are _assignable_.
-* If `_rng` is a _forward_ _range_, `_fun` and `_typeof(s)` are _default_constructible_.
+* If `_rng` is a _forward_ _range_, `_fun` and `s` are _default_constructible_.
 * If `_rng1` is a _forward_ _range_, `_fun1` ard `S1` are _default_constructible_.
 
 [h3 Example]
@@ -2018,7 +2019,7 @@ A range returned from `reversed` iterates in the opposite direction.
 [h3 Description]
 `sorted` provides a sorted view of the base range.
 
-[note Though `sorted` can accept (possibly non-_writable_) _forward_ _range_,
+[note Though `sorted` can accept _forward_ (possibly non-_writable_) _range_,
       it may be considered expensive in some applications.]
 
 [h3 Header]
@@ -2039,7 +2040,7 @@ A range returned from `reversed` iterates in the opposite direction.
     [
         [`_fwdrng|sorted(_prd)`]
         [
-            A range which behaves as it were made by `sort(_fwdrng, _prd)`.
+            A _range_ which behaves as it were made by `sort(_fwdrng, _prd)`.
         ]
     ]
     [
@@ -2082,6 +2083,7 @@ A range returned from `reversed` iterates in the opposite direction.
 
 [h3 Notation]
 * `iK = boost::next(boost::begin(_rng), w*K-1))`
+* `M` is the largest number such that `iM < _end(_rng)`.
 
 [h3 Valid expressions]
 [table 
@@ -2100,7 +2102,6 @@ A range returned from `reversed` iterates in the opposite direction.
 [h3 Preconditions]
 * `_typeof(w)` is convertible to `boost::range_difference<_typeof(_rng)>::type`.
 * `1 <= w`
-* `M` is the largest number such that `iM < _end(_rng)`.
 
 [h3 Example]
     int const answer[] = { 0, 40, 80 };

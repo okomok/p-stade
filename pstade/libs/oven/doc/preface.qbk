@@ -17,7 +17,7 @@ Oven is a highly preliminary implementation of _proposal_:
         any_range<int, boost::single_pass_traversal_tag>
     range;
 
-    range sieve(_range_ rng)
+    range sieve(range rng)
     {
         return rng|dropped(1)|filtered(regular(lambda::_1 % value_front(rng) != 0));
     }
@@ -51,7 +51,7 @@ All the types, functions and objects are defined in `namespace pstade::oven`.
 
 [section Portability]
 
-Oven is known to work under the following platforms:
+Oven is known to work on the following platforms:
 
 * Microsoft Visual C++ 2005 Express Edition SP1
 * Microsoft Visual C++ .NET Version 7.1 SP1

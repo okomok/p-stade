@@ -43,6 +43,16 @@ void test()
 
     {
         int ans[]  = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, };
+        std::vector<int> expected = ans|copied;
+
+        BOOST_CHECK( oven::test_Forward_Readable(
+            iteration(0, &increment)|taken(10),
+            expected
+        ) );
+    }
+
+    {
+        int ans[]  = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, };
 
         BOOST_CHECK( oven::equal( // not 'equal*s*'
             ans, iteration(0, &increment)|begin

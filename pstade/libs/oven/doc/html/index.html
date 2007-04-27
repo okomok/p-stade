@@ -202,7 +202,7 @@
     <span class="identifier">any_range</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">,</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">single_pass_traversal_tag</span><span class="special">&gt;</span>
 <span class="identifier">range</span><span class="special">;</span>
 
-<span class="identifier">range</span> <span class="identifier">sieve</span><span class="special">(</span><a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a> <span class="identifier">rng</span><span class="special">)</span>
+<span class="identifier">range</span> <span class="identifier">sieve</span><span class="special">(</span><span class="identifier">range</span> <span class="identifier">rng</span><span class="special">)</span>
 <span class="special">{</span>
     <span class="keyword">return</span> <span class="identifier">rng</span><span class="special">|</span><span class="identifier">dropped</span><span class="special">(</span><span class="number">1</span><span class="special">)|</span><span class="identifier">filtered</span><span class="special">(</span><span class="identifier">regular</span><span class="special">(</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">_1</span> <span class="special">%</span> <span class="identifier">value_front</span><span class="special">(</span><span class="identifier">rng</span><span class="special">)</span> <span class="special">!=</span> <span class="number">0</span><span class="special">));</span>
 <span class="special">}</span>
@@ -249,7 +249,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.portability"></a>Portability</h3></div></div></div>
 <p>
-        Oven is known to work under the following platforms:
+        Oven is known to work on the following platforms:
       </p>
 <div class="itemizedlist"><ul type="disc">
 <li>
@@ -402,7 +402,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><small><p>Last revised: April 26, 2007 at 16:46:24 GMT</p></small></td>
+<td align="left"><small><p>Last revised: April 27, 2007 at 16:57:07 GMT</p></small></td>
 <td align="right"><small></small></td>
 </tr></table>
 <hr>
