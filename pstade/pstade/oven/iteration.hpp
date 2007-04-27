@@ -18,11 +18,11 @@
 // because 'counting' can't represent "infinity".
 
 
-#include <boost/optional.hpp>
-#include <pstade/callable.hpp>
+#include <boost/assert.hpp>
+#include <boost/iterator/iterator_facade.hpp>
 #include <pstade/function.hpp>
 #include <pstade/pass_by.hpp>
-#include "./generation.hpp"
+#include "./iter_range.hpp"
 
 
 namespace pstade { namespace oven {
@@ -32,31 +32,67 @@ namespace iteration_detail {
 
 
     template< class State, class UnaryFun >
-    struct iterate
+    struct iterative_iterator;
+
+
+    template< class State, class UnaryFun >
+    struct iterative_iterator_super
     {
         typedef
-            boost::optional<State>
-        result_type;
+            boost::iterator_facade<
+                iterative_iterator<State, UnaryFun>,
+                State const,
+                boost::forward_traversal_tag
+            >
+        type;
+    };
 
-        result_type operator()()
-        {
-            if (m_beginning) {
-                m_beginning = false;
-                return m_state;
-            }
 
-            m_state = m_fun(m_state);
-            return m_state;
-        }
+    template< class State, class UnaryFun >
+    struct iterative_iterator :
+        iterative_iterator_super<State, UnaryFun>::type
+    {
+    private:
+        typedef iterative_iterator self_t;
+        typedef typename iterative_iterator_super<State, UnaryFun>::type super_t;
+        typedef typename super_t::reference ref_t;
 
-        iterate(State init, UnaryFun fun) :
-            m_state(init), m_fun(fun), m_beginning(true)
+    public:
+        iterative_iterator()
+        { }
+
+        iterative_iterator(State const& init, UnaryFun fun, bool is_end) :
+            m_state(init), m_fun(fun), m_is_end(is_end)
         { }
 
     private:
         State m_state;
         UnaryFun m_fun;
-        bool m_beginning;
+        bool m_is_end;
+
+    friend class boost::iterator_core_access;
+        ref_t dereference() const
+        {
+            BOOST_ASSERT(!m_is_end);
+            return m_state;
+        }
+
+        void increment()
+        {
+            m_state = m_fun(m_state);
+        }
+
+        bool equal(self_t const& other) const
+        {
+            if (m_is_end ^ other.m_is_end)
+                return false;
+            else if (m_is_end && other.m_is_end)
+                return true;
+            else {
+                BOOST_ASSERT(!m_is_end && !other.m_is_end);
+                return m_state == other.m_state;
+            }
+        }
     };
 
 
@@ -64,21 +100,21 @@ namespace iteration_detail {
     struct baby
     {
         typedef
-            iterate<
+            iterative_iterator<
                 typename pass_by_value<State>::type,
                 typename pass_by_value<UnaryFun>::type
             >
-        gen_t;
+        iter_t;
 
-        typedef typename
-            boost::result_of<
-                op_generation(gen_t)
-            >::type
+        typedef
+            iter_range<iter_t> const
         result_type;
 
         result_type operator()(State& init, UnaryFun& fun) const
         {
-            return generation(gen_t(init, fun));
+            return result_type(
+                iter_t(init, fun, false), iter_t(init, fun, true)
+            );
         }
     };
 
