@@ -19,6 +19,7 @@ test-suite "wine" :
     [ run automatic.cpp ]
     [ run auxiliary.cpp ]
     [ run callable.cpp ]
+    [ run callable_by_value.cpp ]
     [ run check.cpp ]
     [ run clone_ptr.cpp ]
     [ run compose.cpp ]

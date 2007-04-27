@@ -20,23 +20,18 @@
 #include <boost/mpl/bool.hpp>
 #include <boost/pointee.hpp>
 #include <boost/shared_ptr.hpp>
+#include <pstade/callable_by_value.hpp>
 #include <pstade/constant.hpp>
-#include <pstade/pass_by.hpp>
-#include <pstade/provide_sig.hpp>
 
 
 namespace pstade {
 
 
-    // Avoid to use 'callable/function', which adds
-    // const-qualifier to 'auto_ptr', then it becomes non-movable. 
-
-
     struct op_to_shared_ptr :
-        provide_sig
+        callable_by_value<op_to_shared_ptr>
     {
-        template<class Ptr>
-        struct result_aux
+        template<class Myself, class Ptr>
+        struct apply
         {
             typedef
                 boost::shared_ptr<typename boost::pointee<Ptr>::type>
@@ -48,20 +43,11 @@ namespace pstade {
             // Actually pstade higher-order functions don't return const-qualified functors.
         };
 
-        template<class Ptr>
-        typename result_aux<Ptr>::type
-        operator()(Ptr p) const
+        template<class Result, class Ptr>
+        Result call(Ptr p) const
         {
-            return typename result_aux<Ptr>::type(p);
+            return Result(p);
         }
-
-        template<class FunCall>
-        struct result;
-
-        template<class Fun, class Ptr>
-        struct result<Fun(Ptr)> :
-            result_aux<typename pass_by_value<Ptr>::type>
-        { };
     };
 
 

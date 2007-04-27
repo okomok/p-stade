@@ -76,16 +76,16 @@
 <p>
       A Range Adaptor delivers an altered presentation of one or more underlying
       ranges. Range Adaptors are lazy, meaning that their elements are only computed
-      on demand. Range Adaptors meet the following requirements unless otherwise
+      on demand. A Range Adaptor meets the following requirements unless otherwise
       specified:
     </p>
 <div class="itemizedlist"><ul type="disc">
 <li>
         The complexity is <code class="computeroutput"><span class="identifier">O</span><span class="special">(</span><span class="number">1</span><span class="special">)</span></code>, meanig
-        that they returns in constant time.
+        that it returns in constant time.
       </li>
 <li>
-        They doesn't modify <code class="computeroutput"><span class="identifier">iterator_traits</span></code>
+        It doesn't modify <code class="computeroutput"><span class="identifier">iterator_traits</span></code>
         of the base range iterators.
       </li>
 </ul></div>

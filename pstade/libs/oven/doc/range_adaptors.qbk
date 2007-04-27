@@ -2,10 +2,10 @@
 
 A Range Adaptor delivers an altered presentation of one or more underlying ranges.
 Range Adaptors are lazy, meaning that their elements are only computed on demand.
-Range Adaptors meet the following requirements unless otherwise specified:
+A Range Adaptor meets the following requirements unless otherwise specified:
 
-* The complexity is `O(1)`, meanig that they returns in constant time.
-* They doesn't modify `iterator_traits` of the base range iterators.
+* The complexity is `O(1)`, meanig that it returns in constant time.
+* It doesn't modify `iterator_traits` of the base range iterators.
 
 
 

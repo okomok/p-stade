@@ -20,6 +20,7 @@
 #include "./auxiliary.hpp"
 #include "./base_from.hpp"
 #include "./callable.hpp"
+#include "./callable_by_value.hpp"
 #include "./check.hpp"
 #include "./clone_ptr.hpp"
 #include "./compose.hpp"

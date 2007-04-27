@@ -13,10 +13,8 @@
 #include <boost/array.hpp>
 #include <boost/pointee.hpp>
 #include <boost/utility/result_of.hpp>
-#include <pstade/callable.hpp>
+#include <pstade/callable_by_value.hpp>
 #include <pstade/constant.hpp>
-#include <pstade/pass_by.hpp>
-#include <pstade/provide_sig.hpp>
 #include <pstade/to_shared_ptr.hpp>
 #include "./indirected.hpp"
 #include "./shared.hpp"
@@ -29,18 +27,18 @@ namespace shared_single_detail {
 
 
     struct new_array1 :
-        callable<new_array1>
+        callable_by_value<new_array1>
     {
         template< class Myself, class Ptr >
         struct apply
         {
             typedef
-                boost::array<typename pass_by_value<Ptr>::type, 1> *
+                boost::array<Ptr, 1> *
             type;
         };
 
         template< class Result, class Ptr >
-        Result call(Ptr& p) const
+        Result call(Ptr p) const
         {
             typedef typename boost::pointee<Result>::type array_t;
             array_t arr = { { p } };
@@ -52,14 +50,11 @@ namespace shared_single_detail {
 } // namespace shared_single_detail
 
 
-// As mentioned at "./shared.hpp", we must implement
-// something like 'auxiliary0' from scratch.
-
 struct op_shared_single :
-    provide_sig
+    callable_by_value<op_shared_single>
 {
-    template< class Ptr >
-    struct result_aux :
+    template< class Myself, class Ptr >
+    struct apply :
         boost::result_of<
             op_make_indirected<>(
                 typename boost::result_of<
@@ -77,9 +72,8 @@ struct op_shared_single :
         >
     { };
 
-    template< class Ptr >
-    typename result_aux<Ptr>::type
-    operator()(Ptr p) const
+    template< class Result, class Ptr >
+    Result call(Ptr p) const
     {
         return
             make_indirected(
@@ -90,14 +84,6 @@ struct op_shared_single :
                 )
             );
     }
-
-    template< class FunCall >
-    struct result;
-
-    template< class Fun, class Ptr >
-    struct result<Fun(Ptr)> :
-        result_aux<typename pass_by_value<Ptr>::type>
-    { };
 };
 
 

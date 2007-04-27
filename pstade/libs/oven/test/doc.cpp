@@ -23,6 +23,7 @@
 #include <vector>
 #include <boost/range.hpp>
 #include <boost/type_traits/remove_const.hpp>
+#include <boost/ptr_container/indirect_fun.hpp>
 #include <boost/lambda/core.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <boost/foreach.hpp>

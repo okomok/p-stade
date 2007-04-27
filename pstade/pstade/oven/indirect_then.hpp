@@ -11,7 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/pointee.hpp>
+#include <boost/iterator/iterator_traits.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
@@ -33,7 +33,7 @@ namespace indirect_then_detail {
     struct return_op :
         callable< return_op<Function> >
     {
-        template< class Myself, PSTADE_CALLABLE_APPLY_PARAMS(A) >
+        template< class Myself, PSTADE_CALLABLE_APPLY_PARAMS(I) >
         struct apply
         { };
 
@@ -64,19 +64,19 @@ PSTADE_OBJECT_GENERATOR(indirect_then, (indirect_then_detail::return_op< deduce<
 #define n BOOST_PP_ITERATION()
 
 
-template< class Myself, BOOST_PP_ENUM_PARAMS(n, class A) >
-struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
+template< class Myself, BOOST_PP_ENUM_PARAMS(n, class I) >
+struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, I)> :
     boost::result_of<
         PSTADE_CONST_FUN_TPL(Function)(
-            PSTADE_PP_ENUM_PARAMS_WITH(n, typename boost::pointee<typename pass_by_value<A, >::type>::type)
+            PSTADE_PP_ENUM_PARAMS_WITH(n, typename boost::iterator_reference<typename pass_by_value<I, >::type>::type)
         )
     >
 { };
 
-template< class Result, BOOST_PP_ENUM_PARAMS(n, class A) >
-Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
+template< class Result, BOOST_PP_ENUM_PARAMS(n, class I) >
+Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, I, i)) const
 {
-    return m_fun(BOOST_PP_ENUM_PARAMS(n, *a));
+    return m_fun(BOOST_PP_ENUM_PARAMS(n, *i));
 }
 
 

@@ -10,46 +10,33 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/callable.hpp>
+#include <pstade/callable_by_value.hpp>
 #include <pstade/constant.hpp>
-#include <pstade/pass_by.hpp>
 
 
 namespace pstade {
-
-
-    // Define 'to_value' without 'callable', 'function' nor 'auxiliary0'.
-    // They would turn the argument into reference;
-    // that's the dark-side of the language in the case of
-    // function reference, which 'to_value' will work around.
 
 
     namespace to_value_detail_ {
 
 
         struct op :
-            provide_sig
+            callable_by_value<op, op const&>
         {
-            typedef // for callable macro
-                op const&
-            nullary_result_type;
-
-            op const& operator()() const
+            template<class Result>
+            Result call() const
             {
                 return *this;
             }
 
-            template<class FunCall>
-            struct result
-            { };
+            template<class Myself, class A>
+            struct apply
+            {
+                typedef A type;
+            };
 
-            template<class Fun, class A>
-            struct result<Fun(A)> :
-                pass_by_value<A>
-            { };
-
-            template< class A >
-            A operator()(A a) const
+            template<class Result, class A>
+            Result call(A a) const
             {
                 return a;
             }

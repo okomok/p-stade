@@ -23,10 +23,9 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/utility/result_of.hpp>
+#include <pstade/callable_by_value.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/nonassignable.hpp>
-#include <pstade/pass_by.hpp>
-#include <pstade/provide_sig.hpp>
 #include <pstade/to_shared_ptr.hpp>
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
@@ -103,16 +102,11 @@ namespace shared_detail {
 } // namespace shared_detail
 
 
-// 'callable/function' is useless here,
-// because a temporary 'auto_ptr' is const-qualified
-// then the ownership cannot be moved. So make it from scratch.
-
-
 struct op_make_shared :
-    provide_sig
+    callable_by_value<op_make_shared>
 {
-    template< class Ptr >
-    struct result_aux
+    template< class Myself, class Ptr >
+    struct apply
     {
         typedef typename
             boost::result_of<op_to_shared_ptr(Ptr&)>::type
@@ -127,27 +121,18 @@ struct op_make_shared :
         type;
     };
 
-    template< class Ptr >
-    typename result_aux<Ptr>::type
-    operator()(Ptr prng) const
+    template< class Result, class Ptr >
+    Result call(Ptr prng) const
     {
         PSTADE_CONCEPT_ASSERT((SinglePass<typename boost::pointee<Ptr>::type>));
 
-        typedef result_aux<Ptr> aux_;
-        typename aux_::sprng_t sprng = to_shared_ptr(prng);
-        return typename aux_::type(
-            typename aux_::iter_t(boost::begin(*sprng), sprng),
-            typename aux_::iter_t(boost::end(*sprng),   sprng)
+        typedef typename Result::iterator iter_t;
+        typename boost::result_of<op_to_shared_ptr(Ptr&)>::type sprng = to_shared_ptr(prng);
+        return Result(
+            iter_t(boost::begin(*sprng), sprng),
+            iter_t(boost::end(*sprng),   sprng)
         );
     }
-
-    template< class FunCall >
-    struct result;
-
-    template< class Fun, class Ptr >
-    struct result<Fun(Ptr)> :
-        result_aux<typename pass_by_value<Ptr>::type>
-    { };
 };
 
 

@@ -547,7 +547,7 @@ on the first argument, the second item by applying the function on the previous 
 
 [h3 Preconditions]
 * `_fwdrng` is an `any_range`.
-* Every `memoized` in the base range takes its own `memo_table`.
+* Every `memoized` in the base range takes its own `memo_table` object.
 
 [h3 Example]
     typedef any_range<int const&, boost::forward_traversal_tag> range_t;
