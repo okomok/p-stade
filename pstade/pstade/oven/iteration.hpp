@@ -22,6 +22,7 @@
 #include <boost/iterator/iterator_facade.hpp>
 #include <pstade/function.hpp>
 #include <pstade/pass_by.hpp>
+#include <pstade/to_ref.hpp>
 #include "./iter_range.hpp"
 
 
@@ -61,35 +62,36 @@ namespace iteration_detail {
         iterate_iterator()
         { }
 
-        iterate_iterator(State const& init, UnaryFun fun, bool is_end) :
-            m_state(init), m_fun(fun), m_is_end(is_end)
+        iterate_iterator(State const& init, UnaryFun fun, bool as_end) :
+            m_state(init), m_fun(fun), m_as_end(as_end)
         { }
 
     private:
         State m_state;
         UnaryFun m_fun;
-        bool m_is_end;
+        bool m_as_end;
 
     friend class boost::iterator_core_access;
         ref_t dereference() const
         {
-            BOOST_ASSERT(!m_is_end);
+            BOOST_ASSERT(!m_as_end);
             return m_state;
         }
 
         void increment()
         {
-            m_state = m_fun(m_state);
+            BOOST_ASSERT(!m_as_end);
+            m_state = m_fun(to_cref(m_state));
         }
 
         bool equal(self_t const& other) const
         {
-            if (m_is_end ^ other.m_is_end)
+            if (m_as_end ^ other.m_as_end)
                 return false;
-            else if (m_is_end && other.m_is_end)
+            else if (m_as_end && other.m_as_end)
                 return true;
             else {
-                BOOST_ASSERT(!m_is_end && !other.m_is_end);
+                BOOST_ASSERT(!m_as_end && !other.m_as_end);
                 return m_state == other.m_state;
             }
         }

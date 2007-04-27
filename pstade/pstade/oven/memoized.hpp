@@ -75,14 +75,15 @@ namespace memoized_detail {
 
         bool is_in_table(index_type i) const
         {
+            BOOST_ASSERT(invariant());
             BOOST_ASSERT(0 <= i && i <= m_baseIndex);
             return i != m_table.size();
         }
 
         value_t const& deref(index_type i)
         {
-            BOOST_ASSERT(0 <= i && i <= m_baseIndex);
             BOOST_ASSERT(invariant());
+            BOOST_ASSERT(0 <= i && i <= m_baseIndex);
 
             if (!is_in_table(i)) {
                 BOOST_ASSERT(i == m_baseIndex && m_baseIndex == m_table.size());
@@ -94,8 +95,8 @@ namespace memoized_detail {
 
         index_type next(index_type i)
         {
-            BOOST_ASSERT(0 <= i && i <= m_baseIndex);
             BOOST_ASSERT(invariant());
+            BOOST_ASSERT(0 <= i && i <= m_baseIndex);
 
             if (i == m_baseIndex) {
                 if (m_baseIndex == m_table.size())
@@ -110,6 +111,7 @@ namespace memoized_detail {
 
         Iterator base() const
         {
+            BOOST_ASSERT(invariant());
             return m_base;
         }
 
