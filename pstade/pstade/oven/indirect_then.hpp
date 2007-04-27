@@ -16,10 +16,9 @@
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/utility/result_of.hpp>
-#include <pstade/callable.hpp>
+#include <pstade/callable_by_value.hpp>
 #include <pstade/const_fun.hpp>
 #include <pstade/object_generator.hpp>
-#include <pstade/pass_by.hpp>
 #include <pstade/preprocessor.hpp>
 
 
@@ -31,7 +30,7 @@ namespace indirect_then_detail {
 
     template< class Function >
     struct return_op :
-        callable< return_op<Function> >
+        callable_by_value< return_op<Function> >
     {
         template< class Myself, PSTADE_CALLABLE_APPLY_PARAMS(I) >
         struct apply
@@ -68,7 +67,7 @@ template< class Myself, BOOST_PP_ENUM_PARAMS(n, class I) >
 struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, I)> :
     boost::result_of<
         PSTADE_CONST_FUN_TPL(Function)(
-            PSTADE_PP_ENUM_PARAMS_WITH(n, typename boost::iterator_reference<typename pass_by_value<I, >::type>::type)
+            PSTADE_PP_ENUM_PARAMS_WITH(n, typename boost::iterator_reference<I, >::type)
         )
     >
 { };

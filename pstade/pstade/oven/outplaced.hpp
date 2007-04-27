@@ -16,7 +16,6 @@
 //     http://www.ddj.com/dept/cpp/196513737
 
 
-#include <memory> // auto_ptr
 #include <vector>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
@@ -38,8 +37,11 @@ namespace outplaced_detail {
     template< class Range >
     struct iter_sequence
     {   
-        typedef typename range_iterator<Range>::type iter_t;
-        typedef std::vector<iter_t> type;
+        typedef
+            std::vector<
+                typename range_iterator<Range>::type
+            >
+        type;
     };
 
 
@@ -60,8 +62,7 @@ namespace outplaced_detail {
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
             typename boost::result_of<op_make_outdirected(Range&)>::type its = make_outdirected(rng);
-            std::auto_ptr<iter_seq_t> pseq( new iter_seq_t(boost::begin(its), boost::end(its)) );
-            return make_shared(pseq.release());
+            return make_shared( new iter_seq_t(boost::begin(its), boost::end(its)) );
         }
     };
 

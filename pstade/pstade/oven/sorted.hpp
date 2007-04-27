@@ -17,7 +17,6 @@
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/functional.hpp> // less
-#include <pstade/pass_by.hpp>
 #include <pstade/perfect.hpp>
 #include <pstade/pipable.hpp>
 #include "./concepts.hpp"
