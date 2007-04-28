@@ -213,9 +213,9 @@ A _random_access_ _range_ but not _lvalue_ _range_ is regarded as an _input_iter
 The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied);` is not listed in valid expressions.]
 
 [h3 Example]
-    std::string _rng("abcdefg");
-    std::vector<char> vec = _rng|copied;
-    BOOST_CHECK( equals(vec, _rng) );
+    std::string rng("abcdefg");
+    std::vector<char> vec = rng|copied;
+    BOOST_CHECK( equals(vec, rng) );
 
 [h3 See also]
 * [link oven.transformed transformed]

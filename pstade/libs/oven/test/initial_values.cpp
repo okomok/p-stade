@@ -14,6 +14,7 @@
 #include <pstade/oven/initial_values.hpp>
 
 
+#include <list>
 #include <vector>
 #include <pstade/oven/equals.hpp>
 #include <pstade/oven/copy_range.hpp>
@@ -26,10 +27,18 @@
 #include <pstade/used.hpp>
 #include <boost/array.hpp>
 #include <boost/implicit_cast.hpp>
+#include <pstade/nonassignable.hpp>
 
 
 namespace oven = pstade::oven;
 using namespace oven;
+
+
+struct nonassignable_t :
+    pstade::nonassignable
+{ 
+    nonassignable_t(int) { }
+};
 
 
 struct array_init
@@ -204,6 +213,10 @@ void test()
             boost::implicit_cast< std::vector<int> >(initial_values(1,2,3,4,5)),
             pstade::copy_construct< std::vector<int> >(initial_values(1,2,3,4,5))
         ) );
+    }
+    {
+        std::list<nonassignable_t> lst = initial_values(1,2,3,4,5);
+        (void)lst;
     }
 }
 

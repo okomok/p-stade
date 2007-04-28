@@ -277,7 +277,7 @@ A _callable_object_ like a random number generator may not be copyable, while ma
     ));
 
 [note `to_upper` and `to_lower` is a _callable_object_, hence you need not to
-      care whether the base _range_ is `std::string` or `std::wstring`.]
+      care whether the base range is `std::string` or `std::wstring`.]
 
 [h3 See also]
 * [link oven.transformed transformed]

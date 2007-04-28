@@ -4,7 +4,7 @@ A Range Adaptor delivers an altered presentation of one or more underlying range
 Range Adaptors are lazy, meaning that their elements are only computed on demand.
 A Range Adaptor meets the following requirements unless otherwise specified:
 
-* The complexity is `O(1)`, meanig that it returns in constant time.
+* The complexity is `O(1)`; it returns in constant time.
 * It doesn't modify _range_ concepts to which the base range conforms.
 
 
@@ -351,9 +351,9 @@ A Range Adaptor meets the following requirements unless otherwise specified:
     std::string out("01234");
 
     try {
-        copy(in, _begin(out|checked));
+        copy(in, boost::begin(out|checked));
     }
-    catch (check_error const& ) {
+    catch (std::out_of_range const& ) {
         return;
     }
     BOOST_CHECK(false);

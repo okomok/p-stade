@@ -45,7 +45,7 @@
 #include "./counting.hpp"
 #include "./cycled.hpp"
 #include "./delimited.hpp"
-#include "./dereference.hpp"
+#include "./deref.hpp"
 // #include "./directory_range.hpp"
 #include "./distance.hpp"
 #include "./dropped.hpp"

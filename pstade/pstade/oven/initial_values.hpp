@@ -57,7 +57,7 @@ namespace initial_values_detail {
     {
         // Prefer 'boost::array' to built-in array;
         // If 'To' also is 'boost::array', the initialization can be
-        // efficient because 'copy_range' can return without assignments.
+        // efficient because 'copy_range' can return directly.
         boost::array<Value, N> m_array;
 
         // convertible to CopyableRange

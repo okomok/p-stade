@@ -139,7 +139,7 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 [section counting]
 
 [h3 Description]
-`counting` makes a `boost::counting_iterator` range.
+`counting` makes a `boost::counting_iterator` range, which is not a _lvalue_ _range_.
 
 [h3 Header]
 * `<pstade/oven/counting.hpp>`
@@ -214,7 +214,7 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
     [
         [`generation(g)`]
         [
-            The longest _single_pass_ `{*g(),*g(),*g(),..,*g()}` such that `g()` is not /uninitialized/.
+            The longest _single_pass_ non-_writable_ non-_lvalue_ `{*g(),*g(),*g(),..,*g()}` such that `g()` is not /uninitialized/.
         ]
     ]
 ]
@@ -278,7 +278,7 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
     [
         [`initial_values(a1,..,aN)`]
         [
-            A _random_access_ `{a1,..,aN}`
+            A _random_access_ non-_writable_ _lvalue_ `{a1,..,aN}`
         ]
     ]
     [
@@ -291,11 +291,13 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 
 [h3 Preconditions]
 * `1 <= N && N <= 20`
-* `_typeof(aK)` is convertible to `typeof(a1)` for all `K` such that `2 <= K && K <= N`.
+* `_typeof(aK)` is _copy_constructible_ for all `K` such that `1 <= K && K <= N`.
+* `_typeof(aK)` is convertible to `_typeof(a1)` for all `K` such that `2 <= K && K <= N`.
 * `b` meets the preconditions of `a`.
 * `Rng rng = initial_values(b1,..,bN)|copied;` is a valid expression.
 
-[note `initial_values` trades unlimited arity for the lightweight initialization of `boost::array`.]
+[note `initial_values` trades unlimited arity for the lightweight initialization of `boost::array`.
+      Also, it doesn't require the arguments to be _assignable_.]
 
 [h3 Example]
     int const ans[] = { 1,5,3,6,1,3,7,1,4,2,2 };
@@ -305,6 +307,7 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 [h3 See also]
 * _boost_array_
 * _boost_assign_
+* [link oven.copied copied]
 
 [endsect]
 
@@ -335,7 +338,7 @@ on the first argument, the second item by applying the function on the previous 
     [
         [`iteration(x, _fun)`]
         [
-            An infinite _forward_ `{x,_fun(x),_fun(_fun(x)),_fun(_fun(_fun(x))),...}`
+            An infinite _forward_ non-_writable_ non-_lvalue_ `{x,_fun(x),_fun(_fun(x)),_fun(_fun(_fun(x))),...}`
         ]
     ]
 ]
@@ -381,7 +384,7 @@ on the first argument, the second item by applying the function on the previous 
     [
         [`op_line_reading<A>()(s)`]
         [
-            `[T(s), T())`
+           `[T(s), T())`
         ]
     ]
     [
@@ -441,7 +444,7 @@ on the first argument, the second item by applying the function on the previous 
     [
         [`op_reading<V, D>()(s)`]
         [
-            `[T(s), T())`
+           `[T(s), T())`
         ]
     ]
     [
@@ -558,7 +561,7 @@ on the first argument, the second item by applying the function on the previous 
     int const start[] = { 1, 1 };
     fibs =
         start
-            | transformed(pstade::as_value)
+            | transformed(pstade::to_value)
             | jointed(
                 boost::make_tuple(recursion(fibs), recursion(fibs)|dropped(1))
                     | zipped_with(regular(boost::lambda::_1 + boost::lambda::_2))

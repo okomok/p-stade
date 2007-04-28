@@ -11,7 +11,7 @@ boostbook standalone
     :
         <xsl:param>nav.layout=none
 #        <xsl:param>navig.graphics=0
-        <xsl:param>boost.image.src=../../../../doc/pstade.png
+        <xsl:param>boost.image.src=../../../doc/logo.png
         <xsl:param>boost.image.alt=pstade
         <xsl:param>boost.image.w=200
         <xsl:param>boost.image.h=164

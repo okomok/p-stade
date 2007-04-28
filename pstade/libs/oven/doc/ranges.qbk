@@ -185,6 +185,9 @@ a range presentation of dynamically allocated arrays.
 [h3 Example]
     BOOST_CHECK( boost::empty(empty_range<int>()) );
 
+[h3 See also]
+* [link oven.cleared cleared]
+
 [endsect]
 
 

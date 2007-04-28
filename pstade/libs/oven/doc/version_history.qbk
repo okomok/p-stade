@@ -126,7 +126,6 @@
 * Renamed `initializers` to `initial_values`.
 * Ported to Boost v1.34.
 * Added `expression`.
-* Changed `cycled` interface.
 * Added `steps`.
 * Renamed `stream_input` to `reading`.
 * Renamed `Output Iterator Adaptors`.
