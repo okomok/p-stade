@@ -33,7 +33,7 @@
 #include <boost/preprocessor/cat.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/type_traits/remove_cv.hpp>
+#include <boost/type_traits/remove_const.hpp>
 #include <pstade/function.hpp>
 #include <pstade/nonassignable.hpp>
 #include "./iter_range.hpp"
@@ -190,7 +190,7 @@ namespace io_detail {
     { \
         typedef \
             manipulator< \
-                typename boost::remove_cv<CharT>::type \
+                typename boost::remove_const<CharT>::type \
             > const \
         result_type; \
         \

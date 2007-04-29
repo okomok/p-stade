@@ -29,7 +29,7 @@
 #include <boost/mpl/if.hpp> // if_c
 #include <boost/preprocessor/cat.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <boost/type_traits/remove_cv.hpp>
+#include <boost/type_traits/remove_const.hpp>
 #include <boost/utility/addressof.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/adl_barrier.hpp>
@@ -224,8 +224,8 @@ PSTADE_ADL_BARRIER(functional) {
     struct BOOST_PP_CAT(functional_detail_result_of_, F) \
     { \
     private: \
-        typedef typename boost::remove_cv<X>::type x_t; \
-        typedef typename boost::remove_cv<Y>::type y_t; \
+        typedef typename boost::remove_const<X>::type x_t; \
+        typedef typename boost::remove_const<Y>::type y_t; \
         \
         static x_t x; \
         static y_t y; \
@@ -250,7 +250,7 @@ PSTADE_ADL_BARRIER(functional) {
         { }; \
         \
         template< class Result, class X, class Y > \
-        Result call(X const& x, Y const& y) const \
+        Result call(X& x, Y& y) const \
         { \
             return x Op y; \
         } \
@@ -272,11 +272,11 @@ PSTADE_ADL_BARRIER(functional) {
     {
         template< class Myself, class X >
         struct apply :
-            boost::remove_cv<X>
+            boost::remove_const<X>
         { };
 
         template< class Result, class X >
-        Result call(X const& x) const
+        Result call(X& x) const
         {
             return -x;
         }

@@ -11,7 +11,7 @@
 
 
 #include <boost/indirect_reference.hpp>
-#include <boost/type_traits/remove_cv.hpp>
+#include <boost/type_traits/remove_const.hpp>
 #include <pstade/function.hpp>
 
 
@@ -26,7 +26,7 @@ namespace deref_detail {
     {
         typedef typename
             boost::indirect_reference<
-                typename boost::remove_cv<Iterator>::type
+                typename boost::remove_const<Iterator>::type
             >::type
         result_type;
 

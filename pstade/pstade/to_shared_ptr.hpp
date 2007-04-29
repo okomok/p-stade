@@ -39,7 +39,7 @@ namespace pstade {
 
             // Topic:
             // If 'result_of' returns const-qualified type,
-            // 'remove_cv' is often cumbersome especially if the result type has value-semantics.
+            // 'remove_const' is often cumbersome especially if the result type has value-semantics.
             // Actually pstade higher-order functions don't return const-qualified functors.
         };
 
