@@ -12,7 +12,7 @@
 
 #include <boost/config.hpp>
 #include <boost/foreach.hpp>
-#include <boost/optional.hpp>
+#include <boost/optional/optional.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/oven/iter_range.hpp>

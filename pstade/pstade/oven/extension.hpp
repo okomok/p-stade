@@ -10,6 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// References:
+//
+// [1] <boost/numeric/functional.hpp>
+
+
 #include <boost/config.hpp> // BOOST_NESTED_TEMPLATE
 #include <boost/iterator/iterator_traits.hpp> // iterator_difference
 #include <boost/mpl/eval_if.hpp>
@@ -69,9 +74,20 @@ namespace pstade_oven_extension {
     };
 
 
-    template< class T, class Active = pstade::enabler >
-    struct Range :
+    template< class T >
+    struct Range_tag
+    {
+        typedef void type;
+    };
+
+    template< class T, class EnableIf = pstade::enabler >
+    struct Range_base :
         range_copyable
+    { };
+
+    template< class T, class Tag = typename Range_tag<T>::type >
+    struct Range :
+        Range_base<T>
     { };
 
 

@@ -12,7 +12,7 @@
 
 #include <boost/foreach.hpp>
 #include <boost/implicit_cast.hpp>
-#include <boost/optional.hpp>
+#include <boost/optional/optional.hpp>
 #include <pstade/oven/range_reference.hpp>
 
 

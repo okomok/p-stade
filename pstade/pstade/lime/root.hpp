@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/optional.hpp>
+#include <boost/optional/optional.hpp>
 #include <pstade/oven/range_reference.hpp>
 
 

@@ -22,6 +22,7 @@
 #include <pstade/function.hpp>
 #include <pstade/indirect.hpp>
 #include <pstade/object_generator.hpp>
+#include <boost/optional/optional.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/remove_cvr.hpp>
 #include "./iter_range.hpp"

@@ -14,7 +14,7 @@
 #include <string>
 #include <boost/foreach.hpp>
 #include <boost/mpl/identity.hpp>
-#include <boost/optional.hpp>
+#include <boost/optional/optional.hpp>
 #include <boost/ptr_container/ptr_list.hpp>
 #include <boost/range/end.hpp>
 #include <boost/throw_exception.hpp>

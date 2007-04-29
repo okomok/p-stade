@@ -13,7 +13,7 @@
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_categories.hpp>
-#include <boost/optional.hpp>
+#include <boost/optional/optional.hpp>
 #include <boost/range/empty.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>

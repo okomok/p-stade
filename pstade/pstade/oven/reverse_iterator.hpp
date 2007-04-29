@@ -22,7 +22,7 @@
 
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/next_prior.hpp> // prior
-#include <boost/optional.hpp>
+#include <boost/optional/optional.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/object_generator.hpp>
 

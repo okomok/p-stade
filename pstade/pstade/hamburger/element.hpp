@@ -12,7 +12,7 @@
 
 #include <boost/assert.hpp>
 #include <boost/foreach.hpp>
-#include <boost/optional.hpp>
+#include <boost/optional/optional.hpp>
 #include <pstade/apple/atl/win.hpp> // CMessageMap
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/lime/node_facade.hpp>

@@ -321,7 +321,7 @@ namespace pstade_oven_extension {
     //
 
     template< class T >
-    struct Range< T,
+    struct Range_base< T,
         typename enable_if< pstade::apple::is_ATL_string<T> >::type >
     {
         template< class X >

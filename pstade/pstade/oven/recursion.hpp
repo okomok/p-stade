@@ -21,7 +21,7 @@
 
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_facade.hpp>
-#include <boost/optional.hpp>
+#include <boost/optional/optional.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/enable_if.hpp>

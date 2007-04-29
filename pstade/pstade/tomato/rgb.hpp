@@ -15,7 +15,7 @@
 #include <sstream> // istringstream
 #include <boost/cstdint.hpp> // uint32_t
 #include <boost/none.hpp>
-#include <boost/optional.hpp>
+#include <boost/optional/optional.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/oven/copy_range.hpp>
 #include <pstade/oven/dropped.hpp>
