@@ -72,7 +72,6 @@ namespace distance_detail {
                 boost::begin(rng), boost::end(rng), typename range_traversal<Range>::type()
             ) );
         }
-
     };
 
 

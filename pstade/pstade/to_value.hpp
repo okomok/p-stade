@@ -43,7 +43,7 @@ namespace pstade {
         };
 
 
-        template< class A > inline
+        template<class A> inline
         A operator|(A a, op)
         {
             return a;

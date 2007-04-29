@@ -12,7 +12,7 @@
 
 // Note:
 //
-// This never accepts an empty range --
+// This never accepts an empty range,
 // following Container and Haskell's 'init'.
 
 
@@ -69,7 +69,7 @@ namespace popped_detail {
         explicit pop_iterator(ForwardIter it, ForwardIter last) :
             super_t(it), m_last(last)
         {
-            lookahead();    
+            look_next();    
         }
 
         explicit pop_iterator(ForwardIter last) : // the end iterator
@@ -91,12 +91,11 @@ namespace popped_detail {
     private:
         ForwardIter m_last;
 
-        void lookahead()
+        void look_next()
         {            
             BOOST_ASSERT(this->base() != m_last);
 
-            ForwardIter nxt = boost::next(this->base());
-            if (nxt == m_last)
+            if (boost::next(this->base()) == m_last)
                 this->base_reference() = m_last;
         }
 
@@ -104,7 +103,7 @@ namespace popped_detail {
         void increment()
         {
             ++this->base_reference();
-            lookahead();
+            look_next();
         }
     };
 

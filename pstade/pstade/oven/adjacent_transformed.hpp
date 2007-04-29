@@ -17,6 +17,7 @@
 
 // Question:
 //
+// See "../../libs/oven/example/adjacent_difference.cpp".
 // Should this contain the first value of base range?
 // This is symmetrical to 'scanned', which requires
 // the first value to be passed. So, it's intuitive

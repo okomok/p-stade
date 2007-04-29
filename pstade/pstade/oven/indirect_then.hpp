@@ -11,7 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/iterator/iterator_traits.hpp>
+#include <boost/indirect_reference.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
@@ -67,7 +67,7 @@ template< class Myself, BOOST_PP_ENUM_PARAMS(n, class I) >
 struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, I)> :
     boost::result_of<
         PSTADE_CONST_FUN_TPL(Function)(
-            PSTADE_PP_ENUM_PARAMS_WITH(n, typename boost::iterator_reference<I, >::type)
+            PSTADE_PP_ENUM_PARAMS_WITH(n, typename boost::indirect_reference<I, >::type)
         )
     >
 { };
