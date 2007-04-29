@@ -115,7 +115,8 @@ namespace iteration_detail {
         result_type operator()(State& init, UnaryFun& fun) const
         {
             return result_type(
-                iter_t(init, fun, false), iter_t(init, fun, true)
+                iter_t(init, fun, false),
+                iter_t(init, fun, true)
             );
         }
     };

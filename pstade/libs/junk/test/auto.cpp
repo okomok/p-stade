@@ -10,9 +10,9 @@
 //#define BOOST_TYPEOF_EMULATION
 
 
-//#include <pstade/../libs/wine/test/callable_by_value.cpp>
-#include <pstade/../libs/oven/test/initial_values.cpp>
-//#include <pstade/../libs/oven/example/newton.cpp>
+//#include <pstade/../libs/wine/test/indirect.cpp>
+#include <pstade/../libs/oven/test/generation.cpp>
+//#include <pstade/../libs/oven/example/indirect.cpp>
 //#include <pstade/../libs/biscuit/test/capture.cpp>
 //#include <pstade/../libs/oven/test/ms/atl_string.cpp>
 //#include <pstade/../libs/tomato/test/boolean_cast.cpp>

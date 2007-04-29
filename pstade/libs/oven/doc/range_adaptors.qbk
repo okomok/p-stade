@@ -62,7 +62,8 @@ A Range Adaptor meets the following requirements unless otherwise specified:
 [section adjacent_transformed]
 
 [h3 Description]
-`adjacent_transformed` passes adjacent pairs to a function to transform repeatedly.
+`adjacent_transformed` is considered as the adaptor version of `std::adjacent_difference`.
+It passes adjacent pairs to a function to transform repeatedly.
 
 [h3 Header]
 * `<pstade/oven/adjacent_transformed.hpp>`
@@ -111,6 +112,7 @@ A Range Adaptor meets the following requirements unless otherwise specified:
 [h3 Example]
 
 [h3 See also]
+* [@http://www.sgi.com/tech/stl/adjacent_difference.html std::adjacent_difference]
 * [link oven.transformed transformed]
 
 [endsect]
@@ -522,7 +524,7 @@ then pretends to be a range of _forward_iterator_.
     [
         [`_rng|const_refs`]
         [
-            A non-_writable_ `[_begin(_rng), _end(_rng))`  whose `boost::range_reference` type is a /reference type/.
+            A non-_writable_ non-_lvalue_ `[_begin(_rng), _end(_rng))`  whose `boost::range_reference` type is a /reference type/.
         ]
     ]
 ]
@@ -1628,8 +1630,8 @@ That is, the view includes every element of the given range but in a potentially
 
 [h3 See also]
 * [link oven.appended appended]
-* [link oven.single single]
 * [link oven.jointed jointed]
+* [link oven.single single]
 
 [endsect]
 
@@ -1699,13 +1701,13 @@ A range returned from `reversed` iterates in the opposite direction.
     [
         [`_rng|scanned(s, _fun)`]
         [
-            An up-to-_forward_ `{s,_fun(s, a1),_fun(_fun(s, a1), a2),_fun(_fun(_fun(s, a1), a2), a3),..,aN)}`
+            An up-to-_forward_ non-_writable_ non-_lvalue_ `{s,_fun(s, a1),_fun(_fun(s, a1), a2),_fun(_fun(_fun(s, a1), a2), a3),..,aN)}`
         ]
     ]
     [
         [`_rng1|scanned(_fun1)`]
         [
-            An up-to-_forward_ `{b1,_fun1(b1, b2),_fun1(_fun(b1, b2), b3),_fun1(_fun1(_fun1(b1, b2), b3), b4),..,bM)}`
+            An up-to-_forward_ non-_writable_ non-_lvalue_ `{b1,_fun1(b1, b2),_fun1(_fun(b1, b2), b3),_fun1(_fun1(_fun1(b1, b2), b3), b4),..,bM)}`
         ]
     ]
 ]

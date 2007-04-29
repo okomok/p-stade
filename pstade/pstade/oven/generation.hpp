@@ -17,13 +17,10 @@
 
 
 #include <boost/assert.hpp>
-#include <boost/indirect_reference.hpp>
 #include <boost/iterator/iterator_facade.hpp>
-#include <boost/mpl/assert.hpp>
-#include <boost/optional.hpp>
-#include <boost/type_traits/add_reference.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/function.hpp>
+#include <pstade/indirect.hpp>
 #include <pstade/object_generator.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/remove_cvr.hpp>
@@ -40,19 +37,6 @@ namespace generation_detail {
     struct generator_iterator;
 
 
-    // "Optional" becomes a new concept?
-
-    template< class X >
-    struct indirect_reference :
-        boost::indirect_reference<X>
-    { };
-
-    template< class T >
-    struct indirect_reference< boost::optional<T> > :
-        boost::add_reference<T>
-    { };
-
-
     template< class StoppableGenerator >
     struct generator_iterator_super
     {
@@ -61,7 +45,7 @@ namespace generation_detail {
         result_t;
 
         typedef typename
-            indirect_reference<result_t>::type
+            boost::result_of<op_indirect(result_t const&)>::type
         ref_t;
 
         typedef typename
@@ -90,6 +74,7 @@ namespace generation_detail {
     private:
         typedef typename generator_iterator_super<StoppableGenerator>::type super_t;
         typedef typename super_t::reference ref_t;
+        typedef typename boost::result_of<StoppableGenerator()>::type result_t;
 
     public:
 
@@ -119,8 +104,7 @@ namespace generation_detail {
 
     private:
         StoppableGenerator m_gen;
-        // 'mutable' needed; const-ness of 'optional' affects its element.
-        mutable typename boost::result_of<StoppableGenerator()>::type m_result;
+        result_t m_result;
 
         void generate()
         {

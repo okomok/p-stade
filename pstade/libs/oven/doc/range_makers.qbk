@@ -214,7 +214,7 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
     [
         [`generation(g)`]
         [
-            The longest _single_pass_ non-_writable_ non-_lvalue_ `{*g(),*g(),*g(),..,*g()}` such that `g()` is not /uninitialized/.
+            The longest _single_pass_ `{*g(),*g(),*g(),..,*g()}` such that `g()` is not /uninitialized/.
         ]
     ]
 ]
@@ -222,7 +222,7 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 [h3 Preconditions]
 * `g` is a _stoppable_generator_.
 * `g` is _assignable_.
-* `_typeof(*g())` is _assignable_.
+* `_typeof(g())` is _assignable_.
 
 [h3 Example]
     struct rand_generator

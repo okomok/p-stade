@@ -54,7 +54,6 @@ test-suite "oven" :
     [ run expression.cpp ]
     [ run expression.cpp : : : <define>BOOST_TYPEOF_EMULATION : expression_emulation ]
     [ run extension.cpp ]
-    [ run dereference.cpp ]
     [ run file_range.cpp ]
     [ run filtered.cpp ]
     [ run front_back.cpp ]

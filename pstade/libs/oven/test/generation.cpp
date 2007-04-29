@@ -19,6 +19,7 @@
 #include <iostream>
 #include <sstream>
 #include <boost/foreach.hpp>
+#include <boost/optional.hpp>
 #include <boost/range.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/noncopyable.hpp>
