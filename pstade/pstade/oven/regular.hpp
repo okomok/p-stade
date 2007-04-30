@@ -34,11 +34,11 @@
 #include <boost/type_traits/is_same.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/clone_ptr.hpp>
 #include <pstade/function.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of_lambda.hpp> // inclusion guaranteed
+#include "./detail/regularized.hpp"
 
 
 namespace pstade { namespace oven {
@@ -47,27 +47,27 @@ namespace pstade { namespace oven {
 namespace regular_detail {
 
 
-    struct clone_ptr_tag;
+    struct regularized_tag;
     struct shared_ptr_tag;
     struct raw_ptr_tag;
 
 
-    template< class Function, class PtrTag >
-    struct ptr_of :
-        boost::mpl::eval_if< boost::is_same<PtrTag, raw_ptr_tag>,
+    template< class Function, class PimplTag >
+    struct pimpl_of :
+        boost::mpl::eval_if< boost::is_same<PimplTag, raw_ptr_tag>,
             boost::mpl::identity<Function *>,
-            boost::mpl::eval_if< boost::is_same<PtrTag, shared_ptr_tag>,
+            boost::mpl::eval_if< boost::is_same<PimplTag, shared_ptr_tag>,
                 boost::mpl::identity< boost::shared_ptr<Function> >,
-                boost::mpl::identity< clone_ptr<Function> >
+                boost::mpl::identity< detail::regularized<Function> >
             >
         >
     { };
 
 
-    template< class Function, class PtrTag >
+    template< class Function, class PimplTag >
     struct return_op :
         callable<
-            return_op<Function, PtrTag>,
+            return_op<Function, PimplTag>,
             typename boost::result_of<Function()>::type
         >
     {
@@ -79,7 +79,7 @@ namespace regular_detail {
         template< class Result >
         Result call() const
         {
-            return (*m_pfun)();
+            return (*m_pimpl)();
         }
 
         // 1ary-
@@ -90,27 +90,49 @@ namespace regular_detail {
         { }
 
         explicit return_op(Function *pfun) :
-            m_pfun(pfun)
+            m_pimpl(pfun)
+        { }
+
+        explicit return_op(Function fun) :
+            m_pimpl(fun)
         { }
 
         typedef Function base_type;
 
-        // 'Function' may be NonCopyable.
-        Function& base() const
+        Function& base()
         {
-            return *m_pfun;
+            return *m_pimpl;
+        }
+
+        Function const& base() const
+        {
+            return *m_pimpl;
         }
 
     private:
-        typename ptr_of<Function, PtrTag>::type m_pfun;
+        typename pimpl_of<Function, PimplTag>::type m_pimpl;
     };
 
 
-    template< class Function, class PtrTag >
+    template< class Function >
     struct baby
     {
         typedef
-            return_op<typename pass_by_value<Function>::type, PtrTag>
+            return_op<typename pass_by_value<Function>::type, regularized_tag>
+        result_type;
+
+        result_type operator()(Function& fun) const
+        {
+            return result_type(fun);
+        }
+    };
+
+
+    template< class Function >
+    struct baby_c
+    {
+        typedef
+            return_op<typename pass_by_value<Function>::type, shared_ptr_tag>
         result_type;
 
         result_type operator()(Function& fun) const
@@ -138,8 +160,8 @@ namespace regular_detail {
 } // namespace regular_detail
 
 
-PSTADE_FUNCTION(regular, (regular_detail::baby<_, regular_detail::clone_ptr_tag>))
-PSTADE_FUNCTION(regular_c, (regular_detail::baby<_, regular_detail::shared_ptr_tag>))
+PSTADE_FUNCTION(regular, (regular_detail::baby<_>))
+PSTADE_FUNCTION(regular_c, (regular_detail::baby_c<_>))
 PSTADE_FUNCTION(regular_ref, (regular_detail::baby_ref<_>))
 
 
@@ -162,7 +184,7 @@ struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
 template< class Result, BOOST_PP_ENUM_PARAMS(n, class A) >
 Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
 {
-    return (*m_pfun)(BOOST_PP_ENUM_PARAMS(n, a));
+    return (*m_pimpl)(BOOST_PP_ENUM_PARAMS(n, a));
 }
 
 

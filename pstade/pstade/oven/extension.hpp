@@ -80,14 +80,14 @@ namespace pstade_oven_extension {
         typedef void type;
     };
 
-    template< class T, class EnableIf = pstade::enabler >
+    template< class T, class EnableIf >
     struct Range_base :
         range_copyable
     { };
 
     template< class T, class Tag = typename Range_tag<T>::type >
     struct Range :
-        Range_base<T>
+        Range_base<T, pstade::enabler>
     { };
 
 

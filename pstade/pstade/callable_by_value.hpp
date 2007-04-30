@@ -81,17 +81,10 @@ PSTADE_ADL_BARRIER(callable_by_value) {
 
 private:
     template<BOOST_PP_ENUM_PARAMS(n, class A)>
-    struct BOOST_PP_CAT(result_by_value, n) :
+    struct BOOST_PP_CAT(result, n) :
         Derived::BOOST_NESTED_TEMPLATE apply<
             Derived,
             BOOST_PP_ENUM_PARAMS(n, A)
-        >
-    { };
-
-    template<BOOST_PP_ENUM_PARAMS(n, class A)>
-    struct BOOST_PP_CAT(result, n) :
-        BOOST_PP_CAT(result_by_value, n)<
-            PSTADE_PP_ENUM_PARAMS_WITH(n, typename pass_by_value<A, >::type)
         >
     { };
 
@@ -99,16 +92,16 @@ public:
     template<class Fun, BOOST_PP_ENUM_PARAMS(n, class A)>
     struct result<Fun(BOOST_PP_ENUM_PARAMS(n, A))> :
         BOOST_PP_CAT(result, n)<
-            BOOST_PP_ENUM_PARAMS(n, A)
+            PSTADE_PP_ENUM_PARAMS_WITH(n, typename pass_by_value<A, >::type)
         >
     { };
 
     template<BOOST_PP_ENUM_PARAMS(n, class A)>
-    typename BOOST_PP_CAT(result_by_value, n)<BOOST_PP_ENUM_PARAMS(n, A)>::type
+    typename BOOST_PP_CAT(result, n)<BOOST_PP_ENUM_PARAMS(n, A)>::type
     operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, a)) const
     {
         return derived().BOOST_NESTED_TEMPLATE call<
-            typename BOOST_PP_CAT(result_by_value, n)<BOOST_PP_ENUM_PARAMS(n, A)>::type            
+            typename BOOST_PP_CAT(result, n)<BOOST_PP_ENUM_PARAMS(n, A)>::type            
         >(BOOST_PP_ENUM_PARAMS(n, a));
     }
     

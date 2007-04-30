@@ -118,7 +118,7 @@ namespace io_detail {
     void in(IStream& is, Iterator first, Iterator last)
     {
         bool is_beginning = true;
-        for ( ; first != last; ++first) {
+        for (; first != last; ++first) {
             if (!is_beginning)
                 here::eat_mn_char(is, mn_delimiter);
             else
@@ -141,7 +141,7 @@ namespace io_detail {
         typename OStream::char_type const delim = here::get_mn_char(os, mn_delimiter);
 
         bool is_beginning = true;
-        for ( ; first != last; ++first) {
+        for (; first != last; ++first) {
             if (!is_beginning)
                 os << delim;
             else
