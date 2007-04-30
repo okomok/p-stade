@@ -2,7 +2,7 @@
 #define PSTADE_OVEN_DETAIL_REGULARIZED_HPP
 
 
-// PStade.Wine
+// PStade.Oven
 //
 // Copyright Shunsuke Sogame 2005-2007.
 // Distributed under the Boost Software License, Version 1.0.
@@ -19,6 +19,7 @@
 #include <boost/assert.hpp>
 #include <boost/operators.hpp> // totally_ordered
 #include <boost/optional/optional.hpp>
+#include <boost/utility/addressof.hpp>
 #include <pstade/do_swap.hpp>
 #include <pstade/radish/bool_testable.hpp>
 #include <pstade/radish/swappable.hpp>
@@ -76,7 +77,7 @@ public:
         return *this;
     }
 
-// pointer-like syntax
+// Indirectable
     X& operator*()
     {
         return (*m_opx).m_x;

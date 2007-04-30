@@ -10,9 +10,14 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// References:
+//
+// [1] OptionalPointee Concept
+//     http://www.boost.org/libs/utility/OptionalPointee.html
+
+
 #include <boost/indirect_reference.hpp>
 #include <boost/optional/optional_fwd.hpp>
-#include <boost/type_traits/remove_cv.hpp>
 #include <pstade/affect.hpp>
 #include <pstade/function.hpp>
 
@@ -20,9 +25,14 @@
 namespace pstade {
 
 
-    template<class I>
+    template<class X>
     struct indirect_value_impl :
-        boost::indirect_reference<I>
+        boost::indirect_reference<X>
+    { };
+
+    template<class X>
+    struct indirect_value_impl<X const> :
+        indirect_value_impl<X>
     { };
 
     template<class T>
@@ -34,9 +44,7 @@ namespace pstade {
 
     template<class Indirectable>
     struct indirect_value :
-        indirect_value_impl<
-            typename boost::remove_cv<Indirectable>::type
-        >
+        indirect_value_impl<Indirectable>
     { };
 
 
@@ -53,9 +61,9 @@ namespace pstade {
                 >::type
             result_type;
 
-            result_type operator()(Indirectable& i) const
+            result_type operator()(Indirectable& ind) const
             {
-                return *i;
+                return *ind;
             }
         };
 
