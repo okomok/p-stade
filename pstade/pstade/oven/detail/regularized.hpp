@@ -41,7 +41,7 @@ public:
         m_x(x)
     { }
 
-    // never called if uninitialzed
+    // never called if uninitialized
     self_t& operator=(self_t const&)
     {
         BOOST_ASSERT(false);
