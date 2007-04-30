@@ -118,4 +118,17 @@ private:
 } } } // namespace pstade::oven::detail
 
 
+#include <pstade/indirect.hpp>
+
+namespace pstade {
+
+    template< class X >
+    struct indirect_value_impl< oven::detail::regularized<X> >
+    {
+        typedef X type;
+    };
+
+} // namespace pstade
+
+
 #endif

@@ -13,28 +13,24 @@
 
 // Note:
 //
-// We can't determine whether or not a lambda functor is
-// sharable or not. ('boost::is_stateless' is too strict.)
-// So, it is cloned by default. If you know it's stateless
-// and want to optimize copying, use 'regular_c'.
-//
-// Neither 'is_assignable' nor 'is_default_constructible'
-// seems impossible to implement.
-// Notice that 'is_lambda_functor' can't be the detection;
+// Oven can't call this automatically for lambda functors,
+// for it is impossible to implement neither "is_assignable"
+// nor "is_default_constructible". Also, notice that
+// 'is_lambda_functor' can't be the detection;
 // e.g. 'perfect(lambda::_1)', which is neither assignable
 // nor a lambda functor.
 
 
-#include <boost/mpl/eval_if.hpp>
-#include <boost/mpl/identity.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/shared_ptr.hpp>
-#include <boost/type_traits/is_same.hpp>
+#include <boost/type_traits/remove_reference.hpp>
+#include <boost/utility/addressof.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/function.hpp>
+#include <pstade/indirect.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of_lambda.hpp> // inclusion guaranteed
@@ -47,30 +43,23 @@ namespace pstade { namespace oven {
 namespace regular_detail {
 
 
-    struct regularized_tag;
-    struct shared_ptr_tag;
-    struct raw_ptr_tag;
-
-
-    template< class Function, class PimplTag >
-    struct pimpl_of :
-        boost::mpl::eval_if< boost::is_same<PimplTag, raw_ptr_tag>,
-            boost::mpl::identity<Function *>,
-            boost::mpl::eval_if< boost::is_same<PimplTag, shared_ptr_tag>,
-                boost::mpl::identity< boost::shared_ptr<Function> >,
-                boost::mpl::identity< detail::regularized<Function> >
-            >
+    template< class Indirectable >
+    struct function_of :
+        boost::remove_reference<
+            typename boost::result_of<op_indirect(Indirectable const&)>::type
         >
     { };
 
 
-    template< class Function, class PimplTag >
+    template< class Indirectable >
     struct return_op :
         callable<
-            return_op<Function, PimplTag>,
-            typename boost::result_of<Function()>::type
+            return_op<Indirectable>,
+            typename boost::result_of<typename function_of<Indirectable>::type()>::type
         >
     {
+        typedef typename function_of<Indirectable>::type base_type;
+
         template< class Myself, PSTADE_CALLABLE_APPLY_PARAMS(A) >
         struct apply
         { }; // complete for SFINAE.
@@ -79,7 +68,7 @@ namespace regular_detail {
         template< class Result >
         Result call() const
         {
-            return (*m_pimpl)();
+            return (*m_ind)();
         }
 
         // 1ary-
@@ -89,41 +78,39 @@ namespace regular_detail {
         explicit return_op()
         { }
 
-        explicit return_op(Function *pfun) :
-            m_pimpl(pfun)
+        explicit return_op(Indirectable ind) :
+            m_ind(ind)
         { }
 
-        explicit return_op(Function fun) :
-            m_pimpl(fun)
-        { }
-
-        typedef Function base_type;
-
-        Function& base()
+        typename boost::result_of<op_indirect(Indirectable const&)>::type
+        base() const
         {
-            return *m_pimpl;
-        }
-
-        Function const& base() const
-        {
-            return *m_pimpl;
+            return *m_ind;
         }
 
     private:
-        typename pimpl_of<Function, PimplTag>::type m_pimpl;
+        Indirectable m_ind;
     };
 
 
     template< class Function >
     struct baby
     {
+        typedef typename
+            pass_by_value<Function>::type
+        fun_t;
+
         typedef
-            return_op<typename pass_by_value<Function>::type, regularized_tag>
+            detail::regularized<fun_t>
+        ind_t;
+
+        typedef
+            return_op<ind_t>
         result_type;
 
         result_type operator()(Function& fun) const
         {
-            return result_type(fun);
+            return result_type(ind_t(fun));
         }
     };
 
@@ -131,14 +118,21 @@ namespace regular_detail {
     template< class Function >
     struct baby_c
     {
+        typedef typename
+            pass_by_value<Function>::type
+        fun_t;
+
         typedef
-            return_op<typename pass_by_value<Function>::type, shared_ptr_tag>
+            boost::shared_ptr<fun_t>
+        ind_t;
+
+        typedef
+            return_op<ind_t>
         result_type;
 
         result_type operator()(Function& fun) const
         {
-            typedef typename result_type::base_type fun_t;
-            return result_type(new fun_t(fun));
+            return result_type(ind_t(new fun_t(fun)));
         }
     };
 
@@ -147,12 +141,12 @@ namespace regular_detail {
     struct baby_ref
     {
         typedef
-            return_op<Function, raw_ptr_tag>
+            return_op<Function *>
         result_type;
 
         result_type operator()(Function& fun) const
         {
-            return result_type(&fun);
+            return result_type(boost::addressof(fun));
         }
     };
 
@@ -168,7 +162,7 @@ PSTADE_FUNCTION(regular_ref, (regular_detail::baby_ref<_>))
 } } // namespace pstade::oven
 
 
-PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE(pstade::oven::regular_detail::return_op, 2)
+PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE(pstade::oven::regular_detail::return_op, 1)
 
 
 #endif
@@ -178,13 +172,13 @@ PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE(pstade::oven::regular_detail::return_
 
 template< class Myself, BOOST_PP_ENUM_PARAMS(n, class A) >
 struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
-    boost::result_of<Function(PSTADE_PP_ENUM_PARAMS_WITH(n, A, &))>
+    boost::result_of<base_type(PSTADE_PP_ENUM_PARAMS_WITH(n, A, &))>
 { };
 
 template< class Result, BOOST_PP_ENUM_PARAMS(n, class A) >
 Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
 {
-    return (*m_pimpl)(BOOST_PP_ENUM_PARAMS(n, a));
+    return (*m_ind)(BOOST_PP_ENUM_PARAMS(n, a));
 }
 
 
