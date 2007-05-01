@@ -17,11 +17,12 @@
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/apple/wtl/ctrls.hpp> // CReBarCtrl
 #include <pstade/candy/set.hpp>
-#include <pstade/oven/appended.hpp>
 #include <pstade/oven/as_c_str.hpp>
 #include <pstade/oven/begin_end.hpp>
 #include <pstade/oven/copy_range.hpp>
+#include <pstade/oven/jointed.hpp>
 #include <pstade/oven/pointed.hpp>
+#include <pstade/oven/single.hpp>
 #include <pstade/require.hpp>
 #include "../c_str.hpp"
 #include "../size_initialize.hpp"
@@ -42,7 +43,7 @@ void add_rebar_band(window_ref rebar, window_ref child, UINT fStyle, CStringizab
     // so that, copy it.
     std::vector<TCHAR> text; {
         text = str|c_str|oven::as_c_str
-            |oven::appended(_T('\0'))|oven::copied;
+            |oven::jointed(oven::single(_T('\0')))|oven::copied;
         BOOST_ASSERT(oven::contains_zero(text));
     }
 

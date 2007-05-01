@@ -245,7 +245,7 @@ void test()
         ss << src;
         from_istream<char, char> X(ss);
 
-        BOOST_CHECK( oven::equals(oven::generation(regular(X)), src) );
+        BOOST_CHECK( oven::equals(oven::generation(regular_ref(X)), src) );
     }
 }
 

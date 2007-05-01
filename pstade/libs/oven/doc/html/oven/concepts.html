@@ -19,7 +19,6 @@
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="oven.concepts"></a>Concepts</h2></div></div></div>
 <div class="toc"><dl>
-<dt><span class="section"><a href="concepts.html#oven.callable_object">Callable Object</a></span></dt>
 <dt><span class="section"><a href="concepts.html#oven.operatable_object">Operatable Object</a></span></dt>
 <dt><span class="section"><a href="concepts.html#oven.pipable_object">Pipable Object</a></span></dt>
 <dt><span class="section"><a href="concepts.html#oven.auxiliary_interface">Auxiliary Interface</a></span></dt>
@@ -28,83 +27,30 @@
 </dl></div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="oven.callable_object"></a>Callable Object</h3></div></div></div>
-<a name="callable_object.description"></a><h4>
-<a name="id502598"></a>
-        Description
-      </h4>
-<p>
-        A <a href="concepts.html#oven.callable_object" title="Callable Object">Callable Object</a> is a <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function Object</a> which
-        can be used with <a href="http://www.boost.org/libs/utility/utility.htm#result_of" target="_top">Boost.ResultOf</a>.
-      </p>
-<a name="callable_object.refinement_of"></a><h4>
-<a name="id502637"></a>
-        Refinement of
-      </h4>
-<div class="itemizedlist"><ul type="disc"><li><a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function Object</a></li></ul></div>
-<a name="callable_object.requirements"></a><h4>
-<a name="id502662"></a>
-        Requirements
-      </h4>
-<p>
-        In addition to the requirements defined in <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function
-        Object</a>, for any <a href="concepts.html#oven.callable_object" title="Callable Object">Callable Object</a> <code class="computeroutput"><span class="identifier">f</span></code> the following must be met:
-      </p>
-<div class="itemizedlist"><ul type="disc"><li>
-<code class="computeroutput"><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">f</span><span class="special">)</span></code> can
-          be used with <a href="http://www.boost.org/libs/utility/utility.htm#result_of" target="_top">Boost.ResultOf</a>
-          to get the result type of function call <code class="computeroutput"><span class="identifier">f</span></code>.
-        </li></ul></div>
-<a name="callable_object.models"></a><h4>
-<a name="id502757"></a>
-        Models
-      </h4>
-<div class="itemizedlist"><ul type="disc">
-<li>
-          Any function poiner
-        </li>
-<li>
-          Any <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function Object</a>
-          of Oven
-        </li>
-</ul></div>
-</div>
-<div class="note"><table border="0" summary="Note">
-<tr>
-<td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/note.png"></td>
-<th align="left">Note</th>
-</tr>
-<tr><td align="left" valign="top"><p>
-        All the <a href="http://www.sgi.com/tech/stl/functors.html" target="_top">Function Object</a>
-        Oven defines are <a href="http://boost.org/doc/html/Assignable.html" target="_top">Assignable</a>
-        and <a href="http://boost.org/doc/html/DefaultConstructible.html" target="_top">Default
-        Constructible</a>.
-      </p></td></tr>
-</table></div>
-<div class="section" lang="en">
-<div class="titlepage"><div><div><h3 class="title">
 <a name="oven.operatable_object"></a>Operatable Object</h3></div></div></div>
 <a name="operatable_object.description"></a><h4>
-<a name="id502828"></a>
+<a name="id502589"></a>
         Description
       </h4>
 <p>
         An <a href="concepts.html#oven.operatable_object" title="Operatable Object">Operatable Object</a> is a
-        <a href="concepts.html#oven.callable_object" title="Callable Object">Callable Object</a> which can specify
-        the type of itself using prefix <code class="computeroutput"><span class="identifier">op_</span></code>.
+        <a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
+        Callable Object</a> which can specify the type of itself using prefix
+        <code class="computeroutput"><span class="identifier">op_</span></code>.
       </p>
 <a name="operatable_object.refinement_of"></a><h4>
-<a name="id502873"></a>
+<a name="id502633"></a>
         Refinement of
       </h4>
-<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.callable_object" title="Callable Object">Callable Object</a></li></ul></div>
+<div class="itemizedlist"><ul type="disc"><li><a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
+          Callable Object</a></li></ul></div>
 <a name="operatable_object.requirements"></a><h4>
-<a name="id502900"></a>
+<a name="id502659"></a>
         Requirements
       </h4>
 <p>
-        In addition to the requirements defined in <a href="concepts.html#oven.callable_object" title="Callable Object">Callable
-        Object</a>, for any <a href="concepts.html#oven.operatable_object" title="Operatable Object">Operatable
+        In addition to the requirements defined in <a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
+        Callable Object</a>, for any <a href="concepts.html#oven.operatable_object" title="Operatable Object">Operatable
         Object</a> <code class="computeroutput"><span class="identifier">f</span></code> the
         following must be met:
       </p>
@@ -112,7 +58,7 @@
 <code class="computeroutput"><span class="identifier">op_f</span></code> is <code class="computeroutput"><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">f</span><span class="special">)</span></code>.
         </li></ul></div>
 <a name="operatable_object.models"></a><h4>
-<a name="id502985"></a>
+<a name="id502745"></a>
         Models
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -124,7 +70,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.pipable_object"></a>Pipable Object</h3></div></div></div>
 <a name="pipable_object.description"></a><h4>
-<a name="id503038"></a>
+<a name="id502797"></a>
         Description
       </h4>
 <p>
@@ -134,11 +80,11 @@
         Object</a> using prefix <code class="computeroutput"><span class="identifier">make_</span></code>.
       </p>
 <a name="pipable_object.refinement_of"></a><h4>
-<a name="id503097"></a>
+<a name="id502857"></a>
         Refinement of
       </h4>
 <a name="pipable_object.requirements"></a><h4>
-<a name="id503109"></a>
+<a name="id502868"></a>
         Requirements
       </h4>
 <p>
@@ -165,7 +111,7 @@
         </li>
 </ul></div>
 <a name="pipable_object.models"></a><h4>
-<a name="id503430"></a>
+<a name="id503190"></a>
         Models
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -177,7 +123,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.auxiliary_interface"></a>Auxiliary Interface</h3></div></div></div>
 <a name="auxiliary_interface.description"></a><h4>
-<a name="id503480"></a>
+<a name="id503239"></a>
         Description
       </h4>
 <p>
@@ -186,14 +132,14 @@
         supports also a pipe-like syntax used as if it were a member function.
       </p>
 <a name="auxiliary_interface.refinement_of"></a><h4>
-<a name="id503516"></a>
+<a name="id503276"></a>
         Refinement of
       </h4>
 <p>
         <a href="concepts.html#oven.operatable_object" title="Operatable Object">Operatable Object</a>
       </p>
 <a name="auxiliary_interface.requirements"></a><h4>
-<a name="id503542"></a>
+<a name="id503302"></a>
         Requirements
       </h4>
 <p>
@@ -204,7 +150,9 @@
       </p>
 <div class="itemizedlist"><ul type="disc">
 <li>
-<code class="computeroutput"><span class="identifier">x</span><span class="special">|</span><span class="identifier">i</span><span class="special">(</span><span class="identifier">x0</span><span class="special">,..,</span><span class="identifier">xN</span><span class="special">)</span></code> is a valid exression if and only if <code class="computeroutput"><span class="identifier">i</span><span class="special">(</span><span class="identifier">x</span><span class="special">,</span> <span class="identifier">x0</span><span class="special">,..,</span><span class="identifier">xN</span><span class="special">)</span></code> is a valid expression.
+<code class="computeroutput"><span class="identifier">x</span><span class="special">|</span><span class="identifier">i</span><span class="special">(</span><span class="identifier">x0</span><span class="special">,..,</span><span class="identifier">xN</span><span class="special">)</span></code> is a valid expression if and only if
+          <code class="computeroutput"><span class="identifier">i</span><span class="special">(</span><span class="identifier">x</span><span class="special">,</span> <span class="identifier">x0</span><span class="special">,..,</span><span class="identifier">xN</span><span class="special">)</span></code> is
+          a valid expression.
         </li>
 <li>
 <code class="computeroutput"><span class="identifier">x</span><span class="special">|</span><span class="identifier">i</span><span class="special">(</span><span class="identifier">x0</span><span class="special">,..</span><span class="identifier">xN</span><span class="special">)</span></code> and <code class="computeroutput"><span class="identifier">i</span><span class="special">(</span><span class="identifier">x</span><span class="special">,</span> <span class="identifier">x0</span><span class="special">,..,</span><span class="identifier">xN</span><span class="special">)</span></code> have
@@ -218,7 +166,7 @@
         </li>
 </ul></div>
 <a name="auxiliary_interface.models"></a><h4>
-<a name="id503845"></a>
+<a name="id503606"></a>
         Models
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -226,7 +174,7 @@
 <li><a href="range_algorithms.html#oven.begin_end" title="begin/end">begin/end</a></li>
 </ul></div>
 <a name="auxiliary_interface.see_also"></a><h4>
-<a name="id503885"></a>
+<a name="id503646"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2004/n1742.pdf" target="_top">Auxiliary
@@ -236,7 +184,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.stoppable_generator"></a>Stoppable Generator</h3></div></div></div>
 <a name="stoppable_generator.description"></a><h4>
-<a name="id503922"></a>
+<a name="id503683"></a>
         Description
       </h4>
 <p>
@@ -245,21 +193,24 @@
         which can specify the stop of generating using <a href="http://boost.org/libs/optional/doc/optional.html" target="_top">Boost.Optional</a>.
       </p>
 <a name="stoppable_generator.refinement_of"></a><h4>
-<a name="id503965"></a>
+<a name="id503725"></a>
         Refinement of
       </h4>
 <div class="itemizedlist"><ul type="disc">
 <li><a href="http://www.sgi.com/tech/stl/Generator.html" target="_top">Generator</a></li>
-<li><a href="concepts.html#oven.callable_object" title="Callable Object">Callable Object</a></li>
+<li><a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
+          Callable Object</a></li>
 </ul></div>
 <a name="stoppable_generator.requirements"></a><h4>
-<a name="id504004"></a>
+<a name="id503765"></a>
         Requirements
       </h4>
 <p>
         In addition to the requirements defined in <a href="http://www.sgi.com/tech/stl/Generator.html" target="_top">Generator</a>
-        and <a href="concepts.html#oven.callable_object" title="Callable Object">Callable Object</a>, for any
-        <a href="concepts.html#oven.stoppable_generator" title="Stoppable Generator">Stoppable Generator</a> <code class="computeroutput"><span class="identifier">g</span></code> the following must be met:
+        and <a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
+        Callable Object</a>, for any <a href="concepts.html#oven.stoppable_generator" title="Stoppable Generator">Stoppable
+        Generator</a> <code class="computeroutput"><span class="identifier">g</span></code> the
+        following must be met:
       </p>
 <div class="itemizedlist"><ul type="disc">
 <li>
@@ -272,19 +223,20 @@
         </li>
 </ul></div>
 <a name="stoppable_generator.models"></a><h4>
-<a name="id504116"></a>
+<a name="id503876"></a>
         Models
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
-          Any <a href="concepts.html#oven.callable_object" title="Callable Object">Callable Object</a> which
-          <a href="utilities.html#oven.nonstop" title="nonstop">nonstop</a> returns.
+          Any <a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
+          Callable Object</a> which <a href="utilities.html#oven.nonstop" title="nonstop">nonstop</a>
+          returns.
         </li></ul></div>
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.contiguous_range"></a>Contiguous Range</h3></div></div></div>
 <a name="contiguous_range.description"></a><h4>
-<a name="id504166"></a>
+<a name="id503926"></a>
         Description
       </h4>
 <p>
@@ -294,7 +246,7 @@
         whose elements are stored contiguously.
       </p>
 <a name="contiguous_range.refinement_of"></a><h4>
-<a name="id504214"></a>
+<a name="id503974"></a>
         Refinement of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -302,7 +254,7 @@
           Access</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
 </li></ul></div>
 <a name="contiguous_range.requirements"></a><h4>
-<a name="id504248"></a>
+<a name="id504008"></a>
         Requirements
       </h4>
 <p>
@@ -315,7 +267,7 @@
           for all <code class="computeroutput"><span class="identifier">n</span></code> such that <code class="computeroutput"><span class="number">0</span> <span class="special">&lt;=</span> <span class="identifier">n</span> <span class="special">&amp;&amp;</span> <span class="identifier">n</span> <span class="special">&lt;</span> <span class="identifier">_end</span><span class="special">(</span><span class="identifier">r</span><span class="special">)</span> <span class="special">-</span> <span class="identifier">_begin</span><span class="special">(</span><span class="identifier">r</span><span class="special">)</span></code>.
         </li></ul></div>
 <a name="contiguous_range.models"></a><h4>
-<a name="id504511"></a>
+<a name="id504270"></a>
         Models
       </h4>
 <div class="itemizedlist"><ul type="disc">

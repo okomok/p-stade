@@ -83,7 +83,7 @@ struct your_sequence :
 namespace pstade_oven_extension {
 
     template< class T >
-    struct Range<T,
+    struct Range_base<T,
         typename enable_if< mine::is_container<T> >::type >
     {
         template< class X >

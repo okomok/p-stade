@@ -80,7 +80,7 @@ It passes adjacent pairs to a function to transform repeatedly.
     [
         [`op_make_adjacent_transformed<R>`]
         [
-            A _callable_object_ type
+            A _deferred_callable_object_ type
         ]
     ]
     [
@@ -154,43 +154,6 @@ It passes adjacent pairs to a function to transform repeatedly.
             | always("lost"),
         std::string("lost")
     ) );
-
-[endsect]
-
-
-
-
-[section appended]
-
-[h3 Description]
-
-[h3 Header]
-* `<pstade/oven/appended.hpp>`
-
-[h3 Model of]
-* _pipable_object_
-
-[h3 Valid expressions]
-[table 
-    [
-        [[*Valid expression]]
-        [[*Semantics]]
-    ]
-    [
-        [`_rng|appended(x)`]
-        [
-            `_rng|jointed(single(x))`
-        ]
-    ]
-]
-
-[h3 Preconditions]
-* `_rng|jointed(single(x))` is a valid expression.
-
-[h3 See also]
-* [link oven.single single]
-* [link oven.jointed jointed]
-* [link oven.prepended prepended]
 
 [endsect]
 
@@ -271,7 +234,7 @@ It passes adjacent pairs to a function to transform repeatedly.
     [
         [`op_make_broken_into<V>`]
         [
-            A _callable_object_ type
+            A _deferred_callable_object_ type
         ]
     ]
     [
@@ -442,7 +405,7 @@ It passes adjacent pairs to a function to transform repeatedly.
 * `LocalRange` is _range_.
 * Destruction of a `SegmentIterator` doesn't invalidate the `LocalIterator` previously obtained from that iterator.
 
-[note The last precondition implies that `SegmentIterator` isn't allowed to manage the lifetime of `LocalIterator` referents.
+[important The last precondition implies that `SegmentIterator` isn't allowed to manage the lifetime of `LocalIterator` referents.
       Hence `broken_into` and `xpressive_tokenized` can't meets the precondition.
       Fortunately, `memoized` can turn them into _lvalue_ _range_ which meets it trivially.]
 
@@ -507,7 +470,7 @@ It passes adjacent pairs to a function to transform repeatedly.
 `const_refs` converts the base range into a range of /const reference/,
 then pretends to be a range of _forward_iterator_.
 
-[note Strictly speaking, an iterator obtained is not a conforming _forward_iterator_.]
+[tip Strictly speaking, an iterator obtained is not a conforming _forward_iterator_.]
 
 [h3 Header]
 * `<pstade/oven/const_refs.hpp>`
@@ -623,7 +586,7 @@ then pretends to be a range of _forward_iterator_.
     ) );
 
 [h3 See also]
-* [link oven.repeat repeat]
+* [link oven.single single]
 
 [endsect]
 
@@ -661,7 +624,7 @@ then pretends to be a range of _forward_iterator_.
 [h3 Preconditions]
 * `make_jointed(_rng2, *_begin(_rng1))` is well-formed.
 
-[note `delimited` prepends the delimiter. `dropped` is useful to remove it.]
+[tip `delimited` prepends the delimiter. `dropped` is useful to remove it.]
 
 
 [h3 Example]
@@ -806,8 +769,7 @@ then pretends to be a range of _forward_iterator_.
 
 [h3 Preconditions]
 * `T` is `boost::filter_iterator<_typeof(_prd), _typeof(_begin(_rng))>` such that `T(_prd, _begin(_rng), _end(_rng))` is a valid expression.
-* `_prd` is _assignable_.
-* If `_rng` is a _forward_ _range_, `_prd` is _default_constructible_.
+* `_prd` is _assignable_ and _default_constructible_.
 
 [h3 Complexity]
 * At most `distance(_rng)` applications of the corresponding `_prd`.
@@ -886,7 +848,7 @@ then pretends to be a range of _forward_iterator_.
     [
         [`op_make_identities<>`]
         [
-            A _callable_object_ type
+            A _deferred_callable_object_ type
         ]
     ]
     [
@@ -947,7 +909,7 @@ then pretends to be a range of _forward_iterator_.
     [
         [`op_make_indirected<X1,..,XN>`]
         [
-            A _callable_object_ type
+            A _deferred_callable_object_ type
         ]
     ]
     [
@@ -1038,8 +1000,6 @@ then pretends to be a range of _forward_iterator_.
     ) );
 
 [h3 See also]
-* [link oven.appended appended]
-* [link oven.prepended prepended]
 
 [endsect]
 
@@ -1166,7 +1126,7 @@ then pretends to be a range of _forward_iterator_.
     [
         [`op_make_matches<X1,..,XN>`]
         [
-            A _callable_object_ type
+            A _deferred_callable_object_ type
         ]
     ]
     [
@@ -1278,7 +1238,7 @@ then pretends to be a range of _forward_iterator_.
     [
         [`op_make_merged<>`]
         [
-            A _callable_object_ type
+            A _deferred_callable_object_ type
         ]
     ]
     [
@@ -1311,8 +1271,7 @@ then pretends to be a range of _forward_iterator_.
 * `boost::range_reference<_typeof(_rng2)>::type` is convertible to `boost::range_reference<_typeof(_rng1)>::type`
   without binding /reference/ to /rvalue/.
 * `_rng1` and `_rng2` are sorted.
-* `_prd` is _assignable_.
-* If `_rng1` and `_rng2` are _forward_ _range_, `_prd` is _default_constructible_.
+* `_prd` is _assignable_ and _default_constructible_.
 
 [h3 Example]
     std::string A1("abbbfH");
@@ -1599,45 +1558,6 @@ That is, the view includes every element of the given range but in a potentially
 
 
 
-[section prepended]
-
-[h3 Description]
-
-[h3 Header]
-* `<pstade/oven/prepended.hpp>`
-
-[h3 Model of]
-* _pipable_object_
-
-[h3 Valid expressions]
-[table 
-    [
-        [[*Valid expression]]
-        [[*Semantics]]
-    ]
-    [
-        [`_rng|prepended`]
-        [
-            `single(v)|jointed(_rng)`
-        ]
-    ]
-]
-
-[h3 Preconditions]
-* `single(v)|jointed(_rng)` is a valid expression.
-
-[h3 Example]
-
-[h3 See also]
-* [link oven.appended appended]
-* [link oven.jointed jointed]
-* [link oven.single single]
-
-[endsect]
-
-
-
-
 [section reversed]
 
 [h3 Description]
@@ -1718,9 +1638,7 @@ A range returned from `reversed` iterates in the opposite direction.
 * `S1` is _assignable_ and _copy_constructible_.
 * `_fun1(_fun1(b, b), b)` is well-formed, where `b = *_begin(_rng))`.
 * `!boost::empty(_rng1)`
-* `_fun` and `_fun1` are _assignable_.
-* If `_rng` is a _forward_ _range_, `_fun` and `s` are _default_constructible_.
-* If `_rng1` is a _forward_ _range_, `_fun1` ard `S1` are _default_constructible_.
+* `_fun` and `_fun1` are _assignable_ and _default_constructible_.
 
 [h3 Example]
     int const src[] = { 1,2,3,4,5 };
@@ -1970,7 +1888,7 @@ A range returned from `reversed` iterates in the opposite direction.
 [h3 Description]
 `sliced` provides a column view of the base range.
 
-[note This name comes from `std::slice` and different from _proposal_, which is the role of `offset` or `window`.]
+[important This name comes from `std::slice` and different from _proposal_, which is the role of `offset` or `window`.]
 
 [h3 Header]
 * `<pstade/oven/sliced.hpp>`
@@ -2021,7 +1939,7 @@ A range returned from `reversed` iterates in the opposite direction.
 [h3 Description]
 `sorted` provides a sorted view of the base range.
 
-[note Though `sorted` can accept _forward_ (possibly non-_writable_) _range_,
+[caution Though `sorted` can accept _forward_ (possibly non-_writable_) _range_,
       it may be considered expensive in some applications.]
 
 [h3 Header]
@@ -2274,8 +2192,7 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
 
 [h3 Preconditions]
 * `_typeof(n)` is convertible to `range_difference<_typeof(_rng)>::type`.
-* `_prd` is _assignable_.
-* If `_rng` is a _forward_ _range_, `_prd` is _default_constructible_.
+* `_prd` is _assignable_ and _default_constructible_.
 
 [h3 Example]
 
@@ -2307,7 +2224,7 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
     [
         [`op_make_tokenized<Y1,..,YN>`]
         [
-            A _callable_object_ type
+            A _deferred_callable_object_ type
         ]
     ]
     [
@@ -2357,7 +2274,7 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
     [
         [`op_make_transformed<R>`]
         [
-           A _callable_object_ type
+           A _deferred_callable_object_ type
         ]
     ]
     [
@@ -2369,7 +2286,7 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
     [
         [`op_make_transformed<>`]
         [
-           A _callable_object_ type
+           A _deferred_callable_object_ type
         ]
     ]
     [
@@ -2395,8 +2312,7 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
 [h3 Preconditions]
 * `T` is `boost::transform_iterator<_typeof(_fun), _typeof(_begin(_rng)), R>` such that `T(_begin(_rng), _fun)` is a valid expression.
 * `U` is `boost::transform_iterator<_typeof(_cal), _typeof(_begin(_rng)), boost::result_of<_typeof(_cal)(*_begin(_rng))>::type>` such that `U(_begin(_rng), _cal)` is a valid expression.
-* `_fun` and `_cal` are _assignable_.
-* If `_rng` is a _forward_ _range_, `_fun` and `_cal` are _default_constructible_.
+* `_fun` and `_cal` are _assignable_ and _default_constructible_.
 
 [h3 Example]
 
@@ -2452,6 +2368,66 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
 
 [h3 See also]
 * [link oven.adjacent_filtered adjacent_filtered]
+
+[endsect]
+
+
+
+
+[section utf8_decoded]
+
+[h3 Description]
+Pending...
+
+[h3 Header]
+* `<pstade/oven/utf8_decoded.hpp>`
+
+[h3 Model of]
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`op_make_utf8_decoded<X1,..,XN>`]
+        [
+            A _deferred_callable_object_ type
+        ]
+    ]
+    [
+        [`op_make_utf8_decoded<X1,..,XN>()(_bidrng)`]
+        [
+            `[T(_begin(_bidrng)), T(_end(_bidrng)))`
+        ]
+    ]
+    [
+        [`make_utf8_decoded(_bidrng)`]
+        [
+            `op_make_utf8_decoded<>()(_bidrng)`
+        ]
+    ]
+    [
+        [`_bidrng|utf8_decoded`]
+        [
+            `op_make_utf8_decoded<>()(_bidrng)`
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* `T` is `boost::u8_to_u32_iterator<X1,..,XN>` such that `T(_begin(_bidrng))` is a valid expression.
+
+[h3 Example]
+    file_range<boost::uint8_t> frng("utf8.txt");
+    std::vector<boost::uint8_t> result;
+    copy(frng|utf8_decoded, utf8_encoder(std::back_inserter(result)));
+    BOOST_CHECK( equals(frng, result) );
+
+[h3 See also]
+* [link oven.file_range file_range]
+* [link oven.utf8_encoder utf8_encoder]
 
 [endsect]
 

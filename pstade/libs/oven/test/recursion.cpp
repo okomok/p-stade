@@ -15,8 +15,7 @@
 
 
 #include <pstade/oven/reversed.hpp>
-#include <pstade/oven/appended.hpp>
-#include <pstade/oven/prepended.hpp>
+#include <pstade/oven/single.hpp>
 #include <pstade/oven/any_range.hpp>
 #include <pstade/oven/taken.hpp>
 #include <pstade/oven/copy_range.hpp>
@@ -51,7 +50,7 @@ void pstade_unit_test()
         range ones;
 
         int const one = 1;
-        ones = recursion(ones)|prepended(one);
+        ones = single(one)|jointed(recursion(ones));
 
         int const ans_[] = { 1,1,1,1,1,1,1,1 };
         std::vector<int> ans = ans_|copied;
@@ -65,7 +64,7 @@ void pstade_unit_test()
         memo_table tb;
 
         int const one = 1;
-        ones = recursion(ones)|prepended(one)|memoized(tb);
+        ones = single(one)|jointed(recursion(ones))|memoized(tb);
 
         int const ans_[] = { 1,1,1,1,1,1,1,1 };
         std::vector<int> ans = ans_|copied;
@@ -93,7 +92,7 @@ void pstade_unit_test()
         any_range<int const&, boost::bidirectional_traversal_tag> ones;
 
         int const one = 1;
-        ones = recursion(ones)|appended(one);
+        ones = recursion(ones)|jointed(single(one));
 
         int const ans_[] = { 1,1,1,1,1,1,1,1 };
         std::vector<int> ans = ans_|copied;

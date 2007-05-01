@@ -10,8 +10,8 @@
 //#define BOOST_TYPEOF_EMULATION
 
 
-//#include <pstade/../libs/wine/test/indirect.cpp>
-#include <pstade/../libs/oven/test/generation.cpp>
+#include <pstade/../libs/wine/test/constable.cpp>
+//#include <pstade/../libs/oven/test/generation.cpp>
 //#include <pstade/../libs/oven/example/indirect.cpp>
 //#include <pstade/../libs/biscuit/test/capture.cpp>
 //#include <pstade/../libs/oven/test/ms/atl_string.cpp>

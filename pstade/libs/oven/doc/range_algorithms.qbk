@@ -97,8 +97,9 @@ Oven provides range-based algorithms taking a range instead of two iterators.
 [endsect]
 
 
-[note Unfortunately, Oven STL Algorithms and Numerics are not traversal-aware.
-A _random_access_ _range_ but not _lvalue_ _range_ is regarded as an _input_iterator_ range.]
+[important Unfortunately, Oven STL Algorithms and Numerics are not traversal-aware.
+  A _random_access_ _range_ whose `boost::range_reference` type is not a /reference type/
+  is regarded as an _input_iterator_ range.]
 
 
 
@@ -265,7 +266,7 @@ The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied
 * `<pstade/oven/equals.hpp>`
 
 [h3 Model of]
-* _callable_object_
+* _operatable_object_
 
 [h3 Notation]
 * `eq` is `(boost::lambda::_1 == boost::lambda::_2)`.

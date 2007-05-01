@@ -141,7 +141,7 @@ from the _generator_ concept. `nonstop` turns a _generator_ into a [link oven.ge
 ]
 
 [h3 Preconditions]
-* `g` is a both _generator_ and _callable_object_.
+* `g` is a both _generator_ and _deferred_callable_object_.
 
 [h3 Example]
     BOOST_FOREACH (long x, generation(nonstop(&std::rand))|taken(30)) {
@@ -177,12 +177,12 @@ An iterator holding such a functor can't conform to even _input_iterator_.
     ]
     [
         [`regular(f)`]
-        [Converts `f` into a _callable_object_ which is _default_constructible_ and _assignable_.]
+        [Converts `f` into a _deferred_callable_object_ which is _default_constructible_ and _assignable_.]
     ]
 ]
 
 [h3 Preconditions]
-* `f` is a _boost_lambda_ functor or _callable_object_.
+* `f` is a _boost_lambda_ functor or _deferred_callable_object_.
 
 [h3 Example]
     BOOST_CHECK( equals(
@@ -195,6 +195,7 @@ An iterator holding such a functor can't conform to even _input_iterator_.
 [h3 See also]
 * _boost_lambda_
 * [link oven.filtered filtered]
+* [link oven.regular_ref regular_ref]
 * [link oven.transformed transformed]
 
 [endsect]
@@ -205,8 +206,8 @@ An iterator holding such a functor can't conform to even _input_iterator_.
 [section regular_ref]
 
 [h3 Description]
-A _callable_object_ like a random number generator may not be copyable, while many algorithms require to be.
-`regular_ref`, holding a reference to noncopyable _callable_object_, behaves as copyable one.
+A _deferred_callable_object_ like a random number generator may not be copyable, while many algorithms require to be.
+`regular_ref`, holding a reference to noncopyable _deferred_callable_object_, behaves as copyable one.
 
 [h3 Header]
 * `<pstade/oven/regular.hpp>`
@@ -221,10 +222,18 @@ A _callable_object_ like a random number generator may not be copyable, while ma
         [[*Semantics]]
     ]
     [
-        [`regular_ref(_fun)`]
-        [Converts `_fun` into a copyable _callable_object_. All the calls are forwarded to `_fun`.]
+        [`regular_ref(f)`]
+        [Converts `f` into a copyable _deferred_callable_object_. All the calls are forwarded to `f`.]
     ]
 ]
+
+[h3 Preconditions]
+* `f` is a _deferred_callable_object_ but may be noncopyable.
+* `f` is not destructed as long as `regular_ref(f)` is called.
+
+
+[h3 See also]
+* [link oven.regular regular]
 
 [endsect]
 
@@ -234,13 +243,13 @@ A _callable_object_ like a random number generator may not be copyable, while ma
 [section to_upper/to_lower]
 
 [h3 Description]
-`to_upper` and `to_lower` is the _callable_object_ version of `std::toupper` and `std::tolower` respectively.
+`to_upper` and `to_lower` is the _deferred_callable_object_ version of `std::toupper` and `std::tolower` respectively.
 
 [h3 Header]
 * `<pstade/oven/locale.hpp>`
 
 [h3 Model of]
-* _callable_object_
+* _deferred_callable_object_
 
 [h3 Valid expressions]
 [table 
@@ -276,7 +285,7 @@ A _callable_object_ like a random number generator may not be copyable, while ma
         std::string("abCde")|transformed(to_upper)
     ));
 
-[note `to_upper` and `to_lower` is a _callable_object_, hence you need not to
+[note `to_upper` and `to_lower` is a _deferred_callable_object_, hence you need not to
       care whether the base range is `std::string` or `std::wstring`.]
 
 [h3 See also]
@@ -409,7 +418,7 @@ Though `zipped` accepts a function taking a `boost::tuple` as the parameter, it 
     [
         [`op_make_zipped_with<R>`]
         [
-            A _callable_object_ type
+            A _deferred_callable_object_ type
         ]
     ]
     [

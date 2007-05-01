@@ -41,7 +41,6 @@
 </dl></dd>
 <dt><span class="section"><a href="oven/concepts.html">Concepts</a></span></dt>
 <dd><dl>
-<dt><span class="section"><a href="oven/concepts.html#oven.callable_object">Callable Object</a></span></dt>
 <dt><span class="section"><a href="oven/concepts.html#oven.operatable_object">Operatable Object</a></span></dt>
 <dt><span class="section"><a href="oven/concepts.html#oven.pipable_object">Pipable Object</a></span></dt>
 <dt><span class="section"><a href="oven/concepts.html#oven.auxiliary_interface">Auxiliary Interface</a></span></dt>
@@ -82,7 +81,6 @@
 <dt><span class="section"><a href="oven/range_makers.html#oven.reading">reading</a></span></dt>
 <dt><span class="section"><a href="oven/range_makers.html#oven.readingbuf">readingbuf</a></span></dt>
 <dt><span class="section"><a href="oven/range_makers.html#oven.recursion">recursion</a></span></dt>
-<dt><span class="section"><a href="oven/range_makers.html#oven.repeat">repeat</a></span></dt>
 <dt><span class="section"><a href="oven/range_makers.html#oven.shared">shared</a></span></dt>
 <dt><span class="section"><a href="oven/range_makers.html#oven.single">single</a></span></dt>
 <dt><span class="section"><a href="oven/range_makers.html#oven.shared_single">shared_single</a></span></dt>
@@ -92,7 +90,6 @@
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.adjacent_filtered">adjacent_filtered</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.adjacent_transformed">adjacent_transformed</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.always">always</a></span></dt>
-<dt><span class="section"><a href="oven/range_adaptors.html#oven.appended">appended</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.applied">applied</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.broken_into">broken_into</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.checked">checked</a></span></dt>
@@ -121,7 +118,6 @@
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.permuted">permuted</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.pointed">pointed</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.popped">popped</a></span></dt>
-<dt><span class="section"><a href="oven/range_adaptors.html#oven.prepended">prepended</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.reversed">reversed</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.scanned">scanned</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.seconds">seconds</a></span></dt>
@@ -139,6 +135,7 @@
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.tokenized">tokenized</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.transformed">transformed</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.uniqued">uniqued</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.utf8_decoded">utf8_decoded</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.window">window</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.xpressive_matches">xpressive_matches</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.xpressive_tokenized">xpressive_tokenized</a></span></dt>
@@ -356,7 +353,8 @@
 <tr>
 <td><code class="computeroutput"><span class="identifier">_cal</span></code></td>
 <td>Any
-              <a href="oven/concepts.html#oven.callable_object" title="Callable Object">Callable Object</a>
+              <a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
+              Callable Object</a>
 </td>
 </tr>
 <tr>
@@ -375,7 +373,7 @@
 </tr>
 <tr>
 <td><code class="computeroutput"><span class="identifier">_iter_of</span></code></td>
-<td><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a><span class="identifier">_result_iterator</span></code></td>
+<td><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">range_result_iterator</span></code></td>
 </tr>
 <tr>
 <td><code class="computeroutput"><span class="special">[</span><span class="identifier">i</span><span class="special">,</span> <span class="identifier">j</span><span class="special">)</span></code></td>
@@ -402,7 +400,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><small><p>Last revised: April 28, 2007 at 23:44:45 GMT</p></small></td>
+<td align="left"><small><p>Last revised: April 30, 2007 at 23:57:07 GMT</p></small></td>
 <td align="right"><small></small></td>
 </tr></table>
 <hr>

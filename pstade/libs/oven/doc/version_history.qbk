@@ -134,7 +134,8 @@
 * Fixed a bug that `memoized` is not conforming `lvalue` range.
 * `popped` returns in constant time.
 * `iteration` returns `ForwardRange`.
-
+* Removed `repeat`, `appended` and `prepended`.
+* Optimized `regular`.
 
 
 

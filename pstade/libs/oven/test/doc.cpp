@@ -180,12 +180,14 @@ void test_adjacent_filtered()
 
 void test_appended()
 {
+#if 0
     std::string const str("hello, appen");
 
     BOOST_CHECK( oven::equals(
         str|appended('d')|appended('e')|appended('d')|appended('!'),
         std::string("hello, appended!")
     ) );
+#endif
 }
 
 

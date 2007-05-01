@@ -122,7 +122,7 @@ This document uses the following notation:
     ]
     [
         [`_cal`]
-        [Any _callable_object_]
+        [Any _deferred_callable_object_]
     ]
     [
         [`_prd`]
@@ -138,7 +138,7 @@ This document uses the following notation:
     ]
     [
         [`_iter_of`]
-        [`boost::_range__result_iterator`]
+        [`boost::range_result_iterator`]
     ]
     [
         [`[i, j)`]

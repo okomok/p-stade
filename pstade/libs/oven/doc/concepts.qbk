@@ -3,42 +3,16 @@
 
 
 
-[section Callable Object]
-
-[h3 Description]
-A _callable_object_ is a _function_object_ which can be used with _boost_result_of_.
-
-[h3 Refinement of]
-* _function_object_
-
-[h3 Requirements]
-In addition to the requirements defined in _function_object_,
-for any _callable_object_ `f` the following must be met:
-
-* `_typeof(f)` can be used with _boost_result_of_ to get the result type of function call `f`.
-
-[h3 Models]
-* Any function poiner
-* Any _function_object_ of Oven
-
-[endsect]
-
-
-[note All the _function_object_ Oven defines are _assignable_ and _default_constructible_.]
-
-
-
-
 [section Operatable Object]
 
 [h3 Description]
-An _operatable_object_ is a _callable_object_ which can specify the type of itself using prefix `op_`.
+An _operatable_object_ is a _deferred_callable_object_ which can specify the type of itself using prefix `op_`.
 
 [h3 Refinement of]
-* _callable_object_
+* _deferred_callable_object_
 
 [h3 Requirements]
-In addition to the requirements defined in _callable_object_,
+In addition to the requirements defined in _deferred_callable_object_,
 for any _operatable_object_ `f` the following must be met:
 
 * `op_f` is `_typeof(f)`.
@@ -90,7 +64,7 @@ _operatable_object_
 In addition to the requirements defined in _operatable_object_,
 for any _auxiliary_interface_ `i` the following must be met:
 
-* `x|i(x0,..,xN)` is a valid exression if and only if `i(x, x0,..,xN)` is a valid expression.
+* `x|i(x0,..,xN)` is a valid expression if and only if `i(x, x0,..,xN)` is a valid expression.
 * `x|i(x0,..xN)` and `i(x, x0,..,xN)` have the same effects.
 * If `N` is `0`, `x|i()` and `x|i` are valid expressions which have the same effects.
 
@@ -113,17 +87,17 @@ A _stoppable_generator_ is a _generator_ which can specify the stop of generatin
 
 [h3 Refinement of]
 * _generator_
-* _callable_object_
+* _deferred_callable_object_
 
 [h3 Requirements]
-In addition to the requirements defined in _generator_ and _callable_object_,
+In addition to the requirements defined in _generator_ and _deferred_callable_object_,
 for any _stoppable_generator_ `g` the following must be met:
 
 * `_typeof(g())` is a `boost::optional`.
 * An /uninitialized/ result is considered as the stop of generating.
 
 [h3 Models]
-* Any _callable_object_ which [link oven.nonstop nonstop] returns.
+* Any _deferred_callable_object_ which [link oven.nonstop nonstop] returns.
 
 [endsect]
 

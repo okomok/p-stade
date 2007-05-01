@@ -39,7 +39,7 @@
 #include <boost/range/end.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/const_fun.hpp>
+#include <pstade/constable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
@@ -155,7 +155,7 @@ struct op_make_transformed :
         typedef typename
             use_default_eval_to<
                 Reference,
-                boost::result_of<PSTADE_CONST_FUN_TPL(fun_t)(base_ref_t)>
+                boost::result_of<PSTADE_CONSTABLE_TPL(fun_t const)(base_ref_t)>
             >::type
         ref_t;
 

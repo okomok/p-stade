@@ -18,7 +18,7 @@
 
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/const_fun.hpp>
+#include <pstade/constable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/fuse.hpp>
 #include <pstade/pass_by.hpp>
@@ -39,7 +39,7 @@ namespace pstade {
             template<class Myself, class Arguments>
             struct apply :
                 boost::result_of<
-                    PSTADE_CONST_FUN_TPL(F)(
+                    PSTADE_CONSTABLE_TPL(F const)(
                         typename boost::result_of<
                             typename boost::result_of<op_fuse(G const&)>::type(Arguments&)
                         >::type

@@ -18,7 +18,7 @@
 #include <functional>
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/const_fun.hpp>
+#include <pstade/constable.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/specified.hpp>
 
@@ -33,10 +33,10 @@ namespace pstade {
         struct return_fun1 :
             std::unary_function<
                 A0,
-                typename boost::result_of<PSTADE_CONST_FUN_TPL(Callable)(A0&)>::type
+                typename boost::result_of<PSTADE_CONSTABLE_TPL(Callable const)(A0&)>::type
             >
         {
-            typename boost::result_of<PSTADE_CONST_FUN_TPL(Callable)(A0&)>::type
+            typename boost::result_of<PSTADE_CONSTABLE_TPL(Callable const)(A0&)>::type
             operator()(A0& a0) const
             {
                 return m_fun(a0);
@@ -55,10 +55,10 @@ namespace pstade {
         struct return_fun2 :
             std::binary_function<
                 A0, A1,
-                typename boost::result_of<PSTADE_CONST_FUN_TPL(Callable)(A0&, A1&)>::type
+                typename boost::result_of<PSTADE_CONSTABLE_TPL(Callable const)(A0&, A1&)>::type
             >
         {
-            typename boost::result_of<PSTADE_CONST_FUN_TPL(Callable)(A0&, A1&)>::type
+            typename boost::result_of<PSTADE_CONSTABLE_TPL(Callable const)(A0&, A1&)>::type
             operator()(A0& a0, A1& a1) const
             {
                 return m_fun(a0, a1);
