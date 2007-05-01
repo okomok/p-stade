@@ -24,6 +24,8 @@ A Range Adaptor meets the following requirements unless otherwise specified:
 [h3 Notation]
 * `{a1,..,aN}` is `_fwdrng`.
 * `{b1,..,bM}` is a [@http://en.wikipedia.org/wiki/Subsequence subsequence] of `{a1,..,aN}`.
+* `_prd(b1, b2)`, `_prd(b2, b3)`, .., `_prd(bM-1, bM)` are `true`.
+* The distance from `bI` to `bJ` is minimum for all `(bI, bJ)`.
 
 [h3 Valid expressions]
 [table 
@@ -40,9 +42,7 @@ A Range Adaptor meets the following requirements unless otherwise specified:
 ]
 
 [h3 Preconditions]
-* `_prd(*_begin(_fwdrng), *_begin(_fwdrng))` is a well-formed.
-* `_prd(b1, b2)`, `_prd(b2, b3)`, .., `_prd(bM-1, bM)` are `true`.
-* The distance from `bI` to `bJ` is minimum for all `(bI, bJ)`.
+* `_prd(*_begin(_fwdrng), *_begin(_fwdrng))` is well-formed.
 * `_prd` is _assignable_ and _default_constructible_.
 
 [h3 Complexity]
@@ -2199,6 +2199,104 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
 [h3 See also]
 * [link oven.dropped_while dropped_while]
 * [link oven.taken taken]
+
+[endsect]
+
+
+
+
+[section to_lower]
+
+[h3 Description]
+`to_lower` performs case-conversion on all characters in the base range.
+
+[important This is an adaptor returning a "view", while _string_algo_proposal_ returns a new allocated range.]
+
+[h3 Header]
+* `<pstade/oven/to_lower.hpp>`
+
+[h3 Model of]
+* _operatable_object_
+
+[h3 Notation]
+* `loc` is a `std::locale` object.
+* `to_l(loc)` is an imaginary function object which calls `std::tolower` using `loc`.
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_rng|to_lower(loc)`]
+        [`_rng|transformed(to_l(loc))`]
+    ]
+    [
+        [`_rng|to_lower`]
+        [`_rng|to_lower(std::locale())`]
+    ]
+]
+
+[h3 Preconditions]
+* `std::tolower(*_begin(_rng), loc)` is well-formed.
+
+[h3 Example]
+    BOOST_CHECK( equals(
+        std::string("AbCdEFG")|to_lower,
+        std::string("abcdefg")
+    ) );
+
+[h3 See also]
+* [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html#case-conversion to_lower/to_upper proposal]
+* [link oven.to_upper to_upper]
+* [link oven.transformed transformed]
+
+[endsect]
+
+
+
+
+[section to_upper]
+
+[h3 Description]
+`to_upper` performs case-conversion on all characters in the base range.
+
+[h3 Header]
+* `<pstade/oven/to_upper.hpp>`
+
+[h3 Model of]
+* _operatable_object_
+
+[h3 Notation]
+* `loc` is a `std::locale` object.
+* `to_u(loc)` is an imaginary function object which calls `std::toupper` using `loc`.
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_rng|to_upper(loc)`]
+        [`_rng|transformed(to_u(loc))`]
+    ]
+    [
+        [`_rng|to_upper`]
+        [`_rng|to_upper(std::locale())`]
+    ]
+]
+
+[h3 Preconditions]
+* `std::toupper(*_begin(_rng), loc)` is well-formed.
+
+[h3 Example]
+
+[h3 See also]
+* [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html#case-conversion to_lower/to_upper proposal]
+* [link oven.to_lower to_lower]
+* [link oven.transformed transformed]
 
 [endsect]
 

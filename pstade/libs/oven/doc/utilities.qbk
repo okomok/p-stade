@@ -76,10 +76,10 @@ The overhead can be removed with the help of _boost_typeof_ if your compiler sup
 ]
 
 [h3 Preconditions]
-* `boost::range_value<_typeof(_rng)>::type` and `boost::range_difference<_typeof(_rng)>::type` are registered to _boost_typeof_.
+* `boost::range_value<_typeof(_rng)>::type` is registered to _boost_typeof_.
 
-[note As far as the two types are registered, `expression` with _boost_typeof_ macros is portable
- even where native typeof isn't available.]
+[note As far as the precondition met, `expression` with _boost_typeof_ macros is portable
+      even where native typeof isn't available.]
 
 [h3 Example]
     BOOST_AUTO(factorials,
@@ -94,7 +94,7 @@ The overhead can be removed with the help of _boost_typeof_ if your compiler sup
 
 
 
-[section io]
+[section io.hpp]
 
 [h3 Description]
 The header `<pstade/oven/io.hpp>` lets Oven ranges be _input_streamable_ and _output_streamable_.
@@ -240,62 +240,6 @@ A _deferred_callable_object_ like a random number generator may not be copyable,
 
 
 
-[section to_upper/to_lower]
-
-[h3 Description]
-`to_upper` and `to_lower` is the _deferred_callable_object_ version of `std::toupper` and `std::tolower` respectively.
-
-[h3 Header]
-* `<pstade/oven/locale.hpp>`
-
-[h3 Model of]
-* _deferred_callable_object_
-
-[h3 Valid expressions]
-[table 
-    [
-        [[*Valid expression]]
-        [[*Semantics]]
-    ]
-    [
-        [`to_upper(c, l)`]
-        [`std::toupper(c, l)`]
-    ]
-    [
-        [`to_upper(c_)`]
-        [`to_upper(c_, std::locale())`]
-    ]
-    [
-        [`to_lower(c, l)`]
-        [`std::tolower(c, l)`]
-    ]
-    [
-        [`to_lower(c_)`]
-        [`to_lower(c_, std::locale())`]
-    ]
-]
-
-[h3 Preconditions]
-* `std::to_upper(c, l)` is a valid expression.
-* `std::to_upper(c_, std::locale())` is a valid expression.
-
-[h3 Example]
-    BOOST_CHECK( equals(
-        std::string("ABCDE"),
-        std::string("abCde")|transformed(to_upper)
-    ));
-
-[note `to_upper` and `to_lower` is a _deferred_callable_object_, hence you need not to
-      care whether the base range is `std::string` or `std::wstring`.]
-
-[h3 See also]
-* [link oven.transformed transformed]
-
-[endsect]
-
-
-
-
 [section unzipped]
 
 [h3 Description]
@@ -388,7 +332,7 @@ A _deferred_callable_object_ like a random number generator may not be copyable,
     // output> {(1 2),(2 3),(3 4)}
 
 [h3 See also]
-* [@http://www.boost.org/libs/iterator/doc/zip_iterator.html zip_iterator]
+* [@http://www.boost.org/libs/iterator/doc/zip_iterator.html boost::zip_iterator]
 * [link oven.zipped_with zipped_with]
 * [link oven.unzipped unzipped]
 
