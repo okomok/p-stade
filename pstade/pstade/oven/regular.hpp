@@ -79,7 +79,7 @@ namespace regular_detail {
         explicit return_op()
         { }
 
-        explicit return_op(Indirectable ind) :
+        explicit return_op(Indirectable const& ind) :
             m_ind(ind)
         { }
 

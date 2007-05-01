@@ -13,7 +13,7 @@
 // What:
 //
 // Works around a bug that 'boost::result_of<const function-pointer(..)>' doesn't work.
-// If a function object may be a pointer, use 'PSTADE_CONSTABLE(F const)'.
+// If a function object 'F' may be a const pointer, use 'PSTADE_CONSTABLE(F)'.
 
 
 #include <boost/config.hpp>
