@@ -18,8 +18,8 @@
 
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/constable.hpp>
 #include <pstade/constant.hpp>
+#include <pstade/deferred.hpp>
 #include <pstade/fuse.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
@@ -39,7 +39,7 @@ namespace pstade {
             template<class Myself, class Arguments>
             struct apply :
                 boost::result_of<
-                    PSTADE_CONSTABLE_TPL(F const)(
+                    PSTADE_DEFERRED(F const)(
                         typename boost::result_of<
                             typename boost::result_of<op_fuse(G const&)>::type(Arguments&)
                         >::type

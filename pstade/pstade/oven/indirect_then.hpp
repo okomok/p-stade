@@ -17,7 +17,7 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable_by_value.hpp>
-#include <pstade/constable.hpp>
+#include <pstade/deferred.hpp>
 #include <pstade/object_generator.hpp>
 #include <pstade/preprocessor.hpp>
 
@@ -66,7 +66,7 @@ PSTADE_OBJECT_GENERATOR(indirect_then, (indirect_then_detail::return_op< deduce<
 template< class Myself, BOOST_PP_ENUM_PARAMS(n, class I) >
 struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, I)> :
     boost::result_of<
-        PSTADE_CONSTABLE_TPL(Function const)(
+        PSTADE_DEFERRED(Function const)(
             PSTADE_PP_ENUM_PARAMS_WITH(n, typename boost::indirect_reference<I, >::type)
         )
     >

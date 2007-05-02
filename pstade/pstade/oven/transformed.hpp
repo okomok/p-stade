@@ -39,8 +39,8 @@
 #include <boost/range/end.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/constable.hpp>
 #include <pstade/constant.hpp>
+#include <pstade/deferred.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/remove_cvr.hpp>
@@ -155,7 +155,7 @@ struct op_make_transformed :
         typedef typename
             use_default_eval_to<
                 Reference,
-                boost::result_of<PSTADE_CONSTABLE_TPL(fun_t const)(base_ref_t)>
+                boost::result_of<PSTADE_DEFERRED(fun_t const)(base_ref_t)>
             >::type
         ref_t;
 

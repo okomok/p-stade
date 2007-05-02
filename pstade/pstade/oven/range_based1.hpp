@@ -25,7 +25,7 @@
 #include <boost/range/end.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/constable.hpp>
+#include <pstade/deferred.hpp>
 #include <pstade/object_generator.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/to_ref.hpp>
@@ -50,7 +50,7 @@ namespace range_based1_detail {
         template< class Myself, class Range0 >
         struct apply<Myself, Range0> :
             boost::result_of<
-                PSTADE_CONSTABLE_TPL(IterBased const)(
+                PSTADE_DEFERRED(IterBased const)(
                     typename range_iterator<Range0>::type const&,
                     typename range_iterator<Range0>::type const&
                 )
@@ -108,7 +108,7 @@ PSTADE_OBJECT_GENERATOR(range_based1, (range_based1_detail::return_op< deduce<_1
 template< class Myself, class Range0, BOOST_PP_ENUM_PARAMS(n, class A) >
 struct apply<Myself, Range0, BOOST_PP_ENUM_PARAMS(n, A)> :
     boost::result_of<
-        PSTADE_CONSTABLE_TPL(IterBased const)(
+        PSTADE_DEFERRED(IterBased const)(
             typename range_iterator<Range0>::type const&,
             typename range_iterator<Range0>::type const&,
             PSTADE_PP_ENUM_PARAMS_WITH(n, A, &)

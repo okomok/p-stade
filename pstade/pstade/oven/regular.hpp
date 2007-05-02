@@ -29,7 +29,7 @@
 #include <boost/utility/addressof.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/constable.hpp>
+#include <pstade/deferred.hpp>
 #include <pstade/function.hpp>
 #include <pstade/indirect.hpp>
 #include <pstade/pass_by.hpp>
@@ -56,7 +56,7 @@ namespace regular_detail {
     struct return_op :
         callable<
             return_op<Indirectable>,
-            typename boost::result_of<PSTADE_CONSTABLE_TPL(typename function_of<Indirectable>::type)()>::type
+            typename boost::result_of<PSTADE_DEFERRED(typename function_of<Indirectable>::type)()>::type
         >
     {
         typedef typename function_of<Indirectable>::type base_type;
@@ -173,7 +173,7 @@ PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE(pstade::oven::regular_detail::return_
 
 template< class Myself, BOOST_PP_ENUM_PARAMS(n, class A) >
 struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
-    boost::result_of<PSTADE_CONSTABLE_TPL(base_type)(PSTADE_PP_ENUM_PARAMS_WITH(n, A, &))>
+    boost::result_of<PSTADE_DEFERRED(base_type)(PSTADE_PP_ENUM_PARAMS_WITH(n, A, &))>
 { };
 
 template< class Result, BOOST_PP_ENUM_PARAMS(n, class A) >

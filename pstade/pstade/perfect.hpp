@@ -35,8 +35,8 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/constable.hpp>
 #include <pstade/constant.hpp>
+#include <pstade/deferred.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/preprocessor.hpp>
@@ -61,7 +61,7 @@ namespace pstade {
                 return_op<Function, ResultType>,
                 typename result_of_aux<
                     ResultType,
-                    PSTADE_CONSTABLE_TPL(Function const)()
+                    PSTADE_DEFERRED(Function const)()
                 >::type
             >
         {
@@ -153,7 +153,7 @@ template<class Myself, BOOST_PP_ENUM_PARAMS(n, class A)>
 struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
     result_of_aux<
         ResultType,
-        PSTADE_CONSTABLE_TPL(Function const)(PSTADE_PP_ENUM_PARAMS_WITH(n, A, &))
+        PSTADE_DEFERRED(Function const)(PSTADE_PP_ENUM_PARAMS_WITH(n, A, &))
     >
 { };
 

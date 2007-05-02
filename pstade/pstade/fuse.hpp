@@ -18,7 +18,7 @@
 #include <boost/utility/result_of.hpp>
 #include <pstade/at.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/constable.hpp>
+#include <pstade/deferred.hpp>
 #include <pstade/object_generator.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/unused.hpp>
@@ -59,7 +59,7 @@ namespace pstade {
         template<class Function, class FusionSeq>
         struct apply_impl< Function, FusionSeq, int_<0> > :
             boost::result_of<
-                PSTADE_CONSTABLE_TPL(Function const)()
+                PSTADE_DEFERRED(Function const)()
             >
         { };
 
@@ -128,7 +128,7 @@ namespace pstade {
 template<class Function, class FusionSeq>
 struct apply_impl< Function, FusionSeq, int_<n> > :
     boost::result_of<
-        PSTADE_CONSTABLE_TPL(Function const)(
+        PSTADE_DEFERRED(Function const)(
             PSTADE_PP_ENUM_PARAMS_WITH(n, typename boost::result_of<op_tuple_at_c<PSTADE_PP_INT_, >(FusionSeq&)>::type)
         )
     >
