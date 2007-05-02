@@ -211,9 +211,9 @@ namespace io_detail {
 } // namespace io_detail
 
 
-template< class Iterator, class CharT, class Traits >
+template< class Iterator, class Injector, class CharT, class Traits >
 std::basic_istream<CharT, Traits>&
-operator>>(std::basic_istream<CharT, Traits>& is, iter_range<Iterator> const& rng)
+operator>>(std::basic_istream<CharT, Traits>& is, iter_range<Iterator, Injector> const& rng)
 {
     if (!is.good())
         return is;
@@ -226,9 +226,9 @@ operator>>(std::basic_istream<CharT, Traits>& is, iter_range<Iterator> const& rn
 }
 
 
-template< class Iterator, class CharT, class Traits >
+template< class Iterator, class Injector, class CharT, class Traits >
 std::basic_ostream<CharT, Traits>&
-operator<<(std::basic_ostream<CharT, Traits>& os, iter_range<Iterator> const& rng)
+operator<<(std::basic_ostream<CharT, Traits>& os, iter_range<Iterator, Injector> const& rng)
 {
     CharT const l = io_detail::get_mn_char(os, io_detail::mn_open);
     CharT const r = io_detail::get_mn_char(os, io_detail::mn_close);

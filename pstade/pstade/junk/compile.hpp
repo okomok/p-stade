@@ -4,24 +4,35 @@
 
 // PStade.Oven
 //
-// Copyright Shunsuke Sogame 2005-2006.
+// Copyright Shunsuke Sogame 2005-2007.
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/range/begin.hpp>
-#include <boost/range/end.hpp>
+// Pending...
+//
+
+
+// Note:
+//
+// Ranges are always copied.
+// The inifinite number class seems required.
+
+
+#include <limits> // numeric_limits
+#include <boost/config.hpp> // BOOST_NESTED_TEMPLATE
 #include <boost/xpressive/proto/compile.hpp>
 #include <boost/xpressive/proto/operators.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/const.hpp>
 #include <pstade/constant.hpp>
+#include <pstade/deduced_const.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/unused.hpp>
-#include "./joint_iterator.hpp"
+#include "./cycle_range.hpp"
+#include "./iter_range.hpp"
+#include "./joint_range.hpp"
 #include "./range_iterator.hpp"
-#include "./sub_range_result.hpp"
 
 
 namespace pstade { namespace oven {
@@ -30,32 +41,26 @@ namespace pstade { namespace oven {
     namespace compile_detail {
 
 
-        template< class RangeL, class RangeR >
-        struct copied_joint_range_super :
-            iter_range<
-                joint_iterator<
-                    typename range_iterator<RangeL>::type,
-                    typename range_iterator<RangeR>::type
-                >
-            >
-        { };
-
-        template< class RangeL, class RangeR >
-        struct copied_joint_range :
-            copied_joint_range_super<RangeL, RangeR>::type,
-            private as_lightweight_proxy< copied_joint_range<RangeL, RangeR> >
+        template< class Derived >
+        struct compiler
         {
         private:
-            typedef typename copied_joint_range_super<RangeL, RangeR>::type super_t;
+            template< class Expr, class State, class Visitor >
+            struct apply_aux :
+                Derived::BOOST_NESTED_TEMPLATE apply<Expr, State, Visitor>
+            { };
 
         public:
-            copied_joint_range(RangeL rngL, RangeR rngR) : // copy them!!
-                super_t(
-                    oven::make_joint_left_iterator(boost::begin(rngL), boost::end(rngL), boost::begin(rngR)),
-                    oven::make_joint_right_iterator(boost::end(rngL), boost::begin(rngR), boost::end(rngR))
-                )
-            { }
+            template< class Expr, class State, class Visitor >
+            static typename apply_aux<Expr, State, Visitor>::type
+            call(Expr const& expr, State const& state, Visitor& visitor)
+            {
+                return Derived().BOOST_NESTED_TEMPLATE call_<
+                    typename apply_aux<Expr, State, Visitor>::type
+                >(expr, state, visitor);
+            }
         };
+
 
         namespace proto = boost::proto;
 
@@ -65,7 +70,28 @@ namespace pstade { namespace oven {
         struct visitor_t { };
 
 
-        struct joint_compiler
+        struct terminal_compiler :
+            compiler<terminal_compiler>
+        {
+            template< class Expr, class State, class Visitor >
+            struct apply
+            {
+                typedef typename
+                    iter_range_of<PSTADE_DEDUCED_CONST(typename Expr::arg0_type)> const
+                type;
+            };
+
+            template< class Result, class Expr, class State, class Visitor >
+            Result call_(Expr const& expr, State const& state, Visitor& visitor)
+            {
+                unused(state, visitor);
+                return proto::arg(expr);
+            }
+        };
+
+
+        struct joint_compiler :
+            compiler<joint_compiler>
         {
             template< class Expr, class State, class Visitor >
             struct apply
@@ -75,24 +101,23 @@ namespace pstade { namespace oven {
 
                 // compile the left branch
                 typedef typename
-                    proto::compiler<typename left_type::tag_type,  oven_tag>::template apply<left_type,  State, Visitor>::type
+                    proto::compiler<typename left_type::tag_type,  oven_tag>::BOOST_NESTED_TEMPLATE apply<left_type,  State, Visitor>::type
                 left_compiled_type;
 
                 // compile the right branch
                 typedef typename
-                    proto::compiler<typename right_type::tag_type, oven_tag>::template apply<right_type, State, Visitor>::type
+                    proto::compiler<typename right_type::tag_type, oven_tag>::BOOST_NESTED_TEMPLATE apply<right_type, State, Visitor>::type
                 right_compiled_type;
 
                 typedef
-                    copied_joint_range<left_compiled_type, right_compiled_type> const
+                    joint_range<left_compiled_type, right_compiled_type> const
                 type;
             };
 
-            template< class Expr, class State, class Visitor >
-            static typename apply<Expr, State, Visitor>::type
-            call(Expr const& expr, State const& state, Visitor& visitor)
+            template< class Result, class Expr, class State, class Visitor >
+            Result call_(Expr const& expr, State const& state, Visitor& visitor)
             {
-                return typename apply<Expr, State, Visitor>::type(
+                return Result(
                     proto::compile(proto::left(expr),  state, visitor, oven_tag()),
                     proto::compile(proto::right(expr), state, visitor, oven_tag())
                 );
@@ -100,19 +125,30 @@ namespace pstade { namespace oven {
         };
 
 
-        struct terminal_compiler
+        struct positive_compiler :
+            compiler<positive_compiler>
         {
             template< class Expr, class State, class Visitor >
-            struct apply :
-                sub_range_result<PSTADE_CONST(typename Expr::arg0_type)> // for *copied*_joint_range
-            { };
-
-            template< class Expr, class State, class Visitor >
-            static typename apply<Expr, State, Visitor>::type
-            call(Expr const& expr, State const& state, Visitor& visitor)
+            struct apply
             {
-                pstade::unused(state, visitor);
-                return proto::arg(expr);
+                typedef typename Expr::arg0_type::expr_type expr_type;
+
+                typedef typename
+                    proto::compiler<typename expr_type::tag_type,  oven_tag>::BOOST_NESTED_TEMPLATE apply<expr_type,  State, Visitor>::type
+                compiled_type;
+
+                typedef
+                    cycle_range<compiled_type, std::size_t> const
+                type;
+            };
+
+            template< class Result, class Expr, class State, class Visitor >
+            Result call_(Expr const& expr, State const& state, Visitor& visitor)
+            {
+                return Result(
+                    proto::compile(proto::arg(expr), state, visitor, oven_tag()),
+                    (std::numeric_limits<std::size_t>::max)()
+                );
             }
         };
 
@@ -122,7 +158,9 @@ namespace pstade { namespace oven {
         {
             template< class Myself, class Xpr >
             struct apply :
-                boost::proto::meta::compile<Xpr, state_t,  visitor_t, oven_tag>
+                // prefer 'meta' to 'boost::result_of'.
+                // Boost.Proto seems not to be well ported to VC++ yet.
+                proto::meta::compile<Xpr, state_t,  visitor_t, oven_tag>
             { };
 
             template< class Result, class Xpr >
@@ -140,26 +178,8 @@ namespace pstade { namespace oven {
 
     typedef compile_detail::op op_compile;
     PSTADE_CONSTANT(compile, (op_compile))
-    PSTADE_PIPABLE(compiled, (op_compile))
 
-
-    struct op_as_expr :
-        callable<op_as_expr>
-    {
-        template< class Myself, class Range >
-        struct apply :
-            boost::proto::meta::terminal<Range>
-        { };
-
-        template< class Result, class Range >
-        Result call(Range& rng) const
-        {
-            return boost::proto::make_terminal(rng);
-        }
-    };
-
-
-    PSTADE_CONSTANT(as_expr, (op_as_expr))
+    PSTADE_PIPABLE(as_term, (boost::proto::op::make_terminal))
 
 
 } } // namespace pstade::oven
@@ -169,13 +189,20 @@ namespace boost { namespace proto {
 
 
     template< >
-    struct compiler<tag::add, pstade::oven::compile_detail::oven_tag> :
+    struct compiler<tag::terminal, pstade::oven::compile_detail::oven_tag> :
+        pstade::oven::compile_detail::terminal_compiler
+    { };
+
+
+    template< >
+    struct compiler<tag::right_shift, pstade::oven::compile_detail::oven_tag> :
         pstade::oven::compile_detail::joint_compiler
     { };
 
+
     template< >
-    struct compiler<tag::terminal, pstade::oven::compile_detail::oven_tag> :
-        pstade::oven::compile_detail::terminal_compiler
+    struct compiler<tag::unary_plus, pstade::oven::compile_detail::oven_tag> :
+        pstade::oven::compile_detail::positive_compiler
     { };
 
 
