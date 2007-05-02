@@ -17,6 +17,7 @@ test-suite range :
     [ run newton.cpp ]
     [ run one_year.cpp ]
     [ run primes.cpp ]
+    [ run quick_sort.cpp ]
     [ run read.cpp ]
     [ run specification.cpp ]
     [ run zip.cpp ]

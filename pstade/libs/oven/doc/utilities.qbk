@@ -240,6 +240,98 @@ A _deferred_callable_object_ like a random number generator may not be copyable,
 
 
 
+[section to_upper/to_lower]
+
+[h3 Description]
+`to_upper` and `to_lower` is the _operatable_object_ version of `std::toupper` and `std::tolower` respectively.
+
+[h3 Header]
+* `<pstade/oven/transformers.hpp>`
+
+[h3 Model of]
+* _operatable_object_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`to_upper(c, l)`]
+        [`std::toupper(c, l)`]
+    ]
+    [
+        [`to_upper(c_)`]
+        [`to_upper(c_, std::locale())`]
+    ]
+    [
+        [`to_lower(c, l)`]
+        [`std::tolower(c, l)`]
+    ]
+    [
+        [`to_lower(c_)`]
+        [`to_lower(c_, std::locale())`]
+    ]
+]
+
+[h3 Preconditions]
+* `std::to_upper(c, l)` is a valid expression.
+* `std::to_upper(c_, std::locale())` is a valid expression.
+
+[h3 Example]
+    BOOST_CHECK( equals(
+        std::string("ABCDE"),
+        std::string("abCde")|transformed(to_upper)
+    ));
+
+[note `to_upper` and `to_lower` is a _deferred_callable_object_, hence you need not to
+      care whether the base range is `std::string` or `std::wstring`.]
+
+[h3 See also]
+* [link oven.transformed transformed]
+
+[endsect]
+
+
+
+
+[section to_value]
+
+[h3 Description]
+`to_value` returns a "copy" of its argument.
+
+[h3 Header]
+* `<pstade/oven/tranformers.hpp>`
+
+[h3 Model of]
+* _auxiliary_interface_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`to_value(x)`]
+        [`_typeof(x)(x)`]
+    ]
+]
+
+[h3 Preconditions]
+`_typeof(x)` is _copy_constructible_.
+
+[h3 Example]
+
+[h3 See also]
+* [link oven.transformed transformed]
+
+[endsect]
+
+
+
+
 [section unzipped]
 
 [h3 Description]
@@ -250,6 +342,9 @@ A _deferred_callable_object_ like a random number generator may not be copyable,
 
 [h3 Model of]
 * _pipable_object_
+
+[h3 Notation]
+* `{(a11 a12 .. a1N),(a21 a22 .. a2N),..,(aM1 aM2 .. aMN)}` is `_rng`.
 
 [h3 Valid expressions]
 [table 
@@ -267,7 +362,6 @@ A _deferred_callable_object_ like a random number generator may not be copyable,
 
 [h3 Preconditions]
 * `boost::range_value<_typeof(_rng)>::type` is a `boost::tuple`.
-* There is a `a` such that `{(a11 a12 .. a1N),(a21 a22 .. a2N),..,(aM1 aM2 .. aMN)}` is `_rng`.
 
 [h3 Example]
     std::cout <<
@@ -301,6 +395,9 @@ A _deferred_callable_object_ like a random number generator may not be copyable,
 [h3 Model of]
 * _pipable_object_
 
+[h3 Notation]
+* `(_rng1 _rng2 .. _rngN)` is `u`.
+
 [h3 Valid expressions]
 [table 
     [
@@ -316,7 +413,6 @@ A _deferred_callable_object_ like a random number generator may not be copyable,
 ]
 
 [h3 Preconditions]
-* `u` is a `boost::tuple` such that `(_rng1 _rng2 .. _rngN)`.
 * `T` is `boost::zip_iterator<_typeof(boost::make_tuple(_begin(_rng1),..,_begin(_rngN)))>` such that `T(boost::make_tuple(_begin(_rng1),..,_begin(_rngN)))` is a valid expression.
 
 [h3 Example]

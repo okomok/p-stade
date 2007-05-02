@@ -24,7 +24,7 @@ A Range Adaptor meets the following requirements unless otherwise specified:
 [h3 Notation]
 * `{a1,..,aN}` is `_fwdrng`.
 * `{b1,..,bM}` is a [@http://en.wikipedia.org/wiki/Subsequence subsequence] of `{a1,..,aN}`.
-* `_prd(b1, b2)`, `_prd(b2, b3)`, .., `_prd(bM-1, bM)` are `true`.
+* `_prd(b1, b2)`, `_prd(b2, b3)`, .., `_prd(b(M-1), bM)` are `true`.
 * The distance from `bI` to `bJ` is minimum for all `(bI, bJ)`.
 
 [h3 Valid expressions]
@@ -86,13 +86,13 @@ It passes adjacent pairs to a function to transform repeatedly.
     [
         [`op_make_adjacent_transformed<R>()(_fwdrng, _fun)`]
         [
-            `{_fun(a1,a2),_fun(a2,a3),..,_fun(aN-1,aN)}` whose `boost::range_reference` type is `R`.
+            `{_fun(a1,a2),_fun(a2,a3),..,_fun(a(N-1),aN)}` whose `boost::range_reference` type is `R`.
         ]
     ]
     [
         [`op_make_adjacent_transformed<>()(_fwdrng, _cal)`]
         [
-            `{_cal(a1,a2),_cal(a2,a3),..,_cal(aN-1,aN)}`
+            `{_cal(a1,a2),_cal(a2,a3),..,_cal(a(N-1),aN)}`
         ]
     ]
     [
@@ -970,6 +970,9 @@ then pretends to be a range of _forward_iterator_.
 [h3 Notation]
 * `{a1,..,aN}` is `_rng1`.
 * `{b1,..,bM}` is `_rng2`.
+* `cK = a1` for all `K` such that `1 <= K && K <= N`.
+* `cK = static_cast<boost::range_reference<_typeof(_rng1)>::type>(b(K-N))` for all `K` such that `N+1 <= K && K <= N+M`.
+* The traversal category of `{c1,..,c(N+M)}` is minimum of `_rng1` and `_rng2`.
 
 [h3 Valid expressions]
 [table 
@@ -980,7 +983,7 @@ then pretends to be a range of _forward_iterator_.
     [
         [`_rng1|jointed(_rng2)`]
         [
-            `{a1,..aN,b1,..bM}`
+            `{c1,..,c(N+M)}`
         ]
     ]
 ]
@@ -2205,104 +2208,6 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
 
 
 
-[section to_lower]
-
-[h3 Description]
-`to_lower` performs case-conversion on all characters in the base range.
-
-[important This is an adaptor returning a "view", while _string_algo_proposal_ returns a new allocated range.]
-
-[h3 Header]
-* `<pstade/oven/to_lower.hpp>`
-
-[h3 Model of]
-* _operatable_object_
-
-[h3 Notation]
-* `loc` is a `std::locale` object.
-* `to_l(loc)` is an imaginary function object which calls `std::tolower` using `loc`.
-
-[h3 Valid expressions]
-[table 
-    [
-        [[*Valid expression]]
-        [[*Semantics]]
-    ]
-    [
-        [`_rng|to_lower(loc)`]
-        [`_rng|transformed(to_l(loc))`]
-    ]
-    [
-        [`_rng|to_lower`]
-        [`_rng|to_lower(std::locale())`]
-    ]
-]
-
-[h3 Preconditions]
-* `std::tolower(*_begin(_rng), loc)` is well-formed.
-
-[h3 Example]
-    BOOST_CHECK( equals(
-        std::string("AbCdEFG")|to_lower,
-        std::string("abcdefg")
-    ) );
-
-[h3 See also]
-* [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html#case-conversion to_lower/to_upper proposal]
-* [link oven.to_upper to_upper]
-* [link oven.transformed transformed]
-
-[endsect]
-
-
-
-
-[section to_upper]
-
-[h3 Description]
-`to_upper` performs case-conversion on all characters in the base range.
-
-[h3 Header]
-* `<pstade/oven/to_upper.hpp>`
-
-[h3 Model of]
-* _operatable_object_
-
-[h3 Notation]
-* `loc` is a `std::locale` object.
-* `to_u(loc)` is an imaginary function object which calls `std::toupper` using `loc`.
-
-[h3 Valid expressions]
-[table 
-    [
-        [[*Valid expression]]
-        [[*Semantics]]
-    ]
-    [
-        [`_rng|to_upper(loc)`]
-        [`_rng|transformed(to_u(loc))`]
-    ]
-    [
-        [`_rng|to_upper`]
-        [`_rng|to_upper(std::locale())`]
-    ]
-]
-
-[h3 Preconditions]
-* `std::toupper(*_begin(_rng), loc)` is well-formed.
-
-[h3 Example]
-
-[h3 See also]
-* [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html#case-conversion to_lower/to_upper proposal]
-* [link oven.to_lower to_lower]
-* [link oven.transformed transformed]
-
-[endsect]
-
-
-
-
 [section tokenized]
 
 [h3 Description]
@@ -2489,13 +2394,13 @@ Pending...
         [[*Semantics]]
     ]
     [
-        [`op_make_utf8_decoded<X1,..,XN>`]
+        [`op_make_utf8_decoded<U1,..,UN>`]
         [
             A _deferred_callable_object_ type
         ]
     ]
     [
-        [`op_make_utf8_decoded<X1,..,XN>()(_bidrng)`]
+        [`op_make_utf8_decoded<U1,..,UN>()(_bidrng)`]
         [
             `[T(_begin(_bidrng)), T(_end(_bidrng)))`
         ]
@@ -2515,7 +2420,7 @@ Pending...
 ]
 
 [h3 Preconditions]
-* `T` is `boost::u8_to_u32_iterator<X1,..,XN>` such that `T(_begin(_bidrng))` is a valid expression.
+* `T` is `boost::u8_to_u32_iterator<_iter_of<_typeof(_bidrng)>::type, U1,..,UN>` such that `T(_begin(_bidrng))` is a valid expression.
 
 [h3 Example]
     file_range<boost::uint8_t> frng("utf8.txt");

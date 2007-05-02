@@ -561,7 +561,7 @@ on the first argument, the second item by applying the function on the previous 
     int const start[] = { 1, 1 };
     fibs =
         start
-            | transformed(pstade::to_value)
+            | transformed(to_value) // for jointed precondition
             | jointed(
                 boost::make_tuple(recursion(fibs), recursion(fibs)|dropped(1))
                     | zipped_with(regular(boost::lambda::_1 + boost::lambda::_2))

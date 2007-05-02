@@ -119,7 +119,7 @@
 [h2 Version 0.93.6]
 * Added `initializers`.
 
-[h2 Version 0.93.7]
+[h2 Version 0.94.0]
 * Ported to QuickBook.
 * Renamed `advanced` to `offset`.
 * Renamed `directed` to `outdirected`.
@@ -136,6 +136,8 @@
 * `iteration` returns `ForwardRange`.
 * Removed `repeat`, `appended` and `prepended`.
 * Optimized `regular`.
+* Added `to_lower`, `to_upper` and `to_value`.
+
 
 
 
