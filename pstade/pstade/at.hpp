@@ -10,18 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// What:
-//
-// Provides Boost.Fusion-like interfaces to Boost.Tuple,
-// which maybe will come with Boost v1.35.
-//
-// 'tuple_value_at', whose funny name comes from Boost.Fusion,
-// can return reference type.
-//
-// 'std::pair' can't hold reference type
-// because of the reference-to-reference problem.
-
-
 #include <boost/mpl/int.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <boost/type_traits/remove_cv.hpp>
@@ -31,13 +19,20 @@
 #include <pstade/specified.hpp>
 
 
+#include <boost/version.hpp>
+#if BOOST_VERSION >= 103500
+    #include <boost/fusion/sequence/intrinsic/at.hpp>
+    #include <boost/fusion/sequence/intrinsic/value_at.hpp>
+#endif
+
+
 namespace pstade {
 
 
     // at_first
 
     template<class Pair>
-    struct value_at_first
+    struct element_at_first
     {
         typedef typename Pair::first_type type;
     };
@@ -47,7 +42,7 @@ namespace pstade {
     {
         template<class Myself, class Pair>
         struct apply :
-            affect<Pair&, typename value_at_first<Pair>::type>
+            affect<Pair&, typename element_at_first<Pair>::type>
         { };
 
         template<class Result, class Pair>
@@ -63,7 +58,7 @@ namespace pstade {
     // at_second
 
     template<class Pair>
-    struct value_at_second
+    struct element_at_second
     {
         typedef typename Pair::second_type type;
     };
@@ -73,7 +68,7 @@ namespace pstade {
     {
         template<class Myself, class Pair>
         struct apply :
-            affect<Pair&, typename value_at_second<Pair>::type>
+            affect<Pair&, typename element_at_second<Pair>::type>
         { };
 
         template<class Result, class Pair>
@@ -89,7 +84,7 @@ namespace pstade {
     // tuple_at
 
     template<class Tuple, class N>
-    struct tuple_value_at :
+    struct tuple_element_at :
         boost::tuples::element<N::value, typename boost::remove_cv<Tuple>::type>
     { };
 
@@ -99,7 +94,7 @@ namespace pstade {
     {
         template<class Myself, class Tuple>
         struct apply :
-            affect<Tuple&, typename tuple_value_at<Tuple, N>::type>
+            affect<Tuple&, typename tuple_element_at<Tuple, N>::type>
         { };
 
         template<class Result, class Tuple>
@@ -115,8 +110,8 @@ namespace pstade {
     // tuple_at_c
 
     template<class Tuple, int N>
-    struct tuple_value_at_c :
-        tuple_value_at< Tuple, boost::mpl::int_<N> >
+    struct tuple_element_at_c :
+        tuple_element_at< Tuple, boost::mpl::int_<N> >
     { };
 
     template<int N>
@@ -125,6 +120,54 @@ namespace pstade {
     { };
 
     PSTADE_SPECIFIED1(tuple_at_c, op_tuple_at_c, (int))
+
+
+
+#if BOOST_VERSION >= 103500
+
+
+    // fusion_at
+
+    template<class FusionSeq, class N>
+    struct fusion_element_at :
+        boost::fusion::result_of::value_at<FusionSeq, N>
+    { };
+
+    template<class N>
+    struct op_fusion_at :
+        callable< op_fusion_at<N> >
+    {
+        template<class Myself, class FusionSeq>
+        struct apply :
+            affect<FusionSeq&, typename fusion_element_at<FusionSeq, N>::type>
+        { };
+
+        template<class Result, class FusionSeq>
+        Result call(FusionSeq& s) const
+        {
+            return boost::fusion::at<N>(s);
+        }
+    };
+
+    PSTADE_SPECIFIED1(fusion_at, op_fusion_at, 1)
+
+
+    // fusion_at_c
+
+    template<class FusionSeq, int N>
+    struct fusion_element_at_c :
+        fusion_element_at< FusionSeq, boost::mpl::int_<N> >
+    { };
+
+    template<int N>
+    struct op_fusion_at_c :
+        op_fusion_at< boost::mpl::int_<N> >
+    { };
+
+    PSTADE_SPECIFIED1(fusion_at_c, op_fusion_at_c, (int))
+
+
+#endif // BOOST_VERSION >= 103500
 
 
 } // namespace pstade

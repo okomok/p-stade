@@ -43,8 +43,8 @@ struct op_make_applied :
         return Result(b(rng), e(rng));
     }
 
-    template< class Result, class Range, class MakeRange >
-    Result call(Range& rng, MakeRange& make) const
+    template< class Result, class Range, class Make >
+    Result call(Range& rng, Make& make) const
     {
         PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
         return Result(make(rng));

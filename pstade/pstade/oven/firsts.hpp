@@ -43,7 +43,7 @@ namespace firsts_detail {
         typedef typename
             detail::reference_affect<
                 PairRange,
-                value_at_first<boost::mpl::_1>
+                element_at_first<boost::mpl::_1>
             >::type
         ref_t;
 

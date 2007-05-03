@@ -40,7 +40,7 @@ struct op_make_unzipped_at :
         typedef typename
             detail::reference_affect<
                 TupleRange,
-                tuple_value_at<boost::mpl::_1, N>
+                tuple_element_at<boost::mpl::_1, N>
             >::type
         ref_t;
 

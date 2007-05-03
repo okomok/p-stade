@@ -26,7 +26,7 @@
 
 #if 1
     #define PSTADE_DEFERRED typename PSTADE_DEFERRED_TYPE
-    #define PSTADE_DEFERRED_TYPE(F) ::pstade::constable_detail::fix< F >::type
+    #define PSTADE_DEFERRED_TYPE(F) ::pstade::deferred_detail::aux< F >::type
 #else
     // Someday...
     #define PSTADE_DEFERRED(F) F
@@ -34,7 +34,7 @@
 #endif
 
 
-namespace pstade { namespace constable_detail {
+namespace pstade { namespace deferred_detail {
 
 
     template<class T>
@@ -48,7 +48,7 @@ namespace pstade { namespace constable_detail {
 
 
     template<class F>
-    struct fix :
+    struct aux :
         boost::mpl::eval_if< is_pointer<F>,
             boost::remove_const<F>,
             boost::mpl::identity<F>
@@ -56,7 +56,7 @@ namespace pstade { namespace constable_detail {
     { };
 
 
-} } // namespace pstade::constable_detail
+} } // namespace pstade::deferred_detail
 
 
 #endif

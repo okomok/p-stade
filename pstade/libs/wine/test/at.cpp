@@ -26,11 +26,11 @@ using namespace pstade;
 
 typedef std::pair<int, char> pair_t;
 
-BOOST_MPL_ASSERT((boost::is_same<int, value_at_first<pair_t>::type>));
-BOOST_MPL_ASSERT((boost::is_same<char, value_at_second<pair_t>::type>));
+BOOST_MPL_ASSERT((boost::is_same<int, element_at_first<pair_t>::type>));
+BOOST_MPL_ASSERT((boost::is_same<char, element_at_second<pair_t>::type>));
 
-BOOST_MPL_ASSERT((boost::is_same<int, value_at_first<pair_t const>::type>));
-BOOST_MPL_ASSERT((boost::is_same<char, value_at_second<pair_t const>::type>));
+BOOST_MPL_ASSERT((boost::is_same<int, element_at_first<pair_t const>::type>));
+BOOST_MPL_ASSERT((boost::is_same<char, element_at_second<pair_t const>::type>));
 
 // lvalue
 BOOST_MPL_ASSERT((boost::is_same<int&, boost::result_of<op_at_first(pair_t&)>::type>));
@@ -49,11 +49,11 @@ BOOST_MPL_ASSERT((boost::is_same<char const&, boost::result_of<op_at_second(pair
 
 typedef boost::tuples::tuple<int&, double> tup_t;
 
-BOOST_MPL_ASSERT((boost::is_same<int&, tuple_value_at<tup_t, boost::mpl::int_<0> >::type>));
-BOOST_MPL_ASSERT((boost::is_same<double, tuple_value_at<tup_t, boost::mpl::int_<1> >::type>));
+BOOST_MPL_ASSERT((boost::is_same<int&, tuple_element_at<tup_t, boost::mpl::int_<0> >::type>));
+BOOST_MPL_ASSERT((boost::is_same<double, tuple_element_at<tup_t, boost::mpl::int_<1> >::type>));
 
-BOOST_MPL_ASSERT((boost::is_same<int&, tuple_value_at<tup_t const, boost::mpl::int_<0> >::type>));
-BOOST_MPL_ASSERT((boost::is_same<double, tuple_value_at<tup_t const, boost::mpl::int_<1> >::type>));
+BOOST_MPL_ASSERT((boost::is_same<int&, tuple_element_at<tup_t const, boost::mpl::int_<0> >::type>));
+BOOST_MPL_ASSERT((boost::is_same<double, tuple_element_at<tup_t const, boost::mpl::int_<1> >::type>));
 
 // lvalue
 BOOST_MPL_ASSERT((boost::is_same<int&, boost::result_of<op_tuple_at<boost::mpl::int_<0> >(tup_t&)>::type>));

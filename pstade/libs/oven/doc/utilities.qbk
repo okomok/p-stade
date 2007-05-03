@@ -13,6 +13,9 @@ Some helper _function_object_s are given to fill the gap between Oven and other 
 [h3 Header]
 * `<pstade/oven/adapted_to_base.hpp>`
 
+[h3 Model of]
+* `to_base` is an _auxiliary_interface_.
+
 [h3 Valid expressions]
 [table 
     [
@@ -24,7 +27,7 @@ Some helper _function_object_s are given to fill the gap between Oven and other 
         [Returns the shortest `a.base().base()...base()` such that `_typeof(a.base().base()...base())` is convertible to `B`.]
     ]
     [
-        [`B b = x|to_base;`]
+        [`B b = to_base(a);`]
         [`B b = oven::adapted_to<B>(a);`]
     ]
 ]
