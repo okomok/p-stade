@@ -21,6 +21,7 @@
 #include <pstade/function.hpp>
 #include <pstade/nonassignable.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/specified.hpp>
 #include "./concepts.hpp"
 #include "./detail/reference_affect.hpp"
 #include "./range_value.hpp"
@@ -58,8 +59,18 @@ struct op_make_unzipped_at :
 
         typedef typename apply<void, TupleRange>::ref_t ref_t;
         return op_make_transformed<ref_t>()(rng, op_tuple_at<N>());
-    };
+    }
 };
+
+
+template< int N >
+struct op_make_unzipped_at_c :
+    op_make_unzipped_at< boost::mpl::int_<N> >
+{ };
+
+
+PSTADE_SPECIFIED1(make_unzipped_at, op_make_unzipped_at, 1)
+PSTADE_SPECIFIED1(make_unzipped_at_c, op_make_unzipped_at_c, (int))
 
 
 namespace unzipped_at_detail_ {

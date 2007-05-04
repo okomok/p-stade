@@ -47,12 +47,12 @@ namespace pstade { namespace oven {
 namespace iter_range_detail {
 
 
-    // While no copy/assign of iterator throws (23.1/11),
-    // 'begin/end' can throw (http://tinyurl.com/2ov9mw).
+    // 'begin/end' can throw (http://tinyurl.com/2ov9mw),
+    // while copy/assign of iterator doesn't throw (23.1/11).
     template< class Iterator, class Range > inline
     void assign(Iterator& first, Iterator& last, Range& rng)
     {
-        Iterator l(boost::end(rng));
+        typename range_iterator<Range>::type l = boost::end(rng);
         first = boost::begin(rng);
         last  = l;
     }

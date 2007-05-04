@@ -1637,9 +1637,9 @@ A range returned from `reversed` iterates in the opposite direction.
 
 [h3 Preconditions]
 * `s` is _assignable_ and _copy_constructible_.
-* `_fun(_fun(s, a), a)` is well-formed, where `a = *_begin(_rng))`.
+* `a = _fun(_fun(s, a), a)` is well-formed, where `_typeof(*_begin(_rng)) a = *_begin(_rng))`.
 * `S1` is _assignable_ and _copy_constructible_.
-* `_fun1(_fun1(b, b), b)` is well-formed, where `b = *_begin(_rng))`.
+* `b = _fun1(_fun1(b, b), b)` is well-formed, where `_typeof(*_begin(_rng1)) b = *_begin(_rng1))`.
 * `!boost::empty(_rng1)`
 * `_fun` and `_fun1` are _assignable_ and _default_constructible_.
 

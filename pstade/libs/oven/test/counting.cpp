@@ -105,7 +105,7 @@ void test()
         namespace lambda = boost::lambda;
 
         oven::copy(
-            oven::counting_from(1)|
+            oven::counting(1, oven::max_count)|
                 transformed(regular(lambda::_1 * 30))|
                 taken_while(regular(lambda::_1 < 1000)),
                 std::ostream_iterator<int>(std::cout, ",")

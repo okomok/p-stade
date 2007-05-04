@@ -22,7 +22,6 @@
 
 namespace lambda = boost::lambda;
 using namespace pstade::oven;
-using namespace pstade::oven::sugar;
 
 
 typedef

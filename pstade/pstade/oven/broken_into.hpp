@@ -17,6 +17,7 @@
 #include <pstade/deduced_const.hpp>
 #include <pstade/nonassignable.hpp>
 #include <pstade/pass_by.hpp>
+#include <pstade/specified.hpp>
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
@@ -57,6 +58,9 @@ struct op_make_broken_into :
         );
     }
 };
+
+
+PSTADE_SPECIFIED1(make_broken_into, op_make_broken_into, 1)
 
 
 namespace broken_into_detail_ {

@@ -24,23 +24,35 @@ typedef op_make_iter_range op_as_term;
 PSTADE_CONSTANT(as_term, (op_as_term))
 
 
+// +
+
+template< class It1, class In1 > inline
+typename boost::result_of<
+    op_make_cycled(iter_range<It1, In1> const&)
+>::type
+operator+(iter_range<It1, In1> const& rng1)
+{
+    return make_cycled(rng1);
+}
+
+
+// >>
+
+template< class It1, class In1, class It2, class In2 > inline
+typename boost::result_of<
+    op_make_jointed(iter_range<It1, In1> const&, iter_range<It2, In2> const&)
+>::type
+operator>>(iter_range<It1, In1> const& rng1, iter_range<It2, In2> const& rng2)
+{
+    return make_jointed(rng1, rng2);
+}
+
+
 namespace sugar {
 
 
-    // 'result_of' may be ill-formed in overload-resolution,
-    // hence these are placed at separated namespace 'sugar'.
-
-
-    // +
-
-    template< class It1, class In1 > inline
-    typename boost::result_of<
-        op_make_cycled(iter_range<It1, In1> const&)
-    >::type
-    operator+(iter_range<It1, In1> const& rng1)
-    {
-        return make_cycled(rng1);
-    }
+    // In these cases, 'result_of' may be ill-formed in overload-resolution.
+    // You must guarantee to be well-formed and write 'using namespace sugar;'.
 
 
     // >>
@@ -77,15 +89,6 @@ namespace sugar {
         op_make_jointed(Range1 const&, iter_range<It2, In2> const&)
     >::type
     operator>>(Range1 const& rng1, iter_range<It2, In2> const& rng2)
-    {
-        return make_jointed(rng1, rng2);
-    }
-
-    template< class It1, class In1, class It2, class In2 > inline
-    typename boost::result_of<
-        op_make_jointed(iter_range<It1, In1> const&, iter_range<It2, In2> const&)
-    >::type
-    operator>>(iter_range<It1, In1> const& rng1, iter_range<It2, In2> const& rng2)
     {
         return make_jointed(rng1, rng2);
     }

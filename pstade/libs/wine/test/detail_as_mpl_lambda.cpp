@@ -23,6 +23,36 @@
 #include <boost/lambda/core.hpp>
 
 
+namespace pstade { namespace oven {
+namespace counting_from_detail {
+
+
+    template< class Incrementable >
+    struct baby
+    {
+        typedef typename
+            pass_by_value<Incrementable>::type
+        inc_t;
+
+        typedef typename
+            boost::result_of<
+                op_counting<>(Incrementable&, inc_t)
+            >::type
+        result_type;
+
+        result_type operator()(Incrementable& i) const
+        {
+            return counting(i, (std::numeric_limits<inc_t>::max)());
+        }
+    };
+
+
+} // namespace counting_from_detail
+
+PSTADE_FUNCTION(counting_from, (counting_from_detail::baby<_>))
+} } // namespace pstade::oven
+
+
 template< class Lambda >
 struct base_op_front :
     pstade::callable< base_op_front<Lambda> >

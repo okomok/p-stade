@@ -345,7 +345,7 @@ on the first argument, the second item by applying the function on the previous 
 
 [h3 Preconditions]
 * `x` is _assignable_, _default_constructible_, _copy_constructible_, and _equality_comparable_.
-* `_fun(_fun(x))` is a valid expression.
+* `x1 = _fun(x1)` is well-formed, where `_typeof(x) x1 = x`.
 * `_fun` is _assignable_ and _default_constructible_.
 * `_fun` is a [@http://mathworld.wolfram.com/Map.html Map], meaning that `a == b` implies `_fun(a) == _fun(b)`.
 
