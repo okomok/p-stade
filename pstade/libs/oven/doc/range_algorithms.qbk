@@ -191,6 +191,7 @@ Oven provides range-based algorithms taking a range instead of two iterators.
 
 [h3 Notation]
 * `V1` is `boost::range_value<_typeof(_rng1)>::type`.
+* `V3` is `boost::range_value<_typeof(_rng3)>::type`.
 * `to_v1` is `regular(boost::lambda::ll_static_cast<V1>(boost::lambda::_1))`.
 
 [h3 Valid expressions]
@@ -203,15 +204,20 @@ Oven provides range-based algorithms taking a range instead of two iterators.
         [`Rng1 _rng1 = _rng2|copied;`]
         [`Rng1 _rng1(_begin(r), _end(r))`, where `r = _rng2|transformed(to_v1)`.]
     ]
+    [
+        [`Rng3 _rng3(_rng2|copied);`]
+        [`Rng3 _rng3 = _rng2|copied;`]
+    ]
 ]
 
 [h3 Preconditions]
-
 * `boost::range_value<_typeof(_rng2)>::type` is convertible to `V1`.
+* `boost::range_value<_typeof(_rng2)>::type` is convertible to `V3`.
+* `Rng3` is an /aggregate/ type.
 * `copied` isn't placed in a function default argument list.
 
-[note The valid expression implies you can place `copied` everywhere it is used in /copy-initialization/, e.g. `return` statement.
-The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied);` is not listed in valid expressions.]
+[note The first valid expression implies you can place `copied` everywhere it is used in /copy-initialization/, e.g. `return` statement.
+The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied);` is not always a valid expression.]
 
 [h3 Example]
     std::string rng("abcdefg");

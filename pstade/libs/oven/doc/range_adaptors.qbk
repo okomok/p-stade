@@ -835,6 +835,7 @@ then pretends to be a range of _forward_iterator_.
 * `<pstade/oven/identities.hpp>`
 
 [h3 Model of]
+* _pipable_object_
 
 [h3 Notation]
 * `traversal` is an imaginary metafunction which returns a traversal tag type known as `boost::xxx_traversal_tag`.
@@ -846,19 +847,7 @@ then pretends to be a range of _forward_iterator_.
         [[*Semantics]]
     ]
     [
-        [`op_make_identities<>`]
-        [
-            A _deferred_callable_object_ type
-        ]
-    ]
-    [
-        [`op_make_identities<>()(_rng)`]
-        [
-            `[_begin(_rng), _end(_rng))`
-        ]
-    ]
-    [
-        [`op_make_identities<>()(_rng, t)`]
+        [`_rng|identities(t)`]
         [
             `[_begin(_rng), _end(_rng))` whose `traversal` type is `_typeof(t)`.
         ]
@@ -866,13 +855,7 @@ then pretends to be a range of _forward_iterator_.
     [
         [`_rng|identities`]
         [
-            `op_make_identities<>()(_rng)`
-        ]
-    ]
-    [
-        [`_rng|identities(t)`]
-        [
-            `op_make_identities<>()(_rng, t)`
+            `_rng|identities(traversal<_typeof(_rng)>::type())`
         ]
     ]
 ]
@@ -1228,6 +1211,7 @@ then pretends to be a range of _forward_iterator_.
 * `<pstade/oven/merged.hpp>`
 
 [h3 Model of]
+* _pipable_object_
 
 [h3 Notation]
 * `less` is `regular(boost::lambda::_1 < boost::lambda::_2)`.
@@ -1239,33 +1223,15 @@ then pretends to be a range of _forward_iterator_.
         [[*Semantics]]
     ]
     [
-        [`op_make_merged<>`]
-        [
-            A _deferred_callable_object_ type
-        ]
-    ]
-    [
-        [`op_make_merged<>()(_rng1, _rng2, _prd)`]
+        [`_rng1|merged(_rng2, _prd)`]
         [
             An up-to-_forward_ non-_writable_ _range_ which behaves as if it were made by `merge(_rng1, _rng2, _prd)`.
         ]
     ]
     [
-        [`op_make_merged<>()(_rng1, _rng2)`]
-        [
-            `op_make_merded<>()(_rng1, _rng2, less))`
-        ]
-    ]
-    [
-        [`_rng1|merged(_rng2, _prd)`]
-        [
-            `op_make_merged<>()(_rng1, _rng2, _prd)`
-        ]
-    ]
-    [
         [`_rng1|merged(_rng2)`]
         [
-            `op_make_merged<>()(_rng1, _rng2)`
+            `_rng1|merged(_rng2, less)`
         ]
     ]
 ]
@@ -1634,6 +1600,9 @@ A range returned from `reversed` iterates in the opposite direction.
         ]
     ]
 ]
+
+[note `s` is copied, meaning that it is not referenced from Oven later.]
+
 
 [h3 Preconditions]
 * `s` is _assignable_ and _copy_constructible_.

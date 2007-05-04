@@ -282,19 +282,27 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
         ]
     ]
     [
-        [`Rng rng = initial_values(b1,..,bN);`]
+        [`Rng rng = initial_values(a1,..,aN);`]
         [
-            `Rng rng = initial_values(b1,..,bN)|copied;`
+            `Rng rng = initial_values(a1,..,aN)|copied;`
+        ]
+    ]
+    [
+        [`Rng2 rng2(initial_values(a1,..,aN));`]
+        [
+            `Rng2 rng2(initial_values(a1,..,aN)|copied);`
         ]
     ]
 ]
+
+[note Every `aK` is copied, meaning that they are not referenced from Oven later.]
 
 [h3 Preconditions]
 * `1 <= N && N <= 20`
 * `_typeof(aK)` is _copy_constructible_ for all `K` such that `1 <= K && K <= N`.
 * `_typeof(aK)` is convertible to `_typeof(a1)` for all `K` such that `2 <= K && K <= N`.
-* `b` meets the preconditions of `a`.
-* `Rng rng = initial_values(b1,..,bN)|copied;` is a valid expression.
+* `Rng rng = initial_values(a1,..,aN)|copied;` is a valid expression.
+* `Rng2 rng2(initial_values(a1,..,aN)|copied);` is a valid expression.
 
 [tip `initial_values` trades unlimited arity for the lightweight initialization of `boost::array`.
       Also, it doesn't require the arguments to be _assignable_.]
@@ -342,6 +350,8 @@ on the first argument, the second item by applying the function on the previous 
         ]
     ]
 ]
+
+[note `x` is copied, meaning that it is not referenced from Oven later.]
 
 [h3 Preconditions]
 * `x` is _assignable_, _default_constructible_, _copy_constructible_, and _equality_comparable_.
