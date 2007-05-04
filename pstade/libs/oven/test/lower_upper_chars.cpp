@@ -13,17 +13,36 @@
 #include <pstade/oven/tests.hpp>
 #include <pstade/oven/lower_chars.hpp>
 #include <pstade/oven/upper_chars.hpp>
+#include <pstade/oven/const_refs.hpp>
 
 
 #include <string>
 #include "./core.hpp"
-#include <pstade/oven/tests.hpp>
 
 
 void test()
 {
     namespace oven = pstade::oven;
     using namespace oven;
+
+    {
+        std::string ans("abcdefg");
+        std::vector<char> expected = ans|copied;
+
+        BOOST_CHECK( oven::test_RandomAccess_Readable(
+            std::string("AbCdEFg")|lower_chars|const_refs,
+            expected
+        ) );
+    }
+    {
+        std::string ans("ABCDEFG");
+        std::vector<char> expected = ans|copied;
+
+        BOOST_CHECK( oven::test_RandomAccess_Readable(
+            std::string("AbCdEFg")|upper_chars|const_refs,
+            expected
+        ) );
+    }
 
     {
         BOOST_CHECK( equals(

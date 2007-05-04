@@ -38,10 +38,13 @@ namespace BOOST_PP_CAT(PSTADE_name, _detail) {
     {
         typedef CharT result_type;
 
-        CharT operator()(CharT const& ch) const
+        CharT operator()(CharT ch) const
         {
             return PSTADE_func(ch, m_loc);
         }
+
+        explicit convert()
+        { }
 
         explicit convert(std::locale const& loc) :
             m_loc(loc)
@@ -94,6 +97,7 @@ PSTADE_PIPABLE(PSTADE_name, (BOOST_PP_CAT(op_, PSTADE_name)))
 } } // namespace pstade::oven
 
 
-#undef  PSTADE_name
 #undef  PSTADE_func
+#undef  PSTADE_name
 #undef  PSTADE_OVEN_DETAIL_XXX_CHARS_PARAMS
+
