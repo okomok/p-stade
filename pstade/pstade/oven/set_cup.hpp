@@ -56,7 +56,7 @@ namespace set_cup_detail {
 } // namespace set_cup_detail
 
 
-typedef op_make_merged<set_cup_detail::merge_routine> op_make_set_cup;
+typedef merged_detail::op_make<set_cup_detail::merge_routine> op_make_set_cup;
 PSTADE_CONSTANT(make_set_cup, (op_make_set_cup))
 PSTADE_PIPABLE(set_cup, (op_make_set_cup))
 

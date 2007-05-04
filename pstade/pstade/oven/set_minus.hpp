@@ -71,7 +71,7 @@ namespace set_minus_detail {
 } // namespace set_minus_detail
 
 
-typedef op_make_merged<set_minus_detail::merge_routine> op_make_set_minus;
+typedef merged_detail::op_make<set_minus_detail::merge_routine> op_make_set_minus;
 PSTADE_CONSTANT(make_set_minus, (op_make_set_minus))
 PSTADE_PIPABLE(set_minus, (op_make_set_minus))
 

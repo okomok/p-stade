@@ -269,53 +269,54 @@ namespace merged_detail {
     };
 
 
+    template< class MergeRoutine >
+    struct op_make :
+        callable< op_make<MergeRoutine> >
+    {
+        template< class Myself, class Range1, class Range2, class Compare = op_less const >
+        struct apply
+        {
+            typedef
+                merge_iterator<
+                    typename range_iterator<Range1>::type,
+                    typename range_iterator<Range2>::type,
+                    typename pass_by_value<Compare>::type,
+                    MergeRoutine
+                >
+            iter_t;
+
+            typedef
+                iter_range<iter_t> const
+            type;
+        };
+
+        template< class Result, class Range1, class Range2, class Compare >
+        Result call(Range1& rng1, Range2& rng2, Compare& comp) const
+        {
+            PSTADE_CONCEPT_ASSERT((SinglePass<Range1>));
+            PSTADE_CONCEPT_ASSERT((SinglePass<Range2>));
+
+            typedef typename Result::iterator iter_t;
+            return Result(
+                iter_t(boost::begin(rng1), boost::end(rng1), boost::begin(rng2), boost::end(rng2), comp),
+                iter_t(boost::end(rng1),   boost::end(rng1), boost::end(rng2),   boost::end(rng2), comp)
+            );
+        }
+
+        template< class Result, class Range1, class Range2 >
+        Result call(Range1& rng1, Range2& rng2) const
+        {
+            return (*this)(rng1, rng2, less);
+        }
+    };
+
+
 } // namespace merged_detail
 
 
-template< class MergeRoutine = merged_detail::merge_routine >
-struct op_make_merged :
-    callable< op_make_merged<MergeRoutine> >
-{
-    template< class Myself, class Range1, class Range2, class Compare = op_less const >
-    struct apply
-    {
-        typedef
-            merged_detail::merge_iterator<
-                typename range_iterator<Range1>::type,
-                typename range_iterator<Range2>::type,
-                typename pass_by_value<Compare>::type,
-                MergeRoutine
-            >
-        iter_t;
-
-        typedef
-            iter_range<iter_t> const
-        type;
-    };
-
-    template< class Result, class Range1, class Range2, class Compare >
-    Result call(Range1& rng1, Range2& rng2, Compare& comp) const
-    {
-        PSTADE_CONCEPT_ASSERT((SinglePass<Range1>));
-        PSTADE_CONCEPT_ASSERT((SinglePass<Range2>));
-
-        typedef typename Result::iterator iter_t;
-        return Result(
-            iter_t(boost::begin(rng1), boost::end(rng1), boost::begin(rng2), boost::end(rng2), comp),
-            iter_t(boost::end(rng1),   boost::end(rng1), boost::end(rng2),   boost::end(rng2), comp)
-        );
-    }
-
-    template< class Result, class Range1, class Range2 >
-    Result call(Range1& rng1, Range2& rng2) const
-    {
-        return (*this)(rng1, rng2, less);
-    }
-};
-
-
-PSTADE_CONSTANT(make_merged, (op_make_merged<>))
-PSTADE_PIPABLE(merged, (op_make_merged<>))
+typedef merged_detail::op_make<merged_detail::merge_routine> op_make_merged;
+PSTADE_CONSTANT(make_merged, (op_make_merged))
+PSTADE_PIPABLE(merged, (op_make_merged))
 
 
 } } // namespace pstade::oven

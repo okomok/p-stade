@@ -91,7 +91,7 @@ namespace set_delta_detail {
 } // namespace set_delta_detail
 
 
-typedef op_make_merged<set_delta_detail::merge_routine> op_make_set_delta;
+typedef merged_detail::op_make<set_delta_detail::merge_routine> op_make_set_delta;
 PSTADE_CONSTANT(make_set_delta, (op_make_set_delta))
 PSTADE_PIPABLE(set_delta, (op_make_set_delta))
 

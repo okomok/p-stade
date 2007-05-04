@@ -72,7 +72,7 @@ namespace set_cap_detail {
 } // namespace set_cap_detail
 
 
-typedef op_make_merged<set_cap_detail::merge_routine> op_make_set_cap;
+typedef merged_detail::op_make<set_cap_detail::merge_routine> op_make_set_cap;
 PSTADE_CONSTANT(make_set_cap, (op_make_set_cap))
 PSTADE_PIPABLE(set_cap, (op_make_set_cap))
 

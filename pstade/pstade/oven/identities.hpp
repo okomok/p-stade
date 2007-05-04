@@ -86,59 +86,60 @@ namespace identities_detail {
     };
 
 
+    template< class Difference = boost::use_default >
+    struct op_make :
+        callable< op_make<Difference> >
+    {
+        template< class Myself, class Range, class Traversal = boost::use_default >
+        struct apply
+        {
+            typedef typename
+                use_default_eval_to<
+                    typename pass_by_value<Traversal>::type,
+                    range_pure_traversal<Range>
+                >::type
+            trv_t;
+
+            typedef typename
+                use_default_eval_to<
+                    Difference,
+                    range_difference<Range>
+                >::type
+            diff_t;
+
+            typedef
+                identity_iterator<
+                    typename range_iterator<Range>::type,
+                    trv_t,
+                    diff_t
+                >
+            iter_t;
+
+            typedef
+                iter_range<iter_t> const
+            type;
+        };
+
+        template< class Result, class Range >
+        Result call(Range& rng, dont_care = 0) const
+        {
+            PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+            BOOST_MPL_ASSERT((is_convertible<
+                typename range_traversal<Range>::type,
+                typename range_pure_traversal<Result>::type>
+            ));
+
+            return Result(rng);
+        }
+    };
+
+
 } // namespace identities_detail
 
 
-template< class Difference = boost::use_default >
-struct op_make_identities :
-    callable< op_make_identities<Difference> >
-{
-    template< class Myself, class Range, class Traversal = boost::use_default >
-    struct apply
-    {
-        typedef typename
-            use_default_eval_to<
-                typename pass_by_value<Traversal>::type,
-                range_pure_traversal<Range>
-            >::type
-        trv_t;
-
-        typedef typename
-            use_default_eval_to<
-                Difference,
-                range_difference<Range>
-            >::type
-        diff_t;
-
-        typedef
-            identities_detail::identity_iterator<
-                typename range_iterator<Range>::type,
-                trv_t,
-                diff_t
-            >
-        iter_t;
-
-        typedef
-            iter_range<iter_t> const
-        type;
-    };
-
-    template< class Result, class Range >
-    Result call(Range& rng, dont_care = 0) const
-    {
-        PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-        BOOST_MPL_ASSERT((is_convertible<
-            typename range_traversal<Range>::type,
-            typename range_pure_traversal<Result>::type>
-        ));
-
-        return Result(rng);
-    }
-};
-
-
-PSTADE_CONSTANT(make_identities, (op_make_identities<>))
-PSTADE_PIPABLE(identities, (op_make_identities<>))
+typedef identities_detail::op_make<> op_make_identities;
+PSTADE_CONSTANT(make_identities, (op_make_identities))
+PSTADE_PIPABLE(identities, (op_make_identities))
 
 
 } } // namespace pstade::oven
