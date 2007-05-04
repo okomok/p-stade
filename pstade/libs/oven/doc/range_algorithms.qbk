@@ -104,7 +104,46 @@ Oven provides range-based algorithms taking a range instead of two iterators.
 
 
 
+[section all]
+
+[h3 Description]
+This algorithm returns true if the predicate is true for all elements in the range.
+
+[h3 Header]
+* `<pstade/oven/all.hpp>`
+
+[h3 Model of]
+* _operatable_object_
+
+[h3 Notation]
+* `not_` is an imaginary function object to negate a predicate.
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`all(_rng, _prd)`]
+        [`std::find_if(_begin(_rng), _end(_rng), not_(pred)) == _end(_rng)`]
+    ]
+]
+
+[h3 Preconditions]
+
+[h3 See also]
+* [link oven.none none]
+
+[endsect]
+
+
+
+
 [section at]
+
+[h3 Description]
+This returns the N-th referent from the beginning of the range. 
 
 [h3 Header]
 * `<pstade/oven/at.hpp>`
@@ -138,6 +177,42 @@ Oven provides range-based algorithms taking a range instead of two iterators.
 
 [h3 See also]
 * [link oven.value_at value_at]
+
+[endsect]
+
+
+
+
+[section back]
+
+[h3 Description]
+This returns the last referent in the range.
+
+[h3 Header]
+* `<pstade/oven/back.hpp>`
+
+[h3 Model of]
+* _auxiliary_interface_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`back(_rng)`]
+        [`*boost::prior(_end(_bidrng))`]
+    ]
+]
+
+[h3 Preconditions]
+* If `boost::range_reference<_typeof(_bidrng)>::type` is a /reference type/, `_bidrng` is a _lvalue_ _range_.
+* `!boost::empty(_bidrng)`
+
+[h3 See also]
+* [link oven.front front]
+* [link oven.value_back value_back]
 
 [endsect]
 
@@ -190,7 +265,7 @@ Oven provides range-based algorithms taking a range instead of two iterators.
 * `<pstade/oven/copy_range.hpp>`
 
 [h3 Notation]
-* `V1` is `_typeof(*_begin(_rng1))`.
+* `V1` is `_value_of<_typeof(_rng1)>::type`.
 * `to_v1` is `regular(boost::lambda::ll_static_cast<V1>(boost::lambda::_1))`.
 
 [h3 Valid expressions]
@@ -210,7 +285,7 @@ Oven provides range-based algorithms taking a range instead of two iterators.
 ]
 
 [h3 Preconditions]
-* `_typeof(*_begin(_rng))` is convertible to `V1`.
+* `_value_of<_typeof(_rng)>::type` is convertible to `V1`.
 * `Rng2` is an /aggregate type/ such that `Rng2 _rng2 = _rng0|copied;` is a valid expression.
 * `copied` isn't placed in a function default argument list.
 
@@ -296,12 +371,13 @@ The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied
 
 
 
-[section front/back]
+[section front]
 
 [h3 Description]
+This returns the first referent in the range.
 
 [h3 Header]
-* `<pstade/oven/front_back.hpp>`
+* `<pstade/oven/front.hpp>`
 
 [h3 Model of]
 * _auxiliary_interface_
@@ -316,20 +392,49 @@ The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied
         [`front(_rng)`]
         [`*_begin(_rng)`]
     ]
-    [
-        [`back(_bidrng)`]
-        [`*boost::prior(_bidrng)`]
-    ]
 ]
 
 [h3 Preconditions]
 * If `boost::range_reference<_typeof(_rng)>::type` is a /reference type/, `_rng` is a _lvalue_ _range_.
 * `!boost::empty(_rng)`
-* If `boost::range_reference<_typeof(_bidrng)>::type` is a /reference type/, `_bidrng` is a _lvalue_ _range_.
-* `!boost::empty(_bidrng)`
 
 [h3 See also]
-* [link oven.value_front_value_back value_front/value_back]
+* [link oven.back back]
+* [link oven.value_front value_front]
+
+[endsect]
+
+
+
+
+[section none]
+
+[h3 Description]
+This algorithm returns true if the predicate is true for none of the elements in the range.
+
+[h3 Header]
+* `<pstade/oven/none.hpp>`
+
+[h3 Model of]
+* _operatable_object_
+
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`all(_rng, _prd)`]
+        [`std::find_if(_begin(_rng), _end(_rng), pred) == _end(_rng)`]
+    ]
+]
+
+[h3 Preconditions]
+
+[h3 See also]
+* [link oven.all all]
 
 [endsect]
 
@@ -339,6 +444,7 @@ The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied
 [section value_at]
 
 [h3 Description]
+This returns the copy of N-th referent from the beginning of the range.
 
 [h3 Header]
 * `<pstade/oven/at.hpp>`
@@ -347,7 +453,7 @@ The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied
 * _auxiliary_interface_
 
 [h3 Notation]
-`V` is `_typeof(*_begin(_rndrng))`.
+`V` is `_value_of<_typeof(_rndrng)>::type`.
 
 [h3 Valid expressions]
 [table 
@@ -374,19 +480,58 @@ The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied
 
 
 
-[section value_front/value_back]
+[section value_back]
 
 [h3 Description]
+This returns a copy of the last referent in the range.
 
 [h3 Header]
-* `<pstade/oven/front_back.hpp>`
+* `<pstade/oven/back.hpp>`
 
 [h3 Model of]
 * _auxiliary_interface_
 
 [h3 Notation]
-* `V1` is `_typeof(*_begin(_rng))`.
-* `V2` is `_typeof(*_begin(_bidrng))`.
+* `V` is `_value_of<_typeof(_bidrng)>::type`.
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`value_back(_bidrng)`]
+        [`V(*boost::prior(_bidrng))`]
+    ]
+]
+
+[h3 Preconditions]
+* `V` is _copy_constructible_.
+* `!boost::empty(_bidrng)`
+
+[h3 See also]
+* [link oven.back back]
+* [link oven.value_front value_front]
+
+[endsect]
+
+
+
+
+[section value_front]
+
+[h3 Description]
+This returns a copy of the first referent in the range.
+
+[h3 Header]
+* `<pstade/oven/front.hpp>`
+
+[h3 Model of]
+* _auxiliary_interface_
+
+[h3 Notation]
+* `V` is `_value_of<_typeof(_rng)>::type`.
 
 [h3 Valid expressions]
 [table 
@@ -396,22 +541,17 @@ The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied
     ]
     [
         [`value_front(_rng)`]
-        [`V1(*_begin(_rng))`]
-    ]
-    [
-        [`value_back(_bidrng)`]
-        [`V2(*boost::prior(_bidrng))`]
+        [`V(*_begin(_rng))`]
     ]
 ]
 
 [h3 Preconditions]
-* `V1` is _copy_constructible_.
+* `V` is _copy_constructible_.
 * `!boost::empty(_rng)`
-* `V2` is _copy_constructible_.
-* `!boost::empty(_bidrng)`
 
 [h3 See also]
-* [link oven.front_back front/back]
+* [link oven.front front]
+* [link oven.value_back value_back]
 
 [endsect]
 

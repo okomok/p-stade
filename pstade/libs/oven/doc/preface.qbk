@@ -141,6 +141,10 @@ This document uses the following notation:
         [`boost::range_result_iterator`]
     ]
     [
+        [`_value_of`]
+        [`boost::range_value`]
+    ]
+    [
         [`[i, j)`]
         [A _range_ which behaves as if `i = boost::begin([i, j))` and `j = boost::end([i, j))`.]
     ]

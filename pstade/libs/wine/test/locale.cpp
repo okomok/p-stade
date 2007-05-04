@@ -59,6 +59,10 @@ void test()
             std::string("a1b23c4d5e")|oven::filtered(is_digit)
         ));
     }
+    {
+        BOOST_CHECK( iequal_to('a', 'A') );
+        BOOST_CHECK( iequal_to('a', 'A', std::locale()) );
+    }
 }
 
 

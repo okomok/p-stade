@@ -51,14 +51,18 @@
 <dd><dl>
 <dt><span class="section"><a href="oven/range_algorithms.html#oven.stl_algorithms">STL Algorithms</a></span></dt>
 <dt><span class="section"><a href="oven/range_algorithms.html#oven.stl_numerics">STL Numerics</a></span></dt>
+<dt><span class="section"><a href="oven/range_algorithms.html#oven.all">all</a></span></dt>
 <dt><span class="section"><a href="oven/range_algorithms.html#oven.at">at</a></span></dt>
+<dt><span class="section"><a href="oven/range_algorithms.html#oven.back">back</a></span></dt>
 <dt><span class="section"><a href="oven/range_algorithms.html#oven.begin_end">begin/end</a></span></dt>
 <dt><span class="section"><a href="oven/range_algorithms.html#oven.copied">copied</a></span></dt>
 <dt><span class="section"><a href="oven/range_algorithms.html#oven.distance">distance</a></span></dt>
 <dt><span class="section"><a href="oven/range_algorithms.html#oven.equals">equals</a></span></dt>
-<dt><span class="section"><a href="oven/range_algorithms.html#oven.front_back">front/back</a></span></dt>
+<dt><span class="section"><a href="oven/range_algorithms.html#oven.front">front</a></span></dt>
+<dt><span class="section"><a href="oven/range_algorithms.html#oven.none">none</a></span></dt>
 <dt><span class="section"><a href="oven/range_algorithms.html#oven.value_at">value_at</a></span></dt>
-<dt><span class="section"><a href="oven/range_algorithms.html#oven.value_front_value_back">value_front/value_back</a></span></dt>
+<dt><span class="section"><a href="oven/range_algorithms.html#oven.value_back">value_back</a></span></dt>
+<dt><span class="section"><a href="oven/range_algorithms.html#oven.value_front">value_front</a></span></dt>
 </dl></dd>
 <dt><span class="section"><a href="oven/ranges.html">Ranges</a></span></dt>
 <dd><dl>
@@ -95,8 +99,8 @@
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.checked">checked</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.cleared">cleared</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.concatenated">concatenated</a></span></dt>
-<dt><span class="section"><a href="oven/range_adaptors.html#oven.constants">constants</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.const_refs">const_refs</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.constants">constants</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.copied_to">copied_to</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.cycled">cycled</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.delimited">delimited</a></span></dt>
@@ -380,6 +384,10 @@
 <td><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">range_result_iterator</span></code></td>
 </tr>
 <tr>
+<td><code class="computeroutput"><span class="identifier">_value_of</span></code></td>
+<td><code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">range_value</span></code></td>
+</tr>
+<tr>
 <td><code class="computeroutput"><span class="special">[</span><span class="identifier">i</span><span class="special">,</span> <span class="identifier">j</span><span class="special">)</span></code></td>
 <td>A <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
               which behaves as if <code class="computeroutput"><span class="identifier">i</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">begin</span><span class="special">([</span><span class="identifier">i</span><span class="special">,</span> <span class="identifier">j</span><span class="special">))</span></code> and <code class="computeroutput"><span class="identifier">j</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">end</span><span class="special">([</span><span class="identifier">i</span><span class="special">,</span> <span class="identifier">j</span><span class="special">))</span></code>.</td>
@@ -404,7 +412,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><small><p>Last revised: May 04, 2007 at 15:09:47 GMT</p></small></td>
+<td align="left"><small><p>Last revised: May 04, 2007 at 22:07:10 GMT</p></small></td>
 <td align="right"><small></small></td>
 </tr></table>
 <hr>

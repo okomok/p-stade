@@ -137,6 +137,7 @@
 * Removed `repeat`, `appended` and `prepended`.
 * Optimized `regular`.
 * Added `lower_chars`, `upper_chars` and `rvalues`.
+* Added `all` and `none`.
 
 
 

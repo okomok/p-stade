@@ -15,6 +15,8 @@
 #include <pstade/oven/equals.hpp>
 #include <pstade/oven/is_heap.hpp>
 #include <pstade/oven/is_sorted.hpp>
+#include <pstade/oven/all.hpp>
+#include <pstade/oven/none.hpp>
 
 
 #include <algorithm> // make_heap
@@ -31,8 +33,21 @@ using namespace oven;
 
 PSTADE_TEST_IS_RESULT_OF((bool), op_equals(std::string&, std::string&))
 PSTADE_TEST_IS_RESULT_OF((range_difference<std::string>::type), op_distance(std::string&))
+
 PSTADE_TEST_IS_RESULT_OF((bool), op_is_sorted(std::string&))
 PSTADE_TEST_IS_RESULT_OF((bool), op_is_heap(std::string&))
+
+PSTADE_TEST_IS_RESULT_OF((bool), op_all(std::string&))
+PSTADE_TEST_IS_RESULT_OF((bool), op_none(std::string&))
+
+
+struct is_a
+{
+    bool operator()(char ch) const
+    {
+        return ch == 'a';
+    }
+};
 
 
 void test()
@@ -64,6 +79,10 @@ void test()
         BOOST_CHECK( !is_heap(rng) );
         std::make_heap(boost::begin(rng), boost::end(rng));
         BOOST_CHECK( is_heap(rng) );
+    }
+    {
+        BOOST_CHECK( all(std::string("aaaaaaaaaa"), is_a()) );
+        BOOST_CHECK( none(std::string("bbbbbbbbb"), is_a()) );
     }
 }
 

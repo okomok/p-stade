@@ -383,7 +383,7 @@ It passes adjacent pairs to a function to transform repeatedly.
 
 [h3 Notation]
 * `SegmentIterator` is `_iter_of<_typeof(_rng)>::type`.
-* `LocalRange` is `_typeof(*_begin(_rng))`.
+* `LocalRange` is `_value_of<_typeof(_rng)>::type`.
 * `LocalIterator` is `_iter_of<LocalRange>::type`.
 * `{aI1,aI2,..aIMI}` is `*boost::next(_begin(_rng), I)`.
 
@@ -428,42 +428,6 @@ It passes adjacent pairs to a function to transform repeatedly.
 
 
 
-[section constants]
-
-[h3 Description]
-`constants` converts the base range into a non-_writable_ _range_.
-
-[h3 Header]
-* `<pstade/oven/constants.hpp>`
-
-[h3 Model of]
-* _pipable_object_
-
-[h3 Valid expressions]
-[table 
-    [
-        [[*Valid expression]]
-        [[*Semantics]]
-    ]
-    [
-        [`_rng|constants`]
-        [
-            A non-_writable_ `[_begin(_rng), _end(_rng))`
-        ]
-    ]
-]
-
-[h3 Preconditions]
-
-[h3 Example]
-
-[h3 See also]
-
-[endsect]
-
-
-
-
 [section const_refs]
 
 [h3 Description]
@@ -493,7 +457,43 @@ then pretends to be a range of _forward_iterator_.
 ]
 
 [h3 Preconditions]
-* `_typeof(*_begin(_rng))` is _assignable_, _copy_constructible_ and _default_constructible_.
+* `_value_of<_typeof(_rng)>::type` is _assignable_, _copy_constructible_ and _default_constructible_.
+
+[h3 Example]
+
+[h3 See also]
+
+[endsect]
+
+
+
+
+[section constants]
+
+[h3 Description]
+`constants` converts the base range into a non-_writable_ _range_.
+
+[h3 Header]
+* `<pstade/oven/constants.hpp>`
+
+[h3 Model of]
+* _pipable_object_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_rng|constants`]
+        [
+            A non-_writable_ `[_begin(_rng), _end(_rng))`
+        ]
+    ]
+]
+
+[h3 Preconditions]
 
 [h3 Example]
 
@@ -788,7 +788,7 @@ Pending...
 ]
 
 [h3 Preconditions]
-* `_typeof(*_begin(_rng))` is [@http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/sequences/concepts/random_access_sequence.html Random Access Sequence].
+* `_value_of<_typeof(_rng)>::type` is [@http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/sequences/concepts/random_access_sequence.html Random Access Sequence].
 * `boost::fusion::at<N>(*boost::begin(_rng))` is well-formed.
 
 [h3 Complexity]
@@ -849,7 +849,7 @@ Pending...
 ]
 
 [h3 Preconditions]
-* `_typeof(*_begin(_rng))` is [@http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/sequences/concepts/random_access_sequence.html Random Access Sequence].
+* `_value_of<_typeof(_rng)>::type` is [@http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/sequences/concepts/random_access_sequence.html Random Access Sequence].
 * `boost::fusion::at_c<n>(*boost::begin(_rng))` is well-formed.
 
 [h3 Complexity]
@@ -918,7 +918,7 @@ Pending...
 * _pipable_object_
 
 [h3 Notation]
-* `first_of` is an imaginary function which returns a member `first`.
+* `first_of` is an imaginary function object to return a member `first`.
 
 [h3 Valid expressions]
 [table 
@@ -935,7 +935,7 @@ Pending...
 ]
 
 [h3 Preconditions]
-* `_typeof(*_begin(_rng))` is a `std::pair`.
+* `_value_of<_typeof(_rng)>::type` is a `std::pair`.
 * `_rng|transformed(first_of)` is a valid expression.
 
 [h3 Example]
@@ -1355,7 +1355,7 @@ Pending...
 [note `memoized` can return a _forward_ _range_ even if the base range is a _single_pass_ _range_.]
 
 [h3 Preconditions]
-* `_typeof(*_begin(_rng))` is _assignable_ and _copy_constructible_.
+* `_value_of<_typeof(_rng)>::type` is _assignable_ and _copy_constructible_.
 * If `_rng` is a recursive range, `memo_table` object `t` must be passed.
 
 [h3 Example]
@@ -1772,14 +1772,15 @@ A range returned from `reversed` iterates in the opposite direction.
 ]
 
 [h3 Preconditions]
-* `_typeof(*_begin(_rng))` is _copy_constructible_.
+* `_value_of<_typeof(_rng)>::type` is _copy_constructible_.
 
 [h3 Example]
 
 [h3 See also]
 * [link oven.transformed transformed]
 * [link oven.value_at value_at]
-* [link oven.value_front_value_back value_front/value_back]
+* [link oven.value_back value_back]
+* [link oven.value_front value_front]
 
 [endsect]
 
@@ -1800,7 +1801,7 @@ A range returned from `reversed` iterates in the opposite direction.
 [h3 Notation]
 * `{a1,a2,..,aN}` is `_rng`.
 * `{b1,b2,..,bM}` is `_rng1`.
-* `S1` is `_typeof(*_begin(_rng1))`.
+* `S1` is `_value_of<_typeof(_rng1)>::type`.
 
 [h3 Valid expressions]
 [table 
@@ -1827,9 +1828,9 @@ A range returned from `reversed` iterates in the opposite direction.
 
 [h3 Preconditions]
 * `s` is _assignable_ and _copy_constructible_.
-* `a = _fun(_fun(s, a), a)` is well-formed, where `_typeof(*_begin(_rng)) a = *_begin(_rng))`.
+* `a = _fun(_fun(s, a), a)` is well-formed, where `_value_of<_typeof(_rng)>::type a = *_begin(_rng))`.
 * `S1` is _assignable_ and _copy_constructible_.
-* `b = _fun1(_fun1(b, b), b)` is well-formed, where `_typeof(*_begin(_rng1)) b = *_begin(_rng1))`.
+* `b = _fun1(_fun1(b, b), b)` is well-formed, where `_value_of<_typeof(_rng1)>::type b = *_begin(_rng1))`.
 * `!boost::empty(_rng1)`
 * `_fun` and `_fun1` are _assignable_ and _default_constructible_.
 
@@ -1862,7 +1863,7 @@ A range returned from `reversed` iterates in the opposite direction.
 * _pipable_object_
 
 [h3 Notation]
-* `second_of` is an imaginary function which returns a member `second`.
+* `second_of` is an imaginary function object to return a member `second`.
 
 [h3 Valid expressions]
 [table 
@@ -1879,7 +1880,7 @@ A range returned from `reversed` iterates in the opposite direction.
 ]
 
 [h3 Preconditions]
-* `_typeof(*_begin(_rng))` is a `std::pair`.
+* `_value_of<_typeof(_rng)>::type` is a `std::pair`.
 * `_rng|transformed(second_of)` is a valid expression.
 
 [h3 Example]

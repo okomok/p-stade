@@ -79,7 +79,7 @@ The overhead can be removed with the help of _boost_typeof_ if your compiler sup
 ]
 
 [h3 Preconditions]
-* `_typeof(*_begin(_rng))` is registered to _boost_typeof_.
+* `_value_of<_typeof(_rng)>::type` is registered to _boost_typeof_.
 
 [note As far as the precondition met, `expression` with _boost_typeof_ macros is portable
       even where native typeof isn't available.]
@@ -272,7 +272,7 @@ A _deferred_callable_object_ like a random number generator may not be copyable,
 ]
 
 [h3 Preconditions]
-* `_typeof(*_begin(_rng))` is a `boost::tuple`.
+* `_value_of<_typeof(_rng)>::type` is a `boost::tuple`.
 
 [h3 Example]
     std::cout <<
@@ -358,7 +358,7 @@ Though `zipped` accepts a function taking a `boost::tuple` as the parameter, it 
 * `<pstade/oven/zipped_with.hpp>`
 
 [h3 Notation]
-* `fuse` is an imaginary function which turns a _function_object_ into the one taking a `boost::tuple` as the parameter.
+* `fuse` is an imaginary function object to turn the argument into the one taking a `boost::tuple` as the parameter.
 
 [h3 Valid expressions]
 [table 
