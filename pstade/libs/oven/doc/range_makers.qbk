@@ -571,7 +571,7 @@ on the first argument, the second item by applying the function on the previous 
     int const start[] = { 1, 1 };
     fibs =
         start
-            | transformed(to_value) // for jointed precondition
+            | rvalues // for jointed precondition
             | jointed(
                 boost::make_tuple(recursion(fibs), recursion(fibs)|dropped(1))
                     | zipped_with(regular(boost::lambda::_1 + boost::lambda::_2))
@@ -647,43 +647,6 @@ and the iterators manage the allocation.
 
 
 
-[section single]
-
-[h3 Description]
-`single` makes a _random_access_ _range_ which delivers a range presentation of one object.
-
-[h3 Header]
-* `<pstade/oven/single.hpp>`
-
-[h3 Model of]
-* _operatable_object_
-
-[h3 Valid expressions]
-[table 
-    [
-        [[*Valid expression]]
-        [[*Semantics]]
-    ]
-    [
-        [`single(x)`]
-        [`[&x, &x + 1)`]
-    ]
-]
-
-[note As the semantics implies, the iterators are valid as long as `x` is not destructed.
-      If you want the iterators to manage the base object lifetime, use [link oven.shared_single shared_single].]
-
-[h3 Example]
-    BOOST_CHECK( equals(single('a'), std::string("a")) );
-
-[h3 See also]
-* [link oven.shared_single shared_single]
-
-[endsect]
-
-
-
-
 [section shared_single]
 
 [h3 Description]
@@ -719,6 +682,43 @@ and the iterators manage the allocation.
 
 [h3 See also]
 * [link oven.single single]
+
+[endsect]
+
+
+
+
+[section single]
+
+[h3 Description]
+`single` makes a _random_access_ _range_ which delivers a range presentation of one object.
+
+[h3 Header]
+* `<pstade/oven/single.hpp>`
+
+[h3 Model of]
+* _operatable_object_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`single(x)`]
+        [`[&x, &x + 1)`]
+    ]
+]
+
+[note As the semantics implies, the iterators are valid as long as `x` is not destructed.
+      If you want the iterators to manage the base object lifetime, use [link oven.shared_single shared_single].]
+
+[h3 Example]
+    BOOST_CHECK( equals(single('a'), std::string("a")) );
+
+[h3 See also]
+* [link oven.shared_single shared_single]
 
 [endsect]
 

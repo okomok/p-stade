@@ -173,7 +173,7 @@ Oven provides range-based algorithms taking a range instead of two iterators.
 
 [h3 Example]
     std::string src("abcDefg");   
-    oven::copy(src|reversed|transformed(to_upper), src|reversed|begin);
+    oven::copy(src|reversed|upper_chars, src|reversed|begin);
     BOOST_CHECK( oven::equals(src, std::string("ABCDEFG")) );
     
 [endsect]
@@ -190,8 +190,7 @@ Oven provides range-based algorithms taking a range instead of two iterators.
 * `<pstade/oven/copy_range.hpp>`
 
 [h3 Notation]
-* `V1` is `boost::range_value<_typeof(_rng1)>::type`.
-* `V3` is `boost::range_value<_typeof(_rng3)>::type`.
+* `V1` is `_typeof(*_begin(_rng1))`.
 * `to_v1` is `regular(boost::lambda::ll_static_cast<V1>(boost::lambda::_1))`.
 
 [h3 Valid expressions]
@@ -201,19 +200,18 @@ Oven provides range-based algorithms taking a range instead of two iterators.
         [[*Semantics]]
     ]
     [
-        [`Rng1 _rng1 = _rng2|copied;`]
-        [`Rng1 _rng1(_begin(r), _end(r))`, where `r = _rng2|transformed(to_v1)`.]
+        [`Rng1 _rng1 = _rng|copied;`]
+        [`Rng1 _rng1(_begin(r), _end(r))`, where `r = _rng|transformed(to_v1)`.]
     ]
     [
-        [`Rng3 _rng3(_rng2|copied);`]
-        [`Rng3 _rng3 = _rng2|copied;`]
+        [`Rng2 _rng2(_rng0|copied);`]
+        [`Rng2 _rng2 = _rng0|copied;`]
     ]
 ]
 
 [h3 Preconditions]
-* `boost::range_value<_typeof(_rng2)>::type` is convertible to `V1`.
-* `boost::range_value<_typeof(_rng2)>::type` is convertible to `V3`.
-* `Rng3` is an /aggregate/ type.
+* `_typeof(*_begin(_rng))` is convertible to `V1`.
+* `Rng2` is an /aggregate type/ such that `Rng2 _rng2 = _rng0|copied;` is a valid expression.
 * `copied` isn't placed in a function default argument list.
 
 [note The first valid expression implies you can place `copied` everywhere it is used in /copy-initialization/, e.g. `return` statement.
@@ -349,7 +347,7 @@ The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied
 * _auxiliary_interface_
 
 [h3 Notation]
-`V` is `boost::range_value<_typeof(_rndrng)>::type`.
+`V` is `_typeof(*_begin(_rndrng))`.
 
 [h3 Valid expressions]
 [table 
@@ -387,8 +385,8 @@ The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied
 * _auxiliary_interface_
 
 [h3 Notation]
-* `V1` is `boost::range_value<_typeof(_rng)>::type`.
-* `V2` is `boost::range_value<_typeof(_bidrng)>::type`.
+* `V1` is `_typeof(*_begin(_rng))`.
+* `V2` is `_typeof(*_begin(_bidrng))`.
 
 [h3 Valid expressions]
 [table 

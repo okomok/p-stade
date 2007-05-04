@@ -383,7 +383,7 @@ It passes adjacent pairs to a function to transform repeatedly.
 
 [h3 Notation]
 * `SegmentIterator` is `_iter_of<_typeof(_rng)>::type`.
-* `LocalRange` is `boost::range_value<_typeof(_rng)>::type`.
+* `LocalRange` is `_typeof(*_begin(_rng))`.
 * `LocalIterator` is `_iter_of<LocalRange>::type`.
 * `{aI1,aI2,..aIMI}` is `*boost::next(_begin(_rng), I)`.
 
@@ -493,7 +493,7 @@ then pretends to be a range of _forward_iterator_.
 ]
 
 [h3 Preconditions]
-* `boost::range_value<_typeof(_rng)>::type` is _assignable_, _copy_constructible_ and _default_constructible_.
+* `_typeof(*_begin(_rng))` is _assignable_, _copy_constructible_ and _default_constructible_.
 
 [h3 Example]
 
@@ -742,6 +742,128 @@ then pretends to be a range of _forward_iterator_.
 
 
 
+[section elements_at]
+
+[h3 Description]
+Pending...
+
+[h3 Header]
+* `<pstade/oven/elements_at.hpp>`
+
+[h3 Model of]
+
+[h3 Notation]
+* `to_Nth` is an imaginary function object to call `boost::fusion::at<N>`.
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`op_make_elements_at<N>`]
+        [
+            A _deferred_callable_object_ type
+        ]
+    ]
+    [
+        [`op_make_elements_at<N>()(_rng)`]
+        [
+            `_rng|transformed(to_Nth)`
+        ]
+    ]
+    [
+        [`oven::make_elements_at<N>(_rng)`]
+        [
+            `op_make_elements_at<N>()(_rng)`
+        ]
+    ]
+    [
+        [`_rng|elements_at<N>()`]
+        [
+            `op_make_elements_at<N>()(_rng)`
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* `_typeof(*_begin(_rng))` is [@http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/sequences/concepts/random_access_sequence.html Random Access Sequence].
+* `boost::fusion::at<N>(*boost::begin(_rng))` is well-formed.
+
+[h3 Complexity]
+
+[h3 Example]
+
+[h3 See also]
+* [link oven.elements_at_c elements_at_c]
+
+[endsect]
+
+
+
+
+[section elements_at_c]
+
+[h3 Description]
+Pending...
+
+[h3 Header]
+* `<pstade/oven/elements_at.hpp>`
+
+[h3 Model of]
+
+[h3 Notation]
+* `to_nth` is an imaginary function object to call `boost::fusion::at_c<n>`.
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`op_make_elements_at_c<n>`]
+        [
+            A _deferred_callable_object_ type
+        ]
+    ]
+    [
+        [`op_make_elements_at_c<n>()(_rng)`]
+        [
+            `_rng|transformed(to_nth)`
+        ]
+    ]
+    [
+        [`oven::make_elements_at_c<n>(_rng)`]
+        [
+            `op_make_elements_at_c<n>()(_rng)`
+        ]
+    ]
+    [
+        [`_rng|elements_at_c<n>()`]
+        [
+            `op_make_elements_at_c<n>()(_rng)`
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* `_typeof(*_begin(_rng))` is [@http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/sequences/concepts/random_access_sequence.html Random Access Sequence].
+* `boost::fusion::at_c<n>(*boost::begin(_rng))` is well-formed.
+
+[h3 Complexity]
+
+[h3 Example]
+
+[h3 See also]
+* [link oven.elements_at elements_at]
+
+[endsect]
+
+
+
+
 [section filtered]
 
 [h3 Description]
@@ -813,7 +935,7 @@ then pretends to be a range of _forward_iterator_.
 ]
 
 [h3 Preconditions]
-* `range_value<_typeof(_rng)>::type` is a `std::pair`.
+* `_typeof(*_begin(_rng))` is a `std::pair`.
 * `_rng|transformed(first_of)` is a valid expression.
 
 [h3 Example]
@@ -992,6 +1114,62 @@ then pretends to be a range of _forward_iterator_.
 
 
 
+[section lower_chars]
+
+[h3 Description]
+`lower_chars` performs case-conversion on all characters in the base range.
+
+[note `lower_chars` is a "view", while _string_algo_proposal_ returns a new allocated range.]
+
+[h3 Header]
+* `<pstade/oven/lower_chars.hpp>`
+
+[h3 Model of]
+* _pipable_object_
+
+[h3 Notation]
+* `loc` is a `std::locale` object.
+* `to_l` is an imaginary function object to call `std::tolower` using `loc`.
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_rng|lower_chars(loc)`]
+        [
+            `_rng|transformed(to_l)`
+        ]
+    ]
+    [
+        [`_rng|lower_chars`]
+        [
+            `_rng|lower_chars(std::locale())`
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* `std::tolower(*boost::begin(_rng), loc)` is well-formed.
+
+[h3 Example]
+    BOOST_CHECK( equals(
+        std::string("AbCdEFG")|lower_chars,
+        std::string("abcdefg")
+    ) );
+
+[h3 See also]
+* [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html#to-lower to_lower proposal]
+* [link oven.transformed transformed]
+* [link oven.upper_chars upper_chars]
+
+[endsect]
+
+
+
+
 [section map_keys]
 
 [h3 Description]
@@ -1010,7 +1188,7 @@ then pretends to be a range of _forward_iterator_.
         [[*Semantics]]
     ]
     [
-        [`_rng1|map_keys`]
+        [`_rng|map_keys`]
         [
             `_rng|firsts`
         ]
@@ -1177,7 +1355,7 @@ then pretends to be a range of _forward_iterator_.
 [note `memoized` can return a _forward_ _range_ even if the base range is a _single_pass_ _range_.]
 
 [h3 Preconditions]
-* `boost::range_value<_typeof(_rng)>::type` is _assignable_ and _copy_constructible_.
+* `_typeof(*_begin(_rng))` is _assignable_ and _copy_constructible_.
 * If `_rng` is a recursive range, `memo_table` object `t` must be passed.
 
 [h3 Example]
@@ -1565,6 +1743,49 @@ A range returned from `reversed` iterates in the opposite direction.
 
 
 
+[section rvalues]
+
+[h3 Description]
+`rvalues` returns a range whose `boost::range_reference` type is not a /reference type/.
+
+[h3 Header]
+* `<pstade/oven/rvalues.hpp>`
+
+[h3 Model of]
+* _pipable_object_
+
+[h3 Notation]
+* `to_v` is an imaginary function object which returns a copy of the argument.
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_rng|rvalues`]
+        [
+            `_rng|transformed(to_v)`
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* `_typeof(*_begin(_rng))` is _copy_constructible_.
+
+[h3 Example]
+
+[h3 See also]
+* [link oven.transformed transformed]
+* [link oven.value_at value_at]
+* [link oven.value_front_value_back value_front/value_back]
+
+[endsect]
+
+
+
+
 [section scanned]
 
 [h3 Description]
@@ -1579,7 +1800,7 @@ A range returned from `reversed` iterates in the opposite direction.
 [h3 Notation]
 * `{a1,a2,..,aN}` is `_rng`.
 * `{b1,b2,..,bM}` is `_rng1`.
-* `S1` is `range_value<_typeof(_rng1)>::type`.
+* `S1` is `_typeof(*_begin(_rng1))`.
 
 [h3 Valid expressions]
 [table 
@@ -1658,7 +1879,7 @@ A range returned from `reversed` iterates in the opposite direction.
 ]
 
 [h3 Preconditions]
-* `range_value<_typeof(_rng)>::type` is a `std::pair`.
+* `_typeof(*_begin(_rng))` is a `std::pair`.
 * `_rng|transformed(second_of)` is a valid expression.
 
 [h3 Example]
@@ -2340,6 +2561,62 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
 
 [h3 See also]
 * [link oven.adjacent_filtered adjacent_filtered]
+
+[endsect]
+
+
+
+
+[section upper_chars]
+
+[h3 Description]
+`upper_chars` performs case-conversion on all characters in the base range.
+
+[note `upper_chars` is a "view", while _string_algo_proposal_ returns a new allocated range.]
+
+[h3 Header]
+* `<pstade/oven/upper_chars.hpp>`
+
+[h3 Model of]
+* _pipable_object_
+
+[h3 Notation]
+* `loc` is a `std::locale` object.
+* `to_u` is an imaginary function object to call `std::toupper` using `loc`.
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_rng|upper_chars(loc)`]
+        [
+            `_rng|transformed(to_u)`
+        ]
+    ]
+    [
+        [`_rng|upper_chars`]
+        [
+            `_rng|upper_chars(std::locale())`
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* `std::toupper(*boost::begin(_rng), loc)` is well-formed.
+
+[h3 Example]
+    BOOST_CHECK( equals(
+        std::string("AbCdEFG")|upper_chars,
+        std::string("ABCDEFG")
+    ) );
+
+[h3 See also]
+* [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html#to-upper to_upper proposal]
+* [link oven.lower_chars lower_chars]
+* [link oven.transformed transformed]
 
 [endsect]
 

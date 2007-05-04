@@ -10,6 +10,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Note:
+//
+// Though 'value_at(rng)' is the same as 'at(rng|rvalues)',
+// it should be a primitive function.
+
+
 #include <boost/assert.hpp>
 #include <boost/range/begin.hpp>
 #include <pstade/auxiliary.hpp>

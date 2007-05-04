@@ -82,8 +82,8 @@
 <dt><span class="section"><a href="oven/range_makers.html#oven.readingbuf">readingbuf</a></span></dt>
 <dt><span class="section"><a href="oven/range_makers.html#oven.recursion">recursion</a></span></dt>
 <dt><span class="section"><a href="oven/range_makers.html#oven.shared">shared</a></span></dt>
-<dt><span class="section"><a href="oven/range_makers.html#oven.single">single</a></span></dt>
 <dt><span class="section"><a href="oven/range_makers.html#oven.shared_single">shared_single</a></span></dt>
+<dt><span class="section"><a href="oven/range_makers.html#oven.single">single</a></span></dt>
 </dl></dd>
 <dt><span class="section"><a href="oven/range_adaptors.html">Range Adaptors</a></span></dt>
 <dd><dl>
@@ -102,11 +102,14 @@
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.delimited">delimited</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.dropped">dropped</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.dropped_while">dropped_while</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.elements_at">elements_at</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.elements_at_c">elements_at_c</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.filtered">filtered</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.firsts">firsts</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.identities">identities</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.indirected">indirected</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.jointed">jointed</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.lower_chars">lower_chars</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.map_keys">map_keys</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.map_values">map_values</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.matches">matches</a></span></dt>
@@ -119,6 +122,7 @@
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.pointed">pointed</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.popped">popped</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.reversed">reversed</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.rvalues">rvalues</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.scanned">scanned</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.seconds">seconds</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.set_cap">set_cap</a></span></dt>
@@ -135,6 +139,7 @@
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.tokenized">tokenized</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.transformed">transformed</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.uniqued">uniqued</a></span></dt>
+<dt><span class="section"><a href="oven/range_adaptors.html#oven.upper_chars">upper_chars</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.utf8_decoded">utf8_decoded</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.window">window</a></span></dt>
 <dt><span class="section"><a href="oven/range_adaptors.html#oven.xpressive_matches">xpressive_matches</a></span></dt>
@@ -148,8 +153,6 @@
 <dt><span class="section"><a href="oven/utilities.html#oven.nonstop">nonstop</a></span></dt>
 <dt><span class="section"><a href="oven/utilities.html#oven.regular">regular</a></span></dt>
 <dt><span class="section"><a href="oven/utilities.html#oven.regular_ref">regular_ref</a></span></dt>
-<dt><span class="section"><a href="oven/utilities.html#oven.to_upper_to_lower">to_upper/to_lower</a></span></dt>
-<dt><span class="section"><a href="oven/utilities.html#oven.to_value">to_value</a></span></dt>
 <dt><span class="section"><a href="oven/utilities.html#oven.unzipped">unzipped</a></span></dt>
 <dt><span class="section"><a href="oven/utilities.html#oven.zipped">zipped</a></span></dt>
 <dt><span class="section"><a href="oven/utilities.html#oven.zipped_with">zipped_with</a></span></dt>
@@ -401,7 +404,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><small><p>Last revised: May 04, 2007 at 05:27:52 GMT</p></small></td>
+<td align="left"><small><p>Last revised: May 04, 2007 at 15:09:47 GMT</p></small></td>
 <td align="right"><small></small></td>
 </tr></table>
 <hr>

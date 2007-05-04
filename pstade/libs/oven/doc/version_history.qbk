@@ -136,7 +136,7 @@
 * `iteration` returns `ForwardRange`.
 * Removed `repeat`, `appended` and `prepended`.
 * Optimized `regular`.
-* Added `to_lower`, `to_upper` and `to_value`.
+* Added `lower_chars`, `upper_chars` and `rvalues`.
 
 
 
