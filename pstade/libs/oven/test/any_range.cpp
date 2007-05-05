@@ -22,7 +22,6 @@
 #include <pstade/oven/identities.hpp>
 #include <pstade/oven/const_refs.hpp>
 #include <pstade/oven/filtered.hpp>
-#include <pstade/oven/transformers.hpp>
 
 
 template< class AnyIter1, class AnyIter2 >

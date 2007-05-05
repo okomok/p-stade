@@ -22,31 +22,40 @@
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/use_default.hpp>
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
+#include "./range_traversal.hpp"
 
 
 namespace pstade { namespace oven {
 
 
 template<
-    class Value               = boost::use_default,
-    class CategoryOrTraversal = boost::use_default,
-    class Reference           = boost::use_default,
-    class Difference          = boost::use_default
+    class Value      = boost::use_default,
+    class Traversal  = boost::use_default,
+    class Reference  = boost::use_default,
+    class Difference = boost::use_default
 >
 struct op_make_indirected :
-    callable< op_make_indirected<Value, CategoryOrTraversal, Reference, Difference> >
+    callable< op_make_indirected<Value, Traversal, Reference, Difference> >
 {
     template< class Myself, class Range >
     struct apply
     {
+        // lvalue-ness resurrection
+        typedef typename
+            use_default_eval_to<
+                Traversal, range_pure_traversal<Range>
+            >::type
+        trv_t;
+
         typedef
             boost::indirect_iterator<
                 typename range_iterator<Range>::type,
                 Value,
-                CategoryOrTraversal,
+                trv_t,
                 Reference,
                 Difference
             >

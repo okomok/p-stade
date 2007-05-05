@@ -107,7 +107,7 @@ Oven provides range-based algorithms taking a range instead of two iterators.
 [section all]
 
 [h3 Description]
-This algorithm returns true if the predicate is true for all elements in the range.
+This algorithm returns true if the predicate is true for all referents in the range.
 
 [h3 Header]
 * `<pstade/oven/all.hpp>`
@@ -410,7 +410,7 @@ This returns the first referent in the range.
 [section none]
 
 [h3 Description]
-This algorithm returns true if the predicate is true for none of the elements in the range.
+This algorithm returns true if the predicate is true for none of the referents in the range.
 
 [h3 Header]
 * `<pstade/oven/none.hpp>`
@@ -426,7 +426,7 @@ This algorithm returns true if the predicate is true for none of the elements in
         [[*Semantics]]
     ]
     [
-        [`all(_rng, _prd)`]
+        [`none(_rng, _prd)`]
         [`std::find_if(_begin(_rng), _end(_rng), pred) == _end(_rng)`]
     ]
 ]
@@ -444,7 +444,7 @@ This algorithm returns true if the predicate is true for none of the elements in
 [section value_at]
 
 [h3 Description]
-This returns the copy of N-th referent from the beginning of the range.
+This returns a copy of N-th referent from the beginning of the range.
 
 [h3 Header]
 * `<pstade/oven/at.hpp>`

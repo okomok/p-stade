@@ -20,12 +20,19 @@
 #include <boost/range.hpp>
 #include "./core.hpp"
 #include <pstade/oven/algorithm.hpp>
+#include <pstade/oven/transformed.hpp>
 
 
 struct A
 {
     void call();
 };
+
+
+int *to_rvalue_pointer(int& x)
+{
+    return &x;
+}
 
 
 void test()
@@ -43,7 +50,16 @@ void test()
             expected
         ) );
     }
+    {
+        // can resurrect lvalue-ness.
+        int rng[] = { 2,4,5,1,3,9,7,10,0 };
 
+        std::vector<int> expected = rng|copied;
+        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
+            rng|transformed(&to_rvalue_pointer)|indirected,
+            expected
+        ) );
+    }
 
     char characters[] = "abcdefg";
     const int N = sizeof(characters)/sizeof(char) - 1; // -1 since characters has a null char
