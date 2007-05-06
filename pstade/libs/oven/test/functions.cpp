@@ -17,6 +17,7 @@
 #include <pstade/oven/is_sorted.hpp>
 #include <pstade/oven/all.hpp>
 #include <pstade/oven/none.hpp>
+#include <pstade/oven/do_iter_swap.hpp>
 
 
 #include <algorithm> // make_heap
@@ -39,6 +40,8 @@ PSTADE_TEST_IS_RESULT_OF((bool), op_is_heap(std::string&))
 
 PSTADE_TEST_IS_RESULT_OF((bool), op_all(std::string&))
 PSTADE_TEST_IS_RESULT_OF((bool), op_none(std::string&))
+
+PSTADE_TEST_IS_RESULT_OF((void), op_do_iter_swap(int *, int*))
 
 
 struct is_a
@@ -83,6 +86,12 @@ void test()
     {
         BOOST_CHECK( all(std::string("aaaaaaaaaa"), is_a()) );
         BOOST_CHECK( none(std::string("bbbbbbbbb"), is_a()) );
+    }
+    {
+        int rng[] = { 0, 1 };
+        do_iter_swap(&rng[0], &rng[1]);
+        BOOST_CHECK( rng[0] == 1 );
+        BOOST_CHECK( rng[1] == 0 );
     }
 }
 

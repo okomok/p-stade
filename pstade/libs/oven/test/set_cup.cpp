@@ -56,6 +56,22 @@ void test()
             expected
         ) );
     }
+
+    {
+        BOOST_CHECK( oven::test_empty(
+            std::string()|set_cup( std::string() )
+        ) );
+
+        BOOST_CHECK( equals(
+            std::string("abcdefghi")|set_cup( std::string() ),
+            std::string("abcdefghi")
+        ) );
+
+        BOOST_CHECK( equals(
+            std::string()|set_cup( std::string("abcdefghi") ),
+            std::string("abcdefghi")
+        ) );
+    }
 }
 
 

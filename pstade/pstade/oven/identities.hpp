@@ -21,6 +21,7 @@
 #include <pstade/pipable.hpp>
 #include <pstade/use_default.hpp>
 #include "./concepts.hpp"
+#include "./do_iter_swap.hpp"
 #include "./iter_range.hpp"
 #include "./range_difference.hpp"
 #include "./range_iterator.hpp"
@@ -84,6 +85,13 @@ namespace identities_detail {
             return pstade::copy_construct<diff_t>(other.base() - this->base());
         }
     };
+
+
+    template< class I, class T, class D > inline
+    void iter_swap(identity_iterator<I, T, D> const& left, identity_iterator<I, T, D> const& right)
+    {
+        do_iter_swap(left.base(), right.base());
+    }
 
 
     template< class Difference = boost::use_default >

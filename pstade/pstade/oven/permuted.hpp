@@ -19,6 +19,7 @@
 #include <pstade/pipable.hpp>
 #include "./concepts.hpp"
 #include "./detail/pure_traversal.hpp"
+#include "./do_iter_swap.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
 
@@ -58,6 +59,7 @@ namespace permuted_detail {
         permutation_iterator_super<ElementIter, IndexIter>::type
     {
     private:
+        typedef permutation_iterator self_t;
         typedef typename permutation_iterator_super<ElementIter, IndexIter>::type super_t;
         typedef typename super_t::reference ref_t;
 
@@ -78,6 +80,11 @@ namespace permuted_detail {
             super_t(other.base()), m_elemIter(other.m_elemIter)
         { }
 
+        ElementIter element_base() const
+        {
+            return m_elemIter + *this->base();
+        }
+
     private:
         ElementIter m_elemIter;
         mutable boost::optional<ElementIter> m_cache;
@@ -86,7 +93,7 @@ namespace permuted_detail {
         ref_t dereference() const
         {
             if (!m_cache)
-                m_cache = m_elemIter + *this->base();
+                m_cache = element_base();
 
             return **m_cache;
         }
@@ -137,6 +144,13 @@ namespace permuted_detail {
             );
         }
     };
+
+
+    template< class E, class I > inline
+    void iter_swap(permutation_iterator<E, I> const& left, permutation_iterator<E, I> const& right)
+    {
+        do_iter_swap(left.element_base(), right.element_base());
+    }
 
 
 } // namespace permuted_detail

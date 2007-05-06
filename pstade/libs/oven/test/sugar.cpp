@@ -35,7 +35,7 @@ void test()
         std::vector<char> rng3 = std::string("56")|copied;
 
         BOOST_CHECK( equals(
-             +(rng1 >> as_term(rng2) >> rng3) | taken(17),
+             +(rng1 >> as_range(rng2) >> rng3) | taken(17),
             std::string("12345612345612345")
         ) );
     }

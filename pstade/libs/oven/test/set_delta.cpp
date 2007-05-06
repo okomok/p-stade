@@ -56,6 +56,27 @@ void test()
             expected
         ) );
     }
+
+    {
+        BOOST_CHECK( oven::test_empty(
+            std::string()|set_delta( std::string() )
+        ) );
+
+
+        BOOST_CHECK( equals(
+            std::string("abcdefghi")|set_delta( std::string() ),
+            std::string("abcdefghi")
+        ) );
+
+        BOOST_CHECK( equals(
+            std::string()|set_delta( std::string("abcdefghi") ),
+            std::string("abcdefghi")
+        ) );
+
+        BOOST_CHECK( oven::test_empty(
+            std::string("abcdefghi")|set_delta( std::string("abcdefghi") )
+        ) );
+    }
 }
 
 

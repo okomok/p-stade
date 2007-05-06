@@ -28,6 +28,7 @@
 #include "./detail/constant_reference.hpp"
 #include "./detail/minimum_pure.hpp"
 #include "./detail/pure_traversal.hpp"
+#include "./do_iter_swap.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
 
@@ -179,6 +180,13 @@ namespace successors_detail {
             );
         }
     };
+
+
+    template< class F, class B > inline
+    void iter_swap(succeed_iterator<F, B> const& left, succeed_iterator<F, B> const& right)
+    {
+        do_iter_swap(left.base(), right.base());
+    }
 
 
     template< class Range, class BinaryFun >

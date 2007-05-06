@@ -25,6 +25,7 @@
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
 #include "./concepts.hpp"
+#include "./do_iter_swap.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
 
@@ -228,6 +229,16 @@ namespace checked_detail {
             return other.base() - this->base();
         }
     };
+
+
+    template< class I >
+    void iter_swap(check_iterator<I> const& left, check_iterator<I> const& right)
+    {
+        here::check_singularity(left);
+        here::check_singularity(right);
+        here::check_compatibility(left, right);
+        do_iter_swap(left.base(), right.base());
+    }
 
 
     template< class Range >

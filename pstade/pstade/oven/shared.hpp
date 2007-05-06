@@ -28,6 +28,7 @@
 #include <pstade/nonassignable.hpp>
 #include <pstade/to_shared_ptr.hpp>
 #include "./concepts.hpp"
+#include "./do_iter_swap.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
 
@@ -97,6 +98,13 @@ namespace shared_detail {
     private:
         Ptr m_prng;
     };
+
+
+    template< class P > inline
+    void iter_swap(shared_range_iterator<P> const& left, shared_range_iterator<P> const& right)
+    {
+        do_iter_swap(left.base(), right.base());
+    }
 
 
 } // namespace shared_detail

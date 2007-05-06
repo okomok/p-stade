@@ -116,7 +116,7 @@ This algorithm returns true if the predicate is true for all referents in the ra
 * _operatable_object_
 
 [h3 Notation]
-* `not_` is an imaginary function object to negate a predicate.
+* `not_` is an imaginary function object to nagate a predicate.
 
 [h3 Valid expressions]
 [table 

@@ -63,8 +63,10 @@ Oven is known to work on the following platforms:
 
 
 [section Rationale]
+
+* Oven doesn't introduce any new elaborate concept.
 * Oven supports an iterator such that destruction of it may invalidate pointers and references previously obtained from that iterator (24.1/9).
-* Oven doesn't figure out the `distance` of non-_random_access_ _range_; in order to allow a very long (or complicated) _range_.
+* Oven Range Adaptors return in constant time if possible.
 
 [endsect]
 

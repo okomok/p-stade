@@ -28,6 +28,7 @@
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
 #include "./concepts.hpp"
+#include "./do_iter_swap.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
 #include "./range_traversal.hpp"
@@ -106,6 +107,13 @@ namespace popped_detail {
             look_next();
         }
     };
+
+
+    template< class F > inline
+    void iter_swap(pop_iterator<F> const& left, pop_iterator<F> const& right)
+    {
+        do_iter_swap(left.base(), right.base());
+    }
 
 
     template< class Range >

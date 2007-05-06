@@ -56,6 +56,25 @@ void test()
             expected
         ) );
     }
+
+    {
+        BOOST_CHECK( oven::test_empty(
+            std::string()|set_minus( std::string() )
+        ) );
+
+        BOOST_CHECK( equals(
+            std::string("abcdefghi")|set_minus( std::string() ),
+            std::string("abcdefghi")
+        ) );
+
+        BOOST_CHECK( oven::test_empty(
+            std::string()|set_minus( std::string("abcdefghi") )
+        ) );
+
+        BOOST_CHECK( oven::test_empty(
+            std::string("abcdefghi")|set_minus( std::string("abcdefghi") )
+        ) );
+    }
 }
 
 

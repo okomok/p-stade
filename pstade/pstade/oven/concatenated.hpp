@@ -40,6 +40,7 @@
 #include "./begin_end.hpp" // op_begin
 #include "./concepts.hpp"
 #include "./detail/maybe_contains.hpp"
+#include "./do_iter_swap.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
 #include "./range_value.hpp"
@@ -52,7 +53,7 @@ namespace concatenated_detail {
 
 
     template< class SegmentIter >
-    struct concatenate_iterator;
+    struct concat_iterator;
 
 
     template< class SegmentIter >
@@ -88,13 +89,13 @@ namespace concatenated_detail {
 
 
     template< class SegmentIter >
-    struct concatenate_iterator_super
+    struct concat_iterator_super
     {
         typedef typename local_iterator<SegmentIter>::type local_iter_t;
 
         typedef
             boost::iterator_adaptor<
-                concatenate_iterator<SegmentIter>,
+                concat_iterator<SegmentIter>,
                 SegmentIter,
                 typename boost::iterator_value<local_iter_t>::type,
                 typename traversal_of<SegmentIter, local_iter_t>::type,
@@ -106,11 +107,11 @@ namespace concatenated_detail {
 
 
     template< class SegmentIter >
-    struct concatenate_iterator :
-        concatenate_iterator_super<SegmentIter>::type
+    struct concat_iterator :
+        concat_iterator_super<SegmentIter>::type
     {
     private:
-        typedef typename concatenate_iterator_super<SegmentIter>::type super_t;
+        typedef typename concat_iterator_super<SegmentIter>::type super_t;
         typedef typename super_t::reference ref_t;
         typedef typename boost::iterator_reference<SegmentIter>::type local_rng_ref_t;
 
@@ -118,10 +119,10 @@ namespace concatenated_detail {
         typedef SegmentIter segment_iterator;
         typedef typename local_iterator<SegmentIter>::type local_iterator;
 
-        concatenate_iterator()
+        concat_iterator()
         { }
 
-        concatenate_iterator(SegmentIter it, SegmentIter last) :
+        concat_iterator(SegmentIter it, SegmentIter last) :
             super_t(it), m_last(last)
         {
             PSTADE_CONSTRUCTOR_PRECONDITION (~
@@ -130,12 +131,12 @@ namespace concatenated_detail {
             reset_local_forward();
         }
 
-    template< class > friend struct concatenate_iterator;
+    template< class > friend struct concat_iterator;
         template< class S >
-        concatenate_iterator(concatenate_iterator<S> const& other,
+        concat_iterator(concat_iterator<S> const& other,
             typename boost::enable_if_convertible<S, SegmentIter>::type * = 0,
             typename boost::enable_if_convertible<
-                typename concatenate_iterator<S>::local_iterator, local_iterator
+                typename concat_iterator<S>::local_iterator, local_iterator
             >::type * = 0
         ) :
             super_t(other.base()), m_last(other.m_last),
@@ -218,7 +219,7 @@ namespace concatenated_detail {
         }
 
         template< class S >
-        bool equal(concatenate_iterator<S> const& other) const
+        bool equal(concat_iterator<S> const& other) const
         {
             PSTADE_PRECONDITION (
                 (is_compatible(other))
@@ -261,11 +262,18 @@ namespace concatenated_detail {
     };
 
 
+    template< class S > inline
+    void iter_swap(concat_iterator<S> const& left, concat_iterator<S> const& right)
+    {
+        do_iter_swap(left.local(), right.local());
+    }
+
+
     template< class SegmentRange >
     struct baby
     {
         typedef
-            concatenate_iterator<
+            concat_iterator<
                 typename range_iterator<SegmentRange>::type
             >
         iter_t;

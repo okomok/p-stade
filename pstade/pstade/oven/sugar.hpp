@@ -12,16 +12,13 @@
 
 #include <boost/utility/result_of.hpp>
 #include <pstade/constant.hpp>
+#include "./as_range.hpp" // inclusion guaranteed
 #include "./cycled.hpp"
 #include "./iter_range.hpp"
 #include "./jointed.hpp"
 
 
 namespace pstade { namespace oven {
-
-
-typedef op_make_iter_range op_as_term;
-PSTADE_CONSTANT(as_term, (op_as_term))
 
 
 // +

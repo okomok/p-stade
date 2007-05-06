@@ -25,6 +25,7 @@
 #include <boost/optional/optional.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/object_generator.hpp>
+#include "./do_iter_swap.hpp"
 
 
 namespace pstade { namespace oven {
@@ -57,6 +58,7 @@ struct reverse_iterator :
     reverse_iterator_detail::super_<BidiIter>::type
 {
 private:
+    typedef reverse_iterator self_t;
     typedef typename reverse_iterator_detail::super_<BidiIter>::type super_t;
     typedef typename super_t::reference ref_t;
     typedef typename super_t::difference_type diff_t;
@@ -112,6 +114,13 @@ friend class boost::iterator_core_access;
         return this->base() - other.base();
     }
 };
+
+
+template< class B > inline
+void iter_swap(reverse_iterator<B> const& left, reverse_iterator<B> const& right)
+{
+    do_iter_swap(boost::prior(left.base()), boost::prior(right.base()));
+}
 
 
 PSTADE_ADL_BARRIER(reverse_iterator) { // for 'boost'

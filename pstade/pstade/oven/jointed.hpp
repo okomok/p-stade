@@ -159,7 +159,7 @@ namespace jointed_detail {
                 typename boost::iterator_reference<IteratorL>::type
             >::value));
 
-            if (this->base() != m_lastL)
+            if (is_in_rangeL())
                 return *this->base();
             else
                 return *m_itR;

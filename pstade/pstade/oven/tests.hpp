@@ -10,6 +10,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Note:
+//
+// These tests assume:
+//   1. Every Range is Readable; 'range_value' type is CopyConstructible.
+//   2. 'range_reference' type of ForwardRange is a reference type.
+
+
 #if !defined(PSTADE_CONCEPT_CHECK) \
     && !defined(PSTADE_OVEN_TESTS_NO_CONCEPT_CHECK)
 #define PSTADE_CONCEPT_CHECK
@@ -182,6 +189,39 @@ namespace tests_detail {
     }
 
 
+    template <class Iterator>
+    void swappable_iter_test(Iterator i, Iterator j)
+    {
+        using std::iter_swap;
+
+        Iterator i2(i), j2(j);
+        typename boost::iterator_value<Iterator>::type bi = *i, bj = *j;
+        iter_swap(i2, j2);
+        typename boost::iterator_value<Iterator>::type ai = *i, aj = *j;
+        BOOST_ASSERT("swappable_iter_test failed" && bi == aj);
+        BOOST_ASSERT("swappable_iter_test failed" && bj == ai);
+    }
+
+    template< class Range, class Vector >
+    bool forward_swappable(Range& rng, Vector const& expected)
+    {
+        tests_detail::swappable_iter_test(
+            boost::begin(rng), boost::next(boost::begin(rng))
+        );
+
+        BOOST_ASSERT(expected[1] == *boost::begin(rng));
+        BOOST_ASSERT(expected[0] == *boost::next(boost::begin(rng)));
+
+        tests_detail::swappable_iter_test(
+            boost::begin(rng), boost::next(boost::begin(rng))
+        );
+
+        BOOST_ASSERT(expected[0] == *boost::begin(rng));
+        BOOST_ASSERT(expected[1] == *boost::next(boost::begin(rng)));
+        return true;
+    }
+
+
 } // namespace tests_detail
 
 
@@ -222,6 +262,13 @@ bool test_Forward_Readable_Writable(Range& rng, Vector const& expected)
 
     {
         if (!tests_detail::forward_rw(rng, expected)) {
+            BOOST_ASSERT(false);
+            return false;
+        }
+    }
+
+    {
+        if (!tests_detail::forward_swappable(rng, expected)) {
             BOOST_ASSERT(false);
             return false;
         }

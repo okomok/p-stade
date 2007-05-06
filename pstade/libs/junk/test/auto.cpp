@@ -11,7 +11,8 @@
 
 
 //#include <pstade/../libs/wine/test/locale.cpp>
-#include <pstade/../libs/oven/test/functions.cpp>
+
+#include <pstade/../libs/oven/test/sugar.cpp>
 //#include <pstade/../libs/oven/example/quick_sort.cpp>
 //#include <pstade/../libs/biscuit/test/capture.cpp>
 //#include <pstade/../libs/oven/test/ms/atl_string.cpp>

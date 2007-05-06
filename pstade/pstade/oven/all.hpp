@@ -18,9 +18,11 @@
 //     http://www.crystalclearsoftware.com/cgi-bin/boost_wiki/wiki.pl?STLAlgorithmExtensions/AllAlgorithm
 
 
+#include <algorithm> // find_if
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/constant.hpp>
+#include <pstade/functional.hpp> // not_
 #include "./concepts.hpp"
 
 
@@ -41,12 +43,7 @@ struct op_all
     template< class Iterator, class UnaryPred >
     bool aux(Iterator first, Iterator last, UnaryPred pred) const
     {
-        for (; first != last; ++first) {
-            if (!pred(*first))
-              return false;
-        }
-
-        return true;
+        return std::find_if(first, last, not_(pred)) == last;
     }
 };
 

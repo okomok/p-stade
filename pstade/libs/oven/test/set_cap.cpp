@@ -56,6 +56,16 @@ void test()
             expected
         ) );
     }
+    {
+        BOOST_CHECK( oven::test_empty(
+            std::string()|set_cap( std::string() )
+        ) );
+    }
+    {
+        BOOST_CHECK( oven::test_empty(
+            std::string("acefhikm")|set_cap( std::string("bdgjlnop") )
+        ) );
+    }
 }
 
 

@@ -54,7 +54,9 @@
 [def _random_access_         [@http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#random-access-traversal-iterators-lib-random-access-traversal-iterators Random Access]]
 [def _readable_              [@http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#readable-iterators-lib-readable-iterators Readable]]
 [def _writable_              [@http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#writable-iterators-lib-writable-iterators Writable]]
+[def _swappable_             [@http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#swappable-iterators-lib-swappable-iterators Swappable]]
 [def _lvalue_                [@http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#lvalue-iterators-lib-lvalue-iterators Lvalue]]
+[def _constant_              [link oven.constant_range Constant]]
 [def _contiguous_            [link oven.contiguous_range Contiguous]]
 
 [def _range_                 [@http://www.boost.org/libs/range/doc/range.html Range]]

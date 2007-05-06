@@ -85,6 +85,22 @@ void test()
         // std::cout << std::endl;
         // oven::merge(A1, A2, writer(std::cout), &lt_nocase); 
     }
+
+    {
+        BOOST_CHECK( oven::test_empty(
+            std::string()|merged( std::string() )
+        ) );
+
+        BOOST_CHECK( equals(
+            std::string("abcdefghi")|merged( std::string() ),
+            std::string("abcdefghi")
+        ) );
+
+        BOOST_CHECK( equals(
+            std::string()|merged( std::string("abcdefghi") ),
+            std::string("abcdefghi")
+        ) );
+    }
 }
 
 

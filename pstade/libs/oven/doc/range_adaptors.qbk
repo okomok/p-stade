@@ -36,7 +36,7 @@ A Range Adaptor meets the following requirements unless otherwise specified:
     [
         [`_fwdrng|adjacent_filtered(_prd)`]
         [
-            A _forward_ non-_writable_ `{b1,..,bM}`
+            A _forward_ _constant_ `{b1,..,bM}`
         ]
     ]
 ]
@@ -451,7 +451,7 @@ then pretends to be a range of _forward_iterator_.
     [
         [`_rng|const_refs`]
         [
-            A non-_writable_ non-_lvalue_ `[_begin(_rng), _end(_rng))`  whose `boost::range_reference` type is a /reference type/.
+            A _constant_ non-_lvalue_ `[_begin(_rng), _end(_rng))`  whose `boost::range_reference` type is a /reference type/.
         ]
     ]
 ]
@@ -471,7 +471,7 @@ then pretends to be a range of _forward_iterator_.
 [section constants]
 
 [h3 Description]
-`constants` converts the base range into a non-_writable_ _range_.
+`constants` converts the base range into a _constant_ _range_.
 
 [h3 Header]
 * `<pstade/oven/constants.hpp>`
@@ -488,7 +488,7 @@ then pretends to be a range of _forward_iterator_.
     [
         [`_rng|constants`]
         [
-            A non-_writable_ `[_begin(_rng), _end(_rng))`
+            A _constant_ `[_begin(_rng), _end(_rng))`
         ]
     ]
 ]
@@ -570,7 +570,7 @@ then pretends to be a range of _forward_iterator_.
     [
         [`_rng|cycled(c)`]
         [
-            `{a1,..,aN,a1,..aN,..,a1,..,aN}` where `a1,..,aN` appears `c` times.
+            A non-_swappable_ non-_lvalue_`{a1,..,aN,a1,..aN,..,a1,..,aN}`, where `a1,..,aN` appears `c` times.
         ]
     ]
 ]
@@ -674,7 +674,7 @@ then pretends to be a range of _forward_iterator_.
 * `0 <= n`
 
 [h3 Complexity]
-* `O(1)` if `_rng` is a _random_access_ _range_, and `O(n)` otherwise.
+* `O(1)` if `_rng` is _random_access_, and `O(n)` otherwise.
 
 [h3 Example]
     BOOST_CHECK( equals(
@@ -703,7 +703,7 @@ then pretends to be a range of _forward_iterator_.
 * _pipable_object_
 
 [h3 Notation]
-* `not_` is an imaginary predicate to negate `_prd`.
+* `not_` is an imaginary function object to nagate a predicate.
 
 [h3 Valid expressions]
 [table 
@@ -1077,7 +1077,6 @@ Pending...
 * `{b1,..,bM}` is `_rng2`.
 * `cK = a1` for all `K` such that `1 <= K && K <= N`.
 * `cK = static_cast<boost::range_reference<_typeof(_rng1)>::type>(b(K-N))` for all `K` such that `N+1 <= K && K <= N+M`.
-* The traversal category of `{c1,..,c(N+M)}` is minimum of `_rng1` and `_rng2`.
 
 [h3 Valid expressions]
 [table 
@@ -1096,6 +1095,10 @@ Pending...
 [h3 Preconditions]
 * `boost::range_reference<_typeof(_rng2)>::type` is convertible to `boost::range_reference<_typeof(_rng1)>::type`
   without binding /reference/ to /rvalue/.
+
+[h3 Invariants]
+* The traversal category of `{c1,..,c(N+M)}` is minimum of `_rng1` and `_rng2`.
+* `{c1,..,c(N+M)}` is _swappable_ if and only if both `_rng1` and `_rng2` is _readable_ and _writable_.
 
 [h3 Example]
     std::string str0("every range");
@@ -1341,7 +1344,7 @@ Pending...
     [
         [`_rng|memoized`]
         [
-            A _forward_ non-_writable_ _lvalue_ `[_begin(_rng), _end(_rng))`
+            A _forward_ _constant_ _lvalue_ `[_begin(_rng), _end(_rng))`
         ]
     ]
     [
@@ -1352,7 +1355,7 @@ Pending...
     ]
 ]
 
-[note `memoized` can return a _forward_ _range_ even if the base range is a _single_pass_ _range_.]
+[note `memoized` can return a _forward_ _range_ even if the base range is _single_pass_.]
 
 [h3 Preconditions]
 * `_value_of<_typeof(_rng)>::type` is _assignable_ and _copy_constructible_.
@@ -1403,7 +1406,7 @@ Pending...
     [
         [`_rng1|merged(_rng2, _prd)`]
         [
-            An up-to-_forward_ non-_writable_ _range_ which behaves as if it were made by `merge(_rng1, _rng2, _prd)`.
+            An up-to-_forward_ _constant_ _range_ which behaves as if it were made by `merge(_rng1, _rng2, _prd)`.
         ]
     ]
     [
@@ -1467,7 +1470,7 @@ Pending...
 * `n <= distance(_fwdrng) + m`
 
 [h3 Complexity]
-* `O(1)` if `_fwdrng` is a _random_access_ _range_, and `O(n)+O(m)` otherwise.
+* `O(1)` if `_fwdrng` is a _random_access_, and `O(n)+O(m)` otherwise.
 
 [h3 Example]
 
@@ -1746,7 +1749,7 @@ A range returned from `reversed` iterates in the opposite direction.
 [section rvalues]
 
 [h3 Description]
-`rvalues` returns a range whose `boost::range_reference` type is not a /reference type/.
+`rvalues` returns a range whose `boost::range_reference` type is the same as `boost::range_value` type.
 
 [h3 Header]
 * `<pstade/oven/rvalues.hpp>`
@@ -1755,7 +1758,7 @@ A range returned from `reversed` iterates in the opposite direction.
 * _pipable_object_
 
 [h3 Notation]
-* `to_v` is an imaginary function object which returns a copy of the argument.
+* `to_v` is an imaginary function object to convert the argument to `range_value<_typeof(_rng>)>::type`.
 
 [h3 Valid expressions]
 [table 
@@ -1772,7 +1775,7 @@ A range returned from `reversed` iterates in the opposite direction.
 ]
 
 [h3 Preconditions]
-* `_value_of<_typeof(_rng)>::type` is _copy_constructible_.
+* `_rng` is _readable_.
 
 [h3 Example]
 
@@ -1812,13 +1815,13 @@ A range returned from `reversed` iterates in the opposite direction.
     [
         [`_rng|scanned(s, _fun)`]
         [
-            An up-to-_forward_ non-_writable_ non-_lvalue_ `{s,_fun(s, a1),_fun(_fun(s, a1), a2),_fun(_fun(_fun(s, a1), a2), a3),..,aN)}`
+            An up-to-_forward_ _constant_ non-_lvalue_ `{s,_fun(s, a1),_fun(_fun(s, a1), a2),_fun(_fun(_fun(s, a1), a2), a3),..,aN)}`
         ]
     ]
     [
         [`_rng1|scanned(_fun1)`]
         [
-            An up-to-_forward_ non-_writable_ non-_lvalue_ `{b1,_fun1(b1, b2),_fun1(_fun(b1, b2), b3),_fun1(_fun1(_fun1(b1, b2), b3), b4),..,bM)}`
+            An up-to-_forward_ _constant_ non-_lvalue_ `{b1,_fun1(b1, b2),_fun1(_fun(b1, b2), b3),_fun1(_fun1(_fun1(b1, b2), b3), b4),..,bM)}`
         ]
     ]
 ]
@@ -1912,7 +1915,7 @@ A range returned from `reversed` iterates in the opposite direction.
     [
         [`_rng1|set_cap(_rng2, _prd)`]
         [
-            An up-to-_forward_ non-_writable_ _range_ which behaves as if it were made by `set_intersection(_rng1, _rng2, _prd)`.
+            An up-to-_forward_ _constant_ _range_ which behaves as if it were made by `set_intersection(_rng1, _rng2, _prd)`.
         ]
     ]
     [
@@ -1958,7 +1961,7 @@ A range returned from `reversed` iterates in the opposite direction.
     [
         [`_rng1|set_cup(_rng2, _prd)`]
         [
-            An up-to-_forward_ non-_writable_ _range_ which behaves as if it were made by `set_union(_rng1, _rng2, _prd)`.
+            An up-to-_forward_ _constant_ _range_ which behaves as if it were made by `set_union(_rng1, _rng2, _prd)`.
         ]
     ]
     [
@@ -2004,7 +2007,7 @@ A range returned from `reversed` iterates in the opposite direction.
     [
         [`_rng1|set_delta(_rng2, _prd)`]
         [
-            An up-to-_forward_ non-_writable_ _range_ which behaves as if it were made by `set_symmetric_difference(_rng1, _rng2, _prd)`.
+            An up-to-_forward_ _constant_ _range_ which behaves as if it were made by `set_symmetric_difference(_rng1, _rng2, _prd)`.
         ]
     ]
     [
@@ -2050,7 +2053,7 @@ A range returned from `reversed` iterates in the opposite direction.
     [
         [`_rng1|set_minus(_rng2, _prd)`]
         [
-            An up-to-_forward_ non-_writable_ _range_ which behaves as if it were made by `set_difference(_rng1, _rng2, _prd)`.
+            An up-to-_forward_ _constant_ _range_ which behaves as if it were made by `set_difference(_rng1, _rng2, _prd)`.
         ]
     ]
     [
@@ -2133,7 +2136,7 @@ A range returned from `reversed` iterates in the opposite direction.
 [h3 Description]
 `sorted` provides a sorted view of the base range.
 
-[caution Though `sorted` can accept _forward_ (possibly non-_writable_) _range_,
+[caution Though `sorted` can accept _forward_ (possibly _constant_) _range_,
       it may be considered expensive in some applications.]
 
 [h3 Header]
@@ -2336,7 +2339,7 @@ A range returned from `reversed` iterates in the opposite direction.
 
 [note `taken` can't return a _bidirectional_-or-more _range_; for the laziness, meaning that `taken` returns in constant time.
       If you don't want to reduce the traversal category, use `window` or `offset`, which doesn't return in constant-time
-      unless the base range is a _random_access_ _range_.]
+      unless the base range is _random_access_.]
 
 [h3 Preconditions]
 * `_typeof(n)` is convertible to `range_difference<_typeof(_rng)>::type`.
@@ -2368,7 +2371,7 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
 * _pipable_object_
 
 [h3 Notation]
-* `not_` is an imaginary predicate to negate `_prd`.
+* `not_` is an imaginary function object to nagate a predicate.
 
 [h3 Valid expressions]
 [table 
@@ -2529,7 +2532,7 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
 * _pipable_object_
 
 [h3 Notation]
-* `not_` is `regular(!boost::lambda::_1)`.
+* `not_` is an imaginary function object to nagate a predicate.
 * `eq` is `regular(boost::lambda::_1 == boost::lambda::_2)`.
 
 [h3 Valid expressions]
@@ -2714,7 +2717,7 @@ Pending...
 * `n <= m`
 
 [h3 Complexity]
-* `O(1)` if `_fwdrng` is a _random_access_ _range_, and `O(m)` otherwise.
+* `O(1)` if `_fwdrng` is _random_access_, and `O(m)` otherwise.
 
 [h3 Example]
 

@@ -278,7 +278,7 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
     [
         [`initial_values(a1,..,aN)`]
         [
-            A _random_access_ non-_writable_ _lvalue_ `{a1,..,aN}`
+            A _random_access_ _constant_ _lvalue_ `{a1,..,aN}`
         ]
     ]
     [
@@ -346,7 +346,7 @@ on the first argument, the second item by applying the function on the previous 
     [
         [`iteration(x, _fun)`]
         [
-            An infinite _forward_ non-_writable_ non-_lvalue_ `{x,_fun(x),_fun(_fun(x)),_fun(_fun(_fun(x))),...}`
+            An infinite _forward_ _constant_ non-_lvalue_ `{x,_fun(x),_fun(_fun(x)),_fun(_fun(_fun(x))),...}`
         ]
     ]
 ]

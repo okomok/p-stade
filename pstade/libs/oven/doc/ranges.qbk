@@ -196,7 +196,7 @@ a range presentation of dynamically allocated arrays.
 [section file_range]
 
 [h3 Description]
-`file_range` is a _random_access_ non-_writable_ _range_ for files.
+`file_range` is a _random_access_ _constant_ _range_ for files.
 If the file opening failed, the range is empty.
 
 [note `file_range` is "binary"; any automatic conversion isn't performed.]
@@ -206,7 +206,7 @@ If the file opening failed, the range is empty.
 
 [h3 Model of]
 * _random_access_ _range_
-* non-_writable_ _range_
+* _constant_ _range_
 
 [h3 Notation]
 * `r` is a `file_range`.

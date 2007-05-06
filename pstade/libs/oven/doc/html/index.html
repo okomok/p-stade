@@ -45,6 +45,7 @@
 <dt><span class="section"><a href="oven/concepts.html#oven.pipable_object">Pipable Object</a></span></dt>
 <dt><span class="section"><a href="oven/concepts.html#oven.auxiliary_interface">Auxiliary Interface</a></span></dt>
 <dt><span class="section"><a href="oven/concepts.html#oven.stoppable_generator">Stoppable Generator</a></span></dt>
+<dt><span class="section"><a href="oven/concepts.html#oven.constant_range">Constant Range</a></span></dt>
 <dt><span class="section"><a href="oven/concepts.html#oven.contiguous_range">Contiguous Range</a></span></dt>
 </dl></dd>
 <dt><span class="section"><a href="oven/range_algorithms.html">Range Algorithms</a></span></dt>
@@ -273,14 +274,14 @@
 <a name="oven.rationale"></a>Rationale</h3></div></div></div>
 <div class="itemizedlist"><ul type="disc">
 <li>
+          Oven doesn't introduce any new elaborate concept.
+        </li>
+<li>
           Oven supports an iterator such that destruction of it may invalidate pointers
           and references previously obtained from that iterator (24.1/9).
         </li>
 <li>
-          Oven doesn't figure out the <code class="computeroutput"><span class="identifier">distance</span></code>
-          of non-<a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#random-access-traversal-iterators-lib-random-access-traversal-iterators" target="_top">Random
-          Access</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>;
-          in order to allow a very long (or complicated) <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>.
+          Oven Range Adaptors return in constant time if possible.
         </li>
 </ul></div>
 </div>
@@ -309,7 +310,7 @@
       </p>
 <div class="informaltable">
 <h5>
-<a name="id431474"></a>
+<a name="id431445"></a>
         </h5>
 <table class="table">
 <colgroup>
@@ -412,7 +413,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><small><p>Last revised: May 05, 2007 at 11:59:37 GMT</p></small></td>
+<td align="left"><small><p>Last revised: May 06, 2007 at 04:29:35 GMT</p></small></td>
 <td align="right"><small></small></td>
 </tr></table>
 <hr>

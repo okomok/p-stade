@@ -29,6 +29,7 @@
 #include <pstade/to_ref.hpp>
 #include "./concepts.hpp"
 #include "./detail/minimum_pure.hpp"
+#include "./do_iter_swap.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
 
@@ -140,6 +141,13 @@ namespace taken_while_detail {
             check_predicate();
         }
     };
+
+
+    template< class I, class P > inline
+    void iter_swap(take_while_iterator<I, P> const& left, take_while_iterator<I, P> const& right)
+    {
+        do_iter_swap(left.base(), right.base());
+    }
 
 
     template< class Range, class Predicate >

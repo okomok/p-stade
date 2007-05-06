@@ -28,8 +28,8 @@ namespace delimited_detail {
 
 
     template< class DelimiterRange >
-    struct with :
-        callable< with<DelimiterRange> >
+    struct join :
+        callable< join<DelimiterRange> >
     {
         // Hold the base range by value for copying to outer scope.
         typedef typename
@@ -49,10 +49,10 @@ namespace delimited_detail {
             return make_jointed(m_delim, local);
         }
 
-        explicit with()
+        explicit join()
         { }
 
-        explicit with(DelimiterRange& delim) :
+        explicit join(DelimiterRange& delim) :
             m_delim(delim)
         { }
 
@@ -68,7 +68,7 @@ namespace delimited_detail {
             typename boost::result_of<
                 op_make_concatenated(
                     typename boost::result_of<
-                        op_make_transformed<>(SegmentRange&, with<DelimiterRange>)
+                        op_make_transformed<>(SegmentRange&, join<DelimiterRange>)
                     >::type
                 )
             >::type
@@ -80,7 +80,7 @@ namespace delimited_detail {
             PSTADE_CONCEPT_ASSERT((SinglePass<DelimiterRange>));
 
             return make_concatenated(
-                make_transformed(rngs, with<DelimiterRange>(delim))
+                make_transformed(rngs, join<DelimiterRange>(delim))
             );
         }
     };
