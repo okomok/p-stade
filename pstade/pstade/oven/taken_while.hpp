@@ -26,7 +26,6 @@
 #include <pstade/function.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/to_ref.hpp>
 #include "./concepts.hpp"
 #include "./detail/minimum_pure.hpp"
 #include "./do_iter_swap.hpp"
@@ -116,7 +115,7 @@ namespace taken_while_detail {
             if (is_end())
                 return;
 
-            if (!m_pred( to_ref(*this->base()) ))
+            if (!m_pred(*this->base()))
                 this->base_reference() = m_last;
         }
 

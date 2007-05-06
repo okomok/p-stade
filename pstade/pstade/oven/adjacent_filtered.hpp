@@ -20,7 +20,6 @@
 #include <pstade/function.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/to_ref.hpp>
 #include "./concepts.hpp"
 #include "./successors.hpp"
 
@@ -41,7 +40,7 @@ namespace adjacent_filtered_detail {
         {
             ForwardIter next = first;
             while (++next != last) {
-                if (m_pred(to_ref(*first), to_ref(*next)))
+                if (m_pred(*first, *next))
                     break;
             }
 

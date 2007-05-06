@@ -14,6 +14,7 @@
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_traits.hpp> // iterator_value
 #include <boost/optional/optional.hpp>
+#include <pstade/copy_construct.hpp>
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
 #include "./concepts.hpp"
@@ -82,7 +83,7 @@ namespace const_refs_detail {
         ref_t dereference() const
         {
             if (!m_value)
-                m_value = *this->base();
+                m_value = pstade::copy_construct<val_t>(*this->base());
 
             return *m_value;
         }

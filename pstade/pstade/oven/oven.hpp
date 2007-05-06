@@ -108,6 +108,7 @@
 #include "./range_value.hpp"
 #include "./reading.hpp"
 #include "./recursion.hpp"
+#include "./referent.hpp"
 #include "./regular.hpp"
 #include "./reverse_iterator.hpp"
 #include "./reversed.hpp"

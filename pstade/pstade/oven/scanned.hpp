@@ -20,7 +20,6 @@
 #include <pstade/constant.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/to_ref.hpp>
 #include "./concepts.hpp"
 #include "./detail/minimum_pure.hpp"
 #include "./dropped.hpp"
@@ -100,7 +99,7 @@ namespace scanned_detail {
 
         State call_fun() const
         {
-            return m_fun(m_state, to_ref(*this->base()));
+            return m_fun(m_state, *this->base());
         }
 
     friend class boost::iterator_core_access;
