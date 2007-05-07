@@ -48,6 +48,8 @@
 [def _output_iterator_       [@http://boost.org/doc/html/OutputIterator.html Output Iterator]]
 [def _forward_iterator_      [@http://boost.org/doc/html/ForwardIterator.html Forward Iterator]]
 
+[def _sequence_              [@http://www.sgi.com/tech/stl/Sequence.html Sequence]]
+
 [def _single_pass_           [@http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#single-pass-iterators-lib-single-pass-iterators Single Pass]]
 [def _forward_               [@http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#forward-traversal-iterators-lib-forward-traversal-iterators Forward]]
 [def _bidirectional_         [@http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#bidirectional-traversal-iterators-lib-bidirectional-traversal-iterators Bidirectional]]

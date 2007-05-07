@@ -41,6 +41,7 @@
 
 [h3 See also]
 * [@http://hamigaki.sourceforge.jp/doc/html/counting_output_iterator.html hamigaki::counting_output_iterator]
+* [link oven.adapted_to_base adapted_to/to_base]
 * [link oven.counting counting]
 
 [endsect]

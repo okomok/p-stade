@@ -116,7 +116,7 @@ This algorithm returns true if the predicate is true for all referents in the ra
 * _operatable_object_
 
 [h3 Notation]
-* `not_` is an imaginary function object to nagate a predicate.
+* `not_` is an imaginary function to nagate a predicate.
 
 [h3 Valid expressions]
 [table 
@@ -131,6 +131,7 @@ This algorithm returns true if the predicate is true for all referents in the ra
 ]
 
 [h3 Preconditions]
+* `_rng` is _readable_ or _lvalue_.
 
 [h3 See also]
 * [link oven.none none]
@@ -143,7 +144,7 @@ This algorithm returns true if the predicate is true for all referents in the ra
 [section at]
 
 [h3 Description]
-This returns the N-th referent from the beginning of the range. 
+`at` returns the N-th referent from the beginning of the range. 
 
 [h3 Header]
 * `<pstade/oven/at.hpp>`
@@ -164,11 +165,12 @@ This returns the N-th referent from the beginning of the range.
 ]
 
 [h3 Preconditions]
+* `_rndrng` is _readable_ or _lvalue_.
 * If `boost::range_reference<_typeof(_rndrng)>::type` is a /reference type/, `_rndrng` is a _lvalue_ _range_.
 * `_typeof(n)` is convertible to `boost::range_difference<_typeof(_rndrng)>::type`.
 * `0 <= n && n < distance(_rndrng)`
 
-[note you must use [link oven.value_at value_at] if the first precondition can't be met.]
+[note you must use [link oven.value_at value_at] if the second precondition can't be met.]
 
 [h3 Example]
     std::string str("f12344513215b");
@@ -186,7 +188,7 @@ This returns the N-th referent from the beginning of the range.
 [section back]
 
 [h3 Description]
-This returns the last referent in the range.
+`back` returns the last referent in the range.
 
 [h3 Header]
 * `<pstade/oven/back.hpp>`
@@ -207,6 +209,7 @@ This returns the last referent in the range.
 ]
 
 [h3 Preconditions]
+* `_bidrng` is _readable_ or _lvalue_.
 * If `boost::range_reference<_typeof(_bidrng)>::type` is a /reference type/, `_bidrng` is a _lvalue_ _range_.
 * `!boost::empty(_bidrng)`
 
@@ -285,6 +288,7 @@ This returns the last referent in the range.
 ]
 
 [h3 Preconditions]
+* `_rng1` is a _sequence_.
 * `_value_of<_typeof(_rng)>::type` is convertible to `V1`.
 * `Rng2` is an /aggregate type/ such that `Rng2 _rng2 = _rng0|copied;` is a valid expression.
 * `copied` isn't placed in a function default argument list.
@@ -366,6 +370,9 @@ The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied
     ]
 ]
 
+[h3 Preconditions]
+* `_rng1` and `_rng2` are _readable_ or _lvalue_.
+
 [endsect]
 
 
@@ -374,7 +381,7 @@ The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied
 [section front]
 
 [h3 Description]
-This returns the first referent in the range.
+`front` returns the first referent in the range.
 
 [h3 Header]
 * `<pstade/oven/front.hpp>`
@@ -395,6 +402,7 @@ This returns the first referent in the range.
 ]
 
 [h3 Preconditions]
+* `_rng` is _readable_ or _lvalue_.
 * If `boost::range_reference<_typeof(_rng)>::type` is a /reference type/, `_rng` is a _lvalue_ _range_.
 * `!boost::empty(_rng)`
 
@@ -432,6 +440,7 @@ This algorithm returns true if the predicate is true for none of the referents i
 ]
 
 [h3 Preconditions]
+* `_rng` is _readable_ or _lvalue_.
 
 [h3 See also]
 * [link oven.all all]
@@ -444,7 +453,7 @@ This algorithm returns true if the predicate is true for none of the referents i
 [section value_at]
 
 [h3 Description]
-This returns a copy of N-th referent from the beginning of the range.
+`value_at` returns a copy of N-th referent from the beginning of the range.
 
 [h3 Header]
 * `<pstade/oven/at.hpp>`
@@ -468,7 +477,7 @@ This returns a copy of N-th referent from the beginning of the range.
 ]
 
 [h3 Preconditions]
-* `V` is _copy_constructible_.
+* `_rndrng` is _readable_.
 * `_typeof(n)` is convertible to `boost::range_difference<_typeof(_rndrng)>::type`.
 * `0 <= n && n < distance(_rndrng)`
 
@@ -483,7 +492,7 @@ This returns a copy of N-th referent from the beginning of the range.
 [section value_back]
 
 [h3 Description]
-This returns a copy of the last referent in the range.
+`value_back` returns a copy of the last referent in the range.
 
 [h3 Header]
 * `<pstade/oven/back.hpp>`
@@ -507,7 +516,7 @@ This returns a copy of the last referent in the range.
 ]
 
 [h3 Preconditions]
-* `V` is _copy_constructible_.
+* `_bidrng` is _readable_.
 * `!boost::empty(_bidrng)`
 
 [h3 See also]
@@ -522,7 +531,7 @@ This returns a copy of the last referent in the range.
 [section value_front]
 
 [h3 Description]
-This returns a copy of the first referent in the range.
+`value_front` returns a copy of the first referent in the range.
 
 [h3 Header]
 * `<pstade/oven/front.hpp>`
@@ -546,7 +555,7 @@ This returns a copy of the first referent in the range.
 ]
 
 [h3 Preconditions]
-* `V` is _copy_constructible_.
+* `_rng` is _readable_.
 * `!boost::empty(_rng)`
 
 [h3 See also]

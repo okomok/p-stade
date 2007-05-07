@@ -117,7 +117,6 @@ test-suite "oven" :
     [ run taken_while.cpp ]
     [ run tokenized.cpp ]
     [ run transformed.cpp ]
-    [ run transformers.cpp ]
     [ run traversal_tags.cpp ]
     [ run tuple.cpp ]
     [ run uniqued.cpp ]

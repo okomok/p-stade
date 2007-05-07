@@ -33,17 +33,9 @@ namespace counter_detail  {
             ++m_i;
         }
 
-        explicit increment()
-        { }
-
         explicit increment(Incrementable i) :
             m_i(i)
         { }
-
-        Incrementable incrementable() const
-        {
-            return m_i;
-        }
 
         // as "adaptor"; 'adapted_to' kicks in!
         Incrementable base() const

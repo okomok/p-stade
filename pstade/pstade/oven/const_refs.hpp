@@ -14,10 +14,10 @@
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_traits.hpp> // iterator_value
 #include <boost/optional/optional.hpp>
-#include <pstade/copy_construct.hpp>
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
 #include "./concepts.hpp"
+#include "./deref.hpp"
 #include "./detail/pure_traversal.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
@@ -83,7 +83,7 @@ namespace const_refs_detail {
         ref_t dereference() const
         {
             if (!m_value)
-                m_value = pstade::copy_construct<val_t>(*this->base());
+                m_value = deref(this->base());
 
             return *m_value;
         }

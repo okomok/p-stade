@@ -51,6 +51,10 @@ void test()
         }
         BOOST_CHECK(false);
     }
+    {
+        int rng[] = { 1,2,3,4 };
+        BOOST_CHECK( &rng[0] == &(rng|at(0)) );
+    }
 }
 
 

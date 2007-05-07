@@ -358,7 +358,7 @@ Though `zipped` accepts a function taking a `boost::tuple` as the parameter, it 
 * `<pstade/oven/zipped_with.hpp>`
 
 [h3 Notation]
-* `fuse` is an imaginary function object to turn the argument into the one taking a `boost::tuple` as the parameter.
+* `fuse` is an imaginary function to turn the argument into the one taking a `boost::tuple` as the parameter.
 
 [h3 Valid expressions]
 [table 

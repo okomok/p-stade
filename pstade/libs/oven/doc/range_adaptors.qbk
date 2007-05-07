@@ -42,6 +42,7 @@ A Range Adaptor meets the following requirements unless otherwise specified:
 ]
 
 [h3 Preconditions]
+* `_fwdrng` is _readable_ or _lvalue_.
 * `_prd(*_begin(_fwdrng), *_begin(_fwdrng))` is well-formed.
 * `_prd` is _assignable_ and _default_constructible_.
 
@@ -402,6 +403,7 @@ It passes adjacent pairs to a function to transform repeatedly.
 ]
 
 [h3 Preconditions]
+* `_rng` is _readable_ or _lvalue_.
 * `LocalRange` is _range_.
 * Destruction of a `SegmentIterator` doesn't invalidate the `LocalIterator` previously obtained from that iterator.
 
@@ -451,17 +453,18 @@ then pretends to be a range of _forward_iterator_.
     [
         [`_rng|const_refs`]
         [
-            A _constant_ non-_lvalue_ `[_begin(_rng), _end(_rng))`  whose `boost::range_reference` type is a /reference type/.
+            A non-_lvalue_ _constant_ `[_begin(_rng), _end(_rng))`  whose `boost::range_reference` type is a /reference type/.
         ]
     ]
 ]
 
 [h3 Preconditions]
-* `_value_of<_typeof(_rng)>::type` is _assignable_, _copy_constructible_ and _default_constructible_.
+* `_value_of<_typeof(_rng)>::type` is _assignable_ and _copy_constructible_.
 
 [h3 Example]
 
 [h3 See also]
+* [link oven.constants constants]
 
 [endsect]
 
@@ -498,6 +501,7 @@ then pretends to be a range of _forward_iterator_.
 [h3 Example]
 
 [h3 See also]
+* [link oven.const_refs const_refs]
 
 [endsect]
 
@@ -623,6 +627,7 @@ then pretends to be a range of _forward_iterator_.
 
 [h3 Preconditions]
 * `make_jointed(_rng2, *_begin(_rng1))` is well-formed.
+* `_rng1|transformed(join)|concatenated` is a valid expression.
 
 [tip `delimited` prepends the delimiter. `dropped` is useful to remove it.]
 
@@ -703,7 +708,7 @@ then pretends to be a range of _forward_iterator_.
 * _pipable_object_
 
 [h3 Notation]
-* `not_` is an imaginary function object to nagate a predicate.
+* `not_` is an imaginary function to nagate a predicate.
 
 [h3 Valid expressions]
 [table 
@@ -720,6 +725,7 @@ then pretends to be a range of _forward_iterator_.
 ]
 
 [h3 Preconditions]
+* `_rng` is _readable_ or _lvalue_.
 
 [h3 Complexity]
 * At most `distance(_rng)` applications of the corresponding `_prd`.
@@ -936,7 +942,6 @@ Pending...
 
 [h3 Preconditions]
 * `_value_of<_typeof(_rng)>::type` is a `std::pair`.
-* `_rng|transformed(first_of)` is a valid expression.
 
 [h3 Example]
 
@@ -1121,8 +1126,6 @@ Pending...
 
 [h3 Description]
 `lower_chars` performs case-conversion on all characters in the base range.
-
-[note `lower_chars` is a "view", while _string_algo_proposal_ returns a new allocated range.]
 
 [h3 Header]
 * `<pstade/oven/lower_chars.hpp>`
@@ -1344,7 +1347,7 @@ Pending...
     [
         [`_rng|memoized`]
         [
-            A _forward_ _constant_ _lvalue_ `[_begin(_rng), _end(_rng))`
+            A _forward_ _lvalue_ _constant_ `[_begin(_rng), _end(_rng))`
         ]
     ]
     [
@@ -1358,7 +1361,8 @@ Pending...
 [note `memoized` can return a _forward_ _range_ even if the base range is _single_pass_.]
 
 [h3 Preconditions]
-* `_value_of<_typeof(_rng)>::type` is _assignable_ and _copy_constructible_.
+* `_rng` is _readable_.
+* `_value_of<_typeof(_rng)>::type` is _assignable_.
 * If `_rng` is a recursive range, `memo_table` object `t` must be passed.
 
 [h3 Example]
@@ -1418,6 +1422,7 @@ Pending...
 ]
 
 [h3 Preconditions]
+* `_rng1` and `_rng2` are _readable_ or _lvalue_.
 * `boost::range_reference<_typeof(_rng2)>::type` is convertible to `boost::range_reference<_typeof(_rng1)>::type`
   without binding /reference/ to /rvalue/.
 * `_rng1` and `_rng2` are sorted.
@@ -1815,23 +1820,24 @@ A range returned from `reversed` iterates in the opposite direction.
     [
         [`_rng|scanned(s, _fun)`]
         [
-            An up-to-_forward_ _constant_ non-_lvalue_ `{s,_fun(s, a1),_fun(_fun(s, a1), a2),_fun(_fun(_fun(s, a1), a2), a3),..,aN)}`
+            An up-to-_forward_ non-_lvalue_ _constant_ `{s,_fun(s, a1),_fun(_fun(s, a1), a2),_fun(_fun(_fun(s, a1), a2), a3),..,aN)}`
         ]
     ]
     [
         [`_rng1|scanned(_fun1)`]
         [
-            An up-to-_forward_ _constant_ non-_lvalue_ `{b1,_fun1(b1, b2),_fun1(_fun(b1, b2), b3),_fun1(_fun1(_fun1(b1, b2), b3), b4),..,bM)}`
+            An up-to-_forward_ non-_lvalue_ _constant_ `{b1,_fun1(b1, b2),_fun1(_fun(b1, b2), b3),_fun1(_fun1(_fun1(b1, b2), b3), b4),..,bM)}`
         ]
     ]
 ]
 
 [note `s` is copied, meaning that it is not referenced from Oven later.]
 
-
 [h3 Preconditions]
+* `_rng` is _readable_ or _lvalue_.
 * `s` is _assignable_ and _copy_constructible_.
 * `a = _fun(_fun(s, a), a)` is well-formed, where `_value_of<_typeof(_rng)>::type a = *_begin(_rng))`.
+* _rng1` is _readable_ or _lvalue_.
 * `S1` is _assignable_ and _copy_constructible_.
 * `b = _fun1(_fun1(b, b), b)` is well-formed, where `_value_of<_typeof(_rng1)>::type b = *_begin(_rng1))`.
 * `!boost::empty(_rng1)`
@@ -1884,7 +1890,6 @@ A range returned from `reversed` iterates in the opposite direction.
 
 [h3 Preconditions]
 * `_value_of<_typeof(_rng)>::type` is a `std::pair`.
-* `_rng|transformed(second_of)` is a valid expression.
 
 [h3 Example]
 
@@ -2371,7 +2376,7 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
 * _pipable_object_
 
 [h3 Notation]
-* `not_` is an imaginary function object to nagate a predicate.
+* `not_` is an imaginary function to nagate a predicate.
 
 [h3 Valid expressions]
 [table 
@@ -2388,7 +2393,7 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
 ]
 
 [h3 Preconditions]
-* `_typeof(n)` is convertible to `range_difference<_typeof(_rng)>::type`.
+* `_rng` is _readable_ or _lvalue_.
 * `_prd` is _assignable_ and _default_constructible_.
 
 [h3 Example]
@@ -2532,7 +2537,7 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
 * _pipable_object_
 
 [h3 Notation]
-* `not_` is an imaginary function object to nagate a predicate.
+* `not_` is an imaginary function to nagate a predicate.
 * `eq` is `regular(boost::lambda::_1 == boost::lambda::_2)`.
 
 [h3 Valid expressions]
@@ -2556,7 +2561,7 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
 ]
 
 [h3 Preconditions]
-* `_fwdrng|adjacent_filtered(not_(_prd))` is a valid expression.
+* `_fwdrng` is _readable_ or _lvalue_.
 
 [h3 Complexity]
 * At most `distance(_fwdrng)` applications of the corresponding `_prd`.
@@ -2575,8 +2580,6 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
 
 [h3 Description]
 `upper_chars` performs case-conversion on all characters in the base range.
-
-[note `upper_chars` is a "view", while _string_algo_proposal_ returns a new allocated range.]
 
 [h3 Header]
 * `<pstade/oven/upper_chars.hpp>`

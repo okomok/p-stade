@@ -15,7 +15,6 @@
 
 
 #include <string>
-#include <boost/range.hpp>
 #include "./core.hpp"
 #include <pstade/oven/identities.hpp>
 
@@ -36,6 +35,15 @@ void test()
 
         BOOST_CHECK( oven::test_Forward_Readable_Writable(
             rng|taken(5000)|taken(5),
+            expected
+        ) );
+    }
+    {
+        std::string rng("hello, take_range!");
+        std::vector<char> expected = rng|copied;
+
+        BOOST_CHECK( oven::test_Forward_Readable_Writable(
+            rng|taken(rng.size()),
             expected
         ) );
     }

@@ -45,6 +45,10 @@ namespace writer_detail {
     template< class OStream >
     struct write_onto
     {
+    private:
+        typedef typename OStream::char_type char_t;
+
+    public:
         typedef void result_type;
 
         template< class OutputStreamable >
@@ -60,19 +64,10 @@ namespace writer_detail {
             *m_ps << x;
         }
 
-        typedef OStream ostream_type;
-        typedef typename OStream::char_type char_type;
-        typedef typename OStream::traits_type traits_type;
-
-        write_onto(OStream& s, char_type const *delimiter) :
+        write_onto(OStream& s, char_t const *delimiter) :
             m_ps(boost::addressof(s)), m_delimiter(delimiter),
             m_beginning(new bool(true))
         { }
-
-        OStream& ostream() const
-        {
-            return *m_ps;
-        }
 
         // as "adaptor"; 'adapted_to' kicks in!
         OStream& base() const
@@ -82,7 +77,7 @@ namespace writer_detail {
 
     private:
         OStream *m_ps; // be a pointer for Assignable.
-        char_type const *m_delimiter;
+        char_t const *m_delimiter;
         boost::shared_ptr<bool> m_beginning;
     };
 

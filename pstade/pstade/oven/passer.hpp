@@ -35,9 +35,6 @@ namespace passer_detail {
     {
         typedef UnaryFun function_type;
 
-        explicit function_output_iterator()
-        { }
-
         explicit function_output_iterator(UnaryFun fun) :
             m_fun(fun)
         { }
