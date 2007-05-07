@@ -73,6 +73,7 @@
 <dt><span class="section"><a href="range_adaptors.html#oven.uniqued">uniqued</a></span></dt>
 <dt><span class="section"><a href="range_adaptors.html#oven.upper_chars">upper_chars</a></span></dt>
 <dt><span class="section"><a href="range_adaptors.html#oven.utf8_decoded">utf8_decoded</a></span></dt>
+<dt><span class="section"><a href="range_adaptors.html#oven.utf8_encoded">utf8_encoded</a></span></dt>
 <dt><span class="section"><a href="range_adaptors.html#oven.window">window</a></span></dt>
 <dt><span class="section"><a href="range_adaptors.html#oven.xpressive_matches">xpressive_matches</a></span></dt>
 <dt><span class="section"><a href="range_adaptors.html#oven.xpressive_tokenized">xpressive_tokenized</a></span></dt>
@@ -4595,31 +4596,38 @@
               Callable Object</a> type </td>
 </tr>
 <tr>
-<td><code class="computeroutput"><span class="identifier">op_make_utf8_decoded</span><span class="special">&lt;</span><span class="identifier">U1</span><span class="special">,..,</span><span class="identifier">UN</span><span class="special">&gt;()(</span><span class="identifier">_bidrng</span><span class="special">)</span></code></td>
-<td> <code class="computeroutput"><span class="special">[</span><span class="identifier">T</span><span class="special">(</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_bidrng</span><span class="special">)),</span> <span class="identifier">T</span><span class="special">(</span><span class="identifier">_end</span><span class="special">(</span><span class="identifier">_bidrng</span><span class="special">)))</span></code>
+<td><code class="computeroutput"><span class="identifier">op_make_utf8_decoded</span><span class="special">&lt;</span><span class="identifier">U1</span><span class="special">,..,</span><span class="identifier">UN</span><span class="special">&gt;()(</span><span class="identifier">_fwdrng</span><span class="special">)</span></code></td>
+<td> An up-to-<a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#bidirectional-traversal-iterators-lib-bidirectional-traversal-iterators" target="_top">Bidirectional</a>
+              non-<a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#lvalue-iterators-lib-lvalue-iterators" target="_top">Lvalue</a> <a href="concepts.html#oven.constant_range" title="Constant Range">Constant</a> <code class="computeroutput"><span class="special">[</span><span class="identifier">T</span><span class="special">(</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">)),</span> <span class="identifier">T</span><span class="special">(</span><span class="identifier">_end</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">)))</span></code>
               </td>
 </tr>
 <tr>
-<td><code class="computeroutput"><span class="identifier">make_utf8_decoded</span><span class="special">(</span><span class="identifier">_bidrng</span><span class="special">)</span></code></td>
-<td> <code class="computeroutput"><span class="identifier">op_make_utf8_decoded</span><span class="special">&lt;&gt;()(</span><span class="identifier">_bidrng</span><span class="special">)</span></code> </td>
+<td><code class="computeroutput"><span class="identifier">make_utf8_decoded</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">)</span></code></td>
+<td> <code class="computeroutput"><span class="identifier">op_make_utf8_decoded</span><span class="special">&lt;&gt;()(</span><span class="identifier">_fwdrng</span><span class="special">)</span></code> </td>
 </tr>
 <tr>
-<td><code class="computeroutput"><span class="identifier">_bidrng</span><span class="special">|</span><span class="identifier">utf8_decoded</span></code></td>
-<td> <code class="computeroutput"><span class="identifier">op_make_utf8_decoded</span><span class="special">&lt;&gt;()(</span><span class="identifier">_bidrng</span><span class="special">)</span></code>
+<td><code class="computeroutput"><span class="identifier">_fwdrng</span><span class="special">|</span><span class="identifier">utf8_decoded</span></code></td>
+<td> <code class="computeroutput"><span class="identifier">op_make_utf8_decoded</span><span class="special">&lt;&gt;()(</span><span class="identifier">_fwdrng</span><span class="special">)</span></code>
               </td>
 </tr>
 </tbody>
 </table>
 </div>
 <a name="utf8_decoded.preconditions"></a><h4>
-<a name="id569059"></a>
+<a name="id569085"></a>
         Preconditions
       </h4>
-<div class="itemizedlist"><ul type="disc"><li>
-<code class="computeroutput"><span class="identifier">T</span></code> is <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">u8_to_u32_iterator</span><span class="special">&lt;</span><span class="identifier">_iter_of</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_bidrng</span><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">,</span> <span class="identifier">U1</span><span class="special">,..,</span><span class="identifier">UN</span><span class="special">&gt;</span></code> such that <code class="computeroutput"><span class="identifier">T</span><span class="special">(</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_bidrng</span><span class="special">))</span></code> is a valid expression.
-        </li></ul></div>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="identifier">_fwdrng</span></code> is <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#readable-iterators-lib-readable-iterators" target="_top">Readable</a>
+          or <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#lvalue-iterators-lib-lvalue-iterators" target="_top">Lvalue</a>.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">T</span></code> is <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">u8_to_u32_iterator</span><span class="special">&lt;</span><span class="identifier">_iter_of</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">,</span> <span class="identifier">U1</span><span class="special">,..,</span><span class="identifier">UN</span><span class="special">&gt;</span></code> such that <code class="computeroutput"><span class="identifier">T</span><span class="special">(</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">))</span></code> is a valid expression.
+        </li>
+</ul></div>
 <a name="utf8_decoded.example"></a><h4>
-<a name="id569213"></a>
+<a name="id569270"></a>
         Example
       </h4>
 <pre class="programlisting">
@@ -4629,11 +4637,99 @@
 <span class="identifier">BOOST_CHECK</span><span class="special">(</span> <span class="identifier">equals</span><span class="special">(</span><span class="identifier">frng</span><span class="special">,</span> <span class="identifier">result</span><span class="special">)</span> <span class="special">);</span>
 </pre>
 <a name="utf8_decoded.see_also"></a><h4>
-<a name="id569462"></a>
+<a name="id569518"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">
 <li><a href="ranges.html#oven.file_range" title="file_range">file_range</a></li>
+<li><a href="range_adaptors.html#oven.utf8_encoded" title="utf8_encoded">utf8_encoded</a></li>
+<li><a href="output_iterator_adaptors.html#oven.utf8_encoder" title="utf8_encoder">utf8_encoder</a></li>
+</ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.utf8_encoded"></a>utf8_encoded</h3></div></div></div>
+<a name="utf8_encoded.description"></a><h4>
+<a name="id569587"></a>
+        Description
+      </h4>
+<p>
+        Pending...
+      </p>
+<a name="utf8_encoded.header"></a><h4>
+<a name="id569605"></a>
+        Header
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">utf8_encoded</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="utf8_encoded.model_of"></a><h4>
+<a name="id569676"></a>
+        Model of
+      </h4>
+<a name="utf8_encoded.valid_expressions"></a><h4>
+<a name="id569690"></a>
+        Valid expressions
+      </h4>
+<div class="informaltable">
+<h5>
+<a name="id569701"></a>
+        </h5>
+<table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th><span class="bold"><strong>Valid expression</strong></span></th>
+<th><span class="bold"><strong>Semantics</strong></span></th>
+</tr></thead>
+<tbody>
+<tr>
+<td><code class="computeroutput"><span class="identifier">op_make_utf8_encoded</span><span class="special">&lt;</span><span class="identifier">U1</span><span class="special">,..,</span><span class="identifier">UN</span><span class="special">&gt;</span></code></td>
+<td> A <a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
+              Callable Object</a> type </td>
+</tr>
+<tr>
+<td><code class="computeroutput"><span class="identifier">op_make_utf8_encoded</span><span class="special">&lt;</span><span class="identifier">U1</span><span class="special">,..,</span><span class="identifier">UN</span><span class="special">&gt;()(</span><span class="identifier">_rng</span><span class="special">)</span></code></td>
+<td> An up-to-<a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#bidirectional-traversal-iterators-lib-bidirectional-traversal-iterators" target="_top">Bidirectional</a>
+              non-<a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#lvalue-iterators-lib-lvalue-iterators" target="_top">Lvalue</a> <a href="concepts.html#oven.constant_range" title="Constant Range">Constant</a> <code class="computeroutput"><span class="special">[</span><span class="identifier">T</span><span class="special">(</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_rng</span><span class="special">)),</span> <span class="identifier">T</span><span class="special">(</span><span class="identifier">_end</span><span class="special">(</span><span class="identifier">_rng</span><span class="special">)))</span></code>
+              </td>
+</tr>
+<tr>
+<td><code class="computeroutput"><span class="identifier">make_utf8_encoded</span><span class="special">(</span><span class="identifier">_rng</span><span class="special">)</span></code></td>
+<td> <code class="computeroutput"><span class="identifier">op_make_utf8_encoded</span><span class="special">&lt;&gt;()(</span><span class="identifier">_rng</span><span class="special">)</span></code> </td>
+</tr>
+<tr>
+<td><code class="computeroutput"><span class="identifier">_rng</span><span class="special">|</span><span class="identifier">utf8_encoded</span></code></td>
+<td> <code class="computeroutput"><span class="identifier">op_make_utf8_encoded</span><span class="special">&lt;&gt;()(</span><span class="identifier">_rng</span><span class="special">)</span></code>
+              </td>
+</tr>
+</tbody>
+</table>
+</div>
+<a name="utf8_encoded.preconditions"></a><h4>
+<a name="id570058"></a>
+        Preconditions
+      </h4>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="identifier">_fwdrng</span></code> is <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#readable-iterators-lib-readable-iterators" target="_top">Readable</a>
+          or <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#lvalue-iterators-lib-lvalue-iterators" target="_top">Lvalue</a>.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">T</span></code> is <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">u32_to_u8_iterator</span><span class="special">&lt;</span><span class="identifier">_iter_of</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_rng</span><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">,</span> <span class="identifier">U1</span><span class="special">,..,</span><span class="identifier">UN</span><span class="special">&gt;</span></code> such that <code class="computeroutput"><span class="identifier">T</span><span class="special">(</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_rng</span><span class="special">))</span></code> is a valid expression.
+        </li>
+</ul></div>
+<a name="utf8_encoded.example"></a><h4>
+<a name="id570242"></a>
+        Example
+      </h4>
+<a name="utf8_encoded.see_also"></a><h4>
+<a name="id570256"></a>
+        See also
+      </h4>
+<div class="itemizedlist"><ul type="disc">
+<li><a href="ranges.html#oven.file_range" title="file_range">file_range</a></li>
+<li><a href="range_adaptors.html#oven.utf8_decoded" title="utf8_decoded">utf8_decoded</a></li>
 <li><a href="output_iterator_adaptors.html#oven.utf8_encoder" title="utf8_encoder">utf8_encoder</a></li>
 </ul></div>
 </div>
@@ -4641,26 +4737,26 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.window"></a>window</h3></div></div></div>
 <a name="window.description"></a><h4>
-<a name="id569516"></a>
+<a name="id570323"></a>
         Description
       </h4>
 <a name="window.header"></a><h4>
-<a name="id569529"></a>
+<a name="id570336"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">window</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="window.model_of"></a><h4>
-<a name="id569600"></a>
+<a name="id570406"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_object" title="Pipable Object">Pipable Object</a></li></ul></div>
 <a name="window.valid_expressions"></a><h4>
-<a name="id569630"></a>
+<a name="id570436"></a>
         Valid expressions
       </h4>
 <div class="informaltable">
 <h5>
-<a name="id569641"></a>
+<a name="id570447"></a>
         </h5>
 <table class="table">
 <colgroup>
@@ -4679,7 +4775,7 @@
 </table>
 </div>
 <a name="window.preconditions"></a><h4>
-<a name="id569853"></a>
+<a name="id570659"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -4694,7 +4790,7 @@
 <li><code class="computeroutput"><span class="identifier">n</span> <span class="special">&lt;=</span> <span class="identifier">m</span></code></li>
 </ul></div>
 <a name="window.complexity"></a><h4>
-<a name="id570017"></a>
+<a name="id570824"></a>
         Complexity
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -4702,11 +4798,11 @@
           Access</a>, and <code class="computeroutput"><span class="identifier">O</span><span class="special">(</span><span class="identifier">m</span><span class="special">)</span></code> otherwise.
         </li></ul></div>
 <a name="window.example"></a><h4>
-<a name="id570106"></a>
+<a name="id570912"></a>
         Example
       </h4>
 <a name="window.see_also"></a><h4>
-<a name="id570120"></a>
+<a name="id570926"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -4718,7 +4814,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.xpressive_matches"></a>xpressive_matches</h3></div></div></div>
 <a name="xpressive_matches.description"></a><h4>
-<a name="id570173"></a>
+<a name="id570980"></a>
         Description
       </h4>
 <p>
@@ -4726,22 +4822,22 @@
         a <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">xpressive</span><span class="special">::</span><span class="identifier">regex_iterator</span></code> range.
       </p>
 <a name="xpressive_matches.header"></a><h4>
-<a name="id570232"></a>
+<a name="id571039"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">xpressive_matches</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="xpressive_matches.model_of"></a><h4>
-<a name="id570304"></a>
+<a name="id571110"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_object" title="Pipable Object">Pipable Object</a></li></ul></div>
 <a name="xpressive_matches.valid_expressions"></a><h4>
-<a name="id570334"></a>
+<a name="id571140"></a>
         Valid expressions
       </h4>
 <div class="informaltable">
 <h5>
-<a name="id570344"></a>
+<a name="id571151"></a>
         </h5>
 <table class="table">
 <colgroup>
@@ -4760,18 +4856,18 @@
 </table>
 </div>
 <a name="xpressive_matches.preconditions"></a><h4>
-<a name="id570536"></a>
+<a name="id571342"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="identifier">T</span></code> is <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">xpressive</span><span class="special">::</span><span class="identifier">regex_iterator</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">range_const_iterator</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_bidrng</span><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">&gt;</span></code> such that <code class="computeroutput"><span class="identifier">T</span><span class="special">(</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_bidrng</span><span class="special">),</span> <span class="identifier">_end</span><span class="special">(</span><span class="identifier">_bidrng</span><span class="special">),</span> <span class="identifier">x1</span><span class="special">,..,</span><span class="identifier">xN</span><span class="special">)</span></code> is a valid expression.
         </li></ul></div>
 <a name="xpressive_matches.example"></a><h4>
-<a name="id570732"></a>
+<a name="id571539"></a>
         Example
       </h4>
 <a name="xpressive_matches.see_also"></a><h4>
-<a name="id570746"></a>
+<a name="id571553"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -4784,7 +4880,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.xpressive_tokenized"></a>xpressive_tokenized</h3></div></div></div>
 <a name="xpressive_tokenized.description"></a><h4>
-<a name="id570813"></a>
+<a name="id571619"></a>
         Description
       </h4>
 <p>
@@ -4792,22 +4888,22 @@
         a <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">xpressive</span><span class="special">::</span><span class="identifier">regex_token_iterator</span></code> range.
       </p>
 <a name="xpressive_tokenized.header"></a><h4>
-<a name="id570872"></a>
+<a name="id571679"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">xpressive_tokenized</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="xpressive_tokenized.model_of"></a><h4>
-<a name="id570944"></a>
+<a name="id571750"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_object" title="Pipable Object">Pipable Object</a></li></ul></div>
 <a name="xpressive_tokenized.valid_expressions"></a><h4>
-<a name="id570974"></a>
+<a name="id571781"></a>
         Valid expressions
       </h4>
 <div class="informaltable">
 <h5>
-<a name="id570984"></a>
+<a name="id571791"></a>
         </h5>
 <table class="table">
 <colgroup>
@@ -4826,18 +4922,18 @@
 </table>
 </div>
 <a name="xpressive_tokenized.preconditions"></a><h4>
-<a name="id571176"></a>
+<a name="id571983"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
 <code class="computeroutput"><span class="identifier">T</span></code> is <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">xpressive</span><span class="special">::</span><span class="identifier">regex_token_iterator</span><span class="special">&lt;</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">range_const_iterator</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_bidrng</span><span class="special">)&gt;::</span><span class="identifier">type</span><span class="special">&gt;</span></code> such that <code class="computeroutput"><span class="identifier">T</span><span class="special">(</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_bidrng</span><span class="special">),</span> <span class="identifier">_end</span><span class="special">(</span><span class="identifier">_bidrng</span><span class="special">),</span> <span class="identifier">x1</span><span class="special">,..,</span><span class="identifier">xN</span><span class="special">)</span></code> is a valid expression.
         </li></ul></div>
 <a name="xpressive_tokenized.example"></a><h4>
-<a name="id571373"></a>
+<a name="id572179"></a>
         Example
       </h4>
 <a name="xpressive_tokenized.see_also"></a><h4>
-<a name="id571387"></a>
+<a name="id572194"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">

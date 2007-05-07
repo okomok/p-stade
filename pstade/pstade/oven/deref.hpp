@@ -58,15 +58,10 @@ namespace deref_detail {
         iter_t;
 
         typedef typename
-            boost::iterator_value<iter_t>::type
-        val_t;
-
-        typedef typename
-            boost::iterator_reference<iter_t>::type
-        ref_t;
-
-        typedef typename
-            result_<val_t, ref_t>::type
+            result_<
+                typename boost::iterator_value<iter_t>::type,
+                typename boost::iterator_reference<iter_t>::type
+            >::type
         result_type;
 
         // Pass by reference; see "./reverse_iterator.hpp"

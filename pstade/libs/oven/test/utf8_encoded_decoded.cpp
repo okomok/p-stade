@@ -18,6 +18,7 @@
 #include <boost/range.hpp>
 #include "./core.hpp"
 #include <pstade/oven/file_range.hpp>
+#include <pstade/oven/identities.hpp>
 
 
 void test()
@@ -25,6 +26,37 @@ void test()
     namespace oven = pstade::oven;
     using namespace oven;
 
+    {
+        std::string ans("fjioafjioasjfiojeioajfioeawnfe");
+        std::vector<boost::uint8_t> rng = ans|copied;
+        std::vector<boost::uint32_t> expected = ans|copied;
+
+        BOOST_CHECK( oven::test_Bidirectional_Readable(
+            rng|utf8_decoded,
+            expected
+        ) );
+
+        BOOST_CHECK( oven::test_Forward_Readable(
+            rng|identities(in_forward)|utf8_decoded,
+            expected
+        ) );
+    }
+
+    {
+        std::string ans("fjioafjioasjfiojeioajfioeawnfe");
+        std::vector<boost::uint8_t> expected = ans|copied;
+        std::vector<boost::uint32_t> rng = ans|copied;
+
+        BOOST_CHECK( oven::test_Bidirectional_Readable(
+            rng|utf8_encoded,
+            expected
+        ) );
+
+        BOOST_CHECK( oven::test_SinglePass_Readable(
+            rng|identities(in_single_pass)|utf8_encoded,
+            expected
+        ) );
+    }
     {
         file_range<boost::uint8_t> frng("utf8.txt");
 

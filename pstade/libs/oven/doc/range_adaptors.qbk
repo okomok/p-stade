@@ -2653,27 +2653,28 @@ Pending...
         ]
     ]
     [
-        [`op_make_utf8_decoded<U1,..,UN>()(_bidrng)`]
+        [`op_make_utf8_decoded<U1,..,UN>()(_fwdrng)`]
         [
-            `[T(_begin(_bidrng)), T(_end(_bidrng)))`
+            An up-to-_bidirectional_ non-_lvalue_ _constant_ `[T(_begin(_fwdrng)), T(_end(_fwdrng)))`
         ]
     ]
     [
-        [`make_utf8_decoded(_bidrng)`]
+        [`make_utf8_decoded(_fwdrng)`]
         [
-            `op_make_utf8_decoded<>()(_bidrng)`
+            `op_make_utf8_decoded<>()(_fwdrng)`
         ]
     ]
     [
-        [`_bidrng|utf8_decoded`]
+        [`_fwdrng|utf8_decoded`]
         [
-            `op_make_utf8_decoded<>()(_bidrng)`
+            `op_make_utf8_decoded<>()(_fwdrng)`
         ]
     ]
 ]
 
 [h3 Preconditions]
-* `T` is `boost::u8_to_u32_iterator<_iter_of<_typeof(_bidrng)>::type, U1,..,UN>` such that `T(_begin(_bidrng))` is a valid expression.
+* `_fwdrng` is _readable_ or _lvalue_.
+* `T` is `boost::u8_to_u32_iterator<_iter_of<_typeof(_fwdrng)>::type, U1,..,UN>` such that `T(_begin(_fwdrng))` is a valid expression.
 
 [h3 Example]
     file_range<boost::uint8_t> frng("utf8.txt");
@@ -2683,6 +2684,65 @@ Pending...
 
 [h3 See also]
 * [link oven.file_range file_range]
+* [link oven.utf8_encoded utf8_encoded]
+* [link oven.utf8_encoder utf8_encoder]
+
+[endsect]
+
+
+
+
+[section utf8_encoded]
+
+[h3 Description]
+Pending...
+
+[h3 Header]
+* `<pstade/oven/utf8_encoded.hpp>`
+
+[h3 Model of]
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`op_make_utf8_encoded<U1,..,UN>`]
+        [
+            A _deferred_callable_object_ type
+        ]
+    ]
+    [
+        [`op_make_utf8_encoded<U1,..,UN>()(_rng)`]
+        [
+            An up-to-_bidirectional_ non-_lvalue_ _constant_ `[T(_begin(_rng)), T(_end(_rng)))`
+        ]
+    ]
+    [
+        [`make_utf8_encoded(_rng)`]
+        [
+            `op_make_utf8_encoded<>()(_rng)`
+        ]
+    ]
+    [
+        [`_rng|utf8_encoded`]
+        [
+            `op_make_utf8_encoded<>()(_rng)`
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* `_fwdrng` is _readable_ or _lvalue_.
+* `T` is `boost::u32_to_u8_iterator<_iter_of<_typeof(_rng)>::type, U1,..,UN>` such that `T(_begin(_rng))` is a valid expression.
+
+[h3 Example]
+
+[h3 See also]
+* [link oven.file_range file_range]
+* [link oven.utf8_decoded utf8_decoded]
 * [link oven.utf8_encoder utf8_encoder]
 
 [endsect]
