@@ -52,7 +52,7 @@ namespace scanned_detail {
                     boost::forward_traversal_tag,
                     typename boost::iterator_traversal<Iterator>::type
                 >::type,
-                State const& // can be reference thanks to 'm_cache'.
+                State const& // can be reference thanks to 'm_after'.
             >
         type;
     };
@@ -71,7 +71,7 @@ namespace scanned_detail {
         { }
 
         scan_iterator(Iterator it, State const& init, BinaryFun fun) :
-            super_t(it), m_state(init), m_fun(fun)
+            super_t(it), m_before(init), m_fun(fun)
         { }
 
         template< class I, class S >
@@ -79,12 +79,12 @@ namespace scanned_detail {
             typename boost::enable_if_convertible<I, Iterator>::type * = 0,
             typename boost::enable_if_convertible<S, State>::type    * = 0
         ) :
-            super_t(other.base()), m_state(other.state()), m_fun(other.function())
+            super_t(other.base()), m_before(other.state()), m_fun(other.function())
         { }
 
         State state() const
         {
-            return m_state;
+            return m_before;
         }
 
         BinaryFun function() const
@@ -93,29 +93,29 @@ namespace scanned_detail {
         }
 
     private:
-        State m_state;
+        State m_before;
         BinaryFun m_fun;
-        mutable boost::optional<State> m_cache;
+        mutable boost::optional<State> m_after;
 
         State call_fun() const
         {
-            return m_fun(m_state, *this->base());
+            return m_fun(m_before, *this->base());
         }
 
     friend class boost::iterator_core_access;
         ref_t dereference() const
         {
-            if (!m_cache)
-                m_cache = call_fun();
+            if (!m_after)
+                m_after = call_fun();
 
-            return *m_cache;
+            return *m_after;
         }
 
         void increment()
         {
-            m_state = call_fun();
+            m_before = call_fun();
             ++this->base_reference();
-            m_cache.reset();
+            m_after.reset();
         }
     };
 

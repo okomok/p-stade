@@ -461,6 +461,9 @@ then pretends to be a range of _forward_iterator_.
 [h3 Preconditions]
 * `_value_of<_typeof(_rng)>::type` is _assignable_ and _copy_constructible_.
 
+[h3 Invariants]
+* `_rng|const_refs` is _readable_ if `_rng` is _lvalue_.
+
 [h3 Example]
 
 [h3 See also]
@@ -582,6 +585,9 @@ then pretends to be a range of _forward_iterator_.
 [h3 Preconditions]
 * `_typeof(c)` is convertible to `boost::range_difference<_typeof(_rng)>::type`.
 * `0 <= c`
+
+[h3 Invariants]
+* `_rng|cycled(c)` is _readable_ if `_rng` is _lvalue_.
 
 [h3 Example]
     BOOST_CHECK( equals(
@@ -1820,13 +1826,13 @@ A range returned from `reversed` iterates in the opposite direction.
     [
         [`_rng|scanned(s, _fun)`]
         [
-            An up-to-_forward_ non-_lvalue_ _constant_ `{s,_fun(s, a1),_fun(_fun(s, a1), a2),_fun(_fun(_fun(s, a1), a2), a3),..,aN)}`
+            An up-to-_forward_ _readable_ non-_lvalue_ _constant_ `{s,_fun(s, a1),_fun(_fun(s, a1), a2),_fun(_fun(_fun(s, a1), a2), a3),..,aN)}`
         ]
     ]
     [
         [`_rng1|scanned(_fun1)`]
         [
-            An up-to-_forward_ non-_lvalue_ _constant_ `{b1,_fun1(b1, b2),_fun1(_fun(b1, b2), b3),_fun1(_fun1(_fun1(b1, b2), b3), b4),..,bM)}`
+            An up-to-_forward_ _readable_ non-_lvalue_ _constant_ `{b1,_fun1(b1, b2),_fun1(_fun(b1, b2), b3),_fun1(_fun1(_fun1(b1, b2), b3), b4),..,bM)}`
         ]
     ]
 ]
@@ -2673,7 +2679,7 @@ Pending...
 ]
 
 [h3 Preconditions]
-* `_fwdrng` is _readable_ or _lvalue_.
+* `_fwdrng` is _readable_.
 * `T` is `boost::u8_to_u32_iterator<_iter_of<_typeof(_fwdrng)>::type, U1,..,UN>` such that `T(_begin(_fwdrng))` is a valid expression.
 
 [h3 Example]
@@ -2735,7 +2741,7 @@ Pending...
 ]
 
 [h3 Preconditions]
-* `_fwdrng` is _readable_ or _lvalue_.
+* `_rng` is _readable_.
 * `T` is `boost::u32_to_u8_iterator<_iter_of<_typeof(_rng)>::type, U1,..,UN>` such that `T(_begin(_rng))` is a valid expression.
 
 [h3 Example]

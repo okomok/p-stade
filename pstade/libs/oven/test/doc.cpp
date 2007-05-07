@@ -18,6 +18,7 @@
 #include <pstade/oven.hpp>
 
 
+#include <sstream>
 #include <locale>
 #include <string>
 #include <vector>
