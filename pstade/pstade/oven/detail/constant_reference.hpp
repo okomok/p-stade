@@ -17,26 +17,19 @@
 
 #include <boost/iterator/iterator_traits.hpp>
 #include <pstade/affect.hpp>
-#include <pstade/remove_cvr.hpp>
+#include "../deref.hpp"
 
 
 namespace pstade { namespace oven { namespace detail {
 
 
-template< class Iterator >
-struct constant_reference
-{
-    typedef typename
-        boost::iterator_reference<Iterator>::type
-    ref_t;
-
-    typedef typename
-        affect<
-            ref_t,
-            typename remove_cvr<ref_t>::type const
-        >::type
-    type;
-};
+template< class ReadableOrLvalueIter >
+struct constant_reference :
+    affect<
+        typename deref_of<ReadableOrLvalueIter>::type,
+        typename boost::iterator_value<ReadableOrLvalueIter>::type const
+    >
+{ };
 
 
 } } } // namespace pstade::oven::detail

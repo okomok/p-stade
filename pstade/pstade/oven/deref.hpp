@@ -27,27 +27,35 @@
 namespace pstade { namespace oven {
 
 
+template< class ReadableOrLvalueIter >
+struct deref_of
+{
+    typedef typename
+        boost::iterator_value<ReadableOrLvalueIter>::type
+    val_t;
+
+    typedef typename
+        boost::iterator_reference<ReadableOrLvalueIter>::type
+    ref_t;
+
+    typedef
+        boost::mpl::or_<
+            boost::is_same<ref_t, val_t&>,
+            boost::is_same<ref_t, val_t const&>,
+            boost::is_same<ref_t, val_t const volatile&>
+        >
+    is_ref;
+
+    typedef typename
+        boost::mpl::if_< is_ref,
+            ref_t,
+            val_t
+        >::type
+    type;
+};
+
+
 namespace deref_detail {
-
-
-    template< class Value, class Reference >
-    struct result_
-    {
-        typedef
-            boost::mpl::or_<
-                boost::is_same<Value&, Reference>,
-                boost::is_same<Value const&, Reference>,
-                boost::is_same<Value const volatile&, Reference>
-            >
-        is_ref;
-
-        typedef typename
-            boost::mpl::if_< is_ref,
-                Reference,
-                Value
-            >::type
-        type;
-    };
 
 
     template< class ReadableOrLvalueIter >
@@ -58,10 +66,7 @@ namespace deref_detail {
         iter_t;
 
         typedef typename
-            result_<
-                typename boost::iterator_value<iter_t>::type,
-                typename boost::iterator_reference<iter_t>::type
-            >::type
+            deref_of<iter_t>::type
         result_type;
 
         // Pass by reference; see "./reverse_iterator.hpp"

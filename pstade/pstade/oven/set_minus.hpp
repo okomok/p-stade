@@ -13,6 +13,7 @@
 #include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/unused.hpp>
+#include "./deref.hpp"
 #include "./merged.hpp"
 
 
@@ -48,12 +49,12 @@ namespace set_minus_detail {
 
         template< class Reference, class Iterator1, class Iterator2, class Compare >
         static Reference yield(
-            Iterator1 first1, Iterator1 last1,
-            Iterator2 first2, Iterator2 last2,
+            Iterator1 const& first1, Iterator1 last1,
+            Iterator2 const& first2, Iterator2 last2,
             Compare comp)
         {
             unused(last1, first2, last2, comp);
-            return *first1;
+            return deref(first1);
         }
 
         template< class Iterator1, class Iterator2, class Compare >

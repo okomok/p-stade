@@ -39,6 +39,7 @@
 #include <pstade/pipable.hpp>
 #include "./begin_end.hpp" // op_begin
 #include "./concepts.hpp"
+#include "./deref.hpp"
 #include "./detail/maybe_contains.hpp"
 #include "./do_iter_swap.hpp"
 #include "./iter_range.hpp"
@@ -58,8 +59,9 @@ namespace concatenated_detail {
 
     template< class SegmentIter >
     struct local_iterator :
-        // How simple it is!
-        boost::result_of<op_begin(typename boost::iterator_reference<SegmentIter>::type)>
+        boost::result_of<
+            op_begin(typename deref_of<SegmentIter>::type)
+        >
     { };
 
 
@@ -171,7 +173,7 @@ namespace concatenated_detail {
                 (!segment_is_end())
             )
 
-            return *this->base();
+            return deref(this->base());
         }
 
         void reset_local_forward()

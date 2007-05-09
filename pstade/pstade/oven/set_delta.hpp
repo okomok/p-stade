@@ -18,6 +18,7 @@
 
 #include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>
+#include "./deref.hpp"
 #include "./merged.hpp"
 
 
@@ -49,18 +50,18 @@ namespace set_delta_detail {
 
         template< class Reference, class Iterator1, class Iterator2, class Compare >
         static Reference yield(
-            Iterator1 first1, Iterator1 last1,
-            Iterator2 first2, Iterator2 last2,
+            Iterator1 const& first1, Iterator1 last1,
+            Iterator2 const& first2, Iterator2 last2,
             Compare comp)
         {
             // copy-copy phase
             if (first1 == last1)
-                return *first2;
+                return deref(first2);
             else if (first2 == last2)
-                return *first1;
+                return deref(first1);
 
             // while phase
-            return merged_detail::min_(*first1, *first2, comp);
+            return merged_detail::iter_min<Reference>(first1, first2, comp);
         }
 
         template< class Iterator1, class Iterator2, class Compare >

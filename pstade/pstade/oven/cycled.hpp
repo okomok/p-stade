@@ -26,7 +26,6 @@
 #include <pstade/pipable.hpp>
 #include <pstade/unused.hpp>
 #include "./concepts.hpp"
-#include "./detail/constant_reference.hpp"
 #include "./iter_range.hpp"
 #include "./range_difference.hpp"
 #include "./range_iterator.hpp"
@@ -79,10 +78,7 @@ namespace cycled_detail {
         typedef
             boost::iterator_adaptor<
                 cycle_iterator<ForwardIter, Incrementable>,
-                ForwardIter,
-                boost::use_default,
-                boost::use_default,
-                typename detail::constant_reference<ForwardIter>::type
+                ForwardIter
             >
         type;
     };

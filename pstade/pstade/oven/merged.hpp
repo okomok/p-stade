@@ -37,6 +37,7 @@
 #include <pstade/to_ref.hpp>
 #include <pstade/unused.hpp>
 #include "./concepts.hpp"
+#include "./deref.hpp"
 #include "./detail/constant_reference.hpp"
 #include "./detail/minimum_pure.hpp"
 #include "./is_sorted.hpp"
@@ -53,17 +54,18 @@ namespace merged_detail {
     namespace here = merged_detail;
 
 
-    template< class X, class Y, class Compare > 
-    X const& min_(X const& x, Y const& y, Compare comp)
+    // Pass by reference; see "./reverse_iterator.hpp".
+    template< class Reference, class Iterator1, class Iterator2, class Compare > 
+    Reference iter_min(Iterator1 const& it1, Iterator2 const& it2, Compare comp)
     {
         // ternary-operator could make a rvalue.
         // I don't certainly know, though.
 
-        // Standard requires 'x' if equal.
-        if (comp(y, x))
-            return y;
+        // Standard requires '*it1' if equal.
+        if (comp(*it2, *it1))
+            return deref(it2);
         else
-            return x;
+            return deref(it1);
     }
 
 
@@ -90,18 +92,18 @@ namespace merged_detail {
 
         template< class Reference, class Iterator1, class Iterator2, class Compare >
         static Reference yield(
-            Iterator1 first1, Iterator1 last1,
-            Iterator2 first2, Iterator2 last2,
+            Iterator1 const& first1, Iterator1 last1,
+            Iterator2 const& first2, Iterator2 last2,
             Compare comp)
         {
             // copy-copy phase
             if (first1 == last1)
-                return *first2;
+                return deref(first2);
             else if (first2 == last2)
-                return *first1;
+                return deref(first1);
 
             // while phase
-            return here::min_(*first1, *first2, comp);
+            return here::iter_min<Reference>(first1, first2, comp);
         }
 
         template< class Iterator1, class Iterator2, class Compare >
@@ -194,8 +196,8 @@ namespace merged_detail {
             m_comp(comp)
         {
             // "./jointed.hpp" tells why this is at function scope.
-            BOOST_MPL_ASSERT((is_convertible<typename boost::iterator_reference<Iterator2>::type, ref_t>));
-            BOOST_STATIC_WARNING((is_returnable<typename boost::iterator_reference<Iterator2>::type, ref_t>::value));
+            BOOST_MPL_ASSERT((is_convertible<typename deref_of<Iterator2>::type, ref_t>));
+            BOOST_STATIC_WARNING((is_returnable<typename deref_of<Iterator2>::type, ref_t>::value));
 
 #if defined(PSTADE_OVEN_TESTS_SAMPLE_RANGES)
             BOOST_ASSERT(is_sorted(make_iter_range(it1, last1), comp));

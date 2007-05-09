@@ -23,6 +23,7 @@
 #include <pstade/is_returnable.hpp>
 #include <pstade/pipable.hpp>
 #include "./concepts.hpp"
+#include "./deref.hpp"
 #include "./detail/minimum_pure.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
@@ -84,7 +85,8 @@ namespace jointed_detail {
                 typename detail::minimum_pure<
                     typename boost::iterator_traversal<IteratorL>::type,
                     typename boost::iterator_traversal<IteratorR>::type
-                >::type
+                >::type,
+                typename deref_of<IteratorL>::type
             >
         type;
     };
@@ -150,19 +152,19 @@ namespace jointed_detail {
             // which is called in overload-resolution.
             // So, this must be placed at function scope.
             BOOST_MPL_ASSERT((is_convertible<
-                typename boost::iterator_reference<IteratorR>::type,
-                typename boost::iterator_reference<IteratorL>::type
+                typename deref_of<IteratorR>::type,
+                typename deref_of<IteratorL>::type
             >));
 
             BOOST_STATIC_WARNING((is_returnable<
-                typename boost::iterator_reference<IteratorR>::type,
-                typename boost::iterator_reference<IteratorL>::type
+                typename deref_of<IteratorR>::type,
+                typename deref_of<IteratorL>::type
             >::value));
 
             if (is_in_rangeL())
-                return *this->base();
+                return deref(this->base());
             else
-                return *m_itR;
+                return deref(m_itR);
         }
 
         template< class IL, class IR >
