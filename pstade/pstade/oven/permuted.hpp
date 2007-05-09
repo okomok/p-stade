@@ -18,6 +18,7 @@
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
 #include "./concepts.hpp"
+#include "./deref.hpp"
 #include "./detail/pure_traversal.hpp"
 #include "./do_iter_swap.hpp"
 #include "./iter_range.hpp"
@@ -82,7 +83,7 @@ namespace permuted_detail {
 
         ElementIter element_base() const
         {
-            return m_elemIter + *this->base();
+            return m_elemIter + deref(this->base());
         }
 
     private:

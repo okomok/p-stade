@@ -107,7 +107,7 @@ Oven provides range-based algorithms taking a range instead of two iterators.
 [section all]
 
 [h3 Description]
-This algorithm returns true if the predicate is true for all referents in the range.
+`all` returns true if the predicate is true for all referents in the range.
 
 [h3 Header]
 * `<pstade/oven/all.hpp>`

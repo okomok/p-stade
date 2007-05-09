@@ -22,6 +22,8 @@
 #include <pstade/oven/tests.hpp>
 #include <pstade/oven/writer.hpp>
 #include <pstade/oven/as_c_str.hpp>
+#include <pstade/oven/counting.hpp>
+#include <pstade/oven/rvalues.hpp>
 #include <pstade/test.hpp>
 
 
@@ -54,6 +56,14 @@ void test()
 
         BOOST_CHECK( oven::test_Forward_Readable(
             A1|merged(A2)|merged(A3),
+            expected
+        ) );
+    }
+    {
+        std::vector<int> expected = counting(0, 20)|copied;
+
+        BOOST_CHECK( oven::test_Forward_Readable(
+            counting(0, 10)|rvalues|merged(counting(char(10), char(20))),
             expected
         ) );
     }

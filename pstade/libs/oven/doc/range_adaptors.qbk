@@ -81,7 +81,7 @@ It passes adjacent pairs to a function to transform repeatedly.
     [
         [`op_make_adjacent_transformed<R>`]
         [
-            A _deferred_callable_object_ type
+            A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
@@ -235,7 +235,7 @@ It passes adjacent pairs to a function to transform repeatedly.
     [
         [`op_make_broken_into<V>`]
         [
-            A _deferred_callable_object_ type
+            A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
@@ -458,11 +458,11 @@ then pretends to be a range of _forward_iterator_.
     ]
 ]
 
-[h3 Preconditions]
-* `_value_of<_typeof(_rng)>::type` is _assignable_ and _copy_constructible_.
-
 [h3 Invariants]
 * `_rng|const_refs` is _readable_ if `_rng` is _lvalue_.
+
+[h3 Preconditions]
+* `_value_of<_typeof(_rng)>::type` is _assignable_ and _copy_constructible_.
 
 [h3 Example]
 
@@ -500,6 +500,7 @@ then pretends to be a range of _forward_iterator_.
 ]
 
 [h3 Preconditions]
+* `_rng` is _readable_ or _lvalue_.
 
 [h3 Example]
 
@@ -582,12 +583,12 @@ then pretends to be a range of _forward_iterator_.
     ]
 ]
 
+[h3 Invariants]
+* `_rng|cycled(c)` is _readable_ if `_rng` is _lvalue_.
+
 [h3 Preconditions]
 * `_typeof(c)` is convertible to `boost::range_difference<_typeof(_rng)>::type`.
 * `0 <= c`
-
-[h3 Invariants]
-* `_rng|cycled(c)` is _readable_ if `_rng` is _lvalue_.
 
 [h3 Example]
     BOOST_CHECK( equals(
@@ -776,7 +777,7 @@ Pending...
     [
         [`op_make_elements_at<N>`]
         [
-            A _deferred_callable_object_ type
+            A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
@@ -837,7 +838,7 @@ Pending...
     [
         [`op_make_elements_at_c<n>`]
         [
-            A _deferred_callable_object_ type
+            A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
@@ -1025,7 +1026,7 @@ Pending...
     [
         [`op_make_indirected<X1,..,XN>`]
         [
-            A _deferred_callable_object_ type
+            A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
@@ -1103,13 +1104,14 @@ Pending...
     ]
 ]
 
-[h3 Preconditions]
-* `boost::range_reference<_typeof(_rng2)>::type` is convertible to `boost::range_reference<_typeof(_rng1)>::type`
-  without binding /reference/ to /rvalue/.
-
 [h3 Invariants]
 * The traversal category of `{c1,..,c(N+M)}` is minimum of `_rng1` and `_rng2`.
 * `{c1,..,c(N+M)}` is _swappable_ if and only if both `_rng1` and `_rng2` is _readable_ and _writable_.
+
+[h3 Preconditions]
+* `_rng1` is _readable_ or _lvalue_.
+* `boost::range_reference<_typeof(_rng2)>::type` is convertible to `boost::range_reference<_typeof(_rng1)>::type`
+  without binding /reference/ to /rvalue/.
 
 [h3 Example]
     std::string str0("every range");
@@ -1302,7 +1304,7 @@ Pending...
     [
         [`op_make_matches<X1,..,XN>`]
         [
-            A _deferred_callable_object_ type
+            A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
@@ -1769,7 +1771,7 @@ A range returned from `reversed` iterates in the opposite direction.
 * _pipable_object_
 
 [h3 Notation]
-* `to_v` is an imaginary function object to convert the argument to `range_value<_typeof(_rng>)>::type`.
+* `to_v` is an imaginary function object to convert the argument to `_value_of<_typeof(_rng>)>::type`.
 
 [h3 Valid expressions]
 [table 
@@ -1843,7 +1845,7 @@ A range returned from `reversed` iterates in the opposite direction.
 * `_rng` is _readable_ or _lvalue_.
 * `s` is _assignable_ and _copy_constructible_.
 * `a = _fun(_fun(s, a), a)` is well-formed, where `_value_of<_typeof(_rng)>::type a = *_begin(_rng))`.
-* _rng1` is _readable_ or _lvalue_.
+* `_rng1` is _readable_ or _lvalue_.
 * `S1` is _assignable_ and _copy_constructible_.
 * `b = _fun1(_fun1(b, b), b)` is well-formed, where `_value_of<_typeof(_rng1)>::type b = *_begin(_rng1))`.
 * `!boost::empty(_rng1)`
@@ -2432,7 +2434,7 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
     [
         [`op_make_tokenized<Y1,..,YN>`]
         [
-            A _deferred_callable_object_ type
+            A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
@@ -2482,7 +2484,7 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
     [
         [`op_make_transformed<R>`]
         [
-           A _deferred_callable_object_ type
+           A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
@@ -2494,7 +2496,7 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
     [
         [`op_make_transformed<>`]
         [
-           A _deferred_callable_object_ type
+           A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
@@ -2655,7 +2657,7 @@ Pending...
     [
         [`op_make_utf8_decoded<U1,..,UN>`]
         [
-            A _deferred_callable_object_ type
+            A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
@@ -2717,7 +2719,7 @@ Pending...
     [
         [`op_make_utf8_encoded<U1,..,UN>`]
         [
-            A _deferred_callable_object_ type
+            A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [

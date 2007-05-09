@@ -57,6 +57,7 @@ test-suite "oven" :
     [ run filtered.cpp ]
     [ run front_back.cpp ]
     [ run functions.cpp ]
+    [ run fuzipped.cpp ]
     [ run generation.cpp ]
     [ run identities.cpp ]
     [ run indexing.cpp ]

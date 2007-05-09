@@ -3,6 +3,30 @@
 
 
 
+[section Bindable Object]
+
+[h3 Description]
+A _bindable_object_ is a _function_object_ which can be passed to `boost::lambda::bind`.
+
+[h3 Refinement of]
+* _function_object_
+
+[h3 Requirements]
+In addition to the requirements defined in _function_object_,
+for any _bindable_object_ `b` the following must be met:
+
+* There is a `N` such that `boost::lambda::bind(b, boost::lambda::_1,..,boost::lambda::_N)` is a valid expression.
+
+[h3 Models]
+
+[h3 See also]
+* _boost_lambda_
+
+[endsect]
+
+
+
+
 [section Operatable Object]
 
 [h3 Description]
@@ -10,9 +34,10 @@ An _operatable_object_ is a _deferred_callable_object_ which can specify the typ
 
 [h3 Refinement of]
 * _deferred_callable_object_
+* _bindable_object_
 
 [h3 Requirements]
-In addition to the requirements defined in _deferred_callable_object_,
+In addition to the requirements defined in _deferred_callable_object_ and _bindable_object_,
 for any _operatable_object_ `f` the following must be met:
 
 * `op_f` is `_typeof(f)`.
@@ -58,7 +83,7 @@ An _auxiliary_interface_ is an _operatable_object_ which supports also a pipe-li
 used as if it were a member function.
 
 [h3 Refinement of]
-_operatable_object_
+* _operatable_object_
 
 [h3 Requirements]
 In addition to the requirements defined in _operatable_object_,
@@ -116,7 +141,7 @@ A _constant_ _range_ is a _range_ whose elements are not modifiable.
 In addition to the requirements defined in _single_pass_ _range_,
 for any _constant_ _range_ `r` the following must be met:
 
-* `static_cast<_value_of<_typeof(r)>::type&>(*_begin(_r))` is ill-formed.
+* `boost::implicit_cast<_value_of<_typeof(r)>::type&>(*_begin(_r))` is ill-formed.
 * `r` is a neither _writable_ nor _swappable_ _range_.
 
 [h3 Models]
@@ -135,6 +160,7 @@ A _contiguous_ _range_ is a _random_access_ _range_ whose elements are stored co
 
 [h3 Refinement of]
 * _random_access_ _range_
+* _lvalue_ _range_
 
 [h3 Requirements]
 In addition to the requirements defined in _random_access_ _range_,

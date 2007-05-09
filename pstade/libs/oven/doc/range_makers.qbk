@@ -153,7 +153,7 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
     [
         [`op_counting<X1,..,XN>`]
         [
-            A _deferred_callable_object_ type
+            A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
@@ -388,7 +388,7 @@ on the first argument, the second item by applying the function on the previous 
     [
         [`op_line_reading<A>`]
         [
-            A _deferred_callable_object_ type
+            A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
@@ -400,7 +400,7 @@ on the first argument, the second item by applying the function on the previous 
     [
         [`op_line_reading<>`]
         [
-            A _deferred_callable_object_ type
+            A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
@@ -448,7 +448,7 @@ on the first argument, the second item by applying the function on the previous 
     [
         [`op_reading<V, D>`]
         [
-            A _deferred_callable_object_ type
+            A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [

@@ -17,27 +17,35 @@
 #include <string>
 #include <boost/mpl/assert.hpp>
 #include <boost/type_traits/is_same.hpp>
-
+#include <boost/iterator.hpp>
 
 namespace oven = pstade::oven;
 using namespace oven;
 
 
+template<class V, class R>
+struct an_iterator :
+    boost::iterator<
+        std::forward_iterator_tag, V, std::ptrdiff_t, V const*, R
+    >
+{ };
+
+
 // lvalue
-BOOST_MPL_ASSERT((boost::is_same<int&, deref_detail::result_<int, int&>::type>));
-BOOST_MPL_ASSERT((boost::is_same<int const&, deref_detail::result_<int, int const&>::type>));
+BOOST_MPL_ASSERT((boost::is_same<int&, deref_of< an_iterator<int, int&> >::type>));
+BOOST_MPL_ASSERT((boost::is_same<int const&, deref_of< an_iterator<int, int const&> >::type>));
 
 // readable
-BOOST_MPL_ASSERT((boost::is_same<int, deref_detail::result_<int, int>::type>));
-BOOST_MPL_ASSERT((boost::is_same<int, deref_detail::result_<int, int const>::type>));
-BOOST_MPL_ASSERT((boost::is_same<int, deref_detail::result_<int, char&>::type>));
-BOOST_MPL_ASSERT((boost::is_same<char, deref_detail::result_<char, int&>::type>));
-BOOST_MPL_ASSERT((boost::is_same<int, deref_detail::result_<int, char const&>::type>));
-BOOST_MPL_ASSERT((boost::is_same<char, deref_detail::result_<char, int const&>::type>));
-BOOST_MPL_ASSERT((boost::is_same<int, deref_detail::result_<int, char const>::type>));
-BOOST_MPL_ASSERT((boost::is_same<char, deref_detail::result_<char, int const>::type>));
-BOOST_MPL_ASSERT((boost::is_same<int, deref_detail::result_<int, char>::type>));
-BOOST_MPL_ASSERT((boost::is_same<char, deref_detail::result_<char, int>::type>));
+BOOST_MPL_ASSERT((boost::is_same<int, deref_of< an_iterator <int, int> >::type>));
+BOOST_MPL_ASSERT((boost::is_same<int, deref_of< an_iterator<int, int const> >::type>));
+BOOST_MPL_ASSERT((boost::is_same<int, deref_of< an_iterator<int, char&> >::type>));
+BOOST_MPL_ASSERT((boost::is_same<char, deref_of< an_iterator<char, int&> >::type>));
+BOOST_MPL_ASSERT((boost::is_same<int, deref_of< an_iterator<int, char const&> >::type>));
+BOOST_MPL_ASSERT((boost::is_same<char, deref_of< an_iterator<char, int const&> >::type>));
+BOOST_MPL_ASSERT((boost::is_same<int, deref_of< an_iterator<int, char const> >::type>));
+BOOST_MPL_ASSERT((boost::is_same<char, deref_of< an_iterator<char, int const> >::type>));
+BOOST_MPL_ASSERT((boost::is_same<int, deref_of< an_iterator<int, char> >::type>));
+BOOST_MPL_ASSERT((boost::is_same<char, deref_of< an_iterator<char, int> >::type>));
 
 
 void test()

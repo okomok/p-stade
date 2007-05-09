@@ -68,6 +68,8 @@
 [def _incrementable_         [@http://www.boost.org/libs/iterator/doc/counting_iterator.html Incrementable]]
 [def _deferred_callable_object_ [@http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html Deferred Callable Object]]
 
+[def _bindable_object_       [link oven.bindable_object Bindable Object]]
+[def _bindable_              [link oven.bindable_object Bindable]]
 [def _operatable_object_     [link oven.operatable_object Operatable Object]]
 [def _pipable_object_        [link oven.pipable_object Pipable Object]]
 [def _auxiliary_interface_   [link oven.auxiliary_interface Auxiliary Interface]]

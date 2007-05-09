@@ -138,7 +138,7 @@
 * Optimized `regular`.
 * Added `lower_chars`, `upper_chars` and `rvalues`.
 * Added `all` and `none`.
-
+* Fixed a bug of `merged`.
 
 
 

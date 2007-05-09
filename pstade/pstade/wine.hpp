@@ -66,6 +66,7 @@
 #include "./pause.hpp"
 #include "./perfect.hpp"
 #include "./pipable.hpp"
+#include "./polymorphic.hpp"
 #include "./preprocessor.hpp"
 #include "./provide_result_of_sig.hpp"
 #include "./provide_sig.hpp"

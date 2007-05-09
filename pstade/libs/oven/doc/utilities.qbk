@@ -180,7 +180,7 @@ An iterator holding such a functor can't conform to even _input_iterator_.
     ]
     [
         [`regular(f)`]
-        [Converts `f` into a _deferred_callable_object_ which is _default_constructible_ and _assignable_.]
+        [Converts `f` into a _bindable_ _deferred_callable_object_ which is _default_constructible_ and _assignable_.]
     ]
 ]
 
@@ -226,7 +226,7 @@ A _deferred_callable_object_ like a random number generator may not be copyable,
     ]
     [
         [`regular_ref(f)`]
-        [Converts `f` into a copyable _deferred_callable_object_. All the calls are forwarded to `f`.]
+        [Converts `f` into a copyable _bindable_ _deferred_callable_object_. All the calls are forwarded to `f`.]
     ]
 ]
 
@@ -369,7 +369,7 @@ Though `zipped` accepts a function taking a `boost::tuple` as the parameter, it 
     [
         [`op_make_zipped_with<R>`]
         [
-            A _deferred_callable_object_ type
+            A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
