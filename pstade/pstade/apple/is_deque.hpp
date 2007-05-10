@@ -11,7 +11,7 @@
 
 
 #include <boost/mpl/bool.hpp>
-#include <pstade/remove_cvr.hpp>
+#include <boost/type_traits/remove_cv.hpp>
 #include "./deque_fwd.hpp"
 
 
@@ -39,7 +39,7 @@ namespace is_deque_detail {
 template< class T >
 struct is_deque :
     is_deque_detail::aux<
-        typename remove_cvr<T>::type
+        typename boost::remove_cv<T>::type
     >
 { };
 

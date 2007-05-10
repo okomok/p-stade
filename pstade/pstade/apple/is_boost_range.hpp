@@ -21,7 +21,7 @@
 #include <boost/type_traits/is_array.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/has_xxx.hpp>
-#include <pstade/remove_cvr.hpp>
+#include <boost/type_traits/remove_cv.hpp>
 #include "./is_sequence.hpp"
 
 
@@ -56,7 +56,7 @@ struct is_boost_range_impl :
 template< class T >
 struct is_boost_range :
     is_boost_range_impl<
-        typename remove_cvr<T>::type
+        typename boost::remove_cv<T>::type
     >
 { };
 

@@ -27,7 +27,6 @@
 #include <pstade/oven/algorithm.hpp>
 #include "./core.hpp"
 #include <pstade/pack.hpp>
-#include <pstade/at.hpp>
 #include <boost/fusion/sequence/generation/vector_tie.hpp>
 #include <boost/fusion/sequence/intrinsic/at.hpp>
 #include <boost/fusion/sequence/comparison.hpp> // DON'T FORGET for Readable test
@@ -71,7 +70,7 @@ void test()
 
         BOOST_FOREACH (
             int& i,
-            fusion::vector_tie(src0, src1)|fuzipped|elements_at_c<1>()
+            fusion::vector_tie(src0, src1)|fuzipped|elements_c<1>()
         ) {
             if (i == 4)
                 i = 5;

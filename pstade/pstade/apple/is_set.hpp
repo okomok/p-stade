@@ -19,7 +19,7 @@
 
 
 #include <boost/mpl/bool.hpp>
-#include <pstade/remove_cvr.hpp>
+#include <boost/type_traits/remove_cv.hpp>
 #include "./set_fwd.hpp"
 
 
@@ -59,7 +59,7 @@ namespace is_set_detail {
 template< class T >
 struct is_set :
     is_set_detail::aux<
-        typename remove_cvr<T>::type
+        typename boost::remove_cv<T>::type
     >
 { };
 
@@ -67,7 +67,7 @@ struct is_set :
 template< class T >
 struct is_multiset :
     is_set_detail::aux_multi<
-        typename remove_cvr<T>::type
+        typename boost::remove_cv<T>::type
     >
 { };
 

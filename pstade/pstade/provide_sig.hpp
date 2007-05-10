@@ -17,6 +17,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/mpl/int.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/tuple/tuple.hpp>
@@ -38,12 +39,12 @@ PSTADE_ADL_BARRIER(provide_sig) {
     struct provide_sig
     {
     private:
-        template<class Fun, class Args, int Arity>
+        template<class Fun, class Args, class Arity>
         struct sig_aux;
 
         // 0ary
         template<class Fun, class Args>
-        struct sig_aux<Fun, Args, 0> :
+        struct sig_aux< Fun, Args, boost::mpl::int_<0> > :
             boost::result_of<
                 Fun()
             >
@@ -61,7 +62,7 @@ PSTADE_ADL_BARRIER(provide_sig) {
             sig_aux<
                 typename SigArgs::head_type, // function
                 typename SigArgs::tail_type, // argument tuple
-                boost::tuples::length<SigArgs>::value - 1
+                boost::mpl::int_<boost::tuples::length<SigArgs>::value - 1>
             >
         { };
     };
@@ -79,7 +80,7 @@ PSTADE_ADL_BARRIER(provide_sig) {
 
 
 template<class Fun, class Args>
-struct sig_aux<Fun, Args, n> :
+struct sig_aux< Fun, Args, boost::mpl::int_<n> > :
     boost::result_of<
         Fun(BOOST_PP_ENUM(n, PSTADE_element, ~))
     >

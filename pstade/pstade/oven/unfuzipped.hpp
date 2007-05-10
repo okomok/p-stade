@@ -24,7 +24,7 @@
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
 #include "./concepts.hpp"
-#include "./elements_at.hpp"
+#include "./elements.hpp"
 #include "./range_value.hpp"
 
 
@@ -44,7 +44,7 @@ namespace unfuzipped_detail {
         template< class N >
         struct result :
             boost::result_of<
-                op_make_elements_at<N>(TupleRange&)
+                op_make_elements<N>(TupleRange&)
             >
         { };
 
@@ -52,7 +52,7 @@ namespace unfuzipped_detail {
         typename result<N>::type
         operator()(N) const
         {
-            return op_make_elements_at<N>()(m_rng);
+            return op_make_elements<N>()(m_rng);
         }
 
         explicit make_at_range(TupleRange& rng) :

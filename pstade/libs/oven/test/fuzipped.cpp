@@ -10,6 +10,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/version.hpp>
+#if BOOST_VERSION >= 103500
+
+
 #include <pstade/oven/tests.hpp>
 #include <pstade/oven/fuzipped.hpp>
 
@@ -30,7 +34,6 @@
 
 void test()
 {
-#if BOOST_VERSION >= 103500
     namespace oven = pstade::oven;
     using namespace oven;
 
@@ -136,8 +139,12 @@ void test()
         BOOST_CHECK(( oven::equals(boost::fusion::at_c<0>(z), ans0) ));
         BOOST_CHECK(( oven::equals(boost::fusion::at_c<1>(z), ans1) ));
     }
-#endif
 }
+
+
+#else
+void test() { }
+#endif
 
 
 int test_main(int, char*[])

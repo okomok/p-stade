@@ -12,13 +12,13 @@
 
 #include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>
-#include "./seconds.hpp"
+#include "./elements.hpp"
 
 
 namespace pstade { namespace oven {
 
 
-typedef op_make_seconds op_make_map_values;
+typedef op_make_elements_c<1> op_make_map_values;
 PSTADE_CONSTANT(make_map_values, (op_make_map_values))
 PSTADE_PIPABLE(map_values, (op_make_map_values))
 

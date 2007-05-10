@@ -19,36 +19,71 @@
 // to its suitability for any purpose.
 
 
+// References:
+//
+// [1] Thorsten Ottosen, 2 of the least crazy ideas for the standard library in C++0x, 2007.
+//     http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2246.html
+
+
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/constant.hpp>
+#include <pstade/function.hpp>
 #include <pstade/functional.hpp> // less
 #include "./concepts.hpp"
+#include "./range_iterator.hpp"
 
 
 namespace pstade { namespace oven {
 
 
-namespace is_sorted_detail {
+namespace is_sorted_until_detail {
+
+
+    namespace here = is_sorted_until_detail;
 
 
     template< class ForwardIter, class Compare >
-    bool aux(ForwardIter first, ForwardIter last, Compare comp)
+    ForwardIter aux(ForwardIter first, ForwardIter last, Compare comp)
     {
         if (first == last)
-            return true;
+            return last;
 
         for (ForwardIter old = first; ++first != last; old = first) {
             if (comp(*first, *old))
-                return false;
+                return first;
         }
 
-        return true;
+        return last;
     }
 
 
-} // namespace is_sorted_detail
+    template< class Range >
+    struct baby
+    {
+        typedef typename
+            range_iterator<Range>::type
+        result_type;
+
+        template< class Compare >
+        result_type operator()(Range& rng, Compare comp) const
+        {
+            PSTADE_CONCEPT_ASSERT((Forward<Range>));
+            return here::aux(boost::begin(rng), boost::end(rng), comp);
+        }
+
+        result_type operator()(Range& rng) const
+        {
+            return (*this)(rng, less);
+        }
+    };
+
+
+} // namespace is_sorted_until_detail
+
+
+PSTADE_FUNCTION(is_sorted_until, (is_sorted_until_detail::baby<_>))
 
 
 struct op_is_sorted
@@ -59,7 +94,7 @@ struct op_is_sorted
     bool operator()(Range const& rng, Compare comp) const
     {
         PSTADE_CONCEPT_ASSERT((Forward<Range>));
-        return is_sorted_detail::aux(boost::begin(rng), boost::end(rng), comp);
+        return is_sorted_until(rng) == boost::end(rng);
     }
 
     template< class Range >

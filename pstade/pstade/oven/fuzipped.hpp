@@ -22,6 +22,7 @@
 
 #include <boost/fusion/algorithm/iteration/for_each.hpp>
 #include <boost/fusion/algorithm/transformation/transform.hpp>
+#include <boost/fusion/iterator/deref.hpp>
 #include <boost/fusion/sequence/conversion/as_vector.hpp>
 #include <boost/fusion/sequence/intrinsic/begin.hpp>
 #include <boost/fusion/sequence/intrinsic/mpl.hpp>
@@ -215,7 +216,8 @@ namespace fuzipped_detail {
         template< class I >
         diff_t distance_to(zip_iterator<I> const& other) const
         {
-            return *fusion::begin(other.iterator_tuple()) - *fusion::begin(m_tuple);
+            return fusion::deref(fusion::begin(other.iterator_tuple()))
+                - fusion::deref(fusion::begin(m_tuple));
         }
     };
 

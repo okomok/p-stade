@@ -22,23 +22,34 @@
 //=======================================================================
 
 
+// References:
+//
+// [1] Thorsten Ottosen, 2 of the least crazy ideas for the standard library in C++0x, 2007.
+//     http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2246.html
+
+
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/constant.hpp>
+#include <pstade/function.hpp>
 #include <pstade/functional.hpp> // less
 #include "./concepts.hpp"
+#include "./range_iterator.hpp"
 
 
 namespace pstade { namespace oven {
 
 
-namespace is_heap_detail {
+namespace is_heap_until_detail {
+
+
+    namespace here = is_heap_until_detail;
 
 
     template< class RandomAccessIter, class Compare >
-    bool aux(RandomAccessIter first, RandomAccessIter last, Compare comp)
+    RandomAccessIter aux(RandomAccessIter first, RandomAccessIter last, Compare comp)
     {
         typedef typename boost::iterator_difference<RandomAccessIter>::type diff_t;
 
@@ -47,16 +58,40 @@ namespace is_heap_detail {
         diff_t parent = 0;
         for (diff_t child = 1; child < n; ++child) {
             if (comp(first[parent], first[child]))
-                return false;
+                return first + parent;
             if ((child & 1) == 0)
                 ++parent;
         }
 
-        return true;
+        return last;
     }
 
 
-} // namespace is_heap_detail
+    template< class Range >
+    struct baby
+    {
+        typedef typename
+            range_iterator<Range>::type
+        result_type;
+
+        template< class Compare >
+        result_type operator()(Range& rng, Compare comp) const
+        {
+            PSTADE_CONCEPT_ASSERT((Forward<Range>));
+            return here::aux(boost::begin(rng), boost::end(rng), comp);
+        }
+
+        result_type operator()(Range& rng) const
+        {
+            return (*this)(rng, less);
+        }
+    };
+
+
+} // namespace is_heap_until_detail
+
+
+PSTADE_FUNCTION(is_heap_until, (is_heap_until_detail::baby<_>))
 
 
 struct op_is_heap
@@ -67,7 +102,7 @@ struct op_is_heap
     bool operator()(Range const& rng, Compare comp) const
     {
         PSTADE_CONCEPT_ASSERT((RandomAccess<Range>));
-        return is_heap_detail::aux(boost::begin(rng), boost::end(rng), comp);
+        return is_heap_until(rng, comp) == boost::end(rng);
     }
 
     template< class Range >

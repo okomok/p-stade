@@ -11,8 +11,8 @@
 
 
 #include <boost/mpl/or.hpp>
+#include <boost/type_traits/remove_cv.hpp>
 #include <pstade/enable_if.hpp>
-#include <pstade/remove_cvr.hpp>
 #include "./is_basic_string.hpp"
 #include "./is_deque.hpp"
 #include "./is_list.hpp"
@@ -36,7 +36,7 @@ struct is_sequence_impl :
 template< class T >
 struct is_sequence :
     is_sequence_impl<
-        typename remove_cvr<T>::type
+        typename boost::remove_cv<T>::type
     >
 { };
 

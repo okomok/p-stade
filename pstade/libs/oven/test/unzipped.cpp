@@ -23,7 +23,7 @@
 #include <pstade/oven/algorithm.hpp>
 #include "./core.hpp"
 #include <pstade/pack.hpp>
-#include <pstade/at.hpp>
+#include <pstade/tuple.hpp>
 
 
 void test()
@@ -39,12 +39,12 @@ void test()
         std::vector<int> ans1  = rng1|copied;
 
         BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
-            pstade::tuple_at_c<0>(pstade::pack(rng0, rng1)|zipped|unzipped),
+            pstade::tuple_get_c<0>(pstade::pack(rng0, rng1)|zipped|unzipped),
             ans0
         ) );
 
         BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
-            pstade::tuple_at_c<1>(pstade::pack(rng0, rng1)|zipped|unzipped),
+            pstade::tuple_get_c<1>(pstade::pack(rng0, rng1)|zipped|unzipped),
             ans1
         ) );
     }
@@ -63,7 +63,7 @@ void test()
 
         BOOST_FOREACH (
             int& i,
-            src0|pstade::packed(src1)|zipped|unzipped_at_c<1>()
+            src0|pstade::packed(src1)|zipped|elements_c<1>()
         ) {
             if (i == 4)
                 i = 5;

@@ -11,8 +11,8 @@
 
 
 #include <boost/mpl/or.hpp>
+#include <boost/type_traits/remove_cv.hpp>
 #include <pstade/enable_if.hpp>
-#include <pstade/remove_cvr.hpp>
 #include "./is_hash_map.hpp"
 #include "./is_hash_set.hpp"
 #include "./is_map.hpp"
@@ -44,7 +44,7 @@ struct is_associative_container_impl :
 template< class T >
 struct is_associative_container :
     is_associative_container_impl<
-        typename remove_cvr<T>::type
+        typename boost::remove_cv<T>::type
     >
 { };
 

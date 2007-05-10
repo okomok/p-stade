@@ -755,18 +755,18 @@ then pretends to be a range of _forward_iterator_.
 
 
 
-[section elements_at]
+[section elements]
 
 [h3 Description]
-Pending...
+`elements` is considered as a generalization of `map_keys` and `map_values`.
 
 [h3 Header]
-* `<pstade/oven/elements_at.hpp>`
+* `<pstade/oven/elements.hpp>`
 
 [h3 Model of]
 
 [h3 Notation]
-* `to_Nth` is an imaginary function object to call `boost::fusion::at<N>`.
+* `to_Nth` is an imaginary function object to get the Nth element of _boost_fusion_ Sequence.
 
 [h3 Valid expressions]
 [table 
@@ -775,59 +775,56 @@ Pending...
         [[*Semantics]]
     ]
     [
-        [`op_make_elements_at<N>`]
+        [`op_make_elements<N>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
     ]
     [
-        [`op_make_elements_at<N>()(_rng)`]
+        [`op_make_elements<N>()(_rng)`]
         [
             `_rng|transformed(to_Nth)`
         ]
     ]
     [
-        [`oven::make_elements_at<N>(_rng)`]
+        [`oven::make_elements<N>(_rng)`]
         [
-            `op_make_elements_at<N>()(_rng)`
+            `op_make_elements<N>()(_rng)`
         ]
     ]
     [
-        [`_rng|elements_at<N>()`]
+        [`_rng|elements<N>()`]
         [
-            `op_make_elements_at<N>()(_rng)`
+            `op_make_elements<N>()(_rng)`
         ]
     ]
 ]
 
 [h3 Preconditions]
-* `_value_of<_typeof(_rng)>::type` is [@http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/sequences/concepts/random_access_sequence.html Random Access Sequence].
-* `boost::fusion::at<N>(*boost::begin(_rng))` is well-formed.
-
-[h3 Complexity]
+* `_rng` is _readable_ or _lvalue_.
+* `_value_of<_typeof(_rng)>::type` is [@http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/sequences/concepts/forward_sequence.html Fusion Forward Sequence].
+* `N` is a [@http://www.boost.org/libs/mpl/doc/refmanual/integral-constant.html MPL Integral Constant].
 
 [h3 Example]
 
 [h3 See also]
-* [link oven.elements_at_c elements_at_c]
+* [link oven.elements_c elements_c]
+* [link oven.map_keys map_keys]
+* [link oven.map_values map_values]
 
 [endsect]
 
 
 
 
-[section elements_at_c]
+[section elements_c]
 
 [h3 Description]
-Pending...
 
 [h3 Header]
-* `<pstade/oven/elements_at.hpp>`
+* `<pstade/oven/elements.hpp>`
 
 [h3 Model of]
-
-[h3 Notation]
-* `to_nth` is an imaginary function object to call `boost::fusion::at_c<n>`.
 
 [h3 Valid expressions]
 [table 
@@ -836,41 +833,20 @@ Pending...
         [[*Semantics]]
     ]
     [
-        [`op_make_elements_at_c<n>`]
+        [`op_make_elements_c<n>`]
         [
-            A _bindable_ _deferred_callable_object_ type
-        ]
-    ]
-    [
-        [`op_make_elements_at_c<n>()(_rng)`]
-        [
-            `_rng|transformed(to_nth)`
-        ]
-    ]
-    [
-        [`oven::make_elements_at_c<n>(_rng)`]
-        [
-            `op_make_elements_at_c<n>()(_rng)`
-        ]
-    ]
-    [
-        [`_rng|elements_at_c<n>()`]
-        [
-            `op_make_elements_at_c<n>()(_rng)`
+            `op_make_elements< boost::mpl::int_<n> >`
         ]
     ]
 ]
 
 [h3 Preconditions]
-* `_value_of<_typeof(_rng)>::type` is [@http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/sequences/concepts/random_access_sequence.html Random Access Sequence].
-* `boost::fusion::at_c<n>(*boost::begin(_rng))` is well-formed.
-
-[h3 Complexity]
+* `op_make_elements< boost::mpl::int_<n> >` is a valid expression.
 
 [h3 Example]
 
 [h3 See also]
-* [link oven.elements_at elements_at]
+* [link oven.elements elements]
 
 [endsect]
 
@@ -914,46 +890,6 @@ Pending...
 [h3 See also]
 * [@http://www.boost.org/libs/iterator/doc/filter_iterator.html boost::filter_iterator]
 * [link oven.dropped_while dropped_while]
-
-[endsect]
-
-
-
-
-[section firsts]
-
-[h3 Description]
-
-[h3 Header]
-* `<pstade/oven/firsts.hpp>`
-
-[h3 Model of]
-* _pipable_object_
-
-[h3 Notation]
-* `first_of` is an imaginary function object to return a member `first`.
-
-[h3 Valid expressions]
-[table 
-    [
-        [[*Valid expression]]
-        [[*Semantics]]
-    ]
-    [
-        [`_rng|firsts`]
-        [
-            `_rng|transformed(first_of)`
-        ]
-    ]
-]
-
-[h3 Preconditions]
-* `_value_of<_typeof(_rng)>::type` is a `std::pair`.
-
-[h3 Example]
-
-[h3 See also]
-* [link oven.seconds seconds]
 
 [endsect]
 
@@ -1204,13 +1140,13 @@ Pending...
     [
         [`_rng|map_keys`]
         [
-            `_rng|firsts`
+            `_rng|elements_c<0>()`
         ]
     ]
 ]
 
 [h3 Preconditions]
-* `_rng|firsts` is a valid expression.
+* `_rng|elements_c<0>()` is a valid expression.
 
 [h3 Example]
     std::map<int, std::string> m;
@@ -1225,7 +1161,7 @@ Pending...
     }
 
 [h3 See also]
-* [link oven.firsts firsts]
+* [link oven.elements elements]
 * [link oven.map_keys map_keys]
 
 [endsect]
@@ -1253,13 +1189,13 @@ Pending...
     [
         [`_rng1|map_values`]
         [
-            `_rng|seconds`
+            `_rng|elements_c<1>()`
         ]
     ]
 ]
 
 [h3 Preconditions]
-* `_rng|seconds` is a valid expression.
+* `_rng|elements_c<1>()` is a valid expression.
 
 [h3 Example]
     std::map<int, std::string> m;
@@ -1277,8 +1213,8 @@ Pending...
     BOOST_CHECK( m[99] == "values" );
 
 [h3 See also]
+* [link oven.elements elements]
 * [link oven.map_keys map_keys]
-* [link oven.seconds seconds]
 
 [endsect]
 
@@ -1863,46 +1799,6 @@ A range returned from `reversed` iterates in the opposite direction.
 [h3 See also]
 * [@http://www.zvon.org/other/haskell/Outputprelude/scanl_f.html scanl]
 * [@http://www.zvon.org/other/haskell/Outputprelude/scanl1_f.html scanl1]
-
-[endsect]
-
-
-
-
-[section seconds]
-
-[h3 Description]
-
-[h3 Header]
-* `<pstade/oven/seconds.hpp>`
-
-[h3 Model of]
-* _pipable_object_
-
-[h3 Notation]
-* `second_of` is an imaginary function object to return a member `second`.
-
-[h3 Valid expressions]
-[table 
-    [
-        [[*Valid expression]]
-        [[*Semantics]]
-    ]
-    [
-        [`_rng|seconds`]
-        [
-            `_rng|transformed(second_of)`
-        ]
-    ]
-]
-
-[h3 Preconditions]
-* `_value_of<_typeof(_rng)>::type` is a `std::pair`.
-
-[h3 Example]
-
-[h3 See also]
-* [link oven.firsts firsts]
 
 [endsect]
 

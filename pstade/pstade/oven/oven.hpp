@@ -10,9 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// For pre-compiled header
-
-
 #include "./adapted_to_base.hpp"
 #include "./adjacent_filtered.hpp"
 #include "./adjacent_transformed.hpp"
@@ -53,14 +50,13 @@
 #include "./dropped.hpp"
 #include "./dropped_while.hpp"
 #include "./duplicates.hpp"
-#include "./elements_at.hpp"
+#include "./elements.hpp"
 #include "./empty_range.hpp"
 #include "./equals.hpp"
 #include "./expression.hpp"
 #include "./extension.hpp"
 #include "./file_range.hpp"
 #include "./filtered.hpp"
-#include "./firsts.hpp"
 #include "./front.hpp"
 #include "./fuzipped.hpp"
 #include "./generation.hpp"
@@ -115,7 +111,6 @@
 #include "./rotated.hpp"
 #include "./rvalues.hpp"
 #include "./scanned.hpp"
-#include "./seconds.hpp"
 #include "./set_cap.hpp"
 #include "./set_cup.hpp"
 #include "./set_delta.hpp"

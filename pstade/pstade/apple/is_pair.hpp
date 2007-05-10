@@ -11,7 +11,7 @@
 
 
 #include <boost/mpl/bool.hpp>
-#include <pstade/remove_cvr.hpp>
+#include <boost/type_traits/remove_cv.hpp>
 #include "./pair_fwd.hpp"
 
 
@@ -39,7 +39,7 @@ namespace is_pair_detail {
 template< class X >
 struct is_pair :
     is_pair_detail::aux<
-        typename remove_cvr<X>::type
+        typename boost::remove_cv<X>::type
     >
 { };
 

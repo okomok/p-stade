@@ -139,6 +139,9 @@
 * Added `lower_chars`, `upper_chars` and `rvalues`.
 * Added `all` and `none`.
 * Fixed a bug of `merged`.
+* Added `elements`.
+* Removed `firsts` and `seconds`.
+
 
 
 

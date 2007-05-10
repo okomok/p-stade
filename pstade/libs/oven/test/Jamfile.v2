@@ -48,7 +48,7 @@ test-suite "oven" :
     [ run dropped.cpp ]
     [ run dropped_while.cpp ]
     [ run duplicates.cpp ]
-    [ run elements_at.cpp ]
+    [ run elements.cpp ]
     [ run empty_range.cpp ]
     [ run expression.cpp ]
     [ run expression.cpp : : : <define>BOOST_TYPEOF_EMULATION : expression_emulation ]

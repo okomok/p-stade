@@ -23,6 +23,7 @@
 [def _boost_array_           [@http://www.boost.org/doc/html/array.html Boost.Array]]
 [def _boost_assign_          [@http://www.boost.org/libs/assign/doc/index.html Boost.Assign]]
 [def _boost_filesystem_      [@http://www.boost.org/libs/filesystem/index.html Boost.Filesystem]]
+[def _boost_fusion_          [@http://boost-consulting.com/boost/libs/fusion/doc/html/index.html Boost.Fusion]]
 [def _boost_iterator_        [@http://boost.org/libs/iterator/doc/index.html Boost.Iterator]]
 [def _boost_lambda_          [@http://boost.org/libs/lambda/doc/index.html Boost.Lambda]]
 [def _boost_optional_        [@http://boost.org/libs/optional/doc/optional.html Boost.Optional]]
