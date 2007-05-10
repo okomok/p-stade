@@ -35,7 +35,6 @@
 #include <boost/mpl/placeholders.hpp>
 #include <boost/mpl/transform_view.hpp>
 #include <boost/utility/result_of.hpp>
-#include <pstade/affect.hpp>
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/polymorphic.hpp>
@@ -97,28 +96,30 @@ namespace fuzipped_detail {
     {
         template< class Iterator >
         struct result :
-            boost::iterator_reference<Iterator>
+            boost::iterator_reference<
+                typename remove_cvr<Iterator>::type
+            >
         { };
 
         template< class Iterator >
-        typename result<Iterator>::type
-        operator()(Iterator const& it) const
+        typename result<Iterator&>::type
+        operator()(Iterator& it) const
         {
             return *it;
         }
     };
 
 
-    template< class IteratorSeq >
+    template< class IteratorTuple >
     struct zip_iterator;
 
 
-    template< class IteratorSeq >
+    template< class IteratorTuple >
     struct zip_iterator_super
     {
         typedef
             typename fusion::result_of::transform<
-                IteratorSeq const,
+                IteratorTuple const,
                 dereference_iterator
                 // For some reason, gcc-3.4 dislikes this...
                 // typename boost::result_of<op_polymorphic(op_deref const&)>::type
@@ -127,21 +128,21 @@ namespace fuzipped_detail {
 
         typedef typename
             boost::iterator_difference<
-                typename mpl::front<IteratorSeq>::type
+                typename mpl::front<IteratorTuple>::type
             >::type
         diff_t;
 
         typedef typename
             mpl::fold<
-                typename mpl::transform_view< IteratorSeq, detail::pure_traversal<mpl::_1> >::type,
+                typename mpl::transform_view< IteratorTuple, detail::pure_traversal<mpl::_1> >::type,
                 boost::random_access_traversal_tag,
-                boost::detail::minimum_category<>
+                boost::detail::minimum_category<mpl::_1, mpl::_2>
             >::type
         trv_t;
 
         typedef
             boost::iterator_facade<
-                zip_iterator<IteratorSeq>,
+                zip_iterator<IteratorTuple>,
                 val_t,
                 trv_t,
                 val_t,
@@ -151,12 +152,12 @@ namespace fuzipped_detail {
     };
 
 
-    template< class IteratorSeq >
+    template< class IteratorTuple >
     struct zip_iterator :
-        zip_iterator_super<IteratorSeq>::type
+        zip_iterator_super<IteratorTuple>::type
     {
     private:
-        typedef typename zip_iterator_super<IteratorSeq>::type super_t;
+        typedef typename zip_iterator_super<IteratorTuple>::type super_t;
         typedef typename super_t::reference ref_t;
         typedef typename super_t::difference_type diff_t;
 
@@ -164,83 +165,83 @@ namespace fuzipped_detail {
         explicit zip_iterator()
         { }
 
-        explicit zip_iterator(IteratorSeq const& its) :
-            m_its(its)
+        explicit zip_iterator(IteratorTuple const& tup) :
+            m_tuple(tup)
         { }
 
         template< class I >
         zip_iterator(zip_iterator<I> const& other,
-            typename boost::enable_if_convertible<I, IteratorSeq>::type * = 0
+            typename boost::enable_if_convertible<I, IteratorTuple>::type * = 0
         ) :
-            m_its(other.iterator_sequence())
+            m_tuple(other.iterator_tuple())
         { }
 
-        IteratorSeq const& iterator_sequence() const
+        IteratorTuple const& iterator_tuple() const
         {
-            return m_its;
+            return m_tuple;
         }
 
     private:
-        IteratorSeq m_its;
+        IteratorTuple m_tuple;
 
     friend class boost::iterator_core_access;
         ref_t dereference() const
         {
-            return fusion::transform(m_its, dereference_iterator());
-            // return fusion::transform(m_its, polymorphic(deref));
+            return fusion::transform(m_tuple, dereference_iterator());
+            // return fusion::transform(m_tuple, polymorphic(deref));
         }
 
         template< class I >
         bool equal(zip_iterator<I> const& other) const
         {
-            return m_its == other.iterator_sequence();
+            return m_tuple == other.iterator_tuple();
         }
 
         void increment()
         {
-            fusion::for_each(m_its, increment_iterator());
+            fusion::for_each(m_tuple, increment_iterator());
         }
 
         void decrement()
         {
-            fusion::for_each(m_its, decrement_iterator());
+            fusion::for_each(m_tuple, decrement_iterator());
         }
 
         void advance(diff_t n)
         {
-            fusion::for_each(m_its, advance_iterator<diff_t>(n));
+            fusion::for_each(m_tuple, advance_iterator<diff_t>(n));
         }
 
         template< class I >
         diff_t distance_to(zip_iterator<I> const& other) const
         {
-            return *fusion::begin(other.iterator_sequence()) - *fusion::begin(m_its);
+            return *fusion::begin(other.iterator_tuple()) - *fusion::begin(m_tuple);
         }
     };
 
 
-    template< class RangeSeq >
+    template< class RangeTuple >
     struct baby
     {
         // Prefer a view to 'transform', keeping the mutability of elements.
         typedef
             fusion::transform_view<
-                RangeSeq,
+                RangeTuple,
                 typename boost::result_of<op_polymorphic(op_begin const&)>::type
             >
-        begin_iters_t;
+        begin_tup_t;
 
         typedef
             fusion::transform_view<
-                RangeSeq,
+                RangeTuple,
                 typename boost::result_of<op_polymorphic(op_end const&)>::type
             >
-        end_iters_t;
+        end_tup_t;
 
         typedef
             zip_iterator<
                 // Copy the iterators by 'as_vector', following 'boost::zip_iterator'.
-                typename fusion::result_of::as_vector<begin_iters_t>::type
+                typename fusion::result_of::as_vector<begin_tup_t>::type
             >
         iter_t;
 
@@ -248,14 +249,14 @@ namespace fuzipped_detail {
             iter_range<iter_t> const
         result_type;
 
-        result_type operator()(RangeSeq& seq) const
+        result_type operator()(RangeTuple& tup) const
         {
-            begin_iters_t begin_iters(seq, polymorphic(begin));
-            end_iters_t end_iters(seq, polymorphic(end));
+            begin_tup_t begin_tup(tup, polymorphic(begin));
+            end_tup_t end_tup(tup, polymorphic(end));
 
             return result_type(
-                iter_t( fusion::as_vector(begin_iters) ),
-                iter_t( fusion::as_vector(end_iters) )
+                iter_t( fusion::as_vector(begin_tup) ),
+                iter_t( fusion::as_vector(end_tup) )
             );
         }
     };

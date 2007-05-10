@@ -120,6 +120,7 @@ test-suite "oven" :
     [ run transformed.cpp ]
     [ run traversal_tags.cpp ]
     [ run tuple.cpp ]
+    [ run unfuzipped.cpp ]
     [ run uniqued.cpp ]
     [ run unzipped.cpp ]
     [ run utf8_encoded_decoded.cpp ]

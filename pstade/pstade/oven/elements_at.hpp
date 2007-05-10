@@ -34,29 +34,29 @@ template< class N >
 struct op_make_elements_at :
     callable< op_make_elements_at<N> >
 {
-    template< class Myself, class FusionSeqRange >
+    template< class Myself, class TupleRange >
     struct apply
     {
         typedef typename
             detail::reference_affect<
-                FusionSeqRange,
+                TupleRange,
                 fusion_element_at<boost::mpl::_1, N>
             >::type
         ref_t;
 
         typedef typename
             boost::result_of<
-                op_make_transformed<ref_t>(FusionSeqRange&, op_fusion_at<N>)
+                op_make_transformed<ref_t>(TupleRange&, op_fusion_at<N>)
             >::type
         type;
     };
 
-    template< class Result, class FusionSeqRange >
-    Result call(FusionSeqRange& rng) const
+    template< class Result, class TupleRange >
+    Result call(TupleRange& rng) const
     {
-        PSTADE_CONCEPT_ASSERT((SinglePass<FusionSeqRange>));
+        PSTADE_CONCEPT_ASSERT((SinglePass<TupleRange>));
 
-        typedef typename apply<void, FusionSeqRange>::ref_t ref_t;
+        typedef typename apply<void, TupleRange>::ref_t ref_t;
         return op_make_transformed<ref_t>()(rng, op_fusion_at<N>());
     }
 };
@@ -87,16 +87,16 @@ namespace elements_at_detail_ {
     { };
 
 
-    template< class FusionSeqRange, class N > inline
-    typename boost::result_of<op_make_elements_at<N>(FusionSeqRange&)>::type
-    operator|(FusionSeqRange& rng, elements_at<N>)
+    template< class TupleRange, class N > inline
+    typename boost::result_of<op_make_elements_at<N>(TupleRange&)>::type
+    operator|(TupleRange& rng, elements_at<N>)
     {
         return op_make_elements_at<N>()(rng);
     }
 
-    template< class FusionSeqRange, class N > inline
-    typename boost::result_of<op_make_elements_at<N>(PSTADE_DEDUCED_CONST(FusionSeqRange)&)>::type
-    operator|(FusionSeqRange const& rng, elements_at<N>)
+    template< class TupleRange, class N > inline
+    typename boost::result_of<op_make_elements_at<N>(PSTADE_DEDUCED_CONST(TupleRange)&)>::type
+    operator|(TupleRange const& rng, elements_at<N>)
     {
         return op_make_elements_at<N>()(rng);
     }
