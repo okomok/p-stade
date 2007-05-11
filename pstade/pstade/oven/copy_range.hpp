@@ -130,9 +130,9 @@ struct Copyable :
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/copy_construct.hpp>
-#include "./deref.hpp"
 #include "./distance.hpp"
 #include "./range_iterator.hpp"
+#include "./read.hpp"
 #include "./traversal_tags.hpp" // is_random_access
 
 
@@ -158,7 +158,7 @@ namespace pstade_oven_extension {
         std::size_t i = 0;
 
         for (; it != last; ++it, ++i)
-            arr[i] = deref(it);
+            arr[i] = read(it);
         for (; i != N; ++i)
             arr[i] = T();
 

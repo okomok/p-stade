@@ -20,7 +20,7 @@
 #include <pstade/oven/filter_range.hpp>
 #include <pstade/oven/identity_range.hpp>
 #include <pstade/oven/regularize_range.hpp>
-#include <pstade/oven/writer.hpp>
+#include <pstade/oven/stream_writer.hpp>
 #include <pstade/oven/utf8_encoder.hpp>
 #include <pstade/oven/utf8_decode_range.hpp>
 #include <pstade/oven/utf8_encode_range.hpp>
@@ -49,7 +49,7 @@ void test()
 
     oven::copy(
         file_range<uint8_t>("x.txt")|utf8_decoded|filtered(&is_z)|utf8_encoded,
-        writer(*op_new<std::ofstream>("z.txt"))
+        stream_writer(*op_new<std::ofstream>("z.txt"))
     );
 
 

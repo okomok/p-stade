@@ -21,13 +21,13 @@
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
 #include "./concepts.hpp"
-#include "./deref.hpp"
 #include "./detail/minimum_pure.hpp"
 #include "./dropped.hpp"
 #include "./front.hpp"
 #include "./iter_range.hpp"
 #include "./jointed.hpp"
 #include "./range_iterator.hpp"
+#include "./read.hpp"
 #include "./shared_single.hpp"
 
 
@@ -100,7 +100,7 @@ namespace scanned_detail {
 
         State call_fun() const
         {
-            return m_fun(m_before, deref(this->base()));
+            return m_fun(m_before, read(this->base()));
         }
 
     friend class boost::iterator_core_access;

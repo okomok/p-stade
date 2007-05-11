@@ -19,7 +19,7 @@
 #include "./core.hpp"
 #include <pstade/oven/counting.hpp>
 #include <pstade/oven/algorithm.hpp>
-#include <pstade/oven/writer.hpp>
+#include <pstade/oven/stream_writer.hpp>
 #include <pstade/oven/reversed.hpp>
 
 
@@ -34,7 +34,7 @@ void test()
         std::vector<int> expected = ans|copied;
         int ind[] = { 8, 6, 2, 3 };
 
-        oven::copy(rng|permuted(ind)|reversed, oven::writer(std::cout));
+        oven::copy(rng|permuted(ind)|reversed, oven::stream_writer(std::cout));
         BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
             rng|permuted(ind),
             expected

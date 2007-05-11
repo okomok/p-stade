@@ -371,168 +371,6 @@ on the first argument, the second item by applying the function on the previous 
 [endsect]
 
 
-[section line_reading]
-
-[h3 Description]
-`line_reading` makes a `std::string` _single_pass_ _range_ from `std::cout` etc.
-
-[h3 Header]
-* `<pstade/oven/reading.hpp>`
-
-[h3 Valid expressions]
-[table 
-    [
-        [[*Valid expression]]
-        [[*Semantics]]
-    ]
-    [
-        [`op_line_reading<A>`]
-        [
-            A _bindable_ _deferred_callable_object_ type
-        ]
-    ]
-    [
-        [`op_line_reading<A>()(s)`]
-        [
-           `[T(s), T())`
-        ]
-    ]
-    [
-        [`op_line_reading<>`]
-        [
-            A _bindable_ _deferred_callable_object_ type
-        ]
-    ]
-    [
-        [`op_line_reading<>()(s)`]
-        [
-            `op_line_reading< std::allocator<_typeof(s)::char_type> >()(s)`
-        ]
-    ]
-    [
-        [`line_reading(s)`]
-        [
-            `op_line_reading<>()(s)`
-        ]
-    ]
-]
-
-[h3 Preconditions]
-* `T` is `hamigaki::istream_line_iterator<_typeof(s)::char_type, _typeof(s)::traits_type, A>` suct that `T(s)` is a valid expression.
-
-[h3 Example]
-
-[h3 See also]
-* [@http://hamigaki.sourceforge.jp/doc/html/istream_line_iterator.html hamigaki::istream_line_iterator]
-* [link oven.reading reading]
-
-[endsect]
-
-
-
-
-[section reading]
-
-[h3 Description]
-`reading` makes a _single_pass_ _range_ from `std::cout` etc.
-
-[h3 Header]
-* `<pstade/oven/reading.hpp>`
-
-[h3 Valid expressions]
-[table 
-    [
-        [[*Valid expression]]
-        [[*Semantics]]
-    ]
-    [
-        [`op_reading<V, D>`]
-        [
-            A _bindable_ _deferred_callable_object_ type
-        ]
-    ]
-    [
-        [`op_reading<V, D>()(s)`]
-        [
-           `[T(s), T())`
-        ]
-    ]
-    [
-        [`op_reading<V>`]
-        [
-            `op_reading<V, std::ptrdiff_t>`
-        ]
-    ]
-    [
-        [`oven::reading<V>(s)`]
-        [
-            `op_reading<V>()(s)`
-        ]
-    ]
-]
-
-[important Notice that `reading<V>(s)` is qualified with `oven::` to avoid unintentional ADL.]
-
-[h3 Preconditions]
-* `T` is `std::istream_iterator<V, _typeof(s)::char_type, _typeof(s)::traits_type, D>` suct that `T(s)` is a valid expression.
-
-[h3 Example]
-    std::string src("hello,reading!");
-
-    std::stringstream ss;
-    ss << src;
-
-    std::string result;
-    copy(oven::reading<char>(ss), std::back_inserter(result));
-
-    BOOST_CHECK( equals(result, src) );
-
-[h3 See also]
-* [@http://www.sgi.com/tech/stl/istream_iterator.html std::istream_iterator]
-* [link oven.file_range file_range]
-* [link oven.line_reading line_reading]
-* [link oven.writer writer]
-
-[endsect]
-
-
-
-
-[section readingbuf]
-
-[h3 Header]
-* `<pstade/oven/reading.hpp>`
-
-[h3 Model of]
-* _operatable_object_
-
-[h3 Valid expressions]
-[table 
-    [
-        [[*Valid expression]]
-        [[*Semantics]]
-    ]
-    [
-        [`readingbuf(s)`]
-        [
-            `[T(s), T())`
-        ]
-    ]
-    [
-        [`readingbuf(p)`]
-        [
-            `[U(p), U())`
-        ]
-    ]
-]
-
-[h3 Preconditions]
-* `T` is `std::istreambuf_iterator<_typeof(s)::char_type, _typeof(s)::traits_type>` such that `T(s)` is a valid expression.
-* `U` is `std::istreambuf_iterator<_typeof(*p)::char_type, _typeof(*p)::traits_type>` such that `U(p)` is a valid expression.
-
-[endsect]
-
-
 
 
 [section recursion]
@@ -719,6 +557,170 @@ and the iterators manage the allocation.
 
 [h3 See also]
 * [link oven.shared_single shared_single]
+
+[endsect]
+
+
+
+
+[section stream_lines]
+
+[h3 Description]
+`stream_lines` makes a `std::string` _single_pass_ _range_ from `std::cout` etc.
+
+[h3 Header]
+* `<pstade/oven/stream_lines.hpp>`
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`op_stream_lines<A>`]
+        [
+            A _bindable_ _deferred_callable_object_ type
+        ]
+    ]
+    [
+        [`op_stream_lines<A>()(s)`]
+        [
+           `[T(s), T())`
+        ]
+    ]
+    [
+        [`op_stream_lines<>`]
+        [
+            A _bindable_ _deferred_callable_object_ type
+        ]
+    ]
+    [
+        [`op_stream_lines<>()(s)`]
+        [
+            `op_stream_lines< std::allocator<_typeof(s)::char_type> >()(s)`
+        ]
+    ]
+    [
+        [`stream_lines(s)`]
+        [
+            `op_stream_lines<>()(s)`
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* `T` is `hamigaki::istream_line_iterator<_typeof(s)::char_type, _typeof(s)::traits_type, A>` suct that `T(s)` is a valid expression.
+
+[h3 Example]
+
+[h3 See also]
+* [@http://hamigaki.sourceforge.jp/doc/html/istream_line_iterator.html hamigaki::istream_line_iterator]
+* [link oven.stream_read stream_read]
+
+[endsect]
+
+
+
+
+[section stream_read]
+
+[h3 Description]
+`stream_read` makes a _single_pass_ _range_ from `std::cout` etc.
+
+[h3 Header]
+* `<pstade/oven/stream_read.hpp>`
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`op_stream_read<V, D>`]
+        [
+            A _bindable_ _deferred_callable_object_ type
+        ]
+    ]
+    [
+        [`op_stream_read<V, D>()(s)`]
+        [
+           `[T(s), T())`
+        ]
+    ]
+    [
+        [`op_stream_read<V>`]
+        [
+            `op_stream_read<V, std::ptrdiff_t>`
+        ]
+    ]
+    [
+        [`oven::stream_read<V>(s)`]
+        [
+            `op_stream_read<V>()(s)`
+        ]
+    ]
+]
+
+[important Notice that `stream_read<V>(s)` is qualified with `oven::` to avoid unintentional ADL.]
+
+[h3 Preconditions]
+* `T` is `std::istream_iterator<V, _typeof(s)::char_type, _typeof(s)::traits_type, D>` suct that `T(s)` is a valid expression.
+
+[h3 Example]
+    std::string src("hello,stream_read!");
+
+    std::stringstream ss;
+    ss << src;
+
+    std::string result;
+    copy(oven::stream_read<char>(ss), std::back_inserter(result));
+
+    BOOST_CHECK( equals(result, src) );
+
+[h3 See also]
+* [@http://www.sgi.com/tech/stl/istream_iterator.html std::istream_iterator]
+* [link oven.file_range file_range]
+* [link oven.stream_lines stream_lines]
+* [link oven.stream_writer stream_writer]
+
+[endsect]
+
+
+
+
+[section streambuf_read]
+
+[h3 Header]
+* `<pstade/oven/stream_read.hpp>`
+
+[h3 Model of]
+* _operatable_object_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`streambuf_read(s)`]
+        [
+            `[T(s), T())`
+        ]
+    ]
+    [
+        [`streambuf_read(p)`]
+        [
+            `[U(p), U())`
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* `T` is `std::istreambuf_iterator<_typeof(s)::char_type, _typeof(s)::traits_type>` such that `T(s)` is a valid expression.
+* `U` is `std::istreambuf_iterator<_typeof(*p)::char_type, _typeof(*p)::traits_type>` such that `U(p)` is a valid expression.
 
 [endsect]
 

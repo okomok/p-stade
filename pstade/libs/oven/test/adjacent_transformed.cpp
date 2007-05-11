@@ -21,7 +21,7 @@
 #include <pstade/oven/identities.hpp>
 #include <pstade/oven/regular.hpp>
 #include <pstade/oven/algorithm.hpp>
-#include <pstade/oven/writer.hpp>
+#include <pstade/oven/stream_writer.hpp>
 #include <boost/lambda/core.hpp>
 #include <boost/lambda/lambda.hpp>
 
@@ -37,7 +37,7 @@ void test()
         int ans[] = { 3,5,7,9,11,13,15,17,19 };
         std::vector<int> expected = ans|copied;
 
-        oven::copy(src|adjacent_transformed(pstade::plus), oven::writer(std::cout));
+        oven::copy(src|adjacent_transformed(pstade::plus), oven::stream_writer(std::cout));
 
         BOOST_CHECK( oven::test_RandomAccess_Readable(
             src |

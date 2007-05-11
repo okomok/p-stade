@@ -18,6 +18,7 @@
 #include <pstade/oven/all.hpp>
 #include <pstade/oven/none.hpp>
 #include <pstade/oven/do_iter_swap.hpp>
+#include <pstade/oven/write.hpp>
 
 
 #include <algorithm> // make_heap
@@ -92,6 +93,11 @@ void test()
         do_iter_swap(&rng[0], &rng[1]);
         BOOST_CHECK( rng[0] == 1 );
         BOOST_CHECK( rng[1] == 0 );
+    }
+    {
+        int rng[] = { 0, 1 };
+        write(boost::begin(rng), 50);
+        BOOST_CHECK( rng[0] == 50 );
     }
 }
 

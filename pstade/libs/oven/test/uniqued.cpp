@@ -15,6 +15,7 @@
 
 
 #include "./core.hpp"
+#include <pstade/oven/identities.hpp>
 
 
 void test()
@@ -29,6 +30,11 @@ void test()
 
         BOOST_CHECK( oven::test_Forward_Readable(
             rng|uniqued,
+            expected
+        ) );
+
+        BOOST_CHECK( oven::test_SinglePass_Readable(
+            rng|identities(in_single_pass)|uniqued,
             expected
         ) );
     }

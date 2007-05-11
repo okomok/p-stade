@@ -1,7 +1,7 @@
 #if 1
 
 #include <pstade/../libs/egg/test/disable_if_same.cpp>
-//#include <pstade/../libs/oven/test/writer.cpp>
+//#include <pstade/../libs/oven/test/stream_writer.cpp>
 //#include <pstade/../libs/biscuit/test/capture.cpp>
 
 #else

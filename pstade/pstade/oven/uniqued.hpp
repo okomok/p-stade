@@ -41,7 +41,7 @@ struct op_make_uniqued :
     template< class Result, class Range, class BinaryPred >
     Result call(Range& rng, BinaryPred& pred) const
     {
-        PSTADE_CONCEPT_ASSERT((Forward<Range>));
+        PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
         return make_adjacent_filtered(rng, not_(pred));
     }
 

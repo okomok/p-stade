@@ -19,9 +19,9 @@
 #include <pstade/specified.hpp>
 #include <pstade/tuple.hpp>
 #include "./concepts.hpp"
-#include "./deref.hpp"
 #include "./range_iterator.hpp"
 #include "./range_value.hpp"
+#include "./read.hpp"
 #include "./transformed.hpp"
 
 
@@ -36,7 +36,7 @@ private:
     template< class TupleRange >
     struct ref_of :
         affect<
-            typename deref_of<typename range_iterator<TupleRange>::type>::type,
+            typename iterator_read<typename range_iterator<TupleRange>::type>::type,
             typename tuple_element<N, typename range_value<TupleRange>::type>::type
         >
     { };

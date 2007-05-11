@@ -146,7 +146,7 @@ void test_istream_range()
     ss << src;
 
     std::string result;
-    oven::copy(oven::reading<char>(ss), std::back_inserter(result));
+    oven::copy(oven::stream_read<char>(ss), std::back_inserter(result));
 
     BOOST_CHECK( oven::equals(result, src) );
 }
@@ -392,7 +392,7 @@ void test_memoized()
     ss << "hello, memoized!";
 
     ::very_complicated_algorithm(
-        oven::reading<char>(ss)
+        oven::stream_read<char>(ss)
             | memoized
             | outdirected
             | indirected

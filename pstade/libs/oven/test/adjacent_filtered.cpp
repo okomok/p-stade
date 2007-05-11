@@ -16,6 +16,7 @@
 
 #include <vector>
 #include "./core.hpp"
+#include <pstade/oven/identities.hpp>
 #include <pstade/oven/regular.hpp>
 #include <boost/lambda/core.hpp>
 #include <boost/lambda/lambda.hpp>
@@ -53,6 +54,11 @@ void test()
 
         BOOST_CHECK( oven::test_Forward_Readable(
             oven::make_adjacent_filtered(src, ::is_divisor()),
+            expected
+        ) );
+
+        BOOST_CHECK( oven::test_SinglePass_Readable(
+            src|identities(in_single_pass)|adjacent_filtered(::is_divisor()),
             expected
         ) );
     }

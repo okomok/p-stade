@@ -87,6 +87,74 @@
 
 
 
+[section stream_writer]
+
+[h3 Description]
+`stream_writer` returns an _output_iterator_ which is a shorthand version of `std::ostream_iterator`.
+It needs no an explicit template parameter to specify the `value_type` to output,
+but one extra precondition below must be met. It can be easily guaranteed by using `transformed`, though.
+
+[h3 Header]
+* `<pstade/oven/stream_writer.hpp>`
+
+[h3 Model of]
+* _operatable_object_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`stream_writer(s, d)`]
+        [
+            `T(s, d)`
+        ]
+    ]
+    [
+        [`stream_writer(s)`]
+        [
+            `stream_writer(s, 0)`
+        ]
+    ]
+]
+
+[note `stream_writer` doesn't write an extra delimiter after the last element.]
+
+[h3 Preconditions]
+* `T` is `hamigaki::ostream_iterator<unspecified, _typeof(s)::char_type, _typeof(s)::traits_type>` such that `T(s, d)` is a valid expressin.
+* An object which is passed to `_typeof(stream_writer(s))::operator=` is _output_streamable_.
+
+[h3 Example]
+    std::vector<std::string> sample
+        = initial_values("hello", "oven", "stream_writer");
+
+    {
+        std::ofstream fout("read.txt");
+        copy(sample, stream_writer(fout, " "));
+    }
+
+    {
+        std::ifstream fin("read.txt");
+        BOOST_CHECK( equals(
+            oven::stream_read<std::string>(fin),
+            sample
+        ) );
+    }
+
+[h3 See also]
+* [@http://hamigaki.sourceforge.jp/doc/html/ostream_iterator.html hamigaki::ostream_iteraotor]
+* [@http://www.sgi.com/tech/stl/ostream_iterator.html std::ostream_iterator]
+* [link oven.delimited delimited]
+* [link oven.stream_read stream_read]
+* [link oven.transformed transformed]
+
+[endsect]
+
+
+
+
 [section utf8_encoder]
 
 [h3 Description]
@@ -119,74 +187,6 @@ Pending...
 
 [h3 See also]
 * [link oven.utf8_decoded utf8_decoded]
-
-[endsect]
-
-
-
-
-[section writer]
-
-[h3 Description]
-`writer` returns an _output_iterator_ which is a shorthand version of `std::ostream_iterator`.
-It needs no an explicit template parameter to specify the `value_type` to output,
-but one extra precondition below must be met. It can be easily guaranteed by using `transformed`, though.
-
-[h3 Header]
-* `<pstade/oven/writer.hpp>`
-
-[h3 Model of]
-* _operatable_object_
-
-[h3 Valid expressions]
-[table 
-    [
-        [[*Valid expression]]
-        [[*Semantics]]
-    ]
-    [
-        [`writer(s, d)`]
-        [
-            `T(s, d)`
-        ]
-    ]
-    [
-        [`writer(s)`]
-        [
-            `writer(s, 0)`
-        ]
-    ]
-]
-
-[note `writer` doesn't write an extra delimiter after the last element.]
-
-[h3 Preconditions]
-* `T` is `hamigaki::ostream_iterator<unspecified, _typeof(s)::char_type, _typeof(s)::traits_type>` such that `T(s, d)` is a valid expressin.
-* An object which is passed to `_typeof(writer(s))::operator=` is _output_streamable_.
-
-[h3 Example]
-    std::vector<std::string> sample
-        = initial_values("hello", "oven", "writer");
-
-    {
-        std::ofstream fout("read.txt");
-        copy(sample, writer(fout, " "));
-    }
-
-    {
-        std::ifstream fin("read.txt");
-        BOOST_CHECK( equals(
-            oven::reading<std::string>(fin),
-            sample
-        ) );
-    }
-
-[h3 See also]
-* [@http://hamigaki.sourceforge.jp/doc/html/ostream_iterator.html hamigaki::ostream_iteraotor]
-* [@http://www.sgi.com/tech/stl/ostream_iterator.html std::ostream_iterator]
-* [link oven.delimited delimited]
-* [link oven.reading reading]
-* [link oven.transformed transformed]
 
 [endsect]
 

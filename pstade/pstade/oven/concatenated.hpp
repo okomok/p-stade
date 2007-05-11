@@ -39,12 +39,12 @@
 #include <pstade/pipable.hpp>
 #include "./begin_end.hpp" // op_begin
 #include "./concepts.hpp"
-#include "./deref.hpp"
 #include "./detail/maybe_contains.hpp"
 #include "./do_iter_swap.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
 #include "./range_value.hpp"
+#include "./read.hpp"
 
 
 namespace pstade { namespace oven {
@@ -60,7 +60,7 @@ namespace concatenated_detail {
     template< class SegmentIter >
     struct local_iterator :
         boost::result_of<
-            op_begin(typename deref_of<SegmentIter>::type)
+            op_begin(typename iterator_read<SegmentIter>::type)
         >
     { };
 
@@ -173,7 +173,7 @@ namespace concatenated_detail {
                 (!segment_is_end())
             )
 
-            return deref(this->base());
+            return read(this->base());
         }
 
         void reset_local_forward()

@@ -19,7 +19,7 @@
 #include <string>
 #include "./core.hpp"
 #include <pstade/oven/tests.hpp>
-#include <pstade/oven/writer.hpp>
+#include <pstade/oven/stream_writer.hpp>
 #include <pstade/oven/as_c_str.hpp>
 
 

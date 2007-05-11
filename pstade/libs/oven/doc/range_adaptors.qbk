@@ -22,7 +22,7 @@ A Range Adaptor meets the following requirements unless otherwise specified:
 * _pipable_object_
 
 [h3 Notation]
-* `{a1,..,aN}` is `_fwdrng`.
+* `{a1,..,aN}` is `_rng`.
 * `{b1,..,bM}` is a [@http://en.wikipedia.org/wiki/Subsequence subsequence] of `{a1,..,aN}`.
 * `_prd(b1, b2)`, `_prd(b2, b3)`, .., `_prd(b(M-1), bM)` are `true`.
 * The distance from `bI` to `bJ` is minimum for all `(bI, bJ)`.
@@ -34,7 +34,7 @@ A Range Adaptor meets the following requirements unless otherwise specified:
         [[*Semantics]]
     ]
     [
-        [`_fwdrng|adjacent_filtered(_prd)`]
+        [`_rng|adjacent_filtered(_prd)`]
         [
             A _forward_ _constant_ `{b1,..,bM}`
         ]
@@ -42,7 +42,8 @@ A Range Adaptor meets the following requirements unless otherwise specified:
 ]
 
 [h3 Preconditions]
-* `_fwdrng` is _readable_ or _lvalue_.
+* `_rng` is _readable_ or _lvalue_.
+* If `_rng` is not _forward_, `_rng` is _readable_.
 * `_prd(*_begin(_fwdrng), *_begin(_fwdrng))` is well-formed.
 * `_prd` is _assignable_ and _default_constructible_.
 
@@ -649,7 +650,7 @@ then pretends to be a range of _forward_iterator_.
 [h3 See also]
 * [link oven.dropped dropped]
 * [link oven.tokenized tokenized]
-* [link oven.writer writer]
+* [link oven.stream_writer stream_writer]
 
 [endsect]
 
@@ -836,6 +837,18 @@ then pretends to be a range of _forward_iterator_.
         [`op_make_elements_c<n>`]
         [
             `op_make_elements< boost::mpl::int_<n> >`
+        ]
+    ]
+    [
+        [`oven::make_elements_c<n>(_rng)`]
+        [
+            `op_make_elements_c<n>()(_rng)`
+        ]
+    ]
+    [
+        [`_rng|elements_c<n>()`]
+        [
+            `op_make_elements_c<n>()(_rng)`
         ]
     ]
 ]
@@ -1314,7 +1327,7 @@ then pretends to be a range of _forward_iterator_.
     ss << "hello, memoized!";
 
     ::very_complicated_algorithm(
-        oven::reading<char>(ss)
+        oven::stream_read<char>(ss)
             | memoized
             | directed
             | indirected
@@ -2085,7 +2098,7 @@ A range returned from `reversed` iterates in the opposite direction.
 [h3 Example]
     std::stringstream in;
     in << "cefabd";
-    BOOST_CHECK( equals(oven::reading<char>(in)|memoized|sorted, std::string("abcdef")) );
+    BOOST_CHECK( equals(oven::stream_read<char>(in)|memoized|sorted, std::string("abcdef")) );
 
 [h3 See also]
 * [@http://www.ddj.com/dept/cpp/196513737 C++ View Objects]
@@ -2451,24 +2464,24 @@ returns the longest prefix (possibly empty) of the range of elements that satisf
         [[*Semantics]]
     ]
     [
-        [`_fwdrng|uniqued(_prd)`]
+        [`_rng|uniqued(_prd)`]
         [
-            `_fwdrng|adjacent_filtered(not_(_prd))`
+            `_rng|adjacent_filtered(not_(_prd))`
         ]
     ]
     [
-        [`_fwdrng|uniqued`]
+        [`_rng|uniqued`]
         [
-            `_fwdrng|uniqued(eq)`
+            `_rng|uniqued(eq)`
         ]
     ]
 ]
 
 [h3 Preconditions]
-* `_fwdrng` is _readable_ or _lvalue_.
+* `_rng|adjacent_filtered(not_(_prd))` is a valid expression.
 
 [h3 Complexity]
-* At most `distance(_fwdrng)` applications of the corresponding `_prd`.
+* At most `distance(_rng)` applications of the corresponding `_prd`.
 
 [h3 Example]
 

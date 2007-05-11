@@ -27,11 +27,11 @@
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
 #include "./concepts.hpp"
-#include "./deref.hpp"
 #include "./detail/minimum_pure.hpp"
 #include "./do_iter_swap.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
+#include "./read.hpp"
 
 
 namespace pstade { namespace oven {
@@ -116,7 +116,7 @@ namespace taken_while_detail {
             if (is_end())
                 return;
 
-            if (!m_pred( deref(this->base()) ))
+            if (!m_pred( read(this->base()) ))
                 this->base_reference() = m_last;
         }
 

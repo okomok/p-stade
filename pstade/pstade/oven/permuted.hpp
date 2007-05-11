@@ -18,11 +18,11 @@
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
 #include "./concepts.hpp"
-#include "./deref.hpp"
 #include "./detail/pure_traversal.hpp"
 #include "./do_iter_swap.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
+#include "./read.hpp"
 
 
 namespace pstade { namespace oven {
@@ -83,7 +83,7 @@ namespace permuted_detail {
 
         ElementIter element_base() const
         {
-            return m_elemIter + deref(this->base());
+            return m_elemIter + read(this->base());
         }
 
     private:

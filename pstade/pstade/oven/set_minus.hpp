@@ -13,8 +13,8 @@
 #include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/unused.hpp>
-#include "./deref.hpp"
 #include "./merged.hpp"
+#include "./read.hpp"
 
 
 namespace pstade { namespace oven {
@@ -32,9 +32,9 @@ namespace set_minus_detail {
             Compare comp)
         {
             while (first1 != last1 && first2 != last2) {
-                if (comp(deref(first2), deref(first1)))
+                if (comp(read(first2), read(first1)))
                     ++first2;
-                else if (comp(deref(first1), deref(first2)))
+                else if (comp(read(first1), read(first2)))
                     break;
                 else {
                     ++first1;
@@ -54,7 +54,7 @@ namespace set_minus_detail {
             Compare comp)
         {
             unused(last1, first2, last2, comp);
-            return deref(first1);
+            return read(first1);
         }
 
         template< class Iterator1, class Iterator2, class Compare >

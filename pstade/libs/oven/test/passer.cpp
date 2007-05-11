@@ -22,7 +22,7 @@
 #include <boost/range.hpp>
 #include <pstade/oven/algorithm.hpp>
 #include <pstade/oven/identities.hpp>
-#include <pstade/oven/writer.hpp>
+#include <pstade/oven/stream_writer.hpp>
 #include "./core.hpp"
 #include <pstade/unused.hpp>
 
@@ -68,7 +68,7 @@ void test()
     }
     {
         g_ss.str("");
-        oven::copy(src, oven::writer(g_ss));
+        oven::copy(src, oven::stream_writer(g_ss));
         BOOST_CHECK( oven::equals(g_ss.str(), src) );
     }
     {

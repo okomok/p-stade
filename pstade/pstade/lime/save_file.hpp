@@ -14,7 +14,7 @@
 #include <string>
 #include <boost/throw_exception.hpp>
 #include <pstade/oven/utf8_encoder.hpp>
-#include <pstade/oven/writer.hpp>
+#include <pstade/oven/stream_writer.hpp>
 #include <pstade/what.hpp>
 #include "./copy_XMLDecl.hpp"
 #include "./error.hpp"
@@ -43,8 +43,8 @@ namespace pstade { namespace lime {
             return;
         }
 
-        lime::copy_XMLDecl(oven::writer(fout));
-        lime::save(root, oven::utf8_encoder(oven::writer(fout)));
+        lime::copy_XMLDecl(oven::stream_writer(fout));
+        lime::save(root, oven::utf8_encoder(oven::stream_writer(fout)));
     }
 
 
@@ -58,8 +58,8 @@ namespace pstade { namespace lime {
             return;
         }
 
-        lime::copy_XMLDecl(oven::writer(fout));
-        lime::save_default(root, oven::utf8_encoder(oven::writer(fout)));
+        lime::copy_XMLDecl(oven::stream_writer(fout));
+        lime::save_default(root, oven::utf8_encoder(oven::stream_writer(fout)));
     }
 
 

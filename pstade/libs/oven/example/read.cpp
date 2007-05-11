@@ -15,8 +15,8 @@
 #include <string>
 #include <vector>
 #include <pstade/oven/algorithm.hpp>
-#include <pstade/oven/reading.hpp>
-#include <pstade/oven/writer.hpp>
+#include <pstade/oven/stream_read.hpp>
+#include <pstade/oven/stream_writer.hpp>
 #include <pstade/oven/equals.hpp>
 #include <pstade/oven/initial_values.hpp>
 #include <pstade/oven/io.hpp>
@@ -29,17 +29,17 @@ using namespace oven;
 int test_main(int, char*[])
 {
     std::vector<std::string> sample
-        = initial_values("hello", "oven", "reading");
+        = initial_values("hello", "oven", "stream_read");
 
     {
         std::ofstream fout("read.txt");
-        copy(sample, writer(fout, " "));
+        copy(sample, stream_writer(fout, " "));
     }
 
     {
         std::ifstream fin("read.txt");
         BOOST_CHECK( equals(
-            oven::reading<std::string>(fin),
+            oven::stream_read<std::string>(fin),
             sample
         ) );
     }

@@ -18,8 +18,8 @@
 
 #include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>
-#include "./deref.hpp"
 #include "./merged.hpp"
+#include "./read.hpp"
 
 
 namespace pstade { namespace oven {
@@ -37,9 +37,9 @@ namespace set_delta_detail {
             Compare comp)
         {
             while (first1 != last1 && first2 != last2) {
-                if (comp(deref(first2), deref(first1)))
+                if (comp(read(first2), read(first1)))
                     break;
-                else if (comp(deref(first1), deref(first2)))
+                else if (comp(read(first1), read(first2)))
                     break;
                 else {
                     ++first1;
@@ -56,9 +56,9 @@ namespace set_delta_detail {
         {
             // copy-copy phase
             if (first1 == last1)
-                return deref(first2);
+                return read(first2);
             else if (first2 == last2)
-                return deref(first1);
+                return read(first1);
 
             // while phase
             return merged_detail::iter_min<Reference>(first1, first2, comp);
@@ -81,7 +81,7 @@ namespace set_delta_detail {
             }
 
             // while phase
-            if (comp(deref(first2), deref(first1)))
+            if (comp(read(first2), read(first1)))
                 ++first2;
             else
                 ++first1;

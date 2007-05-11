@@ -17,7 +17,7 @@
 
 #include <boost/iterator/iterator_traits.hpp>
 #include <pstade/affect.hpp>
-#include "../deref.hpp"
+#include "../read.hpp"
 
 
 namespace pstade { namespace oven { namespace detail {
@@ -26,7 +26,7 @@ namespace pstade { namespace oven { namespace detail {
 template< class ReadableOrLvalueIter >
 struct constant_reference :
     affect<
-        typename deref_of<ReadableOrLvalueIter>::type,
+        typename iterator_read<ReadableOrLvalueIter>::type,
         typename boost::iterator_value<ReadableOrLvalueIter>::type const
     >
 { };

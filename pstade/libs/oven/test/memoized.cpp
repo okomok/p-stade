@@ -22,7 +22,7 @@
 #include <pstade/oven/copy_range.hpp>
 #include <pstade/oven/copied_to.hpp>
 #include <pstade/oven/filtered.hpp>
-#include <pstade/oven/reading.hpp>
+#include <pstade/oven/stream_read.hpp>
 #include <pstade/oven/io.hpp>
 #include <pstade/oven/taken.hpp>
 
@@ -45,7 +45,7 @@ void pstade_unit_test()
         ss << ans;
         std::vector<char> expected = ans|copied;
         BOOST_CHECK( oven::test_Forward_Readable(
-            oven::reading<char>(ss)|memoized,
+            oven::stream_read<char>(ss)|memoized,
             expected
         ) );
     }

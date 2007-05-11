@@ -37,12 +37,12 @@
 #include <pstade/to_ref.hpp>
 #include <pstade/unused.hpp>
 #include "./concepts.hpp"
-#include "./deref.hpp"
 #include "./detail/constant_reference.hpp"
 #include "./detail/minimum_pure.hpp"
 #include "./is_sorted.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
+#include "./read.hpp"
 
 
 namespace pstade { namespace oven {
@@ -62,10 +62,10 @@ namespace merged_detail {
         // I don't certainly know, though.
 
         // Standard requires '*it1' if equal.
-        if (comp(deref(it2), deref(it1)))
-            return deref(it2);
+        if (comp(read(it2), read(it1)))
+            return read(it2);
         else
-            return deref(it1);
+            return read(it1);
     }
 
 
@@ -98,9 +98,9 @@ namespace merged_detail {
         {
             // copy-copy phase
             if (first1 == last1)
-                return deref(first2);
+                return read(first2);
             else if (first2 == last2)
-                return deref(first1);
+                return read(first1);
 
             // while phase
             return here::iter_min<Reference>(first1, first2, comp);
@@ -123,7 +123,7 @@ namespace merged_detail {
             }
 
             // while phase
-            if (comp(deref(first2), deref(first1)))
+            if (comp(read(first2), read(first1)))
                 ++first2;
             else
                 ++first1;
@@ -196,8 +196,8 @@ namespace merged_detail {
             m_comp(comp)
         {
             // "./jointed.hpp" tells why this is at function scope.
-            BOOST_MPL_ASSERT((is_convertible<typename deref_of<Iterator2>::type, ref_t>));
-            BOOST_STATIC_WARNING((is_returnable<typename deref_of<Iterator2>::type, ref_t>::value));
+            BOOST_MPL_ASSERT((is_convertible<typename iterator_read<Iterator2>::type, ref_t>));
+            BOOST_STATIC_WARNING((is_returnable<typename iterator_read<Iterator2>::type, ref_t>::value));
 
 #if defined(PSTADE_OVEN_TESTS_SAMPLE_RANGES)
             BOOST_ASSERT(is_sorted(make_iter_range(it1, last1), comp));

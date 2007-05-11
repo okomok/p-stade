@@ -31,10 +31,10 @@
 #include <pstade/pipable.hpp>
 #include "./advance_from.hpp"
 #include "./concepts.hpp"
-#include "./deref.hpp"
 #include "./detail/minimum_pure.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
+#include "./read.hpp"
 
 
 namespace pstade { namespace oven {
@@ -110,18 +110,18 @@ namespace utf8_decoded_detail {
 
         void extract_current() const
         {
-            m_value = static_cast<U32Type>(static_cast<boost::uint8_t>(deref(this->base())));
+            m_value = static_cast<U32Type>(static_cast<boost::uint8_t>(read(this->base())));
             // we must not have a continuation character:
             if ((m_value & 0xC0u) == 0x80u)
                 invalid_sequnce();
             // see how many extra byts we have:
-            unsigned extra = boost::detail::utf8_trailing_byte_count(deref(this->base()));
+            unsigned extra = boost::detail::utf8_trailing_byte_count(read(this->base()));
             // extract the extra bits, 6 from each extra byte:
             ForwardIter next = this->base();
             for (unsigned c = 0; c < extra; ++c) {
                 ++next;
                 m_value <<= 6;
-                m_value += static_cast<boost::uint8_t>(deref(next)) & 0x3Fu;
+                m_value += static_cast<boost::uint8_t>(read(next)) & 0x3Fu;
             }
             // we now need to remove a few of the leftmost bits, but how many depends
             // upon how many extra bytes we've extracted:
@@ -149,7 +149,7 @@ namespace utf8_decoded_detail {
         void increment()
         {
             // skip high surrogate first if there is one:
-            unsigned c = boost::detail::utf8_byte_count(deref(this->base()));
+            unsigned c = boost::detail::utf8_byte_count(read(this->base()));
             this->base_reference() = advance_from(this->base(), c);
             m_value = pending_read;
         }
@@ -158,9 +158,9 @@ namespace utf8_decoded_detail {
         {
             // Keep backtracking until we don't have a trailing character:
             unsigned count = 0;
-            while ((deref(--this->base_reference()) & 0xC0u) == 0x80u) ++count;
+            while ((read(--this->base_reference()) & 0xC0u) == 0x80u) ++count;
             // now check that the sequence was valid:
-            if (count != boost::detail::utf8_trailing_byte_count(deref(this->base())))
+            if (count != boost::detail::utf8_trailing_byte_count(read(this->base())))
                 invalid_sequnce();
             m_value = pending_read;
         }

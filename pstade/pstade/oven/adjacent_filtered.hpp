@@ -16,12 +16,14 @@
 // the iteration depends on the "previous" values.
 
 
+#include <boost/iterator/iterator_categories.hpp>
+#include <boost/iterator/iterator_traits.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/function.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
 #include "./concepts.hpp"
-#include "./deref.hpp"
+#include "./read.hpp"
 #include "./successors.hpp"
 
 
@@ -31,21 +33,46 @@ namespace pstade { namespace oven {
 namespace adjacent_filtered_detail {
 
 
+    namespace here = adjacent_filtered_detail;
+
+
+    template< class Iterator, class Predicate >
+    Iterator aux(Iterator first, Iterator last, Predicate pred,
+        boost::forward_traversal_tag)
+    {
+        Iterator next = first;
+        while (++next != last) {
+            if (pred(read(first), read(next)))
+                break;
+        }
+
+        return next;
+    }
+
+    template< class Iterator, class Predicate >
+    Iterator aux(Iterator next, Iterator last, Predicate pred,
+        boost::single_pass_traversal_tag)
+    {
+        typename boost::iterator_value<Iterator>::type value = read(next);
+        while (++next != last) {
+            if (pred(value, read(next)))
+                break;
+        }
+
+        return next;
+    }
+
+
     template< class BinaryPred >
     struct filter
     {
         typedef filter is_constant;
 
-        template< class ForwardIter >
-        ForwardIter operator()(ForwardIter first, ForwardIter last) const
+        template< class Iterator>
+        Iterator operator()(Iterator first, Iterator last) const
         {
-            ForwardIter next = first;
-            while (++next != last) {
-                if (m_pred(deref(first), deref(next)))
-                    break;
-            }
-
-            return next;
+            return here::aux(first, last, m_pred,
+                typename boost::iterator_traversal<Iterator>::type());
         }
 
         explicit filter()
@@ -75,7 +102,7 @@ namespace adjacent_filtered_detail {
 
         result_type operator()(Range& rng, BinaryPred& pred) const
         {
-            PSTADE_CONCEPT_ASSERT((Forward<Range>));
+            PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
             return make_successors(rng, filter<pred_t>(pred));
         }
     };

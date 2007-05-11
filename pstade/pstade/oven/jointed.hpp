@@ -23,10 +23,10 @@
 #include <pstade/is_returnable.hpp>
 #include <pstade/pipable.hpp>
 #include "./concepts.hpp"
-#include "./deref.hpp"
 #include "./detail/minimum_pure.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
+#include "./read.hpp"
 #include "./reverse_iterator.hpp"
 
 
@@ -86,7 +86,7 @@ namespace jointed_detail {
                     typename boost::iterator_traversal<IteratorL>::type,
                     typename boost::iterator_traversal<IteratorR>::type
                 >::type,
-                typename deref_of<IteratorL>::type
+                typename iterator_read<IteratorL>::type
             >
         type;
     };
@@ -152,19 +152,19 @@ namespace jointed_detail {
             // which is called in overload-resolution.
             // So, this must be placed at function scope.
             BOOST_MPL_ASSERT((is_convertible<
-                typename deref_of<IteratorR>::type,
-                typename deref_of<IteratorL>::type
+                typename iterator_read<IteratorR>::type,
+                typename iterator_read<IteratorL>::type
             >));
 
             BOOST_STATIC_WARNING((is_returnable<
-                typename deref_of<IteratorR>::type,
-                typename deref_of<IteratorL>::type
+                typename iterator_read<IteratorR>::type,
+                typename iterator_read<IteratorL>::type
             >::value));
 
             if (is_in_rangeL())
-                return deref(this->base());
+                return read(this->base());
             else
-                return deref(m_itR);
+                return read(m_itR);
         }
 
         template< class IL, class IR >

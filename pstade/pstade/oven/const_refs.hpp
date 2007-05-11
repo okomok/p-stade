@@ -17,10 +17,10 @@
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
 #include "./concepts.hpp"
-#include "./deref.hpp"
 #include "./detail/pure_traversal.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
+#include "./read.hpp"
 
 
 namespace pstade { namespace oven {
@@ -83,7 +83,7 @@ namespace const_refs_detail {
         ref_t dereference() const
         {
             if (!m_value)
-                m_value = deref(this->base());
+                m_value = read(this->base());
 
             return *m_value;
         }

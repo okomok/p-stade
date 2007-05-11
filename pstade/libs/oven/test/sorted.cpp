@@ -23,7 +23,7 @@
 #include "./core.hpp"
 #include <pstade/oven/reversed.hpp>
 #include <pstade/functional.hpp>
-#include <pstade/oven/reading.hpp>
+#include <pstade/oven/stream_read.hpp>
 #include <pstade/oven/memoized.hpp>
 
 
@@ -74,7 +74,7 @@ void test()
     {
         std::stringstream in;
         in << "cefabd";
-        BOOST_CHECK( equals(oven::reading<char>(in)|memoized|sorted, std::string("abcdef")) );
+        BOOST_CHECK( equals(oven::stream_read<char>(in)|memoized|sorted, std::string("abcdef")) );
     }
 }
 

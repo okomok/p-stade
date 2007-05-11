@@ -23,7 +23,7 @@
 #include "./core.hpp"
 #include <pstade/oven/taken.hpp>
 #include <pstade/oven/taken_while.hpp>
-#include <pstade/oven/writer.hpp>
+#include <pstade/oven/stream_writer.hpp>
 #include <pstade/oven/transformed.hpp>
 #include <pstade/result_of_lambda.hpp>
 #include <boost/lambda/lambda.hpp>

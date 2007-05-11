@@ -12,8 +12,8 @@
 
 #include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>
-#include "./deref.hpp"
 #include "./merged.hpp"
+#include "./read.hpp"
 
 
 namespace pstade { namespace oven {
@@ -42,9 +42,9 @@ namespace set_cup_detail {
             }
 
             // while phase
-            if (comp(deref(first2), deref(first1)))
+            if (comp(read(first2), read(first1)))
                 ++first2;
-            else if (comp(deref(first1), deref(first2)))
+            else if (comp(read(first1), read(first2)))
                 ++first1;
             else {
                 ++first1;

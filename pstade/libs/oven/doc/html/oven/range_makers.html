@@ -26,13 +26,13 @@
 <dt><span class="section"><a href="range_makers.html#oven.generation">generation</a></span></dt>
 <dt><span class="section"><a href="range_makers.html#oven.initial_values">initial_values</a></span></dt>
 <dt><span class="section"><a href="range_makers.html#oven.iteration">iteration</a></span></dt>
-<dt><span class="section"><a href="range_makers.html#oven.line_reading">line_reading</a></span></dt>
-<dt><span class="section"><a href="range_makers.html#oven.reading">reading</a></span></dt>
-<dt><span class="section"><a href="range_makers.html#oven.readingbuf">readingbuf</a></span></dt>
 <dt><span class="section"><a href="range_makers.html#oven.recursion">recursion</a></span></dt>
 <dt><span class="section"><a href="range_makers.html#oven.shared">shared</a></span></dt>
 <dt><span class="section"><a href="range_makers.html#oven.shared_single">shared_single</a></span></dt>
 <dt><span class="section"><a href="range_makers.html#oven.single">single</a></span></dt>
+<dt><span class="section"><a href="range_makers.html#oven.stream_lines">stream_lines</a></span></dt>
+<dt><span class="section"><a href="range_makers.html#oven.stream_read">stream_read</a></span></dt>
+<dt><span class="section"><a href="range_makers.html#oven.streambuf_read">streambuf_read</a></span></dt>
 </dl></div>
 <p>
       Before applying a <a href="range_adaptors.html" title="Range Adaptors">range adaptor</a>,
@@ -42,7 +42,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.as_array"></a>as_array</h3></div></div></div>
 <a name="as_array.description"></a><h4>
-<a name="id518103"></a>
+<a name="id518104"></a>
         Description
       </h4>
 <p>
@@ -56,17 +56,17 @@
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">as_array</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="as_array.model_of"></a><h4>
-<a name="id518220"></a>
+<a name="id518221"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.auxiliary_interface" title="Auxiliary Interface">Auxiliary Interface</a></li></ul></div>
 <a name="as_array.valid_expressions"></a><h4>
-<a name="id518250"></a>
+<a name="id518251"></a>
         Valid expressions
       </h4>
 <div class="informaltable">
 <h5>
-<a name="id518261"></a>
+<a name="id518262"></a>
         </h5>
 <table class="table">
 <colgroup>
@@ -86,7 +86,7 @@
 </table>
 </div>
 <a name="as_array.preconditions"></a><h4>
-<a name="id518346"></a>
+<a name="id518347"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -107,7 +107,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.as_c_str"></a>as_c_str</h3></div></div></div>
 <a name="as_c_str.description"></a><h4>
-<a name="id518444"></a>
+<a name="id518445"></a>
         Description
       </h4>
 <p>
@@ -126,7 +126,7 @@
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.auxiliary_interface" title="Auxiliary Interface">Auxiliary Interface</a></li></ul></div>
 <a name="as_c_str.valid_expressions"></a><h4>
-<a name="id518589"></a>
+<a name="id518590"></a>
         Valid expressions
       </h4>
 <div class="informaltable">
@@ -157,7 +157,7 @@
 </table>
 </div>
 <a name="as_c_str.preconditions"></a><h4>
-<a name="id518866"></a>
+<a name="id518867"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -699,261 +699,9 @@
 </div>
 <div class="section" lang="en">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="oven.line_reading"></a>line_reading</h3></div></div></div>
-<a name="line_reading.description"></a><h4>
-<a name="id524068"></a>
-        Description
-      </h4>
-<p>
-        <code class="computeroutput"><span class="identifier">line_reading</span></code> makes a <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span></code> <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#single-pass-iterators-lib-single-pass-iterators" target="_top">Single
-        Pass</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
-        from <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span></code> etc.
-      </p>
-<a name="line_reading.header"></a><h4>
-<a name="id524152"></a>
-        Header
-      </h4>
-<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">reading</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
-<a name="line_reading.valid_expressions"></a><h4>
-<a name="id524223"></a>
-        Valid expressions
-      </h4>
-<div class="informaltable">
-<h5>
-<a name="id524234"></a>
-        </h5>
-<table class="table">
-<colgroup>
-<col>
-<col>
-</colgroup>
-<thead><tr>
-<th><span class="bold"><strong>Valid expression</strong></span></th>
-<th><span class="bold"><strong>Semantics</strong></span></th>
-</tr></thead>
-<tbody>
-<tr>
-<td><code class="computeroutput"><span class="identifier">op_line_reading</span><span class="special">&lt;</span><span class="identifier">A</span><span class="special">&gt;</span></code></td>
-<td> A <a href="concepts.html#oven.bindable_object" title="Bindable Object">Bindable</a> <a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
-              Callable Object</a> type </td>
-</tr>
-<tr>
-<td><code class="computeroutput"><span class="identifier">op_line_reading</span><span class="special">&lt;</span><span class="identifier">A</span><span class="special">&gt;()(</span><span class="identifier">s</span><span class="special">)</span></code></td>
-<td> <code class="computeroutput"><span class="special">[</span><span class="identifier">T</span><span class="special">(</span><span class="identifier">s</span><span class="special">),</span> <span class="identifier">T</span><span class="special">())</span></code>
-              </td>
-</tr>
-<tr>
-<td><code class="computeroutput"><span class="identifier">op_line_reading</span><span class="special">&lt;&gt;</span></code></td>
-<td> A <a href="concepts.html#oven.bindable_object" title="Bindable Object">Bindable</a> <a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
-              Callable Object</a> type </td>
-</tr>
-<tr>
-<td><code class="computeroutput"><span class="identifier">op_line_reading</span><span class="special">&lt;&gt;()(</span><span class="identifier">s</span><span class="special">)</span></code></td>
-<td> <code class="computeroutput"><span class="identifier">op_line_reading</span><span class="special">&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">allocator</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">s</span><span class="special">)::</span><span class="identifier">char_type</span><span class="special">&gt;</span> <span class="special">&gt;()(</span><span class="identifier">s</span><span class="special">)</span></code>
-              </td>
-</tr>
-<tr>
-<td><code class="computeroutput"><span class="identifier">line_reading</span><span class="special">(</span><span class="identifier">s</span><span class="special">)</span></code></td>
-<td> <code class="computeroutput"><span class="identifier">op_line_reading</span><span class="special">&lt;&gt;()(</span><span class="identifier">s</span><span class="special">)</span></code> </td>
-</tr>
-</tbody>
-</table>
-</div>
-<a name="line_reading.preconditions"></a><h4>
-<a name="id524624"></a>
-        Preconditions
-      </h4>
-<div class="itemizedlist"><ul type="disc"><li>
-<code class="computeroutput"><span class="identifier">T</span></code> is <code class="computeroutput"><span class="identifier">hamigaki</span><span class="special">::</span><span class="identifier">istream_line_iterator</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">s</span><span class="special">)::</span><span class="identifier">char_type</span><span class="special">,</span> <span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">s</span><span class="special">)::</span><span class="identifier">traits_type</span><span class="special">,</span> <span class="identifier">A</span><span class="special">&gt;</span></code>
-          suct that <code class="computeroutput"><span class="identifier">T</span><span class="special">(</span><span class="identifier">s</span><span class="special">)</span></code> is
-          a valid expression.
-        </li></ul></div>
-<a name="line_reading.example"></a><h4>
-<a name="id524778"></a>
-        Example
-      </h4>
-<a name="line_reading.see_also"></a><h4>
-<a name="id524792"></a>
-        See also
-      </h4>
-<div class="itemizedlist"><ul type="disc">
-<li><a href="http://hamigaki.sourceforge.jp/doc/html/istream_line_iterator.html" target="_top">hamigaki::istream_line_iterator</a></li>
-<li><a href="range_makers.html#oven.reading" title="reading">reading</a></li>
-</ul></div>
-</div>
-<div class="section" lang="en">
-<div class="titlepage"><div><div><h3 class="title">
-<a name="oven.reading"></a>reading</h3></div></div></div>
-<a name="reading.description"></a><h4>
-<a name="id524843"></a>
-        Description
-      </h4>
-<p>
-        <code class="computeroutput"><span class="identifier">reading</span></code> makes a <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#single-pass-iterators-lib-single-pass-iterators" target="_top">Single
-        Pass</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
-        from <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span></code> etc.
-      </p>
-<a name="reading.header"></a><h4>
-<a name="id524906"></a>
-        Header
-      </h4>
-<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">reading</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
-<a name="reading.valid_expressions"></a><h4>
-<a name="id524977"></a>
-        Valid expressions
-      </h4>
-<div class="informaltable">
-<h5>
-<a name="id524989"></a>
-        </h5>
-<table class="table">
-<colgroup>
-<col>
-<col>
-</colgroup>
-<thead><tr>
-<th><span class="bold"><strong>Valid expression</strong></span></th>
-<th><span class="bold"><strong>Semantics</strong></span></th>
-</tr></thead>
-<tbody>
-<tr>
-<td><code class="computeroutput"><span class="identifier">op_reading</span><span class="special">&lt;</span><span class="identifier">V</span><span class="special">,</span> <span class="identifier">D</span><span class="special">&gt;</span></code></td>
-<td>
-              A <a href="concepts.html#oven.bindable_object" title="Bindable Object">Bindable</a> <a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
-              Callable Object</a> type </td>
-</tr>
-<tr>
-<td><code class="computeroutput"><span class="identifier">op_reading</span><span class="special">&lt;</span><span class="identifier">V</span><span class="special">,</span> <span class="identifier">D</span><span class="special">&gt;()(</span><span class="identifier">s</span><span class="special">)</span></code></td>
-<td>
-              <code class="computeroutput"><span class="special">[</span><span class="identifier">T</span><span class="special">(</span><span class="identifier">s</span><span class="special">),</span> <span class="identifier">T</span><span class="special">())</span></code> </td>
-</tr>
-<tr>
-<td><code class="computeroutput"><span class="identifier">op_reading</span><span class="special">&lt;</span><span class="identifier">V</span><span class="special">&gt;</span></code></td>
-<td>
-              <code class="computeroutput"><span class="identifier">op_reading</span><span class="special">&lt;</span><span class="identifier">V</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ptrdiff_t</span><span class="special">&gt;</span></code>
-              </td>
-</tr>
-<tr>
-<td><code class="computeroutput"><span class="identifier">oven</span><span class="special">::</span><span class="identifier">reading</span><span class="special">&lt;</span><span class="identifier">V</span><span class="special">&gt;(</span><span class="identifier">s</span><span class="special">)</span></code></td>
-<td>
-              <code class="computeroutput"><span class="identifier">op_reading</span><span class="special">&lt;</span><span class="identifier">V</span><span class="special">&gt;()(</span><span class="identifier">s</span><span class="special">)</span></code>
-              </td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="important"><table border="0" summary="Important">
-<tr>
-<td rowspan="2" align="center" valign="top" width="25"><img alt="[Important]" src="../images/important.png"></td>
-<th align="left">Important</th>
-</tr>
-<tr><td align="left" valign="top"><p>
-          Notice that <code class="computeroutput"><span class="identifier">reading</span><span class="special">&lt;</span><span class="identifier">V</span><span class="special">&gt;(</span><span class="identifier">s</span><span class="special">)</span></code> is
-          qualified with <code class="computeroutput"><span class="identifier">oven</span><span class="special">::</span></code>
-          to avoid unintentional ADL.
-        </p></td></tr>
-</table></div>
-<a name="reading.preconditions"></a><h4>
-<a name="id525414"></a>
-        Preconditions
-      </h4>
-<div class="itemizedlist"><ul type="disc"><li>
-<code class="computeroutput"><span class="identifier">T</span></code> is <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">istream_iterator</span><span class="special">&lt;</span><span class="identifier">V</span><span class="special">,</span> <span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">s</span><span class="special">)::</span><span class="identifier">char_type</span><span class="special">,</span> <span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">s</span><span class="special">)::</span><span class="identifier">traits_type</span><span class="special">,</span> <span class="identifier">D</span><span class="special">&gt;</span></code>
-          suct that <code class="computeroutput"><span class="identifier">T</span><span class="special">(</span><span class="identifier">s</span><span class="special">)</span></code> is
-          a valid expression.
-        </li></ul></div>
-<a name="reading.example"></a><h4>
-<a name="id525579"></a>
-        Example
-      </h4>
-<pre class="programlisting">
-<span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">src</span><span class="special">(</span><span class="string">"hello,reading!"</span><span class="special">);</span>
-
-<span class="identifier">std</span><span class="special">::</span><span class="identifier">stringstream</span> <span class="identifier">ss</span><span class="special">;</span>
-<span class="identifier">ss</span> <span class="special">&lt;&lt;</span> <span class="identifier">src</span><span class="special">;</span>
-
-<span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">result</span><span class="special">;</span>
-<span class="identifier">copy</span><span class="special">(</span><span class="identifier">oven</span><span class="special">::</span><span class="identifier">reading</span><span class="special">&lt;</span><span class="keyword">char</span><span class="special">&gt;(</span><span class="identifier">ss</span><span class="special">),</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">back_inserter</span><span class="special">(</span><span class="identifier">result</span><span class="special">));</span>
-
-<span class="identifier">BOOST_CHECK</span><span class="special">(</span> <span class="identifier">equals</span><span class="special">(</span><span class="identifier">result</span><span class="special">,</span> <span class="identifier">src</span><span class="special">)</span> <span class="special">);</span>
-</pre>
-<a name="reading.see_also"></a><h4>
-<a name="id525846"></a>
-        See also
-      </h4>
-<div class="itemizedlist"><ul type="disc">
-<li><a href="http://www.sgi.com/tech/stl/istream_iterator.html" target="_top">std::istream_iterator</a></li>
-<li><a href="ranges.html#oven.file_range" title="file_range">file_range</a></li>
-<li><a href="range_makers.html#oven.line_reading" title="line_reading">line_reading</a></li>
-<li><a href="output_iterator_adaptors.html#oven.writer" title="writer">writer</a></li>
-</ul></div>
-</div>
-<div class="section" lang="en">
-<div class="titlepage"><div><div><h3 class="title">
-<a name="oven.readingbuf"></a>readingbuf</h3></div></div></div>
-<a name="readingbuf.header"></a><h4>
-<a name="id525924"></a>
-        Header
-      </h4>
-<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">reading</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
-<a name="readingbuf.model_of"></a><h4>
-<a name="id525995"></a>
-        Model of
-      </h4>
-<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.operatable_object" title="Operatable Object">Operatable Object</a></li></ul></div>
-<a name="readingbuf.valid_expressions"></a><h4>
-<a name="id526025"></a>
-        Valid expressions
-      </h4>
-<div class="informaltable">
-<h5>
-<a name="id526036"></a>
-        </h5>
-<table class="table">
-<colgroup>
-<col>
-<col>
-</colgroup>
-<thead><tr>
-<th><span class="bold"><strong>Valid expression</strong></span></th>
-<th><span class="bold"><strong>Semantics</strong></span></th>
-</tr></thead>
-<tbody>
-<tr>
-<td><code class="computeroutput"><span class="identifier">readingbuf</span><span class="special">(</span><span class="identifier">s</span><span class="special">)</span></code></td>
-<td>
-              <code class="computeroutput"><span class="special">[</span><span class="identifier">T</span><span class="special">(</span><span class="identifier">s</span><span class="special">),</span> <span class="identifier">T</span><span class="special">())</span></code> </td>
-</tr>
-<tr>
-<td><code class="computeroutput"><span class="identifier">readingbuf</span><span class="special">(</span><span class="identifier">p</span><span class="special">)</span></code></td>
-<td>
-              <code class="computeroutput"><span class="special">[</span><span class="identifier">U</span><span class="special">(</span><span class="identifier">p</span><span class="special">),</span> <span class="identifier">U</span><span class="special">())</span></code> </td>
-</tr>
-</tbody>
-</table>
-</div>
-<a name="readingbuf.preconditions"></a><h4>
-<a name="id526226"></a>
-        Preconditions
-      </h4>
-<div class="itemizedlist"><ul type="disc">
-<li>
-<code class="computeroutput"><span class="identifier">T</span></code> is <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">istreambuf_iterator</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">s</span><span class="special">)::</span><span class="identifier">char_type</span><span class="special">,</span> <span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">s</span><span class="special">)::</span><span class="identifier">traits_type</span><span class="special">&gt;</span></code>
-          such that <code class="computeroutput"><span class="identifier">T</span><span class="special">(</span><span class="identifier">s</span><span class="special">)</span></code> is
-          a valid expression.
-        </li>
-<li>
-<code class="computeroutput"><span class="identifier">U</span></code> is <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">istreambuf_iterator</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(*</span><span class="identifier">p</span><span class="special">)::</span><span class="identifier">char_type</span><span class="special">,</span> <span class="identifier">_typeof</span><span class="special">(*</span><span class="identifier">p</span><span class="special">)::</span><span class="identifier">traits_type</span><span class="special">&gt;</span></code>
-          such that <code class="computeroutput"><span class="identifier">U</span><span class="special">(</span><span class="identifier">p</span><span class="special">)</span></code> is
-          a valid expression.
-        </li>
-</ul></div>
-</div>
-<div class="section" lang="en">
-<div class="titlepage"><div><div><h3 class="title">
 <a name="oven.recursion"></a>recursion</h3></div></div></div>
 <a name="recursion.description"></a><h4>
-<a name="id526506"></a>
+<a name="id524066"></a>
         Description
       </h4>
 <p>
@@ -962,22 +710,22 @@
         range.
       </p>
 <a name="recursion.header"></a><h4>
-<a name="id526544"></a>
+<a name="id524104"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">recursion</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="recursion.model_of"></a><h4>
-<a name="id526615"></a>
+<a name="id524175"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.operatable_object" title="Operatable Object">Operatable Object</a></li></ul></div>
 <a name="recursion.valid_expressions"></a><h4>
-<a name="id526645"></a>
+<a name="id524205"></a>
         Valid expressions
       </h4>
 <div class="informaltable">
 <h5>
-<a name="id526656"></a>
+<a name="id524217"></a>
         </h5>
 <table class="table">
 <colgroup>
@@ -996,7 +744,7 @@
 </table>
 </div>
 <a name="recursion.preconditions"></a><h4>
-<a name="id526794"></a>
+<a name="id524354"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -1010,7 +758,7 @@
         </li>
 </ul></div>
 <a name="recursion.example"></a><h4>
-<a name="id526861"></a>
+<a name="id524422"></a>
         Example
       </h4>
 <pre class="programlisting">
@@ -1042,7 +790,7 @@
         </p></td></tr>
 </table></div>
 <a name="recursion.see_also"></a><h4>
-<a name="id527397"></a>
+<a name="id524958"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -1054,7 +802,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.shared"></a>shared</h3></div></div></div>
 <a name="shared.description"></a><h4>
-<a name="id527451"></a>
+<a name="id525012"></a>
         Description
       </h4>
 <p>
@@ -1062,17 +810,17 @@
         a pointer to a heap allocated range, and the iterators manage the allocation.
       </p>
 <a name="shared.header"></a><h4>
-<a name="id527478"></a>
+<a name="id525038"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">shared</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="shared.model_of"></a><h4>
-<a name="id527548"></a>
+<a name="id525108"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.operatable_object" title="Operatable Object">Operatable Object</a></li></ul></div>
 <a name="shared.notation"></a><h4>
-<a name="id527576"></a>
+<a name="id525136"></a>
         Notation
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -1081,12 +829,12 @@
           but uses a range instead of a container.
         </li></ul></div>
 <a name="shared.valid_expressions"></a><h4>
-<a name="id527631"></a>
+<a name="id525191"></a>
         Valid expressions
       </h4>
 <div class="informaltable">
 <h5>
-<a name="id527642"></a>
+<a name="id525202"></a>
         </h5>
 <table class="table">
 <colgroup>
@@ -1105,7 +853,7 @@
 </table>
 </div>
 <a name="shared.preconditions"></a><h4>
-<a name="id527812"></a>
+<a name="id525372"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -1121,7 +869,7 @@
         </li>
 </ul></div>
 <a name="shared.example"></a><h4>
-<a name="id528019"></a>
+<a name="id525579"></a>
         Example
       </h4>
 <pre class="programlisting">
@@ -1136,7 +884,7 @@
 <span class="special">}</span>
 </pre>
 <a name="shared.see_also"></a><h4>
-<a name="id528298"></a>
+<a name="id525858"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc">
@@ -1148,7 +896,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.shared_single"></a>shared_single</h3></div></div></div>
 <a name="shared_single.description"></a><h4>
-<a name="id528352"></a>
+<a name="id525912"></a>
         Description
       </h4>
 <p>
@@ -1156,22 +904,22 @@
         to a heap allocated object, delivers a range presentation of the pointee.
       </p>
 <a name="shared_single.header"></a><h4>
-<a name="id528382"></a>
+<a name="id525942"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">shared_single</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="shared_single.model_of"></a><h4>
-<a name="id528452"></a>
+<a name="id526013"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.operatable_object" title="Operatable Object">Operatable Object</a></li></ul></div>
 <a name="shared_single.valid_expressions"></a><h4>
-<a name="id528482"></a>
+<a name="id526042"></a>
         Valid expressions
       </h4>
 <div class="informaltable">
 <h5>
-<a name="id528493"></a>
+<a name="id526053"></a>
         </h5>
 <table class="table">
 <colgroup>
@@ -1189,7 +937,7 @@
 </table>
 </div>
 <a name="shared_single.preconditions"></a><h4>
-<a name="id528616"></a>
+<a name="id526177"></a>
         Preconditions
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
@@ -1197,7 +945,7 @@
           a valid expression.
         </li></ul></div>
 <a name="shared_single.example"></a><h4>
-<a name="id528693"></a>
+<a name="id526253"></a>
         Example
       </h4>
 <pre class="programlisting">
@@ -1208,7 +956,7 @@
 <span class="special">}</span>
 </pre>
 <a name="shared_single.see_also"></a><h4>
-<a name="id528828"></a>
+<a name="id526388"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="range_makers.html#oven.single" title="single">single</a></li></ul></div>
@@ -1217,7 +965,7 @@
 <div class="titlepage"><div><div><h3 class="title">
 <a name="oven.single"></a>single</h3></div></div></div>
 <a name="single.description"></a><h4>
-<a name="id528870"></a>
+<a name="id526430"></a>
         Description
       </h4>
 <p>
@@ -1226,22 +974,22 @@
         which delivers a range presentation of one object.
       </p>
 <a name="single.header"></a><h4>
-<a name="id528914"></a>
+<a name="id526474"></a>
         Header
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">single</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
 <a name="single.model_of"></a><h4>
-<a name="id528984"></a>
+<a name="id526544"></a>
         Model of
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.operatable_object" title="Operatable Object">Operatable Object</a></li></ul></div>
 <a name="single.valid_expressions"></a><h4>
-<a name="id529014"></a>
+<a name="id526574"></a>
         Valid expressions
       </h4>
 <div class="informaltable">
 <h5>
-<a name="id529025"></a>
+<a name="id526585"></a>
         </h5>
 <table class="table">
 <colgroup>
@@ -1269,17 +1017,264 @@
         </p></td></tr>
 </table></div>
 <a name="single.example"></a><h4>
-<a name="id529176"></a>
+<a name="id526736"></a>
         Example
       </h4>
 <pre class="programlisting">
 <span class="identifier">BOOST_CHECK</span><span class="special">(</span> <span class="identifier">equals</span><span class="special">(</span><span class="identifier">single</span><span class="special">(</span><span class="char">'a'</span><span class="special">),</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span><span class="special">(</span><span class="string">"a"</span><span class="special">))</span> <span class="special">);</span>
 </pre>
 <a name="single.see_also"></a><h4>
-<a name="id529274"></a>
+<a name="id526834"></a>
         See also
       </h4>
 <div class="itemizedlist"><ul type="disc"><li><a href="range_makers.html#oven.shared_single" title="shared_single">shared_single</a></li></ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.stream_lines"></a>stream_lines</h3></div></div></div>
+<a name="stream_lines.description"></a><h4>
+<a name="id526876"></a>
+        Description
+      </h4>
+<p>
+        <code class="computeroutput"><span class="identifier">stream_lines</span></code> makes a <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span></code> <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#single-pass-iterators-lib-single-pass-iterators" target="_top">Single
+        Pass</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
+        from <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span></code> etc.
+      </p>
+<a name="stream_lines.header"></a><h4>
+<a name="id526960"></a>
+        Header
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">stream_lines</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="stream_lines.valid_expressions"></a><h4>
+<a name="id527031"></a>
+        Valid expressions
+      </h4>
+<div class="informaltable">
+<h5>
+<a name="id527043"></a>
+        </h5>
+<table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th><span class="bold"><strong>Valid expression</strong></span></th>
+<th><span class="bold"><strong>Semantics</strong></span></th>
+</tr></thead>
+<tbody>
+<tr>
+<td><code class="computeroutput"><span class="identifier">op_stream_lines</span><span class="special">&lt;</span><span class="identifier">A</span><span class="special">&gt;</span></code></td>
+<td> A <a href="concepts.html#oven.bindable_object" title="Bindable Object">Bindable</a> <a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
+              Callable Object</a> type </td>
+</tr>
+<tr>
+<td><code class="computeroutput"><span class="identifier">op_stream_lines</span><span class="special">&lt;</span><span class="identifier">A</span><span class="special">&gt;()(</span><span class="identifier">s</span><span class="special">)</span></code></td>
+<td> <code class="computeroutput"><span class="special">[</span><span class="identifier">T</span><span class="special">(</span><span class="identifier">s</span><span class="special">),</span> <span class="identifier">T</span><span class="special">())</span></code>
+              </td>
+</tr>
+<tr>
+<td><code class="computeroutput"><span class="identifier">op_stream_lines</span><span class="special">&lt;&gt;</span></code></td>
+<td> A <a href="concepts.html#oven.bindable_object" title="Bindable Object">Bindable</a> <a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
+              Callable Object</a> type </td>
+</tr>
+<tr>
+<td><code class="computeroutput"><span class="identifier">op_stream_lines</span><span class="special">&lt;&gt;()(</span><span class="identifier">s</span><span class="special">)</span></code></td>
+<td> <code class="computeroutput"><span class="identifier">op_stream_lines</span><span class="special">&lt;</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">allocator</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">s</span><span class="special">)::</span><span class="identifier">char_type</span><span class="special">&gt;</span> <span class="special">&gt;()(</span><span class="identifier">s</span><span class="special">)</span></code>
+              </td>
+</tr>
+<tr>
+<td><code class="computeroutput"><span class="identifier">stream_lines</span><span class="special">(</span><span class="identifier">s</span><span class="special">)</span></code></td>
+<td> <code class="computeroutput"><span class="identifier">op_stream_lines</span><span class="special">&lt;&gt;()(</span><span class="identifier">s</span><span class="special">)</span></code> </td>
+</tr>
+</tbody>
+</table>
+</div>
+<a name="stream_lines.preconditions"></a><h4>
+<a name="id527432"></a>
+        Preconditions
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li>
+<code class="computeroutput"><span class="identifier">T</span></code> is <code class="computeroutput"><span class="identifier">hamigaki</span><span class="special">::</span><span class="identifier">istream_line_iterator</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">s</span><span class="special">)::</span><span class="identifier">char_type</span><span class="special">,</span> <span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">s</span><span class="special">)::</span><span class="identifier">traits_type</span><span class="special">,</span> <span class="identifier">A</span><span class="special">&gt;</span></code>
+          suct that <code class="computeroutput"><span class="identifier">T</span><span class="special">(</span><span class="identifier">s</span><span class="special">)</span></code> is
+          a valid expression.
+        </li></ul></div>
+<a name="stream_lines.example"></a><h4>
+<a name="id527586"></a>
+        Example
+      </h4>
+<a name="stream_lines.see_also"></a><h4>
+<a name="id527600"></a>
+        See also
+      </h4>
+<div class="itemizedlist"><ul type="disc">
+<li><a href="http://hamigaki.sourceforge.jp/doc/html/istream_line_iterator.html" target="_top">hamigaki::istream_line_iterator</a></li>
+<li><a href="range_makers.html#oven.stream_read" title="stream_read">stream_read</a></li>
+</ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.stream_read"></a>stream_read</h3></div></div></div>
+<a name="stream_read.description"></a><h4>
+<a name="id527652"></a>
+        Description
+      </h4>
+<p>
+        <code class="computeroutput"><span class="identifier">stream_read</span></code> makes a <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#single-pass-iterators-lib-single-pass-iterators" target="_top">Single
+        Pass</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
+        from <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">cout</span></code> etc.
+      </p>
+<a name="stream_read.header"></a><h4>
+<a name="id527715"></a>
+        Header
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">stream_read</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="stream_read.valid_expressions"></a><h4>
+<a name="id527786"></a>
+        Valid expressions
+      </h4>
+<div class="informaltable">
+<h5>
+<a name="id527798"></a>
+        </h5>
+<table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th><span class="bold"><strong>Valid expression</strong></span></th>
+<th><span class="bold"><strong>Semantics</strong></span></th>
+</tr></thead>
+<tbody>
+<tr>
+<td><code class="computeroutput"><span class="identifier">op_stream_read</span><span class="special">&lt;</span><span class="identifier">V</span><span class="special">,</span> <span class="identifier">D</span><span class="special">&gt;</span></code></td>
+<td> A <a href="concepts.html#oven.bindable_object" title="Bindable Object">Bindable</a> <a href="http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html" target="_top">Deferred
+              Callable Object</a> type </td>
+</tr>
+<tr>
+<td><code class="computeroutput"><span class="identifier">op_stream_read</span><span class="special">&lt;</span><span class="identifier">V</span><span class="special">,</span> <span class="identifier">D</span><span class="special">&gt;()(</span><span class="identifier">s</span><span class="special">)</span></code></td>
+<td> <code class="computeroutput"><span class="special">[</span><span class="identifier">T</span><span class="special">(</span><span class="identifier">s</span><span class="special">),</span> <span class="identifier">T</span><span class="special">())</span></code>
+              </td>
+</tr>
+<tr>
+<td><code class="computeroutput"><span class="identifier">op_stream_read</span><span class="special">&lt;</span><span class="identifier">V</span><span class="special">&gt;</span></code></td>
+<td> <code class="computeroutput"><span class="identifier">op_stream_read</span><span class="special">&lt;</span><span class="identifier">V</span><span class="special">,</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">ptrdiff_t</span><span class="special">&gt;</span></code> </td>
+</tr>
+<tr>
+<td><code class="computeroutput"><span class="identifier">oven</span><span class="special">::</span><span class="identifier">stream_read</span><span class="special">&lt;</span><span class="identifier">V</span><span class="special">&gt;(</span><span class="identifier">s</span><span class="special">)</span></code></td>
+<td>
+              <code class="computeroutput"><span class="identifier">op_stream_read</span><span class="special">&lt;</span><span class="identifier">V</span><span class="special">&gt;()(</span><span class="identifier">s</span><span class="special">)</span></code>
+              </td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="important"><table border="0" summary="Important">
+<tr>
+<td rowspan="2" align="center" valign="top" width="25"><img alt="[Important]" src="../images/important.png"></td>
+<th align="left">Important</th>
+</tr>
+<tr><td align="left" valign="top"><p>
+          Notice that <code class="computeroutput"><span class="identifier">stream_read</span><span class="special">&lt;</span><span class="identifier">V</span><span class="special">&gt;(</span><span class="identifier">s</span><span class="special">)</span></code> is qualified with <code class="computeroutput"><span class="identifier">oven</span><span class="special">::</span></code> to avoid unintentional ADL.
+        </p></td></tr>
+</table></div>
+<a name="stream_read.preconditions"></a><h4>
+<a name="id528223"></a>
+        Preconditions
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li>
+<code class="computeroutput"><span class="identifier">T</span></code> is <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">istream_iterator</span><span class="special">&lt;</span><span class="identifier">V</span><span class="special">,</span> <span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">s</span><span class="special">)::</span><span class="identifier">char_type</span><span class="special">,</span> <span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">s</span><span class="special">)::</span><span class="identifier">traits_type</span><span class="special">,</span> <span class="identifier">D</span><span class="special">&gt;</span></code>
+          suct that <code class="computeroutput"><span class="identifier">T</span><span class="special">(</span><span class="identifier">s</span><span class="special">)</span></code> is
+          a valid expression.
+        </li></ul></div>
+<a name="stream_read.example"></a><h4>
+<a name="id528388"></a>
+        Example
+      </h4>
+<pre class="programlisting">
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">src</span><span class="special">(</span><span class="string">"hello,stream_read!"</span><span class="special">);</span>
+
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">stringstream</span> <span class="identifier">ss</span><span class="special">;</span>
+<span class="identifier">ss</span> <span class="special">&lt;&lt;</span> <span class="identifier">src</span><span class="special">;</span>
+
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">result</span><span class="special">;</span>
+<span class="identifier">copy</span><span class="special">(</span><span class="identifier">oven</span><span class="special">::</span><span class="identifier">stream_read</span><span class="special">&lt;</span><span class="keyword">char</span><span class="special">&gt;(</span><span class="identifier">ss</span><span class="special">),</span> <span class="identifier">std</span><span class="special">::</span><span class="identifier">back_inserter</span><span class="special">(</span><span class="identifier">result</span><span class="special">));</span>
+
+<span class="identifier">BOOST_CHECK</span><span class="special">(</span> <span class="identifier">equals</span><span class="special">(</span><span class="identifier">result</span><span class="special">,</span> <span class="identifier">src</span><span class="special">)</span> <span class="special">);</span>
+</pre>
+<a name="stream_read.see_also"></a><h4>
+<a name="id528655"></a>
+        See also
+      </h4>
+<div class="itemizedlist"><ul type="disc">
+<li><a href="http://www.sgi.com/tech/stl/istream_iterator.html" target="_top">std::istream_iterator</a></li>
+<li><a href="ranges.html#oven.file_range" title="file_range">file_range</a></li>
+<li><a href="range_makers.html#oven.stream_lines" title="stream_lines">stream_lines</a></li>
+<li><a href="output_iterator_adaptors.html#oven.stream_writer" title="stream_writer">stream_writer</a></li>
+</ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.streambuf_read"></a>streambuf_read</h3></div></div></div>
+<a name="streambuf_read.header"></a><h4>
+<a name="id528735"></a>
+        Header
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">stream_read</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="streambuf_read.model_of"></a><h4>
+<a name="id528806"></a>
+        Model of
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.operatable_object" title="Operatable Object">Operatable Object</a></li></ul></div>
+<a name="streambuf_read.valid_expressions"></a><h4>
+<a name="id528836"></a>
+        Valid expressions
+      </h4>
+<div class="informaltable">
+<h5>
+<a name="id528847"></a>
+        </h5>
+<table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th><span class="bold"><strong>Valid expression</strong></span></th>
+<th><span class="bold"><strong>Semantics</strong></span></th>
+</tr></thead>
+<tbody>
+<tr>
+<td><code class="computeroutput"><span class="identifier">streambuf_read</span><span class="special">(</span><span class="identifier">s</span><span class="special">)</span></code></td>
+<td> <code class="computeroutput"><span class="special">[</span><span class="identifier">T</span><span class="special">(</span><span class="identifier">s</span><span class="special">),</span> <span class="identifier">T</span><span class="special">())</span></code>
+              </td>
+</tr>
+<tr>
+<td><code class="computeroutput"><span class="identifier">streambuf_read</span><span class="special">(</span><span class="identifier">p</span><span class="special">)</span></code></td>
+<td> <code class="computeroutput"><span class="special">[</span><span class="identifier">U</span><span class="special">(</span><span class="identifier">p</span><span class="special">),</span> <span class="identifier">U</span><span class="special">())</span></code>
+              </td>
+</tr>
+</tbody>
+</table>
+</div>
+<a name="streambuf_read.preconditions"></a><h4>
+<a name="id529037"></a>
+        Preconditions
+      </h4>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="identifier">T</span></code> is <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">istreambuf_iterator</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">s</span><span class="special">)::</span><span class="identifier">char_type</span><span class="special">,</span> <span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">s</span><span class="special">)::</span><span class="identifier">traits_type</span><span class="special">&gt;</span></code>
+          such that <code class="computeroutput"><span class="identifier">T</span><span class="special">(</span><span class="identifier">s</span><span class="special">)</span></code> is
+          a valid expression.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">U</span></code> is <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">istreambuf_iterator</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(*</span><span class="identifier">p</span><span class="special">)::</span><span class="identifier">char_type</span><span class="special">,</span> <span class="identifier">_typeof</span><span class="special">(*</span><span class="identifier">p</span><span class="special">)::</span><span class="identifier">traits_type</span><span class="special">&gt;</span></code>
+          such that <code class="computeroutput"><span class="identifier">U</span><span class="special">(</span><span class="identifier">p</span><span class="special">)</span></code> is
+          a valid expression.
+        </li>
+</ul></div>
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>

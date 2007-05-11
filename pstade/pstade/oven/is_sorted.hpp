@@ -32,8 +32,8 @@
 #include <pstade/function.hpp>
 #include <pstade/functional.hpp> // less
 #include "./concepts.hpp"
-#include "./deref.hpp"
 #include "./range_iterator.hpp"
+#include "./read.hpp"
 
 
 namespace pstade { namespace oven {
@@ -52,7 +52,7 @@ namespace is_sorted_until_detail {
             return last;
 
         for (ForwardIter old = first; ++first != last; old = first) {
-            if (comp(deref(first), deref(old)))
+            if (comp(read(first), read(old)))
                 return first;
         }
 
@@ -95,7 +95,7 @@ struct op_is_sorted
     bool operator()(Range const& rng, Compare comp) const
     {
         PSTADE_CONCEPT_ASSERT((Forward<Range>));
-        return is_sorted_until(rng) == boost::end(rng);
+        return is_sorted_until(rng, comp) == boost::end(rng);
     }
 
     template< class Range >
