@@ -46,6 +46,7 @@
 #include <pstade/remove_cvr.hpp>
 #include <pstade/use_default.hpp>
 #include "./concepts.hpp"
+#include "./deref.hpp"
 #include "./detail/pure_traversal.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
@@ -122,7 +123,8 @@ namespace transformed_detail {
     friend class boost::iterator_core_access;
         typename super_t::reference dereference() const
         {
-            return m_fun(*this->base());
+            // 'deref' seems not so bad idea. 
+            return m_fun(deref(this->base()));
         }
     };
 

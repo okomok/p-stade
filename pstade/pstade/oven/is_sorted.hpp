@@ -32,6 +32,7 @@
 #include <pstade/function.hpp>
 #include <pstade/functional.hpp> // less
 #include "./concepts.hpp"
+#include "./deref.hpp"
 #include "./range_iterator.hpp"
 
 
@@ -51,7 +52,7 @@ namespace is_sorted_until_detail {
             return last;
 
         for (ForwardIter old = first; ++first != last; old = first) {
-            if (comp(*first, *old))
+            if (comp(deref(first), deref(old)))
                 return first;
         }
 

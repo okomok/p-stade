@@ -37,9 +37,9 @@ namespace set_delta_detail {
             Compare comp)
         {
             while (first1 != last1 && first2 != last2) {
-                if (comp(*first2, *first1))
+                if (comp(deref(first2), deref(first1)))
                     break;
-                else if (comp(*first1, *first2))
+                else if (comp(deref(first1), deref(first2)))
                     break;
                 else {
                     ++first1;
@@ -81,7 +81,7 @@ namespace set_delta_detail {
             }
 
             // while phase
-            if (comp(*first2, *first1))
+            if (comp(deref(first2), deref(first1)))
                 ++first2;
             else
                 ++first1;

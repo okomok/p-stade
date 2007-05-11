@@ -23,6 +23,7 @@
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
 #include "./concepts.hpp"
+#include "./deref.hpp"
 #include "./dropped.hpp"
 #include "./successors.hpp"
 #include "./uniqued.hpp"
@@ -44,7 +45,7 @@ namespace duplicates_detail {
         {
             ForwardIter next(first);
             while (++next != last) {
-                if (m_pred(*first, *next))
+                if (m_pred(deref(first), deref(next)))
                     return next;
                 else // skip
                     first = next;

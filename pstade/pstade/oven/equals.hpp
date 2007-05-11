@@ -32,6 +32,7 @@
 #include <pstade/constant.hpp>
 #include <pstade/functional.hpp> // equal_to
 #include "./concepts.hpp"
+#include "./deref.hpp"
 #include "./detail/minimum_pure.hpp"
 #include "./range_traversal.hpp"
 
@@ -64,7 +65,7 @@ namespace equals_detail {
         boost::single_pass_traversal_tag)
     {
         for (; first1 != last1 && first2 != last2; ++first1, ++first2) {
-            if (!pred(*first1, *first2))
+            if (!pred(deref(first1), deref(first2)))
                 return false;
         }
 

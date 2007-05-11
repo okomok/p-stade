@@ -36,6 +36,7 @@
 #include <pstade/function.hpp>
 #include <pstade/functional.hpp> // less
 #include "./concepts.hpp"
+#include "./deref.hpp"
 #include "./range_iterator.hpp"
 
 
@@ -57,7 +58,7 @@ namespace is_heap_until_detail {
 
         diff_t parent = 0;
         for (diff_t child = 1; child < n; ++child) {
-            if (comp(first[parent], first[child]))
+            if (comp(deref(first + parent), deref(first + child)))
                 return first + parent;
             if ((child & 1) == 0)
                 ++parent;

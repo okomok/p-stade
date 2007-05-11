@@ -14,6 +14,9 @@
 //
 // A dereference of ReadableIterator returns a type "convertible" to
 // associated 'value_type', but it is useless for writing generic code.
+//
+// Once 'deref' is applied to non-Lvalue one, the result is not Assignable,
+// meaning that the iterator loses Writability.
 
 
 #include <boost/iterator/iterator_traits.hpp>

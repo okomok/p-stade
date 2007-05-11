@@ -62,7 +62,7 @@ namespace merged_detail {
         // I don't certainly know, though.
 
         // Standard requires '*it1' if equal.
-        if (comp(*it2, *it1))
+        if (comp(deref(it2), deref(it1)))
             return deref(it2);
         else
             return deref(it1);
@@ -123,7 +123,7 @@ namespace merged_detail {
             }
 
             // while phase
-            if (comp(*first2, *first1))
+            if (comp(deref(first2), deref(first1)))
                 ++first2;
             else
                 ++first1;

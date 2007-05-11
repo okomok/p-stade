@@ -32,6 +32,7 @@ template< class N >
 struct op_make_elements :
     callable< op_make_elements<N> >
 {
+private:
     template< class TupleRange >
     struct ref_of :
         affect<
@@ -40,6 +41,7 @@ struct op_make_elements :
         >
     { };
 
+public:
     template< class Myself, class TupleRange >
     struct apply
     {

@@ -25,7 +25,7 @@
 
 
 #if !defined(PSTADE_FUSE_MAX_ARITY)
-    #define PSTADE_FUSE_MAX_ARITY 10 // follows 'boost::tuple' for now.
+    #define PSTADE_FUSE_MAX_ARITY 10 // follows 'boost::tuple'.
 #endif
 
 
@@ -59,9 +59,9 @@ namespace pstade {
         { };
 
         template<class Result, class Function, class Tuple> inline
-        Result call_impl(Function& fun, Tuple& seq, int_<0>)
+        Result call_impl(Function& fun, Tuple& tup, int_<0>)
         {
-            unused(seq);
+            unused(tup);
             return fun();
         }
 
@@ -82,9 +82,9 @@ namespace pstade {
             { };
 
             template<class Result, class Tuple>
-            Result call(Tuple& seq) const
+            Result call(Tuple& tup) const
             {
-                return fuse_detail::call_impl<Result>(m_fun, seq, typename meta_size<Tuple>::type());
+                return fuse_detail::call_impl<Result>(m_fun, tup, typename meta_size<Tuple>::type());
             }
 
             explicit return_op()
@@ -130,10 +130,10 @@ struct apply_impl< Function, Tuple, int_<n> > :
 { };
 
 template<class Result, class Function, class Tuple> inline
-Result call_impl(Function& fun, Tuple& seq, int_<n>)
+Result call_impl(Function& fun, Tuple& tup, int_<n>)
 {
     return fun(
-        PSTADE_PP_ENUM_PARAMS_WITH(n, op_tuple_get_c<PSTADE_PP_INT_, >()(seq))
+        PSTADE_PP_ENUM_PARAMS_WITH(n, op_tuple_get_c<PSTADE_PP_INT_, >()(tup))
     );
 }
 

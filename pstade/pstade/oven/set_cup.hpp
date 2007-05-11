@@ -12,6 +12,7 @@
 
 #include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>
+#include "./deref.hpp"
 #include "./merged.hpp"
 
 
@@ -41,9 +42,9 @@ namespace set_cup_detail {
             }
 
             // while phase
-            if (comp(*first2, *first1))
+            if (comp(deref(first2), deref(first1)))
                 ++first2;
-            else if (comp(*first1, *first2))
+            else if (comp(deref(first1), deref(first2)))
                 ++first1;
             else {
                 ++first1;

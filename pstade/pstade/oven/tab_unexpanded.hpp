@@ -18,6 +18,7 @@
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
 #include "./concepts.hpp"
+#include "./deref.hpp"
 #include "./iter_range.hpp"
 #include "./range_difference.hpp"
 #include "./range_iterator.hpp"
@@ -101,7 +102,7 @@ namespace tab_unexpanded_detail {
 
         bool is_newline() const
         {
-            return *this->base() == '\n';
+            return deref(this->base()) == '\n';
         }
 
         template< class Other >
@@ -128,7 +129,7 @@ namespace tab_unexpanded_detail {
         {
             diff_t spaces = 0;
             for (base_t it = this->base(); it != m_last; ++it) {
-                if (*it == PSTADE_OVEN_DEBUG_SPACE_CH)
+                if (deref(it) == PSTADE_OVEN_DEBUG_SPACE_CH)
                     ++spaces;
                 else
                     break;

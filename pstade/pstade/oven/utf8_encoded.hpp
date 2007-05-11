@@ -32,6 +32,7 @@
 #include <pstade/pipable.hpp>
 #include "./advance_from.hpp"
 #include "./concepts.hpp"
+#include "./deref.hpp"
 #include "./detail/minimum_pure.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
@@ -108,7 +109,7 @@ namespace utf8_encoded_detail {
 
         void extract_current() const
         {
-            boost::uint32_t c = *this->base();
+            boost::uint32_t c = deref(this->base());
             if (c > 0x10FFFFu)
                 boost::detail::invalid_utf32_code_point(c);
             if (c < 0x80u) {
