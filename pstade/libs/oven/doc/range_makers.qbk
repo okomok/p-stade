@@ -571,6 +571,9 @@ and the iterators manage the allocation.
 [h3 Header]
 * `<pstade/oven/stream_lines.hpp>`
 
+[h3 Notatio]
+* `DefaultA` is `std::allocator<_typeof(s)::char_type>`.
+
 [h3 Valid expressions]
 [table 
     [
@@ -578,7 +581,7 @@ and the iterators manage the allocation.
         [[*Semantics]]
     ]
     [
-        [`op_stream_lines<A>`]
+        [`op_stream_lines<A = DefaultA>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
@@ -587,24 +590,6 @@ and the iterators manage the allocation.
         [`op_stream_lines<A>()(s)`]
         [
            `[T(s), T())`
-        ]
-    ]
-    [
-        [`op_stream_lines<>`]
-        [
-            A _bindable_ _deferred_callable_object_ type
-        ]
-    ]
-    [
-        [`op_stream_lines<>()(s)`]
-        [
-            `op_stream_lines< std::allocator<_typeof(s)::char_type> >()(s)`
-        ]
-    ]
-    [
-        [`stream_lines(s)`]
-        [
-            `op_stream_lines<>()(s)`
         ]
     ]
 ]
@@ -638,7 +623,7 @@ and the iterators manage the allocation.
         [[*Semantics]]
     ]
     [
-        [`op_stream_read<V, D>`]
+        [`op_stream_read<V, D = std::ptrdiff_t>`]
         [
             A _bindable_ _deferred_callable_object_ type
         ]
@@ -647,18 +632,6 @@ and the iterators manage the allocation.
         [`op_stream_read<V, D>()(s)`]
         [
            `[T(s), T())`
-        ]
-    ]
-    [
-        [`op_stream_read<V>`]
-        [
-            `op_stream_read<V, std::ptrdiff_t>`
-        ]
-    ]
-    [
-        [`oven::stream_read<V>(s)`]
-        [
-            `op_stream_read<V>()(s)`
         ]
     ]
 ]

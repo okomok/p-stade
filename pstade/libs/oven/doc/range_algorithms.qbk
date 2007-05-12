@@ -289,6 +289,7 @@ Oven provides range-based algorithms taking a range instead of two iterators.
 
 [h3 Preconditions]
 * `_rng1` is a _sequence_.
+* If `x` is an object of unspecified type, `boost::implicit_cast<Rng1>(x)` is not a valid expression.
 * `_value_of<_typeof(_rng)>::type` is convertible to `V1`.
 * `Rng2` is an /aggregate type/ such that `Rng2 _rng2 = _rng0|copied;` is a valid expression.
 * `copied` isn't placed in a function default argument list.

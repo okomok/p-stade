@@ -72,7 +72,9 @@
 [def _bindable_object_       [link oven.bindable_object Bindable Object]]
 [def _bindable_              [link oven.bindable_object Bindable]]
 [def _operatable_object_     [link oven.operatable_object Operatable Object]]
+[def _operatable_            [link oven.operatable_object Operatable]]
 [def _pipable_object_        [link oven.pipable_object Pipable Object]]
+[def _pipable_               [link oven.pipable_object Pipable]]
 [def _auxiliary_interface_   [link oven.auxiliary_interface Auxiliary Interface]]
 [def _stoppable_generator_   [link oven.stoppable_generator Stoppable Generator]]
 
@@ -83,6 +85,8 @@
 [include ranges.qbk]
 [include range_makers.qbk]
 [include range_adaptors.qbk]
+[include string_adaptors.qbk]
+[include merge_adaptors.qbk]
 [include utilities.qbk]
 [include output_iterator_adaptors.qbk]
 [include extending_boost_range.qbk]

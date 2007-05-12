@@ -142,7 +142,7 @@
 * Added `elements`.
 * Removed `firsts` and `seconds`.
 * `adjacent_filtered` accepts SinglePassRange.
-
+* Added `narrow_chars` and `wide_chars`.
 
 
 

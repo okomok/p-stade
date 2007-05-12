@@ -67,7 +67,7 @@ test-suite "oven" :
     [ run iter_range.cpp ]
     [ run iteration.cpp ]
     [ run lightweight_copyable.cpp ]
-    [ run lower_upper_chars.cpp ]
+    [ run xxx_chars.cpp ]
     [ run jointed.cpp ]
     [ run map_keys.cpp ]
     [ run map_values.cpp ]

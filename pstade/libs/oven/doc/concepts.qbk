@@ -64,7 +64,7 @@ For any _pipable_object_ `p` the following must be met:
 
 * `x|p(x1,..,xN)` is a valid expression if and only if `make_p(x, x1,..xN)` is a valid expression.
 * `x|p(x1,..,xN)` and `make_p(x, x1,..xN)` have the same effects.
-* `make_p` is an _operatable_object_.
+* `make_p` is an _operatable_object_ unless otherwise specified.
 * If `N` is `0`, `x|p` and `make_p(x)` are valid expressions which have the same effects.
 
 [h3 Models]
