@@ -19,12 +19,8 @@
 // meaning that the iterator loses Writability.
 
 
-#include <iterator> // istreambuf_iterator
 #include <boost/iterator/iterator_traits.hpp>
-#include <boost/mpl/and.hpp>
-#include <boost/mpl/bool.hpp>
 #include <boost/mpl/if.hpp>
-#include <boost/mpl/not.hpp>
 #include <boost/mpl/or.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/remove_cv.hpp>
@@ -32,23 +28,6 @@
 
 
 namespace pstade { namespace oven {
-
-
-namespace read_detail {
-
-
-    template< class T >
-    struct is_istreambuf_iterator :
-        boost::mpl::false_
-    { };
-
-    template< class CharT, class Traits >
-    struct is_istreambuf_iterator< std::istreambuf_iterator<CharT, Traits> > :
-        boost::mpl::true_
-    { };
-
-
-} // namespace read_detail
 
 
 template< class ReadableOrLvalueIter >
@@ -74,17 +53,8 @@ struct iterator_read
         >
     is_ref;
 
-    // Works around a gcc and msvc STL bug that
-    // 'istreambuf_iterator<>::reference' is wrongly a reference type.
-    typedef
-        boost::mpl::and_<
-            boost::mpl::not_< read_detail::is_istreambuf_iterator<iter_t> >,
-            is_ref
-        >
-    is_ref_;
-
     typedef typename
-        boost::mpl::if_< is_ref_,
+        boost::mpl::if_< is_ref,
             ref_t,
             val_t
         >::type

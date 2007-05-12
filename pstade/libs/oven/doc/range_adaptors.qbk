@@ -44,11 +44,11 @@ A Range Adaptor meets the following requirements unless otherwise specified:
 [h3 Preconditions]
 * `_rng` is _readable_ or _lvalue_.
 * If `_rng` is not _forward_, `_rng` is _readable_.
-* `_prd(*_begin(_fwdrng), *_begin(_fwdrng))` is well-formed.
+* `_prd(*_begin(_rng), *_begin(_rng))` is well-formed.
 * `_prd` is _assignable_ and _default_constructible_.
 
 [h3 Complexity]
-* At most `distance(_fwdrng)` applications of the corresponding `_prd`.
+* At most `distance(_rng)` applications of the corresponding `_prd`.
 
 [h3 Example]
 

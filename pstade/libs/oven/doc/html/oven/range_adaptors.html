@@ -176,7 +176,7 @@
           <code class="computeroutput"><span class="identifier">_rng</span></code> is <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#readable-iterators-lib-readable-iterators" target="_top">Readable</a>.
         </li>
 <li>
-<code class="computeroutput"><span class="identifier">_prd</span><span class="special">(*</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">),</span> <span class="special">*</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">))</span></code> is well-formed.
+<code class="computeroutput"><span class="identifier">_prd</span><span class="special">(*</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_rng</span><span class="special">),</span> <span class="special">*</span><span class="identifier">_begin</span><span class="special">(</span><span class="identifier">_rng</span><span class="special">))</span></code> is well-formed.
         </li>
 <li>
 <code class="computeroutput"><span class="identifier">_prd</span></code> is <a href="http://boost.org/doc/html/Assignable.html" target="_top">Assignable</a>
@@ -189,7 +189,7 @@
         Complexity
       </h4>
 <div class="itemizedlist"><ul type="disc"><li>
-          At most <code class="computeroutput"><span class="identifier">distance</span><span class="special">(</span><span class="identifier">_fwdrng</span><span class="special">)</span></code>
+          At most <code class="computeroutput"><span class="identifier">distance</span><span class="special">(</span><span class="identifier">_rng</span><span class="special">)</span></code>
           applications of the corresponding <code class="computeroutput"><span class="identifier">_prd</span></code>.
         </li></ul></div>
 <a name="adjacent_filtered.example"></a><h4>

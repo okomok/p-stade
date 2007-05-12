@@ -10,9 +10,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/archive/iterators/mb_from_wchar.hpp>
+#include <boost/iterator/iterator_adaptor.hpp>
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
+#include "./detail/mb_from_wchar.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
 
@@ -22,12 +23,11 @@ namespace pstade { namespace oven {
 
 namespace mb_encoded_detail {
 
-
     template< class Range >
     struct baby
     {
         typedef
-            boost::archive::iterators::mb_from_wchar<
+            detail::mb_from_wchar<
                 typename range_iterator<Range>::type
             >
         iter_t;

@@ -12,11 +12,12 @@
 
 #include <cstddef>  // ptrdiff_t
 #include <iosfwd>   // basic_istream, basic_streambuf
-#include <iterator> // istream_iterator, istreambuf_iterator
+#include <iterator> // istream_iterator
 #include <boost/type_traits/remove_pointer.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/specified.hpp>
+#include "./detail/istreambuf_iterator.hpp"
 #include "./iter_range.hpp"
 
 
@@ -75,7 +76,7 @@ struct op_streambuf_read :
         stream_t;
       
         typedef
-            std::istreambuf_iterator<
+            detail::istreambuf_iterator<
                 typename stream_t::char_type,
                 typename stream_t::traits_type
             >

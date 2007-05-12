@@ -12,7 +12,7 @@
 
 //#include <pstade/../libs/wine/test/tuple.cpp>
 
-#include <pstade/../libs/oven/test/uniqued.cpp>
+#include <pstade/../libs/oven/test/mb_encoded.cpp>
 //#include <pstade/../libs/oven/test/multiple_defs1.cpp>
 //#include <pstade/../libs/oven/example/quick_sort.cpp>
 //#include <pstade/../libs/biscuit/test/capture.cpp>

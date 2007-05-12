@@ -78,6 +78,7 @@ namespace identities_detail {
             super_t(other.base())
         { }
 
+    private:
     friend class boost::iterator_core_access;
         template< class I, class T, class D >
         diff_t distance_to(identity_iterator<I, T, D> const& other) const

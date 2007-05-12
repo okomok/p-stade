@@ -16,7 +16,7 @@
 
 #include <string>
 #include "./core.hpp"
-#include <pstade/oven/unzipped.hpp>
+#include <pstade/oven/elements.hpp>
 #include <pstade/oven/spanned.hpp>
 
 
@@ -39,12 +39,12 @@ void test()
         std::vector<int> expected1 = ans1|copied;
 
         BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
-            rng|spanned(&::is_even)|unzipped_at_c<0>(),
+            rng|spanned(&::is_even)|elements_c<0>(),
             expected0
         ) );
 
         BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
-            rng|spanned(&::is_even)|unzipped_at_c<1>(),
+            rng|spanned(&::is_even)|elements_c<1>(),
             expected1
         ) );
     }
