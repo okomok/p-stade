@@ -13,8 +13,9 @@
 #endif
 
 #include <boost/preprocessor/tuple/elem.hpp>
-#define PSTADE_name BOOST_PP_TUPLE_ELEM(2, 0, PSTADE_OVEN_DETAIL_XXX_CHARS_PARAMS)
-#define PSTADE_func BOOST_PP_TUPLE_ELEM(2, 1, PSTADE_OVEN_DETAIL_XXX_CHARS_PARAMS)
+#define PSTADE_name BOOST_PP_TUPLE_ELEM(3, 0, PSTADE_OVEN_DETAIL_XXX_CHARS_PARAMS)
+#define PSTADE_func BOOST_PP_TUPLE_ELEM(3, 1, PSTADE_OVEN_DETAIL_XXX_CHARS_PARAMS)
+#define PSTADE_type BOOST_PP_TUPLE_ELEM(3, 2, PSTADE_OVEN_DETAIL_XXX_CHARS_PARAMS)
 
 
 #include <locale>
@@ -36,9 +37,9 @@ namespace BOOST_PP_CAT(PSTADE_name, _detail) {
     template< class CharT >
     struct convert
     {
-        typedef CharT result_type;
+        typedef PSTADE_type result_type;
 
-        CharT operator()(CharT ch) const
+        result_type operator()(CharT ch) const
         {
             return PSTADE_func(ch, m_loc);
         }
@@ -97,6 +98,7 @@ PSTADE_PIPABLE(PSTADE_name, (BOOST_PP_CAT(op_, PSTADE_name)))
 } } // namespace pstade::oven
 
 
+#undef  PSTADE_type
 #undef  PSTADE_func
 #undef  PSTADE_name
 #undef  PSTADE_OVEN_DETAIL_XXX_CHARS_PARAMS

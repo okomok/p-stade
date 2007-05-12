@@ -13,7 +13,7 @@
 #include <cctype> // tolower
 
 
-#define PSTADE_OVEN_DETAIL_XXX_CHARS_PARAMS (lower_chars, std::tolower)
+#define PSTADE_OVEN_DETAIL_XXX_CHARS_PARAMS (lower_chars, std::tolower, CharT)
 #include <pstade/oven/detail/xxx_chars.hpp>
 
 

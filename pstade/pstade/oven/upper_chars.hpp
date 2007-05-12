@@ -13,7 +13,7 @@
 #include <cctype> // toupper
 
 
-#define PSTADE_OVEN_DETAIL_XXX_CHARS_PARAMS (upper_chars, std::toupper)
+#define PSTADE_OVEN_DETAIL_XXX_CHARS_PARAMS (upper_chars, std::toupper, CharT)
 #include <pstade/oven/detail/xxx_chars.hpp>
 
 
