@@ -1,3 +1,5 @@
+#ifndef PSTADE_OVEN_DETAIL_XXX_CHARS_HPP
+#define PSTADE_OVEN_DETAIL_XXX_CHARS_HPP
 
 
 // PStade.Oven
@@ -8,66 +10,53 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#if !defined(PSTADE_OVEN_DETAIL_XXX_CHARS_PARAMS)
-    #error 'PSTADE_OVEN_DETAIL_XXX_CHARS_PARAMS' must be defined before.
-#endif
-
-#include <boost/preprocessor/tuple/elem.hpp>
-#define PSTADE_name BOOST_PP_TUPLE_ELEM(3, 0, PSTADE_OVEN_DETAIL_XXX_CHARS_PARAMS)
-#define PSTADE_func BOOST_PP_TUPLE_ELEM(3, 1, PSTADE_OVEN_DETAIL_XXX_CHARS_PARAMS)
-#define PSTADE_type BOOST_PP_TUPLE_ELEM(3, 2, PSTADE_OVEN_DETAIL_XXX_CHARS_PARAMS)
-
-
 #include <locale>
 #include <boost/utility/result_of.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
-#include <pstade/pipable.hpp>
+#include <pstade/deferred.hpp>
 #include "../concepts.hpp"
 #include "../range_value.hpp"
 #include "../transformed.hpp"
 
 
-namespace pstade { namespace oven {
+namespace pstade { namespace oven { namespace detail {
 
 
-namespace BOOST_PP_CAT(PSTADE_name, _detail) {
+template< class BinaryFun, class CharT >
+struct to_xxx_char
+{
+    typedef typename
+        boost::result_of<
+            PSTADE_DEFERRED(BinaryFun const)(CharT&, std::locale const&)
+        >::type
+    result_type;
 
-
-    template< class CharT >
-    struct convert
+    result_type operator()(CharT ch) const
     {
-        typedef PSTADE_type result_type;
+        return BinaryFun()(ch, m_loc);
+    }
 
-        result_type operator()(CharT ch) const
-        {
-            return PSTADE_func(ch, m_loc);
-        }
+    explicit to_xxx_char()
+    { }
 
-        explicit convert()
-        { }
+    explicit to_xxx_char(std::locale const& loc) :
+        m_loc(loc)
+    { }
 
-        explicit convert(std::locale const& loc) :
-            m_loc(loc)
-        { }
-
-    private:
-        std::locale m_loc;
-    };
+private:
+    std::locale m_loc;
+};
 
 
-} // namespace BOOST_PP_CAT(PSTADE_name, _detail)
-
-
-struct BOOST_PP_CAT(op_, PSTADE_name) :
-    callable<BOOST_PP_CAT(op_, PSTADE_name)>
+template< class BinaryFun >
+struct xxx_chars :
+    callable< xxx_chars<BinaryFun> >
 {
     template< class Myself, class Range, class Locale = std::locale const >
     struct apply :
         boost::result_of<
             op_make_transformed<>(
                 Range&,
-                BOOST_PP_CAT(PSTADE_name, _detail)::convert<typename range_value<Range>::type>
+                to_xxx_char<BinaryFun, typename range_value<Range>::type>
             )
         >
     { };
@@ -79,7 +68,7 @@ struct BOOST_PP_CAT(op_, PSTADE_name) :
 
         return make_transformed(
             rng,
-            BOOST_PP_CAT(PSTADE_name, _detail)::convert<typename range_value<Range>::type>(loc)
+            to_xxx_char<BinaryFun, typename range_value<Range>::type>(loc)
         );
     }
 
@@ -91,15 +80,7 @@ struct BOOST_PP_CAT(op_, PSTADE_name) :
 };
 
 
-PSTADE_CONSTANT(BOOST_PP_CAT(make_, PSTADE_name), (BOOST_PP_CAT(op_, PSTADE_name)))
-PSTADE_PIPABLE(PSTADE_name, (BOOST_PP_CAT(op_, PSTADE_name)))
+} } } // namespace pstade::oven::detail
 
 
-} } // namespace pstade::oven
-
-
-#undef  PSTADE_type
-#undef  PSTADE_func
-#undef  PSTADE_name
-#undef  PSTADE_OVEN_DETAIL_XXX_CHARS_PARAMS
-
+#endif
