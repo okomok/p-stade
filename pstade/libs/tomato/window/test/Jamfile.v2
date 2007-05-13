@@ -4,6 +4,11 @@
 
 import testing ;
 
+project
+    : requirements
+      <library>/boost/thread//boost_thread/<link>static
+    ;
+
 test-suite "tomato-window" :
     [ run class_name.cpp ]
     [ run for_each_child_window.cpp ]

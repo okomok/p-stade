@@ -4,7 +4,7 @@
 #include <boost/utility/result_of.hpp>
 #include <pstade/result_of_lambda.hpp>
 #include <pstade/lambda_bind.hpp>
-#include <pstade/oven/detail/good_sig.hpp>
+#include <pstade/oven/detail/deferred_sig.hpp>
 
 using namespace boost;
 
@@ -44,8 +44,8 @@ int main()
 
     // using a converter (compiles faster maybe)
     result_of<
-        result_of<op_good_sig(functor&)>::type(value_type&)
-    >::type y = good_sig(f)(x);
+        result_of<op_deferred_sig(functor&)>::type(value_type&)
+    >::type y = deferred_sig(f)(x);
 
     // using the bind
     result_of<

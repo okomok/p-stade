@@ -6,6 +6,7 @@ import testing ;
 
 project
     : requirements
+      <library>/boost/test//boost_test_exec_monitor/<link>static
       <library>/boost/test//boost_unit_test_framework/<link>static
     ;
 

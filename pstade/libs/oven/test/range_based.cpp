@@ -12,7 +12,7 @@
 
 #include <pstade/oven/range_based1.hpp>
 #include <pstade/oven/range_based2.hpp>
-#include <pstade/oven/detail/good_sig.hpp>
+#include <pstade/oven/detail/deferred_sig.hpp>
 
 
 #include <algorithm>
@@ -89,11 +89,11 @@ void test()
 
     {
         std::string rng("edcbagf");
-        detail::good_sig_return_op<lambda::ll::for_each>()(boost::begin(rng)|pstade::to_ref, boost::end(rng)|pstade::to_ref, do_nothing()|pstade::to_ref);
-        oven::range_based1(detail::good_sig(lambda::ll::for_each()))(rng, do_nothing());
-        oven::range_based1(detail::good_sig_return_op<lambda::ll::for_each>())(rng, do_nothing());
-        oven::range_based1(detail::good_sig_return_op<lambda::ll::sort>())(rng);
-        oven::range_based1(detail::good_sig_return_op<lambda::ll::sort>())(rng, pstade::less);
+        detail::deferred_sig_return_op<lambda::ll::for_each>()(boost::begin(rng)|pstade::to_ref, boost::end(rng)|pstade::to_ref, do_nothing()|pstade::to_ref);
+        oven::range_based1(detail::deferred_sig(lambda::ll::for_each()))(rng, do_nothing());
+        oven::range_based1(detail::deferred_sig_return_op<lambda::ll::for_each>())(rng, do_nothing());
+        oven::range_based1(detail::deferred_sig_return_op<lambda::ll::sort>())(rng);
+        oven::range_based1(detail::deferred_sig_return_op<lambda::ll::sort>())(rng, pstade::less);
         BOOST_CHECK( rng == "abcdefg" );
     }
     {
@@ -112,8 +112,8 @@ void test()
         std::string rng;
         bool never = false;
         if (never) {
-            oven::range_based1(detail::good_sig_return_op<lambda::ll::inner_product>())(rng, boost::begin(rng), 'c', pstade::plus, pstade::plus);
-            oven::range_based2(detail::good_sig_return_op<lambda::ll::merge>())(rng, rng, boost::begin(rng), pstade::less);
+            oven::range_based1(detail::deferred_sig_return_op<lambda::ll::inner_product>())(rng, boost::begin(rng), 'c', pstade::plus, pstade::plus);
+            oven::range_based2(detail::deferred_sig_return_op<lambda::ll::merge>())(rng, rng, boost::begin(rng), pstade::less);
         }
     }
     { // nullary
@@ -123,7 +123,7 @@ void test()
         int const i = 1;
         BOOST_CHECK( detail::good_nullary_sig(nullary_sig())() == 10 );
         BOOST_CHECK( detail::good_nullary_sig(nullary_sig())(i) == 11 );
-        BOOST_CHECK( detail::good_sig(nullary_sig())(i) == 11 );
+        BOOST_CHECK( detail::deferred_sig(nullary_sig())(i) == 11 );
     }
 
 }
