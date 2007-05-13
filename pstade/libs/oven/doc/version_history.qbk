@@ -141,7 +141,7 @@
 * Fixed a bug of `merged`.
 * Added `elements`.
 * Removed `firsts` and `seconds`.
-* `adjacent_filtered` accepts SinglePassRange.
+* `adjacent_filtered` and `adjacent_transformed` accept SinglePassRange.
 * Added `narrow_chars` and `wide_chars`.
 
 

@@ -71,7 +71,7 @@ It passes adjacent pairs to a function to transform repeatedly.
 * `<pstade/oven/adjacent_transformed.hpp>`
 
 [h3 Notation]
-* `{a1,..,aN}` is `_fwdrng`.
+* `{a1,..,aN}` is `_rng`.
 
 [h3 Valid expressions]
 [table 
@@ -86,28 +86,29 @@ It passes adjacent pairs to a function to transform repeatedly.
         ]
     ]
     [
-        [`op_make_adjacent_transformed<R>()(_fwdrng, _fun)`]
+        [`op_make_adjacent_transformed<R>()(_rng, _fun)`]
         [
             `{_fun(a1,a2),_fun(a2,a3),..,_fun(a(N-1),aN)}` whose `boost::range_reference` type is `R`.
         ]
     ]
     [
-        [`op_make_adjacent_transformed<>()(_fwdrng, _cal)`]
+        [`op_make_adjacent_transformed<>()(_rng, _cal)`]
         [
             `{_cal(a1,a2),_cal(a2,a3),..,_cal(a(N-1),aN)}`
         ]
     ]
     [
-        [`_fwdrng|adjacent_transformed(_cal)`]
+        [`_rng|adjacent_transformed(_cal)`]
         [
-            `op_make_adjacent_transformed<>()(_fwdrng, _cal)`
+            `op_make_adjacent_transformed<>()(_rng, _cal)`
         ]
     ]
 ]
 
 [h3 Preconditions]
-* `!boost::empty(_fwdrng)`
-* `_fun(*_begin(_fwdrng), *_begin(_fwdrng))` is well-formed.
+* If `_rng` is not _forward_, `_rng` is _readable_ and '_value_of<_typeof(_rng)>::type` is _assignable_.
+* `!boost::empty(_rng)`
+* `_fun(*_begin(_rng), *_begin(_rng))` is well-formed.
 * `_fun` is _assignable_ and _default_constructible_.
 * `_cal` meets the preconditions of `_fun`.
 

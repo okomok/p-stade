@@ -16,6 +16,7 @@
 
 //#include <iostream>
 #include <string>
+#include <pstade/oven/identities.hpp>
 
 
 namespace oven = pstade::oven;
@@ -35,6 +36,11 @@ void test()
             std::string("00122344444566778999")|duplicates,
             expected
         ) );
+
+        BOOST_CHECK( oven::test_SinglePass_Readable(
+            std::string("00122344444566778999")|identities(in_single_pass)|duplicates,
+            expected
+        ) );
     }
     {
         std::string ans("135678");
@@ -42,6 +48,11 @@ void test()
 
         BOOST_CHECK( oven::test_Forward_Readable(
             std::string("0112334555555667777888889")|duplicates,
+            expected
+        ) );
+
+        BOOST_CHECK( oven::test_SinglePass_Readable(
+            std::string("0112334555555667777888889")|identities(in_single_pass)|duplicates,
             expected
         ) );
     }

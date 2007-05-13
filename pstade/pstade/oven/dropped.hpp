@@ -51,6 +51,7 @@ namespace dropped_detail {
         template< class Iterator >
         result_type aux(Iterator first, Iterator last, diff_t n, boost::random_access_traversal_tag) const
         {
+            PSTADE_CONCEPT_ASSERT((RandomAccess<Range>));
             return result_type(first + (std::min)(last - first, n), last);
         }
 

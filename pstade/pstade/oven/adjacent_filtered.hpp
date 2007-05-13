@@ -37,7 +37,7 @@ namespace adjacent_filtered_detail {
 
 
     template< class Iterator, class Predicate >
-    Iterator aux(Iterator first, Iterator last, Predicate pred,
+    Iterator filter_aux(Iterator first, Iterator last, Predicate pred,
         boost::forward_traversal_tag)
     {
         Iterator next = first;
@@ -50,7 +50,7 @@ namespace adjacent_filtered_detail {
     }
 
     template< class Iterator, class Predicate >
-    Iterator aux(Iterator next, Iterator last, Predicate pred,
+    Iterator filter_aux(Iterator next, Iterator last, Predicate pred,
         boost::single_pass_traversal_tag)
     {
         typename boost::iterator_value<Iterator>::type value = read(next);
@@ -71,7 +71,7 @@ namespace adjacent_filtered_detail {
         template< class Iterator>
         Iterator operator()(Iterator first, Iterator last) const
         {
-            return here::aux(first, last, m_pred,
+            return here::filter_aux(first, last, m_pred,
                 typename boost::iterator_traversal<Iterator>::type());
         }
 

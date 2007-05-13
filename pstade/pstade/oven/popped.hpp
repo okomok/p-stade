@@ -70,7 +70,7 @@ namespace popped_detail {
         explicit pop_iterator(ForwardIter it, ForwardIter last) :
             super_t(it), m_last(last)
         {
-            look_next();    
+            look_next();
         }
 
         explicit pop_iterator(ForwardIter last) : // the end iterator
@@ -131,7 +131,7 @@ namespace popped_detail {
 
         result_type operator()(Range& rng) const
         {
-            PSTADE_CONCEPT_ASSERT((Forward<Range>));
+            PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
             BOOST_ASSERT(!boost::empty(rng));
             return aux(boost::begin(rng), boost::end(rng), typename range_traversal<Range>::type());
         }
@@ -139,12 +139,14 @@ namespace popped_detail {
         template< class Iterator >
         result_type aux(Iterator first, Iterator last, boost::bidirectional_traversal_tag) const
         {
+            PSTADE_CONCEPT_ASSERT((Bidirectional<Range>));
             return result_type(first, boost::prior(last));
         }
 
         template< class Iterator >
         result_type aux(Iterator first, Iterator last, boost::forward_traversal_tag) const
         {
+            PSTADE_CONCEPT_ASSERT((Forward<Range>));
             typedef typename result_type::iterator iter_t;
             return result_type(iter_t(first, last), iter_t(last));
         }

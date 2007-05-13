@@ -16,6 +16,8 @@
 //     http://www.crystalclearsoftware.com/cgi-bin/boost_wiki/wiki.pl?STLAlgorithmExtensions/NonUniqueCopy
 
 
+#include <boost/iterator/iterator_categories.hpp>
+#include <boost/iterator/iterator_traits.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
@@ -35,23 +37,50 @@ namespace pstade { namespace oven {
 namespace duplicates_detail {
 
 
+    namespace here = duplicates_detail;
+
+
+    template< class Iterator, class Predicate >
+    Iterator skip_unique_aux(Iterator first, Iterator last, Predicate pred,
+        boost::forward_traversal_tag)
+    {
+        Iterator next = first;
+        while (++next != last) {
+            if (pred(read(first), read(next)))
+                return next;
+            else // skip
+                first = next;
+        }
+
+        return last;
+    }
+
+    template< class Iterator, class Predicate >
+    Iterator skip_unique_aux(Iterator next, Iterator last, Predicate pred,
+        boost::single_pass_traversal_tag)
+    {
+        typename boost::iterator_value<Iterator>::type value = read(next);
+        while (++next != last) {
+            if (pred(value, read(next)))
+                return next;
+            else // skip
+                value = read(next); // needs Assignable.
+        }
+
+        return last;
+    }
+
+
     template< class BinaryPred >
     struct skip_unique
     {
         typedef skip_unique is_constant;
 
-        template< class ForwardIter >
-        ForwardIter operator()(ForwardIter first, ForwardIter last) const
+        template< class Iterator >
+        Iterator operator()(Iterator first, Iterator last) const
         {
-            ForwardIter next(first);
-            while (++next != last) {
-                if (m_pred(read(first), read(next)))
-                    return next;
-                else // skip
-                    first = next;
-            }
-
-            return last;
+            return here::skip_unique_aux(first, last, m_pred,
+                typename boost::iterator_traversal<Iterator>::type());
         }
 
         explicit skip_unique() 
@@ -96,7 +125,7 @@ struct op_make_duplicates :
     template< class Result, class Range, class Predicate >
     Result call(Range& rng, Predicate pred) const
     {
-        PSTADE_CONCEPT_ASSERT((Forward<Range>));
+        PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
 
         return
             make_uniqued(

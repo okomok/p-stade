@@ -34,7 +34,6 @@
 
 
 #include <boost/iterator/iterator_adaptor.hpp>
-#include <boost/iterator/iterator_traits.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/utility/result_of.hpp>
@@ -151,13 +150,13 @@ struct op_make_transformed :
         fun_t;
 
         typedef typename
-            boost::iterator_reference<base_iter_t>::type
-        base_ref_t;
+            iterator_read<base_iter_t>::type
+        read_t;
 
         typedef typename
             use_default_eval_to<
                 Reference,
-                boost::result_of<PSTADE_DEFERRED(fun_t const)(base_ref_t)>
+                boost::result_of<PSTADE_DEFERRED(fun_t const)(read_t)>
             >::type
         ref_t;
 

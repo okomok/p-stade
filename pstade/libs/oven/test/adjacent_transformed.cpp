@@ -51,6 +51,13 @@ void test()
             expected
         ) );
 
+        BOOST_CHECK( oven::test_SinglePass_Readable(
+            src | identities(boost::single_pass_traversal_tag()) |
+                adjacent_transformed(pstade::plus),
+            expected
+        ) );
+
+
         namespace lambda = boost::lambda;
         BOOST_CHECK( oven::test_RandomAccess_Readable(
             src |
@@ -85,6 +92,11 @@ void test()
 
         BOOST_CHECK( oven::test_empty(
             nothing | identities(boost::forward_traversal_tag()) |
+                adjacent_transformed(pstade::plus)
+        ) );
+
+        BOOST_CHECK( oven::test_empty(
+            nothing | identities(boost::single_pass_traversal_tag()) |
                 adjacent_transformed(pstade::plus)
         ) );
     }

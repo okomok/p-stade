@@ -110,7 +110,7 @@ namespace pstade {
         { };
 
         template<class T, class U>
-        struct size<std::pair<T, U> > :
+        struct size< std::pair<T, U> > :
             mpl::int_<2>
         { };
 
