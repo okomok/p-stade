@@ -1,0 +1,27 @@
+
+subproject libs/biscuit/example ;
+
+import testing ;
+
+# DEPENDS all : test ;
+
+rule biscuit-example ( name )
+{
+    return [
+        run $(name).cpp
+        : : :
+        <include>$(PSTADE_ROOT)
+        <include>$(BOOST_ROOT)
+        <include>$(MINGW_INCLUDE_DIRECTORY)
+    ] ;
+}
+
+test-suite biscuit-examples :
+    [ biscuit-example calc_debug/calc_debug ]
+    [ biscuit-example calc_plain/calc_plain ]
+    [ biscuit-example cpp_to_hatena/cpp_to_hatena ]
+    [ biscuit-example cpp_to_xhtml/cpp_to_xhtml ]
+    [ biscuit-example doc/doc ]
+    [ biscuit-example rst_inliner/rst_inliner ]
+    [ biscuit-example xml_grammar/xml_grammar ]
+    ;

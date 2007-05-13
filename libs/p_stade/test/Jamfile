@@ -1,0 +1,23 @@
+
+subproject libs/p_stade/test ;
+
+import testing ;
+
+
+DEPENDS all : test ;
+
+
+rule p_stade-test ( name )
+{
+    return [
+        run $(name).cpp
+        : : :
+        <include>$(PSTADE_ROOT)
+        <include>$(BOOST_ROOT)
+    ] ;
+}
+
+
+test-suite p_stade :
+    [ p_stade-test now ]
+    ;

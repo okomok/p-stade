@@ -1,0 +1,40 @@
+
+[library Wine
+    [version 0.9.6]
+    [authors [Sogame, Shunsuke]]
+    [copyright 2007 Shusuke Sogame]
+    [category generic]
+    [purpose language utilities ]
+    [license
+        Distributed under the Boost Software License, Version 1.0.
+        (See accompanying file LICENSE_1_0.txt or copy at
+        <ulink url="http://www.boost.org/LICENSE_1_0.txt">
+            http://www.boost.org/LICENSE_1_0.txt
+        </ulink>)
+    ]
+]
+
+[/ QuickBook Document version 1.0 ]
+
+
+[/  Links   ]
+
+[def _spirit_fx_             [@http://spirit.sourceforge.net Spirit Parser Framework]]
+[def _spirit_                [@http://spirit.sourceforge.net Spirit]]
+[def _regexpp_               [@http://www.boost.org/libs/regex Boost.Regex]]
+[def _proposal_              [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2003/n1429.htm proposal]]
+[def _boost_                 [@http://www.boost.org Boost]]
+[def _greta_                 [@http://research.microsoft.com/projects/greta GRETA]]
+[def _perl6_                 [@http://www.perl.com/pub/a/2002/06/04/apo5.html Perl 6]]
+[def _iterator_              [@http://boost.org/libs/iterator/doc/index.html Boost.Iterator]]
+
+[include preface.qbk]
+
+[section Concepts ]
+[include callable.qbk]
+[endsect]
+
+[section Reference]
+[include fuse.qbk]
+[include unfuse.qbk]
+[endsect]

@@ -1,0 +1,23 @@
+
+subproject libs/lime/test ;
+
+import testing ;
+
+DEPENDS all : test ;
+
+rule lime-test ( name : includes * )
+{
+    return [
+        run $(name).cpp
+        : : :
+        <include>$(PSTADE_ROOT)
+        <include>$(BOOST_ROOT)
+
+    ] ;
+}
+
+test-suite lime :
+    #[ lime-test basic ]
+    [ lime-test header ]
+    [ lime-test node ]
+    ;
