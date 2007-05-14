@@ -10,7 +10,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/oven.hpp>
+#include <pstade/oven.hpp>
+
+
+using namespace pstade::oven;
 
 
 int test_main(int, char*[])

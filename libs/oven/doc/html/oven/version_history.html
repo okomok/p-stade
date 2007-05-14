@@ -18,14 +18,14 @@
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="oven.version_history"></a>Version History</h2></div></div></div>
 <a name="version_history.version_0_90_0"></a><h3>
-<a name="id583617"></a>
+<a name="id583523"></a>
       Version 0.90.0
     </h3>
 <div class="itemizedlist"><ul type="disc"><li>
         Released initial version.
       </li></ul></div>
 <a name="version_history.version_0_90_1___0_90_6"></a><h3>
-<a name="id583640"></a>
+<a name="id583546"></a>
       Version 0.90.1 - 0.90.6
     </h3>
 <div class="itemizedlist"><ul type="disc">
@@ -86,7 +86,7 @@
       </li>
 </ul></div>
 <a name="version_history.version_0_90_7___0_90_9"></a><h3>
-<a name="id583981"></a>
+<a name="id583887"></a>
       Version 0.90.7 - 0.90.9
     </h3>
 <div class="itemizedlist"><ul type="disc">
@@ -123,7 +123,7 @@
       </li>
 </ul></div>
 <a name="version_history.version_0_91_0___0_91_3"></a><h3>
-<a name="id584194"></a>
+<a name="id584100"></a>
       Version 0.91.0 - 0.91.3
     </h3>
 <div class="itemizedlist"><ul type="disc">
@@ -193,7 +193,7 @@
       </li>
 </ul></div>
 <a name="version_history.version_0_91_4___0_91_9"></a><h3>
-<a name="id584676"></a>
+<a name="id584582"></a>
       Version 0.91.4 - 0.91.9
     </h3>
 <div class="itemizedlist"><ul type="disc">
@@ -246,7 +246,7 @@
       </li>
 </ul></div>
 <a name="version_history.version_0_92_0___0_92_3"></a><h3>
-<a name="id584956"></a>
+<a name="id584862"></a>
       Version 0.92.0 - 0.92.3
     </h3>
 <div class="itemizedlist"><ul type="disc">
@@ -273,7 +273,7 @@
       </li>
 </ul></div>
 <a name="version_history.version_0_93_0___0_93_3"></a><h3>
-<a name="id585136"></a>
+<a name="id585042"></a>
       Version 0.93.0 - 0.93.3
     </h3>
 <div class="itemizedlist"><ul type="disc">
@@ -343,7 +343,7 @@
       </li>
 </ul></div>
 <a name="version_history.version_0_93_4"></a><h3>
-<a name="id585545"></a>
+<a name="id585451"></a>
       Version 0.93.4
     </h3>
 <div class="itemizedlist"><ul type="disc">
@@ -382,24 +382,27 @@
       </li>
 </ul></div>
 <a name="version_history.version_0_93_5"></a><h3>
-<a name="id585858"></a>
+<a name="id585764"></a>
       Version 0.93.5
     </h3>
 <div class="itemizedlist"><ul type="disc"><li>
         Fixed missing Boost.Lambda support.
       </li></ul></div>
 <a name="version_history.version_0_93_6"></a><h3>
-<a name="id585881"></a>
+<a name="id585787"></a>
       Version 0.93.6
     </h3>
 <div class="itemizedlist"><ul type="disc"><li>
         Added <code class="computeroutput"><span class="identifier">initializers</span></code>.
       </li></ul></div>
 <a name="version_history.version_0_94_0"></a><h3>
-<a name="id585913"></a>
+<a name="id585819"></a>
       Version 0.94.0
     </h3>
 <div class="itemizedlist"><ul type="disc">
+<li>
+        Ported to Boost v1.34.
+      </li>
 <li>
         Ported to QuickBook.
       </li>
@@ -412,9 +415,6 @@
 <li>
         Renamed <code class="computeroutput"><span class="identifier">initializers</span></code> to
         <code class="computeroutput"><span class="identifier">initial_values</span></code>.
-      </li>
-<li>
-        Ported to Boost v1.34.
       </li>
 <li>
         Added <code class="computeroutput"><span class="identifier">expression</span></code>.
@@ -438,8 +438,7 @@
       </li>
 <li>
         Fixed a bug that <code class="computeroutput"><span class="identifier">memoized</span></code>
-        is not conforming <code class="computeroutput"><span class="identifier">lvalue</span></code>
-        range.
+        is not conforming <code class="computeroutput"><span class="identifier">LvalueRange</span></code>.
       </li>
 <li>
 <code class="computeroutput"><span class="identifier">popped</span></code> returns in constant
@@ -470,7 +469,7 @@
         Removed <code class="computeroutput"><span class="identifier">firsts</span></code> and <code class="computeroutput"><span class="identifier">seconds</span></code>.
       </li>
 <li>
-<code class="computeroutput"><span class="identifier">adjacent_filtered</span></code> and <code class="computeroutput"><span class="identifier">adjacent_transformed</span></code> accept SinglePassRange.
+<code class="computeroutput"><span class="identifier">adjacent_filtered</span></code> and <code class="computeroutput"><span class="identifier">adjacent_transformed</span></code> accept <code class="computeroutput"><span class="identifier">SinglePassRange</span></code>.
       </li>
 <li>
         Added <code class="computeroutput"><span class="identifier">narrow_chars</span></code> and <code class="computeroutput"><span class="identifier">wide_chars</span></code>.

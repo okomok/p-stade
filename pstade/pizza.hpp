@@ -10,10 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./pizza/functions.hpp"
-#include "./pizza/get_write.hpp"
-#include "./pizza/ini_section.hpp"
-#include "./pizza/reg_key.hpp"
+#include "./pizza/pizza.hpp"
 
 
 #endif

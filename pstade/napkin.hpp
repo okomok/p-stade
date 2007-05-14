@@ -10,11 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./napkin/config.hpp"
-#include "./napkin/extension.hpp"
-#include "./napkin/nout.hpp"
-#include "./napkin/ostream.hpp"
-#include "./napkin/ostream_char.hpp"
+#include "./napkin/napkin.hpp"
 
 
 #endif

@@ -10,12 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./biscuit/action.hpp"
-#include "./biscuit/algorithm.hpp"
-#include "./biscuit/match_results.hpp"
-#include "./biscuit/parser.hpp"
-#include "./biscuit/range.hpp"
-#include "./biscuit/state.hpp"
+#include "./biscuit/biscuit.hpp"
 
 
 #endif

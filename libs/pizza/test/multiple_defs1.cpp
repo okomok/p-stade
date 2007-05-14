@@ -17,6 +17,9 @@ WTL::CAppModule _Module;
 #include <pstade/pizza.hpp>
 
 
+using namespace pstade::pizza;
+
+
 int test_main(int, char*[])
 {
     return 0;

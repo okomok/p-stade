@@ -13,6 +13,9 @@
 #include <pstade/radish.hpp>
 
 
+using namespace pstade::radish;
+
+
 int test_main(int, char*[])
 {
     return 0;

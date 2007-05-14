@@ -41,6 +41,30 @@ namespace pstade_oven_extension {
     };
 
 
+    template< class Iter >
+    struct Range< boost::tuples::cons<Iter, boost::tuples::cons<Iter, boost::tuples::null_type> > >
+    {
+        template< class X >
+        struct associate
+        {
+            typedef Iter mutable_iterator;
+            typedef Iter constant_iterator;
+        };
+
+        template< class Iterator, class X >
+        Iterator begin(X& x)
+        {
+            return boost::tuples::get<0>(x);
+        }
+
+        template< class Iterator, class X >
+        Iterator end(X& x)
+        {
+            return boost::tuples::get<1>(x);
+        }
+    };
+
+
 } // namespace pstade_oven_extension
 
 

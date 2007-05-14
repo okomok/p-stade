@@ -251,8 +251,8 @@ Oven provides range-based algorithms taking a range instead of two iterators.
 
 [h3 Example]
     std::string src("abcDefg");   
-    oven::copy(src|reversed|upper_chars, src|reversed|begin);
-    BOOST_CHECK( oven::equals(src, std::string("ABCDEFG")) );
+    copy(src|reversed|upper_chars, src|reversed|begin);
+    BOOST_CHECK( equals(src, std::string("ABCDEFG")) );
     
 [endsect]
 
@@ -419,7 +419,7 @@ The last precondition comes from a GCC bug. Notice that `Rng1 _rng1(_rng2|copied
 [section none]
 
 [h3 Description]
-This algorithm returns true if the predicate is true for none of the referents in the range.
+`none` returns true if the predicate is true for none of the referents in the range.
 
 [h3 Header]
 * `<pstade/oven/none.hpp>`

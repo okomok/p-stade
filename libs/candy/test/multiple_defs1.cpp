@@ -13,6 +13,9 @@
 #include <pstade/candy.hpp>
 
 
+using namespace pstade::candy;
+
+
 int test_main(int, char*[])
 {
     return 0;

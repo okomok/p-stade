@@ -10,11 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./radish/bool_testable.hpp"
-#include "./radish/null_injector.hpp"
-#include "./radish/pointable.hpp"
-#include "./radish/safe_bool.hpp"
-#include "./radish/swappable.hpp"
+#include "./radish/radish.hpp"
 
 
 #endif

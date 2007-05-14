@@ -13,6 +13,9 @@
 #include <pstade/napkin.hpp>
 
 
+using namespace pstade::napkin;
+
+
 int test_main(int, char*[])
 {
     return 0;

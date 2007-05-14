@@ -12,8 +12,8 @@
 
 //#include <pstade/../libs/wine/test/tuple.cpp>
 
-#include <pstade/../libs/oven/test/adjacent_transformed.cpp>
-//#include <pstade/../libs/oven/test/multiple_defs1.cpp>
+//#include <pstade/../libs/oven/test/tuple.cpp>
+#include <pstade/../libs/oven/test/multiple_defs1.cpp>
 //#include <pstade/../libs/oven/example/quick_sort.cpp>
 //#include <pstade/../libs/biscuit/test/capture.cpp>
 //#include <pstade/../libs/oven/test/ms/atl_string.cpp>

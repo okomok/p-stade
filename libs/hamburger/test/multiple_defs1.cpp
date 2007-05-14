@@ -17,6 +17,9 @@ WTL::CAppModule _Module;
 #include <pstade/hamburger.hpp>
 
 
+using namespace pstade::hamburger;
+
+
 int test_main(int, char*[])
 {
     return 0;

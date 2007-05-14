@@ -142,7 +142,7 @@ In addition to the requirements defined in _single_pass_ _range_,
 for any _constant_ _range_ `r` the following must be met:
 
 * `boost::implicit_cast<_value_of<_typeof(r)>::type&>(*_begin(_r))` is ill-formed.
-* `r` is a neither _writable_ nor _swappable_ _range_.
+* `r` is neither _writable_ nor _swappable_.
 
 [h3 Models]
 * `std::list<int> const`
