@@ -120,18 +120,18 @@
 * Added `initializers`.
 
 [h2 Version 0.94.0]
+* Ported to Boost v1.34.
 * Ported to QuickBook.
 * Renamed `advanced` to `offset`.
 * Renamed `directed` to `outdirected`.
 * Renamed `initializers` to `initial_values`.
-* Ported to Boost v1.34.
 * Added `expression`.
 * Added `steps`.
 * Renamed `stream_input` to `stream_read`.
 * Renamed `Output Iterator Adaptors`.
 * Renamed `as_single` to `single`.
 * Renamed `const_lvalues` to `const_refs`.
-* Fixed a bug that `memoized` is not conforming `lvalue` range.
+* Fixed a bug that `memoized` is not conforming `LvalueRange`.
 * `popped` returns in constant time.
 * `iteration` returns `ForwardRange`.
 * Removed `repeat`, `appended` and `prepended`.
@@ -141,7 +141,7 @@
 * Fixed a bug of `merged`.
 * Added `elements`.
 * Removed `firsts` and `seconds`.
-* `adjacent_filtered` and `adjacent_transformed` accept SinglePassRange.
+* `adjacent_filtered` and `adjacent_transformed` accept `SinglePassRange`.
 * Added `narrow_chars` and `wide_chars`.
 
 

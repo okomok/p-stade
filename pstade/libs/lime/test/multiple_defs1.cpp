@@ -13,6 +13,9 @@
 #include <pstade/lime.hpp>
 
 
+using namespace pstade::lime;
+
+
 int test_main(int, char*[])
 {
     return 0;

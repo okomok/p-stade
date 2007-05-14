@@ -17,6 +17,9 @@ WTL::CAppModule _Module;
 #include <pstade/tomato.hpp>
 
 
+using namespace pstade::tomato;
+
+
 int test_main(int, char*[])
 {
     return 0;

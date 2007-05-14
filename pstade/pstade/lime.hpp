@@ -10,18 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./lime/error.hpp"
-#include "./lime/extension.hpp"
-#include "./lime/find.hpp"
-#include "./lime/intrinsic.hpp"
-#include "./lime/load.hpp"
-#include "./lime/load_file.hpp"
-#include "./lime/new_node.hpp"
-#include "./lime/node_facade.hpp"
-#include "./lime/root.hpp"
-#include "./lime/save.hpp"
-#include "./lime/save_file.hpp"
-#include "./lime/traverse.hpp"
+#include "./lime/lime.hpp"
 
 
 #endif

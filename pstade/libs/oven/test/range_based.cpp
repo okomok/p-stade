@@ -117,12 +117,12 @@ void test()
         }
     }
     { // nullary
-        typedef boost::result_of<detail::op_good_nullary_sig(::nullary_sig)>::type good_t;
+        typedef boost::result_of<detail::op_nullary_deferred_sig(::nullary_sig)>::type good_t;
         PSTADE_TEST_IS_RESULT_OF((int), good_t(int))
         PSTADE_TEST_IS_RESULT_OF((int), good_t())
         int const i = 1;
-        BOOST_CHECK( detail::good_nullary_sig(nullary_sig())() == 10 );
-        BOOST_CHECK( detail::good_nullary_sig(nullary_sig())(i) == 11 );
+        BOOST_CHECK( detail::nullary_deferred_sig(nullary_sig())() == 10 );
+        BOOST_CHECK( detail::nullary_deferred_sig(nullary_sig())(i) == 11 );
         BOOST_CHECK( detail::deferred_sig(nullary_sig())(i) == 11 );
     }
 

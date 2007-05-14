@@ -21,7 +21,7 @@
 // called from 'range_basedN' with 'to_cref'.
 //
 // As we can't detect the arity without 'bind',
-// a nullary-callable function must be identified by 'good_nullary_sig'.
+// a nullary-callable function must be identified by 'nullary_deferred_sig'.
 
 
 #include <boost/config.hpp> // BOOST_NESTED_TEMPLATE
@@ -103,7 +103,7 @@ private:
 
 
 PSTADE_OBJECT_GENERATOR(deferred_sig,         (deferred_sig_return_op< deduce<_1, as_value> >))
-PSTADE_OBJECT_GENERATOR(good_nullary_sig, (deferred_sig_return_op< deduce<_1, as_value>, boost::mpl::true_ >))
+PSTADE_OBJECT_GENERATOR(nullary_deferred_sig, (deferred_sig_return_op< deduce<_1, as_value>, boost::mpl::true_ >))
 
 
 } } } // namespace pstade::oven::detail

@@ -10,9 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./sausage/exception.hpp"
-#include "./sausage/yield_iterator.hpp"
-#include "./sausage/yield_range.hpp"
+#include "./sausage/sausage.hpp"
 
 
 #endif

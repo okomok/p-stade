@@ -18,6 +18,7 @@
 // What:
 //
 // Converts DeferredCallableObject into PolymorphicFunctionObject.
+// Remember that gcc sometimes fails to compile trivial code for some reason.
 
 
 #include <boost/preprocessor/arithmetic/inc.hpp>

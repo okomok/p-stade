@@ -13,6 +13,9 @@
 #include <pstade/apple.hpp>
 
 
+using namespace pstade::apple;
+
+
 int test_main(int, char*[])
 {
     return 0;

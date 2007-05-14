@@ -13,6 +13,9 @@
 #include <pstade/sausage.hpp>
 
 
+using namespace pstade::sausage;
+
+
 int test_main(int, char*[])
 {
     return 0;

@@ -10,12 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./hamburger/elements.hpp"
-#include "./hamburger/error.hpp"
-#include "./hamburger/factory.hpp"
-#include "./hamburger/load_save.hpp"
-#include "./hamburger/lime.hpp"
-#include "./hamburger/rectangle.hpp"
+#include "./hamburger/hamburger.hpp"
 
 
 #endif

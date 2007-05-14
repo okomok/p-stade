@@ -30,8 +30,8 @@
 #include <boost/tuple/tuple.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/affect.hpp>
-#include <pstade/apple/pair_fwd.hpp>
 #include <pstade/apple/is_pair.hpp>
+#include <pstade/apple/pair_fwd.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/enable_if.hpp>

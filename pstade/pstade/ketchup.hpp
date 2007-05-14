@@ -10,10 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./ketchup/cmd_ui.hpp"
-#include "./ketchup/core.hpp"
-#include "./ketchup/id.hpp"
-#include "./ketchup/idset.hpp"
+#include "./ketchup/ketchup.hpp"
 
 
 #endif
