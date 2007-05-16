@@ -1,0 +1,25 @@
+# (C) Copyright 2007: Shunsuke Sogame
+# Distributed under the Boost Software License, Version 1.0.
+# (See accompanying file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+
+import testing ;
+
+project
+    : requirements
+      <library>/boost/test//boost_test_exec_monitor/<link>static
+      <library>/boost/test//boost_unit_test_framework/<link>static
+    ;
+
+test-suite range :
+    [ run adjacent_difference.cpp ]
+    [ run auto_factorials.cpp ]
+    [ run factorials.cpp ]
+    [ run fibonacci.cpp ]
+    [ run newton.cpp ]
+    [ run one_year.cpp ]
+    [ run primes.cpp ]
+    [ run quick_sort.cpp ]
+    [ run read.cpp ]
+    [ run specification.cpp ]
+    [ run zip.cpp ]
+    ;

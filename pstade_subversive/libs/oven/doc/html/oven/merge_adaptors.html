@@ -1,0 +1,434 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Merge Adaptors</title>
+<link rel="stylesheet" href="../boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.72.0">
+<link rel="start" href="../index.html" title="Chapter 1. Oven 0.94.0">
+<link rel="up" href="../index.html" title="Chapter 1. Oven 0.94.0">
+<link rel="prev" href="string_adaptors.html" title="String Adaptors">
+<link rel="next" href="utilities.html" title="Utilities">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><td valign="top"><img alt="pstade" width="200" height="164" src="../../../../doc/logo.png"></td></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="string_adaptors.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="utilities.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="oven.merge_adaptors"></a>Merge Adaptors</h2></div></div></div>
+<div class="toc"><dl>
+<dt><span class="section"><a href="merge_adaptors.html#oven.merged">merged</a></span></dt>
+<dt><span class="section"><a href="merge_adaptors.html#oven.set_cap">set_cap</a></span></dt>
+<dt><span class="section"><a href="merge_adaptors.html#oven.set_cup">set_cup</a></span></dt>
+<dt><span class="section"><a href="merge_adaptors.html#oven.set_delta">set_delta</a></span></dt>
+<dt><span class="section"><a href="merge_adaptors.html#oven.set_minus">set_minus</a></span></dt>
+</dl></div>
+<p>
+      A Merge Adaptor is a <a href="range_adaptors.html" title="Range Adaptors">Range Adaptor</a>
+      for sorted ranges.
+    </p>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.merged"></a>merged</h3></div></div></div>
+<a name="merged.description"></a><h4>
+<a name="id569747"></a>
+        Description
+      </h4>
+<p>
+        <code class="computeroutput"><span class="identifier">merged</span></code> combines two sorted
+        ranges into a single sorted range.
+      </p>
+<a name="merged.header"></a><h4>
+<a name="id569775"></a>
+        Header
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">merged</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="merged.model_of"></a><h4>
+<a name="id569846"></a>
+        Model of
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_object" title="Pipable Object">Pipable Object</a></li></ul></div>
+<a name="merged.notation"></a><h4>
+<a name="id569874"></a>
+        Notation
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li>
+<code class="computeroutput"><span class="identifier">less</span></code> is <code class="computeroutput"><span class="identifier">regular</span><span class="special">(</span><span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">_1</span> <span class="special">&lt;</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">lambda</span><span class="special">::</span><span class="identifier">_2</span><span class="special">)</span></code>.
+        </li></ul></div>
+<a name="merged.valid_expressions"></a><h4>
+<a name="id569984"></a>
+        Valid expressions
+      </h4>
+<div class="informaltable">
+<h5>
+<a name="id569996"></a>
+        </h5>
+<table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th><span class="bold"><strong>Valid expression</strong></span></th>
+<th><span class="bold"><strong>Semantics</strong></span></th>
+</tr></thead>
+<tbody>
+<tr>
+<td><code class="computeroutput"><span class="identifier">_rng1</span><span class="special">|</span><span class="identifier">merged</span><span class="special">(</span><span class="identifier">_rng2</span><span class="special">,</span> <span class="identifier">_prd</span><span class="special">)</span></code></td>
+<td>
+              An up-to-<a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#forward-traversal-iterators-lib-forward-traversal-iterators" target="_top">Forward</a> <a href="concepts.html#oven.constant_range" title="Constant Range">Constant</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
+              which behaves as if it were made by <code class="computeroutput"><span class="identifier">merge</span><span class="special">(</span><span class="identifier">_rng1</span><span class="special">,</span> <span class="identifier">_rng2</span><span class="special">,</span> <span class="identifier">_prd</span><span class="special">)</span></code>. </td>
+</tr>
+<tr>
+<td><code class="computeroutput"><span class="identifier">_rng1</span><span class="special">|</span><span class="identifier">merged</span><span class="special">(</span><span class="identifier">_rng2</span><span class="special">)</span></code></td>
+<td>
+              <code class="computeroutput"><span class="identifier">_rng1</span><span class="special">|</span><span class="identifier">merged</span><span class="special">(</span><span class="identifier">_rng2</span><span class="special">,</span> <span class="identifier">less</span><span class="special">)</span></code>
+              </td>
+</tr>
+</tbody>
+</table>
+</div>
+<a name="merged.preconditions"></a><h4>
+<a name="id570256"></a>
+        Preconditions
+      </h4>
+<div class="itemizedlist"><ul type="disc">
+<li>
+<code class="computeroutput"><span class="identifier">_rng1</span></code> and <code class="computeroutput"><span class="identifier">_rng2</span></code> are <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#readable-iterators-lib-readable-iterators" target="_top">Readable</a>
+          or <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#lvalue-iterators-lib-lvalue-iterators" target="_top">Lvalue</a>.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">range_reference</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_rng2</span><span class="special">)&gt;::</span><span class="identifier">type</span></code> is convertible to <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">range_reference</span><span class="special">&lt;</span><span class="identifier">_typeof</span><span class="special">(</span><span class="identifier">_rng1</span><span class="special">)&gt;::</span><span class="identifier">type</span></code> without binding <span class="emphasis"><em>reference</em></span>
+          to <span class="emphasis"><em>rvalue</em></span>.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">_rng1</span></code> and <code class="computeroutput"><span class="identifier">_rng2</span></code> are sorted.
+        </li>
+<li>
+<code class="computeroutput"><span class="identifier">_prd</span></code> is <a href="http://boost.org/doc/html/Assignable.html" target="_top">Assignable</a>
+          and <a href="http://boost.org/doc/html/DefaultConstructible.html" target="_top">Default
+          Constructible</a>.
+        </li>
+</ul></div>
+<a name="merged.example"></a><h4>
+<a name="id570482"></a>
+        Example
+      </h4>
+<pre class="programlisting">
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">A1</span><span class="special">(</span><span class="string">"abbbfH"</span><span class="special">);</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">A2</span><span class="special">(</span><span class="string">"ABbCDFFhh"</span><span class="special">);</span>
+<span class="identifier">std</span><span class="special">::</span><span class="identifier">string</span> <span class="identifier">AA</span><span class="special">(</span><span class="string">"aAbbbBbCDfFFHhh"</span><span class="special">);</span>
+<span class="identifier">BOOST_CHECK</span><span class="special">(</span> <span class="identifier">equals</span><span class="special">(</span><span class="identifier">A1</span><span class="special">|</span><span class="identifier">merged</span><span class="special">(</span><span class="identifier">A2</span><span class="special">,</span> <span class="special">&amp;::</span><span class="identifier">lt_nocase</span><span class="special">),</span> <span class="identifier">AA</span><span class="special">)</span> <span class="special">);</span>
+</pre>
+<a name="merged.see_also"></a><h4>
+<a name="id570698"></a>
+        See also
+      </h4>
+<div class="itemizedlist"><ul type="disc">
+<li><a href="merge_adaptors.html#oven.set_cap" title="set_cap">set_cap</a></li>
+<li><a href="merge_adaptors.html#oven.set_cup" title="set_cup">set_cup</a></li>
+<li><a href="merge_adaptors.html#oven.set_delta" title="set_delta">set_delta</a></li>
+<li><a href="merge_adaptors.html#oven.set_minus" title="set_minus">set_minus</a></li>
+</ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.set_cap"></a>set_cap</h3></div></div></div>
+<a name="set_cap.description"></a><h4>
+<a name="id570779"></a>
+        Description
+      </h4>
+<a name="set_cap.header"></a><h4>
+<a name="id570791"></a>
+        Header
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">set_cap</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="set_cap.model_of"></a><h4>
+<a name="id570862"></a>
+        Model of
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_object" title="Pipable Object">Pipable Object</a></li></ul></div>
+<a name="set_cap.valid_expressions"></a><h4>
+<a name="id570892"></a>
+        Valid expressions
+      </h4>
+<div class="informaltable">
+<h5>
+<a name="id570903"></a>
+        </h5>
+<table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th><span class="bold"><strong>Valid expression</strong></span></th>
+<th><span class="bold"><strong>Semantics</strong></span></th>
+</tr></thead>
+<tbody>
+<tr>
+<td><code class="computeroutput"><span class="identifier">_rng1</span><span class="special">|</span><span class="identifier">set_cap</span><span class="special">(</span><span class="identifier">_rng2</span><span class="special">,</span> <span class="identifier">_prd</span><span class="special">)</span></code></td>
+<td>
+              An up-to-<a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#forward-traversal-iterators-lib-forward-traversal-iterators" target="_top">Forward</a> <a href="concepts.html#oven.constant_range" title="Constant Range">Constant</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
+              which behaves as if it were made by <code class="computeroutput"><span class="identifier">set_intersection</span><span class="special">(</span><span class="identifier">_rng1</span><span class="special">,</span> <span class="identifier">_rng2</span><span class="special">,</span> <span class="identifier">_prd</span><span class="special">)</span></code>. </td>
+</tr>
+<tr>
+<td><code class="computeroutput"><span class="identifier">_rng1</span><span class="special">|</span><span class="identifier">set_cap</span><span class="special">(</span><span class="identifier">_rng2</span><span class="special">)</span></code></td>
+<td>
+              <code class="computeroutput"><span class="identifier">_rng1</span><span class="special">|</span><span class="identifier">set_cap</span><span class="special">(</span><span class="identifier">_rng2</span><span class="special">,</span> <span class="identifier">less</span><span class="special">)</span></code>
+              </td>
+</tr>
+</tbody>
+</table>
+</div>
+<a name="set_cap.preconditions"></a><h4>
+<a name="id571164"></a>
+        Preconditions
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li>
+          The preconditions of <code class="computeroutput"><span class="identifier">merged</span></code>.
+        </li></ul></div>
+<a name="set_cap.example"></a><h4>
+<a name="id571196"></a>
+        Example
+      </h4>
+<a name="set_cap.see_also"></a><h4>
+<a name="id571210"></a>
+        See also
+      </h4>
+<div class="itemizedlist"><ul type="disc">
+<li><a href="merge_adaptors.html#oven.merged" title="merged">merged</a></li>
+<li><a href="merge_adaptors.html#oven.set_cup" title="set_cup">set_cup</a></li>
+<li><a href="merge_adaptors.html#oven.set_delta" title="set_delta">set_delta</a></li>
+<li><a href="merge_adaptors.html#oven.set_minus" title="set_minus">set_minus</a></li>
+</ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.set_cup"></a>set_cup</h3></div></div></div>
+<a name="set_cup.description"></a><h4>
+<a name="id571286"></a>
+        Description
+      </h4>
+<a name="set_cup.header"></a><h4>
+<a name="id571299"></a>
+        Header
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">set_cup</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="set_cup.model_of"></a><h4>
+<a name="id571370"></a>
+        Model of
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_object" title="Pipable Object">Pipable Object</a></li></ul></div>
+<a name="set_cup.valid_expressions"></a><h4>
+<a name="id571400"></a>
+        Valid expressions
+      </h4>
+<div class="informaltable">
+<h5>
+<a name="id571411"></a>
+        </h5>
+<table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th><span class="bold"><strong>Valid expression</strong></span></th>
+<th><span class="bold"><strong>Semantics</strong></span></th>
+</tr></thead>
+<tbody>
+<tr>
+<td><code class="computeroutput"><span class="identifier">_rng1</span><span class="special">|</span><span class="identifier">set_cup</span><span class="special">(</span><span class="identifier">_rng2</span><span class="special">,</span> <span class="identifier">_prd</span><span class="special">)</span></code></td>
+<td>
+              An up-to-<a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#forward-traversal-iterators-lib-forward-traversal-iterators" target="_top">Forward</a> <a href="concepts.html#oven.constant_range" title="Constant Range">Constant</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
+              which behaves as if it were made by <code class="computeroutput"><span class="identifier">set_union</span><span class="special">(</span><span class="identifier">_rng1</span><span class="special">,</span> <span class="identifier">_rng2</span><span class="special">,</span> <span class="identifier">_prd</span><span class="special">)</span></code>. </td>
+</tr>
+<tr>
+<td><code class="computeroutput"><span class="identifier">_rng1</span><span class="special">|</span><span class="identifier">set_cup</span><span class="special">(</span><span class="identifier">_rng2</span><span class="special">)</span></code></td>
+<td>
+              <code class="computeroutput"><span class="identifier">_rng1</span><span class="special">|</span><span class="identifier">set_cup</span><span class="special">(</span><span class="identifier">_rng2</span><span class="special">,</span> <span class="identifier">less</span><span class="special">)</span></code>
+              </td>
+</tr>
+</tbody>
+</table>
+</div>
+<a name="set_cup.preconditions"></a><h4>
+<a name="id571671"></a>
+        Preconditions
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li>
+          The preconditions of <code class="computeroutput"><span class="identifier">merged</span></code>.
+        </li></ul></div>
+<a name="set_cup.example"></a><h4>
+<a name="id571703"></a>
+        Example
+      </h4>
+<a name="set_cup.see_also"></a><h4>
+<a name="id571717"></a>
+        See also
+      </h4>
+<div class="itemizedlist"><ul type="disc">
+<li><a href="merge_adaptors.html#oven.merged" title="merged">merged</a></li>
+<li><a href="merge_adaptors.html#oven.set_cap" title="set_cap">set_cap</a></li>
+<li><a href="merge_adaptors.html#oven.set_delta" title="set_delta">set_delta</a></li>
+<li><a href="merge_adaptors.html#oven.set_minus" title="set_minus">set_minus</a></li>
+</ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.set_delta"></a>set_delta</h3></div></div></div>
+<a name="set_delta.description"></a><h4>
+<a name="id571792"></a>
+        Description
+      </h4>
+<a name="set_delta.header"></a><h4>
+<a name="id571806"></a>
+        Header
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">set_delta</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="set_delta.model_of"></a><h4>
+<a name="id571876"></a>
+        Model of
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_object" title="Pipable Object">Pipable Object</a></li></ul></div>
+<a name="set_delta.valid_expressions"></a><h4>
+<a name="id571906"></a>
+        Valid expressions
+      </h4>
+<div class="informaltable">
+<h5>
+<a name="id571917"></a>
+        </h5>
+<table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th><span class="bold"><strong>Valid expression</strong></span></th>
+<th><span class="bold"><strong>Semantics</strong></span></th>
+</tr></thead>
+<tbody>
+<tr>
+<td><code class="computeroutput"><span class="identifier">_rng1</span><span class="special">|</span><span class="identifier">set_delta</span><span class="special">(</span><span class="identifier">_rng2</span><span class="special">,</span> <span class="identifier">_prd</span><span class="special">)</span></code></td>
+<td>
+              An up-to-<a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#forward-traversal-iterators-lib-forward-traversal-iterators" target="_top">Forward</a> <a href="concepts.html#oven.constant_range" title="Constant Range">Constant</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
+              which behaves as if it were made by <code class="computeroutput"><span class="identifier">set_symmetric_difference</span><span class="special">(</span><span class="identifier">_rng1</span><span class="special">,</span> <span class="identifier">_rng2</span><span class="special">,</span> <span class="identifier">_prd</span><span class="special">)</span></code>. </td>
+</tr>
+<tr>
+<td><code class="computeroutput"><span class="identifier">_rng1</span><span class="special">|</span><span class="identifier">set_delta</span><span class="special">(</span><span class="identifier">_rng2</span><span class="special">)</span></code></td>
+<td>
+              <code class="computeroutput"><span class="identifier">_rng1</span><span class="special">|</span><span class="identifier">set_delta</span><span class="special">(</span><span class="identifier">_rng2</span><span class="special">,</span> <span class="identifier">less</span><span class="special">)</span></code>
+              </td>
+</tr>
+</tbody>
+</table>
+</div>
+<a name="set_delta.preconditions"></a><h4>
+<a name="id572178"></a>
+        Preconditions
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li>
+          The preconditions of <code class="computeroutput"><span class="identifier">merged</span></code>.
+        </li></ul></div>
+<a name="set_delta.example"></a><h4>
+<a name="id572210"></a>
+        Example
+      </h4>
+<a name="set_delta.see_also"></a><h4>
+<a name="id572224"></a>
+        See also
+      </h4>
+<div class="itemizedlist"><ul type="disc">
+<li><a href="merge_adaptors.html#oven.merged" title="merged">merged</a></li>
+<li><a href="merge_adaptors.html#oven.set_cap" title="set_cap">set_cap</a></li>
+<li><a href="merge_adaptors.html#oven.set_cup" title="set_cup">set_cup</a></li>
+<li><a href="merge_adaptors.html#oven.set_minus" title="set_minus">set_minus</a></li>
+</ul></div>
+</div>
+<div class="section" lang="en">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="oven.set_minus"></a>set_minus</h3></div></div></div>
+<a name="set_minus.description"></a><h4>
+<a name="id572299"></a>
+        Description
+      </h4>
+<a name="set_minus.header"></a><h4>
+<a name="id572313"></a>
+        Header
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li><code class="computeroutput"><span class="special">&lt;</span><span class="identifier">pstade</span><span class="special">/</span><span class="identifier">oven</span><span class="special">/</span><span class="identifier">set_minus</span><span class="special">.</span><span class="identifier">hpp</span><span class="special">&gt;</span></code></li></ul></div>
+<a name="set_minus.model_of"></a><h4>
+<a name="id572384"></a>
+        Model of
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li><a href="concepts.html#oven.pipable_object" title="Pipable Object">Pipable Object</a></li></ul></div>
+<a name="set_minus.valid_expressions"></a><h4>
+<a name="id572413"></a>
+        Valid expressions
+      </h4>
+<div class="informaltable">
+<h5>
+<a name="id572425"></a>
+        </h5>
+<table class="table">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead><tr>
+<th><span class="bold"><strong>Valid expression</strong></span></th>
+<th><span class="bold"><strong>Semantics</strong></span></th>
+</tr></thead>
+<tbody>
+<tr>
+<td><code class="computeroutput"><span class="identifier">_rng1</span><span class="special">|</span><span class="identifier">set_minus</span><span class="special">(</span><span class="identifier">_rng2</span><span class="special">,</span> <span class="identifier">_prd</span><span class="special">)</span></code></td>
+<td>
+              An up-to-<a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#forward-traversal-iterators-lib-forward-traversal-iterators" target="_top">Forward</a> <a href="concepts.html#oven.constant_range" title="Constant Range">Constant</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
+              which behaves as if it were made by <code class="computeroutput"><span class="identifier">set_difference</span><span class="special">(</span><span class="identifier">_rng1</span><span class="special">,</span> <span class="identifier">_rng2</span><span class="special">,</span> <span class="identifier">_prd</span><span class="special">)</span></code>. </td>
+</tr>
+<tr>
+<td><code class="computeroutput"><span class="identifier">_rng1</span><span class="special">|</span><span class="identifier">set_minus</span><span class="special">(</span><span class="identifier">_rng2</span><span class="special">)</span></code></td>
+<td>
+              <code class="computeroutput"><span class="identifier">_rng1</span><span class="special">|</span><span class="identifier">set_minus</span><span class="special">(</span><span class="identifier">_rng2</span><span class="special">,</span> <span class="identifier">less</span><span class="special">)</span></code>
+              </td>
+</tr>
+</tbody>
+</table>
+</div>
+<a name="set_minus.preconditions"></a><h4>
+<a name="id572686"></a>
+        Preconditions
+      </h4>
+<div class="itemizedlist"><ul type="disc"><li>
+          The preconditions of <code class="computeroutput"><span class="identifier">merged</span></code>.
+        </li></ul></div>
+<a name="set_minus.example"></a><h4>
+<a name="id572718"></a>
+        Example
+      </h4>
+<a name="set_minus.see_also"></a><h4>
+<a name="id572732"></a>
+        See also
+      </h4>
+<div class="itemizedlist"><ul type="disc">
+<li><a href="merge_adaptors.html#oven.merged" title="merged">merged</a></li>
+<li><a href="merge_adaptors.html#oven.set_cap" title="set_cap">set_cap</a></li>
+<li><a href="merge_adaptors.html#oven.set_cup" title="set_cup">set_cup</a></li>
+<li><a href="merge_adaptors.html#oven.set_delta" title="set_delta">set_delta</a></li>
+</ul></div>
+</div>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><small>Copyright © 2005 -2007 Shunsuke Sogame</small></td>
+</tr></table>
+<hr>
+<div class="spirit-nav">
+<a accesskey="p" href="string_adaptors.html"><img src="../images/prev.png" alt="Prev"></a><a accesskey="u" href="../index.html"><img src="../images/up.png" alt="Up"></a><a accesskey="h" href="../index.html"><img src="../images/home.png" alt="Home"></a><a accesskey="n" href="utilities.html"><img src="../images/next.png" alt="Next"></a>
+</div>
+</body>
+</html>

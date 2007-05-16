@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<package>
+<job id="expand_tab">
+<?job error="true" debug="no" ?>
+<runtime>
+	<description>unexpand_tab</description>
+</runtime>
+
+<script language="JavaScript" src="../cupcake/basic.js"/>
+<script language="JavaScript" src="../cupcake/filesystem.js"/>
+<script language="JavaScript" src="../cupcake/shell.js"/>
+
+<script language="JavaScript">
+
+<![CDATA[
+///////////////////////////////////////////////////////////////////////////////
+//
+
+main();
+
+function main()
+{
+	cupcake_for_each_arg( true, function(arg) { main_impl(arg); } );
+}
+
+function main_impl(arg)
+{
+	var exe = "E:\\p-stade.sourceforge.net\\pstade\\libs\\doc\\expand_tab.exe"
+
+	var folder = _fs.GetFolder(arg);
+
+	cupcake_traverse_file(
+		folder, 
+		function(file) {
+			var name = file.path.toString();
+			if (name.search(/\.hpp$/) != -1 || name.search(/\.cpp$/) != -1 || name.search(/\.ipp$/) != -1)
+				_sh.run(exe + " " + name, 10, false);
+		}
+	);
+}
+
+///////////////////////////////////////////////////////////////////////////////
+]]>
+
+</script>
+</job>
+</package>

@@ -1,0 +1,404 @@
+[section Utilities]
+
+Some helper _function_object_s are given to fill the gap between Oven and other libraries.
+
+
+
+
+[section:adapted_to_base adapted_to/to_base]
+
+[h3 Description]
+`adapted_to` pulls the base iterator from the adapted one.
+
+[h3 Header]
+* `<pstade/oven/adapted_to_base.hpp>`
+
+[h3 Model of]
+* `to_base` is an _auxiliary_interface_.
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`oven::adapted_to<B>(a)`]
+        [Returns the shortest `a.base().base()...base()` such that `_typeof(a.base().base()...base())` is convertible to `B`.]
+    ]
+    [
+        [`B b = to_base(a);`]
+        [`B b = oven::adapted_to<B>(a);`]
+    ]
+]
+
+[h3 Preconditions]
+* `B` is _copy_constructible_.
+* `_typeof(a)` correctly works with `boost::is_convertible`.
+* There is a (possibly empty) sequence `{ base(), .., base() }` such that `_typeof(a.base().base()...base())` is `B`.
+
+[h3 Example]
+    std::string src("cjaigvwzenqhe");
+    std::string::const_iterator it =
+        max_element(
+            src
+                | filtered(regular(boost::lambda::_1 != 'z'))
+                | filtered(regular(boost::lambda::_1 != 'w'))
+        )|to_base;
+
+    BOOST_CHECK( *it == 'v' );
+
+[endsect]
+
+
+
+
+[section expression]
+
+[h3 Description]
+[link oven.any_range any_range] incurs an overhead for calling a `virtual` function every iterator operation.
+The overhead can be removed with the help of _boost_typeof_ if your compiler supports the native typeof.
+`expression` converts a range into _boost_typeof_ compatible one, then removes the overhead if possible.
+
+[h3 Header]
+* `<pstade/oven/expression.hpp>`
+
+[h3 Model of]
+* _operatable_object_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`expression(_rng)`]
+        [`[_begin(_rng), _end(_rng))` which can be used with _boost_typeof_ macros.]
+    ]
+]
+
+[h3 Preconditions]
+* `_value_of<_typeof(_rng)>::type` is registered to _boost_typeof_.
+
+[note As far as the precondition met, `expression` with _boost_typeof_ macros is portable
+      even where native typeof isn't available.]
+
+[h3 Example]
+    BOOST_AUTO(factorials,
+        expression(counting(1, max_count)|scanned(1, regular(boost::lambda::_1 * boost::lambda::_2))) );
+
+[h3 See also]
+* _boost_typeof_
+* [link oven.any_range any_range]
+
+[endsect]
+
+
+
+
+[section io.hpp]
+
+[h3 Description]
+The header `<pstade/oven/io.hpp>` lets Oven ranges be _input_streamable_ and _output_streamable_.
+
+[h3 Header]
+* `<pstade/oven/io.hpp>`
+
+[h3 Effects]
+All the ranges which Oven defines and returns become _input_streamable_ and _output_streamable_.
+
+[h3 Example]
+    std::string src("abc");
+    std::stringstream ss;
+    ss << (src|identities);
+    BOOST_CHECK( ss.str() == "{a,b,c}" );
+
+[endsect]
+
+
+
+
+[section nonstop]
+
+[h3 Description]
+The _stoppable_generator_ concept which [link oven.generation generation] requires is slightly different
+from the _generator_ concept. `nonstop` turns a _generator_ into a [link oven.generation generation] conforming one.
+
+[h3 Header]
+* `<pstade/oven/generation.hpp>`
+
+[h3 Model of]
+* _operatable_object_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`nonstop(g)`]
+        [Converts `g` into a _stoppable_generator_.]
+    ]
+]
+
+[h3 Preconditions]
+* `g` is a both _generator_ and _deferred_callable_object_.
+
+[h3 Example]
+    BOOST_FOREACH (long x, generation(nonstop(&std::rand))|taken(30)) {
+        std::cout << "," << x;
+    }
+
+[h3 See also]
+* [link oven.generation generation]
+
+[endsect]
+
+
+
+
+[section regular]
+
+[h3 Description]
+A _boost_lambda_ functor is neither _default_constructible_ nor _assignable_.
+An iterator holding such a functor can't conform to even _input_iterator_.
+`regular` converts it into comfortable one for iterators.
+
+[h3 Header]
+* `<pstade/oven/regular.hpp>`
+
+[h3 Model of]
+* _operatable_object_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`regular(f)`]
+        [Converts `f` into a _bindable_ _deferred_callable_object_ which is _default_constructible_ and _assignable_.]
+    ]
+]
+
+[h3 Preconditions]
+* `f` is a _boost_lambda_ functor or _deferred_callable_object_.
+
+[h3 Example]
+    BOOST_CHECK( equals(
+        std::string("abcdefg")
+            | filtered(regular(boost::lambda::_1 != 'c'))
+            | filtered(regular(boost::lambda::_1 != 'f')),
+        std::string("abdeg")
+    ) );
+
+[h3 See also]
+* _boost_lambda_
+* [link oven.filtered filtered]
+* [link oven.regular_ref regular_ref]
+* [link oven.transformed transformed]
+
+[endsect]
+
+
+
+
+[section regular_ref]
+
+[h3 Description]
+A _deferred_callable_object_ like a random number generator may not be copyable, while many algorithms require to be.
+`regular_ref`, holding a reference to noncopyable _deferred_callable_object_, behaves as copyable one.
+
+[h3 Header]
+* `<pstade/oven/regular.hpp>`
+
+[h3 Model of]
+* _operatable_object_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`regular_ref(f)`]
+        [Converts `f` into a copyable _bindable_ _deferred_callable_object_. All the calls are forwarded to `f`.]
+    ]
+]
+
+[h3 Preconditions]
+* `f` is a _deferred_callable_object_ but may be noncopyable.
+* `f` is not destructed as long as `regular_ref(f)` is called.
+
+
+[h3 See also]
+* [link oven.regular regular]
+
+[endsect]
+
+
+
+
+[section unzipped]
+
+[h3 Description]
+`unzipped` reverses `zipped`.
+
+[h3 Header]
+* `<pstade/oven/unzipped.hpp>`
+
+[h3 Model of]
+* _pipable_object_
+
+[h3 Notation]
+* `{(a11 a12 .. a1N),(a21 a22 .. a2N),..,(aM1 aM2 .. aMN)}` is `_rng`.
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_rng|unzipped`]
+        [
+            `({a11,a21,..,aM1} {a12,a22,..,aM2} .. {a1N,a2N,..,aMN})`
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* `_value_of<_typeof(_rng)>::type` is a `boost::tuple`.
+
+[h3 Example]
+    std::cout <<
+        (
+            boost::assign::list_of
+                (boost::make_tuple(1,2))
+                (boost::make_tuple(2,3))
+                (boost::make_tuple(3,4))
+                | unzipped
+        );
+
+    // output> ({1,2,3} {2,3,4})
+
+
+[h3 See also]
+* [link oven.zipped zipped]
+
+[endsect]
+
+
+
+
+[section zipped]
+
+[h3 Description]
+`zipped` takes a tuple of ranges and returns a range of corresponding tuples.
+
+[h3 Header]
+* `<pstade/oven/zipped.hpp>`
+
+[h3 Model of]
+* _pipable_object_
+
+[h3 Notation]
+* `(_rng1 _rng2 .. _rngN)` is `u`.
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`u|zipped`]
+        [
+            `[T(boost::make_tuple(_begin(_rng1),..,_begin(_rngN))), T(boost::make_tuple(_end(_rng1),..,_end(_rngN))))`
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* `T` is `boost::zip_iterator<_typeof(boost::make_tuple(_begin(_rng1),..,_begin(_rngN)))>` such that `T(boost::make_tuple(_begin(_rng1),..,_begin(_rngN)))` is a valid expression.
+
+[h3 Example]
+    std::cout <<
+        (
+            boost::make_tuple(
+                boost::assign::list_of(1)(2)(3),
+                boost::assign::list_of(2)(3)(4)
+            )
+                | zipped
+        );
+
+    // output> {(1 2),(2 3),(3 4)}
+
+[h3 See also]
+* [@http://www.boost.org/libs/iterator/doc/zip_iterator.html boost::zip_iterator]
+* [link oven.zipped_with zipped_with]
+* [link oven.unzipped unzipped]
+
+[endsect]
+
+
+
+
+[section zipped_with]
+
+[h3 Description]
+Though `zipped` accepts a function taking a `boost::tuple` as the parameter, it is not so common.
+`zipped_with` accepts a "normal" function, then turns it into comfortable one for `zipped` before passing.
+
+[h3 Header]
+* `<pstade/oven/zipped_with.hpp>`
+
+[h3 Notation]
+* `fuse` is an imaginary function to turn the argument into the one taking a `boost::tuple` as the parameter.
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`op_make_zipped_with<R>`]
+        [
+            A _bindable_ _deferred_callable_object_ type
+        ]
+    ]
+    [
+        [`op_make_zipped_with<R>()(u, _fun)`]
+        [
+            `u|zipped|op_make_transformed<R>()(fuse(_fun))`
+        ]
+    ]
+    [
+        [`op_make_zipped_with<>()(u, _cal)`]
+        [
+            `u|zipped|op_make_transformed<>()(fuse(_cal))`
+        ]
+    ]
+    [
+        [`u|zipped_with(_cal)`]
+        [
+            `op_make_zipped_with<>()(u, _cal)`
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* `u|zipped|op_make_transformed<R>(fuse(_fun))` is a valid expressin.
+* `u|zipped|transformed(fuse(_cal))` is a valid expressin.
+
+[endsect]
+
+
+
+
+[endsect]

@@ -1,0 +1,251 @@
+[section Ranges]
+
+
+
+[section any_range]
+
+[h3 Description]
+Though Oven supports _boost_result_of_, it is often cumbersome to get the type of the adapted range.
+`any_range` behaves as the type erasure of ranges.
+
+[h3 Header]
+* `<pstade/oven/any_range.hpp>`
+
+[h3 Model of]
+* _range_ whose traversal category varies according to the template argument `C`.
+* _assignable_
+* _default_constructible_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`any_range<R, C>(_rng)`]
+        [
+            `[_begin(_rng), _end(_rng))`, whose `boost::range_reference` type is `R`.
+        ]
+    ]
+    [
+        [`any_range<R, C> any = _rng0;`]
+        [`any_range<R, C> any(_rng0);`]
+    ]
+    [
+        [`any_range<R, C> any; any = _rng;`]
+        [`any_range<R, C> any(_rng);`]
+    ]
+]
+
+[h3 Preconditions]
+* `boost::range_reference<_typeof(_rng)>::type` is convertible to `R` without binding /reference/ to /rvalue/.
+* `C` is convertible to `boost::single_pass_traversal_tag`.
+* `boost::range_traversal<_typeof(_rng)>::type` is convertible to `C`.
+* `_rng0` is a range returned from Oven _function_object_ and meets the preconditions of `_rng`.
+
+[h3 Example]
+    any_range<int, boost::single_pass_traversal_tag> factorials =
+        counting(1, 500) |
+            scanned(1, regular(lambda::_1 * lambda::_2));
+
+[h3 See also]
+* [@http://thbecker.net/free_software_utilities/type_erasure_for_cpp_iterators/start_page.html Type Erasure for C++ Iterators]
+* [link oven.expression expression]
+
+[endsect]
+
+
+
+
+[section array_range]
+
+[h3 Description]
+`array_range` is a noncopyable _random_access_ _range_ which delivers
+a range presentation of dynamically allocated arrays.
+
+[h3 Header]
+* `<pstade/oven/array_range.hpp>`
+
+[h3 Model of]
+* _random_access_ _range_
+* _contiguous_ _range_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`array_range<T>(sz)`]
+        [`[x, x + sz)`, where `x = new T[sz]`.]
+    ]
+]
+
+[h3 Preconditions]
+* `new T[sz]` is a valid expression.
+
+[h3 Example]
+    std::string str("hello, array_range!");
+    boost::array<char, 19> sarr;
+    copy(str, sarr|begin);
+    array_range<char> darr(19);
+    copy(str, darr|begin);
+
+    BOOST_CHECK( equals(sarr, darr) );
+
+[h3 See also]
+* _boost_array_
+
+[endsect]
+
+
+
+
+[section directory_range]
+
+[h3 Description]
+`directory_range` is a _single_pass_ _range_ which accesses the contents of a directory.
+
+[h3 Header]
+* `<pstade/oven/directory_range.hpp>`
+
+[h3 Model of]
+* _single_pass_ _range_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`basic_directory_range<P>(p)`]
+        [
+            `[T(p), T())`
+        ]
+    ]
+    [
+        [`directory_range(p)`]
+        [
+            `basic_directory_range<boost::filesystem::path>(p)`
+        ]
+    ]
+    [
+        [`wdirectory_range(p)`]
+        [
+            `basic_directory_range<boost::filesystem::wpath>(p)`
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* `T` is `boost::filesystem::basic_directory_iterator<P>` such that `T(p)` is a valid expression.
+
+[h3 Example]
+    BOOST_FOREACH (
+        boost::filesystem::path const& pt,
+        directory_range(boost::filesystem::current_path()))
+    {
+        std::cout << pt.leaf() << std::endl;
+    }
+
+[h3 See also]
+* [@http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1841.html#Class-template-basic_directory_iterator basic_directory_iterator]
+
+[endsect]
+
+
+
+[section empty_range]
+
+[h3 Description]
+`empty_range` is a _random_access_ _range_ which is always empty.
+
+[h3 Header]
+* `<pstade/oven/empty_range.hpp>`
+
+[h3 Model of]
+* _random_access_ _range_
+* _contiguous_ _range_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`empty_range<V>()`]
+        [`[(V *)0, (V *)0)`]
+    ]
+]
+
+[h3 Example]
+    BOOST_CHECK( boost::empty(empty_range<int>()) );
+
+[h3 See also]
+* [link oven.cleared cleared]
+
+[endsect]
+
+
+
+
+[section file_range]
+
+[h3 Description]
+`file_range` is a _random_access_ _constant_ _range_ for files.
+If the file opening failed, the range is empty.
+
+[note `file_range` is "binary"; any automatic conversion isn't performed.]
+
+[h3 Header]
+* `<pstade/oven/file_range.hpp>`
+
+[h3 Model of]
+* _random_access_ _range_
+* _constant_ _range_
+
+[h3 Notation]
+* `r` is a `file_range`.
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`file_range<X1,..,XN>(s)`]
+        [
+            `[T(s), T())`
+        ]
+    ]
+    [
+        [`r.is_open()`]
+        [Returns `true` if and only if the file has successfully been opened.]
+    ]
+]
+
+[h3 Invariants]
+* `!r.is_open() ? boost::empty(r) : true`
+
+[h3 Preconditions]
+* `T` is `boost::spirit::file_iterator<X1,..,XN>` such that `T(s)` is a valid expression.
+
+[h3 Example]
+    std::vector<char> vec;
+    copy(file_range<char>("data.txt"), std::back_inserter(vec));
+
+[h3 See also]
+* [@http://www.boost.org/libs/spirit/doc/file_iterator.html boost::spirit::file_iterator]
+* [link oven.stream_read stream_read]
+
+[endsect]
+
+
+
+
+[endsect]

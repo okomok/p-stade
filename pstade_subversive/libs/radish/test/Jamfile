@@ -1,0 +1,23 @@
+
+subproject libs/radish/test ;
+
+import testing ;
+
+DEPENDS all : test ;
+
+rule radish-test ( name : includes * )
+{
+    return [
+        run $(name).cpp
+        : : :
+        <include>$(PSTADE_ROOT)
+        <include>$(BOOST_ROOT)
+
+    ] ;
+}
+
+test-suite radish :
+    [ radish-test bool_testable ]
+    [ radish-test header ]
+    [ radish-test input_output_streamable ]
+    ;
