@@ -80,9 +80,9 @@ public:
         super_t(boost::begin(other), boost::end(other))
     { }
 
-    template< class I >
-    any_range(iter_range<I> const& rng,
-        typename enable_if< is_convertible_to_any_iterator<I, iter_t> >::type = 0
+    template< class It, class Ij >
+    any_range(iter_range<It, Ij> const& rng,
+        typename enable_if< is_convertible_to_any_iterator<It, iter_t> >::type = 0
     ) :
         super_t(boost::begin(rng), boost::end(rng))
     { }
@@ -136,6 +136,29 @@ PSTADE_OBJECT_GENERATOR(make_any_range,
 
 
 } } // namespace pstade::oven
+
+
+// For some reason, 'lightweight_copyable' doesn't work under msvc.
+// This is required only if namespace 'oven' is in 'boost'.
+
+#include <boost/config.hpp>
+#include <boost/detail/workaround.hpp>
+
+#if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1400))
+
+    #include <boost/foreach.hpp>
+    #include <boost/mpl/bool.hpp>
+
+    namespace boost { namespace foreach {
+
+        template< class Reference, class Value, class Difference >
+        struct is_lightweight_proxy< pstade::oven::any_range<Reference, single_pass_traversal_tag, Value, Difference> > :
+            boost::mpl::true_
+        { };
+
+    } } // namespace boost::foreach
+
+#endif
 
 
 #endif

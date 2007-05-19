@@ -10,14 +10,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <utility>
 #include <boost/range/begin.hpp>
-#include <boost/tuple/tuple.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
 #include "./concepts.hpp"
 #include "./dropped.hpp"
-#include "./zipped.hpp"
 
 
 namespace pstade { namespace oven {
@@ -36,13 +35,7 @@ namespace split_at_detail {
         rng_t;
 
         typedef
-            boost::tuples::tuple<rng_t, rng_t>
-        tuple_t;
-
-        typedef typename
-            boost::result_of<
-                op_make_zipped(tuple_t)
-            >::type
+            std::pair<rng_t, rng_t> const
         result_type;
 
         result_type operator()(Range& rng, Difference& d) const
@@ -50,11 +43,9 @@ namespace split_at_detail {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
 
             rng_t second = make_dropped(rng, d);
-            return make_zipped(
-                tuple_t(
-                    rng_t(boost::begin(rng), boost::begin(second)),
-                    second
-                )
+            return result_type(
+                rng_t(boost::begin(rng), boost::begin(second)),
+                second
             );
         }
     };

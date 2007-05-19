@@ -83,6 +83,7 @@ test-suite "oven" :
     [ run outdirected.cpp ]
     [ run outplaced.cpp ]
     [ run parallel.cpp ]
+    [ run partitioned.cpp ]
     [ run passer.cpp ]
     [ run permuted.cpp ]
     [ run pointed.cpp ]

@@ -72,9 +72,9 @@ public:
         super_t(rng)
     { }
 
-    template< class I >
-    sub_range(iter_range<I> const& rng,
-        typename enable_if< is_convertible<iter_range<I>, super_t> >::type = 0
+    template< class It, class Ij >
+    sub_range(iter_range<It, Ij> const& rng,
+        typename enable_if< is_convertible<iter_range<It, Ij>, super_t> >::type = 0
     ) :
         super_t(rng)
     { }

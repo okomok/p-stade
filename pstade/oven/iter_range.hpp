@@ -84,9 +84,9 @@ public:
     iter_range()
     { }
 
-    template< class I, class In >
-    iter_range(iter_range<I, In> const& other,
-        typename enable_if< is_convertible<I, Iterator> >::type = 0
+    template< class It, class In >
+    iter_range(iter_range<It, In> const& other,
+        typename enable_if< is_convertible<It, Iterator> >::type = 0
     ) :
         m_first(boost::begin(other)), m_last(boost::end(other))
     { }

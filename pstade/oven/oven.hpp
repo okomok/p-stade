@@ -88,6 +88,7 @@
 #include "./outdirected.hpp"
 #include "./outplaced.hpp"
 // #include "./paralell.hpp"
+#include "./partitioned.hpp"
 #include "./passer.hpp"
 #include "./permuted.hpp"
 #include "./pointed.hpp"

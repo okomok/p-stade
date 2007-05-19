@@ -189,7 +189,7 @@ namespace merged_detail {
         merge_iterator(
             Iterator1 it1, Iterator1 last1,
             Iterator2 it2, Iterator2 last2,
-            Compare comp = less
+            Compare comp
         ) :
             super_t(it1), m_last1(last1),
             m_it2(it2),   m_last2(last2),

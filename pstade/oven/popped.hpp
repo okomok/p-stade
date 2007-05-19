@@ -24,8 +24,8 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/empty.hpp>
 #include <boost/range/end.hpp>
-#include <boost/type_traits/is_convertible.hpp>
 #include <pstade/function.hpp>
+#include <pstade/is_convertible.hpp>
 #include <pstade/pipable.hpp>
 #include "./concepts.hpp"
 #include "./do_iter_swap.hpp"
@@ -121,7 +121,7 @@ namespace popped_detail {
     {
         typedef typename
             boost::mpl::eval_if<
-                boost::is_convertible<
+                is_convertible<
                     typename range_traversal<Range>::type, boost::bidirectional_traversal_tag
                 >,
                 iter_range_of<Range>,

@@ -104,7 +104,7 @@ This document uses the following notation:
     ]
     [
         [`_rng`]
-        [Any _single_pass_ _range_, that is to say, any _range_.]
+        [Any _range_ such that it is _forward_ or _readable_.]
     ]
     [
         [`_fwdrng`]

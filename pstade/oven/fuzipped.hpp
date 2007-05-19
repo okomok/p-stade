@@ -41,7 +41,6 @@
 #include <pstade/polymorphic.hpp>
 #include <pstade/remove_cvr.hpp>
 #include "./begin_end.hpp"
-#include "./deref.hpp"
 #include "./detail/pure_traversal.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
@@ -122,8 +121,6 @@ namespace fuzipped_detail {
             typename fusion::result_of::transform<
                 IteratorTuple const,
                 dereference_iterator
-                // For some reason, gcc-3.4 dislikes this...
-                // typename boost::result_of<op_polymorphic(op_deref const&)>::type
             >::type
         val_t;
 
@@ -189,7 +186,6 @@ namespace fuzipped_detail {
         ref_t dereference() const
         {
             return fusion::transform(m_tuple, dereference_iterator());
-            // return fusion::transform(m_tuple, polymorphic(deref));
         }
 
         template< class I >

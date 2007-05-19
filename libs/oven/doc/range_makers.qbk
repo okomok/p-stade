@@ -222,7 +222,7 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 [h3 Preconditions]
 * `g` is a _stoppable_generator_.
 * `g` is _assignable_.
-* `_typeof(g())` is _assignable_.
+* `_typeof(*g())` is _copy_constructible_ and _assignable_.
 
 [h3 Example]
     struct rand_generator
