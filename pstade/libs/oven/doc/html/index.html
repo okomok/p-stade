@@ -20,7 +20,7 @@
 </h3></div></div>
 <div><p class="copyright">Copyright © 2005 -2007 Shunsuke Sogame</p></div>
 <div><div class="legalnotice">
-<a name="id431645"></a><p>
+<a name="id431739"></a><p>
         Distributed under the Boost Software License, Version 1.0. (See accompanying
         file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">
         http://www.boost.org/LICENSE_1_0.txt </a>)
@@ -164,8 +164,10 @@
 <dt><span class="section"><a href="oven/utilities.html#oven.expression">expression</a></span></dt>
 <dt><span class="section"><a href="oven/utilities.html#oven.io_hpp">io.hpp</a></span></dt>
 <dt><span class="section"><a href="oven/utilities.html#oven.nonstop">nonstop</a></span></dt>
+<dt><span class="section"><a href="oven/utilities.html#oven.partitioned">partitioned</a></span></dt>
 <dt><span class="section"><a href="oven/utilities.html#oven.regular">regular</a></span></dt>
 <dt><span class="section"><a href="oven/utilities.html#oven.regular_ref">regular_ref</a></span></dt>
+<dt><span class="section"><a href="oven/utilities.html#oven.split_at">split_at</a></span></dt>
 <dt><span class="section"><a href="oven/utilities.html#oven.unzipped">unzipped</a></span></dt>
 <dt><span class="section"><a href="oven/utilities.html#oven.zipped">zipped</a></span></dt>
 <dt><span class="section"><a href="oven/utilities.html#oven.zipped_with">zipped_with</a></span></dt>
@@ -318,7 +320,7 @@
       </p>
 <div class="informaltable">
 <h5>
-<a name="id432499"></a>
+<a name="id431430"></a>
         </h5>
 <table class="table">
 <colgroup>
@@ -338,9 +340,9 @@
 <tr>
 <td><code class="computeroutput"><span class="identifier">_rng</span></code></td>
 <td>Any
-              <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#single-pass-iterators-lib-single-pass-iterators" target="_top">Single
-              Pass</a> <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>,
-              that is to say, any <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>.</td>
+              <a href="http://www.boost.org/libs/range/doc/range.html" target="_top">Range</a>
+              such that it is <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#forward-traversal-iterators-lib-forward-traversal-iterators" target="_top">Forward</a>
+              or <a href="http://www.boost.org/libs/iterator/doc/new-iter-concepts.html#readable-iterators-lib-readable-iterators" target="_top">Readable</a>.</td>
 </tr>
 <tr>
 <td><code class="computeroutput"><span class="identifier">_fwdrng</span></code></td>
@@ -421,7 +423,7 @@
 </div>
 </div>
 <table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
-<td align="left"><small><p>Last revised: May 13, 2007 at 20:01:14 GMT</p></small></td>
+<td align="left"><small><p>Last revised: May 19, 2007 at 16:01:12 GMT</p></small></td>
 <td align="right"><small></small></td>
 </tr></table>
 <hr>

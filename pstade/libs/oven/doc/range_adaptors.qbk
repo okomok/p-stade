@@ -43,7 +43,6 @@ A Range Adaptor meets the following requirements unless otherwise specified:
 
 [h3 Preconditions]
 * `_rng` is _readable_ or _lvalue_.
-* If `_rng` is not _forward_, `_rng` is _readable_.
 * `_prd(*_begin(_rng), *_begin(_rng))` is well-formed.
 * `_prd` is _assignable_ and _default_constructible_.
 
@@ -106,7 +105,7 @@ It passes adjacent pairs to a function to transform repeatedly.
 ]
 
 [h3 Preconditions]
-* If `_rng` is not _forward_, `_rng` is _readable_ and '_value_of<_typeof(_rng)>::type` is _assignable_.
+* If `_rng` is not _forward_, '_value_of<_typeof(_rng)>::type` is _assignable_.
 * `!boost::empty(_rng)`
 * `_fun(*_begin(_rng), *_begin(_rng))` is well-formed.
 * `_fun` is _assignable_ and _default_constructible_.

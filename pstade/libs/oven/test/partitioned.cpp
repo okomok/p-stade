@@ -2,7 +2,7 @@
 #include <boost/test/minimal.hpp>
 
 
-// Boost.Oven
+// PStade.Oven
 //
 // Copyright Shunsuke Sogame 2005-2006.
 // Distributed under the Boost Software License, Version 1.0.
@@ -11,11 +11,16 @@
 
 
 #include <pstade/oven/tests.hpp>
-#include <pstade/oven/split_at.hpp>
+#include <pstade/oven/partitioned.hpp>
 
 
-#include <string>
 #include "./core.hpp"
+
+
+bool is_even(int x)
+{
+    return x % 2 == 0;
+}
 
 
 void test()
@@ -24,19 +29,19 @@ void test()
     using namespace oven;
 
     {
-        int rng[] = {0,2,4,8,6,10,3,5,2,5,6,1};
-        int ans0[] = {0,2,4,8,6,10};
-        int ans1[] = {3,5,2,5,6,1};
+        int rng[] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
+        int ans0[] = {2,4,6,8,10,12,14,16};
+        int ans1[] = {1,3,5,7,9,11,13,15};
         std::vector<int> expected0 = ans0|copied;
         std::vector<int> expected1 = ans1|copied;
 
-        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
-            (rng|split_at(6)).first,
+        BOOST_CHECK( oven::test_Bidirectional_Readable_Writable(
+            (rng|partitioned(&is_even)).first,
             expected0
         ) );
 
-        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
-            (rng|split_at(6)).second,
+        BOOST_CHECK( oven::test_Bidirectional_Readable_Writable(
+            (rng|partitioned(&is_even)).second,
             expected1
         ) );
     }

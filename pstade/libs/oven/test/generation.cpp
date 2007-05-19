@@ -96,11 +96,12 @@ struct ptr_generator :
 
 struct rock
 #if 0
-    // Hmm, 'iterator_facade' requires 'value_type' to be CopyConstructible...
+    // Hmm, 'iterator_facade' requires 'value_type' to be CopyConstructible
+    // unless it is ForwardTraversal.
     : private boost::noncopyable
 #endif
 {
-
+#if 1
     rock(rock const&) {
         BOOST_CHECK(false);
     }
@@ -109,7 +110,7 @@ struct rock
         BOOST_CHECK(false);
         return *this;
     }
-
+#endif
     explicit rock(int i) : m_i(i) { }
     int m_i;
 };

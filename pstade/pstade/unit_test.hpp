@@ -18,8 +18,9 @@ void pstade_unit_test();
 
 #if 1 || !defined(__GNUC__)
 
-    #define BOOST_LIB_NAME boost_test_exec_monitor
-    #include <boost/config/auto_link.hpp>
+    // These confuses Boost.Build.
+    // #define BOOST_LIB_NAME boost_test_exec_monitor
+    // #include <boost/config/auto_link.hpp>
 
     #include <boost/test/test_tools.hpp>
     #include <boost/test/unit_test.hpp>

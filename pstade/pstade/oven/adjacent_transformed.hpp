@@ -31,12 +31,12 @@
 #include <boost/mpl/eval_if.hpp>
 #include <boost/range/empty.hpp>
 #include <boost/type.hpp>
-#include <boost/type_traits/is_convertible.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/deferred.hpp>
 #include <pstade/fuse.hpp>
+#include <pstade/is_convertible.hpp>
 #include <pstade/pack.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
@@ -212,7 +212,7 @@ struct op_make_adjacent_transformed :
     template< class Myself, class Range, class BinaryFun >
     struct apply :
         boost::mpl::eval_if<
-            boost::is_convertible<
+            is_convertible<
                 typename range_traversal<Range>::type, boost::forward_traversal_tag
             >,
             adjacent_transformed_detail::make_multi_pass<Range, BinaryFun, Reference, Value>,

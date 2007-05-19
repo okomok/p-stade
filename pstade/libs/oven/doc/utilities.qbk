@@ -79,7 +79,7 @@ The overhead can be removed with the help of _boost_typeof_ if your compiler sup
 ]
 
 [h3 Preconditions]
-* `_value_of<_typeof(_rng)>::type` is registered to _boost_typeof_.
+* `_value_of<_typeof(_rng)>::type` and `boost::range_reference<_typeof(_rng)>::type` are registered to _boost_typeof_.
 
 [note As far as the precondition met, `expression` with _boost_typeof_ macros is portable
       even where native typeof isn't available.]
@@ -153,6 +153,47 @@ from the _generator_ concept. `nonstop` turns a _generator_ into a [link oven.ge
 
 [h3 See also]
 * [link oven.generation generation]
+
+[endsect]
+
+
+
+
+[section partitioned]
+
+[h3 Description]
+`partitioned` serves as a lazy `std::partition`.
+
+[h3 Header]
+* `<pstade/oven/partitioned.hpp>`
+
+[h3 Model of]
+* _pipable_object_
+
+[h3 Notation]
+* `not_` is an imaginary function to negate a predicate.
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_fwdrng|partitioned(_prd)`]
+        [
+            `std::make_pair(_fwdrng|filtered(_prd), _fwdrng|filtered(not_(_prd)))`
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* `_fwdrng|filtered(_prd)` is a valid expression.
+
+[h3 Example]
+
+[h3 See also]
+* [link oven.filtered filtered]
 
 [endsect]
 
@@ -237,6 +278,68 @@ A _deferred_callable_object_ like a random number generator may not be copyable,
 
 [h3 See also]
 * [link oven.regular regular]
+
+[endsect]
+
+
+
+
+[section split_at]
+
+[h3 Description]
+
+[h3 Header]
+* `<pstade/oven/split_at.hpp>`
+
+[h3 Model of]
+* _pipable_object_
+
+[h3 Notation]
+* `rng2` is `_fwdrng|dropped(n)`.
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_fwdrng|split_at(n)`]
+        [
+            `std::make_pair([_begin(_fwdrng), _begin(rng2)), rng2)`
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* `_fwdrng|dropped(n)` is a valid expression.
+
+[h3 Example]
+    typedef
+        any_range<int const&, boost::forward_traversal_tag>
+    range;
+
+    range merge_sort(range rng)
+    {
+        typedef boost::result_of<op_distance(range&)>::type diff_t;
+
+        diff_t const d = distance(rng);
+        if (d < 2)
+            return rng;
+        else {
+            boost::result_of<op_make_split_at(range&, diff_t)>::type
+                xs_ys = make_split_at(rng, d/2);
+
+            return make_merged(
+                merge_sort(xs_ys.first),
+                merge_sort(xs_ys.second)
+            );
+        }
+    }
+
+
+[h3 See also]
+* [link oven.dropped dropped]
 
 [endsect]
 
