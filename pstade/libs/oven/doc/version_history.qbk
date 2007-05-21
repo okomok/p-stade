@@ -144,6 +144,10 @@
 * `adjacent_filtered` and `adjacent_transformed` accept `SinglePassRange`.
 * Added `narrow_chars` and `wide_chars`.
 
+[h2 Version 0.94.1]
+* Fixed a bug that `shared` is wrongly `PipableObject`.
+
+
 
 
 [endsect]

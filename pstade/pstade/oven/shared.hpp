@@ -25,7 +25,6 @@
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable_by_value.hpp>
 #include <pstade/constant.hpp>
-#include <pstade/nonassignable.hpp>
 #include <pstade/to_shared_ptr.hpp>
 #include "./concepts.hpp"
 #include "./do_iter_swap.hpp"
@@ -110,8 +109,8 @@ namespace shared_detail {
 } // namespace shared_detail
 
 
-struct op_make_shared :
-    callable_by_value<op_make_shared>
+struct op_shared :
+    callable_by_value<op_shared>
 {
     template< class Myself, class Ptr >
     struct apply
@@ -144,35 +143,7 @@ struct op_make_shared :
 };
 
 
-PSTADE_CONSTANT(make_shared, (op_make_shared))
-
-
-// A pipe must have its own namespace.
-// The overload resolution may fall into compile error,
-// while getting the result type; even if never called.
-// See also "./jointed.hpp".
-
-
-namespace shared_detail_ {
-
-
-    struct pipe :
-        private pstade::nonassignable
-    { };
-
-
-    template< class Ptr > inline
-    typename boost::result_of<op_make_shared(Ptr&)>::type
-    operator|(Ptr prng, pipe)
-    {
-        return make_shared(prng);
-    }
-
-
-} // namespace shared_detail_
-
-
-PSTADE_CONSTANT(shared, (shared_detail_::pipe))
+PSTADE_CONSTANT(shared, (op_shared))
 
 
 } } // namespace pstade::oven

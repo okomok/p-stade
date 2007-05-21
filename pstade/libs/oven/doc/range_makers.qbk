@@ -276,21 +276,33 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
         [[*Semantics]]
     ]
     [
-        [`initial_values(a1,..,aN)`]
+        [`op_initial_values<T>`]
+        [
+            A _bindable_ _deferred_callable_object_ type
+        ]
+    ]
+    [
+        [`op_initial_values<T>()(a1,..,aN)`]
         [
             A _random_access_ _readable_ _lvalue_ _constant_ `{a1,..,aN}`
         ]
     ]
     [
-        [`Rng rng = initial_values(a1,..,aN);`]
+        [`Rng rng = op_initial_values<T>()(a1,..,aN);`]
         [
-            `Rng rng = initial_values(a1,..,aN)|copied;`
+            `Rng rng = op_initial_values<T>()(a1,..,aN)|copied;`
         ]
     ]
     [
-        [`Rng2 rng2(initial_values(a1,..,aN));`]
+        [`Rng2 rng2(op_initial_values<T>()(a1,..,aN));`]
         [
-            `Rng2 rng2(initial_values(a1,..,aN)|copied);`
+            `Rng2 rng2(op_initial_values<T>()(a1,..,aN)|copied);`
+        ]
+    ]
+    [
+        [`initial_values`]
+        [
+            `op_initial_values<t>()`, where `t` is deduced from the first argument.
         ]
     ]
 ]
@@ -301,8 +313,8 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 * `1 <= N && N <= 20`
 * `_typeof(aK)` is _copy_constructible_ for all `K` such that `1 <= K && K <= N`.
 * `_typeof(aK)` is convertible to `_typeof(a1)` for all `K` such that `2 <= K && K <= N`.
-* `Rng rng = initial_values(a1,..,aN)|copied;` is a valid expression.
-* `Rng2 rng2(initial_values(a1,..,aN)|copied);` is a valid expression.
+* `Rng rng = op_initial_values<T>()(a1,..,aN)|copied;` is a valid expression.
+* `Rng2 rng2(op_initial_values<T>()(a1,..,aN)|copied);` is a valid expression.
 
 [tip `initial_values` trades unlimited arity for the lightweight initialization of `boost::array`.
       Also, it doesn't require the arguments to be _assignable_.]

@@ -44,29 +44,29 @@ void test()
         std::vector<char> expected = std::string("hello, share_range")|copied;
 
         BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
-            new std::string("hello, share_range")|shared,
+            shared(new std::string("hello, share_range")),
             expected
         ) );
 
         BOOST_CHECK( oven::test_RandomAccess_Readable(
-            new std::string const("hello, share_range")|shared,
+            shared(new std::string const("hello, share_range")),
             expected
         ) );
     }
     {
-        BOOST_CHECK( oven::equals(oven::make_shared(new xxx("0123")), ans) );
+        BOOST_CHECK( oven::equals(shared(new xxx("0123")), ans) );
     }
 
     {
-        BOOST_CHECK( oven::equals(new xxx("0123")|shared, ans) );
+        BOOST_CHECK( oven::equals(shared(new xxx("0123")), ans) );
     }
 
     {
-        BOOST_CHECK( oven::equals(pstade::op_new_auto<xxx>()("0123")|shared, ans) );
+        BOOST_CHECK( oven::equals(shared(pstade::op_new_auto<xxx>()("0123")), ans) );
     }
 
     {
-        BOOST_FOREACH (char ch, oven::make_shared(new xxx("0123"))) {
+        BOOST_FOREACH (char ch, shared(new xxx("0123"))) {
            std::cout << ch;
         }
     }
@@ -77,7 +77,7 @@ void test()
             std::cout << ch;
         }
 #endif
-        BOOST_FOREACH (char ch, new std::string("ok")|shared|identities) {
+        BOOST_FOREACH (char ch, shared(new std::string("ok"))|identities) {
             // works fine.
             std::cout << ch;
         }
