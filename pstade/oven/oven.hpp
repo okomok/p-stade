@@ -118,6 +118,7 @@
 #include "./set_minus.hpp"
 #include "./shared.hpp"
 #include "./shared_single.hpp"
+#include "./shared_values.hpp"
 #include "./single.hpp"
 #include "./sliced.hpp"
 #include "./sorted.hpp"

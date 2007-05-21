@@ -40,7 +40,7 @@ range make_ones()
 
     *pones = shared_single(new int const(1))|jointed(recursion(*pones));
 
-    return pones|shared;
+    return shared(pones);
 }
 
 

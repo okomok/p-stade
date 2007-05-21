@@ -218,6 +218,10 @@ void test()
         std::list<nonassignable_t> lst = initial_values(1,2,3,4,5);
         (void)lst;
     }
+    {
+        // decay test
+        initial_values("abc", "def", "ghi");
+    }
 }
 
 

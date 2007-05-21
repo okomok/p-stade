@@ -58,7 +58,7 @@ struct op_shared_single :
         boost::result_of<
             op_make_indirected<>(
                 typename boost::result_of<
-                    op_make_shared(
+                    op_shared(
                         typename boost::result_of<
                             shared_single_detail::new_array1(
                                 typename boost::result_of<
@@ -77,7 +77,7 @@ struct op_shared_single :
     {
         return
             make_indirected(
-                make_shared(
+                shared(
                     shared_single_detail::new_array1()(
                         to_shared_ptr(p)
                     )

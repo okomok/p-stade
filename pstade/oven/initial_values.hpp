@@ -109,6 +109,11 @@ struct op_initial_values :
     template< class FunCall >
     struct result;
 
+    template< class A >
+    struct value_ :
+        use_default_eval_to< Value, pass_by_value<A> >
+    { };
+
     // 1ary-
     #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_OVEN_INITIAL_VALUES_MAX_ARITY, <pstade/oven/initial_values.hpp>))
     #include BOOST_PP_ITERATE()
@@ -131,9 +136,7 @@ private:
     struct BOOST_PP_CAT(result, n)
     {
         typedef
-            initial_values_detail::return_range<
-                typename use_default_eval_to< Value, pass_by_value<A0> >::type, n
-            > const
+            initial_values_detail::return_range<typename value_<A0>::type, n> const
         type;
     };
 
@@ -147,8 +150,7 @@ public:
     typename BOOST_PP_CAT(result, n)<PSTADE_PP_ENUM_PARAMS_WITH(n, A, const&)>::type
     operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, const& a)) const
     {
-        typename BOOST_PP_CAT(result, n)<PSTADE_PP_ENUM_PARAMS_WITH(n, A, const&)>::type
-            r = { { { BOOST_PP_ENUM_PARAMS(n, a) } } };
+        initial_values_detail::return_range<typename value_<A0 const&>::type, n> r = { { { BOOST_PP_ENUM_PARAMS(n, a) } } };
         return r;
     }
 
