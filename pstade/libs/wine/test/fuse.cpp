@@ -13,6 +13,10 @@
 #include <pstade/fuse.hpp>
 
 
+#include <boost/noncopyable.hpp>
+#include <pstade/pack.hpp>
+
+
 int my_plus(int x, int y, int z)
 {
     return x + y + z;
@@ -21,6 +25,16 @@ int my_plus(int x, int y, int z)
 int my_two()
 {
     return 2;
+}
+
+
+struct nc :
+    private boost::noncopyable
+{ };
+
+int take_nc(nc&)
+{
+    return 3;
 }
 
 
@@ -37,6 +51,10 @@ void test()
         BOOST_CHECK(
             pstade::fuse(&::my_two)(boost::make_tuple()) == 2
         );
+    }
+    {
+        ::nc x;
+        BOOST_CHECK( fuse(&::take_nc)(pack(x)) == 3 );
     }
 }
 

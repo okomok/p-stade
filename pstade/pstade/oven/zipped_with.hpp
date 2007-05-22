@@ -17,12 +17,20 @@
 
 
 #include <boost/utility/result_of.hpp>
+#include <boost/version.hpp>
 #include <pstade/fuse.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
+#include <pstade/perfect.hpp>
 #include <pstade/pipable.hpp>
+#include "./fuzipped.hpp"
 #include "./transformed.hpp"
-#include "./zipped.hpp"
+#if BOOST_VERSION >= 103500
+    // Lets 'boost::tuple' be FusionSequence for 'op_make_fuzipped'.
+    #include <boost/fusion/sequence/adapted/boost_tuple.hpp>
+#else
+    #include "./zipped.hpp"
+#endif
 
 
 namespace pstade { namespace oven {
@@ -35,12 +43,20 @@ template<
 struct op_make_zipped_with :
     callable< op_make_zipped_with<Reference, Value> >
 {
+#if BOOST_VERSION >= 103500
+    typedef op_make_fuzipped zip_;
+#else
+    typedef op_make_zipped   zip_;
+#endif
+
     template< class Myself, class RangeTuple, class Function >
     struct apply :
         boost::result_of<
             op_make_transformed<Reference, Value>(
-                typename boost::result_of<op_make_zipped(RangeTuple&)>::type,
-                typename boost::result_of<op_fuse(Function&)>::type
+                typename boost::result_of<zip_(RangeTuple&)>::type,
+                typename boost::result_of<
+                    op_fuse(typename boost::result_of<op_perfect<Reference>(Function&)>::type)
+                >::type
             )
         >
     { };
@@ -50,8 +66,8 @@ struct op_make_zipped_with :
     {
         return
             op_make_transformed<Reference, Value>()(
-                make_zipped(tup),
-                fuse(fun)
+                zip_()(tup),
+                fuse(op_perfect<Reference>()(fun))
             );
     }
 };
