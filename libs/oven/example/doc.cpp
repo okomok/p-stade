@@ -43,8 +43,7 @@ void test_introduction()
         std::vector<char> out;
 
         BOOST_FOREACH (char ch,
-            new std::string("!ExGNxxAR ,xOLxLExH")
-                | shared
+            shared(new std::string("!ExGNxxAR ,xOLxLExH"))
                 | filtered(regular(lambda::_1 != 'x'))
                 | reversed
                 | transformed(pstade::to_lower)
