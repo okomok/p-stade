@@ -56,7 +56,7 @@ namespace pstade {
         namespace mpl = boost::mpl;
 
 
-        // boost::tuple' and 'std::pair' is NOT a MPLSequence.
+        // 'boost::tuple' and 'std::pair' is NOT a MPLSequence.
 
 
         template<class Tuple>
