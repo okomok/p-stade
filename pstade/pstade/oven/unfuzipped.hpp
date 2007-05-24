@@ -87,6 +87,7 @@ namespace unfuzipped_detail {
         result_type operator()(TupleRange& rng) const
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<TupleRange>));
+
             return fusion::as_vector(
                 fusion::transform(counting_tup_t(), make_at_range<TupleRange>(rng))
             );

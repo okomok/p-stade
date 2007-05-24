@@ -110,6 +110,8 @@ namespace unzipped_detail {
 
         result_type operator()(TupleRange& rng) const
         {
+            PSTADE_CONCEPT_ASSERT((SinglePass<TupleRange>));
+
             return here::tuple_transform(
                 counting_tup_t(),
                 make_at_range<TupleRange>(rng)

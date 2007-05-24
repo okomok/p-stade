@@ -212,6 +212,9 @@ It passes adjacent pairs to a function to transform repeatedly.
         src|applied(lambda::bind(search, lambda::_1, s1), end)
     ) );
 
+[h3 See also]
+* [link oven.applier applier]
+
 [endsect]
 
 

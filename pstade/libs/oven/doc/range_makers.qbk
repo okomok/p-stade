@@ -187,7 +187,6 @@ Some versions of _boost_range_ regard `char` array as literal, which `as_array` 
 
 [h3 See also]
 * [@http://www.boost.org/libs/iterator/doc/counting_iterator.html boost::counting_iterator]
-* [link oven.counter counter]
 
 [endsect]
 

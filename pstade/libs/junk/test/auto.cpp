@@ -10,12 +10,14 @@
 //#define BOOST_TYPEOF_EMULATION
 
 
-//#include <pstade/../libs/wine/test/tuple.cpp>
+//#include <pstade/../libs/wine/test/fuse.cpp>
 
-//#include <pstade/../libs/oven/test/tuple.cpp>
-#include <pstade/../libs/oven/test/multiple_defs1.cpp>
-//#include <pstade/../libs/oven/example/quick_sort.cpp>
+#include <pstade/../libs/oven/test/applier.cpp>
+//#include <pstade/../libs/oven/test/multiple_defs1.cpp>
+//#include <pstade/../libs/oven/example/read.cpp>
 //#include <pstade/../libs/biscuit/test/capture.cpp>
 //#include <pstade/../libs/oven/test/ms/atl_string.cpp>
 //#include <pstade/../libs/tomato/test/boolean_cast.cpp>
 //#include <pstade/detail/result_of.hpp>
+
+//#include <boost/../libs/oven/example/merge_sort.cpp>
