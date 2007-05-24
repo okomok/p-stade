@@ -17,7 +17,7 @@
 #include <pstade/lime/load.hpp>
 #include <pstade/lime/save.hpp>
 #include <pstade/oven/algorithm.hpp> // copy
-#include <pstade/oven/passer.hpp>
+#include <pstade/oven/applier.hpp>
 #include <pstade/oven/utf8_decoded.hpp>
 #include <pstade/tomato/file_range.hpp>
 #include <pstade/tomato/tstring.hpp>
@@ -47,7 +47,7 @@ namespace pstade { namespace hamburger {
     template< class Node > inline
     void save(Node& node)
     {
-        lime::save(node, oven::passer(unused));
+        lime::save(node, oven::applier(unused));
     }
 
 

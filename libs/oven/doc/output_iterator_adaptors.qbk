@@ -3,14 +3,13 @@
 
 
 
-[section counter]
+[section applier]
 
 [h3 Description]
-`counter` takes an initial count and increments it every output.
-`adapted_to` or `to_base` can extract the result of the counting.
+`applier` returns an _output_iterator_ which passes each item assigned as an argument to the unary function.
 
 [h3 Header]
-* `<pstade/oven/counter.hpp>`
+* `<pstade/oven/applier.hpp>`
 
 [h3 Model of]
 * _operatable_object_
@@ -22,52 +21,7 @@
         [[*Semantics]]
     ]
     [
-        [`counter(i)`]
-        [
-            `T(i)`
-        ]
-    ]
-]
-
-[h3 Preconditions]
-* `T` is `hamigaki::counting_output_iterator<_typeof(i)>` such that `T(i)` is a valid expression.
-
-[h3 Example]
-    int const rng[] = { 0,0,1,1,2,3,3,3,4,4,4,4,4,5,5 };
-    int i = copy(rng|uniqued, counter(0))|to_base;
-    BOOST_CHECK( i == 6 );
-
-    BOOST_CHECK( 7 == oven::adapted_to<int>(unique_copy(rng, counter(1))) );
-
-[h3 See also]
-* [@http://hamigaki.sourceforge.jp/doc/html/counting_output_iterator.html hamigaki::counting_output_iterator]
-* [link oven.adapted_to_base adapted_to/to_base]
-* [link oven.counting counting]
-
-[endsect]
-
-
-
-
-[section passer]
-
-[h3 Description]
-`passer` returns an _output_iterator_ which passes each item assigned as an argument to the unary function.
-
-[h3 Header]
-* `<pstade/oven/passer.hpp>`
-
-[h3 Model of]
-* _operatable_object_
-
-[h3 Valid expressions]
-[table 
-    [
-        [[*Valid expression]]
-        [[*Semantics]]
-    ]
-    [
-        [`passer(_fun)`]
+        [`applier(_fun)`]
         [
             `T(_fun)`
         ]
@@ -81,6 +35,7 @@
 
 [h3 See also]
 * [@http://www.boost.org/libs/iterator/doc/function_output_iterator.html boost::function_output_iterator]
+* [link oven.applied applied]
 
 [endsect]
 

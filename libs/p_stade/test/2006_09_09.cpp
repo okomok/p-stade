@@ -15,7 +15,7 @@
 
 #include <pstade/oven/algorithm.hpp> // copy
 #include <pstade/oven/equals.hpp>
-#include <pstade/oven/function_output_iterator.hpp> // passer, to_regularized_function
+#include <pstade/oven/function_output_iterator.hpp> // applier, to_regularized_function
 #include <pstade/oven/file_range.hpp>
 #include <pstade/oven/filter_range.hpp>
 #include <pstade/oven/identity_range.hpp>

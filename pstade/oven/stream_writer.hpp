@@ -33,7 +33,7 @@
 #include <boost/utility/addressof.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/function.hpp>
-#include "./passer.hpp"
+#include "./applier.hpp"
 
 
 namespace pstade { namespace oven {
@@ -87,13 +87,13 @@ namespace stream_writer_detail {
     {
         typedef typename
             boost::result_of<
-                op_passer(write_onto<OStream>)
+                op_applier(write_onto<OStream>)
             >::type
         result_type;
 
         result_type operator()(OStream& s, typename OStream::char_type const *delimiter = 0) const
         {
-            return passer(write_onto<OStream>(s, delimiter));
+            return applier(write_onto<OStream>(s, delimiter));
         }
     };
 
