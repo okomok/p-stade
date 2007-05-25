@@ -118,10 +118,17 @@ namespace fuzipped_detail {
     template< class IteratorTuple >
     struct zip_iterator_super
     {
-        typedef
-            typename fusion::result_of::transform<
-                IteratorTuple const,
-                dereference_iterator
+        // Though an iterator whose 'reference' is a transform-view
+        // seems conforming, such implementation would surprise some algorithms.
+
+        typedef typename
+            // 'as_vector' is required for 'value_type',
+            // because a view refers to 'm_tuple' in an iterator.
+            fusion::result_of::as_vector<
+                typename fusion::result_of::transform<
+                    IteratorTuple const,
+                    dereference_iterator
+                >::type const
             >::type
         val_t;
 
@@ -186,7 +193,9 @@ namespace fuzipped_detail {
     friend class boost::iterator_core_access;
         ref_t dereference() const
         {
-            return fusion::transform(m_tuple, dereference_iterator());
+            return fusion::as_vector(
+                fusion::transform(m_tuple, dereference_iterator())
+            );
         }
 
         template< class I >
@@ -252,7 +261,6 @@ namespace fuzipped_detail {
         {
             begin_tup_t begin_tup(tup, polymorphic(begin));
             end_tup_t end_tup(tup, polymorphic(end));
-
             return result_type(
                 iter_t( fusion::as_vector(begin_tup) ),
                 iter_t( fusion::as_vector(end_tup) )

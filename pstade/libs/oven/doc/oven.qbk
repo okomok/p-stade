@@ -67,7 +67,11 @@
 [def _input_streamable_      [@http://www.boost.org/libs/conversion/lexical_cast.htm Input Streamable]]
 [def _output_streamable_     [@http://www.boost.org/libs/conversion/lexical_cast.htm Output Streamable]]
 [def _incrementable_         [@http://www.boost.org/libs/iterator/doc/counting_iterator.html Incrementable]]
+
 [def _deferred_callable_object_ [@http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html Deferred Callable Object]]
+[def _fusion_sequence_       [@http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/sequences/concepts.html Fusion Sequence]]
+[def _fusion_forward_sequence_  [@http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/sequences/concepts/forward_sequence.html Fusion Forward Sequence]]
+[def _fusion_random_access_sequence_ [@http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/sequences/concepts/random_access_sequence.html Fusion Random Access Sequence]]
 
 [def _bindable_object_       [link oven.bindable_object Bindable Object]]
 [def _bindable_              [link oven.bindable_object Bindable]]

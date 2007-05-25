@@ -194,6 +194,7 @@ from the _generator_ concept. `nonstop` turns a _generator_ into a [link oven.ge
 
 [h3 See also]
 * [link oven.filtered filtered]
+* [link oven.split_at split_at]
 
 [endsect]
 
@@ -340,6 +341,62 @@ A _deferred_callable_object_ like a random number generator may not be copyable,
 
 [h3 See also]
 * [link oven.dropped dropped]
+* [link oven.partitioned partitioned]
+
+[endsect]
+
+
+
+
+[section zipped]
+
+[h3 Description]
+`zipped` takes a tuple of ranges and returns a range of corresponding tuples.
+
+[h3 Header]
+* `<pstade/oven/zipped.hpp>`
+
+[h3 Model of]
+* _pipable_object_
+
+[h3 Notation]
+* `(_rng1 _rng2 .. _rngN)` is `u`.
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`u|zipped`]
+        [
+            `[T(boost::make_tuple(_begin(_rng1),..,_begin(_rngN))), T(boost::make_tuple(_end(_rng1),..,_end(_rngN))))`
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* `T` is `boost::zip_iterator<_typeof(boost::make_tuple(_begin(_rng1),..,_begin(_rngN)))>` such that `T(boost::make_tuple(_begin(_rng1),..,_begin(_rngN)))` is a valid expression.
+
+[h3 Example]
+    std::cout <<
+        (
+            boost::make_tuple(
+                boost::assign::list_of(1)(2)(3),
+                boost::assign::list_of(2)(3)(4)
+            )
+                | zipped
+        );
+
+    // output> {(1 2),(2 3),(3 4)}
+
+[h3 See also]
+* [@http://www.boost.org/libs/iterator/doc/zip_iterator.html boost::zip_iterator]
+* [link oven.unzipped unzipped]
+* [link oven.fuzipped fuzipped]
+* [link oven.unfuzipped unfuzipped]
+* [link oven.zipped_with zipped_with]
 
 [endsect]
 
@@ -392,25 +449,29 @@ A _deferred_callable_object_ like a random number generator may not be copyable,
 
 [h3 See also]
 * [link oven.zipped zipped]
+* [link oven.fuzipped fuzipped]
+* [link oven.unfuzipped unfuzipped]
+* [link oven.zipped_with zipped_with]
 
 [endsect]
 
 
 
 
-[section zipped]
+[section fuzipped]
 
 [h3 Description]
-`zipped` takes a tuple of ranges and returns a range of corresponding tuples.
+`fuzipped` takes a _fusion_sequence_ of ranges and returns a range of corresponding _fusion_sequence_s.
 
 [h3 Header]
-* `<pstade/oven/zipped.hpp>`
+* `<pstade/oven/fuzipped.hpp>`
 
 [h3 Model of]
 * _pipable_object_
 
 [h3 Notation]
 * `(_rng1 _rng2 .. _rngN)` is `u`.
+* `fuzip_iterator` is an imaginary iterator which works like `boost::zip_iterator` but whose `value_type` is a _fusion_random_access_sequence_.
 
 [h3 Valid expressions]
 [table 
@@ -419,42 +480,75 @@ A _deferred_callable_object_ like a random number generator may not be copyable,
         [[*Semantics]]
     ]
     [
-        [`u|zipped`]
+        [`u|fuzipped`]
         [
-            `[T(boost::make_tuple(_begin(_rng1),..,_begin(_rngN))), T(boost::make_tuple(_end(_rng1),..,_end(_rngN))))`
+            `[T(boost::fusion::make_vector(_begin(_rng1),..,_begin(_rngN))), T(boost::fusion::make_vector(_end(_rng1),..,_end(_rngN))))`
         ]
     ]
 ]
 
 [h3 Preconditions]
-* `T` is `boost::zip_iterator<_typeof(boost::make_tuple(_begin(_rng1),..,_begin(_rngN)))>` such that `T(boost::make_tuple(_begin(_rng1),..,_begin(_rngN)))` is a valid expression.
+* `T` is `fuzip_iterator<_typeof(boost::make_tuple(_begin(_rng1),..,_begin(_rngN)))>` such that `T(boost::fusion::make_vector(_begin(_rng1),..,_begin(_rngN)))` is a valid expression.
 
 [h3 Example]
-    std::cout <<
-        (
-            boost::make_tuple(
-                boost::assign::list_of(1)(2)(3),
-                boost::assign::list_of(2)(3)(4)
-            )
-                | zipped
-        );
-
-    // output> {(1 2),(2 3),(3 4)}
 
 [h3 See also]
 * [@http://www.boost.org/libs/iterator/doc/zip_iterator.html boost::zip_iterator]
-* [link oven.zipped_with zipped_with]
+* [link oven.unfuzipped unfuzipped]
+* [link oven.zipped zipped]
 * [link oven.unzipped unzipped]
+* [link oven.zipped_with zipped_with]
 
 [endsect]
 
 
 
 
+[section unfuzipped]
+
+[h3 Description]
+`unfuzipped` reverses `fuzipped`.
+
+[h3 Header]
+* `<pstade/oven/unfuzipped.hpp>`
+
+[h3 Model of]
+* _pipable_object_
+
+[h3 Notation]
+* `{(a11 a12 .. a1N),(a21 a22 .. a2N),..,(aM1 aM2 .. aMN)}` is `_rng`.
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`_rng|unfuzipped`]
+        [
+            A _fusion_random_access_sequence_ `({a11,a21,..,aM1} {a12,a22,..,aM2} .. {a1N,a2N,..,aMN})`
+        ]
+    ]
+]
+
+[h3 Preconditions]
+* `_value_of<_typeof(_rng)>::type` is a _fusion_forward_sequence_.
+
+[h3 See also]
+* [link oven.fuzipped fuzipped]
+* [link oven.zipped zipped]
+* [link oven.unzipped unzipped]
+* [link oven.zipped_with zipped_with]
+
+[endsect]
+
+
+
 [section zipped_with]
 
 [h3 Description]
-Though `zipped` accepts a function taking a `boost::tuple` as the parameter, it is not so common.
+Though `zipped` accepts a function taking a `boost::tuple` as the parameter, such a function is not so common.
 `zipped_with` accepts a "normal" function, then turns it into comfortable one for `zipped` before passing.
 
 [h3 Header]
@@ -478,13 +572,13 @@ Though `zipped` accepts a function taking a `boost::tuple` as the parameter, it 
     [
         [`op_make_zipped_with<R>()(u, _fun)`]
         [
-            `u|zipped|op_make_transformed<R>()(fuse(_fun))`
+            `u|fuzipped|op_make_transformed<R>()(fuse(_fun))`
         ]
     ]
     [
         [`op_make_zipped_with<>()(u, _cal)`]
         [
-            `u|zipped|op_make_transformed<>()(fuse(_cal))`
+            `u|fuzipped|op_make_transformed<>()(fuse(_cal))`
         ]
     ]
     [
@@ -496,8 +590,15 @@ Though `zipped` accepts a function taking a `boost::tuple` as the parameter, it 
 ]
 
 [h3 Preconditions]
-* `u|zipped|op_make_transformed<R>(fuse(_fun))` is a valid expressin.
-* `u|zipped|transformed(fuse(_cal))` is a valid expressin.
+* `u` is a `boost::tuple` or _fusion_forward_sequence_.
+* `u|zipped|op_make_transformed<R>(fuse(_fun))` or `u|fuzipped|op_make_transformed<R>(fuse(_fun))` is a valid expressin.
+* `u|zipped|transformed(fuse(_cal))` or `u|fuzipped|transformed(fuse(_cal))` is a valid expressin.
+
+[h3 See also]
+* [link oven.zipped zipped]
+* [link oven.unzipped unzipped]
+* [link oven.fuzipped fuzipped]
+* [link oven.unfuzipped unfuzipped]
 
 [endsect]
 

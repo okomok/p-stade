@@ -1,29 +1,13 @@
-#include <boost/oven/merged.hpp>
-#include <boost/oven/partitioned.hpp>
-#include <boost/oven/any_range.hpp>
-#include <boost/oven/io.hpp>
 
-
-template<typename Predicate >
-range merge_sort(range rng, Predicate prd)
+struct A
 {
-    typename boost::result_of<op_make_paritioned(rng&, Predicate&)>::type
-        xs_ys = make_paritioned(rng, prd);
+    A() { }
+ template<class X> A(X x) { x.f(); }
+};
 
-    return
-        make_merged(
-            merge_sort(boost::get<0>(xs_ys)),
-            merge_sort(boost::get<1>(xs_ys))
-        );
-}
-
-
-
-int main()
+struct B
 {
+    operator A() const { return A(); }
+};
 
-
-
-
-
-}
+int main() { A a = B(); }

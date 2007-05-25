@@ -42,7 +42,7 @@ namespace sub_range_detail {
     struct super_ :
         iter_range_of<Range,
             range_constantable  < sub_range<Range>, typename range_constant_iterator<Range>::type,
-            lightweight_copyable< sub_range<Range> > >           
+            lightweight_copyable< sub_range<Range> > >
         >
     { };
 

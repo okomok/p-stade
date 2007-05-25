@@ -37,7 +37,10 @@ void test()
     namespace oven = pstade::oven;
     using namespace oven;
 
-#if 0 // fusion::vector template constructor eats operator-bracket proxy.
+#if !defined(BOOST_MSVC)
+    // typename detail::iterator_traits<Iterator>::value_type x = j[c];
+    //  at random_access_readable_iterator_test
+    // doesn't compile on msvc. This behavior seems non-conforming.
      {
         std::string rng0("0123");
         int rng1[] = { 0,1,2,3 };

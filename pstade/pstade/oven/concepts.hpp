@@ -47,10 +47,7 @@ struct Readable
 {
     typedef typename range_iterator<Range>::type iterator;
 
-    PSTADE_CONCEPT_USAGE(Readable)
-    {
-        PSTADE_CONCEPT_ASSERT((boost_concepts::ReadableIteratorConcept<iterator>));
-    }
+    PSTADE_CONCEPT_ASSERT((boost_concepts::ReadableIteratorConcept<iterator>));
 };
 
 
@@ -59,10 +56,7 @@ struct Writable
 {
     typedef typename range_iterator<Range>::type iterator;
 
-    PSTADE_CONCEPT_USAGE(Writable)
-    {
-        PSTADE_CONCEPT_ASSERT((boost_concepts::WritableIteratorConcept<iterator>));
-    }
+    PSTADE_CONCEPT_ASSERT((boost_concepts::WritableIteratorConcept<iterator>));
 };
 
 
@@ -71,10 +65,7 @@ struct Swappable
 {
     typedef typename range_iterator<Range>::type iterator;
 
-    PSTADE_CONCEPT_USAGE(Swappable)
-    {
-        PSTADE_CONCEPT_ASSERT((boost_concepts::SwappableIteratorConcept<iterator>));
-    }
+    PSTADE_CONCEPT_ASSERT((boost_concepts::SwappableIteratorConcept<iterator>));
 };
 
 
@@ -83,10 +74,7 @@ struct Lvalue
 {
     typedef typename range_iterator<Range>::type iterator;
 
-    PSTADE_CONCEPT_USAGE(Lvalue)
-    {
-        PSTADE_CONCEPT_ASSERT((boost_concepts::LvalueIteratorConcept<iterator>));
-    }
+    PSTADE_CONCEPT_ASSERT((boost_concepts::LvalueIteratorConcept<iterator>));
 };
 
 
@@ -100,12 +88,12 @@ struct SinglePass
     typedef typename boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<rng_t>::type mutable_iterator;
     typedef typename boost::range_const_iterator<rng_t>::type constant_iterator;
 
+    PSTADE_CONCEPT_ASSERT((boost_concepts::SinglePassIteratorConcept<mutable_iterator>));
+    PSTADE_CONCEPT_ASSERT((boost_concepts::SinglePassIteratorConcept<constant_iterator>));
+    PSTADE_CONCEPT_ASSERT((boost_concepts::InteroperableIteratorConcept<mutable_iterator, constant_iterator>));
+
     PSTADE_CONCEPT_USAGE(SinglePass)
     {
-        PSTADE_CONCEPT_ASSERT((boost_concepts::SinglePassIteratorConcept<mutable_iterator>));
-        PSTADE_CONCEPT_ASSERT((boost_concepts::SinglePassIteratorConcept<constant_iterator>));
-        PSTADE_CONCEPT_ASSERT((boost_concepts::InteroperableIteratorConcept<mutable_iterator, constant_iterator>));
-
         rng_t& rng = unevaluated<rng_t&>();
 
         mutable_iterator f = boost::begin(rng);
@@ -126,11 +114,8 @@ struct Forward :
     typedef typename boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<rng_t>::type mutable_iterator;
     typedef typename boost::range_const_iterator<rng_t>::type constant_iterator;
 
-    PSTADE_CONCEPT_USAGE(Forward)
-    {
-        PSTADE_CONCEPT_ASSERT((boost_concepts::ForwardTraversalConcept<mutable_iterator>));
-        PSTADE_CONCEPT_ASSERT((boost_concepts::ForwardTraversalConcept<constant_iterator>));
-    }
+    PSTADE_CONCEPT_ASSERT((boost_concepts::ForwardTraversalConcept<mutable_iterator>));
+    PSTADE_CONCEPT_ASSERT((boost_concepts::ForwardTraversalConcept<constant_iterator>));
 };
 
 
@@ -142,11 +127,8 @@ struct Bidirectional :
     typedef typename boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<rng_t>::type mutable_iterator;
     typedef typename boost::range_const_iterator<rng_t>::type constant_iterator;
 
-    PSTADE_CONCEPT_USAGE(Bidirectional)
-    {
-        PSTADE_CONCEPT_ASSERT((boost_concepts::BidirectionalTraversalConcept<mutable_iterator>));
-        PSTADE_CONCEPT_ASSERT((boost_concepts::BidirectionalTraversalConcept<constant_iterator>));
-    }
+    PSTADE_CONCEPT_ASSERT((boost_concepts::BidirectionalTraversalConcept<mutable_iterator>));
+    PSTADE_CONCEPT_ASSERT((boost_concepts::BidirectionalTraversalConcept<constant_iterator>));
 };
 
 
@@ -159,11 +141,8 @@ struct RandomAccess :
     typedef typename boost::range_const_iterator<rng_t>::type constant_iterator;
     typedef typename boost::range_size<rng_t>::type size_type; // seems redundant, IMO.
 
-    PSTADE_CONCEPT_USAGE(RandomAccess)
-    {
-        PSTADE_CONCEPT_ASSERT((boost_concepts::RandomAccessTraversalConcept<mutable_iterator>));
-        PSTADE_CONCEPT_ASSERT((boost_concepts::RandomAccessTraversalConcept<constant_iterator>));
-    }
+    PSTADE_CONCEPT_ASSERT((boost_concepts::RandomAccessTraversalConcept<mutable_iterator>));
+    PSTADE_CONCEPT_ASSERT((boost_concepts::RandomAccessTraversalConcept<constant_iterator>));
 };
 
 

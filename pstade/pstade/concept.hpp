@@ -15,31 +15,23 @@
 // Can't wait for the upcoming Boost.Concept...
 
 
+#include <boost/config.hpp>
+#include <boost/detail/workaround.hpp>
 #include <boost/version.hpp>
 
 
 #if !defined(NDEBUG) \
     && defined(PSTADE_CONCEPT_CHECK) \
+    && !BOOST_WORKAROUND(__GNUC__, <= 3) \
     // && BOOST_VERSION >= 103500
 
-    #include <boost/config.hpp>
-    #include <boost/detail/workaround.hpp>
     #include <boost/concept/assert.hpp>
     #include <boost/concept/usage.hpp>
 
     #define PSTADE_CONCEPT_ASSERT BOOST_CONCEPT_ASSERT
-
-    #if BOOST_WORKAROUND(__GNUC__, <= 3)
-        // GCC seems to require the members be DefaultConstructible
-        // without constructor. "./unevaluated.hpp" too can work around.
-        #define PSTADE_CONCEPT_USAGE(Model) Model(); BOOST_CONCEPT_USAGE(Model)
-    #else
-        #define PSTADE_CONCEPT_USAGE BOOST_CONCEPT_USAGE
-    #endif
+    #define PSTADE_CONCEPT_USAGE  BOOST_CONCEPT_USAGE
 
 #else
-
-    #include <pstade/unparenthesize.hpp>
 
     #define PSTADE_CONCEPT_ASSERT(ModelInParens)
     #define PSTADE_CONCEPT_USAGE(Model) ~Model()

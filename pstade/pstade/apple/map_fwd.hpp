@@ -18,6 +18,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include "./config.hpp"
+
+
+#if !defined(PSTADE_APPLE_STRANGE_STD_CONTAINERS)
+
+
 namespace std {
 
 
@@ -30,6 +36,11 @@ class multimap;
 
 
 } // namespace std
+
+
+#else
+#include <map>
+#endif
 
 
 #endif
