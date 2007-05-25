@@ -56,6 +56,7 @@ Oven is known to work on the following platforms:
 * Microsoft Visual C++ 2005 Express Edition SP1
 * Microsoft Visual C++ .NET Version 7.1 SP1
 * GCC 3.4.4
+* GCC 4.1.2
 
 [endsect]
 

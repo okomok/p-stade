@@ -806,7 +806,7 @@ then pretends to be a range of _forward_iterator_.
 
 [h3 Preconditions]
 * `_rng` is _readable_ or _lvalue_.
-* `_value_of<_typeof(_rng)>::type` is [@http://boost-consulting.com/boost/libs/fusion/doc/html/fusion/sequences/concepts/forward_sequence.html Fusion Forward Sequence].
+* `_value_of<_typeof(_rng)>::type` is _fusion_forward_sequence_.
 * `N` is a [@http://www.boost.org/libs/mpl/doc/refmanual/integral-constant.html MPL Integral Constant].
 
 [h3 Example]

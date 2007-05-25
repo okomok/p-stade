@@ -138,7 +138,7 @@ void test()
     }
 #endif
     {
-        boost::result_of<op_initial_values<>(int,int,int)>::type result = { { 1,2,3 } };
+        boost::result_of<op_initial_values<>(int,int,int)>::type result = { { { 1,2,3 } } };
         // boost::result_of<op_initial_values<>()>::type nullary_result = { };
         pstade::unused(result); //, nullary_result);
     }

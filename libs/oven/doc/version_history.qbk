@@ -148,6 +148,9 @@
 * Fixed a bug that `shared` is wrongly `PipableObject`.
 * Removed `counter`.
 * Renamed `passer` to `applier`.
+* Tested under GCC4.1.2.
+* Added `partitioned` and `split_at`.
+* Added `fuzipped` and `unfuzipped`.
 
 
 

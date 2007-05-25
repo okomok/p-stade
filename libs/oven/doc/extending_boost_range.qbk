@@ -90,7 +90,7 @@ Oven emulates a Concept-like extension way for _boost_range_.
 * `<pstade/oven/atl.hpp>`
 
 [h3 See]
-* [@http://p-stade.sourceforge.net/oven/doc/ms/mfc_atl.html MFC/ATL Extension]
+* [@../../ms/doc/mfc_atl.html MFC/ATL Extension]
 
 [endsect]
 
@@ -103,7 +103,7 @@ Oven emulates a Concept-like extension way for _boost_range_.
 * `<pstade/oven/mfc.hpp>`
 
 [h3 See]
-* [@http://p-stade.sourceforge.net/oven/doc/ms/mfc_atl.html MFC/ATL Extension]
+* [@../../ms/doc/mfc_atl.html MFC/ATL Extension]
 
 [endsect]
 

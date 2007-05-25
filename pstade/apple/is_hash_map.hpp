@@ -18,6 +18,18 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// (C) Copyright 2002 Robert Ramey - http://www.rrsd.com . 
+// Use, modification and distribution is subject to the Boost Software
+// License, Version 1.0. (See accompanying file LICENSE_1_0.txt or copy at
+// http://www.boost.org/LICENSE_1_0.txt)
+
+
+// References:
+//
+// [1] <boost/serialization/hash_map.hpp>
+
+
+#include <boost/config.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include "./hash_map_fwd.hpp"
@@ -35,10 +47,12 @@ namespace is_hash_map_detail {
     { };
 
 
-    template< class Kty, class Tr, class Alloc >
-    struct aux< stdext::hash_map< Kty, Tr, Alloc> > :
+#if defined(BOOST_HAS_HASH)
+    template< class Key, class HashFcn, class EqualKey, class Allocator >
+    struct aux< BOOST_STD_EXTENSION_NAMESPACE::hash_map<Key, HashFcn, EqualKey, Allocator> > :
         boost::mpl::true_
     { };
+#endif
 
 
     template< class T >
@@ -47,10 +61,12 @@ namespace is_hash_map_detail {
     { };
 
 
-    template< class Kty, class Tr, class Alloc >
-    struct aux_multi< stdext::hash_multimap<Kty, Tr, Alloc> > :
+#if defined(BOOST_HAS_HASH)
+    template< class Key, class HashFcn, class EqualKey, class Allocator >
+    struct aux_multi< BOOST_STD_EXTENSION_NAMESPACE::hash_multimap<Key, HashFcn, EqualKey, Allocator> > :
         boost::mpl::true_
     { };
+#endif
 
 
 } // namespace is_hash_map_detail

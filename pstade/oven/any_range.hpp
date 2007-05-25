@@ -19,7 +19,6 @@
 #include <pstade/object_generator.hpp>
 #include "./any_iterator.hpp"
 #include "./iter_range.hpp"
-#include "./lightweight_copyable.hpp"
 #include "./range_difference.hpp"
 #include "./range_reference.hpp"
 #include "./range_traversal.hpp"
@@ -41,11 +40,7 @@ namespace any_range_detail {
     {
         typedef
             iter_range<
-                any_iterator<Reference, Traversal, Value, Difference>,
-                // Copying ForwardRange needs 'new', hence not considered "lightweight".
-                lightweight_copyable<
-                    any_range<Reference, boost::single_pass_traversal_tag, Value, Difference>
-                >
+                any_iterator<Reference, Traversal, Value, Difference>
             >
         type;
     };
@@ -138,27 +133,19 @@ PSTADE_OBJECT_GENERATOR(make_any_range,
 } } // namespace pstade::oven
 
 
-// For some reason, 'lightweight_copyable' doesn't work under msvc.
-// This is required only if namespace 'oven' is in 'boost'.
+// 'lightweight_copyable' randomly doesn't work with 'any_range'.
 
-#include <boost/config.hpp>
-#include <boost/detail/workaround.hpp>
+#include <boost/foreach.hpp>
+#include <boost/mpl/bool.hpp>
 
-#if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1400))
+namespace boost { namespace foreach {
 
-    #include <boost/foreach.hpp>
-    #include <boost/mpl/bool.hpp>
+    template< class Reference, class Value, class Difference >
+    struct is_lightweight_proxy< pstade::oven::any_range<Reference, single_pass_traversal_tag, Value, Difference> > :
+        boost::mpl::true_
+    { };
 
-    namespace boost { namespace foreach {
-
-        template< class Reference, class Value, class Difference >
-        struct is_lightweight_proxy< pstade::oven::any_range<Reference, single_pass_traversal_tag, Value, Difference> > :
-            boost::mpl::true_
-        { };
-
-    } } // namespace boost::foreach
-
-#endif
+} } // namespace boost::foreach
 
 
 #endif
