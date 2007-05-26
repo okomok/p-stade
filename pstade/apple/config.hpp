@@ -17,7 +17,7 @@
 
 // References:
 //
-// [1] <boost/functinoal/detail/container_fwd.hpp>
+// [1] <boost/functional/detail/container_fwd.hpp>
 
 
 #include <boost/config.hpp>

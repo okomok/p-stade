@@ -16,7 +16,7 @@
 #if defined(BOOST_NO_STRINGSTREAM) || \
     defined(BOOST_NO_STD_WSTRING) || \
     defined(BOOST_NO_STD_LOCALE)
-    
+
     #define PSTADE_NAPKIN_NO_WIDESTRING
 
 #endif
