@@ -50,7 +50,7 @@ struct u32_to_u8_iterator_super
             u32_to_u8_iterator<Iterator, U8Type>,
             Iterator,
             U8Type,
-            typename detail::minimum_pure<
+            typename minimum_pure<
                 boost::bidirectional_traversal_tag,
                 typename boost::iterator_traversal<Iterator>::type
             >::type,

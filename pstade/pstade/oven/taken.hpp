@@ -12,22 +12,23 @@
 
 // Note:
 //
-// This could return RandomAccess, but can't return Bidirectional.
-// Also, this can't be implemented using 'taken_while',
-// because it requires the base range to be Readable or Lvalue.
+// This adaptor might return:
+//   base          -> adapted
+//   RandomAccess  -> RandomAccess
+//   Bidirectional -> Forward
+//   Forward       -> Forward
+//   SinglePass    -> SinglePass
+// But "Bidirectional -> Forward" seems inconsistent.
 
 
 #include "./detail/prelude.hpp"
 #include <boost/assert.hpp>
-#include <boost/iterator/iterator_adaptor.hpp>
-#include <boost/iterator/iterator_categories.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
 #include "./concepts.hpp"
-#include "./detail/minimum_pure.hpp"
-#include "./do_iter_swap.hpp"
+#include "./detail/take_while_iterator.hpp"
 #include "./iter_range.hpp"
 #include "./range_difference.hpp"
 #include "./range_iterator.hpp"
@@ -39,117 +40,26 @@ namespace pstade { namespace oven {
 namespace taken_detail {
 
 
-    template< class Iterator >
-    struct take_iterator;
-
-
-    template< class Iterator >
-    struct take_iterator_super
+    template< class Difference >
+    struct countdown
     {
-        typedef
-            boost::iterator_adaptor<
-                take_iterator<Iterator>,
-                Iterator,
-                boost::use_default,
-                typename detail::minimum_pure<
-                    boost::forward_traversal_tag,
-                    typename boost::iterator_traversal<Iterator>::type
-                >::type
-            >
-        type;
-    };
+        template< class Iterator >
+        bool operator()(Iterator)
+        {
+            return m_n--
+                != 0; // suppress a VC++ warning.
+        }
 
-
-    template< class Iterator >
-    struct take_iterator :
-        take_iterator_super<Iterator>::type
-    {
-    private:
-        typedef typename take_iterator_super<Iterator>::type super_t;
-        typedef typename super_t::reference ref_t;
-        typedef typename super_t::difference_type diff_t;
-
-    public:
-        take_iterator()
+        explicit countdown()
         { }
 
-        take_iterator(Iterator it, Iterator last, diff_t count) :
-            super_t(it), m_last(last), m_count(count)
-        {
-            countdown();
-        }
-
-        template< class I >
-        take_iterator(take_iterator<I> const& other,
-            typename boost::enable_if_convertible<I, Iterator>::type * = 0
-        ) :
-            super_t(other.base()), m_last(other.end()), m_count(other.left_count())
+        explicit countdown(Difference n) :
+            m_n(n)
         { }
 
-        Iterator end() const
-        {
-            return m_last;
-        }
-
-        diff_t left_count() const
-        {
-            return m_count;
-        }
-
     private:
-        Iterator m_last;
-        diff_t m_count;
-
-        template< class Other >
-        bool is_compatible(Other const& other) const
-        {
-            return m_last == other.end();
-        }
-
-        bool is_end() const
-        {
-            return this->base() == m_last;
-        }
-
-        void countdown()
-        {
-            if (is_end())
-                return;
-
-            if (m_count == 0)
-                this->base_reference() = m_last;
-            else
-                --m_count;
-        }
-
-    friend class boost::iterator_core_access;
-        ref_t dereference() const
-        {
-            BOOST_ASSERT(!is_end());
-            return *this->base();
-        }
-
-        template< class I >
-        bool equal(take_iterator<I> const& other) const
-        {
-            BOOST_ASSERT(is_compatible(other));
-            return this->base() == other.base();
-        }
-
-        void increment()
-        {
-            BOOST_ASSERT(!is_end());
-            ++this->base_reference();
-            countdown();
-        }
+        Difference m_n;
     };
-
-
-    template< class I > inline
-    void iter_swap(take_iterator<I> const& left, take_iterator<I> const& right)
-    {
-        do_iter_swap(left.base(), right.base());
-    }
 
 
     template< class Range >
@@ -160,8 +70,9 @@ namespace taken_detail {
         diff_t;
 
         typedef
-            take_iterator<
-                typename range_iterator<Range>::type
+            detail::take_while_iterator<
+                typename range_iterator<Range>::type,
+                countdown<diff_t>
             >
         iter_t;
 
@@ -175,8 +86,8 @@ namespace taken_detail {
             BOOST_ASSERT(0 <= n);
 
             return result_type(
-                iter_t(boost::begin(rng), boost::end(rng), n),
-                iter_t(boost::end(rng),   boost::end(rng), n)
+                iter_t(boost::begin(rng), boost::end(rng), countdown<diff_t>(n)),
+                iter_t(boost::end(rng),   boost::end(rng), countdown<diff_t>(n))
             );
         }
     };

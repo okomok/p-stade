@@ -50,7 +50,7 @@ struct u8_to_u32_iterator_super
             u8_to_u32_iterator<ForwardIter, U32Type>,
             ForwardIter,
             U32Type,
-            typename detail::minimum_pure<
+            typename minimum_pure<
                 boost::bidirectional_traversal_tag,
                 typename boost::iterator_traversal<ForwardIter>::type
             >::type,

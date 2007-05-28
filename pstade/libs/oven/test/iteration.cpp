@@ -30,7 +30,7 @@ int increment(int x)
     return x + 1;
 }
 
-int not_10(int x)
+bool not_10(int x)
 {
     return x != 10;
 }

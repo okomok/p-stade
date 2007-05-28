@@ -12,23 +12,22 @@
 
 #include "./detail/prelude.hpp"
 #include <boost/assert.hpp>
-#include <boost/iterator/iterator_adaptor.hpp>
-#include <boost/iterator/iterator_categories.hpp>
 #include <boost/optional/optional.hpp>
+#include <boost/range/begin.hpp>
 #include <boost/range/empty.hpp>
+#include <boost/range/end.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
 #include "./concepts.hpp"
-#include "./detail/minimum_pure.hpp"
+#include "./detail/scan_iterator.hpp"
 #include "./dropped.hpp"
 #include "./front.hpp"
 #include "./iter_range.hpp"
 #include "./jointed.hpp"
 #include "./range_iterator.hpp"
-#include "./read.hpp"
 #include "./shared_single.hpp"
 
 
@@ -38,95 +37,11 @@ namespace pstade { namespace oven {
 namespace scanned_detail {
 
 
-    template< class Iterator, class State, class BinaryFun >
-    struct scan_iterator;
-
-
-    template< class Iterator, class State, class BinaryFun >
-    struct scan_iterator_super
-    {
-        typedef
-            boost::iterator_adaptor<
-                scan_iterator<Iterator, State, BinaryFun>,
-                Iterator,
-                State,
-                typename detail::minimum_pure<
-                    boost::forward_traversal_tag,
-                    typename boost::iterator_traversal<Iterator>::type
-                >::type,
-                State const& // can be reference thanks to 'm_after'.
-            >
-        type;
-    };
-
-
-    template< class Iterator, class State, class BinaryFun >
-    struct scan_iterator :
-        scan_iterator_super<Iterator, State, BinaryFun>::type
-    {
-    private:
-        typedef typename scan_iterator_super<Iterator, State, BinaryFun>::type super_t;
-        typedef typename super_t::reference ref_t;
-
-    public:
-        scan_iterator()
-        { }
-
-        scan_iterator(Iterator it, State const& init, BinaryFun fun) :
-            super_t(it), m_before(init), m_fun(fun)
-        { }
-
-        template< class I, class S >
-        scan_iterator(scan_iterator<I, S, BinaryFun> const& other,
-            typename boost::enable_if_convertible<I, Iterator>::type * = 0,
-            typename boost::enable_if_convertible<S, State>::type    * = 0
-        ) :
-            super_t(other.base()), m_before(other.state()), m_fun(other.function())
-        { }
-
-        State state() const
-        {
-            return m_before;
-        }
-
-        BinaryFun function() const
-        {
-            return m_fun;
-        }
-
-    private:
-        State m_before;
-        BinaryFun m_fun;
-        mutable boost::optional<State> m_after;
-
-        State call_fun() const
-        {
-            return m_fun(m_before, read(this->base()));
-        }
-
-    friend class boost::iterator_core_access;
-        ref_t dereference() const
-        {
-            if (!m_after)
-                m_after = call_fun();
-
-            return *m_after;
-        }
-
-        void increment()
-        {
-            m_before = call_fun();
-            ++this->base_reference();
-            m_after.reset();
-        }
-    };
-
-
     template< class Range, class State, class BinaryFun >
     struct baby
     {
         typedef
-            scan_iterator<
+            detail::scan_iterator<
                 typename range_iterator<Range>::type,
                 typename pass_by_value<State>::type,
                 typename pass_by_value<BinaryFun>::type
