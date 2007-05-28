@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include "./detail/prelude.hpp"
 #include <boost/iterator/iterator_traits.hpp> // iterator_category
 #include "./range_iterator.hpp"
 

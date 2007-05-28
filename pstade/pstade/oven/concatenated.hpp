@@ -23,6 +23,7 @@
 //     http://opensource.adobe.com/classadobe_1_1segmented__iterator.html
 
 
+#include "./detail/prelude.hpp"
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_traits.hpp>

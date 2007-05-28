@@ -22,6 +22,7 @@
  */
 
 
+#include "./prelude.hpp"
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_traits.hpp>

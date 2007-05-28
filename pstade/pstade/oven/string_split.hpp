@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include "./detail/prelude.hpp"
 #include <boost/algorithm/string/find_iterator.hpp> // split_iterator
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>

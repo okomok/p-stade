@@ -24,6 +24,7 @@
 //     http://www.boost.org/doc/html/string_algo.html
 
 
+#include "./detail/prelude.hpp"
 #include <algorithm> // equal
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/range/begin.hpp>

@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include "./detail/prelude.hpp"
 #include <cstddef>  // ptrdiff_t
 #include <iosfwd>   // basic_istream, basic_streambuf
 #include <iterator> // istream_iterator

@@ -17,6 +17,7 @@
 // Also, 'minimum_category' needs this.
 
 
+#include "./prelude.hpp"
 #include <boost/iterator/iterator_categories.hpp>
 
 

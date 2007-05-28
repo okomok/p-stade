@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include "./detail/prelude.hpp"
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/function.hpp>

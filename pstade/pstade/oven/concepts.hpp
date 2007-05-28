@@ -21,6 +21,7 @@
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt) 
 
 
+#include "./detail/prelude.hpp"
 #include <boost/iterator/iterator_concepts.hpp> // boost_concepts
 #include <boost/range/begin.hpp>
 #include <boost/range/const_iterator.hpp>

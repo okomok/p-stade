@@ -22,6 +22,7 @@
 //     http://www.boost-consulting.com/vault/index.php?directory=Algorithms
 
 
+#include "./detail/prelude.hpp"
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
 #include <boost/range/begin.hpp>

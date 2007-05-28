@@ -16,6 +16,7 @@
 // Through metafunctions, they are occasionally turned into 'int'.
 
 
+#include "./detail/prelude.hpp"
 #include <limits> // numeric_limits
 #include <boost/assert.hpp>
 #include <boost/iterator/counting_iterator.hpp>

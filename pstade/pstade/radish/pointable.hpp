@@ -28,7 +28,7 @@ template<
 struct pointable :
     Injector
 {
-    typedef Element element_type; // for 'boost::pointee'.
+    typedef Element element_type; // for 'boost::pointee'
 
     // Note:
     // 'operator->()' must be defined in 'Derived' by hand;

@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include "./detail/prelude.hpp"
 #include <boost/assert.hpp>
 #include <boost/next_prior.hpp> // prior
 #include <boost/range/empty.hpp>

@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include "./detail/prelude.hpp"
 #include <pstade/implicitly_defined.hpp>
 #include <pstade/nullptr.hpp>
 #include "./iter_range.hpp"

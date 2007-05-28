@@ -29,6 +29,7 @@
 //     http://www.boost-consulting.com/vault/index.php?directory=Algorithms
 
 
+#include "./detail/prelude.hpp"
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
 #include <boost/mpl/and.hpp>

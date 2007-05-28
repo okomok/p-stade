@@ -32,6 +32,7 @@
 // 2. No end-iterator-check; it seems redundant.
 
 
+#include "./detail/prelude.hpp"
 #include <deque>
 #include <memory> // auto_ptr
 #include <boost/assert.hpp>

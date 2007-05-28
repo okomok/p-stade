@@ -18,6 +18,7 @@
 // because 'counting' can't represent "infinity".
 
 
+#include "./detail/prelude.hpp"
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <pstade/function.hpp>

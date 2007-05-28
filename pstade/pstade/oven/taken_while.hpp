@@ -18,6 +18,7 @@
 //     http://www.torjo.com/rangelib/index.html
 
 
+#include "./detail/prelude.hpp"
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_categories.hpp>

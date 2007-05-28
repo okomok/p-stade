@@ -16,6 +16,7 @@
 //     http://www.crystalclearsoftware.com/cgi-bin/boost_wiki/wiki.pl?STLAlgorithmExtensions/NonUniqueCopy
 
 
+#include "./detail/prelude.hpp"
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/utility/result_of.hpp>

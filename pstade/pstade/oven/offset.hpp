@@ -17,6 +17,7 @@
 // 'cshift_range'(cyclic shift operation) is also a candidate.
 
 
+#include "./detail/prelude.hpp"
 #include <boost/assert.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>

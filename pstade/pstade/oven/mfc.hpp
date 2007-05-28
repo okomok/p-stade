@@ -40,6 +40,7 @@ class CTypedPtrMap;
 //
 
 
+#include "./detail/prelude.hpp"
 #include <cstddef> // ptrdiff_t
 #include <utility> // pair
 #include <boost/assert.hpp>

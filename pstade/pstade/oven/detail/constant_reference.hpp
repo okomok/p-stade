@@ -15,6 +15,7 @@
 // A helper metafunction to implement constant iterators.
 
 
+#include "./prelude.hpp"
 #include <boost/iterator/iterator_traits.hpp>
 #include <pstade/affect.hpp>
 #include "../read.hpp"

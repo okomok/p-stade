@@ -16,6 +16,7 @@
 //     http://www.boost.org/libs/utility/generator_iterator.htm
 
 
+#include "./detail/prelude.hpp"
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/utility/result_of.hpp>
@@ -25,6 +26,7 @@
 #include <boost/optional/optional.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/remove_cvr.hpp>
+#include "./detail/begin_end_tag.hpp"
 #include "./iter_range.hpp"
 
 
@@ -64,10 +66,6 @@ namespace generation_detail {
     };
 
 
-    struct begin_tag { };
-    struct end_tag { };
-
-
     template< class StoppableGenerator >
     struct generator_iterator :
         generator_iterator_super<StoppableGenerator>::type
@@ -83,13 +81,13 @@ namespace generation_detail {
         // it would require 'StoppableGenerator' to be DefaultConstructible.
         // But SinglePassIterator is not required to be. So use tags.
 
-        generator_iterator(StoppableGenerator gen, begin_tag) :
+        generator_iterator(StoppableGenerator gen, detail::begin_tag) :
             m_gen(gen), m_result()
         {
             generate();
         }
 
-        generator_iterator(StoppableGenerator gen, end_tag) :
+        generator_iterator(StoppableGenerator gen, detail::end_tag) :
             m_gen(gen), m_result()
         { }
 
@@ -148,8 +146,8 @@ namespace generation_detail {
         result_type operator()(StoppableGenerator& gen) const
         {
             return result_type(
-                iter_t(gen, begin_tag()),
-                iter_t(gen, end_tag())
+                iter_t(gen, detail::begin_tag()),
+                iter_t(gen, detail::end_tag())
             );
         }
     };

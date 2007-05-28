@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include "./detail/prelude.hpp"
 #include <algorithm> // advance, distance
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>

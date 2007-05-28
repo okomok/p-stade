@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include "./detail/prelude.hpp"
 #include <boost/regex/pending/unicode_iterator.hpp> // utf8_output_iterator
 #include <pstade/object_generator.hpp>
 

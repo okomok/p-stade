@@ -24,6 +24,7 @@
 // a nullary-callable function must be identified by 'nullary_deferred_sig'.
 
 
+#include "./prelude.hpp"
 #include <boost/config.hpp> // BOOST_NESTED_TEMPLATE
 #include <boost/mpl/bool.hpp>
 #include <boost/mpl/eval_if.hpp>

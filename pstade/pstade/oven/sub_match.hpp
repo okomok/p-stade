@@ -17,6 +17,7 @@
 // Hence we define...
 
 
+#include "./detail/prelude.hpp"
 #include <boost/regex.hpp>
 #include "./extension.hpp"
 

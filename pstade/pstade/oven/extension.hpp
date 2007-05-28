@@ -15,6 +15,7 @@
 // [1] <boost/numeric/functional.hpp>
 
 
+#include "./detail/prelude.hpp"
 #include <boost/config.hpp> // BOOST_NESTED_TEMPLATE
 #include <boost/iterator/iterator_traits.hpp> // iterator_difference
 #include <boost/mpl/eval_if.hpp>

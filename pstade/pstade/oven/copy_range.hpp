@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include "./detail/prelude.hpp"
 #include <boost/config.hpp> // BOOST_MSVC, BOOST_NESTED_TEMPLATE
 #include <boost/type_traits/remove_const.hpp>
 #include <boost/utility/result_of.hpp>

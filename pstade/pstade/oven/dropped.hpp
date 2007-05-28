@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include "./detail/prelude.hpp"
 #include <algorithm> // min
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>

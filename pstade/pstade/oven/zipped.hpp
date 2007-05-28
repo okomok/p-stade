@@ -24,6 +24,7 @@
 // if the base range is something like RandomAccess*Input*Range.
 
 
+#include "./detail/prelude.hpp"
 #include <boost/iterator/zip_iterator.hpp>
 #include <boost/type_traits/remove_const.hpp>
 #include <boost/utility/result_of.hpp>

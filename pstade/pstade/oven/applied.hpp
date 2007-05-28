@@ -15,6 +15,7 @@
 // Will be cute with the upcoming Boost.Phoenix2.
 
 
+#include "./detail/prelude.hpp"
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>

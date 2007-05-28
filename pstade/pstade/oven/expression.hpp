@@ -19,6 +19,7 @@
 // 'range_value/range_reference/range_difference<Range>::type' are registered.
 
 
+#include "./detail/prelude.hpp"
 #include <boost/typeof/typeof.hpp>
 #include <pstade/constant.hpp>
 #include "./typeof.hpp"

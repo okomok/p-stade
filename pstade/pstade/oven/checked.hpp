@@ -16,6 +16,7 @@
 //     http://msdn2.microsoft.com/en-us/library/aa985943(VS.80).aspx
 
 
+#include "./detail/prelude.hpp"
 #include <stdexcept> // logic_error, out_of_range
 #include <string>
 #include <boost/iterator/iterator_adaptor.hpp>

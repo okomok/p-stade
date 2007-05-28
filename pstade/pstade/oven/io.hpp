@@ -25,6 +25,7 @@
 // [2] <boost/fusion/sequence/io.hpp>
 
 
+#include "./detail/prelude.hpp"
 #include <locale> // isspace
 #include <iosfwd>
 #include <boost/assert.hpp>

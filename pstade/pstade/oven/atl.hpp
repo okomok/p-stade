@@ -16,6 +16,7 @@
 //
 
 
+#include "./detail/prelude.hpp"
 #include <pstade/apple/atl/base_fwd.hpp>
 #include <pstade/apple/atl/coll_fwd.hpp>
 #include <pstade/apple/atl/comcli_fwd.hpp>

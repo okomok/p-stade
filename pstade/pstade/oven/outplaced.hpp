@@ -16,6 +16,7 @@
 //     http://www.ddj.com/dept/cpp/196513737
 
 
+#include "./detail/prelude.hpp"
 #include <vector>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>

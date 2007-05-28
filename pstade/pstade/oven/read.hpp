@@ -19,6 +19,7 @@
 // meaning that the iterator loses Writability.
 
 
+#include "./detail/prelude.hpp"
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/mpl/or.hpp>

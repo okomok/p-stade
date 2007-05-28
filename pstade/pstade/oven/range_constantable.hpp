@@ -17,6 +17,7 @@
 // See 'array_range' for the usage.
 
 
+#include "./detail/prelude.hpp"
 #include <pstade/radish/null_injector.hpp>
 #include "./detail/config.hpp" // PSTADE_OVEN_BOOST_RANGE_BEGIN/END
 

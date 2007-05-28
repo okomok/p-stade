@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include "./prelude.hpp"
 #include <boost/preprocessor/cat.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/constant.hpp>

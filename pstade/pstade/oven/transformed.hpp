@@ -33,6 +33,7 @@
 // [2] David Abrahams, Jeremy Siek, Thomas Witt, transform_iterator, Boost.Iterator, 2003.
 
 
+#include "./detail/prelude.hpp"
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
