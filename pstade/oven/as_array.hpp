@@ -16,6 +16,7 @@
 //     http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html
 
 
+#include "./detail/prelude.hpp"
 #include <cstddef> // size_t
 #include <boost/mpl/eval_if.hpp>
 #include <boost/type_traits/add_reference.hpp>

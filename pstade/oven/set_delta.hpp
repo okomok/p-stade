@@ -16,6 +16,7 @@
 // works fine, but requires the ranges to be Forward.
 
 
+#include "./detail/prelude.hpp"
 #include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>
 #include "./merged.hpp"

@@ -20,6 +20,7 @@
 #if BOOST_VERSION >= 103500
 
 
+#include "./detail/prelude.hpp"
 #include <boost/fusion/algorithm/iteration/for_each.hpp>
 #include <boost/fusion/algorithm/transformation/transform.hpp>
 #include <boost/fusion/iterator/deref.hpp>

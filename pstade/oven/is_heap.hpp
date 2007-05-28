@@ -28,6 +28,7 @@
 //     http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2246.html
 
 
+#include "./detail/prelude.hpp"
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>

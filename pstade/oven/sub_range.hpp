@@ -18,6 +18,7 @@
 // I doubt this range is necessary.
 
 
+#include "./detail/prelude.hpp"
 #include <pstade/disable_if_copy.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/implicitly_defined.hpp>

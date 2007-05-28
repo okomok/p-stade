@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include "./detail/prelude.hpp"
 #include <boost/foreach.hpp> // foreach::tag
 #include <boost/mpl/bool.hpp>
 #include <pstade/radish/null_injector.hpp>

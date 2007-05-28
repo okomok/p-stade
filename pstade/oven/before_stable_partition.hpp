@@ -17,6 +17,9 @@
 // See 'stable_partition_adaptive' and 'Temporary_buffer::size()'.
 
 
+#include "./detail/prelude.hpp"
+
+
 #include <algorithm>
 #if !defined(_ALGORITHM_) // except for VC++ STL
 

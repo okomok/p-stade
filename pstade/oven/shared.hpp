@@ -18,6 +18,7 @@
 //     http://www.boost.org/regression-logs/cs-win32_metacomm/doc/html/foreach.html
 
 
+#include "./detail/prelude.hpp"
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/pointee.hpp>
 #include <boost/range/begin.hpp>

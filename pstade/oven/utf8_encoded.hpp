@@ -22,6 +22,7 @@
  */
 
 
+#include "./detail/prelude.hpp"
 #include <boost/cstdint.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>

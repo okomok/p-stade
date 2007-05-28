@@ -16,6 +16,7 @@
 // how to step backward from the end iterator?
 
 
+#include "./detail/prelude.hpp"
 #include <algorithm> // min
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/utility/result_of.hpp>

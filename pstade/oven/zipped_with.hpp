@@ -16,6 +16,7 @@
 // you can use of course 'rng|zipped|transformed(f)'.
 
 
+#include "./detail/prelude.hpp"
 #include <boost/utility/result_of.hpp>
 #include <boost/version.hpp>
 #include <pstade/fuse.hpp>

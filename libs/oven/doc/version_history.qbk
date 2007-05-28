@@ -151,7 +151,7 @@
 * Tested under GCC4.1.2.
 * Added `partitioned` and `split_at`.
 * Added `fuzipped` and `unfuzipped`.
-
+* `popped` accepts `SinglePassRange`.
 
 
 

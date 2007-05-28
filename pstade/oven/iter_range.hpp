@@ -20,6 +20,7 @@
 //   strong guarantee assignment.
 
 
+#include "./detail/prelude.hpp"
 #include <cstddef> // size_t
 #include <utility> // pair
 #include <boost/iterator/iterator_traits.hpp>

@@ -17,6 +17,7 @@
 // RandomAccessRange. Thus, 'as_c_str' kicks in.
 
 
+#include "./detail/prelude.hpp"
 #include <algorithm> // find
 #include <cstddef>   // size_t
 #include <cstring>   // strlen

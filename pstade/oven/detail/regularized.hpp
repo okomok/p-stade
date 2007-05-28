@@ -16,6 +16,7 @@
 // facility to a CopyConstructible type 'X'.
 
 
+#include "./prelude.hpp"
 #include <boost/assert.hpp>
 #include <boost/operators.hpp> // totally_ordered
 #include <boost/optional/optional.hpp>

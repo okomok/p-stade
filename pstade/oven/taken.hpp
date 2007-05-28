@@ -17,6 +17,7 @@
 // because it requires the base range to be Readable or Lvalue.
 
 
+#include "./detail/prelude.hpp"
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_categories.hpp>

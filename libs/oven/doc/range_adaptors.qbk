@@ -1485,15 +1485,16 @@ That is, the view includes every element of the given range but in a potentially
         [[*Semantics]]
     ]
     [
-        [`_fwdrng|popped`]
+        [`_rng|popped`]
         [
-            `[_begin(_fwdrng), boost::next(_begin(_fwdrng), distance(_fwdrng) - 1))`
+            `[_begin(_rng), boost::next(_begin(_rng), distance(_rng) - 1))`
         ]
     ]
 ]
 
 [h3 Preconditions]
-* `!boost::empty(_fwdrng)`
+* `!boost::empty(_rng)`
+* If `_rng` is not _forward_, `_value_of<_typeof(_rng)>::type` is _assignable_.
 
 [h3 Example]
 

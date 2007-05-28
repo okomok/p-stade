@@ -16,6 +16,7 @@
 // of gcc and msvc STL implementation is wrongly a reference type.
 
 
+#include "./prelude.hpp"
 #include <iterator> // istreambuf_iterator
 #include <boost/iterator/iterator_adaptor.hpp>
 

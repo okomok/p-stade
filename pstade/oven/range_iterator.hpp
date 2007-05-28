@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include "./detail/prelude.hpp"
 #include <boost/range/iterator.hpp>
 #include <boost/range/result_iterator.hpp>
 #include "./detail/config.hpp" // PSTADE_OVEN_BOOST_RANGE_VERSION_1

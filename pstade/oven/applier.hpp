@@ -19,6 +19,7 @@
 // 'iterator_facade'; because of the postfix-increment implementation.
 
 
+#include "./detail/prelude.hpp"
 #include <iterator> // output_iterator_tag
 #include <boost/mpl/void.hpp>
 #include <pstade/object_generator.hpp>

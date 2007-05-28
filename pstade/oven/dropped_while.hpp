@@ -20,6 +20,7 @@
 // After all, this behavior follows 'boost::filter_iterator'.
 
 
+#include "./detail/prelude.hpp"
 #include <algorithm> // find_if
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>

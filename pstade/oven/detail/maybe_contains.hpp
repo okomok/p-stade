@@ -15,6 +15,7 @@
 // Has no any guarantee. usually works, though; for debug only.
 
 
+#include "./prelude.hpp"
 #include <algorithm> // find
 #include <iterator> // tags
 #include <boost/range/begin.hpp>

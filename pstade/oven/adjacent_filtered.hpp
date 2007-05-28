@@ -16,6 +16,7 @@
 // the iteration depends on the "previous" values.
 
 
+#include "./detail/prelude.hpp"
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/utility/result_of.hpp>

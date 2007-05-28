@@ -25,6 +25,7 @@
 //     http://www.boost.org/libs/assign/doc/index.html
 
 
+#include "./detail/prelude.hpp"
 #include <cstddef> // size_t
 #include <boost/array.hpp>
 #include <boost/preprocessor/cat.hpp>

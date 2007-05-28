@@ -40,7 +40,7 @@ void test()
 #if !defined(BOOST_MSVC)
     // typename detail::iterator_traits<Iterator>::value_type x = j[c];
     //  at random_access_readable_iterator_test
-    // doesn't compile on msvc. This behavior seems non-conforming.
+    // doesn't compile on msvc. This behavior seems a bug of msvc.
      {
         std::string rng0("0123");
         int rng1[] = { 0,1,2,3 };

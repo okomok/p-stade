@@ -18,6 +18,7 @@
 // Then, the iterators become incompatible.
 
 
+#include "./detail/prelude.hpp"
 #include <boost/assert.hpp>
 #include <boost/config.hpp> // BOOST_NESTED_TEMPLATE
 #include <boost/iterator/iterator_adaptor.hpp>

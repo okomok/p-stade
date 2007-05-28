@@ -20,6 +20,7 @@
 // 'transformed(move)' seems enough?
 
 
+#include "./detail/prelude.hpp"
 #include <pstade/miniboost/move.hpp>
 #include <boost/mpl/if.hpp>
 #include <pstade/function.hpp>

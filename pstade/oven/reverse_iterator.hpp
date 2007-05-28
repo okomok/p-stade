@@ -20,6 +20,7 @@
 //     http://www.boost.org/libs/iterator/doc/reverse_iterator.html
 
 
+#include "./detail/prelude.hpp"
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/next_prior.hpp> // prior
 #include <boost/optional/optional.hpp>

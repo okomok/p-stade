@@ -16,6 +16,7 @@
 //     http://www.boost-consulting.com/vault/index.php?directory=Algorithms
 
 
+#include "./detail/prelude.hpp"
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/function.hpp>

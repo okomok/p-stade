@@ -16,6 +16,7 @@
 // Const-ness of this range must be independent from const-ness of the 'X'.
 
 
+#include "./detail/prelude.hpp"
 #include <boost/utility/addressof.hpp>
 #include <pstade/function.hpp>
 #include "./iter_range.hpp"

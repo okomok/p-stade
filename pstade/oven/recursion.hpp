@@ -19,6 +19,7 @@
 // which is too strange for RandomAccessRange.
 
 
+#include "./detail/prelude.hpp"
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/optional/optional.hpp>

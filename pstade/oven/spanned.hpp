@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include "./detail/prelude.hpp"
 #include <boost/range/begin.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <boost/utility/result_of.hpp>

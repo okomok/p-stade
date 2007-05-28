@@ -16,6 +16,7 @@
 //     http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2059.html
 
 
+#include "./detail/prelude.hpp"
 #include <cstddef> // size_t
 #include <boost/type_traits/is_array.hpp>
 #include <pstade/auxiliary.hpp>

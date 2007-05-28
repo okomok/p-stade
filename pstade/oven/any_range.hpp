@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include "./detail/prelude.hpp"
 #include <boost/iterator/iterator_categories.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
@@ -135,6 +136,7 @@ PSTADE_OBJECT_GENERATOR(make_any_range,
 
 // 'lightweight_copyable' randomly doesn't work with 'any_range'.
 
+#include "./detail/prelude.hpp"
 #include <boost/foreach.hpp>
 #include <boost/mpl/bool.hpp>
 

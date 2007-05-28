@@ -44,6 +44,17 @@ void test()
             expected
         ) );
     }
+    {
+        std::string rng("abcdefg12");
+        std::vector<char> expected = std::string("abcdefg")|copied;
+
+        BOOST_CHECK( oven::test_SinglePass_Readable(
+            rng|identities(boost::single_pass_traversal_tag())|
+                popped|popped,
+            expected
+        ) );
+    }
+
 #if 0 // now empty range not supported
     {
         BOOST_CHECK( boost::empty(std::string()|popped) );
@@ -53,6 +64,7 @@ void test()
         std::string str("a");
         BOOST_CHECK( oven::test_empty(str|popped) );
         BOOST_CHECK( oven::test_empty(str|identities(in_forward)|popped) );
+        BOOST_CHECK( oven::test_empty(str|identities(in_single_pass)|popped) );
     }
 }
 

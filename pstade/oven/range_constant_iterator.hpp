@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include "./detail/prelude.hpp"
 #include <boost/range/const_iterator.hpp>
 #include <pstade/remove_cvr.hpp>
 

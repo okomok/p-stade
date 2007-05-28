@@ -37,6 +37,7 @@
 #endif
 
 
+#include "./detail/prelude.hpp"
 #include <algorithm>
 #include <boost/assert.hpp>
 #include <boost/concept_check.hpp>
