@@ -10,26 +10,14 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// References:
-//
-// [1] Robert Ramey, head_iterator, Boost.Serialization, 2002.
-//     http://www.boost.org/libs/serialization/doc/dataflow.html
-// [2] John Torjo and Matthew Wilson, break_iterator, Iterable Range Library, 2004.
-//     http://www.torjo.com/rangelib/index.html
-
-
 #include "./detail/prelude.hpp"
-#include <boost/assert.hpp>
-#include <boost/iterator/iterator_adaptor.hpp>
-#include <boost/iterator/iterator_categories.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/function.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
 #include "./concepts.hpp"
-#include "./detail/minimum_pure.hpp"
-#include "./do_iter_swap.hpp"
+#include "./detail/take_while_iterator.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
 #include "./read.hpp"
@@ -41,123 +29,38 @@ namespace pstade { namespace oven {
 namespace taken_while_detail {
 
 
-    template< class Iterator, class Predicate >
-    struct take_while_iterator;
-
-
-    template< class Iterator, class Predicate >
-    struct take_while_iterator_super
+    template< class Predicate >
+    struct read_then
     {
-        typedef
-            boost::iterator_adaptor<
-                take_while_iterator<Iterator, Predicate>,
-                Iterator,
-                boost::use_default,
-                typename detail::minimum_pure<
-                    boost::forward_traversal_tag,
-                    typename boost::iterator_traversal<Iterator>::type
-                >::type
-            >
-        type;
-    };
+        template< class Iterator >
+        bool operator()(Iterator it)
+        {
+            return m_pred(read(it));
+        }
 
-
-    template< class Iterator, class Predicate >
-    struct take_while_iterator :
-        take_while_iterator_super<Iterator, Predicate>::type
-    {
-    private:
-        typedef typename take_while_iterator_super<Iterator, Predicate>::type super_t;
-        typedef typename super_t::reference ref_t;
-
-    public:
-        take_while_iterator()
+        explicit read_then()
         { }
 
-        take_while_iterator(Iterator it, Iterator last, Predicate pred) :
-            super_t(it), m_last(last), m_pred(pred)
-        {
-            check_predicate();
-        }
-
-        template< class I >
-        take_while_iterator(take_while_iterator<I, Predicate> const& other,
-            typename boost::enable_if_convertible<I, Iterator>::type * = 0
-        ) :
-            super_t(other.base()), m_last(other.end()), m_pred(other.predicate())
+        explicit read_then(Predicate pred) :
+            m_pred(pred)
         { }
 
-        Iterator end() const
-        {
-            return m_last;
-        }
-
-        Predicate predicate() const
-        {
-            return m_pred;
-        }
-
     private:
-        Iterator m_last;
         Predicate m_pred;
-
-        template< class Other >
-        bool is_compatible(Other const& other) const
-        {
-            return m_last == other.end();
-        }
-
-        bool is_end() const
-        {
-            return this->base() == m_last;
-        }
-
-        void check_predicate()
-        {
-            if (is_end())
-                return;
-
-            if (!m_pred( read(this->base()) ))
-                this->base_reference() = m_last;
-        }
-
-    friend class boost::iterator_core_access;
-        ref_t dereference() const
-        {
-            BOOST_ASSERT(!is_end());
-            return *this->base();
-        }
-
-        template< class I >
-        bool equal(take_while_iterator<I, Predicate> const& other) const
-        {
-            BOOST_ASSERT(is_compatible(other));
-            return this->base() == other.base();
-        }
-
-        void increment()
-        {
-            BOOST_ASSERT(!is_end());
-            ++this->base_reference();
-            check_predicate();
-        }
     };
-
-
-    template< class I, class P > inline
-    void iter_swap(take_while_iterator<I, P> const& left, take_while_iterator<I, P> const& right)
-    {
-        do_iter_swap(left.base(), right.base());
-    }
 
 
     template< class Range, class Predicate >
     struct baby
     {
         typedef
-            take_while_iterator<
+            read_then<typename pass_by_value<Predicate>::type>
+        read_then_pred_t;
+
+        typedef
+            detail::take_while_iterator<
                 typename range_iterator<Range>::type,
-                typename pass_by_value<Predicate>::type
+                read_then_pred_t
             >
         iter_t;
 
@@ -170,8 +73,8 @@ namespace taken_while_detail {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
 
             return result_type(
-                iter_t(boost::begin(rng), boost::end(rng), pred),
-                iter_t(boost::end(rng),   boost::end(rng), pred)
+                iter_t(boost::begin(rng), boost::end(rng), read_then_pred_t(pred)),
+                iter_t(boost::end(rng),   boost::end(rng), read_then_pred_t(pred))
             );
         }
     };

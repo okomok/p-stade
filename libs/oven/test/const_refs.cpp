@@ -100,7 +100,7 @@ typedef boost::transform_iterator< ::inc, iter_t > inc_tr_iter_t;
     > ));
 
 
-    typedef pstade::oven::const_refs_detail::const_ref_iterator< inc_tr_iter_t > lvalue_iter_t;
+typedef pstade::oven::detail::const_ref_iterator< inc_tr_iter_t > lvalue_iter_t;
 
     BOOST_MPL_ASSERT(( boost::is_same<
         ::pure_traversal<lvalue_iter_t>::type,

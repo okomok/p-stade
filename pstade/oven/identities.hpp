@@ -11,18 +11,16 @@
 
 
 #include "./detail/prelude.hpp"
-#include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/mpl/assert.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
-#include <pstade/copy_construct.hpp>
 #include <pstade/dont_care.hpp>
 #include <pstade/is_convertible.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/use_default.hpp>
 #include "./concepts.hpp"
-#include "./do_iter_swap.hpp"
+#include "./detail/identity_iterator.hpp"
 #include "./iter_range.hpp"
 #include "./range_difference.hpp"
 #include "./range_iterator.hpp"
@@ -34,66 +32,6 @@ namespace pstade { namespace oven {
 
 
 namespace identities_detail {
-
-
-    template< class Iterator, class Traversal, class Difference >
-    struct identity_iterator;
-
-
-    template< class Iterator, class Traversal, class Difference >
-    struct identity_iterator_super
-    {
-        typedef
-            boost::iterator_adaptor<
-                identity_iterator<Iterator, Traversal, Difference>,
-                Iterator,
-                boost::use_default,
-                Traversal,
-                boost::use_default,
-                Difference
-            >
-        type;
-    };
-
-
-    template< class Iterator, class Traversal, class Difference >
-    struct identity_iterator :
-        identity_iterator_super<Iterator, Traversal, Difference>::type
-    {
-    private:
-        typedef typename identity_iterator_super<Iterator, Traversal, Difference>::type super_t;
-        typedef typename super_t::difference_type diff_t;
-
-    public:
-        explicit identity_iterator()
-        { }
-
-        explicit identity_iterator(Iterator it) :
-            super_t(it)
-        { }
-
-        template< class I, class T, class D >
-        identity_iterator(identity_iterator<I, T, D> const& other,
-            typename boost::enable_if_convertible<I, Iterator>::type * = 0
-        ) :
-            super_t(other.base())
-        { }
-
-    private:
-    friend class boost::iterator_core_access;
-        template< class I, class T, class D >
-        diff_t distance_to(identity_iterator<I, T, D> const& other) const
-        {
-            return pstade::copy_construct<diff_t>(other.base() - this->base());
-        }
-    };
-
-
-    template< class I, class T, class D > inline
-    void iter_swap(identity_iterator<I, T, D> const& left, identity_iterator<I, T, D> const& right)
-    {
-        do_iter_swap(left.base(), right.base());
-    }
 
 
     template< class Difference = boost::use_default >
@@ -118,7 +56,7 @@ namespace identities_detail {
             diff_t;
 
             typedef
-                identity_iterator<
+                detail::identity_iterator<
                     typename range_iterator<Range>::type,
                     trv_t,
                     diff_t

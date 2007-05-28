@@ -12,8 +12,8 @@
 
 //#include <pstade/../libs/wine/test/fuse.cpp>
 
-#include <pstade/../libs/oven/test/applier.cpp>
-//#include <pstade/../libs/oven/test/multiple_defs1.cpp>
+//#include <pstade/../libs/oven/test/iteration.cpp>
+#include <pstade/../libs/oven/test/multiple_defs1.cpp>
 //#include <pstade/../libs/oven/example/read.cpp>
 //#include <pstade/../libs/biscuit/test/capture.cpp>
 //#include <pstade/../libs/oven/test/ms/atl_string.cpp>

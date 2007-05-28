@@ -23,7 +23,7 @@
 #include <pstade/callable.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/to_value.hpp>
-#include "./as_array.hpp" // to_range
+#include "./detail/array_to_range.hpp"
 #include "./iter_range.hpp"
 
 
@@ -38,7 +38,7 @@ namespace as_literal_detail {
     {
         template< class Myself, class MaybeArray >
         struct apply :
-            as_array_detail::to_range<MaybeArray>
+            detail::array_to_range<MaybeArray>
         { };
 
         template< class Result, class T, std::size_t sz >
