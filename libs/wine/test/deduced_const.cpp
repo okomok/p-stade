@@ -100,6 +100,7 @@ algo5(Range const& rng)
 
 struct base
 {
+    virtual ~base() { }
     virtual void foo() = 0;
 };
 

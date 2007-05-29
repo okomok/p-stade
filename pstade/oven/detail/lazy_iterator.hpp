@@ -50,7 +50,7 @@ struct lazy_iterator_super
         boost::iterator_facade<
             lazy_iterator<Range>,
             typename range_value<Range>::type,
-            typename detail::minimum_pure<
+            typename minimum_pure<
                 boost::bidirectional_traversal_tag,
                 typename range_traversal<Range>::type
             >::type,

@@ -87,13 +87,13 @@ It passes adjacent pairs to a function to transform repeatedly.
     [
         [`op_make_adjacent_transformed<R>()(_rng, _fun)`]
         [
-            `{_fun(a1,a2),_fun(a2,a3),..,_fun(a(N-1),aN)}` whose `boost::range_reference` type is `R`.
+            `make_zipped_with<R>(boost::make_tuple(rng|popped, rng|dropped(1)), _fun)`
         ]
     ]
     [
         [`op_make_adjacent_transformed<>()(_rng, _cal)`]
         [
-            `{_cal(a1,a2),_cal(a2,a3),..,_cal(a(N-1),aN)}`
+             `make_zipped_with<>(boost::make_tuple(rng|popped, rng|dropped(1)), _cal)`
         ]
     ]
     [
@@ -105,17 +105,15 @@ It passes adjacent pairs to a function to transform repeatedly.
 ]
 
 [h3 Preconditions]
-* If `_rng` is not _forward_, '_value_of<_typeof(_rng)>::type` is _assignable_.
-* `!boost::empty(_rng)`
-* `_fun(*_begin(_rng), *_begin(_rng))` is well-formed.
-* `_fun` is _assignable_ and _default_constructible_.
-* `_cal` meets the preconditions of `_fun`.
+* The corresponding semantics is a valid expression.
 
 [h3 Example]
 
 [h3 See also]
 * [@http://www.sgi.com/tech/stl/adjacent_difference.html std::adjacent_difference]
-* [link oven.transformed transformed]
+* [link oven.dropped dropped]
+* [link oven.popped popped]
+* [link oven.zipped_with zipped_with]
 
 [endsect]
 

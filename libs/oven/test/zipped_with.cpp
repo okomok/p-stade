@@ -39,6 +39,8 @@ int plus3(int x, int y, int z)
 
 struct poor_plus2
 {
+    // result_type not defined.
+
     int operator()(int x, int y) const
     {
         return x + y;
