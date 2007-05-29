@@ -1,13 +1,17 @@
 
-struct A
-{
-    A() { }
- template<class X> A(X x) { x.f(); }
-};
+#include <iostream>
+#include <sstream>
+#include <pstade/oven/popped.hpp>
+#include <pstade/oven/stream_lines.hpp> // thanks to hamigaki.
+#include <boost/foreach.hpp>
 
-struct B
+int main()
 {
-    operator A() const { return A(); }
-};
+    using namespace pstade::oven;
 
-int main() { A a = B(); }
+    std::stringstream sin;
+    sin << "ABC\nDE\nFGHI\nZZZ";
+    BOOST_FOREACH (std::string const& line, stream_lines(sin)|popped) {
+        std::cout << line << std::endl;
+    }
+}
