@@ -30,14 +30,12 @@
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
-#include <pstade/fuse.hpp>
 #include <pstade/pack.hpp>
 #include <pstade/pipable.hpp>
 #include "./concepts.hpp"
 #include "./dropped.hpp"
 #include "./popped.hpp"
-#include "./transformed.hpp"
-#include "./zipped.hpp"
+#include "./zipped_with.hpp"
 
 
 namespace pstade { namespace oven {
@@ -53,18 +51,14 @@ struct op_make_adjacent_transformed :
     template< class Myself, class Range, class BinaryFun >
     struct apply :
         boost::result_of<
-            op_make_transformed<Reference, Value>(
+            op_make_zipped_with<Reference, Value>(
                 typename boost::result_of<
-                    op_make_zipped(
-                        typename boost::result_of<
-                            op_pack(
-                                typename boost::result_of<op_make_popped(Range&)>::type,
-                                typename boost::result_of<op_make_dropped(Range&, int)>::type
-                            )
-                        >::type
+                    op_pack(
+                        typename boost::result_of<op_make_popped(Range&)>::type,
+                        typename boost::result_of<op_make_dropped(Range&, int)>::type
                     )
                 >::type,
-                typename boost::result_of<op_fuse(BinaryFun&)>::type
+                BinaryFun&
             )
         >
     { };
@@ -76,11 +70,9 @@ struct op_make_adjacent_transformed :
         BOOST_ASSERT(!boost::empty(rng));
 
         return
-            op_make_transformed<Reference, Value>()(
-                make_zipped(
-                    pack(make_popped(rng), make_dropped(rng, 1))
-                ),
-                fuse(fun)
+            op_make_zipped_with<Reference, Value>()(
+                pack(make_popped(rng), make_dropped(rng, 1)),
+                fun
             );
     }
 };

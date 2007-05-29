@@ -33,7 +33,7 @@ struct tab_unexpand_iterator_super
     typedef
         boost::iterator_adaptor<
             tab_unexpand_iterator<ForwardIter>,
-            detail::tab_expand_iterator<ForwardIter> // look!
+            tab_expand_iterator<ForwardIter> // look!
         >
     type;
 };
