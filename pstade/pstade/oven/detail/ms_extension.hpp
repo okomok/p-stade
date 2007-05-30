@@ -18,7 +18,6 @@
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/utility/addressof.hpp>
 #include <pstade/use_default.hpp>
-#include "../range_reference.hpp"
 
 
 // POSITION's header is undocumented, so is NULL.

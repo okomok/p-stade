@@ -74,7 +74,7 @@ friend class boost::iterator_core_access;
 
 
 template< class I, class T, class D > inline
-void iter_swap(identity_iterator<I, T, D> const& left, identity_iterator<I, T, D> const& right)
+void iter_swap(identity_iterator<I, T, D> left, identity_iterator<I, T, D> right)
 {
     do_iter_swap(left.base(), right.base());
 }

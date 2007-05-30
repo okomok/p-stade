@@ -166,7 +166,7 @@ friend class boost::iterator_core_access;
 
 
 template< class F, class B > inline
-void iter_swap(succeed_iterator<F, B> const& left, succeed_iterator<F, B> const& right)
+void iter_swap(succeed_iterator<F, B> left, succeed_iterator<F, B> right)
 {
     do_iter_swap(left.base(), right.base());
 }

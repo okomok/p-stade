@@ -223,7 +223,7 @@ namespace detail {
 
 
     template< class I >
-    void iter_swap(check_iterator<I> const& left, check_iterator<I> const& right)
+    void iter_swap(check_iterator<I> left, check_iterator<I> right)
     {
         detail::check_singularity(left);
         detail::check_singularity(right);

@@ -18,6 +18,7 @@
 #include <iterator>
 #include <string>
 #include <vector>
+#include <deque>
 #include <boost/foreach.hpp>
 #include <boost/range.hpp>
 #include "./core.hpp"
@@ -39,6 +40,19 @@ void test()
         std::vector<int> expected = ans|copied;
         BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(src0|jointed(src1)|jointed(src2), expected) );
     }
+#if 1
+    {
+        bool src0_[] = { true,false,false };
+        std::vector<bool> src0 = src0_|copied;
+        bool src1_[] = { false,true,false };
+        std::vector<bool> src1 = src1_|copied;
+        bool src2_[] = { true,false,true };
+        std::vector<bool> src2 = src2_|copied;
+        bool const ans[] = { true,false,false,false,true,false,true,false,true };
+        std::deque<bool> expected = ans|copied;
+        BOOST_CHECK( oven::test_Bidirectional_Readable(src0|jointed(src1)|jointed(src2), expected) );
+    }
+#endif
     {
         std::string src0;
         std::string src1;
