@@ -62,8 +62,13 @@ struct local_iterator :
 template< class SegmentIter, class LocalIter >
 struct concat_iterator_traversal
 {
-    typedef typename boost::iterator_traversal<SegmentIter>::type segment_trv_t;
-    typedef typename boost::iterator_traversal<LocalIter>::type local_trv_t;
+    typedef typename
+        boost::iterator_traversal<SegmentIter>::type
+    segment_trv_t;
+    
+    typedef typename
+        boost::iterator_traversal<LocalIter>::type
+    local_trv_t;
 
     typedef typename
         boost::mpl::eval_if<
@@ -85,7 +90,9 @@ struct concat_iterator_traversal
 template< class SegmentIter >
 struct concat_iterator_super
 {
-    typedef typename local_iterator<SegmentIter>::type local_iter_t;
+    typedef typename
+        local_iterator<SegmentIter>::type
+    local_iter_t;
 
     typedef
         boost::iterator_adaptor<
@@ -107,7 +114,6 @@ struct concat_iterator :
 private:
     typedef typename concat_iterator_super<SegmentIter>::type super_t;
     typedef typename super_t::reference ref_t;
-    typedef typename boost::iterator_reference<SegmentIter>::type local_rng_ref_t;
 
 public:
     typedef SegmentIter segment_iterator;
@@ -159,7 +165,7 @@ private:
         return this->base() == m_last;
     }
 
-    local_rng_ref_t local_range() const
+    typename iterator_read<SegmentIter>::type local_range() const
     {
         PSTADE_PRECONDITION (
             (!segment_is_end())
@@ -257,7 +263,7 @@ friend class boost::iterator_core_access;
 
 
 template< class S > inline
-void iter_swap(concat_iterator<S> const& left, concat_iterator<S> const& right)
+void iter_swap(concat_iterator<S> left, concat_iterator<S> right)
 {
     do_iter_swap(left.local(), right.local());
 }

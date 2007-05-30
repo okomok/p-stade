@@ -18,7 +18,6 @@
 #include <boost/static_warning.hpp>
 #include <pstade/is_convertible.hpp>
 #include <pstade/is_returnable.hpp>
-#include "../read.hpp"
 #include "../reverse_iterator.hpp"
 #include "./minimum_pure.hpp"
 
@@ -72,8 +71,7 @@ struct joint_iterator_super
             typename minimum_pure<
                 typename boost::iterator_traversal<IteratorL>::type,
                 typename boost::iterator_traversal<IteratorR>::type
-            >::type,
-            typename iterator_read<IteratorL>::type
+            >::type
         >
     type;
 };
@@ -139,19 +137,20 @@ friend class boost::iterator_core_access;
         // which is called in overload-resolution.
         // So, this must be placed at function scope.
         BOOST_MPL_ASSERT((is_convertible<
-            typename iterator_read<IteratorR>::type,
-            typename iterator_read<IteratorL>::type
+            typename boost::iterator_reference<IteratorR>::type,
+            typename boost::iterator_reference<IteratorL>::type
         >));
 
         BOOST_STATIC_WARNING((is_returnable<
-            typename iterator_read<IteratorR>::type,
-            typename iterator_read<IteratorL>::type
+            typename boost::iterator_reference<IteratorR>::type,
+            typename boost::iterator_reference<IteratorL>::type
         >::value));
 
+        // Keep writability without 'read'.
         if (is_in_rangeL())
-            return read(this->base());
+            return *this->base();
         else
-            return read(m_itR);
+            return *m_itR;
     }
 
     template< class IL, class IR >

@@ -96,12 +96,12 @@ private:
 
     bool is_tab() const
     {
-        return read(this->base()) == PSTADE_OVEN_DEBUG_TAB_CH;
+        return PSTADE_OVEN_DEBUG_TAB_CH == read(this->base());
     }
 
     bool is_newline() const
     {
-        return read(this->base()) == '\n';
+        return '\n' == read(this->base());
     }
 
     template< class Other >

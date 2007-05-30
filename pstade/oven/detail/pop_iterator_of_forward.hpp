@@ -90,7 +90,7 @@ friend class boost::iterator_core_access;
 
 
 template< class F > inline
-void iter_swap(pop_iterator_of_forward<F> const& left, pop_iterator_of_forward<F> const& right)
+void iter_swap(pop_iterator_of_forward<F> left, pop_iterator_of_forward<F> right)
 {
     do_iter_swap(left.base(), right.base());
 }

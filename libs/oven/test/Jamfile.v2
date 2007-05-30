@@ -118,6 +118,7 @@ test-suite "oven" :
     [ run tab_unexpanded.cpp ]
     [ run taken.cpp ]
     [ run taken_while.cpp ]
+    [ run test_test.cpp ]
     [ run tokenized.cpp ]
     [ run transformed.cpp ]
     [ run traversal_tags.cpp ]

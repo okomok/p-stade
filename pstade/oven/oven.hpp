@@ -92,6 +92,7 @@
 #include "./permuted.hpp"
 #include "./pointed.hpp"
 #include "./popped.hpp"
+#include "./ptr_container.hpp"
 #include "./range_based1.hpp"
 #include "./range_based2.hpp"
 #include "./range_category.hpp"

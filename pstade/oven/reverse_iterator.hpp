@@ -118,7 +118,7 @@ friend class boost::iterator_core_access;
 
 
 template< class B > inline
-void iter_swap(reverse_iterator<B> const& left, reverse_iterator<B> const& right)
+void iter_swap(reverse_iterator<B> left, reverse_iterator<B> right)
 {
     do_iter_swap(boost::prior(left.base()), boost::prior(right.base()));
 }

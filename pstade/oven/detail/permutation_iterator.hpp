@@ -112,7 +112,7 @@ friend class boost::iterator_core_access;
 
 
 template< class E, class I > inline
-void iter_swap(permutation_iterator<E, I> const& left, permutation_iterator<E, I> const& right)
+void iter_swap(permutation_iterator<E, I> left, permutation_iterator<E, I> right)
 {
     do_iter_swap(left.element_base(), right.element_base());
 }

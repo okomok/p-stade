@@ -94,7 +94,7 @@ private:
 
     bool is_newline() const
     {
-        return read(this->base()) == '\n';
+        return '\n' == read(this->base());
     }
 
     template< class Other >

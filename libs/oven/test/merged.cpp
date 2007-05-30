@@ -17,6 +17,7 @@
 #include <cctype>
 #include <iostream>
 #include <string>
+#include <deque>
 #include "./core.hpp"
 #include <pstade/oven/algorithm.hpp>
 #include <pstade/oven/tests.hpp>
@@ -58,6 +59,15 @@ void test()
             A1|merged(A2)|merged(A3),
             expected
         ) );
+    }
+    {
+        bool src0_[] = { false,false,false };
+        std::vector<bool> src0 = src0_|copied;
+        bool src1_[] = { false,true,true };
+        std::vector<bool> src1 = src1_|copied;
+        bool const ans[] = { false,false,false,false,true,true };
+        std::deque<bool> expected = ans|copied;
+        BOOST_CHECK( oven::test_Forward_Readable(src0|merged(src1), expected) );
     }
     {
         std::vector<int> expected = counting(0, 20)|copied;

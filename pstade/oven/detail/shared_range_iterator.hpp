@@ -87,7 +87,7 @@ private:
 
 
 template< class P > inline
-void iter_swap(shared_range_iterator<P> const& left, shared_range_iterator<P> const& right)
+void iter_swap(shared_range_iterator<P> left, shared_range_iterator<P> right)
 {
     do_iter_swap(left.base(), right.base());
 }
