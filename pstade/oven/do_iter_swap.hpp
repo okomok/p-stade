@@ -20,8 +20,8 @@
 #if BOOST_WORKAROUND(BOOST_MSVC, == 1310) // msvc-7.1
     // For some reason, ADL randomly fails without this.
     namespace boost {
-        struct pstade_oven_do_iter_swap_dummy_type { };
-        void iter_swap(pstade_oven_do_iter_swap_dummy_type, pstade_oven_do_iter_swap_dummy_type) { }
+        struct pstade_oven_do_iter_swap_dummy_type;
+        void iter_swap(pstade_oven_do_iter_swap_dummy_type, pstade_oven_do_iter_swap_dummy_type);
     }
 #endif
 

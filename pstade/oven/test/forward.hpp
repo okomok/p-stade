@@ -11,7 +11,8 @@
 
 
 #include "../detail/prelude.hpp"
-#include <boost/concept_check.hpp> // Mutable_ForwardIteratorConcept
+#include <iterator> // distance, search
+#include <boost/assert.hpp>
 #include <boost/iterator/iterator_concepts.hpp> // boost_concepts
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/iterator/new_iterator_tests.hpp>
@@ -20,36 +21,47 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/concept.hpp>
-#include <pstade/unused.hpp>
 #include "./equality.hpp"
 #include "./selection_sort.hpp"
+#include "./single_pass.hpp"
 
 
 namespace pstade { namespace oven { namespace test {
 
 
-// Readable
+// Constant
 //
 
 template< class Iterator, class IteratorA >
-void forward_readable_iterator(Iterator first, Iterator last, IteratorA firstA, IteratorA lastA)
+void forward_constant_iterator(Iterator first, Iterator last, IteratorA firstA, IteratorA lastA)
 {
     PSTADE_CONCEPT_ASSERT((boost_concepts::ForwardTraversalConcept<Iterator>));
     PSTADE_CONCEPT_ASSERT((boost_concepts::ReadableIteratorConcept<Iterator>));
+    PSTADE_CONCEPT_ASSERT((boost_concepts::LvalueIteratorConcept<Iterator>));
+    BOOST_ASSERT(std::distance(firstA, lastA) >= 2); // For 'memoized', don't traverse a tested range.
 
-    typedef typename boost::iterator_value<Iterator>::type val_t;
-
-    std::vector<val_t> const vals(firstA, lastA);
-    boost::forward_readable_iterator_test(first, boost::next(first), vals[0], vals[1]);
-
-    unused(last);
+    {
+        typedef typename boost::iterator_value<Iterator>::type val_t;
+        std::vector<val_t> const vals(firstA, lastA);
+        boost::forward_readable_iterator_test(first, boost::next(first), vals[0], vals[1]);
+    }
+    {
+        typename boost::iterator_difference<IteratorA>::type w = std::distance(firstA, lastA) / 3;
+        test::iter_equality(
+            first,  std::search(first,  last,  boost::next(firstA, w), boost::next(firstA, 2 * w)),
+            firstA, std::search(firstA, lastA, boost::next(firstA, w), boost::next(firstA, 2 * w))
+        );
+    }
+    {
+        test::single_pass_readable_iterator(first, last, firstA, lastA);
+    }
 }
 
 
 template< class Range, class RangeA > inline
-void forward_readable(Range const& rng, RangeA const& rngA)
+void forward_constant(Range& rng, RangeA const& rngA)
 {
-    test::forward_readable_iterator(boost::begin(rng), boost::end(rng), boost::begin(rngA), boost::end(rngA));
+    test::forward_constant_iterator(boost::begin(rng), boost::end(rng), boost::begin(rngA), boost::end(rngA));
 }
 
 
@@ -77,27 +89,6 @@ void forward_swappable(Range& rng, RangeA const& rngA)
     test::forward_swappable_iterator(boost::begin(rng), boost::end(rng), boost::begin(rngA), boost::end(rngA));
 }
 
-
-// Mutable (old concept)
-//
-
-template< class Iterator, class IteratorA >
-void forward_mutable_iterator(Iterator first, Iterator last, IteratorA firstA, IteratorA lastA)
-{
-    PSTADE_CONCEPT_ASSERT((boost::Mutable_ForwardIteratorConcept<Iterator>));
-
-    test::forward_readable_iterator(first, last, firstA, lastA);
-
-    // todo: add a good test.
-    //
-}
-
-
-template< class Range, class RangeA > inline
-void forward_mutable(Range& rng, RangeA const& rngA)
-{
-    test::forward_mutable_iterator(boost::begin(rng), boost::end(rng), boost::begin(rngA), boost::end(rngA));
-}
 
 
 } } } // namespace pstade::oven::test
