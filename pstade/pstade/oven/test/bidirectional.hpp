@@ -11,7 +11,8 @@
 
 
 #include "../detail/prelude.hpp"
-#include <boost/concept_check.hpp> // Mutable_BidirectionalIteratorConcept
+#include <algorithm> // distance
+#include <boost/assert.hpp>
 #include <boost/Iterator/iterator_concepts.hpp> // boost_concepts
 #include <boost/Iterator/iterator_traits.hpp>
 #include <boost/Iterator/new_iterator_tests.hpp>
@@ -19,36 +20,57 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/concept.hpp>
-#include <pstade/unused.hpp>
 #include "./bubble_sort.hpp"
 #include "./equality.hpp"
+#include "./forward.hpp"
+
+#if !defined(PSTADE_OVEN_TEST_REVERSED)
+    #include "../reverse_iterator.hpp"
+#else
+    #include <boost/iterator/reverse_iterator.hpp>
+#endif
 
 
 namespace pstade { namespace oven { namespace test {
 
 
-// Readable
+// Constant
 //
 
 template< class Iterator, class IteratorA >
-void bidirectional_readable_iterator(Iterator first, Iterator last, IteratorA firstA, IteratorA lastA)
+void bidirectional_constant_iterator(Iterator first, Iterator last, IteratorA firstA, IteratorA lastA)
 {
     PSTADE_CONCEPT_ASSERT((boost_concepts::BidirectionalTraversalConcept<Iterator>));
     PSTADE_CONCEPT_ASSERT((boost_concepts::ReadableIteratorConcept<Iterator>));
+    PSTADE_CONCEPT_ASSERT((boost_concepts::LvalueIteratorConcept<Iterator>));
+    BOOST_ASSERT(std::distance(firstA, lastA) >= 2);
 
-    typedef typename boost::iterator_value<Iterator>::type val_t;
-
-    std::vector<val_t> const vals(firstA, lastA);
-    boost::bidirectional_readable_iterator_test(first, vals[0], vals[1]);
-
-    unused(last);
+    {
+        typedef typename boost::iterator_value<Iterator>::type val_t;
+        std::vector<val_t> const vals(firstA, lastA);
+        boost::bidirectional_readable_iterator_test(first, vals[0], vals[1]);
+    }
+    {
+#if !defined(PSTADE_OVEN_TEST_REVERSED)
+        test::forward_constant_iterator(
+            make_reverse_iterator(last),  make_reverse_iterator(first),
+            make_reverse_iterator(lastA), make_reverse_iterator(firstA)
+        );
+#else
+        test::forward_constant_iterator(
+            boost::make_reverse_iterator(last),  boost::make_reverse_iterator(first),
+            boost::make_reverse_iterator(lastA), boost::make_reverse_iterator(firstA)
+        );
+#endif
+    }
 }
 
 
 template< class Range, class RangeA > inline
-void bidirectional_readable(Range const& rng, RangeA const& rngA)
+void bidirectional_constant(Range& rng, RangeA const& rngA)
 {
-    test::bidirectional_readable_iterator(boost::begin(rng), boost::end(rng), boost::begin(rngA), boost::end(rngA));
+    test::bidirectional_constant_iterator(boost::begin(rng), boost::end(rng), boost::begin(rngA), boost::end(rngA));
+
 }
 
 
@@ -74,28 +96,6 @@ template< class Range, class RangeA > inline
 void bidirectional_swappable(Range& rng, RangeA const& rngA)
 {
     test::bidirectional_swappable_iterator(boost::begin(rng), boost::end(rng), boost::begin(rngA), boost::end(rngA));
-}
-
-
-// Mutable (old concept)
-//
-
-template< class Iterator, class IteratorA >
-void bidirectional_mutable_iterator(Iterator first, Iterator last, IteratorA firstA, IteratorA lastA)
-{
-    PSTADE_CONCEPT_ASSERT((boost::Mutable_BidirectionalIteratorConcept<Iterator>));
-
-    test::bidirectional_readable_iterator(first, last, firstA, lastA);
-
-    // todo: add a good test
-    //
-}
-
-
-template< class Range, class RangeA > inline
-void bidirectional_mutable(Range& rng, RangeA const& rngA)
-{
-    test::bidirectional_mutable_iterator(boost::begin(rng), boost::end(rng), boost::begin(rngA), boost::end(rngA));
 }
 
 

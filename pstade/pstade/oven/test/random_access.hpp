@@ -21,8 +21,6 @@
 
 
 #include "../detail/prelude.hpp"
-#include <algorithm> // sort
-#include <boost/concept_check.hpp> // Mutable_RandomAccessIteratorConcept
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
 #include <boost/Iterator/iterator_concepts.hpp> // boost_concepts
@@ -32,7 +30,7 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/concept.hpp>
-#include <pstade/unused.hpp>
+#include "./bidirectional.hpp"
 #include "./comb_sort.hpp"
 #include "./equality.hpp"
 
@@ -91,28 +89,31 @@ void random_access_readable_iterator_test(Iterator i, int N, TrueVals vals)
 }
 
 
-// Readable
+// Constant
 //
 
 template< class Iterator, class IteratorA >
-void random_access_readable_iterator(Iterator first, Iterator last, IteratorA firstA, IteratorA lastA)
+void random_access_constant_iterator(Iterator first, Iterator last, IteratorA firstA, IteratorA lastA)
 {
     PSTADE_CONCEPT_ASSERT((boost_concepts::RandomAccessTraversalConcept<Iterator>));
     PSTADE_CONCEPT_ASSERT((boost_concepts::ReadableIteratorConcept<Iterator>));
+    PSTADE_CONCEPT_ASSERT((boost_concepts::LvalueIteratorConcept<Iterator>));
 
-    typedef typename boost::iterator_value<Iterator>::type val_t;
-
-    std::vector<val_t> const vals(firstA, lastA);
-    test::random_access_readable_iterator_test(first, (int)vals.size(), vals);
-
-    unused(last);
+    {
+        typedef typename boost::iterator_value<Iterator>::type val_t;
+        std::vector<val_t> const vals(firstA, lastA);
+        test::random_access_readable_iterator_test(first, (int)vals.size(), vals);
+    }
+    {
+        test::bidirectional_constant_iterator(first, last, firstA, lastA);   
+    }
 }
 
 
 template< class Range, class RangeA > inline
-void random_access_readable(Range const& rng, RangeA const& rngA)
+void random_access_constant(Range& rng, RangeA const& rngA)
 {
-    test::random_access_readable_iterator(boost::begin(rng), boost::end(rng), boost::begin(rngA), boost::end(rngA));
+    test::random_access_constant_iterator(boost::begin(rng), boost::end(rng), boost::begin(rngA), boost::end(rngA));
 }
 
 
@@ -138,33 +139,6 @@ template< class Range, class RangeA > inline
 void random_access_swappable(Range& rng, RangeA const& rngA)
 {
     test::random_access_swappable_iterator(boost::begin(rng), boost::end(rng), boost::begin(rngA), boost::end(rngA));
-}
-
-
-// Mutable (old concept)
-//
-
-template< class Iterator, class IteratorA >
-void random_access_mutable_iterator(Iterator first, Iterator last, IteratorA firstA, IteratorA lastA)
-{
-    PSTADE_CONCEPT_ASSERT((boost::Mutable_RandomAccessIteratorConcept<Iterator>));
-
-    test::random_access_readable_iterator(first, last, firstA, lastA);
-
-    typedef typename boost::iterator_value<Iterator>::type val_t;
-    std::vector<val_t> vecA(firstA, lastA);
-    std::sort(vecA.begin(), vecA.end());
-
-    std::sort(first, last);
-
-    test::iter_equality(first, last, vecA.begin(), vecA.end());
-}
-
-
-template< class Range, class RangeA > inline
-void random_access_mutable(Range& rng, RangeA const& rngA)
-{
-    test::random_access_mutable_iterator(boost::begin(rng), boost::end(rng), boost::begin(rngA), boost::end(rngA));
 }
 
 

@@ -10,11 +10,17 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./drink_msvc.hpp"
+#if defined(_CONSOLE) // How to know the invocation from BJam?
 
+    #include "./drink_msvc.hpp"
+    #include <boost/config.hpp> // enable default Boost behavior
+    #include "./boost.hpp"
 
-#include <boost/config.hpp> // enable default Boost behavior
-#include "./boost.hpp"
+#else
+
+    #include "./boost/detail_lightweight_test.hpp"
+
+#endif
 
 
 #endif
