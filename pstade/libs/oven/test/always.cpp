@@ -1,5 +1,5 @@
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
+#define PSTADE_CONCEPT_CHECK
 
 
 // PStade.Oven
@@ -10,41 +10,22 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/tests.hpp>
 #include <pstade/oven/always.hpp>
 
 
-#include <string>
-#include <vector>
-#include "./core.hpp"
+#include <pstade/minimal_test.hpp>
+#include <pstade/oven/test/test.hpp>
 
 
-template< class T >
-void can_take(T&)
-{ };
-
-
-void test()
+void pstade_minimal_test()
 {
     namespace oven = pstade::oven;
     using namespace oven;
 
     {
-        std::string src1("unused");
-        std::string src2("hello, always!");
-        std::vector<char> expected = src2|copied;
-        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
-            src1|always(src2), expected
-        ) );
+        int a[] = { 1,2,5,1,2,3,5,1,1 };
+        int b[] = { 5,1,3,5,1,2,5 };
+        test::random_access_constant(b|always(a), a);
+        test::random_access_swappable(b|always(*test::new_vector<int>(a)), a);
     }
-    {
-        ::can_take(std::string()|always(std::string()));
-    }
-}
-
-
-int test_main(int, char*[])
-{
-    ::test();
-    return 0;
 }

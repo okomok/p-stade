@@ -20,6 +20,7 @@
 #include <boost/range/end.hpp>
 #include <pstade/functional.hpp> // less
 #include "../do_iter_swap.hpp"
+#include "../read.hpp"
 
 
 namespace pstade { namespace oven { namespace test {
@@ -33,7 +34,7 @@ Iterator min_element_(Iterator first, Iterator last, Compare comp)
 
     Iterator result = first;
     while (++first != last) {
-        if (comp(*first, *result))
+        if (comp(read(first), read(result)))
             result = first;
     }
 

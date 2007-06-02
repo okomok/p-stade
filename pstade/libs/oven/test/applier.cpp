@@ -1,5 +1,5 @@
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
+#define PSTADE_CONCEPT_CHECK
 
 
 // PStade.Oven
@@ -10,7 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/tests.hpp>
 #include <pstade/oven/applier.hpp>
 
 
@@ -19,12 +18,16 @@
 #include <string>
 #include <vector>
 #include <list>
-#include <boost/range.hpp>
+#include <boost/range/empty.hpp>
 #include <pstade/oven/algorithm.hpp>
 #include <pstade/oven/identities.hpp>
 #include <pstade/oven/stream_writer.hpp>
-#include "./core.hpp"
+#include <pstade/oven/equals.hpp>
+#include <pstade/oven/regular.hpp>
 #include <pstade/unused.hpp>
+
+
+#include <pstade/minimal_test.hpp>
 
 
 std::stringstream g_ss;
@@ -42,7 +45,7 @@ void modify(char& ch)
 }
 
 
-void test()
+void pstade_minimal_test()
 {
     namespace oven = pstade::oven;
     using namespace oven;
@@ -76,11 +79,4 @@ void test()
         oven::copy(src, oven::applier(pstade::unused));
         BOOST_CHECK( boost::empty(g_ss.str()) );
     }
-}
-
-
-int test_main(int, char*[])
-{
-    ::test();
-    return 0;
 }

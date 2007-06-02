@@ -1,4 +1,5 @@
-#include <pstade/unit_test.hpp>
+#include <pstade/vodka/drink.hpp>
+#define PSTADE_CONCEPT_CHECK
 
 
 // PStade.Oven
@@ -9,26 +10,20 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/tests.hpp>
 #include <pstade/oven/any_range.hpp>
 
 
 #include <string>
 #include <boost/range.hpp>
-#include "./core.hpp"
-#include <pstade/locale.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/core.hpp>
 #include <pstade/oven/identities.hpp>
-#include <pstade/oven/const_refs.hpp>
 #include <pstade/oven/filtered.hpp>
+#include <pstade/oven/equals.hpp>
 
 
-template< class AnyIter1, class AnyIter2 >
-bool equals(AnyIter1 it1, AnyIter2 it2)
-{
-    return it1 == it2;
-}
+#include <pstade/unit_test.hpp>
+#include <pstade/oven/test/test.hpp>
 
 
 void test_iterator()
@@ -93,90 +88,57 @@ void pstade_unit_test()
     using namespace oven;
 
     {
-        std::string rng("8frj91j81hf891y2");
-        std::vector<char> expected = rng|copied;
+        std::string a("8frj91j81hf891y2");
+        any_range<char&, boost::random_access_traversal_tag> b(a);
 
-        any_range<char&, boost::random_access_traversal_tag> any_(rng);
-        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
-            any_,
-            expected
-        ) );
-
-        BOOST_CHECK( !oven::test_is_lightweight_proxy(any_) );
-        BOOST_CHECK( any_ ); // bool-testable check
+        test::random_access_swappable(b, a);
+        test::non_lightweight_copyable(b);
+        BOOST_CHECK(b); // bool-testable check
     }
     {
-        std::string rng("8frj91j81hf891y2");
-        std::vector<char> expected = rng|copied;
-
-        any_range<char&, boost::random_access_traversal_tag> any_; // DefaultConstructible
-        any_ = rng;
-        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
-            any_,
-            expected
-        ) );
+        std::string a("8frj91j81hf891y2");
+        any_range<char&, boost::random_access_traversal_tag> b; // DefaultConstructible
+        b = a;
+        test::random_access_swappable(b, a);
     }
     {
-        std::string rng("8frj91j81hf891y2");
-        std::vector<char> expected = rng|copied;
-
-        any_range<char&, boost::random_access_traversal_tag> any_ = rng|identities; // copy-initializable with 'iter_range'.
-        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
-            any_,
-            expected
-        ) );
-
-        any_range<char, boost::single_pass_traversal_tag> any2 = any_; // copy-initializable with 'any_range'.
-        BOOST_CHECK( oven::test_SinglePass_Readable(
-            any2,
-            expected
-        ) );
+        std::string a("8frj91j81hf891y2");
+        any_range<char&, boost::random_access_traversal_tag> b = a|identities; // copy-initializable with 'iter_range'.
+        test::random_access_swappable(b, a);
+    }
+   {
+        std::string a("8frj91j81hf891y2");
+        any_range<char&, boost::random_access_traversal_tag> b = a|identities; // copy-initializable with 'iter_range'.
+        any_range<char, boost::single_pass_traversal_tag> b2 = b; // copy-initializable with 'any_range'.
+        test::single_pass_readable(b2, a);
     }
     {
-        std::string rng("8frj91j81hf891y2");
-        std::vector<char> expected = rng|copied;
-
-        any_range<char&, boost::bidirectional_traversal_tag> any_(rng|identities(boost::bidirectional_traversal_tag()));
-        BOOST_CHECK( oven::test_Bidirectional_Readable_Writable(
-            any_,
-            expected
-        ) );
+        std::string a("8frj91j81hf891y2");
+        any_range<char&, boost::bidirectional_traversal_tag> b(a|identities(boost::bidirectional_traversal_tag()));
+        test::bidirectional_swappable(b, a);
     }
     {
-        std::string rng("8frj91j81hf891y2");
-        std::vector<char> expected = rng|copied;
-
-        any_range<char&, boost::forward_traversal_tag> any_(rng|identities(boost::forward_traversal_tag()));
-        BOOST_CHECK( oven::test_Forward_Readable_Writable(
-            any_,
-            expected
-        ) );
+        std::string a("8frj91j81hf891y2");
+        any_range<char&, boost::forward_traversal_tag> b(a|identities(boost::forward_traversal_tag()));
+        test::forward_swappable(b, a);
     }
     {
-        std::string rng("8frj91j81hf891y2");
-        std::vector<char> expected = rng|copied;
-
-        any_range<char&, boost::single_pass_traversal_tag> any_(rng|identities(boost::single_pass_traversal_tag()));
-        BOOST_CHECK( oven::test_SinglePass_Readable(
-            any_,
-            expected
-        ) );
-
-        BOOST_CHECK( oven::test_is_lightweight_proxy(any_) );
+        std::string a("8frj91j81hf891y2");
+        any_range<char&, boost::single_pass_traversal_tag> b(a|identities(boost::single_pass_traversal_tag()));
+        test::single_pass_readable(b, a);
+        test::lightweight_copyable(b);
     }
     {
-        std::string str;
-        any_range<char&, boost::random_access_traversal_tag> any_(str|identities);
-        BOOST_CHECK( oven::test_empty(any_) );
-        BOOST_CHECK( !any_ ); // bool-testable check
+        std::string a("8frj91j81hf891y2");
+        any_range<char, boost::single_pass_traversal_tag> b = a|test::proxies;
+        test::single_pass_readable(b, a);
+        test::lightweight_copyable(b);
     }
     {
-        std::string rng("hello! any_range!");
-        any_range<char const&, boost::bidirectional_traversal_tag> any_(
-            rng|transformed(pstade::to_upper)|const_refs|filtered(regular(lambda::_1 != '!'))
-        );
-
-        BOOST_CHECK( oven::equals(any_, std::string("HELLO ANY_RANGE")) );
+        std::string a;
+        any_range<char&, boost::random_access_traversal_tag> b(a|identities);
+        test::emptiness(b);
+        BOOST_CHECK(!b); // bool-testable check
     }
     {
         std::string rng("abcd");
@@ -185,31 +147,6 @@ void pstade_unit_test()
         // many.base<char *>(); // bad_cast!
         many.base<std::string::iterator>();
     }
-#if 0 // impossible
-    {
-        std::string rng("abcd");
-        typedef any_iterator<char      , boost::random_access_traversal_tag> many_iter;
-        typedef any_iterator<char const, boost::random_access_traversal_tag> cany_iter;
-        many_iter many(boost::begin(rng));
-        many_iter many2(boost::begin(rng));
-        cany_iter cany(boost::const_begin(rng));
-        cany_iter cany2(boost::const_begin(rng));
-
-        BOOST_CHECK( boost::begin(rng) == boost::const_begin(rng) );
-        BOOST_CHECK( many == many2 );
-        BOOST_CHECK( cany == cany2 );
-
-        many_iter many3(many);
-        BOOST_CHECK( many3 == many );
-
-        cany_iter cany_tmp(many);
-        BOOST_CHECK( cany_tmp == cany );
-
-        BOOST_CHECK( cany_iter(many) == cany );
-        BOOST_CHECK( many == cany );
-        //BOOST_CHECK( boost::const_begin(rng) == any_ );
-    }
-#endif
     {
         std::string str("jgi8e8qnboie");
 
@@ -217,7 +154,7 @@ void pstade_unit_test()
         // any_range_of<std::string>::type any_ = str; // copy-initializable
         
         any_range_of<std::string>::type any_(str); // copy-initializable
-        BOOST_CHECK( oven::equals(str, any_) );
+        BOOST_CHECK( equals(str, any_) );
     }
 
     ::test_make();

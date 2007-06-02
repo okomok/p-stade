@@ -18,7 +18,6 @@
 #include <cstddef> // ptrdiff_t
 #include <boost/assert.hpp>
 #include <boost/cstdint.hpp> // uint8_t
-#include <boost/noncopyable.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/nullptr.hpp>
 #include <pstade/oven/iter_range.hpp>
@@ -121,8 +120,7 @@ namespace file_range_detail {
 template< class Value = boost::uint8_t >
 struct ifile_range :
     file_range_detail::iview<Value>,
-    oven::iter_range<Value const *>::type,
-    private boost::noncopyable
+    oven::iter_range<Value const *>::type
 {
 private:
     typedef file_range_detail::iview<Value> view_t;
@@ -133,14 +131,17 @@ public:
         view_t(path),
         super_t(view_t::first(), view_t::last())
     { }
+
+private:
+    ifile_range(ifile_range const&);
+    ifile_range& operator=(ifile_range const&);
 };
 
 
 template< class Value = boost::uint8_t >
 struct ofile_range :
     file_range_detail::oview<Value>,
-    oven::iter_range<Value *>::type,
-    private boost::noncopyable
+    oven::iter_range<Value *>::type
 {
 private:
     typedef file_range_detail::oview<Value> view_t;
@@ -151,6 +152,10 @@ public:
         view_t(path, diff),
         super_t(view_t::first(), view_t::last())
     { }
+
+private:
+    ofile_range(ofile_range const&);
+    ofile_range& operator=(ofile_range const&);
 };
 
 

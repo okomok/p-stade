@@ -1,5 +1,5 @@
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
+#define PSTADE_CONCEPT_CHECK
 
 
 // PStade.Oven
@@ -13,7 +13,11 @@
 #include <pstade/oven/algorithm.hpp>
 #include <pstade/oven/numeric.hpp>
 
-#include "./core.hpp"
+#include <pstade/oven/begin_end.hpp>
+#include <pstade/oven/equals.hpp>
+#include <pstade/oven/distance.hpp>
+#include <pstade/oven/range_iterator.hpp>
+#include <pstade/oven/regular.hpp>
 #include <pstade/oven/as_c_str.hpp>
 
 
@@ -39,7 +43,7 @@
 #include <boost/range.hpp>
 
 
-using namespace pstade;
+namespace oven = pstade::oven;
 using namespace oven;
 
 
@@ -322,11 +326,11 @@ int test_main( int, char*[] )
     std::pair<std::vector<int>::iterator,std::vector<int>::iterator> my_pair(my_vector.begin(),my_vector.end());
 
     // test the algorithms with list and const list
-    test_algorithms(ntcs|as_c_str);
-    test_algorithms(array);
-    test_algorithms(my_list);
-    test_algorithms(my_vector);
-    test_algorithms(my_pair);
+    ::test_algorithms(ntcs|as_c_str);
+    ::test_algorithms(array);
+    ::test_algorithms(my_list);
+    ::test_algorithms(my_vector);
+    ::test_algorithms(my_pair);
 
     return 0;
 }

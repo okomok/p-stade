@@ -33,6 +33,7 @@ struct bar_fun
 };
 
 
+// nullary check
 int make_zero()
 {
     return 0;
@@ -67,8 +68,7 @@ void test()
         BOOST_CHECK( compose(to_value, bar_fun())('c') == std::string("x") );
     }
     {
-        BOOST_CHECK( compose(&increment, &make_zero)() == 1 );
-        BOOST_CHECK( (&increment|composed(&make_zero))() == 1 );
+        BOOST_CHECK( op_compose<int>()(&increment, &make_zero)() == 1 );
     }
 }
 

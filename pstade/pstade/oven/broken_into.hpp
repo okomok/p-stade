@@ -16,7 +16,6 @@
 #include <boost/token_iterator.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/deduced_const.hpp>
-#include <pstade/nonassignable.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/specified.hpp>
 #include "./concepts.hpp"
@@ -68,14 +67,16 @@ namespace broken_into_detail_ {
 
 
     template< class Type, class TokenizerFun  >
-    struct pipe :
-        private nonassignable
+    struct pipe
     {
         explicit pipe(TokenizerFun fun) :
             m_fun(fun)
         { }
 
         TokenizerFun m_fun;
+
+    private:
+        pipe& operator=(pipe const&);
     };
 
 

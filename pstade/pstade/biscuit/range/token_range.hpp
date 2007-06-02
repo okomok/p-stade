@@ -12,7 +12,6 @@
 
 #include <pstade/const_overloaded.hpp>
 #include <pstade/deduced_const.hpp>
-#include <pstade/nonassignable.hpp>
 #include <pstade/oven/iter_range.hpp>
 #include <pstade/oven/lightweight_copyable.hpp>
 #include <pstade/oven/range_iterator.hpp>
@@ -98,14 +97,16 @@ namespace token_range_detail_ {
 
 
     template< class Parser, class UserState >
-    struct pipe :
-        private nonassignable
+    struct pipe
     {
         explicit pipe(UserState& us) :
             m_us(us)
         { }
 
         UserState& m_us;
+
+    private:
+        pipe& operator=(pipe const&);
     };
 
 

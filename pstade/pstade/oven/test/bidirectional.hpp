@@ -12,10 +12,10 @@
 
 #include "../detail/prelude.hpp"
 #include <algorithm> // distance
+#include <vector>
 #include <boost/assert.hpp>
 #include <boost/Iterator/iterator_concepts.hpp> // boost_concepts
 #include <boost/Iterator/iterator_traits.hpp>
-#include <boost/Iterator/new_iterator_tests.hpp>
 #include <boost/ptr_container/ptr_list.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
@@ -23,6 +23,7 @@
 #include "./bubble_sort.hpp"
 #include "./equality.hpp"
 #include "./forward.hpp"
+#include "./new_iterator_tests.hpp"
 
 #if !defined(PSTADE_OVEN_TEST_REVERSED)
     #include "../reverse_iterator.hpp"
@@ -83,7 +84,7 @@ void bidirectional_swappable_iterator(Iterator first, Iterator last, IteratorA f
     PSTADE_CONCEPT_ASSERT((boost_concepts::BidirectionalTraversalConcept<Iterator>));
     // PSTADE_CONCEPT_ASSERT((boost_concepts::SwappableIteratorConcept<Iterator>)); // See "../do_iter_swap".
 
-    typedef typename boost::iterator_value<Iterator>::type val_t;
+    typedef typename boost::iterator_value<IteratorA>::type val_t;
     boost::ptr_list<val_t> lstA(firstA, lastA);
     lstA.sort();
 

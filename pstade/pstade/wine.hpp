@@ -56,7 +56,6 @@
 #include "./locale.hpp"
 #include "./locale_saver.hpp"
 #include "./new_delete.hpp"
-#include "./nonassignable.hpp"
 #include "./nonconstructible.hpp"
 #include "./nullptr.hpp"
 #include "./object_generator.hpp"

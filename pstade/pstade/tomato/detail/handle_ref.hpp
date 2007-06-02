@@ -13,15 +13,13 @@
 #include <boost/assert.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/is_convertible.hpp>
-#include <pstade/nonassignable.hpp>
 
 
 namespace pstade { namespace tomato { namespace detail {
 
 
 template< class Handle, class Assertion >
-struct handle_ref :
-    private nonassignable
+struct handle_ref
 {
     /*implicit*/ handle_ref(Handle handle) :
         m_handle(handle)
@@ -55,6 +53,8 @@ private:
     {
         return Assertion()(m_handle);
     }
+
+    handle_ref& operator=(handle_ref const&);
 };
 
 

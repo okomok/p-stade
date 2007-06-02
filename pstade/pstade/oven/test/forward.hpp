@@ -12,10 +12,10 @@
 
 #include "../detail/prelude.hpp"
 #include <iterator> // distance, search
+#include <vector>
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_concepts.hpp> // boost_concepts
 #include <boost/iterator/iterator_traits.hpp>
-#include <boost/iterator/new_iterator_tests.hpp>
 #include <boost/next_prior.hpp> // next
 #include <boost/ptr_container/ptr_list.hpp>
 #include <boost/range/begin.hpp>
@@ -23,6 +23,7 @@
 #include <pstade/concept.hpp>
 #include "./equality.hpp"
 #include "./selection_sort.hpp"
+#include "./new_iterator_tests.hpp"
 #include "./single_pass.hpp"
 
 
@@ -74,7 +75,7 @@ void forward_swappable_iterator(Iterator first, Iterator last, IteratorA firstA,
     PSTADE_CONCEPT_ASSERT((boost_concepts::ForwardTraversalConcept<Iterator>));
     // PSTADE_CONCEPT_ASSERT((boost_concepts::SwappableIteratorConcept<Iterator>)); // See "../do_iter_swap".
 
-    typedef typename boost::iterator_value<Iterator>::type val_t;
+    typedef typename boost::iterator_value<IteratorA>::type val_t;
     boost::ptr_list<val_t> lstA(firstA, lastA);
     lstA.sort();
 

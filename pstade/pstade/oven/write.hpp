@@ -22,6 +22,12 @@ struct op_write
     typedef void result_type;
 
     template< class WritableIterator, class X >
+    void operator()(WritableIterator it, X& x) const
+    {
+        *it = x;
+    }
+
+    template< class WritableIterator, class X >
     void operator()(WritableIterator it, X const& x) const
     {
         *it = x;

@@ -1,28 +1,15 @@
 
-#include <memory> // auto_ptr
+#include <boost/ptr_container/ptr_vector.hpp>
+#include <boost/mpl/assert.hpp>
+#include <boost/type_traits/is_const.hpp>
 
-struct List
-{
-    template< class X >
-    operator std::auto_ptr<X>() const
-    {
-        return std::auto_ptr<X>(new X());
-    }
-};
-
-List l;
+using namespace boost;
 
 
-struct Deque
-{
-    Deque& operator=(std::auto_ptr<Deque> )
-    { return *this; }
-};
+BOOST_MPL_ASSERT_NOT((
+    is_const<iterator_value<boost::ptr_vector<int>::const_iterator>::type>
+));
 
 int main()
 {
-    Deque d;
-    d = l;
-//    std::auto_ptr<int> a(l);
 }
-

@@ -18,7 +18,6 @@
 
 #include <cstddef> // size_t
 #include <boost/array.hpp>
-#include <boost/noncopyable.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/apple/sdk/tchar.hpp>
@@ -79,8 +78,7 @@ namespace class_name_detail {
 
 struct class_name :
     private class_name_detail::init<>::type,
-    class_name_detail::super_<>::type,
-    private boost::noncopyable
+    class_name_detail::super_<>::type
 {
 private:
     typedef class_name_detail::init<>::type init_t; 
@@ -97,6 +95,10 @@ public:
     {
         return boost::begin(self.m_buf);
     }
+
+private:
+    class_name(class_name const&);
+    class_name& operator=(class_name const&);
 };
 
 

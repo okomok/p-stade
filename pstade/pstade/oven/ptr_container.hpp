@@ -11,6 +11,7 @@
 
 
 #include "./detail/prelude.hpp"
+#include <boost/type_traits/remove_const.hpp>
 #include "./do_iter_swap.hpp"
 
 
@@ -26,6 +27,17 @@ namespace boost {
     {
         pstade::oven::do_iter_swap(left.base(), right.base());
     }
+
+
+    template< class Iterator >
+    struct iterator_value;
+
+
+    // This seems a bug of Boost.PtrContainer.
+    template< class VoidIter, class T >
+    struct iterator_value< void_ptr_iterator<VoidIter, T> > :
+        remove_const<T>
+    { };
 
 
 } // namespace boost

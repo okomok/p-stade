@@ -24,8 +24,8 @@
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/fuse.hpp>
-#include <pstade/nonassignable.hpp>
 #include <pstade/pass_by.hpp>
+#include <pstade/tuple.hpp> // tuple0
 #include <pstade/unfuse.hpp>
 #include <pstade/unparenthesize.hpp>
 
@@ -36,11 +36,10 @@ namespace pstade {
     namespace automatic_detail {
 
 
-        template<class Lambda, class Arguments>
-        struct temp :
-            private nonassignable
+        template<class Lambda, class ArgTuple>
+        struct temp
         {
-            explicit temp(Arguments const& args) :
+            explicit temp(ArgTuple const& args) :
                 m_args(args)
             { }
 
@@ -55,7 +54,9 @@ namespace pstade {
             }
 
         private:
-            Arguments m_args;
+            ArgTuple m_args;
+
+            temp& operator=(temp const&);
         };
 
 
@@ -63,23 +64,19 @@ namespace pstade {
         struct fused_op :
             callable< fused_op<Lambda> >
         {
-            template<class Myself, class Arguments>
+            template<class Myself, class ArgTuple>
             struct apply
             {
                 typedef
-                    temp<
-                        Lambda,
-                        // 'pass_by_value' is needless here in fact.
-                        typename pass_by_value<Arguments>::type
-                    > const
+                    temp<Lambda, typename pass_by_value<ArgTuple>::type> const
                 type;
             };
 
-            template<class Result, class Arguments>
-            Result call(Arguments& args) const
+            template<class Result, class ArgTuple>
+            Result call(ArgTuple& args) const
             {
                 // 'args' is destructed as soon as this 'call' returns,
-                // so that 'temp' must *copy* it to 'm_args'.
+                // so that, 'temp' must *copy* it to 'm_args'.
                 return Result(args); 
             }
         };
@@ -90,7 +87,9 @@ namespace pstade {
 
     template<class Lambda>
     struct automatic :
-        boost::result_of<op_unfuse(automatic_detail::fused_op<Lambda>)>::type
+        boost::result_of<
+            op_unfuse<nullary_fused>(automatic_detail::fused_op<Lambda>)
+        >::type
     {
         template<class To>
         operator To() const

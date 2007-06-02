@@ -15,34 +15,29 @@
 #include <boost/detail/workaround.hpp>
 #include <boost/iterator/iterator_traits.hpp>
 #include <pstade/constant.hpp>
-
-
-#if BOOST_WORKAROUND(BOOST_MSVC, == 1310) // msvc-7.1
-    // For some reason, ADL randomly fails without this.
-    namespace boost {
-        struct pstade_oven_do_iter_swap_dummy_type;
-        void iter_swap(pstade_oven_do_iter_swap_dummy_type, pstade_oven_do_iter_swap_dummy_type);
-    }
-#endif
+#include "./read.hpp"
+#include "./write.hpp"
 
 
 namespace pstade { namespace oven {
 
 
+#if !BOOST_WORKAROUND(BOOST_MSVC, == 1310) // not msvc-7.1
 namespace do_iter_swap_detail {
-
+#endif
 
     // Sigh... msvc STL calls 'std::swap'.
-    template< class Iterator >
-    void iter_swap(Iterator left, Iterator right)
+    template< class ReadableIter >
+    void iter_swap(ReadableIter left, ReadableIter right)
     {
-        typename boost::iterator_value<Iterator>::type tmp = *left;
-        *left = *right;
-        *right = tmp;
+        typename boost::iterator_value<ReadableIter>::type tmp = read(left);
+        write(left, read(right)); // 'write(left, *right)' would call the copy-assignment of proxy.
+        write(right, tmp);
     }
 
-
+#if !BOOST_WORKAROUND(BOOST_MSVC, == 1310) // not msvc-7.1
 } // namespace do_iter_swap_detail
+#endif
 
 
 struct op_do_iter_swap
@@ -52,10 +47,9 @@ struct op_do_iter_swap
     template< class Iterator >
     void operator()(Iterator left, Iterator right) const
     {
-#if BOOST_WORKAROUND(BOOST_MSVC, == 1310) // msvc-7.1
-        using boost::iter_swap;
-#endif
+#if !BOOST_WORKAROUND(BOOST_MSVC, == 1310) // not msvc-7.1
         using do_iter_swap_detail::iter_swap;
+#endif
         iter_swap(left, right);
     }
 };

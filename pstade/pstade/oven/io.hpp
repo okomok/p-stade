@@ -36,7 +36,6 @@
 #include <boost/range/end.hpp>
 #include <boost/type_traits/remove_const.hpp>
 #include <pstade/function.hpp>
-#include <pstade/nonassignable.hpp>
 #include "./iter_range.hpp"
 
 
@@ -157,8 +156,7 @@ namespace io_detail {
 
 
     template< class CharT >    
-    struct manipulator :
-        private nonassignable
+    struct manipulator
     {
         manipulator(mn_t mn, CharT ch) :
             m_mn(mn), m_ch(ch)
@@ -166,6 +164,9 @@ namespace io_detail {
 
         mn_t const m_mn;
         CharT const m_ch;
+
+    private:
+        manipulator& operator=(manipulator const&);
     };
 
     template< class CharT, class Traits > inline

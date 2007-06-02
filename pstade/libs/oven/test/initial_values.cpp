@@ -27,17 +27,18 @@
 #include <pstade/used.hpp>
 #include <boost/array.hpp>
 #include <boost/implicit_cast.hpp>
-#include <pstade/nonassignable.hpp>
 
 
 namespace oven = pstade::oven;
 using namespace oven;
 
 
-struct nonassignable_t :
-    pstade::nonassignable
+struct nonassignable_t
 { 
     nonassignable_t(int) { }
+
+private:
+    nonassignable_t& operator=(nonassignable_t const&);
 };
 
 

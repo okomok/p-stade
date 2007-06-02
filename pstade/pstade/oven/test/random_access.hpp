@@ -21,11 +21,11 @@
 
 
 #include "../detail/prelude.hpp"
+#include <vector>
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
 #include <boost/Iterator/iterator_concepts.hpp> // boost_concepts
 #include <boost/Iterator/iterator_traits.hpp>
-#include <boost/Iterator/new_iterator_tests.hpp>
 #include <boost/ptr_container/ptr_list.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
@@ -33,60 +33,10 @@
 #include "./bidirectional.hpp"
 #include "./comb_sort.hpp"
 #include "./equality.hpp"
+#include "./new_iterator_tests.hpp"
 
 
 namespace pstade { namespace oven { namespace test {
-
-
-// random access
-// Preconditions: [i,i+N) is a valid range
-template <class Iterator, class TrueVals>
-void random_access_readable_iterator_test(Iterator i, int N, TrueVals vals)
-{
-  boost::bidirectional_readable_iterator_test(i, vals[0], vals[1]);
-  const Iterator j = i;
-  int c;
-
-  for (c = 0; c < N-1; ++c)
-  {
-    BOOST_TEST(i == j + c);
-    BOOST_TEST(*i == vals[c]);
-#if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1400))
-    // msvc can't order template-constructor of value_type and convertion-operator of proxy.
-    typename boost::detail::iterator_traits<Iterator>::value_type x = *(j + c);
-#else
-    typename boost::detail::iterator_traits<Iterator>::value_type x = j[c];
-#endif
-    BOOST_TEST(*i == x);
-    BOOST_TEST(*i == *(j + c));
-    BOOST_TEST(*i == *(c + j));
-    ++i;
-    BOOST_TEST(i > j);
-    BOOST_TEST(i >= j);
-    BOOST_TEST(j <= i);
-    BOOST_TEST(j < i);
-  }
-
-  Iterator k = j + N - 1;
-  for (c = 0; c < N-1; ++c)
-  {
-    BOOST_TEST(i == k - c);
-    BOOST_TEST(*i == vals[N - 1 - c]);
-#if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1400))
-    typename boost::detail::iterator_traits<Iterator>::value_type x = *(j + (N - 1 - c));
-#else
-    typename boost::detail::iterator_traits<Iterator>::value_type x = j[N - 1 - c];
-#endif
-    BOOST_TEST(*i == x);
-    Iterator q = k - c; 
-    BOOST_TEST(*i == *q);
-    BOOST_TEST(i > j);
-    BOOST_TEST(i >= j);
-    BOOST_TEST(j <= i);
-    BOOST_TEST(j < i);
-    --i;
-  }
-}
 
 
 // Constant
@@ -102,7 +52,7 @@ void random_access_constant_iterator(Iterator first, Iterator last, IteratorA fi
     {
         typedef typename boost::iterator_value<Iterator>::type val_t;
         std::vector<val_t> const vals(firstA, lastA);
-        test::random_access_readable_iterator_test(first, (int)vals.size(), vals);
+        boost::random_access_readable_iterator_test(first, (int)vals.size(), vals);
     }
     {
         test::bidirectional_constant_iterator(first, last, firstA, lastA);   
@@ -126,7 +76,7 @@ void random_access_swappable_iterator(Iterator first, Iterator last, IteratorA f
     PSTADE_CONCEPT_ASSERT((boost_concepts::RandomAccessTraversalConcept<Iterator>));
     // PSTADE_CONCEPT_ASSERT((boost_concepts::SwappableIteratorConcept<Iterator>)); // See "../do_iter_swap".
 
-    typedef typename boost::iterator_value<Iterator>::type val_t;
+    typedef typename boost::iterator_value<IteratorA>::type val_t;
     boost::ptr_list<val_t> lstA(firstA, lastA);
     lstA.sort();
 
