@@ -24,6 +24,11 @@ struct ncint :
         m_int(i)
     { }
 
+    operator int() const
+    {
+        return m_int;
+    }
+
     int value() const
     {
         return m_int;
@@ -51,6 +56,7 @@ private:
     ncint(ncint const&);
     ncint& operator=(ncint const&);
 };
+
 
 inline
 ncint* new_clone(ncint const& nci)

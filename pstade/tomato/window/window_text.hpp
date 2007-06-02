@@ -24,7 +24,6 @@
 
 
 #include <boost/assert.hpp>
-#include <boost/noncopyable.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/apple/sdk/tchar.hpp>
@@ -80,8 +79,7 @@ namespace window_text_detail {
 
 struct window_text :
     private window_text_detail::init<>::type,
-    window_text_detail::super_<>::type,
-    private boost::noncopyable
+    window_text_detail::super_<>::type
 {
 private:
     typedef window_text_detail::init<>::type init_t; 
@@ -98,6 +96,10 @@ public:
     {
         return boost::begin(self.m_buf);
     }
+
+private:
+    window_text(window_text const&);
+    window_text& operator=(window_text const&);
 };
 
 

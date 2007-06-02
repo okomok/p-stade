@@ -19,7 +19,6 @@
 
 
 #include <locale>
-#include <boost/noncopyable.hpp>
 #include <boost/scoped_ptr.hpp>
 #include <pstade/constant.hpp>
 
@@ -106,8 +105,7 @@ namespace locale_saver_detail {
 
 
 struct locale_saver :
-    private locale_saver_detail::super_<>::type,
-    private boost::noncopyable
+    private locale_saver_detail::super_<>::type
 {
 private:
     typedef locale_saver_detail::super_<>::type super_t;
@@ -130,6 +128,10 @@ public:
     explicit locale_saver(IOStream& ios, char const *name) :
         super_t(ios, std::locale(name))
     { }
+
+private:
+    locale_saver(locale_saver const&);
+    locale_saver& operator=(locale_saver const&);
 };
 
 

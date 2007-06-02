@@ -16,7 +16,6 @@
 #include <pstade/affect.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/deduced_const.hpp>
-#include <pstade/nonassignable.hpp>
 #include <pstade/specified.hpp>
 #include <pstade/tuple.hpp>
 #include "./concepts.hpp"
@@ -81,9 +80,11 @@ namespace elements_detail_ {
 
 
     template< class N >
-    struct elements :
-        private nonassignable
-    { };
+    struct elements
+    {
+    private:
+        elements& operator=(elements const&);    
+    };
 
 
     template< int N >

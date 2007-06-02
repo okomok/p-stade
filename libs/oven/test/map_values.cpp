@@ -1,5 +1,5 @@
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
+#define PSTADE_CONCEPT_CHECK
 
 
 // PStade.Oven
@@ -10,39 +10,34 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/tests.hpp>
 #include <pstade/oven/map_values.hpp>
 
 
-#include <iterator>
-#include <string>
 #include <map>
+#include <vector>
 #include <boost/foreach.hpp>
-#include <boost/range.hpp>
-#include "./core.hpp"
 
 
-void test()
+#include <pstade/minimal_test.hpp>
+#include <pstade/oven/test/test.hpp>
+
+
+namespace oven = pstade::oven;
+using namespace oven;
+
+
+void pstade_minimal_test()
 {
-    namespace oven = pstade::oven;
-    using namespace oven;
-
-    std::map<int, std::string> vec;
-    vec[3] = "hello";
-    vec[4] = "value";
-
-
-    BOOST_FOREACH( std::string& v, vec|map_values) {
-        v = "a";
+    std::map<char, int> b;
+    b['a'] = 6; b['b'] = 1; b['c'] = 3; b['d'] = 7; b['e'] = 3;
+    b['f'] = 2; b['g'] = 2; b['h'] = 1; b['i'] = 7; b['j'] = 2;
+ 
+    std::vector<int> a;
+    typedef std::pair<char const, int>& ref_t;
+    BOOST_FOREACH (ref_t p, b) {
+        a.push_back(p.second);
     }
 
-    BOOST_CHECK( vec[3] == "a" && vec[4] == "a" );
-    BOOST_CHECK( oven::distance(vec) == 2 );
-}
-
-
-int test_main(int, char*[])
-{
-    ::test();
-    return 0;
+    test::bidirectional_constant(b|map_values, a);
+    test::bidirectional_swappable(b|map_values, a);
 }

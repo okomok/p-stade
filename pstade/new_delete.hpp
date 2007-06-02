@@ -30,7 +30,7 @@
 #include <pstade/constant.hpp>
 #include <pstade/construct.hpp>
 #include <pstade/fuse.hpp>
-#include <pstade/nonassignable.hpp>
+#include <pstade/pass_by.hpp>
 #include <pstade/preprocessor.hpp> // SEQ_RANGE
 #include <pstade/specified.hpp>
 #include <pstade/unfuse.hpp>
@@ -114,7 +114,7 @@ namespace pstade {
     template<class P>
     struct op_new_ptr :
         boost::result_of<
-            op_compose(
+            op_compose<P>(
                 op_construct<P>,
                 op_new<typename boost::pointee<P>::type>
             )
@@ -142,11 +142,10 @@ namespace pstade {
         // some implementations require "move sequence" to be in the same scope.
         // After all, we need a conversion operator to return lvalue.
 
-        template<class Arguments>
-        struct temp :
-            private nonassignable
+        template<class ArgTuple>
+        struct temp
         {
-            explicit temp(Arguments const& args) :
+            explicit temp(ArgTuple const& args) :
                 m_args(args)
             { }
 
@@ -159,21 +158,23 @@ namespace pstade {
             }
 
         private:
-            Arguments m_args;
+            ArgTuple m_args;
             any_movable m_any;
+
+            temp& operator=(temp const&);
         };
 
         struct fused_op :
             callable<fused_op>
         {
-            template<class Myself, class Arguments>
+            template<class Myself, class ArgTuple>
             struct apply
             {
-                typedef temp<Arguments> type;
+                typedef temp<typename pass_by_value<ArgTuple>::type> type;
             };
 
-            template<class Result, class Arguments>
-            Result call(Arguments& args) const
+            template<class Result, class ArgTuple>
+            Result call(ArgTuple& args) const
             {
                 return Result(args); 
             }
@@ -181,7 +182,7 @@ namespace pstade {
 
     } // namespace auto_object_detail
 
-    typedef boost::result_of<op_unfuse(auto_object_detail::fused_op)>::type op_auto_object;
+    typedef boost::result_of<op_unfuse<nullary_fused>(auto_object_detail::fused_op)>::type op_auto_object;
     PSTADE_CONSTANT(auto_object, (op_auto_object))
 
 

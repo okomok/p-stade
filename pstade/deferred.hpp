@@ -26,7 +26,7 @@
 
 #if 1
     #define PSTADE_DEFERRED typename PSTADE_DEFERRED_TYPE
-    #define PSTADE_DEFERRED_TYPE(F) ::pstade::deferred_detail::aux< F >::type
+    #define PSTADE_DEFERRED_TYPE(F) pstade::deferred_detail::aux< F >::type
 #else
     // Someday...
     #define PSTADE_DEFERRED(F) F

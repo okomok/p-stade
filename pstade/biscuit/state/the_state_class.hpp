@@ -10,7 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/noncopyable.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/oven/iter_range.hpp>
@@ -26,7 +25,6 @@ struct the_state_class
 
     template< class ParsingRange, class MatchResults >
     struct state :
-        private boost::noncopyable,
         oven::iter_range_of<ParsingRange>::type
     {
     private:
@@ -61,6 +59,9 @@ struct the_state_class
         iter_t m_cur;
         MatchResults& m_results;
         bool m_actionable;
+
+        state(state const&);
+        state& operator=(state const&);
     };
 
     // Note:

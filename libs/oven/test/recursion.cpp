@@ -1,4 +1,5 @@
-#include <pstade/unit_test.hpp>
+#include <pstade/vodka/drink.hpp>
+#define PSTADE_CONCEPT_CHECK
 
 
 // PStade.Oven
@@ -9,9 +10,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#define PSTADE_OVEN_TESTS_DONT_CALL_DISTANCE
-#include <pstade/oven/tests.hpp>
 #include <pstade/oven/recursion.hpp>
+#include <pstade/unit_test.hpp>
+#include <pstade/oven/test/test.hpp>
 
 
 #include <pstade/oven/reversed.hpp>
@@ -26,7 +27,7 @@
 
 
 namespace oven = pstade::oven;
-using namespace pstade::oven;
+using namespace oven;
 
 
 typedef
@@ -47,46 +48,34 @@ range make_ones()
 void pstade_unit_test()
 {
     {
-        range ones;
+        ::range ones;
 
         int const one = 1;
         ones = single(one)|jointed(recursion(ones));
 
-        int const ans_[] = { 1,1,1,1,1,1,1,1 };
-        std::vector<int> ans = ans_|copied;
-        BOOST_CHECK( oven::test_Forward_Readable(
-            ones|taken(8),
-            ans
-        ) );
+        int a[] = { 1,1,1,1,1,1,1,1 };
+        test::forward_constant(ones|taken(8), a);
     }
     { // recursive memoized
-        range ones;
+        ::range ones;
         memo_table tb;
 
         int const one = 1;
         ones = single(one)|jointed(recursion(ones))|memoized(tb);
 
-        int const ans_[] = { 1,1,1,1,1,1,1,1 };
-        std::vector<int> ans = ans_|copied;
-        BOOST_CHECK( oven::test_Forward_Readable(
-            ones|taken(8),
-            ans
-        ) );
+        int a[] = { 1,1,1,1,1,1,1,1 };
+        test::forward_constant(ones|taken(8), a);
     }
 
     { // recursive memoized
-        range x;
+        ::range x;
         memo_table tb;
 
         int const a1_7[] = { 1,2,3,4,5,6 };
         x = a1_7|jointed(recursion(x))|memoized(tb);
 
-        int const ans_[] = { 1,2,3,4,5,6,1,2 };
-        std::vector<int> ans = ans_|copied;
-        BOOST_CHECK( oven::test_Forward_Readable(
-            x|taken(8),
-            ans
-        ) );
+        int const a[] = { 1,2,3,4,5,6,1,2 };
+        test::forward_constant(x|taken(8), a);
     }
     { // reverse
         any_range<int const&, boost::bidirectional_traversal_tag> ones;
@@ -94,20 +83,12 @@ void pstade_unit_test()
         int const one = 1;
         ones = recursion(ones)|jointed(single(one));
 
-        int const ans_[] = { 1,1,1,1,1,1,1,1 };
-        std::vector<int> ans = ans_|copied;
-        BOOST_CHECK( oven::test_Forward_Readable(
-            ones|reversed|taken(8),
-            ans
-        ) );
+        int a[] = { 1,1,1,1,1,1,1,1 };
+        test::forward_constant(ones|reversed|taken(8), a);
     }
     {
-        int const ans_[] = { 1,1,1,1,1,1,1,1 };
-        std::vector<int> ans = ans_|copied;
-        BOOST_CHECK( oven::test_Forward_Readable(
-            ::make_ones()|taken(8),
-            ans
-        ) );
+        int a[] = { 1,1,1,1,1,1,1,1 };
+        test::forward_constant(::make_ones()|taken(8), a);
     }
 }
 

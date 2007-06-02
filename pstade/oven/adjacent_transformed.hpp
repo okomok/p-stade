@@ -35,7 +35,6 @@
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/deferred.hpp>
-#include <pstade/fuse.hpp>
 #include <pstade/is_convertible.hpp>
 #include <pstade/pack.hpp>
 #include <pstade/pass_by.hpp>
@@ -49,8 +48,7 @@
 #include "./popped.hpp"
 #include "./range_iterator.hpp"
 #include "./range_traversal.hpp"
-#include "./transformed.hpp"
-#include "./zipped.hpp"
+#include "./zipped_with.hpp"
 
 
 namespace pstade { namespace oven {
@@ -109,18 +107,14 @@ namespace adjacent_transformed_detail {
     template< class Range, class BinaryFun, class Reference, class Value >
     struct make_multi_pass :
         boost::result_of<
-            op_make_transformed<Reference, Value>(
+            op_make_zipped_with<Reference, Value>(
                 typename boost::result_of<
-                    op_make_zipped(
-                        typename boost::result_of<
-                            op_pack(
-                                typename boost::result_of<op_make_popped(Range&)>::type,
-                                typename boost::result_of<op_make_dropped(Range&, int)>::type
-                            )
-                        >::type
+                    op_pack(
+                        typename boost::result_of<op_make_popped(Range&)>::type,
+                        typename boost::result_of<op_make_dropped(Range&, int)>::type
                     )
                 >::type,
-                typename boost::result_of<op_fuse(BinaryFun&)>::type
+                BinaryFun&
             )
         >
     { };
@@ -162,13 +156,9 @@ struct op_make_adjacent_transformed :
     {
         PSTADE_CONCEPT_ASSERT((Forward<Range>));
 
-        return
-            op_make_transformed<Reference, Value>()(
-                make_zipped(
-                    pack(make_popped(rng), make_dropped(rng, 1))
-                ),
-                fuse(fun)
-            );
+        return op_make_zipped_with<Reference, Value>()(
+            pack(make_popped(rng), make_dropped(rng, 1)), fun
+        );
     }
 
     template< class Result, class Range, class BinaryFun >

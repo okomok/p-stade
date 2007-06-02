@@ -20,6 +20,7 @@
 #include <boost/range/end.hpp>
 #include <pstade/functional.hpp> // less
 #include "../do_iter_swap.hpp"
+#include "../read.hpp"
 
 
 namespace pstade { namespace oven { namespace test {
@@ -46,7 +47,7 @@ void iter_comb_sort(Iterator first, Iterator last, Compare comp)
         gap = newgap;
         swapped = false;
         for (Iterator target1 = first, target2 = first2; target2 != last; ++target1, ++target2) {
-            if (comp(*target2, *target1)) {
+            if (comp(read(target2), read(target1))) {
                 do_iter_swap(target1, target2);
                 swapped = true;
             }

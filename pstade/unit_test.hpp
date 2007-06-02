@@ -10,7 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/vodka/drink.hpp> // inclusion guaranteed
 #include <boost/test/test_tools.hpp>
 #include <boost/test/unit_test.hpp>
 

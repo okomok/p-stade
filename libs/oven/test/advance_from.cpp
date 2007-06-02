@@ -1,5 +1,5 @@
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
+#define PSTADE_CONCEPT_CHECK
 
 
 // PStade.Oven
@@ -10,16 +10,19 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/tests.hpp>
 #include <pstade/oven/advance_from.hpp>
 
 
 #include <string>
-#include <pstade/oven/begin_end.hpp>
+#include <boost/range/begin.hpp>
+#include <boost/range/end.hpp>
 #include <pstade/oven/identities.hpp>
 
 
-void test()
+#include <pstade/minimal_test.hpp>
+
+
+void pstade_minimal_test()
 {
     namespace oven = pstade::oven;
     using namespace oven;
@@ -27,26 +30,19 @@ void test()
     {
         std::string str("f12344513215b");
 
-        BOOST_CHECK( *advance_from(begin(str), 1) == '1' );
-        BOOST_CHECK( *advance_from(end(str), -1)  == 'b' );
+        BOOST_CHECK( *advance_from(boost::begin(str), 1) == '1' );
+        BOOST_CHECK( *advance_from(boost::end(str), -1)  == 'b' );
 
-        BOOST_CHECK( *advance_from(begin(str), 3) == '3' );
-        BOOST_CHECK( *advance_from(end(str), -2)  == '5' );
+        BOOST_CHECK( *advance_from(boost::begin(str), 3) == '3' );
+        BOOST_CHECK( *advance_from(boost::end(str), -2)  == '5' );
     }
     {
         std::string str("f12344513215b");
 
-        BOOST_CHECK( *advance_from(begin(str|identities(in_bidirectional)), 1) == '1' );
-        BOOST_CHECK( *advance_from(end(str|identities(in_bidirectional)), -1)  == 'b' );
+        BOOST_CHECK( *advance_from(boost::begin(str|identities(in_bidirectional)), 1) == '1' );
+        BOOST_CHECK( *advance_from(boost::end(str|identities(in_bidirectional)), -1)  == 'b' );
 
-        BOOST_CHECK( *advance_from(begin(str|identities(in_bidirectional)), 3) == '3' );
-        BOOST_CHECK( *advance_from(end(str|identities(in_bidirectional)), -2)  == '5' );
+        BOOST_CHECK( *advance_from(boost::begin(str|identities(in_bidirectional)), 3) == '3' );
+        BOOST_CHECK( *advance_from(boost::end(str|identities(in_bidirectional)), -2)  == '5' );
     }
-}
-
-
-int test_main(int, char*[])
-{
-    ::test();
-    return 0;
 }

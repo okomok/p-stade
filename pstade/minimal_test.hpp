@@ -10,23 +10,17 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/vodka/drink.hpp> // inclusion guaranteed
 #include <boost/test/minimal.hpp>
 
 
 void pstade_minimal_test();
+
 
 int test_main(int, char*[])
 {
     ::pstade_minimal_test();
     return 0;
 }
-
-
-#if !defined(PSTADE_CONCEPT_CHECK) \
-    && !defined(PSTADE_MINIMAL_TEST_NO_CONCEPT_CHECK)
-#define PSTADE_CONCEPT_CHECK
-#endif
 
 
 #endif

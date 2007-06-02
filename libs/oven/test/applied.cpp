@@ -1,5 +1,5 @@
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
+#define PSTADE_CONCEPT_CHECK
 
 
 // PStade.Oven
@@ -10,8 +10,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-// #define PSTADE_OVEN_USING_PHOENIX_V2
+#include <pstade/oven/applied.hpp>
 
+
+// #define PSTADE_OVEN_USING_PHOENIX_V2
 
 #if defined(PSTADE_OVEN_USING_PHOENIX_V2)
     #include <boost/spirit/phoenix/core/argument.hpp>
@@ -19,46 +21,37 @@
 #endif
 
 
-#include <pstade/oven/tests.hpp>
-#include <pstade/oven/applied.hpp>
-
-
 #include <string>
 #include <vector>
 #include <pstade/oven/algorithm.hpp>
-#include "./core.hpp"
-#include <pstade/functional.hpp>
+#include <pstade/functional.hpp> // identity
 #include <pstade/lambda_bind.hpp>
+#include <pstade/oven/begin_end.hpp>
+#include <pstade/oven/equals.hpp>
 
 
-void test()
+#include <pstade/minimal_test.hpp>
+#include "./int_tests.hpp"
+
+
+void pstade_minimal_test()
 {
-    namespace oven = pstade::oven;
-    using namespace oven;
-
-    std::string rng("hello, apply_range");
-    std::vector<char> expected = rng|copied;
     {
-        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
-            rng|applied(begin, end),
-            expected
-        ) );
+        int a[] = { 1,2,3,4,5,6,7,8,9,10 };
+        int b[] = { 1,2,3,4,5,6,7,8,9,10 }; 
+        PSTADE_rs(applied(begin, end), a, b);
+        PSTADE_rc(applied(begin, end), a, b);
+        PSTADE_rs(applied(pstade::identity), a, b);
+        PSTADE_rc(applied(pstade::identity), a, b);
     }
-    {
-        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
-            rng|applied(pstade::identity),
-            expected
-        ) );
-    }
-
     {
         namespace lambda = boost::lambda;
         std::string src("abcdefghijk");
         std::string s1("efg");
         BOOST_CHECK((
-            oven::equals(
+            equals(
                 std::string("efghijk"),
-                src|applied(lambda::bind(oven::search, lambda::_1, s1), oven::end)
+                src|applied(lambda::bind(search, lambda::_1, s1), end)
             )
         ));
     }
@@ -86,11 +79,4 @@ void test()
     }
 
 #endif
-}
-
-
-int test_main(int, char*[])
-{
-    ::test();
-    return 0;
 }

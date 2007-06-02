@@ -20,6 +20,7 @@
 #include <boost/range/end.hpp>
 #include <pstade/functional.hpp> // less
 #include "../do_iter_swap.hpp"
+#include "../read.hpp"
 
 
 namespace pstade { namespace oven { namespace test {
@@ -36,7 +37,7 @@ void iter_bubble_sort(Iterator first, Iterator last, Compare comp)
         ++next;
         swapped = false;
         while (next != last) {
-            if (comp(*next, *curr)) {
+            if (comp(read(next), read(curr))) {
                 do_iter_swap(curr, next);
                 swapped = true;
             }

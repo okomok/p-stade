@@ -22,7 +22,6 @@
 #include <boost/optional.hpp>
 #include <pstade/oven/indirected.hpp>
 #include <pstade/new_delete.hpp>
-#include <pstade/nonassignable.hpp>
 
 
 struct xxx
@@ -51,9 +50,11 @@ struct zzz
 };
 
 
-struct no_ass :
-    private pstade::nonassignable
-{ };
+struct no_ass
+{
+private:
+    no_ass operator=(no_ass const&);
+};
 
 
 inline

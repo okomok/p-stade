@@ -1,5 +1,5 @@
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
+#define PSTADE_CONCEPT_CHECK
 
 
 // PStade.Oven
@@ -10,26 +10,31 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/tests.hpp>
 #include <pstade/oven/adapted_to_base.hpp>
 
 
 #include <string>
-#include <boost/range.hpp>
+#include <boost/range/begin.hpp>
+#include <boost/range/end.hpp>
 #include <boost/lambda/core.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <pstade/is_same.hpp>
 #include <pstade/oven/algorithm.hpp>
 #include <pstade/oven/filtered.hpp>
-#include "./core.hpp"
 #include <pstade/oven/sub_range.hpp>
+#include <pstade/oven/equals.hpp>
+#include <pstade/oven/regular.hpp>
+#include <pstade/oven/identities.hpp>
 
 
-void test()
+#include <pstade/minimal_test.hpp>
+
+
+void test_()
 {
+    namespace lambda = boost::lambda;
     namespace oven = pstade::oven;  
     using namespace oven;
-    namespace lambda = boost::lambda;
 
     {// as is.
         std::string src("abc");
@@ -204,8 +209,8 @@ ret_val<T> make_ret_val(T const& x)
 
 
 void test_general()
-{
-    using namespace pstade;   
+{ 
+    namespace oven = pstade::oven;
     using namespace oven;
 
     {
@@ -221,9 +226,9 @@ void test_general()
     }
 }
 
-int test_main(int, char*[])
+
+void pstade_minimal_test()
 {
-    ::test();
+    ::test_();
     ::test_general();
-    return 0;
 }

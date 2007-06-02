@@ -20,7 +20,6 @@
 // boost::directory_iterator to non-shared_ptr version
 
 
-#include <boost/noncopyable.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/oven/iter_range.hpp>
 #include <pstade/verify.hpp>
@@ -69,8 +68,7 @@ namespace find_file_range_detail {
 
 struct find_file_range  :
     private find_file_range_detail::init<>::type,
-    find_file_range_detail::super_<>::type,
-    private boost::noncopyable
+    find_file_range_detail::super_<>::type
 {
 private:
     typedef find_file_range_detail::init<>::type init_t;
@@ -83,6 +81,10 @@ public:
         init_t(str|c_str),
         super_t(iter_t(m_hFind, m_data), iter_t())
     { }
+
+private:
+    find_file_range(find_file_range const&);
+    find_file_range& operator=(find_file_range const&);
 };
 
 

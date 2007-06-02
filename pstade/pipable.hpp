@@ -38,7 +38,6 @@
 #include <pstade/constant.hpp>
 #include <pstade/deduced_const.hpp>
 #include <pstade/fuse.hpp>
-#include <pstade/nonassignable.hpp>
 #include <pstade/object_generator.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/unparenthesize.hpp>
@@ -50,10 +49,9 @@ namespace pstade {
     namespace pipable_detail {
 
 
-        template< class Function, class Arguments = boost::tuples::tuple<> >
+        template< class Function, class ArgTuple = boost::tuples::tuple<> >
         struct pipe :
-            callable< pipe<Function, Arguments>, pipe<Function, Arguments> const& >,
-            private nonassignable
+            callable< pipe<Function, ArgTuple>, pipe<Function, ArgTuple> const& >
         {
 
             template< class Myself, PSTADE_CALLABLE_APPLY_PARAMS(A) >
@@ -98,61 +96,62 @@ namespace pstade {
             explicit pipe()
             { }
 
-            explicit pipe(Function fun, Arguments const& args = Arguments()) :
+            explicit pipe(Function fun, ArgTuple const& args = ArgTuple()) :
                 m_fun(fun), m_args(args)
             { }
 
             typedef Function base_type;
-            typedef Arguments arguments_type;
+            typedef ArgTuple arguments_type;
 
             Function base() const
             {
                 return m_fun;
             }
 
-            Arguments const& arguments() const
+            ArgTuple const& arg_tuple() const
             {
                 return m_args;
             }
 
         private:
             Function m_fun;
-            Arguments m_args;
+            ArgTuple m_args;
 
+            pipe& operator=(pipe const&);
         }; // struct pipe
 
 
-        template< class Arguments, class A > inline
-        boost::tuples::cons<A&, Arguments>
-        push_front(Arguments const& args, A& a)
+        template< class ArgTuple, class A > inline
+        boost::tuples::cons<A&, ArgTuple>
+        push_front(ArgTuple const& args, A& a)
         {
-            return boost::tuples::cons<A&, Arguments>(a, args);
+            return boost::tuples::cons<A&, ArgTuple>(a, args);
         }
 
 
-        template< class A, class Function, class Arguments >
+        template< class A, class Function, class ArgTuple >
         struct result_of_output :
             boost::result_of<
-                typename boost::result_of<op_fuse(Function const&)>::type(boost::tuples::cons<A&, Arguments>)
+                typename boost::result_of<op_fuse(Function const&)>::type(boost::tuples::cons<A&, ArgTuple>)
             >
         { };
 
 
-        template< class A, class Function, class Arguments > inline
-        typename result_of_output<A, Function, Arguments>::type
-        operator|(A& a, pipe<Function, Arguments> const& pi)
+        template< class A, class Function, class ArgTuple > inline
+        typename result_of_output<A, Function, ArgTuple>::type
+        operator|(A& a, pipe<Function, ArgTuple> const& pi)
         {
             return pstade::fuse(pi.base())(
-                pipable_detail::push_front(pi.arguments(), a)
+                pipable_detail::push_front(pi.arg_tuple(), a)
             );
         }
 
-        template< class A, class Function, class Arguments > inline
-        typename result_of_output<PSTADE_DEDUCED_CONST(A), Function, Arguments>::type
-        operator|(A const& a, pipe<Function, Arguments> const& pi)
+        template< class A, class Function, class ArgTuple > inline
+        typename result_of_output<PSTADE_DEDUCED_CONST(A), Function, ArgTuple>::type
+        operator|(A const& a, pipe<Function, ArgTuple> const& pi)
         {
             return pstade::fuse(pi.base())(
-                pipable_detail::push_front(pi.arguments(), a)
+                pipable_detail::push_front(pi.arg_tuple(), a)
             );
         }
 

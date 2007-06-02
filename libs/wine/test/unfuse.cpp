@@ -49,7 +49,7 @@ void test()
     }
     {
         BOOST_CHECK(
-            pstade::unfuse(&::my_two)() == 2
+            pstade::op_unfuse<int>()(&::my_two)() == 2
         );
     }
     {

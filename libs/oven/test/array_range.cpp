@@ -1,5 +1,5 @@
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
+#define PSTADE_CONCEPT_CHECK
 
 
 // PStade.Oven
@@ -10,33 +10,29 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/tests.hpp>
 #include <pstade/oven/array_range.hpp>
 
 
-#include <string>
-#include <vector>
-#include "./core.hpp"
-#include <pstade/oven/algorithm.hpp>
+#include <pstade/oven/distance.hpp>
+#include <algorithm> // copy
+#include <boost/range/begin.hpp>
+#include <boost/range/end.hpp>
 
 
-void test()
+#include <pstade/minimal_test.hpp>
+#include <pstade/oven/test/test.hpp>
+
+
+void pstade_minimal_test()
 {
     namespace oven = pstade::oven;
     using namespace oven;
 
     {
-        std::vector<char> expected = std::string("hello, array_range")|copied;
-        array_range<char> rng(oven::distance(expected));
-        oven::copy(expected, rng|begin);
-
-        BOOST_CHECK(oven::test_RandomAccess_Readable_Writable(rng, expected));
+        int a[] = { 1,3,5,1,3,5,13,6,1,7,3,1,4,4 };
+        array_range<int> b(distance(a));
+        std::copy(boost::begin(a), boost::end(a), boost::begin(b));
+        test::random_access_constant(b, a);
+        test::random_access_swappable(b, a);
     }
-}
-
-
-int test_main(int, char*[])
-{
-    ::test();
-    return 0;
 }

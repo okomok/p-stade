@@ -39,7 +39,10 @@ void iter_equality(
     IteratorA firstA, IteratorA lastA, BinaryPred pred)
 {
     for (; first != last && firstA != lastA; ++first, ++firstA) {
-        BOOST_CHECK(pred(*first, *firstA) && "equality test failure -- predicate returns false.");
+        if (!pred(*first, *firstA)) {
+            BOOST_CHECK(false && "equality test failure -- predicate returns false.");
+            return;
+        }
     }
 
     BOOST_CHECK(firstA == lastA && "equality test failure -- testing range is shorter than expected.");

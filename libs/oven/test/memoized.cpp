@@ -1,4 +1,5 @@
-#include <pstade/unit_test.hpp>
+#include <pstade/vodka/drink.hpp>
+#define PSTADE_CONCEPT_CHECK
 
 
 // PStade.Oven
@@ -9,71 +10,49 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#define PSTADE_OVEN_TESTS_DONT_CALL_DISTANCE
-#include <pstade/oven/tests.hpp>
 #include <pstade/oven/memoized.hpp>
 
 
 #include <string>
 #include <iostream>
 #include <sstream>
-#include <boost/range.hpp>
-#include "./core.hpp"
 #include <pstade/oven/copy_range.hpp>
 #include <pstade/oven/copied_to.hpp>
 #include <pstade/oven/filtered.hpp>
 #include <pstade/oven/stream_read.hpp>
 #include <pstade/oven/io.hpp>
+#include <pstade/oven/equals.hpp>
 #include <pstade/oven/taken.hpp>
-
-
+#include <pstade/oven/regular.hpp>
 #include <iterator>
 #include <boost/lambda/core.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <iostream>
 
 
+#include <pstade/unit_test.hpp>
+#include "./int_tests.hpp"
+
+
 void pstade_unit_test()
 {
-    namespace oven = pstade::oven;
-    using namespace oven;
     namespace bll = boost::lambda;
 
     {
-        std::string ans("18284610528192");
+        std::string a("18284610528192");
         std::stringstream ss;
-        ss << ans;
-        std::vector<char> expected = ans|copied;
-        BOOST_CHECK( oven::test_Forward_Readable(
-            oven::stream_read<char>(ss)|memoized,
-            expected
-        ) );
+        ss << a;
+        test::forward_constant(oven::stream_read<char>(ss)|memoized, a);
     }
     {
         int const src[] = { 1,2,5,3,6,8,6,1 };
         std::cout << (src|memoized);
     }
-
     {
-        int const src[] = { 1,2,5,3,6,8,6,1 };
+        int a[] = { 5,1,3,5,1,3,1,3,1,6,78,14,1,3,6 };
+        int b[] = { 5,1,3,5,1,3,1,3,1,6,78,14,1,3,6 };
         memo_table tb;
-
-        int const ans[] = { 1,2,5,3,6 };
-        std::vector<int> expected = ans|copied;
-        BOOST_CHECK( oven::test_Forward_Readable(
-            src|memoized(tb)|taken(5),
-            expected
-        ) );
-    }
-    {
-        std::string ans("18284610528192");
-        memo_table tb;
-
-        std::vector<char> expected = ans|copied;
-        BOOST_CHECK( oven::test_Forward_Readable(
-            ans|memoized(tb),
-            expected
-        ) );
+        PSTADE_fc(memoized(tb), a, b);
     }
     {
         std::string src("axaxaxbxbxbx");
@@ -82,7 +61,7 @@ void pstade_unit_test()
         std::string answer("bbb");
 
         BOOST_CHECK((
-            oven::equals(answer,
+            equals(answer,
                 src |
                     filtered(regular(bll::_1 != 'x')) |
                     memoized |
@@ -97,15 +76,14 @@ void pstade_unit_test()
         BOOST_CHECK( s2 == answer );
     }
     {
-        BOOST_CHECK(( oven::test_empty(std::string()|memoized) ));
+        PSTADE_ef(memoized);
     }
     {
         memo_table tb;
-        BOOST_CHECK(( oven::test_empty(std::string()|memoized(tb)) ));
+        PSTADE_ef(memoized(tb));
     }
     {
         std::string src("aaaaaaaaaaaaaaaa");
-        BOOST_CHECK(( oven::test_empty(src|filtered(regular(bll::_1 == 'b'))|memoized) ));
+        test::emptiness(src|filtered(regular(bll::_1 == 'b'))|memoized);
     }
 }
-

@@ -18,7 +18,6 @@
 
 #include <boost/array.hpp>
 #include <boost/assert.hpp>
-#include <boost/noncopyable.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/apple/atl/module.hpp>
@@ -81,8 +80,7 @@ namespace module_file_name_detail {
 
 struct module_file_name :
     private module_file_name_detail::init<>::type,
-    module_file_name_detail::super_<>::type,
-    private boost::noncopyable
+    module_file_name_detail::super_<>::type
 {
 private:
     typedef module_file_name_detail::init<>::type init_t; 
@@ -127,6 +125,10 @@ public:
     {
         return boost::begin(self.m_buf);
     }
+
+private:
+    module_file_name(module_file_name const&);
+    module_file_name& operator=(module_file_name const&);
 };
 
 

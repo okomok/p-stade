@@ -1,5 +1,5 @@
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
+#define PSTADE_CONCEPT_CHECK
 
 
 // PStade.Oven
@@ -10,101 +10,44 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/tests.hpp>
 #include <pstade/oven/adjacent_transformed.hpp>
+#include <pstade/minimal_test.hpp>
+#include <pstade/oven/test/test.hpp>
 
 
-#include <iostream>
-#include "./core.hpp"
 #include <pstade/functional.hpp>
+#include <pstade/compose.hpp>
+#include <pstade/result_of_lambda.hpp>
 #include <pstade/oven/const_refs.hpp>
-#include <pstade/oven/identities.hpp>
-#include <pstade/oven/regular.hpp>
-#include <pstade/oven/algorithm.hpp>
-#include <pstade/oven/stream_writer.hpp>
-#include <boost/lambda/core.hpp>
-#include <boost/lambda/lambda.hpp>
 
 
-void test()
+namespace lambda = boost::lambda;
+namespace oven = pstade::oven;
+using namespace oven;
+
+
+int& get_right(int& l, int& r)
 {
-    namespace oven = pstade::oven;
-    using namespace oven;
-
-    int const src[] = { 1,2,3,4,5,6,7,8,9,10 };
-
-    {
-        int ans[] = { 3,5,7,9,11,13,15,17,19 };
-        std::vector<int> expected = ans|copied;
-
-        oven::copy(src|adjacent_transformed(pstade::plus), oven::stream_writer(std::cout));
-
-        BOOST_CHECK( oven::test_RandomAccess_Readable(
-            src |
-                adjacent_transformed(pstade::plus) | const_refs,
-            expected
-        ) );
-
-        BOOST_CHECK( oven::test_Forward_Readable(
-            src | identities(boost::forward_traversal_tag()) |
-                adjacent_transformed(pstade::plus) | const_refs,
-            expected
-        ) );
-
-        BOOST_CHECK( oven::test_SinglePass_Readable(
-            src | identities(boost::single_pass_traversal_tag()) |
-                adjacent_transformed(pstade::plus),
-            expected
-        ) );
-
-
-        namespace lambda = boost::lambda;
-        BOOST_CHECK( oven::test_RandomAccess_Readable(
-            src |
-                adjacent_transformed(regular(lambda::_1 + lambda::_2)) | const_refs,
-            expected
-        ) );
-
-        test_never_copy|adjacent_transformed(pstade::plus);
-    }
-#if 0 // now empty range not supported.
-    {
-        std::vector<int> nothing;
-
-        BOOST_CHECK( oven::test_empty(
-            nothing |
-                adjacent_transformed(pstade::plus)
-        ) );
-
-        BOOST_CHECK( oven::test_empty(
-            nothing | identities(boost::forward_traversal_tag()) |
-                adjacent_transformed(pstade::plus)
-        ) );
-    }
-#endif
-    {
-        int const nothing[] = { 1 };
-
-        BOOST_CHECK( oven::test_empty(
-            nothing |
-                adjacent_transformed(pstade::plus)
-        ) );
-
-        BOOST_CHECK( oven::test_empty(
-            nothing | identities(boost::forward_traversal_tag()) |
-                adjacent_transformed(pstade::plus)
-        ) );
-
-        BOOST_CHECK( oven::test_empty(
-            nothing | identities(boost::single_pass_traversal_tag()) |
-                adjacent_transformed(pstade::plus)
-        ) );
-    }
+    return r;
 }
 
 
-int test_main(int, char*[])
+void pstade_minimal_test()
 {
-    ::test();
-    return 0;
+    {
+        int b[] = { 1,2,3,4,5,6,7,8,9,10 };
+        int a[] = { 3,5,7,9,11,13,15,17,19 };
+        test::adaptor_random_access_constant_int(pstade::compose(make_const_refs, lambda::bind(make_adjacent_transformed, lambda::_1, pstade::plus)), a, b);
+    }
+    {
+        int a[] = { 1,3,6,1,9,6,1,2,3,1 };
+        int b[] = { 6,1,3,6,1,9,6,1,2,3,1 };
+        test::random_access_swappable(*test::new_vector<int>(b)|adjacent_transformed(&::get_right), a);
+
+        // Notice that once a range of NonCopyable type is transformed, it is not swappable.
+    }
+    {
+        int const b[] = { 1 };
+        test::emptiness(b|adjacent_transformed(pstade::plus));
+    }
 }
