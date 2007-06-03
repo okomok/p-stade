@@ -1,5 +1,5 @@
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
+#define PSTADE_CONCEPT_CHECK
 
 
 // PStade.Oven
@@ -10,47 +10,48 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/tests.hpp>
 #include <pstade/oven/dropped_while.hpp>
+#include <pstade/minimal_test.hpp>
+#include <pstade/oven/test/test.hpp>
 
 
 #include <string>
-#include <vector>
-#include <boost/range.hpp>
-#include "./core.hpp"
-#include <boost/lambda/lambda.hpp>
-#include <boost/lambda/core.hpp>
+#include <pstade/oven/regular.hpp>
+#include <pstade/oven/equals.hpp>
 
 
-void test()
+void pstade_minimal_test()
 {
     namespace oven = pstade::oven;
     namespace lambda = boost::lambda;
     using namespace oven;
 
+    {
+        int a[] = { 2,3,4,5,1,6,3,1,3 };
+        int b[] = { 1,1,1,1,1,2,3,4,5,1,6,3,1,3 };
+        test::adaptor_random_access_swappable_int(
+            lambda::bind(make_dropped_while, lambda::_1, regular(lambda::_1 == 1)),
+            a, b
+        );
+    }
+    {
+        int a[] = { 1,1,1,1,1,2,3,4,5,1,6,3,1,3 };
+        int b[] = { 1,1,1,1,1,2,3,4,5,1,6,3,1,3 };
+        test::adaptor_random_access_swappable_int(
+            lambda::bind(make_dropped_while, lambda::_1, regular(lambda::_1 == 9)),
+            a, b
+        );
+    }
+
     std::string rng("11111234516313!");
     {
-        std::vector<char> expected = std::string("234516313!")|copied;
-        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
-            rng|dropped_while(regular(lambda::_1 == '1')),
-            expected
-        ) );
-    }
-    {
-        std::vector<char> expected = rng|copied;
-        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
-            rng|dropped_while(regular(lambda::_1 == '9')),
-            expected
-        ) );
-    }
-    {
-        BOOST_CHECK( oven::test_empty(
+        test::emptiness(
             rng|dropped_while(regular(lambda::_1 != '9'))
-        ) );
+        );
 
-        BOOST_CHECK( oven::test_empty(
+        test::emptiness(
             std::string()|dropped_while(regular(lambda::_1 != '9'))
-        ) );
+        );
     }
     {
         std::string src("11111234516313!");
@@ -70,11 +71,4 @@ void test()
             std::string("")
         ) );
     }
-}
-
-
-int test_main(int, char*[])
-{
-    ::test();
-    return 0;
 }

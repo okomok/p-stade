@@ -1,5 +1,5 @@
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
+#define PSTADE_CONCEPT_CHECK
 
 
 // PStade.Oven
@@ -10,28 +10,30 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/tests.hpp>
 #include <pstade/oven/checked.hpp>
+#include <pstade/minimal_test.hpp>
+#include <pstade/oven/test/test.hpp>
 
 
 #include <string>
 #include <boost/range.hpp>
-#include "./core.hpp"
 #include <pstade/oven/algorithm.hpp>
 #include <pstade/to_ref.hpp>
 #include <pstade/unused.hpp>
 #include <pstade/if_debug.hpp>
 
 
-void test()
+void pstade_minimal_test()
 {
+    namespace lambda = boost::lambda;
     namespace oven = pstade::oven;
     using namespace oven;
 
     {
-        std::string rng("hello, check_range");
-        std::vector<char> expected = rng|copied;
-        BOOST_CHECK(oven::test_RandomAccess_Readable_Writable(rng|checked, expected));
+        int a[] = { 61,3,6,1,3,5,3,7,78,4,2,1,3,6 };
+        int b[] = { 61,3,6,1,3,5,3,7,78,4,2,1,3,6 };
+        test::adaptor_random_access_constant_int (lambda::bind(make_checked, lambda::_1), a, b);
+        test::adaptor_random_access_swappable_int(lambda::bind(make_checked, lambda::_1), a, b);
     }
 
     {
@@ -76,11 +78,4 @@ PSTADE_IF_DEBUG(| checked)
             12
         );
     }
-}
-
-
-int test_main(int, char*[])
-{
-    ::test();
-    return 0;
 }

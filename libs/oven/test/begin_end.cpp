@@ -1,5 +1,5 @@
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
+#define PSTADE_CONCEPT_CHECK
 
 
 // PStade.Oven
@@ -10,15 +10,15 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/tests.hpp>
 #include <pstade/oven/begin_end.hpp>
+#include <pstade/minimal_test.hpp>
+#include <pstade/oven/test/test.hpp>
 
 
 #include <algorithm>
 #include <string>
 #include <boost/range.hpp>
 #include <boost/utility/result_of.hpp>
-#include "./core.hpp"
 #include <pstade/test.hpp>
 
 
@@ -35,7 +35,7 @@ PSTADE_TEST_IS_RESULT_OF((std::string::const_iterator), op_end(std::string const
 PSTADE_TEST_IS_RESULT_OF((std::string::const_iterator), op_end(std::string))
 
 
-void test()
+void pstade_minimal_test()
 {
     {
         std::string rng1("hello, begin_end");
@@ -44,11 +44,4 @@ void test()
         BOOST_CHECK( std::equal(rng1|begin, rng1|end, rng2|begin) );
         BOOST_CHECK( std::equal(rng1|begin(), rng1|end(), rng2|begin()) );
     }
-}
-
-
-int test_main(int, char*[])
-{
-    ::test();
-    return 0;
 }

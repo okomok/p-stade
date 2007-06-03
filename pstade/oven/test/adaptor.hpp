@@ -97,9 +97,9 @@ void adaptor_random_access_constant_int(F f, RangeA const& rngA, RangeB& rngB)
 template< class F, class RangeA, class RangeB >
 void adaptor_random_access_swappable_int(F f, RangeA const& rngA, RangeB& rngB)
 {
-    test::random_access_swappable(f(*test::new_list<int>(rngB)), rngA);
-    test::random_access_swappable(f(test::make_proxies(*test::new_list<int>(rngB))), rngA);
-    test::random_access_swappable(f(*test::new_list<ncint>(rngB)), *test::new_list<ncint>(rngA));
+    test::random_access_swappable(f(*test::new_vector<int>(rngB)), rngA);
+    test::random_access_swappable(f(test::make_proxies(*test::new_vector<int>(rngB))), rngA);
+    test::random_access_swappable(f(*test::new_vector<ncint>(rngB)), *test::new_vector<ncint>(rngA));
 }
 
 

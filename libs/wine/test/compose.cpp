@@ -1,5 +1,4 @@
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
 
 
 // PStade.Wine
@@ -11,6 +10,7 @@
 
 
 #include <pstade/compose.hpp>
+#include <pstade/minimal_test.hpp>
 
 
 #include <string>
@@ -45,6 +45,12 @@ int increment(int i)
 }
 
 
+struct A { };
+struct B { };
+A get_A() { return A(); }
+B get_B() { return B(); }
+
+
 using namespace pstade;
 
 /*
@@ -62,19 +68,35 @@ BOOST_MPL_ASSERT((
 */
 
 
-void test()
+template<class F>
+void nullary_result_of_check(F f)
 {
-    {
-        BOOST_CHECK( compose(to_value, bar_fun())('c') == std::string("x") );
-    }
-    {
-        BOOST_CHECK( op_compose<int>()(&increment, &make_zero)() == 1 );
-    }
+    BOOST_MPL_ASSERT((boost::is_same<
+        typename boost::result_of<F()>::type,
+        int
+    >));
 }
 
 
-int test_main(int, char*[])
+
+void pstade_minimal_test()
 {
-    ::test();
-    return 0;
+    {
+        BOOST_CHECK( compose(to_value, ::bar_fun())('c') == std::string("x") );
+    }
+    {
+        // make_zero is known to be nullary and composable to increment.
+        BOOST_CHECK( op_compose<use_nullary_result>()(&::increment, &::make_zero)() == 1 );
+        ::nullary_result_of_check( op_compose<use_nullary_result>()(&::increment, &::make_zero) );
+    }
+    {
+        // specify nullary result type explicity.
+        BOOST_CHECK( op_compose<int>()(&::increment, &::make_zero)() == 1 );
+        ::nullary_result_of_check( op_compose<int>()(&::increment, &::make_zero) );
+    }
+    {
+        // well-formed even if non-composable.
+        compose(&::get_A, &::get_B);
+        op_compose<int>()(&::get_A, &::get_B);
+    }
 }

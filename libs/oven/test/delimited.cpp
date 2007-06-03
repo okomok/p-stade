@@ -1,5 +1,5 @@
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
+#define PSTADE_CONCEPT_CHECK
 
 
 // PStade.Oven
@@ -10,21 +10,23 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/tests.hpp>
 #include <pstade/oven/delimited.hpp>
+#include <pstade/minimal_test.hpp>
+#include <pstade/oven/test/test.hpp>
 
 
 #include <string>
-#include "./core.hpp"
+#include <pstade/oven/equals.hpp>
 #include <pstade/oven/dropped.hpp>
 #include <pstade/oven/as_literal.hpp>
 #include <pstade/oven/single.hpp>
 #include <pstade/oven/transformed.hpp>
+#include <pstade/oven/copy_range.hpp>
 #include <pstade/biscuit/parser.hpp>
 #include <pstade/biscuit/range/token_range.hpp>
 
 
-void test()
+void pstade_minimal_test()
 {
     namespace oven = pstade::oven;
     namespace biscuit = pstade::biscuit;
@@ -36,10 +38,10 @@ void test()
 
         std::vector<char> expected = std::string("xyz12xyz34xyz56xyz78")|copied;
 
-        BOOST_CHECK( oven::test_Forward_Readable(
+        test::forward_constant(
             src|biscuit::tokenized< biscuit::seq<biscuit::any, biscuit::any> >()|delimited(delim),
             expected
-        ) );
+        );
     }
     {
         BOOST_CHECK( equals(
@@ -55,11 +57,4 @@ void test()
             std::string("a--b--c--d--e")
         ) );
     }
-}
-
-
-int test_main(int, char*[])
-{
-    ::test();
-    return 0;
 }

@@ -182,7 +182,7 @@ namespace pstade {
 
     } // namespace auto_object_detail
 
-    typedef boost::result_of<op_unfuse<nullary_fused>(auto_object_detail::fused_op)>::type op_auto_object;
+    typedef boost::result_of<op_unfuse<use_nullary_result>(auto_object_detail::fused_op)>::type op_auto_object;
     PSTADE_CONSTANT(auto_object, (op_auto_object))
 
 

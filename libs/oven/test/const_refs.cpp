@@ -1,5 +1,5 @@
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
+#define PSTADE_CONCEPT_CHECK
 
 
 // PStade.Oven
@@ -10,19 +10,23 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/tests.hpp>
+#define PSTADE_OVEN_TEST_CONST_REFS
 #include <pstade/oven/const_refs.hpp>
+#include <pstade/minimal_test.hpp>
+#include <pstade/oven/test/test.hpp>
 
 
 #include <vector>
 #include <string>
 #include <boost/range.hpp>
 #include <pstade/oven/range_category.hpp>
-#include "./core.hpp"
 #include <pstade/oven/copy_range.hpp>
 #include <pstade/oven/copied_to.hpp>
 #include <pstade/oven/filtered.hpp>
 #include <pstade/oven/transformed.hpp>
+#include <pstade/oven/regular.hpp>
+#include <pstade/oven/equals.hpp>
+
 
 #include <iterator>
 #include <boost/static_assert.hpp>
@@ -127,16 +131,16 @@ void check_random_access(Range& )
 }
 
 
-void test()
+void pstade_minimal_test()
 {
     namespace oven = pstade::oven;
     using namespace oven;
     namespace bll = boost::lambda;
 
     {
-        std::string rng("hello, const_lvalue_range!");
-        std::vector<char> expected = rng|copied;
-        BOOST_ASSERT(oven::test_RandomAccess_Readable(rng, expected));
+        int a[] = { 7,1,3,7,9,5,3,2,1,23,5,7,3,8,4,3,2 };
+        int b[] = { 7,1,3,7,9,5,3,2,1,23,5,7,3,8,4,3,2 };
+        test::random_access_constant(b|const_refs, a);
     }
     {
         std::string src("axaxaxbxbxbx");
@@ -145,7 +149,7 @@ void test()
         std::string answer("bbb");
 
         BOOST_CHECK((
-            oven::equals(answer,
+            equals(answer,
                 src |
                     filtered(regular(bll::_1 != 'x'))  |
                     copied_to(std::back_inserter(s1)) |
@@ -170,8 +174,8 @@ void test()
             src|transformed(::inc())|const_refs
         );
 
-        BOOST_CHECK( 3 == oven::distance(src|transformed(::inc())) );
-        BOOST_CHECK( 3 == oven::distance(src|transformed(::inc())|const_refs) );
+        BOOST_CHECK( 3 == distance(src|transformed(::inc())) );
+        BOOST_CHECK( 3 == distance(src|transformed(::inc())|const_refs) );
     }
 
 #if 0 // impossible!
@@ -191,11 +195,4 @@ void test()
         oven::make_const_lvalue_iterator(boost::begin(str));
     }
 #endif
-}
-
-
-int test_main(int, char*[])
-{
-    ::test();
-    return 0;
 }

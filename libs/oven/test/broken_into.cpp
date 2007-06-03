@@ -1,5 +1,5 @@
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
+#define PSTADE_CONCEPT_CHECK
 
 
 // PStade.Oven
@@ -10,19 +10,19 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#define PSTADE_OVEN_TESTS_DONT_CALL_DISTANCE
-#include <pstade/oven/tests.hpp>
 #include <pstade/oven/broken_into.hpp>
+#include <pstade/minimal_test.hpp>
+#include <pstade/oven/test/test.hpp>
 
 
 #include <string>
 #include <vector>
 #include <pstade/oven/memoized.hpp>
 #include <pstade/oven/concatenated.hpp>
-#include "./core.hpp"
+#include <pstade/oven/copy_range.hpp>
 
 
-void test()
+void pstade_minimal_test()
 {
     namespace oven = pstade::oven;
     using namespace oven;
@@ -36,22 +36,15 @@ void test()
             expected.push_back("2001");
         }
 
-        BOOST_CHECK( oven::test_Forward_Readable(
+        test::forward_constant(
             src|broken_into<std::string>(boost::offset_separator(offsets, offsets+3)),
             expected
-        ) );
+        );
 
         std::vector<char> expected2 = src|copied;
-        BOOST_CHECK( oven::test_Forward_Readable(
+        test::forward_constant(
             src|broken_into<std::string>(boost::offset_separator(offsets, offsets+3))|memoized|concatenated,
             expected2
-        ) );
+        );
     }
-}
-
-
-int test_main(int, char*[])
-{
-    ::test();
-    return 0;
 }

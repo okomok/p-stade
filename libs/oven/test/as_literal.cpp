@@ -1,5 +1,5 @@
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
+#define PSTADE_CONCEPT_CHECK
 
 
 // PStade.Oven
@@ -10,30 +10,29 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/tests.hpp>
 #include <pstade/oven/as_literal.hpp>
+#include <pstade/minimal_test.hpp>
+#include <pstade/oven/test/test.hpp>
 
 
 #include <vector>
 #include <string>
 #include <boost/range.hpp>
-#include "./core.hpp"
 #include <pstade/oven/jointed.hpp>
 #include <pstade/oven/single.hpp>
 #include <pstade/oven/as_c_str.hpp>
+#include <pstade/oven/copy_range.hpp>
+#include <pstade/oven/equals.hpp>
 
 
-void test()
+void pstade_minimal_test()
 {
     namespace oven = pstade::oven;
     using namespace oven;
 
     {
-        std::vector<char> expected = std::string("hello range")|copied;
-        BOOST_CHECK( oven::test_RandomAccess_Readable(
-            "hello range"|as_literal,
-            expected
-        ) );
+        std::vector<char> a = std::string("hello range")|copied;
+        test::random_access_constant("hello range"|as_literal, a);
     }
 #if 0
     {
@@ -65,11 +64,4 @@ void test()
     {
         BOOST_CHECK(oven::equals(std::string("abcd"), std::string("abcd")|as_literal));
     }
-}
-
-
-int test_main(int, char*[])
-{
-    ::test();
-    return 0;
 }

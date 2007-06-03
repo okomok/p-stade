@@ -1,5 +1,5 @@
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
+#define PSTADE_CONCEPT_CHECK
 
 
 // PStade.Oven
@@ -10,28 +10,23 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/tests.hpp>
 #include <pstade/oven/cleared.hpp>
+#include <pstade/minimal_test.hpp>
+#include <pstade/oven/test/test.hpp>
 
 
 #include <string>
-#include "./core.hpp"
 
 
-void test()
+void pstade_minimal_test()
 {
+    namespace lambda = boost::lambda;
     namespace oven = pstade::oven;
     using namespace oven;
 
     {
         std::string str("hello, clear_range!");
-        BOOST_CHECK( oven::test_empty(str|cleared) );
+        test::emptiness(str|cleared);
+        test::adaptor_emptiness_int(lambda::bind(make_cleared, lambda::_1));
     }
-}
-
-
-int test_main(int, char*[])
-{
-    ::test();
-    return 0;
 }

@@ -11,16 +11,14 @@
 
 
 #include <pstade/oven/array_range.hpp>
+#include <pstade/minimal_test.hpp>
+#include <pstade/oven/test/test.hpp>
 
 
 #include <pstade/oven/distance.hpp>
 #include <algorithm> // copy
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-
-
-#include <pstade/minimal_test.hpp>
-#include <pstade/oven/test/test.hpp>
 
 
 void pstade_minimal_test()

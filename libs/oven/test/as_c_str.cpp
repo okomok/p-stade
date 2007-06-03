@@ -1,5 +1,5 @@
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
+#define PSTADE_CONCEPT_CHECK
 
 
 // PStade.Oven
@@ -10,23 +10,23 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/tests.hpp>
 #include <pstade/oven/as_c_str.hpp>
+#include <pstade/minimal_test.hpp>
+#include <pstade/oven/test/test.hpp>
 
 
 #include <string>
-#include "./core.hpp"
+#include <pstade/oven/equals.hpp>
 
 
-void test()
+void pstade_minimal_test()
 {
     namespace oven = pstade::oven;
     using namespace oven;
 
     {
         boost::result_of<op_as_c_str(char const*)>::type rng = as_c_str("hello\0range");
-        std::vector<char> expected = std::string("hello")|copied;
-        BOOST_CHECK( oven::test_RandomAccess_Readable(rng, expected) );
+        test::random_access_constant(rng, std::string("hello"));
         BOOST_CHECK( !contains_zero(rng) );
     }
     {
@@ -49,18 +49,12 @@ void test()
     }
 
     {
-        std::vector<char> rng = std::string("hello")|copied;
+        std::string src("hello");
+        std::vector<char> rng(boost::begin(src), boost::end(src));
         rng.push_back('\0');
         rng.push_back('r');        
         rng.push_back('n');
         rng.push_back('g');
         BOOST_CHECK( oven::equals(rng|as_c_str, std::string("hello")) );
     }
-}
-
-
-int test_main(int, char*[])
-{
-    ::test();
-    return 0;
 }

@@ -88,7 +88,7 @@ namespace pstade {
     template<class Lambda>
     struct automatic :
         boost::result_of<
-            op_unfuse<nullary_fused>(automatic_detail::fused_op<Lambda>)
+            op_unfuse<use_nullary_result>(automatic_detail::fused_op<Lambda>)
         >::type
     {
         template<class To>

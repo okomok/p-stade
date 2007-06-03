@@ -11,6 +11,7 @@
 
 
 #include <pstade/oven/applier.hpp>
+#include <pstade/minimal_test.hpp>
 
 
 #include <iterator>
@@ -25,9 +26,6 @@
 #include <pstade/oven/equals.hpp>
 #include <pstade/oven/regular.hpp>
 #include <pstade/unused.hpp>
-
-
-#include <pstade/minimal_test.hpp>
 
 
 std::stringstream g_ss;
