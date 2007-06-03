@@ -1,5 +1,5 @@
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
+#define PSTADE_CONCEPT_CHECK
 
 
 // PStade.Oven
@@ -10,8 +10,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/tests.hpp>
 #include <pstade/oven/cycled.hpp>
+#include <pstade/minimal_test.hpp>
+#include <pstade/oven/test/test.hpp>
 
 
 #include <iterator>
@@ -19,48 +20,54 @@
 #include <vector>
 #include <boost/foreach.hpp>
 #include <boost/range.hpp>
-#include "./core.hpp"
+#include <pstade/oven/copy_range.hpp>
 #include <pstade/oven/distance.hpp>
 #include <pstade/oven/reversed.hpp>
 #include <pstade/oven/offset.hpp>
 #include <pstade/oven/taken.hpp>
+#include <pstade/oven/equals.hpp>
+#include <pstade/oven/distance.hpp>
+#include <pstade/compose.hpp>
 #include <boost/iterator/counting_iterator.hpp>
+#include <pstade/result_of_lambda.hpp> // composing lambdafunctor
 
 
-void test()
+void pstade_minimal_test()
 {
+    namespace lambda = boost::lambda;
     namespace oven = pstade::oven;
     using namespace oven;
 
     {
-        std::string rng("1234");
-        std::string ans("12341234123412341234123412341234");
-        std::vector<char> expected = ans|copied;
+        int a[] = { 1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4 };
+        int b[] = { 1,2,3,4 };
 
-        BOOST_CHECK( oven::test_RandomAccess_Readable(
-            rng|cycled(4)|cycled(2),
-            expected
-        ) );
+        test::adaptor_random_access_constant_int(
+            pstade::compose(
+                lambda::bind(make_cycled, lambda::_1, 4), lambda::bind(make_cycled, lambda::_1, 2)
+            ),
+            a, b
+        );
     }
     {
         std::string rng("12345*");
         std::string ans("345*12345*12345*12");
         std::vector<char> expected = ans|copied;
 
-        BOOST_CHECK( oven::test_RandomAccess_Readable(
+        test::random_access_constant(
             rng|cycled(2)|offset(-4, 2),
             expected
-        ) );
+        );
     }
     {
         std::string rng("12345*");
         std::string ans("12345*12345*12345*12345*12345*123");
         std::vector<char> expected = ans|copied;
 
-        BOOST_CHECK( oven::test_Forward_Readable(
+        test::forward_constant(
             rng|cycled|taken(6*5+3),
             expected
-        ) );
+        );
     }
     {
         BOOST_CHECK( oven::equals(
@@ -106,11 +113,4 @@ void test()
         BOOST_CHECK( (src|cycled(5)).begin()[8] == 'b' );
         BOOST_CHECK( (src|cycled(5)|reversed).begin()[8] == 'f' );
     }
-}
-
-
-int test_main(int, char*[])
-{
-    ::test();
-    return 0;
 }

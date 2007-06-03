@@ -11,6 +11,8 @@
 
 
 #include <pstade/oven/applied.hpp>
+#include <pstade/minimal_test.hpp>
+#include <pstade/oven/test/test.hpp>
 
 
 // #define PSTADE_OVEN_USING_PHOENIX_V2
@@ -30,8 +32,9 @@
 #include <pstade/oven/equals.hpp>
 
 
-#include <pstade/minimal_test.hpp>
-#include "./int_tests.hpp"
+namespace lambda = boost::lambda;
+namespace oven = pstade::oven;
+using namespace oven;
 
 
 void pstade_minimal_test()
@@ -39,13 +42,10 @@ void pstade_minimal_test()
     {
         int a[] = { 1,2,3,4,5,6,7,8,9,10 };
         int b[] = { 1,2,3,4,5,6,7,8,9,10 }; 
-        PSTADE_rs(applied(begin, end), a, b);
-        PSTADE_rc(applied(begin, end), a, b);
-        PSTADE_rs(applied(pstade::identity), a, b);
-        PSTADE_rc(applied(pstade::identity), a, b);
+        test::adaptor_random_access_constant_int (lambda::bind(make_applied, lambda::_1, begin, end), a, b);
+        test::adaptor_random_access_swappable_int(lambda::bind(make_applied, lambda::_1, pstade::identity), a, b);
     }
     {
-        namespace lambda = boost::lambda;
         std::string src("abcdefghijk");
         std::string s1("efg");
         BOOST_CHECK((

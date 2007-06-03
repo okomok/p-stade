@@ -1,5 +1,5 @@
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
+#define PSTADE_CONCEPT_CHECK
 
 
 // PStade.Oven
@@ -10,57 +10,181 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/tests.hpp>
 #include <pstade/oven/concatenated.hpp>
+#include <pstade/unit_test.hpp>
+#include <pstade/oven/test/test.hpp>
 
 
 #include <iostream>
 #include <vector>
+#include <iterator>
+#include <algorithm>
 #include <string>
-#include "./core.hpp"
 #include <pstade/oven/reversed.hpp>
+#include <pstade/oven/copy_range.hpp>
+#include <pstade/oven/rvalues.hpp>
+
 
 #include <pstade/biscuit/parser.hpp>
 #include <pstade/biscuit/range/token_range.hpp>
 
 
-void test()
+namespace lambda = boost::lambda;
+namespace oven = pstade::oven;
+using namespace oven;
+
+
+void test_nc_nc()
 {
-    namespace oven = pstade::oven;
-    using namespace oven;
+    std::vector<int> l0; // empty
+    int l1[] = { 6,1,3,6 };
+    int l2[] = { 4 };
+    int l3[] = { 3,2 };
+    int l4[] = { 7 };
+    int l5[] = { 8 };
+    int l6[] = { 3,1,2,9,7 };
+    int l7[] = { 56,1,3 };
+    int l8[] = { 7,1 };
+    int l9[] = { 17 };
 
-    std::vector<std::string> rng; {
-        rng.push_back("abcd");
-        rng.push_back("efg");
-        rng.push_back("h");
-        rng.push_back("");
-        rng.push_back("ij");
-        rng.push_back("");
-        rng.push_back("klmn");
-        rng.push_back("");
+    typedef boost::ptr_vector<test::ncint> local_rng_t; // noncopyable-noncopyable
+
+    int a[] = { 6,1,3,6,   4,   3,2,   7,   8,   3,1,2,9,7,  56,1,3,  7,1,  17    };
+
+    boost::ptr_vector<local_rng_t> b; {
+        b.push_back(test::new_vector<test::ncint>(l0));
+        b.push_back(test::new_vector<test::ncint>(l1));
+        b.push_back(test::new_vector<test::ncint>(l0));
+        b.push_back(test::new_vector<test::ncint>(l2));
+        b.push_back(test::new_vector<test::ncint>(l3));
+        b.push_back(test::new_vector<test::ncint>(l4));
+        b.push_back(test::new_vector<test::ncint>(l0));
+        b.push_back(test::new_vector<test::ncint>(l0));
+        b.push_back(test::new_vector<test::ncint>(l5));
+        b.push_back(test::new_vector<test::ncint>(l6));
+        b.push_back(test::new_vector<test::ncint>(l7));
+        b.push_back(test::new_vector<test::ncint>(l8));
+        b.push_back(test::new_vector<test::ncint>(l0));
+        b.push_back(test::new_vector<test::ncint>(l9));
+        b.push_back(test::new_vector<test::ncint>(l0));
     }
 
-    {
-        std::vector<char> expected = std::string("abcdefghijklmn")|copied;
-        BOOST_CHECK( oven::test_Bidirectional_Readable_Writable(rng|concatenated, expected) );
+    test::bidirectional_swappable(b|concatenated, *test::new_vector<test::ncint>(a));
+}
+
+
+void test_c_nc()
+{
+    std::vector<int> l0; // empty
+    int l1[] = { 6,1,3,6 };
+    int l2[] = { 4 };
+    int l3[] = { 3,2 };
+    int l4[] = { 7 };
+    int l5[] = { 8 };
+    int l6[] = { 3,1,2,9,7 };
+    int l7[] = { 56,1,3 };
+    int l8[] = { 7,1 };
+    int l9[] = { 17 };
+
+    typedef boost::ptr_vector<int> local_rng_t; // copyable-noncopyable
+
+    int a[] = { 6,1,3,6,   4,   3,2,   7,   8,   3,1,2,9,7,  56,1,3,  7,1,  17    };
+
+    boost::ptr_vector<local_rng_t> b; {
+        b.push_back(test::new_vector<int>(l0));
+        b.push_back(test::new_vector<int>(l1));
+        b.push_back(test::new_vector<int>(l0));
+        b.push_back(test::new_vector<int>(l2));
+        b.push_back(test::new_vector<int>(l3));
+        b.push_back(test::new_vector<int>(l4));
+        b.push_back(test::new_vector<int>(l0));
+        b.push_back(test::new_vector<int>(l0));
+        b.push_back(test::new_vector<int>(l5));
+        b.push_back(test::new_vector<int>(l6));
+        b.push_back(test::new_vector<int>(l7));
+        b.push_back(test::new_vector<int>(l8));
+        b.push_back(test::new_vector<int>(l0));
+        b.push_back(test::new_vector<int>(l9));
+        b.push_back(test::new_vector<int>(l0));
     }
-    {
-        std::vector<char> expected = std::string("nmlkjihgfedcba")|copied;
-        BOOST_CHECK( oven::test_Bidirectional_Readable_Writable(rng|concatenated|reversed, expected) );
+
+    test::bidirectional_constant(b|concatenated, a);
+    test::bidirectional_swappable(b|concatenated, a);
+}
+
+
+template< class V, class Range >
+std::vector<V>
+make_vector(Range const& rng)
+{
+    std::vector<V> c;
+    std::copy(boost::begin(rng), boost::end(rng), std::back_inserter(c));
+    return c;
+}
+
+
+template< class BeforeFun >
+void test_iter_range_range(BeforeFun f)
+{
+    typedef std::vector<int> src_local_rng_t;
+
+    int l1[] = { 6,1,3,6 };
+    int l2[] = { 4 };
+    int l3[] = { 3,2 };
+    int l4[] = { 7 };
+    int l5[] = { 8 };
+    int l6[] = { 3,1,2,9,7 };
+    int l7[] = { 56,1,3 };
+    int l8[] = { 7,1 };
+    int l9[] = { 17 };
+
+    src_local_rng_t sl0; // empty
+    src_local_rng_t sl1 = ::make_vector<int>(l1);
+    src_local_rng_t sl2 = ::make_vector<int>(l2);
+    src_local_rng_t sl3 = ::make_vector<int>(l3);
+    src_local_rng_t sl4 = ::make_vector<int>(l4);
+    src_local_rng_t sl5 = ::make_vector<int>(l5);
+    src_local_rng_t sl6 = ::make_vector<int>(l6);
+    src_local_rng_t sl7 = ::make_vector<int>(l7);
+    src_local_rng_t sl8 = ::make_vector<int>(l8);
+    src_local_rng_t sl9 = ::make_vector<int>(l9);
+
+    typedef iter_range_of<src_local_rng_t>::type local_rng_t; // iterator-range
+
+    int a[] = { 6,1,3,6,   4,   3,2,   7,   8,   3,1,2,9,7,  56,1,3,  7,1,  17    };
+
+    std::vector<local_rng_t> b; {
+        b.push_back(make_iter_range(sl0));
+        b.push_back(make_iter_range(sl1));
+        b.push_back(make_iter_range(sl0));
+        b.push_back(make_iter_range(sl2));
+        b.push_back(make_iter_range(sl3));
+        b.push_back(make_iter_range(sl4));
+        b.push_back(make_iter_range(sl0));
+        b.push_back(make_iter_range(sl0));
+        b.push_back(make_iter_range(sl5));
+        b.push_back(make_iter_range(sl6));
+        b.push_back(make_iter_range(sl7));
+        b.push_back(make_iter_range(sl8));
+        b.push_back(make_iter_range(sl0));
+        b.push_back(make_iter_range(sl9));
+        b.push_back(make_iter_range(sl0));
     }
-    {
-        std::vector<std::string> rng;
-        rng.push_back("");
-        rng.push_back("");
-        rng.push_back("");
-        BOOST_CHECK( oven::test_empty(rng|concatenated) );
-        rng.push_back("ABC");
-        std::vector<char> expected = std::string("ABC")|copied;
-        BOOST_CHECK( oven::test_Bidirectional_Readable_Writable(rng|concatenated, expected) );
-        rng.push_back("");
-        rng.push_back("");
-        BOOST_CHECK( oven::test_Bidirectional_Readable_Writable(rng|concatenated, expected) );
-    }
+
+    test::bidirectional_constant(f(b)|concatenated, a);
+    test::bidirectional_swappable(f(b)|concatenated, a);
+}
+
+
+void pstade_unit_test()
+{
+    ::test_nc_nc();
+    ::test_c_nc();
+    ::test_iter_range_range(pstade::identity);
+    ::test_iter_range_range(lambda::bind(make_const_refs,    lambda::_1));
+    ::test_iter_range_range(lambda::bind(make_rvalues,       lambda::_1));
+    ::test_iter_range_range(lambda::bind(test::make_proxies, lambda::_1));
+
     {
         namespace biscuit = pstade::biscuit;
 
@@ -75,16 +199,9 @@ void test()
         // It seems not ForwardWritable, because once you change
         // a character, the parsing way is changed.
         // If it is a SinglePass algorithm, it seems to be writable, though.
-        BOOST_CHECK( oven::test_Forward_Readable(
+        test::forward_constant(
             rng|biscuit::tokenized<c_comment>()|concatenated,
             expected
-        ) );
+        );
     }
-}
-
-
-int test_main(int, char*[])
-{
-    ::test();
-    return 0;
 }

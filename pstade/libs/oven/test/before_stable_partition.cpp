@@ -1,5 +1,5 @@
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
+#define PSTADE_CONCEPT_CHECK
 
 
 // PStade.Oven
@@ -10,8 +10,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/tests.hpp>
 #include <pstade/oven/before_stable_partition.hpp>
+#include <pstade/minimal_test.hpp>
+#include <pstade/oven/test/test.hpp>
 
 
 #include <vector>
@@ -20,25 +21,18 @@
 #include <pstade/oven/permuted.hpp>
 
 
-void test()
+void pstade_minimal_test()
 {
     namespace oven = pstade::oven;
     using namespace oven;
 
     {
         int elements[] = { 0,1,2,3,4,5,6 };
-        std::vector<int> expected = elements|copied;
+        std::vector<int> a = elements|copied;
 
-        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
+        test::random_access_swappable(
             elements|permuted(counting(0, 7)) PSTADE_OVEN_BEFORE_STABLE_PARTITION,
-            expected
-        ) );
+            a
+        );
     }    
-}
-
-
-int test_main(int, char*[])
-{
-    ::test();
-    return 0;
 }

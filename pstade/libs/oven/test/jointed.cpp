@@ -1,5 +1,5 @@
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
+#define PSTADE_CONCEPT_CHECK
 
 
 // PStade.Oven
@@ -10,8 +10,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/tests.hpp>
 #include <pstade/oven/jointed.hpp>
+#include <pstade/unit_test.hpp>
+#include <pstade/oven/test/test.hpp>
 
 
 #include <iostream>
@@ -21,24 +22,79 @@
 #include <deque>
 #include <boost/foreach.hpp>
 #include <boost/range.hpp>
-#include "./core.hpp"
+#include <pstade/oven/equals.hpp>
 #include <pstade/oven/copy_range.hpp>
 #include <pstade/oven/single.hpp>
 #include <pstade/oven/reversed.hpp>
 
 
-void test()
+void pstade_unit_test()
 {
     namespace oven = pstade::oven;
     using namespace oven;
 
+    std::vector<int> em;
+
     {
-        int src0[] = { 2,1,4 };
-        int src1[] = { 6,5,9 };
-        int src2[] = { 8,3,7 };
-        int const ans[] = { 2,1,4,6,5,9,8,3,7 };
-        std::vector<int> expected = ans|copied;
-        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(src0|jointed(src1)|jointed(src2), expected) );
+        int b1[] = { 2,1,4,6,3,4 };
+        int b2[] = { 6,5,9,6,1,36,1 };
+        int b3[] = { 8,3,7 };
+        int a[] = { 2,1,4,6,3,4,  6,5,9,6,1,36,1,   8,3,7 };
+        test::random_access_swappable(b1|jointed(b2)|jointed(b3), a);
+    }
+    {
+        // jointed two proxies: swappable
+        int b1[] = { 2,1,4,6,3,4 };
+        int b2[] = { 6,5,9,6,1,36,1 };
+        int a[] = { 2,1,4,6,3,4,  6,5,9,6,1,36,1 };
+        test::random_access_swappable(b1|test::proxies|jointed(b2|test::proxies), a);
+    }
+    {
+        // const int& <- int&
+        int b1[] = { 2,1,4,6,3,4 };
+        int b2[] = { 6,5,9,6,1,36,1 };
+        int a[] = { 2,1,4,6,3,4,  6,5,9,6,1,36,1 };
+        test::random_access_constant(b1|const_refs|jointed(b2), a);
+    }
+    {
+        // joint nc type
+        int b1[] = { 2,1,4,6,3,4 };
+        int b2[] = { 6,5,9,6,1,36,1 };
+        int a[] = { 2,1,4,6,3,4,  6,5,9,6,1,36,1 };
+
+        test::equality(
+            make_jointed(*test::new_vector<test::ncint>(b1), *test::new_vector<test::ncint>(b2)),
+            *test::new_vector<test::ncint>(a)
+        );
+    }
+    {
+        // test traversal
+        int b1[] = { 2,1,4,6,3,4 };
+        int b2[] = { 6,5,9,6,1,36,1 };
+        int a[] = { 2,1,4,6,3,4,  6,5,9,6,1,36,1 };
+        test::bidirectional_swappable(
+            make_jointed(b1|identities(in_bidirectional), b2),
+            a
+        );
+    }
+    {
+        int b1[] = { 2 };
+        int b2[] = { 6 };
+        int b3[] = { 639 };
+        int b4[] = { 1 };
+        int b5[] = { 1 };
+        int b6[] = { 9,1 };
+        int b7[] = { 3 };
+        int b8[] = { 6,1,3,4,3,1,2,3,4,6 };
+        int b9[] = { 0 };
+        int a[] = { 2,6,639,1,1,9,1,3,  6,1,3,4,3,1,2,3,4,6,  0 };
+        test::random_access_swappable(
+            em|jointed(b1)|jointed(b2)|jointed(b3)|
+            jointed(b4)|jointed(b5)|jointed(b6)|jointed(em)|
+            jointed(  b7|jointed(em)|jointed(em)|jointed(b8)  )|
+            jointed(b9),
+            a
+        );
     }
 #if 1
     {
@@ -50,14 +106,14 @@ void test()
         std::vector<bool> src2 = src2_|copied;
         bool const ans[] = { true,false,false,false,true,false,true,false,true };
         std::deque<bool> expected = ans|copied;
-        BOOST_CHECK( oven::test_Bidirectional_Readable(src0|jointed(src1)|jointed(src2), expected) );
+        test::random_access_swappable(src0|jointed(src1)|jointed(src2), expected);
     }
 #endif
     {
         std::string src0;
         std::string src1;
         std::string src2;
-        BOOST_CHECK( oven::test_empty(src0|jointed(src1)|jointed(src2)) );
+        test::emptiness(src0|jointed(src1)|jointed(src2));
     }
 
     std::string ans ("01234567");
@@ -176,9 +232,3 @@ void test()
     }
 }
 
-
-int test_main(int, char*[])
-{
-    ::test();
-    return 0;
-}

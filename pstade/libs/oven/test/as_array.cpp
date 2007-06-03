@@ -1,5 +1,5 @@
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
+#define PSTADE_CONCEPT_CHECK
 
 
 // PStade.Oven
@@ -10,37 +10,33 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/tests.hpp>
 #include <pstade/oven/as_array.hpp>
+#include <pstade/minimal_test.hpp>
+#include <pstade/oven/test/test.hpp>
 
 
 #include <string>
-#include "./core.hpp"
+#include <vector>
 
 
-void test()
+void pstade_minimal_test()
 {
     namespace oven = pstade::oven;
     using namespace oven;
 
-    std::vector<char> expected = std::string("hello, array_protect_range")|copied;
-    expected.push_back('\0'); // contains null.
+    std::string src("bienaijfeioagijgeoaioo");
+    std::vector<char> a(boost::begin(src), boost::end(src));
+    a.push_back('\0'); // contains null.
 
     {
-        char str[] = "hello, array_protect_range";
-        BOOST_CHECK(oven::test_RandomAccess_Readable_Writable(str|as_array, expected));
+        char str[] = "bienaijfeioagijgeoaioo";
+        test::random_access_constant(str|as_array, a);
     }
     {
-        BOOST_CHECK(oven::test_RandomAccess_Readable(as_array("hello, array_protect_range"), expected));
+        test::random_access_constant(as_array("bienaijfeioagijgeoaioo"), a);
     }
     {
-        BOOST_CHECK(oven::equals(std::string("abcd"), std::string("abcd")|as_array));
+        // non-array
+        test::random_access_constant(std::string("abcd")|as_array, std::string("abcd"));
     }
-}
-
-
-int test_main(int, char*[])
-{
-    ::test();
-    return 0;
 }

@@ -1,5 +1,5 @@
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
+#define PSTADE_CONCEPT_CHECK
 
 
 // PStade.Oven
@@ -10,36 +10,28 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/tests.hpp>
 #include <pstade/oven/biscuit_tokenized.hpp>
+#include <pstade/minimal_test.hpp>
+#include <pstade/oven/test/test.hpp>
 
 
-#include "./core.hpp"
 #include <string>
 #include <pstade/oven/concatenated.hpp>
+#include <pstade/oven/copy_range.hpp>
 #include <pstade/biscuit/parser.hpp>
 
 
-void test()
+void pstade_minimal_test()
 {
     namespace biscuit = pstade::biscuit;
     namespace oven = pstade::oven;
     using namespace oven;
 
     {
-        std::string input("This is his face");
+        std::string b("This is his face");
 
-        std::vector<char> expected_ = std::string("Thisishisface")|copied;
-        BOOST_CHECK( oven::test_Forward_Readable(
-            input|biscuit_tokenized(biscuit::plus<biscuit::alnum_com>())|concatenated,
-            expected_
-        ) );
+        std::vector<char> a = std::string("Thisishisface")|copied;
+        test::forward_constant(b|biscuit_tokenized(biscuit::plus<biscuit::alnum_com>())|concatenated, a);
+        test::forward_constant(b|const_refs|biscuit_tokenized(biscuit::plus<biscuit::alnum_com>())|concatenated, a);
     }
-}
-
-
-int test_main(int, char*[])
-{
-    ::test();
-    return 0;
 }

@@ -1,5 +1,4 @@
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
 
 
 // PStade.Wine
@@ -11,9 +10,12 @@
 
 
 #include <pstade/unfuse.hpp>
+#include <pstade/minimal_test.hpp>
 
 
 #include <boost/noncopyable.hpp>
+#include <boost/mpl/assert.hpp>
+#include <boost/type_traits/is_same.hpp>
 
 
 int my_plus(boost::tuples::tuple<int const&, int const&, int const&> tup)
@@ -38,29 +40,50 @@ int take_nc(boost::tuples::tuple<nc&, nc&>)
 }
 
 
-void test()
+int well_formed(char) { return 1; }
+
+
+template<class F>
+void nullary_result_of_check(F f)
+{
+    BOOST_MPL_ASSERT((boost::is_same<
+        typename boost::result_of<F()>::type,
+        int
+    >));
+}
+
+
+void pstade_minimal_test()
 {
     using namespace pstade;
 
     {
         BOOST_CHECK(
-            pstade::unfuse(&::my_plus)(5, 7, 2) == 14
+            unfuse(&::my_plus)(5, 7, 2) == 14
         );
     }
     {
+        // ::my_two is known to be nullary.
         BOOST_CHECK(
-            pstade::op_unfuse<int>()(&::my_two)() == 2
+            op_unfuse<use_nullary_result>()(&::my_two)() == 2
         );
+
+        ::nullary_result_of_check( op_unfuse<use_nullary_result>()(&::my_two) );
+    }
+    {
+        // specify nullary result type explicitly.
+        BOOST_CHECK(
+            op_unfuse<int>()(&::my_two)() == 2
+        );
+        
+        ::nullary_result_of_check( op_unfuse<int>()(&::my_two) );
+    }
+    {
+        unfuse(&::well_formed);
+        op_unfuse<int>()(&::well_formed);
     }
     {
         ::nc x, y;
         BOOST_CHECK( unfuse(&::take_nc)(x, y) == 3 );
     }
-}
-
-
-int test_main(int, char*[])
-{
-    ::test();
-    return 0;
 }

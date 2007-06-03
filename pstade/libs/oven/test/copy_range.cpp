@@ -1,5 +1,5 @@
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
+#define PSTADE_CONCEPT_CHECK
 
 
 // PStade.Oven
@@ -10,18 +10,19 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/tests.hpp>
 #include <pstade/oven/copy_range.hpp>
-#include <pstade/oven/copied_to.hpp>
+#include <pstade/minimal_test.hpp>
+#include <pstade/oven/test/test.hpp>
 
 
 #include <iterator>
 #include <sstream>
 #include <string>
 #include <vector>
-#include "./core.hpp"
+#include <pstade/oven/copied_to.hpp>
 #include <pstade/oven/counting.hpp>
 #include <pstade/copy_assign.hpp>
+#include <pstade/oven/equals.hpp>
 
 
 struct convertible_to_any
@@ -34,7 +35,7 @@ struct convertible_to_any
 };
 
 
-void test()
+void test_()
 {
     namespace oven = pstade::oven;
     using namespace oven;
@@ -203,9 +204,8 @@ void test_extension()
 }
 
 
-int test_main(int, char*[])
+void pstade_minimal_test()
 {
-    ::test();
+    ::test_();
     ::test_extension();
-    return 0;
 }

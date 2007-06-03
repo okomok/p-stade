@@ -1,5 +1,5 @@
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
+#define PSTADE_CONCEPT_CHECK
 
 
 // PStade.Oven
@@ -10,15 +10,16 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/tests.hpp>
 #include <pstade/oven/directory_range.hpp>
+#include <pstade/minimal_test.hpp>
+#include <pstade/oven/test/test.hpp>
 
 
 #include <iostream>
 #include <boost/foreach.hpp>
 
 
-void test()
+void pstade_minimal_test()
 {
     namespace fs = boost::filesystem;
     namespace oven = pstade::oven;
@@ -53,11 +54,4 @@ void test()
         }
     }
 #endif
-}
-
-
-int test_main(int, char*[])
-{
-    ::test();
-    return 0;
 }

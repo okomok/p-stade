@@ -1,5 +1,5 @@
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
+#define PSTADE_CONCEPT_CHECK
 
 
 // PStade.Oven
@@ -10,37 +10,54 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/tests.hpp>
 #include <pstade/oven/dropped.hpp>
+#include <pstade/minimal_test.hpp>
+#include <pstade/oven/test/test.hpp>
 
 
 #include <string>
 #include <vector>
+#include <pstade/result_of_lambda.hpp>
 #include <boost/range.hpp>
-#include "./core.hpp"
+#include <pstade/oven/equals.hpp>
+#include <pstade/compose.hpp>
+#include <pstade/oven/distance.hpp>
 #include <pstade/oven/identities.hpp>
 
 
-void test()
+void pstade_minimal_test()
 {
+    namespace lambda = boost::lambda;
     namespace oven = pstade::oven;
     using namespace oven;
 
     {
-        std::string rng("hello, drop_range!");
-        std::vector<char> expected = std::string("range!")|copied;
+        int a[] = { 6,8,5,3,1,2,3,4,56,7,34 };
+        int b[] = { 6,2,3,1,2,3,6,8,5,3,1,2,3,4,56,7,34 };
 
-        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
-            rng|dropped(7)|dropped(5), expected
-        ) );
+        test::adaptor_random_access_constant_int(
+            pstade::compose(
+                lambda::bind(make_dropped, lambda::_1, 5),
+                lambda::bind(make_dropped, lambda::_1, 1)
+            ),
+            a, b
+        );
 
-        BOOST_CHECK( oven::test_empty(
-            rng|dropped(7)|dropped(500)
-        ) );
+        test::adaptor_random_access_swappable_int(
+            pstade::compose(
+                lambda::bind(make_dropped, lambda::_1, 4),
+                lambda::bind(make_dropped, lambda::_1, 2)
+            ),
+            a, b
+        );
 
-        BOOST_CHECK( oven::test_empty(
-            rng|dropped(distance(rng))
-        ) );
+        test::emptiness(
+            b|dropped(7)|dropped(500)
+        );
+
+        test::emptiness(
+            b|dropped(distance(b))
+        );
     }
     {
         std::string src("hello, drop_range!");
@@ -54,32 +71,25 @@ void test()
         BOOST_CHECK( oven::equals(src|identities(in_single_pass)|dropped(distance(src)), std::string()) );
     }
     {
-        BOOST_CHECK( oven::test_empty(
+        test::emptiness(
             std::string()|dropped(0)
-        ) );
-        BOOST_CHECK( oven::test_empty(
+        );
+        test::emptiness(
             std::string()|dropped(1)
-        ) );
-        BOOST_CHECK( oven::test_empty(
+        );
+        test::emptiness(
             std::string()|dropped(100)
-        ) );
+        );
     }
     {
-        BOOST_CHECK( oven::test_empty(
+        test::emptiness(
             std::string()|identities(in_single_pass)|dropped(0)
-        ) );
-        BOOST_CHECK( oven::test_empty(
+        );
+        test::emptiness(
             std::string()|identities(in_single_pass)|dropped(1)
-        ) );
-        BOOST_CHECK( oven::test_empty(
+        );
+        test::emptiness(
             std::string()|identities(in_single_pass)|dropped(100)
-        ) );
+        );
     }
-}
-
-
-int test_main(int, char*[])
-{
-    ::test();
-    return 0;
 }

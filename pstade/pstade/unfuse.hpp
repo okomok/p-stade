@@ -17,12 +17,9 @@
 // but this is the basis together with 'fuse'.
 
 
-#include <boost/mpl/eval_if.hpp>
-#include <boost/mpl/identity.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/type_traits/is_same.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
@@ -31,6 +28,7 @@
 #include <pstade/pass_by.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/use_default.hpp>
+#include <pstade/use_nullary_result.hpp>
 
 
 namespace pstade {
@@ -81,8 +79,6 @@ namespace pstade {
 
 
 
-        struct can_take_empty_tuple;
-
         template<class FusedFun, class Pack>
         struct apply_empty_tuple :
             boost::result_of<
@@ -92,11 +88,12 @@ namespace pstade {
             >
         { };
 
+
         template<class NullaryResult, class FusedFun, class PackFun>
         struct nullary_result_aux :
-            boost::mpl::eval_if< boost::is_same<can_take_empty_tuple, NullaryResult>,
-                apply_empty_tuple<FusedFun, PackFun>,
-                boost::mpl::identity<NullaryResult>
+            use_nullary_result_eval_to<
+                NullaryResult,
+                apply_empty_tuple<FusedFun, PackFun>
             >
         { };
 
@@ -104,13 +101,10 @@ namespace pstade {
     } // namespace unfuse_detail
 
 
-    typedef
-        unfuse_detail::can_take_empty_tuple
-    nullary_fused;
-
-
-    // The nullary result type is passed explicitly
-    // for a function which can't take an empty tuple.
+    // If 'NullaryResult' is 'boost::use_default', this is not nullary-callable.
+    // Else if 'NullaryResult' is 'use_nullary_result', 'FusedFun' is considered
+    // as callable with an empty tuple, then the result is inspected.
+    // Otherwise, a passed type is the result type of this.
 
     template<class NullaryResult = boost::use_default>
     struct op_unfuse :

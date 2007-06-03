@@ -1,5 +1,5 @@
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
+#define PSTADE_CONCEPT_CHECK
 
 
 // PStade.Oven
@@ -10,8 +10,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/tests.hpp>
 #include <pstade/oven/counting.hpp>
+#include <pstade/minimal_test.hpp>
+#include <pstade/oven/test/test.hpp>
 
 
 #include <iterator>
@@ -20,8 +21,11 @@
 #include <boost/foreach.hpp>
 #include <boost/range.hpp>
 #include <pstade/oven/algorithm.hpp>
-#include "./core.hpp"
+#include <pstade/oven/equals.hpp>
 #include <pstade/oven/taken.hpp>
+#include <pstade/oven/copy_range.hpp>
+#include <pstade/oven/regular.hpp>
+#include <pstade/oven/distance.hpp>
 #include <pstade/oven/taken_while.hpp>
 #include <pstade/oven/stream_writer.hpp>
 #include <pstade/oven/transformed.hpp>
@@ -30,7 +34,7 @@
 #include <pstade/pack.hpp>
 
 
-void test()
+void pstade_minimal_test()
 {
     namespace oven = pstade::oven;
     using namespace oven;
@@ -39,7 +43,7 @@ void test()
         int ans[] = { 2, 3, 4, 5, 6 };
         std::vector<int> expected = ans|copied;
 
-        BOOST_CHECK( oven::test_RandomAccess_Readable(oven::counting(2, 7), expected) );
+        test::random_access_constant(oven::counting(2, 7), expected);
     }
 
     {
@@ -111,11 +115,4 @@ void test()
                 std::ostream_iterator<int>(std::cout, ",")
         );
     }
-}
-
-
-int test_main(int, char*[])
-{
-    ::test();
-    return 0;
 }
