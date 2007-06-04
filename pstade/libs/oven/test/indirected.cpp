@@ -1,5 +1,6 @@
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
+#define PSTADE_CONCEPT_CHECK
+
 
 
 // PStade.Oven
@@ -10,95 +11,39 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/tests.hpp>
 #include <pstade/oven/indirected.hpp>
+#include <pstade/minimal_test.hpp>
+#include "./detail/test.hpp"
 
 
-#include <iterator>
-#include <string>
-#include <boost/foreach.hpp>
-#include <boost/range.hpp>
-#include "./core.hpp"
-#include <pstade/oven/algorithm.hpp>
-#include <pstade/oven/transformed.hpp>
+#include <pstade/oven/outdirected.hpp>
 
 
-struct A
-{
-    void call();
-};
-
-
-int *to_rvalue_pointer(int& x)
-{
-    return &x;
-}
-
-
-void test()
+void pstade_minimal_test()
 {
     namespace oven = pstade::oven;
     using namespace oven;
 
     {
-        int ans[] = { 2,4,5,1,3 };
-        int *rng[] = { &ans[0], &ans[1], &ans[2], &ans[3], &ans[4] };
-
-        std::vector<int> expected = ans|copied;
-        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
-            rng|indirected,
-            expected
-        ) );
+        int const a[10] = { 6,1,2,3,4,6,7,5,2,1 };
+        int b_[10] = { 6,1,2,3,4,6,7,5,2,1 };
+        int *b[10] = { &b_[0], &b_[1], &b_[2], &b_[3], &b_[4], &b_[5], &b_[6], &b_[7], &b_[8], &b_[9] };
+        test::random_access_constant(b|indirected, a);
+        test::random_access_swappable(b|indirected, a);
     }
     {
-        // can resurrect lvalue-ness.
-        int rng[] = { 2,4,5,1,3,9,7,10,0 };
-
-        std::vector<int> expected = rng|copied;
-        BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
-            rng|transformed(&to_rvalue_pointer)|indirected,
-            expected
-        ) );
+        int const a[10] = { 6,1,2,3,4,6,7,5,2,1 };
+        int b_[10] = { 6,1,2,3,4,6,7,5,2,1 };
+        int *b[10] = { &b_[0], &b_[1], &b_[2], &b_[3], &b_[4], &b_[5], &b_[6], &b_[7], &b_[8], &b_[9] };
+        test::random_access_constant(b|test::proxies|indirected, a); // lvalue-ness resurrected
+        test::random_access_swappable(b|test::proxies|indirected, a);
     }
-
-    char characters[] = "abcdefg";
-    const int N = sizeof(characters)/sizeof(char) - 1; // -1 since characters has a null char
-    char* pointers_to_chars[N];                        // at the end.
-    for (int i = 0; i < N; ++i)
-        pointers_to_chars[i] = &characters[i];
-
-    char ans[] = "abcdefg";
     {
-        BOOST_CHECK((
-            oven::equal( oven::make_indirected(pointers_to_chars), ans)
-        ));
+        // iter_swap extension test
+        int const a[10] = { 6,1,2,3,4,6,7,5,2,1 };
+        test::random_access_swappable(
+            *test::new_vector<test::ncint>(a)|outdirected|indirected,
+            *test::new_vector<test::ncint>(a)
+        );
     }
-
-    {
-        BOOST_CHECK((
-            oven::equal(
-                pointers_to_chars |
-                    oven::indirected,
-                ans
-            )
-        ));
-    }
-
-    /*
-    {
-        std::vector<A*> vec;
-        typedef indirect_range< std::vector<A*> > rng_t;
-        rng_t rng(vec);
-        boost::range_result_iterator< rng_t >::type it = boost::begin(rng);
-        (*it).call();
-        it->call();
-    }
-    */
-}
-
-
-int test_main(int, char*[])
-{
-    ::test();
-    return 0;
 }

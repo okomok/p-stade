@@ -1,5 +1,5 @@
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
+#define PSTADE_CONCEPT_CHECK
 
 
 // PStade.Oven
@@ -10,8 +10,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/tests.hpp>
 #include <pstade/oven/expression.hpp>
+#include <pstade/minimal_test.hpp>
+#include "./detail/test.hpp"
 
 
 #include <string>
@@ -61,9 +62,8 @@ test_template(Range& rng)
 }
 
 
-int test_main(int, char*[])
+void pstade_minimal_test()
 {
     BOOST_CHECK( equals(str, ::test_type()) );
     BOOST_CHECK( equals(str, ::test_template(str)) );
-    return 0;
 }

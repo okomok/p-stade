@@ -25,6 +25,7 @@
 #include <pstade/pipable.hpp>
 #include <pstade/use_default.hpp>
 #include "./concepts.hpp"
+#include "./detail/indirect_iterator.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
 #include "./range_traversal.hpp"
@@ -53,7 +54,7 @@ struct op_make_indirected :
         trv_t;
 
         typedef
-            boost::indirect_iterator<
+            detail::indirect_iterator<
                 typename range_iterator<Range>::type,
                 Value,
                 trv_t,

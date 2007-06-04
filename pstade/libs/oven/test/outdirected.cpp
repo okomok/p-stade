@@ -10,14 +10,14 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/tests.hpp>
+#include "./detail/v1_tests.hpp"
 #include <pstade/oven/outdirected.hpp>
 #include <pstade/oven/indirected.hpp>
 
 
 #include <string>
 #include <vector>
-#include "./core.hpp"
+#include "./detail/v1_core.hpp"
 #include <pstade/is_same.hpp>
 
 

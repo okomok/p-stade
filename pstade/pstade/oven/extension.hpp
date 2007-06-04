@@ -42,13 +42,21 @@ namespace pstade_oven_extension {
     // use the following customization point.
 
     template< class To >
-    struct copy_range
-    { };
+    struct copy_range { };
+
+    template< class To >
+    struct copy_range_base { };
+
+    template< class To, class From > inline
+    To pstade_oven_(copy_range_base<To>, From& rng)
+    {
+        return To(boost::begin(rng), boost::end(rng));
+    }
 
     template< class To, class From > inline
     To pstade_oven_(copy_range<To>, From& rng)
     {
-        return To(boost::begin(rng), boost::end(rng));
+        return pstade_oven_extension::pstade_oven_(copy_range_base<To>(), rng);
     }
 
     template< class To, class From > inline

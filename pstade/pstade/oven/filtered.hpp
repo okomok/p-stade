@@ -17,13 +17,13 @@
 
 
 #include "./detail/prelude.hpp"
-#include <boost/iterator/filter_iterator.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/function.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
 #include "./concepts.hpp"
+#include "./detail/filter_iterator.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
 
@@ -38,7 +38,7 @@ namespace filtered_detail {
     struct baby
     {
         typedef
-            boost::filter_iterator<
+            detail::filter_iterator<
                 typename pass_by_value<Predicate>::type,
                 typename range_iterator<Range>::type
             >

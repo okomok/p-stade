@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/tests.hpp>
+#include "./detail/v1_tests.hpp"
 #include <pstade/oven/lower_chars.hpp>
 #include <pstade/oven/upper_chars.hpp>
 #include <pstade/oven/const_refs.hpp>
@@ -19,7 +19,7 @@
 
 
 #include <string>
-#include "./core.hpp"
+#include "./detail/v1_core.hpp"
 
 
 void test()

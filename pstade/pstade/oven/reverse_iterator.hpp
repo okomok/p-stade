@@ -117,10 +117,16 @@ friend class boost::iterator_core_access;
 };
 
 
-template< class B > inline
-void iter_swap(reverse_iterator<B> left, reverse_iterator<B> right)
+template< class B1, class B2 > inline
+void pstade_oven_iter_swap(reverse_iterator<B1> it1, reverse_iterator<B2> it2)
 {
-    do_iter_swap(boost::prior(left.base()), boost::prior(right.base()));
+    do_iter_swap(boost::prior(it1.base()), boost::prior(it2.base()));
+}
+
+template< class B1, class B2 > inline
+void iter_swap(reverse_iterator<B1> it1, reverse_iterator<B2> it2)
+{
+    pstade_oven_iter_swap(it1, it2);
 }
 
 

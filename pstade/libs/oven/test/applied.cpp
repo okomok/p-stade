@@ -12,7 +12,7 @@
 
 #include <pstade/oven/applied.hpp>
 #include <pstade/minimal_test.hpp>
-#include <pstade/oven/test/test.hpp>
+#include "./detail/test.hpp"
 
 
 // #define PSTADE_OVEN_USING_PHOENIX_V2

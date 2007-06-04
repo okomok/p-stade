@@ -11,7 +11,7 @@
 
 
 #define PSTADE_OVEN_TESTS_REVERSE_RANGE_TESTING
-#include <pstade/oven/tests.hpp>
+#include "./detail/v1_tests.hpp"
 #include <pstade/oven/reversed.hpp>
 
 
@@ -21,7 +21,7 @@
 #include <boost/foreach.hpp>
 #include <boost/range.hpp>
 #include <pstade/oven/counting.hpp>
-#include "./core.hpp"
+#include "./detail/v1_core.hpp"
 #include <pstade/oven/algorithm.hpp>
 #include <pstade/oven/transformed.hpp>
 #include <boost/iterator/reverse_iterator.hpp>

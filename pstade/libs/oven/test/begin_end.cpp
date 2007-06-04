@@ -12,7 +12,7 @@
 
 #include <pstade/oven/begin_end.hpp>
 #include <pstade/minimal_test.hpp>
-#include <pstade/oven/test/test.hpp>
+#include "./detail/test.hpp"
 
 
 #include <algorithm>

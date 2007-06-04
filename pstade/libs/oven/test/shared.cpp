@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/tests.hpp>
+#include "./detail/v1_tests.hpp"
 #include <pstade/oven/shared.hpp>
 
 
@@ -19,7 +19,7 @@
 #include <boost/foreach.hpp>
 #include <boost/noncopyable.hpp>
 #include <pstade/new_delete.hpp>
-#include "./core.hpp"
+#include "./detail/v1_core.hpp"
 #include <pstade/oven/identities.hpp>
 
 

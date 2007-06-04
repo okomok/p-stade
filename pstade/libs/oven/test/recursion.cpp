@@ -12,7 +12,7 @@
 
 #include <pstade/oven/recursion.hpp>
 #include <pstade/unit_test.hpp>
-#include <pstade/oven/test/test.hpp>
+#include "./detail/test.hpp"
 
 
 #include <pstade/oven/reversed.hpp>

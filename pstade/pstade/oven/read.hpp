@@ -21,46 +21,22 @@
 
 #include "./detail/prelude.hpp"
 #include <boost/iterator/iterator_traits.hpp>
-#include <boost/mpl/if.hpp>
-#include <boost/mpl/or.hpp>
-#include <boost/type_traits/is_same.hpp>
+#include <boost/mpl/eval_if.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/function.hpp>
+#include "./detail/is_reference_iterator.hpp"
 
 
 namespace pstade { namespace oven {
 
 
 template< class ReadableOrLvalueIter >
-struct iterator_read
-{
-    typedef typename
-        boost::remove_cv<ReadableOrLvalueIter>::type
-    iter_t;
-
-    typedef typename
-        boost::iterator_value<iter_t>::type
-    val_t;
-
-    typedef typename
-        boost::iterator_reference<iter_t>::type
-    ref_t;
-
-    typedef
-        boost::mpl::or_<
-            boost::is_same<ref_t, val_t&>,
-            boost::is_same<ref_t, val_t const&>,
-            boost::is_same<ref_t, val_t const volatile&>
-        >
-    is_ref;
-
-    typedef typename
-        boost::mpl::if_< is_ref,
-            ref_t,
-            val_t
-        >::type
-    type;
-};
+struct iterator_read :
+    boost::mpl::eval_if< detail::is_reference_iterator<ReadableOrLvalueIter>,
+        boost::iterator_reference<ReadableOrLvalueIter>,
+        boost::iterator_value<ReadableOrLvalueIter>
+    >
+{ };
 
 
 namespace read_detail {
@@ -70,7 +46,9 @@ namespace read_detail {
     struct baby
     {
         typedef typename
-            iterator_read<ReadableOrLvalueIter>::type
+            iterator_read<
+                typename boost::remove_cv<ReadableOrLvalueIter>::type
+            >::type
         result_type;
 
         // Pass by reference; see "./reverse_iterator.hpp"

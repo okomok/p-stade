@@ -222,13 +222,18 @@ namespace detail {
     };
 
 
-    template< class I >
-    void iter_swap(check_iterator<I> left, check_iterator<I> right)
+    template< class I1, class I2 >
+    void pstade_oven_iter_swap(check_iterator<I1> it1, check_iterator<I2> it2)
     {
-        detail::check_singularity(left);
-        detail::check_singularity(right);
-        detail::check_compatibility(left, right);
-        do_iter_swap(left.base(), right.base());
+        detail::check_singularity(it1);
+        detail::check_singularity(it2);
+        do_iter_swap(it1.base(), it2.base());
+    }
+
+    template< class I1, class I2 > inline
+    void iter_swap(check_iterator<I1> it1, check_iterator<I2> it2)
+    {
+        pstade_oven_iter_swap(it1, it2);
     }
 
 

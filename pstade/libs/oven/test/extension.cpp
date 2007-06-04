@@ -1,5 +1,5 @@
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
+#define PSTADE_CONCEPT_CHECK
 
 
 // PStade.Oven
@@ -10,8 +10,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/tests.hpp>
+#include <boost/range.hpp> // include first; test no order-dependency.
 #include <pstade/oven/extension.hpp>
+#include <pstade/minimal_test.hpp>
+#include "./detail/test.hpp"
 
 
 #include <string>
@@ -22,10 +24,8 @@
 #include <boost/type_traits/is_same.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/noncopyable.hpp>
-#include <pstade/oven/tests.hpp>
 
 
-#include <boost/range.hpp> // include first; test no order-dependency.
 
 
 namespace mine {
@@ -193,7 +193,7 @@ PSTADE_OVEN_EXTENSION_OF_TEMPLATE((Foo)(Pair), (class))
 // PSTADE_OVEN_EXTENSION_OF_TEMPLATE((Foo)(Pair), 1) // also ok.
 
 
-void test()
+void pstade_minimal_test()
 {
     using namespace pstade;
 
@@ -207,18 +207,11 @@ void test()
 
     bool never = false;
     if (never) {
-        oven::test_RandomAccess_Readable_Writable(cont1, expected_int);
-        oven::test_RandomAccess_Readable_Writable(cont2, expected_int);
-        oven::test_RandomAccess_Readable_Writable(cont3, expected_char);
-        oven::test_RandomAccess_Readable_Writable(seq1,  expected_char);
-        oven::test_RandomAccess_Readable_Writable(pr,    expected_int);
-        oven::test_Copyable< Foo::Pair<int *> >(pr);
+        oven::test::random_access_constant(cont1, expected_int);
+        oven::test::random_access_constant(cont2, expected_int);
+        oven::test::random_access_constant(cont3, expected_char);
+        oven::test::random_access_constant(seq1,  expected_char);
+        oven::test::random_access_constant(pr,    expected_int);
+        oven::test::copyable< Foo::Pair<int *> >(pr);
     }
-}
-
-
-int test_main(int, char*[])
-{
-    ::test();
-    return 0;
 }

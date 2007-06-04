@@ -10,12 +10,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/tests.hpp>
+#include "./detail/v1_tests.hpp"
 #include <pstade/oven/spanned.hpp>
 
 
 #include <string>
-#include "./core.hpp"
+#include "./detail/v1_core.hpp"
 #include <pstade/oven/elements.hpp>
 #include <pstade/oven/spanned.hpp>
 

@@ -11,7 +11,7 @@
 
 
 #define PSTADE_OVEN_TESTS_DONT_CALL_DISTANCE
-#include <pstade/oven/tests.hpp>
+#include "./detail/v1_tests.hpp"
 #include <pstade/oven/xpressive_tokenized.hpp>
 
 
@@ -19,7 +19,7 @@
 #include <vector>
 #include <boost/xpressive/xpressive.hpp>
 #include <boost/range.hpp>
-#include "./core.hpp"
+#include "./detail/v1_core.hpp"
 #include <pstade/oven/concatenated.hpp>
 #include <pstade/oven/memoized.hpp>
 

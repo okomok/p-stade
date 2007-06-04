@@ -10,13 +10,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/tests.hpp>
+#include "./detail/v1_tests.hpp"
 #include <pstade/oven/permuted.hpp>
 
 
 #include <iostream>
 #include <string>
-#include "./core.hpp"
+#include "./detail/v1_core.hpp"
 #include <pstade/oven/counting.hpp>
 #include <pstade/oven/algorithm.hpp>
 #include <pstade/oven/stream_writer.hpp>

@@ -86,10 +86,16 @@ private:
 };
 
 
-template< class P > inline
-void iter_swap(shared_range_iterator<P> left, shared_range_iterator<P> right)
+template< class P1, class P2 > inline
+void pstade_oven_iter_swap(shared_range_iterator<P1> it1, shared_range_iterator<P2> it2)
 {
-    do_iter_swap(left.base(), right.base());
+    do_iter_swap(it1.base(), it2.base());
+}
+
+template< class P1, class P2 > inline
+void iter_swap(shared_range_iterator<P1> it1, shared_range_iterator<P2> it2)
+{
+    pstade_oven_iter_swap(it1, it2);
 }
 
 

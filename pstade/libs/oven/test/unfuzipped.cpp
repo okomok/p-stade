@@ -14,7 +14,7 @@
 #if BOOST_VERSION >= 103500
 
 
-#include <pstade/oven/tests.hpp>
+#include "./detail/v1_tests.hpp"
 #include <pstade/oven/unfuzipped.hpp>
 #include <pstade/oven/fuzipped.hpp>
 
@@ -25,7 +25,7 @@
 #include <boost/foreach.hpp>
 #include <boost/range.hpp>
 #include <pstade/oven/algorithm.hpp>
-#include "./core.hpp"
+#include "./detail/v1_core.hpp"
 #include <pstade/pack.hpp>
 #include <boost/fusion/sequence/generation/vector_tie.hpp>
 #include <boost/fusion/sequence/intrinsic/at.hpp>

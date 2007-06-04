@@ -14,7 +14,7 @@
 
 
 #include <pstade/minimal_test.hpp>
-#include <pstade/oven/test/test.hpp>
+#include "./detail/test.hpp"
 
 
 void pstade_minimal_test()

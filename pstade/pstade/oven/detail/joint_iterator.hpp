@@ -18,6 +18,7 @@
 #include <boost/static_warning.hpp>
 #include <pstade/is_convertible.hpp>
 #include <pstade/is_returnable.hpp>
+#include "../do_iter_swap.hpp"
 #include "../reverse_iterator.hpp"
 #include "./minimum_pure.hpp"
 
@@ -108,18 +109,23 @@ template< class, class > friend struct joint_iterator;
         m_firstR(other.m_firstR), m_itR(other.m_itR)
     { }
 
+    IteratorR right_base() const
+    {
+        return m_itR;
+    }
+
+    bool is_in_left() const
+    {
+        return this->base() != m_lastL;
+    }
+
 private:
     IteratorL m_lastL; IteratorR m_firstR; // the joint point
     IteratorR m_itR;
 
     bool invariant() const
     {
-        return is_in_rangeL() ? (m_itR == m_firstR) : true;
-    }
-
-    bool is_in_rangeL() const
-    {
-        return this->base() != m_lastL;
+        return is_in_left() ? (m_itR == m_firstR) : true;
     }
 
     template< class Other >
@@ -147,7 +153,7 @@ friend class boost::iterator_core_access;
         >::value));
 
         // Keep writability without 'read'.
-        if (is_in_rangeL())
+        if (is_in_left())
             return *this->base();
         else
             return *m_itR;
@@ -203,18 +209,40 @@ friend class boost::iterator_core_access;
         BOOST_ASSERT(invariant());
         BOOST_ASSERT(is_compatible(other));
 
-        if (is_in_rangeL() && other.is_in_rangeL())
+        if (is_in_left() && other.is_in_left())
             return other.base() - this->base();
-        else if (!is_in_rangeL() && !other.is_in_rangeL())
+        else if (!is_in_left() && !other.is_in_left())
             return other.m_itR - m_itR;
-        else if (is_in_rangeL())
+        else if (is_in_left())
             return (m_lastL - this->base()) + (other.m_itR - other.m_firstR);
         else {
-            BOOST_ASSERT(!is_in_rangeL());
+            BOOST_ASSERT(!is_in_left());
             return (m_firstR - m_itR) + (other.base() - other.m_lastL);
         }
     }
 };
+
+
+template< class IL1, class IR1, class IL2, class IR2 >
+void pstade_oven_iter_swap(joint_iterator<IL1, IR1> it1, joint_iterator<IL2, IR2> it2)
+{
+    if (it1.is_in_left() && it2.is_in_left())
+        do_iter_swap(it1.base(), it2.base());
+    else if (!it1.is_in_left() && !it2.is_in_left())
+        do_iter_swap(it1.right_base(), it2.right_base());
+    else if (it1.is_in_left())
+        do_iter_swap(it1.base(), it2.right_base());
+    else {
+        BOOST_ASSERT(!it1.is_in_left());
+        do_iter_swap(it1.right_base(), it2.base());
+    }
+}
+
+template< class IL1, class IR1, class IL2, class IR2 > inline
+void iter_swap(joint_iterator<IL1, IR1> it1, joint_iterator<IL2, IR2> it2)
+{
+    pstade_oven_iter_swap(it1, it2);
+}
 
 
 } } } // namespace pstade::oven::detail

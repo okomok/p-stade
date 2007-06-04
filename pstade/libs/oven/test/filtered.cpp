@@ -1,5 +1,5 @@
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
+#define PSTADE_CONCEPT_CHECK
 
 
 // PStade.Oven
@@ -10,59 +10,38 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/tests.hpp>
 #include <pstade/oven/filtered.hpp>
-
-
-#include <vector>
-#include <boost/foreach.hpp>
-#include <boost/range.hpp>
-#include "./core.hpp"
+#include <pstade/minimal_test.hpp>
+#include "./detail/test.hpp"
 
 
 struct is_positive
 {
+    // no result_type
+
     bool operator()(int x) const
     { return 0 < x; }
 };
 
 
-struct is_even
+void pstade_minimal_test()
 {
-    bool operator()(int x) const
-    { return (x % 2) == 0; }
-};
-
-
-void test()
-{
+    namespace lambda = boost::lambda;
     namespace oven = pstade::oven;
     using namespace oven;
 
-    int rng[] = { 0, -1, 4, -3, 5, 8, -2, 10 };
     {
-        int ans[] = { 4, 5, 8, 10 };
-        std::vector<int> expected = ans|copied;
-        BOOST_CHECK( oven::test_Bidirectional_Readable_Writable(
-            oven::make_filtered(rng, ::is_positive()),
-            expected
-        ) );
-    }
-    {
-        int ans[] = { 4, 8, 10 };
-        std::vector<int> expected = ans|copied;
-        BOOST_CHECK( oven::test_Bidirectional_Readable_Writable(
-                rng |
-                    oven::filtered(::is_positive()) |
-                    oven::filtered(::is_even()),
-                expected
-        ) );
-    }
-}
+        int a[] = { 9,1,3,7,4,31,1,76,9,2,3 };
+        int b[] = { -1,0,9,-3,-6,1,3,7,4,31,-2,1,-2,76,-1,9,-6,2,3 };
 
+        test::adaptor_bidirectional_constant_int(
+            lambda::bind(make_filtered, lambda::_1, is_positive()),
+            a, b
+        );
 
-int test_main(int, char*[])
-{
-    ::test();
-    return 0;
+        test::adaptor_bidirectional_swappable_int(
+            lambda::bind(make_filtered, lambda::_1, is_positive()),
+            a, b
+        );
+    }
 }

@@ -10,13 +10,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/tests.hpp>
+#include "./detail/v1_tests.hpp"
 #include <pstade/oven/iteration.hpp>
 
 
 #include <iostream>
 #include <boost/foreach.hpp>
-#include "./core.hpp"
+#include "./detail/v1_core.hpp"
 #include <pstade/oven/taken.hpp>
 #include <pstade/oven/taken_while.hpp>
 #include <pstade/oven/algorithm.hpp>

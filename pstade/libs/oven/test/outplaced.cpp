@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/tests.hpp>
+#include "./detail/v1_tests.hpp"
 #include <pstade/oven/outplaced.hpp>
 
 
@@ -19,7 +19,7 @@
 #include <vector>
 #include <list>
 #include <boost/range.hpp>
-#include "./core.hpp"
+#include "./detail/v1_core.hpp"
 #include <pstade/oven/algorithm.hpp>
 #include <pstade/oven/identities.hpp>
 #include <pstade/oven/copy_range.hpp>

@@ -13,7 +13,7 @@
 #include <pstade/oven/detail/boost_begin_end.hpp>
 
 
-#include <pstade/oven/tests.hpp>
+#include "./detail/v1_tests.hpp"
 #include <pstade/oven/string_found.hpp>
 
 
@@ -24,7 +24,7 @@
 #include <vector>
 #include <boost/foreach.hpp>
 #include <pstade/oven/algorithm.hpp>
-#include "./core.hpp"
+#include "./detail/v1_core.hpp"
 #include <pstade/oven/as_literal.hpp>
 #include <pstade/oven/copy_range.hpp>
 

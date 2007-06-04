@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/tests.hpp>
+#include "./detail/v1_tests.hpp"
 #if defined(BOOST_MSVC)
 #include <pstade/oven/mb_decoded.hpp>
 #endif
@@ -18,7 +18,7 @@
 #include <string>
 #include <boost/range.hpp>
 #include <pstade/locale_saver.hpp>
-#include "./core.hpp"
+#include "./detail/v1_core.hpp"
 
 
 void test()

@@ -12,7 +12,7 @@
 
 #include <pstade/oven/as_literal.hpp>
 #include <pstade/minimal_test.hpp>
-#include <pstade/oven/test/test.hpp>
+#include "./detail/test.hpp"
 
 
 #include <vector>

@@ -10,13 +10,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/tests.hpp>
+#include "./detail/v1_tests.hpp"
 #include <pstade/oven/utf8_decoded.hpp>
 #include <pstade/oven/utf8_encoded.hpp>
 
 #include <string>
 #include <boost/range.hpp>
-#include "./core.hpp"
+#include "./detail/v1_core.hpp"
 #include <pstade/oven/file_range.hpp>
 #include <pstade/oven/identities.hpp>
 

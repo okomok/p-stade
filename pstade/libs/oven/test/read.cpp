@@ -13,7 +13,7 @@
 #include <pstade/oven/read.hpp>
 
 
-#include "./core.hpp"
+#include "./detail/v1_core.hpp"
 #include <string>
 #include <boost/mpl/assert.hpp>
 #include <boost/type_traits/is_same.hpp>

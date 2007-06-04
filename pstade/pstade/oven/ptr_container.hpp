@@ -22,10 +22,16 @@ namespace boost {
     class void_ptr_iterator;
 
 
-    template< class VoidIter, class T > inline
-    void iter_swap(void_ptr_iterator<VoidIter, T> left, void_ptr_iterator<VoidIter, T> right)
+    template< class VoidIter1, class T1, class VoidIter2, class T2 > inline
+    void pstade_oven_iter_swap(void_ptr_iterator<VoidIter1, T1> it1, void_ptr_iterator<VoidIter2, T2> it2)
     {
-        pstade::oven::do_iter_swap(left.base(), right.base());
+        pstade::oven::do_iter_swap(it1.base(), it2.base());
+    }
+
+    template< class VoidIter1, class T1, class VoidIter2, class T2 > inline
+    void iter_swap(void_ptr_iterator<VoidIter1, T1> it1, void_ptr_iterator<VoidIter2, T2> it2)
+    {
+        pstade_oven_iter_swap(it1, it2);
     }
 
 

@@ -1,5 +1,5 @@
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
+#define PSTADE_CONCEPT_CHECK
 
 
 // PStade.Oven
@@ -14,8 +14,9 @@
 #if BOOST_VERSION >= 103500
 
 
-#include <pstade/oven/tests.hpp>
 #include <pstade/oven/fuzipped.hpp>
+#include <pstade/minimal_test.hpp>
+#include "./detail/test.hpp"
 
 
 #include <iterator>
@@ -25,61 +26,44 @@
 #include <boost/range.hpp>
 #include <pstade/unparenthesize.hpp>
 #include <pstade/oven/algorithm.hpp>
-#include "./core.hpp"
 #include <pstade/pack.hpp>
+#include <pstade/oven/equals.hpp>
+#include <pstade/oven/copy_range.hpp>
+
 
 #include <boost/fusion/sequence/adapted/boost_tuple.hpp>
 #include <boost/fusion/sequence/comparison.hpp> // DON'T FORGET for Readable test
 #include <boost/fusion/sequence/intrinsic/at.hpp>
+#include <boost/fusion/sequence/generation/vector_tie.hpp>
 
-void test()
+
+void pstade_minimal_test()
 {
     namespace oven = pstade::oven;
     using namespace oven;
 
-#if !defined(BOOST_MSVC)
-    // typename detail::iterator_traits<Iterator>::value_type x = j[c];
-    //  at random_access_readable_iterator_test
-    // doesn't compile on msvc. This behavior seems a bug of msvc.
-     {
-        std::string rng0("0123");
-        int rng1[] = { 0,1,2,3 };
-
-        typedef boost::fusion::vector<char, int> tt;
-        std::vector<tt> expected;
-        expected.push_back(tt('0', 0));
-        expected.push_back(tt('1', 1));
-        expected.push_back(tt('2', 2));
-        expected.push_back(tt('3', 3));
-
-        BOOST_CHECK( oven::test_RandomAccess_Readable(
-            rng0|pstade::packed(rng1)|fuzipped,
-            expected
-        ) );
-    }
     {
-        std::string rng0("0123");
-        int rng1[] = { 0,1,2,3 };
-        std::string rng2("ABCD");
+        int b1[10] = { 6,2,2,1,37,4,2,1,3,6 };
+        std::string b2("6819385738");
 
-        typedef boost::fusion::vector<char, int, char> tt;
-        std::vector<tt> expected;
-        expected.push_back(tt('0', 0, 'A'));
-        expected.push_back(tt('1', 1, 'B'));
-        expected.push_back(tt('2', 2, 'C'));
-        expected.push_back(tt('3', 3, 'D'));
+        typedef boost::fusion::vector<int&, char&> tt;
+        std::vector<tt> a;
+        a.push_back(boost::fusion::vector_tie(b1[0], b2[0]));
+        a.push_back(boost::fusion::vector_tie(b1[1], b2[1]));
+        a.push_back(boost::fusion::vector_tie(b1[2], b2[2]));
+        a.push_back(boost::fusion::vector_tie(b1[3], b2[3]));
+        a.push_back(boost::fusion::vector_tie(b1[4], b2[4]));
+        a.push_back(boost::fusion::vector_tie(b1[5], b2[5]));
+        a.push_back(boost::fusion::vector_tie(b1[6], b2[6]));
+        a.push_back(boost::fusion::vector_tie(b1[7], b2[7]));
+        a.push_back(boost::fusion::vector_tie(b1[8], b2[8]));
+        a.push_back(boost::fusion::vector_tie(b1[9], b2[9]));
 
-       BOOST_CHECK( oven::test_RandomAccess_Readable(
-            boost::tuples::tie(rng0, rng1, rng2)|fuzipped,
-            expected
-        ) );
-
-        BOOST_CHECK( oven::test_RandomAccess_Readable(
-            rng0|pstade::packed(rng1, rng2)|fuzipped,
-            expected
-        ) );
+        test::random_access_constant(
+            pstade::pack(b1, b2)|fuzipped|const_refs,
+            a
+        );
     }
-#endif 
     {
         std::string src0("0123456");
         std::string ans0("0123556");
@@ -146,12 +130,7 @@ void test()
 
 
 #else
-void test() { }
+
+void pstade_minimal_test() { }
+
 #endif
-
-
-int test_main(int, char*[])
-{
-    ::test();
-    return 0;
-}

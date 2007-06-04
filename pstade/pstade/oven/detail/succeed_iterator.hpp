@@ -165,10 +165,16 @@ friend class boost::iterator_core_access;
 };
 
 
-template< class F, class B > inline
-void iter_swap(succeed_iterator<F, B> left, succeed_iterator<F, B> right)
+template< class F1, class B1, class F2, class B2 > inline
+void pstade_oven_iter_swap(succeed_iterator<F1, B1> it1, succeed_iterator<F2, B2> it2)
 {
-    do_iter_swap(left.base(), right.base());
+    do_iter_swap(it1.base(), it2.base());
+}
+
+template< class F1, class B1, class F2, class B2 > inline
+void iter_swap(succeed_iterator<F1, B1> it1, succeed_iterator<F2, B2> it2)
+{
+    pstade_oven_iter_swap(it1, it2);
 }
 
 
