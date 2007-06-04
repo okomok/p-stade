@@ -10,13 +10,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/tests.hpp>
+#include "./detail/v1_tests.hpp"
 #include <pstade/oven/matrix.hpp>
 
 
 #include <boost/foreach.hpp>
 #include <pstade/oven/at.hpp>
-#include <pstade/oven/before_stable_partition.hpp>
+#include <pstade/oven/detail/before_stable_partition.hpp>
 #include <pstade/oven/io.hpp>
 #include <iostream>
 

@@ -11,15 +11,13 @@
 
 
 #include <pstade/oven/map_values.hpp>
+#include <pstade/minimal_test.hpp>
+#include "./detail/test.hpp"
 
 
 #include <map>
 #include <vector>
 #include <boost/foreach.hpp>
-
-
-#include <pstade/minimal_test.hpp>
-#include <pstade/oven/test/test.hpp>
 
 
 namespace oven = pstade::oven;

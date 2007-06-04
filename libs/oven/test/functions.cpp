@@ -1,5 +1,5 @@
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
+#define PSTADE_CONCEPT_CHECK
 
 
 // PStade.Oven
@@ -10,7 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/tests.hpp>
 #include <pstade/oven/distance.hpp>
 #include <pstade/oven/equals.hpp>
 #include <pstade/oven/is_heap.hpp>
@@ -19,6 +18,8 @@
 #include <pstade/oven/none.hpp>
 #include <pstade/oven/do_iter_swap.hpp>
 #include <pstade/oven/write.hpp>
+#include <pstade/minimal_test.hpp>
+#include "./detail/test.hpp"
 
 
 #include <algorithm> // make_heap
@@ -26,6 +27,7 @@
 #include <boost/range.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/oven/identities.hpp>
+#include <pstade/oven/distance.hpp>
 #include <pstade/test.hpp>
 
 
@@ -54,7 +56,7 @@ struct is_a
 };
 
 
-void test()
+void pstade_minimal_test()
 {
     std::string src1("abcde");
     std::string src2("abcde");
@@ -99,11 +101,4 @@ void test()
         write(boost::begin(rng), 50);
         BOOST_CHECK( rng[0] == 50 );
     }
-}
-
-
-int test_main(int, char*[])
-{
-    ::test();
-    return 0;
 }

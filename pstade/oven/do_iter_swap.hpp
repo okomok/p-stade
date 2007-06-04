@@ -11,51 +11,117 @@
 
 
 #include "./detail/prelude.hpp"
+#include <algorithm> // swap
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
 #include <boost/iterator/iterator_traits.hpp>
+#include <boost/mpl/and.hpp>
+#include <boost/mpl/bool.hpp>
+#include <boost/type_traits/is_same.hpp>
 #include <pstade/constant.hpp>
+#include "./detail/is_reference_iterator.hpp"
 #include "./read.hpp"
 #include "./write.hpp"
+
+
+namespace pstade { namespace oven { namespace do_iter_swap_detail {
+
+
+    namespace here = do_iter_swap_detail;
+
+
+    template< class Iterator1, class Iterator2 >
+    struct have_swappable_reference :
+        boost::mpl::and_<
+            detail::is_reference_iterator<Iterator1>,
+            boost::is_same<
+                typename boost::iterator_value<Iterator1>::type,
+                typename boost::iterator_value<Iterator2>::type
+            >
+        >
+    { };
+
+
+    template< class Iterator1, class Iterator2 > inline
+    void do_aux(Iterator1 it1, Iterator2 it2, boost::mpl::true_)
+    {
+#if BOOST_WORKAROUND(BOOST_MSVC, == 1310) // msvc-7.1
+        using namespace std;
+#else
+        using std::swap;
+#endif
+        swap(*it1, *it2);
+    }
+
+    template< class Iterator1, class Iterator2 >
+    void do_aux(Iterator1 it1, Iterator2 it2, boost::mpl::false_)
+    {
+        typename boost::iterator_value<Iterator1>::type tmp = read(it1);
+        write(it1, read(it2));
+        write(it2, tmp);
+    }
+
+
+    template< class Iterator1, class Iterator2 > inline
+    void do_(Iterator1 it1, Iterator2 it2)
+    {
+        here::do_aux(it1, it2, typename have_swappable_reference<Iterator1, Iterator2>::type());
+    }
+
+
+} } } // namespace pstade::oven::do_iter_swap_detail
+
+
+namespace pstade_oven_extension {
+
+
+    struct iter_swap { };
+    struct iter_swap_base { };
+
+
+    template< class Iterator1, class Iterator2 >
+    void pstade_oven_(iter_swap_base, Iterator1 it1, Iterator2 it2)
+    {
+        pstade::oven::do_iter_swap_detail::do_(it1, it2);
+    }
+
+
+    template< class Iterator1, class Iterator2 > inline
+    void pstade_oven_(iter_swap, Iterator1 it1, Iterator2 it2)
+    {
+        pstade_oven_extension::pstade_oven_(iter_swap_base(), it1, it2);
+    }
+
+
+} // namespace pstade_oven_extension
 
 
 namespace pstade { namespace oven {
 
 
-#if !BOOST_WORKAROUND(BOOST_MSVC, == 1310) // not msvc-7.1
-namespace do_iter_swap_detail {
-#endif
-
-    // Sigh... msvc STL calls 'std::swap'.
-    template< class ReadableIter >
-    void iter_swap(ReadableIter left, ReadableIter right)
+    template< class Iterator1, class Iterator2 > inline
+    void pstade_oven_iter_swap(Iterator1 it1, Iterator2 it2)
     {
-        typename boost::iterator_value<ReadableIter>::type tmp = read(left);
-        write(left, read(right)); // 'write(left, *right)' would call the copy-assignment of proxy.
-        write(right, tmp);
+        pstade_oven_(pstade_oven_extension::iter_swap(), it1, it2);
     }
 
-#if !BOOST_WORKAROUND(BOOST_MSVC, == 1310) // not msvc-7.1
-} // namespace do_iter_swap_detail
-#endif
 
+    // Unless this is in the same namespace as above,
+    // msvc-7.1 ADL randomly fails.
 
-struct op_do_iter_swap
-{
-    typedef void result_type;
-
-    template< class Iterator >
-    void operator()(Iterator left, Iterator right) const
+    struct op_do_iter_swap
     {
-#if !BOOST_WORKAROUND(BOOST_MSVC, == 1310) // not msvc-7.1
-        using do_iter_swap_detail::iter_swap;
-#endif
-        iter_swap(left, right);
-    }
-};
+        typedef void result_type;
+
+        template< class Iterator1, class Iterator2 >
+        void operator()(Iterator1 it1, Iterator2 it2) const
+        {
+            pstade_oven_iter_swap(it1, it2);
+        }
+    };
 
 
-PSTADE_CONSTANT(do_iter_swap, (op_do_iter_swap))
+    PSTADE_CONSTANT(do_iter_swap, (op_do_iter_swap))
 
 
 } } // namespace pstade::oven

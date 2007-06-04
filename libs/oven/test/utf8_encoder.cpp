@@ -10,13 +10,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/tests.hpp>
+#include "./detail/v1_tests.hpp"
 #include <pstade/oven/utf8_encoder.hpp>
 
 
 #include <vector>
 #include <pstade/oven/algorithm.hpp>
-#include "./core.hpp"
+#include "./detail/v1_core.hpp"
 #include <pstade/oven/file_range.hpp> // VC++ does *using namespace std* here; Boost1.34 will work around this bug.
 #include <pstade/oven/utf8_decoded.hpp>
 

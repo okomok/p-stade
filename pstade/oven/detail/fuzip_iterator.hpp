@@ -27,6 +27,7 @@
 #include <boost/mpl/placeholders.hpp> // missing from 'minimum_category.hpp'
 #include <boost/iterator/detail/minimum_category.hpp>
 #include <boost/iterator/iterator_categories.hpp>
+#include <boost/iterator/iterator_facade.hpp>
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/mpl/fold.hpp>
 #include <boost/mpl/front.hpp>
@@ -100,7 +101,7 @@ struct fuzip_iterator;
 
 
 template< class IteratorTuple >
-struct zip_iterator_super
+struct fuzip_iterator_super
 {
     // Though an iterator whose 'reference' is a transform-view
     // seems conforming, such implementation would surprise some algorithms.
@@ -144,10 +145,10 @@ struct zip_iterator_super
 
 template< class IteratorTuple >
 struct fuzip_iterator :
-    zip_iterator_super<IteratorTuple>::type
+    fuzip_iterator_super<IteratorTuple>::type
 {
 private:
-    typedef typename zip_iterator_super<IteratorTuple>::type super_t;
+    typedef typename fuzip_iterator_super<IteratorTuple>::type super_t;
     typedef typename super_t::reference ref_t;
     typedef typename super_t::difference_type diff_t;
 
@@ -157,13 +158,6 @@ public:
 
     explicit fuzip_iterator(IteratorTuple const& tup) :
         m_tuple(tup)
-    { }
-
-    template< class I >
-    fuzip_iterator(fuzip_iterator<I> const& other,
-        typename boost::enable_if_convertible<I, IteratorTuple>::type * = 0
-    ) :
-        m_tuple(other.iterator_tuple())
     { }
 
     IteratorTuple const& iterator_tuple() const

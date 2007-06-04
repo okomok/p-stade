@@ -9,13 +9,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/tests.hpp>
+#include "./detail/v1_tests.hpp"
 #include <pstade/oven/regular.hpp>
 
 
 #include <string>
 #include <pstade/functional.hpp>
-#include "./core.hpp"
+#include "./detail/v1_core.hpp"
 #include <pstade/oven/filtered.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/core.hpp>

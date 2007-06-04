@@ -13,7 +13,7 @@
 #define PSTADE_OVEN_TEST_CONST_REFS
 #include <pstade/oven/const_refs.hpp>
 #include <pstade/minimal_test.hpp>
-#include <pstade/oven/test/test.hpp>
+#include "./detail/test.hpp"
 
 
 #include <vector>

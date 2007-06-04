@@ -111,10 +111,16 @@ friend class boost::iterator_core_access;
 };
 
 
-template< class E, class I > inline
-void iter_swap(permutation_iterator<E, I> left, permutation_iterator<E, I> right)
+template< class E1, class I1, class E2, class I2 > inline
+void pstade_oven_iter_swap(permutation_iterator<E1, I1> it1, permutation_iterator<E2, I2> it2)
 {
-    do_iter_swap(left.element_base(), right.element_base());
+    do_iter_swap(it1.element_base(), it2.element_base());
+}
+
+template< class E1, class I1, class E2, class I2 > inline
+void iter_swap(permutation_iterator<E1, I1> it1, permutation_iterator<E2, I2> it2)
+{
+    pstade_oven_iter_swap(it1, it2);
 }
 
 

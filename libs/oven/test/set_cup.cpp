@@ -10,15 +10,15 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/tests.hpp>
+#include "./detail/v1_tests.hpp"
 #include <pstade/oven/set_cup.hpp>
 
 
 #include <cctype>
 #include <iostream>
 #include <string>
-#include "./core.hpp"
-#include <pstade/oven/tests.hpp>
+#include "./detail/v1_core.hpp"
+#include "./detail/v1_tests.hpp"
 #include <pstade/oven/stream_writer.hpp>
 #include <pstade/oven/as_c_str.hpp>
 

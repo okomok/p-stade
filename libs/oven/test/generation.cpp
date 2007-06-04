@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/tests.hpp>
+#include "./detail/v1_tests.hpp"
 #include <pstade/oven/generation.hpp>
 #include <boost/none.hpp>
 
@@ -23,7 +23,7 @@
 #include <boost/range.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/noncopyable.hpp>
-#include "./core.hpp"
+#include "./detail/v1_core.hpp"
 #include <pstade/oven/taken.hpp>
 #include <pstade/oven/counting.hpp>
 #include <pstade/nullptr.hpp>

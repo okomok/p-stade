@@ -12,7 +12,7 @@
 
 #include <pstade/oven/jointed.hpp>
 #include <pstade/unit_test.hpp>
-#include <pstade/oven/test/test.hpp>
+#include "./detail/test.hpp"
 
 
 #include <iostream>
@@ -30,11 +30,23 @@
 
 void pstade_unit_test()
 {
+    namespace lambda = boost::lambda;
     namespace oven = pstade::oven;
     using namespace oven;
 
     std::vector<int> em;
 
+    {
+        int b1[] = { 2,1,4,6,3,4 };
+        int b2[] = { 6,5,9,6,1,36,1 };
+        int a[] = { 2,1,4,6,3,4,  6,5,9,6,1,36,1 };
+
+        // joint vector of ncint and list of ncint
+        test::bidirectional_swappable(
+            make_jointed(*test::new_vector<test::ncint>(b1), *test::new_list<test::ncint>(b2)),
+            *test::new_vector<test::ncint>(a)
+        );
+    }
     {
         int b1[] = { 2,1,4,6,3,4 };
         int b2[] = { 6,5,9,6,1,36,1 };

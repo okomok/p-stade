@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/tests.hpp>
+#include "./detail/v1_tests.hpp"
 #include <pstade/oven/sliced.hpp>
 
 
@@ -20,9 +20,9 @@
 #include <boost/mpl/assert.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <pstade/oven/counting.hpp>
-#include "./core.hpp"
+#include "./detail/v1_core.hpp"
 #include <pstade/oven/offset.hpp>
-#include <pstade/oven/before_stable_partition.hpp>
+#include <pstade/oven/detail/before_stable_partition.hpp>
 
 
 void test()

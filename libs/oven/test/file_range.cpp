@@ -1,5 +1,9 @@
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
+#define PSTADE_CONCEPT_CHECK
+
+
+// work around -- execution_monitor.ipp(60) : fatal error C1021
+#define _WIN32_WINNT 0x0501
 
 
 // PStade.Oven
@@ -10,37 +14,30 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/tests.hpp>
 #include <pstade/oven/file_range.hpp>
+#include <pstade/minimal_test.hpp>
+#include "./detail/test.hpp"
 
 
 #include <iterator>
 #include <string>
 #include <vector>
-#include <boost/range.hpp>
-#include "./core.hpp"
 #include <pstade/oven/algorithm.hpp>
 
 
-void test()
+void pstade_minimal_test()
 {
     namespace oven = pstade::oven;
     using namespace oven;
 
     {
         file_range<> frng("non-exist.file");
-        BOOST_CHECK(( oven::test_empty(frng) ));
+        test::emptiness(frng);
+        BOOST_CHECK(( !frng ));
         BOOST_CHECK(( !frng.is_open() ));
     }
     {
         std::vector<char> vec;
         oven::copy(file_range<char>("data.txt"), std::back_inserter(vec));
     }
-}
-
-
-int test_main(int, char*[])
-{
-    ::test();
-    return 0;
 }

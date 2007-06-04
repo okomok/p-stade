@@ -1,5 +1,5 @@
 #include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
+#define PSTADE_CONCEPT_CHECK
 
 
 // PStade.Oven
@@ -14,8 +14,9 @@
 #if BOOST_VERSION >= 103500
 
 
-#include <pstade/oven/tests.hpp>
 #include <pstade/oven/elements.hpp>
+#include <pstade/minimal_test.hpp>
+#include "./detail/test.hpp"
 
 
 #include <vector>
@@ -40,34 +41,51 @@ namespace fusion_does {
 }
 
 
-void test()
+rng_t make_b()
+{
+    ::rng_t b;
+    b.push_back( boost::fusion::make_tuple(5, 'a') );
+    b.push_back( boost::fusion::make_tuple(1, 'b') );
+    b.push_back( boost::fusion::make_tuple(3, 'b') );
+    b.push_back( boost::fusion::make_tuple(45, 'a') );
+    b.push_back( boost::fusion::make_tuple(63, 'b') );
+    b.push_back( boost::fusion::make_tuple(1, 'a') );
+    b.push_back( boost::fusion::make_tuple(1, 'b') );
+    b.push_back( boost::fusion::make_tuple(7, 'a') );
+    b.push_back( boost::fusion::make_tuple(4, 'b') );
+    b.push_back( boost::fusion::make_tuple(2, 'a') );
+    b.push_back( boost::fusion::make_tuple(1, 'b') );
+    return b;
+};
+
+
+void pstade_minimal_test()
 {
     namespace oven = pstade::oven;
     using namespace oven;
 
-    ::rng_t rng;
-    rng.push_back( boost::fusion::make_tuple(3, 'a') );
-    rng.push_back( boost::fusion::make_tuple(5, 'b') );
-
-    BOOST_FOREACH (char& ch, rng|elements< boost::mpl::int_<1> >()) {
-        ch = 'c';
+    {
+        int a[] = { 5,1,3,45,63,1,1,7,4,2,1 };
+        ::rng_t b = ::make_b();
+        test::random_access_constant(b|elements_c<0>(), a);
+        test::random_access_constant(b|const_refs|elements_c<0>(), a);
+        test::random_access_swappable(b|elements_c<0>(), a);
     }
 
-    BOOST_FOREACH (char const& ch, rng|elements_c<1>()) {
-        BOOST_CHECK(ch == 'c');
+#if !BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1400))
+    // fustion::vector over-optimistic template constructor breaks down 'oven::read'.
+    // No way to copyconstruct fustion::vector from proxy under msvc.
+    {
+        int a[] = { 5,1,3,45,63,1,1,7,4,2,1 };
+        ::rng_t b = ::make_b();
+        test::random_access_constant(b|test::proxies|elements_c<0>()|const_refs, a);
     }
+#endif
 }
 
 #else
 
-void test()
+void pstade_minimal_test()
 { }
 
 #endif //  BOOST_VERSION >= 103500
-
-
-int test_main(int, char*[])
-{
-    ::test();
-    return 0;
-}

@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/tests.hpp>
+#include "./detail/v1_tests.hpp"
 #include <pstade/oven/transformed.hpp>
 
 
@@ -21,7 +21,7 @@
 #include <boost/foreach.hpp>
 #include <boost/range.hpp>
 #include <pstade/oven/algorithm.hpp>
-#include "./core.hpp"
+#include "./detail/v1_core.hpp"
 #include <functional>
 #include <pstade/to_value.hpp>
 #include <pstade/functional.hpp>

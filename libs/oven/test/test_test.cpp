@@ -12,7 +12,7 @@
 #include <pstade/unit_test.hpp>
 
 
-#include <pstade/oven/test/test.hpp>
+#include "./detail/test.hpp"
 #include <pstade/oven/ptr_container.hpp>
 
 

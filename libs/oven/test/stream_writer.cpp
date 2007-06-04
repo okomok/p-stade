@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/tests.hpp>
+#include "./detail/v1_tests.hpp"
 #include <pstade/oven/stream_writer.hpp>
 
 
@@ -18,7 +18,7 @@
 #include <string>
 #include <boost/range.hpp>
 #include <pstade/oven/algorithm.hpp>
-#include "./core.hpp"
+#include "./detail/v1_core.hpp"
 #include <pstade/oven/adapted_to_base.hpp>
 #include <pstade/oven/utf8_encoder.hpp>
 #include <pstade/is_same.hpp>

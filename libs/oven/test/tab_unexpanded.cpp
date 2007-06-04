@@ -11,7 +11,7 @@
 
 
 #define PSTADE_OVEN_DEBUG
-#include <pstade/oven/tests.hpp>
+#include "./detail/v1_tests.hpp"
 #include <pstade/oven/tab_expanded.hpp>
 #include <pstade/oven/tab_unexpanded.hpp>
 
@@ -20,7 +20,7 @@
 #include <iterator>
 #include <string>
 #include <boost/range.hpp>
-#include "./core.hpp"
+#include "./detail/v1_core.hpp"
 #include <pstade/oven/file_range.hpp>
 
 
