@@ -22,6 +22,10 @@
 namespace pstade { namespace oven {
 
 
+template< class Value >
+struct array_range;
+
+
 namespace array_range_detail {
 
 
@@ -36,22 +40,31 @@ namespace array_range_detail {
     };
 
 
+    template< class Value >
+    struct super_
+    {
+        typedef
+            iter_range<Value *,
+                range_constantable< array_range<Value>, Value const *,
+                boost::noncopyable >
+            >
+        type;
+    };
+
+
 } // namespace array_range_detail
 
 
 template< class Value >
 struct array_range :
     private array_range_detail::init<Value>::type,
-    iter_range<Value *>::type,
-    private
-        range_constantable<array_range<Value>, Value const *,
-        boost::noncopyable>
+    array_range_detail::super_<Value>::type
 {
     typedef Value const *const_iterator; // "override" it!
 
 private:
     typedef typename array_range_detail::init<Value>::type init_t;
-    typedef typename iter_range<Value *>::type super_t;
+    typedef typename array_range_detail::super_<Value>::type super_t;
 
 public:
     explicit array_range(std::size_t sz) :
