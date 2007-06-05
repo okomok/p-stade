@@ -28,6 +28,9 @@
 #include <boost/mpl/if.hpp>
 #include <boost/mpl/int.hpp>
 #include <boost/mpl/size.hpp>
+#include <boost/preprocessor/cat.hpp>
+#include <boost/preprocessor/repetition/enum.hpp>
+#include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/tuple/tuple.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <pstade/affect.hpp>
@@ -36,6 +39,7 @@
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/enable_if.hpp>
+#include <pstade/object_generator.hpp>
 #include <pstade/specified.hpp>
 
 #if defined(PSTADE_TUPLE_FUSION_SUPPORTED)
@@ -73,11 +77,15 @@ namespace pstade {
             mpl::true_
         { };
 
-        template< class Head, class Tail>
+        template<class Head, class Tail>
         struct is_boost_tuple< boost::tuples::cons<Head, Tail> > :
             mpl::true_
         { };
 
+        template< >
+        struct is_boost_tuple< boost::tuples::null_type > :
+            mpl::true_
+        { };
 
         template<class N, class Tuple>
         struct element :
@@ -137,6 +145,28 @@ namespace pstade {
             {
                 return p.second;
             }
+        };
+
+
+        // Boost.MPL default max arity is not enough for 'boost::tuple<..>' with PlaceholderExpression.
+
+        struct meta_tuple
+        {
+        #define PSTADE_deduce(Z, N, _) \
+            typename deduce<BOOST_PP_CAT(A, N), deducers::as_reference, boost::tuples::null_type>::type \
+        /**/
+
+            template<BOOST_PP_ENUM_PARAMS(PSTADE_CALLABLE_MAX_ARITY, class A)>
+            struct apply
+            {
+                typedef
+                    boost::tuples::tuple<
+                        BOOST_PP_ENUM(PSTADE_CALLABLE_MAX_ARITY, PSTADE_deduce, ~)
+                    >
+                type; // Don't add 'const' for 'operator='.
+            };
+
+        #undef  PSTADE_deduce
         };
 
 
@@ -204,6 +234,10 @@ namespace pstade {
     { };
 
     PSTADE_SPECIFIED1(tuple_get_c, op_tuple_get_c, (int))
+
+
+    typedef object_generator< tuple_detail::meta_tuple, boost::tuples::tuple<> > op_tuple_pack;
+    PSTADE_CONSTANT(tuple_pack, (op_tuple_pack))
 
 
 } // namespace pstade
