@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_MATRIX_HPP
 #define PSTADE_OVEN_MATRIX_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -14,7 +15,6 @@
 //
 
 
-#include "./detail/prelude.hpp"
 #include <boost/assert.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>

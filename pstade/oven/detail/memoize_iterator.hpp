@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_DETAIL_MEMOIZE_ITERATOR_HPP
 #define PSTADE_OVEN_DETAIL_MEMOIZE_ITERATOR_HPP
+#include "../prelude.hpp"
 
 
 // PStade.Oven
@@ -32,7 +33,6 @@
 // 2. No end-iterator-check; it seems redundant.
 
 
-#include "./prelude.hpp"
 #include <deque>
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_facade.hpp>

@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_NONE_HPP
 #define PSTADE_OVEN_NONE_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -18,7 +19,6 @@
 //     http://www.crystalclearsoftware.com/cgi-bin/boost_wiki/wiki.pl?STLAlgorithmExtensions/NoneAlgorithm
 
 
-#include "./detail/prelude.hpp"
 #include <algorithm> // find_if
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>

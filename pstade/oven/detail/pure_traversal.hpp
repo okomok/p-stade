@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_DETAIL_PURE_TRAVERSAL_HPP
 #define PSTADE_OVEN_DETAIL_PURE_TRAVERSAL_HPP
+#include "../prelude.hpp"
 
 
 // PStade.Oven
@@ -17,7 +18,6 @@
 // Also, 'minimum_category' needs this.
 
 
-#include "./prelude.hpp"
 #include <boost/iterator/iterator_categories.hpp>
 
 

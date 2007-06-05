@@ -1,6 +1,7 @@
 #ifndef BOOST_PP_IS_ITERATING
 #ifndef PSTADE_TEMPLATE_ARGUMENTS_HPP
 #define PSTADE_TEMPLATE_ARGUMENTS_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Wine

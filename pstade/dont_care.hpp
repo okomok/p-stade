@@ -1,5 +1,6 @@
 #ifndef PSTADE_DONT_CARE_HPP
 #define PSTADE_DONT_CARE_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Wine

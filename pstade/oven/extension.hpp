@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_EXTENSION_HPP
 #define PSTADE_OVEN_EXTENSION_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -15,7 +16,6 @@
 // [1] <boost/numeric/functional.hpp>
 
 
-#include "./detail/prelude.hpp"
 #include <boost/config.hpp> // BOOST_NESTED_TEMPLATE
 #include <boost/iterator/iterator_traits.hpp> // iterator_difference
 #include <boost/mpl/eval_if.hpp>
@@ -298,6 +298,13 @@ namespace pstade { namespace oven { namespace extension_detail {
             return ::pstade::oven::extension_detail::Fun(x); \
         } \
     /**/
+
+
+    #if defined(PSTADE_OVEN_IN_BOOST)
+        #define boost_oven_extension             pstade_oven_extension // Do you know a better way?
+        #define BOOST_OVEN_EXTENSION_OF_TYPE     PSTADE_OVEN_EXTENSION_OF_TYPE
+        #define BOOST_OVEN_EXTENSION_OF_TEMPLATE PSTADE_OVEN_EXTENSION_OF_TEMPLATE
+    #endif
 
 
 #endif

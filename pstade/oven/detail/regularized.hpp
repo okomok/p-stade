@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_DETAIL_REGULARIZED_HPP
 #define PSTADE_OVEN_DETAIL_REGULARIZED_HPP
+#include "../prelude.hpp"
 
 
 // PStade.Oven
@@ -16,7 +17,6 @@
 // facility to a CopyConstructible type 'X'.
 
 
-#include "./prelude.hpp"
 #include <boost/assert.hpp>
 #include <boost/operators.hpp> // totally_ordered
 #include <boost/optional/optional.hpp>

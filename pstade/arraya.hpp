@@ -1,5 +1,6 @@
 #ifndef PSTADE_ARRAYA_HPP
 #define PSTADE_ARRAYA_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Wine

@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_EMPTY_RANGE_HPP
 #define PSTADE_OVEN_EMPTY_RANGE_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -10,7 +11,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./detail/prelude.hpp"
 #include <pstade/implicitly_defined.hpp>
 #include <pstade/nullptr.hpp>
 #include "./iter_range.hpp"

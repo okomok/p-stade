@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_POPPED_HPP
 #define PSTADE_OVEN_POPPED_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -16,7 +17,6 @@
 // following Container and Haskell's 'init'.
 
 
-#include "./detail/prelude.hpp"
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/mpl/eval_if.hpp>

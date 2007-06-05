@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_MERGED_HPP
 #define PSTADE_OVEN_MERGED_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -18,7 +19,6 @@
 // Then, the iterators become incompatible.
 
 
-#include "./detail/prelude.hpp"
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/callable.hpp>

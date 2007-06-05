@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_ARRAY_RANGE_HPP
 #define PSTADE_OVEN_ARRAY_RANGE_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -10,7 +11,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./detail/prelude.hpp"
 #include <cstddef> // size_t
 #include <boost/noncopyable.hpp>
 #include <boost/scoped_array.hpp>

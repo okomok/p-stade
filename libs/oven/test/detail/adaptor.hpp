@@ -1,5 +1,5 @@
-#ifndef PSTADE_OVEN_TEST_ADAPTOR_HPP
-#define PSTADE_OVEN_TEST_ADAPTOR_HPP
+#ifndef PSTADE_LIBS_OVEN_TEST_DETAIL_ADAPTOR_HPP
+#define PSTADE_LIBS_OVEN_TEST_DETAIL_ADAPTOR_HPP
 
 
 // PStade.Oven
@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/detail/prelude.hpp>
+#include <pstade/oven/prelude.hpp>
 #include "./bidirectional.hpp"
 #include "./emptiness.hpp"
 #include "./forward.hpp"
@@ -21,7 +21,7 @@
 #include "./random_access.hpp"
 #include "./single_pass.hpp"
 
-#if !defined(PSTADE_OVEN_TEST_CONST_REFS)
+#if !defined(PSTADE_LIBS_OVEN_TEST_DETAIL_CONST_REFS)
 #include <pstade/oven/const_refs.hpp>
 #endif
 
@@ -39,7 +39,7 @@ template< class F, class RangeA, class RangeB >
 void adaptor_single_pass_readable_int(F f, RangeA const& rngA, RangeB& rngB)
 {
     test::single_pass_readable(f(rngB), rngA);
-#if !defined(PSTADE_OVEN_TEST_CONST_REFS)
+#if !defined(PSTADE_LIBS_OVEN_TEST_DETAIL_CONST_REFS)
     test::single_pass_readable(f(make_const_refs(rngB)), rngA);
 #endif
     test::single_pass_readable(f(make_proxies(rngB)), rngA);
@@ -50,7 +50,7 @@ template< class F, class RangeA, class RangeB >
 void adaptor_forward_constant_int(F f, RangeA const& rngA, RangeB& rngB)
 {
     test::forward_constant(f(rngB), rngA);
-#if !defined(PSTADE_OVEN_TEST_CONST_REFS)
+#if !defined(PSTADE_LIBS_OVEN_TEST_DETAIL_CONST_REFS)
     test::forward_constant(f(make_const_refs(rngB)), rngA);
 #endif
 }
@@ -69,7 +69,7 @@ template< class F, class RangeA, class RangeB >
 void adaptor_bidirectional_constant_int(F f, RangeA const& rngA, RangeB& rngB)
 {
     test::bidirectional_constant(f(rngB), rngA);
-#if !defined(PSTADE_OVEN_TEST_CONST_REFS)
+#if !defined(PSTADE_LIBS_OVEN_TEST_DETAIL_CONST_REFS)
     test::bidirectional_constant(f(make_const_refs(rngB)), rngA);
 #endif
 }
@@ -88,7 +88,7 @@ template< class F, class RangeA, class RangeB >
 void adaptor_random_access_constant_int(F f, RangeA const& rngA, RangeB& rngB)
 {
     test::random_access_constant(f(rngB), rngA);
-#if !defined(PSTADE_OVEN_TEST_CONST_REFS)
+#if !defined(PSTADE_LIBS_OVEN_TEST_DETAIL_CONST_REFS)
     test::random_access_constant(f(make_const_refs(rngB)), rngA);
 #endif
 }

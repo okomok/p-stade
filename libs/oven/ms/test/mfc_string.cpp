@@ -27,7 +27,7 @@
 #include <boost/test/minimal.hpp>
 
 
-#include <pstade/oven/tests.hpp>
+#include "../../test/detail/v1_tests.hpp"
 #include <pstade/oven/mfc.hpp>
 
 

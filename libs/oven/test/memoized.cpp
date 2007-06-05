@@ -1,5 +1,4 @@
-#include <pstade/vodka/drink.hpp>
-#define PSTADE_CONCEPT_CHECK
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -11,6 +10,8 @@
 
 
 #include <pstade/oven/memoized.hpp>
+#include <pstade/unit_test.hpp>
+#include "./detail/test.hpp"
 
 
 #include <string>
@@ -30,14 +31,13 @@
 #include <iostream>
 
 
-#include <pstade/unit_test.hpp>
-#include "./int_tests.hpp"
+namespace lambda = boost::lambda;
+namespace oven = pstade::oven;
+using namespace oven;
 
 
 void pstade_unit_test()
 {
-    namespace bll = boost::lambda;
-
     {
         std::string a("18284610528192");
         std::stringstream ss;
@@ -45,14 +45,32 @@ void pstade_unit_test()
         test::forward_constant(oven::stream_read<char>(ss)|memoized, a);
     }
     {
+        std::string a("18284610528192");
+        std::stringstream ss;
+        ss << a;
+        test::forward_constant(oven::stream_read<char>(ss)|test::proxies|memoized, a);
+    }
+    {
         int const src[] = { 1,2,5,3,6,8,6,1 };
         std::cout << (src|memoized);
     }
+   {
+        int a[] = { 5,1,3,5,1,3,1,3,1,6,78,14,1,3,6 };
+        int b[] = { 5,1,3,5,1,3,1,3,1,6,78,14,1,3,6 };
+        memo_table tb;
+        test::adaptor_forward_constant_int(
+            lambda::bind(make_memoized, lambda::_1),
+            a, b
+        );
+    } 
     {
         int a[] = { 5,1,3,5,1,3,1,3,1,6,78,14,1,3,6 };
         int b[] = { 5,1,3,5,1,3,1,3,1,6,78,14,1,3,6 };
         memo_table tb;
-        PSTADE_fc(memoized(tb), a, b);
+        test::adaptor_forward_constant_int(
+            lambda::bind(make_memoized, lambda::_1, boost::ref(tb)),
+            a, b
+        );
     }
     {
         std::string src("axaxaxbxbxbx");
@@ -63,10 +81,10 @@ void pstade_unit_test()
         BOOST_CHECK((
             equals(answer,
                 src |
-                    filtered(regular(bll::_1 != 'x')) |
+                    filtered(regular(lambda::_1 != 'x')) |
                     memoized |
                     copied_to(std::back_inserter(s1)) |
-                    filtered(regular(bll::_1 != 'a')) |
+                    filtered(regular(lambda::_1 != 'a')) |
                     memoized |
                     copied_to(std::back_inserter(s2))
             )
@@ -76,14 +94,18 @@ void pstade_unit_test()
         BOOST_CHECK( s2 == answer );
     }
     {
-        PSTADE_ef(memoized);
+        test::adaptor_emptiness_int(
+            lambda::bind(make_memoized, lambda::_1)
+        );
     }
     {
         memo_table tb;
-        PSTADE_ef(memoized(tb));
+        test::adaptor_emptiness_int(
+            lambda::bind(make_memoized, lambda::_1, boost::ref(tb))
+        );
     }
     {
         std::string src("aaaaaaaaaaaaaaaa");
-        test::emptiness(src|filtered(regular(bll::_1 == 'b'))|memoized);
+        test::emptiness(src|filtered(regular(lambda::_1 == 'b'))|memoized);
     }
 }

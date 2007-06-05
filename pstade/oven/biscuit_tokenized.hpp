@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_BISCUIT_TOKENIZED_HPP
 #define PSTADE_OVEN_BISCUIT_TOKENIZED_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -10,7 +11,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./detail/prelude.hpp"
 #include <pstade/biscuit/range/token_iterator.hpp>
 #include <pstade/biscuit/state/null_state.hpp>
 #include <pstade/callable.hpp>

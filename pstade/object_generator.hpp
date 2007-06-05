@@ -1,6 +1,7 @@
 #ifndef BOOST_PP_IS_ITERATING
 #ifndef PSTADE_OBJECT_GENERATOR_HPP
 #define PSTADE_OBJECT_GENERATOR_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Wine

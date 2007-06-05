@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_DETAIL_WCHAR_FROM_MB_HPP
 #define PSTADE_OVEN_DETAIL_WCHAR_FROM_MB_HPP
+#include "../prelude.hpp"
 
 
 // PStade.Oven
@@ -15,7 +16,6 @@
 // The convertibility of the original is over-optimistic.
 
 
-#include "./prelude.hpp"
 #include <boost/archive/iterators/wchar_from_mb.hpp>
 
 

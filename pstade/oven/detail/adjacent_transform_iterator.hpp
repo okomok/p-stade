@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_DETAIL_ADJACENT_TRANSFORM_ITERATOR_HPP
 #define PSTADE_OVEN_DETAIL_ADJACENT_TRANSFORM_ITERATOR_HPP
+#include "../prelude.hpp"
 
 
 // PStade.Oven
@@ -16,7 +17,6 @@
 // a pair (dropped, popped) can't be iterated parallely.
 
 
-#include "./prelude.hpp"
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_traits.hpp>

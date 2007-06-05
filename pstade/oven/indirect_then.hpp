@@ -1,6 +1,7 @@
 #ifndef BOOST_PP_IS_ITERATING
 #ifndef PSTADE_OVEN_INDIRECT_THEN_HPP
 #define PSTADE_OVEN_INDIRECT_THEN_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -11,7 +12,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./detail/prelude.hpp"
 #include <boost/indirect_reference.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>

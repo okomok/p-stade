@@ -1,5 +1,6 @@
 #ifndef PSTADE_DISABLE_IF_COPY_HPP
 #define PSTADE_DISABLE_IF_COPY_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Wine

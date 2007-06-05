@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_ANY_ITERATOR_HPP
 #define PSTADE_OVEN_ANY_ITERATOR_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -16,7 +17,6 @@
 //     http://thbecker.net/free_software_utilities/type_erasure_for_cpp_iterators/start_page.html
 
 
-#include "./detail/prelude.hpp"
 #include <cstddef> // ptrdiff_t
 #include <memory> // auto_ptr
 #include <boost/iterator/iterator_categories.hpp>

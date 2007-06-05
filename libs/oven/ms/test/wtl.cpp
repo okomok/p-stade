@@ -27,7 +27,7 @@ extern WTL::CAppModule _Module;
 #include <pstade/apple/atl/win.hpp>
 #include <pstade/apple/wtl/ctrls.hpp>
 #include <pstade/apple/wtl/ctrlw.hpp> // CSimpleStack
-#include <pstade/oven/tests.hpp>
+#include "../../test/detail/v1_tests.hpp"
 
 
 WTL::CAppModule _Module;

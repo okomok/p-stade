@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_SET_DELTA_HPP
 #define PSTADE_OVEN_SET_DELTA_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -16,7 +17,6 @@
 // works fine, but requires the ranges to be Forward.
 
 
-#include "./detail/prelude.hpp"
 #include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>
 #include "./merged.hpp"

@@ -1,4 +1,4 @@
-#include <pstade/vodka/drink.hpp>
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -10,12 +10,11 @@
 
 
 #include <pstade/oven/successors.hpp>
-
-
 #include <pstade/minimal_test.hpp>
-#include "./int_tests.hpp"
+#include "./detail/test.hpp"
 
 
+namespace lambda = boost::lambda;
 namespace oven = pstade::oven;
 using namespace oven;
 
@@ -38,22 +37,18 @@ void pstade_minimal_test()
     {
         int a[] = { 1,3,5,7,9,12,3,1,2,3,4,5,6,1,2,3,23 };
         int b[] = { 1,3,5,7,9,12,3,1,2,3,4,5,6,1,2,3,23 };
-        PSTADE_fc(successors(::father_to_son()), a, b);
-        PSTADE_fs(successors(::father_to_son()), a, b);
-
-#if 0
-        test::forward_constant (a|successors(::father_to_son()), a);
-        test::forward_constant (a|const_refs|successors(::father_to_son()), a);
-        test::forward_swappable(*test::new_list<int>(a)|successors(::father_to_son()), a);
-        test::forward_swappable(*test::new_list<int>(a)|test::proxies|successors(::father_to_son()), a);
-        test::forward_swappable(*test::new_list<test::ncint>(a)|successors(::father_to_son()), *test::new_list<test::ncint>(a));
-#endif
+        test::adaptor_forward_constant_int(
+            lambda::bind(make_successors, lambda::_1, ::father_to_son()),
+            a, b
+        );
+        test::adaptor_forward_swappable_int(
+            lambda::bind(make_successors, lambda::_1, ::father_to_son()),
+            a, b
+        );
     }
     {
-        PSTADE_ef(successors(::father_to_son()));
-#if 0
-        test::emptiness(*test::new_list0<int>()|successors(::father_to_son()));
-        test::emptiness(*test::new_list0<test::ncint>()|successors(::father_to_son()));
-#endif
+        test::adaptor_emptiness_int(
+            lambda::bind(make_successors, lambda::_1, ::father_to_son())
+        );
     }
 }

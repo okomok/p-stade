@@ -1,5 +1,6 @@
 #ifndef PSTADE_CLONE_PTR_HPP
 #define PSTADE_CLONE_PTR_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Wine

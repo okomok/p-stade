@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_UTF8_ENCODED_HPP
 #define PSTADE_OVEN_UTF8_ENCODED_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -22,7 +23,6 @@
  */
 
 
-#include "./detail/prelude.hpp"
 #include <boost/cstdint.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>

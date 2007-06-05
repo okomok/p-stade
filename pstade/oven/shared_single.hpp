@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_SHARED_SINGLE_HPP
 #define PSTADE_OVEN_SHARED_SINGLE_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -10,7 +11,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./detail/prelude.hpp"
 #include <boost/array.hpp>
 #include <boost/pointee.hpp>
 #include <boost/utility/result_of.hpp>

@@ -1,5 +1,5 @@
-#ifndef PSTADE_OVEN_TEST_RANDOM_ACCESS_HPP
-#define PSTADE_OVEN_TEST_RANDOM_ACCESS_HPP
+#ifndef PSTADE_LIBS_OVEN_TEST_DETAIL_RANDOM_ACCESS_HPP
+#define PSTADE_LIBS_OVEN_TEST_DETAIL_RANDOM_ACCESS_HPP
 
 
 // PStade.Oven
@@ -20,7 +20,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/detail/prelude.hpp>
+#include <pstade/oven/prelude.hpp>
 #include <vector>
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>

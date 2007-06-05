@@ -1,3 +1,4 @@
+#include "./prelude.hpp"
 #include <pstade/vodka/drink.hpp>
 #include <boost/test/minimal.hpp>
 

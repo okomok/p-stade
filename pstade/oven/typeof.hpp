@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_TYPEOF_HPP
 #define PSTADE_OVEN_TYPEOF_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -10,7 +11,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./detail/prelude.hpp"
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/typeof/typeof.hpp>
 #include BOOST_TYPEOF_INCREMENT_REGISTRATION_GROUP()

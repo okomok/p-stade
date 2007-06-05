@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_UPPER_CHARS_HPP
 #define PSTADE_OVEN_UPPER_CHARS_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -10,7 +11,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./detail/prelude.hpp"
 #include <cctype> // toupper
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>

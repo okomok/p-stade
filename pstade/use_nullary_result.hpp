@@ -1,5 +1,6 @@
 #ifndef PSTADE_USE_NULLARY_RESULT_HPP
 #define PSTADE_USE_NULLARY_RESULT_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Wine

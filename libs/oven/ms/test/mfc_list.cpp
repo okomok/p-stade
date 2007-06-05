@@ -30,7 +30,7 @@
     #define PSTADE_OVEN_TESTS_NO_CONCEPT_CHECK
 #endif
 
-#include <pstade/oven/tests.hpp>
+#include "../../test/detail/v1_tests.hpp"
 #include <pstade/oven/mfc.hpp>
 
 

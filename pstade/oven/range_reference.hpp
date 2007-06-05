@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_RANGE_REFERENCE_HPP
 #define PSTADE_OVEN_RANGE_REFERENCE_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -10,7 +11,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./detail/prelude.hpp"
 #include <boost/iterator/iterator_traits.hpp>
 #include "./range_iterator.hpp"
 

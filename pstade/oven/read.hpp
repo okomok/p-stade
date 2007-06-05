@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_READ_HPP
 #define PSTADE_OVEN_READ_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -19,10 +20,9 @@
 // meaning that the iterator loses Writability.
 
 
-#include "./detail/prelude.hpp"
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/mpl/eval_if.hpp>
-#include <boost/type_traits/remove_cv.hpp>
+#include <boost/type_traits/remove_const.hpp>
 #include <pstade/function.hpp>
 #include "./detail/is_reference_iterator.hpp"
 
@@ -47,7 +47,7 @@ namespace read_detail {
     {
         typedef typename
             iterator_read<
-                typename boost::remove_cv<ReadableOrLvalueIter>::type
+                typename boost::remove_const<ReadableOrLvalueIter>::type
             >::type
         result_type;
 

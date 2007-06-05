@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_POINTED_HPP
 #define PSTADE_OVEN_POINTED_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -10,7 +11,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./detail/prelude.hpp"
 #include <cstddef> // ptrdiff_t
 #include <boost/mpl/assert.hpp>
 #include <boost/range/begin.hpp>

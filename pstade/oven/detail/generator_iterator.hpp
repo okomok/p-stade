@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_DETAIL_GENERATOR_ITERATOR_HPP
 #define PSTADE_OVEN_DETAIL_GENERATOR_ITERATOR_HPP
+#include "../prelude.hpp"
 
 
 // PStade.Oven
@@ -16,7 +17,6 @@
 //     http://www.boost.org/libs/utility/generator_iterator.htm
 
 
-#include "./prelude.hpp"
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/utility/result_of.hpp>

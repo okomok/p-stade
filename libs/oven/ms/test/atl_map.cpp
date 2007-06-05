@@ -12,14 +12,14 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/tests.hpp>
+#include "../../test/detail/v1_tests.hpp"
 #include <pstade/oven/atl.hpp> // can be placed first. VC++ ignores, though.
 
 
 #include <map>
 #include <string>
 #include <boost/range.hpp>
-#include "../../test/core.hpp"
+#include "../../test/detail/v1_core.hpp"
 #include <pstade/oven/reversed.hpp>
 
 

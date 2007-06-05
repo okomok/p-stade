@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_PTR_CONTAINER_HPP
 #define PSTADE_OVEN_PTR_CONTAINER_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -10,8 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./detail/prelude.hpp"
-#include <boost/type_traits/remove_const.hpp>
+#include <boost/type_traits/remove_cv.hpp>
 #include "./do_iter_swap.hpp"
 
 
@@ -39,10 +39,10 @@ namespace boost {
     struct iterator_value;
 
 
-    // This seems a bug of Boost.PtrContainer.
+    // Work around non-conforming 'value_type' bug.
     template< class VoidIter, class T >
     struct iterator_value< void_ptr_iterator<VoidIter, T> > :
-        remove_const<T>
+        remove_cv<T>
     { };
 
 

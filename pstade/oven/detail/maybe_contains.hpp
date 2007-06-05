@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_DETAIL_MAYBE_CONTAINS_HPP
 #define PSTADE_OVEN_DETAIL_MAYBE_CONTAINS_HPP
+#include "../prelude.hpp"
 
 
 // PStade.Oven
@@ -15,7 +16,6 @@
 // Has no any guarantee. usually works, though; for debug only.
 
 
-#include "./prelude.hpp"
 #include <algorithm> // find
 #include <iterator> // tags
 #include <boost/range/begin.hpp>

@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_DIRECTORY_RANGE_HPP
 #define PSTADE_OVEN_DIRECTORY_RANGE_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -16,7 +17,6 @@
 // But this is "conceptually" a noncopyable range.
 
 
-#include "./detail/prelude.hpp"
 #include <boost/filesystem/convenience.hpp> // basic_recursive_directory_iterator
 #include <boost/filesystem/operations.hpp> // basic_directory_iterator
 #include <boost/filesystem/path.hpp>

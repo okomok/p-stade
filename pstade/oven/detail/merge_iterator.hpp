@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_DETAIL_MERGE_ITERATOR_HPP
 #define PSTADE_OVEN_DETAIL_MERGE_ITERATOR_HPP
+#include "../prelude.hpp"
 
 
 // PStade.Oven
@@ -10,7 +11,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./prelude.hpp"
 #include <boost/assert.hpp>
 #include <boost/config.hpp> // BOOST_NESTED_TEMPLATE
 #include <boost/iterator/iterator_adaptor.hpp>
@@ -98,7 +98,7 @@ public:
         BOOST_MPL_ASSERT((is_convertible<typename iterator_read<Iterator2>::type, ref_t>));
         BOOST_STATIC_WARNING((is_returnable<typename iterator_read<Iterator2>::type, ref_t>::value));
 
-#if defined(PSTADE_OVEN_TESTS_SAMPLE_RANGES)
+#if defined(PSTADE_OVEN_TESTING)
         BOOST_ASSERT(is_sorted(make_iter_range(it1, last1), comp));
         BOOST_ASSERT(is_sorted(make_iter_range(it2, last2), comp));
 #endif

@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_ATL_HPP
 #define PSTADE_OVEN_ATL_HPP
+#include "./prelude.hpp"
 
 
 
@@ -16,7 +17,6 @@
 //
 
 
-#include "./detail/prelude.hpp"
 #include <pstade/apple/atl/base_fwd.hpp>
 #include <pstade/apple/atl/coll_fwd.hpp>
 #include <pstade/apple/atl/comcli_fwd.hpp>

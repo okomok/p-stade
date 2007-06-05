@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_DETAIL_U8_TO_U32_ITERATOR_HPP
 #define PSTADE_OVEN_DETAIL_U8_TO_U32_ITERATOR_HPP
+#include "../prelude.hpp"
 
 
 // PStade.Oven
@@ -22,7 +23,6 @@
  */
 
 
-#include "./prelude.hpp"
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_traits.hpp>
@@ -49,12 +49,11 @@ struct u8_to_u32_iterator_super
         boost::iterator_adaptor<
             u8_to_u32_iterator<ForwardIter, U32Type>,
             ForwardIter,
-            U32Type,
+            U32Type const,
             typename minimum_pure<
                 boost::bidirectional_traversal_tag,
                 typename boost::iterator_traversal<ForwardIter>::type
-            >::type,
-            U32Type const&
+            >::type
         >
     type;
 };

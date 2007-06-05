@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_DETAIL_SHARED_RANGE_ITERATOR_HPP
 #define PSTADE_OVEN_DETAIL_SHARED_RANGE_ITERATOR_HPP
+#include "../prelude.hpp"
 
 
 // PStade.Oven
@@ -18,7 +19,6 @@
 //     http://www.boost.org/regression-logs/cs-win32_metacomm/doc/html/foreach.html
 
 
-#include "./prelude.hpp"
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/pointee.hpp>
 #include "../do_iter_swap.hpp"

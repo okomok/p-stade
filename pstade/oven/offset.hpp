@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_OFFSET_HPP
 #define PSTADE_OVEN_OFFSET_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -17,7 +18,6 @@
 // 'cshift_range'(cyclic shift operation) is also a candidate.
 
 
-#include "./detail/prelude.hpp"
 #include <boost/assert.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>

@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_DETAIL_IDENTITY_ITERATOR_HPP
 #define PSTADE_OVEN_DETAIL_IDENTITY_ITERATOR_HPP
+#include "../prelude.hpp"
 
 
 // PStade.Oven
@@ -10,7 +11,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./prelude.hpp"
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <pstade/copy_construct.hpp>
 #include <pstade/is_convertible.hpp>

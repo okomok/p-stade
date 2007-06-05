@@ -1,5 +1,6 @@
 #ifndef PSTADE_LOCALE_SAVER_HPP
 #define PSTADE_LOCALE_SAVER_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Wine

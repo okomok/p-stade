@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_DETAIL_TAKE_WHILE_ITERATOR_HPP
 #define PSTADE_OVEN_DETAIL_TAKE_WHILE_ITERATOR_HPP
+#include "../prelude.hpp"
 
 
 // PStade.Oven
@@ -18,7 +19,6 @@
 //     http://www.torjo.com/rangelib/index.html
 
 
-#include "./prelude.hpp"
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_categories.hpp>

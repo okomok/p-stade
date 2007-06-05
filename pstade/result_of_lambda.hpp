@@ -1,6 +1,7 @@
 #ifndef BOOST_PP_IS_ITERATING
 #ifndef PSTADE_RESULT_OF_LAMBDA_HPP
 #define PSTADE_RESULT_OF_LAMBDA_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Wine

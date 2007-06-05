@@ -1,5 +1,5 @@
-#ifndef PSTADE_OVEN_TEST_SINGLE_PASS_HPP
-#define PSTADE_OVEN_TEST_SINGLE_PASS_HPP
+#ifndef PSTADE_LIBS_OVEN_TEST_DETAIL_SINGLE_PASS_HPP
+#define PSTADE_LIBS_OVEN_TEST_DETAIL_SINGLE_PASS_HPP
 
 
 // PStade.Oven
@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/detail/prelude.hpp>
+#include <pstade/oven/prelude.hpp>
 #include <boost/iterator/iterator_concepts.hpp> // boost_concepts
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>

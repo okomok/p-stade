@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_DETAIL_CONSTANT_REFERENCE_HPP
 #define PSTADE_OVEN_DETAIL_CONSTANT_REFERENCE_HPP
+#include "../prelude.hpp"
 
 
 // PStade.Oven
@@ -15,7 +16,6 @@
 // A helper metafunction to implement constant iterators.
 
 
-#include "./prelude.hpp"
 #include <boost/iterator/iterator_traits.hpp>
 #include <pstade/affect.hpp>
 #include "../read.hpp"

@@ -1,6 +1,7 @@
 #ifndef BOOST_PP_IS_ITERATING
 #ifndef PSTADE_PROVIDE_SIG_HPP
 #define PSTADE_PROVIDE_SIG_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Wine

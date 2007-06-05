@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_PARALLEL_HPP
 #define PSTADE_OVEN_PARALLEL_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -16,7 +17,6 @@
 //     http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2104.pdf
 
 
-#include "./detail/prelude.hpp"
 #include <algorithm> // for_each
 #include <boost/mpl/int.hpp>
 #include <boost/range/begin.hpp>

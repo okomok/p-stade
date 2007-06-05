@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_REVERSE_ITERATOR_HPP
 #define PSTADE_OVEN_REVERSE_ITERATOR_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -20,7 +21,6 @@
 //     http://www.boost.org/libs/iterator/doc/reverse_iterator.html
 
 
-#include "./detail/prelude.hpp"
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/next_prior.hpp> // prior
 #include <boost/optional/optional.hpp>

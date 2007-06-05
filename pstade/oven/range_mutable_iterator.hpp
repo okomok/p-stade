@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_RANGE_MUTABLE_ITERATOR_HPP
 #define PSTADE_OVEN_RANGE_MUTABLE_ITERATOR_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -10,7 +11,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./detail/prelude.hpp"
 #include <pstade/remove_cvr.hpp>
 #include "./detail/config.hpp" // BOOST_RANGE_MUTABLE_ITERATOR
 

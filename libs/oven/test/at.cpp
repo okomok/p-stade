@@ -1,4 +1,5 @@
 #define NDEBUG
+#include "./prelude.hpp"
 #include <pstade/vodka/drink.hpp>
 #define PSTADE_CONCEPT_CHECK
 
