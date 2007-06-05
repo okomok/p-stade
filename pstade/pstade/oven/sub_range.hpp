@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_SUB_RANGE_HPP
 #define PSTADE_OVEN_SUB_RANGE_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -18,7 +19,6 @@
 // I doubt this range is necessary.
 
 
-#include "./detail/prelude.hpp"
 #include <pstade/disable_if_copy.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/implicitly_defined.hpp>

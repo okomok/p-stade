@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_OUTDIRECTED_HPP
 #define PSTADE_OVEN_OUTDIRECTED_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -10,7 +11,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./detail/prelude.hpp"
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/utility/result_of.hpp>

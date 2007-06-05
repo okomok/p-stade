@@ -91,8 +91,6 @@
 #include "./pointed.hpp"
 #include "./popped.hpp"
 #include "./ptr_container.hpp"
-#include "./range_based1.hpp"
-#include "./range_based2.hpp"
 #include "./range_category.hpp"
 #include "./range_constant_iterator.hpp"
 #include "./range_difference.hpp"

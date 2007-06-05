@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_STEPS_HPP
 #define PSTADE_OVEN_STEPS_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -16,7 +17,6 @@
 // how to step backward from the end iterator?
 
 
-#include "./detail/prelude.hpp"
 #include <algorithm> // min
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/utility/result_of.hpp>

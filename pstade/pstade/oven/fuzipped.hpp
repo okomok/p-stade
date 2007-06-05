@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_FUZIPPED_HPP
 #define PSTADE_OVEN_FUZIPPED_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -14,7 +15,6 @@
 #if BOOST_VERSION >= 103500
 
 
-#include "./detail/prelude.hpp"
 #include <boost/fusion/sequence/conversion/as_vector.hpp>
 #include <boost/fusion/sequence/view/transform_view.hpp>
 #include <boost/utility/result_of.hpp>

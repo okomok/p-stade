@@ -1,3 +1,4 @@
+#include "../prelude.hpp"
 
 
 // PStade.Oven
@@ -16,7 +17,6 @@
 // Though 'mpl::begin' isn't a function, this behavior seems conforming.
 
 
-#include "./prelude.hpp"
 #include <boost/range/result_iterator.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>

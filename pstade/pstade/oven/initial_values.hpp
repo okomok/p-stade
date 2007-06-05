@@ -1,6 +1,7 @@
 #ifndef BOOST_PP_IS_ITERATING
 #ifndef PSTADE_OVEN_INITIAL_VALUES_HPP
 #define PSTADE_OVEN_INITIAL_VALUES_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -25,7 +26,6 @@
 //     http://www.boost.org/libs/assign/doc/index.html
 
 
-#include "./detail/prelude.hpp"
 #include <cstddef> // size_t
 #include <boost/array.hpp>
 #include <boost/preprocessor/cat.hpp>

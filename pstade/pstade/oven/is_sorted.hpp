@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_IS_SORTED_HPP
 #define PSTADE_OVEN_IS_SORTED_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -25,7 +26,6 @@
 //     http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2246.html
 
 
-#include "./detail/prelude.hpp"
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/adl_barrier.hpp>

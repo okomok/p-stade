@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_DROPPED_WHILE_HPP
 #define PSTADE_OVEN_DROPPED_WHILE_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -20,7 +21,6 @@
 // After all, this behavior follows 'boost::filter_iterator'.
 
 
-#include "./detail/prelude.hpp"
 #include <algorithm> // find_if
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>

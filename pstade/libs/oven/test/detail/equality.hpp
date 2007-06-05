@@ -1,5 +1,5 @@
-#ifndef PSTADE_OVEN_TEST_EQUALITY_HPP
-#define PSTADE_OVEN_TEST_EQUALITY_HPP
+#ifndef PSTADE_LIBS_OVEN_TEST_DETAIL_EQUALITY_HPP
+#define PSTADE_LIBS_OVEN_TEST_DETAIL_EQUALITY_HPP
 
 
 // PStade.Oven
@@ -24,7 +24,7 @@
 //     http://www.boost.org/doc/html/string_algo.html
 
 
-#include <pstade/oven/detail/prelude.hpp>
+#include <pstade/oven/prelude.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/functional.hpp> // equal_to

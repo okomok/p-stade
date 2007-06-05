@@ -12,10 +12,10 @@
 
 //#include <pstade/../libs/wine/test/unfuse.cpp>
 
-#include <pstade/../libs/oven/test/jointed.cpp>
+#include <pstade/../libs/oven/test/memoized.cpp>
 //#include <pstade/../libs/oven/test/steps.cpp>
 //#include <pstade/../libs/oven/test/multiple_defs1.cpp>
-//#include <pstade/../libs/oven/example/read.cpp>
+//#include <pstade/../libs/oven/example/primes.cpp>
 //#include <pstade/../libs/biscuit/test/capture.cpp>
 //#include <pstade/../libs/oven/test/ms/atl_string.cpp>
 //#include <pstade/../libs/tomato/test/boolean_cast.cpp>

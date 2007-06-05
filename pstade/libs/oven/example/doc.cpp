@@ -14,7 +14,7 @@
 #include <boost/detail/workaround.hpp>
 
 
-#include <pstade/oven/tests.hpp>
+#include "../test/detail/v1_tests.hpp"
 #include <pstade/oven.hpp>
 
 

@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_APPLIED_HPP
 #define PSTADE_OVEN_APPLIED_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -15,7 +16,6 @@
 // Will be cute with the upcoming Boost.Phoenix2.
 
 
-#include "./detail/prelude.hpp"
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>

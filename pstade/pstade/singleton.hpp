@@ -1,5 +1,6 @@
 #ifndef PSTADE_SINGLETON_HPP
 #define PSTADE_SINGLETON_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Wine

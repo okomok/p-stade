@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_DETAIL_POP_ITERATOR_OF_FORWARD_HPP
 #define PSTADE_OVEN_DETAIL_POP_ITERATOR_OF_FORWARD_HPP
+#include "../prelude.hpp"
 
 
 // PStade.Oven
@@ -10,7 +11,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./prelude.hpp"
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/next_prior.hpp>

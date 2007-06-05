@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_DETAIL_CONFIG_HPP
 #define PSTADE_OVEN_DETAIL_CONFIG_HPP
+#include "../prelude.hpp"
 
 
 // PStade.Oven
@@ -8,9 +9,6 @@
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
-
-
-#include "./prelude.hpp"
 
 
 #include <boost/range/iterator.hpp>

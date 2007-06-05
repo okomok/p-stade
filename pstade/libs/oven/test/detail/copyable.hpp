@@ -1,5 +1,5 @@
-#ifndef PSTADE_OVEN_TEST_COPYABLE_HPP
-#define PSTADE_OVEN_TEST_COPYABLE_HPP
+#ifndef PSTADE_LIBS_OVEN_TEST_DETAIL_COPYABLE_HPP
+#define PSTADE_LIBS_OVEN_TEST_DETAIL_COPYABLE_HPP
 
 
 // PStade.Oven
@@ -10,10 +10,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/detail/prelude.hpp>
+#include <pstade/oven/prelude.hpp>
 #include "./equality.hpp"
 
-#if !defined(PSTADE_OVEN_TEST_COPY_RANGE)
+#if !defined(PSTADE_LIBS_OVEN_TEST_DETAIL_COPY_RANGE)
 #include <pstade/oven/copy_range.hpp>
 #endif
 
@@ -27,7 +27,7 @@ void copyable(From const& from)
     // but some class doesn't have it...
     // PSTADE_CONCEPT_ASSERT((boost::CopyConstructible<To>));
 
-#if !defined(PSTADE_OVEN_TEST_COPY_RANGE)
+#if !defined(PSTADE_LIBS_OVEN_TEST_DETAIL_COPY_RANGE)
     To to = oven::copy_range<To>(from);
     test::equality(from, to);
 #else

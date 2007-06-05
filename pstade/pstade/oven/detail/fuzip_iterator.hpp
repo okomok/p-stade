@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_DETAIL_FUZIP_ITERATOR_HPP
 #define PSTADE_OVEN_DETAIL_FUZIP_ITERATOR_HPP
+#include "../prelude.hpp"
 
 
 // PStade.Oven
@@ -16,7 +17,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./prelude.hpp"
 #include <boost/fusion/algorithm/iteration/for_each.hpp>
 #include <boost/fusion/algorithm/transformation/transform.hpp>
 #include <boost/fusion/iterator/deref.hpp>

@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_MFC_HPP
 #define PSTADE_OVEN_MFC_HPP
+#include "./prelude.hpp"
 
 
 
@@ -40,7 +41,6 @@ class CTypedPtrMap;
 //
 
 
-#include "./detail/prelude.hpp"
 #include <cstddef> // ptrdiff_t
 #include <utility> // pair
 #include <boost/assert.hpp>

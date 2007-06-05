@@ -1,3 +1,4 @@
+#include "./prelude.hpp"
 #include <pstade/vodka/drink.hpp>
 #define PSTADE_CONCEPT_CHECK
 
@@ -84,6 +85,8 @@ void pstade_minimal_test()
 }
 
 #else
+
+#include <pstade/minimal_test.hpp>
 
 void pstade_minimal_test()
 { }

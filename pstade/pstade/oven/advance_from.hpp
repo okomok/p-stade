@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_ADVANCE_FROM_HPP
 #define PSTADE_OVEN_ADVANCE_FROM_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -22,7 +23,6 @@
 //     http://www.boost.org/libs/utility/utility.htm
 
 
-#include "./detail/prelude.hpp"
 #include <iterator> // advance
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_categories.hpp>

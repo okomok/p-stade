@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_DETAIL_HAS_IS_CONSTANT_HPP
 #define PSTADE_OVEN_DETAIL_HAS_IS_CONSTANT_HPP
+#include "../prelude.hpp"
 
 
 // PStade.Oven
@@ -10,7 +11,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./prelude.hpp"
 #include <pstade/has_xxx.hpp>
 
 

@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_EQUALS_HPP
 #define PSTADE_OVEN_EQUALS_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -24,7 +25,6 @@
 //     http://www.boost.org/doc/html/string_algo.html
 
 
-#include "./detail/prelude.hpp"
 #include <algorithm> // equal
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/range/begin.hpp>

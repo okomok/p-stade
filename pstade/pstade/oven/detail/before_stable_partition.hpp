@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_DETAIL_BEFORE_STABLE_PARTITION_HPP
 #define PSTADE_OVEN_DETAIL_BEFORE_STABLE_PARTITION_HPP
+#include "../prelude.hpp"
 
 
 // PStade.Oven
@@ -17,7 +18,6 @@
 // See 'stable_partition_adaptive' and 'Temporary_buffer::size()'.
 
 
-#include "./prelude.hpp"
 
 
 #include <algorithm>

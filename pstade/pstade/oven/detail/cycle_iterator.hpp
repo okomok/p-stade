@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_DETAIL_CYCLE_ITERATOR_HPP
 #define PSTADE_OVEN_DETAIL_CYCLE_ITERATOR_HPP
+#include "../prelude.hpp"
 
 
 // PStade.Oven
@@ -10,7 +11,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./prelude.hpp"
 #include <utility> // pair
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
@@ -36,7 +36,7 @@ std::pair<Difference, Difference> positive_rem_div(Difference a, Difference b)
 
 
 template< class Iterator >
-bool iter_find(Iterator first, Iterator last, Iterator val)
+bool cycle_iter_find(Iterator first, Iterator last, Iterator val)
 {
     for_debug();
 
@@ -109,8 +109,8 @@ private:
 
     bool invariant() const
     {
-#if defined(PSTADE_OVEN_TESTS_SAMPLE_RANGES)
-        return detail::iter_find(m_first, m_last, this->base());
+#if defined(PSTADE_OVEN_TESTING)
+        return detail::cycle_iter_find(m_first, m_last, this->base());
 #else
         return true;
 #endif

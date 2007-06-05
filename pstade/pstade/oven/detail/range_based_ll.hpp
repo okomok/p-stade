@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_DETAIL_RANGE_BASED_LL_HPP
 #define PSTADE_OVEN_DETAIL_RANGE_BASED_LL_HPP
+#include "../prelude.hpp"
 
 
 // PStade.Oven
@@ -10,13 +11,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./prelude.hpp"
 #include <boost/preprocessor/cat.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/constant.hpp>
-#include "../range_based1.hpp"
-#include "../range_based2.hpp"
 #include "./deferred_sig.hpp"
+#include "./range_based1.hpp"
+#include "./range_based2.hpp"
 
 
 namespace pstade { namespace oven { namespace detail {

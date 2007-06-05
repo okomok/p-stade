@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_ITERATION_HPP
 #define PSTADE_OVEN_ITERATION_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -18,7 +19,6 @@
 // because 'counting' can't represent "infinity".
 
 
-#include "./detail/prelude.hpp"
 #include <pstade/function.hpp>
 #include <pstade/pass_by.hpp>
 #include "./detail/iterate_iterator.hpp"

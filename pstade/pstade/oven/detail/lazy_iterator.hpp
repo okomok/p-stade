@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_DETAIL_LAZY_ITERATOR_HPP
 #define PSTADE_OVEN_DETAIL_LAZY_ITERATOR_HPP
+#include "../prelude.hpp"
 
 
 // PStade.Oven
@@ -19,7 +20,6 @@
 // which is too strange for RandomAccessRange.
 
 
-#include "./prelude.hpp"
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <boost/optional/optional.hpp>

@@ -1,5 +1,6 @@
 #ifndef PSTADE_TO_SHARED_PTR_HPP
 #define PSTADE_TO_SHARED_PTR_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Wine

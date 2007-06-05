@@ -1,5 +1,5 @@
-#ifndef PSTADE_OVEN_TEST_BIDIRECTIONAL_HPP
-#define PSTADE_OVEN_TEST_BIDIRECTIONAL_HPP
+#ifndef PSTADE_LIBS_OVEN_TEST_DETAIL_BIDIRECTIONAL_HPP
+#define PSTADE_LIBS_OVEN_TEST_DETAIL_BIDIRECTIONAL_HPP
 
 
 // PStade.Oven
@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/detail/prelude.hpp>
+#include <pstade/oven/prelude.hpp>
 #include <algorithm> // distance
 #include <vector>
 #include <boost/assert.hpp>
@@ -25,7 +25,7 @@
 #include "./forward.hpp"
 #include "./new_iterator_tests.hpp"
 
-#if !defined(PSTADE_OVEN_TEST_REVERSED)
+#if !defined(PSTADE_LIBS_OVEN_TEST_DETAIL_REVERSED)
     #include <pstade/oven/reverse_iterator.hpp>
 #else
     #include <boost/iterator/reverse_iterator.hpp>
@@ -52,7 +52,7 @@ void bidirectional_constant_iterator(Iterator first, Iterator last, IteratorA fi
         boost::bidirectional_readable_iterator_test(first, vals[0], vals[1]);
     }
     {
-#if !defined(PSTADE_OVEN_TEST_REVERSED)
+#if !defined(PSTADE_LIBS_OVEN_TEST_DETAIL_REVERSED)
         test::forward_constant_iterator(
             make_reverse_iterator(last),  make_reverse_iterator(first),
             make_reverse_iterator(lastA), make_reverse_iterator(firstA)

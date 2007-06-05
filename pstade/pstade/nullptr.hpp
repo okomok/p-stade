@@ -1,5 +1,6 @@
 #ifndef PSTADE_NULLPTR_HPP
 #define PSTADE_NULLPTR_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Wine

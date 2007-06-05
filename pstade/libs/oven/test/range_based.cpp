@@ -1,3 +1,4 @@
+#include "./prelude.hpp"
 #include <pstade/vodka/drink.hpp>
 #include <boost/test/minimal.hpp>
 
@@ -10,8 +11,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/range_based1.hpp>
-#include <pstade/oven/range_based2.hpp>
+#include <pstade/oven/detail/range_based1.hpp>
+#include <pstade/oven/detail/range_based2.hpp>
 #include <pstade/oven/detail/deferred_sig.hpp>
 
 
@@ -90,21 +91,21 @@ void test()
     {
         std::string rng("edcbagf");
         detail::deferred_sig_return_op<lambda::ll::for_each>()(boost::begin(rng)|pstade::to_ref, boost::end(rng)|pstade::to_ref, do_nothing()|pstade::to_ref);
-        oven::range_based1(detail::deferred_sig(lambda::ll::for_each()))(rng, do_nothing());
-        oven::range_based1(detail::deferred_sig_return_op<lambda::ll::for_each>())(rng, do_nothing());
-        oven::range_based1(detail::deferred_sig_return_op<lambda::ll::sort>())(rng);
-        oven::range_based1(detail::deferred_sig_return_op<lambda::ll::sort>())(rng, pstade::less);
+        oven::detail::range_based1(detail::deferred_sig(lambda::ll::for_each()))(rng, do_nothing());
+        oven::detail::range_based1(detail::deferred_sig_return_op<lambda::ll::for_each>())(rng, do_nothing());
+        oven::detail::range_based1(detail::deferred_sig_return_op<lambda::ll::sort>())(rng);
+        oven::detail::range_based1(detail::deferred_sig_return_op<lambda::ll::sort>())(rng, pstade::less);
         BOOST_CHECK( rng == "abcdefg" );
     }
     {
         std::string rng("edcbagf");
-        oven::range_based1(::op_sort())(rng);
+        oven::detail::range_based1(::op_sort())(rng);
         BOOST_CHECK( rng == "abcdefg" );
     }
     {
         std::string rng("edcbagf");
         std::string rng_("542613");
-        oven::range_based2(::op_sort2())(rng, rng_);
+        oven::detail::range_based2(::op_sort2())(rng, rng_);
         BOOST_CHECK( rng == "abcdefg" );
         BOOST_CHECK( rng_ == "123456" );
     }
@@ -112,8 +113,8 @@ void test()
         std::string rng;
         bool never = false;
         if (never) {
-            oven::range_based1(detail::deferred_sig_return_op<lambda::ll::inner_product>())(rng, boost::begin(rng), 'c', pstade::plus, pstade::plus);
-            oven::range_based2(detail::deferred_sig_return_op<lambda::ll::merge>())(rng, rng, boost::begin(rng), pstade::less);
+            oven::detail::range_based1(detail::deferred_sig_return_op<lambda::ll::inner_product>())(rng, boost::begin(rng), 'c', pstade::plus, pstade::plus);
+            oven::detail::range_based2(detail::deferred_sig_return_op<lambda::ll::merge>())(rng, rng, boost::begin(rng), pstade::less);
         }
     }
     { // nullary

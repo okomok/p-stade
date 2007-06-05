@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_AT_HPP
 #define PSTADE_OVEN_AT_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -16,7 +17,6 @@
 // it should be a primitive function.
 
 
-#include "./detail/prelude.hpp"
 #include <boost/assert.hpp>
 #include <boost/range/begin.hpp>
 #include <pstade/auxiliary.hpp>

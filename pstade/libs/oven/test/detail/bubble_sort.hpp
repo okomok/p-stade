@@ -1,5 +1,5 @@
-#ifndef PSTADE_OVEN_TEST_BUBBLE_SORT_HPP
-#define PSTADE_OVEN_TEST_BUBBLE_SORT_HPP
+#ifndef PSTADE_LIBS_OVEN_TEST_DETAIL_BUBBLE_SORT_HPP
+#define PSTADE_LIBS_OVEN_TEST_DETAIL_BUBBLE_SORT_HPP
 
 
 // PStade.Oven
@@ -15,7 +15,7 @@
 // [1] http://www.s34.co.jp/cpptechdoc/article/sort/
 
 
-#include <pstade/oven/detail/prelude.hpp>
+#include <pstade/oven/prelude.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/functional.hpp> // less

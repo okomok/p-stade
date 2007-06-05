@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_DO_ITER_SWAP_HPP
 #define PSTADE_OVEN_DO_ITER_SWAP_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -10,7 +11,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./detail/prelude.hpp"
 #include <algorithm> // swap
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
@@ -43,7 +43,7 @@ namespace pstade { namespace oven { namespace do_iter_swap_detail {
 
 
     template< class Iterator1, class Iterator2 > inline
-    void do_aux(Iterator1 it1, Iterator2 it2, boost::mpl::true_)
+    void default_way_aux(Iterator1 it1, Iterator2 it2, boost::mpl::true_)
     {
 #if BOOST_WORKAROUND(BOOST_MSVC, == 1310) // msvc-7.1
         using namespace std;
@@ -54,7 +54,7 @@ namespace pstade { namespace oven { namespace do_iter_swap_detail {
     }
 
     template< class Iterator1, class Iterator2 >
-    void do_aux(Iterator1 it1, Iterator2 it2, boost::mpl::false_)
+    void default_way_aux(Iterator1 it1, Iterator2 it2, boost::mpl::false_)
     {
         typename boost::iterator_value<Iterator1>::type tmp = read(it1);
         write(it1, read(it2));
@@ -63,9 +63,9 @@ namespace pstade { namespace oven { namespace do_iter_swap_detail {
 
 
     template< class Iterator1, class Iterator2 > inline
-    void do_(Iterator1 it1, Iterator2 it2)
+    void default_way(Iterator1 it1, Iterator2 it2)
     {
-        here::do_aux(it1, it2, typename have_swappable_reference<Iterator1, Iterator2>::type());
+        here::default_way_aux(it1, it2, typename have_swappable_reference<Iterator1, Iterator2>::type());
     }
 
 
@@ -79,10 +79,10 @@ namespace pstade_oven_extension {
     struct iter_swap_base { };
 
 
-    template< class Iterator1, class Iterator2 >
+    template< class Iterator1, class Iterator2 > inline
     void pstade_oven_(iter_swap_base, Iterator1 it1, Iterator2 it2)
     {
-        pstade::oven::do_iter_swap_detail::do_(it1, it2);
+        pstade::oven::do_iter_swap_detail::default_way(it1, it2);
     }
 
 

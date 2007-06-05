@@ -1,5 +1,5 @@
-#ifndef PSTADE_OVEN_TEST_LIGHTWEIGHT_COPYABLE_HPP
-#define PSTADE_OVEN_TEST_LIGHTWEIGHT_COPYABLE_HPP
+#ifndef PSTADE_LIBS_OVEN_TEST_DETAIL_LIGHTWEIGHT_COPYABLE_HPP
+#define PSTADE_LIBS_OVEN_TEST_DETAIL_LIGHTWEIGHT_COPYABLE_HPP
 
 
 // PStade.Oven
@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/detail/prelude.hpp>
+#include <pstade/oven/prelude.hpp>
 #include <boost/foreach.hpp>
 #include <boost/mpl/bool.hpp>
 

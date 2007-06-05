@@ -1,5 +1,6 @@
 #ifndef PSTADE_IS_NDEBUG_HPP
 #define PSTADE_IS_NDEBUG_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Wine

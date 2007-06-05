@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_DETAIL_IS_REFERENCE_ITERATOR_HPP
 #define PSTADE_OVEN_DETAIL_IS_REFERENCE_ITERATOR_HPP
+#include "../prelude.hpp"
 
 
 // PStade.Oven
@@ -10,7 +11,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./prelude.hpp"
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/mpl/or.hpp>
 #include <boost/type_traits/is_same.hpp>

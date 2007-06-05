@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_TAKEN_HPP
 #define PSTADE_OVEN_TAKEN_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -21,7 +22,6 @@
 // But "Bidirectional -> Forward" seems inconsistent.
 
 
-#include "./detail/prelude.hpp"
 #include <boost/assert.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>

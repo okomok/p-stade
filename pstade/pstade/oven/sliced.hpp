@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_SLICED_HPP
 #define PSTADE_OVEN_SLICED_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -25,7 +26,6 @@
 //     <boost-sandbox/boost/view/step_iterator.hpp>
 
 
-#include "./detail/prelude.hpp"
 #include <boost/assert.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/function.hpp>

@@ -1,5 +1,6 @@
 #ifndef PSTADE_COPY_ASSIGN_HPP
 #define PSTADE_COPY_ASSIGN_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Wine

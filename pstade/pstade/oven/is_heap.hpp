@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_IS_HEAP_HPP
 #define PSTADE_OVEN_IS_HEAP_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -28,7 +29,6 @@
 //     http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2246.html
 
 
-#include "./detail/prelude.hpp"
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>

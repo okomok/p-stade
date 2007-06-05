@@ -1,5 +1,7 @@
 #ifndef PSTADE_OVEN_XPRESSIVE_TOKENIZED_HPP
 #define PSTADE_OVEN_XPRESSIVE_TOKENIZED_HPP
+#include "./prelude.hpp"
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -10,7 +12,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./detail/prelude.hpp"
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <boost/xpressive/regex_token_iterator.hpp>

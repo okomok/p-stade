@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_DETAIL_CONCAT_ITERATOR_HPP
 #define PSTADE_OVEN_DETAIL_CONCAT_ITERATOR_HPP
+#include "../prelude.hpp"
 
 
 // PStade.Oven
@@ -23,7 +24,6 @@
 //     http://opensource.adobe.com/classadobe_1_1segmented__iterator.html
 
 
-#include "./prelude.hpp"
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_traits.hpp>
@@ -197,7 +197,7 @@ private:
         return m_last == other.m_last;
     }
 
-#if defined(PSTADE_OVEN_TESTS_SAMPLE_RANGES)
+#if defined(PSTADE_OVEN_TESTING)
     PSTADE_CLASS_INVARIANT (
         // 'm_local' is undefined if 'segment_is_end'.
         (!segment_is_end() ?

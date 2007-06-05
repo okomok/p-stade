@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_ALGORITHM_HPP
 #define PSTADE_OVEN_ALGORITHM_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -22,7 +23,6 @@
 //     http://www.boost-consulting.com/vault/index.php?directory=Algorithms
 
 
-#include "./detail/prelude.hpp"
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
 #include <boost/range/begin.hpp>

@@ -14,7 +14,7 @@
 // http://www.cs.bham.ac.uk/~ard/modules/swh05.html
 
 
-#include <pstade/oven/tests.hpp>
+#include "../test/detail/v1_tests.hpp"
 
 
 #include <cmath>

@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_MOVED_HPP
 #define PSTADE_OVEN_MOVED_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -20,7 +21,6 @@
 // 'transformed(move)' seems enough?
 
 
-#include "./detail/prelude.hpp"
 #include <pstade/miniboost/move.hpp>
 #include <boost/mpl/if.hpp>
 #include <pstade/function.hpp>

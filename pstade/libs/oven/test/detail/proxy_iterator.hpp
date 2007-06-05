@@ -1,5 +1,5 @@
-#ifndef PSTADE_OVEN_TEST_PROXY_ITERATOR_HPP
-#define PSTADE_OVEN_TEST_PROXY_ITERATOR_HPP
+#ifndef PSTADE_LIBS_OVEN_TEST_DETAIL_PROXY_ITERATOR_HPP
+#define PSTADE_LIBS_OVEN_TEST_DETAIL_PROXY_ITERATOR_HPP
 
 
 // PStade.Oven
@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/detail/prelude.hpp>
+#include <pstade/oven/prelude.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_traits.hpp> // iterator_value
 #include <pstade/oven/do_iter_swap.hpp>
@@ -36,7 +36,7 @@ struct proxy
         write(m_it, v);
     }
 
-#if !defined(PSTADE_OVEN_TEST_DO_ITER_SWAP)
+#if !defined(PSTADE_LIBS_OVEN_TEST_DETAIL_DO_ITER_SWAP)
     // just in case '*left = *right'.
     void operator=(proxy const& other) const
     {

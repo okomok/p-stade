@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_DETAIL_TRANSFORM_ITERATOR_HPP
 #define PSTADE_OVEN_DETAIL_TRANSFORM_ITERATOR_HPP
+#include "../prelude.hpp"
 
 
 // PStade.Oven
@@ -42,7 +43,6 @@
 // [2] David Abrahams, Jeremy Siek, Thomas Witt, transform_iterator, Boost.Iterator, 2003.
 
 
-#include "./prelude.hpp"
 #include <boost/iterator/iterator_adaptor.hpp>
 #include "../read.hpp"
 #include "./pure_traversal.hpp"

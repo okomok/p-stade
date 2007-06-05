@@ -10,7 +10,7 @@
 
 
 #define PSTADE_OVEN_TESTS_DONT_CALL_DISTANCE
-#include <pstade/oven/tests.hpp>
+#include "../test/detail/v1_tests.hpp"
 
 
 #include <string>

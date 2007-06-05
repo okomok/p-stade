@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_SUB_MATCH_HPP
 #define PSTADE_OVEN_SUB_MATCH_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -17,7 +18,6 @@
 // Hence we define...
 
 
-#include "./detail/prelude.hpp"
 #include <boost/regex.hpp>
 #include "./extension.hpp"
 

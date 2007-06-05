@@ -1,5 +1,5 @@
-#ifndef PSTADE_OVEN_TEST_TEST_HPP
-#define PSTADE_OVEN_TEST_TEST_HPP
+#ifndef PSTADE_LIBS_OVEN_TEST_DETAIL_TEST_HPP
+#define PSTADE_LIBS_OVEN_TEST_DETAIL_TEST_HPP
 
 
 // PStade.Oven
@@ -31,7 +31,7 @@
 #include "./single_pass.hpp"
 
 
-#if !defined(PSTADE_OVEN_TEST_PTR_CONTAINER)
+#if !defined(PSTADE_LIBS_OVEN_TEST_DETAIL_PTR_CONTAINER)
 #include <pstade/oven/ptr_container.hpp> // iter_swap
 #endif
 

@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_IO_HPP
 #define PSTADE_OVEN_IO_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -25,7 +26,6 @@
 // [2] <boost/fusion/sequence/io.hpp>
 
 
-#include "./detail/prelude.hpp"
 #include <locale> // isspace
 #include <iosfwd>
 #include <boost/assert.hpp>
@@ -37,6 +37,7 @@
 #include <boost/type_traits/remove_const.hpp>
 #include <pstade/function.hpp>
 #include "./iter_range.hpp"
+#include "./read.hpp"
 
 
 namespace pstade { namespace oven {
@@ -127,10 +128,7 @@ namespace io_detail {
             if (!is.good())
                 break;
 
-            is >>
-                boost::implicit_cast<
-                    typename boost::iterator_value<Iterator>::type&
-                >(*first);
+            is >> read(first);
         }
     }
 
@@ -147,10 +145,7 @@ namespace io_detail {
             else
                 is_beginning = false;
 
-            os <<
-                boost::implicit_cast<
-                    typename boost::iterator_value<Iterator>::type const&
-                >(*first);
+            os << read(first);
         }
     }
 

@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_EXPRESSION_HPP
 #define PSTADE_OVEN_EXPRESSION_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -19,7 +20,6 @@
 // 'range_value/range_reference/range_difference<Range>::type' are registered.
 
 
-#include "./detail/prelude.hpp"
 #include <boost/typeof/typeof.hpp>
 #include <pstade/constant.hpp>
 #include "./typeof.hpp"

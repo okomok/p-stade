@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_ADJACENT_TRANSFORMED_HPP
 #define PSTADE_OVEN_ADJACENT_TRANSFORMED_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -24,7 +25,6 @@
 // not to contain the first value of base range, IMO.
 
 
-#include "./detail/prelude.hpp"
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_traits.hpp>

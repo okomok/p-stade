@@ -24,9 +24,9 @@
 
 // A range may be too long to diagnose.
 // So some assertions cannot be in use code.
-#if !defined(PSTADE_OVEN_TESTS_SAMPLE_RANGES) \
-    && !defined(PSTADE_OVEN_TESTS_NO_SAMPLE_RANGES)
-#define PSTADE_OVEN_TESTS_SAMPLE_RANGES
+#if !defined(PSTADE_OVEN_TESTING) \
+    && !defined(PSTADE_OVEN_NO_TESTING)
+#define PSTADE_OVEN_TESTING
 #endif
 
 // It may make "memoized" range test be trivial to call 'distance'.
@@ -37,7 +37,7 @@
 #endif
 
 
-#include <pstade/oven/detail/prelude.hpp>
+#include <pstade/oven/prelude.hpp>
 #include <algorithm>
 #include <boost/assert.hpp>
 #include <boost/concept_check.hpp>

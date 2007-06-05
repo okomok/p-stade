@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_STREAM_WRITER_HPP
 #define PSTADE_OVEN_STREAM_WRITER_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -29,7 +30,6 @@
 //     http://hamigaki.sourceforge.jp/doc/html/ostream_iterator.html
 
 
-#include "./detail/prelude.hpp"
 #include <boost/shared_ptr.hpp>
 #include <boost/utility/addressof.hpp>
 #include <boost/utility/result_of.hpp>

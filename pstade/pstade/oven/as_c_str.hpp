@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_AS_C_STR_HPP
 #define PSTADE_OVEN_AS_C_STR_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -17,7 +18,6 @@
 // RandomAccessRange. Thus, 'as_c_str' kicks in.
 
 
-#include "./detail/prelude.hpp"
 #include <algorithm> // find
 #include <cstddef>   // size_t
 #include <cstring>   // strlen

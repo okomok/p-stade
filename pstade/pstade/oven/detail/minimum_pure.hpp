@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_DETAIL_MINIMUM_PURE_HPP
 #define PSTADE_OVEN_DETAIL_MINIMUM_PURE_HPP
+#include "../prelude.hpp"
 
 
 // PStade.Oven
@@ -10,7 +11,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./prelude.hpp"
 #include <boost/mpl/placeholders.hpp> // missing from 'minimum_category.hpp'
 #include <boost/iterator/detail/minimum_category.hpp>
 #include <boost/iterator/iterator_categories.hpp>

@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_DETAIL_ARRAY_TO_RANGE_HPP
 #define PSTADE_OVEN_DETAIL_ARRAY_TO_RANGE_HPP
+#include "../prelude.hpp"
 
 
 // PStade.Oven
@@ -10,7 +11,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./prelude.hpp"
 #include <boost/mpl/eval_if.hpp>
 #include <boost/type_traits/add_reference.hpp>
 #include <boost/type_traits/is_array.hpp>

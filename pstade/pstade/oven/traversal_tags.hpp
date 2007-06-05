@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_TRAVERSAL_TAGS_HPP
 #define PSTADE_OVEN_TRAVERSAL_TAGS_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -10,7 +11,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./detail/prelude.hpp"
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <pstade/constant.hpp>

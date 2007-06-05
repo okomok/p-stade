@@ -1,4 +1,5 @@
 #define _WIN32_WINNT 0x0500
+#include <pstade/vodka/drink.hpp>
 #include <pstade/unit_test.hpp>
 
 
@@ -6,7 +7,7 @@
 WTL::CAppModule _Module;
 
 
-// PStade.Lime
+// PStade.Hambergur
 //
 // Copyright Shunsuke Sogame 2005-2006.
 // Distributed under the Boost Software License, Version 1.0.

@@ -1,5 +1,6 @@
 #ifndef PSTADE_OVEN_ADAPTED_TO_BASE_HPP
 #define PSTADE_OVEN_ADAPTED_TO_BASE_HPP
+#include "./prelude.hpp"
 
 
 // PStade.Oven
@@ -29,7 +30,6 @@
 //     http://www.boost-consulting.com/vault/index.php?directory=Algorithms
 
 
-#include "./detail/prelude.hpp"
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
 #include <boost/mpl/and.hpp>
