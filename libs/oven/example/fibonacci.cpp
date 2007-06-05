@@ -18,7 +18,7 @@
 #include <pstade/lexical_cast.hpp>
 #include <pstade/oven.hpp>
 #include <pstade/to_value.hpp>
-#include <pstade/pack.hpp>
+#include <pstade/tuple.hpp> // tuple_pack
 #include <boost/assign/list_of.hpp>
 #include <boost/foreach.hpp>
 #include <boost/lambda/lambda.hpp>

@@ -32,7 +32,7 @@
 #include <pstade/oven/transformed.hpp>
 #include <pstade/result_of_lambda.hpp>
 #include <boost/lambda/lambda.hpp>
-#include <pstade/pack.hpp>
+#include <pstade/tuple.hpp> // tuple_pack
 
 
 void pstade_minimal_test()

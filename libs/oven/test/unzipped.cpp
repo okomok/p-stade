@@ -23,7 +23,7 @@
 #include <boost/range.hpp>
 #include <pstade/oven/algorithm.hpp>
 #include "./detail/v1_core.hpp"
-#include <pstade/pack.hpp>
+#include <pstade/tuple.hpp> // tuple_pack
 #include <pstade/tuple.hpp>
 
 
@@ -40,12 +40,12 @@ void test()
         std::vector<int> ans1  = rng1|copied;
 
         BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
-            pstade::tuple_get_c<0>(pstade::pack(rng0, rng1)|zipped|unzipped),
+            pstade::tuple_get_c<0>(pstade::tuple_pack(rng0, rng1)|zipped|unzipped),
             ans0
         ) );
 
         BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
-            pstade::tuple_get_c<1>(pstade::pack(rng0, rng1)|zipped|unzipped),
+            pstade::tuple_get_c<1>(pstade::tuple_pack(rng0, rng1)|zipped|unzipped),
             ans1
         ) );
     }
@@ -64,7 +64,7 @@ void test()
 
         BOOST_FOREACH (
             int& i,
-            src0|pstade::packed(src1)|zipped|elements_c<1>()
+            pstade::tuple_pack(src0, src1)|zipped|elements_c<1>()
         ) {
             if (i == 4)
                 i = 5;
@@ -83,14 +83,14 @@ void test()
 
         BOOST_CHECK((
             oven::equals(
-                boost::get<0>(src0|pstade::packed(src1)|zipped|unzipped),
+                boost::get<0>(pstade::tuple_pack(src0, src1)|zipped|unzipped),
                 src0
             )
         ));
 
         BOOST_CHECK((
             oven::equals(
-                boost::get<1>(src0|pstade::packed(src1)|zipped|unzipped),
+                boost::get<1>(pstade::tuple_pack(src0, src1)|zipped|unzipped),
                 src1
             )
         ));

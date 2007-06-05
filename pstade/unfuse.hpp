@@ -14,7 +14,7 @@
 
 // Note:
 //
-// This could be implementedy by 'compose' with 'pack',
+// This could be implementedy by 'compose' with 'tuple_pack',
 // but this is the basis together with 'fuse'.
 
 
@@ -25,9 +25,9 @@
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/deferred.hpp>
-#include <pstade/pack.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/preprocessor.hpp>
+#include <pstade/tuple.hpp> // tuple_pack
 #include <pstade/use_default.hpp>
 #include <pstade/use_nullary_result.hpp>
 
@@ -38,9 +38,9 @@ namespace pstade {
     namespace unfuse_detail {
 
 
-        template<class FusedFun, class NullaryResult, class PackFun>
+        template<class Function, class NullaryResult, class Pack>
         struct return_op :
-            callable<return_op<FusedFun, NullaryResult, PackFun>, NullaryResult>
+            callable<return_op<Function, NullaryResult, Pack>, NullaryResult>
         {
             template<class Myself, PSTADE_CALLABLE_APPLY_PARAMS(A)>
             struct apply
@@ -51,7 +51,7 @@ namespace pstade {
             Result call() const
             {
                 return m_fun(
-                    m_pack_fun()
+                    m_pack()
                 );
             }
 
@@ -62,39 +62,39 @@ namespace pstade {
             explicit return_op()
             { }
 
-            explicit return_op(FusedFun f, PackFun p) :
-                m_fun(f), m_pack_fun(p)
+            explicit return_op(Function f, Pack p) :
+                m_fun(f), m_pack(p)
             { }
 
-            typedef FusedFun base_type;
+            typedef Function base_type;
 
-            FusedFun base() const
+            Function base() const
             {
                 return m_fun;
             }
 
         private:
-            FusedFun m_fun;
-            PackFun m_pack_fun;
+            Function m_fun;
+            Pack m_pack;
         };
 
 
 
-        template<class FusedFun, class Pack>
+        template<class Function, class Pack>
         struct apply_empty_tuple :
             boost::result_of<
-                PSTADE_DEFERRED(FusedFun const)(
+                PSTADE_DEFERRED(Function const)(
                     typename boost::result_of<PSTADE_DEFERRED(Pack const)()>::type
                 )
             >
         { };
 
 
-        template<class NullaryResult, class FusedFun, class PackFun>
+        template<class NullaryResult, class Function, class Pack>
         struct nullary_result_aux :
             use_nullary_result_eval_to<
                 NullaryResult,
-                apply_empty_tuple<FusedFun, PackFun>
+                apply_empty_tuple<Function, Pack>
             >
         { };
 
@@ -103,7 +103,7 @@ namespace pstade {
 
 
     // If 'NullaryResult' is 'boost::use_default', this is not nullary-callable.
-    // Else if 'NullaryResult' is 'use_nullary_result', 'FusedFun' is considered
+    // Else if 'NullaryResult' is 'use_nullary_result', 'Function' is considered
     // as callable with an empty tuple, then the result is inspected.
     // Otherwise, a passed type is the result type of this.
 
@@ -111,36 +111,36 @@ namespace pstade {
     struct op_unfuse :
         callable< op_unfuse<NullaryResult> >
     {
-        template<class Myself, class FusedFun, class PackFun = op_pack const>
+        template<class Myself, class Function, class Pack = op_tuple_pack const>
         struct apply
         {
             typedef typename
-                pass_by_value<PackFun>::type
-            pack_fun_t;
+                pass_by_value<Pack>::type
+            pack_t;
 
             typedef typename
-                pass_by_value<FusedFun>::type
-            fused_fun_t;
+                pass_by_value<Function>::type
+            fun_t;
 
             typedef typename
-                unfuse_detail::nullary_result_aux<NullaryResult, fused_fun_t, pack_fun_t>::type
+                unfuse_detail::nullary_result_aux<NullaryResult, fun_t, pack_t>::type
             nullary_result_t;
 
             typedef
-                unfuse_detail::return_op<fused_fun_t, nullary_result_t, pack_fun_t>
+                unfuse_detail::return_op<fun_t, nullary_result_t, pack_t>
             type;
         };
 
-        template<class Result, class FusedFun, class Pack>
-        Result call(FusedFun& f, Pack& p) const
+        template<class Result, class Function, class Pack>
+        Result call(Function& f, Pack& p) const
         {
             return Result(f, p);
         }
 
-        template<class Result, class FusedFun>
-        Result call(FusedFun& f) const
+        template<class Result, class Function>
+        Result call(Function& f) const
         {
-            return (*this)(f, pack);
+            return (*this)(f, tuple_pack);
         }
     };
 
@@ -162,9 +162,9 @@ PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE(pstade::unfuse_detail::return_op, 3)
 template<class Myself, BOOST_PP_ENUM_PARAMS(n, class A)>
 struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
     boost::result_of<
-        PSTADE_DEFERRED(FusedFun const)(
+        PSTADE_DEFERRED(Function const)(
             typename boost::result_of<
-                PSTADE_DEFERRED(PackFun const)(PSTADE_PP_ENUM_PARAMS_WITH(n, A, &))
+                PSTADE_DEFERRED(Pack const)(PSTADE_PP_ENUM_PARAMS_WITH(n, A, &))
             >::type
         )
     >
@@ -174,7 +174,7 @@ template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
 Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
 {
     return m_fun(
-        m_pack_fun(BOOST_PP_ENUM_PARAMS(n, a))
+        m_pack(BOOST_PP_ENUM_PARAMS(n, a))
     );
 }
 

@@ -45,22 +45,22 @@ namespace pstade {
         { };
 
 
-        template<class UnfusedFun, class Tuple, class Arity>
+        template<class Function, class Tuple, class Arity>
         struct apply_impl
         { }; // complete for SFINAE.
 
 
         // 0ary
 
-        template<class UnfusedFun, class Tuple>
-        struct apply_impl< UnfusedFun, Tuple, int_<0> > :
+        template<class Function, class Tuple>
+        struct apply_impl< Function, Tuple, int_<0> > :
             boost::result_of<
-                PSTADE_DEFERRED(UnfusedFun const)()
+                PSTADE_DEFERRED(Function const)()
             >
         { };
 
-        template<class Result, class UnfusedFun, class Tuple> inline
-        Result call_impl(UnfusedFun& fun, Tuple& tup, int_<0>)
+        template<class Result, class Function, class Tuple> inline
+        Result call_impl(Function& fun, Tuple& tup, int_<0>)
         {
             unused(tup);
             return fun();
@@ -73,13 +73,13 @@ namespace pstade {
         #include BOOST_PP_ITERATE()
 
 
-        template<class UnfusedFun>
+        template<class Function>
         struct return_op :
-            callable< return_op<UnfusedFun> >
+            callable< return_op<Function> >
         {
             template<class Myself, class Tuple>
             struct apply :
-                apply_impl<UnfusedFun, Tuple, typename meta_size<Tuple>::type>
+                apply_impl<Function, Tuple, typename meta_size<Tuple>::type>
             { };
 
             template<class Result, class Tuple>
@@ -91,19 +91,19 @@ namespace pstade {
             explicit return_op()
             { }
 
-            explicit return_op(UnfusedFun fun) :
+            explicit return_op(Function fun) :
                 m_fun(fun)
             { }
 
-            typedef UnfusedFun base_type;
+            typedef Function base_type;
 
-            UnfusedFun base() const
+            Function base() const
             {
                 return m_fun;
             }
 
         private:
-            UnfusedFun m_fun;
+            Function m_fun;
         };
 
 
@@ -121,17 +121,17 @@ namespace pstade {
 #define n BOOST_PP_ITERATION()
 
 
-template<class UnfusedFun, class Tuple>
-struct apply_impl< UnfusedFun, Tuple, int_<n> > :
+template<class Function, class Tuple>
+struct apply_impl< Function, Tuple, int_<n> > :
     boost::result_of<
-        PSTADE_DEFERRED(UnfusedFun const)(
+        PSTADE_DEFERRED(Function const)(
             PSTADE_PP_ENUM_PARAMS_WITH(n, typename boost::result_of<op_tuple_get_c<PSTADE_PP_INT_, >(Tuple&)>::type)
         )
     >
 { };
 
-template<class Result, class UnfusedFun, class Tuple> inline
-Result call_impl(UnfusedFun& fun, Tuple& tup, int_<n>)
+template<class Result, class Function, class Tuple> inline
+Result call_impl(Function& fun, Tuple& tup, int_<n>)
 {
     return fun(
         PSTADE_PP_ENUM_PARAMS_WITH(n, op_tuple_get_c<PSTADE_PP_INT_, >()(tup))

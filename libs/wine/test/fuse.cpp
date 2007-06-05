@@ -14,7 +14,7 @@
 
 
 #include <boost/noncopyable.hpp>
-#include <pstade/pack.hpp>
+#include <pstade/tuple.hpp> // tuple_pack
 
 
 int my_plus(int x, int y, int z)
@@ -54,7 +54,7 @@ void test()
     }
     {
         ::nc x;
-        BOOST_CHECK( fuse(&::take_nc)(pack(x)) == 3 );
+        BOOST_CHECK( fuse(&::take_nc)(tuple_pack(x)) == 3 );
     }
 }
 

@@ -27,7 +27,7 @@
 #include <boost/range.hpp>
 #include <pstade/unparenthesize.hpp>
 #include <pstade/oven/algorithm.hpp>
-#include <pstade/pack.hpp>
+#include <pstade/tuple.hpp> // tuple_pack
 #include <pstade/oven/equals.hpp>
 #include <pstade/oven/copy_range.hpp>
 
@@ -61,7 +61,7 @@ void pstade_minimal_test()
         a.push_back(boost::fusion::vector_tie(b1[9], b2[9]));
 
         test::random_access_constant(
-            pstade::pack(b1, b2)|fuzipped|const_refs,
+            pstade::tuple_pack(b1, b2)|fuzipped|const_refs,
             a
         );
     }
@@ -81,7 +81,7 @@ void pstade_minimal_test()
 
         BOOST_FOREACH (
             PSTADE_UNPARENTHESIZE((boost::fusion::vector<char&, int&>)) t,
-            pstade::pack(src0, src1)|fuzipped
+            pstade::tuple_pack(src0, src1)|fuzipped
         ) {
             char& ch = boost::fusion::at_c<0>(t);
             if (ch == '4')

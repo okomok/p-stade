@@ -134,7 +134,12 @@ void test()
 
     BOOST_CHECK( is_same(boost::fusion::at_c<0>(s), pstade::tuple_get_c<0>(s)) );
     BOOST_CHECK( is_same(boost::fusion::at_c<1>(s), pstade::tuple_get_c<1>(s)) );
+    BOOST_CHECK( tuple_size<seq_t>::value == 2);
 #endif
+
+    BOOST_CHECK( pstade::tuple_size<pair_t>::value == 2);
+    BOOST_CHECK( pstade::tuple_size<tup_t>::value == 2);
+    BOOST_CHECK( pstade::tuple_size<boost::tuples::null_type>::value == 0 );
 }
 
 
