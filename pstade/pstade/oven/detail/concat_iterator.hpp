@@ -263,15 +263,9 @@ friend class boost::iterator_core_access;
 
 
 template< class S1, class S2 > inline
-void pstade_oven_iter_swap(concat_iterator<S1> it1, concat_iterator<S2> it2)
+void iter_swap(concat_iterator<S1> it1, concat_iterator<S2> it2, int = 0)
 {
     do_iter_swap(it1.local(), it2.local());
-}
-
-template< class S1, class S2 > inline
-void iter_swap(concat_iterator<S1> it1, concat_iterator<S2> it2)
-{
-    pstade_oven_iter_swap(it1, it2);
 }
 
 
