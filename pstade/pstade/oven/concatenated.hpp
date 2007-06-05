@@ -45,11 +45,13 @@ namespace concatenated_detail {
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<SegmentRange>));
             PSTADE_CONCEPT_ASSERT((SinglePass<typename range_value<SegmentRange>::type>));
+            return aux(boost::begin(rngs), boost::end(rngs));
+        }
 
-            return result_type(
-                iter_t(boost::begin(rngs), boost::end(rngs)),
-                iter_t(boost::end(rngs),   boost::end(rngs))
-            );
+        template< class Iterator >
+        result_type aux(Iterator first, Iterator last) const
+        {
+            return result_type(iter_t(first, last), iter_t(last, last));
         }
     };
 

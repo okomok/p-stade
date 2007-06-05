@@ -147,16 +147,20 @@ namespace merged_detail {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range2>));
 
             typedef typename Result::iterator iter_t;
-            return Result(
-                iter_t(boost::begin(rng1), boost::end(rng1), boost::begin(rng2), boost::end(rng2), comp),
-                iter_t(boost::end(rng1),   boost::end(rng1), boost::end(rng2),   boost::end(rng2), comp)
-            );
+            return aux<Result>(boost::begin(rng1), boost::end(rng1), boost::begin(rng2), boost::end(rng2), comp);
         }
 
         template< class Result, class Range1, class Range2 >
         Result call(Range1& rng1, Range2& rng2) const
         {
             return (*this)(rng1, rng2, less);
+        }
+
+        template< class Result, class Iterator1, class Iterator2, class Compare >
+        Result aux(Iterator1 first1, Iterator1 last1, Iterator2 first2, Iterator2 last2, Compare& comp) const
+        {
+            typedef typename Result::iterator iter_t;
+            return Result(iter_t(first1, last1, first2, last2, comp), iter_t(last1, last1, last2, last2, comp));
         }
     };
 

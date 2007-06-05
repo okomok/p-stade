@@ -48,11 +48,13 @@ namespace tab_unexpanded_detail {
         result_type operator()(Range& rng, diff_t tabsize) const
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
+            return aux(boost::begin(rng), boost::end(rng), tabsize);
+        }
 
-            return result_type(
-                iter_t(boost::begin(rng), boost::end(rng), tabsize),
-                iter_t(boost::end(rng),   boost::end(rng), tabsize)
-            );
+        template< class Iterator >
+        result_type aux(Iterator first, Iterator last, diff_t tabsize) const
+        {
+            return result_type(iter_t(first, last, tabsize), iter_t(last, last, tabsize));
         }
     };
 

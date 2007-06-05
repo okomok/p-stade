@@ -34,7 +34,13 @@ namespace cleared_detail {
         result_type operator()(Range& rng) const
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-            return result_type(boost::end(rng), boost::end(rng));
+            return aux(boost::end(rng));
+        }
+
+        template< class Iterator >
+        result_type aux(Iterator last) const
+        {
+            return result_type(last, last);
         }
     };
 

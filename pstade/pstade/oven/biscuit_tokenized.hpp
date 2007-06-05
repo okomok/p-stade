@@ -48,18 +48,20 @@ struct op_make_biscuit_tokenized :
     Result call(Range& rng, Parser&, UserState& us) const
     {
         PSTADE_CONCEPT_ASSERT((Forward<Range>));
-
-        typedef typename Result::iterator iter_t;
-        return Result(
-            iter_t(boost::begin(rng), boost::end(rng), us),
-            iter_t(boost::end(rng),   boost::end(rng), us)
-        );
+        return aux<Result>(boost::begin(rng), boost::end(rng), us);
     }
 
     template< class Result, class Range, class Parser >
     Result call(Range& rng, Parser& par) const
     {
         return (*this)(rng, par, biscuit::null_state);
+    }
+
+    template< class Result, class Iterator, class UserState >
+    Result aux(Iterator first, Iterator last, UserState& us) const
+    {
+        typedef typename Result::iterator iter_t;
+        return Result(iter_t(first, last, us), iter_t(last, last, us));
     }
 };
 

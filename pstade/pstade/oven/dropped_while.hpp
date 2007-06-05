@@ -48,10 +48,13 @@ namespace dropped_while_detail {
         result_type operator()(Range& rng, Predicate pred) const
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-            return result_type(
-                std::find_if(boost::begin(rng), boost::end(rng), not_(pred)),
-                boost::end(rng)
-            );
+            return aux(boost::begin(rng), boost::end(rng), pred);
+        }
+
+        template< class Iterator, class Predicate >
+        result_type aux(Iterator first, Iterator last, Predicate pred) const
+        {
+            return result_type(std::find_if(first, last, not_(pred)), last);
         }
     };
 

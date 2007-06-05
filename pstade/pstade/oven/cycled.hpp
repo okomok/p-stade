@@ -55,10 +55,13 @@ namespace cycled_detail {
         result_type operator()(Range& rng, Incrementable1& i, Incrementable2& j) const
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
-            return result_type(
-                iter_t(boost::begin(rng), pstade::copy_construct<inc_t>(i), boost::begin(rng), boost::end(rng)),
-                iter_t(boost::begin(rng), j,                                boost::begin(rng), boost::end(rng))
-            );
+            return aux(boost::begin(rng), boost::end(rng), pstade::copy_construct<inc_t>(i), j);
+        }
+
+        template< class Iterator >
+        result_type aux(Iterator first, Iterator last, inc_t i, inc_t j) const
+        {
+            return result_type(iter_t(first, i, first, last), iter_t(first, j, first, last));
         }
     };
 

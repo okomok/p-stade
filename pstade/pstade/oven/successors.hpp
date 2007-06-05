@@ -45,11 +45,13 @@ namespace successors_detail {
         result_type operator()(Range& rng, BinaryFun& elect) const
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+            return aux(boost::begin(rng), boost::end(rng), elect);
+        }
 
-            return result_type(
-               iter_t(boost::begin(rng), elect, boost::end(rng)),
-               iter_t(boost::end(rng),   elect, boost::end(rng))
-            );
+        template< class Iterator >
+        result_type aux(Iterator first, Iterator last, BinaryFun& elect) const
+        {
+            return result_type(iter_t(first, elect, last), iter_t(last, elect, last));
         }
     };
 

@@ -84,11 +84,13 @@ namespace taken_detail {
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
             BOOST_ASSERT(0 <= n);
+            return aux(boost::begin(rng), boost::end(rng), countdown<diff_t>(n));
+        }
 
-            return result_type(
-                iter_t(boost::begin(rng), boost::end(rng), countdown<diff_t>(n)),
-                iter_t(boost::end(rng),   boost::end(rng), countdown<diff_t>(n))
-            );
+        template< class Iterator >
+        result_type aux(Iterator first, Iterator last, countdown<diff_t> cd) const
+        {
+            return result_type(iter_t(first, last, cd), iter_t(last, last, cd));
         }
     };
 
