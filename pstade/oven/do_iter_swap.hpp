@@ -24,7 +24,10 @@
 #include "./write.hpp"
 
 
-namespace pstade { namespace oven { namespace do_iter_swap_detail {
+namespace pstade { namespace oven {
+    
+    
+namespace do_iter_swap_detail {
 
 
     namespace here = do_iter_swap_detail;
@@ -43,7 +46,7 @@ namespace pstade { namespace oven { namespace do_iter_swap_detail {
 
 
     template< class Iterator1, class Iterator2 > inline
-    void default_way_aux(Iterator1 it1, Iterator2 it2, boost::mpl::true_)
+    void aux(Iterator1 it1, Iterator2 it2, boost::mpl::true_)
     {
 #if BOOST_WORKAROUND(BOOST_MSVC, == 1310) // msvc-7.1
         using namespace std;
@@ -54,7 +57,7 @@ namespace pstade { namespace oven { namespace do_iter_swap_detail {
     }
 
     template< class Iterator1, class Iterator2 >
-    void default_way_aux(Iterator1 it1, Iterator2 it2, boost::mpl::false_)
+    void aux(Iterator1 it1, Iterator2 it2, boost::mpl::false_)
     {
         typename boost::iterator_value<Iterator1>::type tmp = read(it1);
         write(it1, read(it2));
@@ -62,66 +65,35 @@ namespace pstade { namespace oven { namespace do_iter_swap_detail {
     }
 
 
-    template< class Iterator1, class Iterator2 > inline
-    void default_way(Iterator1 it1, Iterator2 it2)
-    {
-        here::default_way_aux(it1, it2, typename have_swappable_reference<Iterator1, Iterator2>::type());
-    }
-
-
-} } } // namespace pstade::oven::do_iter_swap_detail
-
-
-namespace pstade_oven_extension {
-
-
-    struct iter_swap { };
-    struct iter_swap_base { };
-
-
-    template< class Iterator1, class Iterator2 > inline
-    void pstade_oven_(iter_swap_base, Iterator1 it1, Iterator2 it2)
-    {
-        pstade::oven::do_iter_swap_detail::default_way(it1, it2);
-    }
-
-
-    template< class Iterator1, class Iterator2 > inline
-    void pstade_oven_(iter_swap, Iterator1 it1, Iterator2 it2)
-    {
-        pstade_oven_extension::pstade_oven_(iter_swap_base(), it1, it2);
-    }
-
-
-} // namespace pstade_oven_extension
-
-
-namespace pstade { namespace oven {
-
-
-    template< class Iterator1, class Iterator2 > inline
-    void pstade_oven_iter_swap(Iterator1 it1, Iterator2 it2)
-    {
-        pstade_oven_(pstade_oven_extension::iter_swap(), it1, it2);
-    }
-
-
-    // Unless this is in the same namespace as above,
+    // Unless these are in the same namespace,
     // msvc-7.1 ADL randomly fails.
 
-    struct op_do_iter_swap
+    template< class Iterator1, class Iterator2 > inline
+    void iter_swap(Iterator1 it1, Iterator2 it2, int)
+    {
+        here::aux(it1, it2, typename have_swappable_reference<Iterator1, Iterator2>::type());
+    }
+
+    struct op
     {
         typedef void result_type;
 
         template< class Iterator1, class Iterator2 >
         void operator()(Iterator1 it1, Iterator2 it2) const
         {
-            pstade_oven_iter_swap(it1, it2);
+            // As 'std::iter_swap' implementation is wrong, we have to replace it.
+            // But, if assocated namespaces of iterator contains 'std',
+            // 'iter_swap' above and 'std::iter_swap' would be ambiguous without a dummy int.
+            iter_swap(it1, it2, 0);
         }
     };
 
 
-    PSTADE_CONSTANT(do_iter_swap, (op_do_iter_swap))
+} // namespace do_iter_swap_detail
+
+
+typedef do_iter_swap_detail::op op_do_iter_swap;
+PSTADE_CONSTANT(do_iter_swap, (op_do_iter_swap))
 
 
 } } // namespace pstade::oven

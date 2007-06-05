@@ -87,15 +87,9 @@ private:
 
 
 template< class P1, class P2 > inline
-void pstade_oven_iter_swap(shared_range_iterator<P1> it1, shared_range_iterator<P2> it2)
+void iter_swap(shared_range_iterator<P1> it1, shared_range_iterator<P2> it2, int = 0)
 {
     do_iter_swap(it1.base(), it2.base());
-}
-
-template< class P1, class P2 > inline
-void iter_swap(shared_range_iterator<P1> it1, shared_range_iterator<P2> it2)
-{
-    pstade_oven_iter_swap(it1, it2);
 }
 
 

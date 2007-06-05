@@ -224,7 +224,7 @@ friend class boost::iterator_core_access;
 
 
 template< class IL1, class IR1, class IL2, class IR2 >
-void pstade_oven_iter_swap(joint_iterator<IL1, IR1> it1, joint_iterator<IL2, IR2> it2)
+void iter_swap(joint_iterator<IL1, IR1> it1, joint_iterator<IL2, IR2> it2, int = 0)
 {
     if (it1.is_in_left() && it2.is_in_left())
         do_iter_swap(it1.base(), it2.base());
@@ -236,12 +236,6 @@ void pstade_oven_iter_swap(joint_iterator<IL1, IR1> it1, joint_iterator<IL2, IR2
         BOOST_ASSERT(!it1.is_in_left());
         do_iter_swap(it1.right_base(), it2.base());
     }
-}
-
-template< class IL1, class IR1, class IL2, class IR2 > inline
-void iter_swap(joint_iterator<IL1, IR1> it1, joint_iterator<IL2, IR2> it2)
-{
-    pstade_oven_iter_swap(it1, it2);
 }
 
 

@@ -1,15 +1,18 @@
 
+#include <algorithm>
+#include <pstade/oven/ptr_container.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
-#include <boost/mpl/assert.hpp>
-#include <boost/type_traits/is_const.hpp>
+#include <boost/noncopyable.hpp>
 
-using namespace boost;
+struct ncint :
+    boost::noncopyable
+{
+    friend bool operator<(ncint const&, ncint const&) { return true; }
+};
 
-
-BOOST_MPL_ASSERT_NOT((
-    is_const<iterator_value<boost::ptr_vector<int>::const_iterator>::type>
-));
 
 int main()
 {
+    boost::ptr_vector< ::ncint > v;
+    std::sort(boost::begin(v), boost::end(v));
 }

@@ -19,6 +19,7 @@
 #include "./detail/proxies.hpp"
 #include <boost/range/begin.hpp>
 #include <boost/noncopyable.hpp>
+#include <boost/iterator/iterator_adaptor.hpp>
 #include <vector>
 
 
@@ -52,6 +53,20 @@ void swap_front(R1& r1, R2& r2)
 };
 
 
+namespace std {
+
+    struct pstade_dummy_iterator :
+        boost::iterator_adaptor<pstade_dummy_iterator, std::vector<int>::iterator>
+    {
+        pstade_dummy_iterator()
+        { }
+
+        friend class boost::iterator_core_access;
+    };
+
+}
+
+
 void pstade_minimal_test()
 {
     {
@@ -79,5 +94,13 @@ void pstade_minimal_test()
         BOOST_CHECK(g_swap_called);
         BOOST_CHECK(r1[0].impl == 1);
         BOOST_CHECK(r2[0].impl == 0);
+    }
+    {
+        // std::iter_swap never be looked up.
+        bool b = false;
+        if (b) {
+            std::pstade_dummy_iterator i;
+            do_iter_swap(i, i);
+        }
     }
 }

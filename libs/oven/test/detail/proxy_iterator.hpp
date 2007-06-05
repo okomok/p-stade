@@ -107,7 +107,7 @@ friend class boost::iterator_core_access;
 #if 0 // intentionally disabled
 
 template< class I1, class I2 > inline
-void pstade_oven_iter_swap(proxy_iterator<I1> it1, proxy_iterator<I2> it2)
+void iter_swap(proxy_iterator<I1> it1, proxy_iterator<I2> it2, int = 0)
 {
     do_iter_swap(it1.base(), it2.base());
 }

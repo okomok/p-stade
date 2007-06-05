@@ -23,21 +23,14 @@ namespace boost {
 
 
     template< class VoidIter1, class T1, class VoidIter2, class T2 > inline
-    void pstade_oven_iter_swap(void_ptr_iterator<VoidIter1, T1> it1, void_ptr_iterator<VoidIter2, T2> it2)
+    void iter_swap(void_ptr_iterator<VoidIter1, T1> it1, void_ptr_iterator<VoidIter2, T2> it2, int = 0)
     {
         pstade::oven::do_iter_swap(it1.base(), it2.base());
-    }
-
-    template< class VoidIter1, class T1, class VoidIter2, class T2 > inline
-    void iter_swap(void_ptr_iterator<VoidIter1, T1> it1, void_ptr_iterator<VoidIter2, T2> it2)
-    {
-        pstade_oven_iter_swap(it1, it2);
     }
 
 
     template< class Iterator >
     struct iterator_value;
-
 
     // Work around non-conforming 'value_type' bug.
     template< class VoidIter, class T >

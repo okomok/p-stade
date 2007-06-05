@@ -105,15 +105,9 @@ friend class boost::iterator_core_access;
 
 
 template< class I1, class V1, class C1, class R1, class D1, class I2, class V2, class C2, class R2, class D2 > inline
-void pstade_oven_iter_swap(indirect_iterator<I1, V1, C1, R1, D1> it1, indirect_iterator<I2, V2, C2, R2, D2> it2)
+void iter_swap(indirect_iterator<I1, V1, C1, R1, D1> it1, indirect_iterator<I2, V2, C2, R2, D2> it2, int = 0)
 {
     do_iter_swap(read(it1.base()), read(it2.base()));
-}
-
-template< class I1, class V1, class C1, class R1, class D1, class I2, class V2, class C2, class R2, class D2 > inline
-void iter_swap(indirect_iterator<I1, V1, C1, R1, D1> it1, indirect_iterator<I2, V2, C2, R2, D2> it2)
-{
-    pstade_oven_iter_swap(it1, it2);
 }
 
 
