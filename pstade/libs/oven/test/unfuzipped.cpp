@@ -27,7 +27,7 @@
 #include <boost/range.hpp>
 #include <pstade/oven/algorithm.hpp>
 #include "./detail/v1_core.hpp"
-#include <pstade/pack.hpp>
+#include <pstade/tuple.hpp> // tuple_pack
 #include <boost/fusion/sequence/generation/vector_tie.hpp>
 #include <boost/fusion/sequence/intrinsic/at.hpp>
 #include <boost/fusion/sequence/comparison.hpp> // DON'T FORGET for Readable test

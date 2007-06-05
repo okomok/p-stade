@@ -36,10 +36,10 @@
 #include <pstade/constant.hpp>
 #include <pstade/deferred.hpp>
 #include <pstade/is_convertible.hpp>
-#include <pstade/pack.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/remove_cvr.hpp>
+#include <pstade/tuple.hpp> // tuple_pack
 #include <pstade/use_default.hpp>
 #include "./concepts.hpp"
 #include "./detail/adjacent_transform_iterator.hpp"
@@ -109,7 +109,7 @@ namespace adjacent_transformed_detail {
         boost::result_of<
             op_make_zipped_with<Reference, Value>(
                 typename boost::result_of<
-                    op_pack(
+                    op_tuple_pack(
                         typename boost::result_of<op_make_popped(Range&)>::type,
                         typename boost::result_of<op_make_dropped(Range&, int)>::type
                     )
@@ -157,7 +157,7 @@ struct op_make_adjacent_transformed :
         PSTADE_CONCEPT_ASSERT((Forward<Range>));
 
         return op_make_zipped_with<Reference, Value>()(
-            pack(make_popped(rng), make_dropped(rng, 1)), fun
+            tuple_pack(make_popped(rng), make_dropped(rng, 1)), fun
         );
     }
 

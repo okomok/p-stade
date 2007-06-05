@@ -145,7 +145,7 @@
 * Added `narrow_chars` and `wide_chars`.
 
 [h2 Version 0.94.1]
-* Fixed a bug that `shared` is wrongly `PipableObject`.
+* Fixed a bug that `shared` was wrongly `PipableObject`.
 * Removed `counter`.
 * Renamed `passer` to `applier`.
 * Tested under GCC4.1.2.

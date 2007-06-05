@@ -23,7 +23,7 @@
 #include <pstade/unparenthesize.hpp>
 #include <pstade/oven/algorithm.hpp>
 #include "./detail/v1_core.hpp"
-#include <pstade/pack.hpp>
+#include <pstade/tuple.hpp> // tuple_pack
 
 
 #include <boost/tuple/tuple_comparison.hpp> // DON'T FORGET for Readable test
@@ -46,7 +46,7 @@ void test()
         expected.push_back(tt('3', 3));
 
         BOOST_CHECK( oven::test_RandomAccess_Readable(
-            rng0|pstade::packed(rng1)|zipped,
+            pstade::tuple_pack(rng0, rng1)|zipped,
             expected
         ) );
     }
@@ -68,7 +68,7 @@ void test()
         ) );
 
         BOOST_CHECK( oven::test_RandomAccess_Readable(
-            rng0|pstade::packed(rng1, rng2)|zipped,
+            pstade::tuple_pack(rng0, rng1, rng2)|zipped,
             expected
         ) );
     }
@@ -87,7 +87,7 @@ void test()
 
         BOOST_FOREACH (
             PSTADE_UNPARENTHESIZE((boost::tuple<char&, int&>)) t,
-            pstade::pack(src0, src1)|zipped
+            pstade::tuple_pack(src0, src1)|zipped
         ) {
             char& ch = boost::get<0>(t);
             if (ch == '4')

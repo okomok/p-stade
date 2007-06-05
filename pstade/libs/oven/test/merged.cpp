@@ -1,7 +1,4 @@
 #include "./prelude.hpp"
-#include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
-
 
 // PStade.Oven
 //
@@ -11,8 +8,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./detail/v1_tests.hpp"
 #include <pstade/oven/merged.hpp>
+#include <pstade/minimal_test.hpp>
+#include "./detail/v1_tests.hpp"
+#include "./detail/test.hpp"
 
 
 #include <cctype>
@@ -47,7 +46,7 @@ make_merge_range_(Range1& rng1, Range2& rng2)
 }
 
 
-void test()
+void test1()
 {
     {
         int A1[] = {1,6,7,10,14,17};
@@ -129,8 +128,22 @@ void test()
 }
 
 
-int test_main(int, char*[])
+void test2()
 {
-    ::test();
-    return 0;
+    namespace lambda = boost::lambda;
+    {
+        int b1[] = {1,3,5,7,9,11};
+        int b2[] = {1,1,2,3,5,8,13};
+        int a[] = {1,1,1,2,3,3,5,5,7,8,9,11,13};
+        test::forward_constant(b1|merged(b2), a);
+        test::equality(*test::new_vector<test::ncint>(b1)|merged(*test::new_list<test::ncint>(b2)), *test::new_vector<test::ncint>(a));
+        test::forward_constant(b1|test::proxies|merged(b2)|const_refs, a); // proxy is turned to rvalue by detail::constand_reference.
+    }
+}
+
+
+void pstade_minimal_test()
+{
+    ::test1();
+    ::test2();
 }
