@@ -71,11 +71,13 @@ namespace taken_while_detail {
         result_type operator()(Range& rng, Predicate& pred) const
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+            return aux(boost::begin(rng), boost::end(rng), read_then_pred_t(pred));
+        }
 
-            return result_type(
-                iter_t(boost::begin(rng), boost::end(rng), read_then_pred_t(pred)),
-                iter_t(boost::end(rng),   boost::end(rng), read_then_pred_t(pred))
-            );
+        template< class Iterator >
+        result_type aux(Iterator first, Iterator last, read_then_pred_t rtp) const
+        {
+            return result_type(iter_t(first, last, rtp), iter_t(last, last, rtp));
         }
     };
 

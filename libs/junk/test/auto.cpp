@@ -12,7 +12,7 @@
 
 //#include <pstade/../libs/wine/test/unfuse.cpp>
 
-#include <pstade/../libs/oven/test/memoized.cpp>
+#include <pstade/../libs/oven/test/taken_while.cpp>
 //#include <pstade/../libs/oven/test/steps.cpp>
 //#include <pstade/../libs/oven/test/multiple_defs1.cpp>
 //#include <pstade/../libs/oven/example/primes.cpp>

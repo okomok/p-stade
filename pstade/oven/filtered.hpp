@@ -51,11 +51,13 @@ namespace filtered_detail {
         result_type operator()(Range& rng, Predicate& pred) const
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-         
-            return result_type(
-                iter_t(pred, boost::begin(rng), boost::end(rng)),
-                iter_t(pred, boost::end(rng),   boost::end(rng))
-            );
+            return aux(boost::begin(rng), boost::end(rng), pred);
+        }
+
+        template< class Iterator >
+        result_type aux(Iterator first, Iterator last, Predicate& pred) const
+        {
+            return result_type(iter_t(pred, first, last), iter_t(pred, last, last));
         }
     };
 

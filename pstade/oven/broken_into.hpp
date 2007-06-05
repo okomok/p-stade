@@ -50,12 +50,14 @@ struct op_make_broken_into :
     Result call(Range& rng, TokenizerFun& fun) const
     {
         PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+        return aux<Result>(boost::begin(rng), boost::end(rng), fun);
+    }
 
+    template< class Result, class Iterator, class TokenizerFun >
+    Result aux(Iterator first, Iterator last, TokenizerFun& fun) const
+    {
         typedef typename Result::iterator iter_t;
-        return Result(
-            iter_t(fun, boost::begin(rng), boost::end(rng)),
-            iter_t(fun, boost::end(rng),   boost::end(rng))
-        );
+        return Result(iter_t(fun, first, last), iter_t(fun, last, last));
     }
 };
 

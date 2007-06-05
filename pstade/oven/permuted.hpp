@@ -45,11 +45,13 @@ namespace permuted_detail {
         {
             PSTADE_CONCEPT_ASSERT((RandomAccess<ElementRange>));
             PSTADE_CONCEPT_ASSERT((SinglePass<IndexRange>));
+            return aux(boost::begin(es), boost::begin(is), boost::end(is));
+        }
 
-            return result_type(
-                iter_t(boost::begin(es), boost::begin(is)),
-                iter_t(boost::begin(es), boost::end(is)) // never pass 'boost::end(es)'.
-            );
+        template< class ElementIter, class IndexIter >
+        result_type aux(ElementIter efirst, IndexIter ifirst, IndexIter ilast) const
+        {
+            return result_type(iter_t(efirst, ifirst), iter_t(efirst, ilast));
         }
     };
 

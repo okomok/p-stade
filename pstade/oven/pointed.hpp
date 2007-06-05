@@ -14,7 +14,7 @@
 #include <cstddef> // ptrdiff_t
 #include <boost/mpl/assert.hpp>
 #include <boost/range/begin.hpp>
-#include <boost/range/empty.hpp>
+#include <boost/range/end.hpp>
 #include <boost/type_traits/add_pointer.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 #include <boost/utility/addressof.hpp>
@@ -23,7 +23,6 @@
 #include <pstade/nullptr.hpp>
 #include <pstade/pipable.hpp>
 #include "./concepts.hpp"
-#include "./distance.hpp"
 #include "./iter_range.hpp"
 #include "./range_reference.hpp"
 
@@ -59,14 +58,21 @@ namespace pointed_detail {
         result_type operator()(ContiguousRange& rng) const
         {
             PSTADE_CONCEPT_ASSERT((RandomAccess<ContiguousRange>));
-    
-            if (boost::empty(rng))
+            return aux(boost::begin(rng), boost::end(rng));    
+        }
+
+        template< class Iterator >
+        result_type aux(Iterator first, Iterator last) const
+        {
+            if (first == last)
                 return result_type(null_<ptr_t>(), null_<ptr_t>());
 
-            return result_type(
-                boost::addressof(*boost::begin(rng)),
-                boost::addressof(*boost::begin(rng)) + pstade::copy_construct<std::ptrdiff_t>(distance(rng))
-            );
+            return aux_(boost::addressof(*first), pstade::copy_construct<std::ptrdiff_t>(last - first));
+        }
+
+        result_type aux_(ptr_t p, std::ptrdiff_t d) const
+        {
+            return result_type(p, p + d);
         }
     };
 

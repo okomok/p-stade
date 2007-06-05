@@ -45,11 +45,13 @@ namespace jointed_detail {
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<RangeL>));
             PSTADE_CONCEPT_ASSERT((SinglePass<RangeR>));
+            return aux(boost::begin(rngL), boost::end(rngL), boost::begin(rngR), boost::end(rngR));
+        }
 
-            return result_type(
-                iter_t(boost::begin(rngL), boost::end(rngL), boost::begin(rngR), boost::begin(rngR)),
-                iter_t(boost::end(rngL),   boost::end(rngL), boost::begin(rngR), boost::end(rngR))
-            );
+        template< class IteratorL, class IteratorR >
+        result_type aux(IteratorL firstL, IteratorL lastL, IteratorR firstR, IteratorR lastR) const
+        {
+            return result_type(iter_t(firstL, lastL, firstR, firstR), iter_t(lastL, lastL, firstR, lastR));
         }
     };
 

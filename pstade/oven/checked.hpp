@@ -43,11 +43,13 @@ namespace checked_detail {
         result_type operator()(Range& rng) const
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+            return aux(boost::begin(rng), boost::end(rng));
+        }
 
-            return result_type(
-                iter_t(boost::begin(rng), boost::begin(rng), boost::end(rng)),
-                iter_t(boost::end(rng),   boost::begin(rng), boost::end(rng))
-            );
+        template< class Iterator >
+        result_type aux(Iterator first, Iterator last) const
+        {
+            return result_type(iter_t(first, first, last), iter_t(last, first, last));
         }
     };
 
