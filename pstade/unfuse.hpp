@@ -18,9 +18,12 @@
 // but this is the basis together with 'fuse'.
 
 
+#include <boost/mpl/eval_if.hpp>
+#include <boost/mpl/identity.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/type_traits/is_same.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
@@ -29,10 +32,12 @@
 #include <pstade/preprocessor.hpp>
 #include <pstade/tuple.hpp> // tuple_pack
 #include <pstade/use_default.hpp>
-#include <pstade/use_nullary_result.hpp>
 
 
 namespace pstade {
+
+
+    struct use_nullary_result;
 
 
     namespace unfuse_detail {
@@ -92,9 +97,9 @@ namespace pstade {
 
         template<class NullaryResult, class Function, class Pack>
         struct nullary_result_aux :
-            use_nullary_result_eval_to<
-                NullaryResult,
-                apply_empty_tuple<Function, Pack>
+            boost::mpl::eval_if< boost::is_same<NullaryResult, use_nullary_result>,
+                apply_empty_tuple<Function, Pack>,
+                boost::mpl::identity<NullaryResult>
             >
         { };
 

@@ -24,13 +24,24 @@
 
 
 #include <boost/config.hpp> // BOOST_NESTED_TEMPLATE
-#include <boost/lambda/core.hpp> // lambda_functor
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/utility/result_of.hpp>
+#include <boost/tuple/tuple.hpp>
 
 
 namespace boost {
+
+
+    template< class F >
+    struct result_of;
+
+
+    namespace lambda {
+
+        template< class T >
+        class lambda_functor;
+
+    }
 
 
     // 0ary

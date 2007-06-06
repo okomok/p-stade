@@ -86,7 +86,6 @@
 #include "./unparenthesize.hpp"
 #include "./unused.hpp"
 #include "./use_default.hpp"
-#include "./use_nullary_result.hpp"
 #include "./used.hpp"
 #include "./ustring.hpp"
 #include "./verify.hpp"

@@ -204,9 +204,9 @@ friend class boost::iterator_core_access;
     {
         detail::check_singularity(*this);
 
-        if (-n > this->base() - m_first || n > m_last - this->base())
+        if ((n >= 0 && n > m_last - this->base()) || (n < 0 && -n > this->base() - m_first))
             detail::throw_out_of_range();
-
+ 
         this->base_reference() += n;
     }
 
