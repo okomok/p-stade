@@ -75,6 +75,13 @@ void test()
         iter_range<std::string::const_iterator> rng2 = rng1; // implicit conversion
         BOOST_CHECK( equals(rng1, rng2) );
     }
+
+#if defined(PSTADE_OVEN_BOOST_RANGE_VERSION_1)
+    {
+        iter_range<std::string::iterator> rng1(src);
+        BOOST_CHECK( boost::size(rng1) == src.size() );
+    }
+#endif
 }
 
 

@@ -27,13 +27,14 @@
 #include <boost/range/const_iterator.hpp>
 #include <boost/range/end.hpp>
 #include <boost/range/iterator.hpp>
+#include <boost/range/size.hpp>
 #include <boost/range/size_type.hpp>
 #include <boost/type_traits/remove_const.hpp>
 #include <pstade/concept.hpp>
 #include <pstade/to_ref.hpp>
 #include <pstade/unevaluated.hpp>
 #include <pstade/unused.hpp>
-#include "./detail/config.hpp" // PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR
+#include "./detail/config.hpp"
 #include "./range_iterator.hpp"
 
 
@@ -66,7 +67,8 @@ struct Swappable
 {
     typedef typename range_iterator<Range>::type iterator;
 
-    PSTADE_CONCEPT_ASSERT((boost_concepts::SwappableIteratorConcept<iterator>));
+    // 'std::iter_swap' never implies Swappable.
+    // PSTADE_CONCEPT_ASSERT((boost_concepts::SwappableIteratorConcept<iterator>));
 };
 
 
@@ -114,9 +116,23 @@ struct Forward :
     typedef typename boost::remove_const<Range>::type rng_t;
     typedef typename boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<rng_t>::type mutable_iterator;
     typedef typename boost::range_const_iterator<rng_t>::type constant_iterator;
+#if defined(PSTADE_OVEN_BOOST_RANGE_VERSION_1)
+    typedef typename boost::range_size<rng_t>::type size_type;
+#endif
 
     PSTADE_CONCEPT_ASSERT((boost_concepts::ForwardTraversalConcept<mutable_iterator>));
     PSTADE_CONCEPT_ASSERT((boost_concepts::ForwardTraversalConcept<constant_iterator>));
+
+#if defined(PSTADE_OVEN_BOOST_RANGE_VERSION_1)
+    PSTADE_CONCEPT_USAGE(Forward)
+    {
+        rng_t& rng = unevaluated<rng_t&>();
+
+        size_type sz = boost::size(rng);
+
+        unused(sz);
+    }
+#endif
 };
 
 
@@ -140,7 +156,9 @@ struct RandomAccess :
     typedef typename boost::remove_const<Range>::type rng_t;
     typedef typename boost::PSTADE_OVEN_BOOST_RANGE_MUTABLE_ITERATOR<rng_t>::type mutable_iterator;
     typedef typename boost::range_const_iterator<rng_t>::type constant_iterator;
-    typedef typename boost::range_size<rng_t>::type size_type; // seems redundant, IMO.
+#if !defined(PSTADE_OVEN_BOOST_RANGE_VERSION_1)
+    typedef typename boost::range_size<rng_t>::type size_type;
+#endif
 
     PSTADE_CONCEPT_ASSERT((boost_concepts::RandomAccessTraversalConcept<mutable_iterator>));
     PSTADE_CONCEPT_ASSERT((boost_concepts::RandomAccessTraversalConcept<constant_iterator>));

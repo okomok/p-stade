@@ -19,6 +19,7 @@
 #include <pstade/implicitly_defined.hpp>
 #include <pstade/object_generator.hpp>
 #include "./any_iterator.hpp"
+#include "./any_range_fwd.hpp"
 #include "./iter_range.hpp"
 #include "./range_difference.hpp"
 #include "./range_reference.hpp"
@@ -27,10 +28,6 @@
 
 
 namespace pstade { namespace oven {
-
-
-template< class Reference, class Traversal, class Value, class Difference >
-struct any_range;
 
 
 namespace any_range_detail {
@@ -50,12 +47,7 @@ namespace any_range_detail {
 } // namespace any_range_detail
 
 
-template<
-    class Reference,
-    class Traversal,
-    class Value      = boost::use_default,
-    class Difference = boost::use_default
->
+template< class Reference, class Traversal, class Value, class Difference >
 struct any_range :
     any_range_detail::super_<Reference, Traversal, Value, Difference>::type
 {

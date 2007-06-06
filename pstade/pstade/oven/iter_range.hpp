@@ -38,8 +38,14 @@
 #include <pstade/radish/bool_testable.hpp>
 #include <pstade/radish/swappable.hpp>
 #include "./concepts.hpp"
+#include "./detail/config.hpp"
+#include "./detail/iter_distance.hpp"
 #include "./lightweight_copyable.hpp"
 #include "./range_iterator.hpp"
+
+#if defined(PSTADE_OVEN_BOOST_RANGE_VERSION_1)
+    #include <pstade/copy_construct.hpp>
+#endif
 
 
 namespace pstade { namespace oven {
@@ -151,6 +157,13 @@ public:
     {
         return m_last;
     }
+
+#if defined(PSTADE_OVEN_BOOST_RANGE_VERSION_1)
+    size_type size() const
+    {
+        return pstade::copy_construct<size_type>(detail::iter_distance(m_first, m_last));
+    }
+#endif
 
 // convenience
     typedef self_t type;

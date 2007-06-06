@@ -14,19 +14,7 @@
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/typeof/typeof.hpp>
 #include BOOST_TYPEOF_INCREMENT_REGISTRATION_GROUP()
-
-
-namespace pstade { namespace oven {
-
-
-template< class Reference, class Traversal, class Value, class Difference >
-struct any_iterator;
-
-template< class Reference, class Traversal, class Value, class Difference >
-struct any_range;
-
-
-} } // namespace pstade::oven
+#include "./any_range_fwd.hpp"
 
 
 BOOST_TYPEOF_REGISTER_TEMPLATE(pstade::oven::any_iterator, 4)

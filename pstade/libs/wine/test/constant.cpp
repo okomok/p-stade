@@ -13,7 +13,10 @@
 #include <pstade/constant.hpp>
 
 
+
+PSTADE_CONSTANT_FWD(hello, (int))
 PSTADE_CONSTANT(hello, (int))
+PSTADE_CONSTANT_FWD(hello, (int))
 
 
 void test()
