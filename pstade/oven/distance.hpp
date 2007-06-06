@@ -11,17 +11,15 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <iterator> // distance
 #include <boost/assert.hpp>
-#include <boost/iterator/iterator_categories.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/auxiliary.hpp>
 #include <pstade/callable.hpp>
 #include "./concepts.hpp"
+#include "./detail/iter_distance.hpp"
 #include "./range_difference.hpp"
-#include "./range_traversal.hpp"
 
 
 namespace pstade { namespace oven {
@@ -31,20 +29,6 @@ namespace distance_detail {
 
 
     namespace here = distance_detail;
-
-
-    // STL regards a non-lvalue RandomAccess as InputIterator, hence hook it before.
-    template< class Result, class Iterator > inline
-    Result aux(Iterator first, Iterator last, boost::random_access_traversal_tag)
-    {
-        return last - first;
-    }
-
-    template< class Result, class Iterator > inline
-    Result aux(Iterator first, Iterator last, boost::single_pass_traversal_tag)
-    {
-        return std::distance(first, last);
-    }
 
 
     // This is 'std::distance' requirement. (24.1/6)
@@ -68,10 +52,9 @@ namespace distance_detail {
         Result call(Range& rng) const
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-
-            return here::assert_reachable( here::aux<Result>(
-                boost::begin(rng), boost::end(rng), typename range_traversal<Range>::type()
-            ) );
+            return here::assert_reachable(
+                detail::iter_distance(boost::begin(rng), boost::end(rng))
+            );
         }
     };
 
