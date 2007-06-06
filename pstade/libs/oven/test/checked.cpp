@@ -68,7 +68,8 @@ void pstade_minimal_test()
         BOOST_CHECK(thrown);
         thrown = false;
 
-        // incompatible iterator check is implementation-defined.
+        // incompatible iterator check is not testable.
+        // A good STL implementation would assert before oven's checking.
     }
 
     {
@@ -78,5 +79,11 @@ PSTADE_IF_DEBUG(| checked)
                 | pstade::to_ref,
             12
         );
+    }
+
+    {
+        std::string rng("abc");
+        BOOST_CHECK(*boost::begin( PSTADE_OVEN_CHECKED(rng) ) == 'a');
+        test::iter_comb_sort(boost::begin(PSTADE_OVEN_CHECKED(rng)), boost::end(PSTADE_OVEN_CHECKED(rng)));
     }
 }

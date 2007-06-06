@@ -12,13 +12,12 @@
 
 
 #include <algorithm> // swap
-#include <boost/config.hpp>
-#include <boost/detail/workaround.hpp>
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <pstade/constant.hpp>
+#include <pstade/do_swap.hpp>
 #include "./detail/is_reference_iterator.hpp"
 #include "./read.hpp"
 #include "./write.hpp"
@@ -48,12 +47,7 @@ namespace do_iter_swap_detail {
     template< class Iterator1, class Iterator2 > inline
     void aux(Iterator1 it1, Iterator2 it2, boost::mpl::true_)
     {
-#if BOOST_WORKAROUND(BOOST_MSVC, == 1310) // msvc-7.1
-        using namespace std;
-#else
-        using std::swap;
-#endif
-        swap(*it1, *it2);
+        do_swap(*it1, *it2);
     }
 
     template< class Iterator1, class Iterator2 >

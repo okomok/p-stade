@@ -18,6 +18,8 @@
 
 
 #include <algorithm> // swap
+#include <boost/config.hpp>
+#include <boost/detail/workaround.hpp>
 #include <pstade/constant.hpp>
 
 
@@ -31,7 +33,11 @@ namespace pstade {
         template<class T>
         void operator()(T& a, T& b) const
         {
+#if BOOST_WORKAROUND(BOOST_MSVC, == 1310) // msvc-7.1
+            using namespace std;
+#else
             using std::swap;
+#endif
             swap(a, b);
         }
     };

@@ -152,6 +152,8 @@
 * Added `partitioned` and `split_at`.
 * Added `fuzipped` and `unfuzipped`.
 * `popped` accepts `SinglePassRange`.
+* `checked` requires `ForwardRange`.
+
 
 
 

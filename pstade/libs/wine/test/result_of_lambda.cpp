@@ -19,6 +19,7 @@
 #include <boost/iterator/iterator_traits.hpp>
 #include <pstade/functional.hpp>
 #include <pstade/lambda_bind.hpp>
+#include <boost/utility/result_of.hpp>
 
 
 template< class Iterator, class Function >

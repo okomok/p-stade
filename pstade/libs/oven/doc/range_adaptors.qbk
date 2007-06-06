@@ -304,15 +304,15 @@ It passes adjacent pairs to a function to transform repeatedly.
         [[*Semantics]]
     ]
     [
-        [`_rng|checked`]
+        [`_fwdrng|checked`]
         [
-            `[_begin(_rng), _end(_rng))`
+            `[_begin(_fwdrng), _end(_fwdrng))`
         ]
     ]
 ]
 
 [h3 Effects]
-* Throws `std::out_of_range` if iterators go out of `_rng`.
+* Throws `std::out_of_range` if iterators go out of `_fwdrng`.
 
 [h3 Preconditions]
 
@@ -457,13 +457,10 @@ then pretends to be a range of _forward_iterator_.
     [
         [`_rng|const_refs`]
         [
-            A non-_lvalue_ _constant_ `[_begin(_rng), _end(_rng))`  whose `boost::range_reference` type is a /reference type/.
+            A _readable_ non-_lvalue_ _constant_ `[_begin(_rng), _end(_rng))`  whose `boost::range_reference` type is a /reference type/.
         ]
     ]
 ]
-
-[h3 Invariants]
-* `_rng|const_refs` is _readable_ if `_rng` is _lvalue_.
 
 [h3 Preconditions]
 * `_value_of<_typeof(_rng)>::type` is _assignable_ and _copy_constructible_.
