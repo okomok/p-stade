@@ -42,7 +42,7 @@ namespace checked_detail {
 
         result_type operator()(Range& rng) const
         {
-            PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+            PSTADE_CONCEPT_ASSERT((Forward<Range>));
             return aux(boost::begin(rng), boost::end(rng));
         }
 
@@ -59,6 +59,18 @@ namespace checked_detail {
 
 PSTADE_FUNCTION(make_checked, (checked_detail::baby<_>))
 PSTADE_PIPABLE(checked, (op_make_checked))
+
+
+#if !defined(NDEBUG)
+    #define PSTADE_OVEN_CHECKED(Rng) pstade::oven::make_checked(Rng)
+#else
+    #define PSTADE_OVEN_CHECKED(Rng) Rng
+#endif
+
+
+#if defined(PSTADE_OVEN_IN_BOOST)
+    #define BOOST_OVEN_CHECKED PSTADE_OVEN_CHECKED
+#endif
 
 
 } } // namespace pstade::oven
