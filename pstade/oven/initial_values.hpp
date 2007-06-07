@@ -40,6 +40,7 @@
 #include <pstade/use_default.hpp>
 #include "./concepts.hpp"
 #include "./copy_range.hpp"
+#include "./detail/config.hpp"
 
 
 #if !defined(PSTADE_OVEN_INITIAL_VALUES_MAX_ARITY)
@@ -66,6 +67,13 @@ namespace initial_values_detail {
         operator Range() const
         {
             PSTADE_CONCEPT_ASSERT((Copyable<Range>));
+            return copy<Range>();
+        }
+
+        template< class Range >
+        Range copy() const
+        {
+            PSTADE_CONCEPT_ASSERT((Copyable<Range>));
             return oven::copy_range<Range>(m_array);
         }
 
@@ -84,10 +92,12 @@ namespace initial_values_detail {
             return m_array.data() + N;
         }
 
+#if defined(PSTADE_OVEN_BOOST_RANGE_VERSION_1)
         size_type size() const
         {
             return N;
         }
+#endif
     };
 
 
@@ -122,6 +132,15 @@ struct op_initial_values :
 
 
 PSTADE_CONSTANT(initial_values, (op_initial_values<>))
+
+
+template< class Value, std::size_t N >
+struct result_of_initial_values
+{
+    typedef
+        initial_values_detail::return_range<Value, N> const
+    type;
+};
 
 
 } } // namespace pstade::oven

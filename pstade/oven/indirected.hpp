@@ -23,12 +23,10 @@
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/use_default.hpp>
 #include "./concepts.hpp"
 #include "./detail/indirect_iterator.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
-#include "./range_traversal.hpp"
 
 
 namespace pstade { namespace oven {
@@ -46,18 +44,11 @@ struct op_make_indirected :
     template< class Myself, class Range >
     struct apply
     {
-        // lvalue-ness resurrection
-        typedef typename
-            use_default_eval_to<
-                Traversal, range_pure_traversal<Range>
-            >::type
-        trv_t;
-
         typedef
             detail::indirect_iterator<
                 typename range_iterator<Range>::type,
                 Value,
-                trv_t,
+                Traversal,
                 Reference,
                 Difference
             >

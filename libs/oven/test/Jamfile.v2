@@ -62,6 +62,7 @@ test-suite "oven" :
     [ run indexing.cpp ]
     [ run indirect_then.cpp ]
     [ run indirected.cpp ]
+    [ run initial_ptrs.cpp ]
     [ run initial_values.cpp ]
     [ run io.cpp ]
     [ run iter_range.cpp ]

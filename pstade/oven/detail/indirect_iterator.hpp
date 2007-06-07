@@ -29,6 +29,7 @@
 #include <pstade/use_default.hpp>
 #include "../do_iter_swap.hpp"
 #include "../read.hpp"
+#include "./pure_traversal.hpp"
 
 
 namespace pstade { namespace oven { namespace detail {
@@ -49,6 +50,11 @@ struct indirect_iterator_super
         use_default_eval_to< Value, boost::pointee<base_val_t> >::type
     val_t;
 
+    // lvalue-ness resurrection
+    typedef typename
+        use_default_eval_to< Category, pure_traversal<Iterator> >::type
+    trv_t;
+
     typedef typename
         use_default_eval_to<
             Reference,
@@ -64,7 +70,7 @@ struct indirect_iterator_super
             indirect_iterator<Iterator, Value, Category, Reference, Difference>,
             Iterator,
             val_t,
-            Category,
+            trv_t,
             ref_t,
             Difference
         >
@@ -72,7 +78,13 @@ struct indirect_iterator_super
 };
 
 
-template < class Iterator, class Value, class Category, class Reference, class Difference >
+template<
+    class Iterator,
+    class Value      = boost::use_default,
+    class Category   = boost::use_default,
+    class Reference  = boost::use_default,
+    class Difference = boost::use_default
+>
 struct indirect_iterator :
     indirect_iterator_super<Iterator, Value, Category, Reference, Difference>::type
 {

@@ -14,9 +14,9 @@
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include "../advance_from.hpp"
-#include "../iter_distance.hpp"
 #include "../iter_range.hpp"
 #include "../read.hpp"
+#include "./iter_distance.hpp"
 #include "./tab_expand_iterator.hpp"
 
 

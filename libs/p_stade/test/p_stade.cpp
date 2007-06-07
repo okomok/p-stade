@@ -1,18 +1,29 @@
 
-#include <algorithm>
-#include <pstade/oven/ptr_container.hpp>
-#include <boost/ptr_container/ptr_vector.hpp>
-#include <boost/noncopyable.hpp>
+#include <memory>
 
-struct ncint :
-    boost::noncopyable
+struct B { virtual ~B() { } };
+struct D : B { };
+
+std::auto_ptr<D> new_D()
 {
-    friend bool operator<(ncint const&, ncint const&) { return true; }
-};
+    return std::auto_ptr<D>(new D());
+}
 
+namespace x {
+ typedef int a;
+
+ namespace y { using x::a; }
+
+}
+
+using namespace x;
+using namespace x::y;
+
+a s;
 
 int main()
 {
-    boost::ptr_vector< ::ncint > v;
-    std::sort(boost::begin(v), boost::end(v));
+    //std::auto_ptr<D const> pcd = new_D(); // msvc-7.1 crash
+    //std::auto_ptr<B> pb = new_D(); // gcc doesn't compile.
 }
+

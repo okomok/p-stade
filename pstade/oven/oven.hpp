@@ -61,6 +61,7 @@
 #include "./indexing.hpp"
 #include "./indirect_then.hpp"
 #include "./indirected.hpp"
+#include "./initial_ptrs.hpp"
 #include "./initial_values.hpp"
 #include "./io.hpp"
 #include "./is_heap.hpp"
