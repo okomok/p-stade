@@ -116,6 +116,7 @@
 #include "./shared_single.hpp"
 #include "./shared_values.hpp"
 #include "./single.hpp"
+#include "./size.hpp"
 #include "./sliced.hpp"
 #include "./sorted.hpp"
 #include "./spanned.hpp"

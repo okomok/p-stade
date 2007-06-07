@@ -16,6 +16,9 @@
 //     http://www.crystalclearsoftware.com/cgi-bin/boost_wiki/wiki.pl?STLAlgorithmExtensions/NonUniqueCopy
 
 
+// bug found: 1110111 -> 1
+
+
 #include "./detail/prelude.hpp"
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_traits.hpp>

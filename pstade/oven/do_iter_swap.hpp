@@ -11,7 +11,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <algorithm> // swap
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/bool.hpp>

@@ -1,5 +1,5 @@
-#ifndef PSTADE_OVEN_DISTANCE_HPP
-#define PSTADE_OVEN_DISTANCE_HPP
+#ifndef PSTADE_OVEN_SIZE_HPP
+#define PSTADE_OVEN_SIZE_HPP
 #include "./prelude.hpp"
 
 
@@ -11,6 +11,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Note:
+//
+// The result type is conforming to the latest range proposal.
+// For some historical reason, 'boost::size' result type is wrong.
+
+
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/adl_barrier.hpp>
@@ -18,14 +24,13 @@
 #include <pstade/callable.hpp>
 #include "./concepts.hpp"
 #include "./detail/check_nonnegative.hpp"
-#include "./detail/iter_distance.hpp"
 #include "./range_difference.hpp"
 
 
 namespace pstade { namespace oven {
 
 
-namespace distance_detail {
+namespace size_detail {
 
 
     struct op :
@@ -39,19 +44,19 @@ namespace distance_detail {
         template< class Result, class Range >
         Result call(Range& rng) const
         {
-            PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+            PSTADE_CONCEPT_ASSERT((RandomAccess<Range>));
             return detail::check_nonnegative(
-                detail::iter_distance(boost::begin(rng), boost::end(rng))
+                boost::end(rng) - boost::begin(rng)
             );
         }
     };
 
 
-} // namespace distance_detail
+} // namespace size_detail
 
 
-PSTADE_ADL_BARRIER(distance) { // for 'boost' and 'std'
-    PSTADE_AUXILIARY(0, distance, (distance_detail::op))
+PSTADE_ADL_BARRIER(size) { // for 'boost'
+    PSTADE_AUXILIARY(0, size, (size_detail::op))
 }
 
 
