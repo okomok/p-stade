@@ -16,8 +16,8 @@
 // [1] <boost/numeric/functional.hpp>
 
 
+#include <cstddef> // size_t
 #include <boost/config.hpp> // BOOST_NESTED_TEMPLATE
-#include <boost/iterator/iterator_traits.hpp> // iterator_difference
 #include <boost/mpl/eval_if.hpp>
 #include <boost/range/const_iterator.hpp>
 #include <boost/range/begin.hpp>
@@ -31,8 +31,12 @@
 #include <pstade/constant.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/preprocessor.hpp>
-#include "./detail/config.hpp" // PSTADE_OVEN_BOOST_RANGE_BEGIN etc.
-#include "./distance.hpp"
+#include "./detail/config.hpp"
+
+#if defined(PSTADE_OVEN_BOOST_RANGE_VERSION_1)
+    #include <pstade/copy_construct.hpp>
+    #include "./detail/iter_distance.hpp"
+#endif
 
 
 namespace pstade_oven_extension {
@@ -177,9 +181,11 @@ namespace pstade { namespace oven { namespace extension_detail {
     template< class T >
     struct range_size
     {
-        typedef typename range_result_iterator<T>::type miter_t;
-        typedef typename boost::iterator_difference<miter_t>::type type;
+        typedef std::size_t type;
     };
+
+
+#if defined(PSTADE_OVEN_BOOST_RANGE_VERSION_1)
 
     struct op_size :
         callable<op_size>
@@ -192,11 +198,15 @@ namespace pstade { namespace oven { namespace extension_detail {
         template< class Result, class T >
         Result call(T const& x) const
         {
-            return distance(x);
+            return pstade::copy_construct<Result>(
+                detail::iter_distance(PSTADE_OVEN_BOOST_RANGE_BEGIN(x), PSTADE_OVEN_BOOST_RANGE_END(x))
+            );
         }
     };
 
     PSTADE_CONSTANT(boost_range_size, (op_size))
+
+#endif
 
 
 } } } // namespace pstade::oven::extension_detail
@@ -215,7 +225,7 @@ namespace pstade { namespace oven { namespace extension_detail {
     PSTADE_PP_NAMESPACE_OPEN(NameSeq) \
         PSTADE_OVEN_EXTENSION_OF_TYPE_forward(PSTADE_PP_FULLNAME(NameSeq), PSTADE_OVEN_BOOST_RANGE_BEGIN, range_result_iterator) \
         PSTADE_OVEN_EXTENSION_OF_TYPE_forward(PSTADE_PP_FULLNAME(NameSeq), PSTADE_OVEN_BOOST_RANGE_END,   range_result_iterator) \
-        PSTADE_OVEN_EXTENSION_OF_TYPE_forward(PSTADE_PP_FULLNAME(NameSeq), boost_range_size,              range_size) \
+        PSTADE_OVEN_EXTENSION_OF_TYPE_forward_size(NameSeq) \
     PSTADE_PP_NAMESPACE_CLOSE(NameSeq) \
 /**/
 
@@ -250,6 +260,16 @@ namespace pstade { namespace oven { namespace extension_detail {
     /**/
 
 
+    #if defined(PSTADE_OVEN_BOOST_RANGE_VERSION_1)
+        #define PSTADE_OVEN_EXTENSION_OF_TYPE_forward_size(NameSeq) \
+            PSTADE_OVEN_EXTENSION_OF_TYPE_forward(PSTADE_PP_FULLNAME(NameSeq), boost_range_size, range_size) \
+        /**/
+    #else
+        #define PSTADE_OVEN_EXTENSION_OF_TYPE_forward_size(NameSeq) \
+        /**/
+    #endif
+
+
 #define PSTADE_OVEN_EXTENSION_OF_TEMPLATE(NameSeq, ParamSeqOrCount) \
     PSTADE_OVEN_EXTENSION_OF_TEMPLATE_aux(NameSeq, PSTADE_PP_TO_TEMPLATE_PARAM_SEQ(ParamSeqOrCount)) \
 /**/
@@ -265,7 +285,7 @@ namespace pstade { namespace oven { namespace extension_detail {
     PSTADE_PP_NAMESPACE_OPEN(NameSeq) \
         PSTADE_OVEN_EXTENSION_OF_TEMPLATE_forward(PSTADE_PP_FULLNAME(NameSeq), ParamSeq, PSTADE_OVEN_BOOST_RANGE_BEGIN, range_result_iterator) \
         PSTADE_OVEN_EXTENSION_OF_TEMPLATE_forward(PSTADE_PP_FULLNAME(NameSeq), ParamSeq, PSTADE_OVEN_BOOST_RANGE_END,   range_result_iterator) \
-        PSTADE_OVEN_EXTENSION_OF_TEMPLATE_forward(PSTADE_PP_FULLNAME(NameSeq), ParamSeq, boost_range_size,              range_size) \
+        PSTADE_OVEN_EXTENSION_OF_TEMPLATE_forward_size(NameSeq, ParamSeq) \
     PSTADE_PP_NAMESPACE_CLOSE(NameSeq) \
 /**/
 
@@ -300,11 +320,21 @@ namespace pstade { namespace oven { namespace extension_detail {
     /**/
 
 
-    #if defined(PSTADE_OVEN_IN_BOOST)
-        #define boost_oven_extension             pstade_oven_extension // Do you know a better way?
-        #define BOOST_OVEN_EXTENSION_OF_TYPE     PSTADE_OVEN_EXTENSION_OF_TYPE
-        #define BOOST_OVEN_EXTENSION_OF_TEMPLATE PSTADE_OVEN_EXTENSION_OF_TEMPLATE
+    #if defined(PSTADE_OVEN_BOOST_RANGE_VERSION_1)
+        #define PSTADE_OVEN_EXTENSION_OF_TEMPLATE_forward_size(NameSeq, ParamSeq) \
+            PSTADE_OVEN_EXTENSION_OF_TEMPLATE_forward(PSTADE_PP_FULLNAME(NameSeq), ParamSeq, boost_range_size, range_size) \
+        /**/
+    #else
+        #define PSTADE_OVEN_EXTENSION_OF_TEMPLATE_forward_size(NameSeq, ParamSeq) \
+        /**/
     #endif
+
+
+#if defined(PSTADE_OVEN_IN_BOOST)
+    #define boost_oven_extension             pstade_oven_extension // Do you know a better way?
+    #define BOOST_OVEN_EXTENSION_OF_TYPE     PSTADE_OVEN_EXTENSION_OF_TYPE
+    #define BOOST_OVEN_EXTENSION_OF_TEMPLATE PSTADE_OVEN_EXTENSION_OF_TEMPLATE
+#endif
 
 
 #endif

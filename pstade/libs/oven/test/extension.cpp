@@ -25,6 +25,7 @@
 #include <boost/type_traits/is_same.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/noncopyable.hpp>
+#include <boost/range/size.hpp>
 
 
 
@@ -214,5 +215,10 @@ void pstade_minimal_test()
         oven::test::random_access_constant(seq1,  expected_char);
         oven::test::random_access_constant(pr,    expected_int);
         oven::test::copyable< Foo::Pair<int *> >(pr);
+
+        boost::size(cont1);
+        boost::size(cont2);
+        boost::size(seq1);
+        boost::size(pr);
     }
 }

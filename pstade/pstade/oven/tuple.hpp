@@ -11,10 +11,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/iterator/iterator_traits.hpp>
 #include <boost/tuple/tuple.hpp>
 #include "./extension.hpp"
-#include "./detail/config.hpp"
 
 
 namespace pstade_oven_extension {
@@ -53,6 +51,17 @@ PSTADE_OVEN_EXTENSION_OF_TEMPLATE((boost)(tuples)(tuple), 2)
 // tuples::cons<>, nightmare.
 //
 
+#include <cstddef> // size_t
+#include <boost/iterator/iterator_traits.hpp>
+#include <boost/tuple/tuple.hpp>
+#include "./detail/config.hpp"
+#include "./detail/iter_distance.hpp"
+
+#if defined(PSTADE_OVEN_BOOST_RANGE_VERSION_1)
+    #include <pstade/copy_construct.hpp>
+#endif
+
+
 namespace boost {
 
 
@@ -84,14 +93,16 @@ namespace boost {
     };
 
     template< class Iter >
-    struct range_size< PSTADE_t > :
-        boost::iterator_difference<Iter>
-    { };
+    struct range_size< PSTADE_t >
+    {
+        typedef std::size_t type;
+    };
 
     template< class Iter >
-    struct range_size< PSTADE_t const > :
-        boost::iterator_difference<Iter>
-    { };
+    struct range_size< PSTADE_t const >
+    {
+        typedef std::size_t type;
+    };
 
 
     namespace tuples {
@@ -120,11 +131,15 @@ namespace boost {
             return boost::tuples::get<1>(x);
         }
 
+#if defined(PSTADE_OVEN_BOOST_RANGE_VERSION_1)
         template< class Iter >
-        typename boost::iterator_difference<Iter>::type boost_range_size(PSTADE_t const& x)
+        std::size_t boost_range_size(PSTADE_t const& x)
         {
-            return 2;
+            return pstade::copy_construct<std::size_t>(
+                pstade::oven::detail::iter_distance(boost::tuples::get<0>(x), boost::tuples::get<1>(x))
+            );
         }
+#endif
 
     } // namespace tuples
 

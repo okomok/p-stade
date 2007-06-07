@@ -14,7 +14,7 @@
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include "../advance_from.hpp"
-#include "../distance.hpp"
+#include "../iter_distance.hpp"
 #include "../iter_range.hpp"
 #include "../read.hpp"
 #include "./tab_expand_iterator.hpp"
@@ -105,7 +105,7 @@ private:
 
     diff_t flying_distance() const
     {
-        diff_t diff_from_sol = distance(make_iter_range(m_sol, this->base()));
+        diff_t diff_from_sol = detail::iter_distance(m_sol, this->base());
         diff_t diff_required = m_tabsize - diff_from_sol % m_tabsize;
 
         if (diff_required == 1)

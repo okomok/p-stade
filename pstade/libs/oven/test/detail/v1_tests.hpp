@@ -47,6 +47,7 @@
 #include <boost/range/empty.hpp>
 #include <boost/range/end.hpp>
 #include <boost/range/iterator_range.hpp>
+#include <boost/range/size.hpp>
 #include <boost/next_prior.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/object_generator.hpp>
@@ -231,6 +232,9 @@ bool test_Forward_Readable(Range& rng, Vector const& expected)
 {
     PSTADE_OVEN_TESTS_DISTANCE_ASSERT(oven::distance(expected) >= 3);
     PSTADE_OVEN_TESTS_DISTANCE_ASSERT(oven::distance(rng) == oven::distance(expected));
+#if defined(PSTADE_OVEN_BOOST_RANGE_VERSION_1)
+    PSTADE_OVEN_TESTS_DISTANCE_ASSERT(boost::size(rng) == boost::size(expected));
+#endif
 
     {
         if (!tests_detail::forward_r(rng, expected)) {

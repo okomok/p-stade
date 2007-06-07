@@ -98,12 +98,10 @@ struct SinglePass
     PSTADE_CONCEPT_USAGE(SinglePass)
     {
         rng_t& rng = unevaluated<rng_t&>();
-
         mutable_iterator f = boost::begin(rng);
         mutable_iterator l = boost::end(rng);
         constant_iterator cf = boost::begin(to_cref(rng));
         constant_iterator cl = boost::end(to_cref(rng));
-
         unused(f, l, cf, cl);
     }
 };
@@ -127,9 +125,7 @@ struct Forward :
     PSTADE_CONCEPT_USAGE(Forward)
     {
         rng_t& rng = unevaluated<rng_t&>();
-
         size_type sz = boost::size(rng);
-
         unused(sz);
     }
 #endif
@@ -162,6 +158,15 @@ struct RandomAccess :
 
     PSTADE_CONCEPT_ASSERT((boost_concepts::RandomAccessTraversalConcept<mutable_iterator>));
     PSTADE_CONCEPT_ASSERT((boost_concepts::RandomAccessTraversalConcept<constant_iterator>));
+
+#if !defined(PSTADE_OVEN_BOOST_RANGE_VERSION_1)
+    PSTADE_CONCEPT_USAGE(RandomAccess)
+    {
+        rng_t& rng = unevaluated<rng_t&>();
+        size_type sz = boost::size(rng);
+        unused(sz);
+    }
+#endif
 };
 
 
