@@ -55,6 +55,14 @@ struct op_shared_values :
 PSTADE_CONSTANT(shared_values, (op_shared_values<>))
 
 
+template< class Value, std::size_t N >
+struct result_of_shared_values :
+    boost::result_of<
+        op_shared(boost::array<Value, N> *)
+    >
+{ };
+
+
 } } // namespace pstade::oven
 
 

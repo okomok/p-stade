@@ -20,6 +20,8 @@ namespace pstade { namespace oven { namespace test {
 struct ncint :
     private boost::totally_ordered<ncint>
 {
+    virtual ~ncint() { }
+
     explicit ncint(int i) :
         m_int(i)
     { }
@@ -58,11 +60,15 @@ private:
 };
 
 
+#if !defined(PSTADE_TEST_NONCLONABLE_NCINT)
+
 inline
 ncint* new_clone(ncint const& nci)
 {
     return new ncint(nci.value());
 }
+
+#endif
 
 
 } } } // namespace pstade::oven::test

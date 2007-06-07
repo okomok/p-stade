@@ -224,6 +224,10 @@ void test()
         // decay test
         initial_values("abc", "def", "ghi");
     }
+    {
+        result_of_initial_values<int, 3>::type vs = initial_values(1,2,3);
+        pstade::unused(vs);
+    }
 }
 
 
