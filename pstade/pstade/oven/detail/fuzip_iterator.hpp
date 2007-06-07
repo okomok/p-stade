@@ -80,15 +80,18 @@ private:
 
 struct dereference_iterator
 {
-    template< class Iterator >
-    struct result :
+    template< class FunCall >
+    struct result;
+
+    template< class Fun, class Iterator >
+    struct result<Fun(Iterator)> :
         boost::iterator_reference<
             typename remove_cvr<Iterator>::type
         >
     { };
 
     template< class Iterator >
-    typename result<Iterator&>::type
+    typename result<void(Iterator&)>::type
     operator()(Iterator& it) const
     {
         return *it;
