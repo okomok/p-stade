@@ -18,10 +18,15 @@
 #include <boost/assert.hpp>
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
+#include <boost/mpl/eval_if.hpp>
+#include <boost/mpl/identity.hpp>
+#include <boost/pointee.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
+#include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/type_traits/is_same.hpp>
 #include <pstade/any_movable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/new_delete.hpp>
@@ -47,6 +52,9 @@ namespace pstade { namespace oven {
 namespace initial_ptrs_detail {
 
 
+    namespace here = initial_ptrs_detail;
+
+
     template< class AutoPtr, std::size_t N >
     struct return_range
     {
@@ -64,7 +72,7 @@ namespace initial_ptrs_detail {
             std::auto_ptr<PtrContainer> r(new PtrContainer());
 
             for (std::size_t i = 0; i < N; ++i)
-                r->push_back(m_ptrs[i].release());
+                r->insert(r->end(), m_ptrs[i]);
 
             m_any = r;
             return m_any.base< std::auto_ptr<PtrContainer> >();
@@ -109,9 +117,21 @@ namespace initial_ptrs_detail {
     };
 
 
-    // 'auto_ptr' isn't copy-initializable from one which has a different 'element_type'.
+    template< class Ptr >
+    struct result_of_to_auto_ptr
+    {
+        typedef 
+            std::auto_ptr<
+                typename boost::pointee<typename pass_by_value<Ptr>::type>::type
+            >
+        type;
+    };
+
+    // Pass by reference for lvalue of 'move_ptr'.
+    // Also note 'auto_ptr' isn't copy-initializable from one which has
+    // a different 'element_type'. See http://tinyurl.com/yo8a7w (defect report #84)
     template< class To, class From > inline
-    To auto_ptr_to_auto_ptr(From from)
+    To to_auto_ptr(From& from)
     {
         return To(from.release());
     }
@@ -120,7 +140,7 @@ namespace initial_ptrs_detail {
 } // namespace initial_ptrs_detail
 
 
-template< class Ptr = boost::use_default >
+template< class Value = boost::use_default >
 struct op_initial_ptrs :
     provide_sig
 {
@@ -128,15 +148,18 @@ struct op_initial_ptrs :
     struct result;
 
     template< class A >
-    struct ptr_ :
-        use_default_eval_to< Ptr, pass_by_value<A> >
+    struct auto_ptr_of :
+        boost::mpl::eval_if< boost::is_same<Value, boost::use_default>,
+            initial_ptrs_detail::result_of_to_auto_ptr<A>,
+            boost::mpl::identity< std::auto_ptr<Value> >
+        >
     { };
 
     // 1ary-
-#define PSTADE_a_to_a(Z, N, _) initial_ptrs_detail::auto_ptr_to_auto_ptr<typename ptr_<A0>::type>(BOOST_PP_CAT(a, N))
+#define PSTADE_to_ap(Z, N, _) initial_ptrs_detail::to_auto_ptr<typename auto_ptr_of<A0>::type>(BOOST_PP_CAT(a, N))
     #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_OVEN_INITIAL_PTRS_MAX_ARITY, <pstade/oven/initial_ptrs.hpp>))
     #include BOOST_PP_ITERATE()
-#undef  PSTADE_a_to_a
+#undef  PSTADE_to_ap
 };
 
 
@@ -172,7 +195,7 @@ private:
     struct BOOST_PP_CAT(result, n)
     {
         typedef
-            initial_ptrs_detail::return_range<typename ptr_<A0>::type, n>
+            initial_ptrs_detail::return_range<typename auto_ptr_of<A0>::type, n>
         rng_t;
 
         typedef
@@ -190,8 +213,8 @@ public:
     typename BOOST_PP_CAT(result, n)<BOOST_PP_ENUM_PARAMS(n, A)>::type
     operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, a)) const
     {
-        typedef initial_ptrs_detail::return_range<typename ptr_<A0>::type, n> rng_t;
-        typename rng_t::array_type ptrs = { { BOOST_PP_ENUM(n, PSTADE_a_to_a, ~) } };
+        typedef initial_ptrs_detail::return_range<typename auto_ptr_of<A0>::type, n> rng_t;
+        typename rng_t::array_type ptrs = { { BOOST_PP_ENUM(n, PSTADE_to_ap, ~) } };
         return std::auto_ptr<rng_t>(new rng_t(ptrs));
     }
 
