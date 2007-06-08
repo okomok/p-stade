@@ -24,6 +24,7 @@
 
 
 #include <pstade/unparenthesize.hpp>
+#include "./detail/in_unnamed.hpp"
 
 
 namespace pstade {
@@ -47,12 +48,21 @@ namespace pstade {
     PSTADE_SINGLETON_aux(O, PSTADE_UNPARENTHESIZE(T)) \
 /**/
 
-    // 'stdafx.h' sometimes needs 'static'.
     #define PSTADE_SINGLETON_aux(O, T) \
         namespace { \
-            static T& O = ::pstade::singleton< T >::instance; \
+            PSTADE_DETAIL_IN_UNNAMED T& O = ::pstade::singleton< T >::instance; \
         } \
     /**/
 
+
+#define PSTADE_SINGLETON_FWD(O, T) \
+    PSTADE_SINGLETON_FWD_aux(O, PSTADE_UNPARENTHESIZE(T)) \
+/**/
+
+    #define PSTADE_SINGLETON_FWD_aux(O, T) \
+        namespace { \
+            extern T& O; \
+        } \
+    /**/
 
 #endif

@@ -47,16 +47,16 @@ struct indirect_iterator_super
     base_val_t;
 
     typedef typename
-        use_default_eval_to< Value, boost::pointee<base_val_t> >::type
+        eval_if_use_default< Value, boost::pointee<base_val_t> >::type
     val_t;
 
     // lvalue-ness resurrection
     typedef typename
-        use_default_eval_to< Category, pure_traversal<Iterator> >::type
+        eval_if_use_default< Category, pure_traversal<Iterator> >::type
     trv_t;
 
     typedef typename
-        use_default_eval_to<
+        eval_if_use_default<
             Reference,
             boost::mpl::eval_if< boost::is_same<Value, boost::use_default>,
                 boost::indirect_reference<base_val_t>,

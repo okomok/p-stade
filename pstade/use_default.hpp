@@ -33,20 +33,20 @@ namespace boost {
 namespace pstade {
 
 
-    template< class From, class To >
-    struct use_default_to :
-        boost::mpl::if_< boost::is_same<From, boost::use_default>,
-            To,
-            From
+    template< class X, class Then, class Else = X >
+    struct if_use_default :
+        boost::mpl::if_< boost::is_same<X, boost::use_default>,
+            Then,
+            Else
         >
     { };
 
 
-    template< class From, class ToFun >
-    struct use_default_eval_to :
-        boost::mpl::eval_if< boost::is_same<From, boost::use_default>,
-            ToFun,
-            boost::mpl::identity<From>
+    template< class X, class Then, class Else = boost::mpl::identity<X> >
+    struct eval_if_use_default :
+        boost::mpl::eval_if< boost::is_same<X, boost::use_default>,
+            Then,
+            Else
         >
     { };
 

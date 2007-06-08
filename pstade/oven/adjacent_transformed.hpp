@@ -77,7 +77,7 @@ namespace adjacent_transformed_detail {
         read_t;
 
         typedef typename
-            use_default_eval_to<
+            eval_if_use_default<
                 Reference,
                 boost::result_of<
                     PSTADE_DEFERRED(fun_t const)(base_value_t const&, read_t)
@@ -86,7 +86,7 @@ namespace adjacent_transformed_detail {
         ref_t;
 
         typedef typename
-            use_default_eval_to<
+            eval_if_use_default<
                 Value,
                 remove_cvr<ref_t>
             >::type

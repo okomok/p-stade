@@ -43,7 +43,7 @@ struct op_shared_values :
 
     template< class A >
     struct value_ :
-        use_default_eval_to< Value, pass_by_value<A> >
+        eval_if_use_default< Value, pass_by_value<A> >
     { };
 
     // 1ary-

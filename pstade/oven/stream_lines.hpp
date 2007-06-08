@@ -39,7 +39,7 @@ struct op_stream_lines :
             hamigaki::istream_line_iterator<
                 char_t,
                 typename IStream::traits_type,
-                typename use_default_to< Allocator, std::allocator<char_t> >::type
+                typename if_use_default< Allocator, std::allocator<char_t> >::type
             >
         iter_t;
 

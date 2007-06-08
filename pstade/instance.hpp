@@ -52,7 +52,6 @@
 // , because the const default-constructed object can be the same.
 
 
-#include <boost/config.hpp> // BOOST_MSVC
 #include <boost/mpl/aux_/preprocessor/is_seq.hpp>
 #include <boost/mpl/aux_/preprocessor/token_equal.hpp>
 #include <boost/preprocessor/cat.hpp>
@@ -62,6 +61,7 @@
 #include <boost/preprocessor/tuple/eat.hpp>
 #include <boost/utility/value_init.hpp> // value_initialized
 #include <pstade/unparenthesize.hpp>
+#include "./detail/in_unnamed.hpp"
 
 
 #define PSTADE_INSTANCE(Type, Object, ValueOrArgSeq) \
@@ -91,7 +91,7 @@
     #define PSTADE_INSTANCE_no_args(Type, Object, _) \
         PSTADE_INSTANCE_define_box(Type, Object, PSTADE_INSTANCE_define_v(Type)) \
         namespace { \
-            PSTADE_INSTANCE_static \
+            PSTADE_DETAIL_IN_UNNAMED \
             Type& Object = PSTADE_INSTANCE_OF(Object); \
         } \
     /**/
@@ -100,19 +100,10 @@
     #define PSTADE_INSTANCE_args(Type, Object, ArgSeq) \
         PSTADE_INSTANCE_define_box(Type, Object, PSTADE_INSTANCE_define_a(Type, ArgSeq)) \
         namespace { \
-            PSTADE_INSTANCE_static \
+            PSTADE_DETAIL_IN_UNNAMED \
             Type& Object = PSTADE_INSTANCE_OF(Object); \
         } \
     /**/
-
-
-    // Workaround:
-    // The weird 'stdafx.h' needs 'static'.
-    #if !defined(BOOST_MSVC)
-        #define PSTADE_INSTANCE_static
-    #else
-        #define PSTADE_INSTANCE_static static
-    #endif
 
 
     #define PSTADE_INSTANCE_box_name(Object) \
@@ -144,6 +135,18 @@
 
     #define PSTADE_INSTANCE_define_a(Type, ArgSeq) \
         Type instance(BOOST_PP_SEQ_ENUM(ArgSeq)); \
+    /**/
+
+
+#define PSTADE_INSTANCE_FWD(Type, Object) \
+    PSTADE_INSTANCE_FWD_aux(PSTADE_UNPARENTHESIZE(Type), Object) \
+/**/
+
+
+    #define PSTADE_INSTANCE_FWD_aux(Type, Object) \
+        namespace { \
+            extern Type& Object; \
+        } \
     /**/
 
 

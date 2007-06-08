@@ -21,9 +21,9 @@
 //  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/config.hpp>
 #include <pstade/singleton.hpp>
 #include <pstade/unparenthesize.hpp>
+#include "./detail/in_unnamed.hpp"
 
 
 #define PSTADE_CONSTANT(O, T) \
@@ -32,16 +32,9 @@
 
     #define PSTADE_CONSTANT_aux(O, T) \
         namespace { \
-            PSTADE_CONSTANT_prefix T const& O = ::pstade::singleton< T >::instance; \
+            PSTADE_DETAIL_IN_UNNAMED T const& O = ::pstade::singleton< T >::instance; \
         } \
     /**/
-
-    // 'stdafx.h' workaround; See <boost/bind/placeholders.hpp>.
-    #if defined(BOOST_MSVC)
-        #define PSTADE_CONSTANT_prefix static
-    #else
-        #define PSTADE_CONSTANT_prefix
-    #endif
 
 
 #define PSTADE_CONSTANT_FWD(O, T) \

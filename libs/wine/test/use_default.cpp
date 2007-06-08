@@ -23,14 +23,25 @@ using namespace pstade;
 template< class T, class U = boost::use_default >
 struct your
 {
-    typedef typename use_default_to<U, int>::type u_t;
-    typedef typename use_default_eval_to<U, boost::mpl::identity<int> >::type u_t_;
+    typedef typename if_use_default<U, int>::type u_t;
+    typedef typename eval_if_use_default<U, boost::mpl::identity<int> >::type u_t_;
 };
 
 
 typedef your<double> your_t;
 BOOST_MPL_ASSERT(( boost::is_same< your_t::u_t, int > ));
 BOOST_MPL_ASSERT(( boost::is_same< your_t::u_t_, int > ));
+
+
+BOOST_MPL_ASSERT(( boost::is_same< if_use_default<boost::use_default, char>::type, char > ));
+BOOST_MPL_ASSERT(( boost::is_same< if_use_default<boost::use_default, char, double>::type, char > ));
+BOOST_MPL_ASSERT(( boost::is_same< if_use_default<int, char>::type, int > ));
+BOOST_MPL_ASSERT(( boost::is_same< if_use_default<int, char, double>::type, double > ));
+
+BOOST_MPL_ASSERT(( boost::is_same< eval_if_use_default<boost::use_default, boost::mpl::identity<char> >::type, char > ));
+BOOST_MPL_ASSERT(( boost::is_same< eval_if_use_default<boost::use_default, boost::mpl::identity<char>, boost::mpl::identity<double> >::type, char > ));
+BOOST_MPL_ASSERT(( boost::is_same< eval_if_use_default<int, boost::mpl::identity<char> >::type, int > ));
+BOOST_MPL_ASSERT(( boost::is_same< eval_if_use_default<int, boost::mpl::identity<char>, boost::mpl::identity<double> >::type, double > ));
 
 
 int test_main(int, char*[])
