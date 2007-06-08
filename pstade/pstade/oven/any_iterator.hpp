@@ -190,10 +190,10 @@ namespace any_iterator_detail {
         typedef
             boost::iterator_facade<
                 any_iterator<Reference, Traversal, Value, Difference>,
-                typename use_default_eval_to< Value, remove_cvr<Reference> >::type,
+                typename eval_if_use_default< Value, remove_cvr<Reference> >::type,
                 Traversal,
                 Reference,
-                typename use_default_to<Difference, std::ptrdiff_t>::type
+                typename if_use_default<Difference, std::ptrdiff_t>::type
             >
         type;
     };

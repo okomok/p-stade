@@ -36,10 +36,12 @@ struct bbb : private boost::noncopyable
 };
 
 
+PSTADE_INSTANCE_FWD((int), x)
 PSTADE_INSTANCE((int), x, value)
 PSTADE_INSTANCE((int) const, cx, value)
 PSTADE_INSTANCE((aaa), a, ('a')(10)(3.5))
 PSTADE_INSTANCE((bbb), b, ("hello"))
+PSTADE_INSTANCE_FWD((bbb), b)
 
 
 PSTADE_INSTANCE((int), x1, (12))

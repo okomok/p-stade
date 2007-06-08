@@ -10,15 +10,15 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/constant.hpp>
+#include <pstade/singleton.hpp>
 
 
 
-PSTADE_CONSTANT_FWD(hello, (int))
-PSTADE_CONSTANT(hello, (int))
+PSTADE_SINGLETON_FWD(hello, (int))
+PSTADE_SINGLETON(hello, (int))
 
-PSTADE_CONSTANT(helloX, (int))
-PSTADE_CONSTANT_FWD(helloX, (int))
+PSTADE_SINGLETON(helloX, (int))
+PSTADE_SINGLETON_FWD(helloX, (int))
 
 
 void test()

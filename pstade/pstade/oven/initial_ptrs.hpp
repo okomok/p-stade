@@ -16,9 +16,6 @@
 #include <cstddef> // size_t
 #include <boost/array.hpp>
 #include <boost/assert.hpp>
-#include <boost/config.hpp>
-#include <boost/detail/workaround.hpp>
-#include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
 #include <boost/pointee.hpp>
 #include <boost/preprocessor/cat.hpp>
@@ -26,7 +23,6 @@
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/type_traits/is_same.hpp>
 #include <pstade/any_movable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/new_delete.hpp>
@@ -35,10 +31,6 @@
 #include <pstade/use_default.hpp>
 #include "./detail/config.hpp"
 #include "./detail/indirect_iterator.hpp"
-
-#if BOOST_WORKAROUND(BOOST_MSVC, == 1310) // msvc-7.1
-    #include <boost/preprocessor/repetition/enum.hpp>
-#endif
 
 
 #if !defined(PSTADE_OVEN_INITIAL_PTRS_MAX_ARITY)
@@ -149,7 +141,7 @@ struct op_initial_ptrs :
 
     template< class A >
     struct auto_ptr_of :
-        boost::mpl::eval_if< boost::is_same<Value, boost::use_default>,
+        eval_if_use_default< Value,
             initial_ptrs_detail::result_of_to_auto_ptr<A>,
             boost::mpl::identity< std::auto_ptr<Value> >
         >

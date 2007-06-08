@@ -53,14 +53,14 @@ struct op_make_transformed :
         read_t;
 
         typedef typename
-            use_default_eval_to<
+            eval_if_use_default<
                 Reference,
                 boost::result_of<PSTADE_DEFERRED(fun_t const)(read_t)>
             >::type
         ref_t;
 
         typedef typename
-            use_default_eval_to<
+            eval_if_use_default<
                 Value,
                 remove_cvr<ref_t>
             >::type

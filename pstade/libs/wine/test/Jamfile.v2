@@ -72,6 +72,7 @@ test-suite "wine" :
     [ run remove_cvr.cpp ]
     [ run require.cpp ]
     [ run result_of_lambda.cpp ]
+    [ run singleton.cpp ]
     [ run specified.cpp ]
     [ run statement.cpp ]
     [ link statement_m1.cpp statement_m2.cpp : : statement_m ]

@@ -38,11 +38,11 @@ struct op_make_matches :
     struct apply
     {
         typedef typename
-            use_default_eval_to< CharT, range_value<Range> >::type
+            eval_if_use_default< CharT, range_value<Range> >::type
         char_t;
 
         typedef typename
-            use_default_to< Traits, boost::regex_traits<char_t> >::type
+            if_use_default< Traits, boost::regex_traits<char_t> >::type
         traits_t;
 
         typedef

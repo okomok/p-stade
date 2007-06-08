@@ -42,14 +42,14 @@ namespace identities_detail {
         struct apply
         {
             typedef typename
-                use_default_eval_to<
+                eval_if_use_default<
                     typename pass_by_value<Traversal>::type,
                     range_pure_traversal<Range>
                 >::type
             trv_t;
 
             typedef typename
-                use_default_eval_to<
+                eval_if_use_default<
                     Difference,
                     range_difference<Range>
                 >::type

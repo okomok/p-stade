@@ -52,7 +52,7 @@ namespace pstade {
 
         template<class ResultType, class FunCall>
         struct result_of_aux :
-            use_default_eval_to< ResultType, boost::result_of<FunCall> >
+            eval_if_use_default< ResultType, boost::result_of<FunCall> >
         { };
 
 

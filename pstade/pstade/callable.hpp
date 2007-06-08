@@ -82,7 +82,7 @@ PSTADE_ADL_BARRIER(callable) {
     {
 
         typedef typename
-            use_default_to< NullaryResult, callable_error_non_nullary<Derived> >::type
+            if_use_default< NullaryResult, callable_error_non_nullary<Derived> >::type
         nullary_result_type;
 
 
