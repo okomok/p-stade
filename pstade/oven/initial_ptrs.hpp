@@ -44,12 +44,10 @@ namespace pstade { namespace oven {
 namespace initial_ptrs_detail {
 
 
-    namespace here = initial_ptrs_detail;
-
-
     template< class AutoPtr, std::size_t N >
     struct return_range
     {
+        // must return a lvalue.
         template< class PtrContainer >
         operator std::auto_ptr<PtrContainer>& ()
         {
