@@ -47,6 +47,11 @@ void test()
     }
     {
         any_movable m(std::auto_ptr<int>(new int(3)));
+        any_movable m_ = m;
+        BOOST_CHECK( *(m_.base< std::auto_ptr<int> >()) == 3 );
+    }
+    {
+        any_movable m(std::auto_ptr<int>(new int(3)));
         any_movable m_; m_ = m;
         BOOST_CHECK( *(m_.base< std::auto_ptr<int> >()) == 3 );
     }

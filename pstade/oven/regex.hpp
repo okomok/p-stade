@@ -1,5 +1,5 @@
-#ifndef PSTADE_OVEN_SUB_MATCH_HPP
-#define PSTADE_OVEN_SUB_MATCH_HPP
+#ifndef PSTADE_OVEN_REGEX_HPP
+#define PSTADE_OVEN_REGEX_HPP
 #include "./prelude.hpp"
 
 
@@ -18,8 +18,15 @@
 // Hence we define...
 
 
-#include <boost/regex.hpp>
 #include "./extension.hpp"
+
+
+namespace boost {
+
+    template< class BidiIter >
+    struct sub_match;
+
+}
 
 
 namespace pstade_oven_extension {
