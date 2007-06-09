@@ -33,7 +33,7 @@ struct op_make_uniqued :
             op_make_adjacent_filtered(
                 Range&,
                 typename boost::result_of<
-                    op_not(typename pass_by_value<BinaryPred>::type)
+                    op_not_(typename pass_by_value<BinaryPred>::type)
                 >::type
             )
         >

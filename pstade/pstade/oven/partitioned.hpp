@@ -37,7 +37,7 @@ namespace partitioned_detail {
 
         typedef typename
             boost::result_of<
-                op_make_filtered(Range&, typename boost::result_of<op_not(Predicate&)>::type)
+                op_make_filtered(Range&, typename boost::result_of<op_not_(Predicate&)>::type)
             >::type
         rng2_t;
 
