@@ -90,6 +90,7 @@ struct dereference_iterator
         >
     { };
 
+    // Pass by reference; see "../reverese_iterator.hpp"
     template< class Iterator >
     typename result<void(Iterator&)>::type
     operator()(Iterator& it) const

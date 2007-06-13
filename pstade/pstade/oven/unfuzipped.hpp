@@ -24,6 +24,7 @@
 #include <boost/utility/result_of.hpp>
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/remove_cvr.hpp>
 #include "./concepts.hpp"
 #include "./elements.hpp"
 #include "./range_value.hpp"
@@ -43,14 +44,22 @@ namespace unfuzipped_detail {
     struct make_at_range
     {
         template< class N >
-        struct result :
+        struct result_aux :
             boost::result_of<
                 op_make_elements<N>(TupleRange&)
             >
         { };
 
+        template< class FunCall >
+        struct result;
+
+        template< class Fun, class N >
+        struct result<Fun(N)> :
+            result_aux<typename remove_cvr<N>::type>
+        { };
+
         template< class N >
-        typename result<N>::type
+        typename result_aux<N>::type
         operator()(N) const
         {
             return op_make_elements<N>()(m_rng);
