@@ -20,7 +20,6 @@
 #include <boost/utility/result_of.hpp>
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
-#include <pstade/polymorphic.hpp>
 #include "./begin_end.hpp"
 #include "./detail/fuzip_iterator.hpp"
 #include "./iter_range.hpp"
@@ -37,17 +36,11 @@ namespace fuzipped_detail {
     {
         // Prefer a view to 'transform', keeping the mutability of elements.
         typedef
-            boost::fusion::transform_view<
-                RangeTuple,
-                typename boost::result_of<op_polymorphic(op_begin const&)>::type
-            >
+            boost::fusion::transform_view<RangeTuple, op_begin>
         begin_tup_t;
 
         typedef
-            boost::fusion::transform_view<
-                RangeTuple,
-                typename boost::result_of<op_polymorphic(op_end const&)>::type
-            >
+            boost::fusion::transform_view<RangeTuple, op_end>
         end_tup_t;
 
         typedef
@@ -63,8 +56,8 @@ namespace fuzipped_detail {
 
         result_type operator()(RangeTuple& tup) const
         {
-            begin_tup_t begin_tup(tup, polymorphic(begin));
-            end_tup_t end_tup(tup, polymorphic(end));
+            begin_tup_t begin_tup(tup, begin);
+            end_tup_t end_tup(tup, end);
             return result_type(
                 iter_t( boost::fusion::as_vector(begin_tup) ),
                 iter_t( boost::fusion::as_vector(end_tup) )
