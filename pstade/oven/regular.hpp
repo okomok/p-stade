@@ -21,9 +21,9 @@
 // nor a lambda functor.
 //
 // These could be...
-//   make_indirect_function(make_regularized(f))       // regular
-//   make_indirect_function(make_shared_ptr(new F()))  // regular_c, shared_regular
-//   make_indirect_function(boost::addressof(f))       // regular_ref
+//   make_indirect_function(make_regularized(f))      // regular
+//   make_indirect_function(make_shared_ptr(new F())) // regular_c, shared_regular
+//   make_indirect_function(&f)                       // regular_ref
 // , which would be cumbersome.
 
 

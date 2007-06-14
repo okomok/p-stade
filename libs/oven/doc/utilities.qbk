@@ -119,6 +119,44 @@ All the ranges which Oven defines and returns become _input_streamable_ and _out
 
 
 
+[section regex.hpp]
+
+[h3 Description]
+The header `<pstade/oven/regex.hpp>` lets `boost::sub_match` be a model of _range_.
+
+[h3 Header]
+* `<pstade/oven/regex.hpp>`
+
+[h3 Effects]
+`boost::sub_match` becomes a _range_.
+
+[h3 See also]
+* [link oven.concatenated concatenated]
+
+[endsect]
+
+
+
+
+[section xpressive.hpp]
+
+[h3 Description]
+The header `<pstade/oven/xpressive.hpp>` lets `boost::xpressive::sub_match` be a model of _range_.
+
+[h3 Header]
+* `<pstade/oven/xpressive.hpp>`
+
+[h3 Effects]
+`boost::xpressive::sub_match` becomes a _range_.
+
+[h3 See also]
+* [link oven.concatenated concatenated]
+
+[endsect]
+
+
+
+
 [section nonstop]
 
 [h3 Description]
@@ -241,6 +279,7 @@ An iterator holding such a functor can't conform to even _input_iterator_.
 * _boost_lambda_
 * [link oven.filtered filtered]
 * [link oven.regular_ref regular_ref]
+* [link oven.shared_regular shared_regular]
 * [link oven.transformed transformed]
 
 [endsect]
@@ -268,7 +307,7 @@ A _deferred_callable_object_ like a random number generator may not be copyable,
     ]
     [
         [`regular_ref(f)`]
-        [Converts `f` into a copyable _bindable_ _deferred_callable_object_. All the calls are forwarded to `f`.]
+        [A copyable _bindable_ _deferred_callable_object_. All the calls are forwarded to `f`.]
     ]
 ]
 
@@ -279,6 +318,44 @@ A _deferred_callable_object_ like a random number generator may not be copyable,
 
 [h3 See also]
 * [link oven.regular regular]
+* [link oven.shared_regular shared_regular]
+
+[endsect]
+
+
+
+
+[section shared_regular]
+
+[h3 Description]
+`shared_regular` is similar to `regular_ref`.
+It takes a pointer to heap allocated _function_object_, whereas `regular_ref` takes an object.
+
+[h3 Header]
+* `<pstade/oven/shared_regular.hpp>`
+
+[h3 Model of]
+* _operatable_object_
+
+[h3 Valid expressions]
+[table 
+    [
+        [[*Valid expression]]
+        [[*Semantics]]
+    ]
+    [
+        [`shared_regular(pf)`]
+        [A copyable _bindable_ _deferred_callable_object_. All the calls are forwarded to `*pf`.]
+    ]
+]
+
+[h3 Preconditions]
+* `_typeof(*pf)` is a _deferred_callable_object_ but may be noncopyable.
+* `boost::shared_ptr<_typeof(*pf)>(pf)` is a valid expression.
+
+[h3 See also]
+* [link oven.regular regular]
+* [link oven.regular_ref regular_ref]
 
 [endsect]
 

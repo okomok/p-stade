@@ -20,13 +20,13 @@
 #include <boost/assert.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/utility/result_of.hpp>
-#include <pstade/apple/atl/module.hpp>
 #include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/oven/as_c_str.hpp>
 #include <pstade/oven/iter_range.hpp>
 #include <pstade/require.hpp>
 #include <pstade/to_ref.hpp>
+#include "../main_instance.hpp"
 #include "./max_path.hpp"
 #include "./path_find_extension.hpp"
 #include "./path_find_file_name.hpp"
@@ -88,7 +88,7 @@ private:
     typedef oven::iter_range_of<module_file_name const>::type const const_sub_range_t;
 
 public:
-    explicit module_file_name(HINSTANCE hInst = _Module.GetModuleInstance()) :
+    explicit module_file_name(HINSTANCE hInst = main_instance) :
         init_t(hInst),
         super_t(m_buf|to_cref|oven::as_c_str)
     {

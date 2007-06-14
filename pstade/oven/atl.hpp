@@ -30,6 +30,7 @@
 // 'boost::pointee' extensions
 //
 
+
 #if !defined(PSTADE_OVEN_ATL_NO_POINTEE_SPECIALIZATIONS)
 
 
