@@ -11,6 +11,7 @@
 
 #include "./detail/v1_tests.hpp"
 #include <pstade/oven/regular.hpp>
+#include <pstade/oven/shared_regular.hpp>
 
 
 #include <string>
@@ -75,6 +76,11 @@ void pstade_unit_test()
         ::not_equal_to_c nonC;
         BOOST_CHECK( oven::test_Bidirectional_Readable(
             rng|filtered(regular_ref(nonC)),
+            expected
+        ) );
+
+        BOOST_CHECK( oven::test_Bidirectional_Readable(
+            rng|filtered(shared_regular(new ::not_equal_to_c())),
             expected
         ) );
     }

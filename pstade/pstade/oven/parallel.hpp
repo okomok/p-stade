@@ -28,9 +28,9 @@
 #include <pstade/constant.hpp>
 #include "./concepts.hpp"
 #include "./distance.hpp"
-#include "./dropped.hpp"
 #include "./iter_range.hpp"
 #include "./range_difference.hpp"
+#include "./split_at.hpp"
 
 
 namespace pstade { namespace oven {
@@ -54,11 +54,13 @@ namespace parallel_detail {
                 return;
             }
 
+            typename boost::result_of<op_make_split_at(IterRange&, Difference)>::type
+                xs_ys = make_split_at(m_rng, dist/2);
+
             // Type must be reduced to 'IterRange',
             // otherwise the template instantiation recursion never stops.
-            // Thus, 'split_at' is useless here.
-            IterRange second_rng = make_dropped(m_rng, dist/2);
-            IterRange first_rng(boost::begin(m_rng), boost::begin(second_rng));
+            IterRange first_rng  = xs_ys.first;
+            IterRange second_rng = xs_ys.second;
 
             boost::thread thrdL(for_each_(first_rng,  m_fun, m_grain));
             boost::thread thrdR(for_each_(second_rng, m_fun, m_grain));

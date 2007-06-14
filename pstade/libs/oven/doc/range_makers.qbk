@@ -582,7 +582,7 @@ and the iterators manage the allocation.
 [h3 Header]
 * `<pstade/oven/stream_lines.hpp>`
 
-[h3 Notatio]
+[h3 Notation]
 * `DefaultA` is `std::allocator<_typeof(s)::char_type>`.
 
 [h3 Valid expressions]
@@ -601,6 +601,12 @@ and the iterators manage the allocation.
         [`op_stream_lines<A>()(s)`]
         [
            `[T(s), T())`
+        ]
+    ]
+    [
+        [`op_stream_lines`]
+        [
+           `op_stream_lines<>()`
         ]
     ]
 ]
@@ -643,6 +649,12 @@ and the iterators manage the allocation.
         [`op_stream_read<V, D>()(s)`]
         [
            `[T(s), T())`
+        ]
+    ]
+    [
+        [`oven::stream_read<V>()(s)`]
+        [
+           `op_stream_read<V>()(s)`
         ]
     ]
 ]

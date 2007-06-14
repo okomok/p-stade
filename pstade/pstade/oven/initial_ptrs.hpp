@@ -121,7 +121,7 @@ namespace initial_ptrs_detail {
     // Also note 'auto_ptr' isn't copy-initializable from one which has
     // a different 'element_type'. See http://tinyurl.com/yo8a7w (defect report #84)
     template< class To, class From > inline
-    To to_auto_ptr(From& from)
+    To move_to(From& from)
     {
         return To(from.release());
     }
@@ -146,10 +146,10 @@ struct op_initial_ptrs :
     { };
 
     // 1ary-
-#define PSTADE_to_ap(Z, N, _) initial_ptrs_detail::to_auto_ptr<typename auto_ptr_of<A0>::type>(BOOST_PP_CAT(a, N))
+#define PSTADE_move_to(Z, N, _) initial_ptrs_detail::move_to<typename auto_ptr_of<A0>::type>(BOOST_PP_CAT(a, N))
     #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_OVEN_INITIAL_PTRS_MAX_ARITY, <pstade/oven/initial_ptrs.hpp>))
     #include BOOST_PP_ITERATE()
-#undef  PSTADE_to_ap
+#undef  PSTADE_move_to
 };
 
 
@@ -204,7 +204,7 @@ public:
     operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, a)) const
     {
         typedef initial_ptrs_detail::return_range<typename auto_ptr_of<A0>::type, n> rng_t;
-        typename rng_t::array_type ptrs = { { BOOST_PP_ENUM(n, PSTADE_to_ap, ~) } };
+        typename rng_t::array_type ptrs = { { BOOST_PP_ENUM(n, PSTADE_move_to, ~) } };
         return std::auto_ptr<rng_t>(new rng_t(ptrs));
     }
 

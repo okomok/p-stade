@@ -1,29 +1,26 @@
 
-#include <memory>
 
-struct B { virtual ~B() { } };
-struct D : B { };
+#include <pstade/minimal_test.hpp>
+#include <boost/assign/list_of.hpp>
+#include <map>
+#include <pstade/copy_construct.hpp>
 
-std::auto_ptr<D> new_D()
+class A {
+public:
+    typedef std::map<int, int> map_type;
+ 
+    template< class InitList >
+    explicit A(InitList const& l)
+        : m_map(static_cast<map_type const&>(l))
+    { }
+
+    map_type m_map;
+};
+
+
+void pstade_minimal_test()
 {
-    return std::auto_ptr<D>(new D());
+    A a(boost::assign::map_list_of(1,1)(2,2));
+    BOOST_CHECK(a.m_map[1] == 1);
+    BOOST_CHECK(a.m_map[2] == 2);
 }
-
-namespace x {
- typedef int a;
-
- namespace y { using x::a; }
-
-}
-
-using namespace x;
-using namespace x::y;
-
-a s;
-
-int main()
-{
-    //std::auto_ptr<D const> pcd = new_D(); // msvc-7.1 crash
-    //std::auto_ptr<B> pb = new_D(); // gcc doesn't compile.
-}
-

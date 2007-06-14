@@ -10,11 +10,11 @@
 //#define BOOST_TYPEOF_EMULATION
 
 
-//#include <pstade/../libs/wine/test/unfuse.cpp>
+#include <pstade/../libs/wine/test/copy_auto_ptr.cpp>
 
-#include <pstade/../libs/oven/test/taken_while.cpp>
-//#include <pstade/../libs/oven/test/steps.cpp>
-//#include <pstade/../libs/oven/test/multiple_defs1.cpp>
+//#include <pstade/../libs/oven/test/regular.cpp>
+//#include <pstade/../libs/oven/test/popped.cpp>
+//#include <pstade/../libs/oven/test/initial_ptrs.cpp>
 //#include <pstade/../libs/oven/example/primes.cpp>
 //#include <pstade/../libs/biscuit/test/capture.cpp>
 //#include <pstade/../libs/oven/test/ms/atl_string.cpp>
