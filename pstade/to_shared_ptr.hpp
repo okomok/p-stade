@@ -23,19 +23,25 @@
 #include <boost/shared_ptr.hpp>
 #include <pstade/callable_by_value.hpp>
 #include <pstade/constant.hpp>
+#include <pstade/use_default.hpp>
 
 
 namespace pstade {
 
 
+    template<class Element = boost::use_default>
     struct op_to_shared_ptr :
-        callable_by_value<op_to_shared_ptr>
+        callable_by_value< op_to_shared_ptr<Element> >
     {
         template<class Myself, class Ptr>
         struct apply
         {
+            typedef typename
+                eval_if_use_default< Element, boost::pointee<Ptr> >::type
+            elem_t;
+
             typedef
-                boost::shared_ptr<typename boost::pointee<Ptr>::type>
+                boost::shared_ptr<elem_t>
             type;
 
             // Topic:
@@ -52,7 +58,7 @@ namespace pstade {
     };
 
 
-    PSTADE_CONSTANT(to_shared_ptr, (op_to_shared_ptr))
+    PSTADE_CONSTANT(to_shared_ptr, (op_to_shared_ptr<>))
 
 
     template<class X, class Ptr>

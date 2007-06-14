@@ -115,6 +115,7 @@
 #include "./set_delta.hpp"
 #include "./set_minus.hpp"
 #include "./shared.hpp"
+#include "./shared_regular.hpp"
 #include "./shared_single.hpp"
 #include "./shared_values.hpp"
 #include "./single.hpp"

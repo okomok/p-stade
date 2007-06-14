@@ -32,7 +32,7 @@ struct op_shared :
     struct apply
     {
         typedef typename
-            boost::result_of<op_to_shared_ptr(Ptr&)>::type
+            boost::result_of<op_to_shared_ptr<>(Ptr&)>::type
         sprng_t;
 
         typedef
@@ -50,7 +50,7 @@ struct op_shared :
         PSTADE_CONCEPT_ASSERT((SinglePass<typename boost::pointee<Ptr>::type>));
 
         typedef typename Result::iterator iter_t;
-        typename boost::result_of<op_to_shared_ptr(Ptr&)>::type sprng = to_shared_ptr(prng);
+        typename boost::result_of<op_to_shared_ptr<>(Ptr&)>::type sprng = to_shared_ptr(prng);
         return Result(
             iter_t(boost::begin(*sprng), sprng),
             iter_t(boost::end(*sprng),   sprng)

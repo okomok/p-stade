@@ -63,7 +63,7 @@ struct op_shared_single :
                         typename boost::result_of<
                             shared_single_detail::new_array1(
                                 typename boost::result_of<
-                                    op_to_shared_ptr(Ptr&)
+                                    op_to_shared_ptr<>(Ptr&)
                                 >::type
                             )
                         >::type
