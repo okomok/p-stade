@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/tomato/boolean_cast.hpp>
+#include <pstade/gravy/boolean_cast.hpp>
 #include "./element.hpp"
 #include "./point.hpp"
 #include "./size.hpp"
@@ -24,7 +24,7 @@ namespace pstade { namespace hamburger {
     bool contains(const element& elem, point const& in_elem)
     {
         rectangle rc(origin, hamburger::size(elem));
-        return rc.PtInRect(in_elem)|tomato::to_boolean;
+        return rc.PtInRect(in_elem)|gravy::to_boolean;
     }
 
 

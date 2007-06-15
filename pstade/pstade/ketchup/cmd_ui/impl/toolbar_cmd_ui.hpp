@@ -12,9 +12,9 @@
 
 #include <boost/assert.hpp>
 #include <pstade/apple/sdk/windows.hpp>
+#include <pstade/gravy/window_ref.hpp>
 #include <pstade/tomato/toolbar/enable_toolbar_button.hpp>
 #include <pstade/tomato/toolbar/check_toolbar_button.hpp>
-#include <pstade/tomato/window/window_ref.hpp>
 #include "../cmd_ui.hpp"
 
 
@@ -23,7 +23,7 @@ namespace pstade { namespace ketchup {
 
 struct toolbar_cmd_ui : cmd_ui
 {
-    toolbar_cmd_ui(UINT uID, tomato::window_ref toolbar) :
+    toolbar_cmd_ui(UINT uID, gravy::window_ref toolbar) :
         cmd_ui(uID), m_toolbar(toolbar)
     { }
 
@@ -40,7 +40,7 @@ protected:
     }
 
 private:
-    tomato::window_ref m_toolbar;
+    gravy::window_ref m_toolbar;
 };
 
 

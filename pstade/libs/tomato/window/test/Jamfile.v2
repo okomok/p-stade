@@ -12,7 +12,6 @@ project
 test-suite "tomato-window" :
     [ run class_name.cpp ]
     [ run for_each_child_window.cpp ]
-    [ run register_window_message.cpp ]
     [ run window_text.cpp ]
     ;
 

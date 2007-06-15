@@ -13,7 +13,7 @@
 #include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/copy_construct.hpp>
 #include <pstade/lexical_cast.hpp>
-#include <pstade/tomato/tstring.hpp>
+#include <pstade/gravy/tstring.hpp>
 #include "./set_string.hpp"
 
 
@@ -24,7 +24,7 @@ template< class Profile, class CStringizable, class IntegerT >
 void set_integer(Profile& pr, const CStringizable& valueName, IntegerT value)
 {
     pizza::set_string(pr, valueName,
-        pstade::copy_construct<tomato::tstring>(value|lexicalized).c_str()
+        pstade::copy_construct<gravy::tstring>(value|lexicalized).c_str()
     );
 }
 

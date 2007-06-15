@@ -12,10 +12,10 @@
 
 #include <boost/assert.hpp>
 #include <pstade/apple/sdk/windows.hpp>
+#include <pstade/gravy/window_ref.hpp>
 #include <pstade/tomato/menu/get_menu_item_count.hpp>
 #include <pstade/tomato/menu/get_menu_item_id.hpp>
 #include <pstade/tomato/menu/menu_ref.hpp>
-#include <pstade/tomato/window/window_ref.hpp>
 #include "../impl/menu_cmd_ui.hpp"
 #include "./cmd_ui.hpp"
 
@@ -44,7 +44,7 @@ namespace cmd_ui_detail {
 
 
 inline
-void update_menu_cmd_ui(tomato::window_ref updater, tomato::menu_ref menu)
+void update_menu_cmd_ui(gravy::window_ref updater, tomato::menu_ref menu)
 {
     // See:
     // MFC7::CFrameWnd::OnInitMenuPopup

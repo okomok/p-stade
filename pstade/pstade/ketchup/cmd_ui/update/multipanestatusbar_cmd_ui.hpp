@@ -12,7 +12,7 @@
 
 #include <boost/assert.hpp>
 #include <pstade/apple/sdk/windows.hpp>
-#include <pstade/tomato/window/window_ref.hpp>
+#include <pstade/gravy/window_ref.hpp>
 #include "../impl/multipanestatusbar_cmd_ui.hpp"
 #include "./cmd_ui.hpp"
 
@@ -21,7 +21,7 @@ namespace pstade { namespace ketchup {
 
 
 template< class MultiPaneStatusBarCtrl > inline
-void update_multipanestatusbar_cmd_ui(tomato::window_ref updater, MultiPaneStatusBarCtrl& statusbar)
+void update_multipanestatusbar_cmd_ui(gravy::window_ref updater, MultiPaneStatusBarCtrl& statusbar)
 {
     BOOST_ASSERT(::IsWindow(statusbar.m_hWnd));
 

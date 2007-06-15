@@ -19,7 +19,7 @@
 #include <pstade/oven/copy_range.hpp>
 #include <pstade/tomato/c_str.hpp>
 #include <pstade/tomato/filesystem/module_file_name.hpp>
-#include <pstade/tomato/tstring.hpp>
+#include <pstade/gravy/tstring.hpp>
 #include <pstade/require.hpp>
 
 
@@ -28,8 +28,8 @@ void pstade_pizza_initialize(ATL::CRegKey& key, const TCHAR *pszName, pstade::de
 {
     using namespace pstade;
 
-    tomato::tstring moduleName = tomato::module_file_name().name()|oven::copied;
-    tomato::tstring path = _T("Software\\") + moduleName + _T('\\') + pszName;
+    gravy::tstring moduleName = tomato::module_file_name().name()|oven::copied;
+    gravy::tstring path = _T("Software\\") + moduleName + _T('\\') + pszName;
     
     PSTADE_REQUIRE(key.Create(HKEY_CURRENT_USER, tomato::c_str(path)) == ERROR_SUCCESS);
 }

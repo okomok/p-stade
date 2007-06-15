@@ -11,7 +11,7 @@
 
 
 #include <pstade/apple/sdk/windows.hpp>
-#include <pstade/tomato/boolean_cast.hpp>
+#include <pstade/gravy/boolean_cast.hpp>
 #include "../point.hpp"
 #include "../rectangle.hpp"
 
@@ -28,7 +28,7 @@ namespace pstade { namespace hamburger { namespace detail {
         if (!::SystemParametersInfo(SPI_GETWORKAREA, 0, &rc, 0))
             return true;
 
-        return rc.PtInRect(pt)|tomato::to_boolean;
+        return rc.PtInRect(pt)|gravy::to_boolean;
     }
 
 
@@ -39,7 +39,7 @@ namespace pstade { namespace hamburger { namespace detail {
         if (!::SystemParametersInfo(SPI_GETWORKAREA, 0, &w, 0))
             return true;
 
-        return !(rc & w).IsRectEmpty()|tomato::to_boolean;
+        return !(rc & w).IsRectEmpty()|gravy::to_boolean;
     }
 
 

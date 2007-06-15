@@ -8,7 +8,7 @@
 #include <pstade/hamburger.hpp>
 
 #include <pstade/oven/copy_range.hpp>
-#include <pstade/tomato/co_init.hpp>
+#include <pstade/gravy/co_init.hpp>
 #include <pstade/tomato/filesystem/module_file_name.hpp>
 #include <pstade/tomato/message_loop.hpp>
 #include <pstade/tomato/module_init.hpp>
@@ -58,7 +58,7 @@ int WINAPI _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpstrC
     using namespace pstade;
 
     try {
-        tomato::co_init ci;
+        gravy::co_init ci;
         tomato::module_init mi(hInstance);
         WTL::AtlInitCommonControls(ICC_BAR_CLASSES); // add flags to support other controls
         return wtlburger_detail::run(lpstrCmdLine, nCmdShow);

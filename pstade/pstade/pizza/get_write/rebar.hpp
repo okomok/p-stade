@@ -27,8 +27,9 @@
 #include <pstade/tomato/rebar/add_rebar_band.hpp>
 #include <pstade/tomato/rebar/rebar_band_runtime_styles.hpp>
 #include <pstade/tomato/size_initialize.hpp>
-#include <pstade/tomato/tstring.hpp>
-#include <pstade/tomato/window/window_ref.hpp>
+#include <pstade/gravy/tstring.hpp>
+#include <pstade/gravy/tstringstream.hpp>
+#include <pstade/gravy/window_ref.hpp>
 #include "../error.hpp"
 #include "../integer.hpp"
 #include "../set_integer.hpp"
@@ -38,7 +39,7 @@ namespace pstade { namespace pizza {
 
 
 template< class Profile >
-void write_rebar(Profile& pr, tomato::window_ref rebar)
+void write_rebar(Profile& pr, gravy::window_ref rebar)
 {
     WTL::CReBarCtrl rebars(rebar);
 
@@ -49,8 +50,8 @@ void write_rebar(Profile& pr, tomato::window_ref rebar)
             PSTADE_REQUIRE(rebars.GetBandInfo(uIndex, &info));
         }
 
-        tomato::tstring buf; {
-            tomato::tstringstream os;
+        gravy::tstring buf; {
+            gravy::tstringstream os;
             int id = ::GetDlgCtrlID(info.hwndChild);
             PSTADE_REQUIRE(id != 0);
             os << _T("rebar.band#") << id;
@@ -111,7 +112,7 @@ namespace rebar_detail {
 
 
 template< class Profile, class ReBarBandInfoRange >
-void get_rebar(Profile& pr, tomato::window_ref rebar, ReBarBandInfoRange const& infos)
+void get_rebar(Profile& pr, gravy::window_ref rebar, ReBarBandInfoRange const& infos)
 {
     BOOST_ASSERT(rebar_detail::is_valid(infos));
 
@@ -119,10 +120,10 @@ void get_rebar(Profile& pr, tomato::window_ref rebar, ReBarBandInfoRange const& 
 
     BOOST_FOREACH (rebar_band_info info, infos) { // copy info
 
-        tomato::tstring buf; {
+        gravy::tstring buf; {
             int id = ::GetDlgCtrlID(info.hwndChild);
             PSTADE_REQUIRE(id != 0);
-            tomato::tstringstream os;
+            gravy::tstringstream os;
             os << _T("rebar.band#") << id;
             buf = os.str();
         }

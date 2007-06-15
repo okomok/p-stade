@@ -11,7 +11,7 @@
 
 
 #include <pstade/apple/sdk/windows.hpp>
-#include <pstade/tomato/window/window_ref.hpp>
+#include <pstade/gravy/window_ref.hpp>
 #include "../impl/childwindow_cmd_ui.hpp"
 #include "./cmd_ui.hpp"
 
@@ -20,9 +20,9 @@ namespace pstade { namespace ketchup {
 
 
 inline
-void update_childwindow_cmd_ui(tomato::window_ref updater, tomato::window_ref parent, UINT uID)
+void update_childwindow_cmd_ui(gravy::window_ref updater, gravy::window_ref parent, UINT uID)
 {
-    tomato::window_ref child = ::GetDlgItem(parent, uID);
+    gravy::window_ref child = ::GetDlgItem(parent, uID);
 
     childwindow_cmd_ui ui(uID, child);
     ketchup::update_cmd_ui(updater, ui);

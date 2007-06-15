@@ -18,6 +18,7 @@
 #include <iostream>
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/oven.hpp>
+#include <pstade/gravy/window_ref.hpp>
 
 
 bool output(HWND hWnd)
@@ -48,7 +49,7 @@ void test()
     tomato::for_each_child_window wnds(::GetDesktopWindow());
 
     {
-        BOOST_FOREACH (tomato::window_ref wnd, wnds|yielded) {
+        BOOST_FOREACH (gravy::window_ref wnd, wnds|yielded) {
             //::output(wnd);
             (void)wnd;
         }
@@ -58,7 +59,7 @@ void test()
 
 
     {
-        tomato::window_ref wnd = ::GetForegroundWindow();
+        gravy::window_ref wnd = ::GetForegroundWindow();
         tomato::for_each_child_window(wnd.handle())(&::output);
     }
 

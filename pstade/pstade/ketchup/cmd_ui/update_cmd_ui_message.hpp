@@ -12,7 +12,7 @@
 
 #include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/apple/sdk/windows.hpp>
-#include <pstade/tomato/window/register_window_message.hpp>
+#include <pstade/gravy/register_window_message.hpp>
 #include "./cmd_ui.hpp"
 
 
@@ -21,7 +21,7 @@ namespace pstade { namespace ketchup {
 
 namespace update_cmd_ui_message_detail {
 
-    PSTADE_TOMATO_REGISTER_WINDOW_MESSAGE(msg, pstade_ketchup_update_cmd_ui)
+    PSTADE_GRAVY_REGISTER_WINDOW_MESSAGE(msg, pstade_ketchup_update_cmd_ui)
 
 } // namespace update_cmd_ui_message_detail
 

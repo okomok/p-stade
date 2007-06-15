@@ -12,10 +12,10 @@
 
 #include <boost/foreach.hpp>
 #include <pstade/apple/sdk/windows.hpp>
+#include <pstade/gravy/boolean_cast.hpp>
 #include <pstade/oven/copy_range.hpp>
 #include <pstade/oven/reversed.hpp>
 #include <pstade/oven/sorted.hpp>
-#include <pstade/tomato/boolean_cast.hpp>
 #include <pstade/tomato/get.hpp>
 #include <pstade/tomato/make.hpp>
 #include <pstade/statement.hpp>
@@ -147,7 +147,7 @@ namespace pstade { namespace hamburger { namespace detail {
             }
 
             pstade::unused(hWnd, dwMsgMapID);
-            return bHandled|tomato::to_boolean;
+            return bHandled|gravy::to_boolean;
         }
     };
 
