@@ -15,8 +15,8 @@
 #include <boost/optional/optional.hpp>
 #include <pstade/apple/atl/win.hpp> // CMessageMap
 #include <pstade/apple/sdk/windows.hpp>
+#include <pstade/gravy/boolean_cast.hpp>
 #include <pstade/lime/node_facade.hpp>
-#include <pstade/tomato/boolean_cast.hpp>
 #include <pstade/unused.hpp>
 #include "./element_attributes.hpp"
 #include "./graphics.hpp"
@@ -100,7 +100,7 @@ namespace pstade { namespace hamburger {
 
         bool process_message(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, LRESULT& lResult, DWORD dwMsgMapID = 0)
         {
-            return ProcessWindowMessage(hWnd, uMsg, wParam, lParam, lResult, dwMsgMapID)|tomato::to_boolean;
+            return ProcessWindowMessage(hWnd, uMsg, wParam, lParam, lResult, dwMsgMapID)|gravy::to_boolean;
         }
 
         // overridables

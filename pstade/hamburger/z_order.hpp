@@ -13,7 +13,6 @@
 #include <pstade/constant.hpp>
 #include <pstade/if_debug.hpp>
 #include <pstade/lexical_cast.hpp>
-#include <pstade/tomato/boolean_cast.hpp>
 #include <pstade/unused.hpp>
 #include "./log.hpp"
 

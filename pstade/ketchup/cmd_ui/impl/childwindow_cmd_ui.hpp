@@ -11,10 +11,10 @@
 
 
 #include <pstade/apple/sdk/windows.hpp>
+#include <pstade/gravy/window_ref.hpp>
 #include <pstade/tomato/window/check_window.hpp>
 #include <pstade/tomato/window/enable_window.hpp>
 #include <pstade/tomato/window/set_window_text.hpp>
-#include <pstade/tomato/window/window_ref.hpp>
 #include "../cmd_ui.hpp"
 
 
@@ -23,7 +23,7 @@ namespace pstade { namespace ketchup {
 
 struct childwindow_cmd_ui : cmd_ui
 {
-    childwindow_cmd_ui(UINT uID, tomato::window_ref child) :
+    childwindow_cmd_ui(UINT uID, gravy::window_ref child) :
         cmd_ui(uID), m_child(child)
     { }
 
@@ -45,7 +45,7 @@ private:
     }
 
 private:
-    tomato::window_ref m_child;
+    gravy::window_ref m_child;
 };
 
 

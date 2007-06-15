@@ -34,7 +34,7 @@
 #include <pstade/require.hpp>
 #include <pstade/tomato/filesystem/module_file_name.hpp>
 #include <pstade/tomato/c_str.hpp>
-#include <pstade/tomato/tstring.hpp>
+#include <pstade/gravy/tstring.hpp>
 
 
 namespace pstade { namespace pizza {
@@ -43,7 +43,7 @@ namespace pstade { namespace pizza {
 namespace ini_section_detail {
 
 
-    PSTADE_INSTANCE((tomato::tstring) const,
+    PSTADE_INSTANCE((gravy::tstring) const,
         magicStr, (_T("pstade_tomato_ini_section_detail_magic_string"))
     )
 
@@ -105,10 +105,10 @@ struct ini_section
     }
 
 
-    tomato::tstring get_file_name() const
+    gravy::tstring get_file_name() const
     { return m_fileName; }
 
-    tomato::tstring get_section_name() const
+    gravy::tstring get_section_name() const
     { return m_sectionName; }
 
     bool is_open() const
@@ -118,7 +118,7 @@ struct ini_section
 typedef ini_section pstade_pizza_profile;
     void pstade_pizza_initialize(TCHAR const *pszName)
     {
-        tomato::tstring ini = tomato::module_file_name().identifier()|oven::copied;
+        gravy::tstring ini = tomato::module_file_name().identifier()|oven::copied;
         ini += _T(".ini");
         open(ini, pszName);
     }
@@ -156,7 +156,7 @@ typedef ini_section pstade_pizza_profile;
     }
 
 private:
-    tomato::tstring m_fileName, m_sectionName;
+    gravy::tstring m_fileName, m_sectionName;
 };
 
 

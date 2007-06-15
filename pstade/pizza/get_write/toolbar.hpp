@@ -23,8 +23,9 @@
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/apple/wtl/ctrls.hpp> // CToolBarCtrl
 #include <pstade/candy/test.hpp>
+#include <pstade/gravy/tstringstream.hpp>
 #include <pstade/require.hpp>
-#include <pstade/tomato/window/window_ref.hpp>
+#include <pstade/gravy/window_ref.hpp>
 #include "../integer.hpp"
 #include "../set_integer.hpp"
 
@@ -53,16 +54,16 @@ namespace toolbar_detail {
 
 
     inline
-    tomato::tstring format_button_value_name(int i)
+    gravy::tstring format_button_value_name(int i)
     {
-        tomato::tstringstream os;
+        gravy::tstringstream os;
         os << _T("toolbar.button[") << i << _T("].iBitmap");
         return os.str();
     }
 
 
     inline
-    void clean_up_buttons(tomato::window_ref toolbar)
+    void clean_up_buttons(gravy::window_ref toolbar)
     {        
         WTL::CToolBarCtrl toolbars(toolbar);
         while (toolbars.DeleteButton(0))
@@ -74,7 +75,7 @@ namespace toolbar_detail {
 
 
 template< class Profile >
-void write_toolbar(Profile& pr, tomato::window_ref toolbar)
+void write_toolbar(Profile& pr, gravy::window_ref toolbar)
 {
     WTL::CToolBarCtrl toolbars(toolbar);
 
@@ -85,7 +86,7 @@ void write_toolbar(Profile& pr, tomato::window_ref toolbar)
         TBBUTTON tbBtn;
         PSTADE_REQUIRE(toolbars.GetButton(i, &tbBtn));
 
-        tomato::tstring valName = toolbar_detail::format_button_value_name(i);
+        gravy::tstring valName = toolbar_detail::format_button_value_name(i);
         int index = candy::test(tbBtn.fsStyle, TBSTYLE_SEP) ? separator_iBitmap::value : tbBtn.iBitmap;
         pizza::set_integer(pr, valName, index);
     }
@@ -95,7 +96,7 @@ void write_toolbar(Profile& pr, tomato::window_ref toolbar)
 // hWndToolbar must have all the buttons before calling.
 //
 template< class Profile >
-bool get_toolbar(Profile& pr, tomato::window_ref toolbar)
+bool get_toolbar(Profile& pr, gravy::window_ref toolbar)
 {
     WTL::CToolBarCtrl toolbars(toolbar);
 
@@ -122,7 +123,7 @@ bool get_toolbar(Profile& pr, tomato::window_ref toolbar)
     // insert buttons
     for (int index = 0; index < prCount; ++index) {
 
-        tomato::tstring valName =
+        gravy::tstring valName =
             toolbar_detail::format_button_value_name(index);
 
         int iBitmap;
@@ -176,7 +177,7 @@ bool copy_toolbar(Profile& pr, OutputIter out)
 
     // copy button index
     for (int index = 0; index < count; ++index) {
-        tomato::tstring valName = toolbar_detail::format_button_value_name(index);
+        gravy::tstring valName = toolbar_detail::format_button_value_name(index);
 
         try {
             int iBitmap = pizza::integer(pr, valName);

@@ -16,7 +16,7 @@
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/require.hpp>
 #include <pstade/tomato/size_initialize.hpp>
-#include <pstade/tomato/window/window_ref.hpp>
+#include <pstade/gravy/window_ref.hpp>
 #include "./window_placement.hpp"
 
 
@@ -24,7 +24,7 @@ namespace pstade { namespace pizza {
 
 
 template< class Profile >
-void write_placement(Profile& pr, tomato::window_ref wnd)
+void write_placement(Profile& pr, gravy::window_ref wnd)
 {
     WINDOWPLACEMENT wndpl;
     tomato::size_initialize(wndpl);
@@ -35,7 +35,7 @@ void write_placement(Profile& pr, tomato::window_ref wnd)
 
 
 template< class Profile >
-void get_placement(Profile& pr, tomato::window_ref wnd)
+void get_placement(Profile& pr, gravy::window_ref wnd)
 {
     WINDOWPLACEMENT wndpl = pizza::get_window_placement(pr);
     PSTADE_REQUIRE(::SetWindowPlacement(wnd, &wndpl));

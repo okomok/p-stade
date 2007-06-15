@@ -12,7 +12,7 @@
 
 #include <boost/mpl/void.hpp>
 #include <pstade/apple/sdk/windows.hpp>
-#include <pstade/tomato/boolean_cast.hpp>
+#include <pstade/gravy/boolean_cast.hpp>
 #include <pstade/unused.hpp>
 
 
@@ -59,7 +59,7 @@ struct forwarding_and_reflection_entry_set
         {
             pstade::unused(derived, hWnd, uMsg, wParam, lParam, lResult, dwMsgMapID);
 
-            return Derived::DefaultReflectionHandler(hWnd, uMsg, wParam, lParam, lResult)|tomato::to_boolean;
+            return Derived::DefaultReflectionHandler(hWnd, uMsg, wParam, lParam, lResult)|gravy::to_boolean;
         }
     };
 

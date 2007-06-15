@@ -13,8 +13,8 @@
 #include <boost/mpl/integral_c.hpp>
 #include <boost/type.hpp>
 #include <pstade/apple/sdk/windows.hpp>
+#include <pstade/gravy/boolean_cast.hpp>
 #include <pstade/unused.hpp>
-#include <pstade/tomato/boolean_cast.hpp>
 #include "../core/access.hpp"
 
 
@@ -67,7 +67,7 @@ struct chain_msg_map_entry_set
         {
             pstade::unused(derived, hWnd, uMsg, wParam, lParam, lResult, dwMsgMapID);
 
-            return F_ChainClass()(derived).ProcessWindowMessage(hWnd, uMsg, wParam, lParam, lResult, msgMapID)|tomato::to_boolean;
+            return F_ChainClass()(derived).ProcessWindowMessage(hWnd, uMsg, wParam, lParam, lResult, msgMapID)|gravy::to_boolean;
         }
     };
 

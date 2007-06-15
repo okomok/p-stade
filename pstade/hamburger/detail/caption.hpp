@@ -17,8 +17,8 @@
 
 #include <pstade/apple/atl/win.hpp> // CWindow
 #include <pstade/apple/sdk/windows.hpp>
+#include <pstade/gravy/window_ref.hpp>
 #include <pstade/oven/equals.hpp>
-#include <pstade/tomato/window/window_ref.hpp>
 #include "./element_attributes.hpp"
 
 
@@ -29,7 +29,7 @@ namespace pstade { namespace hamburger { namespace detail {
 
 
         inline
-        void remove(tomato::window_ref wnd)
+        void remove(gravy::window_ref wnd)
         {
             ATL::CWindow wnds(wnd);
             wnds.ModifyStyle(WS_CAPTION, 0);

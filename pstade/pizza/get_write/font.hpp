@@ -14,7 +14,7 @@
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/apple/wtl/gdi.hpp> // CLogFont
 #include <pstade/require.hpp>
-#include <pstade/tomato/window/window_ref.hpp>
+#include <pstade/gravy/window_ref.hpp>
 #include "./logfont.hpp"
 
 
@@ -22,7 +22,7 @@ namespace pstade { namespace pizza {
 
 
 template< class Profile >
-void write_font(Profile& pr, tomato::window_ref wnd)
+void write_font(Profile& pr, gravy::window_ref wnd)
 {
     HFONT hFont = ATL::CWindow(wnd).GetFont();
     if (hFont == NULL)

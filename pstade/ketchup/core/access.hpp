@@ -13,8 +13,8 @@
 #include <boost/config.hpp> // BOOST_NO_MEMBER_TEMPLATE_FRIENDS
 #include <boost/type.hpp>
 #include <pstade/apple/sdk/windows.hpp>
+#include <pstade/gravy/boolean_cast.hpp>
 #include <pstade/nonconstructible.hpp>
-#include <pstade/tomato/boolean_cast.hpp>
 #include <pstade/unused.hpp>
 #include "./process_window_message_fwd.hpp"
 
@@ -49,7 +49,7 @@ public:
     {
         pstade::unused(processor);
 
-        return processor.end_msg_map.process(derived, hWnd, uMsg, wParam, lParam, lResult, dwMsgMapID)|tomato::to_boolean;
+        return processor.end_msg_map.process(derived, hWnd, uMsg, wParam, lParam, lResult, dwMsgMapID)|gravy::to_boolean;
     }
 
     // Note:
@@ -63,7 +63,7 @@ public:
     {
         pstade::unused(dwMsgMapID);
 
-        return derived.ChainClass::ProcessWindowMessage(hWnd, uMsg, wParam, lParam, lResult, msgMapID_t::value)|tomato::to_boolean;
+        return derived.ChainClass::ProcessWindowMessage(hWnd, uMsg, wParam, lParam, lResult, msgMapID_t::value)|gravy::to_boolean;
     }
 
     // Note:
@@ -76,7 +76,7 @@ public:
     {
         pstade::unused(dwMsgMapID);
 
-        return derived.ATL::CDynamicChain::CallChain(dynaChainID_t::value, hWnd, uMsg, wParam, lParam, lResult)|tomato::to_boolean;
+        return derived.ATL::CDynamicChain::CallChain(dynaChainID_t::value, hWnd, uMsg, wParam, lParam, lResult)|gravy::to_boolean;
     }
 
 }; // class access

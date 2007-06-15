@@ -14,7 +14,7 @@
 #include <pstade/apple/sdk/windows.hpp>
 #include <pstade/apple/wtl/ctrls.hpp> // CToolBarCtrl
 #include <pstade/candy/test.hpp>
-#include <pstade/tomato/window/window_ref.hpp>
+#include <pstade/gravy/window_ref.hpp>
 #include <pstade/require.hpp>
 #include "../impl/toolbar_cmd_ui.hpp"
 #include "./cmd_ui.hpp"
@@ -24,7 +24,7 @@ namespace pstade { namespace ketchup {
 
 
 inline
-void update_toolbar_cmd_ui(tomato::window_ref updater, tomato::window_ref toolbar)
+void update_toolbar_cmd_ui(gravy::window_ref updater, gravy::window_ref toolbar)
 {
     // See: MFC7::CToolBar::OnUpdateCmdUI
 

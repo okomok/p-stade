@@ -12,7 +12,7 @@
 
 #include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/apple/sdk/windows.hpp>
-#include <pstade/tomato/window/window_ref.hpp>
+#include <pstade/gravy/window_ref.hpp>
 #include "../error.hpp"
 #include "../integer.hpp"
 #include "../set_integer.hpp"
@@ -22,14 +22,14 @@ namespace pstade { namespace pizza {
 
 
 template< class Profile > inline
-void write_statusbar(Profile& pr, tomato::window_ref statusbar)
+void write_statusbar(Profile& pr, gravy::window_ref statusbar)
 {
     pizza::set_integer(pr, _T("statusbar.visible"), ::IsWindowVisible(statusbar) ? 1 : 0);
 }
 
 
 template< class Profile >
-bool get_statusbar(Profile& pr, tomato::window_ref statusbar)
+bool get_statusbar(Profile& pr, gravy::window_ref statusbar)
 {
     try {
         int val = pizza::integer(pr, _T("statusbar.visible"));
