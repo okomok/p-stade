@@ -11,9 +11,9 @@
 
 
 #include <boost/mpl/if.hpp>
-#include <pstade/apple/sdk/tchar.hpp>
+#include <pstade/gravy/sdk/tchar.hpp>
 #include <pstade/detail/overload.hpp>
-#include <pstade/tomato/c_str.hpp>
+#include <pstade/gravy/c_str.hpp>
 #include "./access.hpp"
 #include "./detail/has_pstade_pizza_profile.hpp"
 
@@ -50,8 +50,8 @@ namespace set_string_detail {
 template< class Profile, class CStringizeable0, class CStringizeable1 > inline
 void set_string(Profile& pr, CStringizeable0 const& valueName, CStringizeable1 const& value)
 {
-    TCHAR const *pszValueName = tomato::c_str(valueName);
-    TCHAR const *pszValue = tomato::c_str(value);
+    TCHAR const *pszValueName = gravy::c_str(valueName);
+    TCHAR const *pszValue = gravy::c_str(value);
 
     using namespace set_string_detail;
 

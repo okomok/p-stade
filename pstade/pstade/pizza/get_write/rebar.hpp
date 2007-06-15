@@ -17,19 +17,19 @@
 #include <vector>
 #include <boost/assert.hpp>
 #include <boost/foreach.hpp>
-#include <pstade/apple/sdk/tchar.hpp>
-#include <pstade/apple/sdk/windows.hpp>
-#include <pstade/apple/wtl/ctrls.hpp> // CReBarCtrl
 #include <pstade/candy/add.hpp>
 #include <pstade/candy/mask.hpp>
 #include <pstade/candy/remove.hpp>
-#include <pstade/require.hpp>
-#include <pstade/tomato/rebar/add_rebar_band.hpp>
-#include <pstade/tomato/rebar/rebar_band_runtime_styles.hpp>
-#include <pstade/tomato/size_initialize.hpp>
+#include <pstade/gravy/sdk/tchar.hpp>
+#include <pstade/gravy/sdk/windows.hpp>
+#include <pstade/gravy/size_initialize.hpp>
+#include <pstade/gravy/tsstream.hpp>
 #include <pstade/gravy/tstring.hpp>
-#include <pstade/gravy/tstringstream.hpp>
 #include <pstade/gravy/window_ref.hpp>
+#include <pstade/require.hpp>
+#include <pstade/tomato/add_rebar_band.hpp>
+#include <pstade/tomato/rebar_band_runtime_styles.hpp>
+#include <pstade/tomato/wtl/ctrls.hpp> // CReBarCtrl
 #include "../error.hpp"
 #include "../integer.hpp"
 #include "../set_integer.hpp"
@@ -45,7 +45,7 @@ void write_rebar(Profile& pr, gravy::window_ref rebar)
 
     for (UINT uIndex = 0, uCount = rebars.GetBandCount(); uIndex < uCount; ++uIndex) {
         REBARBANDINFO info; {
-            info|tomato::size_initialized;
+            info|gravy::size_initialized;
             info.fMask = RBBIM_SIZE | RBBIM_STYLE | RBBIM_CHILD;
             PSTADE_REQUIRE(rebars.GetBandInfo(uIndex, &info));
         }

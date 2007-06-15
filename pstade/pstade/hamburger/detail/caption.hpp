@@ -15,10 +15,10 @@
 // Win32 adds caption forcefully when creating window.
 
 
-#include <pstade/apple/atl/win.hpp> // CWindow
-#include <pstade/apple/sdk/windows.hpp>
+#include <pstade/gravy/sdk/windows.hpp>
 #include <pstade/gravy/window_ref.hpp>
 #include <pstade/oven/equals.hpp>
+#include <pstade/tomato/atl/win.hpp> // CWindow
 #include "./element_attributes.hpp"
 
 

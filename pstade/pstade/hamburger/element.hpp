@@ -13,10 +13,10 @@
 #include <boost/assert.hpp>
 #include <boost/foreach.hpp>
 #include <boost/optional/optional.hpp>
-#include <pstade/apple/atl/win.hpp> // CMessageMap
-#include <pstade/apple/sdk/windows.hpp>
+#include <pstade/gravy/sdk/windows.hpp>
 #include <pstade/gravy/boolean_cast.hpp>
 #include <pstade/lime/node_facade.hpp>
+#include <pstade/tomato/atl/win.hpp> // CMessageMap
 #include <pstade/unused.hpp>
 #include "./element_attributes.hpp"
 #include "./graphics.hpp"

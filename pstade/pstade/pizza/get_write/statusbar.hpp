@@ -10,8 +10,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/apple/sdk/tchar.hpp>
-#include <pstade/apple/sdk/windows.hpp>
+#include <pstade/gravy/sdk/tchar.hpp>
+#include <pstade/gravy/sdk/windows.hpp>
 #include <pstade/gravy/window_ref.hpp>
 #include "../error.hpp"
 #include "../integer.hpp"

@@ -11,9 +11,9 @@
 
 
 #include <boost/mpl/if.hpp>
-#include <pstade/apple/sdk/tchar.hpp>
+#include <pstade/gravy/sdk/tchar.hpp>
 #include <pstade/detail/overload.hpp>
-#include <pstade/tomato/c_str.hpp>
+#include <pstade/gravy/c_str.hpp>
 #include "./access.hpp"
 #include "./detail/has_pstade_pizza_profile.hpp"
 
@@ -50,7 +50,7 @@ namespace initialize_detail {
 template< class Profile, class CStringizable >
 void initialize(Profile& pr, CStringizable const& name)
 {
-    TCHAR const *pszName = tomato::c_str(name);
+    TCHAR const *pszName = gravy::c_str(name);
 
     using namespace initialize_detail;
 

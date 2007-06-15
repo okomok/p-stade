@@ -10,8 +10,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/apple/wtl/misc.hpp> // CPoint
 #include <pstade/instance.hpp>
+#include <pstade/tomato/wtl/misc.hpp> // CPoint
 
 
 namespace pstade { namespace hamburger {

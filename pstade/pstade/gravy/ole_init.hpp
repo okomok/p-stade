@@ -11,8 +11,8 @@
 
 
 #include <pstade/require.hpp>
-#include "./include/ole2.hpp"
-#include "./include/winerror.hpp" // SUCCEEDED
+#include "./sdk/ole2.hpp"
+#include "./sdk/winerror.hpp" // SUCCEEDED
 
 
 namespace pstade { namespace gravy {

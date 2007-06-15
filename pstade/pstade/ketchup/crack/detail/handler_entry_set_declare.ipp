@@ -1,7 +1,7 @@
 
 
-#include <pstade/apple/sdk/windows.hpp>
-#include <pstade/apple/wtl/misc.hpp> // WTL::CSize, CPoint
+#include <pstade/gravy/sdk/windows.hpp>
+#include <pstade/tomato/wtl/misc.hpp> // WTL::CSize, CPoint
 
 
 #if !defined(_WTL_NO_WTYPES)
@@ -10,7 +10,7 @@
     #error undef _WTL_NO_WTYPES for WTL::CSize and CPoint
 #else
     #define KETCHUP_wtype_ns // ATL
-    #include <pstade/apple/atl/types.hpp>
+    #include <pstade/tomato/atl/types.hpp>
 #endif
 
 

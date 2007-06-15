@@ -11,9 +11,9 @@
 
 
 #include <boost/optional/optional.hpp>
-#include <pstade/apple/sdk/windows.hpp>
-#include <pstade/apple/wtl/gdi.hpp> // CBrush
-#include <pstade/tomato/rgb.hpp>
+#include <pstade/gravy/rgb.hpp>
+#include <pstade/gravy/sdk/windows.hpp>
+#include <pstade/tomato/wtl/gdi.hpp> // CBrush
 #include "../graphics.hpp"
 #include "../rectangle.hpp"
 #include "../view_attributes.hpp"
@@ -25,7 +25,7 @@ namespace pstade { namespace hamburger { namespace detail {
     template< class Node >
     void paint_background(Node& node, graphics g, rectangle const& rc)
     {
-        boost::optional<COLORREF> clr = tomato::rgb(node%Name_backgroundColor);
+        boost::optional<COLORREF> clr = gravy::rgb(node%Name_backgroundColor);
         if (!clr)
             return;
 

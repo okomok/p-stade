@@ -10,11 +10,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/apple/sdk/windows.hpp>
+#include <pstade/gravy/sdk/windows.hpp>
 #include <pstade/ketchup/core.hpp>
 #include <pstade/oven/sorted.hpp>
 #include <pstade/statement.hpp>
-#include <pstade/tomato/rgb.hpp>
 #include "./detail/background.hpp"
 #include "./detail/chain_mouse_message.hpp"
 #include "./detail/layout.hpp"

@@ -19,13 +19,13 @@
 #include <boost/assert.hpp>
 #include <boost/mpl/int.hpp>
 #include <boost/scoped_array.hpp>
-#include <pstade/apple/sdk/tchar.hpp>
-#include <pstade/apple/sdk/windows.hpp>
-#include <pstade/apple/wtl/ctrls.hpp> // CToolBarCtrl
 #include <pstade/candy/test.hpp>
-#include <pstade/gravy/tstringstream.hpp>
-#include <pstade/require.hpp>
+#include <pstade/gravy/sdk/tchar.hpp>
+#include <pstade/gravy/sdk/windows.hpp>
+#include <pstade/gravy/tsstream.hpp>
 #include <pstade/gravy/window_ref.hpp>
+#include <pstade/require.hpp>
+#include <pstade/tomato/wtl/ctrls.hpp> // CToolBarCtrl
 #include "../integer.hpp"
 #include "../set_integer.hpp"
 

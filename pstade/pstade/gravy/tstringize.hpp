@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./include/tchar.hpp"
+#include "./sdk/tchar.hpp"
 
 
 #define PSTADE_GRAVY_TSTRINGIZE(Text) PSTADE_GRAVY_TSTRINGIZE_I(Text)

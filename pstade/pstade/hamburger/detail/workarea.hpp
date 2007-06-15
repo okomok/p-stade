@@ -10,8 +10,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/apple/sdk/windows.hpp>
 #include <pstade/gravy/boolean_cast.hpp>
+#include <pstade/gravy/sdk/windows.hpp>
 #include "../point.hpp"
 #include "../rectangle.hpp"
 

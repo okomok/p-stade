@@ -13,14 +13,14 @@
 #include <iterator> // back_inserter
 #include <vector>
 #include <boost/range/begin.hpp>
+#include <pstade/gravy/file_range.hpp>
 #include <pstade/lime/copy_XMLDecl.hpp>
 #include <pstade/lime/load.hpp>
 #include <pstade/lime/save.hpp>
 #include <pstade/oven/algorithm.hpp> // copy
 #include <pstade/oven/applier.hpp>
 #include <pstade/oven/utf8_decoded.hpp>
-#include <pstade/tomato/file_range.hpp>
-#include <pstade/tomato/tstring.hpp>
+#include <pstade/tomato/to_tstring_to.hpp>
 #include <pstade/unused.hpp>
 #include <pstade/ustring.hpp>
 
@@ -33,7 +33,7 @@ namespace pstade { namespace hamburger {
     {
         // cache for speed
         std::vector<ucs4_t> tmp;
-        tomato::ifile_range<utf8cp_t> irng(path|tomato::to_tstring);
+        gravy::ifile_range<utf8cp_t> irng(path|tomato::to_tstring);
         oven::copy(
             irng |
                 oven::utf8_decoded,
@@ -58,7 +58,7 @@ namespace pstade { namespace hamburger {
         lime::copy_XMLDecl(std::back_inserter(tmp));
         lime::save_default(node, oven::utf8_encoder(std::back_inserter(tmp)));
 
-        tomato::ofile_range<utf8cp_t> orng(path|tomato::to_tstring, tmp.size());
+        gravy::ofile_range<utf8cp_t> orng(path|tomato::to_tstring, tmp.size());
         oven::copy(tmp, boost::begin(orng));
     }
 

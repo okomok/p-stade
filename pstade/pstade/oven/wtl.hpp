@@ -17,8 +17,8 @@
 //
 
 
-#include <pstade/apple/wtl/ctrlw_fwd.hpp> // CSimpleStack
-#include <pstade/apple/wtl/misc.hpp> // CString
+#include <pstade/tomato/wtl/ctrlw_fwd.hpp> // CSimpleStack
+#include <pstade/tomato/wtl/misc.hpp> // CString
 
 
 
@@ -27,7 +27,7 @@
 
 
 #include <boost/foreach.hpp>
-#include <pstade/apple/sdk/tchar.hpp>
+#include <pstade/gravy/sdk/tchar.hpp>
 #include <pstade/const_overloaded.hpp>
 #include "./atl.hpp"
 #include "./extension.hpp"

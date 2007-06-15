@@ -22,8 +22,8 @@
 #include <boost/scoped_ptr.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/utility/result_of.hpp>
-#include <pstade/apple/sdk/tchar.hpp>
-#include <pstade/apple/sdk/windows.hpp>
+#include <pstade/gravy/sdk/tchar.hpp>
+#include <pstade/gravy/sdk/windows.hpp>
 #include <pstade/detail/overload.hpp>
 #include <pstade/oven/array_range.hpp>
 #include <pstade/oven/as_c_str.hpp>
@@ -161,12 +161,12 @@ private:
 public:
     template< class Profile, class CStringizable >
     string(Profile& pr, CStringizable const& valueName, std::ptrdiff_t bufsz = 256) :
-        init_t(pr, tomato::c_str(valueName), bufsz),
+        init_t(pr, gravy::c_str(valueName), bufsz),
         super_t(oven::as_c_str(m_buf))
     { }
 
     friend
-    TCHAR const *pstade_tomato_c_str(string const& self)
+    TCHAR const *pstade_gravy_c_str(string const& self)
     {
         return boost::begin(self.m_buf);
     }

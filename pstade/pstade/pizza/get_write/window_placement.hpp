@@ -13,9 +13,9 @@
 #if !defined(_WIN32_WCE)
 
 
-#include <pstade/apple/sdk/tchar.hpp>
-#include <pstade/apple/sdk/windows.hpp>
-#include <pstade/tomato/size_initialize.hpp>
+#include <pstade/gravy/sdk/tchar.hpp>
+#include <pstade/gravy/sdk/windows.hpp>
+#include <pstade/gravy/size_initialize.hpp>
 #include "../integer.hpp"
 #include "../set_integer.hpp"
 
@@ -44,7 +44,7 @@ WINDOWPLACEMENT get_window_placement(Profile& pr)
 {
     WINDOWPLACEMENT wndpl;
 
-    wndpl|tomato::size_initialized;
+    wndpl|gravy::size_initialized;
     wndpl.flags =                   pizza::integer(pr, _T("placement.flags"));
     wndpl.showCmd =                 pizza::integer(pr, _T("placement.showCmd"));
     wndpl.ptMinPosition.x =         pizza::integer(pr, _T("placement.ptMinPosition.x"));

@@ -10,44 +10,44 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/apple/atl/module.hpp>
-#include <pstade/apple/sdk/windows.hpp>
+#include <pstade/gravy/sdk/windows.hpp>
+#include <pstade/gravy/sdk/winerror.hpp> // SUCCEEDED
 #include <pstade/require.hpp>
-#include "./succeeded.hpp"
+#include "./atl/module.hpp"
 
 
 namespace pstade { namespace tomato {
 
 
-namespace module_init_detail {
+    namespace module_init_detail {
 
 
-    inline
-    void resolve_thunking_problem()
+        inline
+        void resolve_thunking_problem()
+        {
+            // Workaround:
+            // This resolves ATL window thunking problem
+            // when Microsoft Layer for Unicode (MSLU) is used.
+            ::DefWindowProc(NULL, 0, 0, 0L);    
+        }
+
+
+    } // namespace module_init_detail
+
+
+    struct module_init
     {
-        // Workaround:
-        // This resolves ATL window thunking problem
-        // when Microsoft Layer for Unicode (MSLU) is used.
-        ::DefWindowProc(NULL, 0, 0, 0L);    
-    }
+        explicit module_init(HINSTANCE hInstance)
+        {
+            PSTADE_REQUIRE(SUCCEEDED(_Module.Init(NULL, hInstance)));
+            module_init_detail::resolve_thunking_problem();
+        }
 
-
-} // namespace module_init_detail
-
-
-struct module_init
-{
-    explicit module_init(HINSTANCE hInstance)
-    {
-        PSTADE_REQUIRE(tomato::succeeded(_Module.Init(NULL, hInstance)));
-        module_init_detail::resolve_thunking_problem();
-    }
-
-    ~module_init()
-    {
-        _Module.Term();
-    }
-};
+        ~module_init()
+        {
+            _Module.Term();
+        }
+    };
 
 
 } } // namespace pstade::tomato

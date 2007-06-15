@@ -13,8 +13,8 @@
 #include <pstade/automatic.hpp>
 #include <pstade/auxiliary.hpp>
 #include <pstade/specified.hpp>
-#include "./include/windows.hpp"
-#include "./include/wtypes.hpp" // VARIANT_BOOL
+#include "./sdk/windows.hpp"
+#include "./sdk/wtypes.hpp" // VARIANT_BOOL
 
 
 namespace pstade { namespace gravy {

@@ -11,8 +11,8 @@
 
 
 #include <pstade/require.hpp>
-#include "./include/objbase.hpp"
-#include "./include/winerror.hpp"
+#include "./sdk/objbase.hpp"
+#include "./sdk/winerror.hpp"
 
 
 namespace pstade { namespace gravy {
@@ -25,12 +25,12 @@ namespace pstade { namespace gravy {
             PSTADE_REQUIRE( SUCCEEDED(::CoInitialize(NULL)) );
         }
 
-    #if (_WIN32_WINNT >= 0x0400 ) || defined(_WIN32_DCOM) // DCOM
+#if (_WIN32_WINNT >= 0x0400 ) || defined(_WIN32_DCOM) // DCOM
         explicit co_init(DWORD dwCoInit)
         {
             PSTADE_REQUIRE( SUCCEEDED(::CoInitializeEx(NULL, dwCoInit)) );
         }
-    #endif
+#endif
 
         ~co_init()
         {
