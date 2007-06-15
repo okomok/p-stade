@@ -12,7 +12,7 @@
 
 #include <boost/assert.hpp>
 #include <pstade/instance.hpp>
-#include "./include/windows.hpp"
+#include "./sdk/windows.hpp"
 #include "./window_ref.hpp"
 
 

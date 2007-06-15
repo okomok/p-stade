@@ -17,13 +17,13 @@
 //
 
 
-#include <pstade/apple/atl/base_fwd.hpp>
-#include <pstade/apple/atl/coll_fwd.hpp>
-#include <pstade/apple/atl/comcli_fwd.hpp>
-#include <pstade/apple/atl/core_fwd.hpp>
-#include <pstade/apple/atl/cstringt_fwd.hpp>
-#include <pstade/apple/atl/simpcoll_fwd.hpp>
-#include <pstade/apple/atl/str_fwd.hpp>
+#include <pstade/tomato/atl/base_fwd.hpp>
+#include <pstade/tomato/atl/coll_fwd.hpp>
+#include <pstade/tomato/atl/comcli_fwd.hpp>
+#include <pstade/tomato/atl/core_fwd.hpp>
+#include <pstade/tomato/atl/cstringt_fwd.hpp>
+#include <pstade/tomato/atl/simpcoll_fwd.hpp>
+#include <pstade/tomato/atl/str_fwd.hpp>
 
 
 
@@ -82,10 +82,10 @@ namespace boost {
 #include <boost/iterator/indirect_iterator.hpp>
 #include <boost/iterator/zip_iterator.hpp>
 #include <boost/tuple/tuple.hpp>
-#include <pstade/apple/atl/base.hpp> // CComBSTR
-#include <pstade/apple/atl/config.hpp>
-#include <pstade/apple/atl/is_ATL_string.hpp>
 #include <pstade/const_overloaded.hpp>
+#include <pstade/tomato/atl/base.hpp> // CComBSTR
+#include <pstade/tomato/atl/config.hpp>
+#include <pstade/tomato/atl/is_ATL_string.hpp>
 #include "./detail/ms_extension.hpp"
 #include "./extension.hpp"
 #include "./range_reference.hpp"
@@ -95,7 +95,7 @@ namespace boost {
 namespace pstade_oven_extension {
 
 
-#if !defined(PSTADE_APPLE_ATL_NO_COLLECTIONS)
+#if !defined(PSTADE_TOMATO_ATL_NO_COLLECTIONS)
 
 
     // arrays
@@ -393,7 +393,7 @@ namespace pstade_oven_extension {
     };
 
 
-#endif // !defined(PSTADE_APPLE_ATL_NO_COLLECTIONS)
+#endif // !defined(PSTADE_TOMATO_ATL_NO_COLLECTIONS)
 
 
     template< >
@@ -456,10 +456,10 @@ namespace pstade_oven_extension {
     } // namespace ms_detail
 
 
-    template< PSTADE_APPLE_ATL_CSIMPLEARRAY_TEMPLATE_PARAMS >
-    struct Range< ATL::CSimpleArray< PSTADE_APPLE_ATL_CSIMPLEARRAY_TEMPLATE_ARGS > > :
+    template< PSTADE_TOMATO_ATL_CSIMPLEARRAY_TEMPLATE_PARAMS >
+    struct Range< ATL::CSimpleArray< PSTADE_TOMATO_ATL_CSIMPLEARRAY_TEMPLATE_ARGS > > :
         ms_detail::array_functions,
-    #if !defined(PSTADE_APPLE_ATL_HAS_OLD_CSIMPLECOLL)
+    #if !defined(PSTADE_TOMATO_ATL_HAS_OLD_CSIMPLECOLL)
         ms_detail::copyable_using_Add
     #else
         range_noncopyable
@@ -476,7 +476,7 @@ namespace pstade_oven_extension {
     };
 
 
-#if defined(PSTADE_APPLE_ATL_HAS_OLD_CSIMPLECOLL)
+#if defined(PSTADE_TOMATO_ATL_HAS_OLD_CSIMPLECOLL)
 
     template< class T >
     struct Range< ATL::CSimpleValArray<T> > :
@@ -493,11 +493,11 @@ namespace pstade_oven_extension {
         };
     };
 
-#endif // defined(PSTADE_APPLE_ATL_HAS_OLD_CSIMPLECOLL)
+#endif // defined(PSTADE_TOMATO_ATL_HAS_OLD_CSIMPLECOLL)
 
 
-    template< PSTADE_APPLE_ATL_CSIMPLEMAP_TEMPLATE_PARAMS >
-    struct Range< ATL::CSimpleMap< PSTADE_APPLE_ATL_CSIMPLEMAP_TEMPLATE_ARGS > > :
+    template< PSTADE_TOMATO_ATL_CSIMPLEMAP_TEMPLATE_PARAMS >
+    struct Range< ATL::CSimpleMap< PSTADE_TOMATO_ATL_CSIMPLEMAP_TEMPLATE_ARGS > > :
         range_noncopyable // how to copy?
     {
         template< class X >
@@ -537,7 +537,7 @@ namespace pstade_oven_extension {
 
 
 
-#if !defined(PSTADE_APPLE_ATL_NO_COLLECTIONS)
+#if !defined(PSTADE_TOMATO_ATL_NO_COLLECTIONS)
 
     // arrays
     PSTADE_OVEN_EXTENSION_OF_TEMPLATE((ATL)(CAtlArray), 2)
@@ -566,12 +566,12 @@ namespace pstade_oven_extension {
     PSTADE_OVEN_EXTENSION_OF_TEMPLATE((ATL)(CFixedStringT), (class)(int))
     PSTADE_OVEN_EXTENSION_OF_TEMPLATE((ATL)(CStaticString), (class)(const int))
 
-#endif // !defined(PSTADE_APPLE_ATL_NO_COLLECTIONS)
+#endif // !defined(PSTADE_TOMATO_ATL_NO_COLLECTIONS)
 
 PSTADE_OVEN_EXTENSION_OF_TYPE((ATL)(CComBSTR))
 
 // simples
-#if !defined(PSTADE_APPLE_ATL_HAS_OLD_CSIMPLECOLL)
+#if !defined(PSTADE_TOMATO_ATL_HAS_OLD_CSIMPLECOLL)
     PSTADE_OVEN_EXTENSION_OF_TEMPLATE((ATL)(CSimpleArray), 2)
     PSTADE_OVEN_EXTENSION_OF_TEMPLATE((ATL)(CSimpleMap), 3)
 #else
@@ -586,10 +586,10 @@ PSTADE_OVEN_EXTENSION_OF_TYPE((ATL)(CComBSTR))
 //
 
 
-#include <pstade/apple/atl/comcli_fwd.hpp> // CAdapt
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/pass_by.hpp>
+#include <pstade/tomato/atl/comcli_fwd.hpp> // CAdapt
 
 
 namespace pstade { namespace oven {

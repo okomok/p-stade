@@ -11,7 +11,7 @@
 
 
 #include <boost/assert.hpp>
-#include <pstade/apple/sdk/windows.hpp>
+#include <pstade/gravy/sdk/windows.hpp>
 #include <pstade/gravy/window_ref.hpp>
 #include "../impl/multipanestatusbar_cmd_ui.hpp"
 #include "./cmd_ui.hpp"

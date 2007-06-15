@@ -10,11 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/apple/sdk/windows.hpp>
+#include <pstade/gravy/check_window.hpp>
+#include <pstade/gravy/enable_window.hpp>
+#include <pstade/gravy/sdk/windows.hpp>
+#include <pstade/gravy/set_window_text.hpp>
 #include <pstade/gravy/window_ref.hpp>
-#include <pstade/tomato/window/check_window.hpp>
-#include <pstade/tomato/window/enable_window.hpp>
-#include <pstade/tomato/window/set_window_text.hpp>
 #include "../cmd_ui.hpp"
 
 
@@ -30,18 +30,18 @@ struct childwindow_cmd_ui : cmd_ui
 private:
     void override_enable(bool on)
     {
-        tomato::enable_window(m_child, on);
+        gravy::enable_window(m_child, on);
     }
 
     void override_set_check(int state)
     {
         // we can only check buttons or controls acting like buttons
-        tomato::check_window(m_child, state);
+        gravy::check_window(m_child, state);
     }
 
     void override_set_text(TCHAR const *pszText)
     {
-        tomato::set_window_text(m_child, pszText);
+        gravy::set_window_text(m_child, pszText);
     }
 
 private:

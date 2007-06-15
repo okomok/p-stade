@@ -56,11 +56,11 @@ class CTypedPtrMap;
 #include <boost/type_traits/remove_const.hpp>
 #include <boost/type_traits/remove_pointer.hpp>
 #include <boost/utility/addressof.hpp>
-#include <pstade/apple/mfc/afx.hpp> // legacy CString
-#include <pstade/apple/mfc/afxcoll.hpp> // CXXXArray, CXXXList, CMapXXXToXXX
-#include <pstade/apple/mfc/config.hpp>
-#include <pstade/apple/sdk/tchar.hpp>
 #include <pstade/const_overloaded.hpp>
+#include <pstade/gravy/sdk/tchar.hpp>
+#include <pstade/tomato/mfc/afx.hpp> // legacy CString
+#include <pstade/tomato/mfc/afxcoll.hpp> // CXXXArray, CXXXList, CMapXXXToXXX
+#include <pstade/tomato/mfc/config.hpp>
 #include "./atl.hpp" // seems to be allowed.
 #include "./extension.hpp"
 #include "./range_constant_iterator.hpp"
@@ -279,7 +279,7 @@ namespace pstade_oven_extension {
         struct associate
         {
             typedef ms_detail::list_iterator<X, ::CObject *> mutable_iterator;
-    #if !defined(PSTADE_APPLE_MFC_CONST_COL_RETURNS_NON_REF)
+    #if !defined(PSTADE_TOMATO_MFC_CONST_COL_RETURNS_NON_REF)
             typedef ms_detail::list_iterator<X const, ::CObject const *> constant_iterator;
     #else
             typedef ms_detail::list_iterator<X const, ::CObject const * const, ::CObject const * const> constant_iterator;
@@ -297,7 +297,7 @@ namespace pstade_oven_extension {
         struct associate
         {
             typedef ms_detail::list_iterator<X, void *> mutable_iterator;
-    #if !defined(PSTADE_APPLE_MFC_CONST_COL_RETURNS_NON_REF)
+    #if !defined(PSTADE_TOMATO_MFC_CONST_COL_RETURNS_NON_REF)
             typedef ms_detail::list_iterator<X const, void const *> constant_iterator;
     #else
             typedef ms_detail::list_iterator<X const, void const * const, void const * const> constant_iterator;
@@ -317,7 +317,7 @@ namespace pstade_oven_extension {
             typedef ::CString val_t;
 
             typedef ms_detail::list_iterator<X, val_t> mutable_iterator;
-    #if !defined(PSTADE_APPLE_MFC_CONST_COL_RETURNS_NON_REF)
+    #if !defined(PSTADE_TOMATO_MFC_CONST_COL_RETURNS_NON_REF)
             typedef ms_detail::list_iterator<X const, val_t const> constant_iterator;
     #else
             typedef ms_detail::list_iterator<X const, val_t const, val_t const> constant_iterator;
@@ -416,7 +416,7 @@ namespace pstade_oven_extension {
         };
 
 
-    #if !defined(PSTADE_APPLE_MFC_NO_CPAIR)
+    #if !defined(PSTADE_TOMATO_MFC_NO_CPAIR)
 
 
         // mfc_cpair_map_iterator
@@ -511,7 +511,7 @@ namespace pstade_oven_extension {
             }
         };
 
-#endif // !defined(PSTADE_APPLE_MFC_NO_CPAIR)
+#endif // !defined(PSTADE_TOMATO_MFC_NO_CPAIR)
 
     } // namespace ms_detail
 
@@ -590,7 +590,7 @@ namespace pstade_oven_extension {
     template< >
     struct Range< ::CMapStringToString > :
         range_noncopyable,
-    #if !defined(PSTADE_APPLE_MFC_NO_CPAIR)
+    #if !defined(PSTADE_TOMATO_MFC_NO_CPAIR)
         ms_detail::mfc_cpair_map_functions
     #else
         ms_detail::mfc_map_functions
@@ -599,7 +599,7 @@ namespace pstade_oven_extension {
         template< class X >
         struct associate
         {
-    #if !defined(PSTADE_APPLE_MFC_NO_CPAIR)
+    #if !defined(PSTADE_TOMATO_MFC_NO_CPAIR)
             typedef typename X::CPair pair_t;
 
             typedef ms_detail::mfc_cpair_map_iterator<X, pair_t> mutable_iterator;
@@ -679,7 +679,7 @@ namespace pstade_oven_extension {
             typedef Type val_t;
 
             typedef ms_detail::list_iterator<X, val_t> mutable_iterator;
-    #if !defined(PSTADE_APPLE_MFC_CONST_COL_RETURNS_NON_REF)
+    #if !defined(PSTADE_TOMATO_MFC_CONST_COL_RETURNS_NON_REF)
             typedef ms_detail::list_iterator<X const, val_t const> constant_iterator;
     #else
             typedef ms_detail::list_iterator<X const, val_t const, val_t const> constant_iterator;
@@ -691,7 +691,7 @@ namespace pstade_oven_extension {
     template< class Key, class ArgKey, class Mapped, class ArgMapped >
     struct Range< ::CMap<Key, ArgKey, Mapped, ArgMapped> > :
         range_noncopyable,
-    #if !defined(PSTADE_APPLE_MFC_NO_CPAIR)
+    #if !defined(PSTADE_TOMATO_MFC_NO_CPAIR)
         ms_detail::mfc_cpair_map_functions
     #else
         ms_detail::mfc_map_functions
@@ -700,7 +700,7 @@ namespace pstade_oven_extension {
         template< class X >
         struct associate
         {
-    #if !defined(PSTADE_APPLE_MFC_NO_CPAIR)
+    #if !defined(PSTADE_TOMATO_MFC_NO_CPAIR)
             typedef typename X::CPair pair_t;
 
             typedef ms_detail::mfc_cpair_map_iterator<X, pair_t> mutable_iterator;
@@ -804,7 +804,7 @@ namespace pstade_oven_extension {
     // strings
     //
 
-#if defined(PSTADE_APPLE_MFC_HAS_LEGACY_STRING)
+#if defined(PSTADE_TOMATO_MFC_HAS_LEGACY_STRING)
 
     template< >
     struct Range< ::CString >
@@ -847,7 +847,7 @@ namespace pstade_oven_extension {
         }
     };
 
-#endif // defined(PSTADE_APPLE_MFC_HAS_LEGACY_STRING)
+#endif // defined(PSTADE_TOMATO_MFC_HAS_LEGACY_STRING)
 
 
 } // namespace pstade_oven_extension
@@ -884,7 +884,7 @@ PSTADE_OVEN_EXTENSION_OF_TEMPLATE((CTypedPtrList), 2)
 PSTADE_OVEN_EXTENSION_OF_TEMPLATE((CTypedPtrMap), 3)
 
 // strings
-#if defined(PSTADE_APPLE_MFC_HAS_LEGACY_STRING)
+#if defined(PSTADE_TOMATO_MFC_HAS_LEGACY_STRING)
     PSTADE_OVEN_EXTENSION_OF_TYPE((CString))
 #endif
 

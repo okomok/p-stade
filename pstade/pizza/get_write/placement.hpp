@@ -13,10 +13,10 @@
 #if !defined(_WIN32_WCE)
 
 
-#include <pstade/apple/sdk/windows.hpp>
-#include <pstade/require.hpp>
-#include <pstade/tomato/size_initialize.hpp>
+#include <pstade/gravy/sdk/windows.hpp>
+#include <pstade/gravy/size_initialize.hpp>
 #include <pstade/gravy/window_ref.hpp>
+#include <pstade/require.hpp>
 #include "./window_placement.hpp"
 
 
@@ -27,7 +27,7 @@ template< class Profile >
 void write_placement(Profile& pr, gravy::window_ref wnd)
 {
     WINDOWPLACEMENT wndpl;
-    tomato::size_initialize(wndpl);
+    gravy::size_initialize(wndpl);
     PSTADE_REQUIRE(::GetWindowPlacement(wnd, &wndpl));
 
     pizza::write_window_placement(pr, wndpl);

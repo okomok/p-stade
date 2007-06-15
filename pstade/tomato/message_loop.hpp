@@ -10,51 +10,51 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/apple/atl/module.hpp>
-#include <pstade/apple/sdk/windows.hpp>
-#include <pstade/apple/wtl/app.hpp> // CMessageLoop
+#include <pstade/gravy/sdk/windows.hpp>
 #include <pstade/require.hpp>
 #include <pstade/verify.hpp>
+#include "./atl/module.hpp"
+#include "./wtl/app.hpp" // CMessageLoop
 
 
 namespace pstade { namespace tomato {
 
 
-namespace message_loop_detail {
+    namespace message_loop_detail {
 
 
-    inline
-    void create_message_queue()
+        inline
+        void create_message_queue()
+        {
+            MSG msg;
+            ::PeekMessage(&msg, NULL, WM_USER, WM_USER, PM_NOREMOVE);
+        }
+
+
+    } // namespace message_loop_detail
+
+
+    struct message_loop
     {
-        MSG msg;
-        ::PeekMessage(&msg, NULL, WM_USER, WM_USER, PM_NOREMOVE);
-    }
+        message_loop()
+        {
+            PSTADE_REQUIRE( _Module.AddMessageLoop(&m_loop) );
+        }
 
+        ~message_loop()
+        {
+            pstade::verify( _Module.RemoveMessageLoop() );
+        }
 
-} // namespace message_loop_detail
+        int run()
+        {
+            message_loop_detail::create_message_queue();
+            return m_loop.Run();
+        }
 
-
-struct message_loop
-{
-    message_loop()
-    {
-        PSTADE_REQUIRE( _Module.AddMessageLoop(&m_loop) );
-    }
-
-    ~message_loop()
-    {
-        pstade::verify( _Module.RemoveMessageLoop() );
-    }
-
-    int run()
-    {
-        message_loop_detail::create_message_queue();
-        return m_loop.Run();
-    }
-
-private:
-    WTL::CMessageLoop m_loop;
-};
+    private:
+        WTL::CMessageLoop m_loop;
+    };
 
 
 } } // namespace pstade::tomato

@@ -14,21 +14,20 @@
 #include <boost/foreach.hpp>
 #include <boost/lambda/bind.hpp>
 #include <boost/thread/thread.hpp>
-#include <pstade/apple/atl/win.hpp>
-#include <pstade/apple/sdk/windows.hpp>
-#include <pstade/apple/wtl/gdi.hpp> // CPaintDC
-#include <pstade/apple/wtl/frame.hpp> // CMessageFilter, CIdleHandler
 #include <pstade/copy_assign.hpp>
+#include <pstade/gravy/create_result.hpp>
+#include <pstade/gravy/sdk/windows.hpp>
 #include <pstade/instance.hpp>
 #include <pstade/ketchup/core.hpp>
 #include <pstade/lime/traverse.hpp>
 #include <pstade/oven/sorted.hpp>
+#include <pstade/tomato/atl/win.hpp>
 #include <pstade/tomato/idle_handling.hpp>
 #include <pstade/tomato/message_filtering.hpp>
 #include <pstade/tomato/message_loop.hpp>
-#include <pstade/tomato/rgb.hpp>
-#include <pstade/tomato/window/create_result.hpp>
-#include <pstade/tomato/window/wnd_class.hpp>
+#include <pstade/tomato/wnd_class.hpp>
+#include <pstade/tomato/wtl/gdi.hpp> // CPaintDC
+#include <pstade/tomato/wtl/frame.hpp> // CMessageFilter, CIdleHandler
 #include <pstade/unused.hpp>
 #include <pstade/require.hpp>
 #include <pstade/ustring.hpp>
@@ -166,7 +165,7 @@ namespace pstade { namespace hamburger {
             lime::traverse(*this, z_order_sort);
 
             pstade::unused(pst);
-            return tomato::create_success;
+            return gravy::create_success;
         }
 
         void on_close()

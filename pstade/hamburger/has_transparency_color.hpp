@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/tomato/rgb.hpp>
+#include <pstade/gravy/rgb.hpp>
 #include "./element.hpp"
 #include "./element_attributes.hpp"
 
@@ -21,7 +21,7 @@ namespace pstade { namespace hamburger {
     inline
     bool has_transparency_color(element& elem)
     {
-        return tomato::rgb(elem%Name_transparencyColor);
+        return gravy::rgb(elem%Name_transparencyColor);
     }
 
 

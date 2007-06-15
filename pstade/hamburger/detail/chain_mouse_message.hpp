@@ -11,13 +11,11 @@
 
 
 #include <boost/foreach.hpp>
-#include <pstade/apple/sdk/windows.hpp>
 #include <pstade/gravy/boolean_cast.hpp>
+#include <pstade/gravy/sdk/windows.hpp>
 #include <pstade/oven/copy_range.hpp>
 #include <pstade/oven/reversed.hpp>
 #include <pstade/oven/sorted.hpp>
-#include <pstade/tomato/get.hpp>
-#include <pstade/tomato/make.hpp>
 #include <pstade/statement.hpp>
 #include <pstade/unused.hpp>
 #include "../contains.hpp"
@@ -66,7 +64,7 @@ namespace pstade { namespace hamburger { namespace detail {
         element& parent, UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
     {
         LRESULT lResult = 0;
-        point pt(tomato::get_x(lParam), tomato::get_y(lParam));
+        point pt(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
 
         BOOST_FOREACH (
             element& child,
@@ -91,7 +89,7 @@ namespace pstade { namespace hamburger { namespace detail {
             if (!in_screen)
                 pt = hamburger::parent_to(child, pt);
 
-            LPARAM lParam_ = tomato::make_LPARAM(pt.x, pt.y);
+            LPARAM lParam_ = MAKELPARAM(pt.x, pt.y);
             bHandled = child.process_message(NULL, uMsg, wParam, lParam_, lResult);
             if (bHandled)
                 break;

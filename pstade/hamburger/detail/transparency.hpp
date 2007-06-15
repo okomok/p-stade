@@ -20,11 +20,11 @@
 // http://www.codeproject.com/dialog/smoothalpha.asp
 
 
-#include <pstade/apple/atl/win.hpp> // CWindow
-#include <pstade/apple/sdk/windows.hpp>
+#include <pstade/gravy/rgb.hpp>
+#include <pstade/gravy/sdk/windows.hpp>
 #include <pstade/gravy/window_ref.hpp>
 #include <pstade/require.hpp>
-#include <pstade/tomato/rgb.hpp>
+#include <pstade/tomato/atl/win.hpp> // CWindow
 #include "./view_attributes.hpp"
 
 
@@ -55,7 +55,7 @@ namespace pstade { namespace hamburger { namespace detail {
     template< class Element >
     void reset_transparency(Element& elem)
     {
-        boost::optional<COLORREF> clr = tomato::rgb(elem%Name_transparencyColor);
+        boost::optional<COLORREF> clr = gravy::rgb(elem%Name_transparencyColor);
         if (clr)
             transparency_detail::add(*elem.window(), *clr);
     }

@@ -11,11 +11,11 @@
 
 
 #include <boost/assert.hpp>
-#include <pstade/apple/sdk/windows.hpp>
+#include <pstade/gravy/get_menu_item_count.hpp>
+#include <pstade/gravy/get_menu_item_id.hpp>
+#include <pstade/gravy/menu_ref.hpp>
+#include <pstade/gravy/sdk/windows.hpp>
 #include <pstade/gravy/window_ref.hpp>
-#include <pstade/tomato/menu/get_menu_item_count.hpp>
-#include <pstade/tomato/menu/get_menu_item_id.hpp>
-#include <pstade/tomato/menu/menu_ref.hpp>
 #include "../impl/menu_cmd_ui.hpp"
 #include "./cmd_ui.hpp"
 
@@ -44,14 +44,14 @@ namespace cmd_ui_detail {
 
 
 inline
-void update_menu_cmd_ui(gravy::window_ref updater, tomato::menu_ref menu)
+void update_menu_cmd_ui(gravy::window_ref updater, gravy::menu_ref menu)
 {
     // See:
     // MFC7::CFrameWnd::OnInitMenuPopup
 
-    for (int i = 0, count = tomato::get_menu_item_count(menu); i < count; ++i)
+    for (int i = 0, count = gravy::get_menu_item_count(menu); i < count; ++i)
     {
-        UINT uID = tomato::get_menu_item_id(menu, i);
+        UINT uID = gravy::get_menu_item_id(menu, i);
         if (cmd_ui_detail::is_separator_or_invalid_id(uID))
             continue;
 
@@ -61,7 +61,7 @@ void update_menu_cmd_ui(gravy::window_ref updater, tomato::menu_ref menu)
             HMENU hSubMenu = ::GetSubMenu(menu, i);
             if (
                 hSubMenu == NULL ||
-                cmd_ui_detail::is_separator_or_invalid_id(uID = tomato::get_menu_item_id(hSubMenu, 0)) ||
+                cmd_ui_detail::is_separator_or_invalid_id(uID = gravy::get_menu_item_id(hSubMenu, 0)) ||
                 cmd_ui_detail::is_possibly_popup_menu_id(uID)
             )
             {
@@ -80,11 +80,11 @@ void update_menu_cmd_ui(gravy::window_ref updater, tomato::menu_ref menu)
         }
 
         // adjust for menu deletions and additions
-        int new_count = tomato::get_menu_item_count(menu);
+        int new_count = gravy::get_menu_item_count(menu);
         if (new_count < count)
         {
             i -= (count - new_count);
-            while (i < new_count && tomato::get_menu_item_id(menu, i) == uID)
+            while (i < new_count && gravy::get_menu_item_id(menu, i) == uID)
                 ++i;
         }
         count = new_count;

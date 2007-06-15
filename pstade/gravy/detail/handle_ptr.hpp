@@ -15,7 +15,7 @@
 #include <pstade/enable_if.hpp>
 #include <pstade/is_convertible.hpp>
 #include <pstade/radish/bool_testable.hpp>
-#include "../include/windows.hpp" // NULL
+#include "../sdk/windows.hpp" // NULL
 
 
 namespace pstade { namespace gravy { namespace detail {

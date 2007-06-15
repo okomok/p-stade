@@ -10,16 +10,16 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/apple/atl/base.hpp> // CRegKey
-#include <pstade/apple/atl/config.hpp> // ATL_VER
-#include <pstade/apple/sdk/tchar.hpp>
-#include <pstade/apple/sdk/windows.hpp>
 #include <pstade/detail/overload.hpp>
+#include <pstade/gravy/c_str.hpp>
+#include <pstade/gravy/module_file_name.hpp>
+#include <pstade/gravy/tstring.hpp>
+#include <pstade/gravy/sdk/tchar.hpp>
+#include <pstade/gravy/sdk/windows.hpp>
 #include <pstade/integral_cast.hpp>
 #include <pstade/oven/copy_range.hpp>
-#include <pstade/tomato/c_str.hpp>
-#include <pstade/tomato/filesystem/module_file_name.hpp>
-#include <pstade/gravy/tstring.hpp>
+#include <pstade/tomato/atl/base.hpp> // CRegKey
+#include <pstade/tomato/atl/config.hpp> // ATL_VER
 #include <pstade/require.hpp>
 
 
@@ -28,17 +28,18 @@ void pstade_pizza_initialize(ATL::CRegKey& key, const TCHAR *pszName, pstade::de
 {
     using namespace pstade;
 
-    gravy::tstring moduleName = tomato::module_file_name().name()|oven::copied;
+    gravy::module_file_name mf;
+    gravy::tstring moduleName = mf.name()|oven::copied;
     gravy::tstring path = _T("Software\\") + moduleName + _T('\\') + pszName;
     
-    PSTADE_REQUIRE(key.Create(HKEY_CURRENT_USER, tomato::c_str(path)) == ERROR_SUCCESS);
+    PSTADE_REQUIRE(key.Create(HKEY_CURRENT_USER, gravy::c_str(path)) == ERROR_SUCCESS);
 }
 
 
 inline
 void pstade_pizza_set_string(ATL::CRegKey& key, const TCHAR *pszValueName, const TCHAR *pszValue, pstade::detail::overload<>)
 {
-#if !(PSTADE_APPLE_ATL_VER < 0x0700)
+#if !(PSTADE_TOMATO_ATL_VER < 0x0700)
     PSTADE_REQUIRE(key.SetStringValue(pszValueName, pszValue) == ERROR_SUCCESS);
 #else
     PSTADE_REQUIRE(key.SetValue(pszValue, pszValueName) == ERROR_SUCCESS);
@@ -49,7 +50,7 @@ void pstade_pizza_set_string(ATL::CRegKey& key, const TCHAR *pszValueName, const
 inline
 bool pstade_pizza_query_string(ATL::CRegKey& key, const TCHAR *pszValueName, TCHAR *pFirst, TCHAR *pLast, pstade::detail::overload<>)
 {
-#if !(PSTADE_APPLE_ATL_VER < 0x0700)
+#if !(PSTADE_TOMATO_ATL_VER < 0x0700)
     ULONG ulBufs = (pLast - pFirst)|pstade::to_integer;
     return key.QueryStringValue(pszValueName, pFirst, &ulBufs) == ERROR_SUCCESS;
 #else

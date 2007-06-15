@@ -13,7 +13,7 @@
 #include <boost/assert.hpp>
 #include <pstade/instance.hpp>
 #include "./handle_cast.hpp"
-#include "./include/windows.hpp"
+#include "./sdk/windows.hpp"
 
 
 namespace pstade { namespace gravy {

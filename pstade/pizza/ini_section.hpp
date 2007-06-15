@@ -22,8 +22,8 @@
 #include <boost/assert.hpp>
 #include <boost/mpl/int.hpp>
 #include <boost/range/empty.hpp>
-#include <pstade/apple/sdk/tchar.hpp>
-#include <pstade/apple/sdk/windows.hpp>
+#include <pstade/gravy/sdk/tchar.hpp>
+#include <pstade/gravy/sdk/windows.hpp>
 #include <pstade/instance.hpp>
 #include <pstade/integral_cast.hpp>
 #include <pstade/oven/array_range.hpp>
@@ -32,8 +32,8 @@
 #include <pstade/oven/distance.hpp>
 #include <pstade/oven/equals.hpp>
 #include <pstade/require.hpp>
-#include <pstade/tomato/filesystem/module_file_name.hpp>
-#include <pstade/tomato/c_str.hpp>
+#include <pstade/gravy/c_str.hpp>
+#include <pstade/gravy/module_file_name.hpp>
 #include <pstade/gravy/tstring.hpp>
 
 
@@ -59,7 +59,7 @@ namespace ini_section_detail {
 
             ::GetPrivateProfileString(
                 pszSectionName, pszValueName,
-                tomato::c_str(magicStr), // default
+                gravy::c_str(magicStr), // default
                 boost::begin(buf), oven::distance(buf)|to_integer,
                 pszFileName);
 
@@ -92,8 +92,8 @@ struct ini_section
     template< class CStringizeable0, class CStringizeable1 >
     void open(const CStringizeable0& fileName, const CStringizeable1& sectionName)
     {
-        m_fileName = tomato::c_str(fileName);
-        m_sectionName = tomato::c_str(sectionName);
+        m_fileName = gravy::c_str(fileName);
+        m_sectionName = gravy::c_str(sectionName);
 
         BOOST_ASSERT(oven::distance(m_fileName) < 4095); // can't read in bigger
     }
@@ -118,7 +118,8 @@ struct ini_section
 typedef ini_section pstade_pizza_profile;
     void pstade_pizza_initialize(TCHAR const *pszName)
     {
-        gravy::tstring ini = tomato::module_file_name().identifier()|oven::copied;
+        gravy::module_file_name mf;
+        gravy::tstring ini = mf.identifier()|oven::copied;
         ini += _T(".ini");
         open(ini, pszName);
     }
@@ -131,8 +132,8 @@ typedef ini_section pstade_pizza_profile;
 
         PSTADE_REQUIRE(
             ::WritePrivateProfileString(
-                tomato::c_str(m_sectionName), pszValueName,
-                pszValue, tomato::c_str(m_fileName))
+                gravy::c_str(m_sectionName), pszValueName,
+                pszValue, gravy::c_str(m_fileName))
         );
     }
 
@@ -141,7 +142,7 @@ typedef ini_section pstade_pizza_profile;
         BOOST_ASSERT(is_open());
 
         return ini_section_detail::query_string(
-            tomato::c_str(m_fileName), tomato::c_str(m_sectionName),
+            gravy::c_str(m_fileName), gravy::c_str(m_sectionName),
             pszValueName, pFirst, pLast);
     }
 
@@ -151,7 +152,7 @@ typedef ini_section pstade_pizza_profile;
 
         PSTADE_REQUIRE(
             ::WritePrivateProfileString(
-                tomato::c_str(m_sectionName), pszValueName, NULL, tomato::c_str(m_fileName))
+                gravy::c_str(m_sectionName), pszValueName, NULL, gravy::c_str(m_fileName))
         );
     }
 
@@ -164,7 +165,7 @@ template< class CStringizeable0, class CStringizeable1 > inline
 void delete_ini_section(const CStringizeable0& fileName, const CStringizeable1& sectionName)
 {
     PSTADE_REQUIRE(
-        ::WritePrivateProfileString(tomato::c_str(sectionName), NULL, NULL, tomato::c_str(fileName))
+        ::WritePrivateProfileString(gravy::c_str(sectionName), NULL, NULL, gravy::c_str(fileName))
     );
 }
 

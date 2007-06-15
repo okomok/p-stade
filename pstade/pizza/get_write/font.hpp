@@ -10,9 +10,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/apple/atl/win.hpp> // CWindow
-#include <pstade/apple/sdk/windows.hpp>
-#include <pstade/apple/wtl/gdi.hpp> // CLogFont
+#include <pstade/tomato/atl/win.hpp> // CWindow
+#include <pstade/gravy/sdk/windows.hpp>
+#include <pstade/tomato/wtl/gdi.hpp> // CLogFont
 #include <pstade/require.hpp>
 #include <pstade/gravy/window_ref.hpp>
 #include "./logfont.hpp"

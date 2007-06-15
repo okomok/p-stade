@@ -13,7 +13,7 @@
 #include <boost/range/empty.hpp>
 #include <boost/throw_exception.hpp>
 #include <pstade/lexical_cast.hpp>
-#include <pstade/tomato/c_str.hpp>
+#include <pstade/gravy/c_str.hpp>
 #include "./error.hpp"
 #include "./string.hpp"
 
@@ -39,7 +39,7 @@ namespace integer_detail {
         std::stringstream msg;
         msg <<
             "<value-name>" <<
-                tomato::c_str(valueName) <<
+                gravy::c_str(valueName) <<
             "</value-name>";
 
         return msg.str();
@@ -54,7 +54,7 @@ IntegerT get_integer(Profile& pr, const CStringizable& valueName)
 {
     try {
         pizza::string str(pr, valueName);
-        return tomato::c_str(str)|lexicalized;
+        return gravy::c_str(str)|lexicalized;
     }
     catch (boost::bad_lexical_cast const&) {
         invalid_integer err(integer_detail::error_msg(valueName));

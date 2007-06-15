@@ -10,8 +10,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/apple/atl/base_fwd.hpp> // CAutoPtr
-#include <pstade/apple/atl/core_fwd.hpp> // CHeapPtr
+#include "./atl/base_fwd.hpp" // CAutoPtr
+#include "./atl/core_fwd.hpp" // CHeapPtr
 
 
 namespace ATL {

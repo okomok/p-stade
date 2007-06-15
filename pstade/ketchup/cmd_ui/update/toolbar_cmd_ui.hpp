@@ -11,8 +11,8 @@
 
 
 #include <boost/assert.hpp>
-#include <pstade/apple/sdk/windows.hpp>
-#include <pstade/apple/wtl/ctrls.hpp> // CToolBarCtrl
+#include <pstade/gravy/sdk/windows.hpp>
+#include <pstade/tomato/wtl/ctrls.hpp> // CToolBarCtrl
 #include <pstade/candy/test.hpp>
 #include <pstade/gravy/window_ref.hpp>
 #include <pstade/require.hpp>

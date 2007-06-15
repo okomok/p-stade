@@ -11,9 +11,9 @@
 
 
 #include <boost/mpl/if.hpp>
-#include <pstade/apple/sdk/tchar.hpp>
+#include <pstade/gravy/sdk/tchar.hpp>
 #include <pstade/detail/overload.hpp>
-#include <pstade/tomato/c_str.hpp>
+#include <pstade/gravy/c_str.hpp>
 #include "./access.hpp"
 #include "./detail/has_pstade_pizza_profile.hpp"
 
@@ -50,7 +50,7 @@ namespace delete_detail {
 template< class Profile, class CStringizable >
 void delete_(Profile& pr, CStringizable const& valueName)
 {
-    TCHAR const *pszValueName = tomato::c_str(valueName);
+    TCHAR const *pszValueName = gravy::c_str(valueName);
 
     using namespace delete_detail;
 

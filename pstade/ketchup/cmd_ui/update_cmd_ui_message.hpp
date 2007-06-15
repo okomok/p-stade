@@ -10,9 +10,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/apple/sdk/tchar.hpp>
-#include <pstade/apple/sdk/windows.hpp>
 #include <pstade/gravy/register_window_message.hpp>
+#include <pstade/gravy/sdk/tchar.hpp>
+#include <pstade/gravy/sdk/windows.hpp>
 #include "./cmd_ui.hpp"
 
 

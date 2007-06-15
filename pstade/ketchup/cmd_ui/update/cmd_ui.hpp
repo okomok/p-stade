@@ -11,8 +11,8 @@
 
 
 #include <boost/assert.hpp>
+#include <pstade/gravy/send_message.hpp>
 #include <pstade/gravy/window_ref.hpp>
-#include <pstade/tomato/window/send_message.hpp>
 #include "../update_cmd_ui_message.hpp"
 
 
@@ -22,7 +22,7 @@ namespace pstade { namespace ketchup {
 inline
 bool update_cmd_ui(gravy::window_ref updater, cmd_ui& ui)
 {
-    LRESULT lResult = tomato::send_message(updater,
+    LRESULT lResult = gravy::send_message(updater,
         ketchup::id_update_cmd_ui_message(), ketchup::cmd_ui_to_wParam(ui));
 
     return ketchup::is_cmd_ui_handled(lResult);
