@@ -12,7 +12,7 @@ WTL::CAppModule _Module;
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/tomato/widechar_to_multibyte.hpp>
+#include <pstade/tomato/to_tstring_to.hpp>
 
 
 #include <string>
@@ -22,18 +22,15 @@ WTL::CAppModule _Module;
 void test()
 {
     using namespace pstade;
-    using namespace tomato;
 
     std::wstring ws(L"abcdefg");
 
-    {
-        std::string s = tomato::widechar_to<std::string>(ws);
-        BOOST_CHECK( oven::equals(s, ws) );
-    }
+    tstring ts = ws|tomato::to_tstring;
+    BOOST_CHECK( oven::equals(ts, ws) );
 
     {
-        std::string s = ws|to_multibyte;
-        BOOST_CHECK( oven::equals(s, ws) );
+        std::wstring ws_ = tomato::tstring_to<std::wstring>(ts);
+        BOOST_CHECK( oven::equals(ws, ws_) );
     }
 }
 

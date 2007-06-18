@@ -10,10 +10,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include "../sdk/windows.hpp" // WINVER, LPBYTE
+
 
 #if (WINVER >= 0x0500)
-
-    #include <windef.h> // LPBYTE
 
     #define PSTADE_GRAVY_MII_SIZEOF_STRUCT(structname, member) \
         (((int)((LPBYTE)(&((structname*)0)->member) - ((LPBYTE)((structname*)0)))) + sizeof(((structname*)0)->member))

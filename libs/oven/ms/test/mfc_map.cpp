@@ -172,7 +172,7 @@ void test()
         typedef CMapStringToString rng_t;
         rng_t rng;
 		::init_map(rng, sample);
-    #if !defined(PSTADE_APPLE_MFC_NO_CPAIR)
+    #if !defined(PSTADE_TOMATO_MFC_NO_CPAIR)
         BOOST_CHECK( ::test_mfc_CPair_map(rng, sample) );
     #else
         BOOST_CHECK( ::test_mfc_map(rng, sample) );
@@ -205,7 +205,7 @@ void test()
         typedef CMap<int, int const&, std::string, std::string const&> rng_t;
         rng_t rng;
 		::init_map(rng, sample);
-    #if !defined(PSTADE_APPLE_MFC_NO_CPAIR)
+    #if !defined(PSTADE_TOMATO_MFC_NO_CPAIR)
         BOOST_CHECK( ::test_mfc_CPair_map(rng, sample) );
     #else
         BOOST_CHECK( ::test_mfc_map(rng, sample) );

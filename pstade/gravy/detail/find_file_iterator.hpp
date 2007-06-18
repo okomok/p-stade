@@ -12,6 +12,7 @@
 
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_facade.hpp>
+#include "../boolean_cast.hpp"
 #include "../sdk/windows.hpp"
 
 
@@ -42,7 +43,7 @@ namespace pstade { namespace gravy { namespace detail {
 
         void find_next_file()
         {
-            m_found = ::FindNextFile(m_hFind, m_pdata)|to_boolean;
+            m_found = gravy::boolean_cast<bool>(::FindNextFile(m_hFind, m_pdata));
 
             if (!m_found)
                 BOOST_ASSERT(::GetLastError() == ERROR_NO_MORE_FILES);

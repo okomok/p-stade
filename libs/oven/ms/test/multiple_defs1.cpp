@@ -3,13 +3,13 @@
 
 #define _WIN32_WINNT 0x0400 // for <boost/test/minimal.hpp>
 #define _AFXDLL
-#include <pstade/apple/mfc/afx.hpp> // must be included first.
+#include <pstade/tomato/mfc/afx.hpp> // must be included first.
 
 
 #include <boost/test/minimal.hpp>
 
 
-#include <pstade/apple/wtl/app.hpp>
+#include <pstade/tomato/wtl/app.hpp>
 WTL::CAppModule _Module;
 
 

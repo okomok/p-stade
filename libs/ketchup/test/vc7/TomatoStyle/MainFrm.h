@@ -5,9 +5,9 @@
 #pragma once
 
 
-#include <pstade/apple/atl/config.hpp>
-#include <pstade/apple/atl/str.hpp>
-#include <pstade/apple/wtl/misc.hpp>
+#include <pstade/tomato/atl/config.hpp>
+#include <pstade/tomato/atl/str.hpp>
+#include <pstade/tomato/wtl/misc.hpp>
 #include <boost/mpl/void.hpp>
 #include <pstade/ketchup.hpp>
 #include <pstade/ketchup/alias.hpp>
@@ -16,6 +16,8 @@
 #include <pstade/tomato/alias.hpp>
 #include <pstade/pizza.hpp>
 #include <pstade/pizza/alias.hpp>
+#include <pstade/gravy.hpp>
+#include <pstade/gravy/alias.hpp>
 
 
 template< class = boost::mpl::void_ >
@@ -46,7 +48,7 @@ public:
 
 	tomato_style_profile<>::type m_profile;
 
-#if (PSTADE_APPLE_ATL_VER >= 0x0700)
+#if (PSTADE_TOMATO_ATL_VER >= 0x0700)
 	ATL::CString m_profile_name;
 #else
 	WTL::CString m_profile_name;
@@ -109,7 +111,7 @@ public:
 
 		pstade::unused(lpCreateStruct);
 		set_msg_handled(false);
-		return tomato::create_success;
+		return gravy::create_success;
 	}
 
 	void ShowWindow(int nCmdShow)
@@ -140,7 +142,7 @@ public:
 
 	void OnFileExit()
 	{
-		tomato::post_message(m_hWnd, WM_CLOSE);
+		gravy::post_message(m_hWnd, WM_CLOSE);
 	}
 
 	void OnFileNew()
@@ -158,7 +160,7 @@ public:
 
 	void OnViewStatusBar()
 	{
-		tomato::toggle_window(m_hWndStatusBar);
+		gravy::toggle_window(m_hWndStatusBar);
 		this->UpdateLayout();
 	}
 
@@ -188,7 +190,7 @@ public:
 
 	void OnUpdateFileNew(cmd_ui& ui)
 	{
-		ui.set_radio(::IsWindowVisible(m_hWndStatusBar)|tomato::to_boolean);
+		ui.set_radio(::IsWindowVisible(m_hWndStatusBar)|gravy::to_boolean);
 	}
 
 	begin_msg_map

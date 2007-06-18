@@ -23,6 +23,7 @@
 // is the same as 'x.cbSize = sizeof(X);'.
 
 
+#include <boost/assert.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/type_traits/add_reference.hpp>
 #include <pstade/callable.hpp>

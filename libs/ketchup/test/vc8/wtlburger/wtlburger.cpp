@@ -3,16 +3,17 @@
 
 #include "stdafx.h"
 #include "./resource.h"
-#include <pstade/apple/wtl/app.hpp>
+#include <pstade/tomato/wtl/app.hpp>
 
 #include <pstade/hamburger.hpp>
 
 #include <pstade/oven/copy_range.hpp>
 #include <pstade/gravy/co_init.hpp>
-#include <pstade/tomato/filesystem/module_file_name.hpp>
+#include <pstade/gravy/module_file_name.hpp>
+#include <pstade/gravy/tstring.hpp>
 #include <pstade/tomato/message_loop.hpp>
 #include <pstade/tomato/module_init.hpp>
-#include <pstade/tomato/tstring.hpp>
+#include <pstade/tomato/to_tstring_to.hpp>
 #include <pstade/unused.hpp>
 #include <pstade/ustring.hpp>
 
@@ -28,7 +29,8 @@ namespace wtlburger_detail {
         using namespace pstade;
         using namespace hamburger;
 
-        tomato::tstring path = tomato::module_file_name().folder()|oven::copied;
+        gravy::module_file_name mf;
+        gravy::tstring path = mf.folder()|oven::copied;
         path += _T("sample.xml");
 
         hamburger::element root;

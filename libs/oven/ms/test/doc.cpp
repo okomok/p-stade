@@ -13,17 +13,17 @@
 #define _AFXDLL
 
 
-#include <pstade/apple/mfc/afx.hpp> // must be included first.
+#include <pstade/tomato/mfc/afx.hpp> // must be included first.
 
 
 #include <boost/test/minimal.hpp>
 
 
 #include <vector>
-#include <pstade/apple/atl/simpcoll.hpp>
-#include <pstade/apple/mfc/afxtempl.hpp>
-#include <pstade/apple/wtl/app.hpp>
-#include <pstade/apple/wtl/misc.hpp>
+#include <pstade/tomato/atl/simpcoll.hpp>
+#include <pstade/tomato/mfc/afxtempl.hpp>
+#include <pstade/tomato/wtl/app.hpp>
+#include <pstade/tomato/wtl/misc.hpp>
 
 
 #include <boost/lambda/bind.hpp>

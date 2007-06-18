@@ -12,26 +12,24 @@
 
 // What:
 //
-// A Random Access Traversal Readable Lvalue Range
+// A Random Access Readable Lvalue Range
 // that represents a window text.
 
 
 // Design:
 //
 // Other threads may change the text after calling '::GetWindowTextLength',
-// so 'null_terminate_range' is still required.
+// so 'as_c_str' is still required.
 // Note that there seems no way to know whether 'GetWindowText' was failed or empty.
 
 
 #include <boost/assert.hpp>
 #include <boost/range/begin.hpp>
-#include <boost/type_traits/remove_const.hpp>
-#include <boost/utility/result_of.hpp>
 #include <pstade/copy_construct.hpp>
 #include <pstade/oven/array_range.hpp>
 #include <pstade/oven/as_c_str.hpp>
 #include <pstade/oven/distance.hpp>
-#include <pstade/to_ref.hpp>
+#include <pstade/oven/iter_range.hpp>
 #include "./sdk/tchar.hpp"
 #include "./sdk/windows.hpp"
 #include "./window_ref.hpp"
@@ -57,8 +55,7 @@ namespace pstade { namespace gravy {
                 m_buf(1 + ::GetWindowTextLength(wnd))
             {
                 ::GetWindowText(wnd,
-                    boost::begin(m_buf), pstade::copy_construct<int>(oven::distance(m_buf))
-                );
+                    boost::begin(m_buf), pstade::copy_construct<int>(oven::distance(m_buf)) );
 
                 BOOST_ASSERT(oven::contains_zero(m_buf));
             }
@@ -69,13 +66,12 @@ namespace pstade { namespace gravy {
 
 
         template<class = void>
-        struct super_ :
-            boost::remove_const<
-                typename boost::result_of<
-                    oven::op_as_c_str(buffer_t const&)
-                >::type
-            >
-        { };
+        struct super_
+        {
+            typedef
+                oven::iter_range<TCHAR const *>
+            type;
+        };
 
 
     } // namespace window_text_detail
@@ -92,7 +88,7 @@ namespace pstade { namespace gravy {
     public:
         explicit window_text(window_ref wnd) :
             init_t(wnd),
-            super_t(m_buf|to_cref|oven::as_c_str)
+            super_t(m_buf|oven::as_c_str)
         { }
 
         friend

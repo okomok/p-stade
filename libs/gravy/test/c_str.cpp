@@ -10,7 +10,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/gravy/window_ptr.hpp>
+#include <pstade/gravy/c_str.hpp>
+
+
+#include <pstade/gravy/tstring.hpp>
 
 
 namespace gravy = pstade::gravy;
@@ -20,15 +23,14 @@ using namespace gravy;
 void pstade_minimal_test()
 {
     {
-        window_ptr wnd(NULL);
-        BOOST_CHECK(!wnd);
-        wnd = ::GetDesktopWindow();
-        BOOST_CHECK(wnd);
-        BOOST_CHECK(*wnd == ::GetDesktopWindow());
+        tstring s("abcdefg");
+        TCHAR const *psz = s.c_str();
+        BOOST_CHECK(psz == c_str(s));
+        BOOST_CHECK(psz == (s|c_str));
+        BOOST_CHECK(psz == (s|c_str()));
     }
     {
-        window_ptr wnd = ::GetDesktopWindow();
-        BOOST_CHECK(wnd);
-        BOOST_CHECK(*wnd == ::GetDesktopWindow());
+        TCHAR const s[] = "abcdefg";
+        BOOST_CHECK( c_str(s) == &s[0] );
     }
 }

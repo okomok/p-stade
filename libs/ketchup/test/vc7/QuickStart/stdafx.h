@@ -18,5 +18,5 @@
 
 extern CAppModule _Module;
 
-#include <pstade/apple/wtl/app.hpp>
-#include <pstade/apple/atl/win.hpp>
+#include <pstade/tomato/wtl/app.hpp>
+#include <pstade/tomato/atl/win.hpp>

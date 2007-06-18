@@ -23,9 +23,9 @@
 #include <pstade/oven/const_refs.hpp>
 
 
-#include <pstade/apple/atl/config.hpp> // ATL_VER
-#include <pstade/apple/atl/coll.hpp>
-#include <pstade/apple/atl/simpcoll.hpp>
+#include <pstade/tomato/atl/config.hpp> // ATL_VER
+#include <pstade/tomato/atl/coll.hpp>
+#include <pstade/tomato/atl/simpcoll.hpp>
 
 
 namespace oven = pstade::oven;
@@ -97,7 +97,7 @@ void test()
 
 #endif // (_ATL_VER >= 0x0700)
 
-#if !defined(PSTADE_APPLE_ATL_HAS_OLD_CSIMPLECOLL)
+#if !defined(PSTADE_TOMATO_ATL_HAS_OLD_CSIMPLECOLL)
     {
         typedef ATL::CSimpleArray<int> rng_t;
 
