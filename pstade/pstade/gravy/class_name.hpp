@@ -12,19 +12,17 @@
 
 // What:
 //
-// A Random Access Traversal Readable Lvalue Range
+// A Random Access Readable Lvalue Range
 // that represents a window class name.
 
 
 #include <cstddef> // size_t
 #include <boost/array.hpp>
 #include <boost/range/begin.hpp>
-#include <boost/type_traits/remove_const.hpp>
-#include <boost/utility/result_of.hpp>
 #include <pstade/oven/as_c_str.hpp>
+#include <pstade/oven/iter_range.hpp>
 #include <pstade/require.hpp>
 #include <pstade/static_c.hpp>
-#include <pstade/to_ref.hpp>
 #include "./sdk/tchar.hpp"
 #include "./sdk/windows.hpp"
 #include "./window_ref.hpp"
@@ -53,8 +51,7 @@ namespace pstade { namespace gravy {
             explicit init(window_ref wnd)
             {
                 PSTADE_REQUIRE(0 !=
-                    ::GetClassName(wnd, boost::begin(m_buf), buffer_size::value)
-                );
+                    ::GetClassName(wnd, boost::begin(m_buf), buffer_size::value) );
 
                 BOOST_ASSERT(oven::contains_zero(m_buf));
             }
@@ -65,13 +62,12 @@ namespace pstade { namespace gravy {
 
 
         template<class = void>
-        struct super_ :
-            boost::remove_const<
-                typename boost::result_of<
-                    oven::op_as_c_str(buffer_t const&)
-                >::type
-            >
-        { };
+        struct super_
+        {
+            typedef
+                oven::iter_range<TCHAR const *>
+            type;
+        };
 
 
     } // namespace class_name_detail
@@ -88,7 +84,7 @@ namespace pstade { namespace gravy {
     public:
         explicit class_name(window_ref wnd) :
             init_t(wnd),
-            super_t(m_buf|to_cref|oven::as_c_str)
+            super_t(m_buf|oven::as_c_str)
         { }
 
         friend

@@ -2,7 +2,7 @@
 #include <pstade/vodka/drink.hpp>
 #include <boost/test/minimal.hpp>
 
-#include <pstade/apple/wtl/app.hpp>
+#include <pstade/tomato/wtl/app.hpp>
 WTL::CAppModule _Module;
 
 

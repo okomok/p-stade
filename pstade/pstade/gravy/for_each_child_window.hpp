@@ -24,7 +24,7 @@ namespace pstade { namespace gravy {
     namespace for_each_child_window_detail {
 
 
-        template< class UnaryFun >
+        template<class UnaryFun>
         BOOL CALLBACK proc(HWND hWnd, LPARAM lParam)
         {
             try {
@@ -40,7 +40,7 @@ namespace pstade { namespace gravy {
         }
 
 
-        template< class UnaryFun > inline
+        template<class UnaryFun> inline
         void aux(window_ptr parent, UnaryFun yield)
         {
             // Note:
@@ -62,24 +62,14 @@ namespace pstade { namespace gravy {
     struct for_each_child_window :
         callable<for_each_child_window>
     {
-        // 'NULL' means the root window.
-        explicit for_each_child_window(window_ptr parent) :
-            m_parent(parent)
-        { }
-
-        HWND parent() const
-        {
-            return m_parent.get();
-        }
-
         typedef window_ref routine_result_type;
 
-        template< class Myself, class UnaryFun >
+        template<class Myself, class UnaryFun>
         struct apply :
             pass_by_value<UnaryFun>
         { };
 
-        template< class Result, class UnaryFun >
+        template<class Result, class UnaryFun>
         Result call(UnaryFun& yield) const
         {
             // Workaround:
@@ -88,6 +78,16 @@ namespace pstade { namespace gravy {
             // would be deduced as a *reference* type. Lovely!
             for_each_child_window_detail::aux<Result>(m_parent, yield);
             return yield;
+        }
+
+        // 'parent == NULL' means the root window.
+        explicit for_each_child_window(window_ptr parent) :
+            m_parent(parent)
+        { }
+
+        HWND parent() const
+        {
+            return m_parent.get();
         }
 
     private:

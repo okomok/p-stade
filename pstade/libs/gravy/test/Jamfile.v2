@@ -13,12 +13,19 @@ project
 
 test-suite "gravy" :
     [ run boolean_cast.cpp ]
+    [ run c_str.cpp ]
+    [ run class_name.cpp ]
+    [ run file_range.cpp ]
+    [ run find_file_range.cpp ]
+    [ run for_each_child_window.cpp ]
     [ run handle_cast.cpp ]
     [ run is_window.cpp ]
     [ run main_instance.cpp ]
     [ link multiple_defs1.cpp multiple_defs2.cpp : : multiple_defs ]
     [ run register_window_message.cpp ]
+    [ run size_initialize.cpp ]
     [ run window_ptr.cpp ]
     [ run window_ref.cpp ]
+    [ run window_text.cpp ]
     ;
 

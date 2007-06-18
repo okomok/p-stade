@@ -21,7 +21,7 @@ namespace pstade_gravy_extension {
     struct c_str { };
 
     
-    template< class Traits, class Alloc > inline
+    template<class Traits, class Alloc> inline
     TCHAR const *pstade_gravy_(c_str, std::basic_string<TCHAR, Traits, Alloc> const& str)
     {
         return str.c_str();

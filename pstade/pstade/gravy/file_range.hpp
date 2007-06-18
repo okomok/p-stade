@@ -62,6 +62,11 @@ namespace pstade { namespace gravy {
                 return first() + m_diff;
             }
 
+            bool is_valid() const
+            {
+                return m_view;
+            }
+
         private:
             scoped_file_view m_view;
             std::ptrdiff_t m_diff;
@@ -108,6 +113,11 @@ namespace pstade { namespace gravy {
                 return first() + m_diff;
             }
 
+            bool is_valid() const
+            {
+                return m_view;
+            }
+
         private:
             scoped_file_view m_view;
             std::ptrdiff_t m_diff;
@@ -132,6 +142,11 @@ namespace pstade { namespace gravy {
             super_t(view_t::first(), view_t::last())
         { }
 
+        bool is_open() const
+        {
+            return view_t::is_valid();
+        }
+
     private:
         ifile_range(ifile_range const&);
         ifile_range& operator=(ifile_range const&);
@@ -152,6 +167,11 @@ namespace pstade { namespace gravy {
             view_t(path, diff),
             super_t(view_t::first(), view_t::last())
         { }
+
+        bool is_open() const
+        {
+            return view_t::is_valid();
+        }
 
     private:
         ofile_range(ofile_range const&);

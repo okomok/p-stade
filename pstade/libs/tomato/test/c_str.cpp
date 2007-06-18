@@ -1,6 +1,6 @@
 #include <pstade/vodka/drink.hpp>
 #include <boost/test/minimal.hpp>
-#include <pstade/apple/wtl/app.hpp>
+#include <pstade/tomato/wtl/app.hpp>
 WTL::CAppModule _Module;
 
 
@@ -12,11 +12,11 @@ WTL::CAppModule _Module;
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/tomato/c_str.hpp>
+#include <pstade/gravy/c_str.hpp>
 
 
 #include <iostream>
-#include <pstade/apple/wtl/misc.hpp> // CString
+#include <pstade/tomato/wtl/misc.hpp> // CString
 #include <pstade/tomato/tstring.hpp>
 #include <pstade/tomato/window.hpp>
 #include <pstade/tomato/filesystem.hpp>
@@ -36,7 +36,7 @@ void test()
 
     {
         tstring str(_T("abcde"));
-        BOOST_CHECK( ans == tomato::c_str(str) );
+        BOOST_CHECK( ans == gravy::c_str(str) );
 
         // maybe rejected. op()| can be ambiguous. 
         BOOST_CHECK( ans == (str|c_str) );
@@ -44,25 +44,25 @@ void test()
     
     {
         TCHAR str[] = _T("abcde");
-        BOOST_CHECK( ans == tomato::c_str(str) );
+        BOOST_CHECK( ans == gravy::c_str(str) );
         BOOST_CHECK( ans == (str|c_str) );
     }
 
     {
         WTL::CString str(_T("abcde"));
-        BOOST_CHECK( ans == tomato::c_str(str) );
+        BOOST_CHECK( ans == gravy::c_str(str) );
         BOOST_CHECK( ans == (str|c_str) );
     }
 
     {
         HWND hWnd = ::GetForegroundWindow();
-        std::cout << tomato::c_str(tomato::window_text(hWnd)) << std::endl;
+        std::cout << gravy::c_str(tomato::window_text(hWnd)) << std::endl;
         std::cout << (tomato::window_text(hWnd)|c_str) << std::endl;
     }
 
     {
         ::a_string str;
-        tomato::c_str(str);
+        gravy::c_str(str);
     }
 }
 

@@ -21,10 +21,10 @@
 #include <boost/range.hpp>
 
 
-#include <pstade/apple/atl/config.hpp> // ATL_VER
-#include <pstade/apple/atl/simpstr.hpp>
-#include <pstade/apple/atl/str.hpp>
-#include <pstade/apple/atl/cstringt.hpp>
+#include <pstade/tomato/atl/config.hpp> // ATL_VER
+#include <pstade/tomato/atl/simpstr.hpp>
+#include <pstade/tomato/atl/str.hpp>
+#include <pstade/tomato/atl/cstringt.hpp>
 #include <pstade/oven/as_c_str.hpp>
 
 

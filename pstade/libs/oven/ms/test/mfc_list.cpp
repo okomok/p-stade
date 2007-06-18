@@ -51,7 +51,7 @@ void test()
             rng.AddTail(4), rng.AddTail(5), rng.AddTail(6), rng.AddTail(7);
         }
 
-#if !defined(PSTADE_APPLE_MFC_CONST_COL_RETURNS_NON_REF)
+#if !defined(PSTADE_TOMATO_MFC_CONST_COL_RETURNS_NON_REF)
         BOOST_CHECK( oven::test_Bidirectional_Readable_Writable(
             rng,
             expected
@@ -77,7 +77,7 @@ void test()
             rng.AddTail(ans[4]), rng.AddTail(ans[5]), rng.AddTail(ans[6]), rng.AddTail(ans[7]);
         }
 
-#if !defined(PSTADE_APPLE_MFC_CONST_COL_RETURNS_NON_REF)
+#if !defined(PSTADE_TOMATO_MFC_CONST_COL_RETURNS_NON_REF)
         BOOST_CHECK( oven::test_Bidirectional_Readable_Writable(
             rng,
             expected
@@ -103,7 +103,7 @@ void test()
             rng.AddTail(ans[0]), rng.AddTail(ans[1]), rng.AddTail(ans[2]);
         }
 
-#if !defined(PSTADE_APPLE_MFC_CONST_COL_RETURNS_NON_REF)
+#if !defined(PSTADE_TOMATO_MFC_CONST_COL_RETURNS_NON_REF)
         BOOST_CHECK( oven::test_Bidirectional_Readable( // _Writable(
             rng,
             expected
@@ -126,7 +126,7 @@ void test()
             rng.AddTail(ans[0]), rng.AddTail(ans[1]), rng.AddTail(ans[2]);
         }
 
-#if !defined(PSTADE_APPLE_MFC_CONST_COL_RETURNS_NON_REF)
+#if !defined(PSTADE_TOMATO_MFC_CONST_COL_RETURNS_NON_REF)
         BOOST_CHECK( oven::test_Bidirectional_Readable( // _Writable(
             rng,
             expected

@@ -1,5 +1,5 @@
 #include <pstade/vodka/drink.hpp>
-#include <pstade/minimal_test.hpp>
+#include <pstade/minimal_test.hpp> // include first for Win32 Boost.Test
 
 
 // PStade.Gravy
@@ -11,6 +11,7 @@
 
 
 #include <pstade/gravy.hpp>
+#include <pstade/gravy/gravy.hpp>
 
 
 using namespace pstade::gravy;

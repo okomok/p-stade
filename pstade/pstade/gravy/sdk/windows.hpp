@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#if !defined(PSTADE_GRAVY_NEVER_SDK_WINDOWS_H) // for MFC
+#if !defined(PSTADE_GRAVY_NEVER_INCLUDE_SDK_WINDOWS_H) // for MFC
     #include <windows.h>
 #endif
 
