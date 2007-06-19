@@ -12,6 +12,7 @@
 
 #include <boost/assert.hpp>
 #include <pstade/constant.hpp>
+#include "./brush_ref.hpp"
 #include "./handle_cast.hpp"
 #include "./sdk/windows.hpp"
 
@@ -45,9 +46,9 @@ namespace pstade { namespace gravy {
 
     struct op_get_stock_brush
     {
-        typedef HBRUSH result_type;
+        typedef brush_ref result_type;
 
-        HBRUSH operator()(int fnObject) const
+        brush_ref operator()(int fnObject) const
         {
             BOOST_ASSERT(get_stock_brush_detail::valid(fnObject));
             return gravy::handle_cast<HBRUSH>(::GetStockObject(fnObject));

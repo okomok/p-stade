@@ -4,6 +4,19 @@
 
 import testing ;
 
+project
+    : requirements
+      <library>/boost/filesystem//boost_filesystem/<link>static
+      <library>/boost/test//boost_test_exec_monitor/<link>static
+      <library>/boost/test//boost_unit_test_framework/<link>static
+      <library>/boost/thread//boost_thread/<link>static
+      <find-static-library>comctl32
+      <find-static-library>comdlg32
+      <find-static-library>gdi32
+      <find-static-library>user32
+    ;
+
+
 test-suite "tomato" :
     [ run c_str.cpp ]
     [ run to_tstring_to.cpp ]

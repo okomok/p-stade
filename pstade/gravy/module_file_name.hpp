@@ -19,12 +19,9 @@
 #include <boost/array.hpp>
 #include <boost/assert.hpp>
 #include <boost/range/begin.hpp>
-#include <boost/type_traits/remove_const.hpp>
-#include <boost/utility/result_of.hpp>
 #include <pstade/oven/as_c_str.hpp>
 #include <pstade/oven/iter_range.hpp>
 #include <pstade/require.hpp>
-#include <pstade/to_ref.hpp>
 #include "./detail/path_find_extension.hpp"
 #include "./detail/path_find_file_name.hpp"
 #include "./main_instance.hpp"
@@ -53,8 +50,7 @@ namespace pstade { namespace gravy {
                 BOOST_ASSERT(hInst != NULL);
 
                 PSTADE_REQUIRE(0 !=
-                    ::GetModuleFileName(hInst, boost::begin(m_buf), MAX_PATH)
-                );
+                    ::GetModuleFileName(hInst, boost::begin(m_buf), MAX_PATH) );
 
                 BOOST_ASSERT(oven::contains_zero(m_buf));
             }
@@ -65,13 +61,12 @@ namespace pstade { namespace gravy {
 
 
         template<class = void>
-        struct super_ :
-            boost::remove_const<
-                typename boost::result_of<
-                    oven::op_as_c_str(module_file_name_detail::buffer_t const&)
-                >::type
-            >
-        { };
+        struct super_
+        {
+            typedef
+                oven::iter_range<TCHAR const *>
+            type;
+        };
 
 
     } // namespace module_file_name_detail
@@ -89,25 +84,21 @@ namespace pstade { namespace gravy {
     public:
         explicit module_file_name(HINSTANCE hInst = main_instance) :
             init_t(hInst),
-            super_t(m_buf|to_cref|oven::as_c_str)
-        {
-            BOOST_ASSERT(oven::contains_zero(m_buf));
-        }
+            super_t(m_buf|oven::as_c_str)
+        { }
 
         const_sub_range_t folder() const
         {
             return oven::make_iter_range(
                 boost::begin(m_buf),
-                detail::path_find_file_name(boost::begin(m_buf))
-            );
+                detail::path_find_file_name(boost::begin(m_buf)) );
         }
 
         const_sub_range_t identifier() const
         {
             return oven::make_iter_range(
                 boost::begin(m_buf),
-                detail::path_find_extension(boost::begin(m_buf))
-            );
+                detail::path_find_extension(boost::begin(m_buf)) );
         }
 
         const_sub_range_t name() const
@@ -115,8 +106,7 @@ namespace pstade { namespace gravy {
             TCHAR const *pszFile = detail::path_find_file_name(boost::begin(m_buf));
             return oven::make_iter_range(
                 pszFile,
-                detail::path_find_extension(pszFile)
-            );
+                detail::path_find_extension(pszFile) );
         }
 
         friend

@@ -12,7 +12,7 @@
 
 #include <pstade/candy/test.hpp>
 #include <pstade/check.hpp>
-#include <pstade/instance.hpp>
+#include <pstade/constant.hpp>
 #include "./sdk/windows.hpp"
 #include "./send_message.hpp"
 #include "./window_ref.hpp"

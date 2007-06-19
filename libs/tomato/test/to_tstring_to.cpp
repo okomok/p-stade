@@ -25,7 +25,7 @@ void test()
 
     std::wstring ws(L"abcdefg");
 
-    tstring ts = ws|tomato::to_tstring;
+    gravy::tstring ts = ws|tomato::to_tstring;
     BOOST_CHECK( oven::equals(ts, ws) );
 
     {

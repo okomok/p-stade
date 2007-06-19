@@ -1,5 +1,5 @@
-#ifndef PSTADE_GRAVY_SEND_COMMAND_HPP
-#define PSTADE_GRAVY_SEND_COMMAND_HPP
+#ifndef PSTADE_GRAVY_TOPLEVEL_PARENT_HPP
+#define PSTADE_GRAVY_TOPLEVEL_PARENT_HPP
 
 
 // PStade.Gravy
@@ -10,27 +10,28 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/assert.hpp>
 #include <pstade/constant.hpp>
 #include "./sdk/windows.hpp"
+#include "./window_ptr.hpp"
 #include "./window_ref.hpp"
 
 
 namespace pstade { namespace gravy {
 
 
-    struct op_send_message
+    struct op_toplevel_parent
     {
-        typedef LRESULT result_type;
+        typedef window_ref result_type;
 
-        LRESULT operator()(window_ref wnd, UINT msg, WPARAM wParam = 0, LPARAM lParam = 0) const
+        window_ref operator()(window_ref wnd) const
         {
-            return ::SendMessage(wnd, msg, wParam, lParam);
+            window_ptr pa = ::GetParent(wnd);
+            return pa ? (*this)(*pa) : wnd;
         }
     };
 
 
-    PSTADE_CONSTANT(send_message, (op_send_message))
+    PSTADE_CONSTANT(toplevel_parent, (op_toplevel_parent))
 
 
 } } // namespace pstade::gravy

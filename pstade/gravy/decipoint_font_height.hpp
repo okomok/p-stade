@@ -30,16 +30,16 @@ namespace pstade { namespace gravy {
         inline
         LONG aux(LONG lfHeight, dc_ref dc)
         {
-        #if !defined(_WIN32_WCE)
+#if !defined(_WIN32_WCE)
             POINT ptOrg = { 0, 0 };
             ::DPtoLP(dc, &ptOrg, 1);
             POINT pt = { 0, 0 };
             pt.y = abs(lfHeight) + ptOrg.y;
             ::LPtoDP(dc, &pt, 1);
             return ::MulDiv(pt.y, 720, ::GetDeviceCaps(dc, LOGPIXELSY));
-        #else
+#else
             return ::MulDiv(abs(lfHeight), 720, ::GetDeviceCaps(dc, LOGPIXELSY));
-        #endif
+#endif
         }
 
 

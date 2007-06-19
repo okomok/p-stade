@@ -28,7 +28,7 @@ WTL::CAppModule _Module;
 #include <string>
 #include <sstream>
 #include <pstade/oven/equals.hpp>
-#include <pstade/tomato/tstring.hpp>
+#include <pstade/gravy/tstring.hpp>
 
 
 template< class Profile >
@@ -39,7 +39,7 @@ void test_profile(Profile& pr)
     pizza::initialize(pr, _T("Hello"));
 
     {   
-        tomato::tstring data(_T("good"));
+        gravy::tstring data(_T("good"));
         pizza::set_string(pr, _T("Pizza"), data);
         BOOST_CHECK( oven::equals(pizza::string(pr, _T("Pizza")), data) );
     }
@@ -54,7 +54,7 @@ void test_profile(Profile& pr)
     }
 
     {
-        tomato::tstring ans(_T("up"));
+        gravy::tstring ans(_T("up"));
         pizza::set_string(pr, _T("down"), ans); // down=answer
         pizza::set_string(pr, _T("left"), _T("down")); // left=down
         pizza::set_string(pr, _T("right"), _T("left")); // right=left
