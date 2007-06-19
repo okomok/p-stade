@@ -11,6 +11,7 @@
 
 
 #include "./boolean_cast.hpp"
+#include "./brush_ref.hpp"
 #include "./c_str.hpp"
 #include "./check_window.hpp"
 #include "./class_name.hpp"
@@ -31,6 +32,7 @@
 #include "./get_menu_state.hpp"
 #include "./get_stock_brush.hpp"
 #include "./handle_cast.hpp"
+#include "./is_family_to.hpp"
 #include "./is_mdi_client_and_child.hpp"
 #include "./is_object_of.hpp"
 #include "./is_owned.hpp"
@@ -59,6 +61,7 @@
 #include "./size_initialize.hpp"
 #include "./tiostream.hpp"
 #include "./toggle_window.hpp"
+#include "./toplevel_parent.hpp"
 #include "./tsstream.hpp"
 #include "./tstring.hpp"
 #include "./tstringize.hpp"

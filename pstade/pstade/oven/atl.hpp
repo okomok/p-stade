@@ -324,7 +324,7 @@ namespace pstade_oven_extension {
 
     template< class T >
     struct Range_base< T,
-        typename enable_if< pstade::apple::is_ATL_string<T> >::type >
+        typename enable_if< pstade::tomato::is_ATL_string<T> >::type >
     {
         template< class X >
         struct associate

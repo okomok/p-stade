@@ -14,13 +14,7 @@
 
 
 #if !defined(PSTADE_GRAVY_NO_SHLWAPI)
-
-    #if defined(_MSC_VER)
-        #pragma comment(lib, "shlwapi.lib")
-    #endif
-
     #include <shlwapi.h>
-
 #endif
 
 

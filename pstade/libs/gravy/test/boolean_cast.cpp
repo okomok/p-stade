@@ -215,11 +215,10 @@ void test_compare()
 }
 
 
-int test_main(int, char*[])
+void pstade_minimal_test()
 {
     ::test_boolean_cast();
     ::test_boolean();
     ::test_booleanized();
     ::test_compare();
-    return 0;
 }

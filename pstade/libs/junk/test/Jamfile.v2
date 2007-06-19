@@ -10,7 +10,12 @@ project
       <library>/boost/regex//boost_regex/<link>static
       <library>/boost/test//boost_unit_test_framework/<link>static
       <library>/boost/thread//boost_thread/<link>static
+      <find-static-library>comctl32
+      <find-static-library>comdlg32
+      <find-static-library>gdi32
+      <find-static-library>user32
     ;
+
 
 test-suite "junk" :
     [ run auto.cpp ]

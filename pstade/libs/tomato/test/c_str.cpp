@@ -12,52 +12,50 @@ WTL::CAppModule _Module;
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/tomato/gravy_c_str.hpp>
 #include <pstade/gravy/c_str.hpp>
 
 
 #include <iostream>
 #include <pstade/tomato/wtl/misc.hpp> // CString
-#include <pstade/tomato/tstring.hpp>
-#include <pstade/tomato/window.hpp>
-#include <pstade/tomato/filesystem.hpp>
-#include <boost/mpl/assert.hpp>
+#include <pstade/gravy/tstring.hpp>
+#include <pstade/gravy/window_text.hpp>
 
 
-struct a_string : pstade::tomato::tstring
+struct a_string : pstade::gravy::tstring
 { };
 
 
 void test()
 {
     using namespace pstade;
-    using namespace tomato;
-    
-    tstring ans(_T("abcde"));
+
+    gravy::tstring ans(_T("abcde"));
 
     {
-        tstring str(_T("abcde"));
+        gravy::tstring str(_T("abcde"));
         BOOST_CHECK( ans == gravy::c_str(str) );
 
         // maybe rejected. op()| can be ambiguous. 
-        BOOST_CHECK( ans == (str|c_str) );
+        BOOST_CHECK( ans == (str|gravy::c_str) );
     }
     
     {
         TCHAR str[] = _T("abcde");
         BOOST_CHECK( ans == gravy::c_str(str) );
-        BOOST_CHECK( ans == (str|c_str) );
+        BOOST_CHECK( ans == (str|gravy::c_str) );
     }
 
     {
         WTL::CString str(_T("abcde"));
         BOOST_CHECK( ans == gravy::c_str(str) );
-        BOOST_CHECK( ans == (str|c_str) );
+        BOOST_CHECK( ans == (str|gravy::c_str) );
     }
 
     {
         HWND hWnd = ::GetForegroundWindow();
-        std::cout << gravy::c_str(tomato::window_text(hWnd)) << std::endl;
-        std::cout << (tomato::window_text(hWnd)|c_str) << std::endl;
+        std::cout << gravy::c_str(gravy::window_text(hWnd)) << std::endl;
+        std::cout << (gravy::window_text(hWnd)|gravy::c_str) << std::endl;
     }
 
     {
