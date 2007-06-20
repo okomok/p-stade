@@ -12,6 +12,7 @@
 
 
 #include <pstade/oven/copy_range.hpp>
+#include <pstade/oven/copied.hpp>
 #include <pstade/minimal_test.hpp>
 #include "./detail/test.hpp"
 
@@ -41,6 +42,16 @@ void test_()
     namespace oven = pstade::oven;
     using namespace oven;
 
+    {
+        std::vector<int> vec = op_make_copied()(oven::counting(3, 9));
+        vec.push_back(9);
+        BOOST_CHECK( oven::equals(vec, oven::counting(3, 10)) );
+    }
+    {
+        std::vector<int> vec = make_copied(oven::counting(3, 9));
+        vec.push_back(9);
+        BOOST_CHECK( oven::equals(vec, oven::counting(3, 10)) );
+    }
     {
         std::vector<int> vec = oven::counting(3, 9)|copied;
         vec.push_back(9);

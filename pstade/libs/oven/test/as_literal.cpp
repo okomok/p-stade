@@ -22,7 +22,7 @@
 #include <pstade/oven/jointed.hpp>
 #include <pstade/oven/single.hpp>
 #include <pstade/oven/as_c_str.hpp>
-#include <pstade/oven/copy_range.hpp>
+#include <pstade/oven/copied.hpp>
 #include <pstade/oven/equals.hpp>
 
 

@@ -18,7 +18,7 @@
 #include <list>
 #include <vector>
 #include <pstade/oven/equals.hpp>
-#include <pstade/oven/copy_range.hpp>
+#include <pstade/oven/copied.hpp>
 #include <boost/range/empty.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/unused.hpp>

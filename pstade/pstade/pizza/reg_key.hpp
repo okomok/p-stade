@@ -17,7 +17,7 @@
 #include <pstade/gravy/sdk/tchar.hpp>
 #include <pstade/gravy/sdk/windows.hpp>
 #include <pstade/integral_cast.hpp>
-#include <pstade/oven/copy_range.hpp>
+#include <pstade/oven/copied.hpp>
 #include <pstade/tomato/atl/base.hpp> // CRegKey
 #include <pstade/tomato/atl/config.hpp> // ATL_VER
 #include <pstade/require.hpp>

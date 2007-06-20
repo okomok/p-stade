@@ -14,7 +14,7 @@
 
 
 #include <vector>
-#include <pstade/oven/copy_range.hpp>
+#include <pstade/oven/copied.hpp>
 #include <pstade/oven/equals.hpp>
 #include <pstade/oven/copied_to.hpp>
 #include <pstade/oven/algorithm.hpp>

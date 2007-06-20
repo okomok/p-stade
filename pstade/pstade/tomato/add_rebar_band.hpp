@@ -21,7 +21,7 @@
 #include <pstade/gravy/window_ref.hpp>
 #include <pstade/oven/as_c_str.hpp>
 #include <pstade/oven/begin_end.hpp>
-#include <pstade/oven/copy_range.hpp>
+#include <pstade/oven/copied.hpp>
 #include <pstade/oven/jointed.hpp>
 #include <pstade/oven/pointed.hpp>
 #include <pstade/oven/single.hpp>

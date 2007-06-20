@@ -23,7 +23,7 @@
 #include <boost/cstdint.hpp> // uint32_t
 #include <boost/optional/optional.hpp>
 #include <pstade/constant.hpp>
-#include <pstade/oven/copy_range.hpp>
+#include <pstade/oven/copied.hpp>
 #include <pstade/oven/dropped.hpp>
 #include "./sdk/windows.hpp"
 

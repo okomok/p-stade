@@ -21,7 +21,7 @@
 #include <string>
 #include <boost/range.hpp>
 #include <pstade/oven/range_category.hpp>
-#include <pstade/oven/copy_range.hpp>
+#include <pstade/oven/copied.hpp>
 #include <pstade/oven/copied_to.hpp>
 #include <pstade/oven/filtered.hpp>
 #include <pstade/oven/transformed.hpp>

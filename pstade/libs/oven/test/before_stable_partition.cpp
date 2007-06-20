@@ -17,7 +17,7 @@
 
 
 #include <vector>
-#include <pstade/oven/copy_range.hpp>
+#include <pstade/oven/copied.hpp>
 #include <pstade/oven/counting.hpp>
 #include <pstade/oven/permuted.hpp>
 

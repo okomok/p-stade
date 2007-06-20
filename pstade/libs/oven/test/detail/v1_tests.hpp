@@ -66,7 +66,7 @@
 // you need not include them.
 #include <vector>
 #include <pstade/concept.hpp>
-#include <pstade/oven/copy_range.hpp>
+#include <pstade/oven/copied.hpp>
 
 
 #if !defined(PSTADE_OVEN_TESTS_REVERSE_RANGE_TESTING)

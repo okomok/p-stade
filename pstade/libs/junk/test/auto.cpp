@@ -12,13 +12,13 @@
 
 //#include <pstade/../libs/wine/test/copy_auto_ptr.cpp>
 
-//#include <pstade/../libs/oven/test/regular.cpp>
+#include <pstade/../libs/oven/test/copy_range.cpp>
 //#include <pstade/../libs/oven/test/popped.cpp>
 //#include <pstade/../libs/oven/test/initial_ptrs.cpp>
 //#include <pstade/../libs/oven/example/primes.cpp>
 //#include <pstade/../libs/biscuit/test/capture.cpp>
 //#include <pstade/../libs/oven/test/ms/atl_string.cpp>
-#include <pstade/../libs/gravy/test/module_file_name.cpp>
+//#include <pstade/../libs/gravy/test/file_range.cpp>
 //#include <pstade/../libs/tomato/test/main_instance.cpp>
 //#include <pstade/detail/result_of.hpp>
 

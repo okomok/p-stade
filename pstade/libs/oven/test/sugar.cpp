@@ -19,7 +19,7 @@
 #include <list>
 #include <vector>
 #include <pstade/oven/equals.hpp>
-#include <pstade/oven/copy_range.hpp>
+#include <pstade/oven/copied.hpp>
 #include <pstade/oven/taken.hpp>
 #include <pstade/oven/identities.hpp>
 

@@ -20,7 +20,7 @@
 #include <pstade/oven/single.hpp>
 #include <pstade/oven/any_range.hpp>
 #include <pstade/oven/taken.hpp>
-#include <pstade/oven/copy_range.hpp>
+#include <pstade/oven/copied.hpp>
 #include <pstade/oven/shared.hpp>
 #include <pstade/oven/jointed.hpp>
 #include <pstade/oven/shared_single.hpp>

@@ -38,6 +38,7 @@
 #include "./const_refs.hpp"
 #include "./constants.hpp"
 #include "./copied_to.hpp"
+#include "./copied.hpp"
 #include "./copy_range.hpp"
 #include "./counting.hpp"
 #include "./cycled.hpp"

@@ -15,7 +15,6 @@
 #include <pstade/lime/extension.hpp>
 #include <pstade/lime/save.hpp> // save_default
 #include <pstade/oven/applier.hpp>
-#include <pstade/oven/copy_range.hpp>
 #include <pstade/oven/equals.hpp>
 #include <pstade/unused.hpp>
 #include <pstade/ustring.hpp>

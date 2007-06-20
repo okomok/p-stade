@@ -27,7 +27,7 @@
 #include <pstade/oven/algorithm.hpp>
 #include "./detail/v1_core.hpp"
 #include <pstade/oven/as_literal.hpp>
-#include <pstade/oven/copy_range.hpp>
+#include <pstade/oven/copied.hpp>
 
 
 namespace oven = pstade::oven;

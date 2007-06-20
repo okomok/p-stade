@@ -14,7 +14,7 @@
 #include <pstade/automatic.hpp>
 #include <pstade/auxiliary.hpp>
 #include <pstade/oven/as_c_str.hpp>
-#include <pstade/oven/copy_range.hpp>
+#include <pstade/oven/copied.hpp>
 #include "./atl/config.hpp" // ATL_VER
 #include "./atl/conv.hpp"
 

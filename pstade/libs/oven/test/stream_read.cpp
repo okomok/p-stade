@@ -20,7 +20,7 @@
 #include <sstream>
 #include <string>
 #include "./detail/v1_core.hpp"
-#include <pstade/oven/copy_range.hpp>
+#include <pstade/oven/copied.hpp>
 
 
 namespace oven = pstade::oven;

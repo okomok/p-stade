@@ -24,7 +24,7 @@
 #include <pstade/oven/algorithm.hpp>
 #include <pstade/oven/equals.hpp>
 #include <pstade/oven/taken.hpp>
-#include <pstade/oven/copy_range.hpp>
+#include <pstade/oven/copied.hpp>
 #include <pstade/oven/regular.hpp>
 #include <pstade/oven/distance.hpp>
 #include <pstade/oven/taken_while.hpp>
