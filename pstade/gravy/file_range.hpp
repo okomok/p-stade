@@ -124,17 +124,35 @@ namespace pstade { namespace gravy {
         };
 
 
+        template<class Value>
+        struct isuper
+        {
+            typedef
+                oven::iter_range<Value const *>
+            type;
+        };
+
+
+        template<class Value>
+        struct osuper
+        {
+            typedef
+                oven::iter_range<Value *>
+            type;
+        };
+
+
     } // namespace file_range_detail
 
 
     template<class Value = boost::uint8_t>
     struct ifile_range :
         file_range_detail::iview<Value>,
-        oven::iter_range<Value const *>::type
+        file_range_detail::isuper<Value>::type
     {
     private:
         typedef file_range_detail::iview<Value> view_t;
-        typedef typename oven::iter_range<Value const *>::type super_t;
+        typedef typename file_range_detail::isuper<Value>::type super_t;
 
     public:
         explicit ifile_range(tstring const& path) :
@@ -156,11 +174,11 @@ namespace pstade { namespace gravy {
     template<class Value = boost::uint8_t>
     struct ofile_range :
         file_range_detail::oview<Value>,
-        oven::iter_range<Value *>::type
+        file_range_detail::osuper<Value>::type
     {
     private:
         typedef file_range_detail::oview<Value> view_t;
-        typedef typename oven::iter_range<Value *>::type super_t;
+        typedef typename file_range_detail::osuper<Value>::type super_t;
 
     public:
         explicit ofile_range(tstring const& path, std::ptrdiff_t diff) :

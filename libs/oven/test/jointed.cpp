@@ -24,7 +24,7 @@
 #include <boost/foreach.hpp>
 #include <boost/range.hpp>
 #include <pstade/oven/equals.hpp>
-#include <pstade/oven/copy_range.hpp>
+#include <pstade/oven/copied.hpp>
 #include <pstade/oven/single.hpp>
 #include <pstade/oven/reversed.hpp>
 

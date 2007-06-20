@@ -29,7 +29,7 @@
 #include <pstade/oven/algorithm.hpp>
 #include <pstade/tuple.hpp> // tuple_pack
 #include <pstade/oven/equals.hpp>
-#include <pstade/oven/copy_range.hpp>
+#include <pstade/oven/copied.hpp>
 
 
 #include <boost/fusion/sequence/adapted/boost_tuple.hpp>

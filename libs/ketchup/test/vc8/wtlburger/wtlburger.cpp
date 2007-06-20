@@ -7,7 +7,7 @@
 
 #include <pstade/hamburger.hpp>
 
-#include <pstade/oven/copy_range.hpp>
+#include <pstade/oven/copied.hpp>
 #include <pstade/gravy/co_init.hpp>
 #include <pstade/gravy/module_file_name.hpp>
 #include <pstade/gravy/tstring.hpp>

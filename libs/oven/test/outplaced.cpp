@@ -23,7 +23,7 @@
 #include "./detail/v1_core.hpp"
 #include <pstade/oven/algorithm.hpp>
 #include <pstade/oven/identities.hpp>
-#include <pstade/oven/copy_range.hpp>
+#include <pstade/oven/copied.hpp>
 #include <pstade/oven/indirected.hpp>
 #include <pstade/oven/initial_values.hpp>
 #include <boost/lambda/core.hpp>

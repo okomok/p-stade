@@ -14,7 +14,7 @@
 #include "./equality.hpp"
 
 #if !defined(PSTADE_LIBS_OVEN_TEST_DETAIL_COPY_RANGE)
-#include <pstade/oven/copy_range.hpp>
+#include <pstade/oven/copied.hpp>
 #endif
 
 namespace pstade { namespace oven { namespace test {

@@ -15,10 +15,8 @@
 #include <boost/type_traits/remove_const.hpp>
 #include <boost/utility/result_of.hpp>
 #include <pstade/adl_barrier.hpp>
-#include <pstade/automatic.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/copy_construct.hpp>
-#include <pstade/pipable.hpp>
 #include <pstade/remove_cvr.hpp>
 #include <pstade/specified.hpp>
 #include <pstade/unevaluated.hpp>
@@ -101,7 +99,6 @@ struct op_copy_range
 PSTADE_ADL_BARRIER(copy_range) { // for 'boost'
     PSTADE_SPECIFIED1(copy_range, op_copy_range, 1)
 }
-PSTADE_PIPABLE(copied, (automatic< op_copy_range<_> >))
 
 
 template< class Range >

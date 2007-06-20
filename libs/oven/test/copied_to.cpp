@@ -19,7 +19,7 @@
 #include <pstade/oven/equals.hpp>
 #include <iterator>
 #include <string>
-#include <pstade/oven/copy_range.hpp>
+#include <pstade/oven/copied.hpp>
 #include <pstade/is_same.hpp>
 
 

@@ -22,7 +22,7 @@
 #include <algorithm>
 #include <string>
 #include <pstade/oven/reversed.hpp>
-#include <pstade/oven/copy_range.hpp>
+#include <pstade/oven/copied.hpp>
 #include <pstade/oven/rvalues.hpp>
 
 

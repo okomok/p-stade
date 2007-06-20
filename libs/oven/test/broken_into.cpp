@@ -20,7 +20,7 @@
 #include <vector>
 #include <pstade/oven/memoized.hpp>
 #include <pstade/oven/concatenated.hpp>
-#include <pstade/oven/copy_range.hpp>
+#include <pstade/oven/copied.hpp>
 
 
 void pstade_minimal_test()

@@ -17,7 +17,7 @@
 #include <string>
 #include <iostream>
 #include <sstream>
-#include <pstade/oven/copy_range.hpp>
+#include <pstade/oven/copied.hpp>
 #include <pstade/oven/copied_to.hpp>
 #include <pstade/oven/filtered.hpp>
 #include <pstade/oven/stream_read.hpp>

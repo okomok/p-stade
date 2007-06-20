@@ -15,7 +15,7 @@
 #include <stack>
 #include <pstade/lexical_cast.hpp>
 #include <pstade/biscuit.hpp>
-#include <pstade/oven/copy_range.hpp>
+#include <pstade/oven/copied.hpp>
 
 
 // See: http://www.boost.org/libs/spirit/example/fundamental/calc_debug.cpp

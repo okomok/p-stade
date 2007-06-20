@@ -13,7 +13,7 @@
 #include <pstade/gravy/window_text.hpp>
 
 
-#include <pstade/oven/copy_range.hpp>
+#include <pstade/oven/copied.hpp>
 #include <pstade/gravy/tstring.hpp>
 #include <pstade/gravy/tiostream.hpp>
 #include <pstade/gravy/c_str.hpp>

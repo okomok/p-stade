@@ -21,7 +21,6 @@
 #include <pstade/instance.hpp>
 #include <pstade/ketchup/core.hpp>
 #include <pstade/is_same.hpp>
-#include <pstade/oven/copy_range.hpp>
 #include <pstade/oven/distance.hpp>
 #include <pstade/statement.hpp>
 #include <pstade/ustring.hpp>

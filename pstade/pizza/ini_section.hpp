@@ -28,7 +28,7 @@
 #include <pstade/integral_cast.hpp>
 #include <pstade/oven/array_range.hpp>
 #include <pstade/oven/as_c_str.hpp>
-#include <pstade/oven/copy_range.hpp>
+#include <pstade/oven/copied.hpp>
 #include <pstade/oven/distance.hpp>
 #include <pstade/oven/equals.hpp>
 #include <pstade/require.hpp>

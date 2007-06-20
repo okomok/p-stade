@@ -1,6 +1,6 @@
 #include <pstade/vodka/drink.hpp>
 #include <pstade/biscuit.hpp>
-#include <pstade/oven/copy_range.hpp>
+#include <pstade/oven/copied.hpp>
 //#include <sstream>
 //#include <boost/test/unit_test.hpp>
 #include <string>
