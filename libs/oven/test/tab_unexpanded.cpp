@@ -11,7 +11,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#define PSTADE_OVEN_DEBUG
 #include "./detail/v1_tests.hpp"
 #include <pstade/oven/tab_expanded.hpp>
 #include <pstade/oven/tab_unexpanded.hpp>
@@ -23,6 +22,8 @@
 #include <boost/range.hpp>
 #include "./detail/v1_core.hpp"
 #include <pstade/oven/file_range.hpp>
+#include <pstade/oven/stream_writer.hpp>
+#include <pstade/oven/algorithm.hpp>
 
 
 void test()
@@ -34,32 +35,21 @@ void test()
     std::string ans("TTTactor<Scpp_token::pp_include_path,TTTact_pp_include_pathS>");
     std::string src("SSSSSSSSSSSSactor<Scpp_token::pp_include_path,SSSSSSSSSSact_pp_include_pathS>");
 
-    BOOST_CHECK( oven::equals(src|tab_unexpanded(4), ans) );
+    BOOST_CHECK( oven::equals(src|tab_unexpanded(4, 'X', 'T', 'S'), ans) );
 
-/*
-    oven::file_range<> qfile("tab_expanded.txt");
-    PSTADE_ASSERT( qfile.is_open() );
+    {
+        oven::file_range<> qfile("tab_expanded.txt");
+        BOOST_CHECK( qfile.is_open() );
 
-    oven::file_range<> afile("tab_unexpanded.txt");
-    PSTADE_ASSERT( afile.is_open() );
+        oven::file_range<> afile("tab_unexpanded.txt");
+        BOOST_CHECK( afile.is_open() );
 
-    BOOST_CHECK( oven::equal(qfile|oven::tab_unexpanded(4), boost::begin(afile)) );
-*/
-/*
-    oven::file_range<> sfile("tab_sample.txt");
-    std::ofstream fout("tab_sample_result.txt", std::ios::binary);
-    oven::copy(sfile|oven::tab_unexpanded(4), oven::outputter(fout));
-
- too slow
-    BOOST_CHECK( oven::equal(
-        qfile |
-            oven::tab_unexpanded(4) |
-            oven::tab_expanded(4) |
-            oven::tab_unexpanded(4) |
-            oven::tab_expanded(4),
-        boost::begin(qfile))
-    );
-*/
+        BOOST_CHECK( equals(qfile|oven::tab_unexpanded(4), afile) );
+#if 0
+        std::ofstream fout("tab_unexpanded_output.txt", std::ios::binary);
+        copy(qfile|oven::tab_unexpanded(4), stream_writer(fout));
+#endif
+    }
 }
 
 

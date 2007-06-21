@@ -54,20 +54,18 @@ public:
     tab_unexpand_iterator()
     { }
 
-    tab_unexpand_iterator(ForwardIter it, ForwardIter last, diff_t tabsize) :
-        super_t(base_t(it, tabsize)),
-        m_last(last, tabsize), m_sol(it, tabsize),
-        m_tabsize(tabsize), m_tab_ch(PSTADE_OVEN_DEBUG_TAB_CH)
+    tab_unexpand_iterator(ForwardIter it, ForwardIter last, diff_t tabsize, val_t newline, val_t tab, val_t space) :
+        super_t(base_t(it, tabsize, newline, tab, space)),
+        m_last(last, tabsize, newline, tab, space), m_sol(it, tabsize, newline, tab, space)
     { }
 
 template< class > friend struct tab_unexpand_iterator;
     template< class F >
     tab_unexpand_iterator(tab_unexpand_iterator<F> const& other,
-        typename boost::enable_if_convertible<F, ForwardIter>::type * = 0
+        typename boost::enable_if_convertible<typename tab_unexpand_iterator<F>::base_t, base_t>::type * = 0
     ) :
         super_t(other.base()),
-        m_last(other.end()), m_sol(other.m_sol), 
-        m_tabsize(other.tabsize()), m_tab_ch(other.tab_ch())
+        m_last(other.end()), m_sol(other.m_sol)
     { }
 
 public:
@@ -78,39 +76,47 @@ public:
 
     diff_t tabsize() const
     {
-        return m_tabsize;
+        return this->base().tabsize();
     }
 
-    val_t tab_ch() const
+    val_t newline() const
     {
-        return m_tab_ch;
+        return this->base().newline();
+    }
+
+    val_t const& tab() const
+    {
+        return this->base().tab();
+    }
+
+    val_t const& space() const
+    {
+        return this->base().space();
     }
 
 private:
     base_t m_last;
     base_t m_sol; // start of line
-    diff_t m_tabsize;
-    mutable val_t m_tab_ch;
 
     bool is_newline() const
     {
-        return '\n' == read(this->base());
+        return newline() == read(this->base());
     }
 
     template< class Other >
     bool is_compatible(Other const& other) const
     {
-        return m_tabsize == other.m_tabsize && m_tab_ch == other.m_tab_ch;
+        return tabsize() == other.tabsize() && tab() == other.tab();
     }
 
     diff_t flying_distance() const
     {
         diff_t diff_from_sol = detail::iter_distance(m_sol, this->base());
-        diff_t diff_required = m_tabsize - diff_from_sol % m_tabsize;
+        diff_t diff_required = tabsize() - diff_from_sol % tabsize();
 
         if (diff_required == 1)
-            return false; // common sense?
-        
+            return 0; // common sense?
+
         if (diff_required <= space_exploration())
             return diff_required;
         else
@@ -121,12 +127,12 @@ private:
     {
         diff_t spaces = 0;
         for (base_t it = this->base(); it != m_last; ++it) {
-            if (read(it) == PSTADE_OVEN_DEBUG_SPACE_CH)
+            if (read(it) == space())
                 ++spaces;
             else
                 break;
 
-            if (spaces == m_tabsize) // Apolo 13
+            if (spaces == tabsize()) // Apolo 13
                 break;
         }
 
@@ -137,7 +143,7 @@ friend class boost::iterator_core_access;
     ref_t dereference() const
     {
         if (flying_distance() != 0)
-            return m_tab_ch;
+            return tab();
 
         return *this->base();
     }
@@ -157,11 +163,11 @@ friend class boost::iterator_core_access;
             return;
         }
 
-        bool nl = is_newline();
+        bool is_nl = is_newline();
 
         ++this->base_reference();
 
-        if (nl)
+        if (is_nl)
             m_sol = this->base();
     }
 };
