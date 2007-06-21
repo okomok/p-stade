@@ -11,7 +11,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#define PSTADE_OVEN_DEBUG
 #include "./detail/v1_tests.hpp"
 #include <pstade/oven/tab_expanded.hpp>
 
@@ -22,6 +21,7 @@
 #include <boost/range.hpp>
 #include "./detail/v1_core.hpp"
 #include <pstade/oven/file_range.hpp>
+#include <pstade/oven/equals.hpp>
 
 
 void test()
@@ -33,23 +33,17 @@ void test()
     std::string src("TABCTDEFTTGHITJ");
     std::string ans("SSSSABCSDEFSSSSSGHISJ");
 
-    BOOST_CHECK( oven::equals(src|tab_expanded(4), ans) );
+    BOOST_CHECK( oven::equals(src|tab_expanded(4, '.', 'T', 'S'), ans) );
 
-/*
-    oven::file_range<> qfile("tab_unexpanded.txt");
-    BOOST_CHECK( qfile.is_open() );
+    {
+        oven::file_range<> qfile("tab_unexpanded.txt");
+        BOOST_CHECK( qfile.is_open() );
 
-    oven::file_range<> afile("tab_expanded.txt");
-    BOOST_CHECK( afile.is_open() );
+        oven::file_range<> afile("tab_expanded.txt");
+        BOOST_CHECK( afile.is_open() );
 
-    BOOST_CHECK( oven::equal(qfile|oven::tab_expanded(4), boost::begin(afile)) );
-
-    pstade::print("...pass file-comparison");
-*/
-/*
-    std::ofstream fout("tab_expand_range_dst__.txt", std::ios::binary);
-    oven::copy(qfile|oven::tab_expanded(4), oven::outputter(fout));
-*/
+        BOOST_CHECK( equals(qfile|oven::tab_expanded(4), afile) );
+    }
 }
 
 

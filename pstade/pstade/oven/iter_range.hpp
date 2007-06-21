@@ -179,6 +179,13 @@ public:
         return m_first[n];
     }
 
+    template< class Iterator_ >
+    void reset(Iterator_ first, Iterator_ last)
+    {
+        m_first = first;
+        m_last  = last;
+    }
+
 // equality_comparable
     bool operator==(self_t const& other) const
     {

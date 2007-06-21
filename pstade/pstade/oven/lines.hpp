@@ -1,5 +1,5 @@
-#ifndef PSTADE_OVEN_TAB_EXPANDED_HPP
-#define PSTADE_OVEN_TAB_EXPANDED_HPP
+#ifndef PSTADE_OVEN_LINES_HPP
+#define PSTADE_OVEN_LINES_HPP
 #include "./prelude.hpp"
 
 
@@ -17,11 +17,8 @@
 #include <pstade/pipable.hpp>
 #include "./concepts.hpp"
 #include "./detail/default_newline.hpp"
-#include "./detail/default_space.hpp"
-#include "./detail/default_tab.hpp"
-#include "./detail/tab_expand_iterator.hpp"
+#include "./detail/line_iterator.hpp"
 #include "./iter_range.hpp"
-#include "./range_difference.hpp"
 #include "./range_iterator.hpp"
 #include "./range_value.hpp"
 
@@ -29,7 +26,7 @@
 namespace pstade { namespace oven {
 
 
-namespace tab_expanded_detail {
+namespace lines_detail {
 
 
     template< class Range >
@@ -39,12 +36,8 @@ namespace tab_expanded_detail {
             range_value<Range>::type
         val_t;
 
-        typedef typename
-            range_difference<Range>::type
-        diff_t;
-
         typedef
-            detail::tab_expand_iterator<
+            detail::line_iterator<
                 typename range_iterator<Range>::type
             >
         iter_t;
@@ -53,25 +46,25 @@ namespace tab_expanded_detail {
             iter_range<iter_t> const
         result_type;
 
-        result_type operator()(Range& rng, diff_t tabsize,
-            val_t newline = detail::default_newline<val_t>::value(),
-            val_t tab     = detail::default_tab<val_t>::value(),
-            val_t space   = detail::default_space<val_t>::value() ) const
+        result_type operator()(Range& rng, val_t delim = detail::default_newline<val_t>::value()) const
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
-            return result_type(
-                iter_t(boost::begin(rng), tabsize, newline, tab, space),
-                iter_t(boost::end(rng),   tabsize, newline, tab, space)
-            );
+            return aux(boost::begin(rng), boost::end(rng), delim);
+        }
+
+        template< class Iterator >
+        result_type aux(Iterator first, Iterator last, val_t delim) const
+        {
+            return result_type(iter_t(first, first, last, delim), iter_t(last, first, last, delim));
         }
     };
 
 
-} // namespace tab_expanded_detail
+} // namespace lines_detail
 
 
-PSTADE_FUNCTION(make_tab_expanded, (tab_expanded_detail::baby<_>))
-PSTADE_PIPABLE(tab_expanded, (op_make_tab_expanded))
+PSTADE_FUNCTION(make_lines, (lines_detail::baby<_>))
+PSTADE_PIPABLE(lines, (op_make_lines))
 
 
 } } // namespace pstade::oven

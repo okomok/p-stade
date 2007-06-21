@@ -154,7 +154,7 @@
 * `popped` accepts `SinglePassRange`.
 * `checked` requires `ForwardRange`.
 
-[h3 Version 0.94.2]
+[h2 Version 0.94.2]
 * Changed `copied` header.
 
 

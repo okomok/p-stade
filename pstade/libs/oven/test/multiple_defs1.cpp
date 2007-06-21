@@ -12,6 +12,8 @@
 
 
 #include <pstade/oven.hpp>
+#undef PSTADE_OVEN_OVEN_HPP
+#include <pstade/oven/oven.hpp>
 
 
 using namespace pstade::oven;

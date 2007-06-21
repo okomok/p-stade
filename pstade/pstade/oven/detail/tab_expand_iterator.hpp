@@ -15,15 +15,7 @@
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_categories.hpp>
 #include "../read.hpp"
-
-
-#if !defined(PSTADE_OVEN_DEBUG)
-    #define PSTADE_OVEN_DEBUG_SPACE_CH ' '
-    #define PSTADE_OVEN_DEBUG_TAB_CH '\t'
-#else
-    #define PSTADE_OVEN_DEBUG_SPACE_CH 'S'
-    #define PSTADE_OVEN_DEBUG_TAB_CH 'T'
-#endif
+#include "./constant_reference.hpp"
 
 
 namespace pstade { namespace oven { namespace detail {
@@ -41,7 +33,8 @@ struct tab_expand_iterator_super
             tab_expand_iterator<ForwardIter>,
             ForwardIter,
             boost::use_default,
-            boost::forward_traversal_tag
+            boost::forward_traversal_tag,
+            typename constant_reference<ForwardIter>::type
         >
     type;
 };
@@ -61,20 +54,21 @@ public:
     tab_expand_iterator()
     { }
 
-    tab_expand_iterator(ForwardIter it, diff_t tabsize) :
+    tab_expand_iterator(ForwardIter it, diff_t tabsize, val_t newline, val_t tab, val_t space) :
         super_t(it), m_tabsize(tabsize),
-        m_space_counter(0), m_diff_from_sol(0),
-        m_space_ch(PSTADE_OVEN_DEBUG_SPACE_CH)
+        m_newline(newline), m_tab(tab), m_space(space),
+        m_space_counter(0), m_diff_from_sol(0)
     { }
 
 template< class > friend struct tab_expand_iterator;
     template< class F >
     tab_expand_iterator(tab_expand_iterator<F> const& other,
-        typename boost::enable_if_convertible<F, ForwardIter>::type * = 0
+        typename boost::enable_if_convertible<F, ForwardIter>::type * = 0,
+        typename boost::enable_if_convertible<typename tab_expand_iterator<F>::val_t, val_t>::type * = 0
     ) :
         super_t(other.base()), m_tabsize(other.tabsize()),
-        m_space_counter(other.m_space_counter), m_diff_from_sol(other.m_diff_from_sol), 
-        m_space_ch(other.space_ch())
+        m_newline(other.newline()), m_tab(other.tab()), m_space(other.space()),
+        m_space_counter(other.m_space_counter), m_diff_from_sol(other.m_diff_from_sol)
     { }
 
 public:
@@ -83,31 +77,43 @@ public:
         return m_tabsize;
     }
 
-    diff_t space_ch() const
+    val_t newline() const
     {
-        return m_space_ch;
+        return m_newline;
+    }
+
+    val_t const& tab() const
+    {
+        return m_tab;
+    }
+
+    val_t const& space() const
+    {
+        return m_space;
     }
 
 private:
     diff_t m_tabsize;
+    val_t m_newline;
+    val_t m_tab;
+    val_t m_space;
     diff_t m_space_counter;
     diff_t m_diff_from_sol; // from 'start of line'
-    mutable val_t m_space_ch;
 
     bool is_tab() const
     {
-        return PSTADE_OVEN_DEBUG_TAB_CH == read(this->base());
+        return m_tab == read(this->base());
     }
 
     bool is_newline() const
     {
-        return '\n' == read(this->base());
+        return m_newline == read(this->base());
     }
 
     template< class Other >
     bool is_compatible(Other const& other) const
     {
-        return m_tabsize == other.m_tabsize && m_space_ch == other.m_space_ch;
+        return m_tabsize == other.m_tabsize && m_space == other.m_space;
     }
 
     // "pseudo space range" functions
@@ -127,12 +133,11 @@ private:
         --m_space_counter;
     }
 
-
 friend class boost::iterator_core_access;
     ref_t dereference() const
     {
         if (!space_is_end() || is_tab())
-            return m_space_ch;
+            return m_space;
 
         return *this->base();
     }
@@ -162,12 +167,12 @@ friend class boost::iterator_core_access;
             return;
         }
 
-        bool nl = is_newline();
+        bool is_nl = is_newline();
 
         ++this->base_reference();
         ++m_diff_from_sol;
 
-        if (nl)
+        if (is_nl)
             m_diff_from_sol = 0;
     }
 };

@@ -12,7 +12,7 @@
 
 //#include <pstade/../libs/wine/test/copy_auto_ptr.cpp>
 
-#include <pstade/../libs/oven/test/copy_range.cpp>
+#include <pstade/../libs/oven/test/lines.cpp>
 //#include <pstade/../libs/oven/test/popped.cpp>
 //#include <pstade/../libs/oven/test/initial_ptrs.cpp>
 //#include <pstade/../libs/oven/example/primes.cpp>

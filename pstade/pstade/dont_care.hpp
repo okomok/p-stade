@@ -23,8 +23,8 @@ namespace pstade {
 
     struct dont_care
     {
-        template<class T>
-        dont_care(T const&)
+        template<class X>
+        dont_care(X const&)
         { }
     };
 
