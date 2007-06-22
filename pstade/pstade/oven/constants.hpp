@@ -12,12 +12,11 @@
 
 
 #include <pstade/function.hpp>
-#include <pstade/functional.hpp> // identity
 #include <pstade/pipable.hpp>
 #include "./concepts.hpp"
+#include "./converted.hpp"
 #include "./detail/constant_reference.hpp"
 #include "./range_iterator.hpp"
-#include "./transformed.hpp"
 
 
 namespace pstade { namespace oven {
@@ -37,14 +36,14 @@ namespace constants_detail {
 
         typedef typename
             boost::result_of<
-                op_make_transformed<ref_t>(Range&, op_identity const&)
+                op_make_converted<ref_t>(Range&)
             >::type
         result_type;
 
         result_type operator()(Range& rng) const
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-            return op_make_transformed<ref_t>()(rng, identity);
+            return op_make_converted<ref_t>()(rng);
         }
     };
 

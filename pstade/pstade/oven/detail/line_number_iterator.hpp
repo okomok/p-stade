@@ -27,16 +27,16 @@
 namespace pstade { namespace oven { namespace detail {
 
 
-template< class Iterator >
+template< class Iterator, class Incrementable >
 struct line_number_iterator;
 
 
-template< class Iterator >
+template< class Iterator, class Incrementable >
 struct line_number_iterator_super
 {
     typedef
         boost::iterator_adaptor<
-            line_number_iterator<Iterator>,
+            line_number_iterator<Iterator, Incrementable>,
             Iterator,
             boost::use_default,
             typename minimum_pure<
@@ -48,19 +48,19 @@ struct line_number_iterator_super
 };
 
 
-template< class Iterator >
+template< class Iterator, class Incrementable >
 struct line_number_iterator :
-    line_number_iterator_super<Iterator>::type
+    line_number_iterator_super<Iterator, Incrementable>::type
 {
 private:
-    typedef typename line_number_iterator_super<Iterator>::type super_t;
+    typedef typename line_number_iterator_super<Iterator, Incrementable>::type super_t;
     typedef typename super_t::value_type val_t;
 
 public:
     line_number_iterator()
     { }
 
-    line_number_iterator(Iterator it, int n, val_t nl) :
+    line_number_iterator(Iterator it, Incrementable n, val_t nl) :
         super_t(it), m_num(n), m_nl(nl)
     { }
 
@@ -75,7 +75,7 @@ public:
     }
 
 private:
-    int m_num;
+    Incrementable m_num;
     val_t m_nl;
 
 friend class boost::iterator_core_access;
@@ -89,8 +89,8 @@ friend class boost::iterator_core_access;
 };
 
 
-template< class I1, class I2 > inline
-void iter_swap(line_number_iterator<I1> it1, line_number_iterator<I2> it2, int = 0)
+template< class I1, class In1, class I2, class In2 > inline
+void iter_swap(line_number_iterator<I1, In1> it1, line_number_iterator<I2, In2> it2, int = 0)
 {
     do_iter_swap(it1.base(), it2.base());
 }
@@ -101,8 +101,8 @@ struct is_line_number_iterator :
     boost::mpl::false_
 { };
 
-template< class I >
-struct is_line_number_iterator< line_number_iterator<I> > :
+template< class I, class In >
+struct is_line_number_iterator< line_number_iterator<I, In> > :
     boost::mpl::true_
 { };
 

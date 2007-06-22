@@ -25,8 +25,8 @@ namespace pstade { namespace gravy { namespace detail {
     struct handle_ptr_super
     {
         typedef
-            radish::bool_testable < T,
-            boost::totally_ordered< T
+            radish::bool_testable  < T,
+            boost::totally_ordered1< T
             > >
         type;
     };

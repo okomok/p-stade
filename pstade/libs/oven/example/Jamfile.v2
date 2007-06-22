@@ -16,6 +16,7 @@ test-suite range :
     [ run doc.cpp ]
     [ run factorials.cpp ]
     [ run fibonacci.cpp ]
+    [ run foreach_line.cpp ]
     [ run merge_sort.cpp ]
     [ run newton.cpp ]
     [ run one_year.cpp ]

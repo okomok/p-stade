@@ -43,16 +43,13 @@ private:
 
 public:
     template< class Myself, class TupleRange >
-    struct apply
-    {
-        typedef typename
-            boost::result_of<
-                op_make_transformed<typename ref_of<TupleRange>::type>(
-                    TupleRange&, op_tuple_get<N>
-                )
-            >::type
-        type;
-    };
+    struct apply :
+        boost::result_of<
+            op_make_transformed<typename ref_of<TupleRange>::type>(
+                TupleRange&, op_tuple_get<N>
+            )
+        >
+    { };
 
     template< class Result, class TupleRange >
     Result call(TupleRange& rng) const

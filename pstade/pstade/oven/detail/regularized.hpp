@@ -53,9 +53,9 @@ public:
 
 template< class X >
 struct regularized :
-    radish::bool_testable < regularized<X>,
-    radish::swappable     < regularized<X>,
-    boost::totally_ordered< regularized<X> > > >
+    radish::bool_testable  < regularized<X>,
+    radish::swappable      < regularized<X>,
+    boost::totally_ordered1< regularized<X> > > >
 {
 private:
     typedef regularized self_t;

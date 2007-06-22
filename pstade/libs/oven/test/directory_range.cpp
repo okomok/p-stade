@@ -27,32 +27,44 @@ void pstade_minimal_test()
     using namespace oven;
 
     {
-        BOOST_FOREACH (const fs::path& pt, directory_range(fs::current_path<fs::path>())) {
+        directory_range dr(fs::current_path<fs::path>());
+        BOOST_FOREACH (const fs::path& pt, dr) {
             std::cout << pt.leaf() << std::endl;
         }
+
+        test::lightweight_copyable(dr);
     }
 
 #if !defined(BOOST_FILESYSTEM_NARROW_ONLY)
     {
-        BOOST_FOREACH (const fs::wpath& pt, wdirectory_range(fs::current_path<fs::wpath>())) {
+        wdirectory_range dr(fs::current_path<fs::wpath>());
+        BOOST_FOREACH (const fs::wpath& pt, dr) {
             std::wcout << pt.leaf() << std::endl;
         }
+
+        test::lightweight_copyable(dr);
     }
 #endif
 
     std::cout << "recursive...\n";
 
     {
-        BOOST_FOREACH (const fs::path& pt, recursive_directory_range(fs::current_path<fs::path>())) {
+        recursive_directory_range dr(fs::current_path<fs::path>());
+        BOOST_FOREACH (const fs::path& pt, dr) {
             std::cout << pt.leaf() << std::endl;
         }
+
+        test::lightweight_copyable(dr);
     }
 
 #if !defined(BOOST_FILESYSTEM_NARROW_ONLY)
     {
-        BOOST_FOREACH (const fs::wpath& pt, wrecursive_directory_range(fs::current_path<fs::wpath>())) {
+        wrecursive_directory_range dr(fs::current_path<fs::wpath>());
+        BOOST_FOREACH (const fs::wpath& pt, dr) {
             std::wcout << pt.leaf() << std::endl;
         }
+
+        test::lightweight_copyable(dr);
     }
 #endif
 }

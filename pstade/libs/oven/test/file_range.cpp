@@ -36,7 +36,7 @@ void pstade_minimal_test()
         test::emptiness(frng);
         BOOST_CHECK(( !frng ));
         BOOST_CHECK(( !frng.is_open() ));
-        BOOST_CHECK(test::lightweight_copyable(frng));
+        test::lightweight_copyable(frng);
     }
     {
         std::vector<char> vec;

@@ -12,7 +12,7 @@
 
 //#include <pstade/../libs/wine/test/copy_auto_ptr.cpp>
 
-#include <pstade/../libs/oven/test/lines.cpp>
+#include <pstade/../libs/oven/test/range_constantable.cpp>
 //#include <pstade/../libs/oven/test/popped.cpp>
 //#include <pstade/../libs/oven/test/initial_ptrs.cpp>
 //#include <pstade/../libs/oven/example/primes.cpp>
@@ -22,4 +22,4 @@
 //#include <pstade/../libs/tomato/test/main_instance.cpp>
 //#include <pstade/detail/result_of.hpp>
 
-//#include <boost/../libs/oven/example/merge_sort.cpp>
+//#include <boost/../libs/oven/example/one_year.cpp>

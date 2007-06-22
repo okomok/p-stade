@@ -67,7 +67,8 @@ public:
 
     template< class F >
     line_iterator(line_iterator<F> const& other,
-        typename enable_if< is_convertible<F, ForwardIter> >::type = 0
+        typename enable_if< is_convertible<F, ForwardIter> >::type = 0,
+        typename enable_if< is_convertible<typename line_iterator<F>::val_t, val_t> >::type = 0
     ) :
         super_t(other.base()), m_first(other.begin()), m_last(other.end()), m_delim(other.delimiter()),
         m_line(other.line())
@@ -101,7 +102,7 @@ private:
     template< class Other >
     bool is_compatible(Other const& other) const
     {
-        return m_last == other.end() && m_delim == other.delimiter();
+        return m_first == other.begin() && m_last == other.end() && m_delim == other.delimiter();
     }
 
 friend class boost::iterator_core_access;

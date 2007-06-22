@@ -11,6 +11,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Sigh..., this randomly doesn't work, for some reason.
+
+
 #include <boost/foreach.hpp> // foreach::tag
 #include <boost/mpl/bool.hpp>
 #include <pstade/radish/null_injector.hpp>

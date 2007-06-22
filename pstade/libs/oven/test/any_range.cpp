@@ -26,6 +26,7 @@
 
 #include <pstade/unit_test.hpp>
 #include "./detail/test.hpp"
+#include <boost/static_assert.hpp>
 
 
 void test_iterator()
@@ -92,6 +93,13 @@ void pstade_unit_test()
     {
         std::string a("8frj91j81hf891y2");
         any_range<char&, boost::random_access_traversal_tag> b(a);
+
+#if BOOST_WORKAROUND(BOOST_MSVC, == 1310) // msvc-7.1 is lovely.
+        BOOST_STATIC_ASSERT((boost::is_convertible<
+            range_traversal< any_range<char&, boost::random_access_traversal_tag> >::type,
+            boost::bidirectional_traversal_tag
+        >::value));
+#endif
 
         test::random_access_swappable(b, a);
         test::non_lightweight_copyable(b);
