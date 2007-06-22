@@ -12,7 +12,7 @@
 
 
 #include "./detail/v1_tests.hpp"
-#include <pstade/oven/matrix.hpp>
+#include <pstade/oven/detail/matrix.hpp>
 
 
 #include <boost/foreach.hpp>

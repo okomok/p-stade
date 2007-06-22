@@ -18,8 +18,10 @@
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/copy_construct.hpp>
+#include <pstade/enable_if.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/specified.hpp>
 #include "./concepts.hpp"
 #include "./detail/cycle_iterator.hpp"
 #include "./iter_range.hpp"
@@ -87,26 +89,26 @@ struct op_make_cycled :
             cycled_detail::baby<Range, Incrementable1, Incrementable2>()(rng, i, j);
     }
 
-    template< class Myself, class Range, class Difference >
-    struct apply<Myself, Range, Difference>
+    template< class Myself, class Range, class Int >
+    struct apply<Myself, Range, Int>
     {
         typedef typename
-            cycled_detail::baby<Range, int const, typename range_difference<Range>::type>::result_type
+            cycled_detail::baby<Range, int const, int>::result_type
         type;
     };
 
     template< class Result, class Range >
-    Result call(Range& rng, typename range_difference<Range>::type n) const
+    Result call(Range& rng, int n) const
     {
         return
-            cycled_detail::baby<Range, int const, typename range_difference<Range>::type>()(rng, 0, n);
+            cycled_detail::baby<Range, int const, int>()(rng, 0, n);
     }
 
     template< class Myself, class Range >
     struct apply<Myself, Range>
     {
         typedef typename
-            cycled_detail::baby<Range, int const, std::ptrdiff_t const>::result_type
+            cycled_detail::baby<Range, int const, int const>::result_type
         type;
     };
 
@@ -114,13 +116,37 @@ struct op_make_cycled :
     Result call(Range& rng) const
     {
         return
-            cycled_detail::baby<Range, int const, std::ptrdiff_t const>()(rng, 0, (std::numeric_limits<std::ptrdiff_t>::max)());
+            cycled_detail::baby<Range, int const, int const>()(rng, 0, (std::numeric_limits<int>::max)());
     }
 };
 
 
 PSTADE_CONSTANT(make_cycled, (op_make_cycled))
 PSTADE_PIPABLE(cycled, (op_make_cycled))
+
+
+template< class Count >
+struct op_cycle_count
+{
+    typedef Count result_type;
+
+    template< class Adapted >
+    Count operator()(Adapted ad,
+        typename enable_if< detail::is_cycle_iterator<Adapted> >::type = 0) const
+    {
+        return ad.count();
+    }
+
+    template< class Adapted >
+    Count operator()(Adapted ad,
+        typename disable_if<detail::is_cycle_iterator<Adapted> >::type = 0) const
+    {
+        return (*this)(ad.base());
+
+    }
+};
+
+PSTADE_SPECIFIED1(cycle_count, op_cycle_count, 1)
 
 
 } } // namespace pstade::oven

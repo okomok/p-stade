@@ -14,6 +14,7 @@
 #include <utility> // pair
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
+#include <boost/mpl/bool.hpp>
 #include <boost/next_prior.hpp> // prior
 #include <pstade/for_debug.hpp>
 
@@ -185,6 +186,17 @@ friend class boost::iterator_core_access;
         return ((m_last - m_first) * (other.m_count - m_count)) + (other.base() - this->base());
     }
 };
+
+
+template< class X >
+struct is_cycle_iterator :
+    boost::mpl::false_
+{ };
+
+template< class F, class I >
+struct is_cycle_iterator< cycle_iterator<F, I> > :
+    boost::mpl::true_
+{ };
 
 
 } } } // namespace pstade::oven::detail

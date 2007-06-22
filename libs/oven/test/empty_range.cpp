@@ -16,6 +16,13 @@
 #include "./detail/test.hpp"
 
 
+template<class Range>
+void check_const(Range const& rng)
+{
+    PSTADE_OVEN_BOOST_RANGE_BEGIN(rng);
+}
+
+
 void pstade_minimal_test()
 {
     namespace oven = pstade::oven;
@@ -23,7 +30,10 @@ void pstade_minimal_test()
 
     {
         empty_range<int> rng;
+        BOOST_CHECK(!rng);
+        ::check_const(rng);
         test::emptiness(rng);
+        test::lightweight_copyable(rng);
     }
     {
         test::emptiness(empty_range<int>());

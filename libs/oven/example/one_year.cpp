@@ -14,7 +14,9 @@
 #include <pstade/oven.hpp>
 
 
-using namespace pstade::oven;
+namespace oven = pstade::oven;
+using namespace oven;
+
 
 void test_hours()
 {
@@ -27,14 +29,14 @@ struct op_print
     template<class It>
     void operator()(It it) const
     {
-        std::cout << "day: " << *it << ", week: " << it.count() << "th" << std::endl;
+        std::cout << "day: " << *it << ", week: " << oven::cycle_count<int>(it) << "th" << std::endl;
     }
 };
 
 void test_weeks()
 {
     int const days[] = { 0,1,2,3,4,5,6 };
-    for_each(days|cycled(5, 8)|outdirected, op_print());
+    for_each(days|cycled(5, 8)|identities|identities|outdirected, op_print());
 }
 
 

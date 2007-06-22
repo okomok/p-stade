@@ -11,6 +11,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Note:
+//
+// These will be replaced by <boost/numeric/functional.hpp>.
+
+
 // References:
 //
 // [1] OptionalPointee Concept

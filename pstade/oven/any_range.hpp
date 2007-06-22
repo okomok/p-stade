@@ -21,6 +21,7 @@
 #include "./any_iterator.hpp"
 #include "./any_range_fwd.hpp"
 #include "./iter_range.hpp"
+#include "./lightweight_copyable.hpp"
 #include "./range_difference.hpp"
 #include "./range_reference.hpp"
 #include "./range_traversal.hpp"
@@ -38,7 +39,9 @@ namespace any_range_detail {
     {
         typedef
             iter_range<
-                any_iterator<Reference, Traversal, Value, Difference>
+                any_iterator<Reference, Traversal, Value, Difference>,
+                // Only SinglePass is considered as "lightweight".
+                lightweight_copyable< any_range<Reference, boost::single_pass_traversal_tag, Value, Difference> >
             >
         type;
     };
@@ -122,23 +125,7 @@ PSTADE_OBJECT_GENERATOR(make_any_range,
      (any_range< range_reference<_1>, range_pure_traversal<_1>, range_value<_1>, range_difference<_1> >) const)
 
 
-
 } } // namespace pstade::oven
-
-
-// 'lightweight_copyable' randomly doesn't work with 'any_range'.
-
-#include <boost/foreach.hpp>
-#include <boost/mpl/bool.hpp>
-
-namespace boost { namespace foreach {
-
-    template< class Reference, class Value, class Difference >
-    struct is_lightweight_proxy< pstade::oven::any_range<Reference, single_pass_traversal_tag, Value, Difference> > :
-        boost::mpl::true_
-    { };
-
-} } // namespace boost::foreach
 
 
 #endif

@@ -38,6 +38,19 @@ void pstade_minimal_test()
         test::bidirectional_constant(b|lines('N'), a);
     }
     {
+        std::string _("012345678901234567890");
+        std::string b("NbcNdeNfghNNiNjNklmNN");
+        std::string::iterator first = b.begin();
+        std::vector< iter_range<std::string::iterator> > a;
+
+        a.push_back(make_iter_range(first, first));
+        a.push_back(make_iter_range(first+1, first+3)); a.push_back(make_iter_range(first+4, first+6));
+        a.push_back(make_iter_range(first+7, first+10)); a.push_back(make_iter_range(first+11, first+11));
+        a.push_back(make_iter_range(first+12, first+13)); a.push_back(make_iter_range(first+14, first+15));
+        a.push_back(make_iter_range(first+16, first+19)); a.push_back(make_iter_range(first+20, first+20));
+        test::bidirectional_constant(b|lines('N'), a);
+    }
+    {
         std::string b;
         test::emptiness(b|lines);
     }
