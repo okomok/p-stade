@@ -14,7 +14,7 @@
 // Note:
 //
 // Iterator type works as a "key"; see 'op_line_number'.
-// This way seems better than zipping referent and line_number.
+// This way seems better than zipping referent and line number.
 
 
 #include <boost/range/begin.hpp>
