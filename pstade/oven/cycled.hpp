@@ -125,20 +125,20 @@ PSTADE_CONSTANT(make_cycled, (op_make_cycled))
 PSTADE_PIPABLE(cycled, (op_make_cycled))
 
 
-template< class Count >
+template< class Incrementable >
 struct op_cycle_count
 {
-    typedef Count result_type;
+    typedef Incrementable result_type;
 
     template< class Adapted >
-    Count operator()(Adapted ad,
+    Incrementable operator()(Adapted ad,
         typename enable_if< detail::is_cycle_iterator<Adapted> >::type = 0) const
     {
         return ad.count();
     }
 
     template< class Adapted >
-    Count operator()(Adapted ad,
+    Incrementable operator()(Adapted ad,
         typename disable_if<detail::is_cycle_iterator<Adapted> >::type = 0) const
     {
         return (*this)(ad.base());
