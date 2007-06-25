@@ -1,6 +1,6 @@
 #ifndef PSTADE_OVEN_DETAIL_ADJACENT_TRANSFORM_ITERATOR_HPP
 #define PSTADE_OVEN_DETAIL_ADJACENT_TRANSFORM_ITERATOR_HPP
-#include "../prelude.hpp"
+#include "./prefix.hpp"
 
 
 // PStade.Oven

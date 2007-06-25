@@ -1,6 +1,6 @@
 #ifndef PSTADE_DO_SWAP_HPP
 #define PSTADE_DO_SWAP_HPP
-#include "./prelude.hpp"
+#include "./detail/prefix.hpp"
 
 
 // PStade.Wine

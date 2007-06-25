@@ -1,6 +1,6 @@
 #ifndef PSTADE_OVEN_CONCATENATED_HPP
 #define PSTADE_OVEN_CONCATENATED_HPP
-#include "./prelude.hpp"
+#include "./detail/prefix.hpp"
 
 
 // PStade.Oven

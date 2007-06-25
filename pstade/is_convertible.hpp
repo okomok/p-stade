@@ -1,6 +1,6 @@
 #ifndef PSTADE_IS_CONVERTIBLE_HPP
 #define PSTADE_IS_CONVERTIBLE_HPP
-#include "./prelude.hpp"
+#include "./detail/prefix.hpp"
 
 
 // PStade.Wine

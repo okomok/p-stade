@@ -1,6 +1,6 @@
 #ifndef PSTADE_CONTRACT_HPP
 #define PSTADE_CONTRACT_HPP
-#include "./prelude.hpp"
+#include "./detail/prefix.hpp"
 
 
 // PStade.Wine

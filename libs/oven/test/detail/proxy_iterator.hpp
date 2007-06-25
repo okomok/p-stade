@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/prelude.hpp>
+#include <pstade/oven/detail/prefix.hpp>
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/iterator/iterator_traits.hpp> // iterator_value
 #include <pstade/oven/do_iter_swap.hpp>

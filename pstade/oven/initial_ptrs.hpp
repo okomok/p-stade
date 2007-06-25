@@ -1,7 +1,7 @@
 #ifndef BOOST_PP_IS_ITERATING
 #ifndef PSTADE_OVEN_INITIAL_PTRS_HPP
 #define PSTADE_OVEN_INITIAL_PTRS_HPP
-#include "./prelude.hpp"
+#include "./detail/prefix.hpp"
 
 
 // PStade.Oven
@@ -119,7 +119,7 @@ namespace initial_ptrs_detail {
 
     // Pass by reference for lvalue of 'move_ptr'.
     // Also note 'auto_ptr' isn't copy-initializable from one which has
-    // a different 'element_type'. See http://tinyurl.com/yo8a7w (defect report #84)
+    // a different 'element_type'. See http://tinyurl.com/yo8a7w (defect report #84).
     template< class To, class From > inline
     To move_to(From& from)
     {

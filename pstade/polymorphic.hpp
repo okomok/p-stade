@@ -5,7 +5,7 @@
 
 #include <boost/version.hpp>
 #if BOOST_VERSION >= 103500
-#include "./prelude.hpp"
+#include "./detail/prefix.hpp"
 
 
 // PStade.Wine

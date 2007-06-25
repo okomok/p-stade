@@ -1,6 +1,6 @@
 #ifndef PSTADE_OVEN_DETAIL_HAS_IS_CONSTANT_HPP
 #define PSTADE_OVEN_DETAIL_HAS_IS_CONSTANT_HPP
-#include "../prelude.hpp"
+#include "./prefix.hpp"
 
 
 // PStade.Oven

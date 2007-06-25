@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/prelude.hpp>
+#include <pstade/oven/detail/prefix.hpp>
 #include <boost/foreach.hpp>
 #include <boost/mpl/bool.hpp>
 

@@ -1,6 +1,6 @@
 #ifndef PSTADE_OVEN_LIGHTWEIGHT_COPYABLE_HPP
 #define PSTADE_OVEN_LIGHTWEIGHT_COPYABLE_HPP
-#include "./prelude.hpp"
+#include "./detail/prefix.hpp"
 
 
 // PStade.Oven

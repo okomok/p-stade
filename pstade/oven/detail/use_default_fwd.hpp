@@ -1,6 +1,6 @@
 #ifndef PSTADE_OVEN_DETAIL_USE_DEFAULT_FWD_HPP
 #define PSTADE_OVEN_DETAIL_USE_DEFAULT_FWD_HPP
-#include "../prelude.hpp"
+#include "./prefix.hpp"
 
 
 // PStade.Oven

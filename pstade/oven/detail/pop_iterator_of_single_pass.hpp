@@ -1,6 +1,6 @@
 #ifndef PSTADE_OVEN_DETAIL_POP_ITERATOR_OF_SINGLE_PASS_HPP
 #define PSTADE_OVEN_DETAIL_POP_ITERATOR_OF_SINGLE_PASS_HPP
-#include "../prelude.hpp"
+#include "./prefix.hpp"
 
 
 // PStade.Oven

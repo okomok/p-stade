@@ -1,6 +1,6 @@
 #ifndef PSTADE_LEXICAL_CAST_HPP
 #define PSTADE_LEXICAL_CAST_HPP
-#include "./prelude.hpp"
+#include "./detail/prefix.hpp"
 
 
 // PStade.Wine

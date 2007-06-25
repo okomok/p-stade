@@ -1,7 +1,7 @@
 #ifndef BOOST_PP_IS_ITERATING
 #ifndef PSTADE_OVEN_INDIRECT_FUNCTION_HPP
 #define PSTADE_OVEN_INDIRECT_FUNCTION_HPP
-#include "../prelude.hpp"
+#include "./prefix.hpp"
 
 
 // PStade.Oven

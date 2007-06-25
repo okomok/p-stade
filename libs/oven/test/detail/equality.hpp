@@ -24,7 +24,7 @@
 //     http://www.boost.org/doc/html/string_algo.html
 
 
-#include <pstade/oven/prelude.hpp>
+#include <pstade/oven/detail/prefix.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/functional.hpp> // equal_to

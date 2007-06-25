@@ -1,6 +1,6 @@
 #ifndef PSTADE_OVEN_PTR_CONTAINER_HPP
 #define PSTADE_OVEN_PTR_CONTAINER_HPP
-#include "./prelude.hpp"
+#include "./detail/prefix.hpp"
 
 
 // PStade.Oven

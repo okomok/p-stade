@@ -1,6 +1,6 @@
 #ifndef PSTADE_OVEN_DETAIL_DEFAULT_SPACE_HPP
 #define PSTADE_OVEN_DETAIL_DEFAULT_SPACE_HPP
-#include "../prelude.hpp"
+#include "./prefix.hpp"
 
 
 // PStade.Oven

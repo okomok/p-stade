@@ -1,6 +1,6 @@
 #ifndef PSTADE_REMOVE_CVR_HPP
 #define PSTADE_REMOVE_CVR_HPP
-#include "./prelude.hpp"
+#include "./detail/prefix.hpp"
 
 
 // PStade.Wine

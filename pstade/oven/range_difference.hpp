@@ -1,6 +1,6 @@
 #ifndef PSTADE_OVEN_RANGE_DIFFERENCE_HPP
 #define PSTADE_OVEN_RANGE_DIFFERENCE_HPP
-#include "./prelude.hpp"
+#include "./detail/prefix.hpp"
 
 
 // PStade.Oven

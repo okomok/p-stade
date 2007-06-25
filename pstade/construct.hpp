@@ -1,7 +1,7 @@
 #ifndef BOOST_PP_IS_ITERATING
 #ifndef PSTADE_CONSTRUCT_HPP
 #define PSTADE_CONSTRUCT_HPP
-#include "./prelude.hpp"
+#include "./detail/prefix.hpp"
 
 
 // PStade.Wine

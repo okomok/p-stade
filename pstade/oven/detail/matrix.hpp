@@ -1,6 +1,6 @@
 #ifndef PSTADE_OVEN_MATRIX_HPP
 #define PSTADE_OVEN_MATRIX_HPP
-#include "../prelude.hpp"
+#include "./prefix.hpp"
 
 
 // PStade.Oven

@@ -1,6 +1,6 @@
 #ifndef PSTADE_OVEN_DETAIL_BEGIN_END_TAG_HPP
 #define PSTADE_OVEN_DETAIL_BEGIN_END_TAG_HPP
-#include "../prelude.hpp"
+#include "./prefix.hpp"
 
 
 // PStade.Oven

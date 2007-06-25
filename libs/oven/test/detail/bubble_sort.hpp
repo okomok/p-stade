@@ -15,7 +15,7 @@
 // [1] http://www.s34.co.jp/cpptechdoc/article/sort/
 
 
-#include <pstade/oven/prelude.hpp>
+#include <pstade/oven/detail/prefix.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/functional.hpp> // less

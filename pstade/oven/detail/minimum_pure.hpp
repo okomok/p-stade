@@ -1,6 +1,6 @@
 #ifndef PSTADE_OVEN_DETAIL_MINIMUM_PURE_HPP
 #define PSTADE_OVEN_DETAIL_MINIMUM_PURE_HPP
-#include "../prelude.hpp"
+#include "./prefix.hpp"
 
 
 // PStade.Oven
