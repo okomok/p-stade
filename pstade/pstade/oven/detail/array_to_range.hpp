@@ -1,6 +1,6 @@
 #ifndef PSTADE_OVEN_DETAIL_ARRAY_TO_RANGE_HPP
 #define PSTADE_OVEN_DETAIL_ARRAY_TO_RANGE_HPP
-#include "../prelude.hpp"
+#include "./prefix.hpp"
 
 
 // PStade.Oven

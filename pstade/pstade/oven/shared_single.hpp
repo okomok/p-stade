@@ -1,6 +1,6 @@
 #ifndef PSTADE_OVEN_SHARED_SINGLE_HPP
 #define PSTADE_OVEN_SHARED_SINGLE_HPP
-#include "./prelude.hpp"
+#include "./detail/prefix.hpp"
 
 
 // PStade.Oven

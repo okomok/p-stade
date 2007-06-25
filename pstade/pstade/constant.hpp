@@ -1,6 +1,6 @@
 #ifndef PSTADE_CONSTANT_HPP
 #define PSTADE_CONSTANT_HPP
-#include "./prelude.hpp"
+#include "./detail/prefix.hpp"
 
 
 // PStade.Wine
@@ -21,9 +21,9 @@
 //  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/in_unnamed.hpp>
 #include <pstade/singleton.hpp>
 #include <pstade/unparenthesize.hpp>
-#include "./detail/in_unnamed.hpp"
 
 
 #define PSTADE_CONSTANT(O, T) \
@@ -32,7 +32,7 @@
 
     #define PSTADE_CONSTANT_aux(O, T) \
         namespace { \
-            PSTADE_DETAIL_IN_UNNAMED T const& O = ::pstade::singleton< T >::instance; \
+            PSTADE_IN_UNNAMED T const& O = ::pstade::singleton< T >::instance; \
         } \
     /**/
 

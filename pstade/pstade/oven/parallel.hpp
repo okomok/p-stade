@@ -1,6 +1,6 @@
 #ifndef PSTADE_OVEN_PARALLEL_HPP
 #define PSTADE_OVEN_PARALLEL_HPP
-#include "./prelude.hpp"
+#include "./detail/prefix.hpp"
 
 
 // PStade.Oven

@@ -1,6 +1,6 @@
 #ifndef PSTADE_NONCONSTRUCTIBLE_HPP
 #define PSTADE_NONCONSTRUCTIBLE_HPP
-#include "./prelude.hpp"
+#include "./detail/prefix.hpp"
 
 
 // PStade.Wine

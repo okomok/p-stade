@@ -1,6 +1,6 @@
 #ifndef PSTADE_SINGLETON_HPP
 #define PSTADE_SINGLETON_HPP
-#include "./prelude.hpp"
+#include "./detail/prefix.hpp"
 
 
 // PStade.Wine
@@ -23,8 +23,8 @@
 // A program 'T x; int main() { }' is well-defined.
 
 
+#include <pstade/in_unnamed.hpp>
 #include <pstade/unparenthesize.hpp>
-#include "./detail/in_unnamed.hpp"
 
 
 namespace pstade {
@@ -50,7 +50,7 @@ namespace pstade {
 
     #define PSTADE_SINGLETON_aux(O, T) \
         namespace { \
-            PSTADE_DETAIL_IN_UNNAMED T& O = ::pstade::singleton< T >::instance; \
+            PSTADE_IN_UNNAMED T& O = ::pstade::singleton< T >::instance; \
         } \
     /**/
 

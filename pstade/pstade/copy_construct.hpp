@@ -1,6 +1,6 @@
 #ifndef PSTADE_COPY_CONSTRUCT_HPP
 #define PSTADE_COPY_CONSTRUCT_HPP
-#include "./prelude.hpp"
+#include "./detail/prefix.hpp"
 
 
 // PStade.Wine

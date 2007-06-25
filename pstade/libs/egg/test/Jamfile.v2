@@ -1,0 +1,20 @@
+# (C) Copyright 2007: Shunsuke Sogame
+# Distributed under the Boost Software License, Version 1.0.
+# (See accompanying file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+
+import testing ;
+
+project
+    : requirements
+      <library>/boost/test//boost_test_exec_monitor/<link>static
+      <library>/boost/test//boost_unit_test_framework/<link>static
+    ;
+
+test-suite "egg" :
+    [ run callable.cpp ]
+    [ run function.cpp ]
+    [ link multiple_defs1.cpp multiple_defs2.cpp : : multiple_defs ]
+    [ link object1.cpp object2.cpp : : object ]
+    [ run result_of.cpp ]
+    ;
+

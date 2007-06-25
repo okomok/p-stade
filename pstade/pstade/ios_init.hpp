@@ -1,6 +1,6 @@
 #ifndef PSTADE_IOS_INIT_HPP
 #define PSTADE_IOS_INIT_HPP
-#include "./prelude.hpp"
+#include "./detail/prefix.hpp"
 
 
 // PStade.Wine

@@ -1,6 +1,6 @@
 #ifndef PSTADE_STATIC_DOWNCAST_HPP
 #define PSTADE_STATIC_DOWNCAST_HPP
-#include "./prelude.hpp"
+#include "./detail/prefix.hpp"
 
 
 // PStade.Wine

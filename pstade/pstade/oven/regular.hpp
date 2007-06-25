@@ -1,6 +1,6 @@
 #ifndef PSTADE_OVEN_REGULAR_HPP
 #define PSTADE_OVEN_REGULAR_HPP
-#include "./prelude.hpp"
+#include "./detail/prefix.hpp"
 
 
 // PStade.Oven

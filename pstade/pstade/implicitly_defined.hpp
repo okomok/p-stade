@@ -1,6 +1,6 @@
 #ifndef PSTADE_IMPLICITLY_DEFINED_HPP
 #define PSTADE_IMPLICITLY_DEFINED_HPP
-#include "./prelude.hpp"
+#include "./detail/prefix.hpp"
 
 
 // PStade.Wine
@@ -26,7 +26,7 @@
 #include <boost/implicit_cast.hpp>
 
 
-#if BOOST_WORKAROUND(BOOST_MSVC, <= 1400)
+#if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1400))
     #define PSTADE_IMPLICITLY_DEFINED_COPY_IS_BROKEN
 #endif
 

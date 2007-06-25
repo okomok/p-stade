@@ -1,6 +1,6 @@
 #ifndef PSTADE_OVEN_GENERATION_HPP
 #define PSTADE_OVEN_GENERATION_HPP
-#include "./prelude.hpp"
+#include "./detail/prefix.hpp"
 
 
 // PStade.Oven

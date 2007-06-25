@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/oven/prelude.hpp>
+#include <pstade/oven/detail/prefix.hpp>
 #include "./equality.hpp"
 
 #if !defined(PSTADE_LIBS_OVEN_TEST_DETAIL_COPY_RANGE)

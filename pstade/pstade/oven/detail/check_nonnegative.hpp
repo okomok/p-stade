@@ -1,6 +1,6 @@
 #ifndef PSTADE_OVEN_DETAIL_CHECK_NONNEGATIVE_HPP
 #define PSTADE_OVEN_DETAIL_CHECK_NONNEGATIVE_HPP
-#include "../prelude.hpp"
+#include "./prefix.hpp"
 
 
 // PStade.Oven

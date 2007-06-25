@@ -1,6 +1,6 @@
 #ifndef PSTADE_OVEN_PARTITIONED_HPP
 #define PSTADE_OVEN_PARTITIONED_HPP
-#include "./prelude.hpp"
+#include "./detail/prefix.hpp"
 
 
 // PStade.Oven

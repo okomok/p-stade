@@ -1,6 +1,6 @@
 #ifndef PSTADE_OVEN_CLEARED_HPP
 #define PSTADE_OVEN_CLEARED_HPP
-#include "./prelude.hpp"
+#include "./detail/prefix.hpp"
 
 
 // PStade.Oven

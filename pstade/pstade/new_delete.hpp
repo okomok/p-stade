@@ -1,7 +1,7 @@
 #ifndef BOOST_PP_IS_ITERATING
 #ifndef PSTADE_NEW_DELETE_HPP
 #define PSTADE_NEW_DELETE_HPP
-#include "./prelude.hpp"
+#include "./detail/prefix.hpp"
 
 
 // PStade.Wine

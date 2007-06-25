@@ -37,7 +37,7 @@
 #endif
 
 
-#include <pstade/oven/prelude.hpp>
+#include <pstade/oven/detail/prefix.hpp>
 #include <algorithm>
 #include <boost/assert.hpp>
 #include <boost/concept_check.hpp>

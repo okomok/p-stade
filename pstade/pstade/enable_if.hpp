@@ -1,6 +1,6 @@
 #ifndef PSTADE_ENABLE_IF_HPP
 #define PSTADE_ENABLE_IF_HPP
-#include "./prelude.hpp"
+#include "./detail/prefix.hpp"
 
 
 // PStade.Wine
