@@ -26,6 +26,8 @@
 // We sooner or later need 'ARRAY_OVERLOADED', too.
 
 
+#include <boost/config.hpp>
+#include <boost/detail/workaround.hpp>
 #include <boost/mpl/or.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
@@ -37,7 +39,7 @@
 
 // This macro can't always be turned on; especially under VC++.
 // See "/libs/wine/test/const_overloaded.cpp".
-#if defined(__GNUC__)
+#if BOOST_WORKAROUND(__GNUC__, < 4)
     #define PSTADE_CONST_OVERLOADED_REQUIRED
 #endif
 

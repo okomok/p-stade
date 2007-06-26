@@ -36,7 +36,7 @@ namespace pstade { namespace pod_constant_detail {
     };
 
 
-    // Brace ensures static-initialization (8.5.14).
+    // Brace ensures static-initialization (8.5.1/14).
 
     template<class T>
     T const static_const<T>::value = { };

@@ -43,6 +43,7 @@
 #include "./has_xxx.hpp"
 #include "./if_debug.hpp"
 #include "./implicitly_defined.hpp"
+#include "./in_unnamed.hpp"
 #include "./indirect.hpp"
 #include "./instance.hpp"
 #include "./integral_cast.hpp"

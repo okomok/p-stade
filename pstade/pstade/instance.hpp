@@ -60,8 +60,8 @@
 #include <boost/preprocessor/seq/enum.hpp>
 #include <boost/preprocessor/tuple/eat.hpp>
 #include <boost/utility/value_init.hpp> // value_initialized
+#include <pstade/in_unnamed.hpp>
 #include <pstade/unparenthesize.hpp>
-#include "./detail/in_unnamed.hpp"
 
 
 #define PSTADE_INSTANCE(Type, Object, ValueOrArgSeq) \
@@ -91,7 +91,7 @@
     #define PSTADE_INSTANCE_no_args(Type, Object, _) \
         PSTADE_INSTANCE_define_box(Type, Object, PSTADE_INSTANCE_define_v(Type)) \
         namespace { \
-            PSTADE_DETAIL_IN_UNNAMED \
+            PSTADE_IN_UNNAMED \
             Type& Object = PSTADE_INSTANCE_OF(Object); \
         } \
     /**/
@@ -100,7 +100,7 @@
     #define PSTADE_INSTANCE_args(Type, Object, ArgSeq) \
         PSTADE_INSTANCE_define_box(Type, Object, PSTADE_INSTANCE_define_a(Type, ArgSeq)) \
         namespace { \
-            PSTADE_DETAIL_IN_UNNAMED \
+            PSTADE_IN_UNNAMED \
             Type& Object = PSTADE_INSTANCE_OF(Object); \
         } \
     /**/

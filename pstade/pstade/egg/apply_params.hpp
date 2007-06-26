@@ -1,5 +1,6 @@
 #ifndef PSTADE_EGG_APPLY_PARAMS_HPP
 #define PSTADE_EGG_APPLY_PARAMS_HPP
+#include "./detail/prefix.hpp"
 
 
 // PStade.Egg
