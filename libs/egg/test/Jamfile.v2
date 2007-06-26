@@ -12,9 +12,13 @@ project
 
 test-suite "egg" :
     [ run callable.cpp ]
+    [ run callable_by_value.cpp ]
     [ run function.cpp ]
     [ link multiple_defs1.cpp multiple_defs2.cpp : : multiple_defs ]
     [ link object1.cpp object2.cpp : : object ]
+    [ run provide_sig.cpp ]
     [ run result_of.cpp ]
+    [ run pod_function.cpp ]
+    [ run specified.cpp ]
     ;
 

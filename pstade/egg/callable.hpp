@@ -18,41 +18,39 @@
 #include <boost/preprocessor/punctuation/comma_if.hpp>
 #include <boost/preprocessor/seq/for_each_i.hpp>
 #include <boost/preprocessor/seq/for_each_product.hpp>
-#include <pstade/adl_barrier.hpp>
 #include <pstade/deduced_const.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/use_default.hpp>
 #include "./detail/config.hpp" // PSTADE_EGG_MAX_ARITY
 #include "./detail/error_non_nullary.hpp"
 #include "./detail/nonref_arg.hpp"
-#include "./detail/to_type.hpp"
-#include "./provide_sig.hpp"
+#include "./detail/sig.hpp"
+#include "./nullary_result_of.hpp"
 
 
 namespace pstade { namespace egg {
 
 
-PSTADE_ADL_BARRIER(callable) {
-
-
-    template<class Derived, class NullaryResult = boost::use_default>
-    struct callable :
-        provide_sig
+    template<class Baby, class NullaryResult = boost::use_default>
+    struct callable
     {
-        typedef typename
-            if_use_default< NullaryResult, detail::error_non_nullary<Derived> >::type
-        nullary_result_type;
+        Baby m_baby;
+        typedef Baby baby_type;
 
-        template<class FunCall>
-        struct result;
+        typedef typename
+            if_use_default< NullaryResult, detail::error_non_nullary<callable> >::type
+        nullary_result_type;
 
         // 0ary
         nullary_result_type operator()() const
         {
-            return derived().call(
-                detail::to_type<nullary_result_type>()
-            );
+            return m_baby.BOOST_NESTED_TEMPLATE call<
+                nullary_result_type
+            >();
         }
+
+        template<class FunCall>
+        struct result;
 
         // 1ary-
     #define PSTADE_call_operator(R, BitSeq) \
@@ -66,9 +64,9 @@ PSTADE_ADL_BARRIER(callable) {
         typename BOOST_PP_CAT(result, n)<ArgTypes>::type \
         operator()(Params) const \
         { \
-            return derived().call(BOOST_PP_ENUM_PARAMS(n, a), \
-                detail::to_type<typename BOOST_PP_CAT(result, n)<ArgTypes>::type>() \
-            ); \
+            return m_baby.BOOST_NESTED_TEMPLATE call< \
+                typename BOOST_PP_CAT(result, n)<ArgTypes>::type \
+            >(BOOST_PP_ENUM_PARAMS(n, a)); \
         } \
     /**/
     #define PSTADE_arg_type(R, _, I, Bit) BOOST_PP_COMMA_IF(I) BOOST_PP_CAT(PSTADE_ac, Bit)(BOOST_PP_CAT(A, I)) &
@@ -88,18 +86,14 @@ PSTADE_ADL_BARRIER(callable) {
     #undef  PSTADE_call_operator_aux
     #undef  PSTADE_call_operator
 
-    private:
-        Derived const& derived() const
-        {
-            return static_cast<Derived const&>(*this);
-        }
+        #include PSTADE_EGG_DETAIL_SIG()
     };
 
 
-} // ADL barrier
-
-
 } } // namespace pstade::egg
+
+
+PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE(pstade::egg::callable, 2)
 
 
 #endif
@@ -110,8 +104,8 @@ PSTADE_ADL_BARRIER(callable) {
 private:
     template<BOOST_PP_ENUM_PARAMS(n, class A)>
     struct BOOST_PP_CAT(result, n) :
-        Derived::BOOST_NESTED_TEMPLATE apply<
-            Derived, PSTADE_PP_ENUM_PARAMS_WITH(n, typename detail::nonref_arg<A, >::type)
+        Baby::BOOST_NESTED_TEMPLATE apply<
+            Baby, PSTADE_PP_ENUM_PARAMS_WITH(n, typename detail::nonref_arg<A, >::type)
         >
     { };
 

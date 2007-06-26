@@ -10,12 +10,14 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include "./aggregate0.hpp"
+#include "./aggregate1.hpp"
 #include "./apply_params.hpp"
 #include "./callable.hpp"
+#include "./callable_by_value.hpp"
 #include "./function.hpp"
-#include "./nullary_result_of.hpp"
-#include "./object.hpp"
-#include "./provide_sig.hpp"
+#include "./fuse.hpp"
+#include "./specified.hpp"
 
 
 #endif

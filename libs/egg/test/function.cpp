@@ -59,7 +59,7 @@ struct base_abc
     }
 };
 
-typedef pstade::egg::function<base_abc, std::string> op_abc;
+typedef pstade::egg::function<base_abc, std::string>::type op_abc;
 op_abc const abc = op_abc();
 
 PSTADE_TEST_IS_RESULT_OF((std::string), op_abc())

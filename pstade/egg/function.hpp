@@ -1,6 +1,6 @@
 #ifndef BOOST_PP_IS_ITERATING
-#ifndef PSTADE_FUNCTION_HPP
-#define PSTADE_FUNCTION_HPP
+#ifndef PSTADE_EGG_FUNCTION_HPP
+#define PSTADE_EGG_FUNCTION_HPP
 #include "./detail/prefix.hpp"
 
 
@@ -43,59 +43,67 @@
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./apply_params.hpp"
 #include "./callable.hpp"
 #include "./detail/as_mpl_lambda.hpp"
 #include "./detail/config.hpp" // PSTADE_EGG_MAX_ARITY
-#include "./nullary_result_of.hpp"
-#include "./object.hpp"
 
 
 namespace pstade { namespace egg {
 
 
-    template<class Lambda, class NullaryResult = boost::use_default>
-    struct function :
-        callable<function<Lambda, NullaryResult>, NullaryResult>
-    {
-        template<class Myself, PSTADE_EGG_APPLY_PARAMS(A)>
-        struct apply
-        { }; // msvc warns if incomplete.
+    namespace function_detail {
 
-        // 0ary
-        template<class Result>
-        Result call(boost::type<Result>) const
+
+        template<class Lambda>
+        struct baby
         {
-            return Lambda()();
-        }
+            template<class Myself, PSTADE_EGG_APPLY_PARAMS(A)>
+            struct apply
+            { }; // msvc warns if incomplete.
 
-        // These are redefined in 'apply'.
-    #define PSTADE_typedef_default_arg(Z, N, _) typedef boost::mpl::void_ BOOST_PP_CAT(arg, N);
-        BOOST_PP_REPEAT(BOOST_MPL_LIMIT_METAFUNCTION_ARITY, PSTADE_typedef_default_arg, ~)
-    #undef  PSTADE_typedef_default_arg
+            // 0ary
+            template<class Result>
+            Result call() const
+            {
+                return Lambda()();
+            }
 
-        // 1ary-
-    #define PSTADE_typedef_arg(Z, N, _) typedef BOOST_PP_CAT(A, N) BOOST_PP_CAT(arg, N);
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_ARITY, <pstade/egg/function.hpp>))
-        #include BOOST_PP_ITERATE()
-    #undef  PSTADE_typedef_arg
+            // These are redefined in 'apply'.
+        #define PSTADE_typedef_default_arg(Z, N, _) typedef boost::mpl::void_ BOOST_PP_CAT(arg, N);
+            BOOST_PP_REPEAT(BOOST_MPL_LIMIT_METAFUNCTION_ARITY, PSTADE_typedef_default_arg, ~)
+        #undef  PSTADE_typedef_default_arg
+
+            // 1ary-
+        #define PSTADE_typedef_arg(Z, N, _) typedef BOOST_PP_CAT(A, N) BOOST_PP_CAT(arg, N);
+            #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_ARITY, <pstade/egg/function.hpp>))
+            #include BOOST_PP_ITERATE()
+        #undef  PSTADE_typedef_arg
+        };
+
+
+    } // namespace function_detail
+
+
+    template<class Lambda, class NullaryResult = boost::use_default>
+    struct function
+    {
+        typedef callable<function_detail::baby<Lambda>, NullaryResult> type;
     };
 
 
     #define PSTADE_EGG_FUNCTION(O, L) \
         namespace BOOST_PP_CAT(pstade_egg_function_workarea_of_, O) { \
             using namespace ::boost::mpl::placeholders; \
-            typedef ::pstade::egg::function<PSTADE_EGG_DETAIL_AS_MPL_LAMBDA(L)> op; \
+            typedef ::pstade::egg::function<PSTADE_EGG_DETAIL_AS_MPL_LAMBDA(L)>::type op; \
         } \
         typedef BOOST_PP_CAT(pstade_egg_function_workarea_of_, O)::op BOOST_PP_CAT(op_, O); \
-        PSTADE_EGG_OBJECT(O, (BOOST_PP_CAT(op_, O))) \
+        PSTADE_POD_CONSTANT(O, (BOOST_PP_CAT(op_, O))) \
     /**/
 
 
 } } // namespace pstade::egg
-
-
-PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE(pstade::egg::function, 2)
 
 
 #endif
@@ -119,7 +127,7 @@ PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE(pstade::egg::function, 2)
     };
 
     template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
-    Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a), boost::type<Result>) const
+    Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
     {
         typedef typename apply<void, BOOST_PP_ENUM_PARAMS(n, A)>::impl_t impl_t;
         return impl_t()(BOOST_PP_ENUM_PARAMS(n, a));
