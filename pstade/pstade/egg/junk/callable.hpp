@@ -1,6 +1,6 @@
 #ifndef BOOST_PP_IS_ITERATING
-#ifndef PSTADE_EGG_FUNCTION_HPP
-#define PSTADE_EGG_FUNCTION_HPP
+#ifndef PSTADE_EGG_CALLABLE_HPP
+#define PSTADE_EGG_CALLABLE_HPP
 #include "./detail/prefix.hpp"
 
 
@@ -19,12 +19,11 @@
 #include <boost/preprocessor/seq/for_each_i.hpp>
 #include <boost/preprocessor/seq/for_each_product.hpp>
 #include <pstade/deduced_const.hpp>
-#include <pstade/pod_constant.hpp>
 #include <pstade/preprocessor.hpp>
-#include <pstade/unparenthesize.hpp>
+#include <pstade/use_default.hpp>
 #include "./detail/config.hpp" // PSTADE_EGG_MAX_ARITY
+#include "./detail/error_non_nullary.hpp"
 #include "./detail/nonref_arg.hpp"
-#include "./detail/nullary_result.hpp"
 #include "./detail/sig.hpp"
 #include "./nullary_result_of.hpp"
 
@@ -32,26 +31,19 @@
 namespace pstade { namespace egg {
 
 
-    template<class Baby>
-    struct function
+    template<class Baby, class NullaryResult = boost::use_default>
+    struct callable
     {
-        Baby m_baby;
-
-        typedef Baby baby_type;
-
-        Baby baby() const
-        {
-            return m_baby;
-        }
+        Baby baby;
 
         typedef typename
-            detail::nullary_result<Baby, function>::type
+            if_use_default< NullaryResult, detail::error_non_nullary<callable> >::type
         nullary_result_type;
 
         // 0ary
         nullary_result_type operator()() const
         {
-            return m_baby.BOOST_NESTED_TEMPLATE call<
+            return baby.BOOST_NESTED_TEMPLATE call<
                 nullary_result_type
             >();
         }
@@ -71,7 +63,7 @@ namespace pstade { namespace egg {
         typename BOOST_PP_CAT(result, n)<ArgTypes>::type \
         operator()(Params) const \
         { \
-            return m_baby.BOOST_NESTED_TEMPLATE call< \
+            return baby.BOOST_NESTED_TEMPLATE call< \
                 typename BOOST_PP_CAT(result, n)<ArgTypes>::type \
             >(BOOST_PP_ENUM_PARAMS(n, a)); \
         } \
@@ -82,7 +74,7 @@ namespace pstade { namespace egg {
     #define PSTADE_c1 const
     #define PSTADE_ac0(A) A
     #define PSTADE_ac1(A) PSTADE_DEDUCED_CONST(A)
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_ARITY, <pstade/egg/function.hpp>))
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_ARITY, <pstade/egg/callable.hpp>))
         #include BOOST_PP_ITERATE()
     #undef  PSTADE_ac1
     #undef  PSTADE_ac0
@@ -97,16 +89,10 @@ namespace pstade { namespace egg {
     };
 
 
-    #define PSTADE_EGG_FUNCTION(O, B) \
-        typedef pstade::egg::function<PSTADE_UNPARENTHESIZE(B)> BOOST_PP_CAT(op_, O); \
-        PSTADE_POD_CONSTANT(O, (BOOST_PP_CAT(op_, O))) \
-    /**/
-
-
 } } // namespace pstade::egg
 
 
-PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE(pstade::egg::function, 1)
+PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE(pstade::egg::callable, 2)
 
 
 #endif

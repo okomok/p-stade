@@ -10,6 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/config.hpp>
+#include <boost/detail/workaround.hpp>
+#include <boost/mpl/assert.hpp>
+#include <boost/mpl/bool.hpp>
+#include <boost/type_traits/is_pod.hpp>
 #include <pstade/in_unnamed.hpp>
 #include <pstade/unparenthesize.hpp>
 
@@ -30,8 +35,19 @@ namespace pstade { namespace pod_constant_detail {
 
 
     template<class T>
+    struct is_pod :
+#if BOOST_WORKAROUND(BOOST_MSVC, == 1400) // msvc-8.0
+        boost::is_pod<T>
+#else
+        boost::mpl::true_
+#endif
+    { };
+
+
+    template<class T>
     struct static_const
     {
+        BOOST_MPL_ASSERT((is_pod<T>));
         static T const value;
     };
 
