@@ -9,9 +9,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/callable.hpp>
-#include <pstade/egg/object_generator.hpp>
-#include <pstade/egg/make_aggregate1.hpp>
+#include <pstade/egg/function.hpp>
+#include <pstade/egg/generator.hpp>
+#include <pstade/egg/aggregate1.hpp>
 #include <pstade/minimal_test.hpp>
 
 
@@ -20,8 +20,12 @@
 #include <pstade/pod_constant.hpp>
 
 
+namespace egg = pstade::egg;
+using namespace egg;
+
+
 template< class BinaryFun >
-struct baby_return_op
+struct baby_result
 {
     template< class Myself, class A0, class A1 >
     struct apply :
@@ -38,9 +42,12 @@ struct baby_return_op
 };
 
 typedef
-    pstade::egg::object_generator<
-        pstade::egg::callable< baby_return_op<boost::mpl::_1> >, pstade::egg::make_aggregate1
-    >::type
+    function<
+        generator<
+            function< baby_result<boost::mpl::_1> >,
+            aggregate1
+        >
+    >
 op_flip;
 
 PSTADE_POD_CONSTANT(flip, (op_flip))

@@ -13,6 +13,11 @@
 #include <pstade/minimal_test.hpp>
 
 
+#include <pstade/pod_constant.hpp>
+#include <boost/mpl/placeholders.hpp>
+#include <pstade/unparenthesize.hpp>
+
+
 struct my_fun_t
 {
     typedef int result_type;
@@ -43,9 +48,5 @@ void pstade_minimal_test()
 {
     BOOST_CHECK( (3|my_fun) == 4 );
     BOOST_CHECK( (3|my_fun()) == 4 );
-
-    BOOST_CHECK( ("hello"| pstade::egg::pipable(your_fun_t())(1, 2)) == 3 );
-
     BOOST_CHECK( ("hello"|your_fun(1, 2)) == 3 );
 }
-

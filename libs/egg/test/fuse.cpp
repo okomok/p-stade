@@ -14,7 +14,7 @@
 
 
 #include <boost/noncopyable.hpp>
-#include <pstade/tuple.hpp> // tuple_pack
+#include <pstade/egg/tuple/pack.hpp>
 
 
 int my_plus(int x, int y, int z)
@@ -54,6 +54,6 @@ void pstade_minimal_test()
     }
     {
         ::nc x;
-        BOOST_CHECK( fuse(&::take_nc)(pstade::tuple_pack(x)) == 3 );
+        BOOST_CHECK( fuse(&::take_nc)(pstade::egg::tuples::pack(x)) == 3 );
     }
 }

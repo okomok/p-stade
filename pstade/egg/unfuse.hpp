@@ -1,5 +1,5 @@
-#ifndef PSTADE_EGG_FUSE_HPP
-#define PSTADE_EGG_FUSE_HPP
+#ifndef PSTADE_EGG_UNFUSE_HPP
+#define PSTADE_EGG_UNFUSE_HPP
 #include "./detail/prefix.hpp"
 
 
@@ -14,24 +14,26 @@
 #include <pstade/pod_constant.hpp>
 #include "./aggregate1.hpp"
 #include "./function.hpp"
-#include "./fuse_result.hpp"
 #include "./generator.hpp"
+#include "./unfuse_result.hpp"
 
 
 namespace pstade { namespace egg {
 
 
+    // Todo: make this nullary-callable.
+
     typedef
         function<
             generator<
-                function< fuse_result< deduce<boost::mpl::_1, deducers::as_value> > >,
+                function< unfuse_result< deduce<boost::mpl::_1, deducers::as_value> > >,
                 aggregate1
             >
         >
-    op_fuse;
+    op_unfuse;
 
 
-    PSTADE_POD_CONSTANT(fuse, (op_fuse))
+    PSTADE_POD_CONSTANT(unfuse, (op_unfuse))
 
 
 } } // namespace pstade::egg
