@@ -64,6 +64,7 @@
 #include "./pause.hpp"
 #include "./perfect.hpp"
 #include "./pipable.hpp"
+#include "./pod_constant.hpp"
 #include "./polymorphic.hpp"
 #include "./preprocessor.hpp"
 #include "./provide_result_of_sig.hpp"

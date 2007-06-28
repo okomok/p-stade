@@ -14,10 +14,11 @@
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/tuple/tuple.hpp>
-#include <pstade/pod_constant.hpp>
+#include "../baby/generator.hpp"
+#include "../deduce.hpp"
 #include "../detail/config.hpp" // PSTADE_EGG_MAX_ARITY
 #include "../function.hpp"
-#include "../generator.hpp"
+#include "../object.hpp"
 
 
 namespace pstade { namespace egg { namespace tuples {
@@ -31,7 +32,7 @@ namespace pstade { namespace egg { namespace tuples {
         struct meta_tuple
         {
         #define PSTADE_deduce(Z, N, _) \
-            typename deduce<BOOST_PP_CAT(A, N), deducers::as_reference, boost::tuples::null_type>::type \
+            typename deduce<BOOST_PP_CAT(A, N), as_reference, boost::tuples::null_type>::type \
         /**/
 
             template<BOOST_PP_ENUM_PARAMS(PSTADE_EGG_MAX_ARITY, class A)>
@@ -53,7 +54,7 @@ namespace pstade { namespace egg { namespace tuples {
 
     typedef
         function<
-            generator<
+            baby::generator<
                 pack_detail::meta_tuple,
                 boost::use_default,
                 boost::tuples::tuple<>
@@ -62,7 +63,7 @@ namespace pstade { namespace egg { namespace tuples {
     op_pack;
 
 
-    PSTADE_POD_CONSTANT(pack, (op_pack))
+    PSTADE_EGG_OBJECT((op_pack), pack) = { {} };
 
 
 } } } // namespace pstade::egg::tuples

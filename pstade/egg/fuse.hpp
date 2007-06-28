@@ -11,11 +11,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/pod_constant.hpp>
+#include <boost/mpl/placeholders.hpp>
 #include "./aggregate1.hpp"
+#include "./baby/fuse_result.hpp"
+#include "./baby/generator.hpp"
+#include "./deduce.hpp"
 #include "./function.hpp"
-#include "./fuse_result.hpp"
-#include "./generator.hpp"
+#include "./object.hpp"
 
 
 namespace pstade { namespace egg {
@@ -23,15 +25,15 @@ namespace pstade { namespace egg {
 
     typedef
         function<
-            generator<
-                function< fuse_result< deduce<boost::mpl::_1, deducers::as_value> > >,
+            baby::generator<
+                function< baby::fuse_result< deduce<boost::mpl::_1, as_value> > >,
                 aggregate1
             >
         >
     op_fuse;
 
 
-    PSTADE_POD_CONSTANT(fuse, (op_fuse))
+    PSTADE_EGG_OBJECT((op_fuse), fuse) = { {} };
 
 
 } } // namespace pstade::egg

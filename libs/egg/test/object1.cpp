@@ -1,4 +1,5 @@
 #include <pstade/vodka/drink.hpp>
+#include <pstade/minimal_test.hpp>
 
 
 // PStade.Egg
@@ -9,14 +10,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/minimal_test.hpp>
-
-
 #include "./object.hpp"
 
 
 void pstade_minimal_test()
 {
-    BOOST_CHECK(0 == fun1(3));
-    BOOST_CHECK('a' == fun2(5));
 }

@@ -26,6 +26,11 @@
 // We sooner or later need 'ARRAY_OVERLOADED', too.
 
 
+//  Copyright 2004 Eric Niebler. Distributed under the Boost
+//  Software License, Version 1.0. (See accompanying file
+//  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+
+
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
 #include <boost/mpl/or.hpp>
@@ -39,7 +44,7 @@
 
 // This macro can't always be turned on; especially under VC++.
 // See "/libs/wine/test/const_overloaded.cpp".
-#if BOOST_WORKAROUND(__GNUC__, < 4)
+#if BOOST_WORKAROUND(__GNUC__, == 3) || BOOST_WORKAROUND(__EDG_VERSION__, BOOST_TESTED_AT(306))
     #define PSTADE_CONST_OVERLOADED_REQUIRED
 #endif
 

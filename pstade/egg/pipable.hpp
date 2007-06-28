@@ -12,39 +12,28 @@
 
 
 #include <boost/mpl/placeholders.hpp>
-#include <boost/preprocessor/cat.hpp>
-#include <pstade/pod_constant.hpp>
 #include "./aggregate1.hpp"
+#include "./baby/generator.hpp"
+#include "./baby/pipable_result.hpp"
+#include "./deduce.hpp"
 #include "./function.hpp"
-#include "./generator.hpp"
-#include "./pipable_result.hpp"
+#include "./object.hpp"
 
 
 namespace pstade { namespace egg {
 
 
-    // Todo: make this nullary-callable.
-
     typedef
         function<
-            generator<
-                function< pipable_result< deduce<boost::mpl::_1, deducers::as_value> > >,
+            baby::generator<
+                function< baby::pipable_result< deduce<boost::mpl::_1, as_value> > >,
                 aggregate1
             >
         >
     op_pipable;
 
 
-    PSTADE_POD_CONSTANT(pipable, (op_pipable))
-
-
-    #define PSTADE_EGG_PIPABLE(O, F) \
-        namespace BOOST_PP_CAT(pstade_egg_pipable_workarea_of_, O) { \
-            using namespace boost::mpl::placeholders; \
-            typedef pstade::egg::function< pstade::egg::pipable_result<PSTADE_UNPARENTHESIZE(F)> > pipe; \
-        } \
-        PSTADE_POD_CONSTANT(O, (BOOST_PP_CAT(pstade_egg_pipable_workarea_of_, O)::pipe)) \
-    /**/
+    PSTADE_EGG_OBJECT((op_pipable), pipable) = { {} };
 
 
 } } // namespace pstade::egg

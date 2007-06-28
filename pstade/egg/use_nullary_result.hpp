@@ -1,5 +1,5 @@
-#ifndef PSTADE_EGG_ERROR_NON_NULLARY_HPP
-#define PSTADE_EGG_ERROR_NON_NULLARY_HPP
+#ifndef PSTADE_EGG_USE_NULLARY_RESULT_HPP
+#define PSTADE_EGG_USE_NULLARY_RESULT_HPP
 #include "./detail/prefix.hpp"
 
 
@@ -14,9 +14,7 @@
 namespace pstade { namespace egg {
 
 
-    // You called a non-nullary function without arguments.
-    template<class Function>
-    struct error_non_nullary;
+    struct use_nullary_result;
 
 
 } } // namespace pstade::egg

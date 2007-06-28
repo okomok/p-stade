@@ -11,29 +11,40 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/pod_constant.hpp>
+#include <boost/mpl/placeholders.hpp>
 #include "./aggregate1.hpp"
+#include "./baby/generator.hpp"
+#include "./baby/unfuse_result.hpp"
+#include "./deduce.hpp"
 #include "./function.hpp"
-#include "./generator.hpp"
-#include "./unfuse_result.hpp"
+#include "./object.hpp"
 
 
 namespace pstade { namespace egg {
 
 
-    // Todo: make this nullary-callable.
-
-    typedef
-        function<
-            generator<
-                function< unfuse_result< deduce<boost::mpl::_1, deducers::as_value> > >,
-                aggregate1
+    template<class NullaryResult = boost::use_default>
+    struct xp_unfuse
+    {
+        typedef
+            function<
+                baby::generator<
+                    function<
+                        baby::unfuse_result<
+                            deduce<boost::mpl::_1, as_value>,
+                            deduce<boost::mpl::_2, as_value, boost::use_default>,
+                            NullaryResult
+                        >
+                    >,
+                    aggregate1
+                >
             >
-        >
-    op_unfuse;
+        type;
+    };
 
 
-    PSTADE_POD_CONSTANT(unfuse, (op_unfuse))
+    typedef xp_unfuse<>::type op_unfuse;
+    PSTADE_EGG_OBJECT((op_unfuse), unfuse) = { {} };
 
 
 } } // namespace pstade::egg

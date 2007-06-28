@@ -1,7 +1,7 @@
 #ifndef BOOST_PP_IS_ITERATING
-#ifndef PSTADE_EGG_FUNTION_BY_VALUE_HPP
-#define PSTADE_EGG_FUNTION_BY_VALUE_HPP
-#include "./detail/prefix.hpp"
+#ifndef PSTADE_EGG_DETAIL_FUNTION_BY_VALUE_HPP
+#define PSTADE_EGG_DETAIL_FUNTION_BY_VALUE_HPP
+#include "./prefix.hpp"
 
 
 // PStade.Egg
@@ -25,17 +25,18 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/preprocessor.hpp>
-#include "./detail/config.hpp" // PSTADE_EGG_MAX_ARITY
-#include "./detail/nullary_result.hpp"
-#include "./detail/sig.hpp"
-#include "./nullary_result_of.hpp"
+#include "../function_fwd.hpp"
+#include "../nullary_result_of.hpp"
+#include "./config.hpp" // PSTADE_EGG_MAX_ARITY
+#include "./nullary_result.hpp"
+#include "./sig.hpp"
 
 
 namespace pstade { namespace egg {
 
 
-    template<class Baby>
-    struct function_by_value
+    template<class Baby, class Value = Baby::by_value>
+    struct function
     {
         typedef Baby baby_type;
 

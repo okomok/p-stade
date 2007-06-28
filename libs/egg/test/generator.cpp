@@ -9,7 +9,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/generator.hpp>
+#include <pstade/egg/baby/generator.hpp>
+#include <pstade/egg/deduce.hpp>
 #include <pstade/minimal_test.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/unparenthesize.hpp>
@@ -23,15 +24,28 @@
 #include <pstade/test.hpp>
 
 
+
+namespace deducers = pstade::egg;
+
+
 #define PSTADE_EGG_OBJECT_GENERATOR(G, L) \
     namespace BOOST_PP_CAT(pstade_egg_generator_workarea_of_, G) { \
-        using namespace pstade::egg::generator_helpers; \
-        typedef pstade::egg::function< pstade::egg::generator<PSTADE_UNPARENTHESIZE(L)> > op; \
+        using namespace boost::mpl::placeholders; \
+        using namespace pstade::egg; \
+        typedef pstade::egg::function< pstade::egg::baby::generator<PSTADE_UNPARENTHESIZE(L)> > op; \
     } \
     typedef BOOST_PP_CAT(pstade_egg_generator_workarea_of_, G)::op BOOST_PP_CAT(op_, G); \
     PSTADE_POD_CONSTANT(G, (BOOST_PP_CAT(op_, G))) \
 /**/
 
+
+template<class Lambda, class How = boost::use_default, class NullaryResult = boost::use_default>
+struct generator
+{
+    typedef 
+        pstade::egg::function< pstade::egg::baby::generator<Lambda, How, NullaryResult> >
+    type;
+};
 
 
 template< class A0 >
@@ -56,25 +70,25 @@ struct my_type
 };
 
 
-typedef function< generator< my_type< deduce<boost::mpl::_1, deducers::as_value> >, boost::use_default, char > > op_make_my_type_v;
+typedef generator< my_type< deduce<boost::mpl::_1, deducers::as_value> >, boost::use_default, char >::type op_make_my_type_v;
 PSTADE_POD_CONSTANT(make_my_type_v, (op_make_my_type_v))
 PSTADE_TEST_IS_RESULT_OF((my_type<int>), op_make_my_type_v(int&))
 PSTADE_TEST_IS_RESULT_OF((char), op_make_my_type_v())
 
 
-typedef function< generator< my_type< deduce<boost::mpl::_1, deducers::as_reference> > > > op_make_my_type_r;
+typedef generator< my_type< deduce<boost::mpl::_1, deducers::as_reference> > >::type op_make_my_type_r;
 PSTADE_POD_CONSTANT(make_my_type_r, (op_make_my_type_r))
 PSTADE_TEST_IS_RESULT_OF((my_type<int const&>), op_make_my_type_r(int))
 PSTADE_TEST_IS_RESULT_OF((my_type<int&>), op_make_my_type_r(int&))
 
 
-typedef function< generator< my_type< deduce<boost::mpl::_1, deducers::as_qualified> > > > op_make_my_type_q;
+typedef generator< my_type< deduce<boost::mpl::_1, deducers::as_qualified> > >::type op_make_my_type_q;
 PSTADE_POD_CONSTANT(make_my_type_q, (op_make_my_type_q))
 PSTADE_TEST_IS_RESULT_OF((my_type<int const>), op_make_my_type_q(int))
 PSTADE_TEST_IS_RESULT_OF((my_type<int>), op_make_my_type_q(int&))
 
 
-typedef function< generator< my_type< deduce<boost::mpl::_1, deducers::as_value>, deduce<boost::mpl::_2, deducers::as_value, char> > > > op_make_my_type_v_d;
+typedef generator< my_type< deduce<boost::mpl::_1, deducers::as_value>, deduce<boost::mpl::_2, deducers::as_value, char> > >::type op_make_my_type_v_d;
 PSTADE_POD_CONSTANT(make_my_type_v_d, (op_make_my_type_v_d))
 
 
@@ -144,7 +158,7 @@ struct deduce_to_hello :
     >
 { };
 
-typedef function< generator< needs_all_param< deduce<boost::mpl::_1, deducers::as_value>, deduce_to_hello<boost::mpl::_1, boost::mpl::_2> > > > op_make_nap;
+typedef generator< needs_all_param< deduce<boost::mpl::_1, deducers::as_value>, deduce_to_hello<boost::mpl::_1, boost::mpl::_2> > >::type op_make_nap;
 #if !defined(__GNUC__) // GCC3.4.4; internal compiler error: in lookup_member, at cp/search.c:1296
     PSTADE_POD_CONSTANT(make_nap, (op_make_nap))
 #endif

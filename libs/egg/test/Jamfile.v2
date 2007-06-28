@@ -11,14 +11,20 @@ project
     ;
 
 test-suite "egg" :
-    [ run callable.cpp ]
-    [ run callable_by_value.cpp ]
+    [ run adapt.cpp ]
+    [ run aggregate.cpp ]
+    [ run flip.cpp ]
     [ run function.cpp ]
+    [ run function_by_value.cpp ]
+    [ run fuse.cpp ]
+    [ run generator.cpp ]
     [ link multiple_defs1.cpp multiple_defs2.cpp : : multiple_defs ]
     [ link object1.cpp object2.cpp : : object ]
-    [ run provide_sig.cpp ]
-    [ run result_of.cpp ]
-    [ run pod_function.cpp ]
+    [ link object1.cpp object2.cpp : <define>PSTADE_EGG_NO_ODR_VIOLATION : object_no_odr_violation ]
+    [ run pipable.cpp ]
     [ run specified.cpp ]
+    [ run template_arguments.cpp ]
+    [ run tuple_pack.cpp ]
+    [ run unfuse.cpp ]
     ;
 
