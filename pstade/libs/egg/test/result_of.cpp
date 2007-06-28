@@ -98,6 +98,9 @@ struct op3
 PSTADE_TEST_IS_RESULT_OF((int), op3<double>(int&))
 
 
+// force instantiation before calling result_of
+//
+
 template<class X>
 struct op4
 {
@@ -119,7 +122,9 @@ const op4<int> instantiate = { };
 PSTADE_TEST_IS_RESULT_OF((int), op4<int>(int&))
 
 
+#if 0
 
+// cannot work around.
 
 struct nonpod
 {
@@ -147,6 +152,40 @@ struct op5
 
 PSTADE_TEST_IS_RESULT_OF((int), op5<int>(int&))
 
+#endif
+
+
+#if 1
+
+// cannot work around.
+
+template<class X>
+struct op6
+{
+    template<class Sig>
+    struct result;
+
+    template<class F, class A0>
+    struct result<F(A0)>
+    {
+        typedef X type;
+    };
+
+    X operator()(int) const { return 0; }
+};
+
+template<class F, class A0>
+struct my_result_of
+{
+    struct instantiate : F
+    { };
+
+    typedef typename boost::result_of<instantiate(A0)>::type type;
+};
+
+BOOST_MPL_ASSERT((boost::is_same<int, my_result_of<op6<int>, int&>::type>));
+
+#endif
 
 
 void pstade_minimal_test()

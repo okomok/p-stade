@@ -13,25 +13,15 @@
 #include <pstade/egg/object.hpp>
 
 
-struct fun1_
-{
-    typedef int result_type;
+struct A { };
+struct B { A a; int i; };
 
-    int operator()(int) const { return 0; }
-};
+PSTADE_EGG_OBJECT((A), g_a1) = { };
+PSTADE_EGG_OBJECT((B), g_b1) = { { }, 3 };
 
-
-template<class X>
-struct fun2_
-{
-    typedef X result_type;
-
-    X operator()(int) const { return 'a'; }
-};
-
-
-PSTADE_EGG_OBJECT(fun1, (fun1_))
-PSTADE_EGG_OBJECT(fun2, (fun2_<char>))
+// compare
+A const g_a2 = { };
+B const g_b2 = { { }, 3 };
 
 
 #endif

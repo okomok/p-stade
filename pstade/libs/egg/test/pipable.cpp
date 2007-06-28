@@ -13,9 +13,20 @@
 #include <pstade/minimal_test.hpp>
 
 
-#include <pstade/pod_constant.hpp>
+#include <pstade/egg/object.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <pstade/unparenthesize.hpp>
+#include <boost/preprocessor/cat.hpp>
+
+
+    #define PSTADE_EGG_PIPABLE(O, F) \
+        namespace BOOST_PP_CAT(pstade_egg_pipable_workarea_of_, O) { \
+            using namespace boost::mpl::placeholders; \
+            typedef pstade::egg::function< pstade::egg::baby::pipable_result<PSTADE_UNPARENTHESIZE(F)> > pipe; \
+        } \
+        PSTADE_EGG_OBJECT((BOOST_PP_CAT(pstade_egg_pipable_workarea_of_, O)::pipe), O) = { { } }; \
+    /**/
+
 
 
 struct my_fun_t

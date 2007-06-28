@@ -1,7 +1,7 @@
 #ifndef BOOST_PP_IS_ITERATING
-#ifndef PSTADE_EGG_FUNCTION_HPP
-#define PSTADE_EGG_FUNCTION_HPP
-#include "./detail/prefix.hpp"
+#ifndef PSTADE_EGG_DETAIL_FUNCTION_BY_REF_HPP
+#define PSTADE_EGG_DETAIL_FUNCTION_BY_REF_HPP
+#include "./prefix.hpp"
 
 
 // PStade.Egg
@@ -20,17 +20,18 @@
 #include <boost/preprocessor/seq/for_each_product.hpp>
 #include <pstade/deduced_const.hpp>
 #include <pstade/preprocessor.hpp>
-#include "./detail/config.hpp" // PSTADE_EGG_MAX_ARITY
-#include "./detail/nonref_arg.hpp"
-#include "./detail/nullary_result.hpp"
-#include "./detail/sig.hpp"
-#include "./nullary_result_of.hpp"
+#include "../function_fwd.hpp"
+#include "../nullary_result_of.hpp"
+#include "./config.hpp" // PSTADE_EGG_MAX_ARITY
+#include "./nonref_arg.hpp"
+#include "./nullary_result.hpp"
+#include "./sig.hpp"
 
 
 namespace pstade { namespace egg {
 
 
-    template<class Baby>
+    template<class Baby, class EnableIf>
     struct function
     {
         typedef Baby baby_type;

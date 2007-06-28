@@ -10,14 +10,16 @@
 
 
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/generator.hpp>
+#include <pstade/egg/baby/generator.hpp>
 #include <pstade/egg/aggregate1.hpp>
 #include <pstade/minimal_test.hpp>
+#include <pstade/egg/deduce.hpp>
 
 
 #include <pstade/deferred.hpp>
 #include <pstade/test.hpp>
 #include <pstade/pod_constant.hpp>
+#include <boost/mpl/placeholders.hpp>
 
 
 namespace egg = pstade::egg;
@@ -43,8 +45,8 @@ struct baby_result
 
 typedef
     function<
-        generator<
-            function< baby_result<boost::mpl::_1> >,
+        baby::generator<
+            function< baby_result< deduce<boost::mpl::_1, as_value> > >,
             aggregate1
         >
     >
