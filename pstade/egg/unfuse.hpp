@@ -13,34 +13,42 @@
 
 #include <boost/mpl/placeholders.hpp>
 #include "./aggregate1.hpp"
-#include "./baby/generator.hpp"
 #include "./baby/unfuse_result.hpp"
 #include "./deduce.hpp"
 #include "./function.hpp"
+#include "./generator.hpp"
 #include "./object.hpp"
 
 
 namespace pstade { namespace egg {
 
 
-    template<class NullaryResult = boost::use_default>
-    struct xp_unfuse
+    template<
+        class Base,
+        class Pack          = boost::use_default,
+        class NullaryResult = boost::use_default
+    >
+    struct unfuse_result
     {
         typedef
             function<
-                baby::generator<
-                    function<
-                        baby::unfuse_result<
-                            deduce<boost::mpl::_1, as_value>,
-                            deduce<boost::mpl::_2, as_value, boost::use_default>,
-                            NullaryResult
-                        >
-                    >,
-                    aggregate1
-                >
+                baby::unfuse_result<Base, Pack, NullaryResult>
             >
-        type;
+        type; // = { { base, pack } };
     };
+
+
+    template<class NullaryResult = boost::use_default>
+    struct xp_unfuse :
+        generator<
+            typename unfuse_result<
+                deduce<boost::mpl::_1, as_value>,
+                deduce<boost::mpl::_2, as_value, boost::use_default>,
+                NullaryResult
+            >::type,
+            aggregate1
+        >
+    { };
 
 
     typedef xp_unfuse<>::type op_unfuse;

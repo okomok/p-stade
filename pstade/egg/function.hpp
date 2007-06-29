@@ -24,6 +24,7 @@
 #include "./detail/nonref_arg.hpp"
 #include "./detail/nullary_result.hpp"
 #include "./detail/sig.hpp"
+#include "./function_fwd.hpp"
 #include "./nullary_result_of.hpp"
 
 

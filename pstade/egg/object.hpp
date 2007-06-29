@@ -22,7 +22,7 @@
 /**/
 
 
-#if defined(PSTADE_EGG_NO_ODR_VIOLATION) // && !defined(PSTADE_EGG_NO_STATIC_INITIALIZATION)
+#if !defined(PSTADE_EGG_NO_STATIC_INITIALIZATION)
 
     #define PSTADE_EGG_OBJECT_aux(F, O) \
         PSTADE_EGG_OBJECT_static_const(O) \

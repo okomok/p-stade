@@ -37,6 +37,12 @@ int take_nc(nc&)
     return 3;
 }
 
+struct my_f
+{
+    typedef int result_type;
+    int operator()(int, int) const { return 1; }
+};
+
 
 void pstade_minimal_test()
 {
@@ -55,5 +61,10 @@ void pstade_minimal_test()
     {
         ::nc x;
         BOOST_CHECK( fuse(&::take_nc)(pstade::egg::tuples::pack(x)) == 3 );
+    }
+    {
+        ::my_f f0;
+        fuse_result< ::my_f >::type f1 = { { f0 } };
+        fuse_result< ::my_f >::type f2 = { { {} } };
     }
 }
