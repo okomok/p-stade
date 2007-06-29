@@ -14,7 +14,7 @@
 #include <boost/mpl/placeholders.hpp>
 #include "./aggregate1.hpp"
 #include "./baby/fuse_result.hpp"
-#include "./baby/generator.hpp"
+#include "./generator.hpp"
 #include "./deduce.hpp"
 #include "./function.hpp"
 #include "./object.hpp"
@@ -23,13 +23,20 @@
 namespace pstade { namespace egg {
 
 
+    template<class Base>
+    struct fuse_result
+    {
+        typedef
+            function< baby::fuse_result<Base> >
+        type; // = { { base } };
+    };
+
+
     typedef
-        function<
-            baby::generator<
-                function< baby::fuse_result< deduce<boost::mpl::_1, as_value> > >,
-                aggregate1
-            >
-        >
+        generator<
+            fuse_result< deduce<boost::mpl::_1, as_value> >::type,
+            aggregate1
+        >::type
     op_fuse;
 
 

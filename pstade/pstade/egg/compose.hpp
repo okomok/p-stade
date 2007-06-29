@@ -11,39 +11,14 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/utility/result_of.hpp>
-#include <pstade/deferred.hpp>
+#include "./baby/fused_compose_result.hpp"
 #include "./baby/unfuse_result.hpp"
+#include "./function.hpp"
 #include "./function_by_value.hpp"
-#include "./fuse.hpp"
+#include "./object.hpp"
 
 
 namespace pstade { namespace egg {
-
-
-    template<class F, class G>
-    struct baby_compose_result_fused
-    {
-        F m_f;
-        G m_g;
-
-        template<class Myself, class ArgTuple>
-        struct apply :
-            boost::result_of<
-                PSTADE_DEFERRED(F const)(
-                    typename boost::result_of<
-                        typename boost::result_of<op_fuse(G const&)>::type(ArgTuple&)
-                    >::type
-                )
-            >
-        { };
-
-        template<class Result, class ArgTuple>
-        Result call(ArgTuple& args) const
-        {
-            return m_f(fuse(m_g)(args));
-        }
-    };
 
 
     // The nullary result type must be explicitly specified.
@@ -53,36 +28,36 @@ namespace pstade { namespace egg {
     // If such an invalid type is always 'void', then 'result_of<F()>::type' is always well-formed.
     // But, it is not a general solution. "compose2" to call 'f(g1, g2)' would be ill-formed after all.
 
+
+    template<class F, class G, class NullaryResult = boost::use_default>
+    struct compose_result
+    {
+        typedef
+            function<
+                baby::unfuse_result<
+                    function<
+                        baby::fused_compose_result<F, G>
+                    >,
+                    boost::use_default,
+                    NullaryResult
+                >
+            >
+        type; // = { { { { f, g } } } };
+    };
+
+
     template<class NullaryResult>
-    struct baby_compose
+    struct baby_compose_
     {
         template<class Myself, class F, class G>
-        struct apply
-        {
-            typedef
-                function<
-                    baby::unfuse_result<
-                        function<
-                            baby_compose_result_fused<F, G>
-                        >,
-                        boost::use_default,
-                        NullaryResult
-                    >
-                >
-            type;
-        };
+        struct apply :
+            compose_result<F, G, NullaryResult>
+        { };
 
         template<class Result, class F, class G>
         Result call(F f, G g) const
         {
-            Result result =
-                {
-                    {
-                        {
-                            { f, g }
-                        }
-                    }
-                };
+            Result result = { { { { f, g } } } };
             return result;
         }
     };
@@ -92,7 +67,7 @@ namespace pstade { namespace egg {
     struct xp_compose
     {
         typedef
-            function_by_value< baby_compose<NullaryResult> >
+            function_by_value< baby_compose_<NullaryResult> >
         type;
     };
 

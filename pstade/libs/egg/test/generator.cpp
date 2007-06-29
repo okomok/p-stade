@@ -39,6 +39,8 @@ namespace deducers = pstade::egg;
 /**/
 
 
+#if 0
+
 template<class Lambda, class How = boost::use_default, class NullaryResult = boost::use_default>
 struct generator
 {
@@ -46,6 +48,8 @@ struct generator
         pstade::egg::function< pstade::egg::baby::generator<Lambda, How, NullaryResult> >
     type;
 };
+
+#endif
 
 
 template< class A0 >

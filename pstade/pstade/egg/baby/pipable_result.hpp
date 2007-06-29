@@ -21,6 +21,7 @@
 #include <pstade/preprocessor.hpp>
 #include "../apply_params.hpp"
 #include "../detail/config.hpp" // PSTADE_EGG_MAX_ARITY
+#include "../function_fwd.hpp"
 #include "../fuse.hpp"
 
 
@@ -36,31 +37,6 @@ namespace pstade { namespace egg { namespace baby {
         // 'boost::tuples::null_type' is a pod.
 
         template<class Base, class ArgTuple = boost::tuples::null_type>
-        struct pipable_result;
-
-
-        template<class Base>
-        struct pipe0
-        {
-            Base m_base;
-        };
-
-        template<class A, class Base> inline
-        typename boost::result_of<Base(A&)>::type
-        operator|(A& a, pipe0<Base> pi)
-        {
-            return pi.m_base(a);
-        }
-
-        template<class A, class Base> inline
-        typename boost::result_of<Base(PSTADE_DEDUCED_CONST(A)&)>::type
-        operator|(A const& a, pipe0<Base> pi)
-        {
-            return pi.m_base(a);
-        }
-
-
-        template<class Base, class ArgTuple>
         struct pipable_result
         {
             typedef Base base_type;
@@ -75,13 +51,15 @@ namespace pstade { namespace egg { namespace baby {
             }
 
         // 0ary
-            typedef pipe0<Base> nullary_result_type;
+            typedef
+                function<pipable_result>
+            nullary_result_type;
 
             template<class Result>
             Result call() const
             {
-                Result r = { m_base };
-                return r;
+                Result result = { { m_base } };
+                return result;
             }
 
         // 1ary-
@@ -152,8 +130,8 @@ namespace pstade { namespace egg { namespace baby {
     Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
     {
         typedef typename Result::baby_type baby_t;
-        Result r = { { m_base, typename baby_t::arguments_type(BOOST_PP_ENUM_PARAMS(n, a)) } };
-        return r;
+        Result result = { { m_base, typename baby_t::arguments_type(BOOST_PP_ENUM_PARAMS(n, a)) } };
+        return result;
     }
 
 

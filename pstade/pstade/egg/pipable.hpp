@@ -13,23 +13,30 @@
 
 #include <boost/mpl/placeholders.hpp>
 #include "./aggregate1.hpp"
-#include "./baby/generator.hpp"
 #include "./baby/pipable_result.hpp"
 #include "./deduce.hpp"
 #include "./function.hpp"
+#include "./generator.hpp"
 #include "./object.hpp"
 
 
 namespace pstade { namespace egg {
 
 
+    template<class Base>
+    struct pipable_result
+    {
+        typedef
+            function< baby::pipable_result<Base> >
+        type;
+    };
+
+
     typedef
-        function<
-            baby::generator<
-                function< baby::pipable_result< deduce<boost::mpl::_1, as_value> > >,
-                aggregate1
-            >
-        >
+        generator<
+            pipable_result< deduce<boost::mpl::_1, as_value> >::type,
+            aggregate1
+        >::type
     op_pipable;
 
 
