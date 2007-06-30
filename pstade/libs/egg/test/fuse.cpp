@@ -15,6 +15,7 @@
 
 #include <boost/noncopyable.hpp>
 #include <pstade/egg/tuple/pack.hpp>
+#include <pstade/unused.hpp>
 
 
 int my_plus(int x, int y, int z)
@@ -64,7 +65,8 @@ void pstade_minimal_test()
     }
     {
         ::my_f f0;
-        fuse_result< ::my_f >::type f1 = { { f0 } };
-        fuse_result< ::my_f >::type f2 = { { {} } };
+        fuse_result< ::my_f >::type f1 = PSTADE_EGG_FUSE_RESULT_INITIALIZER(f0);
+        fuse_result< ::my_f >::type f2 = PSTADE_EGG_FUSE_RESULT_INITIALIZER({});
+        pstade::unused(f1, f2);
     }
 }

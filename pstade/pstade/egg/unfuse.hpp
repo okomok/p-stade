@@ -13,8 +13,8 @@
 
 #include <boost/mpl/placeholders.hpp>
 #include "./aggregate1.hpp"
-#include "./baby/unfuse_result.hpp"
 #include "./deduce.hpp"
+#include "./detail/baby_unfuse_result.hpp"
 #include "./function.hpp"
 #include "./generator.hpp"
 #include "./object.hpp"
@@ -32,10 +32,15 @@ namespace pstade { namespace egg {
     {
         typedef
             function<
-                baby::unfuse_result<Base, Pack, NullaryResult>
+                detail::baby_unfuse_result<Base, Pack, NullaryResult>
             >
-        type; // = { { base, pack } };
+        type;
     };
+
+
+    #define PSTADE_EGG_UNFUSE_RESULT_INITIALIZER(B, P) \
+        { { B, P } } \
+    /**/
 
 
     template<class NullaryResult = boost::use_default>
@@ -52,7 +57,7 @@ namespace pstade { namespace egg {
 
 
     typedef xp_unfuse<>::type op_unfuse;
-    PSTADE_EGG_OBJECT((op_unfuse), unfuse) = { {} };
+    PSTADE_EGG_OBJECT((op_unfuse), unfuse) = PSTADE_EGG_GENERATOR_INITIALIZER();
 
 
 } } // namespace pstade::egg

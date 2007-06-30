@@ -11,11 +11,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./baby/fused_compose_result.hpp"
-#include "./baby/unfuse_result.hpp"
+#include "./detail/baby_fused_compose_result.hpp"
 #include "./function.hpp"
 #include "./function_by_value.hpp"
 #include "./object.hpp"
+#include "./unfuse.hpp"
 
 
 namespace pstade { namespace egg {
@@ -30,24 +30,24 @@ namespace pstade { namespace egg {
 
 
     template<class F, class G, class NullaryResult = boost::use_default>
-    struct compose_result
-    {
-        typedef
+    struct compose_result :
+        unfuse_result<
             function<
-                baby::unfuse_result<
-                    function<
-                        baby::fused_compose_result<F, G>
-                    >,
-                    boost::use_default,
-                    NullaryResult
-                >
-            >
-        type; // = { { { { f, g } } } };
-    };
+                detail::baby_fused_compose_result<F, G>
+            >,
+            boost::use_default,
+            NullaryResult
+        >
+    { };
+
+
+    #define PSTADE_EGG_COMPOSE_RESULT_INITIALIZER(F, G) \
+        { { { { F, G } }, {} } } \
+    /**/
 
 
     template<class NullaryResult>
-    struct baby_compose_
+    struct baby_compose
     {
         template<class Myself, class F, class G>
         struct apply :
@@ -57,7 +57,7 @@ namespace pstade { namespace egg {
         template<class Result, class F, class G>
         Result call(F f, G g) const
         {
-            Result result = { { { { f, g } } } };
+            Result result = PSTADE_EGG_COMPOSE_RESULT_INITIALIZER(f, g);
             return result;
         }
     };
@@ -67,7 +67,7 @@ namespace pstade { namespace egg {
     struct xp_compose
     {
         typedef
-            function_by_value< baby_compose_<NullaryResult> >
+            function_by_value< baby_compose<NullaryResult> >
         type;
     };
 

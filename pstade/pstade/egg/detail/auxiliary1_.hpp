@@ -1,6 +1,6 @@
 #ifndef BOOST_PP_IS_ITERATING
-#ifndef PSTADE_EGG_AUXILIARY1_TO_HPP
-#define PSTADE_EGG_AUXILIARY1_TO_HPP
+#ifndef PSTADE_EGG_AUXILIARY1_HPP
+#define PSTADE_EGG_AUXILIARY1_HPP
 #include "./detail/prefix.hpp"
 
 

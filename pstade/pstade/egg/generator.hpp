@@ -11,7 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./baby/generator.hpp"
+#include "./detail/baby_generator.hpp"
 #include "./function.hpp"
 
 
@@ -26,9 +26,14 @@ namespace pstade { namespace egg {
     struct generator
     {
         typedef 
-            function< baby::generator<Lambda, How, NullaryResult> >
-        type; // = { {} };
+            function< detail::baby_generator<Lambda, How, NullaryResult> >
+        type;
     };
+
+
+    #define PSTADE_EGG_GENERATOR_INITIALIZER() \
+        { {} } \
+    /**/
 
 
 } } // namespace pstade::egg

@@ -14,10 +14,9 @@
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/tuple/tuple.hpp>
-#include "../baby/generator.hpp"
 #include "../deduce.hpp"
 #include "../detail/config.hpp" // PSTADE_EGG_MAX_ARITY
-#include "../function.hpp"
+#include "../generator.hpp"
 #include "../object.hpp"
 
 
@@ -53,13 +52,11 @@ namespace pstade { namespace egg { namespace tuples {
 
 
     typedef
-        function<
-            baby::generator<
-                pack_detail::meta_tuple,
-                boost::use_default,
-                boost::tuples::tuple<>
-            >
-        >
+        generator<
+            pack_detail::meta_tuple,
+            boost::use_default,
+            boost::tuples::tuple<>
+        >::type
     op_pack;
 
 

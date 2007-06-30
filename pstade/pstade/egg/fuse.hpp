@@ -13,7 +13,7 @@
 
 #include <boost/mpl/placeholders.hpp>
 #include "./aggregate1.hpp"
-#include "./baby/fuse_result.hpp"
+#include "./detail/baby_fuse_result.hpp"
 #include "./generator.hpp"
 #include "./deduce.hpp"
 #include "./function.hpp"
@@ -27,9 +27,14 @@ namespace pstade { namespace egg {
     struct fuse_result
     {
         typedef
-            function< baby::fuse_result<Base> >
-        type; // = { { base } };
+            function< detail::baby_fuse_result<Base> >
+        type;
     };
+
+
+    #define PSTADE_EGG_FUSE_RESULT_INITIALIZER(B) \
+        { { B } } \
+    /**/
 
 
     typedef
@@ -40,7 +45,7 @@ namespace pstade { namespace egg {
     op_fuse;
 
 
-    PSTADE_EGG_OBJECT((op_fuse), fuse) = { {} };
+    PSTADE_EGG_OBJECT((op_fuse), fuse) = PSTADE_EGG_GENERATOR_INITIALIZER();
 
 
 } } // namespace pstade::egg

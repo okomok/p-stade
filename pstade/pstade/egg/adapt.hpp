@@ -12,8 +12,8 @@
 
 
 #include <boost/mpl/placeholders.hpp>
-#include "./baby/adapt.hpp"
 #include "./detail/as_mpl_lambda.hpp"
+#include "./detail/baby_adapt.hpp"
 #include "./function.hpp"
 #include "./object.hpp"
 
@@ -25,9 +25,14 @@ namespace pstade { namespace egg {
     struct adapt
     {
         typedef
-            function< baby::adapt<Lambda> >
-        type; // = { {} };
+            function< detail::baby_adapt<Lambda> >
+        type;
     };
+
+
+    #define PSTADE_EGG_ADAPT_INITIALIZER() \
+        { {} }
+    /**/
 
 
     #define PSTADE_EGG_ADAPT(O, L) \
@@ -36,7 +41,7 @@ namespace pstade { namespace egg {
             typedef pstade::egg::adapt<PSTADE_EGG_DETAIL_AS_MPL_LAMBDA(L)>::type op; \
         } \
         typedef BOOST_PP_CAT(pstade_egg_adapt_workarea_of_, O)::op BOOST_PP_CAT(op_, O); \
-        PSTADE_EGG_OBJECT((BOOST_PP_CAT(op_, O)), O) = { {} }; \
+        PSTADE_EGG_OBJECT((BOOST_PP_CAT(op_, O)), O) = PSTADE_EGG_ADAPT_INITIALIZER(); \
     /**/
 
 
