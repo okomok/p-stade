@@ -1,191 +1,94 @@
-#include <pstade/vodka/drink.hpp>
-#include <boost/test/minimal.hpp>
+// Boost result_of library
 
+//  Copyright Douglas Gregor 2003-2004. Use, modification and
+//  distribution is subject to the Boost Software License, Version
+//  1.0. (See accompanying file LICENSE_1_0.txt or copy at
+//  http://www.boost.org/LICENSE_1_0.txt)
 
-// PStade.Wine
-//
-// Copyright Shunsuke Sogame 2005-2006.
-// Distributed under the Boost Software License, Version 1.0.
-// (See accompanying file LICENSE_1_0.txt or copy at
-// http://www.boost.org/LICENSE_1_0.txt)
+// For more information, see http://www.boost.org/libs/utility
+#include <pstade/result_of.hpp>
+#include <utility>
+#include <boost/static_assert.hpp>
+#include <boost/type_traits/is_same.hpp>
 
+struct int_result_type { typedef int result_type; };
 
-#include <boost/utility/result_of.hpp>
-#include <pstade/functional.hpp>
-
-
-template< class T >
-struct chat_monchy_
+struct int_result_of
 {
-    template< class Sig >
-    struct result;
-
-    template< class F, class Array >
-    struct result<F(Array&)>
-    {
-        typedef int type;
-    };
-
-    template< class Array >
-    int operator()(Array&)
-    {
-        return 0;
-    };
-
-    template< class Array >
-    int operator()(Array const&)
-    {
-        return 0;
-    };
+  template<typename F> struct result { typedef int type; };
 };
 
-#if 0
-
-    template< class T >
-    struct chat_monchy : chat_monchy_<T> { };
-
-    // Once instantiated, VC compiles 'char_monchy_',
-    // but it is of course impossible to instantiate everything
-    typedef boost::result_of<chat_monchy<int>(int&)>::type x_t;
-
-
-#endif
-
-
-
-struct op1
+struct int_result_type_and_float_result_of
 {
-    template<class FunCall>
-    struct result
-    { }; // definition needed
-
-    template<class Fun>
-    struct result<Fun(int)>
-    {
-        typedef int type;
-    };
-
-    int operator()(int x) const
-    {
-        return x;
-    }
+  typedef int result_type;
+  template<typename F> struct result { typedef float type; };
 };
 
+template<typename T>
+struct int_result_type_template { typedef int result_type; };
 
-struct op2
+template<typename T>
+struct int_result_of_template
 {
-    template<class FunCall>
-    struct result;
-
-    template<class Fun>
-    struct result<Fun(int&)>
-    {
-        typedef int type;
-    };
-
-    int operator()(int& x) const
-    {
-        return x;
-    }
+  template<typename F> struct result;
+  template<typename This, typename That> struct result<This(That)> { typedef int type; };
 };
 
-
-template< class F >
-typename boost::result_of<F(int&)>::type
-bar(F f, int x)
+template<typename T>
+struct int_result_type_and_float_result_of_template
 {
-    return f(x);
+  typedef int result_type;
+  template<typename F> struct result;
+  template<typename This, typename That> struct result<This(That)> { typedef float type; };
 };
 
+struct X {};
 
-int
-bar(op1 f, int x)
+int main()
 {
-    return f(x);
-};
+  using namespace boost;
+  using pstade::result_of;
+
+  typedef int (*func_ptr)(float, double);
+  typedef int (&func_ref)(float, double);
+  typedef int (*func_ptr_0)();
+  typedef int (&func_ref_0)();
+  typedef int (X::*mem_func_ptr)(float);
+  typedef int (X::*mem_func_ptr_c)(float) const;
+  typedef int (X::*mem_func_ptr_v)(float) volatile;
+  typedef int (X::*mem_func_ptr_cv)(float) const volatile;
+  typedef int (X::*mem_func_ptr_0)();
+
+  BOOST_STATIC_ASSERT((is_same<result_of<int_result_type(float)>::type, int>::value));
+  BOOST_STATIC_ASSERT((is_same<result_of<int_result_of(double)>::type, int>::value));
+  BOOST_STATIC_ASSERT((is_same<result_of<int_result_of(void)>::type, void>::value));
+  BOOST_STATIC_ASSERT((is_same<result_of<const int_result_of(double)>::type, int>::value));
+  BOOST_STATIC_ASSERT((is_same<result_of<volatile int_result_of(void)>::type, void>::value));
+  BOOST_STATIC_ASSERT((is_same<result_of<int_result_type_and_float_result_of(char)>::type, int>::value));
+  BOOST_STATIC_ASSERT((is_same<result_of<int_result_type_template<void>(float)>::type, int>::value));
+  BOOST_STATIC_ASSERT((is_same<result_of<int_result_of_template<void>(double)>::type, int>::value));
+  BOOST_STATIC_ASSERT((is_same<result_of<int_result_of_template<void>(void)>::type, void>::value));
+  BOOST_STATIC_ASSERT((is_same<result_of<const int_result_of_template<void>(double)>::type, int>::value));
+  BOOST_STATIC_ASSERT((is_same<result_of<volatile int_result_of_template<void>(void)>::type, void>::value));
+  BOOST_STATIC_ASSERT((is_same<result_of<int_result_type_and_float_result_of_template<void>(char)>::type, int>::value));
+  BOOST_STATIC_ASSERT((is_same<result_of<func_ptr(char, float)>::type, int>::value));
+  BOOST_STATIC_ASSERT((is_same<result_of<func_ref(char, float)>::type, int>::value));
+  BOOST_STATIC_ASSERT((is_same<result_of<func_ptr_0()>::type, int>::value)); 
+  BOOST_STATIC_ASSERT((is_same<result_of<func_ref_0()>::type, int>::value)); 
+  BOOST_STATIC_ASSERT((is_same<result_of<mem_func_ptr(X,char)>::type, int>::value));
+  BOOST_STATIC_ASSERT((is_same<result_of<mem_func_ptr_c(X,char)>::type, int>::value));
+  BOOST_STATIC_ASSERT((is_same<result_of<mem_func_ptr_v(X,char)>::type, int>::value));
+  BOOST_STATIC_ASSERT((is_same<result_of<mem_func_ptr_cv(X,char)>::type, int>::value));
+  //BOOST_STATIC_ASSERT((is_same<result_of<mem_func_ptr_0(X)>::type, int>::value)); 
+  BOOST_STATIC_ASSERT((is_same<result_of<func_ptr(void)>::type, int>::value));
+
+  BOOST_STATIC_ASSERT((is_same<result_of<func_ptr const(char, float)>::type, int>::value));
+  BOOST_STATIC_ASSERT((is_same<result_of<func_ptr_0 const()>::type, int>::value));
+  BOOST_STATIC_ASSERT((is_same<result_of<func_ptr volatile(char, float)>::type, int>::value));
+  BOOST_STATIC_ASSERT((is_same<result_of<func_ptr_0 volatile()>::type, int>::value));  
+  BOOST_STATIC_ASSERT((is_same<result_of<func_ptr const volatile(char, float)>::type, int>::value));
+  BOOST_STATIC_ASSERT((is_same<result_of<func_ptr_0 const volatile()>::type, int>::value));
 
 
-// const qualifier check
-
-int a_fun(int)
-{
-    return 1;
-}
-
-template<class F>
-struct forwarding
-{
-    typename boost::result_of<F (int)>::type
-    operator()() const
-    {
-        return m_f(3);
-    }
-
-    explicit forwarding(F const& f) :
-        m_f(f)
-    { }
-
-    F m_f;
-};
-
-template<class F>
-forwarding<F> make_forwarding(F f)
-{
-    return forwarding<F>(f);
-};
-
-
-void test()
-{
-
-#if 0
-    {
-        int array[] = { 1,2,3 };
-        boost::result_of<chat_monchy<int>(int (&)[3])>::type result
-            = ::chat_monchy<int>()(array);
-
-        (void)result;
-    }
-
-    {
-        int const array[] = { 1,2,3 };
-        boost::result_of<chat_monchy<int>(int const (&)[3])>::type result
-            = ::chat_monchy<int>()(array);
-
-        (void)result;
-    }
-
-    {
-        int i = 10;
-        boost::result_of<chat_monchy<int>(int&)>::type result
-            = ::chat_monchy<int>()(i);
-
-        (void)result;
-    }
-#endif
-#if 1
-    {
-        int i = 10;
-        boost::result_of<chat_monchy_<int>(int&)>::type result
-            = ::chat_monchy_<int>()(i);
-
-        (void)result;
-    }
-#endif
-#if 0
-    {
-        ::bar(op1(), 1);
-        ::bar(op2(), 1);
-    }
-#endif
-    {
-        ::make_forwarding(&a_fun)();
-    }
-}
-
-
-int test_main(int, char*[])
-{
-    ::test();
-    return 0;
+  return 0;
 }

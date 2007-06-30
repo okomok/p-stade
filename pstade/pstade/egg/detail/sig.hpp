@@ -15,7 +15,7 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/tuple/tuple.hpp>
-#include <boost/utility/result_of.hpp>
+#include <pstade/result_of.hpp>
 
 
 #if !defined(PSTADE_EGG_PROVIDE_SIG_MAX_ARITY)
