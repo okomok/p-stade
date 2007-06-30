@@ -60,7 +60,7 @@ namespace pstade { namespace egg { namespace tuples {
     op_pack;
 
 
-    PSTADE_EGG_OBJECT((op_pack), pack) = { {} };
+    PSTADE_EGG_OBJECT((op_pack), pack) = PSTADE_EGG_GENERATOR_INITIALIZER();
 
 
 } } } // namespace pstade::egg::tuples

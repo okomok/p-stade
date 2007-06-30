@@ -11,6 +11,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Deprecated; use "./result_of.hpp"
+
+
 // What:
 //
 // Works around a bug that 'boost::result_of<const function-pointer(..)>' doesn't work.

@@ -19,7 +19,7 @@
 // These workarounds are known:
 //   1. Don't use 'mpl::apply' when possible.
 //   2. Hide PlaceholderExpression by using inheritance like <boost/numeric/functional.hpp>.
-//      -- this way requires nullary result_of specialization to be reworked, though.
+//      -- this way may require nullary result_of specialization to be reworked, though.
 //   3. Call 'mpl::lambda' in non-deduced context like the following macro. 
 //
 // If a PlaceholderExpression doesn't have a dependent nested 'type',

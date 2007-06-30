@@ -44,7 +44,7 @@ namespace pstade { namespace egg {
     // 0ary
 
     template<class UnaryBase>
-    struct baby_auxiliary_result0
+    struct baby_auxiliary0_result
     {
         UnaryBase m_base;
 
@@ -57,7 +57,7 @@ namespace pstade { namespace egg {
 
     // as pipe
         typedef
-            function<baby_auxiliary_result0>
+            function<baby_auxiliary0_result>
         nullary_result_type;
 
         template<class Result>
@@ -82,23 +82,35 @@ namespace pstade { namespace egg {
 
     template<class A0, class UnaryBase> inline
     typename result_of<UnaryBase(A0&)>::type
-    operator|(A0& a0, function< baby_auxiliary_result0<UnaryBase> > pi)
+    operator|(A0& a0, function< baby_auxiliary0_result<UnaryBase> > pi)
     {
         return pi.baby().m_base(a0);
     }
 
     template<class A0, class UnaryBase> inline
     typename result_of<UnaryBase(PSTADE_DEDUCED_CONST(A0)&)>::type
-    operator|(A0 const& a0, function< baby_auxiliary_result0<UnaryBase> > pi)
+    operator|(A0 const& a0, function< baby_auxiliary0_result<UnaryBase> > pi)
     {
         return pi.baby().m_base(a0);
     }
 
+    template<class UnaryBase>
+    struct auxiliary0_result
+    {
+        typedef
+            function<
+                baby_auxiliary0_result<UnaryBase>
+            >
+        type;
+    };
+
+    #define PSTADE_EGG_AUXILIARY_RESULT_INITIALIZER(B) \
+        { { B } } \
+    /**/
+
     typedef
         generator<
-            function<
-                baby_auxiliary_result0< deduce<boost::mpl::_1, as_value> >
-            >,
+            auxiliary0_result< deduce<boost::mpl::_1, as_value> >::type,
             aggregate1
         >::type
     op_auxiliary0;
@@ -123,7 +135,7 @@ namespace pstade { namespace egg {
 
 
     template<class Base>
-    struct BOOST_PP_CAT(baby_auxiliary_result, n)
+    struct PSTADE_PP_CAT3(baby_auxiliary, n, _result)
     {
         Base m_base;
 
@@ -164,11 +176,19 @@ namespace pstade { namespace egg {
         }
     };
 
+    template<class Base>
+    struct PSTADE_PP_CAT3(auxiliary, n, _result)
+    {
+        typedef
+            function<
+                PSTADE_PP_CAT3(baby_auxiliary, n, _result)<Base>
+            >
+        type;
+    };
+
     typedef
         generator<
-            function<
-                BOOST_PP_CAT(baby_auxiliary_result, n)< deduce<boost::mpl::_1, as_value> >
-            >,
+            PSTADE_PP_CAT3(auxiliary, n, _result)< deduce<boost::mpl::_1, as_value> >::type,
             aggregate1
         >::type
     BOOST_PP_CAT(op_auxiliary, n);

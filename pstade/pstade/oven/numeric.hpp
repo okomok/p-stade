@@ -11,10 +11,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/preprocessor/seq/for_each.hpp>
-#include <pstade/adl_barrier.hpp>
-#include "./detail/range_based_ll.hpp"
-
 // <boost/lambda/core.hpp> is too big.
 #include <boost/tuple/tuple.hpp>
 #include <boost/type_traits/remove_const.hpp>
@@ -25,6 +21,10 @@
 #else
     #include <boost/lambda/numeric.hpp>
 #endif
+
+#include <boost/preprocessor/seq/for_each.hpp>
+#include <pstade/adl_barrier.hpp>
+#include "./detail/range_based_ll.hpp"
 
 
 namespace pstade { namespace oven {

@@ -12,6 +12,19 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// <boost/preprocessor.hpp> is too big.
+#include <boost/preprocessor/iteration/iterate.hpp>
+#include <boost/preprocessor/punctuation/comma_if.hpp>
+#include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/preprocessor/repetition/enum_shifted_params.hpp>
+#if !defined(BOOST_PREPROCESSOR_HPP)
+    #define BOOST_PREPROCESSOR_HPP
+    #include <boost/utility/result_of.hpp>
+    #undef  BOOST_PREPROCESSOR_HPP
+#else
+    #include <boost/utility/result_of.hpp>
+#endif
+
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
 #include <boost/mpl/eval_if.hpp>
@@ -19,10 +32,9 @@
 #include <boost/mpl/or.hpp>
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/type_traits/is_pointer.hpp>
 #include <boost/type_traits/is_member_function_pointer.hpp>
+#include <boost/type_traits/is_pointer.hpp>
 #include <boost/type_traits/remove_cv.hpp>
-#include <boost/utility/result_of.hpp>
 #include <boost/version.hpp>
 
 
