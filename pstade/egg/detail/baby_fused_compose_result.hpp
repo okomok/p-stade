@@ -11,8 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/utility/result_of.hpp>
-#include <pstade/deferred.hpp>
+#include <pstade/result_of.hpp>
 #include "../fuse.hpp"
 
 
@@ -27,12 +26,8 @@ namespace pstade { namespace egg { namespace detail {
 
         template<class Myself, class ArgTuple>
         struct apply :
-            boost::result_of<
-                PSTADE_DEFERRED(F const)(
-                    typename boost::result_of<
-                        typename boost::result_of<op_fuse(G const&)>::type(ArgTuple&)
-                    >::type
-                )
+            result_of<
+                F const(typename result_of<typename result_of<op_fuse(G const&)>::type(ArgTuple&)>::type)
             >
         { };
 

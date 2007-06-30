@@ -39,7 +39,7 @@ namespace pstade { namespace egg {
 
 
     #define PSTADE_EGG_AUTOMATIC_INITIALIZER() \
-        PSTADE_EGG_UNFUSE_RESULT_INITIALIZER({ {} } , {})
+        PSTADE_EGG_UNFUSE_RESULT_INITIALIZER({ {} }, {})
     /**/
 
 

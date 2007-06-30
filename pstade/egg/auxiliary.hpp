@@ -25,10 +25,9 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/utility/result_of.hpp>
 #include <pstade/deduced_const.hpp>
-#include <pstade/deferred.hpp>
 #include <pstade/preprocessor.hpp>
+#include <pstade/result_of.hpp>
 #include "./apply_params.hpp"
 #include "./aggregate1.hpp"
 #include "./deduce.hpp"
@@ -71,7 +70,7 @@ namespace pstade { namespace egg {
     // as function call
         template<class Myself, class A0>
         struct apply :
-            boost::result_of<PSTADE_DEFERRED(UnaryBase const)(A0&)>
+            result_of<UnaryBase const(A0&)>
         { };
 
         template<class Result, class A0>
@@ -82,14 +81,14 @@ namespace pstade { namespace egg {
     };
 
     template<class A0, class UnaryBase> inline
-    typename boost::result_of<UnaryBase(A0&)>::type
+    typename result_of<UnaryBase(A0&)>::type
     operator|(A0& a0, function< baby_auxiliary_result0<UnaryBase> > pi)
     {
         return pi.baby().m_base(a0);
     }
 
     template<class A0, class UnaryBase> inline
-    typename boost::result_of<UnaryBase(PSTADE_DEDUCED_CONST(A0)&)>::type
+    typename result_of<UnaryBase(PSTADE_DEDUCED_CONST(A0)&)>::type
     operator|(A0 const& a0, function< baby_auxiliary_result0<UnaryBase> > pi)
     {
         return pi.baby().m_base(a0);
@@ -97,10 +96,10 @@ namespace pstade { namespace egg {
 
     typedef
         generator<
-                function<
-                    baby_auxiliary_result0< deduce<boost::mpl::_1, as_value> >
-                >,
-                aggregate1
+            function<
+                baby_auxiliary_result0< deduce<boost::mpl::_1, as_value> >
+            >,
+            aggregate1
         >::type
     op_auxiliary0;
 
@@ -141,27 +140,21 @@ namespace pstade { namespace egg {
     // as pipe
         template<class Myself, BOOST_PP_ENUM_PARAMS(n, class A)>
         struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
-            boost::result_of<
-                typename boost::result_of<op_pipable(Base const&)>::type(
-                    PSTADE_PP_ENUM_PARAMS_WITH(n, A, &)
-                )
+            result_of<
+                typename result_of<op_pipable(Base const&)>::type(PSTADE_PP_ENUM_PARAMS_WITH(n, A, &))
             >
         { };    
 
         template<class Result, BOOST_PP_ENUM_PARAMS(n, class A)>
         Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
         {
-            return pipable(m_base)(
-                BOOST_PP_ENUM_PARAMS(n, a)
-            );
+            return pipable(m_base)(BOOST_PP_ENUM_PARAMS(n, a));
         }
 
     // as function call
         template<class Myself, BOOST_PP_ENUM_PARAMS(BOOST_PP_INC(n), class A)>
         struct apply<Myself, BOOST_PP_ENUM_PARAMS(BOOST_PP_INC(n), A)> :
-            boost::result_of<
-                PSTADE_DEFERRED(Base const)(PSTADE_PP_ENUM_PARAMS_WITH(BOOST_PP_INC(n), A, &))
-            >
+            result_of<Base const(PSTADE_PP_ENUM_PARAMS_WITH(BOOST_PP_INC(n), A, &))>
         { };    
 
         template<class Result, BOOST_PP_ENUM_PARAMS(BOOST_PP_INC(n), class A)>

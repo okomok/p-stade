@@ -71,6 +71,7 @@ test-suite "wine" :
     [ run provide_sig.cpp ]
     [ run remove_cvr.cpp ]
     [ run require.cpp ]
+    [ run result_of.cpp ]
     [ run result_of_lambda.cpp ]
     [ run singleton.cpp ]
     [ run specified.cpp ]

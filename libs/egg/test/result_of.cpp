@@ -17,6 +17,7 @@
 #include <pstade/test.hpp>
 #include <pstade/egg/detail/config.hpp>
 #include <pstade/pod_constant.hpp>
+#include <pstade/has_xxx.hpp>
 
 
 // easily works.
@@ -186,6 +187,41 @@ struct my_result_of
 BOOST_MPL_ASSERT((boost::is_same<int, my_result_of<op6<int>, int&>::type>));
 
 #endif
+
+
+
+// force instantiation before calling result_of
+//
+
+template<class X>
+struct op7
+{
+    template<class Sig>
+    struct result;
+
+    template<class F, class A0>
+    struct result<F(A0)>
+    {
+        typedef X type;
+    };
+
+    X operator()(int) const { return 0; }
+};
+
+
+
+PSTADE_HAS_TYPE(anything)
+
+
+template<class F>
+struct before
+{
+    static bool const b = has_anything<F>::value;
+    typedef F type;
+};
+
+PSTADE_TEST_IS_RESULT_OF((int), before< op7<int> >::type(int&))
+
 
 
 void pstade_minimal_test()

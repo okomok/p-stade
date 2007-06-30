@@ -24,9 +24,8 @@
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <boost/utility/result_of.hpp>
-#include <pstade/deferred.hpp>
 #include <pstade/preprocessor.hpp>
+#include <pstade/result_of.hpp>
 #include <pstade/use_default.hpp>
 #include "../tuple/pack.hpp"
 #include "../use_nullary_result.hpp"
@@ -38,10 +37,8 @@ namespace pstade { namespace egg { namespace detail {
 
     template<class Base, class Pack>
     struct nullary_result_of :
-        boost::result_of<
-            PSTADE_DEFERRED(Base const)(
-                typename boost::result_of<PSTADE_DEFERRED(Pack const)()>::type
-            )
+        result_of<
+            Base const(typename result_of<Pack const()>::type)
         >
     { };
 
@@ -102,12 +99,8 @@ namespace pstade { namespace egg { namespace detail {
 
     template<class Myself, BOOST_PP_ENUM_PARAMS(n, class A)>
     struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
-        boost::result_of<
-            PSTADE_DEFERRED(Base const)(
-                typename boost::result_of<
-                    PSTADE_DEFERRED(pack_type const)(PSTADE_PP_ENUM_PARAMS_WITH(n, A, &))
-                >::type
-            )
+        result_of<
+            Base const(typename result_of<pack_type const(PSTADE_PP_ENUM_PARAMS_WITH(n, A, &))>::type)
         >
     { };
 

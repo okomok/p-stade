@@ -16,7 +16,7 @@
         // 0ary
         template<class Fun, class Args>
         struct sig_aux< Fun, Args, boost::mpl::int_<0> > :
-            boost::result_of<
+            pstade::result_of<
                 Fun()
             >
         { };
@@ -44,7 +44,7 @@
 
     template<class Fun, class Args>
     struct sig_aux< Fun, Args, boost::mpl::int_<n> > :
-        boost::result_of<
+        pstade::result_of<
             Fun(BOOST_PP_ENUM(n, PSTADE_element, ~))
         >
     { };

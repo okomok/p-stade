@@ -16,9 +16,9 @@
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/tuple/tuple.hpp>
-#include <boost/utility/result_of.hpp>
 #include <pstade/deduced_const.hpp>
 #include <pstade/preprocessor.hpp>
+#include <pstade/result_of.hpp>
 #include "../apply_params.hpp"
 #include "../function_fwd.hpp"
 #include "../fuse.hpp"
@@ -74,8 +74,8 @@ namespace pstade { namespace egg { namespace detail {
 
     template<class A, class Base, class ArgTuple>
     struct result_of_output :
-        boost::result_of<
-            typename boost::result_of<op_fuse(Base const&)>::type(boost::tuples::cons<A&, ArgTuple>)
+        result_of<
+            typename result_of<op_fuse(Base const&)>::type(boost::tuples::cons<A&, ArgTuple>)
         >
     { };
 
