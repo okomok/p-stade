@@ -13,8 +13,8 @@
 
 #include <boost/mpl/placeholders.hpp>
 #include "./aggregate1.hpp"
-#include "./baby/pipable_result.hpp"
 #include "./deduce.hpp"
+#include "./detail/baby_pipable_result.hpp"
 #include "./function.hpp"
 #include "./generator.hpp"
 #include "./object.hpp"
@@ -27,9 +27,14 @@ namespace pstade { namespace egg {
     struct pipable_result
     {
         typedef
-            function< baby::pipable_result<Base> >
+            function< detail::baby_pipable_result<Base> >
         type;
     };
+
+
+    #define PSTADE_EGG_PIPABLE_RESULT_INITIALIZER(B) \
+        { { B } } \
+    /**/
 
 
     typedef
@@ -40,7 +45,7 @@ namespace pstade { namespace egg {
     op_pipable;
 
 
-    PSTADE_EGG_OBJECT((op_pipable), pipable) = { {} };
+    PSTADE_EGG_OBJECT((op_pipable), pipable) = PSTADE_EGG_GENERATOR_INITIALIZER();
 
 
 } } // namespace pstade::egg

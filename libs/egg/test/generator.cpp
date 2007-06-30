@@ -9,7 +9,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/baby/generator.hpp>
+#include <pstade/egg/generator.hpp>
 #include <pstade/egg/deduce.hpp>
 #include <pstade/minimal_test.hpp>
 #include <pstade/pod_constant.hpp>
@@ -32,7 +32,7 @@ namespace deducers = pstade::egg;
     namespace BOOST_PP_CAT(pstade_egg_generator_workarea_of_, G) { \
         using namespace boost::mpl::placeholders; \
         using namespace pstade::egg; \
-        typedef pstade::egg::function< pstade::egg::baby::generator<PSTADE_UNPARENTHESIZE(L)> > op; \
+        typedef pstade::egg::generator<PSTADE_UNPARENTHESIZE(L)>::type op; \
     } \
     typedef BOOST_PP_CAT(pstade_egg_generator_workarea_of_, G)::op BOOST_PP_CAT(op_, G); \
     PSTADE_POD_CONSTANT(G, (BOOST_PP_CAT(op_, G))) \
@@ -75,7 +75,7 @@ struct my_type
 
 
 typedef generator< my_type< deduce<boost::mpl::_1, deducers::as_value> >, boost::use_default, char >::type op_make_my_type_v;
-PSTADE_POD_CONSTANT(make_my_type_v, (op_make_my_type_v))
+op_make_my_type_v const make_my_type_v = PSTADE_EGG_GENERATOR_INITIALIZER();
 PSTADE_TEST_IS_RESULT_OF((my_type<int>), op_make_my_type_v(int&))
 PSTADE_TEST_IS_RESULT_OF((char), op_make_my_type_v())
 

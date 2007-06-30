@@ -53,6 +53,18 @@ void nullary_result_of_check(F f)
 }
 
 
+struct zero
+{
+    typedef int result_type;
+
+    template<class Tuple>
+    int operator()(Tuple) const
+    {
+        return 0;
+    }
+};
+
+
 void pstade_minimal_test()
 {
     using namespace pstade::egg;
@@ -85,5 +97,8 @@ void pstade_minimal_test()
     {
         ::nc x, y;
         BOOST_CHECK( unfuse(&::take_nc)(x, y) == 3 );
+    }
+    {
+        unfuse_result< ::zero >::type x = PSTADE_EGG_UNFUSE_RESULT_INITIALIZER({},{});
     }
 }

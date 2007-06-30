@@ -21,6 +21,6 @@
 //#include <pstade/../libs/gravy/test/file_range.cpp>
 //#include <pstade/../libs/tomato/test/main_instance.cpp>
 //#include <pstade/detail/result_of.hpp>
-#include <pstade/../libs/egg/test/fuse.cpp>
+#include <pstade/../libs/egg/test/auxiliary.cpp>
 
 //#include <boost/../libs/oven/example/one_year.cpp>

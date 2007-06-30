@@ -18,9 +18,9 @@
 // varies from compiler to compiler...
 
 
-#include "./baby/fused_automatic.hpp"
-#include "./baby/unfuse_result.hpp"
+#include "./detail/baby_fused_automatic.hpp"
 #include "./function.hpp"
+#include "./unfuse.hpp"
 
 
 namespace pstade { namespace egg {
@@ -29,18 +29,18 @@ namespace pstade { namespace egg {
     // 'x|foo' seems impossible without yet another 'function<>'.
 
     template<class Lambda>
-    struct automatic
-    {
-        typedef
-            function<
-                baby::unfuse_result<
-                    function< baby::fused_automatic<Lambda> >,
-                    boost::use_default,
-                    use_nullary_result
-                >
-            >
-        type;
-    };
+    struct automatic :
+        unfuse_result<
+            function< detail::baby_fused_automatic<Lambda> >,
+            boost::use_default,
+            use_nullary_result
+        >
+    { };
+
+
+    #define PSTADE_EGG_AUTOMATIC_INITIALIZER() \
+        PSTADE_EGG_UNFUSE_RESULT_INITIALIZER({ {} } , {})
+    /**/
 
 
 } } // namespace pstade::egg

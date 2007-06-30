@@ -14,6 +14,7 @@
 #include "./aggregate0.hpp"
 #include "./aggregate1.hpp"
 #include "./apply_params.hpp"
+#include "./automatic.hpp"
 #include "./auxiliary.hpp"
 #include "./deduce.hpp"
 #include "./error_non_nullary.hpp"
