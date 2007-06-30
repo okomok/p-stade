@@ -23,16 +23,6 @@
 //     http://www.boost-consulting.com/vault/index.php?directory=Algorithms
 
 
-#include <boost/preprocessor/cat.hpp>
-#include <boost/preprocessor/seq/for_each.hpp>
-#include <boost/range/begin.hpp>
-#include <boost/range/end.hpp>
-#include <pstade/adl_barrier.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
-#include <pstade/pass_by.hpp>
-#include "./detail/range_based_ll.hpp"
-
 // <boost/lambda/core.hpp> is too big.
 #include <boost/tuple/tuple.hpp>
 #include <boost/type_traits/remove_const.hpp>
@@ -43,6 +33,16 @@
 #else
     #include <boost/lambda/algorithm.hpp>
 #endif
+
+#include <boost/preprocessor/cat.hpp>
+#include <boost/preprocessor/seq/for_each.hpp>
+#include <boost/range/begin.hpp>
+#include <boost/range/end.hpp>
+#include <pstade/adl_barrier.hpp>
+#include <pstade/callable.hpp>
+#include <pstade/constant.hpp>
+#include <pstade/pass_by.hpp>
+#include "./detail/range_based_ll.hpp"
 
 
 namespace pstade { namespace oven {

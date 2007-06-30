@@ -31,4 +31,9 @@
 #endif
 
 
+#if defined(BOOST_MSVC) && defined(_MSC_FULL_VER) && (_MSC_FULL_VER >=140050215)
+    #define PSTADE_EGG_HAS_IS_POD
+#endif
+
+
 #endif

@@ -14,9 +14,8 @@
 
 
 #include <pstade/test.hpp>
+#include <pstade/egg/object.hpp>
 #include <boost/noncopyable.hpp>
-
-
 
 
 template<class X>
@@ -36,10 +35,8 @@ struct baby
 };
 
 
-PSTADE_EGG_ADAPT(identity, (baby<_>))
-
-//typedef pstade::egg::adapted< baby<boost::mpl::_> > op_identity;
-//const op_identity identity = op_identity();
+typedef PSTADE_EGG_ADAPT((baby<boost::mpl::_>)) op_identity;
+PSTADE_EGG_OBJECT((op_identity), identity) = PSTADE_EGG_ADAPT_INITIALIZER();
 
 
 PSTADE_TEST_IS_RESULT_OF((int&), op_identity(int&))

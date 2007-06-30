@@ -15,7 +15,6 @@
 #include "./detail/as_mpl_lambda.hpp"
 #include "./detail/baby_adapt.hpp"
 #include "./function.hpp"
-#include "./object.hpp"
 
 
 namespace pstade { namespace egg {
@@ -31,17 +30,13 @@ namespace pstade { namespace egg {
 
 
     #define PSTADE_EGG_ADAPT_INITIALIZER() \
-        { {} }
+        { {} } \
     /**/
 
 
-    #define PSTADE_EGG_ADAPT(O, L) \
-        namespace BOOST_PP_CAT(pstade_egg_adapt_workarea_of_, O) { \
-            using namespace boost::mpl::placeholders; \
-            typedef pstade::egg::adapt<PSTADE_EGG_DETAIL_AS_MPL_LAMBDA(L)>::type op; \
-        } \
-        typedef BOOST_PP_CAT(pstade_egg_adapt_workarea_of_, O)::op BOOST_PP_CAT(op_, O); \
-        PSTADE_EGG_OBJECT((BOOST_PP_CAT(op_, O)), O) = PSTADE_EGG_ADAPT_INITIALIZER(); \
+    // If you are a msvc-8.0 user, prefer this macro.
+    #define PSTADE_EGG_ADAPT(L) \
+        pstade::egg::adapt<PSTADE_EGG_DETAIL_AS_MPL_LAMBDA(L)>::type \
     /**/
 
 

@@ -12,19 +12,27 @@
 
 
 #include <boost/preprocessor/cat.hpp>
+#include <boost/static_assert.hpp>
+#include <boost/type_traits/is_pod.hpp>
 #include <pstade/in_unnamed.hpp>
 #include <pstade/unparenthesize.hpp>
 #include "./detail/config.hpp"
 
 
 #define PSTADE_EGG_OBJECT(F, O) \
-    PSTADE_EGG_OBJECT_aux(PSTADE_UNPARENTHESIZE(F), O) \
+    PSTADE_EGG_OBJECT_aux1(PSTADE_UNPARENTHESIZE(F), O) \
 /**/
+
+
+    #define PSTADE_EGG_OBJECT_aux1(F, O) \
+        PSTADE_EGG_OBJECT_pod_check(F) \
+        PSTADE_EGG_OBJECT_aux2(F, O) \
+    /**/
 
 
 #if !defined(PSTADE_EGG_NO_STATIC_INITIALIZATION)
 
-    #define PSTADE_EGG_OBJECT_aux(F, O) \
+    #define PSTADE_EGG_OBJECT_aux2(F, O) \
         PSTADE_EGG_OBJECT_static_const(O) \
         namespace { \
             PSTADE_IN_UNNAMED F const& O \
@@ -48,10 +56,18 @@
 
 #else
 
-    #define PSTADE_EGG_OBJECT_aux(F, O) \
+    #define PSTADE_EGG_OBJECT_aux2(F, O) \
         F const O \
     /**/
 
+#endif
+
+
+#if defined(PSTADE_EGG_HAS_IS_POD)
+    // msvc says error C2370 in the case of 'BOOST_MPL_ASSERT'.
+    #define PSTADE_EGG_OBJECT_pod_check(F) BOOST_STATIC_ASSERT((boost::is_pod< F >::value));
+#else
+    #define PSTADE_EGG_OBJECT_pod_check(F)
 #endif
 
 

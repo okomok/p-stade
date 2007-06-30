@@ -43,7 +43,9 @@ namespace pstade { namespace egg { namespace detail {
         struct apply
         {
             typedef
-                automator<Lambda, typename pass_by_value<ArgTuple>::type> const
+                automator<
+                    Lambda, typename pass_by_value<ArgTuple>::type
+                > const
             type;
         };
 
