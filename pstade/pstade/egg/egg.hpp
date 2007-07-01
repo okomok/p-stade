@@ -15,7 +15,6 @@
 #include "./automatic.hpp"
 #include "./auxiliary.hpp"
 #include "./deduce.hpp"
-#include "./error_non_nullary.hpp"
 #include "./function.hpp"
 #include "./function_by_value.hpp"
 #include "./function_fwd.hpp"
@@ -26,7 +25,6 @@
 #include "./pipable.hpp"
 #include "./specified.hpp"
 #include "./unfuse.hpp"
-#include "./use_nullary_result.hpp"
 
 
 #endif

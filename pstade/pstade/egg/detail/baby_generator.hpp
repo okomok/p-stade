@@ -92,7 +92,9 @@ namespace pstade { namespace egg { namespace detail {
     >
     struct baby_generator
     {
-        typedef typename if_use_default<How, use_constructor>::type how_t;
+        typedef typename
+            if_use_default<How, use_constructor>::type
+        how_t;
 
     // 0ary
         typedef NullaryResult nullary_result_type;
