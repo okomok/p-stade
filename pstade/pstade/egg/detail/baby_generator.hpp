@@ -27,8 +27,8 @@
 #include <pstade/use_default.hpp>
 #include "../apply_params.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_ARITY
-#include "./non_aggregate.hpp"
 #include "./template_arguments.hpp"
+#include "./use_constructor.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {
@@ -92,7 +92,7 @@ namespace pstade { namespace egg { namespace detail {
     >
     struct baby_generator
     {
-        typedef typename if_use_default<How, detail::non_aggregate>::type how_t;
+        typedef typename if_use_default<How, use_constructor>::type how_t;
 
     // 0ary
         typedef NullaryResult nullary_result_type;

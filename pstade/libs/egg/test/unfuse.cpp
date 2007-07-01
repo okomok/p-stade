@@ -100,5 +100,6 @@ void pstade_minimal_test()
     }
     {
         unfuse_result< ::zero >::type x = PSTADE_EGG_UNFUSE_RESULT_INITIALIZER({},{});
+        (void)x;
     }
 }

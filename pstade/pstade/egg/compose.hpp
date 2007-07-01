@@ -32,9 +32,7 @@ namespace pstade { namespace egg {
     template<class F, class G, class NullaryResult = boost::use_default>
     struct compose_result :
         unfuse_result<
-            function<
-                detail::baby_fused_compose_result<F, G>
-            >,
+            function< detail::baby_fused_compose_result<F, G> >,
             boost::use_default,
             NullaryResult
         >

@@ -12,9 +12,9 @@
 
 
 #include <boost/mpl/placeholders.hpp>
-#include "./aggregate1.hpp"
 #include "./deduce.hpp"
 #include "./detail/baby_pipable_result.hpp"
+#include "./detail/use_brace_level1.hpp"
 #include "./function.hpp"
 #include "./generator.hpp"
 #include "./object.hpp"
@@ -40,7 +40,7 @@ namespace pstade { namespace egg {
     typedef
         generator<
             pipable_result< deduce<boost::mpl::_1, as_value> >::type,
-            aggregate1
+            detail::use_brace_level1
         >::type
     op_pipable;
 
