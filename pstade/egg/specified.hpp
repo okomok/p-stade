@@ -55,7 +55,7 @@
     #include <boost/utility/result_of.hpp>
     #include <pstade/const_overloaded.hpp>
     #include <pstade/preprocessor.hpp>
-    #include "./detail/result_of.hpp"
+    #include "./detail/result_of_in_ns_scope.hpp"
 
 
     #define PSTADE_EGG_SPECIFIED() <pstade/egg/specified.hpp>
@@ -84,14 +84,14 @@
 
         #define PSTADE_EGG_SPECIFIED1_aux(Name, Op, Seq) \
             template<PSTADE_PP_TO_TEMPLATE_PARAMS(Seq, X), class A0> inline \
-            PSTADE_EGG_DETAIL_RESULT_OF((Op<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, X)>), (A0&)) \
+            PSTADE_EGG_RESULT_OF_IN_NS_SCOPE((Op<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, X)>), (A0&)) \
             Name(A0& a0 PSTADE_CONST_OVERLOADED(A0)) \
             { \
                 return Op<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, X)>()(a0); \
             } \
             \
             template<PSTADE_PP_TO_TEMPLATE_PARAMS(Seq, X), class A0> inline \
-            PSTADE_EGG_DETAIL_RESULT_OF((Op<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, X)>), (PSTADE_EGG_DETAIL_CONST_REF(A0))) \
+            PSTADE_EGG_RESULT_OF_IN_NS_SCOPE((Op<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, X)>), (PSTADE_EGG_CONST_REF(A0))) \
             Name(A0 const& a0) \
             { \
                 return Op<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, X)>()(a0); \
@@ -120,7 +120,7 @@
     /**/
     #define PSTADE_function_aux(ArgTypes, Params, N) \
         template<PSTADE_PP_TO_TEMPLATE_PARAMS(PSTADE_params, X), BOOST_PP_ENUM_PARAMS(N, class A)> inline \
-        PSTADE_EGG_DETAIL_RESULT_OF( (PSTADE_op<PSTADE_PP_TO_TEMPLATE_ARGS(PSTADE_params, X)>), ArgTypes ) \
+        PSTADE_EGG_RESULT_OF_IN_NS_SCOPE( (PSTADE_op<PSTADE_PP_TO_TEMPLATE_ARGS(PSTADE_params, X)>), ArgTypes ) \
         PSTADE_name( Params PSTADE_CONST_OVERLOADED_SEQ(PSTADE_PP_SEQ_PARAMS(N, A)) ) \
         { \
             return PSTADE_op<PSTADE_PP_TO_TEMPLATE_ARGS(PSTADE_params, X)>()(BOOST_PP_ENUM_PARAMS(N, a)); \
@@ -131,7 +131,7 @@
     #define PSTADE_c0
     #define PSTADE_c1 const
     #define PSTADE_ac0(A) A&
-    #define PSTADE_ac1(A) PSTADE_EGG_DETAIL_CONST_REF(A)
+    #define PSTADE_ac1(A) PSTADE_EGG_CONST_REF(A)
 
     #define PSTADE_gen_function0(R, N) PSTADE_EGG_SPECIFIED0_aux(PSTADE_name, PSTADE_op, PSTADE_params)
     #define PSTADE_gen_functionN(R, N) BOOST_PP_SEQ_FOR_EACH_PRODUCT_R(R, PSTADE_function, PSTADE_PP_SEQ_REPEAT((0)(1), N))

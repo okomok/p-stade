@@ -15,10 +15,14 @@
 #include <boost/mpl/identity.hpp>
 #include <pstade/has_xxx.hpp>
 #include <pstade/use_default.hpp>
-#include "../error_non_nullary.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {
+
+
+    // You called a non-nullary function without arguments.
+    template<class Function>
+    struct error_non_nullary;
 
 
     PSTADE_HAS_TYPE(nullary_result_type)

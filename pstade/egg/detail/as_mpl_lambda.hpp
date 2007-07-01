@@ -35,13 +35,13 @@
 
     #include <boost/mpl/lambda.hpp>
 
-    #define PSTADE_EGG_DETAIL_AS_MPL_LAMBDA(PlaceholderExpr) \
+    #define PSTADE_EGG_AS_MPL_LAMBDA(PlaceholderExpr) \
         boost::mpl::lambda< PSTADE_UNPARENTHESIZE(PlaceholderExpr) >::type \
     /**/
 
 #else
 
-    #define PSTADE_EGG_DETAIL_AS_MPL_LAMBDA \
+    #define PSTADE_EGG_AS_MPL_LAMBDA \
         PSTADE_UNPARENTHESIZE \
     /**/
 

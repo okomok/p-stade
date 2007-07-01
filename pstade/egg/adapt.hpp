@@ -36,7 +36,7 @@ namespace pstade { namespace egg {
 
     // If you are a msvc-8.0 user, prefer this macro.
     #define PSTADE_EGG_ADAPT(L) \
-        pstade::egg::adapt<PSTADE_EGG_DETAIL_AS_MPL_LAMBDA(L)>::type \
+        pstade::egg::adapt<PSTADE_EGG_AS_MPL_LAMBDA(L)>::type \
     /**/
 
 
