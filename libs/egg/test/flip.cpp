@@ -11,7 +11,7 @@
 
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/generator.hpp>
-#include <pstade/egg/aggregate1.hpp>
+#include <pstade/egg/detail/use_brace_level1.hpp>
 #include <pstade/minimal_test.hpp>
 #include <pstade/egg/deduce.hpp>
 
@@ -46,7 +46,7 @@ struct baby_result
 typedef
     generator<
         function< baby_result< deduce<boost::mpl::_1, as_value> > >,
-        aggregate1
+        detail::use_brace_level1
     >::type
 op_flip;
 

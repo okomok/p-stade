@@ -12,9 +12,9 @@
 
 
 #include <boost/mpl/placeholders.hpp>
-#include "./aggregate1.hpp"
 #include "./deduce.hpp"
 #include "./detail/baby_unfuse_result.hpp"
+#include "./detail/use_brace_level1.hpp"
 #include "./function.hpp"
 #include "./generator.hpp"
 #include "./object.hpp"
@@ -31,9 +31,7 @@ namespace pstade { namespace egg {
     struct unfuse_result
     {
         typedef
-            function<
-                detail::baby_unfuse_result<Base, Pack, NullaryResult>
-            >
+            function< detail::baby_unfuse_result<Base, Pack, NullaryResult> >
         type;
     };
 
@@ -51,7 +49,7 @@ namespace pstade { namespace egg {
                 deduce<boost::mpl::_2, as_value, boost::use_default>,
                 NullaryResult
             >::type,
-            aggregate1
+            detail::use_brace_level1
         >
     { };
 

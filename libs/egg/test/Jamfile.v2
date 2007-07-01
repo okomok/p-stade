@@ -12,7 +12,6 @@ project
 
 test-suite "egg" :
     [ run adapt.cpp ]
-    [ run aggregate.cpp ]
     [ run auxiliary.cpp ]
     [ run compose.cpp ]
     [ run flip.cpp ]
@@ -28,5 +27,6 @@ test-suite "egg" :
     [ run template_arguments.cpp ]
     [ run tuple_pack.cpp ]
     [ run unfuse.cpp ]
+    [ run use_xxx.cpp ]
     ;
 

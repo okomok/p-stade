@@ -26,6 +26,7 @@
 #endif
 
 
+// msvc optimizers can static-initialize, though.
 #if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1400))
     #define PSTADE_EGG_NO_STATIC_INITIALIZATION
 #endif

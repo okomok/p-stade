@@ -29,9 +29,9 @@
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
 #include "./apply_params.hpp"
-#include "./aggregate1.hpp"
 #include "./deduce.hpp"
 #include "./detail/config.hpp" // PSTADE_EGG_MAX_ARITY
+#include "./detail/use_brace_level1.hpp"
 #include "./function.hpp"
 #include "./generator.hpp"
 #include "./object.hpp"
@@ -98,9 +98,7 @@ namespace pstade { namespace egg {
     struct auxiliary0_result
     {
         typedef
-            function<
-                baby_auxiliary0_result<UnaryBase>
-            >
+            function< baby_auxiliary0_result<UnaryBase> >
         type;
     };
 
@@ -111,7 +109,7 @@ namespace pstade { namespace egg {
     typedef
         generator<
             auxiliary0_result< deduce<boost::mpl::_1, as_value> >::type,
-            aggregate1
+            detail::use_brace_level1
         >::type
     op_auxiliary0;
 
@@ -180,16 +178,14 @@ namespace pstade { namespace egg {
     struct PSTADE_PP_CAT3(auxiliary, n, _result)
     {
         typedef
-            function<
-                PSTADE_PP_CAT3(baby_auxiliary, n, _result)<Base>
-            >
+            function< PSTADE_PP_CAT3(baby_auxiliary, n, _result)<Base> >
         type;
     };
 
     typedef
         generator<
             PSTADE_PP_CAT3(auxiliary, n, _result)< deduce<boost::mpl::_1, as_value> >::type,
-            aggregate1
+            detail::use_brace_level1
         >::type
     BOOST_PP_CAT(op_auxiliary, n);
 
