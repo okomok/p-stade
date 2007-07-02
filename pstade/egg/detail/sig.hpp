@@ -18,12 +18,12 @@
 #include <pstade/result_of.hpp>
 
 
-#if !defined(PSTADE_EGG_PROVIDE_SIG_MAX_ARITY)
-    #define PSTADE_EGG_PROVIDE_SIG_MAX_ARITY 10 // follows 'tuple'.
+#if !defined(PSTADE_EGG_SIG_MAX_ARITY)
+    #define PSTADE_EGG_SIG_MAX_ARITY 10 // follows 'tuple'.
 #endif
 
 
-#define PSTADE_EGG_DETAIL_SIG() <pstade/egg/detail/sig_iteration.hpp>
+#define PSTADE_EGG_SIG() <pstade/egg/detail/sig_iteration.hpp>
 
 
 #endif

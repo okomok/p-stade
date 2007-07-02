@@ -22,7 +22,7 @@
     #define PSTADE_EGG_PIPABLE(O, F) \
         namespace BOOST_PP_CAT(pstade_egg_pipable_workarea_of_, O) { \
             using namespace boost::mpl::placeholders; \
-            typedef pstade::egg::pipable_result<PSTADE_UNPARENTHESIZE(F)>::type pipe; \
+            typedef pstade::egg::result_of_pipable<PSTADE_UNPARENTHESIZE(F)>::type pipe; \
         } \
         PSTADE_EGG_OBJECT((BOOST_PP_CAT(pstade_egg_pipable_workarea_of_, O)::pipe), O) = PSTADE_EGG_PIPABLE_RESULT_INITIALIZER({}); \
     /**/

@@ -24,7 +24,7 @@ namespace pstade { namespace egg {
 
 
     template<class Base>
-    struct fuse_result
+    struct result_of_fuse
     {
         typedef
             function< detail::baby_fuse_result<Base> >
@@ -39,7 +39,7 @@ namespace pstade { namespace egg {
 
     typedef
         generator<
-            fuse_result< deduce<boost::mpl::_1, as_value> >::type,
+            result_of_fuse< deduce<boost::mpl::_1, as_value> >::type,
             detail::use_brace_level1
         >::type
     op_fuse;

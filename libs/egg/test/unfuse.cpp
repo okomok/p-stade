@@ -73,33 +73,36 @@ void pstade_minimal_test()
         BOOST_CHECK(
             unfuse(&::my_plus)(5, 7, 2) == 14
         );
+        BOOST_CHECK(
+            xp_unfuse<>()(&::my_plus)(5, 7, 2) == 14
+        );
     }
     {
         // ::my_two is known to be nullary.
         BOOST_CHECK(
-            xp_unfuse<use_nullary_result>::type()(&::my_two)() == 2
+            xp_unfuse<use_nullary_result>()(&::my_two)() == 2
         );
 
-        ::nullary_result_of_check( xp_unfuse<use_nullary_result>::type()(&::my_two) );
+        ::nullary_result_of_check( xp_unfuse<use_nullary_result>()(&::my_two) );
     }
     {
         // specify nullary result type explicitly.
         BOOST_CHECK(
-            xp_unfuse<int>::type()(&::my_two)() == 2
+            xp_unfuse<int>()(&::my_two)() == 2
         );
         
-        ::nullary_result_of_check( xp_unfuse<int>::type()(&::my_two) );
+        ::nullary_result_of_check( xp_unfuse<int>()(&::my_two) );
     }
     {
         unfuse(&::well_formed);
-        xp_unfuse<int>::type()(&::well_formed);
+        xp_unfuse<int>()(&::well_formed);
     }
     {
         ::nc x, y;
         BOOST_CHECK( unfuse(&::take_nc)(x, y) == 3 );
     }
     {
-        unfuse_result< ::zero >::type x = PSTADE_EGG_UNFUSE_RESULT_INITIALIZER({},{});
+        result_of_unfuse< ::zero >::type x = PSTADE_EGG_UNFUSE_RESULT_INITIALIZER({},{});
         (void)x;
     }
 }

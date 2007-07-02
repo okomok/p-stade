@@ -21,7 +21,7 @@
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
 #include <boost/preprocessor/seq/enum.hpp>
-#include <boost/utility/result_of.hpp>
+#include <pstade/result_of.hpp>
 #include <pstade/unparenthesize.hpp>
 
 
@@ -43,7 +43,7 @@
 #else
 
     #define PSTADE_EGG_RESULT_OF_IN_NS_SCOPE(F, ArgSeq) \
-        typename boost::result_of< \
+        typename pstade::result_of< \
             PSTADE_UNPARENTHESIZE_TPL(F)(BOOST_PP_SEQ_ENUM(ArgSeq)) \
         >::type \
     /**/

@@ -95,7 +95,7 @@ namespace pstade { namespace egg {
     }
 
     template<class UnaryBase>
-    struct auxiliary0_result
+    struct result_of_auxiliary0
     {
         typedef
             function< baby_auxiliary0_result<UnaryBase> >
@@ -108,7 +108,7 @@ namespace pstade { namespace egg {
 
     typedef
         generator<
-            auxiliary0_result< deduce<boost::mpl::_1, as_value> >::type,
+            result_of_auxiliary0< deduce<boost::mpl::_1, as_value> >::type,
             detail::use_brace_level1
         >::type
     op_auxiliary0;
@@ -175,7 +175,7 @@ namespace pstade { namespace egg {
     };
 
     template<class Base>
-    struct PSTADE_PP_CAT3(auxiliary, n, _result)
+    struct PSTADE_PP_CAT3(result_of_, auxiliary, n)
     {
         typedef
             function< PSTADE_PP_CAT3(baby_auxiliary, n, _result)<Base> >
@@ -184,7 +184,7 @@ namespace pstade { namespace egg {
 
     typedef
         generator<
-            PSTADE_PP_CAT3(auxiliary, n, _result)< deduce<boost::mpl::_1, as_value> >::type,
+            PSTADE_PP_CAT3(result_of_, auxiliary, n)< deduce<boost::mpl::_1, as_value> >::type,
             detail::use_brace_level1
         >::type
     BOOST_PP_CAT(op_auxiliary, n);

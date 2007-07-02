@@ -11,6 +11,7 @@
 
 
 #include "./adapt.hpp"
+#include "./adaptable.hpp"
 #include "./apply_params.hpp"
 #include "./automatic.hpp"
 #include "./auxiliary.hpp"
@@ -24,6 +25,7 @@
 #include "./object.hpp"
 #include "./pipable.hpp"
 #include "./specified.hpp"
+#include "./tuple_pack.hpp"
 #include "./unfuse.hpp"
 
 

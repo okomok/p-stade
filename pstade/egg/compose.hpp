@@ -30,8 +30,8 @@ namespace pstade { namespace egg {
 
 
     template<class F, class G, class NullaryResult = boost::use_default>
-    struct compose_result :
-        unfuse_result<
+    struct result_of_compose :
+        result_of_unfuse<
             function< detail::baby_fused_compose_result<F, G> >,
             boost::use_default,
             NullaryResult
@@ -44,33 +44,35 @@ namespace pstade { namespace egg {
     /**/
 
 
-    template<class NullaryResult>
-    struct baby_compose
+    template<class NullaryResult = boost::use_default>
+    struct tp_compose
     {
-        template<class Myself, class F, class G>
-        struct apply :
-            compose_result<F, G, NullaryResult>
-        { };
-
-        template<class Result, class F, class G>
-        Result call(F f, G g) const
+        struct baby
         {
-            Result result = PSTADE_EGG_COMPOSE_RESULT_INITIALIZER(f, g);
-            return result;
-        }
+            template<class Myself, class F, class G>
+            struct apply :
+                result_of_compose<F, G, NullaryResult>
+            { };
+
+            template<class Result, class F, class G>
+            Result call(F f, G g) const
+            {
+                Result result = PSTADE_EGG_COMPOSE_RESULT_INITIALIZER(f, g);
+                return result;
+            }
+        };
+
+        typedef function_by_value<baby> type;
     };
 
 
     template<class NullaryResult = boost::use_default>
-    struct xp_compose
-    {
-        typedef
-            function_by_value< baby_compose<NullaryResult> >
-        type;
-    };
+    struct xp_compose :
+        tp_compose<NullaryResult>::type
+    { };
 
 
-    typedef xp_compose<>::type op_compose;
+    typedef tp_compose<>::type op_compose;
     PSTADE_EGG_OBJECT((op_compose), compose) = { {} };
 
 

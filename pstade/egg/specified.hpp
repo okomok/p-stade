@@ -52,9 +52,9 @@
     #include <boost/preprocessor/seq/for_each_product.hpp>
     #include <boost/preprocessor/seq/size.hpp>
     #include <boost/preprocessor/tuple/elem.hpp>
-    #include <boost/utility/result_of.hpp>
     #include <pstade/const_overloaded.hpp>
     #include <pstade/preprocessor.hpp>
+    #include <pstade/result_of.hpp>
     #include "./detail/result_of_in_ns_scope.hpp"
 
 
@@ -70,7 +70,7 @@
 
         #define PSTADE_EGG_SPECIFIED0_aux(Name, Op, Seq) \
             template<PSTADE_PP_TO_TEMPLATE_PARAMS(Seq, X)> inline \
-            typename boost::result_of<Op<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, X)>()>::type \
+            typename pstade::result_of<Op<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, X)>()>::type \
             Name() \
             { \
                 return Op<PSTADE_PP_TO_TEMPLATE_ARGS(Seq, X)>()(); \

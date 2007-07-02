@@ -9,7 +9,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/tuple/pack.hpp>
+#include <pstade/egg/tuple_pack.hpp>
 #include <pstade/minimal_test.hpp>
 
 
@@ -21,31 +21,31 @@
 
 
 BOOST_MPL_ASSERT(( boost::is_same< boost::tuples::tuple<>,
-                 boost::result_of<pstade::egg::tuples::op_pack()>::type > ));
+                 boost::result_of<pstade::egg::op_tuple_pack()>::type > ));
 
 BOOST_MPL_ASSERT(( boost::is_same< boost::tuples::tuple<int&, int const&>,
-                 boost::result_of<pstade::egg::tuples::op_pack(int&, int)>::type > ));
+                 boost::result_of<pstade::egg::op_tuple_pack(int&, int)>::type > ));
 
 
 void pstade_minimal_test()
 {
-    using namespace pstade::egg::tuples;
+    using namespace pstade::egg;
 
-    BOOST_CHECK( boost::make_tuple(1,2,3,4,5) == pack(1,2,3,4,5) );
-    BOOST_CHECK( boost::make_tuple(1,2,3,4)   == pack(1,2,3,4)   );
-    BOOST_CHECK( boost::make_tuple(1,2,3)     == pack(1,2,3)     );
-    BOOST_CHECK( boost::make_tuple(1,2)       == pack(1,2)       );
-    BOOST_CHECK( boost::make_tuple(1)         == pack(1)         );
-    BOOST_CHECK( boost::make_tuple()          == pack()          );
+    BOOST_CHECK( boost::make_tuple(1,2,3,4,5) == tuple_pack(1,2,3,4,5) );
+    BOOST_CHECK( boost::make_tuple(1,2,3,4)   == tuple_pack(1,2,3,4)   );
+    BOOST_CHECK( boost::make_tuple(1,2,3)     == tuple_pack(1,2,3)     );
+    BOOST_CHECK( boost::make_tuple(1,2)       == tuple_pack(1,2)       );
+    BOOST_CHECK( boost::make_tuple(1)         == tuple_pack(1)         );
+    BOOST_CHECK( boost::make_tuple()          == tuple_pack()          );
 
     {
         int m = 5;
-        boost::tuples::get<4>(pack(1,2,3,4,m)) = 10;
+        boost::tuples::get<4>(tuple_pack(1,2,3,4,m)) = 10;
         BOOST_CHECK(m == 10);
     }
     {
         int x, y, z;
-        pack(x, y, z) = pack(1, 2, 3);
+        tuple_pack(x, y, z) = tuple_pack(1, 2, 3);
         BOOST_CHECK( x == 1 && y == 2 && z == 3 );
     }
 }

@@ -14,7 +14,7 @@
 
 // Note:
 //
-// This could be implementedy by 'compose' with 'tuples::pack',
+// This could be implementedy by 'compose' with 'tuple_pack',
 // but this is the basis together with 'fuse'.
 
 
@@ -28,7 +28,7 @@
 #include <pstade/result_of.hpp>
 #include <pstade/use_default.hpp>
 #include "../apply_params.hpp"
-#include "../tuple/pack.hpp"
+#include "../tuple_pack.hpp"
 #include "./use_nullary_result.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_ARITY
 
@@ -57,7 +57,7 @@ namespace pstade { namespace egg { namespace detail {
     struct baby_unfuse_result
     {
         typedef Base base_type;
-        typedef typename if_use_default<Pack, tuples::op_pack>::type pack_type;
+        typedef typename if_use_default<Pack, op_tuple_pack>::type pack_type;
 
         Base m_base;
         pack_type m_pack;

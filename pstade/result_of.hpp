@@ -12,6 +12,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// What:
+//
+// Works around the bugs:
+//   1. boost::result_of can't work with cv-qualified function-pointer.
+//   2. boost::result_of of Boost1.34 + msvc-7.1/8.0 can't work with template pod functor.
+
+
 // <boost/preprocessor.hpp> is too big.
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/punctuation/comma_if.hpp>

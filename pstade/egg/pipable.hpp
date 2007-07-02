@@ -24,7 +24,7 @@ namespace pstade { namespace egg {
 
 
     template<class Base>
-    struct pipable_result
+    struct result_of_pipable
     {
         typedef
             function< detail::baby_pipable_result<Base> >
@@ -39,7 +39,7 @@ namespace pstade { namespace egg {
 
     typedef
         generator<
-            pipable_result< deduce<boost::mpl::_1, as_value> >::type,
+            result_of_pipable< deduce<boost::mpl::_1, as_value> >::type,
             detail::use_brace_level1
         >::type
     op_pipable;

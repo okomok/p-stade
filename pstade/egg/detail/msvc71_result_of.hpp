@@ -1,6 +1,6 @@
 #ifndef BOOST_PP_IS_ITERATING
-#ifndef PSTADE_DETAIL_MSVC71_RESULT_OF_HPP
-#define PSTADE_DETAIL_MSVC71_RESULT_OF_HPP
+#ifndef PSTADE_EGG_DETAIL_MSVC71_RESULT_OF_HPP
+#define PSTADE_EGG_DETAIL_MSVC71_RESULT_OF_HPP
 #include "./prefix.hpp"
 
 
@@ -32,12 +32,12 @@
 #include <boost/preprocessor/seq/enum.hpp>
 #include <boost/preprocessor/seq/for_each_i.hpp>
 #include <boost/preprocessor/seq/for_each_product.hpp>
-#include <boost/utility/result_of.hpp>
 #include <pstade/preprocessor.hpp>
+#include <pstade/result_of.hpp>
 
 
-#if !defined(PSTADE_DETAIL_MSVC71_RESULT_OF_MAX_ARITY)
-    #define PSTADE_DETAIL_MSVC71_RESULT_OF_MAX_ARITY 5
+#if !defined(PSTADE_EGG_MSVC71_RESULT_OF_MAX_ARITY)
+    #define PSTADE_EGG_MSVC71_RESULT_OF_MAX_ARITY 5
 #endif
 
 
@@ -54,13 +54,13 @@ namespace pstade { namespace egg { namespace detail_msvc71 {
 
     template<class Fun, class A0>
     struct result_of1< Fun, A0 > :
-        boost::result_of<Fun(A0)>
+        pstade::result_of<Fun(A0)>
     { };
 
     // Delay to const-qualify for array type.
     template<class Fun, class A0>
     struct result_of1< Fun, const_ref<A0> > :
-        boost::result_of<Fun(A0 const&)> // Write 'const' without metafuntion for 'result_of'.
+        pstade::result_of<Fun(A0 const&)> // Write 'const' without metafuntion for 'result_of'.
     { };
 
 
@@ -74,7 +74,7 @@ namespace pstade { namespace egg { namespace detail_msvc71 {
     #define PSTADE_result_of_aux(ArgTypes, Params) \
         template<class Fun, BOOST_PP_ENUM_PARAMS(n, class A)> \
         struct BOOST_PP_CAT(result_of, n)< Fun, ArgTypes > : \
-            boost::result_of<Fun(Params)> \
+            pstade::result_of<Fun(Params)> \
         { }; \
     /**/
     #define PSTADE_arg_type(R, _, I, Bit) BOOST_PP_COMMA_IF(I) BOOST_PP_CAT(PSTADE_ac, Bit)(BOOST_PP_CAT(A, I))
@@ -83,7 +83,7 @@ namespace pstade { namespace egg { namespace detail_msvc71 {
     #define PSTADE_c1 const&
     #define PSTADE_ac0(A) A
     #define PSTADE_ac1(A) const_ref<A>
-        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_DETAIL_MSVC71_RESULT_OF_MAX_ARITY, <pstade/detail/msvc71_result_of.hpp>))
+        #define  BOOST_PP_ITERATION_PARAMS_1 (3, (2, PSTADE_EGG_MSVC71_RESULT_OF_MAX_ARITY, <pstade/egg/detail/msvc71_result_of.hpp>))
         #include BOOST_PP_ITERATE()
     #undef  PSTADE_ac1
     #undef  PSTADE_ac0

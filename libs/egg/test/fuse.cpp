@@ -14,7 +14,7 @@
 
 
 #include <boost/noncopyable.hpp>
-#include <pstade/egg/tuple/pack.hpp>
+#include <pstade/egg/tuple_pack.hpp>
 #include <pstade/unused.hpp>
 
 
@@ -61,12 +61,12 @@ void pstade_minimal_test()
     }
     {
         ::nc x;
-        BOOST_CHECK( fuse(&::take_nc)(pstade::egg::tuples::pack(x)) == 3 );
+        BOOST_CHECK( fuse(&::take_nc)(pstade::egg::tuple_pack(x)) == 3 );
     }
     {
         ::my_f f0;
-        fuse_result< ::my_f >::type f1 = PSTADE_EGG_FUSE_RESULT_INITIALIZER(f0);
-        fuse_result< ::my_f >::type f2 = PSTADE_EGG_FUSE_RESULT_INITIALIZER({});
+        result_of_fuse< ::my_f >::type f1 = PSTADE_EGG_FUSE_RESULT_INITIALIZER(f0);
+        result_of_fuse< ::my_f >::type f2 = PSTADE_EGG_FUSE_RESULT_INITIALIZER({});
         pstade::unused(f1, f2);
     }
 }
