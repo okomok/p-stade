@@ -86,17 +86,17 @@ void pstade_minimal_test()
     }
     {
         // make_zero is known to be nullary and composable to increment.
-        BOOST_CHECK( xp_compose<use_nullary_result>::type()(&::increment, &::make_zero)() == 1 );
-        ::nullary_result_of_check( xp_compose<use_nullary_result>::type()(&::increment, &::make_zero) );
+        BOOST_CHECK( xp_compose<use_nullary_result>()(&::increment, &::make_zero)() == 1 );
+        ::nullary_result_of_check( xp_compose<use_nullary_result>()(&::increment, &::make_zero) );
     }
     {
         // specify nullary result type explicity.
-        BOOST_CHECK( xp_compose<int>::type()(&::increment, &::make_zero)() == 1 );
-        ::nullary_result_of_check( xp_compose<int>::type()(&::increment, &::make_zero) );
+        BOOST_CHECK( xp_compose<int>()(&::increment, &::make_zero)() == 1 );
+        ::nullary_result_of_check( xp_compose<int>()(&::increment, &::make_zero) );
     }
     {
         // well-formed even if non-composable.
         compose(&::get_A, &::get_B);
-        xp_compose<int>::type()(&::get_A, &::get_B);
+        xp_compose<int>()(&::get_A, &::get_B);
     }
 }

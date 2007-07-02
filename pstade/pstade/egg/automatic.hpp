@@ -30,7 +30,7 @@ namespace pstade { namespace egg {
 
     template<class Lambda>
     struct automatic :
-        unfuse_result<
+        result_of_unfuse<
             function< detail::baby_fused_automatic<Lambda> >,
             boost::use_default,
             use_nullary_result

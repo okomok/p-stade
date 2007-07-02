@@ -92,7 +92,7 @@ namespace pstade { namespace egg {
     #undef  PSTADE_call_operator_aux
     #undef  PSTADE_call_operator
 
-        #include PSTADE_EGG_DETAIL_SIG()
+        #include PSTADE_EGG_SIG()
     };
 
 

@@ -11,6 +11,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+//  Copyright 2004 Eric Niebler. Distributed under the Boost
+//  Software License, Version 1.0. (See accompanying file
+//  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+
+
 // What:
 //
 // GCC3.4.4 cannot order overloadings of non-const-reference and const-reference
@@ -24,11 +29,6 @@
 //
 // After all, GCC overload-resolution is broken with explicit template argument.
 // We sooner or later need 'ARRAY_OVERLOADED', too.
-
-
-//  Copyright 2004 Eric Niebler. Distributed under the Boost
-//  Software License, Version 1.0. (See accompanying file
-//  LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
 
 #include <boost/config.hpp>

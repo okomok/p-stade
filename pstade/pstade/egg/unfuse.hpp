@@ -28,7 +28,7 @@ namespace pstade { namespace egg {
         class Pack          = boost::use_default,
         class NullaryResult = boost::use_default
     >
-    struct unfuse_result
+    struct result_of_unfuse
     {
         typedef
             function< detail::baby_unfuse_result<Base, Pack, NullaryResult> >
@@ -42,9 +42,9 @@ namespace pstade { namespace egg {
 
 
     template<class NullaryResult = boost::use_default>
-    struct xp_unfuse :
+    struct tp_unfuse :
         generator<
-            typename unfuse_result<
+            typename result_of_unfuse<
                 deduce<boost::mpl::_1, as_value>,
                 deduce<boost::mpl::_2, as_value, boost::use_default>,
                 NullaryResult
@@ -54,7 +54,13 @@ namespace pstade { namespace egg {
     { };
 
 
-    typedef xp_unfuse<>::type op_unfuse;
+    template<class NullaryResult = boost::use_default>
+    struct xp_unfuse :
+        tp_unfuse<NullaryResult>::type
+    { };
+
+
+    typedef tp_unfuse<>::type op_unfuse;
     PSTADE_EGG_OBJECT((op_unfuse), unfuse) = PSTADE_EGG_GENERATOR_INITIALIZER();
 
 

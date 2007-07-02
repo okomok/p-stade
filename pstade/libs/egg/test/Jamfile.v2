@@ -12,6 +12,7 @@ project
 
 test-suite "egg" :
     [ run adapt.cpp ]
+    [ run adaptable.cpp ]
     [ run auxiliary.cpp ]
     [ run compose.cpp ]
     [ run flip.cpp ]

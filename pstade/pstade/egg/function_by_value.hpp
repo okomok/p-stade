@@ -64,7 +64,7 @@ namespace pstade { namespace egg {
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_ARITY, <pstade/egg/function_by_value.hpp>))
         #include BOOST_PP_ITERATE()
 
-        #include PSTADE_EGG_DETAIL_SIG()
+        #include PSTADE_EGG_SIG()
     };
 
 
