@@ -18,6 +18,7 @@
 // varies from compiler to compiler...
 
 
+#include <boost/preprocessor/facilities/identity.hpp>
 #include "./detail/baby_fused_automatic.hpp"
 #include "./function.hpp"
 #include "./unfuse.hpp"
@@ -35,11 +36,11 @@ namespace pstade { namespace egg {
             boost::use_default,
             use_nullary_result
         >
-    { };
+    { }; // ::type = { { { {} }, {} } }
 
 
     #define PSTADE_EGG_AUTOMATIC_INITIALIZER() \
-        PSTADE_EGG_UNFUSE_RESULT_INITIALIZER({ {} }, {})
+        PSTADE_EGG_UNFUSE_RESULT_INITIALIZER(BOOST_PP_IDENTITY({ {} }), BOOST_PP_IDENTITY({}))
     /**/
 
 

@@ -32,12 +32,12 @@ namespace pstade { namespace egg {
     {
         typedef
             function< detail::baby_unfuse_result<Base, Pack, NullaryResult> >
-        type;
+        type; // = { { Base, Pack } };
     };
 
 
     #define PSTADE_EGG_UNFUSE_RESULT_INITIALIZER(B, P) \
-        { { B, P } } \
+        { { B(), P() } } \
     /**/
 
 

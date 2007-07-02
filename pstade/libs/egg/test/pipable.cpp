@@ -17,6 +17,7 @@
 #include <boost/mpl/placeholders.hpp>
 #include <pstade/unparenthesize.hpp>
 #include <boost/preprocessor/cat.hpp>
+#include <boost/preprocessor/facilities/identity.hpp>
 
 
     #define PSTADE_EGG_PIPABLE(O, F) \
@@ -24,7 +25,7 @@
             using namespace boost::mpl::placeholders; \
             typedef pstade::egg::result_of_pipable<PSTADE_UNPARENTHESIZE(F)>::type pipe; \
         } \
-        PSTADE_EGG_OBJECT((BOOST_PP_CAT(pstade_egg_pipable_workarea_of_, O)::pipe), O) = PSTADE_EGG_PIPABLE_RESULT_INITIALIZER({}); \
+        PSTADE_EGG_OBJECT((BOOST_PP_CAT(pstade_egg_pipable_workarea_of_, O)::pipe), O) = PSTADE_EGG_PIPABLE_RESULT_INITIALIZER(BOOST_PP_IDENTITY({})); \
     /**/
 
 

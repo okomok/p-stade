@@ -102,7 +102,7 @@ void pstade_minimal_test()
         BOOST_CHECK( unfuse(&::take_nc)(x, y) == 3 );
     }
     {
-        result_of_unfuse< ::zero >::type x = PSTADE_EGG_UNFUSE_RESULT_INITIALIZER({},{});
+        result_of_unfuse< ::zero >::type x = PSTADE_EGG_UNFUSE_RESULT_INITIALIZER(BOOST_PP_IDENTITY({}), BOOST_PP_IDENTITY({}));
         (void)x;
     }
 }

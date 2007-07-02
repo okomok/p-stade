@@ -28,12 +28,12 @@ namespace pstade { namespace egg {
     {
         typedef
             function< detail::baby_pipable_result<Base> >
-        type;
+        type; // = { { Base } };
     };
 
 
     #define PSTADE_EGG_PIPABLE_RESULT_INITIALIZER(B) \
-        { { B } } \
+        { { B() } } \
     /**/
 
 

@@ -13,6 +13,7 @@
 #include <pstade/minimal_test.hpp>
 
 
+#include <boost/preprocessor/facilities/identity.hpp>
 #include <boost/noncopyable.hpp>
 #include <pstade/egg/tuple_pack.hpp>
 #include <pstade/unused.hpp>
@@ -65,8 +66,8 @@ void pstade_minimal_test()
     }
     {
         ::my_f f0;
-        result_of_fuse< ::my_f >::type f1 = PSTADE_EGG_FUSE_RESULT_INITIALIZER(f0);
-        result_of_fuse< ::my_f >::type f2 = PSTADE_EGG_FUSE_RESULT_INITIALIZER({});
+        result_of_fuse< ::my_f >::type f1 = PSTADE_EGG_FUSE_RESULT_INITIALIZER(BOOST_PP_IDENTITY(f0));
+        result_of_fuse< ::my_f >::type f2 = PSTADE_EGG_FUSE_RESULT_INITIALIZER(BOOST_PP_IDENTITY({}));
         pstade::unused(f1, f2);
     }
 }

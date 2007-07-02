@@ -1,24 +1,19 @@
 
+#include <boost/foreach.hpp>
+#include <string>
+#include <iostream>
 
 
-template<typename T> struct static_const
+template<class Range>
+Range const& identity(Range const& rng)
 {
- static T const value;
-};
+	return rng;
+}
 
-template<typename T>
-T const static_const<T>::value = T();
-
-struct placeholder
-{
-    placeholder() {}
-};
-
-// This is *supposed* to be statically initialized but many
-// compilers do dynamic initialization for it. :-(
-placeholder const &_1 = static_const<placeholder>::value;
 
 int main()
 {
-    (placeholder volatile* volatile)(&_1);
+    BOOST_FOREACH (char ch, ::identity(std::string("dangling"))) {
+        std::cout << ch;
+    }
 }
