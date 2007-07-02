@@ -28,12 +28,12 @@ namespace pstade { namespace egg {
     {
         typedef
             function< detail::baby_fuse_result<Base> >
-        type;
+        type; // = { { Base } };
     };
 
 
     #define PSTADE_EGG_FUSE_RESULT_INITIALIZER(B) \
-        { { B } } \
+        { { B() } } \
     /**/
 
 

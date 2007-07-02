@@ -25,7 +25,7 @@ namespace pstade { namespace egg {
     {
         typedef
             function< detail::baby_adapt<Lambda> >
-        type;
+        type; // = { {} };
     };
 
 

@@ -99,11 +99,11 @@ namespace pstade { namespace egg {
     {
         typedef
             function< baby_auxiliary0_result<UnaryBase> >
-        type;
+        type; // = { { UnaryBase } };
     };
 
     #define PSTADE_EGG_AUXILIARY_RESULT_INITIALIZER(B) \
-        { { B } } \
+        { { B() } } \
     /**/
 
     typedef
@@ -179,7 +179,7 @@ namespace pstade { namespace egg {
     {
         typedef
             function< PSTADE_PP_CAT3(baby_auxiliary, n, _result)<Base> >
-        type;
+        type; // = { { Base } };
     };
 
     typedef

@@ -41,7 +41,7 @@ namespace pstade { namespace egg {
         {
             return m_base(a0);
         }
-    };
+    }; // ::type = { Base };
 
     template<class A0>
     struct tp_unary_adaptable :
@@ -74,7 +74,7 @@ namespace pstade { namespace egg {
         {
             return m_base(a0, a1);
         }
-    };
+    }; // ::type = { Base };
 
     template<class A0, class A1>
     struct tp_binary_adaptable :

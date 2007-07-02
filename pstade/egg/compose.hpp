@@ -11,6 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/preprocessor/facilities/identity.hpp>
 #include "./detail/baby_fused_compose_result.hpp"
 #include "./function.hpp"
 #include "./function_by_value.hpp"
@@ -36,11 +37,12 @@ namespace pstade { namespace egg {
             boost::use_default,
             NullaryResult
         >
-    { };
+    { }; // ::type = { { { { F, G } }, {} } };
 
 
     #define PSTADE_EGG_COMPOSE_RESULT_INITIALIZER(F, G) \
-        { { { { F, G } }, {} } } \
+        /*PSTADE_PP_UNFUSE_RESULT_INITIALIZER({ { F, G } }, {})*/ \
+        { { { { F(), G() } }, {} } } \
     /**/
 
 
@@ -57,7 +59,7 @@ namespace pstade { namespace egg {
             template<class Result, class F, class G>
             Result call(F f, G g) const
             {
-                Result result = PSTADE_EGG_COMPOSE_RESULT_INITIALIZER(f, g);
+                Result result = PSTADE_EGG_COMPOSE_RESULT_INITIALIZER(BOOST_PP_IDENTITY(f), BOOST_PP_IDENTITY(g));
                 return result;
             }
         };

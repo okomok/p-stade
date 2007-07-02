@@ -18,6 +18,7 @@
 #include <pstade/test.hpp>
 
 
+#include <boost/preprocessor/facilities/identity.hpp>
 #include <pstade/unparenthesize.hpp>
 
 
@@ -27,7 +28,7 @@
             typedef ::boost::result_of< ::pstade::egg::BOOST_PP_CAT(op_auxiliary, N)(PSTADE_UNPARENTHESIZE(Function)) >::type op; \
         } \
         typedef BOOST_PP_CAT(pstade_auxiliary_workarea_of_, Object)::op BOOST_PP_CAT(op_, Object); \
-        PSTADE_EGG_OBJECT((BOOST_PP_CAT(op_, Object)), Object) = PSTADE_EGG_AUXILIARY_RESULT_INITIALIZER({}); \
+        PSTADE_EGG_OBJECT((BOOST_PP_CAT(op_, Object)), Object) = PSTADE_EGG_AUXILIARY_RESULT_INITIALIZER(BOOST_PP_IDENTITY({})); \
     /**/
 
 
