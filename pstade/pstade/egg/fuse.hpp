@@ -13,11 +13,11 @@
 
 #include <boost/mpl/placeholders.hpp>
 #include "./detail/baby_fuse_result.hpp"
-#include "./detail/use_brace_level1.hpp"
 #include "./generator.hpp"
 #include "./deduce.hpp"
 #include "./function.hpp"
 #include "./object.hpp"
+#include "./use_brace_level1.hpp"
 
 
 namespace pstade { namespace egg {
@@ -40,7 +40,7 @@ namespace pstade { namespace egg {
     typedef
         generator<
             result_of_fuse< deduce<boost::mpl::_1, as_value> >::type,
-            detail::use_brace_level1
+            use_brace_level1
         >::type
     op_fuse;
 

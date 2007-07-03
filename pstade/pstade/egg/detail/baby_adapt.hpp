@@ -12,6 +12,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// Copyright David Abrahams 2006. Distributed under the Boost
+// Software License, Version 1.0. (See accompanying
+// file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
+
+
 #include <boost/mpl/apply.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <boost/mpl/void.hpp>
@@ -21,7 +26,7 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include "../apply_params.hpp"
-#include "./config.hpp" // PSTADE_EGG_MAX_ARITY
+#include "../config.hpp" // PSTADE_EGG_MAX_ARITY
 
 
 namespace pstade { namespace egg { namespace detail {

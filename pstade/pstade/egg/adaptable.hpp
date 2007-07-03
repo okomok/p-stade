@@ -18,13 +18,15 @@
 
 #include <pstade/result_of.hpp>
 #include "./deduce.hpp"
-#include "./detail/use_brace_level0.hpp"
 #include "./generator.hpp"
 #include "./specified.hpp"
+#include "./use_brace_level0.hpp"
 
 
 namespace pstade { namespace egg {
 
+
+    // unary
 
     template<class Base, class A0>
     struct result_of_unary_adaptable
@@ -34,8 +36,8 @@ namespace pstade { namespace egg {
         Base m_base;
 
         // 'std::unary_function' would make this non-pod.
-	    typedef A0 argument_type;
-	    typedef typename result_of<Base const(A0&)>::type result_type;
+        typedef A0 argument_type;
+        typedef typename result_of<Base const(A0&)>::type result_type;
 
         result_type operator()(A0& a0) const
         {
@@ -43,11 +45,15 @@ namespace pstade { namespace egg {
         }
     }; // ::type = { Base };
 
+    #define PSTADE_UNARY_ADAPTABLE_INITIALIZER(B) \
+        { B() } \
+    /**/
+
     template<class A0>
     struct tp_unary_adaptable :
         generator<
             result_of_unary_adaptable<deduce<boost::mpl::_1, as_value>, A0>,
-            detail::use_brace_level0
+            use_brace_level0
         >
     { };
 
@@ -59,6 +65,8 @@ namespace pstade { namespace egg {
     PSTADE_EGG_SPECIFIED1(unary_adaptable, xp_unary_adaptable, (class))
 
 
+    // binary
+
     template<class Base, class A0, class A1>
     struct result_of_binary_adaptable
     {
@@ -66,9 +74,9 @@ namespace pstade { namespace egg {
 
         Base m_base;
 
-	    typedef A0 first_argument_type;
-	    typedef A1 second_argument_type;
-	    typedef typename result_of<Base const(A0&, A1&)>::type result_type;
+        typedef A0 first_argument_type;
+        typedef A1 second_argument_type;
+        typedef typename result_of<Base const(A0&, A1&)>::type result_type;
 
         result_type operator()(A0& a0, A1& a1) const
         {
@@ -76,11 +84,15 @@ namespace pstade { namespace egg {
         }
     }; // ::type = { Base };
 
+    #define PSTADE_BINARY_ADAPTABLE_INITIALIZER(B) \
+        { B() } \
+    /**/
+
     template<class A0, class A1>
     struct tp_binary_adaptable :
         generator<
             result_of_binary_adaptable<deduce<boost::mpl::_1, as_value>, A0, A1>,
-            detail::use_brace_level0
+            use_brace_level0
         >
     { };
 

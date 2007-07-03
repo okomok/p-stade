@@ -14,7 +14,7 @@
 #include <boost/preprocessor/arithmetic/inc.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
-#include "./detail/config.hpp"
+#include "./config.hpp"
 
 
 #define PSTADE_EGG_APPLY_PARAMS(A) \

@@ -11,8 +11,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/callable_by_value.hpp>
-#include <pstade/constant.hpp>
+#include <pstade/egg/function_by_value.hpp>
+#include <pstade/egg/object.hpp>
 
 
 namespace pstade {
@@ -21,13 +21,17 @@ namespace pstade {
     namespace to_value_detail_ {
 
 
-        struct op :
-            callable_by_value<op, op const&>
+        struct baby
         {
+            typedef
+                egg::function_by_value<baby>
+            nullary_result_type;
+
             template<class Result>
             Result call() const
             {
-                return *this;
+                Result result = { {} };
+                return result;
             }
 
             template<class Myself, class A>
@@ -44,6 +48,9 @@ namespace pstade {
         };
 
 
+        typedef egg::function_by_value<baby> op;
+
+
         template<class A> inline
         A operator|(A a, op)
         {
@@ -55,13 +62,11 @@ namespace pstade {
 
 
     typedef to_value_detail_::op op_to_value;
-    PSTADE_CONSTANT(to_value, (op_to_value))
+    PSTADE_EGG_OBJECT((op_to_value), to_value) = { {} };
 
 
 } // namespace pstade
 
-
-PSTADE_CALLABLE_NULLARY_RESULT_OF_TYPE(pstade::to_value_detail_::op)
 
 
 #endif

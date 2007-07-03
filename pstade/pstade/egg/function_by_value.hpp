@@ -24,7 +24,7 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/preprocessor.hpp>
-#include "./detail/config.hpp" // PSTADE_EGG_MAX_ARITY
+#include "./config.hpp" // PSTADE_EGG_MAX_ARITY
 #include "./detail/nullary_result.hpp"
 #include "./detail/sig.hpp"
 #include "./nullary_result_of.hpp"

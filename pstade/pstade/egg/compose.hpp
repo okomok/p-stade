@@ -12,9 +12,10 @@
 
 
 #include <boost/preprocessor/facilities/identity.hpp>
-#include "./detail/baby_fused_compose_result.hpp"
+#include <pstade/result_of.hpp>
 #include "./function.hpp"
 #include "./function_by_value.hpp"
+#include "./fuse.hpp"
 #include "./object.hpp"
 #include "./unfuse.hpp"
 
@@ -30,10 +31,37 @@ namespace pstade { namespace egg {
     // But, it is not a general solution. "compose2" to call 'f(g1, g2)' would be ill-formed after all.
 
 
+    namespace compose_detail {
+
+
+        template<class F, class G>
+        struct baby_fused_result
+        {
+            F m_f;
+            G m_g;
+
+            template<class Myself, class ArgTuple>
+            struct apply :
+                result_of<
+                    F const(typename result_of<typename result_of<op_fuse(G const&)>::type(ArgTuple&)>::type)
+                >
+            { };
+
+            template<class Result, class ArgTuple>
+            Result call(ArgTuple& args) const
+            {
+                return m_f(fuse(m_g)(args));
+            }
+        };
+
+
+    } // namespace compose_detail
+
+
     template<class F, class G, class NullaryResult = boost::use_default>
     struct result_of_compose :
         result_of_unfuse<
-            function< detail::baby_fused_compose_result<F, G> >,
+            function< compose_detail::baby_fused_result<F, G> >,
             boost::use_default,
             NullaryResult
         >
@@ -59,8 +87,8 @@ namespace pstade { namespace egg {
             template<class Result, class F, class G>
             Result call(F f, G g) const
             {
-                Result result = PSTADE_EGG_COMPOSE_RESULT_INITIALIZER(BOOST_PP_IDENTITY(f), BOOST_PP_IDENTITY(g));
-                return result;
+                Result r = PSTADE_EGG_COMPOSE_RESULT_INITIALIZER(BOOST_PP_IDENTITY(f), BOOST_PP_IDENTITY(g));
+                return r;
             }
         };
 

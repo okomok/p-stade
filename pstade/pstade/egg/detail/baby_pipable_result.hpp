@@ -20,9 +20,9 @@
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
 #include "../apply_params.hpp"
+#include "../config.hpp" // PSTADE_EGG_MAX_ARITY
 #include "../function_fwd.hpp"
 #include "../fuse.hpp"
-#include "./config.hpp" // PSTADE_EGG_MAX_ARITY
 
 
 namespace pstade { namespace egg { namespace detail {
@@ -52,8 +52,8 @@ namespace pstade { namespace egg { namespace detail {
         template<class Result>
         Result call() const
         {
-            Result result = { { m_base } };
-            return result;
+            Result r = { { m_base } };
+            return r;
         }
 
     // 1ary-
@@ -117,8 +117,8 @@ namespace pstade { namespace egg { namespace detail {
     Result call(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
     {
         typedef typename Result::baby_type baby_t;
-        Result result = { { m_base, typename baby_t::arguments_type(BOOST_PP_ENUM_PARAMS(n, a)) } };
-        return result;
+        Result r = { { m_base, typename baby_t::arguments_type(BOOST_PP_ENUM_PARAMS(n, a)) } };
+        return r;
     }
 
 

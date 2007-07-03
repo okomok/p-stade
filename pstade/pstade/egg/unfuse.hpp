@@ -14,10 +14,10 @@
 #include <boost/mpl/placeholders.hpp>
 #include "./deduce.hpp"
 #include "./detail/baby_unfuse_result.hpp"
-#include "./detail/use_brace_level1.hpp"
 #include "./function.hpp"
 #include "./generator.hpp"
 #include "./object.hpp"
+#include "./use_brace_level1.hpp"
 
 
 namespace pstade { namespace egg {
@@ -49,7 +49,7 @@ namespace pstade { namespace egg {
                 deduce<boost::mpl::_2, as_value, boost::use_default>,
                 NullaryResult
             >::type,
-            detail::use_brace_level1
+            use_brace_level1
         >
     { };
 
