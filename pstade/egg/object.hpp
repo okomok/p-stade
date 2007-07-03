@@ -16,7 +16,7 @@
 #include <boost/type_traits/is_pod.hpp>
 #include <pstade/in_unnamed.hpp>
 #include <pstade/unparenthesize.hpp>
-#include "./detail/config.hpp"
+#include "./config.hpp"
 
 
 #define PSTADE_EGG_OBJECT(F, O) \

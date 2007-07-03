@@ -18,9 +18,10 @@
 #include <boost/preprocessor/punctuation/comma_if.hpp>
 #include <boost/preprocessor/seq/for_each_i.hpp>
 #include <boost/preprocessor/seq/for_each_product.hpp>
+#include <boost/preprocessor/repetition/enum_params.hpp>
 #include <pstade/deduced_const.hpp>
 #include <pstade/preprocessor.hpp>
-#include "./detail/config.hpp" // PSTADE_EGG_MAX_ARITY
+#include "./config.hpp" // PSTADE_EGG_MAX_ARITY
 #include "./detail/nonref_arg.hpp"
 #include "./detail/nullary_result.hpp"
 #include "./detail/sig.hpp"

@@ -16,23 +16,74 @@
 // This couldn't support the reference type as 'To',
 // because the behavior of conversion-operator template
 // varies from compiler to compiler...
+//
+// 
+// 'x|foo' seems impossible without yet another 'function<>'.
+// Use 'x|foo()' instead.
 
 
+#include <boost/mpl/apply.hpp>
 #include <boost/preprocessor/facilities/identity.hpp>
-#include "./detail/baby_fused_automatic.hpp"
+#include <pstade/pass_by.hpp>
 #include "./function.hpp"
+#include "./fuse.hpp"
 #include "./unfuse.hpp"
 
 
 namespace pstade { namespace egg {
 
 
-    // 'x|foo' seems impossible without yet another 'function<>'.
+    namespace automatic_detail {
+
+
+        template<class Lambda, class ArgTuple>
+        struct automator
+        {
+            ArgTuple m_args;
+
+            template<class To>
+            operator To() const
+            {
+                typedef typename
+                    boost::mpl::apply1<Lambda, To>::type
+                fun_t;
+
+                return fuse(fun_t())(m_args);
+            }
+        };
+
+
+        template<class Lambda>
+        struct baby_fused
+        {
+            template<class Myself, class ArgTuple>
+            struct apply
+            {
+                typedef
+                    automator<
+                        Lambda, typename pass_by_value<ArgTuple>::type
+                    > const
+                type;
+            };
+
+            template<class Result, class ArgTuple>
+            Result call(ArgTuple& args) const
+            {
+                // 'automator' must *copy* it to 'm_args';
+                // 'args' is destructed as soon as this 'call' returns.
+                Result r = { args };
+                return r;
+            }
+        };
+
+
+    } // namespace automatic_detail
+
 
     template<class Lambda>
     struct automatic :
         result_of_unfuse<
-            function< detail::baby_fused_automatic<Lambda> >,
+            function< automatic_detail::baby_fused<Lambda> >,
             boost::use_default,
             use_nullary_result
         >

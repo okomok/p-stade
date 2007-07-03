@@ -26,9 +26,9 @@
 #include <pstade/preprocessor.hpp>
 #include <pstade/use_default.hpp>
 #include "../apply_params.hpp"
-#include "./config.hpp" // PSTADE_EGG_MAX_ARITY
+#include "../config.hpp" // PSTADE_EGG_MAX_ARITY
+#include "../use_constructor.hpp"
 #include "./template_arguments.hpp"
-#include "./use_constructor.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {

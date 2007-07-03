@@ -28,9 +28,9 @@
 #include <pstade/result_of.hpp>
 #include <pstade/use_default.hpp>
 #include "../apply_params.hpp"
+#include "../config.hpp" // PSTADE_EGG_MAX_ARITY
 #include "../tuple_pack.hpp"
 #include "./use_nullary_result.hpp"
-#include "./config.hpp" // PSTADE_EGG_MAX_ARITY
 
 
 namespace pstade { namespace egg { namespace detail {

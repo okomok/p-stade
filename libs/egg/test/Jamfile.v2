@@ -13,6 +13,7 @@ project
 test-suite "egg" :
     [ run adapt.cpp ]
     [ run adaptable.cpp ]
+    [ run automatic.cpp ]
     [ run auxiliary.cpp ]
     [ run compose.cpp ]
     [ run flip.cpp ]
@@ -23,6 +24,8 @@ test-suite "egg" :
     [ link multiple_defs1.cpp multiple_defs2.cpp : : multiple_defs ]
     [ link object1.cpp object2.cpp : : object ]
 #    [ link object1.cpp object2.cpp : <define>PSTADE_EGG_NO_ODR_VIOLATION : object_no_odr_violation ]
+    [ run not.cpp ]
+    [ run perfect.cpp ]
     [ run pipable.cpp ]
     [ run specified.cpp ]
     [ run template_arguments.cpp ]
