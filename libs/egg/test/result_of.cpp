@@ -16,7 +16,6 @@
 #include <boost/mpl/placeholders.hpp>
 #include <pstade/test.hpp>
 #include <pstade/egg/detail/config.hpp>
-#include <pstade/pod_constant.hpp>
 #include <pstade/has_xxx.hpp>
 
 

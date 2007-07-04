@@ -12,7 +12,6 @@
 #include <pstade/egg/generator.hpp>
 #include <pstade/egg/deduce.hpp>
 #include <pstade/minimal_test.hpp>
-#include <pstade/pod_constant.hpp>
 #include <pstade/unparenthesize.hpp>
 #include <pstade/egg/function.hpp>
 #include <pstade/egg/object.hpp>
@@ -82,19 +81,19 @@ PSTADE_TEST_IS_RESULT_OF((char), op_make_my_type_v())
 
 
 typedef generator< my_type< deduce<boost::mpl::_1, deducers::as_reference> > >::type op_make_my_type_r;
-PSTADE_POD_CONSTANT(make_my_type_r, (op_make_my_type_r))
+op_make_my_type_r const make_my_type_r = PSTADE_EGG_GENERATOR_INITIALIZER();
 PSTADE_TEST_IS_RESULT_OF((my_type<int const&>), op_make_my_type_r(int))
 PSTADE_TEST_IS_RESULT_OF((my_type<int&>), op_make_my_type_r(int&))
 
 
 typedef generator< my_type< deduce<boost::mpl::_1, deducers::as_qualified> > >::type op_make_my_type_q;
-PSTADE_POD_CONSTANT(make_my_type_q, (op_make_my_type_q))
+op_make_my_type_q const make_my_type_q = PSTADE_EGG_GENERATOR_INITIALIZER();
 PSTADE_TEST_IS_RESULT_OF((my_type<int const>), op_make_my_type_q(int))
 PSTADE_TEST_IS_RESULT_OF((my_type<int>), op_make_my_type_q(int&))
 
 
 typedef generator< my_type< deduce<boost::mpl::_1, deducers::as_value>, deduce<boost::mpl::_2, deducers::as_value, char> > >::type op_make_my_type_v_d;
-PSTADE_POD_CONSTANT(make_my_type_v_d, (op_make_my_type_v_d))
+op_make_my_type_v_d const make_my_type_v_d = PSTADE_EGG_GENERATOR_INITIALIZER();
 
 
 
@@ -165,7 +164,7 @@ struct deduce_to_hello :
 
 typedef generator< needs_all_param< deduce<boost::mpl::_1, deducers::as_value>, deduce_to_hello<boost::mpl::_1, boost::mpl::_2> > >::type op_make_nap;
 #if !defined(__GNUC__) // GCC3.4.4; internal compiler error: in lookup_member, at cp/search.c:1296
-    PSTADE_POD_CONSTANT(make_nap, (op_make_nap))
+    op_make_nap const make_nap = PSTADE_EGG_GENERATOR_INITIALIZER();
 #endif
 
 

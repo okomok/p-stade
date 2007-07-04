@@ -13,7 +13,6 @@
 #include <pstade/minimal_test.hpp>
 
 
-#include <pstade/pod_constant.hpp>
 #include <string>
 #include <boost/utility/result_of.hpp>
 #include <pstade/unused.hpp>
@@ -136,7 +135,7 @@ struct baby_identity
 };
 
 typedef pstade::egg::function<baby_identity> op_identity;
-PSTADE_POD_CONSTANT(identity, (op_identity))
+op_identity const identity = { {} };
 
 
 PSTADE_TEST_IS_RESULT_OF((int&), op_identity(int&))

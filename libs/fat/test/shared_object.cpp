@@ -9,7 +9,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/fat/construct.hpp>
+#include <pstade/fat/shared_object.hpp>
 #include <pstade/unit_test.hpp>
 
 
@@ -30,19 +30,29 @@ struct udt
 };
 
 
-PSTADE_TEST_IS_RESULT_OF((int), xp_construct<int>())
-PSTADE_TEST_IS_RESULT_OF((int), xp_construct<int>(int))
+void foo(boost::shared_ptr<udt> p = shared_object(1, 2))
+{ }
 
 
-PSTADE_TEST_IS_RESULT_OF((udt), xp_construct<udt>(int,int))
-PSTADE_TEST_IS_RESULT_OF((udt const), xp_construct<udt const>(int,int))
+boost::shared_ptr<udt> bar()
+{
+    return shared_object(1, 2);
+}
 
 
 void pstade_unit_test()
 {
     {
-        udt x = xp_construct<udt>()(1,2);
-        BOOST_CHECK(x.m_i == 1);
-        BOOST_CHECK(x.m_j == 2);
+        boost::shared_ptr<int> p = shared_object();
+        BOOST_CHECK(*p == 0);
+    }
+    {
+        boost::shared_ptr<udt> p = shared_object(1,2);
+        BOOST_CHECK(p->m_i == 1);
+        BOOST_CHECK(p->m_j == 2);
+    }
+    {
+        ::foo();
+        boost::shared_ptr<udt> p = ::bar();
     }
 }
