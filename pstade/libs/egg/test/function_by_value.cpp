@@ -17,7 +17,6 @@
 #include <memory> // auto_ptr
 #include <boost/utility/result_of.hpp>
 #include <pstade/unused.hpp>
-#include <pstade/pod_constant.hpp>
 #include <pstade/test.hpp>
 
 

@@ -10,17 +10,18 @@
 //#define BOOST_TYPEOF_EMULATION
 
 
-//#include <pstade/../libs/wine/test/result_of.cpp>
+//#include <pstade/../libs/wine/test/to_ref_value.cpp>
 
 //#include <pstade/../libs/oven/test/.cpp>
 //#include <pstade/../libs/oven/test/popped.cpp>
-//#include <pstade/../libs/oven/test/initial_ptrs.cpp>
+#include <pstade/../libs/oven/test/adjacent_filtered.cpp>
 //#include <pstade/../libs/oven/example/primes.cpp>
 //#include <pstade/../libs/biscuit/test/capture.cpp>
 //#include <pstade/../libs/oven/test/ms/atl_string.cpp>
 //#include <pstade/../libs/gravy/test/file_range.cpp>
 //#include <pstade/../libs/tomato/test/main_instance.cpp>
 //#include <pstade/detail/result_of.hpp>
-#include <pstade/../libs/egg/test/adapt.cpp>
+//#include <pstade/../libs/egg/test/not.cpp>
+//#include <pstade/../libs/fat/test/constructor.cpp>
 
 //#include <boost/../libs/oven/example/one_year.cpp>

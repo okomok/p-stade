@@ -9,7 +9,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/fat/construct.hpp>
+#include <pstade/fat/new_auto.hpp>
 #include <pstade/unit_test.hpp>
 
 
@@ -30,19 +30,19 @@ struct udt
 };
 
 
-PSTADE_TEST_IS_RESULT_OF((int), xp_construct<int>())
-PSTADE_TEST_IS_RESULT_OF((int), xp_construct<int>(int))
+PSTADE_TEST_IS_RESULT_OF((std::auto_ptr<int>), xp_new_auto<int>())
+PSTADE_TEST_IS_RESULT_OF((std::auto_ptr<int>), xp_new_auto<int>(int))
 
 
-PSTADE_TEST_IS_RESULT_OF((udt), xp_construct<udt>(int,int))
-PSTADE_TEST_IS_RESULT_OF((udt const), xp_construct<udt const>(int,int))
+PSTADE_TEST_IS_RESULT_OF((std::auto_ptr<udt>), xp_new_auto<udt>(int,int))
+PSTADE_TEST_IS_RESULT_OF((std::auto_ptr<udt const>), xp_new_auto<udt const>(int,int))
 
 
 void pstade_unit_test()
 {
     {
-        udt x = xp_construct<udt>()(1,2);
-        BOOST_CHECK(x.m_i == 1);
-        BOOST_CHECK(x.m_j == 2);
+        std::auto_ptr<udt> p = xp_new_auto<udt>()(1,2);
+        BOOST_CHECK(p->m_i == 1);
+        BOOST_CHECK(p->m_j == 2);
     }
 }

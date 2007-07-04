@@ -14,16 +14,15 @@
 // Note:
 //
 // This range is Constant;
-// the iteration depends on the "previous" values.
+// the iteration depends on the values.
 
 
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/iterator/iterator_traits.hpp>
-#include <boost/utility/result_of.hpp>
-#include <pstade/function.hpp>
 #include <pstade/pass_by.hpp>
-#include <pstade/pipable.hpp>
+#include <pstade/result_of.hpp>
 #include "./concepts.hpp"
+#include "./detail/adaptor.hpp"
 #include "./read.hpp"
 #include "./successors.hpp"
 
@@ -69,7 +68,7 @@ namespace adjacent_filtered_detail {
     {
         typedef filter is_constant;
 
-        template< class Iterator>
+        template< class Iterator >
         Iterator operator()(Iterator first, Iterator last) const
         {
             return here::filter_aux(first, last, m_pred,
@@ -89,14 +88,14 @@ namespace adjacent_filtered_detail {
 
 
     template< class Range, class BinaryPred >
-    struct baby
+    struct base
     {
         typedef typename
             pass_by_value<BinaryPred>::type
         pred_t;
 
         typedef typename
-            boost::result_of<
+            result_of<
                 op_make_successors(Range&, filter<pred_t>)
             >::type
         result_type;
@@ -112,8 +111,7 @@ namespace adjacent_filtered_detail {
 } // namespace adjacent_filtered_detail
 
 
-PSTADE_FUNCTION(make_adjacent_filtered, (adjacent_filtered_detail::baby<_, _>))
-PSTADE_PIPABLE(adjacent_filtered, (op_make_adjacent_filtered))
+PSTADE_OVEN_ADAPTOR(adjacent_filtered, (adjacent_filtered_detail::base<_, _>))
 
 
 } } // namespace pstade::oven

@@ -9,7 +9,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/fat/construct.hpp>
+#include <pstade/fat/auto_object.hpp>
 #include <pstade/unit_test.hpp>
 
 
@@ -30,19 +30,29 @@ struct udt
 };
 
 
-PSTADE_TEST_IS_RESULT_OF((int), xp_construct<int>())
-PSTADE_TEST_IS_RESULT_OF((int), xp_construct<int>(int))
+void foo(std::auto_ptr<udt> p = auto_object(1, 2))
+{ }
 
 
-PSTADE_TEST_IS_RESULT_OF((udt), xp_construct<udt>(int,int))
-PSTADE_TEST_IS_RESULT_OF((udt const), xp_construct<udt const>(int,int))
+std::auto_ptr<udt> bar()
+{
+    return auto_object(1, 2);
+}
 
 
 void pstade_unit_test()
 {
     {
-        udt x = xp_construct<udt>()(1,2);
-        BOOST_CHECK(x.m_i == 1);
-        BOOST_CHECK(x.m_j == 2);
+        std::auto_ptr<int> p = auto_object();
+        BOOST_CHECK(*p == 0);
+    }
+    {
+        std::auto_ptr<udt> p = auto_object(1,2);
+        BOOST_CHECK(p->m_i == 1);
+        BOOST_CHECK(p->m_j == 2);
+    }
+    {
+        ::foo();
+        std::auto_ptr<udt> p = ::bar();
     }
 }

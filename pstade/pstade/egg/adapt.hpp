@@ -11,7 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/mpl/placeholders.hpp>
+#include <boost/mpl/placeholders.hpp> // inclusion guaranteed
 #include "./detail/as_mpl_lambda.hpp"
 #include "./detail/baby_adapt.hpp"
 #include "./function.hpp"
