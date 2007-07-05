@@ -10,6 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include "./auto_ptr_fwd.hpp"
 #include "./basic_ostream_fwd.hpp"
 #include "./basic_string_fwd.hpp"
 #include "./deque_fwd.hpp"
