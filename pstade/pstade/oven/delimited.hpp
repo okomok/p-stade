@@ -11,10 +11,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/result_of.hpp>
 #include "./concatenated.hpp"
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
@@ -39,7 +39,7 @@ namespace delimited_detail {
 
         template< class Myself, class LocalRange >
         struct apply :
-            boost::result_of<
+            result_of<
                 op_make_jointed(delim_t const&, LocalRange&)
             >
         { };
@@ -66,9 +66,9 @@ namespace delimited_detail {
     struct baby
     {
         typedef
-            typename boost::result_of<
+            typename result_of<
                 op_make_concatenated(
-                    typename boost::result_of<
+                    typename result_of<
                         op_make_transformed<>(SegmentRange&, join<DelimiterRange>)
                     >::type
                 )

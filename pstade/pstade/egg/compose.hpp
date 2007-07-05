@@ -68,8 +68,9 @@ namespace pstade { namespace egg {
     { }; // ::type = { { { { F, G } }, {} } };
 
 
+    // Unfortunately, "{ { F(), G() } }, {}" can't be passed
+    // to PSTADE_PP_UNFUSE_RESULT_INITIALIZER because of commas.
     #define PSTADE_EGG_COMPOSE_RESULT_INITIALIZER(F, G) \
-        /*PSTADE_PP_UNFUSE_RESULT_INITIALIZER({ { F, G } }, {})*/ \
         { { { { F(), G() } }, {} } } \
     /**/
 

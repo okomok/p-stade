@@ -10,8 +10,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
+#include <pstade/result_of.hpp>
 #include "../../match_results/default_type.hpp"
 #include "../../state/null_state.hpp"
 #include "../../state/parsing_range_state_type.hpp"
@@ -32,7 +32,7 @@ struct op_without_results :
         results_t;
 
         typedef typename
-            boost::result_of<
+            result_of<
                 Op<Parser>(ParsingRange&, results_t&, UserState&)
             >::type
         type;

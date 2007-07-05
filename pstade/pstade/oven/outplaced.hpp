@@ -20,9 +20,9 @@
 #include <vector>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/utility/result_of.hpp>
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/result_of.hpp>
 #include "./concepts.hpp"
 #include "./outdirected.hpp"
 #include "./range_iterator.hpp"
@@ -54,7 +54,7 @@ namespace outplaced_detail {
         iter_seq_t;
 
         typedef typename
-            boost::result_of<
+            result_of<
                 op_shared(iter_seq_t *)
             >::type
         result_type;
@@ -62,7 +62,7 @@ namespace outplaced_detail {
         result_type operator()(Range& rng) const
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
-            typename boost::result_of<op_make_outdirected(Range&)>::type its = make_outdirected(rng);
+            typename result_of<op_make_outdirected(Range&)>::type its = make_outdirected(rng);
             return shared( new iter_seq_t(boost::begin(its), boost::end(its)) );
         }
     };

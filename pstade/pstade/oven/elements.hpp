@@ -12,10 +12,10 @@
 
 
 #include <boost/mpl/int.hpp>
-#include <boost/utility/result_of.hpp>
 #include <pstade/affect.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/deduced_const.hpp>
+#include <pstade/result_of.hpp>
 #include <pstade/specified.hpp>
 #include <pstade/tuple.hpp>
 #include "./concepts.hpp"
@@ -44,7 +44,7 @@ private:
 public:
     template< class Myself, class TupleRange >
     struct apply :
-        boost::result_of<
+        result_of<
             op_make_transformed<typename ref_of<TupleRange>::type>(
                 TupleRange&, op_tuple_get<N>
             )
@@ -91,14 +91,14 @@ namespace elements_detail_ {
 
 
     template< class TupleRange, class N > inline
-    typename boost::result_of<op_make_elements<N>(TupleRange&)>::type
+    typename result_of<op_make_elements<N>(TupleRange&)>::type
     operator|(TupleRange& rng, elements<N>)
     {
         return op_make_elements<N>()(rng);
     }
 
     template< class TupleRange, class N > inline
-    typename boost::result_of<op_make_elements<N>(PSTADE_DEDUCED_CONST(TupleRange)&)>::type
+    typename result_of<op_make_elements<N>(PSTADE_DEDUCED_CONST(TupleRange)&)>::type
     operator|(TupleRange const& rng, elements<N>)
     {
         return op_make_elements<N>()(rng);

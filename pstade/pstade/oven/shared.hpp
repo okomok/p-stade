@@ -13,9 +13,9 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/utility/result_of.hpp>
 #include <pstade/callable_by_value.hpp>
 #include <pstade/constant.hpp>
+#include <pstade/result_of.hpp>
 #include <pstade/to_shared_ptr.hpp>
 #include "./concepts.hpp"
 #include "./detail/shared_range_iterator.hpp"
@@ -32,7 +32,7 @@ struct op_shared :
     struct apply
     {
         typedef typename
-            boost::result_of<op_to_shared_ptr<>(Ptr&)>::type
+            result_of<op_to_shared_ptr<>(Ptr&)>::type
         sprng_t;
 
         typedef
@@ -50,7 +50,7 @@ struct op_shared :
         PSTADE_CONCEPT_ASSERT((SinglePass<typename boost::pointee<Ptr>::type>));
 
         typedef typename Result::iterator iter_t;
-        typename boost::result_of<op_to_shared_ptr<>(Ptr&)>::type sprng = to_shared_ptr(prng);
+        typename result_of<op_to_shared_ptr<>(Ptr&)>::type sprng = to_shared_ptr(prng);
         return Result(
             iter_t(boost::begin(*sprng), sprng),
             iter_t(boost::end(*sprng),   sprng)

@@ -27,9 +27,9 @@
 
 
 #include <boost/assert.hpp>
-#include <boost/utility/result_of.hpp>
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/result_of.hpp>
 #include "./concepts.hpp"
 #include "./counting.hpp"
 #include "./distance.hpp"
@@ -85,12 +85,12 @@ namespace sliced_detail {
         diff_t;
 
         typedef typename
-            boost::result_of<
+            result_of<
                 op_make_permuted(
                     Range&,
-                    typename boost::result_of<
+                    typename result_of<
                         op_make_transformed<>(
-                            typename boost::result_of<op_counting<>(int, diff_t)>::type,
+                            typename result_of<op_counting<>(int, diff_t)>::type,
                             to_index<diff_t>
                         )
                     >::type

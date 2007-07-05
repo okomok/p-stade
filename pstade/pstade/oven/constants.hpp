@@ -13,6 +13,7 @@
 
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/result_of.hpp>
 #include "./concepts.hpp"
 #include "./converted.hpp"
 #include "./detail/constant_reference.hpp"
@@ -35,7 +36,7 @@ namespace constants_detail {
         ref_t;
 
         typedef typename
-            boost::result_of<
+            result_of<
                 op_make_converted<ref_t>(Range&)
             >::type
         result_type;

@@ -11,11 +11,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/utility/result_of.hpp>
+#include <boost/optional/optional.hpp>
 #include <pstade/function.hpp>
 #include <pstade/object_generator.hpp>
-#include <boost/optional/optional.hpp>
 #include <pstade/pass_by.hpp>
+#include <pstade/result_of.hpp>
 #include "./detail/begin_end_tag.hpp"
 #include "./detail/generator_iterator.hpp"
 #include "./iter_range.hpp"
@@ -64,7 +64,7 @@ namespace nonstop_detail {
     {
         typedef
             boost::optional<
-                typename boost::result_of<Generator()>::type
+                typename result_of<Generator()>::type
             >
         result_type;
 

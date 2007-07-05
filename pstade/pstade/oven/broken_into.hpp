@@ -17,6 +17,7 @@
 #include <pstade/callable.hpp>
 #include <pstade/deduced_const.hpp>
 #include <pstade/pass_by.hpp>
+#include <pstade/result_of.hpp>
 #include <pstade/specified.hpp>
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
@@ -83,14 +84,14 @@ namespace broken_into_detail_ {
 
 
     template< class Range, class TokenizerFun, class Type > inline
-    typename boost::result_of<op_make_broken_into<Type>(Range&, TokenizerFun&)>::type
+    typename result_of<op_make_broken_into<Type>(Range&, TokenizerFun&)>::type
     operator|(Range& rng, pipe<Type, TokenizerFun> pi)
     {
         return op_make_broken_into<Type>()(rng, pi.m_fun);
     }
 
     template< class Range, class TokenizerFun, class Type > inline
-    typename boost::result_of<op_make_broken_into<Type>(PSTADE_DEDUCED_CONST(Range)&, TokenizerFun&)>::type
+    typename result_of<op_make_broken_into<Type>(PSTADE_DEDUCED_CONST(Range)&, TokenizerFun&)>::type
     operator|(Range const& rng, pipe<Type, TokenizerFun> pi)
     {
         return op_make_broken_into<Type>()(rng, pi.m_fun);

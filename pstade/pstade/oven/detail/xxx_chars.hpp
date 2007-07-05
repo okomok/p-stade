@@ -12,8 +12,7 @@
 
 
 #include <locale>
-#include <boost/utility/result_of.hpp>
-#include <pstade/deferred.hpp>
+#include <pstade/result_of.hpp>
 #include "../concepts.hpp"
 #include "../range_value.hpp"
 #include "../transformed.hpp"
@@ -26,8 +25,8 @@ template< class BinaryFun, class CharT >
 struct to_xxx_char
 {
     typedef typename
-        boost::result_of<
-            PSTADE_DEFERRED(BinaryFun const)(CharT&, std::locale const&)
+        result_of<
+            BinaryFun const(CharT&, std::locale const&)
         >::type
     result_type;
 
@@ -54,7 +53,7 @@ struct xxx_chars :
 {
     template< class Myself, class Range, class Locale = std::locale const >
     struct apply :
-        boost::result_of<
+        result_of<
             op_make_transformed<>(
                 Range&,
                 to_xxx_char<BinaryFun, typename range_value<Range>::type>

@@ -35,7 +35,7 @@ struct op_results_match :
     Result call(ParsingRange& r, MatchResults& rs, UserState& us) const
     {
         typedef typename parsing_range_state<ParsingRange, MatchResults>::type state_t;
-        
+
         state_t s(r, rs);
         return Parser::parse(s, us) && (s.get_cur() == boost::end(r));
     }

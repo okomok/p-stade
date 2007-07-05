@@ -14,7 +14,7 @@
 #include <vector>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/utility/result_of.hpp>
+#include <pstade/result_of.hpp>
 #include "./indirected.hpp"
 #include "./range_iterator.hpp"
 
@@ -49,7 +49,7 @@ namespace sub_set_detail {
 
     template< class Range >
     struct super_ :
-        boost::result_of<
+        result_of<
             op_make_indirected<>(typename init<Range>::storage_type&)
         >
     { };

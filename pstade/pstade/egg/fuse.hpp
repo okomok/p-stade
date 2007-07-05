@@ -12,10 +12,10 @@
 
 
 #include <boost/mpl/placeholders.hpp>
-#include "./detail/baby_fuse_result.hpp"
-#include "./generator.hpp"
 #include "./deduce.hpp"
+#include "./detail/baby_fuse_result.hpp"
 #include "./function.hpp"
+#include "./generator.hpp"
 #include "./object.hpp"
 #include "./use_brace_level1.hpp"
 

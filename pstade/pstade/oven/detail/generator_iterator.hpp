@@ -19,9 +19,9 @@
 
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_facade.hpp>
-#include <boost/utility/result_of.hpp>
 #include <pstade/indirect.hpp>
 #include <pstade/remove_cvr.hpp>
+#include <pstade/result_of.hpp>
 #include "./begin_end_tag.hpp"
 
 
@@ -36,11 +36,11 @@ template< class StoppableGenerator >
 struct generator_iterator_super
 {
     typedef typename
-        boost::result_of<StoppableGenerator()>::type
+        result_of<StoppableGenerator()>::type
     result_t;
 
     typedef typename
-        boost::result_of<op_indirect(result_t const&)>::type
+        result_of<op_indirect(result_t const&)>::type
     ref_t;
 
     typedef typename
@@ -65,7 +65,7 @@ struct generator_iterator :
 private:
     typedef typename generator_iterator_super<StoppableGenerator>::type super_t;
     typedef typename super_t::reference ref_t;
-    typedef typename boost::result_of<StoppableGenerator()>::type result_t;
+    typedef typename result_of<StoppableGenerator()>::type result_t;
 
 public:
 

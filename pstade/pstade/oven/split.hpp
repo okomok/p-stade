@@ -12,10 +12,10 @@
 
 
 #include <boost/tuple/tuple.hpp>
-#include <boost/utility/result_of.hpp>
 #include <pstade/function.hpp>
 #include <pstade/functional.hpp> // not_
 #include <pstade/pipable.hpp>
+#include <pstade/result_of.hpp>
 #include "./concepts.hpp"
 #include "./filtered.hpp"
 #include "./zipped.hpp"
@@ -31,14 +31,14 @@ namespace split_detail {
     struct baby
     {
         typedef typename
-            boost::result_of<
+            result_of<
                 op_make_filtered(Range&, Predicate&)
             >::type
         rng1_t;
 
         typedef typename
-            boost::result_of<
-                op_make_filtered(Range&, typename boost::result_of<pstade::op_not_(Predicate&)>::type)
+            result_of<
+                op_make_filtered(Range&, typename result_of<pstade::op_not_(Predicate&)>::type)
             >::type
         rng2_t;
 
@@ -47,7 +47,7 @@ namespace split_detail {
         tuple_t;
 
         typedef typename
-            boost::result_of<
+            result_of<
                 op_make_zipped(tuple_t)
             >::type
         result_type;

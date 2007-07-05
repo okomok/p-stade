@@ -32,8 +32,8 @@
 
 #include <boost/shared_ptr.hpp>
 #include <boost/utility/addressof.hpp>
-#include <boost/utility/result_of.hpp>
 #include <pstade/function.hpp>
+#include <pstade/result_of.hpp>
 #include "./applier.hpp"
 
 
@@ -87,7 +87,7 @@ namespace stream_writer_detail {
     struct baby
     {
         typedef typename
-            boost::result_of<
+            result_of<
                 op_applier(write_onto<OStream>)
             >::type
         result_type;

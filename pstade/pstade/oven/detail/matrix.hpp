@@ -16,11 +16,11 @@
 
 
 #include <boost/assert.hpp>
-#include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/result_of.hpp>
 #include <pstade/unused.hpp>
 #include "../concepts.hpp"
 #include "../counting.hpp"
@@ -47,7 +47,7 @@ namespace rows_detail {
         rng_t;
 
         typedef typename
-            boost::result_of<
+            result_of<
                 op_make_window(rng_t const&, Difference, Difference)
             >::type
         result_type;
@@ -78,9 +78,9 @@ namespace rows_detail {
         diff_t;
 
         typedef typename
-            boost::result_of<
+            result_of<
                 op_make_transformed<>(
-                    typename boost::result_of<op_counting<>(int, diff_t&)>::type,
+                    typename result_of<op_counting<>(int, diff_t&)>::type,
                     to_row<Range, diff_t>
                 )
             >::type
@@ -117,7 +117,7 @@ namespace columns_detail {
         rng_t;
 
         typedef typename
-            boost::result_of<
+            result_of<
                 op_make_sliced(rng_t const&, Difference&, Difference const&)
             >::type
         result_type;
@@ -148,9 +148,9 @@ namespace columns_detail {
         diff_t;
 
         typedef typename
-            boost::result_of<
+            result_of<
                 op_make_transformed<>(
-                    typename boost::result_of<op_counting<>(int, diff_t&)>::type,
+                    typename result_of<op_counting<>(int, diff_t&)>::type,
                     to_column<Range, diff_t>
                 )
             >::type
@@ -188,9 +188,9 @@ namespace matrix3_detail {
         rng_t;
 
         typedef typename
-            boost::result_of<
+            result_of<
                 op_make_rows(
-                    typename boost::result_of<op_make_window(rng_t const&, Difference, Difference)>::type,
+                    typename result_of<op_make_window(rng_t const&, Difference, Difference)>::type,
                     Difference&, Difference&
                 )
             >::type
@@ -225,9 +225,9 @@ namespace matrix3_detail {
         diff_t;
 
         typedef typename
-            boost::result_of<
+            result_of<
                 op_make_transformed<>(
-                typename boost::result_of<op_counting<>(int, diff_t&)>::type,
+                typename result_of<op_counting<>(int, diff_t&)>::type,
                     to_rows<Range, diff_t>
                 )
             >::type
@@ -262,7 +262,7 @@ struct op_make_matrix :
 
     template< class Myself, class Range, class D1, class D2 >
     struct apply<Myself, Range, D1, D2> :
-        boost::result_of<op_make_rows(Range&, D1&, D2&)>
+        result_of<op_make_rows(Range&, D1&, D2&)>
     { };
 
     template< class Result, class Range, class D1, class D2 >
@@ -273,7 +273,7 @@ struct op_make_matrix :
 
     template< class Myself, class Range, class D1, class D2, class D3 >
     struct apply<Myself, Range, D1, D2, D3> :
-        boost::result_of<op_make_matrix3(Range&, D1&, D2&, D3&)>
+        result_of<op_make_matrix3(Range&, D1&, D2&, D3&)>
     { };
 
     template< class Result, class Range, class D1, class D2, class D3 >

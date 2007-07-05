@@ -13,9 +13,9 @@
 
 #include <boost/array.hpp>
 #include <boost/pointee.hpp>
-#include <boost/utility/result_of.hpp>
 #include <pstade/callable_by_value.hpp>
 #include <pstade/constant.hpp>
+#include <pstade/result_of.hpp>
 #include <pstade/to_shared_ptr.hpp>
 #include "./indirected.hpp"
 #include "./shared.hpp"
@@ -56,13 +56,13 @@ struct op_shared_single :
 {
     template< class Myself, class Ptr >
     struct apply :
-        boost::result_of<
+        result_of<
             op_make_indirected<>(
-                typename boost::result_of<
+                typename result_of<
                     op_shared(
-                        typename boost::result_of<
+                        typename result_of<
                             shared_single_detail::new_array1(
-                                typename boost::result_of<
+                                typename result_of<
                                     op_to_shared_ptr<>(Ptr&)
                                 >::type
                             )

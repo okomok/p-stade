@@ -14,11 +14,11 @@
 #include <algorithm> // sort
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/functional.hpp> // less
 #include <pstade/pipable.hpp>
+#include <pstade/result_of.hpp>
 #include "./concepts.hpp"
 #include "./indirected.hpp"
 #include "./outplaced.hpp"
@@ -57,9 +57,9 @@ struct op_make_sorted :
 {
     template< class Myself, class Range, class Compare = op_less const >
     struct apply :
-        boost::result_of<
+        result_of<
             op_make_indirected<>(
-                typename boost::result_of<op_make_outplaced(Range&)>::type&
+                typename result_of<op_make_outplaced(Range&)>::type&
             )
         >
     { };
@@ -68,7 +68,7 @@ struct op_make_sorted :
     Result call(Range& rng, Compare comp) const
     {
         PSTADE_CONCEPT_ASSERT((Forward<Range>));
-        typename boost::result_of<op_make_outplaced(Range&)>::type its = make_outplaced(rng);
+        typename result_of<op_make_outplaced(Range&)>::type its = make_outplaced(rng);
         std::sort(boost::begin(its), boost::end(its), sorted_detail::read_then<Compare>(comp));
         return make_indirected(its);
     }

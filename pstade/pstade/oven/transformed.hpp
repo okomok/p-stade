@@ -13,13 +13,12 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
-#include <pstade/deferred.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/remove_cvr.hpp>
+#include <pstade/result_of.hpp>
 #include <pstade/use_default.hpp>
 #include "./concepts.hpp"
 #include "./detail/transform_iterator.hpp"
@@ -55,7 +54,7 @@ struct op_make_transformed :
         typedef typename
             eval_if_use_default<
                 Reference,
-                boost::result_of<PSTADE_DEFERRED(fun_t const)(read_t)>
+                result_of<fun_t const(read_t)>
             >::type
         ref_t;
 

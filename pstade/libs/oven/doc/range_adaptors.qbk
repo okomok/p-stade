@@ -579,13 +579,13 @@ then pretends to be a range of _forward_iterator_.
     [
         [`_rng|cycled(c)`]
         [
-            A non-_swappable_ non-_lvalue_`{a1,..,aN,a1,..aN,..,a1,..,aN}`, where `a1,..,aN` appears `c` times.
+            A non-_swappable_ `{a1,..,aN,a1,..aN,..,a1,..,aN}`, where `a1,..,aN` appears `c` times.
         ]
     ]
 ]
 
 [h3 Invariants]
-* `_rng|cycled(c)` is _readable_ if `_rng` is _lvalue_.
+* `_rng|cycled(c)` is _lvalue_ if and only if `_rng` is _constant_.
 
 [h3 Preconditions]
 * `_typeof(c)` is convertible to `boost::range_difference<_typeof(_rng)>::type`.
