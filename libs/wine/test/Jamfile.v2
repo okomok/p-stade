@@ -34,7 +34,6 @@ test-suite "wine" :
     [ run copy_assign.cpp ]
     [ run copy_construct.cpp ]
     [ run deduced_const.cpp ]
-    [ run deferred.cpp ]
     [ run detail_as_mpl_lambda.cpp ]
     [ run detail_overload.cpp ]
     [ run disable_if_copy.cpp ]
