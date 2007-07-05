@@ -17,11 +17,11 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/utility/result_of.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/provide_sig.hpp>
+#include <pstade/result_of.hpp>
 #include <pstade/use_default.hpp>
 #include "./shared.hpp"
 
@@ -57,7 +57,7 @@ PSTADE_CONSTANT(shared_values, (op_shared_values<>))
 
 template< class Value, std::size_t N >
 struct result_of_shared_values :
-    boost::result_of<
+    result_of<
         op_shared(boost::array<Value, N> *)
     >
 { };
@@ -74,7 +74,7 @@ struct result_of_shared_values :
 private:
     template< BOOST_PP_ENUM_PARAMS(n, class A) >
     struct BOOST_PP_CAT(result, n) :
-        boost::result_of<
+        result_of<
             op_shared(boost::array<typename value_<A0>::type, n> *)
         >
     { };

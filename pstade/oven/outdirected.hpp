@@ -13,9 +13,9 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/utility/result_of.hpp>
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/result_of.hpp>
 #include "./concepts.hpp"
 #include "./counting.hpp"
 #include "./range_iterator.hpp"
@@ -35,7 +35,7 @@ namespace outdirected_detail {
         iter_t;
 
         typedef typename
-            boost::result_of<
+            result_of<
                 op_counting<>(iter_t, iter_t)
             >::type
         result_type;

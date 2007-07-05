@@ -16,8 +16,8 @@
 // This is considered as a generalized 'regular_c'.
 
 
-#include <boost/utility/result_of.hpp>
 #include <pstade/function.hpp>
+#include <pstade/result_of.hpp>
 #include <pstade/to_shared_ptr.hpp>
 #include "./detail/indirect_function.hpp"
 
@@ -32,7 +32,7 @@ namespace shared_regular_detail {
     struct baby
     {
         typedef typename
-            boost::result_of<op_to_shared_ptr<>(Ptr&)>::type
+            result_of<op_to_shared_ptr<>(Ptr&)>::type
         sp_t;
 
         typedef

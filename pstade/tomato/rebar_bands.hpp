@@ -10,12 +10,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/gravy/window_ptr.hpp>
 #include <pstade/gravy/window_ref.hpp>
 #include <pstade/oven/indexing.hpp>
+#include <pstade/result_of.hpp>
 #include "./get_rebar_band_id.hpp"
 #include "./rebar_band.hpp"
 #include "./wtl/ctrls.hpp" // CReBarCtrl
@@ -51,7 +51,7 @@ namespace pstade { namespace tomato {
     struct op_make_rebar_bands
     {
         typedef
-            boost::result_of<oven::op_indexing<>(int, UINT, rebar_bands_detail::op_get)>::type
+            result_of<oven::op_indexing<>(int, UINT, rebar_bands_detail::op_get)>::type
         result_type;
 
         result_type operator()(gravy::window_ref rebar) const

@@ -12,10 +12,10 @@
 
 
 #include <locale>
-#include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/result_of.hpp>
 #include "./transformed.hpp"
 
 
@@ -57,7 +57,7 @@ struct op_make_wide_chars :
 {
     template< class Myself, class Range, class Locale = void >
     struct apply :
-        boost::result_of<
+        result_of<
             op_make_transformed<>(Range&, wide_chars_detail::to_widen<CharT>)
         >
     { };

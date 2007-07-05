@@ -21,13 +21,13 @@
 #include <boost/range/end.hpp>
 #include <boost/scoped_ptr.hpp>
 #include <boost/throw_exception.hpp>
-#include <boost/utility/result_of.hpp>
 #include <pstade/gravy/sdk/tchar.hpp>
 #include <pstade/gravy/sdk/windows.hpp>
 #include <pstade/detail/overload.hpp>
 #include <pstade/oven/array_range.hpp>
 #include <pstade/oven/as_c_str.hpp>
 #include <pstade/oven/range_constantable.hpp>
+#include <pstade/result_of.hpp>
 #include "./access.hpp"
 #include "./detail/has_pstade_pizza_profile.hpp"
 #include "./error.hpp"
@@ -148,7 +148,7 @@ namespace string_detail {
 
 struct string :
     private string_detail::buffer_init,
-    boost::result_of<oven::op_as_c_str(string_detail::buffer_t&)>::type,
+    result_of<oven::op_as_c_str(string_detail::buffer_t&)>::type,
     private oven::range_constantable<string, TCHAR const *>,
     private boost::noncopyable
 {
@@ -156,7 +156,7 @@ struct string :
 
 private:
     typedef string_detail::buffer_init init_t; 
-    typedef boost::result_of<oven::op_as_c_str(string_detail::buffer_t&)>::type super_t;
+    typedef result_of<oven::op_as_c_str(string_detail::buffer_t&)>::type super_t;
 
 public:
     template< class Profile, class CStringizable >

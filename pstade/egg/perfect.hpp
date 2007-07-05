@@ -67,16 +67,16 @@ namespace pstade { namespace egg {
 
     template<class Base> inline
     typename result_of<xp_perfect<>(Base&)>::type
-    perfect(Base fun)
+    perfect(Base base)
     {
-        return xp_perfect<>()(fun);
+        return xp_perfect<>()(base);
     }
 
     template<class ResultType, class Base> inline
     typename result_of<xp_perfect<ResultType>(Base&)>::type
-    perfect(Base fun)
+    perfect(Base base)
     {
-        return xp_perfect<ResultType>()(fun);
+        return xp_perfect<ResultType>()(base);
     }
 
 

@@ -15,6 +15,7 @@
 #include <boost/range/end.hpp>
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/result_of.hpp>
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
 #include "./jointed.hpp"
@@ -35,7 +36,7 @@ namespace rotated_detail {
         rng_t;
 
         typedef typename
-            boost::result_of<
+            result_of<
                 op_make_jointed(rng_t, rng_t)
             >::type
         result_type;

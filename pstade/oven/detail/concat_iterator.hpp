@@ -33,9 +33,9 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/empty.hpp>
 #include <boost/range/end.hpp>
-#include <boost/utility/result_of.hpp>
 #include <pstade/contract.hpp>
 #include <pstade/is_convertible.hpp>
+#include <pstade/result_of.hpp>
 #include "../begin_end.hpp" // op_begin
 #include "../do_iter_swap.hpp"
 #include "../read.hpp"
@@ -51,7 +51,7 @@ struct concat_iterator;
 
 template< class SegmentIter >
 struct local_iterator :
-    boost::result_of<
+    result_of<
         op_begin(typename iterator_read<SegmentIter>::type)
     >
 { };

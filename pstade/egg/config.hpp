@@ -37,4 +37,9 @@
 #endif
 
 
+#if BOOST_VERSION >= 103500
+    #define PSTADE_EGG_SUPPORTS_FUSION_SEQUENCE
+#endif
+
+
 #endif

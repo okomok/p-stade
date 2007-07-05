@@ -20,8 +20,8 @@
 #include <iterator> // tags
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/utility/result_of.hpp>
 #include <pstade/for_debug.hpp>
+#include <pstade/result_of.hpp>
 #include <pstade/unused.hpp>
 #include "../outdirected.hpp"
 #include "../range_category.hpp"
@@ -36,7 +36,7 @@ bool maybe_contains_aux(Range& rng, Iterator it, std::forward_iterator_tag)
     if (it == boost::end(rng))
         return true;
 
-    typename boost::result_of<op_make_outdirected(Range&)>::type drng = make_outdirected(rng);
+    typename result_of<op_make_outdirected(Range&)>::type drng = make_outdirected(rng);
     return boost::end(drng) != std::find(boost::begin(drng), boost::end(drng), it);
 }
 

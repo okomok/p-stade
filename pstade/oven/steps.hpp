@@ -19,9 +19,9 @@
 
 #include <algorithm> // min
 #include <boost/iterator/iterator_categories.hpp>
-#include <boost/utility/result_of.hpp>
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/result_of.hpp>
 #include "./concepts.hpp"
 #include "./range_difference.hpp"
 #include "./successors.hpp"
@@ -80,7 +80,7 @@ namespace steps_detail {
         diff_t;
 
         typedef typename
-            boost::result_of<
+            result_of<
                 op_make_successors(Range&, step<diff_t>)
             >::type
         result_type;

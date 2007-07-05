@@ -11,8 +11,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/utility/result_of.hpp>
 #include <pstade/constant.hpp>
+#include <pstade/result_of.hpp>
 #include "./as_range.hpp" // inclusion guaranteed
 #include "./cycled.hpp"
 #include "./iter_range.hpp"
@@ -25,7 +25,7 @@ namespace pstade { namespace oven {
 // +
 
 template< class It1, class In1 > inline
-typename boost::result_of<
+typename result_of<
     op_make_cycled(iter_range<It1, In1> const&)
 >::type
 operator+(iter_range<It1, In1> const& rng1)
@@ -37,7 +37,7 @@ operator+(iter_range<It1, In1> const& rng1)
 // >>
 
 template< class It1, class In1, class It2, class In2 > inline
-typename boost::result_of<
+typename result_of<
     op_make_jointed(iter_range<It1, In1> const&, iter_range<It2, In2> const&)
 >::type
 operator>>(iter_range<It1, In1> const& rng1, iter_range<It2, In2> const& rng2)
@@ -57,7 +57,7 @@ namespace sugar {
     // +
 
     template< class Range1 > inline
-    typename boost::result_of<
+    typename result_of<
         op_make_cycled(Range1&)
     >::type
     operator+(Range1& rng1)
@@ -66,7 +66,7 @@ namespace sugar {
     }
 
     template< class Range1 > inline
-    typename boost::result_of<
+    typename result_of<
         op_make_cycled(Range1 const&)
     >::type
     operator+(Range1 const& rng1)
@@ -78,7 +78,7 @@ namespace sugar {
     // >>
 
     template< class Range1, class Range2 > inline
-    typename boost::result_of<
+    typename result_of<
         op_make_jointed(Range1&, Range2&)
     >::type
     operator>>(Range1& rng1, Range2& rng2)
@@ -87,7 +87,7 @@ namespace sugar {
     }
 
     template< class Range1, class Range2 > inline
-    typename boost::result_of<
+    typename result_of<
         op_make_jointed(Range1&, Range2 const&)
     >::type
     operator>>(Range1& rng1, Range2 const& rng2)
@@ -96,7 +96,7 @@ namespace sugar {
     }
 
     template< class Range1, class Range2 > inline
-    typename boost::result_of<
+    typename result_of<
         op_make_jointed(Range1 const&, Range2&)
     >::type
     operator>>(Range1 const& rng1, Range2& rng2)
@@ -105,7 +105,7 @@ namespace sugar {
     }
 
     template< class Range1, class Range2 > inline
-    typename boost::result_of<
+    typename result_of<
         op_make_jointed(Range1 const&, Range2 const&)
     >::type
     operator>>(Range1 const& rng1, Range2 const& rng2)

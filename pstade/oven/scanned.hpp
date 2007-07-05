@@ -16,11 +16,11 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/empty.hpp>
 #include <boost/range/end.hpp>
-#include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/result_of.hpp>
 #include "./concepts.hpp"
 #include "./detail/scan_iterator.hpp"
 #include "./dropped.hpp"
@@ -70,9 +70,9 @@ struct op_make_scanned :
 {
     template< class Myself, class Range, class State, class BinaryFun = void >
     struct apply :
-        boost::result_of<
+        result_of<
             op_make_jointed(
-                typename boost::result_of<op_shared_single(State const *)>::type,
+                typename result_of<op_shared_single(State const *)>::type,
                 typename scanned_detail::baby<Range, State, BinaryFun>::result_type
             )
         >
@@ -94,10 +94,10 @@ struct op_make_scanned :
 
     template< class Myself, class Range, class BinaryFun >
     struct apply<Myself, Range, BinaryFun> :
-        boost::result_of<
+        result_of<
             op_make_scanned(
-                typename boost::result_of<op_make_dropped(Range&, int)>::type,
-                typename boost::result_of<op_value_front(Range&)>::type,
+                typename result_of<op_make_dropped(Range&, int)>::type,
+                typename result_of<op_value_front(Range&)>::type,
                 BinaryFun&
             )
         >

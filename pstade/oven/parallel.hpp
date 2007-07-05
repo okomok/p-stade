@@ -23,9 +23,9 @@
 #include <boost/range/empty.hpp>
 #include <boost/range/end.hpp>
 #include <boost/thread/thread.hpp>
-#include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
+#include <pstade/result_of.hpp>
 #include "./concepts.hpp"
 #include "./distance.hpp"
 #include "./iter_range.hpp"
@@ -54,7 +54,7 @@ namespace parallel_detail {
                 return;
             }
 
-            typename boost::result_of<op_make_split_at(IterRange&, Difference)>::type
+            typename result_of<op_make_split_at(IterRange&, Difference)>::type
                 xs_ys = make_split_at(m_rng, dist/2);
 
             // Type must be reduced to 'IterRange',

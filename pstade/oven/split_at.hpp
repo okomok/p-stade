@@ -13,9 +13,9 @@
 
 #include <utility>
 #include <boost/range/begin.hpp>
-#include <boost/utility/result_of.hpp>
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/result_of.hpp>
 #include "./concepts.hpp"
 #include "./dropped.hpp"
 
@@ -30,7 +30,7 @@ namespace split_at_detail {
     struct baby
     {
         typedef typename
-            boost::result_of<
+            result_of<
                 op_make_dropped(Range&, Difference&)
             >::type
         rng_t;

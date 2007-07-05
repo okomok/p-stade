@@ -18,10 +18,9 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/deferred.hpp>
 #include <pstade/object_generator.hpp>
+#include <pstade/result_of.hpp>
 #include <pstade/to_ref.hpp>
 #include <pstade/preprocessor.hpp>
 #include "../range_iterator.hpp"
@@ -41,8 +40,8 @@ struct range_based2_return_op :
     // rng0 + rng1 + 0ary
     template< class Myself, class Range0, class Range1 >
     struct apply<Myself, Range0, Range1> :
-        boost::result_of<
-            PSTADE_DEFERRED(IterBased const)(
+        result_of<
+            IterBased const(
                 typename range_iterator<Range0>::type const&,
                 typename range_iterator<Range0>::type const&,
                 typename range_iterator<Range1>::type const&,
@@ -100,8 +99,8 @@ PSTADE_OBJECT_GENERATOR(range_based2, (range_based2_return_op< deduce<_1, as_val
 
 template< class Myself, class Range0, class Range1, BOOST_PP_ENUM_PARAMS(n, class A) >
 struct apply<Myself, Range0, Range1, BOOST_PP_ENUM_PARAMS(n, A)> :
-    boost::result_of<
-        PSTADE_DEFERRED(IterBased const)(
+    result_of<
+        IterBased const(
             typename range_iterator<Range0>::type const&,
             typename range_iterator<Range0>::type const&,
             typename range_iterator<Range1>::type const&,

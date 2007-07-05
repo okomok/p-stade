@@ -13,9 +13,9 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/tuple/tuple.hpp>
-#include <boost/utility/result_of.hpp>
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/result_of.hpp>
 #include "./concepts.hpp"
 #include "./dropped_while.hpp"
 #include "./zipped.hpp"
@@ -31,7 +31,7 @@ namespace spanned_detail {
     struct baby
     {
         typedef typename
-            boost::result_of<
+            result_of<
                 op_make_dropped_while(Range&, Predicate&)
             >::type
         rng_t;
@@ -41,7 +41,7 @@ namespace spanned_detail {
         tuple_t;
 
         typedef typename
-            boost::result_of<
+            result_of<
                 op_make_zipped(tuple_t)
             >::type
         result_type;

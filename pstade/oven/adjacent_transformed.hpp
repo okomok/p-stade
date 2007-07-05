@@ -31,14 +31,13 @@
 #include <boost/mpl/eval_if.hpp>
 #include <boost/range/empty.hpp>
 #include <boost/type.hpp>
-#include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
-#include <pstade/deferred.hpp>
 #include <pstade/is_convertible.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/remove_cvr.hpp>
+#include <pstade/result_of.hpp>
 #include <pstade/tuple.hpp> // tuple_pack
 #include <pstade/use_default.hpp>
 #include "./concepts.hpp"
@@ -79,8 +78,8 @@ namespace adjacent_transformed_detail {
         typedef typename
             eval_if_use_default<
                 Reference,
-                boost::result_of<
-                    PSTADE_DEFERRED(fun_t const)(base_value_t const&, read_t)
+                result_of<
+                    fun_t const(base_value_t const&, read_t)
                 >
             >::type
         ref_t;
@@ -106,12 +105,12 @@ namespace adjacent_transformed_detail {
 
     template< class Range, class BinaryFun, class Reference, class Value >
     struct make_multi_pass :
-        boost::result_of<
+        result_of<
             op_make_zipped_with<Reference, Value>(
-                typename boost::result_of<
+                typename result_of<
                     op_tuple_pack(
-                        typename boost::result_of<op_make_popped(Range&)>::type,
-                        typename boost::result_of<op_make_dropped(Range&, int)>::type
+                        typename result_of<op_make_popped(Range&)>::type,
+                        typename result_of<op_make_dropped(Range&, int)>::type
                     )
                 >::type,
                 BinaryFun&

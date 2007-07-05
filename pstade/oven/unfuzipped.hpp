@@ -21,10 +21,10 @@
 #include <boost/fusion/sequence/intrinsic/mpl.hpp>
 #include <boost/mpl/range_c.hpp>
 #include <boost/mpl/size.hpp>
-#include <boost/utility/result_of.hpp>
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/remove_cvr.hpp>
+#include <pstade/result_of.hpp>
 #include "./concepts.hpp"
 #include "./elements.hpp"
 #include "./range_value.hpp"
@@ -45,7 +45,7 @@ namespace unfuzipped_detail {
     {
         template< class N >
         struct result_aux :
-            boost::result_of<
+            result_of<
                 op_make_elements<N>(TupleRange&)
             >
         { };

@@ -25,6 +25,7 @@
 #include <boost/mpl/if.hpp>
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/result_of.hpp>
 #include "./concepts.hpp"
 #include "./range_value.hpp"
 #include "./transformed.hpp"
@@ -62,7 +63,7 @@ namespace moved_detail {
         fun_t;
 
         typedef typename
-            boost::result_of<
+            result_of<
                 op_make_transformed<>(Range&, fun_t)
             >::type
         result_type;

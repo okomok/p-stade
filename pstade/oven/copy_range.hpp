@@ -13,11 +13,11 @@
 
 #include <boost/config.hpp> // BOOST_MSVC, BOOST_NESTED_TEMPLATE
 #include <boost/type_traits/remove_const.hpp>
-#include <boost/utility/result_of.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/copy_construct.hpp>
 #include <pstade/remove_cvr.hpp>
+#include <pstade/result_of.hpp>
 #include <pstade/specified.hpp>
 #include <pstade/unevaluated.hpp>
 #include "./concepts.hpp"
@@ -43,7 +43,7 @@ namespace copy_range_detail {
     struct to_strictly_convertibles
     {
         template< class From >
-        static typename boost::result_of<
+        static typename result_of<
             op_make_transformed<>(From&, op_copy_construct<ValueTo>)
         >::type call(From& from)
         {

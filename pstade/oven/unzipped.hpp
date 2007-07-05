@@ -14,10 +14,10 @@
 #include <boost/iterator/zip_iterator.hpp> // tuple_impl_specific
 #include <boost/mpl/int.hpp>
 #include <boost/tuple/tuple.hpp>
-#include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/result_of.hpp>
 #include "./concepts.hpp"
 #include "./elements.hpp"
 #include "./range_value.hpp"
@@ -70,7 +70,7 @@ namespace unzipped_detail {
     {
         template< class N >
         struct apply :
-            boost::result_of<
+            result_of<
                 op_make_elements<N>(TupleRange&)
             >
         { };

@@ -12,8 +12,8 @@
 
 
 #include <boost/preprocessor/cat.hpp>
-#include <boost/utility/result_of.hpp>
 #include <pstade/constant.hpp>
+#include <pstade/result_of.hpp>
 #include "./deferred_sig.hpp"
 #include "./range_based1.hpp"
 #include "./range_based2.hpp"
@@ -24,18 +24,18 @@ namespace pstade { namespace oven { namespace detail {
 
 template< class SigFun >
 struct range_based1_sig_fun :
-    boost::result_of<
+    result_of<
         op_range_based1(
-            typename boost::result_of<op_deferred_sig(SigFun)>::type
+            typename result_of<op_deferred_sig(SigFun)>::type
         )
     >
 { };
 
 template< class SigFun >
 struct range_based2_sig_fun :
-    boost::result_of<
+    result_of<
         op_range_based2(
-            typename boost::result_of<op_deferred_sig(SigFun)>::type
+            typename result_of<op_deferred_sig(SigFun)>::type
         )
     >
 { };

@@ -27,10 +27,10 @@
 
 #include <boost/iterator/zip_iterator.hpp>
 #include <boost/type_traits/remove_const.hpp>
-#include <boost/utility/result_of.hpp>
 #include <pstade/affect.hpp>
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/result_of.hpp>
 #include "./begin_end.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
@@ -111,7 +111,7 @@ namespace zipped_detail {
     {
         template< class Range > // 'Range' is what 'tuple_element' returns.
         struct apply :
-            boost::result_of<
+            result_of<
                 op_begin(typename affect<RangeTuple&, Range>::type)
             >
         { };

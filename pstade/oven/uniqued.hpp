@@ -11,12 +11,12 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/functional.hpp> // equal_to, not_
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/result_of.hpp>
 #include "./adjacent_filtered.hpp"
 #include "./concepts.hpp"
 
@@ -29,10 +29,10 @@ struct op_make_uniqued :
 {
     template< class Myself, class Range, class BinaryPred = op_equal_to const >
     struct apply :
-        boost::result_of<
+        result_of<
             op_make_adjacent_filtered(
                 Range&,
-                typename boost::result_of<
+                typename result_of<
                     op_not_(typename pass_by_value<BinaryPred>::type)
                 >::type
             )

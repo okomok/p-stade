@@ -11,10 +11,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/deduced_const.hpp>
 #include <pstade/functional.hpp> // identity
+#include <pstade/result_of.hpp>
 #include <pstade/specified.hpp>
 #include "./concepts.hpp"
 #include "./transformed.hpp"
@@ -29,7 +29,7 @@ struct op_make_converted :
 {
     template< class Myself, class Range >
     struct apply :
-        boost::result_of<
+        result_of<
             op_make_transformed<To>(Range&, op_identity const&)
         >
     { };
@@ -58,14 +58,14 @@ namespace converted_detail_ {
 
 
     template< class Range, class To > inline
-    typename boost::result_of<op_make_converted<To>(Range&)>::type
+    typename result_of<op_make_converted<To>(Range&)>::type
     operator|(Range& rng, converted<To>)
     {
         return op_make_converted<To>()(rng);
     }
 
     template< class Range, class To > inline
-    typename boost::result_of<op_make_converted<To>(PSTADE_DEDUCED_CONST(Range)&)>::type
+    typename result_of<op_make_converted<To>(PSTADE_DEDUCED_CONST(Range)&)>::type
     operator|(Range const& rng, converted<To>)
     {
         return op_make_converted<To>()(rng);

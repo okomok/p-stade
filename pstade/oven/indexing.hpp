@@ -11,9 +11,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
+#include <pstade/result_of.hpp>
 #include "./counting.hpp"
 #include "./transformed.hpp"
 
@@ -30,9 +30,9 @@ struct op_indexing :
 {
     template< class Myself, class Incrementable1, class Incrementable2, class UnaryFun >
     struct apply :
-        boost::result_of<
+        result_of<
             op_make_transformed<Reference, Value>(
-                typename boost::result_of<op_counting<>(Incrementable1&, Incrementable2&)>::type,
+                typename result_of<op_counting<>(Incrementable1&, Incrementable2&)>::type,
                 UnaryFun&
             )
         >

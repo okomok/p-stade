@@ -13,6 +13,7 @@
 
 #include <pstade/function.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/result_of.hpp>
 #include "./concepts.hpp"
 #include "./converted.hpp"
 #include "./range_value.hpp"
@@ -32,7 +33,7 @@ namespace rvalues_detail {
         value_t;
 
         typedef typename
-            boost::result_of<
+            result_of<
                 op_make_converted<value_t>(Range&)
             >::type
         result_type;

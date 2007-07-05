@@ -16,11 +16,10 @@
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/type_traits/remove_reference.hpp>
-#include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/deferred.hpp>
 #include <pstade/indirect.hpp>
 #include <pstade/preprocessor.hpp>
+#include <pstade/result_of.hpp>
 
 
 namespace pstade { namespace oven { namespace detail {
@@ -29,7 +28,7 @@ namespace pstade { namespace oven { namespace detail {
 template< class Indirectable >
 struct indirect_function_base :
     boost::remove_reference<
-        typename boost::result_of<op_indirect(Indirectable const&)>::type
+        typename result_of<op_indirect(Indirectable const&)>::type
     >
 { };
 
@@ -38,7 +37,7 @@ template< class Indirectable >
 struct indirect_function :
     callable<
         indirect_function<Indirectable>,
-        typename boost::result_of<PSTADE_DEFERRED(typename indirect_function_base<Indirectable>::type)()>::type
+        typename result_of<typename indirect_function_base<Indirectable>::type()>::type
     >
 {
     typedef typename indirect_function_base<Indirectable>::type base_type;
@@ -65,7 +64,7 @@ struct indirect_function :
         m_ind(ind)
     { }
 
-    typename boost::result_of<op_indirect(Indirectable const&)>::type
+    typename result_of<op_indirect(Indirectable const&)>::type
     base() const
     {
         return *m_ind;
@@ -89,7 +88,7 @@ PSTADE_CALLABLE_NULLARY_RESULT_OF_TEMPLATE(pstade::oven::detail::indirect_functi
 
 template< class Myself, BOOST_PP_ENUM_PARAMS(n, class A) >
 struct apply<Myself, BOOST_PP_ENUM_PARAMS(n, A)> :
-    boost::result_of<PSTADE_DEFERRED(base_type)(PSTADE_PP_ENUM_PARAMS_WITH(n, A, &))>
+    result_of<base_type(PSTADE_PP_ENUM_PARAMS_WITH(n, A, &))>
 { };
 
 template< class Result, BOOST_PP_ENUM_PARAMS(n, class A) >

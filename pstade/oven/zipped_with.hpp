@@ -17,13 +17,13 @@
 // you can use of course 'rng|zipped|transformed(f)'.
 
 
-#include <boost/utility/result_of.hpp>
 #include <boost/version.hpp>
 #include <pstade/fuse.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/perfect.hpp>
 #include <pstade/pipable.hpp>
+#include <pstade/result_of.hpp>
 #include "./fuzipped.hpp"
 #include "./transformed.hpp"
 #if BOOST_VERSION >= 103500
@@ -52,11 +52,11 @@ struct op_make_zipped_with :
 
     template< class Myself, class RangeTuple, class Function >
     struct apply :
-        boost::result_of<
+        result_of<
             op_make_transformed<Reference, Value>(
-                typename boost::result_of<zip_(RangeTuple&)>::type,
-                typename boost::result_of<
-                    op_fuse(typename boost::result_of<op_perfect<Reference>(Function&)>::type)
+                typename result_of<zip_(RangeTuple&)>::type,
+                typename result_of<
+                    op_fuse(typename result_of<op_perfect<Reference>(Function&)>::type)
                 >::type
             )
         >
