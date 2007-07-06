@@ -36,7 +36,6 @@
 #include "./is_convertible.hpp"
 #include "./is_ndebug.hpp"
 #include "./is_returnable.hpp"
-#include "./locale.hpp"
 #include "./locale_saver.hpp"
 #include "./nonconstructible.hpp"
 #include "./nullptr.hpp"

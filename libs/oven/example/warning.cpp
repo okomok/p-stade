@@ -12,7 +12,7 @@
 #define PSTADE_CONCEPT_CHECK
 #include <pstade/oven.hpp>
 #include <string>
-#include <pstade/to_value.hpp>
+#include <pstade/egg/to_value.hpp>
 
 
 using namespace pstade::oven;
@@ -20,5 +20,5 @@ using namespace pstade::oven;
 
 int main()
 {
-    *begin( std::string("abc")|jointed(std::string("def")|transformed(pstade::to_value)) );
+    *begin( std::string("abc")|jointed(std::string("def")|transformed(pstade::egg::to_value)) );
 }

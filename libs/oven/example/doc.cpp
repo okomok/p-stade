@@ -28,7 +28,7 @@
 #include <boost/lambda/core.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <boost/foreach.hpp>
-#include <pstade/locale.hpp>
+#include <pstade/egg/to_lower.hpp>
 
 
 namespace oven = pstade::oven;
@@ -46,7 +46,7 @@ void test_introduction()
             shared(new std::string("!ExGNxxAR ,xOLxLExH"))
                 | filtered(regular(lambda::_1 != 'x'))
                 | reversed
-                | transformed(pstade::to_lower)
+                | transformed(pstade::egg::to_lower)
                 | memoized
         ) {
             out.push_back(ch);

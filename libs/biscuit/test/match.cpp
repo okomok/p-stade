@@ -16,7 +16,7 @@
 
 #include <string>
 #include <pstade/oven/as_literal.hpp>
-#include <pstade/to_ref.hpp>
+#include <pstade/egg/to_ref.hpp>
 
 
 #include <pstade/oven/alias.hpp>
@@ -66,7 +66,7 @@ void test()
     }
     {
         std::string str("<!-- hello, xml comment -->");
-        BOOST_CHECK( biscuit::match<xml_comment>(pstade::to_cref(str)) );
+        BOOST_CHECK( biscuit::match<xml_comment>(pstade::egg::to_cref(str)) );
     }
 
     {

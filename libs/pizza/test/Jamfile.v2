@@ -4,6 +4,17 @@
 
 import testing ;
 
+project
+    : requirements
+      <library>/boost/test//boost_test_exec_monitor/<link>static
+      <library>/boost/test//boost_unit_test_framework/<link>static
+      <find-static-library>comctl32
+      <find-static-library>comdlg32
+      <find-static-library>gdi32
+      <find-static-library>user32
+      <find-static-library>shlwapi
+    ;
+
 test-suite "pizza" :
     [ run functions.cpp ]
     [ link multiple_defs1.cpp multiple_defs2.cpp : : multiple_defs ]

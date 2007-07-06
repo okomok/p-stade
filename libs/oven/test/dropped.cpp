@@ -21,7 +21,7 @@
 #include <pstade/result_of_lambda.hpp>
 #include <boost/range.hpp>
 #include <pstade/oven/equals.hpp>
-#include <pstade/compose.hpp>
+#include <pstade/egg/compose.hpp>
 #include <pstade/oven/distance.hpp>
 #include <pstade/oven/identities.hpp>
 
@@ -37,7 +37,7 @@ void pstade_minimal_test()
         int b[] = { 6,2,3,1,2,3,6,8,5,3,1,2,3,4,56,7,34 };
 
         test::adaptor_random_access_constant_int(
-            pstade::compose(
+            pstade::egg::compose(
                 lambda::bind(make_dropped, lambda::_1, 5),
                 lambda::bind(make_dropped, lambda::_1, 1)
             ),
@@ -45,7 +45,7 @@ void pstade_minimal_test()
         );
 
         test::adaptor_random_access_swappable_int(
-            pstade::compose(
+            pstade::egg::compose(
                 lambda::bind(make_dropped, lambda::_1, 4),
                 lambda::bind(make_dropped, lambda::_1, 2)
             ),

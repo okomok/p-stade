@@ -97,7 +97,7 @@ void test()
         str |
             transformed(pstade::egg::to_value) |
             // transformed(pstade::identity); // dangling!
-            transformed(pstade::egg::perfect<char>(pstade::egg::identity));
+            transformed(pstade::egg::xp_perfect<char>()(pstade::egg::identity));
     }
 }
 

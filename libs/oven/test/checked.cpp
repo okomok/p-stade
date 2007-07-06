@@ -19,7 +19,7 @@
 #include <string>
 #include <boost/range.hpp>
 #include <pstade/oven/algorithm.hpp>
-#include <pstade/to_ref.hpp>
+#include <pstade/egg/to_ref.hpp>
 #include <pstade/unused.hpp>
 #include <pstade/if_debug.hpp>
 
@@ -76,7 +76,7 @@ void pstade_minimal_test()
         pstade::unused(
             std::string()
 PSTADE_IF_DEBUG(| checked)
-                | pstade::to_ref,
+                | pstade::egg::to_ref,
             12
         );
     }

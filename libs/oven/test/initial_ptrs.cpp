@@ -20,7 +20,6 @@
 #include <boost/foreach.hpp>
 #include <boost/ptr_container/ptr_vector.hpp>
 #include <boost/ptr_container/detail/static_move_ptr.hpp>
-#include <pstade/to_ref.hpp>
 
 
 namespace oven = pstade::oven;

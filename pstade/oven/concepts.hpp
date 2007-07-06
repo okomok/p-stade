@@ -31,7 +31,7 @@
 #include <boost/range/size_type.hpp>
 #include <boost/type_traits/remove_const.hpp>
 #include <pstade/concept.hpp>
-#include <pstade/to_ref.hpp>
+#include <pstade/egg/to_ref.hpp>
 #include <pstade/unevaluated.hpp>
 #include <pstade/unused.hpp>
 #include "./detail/config.hpp"
@@ -100,8 +100,8 @@ struct SinglePass
         rng_t& rng = unevaluated<rng_t&>();
         mutable_iterator f = boost::begin(rng);
         mutable_iterator l = boost::end(rng);
-        constant_iterator cf = boost::begin(to_cref(rng));
-        constant_iterator cl = boost::end(to_cref(rng));
+        constant_iterator cf = boost::begin(egg::to_cref(rng));
+        constant_iterator cl = boost::end(egg::to_cref(rng));
         unused(f, l, cf, cl);
     }
 };

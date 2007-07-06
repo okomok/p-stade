@@ -18,8 +18,6 @@
 #include <string>
 #include <boost/range.hpp>
 #include "./detail/v1_core.hpp"
-#include <pstade/oven/filtered.hpp>
-#include <pstade/locale.hpp>
 
 
 void test()

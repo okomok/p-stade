@@ -16,7 +16,7 @@
 
 
 #include <string>
-#include <pstade/to_ref.hpp>
+#include <pstade/egg/to_ref.hpp>
 
 
 void test()
@@ -29,14 +29,14 @@ void test()
         std::vector<char> expected = src|copied;
 
         BOOST_CHECK( oven::test_RandomAccess_Readable(
-            boost::tuples::make_tuple(src.begin(), src.end())|pstade::to_ref,
+            boost::tuples::make_tuple(src.begin(), src.end())|pstade::egg::to_ref,
             expected
         ) );
 
         typedef std::string::iterator iter_t;
         boost::tuples::cons<iter_t, boost::tuples::cons<iter_t, boost::tuples::null_type> > rng(src.begin(), src.end());
         BOOST_CHECK( oven::test_RandomAccess_Readable(
-            rng|pstade::to_ref,
+            rng|pstade::egg::to_ref,
             expected
         ) );
     }

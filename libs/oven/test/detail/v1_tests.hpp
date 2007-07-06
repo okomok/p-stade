@@ -51,7 +51,7 @@
 #include <boost/next_prior.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/object_generator.hpp>
-#include <pstade/to_ref.hpp>
+#include <pstade/egg/to_ref.hpp>
 #include <pstade/unused.hpp>
 #include <pstade/oven/concepts.hpp>
 #include <pstade/oven/distance.hpp>
@@ -244,7 +244,7 @@ bool test_Forward_Readable(Range& rng, Vector const& expected)
     }
 
     {
-        if (!tests_detail::forward_r(rng|to_cref, expected)) {
+        if (!tests_detail::forward_r(rng|egg::to_cref, expected)) {
             BOOST_ASSERT(false);
             return false;
         }
@@ -407,14 +407,14 @@ bool test_Bidirectional_Readable(Range& rng, Vector const& expected)
     }
 
     {
-        if (!tests_detail::bidirectional_r(rng|to_cref, expected)) {
+        if (!tests_detail::bidirectional_r(rng|egg::to_cref, expected)) {
             BOOST_ASSERT(false);
             return false;
         }
 
         Vector expRev = expected;
         std::reverse(boost::begin(expRev), boost::end(expRev));
-        if (!tests_detail::bidirectional_r(tests_detail::make_reversed(rng|to_cref), expRev)) {
+        if (!tests_detail::bidirectional_r(tests_detail::make_reversed(rng|egg::to_cref), expRev)) {
             BOOST_ASSERT(false);
             return false;
         }
@@ -535,14 +535,14 @@ bool test_RandomAccess_Readable(Range& rng, Vector const& expected)
     }
 
     {
-        if (!tests_detail::random_access_r(rng|to_cref, expected)) {
+        if (!tests_detail::random_access_r(rng|egg::to_cref, expected)) {
             BOOST_ASSERT(false);
             return false;
         }
 
         Vector expRev = expected;
         std::reverse(boost::begin(expRev), boost::end(expRev));
-        if (!tests_detail::random_access_r(tests_detail::make_reversed(rng|to_cref), expRev)) {
+        if (!tests_detail::random_access_r(tests_detail::make_reversed(rng|egg::to_cref), expRev)) {
             BOOST_ASSERT(false);
             return false;
         }
@@ -619,7 +619,7 @@ bool test_empty(Range& rng)
         return false;
     }
 
-    if(!tests_detail::is_empty(rng|to_cref)) {
+    if(!tests_detail::is_empty(rng|egg::to_cref)) {
         BOOST_ASSERT(false);
         return false;
     }
