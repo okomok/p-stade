@@ -23,7 +23,7 @@
 #include <vector>
 #include <pstade/oven/copied_to.hpp>
 #include <pstade/oven/counting.hpp>
-#include <pstade/copy_assign.hpp>
+#include <pstade/egg/copy_assign.hpp>
 #include <pstade/oven/equals.hpp>
 
 
@@ -73,7 +73,7 @@ void test_()
     {
         std::string rng("abcdefg");
         std::vector<char> vec;
-        pstade::copy_assign(vec, rng|copied);
+        pstade::egg::copy_assign(vec, rng|copied);
         BOOST_CHECK( oven::equals(vec, rng) );
     }
 

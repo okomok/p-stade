@@ -19,7 +19,7 @@
 #include <string>
 #include <vector>
 #include "./detail/v1_core.hpp"
-#include <pstade/is_same.hpp>
+#include <pstade/egg/is_same.hpp>
 
 
 void test()
@@ -39,8 +39,8 @@ void test()
     {
         std::string src("abcde");
 
-        BOOST_CHECK( oven::equals( src|outdirected|indirected, src, pstade::is_same ) );
-        BOOST_CHECK( oven::equals( src|outdirected|indirected|outdirected|indirected|outdirected|indirected, src, pstade::is_same ) );
+        BOOST_CHECK( oven::equals( src|outdirected|indirected, src, pstade::egg::is_same ) );
+        BOOST_CHECK( oven::equals( src|outdirected|indirected|outdirected|indirected|outdirected|indirected, src, pstade::egg::is_same ) );
     }
 }
 

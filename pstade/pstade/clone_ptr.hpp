@@ -24,7 +24,7 @@
 #include <boost/assert.hpp>
 #include <boost/operators.hpp> // totally_ordered
 #include <boost/ptr_container/clone_allocator.hpp>
-#include <pstade/do_swap.hpp>
+#include <pstade/egg/do_swap.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/is_convertible.hpp>
 #include <pstade/nullptr.hpp>
@@ -141,7 +141,7 @@ public:
 // swappable
     void swap(self_t& other)
     {
-        do_swap(m_ptr, other.m_ptr);
+        egg::do_swap(m_ptr, other.m_ptr);
     }
 
 // totally_ordered

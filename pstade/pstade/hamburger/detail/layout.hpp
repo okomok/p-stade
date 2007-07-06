@@ -12,6 +12,7 @@
 
 #include <boost/assert.hpp>
 #include <boost/foreach.hpp>
+#include <pstade/egg/lexicalize.hpp>
 #include <pstade/oven/equals.hpp>
 #include "../dimension.hpp"
 #include "../element.hpp"
@@ -28,10 +29,10 @@ namespace pstade { namespace hamburger { namespace detail {
         rectangle att_bounds(element& elem)
         {
             try {
-                int l = elem%Name_left  |lexicalized;
-                int t = elem%Name_top   |lexicalized;
-                int w = elem%Name_width |lexicalized;
-                int h = elem%Name_height|lexicalized;
+                int l = elem%Name_left  |egg::lexicalize();
+                int t = elem%Name_top   |egg::lexicalize();
+                int w = elem%Name_width |egg::lexicalize();
+                int h = elem%Name_height|egg::lexicalize();
                 return rectangle(l, t, l+w, t+h);
             }
             catch (boost::bad_lexical_cast const&) {

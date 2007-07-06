@@ -5,7 +5,7 @@
 #include <boost/type_traits/decay.hpp>
 #include <boost/type_traits/remove_cv.hpp>
 #include <boost/type_traits/remove_reference.hpp>
-#include <boost/utility/result_of.hpp>
+#include <pstade/result_of.hpp>
 #include <string>
 
 
@@ -211,24 +211,24 @@ namespace my {
 void test()
 {
     {
-        boost::result_of<my::op::less(int, int)>::type a = my::less(10, 12);
+        pstade::result_of<my::op::less(int, int)>::type a = my::less(10, 12);
         BOOST_CHECK(a == true);
     }
     {
-        boost::result_of<my::op::less(int, int)>::type a = my::less2(12, 10);
+        pstade::result_of<my::op::less(int, int)>::type a = my::less2(12, 10);
         BOOST_CHECK(a == false);
     }
     {
-        boost::result_of<my::op::zero()>::type a = my::zero();
+        pstade::result_of<my::op::zero()>::type a = my::zero();
         BOOST_CHECK(a == 0);
         std::string str("zero is ");
-        boost::result_of<my::op::zero(std::string&)>::type b = my::zero(str);
+        pstade::result_of<my::op::zero(std::string&)>::type b = my::zero(str);
         BOOST_CHECK(b == "zero is 0");
     }
     {
-        //boost::result_of<my::op::foo_error<int>(int)>::type error;
-        boost::result_of<my::op::foo_ok<int>(int)>::type ok;
-        boost::result_of<my::op::foo_ok2<int>(int)>::type ok2;
+        //pstade::result_of<my::op::foo_error<int>(int)>::type error;
+        pstade::result_of<my::op::foo_ok<int>(int)>::type ok;
+        pstade::result_of<my::op::foo_ok2<int>(int)>::type ok2;
     }
 }
 

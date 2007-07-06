@@ -17,13 +17,13 @@
 #include <boost/lambda/bind.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <boost/iterator/iterator_traits.hpp>
-#include <pstade/functional.hpp>
-#include <pstade/lambda_bind.hpp>
-#include <boost/utility/result_of.hpp>
+#include <pstade/egg/identity.hpp>
+#include <pstade/egg/lambda_placeholders.hpp>
+#include <pstade/result_of.hpp>
 
 
 template< class Iterator, class Function >
-typename boost::result_of<Function(typename boost::iterator_reference<Iterator>::type)>::type
+typename pstade::result_of<Function(typename boost::iterator_reference<Iterator>::type)>::type
 foo(Iterator it, Function fun)
 { return fun(*it); }
 
@@ -35,7 +35,7 @@ void test()
 
     {
         int i = 12;
-        boost::result_of<op_lambda_1(int)>::type result = lambda::_1(i);
+        pstade::result_of<egg::op_lambda_1(int)>::type result = lambda::_1(i);
         BOOST_CHECK(result == 12);
     }
     {
@@ -47,8 +47,8 @@ void test()
             ::foo(
                 v.begin(),
                 lambda::bind<
-                    boost::result_of<pstade::op_identity(int)>::type
-                >(identity, lambda::_1)
+                    pstade::result_of<egg::op_identity(int)>::type
+                >(egg::identity, lambda::_1)
             )
        );
     }

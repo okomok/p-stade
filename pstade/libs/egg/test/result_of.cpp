@@ -180,7 +180,7 @@ struct my_result_of
     struct instantiate : F
     { };
 
-    typedef typename boost::result_of<instantiate(A0)>::type type;
+    typedef typename pstade::result_of<instantiate(A0)>::type type;
 };
 
 BOOST_MPL_ASSERT((boost::is_same<int, my_result_of<op6<int>, int&>::type>));

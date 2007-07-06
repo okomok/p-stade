@@ -2,7 +2,7 @@
 #include <boost/test/minimal.hpp>
 
 
-#include <boost/utility/result_of.hpp>
+#include <pstade/result_of.hpp>
 
 
 struct op1
@@ -41,7 +41,7 @@ struct op2
 
 
 template<class F>
-typename boost::result_of<F(int&)>::type
+typename pstade::result_of<F(int&)>::type
 apply(F f, int x)
 {
     return f(x);

@@ -14,7 +14,8 @@
 #include <boost/foreach.hpp>
 #include <boost/lambda/bind.hpp>
 #include <boost/thread/thread.hpp>
-#include <pstade/copy_assign.hpp>
+#include <pstade/egg/copy_assign.hpp>
+#include <pstade/egg/lexicalize.hpp>
 #include <pstade/gravy/create_result.hpp>
 #include <pstade/gravy/sdk/windows.hpp>
 #include <pstade/instance.hpp>
@@ -173,10 +174,10 @@ namespace pstade { namespace hamburger {
             set_msg_handled(false);
 
             rectangle rc = bounds();
-            copy_assign(*this%Name_left,   rc.left    |lexicalized);
-            copy_assign(*this%Name_top,    rc.top     |lexicalized);
-            copy_assign(*this%Name_width,  rc.Width() |lexicalized);
-            copy_assign(*this%Name_height, rc.Height()|lexicalized);
+            egg::copy_assign(*this%Name_left,   rc.left    |egg::lexicalize());
+            egg::copy_assign(*this%Name_top,    rc.top     |egg::lexicalize());
+            egg::copy_assign(*this%Name_width,  rc.Width() |egg::lexicalize());
+            egg::copy_assign(*this%Name_height, rc.Height()|egg::lexicalize());
         }
 
         void on_paint(HDC)

@@ -2,7 +2,7 @@
 #include <boost/test/minimal.hpp>
 
 
-#include <boost/utility/result_of.hpp>
+#include <pstade/result_of.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/mpl/or.hpp>
@@ -21,7 +21,7 @@ struct hello_tag { };
 
 template< class Hello >
 struct hello_result :
-    boost::result_of<customization<Hello>(hello_tag)>
+    pstade::result_of<customization<Hello>(hello_tag)>
 { };
 
 

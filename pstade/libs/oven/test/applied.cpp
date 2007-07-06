@@ -27,10 +27,11 @@
 #include <string>
 #include <vector>
 #include <pstade/oven/algorithm.hpp>
-#include <pstade/functional.hpp> // identity
-#include <pstade/lambda_bind.hpp>
 #include <pstade/oven/begin_end.hpp>
 #include <pstade/oven/equals.hpp>
+#include <pstade/egg/identity.hpp>
+#include <boost/lambda/lambda.hpp>
+#include <boost/lambda/core.hpp>
 
 
 namespace lambda = boost::lambda;
@@ -44,7 +45,7 @@ void pstade_minimal_test()
         int a[] = { 1,2,3,4,5,6,7,8,9,10 };
         int b[] = { 1,2,3,4,5,6,7,8,9,10 }; 
         test::adaptor_random_access_constant_int (lambda::bind(make_applied, lambda::_1, begin, end), a, b);
-        test::adaptor_random_access_swappable_int(lambda::bind(make_applied, lambda::_1, pstade::identity), a, b);
+        test::adaptor_random_access_swappable_int(lambda::bind(make_applied, lambda::_1, pstade::egg::identity), a, b);
     }
     {
         std::string src("abcdefghijk");

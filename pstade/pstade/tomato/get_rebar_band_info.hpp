@@ -20,7 +20,7 @@
 // Any window can pretend to be a toolbar :-)
 
 
-#include <pstade/copy_construct.hpp>
+#include <pstade/egg/copy.hpp>
 #include <pstade/gravy/sdk/windows.hpp>
 #include <pstade/gravy/window_ref.hpp>
 #include <pstade/require.hpp>
@@ -35,7 +35,7 @@ namespace pstade { namespace tomato {
         inline
         int get_button_count(gravy::window_ref wnd)
         {
-            return pstade::copy_construct<int>(::SendMessage(wnd, TB_BUTTONCOUNT, 0, 0L));
+            return egg::copy<int>(::SendMessage(wnd, TB_BUTTONCOUNT, 0, 0L));
         }
 
 

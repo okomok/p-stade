@@ -203,7 +203,7 @@ void pstade_minimal_test()
 
     {
         return_const<int> x = ::make_return_const(1);
-        BOOST_MPL_ASSERT(( boost::is_const<boost::result_of< ::op_make_return_const(int) >::type> ));
+        BOOST_MPL_ASSERT(( boost::is_const<pstade::result_of< ::op_make_return_const(int) >::type> ));
     }
 
     {

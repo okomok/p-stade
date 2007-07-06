@@ -3,7 +3,7 @@
 
 
 #include <boost/lambda/core.hpp>
-#include <boost/utility/result_of.hpp>
+#include <pstade/result_of.hpp>
 #include <pstade/forward.hpp>
 #include <pstade/as.hpp>
 #include <pstade/result_of_lambda.hpp>
@@ -18,8 +18,8 @@ void test()
     // lambda::_1(12); // error
     lambda::_1(12|to_ref); // ok
 
-    boost::result_of<
-        boost::result_of<op::forward(op_lambda_1)>::type(int)
+    pstade::result_of<
+        pstade::result_of<op::forward(op_lambda_1)>::type(int)
     >::type x =
         forward(lambda::_1)(12);
 

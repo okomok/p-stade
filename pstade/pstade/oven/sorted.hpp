@@ -16,7 +16,7 @@
 #include <boost/range/end.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
-#include <pstade/functional.hpp> // less
+#include <pstade/egg/less.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/result_of.hpp>
 #include "./concepts.hpp"
@@ -55,7 +55,7 @@ namespace sorted_detail {
 struct op_make_sorted :
     callable<op_make_sorted>
 {
-    template< class Myself, class Range, class Compare = op_less const >
+    template< class Myself, class Range, class Compare = egg::op_less const >
     struct apply :
         result_of<
             op_make_indirected<>(
@@ -76,7 +76,7 @@ struct op_make_sorted :
     template< class Result, class Range >
     Result call(Range& rng) const
     {
-        return (*this)(rng, less);
+        return (*this)(rng, egg::less);
     }
 };
 

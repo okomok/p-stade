@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include <pstade/static_downcast.hpp>
+#include <pstade/egg/static_downcast.hpp>
 #include <pstade/ketchup.hpp>
 
 template< class D >
@@ -14,7 +14,7 @@ struct CMainFrameCommand1 :
 private:
 	LRESULT OnFileExit(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 	{
-        D& d = pstade::static_downcast<D>(*this);
+        D& d = egg::static_downcast<D>(*this);
 
 		d.PostMessage(WM_CLOSE);
 		return 0;
@@ -44,7 +44,7 @@ struct CMainFrameCommand2 :
 private:
 	LRESULT OnViewToolBar(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 	{
-        D& d = pstade::static_downcast<D>(*this);
+        D& d = egg::static_downcast<D>(*this);
 
 		static BOOL bVisible = TRUE;	// initially visible
 		bVisible = !bVisible;
@@ -58,7 +58,7 @@ private:
 
 	LRESULT OnViewStatusBar(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 	{
-        D& d = pstade::static_downcast<D>(*this);
+        D& d = egg::static_downcast<D>(*this);
 
 		BOOL bVisible = !::IsWindowVisible(d.m_hWndStatusBar);
 		::ShowWindow(d.m_hWndStatusBar, bVisible ? SW_SHOWNOACTIVATE : SW_HIDE);

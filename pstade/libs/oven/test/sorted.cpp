@@ -23,7 +23,7 @@
 #include <boost/range.hpp>
 #include "./detail/v1_core.hpp"
 #include <pstade/oven/reversed.hpp>
-#include <pstade/functional.hpp>
+#include <pstade/egg/less.hpp>
 #include <pstade/oven/stream_read.hpp>
 #include <pstade/oven/memoized.hpp>
 
@@ -44,7 +44,7 @@ void test()
         ) );
 
         BOOST_CHECK( oven::test_RandomAccess_Readable_Writable(
-            rng|sorted(pstade::less),
+            rng|sorted(pstade::egg::less),
             expected
         ) );
     }
@@ -54,7 +54,7 @@ void test()
 
     std::string ans("12345");
     
-    boost::result_of<op_make_sorted(std::string&)>::type srng = make_sorted(src);
+    pstade::result_of<op_make_sorted(std::string&)>::type srng = make_sorted(src);
     BOOST_FOREACH (char& ch, srng) {
         std::cout << ch;
     }

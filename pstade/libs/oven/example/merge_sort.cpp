@@ -24,13 +24,13 @@ range;
 
 range merge_sort(range rng)
 {
-    typedef boost::result_of<op_distance(range&)>::type diff_t;
+    typedef pstade::result_of<op_distance(range&)>::type diff_t;
 
     diff_t const d = distance(rng);
     if (d < 2)
         return rng;
     else {
-        boost::result_of<op_make_split_at(range&, diff_t)>::type
+        pstade::result_of<op_make_split_at(range&, diff_t)>::type
             xs_ys = make_split_at(rng, d/2);
 
         return make_merged(

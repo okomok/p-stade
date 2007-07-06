@@ -13,7 +13,8 @@
 
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
-#include <pstade/functional.hpp> // equal_to, not_
+#include <pstade/egg/equal_to.hpp>
+#include <pstade/egg/not.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/result_of.hpp>
@@ -27,13 +28,13 @@ namespace pstade { namespace oven {
 struct op_make_uniqued :
     callable<op_make_uniqued>
 {
-    template< class Myself, class Range, class BinaryPred = op_equal_to const >
+    template< class Myself, class Range, class BinaryPred = egg::op_equal_to const >
     struct apply :
         result_of<
             op_make_adjacent_filtered(
                 Range&,
                 typename result_of<
-                    op_not_(typename pass_by_value<BinaryPred>::type)
+                    egg::op_not_(typename pass_by_value<BinaryPred>::type)
                 >::type
             )
         >
@@ -43,13 +44,13 @@ struct op_make_uniqued :
     Result call(Range& rng, BinaryPred& pred) const
     {
         PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-        return make_adjacent_filtered(rng, not_(pred));
+        return make_adjacent_filtered(rng, egg::not_(pred));
     }
 
     template< class Result, class Range >
     Result call(Range& rng) const
     {
-        return (*this)(rng, equal_to);
+        return (*this)(rng, egg::equal_to);
     }
 };
 

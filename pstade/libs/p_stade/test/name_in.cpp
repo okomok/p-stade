@@ -2,9 +2,6 @@
 #include <boost/test/minimal.hpp>
 
 
-#include <pstade/functional.hpp>
-
-
 namespace standard {
 
     template<class T>

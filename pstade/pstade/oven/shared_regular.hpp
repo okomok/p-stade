@@ -16,9 +16,9 @@
 // This is considered as a generalized 'regular_c'.
 
 
+#include <pstade/egg/to_shared_ptr.hpp>
 #include <pstade/function.hpp>
 #include <pstade/result_of.hpp>
-#include <pstade/to_shared_ptr.hpp>
 #include "./detail/indirect_function.hpp"
 
 
@@ -32,7 +32,7 @@ namespace shared_regular_detail {
     struct baby
     {
         typedef typename
-            result_of<op_to_shared_ptr<>(Ptr&)>::type
+            result_of<egg::op_to_shared_ptr(Ptr&)>::type
         sp_t;
 
         typedef
@@ -41,7 +41,7 @@ namespace shared_regular_detail {
 
         result_type operator()(Ptr& pf) const
         {
-            return result_type(to_shared_ptr(pf));
+            return result_type(egg::to_shared_ptr(pf));
         }
     };
 

@@ -20,10 +20,10 @@
 #include <pstade/oven/equals.hpp>
 #include <pstade/oven/copied.hpp>
 #include <boost/range/empty.hpp>
-#include <boost/utility/result_of.hpp>
+#include <pstade/result_of.hpp>
 #include <pstade/unused.hpp>
-#include <pstade/copy_assign.hpp>
-#include <pstade/copy_construct.hpp>
+#include <pstade/egg/copy_assign.hpp>
+#include <pstade/egg/copy.hpp>
 #include <pstade/oven/jointed.hpp>
 #include <pstade/used.hpp>
 #include <boost/array.hpp>
@@ -112,7 +112,7 @@ void test()
     {
         int const ans[] = { 1,5,3,6,1,3,7,1,4,2,2 };
         std::vector<int> vec;
-        pstade::copy_assign(vec, initial_values(1,5,3,6,1,3,7,1,4,2,2));
+        pstade::egg::copy_assign(vec, initial_values(1,5,3,6,1,3,7,1,4,2,2));
         BOOST_CHECK( equals(vec, ans) );
     }
     {
@@ -140,8 +140,8 @@ void test()
     }
 #endif
     {
-        boost::result_of<op_initial_values<>(int,int,int)>::type result = { { { 1,2,3 } } };
-        // boost::result_of<op_initial_values<>()>::type nullary_result = { };
+        pstade::result_of<op_initial_values<>(int,int,int)>::type result = { { { 1,2,3 } } };
+        // pstade::result_of<op_initial_values<>()>::type nullary_result = { };
         pstade::unused(result); //, nullary_result);
     }
     {
@@ -207,13 +207,13 @@ void test()
             boost::implicit_cast< std::vector<int> >(initial_values(1,2,3,4,5))
         ) );
 
-        pstade::copy_assign(vec, initial_values(1,2,3,4,5));
+        pstade::egg::copy_assign(vec, initial_values(1,2,3,4,5));
     }
     {
         std::vector<int> vec = initial_values(1,2,3,4,5);
         BOOST_CHECK( equals(
             boost::implicit_cast< std::vector<int> >(initial_values(1,2,3,4,5)),
-            pstade::copy_construct< std::vector<int> >(initial_values(1,2,3,4,5))
+            pstade::egg::copy< std::vector<int> >(initial_values(1,2,3,4,5))
         ) );
     }
     {

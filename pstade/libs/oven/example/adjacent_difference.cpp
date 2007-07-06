@@ -15,7 +15,6 @@
 
 
 #include <iostream>
-#include <pstade/functional.hpp>
 #include <boost/lambda/core.hpp>
 #include <boost/lambda/lambda.hpp>
 

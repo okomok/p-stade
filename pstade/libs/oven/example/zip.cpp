@@ -12,7 +12,6 @@
 #define PSTADE_CONCEPT_CHECK
 #include <string>
 #include <iostream>
-#include <pstade/lexical_cast.hpp>
 #include <pstade/oven.hpp>
 #include <boost/assign/list_of.hpp>
 #include <boost/foreach.hpp>

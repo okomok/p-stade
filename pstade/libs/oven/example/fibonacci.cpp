@@ -15,7 +15,6 @@
 
 #include <string>
 #include <iostream>
-#include <pstade/lexical_cast.hpp>
 #include <pstade/oven.hpp>
 #include <pstade/to_value.hpp>
 #include <pstade/tuple.hpp> // tuple_pack

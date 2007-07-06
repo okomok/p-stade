@@ -20,8 +20,8 @@
 
 
 #include <string> // basic_string
-#include <pstade/copy_construct.hpp>
-#include <pstade/lexical_cast.hpp>
+#include <pstade/egg/copy.hpp>
+#include <pstade/egg/lexicalize.hpp>
 
 
 namespace pstade { namespace napkin { namespace detail {
@@ -37,7 +37,7 @@ struct basic_placeholder
     void output(const OutputStreamable& x)
     {
         override_output(
-            pstade::copy_construct< std::basic_string<CharT> >(x|lexicalized).c_str()
+            egg::copy< std::basic_string<CharT> >(x|egg::lexicalize()).c_str()
         );
     }
 

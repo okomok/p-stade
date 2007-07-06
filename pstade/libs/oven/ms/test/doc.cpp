@@ -30,7 +30,7 @@
 #include <boost/lambda/core.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <boost/tuple/tuple.hpp>
-#include <pstade/lexical_cast.hpp> // thanks to cryolite
+#include <pstade/egg/lexical_cast.hpp> // thanks to cryolite
 #include <pstade/oven/atl.hpp>
 #include <pstade/oven/mfc.hpp>
 #include <pstade/oven/transformed.hpp>
@@ -55,7 +55,7 @@ void test()
 
     std::vector<int> vec =
         WTL::CString(_T("9876")) |
-            oven::transformed(lambda::bind(op_lexical_cast<int>(), lambda::_1)) |
+            oven::transformed(lambda::bind(egg::xp_lexical_cast<int>(), lambda::_1)) |
             oven::copied
     ;
 

@@ -18,14 +18,14 @@
 #include <string>
 #include <vector>
 #include "./detail/v1_core.hpp"
-#include <pstade/new_delete.hpp>
+#include <pstade/egg/new_auto.hpp>
 
 
 namespace oven = pstade::oven;
 using namespace oven;
 
 
-boost::result_of<op_shared_single(char *)>::type
+pstade::result_of<op_shared_single(char *)>::type
 make_rng()
 {
     return shared_single(new char('a'));
@@ -51,7 +51,7 @@ void pstade_unit_test()
         BOOST_CHECK( equals(::make_rng(), ans) );
     }
     {
-        BOOST_CHECK( equals(shared_single(pstade::op_new_auto<char>()('a')), ans) );
+        BOOST_CHECK( equals(shared_single(pstade::egg::xp_new_auto<char>()('a')), ans) );
     }
 }
 

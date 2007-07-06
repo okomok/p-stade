@@ -25,7 +25,7 @@
 #include <boost/utility/result_of.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
-#include <pstade/copy_construct.hpp>
+#include <pstade/egg/copy.hpp>
 #include <pstade/function.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/unused.hpp>
@@ -51,7 +51,7 @@ namespace counting_detail {
     template< class Incrementable1, class Incrementable2 > inline
     bool is_valid(Incrementable1 i, Incrementable2 j, boost::random_access_traversal_tag)
     {
-        return pstade::copy_construct<Incrementable2>(i) <= j;
+        return egg::copy<Incrementable2>(i) <= j;
     }
 
 
@@ -76,7 +76,7 @@ namespace counting_detail {
             BOOST_ASSERT(here::is_valid(i, j, typename boost::iterator_traversal<iter_t>::type()));
 
             return result_type(
-                iter_t(pstade::copy_construct<inc_t>(i)),
+                iter_t(egg::copy<inc_t>(i)),
                 iter_t(j)
             );
         }

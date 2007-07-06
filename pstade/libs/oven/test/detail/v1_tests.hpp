@@ -71,7 +71,7 @@
 
 #if !defined(PSTADE_OVEN_TESTS_REVERSE_RANGE_TESTING)
     #include <pstade/oven/reversed.hpp>
-    #include <boost/utility/result_of.hpp>
+    #include <pstade/result_of.hpp>
 #else
     #include <boost/iterator/reverse_iterator.hpp>
 #endif
@@ -291,7 +291,7 @@ namespace tests_detail {
 
 #if !defined(PSTADE_OVEN_TESTS_REVERSE_RANGE_TESTING)
     template< class Range >
-    typename boost::result_of<op_make_reversed(Range&)>::type
+    typename pstade::result_of<op_make_reversed(Range&)>::type
     make_reversed(Range& rng)
     {
         return rng|reversed;

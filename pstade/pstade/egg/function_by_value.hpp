@@ -26,7 +26,7 @@
 #include <pstade/preprocessor.hpp>
 #include "./config.hpp" // PSTADE_EGG_MAX_ARITY
 #include "./detail/nullary_result.hpp"
-#include "./detail/sig.hpp"
+#include "./detail/sig_template.hpp"
 #include "./nullary_result_of.hpp"
 
 
@@ -64,14 +64,14 @@ namespace pstade { namespace egg {
         #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, PSTADE_EGG_MAX_ARITY, <pstade/egg/function_by_value.hpp>))
         #include BOOST_PP_ITERATE()
 
-        #include PSTADE_EGG_SIG()
+        #include PSTADE_EGG_SIG_TEMPLATE()
     };
 
 
 } } // namespace pstade::egg
 
 
-PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE(pstade::egg::function_by_value, 1)
+PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE(pstade::egg::function_by_value, (class))
 
 
 #endif

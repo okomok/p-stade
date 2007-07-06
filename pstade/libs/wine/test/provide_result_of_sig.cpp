@@ -73,22 +73,22 @@ PSTADE_TEST_IS_RESULT_OF((int), ::my::something(int, int))
 void test()
 {
     {
-        boost::result_of< ::constructor<int>()>::type result = ::constructor<int>()();
+        pstade::result_of< ::constructor<int>()>::type result = ::constructor<int>()();
         BOOST_CHECK(result == 0);
     }
     {
         int const i = 10;
-        boost::result_of< ::constructor<int>(int const&)>::type result = ::constructor<int>()(i);
+        pstade::result_of< ::constructor<int>(int const&)>::type result = ::constructor<int>()(i);
         BOOST_CHECK(result == 10);
     }
     {
-        boost::result_of< ::my::something()>::type result = ::my::something()();
+        pstade::result_of< ::my::something()>::type result = ::my::something()();
         BOOST_CHECK(result == 12);
     }
 
     {
         int const i = 10;
-        boost::result_of< ::my::something(int const&, int const&)>::type result = ::my::something()(i, i);
+        pstade::result_of< ::my::something(int const&, int const&)>::type result = ::my::something()(i, i);
         BOOST_CHECK(result == 20);
     }
 }

@@ -27,7 +27,7 @@
 #include <algorithm> // make_heap
 #include <string>
 #include <boost/range.hpp>
-#include <boost/utility/result_of.hpp>
+#include <pstade/result_of.hpp>
 #include <pstade/oven/identities.hpp>
 #include <pstade/oven/distance.hpp>
 #include <pstade/test.hpp>

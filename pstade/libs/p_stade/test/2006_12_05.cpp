@@ -2,7 +2,7 @@
 #include <boost/test/minimal.hpp>
 
 
-#include <boost/utility/result_of.hpp>
+#include <pstade/result_of.hpp>
 #include <pstade/pipable.hpp>
 
 
@@ -30,13 +30,13 @@ typedef
 typeof_pipable;
 
 
-boost::result_of<typeof_pipable(int (*)(int))>::type incremented =
+pstade::result_of<typeof_pipable(int (*)(int))>::type incremented =
     pipable(&increment);
 
-boost::result_of<typeof_pipable(int (*)(int))>::type decremented =
+pstade::result_of<typeof_pipable(int (*)(int))>::type decremented =
     pipable(&decrement);
 
-boost::result_of<typeof_pipable(int (*)(int, int))>::type multiplied =
+pstade::result_of<typeof_pipable(int (*)(int, int))>::type multiplied =
     pipable(&multiply);
 
 

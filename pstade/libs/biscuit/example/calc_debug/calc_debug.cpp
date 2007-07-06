@@ -13,9 +13,9 @@
 #include <iostream>
 #include <string>
 #include <stack>
-#include <pstade/lexical_cast.hpp>
 #include <pstade/biscuit.hpp>
 #include <pstade/oven/copied.hpp>
+#include <pstade/egg/lexicalize.hpp>
 
 
 // See: http://www.boost.org/libs/spirit/example/fundamental/calc_debug.cpp
@@ -34,7 +34,7 @@ namespace calculator_debug
         void operator()(Range& rng, std::stack<long>& eval)
         {
             std::string s = rng|oven::copied;
-            long n = s|pstade::lexicalized; // or std::strtol(chseq, 0, 10);
+            long n = s|pstade::egg::lexicalize(); // or std::strtol(chseq, 0, 10);
             eval.push(n);
             std::cout << "push\t" << long(n) << std::endl;
         }

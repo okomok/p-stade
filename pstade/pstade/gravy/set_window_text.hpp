@@ -18,7 +18,7 @@
 #include <boost/array.hpp>
 #include <boost/range/begin.hpp>
 #include <pstade/constant.hpp>
-#include <pstade/copy_construct.hpp>
+#include <pstade/egg/copy.hpp>
 #include <pstade/oven/as_c_str.hpp>
 #include <pstade/oven/distance.hpp>
 #include <pstade/oven/equals.hpp>
@@ -43,7 +43,7 @@ namespace pstade { namespace gravy {
         {
             TCHAR const *pszNew = c_str(str);
             oven::iter_range<TCHAR const *> rngNew(pszNew|oven::as_c_str);
-            int newLen = pstade::copy_construct<int>(oven::distance(rngNew));
+            int newLen = egg::copy<int>(oven::distance(rngNew));
 
             typedef static_c<int, 255> bufLen;
             boost::array<TCHAR, 1 + bufLen::value> bufOld;

@@ -12,7 +12,7 @@
 
 #include <boost/range/empty.hpp>
 #include <boost/throw_exception.hpp>
-#include <pstade/lexical_cast.hpp>
+#include <pstade/egg/lexicalize.hpp>
 #include <pstade/gravy/c_str.hpp>
 #include "./error.hpp"
 #include "./string.hpp"
@@ -54,7 +54,7 @@ IntegerT get_integer(Profile& pr, const CStringizable& valueName)
 {
     try {
         pizza::string str(pr, valueName);
-        return gravy::c_str(str)|lexicalized;
+        return gravy::c_str(str)|egg::lexicalize();
     }
     catch (boost::bad_lexical_cast const&) {
         invalid_integer err(integer_detail::error_msg(valueName));

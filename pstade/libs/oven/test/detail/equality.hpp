@@ -27,7 +27,7 @@
 #include <pstade/oven/detail/prefix.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/functional.hpp> // equal_to
+#include <pstade/egg/equal_to.hpp> // equal_to
 
 
 namespace pstade { namespace oven { namespace test {
@@ -54,7 +54,7 @@ void iter_equality(
     Iterator first, Iterator last,
     IteratorA firstA, IteratorA lastA)
 {
-    test::iter_equality(first, last, firstA, lastA, equal_to);
+    test::iter_equality(first, last, firstA, lastA, egg::equal_to);
 }
 
 

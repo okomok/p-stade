@@ -19,7 +19,7 @@
 
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_facade.hpp>
-#include <pstade/indirect.hpp>
+#include <pstade/egg/indirect.hpp>
 #include <pstade/remove_cvr.hpp>
 #include <pstade/result_of.hpp>
 #include "./begin_end_tag.hpp"
@@ -40,7 +40,7 @@ struct generator_iterator_super
     result_t;
 
     typedef typename
-        result_of<op_indirect(result_t const&)>::type
+        result_of<egg::op_indirect(result_t const&)>::type
     ref_t;
 
     typedef typename

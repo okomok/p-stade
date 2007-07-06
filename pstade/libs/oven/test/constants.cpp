@@ -22,7 +22,7 @@
 #include <boost/mpl/assert.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <pstade/oven/identities.hpp>
-#include <pstade/is_same.hpp>
+#include <pstade/egg/is_same.hpp>
 #include <boost/iterator.hpp>
 #include <pstade/oven/equals.hpp>
 
@@ -72,7 +72,7 @@ void legacy_way(Range const& rng)
 template< class Range >
 void modern_way(Range& rng)
 {
-    typename boost::result_of<op_make_constants(Range&)>::type safe_rng
+    typename pstade::result_of<op_make_constants(Range&)>::type safe_rng
         = make_constants(rng);
     *boost::begin(safe_rng) = 'x';
 }
@@ -102,6 +102,6 @@ void pstade_minimal_test()
         int a[] = { 6,4,2,3,6,3,8,5,1,4,6,8,3,1 };
         int b[] = { 6,4,2,3,6,3,8,5,1,4,6,8,3,1 };
         test::adaptor_random_access_constant_int(lambda::bind(make_constants, lambda::_1), a, b);
-        BOOST_CHECK( equals(a, a|constants, pstade::is_same) );
+        BOOST_CHECK( equals(a, a|constants, pstade::egg::is_same) );
     }
 }

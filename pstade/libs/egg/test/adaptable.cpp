@@ -15,14 +15,11 @@
 
 #include <boost/mpl/assert.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <pstade/functional.hpp>
+#include <pstade/egg/identity.hpp>
+#include <pstade/egg/plus.hpp>
 
 
 using namespace pstade::egg;
-using pstade::identity;
-using pstade::op_identity;
-using pstade::plus;
-using pstade::op_plus;
 
 
 template<class F>
@@ -45,7 +42,7 @@ void pstade_minimal_test()
 {
     {
         int i = 10;
-        boost::result_of<xp_unary_adaptable<int>(op_identity const&)>::type a = 
+        pstade::result_of<xp_unary_adaptable<int>(op_identity const&)>::type a = 
             unary_adaptable<int>(identity);
         BOOST_CHECK( a(i) == 10 );
         BOOST_CHECK( unary_adaptable<int>(identity)(i) == 10 );
@@ -53,7 +50,7 @@ void pstade_minimal_test()
     }
     {
         int i = 10;
-        boost::result_of<xp_binary_adaptable<int, int const>(op_plus const&)>::type a = 
+        pstade::result_of<xp_binary_adaptable<int, int const>(op_plus const&)>::type a = 
             binary_adaptable<int, int const>(plus);
         BOOST_CHECK( a(i, 4) == 14 );
         BOOST_CHECK(( binary_adaptable<int, int const>(plus)(i, 4) == 14 ));

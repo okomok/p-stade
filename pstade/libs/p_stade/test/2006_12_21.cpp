@@ -4,7 +4,7 @@
 
 #include <boost/type_traits/decay.hpp>
 #include <boost/type_traits/remove_cv.hpp>
-#include <boost/utility/result_of.hpp>
+#include <pstade/result_of.hpp>
 #include <boost/lambda/bind.hpp>
 
 
@@ -80,15 +80,15 @@ namespace my {
 void test()
 {
     {
-        boost::result_of<my::op::logical_not(bool)>::type a = my::logical_not(true);
+        pstade::result_of<my::op::logical_not(bool)>::type a = my::logical_not(true);
         BOOST_CHECK(a == false);
     }
     {
-        boost::result_of<my::op::logical_not(bool)>::type a = my::logical_not2(false);
+        pstade::result_of<my::op::logical_not(bool)>::type a = my::logical_not2(false);
         BOOST_CHECK(a == true);
     }
     {
-        boost::result_of<my::op::identity(int)>::type a = my::identity(5);
+        pstade::result_of<my::op::identity(int)>::type a = my::identity(5);
         BOOST_CHECK(a == 5);
     }
     {

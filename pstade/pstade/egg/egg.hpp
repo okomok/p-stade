@@ -11,6 +11,7 @@
 
 
 #include "./adapt.hpp"
+#include "./adapt_sig.hpp"
 #include "./adaptable.hpp"
 #include "./always.hpp"
 #include "./apply_params.hpp"
@@ -45,6 +46,7 @@
 #include "./less.hpp"
 #include "./less_equal.hpp"
 #include "./lexical_cast.hpp"
+#include "./lexicalize.hpp"
 #include "./logical_and.hpp"
 #include "./logical_not.hpp"
 #include "./logical_or.hpp"
@@ -69,6 +71,7 @@
 #include "./static_downcast.hpp"
 #include "./to_ref.hpp"
 #include "./to_shared_ptr.hpp"
+#include "./to_string.hpp"
 #include "./to_value.hpp"
 #include "./tuple_element.hpp"
 #include "./tuple_get.hpp"

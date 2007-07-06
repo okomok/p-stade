@@ -17,10 +17,10 @@
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/static_warning.hpp>
-#include <pstade/do_swap.hpp>
+#include <pstade/egg/do_swap.hpp>
+#include <pstade/egg/to_ref.hpp>
 #include <pstade/is_convertible.hpp>
 #include <pstade/is_returnable.hpp>
-#include <pstade/to_ref.hpp>
 #include "../is_sorted.hpp"
 #include "../read.hpp"
 #include "./constant_reference.hpp"
@@ -164,8 +164,8 @@ friend class boost::iterator_core_access;
         MergeRoutine::after_yield( first1, to_cref(m_last1), first2, to_cref(m_last2), to_cref(m_comp));
         MergeRoutine::before_yield(first1, to_cref(m_last1), first2, to_cref(m_last2), to_cref(m_comp));
 
-        do_swap(first1, this->base_reference());
-        do_swap(first2, m_it2);
+        egg::do_swap(first1, this->base_reference());
+        egg::do_swap(first2, m_it2);
     }
 };
 

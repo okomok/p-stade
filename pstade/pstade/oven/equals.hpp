@@ -31,7 +31,7 @@
 #include <boost/range/end.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/constant.hpp>
-#include <pstade/functional.hpp> // equal_to
+#include <pstade/egg/equal_to.hpp>
 #include "./concepts.hpp"
 #include "./detail/minimum_pure.hpp"
 #include "./range_traversal.hpp"
@@ -102,7 +102,7 @@ struct op_equals
     template< class Range1, class Range2 >
     bool operator()(Range1 const& rng1, Range2 const& rng2) const
     {
-        return (*this)(rng1, rng2, equal_to);
+        return (*this)(rng1, rng2, egg::equal_to);
     }
 };
 

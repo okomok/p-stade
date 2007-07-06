@@ -18,7 +18,7 @@
 #include <pstade/oven/detail/prefix.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/functional.hpp> // less
+#include <pstade/egg/less.hpp> // less
 #include <pstade/oven/do_iter_swap.hpp>
 #include <pstade/oven/read.hpp>
 
@@ -58,7 +58,7 @@ void iter_selection_sort(Iterator first, Iterator last, Compare comp)
 template< class Iterator > inline
 void iter_selection_sort(Iterator first, Iterator last)
 {
-    test::iter_selection_sort(first, last, less);
+    test::iter_selection_sort(first, last, egg::less);
 }
 
 

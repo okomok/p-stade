@@ -17,14 +17,14 @@
 #include <boost/tuple/tuple.hpp>
 #include <boost/tuple/tuple_comparison.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <boost/utility/result_of.hpp>
+#include <pstade/result_of.hpp>
 
 
 BOOST_MPL_ASSERT(( boost::is_same< boost::tuples::tuple<>,
-                 boost::result_of<pstade::egg::op_tuple_pack()>::type > ));
+                 pstade::result_of<pstade::egg::op_tuple_pack()>::type > ));
 
 BOOST_MPL_ASSERT(( boost::is_same< boost::tuples::tuple<int&, int const&>,
-                 boost::result_of<pstade::egg::op_tuple_pack(int&, int)>::type > ));
+                 pstade::result_of<pstade::egg::op_tuple_pack(int&, int)>::type > ));
 
 
 void pstade_minimal_test()
