@@ -34,7 +34,7 @@
 #include "./detail/config.hpp"
 
 #if defined(PSTADE_OVEN_BOOST_RANGE_VERSION_1)
-    #include <pstade/copy_construct.hpp>
+    #include <pstade/egg/copy.hpp>
     #include "./detail/iter_distance.hpp"
 #endif
 
@@ -198,7 +198,7 @@ namespace pstade { namespace oven { namespace extension_detail {
         template< class Result, class T >
         Result call(T const& x) const
         {
-            return pstade::copy_construct<Result>(
+            return egg::copy<Result>(
                 detail::iter_distance(PSTADE_OVEN_BOOST_RANGE_BEGIN(x), PSTADE_OVEN_BOOST_RANGE_END(x))
             );
         }

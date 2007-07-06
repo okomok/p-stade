@@ -17,7 +17,7 @@
 #include <boost/range/end.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
-#include <pstade/copy_construct.hpp>
+#include <pstade/egg/copy.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/pipable.hpp>
@@ -57,7 +57,7 @@ namespace cycled_detail {
         result_type operator()(Range& rng, Incrementable1& i, Incrementable2& j) const
         {
             PSTADE_CONCEPT_ASSERT((Forward<Range>));
-            return aux(boost::begin(rng), boost::end(rng), pstade::copy_construct<inc_t>(i), j);
+            return aux(boost::begin(rng), boost::end(rng), egg::copy<inc_t>(i), j);
         }
 
         template< class Iterator >

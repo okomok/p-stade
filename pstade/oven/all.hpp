@@ -22,8 +22,8 @@
 #include <algorithm> // find_if
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/constant.hpp>
-#include <pstade/functional.hpp> // not_
+#include <pstade/egg/not.hpp>
+#include <pstade/egg/object.hpp>
 #include "./concepts.hpp"
 
 
@@ -44,12 +44,12 @@ struct op_all
     template< class Iterator, class UnaryPred >
     bool aux(Iterator first, Iterator last, UnaryPred pred) const
     {
-        return std::find_if(first, last, not_(pred)) == last;
+        return std::find_if(first, last, egg::not_(pred)) == last;
     }
 };
 
 
-PSTADE_CONSTANT(all, (op_all))
+PSTADE_EGG_OBJECT((op_all), all) = {};
 
 
 } } // namespace pstade::oven

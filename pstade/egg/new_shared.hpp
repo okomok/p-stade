@@ -34,7 +34,7 @@ namespace pstade { namespace egg {
 } } // namespace pstade::egg
 
 
-PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE(pstade::egg::xp_new_shared, 1)
+PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE(pstade::egg::xp_new_shared, (class))
 
 
 #endif

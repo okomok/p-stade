@@ -13,7 +13,7 @@
 #include <pstade/integral_cast.hpp>
 
 
-#include <boost/utility/result_of.hpp>
+#include <pstade/result_of.hpp>
 
 using namespace pstade;
 
@@ -43,7 +43,7 @@ void test()
 void test_()
 {
     try {
-        boost::result_of<op_integral_cast<short>(long)>::type
+        pstade::result_of<op_integral_cast<short>(long)>::type
             s = pstade::integral_cast<short>(70000L);
             (void)s;
     }

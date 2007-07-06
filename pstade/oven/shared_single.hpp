@@ -15,8 +15,8 @@
 #include <boost/pointee.hpp>
 #include <pstade/callable_by_value.hpp>
 #include <pstade/constant.hpp>
+#include <pstade/egg/to_shared_ptr.hpp>
 #include <pstade/result_of.hpp>
-#include <pstade/to_shared_ptr.hpp>
 #include "./indirected.hpp"
 #include "./shared.hpp"
 
@@ -63,7 +63,7 @@ struct op_shared_single :
                         typename result_of<
                             shared_single_detail::new_array1(
                                 typename result_of<
-                                    op_to_shared_ptr<>(Ptr&)
+                                    egg::op_to_shared_ptr(Ptr&)
                                 >::type
                             )
                         >::type
@@ -80,7 +80,7 @@ struct op_shared_single :
             make_indirected(
                 shared(
                     shared_single_detail::new_array1()(
-                        to_shared_ptr(p)
+                        egg::to_shared_ptr(p)
                     )
                 )
             );

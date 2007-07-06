@@ -11,8 +11,8 @@
 
 
 #include <pstade/gravy/sdk/tchar.hpp>
-#include <pstade/copy_construct.hpp>
-#include <pstade/lexical_cast.hpp>
+#include <pstade/egg/copy.hpp>
+#include <pstade/egg/lexicalize.hpp>
 #include <pstade/gravy/tstring.hpp>
 #include "./set_string.hpp"
 
@@ -24,7 +24,7 @@ template< class Profile, class CStringizable, class IntegerT >
 void set_integer(Profile& pr, const CStringizable& valueName, IntegerT value)
 {
     pizza::set_string(pr, valueName,
-        pstade::copy_construct<gravy::tstring>(value|lexicalized).c_str()
+        egg::copy<gravy::tstring>(value|egg::lexicalize()).c_str()
     );
 }
 

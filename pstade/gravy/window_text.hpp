@@ -25,7 +25,7 @@
 
 #include <boost/assert.hpp>
 #include <boost/range/begin.hpp>
-#include <pstade/copy_construct.hpp>
+#include <pstade/egg/copy.hpp>
 #include <pstade/oven/array_range.hpp>
 #include <pstade/oven/as_c_str.hpp>
 #include <pstade/oven/distance.hpp>
@@ -55,7 +55,7 @@ namespace pstade { namespace gravy {
                 m_buf(1 + ::GetWindowTextLength(wnd))
             {
                 ::GetWindowText(wnd,
-                    boost::begin(m_buf), pstade::copy_construct<int>(oven::distance(m_buf)) );
+                    boost::begin(m_buf), egg::copy<int>(oven::distance(m_buf)) );
 
                 BOOST_ASSERT(oven::contains_zero(m_buf));
             }

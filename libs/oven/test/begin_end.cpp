@@ -19,7 +19,7 @@
 #include <algorithm>
 #include <string>
 #include <boost/range.hpp>
-#include <boost/utility/result_of.hpp>
+#include <pstade/result_of.hpp>
 #include <pstade/test.hpp>
 
 

@@ -24,8 +24,8 @@
 #include <algorithm> // find_if
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
+#include <pstade/egg/not.hpp>
 #include <pstade/function.hpp>
-#include <pstade/functional.hpp> // not_
 #include <pstade/pipable.hpp>
 #include "./concepts.hpp"
 #include "./iter_range.hpp"

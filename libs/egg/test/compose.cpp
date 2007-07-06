@@ -57,8 +57,8 @@ using namespace pstade::egg;
 BOOST_MPL_ASSERT((
     boost::is_same<
         std::string,
-        boost::result_of<
-            boost::result_of<
+        pstade::result_of<
+            pstade::result_of<
                 op_compose(op_value const, bar_fun)
             >::type
             (char)
@@ -72,7 +72,7 @@ template<class F>
 void nullary_result_of_check(F f)
 {
     BOOST_MPL_ASSERT((boost::is_same<
-        typename boost::result_of<F()>::type,
+        typename pstade::result_of<F()>::type,
         int
     >));
 }

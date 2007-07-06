@@ -13,7 +13,7 @@
 
 #include <pstade/callable.hpp>
 #include <pstade/deduced_const.hpp>
-#include <pstade/functional.hpp> // identity
+#include <pstade/egg/identity.hpp>
 #include <pstade/result_of.hpp>
 #include <pstade/specified.hpp>
 #include "./concepts.hpp"
@@ -30,7 +30,7 @@ struct op_make_converted :
     template< class Myself, class Range >
     struct apply :
         result_of<
-            op_make_transformed<To>(Range&, op_identity const&)
+            op_make_transformed<To>(Range&, egg::op_identity const&)
         >
     { };
 
@@ -38,7 +38,7 @@ struct op_make_converted :
     Result call(Range& rng) const
     {
         PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-        return op_make_transformed<To>()(rng, identity);
+        return op_make_transformed<To>()(rng, egg::identity);
     }
 };
 

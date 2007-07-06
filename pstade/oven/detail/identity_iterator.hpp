@@ -12,7 +12,7 @@
 
 
 #include <boost/iterator/iterator_adaptor.hpp>
-#include <pstade/copy_construct.hpp>
+#include <pstade/egg/copy.hpp>
 #include <pstade/is_convertible.hpp>
 #include "../do_iter_swap.hpp"
 
@@ -68,7 +68,7 @@ friend class boost::iterator_core_access;
     template< class I, class T, class D >
     diff_t distance_to(identity_iterator<I, T, D> const& other) const
     {
-        return pstade::copy_construct<diff_t>(other.base() - this->base());
+        return egg::copy<diff_t>(other.base() - this->base());
     }
 };
 

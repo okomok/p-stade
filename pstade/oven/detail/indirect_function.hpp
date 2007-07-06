@@ -17,7 +17,7 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/indirect.hpp>
+#include <pstade/egg/indirect.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
 
@@ -28,7 +28,7 @@ namespace pstade { namespace oven { namespace detail {
 template< class Indirectable >
 struct indirect_function_base :
     boost::remove_reference<
-        typename result_of<op_indirect(Indirectable const&)>::type
+        typename result_of<egg::op_indirect(Indirectable const&)>::type
     >
 { };
 
@@ -64,7 +64,7 @@ struct indirect_function :
         m_ind(ind)
     { }
 
-    typename result_of<op_indirect(Indirectable const&)>::type
+    typename result_of<egg::op_indirect(Indirectable const&)>::type
     base() const
     {
         return *m_ind;

@@ -15,7 +15,7 @@
 #include <boost/type_traits/remove_const.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/callable.hpp>
-#include <pstade/copy_construct.hpp>
+#include <pstade/egg/copy.hpp>
 #include <pstade/remove_cvr.hpp>
 #include <pstade/result_of.hpp>
 #include <pstade/specified.hpp>
@@ -44,10 +44,10 @@ namespace copy_range_detail {
     {
         template< class From >
         static typename result_of<
-            op_make_transformed<>(From&, op_copy_construct<ValueTo>)
+            op_make_transformed<>(From&, egg::xp_copy<ValueTo>)
         >::type call(From& from)
         {
-            return make_transformed(from, op_copy_construct<ValueTo>());
+            return make_transformed(from, egg::xp_copy<ValueTo>());
         }
     };
 
@@ -127,7 +127,7 @@ struct Copyable :
 #include <boost/assert.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/copy_construct.hpp>
+#include <pstade/egg/copy.hpp>
 #include "./distance.hpp"
 #include "./range_iterator.hpp"
 #include "./read.hpp"
@@ -148,7 +148,7 @@ namespace pstade_oven_extension {
         using namespace pstade::oven;
 
         BOOST_ASSERT(is_random_access(from) ?
-            pstade::copy_construct<std::size_t>(distance(from)) <= N : true);
+            pstade::egg::copy<std::size_t>(distance(from)) <= N : true);
 
         typename range_iterator<From>::type
             it(boost::begin(from)), last(boost::end(from));

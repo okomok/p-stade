@@ -16,6 +16,7 @@
 // Converts a FunctionObject supporting 'result_of' into an Adaptable one.
 
 
+#include <boost/mpl/placeholders.hpp>
 #include <pstade/result_of.hpp>
 #include "./deduce.hpp"
 #include "./generator.hpp"
@@ -45,7 +46,7 @@ namespace pstade { namespace egg {
         }
     }; // ::type = { Base };
 
-    #define PSTADE_UNARY_ADAPTABLE_INITIALIZER(B) \
+    #define PSTADE_EGG_UNARY_ADAPTABLE_INITIALIZER(B) \
         { B() } \
     /**/
 
@@ -84,7 +85,7 @@ namespace pstade { namespace egg {
         }
     }; // ::type = { Base };
 
-    #define PSTADE_BINARY_ADAPTABLE_INITIALIZER(B) \
+    #define PSTADE_EGG_BINARY_ADAPTABLE_INITIALIZER(B) \
         { B() } \
     /**/
 

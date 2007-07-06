@@ -18,7 +18,7 @@
 #include <boost/type_traits/add_pointer.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 #include <boost/utility/addressof.hpp>
-#include <pstade/copy_construct.hpp>
+#include <pstade/egg/copy.hpp>
 #include <pstade/function.hpp>
 #include <pstade/nullptr.hpp>
 #include <pstade/pipable.hpp>
@@ -67,7 +67,7 @@ namespace pointed_detail {
             if (first == last)
                 return result_type(null_<ptr_t>(), null_<ptr_t>());
 
-            return aux_(boost::addressof(*first), pstade::copy_construct<std::ptrdiff_t>(last - first));
+            return aux_(boost::addressof(*first), egg::copy<std::ptrdiff_t>(last - first));
         }
 
         result_type aux_(ptr_t p, std::ptrdiff_t d) const

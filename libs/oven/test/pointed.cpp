@@ -19,7 +19,6 @@
 #include <string>
 #include <vector>
 #include <boost/range.hpp>
-#include <pstade/functional.hpp>
 #include "./detail/v1_core.hpp"
 #include <pstade/oven/as_c_str.hpp>
 

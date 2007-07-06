@@ -24,7 +24,7 @@
 #include "./config.hpp" // PSTADE_EGG_MAX_ARITY
 #include "./detail/nonref_arg.hpp"
 #include "./detail/nullary_result.hpp"
-#include "./detail/sig.hpp"
+#include "./detail/sig_template.hpp"
 #include "./function_fwd.hpp"
 #include "./nullary_result_of.hpp"
 
@@ -93,14 +93,14 @@ namespace pstade { namespace egg {
     #undef  PSTADE_call_operator_aux
     #undef  PSTADE_call_operator
 
-        #include PSTADE_EGG_SIG()
+        #include PSTADE_EGG_SIG_TEMPLATE()
     };
 
 
 } } // namespace pstade::egg
 
 
-PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE(pstade::egg::function, 1)
+PSTADE_EGG_NULLARY_RESULT_OF_TEMPLATE(pstade::egg::function, (class))
 
 
 #endif

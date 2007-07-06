@@ -1,13 +1,13 @@
  
-#include <boost/utility/result_of.hpp> 
+#include <pstade/result_of.hpp> 
 
 
 template<class F>
 struct forward
 {
     template<class A>
-    // typename boost::result_of<F(A&)>::type // (1)
-    typename boost::result_of<F const(A&)>::type // (2)
+    // typename pstade::result_of<F(A&)>::type // (1)
+    typename pstade::result_of<F const(A&)>::type // (2)
     operator()(A& a) const
     {
         return m_f(a);

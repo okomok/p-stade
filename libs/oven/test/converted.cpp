@@ -14,7 +14,7 @@
 #include "./detail/test.hpp"
 
 
-#include <pstade/is_same.hpp>
+#include <pstade/egg/is_same.hpp>
 #include <pstade/oven/equals.hpp>
 
 
@@ -27,7 +27,7 @@ void pstade_minimal_test()
     {
         int a[] = { 6,4,2,3,6,3,8,5,1,4,6,8,3,1 };
         int b[] = { 6,4,2,3,6,3,8,5,1,4,6,8,3,1 };
-        BOOST_CHECK( equals(a, a|converted<int const&>(), pstade::is_same) );
+        BOOST_CHECK( equals(a, a|converted<int const&>(), pstade::egg::is_same) );
         test::random_access_constant(op_make_converted<int const&>()(b), a);
         test::random_access_swappable(op_make_converted<int&>()(b), a);
     }

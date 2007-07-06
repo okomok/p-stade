@@ -19,7 +19,7 @@
 #include <boost/range/end.hpp>
 #include <boost/lambda/core.hpp>
 #include <boost/lambda/lambda.hpp>
-#include <pstade/is_same.hpp>
+#include <pstade/egg/is_same.hpp>
 #include <pstade/oven/algorithm.hpp>
 #include <pstade/oven/filtered.hpp>
 #include <pstade/oven/sub_range.hpp>
@@ -223,7 +223,7 @@ void test_general()
     { // as is.
         int j = 2;
         int& i = oven::adapted_to<int&>(j);
-        BOOST_CHECK( pstade::is_same(i, j) );
+        BOOST_CHECK( pstade::egg::is_same(i, j) );
     }
 }
 

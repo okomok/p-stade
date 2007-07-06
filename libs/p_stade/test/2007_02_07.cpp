@@ -4,7 +4,7 @@
 
 #include <boost/detail/function2.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <boost/utility/result_of.hpp>
+#include <pstade/result_of.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/mpl/placeholders.hpp>
 
@@ -43,11 +43,11 @@ struct foo_base<std::string, Y>
 #endif
 
 
-BOOST_MPL_ASSERT(( boost::is_same<int&, boost::result_of<op_foo(int&, int)>::type> ));
-BOOST_MPL_ASSERT(( boost::is_same<int const&, boost::result_of<op_foo(int const&, int)>::type> ));
-BOOST_MPL_ASSERT(( boost::is_same<int const&, boost::result_of<op_foo(int, int)>::type> )); // rvalue
+BOOST_MPL_ASSERT(( boost::is_same<int&, pstade::result_of<op_foo(int&, int)>::type> ));
+BOOST_MPL_ASSERT(( boost::is_same<int const&, pstade::result_of<op_foo(int const&, int)>::type> ));
+BOOST_MPL_ASSERT(( boost::is_same<int const&, pstade::result_of<op_foo(int, int)>::type> )); // rvalue
 
-BOOST_MPL_ASSERT(( boost::is_same<std::string&, boost::result_of<op_foo(std::string&, int)>::type> ));
+BOOST_MPL_ASSERT(( boost::is_same<std::string&, pstade::result_of<op_foo(std::string&, int)>::type> ));
 
 
 void test()

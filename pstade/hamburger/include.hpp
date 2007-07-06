@@ -18,9 +18,9 @@
 #include <boost/range/empty.hpp>
 #include <boost/range/end.hpp>
 #include <boost/ref.hpp>
+#include <pstade/egg/is_same.hpp>
 #include <pstade/instance.hpp>
 #include <pstade/ketchup/core.hpp>
-#include <pstade/is_same.hpp>
 #include <pstade/oven/distance.hpp>
 #include <pstade/statement.hpp>
 #include <pstade/ustring.hpp>
@@ -84,7 +84,7 @@ namespace pstade { namespace hamburger {
             iterator here = std::find_if(
                 boost::begin(*pa), boost::end(*pa),
                 // m_self for passing the two same types 'element' to 'is_same' 
-                bll::bind<bool>(pstade::is_same, boost::ref(m_self), bll::_1)
+                bll::bind<bool>(egg::is_same, boost::ref(m_self), bll::_1)
             );
 
             BOOST_ASSERT(oven::distance(*this) == 1); // only xml root element

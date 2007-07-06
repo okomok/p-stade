@@ -12,8 +12,8 @@
 
 
 #include <boost/tuple/tuple.hpp>
+#include <pstade/egg/not.hpp>
 #include <pstade/function.hpp>
-#include <pstade/functional.hpp> // not_
 #include <pstade/pipable.hpp>
 #include <pstade/result_of.hpp>
 #include "./concepts.hpp"
@@ -38,7 +38,7 @@ namespace split_detail {
 
         typedef typename
             result_of<
-                op_make_filtered(Range&, typename result_of<pstade::op_not_(Predicate&)>::type)
+                op_make_filtered(Range&, typename result_of<egg::op_not_(Predicate&)>::type)
             >::type
         rng2_t;
 
@@ -59,7 +59,7 @@ namespace split_detail {
             return make_zipped(
                 tuple_t(
                     make_filtered(rng, pred),
-                    make_filtered(rng, pstade::not_(rng))
+                    make_filtered(rng, egg::not_(rng))
                 )
             );
         }

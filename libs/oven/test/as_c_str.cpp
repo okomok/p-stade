@@ -26,7 +26,7 @@ void pstade_minimal_test()
     using namespace oven;
 
     {
-        boost::result_of<op_as_c_str(char const*)>::type rng = as_c_str("hello\0range");
+        pstade::result_of<op_as_c_str(char const*)>::type rng = as_c_str("hello\0range");
         test::random_access_constant(rng, std::string("hello"));
         BOOST_CHECK( !contains_zero(rng) );
     }

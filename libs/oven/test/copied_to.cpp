@@ -20,7 +20,7 @@
 #include <iterator>
 #include <string>
 #include <pstade/oven/copied.hpp>
-#include <pstade/is_same.hpp>
+#include <pstade/egg/is_same.hpp>
 
 
 void pstade_minimal_test()
@@ -43,7 +43,7 @@ void pstade_minimal_test()
         test::random_access_swappable(in|copied_to(std::back_inserter(out1)), expected);
 
 #if 0 // rejected
-        BOOST_CHECK( pstade::is_same(in, in|copied_to(std::back_inserter(out1))) );
+        BOOST_CHECK( pstade::egg::is_same(in, in|copied_to(std::back_inserter(out1))) );
 #endif
     }
 }

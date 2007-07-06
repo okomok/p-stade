@@ -13,7 +13,7 @@
 // Note:
 //
 // Will be deprecated; after all, this is useless.
-// "../copy_assign.hpp" is much better.
+// <pstade/egg/copy_assign.hpp> is much better.
 
 
 #include <boost/mpl/and.hpp>

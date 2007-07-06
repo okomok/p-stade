@@ -16,8 +16,8 @@
 #include "./detail/test.hpp"
 
 
-#include <pstade/functional.hpp>
-#include <pstade/compose.hpp>
+#include <pstade/egg/plus.hpp>
+#include <pstade/egg/compose.hpp>
 #include <pstade/result_of_lambda.hpp>
 #include <pstade/oven/const_refs.hpp>
 
@@ -38,7 +38,7 @@ void pstade_minimal_test()
     {
         int b[] = { 1,2,3,4,5,6,7,8,9,10 };
         int a[] = { 3,5,7,9,11,13,15,17,19 };
-        test::adaptor_random_access_constant_int(pstade::compose(make_const_refs, lambda::bind(make_adjacent_transformed, lambda::_1, pstade::plus)), a, b);
+        test::adaptor_random_access_constant_int(pstade::egg::compose(make_const_refs, lambda::bind(make_adjacent_transformed, lambda::_1, pstade::egg::plus)), a, b);
     }
     {
         int a[] = { 1,3,6,1,9,6,1,2,3,1 };
@@ -49,6 +49,6 @@ void pstade_minimal_test()
     }
     {
         int const b[] = { 1 };
-        test::emptiness(b|adjacent_transformed(pstade::plus));
+        test::emptiness(b|adjacent_transformed(pstade::egg::plus));
     }
 }

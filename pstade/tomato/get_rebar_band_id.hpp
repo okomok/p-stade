@@ -12,7 +12,7 @@
 
 #include <boost/assert.hpp>
 #include <pstade/contract.hpp>
-#include <pstade/copy_construct.hpp>
+#include <pstade/egg/copy.hpp>
 #include <pstade/gravy/sdk/windows.hpp>
 #include <pstade/gravy/size_initialize.hpp>
 #include <pstade/gravy/window_ref.hpp>
@@ -30,7 +30,7 @@ namespace pstade { namespace tomato {
 
         PSTADE_PRECONDITION (
             (0 <= index)
-            (pstade::copy_construct<UINT>(index) < rebars.GetBandCount())
+            (egg::copy<UINT>(index) < rebars.GetBandCount())
         )
 
         REBARBANDINFO info; {

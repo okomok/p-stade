@@ -13,7 +13,7 @@
 #include <pstade/verify.hpp>
 
 
-#include <pstade/is_same.hpp>
+#include <pstade/egg/is_same.hpp>
 
 
 using namespace pstade;
@@ -31,8 +31,8 @@ void test()
     verify( (++i, true) );
     BOOST_CHECK(i == 1);
     BOOST_CHECK( (i|verified) == 1 );
-    BOOST_CHECK( is_same(i, verify(i)) );
-    BOOST_CHECK( is_same(i, i|verified) );
+    BOOST_CHECK( egg::is_same(i, verify(i)) );
+    BOOST_CHECK( egg::is_same(i, i|verified) );
     BOOST_CHECK( true || false | verified );
     BOOST_CHECK( true && true | verified );
 

@@ -12,6 +12,7 @@ project
 
 test-suite "egg" :
     [ run adapt.cpp ]
+    [ run adapt_sig.cpp ]
     [ run adaptable.cpp ]
     [ run always.cpp ]
     [ run auto_object.cpp ]
@@ -36,6 +37,7 @@ test-suite "egg" :
     [ run is_same.cpp ]
     [ run lambda.cpp ]
     [ run lexical_cast.cpp ]
+    [ run lexicalize.cpp ]
     [ run new.cpp ]
     [ run new_array.cpp ]
     [ run new_auto.cpp ]
@@ -52,6 +54,7 @@ test-suite "egg" :
     [ run template_arguments.cpp ]
     [ run to_ref.cpp ]
     [ run to_shared_ptr.cpp ]
+    [ run to_string.cpp ]
     [ run to_value.cpp ]
     [ run tuple_element.cpp ]
     [ run tuple_get.cpp ]

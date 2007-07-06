@@ -47,7 +47,7 @@ template<class F>
 void nullary_result_of_check(F f)
 {
     BOOST_MPL_ASSERT((boost::is_same<
-        typename boost::result_of<F()>::type,
+        typename pstade::result_of<F()>::type,
         int
     >));
 }

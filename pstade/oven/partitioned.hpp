@@ -12,8 +12,8 @@
 
 
 #include <utility> // pair
+#include <pstade/egg/not.hpp>
 #include <pstade/function.hpp>
-#include <pstade/functional.hpp> // not_
 #include <pstade/pipable.hpp>
 #include <pstade/result_of.hpp>
 #include "./concepts.hpp"
@@ -37,7 +37,7 @@ namespace partitioned_detail {
 
         typedef typename
             result_of<
-                op_make_filtered(Range&, typename result_of<op_not_(Predicate&)>::type)
+                op_make_filtered(Range&, typename result_of<egg::op_not_(Predicate&)>::type)
             >::type
         rng2_t;
 
@@ -51,7 +51,7 @@ namespace partitioned_detail {
 
             return result_type(
                 make_filtered(rng, pred),
-                make_filtered(rng, not_(pred))
+                make_filtered(rng, egg::not_(pred))
             );
         }
     };

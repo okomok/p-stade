@@ -16,8 +16,8 @@
 #include <boost/iterator/iterator_categories.hpp>
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/identity.hpp>
-#include <pstade/functional.hpp> // identity
-#include <pstade/to_ref.hpp>
+#include <pstade/egg/identity.hpp>
+#include <pstade/egg/to_ref.hpp>
 #include "../do_iter_swap.hpp"
 #include "./constant_reference.hpp"
 #include "./has_is_constant.hpp"
@@ -47,7 +47,7 @@ private:
 
 template< class Iterator >
 struct assert_not_old_return_op<Iterator, boost::single_pass_traversal_tag> :
-    op_identity
+    egg::op_identity
 {
     explicit assert_not_old_return_op(Iterator)
     { }
@@ -61,9 +61,9 @@ assert_not_old_return_op<Iterator> assert_not_old(Iterator old)
 }
 #else
 template< class Iterator> inline
-op_identity const& assert_not_old(Iterator)
+egg::op_identity const& assert_not_old(Iterator)
 {
-    return identity;
+    return egg::identity;
 }
 #endif
 
@@ -159,7 +159,7 @@ friend class boost::iterator_core_access;
     {
         BOOST_ASSERT(!is_end());
         this->base_reference() = detail::assert_not_old(this->base())(
-            m_elect(this->base(), to_cref(m_last))
+            m_elect(this->base(), egg::to_cref(m_last))
         );
     }
 };

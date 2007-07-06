@@ -21,7 +21,7 @@
 #include <boost/operators.hpp> // totally_ordered
 #include <boost/optional/optional.hpp>
 #include <boost/utility/addressof.hpp>
-#include <pstade/do_swap.hpp>
+#include <pstade/egg/do_swap.hpp>
 #include <pstade/radish/bool_testable.hpp>
 #include <pstade/radish/swappable.hpp>
 
@@ -98,7 +98,7 @@ public:
 // swappable
     void swap(self_t& other)
     {
-        do_swap(m_opx, other.m_opx);
+        egg::do_swap(m_opx, other.m_opx);
     }
 
 // totally_ordered
@@ -120,9 +120,9 @@ private:
 } } } // namespace pstade::oven::detail
 
 
-#include <pstade/indirect.hpp>
+#include <pstade/egg/indirect.hpp>
 
-namespace pstade {
+namespace pstade { namespace egg {
 
     template< class X >
     struct indirect_value_impl< oven::detail::regularized<X> >
@@ -130,7 +130,7 @@ namespace pstade {
         typedef X type;
     };
 
-} // namespace pstade
+} } // namespace pstade::egg
 
 
 #endif

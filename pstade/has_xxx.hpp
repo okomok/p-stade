@@ -32,8 +32,8 @@
 #include <boost/mpl/bool.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/seq/enum.hpp>
+#include <boost/type_traits/detail/yes_no_type.hpp>
 #include <pstade/nullptr.hpp>
-#include <pstade/yes_no.hpp>
 
 
 #if BOOST_WORKAROUND(BOOST_MSVC, == 1310) // VC7.1
@@ -55,18 +55,18 @@
         namespace PSTADE_HAS_helper_ns_of(Name) { \
             \
             template< class T > \
-            ::pstade::yes test(typename T::Type (*)()); \
+            boost::type_traits::yes_type test(typename T::Type (*)()); \
             \
             template< class T > \
-            ::pstade::no  test(...); \
+            boost::type_traits::no_type  test(...); \
             \
         } \
         \
         template< class T > \
         struct Name : \
-            ::boost::mpl::bool_< \
+            boost::mpl::bool_< \
                 sizeof( PSTADE_HAS_helper_ns_of(Name)::test<T>(PSTADE_NULLPTR) ) \
-                    == sizeof(::pstade::yes) \
+                    == sizeof(boost::type_traits::yes_type) \
             > \
         { }; \
     /**/
@@ -104,8 +104,8 @@
         \
         template< class T > \
         struct Name : \
-            ::boost::mpl::eval_if< BOOST_PP_CAT(pstade_has_type_, Name)<T>, \
-                ::boost::mpl::false_, \
+            boost::mpl::eval_if< BOOST_PP_CAT(pstade_has_type_, Name)<T>, \
+                boost::mpl::false_, \
                 BOOST_PP_CAT(pstade_has_data_impl_, Name)<T> \
             > \
         { }; \
@@ -123,18 +123,18 @@
             { }; \
             \
             template< class T > \
-            ::pstade::yes test(holder<T, &T::Var> *); \
+            boost::type_traits::yes_type test(holder<T, &T::Var> *); \
             \
             template< class T > \
-            ::pstade::no  test(...); \
+            boost::type_traits::no_type  test(...); \
             \
         } \
         \
         template< class T > \
         struct Name : \
-            ::boost::mpl::bool_< \
+            boost::mpl::bool_< \
                 sizeof( PSTADE_HAS_helper_ns_of(Name)::test<T>(PSTADE_NULLPTR) ) \
-                    == sizeof(::pstade::yes) \
+                    == sizeof(boost::type_traits::yes_type) \
             > \
         { }; \
     /**/
@@ -167,8 +167,8 @@
         \
         template< class T > \
         struct Name : \
-            ::boost::mpl::eval_if< BOOST_PP_CAT(pstade_has_type_, Name)<T>, \
-                ::boost::mpl::false_, \
+            boost::mpl::eval_if< BOOST_PP_CAT(pstade_has_type_, Name)<T>, \
+                boost::mpl::false_, \
                 BOOST_PP_CAT(pstade_has_function_impl_, Name)<T> \
             > \
         { }; \
@@ -186,18 +186,18 @@
             { }; \
             \
             template< class T > \
-            ::pstade::yes test(holder<T, &T::Fun> *); \
+            boost::type_traits::yes_type test(holder<T, &T::Fun> *); \
             \
             template< class T > \
-            ::pstade::no  test(...); \
+            boost::type_traits::no_type  test(...); \
             \
         } \
         \
         template< class T > \
         struct Name : \
-            ::boost::mpl::bool_< \
+            boost::mpl::bool_< \
                 sizeof( PSTADE_HAS_helper_ns_of(Name)::test<T>(PSTADE_NULLPTR) ) \
-                    == sizeof(::pstade::yes) \
+                    == sizeof(boost::type_traits::yes_type) \
             > \
         { }; \
     /**/

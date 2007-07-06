@@ -15,7 +15,7 @@
 
 #include <string>
 #include <memory> // auto_ptr
-#include <boost/utility/result_of.hpp>
+#include <pstade/result_of.hpp>
 #include <pstade/unused.hpp>
 #include <pstade/test.hpp>
 
@@ -83,15 +83,15 @@ std::auto_ptr<int> make_auto_ptr()
 void pstade_minimal_test()
 {
     {
-        boost::result_of<op_foo(int, int)>::type x = foo(1, 2);
+        pstade::result_of<op_foo(int, int)>::type x = foo(1, 2);
         BOOST_CHECK( x == 3 );
     }
     {
-        boost::result_of<op_foo(std::auto_ptr<int>)>::type x = foo(make_auto_ptr());
+        pstade::result_of<op_foo(std::auto_ptr<int>)>::type x = foo(make_auto_ptr());
         BOOST_CHECK( *x == 3 );
     }
     {
-        boost::result_of<op_foo()>::type x = foo();
+        pstade::result_of<op_foo()>::type x = foo();
         BOOST_CHECK( x == '0' );
     }
 }

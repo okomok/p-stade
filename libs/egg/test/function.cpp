@@ -14,7 +14,7 @@
 
 
 #include <string>
-#include <boost/utility/result_of.hpp>
+#include <pstade/result_of.hpp>
 #include <pstade/unused.hpp>
 #include <pstade/test.hpp>
 
@@ -147,33 +147,33 @@ PSTADE_TEST_IS_RESULT_OF((int const&), op_identity(int const))
 void pstade_minimal_test()
 {
     {
-        boost::result_of<op_foo(int, int)>::type x = foo(1, 2);
+        pstade::result_of<op_foo(int, int)>::type x = foo(1, 2);
         BOOST_CHECK( x == "2" );
     }
     {
-        boost::result_of<op_foo(int)>::type x = foo(1);
+        pstade::result_of<op_foo(int)>::type x = foo(1);
         BOOST_CHECK( x == 1 );
     }
     {
-        boost::result_of<op_foo()>::type x = foo();
+        pstade::result_of<op_foo()>::type x = foo();
         BOOST_CHECK( x == '0' );
     }
 
     {
-        boost::result_of<op_bar<int, int>(int, int)>::type x = foo(1, 2);
+        pstade::result_of<op_bar<int, int>(int, int)>::type x = foo(1, 2);
         BOOST_CHECK( x == "2" );
     }
     {
-        boost::result_of<op_bar<int, int>(int)>::type x = foo(1);
+        pstade::result_of<op_bar<int, int>(int)>::type x = foo(1);
         BOOST_CHECK( x == 1 );
     }
     {
-        boost::result_of<op_bar<int, int>()>::type x = foo();
+        pstade::result_of<op_bar<int, int>()>::type x = foo();
         BOOST_CHECK( x == '0' );
     }
     {
         int i = 10;
-        boost::result_of<op_identity(int&)>::type x = identity(i);
+        pstade::result_of<op_identity(int&)>::type x = identity(i);
         BOOST_CHECK( &x == &i );
     }
 }

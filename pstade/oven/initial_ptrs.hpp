@@ -25,7 +25,7 @@
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <pstade/any_movable.hpp>
 #include <pstade/constant.hpp>
-#include <pstade/new_delete.hpp>
+#include <pstade/egg/new_auto.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/provide_sig.hpp>
 #include <pstade/use_default.hpp>
@@ -169,7 +169,7 @@ struct result_of_initial_ptrs
 };
 
 
-using pstade::op_new_auto;
+using pstade::egg::xp_new_auto;
 
 
 } } // namespace pstade::oven

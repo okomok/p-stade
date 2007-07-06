@@ -31,7 +31,7 @@
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
 #include <pstade/disable_if_copy.hpp>
-#include <pstade/do_swap.hpp>
+#include <pstade/egg/do_swap.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/is_convertible.hpp>
 #include <pstade/pass_by.hpp>
@@ -44,7 +44,7 @@
 #include "./range_iterator.hpp"
 
 #if defined(PSTADE_OVEN_BOOST_RANGE_VERSION_1)
-    #include <pstade/copy_construct.hpp>
+    #include <pstade/egg/copy.hpp>
 #endif
 
 
@@ -161,7 +161,7 @@ public:
 #if defined(PSTADE_OVEN_BOOST_RANGE_VERSION_1)
     size_type size() const
     {
-        return pstade::copy_construct<size_type>(detail::iter_distance(m_first, m_last));
+        return egg::copy<size_type>(detail::iter_distance(m_first, m_last));
     }
 #endif
 
@@ -201,8 +201,8 @@ public:
 // swappable
     void swap(self_t& other)
     {
-        do_swap(m_first, other.m_first);
-        do_swap(m_last,  other.m_last);
+        egg::do_swap(m_first, other.m_first);
+        egg::do_swap(m_last,  other.m_last);
     }
 
 private:

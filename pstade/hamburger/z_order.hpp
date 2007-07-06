@@ -11,8 +11,8 @@
 
 
 #include <pstade/constant.hpp>
+#include <pstade/egg/lexicalize.hpp>
 #include <pstade/if_debug.hpp>
-#include <pstade/lexical_cast.hpp>
 #include <pstade/unused.hpp>
 #include "./log.hpp"
 
@@ -28,8 +28,8 @@ namespace pstade { namespace hamburger {
         bool operator()(Node& node1, Node& node2) const
         {
             try {
-                int zIndex1 = node1%Name_zIndex|lexicalized;
-                int zIndex2 = node2%Name_zIndex|lexicalized;
+                int zIndex1 = node1%Name_zIndex|egg::lexicalize();
+                int zIndex2 = node2%Name_zIndex|egg::lexicalize();
                 return zIndex1 < zIndex2;
             }
             catch (boost::bad_lexical_cast const& PSTADE_IF_DEBUG(err)) {

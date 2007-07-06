@@ -21,7 +21,7 @@
 #include <pstade/fuse.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
-#include <pstade/perfect.hpp>
+#include <pstade/egg/perfect.hpp>
 #include <pstade/pipable.hpp>
 #include <pstade/result_of.hpp>
 #include "./fuzipped.hpp"
@@ -56,7 +56,7 @@ struct op_make_zipped_with :
             op_make_transformed<Reference, Value>(
                 typename result_of<zip_(RangeTuple&)>::type,
                 typename result_of<
-                    op_fuse(typename result_of<op_perfect<Reference>(Function&)>::type)
+                    op_fuse(typename result_of<egg::xp_perfect<Reference>(Function&)>::type)
                 >::type
             )
         >
@@ -68,7 +68,7 @@ struct op_make_zipped_with :
         return
             op_make_transformed<Reference, Value>()(
                 zip_()(tup),
-                fuse(op_perfect<Reference>()(fun))
+                fuse(egg::xp_perfect<Reference>()(fun))
             );
     }
 };

@@ -45,10 +45,10 @@
 //
 // You can prefer
 //     PSTADE_CONSTANT(O1, (T))
-//     PSTADE_CONSTANT(O2, (T)) // is_same(O1, O2) == true.
+//     PSTADE_CONSTANT(O2, (T)) // egg::is_same(O1, O2) == true.
 // to
 //     PSTADE_INSTANCE((T) const, O1, value)
-//     PSTADE_INSTANCE((T) const, O2, value) // is_same(O1, O2) == false.
+//     PSTADE_INSTANCE((T) const, O2, value) // egg::is_same(O1, O2) == false.
 // , because the const default-constructed object can be the same.
 
 

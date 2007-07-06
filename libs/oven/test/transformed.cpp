@@ -15,7 +15,7 @@
 #include <pstade/oven/transformed.hpp>
 
 
-#include <boost/utility/result_of.hpp>
+#include <pstade/result_of.hpp>
 #include <iterator>
 #include <string>
 #include <vector>
@@ -24,9 +24,9 @@
 #include <pstade/oven/algorithm.hpp>
 #include "./detail/v1_core.hpp"
 #include <functional>
-#include <pstade/to_value.hpp>
-#include <pstade/functional.hpp>
-#include <pstade/perfect.hpp>
+#include <pstade/egg/to_value.hpp>
+#include <pstade/egg/identity.hpp>
+#include <pstade/egg/perfect.hpp>
 #include <pstade/oven/regular.hpp>
 #include <boost/lambda/core.hpp>
 #include <boost/lambda/lambda.hpp>
@@ -95,9 +95,9 @@ void test()
     {
         std::string str;
         str |
-            transformed(pstade::to_value) |
+            transformed(pstade::egg::to_value) |
             // transformed(pstade::identity); // dangling!
-            transformed(pstade::perfect<char>(pstade::identity));
+            transformed(pstade::egg::perfect<char>(pstade::egg::identity));
     }
 }
 

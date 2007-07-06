@@ -12,7 +12,7 @@
 
 //#include <pstade/../libs/wine/test/to_ref_value.cpp>
 
-//#include <pstade/../libs/oven/test/.cpp>
+#include <pstade/../libs/oven/test/multiple_defs1.cpp>
 //#include <pstade/../libs/oven/test/popped.cpp>
 //#include <pstade/../libs/oven/test/adjacent_filtered.cpp>
 //#include <pstade/../libs/oven/example/primes.cpp>
@@ -21,7 +21,6 @@
 //#include <pstade/../libs/gravy/test/file_range.cpp>
 //#include <pstade/../libs/tomato/test/main_instance.cpp>
 //#include <pstade/detail/result_of.hpp>
-//#include <pstade/../libs/egg/test/not.cpp>
-#include <pstade/../libs/fat/test/lexical_cast.cpp>
+//#include <pstade/../libs/egg/test/adapt_sig.cpp>
 
 //#include <boost/../libs/oven/example/one_year.cpp>

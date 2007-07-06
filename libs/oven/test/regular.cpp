@@ -15,13 +15,12 @@
 
 
 #include <string>
-#include <pstade/functional.hpp>
+#include <pstade/egg/less.hpp>
 #include "./detail/v1_core.hpp"
 #include <pstade/oven/filtered.hpp>
 #include <boost/lambda/lambda.hpp>
 #include <boost/lambda/core.hpp>
 #include <boost/noncopyable.hpp>
-#include <pstade/new_delete.hpp>
 
 
 template< class F >
@@ -55,8 +54,8 @@ void pstade_unit_test()
     {
         ::regular_check(regular(lambda::_1 != 'c'));
         ::regular_check(regular(lambda::_1 += 1));
-        ::regular_check(regular_c(pstade::op_less()));
-        ::regular_check(regular_ref(pstade::less));
+        ::regular_check(regular_c(pstade::egg::op_less()));
+        ::regular_check(regular_ref(pstade::egg::less));
     }
     {
         std::string rng("abcABc12c");

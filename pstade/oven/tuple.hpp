@@ -58,7 +58,7 @@ PSTADE_OVEN_EXTENSION_OF_TEMPLATE((boost)(tuples)(tuple), 2)
 #include "./detail/iter_distance.hpp"
 
 #if defined(PSTADE_OVEN_BOOST_RANGE_VERSION_1)
-    #include <pstade/copy_construct.hpp>
+    #include <pstade/egg/copy.hpp>
 #endif
 
 
@@ -135,7 +135,7 @@ namespace boost {
         template< class Iter >
         std::size_t boost_range_size(PSTADE_t const& x)
         {
-            return pstade::copy_construct<std::size_t>(
+            return pstade::egg::copy<std::size_t>(
                 pstade::oven::detail::iter_distance(boost::tuples::get<0>(x), boost::tuples::get<1>(x))
             );
         }

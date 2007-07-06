@@ -23,7 +23,7 @@
 #include <boost/range/end.hpp>
 #include <pstade/callable.hpp>
 #include <pstade/constant.hpp>
-#include <pstade/functional.hpp> // less
+#include <pstade/egg/less.hpp>
 #include <pstade/pass_by.hpp>
 #include <pstade/unused.hpp>
 #include "./concepts.hpp"
@@ -123,7 +123,7 @@ namespace merged_detail {
     struct op_make :
         callable< op_make<MergeRoutine> >
     {
-        template< class Myself, class Range1, class Range2, class Compare = op_less const >
+        template< class Myself, class Range1, class Range2, class Compare = egg::op_less const >
         struct apply
         {
             typedef
@@ -153,7 +153,7 @@ namespace merged_detail {
         template< class Result, class Range1, class Range2 >
         Result call(Range1& rng1, Range2& rng2) const
         {
-            return (*this)(rng1, rng2, less);
+            return (*this)(rng1, rng2, egg::less);
         }
 
         template< class Result, class Iterator1, class Iterator2, class Compare >
