@@ -19,9 +19,9 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/callable.hpp>
+#include <pstade/egg/to_ref.hpp>
 #include <pstade/object_generator.hpp>
 #include <pstade/result_of.hpp>
-#include <pstade/to_ref.hpp>
 #include <pstade/preprocessor.hpp>
 #include "../range_iterator.hpp"
 
@@ -54,10 +54,10 @@ struct range_based2_return_op :
     Result call(Range0& rng0, Range1& rng1) const
     {
         return m_fun(
-            to_cref(boost::begin(rng0)),
-            to_cref(boost::end(rng0)),
-            to_cref(boost::begin(rng1)),
-            to_cref(boost::end(rng1))
+            egg::to_cref(boost::begin(rng0)),
+            egg::to_cref(boost::end(rng0)),
+            egg::to_cref(boost::begin(rng1)),
+            egg::to_cref(boost::end(rng1))
         );
     }
 
@@ -114,10 +114,10 @@ template< class Result, class Range0, class Range1, BOOST_PP_ENUM_PARAMS(n, clas
 Result call(Range0& rng0, Range1& rng1, BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const
 {
     return m_fun(
-        to_cref(boost::begin(rng0)),
-        to_cref(boost::end(rng0)),
-        to_cref(boost::begin(rng1)),
-        to_cref(boost::end(rng1)),
+        egg::to_cref(boost::begin(rng0)),
+        egg::to_cref(boost::end(rng0)),
+        egg::to_cref(boost::begin(rng1)),
+        egg::to_cref(boost::end(rng1)),
         BOOST_PP_ENUM_PARAMS(n, a)
     );
 }

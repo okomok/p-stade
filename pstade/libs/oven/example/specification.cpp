@@ -15,14 +15,14 @@
 
 #include <string>
 #include <pstade/result_of.hpp>
-#include <pstade/locale.hpp>
+#include <pstade/egg/is_classified_as.hpp>
 #include <pstade/oven/equals.hpp>
 #include <pstade/oven/filtered.hpp>
 
 
 bool is_upper(char ch)
 {
-    return pstade::is_upper(ch);
+    return pstade::egg::is_classified_as(ch, std::ctype_base::upper);
 }
 
 
@@ -35,7 +35,7 @@ void test()
 
     pstade::result_of<op_make_filtered(std::string&, bool(*)(char))>::type result
         = make_filtered(src, &is_upper);
-    BOOST_CHECK( equals(result, src|filtered(&is_upper)) );
+    BOOST_CHECK( equals(result, src|filtered(&::is_upper)) );
 }
 
 

@@ -78,6 +78,7 @@ namespace pstade { namespace egg {
         { { B() } } \
     /**/
 
+
     typedef
         generator<
             result_of_flip< deduce<boost::mpl::_1, as_value> >::type,

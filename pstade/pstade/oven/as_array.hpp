@@ -21,8 +21,8 @@
 #include <boost/type_traits/is_array.hpp>
 #include <pstade/auxiliary.hpp>
 #include <pstade/callable.hpp>
+#include <pstade/egg/to_value.hpp>
 #include <pstade/enable_if.hpp>
-#include <pstade/to_value.hpp>
 #include "./detail/array_to_range.hpp"
 
 
@@ -43,7 +43,7 @@ namespace as_array_detail {
         template< class Result, class T, std::size_t sz >
         Result call(T (&arr)[sz]) const
         {
-            return Result(to_value(arr), to_value(arr) + sz);
+            return Result(egg::to_value(arr), egg::to_value(arr) + sz);
         }
 
         template< class Result, class Range >

@@ -132,7 +132,7 @@ private:
     void work()
     {
         try {
-            m_rou(egg::perfect<void>(
+            m_rou(egg::xp_perfect<void>()(
                 boost::lambda::bind(&self_t::yield, this, boost::lambda::_1)
             ));
         }

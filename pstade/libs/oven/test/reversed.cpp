@@ -26,7 +26,7 @@
 #include <pstade/oven/algorithm.hpp>
 #include <pstade/oven/transformed.hpp>
 #include <boost/iterator/reverse_iterator.hpp>
-#include <pstade/locale.hpp>
+#include <pstade/egg/to_upper.hpp>
 
 
 template< class Range >
@@ -109,7 +109,7 @@ void test()
     }
 
     {
-        using pstade::to_upper;
+        using pstade::egg::to_upper;
         std::string src("abcDefg");
         // oven::copy_backward(src|transformed(to_upper), boost::end(src)); can be replaced with...        
         oven::copy(src|reversed|transformed(to_upper), src|reversed|begin);

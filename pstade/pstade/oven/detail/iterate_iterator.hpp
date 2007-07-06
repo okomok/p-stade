@@ -13,7 +13,7 @@
 
 #include <boost/assert.hpp>
 #include <boost/iterator/iterator_facade.hpp>
-#include <pstade/to_ref.hpp>
+#include <pstade/egg/to_ref.hpp>
 
 
 namespace pstade { namespace oven { namespace detail {
@@ -68,7 +68,7 @@ friend class boost::iterator_core_access;
     void increment()
     {
         BOOST_ASSERT(!m_as_end);
-        m_state = m_fun(to_cref(m_state));
+        m_state = m_fun(egg::to_cref(m_state));
     }
 
     bool equal(self_t const& other) const

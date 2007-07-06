@@ -16,7 +16,7 @@
 #include <string>
 #include <boost/mpl/assert.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <pstade/to_value.hpp>
+#include <pstade/egg/to_value.hpp>
 
 
 std::string g_str("x");
@@ -82,7 +82,7 @@ void nullary_result_of_check(F f)
 void pstade_minimal_test()
 {
     {
-        BOOST_CHECK( compose(pstade::to_value, ::bar_fun())('c') == std::string("x") );
+        BOOST_CHECK( compose(pstade::egg::to_value, ::bar_fun())('c') == std::string("x") );
     }
     {
         // make_zero is known to be nullary and composable to increment.

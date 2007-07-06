@@ -30,6 +30,7 @@
 #include "./detail/baby_perfect_result.hpp"
 #include "./function.hpp"
 #include "./generator.hpp"
+#include "./object.hpp"
 #include "./use_brace_level1.hpp"
 
 
@@ -65,19 +66,8 @@ namespace pstade { namespace egg {
     { };
 
 
-    template<class Base> inline
-    typename result_of<xp_perfect<>(Base&)>::type
-    perfect(Base base)
-    {
-        return xp_perfect<>()(base);
-    }
-
-    template<class ResultType, class Base> inline
-    typename result_of<xp_perfect<ResultType>(Base&)>::type
-    perfect(Base base)
-    {
-        return xp_perfect<ResultType>()(base);
-    }
+    typedef tp_perfect<>::type op_perfect;
+    PSTADE_EGG_OBJECT((op_perfect), perfect) = PSTADE_EGG_GENERATOR_INITIALIZER();
 
 
 } } // namespace pstade::egg

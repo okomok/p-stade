@@ -63,12 +63,6 @@ void pstade_minimal_test()
 
     {
         BOOST_CHECK( 3 ==
-            ::foo( egg::perfect<int>(my_fun) )
-        );
-    } 
-
-    {
-        BOOST_CHECK( 3 ==
             ::foo( egg::xp_perfect<int>()(my_fun) )
         );
     }

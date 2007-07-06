@@ -17,7 +17,7 @@
 
 #include <string>
 #include <pstade/oven/identities.hpp>
-#include <pstade/to_value.hpp>
+#include <pstade/egg/to_value.hpp>
 #include <pstade/oven/transformed.hpp>
 
 
@@ -39,7 +39,7 @@ void test()
         BOOST_CHECK( !is_random_access(str|identities(in_single_pass)) );
 
         // RandomAccess*Input* range
-        BOOST_CHECK( is_random_access(str|transformed(pstade::to_value)) );
+        BOOST_CHECK( is_random_access(str|transformed(pstade::egg::to_value)) );
     }
 }
 
