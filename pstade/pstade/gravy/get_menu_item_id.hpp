@@ -15,7 +15,7 @@
 // wec400/STANDARDSDK/Mfc/Src/wcealt.cpp
 
 
-#include <pstade/constant.hpp>
+#include <pstade/pod_constant.hpp>
 #include <pstade/require.hpp>
 #include "./menu_ref.hpp"
 #include "./sdk/windows.hpp"
@@ -35,7 +35,7 @@ namespace pstade { namespace gravy {
             return ::GetMenuItemID(menu, nPos);
 #else
             MENUITEMINFO mii = { 0 }; {
-                mii|size_initialized;
+                mii|size_initialize();
                 mii.fMask  = MIIM_ID;
             }
 
@@ -46,7 +46,7 @@ namespace pstade { namespace gravy {
     };
 
 
-    PSTADE_CONSTANT(get_menu_item_id, (op_get_menu_item_id))
+    PSTADE_POD_CONSTANT((op_get_menu_item_id), get_menu_item_id) = {};
 
 
 } } // namespace pstade::gravy

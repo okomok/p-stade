@@ -12,7 +12,7 @@
 
 
 #include <boost/utility/addressof.hpp>
-#include "./object.hpp"
+#include <pstade/pod_constant.hpp>
 
 
 namespace pstade { namespace egg {
@@ -30,7 +30,7 @@ namespace pstade { namespace egg {
     };
 
 
-    PSTADE_EGG_OBJECT((op_is_same), is_same) = {};
+    PSTADE_POD_CONSTANT((op_is_same), is_same) = {};
 
 
 } } // namespace pstade::egg

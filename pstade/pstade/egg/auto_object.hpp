@@ -15,10 +15,10 @@
 #include <boost/preprocessor/facilities/identity.hpp>
 #include <pstade/any_movable.hpp>
 #include <pstade/pass_by.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./function.hpp"
 #include "./fuse.hpp"
 #include "./new.hpp"
-#include "./object.hpp"
 #include "./unfuse.hpp"
 
 
@@ -90,7 +90,7 @@ namespace pstade { namespace egg {
     op_auto_object;
 
 
-    PSTADE_EGG_OBJECT((op_auto_object), auto_object)
+    PSTADE_POD_CONSTANT((op_auto_object), auto_object)
         = PSTADE_EGG_UNFUSE_RESULT_INITIALIZER(BOOST_PP_IDENTITY({{}}), BOOST_PP_IDENTITY({}));
 
 

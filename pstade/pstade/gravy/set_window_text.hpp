@@ -17,12 +17,12 @@
 
 #include <boost/array.hpp>
 #include <boost/range/begin.hpp>
-#include <pstade/constant.hpp>
 #include <pstade/egg/copy.hpp>
 #include <pstade/oven/as_c_str.hpp>
 #include <pstade/oven/distance.hpp>
 #include <pstade/oven/equals.hpp>
 #include <pstade/oven/iter_range.hpp>
+#include <pstade/pod_constant.hpp>
 #include <pstade/require.hpp>
 #include <pstade/static_c.hpp>
 #include "./c_str.hpp"
@@ -59,7 +59,7 @@ namespace pstade { namespace gravy {
     };
 
 
-    PSTADE_CONSTANT(set_window_text, (op_set_window_text))
+    PSTADE_POD_CONSTANT((op_set_window_text), set_window_text) = {};
 
 
 } } // namespace pstade::gravy

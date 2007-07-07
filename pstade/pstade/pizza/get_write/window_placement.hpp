@@ -44,7 +44,7 @@ WINDOWPLACEMENT get_window_placement(Profile& pr)
 {
     WINDOWPLACEMENT wndpl;
 
-    wndpl|gravy::size_initialized;
+    wndpl|gravy::size_initialize();
     wndpl.flags =                   pizza::integer(pr, _T("placement.flags"));
     wndpl.showCmd =                 pizza::integer(pr, _T("placement.showCmd"));
     wndpl.ptMinPosition.x =         pizza::integer(pr, _T("placement.ptMinPosition.x"));

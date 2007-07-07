@@ -15,7 +15,7 @@
 // ::IsChild
 
 
-#include <pstade/constant.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./sdk/windows.hpp"
 #include "./window_ref.hpp"
 
@@ -34,7 +34,7 @@ namespace pstade { namespace gravy {
     };
 
 
-    PSTADE_CONSTANT(is_parent_of, (op_is_parent_of))
+    PSTADE_POD_CONSTANT((op_is_parent_of), is_parent_of) = {};
 
 
 } } // namespace pstade::gravy

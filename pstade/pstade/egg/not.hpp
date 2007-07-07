@@ -12,11 +12,11 @@
 
 
 #include <boost/mpl/placeholders.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./deduce.hpp"
 #include "./detail/baby_not_result.hpp"
 #include "./function.hpp"
 #include "./generator.hpp"
-#include "./object.hpp"
 #include "./use_brace_level1.hpp"
 
 
@@ -45,7 +45,7 @@ namespace pstade { namespace egg {
     op_not_;
 
 
-    PSTADE_EGG_OBJECT((op_not_), not_) = PSTADE_EGG_GENERATOR_INITIALIZER();
+    PSTADE_POD_CONSTANT((op_not_), not_) = PSTADE_EGG_GENERATOR_INITIALIZER();
 
 
 } } // namespace pstade::egg

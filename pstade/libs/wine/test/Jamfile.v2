@@ -11,7 +11,6 @@ project
     ;
 
 test-suite "wine" :
-    [ run adaptable.cpp ]
     [ run adl_barrier.cpp ]
     [ run affect.cpp ]
     [ run any_movable.cpp ]
@@ -39,11 +38,11 @@ test-suite "wine" :
     [ run integral_cast.cpp ]
     [ run is_ndebug.cpp ]
     [ run is_returnable.cpp ]
-    [ run locale.cpp ]
     [ run locale_saver.cpp ]
     [ run metapredicate.cpp ]
     [ run nullptr.cpp ]
     [ run pause.cpp ]
+    [ link pod_constant1.cpp pod_constant2.cpp : : pod_constant ]
     [ run preprocessor.cpp ]
     [ run provide_result_of_sig.cpp ]
     [ run provide_sig.cpp ]
@@ -55,7 +54,6 @@ test-suite "wine" :
     [ run statement.cpp ]
     [ link statement_m1.cpp statement_m2.cpp : : statement_m ]
     [ run static_c.cpp ]
-    [ run-fail static_downcast_fail.cpp ]
     [ run unparenthesize.cpp ]
     [ run unused.cpp ]
     [ run use_default.cpp ]

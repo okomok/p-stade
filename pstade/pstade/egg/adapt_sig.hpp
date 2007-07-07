@@ -32,13 +32,13 @@
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/tuple/tuple.hpp>
+#include <pstade/pod_constant.hpp>
 #include <pstade/preprocessor.hpp>
 #include "./deduce.hpp"
 #include "./detail/nonref_arg.hpp"
 #include "./detail/sig_template.hpp"
 #include "./generator.hpp"
 #include "./nullary_result_of.hpp"
-#include "./object.hpp"
 #include "./use_brace_level0.hpp"
 
 
@@ -121,7 +121,7 @@ namespace pstade { namespace egg {
         >::type
     op_adapt_sig;
 
-    PSTADE_EGG_OBJECT((op_adapt_sig), adapt_sig) = PSTADE_EGG_GENERATOR_INITIALIZER();
+    PSTADE_POD_CONSTANT((op_adapt_sig), adapt_sig) = PSTADE_EGG_GENERATOR_INITIALIZER();
 
 
     template<class SigFun>
@@ -139,7 +139,7 @@ namespace pstade { namespace egg {
         >::type
     op_adapt_nullary_sig;
 
-    PSTADE_EGG_OBJECT((op_adapt_nullary_sig), adapt_nullary_sig) = PSTADE_EGG_GENERATOR_INITIALIZER();
+    PSTADE_POD_CONSTANT((op_adapt_nullary_sig), adapt_nullary_sig) = PSTADE_EGG_GENERATOR_INITIALIZER();
 
 
 } } // namespace pstade::egg

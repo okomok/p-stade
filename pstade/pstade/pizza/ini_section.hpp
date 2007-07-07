@@ -22,6 +22,9 @@
 #include <boost/assert.hpp>
 #include <boost/mpl/int.hpp>
 #include <boost/range/empty.hpp>
+#include <pstade/gravy/c_str.hpp>
+#include <pstade/gravy/module_file_name.hpp>
+#include <pstade/gravy/tstring.hpp>
 #include <pstade/gravy/sdk/tchar.hpp>
 #include <pstade/gravy/sdk/windows.hpp>
 #include <pstade/instance.hpp>
@@ -32,9 +35,6 @@
 #include <pstade/oven/distance.hpp>
 #include <pstade/oven/equals.hpp>
 #include <pstade/require.hpp>
-#include <pstade/gravy/c_str.hpp>
-#include <pstade/gravy/module_file_name.hpp>
-#include <pstade/gravy/tstring.hpp>
 
 
 namespace pstade { namespace pizza {

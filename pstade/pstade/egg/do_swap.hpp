@@ -14,7 +14,7 @@
 #include <algorithm> // swap
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
-#include "./object.hpp"
+#include <pstade/pod_constant.hpp>
 
 
 namespace pstade { namespace egg {
@@ -37,7 +37,7 @@ namespace pstade { namespace egg {
     };
 
 
-    PSTADE_EGG_OBJECT((op_do_swap), do_swap) = {};
+    PSTADE_POD_CONSTANT((op_do_swap), do_swap) = {};
 
 
 } } // namespace pstade::egg

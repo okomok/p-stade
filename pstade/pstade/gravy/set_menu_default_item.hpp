@@ -10,8 +10,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/constant.hpp>
 #include <pstade/egg/copy.hpp>
+#include <pstade/pod_constant.hpp>
 #include <pstade/unused.hpp>
 #include "./boolean_cast.hpp"
 #include "./sdk/windows.hpp"
@@ -37,7 +37,7 @@ namespace pstade { namespace gravy {
     };
 
 
-    PSTADE_CONSTANT(set_menu_default_item, (op_set_menu_default_item))
+    PSTADE_POD_CONSTANT((op_set_menu_default_item), set_menu_default_item) = {};
 
 
 } } // namespace pstade::gravy

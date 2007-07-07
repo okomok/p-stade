@@ -13,9 +13,9 @@
 
 #include <boost/mpl/placeholders.hpp>
 #include <boost/pointee.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./automatic.hpp"
 #include "./new_shared.hpp"
-#include "./object.hpp"
 
 
 namespace pstade { namespace egg {
@@ -28,7 +28,7 @@ namespace pstade { namespace egg {
     op_shared_object;
 
 
-    PSTADE_EGG_OBJECT((op_shared_object), shared_object) = PSTADE_EGG_AUTOMATIC_INITIALIZER();
+    PSTADE_POD_CONSTANT((op_shared_object), shared_object) = PSTADE_EGG_AUTOMATIC_INITIALIZER();
 
 
 } } // namespace pstade::egg

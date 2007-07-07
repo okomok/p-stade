@@ -21,9 +21,9 @@
 #include <boost/pointee.hpp>
 #include <boost/shared_ptr.hpp>
 #include <pstade/apple/auto_ptr_fwd.hpp>
+#include <pstade/pod_constant.hpp>
 #include <pstade/use_default.hpp>
 #include "./function_by_value.hpp"
-#include "./object.hpp"
 
 
 namespace pstade { namespace egg {
@@ -74,7 +74,7 @@ namespace pstade { namespace egg {
 
 
     typedef tp_to_shared_ptr<>::type op_to_shared_ptr;
-    PSTADE_EGG_OBJECT((op_to_shared_ptr), to_shared_ptr) = { {} };
+    PSTADE_POD_CONSTANT((op_to_shared_ptr), to_shared_ptr) = { {} };
 
 
     template<class X, class Ptr>

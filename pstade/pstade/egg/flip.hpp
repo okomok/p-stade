@@ -14,11 +14,11 @@
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
 #include <boost/mpl/placeholders.hpp>
+#include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
 #include "./deduce.hpp"
 #include "./function.hpp"
 #include "./generator.hpp"
-#include "./object.hpp"
 #include "./use_brace_level1.hpp"
 
 
@@ -87,7 +87,7 @@ namespace pstade { namespace egg {
     op_flip;
 
 
-    PSTADE_EGG_OBJECT((op_flip), flip) = PSTADE_EGG_GENERATOR_INITIALIZER();
+    PSTADE_POD_CONSTANT((op_flip), flip) = PSTADE_EGG_GENERATOR_INITIALIZER();
 
 
 } } // namespace pstade::egg

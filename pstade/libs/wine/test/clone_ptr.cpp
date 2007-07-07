@@ -83,6 +83,7 @@ void check_regular(T x)
 void pstade_unit_test()
 {
     using namespace pstade;
+    using egg::xp_new_auto;
 
     ::xxx x(3);
 
@@ -143,8 +144,8 @@ void pstade_unit_test()
         }
         {
             // from auto_ptr
-            clone_ptr< ::xxx > pxx(pstade::xp_new_auto< ::xxx >()(10));
-            clone_ptr< ::xxx > pxy = pstade::xp_new_auto< ::yyy >()(10); // convertible
+            clone_ptr< ::xxx > pxx(xp_new_auto< ::xxx >()(10));
+            clone_ptr< ::xxx > pxy = xp_new_auto< ::yyy >()(10); // convertible
             pxx = xp_new_auto< ::xxx >()(10);
             pxy = xp_new_auto< ::yyy> ()(10);
         }

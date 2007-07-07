@@ -14,7 +14,7 @@
 #include <pstade/minimal_test.hpp>
 #include <pstade/unparenthesize.hpp>
 #include <pstade/egg/function.hpp>
-#include <pstade/egg/object.hpp>
+#include <pstade/pod_constant.hpp>
 
 
 #include <boost/tuple/tuple.hpp>
@@ -35,7 +35,7 @@ namespace deducers = pstade::egg;
         typedef pstade::egg::generator<PSTADE_UNPARENTHESIZE(L)>::type op; \
     } \
     typedef BOOST_PP_CAT(pstade_egg_generator_workarea_of_, G)::op BOOST_PP_CAT(op_, G); \
-    PSTADE_EGG_OBJECT((BOOST_PP_CAT(op_, G)), G) = PSTADE_EGG_GENERATOR_INITIALIZER(); \
+    PSTADE_POD_CONSTANT((BOOST_PP_CAT(op_, G)), G) = PSTADE_EGG_GENERATOR_INITIALIZER(); \
 /**/
 
 

@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/callable.hpp>
+#include <pstade/egg/function.hpp>
 #include <pstade/result_of.hpp>
 #include "../../match_results/default_type.hpp"
 #include "../../state/null_state.hpp"
@@ -21,36 +21,40 @@ namespace pstade { namespace biscuit { namespace detail {
 
 
 template< template< class > class Op, class Parser >
-struct op_without_results :
-    callable< op_without_results<Op, Parser> >
+struct tp_without_results
 {
-    template< class Myself, class ParsingRange, class UserState = null_state_t >
-    struct apply
+    struct baby
     {
-        typedef typename
-            match_results_default<Parser, ParsingRange>::type
-        results_t;
+        template< class Myself, class ParsingRange, class UserState = null_state_t >
+        struct apply
+        {
+            typedef typename
+                match_results_default<Parser, ParsingRange>::type
+            results_t;
 
-        typedef typename
-            result_of<
-                Op<Parser>(ParsingRange&, results_t&, UserState&)
-            >::type
-        type;
+            typedef typename
+                result_of<
+                    Op<Parser>(ParsingRange&, results_t&, UserState&)
+                >::type
+            type;
+        };
+
+        template< class Result, class ParsingRange, class UserState >
+        Result call(ParsingRange& r, UserState& us) const
+        {
+            typename apply<void, ParsingRange, UserState>::results_t rs;
+            return Op<Parser>()(r, rs, us);
+        }
+
+        template< class Result, class ParsingRange >
+        Result call(ParsingRange& r) const
+        {
+            typename apply<void, ParsingRange>::results_t rs;
+            return Op<Parser>()(r, rs, null_state);
+        }
     };
 
-    template< class Result, class ParsingRange, class UserState >
-    Result call(ParsingRange& r, UserState& us) const
-    {
-        typename apply<void, ParsingRange, UserState>::results_t rs;
-        return Op<Parser>()(r, rs, us);
-    }
-
-    template< class Result, class ParsingRange >
-    Result call(ParsingRange& r) const
-    {
-        typename apply<void, ParsingRange>::results_t rs;
-        return Op<Parser>()(r, rs, null_state);
-    }
+    typedef egg::function<baby> type;
 };
 
 

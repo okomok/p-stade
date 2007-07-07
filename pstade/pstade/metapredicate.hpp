@@ -27,7 +27,7 @@
     struct Trait \
     { }; \
     \
-    pstade::no BOOST_PP_CAT(Prefix, _is_)(Trait, ...); \
+    boost::type_traits::no_type BOOST_PP_CAT(Prefix, _is_)(Trait, ...); \
     \
     template< class T > \
     struct BOOST_PP_CAT(detail_is_, Trait) /* 'boost::type' needs this. */ \

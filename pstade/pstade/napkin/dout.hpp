@@ -11,7 +11,7 @@
 
 
 #include <pstade/gravy/sdk/windows.hpp>
-#include <pstade/constant.hpp>
+#include <pstade/pod_constant.hpp>
 
 
 namespace pstade { namespace napkin {
@@ -37,7 +37,7 @@ namespace dout_detail {
 } // namespace dout_detail
 
 
-PSTADE_CONSTANT(dout, (dout_detail::out))
+PSTADE_POD_CONSTANT((dout_detail::out), dout) = {};
 
 
 } } // namespace pstade::napkin

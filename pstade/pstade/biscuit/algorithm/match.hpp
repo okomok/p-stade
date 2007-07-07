@@ -11,8 +11,8 @@
 
 
 #include <boost/range/end.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/specified.hpp>
+#include <pstade/egg/function.hpp>
+#include <pstade/egg/specified.hpp>
 #include "../state/null_state.hpp"
 #include "../state/parsing_range_state_type.hpp"
 #include "./detail/without_results.hpp"
@@ -22,42 +22,52 @@ namespace pstade { namespace biscuit {
 
 
 template< class Parser >
-struct op_results_match :
-    callable< op_results_match<Parser> >
+struct tp_results_match
 {
-    template< class Myself, class ParsingRange, class MatchResults, class UserState = void >
-    struct apply
+    struct baby
     {
-        typedef bool type;
+        template< class Myself, class ParsingRange, class MatchResults, class UserState = void >
+        struct apply
+        {
+            typedef bool type;
+        };
+
+        template< class Result, class ParsingRange, class MatchResults, class UserState >
+        Result call(ParsingRange& r, MatchResults& rs, UserState& us) const
+        {
+            typedef typename parsing_range_state<ParsingRange, MatchResults>::type state_t;
+
+            state_t s(r, rs);
+            return Parser::parse(s, us) && (s.get_cur() == boost::end(r));
+        }
+
+        template< class Result, class ParsingRange, class MatchResults >
+        Result call(ParsingRange& r, MatchResults& rs) const
+        {
+            return (*this)(r, rs, null_state);
+        }
     };
 
-    template< class Result, class ParsingRange, class MatchResults, class UserState >
-    Result call(ParsingRange& r, MatchResults& rs, UserState& us) const
-    {
-        typedef typename parsing_range_state<ParsingRange, MatchResults>::type state_t;
-
-        state_t s(r, rs);
-        return Parser::parse(s, us) && (s.get_cur() == boost::end(r));
-    }
-
-    template< class Result, class ParsingRange, class MatchResults >
-    Result call(ParsingRange& r, MatchResults& rs) const
-    {
-        return (*this)(r, rs, null_state);
-    }
+    typedef egg::function<baby> type;
 };
-
-#define  PSTADE_SPECIFIED_PARAMS ((2)(3), results_match, op_results_match, 1)
-#include PSTADE_SPECIFIED()
 
 
 template< class Parser >
-struct op_match :
-    detail::op_without_results<op_results_match, Parser>
+struct xp_results_match :
+    tp_results_match<Parser>::type
 { };
 
-#define  PSTADE_SPECIFIED_PARAMS ((1)(2), match, op_match, 1)
-#include PSTADE_SPECIFIED()
+#define  PSTADE_EGG_SPECIFIED_PARAMS ((2)(3), results_match, xp_results_match, 1)
+#include PSTADE_EGG_SPECIFIED()
+
+
+template< class Parser >
+struct xp_match :
+    detail::tp_without_results<xp_results_match, Parser>::type
+{ };
+
+#define  PSTADE_EGG_SPECIFIED_PARAMS ((1)(2), match, xp_match, 1)
+#include PSTADE_EGG_SPECIFIED()
 
 
 } } // namespace pstade::biscuit

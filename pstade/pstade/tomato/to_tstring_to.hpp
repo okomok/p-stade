@@ -10,10 +10,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/callable.hpp>
+#include <boost/preprocessor/facilities/identity.hpp>
+#include <pstade/egg/auxiliary.hpp>
+#include <pstade/egg/function.hpp>
 #include <pstade/gravy/sdk/tchar.hpp>
 #include <pstade/gravy/tstring.hpp>
-#include <pstade/pipable.hpp>
 #include <pstade/oven/copied.hpp>
 #include "./multibyte_to_widechar.hpp"
 #include "./widechar_to_multibyte.hpp"
@@ -34,28 +35,37 @@ namespace pstade { namespace tomato {
     }
 
 
-    struct op_to_tstring :
-        callable<op_to_tstring>
-    {
-        template<class Myself, class WideCharSeq>
-        struct apply
+    namespace to_tstring_detail {
+
+
+        struct baby
         {
-            typedef gravy::tstring const type;
+            template<class Myself, class WideCharSeq>
+            struct apply
+            {
+                typedef gravy::tstring const type;
+            };
+
+            template<class Result, class WideCharSeq>
+            Result call(WideCharSeq const& from) const
+            {
+#if defined(_UNICODE)
+                return from|oven::copied;
+#else
+                return tomato::widechar_to<gravy::tstring>(from);
+#endif
+            }
         };
 
-        template<class Result, class WideCharSeq>
-        Result call(WideCharSeq const& from) const
-        {
-#if defined(_UNICODE)
-            return from|oven::copied;
-#else
-            return tomato::widechar_to<gravy::tstring>(from);
-#endif
-        }
-    };
+
+        typedef egg::function<baby> op;
 
 
-    PSTADE_PIPABLE(to_tstring, (op_to_tstring))
+    } // namespace to_string_detail
+
+
+    PSTADE_POD_CONSTANT((egg::result_of_auxiliary0<to_tstring_detail::op>::type), to_tstring)
+        = PSTADE_EGG_AUXILIARY_RESULT_INITIALIZER(BOOST_PP_IDENTITY({{}}));
 
 
 } } // namespace pstade::tomato

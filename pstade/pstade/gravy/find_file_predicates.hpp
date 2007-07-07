@@ -12,7 +12,7 @@
 
 #include <boost/preprocessor/cat.hpp>
 #include <pstade/candy/test_any.hpp>
-#include <pstade/constant.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./sdk/tchar.hpp"
 #include "./sdk/windows.hpp"
 
@@ -82,7 +82,7 @@ namespace pstade { namespace gravy {
         }
     };
 
-    PSTADE_CONSTANT(find_file_is_dots, (op_find_file_is_dots))
+    PSTADE_POD_CONSTANT((op_find_file_is_dots), find_file_is_dots) = {};
 
 
 } } // namespace pstade::gravy

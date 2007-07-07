@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/constant.hpp>
+#include <pstade/pod_constant.hpp>
 #include <pstade/unused.hpp>
 
 
@@ -37,7 +37,7 @@ namespace nout_detail {
 } // namespace nout_detail
 
 
-PSTADE_CONSTANT(nout, (nout_detail::out))
+PSTADE_POD_CONSTANT((nout_detail::out), nout) = {};
 
 
 } } // namespace pstade::napkin

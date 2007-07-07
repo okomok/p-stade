@@ -22,9 +22,9 @@
 #include <string>
 #include <boost/cstdint.hpp> // uint32_t
 #include <boost/optional/optional.hpp>
-#include <pstade/constant.hpp>
 #include <pstade/oven/copied.hpp>
 #include <pstade/oven/dropped.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./sdk/windows.hpp"
 
 
@@ -63,7 +63,7 @@ namespace pstade { namespace gravy {
     };
 
 
-    PSTADE_CONSTANT(rgb, (op_rgb))
+    PSTADE_POD_CONSTANT((op_rgb), rgb) = {};
 
 
 } } // namespace pstade::gravy

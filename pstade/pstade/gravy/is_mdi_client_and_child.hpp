@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/constant.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./is_owned.hpp"
 #include "./is_parent_of.hpp"
 #include "./window_ref.hpp"
@@ -30,7 +30,7 @@ namespace pstade { namespace gravy {
     };
 
 
-    PSTADE_CONSTANT(is_mdi_client_and_child, (op_is_mdi_client_and_child))
+    PSTADE_POD_CONSTANT((op_is_mdi_client_and_child), is_mdi_client_and_child) = {};
 
 
 } } // namespace pstade::gravy

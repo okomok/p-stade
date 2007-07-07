@@ -15,7 +15,7 @@
 // WTL::CLogFont::GetDeciPointHeight and WTL::CFont::CreatePointFontIndirect
 
 
-#include <pstade/constant.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./dc_ref.hpp"
 #include "./screen_dc_if_null.hpp"
 #include "./sdk/windows.hpp"
@@ -59,7 +59,7 @@ namespace pstade { namespace gravy {
     };
 
 
-    PSTADE_CONSTANT(decipoint_font_height, (op_decipoint_font_height))
+    PSTADE_POD_CONSTANT((op_decipoint_font_height), decipoint_font_height) = {};
 
 
 } } // namespace pstade::gravy

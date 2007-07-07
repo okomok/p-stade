@@ -13,8 +13,8 @@
 #include <locale> // tolower
 #include <pstade/adl_barrier.hpp>
 #include <pstade/pass_by.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./function.hpp"
-#include "./object.hpp"
 
 
 namespace pstade { namespace egg {
@@ -50,7 +50,7 @@ namespace pstade { namespace egg {
     typedef function<to_lower_detail::baby> op_to_lower;
 
     PSTADE_ADL_BARRIER(to_lower) { // for 'boost'
-        PSTADE_EGG_OBJECT((op_to_lower), to_lower) = { {} };
+        PSTADE_POD_CONSTANT((op_to_lower), to_lower) = { {} };
     }
 
 

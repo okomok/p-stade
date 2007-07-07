@@ -12,10 +12,10 @@
 
 
 #include <boost/mpl/placeholders.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./automatic.hpp"
 #include "./auxiliary.hpp"
 #include "./lexical_cast.hpp"
-#include "./object.hpp"
 
 
 namespace pstade { namespace egg {
@@ -29,7 +29,7 @@ namespace pstade { namespace egg {
 
 
     typedef result_of_auxiliary0<lexicalize_detail::op>::type op_lexicalize;
-    PSTADE_EGG_OBJECT((op_lexicalize), lexicalize) = PSTADE_EGG_AUXILIARY_RESULT_INITIALIZER(PSTADE_EGG_AUTOMATIC_INITIALIZER);
+    PSTADE_POD_CONSTANT((op_lexicalize), lexicalize) = PSTADE_EGG_AUXILIARY_RESULT_INITIALIZER(PSTADE_EGG_AUTOMATIC_INITIALIZER);
 
 
 } } // namespace pstade::egg

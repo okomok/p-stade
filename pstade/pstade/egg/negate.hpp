@@ -13,8 +13,8 @@
 
 #include <boost/type_traits/remove_const.hpp>
 #include <pstade/adl_barrier.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./function.hpp"
-#include "./object.hpp"
 
 
 namespace pstade { namespace egg {
@@ -43,7 +43,7 @@ namespace pstade { namespace egg {
 
     typedef function<negate_detail::baby> op_negate;
     PSTADE_ADL_BARRIER(negate) { // for 'std'
-        PSTADE_EGG_OBJECT((op_negate), negate) = { {} };
+        PSTADE_POD_CONSTANT((op_negate), negate) = { {} };
     }
 
 

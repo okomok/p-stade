@@ -1,5 +1,6 @@
 #ifndef PSTADE_POD_CONSTANT_HPP
 #define PSTADE_POD_CONSTANT_HPP
+#include "./detail/prefix.hpp"
 
 
 // PStade.Wine
@@ -10,55 +11,83 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// See:
+//
+// http://lists.boost.org/Archives/boost/2007/06/123353.php
+
+
 #include <boost/config.hpp>
 #include <boost/detail/workaround.hpp>
-#include <boost/mpl/assert.hpp>
-#include <boost/mpl/bool.hpp>
+#include <boost/preprocessor/cat.hpp>
+#include <boost/static_assert.hpp>
 #include <boost/type_traits/is_pod.hpp>
+#include <boost/version.hpp>
 #include <pstade/in_unnamed.hpp>
 #include <pstade/unparenthesize.hpp>
 
 
-#define PSTADE_POD_CONSTANT(O, T) \
-    PSTADE_POD_CONSTANT_aux(O, PSTADE_UNPARENTHESIZE(T)) \
+// msvc optimizers can static-initialize, though.
+#if BOOST_WORKAROUND(BOOST_MSVC, BOOST_TESTED_AT(1400))
+    #define PSTADE_POD_CONSTANT_NO_STATIC_INITIALIZATION
+#endif
+
+
+// Do you know the exact condition?
+#if defined(BOOST_MSVC) && defined(_MSC_FULL_VER) && (_MSC_FULL_VER >=140050215)
+    #define PSTADE_POD_CONSTANT_HAS_IS_POD
+#endif
+
+
+#define PSTADE_POD_CONSTANT(F, O) \
+    PSTADE_POD_CONSTANT_aux1(PSTADE_UNPARENTHESIZE(F), O) \
 /**/
 
-    #define PSTADE_POD_CONSTANT_aux(O, T) \
-        namespace { \
-            PSTADE_IN_UNNAMED T const& O \
-                = pstade::pod_constant_detail::static_const< T >::value; \
-        } \
+
+    #define PSTADE_POD_CONSTANT_aux1(F, O) \
+        PSTADE_POD_CONSTANT_pod_check(F) \
+        PSTADE_POD_CONSTANT_aux2(F, O) \
     /**/
 
 
-namespace pstade { namespace pod_constant_detail {
+#if !defined(PSTADE_POD_CONSTANT_NO_STATIC_INITIALIZATION)
 
+    #define PSTADE_POD_CONSTANT_aux2(F, O) \
+        PSTADE_POD_CONSTANT_static_const(O) \
+        namespace { \
+            PSTADE_IN_UNNAMED F const& O \
+                = BOOST_PP_CAT(static_const_of_, O)< F >::value; \
+        } \
+        PSTADE_POD_CONSTANT_static_const_value(O) \
+    /**/
 
-    template<class T>
-    struct is_pod :
-#if BOOST_WORKAROUND(BOOST_MSVC, == 1400) // msvc-8.0
-        boost::is_pod<T>
+    #define PSTADE_POD_CONSTANT_static_const(O) \
+        template<class T> \
+        struct BOOST_PP_CAT(static_const_of_, O) \
+        { \
+            static T const value; \
+        }; \
+    /**/
+
+    #define PSTADE_POD_CONSTANT_static_const_value(O) \
+        template<class T> \
+        T const BOOST_PP_CAT(static_const_of_, O)<T>::value \
+    /**/
+
 #else
-        boost::mpl::true_
+
+    #define PSTADE_POD_CONSTANT_aux2(F, O) \
+        F const O \
+    /**/
+
 #endif
-    { };
 
 
-    template<class T>
-    struct static_const
-    {
-        BOOST_MPL_ASSERT((is_pod<T>));
-        static T const value;
-    };
-
-
-    // Brace ensures static-initialization (8.5.1/14).
-
-    template<class T>
-    T const static_const<T>::value = { };
-
-
-} } // namespace pstade::pod_constant_detail
+#if defined(PSTADE_POD_CONSTANT_HAS_IS_POD)
+    // msvc says error C2370 in the case of 'BOOST_MPL_ASSERT'.
+    #define PSTADE_POD_CONSTANT_pod_check(F) BOOST_STATIC_ASSERT((boost::is_pod< F >::value));
+#else
+    #define PSTADE_POD_CONSTANT_pod_check(F)
+#endif
 
 
 #endif

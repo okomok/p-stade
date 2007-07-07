@@ -17,7 +17,7 @@
 
 #include <boost/assert.hpp>
 #include <pstade/candy/set.hpp>
-#include <pstade/constant.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./boolean_cast.hpp"
 #include "./get_menu_item_count.hpp"
 #include "./get_menu_item_id.hpp"
@@ -63,7 +63,7 @@ namespace pstade { namespace gravy {
     };
 
 
-    PSTADE_CONSTANT(modify_menu, (op_modify_menu))
+    PSTADE_POD_CONSTANT((op_modify_menu), modify_menu) = {};
 
 
 } } // namespace pstade::gravy

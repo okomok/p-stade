@@ -10,8 +10,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/constant.hpp>
 #include <pstade/oven/equals.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./c_str.hpp"
 #include "./class_name.hpp"
 #include "./window_ref.hpp"
@@ -32,7 +32,7 @@ namespace pstade { namespace gravy {
     };
 
 
-    PSTADE_CONSTANT(is_object_of, (op_is_object_of))
+    PSTADE_POD_CONSTANT((op_is_object_of), is_object_of) = {};
 
 
 } } // namespace pstade::gravy

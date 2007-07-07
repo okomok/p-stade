@@ -14,7 +14,7 @@
 
 
 #include <pstade/test.hpp>
-#include <pstade/egg/object.hpp>
+#include <pstade/pod_constant.hpp>
 #include <boost/noncopyable.hpp>
 
 
@@ -36,7 +36,7 @@ struct baby
 
 
 typedef PSTADE_EGG_ADAPT((baby<boost::mpl::_>)) op_identity;
-PSTADE_EGG_OBJECT((op_identity), identity) = PSTADE_EGG_ADAPT_INITIALIZER();
+PSTADE_POD_CONSTANT((op_identity), identity) = PSTADE_EGG_ADAPT_INITIALIZER();
 
 
 PSTADE_TEST_IS_RESULT_OF((int&), op_identity(int&))

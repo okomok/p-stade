@@ -11,10 +11,12 @@
 
 
 #include <string>
-#include <pstade/automatic.hpp>
-#include <pstade/auxiliary.hpp>
+#include <boost/mpl/placeholders.hpp>
+#include <pstade/egg/automatic.hpp>
+#include <pstade/egg/auxiliary.hpp>
 #include <pstade/oven/as_c_str.hpp>
 #include <pstade/oven/copied.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./atl/config.hpp" // ATL_VER
 #include "./atl/conv.hpp"
 
@@ -46,7 +48,7 @@ namespace pstade { namespace tomato {
 
 
     template<class To>
-    struct op_widechar_to
+    struct xp_widechar_to
     {
         typedef To result_type;
 
@@ -57,7 +59,16 @@ namespace pstade { namespace tomato {
         }
     };
 
-    PSTADE_AUXILIARY(0, to_multibyte, (automatic< op_widechar_to<_> >))
+
+    typedef
+        egg::result_of_auxiliary0<
+            egg::automatic< xp_widechar_to<boost::mpl::_> >::type
+        >::type
+    op_to_multibyte;
+
+
+    PSTADE_POD_CONSTANT((op_to_multibyte), to_multibyte)
+        = PSTADE_EGG_AUXILIARY_RESULT_INITIALIZER(PSTADE_EGG_AUTOMATIC_INITIALIZER);
 
 
 } } // namespace pstade::tomato

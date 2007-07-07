@@ -12,7 +12,7 @@
 
 
 #include <boost/checked_delete.hpp>
-#include "./object.hpp"
+#include <pstade/pod_constant.hpp>
 
 
 namespace pstade { namespace egg {
@@ -30,7 +30,7 @@ namespace pstade { namespace egg {
     };
 
 
-    PSTADE_EGG_OBJECT((op_delete_), delete_) = {};
+    PSTADE_POD_CONSTANT((op_delete_), delete_) = {};
 
 
 } } // namespace pstade::egg

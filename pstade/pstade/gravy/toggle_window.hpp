@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/constant.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./boolean_cast.hpp"
 #include "./sdk/windows.hpp"
 #include "./window_ref.hpp"
@@ -33,7 +33,7 @@ namespace pstade { namespace gravy {
     };
 
 
-    PSTADE_CONSTANT(toggle_window, (op_toggle_window))
+    PSTADE_POD_CONSTANT((op_toggle_window), toggle_window) = {};
 
 
 } } // namespace pstade::gravy

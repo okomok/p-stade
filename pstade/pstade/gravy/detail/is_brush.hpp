@@ -10,8 +10,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/constant.hpp>
 #include <pstade/for_debug.hpp>
+#include <pstade/pod_constant.hpp>
 #include "../boolean_cast.hpp"
 #include "../sdk/windows.hpp"
 
@@ -32,7 +32,7 @@ namespace pstade { namespace gravy { namespace detail {
     };
 
 
-    PSTADE_CONSTANT(is_brush, (op_is_brush))
+    PSTADE_POD_CONSTANT((op_is_brush), is_brush) = {};
 
 
 } } } // namespace pstade::gravy::detail
