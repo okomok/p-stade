@@ -54,7 +54,7 @@ namespace dropped_while_detail {
         template< class Iterator, class Predicate >
         result_type aux(Iterator first, Iterator last, Predicate pred) const
         {
-            return result_type(std::find_if(first, last, not_(pred)), last);
+            return result_type(std::find_if(first, last, egg::not_(pred)), last);
         }
     };
 

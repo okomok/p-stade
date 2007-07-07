@@ -104,7 +104,7 @@ public:
 #endif
 
         MergeRoutine::before_yield(
-            this->base_reference(), to_cref(m_last1), m_it2, to_cref(m_last2), to_cref(m_comp));
+            this->base_reference(), egg::to_cref(m_last1), m_it2, egg::to_cref(m_last2), egg::to_cref(m_comp));
     }
 
 template< class, class, class, class > friend struct merge_iterator;
@@ -161,8 +161,8 @@ friend class boost::iterator_core_access;
         Iterator1 first1(this->base()); // for exception safety
         Iterator2 first2(m_it2);        //
 
-        MergeRoutine::after_yield( first1, to_cref(m_last1), first2, to_cref(m_last2), to_cref(m_comp));
-        MergeRoutine::before_yield(first1, to_cref(m_last1), first2, to_cref(m_last2), to_cref(m_comp));
+        MergeRoutine::after_yield( first1, egg::to_cref(m_last1), first2, egg::to_cref(m_last2), egg::to_cref(m_comp));
+        MergeRoutine::before_yield(first1, egg::to_cref(m_last1), first2, egg::to_cref(m_last2), egg::to_cref(m_comp));
 
         egg::do_swap(first1, this->base_reference());
         egg::do_swap(first2, m_it2);
