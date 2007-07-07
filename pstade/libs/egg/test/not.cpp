@@ -9,9 +9,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/preprocessor/facilities/identity.hpp>
 #include <pstade/egg/not.hpp>
 #include <pstade/minimal_test.hpp>
+
+
+#include <pstade/test.hpp>
+#include <pstade/result_of.hpp>
+#include <boost/preprocessor/facilities/identity.hpp>
 
 
 namespace egg = pstade::egg;
@@ -20,11 +24,20 @@ using namespace egg;
 
 struct less
 {
-    typedef bool result_type;
+    // typedef bool result_type;
 
     bool operator()(int i, int j) const
     {
         return i < j;
+    }
+};
+
+
+struct foo
+{
+    bool operator()() const
+    {
+        return false;
     }
 };
 
@@ -36,5 +49,19 @@ void pstade_minimal_test()
         result_of_not_< ::less >::type nl = PSTADE_EGG_NOT_RESULT_INITIALIZER(BOOST_PP_IDENTITY(l));
         BOOST_CHECK( l(0, 1) );
         BOOST_CHECK( !nl(0, 1) );
+    }
+    {
+        typedef pstade::result_of<op_not_(::less)>::type nl_t;
+        PSTADE_TEST_IS_RESULT_OF((bool), nl_t(int, int))
+
+        nl_t nl = not_(::less());
+        BOOST_CHECK( !nl(0, 1) );
+    }
+    {
+        typedef pstade::result_of<op_not_(::foo)>::type nf_t;
+        PSTADE_TEST_IS_RESULT_OF((bool), nf_t())
+
+        nf_t nf = not_(::foo());
+        BOOST_CHECK( nf() );
     }
 }

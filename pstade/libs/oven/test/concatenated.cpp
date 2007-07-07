@@ -24,6 +24,7 @@
 #include <pstade/oven/reversed.hpp>
 #include <pstade/oven/copied.hpp>
 #include <pstade/oven/rvalues.hpp>
+#include <pstade/egg/identity.hpp>
 
 
 #include <pstade/biscuit/parser.hpp>
@@ -181,7 +182,7 @@ void pstade_unit_test()
 {
     ::test_nc_nc();
     ::test_c_nc();
-    ::test_iter_range_range(pstade::identity);
+    ::test_iter_range_range(pstade::egg::identity);
     ::test_iter_range_range(lambda::bind(make_const_refs,    lambda::_1));
     ::test_iter_range_range(lambda::bind(make_rvalues,       lambda::_1));
     ::test_iter_range_range(lambda::bind(test::make_proxies, lambda::_1));

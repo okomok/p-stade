@@ -25,6 +25,7 @@
 #include <pstade/constant.hpp>
 #include <pstade/egg/less.hpp>
 #include <pstade/pass_by.hpp>
+#include <pstade/pipable.hpp>
 #include <pstade/unused.hpp>
 #include "./concepts.hpp"
 #include "./detail/merge_iterator.hpp"

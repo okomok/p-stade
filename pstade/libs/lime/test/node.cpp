@@ -15,6 +15,9 @@
 #include <iterator>
 #include <pstade/oven.hpp>
 #include <pstade/wine.hpp>
+#include <pstade/egg/copy_assign.hpp>
+#include <pstade/egg/lexicalize.hpp>
+
 
 using namespace pstade;
 
@@ -55,8 +58,8 @@ void test()
             root/"parent"/"child" += "grandchild";
         }
 
-        egg::copy_assign(root/"parent"/"child"/"grandchild"%"age", 12|lexicalized);
-        int i = root/"parent"/"child"/"grandchild"%"age"|lexicalized;
+        egg::copy_assign(root/"parent"/"child"/"grandchild"%"age", 12|egg::lexicalize);
+        int i = root/"parent"/"child"/"grandchild"%"age"|egg::lexicalize;
         BOOST_CHECK( i == 12 );
     }
 

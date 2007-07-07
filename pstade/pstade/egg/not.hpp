@@ -11,72 +11,41 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/preprocessor/facilities/identity.hpp>
-#include "./function_by_value.hpp"
-#include "./fuse.hpp"
+#include <boost/mpl/placeholders.hpp>
+#include "./deduce.hpp"
+#include "./detail/baby_not_result.hpp"
+#include "./function.hpp"
+#include "./generator.hpp"
 #include "./object.hpp"
-#include "./unfuse.hpp"
+#include "./use_brace_level1.hpp"
 
 
 namespace pstade { namespace egg {
 
 
-    namespace not_detail {
-
-
-        template<class BasePred>
-        struct fused_result
-        {
-            BasePred m_base;
-
-            typedef bool result_type;
-
-            template<class Tuple>
-            result_type operator()(Tuple const& tup) const
-            {
-                return !fuse(m_base)(tup);
-            }
-        };
-
-
-        template<class BasePred>
-        struct result_of_not_ :
-            result_of_unfuse<
-                fused_result<BasePred>
-            >
-        { };
-
-
-        struct baby
-        {
-            template<class Myself, class BasePred>
-            struct apply :
-                result_of_not_<BasePred>
-            { };
-
-            template<class Result, class BasePred>
-            Result call(BasePred base) const
-            {
-                Result r = PSTADE_EGG_UNFUSE_RESULT_INITIALIZER(BOOST_PP_IDENTITY({base}), BOOST_PP_IDENTITY({}));
-                return r;
-            }
-        };
-
-
-    } // namespace not_detail
-
-
-
-    using not_detail::result_of_not_;
+    template<class Base>
+    struct result_of_not_
+    {
+        typedef
+            function< detail::baby_not_result<Base> >
+        type; // = { { Base } };
+    };
 
 
     #define PSTADE_EGG_NOT_RESULT_INITIALIZER(B) \
-        { { { B() }, {} } } \
+        { { B() } } \
     /**/
 
 
-    typedef function_by_value<not_detail::baby> op_not_;
-    PSTADE_EGG_OBJECT((op_not_), not_) = { {} };
+    typedef
+        generator<
+            result_of_not_< deduce<boost::mpl::_1, as_value> >::type,
+            use_brace_level1
+        >::type
+    op_not_;
+
+
+    PSTADE_EGG_OBJECT((op_not_), not_) = PSTADE_EGG_GENERATOR_INITIALIZER();
 
 
 } } // namespace pstade::egg
