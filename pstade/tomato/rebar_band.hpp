@@ -85,7 +85,7 @@ namespace pstade { namespace tomato {
 
         void get_info(REBARBANDINFO& info, UINT mask) const
         {
-            info|gravy::size_initialized;
+            info|gravy::size_initialize();
             info.fMask = mask;
             PSTADE_REQUIRE(m_rebar.GetBandInfo(m_index, &info));
         }

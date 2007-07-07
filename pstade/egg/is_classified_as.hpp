@@ -11,7 +11,7 @@
 
 
 #include <locale>
-#include "./object.hpp"
+#include <pstade/pod_constant.hpp>
 
 
 namespace pstade { namespace egg {
@@ -35,7 +35,7 @@ namespace pstade { namespace egg {
     };
 
 
-    PSTADE_EGG_OBJECT((op_is_classified_as), is_classified_as) = {};
+    PSTADE_POD_CONSTANT((op_is_classified_as), is_classified_as) = {};
 
 
 } } // namespace pstade::egg

@@ -34,7 +34,7 @@ void pstade_minimal_test()
     }
     {
         MENUITEMINFO x;
-        x|size_initialized;
+        x|size_initialize();
         BOOST_CHECK(x.cbSize == sizeof(MENUITEMINFO));
     }
 #if !defined(_WIN32_WCE)

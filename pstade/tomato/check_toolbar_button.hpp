@@ -31,7 +31,7 @@ namespace pstade { namespace tomato {
         WTL::CToolBarCtrl toolbars(toolbar);
 
         TBBUTTONINFO tbb; {
-            tbb|gravy::size_initialized;
+            tbb|gravy::size_initialize();
             tbb.dwMask = TBIF_STATE | TBIF_STYLE;
             PSTADE_REQUIRE(toolbars.GetButtonInfo(uID, &tbb) != -1);
         }

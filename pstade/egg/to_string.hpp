@@ -13,9 +13,9 @@
 
 #include <string>
 #include <boost/preprocessor/facilities/identity.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./auxiliary.hpp"
 #include "./lexical_cast.hpp"
-#include "./object.hpp"
 
 
 namespace pstade { namespace egg {
@@ -27,7 +27,7 @@ namespace pstade { namespace egg {
         >::type
     op_to_string;
 
-    PSTADE_EGG_OBJECT((op_to_string), to_string) = PSTADE_EGG_AUXILIARY_RESULT_INITIALIZER(BOOST_PP_IDENTITY({}));
+    PSTADE_POD_CONSTANT((op_to_string), to_string) = PSTADE_EGG_AUXILIARY_RESULT_INITIALIZER(BOOST_PP_IDENTITY({}));
 
 
     typedef
@@ -36,7 +36,7 @@ namespace pstade { namespace egg {
         >::type
     op_to_wstring;
 
-    PSTADE_EGG_OBJECT((op_to_wstring), to_wstring) = PSTADE_EGG_AUXILIARY_RESULT_INITIALIZER(BOOST_PP_IDENTITY({}));
+    PSTADE_POD_CONSTANT((op_to_wstring), to_wstring) = PSTADE_EGG_AUXILIARY_RESULT_INITIALIZER(BOOST_PP_IDENTITY({}));
 
 
 } } // namespace pstade::egg

@@ -13,7 +13,7 @@
 
 #include <boost/preprocessor/cat.hpp>
 #include <pstade/adl_barrier.hpp>
-#include "../object.hpp"
+#include <pstade/pod_constant.hpp>
 
 
 #define PSTADE_EGG_BINARY_PRED(F, Op) \
@@ -29,7 +29,7 @@
     }; \
     \
     PSTADE_ADL_BARRIER(F) { \
-        PSTADE_EGG_OBJECT((BOOST_PP_CAT(op_,F)), F) = {}; \
+        PSTADE_POD_CONSTANT((BOOST_PP_CAT(op_,F)), F) = {}; \
     } \
 /**/
 

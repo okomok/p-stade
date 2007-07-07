@@ -15,7 +15,7 @@
 // wec400/STANDARDSDK/Mfc/Src/wcealt.cpp
 
 
-#include <pstade/constant.hpp>
+#include <pstade/pod_constant.hpp>
 #include <pstade/static_c.hpp>
 #include "./menu_ref.hpp"
 #include "./sdk/windows.hpp"
@@ -37,7 +37,7 @@ namespace pstade { namespace gravy {
             typedef static_c<UINT, 256> max_item_count;
 
             MENUITEMINFO mii = { 0 };
-            mii|size_initialized;
+            mii|size_initialize();
 
             int count = 0;
             for (UINT i = 0; i < max_item_count::value; ++i) {
@@ -53,7 +53,7 @@ namespace pstade { namespace gravy {
     };
 
 
-    PSTADE_CONSTANT(get_menu_item_count, (op_get_menu_item_count))
+    PSTADE_POD_CONSTANT((op_get_menu_item_count), get_menu_item_count) = {};
 
 
 } } // namespace pstade::gravy

@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/constant.hpp>
+#include <pstade/pod_constant.hpp>
 #include <pstade/require.hpp>
 #include "./c_str.hpp"
 #include "./get_menu_state.hpp"
@@ -38,7 +38,7 @@ namespace pstade { namespace gravy {
 
             // set menu_ref text
             MENUITEMINFO mii = { 0 }; {
-                mii|size_initialized;
+                mii|size_initialize();
                 mii.fMask = MIIM_ID;
                 PSTADE_REQUIRE(::GetMenuItemInfo(menu, uIndex, TRUE, &mii));
             }
@@ -50,7 +50,7 @@ namespace pstade { namespace gravy {
     };
 
 
-    PSTADE_CONSTANT(set_menu_text, (op_set_menu_text))
+    PSTADE_POD_CONSTANT((op_set_menu_text), set_menu_text) = {};
 
 
 } } // namespace pstade::gravy

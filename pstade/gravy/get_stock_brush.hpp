@@ -11,7 +11,7 @@
 
 
 #include <boost/assert.hpp>
-#include <pstade/constant.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./brush_ref.hpp"
 #include "./handle_cast.hpp"
 #include "./sdk/windows.hpp"
@@ -56,7 +56,7 @@ namespace pstade { namespace gravy {
     };
 
 
-    PSTADE_CONSTANT(get_stock_brush, (op_get_stock_brush))
+    PSTADE_POD_CONSTANT((op_get_stock_brush), get_stock_brush) = {};
 
 
 } } // namespace pstade::gravy

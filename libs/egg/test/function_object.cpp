@@ -8,7 +8,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/egg/object.hpp>
+#include <pstade/pod_constant.hpp>
 
 
 struct op_foo
@@ -22,7 +22,7 @@ struct op_foo
     }
 };
 
-PSTADE_EGG_OBJECT((op_foo), foo) = { };
+PSTADE_POD_CONSTANT((op_foo), foo) = { };
 
 int main()
 {

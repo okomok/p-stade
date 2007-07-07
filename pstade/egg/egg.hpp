@@ -64,7 +64,6 @@
 #include "./new_shared_array.hpp"
 #include "./not.hpp"
 #include "./nullary_result_of.hpp"
-#include "./object.hpp"
 #include "./perfect.hpp"
 #include "./pipable.hpp"
 #include "./plus.hpp"

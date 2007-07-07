@@ -10,10 +10,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/object_generator.hpp>
+#include <boost/mpl/placeholders.hpp>
+#include <pstade/egg/deduce.hpp>
+#include <pstade/egg/generator.hpp>
+#include <pstade/egg/pipable.hpp>
 #include <pstade/oven/iter_range.hpp>
 #include <pstade/oven/lightweight_copyable.hpp>
-#include <pstade/pipable.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./yield_iterator.hpp"
 
 
@@ -52,9 +55,17 @@ public:
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_yield_range,
-    (yield_range< deduce<_1, as_value> >) const)
-PSTADE_PIPABLE(yielded, (op_make_yield_range))
+typedef
+    egg::generator<
+        yield_range< egg::deduce<boost::mpl::_1, egg::as_value> > const
+    >::type
+op_make_yield_range;
+
+PSTADE_POD_CONSTANT((op_make_yield_range), make_yield_range)
+    = PSTADE_EGG_GENERATOR_INITIALIZER();
+
+PSTADE_POD_CONSTANT((egg::result_of_pipable<op_make_yield_range>::type), yielded)
+    = PSTADE_EGG_PIPABLE_RESULT_INITIALIZER(PSTADE_EGG_GENERATOR_INITIALIZER);
 
 
 } } // namespace pstade::sausage

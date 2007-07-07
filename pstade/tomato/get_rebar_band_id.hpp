@@ -34,7 +34,7 @@ namespace pstade { namespace tomato {
         )
 
         REBARBANDINFO info; {
-            info|gravy::size_initialized;
+            info|gravy::size_initialize();
             info.fMask = RBBIM_ID;
             PSTADE_REQUIRE(rebars.GetBandInfo(index, &info));
         }

@@ -26,6 +26,7 @@
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <pstade/deduced_const.hpp>
+#include <pstade/pod_constant.hpp>
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
 #include "./apply_params.hpp"
@@ -33,7 +34,6 @@
 #include "./config.hpp" // PSTADE_EGG_MAX_ARITY
 #include "./function.hpp"
 #include "./generator.hpp"
-#include "./object.hpp"
 #include "./pipable.hpp"
 #include "./use_brace_level1.hpp"
 
@@ -113,7 +113,7 @@ namespace pstade { namespace egg {
         >::type
     op_auxiliary0;
 
-    PSTADE_EGG_OBJECT((op_auxiliary0), auxiliary0) = PSTADE_EGG_GENERATOR_INITIALIZER();
+    PSTADE_POD_CONSTANT((op_auxiliary0), auxiliary0) = PSTADE_EGG_GENERATOR_INITIALIZER();
 
 
     // 1ary-
@@ -189,7 +189,7 @@ namespace pstade { namespace egg {
         >::type
     BOOST_PP_CAT(op_auxiliary, n);
 
-    PSTADE_EGG_OBJECT((BOOST_PP_CAT(op_auxiliary, n)), BOOST_PP_CAT(auxiliary, n)) = PSTADE_EGG_GENERATOR_INITIALIZER();
+    PSTADE_POD_CONSTANT((BOOST_PP_CAT(op_auxiliary, n)), BOOST_PP_CAT(auxiliary, n)) = PSTADE_EGG_GENERATOR_INITIALIZER();
 
 
 #undef n

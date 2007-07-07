@@ -12,7 +12,7 @@
 
 #include <pstade/candy/test.hpp>
 #include <pstade/check.hpp>
-#include <pstade/constant.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./sdk/windows.hpp"
 #include "./send_message.hpp"
 #include "./window_ref.hpp"
@@ -35,7 +35,7 @@ namespace pstade { namespace gravy {
     };
 
 
-    PSTADE_CONSTANT(check_window, (op_check_window))
+    PSTADE_POD_CONSTANT((op_check_window), check_window) = {};
 
 
 } } // namespace pstade::gravy

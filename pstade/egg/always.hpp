@@ -12,8 +12,8 @@
 
 
 #include <boost/utility/addressof.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./function.hpp"
-#include "./object.hpp"
 
 
 namespace pstade { namespace egg {
@@ -57,7 +57,7 @@ namespace pstade { namespace egg {
 
 
     typedef function<always_detail::baby> op_always;
-    PSTADE_EGG_OBJECT((op_always), always) = { {} };
+    PSTADE_POD_CONSTANT((op_always), always) = { {} };
 
 
 } } // namespace pstade::egg

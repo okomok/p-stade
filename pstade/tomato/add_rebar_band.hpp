@@ -51,7 +51,7 @@ namespace pstade { namespace tomato {
 
 
         REBARBANDINFO info; {
-            info|gravy::size_initialized;
+            info|gravy::size_initialize();
 
     #if (_WIN32_IE >= 0x0400)
             info.fMask = RBBIM_CHILD | RBBIM_CHILDSIZE | RBBIM_STYLE | RBBIM_ID | RBBIM_SIZE | RBBIM_IDEALSIZE;

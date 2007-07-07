@@ -20,12 +20,12 @@
 #include <pstade/test.hpp>
 
 
-#include <pstade/egg/object.hpp>
+#include <pstade/pod_constant.hpp>
 #include <pstade/unparenthesize.hpp>
 
     #define PSTADE_EGG_FUNCTION_BY_VALUE(O, B) \
         typedef pstade::egg::function_by_value<PSTADE_UNPARENTHESIZE(B)> BOOST_PP_CAT(op_, O); \
-        PSTADE_EGG_OBJECT((BOOST_PP_CAT(op_, O)), O) = { { } }; \
+        PSTADE_POD_CONSTANT((BOOST_PP_CAT(op_, O)), O) = { { } }; \
     /**/
 
 

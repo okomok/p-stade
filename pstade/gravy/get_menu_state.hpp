@@ -16,7 +16,7 @@
 
 
 #include <pstade/candy/test.hpp>
-#include <pstade/constant.hpp>
+#include <pstade/pod_constant.hpp>
 #include <pstade/require.hpp>
 #include "./menu_ref.hpp"
 #include "./sdk/windows.hpp"
@@ -36,7 +36,7 @@ namespace pstade { namespace gravy {
             return ::GetMenuState(menu, uId, uFlags);
 #else
             MENUITEMINFO mii = { 0 }; {
-                mii|size_initialized;
+                mii|size_initialize();
                 mii.fMask  = MIIM_STATE;
             }
 
@@ -51,7 +51,7 @@ namespace pstade { namespace gravy {
     };
 
 
-    PSTADE_CONSTANT(get_menu_state, (op_get_menu_state))
+    PSTADE_POD_CONSTANT((op_get_menu_state), get_menu_state) = {};
 
 
 } } // namespace pstade::gravy

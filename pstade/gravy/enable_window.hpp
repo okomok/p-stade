@@ -15,7 +15,7 @@
 // 'CCmdUI::Enable' of MFC7
 
 
-#include <pstade/constant.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./sdk/windows.hpp"
 #include "./window_ptr.hpp"
 #include "./window_ref.hpp"
@@ -43,7 +43,7 @@ namespace pstade { namespace gravy {
     };
 
 
-    PSTADE_CONSTANT(enable_window, (op_enable_window))
+    PSTADE_POD_CONSTANT((op_enable_window), enable_window) = {};
 
 
 } } // namespace pstade::gravy

@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/constant.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./post_message.hpp"
 #include "./sdk/windows.hpp"
 #include "./window_ref.hpp"
@@ -30,7 +30,7 @@ namespace pstade { namespace gravy {
     };
 
 
-    PSTADE_CONSTANT(post_command, (op_post_command))
+    PSTADE_POD_CONSTANT((op_post_command), post_command) = {};
 
 
 } } // namespace pstade::gravy

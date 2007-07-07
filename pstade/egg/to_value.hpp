@@ -11,8 +11,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/pod_constant.hpp>
 #include "./function_by_value.hpp"
-#include "./object.hpp"
 
 
 namespace pstade { namespace egg {
@@ -62,7 +62,7 @@ namespace pstade { namespace egg {
 
 
     typedef to_value_detail_::op op_to_value;
-    PSTADE_EGG_OBJECT((op_to_value), to_value) = { {} };
+    PSTADE_POD_CONSTANT((op_to_value), to_value) = { {} };
 
 
 } } // namespace pstade::egg

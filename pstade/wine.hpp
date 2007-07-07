@@ -41,6 +41,7 @@
 #include "./nullptr.hpp"
 #include "./pass_by.hpp"
 #include "./pause.hpp"
+#include "./pod_constant.hpp"
 #include "./preprocessor.hpp"
 #include "./provide_result_of_sig.hpp"
 #include "./provide_sig.hpp"

@@ -45,7 +45,7 @@ void write_rebar(Profile& pr, gravy::window_ref rebar)
 
     for (UINT uIndex = 0, uCount = rebars.GetBandCount(); uIndex < uCount; ++uIndex) {
         REBARBANDINFO info; {
-            info|gravy::size_initialized;
+            info|gravy::size_initialize();
             info.fMask = RBBIM_SIZE | RBBIM_STYLE | RBBIM_CHILD;
             PSTADE_REQUIRE(rebars.GetBandInfo(uIndex, &info));
         }

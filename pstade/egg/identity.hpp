@@ -12,8 +12,8 @@
 
 
 #include <pstade/adl_barrier.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./function.hpp"
-#include "./object.hpp"
 
 
 namespace pstade { namespace egg {
@@ -43,7 +43,7 @@ namespace pstade { namespace egg {
 
     typedef function<identity_detail::baby> op_identity;
     PSTADE_ADL_BARRIER(identity) { // for 'std'
-        PSTADE_EGG_OBJECT((op_identity), identity) = { {} };
+        PSTADE_POD_CONSTANT((op_identity), identity) = { {} };
     }
 
 

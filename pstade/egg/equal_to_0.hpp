@@ -11,7 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include "./object.hpp"
+#include <pstade/pod_constant.hpp>
 
 
 namespace pstade { namespace egg {
@@ -29,7 +29,7 @@ namespace pstade { namespace egg {
     };
 
     
-    PSTADE_EGG_OBJECT((op_equal_to_0), equal_to_0) = {};
+    PSTADE_POD_CONSTANT((op_equal_to_0), equal_to_0) = {};
 
 
 } } // namespace pstade::egg

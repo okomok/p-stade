@@ -39,8 +39,8 @@ namespace yyy {
     struct heavy2
     { };
 
-    pstade::yes xxx_is_(xxx::heavy, boost::type<heavy2>)
-    { return pstade::yes(); }
+    boost::type_traits::yes_type xxx_is_(xxx::heavy, boost::type<heavy2>)
+    { return boost::type_traits::yes_type(); }
 
 }
 

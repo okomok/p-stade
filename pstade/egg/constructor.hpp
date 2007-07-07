@@ -12,8 +12,8 @@
 
 
 #include <boost/mpl/placeholders.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./automatic.hpp"
-#include "./object.hpp"
 #include "./construct.hpp"
 
 
@@ -27,7 +27,7 @@ namespace pstade { namespace egg {
     op_constructor;
 
 
-    PSTADE_EGG_OBJECT((op_constructor), constructor) = PSTADE_EGG_AUTOMATIC_INITIALIZER();
+    PSTADE_POD_CONSTANT((op_constructor), constructor) = PSTADE_EGG_AUTOMATIC_INITIALIZER();
 
 
 } } // namespace pstade::egg

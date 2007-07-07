@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/constant.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./sdk/windows.hpp"
 #include "./window_ptr.hpp"
 #include "./window_ref.hpp"
@@ -31,7 +31,7 @@ namespace pstade { namespace gravy {
     };
 
 
-    PSTADE_CONSTANT(toplevel_parent, (op_toplevel_parent))
+    PSTADE_POD_CONSTANT((op_toplevel_parent), toplevel_parent) = {};
 
 
 } } // namespace pstade::gravy

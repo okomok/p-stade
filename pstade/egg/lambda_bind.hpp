@@ -16,10 +16,10 @@
 #include <boost/preprocessor/iteration/iterate.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./apply_params.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_ARITY
 #include "./function.hpp"
-#include "./object.hpp"
 
 
 namespace pstade { namespace egg {
@@ -56,7 +56,7 @@ namespace pstade { namespace egg {
 
 
     typedef function<lambda_bind_detail::baby> op_lambda_bind;
-    PSTADE_EGG_OBJECT((op_lambda_bind), lambda_bind) = { {} };
+    PSTADE_POD_CONSTANT((op_lambda_bind), lambda_bind) = { {} };
 
 
 } } // namespace pstade::egg

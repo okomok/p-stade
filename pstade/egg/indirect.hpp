@@ -26,8 +26,8 @@
 #include <boost/mpl/placeholders.hpp>
 #include <boost/optional/optional_fwd.hpp>
 #include <pstade/affect.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./adapt.hpp"
-#include "./object.hpp"
 
 
 namespace pstade { namespace egg {
@@ -80,7 +80,7 @@ namespace pstade { namespace egg {
 
 
     typedef PSTADE_EGG_ADAPT((indirect_detail::base<boost::mpl::_>)) op_indirect;
-    PSTADE_EGG_OBJECT((op_indirect), indirect) = PSTADE_EGG_ADAPT_INITIALIZER();
+    PSTADE_POD_CONSTANT((op_indirect), indirect) = PSTADE_EGG_ADAPT_INITIALIZER();
 
 
 } } // namespace pstade::egg

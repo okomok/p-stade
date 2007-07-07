@@ -10,9 +10,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/gravy/sdk/tchar.hpp>
 #include <pstade/egg/copy.hpp>
 #include <pstade/egg/lexicalize.hpp>
+#include <pstade/gravy/sdk/tchar.hpp>
 #include <pstade/gravy/tstring.hpp>
 #include "./set_string.hpp"
 

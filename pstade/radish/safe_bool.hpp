@@ -18,8 +18,8 @@
 // <boost/spirit/core/safe_bool.hpp>
 
 
-#include <pstade/instance.hpp>
 #include <pstade/nullptr.hpp>
+#include <pstade/pod_constant.hpp>
 
 
 namespace pstade { namespace radish {
@@ -44,9 +44,8 @@ safe_bool make_safe_bool(Expr const& b)
 }
 
 
-// slightly slower.
-PSTADE_INSTANCE((safe_bool) const, safe_true,  (&safe_bool_detail::box::true_))
-PSTADE_INSTANCE((safe_bool) const, safe_false, (PSTADE_NULLPTR))
+PSTADE_POD_CONSTANT((safe_bool), safe_true)  = &safe_bool_detail::box::true_;
+PSTADE_POD_CONSTANT((safe_bool), safe_false) = PSTADE_NULLPTR;
 
 
 } } // namespace pstade::radish

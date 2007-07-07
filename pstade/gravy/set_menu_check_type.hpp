@@ -14,7 +14,7 @@
 #include <pstade/candy/reset.hpp>
 #include <pstade/candy/set.hpp>
 #include <pstade/candy/test.hpp>
-#include <pstade/constant.hpp>
+#include <pstade/pod_constant.hpp>
 #include <pstade/require.hpp>
 #include <pstade/unused.hpp>
 #include "./menu_ref.hpp"
@@ -34,7 +34,7 @@ namespace pstade { namespace gravy {
 #if !defined(_WIN32_WCE)
 
             MENUITEMINFO mii = { 0 }; {
-                mii|size_initialized;
+                mii|size_initialize();
                 mii.fMask = MIIM_TYPE;
                 PSTADE_REQUIRE(::GetMenuItemInfo(menu, uIndex, TRUE, &mii));
             }
@@ -72,7 +72,7 @@ namespace pstade { namespace gravy {
     };
 
 
-    PSTADE_CONSTANT(set_menu_check_type, (op_set_menu_check_type))
+    PSTADE_POD_CONSTANT((op_set_menu_check_type), set_menu_check_type) = {};
 
 
 } } // namespace pstade::gravy

@@ -12,9 +12,9 @@
 
 
 #include <boost/preprocessor/facilities/identity.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./auxiliary.hpp"
 #include "./function.hpp"
-#include "./object.hpp"
 
 
 namespace pstade { namespace egg {
@@ -64,8 +64,8 @@ namespace pstade { namespace egg {
 
     typedef result_of_auxiliary0<to_ref_detail::op>::type  op_to_ref;
     typedef result_of_auxiliary0<to_ref_detail::cop>::type op_to_cref;
-    PSTADE_EGG_OBJECT((op_to_ref), to_ref)   = PSTADE_EGG_AUXILIARY_RESULT_INITIALIZER(BOOST_PP_IDENTITY({{}}));
-    PSTADE_EGG_OBJECT((op_to_cref), to_cref) = PSTADE_EGG_AUXILIARY_RESULT_INITIALIZER(BOOST_PP_IDENTITY({{}}));
+    PSTADE_POD_CONSTANT((op_to_ref), to_ref)   = PSTADE_EGG_AUXILIARY_RESULT_INITIALIZER(BOOST_PP_IDENTITY({{}}));
+    PSTADE_POD_CONSTANT((op_to_cref), to_cref) = PSTADE_EGG_AUXILIARY_RESULT_INITIALIZER(BOOST_PP_IDENTITY({{}}));
 
 
 } } // namespace pstade::egg

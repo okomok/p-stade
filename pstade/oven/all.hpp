@@ -23,7 +23,7 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/egg/not.hpp>
-#include <pstade/egg/object.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./concepts.hpp"
 
 
@@ -49,7 +49,7 @@ struct op_all
 };
 
 
-PSTADE_EGG_OBJECT((op_all), all) = {};
+PSTADE_POD_CONSTANT((op_all), all) = {};
 
 
 } } // namespace pstade::oven

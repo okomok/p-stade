@@ -12,11 +12,11 @@
 
 
 #include <boost/mpl/placeholders.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./deduce.hpp"
 #include "./detail/baby_unfuse_result.hpp"
 #include "./function.hpp"
 #include "./generator.hpp"
-#include "./object.hpp"
 #include "./use_brace_level1.hpp"
 
 
@@ -61,7 +61,7 @@ namespace pstade { namespace egg {
 
 
     typedef tp_unfuse<>::type op_unfuse;
-    PSTADE_EGG_OBJECT((op_unfuse), unfuse) = PSTADE_EGG_GENERATOR_INITIALIZER();
+    PSTADE_POD_CONSTANT((op_unfuse), unfuse) = PSTADE_EGG_GENERATOR_INITIALIZER();
 
 
 } } // namespace pstade::egg

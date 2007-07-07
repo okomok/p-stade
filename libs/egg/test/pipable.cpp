@@ -13,7 +13,7 @@
 #include <pstade/minimal_test.hpp>
 
 
-#include <pstade/egg/object.hpp>
+#include <pstade/pod_constant.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <pstade/unparenthesize.hpp>
 #include <boost/preprocessor/cat.hpp>
@@ -25,7 +25,7 @@
             using namespace boost::mpl::placeholders; \
             typedef pstade::egg::result_of_pipable<PSTADE_UNPARENTHESIZE(F)>::type pipe; \
         } \
-        PSTADE_EGG_OBJECT((BOOST_PP_CAT(pstade_egg_pipable_workarea_of_, O)::pipe), O) = PSTADE_EGG_PIPABLE_RESULT_INITIALIZER(BOOST_PP_IDENTITY({})); \
+        PSTADE_POD_CONSTANT((BOOST_PP_CAT(pstade_egg_pipable_workarea_of_, O)::pipe), O) = PSTADE_EGG_PIPABLE_RESULT_INITIALIZER(BOOST_PP_IDENTITY({})); \
     /**/
 
 

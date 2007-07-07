@@ -25,12 +25,12 @@
 
 
 #include <boost/mpl/placeholders.hpp>
+#include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
 #include "./deduce.hpp"
 #include "./detail/baby_perfect_result.hpp"
 #include "./function.hpp"
 #include "./generator.hpp"
-#include "./object.hpp"
 #include "./use_brace_level1.hpp"
 
 
@@ -67,7 +67,7 @@ namespace pstade { namespace egg {
 
 
     typedef tp_perfect<>::type op_perfect;
-    PSTADE_EGG_OBJECT((op_perfect), perfect) = PSTADE_EGG_GENERATOR_INITIALIZER();
+    PSTADE_POD_CONSTANT((op_perfect), perfect) = PSTADE_EGG_GENERATOR_INITIALIZER();
 
 
 } } // namespace pstade::egg

@@ -12,11 +12,11 @@
 
 
 #include <boost/preprocessor/facilities/identity.hpp>
+#include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
 #include "./function.hpp"
 #include "./function_by_value.hpp"
 #include "./fuse.hpp"
-#include "./object.hpp"
 #include "./unfuse.hpp"
 
 
@@ -104,7 +104,7 @@ namespace pstade { namespace egg {
 
 
     typedef tp_compose<>::type op_compose;
-    PSTADE_EGG_OBJECT((op_compose), compose) = { {} };
+    PSTADE_POD_CONSTANT((op_compose), compose) = { {} };
 
 
 } } // namespace pstade::egg

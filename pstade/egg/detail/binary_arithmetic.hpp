@@ -27,8 +27,8 @@
 #include <boost/type_traits/remove_const.hpp>
 #include <pstade/adl_barrier.hpp>
 #include <pstade/enable_if.hpp>
+#include <pstade/pod_constant.hpp>
 #include "../function.hpp"
-#include "../object.hpp"
 
 
 namespace pstade { namespace egg { namespace detail {
@@ -85,7 +85,7 @@ namespace pstade { namespace egg { namespace detail {
     \
     typedef function<BOOST_PP_CAT(baby_, F)> BOOST_PP_CAT(op_, F); \
     PSTADE_ADL_BARRIER(F) { \
-        PSTADE_EGG_OBJECT((BOOST_PP_CAT(op_, F)), F) = { {} }; \
+        PSTADE_POD_CONSTANT((BOOST_PP_CAT(op_, F)), F) = { {} }; \
     } \
 /**/
 

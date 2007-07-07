@@ -67,6 +67,5 @@ test-suite "egg" :
     [ run unfuse.cpp ]
     [ run use_xxx.cpp ]
     [ link multiple_defs1.cpp multiple_defs2.cpp : : multiple_defs ]
-    [ link object1.cpp object2.cpp : : object ]
     ;
 

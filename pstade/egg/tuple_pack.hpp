@@ -14,10 +14,10 @@
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/tuple/tuple.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./deduce.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_ARITY
 #include "./generator.hpp"
-#include "./object.hpp"
 
 
 namespace pstade { namespace egg {
@@ -60,7 +60,7 @@ namespace pstade { namespace egg {
     op_tuple_pack;
 
 
-    PSTADE_EGG_OBJECT((op_tuple_pack), tuple_pack) = PSTADE_EGG_GENERATOR_INITIALIZER();
+    PSTADE_POD_CONSTANT((op_tuple_pack), tuple_pack) = PSTADE_EGG_GENERATOR_INITIALIZER();
 
 
 } } // namespace pstade::egg
