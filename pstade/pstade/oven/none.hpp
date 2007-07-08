@@ -22,7 +22,7 @@
 #include <algorithm> // find_if
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/constant.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./concepts.hpp"
 
 
@@ -48,7 +48,7 @@ struct op_none
 };
 
 
-PSTADE_CONSTANT(none, (op_none))
+PSTADE_POD_CONSTANT((op_none), none) = {};
 
 
 } } // namespace pstade::oven

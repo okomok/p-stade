@@ -29,9 +29,9 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/adl_barrier.hpp>
-#include <pstade/constant.hpp>
+#include <pstade/egg/adapt.hpp>
 #include <pstade/egg/less.hpp>
-#include <pstade/function.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./concepts.hpp"
 #include "./range_iterator.hpp"
 #include "./read.hpp"
@@ -85,7 +85,8 @@ namespace is_sorted_until_detail {
 } // namespace is_sorted_until_detail
 
 
-PSTADE_FUNCTION(is_sorted_until, (is_sorted_until_detail::baby<_>))
+typedef PSTADE_EGG_ADAPT((is_sorted_until_detail::baby<boost::mpl::_>)) op_is_sorted_until;
+PSTADE_POD_CONSTANT((op_is_sorted_until), is_sorted_until) = PSTADE_EGG_ADAPT_INITIALIZER();
 
 
 struct op_is_sorted
@@ -108,7 +109,7 @@ struct op_is_sorted
 
 
 PSTADE_ADL_BARRIER(is_sorted) { // for 'std'
-    PSTADE_CONSTANT(is_sorted, (op_is_sorted))
+    PSTADE_POD_CONSTANT((op_is_sorted), is_sorted) = {};
 }
 
 

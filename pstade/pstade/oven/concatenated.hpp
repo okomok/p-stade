@@ -13,9 +13,8 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/function.hpp>
-#include <pstade/pipable.hpp>
 #include "./concepts.hpp"
+#include "./detail/base_to_adaptor.hpp"
 #include "./detail/concat_iterator.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
@@ -29,7 +28,7 @@ namespace concatenated_detail {
 
 
     template< class SegmentRange >
-    struct baby
+    struct base
     {
         typedef
             detail::concat_iterator<
@@ -59,8 +58,7 @@ namespace concatenated_detail {
 } // namespace concatenated_detail
 
 
-PSTADE_FUNCTION(make_concatenated, (concatenated_detail::baby<_>))
-PSTADE_PIPABLE(concatenated, (op_make_concatenated))
+PSTADE_OVEN_BASE_TO_ADAPTOR(concatenated, (concatenated_detail::base<_>))
 
 
 } } // namespace pstade::oven

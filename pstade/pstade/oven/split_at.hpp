@@ -13,10 +13,8 @@
 
 #include <utility>
 #include <boost/range/begin.hpp>
-#include <pstade/function.hpp>
-#include <pstade/pipable.hpp>
-#include <pstade/result_of.hpp>
 #include "./concepts.hpp"
+#include "./detail/base_to_adaptor.hpp"
 #include "./dropped.hpp"
 
 
@@ -27,7 +25,7 @@ namespace split_at_detail {
 
 
     template< class Range, class Difference >
-    struct baby
+    struct base
     {
         typedef typename
             result_of<
@@ -55,8 +53,7 @@ namespace split_at_detail {
 } // namespace split_at_detail
 
 
-PSTADE_FUNCTION(make_split_at, (split_at_detail::baby<_, _>))
-PSTADE_PIPABLE(split_at, (op_make_split_at))
+PSTADE_OVEN_BASE_TO_ADAPTOR(split_at, (split_at_detail::base<_, _>))
 
 
 } } // namespace pstade::oven

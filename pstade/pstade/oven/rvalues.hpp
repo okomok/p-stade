@@ -11,11 +11,10 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/function.hpp>
-#include <pstade/pipable.hpp>
 #include <pstade/result_of.hpp>
 #include "./concepts.hpp"
 #include "./converted.hpp"
+#include "./detail/base_to_adaptor.hpp"
 #include "./range_value.hpp"
 
 
@@ -26,7 +25,7 @@ namespace rvalues_detail {
 
 
     template< class Range >
-    struct baby
+    struct base
     {
         typedef typename
             range_value<Range>::type
@@ -34,14 +33,14 @@ namespace rvalues_detail {
 
         typedef typename
             result_of<
-                op_make_converted<value_t>(Range&)
+                xp_make_converted<value_t>(Range&)
             >::type
         result_type;
 
         result_type operator()(Range& rng) const
         {
             PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-            return op_make_converted<value_t>()(rng);
+            return xp_make_converted<value_t>()(rng);
         }
     };
 
@@ -49,8 +48,7 @@ namespace rvalues_detail {
 } // namespace rvalues_detail
 
 
-PSTADE_FUNCTION(make_rvalues, (rvalues_detail::baby<_>))
-PSTADE_PIPABLE(rvalues, (op_make_rvalues))
+PSTADE_OVEN_BASE_TO_ADAPTOR(rvalues, (rvalues_detail::base<_>))
 
 
 } } // namespace pstade::oven

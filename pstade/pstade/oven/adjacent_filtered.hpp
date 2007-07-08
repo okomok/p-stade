@@ -22,7 +22,7 @@
 #include <pstade/pass_by.hpp>
 #include <pstade/result_of.hpp>
 #include "./concepts.hpp"
-#include "./detail/adaptor.hpp"
+#include "./detail/base_to_adaptor.hpp"
 #include "./read.hpp"
 #include "./successors.hpp"
 
@@ -111,7 +111,7 @@ namespace adjacent_filtered_detail {
 } // namespace adjacent_filtered_detail
 
 
-PSTADE_OVEN_ADAPTOR(adjacent_filtered, (adjacent_filtered_detail::base<_, _>))
+PSTADE_OVEN_BASE_TO_ADAPTOR(adjacent_filtered, (adjacent_filtered_detail::base<_, _>))
 
 
 } } // namespace pstade::oven

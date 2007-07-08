@@ -34,12 +34,11 @@
 #include <boost/tuple/tuple.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/preprocessor.hpp>
-#include "./deduce.hpp"
 #include "./detail/nonref_arg.hpp"
-#include "./detail/sig_template.hpp"
 #include "./generator.hpp"
 #include "./nullary_result_of.hpp"
 #include "./use_brace_level0.hpp"
+#include "./sig_template.hpp"
 
 
 #if !defined(PSTADE_EGG_ADAPT_SIG_MAX_ARITY)

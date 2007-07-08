@@ -33,9 +33,9 @@
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/adl_barrier.hpp>
-#include <pstade/constant.hpp>
+#include <pstade/egg/adapt.hpp>
 #include <pstade/egg/less.hpp>
-#include <pstade/function.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./concepts.hpp"
 #include "./range_iterator.hpp"
 #include "./read.hpp"
@@ -93,7 +93,8 @@ namespace is_heap_until_detail {
 } // namespace is_heap_until_detail
 
 
-PSTADE_FUNCTION(is_heap_until, (is_heap_until_detail::baby<_>))
+typedef PSTADE_EGG_ADAPT((is_heap_until_detail::baby<boost::mpl::_>)) op_is_heap_until;
+PSTADE_POD_CONSTANT((op_is_heap_until), is_heap_until) = PSTADE_EGG_ADAPT_INITIALIZER();
 
 
 struct op_is_heap
@@ -116,7 +117,7 @@ struct op_is_heap
 
 
 PSTADE_ADL_BARRIER(is_heap) { // for 'std'
-    PSTADE_CONSTANT(is_heap, (op_is_heap))
+    PSTADE_POD_CONSTANT((op_is_heap), is_heap) = {};
 }
 
 

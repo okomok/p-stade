@@ -28,10 +28,9 @@
 #include <boost/iterator/zip_iterator.hpp>
 #include <boost/type_traits/remove_const.hpp>
 #include <pstade/affect.hpp>
-#include <pstade/function.hpp>
-#include <pstade/pipable.hpp>
 #include <pstade/result_of.hpp>
 #include "./begin_end.hpp"
+#include "./detail/base_to_adaptor.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
 
@@ -145,7 +144,7 @@ namespace zipped_detail {
 
 
     template< class RangeTuple >
-    struct baby
+    struct base
     {
         typedef
             boost::zip_iterator<
@@ -173,8 +172,7 @@ namespace zipped_detail {
 } // namespace zipped_detail
 
 
-PSTADE_FUNCTION(make_zipped, (zipped_detail::baby<_>))
-PSTADE_PIPABLE(zipped, (op_make_zipped))
+PSTADE_OVEN_BASE_TO_ADAPTOR(zipped, (zipped_detail::base<_>))
 
 
 } } // namespace pstade::oven

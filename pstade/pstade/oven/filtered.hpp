@@ -19,10 +19,9 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/function.hpp>
 #include <pstade/pass_by.hpp>
-#include <pstade/pipable.hpp>
 #include "./concepts.hpp"
+#include "./detail/base_to_adaptor.hpp"
 #include "./detail/filter_iterator.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
@@ -35,7 +34,7 @@ namespace filtered_detail {
 
 
     template< class Range, class Predicate >
-    struct baby
+    struct base
     {
         typedef
             detail::filter_iterator<
@@ -65,8 +64,7 @@ namespace filtered_detail {
 } // namespace filtered_detail
 
 
-PSTADE_FUNCTION(make_filtered, (filtered_detail::baby<_, _>))
-PSTADE_PIPABLE(filtered, (op_make_filtered))
+PSTADE_OVEN_BASE_TO_ADAPTOR(filtered, (filtered_detail::base<_, _>))
 
 
 } } // namespace pstade::oven

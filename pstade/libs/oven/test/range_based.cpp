@@ -13,7 +13,6 @@
 
 #include <pstade/oven/detail/range_based1.hpp>
 #include <pstade/oven/detail/range_based2.hpp>
-#include <pstade/oven/detail/deferred_sig.hpp>
 
 
 #include <algorithm>
@@ -26,18 +25,7 @@
 #include <boost/lambda/algorithm.hpp>
 #include <pstade/result_of_lambda.hpp>
 #include <pstade/test.hpp>
-#include <pstade/egg/to_ref.hpp>
 
-
-struct do_nothing
-{
-    typedef void result_type;
-
-    template< class A >
-    void operator()(A const&) const
-    {
-    }
-};
 
 struct op_sort
 {
@@ -63,41 +51,12 @@ struct op_sort2
 };
 
 
-struct nullary_sig
-{
-    template< class Sig >
-    struct sig
-    {
-        typedef int type;
-    };
-
-    int operator()() const
-    {
-        return 10;
-    }
-
-    int operator()(int i) const
-    {
-        return i + 10;
-    }
-};
-
 
 void test()
 {
-    namespace lambda = boost::lambda;
     namespace oven = pstade::oven;
     using namespace oven;
 
-    {
-        std::string rng("edcbagf");
-        detail::deferred_sig_return_op<lambda::ll::for_each>()(boost::begin(rng)|pstade::egg::to_ref, boost::end(rng)|pstade::egg::to_ref, do_nothing()|pstade::egg::to_ref);
-        oven::detail::range_based1(detail::deferred_sig(lambda::ll::for_each()))(rng, do_nothing());
-        oven::detail::range_based1(detail::deferred_sig_return_op<lambda::ll::for_each>())(rng, do_nothing());
-        oven::detail::range_based1(detail::deferred_sig_return_op<lambda::ll::sort>())(rng);
-        oven::detail::range_based1(detail::deferred_sig_return_op<lambda::ll::sort>())(rng, pstade::egg::less);
-        BOOST_CHECK( rng == "abcdefg" );
-    }
     {
         std::string rng("edcbagf");
         oven::detail::range_based1(::op_sort())(rng);
@@ -109,23 +68,6 @@ void test()
         oven::detail::range_based2(::op_sort2())(rng, rng_);
         BOOST_CHECK( rng == "abcdefg" );
         BOOST_CHECK( rng_ == "123456" );
-    }
-    { // big arity check
-        std::string rng;
-        bool never = false;
-        if (never) {
-            oven::detail::range_based1(detail::deferred_sig_return_op<lambda::ll::inner_product>())(rng, boost::begin(rng), 'c', pstade::egg::plus, pstade::egg::plus);
-            oven::detail::range_based2(detail::deferred_sig_return_op<lambda::ll::merge>())(rng, rng, boost::begin(rng), pstade::egg::less);
-        }
-    }
-    { // nullary
-        typedef pstade::result_of<detail::op_nullary_deferred_sig(::nullary_sig)>::type good_t;
-        PSTADE_TEST_IS_RESULT_OF((int), good_t(int))
-        PSTADE_TEST_IS_RESULT_OF((int), good_t())
-        int const i = 1;
-        BOOST_CHECK( detail::nullary_deferred_sig(nullary_sig())() == 10 );
-        BOOST_CHECK( detail::nullary_deferred_sig(nullary_sig())(i) == 11 );
-        BOOST_CHECK( detail::deferred_sig(nullary_sig())(i) == 11 );
     }
 
 }

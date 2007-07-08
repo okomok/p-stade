@@ -11,6 +11,9 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+// This name will be changed, following boost::proto.
+
+
 // Note:
 //
 // These will be replaced by <boost/numeric/functional.hpp>.
@@ -23,7 +26,6 @@
 
 
 #include <boost/indirect_reference.hpp>
-#include <boost/mpl/placeholders.hpp>
 #include <boost/optional/optional_fwd.hpp>
 #include <pstade/affect.hpp>
 #include <pstade/pod_constant.hpp>

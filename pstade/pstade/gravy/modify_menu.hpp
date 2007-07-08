@@ -18,7 +18,7 @@
 #include <boost/assert.hpp>
 #include <pstade/candy/set.hpp>
 #include <pstade/pod_constant.hpp>
-#include "./boolean_cast.hpp"
+#include "./booleanize.hpp"
 #include "./get_menu_item_count.hpp"
 #include "./get_menu_item_id.hpp"
 #include "./menu_ref.hpp"
@@ -38,7 +38,7 @@ namespace pstade { namespace gravy {
             UINT uIDNewItem = 0, TCHAR const *lpNewItem = NULL) const
         {
 #if !defined(_WIN32_WCE)
-            return ::ModifyMenu(menu, uPosition, uFlags, uIDNewItem, lpNewItem)|to_boolean;
+            return ::ModifyMenu(menu, uPosition, uFlags, uIDNewItem, lpNewItem)|booleanize();
 #else
             // Handle MF_BYCOMMAND case; MF_BYCOMMAND is 0
             if ((uFlags & MF_BYPOSITION) != MF_BYPOSITION) {
@@ -57,7 +57,7 @@ namespace pstade { namespace gravy {
             if (!::DeleteMenu(menu, uPosition, uFlags))
                 return false;
 
-            return ::InsertMenu(menu, uPosition, uFlags, uIDNewItem, lpNewItem)|to_boolean;
+            return ::InsertMenu(menu, uPosition, uFlags, uIDNewItem, lpNewItem)|booleanize();
 #endif // !defined(_WIN32_WCE)
         }
     };

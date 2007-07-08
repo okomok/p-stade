@@ -13,7 +13,7 @@
 #include <pstade/egg/copy.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/unused.hpp>
-#include "./boolean_cast.hpp"
+#include "./booleanize.hpp"
 #include "./sdk/windows.hpp"
 
 
@@ -28,7 +28,7 @@ namespace pstade { namespace gravy {
             UINT uItem = static_cast<UINT>(-1),  bool by_position = false) const
         {
 #if !defined(_WIN32_WCE)
-            return ::SetMenuDefaultItem(menu, uItem, egg::copy<UINT>(by_position))|to_boolean;
+            return ::SetMenuDefaultItem(menu, uItem, egg::copy<UINT>(by_position))|booleanize();
 #else
             pstade::unused(menu, uItem, by_position);
             return true;

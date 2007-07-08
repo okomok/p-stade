@@ -12,12 +12,11 @@
 
 
 #include <boost/iterator/iterator_categories.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
 #include <pstade/disable_if_copy.hpp>
+#include <pstade/egg/generator.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/implicitly_defined.hpp>
-#include <pstade/object_generator.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./any_iterator.hpp"
 #include "./any_range_fwd.hpp"
 #include "./iter_range.hpp"
@@ -121,8 +120,18 @@ struct any_range_of
 };
 
 
-PSTADE_OBJECT_GENERATOR(make_any_range,
-     (any_range< range_reference<_1>, range_pure_traversal<_1>, range_value<_1>, range_difference<_1> >) const)
+typedef
+    egg::generator<
+        any_range<
+            range_reference<boost::mpl::_1>,
+            range_pure_traversal<boost::mpl::_1>,
+            range_value<boost::mpl::_1>,
+            range_difference<boost::mpl::_1>
+        > const
+    >::type
+op_make_any_range;
+
+PSTADE_POD_CONSTANT((op_make_any_range), make_any_range) = PSTADE_EGG_GENERATOR_INITIALIZER();
 
 
 } } // namespace pstade::oven

@@ -12,8 +12,7 @@
 
 
 #include <boost/algorithm/string/find_iterator.hpp> // split_iterator
-#include <pstade/function.hpp>
-#include <pstade/pipable.hpp>
+#include "./detail/base_to_adaptor.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
 
@@ -25,7 +24,7 @@ namespace string_split_detail {
 
 
     template< class Range >
-    struct baby
+    struct base
     {
         typedef
             boost::algorithm::split_iterator<
@@ -48,8 +47,7 @@ namespace string_split_detail {
 } // namespace string_split_detail
 
 
-PSTADE_FUNCTION(make_string_split, (string_split_detail::baby<_>))
-PSTADE_PIPABLE(string_split, (op_make_string_split))
+PSTADE_OVEN_BASE_TO_ADAPTOR(string_split, (string_split_detail::base<_>))
 
 
 } } // namespace pstade::oven

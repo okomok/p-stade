@@ -10,7 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/gravy/boolean_cast.hpp>
+#include <pstade/gravy/booleanize.hpp>
 #include <pstade/gravy/sdk/windows.hpp>
 #include "../point.hpp"
 #include "../rectangle.hpp"
@@ -28,7 +28,7 @@ namespace pstade { namespace hamburger { namespace detail {
         if (!::SystemParametersInfo(SPI_GETWORKAREA, 0, &rc, 0))
             return true;
 
-        return rc.PtInRect(pt)|gravy::to_boolean;
+        return rc.PtInRect(pt)|gravy::booleanize();
     }
 
 
@@ -39,7 +39,7 @@ namespace pstade { namespace hamburger { namespace detail {
         if (!::SystemParametersInfo(SPI_GETWORKAREA, 0, &w, 0))
             return true;
 
-        return !(rc & w).IsRectEmpty()|gravy::to_boolean;
+        return !(rc & w).IsRectEmpty()|gravy::booleanize();
     }
 
 

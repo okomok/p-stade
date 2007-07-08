@@ -13,10 +13,9 @@
 
 #include <boost/tuple/tuple.hpp>
 #include <pstade/egg/not.hpp>
-#include <pstade/function.hpp>
-#include <pstade/pipable.hpp>
 #include <pstade/result_of.hpp>
 #include "./concepts.hpp"
+#include "./detail/base_to_adaptor.hpp"
 #include "./filtered.hpp"
 #include "./zipped.hpp"
 
@@ -28,7 +27,7 @@ namespace split_detail {
 
 
     template< class Range, class Predicate >
-    struct baby
+    struct base
     {
         typedef typename
             result_of<
@@ -69,8 +68,7 @@ namespace split_detail {
 } // namespace split_detail
 
 
-PSTADE_FUNCTION(make_split, (split_detail::baby<_, _>))
-PSTADE_PIPABLE(split, (op_make_split))
+PSTADE_OVEN_BASE_TO_ADAPTOR(split, (split_detail::base<_, _>))
 
 
 } } // namespace pstade::oven

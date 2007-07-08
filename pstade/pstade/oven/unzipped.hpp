@@ -14,11 +14,9 @@
 #include <boost/iterator/zip_iterator.hpp> // tuple_impl_specific
 #include <boost/mpl/int.hpp>
 #include <boost/tuple/tuple.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/function.hpp>
-#include <pstade/pipable.hpp>
 #include <pstade/result_of.hpp>
 #include "./concepts.hpp"
+#include "./detail/base_to_adaptor.hpp"
 #include "./elements.hpp"
 #include "./range_value.hpp"
 
@@ -71,7 +69,7 @@ namespace unzipped_detail {
         template< class N >
         struct apply :
             result_of<
-                op_make_elements<N>(TupleRange&)
+                xp_make_elements<N>(TupleRange&)
             >
         { };
 
@@ -79,7 +77,7 @@ namespace unzipped_detail {
         typename apply<N>::type
         operator()(N) const
         {
-            return op_make_elements<N>()(m_rng);
+            return xp_make_elements<N>()(m_rng);
         }
 
         explicit make_at_range(TupleRange& rng) :
@@ -96,7 +94,7 @@ namespace unzipped_detail {
 
 
     template< class TupleRange >
-    struct baby
+    struct base
     { 
         typedef typename
             to_counting_tuple<TupleRange>::type
@@ -124,8 +122,7 @@ namespace unzipped_detail {
 } // namespace unzipped_detail
 
 
-PSTADE_FUNCTION(make_unzipped, (unzipped_detail::baby<_>))
-PSTADE_PIPABLE(unzipped, (op_make_unzipped))
+PSTADE_OVEN_BASE_TO_ADAPTOR(unzipped, (unzipped_detail::base<_>))
 
 
 } } // namespace pstade::oven

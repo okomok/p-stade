@@ -16,9 +16,7 @@
 // Converts a FunctionObject supporting 'result_of' into an Adaptable one.
 
 
-#include <boost/mpl/placeholders.hpp>
 #include <pstade/result_of.hpp>
-#include "./deduce.hpp"
 #include "./generator.hpp"
 #include "./specified.hpp"
 #include "./use_brace_level0.hpp"

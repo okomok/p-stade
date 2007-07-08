@@ -24,14 +24,15 @@
 #include <cwchar>    // wcslen
 #include <boost/mpl/eval_if.hpp>
 #include <boost/mpl/or.hpp>
+#include <boost/preprocessor/facilities/identity.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/auxiliary.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
+#include <pstade/egg/auxiliary.hpp>
+#include <pstade/egg/function.hpp>
 #include <pstade/enable_if.hpp>
 #include <pstade/is_convertible.hpp>
 #include <pstade/pass_by.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./concepts.hpp"
 #include "./iter_range.hpp"
 #include "./range_value.hpp"
@@ -107,8 +108,7 @@ namespace as_c_str_detail {
     }
 
 
-    struct op :
-        callable<op>
+    struct baby
     {
         template< class Myself, class MaybeCString >
         struct apply :
@@ -133,11 +133,14 @@ namespace as_c_str_detail {
         }
     };
 
+    typedef egg::function<baby> op;
+
 
 } // namespace as_c_str_detail
 
 
-PSTADE_AUXILIARY(0, as_c_str, (as_c_str_detail::op))
+typedef egg::result_of_auxiliary0<as_c_str_detail::op>::type op_as_c_str;
+PSTADE_POD_CONSTANT((op_as_c_str), as_c_str) = PSTADE_EGG_AUXILIARY_RESULT_INITIALIZER(BOOST_PP_IDENTITY({{}}));
 
 
 struct op_contains_zero
@@ -153,7 +156,7 @@ struct op_contains_zero
     }
 };
 
-PSTADE_CONSTANT(contains_zero, (op_contains_zero))
+PSTADE_POD_CONSTANT((op_contains_zero), contains_zero) = {};
 
 
 } } // namespace pstade::oven

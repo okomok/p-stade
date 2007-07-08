@@ -12,9 +12,7 @@
 
 
 #include <locale>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
-#include <pstade/pipable.hpp>
+#include "./detail/baby_to_adaptor.hpp"
 #include "./detail/xxx_chars.hpp"
 
 
@@ -24,8 +22,7 @@ namespace pstade { namespace oven {
 namespace narrow_chars_detail {
 
 
-    struct to_narrow :
-        callable<to_narrow>
+    struct baby_to
     {
         template< class Myself, class CharT, class Locale >
         struct apply
@@ -41,12 +38,13 @@ namespace narrow_chars_detail {
     };
 
 
+    typedef egg::function<baby_to> to;
+
+
 } // namespace narrow_chars_detail
 
 
-typedef detail::xxx_chars<narrow_chars_detail::to_narrow> op_make_narrow_chars;
-PSTADE_CONSTANT(make_narrow_chars, (op_make_narrow_chars))
-PSTADE_PIPABLE(narrow_chars, (op_make_narrow_chars))
+PSTADE_OVEN_BABY_TO_ADAPTOR(narrow_chars, (detail::xxx_chars<narrow_chars_detail::to>::baby))
 
 
 } } // namespace pstade::oven

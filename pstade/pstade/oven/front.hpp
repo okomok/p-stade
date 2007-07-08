@@ -12,10 +12,11 @@
 
 
 #include <boost/assert.hpp>
+#include <boost/preprocessor/facilities/identity.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/empty.hpp>
-#include <pstade/auxiliary.hpp>
-#include <pstade/callable.hpp>
+#include <pstade/egg/auxiliary.hpp>
+#include <pstade/egg/function.hpp>
 #include "./concepts.hpp"
 #include "./range_reference.hpp"
 #include "./range_value.hpp"
@@ -28,8 +29,7 @@ namespace front_detail {
 
 
     template< template< class > class F >
-    struct op :
-        callable< op<F> >
+    struct baby
     {
         template< class Myself, class Range >
         struct apply :
@@ -47,11 +47,18 @@ namespace front_detail {
     };
 
 
+    typedef egg::function< baby<range_reference> > op;
+    typedef egg::function< baby<range_value> > value_op;
+
+
 } // namespace front_detail
 
 
-PSTADE_AUXILIARY(0, front,       (front_detail::op<range_reference>))
-PSTADE_AUXILIARY(0, value_front, (front_detail::op<range_value>))
+typedef egg::result_of_auxiliary0<front_detail::op>::type op_front;
+PSTADE_POD_CONSTANT((op_front), front) = PSTADE_EGG_AUXILIARY_RESULT_INITIALIZER(BOOST_PP_IDENTITY({{}}));
+
+typedef egg::result_of_auxiliary0<front_detail::value_op>::type op_value_front;
+PSTADE_POD_CONSTANT((op_value_front), value_front) = PSTADE_EGG_AUXILIARY_RESULT_INITIALIZER(BOOST_PP_IDENTITY({{}}));
 
 
 } } // namespace pstade::oven

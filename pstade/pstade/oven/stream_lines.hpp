@@ -12,8 +12,8 @@
 
 
 #include <memory> // allocator
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
+#include <pstade/egg/function.hpp>
+#include <pstade/pod_constant.hpp>
 #include <pstade/use_default.hpp>
 #include "./detail/istream_line_iterator.hpp"
 #include "./iter_range.hpp"
@@ -22,42 +22,50 @@
 namespace pstade { namespace oven {
 
 
-template<
-    class Allocator = boost::use_default
->
-struct op_stream_lines :
-    callable< op_stream_lines<Allocator> >
+template< class Allocator = boost::use_default >
+struct tp_stream_lines
 {
-    template< class Myself, class IStream >
-    struct apply
+    struct baby
     {
-        typedef typename
-            IStream::char_type
-        char_t;
+        template< class Myself, class IStream >
+        struct apply
+        {
+            typedef typename
+                IStream::char_type
+            char_t;
 
-        typedef
-            hamigaki::istream_line_iterator<
-                char_t,
-                typename IStream::traits_type,
-                typename if_use_default< Allocator, std::allocator<char_t> >::type
-            >
-        iter_t;
+            typedef
+                hamigaki::istream_line_iterator<
+                    char_t,
+                    typename IStream::traits_type,
+                    typename if_use_default< Allocator, std::allocator<char_t> >::type
+                >
+            iter_t;
 
-        typedef
-            iter_range<iter_t> const
-        type;
+            typedef
+                iter_range<iter_t> const
+            type;
+        };
+
+        template< class Result, class IStream >
+        Result call(IStream& s) const
+        {
+            typedef typename Result::iterator iter_t;
+            return Result(iter_t(s), iter_t());
+        }
     };
 
-    template< class Result, class IStream >
-    Result call(IStream& s) const
-    {
-        typedef typename Result::iterator iter_t;
-        return Result(iter_t(s), iter_t());
-    }
+    typedef egg::function<baby> type;
 };
 
 
-PSTADE_CONSTANT(stream_lines, (op_stream_lines<>))
+template< class Allocator = boost::use_default >
+struct xp_stream_lines :
+    tp_stream_lines<Allocator>::type
+{ };
+
+
+PSTADE_POD_CONSTANT((tp_stream_lines<>::type), stream_lines) = {{}};
 
 
 } } // namespace pstade::oven

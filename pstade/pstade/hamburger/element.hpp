@@ -14,7 +14,7 @@
 #include <boost/foreach.hpp>
 #include <boost/optional/optional.hpp>
 #include <pstade/gravy/sdk/windows.hpp>
-#include <pstade/gravy/boolean_cast.hpp>
+#include <pstade/gravy/booleanize.hpp>
 #include <pstade/lime/node_facade.hpp>
 #include <pstade/tomato/atl/win.hpp> // CMessageMap
 #include <pstade/unused.hpp>
@@ -100,7 +100,7 @@ namespace pstade { namespace hamburger {
 
         bool process_message(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, LRESULT& lResult, DWORD dwMsgMapID = 0)
         {
-            return ProcessWindowMessage(hWnd, uMsg, wParam, lParam, lResult, dwMsgMapID)|gravy::to_boolean;
+            return ProcessWindowMessage(hWnd, uMsg, wParam, lParam, lResult, dwMsgMapID)|gravy::booleanize();
         }
 
         // overridables

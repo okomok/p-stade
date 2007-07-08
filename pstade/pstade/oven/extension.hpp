@@ -27,9 +27,9 @@
 #include <boost/type.hpp>
 #include <boost/type_traits/is_const.hpp>
 #include <boost/type_traits/remove_const.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
+#include <pstade/egg/function.hpp>
 #include <pstade/enable_if.hpp>
+#include <pstade/pod_constant.hpp>
 #include <pstade/preprocessor.hpp>
 #include "./detail/config.hpp"
 
@@ -140,8 +140,7 @@ namespace pstade { namespace oven { namespace extension_detail {
     { };
 
 
-    struct op_begin :
-        callable<op_begin>
+    struct baby_begin
     {
         template< class Myself, class T >
         struct apply :
@@ -156,11 +155,11 @@ namespace pstade { namespace oven { namespace extension_detail {
         }
     };
 
-    PSTADE_CONSTANT(PSTADE_OVEN_BOOST_RANGE_BEGIN, (op_begin))
+    typedef egg::function<baby_begin> op_begin;
+    PSTADE_POD_CONSTANT((op_begin), PSTADE_OVEN_BOOST_RANGE_BEGIN) = {{}};
 
 
-    struct op_end :
-        callable<op_end>
+    struct baby_end
     {
         template< class Myself, class T >
         struct apply :
@@ -175,7 +174,8 @@ namespace pstade { namespace oven { namespace extension_detail {
         }
     };
 
-    PSTADE_CONSTANT(PSTADE_OVEN_BOOST_RANGE_END, (op_end))
+    typedef egg::function<baby_end> op_end;
+    PSTADE_POD_CONSTANT((op_end), PSTADE_OVEN_BOOST_RANGE_END) = {{}};
 
 
     template< class T >
@@ -187,8 +187,7 @@ namespace pstade { namespace oven { namespace extension_detail {
 
 #if defined(PSTADE_OVEN_BOOST_RANGE_VERSION_1)
 
-    struct op_size :
-        callable<op_size>
+    struct baby_size
     {
         template< class Myself, class T >
         struct apply :
@@ -204,7 +203,8 @@ namespace pstade { namespace oven { namespace extension_detail {
         }
     };
 
-    PSTADE_CONSTANT(boost_range_size, (op_size))
+    typedef egg::function<baby_size> op_size;
+    PSTADE_POD_CONSTANT((op_size), boost_range_size) = {{}};
 
 #endif
 

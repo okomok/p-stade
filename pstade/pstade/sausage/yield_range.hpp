@@ -10,8 +10,6 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/mpl/placeholders.hpp>
-#include <pstade/egg/deduce.hpp>
 #include <pstade/egg/generator.hpp>
 #include <pstade/egg/pipable.hpp>
 #include <pstade/oven/iter_range.hpp>

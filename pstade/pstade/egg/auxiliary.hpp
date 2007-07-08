@@ -18,7 +18,6 @@
 
 
 #include <boost/mpl/int.hpp>
-#include <boost/mpl/placeholders.hpp>
 #include <boost/preprocessor/arithmetic/dec.hpp>
 #include <boost/preprocessor/arithmetic/inc.hpp>
 #include <boost/preprocessor/cat.hpp>
@@ -30,7 +29,6 @@
 #include <pstade/preprocessor.hpp>
 #include <pstade/result_of.hpp>
 #include "./apply_params.hpp"
-#include "./deduce.hpp"
 #include "./config.hpp" // PSTADE_EGG_MAX_ARITY
 #include "./function.hpp"
 #include "./generator.hpp"

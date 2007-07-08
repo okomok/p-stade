@@ -21,18 +21,20 @@
 // nor a lambda functor.
 //
 // These could be...
-//   make_indirect_function(make_regularized(f))      // regular
-//   make_indirect_function(make_shared_ptr(new F())) // regular_c, shared_regular
-//   make_indirect_function(&f)                       // regular_ref
+//   egg::indirected(make_regularized(f))      // regular
+//   egg::indirected(make_shared_ptr(new F())) // regular_c, shared_regular
+//   egg::indirected(&f)                       // regular_ref
 // , which would be cumbersome.
 
 
 #include <boost/shared_ptr.hpp>
 #include <boost/utility/addressof.hpp>
-#include <pstade/function.hpp>
+#include <pstade/egg/adapt.hpp>
+#include <pstade/egg/indirected.hpp>
 #include <pstade/pass_by.hpp>
+#include <pstade/pod_constant.hpp>
+#include <pstade/result_of.hpp>
 #include <pstade/result_of_lambda.hpp> // inclusion guaranteed
-#include "./detail/indirect_function.hpp"
 #include "./detail/regularized.hpp"
 
 
@@ -43,7 +45,7 @@ namespace regular_detail {
 
 
     template< class Function >
-    struct baby
+    struct base
     {
         typedef typename
             pass_by_value<Function>::type
@@ -53,19 +55,19 @@ namespace regular_detail {
             detail::regularized<fun_t>
         reg_t;
 
-        typedef
-            detail::indirect_function<reg_t>
+        typedef typename
+            result_of<egg::op_indirected(reg_t)>::type
         result_type;
 
         result_type operator()(Function& fun) const
         {
-            return result_type(reg_t(fun));
+            return egg::indirected(reg_t(fun));
         }
     };
 
 
     template< class Function >
-    struct baby_c
+    struct base_c
     {
         typedef typename
             pass_by_value<Function>::type
@@ -75,27 +77,27 @@ namespace regular_detail {
             boost::shared_ptr<fun_t>
         pf_t;
 
-        typedef
-            detail::indirect_function<pf_t>
+        typedef typename
+            result_of<egg::op_indirected(pf_t)>::type
         result_type;
 
         result_type operator()(Function& fun) const
         {
-            return result_type(pf_t(new fun_t(fun)));
+            return egg::indirected(pf_t(new fun_t(fun)));
         }
     };
 
 
     template< class Function >
-    struct baby_ref
+    struct base_ref
     {
-        typedef
-            detail::indirect_function<Function *>
+        typedef typename
+            result_of<egg::op_indirected(Function *)>::type
         result_type;
 
         result_type operator()(Function& fun) const
         {
-            return result_type(boost::addressof(fun));
+            return egg::indirected(boost::addressof(fun));
         }
     };
 
@@ -103,9 +105,14 @@ namespace regular_detail {
 } // namespace regular_detail
 
 
-PSTADE_FUNCTION(regular, (regular_detail::baby<_>))
-PSTADE_FUNCTION(regular_c, (regular_detail::baby_c<_>))
-PSTADE_FUNCTION(regular_ref, (regular_detail::baby_ref<_>))
+typedef PSTADE_EGG_ADAPT((regular_detail::base<boost::mpl::_>)) op_regular;
+PSTADE_POD_CONSTANT((op_regular), regular) = PSTADE_EGG_ADAPT_INITIALIZER();
+
+typedef PSTADE_EGG_ADAPT((regular_detail::base_c<boost::mpl::_>)) op_regular_c;
+PSTADE_POD_CONSTANT((op_regular_c), regular_c) = PSTADE_EGG_ADAPT_INITIALIZER();
+
+typedef PSTADE_EGG_ADAPT((regular_detail::base_ref<boost::mpl::_>)) op_regular_ref;
+PSTADE_POD_CONSTANT((op_regular_ref), regular_ref) = PSTADE_EGG_ADAPT_INITIALIZER();
 
 
 } } // namespace pstade::oven

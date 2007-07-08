@@ -23,7 +23,7 @@
 #include <boost/iterator/iterator_traits.hpp>
 #include <boost/mpl/eval_if.hpp>
 #include <boost/type_traits/remove_const.hpp>
-#include <pstade/function.hpp>
+#include <pstade/egg/adapt.hpp>
 #include "./detail/is_reference_iterator.hpp"
 
 
@@ -43,7 +43,7 @@ namespace read_detail {
 
 
     template< class ReadableOrLvalueIter >
-    struct baby
+    struct base
     {
         typedef typename
             iterator_read<
@@ -62,7 +62,8 @@ namespace read_detail {
 } // namespace read_detail
 
 
-PSTADE_FUNCTION(read, (read_detail::baby<_>))
+typedef PSTADE_EGG_ADAPT((read_detail::base<boost::mpl::_>)) op_read;
+PSTADE_POD_CONSTANT((op_read), read) = PSTADE_EGG_ADAPT_INITIALIZER();
 
 
 } } // namespace pstade::oven

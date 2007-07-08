@@ -11,9 +11,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/constant.hpp>
-#include <pstade/pipable.hpp>
 #include <pstade/unused.hpp>
+#include "./detail/baby_to_adaptor.hpp"
 #include "./merged.hpp"
 #include "./read.hpp"
 
@@ -73,9 +72,7 @@ namespace set_minus_detail {
 } // namespace set_minus_detail
 
 
-typedef merged_detail::op_make<set_minus_detail::merge_routine> op_make_set_minus;
-PSTADE_CONSTANT(make_set_minus, (op_make_set_minus))
-PSTADE_PIPABLE(set_minus, (op_make_set_minus))
+PSTADE_OVEN_BABY_TO_ADAPTOR(set_minus, (tp_make_merged<set_minus_detail::merge_routine>::baby))
 
 
 } } // namespace pstade::oven

@@ -19,9 +19,8 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/function.hpp>
-#include <pstade/pipable.hpp>
 #include "./concepts.hpp"
+#include "./detail/base_to_adaptor.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
 #include "./reverse_iterator.hpp"
@@ -34,7 +33,7 @@ namespace reversed_detail {
 
 
     template< class Range >
-    struct baby
+    struct base
     {
         typedef
             reverse_iterator<
@@ -57,8 +56,7 @@ namespace reversed_detail {
 } // namespace reversed_detail
 
 
-PSTADE_FUNCTION(make_reversed, (reversed_detail::baby<_>))
-PSTADE_PIPABLE(reversed, (op_make_reversed))
+PSTADE_OVEN_BASE_TO_ADAPTOR(reversed, (reversed_detail::base<_>))
 
 
 } } // namespace pstade::oven

@@ -11,20 +11,23 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/automatic.hpp>
-#include <pstade/pipable.hpp>
+#include <pstade/egg/automatic.hpp>
+#include <pstade/egg/pipable.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./copy_range.hpp"
 
 
 namespace pstade { namespace oven {
 
 
-PSTADE_AUTOMATIC(make_copied, (op_copy_range<_>))
-PSTADE_PIPABLE(copied, (op_make_copied))
+typedef egg::automatic< xp_copy_range<boost::mpl::_> >::type op_make_copied;
+PSTADE_POD_CONSTANT((op_make_copied), make_copied) = PSTADE_EGG_AUTOMATIC_INITIALIZER();
+
+PSTADE_POD_CONSTANT((egg::result_of_pipable<op_make_copied>::type), copied)
+    = PSTADE_EGG_PIPABLE_RESULT_INITIALIZER(PSTADE_EGG_AUTOMATIC_INITIALIZER);
 
 
 } } // namespace pstade::oven
-
 
 
 #endif

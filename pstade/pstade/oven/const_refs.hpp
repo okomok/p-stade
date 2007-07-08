@@ -11,9 +11,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/function.hpp>
-#include <pstade/pipable.hpp>
 #include "./concepts.hpp"
+#include "./detail/base_to_adaptor.hpp"
 #include "./detail/const_ref_iterator.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
@@ -26,7 +25,7 @@ namespace const_refs_detail {
 
 
     template< class Range >
-    struct baby
+    struct base
     {
         typedef
             detail::const_ref_iterator<
@@ -49,8 +48,7 @@ namespace const_refs_detail {
 } // namespace const_refs_detail
 
 
-PSTADE_FUNCTION(make_const_refs, (const_refs_detail::baby<_>))
-PSTADE_PIPABLE(const_refs, (op_make_const_refs))
+PSTADE_OVEN_BASE_TO_ADAPTOR(const_refs, (const_refs_detail::base<_>))
 
 
 } } // namespace pstade::oven

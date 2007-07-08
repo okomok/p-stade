@@ -15,8 +15,8 @@
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <pstade/constant.hpp>
 #include <pstade/egg/do_swap.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./detail/is_reference_iterator.hpp"
 #include "./read.hpp"
 #include "./write.hpp"
@@ -86,7 +86,7 @@ namespace do_iter_swap_detail {
 
 
 typedef do_iter_swap_detail::op op_do_iter_swap;
-PSTADE_CONSTANT(do_iter_swap, (op_do_iter_swap))
+PSTADE_POD_CONSTANT((op_do_iter_swap), do_iter_swap) = {};
 
 
 } } // namespace pstade::oven

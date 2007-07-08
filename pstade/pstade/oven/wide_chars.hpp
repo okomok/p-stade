@@ -12,10 +12,8 @@
 
 
 #include <locale>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
-#include <pstade/pipable.hpp>
 #include <pstade/result_of.hpp>
+#include "./detail/baby_to_adaptor.hpp"
 #include "./transformed.hpp"
 
 
@@ -52,32 +50,41 @@ namespace wide_chars_detail {
 
 
 template< class CharT = wchar_t >
-struct op_make_wide_chars :
-    callable< op_make_wide_chars<CharT> >
+struct tp_make_wide_chars 
 {
-    template< class Myself, class Range, class Locale = void >
-    struct apply :
-        result_of<
-            op_make_transformed<>(Range&, wide_chars_detail::to_widen<CharT>)
-        >
-    { };
-
-    template< class Result, class Range > inline
-    Result call(Range& rng, std::locale const& loc) const
+    struct baby
     {
-        return make_transformed(rng, wide_chars_detail::to_widen<CharT>(loc));
-    }
+        template< class Myself, class Range, class Locale = void >
+        struct apply :
+            result_of<
+                op_make_transformed(Range&, wide_chars_detail::to_widen<CharT>)
+            >
+        { };
 
-    template< class Result, class Range > inline
-    Result call(Range& rng) const
-    {
-        return (*this)(rng, std::locale());
-    }
+        template< class Result, class Range > inline
+        Result call(Range& rng, std::locale const& loc) const
+        {
+            return make_transformed(rng, wide_chars_detail::to_widen<CharT>(loc));
+        }
+
+        template< class Result, class Range > inline
+        Result call(Range& rng) const
+        {
+            return (*this)(rng, std::locale());
+        }
+    };
+
+    typedef egg::function<baby> type;
 };
 
 
-PSTADE_CONSTANT(make_wide_chars, (op_make_wide_chars<>))
-PSTADE_PIPABLE(wide_chars, (op_make_wide_chars<>))
+template< class CharT = wchar_t >
+struct xp_make_wide_chars :
+    tp_make_wide_chars<CharT>::type
+{ };
+
+
+PSTADE_OVEN_BABY_TO_ADAPTOR(wide_chars, (tp_make_wide_chars<>::baby))
 
 
 } } // namespace pstade::oven

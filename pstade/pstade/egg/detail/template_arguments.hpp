@@ -65,7 +65,7 @@ namespace pstade { namespace egg { namespace detail {
 
 
     // 1ary-BOOST_MPL_LIMIT_METAFUNCTION_ARITY for MPL PlaceholderExpression
-    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_MPL_LIMIT_METAFUNCTION_ARITY, <pstade/template_arguments.hpp>))
+    #define  BOOST_PP_ITERATION_PARAMS_1 (3, (1, BOOST_MPL_LIMIT_METAFUNCTION_ARITY, <pstade/egg/detail/template_arguments.hpp>))
     #include BOOST_PP_ITERATE()
 
 

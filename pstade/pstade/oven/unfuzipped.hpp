@@ -21,11 +21,10 @@
 #include <boost/fusion/sequence/intrinsic/mpl.hpp>
 #include <boost/mpl/range_c.hpp>
 #include <boost/mpl/size.hpp>
-#include <pstade/function.hpp>
-#include <pstade/pipable.hpp>
 #include <pstade/remove_cvr.hpp>
 #include <pstade/result_of.hpp>
 #include "./concepts.hpp"
+#include "./detail/base_to_adaptor.hpp"
 #include "./elements.hpp"
 #include "./range_value.hpp"
 
@@ -46,7 +45,7 @@ namespace unfuzipped_detail {
         template< class N >
         struct result_aux :
             result_of<
-                op_make_elements<N>(TupleRange&)
+                xp_make_elements<N>(TupleRange&)
             >
         { };
 
@@ -62,7 +61,7 @@ namespace unfuzipped_detail {
         typename result_aux<N>::type
         operator()(N) const
         {
-            return op_make_elements<N>()(m_rng);
+            return xp_make_elements<N>()(m_rng);
         }
 
         explicit make_at_range(TupleRange& rng) :
@@ -75,7 +74,7 @@ namespace unfuzipped_detail {
 
 
     template< class TupleRange >
-    struct baby
+    struct base
     {
         typedef typename
             range_value<TupleRange>::type
@@ -108,8 +107,7 @@ namespace unfuzipped_detail {
 } // namespace unfuzipped_detail
 
 
-PSTADE_FUNCTION(make_unfuzipped, (unfuzipped_detail::baby<_>))
-PSTADE_PIPABLE(unfuzipped, (op_make_unfuzipped))
+PSTADE_OVEN_BASE_TO_ADAPTOR(unfuzipped, (unfuzipped_detail::base<_>))
 
 
 } } // namespace pstade::oven

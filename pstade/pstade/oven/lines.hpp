@@ -13,9 +13,8 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/function.hpp>
-#include <pstade/pipable.hpp>
 #include "./concepts.hpp"
+#include "./detail/base_to_adaptor.hpp"
 #include "./detail/default_newline.hpp"
 #include "./detail/line_iterator.hpp"
 #include "./iter_range.hpp"
@@ -30,7 +29,7 @@ namespace lines_detail {
 
 
     template< class Range >
-    struct baby
+    struct base
     {
         typedef typename
             range_value<Range>::type
@@ -63,8 +62,7 @@ namespace lines_detail {
 } // namespace lines_detail
 
 
-PSTADE_FUNCTION(make_lines, (lines_detail::baby<_>))
-PSTADE_PIPABLE(lines, (op_make_lines))
+PSTADE_OVEN_BASE_TO_ADAPTOR(lines, (lines_detail::base<_>))
 
 
 } } // namespace pstade::oven

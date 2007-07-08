@@ -11,7 +11,7 @@
 
 
 #include <boost/utility/addressof.hpp>
-#include <pstade/callable.hpp>
+#include <pstade/egg/function_facade.hpp>
 #include <pstade/pass_by.hpp>
 #include "./sdk/windows.hpp"
 #include "./window_ptr.hpp"
@@ -60,7 +60,7 @@ namespace pstade { namespace gravy {
 
 
     struct for_each_child_window :
-        callable<for_each_child_window>
+        egg::function_facade<for_each_child_window>
     {
         typedef window_ref routine_result_type;
 

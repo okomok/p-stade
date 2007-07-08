@@ -24,10 +24,8 @@
 
 
 #include <boost/cstdint.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
-#include <pstade/pipable.hpp>
 #include "./concepts.hpp"
+#include "./detail/baby_to_adaptor.hpp"
 #include "./detail/u32_to_u8_iterator.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
@@ -37,35 +35,44 @@ namespace pstade { namespace oven {
 
 
 template< class U8Type = boost::uint8_t >
-struct op_make_utf8_encoded :
-    callable< op_make_utf8_encoded<U8Type> >
+struct tp_make_utf8_encoded
 {
-    template< class Myself, class Range >
-    struct apply
+    struct baby
     {
-        typedef
-            detail::u32_to_u8_iterator<
-                typename range_iterator<Range>::type,
-                U8Type
-            >
-        iter_t;
+        template< class Myself, class Range >
+        struct apply
+        {
+            typedef
+                detail::u32_to_u8_iterator<
+                    typename range_iterator<Range>::type,
+                    U8Type
+                >
+            iter_t;
 
-        typedef
-            iter_range<iter_t> const
-        type;
+            typedef
+                iter_range<iter_t> const
+            type;
+        };
+
+        template< class Result, class Range >
+        Result call(Range& rng) const
+        {
+            PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+            return Result(rng);
+        }
     };
 
-    template< class Result, class Range >
-    Result call(Range& rng) const
-    {
-        PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-        return Result(rng);
-    }
+    typedef egg::function<baby> type;
 };
 
 
-PSTADE_CONSTANT(make_utf8_encoded, (op_make_utf8_encoded<>))
-PSTADE_PIPABLE(utf8_encoded, (op_make_utf8_encoded<>))
+template< class U8Type = boost::uint8_t >
+struct xp_make_utf8_encoded :
+    tp_make_utf8_encoded<U8Type>::type
+{ };
+
+
+PSTADE_OVEN_BABY_TO_ADAPTOR(utf8_encoded, (tp_make_utf8_encoded<>::baby))
 
 
 } } // namespace pstade::oven

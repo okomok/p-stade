@@ -11,12 +11,11 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/callable.hpp>
-#include <pstade/function.hpp>
-#include <pstade/pipable.hpp>
+#include <pstade/egg/function.hpp>
 #include <pstade/result_of.hpp>
 #include "./concatenated.hpp"
 #include "./concepts.hpp"
+#include "./detail/base_to_adaptor.hpp"
 #include "./iter_range.hpp"
 #include "./jointed.hpp"
 #include "./transformed.hpp"
@@ -29,8 +28,7 @@ namespace delimited_detail {
 
 
     template< class DelimiterRange >
-    struct join :
-        callable< join<DelimiterRange> >
+    struct baby_join
     {
         // Hold the base range by value for copying to outer scope.
         typedef typename
@@ -50,10 +48,10 @@ namespace delimited_detail {
             return make_jointed(m_delim, local);
         }
 
-        explicit join()
+        explicit baby_join()
         { }
 
-        explicit join(DelimiterRange& delim) :
+        explicit baby_join(DelimiterRange& delim) :
             m_delim(delim)
         { }
 
@@ -63,13 +61,17 @@ namespace delimited_detail {
 
 
     template< class SegmentRange, class DelimiterRange >
-    struct baby
+    struct base
     {
+        typedef
+            egg::function< baby_join<DelimiterRange> >
+        join_t;
+
         typedef
             typename result_of<
                 op_make_concatenated(
                     typename result_of<
-                        op_make_transformed<>(SegmentRange&, join<DelimiterRange>)
+                        op_make_transformed(SegmentRange&, join_t)
                     >::type
                 )
             >::type
@@ -81,7 +83,7 @@ namespace delimited_detail {
             PSTADE_CONCEPT_ASSERT((SinglePass<DelimiterRange>));
 
             return make_concatenated(
-                make_transformed(rngs, join<DelimiterRange>(delim))
+                make_transformed(rngs, join_t(delim))
             );
         }
     };
@@ -90,8 +92,7 @@ namespace delimited_detail {
 } // namespace delimited_detail
 
 
-PSTADE_FUNCTION(make_delimited, (delimited_detail::baby<_, _>))
-PSTADE_PIPABLE(delimited, (op_make_delimited))
+PSTADE_OVEN_BASE_TO_ADAPTOR(delimited, (delimited_detail::base<_, _>))
 
 
 } } // namespace pstade::oven

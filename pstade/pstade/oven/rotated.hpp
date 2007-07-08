@@ -13,10 +13,9 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/function.hpp>
-#include <pstade/pipable.hpp>
 #include <pstade/result_of.hpp>
 #include "./concepts.hpp"
+#include "./detail/base_to_adaptor.hpp"
 #include "./iter_range.hpp"
 #include "./jointed.hpp"
 #include "./range_iterator.hpp"
@@ -29,7 +28,7 @@ namespace rotated_detail {
 
 
     template< class Range >
-    struct baby
+    struct base
     {
         typedef typename
             iter_range_of<Range>::type
@@ -55,8 +54,7 @@ namespace rotated_detail {
 } // namespace rotated_detail
 
 
-PSTADE_FUNCTION(make_rotated, (rotated_detail::baby<_>))
-PSTADE_PIPABLE(rotated, (op_make_rotated))
+PSTADE_OVEN_BASE_TO_ADAPTOR(rotated, (rotated_detail::base<_>))
 
 
 } } // namespace pstade::oven

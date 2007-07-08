@@ -16,45 +16,47 @@
 // Will be cute with the upcoming Boost.Phoenix2.
 
 
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
-#include <pstade/pipable.hpp>
 #include "./concepts.hpp"
+#include "./detail/baby_to_adaptor.hpp"
 #include "./iter_range.hpp"
 
 
 namespace pstade { namespace oven {
 
 
-struct op_make_applied :
-    callable<op_make_applied>
-{
-    template< class Myself, class Range, class, class = void >
-    struct apply
+namespace applied_detail {
+
+
+    struct baby
     {
-        typedef typename
-            iter_range_of<Range>::type const
-        type;
+        template< class Myself, class Range, class, class = void >
+        struct apply
+        {
+            typedef typename
+                iter_range_of<Range>::type const
+            type;
+        };
+
+        template< class Result, class Range, class Begin, class End >
+        Result call(Range& rng, Begin& b, End& e) const
+        {
+            PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+            return Result(b(rng), e(rng));
+        }
+
+        template< class Result, class Range, class Make >
+        Result call(Range& rng, Make& make) const
+        {
+            PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+            return Result(make(rng));
+        }
     };
 
-    template< class Result, class Range, class Begin, class End >
-    Result call(Range& rng, Begin& b, End& e) const
-    {
-        PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-        return Result(b(rng), e(rng));
-    }
 
-    template< class Result, class Range, class Make >
-    Result call(Range& rng, Make& make) const
-    {
-        PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-        return Result(make(rng));
-    }
-};
+} // namespace applied_detail
 
 
-PSTADE_CONSTANT(make_applied, (op_make_applied))
-PSTADE_PIPABLE(applied, (op_make_applied))
+PSTADE_OVEN_BABY_TO_ADAPTOR(applied, (applied_detail::baby))
 
 
 } } // namespace pstade::oven

@@ -12,7 +12,7 @@
 
 #include <pstade/for_debug.hpp>
 #include <pstade/pod_constant.hpp>
-#include "../boolean_cast.hpp"
+#include "../booleanize.hpp"
 #include "../sdk/windows.hpp"
 
 
@@ -26,7 +26,7 @@ namespace pstade { namespace gravy { namespace detail {
         bool operator()(HMENU hMenu) const
         {
             for_debug();
-            return ::IsMenu(hMenu)|to_boolean;
+            return ::IsMenu(hMenu)|booleanize();
         }
     };
 

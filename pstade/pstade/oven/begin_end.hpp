@@ -11,11 +11,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/preprocessor/facilities/identity.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/adl_barrier.hpp>
-#include <pstade/auxiliary.hpp>
-#include <pstade/callable.hpp>
+#include <pstade/egg/auxiliary.hpp>
+#include <pstade/egg/function.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./range_iterator.hpp"
 
 
@@ -25,8 +27,7 @@ namespace pstade { namespace oven {
 namespace begin_end_detail {
 
 
-    struct op_begin :
-        callable<op_begin>
+    struct baby_begin
     {
         template< class Myself, class Range >
         struct apply :
@@ -40,9 +41,10 @@ namespace begin_end_detail {
         }
     };
 
+    typedef egg::function<baby_begin> op_begin;
 
-    struct op_end :
-        callable<op_end>
+
+    struct baby_end
     {
         template< class Myself, class Range >
         struct apply :
@@ -56,13 +58,20 @@ namespace begin_end_detail {
         }
     };
 
+    typedef egg::function<baby_end> op_end;
+
 
 } // namespace begin_end_detail
 
 
 PSTADE_ADL_BARRIER(begin_end) { // for Boost v1.33 'const_begin/end'
-    PSTADE_AUXILIARY(0, begin, (begin_end_detail::op_begin))
-    PSTADE_AUXILIARY(0, end,   (begin_end_detail::op_end))
+
+    typedef egg::result_of_auxiliary0<begin_end_detail::op_begin>::type op_begin;
+    PSTADE_POD_CONSTANT((op_begin), begin) = PSTADE_EGG_AUXILIARY_RESULT_INITIALIZER(BOOST_PP_IDENTITY({{}}));
+
+    typedef egg::result_of_auxiliary0<begin_end_detail::op_end>::type op_end;
+    PSTADE_POD_CONSTANT((op_end), end) = PSTADE_EGG_AUXILIARY_RESULT_INITIALIZER(BOOST_PP_IDENTITY({{}}));
+
 }
 
 

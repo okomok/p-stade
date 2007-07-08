@@ -10,11 +10,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <boost/mpl/placeholders.hpp>
-#include <pstade/egg/automatic.hpp>
-#include <pstade/egg/auxiliary.hpp>
 #include <pstade/egg/specified.hpp>
-#include <pstade/pod_constant.hpp>
 #include "./sdk/windows.hpp"
 #include "./sdk/wtypes.hpp" // VARIANT_BOOL
 
@@ -84,14 +80,6 @@ namespace pstade { namespace gravy {
     };
 
     PSTADE_EGG_SPECIFIED1(boolean_cast, xp_boolean_cast, 1)
-
-
-    namespace to_boolean_detail {
-        typedef egg::automatic< xp_boolean_cast<boost::mpl::_> >::type op;
-    }
-
-    typedef egg::result_of_auxiliary0<to_boolean_detail::op>::type op_to_boolean;
-    PSTADE_POD_CONSTANT((op_to_boolean), to_boolean) = PSTADE_EGG_AUXILIARY_RESULT_INITIALIZER(PSTADE_EGG_AUTOMATIC_INITIALIZER);
 
 
 } } // namespace pstade::gravy

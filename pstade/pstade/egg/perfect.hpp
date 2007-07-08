@@ -24,10 +24,8 @@
 //     perfect<int>(f)(x);
 
 
-#include <boost/mpl/placeholders.hpp>
 #include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
-#include "./deduce.hpp"
 #include "./detail/baby_perfect_result.hpp"
 #include "./function.hpp"
 #include "./generator.hpp"

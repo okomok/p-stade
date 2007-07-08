@@ -23,10 +23,9 @@
 
 #include <pstade/miniboost/move.hpp>
 #include <boost/mpl/if.hpp>
-#include <pstade/function.hpp>
-#include <pstade/pipable.hpp>
 #include <pstade/result_of.hpp>
 #include "./concepts.hpp"
+#include "./detail/base_to_adaptor.hpp"
 #include "./range_value.hpp"
 #include "./transformed.hpp"
 
@@ -56,7 +55,7 @@ namespace moved_detail {
 
 
     template< class Range >
-    struct baby
+    struct base
     {
         typedef
             op_move<typename range_value<Range>::type>
@@ -64,7 +63,7 @@ namespace moved_detail {
 
         typedef typename
             result_of<
-                op_make_transformed<>(Range&, fun_t)
+                op_make_transformed(Range&, fun_t)
             >::type
         result_type;
 
@@ -78,8 +77,7 @@ namespace moved_detail {
 } // namespace moved_detail
 
 
-PSTADE_FUNCTION(make_moved, (moved_detail::baby<_>))
-PSTADE_PIPABLE(moved, (op_make_moved))
+PSTADE_OVEN_BASE_TO_ADAPTOR(moved, (moved_detail::base<_>))
 
 
 } } // namespace pstade::oven

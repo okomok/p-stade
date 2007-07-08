@@ -20,10 +20,9 @@
 #include <vector>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/function.hpp>
-#include <pstade/pipable.hpp>
 #include <pstade/result_of.hpp>
 #include "./concepts.hpp"
+#include "./detail/base_to_adaptor.hpp"
 #include "./outdirected.hpp"
 #include "./range_iterator.hpp"
 #include "./shared.hpp"
@@ -47,7 +46,7 @@ namespace outplaced_detail {
 
 
     template< class Range >
-    struct baby
+    struct base
     {
         typedef typename
             iter_sequence<Range>::type
@@ -71,8 +70,7 @@ namespace outplaced_detail {
 } // namespace outplaced_detail
 
 
-PSTADE_FUNCTION(make_outplaced, (outplaced_detail::baby<_>))
-PSTADE_PIPABLE(outplaced, (op_make_outplaced))
+PSTADE_OVEN_BASE_TO_ADAPTOR(outplaced, (outplaced_detail::base<_>))
 
 
 } } // namespace pstade::oven

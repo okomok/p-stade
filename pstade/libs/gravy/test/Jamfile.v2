@@ -17,6 +17,7 @@ project
 
 test-suite "gravy" :
     [ run boolean_cast.cpp ]
+    [ run booleanize.cpp ]
     [ run c_str.cpp ]
     [ run class_name.cpp ]
     [ run file_range.cpp ]

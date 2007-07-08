@@ -31,17 +31,15 @@
 #include <boost/mpl/eval_if.hpp>
 #include <boost/range/empty.hpp>
 #include <boost/type.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
+#include <pstade/egg/tuple_pack.hpp>
 #include <pstade/is_convertible.hpp>
 #include <pstade/pass_by.hpp>
-#include <pstade/pipable.hpp>
 #include <pstade/remove_cvr.hpp>
 #include <pstade/result_of.hpp>
-#include <pstade/tuple.hpp> // tuple_pack
 #include <pstade/use_default.hpp>
 #include "./concepts.hpp"
 #include "./detail/adjacent_transform_iterator.hpp"
+#include "./detail/baby_to_adaptor.hpp"
 #include "./detail/begin_end_tag.hpp"
 #include "./dropped.hpp"
 #include "./popped.hpp"
@@ -106,9 +104,9 @@ namespace adjacent_transformed_detail {
     template< class Range, class BinaryFun, class Reference, class Value >
     struct make_multi_pass :
         result_of<
-            op_make_zipped_with<Reference, Value>(
+            xp_make_zipped_with<Reference, Value>(
                 typename result_of<
-                    op_tuple_pack(
+                    egg::op_tuple_pack(
                         typename result_of<op_make_popped(Range&)>::type,
                         typename result_of<op_make_dropped(Range&, int)>::type
                     )
@@ -126,54 +124,67 @@ template<
     class Reference = boost::use_default,
     class Value     = boost::use_default
 >
-struct op_make_adjacent_transformed :
-    callable< op_make_adjacent_transformed<Reference, Value> >
+struct tp_make_adjacent_transformed
 {
-    template< class Myself, class Range, class BinaryFun >
-    struct apply :
-        boost::mpl::eval_if<
-            is_convertible<
-                typename range_traversal<Range>::type, boost::forward_traversal_tag
-            >,
-            adjacent_transformed_detail::make_multi_pass< Range, BinaryFun, Reference, Value>,
-            adjacent_transformed_detail::make_single_pass<Range, BinaryFun, Reference, Value>
-        >
-    { };
-
-    template< class Result, class Range, class BinaryFun >
-    Result call(Range& rng, BinaryFun& fun) const
+    struct baby
     {
-        PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
-        BOOST_ASSERT(!boost::empty(rng));
+        template< class Myself, class Range, class BinaryFun >
+        struct apply :
+            boost::mpl::eval_if<
+                is_convertible<
+                    typename range_traversal<Range>::type, boost::forward_traversal_tag
+                >,
+                adjacent_transformed_detail::make_multi_pass< Range, BinaryFun, Reference, Value>,
+                adjacent_transformed_detail::make_single_pass<Range, BinaryFun, Reference, Value>
+            >
+        { };
 
-        // GCC needs "type2type" for 'Result'; see also <pstade/const_overloaded.hpp>.
-        return aux(boost::type<Result>(), rng, fun, typename range_traversal<Range>::type());
-    }
+        template< class Result, class Range, class BinaryFun >
+        Result call(Range& rng, BinaryFun& fun) const
+        {
+            PSTADE_CONCEPT_ASSERT((SinglePass<Range>));
+            BOOST_ASSERT(!boost::empty(rng));
 
-    template< class Result, class Range, class BinaryFun >
-    Result aux(boost::type<Result>, Range& rng, BinaryFun& fun, boost::forward_traversal_tag) const
-    {
-        PSTADE_CONCEPT_ASSERT((Forward<Range>));
+            // gcc3.4 needs "type2type" for 'Result'; see also <pstade/const_overloaded.hpp>.
+            return aux(boost::type<Result>(), rng, fun, typename range_traversal<Range>::type());
+        }
 
-        return op_make_zipped_with<Reference, Value>()(
-            tuple_pack(make_popped(rng), make_dropped(rng, 1)), fun
-        );
-    }
+        template< class Result, class Range, class BinaryFun >
+        Result aux(boost::type<Result>, Range& rng, BinaryFun& fun, boost::forward_traversal_tag) const
+        {
+            PSTADE_CONCEPT_ASSERT((Forward<Range>));
 
-    template< class Result, class Range, class BinaryFun >
-    Result aux(boost::type<Result>, Range& rng, BinaryFun& fun, boost::single_pass_traversal_tag) const
-    {
-        typedef typename Result::iterator iter_t;
-        return Result(
-            iter_t(boost::begin(rng), fun, detail::begin_tag()), 
-            iter_t(boost::end(rng),   fun, detail::end_tag())
-        );
-    }
+            return xp_make_zipped_with<Reference, Value>()(
+                tuple_pack(make_popped(rng), make_dropped(rng, 1)), fun
+            );
+        }
+
+        template< class Result, class Range, class BinaryFun >
+        Result aux(boost::type<Result>, Range& rng, BinaryFun& fun, boost::single_pass_traversal_tag) const
+        {
+            typedef typename Result::iterator iter_t;
+            return Result(
+                iter_t(boost::begin(rng), fun, detail::begin_tag()), 
+                iter_t(boost::end(rng),   fun, detail::end_tag())
+            );
+        }
+    };
+
+    typedef egg::function<baby> type;
 };
 
 
-PSTADE_CONSTANT(make_adjacent_transformed, (op_make_adjacent_transformed<>))
-PSTADE_PIPABLE(adjacent_transformed, (op_make_adjacent_transformed<>))
+
+template<
+    class Reference = boost::use_default,
+    class Value     = boost::use_default
+>
+struct xp_make_adjacent_transformed :
+    tp_make_adjacent_transformed<Reference, Value>::type
+{ };
+
+
+PSTADE_OVEN_BABY_TO_ADAPTOR(adjacent_transformed, (tp_make_adjacent_transformed<>::baby))
 
 
 } } // namespace pstade::oven

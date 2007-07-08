@@ -12,11 +12,9 @@
 
 
 #include <boost/spirit/iterator/position_iterator.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
 #include <pstade/pass_by.hpp>
-#include <pstade/pipable.hpp>
 #include "./concepts.hpp"
+#include "./detail/baby_to_adaptor.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
 
@@ -24,45 +22,49 @@
 namespace pstade { namespace oven {
 
 
-struct op_make_with_position :
-    callable<op_make_with_position>
-{
-    template< class Myself, class Range, class PositionT = boost::spirit::file_position const, class Int = void >
-    struct apply
-    {
-        typedef
-            boost::spirit::position_iterator2< // 2!
-                typename range_iterator<Range>::type,
-                typename pass_by_value<PositionT>::type
-            >
-        iter_t;
+namespace with_position_detail {
 
-        typedef
-            iter_range<iter_t> const
-        type;
+
+    struct baby
+    {
+        template< class Myself, class Range, class PositionT = boost::spirit::file_position const, class Int = void >
+        struct apply
+        {
+            typedef
+                boost::spirit::position_iterator2< // 2!
+                    typename range_iterator<Range>::type,
+                    typename pass_by_value<PositionT>::type
+                >
+            iter_t;
+
+            typedef
+                iter_range<iter_t> const
+            type;
+        };
+
+        template< class Result, class Range, class PositionT >
+        Result call(Range& rng, PositionT& pos, int tabchars = 4) const
+        {
+            PSTADE_CONCEPT_ASSERT((Forward<Range>));
+
+            typedef typename Result::iterator iter_t;
+            iter_t first(boost::begin(rng), boost::end(rng), pos);
+            first.set_tabchars(tabchars);
+            return Result(first, iter_t());
+        }
+
+        template< class Result, class Range >
+        Result call(Range& rng) const
+        {
+            return (*this)(rng, boost::spirit::file_position());
+        }
     };
 
-    template< class Result, class Range, class PositionT >
-    Result call(Range& rng, PositionT& pos, int tabchars = 4) const
-    {
-        PSTADE_CONCEPT_ASSERT((Forward<Range>));
 
-        typedef typename Result::iterator iter_t;
-        iter_t first(boost::begin(rng), boost::end(rng), pos);
-        first.set_tabchars(tabchars);
-        return Result(first, iter_t());
-    }
-
-    template< class Result, class Range >
-    Result call(Range& rng) const
-    {
-        return (*this)(rng, boost::spirit::file_position());
-    }
-};
+} // namespace with_position_detail
 
 
-PSTADE_CONSTANT(make_with_position, (op_make_with_position))
-PSTADE_PIPABLE(with_position, (op_make_with_position))
+PSTADE_OVEN_BABY_TO_ADAPTOR(with_position, (with_position_detail::baby))
 
 
 } } // namespace pstade::oven

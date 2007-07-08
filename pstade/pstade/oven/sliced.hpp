@@ -27,11 +27,10 @@
 
 
 #include <boost/assert.hpp>
-#include <pstade/function.hpp>
-#include <pstade/pipable.hpp>
 #include <pstade/result_of.hpp>
 #include "./concepts.hpp"
 #include "./counting.hpp"
+#include "./detail/base_to_adaptor.hpp"
 #include "./distance.hpp"
 #include "./permuted.hpp"
 #include "./range_difference.hpp"
@@ -78,7 +77,7 @@ namespace sliced_detail {
 
 
     template< class Range >
-    struct baby
+    struct base
     {
         typedef typename
             range_difference<Range>::type
@@ -89,8 +88,8 @@ namespace sliced_detail {
                 op_make_permuted(
                     Range&,
                     typename result_of<
-                        op_make_transformed<>(
-                            typename result_of<op_counting<>(int, diff_t)>::type,
+                        op_make_transformed(
+                            typename result_of<op_counting(int, diff_t)>::type,
                             to_index<diff_t>
                         )
                     >::type
@@ -117,8 +116,7 @@ namespace sliced_detail {
 } // namespace sliced_detail
 
 
-PSTADE_FUNCTION(make_sliced, (sliced_detail::baby<_>))
-PSTADE_PIPABLE(sliced, (op_make_sliced))
+PSTADE_OVEN_BASE_TO_ADAPTOR(sliced, (sliced_detail::base<_>))
 
 
 } } // namespace pstade::oven

@@ -11,7 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/constant.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./iter_range.hpp"
 
 
@@ -19,7 +19,7 @@ namespace pstade { namespace oven {
 
 
 typedef op_make_iter_range op_as_range;
-PSTADE_CONSTANT(as_range, (op_as_range))
+PSTADE_POD_CONSTANT((op_as_range), as_range) = {{}};
 
 
 } } // namespace pstade::oven

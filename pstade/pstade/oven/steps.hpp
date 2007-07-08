@@ -19,10 +19,9 @@
 
 #include <algorithm> // min
 #include <boost/iterator/iterator_categories.hpp>
-#include <pstade/function.hpp>
-#include <pstade/pipable.hpp>
 #include <pstade/result_of.hpp>
 #include "./concepts.hpp"
+#include "./detail/base_to_adaptor.hpp"
 #include "./range_difference.hpp"
 #include "./successors.hpp"
 
@@ -73,7 +72,7 @@ namespace steps_detail {
 
 
     template< class Range >
-    struct baby
+    struct base
     {
         typedef typename
             range_difference<Range>::type
@@ -97,8 +96,7 @@ namespace steps_detail {
 } // namespace steps_detail
 
 
-PSTADE_FUNCTION(make_steps, (steps_detail::baby<_>))
-PSTADE_PIPABLE(steps, (op_make_steps))
+PSTADE_OVEN_BASE_TO_ADAPTOR(steps, (steps_detail::base<_>))
 
 
 } } // namespace pstade::oven

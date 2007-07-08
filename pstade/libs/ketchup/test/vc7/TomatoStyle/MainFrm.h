@@ -190,7 +190,7 @@ public:
 
 	void OnUpdateFileNew(cmd_ui& ui)
 	{
-		ui.set_radio(::IsWindowVisible(m_hWndStatusBar)|gravy::to_boolean);
+		ui.set_radio(::IsWindowVisible(m_hWndStatusBar)|gravy::booleanize());
 	}
 
 	begin_msg_map

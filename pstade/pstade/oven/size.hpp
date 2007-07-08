@@ -17,11 +17,13 @@
 // For some historical reason, 'boost::size' result type is wrong.
 
 
+#include <boost/preprocessor/facilities/identity.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/adl_barrier.hpp>
-#include <pstade/auxiliary.hpp>
-#include <pstade/callable.hpp>
+#include <pstade/egg/auxiliary.hpp>
+#include <pstade/egg/function.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./concepts.hpp"
 #include "./detail/check_nonnegative.hpp"
 #include "./range_difference.hpp"
@@ -33,8 +35,7 @@ namespace pstade { namespace oven {
 namespace size_detail {
 
 
-    struct op :
-        callable<op>
+    struct baby
     {
         template< class Myself, class Range >
         struct apply :
@@ -52,11 +53,15 @@ namespace size_detail {
     };
 
 
+    typedef egg::function<baby> op;
+
+
 } // namespace size_detail
 
 
+typedef egg::result_of_auxiliary0<size_detail::op>::type op_size;
 PSTADE_ADL_BARRIER(size) { // for 'boost'
-    PSTADE_AUXILIARY(0, size, (size_detail::op))
+    PSTADE_POD_CONSTANT((op_size), size) = PSTADE_EGG_AUXILIARY_RESULT_INITIALIZER(BOOST_PP_IDENTITY({{}}));
 }
 
 

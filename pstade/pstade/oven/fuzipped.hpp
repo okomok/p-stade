@@ -18,9 +18,8 @@
 #include <boost/fusion/sequence/conversion/as_vector.hpp>
 #include <boost/fusion/sequence/view/transform_view.hpp>
 #include <boost/utility/result_of.hpp>
-#include <pstade/function.hpp>
-#include <pstade/pipable.hpp>
 #include "./begin_end.hpp"
+#include "./detail/base_to_adaptor.hpp"
 #include "./detail/fuzip_iterator.hpp"
 #include "./iter_range.hpp"
 
@@ -32,7 +31,7 @@ namespace fuzipped_detail {
 
 
     template< class RangeTuple >
-    struct baby
+    struct base
     {
         // Prefer a view to 'transform', keeping the mutability of elements.
         typedef
@@ -69,8 +68,7 @@ namespace fuzipped_detail {
 } // namespace fuzipped_detail
 
 
-PSTADE_FUNCTION(make_fuzipped, (fuzipped_detail::baby<_>))
-PSTADE_PIPABLE(fuzipped, (op_make_fuzipped))
+PSTADE_OVEN_BASE_TO_ADAPTOR(fuzipped, (fuzipped_detail::base<_>))
 
 
 } } // namespace pstade::oven

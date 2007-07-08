@@ -11,7 +11,7 @@
 
 
 #include <boost/foreach.hpp>
-#include <pstade/gravy/boolean_cast.hpp>
+#include <pstade/gravy/booleanize.hpp>
 #include <pstade/gravy/sdk/windows.hpp>
 #include <pstade/oven/copy_range.hpp>
 #include <pstade/oven/reversed.hpp>
@@ -145,7 +145,7 @@ namespace pstade { namespace hamburger { namespace detail {
             }
 
             pstade::unused(hWnd, dwMsgMapID);
-            return bHandled|gravy::to_boolean;
+            return bHandled|gravy::booleanize();
         }
     };
 

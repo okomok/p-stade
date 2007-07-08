@@ -11,11 +11,13 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <boost/preprocessor/facilities/identity.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
 #include <pstade/adl_barrier.hpp>
-#include <pstade/auxiliary.hpp>
-#include <pstade/callable.hpp>
+#include <pstade/egg/auxiliary.hpp>
+#include <pstade/egg/function.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./concepts.hpp"
 #include "./detail/check_nonnegative.hpp"
 #include "./detail/iter_distance.hpp"
@@ -28,8 +30,7 @@ namespace pstade { namespace oven {
 namespace distance_detail {
 
 
-    struct op :
-        callable<op>
+    struct baby
     {
         template< class Myself, class Range >
         struct apply :
@@ -47,11 +48,16 @@ namespace distance_detail {
     };
 
 
+    typedef egg::function<baby> op;
+
+
 } // namespace distance_detail
 
 
+typedef egg::result_of_auxiliary0<distance_detail::op>::type op_distance;
+
 PSTADE_ADL_BARRIER(distance) { // for 'boost' and 'std'
-    PSTADE_AUXILIARY(0, distance, (distance_detail::op))
+    PSTADE_POD_CONSTANT((op_distance), distance) = PSTADE_EGG_AUXILIARY_RESULT_INITIALIZER(BOOST_PP_IDENTITY({{}}));
 }
 
 

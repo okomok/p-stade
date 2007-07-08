@@ -11,8 +11,7 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/constant.hpp>
-#include <pstade/pipable.hpp>
+#include "./detail/baby_to_adaptor.hpp"
 #include "./merged.hpp"
 #include "./read.hpp"
 
@@ -58,9 +57,7 @@ namespace set_cup_detail {
 } // namespace set_cup_detail
 
 
-typedef merged_detail::op_make<set_cup_detail::merge_routine> op_make_set_cup;
-PSTADE_CONSTANT(make_set_cup, (op_make_set_cup))
-PSTADE_PIPABLE(set_cup, (op_make_set_cup))
+PSTADE_OVEN_BABY_TO_ADAPTOR(set_cup, (tp_make_merged<set_cup_detail::merge_routine>::baby))
 
 
 } } // namespace pstade::oven

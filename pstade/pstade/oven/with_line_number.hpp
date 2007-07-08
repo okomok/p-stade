@@ -19,12 +19,11 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
+#include <pstade/egg/specified.hpp>
 #include <pstade/enable_if.hpp>
-#include <pstade/function.hpp>
 #include <pstade/pass_by.hpp>
-#include <pstade/pipable.hpp>
-#include <pstade/specified.hpp>
 #include "./concepts.hpp"
+#include "./detail/base_to_adaptor.hpp"
 #include "./detail/default_newline.hpp"
 #include "./detail/line_number_iterator.hpp"
 #include "./iter_range.hpp"
@@ -39,7 +38,7 @@ namespace with_line_number_detail {
 
 
     template< class Range, class Incrementable >
-    struct baby
+    struct base
     {
         typedef typename
             range_value<Range>::type
@@ -67,12 +66,11 @@ namespace with_line_number_detail {
 } // namespace with_line_number_detail
 
 
-PSTADE_FUNCTION(make_with_line_number, (with_line_number_detail::baby<_, _>))
-PSTADE_PIPABLE(with_line_number, (op_make_with_line_number))
+PSTADE_OVEN_BASE_TO_ADAPTOR(with_line_number, (with_line_number_detail::base<_, _>))
 
 
 template< class Incrementable >
-struct op_line_number
+struct xp_line_number
 {
     typedef Incrementable result_type;
 
@@ -92,7 +90,7 @@ struct op_line_number
     }
 };
 
-PSTADE_SPECIFIED1(line_number, op_line_number, 1)
+PSTADE_EGG_SPECIFIED1(line_number, xp_line_number, 1)
 
 
 } } // namespace pstade::oven

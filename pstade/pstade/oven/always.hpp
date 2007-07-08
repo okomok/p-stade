@@ -11,9 +11,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <pstade/function.hpp>
-#include <pstade/pipable.hpp>
 #include "./concepts.hpp"
+#include "./detail/base_to_adaptor.hpp"
 #include "./iter_range.hpp"
 
 
@@ -24,7 +23,7 @@ namespace always_detail {
 
 
     template< class Unused, class Range >
-    struct baby
+    struct base
     {
         typedef typename
             iter_range_of<Range>::type const
@@ -41,8 +40,7 @@ namespace always_detail {
 } // namespace always_detail
 
 
-PSTADE_FUNCTION(make_always, (always_detail::baby<_, _>))
-PSTADE_PIPABLE(always, (op_make_always))
+PSTADE_OVEN_BASE_TO_ADAPTOR(always, (always_detail::base<_, _>))
 
 
 } } // namespace pstade::oven

@@ -32,7 +32,8 @@
 
 #include <boost/shared_ptr.hpp>
 #include <boost/utility/addressof.hpp>
-#include <pstade/function.hpp>
+#include <pstade/egg/adapt.hpp>
+#include <pstade/pod_constant.hpp>
 #include <pstade/result_of.hpp>
 #include "./applier.hpp"
 
@@ -84,7 +85,7 @@ namespace stream_writer_detail {
 
 
     template< class OStream >
-    struct baby
+    struct base
     {
         typedef typename
             result_of<
@@ -102,7 +103,8 @@ namespace stream_writer_detail {
 } // namespace stream_writer_detail
 
 
-PSTADE_FUNCTION(stream_writer, (stream_writer_detail::baby<_>))
+typedef PSTADE_EGG_ADAPT((stream_writer_detail::base<boost::mpl::_1>)) op_stream_writer;
+PSTADE_POD_CONSTANT((op_stream_writer), stream_writer) = PSTADE_EGG_ADAPT_INITIALIZER();
 
 
 } } // namespace pstade::oven

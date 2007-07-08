@@ -19,10 +19,9 @@
 #include <boost/type_traits/remove_reference.hpp>
 #include <boost/utility/addressof.hpp>
 #include <pstade/egg/copy.hpp>
-#include <pstade/function.hpp>
 #include <pstade/nullptr.hpp>
-#include <pstade/pipable.hpp>
 #include "./concepts.hpp"
+#include "./detail/base_to_adaptor.hpp"
 #include "./iter_range.hpp"
 #include "./range_reference.hpp"
 
@@ -43,7 +42,7 @@ namespace pointed_detail {
 
 
     template< class ContiguousRange >
-    struct baby
+    struct base
     {
         typedef typename
             to_pointer<
@@ -80,8 +79,7 @@ namespace pointed_detail {
 } // namespace pointed_detail
 
 
-PSTADE_FUNCTION(make_pointed, (pointed_detail::baby<_>))
-PSTADE_PIPABLE(pointed, (op_make_pointed))
+PSTADE_OVEN_BASE_TO_ADAPTOR(pointed, (pointed_detail::base<_>))
 
 
 } } // namespace pstade::oven

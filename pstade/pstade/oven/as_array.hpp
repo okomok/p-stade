@@ -18,11 +18,13 @@
 
 
 #include <cstddef> // size_t
+#include <boost/preprocessor/facilities/identity.hpp>
 #include <boost/type_traits/is_array.hpp>
-#include <pstade/auxiliary.hpp>
-#include <pstade/callable.hpp>
+#include <pstade/egg/auxiliary.hpp>
+#include <pstade/egg/function.hpp>
 #include <pstade/egg/to_value.hpp>
 #include <pstade/enable_if.hpp>
+#include <pstade/pod_constant.hpp>
 #include "./detail/array_to_range.hpp"
 
 
@@ -32,8 +34,7 @@ namespace pstade { namespace oven {
 namespace as_array_detail {
 
 
-    struct op :
-        callable<op>
+    struct baby
     {
         template< class Myself, class MaybeArray >
         struct apply :
@@ -55,10 +56,14 @@ namespace as_array_detail {
     };
 
 
+    typedef egg::function<baby> op;
+
+
 } // namespace as_array_detail
 
 
-PSTADE_AUXILIARY(0, as_array, (as_array_detail::op))
+typedef egg::result_of_auxiliary0<as_array_detail::op>::type op_as_array;
+PSTADE_POD_CONSTANT((op_as_array), as_array) = PSTADE_EGG_AUXILIARY_RESULT_INITIALIZER(BOOST_PP_IDENTITY({{}}));
 
 
 } } // namespace pstade::oven

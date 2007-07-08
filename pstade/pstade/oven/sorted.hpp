@@ -14,12 +14,11 @@
 #include <algorithm> // sort
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
 #include <pstade/egg/less.hpp>
-#include <pstade/pipable.hpp>
+#include <pstade/egg/make_function.hpp>
 #include <pstade/result_of.hpp>
 #include "./concepts.hpp"
+#include "./detail/baby_to_adaptor.hpp"
 #include "./indirected.hpp"
 #include "./outplaced.hpp"
 #include "./read.hpp"
@@ -49,40 +48,38 @@ namespace sorted_detail {
     };
 
 
+    struct baby
+    {
+        template< class Myself, class Range, class Compare = void >
+        struct apply :
+            result_of<
+                op_make_indirected(
+                    typename result_of<op_make_outplaced(Range&)>::type&
+                )
+            >
+        { };
+
+        template< class Result, class Range, class Compare >
+        Result call(Range& rng, Compare comp) const
+        {
+            PSTADE_CONCEPT_ASSERT((Forward<Range>));
+            typename result_of<op_make_outplaced(Range&)>::type its = make_outplaced(rng);
+            std::sort(boost::begin(its), boost::end(its), read_then<Compare>(comp));
+            return make_indirected(its);
+        }
+
+        template< class Result, class Range >
+        Result call(Range& rng) const
+        {
+            return egg::make_function(*this)(rng, egg::less);
+        }
+    };
+
+
 } // namespace sorted_detail
 
 
-struct op_make_sorted :
-    callable<op_make_sorted>
-{
-    template< class Myself, class Range, class Compare = egg::op_less const >
-    struct apply :
-        result_of<
-            op_make_indirected<>(
-                typename result_of<op_make_outplaced(Range&)>::type&
-            )
-        >
-    { };
-
-    template< class Result, class Range, class Compare >
-    Result call(Range& rng, Compare comp) const
-    {
-        PSTADE_CONCEPT_ASSERT((Forward<Range>));
-        typename result_of<op_make_outplaced(Range&)>::type its = make_outplaced(rng);
-        std::sort(boost::begin(its), boost::end(its), sorted_detail::read_then<Compare>(comp));
-        return make_indirected(its);
-    }
-
-    template< class Result, class Range >
-    Result call(Range& rng) const
-    {
-        return (*this)(rng, egg::less);
-    }
-};
-
-
-PSTADE_CONSTANT(make_sorted, (op_make_sorted))
-PSTADE_PIPABLE(sorted, (op_make_sorted))
+PSTADE_OVEN_BABY_TO_ADAPTOR(sorted, (sorted_detail::baby))
 
 
 } } // namespace pstade::oven

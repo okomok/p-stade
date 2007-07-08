@@ -11,7 +11,7 @@
 
 
 #include <pstade/pod_constant.hpp>
-#include "./boolean_cast.hpp"
+#include "./booleanize.hpp"
 #include "./sdk/windows.hpp"
 #include "./window_ref.hpp"
 
@@ -28,7 +28,7 @@ namespace pstade { namespace gravy {
             BOOL bVisible = !::IsWindowVisible(wnd);
             ::ShowWindow(wnd, bVisible ? SW_SHOWNOACTIVATE : SW_HIDE);
 
-            return bVisible|to_boolean;
+            return bVisible|booleanize();
         }
     };
 

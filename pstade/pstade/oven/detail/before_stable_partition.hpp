@@ -29,7 +29,7 @@
 
     namespace pstade { namespace oven {
 
-        PSTADE_PIPABLE(before_stable_partition, (identities_detail::op_make<std::ptrdiff_t>))
+        PSTADE_PIPABLE(before_stable_partition, (tp_make_identities<std::ptrdiff_t>::type))
 
     } }
 

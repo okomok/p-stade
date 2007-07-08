@@ -12,9 +12,7 @@
 
 
 #include <cctype> // toupper
-#include <pstade/callable.hpp>
-#include <pstade/constant.hpp>
-#include <pstade/pipable.hpp>
+#include "./detail/baby_to_adaptor.hpp"
 #include "./detail/xxx_chars.hpp"
 
 
@@ -24,8 +22,7 @@ namespace pstade { namespace oven {
 namespace upper_chars_detail {
 
 
-    struct to_upper :
-        callable<to_upper>
+    struct baby_to
     {
         template< class Myself, class CharT, class Locale >
         struct apply
@@ -41,12 +38,13 @@ namespace upper_chars_detail {
     };
 
 
+    typedef egg::function<baby_to> to;
+
+
 } // namespace upper_chars_detail
 
 
-typedef detail::xxx_chars<upper_chars_detail::to_upper> op_make_upper_chars;
-PSTADE_CONSTANT(make_upper_chars, (op_make_upper_chars))
-PSTADE_PIPABLE(upper_chars, (op_make_upper_chars))
+PSTADE_OVEN_BABY_TO_ADAPTOR(upper_chars, (detail::xxx_chars<upper_chars_detail::to>::baby))
 
 
 } } // namespace pstade::oven

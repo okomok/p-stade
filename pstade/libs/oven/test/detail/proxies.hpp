@@ -10,9 +10,8 @@
 // http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <pstade/oven/detail/base_to_adaptor.hpp>
 #include <pstade/oven/detail/prefix.hpp>
-#include <pstade/function.hpp>
-#include <pstade/pipable.hpp>
 #include <pstade/oven/concepts.hpp>
 #include <pstade/oven/iter_range.hpp>
 #include <pstade/oven/range_iterator.hpp>
@@ -23,7 +22,7 @@ namespace pstade { namespace oven { namespace test {
 
 
 template< class Range >
-struct baby_make_proxies
+struct base_make_proxies
 {
     typedef
         proxy_iterator<
@@ -43,8 +42,7 @@ struct baby_make_proxies
 };
 
 
-PSTADE_FUNCTION(make_proxies, (baby_make_proxies<_>))
-PSTADE_PIPABLE(proxies, (op_make_proxies))
+PSTADE_OVEN_BASE_TO_ADAPTOR(proxies, (baby_make_proxies<_>))
 
 
 } } } // namespace pstade::oven::test

@@ -13,9 +13,8 @@
 
 #include <boost/range/begin.hpp>
 #include <boost/range/end.hpp>
-#include <pstade/function.hpp>
-#include <pstade/pipable.hpp>
 #include "./concepts.hpp"
+#include "./detail/base_to_adaptor.hpp"
 #include "./detail/check_iterator.hpp"
 #include "./iter_range.hpp"
 #include "./range_iterator.hpp"
@@ -28,7 +27,7 @@ namespace checked_detail {
 
 
     template< class Range >
-    struct baby
+    struct base
     {
         typedef
             detail::check_iterator<
@@ -57,8 +56,7 @@ namespace checked_detail {
 } // namespace checked_detail
 
 
-PSTADE_FUNCTION(make_checked, (checked_detail::baby<_>))
-PSTADE_PIPABLE(checked, (op_make_checked))
+PSTADE_OVEN_BASE_TO_ADAPTOR(checked, (checked_detail::base<_>))
 
 
 #if !defined(NDEBUG)
